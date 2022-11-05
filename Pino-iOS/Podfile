@@ -6,6 +6,10 @@ target 'Pino-iOS' do
   use_frameworks!
 
   # Pods for Pino-iOS
+  # Firebase Pods
+  pod 'FirebaseAnalytics'
+  pod 'FirebaseAuth'
+  pod 'FirebaseFirestore'
 
   target 'Pino-iOSTests' do
     inherit! :search_paths
