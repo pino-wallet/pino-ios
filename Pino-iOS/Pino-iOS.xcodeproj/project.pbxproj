@@ -195,14 +195,15 @@
 		DF05F699291644B7005A3338 /* Pino-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				DF05F69A291644B7005A3338 /* AppDelegate.swift */,
-				DF05F69C291644B7005A3338 /* SceneDelegate.swift */,
+				DF2B042729195B8A00781052 /* Models */,
+				DF2B041F2919577800781052 /* Flows */,
+				DF2B041E2919574E00781052 /* Services */,
+				DF2B041D2919563A00781052 /* App */,
+				DF2B041C2919549F00781052 /* DesignSystem */,
+				DF2B041B2919549800781052 /* Resources */,
 				DF05F69E291644B7005A3338 /* ViewController.swift */,
 				DF05F6A0291644B7005A3338 /* Main.storyboard */,
-				DF05F6A6291644B9005A3338 /* Assets.xcassets */,
 				DF05F6A8291644B9005A3338 /* LaunchScreen.storyboard */,
-				DF05F6AB291644B9005A3338 /* Info.plist */,
-				DF05F6A3291644B7005A3338 /* Pino_iOS.xcdatamodeld */,
 			);
 			path = "Pino-iOS";
 			sourceTree = "<group>";
@@ -222,6 +223,109 @@
 				DF05F6C0291644B9005A3338 /* Pino_iOSUITestsLaunchTests.swift */,
 			);
 			path = "Pino-iOSUITests";
+			sourceTree = "<group>";
+		};
+		DF2B041B2919549800781052 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DF05F6A6291644B9005A3338 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DF2B041C2919549F00781052 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		DF2B041D2919563A00781052 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				DF05F6AB291644B9005A3338 /* Info.plist */,
+				DF05F69A291644B7005A3338 /* AppDelegate.swift */,
+				DF05F69C291644B7005A3338 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		DF2B041E2919574E00781052 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		DF2B041F2919577800781052 /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				DF2B0422291958DD00781052 /* Unlock */,
+				DF2B04202919578800781052 /* CreateWallet */,
+				DF2B04212919581F00781052 /* ImportWallet */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
+		DF2B04202919578800781052 /* CreateWallet */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CreateWallet;
+			sourceTree = "<group>";
+		};
+		DF2B04212919581F00781052 /* ImportWallet */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ImportWallet;
+			sourceTree = "<group>";
+		};
+		DF2B0422291958DD00781052 /* Unlock */ = {
+			isa = PBXGroup;
+			children = (
+				DF2B0423291958F000781052 /* PassCodeUnlock */,
+			);
+			path = Unlock;
+			sourceTree = "<group>";
+		};
+		DF2B0423291958F000781052 /* PassCodeUnlock */ = {
+			isa = PBXGroup;
+			children = (
+				DF2B04262919594000781052 /* Views */,
+				DF2B04252919592A00781052 /* ViewControllers */,
+				DF2B04242919591E00781052 /* ViewModels */,
+			);
+			path = PassCodeUnlock;
+			sourceTree = "<group>";
+		};
+		DF2B04242919591E00781052 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		DF2B04252919592A00781052 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		DF2B04262919594000781052 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DF2B042729195B8A00781052 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DF05F6A3291644B7005A3338 /* Pino_iOS.xcdatamodeld */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -661,7 +765,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 44E38FYW6J;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Pino-iOS/Info.plist";
+				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -691,7 +795,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 44E38FYW6J;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Pino-iOS/Info.plist";
+				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
