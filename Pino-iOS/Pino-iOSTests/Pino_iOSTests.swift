@@ -8,6 +8,7 @@
 import XCTest
 @testable import Pino_iOS
 
+// swiftlint:disable type_name
 final class Pino_iOSTests: XCTestCase {
 
     override func setUpWithError() throws {

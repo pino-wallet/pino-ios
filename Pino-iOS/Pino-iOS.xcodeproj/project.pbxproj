@@ -7,16 +7,45 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		322D581C08B55163A8663852 /* Pods_Pino_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0F9DCB7B301E8270C900FF /* Pods_Pino_iOSTests.framework */; };
+		342FC8B4E91C08AC7E6EF487 /* Pods_Pino_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B07DDB48E26F1946E47DC3 /* Pods_Pino_iOS.framework */; };
+		5FE00D5229A8A6EB50C770BB /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B94B1E768003126CB948B2C3 /* Pods_Pino_iOS_Pino_iOSUITests.framework */; };
 		DF05F69B291644B7005A3338 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F69A291644B7005A3338 /* AppDelegate.swift */; };
 		DF05F69D291644B7005A3338 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F69C291644B7005A3338 /* SceneDelegate.swift */; };
-		DF05F69F291644B7005A3338 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F69E291644B7005A3338 /* ViewController.swift */; };
-		DF05F6A2291644B7005A3338 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF05F6A0291644B7005A3338 /* Main.storyboard */; };
 		DF05F6A5291644B7005A3338 /* Pino_iOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DF05F6A3291644B7005A3338 /* Pino_iOS.xcdatamodeld */; };
 		DF05F6A7291644B9005A3338 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF05F6A6291644B9005A3338 /* Assets.xcassets */; };
 		DF05F6AA291644B9005A3338 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF05F6A8291644B9005A3338 /* LaunchScreen.storyboard */; };
 		DF05F6B5291644B9005A3338 /* Pino_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F6B4291644B9005A3338 /* Pino_iOSTests.swift */; };
 		DF05F6BF291644B9005A3338 /* Pino_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F6BE291644B9005A3338 /* Pino_iOSUITests.swift */; };
 		DF05F6C1291644B9005A3338 /* Pino_iOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F6C0291644B9005A3338 /* Pino_iOSUITestsLaunchTests.swift */; };
+		DF2B03E5291813C700781052 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B03E4291813C700781052 /* FirebaseAnalytics */; };
+		DF2B03E7291813C700781052 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B03E6291813C700781052 /* FirebaseAnalyticsOnDeviceConversion */; };
+		DF2B03E9291813C700781052 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B03E8291813C700781052 /* FirebaseAnalyticsSwift */; };
+		DF2B03EB291813C700781052 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B03EA291813C700781052 /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		DF2B03ED291813C700781052 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B03EC291813C700781052 /* FirebaseAppCheck */; };
+		DF2B03EF291813C700781052 /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B03EE291813C700781052 /* FirebaseAppDistribution-Beta */; };
+		DF2B03F1291813C700781052 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B03F0291813C700781052 /* FirebaseAuth */; };
+		DF2B03F3291813C700781052 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B03F2291813C700781052 /* FirebaseAuthCombine-Community */; };
+		DF2B03F5291813C700781052 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B03F4291813C700781052 /* FirebaseCrashlytics */; };
+		DF2B03F7291813C700781052 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B03F6291813C700781052 /* FirebaseDatabase */; };
+		DF2B03F9291813C700781052 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B03F8291813C700781052 /* FirebaseDatabaseSwift */; };
+		DF2B03FB291813C700781052 /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B03FA291813C700781052 /* FirebaseDynamicLinks */; };
+		DF2B03FD291813C700781052 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B03FC291813C700781052 /* FirebaseFirestore */; };
+		DF2B03FF291813C700781052 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B03FE291813C700781052 /* FirebaseFirestoreCombine-Community */; };
+		DF2B0401291813C700781052 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B0400291813C700781052 /* FirebaseFirestoreSwift */; };
+		DF2B0403291813C700781052 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B0402291813C700781052 /* FirebaseFunctions */; };
+		DF2B0405291813C700781052 /* FirebaseFunctionsCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B0404291813C700781052 /* FirebaseFunctionsCombine-Community */; };
+		DF2B0407291813C700781052 /* FirebaseInAppMessaging-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B0406291813C700781052 /* FirebaseInAppMessaging-Beta */; };
+		DF2B0409291813C700781052 /* FirebaseInAppMessagingSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B0408291813C700781052 /* FirebaseInAppMessagingSwift-Beta */; };
+		DF2B040B291813C700781052 /* FirebaseInstallations in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B040A291813C700781052 /* FirebaseInstallations */; };
+		DF2B040D291813C700781052 /* FirebaseMLModelDownloader in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B040C291813C700781052 /* FirebaseMLModelDownloader */; };
+		DF2B040F291813C700781052 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B040E291813C700781052 /* FirebaseMessaging */; };
+		DF2B0411291813C700781052 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B0410291813C700781052 /* FirebasePerformance */; };
+		DF2B0413291813C700781052 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B0412291813C700781052 /* FirebaseRemoteConfig */; };
+		DF2B0415291813C700781052 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B0414291813C700781052 /* FirebaseRemoteConfigSwift */; };
+		DF2B0417291813C700781052 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B0416291813C700781052 /* FirebaseStorage */; };
+		DF2B0419291813C700781052 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B0418291813C700781052 /* FirebaseStorageCombine-Community */; };
+		DF2B04292919640300781052 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2B04282919640300781052 /* IntroViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,11 +66,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		08AB256DD8187012AD029D14 /* Pods-Pino-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		259CCB16EC1F6255B4737FC5 /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
+		2C8FA2512F8FA126D474D3E0 /* Pods-Pino-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		52B07DDB48E26F1946E47DC3 /* Pods_Pino_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B94B1E768003126CB948B2C3 /* Pods_Pino_iOS_Pino_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS_Pino_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAD4E54BC53F8997AD564B9E /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DF05F697291644B7005A3338 /* Pino-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pino-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF05F69A291644B7005A3338 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF05F69C291644B7005A3338 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DF05F69E291644B7005A3338 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		DF05F6A1291644B7005A3338 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DF05F6A4291644B7005A3338 /* Pino_iOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Pino_iOS.xcdatamodel; sourceTree = "<group>"; };
 		DF05F6A6291644B9005A3338 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF05F6A9291644B9005A3338 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +84,10 @@
 		DF05F6BA291644B9005A3338 /* Pino-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pino-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF05F6BE291644B9005A3338 /* Pino_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pino_iOSUITests.swift; sourceTree = "<group>"; };
 		DF05F6C0291644B9005A3338 /* Pino_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pino_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		DF2B04282919640300781052 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
+		ED0F9DCB7B301E8270C900FF /* Pods_Pino_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5195DA4C1EDE2A3E99135F3 /* Pods-Pino-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		F72F8FE5D57E2883D84569BB /* Pods-Pino-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +95,34 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF2B0403291813C700781052 /* FirebaseFunctions in Frameworks */,
+				DF2B03F9291813C700781052 /* FirebaseDatabaseSwift in Frameworks */,
+				DF2B0409291813C700781052 /* FirebaseInAppMessagingSwift-Beta in Frameworks */,
+				DF2B040F291813C700781052 /* FirebaseMessaging in Frameworks */,
+				DF2B03EF291813C700781052 /* FirebaseAppDistribution-Beta in Frameworks */,
+				DF2B03F3291813C700781052 /* FirebaseAuthCombine-Community in Frameworks */,
+				DF2B03FF291813C700781052 /* FirebaseFirestoreCombine-Community in Frameworks */,
+				DF2B03E9291813C700781052 /* FirebaseAnalyticsSwift in Frameworks */,
+				DF2B040D291813C700781052 /* FirebaseMLModelDownloader in Frameworks */,
+				DF2B03EB291813C700781052 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				DF2B03E5291813C700781052 /* FirebaseAnalytics in Frameworks */,
+				DF2B0401291813C700781052 /* FirebaseFirestoreSwift in Frameworks */,
+				DF2B03E7291813C700781052 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
+				DF2B03ED291813C700781052 /* FirebaseAppCheck in Frameworks */,
+				DF2B0411291813C700781052 /* FirebasePerformance in Frameworks */,
+				DF2B0407291813C700781052 /* FirebaseInAppMessaging-Beta in Frameworks */,
+				DF2B0405291813C700781052 /* FirebaseFunctionsCombine-Community in Frameworks */,
+				DF2B03F5291813C700781052 /* FirebaseCrashlytics in Frameworks */,
+				DF2B040B291813C700781052 /* FirebaseInstallations in Frameworks */,
+				DF2B0413291813C700781052 /* FirebaseRemoteConfig in Frameworks */,
+				DF2B0417291813C700781052 /* FirebaseStorage in Frameworks */,
+				DF2B03F7291813C700781052 /* FirebaseDatabase in Frameworks */,
+				DF2B0419291813C700781052 /* FirebaseStorageCombine-Community in Frameworks */,
+				342FC8B4E91C08AC7E6EF487 /* Pods_Pino_iOS.framework in Frameworks */,
+				DF2B03F1291813C700781052 /* FirebaseAuth in Frameworks */,
+				DF2B03FB291813C700781052 /* FirebaseDynamicLinks in Frameworks */,
+				DF2B03FD291813C700781052 /* FirebaseFirestore in Frameworks */,
+				DF2B0415291813C700781052 /* FirebaseRemoteConfigSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				322D581C08B55163A8663852 /* Pods_Pino_iOSTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +138,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FE00D5229A8A6EB50C770BB /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1AD1C73079A03739BF1EABDF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				08AB256DD8187012AD029D14 /* Pods-Pino-iOS.debug.xcconfig */,
+				2C8FA2512F8FA126D474D3E0 /* Pods-Pino-iOS.release.xcconfig */,
+				BAD4E54BC53F8997AD564B9E /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */,
+				259CCB16EC1F6255B4737FC5 /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */,
+				F72F8FE5D57E2883D84569BB /* Pods-Pino-iOSTests.debug.xcconfig */,
+				F5195DA4C1EDE2A3E99135F3 /* Pods-Pino-iOSTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		4EF3C9816CF975D5E8C63B88 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				52B07DDB48E26F1946E47DC3 /* Pods_Pino_iOS.framework */,
+				B94B1E768003126CB948B2C3 /* Pods_Pino_iOS_Pino_iOSUITests.framework */,
+				ED0F9DCB7B301E8270C900FF /* Pods_Pino_iOSTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DF05F68E291644B7005A3338 = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +175,8 @@
 				DF05F6B3291644B9005A3338 /* Pino-iOSTests */,
 				DF05F6BD291644B9005A3338 /* Pino-iOSUITests */,
 				DF05F698291644B7005A3338 /* Products */,
+				1AD1C73079A03739BF1EABDF /* Pods */,
+				4EF3C9816CF975D5E8C63B88 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,14 +193,13 @@
 		DF05F699291644B7005A3338 /* Pino-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				DF05F69A291644B7005A3338 /* AppDelegate.swift */,
-				DF05F69C291644B7005A3338 /* SceneDelegate.swift */,
-				DF05F69E291644B7005A3338 /* ViewController.swift */,
-				DF05F6A0291644B7005A3338 /* Main.storyboard */,
-				DF05F6A6291644B9005A3338 /* Assets.xcassets */,
+				DF2B042729195B8A00781052 /* Models */,
+				DF2B041F2919577800781052 /* Flows */,
+				DF2B041E2919574E00781052 /* Services */,
+				DF2B041D2919563A00781052 /* App */,
+				DF2B041C2919549F00781052 /* DesignSystem */,
+				DF2B041B2919549800781052 /* Resources */,
 				DF05F6A8291644B9005A3338 /* LaunchScreen.storyboard */,
-				DF05F6AB291644B9005A3338 /* Info.plist */,
-				DF05F6A3291644B7005A3338 /* Pino_iOS.xcdatamodeld */,
 			);
 			path = "Pino-iOS";
 			sourceTree = "<group>";
@@ -130,6 +221,110 @@
 			path = "Pino-iOSUITests";
 			sourceTree = "<group>";
 		};
+		DF2B041B2919549800781052 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DF05F6A6291644B9005A3338 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DF2B041C2919549F00781052 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		DF2B041D2919563A00781052 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				DF05F6AB291644B9005A3338 /* Info.plist */,
+				DF05F69A291644B7005A3338 /* AppDelegate.swift */,
+				DF05F69C291644B7005A3338 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		DF2B041E2919574E00781052 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		DF2B041F2919577800781052 /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				DF2B0422291958DD00781052 /* Unlock */,
+				DF2B04202919578800781052 /* CreateWallet */,
+				DF2B04212919581F00781052 /* ImportWallet */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
+		DF2B04202919578800781052 /* CreateWallet */ = {
+			isa = PBXGroup;
+			children = (
+				DF2B04282919640300781052 /* IntroViewController.swift */,
+			);
+			path = CreateWallet;
+			sourceTree = "<group>";
+		};
+		DF2B04212919581F00781052 /* ImportWallet */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ImportWallet;
+			sourceTree = "<group>";
+		};
+		DF2B0422291958DD00781052 /* Unlock */ = {
+			isa = PBXGroup;
+			children = (
+				DF2B0423291958F000781052 /* PassCodeUnlock */,
+			);
+			path = Unlock;
+			sourceTree = "<group>";
+		};
+		DF2B0423291958F000781052 /* PassCodeUnlock */ = {
+			isa = PBXGroup;
+			children = (
+				DF2B04262919594000781052 /* Views */,
+				DF2B04252919592A00781052 /* ViewControllers */,
+				DF2B04242919591E00781052 /* ViewModels */,
+			);
+			path = PassCodeUnlock;
+			sourceTree = "<group>";
+		};
+		DF2B04242919591E00781052 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		DF2B04252919592A00781052 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		DF2B04262919594000781052 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DF2B042729195B8A00781052 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DF05F6A3291644B7005A3338 /* Pino_iOS.xcdatamodeld */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -137,15 +332,46 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DF05F6C4291644B9005A3338 /* Build configuration list for PBXNativeTarget "Pino-iOS" */;
 			buildPhases = (
+				9A2CB295E4AD6DF5278EBFA1 /* [CP] Check Pods Manifest.lock */,
 				DF05F693291644B7005A3338 /* Sources */,
 				DF05F694291644B7005A3338 /* Frameworks */,
 				DF05F695291644B7005A3338 /* Resources */,
+				DF2B041A291817EE00781052 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "Pino-iOS";
+			packageProductDependencies = (
+				DF2B03E4291813C700781052 /* FirebaseAnalytics */,
+				DF2B03E6291813C700781052 /* FirebaseAnalyticsOnDeviceConversion */,
+				DF2B03E8291813C700781052 /* FirebaseAnalyticsSwift */,
+				DF2B03EA291813C700781052 /* FirebaseAnalyticsWithoutAdIdSupport */,
+				DF2B03EC291813C700781052 /* FirebaseAppCheck */,
+				DF2B03EE291813C700781052 /* FirebaseAppDistribution-Beta */,
+				DF2B03F0291813C700781052 /* FirebaseAuth */,
+				DF2B03F2291813C700781052 /* FirebaseAuthCombine-Community */,
+				DF2B03F4291813C700781052 /* FirebaseCrashlytics */,
+				DF2B03F6291813C700781052 /* FirebaseDatabase */,
+				DF2B03F8291813C700781052 /* FirebaseDatabaseSwift */,
+				DF2B03FA291813C700781052 /* FirebaseDynamicLinks */,
+				DF2B03FC291813C700781052 /* FirebaseFirestore */,
+				DF2B03FE291813C700781052 /* FirebaseFirestoreCombine-Community */,
+				DF2B0400291813C700781052 /* FirebaseFirestoreSwift */,
+				DF2B0402291813C700781052 /* FirebaseFunctions */,
+				DF2B0404291813C700781052 /* FirebaseFunctionsCombine-Community */,
+				DF2B0406291813C700781052 /* FirebaseInAppMessaging-Beta */,
+				DF2B0408291813C700781052 /* FirebaseInAppMessagingSwift-Beta */,
+				DF2B040A291813C700781052 /* FirebaseInstallations */,
+				DF2B040C291813C700781052 /* FirebaseMLModelDownloader */,
+				DF2B040E291813C700781052 /* FirebaseMessaging */,
+				DF2B0410291813C700781052 /* FirebasePerformance */,
+				DF2B0412291813C700781052 /* FirebaseRemoteConfig */,
+				DF2B0414291813C700781052 /* FirebaseRemoteConfigSwift */,
+				DF2B0416291813C700781052 /* FirebaseStorage */,
+				DF2B0418291813C700781052 /* FirebaseStorageCombine-Community */,
+			);
 			productName = "Pino-iOS";
 			productReference = DF05F697291644B7005A3338 /* Pino-iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -154,6 +380,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DF05F6C7291644B9005A3338 /* Build configuration list for PBXNativeTarget "Pino-iOSTests" */;
 			buildPhases = (
+				EBAB25D2B16228876B5F2F0B /* [CP] Check Pods Manifest.lock */,
 				DF05F6AC291644B9005A3338 /* Sources */,
 				DF05F6AD291644B9005A3338 /* Frameworks */,
 				DF05F6AE291644B9005A3338 /* Resources */,
@@ -172,6 +399,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DF05F6CA291644B9005A3338 /* Build configuration list for PBXNativeTarget "Pino-iOSUITests" */;
 			buildPhases = (
+				7763DA825D47C7F43C19C5F9 /* [CP] Check Pods Manifest.lock */,
 				DF05F6B6291644B9005A3338 /* Sources */,
 				DF05F6B7291644B9005A3338 /* Frameworks */,
 				DF05F6B8291644B9005A3338 /* Resources */,
@@ -218,6 +446,9 @@
 				Base,
 			);
 			mainGroup = DF05F68E291644B7005A3338;
+			packageReferences = (
+				DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = DF05F698291644B7005A3338 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -236,7 +467,6 @@
 			files = (
 				DF05F6AA291644B9005A3338 /* LaunchScreen.storyboard in Resources */,
 				DF05F6A7291644B9005A3338 /* Assets.xcassets in Resources */,
-				DF05F6A2291644B7005A3338 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,15 +486,102 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7763DA825D47C7F43C19C5F9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Pino-iOS-Pino-iOSUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9A2CB295E4AD6DF5278EBFA1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Pino-iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DF2B041A291817EE00781052 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		EBAB25D2B16228876B5F2F0B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Pino-iOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DF05F693291644B7005A3338 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF05F69F291644B7005A3338 /* ViewController.swift in Sources */,
 				DF05F6A5291644B7005A3338 /* Pino_iOS.xcdatamodeld in Sources */,
 				DF05F69B291644B7005A3338 /* AppDelegate.swift in Sources */,
 				DF05F69D291644B7005A3338 /* SceneDelegate.swift in Sources */,
+				DF2B04292919640300781052 /* IntroViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,14 +618,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		DF05F6A0291644B7005A3338 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DF05F6A1291644B7005A3338 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		DF05F6A8291644B9005A3338 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -436,6 +745,7 @@
 		};
 		DF05F6C5291644B9005A3338 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08AB256DD8187012AD029D14 /* Pods-Pino-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -443,12 +753,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 44E38FYW6J;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Pino-iOS/Info.plist";
+				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -464,6 +774,7 @@
 		};
 		DF05F6C6291644B9005A3338 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C8FA2512F8FA126D474D3E0 /* Pods-Pino-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -471,12 +782,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 44E38FYW6J;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Pino-iOS/Info.plist";
+				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -492,6 +803,7 @@
 		};
 		DF05F6C8291644B9005A3338 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F72F8FE5D57E2883D84569BB /* Pods-Pino-iOSTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -512,6 +824,7 @@
 		};
 		DF05F6C9291644B9005A3338 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F5195DA4C1EDE2A3E99135F3 /* Pods-Pino-iOSTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -532,6 +845,7 @@
 		};
 		DF05F6CB291644B9005A3338 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BAD4E54BC53F8997AD564B9E /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -550,6 +864,7 @@
 		};
 		DF05F6CC291644B9005A3338 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 259CCB16EC1F6255B4737FC5 /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -606,6 +921,155 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DF2B03E4291813C700781052 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		DF2B03E6291813C700781052 /* FirebaseAnalyticsOnDeviceConversion */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsOnDeviceConversion;
+		};
+		DF2B03E8291813C700781052 /* FirebaseAnalyticsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsSwift;
+		};
+		DF2B03EA291813C700781052 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		DF2B03EC291813C700781052 /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
+		};
+		DF2B03EE291813C700781052 /* FirebaseAppDistribution-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseAppDistribution-Beta";
+		};
+		DF2B03F0291813C700781052 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		DF2B03F2291813C700781052 /* FirebaseAuthCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseAuthCombine-Community";
+		};
+		DF2B03F4291813C700781052 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		DF2B03F6291813C700781052 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		DF2B03F8291813C700781052 /* FirebaseDatabaseSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabaseSwift;
+		};
+		DF2B03FA291813C700781052 /* FirebaseDynamicLinks */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDynamicLinks;
+		};
+		DF2B03FC291813C700781052 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		DF2B03FE291813C700781052 /* FirebaseFirestoreCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreCombine-Community";
+		};
+		DF2B0400291813C700781052 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+		DF2B0402291813C700781052 /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
+		};
+		DF2B0404291813C700781052 /* FirebaseFunctionsCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFunctionsCombine-Community";
+		};
+		DF2B0406291813C700781052 /* FirebaseInAppMessaging-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseInAppMessaging-Beta";
+		};
+		DF2B0408291813C700781052 /* FirebaseInAppMessagingSwift-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseInAppMessagingSwift-Beta";
+		};
+		DF2B040A291813C700781052 /* FirebaseInstallations */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseInstallations;
+		};
+		DF2B040C291813C700781052 /* FirebaseMLModelDownloader */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMLModelDownloader;
+		};
+		DF2B040E291813C700781052 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		DF2B0410291813C700781052 /* FirebasePerformance */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebasePerformance;
+		};
+		DF2B0412291813C700781052 /* FirebaseRemoteConfig */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseRemoteConfig;
+		};
+		DF2B0414291813C700781052 /* FirebaseRemoteConfigSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseRemoteConfigSwift;
+		};
+		DF2B0416291813C700781052 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		DF2B0418291813C700781052 /* FirebaseStorageCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseStorageCombine-Community";
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		DF05F6A3291644B7005A3338 /* Pino_iOS.xcdatamodeld */ = {
