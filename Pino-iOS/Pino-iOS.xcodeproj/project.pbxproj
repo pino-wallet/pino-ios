@@ -70,6 +70,11 @@
 		E3B72332291B816A00D4F46C /* PPPangramSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3B7231A291B816A00D4F46C /* PPPangramSans-Thin.ttf */; };
 		E3B72333291B816A00D4F46C /* PPPangramSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3B7231B291B816A00D4F46C /* PPPangramSans-Regular.ttf */; };
 		E3B72334291B816A00D4F46C /* PPPangramSans-BoldReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3B7231C291B816A00D4F46C /* PPPangramSans-BoldReclined.ttf */; };
+		E3B72337291B853200D4F46C /* PinoFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B72336291B853200D4F46C /* PinoFont.swift */; };
+		E3B72339291B85A300D4F46C /* BoldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B72338291B85A300D4F46C /* BoldStyle.swift */; };
+		E3B7233B291B85B400D4F46C /* SemiboldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B7233A291B85B400D4F46C /* SemiboldStyle.swift */; };
+		E3B7233D291B85C500D4F46C /* MediumStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B7233C291B85C500D4F46C /* MediumStyle.swift */; };
+		E3B7233F291B85D700D4F46C /* RegularStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B7233E291B85D700D4F46C /* RegularStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +138,11 @@
 		E3B7231A291B816A00D4F46C /* PPPangramSans-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "PPPangramSans-Thin.ttf"; path = "../../../../../../Downloads/PP Pangram Sans - Normal Family v2.4/ttf/PPPangramSans-Thin.ttf"; sourceTree = "<group>"; };
 		E3B7231B291B816A00D4F46C /* PPPangramSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "PPPangramSans-Regular.ttf"; path = "../../../../../../Downloads/PP Pangram Sans - Normal Family v2.4/ttf/PPPangramSans-Regular.ttf"; sourceTree = "<group>"; };
 		E3B7231C291B816A00D4F46C /* PPPangramSans-BoldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "PPPangramSans-BoldReclined.ttf"; path = "../../../../../../Downloads/PP Pangram Sans - Normal Family v2.4/ttf/PPPangramSans-BoldReclined.ttf"; sourceTree = "<group>"; };
+		E3B72336291B853200D4F46C /* PinoFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoFont.swift; sourceTree = "<group>"; };
+		E3B72338291B85A300D4F46C /* BoldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldStyle.swift; sourceTree = "<group>"; };
+		E3B7233A291B85B400D4F46C /* SemiboldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiboldStyle.swift; sourceTree = "<group>"; };
+		E3B7233C291B85C500D4F46C /* MediumStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumStyle.swift; sourceTree = "<group>"; };
+		E3B7233E291B85D700D4F46C /* RegularStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularStyle.swift; sourceTree = "<group>"; };
 		ED0F9DCB7B301E8270C900FF /* Pods_Pino_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5195DA4C1EDE2A3E99135F3 /* Pods-Pino-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		F72F8FE5D57E2883D84569BB /* Pods-Pino-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -281,6 +291,7 @@
 		DF2B041C2919549F00781052 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				E3B72335291B84F900D4F46C /* Typography */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -403,6 +414,18 @@
 				E3B72306291B816A00D4F46C /* PPPangramSans-ThinReclined.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		E3B72335291B84F900D4F46C /* Typography */ = {
+			isa = PBXGroup;
+			children = (
+				E3B7233E291B85D700D4F46C /* RegularStyle.swift */,
+				E3B7233C291B85C500D4F46C /* MediumStyle.swift */,
+				E3B7233A291B85B400D4F46C /* SemiboldStyle.swift */,
+				E3B72338291B85A300D4F46C /* BoldStyle.swift */,
+				E3B72336291B853200D4F46C /* PinoFont.swift */,
+			);
+			path = Typography;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -682,10 +705,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3B72339291B85A300D4F46C /* BoldStyle.swift in Sources */,
 				DF05F6A5291644B7005A3338 /* Pino_iOS.xcdatamodeld in Sources */,
+				E3B7233B291B85B400D4F46C /* SemiboldStyle.swift in Sources */,
+				E3B72337291B853200D4F46C /* PinoFont.swift in Sources */,
 				DF05F69B291644B7005A3338 /* AppDelegate.swift in Sources */,
 				DF05F69D291644B7005A3338 /* SceneDelegate.swift in Sources */,
+				E3B7233D291B85C500D4F46C /* MediumStyle.swift in Sources */,
 				DF2B04292919640300781052 /* IntroViewController.swift in Sources */,
+				E3B7233F291B85D700D4F46C /* RegularStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
