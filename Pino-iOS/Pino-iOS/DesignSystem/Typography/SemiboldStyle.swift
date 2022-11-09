@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIFont.PinoStyle{
+extension UIFont.PinoStyle {
     
     // MARK: Semibold Style Typography
     
@@ -62,4 +62,3 @@ extension UIFont.PinoStyle{
     )
     
 }
-

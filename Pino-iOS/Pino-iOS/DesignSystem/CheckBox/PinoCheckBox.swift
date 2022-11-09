@@ -16,20 +16,18 @@ public class PinoCheckBox: UIButton {
         
         super.init(frame: .zero)
         
-        addTarget(self, action:#selector(buttonClicked(sender:)), for: UIControl.Event.touchUpInside)
+        addTarget(self, action: #selector(buttonClicked(sender:)), for: UIControl.Event.touchUpInside)
         updateUI(isChecked: false)
     }
     
     required init?(coder: NSCoder) {
         fatalError()
     }
-    
-    
+        
     // MARK: - Public properties
     
     public var style: Style
     
-
     // MARK: - private properties
     
     private var isChecked: Bool = false {
@@ -38,12 +36,11 @@ public class PinoCheckBox: UIButton {
         }
     }
     
-    
     // MARK: - Private methods
     
-    private func updateUI(isChecked: Bool){
+    private func updateUI(isChecked: Bool) {
         
-        let checkBoxIcon = isChecked ? style.checkedImage : style.UncheckedImage
+        let checkBoxIcon = isChecked ? style.checkedImage : style.uncheckedImage
         let checkBoxTintColor = isChecked ? style.checkedTintColor : style.unchekedTintColor
         
         setImage(checkBoxIcon, for: .normal)
@@ -56,11 +53,10 @@ public class PinoCheckBox: UIButton {
         }
     }
     
-        
     // MARK: - UI overrides
 
     public override func awakeFromNib() {
-        self.addTarget(self, action:#selector(buttonClicked(sender:)), for: UIControl.Event.touchUpInside)
+        self.addTarget(self, action: #selector(buttonClicked(sender:)), for: UIControl.Event.touchUpInside)
         updateUI(isChecked: false)
     }
     

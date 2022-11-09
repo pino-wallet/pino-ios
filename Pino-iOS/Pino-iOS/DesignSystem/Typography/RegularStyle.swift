@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIFont.PinoStyle{
+extension UIFont.PinoStyle {
     
     // MARK: Regular Style Typography
     

@@ -12,7 +12,7 @@ public extension PinoCheckBox {
     /// Specifies a visual theme of the checkBox
     struct Style: Equatable {
         
-        public let UncheckedImage: UIImage?
+        public let uncheckedImage: UIImage?
         public let checkedImage: UIImage?
         public let unchekedTintColor: UIColor
         public let checkedTintColor: UIColor
@@ -25,17 +25,17 @@ public extension PinoCheckBox {
 public extension PinoCheckBox.Style {
     
     static let defaultStyle = PinoCheckBox.Style(
-        UncheckedImage: UIImage(systemName: "square"),
+        uncheckedImage: UIImage(systemName: "square"),
         checkedImage: UIImage(systemName: "checkmark.square.fill"),
-        unchekedTintColor: .pino.gray3,
-        checkedTintColor: .pino.primary
+        unchekedTintColor: .Pino.gray3,
+        checkedTintColor: .Pino.primary
     )
     
     static let deactive = PinoCheckBox.Style(
-        UncheckedImage: UIImage(systemName: "checkmark.square"),
+        uncheckedImage: UIImage(systemName: "checkmark.square"),
         checkedImage: UIImage(systemName: "checkmark.square.fill"),
-        unchekedTintColor: .pino.gray3,
-        checkedTintColor: .pino.primary
+        unchekedTintColor: .Pino.gray3,
+        checkedTintColor: .Pino.primary
     )
 
 }

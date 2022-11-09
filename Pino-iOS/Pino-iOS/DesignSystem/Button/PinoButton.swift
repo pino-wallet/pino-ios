@@ -30,10 +30,9 @@ public class PinoButton: UIButton {
 
     private var loadingView = UIActivityIndicatorView()
     
-
     // MARK: - Public properties
 
-    public var title: String{
+    public var title: String {
         didSet {
             updateTitle()
         }
@@ -45,14 +44,12 @@ public class PinoButton: UIButton {
         }
     }
 
-
     // MARK: - UIButton overrides
 
     public override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = bounds.height / 2
     }
-
 
     // MARK: - Private methods
 
@@ -63,15 +60,15 @@ public class PinoButton: UIButton {
         layer.borderWidth = 1.2
         clipsToBounds = true
         
-        if style == .loading{
+        if style == .loading {
             setTitle("", for: .normal)
             loadingView.startAnimating()
-        }else{
+        } else {
             loadingView.stopAnimating()
         }
     }
     
-    private func updateTitle(){
+    private func updateTitle() {
         setTitle(title, for: .normal)
         titleLabel?.font = UIFont.PinoStyle.semiboldTitle2
     }
@@ -90,4 +87,3 @@ public class PinoButton: UIButton {
     }
 
 }
-

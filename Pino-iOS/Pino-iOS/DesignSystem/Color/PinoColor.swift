@@ -11,7 +11,7 @@ public extension UIColor {
     
     // MARK: Custom Font
     
-    enum pino{
+    enum Pino {
         
         // MARK: - Primary
         
@@ -56,7 +56,6 @@ public extension UIColor {
         static let white = UIColor(named: "White Color") ?? UIColor.white
         static let black = UIColor(named: "Black Color") ?? UIColor.black
         static let clear = UIColor(named: "Clear Color") ?? UIColor.clear
-
 
     }
 }
