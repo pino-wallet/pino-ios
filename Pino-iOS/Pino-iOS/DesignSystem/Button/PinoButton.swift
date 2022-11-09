@@ -9,27 +9,6 @@ import UIKit
 
 public class PinoButton: UIButton {
     
-    // MARK: - Initializers
-
-    public init(style: Style, title: String = "") {
-
-        self.title = title
-        self.style = style
-        super.init(frame: .zero)
-        
-        setupLoading()
-        updateStyle()
-        updateTitle()
-    }
-
-    public required init?(coder: NSCoder) {
-        fatalError()
-    }
-    
-    // MARK: - Private properties
-
-    private var loadingView = UIActivityIndicatorView()
-    
     // MARK: - Public properties
 
     public var title: String {
@@ -43,12 +22,24 @@ public class PinoButton: UIButton {
             updateStyle()
         }
     }
+    
+    // MARK: - Private properties
 
-    // MARK: - UIButton overrides
+    private var loadingView = UIActivityIndicatorView()
+    
+    // MARK: - Initializers
 
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        layer.cornerRadius = bounds.height / 2
+    public init(style: Style, title: String = "") {
+        self.title = title
+        self.style = style
+        super.init(frame: .zero)
+        setupLoading()
+        updateStyle()
+        updateTitle()
+    }
+
+    public required init?(coder: NSCoder) {
+        fatalError()
     }
 
     // MARK: - Private methods
@@ -59,7 +50,6 @@ public class PinoButton: UIButton {
         layer.borderColor = style.borderColor?.cgColor
         layer.borderWidth = 1.2
         clipsToBounds = true
-        
         if style == .loading {
             setTitle("", for: .normal)
             loadingView.startAnimating()
@@ -74,16 +64,20 @@ public class PinoButton: UIButton {
     }
     
     private func setupLoading() {
-        
         loadingView.color = UIColor.white
-        self.addSubview(loadingView)
-
+        addSubview(loadingView)
         loadingView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            loadingView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            loadingView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            loadingView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            loadingView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
-        
+    }
+    
+    // MARK: - UIButton overrides
+
+    override public func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = bounds.height / 2
     }
 
 }
