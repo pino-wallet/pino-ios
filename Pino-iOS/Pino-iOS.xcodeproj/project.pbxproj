@@ -10,6 +10,7 @@
 		322D581C08B55163A8663852 /* Pods_Pino_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0F9DCB7B301E8270C900FF /* Pods_Pino_iOSTests.framework */; };
 		342FC8B4E91C08AC7E6EF487 /* Pods_Pino_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B07DDB48E26F1946E47DC3 /* Pods_Pino_iOS.framework */; };
 		5FE00D5229A8A6EB50C770BB /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B94B1E768003126CB948B2C3 /* Pods_Pino_iOS_Pino_iOSUITests.framework */; };
+		CE5757B5291C7DBA001B4EFE /* AutolayoutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5757B4291C7DBA001B4EFE /* AutolayoutHelper.swift */; };
 		DF05F69B291644B7005A3338 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F69A291644B7005A3338 /* AppDelegate.swift */; };
 		DF05F69D291644B7005A3338 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F69C291644B7005A3338 /* SceneDelegate.swift */; };
 		DF05F6A5291644B7005A3338 /* Pino_iOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DF05F6A3291644B7005A3338 /* Pino_iOS.xcdatamodeld */; };
@@ -72,6 +73,7 @@
 		52B07DDB48E26F1946E47DC3 /* Pods_Pino_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B94B1E768003126CB948B2C3 /* Pods_Pino_iOS_Pino_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS_Pino_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAD4E54BC53F8997AD564B9E /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		CE5757B4291C7DBA001B4EFE /* AutolayoutHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutolayoutHelper.swift; sourceTree = "<group>"; };
 		DF05F697291644B7005A3338 /* Pino-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pino-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF05F69A291644B7005A3338 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF05F69C291644B7005A3338 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -168,6 +170,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CE5757B6291C7DBF001B4EFE /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				CE5757B4291C7DBA001B4EFE /* AutolayoutHelper.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		DF05F68E291644B7005A3338 = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +203,7 @@
 		DF05F699291644B7005A3338 /* Pino-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				CE5757B6291C7DBF001B4EFE /* Utilities */,
 				DF2B042729195B8A00781052 /* Models */,
 				DF2B041F2919577800781052 /* Flows */,
 				DF2B041E2919574E00781052 /* Services */,
@@ -581,6 +592,7 @@
 				DF05F6A5291644B7005A3338 /* Pino_iOS.xcdatamodeld in Sources */,
 				DF05F69B291644B7005A3338 /* AppDelegate.swift in Sources */,
 				DF05F69D291644B7005A3338 /* SceneDelegate.swift in Sources */,
+				CE5757B5291C7DBA001B4EFE /* AutolayoutHelper.swift in Sources */,
 				DF2B04292919640300781052 /* IntroViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
