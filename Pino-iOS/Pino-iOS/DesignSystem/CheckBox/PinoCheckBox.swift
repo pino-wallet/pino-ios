@@ -8,52 +8,64 @@
 import UIKit
 
 public class PinoCheckBox: UIButton {
-    
-    // MARK: - Public properties
-    
-    public var style: Style
-    
-    // MARK: - private properties
-    
-    private var isChecked: Bool = false {
-        didSet {
-            updateUI(isChecked: isChecked)
-        }
-    }
-    
-    // MARK: - Initializers
-    
-    public init(style: Style = .defaultStyle) {
-        self.style = style
-        super.init(frame: .zero)
-        addTarget(self, action: #selector(buttonClicked(sender:)), for: UIControl.Event.touchUpInside)
-        updateUI(isChecked: false)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError()
-    }
-    
-    // MARK: - Private methods
-    
-    private func updateUI(isChecked: Bool) {
-        let checkBoxIcon = isChecked ? style.checkedImage : style.uncheckedImage
-        let checkBoxTintColor = isChecked ? style.checkedTintColor : style.unchekedTintColor
-        setImage(checkBoxIcon, for: .normal)
-        tintColor = checkBoxTintColor
-    }
-    
-    @objc func buttonClicked(sender: UIButton) {
-        if sender == self {
-            isChecked = !isChecked
-        }
-    }
-    
-    // MARK: - UI overrides
+	// MARK: Lifecycle
 
-    public override func awakeFromNib() {
-        addTarget(self, action: #selector(buttonClicked(sender:)), for: UIControl.Event.touchUpInside)
-        updateUI(isChecked: false)
-    }
-    
+	// MARK: - Initializers
+
+	public init(style: Style = .defaultStyle) {
+		self.style = style
+		super.init(frame: .zero)
+		addTarget(self, action: #selector(buttonClicked), for: UIControl.Event.touchUpInside)
+		updateUI(isChecked: false)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError()
+	}
+
+	// MARK: Public
+
+	// MARK: - Public properties
+
+	public var style: Style
+
+	// MARK: - UI overrides
+
+	override public func awakeFromNib() {
+		addTarget(self, action: #selector(buttonClicked), for: UIControl.Event.touchUpInside)
+		updateUI(isChecked: false)
+	}
+
+	// MARK: Internal
+
+	@objc
+	func buttonClicked() {
+        isChecked.toggle()
+	}
+
+	// MARK: Private
+
+	// MARK: - private properties
+
+	private var isChecked: Bool = false {
+		didSet {
+			updateUI(isChecked: isChecked)
+		}
+	}
+
+	// MARK: - Private methods
+
+	private func updateUI(isChecked: Bool) {
+		let checkBoxIcon: UIImage?
+		let checkBoxTintColor: UIColor?
+		if isChecked {
+			checkBoxIcon = style.checkedImage
+			checkBoxTintColor = style.checkedTintColor
+		} else {
+			checkBoxIcon = style.uncheckedImage
+			checkBoxTintColor = style.unchekedTintColor
+		}
+		setImage(checkBoxIcon, for: .normal)
+		tintColor = checkBoxTintColor
+	}
 }
