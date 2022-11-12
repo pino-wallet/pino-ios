@@ -19,5 +19,14 @@
 			</array>
 		</dict>
 	</dict>
+    <key>UIAppFonts</key>
+    <array>
+        <string>PPPangramSans-Bold.ttf</string>
+        <string>PPPangramSans-Semibold.ttf</string>
+        <string>PPPangramSans-Thin.ttf</string>
+        <string>PPPangramSans-Regular.ttf</string>
+        <string>PPPangramSans-Light.ttf</string>
+        <string>PPPangramSans-Medium.ttf</string>
+    </array>
 </dict>
 </plist>
