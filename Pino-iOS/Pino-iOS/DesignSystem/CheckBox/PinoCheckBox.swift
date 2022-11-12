@@ -40,14 +40,14 @@ public class PinoCheckBox: UIButton {
 
 	@objc
 	func buttonClicked() {
-        isChecked.toggle()
+		isChecked.toggle()
 	}
 
 	// MARK: Private
 
 	// MARK: - private properties
 
-	private var isChecked: Bool = false {
+	private var isChecked = false {
 		didSet {
 			updateUI(isChecked: isChecked)
 		}
