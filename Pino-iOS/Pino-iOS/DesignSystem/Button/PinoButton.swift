@@ -78,10 +78,6 @@ public class PinoButton: UIButton {
 	private func setupLoading() {
 		loadingView.color = UIColor.white
 		addSubview(loadingView)
-		loadingView.translatesAutoresizingMaskIntoConstraints = false
-		NSLayoutConstraint.activate([
-			loadingView.centerXAnchor.constraint(equalTo: centerXAnchor),
-			loadingView.centerYAnchor.constraint(equalTo: centerYAnchor),
-		])
+		loadingView.pin(.centerX, .centerY)
 	}
 }

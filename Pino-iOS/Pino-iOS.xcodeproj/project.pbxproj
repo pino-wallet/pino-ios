@@ -90,6 +90,12 @@
 		E3EDCC1D2920F56F0011B9A8 /* StepWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC1C2920F56F0011B9A8 /* StepWrapper.swift */; };
 		E3EDCC1E2920F56F0011B9A8 /* StepWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC1C2920F56F0011B9A8 /* StepWrapper.swift */; };
 		E3EDCC1F2920F56F0011B9A8 /* StepWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC1C2920F56F0011B9A8 /* StepWrapper.swift */; };
+		E3EDCC252921036F0011B9A8 /* ShowSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC242921036F0011B9A8 /* ShowSecretPhraseViewController.swift */; };
+		E3EDCC262921036F0011B9A8 /* ShowSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC242921036F0011B9A8 /* ShowSecretPhraseViewController.swift */; };
+		E3EDCC272921036F0011B9A8 /* ShowSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC242921036F0011B9A8 /* ShowSecretPhraseViewController.swift */; };
+		E3EDCC29292105470011B9A8 /* ShowSecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC28292105470011B9A8 /* ShowSecretPhraseView.swift */; };
+		E3EDCC2A292105470011B9A8 /* ShowSecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC28292105470011B9A8 /* ShowSecretPhraseView.swift */; };
+		E3EDCC2B292105470011B9A8 /* ShowSecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC28292105470011B9A8 /* ShowSecretPhraseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,6 +173,8 @@
 		E3EDCC132920C6D70011B9A8 /* MockSeedPhraseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSeedPhraseList.swift; sourceTree = "<group>"; };
 		E3EDCC172920CA1D0011B9A8 /* PinoSteperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoSteperView.swift; sourceTree = "<group>"; };
 		E3EDCC1C2920F56F0011B9A8 /* StepWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepWrapper.swift; sourceTree = "<group>"; };
+		E3EDCC242921036F0011B9A8 /* ShowSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseViewController.swift; sourceTree = "<group>"; };
+		E3EDCC28292105470011B9A8 /* ShowSecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseView.swift; sourceTree = "<group>"; };
 		ED0F9DCB7B301E8270C900FF /* Pods_Pino_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5195DA4C1EDE2A3E99135F3 /* Pods-Pino-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		F72F8FE5D57E2883D84569BB /* Pods-Pino-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -355,6 +363,7 @@
 			isa = PBXGroup;
 			children = (
 				DF2B0422291958DD00781052 /* Unlock */,
+				E3EDCC20292102420011B9A8 /* Intro */,
 				DF2B04202919578800781052 /* CreateWallet */,
 				DF2B04212919581F00781052 /* ImportWallet */,
 			);
@@ -364,7 +373,9 @@
 		DF2B04202919578800781052 /* CreateWallet */ = {
 			isa = PBXGroup;
 			children = (
-				DF2B04282919640300781052 /* IntroViewController.swift */,
+				E3EDCC212921025C0011B9A8 /* View */,
+				E3EDCC22292102D90011B9A8 /* ViewController */,
+				E3EDCC23292102E70011B9A8 /* ViewModel */,
 			);
 			path = CreateWallet;
 			sourceTree = "<group>";
@@ -499,6 +510,37 @@
 				E3EDCC1C2920F56F0011B9A8 /* StepWrapper.swift */,
 			);
 			path = Steper;
+			sourceTree = "<group>";
+		};
+		E3EDCC20292102420011B9A8 /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+				DF2B04282919640300781052 /* IntroViewController.swift */,
+			);
+			path = Intro;
+			sourceTree = "<group>";
+		};
+		E3EDCC212921025C0011B9A8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E3EDCC28292105470011B9A8 /* ShowSecretPhraseView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E3EDCC22292102D90011B9A8 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E3EDCC242921036F0011B9A8 /* ShowSecretPhraseViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E3EDCC23292102E70011B9A8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -783,6 +825,7 @@
 				E3B7234C291B8D8A00D4F46C /* PinoCheckBoxStyle.swift in Sources */,
 				E3B7233B291B85B400D4F46C /* SemiboldStyle.swift in Sources */,
 				E3B72337291B853200D4F46C /* PinoFont.swift in Sources */,
+				E3EDCC252921036F0011B9A8 /* ShowSecretPhraseViewController.swift in Sources */,
 				DF05F69B291644B7005A3338 /* AppDelegate.swift in Sources */,
 				DF05F69D291644B7005A3338 /* SceneDelegate.swift in Sources */,
 				E3EDCC182920CA1D0011B9A8 /* PinoSteperView.swift in Sources */,
@@ -791,6 +834,7 @@
 				E3B7233D291B85C500D4F46C /* MediumStyle.swift in Sources */,
 				E3B72345291B8A2300D4F46C /* PinoButton.swift in Sources */,
 				E3B72342291B87A200D4F46C /* PinoColor.swift in Sources */,
+				E3EDCC29292105470011B9A8 /* ShowSecretPhraseView.swift in Sources */,
 				CE5757B5291C7DBA001B4EFE /* AutolayoutHelper.swift in Sources */,
 				DF2B04292919640300781052 /* IntroViewController.swift in Sources */,
 				E3EDCC1D2920F56F0011B9A8 /* StepWrapper.swift in Sources */,
@@ -805,6 +849,8 @@
 			files = (
 				DF05F6B5291644B9005A3338 /* Pino_iOSTests.swift in Sources */,
 				E3EDCC1E2920F56F0011B9A8 /* StepWrapper.swift in Sources */,
+				E3EDCC2A292105470011B9A8 /* ShowSecretPhraseView.swift in Sources */,
+				E3EDCC262921036F0011B9A8 /* ShowSecretPhraseViewController.swift in Sources */,
 				E3EDCC192920CA1D0011B9A8 /* PinoSteperView.swift in Sources */,
 				E3EDCC152920C6D70011B9A8 /* MockSeedPhraseList.swift in Sources */,
 			);
@@ -814,9 +860,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3EDCC272921036F0011B9A8 /* ShowSecretPhraseViewController.swift in Sources */,
 				E3EDCC162920C6D70011B9A8 /* MockSeedPhraseList.swift in Sources */,
 				DF05F6C1291644B9005A3338 /* Pino_iOSUITestsLaunchTests.swift in Sources */,
 				E3EDCC1A2920CA1D0011B9A8 /* PinoSteperView.swift in Sources */,
+				E3EDCC2B292105470011B9A8 /* ShowSecretPhraseView.swift in Sources */,
 				DF05F6BF291644B9005A3338 /* Pino_iOSUITests.swift in Sources */,
 				E3EDCC1F2920F56F0011B9A8 /* StepWrapper.swift in Sources */,
 			);

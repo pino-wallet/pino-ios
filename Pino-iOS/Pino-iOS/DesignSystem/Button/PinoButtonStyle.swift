@@ -29,7 +29,7 @@ extension PinoButton.Style {
 
 	public static let deactive = PinoButton.Style(
 		titleColor: .secondaryLabel,
-		backgroundColor: .Pino.background,
+		backgroundColor: .Pino.gray5,
 		borderColor: .clear
 	)
 

@@ -51,27 +51,19 @@ public class PinoSteperView: UIView {
 		addSubview(steperStackView)
 
 		// Create UI view for each step
-		for _ in 0 ... stepsCount {
+		for _ in 1 ... stepsCount {
 			let stepView = UIView()
 			stepView.backgroundColor = .Pino.gray4
 
 			steperStackView.addArrangedSubview(stepView)
 			stepViews.append(stepView)
 
-			stepView.translatesAutoresizingMaskIntoConstraints = false
-			NSLayoutConstraint.activate([
-				stepView.heightAnchor.constraint(equalToConstant: 2),
-				stepView.widthAnchor.constraint(equalToConstant: 40),
-			])
+			stepView.pin(.fixedHeight(2), .fixedWidth(40))
 		}
+
 		stepViews[currentStep - 1].backgroundColor = .Pino.primary
 
-		steperStackView.translatesAutoresizingMaskIntoConstraints = false
-		layoutIfNeeded()
-		NSLayoutConstraint.activate([
-			steperStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-			steperStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-		])
+		steperStackView.pin(.centerX, .centerY)
 	}
 
 	// MARK: public methods
