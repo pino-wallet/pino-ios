@@ -4,6 +4,8 @@
 //
 //  Created by Mohi Raoufi on 11/13/22.
 //
+// swiftlint: disable type_body_length
+// swiftlint: disable file_length
 
 import Foundation
 
