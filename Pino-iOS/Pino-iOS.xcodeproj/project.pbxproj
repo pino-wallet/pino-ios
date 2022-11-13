@@ -81,6 +81,9 @@
 		E3B72347291B8A4700D4F46C /* PinoButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B72346291B8A4700D4F46C /* PinoButtonStyle.swift */; };
 		E3B7234A291B8D7200D4F46C /* PinoCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B72349291B8D7200D4F46C /* PinoCheckBox.swift */; };
 		E3B7234C291B8D8A00D4F46C /* PinoCheckBoxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B7234B291B8D8A00D4F46C /* PinoCheckBoxStyle.swift */; };
+		E3EDCC142920C6D70011B9A8 /* MockSeedPhraseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC132920C6D70011B9A8 /* MockSeedPhraseList.swift */; };
+		E3EDCC152920C6D70011B9A8 /* MockSeedPhraseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC132920C6D70011B9A8 /* MockSeedPhraseList.swift */; };
+		E3EDCC162920C6D70011B9A8 /* MockSeedPhraseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC132920C6D70011B9A8 /* MockSeedPhraseList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,6 +158,7 @@
 		E3B72346291B8A4700D4F46C /* PinoButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoButtonStyle.swift; sourceTree = "<group>"; };
 		E3B72349291B8D7200D4F46C /* PinoCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoCheckBox.swift; sourceTree = "<group>"; };
 		E3B7234B291B8D8A00D4F46C /* PinoCheckBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoCheckBoxStyle.swift; sourceTree = "<group>"; };
+		E3EDCC132920C6D70011B9A8 /* MockSeedPhraseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSeedPhraseList.swift; sourceTree = "<group>"; };
 		ED0F9DCB7B301E8270C900FF /* Pods_Pino_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5195DA4C1EDE2A3E99135F3 /* Pods-Pino-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		F72F8FE5D57E2883D84569BB /* Pods-Pino-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -287,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				DF05F6B4291644B9005A3338 /* Pino_iOSTests.swift */,
+				E3EDCC132920C6D70011B9A8 /* MockSeedPhraseList.swift */,
 			);
 			path = "Pino-iOSTests";
 			sourceTree = "<group>";
@@ -763,6 +768,7 @@
 				DF05F69B291644B7005A3338 /* AppDelegate.swift in Sources */,
 				DF05F69D291644B7005A3338 /* SceneDelegate.swift in Sources */,
 				E3B7234A291B8D7200D4F46C /* PinoCheckBox.swift in Sources */,
+				E3EDCC142920C6D70011B9A8 /* MockSeedPhraseList.swift in Sources */,
 				E3B7233D291B85C500D4F46C /* MediumStyle.swift in Sources */,
 				E3B72345291B8A2300D4F46C /* PinoButton.swift in Sources */,
 				E3B72342291B87A200D4F46C /* PinoColor.swift in Sources */,
@@ -778,6 +784,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF05F6B5291644B9005A3338 /* Pino_iOSTests.swift in Sources */,
+				E3EDCC152920C6D70011B9A8 /* MockSeedPhraseList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -785,6 +792,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3EDCC162920C6D70011B9A8 /* MockSeedPhraseList.swift in Sources */,
 				DF05F6C1291644B9005A3338 /* Pino_iOSUITestsLaunchTests.swift in Sources */,
 				DF05F6BF291644B9005A3338 /* Pino_iOSUITests.swift in Sources */,
 			);
