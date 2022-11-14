@@ -8,23 +8,23 @@
 import UIKit
 
 public class PinoButton: UIButton {
-    
-    // MARK: - Private properties
-    
-    private var loadingView = UIActivityIndicatorView()
-	
-    // MARK: - Public properties
-    
-    public var title: String {
-        didSet {
-            updateTitle()
-        }
-    }
-    public var style: Style {
-        didSet {
-            updateStyle()
-        }
-    }
+	// MARK: - Private properties
+
+	private var loadingView = UIActivityIndicatorView()
+
+	// MARK: - Public properties
+
+	public var title: String {
+		didSet {
+			updateTitle()
+		}
+	}
+
+	public var style: Style {
+		didSet {
+			updateStyle()
+		}
+	}
 
 	// MARK: - Initializers
 

@@ -6,11 +6,11 @@
 //
 
 public struct SeedPhrase {
-    let title: String
-    let sequence: String
-    
-    init(title: String, sequence: String) {
-        self.title = title
-        self.sequence = sequence
-    }
+	let title: String
+	let sequence: String
+
+	init(title: String, sequence: String) {
+		self.title = title
+		self.sequence = sequence
+	}
 }

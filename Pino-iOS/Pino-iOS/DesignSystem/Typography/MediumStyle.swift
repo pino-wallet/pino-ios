@@ -24,11 +24,11 @@ extension UIFont.PinoStyle {
 		name: FontName.pinoMedium.rawValue,
 		size: FontSize.title2.rawValue
 	)
-    
-    static let mediumTitle3 = UIFont(
-        name: FontName.pinoMedium.rawValue,
-        size: FontSize.title3.rawValue
-    )
+
+	static let mediumTitle3 = UIFont(
+		name: FontName.pinoMedium.rawValue,
+		size: FontSize.title3.rawValue
+	)
 
 	static let mediumBody = UIFont(
 		name: FontName.pinoMedium.rawValue,

@@ -8,16 +8,15 @@
 import UIKit
 
 public class PinoCheckBox: UIButton {
-    
-    // MARK: - Public properties
-    
-    public var style: Style
-    
-    public var isChecked = false {
-        didSet {
-            updateUI(isChecked: isChecked)
-        }
-    }
+	// MARK: - Public properties
+
+	public var style: Style
+
+	public var isChecked = false {
+		didSet {
+			updateUI(isChecked: isChecked)
+		}
+	}
 
 	// MARK: - Initializers
 
@@ -40,11 +39,11 @@ public class PinoCheckBox: UIButton {
 	}
 
 	// MARK: - Private methods
-    
-    @objc
-    private func buttonClicked() {
-        isChecked.toggle()
-    }
+
+	@objc
+	private func buttonClicked() {
+		isChecked.toggle()
+	}
 
 	private func updateUI(isChecked: Bool) {
 		let checkBoxIcon: UIImage?

@@ -8,17 +8,16 @@
 import UIKit
 
 public class PinoSteperView: UIView {
-	
-    // MARK: Private properties
-    
-    private var stepViews: [UIView] = []
-    private var stepsCount: Int
-    private var currentStep: Int {
-        didSet {
-            updateStep()
-        }
-    }
-    
+	// MARK: Private properties
+
+	private var stepViews: [UIView] = []
+	private var stepsCount: Int
+	private var currentStep: Int {
+		didSet {
+			updateStep()
+		}
+	}
+
 	// MARK: Initializers
 
 	public init(stepsCount: Int, currentStep: Int) {
@@ -26,7 +25,7 @@ public class PinoSteperView: UIView {
 		var wrappedStep
 		self.currentStep = wrappedStep
 		self.stepsCount = stepsCount
-        
+
 		super.init(frame: .zero)
 
 		createStepsView()
@@ -73,5 +72,4 @@ public class PinoSteperView: UIView {
 		var wrappedStep
 		self.currentStep = wrappedStep
 	}
-	
 }

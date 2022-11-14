@@ -2058,6 +2058,6 @@ struct MockSeedPhrase {
 		"zebra",
 		"zero",
 		"zone",
-		"zoo"
+		"zoo",
 	]
 }
