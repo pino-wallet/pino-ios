@@ -20,7 +20,11 @@ class ShowSecretPhraseViewController: UIViewController {
 	}
 
 	override func loadView() {
-        view = ShowSecretPhraseView(secretPhraseVM.secretPhrase)
+        let secretPhraseView = ShowSecretPhraseView(secretPhraseVM.secretPhrase)
+        secretPhraseView.shareSecretPhrase = {
+            self.shareSecretPhrase()
+        }
+        view = secretPhraseView
         setSteperView()
 	}
     
@@ -31,5 +35,15 @@ class ShowSecretPhraseViewController: UIViewController {
         let steperView = PinoSteperView(stepsCount: 3, currentStep: 1)
         navigationItem.titleView = steperView
         navigationController?.navigationBar.backgroundColor = .Pino.background
+    }
+    
+    @objc
+    private func shareSecretPhrase() {
+        let userWords = secretPhraseVM.secretPhrase.map { $0.title }
+        let shareText = "Secret Phrase: \(userWords.joined(separator: " "))"
+        let shareActivity = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+        present(shareActivity, animated: true) {
+            
+        }
     }
 }

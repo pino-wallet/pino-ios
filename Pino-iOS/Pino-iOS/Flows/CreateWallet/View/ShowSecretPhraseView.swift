@@ -23,6 +23,10 @@ class ShowSecretPhraseView: UIView {
     private let savedCheckBox = PinoCheckBox()
     private var checkBoxDescription = UILabel()
     private let continueButton = PinoButton(style: .deactive, title: "Continue")
+    
+    // MARK: Public Properties
+    
+    public var shareSecretPhrase: (() -> Void)?
         
     // MARK: Initializers
 	
@@ -57,6 +61,12 @@ extension ShowSecretPhraseView {
         saveSecretPhareStackView.addArrangedSubview(checkBoxDescription)
         addSubview(contentStackView)
         addSubview(continueStackView)
+        
+        shareButton.addAction(UIAction(handler: { _ in
+            if let shareSecretPhrase = self.shareSecretPhrase {
+                shareSecretPhrase()
+            }
+        }), for: .touchUpInside)
     }
     
     private func setupStyle() {
