@@ -2058,12 +2058,6 @@ struct MockSeedPhrase {
 		"zebra",
 		"zero",
 		"zone",
-		"zoo",
+		"zoo"
 	]
-
-	public static func getRandomWords(numberOfWords: Int = 12) -> [String] {
-		let shuffledList = wordList.shuffled()
-		let listSlice = shuffledList.prefix(numberOfWords)
-		return Array(listSlice)
-	}
 }
