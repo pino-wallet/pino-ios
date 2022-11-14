@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension PinoSteperView {
+extension PinoStepperView {
 	// MARK: Property wrapper
 
 	@propertyWrapper

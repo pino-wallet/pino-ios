@@ -2,7 +2,7 @@
 //  AutolayoutHelper.swift
 //  Pino-iOS
 //  Source of the Article : https://www.mikegopsill.com/autolayout-dsl/
-//  Rrepo address of helper class : https://github.com/mgopsill/MGLayout/
+//  Repo address of helper class : https://github.com/mgopsill/MGLayout/
 //  Created by MohammadHossein Ghadamyari on 2022-11-10.
 //
 

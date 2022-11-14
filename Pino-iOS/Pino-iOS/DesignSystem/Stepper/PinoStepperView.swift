@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class PinoSteperView: UIView {
+public class PinoStepperView: UIView {
 	// MARK: Private properties
 
 	private var stepViews: [UIView] = []
