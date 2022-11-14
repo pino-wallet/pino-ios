@@ -20,15 +20,19 @@ class ShowSecretPhraseViewController: UIViewController {
 	}
 
 	override func loadView() {
-        let secretPhraseView = ShowSecretPhraseView(secretPhraseVM.secretPhrase)
-        secretPhraseView.shareSecretPhrase = {
-            self.shareSecretPhrase()
-        }
-        view = secretPhraseView
+        
+        stupView()
         setSteperView()
 	}
     
     // MARK: Private Methods
+    
+    private func stupView() {
+        let secretPhraseView = ShowSecretPhraseView(secretPhraseVM.secretPhrase) {
+            self.shareSecretPhrase()
+        }
+        view = secretPhraseView
+    }
     
     private func setSteperView() {
         // show steper view in navigation bar

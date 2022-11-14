@@ -28,6 +28,12 @@ public class PinoCheckBox: UIButton {
 	// MARK: - Public properties
 
 	public var style: Style
+    
+    public var isChecked = false {
+        didSet {
+            updateUI(isChecked: isChecked)
+        }
+    }
 
 	// MARK: - UI overrides
 
@@ -41,16 +47,6 @@ public class PinoCheckBox: UIButton {
 	@objc
 	func buttonClicked() {
 		isChecked.toggle()
-	}
-
-	// MARK: Private
-
-	// MARK: - private properties
-
-	private var isChecked = false {
-		didSet {
-			updateUI(isChecked: isChecked)
-		}
 	}
 
 	// MARK: - Private methods
