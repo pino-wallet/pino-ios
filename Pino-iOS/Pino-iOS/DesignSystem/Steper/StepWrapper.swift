@@ -12,7 +12,28 @@ extension PinoSteperView {
 
 	@propertyWrapper
 	struct StepsRange {
-		// MARK: Lifecycle
+        
+        // MARK: Private properties
+        
+        private var currentStep: Int
+        private var maxStep: Int
+        private var minStep: Int
+        
+        // MARK: public properties
+        
+        public var wrappedValue: Int {
+            get {
+                return currentStep
+            }
+            set {
+                // Current step value must be greater than zero and less than the total number of steps
+                var wrappedStep = min(newValue, maxStep)
+                wrappedStep = max(wrappedStep, minStep)
+                currentStep = wrappedStep
+            }
+        }
+        
+        // MARK: Initializers
 
 		init(wrappedValue: Int, maxStep: Int, minStep: Int = 1) {
 			self.maxStep = maxStep
@@ -23,25 +44,5 @@ extension PinoSteperView {
 			wrappedStep = max(wrappedStep, minStep)
 			self.currentStep = wrappedStep
 		}
-
-		// MARK: Internal
-
-		var wrappedValue: Int {
-			get {
-				return currentStep
-			}
-			set {
-				// Current step value must be greater than zero and less than the total number of steps
-				var wrappedStep = min(newValue, maxStep)
-				wrappedStep = max(wrappedStep, minStep)
-				currentStep = wrappedStep
-			}
-		}
-
-		// MARK: Private
-
-		private var currentStep: Int
-		private var maxStep: Int
-		private var minStep: Int
 	}
 }

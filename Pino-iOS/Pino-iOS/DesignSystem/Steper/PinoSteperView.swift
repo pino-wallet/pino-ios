@@ -8,8 +8,17 @@
 import UIKit
 
 public class PinoSteperView: UIView {
-	// MARK: Lifecycle
-
+	
+    // MARK: Private properties
+    
+    private var stepViews: [UIView] = []
+    private var stepsCount: Int
+    private var currentStep: Int {
+        didSet {
+            updateStep()
+        }
+    }
+    
 	// MARK: Initializers
 
 	public init(stepsCount: Int, currentStep: Int) {
@@ -17,6 +26,7 @@ public class PinoSteperView: UIView {
 		var wrappedStep
 		self.currentStep = wrappedStep
 		self.stepsCount = stepsCount
+        
 		super.init(frame: .zero)
 
 		createStepsView()
@@ -26,23 +36,15 @@ public class PinoSteperView: UIView {
 		fatalError()
 	}
 
-	// MARK: Public
-
-	// MARK: Public properties
-
-	public var stepsCount: Int
-
-	// MARK: Internal
-
 	// MARK: Private methods
 
-	func updateStep() {
+	private func updateStep() {
 		// Update the colors when the current step changes
 		stepViews.forEach { $0.backgroundColor = .Pino.gray4 }
 		stepViews[currentStep - 1].backgroundColor = .Pino.primary
 	}
 
-	func createStepsView() {
+	private func createStepsView() {
 		backgroundColor = .Pino.clear
 
 		let steperStackView = UIStackView()
@@ -66,23 +68,10 @@ public class PinoSteperView: UIView {
 		steperStackView.pin(.centerX, .centerY)
 	}
 
-	// MARK: public methods
-
-	func setCurrentStep(_ currentStep: Int) {
+	private func setCurrentStep(_ currentStep: Int) {
 		@StepsRange(wrappedValue: currentStep, maxStep: stepsCount)
 		var wrappedStep
 		self.currentStep = wrappedStep
 	}
-
-	// MARK: Private
-
-	// MARK: Private properties
-
-	private var stepViews: [UIView] = []
-
-	private var currentStep: Int {
-		didSet {
-			updateStep()
-		}
-	}
+	
 }

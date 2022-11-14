@@ -8,7 +8,23 @@
 import UIKit
 
 public class PinoButton: UIButton {
-	// MARK: Lifecycle
+    
+    // MARK: - Private properties
+    
+    private var loadingView = UIActivityIndicatorView()
+	
+    // MARK: - Public properties
+    
+    public var title: String {
+        didSet {
+            updateTitle()
+        }
+    }
+    public var style: Style {
+        didSet {
+            updateStyle()
+        }
+    }
 
 	// MARK: - Initializers
 
@@ -25,34 +41,12 @@ public class PinoButton: UIButton {
 		fatalError()
 	}
 
-	// MARK: Public
-
-	// MARK: - Public properties
-
-	public var title: String {
-		didSet {
-			updateTitle()
-		}
-	}
-
-	public var style: Style {
-		didSet {
-			updateStyle()
-		}
-	}
-
 	// MARK: - UIButton overrides
 
 	override public func layoutSubviews() {
 		super.layoutSubviews()
 		layer.cornerRadius = 12
 	}
-
-	// MARK: Private
-
-	// MARK: - Private properties
-
-	private var loadingView = UIActivityIndicatorView()
 
 	// MARK: - Private methods
 

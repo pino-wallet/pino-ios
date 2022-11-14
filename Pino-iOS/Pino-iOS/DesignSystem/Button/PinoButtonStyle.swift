@@ -7,7 +7,7 @@
 
 import UIKit
 
-// MARK: - PinoButton.Style
+// MARK: - PinoButton Style
 
 extension PinoButton {
 	// Specifies a visual theme of the button

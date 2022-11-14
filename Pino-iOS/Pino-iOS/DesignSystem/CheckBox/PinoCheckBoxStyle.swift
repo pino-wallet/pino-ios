@@ -7,7 +7,7 @@
 
 import UIKit
 
-// MARK: - PinoCheckBox.Style
+// MARK: - PinoCheckBox Style
 
 extension PinoCheckBox {
 	/// Specifies a visual theme of the checkBox
