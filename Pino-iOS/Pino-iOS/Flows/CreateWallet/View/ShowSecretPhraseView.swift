@@ -83,7 +83,7 @@ extension ShowSecretPhraseView {
         
         pageTitle.text = "Backup seed pharase"
         pageTitle.textColor = .Pino.label
-        pageTitle.font = .PinoStyle.semiboldTitle2
+        pageTitle.font = .PinoStyle.semiboldTitle3
         
         pageDescription.text = "A two line description should be here. A two line description should be here"
         pageDescription.textColor = .Pino.secondaryLabel

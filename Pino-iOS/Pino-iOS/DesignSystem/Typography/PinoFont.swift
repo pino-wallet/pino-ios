@@ -34,8 +34,8 @@ extension UIFont.PinoStyle {
 		case largeTitle = 36
 		case title1 = 28
 		case title2 = 22
-		case headline = 20
-		case body = 17
+        case title3 = 20
+		case headline, body = 17
 		case callout = 16
 		case subHeadline = 15
 		case footnote = 13

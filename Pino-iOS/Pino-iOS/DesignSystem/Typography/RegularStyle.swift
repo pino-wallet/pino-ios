@@ -24,6 +24,11 @@ extension UIFont.PinoStyle {
 		name: FontName.pinoRegular.rawValue,
 		size: FontSize.title2.rawValue
 	)
+    
+    static let regularTitle3 = UIFont(
+        name: FontName.pinoRegular.rawValue,
+        size: FontSize.title3.rawValue
+    )
 
 	static let regularBody = UIFont(
 		name: FontName.pinoRegular.rawValue,
