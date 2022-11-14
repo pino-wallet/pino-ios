@@ -3,7 +3,7 @@
 
 # Specify version used in a project
 
---swiftversion 5.0
+--swiftversion 5.5
 
 # Rules explicitly required by the guideline
 
@@ -26,8 +26,6 @@ hoistPatternLet,                  \
 indent,                           \
 leadingDelimiters,                \
 linebreakAtEndOfFile,             \
-markTypes,                        \
-organizeDeclarations,             \
 modifierOrder,			  \
 redundantInit,                    \
 numberFormatting,		  \
@@ -95,6 +93,8 @@ strongifiedSelf
 --wrapcollections before-first
 --wrapreturntype preserve
 --wrapconditions after-first 
+--redundanttype inferred
+
 
 # Option for additional rules
 
