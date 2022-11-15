@@ -49,6 +49,7 @@
 		DF2B04292919640300781052 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2B04282919640300781052 /* IntroViewController.swift */; };
 		E33E318F2923D0680028ECDB /* VerifySecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33E318E2923D0680028ECDB /* VerifySecretPhraseViewController.swift */; };
 		E33E31912923D1A40028ECDB /* VerifySecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33E31902923D1A40028ECDB /* VerifySecretPhraseView.swift */; };
+		E33E31932923DD8E0028ECDB /* CreatePasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33E31922923DD8E0028ECDB /* CreatePasscodeViewController.swift */; };
 		E3702F55292012C200BA39C9 /* PPPangramSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3D292012C100BA39C9 /* PPPangramSans-Bold.ttf */; };
 		E3702F56292012C200BA39C9 /* PPPangramSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3E292012C100BA39C9 /* PPPangramSans-BoldItalic.ttf */; };
 		E3702F57292012C200BA39C9 /* PPPangramSans-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3F292012C100BA39C9 /* PPPangramSans-RegularItalic.ttf */; };
@@ -155,6 +156,7 @@
 		DF2B04282919640300781052 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		E33E318E2923D0680028ECDB /* VerifySecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseViewController.swift; sourceTree = "<group>"; };
 		E33E31902923D1A40028ECDB /* VerifySecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseView.swift; sourceTree = "<group>"; };
+		E33E31922923DD8E0028ECDB /* CreatePasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeViewController.swift; sourceTree = "<group>"; };
 		E3702F3D292012C100BA39C9 /* PPPangramSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Bold.ttf"; sourceTree = "<group>"; };
 		E3702F3E292012C100BA39C9 /* PPPangramSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		E3702F3F292012C100BA39C9 /* PPPangramSans-RegularItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-RegularItalic.ttf"; sourceTree = "<group>"; };
@@ -562,6 +564,7 @@
 			children = (
 				E3EDCC242921036F0011B9A8 /* ShowSecretPhraseViewController.swift */,
 				E33E318E2923D0680028ECDB /* VerifySecretPhraseViewController.swift */,
+				E33E31922923DD8E0028ECDB /* CreatePasscodeViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -873,6 +876,7 @@
 				E3EDCC182920CA1D0011B9A8 /* PinoStepperView.swift in Sources */,
 				E3B7234A291B8D7200D4F46C /* PinoCheckBox.swift in Sources */,
 				E3EDCC142920C6D70011B9A8 /* MockSeedPhraseList.swift in Sources */,
+				E33E31932923DD8E0028ECDB /* CreatePasscodeViewController.swift in Sources */,
 				E33E318F2923D0680028ECDB /* VerifySecretPhraseViewController.swift in Sources */,
 				E3EDCC35292117DB0011B9A8 /* SecretPhraseCell.swift in Sources */,
 				E3B7233D291B85C500D4F46C /* MediumStyle.swift in Sources */,

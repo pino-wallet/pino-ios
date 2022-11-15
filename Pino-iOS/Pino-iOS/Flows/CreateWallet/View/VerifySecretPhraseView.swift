@@ -34,7 +34,6 @@ class VerifySecretPhraseView: UIView {
 		self.userSecretPhrase = secretPhrase
 		self.randomPhrase = secretPhrase.shuffled()
 		super.init(frame: .zero)
-
 		randomPhraseCollectionView.seedPhrase = randomPhrase
 		sortedPhraseCollectionView.seedPhrase = []
 		randomPhraseCollectionView.defultStyle = .noSequence
@@ -79,10 +78,10 @@ extension VerifySecretPhraseView {
 		}), for: .touchUpInside)
 
 		randomPhraseCollectionView.wordSelected = { seedPhrase in
-            self.selectWord(seedPhrase)
+			self.selectWord(seedPhrase)
 		}
 		sortedPhraseCollectionView.wordSelected = { seedPhrase in
-            self.deselectWord(seedPhrase)
+			self.deselectWord(seedPhrase)
 		}
 	}
 
@@ -115,7 +114,7 @@ extension VerifySecretPhraseView {
 
 		errorStackView.axis = .horizontal
 		errorStackView.spacing = 5
-        errorStackView.alignment = .center
+		errorStackView.alignment = .center
 
 		sortedPhraseBoxView.backgroundColor = .Pino.background
 	}
@@ -127,78 +126,81 @@ extension VerifySecretPhraseView {
 		sortedPhraseBoxView.pin(.horizontalEdges, .height(to: randomPhraseCollectionView, padding: 100))
 		sortedPhraseCollectionView.pin(.horizontalEdges(padding: 16), .top(padding: 16))
 		errorStackView.pin(.bottom(to: sortedPhraseBoxView, padding: 16), .centerX)
-        errorIcon.pin(.fixedWidth(16), .fixedHeight(16))
-        errorLabel.pin(.fixedHeight(24))
+		errorIcon.pin(.fixedWidth(16), .fixedHeight(16))
+		errorLabel.pin(.fixedHeight(24))
 		randomPhraseCollectionView.pin(.horizontalEdges(padding: 16))
 	}
 }
 
 extension VerifySecretPhraseView {
-    // MARK: Secret Phrase Methods
-    
-    func selectWord(_ seedPhrase: SeedPhrase) {
-        guard let index = self.randomPhrase.firstIndex(of: seedPhrase) else { return }
-        updateSecretPhraseCell(at: index, style: .empty) { emptyStyle in
-            if !emptyStyle {
-                addWordToSortedPhrase(seedPhrase)
-                self.checkPhraseSequence()
-            }
-        }
-    }
-    
-    func deselectWord(_ seedPhrase: SeedPhrase) {
-        guard let index = self.randomPhrase.firstIndex(where: {$0.title == seedPhrase.title}) else { return }
-        updateSecretPhraseCell(at: index, style: .noSequence) { emptyStyle in
-            if emptyStyle {
-                removeWordFromSortedPhrase(seedPhrase)
-                self.checkPhraseSequence()
-            }
-        }
-    }
-    
-    private func updateSecretPhraseCell(at index: Int, style: SecretPhraseCell.SeedPhraseStyle, emptyStyle: (Bool) -> Void) {
-        let indexPath = IndexPath.init(row: index, section: 0)
-        let cell = self.randomPhraseCollectionView.cellForItem(at: indexPath) as! SecretPhraseCell
-        emptyStyle(cell.seedPhraseStyle == .empty)
-        cell.seedPhraseStyle = style
-    }
-    
-    private func addWordToSortedPhrase(_ word: SeedPhrase) {
-        let selectedWord = SeedPhrase(title: word.title, sequence: self.sortedPhrase.count + 1)
-        self.sortedPhrase.append(selectedWord)
-        self.sortedPhraseCollectionView.seedPhrase = self.sortedPhrase
-    }
-    
-    private func removeWordFromSortedPhrase(_ word: SeedPhrase) {
-        if sortedPhrase.last == word {
-            self.sortedPhrase.removeLast()
-        }else{
-            self.sortedPhrase.removeAll(where: {$0 == word})
-            updateSortedPhraseSequence()
-        }
-        self.sortedPhraseCollectionView.seedPhrase = self.sortedPhrase
-    }
-    
-    private func updateSortedPhraseSequence() {
-        for index in 0..<sortedPhrase.count {
-            let word = sortedPhrase[index].title
-            let sequence = index + 1
-            sortedPhrase[index] = SeedPhrase(title: word, sequence: sequence)
-        }
-    }
-    
-    private func checkPhraseSequence() {
-        switch sortedPhrase {
-        case userSecretPhrase:
-            self.errorStackView.isHidden = true
-            activateContinueButton(true)
-        case Array(self.userSecretPhrase.prefix(upTo: sortedPhrase.count)):
-            self.errorStackView.isHidden = true
-            activateContinueButton(false)
-        default:
-            self.errorStackView.isHidden = false
-            activateContinueButton(false)
-        }
-    }
-}
+	// MARK: Secret Phrase Methods
 
+	func selectWord(_ seedPhrase: SeedPhrase) {
+		guard let index = randomPhrase.firstIndex(of: seedPhrase) else { return }
+		updateSecretPhraseCell(at: index, style: .empty) { emptyStyle in
+			if !emptyStyle {
+				addWordToSortedPhrase(seedPhrase)
+				self.checkPhraseSequence()
+			}
+		}
+	}
+
+	func deselectWord(_ seedPhrase: SeedPhrase) {
+		guard let index = randomPhrase.firstIndex(where: { $0.title == seedPhrase.title }) else { return }
+		updateSecretPhraseCell(at: index, style: .noSequence) { emptyStyle in
+			if emptyStyle {
+				removeWordFromSortedPhrase(seedPhrase)
+				self.checkPhraseSequence()
+			}
+		}
+	}
+
+	private func updateSecretPhraseCell(
+		at index: Int,
+		style: SecretPhraseCell.SeedPhraseStyle,
+		emptyStyle: (Bool) -> Void
+	) {
+		let indexPath = IndexPath(row: index, section: 0)
+		let cell = randomPhraseCollectionView.cellForItem(at: indexPath) as! SecretPhraseCell
+		emptyStyle(cell.seedPhraseStyle == .empty)
+		cell.seedPhraseStyle = style
+	}
+
+	private func addWordToSortedPhrase(_ word: SeedPhrase) {
+		let selectedWord = SeedPhrase(title: word.title, sequence: sortedPhrase.count + 1)
+		sortedPhrase.append(selectedWord)
+		sortedPhraseCollectionView.seedPhrase = sortedPhrase
+	}
+
+	private func removeWordFromSortedPhrase(_ word: SeedPhrase) {
+		if sortedPhrase.last == word {
+			sortedPhrase.removeLast()
+		} else {
+			sortedPhrase.removeAll(where: { $0 == word })
+			updateSortedPhraseSequence()
+		}
+		sortedPhraseCollectionView.seedPhrase = sortedPhrase
+	}
+
+	private func updateSortedPhraseSequence() {
+		for index in 0 ..< sortedPhrase.count {
+			let word = sortedPhrase[index].title
+			let sequence = index + 1
+			sortedPhrase[index] = SeedPhrase(title: word, sequence: sequence)
+		}
+	}
+
+	private func checkPhraseSequence() {
+		switch sortedPhrase {
+		case userSecretPhrase:
+			errorStackView.isHidden = true
+			activateContinueButton(true)
+		case Array(userSecretPhrase.prefix(upTo: sortedPhrase.count)):
+			errorStackView.isHidden = true
+			activateContinueButton(false)
+		default:
+			errorStackView.isHidden = false
+			activateContinueButton(false)
+		}
+	}
+}

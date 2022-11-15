@@ -85,6 +85,7 @@ extension SecretPhraseCollectionView: UICollectionViewDataSource {
 			for: indexPath
 		) as! SecretPhraseCell
 		secretPhraseCell.seedPhrase = seedPhrase[index]
+        secretPhraseCell.seedPhraseStyle = defultStyle
 		return secretPhraseCell
 	}
 }
