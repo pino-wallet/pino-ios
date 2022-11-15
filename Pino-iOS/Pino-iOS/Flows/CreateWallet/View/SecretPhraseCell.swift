@@ -33,18 +33,24 @@ public class SecretPhraseCell: UICollectionViewCell {
 			case .defaultStyle:
 				updateSeedPhrase(title: seedPhrase.title, sequence: seedPhrase.sequence)
 			case .noSequence:
-				updateSeedPhrase(title: seedPhrase.title, sequence: "")
+				updateSeedPhrase(title: seedPhrase.title, sequence: nil)
 			case .empty:
-				updateSeedPhrase(title: "", sequence: "", isEmpty: true)
+				updateSeedPhrase(title: "", sequence: nil, isEmpty: true)
 			}
 		}
 	}
 
 	// MARK: Private Methods
 
-	private func updateSeedPhrase(title: String, sequence: String, isEmpty: Bool = false) {
+	private func updateSeedPhrase(title: String, sequence: Int?, isEmpty: Bool = false) {
 		seedPhraseTitle.text = title
-		seedPhraseSequence.text = sequence
+
+		if let sequence = sequence {
+			seedPhraseSequence.text = String(sequence)
+		} else {
+			seedPhraseSequence.text = ""
+		}
+
 		if isEmpty {
 			dashedBorder.isHidden = false
 			seedPhraseView.layer.borderWidth = 0
@@ -66,8 +72,9 @@ extension SecretPhraseCell {
 	}
 
 	private func setupStyle() {
+		seedPhraseView.backgroundColor = .Pino.secondaryBackground
 		seedPhraseView.layer.cornerRadius = 8
-		seedPhraseView.layer.borderColor = UIColor.systemGray5.cgColor
+		seedPhraseView.layer.borderColor = UIColor.Pino.gray5.cgColor
 
 		seedPhraseStackView.axis = .horizontal
 		seedPhraseStackView.spacing = 2

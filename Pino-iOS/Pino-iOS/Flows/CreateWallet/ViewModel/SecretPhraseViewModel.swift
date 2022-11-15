@@ -8,11 +8,17 @@
 import Foundation
 
 class SecretPhraseViewModel {
-	var secretPhrase: [SeedPhrase] = []
+	// MARK: public Properties
+
+	public var secretPhrase: [SeedPhrase] = []
+
+	// MARK: Initializers
 
 	init() {
 		getRandomWords(numberOfWords: 12)
 	}
+
+	// MARK: Public Methods
 
 	public func getRandomWords(numberOfWords: Int) {
 		// This should be replaced by the library words list
@@ -20,7 +26,7 @@ class SecretPhraseViewModel {
 		let secretPhraseWordsList = Array(shuffledList.prefix(numberOfWords))
 
 		secretPhrase = secretPhraseWordsList.enumerated().map { index, element in
-			SeedPhrase(title: element, sequence: String(index + 1))
+			SeedPhrase(title: element, sequence: index + 1)
 		}
 	}
 }

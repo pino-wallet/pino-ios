@@ -10,6 +10,8 @@
 import Foundation
 
 struct MockSeedPhrase {
+	// MARK: public Properties
+
 	public static var wordList = [
 		"abandon",
 		"ability",

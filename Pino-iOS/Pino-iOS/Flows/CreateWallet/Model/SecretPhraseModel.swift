@@ -6,10 +6,14 @@
 //
 
 public struct SeedPhrase {
-	let title: String
-	let sequence: String
+	// MARK: Public Properties
 
-	init(title: String, sequence: String) {
+	public let title: String
+	public let sequence: Int
+
+	// MARK: Initializers
+
+	init(title: String, sequence: Int) {
 		self.title = title
 		self.sequence = sequence
 	}

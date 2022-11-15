@@ -22,7 +22,6 @@ class ShowSecretPhraseView: UIView {
 	private let savedCheckBox = PinoCheckBox()
 	private var checkBoxDescription = UILabel()
 	private let continueButton = PinoButton(style: .deactive, title: "Continue")
-
 	private var shareSecretPhrase: () -> Void
 
 	// MARK: Initializers
@@ -77,7 +76,7 @@ extension ShowSecretPhraseView {
 	}
 
 	private func setupStyle() {
-		backgroundColor = .Pino.background
+		backgroundColor = .Pino.secondaryBackground
 
 		pageTitle.text = "Backup seed pharase"
 		pageTitle.textColor = .Pino.label

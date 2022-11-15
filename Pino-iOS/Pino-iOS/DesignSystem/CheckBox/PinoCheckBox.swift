@@ -11,7 +11,6 @@ public class PinoCheckBox: UIButton {
 	// MARK: - Public properties
 
 	public var style: Style
-
 	public var isChecked = false {
 		didSet {
 			updateUI(isChecked: isChecked)

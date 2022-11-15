@@ -36,7 +36,7 @@ class ShowSecretPhraseViewController: UIViewController {
 		// show steper view in navigation bar
 		let stepperView = PinoStepperView(stepsCount: 3, currentStep: 1)
 		navigationItem.titleView = stepperView
-		navigationController?.navigationBar.backgroundColor = .Pino.background
+		navigationController?.navigationBar.backgroundColor = .Pino.secondaryBackground
 	}
 
 	@objc
