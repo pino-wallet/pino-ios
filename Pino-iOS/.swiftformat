@@ -94,6 +94,7 @@ strongifiedSelf
 --wrapreturntype preserve
 --wrapconditions after-first 
 --redundanttype inferred
+--voidtype void
 
 # Option for additional rules
 

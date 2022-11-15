@@ -8,7 +8,14 @@
 import UIKit
 
 public class PinoCheckBox: UIButton {
-	// MARK: Lifecycle
+	// MARK: - Public properties
+
+	public var style: Style
+	public var isChecked = false {
+		didSet {
+			updateUI(isChecked: isChecked)
+		}
+	}
 
 	// MARK: - Initializers
 
@@ -23,12 +30,6 @@ public class PinoCheckBox: UIButton {
 		fatalError()
 	}
 
-	// MARK: Public
-
-	// MARK: - Public properties
-
-	public var style: Style
-
 	// MARK: - UI overrides
 
 	override public func awakeFromNib() {
@@ -36,24 +37,12 @@ public class PinoCheckBox: UIButton {
 		updateUI(isChecked: false)
 	}
 
-	// MARK: Internal
+	// MARK: - Private methods
 
 	@objc
-	func buttonClicked() {
+	private func buttonClicked() {
 		isChecked.toggle()
 	}
-
-	// MARK: Private
-
-	// MARK: - private properties
-
-	private var isChecked = false {
-		didSet {
-			updateUI(isChecked: isChecked)
-		}
-	}
-
-	// MARK: - Private methods
 
 	private func updateUI(isChecked: Bool) {
 		let checkBoxIcon: UIImage?

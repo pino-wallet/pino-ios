@@ -21,7 +21,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		// `application:configurationForConnectingSceneSession` instead).
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		window = UIWindow(windowScene: windowScene)
-		window?.rootViewController = IntroViewController()
+		let navigationController = UINavigationController()
+		navigationController.setViewControllers([ShowSecretPhraseViewController()], animated: true)
+		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
 	}
 

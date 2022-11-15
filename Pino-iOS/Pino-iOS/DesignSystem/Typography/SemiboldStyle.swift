@@ -25,6 +25,11 @@ extension UIFont.PinoStyle {
 		size: FontSize.title2.rawValue
 	)
 
+	static let semiboldTitle3 = UIFont(
+		name: FontName.pinoSemibold.rawValue,
+		size: FontSize.title3.rawValue
+	)
+
 	static let semiboldHeadline = UIFont(
 		name: FontName.pinoSemibold.rawValue,
 		size: FontSize.headline.rawValue
