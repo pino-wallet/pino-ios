@@ -11,7 +11,10 @@ class VerifySecretPhraseViewController: UIViewController {
 	// MARK: Private Properties
 
 	private var verifySecretPhraseView: VerifySecretPhraseView?
-	private let secretPhraseVM = SecretPhraseViewModel()
+
+	// MARK: Public Properties
+
+	public var secretPhraseVM: SecretPhraseViewModel!
 
 	// MARK: View Overrides
 
@@ -42,10 +45,10 @@ class VerifySecretPhraseViewController: UIViewController {
 
 	private func createWallet(_ sortedPhrase: [SeedPhrase]) {
 		if secretPhraseVM.isVerified(selectedPhrase: sortedPhrase) {
-            // Wallet should be created here
-            // Go to create passcode page
-            let createPasscodeViewController = CreatePasscodeViewController()
-            navigationController?.pushViewController(createPasscodeViewController, animated: true)
+			// Wallet should be created here
+			// Go to create passcode page
+			let createPasscodeViewController = CreatePasscodeViewController()
+			navigationController?.pushViewController(createPasscodeViewController, animated: true)
 		}
 	}
 }

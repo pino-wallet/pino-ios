@@ -50,6 +50,7 @@ class ShowSecretPhraseViewController: UIViewController {
 
 	private func goToVerifyPage() {
 		let verifyViewController = VerifySecretPhraseViewController()
+		verifyViewController.secretPhraseVM = secretPhraseVM
 		navigationController?.pushViewController(verifyViewController, animated: true)
 	}
 }
