@@ -5,7 +5,7 @@
 //  Created by Mohi Raoufi on 11/14/22.
 //
 
-public struct SeedPhrase {
+public struct SeedPhrase: Equatable {
 	// MARK: Public Properties
 
 	public let title: String

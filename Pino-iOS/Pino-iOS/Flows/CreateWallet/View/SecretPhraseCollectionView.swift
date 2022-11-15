@@ -17,7 +17,8 @@ class SecretPhraseCollectionView: UICollectionView {
 		}
 	}
 
-	public var onCellTapped: ((SeedPhrase) -> Void)?
+	public var defultStyle = SecretPhraseCell.SeedPhraseStyle.defaultStyle
+	public var wordSelected: ((SeedPhrase) -> Void)?
 
 	// MARK: Initializers
 
@@ -93,8 +94,8 @@ extension SecretPhraseCollectionView: UICollectionViewDataSource {
 extension SecretPhraseCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let index = indexPath.item
-		if let cellTapped = onCellTapped {
-			cellTapped(seedPhrase[index])
+		if let wordSelected = wordSelected {
+			wordSelected(seedPhrase[index])
 		}
 	}
 }

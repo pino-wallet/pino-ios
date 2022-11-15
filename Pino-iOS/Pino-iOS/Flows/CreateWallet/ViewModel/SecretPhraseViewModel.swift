@@ -29,4 +29,12 @@ class SecretPhraseViewModel {
 			SeedPhrase(title: element, sequence: index + 1)
 		}
 	}
+
+	public func isVerified(selectedPhrase: [SeedPhrase]) -> Bool {
+		if selectedPhrase == secretPhrase {
+			return true
+		} else {
+			return false
+		}
+	}
 }

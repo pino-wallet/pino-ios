@@ -23,13 +23,18 @@ class ShowSecretPhraseView: UIView {
 	private var checkBoxDescription = UILabel()
 	private let continueButton = PinoButton(style: .deactive, title: "Continue")
 	private var shareSecretPhrase: () -> Void
+	private var savedSecretPhrase: () -> Void
 
 	// MARK: Initializers
 
-	init(_ secretPhrase: [SeedPhrase], shareSecretPhare: @escaping (() -> Void)) {
+	init(
+		_ secretPhrase: [SeedPhrase],
+		shareSecretPhare: @escaping (() -> Void),
+		savedSecretPhrase: @escaping (() -> Void)
+	) {
 		self.shareSecretPhrase = shareSecretPhare
+		self.savedSecretPhrase = savedSecretPhrase
 		super.init(frame: .zero)
-
 		seedPhraseCollectionView.seedPhrase = secretPhrase
 		setupView()
 		setupStyle()
@@ -72,6 +77,12 @@ extension ShowSecretPhraseView {
 
 		savedCheckBox.addAction(UIAction(handler: { _ in
 			self.activateContinueButton(self.savedCheckBox.isChecked)
+		}), for: .touchUpInside)
+
+		continueButton.addAction(UIAction(handler: { _ in
+			if self.continueButton.style == .active {
+				self.savedSecretPhrase()
+			}
 		}), for: .touchUpInside)
 	}
 
