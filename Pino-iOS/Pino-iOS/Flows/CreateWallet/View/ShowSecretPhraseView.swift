@@ -13,13 +13,13 @@ class ShowSecretPhraseView: UIView {
 	private let contentStackView = UIStackView()
 	private let titleStackView = UIStackView()
 	private let titleLabel = UILabel()
-    private let firstDescriptionBox = UIView()
-    private let secondDescriptionBox = UIView()
+	private let firstDescriptionBox = UIView()
+	private let secondDescriptionBox = UIView()
 	private let firstDescriptionLabel = UILabel()
-    private let secondDescriptionLabel = UILabel()
-    private let seedPhraseView = UIView()
-    private let revealButton = UIButton()
-    private let seedPhraseBlurView = BlurEffectView()
+	private let secondDescriptionLabel = UILabel()
+	private let seedPhraseView = UIView()
+	private let revealButton = UIButton()
+	private let seedPhraseBlurView = BlurEffectView()
 	private let seedPhraseStackView = UIStackView()
 	private let seedPhraseCollectionView = SecretPhraseCollectionView()
 	private let shareButton = UIButton()
@@ -64,19 +64,19 @@ extension ShowSecretPhraseView {
 		contentStackView.addArrangedSubview(seedPhraseView)
 		titleStackView.addArrangedSubview(titleLabel)
 		titleStackView.addArrangedSubview(firstDescriptionBox)
-        titleStackView.addArrangedSubview(secondDescriptionBox)
-        firstDescriptionBox.addSubview(firstDescriptionLabel)
-        secondDescriptionBox.addSubview(secondDescriptionLabel)
-        seedPhraseView.addSubview(seedPhraseStackView)
-        seedPhraseView.addSubview(seedPhraseBlurView)
-        seedPhraseView.addSubview(revealButton)
+		titleStackView.addArrangedSubview(secondDescriptionBox)
+		firstDescriptionBox.addSubview(firstDescriptionLabel)
+		secondDescriptionBox.addSubview(secondDescriptionLabel)
+		seedPhraseView.addSubview(seedPhraseStackView)
+		seedPhraseView.addSubview(seedPhraseBlurView)
+		seedPhraseView.addSubview(revealButton)
 		seedPhraseStackView.addArrangedSubview(seedPhraseCollectionView)
 		seedPhraseStackView.addArrangedSubview(shareButton)
 		addSubview(contentStackView)
 		addSubview(continueButton)
-        
-        let revealTapGesture = UITapGestureRecognizer(target: self, action: #selector(showSeedPhrase))
-        seedPhraseView.addGestureRecognizer(revealTapGesture)
+
+		let revealTapGesture = UITapGestureRecognizer(target: self, action: #selector(showSeedPhrase))
+		seedPhraseView.addGestureRecognizer(revealTapGesture)
 
 		shareButton.addAction(UIAction(handler: { _ in
 			self.shareSecretPhrase()
@@ -97,29 +97,29 @@ extension ShowSecretPhraseView {
 		titleLabel.font = .PinoStyle.semiboldTitle3
 
 		firstDescriptionLabel.text = "Write down your Secret Phrase and store it in a safe place."
-        firstDescriptionLabel.textColor = .Pino.label
-        firstDescriptionLabel.font = .PinoStyle.mediumCallout
-        firstDescriptionLabel.numberOfLines = 0
-        
-        secondDescriptionLabel.text = "It allows you to recover your wallet if you lose your device or password"
-        secondDescriptionLabel.textColor = .Pino.label
-        secondDescriptionLabel.font = .PinoStyle.mediumCallout
-        secondDescriptionLabel.numberOfLines = 0
-        
-        firstDescriptionBox.backgroundColor = .Pino.background
-        firstDescriptionBox.layer.cornerRadius = 8
-        
-        secondDescriptionBox.backgroundColor = .Pino.background
-        secondDescriptionBox.layer.cornerRadius = 8
+		firstDescriptionLabel.textColor = .Pino.label
+		firstDescriptionLabel.font = .PinoStyle.mediumCallout
+		firstDescriptionLabel.numberOfLines = 0
+
+		secondDescriptionLabel.text = "It allows you to recover your wallet if you lose your device or password"
+		secondDescriptionLabel.textColor = .Pino.label
+		secondDescriptionLabel.font = .PinoStyle.mediumCallout
+		secondDescriptionLabel.numberOfLines = 0
+
+		firstDescriptionBox.backgroundColor = .Pino.background
+		firstDescriptionBox.layer.cornerRadius = 8
+
+		secondDescriptionBox.backgroundColor = .Pino.background
+		secondDescriptionBox.layer.cornerRadius = 8
 
 		shareButton.setTitle("Copy", for: .normal)
 		shareButton.setTitleColor(.Pino.primary, for: .normal)
 		shareButton.titleLabel?.font = .PinoStyle.semiboldBody
-        
-        revealButton.setTitle("Tap to reveal", for: .normal)
-        revealButton.setTitleColor(.Pino.label, for: .normal)
-        revealButton.titleLabel?.font = .PinoStyle.semiboldTitle3
-        
+
+		revealButton.setTitle("Tap to reveal", for: .normal)
+		revealButton.setTitleColor(.Pino.label, for: .normal)
+		revealButton.titleLabel?.font = .PinoStyle.semiboldTitle3
+
 		contentStackView.axis = .vertical
 		contentStackView.spacing = 32
 
@@ -132,12 +132,12 @@ extension ShowSecretPhraseView {
 	}
 
 	private func setupContstraint() {
-        firstDescriptionLabel.pin(
-            .allEdges(padding: 12)
-        )
-        secondDescriptionLabel.pin(
-            .allEdges(padding: 12)
-        )
+		firstDescriptionLabel.pin(
+			.allEdges(padding: 12)
+		)
+		secondDescriptionLabel.pin(
+			.allEdges(padding: 12)
+		)
 		contentStackView.pin(
 			.top(padding: 115),
 			.horizontalEdges(padding: 16)
@@ -145,28 +145,28 @@ extension ShowSecretPhraseView {
 		continueButton.pin(
 			.bottom(padding: 42),
 			.horizontalEdges(padding: 16),
-            .fixedHeight(56)
+			.fixedHeight(56)
 		)
 		seedPhraseCollectionView.pin(
-            .horizontalEdges
+			.horizontalEdges
 		)
-        seedPhraseStackView.pin(
-            .verticalEdges(padding: 10),
-            .horizontalEdges
-        )
-        seedPhraseBlurView.pin(
-            .allEdges()
-        )
-        revealButton.pin(
-            .centerX,
-            .centerY
-        )
+		seedPhraseStackView.pin(
+			.verticalEdges(padding: 10),
+			.horizontalEdges
+		)
+		seedPhraseBlurView.pin(
+			.allEdges()
+		)
+		revealButton.pin(
+			.centerX,
+			.centerY
+		)
 	}
-    
-    @objc
-    private func showSeedPhrase() {
-        seedPhraseBlurView.isHidden = true
-        revealButton.isHidden = true
-        continueButton.style = .active
-    }
+
+	@objc
+	private func showSeedPhrase() {
+		seedPhraseBlurView.isHidden = true
+		revealButton.isHidden = true
+		continueButton.style = .active
+	}
 }

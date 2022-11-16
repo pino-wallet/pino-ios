@@ -91,9 +91,6 @@
 		E3EDCC182920CA1D0011B9A8 /* PinoStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC172920CA1D0011B9A8 /* PinoStepperView.swift */; };
 		E3EDCC192920CA1D0011B9A8 /* PinoStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC172920CA1D0011B9A8 /* PinoStepperView.swift */; };
 		E3EDCC1A2920CA1D0011B9A8 /* PinoStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC172920CA1D0011B9A8 /* PinoStepperView.swift */; };
-		E3EDCC1D2920F56F0011B9A8 /* StepWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC1C2920F56F0011B9A8 /* StepWrapper.swift */; };
-		E3EDCC1E2920F56F0011B9A8 /* StepWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC1C2920F56F0011B9A8 /* StepWrapper.swift */; };
-		E3EDCC1F2920F56F0011B9A8 /* StepWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC1C2920F56F0011B9A8 /* StepWrapper.swift */; };
 		E3EDCC252921036F0011B9A8 /* ShowSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC242921036F0011B9A8 /* ShowSecretPhraseViewController.swift */; };
 		E3EDCC262921036F0011B9A8 /* ShowSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC242921036F0011B9A8 /* ShowSecretPhraseViewController.swift */; };
 		E3EDCC272921036F0011B9A8 /* ShowSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC242921036F0011B9A8 /* ShowSecretPhraseViewController.swift */; };
@@ -195,7 +192,6 @@
 		E3B7234B291B8D8A00D4F46C /* PinoCheckBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoCheckBoxStyle.swift; sourceTree = "<group>"; };
 		E3EDCC132920C6D70011B9A8 /* MockSeedPhraseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSeedPhraseList.swift; sourceTree = "<group>"; };
 		E3EDCC172920CA1D0011B9A8 /* PinoStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoStepperView.swift; sourceTree = "<group>"; };
-		E3EDCC1C2920F56F0011B9A8 /* StepWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepWrapper.swift; sourceTree = "<group>"; };
 		E3EDCC242921036F0011B9A8 /* ShowSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseViewController.swift; sourceTree = "<group>"; };
 		E3EDCC28292105470011B9A8 /* ShowSecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseView.swift; sourceTree = "<group>"; };
 		E3EDCC30292117C10011B9A8 /* SecretPhraseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseCollectionView.swift; sourceTree = "<group>"; };
@@ -537,7 +533,6 @@
 			isa = PBXGroup;
 			children = (
 				E3EDCC172920CA1D0011B9A8 /* PinoStepperView.swift */,
-				E3EDCC1C2920F56F0011B9A8 /* StepWrapper.swift */,
 			);
 			path = Stepper;
 			sourceTree = "<group>";
@@ -891,7 +886,6 @@
 				E33E31952924CDFB0028ECDB /* BlurEffectView.swift in Sources */,
 				CE5757B5291C7DBA001B4EFE /* AutolayoutHelper.swift in Sources */,
 				DF2B04292919640300781052 /* IntroViewController.swift in Sources */,
-				E3EDCC1D2920F56F0011B9A8 /* StepWrapper.swift in Sources */,
 				E3B7233F291B85D700D4F46C /* RegularStyle.swift in Sources */,
 				E3B72347291B8A4700D4F46C /* PinoButtonStyle.swift in Sources */,
 			);
@@ -903,7 +897,6 @@
 			files = (
 				DF05F6B5291644B9005A3338 /* Pino_iOSTests.swift in Sources */,
 				E3EDCC3E29221C930011B9A8 /* SecretPhraseViewModel.swift in Sources */,
-				E3EDCC1E2920F56F0011B9A8 /* StepWrapper.swift in Sources */,
 				E3EDCC36292117DB0011B9A8 /* SecretPhraseCell.swift in Sources */,
 				E3EDCC43292236C20011B9A8 /* SecretPhraseModel.swift in Sources */,
 				E3EDCC32292117C10011B9A8 /* SecretPhraseCollectionView.swift in Sources */,
@@ -930,7 +923,6 @@
 				DF05F6BF291644B9005A3338 /* Pino_iOSUITests.swift in Sources */,
 				E3EDCC33292117C10011B9A8 /* SecretPhraseCollectionView.swift in Sources */,
 				E3EDCC3B29220F490011B9A8 /* SecretPhraseCenteredFlowLayout.swift in Sources */,
-				E3EDCC1F2920F56F0011B9A8 /* StepWrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
