@@ -50,6 +50,7 @@
 		E33E318F2923D0680028ECDB /* VerifySecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33E318E2923D0680028ECDB /* VerifySecretPhraseViewController.swift */; };
 		E33E31912923D1A40028ECDB /* VerifySecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33E31902923D1A40028ECDB /* VerifySecretPhraseView.swift */; };
 		E33E31932923DD8E0028ECDB /* CreatePasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33E31922923DD8E0028ECDB /* CreatePasscodeViewController.swift */; };
+		E33E31952924CDFB0028ECDB /* BlurEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33E31942924CDFB0028ECDB /* BlurEffectView.swift */; };
 		E3702F55292012C200BA39C9 /* PPPangramSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3D292012C100BA39C9 /* PPPangramSans-Bold.ttf */; };
 		E3702F56292012C200BA39C9 /* PPPangramSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3E292012C100BA39C9 /* PPPangramSans-BoldItalic.ttf */; };
 		E3702F57292012C200BA39C9 /* PPPangramSans-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3F292012C100BA39C9 /* PPPangramSans-RegularItalic.ttf */; };
@@ -157,6 +158,7 @@
 		E33E318E2923D0680028ECDB /* VerifySecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseViewController.swift; sourceTree = "<group>"; };
 		E33E31902923D1A40028ECDB /* VerifySecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseView.swift; sourceTree = "<group>"; };
 		E33E31922923DD8E0028ECDB /* CreatePasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeViewController.swift; sourceTree = "<group>"; };
+		E33E31942924CDFB0028ECDB /* BlurEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurEffectView.swift; sourceTree = "<group>"; };
 		E3702F3D292012C100BA39C9 /* PPPangramSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Bold.ttf"; sourceTree = "<group>"; };
 		E3702F3E292012C100BA39C9 /* PPPangramSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		E3702F3F292012C100BA39C9 /* PPPangramSans-RegularItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-RegularItalic.ttf"; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				CE5757B4291C7DBA001B4EFE /* AutolayoutHelper.swift */,
+				E33E31942924CDFB0028ECDB /* BlurEffectView.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -885,6 +888,7 @@
 				E3B72342291B87A200D4F46C /* PinoColor.swift in Sources */,
 				E3EDCC29292105470011B9A8 /* ShowSecretPhraseView.swift in Sources */,
 				E3EDCC42292236C20011B9A8 /* SecretPhraseModel.swift in Sources */,
+				E33E31952924CDFB0028ECDB /* BlurEffectView.swift in Sources */,
 				CE5757B5291C7DBA001B4EFE /* AutolayoutHelper.swift in Sources */,
 				DF2B04292919640300781052 /* IntroViewController.swift in Sources */,
 				E3EDCC1D2920F56F0011B9A8 /* StepWrapper.swift in Sources */,

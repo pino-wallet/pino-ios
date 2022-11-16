@@ -12,15 +12,17 @@ class ShowSecretPhraseView: UIView {
 
 	private let contentStackView = UIStackView()
 	private let titleStackView = UIStackView()
-	private let pageTitle = UILabel()
-	private let pageDescription = UILabel()
+	private let titleLabel = UILabel()
+    private let firstDescriptionBox = UIView()
+    private let secondDescriptionBox = UIView()
+	private let firstDescriptionLabel = UILabel()
+    private let secondDescriptionLabel = UILabel()
+    private let seedPhraseView = UIView()
+    private let revealButton = UIButton()
+    private let seedPhraseBlurView = BlurEffectView()
 	private let seedPhraseStackView = UIStackView()
 	private let seedPhraseCollectionView = SecretPhraseCollectionView()
 	private let shareButton = UIButton()
-	private let continueStackView = UIStackView()
-	private let saveSecretPhareStackView = UIStackView()
-	private let savedCheckBox = PinoCheckBox()
-	private var checkBoxDescription = UILabel()
 	private let continueButton = PinoButton(style: .deactive, title: "Continue")
 	private var shareSecretPhrase: () -> Void
 	private var savedSecretPhrase: () -> Void
@@ -59,24 +61,25 @@ extension ShowSecretPhraseView {
 
 	private func setupView() {
 		contentStackView.addArrangedSubview(titleStackView)
-		contentStackView.addArrangedSubview(seedPhraseStackView)
-		titleStackView.addArrangedSubview(pageTitle)
-		titleStackView.addArrangedSubview(pageDescription)
+		contentStackView.addArrangedSubview(seedPhraseView)
+		titleStackView.addArrangedSubview(titleLabel)
+		titleStackView.addArrangedSubview(firstDescriptionBox)
+        titleStackView.addArrangedSubview(secondDescriptionBox)
+        firstDescriptionBox.addSubview(firstDescriptionLabel)
+        secondDescriptionBox.addSubview(secondDescriptionLabel)
+        seedPhraseView.addSubview(seedPhraseStackView)
+        seedPhraseView.addSubview(seedPhraseBlurView)
+        seedPhraseView.addSubview(revealButton)
 		seedPhraseStackView.addArrangedSubview(seedPhraseCollectionView)
 		seedPhraseStackView.addArrangedSubview(shareButton)
-		continueStackView.addArrangedSubview(saveSecretPhareStackView)
-		continueStackView.addArrangedSubview(continueButton)
-		saveSecretPhareStackView.addArrangedSubview(savedCheckBox)
-		saveSecretPhareStackView.addArrangedSubview(checkBoxDescription)
 		addSubview(contentStackView)
-		addSubview(continueStackView)
+		addSubview(continueButton)
+        
+        let revealTapGesture = UITapGestureRecognizer(target: self, action: #selector(showSeedPhrase))
+        seedPhraseView.addGestureRecognizer(revealTapGesture)
 
 		shareButton.addAction(UIAction(handler: { _ in
 			self.shareSecretPhrase()
-		}), for: .touchUpInside)
-
-		savedCheckBox.addAction(UIAction(handler: { _ in
-			self.activateContinueButton(self.savedCheckBox.isChecked)
 		}), for: .touchUpInside)
 
 		continueButton.addAction(UIAction(handler: { _ in
@@ -89,60 +92,81 @@ extension ShowSecretPhraseView {
 	private func setupStyle() {
 		backgroundColor = .Pino.secondaryBackground
 
-		pageTitle.text = "Backup seed pharase"
-		pageTitle.textColor = .Pino.label
-		pageTitle.font = .PinoStyle.semiboldTitle3
+		titleLabel.text = "Backup seed pharase"
+		titleLabel.textColor = .Pino.label
+		titleLabel.font = .PinoStyle.semiboldTitle3
 
-		pageDescription.text = "A two line description should be here. A two line description should be here"
-		pageDescription.textColor = .Pino.secondaryLabel
-		pageDescription.font = .PinoStyle.mediumCallout
-		pageDescription.numberOfLines = 0
+		firstDescriptionLabel.text = "Write down your Secret Phrase and store it in a safe place."
+        firstDescriptionLabel.textColor = .Pino.label
+        firstDescriptionLabel.font = .PinoStyle.mediumCallout
+        firstDescriptionLabel.numberOfLines = 0
+        
+        secondDescriptionLabel.text = "It allows you to recover your wallet if you lose your device or password"
+        secondDescriptionLabel.textColor = .Pino.label
+        secondDescriptionLabel.font = .PinoStyle.mediumCallout
+        secondDescriptionLabel.numberOfLines = 0
+        
+        firstDescriptionBox.backgroundColor = .Pino.background
+        firstDescriptionBox.layer.cornerRadius = 8
+        
+        secondDescriptionBox.backgroundColor = .Pino.background
+        secondDescriptionBox.layer.cornerRadius = 8
 
 		shareButton.setTitle("Copy", for: .normal)
-		shareButton.setTitleColor(.Pino.label, for: .normal)
+		shareButton.setTitleColor(.Pino.primary, for: .normal)
 		shareButton.titleLabel?.font = .PinoStyle.semiboldBody
-
-		checkBoxDescription.text = "I saved secret phrase"
-		checkBoxDescription.textColor = .Pino.label
-		checkBoxDescription.font = .PinoStyle.mediumCallout
-
+        
+        revealButton.setTitle("Tap to reveal", for: .normal)
+        revealButton.setTitleColor(.Pino.label, for: .normal)
+        revealButton.titleLabel?.font = .PinoStyle.semiboldTitle3
+        
 		contentStackView.axis = .vertical
 		contentStackView.spacing = 32
 
 		titleStackView.axis = .vertical
-		titleStackView.spacing = 12
+		titleStackView.spacing = 10
 
 		seedPhraseStackView.axis = .vertical
-		seedPhraseStackView.spacing = 40
+		seedPhraseStackView.spacing = 32
 		seedPhraseStackView.alignment = .center
-
-		saveSecretPhareStackView.axis = .horizontal
-		saveSecretPhareStackView.spacing = 6
-		saveSecretPhareStackView.alignment = .center
-
-		continueStackView.axis = .vertical
-		continueStackView.spacing = 40
-		continueStackView.alignment = .center
 	}
 
 	private func setupContstraint() {
+        firstDescriptionLabel.pin(
+            .allEdges(padding: 12)
+        )
+        secondDescriptionLabel.pin(
+            .allEdges(padding: 12)
+        )
 		contentStackView.pin(
 			.top(padding: 115),
-			.leading(padding: 16),
-			.trailing(padding: 16)
-		)
-		continueStackView.pin(
-			.bottom(padding: 42),
-			.leading(padding: 16),
-			.trailing(padding: 16)
+			.horizontalEdges(padding: 16)
 		)
 		continueButton.pin(
-			.width(to: continueStackView),
-			.fixedHeight(56)
+			.bottom(padding: 42),
+			.horizontalEdges(padding: 16),
+            .fixedHeight(56)
 		)
 		seedPhraseCollectionView.pin(
-			.trailing(to: seedPhraseStackView),
-			.leading(to: seedPhraseStackView)
+            .horizontalEdges
 		)
+        seedPhraseStackView.pin(
+            .verticalEdges(padding: 10),
+            .horizontalEdges
+        )
+        seedPhraseBlurView.pin(
+            .allEdges()
+        )
+        revealButton.pin(
+            .centerX,
+            .centerY
+        )
 	}
+    
+    @objc
+    private func showSeedPhrase() {
+        seedPhraseBlurView.isHidden = true
+        revealButton.isHidden = true
+        continueButton.style = .active
+    }
 }

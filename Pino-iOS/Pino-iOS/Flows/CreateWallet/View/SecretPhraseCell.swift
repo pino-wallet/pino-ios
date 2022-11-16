@@ -88,16 +88,11 @@ extension SecretPhraseCell {
 
 	private func setupConstraint() {
 		seedPhraseView.pin(
-			.top(to: contentView),
-			.bottom(to: contentView),
-			.leading(to: contentView),
-			.trailing(to: contentView)
+			.allEdges
 		)
 		seedPhraseStackView.pin(
-			.top(to: seedPhraseView, padding: 6),
-			.bottom(to: seedPhraseView, padding: 6),
-			.leading(to: seedPhraseView, padding: 6),
-			.trailing(to: seedPhraseView, padding: 6)
+			.horizontalEdges(padding: 14),
+            .verticalEdges(padding: 6)
 		)
 	}
 
