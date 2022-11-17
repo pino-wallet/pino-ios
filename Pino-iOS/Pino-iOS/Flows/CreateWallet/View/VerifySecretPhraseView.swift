@@ -71,10 +71,11 @@ extension VerifySecretPhraseView {
 		addSubview(contentStackView)
 		addSubview(continueButton)
 
+		#warning("This code should be uncommented before push")
 		continueButton.addAction(UIAction(handler: { _ in
-			if self.continueButton.style == .active {
-				self.createWallet(self.sortedPhrase)
-			}
+//			if self.continueButton.style == .active {
+			self.createWallet(self.sortedPhrase)
+//			}
 		}), for: .touchUpInside)
 
 		randomPhraseCollectionView.wordSelected = { seedPhrase in

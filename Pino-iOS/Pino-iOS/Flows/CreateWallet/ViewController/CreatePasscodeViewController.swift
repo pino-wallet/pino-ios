@@ -8,6 +8,12 @@
 import UIKit
 
 class CreatePasscodeViewController: UIViewController {
+	// MARK: Private Properties
+
+	private var createPassView: CreatePassView!
+
+	// MARK: Public Properties
+
 	// MARK: View Overrides
 
 	override func viewDidLoad() {
@@ -23,7 +29,8 @@ class CreatePasscodeViewController: UIViewController {
 
 	private func stupView() {
 		// Custom view should be created
-		view = UIView()
+		createPassView = CreatePassView(createPassVM: CreatePassVM(passDigitsCount: 6))
+		view = createPassView
 		view.backgroundColor = .Pino.secondaryBackground
 	}
 
