@@ -23,7 +23,7 @@ public class PinoLabel: UILabel {
 	public init(style: Style, text: String = "") {
 		self.style = style
 		super.init(frame: .zero)
-        self.text = text
+		self.text = text
 		updateStyle()
 	}
 
@@ -42,7 +42,7 @@ public class PinoLabel: UILabel {
 	private func updateStyle() {
 		textColor = style.textColor
 		font = style.font
-        numberOfLines = style.numberOfLine
+		numberOfLines = style.numberOfLine
 		setLineSpacing()
 	}
 
