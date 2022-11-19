@@ -10,20 +10,41 @@ import UIKit
 
 struct CreatePassVM {
 	public var passDigitsCount = 6
+	public var passwordText: String?
+
+	private func createPassword() {
+
+	}
+
+	private func verifyPassword() {
+
+	}
 }
 
 class PassDotsView: UIView {
 	// MARK: Private Properties
 
 	private let passDotsContainerView = UIStackView()
-	private let passCreationVM: CreatePassVM!
+	private let createPassVM: CreatePassVM!
 
 	// MARK: Public Properties
 
+	// MARK: Overrides
+
+	var _inputView: UIView?
+
+   override var canBecomeFirstResponder: Bool { return true }
+   override var canResignFirstResponder: Bool { return true }
+
+   override var inputView: UIView? {
+       set { _inputView = newValue }
+       get { return _inputView }
+   }
+
 	// MARK: Initializers
 
-	init(passCreationVM: CreatePassVM) {
-		self.passCreationVM = passCreationVM
+	init(createPassVM: CreatePassVM) {
+		self.createPassVM = passCreationVM
 		super.init(frame: .zero)
 
 		setupView()
@@ -88,4 +109,36 @@ extension PassDotsView {
 		case empty
 		case error
 	}
+}
+
+// Confirming to UIKeyInput In order to show keyboard
+extension PassDotsView: UIKeyInput {
+	
+	typeAlias passwordText = createPassVM.passwordText
+    
+	var hasText: Bool { createPassVM.passwordText.isEmpty == false }
+    
+	func insertText(_ text: String) {
+		guard passwordText.length <= createPassVM.passDigitsCount else { return }
+		passwordText.append(text)
+		setDotviewStyleAt(index: passwordText.length-1, withState: .fill)
+	}
+
+    func deleteBackward() {
+		guard passwordText.lenght > 0 else {return}
+        passwordText = passwordText.popLast()
+		setDotviewStyleAt(index: passwordText.length, withState: .empty)
+	}
+
+	func setDotviewStyleAt(index: Int, withState state: PassdotState) {
+		guard passDotsContainerView.subViews.isIndexValid else { return }
+		let fillingDotView = passDotsContainerView.subViews[index]
+		setStyle(of: fillingDotView, withState: state)
+	}
+}
+
+extension Array {
+
+	let isIndexValid = self.indices.contains(index)
+
 }
