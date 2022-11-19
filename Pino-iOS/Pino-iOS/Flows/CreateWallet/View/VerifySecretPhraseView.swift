@@ -44,14 +44,6 @@ class VerifySecretPhraseView: UIView {
 	required init?(coder: NSCoder) {
 		fatalError()
 	}
-
-	private func activateContinueButton(_ isActive: Bool) {
-		if isActive {
-			continueButton.style = .active
-		} else {
-			continueButton.style = .deactive
-		}
-	}
 }
 
 extension VerifySecretPhraseView {
@@ -97,18 +89,18 @@ extension VerifySecretPhraseView {
 		let sortedWords = sortedPhraseCollectionView.words
 
 		switch sortedWords {
-		// All words are selected in the correctorder
+		// All words are selected in the correct order
 		case userSecretPhrase:
 			errorStackView.isHidden = true
-			activateContinueButton(true)
+			continueButton.style = .active
 		// Some words are selected in the correct order
 		case Array(userSecretPhrase.prefix(upTo: sortedWords.count)):
 			errorStackView.isHidden = true
-			activateContinueButton(false)
+			continueButton.style = .deactive
 		// The words are NOT selected in the correct order
 		default:
 			errorStackView.isHidden = false
-			activateContinueButton(false)
+			continueButton.style = .deactive
 		}
 	}
 }
@@ -148,7 +140,7 @@ extension VerifySecretPhraseView {
 
 		pageTitle.text = "Verify seed pharase"
 		pageTitle.textColor = .Pino.label
-		pageTitle.font = .PinoStyle.semiboldTitle2
+		pageTitle.font = .PinoStyle.semiboldTitle3
 
 		pageDescription.text = "A two line description should be here. A two line description should be here"
 		pageDescription.textColor = .Pino.secondaryLabel
@@ -178,14 +170,39 @@ extension VerifySecretPhraseView {
 	}
 
 	private func setupContstraint() {
-		contentStackView.pin(.top(padding: 115), .horizontalEdges)
-		titleStackView.pin(.horizontalEdges(padding: 16))
-		continueButton.pin(.bottom(padding: 42), .horizontalEdges(padding: 16), .fixedHeight(56))
-		sortedPhraseBoxView.pin(.horizontalEdges, .height(to: randomPhraseCollectionView, padding: 100))
-		sortedPhraseCollectionView.pin(.horizontalEdges(padding: 16), .top(padding: 16))
-		errorStackView.pin(.bottom(to: sortedPhraseBoxView, padding: 16), .centerX)
-		errorIcon.pin(.fixedWidth(16), .fixedHeight(16))
-		errorLabel.pin(.fixedHeight(24))
-		randomPhraseCollectionView.pin(.horizontalEdges(padding: 16))
+		contentStackView.pin(
+			.top(padding: 115),
+			.horizontalEdges
+		)
+		titleStackView.pin(
+			.horizontalEdges(padding: 16)
+		)
+		continueButton.pin(
+			.bottom(padding: 42),
+			.horizontalEdges(padding: 16),
+			.fixedHeight(56)
+		)
+		sortedPhraseBoxView.pin(
+			.horizontalEdges,
+			.height(to: randomPhraseCollectionView, padding: 100)
+		)
+		sortedPhraseCollectionView.pin(
+			.horizontalEdges(padding: 16),
+			.top(padding: 16)
+		)
+		errorStackView.pin(
+			.bottom(to: sortedPhraseBoxView, padding: 16),
+			.centerX
+		)
+		errorIcon.pin(
+			.fixedWidth(16),
+			.fixedHeight(16)
+		)
+		errorLabel.pin(
+			.fixedHeight(24)
+		)
+		randomPhraseCollectionView.pin(
+			.horizontalEdges(padding: 16)
+		)
 	}
 }

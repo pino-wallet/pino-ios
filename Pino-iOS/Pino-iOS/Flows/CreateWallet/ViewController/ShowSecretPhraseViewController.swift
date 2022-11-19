@@ -42,10 +42,10 @@ class ShowSecretPhraseViewController: UIViewController {
 	}
 
 	private func shareSecretPhrase() {
-//		let userWords = secretPhraseVM.secretPhrase.map { $0.title }
-//		let shareText = "Secret Phrase: \(userWords.joined(separator: " "))"
-//		let shareActivity = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
-//		present(shareActivity, animated: true) {}
+		let userWords = secretPhraseVM.secretPhrase
+		let shareText = "Secret Phrase: \(userWords.joined(separator: " "))"
+		let shareActivity = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+		present(shareActivity, animated: true) {}
 	}
 
 	private func goToVerifyPage() {

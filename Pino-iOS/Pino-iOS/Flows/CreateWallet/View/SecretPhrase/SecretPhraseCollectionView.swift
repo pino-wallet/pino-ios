@@ -25,7 +25,7 @@ class SecretPhraseCollectionView: UICollectionView {
 	convenience init() {
 		// Set flow layout for collection view
 		let flowLayout = SecretPhraseCenteredFlowLayout()
-		flowLayout.sectionInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+		flowLayout.sectionInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
 		flowLayout.minimumInteritemSpacing = 8
 		flowLayout.minimumLineSpacing = 8
 		flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize

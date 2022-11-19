@@ -23,7 +23,7 @@ class ShowSecretPhraseView: UIView {
 	private let seedPhraseStackView = UIStackView()
 	private let seedPhraseCollectionView = SecretPhraseCollectionView()
 	private let shareButton = UIButton()
-	private let continueButton = PinoButton(style: .deactive, title: "Continue")
+	private let continueButton = PinoButton(style: .deactive, title: "I Saved")
 	private var shareSecretPhrase: () -> Void
 	private var savedSecretPhrase: () -> Void
 
@@ -111,6 +111,8 @@ extension ShowSecretPhraseView {
 		shareButton.setTitle("Copy", for: .normal)
 		shareButton.setTitleColor(.Pino.primary, for: .normal)
 		shareButton.titleLabel?.font = .PinoStyle.semiboldBody
+		shareButton.setImage(UIImage(systemName: "square.on.square"), for: .normal)
+		shareButton.imageView?.tintColor = .Pino.primary
 
 		revealButton.setTitle("Tap to reveal", for: .normal)
 		revealButton.setTitleColor(.Pino.label, for: .normal)
