@@ -16,7 +16,6 @@ class PassDotsView: UIView {
 	// MARK: Private Properties
 
 	private let passDotsContainerView = UIStackView()
-	private var arrayOfDotsView: [UIView] = []
 	private let passCreationVM: CreatePassVM!
 
 	// MARK: Public Properties
@@ -64,26 +63,29 @@ extension PassDotsView {
 				.fixedHeight(20),
 				.fixedWidth(20)
 			)
-			dotView.layer.cornerRadius = dotView.frame.width / 2
-			dotviewStyleBasedOnState(dotView, state: .empty)
-			arrayOfDotsView.append(dotView)
-			passDotsContainerView.addSubview(dotView)
+			setStyle(of: dotView, withState: .empty)
+			passDotsContainerView.addArrangedSubview(dotView)
 		}
 	}
 
-	func dotviewStyleBasedOnState(_ view: UIView, state: PassdotState) {
+	func setStyle(of dotView: UIView, withState: PassdotState) {
+		dotView.layer.cornerRadius = dotView.frame.width / 2
 		switch state {
-		case .empty:
-			view.backgroundColor = .Pino.green3
-			view.layer.borderColor = UIColor.clear.cgColor
 		case .fill:
-			view.backgroundColor = .Pino.white
-			view.layer.borderColor = UIColor.Pino.gray4.cgColor
+			dotView.backgroundColor = .Pino.green3
+			dotView.layer.borderColor = UIColor.clear.cgColor
+		case .empty:
+			dotView.backgroundColor = .Pino.white
+			dotView.layer.borderColor = UIColor.Pino.gray4.cgColor
+		case .error:
+			dotView.backgroundColor = .Pino.white
+			dotView.layer.borderColor = UIColor.Pino.errorRed.cgColor
 		}
 	}
 
 	enum PassdotState {
 		case fill
 		case empty
+		case error
 	}
 }
