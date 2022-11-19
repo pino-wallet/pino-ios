@@ -21,7 +21,9 @@ class AllDoneViewController: UIViewController {
 	// MARK: Private Methods
 
 	private func stupView() {
-		let allDoneView = UIView()
+		let allDoneView = AllDoneView {
+			self.getStarted()
+		}
 		view = allDoneView
 	}
 
