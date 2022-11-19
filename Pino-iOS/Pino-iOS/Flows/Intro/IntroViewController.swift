@@ -8,19 +8,22 @@
 import UIKit
 
 class IntroViewController: UIViewController {
+	// MARK: Private Properties
+
+	// MARK: View Overrides
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		// Do any additional setup after loading the view.
 	}
 
-	/*
-	 // MARK: - Navigation
+	override func loadView() {
+		stupView()
+	}
 
-	 // In a storyboard-based application, you will often want to do a little preparation before navigation
-	 override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-	     // Get the new view controller using segue.destination.
-	     // Pass the selected object to the new view controller.
-	 }
-	 */
+	// MARK: Private Methods
+
+	private func stupView() {
+		let introView = IntroView {} importWallet: {}
+		view = introView
+	}
 }
