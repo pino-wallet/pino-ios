@@ -20,8 +20,9 @@ public class PinoLabel: UILabel {
 
 	// MARK: - Initializers
 
-	public init(style: Style, text: String = "") {
+	public init(style: Style, text: String) {
 		self.style = style
+		self.text = text
 		super.init(frame: .zero)
 		updateStyle()
 	}
@@ -30,7 +31,7 @@ public class PinoLabel: UILabel {
 		fatalError()
 	}
 
-	// MARK: - UIButton overrides
+	// MARK: - UILabel overrides
 
 	override public func layoutSubviews() {
 		super.layoutSubviews()

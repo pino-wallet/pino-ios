@@ -18,7 +18,7 @@ extension PinoLabel {
 	}
 }
 
-// MARK: - Custom Button Styles
+// MARK: - Custom Label Styles
 
 extension PinoLabel.Style {
 	public static let title = PinoLabel.Style(
