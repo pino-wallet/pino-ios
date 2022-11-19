@@ -12,6 +12,7 @@ class AllDoneView: UIView {
 
 	private let allDoneStackView = UIStackView()
 	private let allDoneImage = UIImageView()
+	private let titleStackView = UIStackView()
 	private let allDoneTitle = UILabel()
 	private let allDoneDescription = UILabel()
 	private let privacyPolicyStackView = UIStackView()
@@ -41,8 +42,9 @@ extension AllDoneView {
 
 	private func setupView() {
 		allDoneStackView.addArrangedSubview(allDoneImage)
-		allDoneStackView.addArrangedSubview(allDoneTitle)
-		allDoneStackView.addArrangedSubview(allDoneDescription)
+		allDoneStackView.addArrangedSubview(titleStackView)
+		titleStackView.addArrangedSubview(allDoneTitle)
+		titleStackView.addArrangedSubview(allDoneDescription)
 		privacyPolicyStackView.addArrangedSubview(privacyPolicyCheckBox)
 		privacyPolicyStackView.addArrangedSubview(privacyPolicyLabel)
 		getStartedStackView.addArrangedSubview(privacyPolicyStackView)
@@ -78,8 +80,12 @@ extension AllDoneView {
 		privacyPolicyLabel.font = .PinoStyle.mediumSubheadline
 
 		allDoneStackView.axis = .vertical
-		allDoneStackView.spacing = 12
+		allDoneStackView.spacing = 24
 		allDoneStackView.alignment = .center
+
+		titleStackView.axis = .vertical
+		titleStackView.spacing = 12
+		titleStackView.alignment = .center
 
 		privacyPolicyStackView.axis = .horizontal
 		privacyPolicyStackView.spacing = 6
@@ -91,7 +97,7 @@ extension AllDoneView {
 
 	private func setupContstraint() {
 		allDoneStackView.pin(
-			.centerY,
+			.centerY(padding: -66),
 			.centerX
 		)
 		getStartedStackView.pin(
