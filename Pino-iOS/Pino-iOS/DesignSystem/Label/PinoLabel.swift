@@ -20,10 +20,10 @@ public class PinoLabel: UILabel {
 
 	// MARK: - Initializers
 
-	public init(style: Style, text: String) {
+	public init(style: Style, text: String = "") {
 		self.style = style
-		self.text = text
 		super.init(frame: .zero)
+        self.text = text
 		updateStyle()
 	}
 
@@ -42,6 +42,7 @@ public class PinoLabel: UILabel {
 	private func updateStyle() {
 		textColor = style.textColor
 		font = style.font
+        numberOfLines = style.numberOfLine
 		setLineSpacing()
 	}
 
@@ -49,7 +50,7 @@ public class PinoLabel: UILabel {
 		guard let text = text else { return }
 		let attributedString = NSMutableAttributedString(string: text)
 		let paragraphStyle = NSMutableParagraphStyle()
-		paragraphStyle.lineSpacing = 2 // Whatever line spacing you want in points
+		paragraphStyle.lineSpacing = 6 // Whatever line spacing you want in points
 		attributedString.addAttribute(
 			.paragraphStyle,
 			value: paragraphStyle,

@@ -22,13 +22,13 @@ extension PinoLabel {
 
 extension PinoLabel.Style {
 	public static let title = PinoLabel.Style(
-		textColor: .label,
+        textColor: .Pino.label,
 		font: .PinoStyle.semiboldTitle3!,
 		numberOfLine: 1
 	)
 
 	public static let description = PinoLabel.Style(
-		textColor: .secondaryLabel,
+        textColor: .Pino.secondaryLabel,
 		font: .PinoStyle.mediumCallout!,
 		numberOfLine: 0
 	)
