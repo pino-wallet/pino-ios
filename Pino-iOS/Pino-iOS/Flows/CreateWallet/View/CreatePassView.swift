@@ -24,7 +24,7 @@ class CreatePassView: UIView {
 
 	init(createPassVM: CreatePassVM) {
 		self.createPassVM = createPassVM
-		self.passDotsView = PassDotsView(passCreationVM: createPassVM)
+		self.passDotsView = PassDotsView(createPassVM: createPassVM)
 		super.init(frame: .zero)
 
 		setupView()
@@ -76,7 +76,9 @@ extension CreatePassView {
 
 		passDotsView.pin(
 			.top(to: topInfoContainerView, padding: 89),
-			.centerX()
+			.centerX(),
+			.centerY(padding: -50),
+			.fixedHeight(20)
 		)
 	}
 }

@@ -10,46 +10,45 @@ import UIKit
 
 struct CreatePassVM {
 	public var passDigitsCount = 6
-	public var passwordText: String?
+	public var passwordText = ""
 
-	private func createPassword() {
+	private func createPassword() {}
 
-	}
-
-	private func verifyPassword() {
-
-	}
+	private func verifyPassword() {}
 }
 
 class PassDotsView: UIView {
 	// MARK: Private Properties
 
 	private let passDotsContainerView = UIStackView()
-	private let createPassVM: CreatePassVM!
+	private var createPassVM: CreatePassVM!
 
 	// MARK: Public Properties
 
 	// MARK: Overrides
 
-	var _inputView: UIView?
+	var passDotInputView: UIView?
 
-   override var canBecomeFirstResponder: Bool { return true }
-   override var canResignFirstResponder: Bool { return true }
+	override var canBecomeFirstResponder: Bool { true }
+	override var canResignFirstResponder: Bool { true }
 
-   override var inputView: UIView? {
-       set { _inputView = newValue }
-       get { return _inputView }
-   }
+	override var inputView: UIView? {
+		get { passDotInputView }
+		set { passDotInputView = newValue }
+	}
 
 	// MARK: Initializers
 
 	init(createPassVM: CreatePassVM) {
-		self.createPassVM = passCreationVM
+		self.createPassVM = createPassVM
 		super.init(frame: .zero)
 
 		setupView()
 		setupStyle()
 		setupContstraint()
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+			self.becomeFirstResponder()
+		}
 	}
 
 	required init?(coder: NSCoder) {
@@ -65,6 +64,7 @@ extension PassDotsView {
 	// MARK: UI Methods
 
 	private func setupView() {
+		addSubview(passDotsContainerView)
 		createDotsView()
 	}
 
@@ -72,25 +72,34 @@ extension PassDotsView {
 		backgroundColor = .Pino.secondaryBackground
 
 		passDotsContainerView.axis = .horizontal
+		passDotsContainerView.distribution = .equalCentering
 		passDotsContainerView.spacing = 14
+		passDotsContainerView.alignment = .center
 	}
 
-	private func setupContstraint() {}
+	private func setupContstraint() {
+		passDotsContainerView.pin(
+			.allEdges
+		)
+		passDotsContainerView.widthAnchor
+			.constraint(lessThanOrEqualToConstant: CGFloat(createPassVM.passDigitsCount * 34)).isActive = true
+	}
 
 	private func createDotsView() {
-		for _ in 0 ..< passCreationVM.passDigitsCount {
+		for _ in 0 ..< createPassVM.passDigitsCount {
 			let dotView = UIView()
 			dotView.pin(
 				.fixedHeight(20),
 				.fixedWidth(20)
 			)
+			dotView.layer.cornerRadius = 10
+			dotView.layer.borderWidth = 1.2
 			setStyle(of: dotView, withState: .empty)
 			passDotsContainerView.addArrangedSubview(dotView)
 		}
 	}
 
-	func setStyle(of dotView: UIView, withState: PassdotState) {
-		dotView.layer.cornerRadius = dotView.frame.width / 2
+	func setStyle(of dotView: UIView, withState state: PassdotState) {
 		switch state {
 		case .fill:
 			dotView.backgroundColor = .Pino.green3
@@ -112,33 +121,32 @@ extension PassDotsView {
 }
 
 // Confirming to UIKeyInput In order to show keyboard
-extension PassDotsView: UIKeyInput {
-	
-	typeAlias passwordText = createPassVM.passwordText
-    
+extension PassDotsView: UIKeyInput, UITextInputTraits {
 	var hasText: Bool { createPassVM.passwordText.isEmpty == false }
-    
+
+	var keyboardType: UIKeyboardType { get { UIKeyboardType.numberPad } set {} }
+
 	func insertText(_ text: String) {
-		guard passwordText.length <= createPassVM.passDigitsCount else { return }
-		passwordText.append(text)
-		setDotviewStyleAt(index: passwordText.length-1, withState: .fill)
+		guard createPassVM.passwordText.count < createPassVM.passDigitsCount else { return }
+		createPassVM.passwordText.append(text)
+		setDotviewStyleAt(index: createPassVM.passwordText.count - 1, withState: .fill)
 	}
 
-    func deleteBackward() {
-		guard passwordText.lenght > 0 else {return}
-        passwordText = passwordText.popLast()
-		setDotviewStyleAt(index: passwordText.length, withState: .empty)
+	func deleteBackward() {
+		guard !createPassVM.passwordText.isEmpty else { return }
+		_ = createPassVM.passwordText.popLast()
+		setDotviewStyleAt(index: createPassVM.passwordText.count, withState: .empty)
 	}
 
 	func setDotviewStyleAt(index: Int, withState state: PassdotState) {
-		guard passDotsContainerView.subViews.isIndexValid else { return }
-		let fillingDotView = passDotsContainerView.subViews[index]
+		guard passDotsContainerView.subviews.isIndexValid(index: index) else { return }
+		let fillingDotView = passDotsContainerView.subviews[index]
 		setStyle(of: fillingDotView, withState: state)
 	}
 }
 
 extension Array {
-
-	let isIndexValid = self.indices.contains(index)
-
+	func isIndexValid(index: Int) -> Bool {
+		indices.contains(index)
+	}
 }
