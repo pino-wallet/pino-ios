@@ -42,14 +42,6 @@ class ShowSecretPhraseView: UIView {
 	required init?(coder: NSCoder) {
 		fatalError()
 	}
-
-	private func activateContinueButton(_ isActive: Bool) {
-		if isActive {
-			continueButton.style = .active
-		} else {
-			continueButton.style = .deactive
-		}
-	}
 }
 
 extension ShowSecretPhraseView {
