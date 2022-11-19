@@ -29,15 +29,11 @@ class ShowSecretPhraseView: UIView {
 
 	// MARK: Initializers
 
-	init(
-		_ secretPhrase: [SeedPhrase],
-		shareSecretPhare: @escaping (() -> Void),
-		savedSecretPhrase: @escaping (() -> Void)
-	) {
+	init(_ secretPhrase: [String], shareSecretPhare: @escaping (() -> Void), savedSecretPhrase: @escaping (() -> Void)) {
 		self.shareSecretPhrase = shareSecretPhare
 		self.savedSecretPhrase = savedSecretPhrase
 		super.init(frame: .zero)
-		seedPhraseCollectionView.seedPhrase = secretPhrase
+		seedPhraseCollectionView.words = secretPhrase
 		setupView()
 		setupStyle()
 		setupContstraint()

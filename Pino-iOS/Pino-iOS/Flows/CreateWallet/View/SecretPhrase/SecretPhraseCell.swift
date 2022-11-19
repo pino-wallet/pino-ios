@@ -18,45 +18,54 @@ public class SecretPhraseCell: UICollectionViewCell {
 
 	// MARK: Public Properties
 
+	public static let reuseID = "secretPhraseCell"
 	public var seedPhrase: SeedPhrase! {
 		didSet {
-			setupView()
-			setupStyle()
-			setupConstraint()
-			updateSeedPhrase(title: seedPhrase.title, sequence: seedPhrase.sequence)
+			updateSeedphraseSequence(seedPhrase.sequence)
+			updateSeedphraseTitle(seedPhrase.title)
+			updateSeedphraseBorder(seedPhrase.style)
 		}
 	}
 
-	public var seedPhraseStyle: SeedPhraseStyle = .defaultStyle {
-		didSet {
-			switch seedPhraseStyle {
-			case .defaultStyle:
-				updateSeedPhrase(title: seedPhrase.title, sequence: seedPhrase.sequence)
-			case .noSequence:
-				updateSeedPhrase(title: seedPhrase.title, sequence: nil)
-			case .empty:
-				updateSeedPhrase(title: "", sequence: nil, isEmpty: true)
-			}
-		}
+	override public init(frame: CGRect) {
+		super.init(frame: frame)
+		setupView()
+		setupStyle()
+		setupConstraint()
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError()
 	}
 
 	// MARK: Private Methods
 
-	private func updateSeedPhrase(title: String, sequence: Int?, isEmpty: Bool = false) {
-		seedPhraseTitle.text = title
-
-		if let sequence = sequence {
+	private func updateSeedphraseSequence(_ sequence: Int?) {
+		if let sequence {
+			seedPhraseSequence.isHidden = false
 			seedPhraseSequence.text = String(sequence)
 		} else {
-			seedPhraseSequence.text = ""
+			seedPhraseSequence.isHidden = true
 		}
+	}
 
-		if isEmpty {
-			dashedBorder.isHidden = false
-			seedPhraseView.layer.borderWidth = 0
+	private func updateSeedphraseTitle(_ title: String?) {
+		if let title {
+			seedPhraseTitle.isHidden = false
+			seedPhraseTitle.text = title
 		} else {
-			dashedBorder.isHidden = true
-			seedPhraseView.layer.borderWidth = 1
+			seedPhraseTitle.isHidden = true
+		}
+	}
+
+	private func updateSeedphraseBorder(_ style: SecretPhraseCell.Style) {
+		switch style {
+		case .regular:
+			dashedBorder.lineDashPattern = [1, 0]
+		case .unordered:
+			dashedBorder.lineDashPattern = [1, 0]
+		case .empty:
+			dashedBorder.lineDashPattern = [3, 3]
 		}
 	}
 }
@@ -105,7 +114,6 @@ extension SecretPhraseCell {
 		dashedBorder.strokeColor = UIColor.Pino.gray3.cgColor
 		dashedBorder.lineWidth = 1
 		dashedBorder.lineJoin = CAShapeLayerLineJoin.round
-		dashedBorder.lineDashPattern = [4, 4]
 		dashedBorder.path = UIBezierPath(roundedRect: shapeRect, cornerRadius: 8).cgPath
 		view.layer.addSublayer(dashedBorder)
 	}
@@ -118,11 +126,11 @@ extension SecretPhraseCell {
 }
 
 extension SecretPhraseCell {
-	// MARK: Custom Cell Styles
+	// MARK: Custom Styles
 
-	public enum SeedPhraseStyle {
-		case defaultStyle
-		case noSequence
+	public enum Style {
+		case regular
+		case unordered
 		case empty
 	}
 }

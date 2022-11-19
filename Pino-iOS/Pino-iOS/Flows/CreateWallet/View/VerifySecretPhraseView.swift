@@ -22,21 +22,20 @@ class VerifySecretPhraseView: UIView {
 	private let errorIcon = UIImageView()
 	private let randomPhraseCollectionView = SecretPhraseCollectionView()
 	private let continueButton = PinoButton(style: .deactive, title: "Continue")
-	private var createWallet: ([SeedPhrase]) -> Void
-	private var userSecretPhrase: [SeedPhrase]
-	private var randomPhrase: [SeedPhrase]
-	private var sortedPhrase: [SeedPhrase] = []
+	private var createWallet: ([String]) -> Void
+	private var userSecretPhrase: [String]
+	private var randomPhrase: [String]
 
 	// MARK: Initializers
 
-	init(_ secretPhrase: [SeedPhrase], createWallet: @escaping (([SeedPhrase]) -> Void)) {
+	init(_ secretPhrase: [String], createWallet: @escaping (([String]) -> Void)) {
 		self.createWallet = createWallet
 		self.userSecretPhrase = secretPhrase
 		self.randomPhrase = secretPhrase.shuffled()
 		super.init(frame: .zero)
-		randomPhraseCollectionView.seedPhrase = randomPhrase
-		sortedPhraseCollectionView.seedPhrase = []
-		randomPhraseCollectionView.defultStyle = .noSequence
+		randomPhraseCollectionView.words = randomPhrase
+		randomPhraseCollectionView.cellStyle = .unordered
+		sortedPhraseCollectionView.words = []
 		setupView()
 		setupStyle()
 		setupContstraint()
@@ -51,6 +50,65 @@ class VerifySecretPhraseView: UIView {
 			continueButton.style = .active
 		} else {
 			continueButton.style = .deactive
+		}
+	}
+}
+
+extension VerifySecretPhraseView {
+	// MARK: Secret Phrase Methods
+
+	func selectSeedPhraseCell(_ selectedWord: String) {
+		let emptyCell = EmptySeedPhrase()
+		updateSecretPhraseCell(to: emptyCell, selectedWord: selectedWord) { isSelectable in
+			if isSelectable {
+				addSelectedWordToSortedPhrase(selectedWord)
+				checkSecretPhraseSequence()
+			}
+		}
+	}
+
+	func deselectSeedPhraseCell(_ selectedWord: String) {
+		let unorderedCell = UnorderedSeedPhrase(title: selectedWord)
+		updateSecretPhraseCell(to: unorderedCell, selectedWord: selectedWord) { isSelectable in
+			if isSelectable {
+				removeSelectedWordFromSortedPhrase(selectedWord)
+				checkSecretPhraseSequence()
+			}
+		}
+	}
+
+	private func updateSecretPhraseCell(to seedPhrase: SeedPhrase, selectedWord: String, isSelectable: (Bool) -> Void) {
+		guard let index = randomPhrase.firstIndex(of: selectedWord) else { return }
+		let indexPath = IndexPath(row: index, section: 0)
+		let cell = randomPhraseCollectionView.cellForItem(at: indexPath) as! SecretPhraseCell
+		isSelectable(cell.seedPhrase.title != seedPhrase.title)
+		cell.seedPhrase = seedPhrase
+	}
+
+	private func addSelectedWordToSortedPhrase(_ selectedWord: String) {
+		sortedPhraseCollectionView.words.append(selectedWord)
+	}
+
+	private func removeSelectedWordFromSortedPhrase(_ selectedWord: String) {
+		sortedPhraseCollectionView.words.removeAll(where: { $0 == selectedWord })
+	}
+
+	private func checkSecretPhraseSequence() {
+		let sortedWords = sortedPhraseCollectionView.words
+
+		switch sortedWords {
+		// All words are selected in the correctorder
+		case userSecretPhrase:
+			errorStackView.isHidden = true
+			activateContinueButton(true)
+		// Some words are selected in the correct order
+		case Array(userSecretPhrase.prefix(upTo: sortedWords.count)):
+			errorStackView.isHidden = true
+			activateContinueButton(false)
+		// The words are NOT selected in the correct order
+		default:
+			errorStackView.isHidden = false
+			activateContinueButton(false)
 		}
 	}
 }
@@ -73,15 +131,15 @@ extension VerifySecretPhraseView {
 
 		continueButton.addAction(UIAction(handler: { _ in
 			if self.continueButton.style == .active {
-				self.createWallet(self.sortedPhrase)
+				self.createWallet(self.sortedPhraseCollectionView.words)
 			}
 		}), for: .touchUpInside)
 
-		randomPhraseCollectionView.wordSelected = { seedPhrase in
-			self.selectWord(seedPhrase)
+		randomPhraseCollectionView.wordSelected = { word in
+			self.selectSeedPhraseCell(word)
 		}
-		sortedPhraseCollectionView.wordSelected = { seedPhrase in
-			self.deselectWord(seedPhrase)
+		sortedPhraseCollectionView.wordSelected = { word in
+			self.deselectSeedPhraseCell(word)
 		}
 	}
 
@@ -129,78 +187,5 @@ extension VerifySecretPhraseView {
 		errorIcon.pin(.fixedWidth(16), .fixedHeight(16))
 		errorLabel.pin(.fixedHeight(24))
 		randomPhraseCollectionView.pin(.horizontalEdges(padding: 16))
-	}
-}
-
-extension VerifySecretPhraseView {
-	// MARK: Secret Phrase Methods
-
-	func selectWord(_ seedPhrase: SeedPhrase) {
-		guard let index = randomPhrase.firstIndex(of: seedPhrase) else { return }
-		updateSecretPhraseCell(at: index, style: .empty) { emptyStyle in
-			if !emptyStyle {
-				addWordToSortedPhrase(seedPhrase)
-				self.checkPhraseSequence()
-			}
-		}
-	}
-
-	func deselectWord(_ seedPhrase: SeedPhrase) {
-		guard let index = randomPhrase.firstIndex(where: { $0.title == seedPhrase.title }) else { return }
-		updateSecretPhraseCell(at: index, style: .noSequence) { emptyStyle in
-			if emptyStyle {
-				removeWordFromSortedPhrase(seedPhrase)
-				self.checkPhraseSequence()
-			}
-		}
-	}
-
-	private func updateSecretPhraseCell(
-		at index: Int,
-		style: SecretPhraseCell.SeedPhraseStyle,
-		emptyStyle: (Bool) -> Void
-	) {
-		let indexPath = IndexPath(row: index, section: 0)
-		let cell = randomPhraseCollectionView.cellForItem(at: indexPath) as! SecretPhraseCell
-		emptyStyle(cell.seedPhraseStyle == .empty)
-		cell.seedPhraseStyle = style
-	}
-
-	private func addWordToSortedPhrase(_ word: SeedPhrase) {
-		let selectedWord = SeedPhrase(title: word.title, sequence: sortedPhrase.count + 1)
-		sortedPhrase.append(selectedWord)
-		sortedPhraseCollectionView.seedPhrase = sortedPhrase
-	}
-
-	private func removeWordFromSortedPhrase(_ word: SeedPhrase) {
-		if sortedPhrase.last == word {
-			sortedPhrase.removeLast()
-		} else {
-			sortedPhrase.removeAll(where: { $0 == word })
-			updateSortedPhraseSequence()
-		}
-		sortedPhraseCollectionView.seedPhrase = sortedPhrase
-	}
-
-	private func updateSortedPhraseSequence() {
-		for index in 0 ..< sortedPhrase.count {
-			let word = sortedPhrase[index].title
-			let sequence = index + 1
-			sortedPhrase[index] = SeedPhrase(title: word, sequence: sequence)
-		}
-	}
-
-	private func checkPhraseSequence() {
-		switch sortedPhrase {
-		case userSecretPhrase:
-			errorStackView.isHidden = true
-			activateContinueButton(true)
-		case Array(userSecretPhrase.prefix(upTo: sortedPhrase.count)):
-			errorStackView.isHidden = true
-			activateContinueButton(false)
-		default:
-			errorStackView.isHidden = false
-			activateContinueButton(false)
-		}
 	}
 }

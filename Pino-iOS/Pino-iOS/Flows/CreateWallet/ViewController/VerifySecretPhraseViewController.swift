@@ -43,7 +43,7 @@ class VerifySecretPhraseViewController: UIViewController {
 		navigationController?.navigationBar.backgroundColor = .Pino.secondaryBackground
 	}
 
-	private func createWallet(_ sortedPhrase: [SeedPhrase]) {
+	private func createWallet(_ sortedPhrase: [String]) {
 		if secretPhraseVM.isVerified(selectedPhrase: sortedPhrase) {
 			// Wallet should be created here
 			// Go to create passcode page
