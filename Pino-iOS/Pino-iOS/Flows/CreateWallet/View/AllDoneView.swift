@@ -123,5 +123,20 @@ extension AllDoneView {
 		}
 	}
 
-	private func setupPrivacyPolicyLinks() {}
+	private func setupPrivacyPolicyLinks() {
+		#warning("This must be replaced with pino urls")
+		let temporaryTermOfServiceURL = URL(string: "http://google.com/")!
+		let temporaryPrivacyPolicyURL = URL(string: "http://google.com/")!
+		let attributedString = NSMutableAttributedString(string: "I agree to the Term of use and Privacy policy")
+		attributedString.setAttributes([.link: temporaryTermOfServiceURL], range: NSRange(location: 15, length: 11))
+		attributedString.setAttributes([.link: temporaryPrivacyPolicyURL], range: NSRange(location: 31, length: 14))
+		privacyPolicyLabel.attributedText = attributedString
+		privacyPolicyLabel.isUserInteractionEnabled = true
+		privacyPolicyLabel.isSelectable = true
+		privacyPolicyLabel.isScrollEnabled = false
+		privacyPolicyLabel.linkTextAttributes = [
+			.foregroundColor: UIColor.Pino.primary,
+			.font: UIFont.PinoStyle.semiboldSubheadline as Any,
+		]
+	}
 }
