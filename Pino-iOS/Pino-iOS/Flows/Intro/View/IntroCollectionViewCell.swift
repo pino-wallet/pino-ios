@@ -72,9 +72,3 @@ extension IntroCollectionViewCell {
 		introImage.layer.cornerRadius = introImage.frame.height / 2
 	}
 }
-
-public struct IntroModel {
-	let image: UIImage
-	let title: String
-	let description: String
-}
