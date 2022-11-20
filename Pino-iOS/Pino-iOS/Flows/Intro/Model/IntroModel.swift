@@ -8,7 +8,17 @@
 import UIKit
 
 public struct IntroModel {
-	let image: UIImage
-	let title: String
-	let description: String
+	// MARK: Public Properties
+
+	public let image: UIImage
+	public let title: String
+	public let description: String
+
+	// MARK: Initializers
+
+	init(image: UIImage, title: String, description: String) {
+		self.image = image
+		self.title = title
+		self.description = description
+	}
 }

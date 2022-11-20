@@ -42,6 +42,7 @@ class IntroViewController: UIViewController {
 		let introView = IntroView(content: introContents) {
 			self.goToCreateWalletPage()
 		} importWallet: {}
+
 		view = introView
 	}
 

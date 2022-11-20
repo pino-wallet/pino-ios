@@ -64,7 +64,7 @@ extension IntroView {
 		backgroundColor = .Pino.secondaryBackground
 
 		importWalletButton.setTitle("I already have a wallet", for: .normal)
-		importWalletButton.setTitleColor(.Pino.label, for: .normal)
+		importWalletButton.setTitleColor(.Pino.primary, for: .normal)
 		importWalletButton.titleLabel?.font = .PinoStyle.semiboldBody
 
 		signinStackView.axis = .vertical
