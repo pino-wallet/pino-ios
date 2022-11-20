@@ -48,6 +48,8 @@
 		DF2B0419291813C700781052 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B0418291813C700781052 /* FirebaseStorageCombine-Community */; };
 		DF2B04292919640300781052 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2B04282919640300781052 /* IntroViewController.swift */; };
 		E311596C29290DFD00804CE1 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E311596B29290DFD00804CE1 /* IntroView.swift */; };
+		E31159722929F81F00804CE1 /* IntroCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31159712929F81F00804CE1 /* IntroCollectionView.swift */; };
+		E31159742929F83500804CE1 /* IntroCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31159732929F83500804CE1 /* IntroCollectionViewCell.swift */; };
 		E3702F55292012C200BA39C9 /* PPPangramSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3D292012C100BA39C9 /* PPPangramSans-Bold.ttf */; };
 		E3702F56292012C200BA39C9 /* PPPangramSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3E292012C100BA39C9 /* PPPangramSans-BoldItalic.ttf */; };
 		E3702F57292012C200BA39C9 /* PPPangramSans-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3F292012C100BA39C9 /* PPPangramSans-RegularItalic.ttf */; };
@@ -153,6 +155,8 @@
 		DF05F6C0291644B9005A3338 /* Pino_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pino_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		DF2B04282919640300781052 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		E311596B29290DFD00804CE1 /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
+		E31159712929F81F00804CE1 /* IntroCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCollectionView.swift; sourceTree = "<group>"; };
+		E31159732929F83500804CE1 /* IntroCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCollectionViewCell.swift; sourceTree = "<group>"; };
 		E3702F3D292012C100BA39C9 /* PPPangramSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Bold.ttf"; sourceTree = "<group>"; };
 		E3702F3E292012C100BA39C9 /* PPPangramSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		E3702F3F292012C100BA39C9 /* PPPangramSans-RegularItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-RegularItalic.ttf"; sourceTree = "<group>"; };
@@ -540,6 +544,8 @@
 			children = (
 				DF2B04282919640300781052 /* IntroViewController.swift */,
 				E311596B29290DFD00804CE1 /* IntroView.swift */,
+				E31159712929F81F00804CE1 /* IntroCollectionView.swift */,
+				E31159732929F83500804CE1 /* IntroCollectionViewCell.swift */,
 			);
 			path = Intro;
 			sourceTree = "<group>";
@@ -856,6 +862,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E31159722929F81F00804CE1 /* IntroCollectionView.swift in Sources */,
 				E3B72339291B85A300D4F46C /* BoldStyle.swift in Sources */,
 				DF05F6A5291644B7005A3338 /* Pino_iOS.xcdatamodeld in Sources */,
 				E3EDCC31292117C10011B9A8 /* SecretPhraseCollectionView.swift in Sources */,
@@ -866,6 +873,7 @@
 				E3B72337291B853200D4F46C /* PinoFont.swift in Sources */,
 				E3EDCC252921036F0011B9A8 /* ShowSecretPhraseViewController.swift in Sources */,
 				DF05F69B291644B7005A3338 /* AppDelegate.swift in Sources */,
+				E31159742929F83500804CE1 /* IntroCollectionViewCell.swift in Sources */,
 				DF05F69D291644B7005A3338 /* SceneDelegate.swift in Sources */,
 				E3EDCC182920CA1D0011B9A8 /* PinoStepperView.swift in Sources */,
 				E3B7234A291B8D7200D4F46C /* PinoCheckBox.swift in Sources */,

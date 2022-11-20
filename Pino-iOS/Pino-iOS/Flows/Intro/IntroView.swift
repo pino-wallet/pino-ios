@@ -10,20 +10,23 @@ import UIKit
 class IntroView: UIView {
 	// MARK: Private Properties
 
-	private let introCollectionView = UIView()
+	private let introCollectionView = IntroCollectionView()
 	private let dotsStackView = UIStackView()
 	private var dotsView: [UIImageView] = []
 	private let signinStackView = UIStackView()
 	private let createWalletButton = PinoButton(style: .active, title: "Create New Wallet")
 	private let importWalletButton = UIButton()
+	private let pageControl = UIPageControl()
 	private var createWallet: () -> Void
 	private var importWallet: () -> Void
+	private var introContent: [IntroModel]
 
 	// MARK: Initializers
 
-	init(createWallet: @escaping (() -> Void), importWallet: @escaping (() -> Void)) {
+	init(content: [IntroModel], createWallet: @escaping (() -> Void), importWallet: @escaping (() -> Void)) {
 		self.createWallet = createWallet
 		self.importWallet = importWallet
+		self.introContent = content
 		super.init(frame: .zero)
 
 		setupView()
@@ -43,12 +46,16 @@ extension IntroView {
 		signinStackView.addArrangedSubview(createWalletButton)
 		signinStackView.addArrangedSubview(importWalletButton)
 		addSubview(introCollectionView)
-		addSubview(dotsStackView)
+		addSubview(pageControl)
 		addSubview(signinStackView)
 		for _ in 0 ..< 3 {
 			let dotImageView = UIImageView()
 			dotsView.append(dotImageView)
 			dotsStackView.addArrangedSubview(dotImageView)
+		}
+
+		introCollectionView.pageDidChange = { currentPage in
+			self.pageControl.currentPage = currentPage
 		}
 
 		createWalletButton.addAction(UIAction(handler: { _ in
@@ -71,6 +78,13 @@ extension IntroView {
 		signinStackView.spacing = 40
 		signinStackView.alignment = .fill
 
+		introCollectionView.introContents = introContent
+
+		pageControl.numberOfPages = introContent.count
+		pageControl.currentPage = 0
+		pageControl.currentPageIndicatorTintColor = .Pino.primary
+		pageControl.pageIndicatorTintColor = .Pino.gray4
+
 		dotsStackView.axis = .horizontal
 		dotsStackView.spacing = 8
 
@@ -83,8 +97,10 @@ extension IntroView {
 
 	private func setupContstraint() {
 		introCollectionView.pin(
-			.horizontalEdges(padding: 48),
-			.centerY
+			.width(to: self),
+			.bottom(padding: 305),
+			.top(padding: 117),
+			.centerX
 		)
 		signinStackView.pin(
 			.bottom(padding: 42),
@@ -93,15 +109,9 @@ extension IntroView {
 		createWalletButton.pin(
 			.fixedHeight(56)
 		)
-		dotsStackView.pin(
+		pageControl.pin(
 			.centerX,
 			.bottom(padding: 189)
 		)
-		for dotImageView in dotsView {
-			dotImageView.pin(
-				.fixedHeight(8),
-				.fixedWidth(8)
-			)
-		}
 	}
 }

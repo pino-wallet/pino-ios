@@ -8,8 +8,6 @@
 import UIKit
 
 class IntroViewController: UIViewController {
-	// MARK: Private Properties
-
 	// MARK: View Overrides
 
 	override func viewDidLoad() {
@@ -23,7 +21,25 @@ class IntroViewController: UIViewController {
 	// MARK: Private Methods
 
 	private func stupView() {
-		let introView = IntroView {} importWallet: {}
+		let introContents = [
+			IntroModel(
+				image: UIImage(),
+				title: "DeFi Hub",
+				description: "Invest, borrow, and swap from top DeFi protocols smoothly."
+			),
+			IntroModel(
+				image: UIImage(),
+				title: "DeFi Hub",
+				description: "Invest, borrow, and swap from top DeFi protocols smoothly."
+			),
+			IntroModel(
+				image: UIImage(),
+				title: "DeFi Hub",
+				description: "Invest, borrow, and swap from top DeFi protocols smoothly."
+			),
+		]
+
+		let introView = IntroView(content: introContents) {} importWallet: {}
 		view = introView
 	}
 }
