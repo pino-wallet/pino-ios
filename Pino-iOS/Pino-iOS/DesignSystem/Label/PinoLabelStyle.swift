@@ -11,10 +11,11 @@ import UIKit
 
 extension PinoLabel {
 	// Specifies a visual theme of the label
-	public struct Style: Equatable {
+	public struct Style {
 		public let textColor: UIColor
-		public let font: UIFont
+		public let font: UIFont?
 		public let numberOfLine: Int
+		public let lineSpacing: CGFloat
 	}
 }
 
@@ -23,13 +24,15 @@ extension PinoLabel {
 extension PinoLabel.Style {
 	public static let title = PinoLabel.Style(
 		textColor: .Pino.label,
-		font: .PinoStyle.semiboldTitle3!,
-		numberOfLine: 1
+		font: .PinoStyle.semiboldTitle3,
+		numberOfLine: 1,
+		lineSpacing: 8
 	)
 
 	public static let description = PinoLabel.Style(
 		textColor: .Pino.secondaryLabel,
-		font: .PinoStyle.mediumCallout!,
-		numberOfLine: 0
+		font: .PinoStyle.mediumCallout,
+		numberOfLine: 0,
+		lineSpacing: 6
 	)
 }

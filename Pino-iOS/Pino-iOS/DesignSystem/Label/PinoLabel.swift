@@ -8,8 +8,6 @@
 import UIKit
 
 public class PinoLabel: UILabel {
-	// MARK: - Private properties
-
 	// MARK: - Public properties
 
 	public var style: Style {
@@ -20,7 +18,7 @@ public class PinoLabel: UILabel {
 
 	// MARK: - Initializers
 
-	public init(style: Style, text: String = "") {
+	public init(style: Style, text: String?) {
 		self.style = style
 		super.init(frame: .zero)
 		self.text = text
@@ -50,7 +48,7 @@ public class PinoLabel: UILabel {
 		guard let text = text else { return }
 		let attributedString = NSMutableAttributedString(string: text)
 		let paragraphStyle = NSMutableParagraphStyle()
-		paragraphStyle.lineSpacing = 6 // Whatever line spacing you want in points
+		paragraphStyle.lineSpacing = style.lineSpacing
 		attributedString.addAttribute(
 			.paragraphStyle,
 			value: paragraphStyle,

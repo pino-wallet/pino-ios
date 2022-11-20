@@ -12,7 +12,7 @@ import UIKit
 extension UIFont {
 	// MARK: Custom Font
 
-	struct PinoStyle: Equatable {
+	struct PinoStyle {
 		// MARK: Font Attributes
 
 		public let fontName: FontName
