@@ -21,6 +21,7 @@ class ShowSecretPhraseViewController: UIViewController {
 	override func loadView() {
 		stupView()
 		setSteperView()
+		setNavigationBackButton()
 	}
 
 	// MARK: Private Methods
@@ -45,5 +46,22 @@ class ShowSecretPhraseViewController: UIViewController {
 		let shareText = "Secret Phrase: \(userWords.joined(separator: " "))"
 		let shareActivity = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
 		present(shareActivity, animated: true) {}
+	}
+
+	private func setNavigationBackButton() {
+		let backImage = UIImage(systemName: "arrow.left")
+		let backButton = UIBarButtonItem(
+			image: backImage,
+			style: .plain,
+			target: self,
+			action: #selector(backToPreviousPage)
+		)
+		backButton.tintColor = .Pino.label
+		navigationItem.setLeftBarButton(backButton, animated: true)
+	}
+
+	@objc
+	private func backToPreviousPage() {
+		navigationController?.popViewController(animated: true)
 	}
 }
