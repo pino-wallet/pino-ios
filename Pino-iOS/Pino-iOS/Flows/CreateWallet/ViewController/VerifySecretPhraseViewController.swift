@@ -48,8 +48,8 @@ class VerifySecretPhraseViewController: UIViewController {
 //		if secretPhraseVM.isVerified(selectedPhrase: sortedPhrase) {
 		// Wallet should be created here
 		// Go to create passcode page
-		let createPasscodeViewController = CreatePasscodeViewController()
-		navigationController?.pushViewController(createPasscodeViewController, animated: true)
+		let createPassVC = CreatePasscodeViewController()
+		navigationController?.pushViewController(createPassVC, animated: true)
 //		}
 	}
 }

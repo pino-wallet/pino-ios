@@ -8,39 +8,59 @@
 import Foundation
 import UIKit
 
-struct CreatePassVM {
-	public var passDigitsCount = 6
-	public var passwordText = ""
+protocol PasscodeManagerPages {
+	var title: String { get set }
+	var description: String { get set }
+	var password: String { get set }
+	var passDigitsCount: Int { get }
+	mutating func passInserted(passChar: String) // Added new pass number
+	mutating func passRemoved() // Cleared last pass number
+	var finishPassCreation: () -> Void { get set }
+}
 
-	private func createPassword() {}
+extension PasscodeManagerPages {
+	var passDigitsCount: Int { 6 } // Default number of Password digits count
 
-	private func verifyPassword() {}
+	mutating func passRemoved() {
+		guard !password.isEmpty else { return }
+		_ = password.popLast()
+	}
+
+	mutating func passInserted(passChar: String) {
+		guard password.count < passDigitsCount else { return }
+		password.append(passChar)
+		if password.count == 6 {
+			finishPassCreation()
+		}
+	}
+}
+
+struct CreatePassVM: PasscodeManagerPages {
+	var title = "Create passcode"
+	var description = "This passcode is for maximizing wallet security. It cannot be used to recover it."
+	var password = ""
+	var finishPassCreation: () -> Void
+}
+
+struct VerifyPassVM: PasscodeManagerPages {
+	var title = "Retype passcode"
+	var description = "This passcode is for maximizing wallet security. It cannot be used to recover it."
+	var password = ""
+	var finishPassCreation: () -> Void
 }
 
 class PassDotsView: UIView {
 	// MARK: Private Properties
 
 	private let passDotsContainerView = UIStackView()
-	private var createPassVM: CreatePassVM!
+	private var passcodeManagerVM: PasscodeManagerPages!
 
 	// MARK: Public Properties
 
-	// MARK: Overrides
-
-	var passDotInputView: UIView?
-
-	override var canBecomeFirstResponder: Bool { true }
-	override var canResignFirstResponder: Bool { true }
-
-	override var inputView: UIView? {
-		get { passDotInputView }
-		set { passDotInputView = newValue }
-	}
-
 	// MARK: Initializers
 
-	init(createPassVM: CreatePassVM) {
-		self.createPassVM = createPassVM
+	init(passcodeManagerVM: PasscodeManagerPages) {
+		self.passcodeManagerVM = passcodeManagerVM
 		super.init(frame: .zero)
 
 		setupView()
@@ -82,11 +102,11 @@ extension PassDotsView {
 			.allEdges
 		)
 		passDotsContainerView.widthAnchor
-			.constraint(lessThanOrEqualToConstant: CGFloat(createPassVM.passDigitsCount * 34)).isActive = true
+			.constraint(lessThanOrEqualToConstant: CGFloat(passcodeManagerVM.passDigitsCount * 34)).isActive = true
 	}
 
 	private func createDotsView() {
-		for _ in 0 ..< createPassVM.passDigitsCount {
+		for _ in 0 ..< passcodeManagerVM.passDigitsCount {
 			let dotView = UIView()
 			dotView.pin(
 				.fixedHeight(20),
@@ -122,20 +142,23 @@ extension PassDotsView {
 
 // Confirming to UIKeyInput In order to show keyboard
 extension PassDotsView: UIKeyInput, UITextInputTraits {
-	var hasText: Bool { createPassVM.passwordText.isEmpty == false }
+	// MARK: Overrides
+
+	override var canBecomeFirstResponder: Bool { true }
+	override var canResignFirstResponder: Bool { true }
+
+	var hasText: Bool { passcodeManagerVM.password.isEmpty == false }
 
 	var keyboardType: UIKeyboardType { get { UIKeyboardType.numberPad } set {} }
 
 	func insertText(_ text: String) {
-		guard createPassVM.passwordText.count < createPassVM.passDigitsCount else { return }
-		createPassVM.passwordText.append(text)
-		setDotviewStyleAt(index: createPassVM.passwordText.count - 1, withState: .fill)
+		passcodeManagerVM.passInserted(passChar: text)
+		setDotviewStyleAt(index: passcodeManagerVM.password.count - 1, withState: .fill)
 	}
 
 	func deleteBackward() {
-		guard !createPassVM.passwordText.isEmpty else { return }
-		_ = createPassVM.passwordText.popLast()
-		setDotviewStyleAt(index: createPassVM.passwordText.count, withState: .empty)
+		passcodeManagerVM.passRemoved()
+		setDotviewStyleAt(index: passcodeManagerVM.password.count, withState: .empty)
 	}
 
 	func setDotviewStyleAt(index: Int, withState state: PassdotState) {

@@ -8,23 +8,23 @@
 import Foundation
 import UIKit
 
-class CreatePassView: UIView {
+class ManagePasscodeView: UIView {
 	// MARK: Private Properties
 
-	private let createPassTitle = UILabel()
-	private let createPassDesc = UILabel()
+	private let managePassTitle = UILabel()
+	private let managePassDescription = UILabel()
 	private let topInfoContainerView = UIStackView()
 	private let passDotsView: PassDotsView!
 
 	// MARK: Public Properties
 
-	private let createPassVM: CreatePassVM!
+	private let managePassVM: PasscodeManagerPages!
 
 	// MARK: Initializers
 
-	init(createPassVM: CreatePassVM) {
-		self.createPassVM = createPassVM
-		self.passDotsView = PassDotsView(createPassVM: createPassVM)
+	init(managePassVM: PasscodeManagerPages) {
+		self.managePassVM = managePassVM
+		self.passDotsView = PassDotsView(passcodeManagerVM: managePassVM)
 		super.init(frame: .zero)
 
 		setupView()
@@ -41,12 +41,12 @@ class CreatePassView: UIView {
 	// MARK: Private Methods
 }
 
-extension CreatePassView {
+extension ManagePasscodeView {
 	// MARK: UI Methods
 
 	private func setupView() {
-		topInfoContainerView.addArrangedSubview(createPassTitle)
-		topInfoContainerView.addArrangedSubview(createPassDesc)
+		topInfoContainerView.addArrangedSubview(managePassTitle)
+		topInfoContainerView.addArrangedSubview(managePassDescription)
 
 		addSubview(topInfoContainerView)
 		addSubview(passDotsView)
@@ -58,14 +58,14 @@ extension CreatePassView {
 		topInfoContainerView.axis = .vertical
 		topInfoContainerView.spacing = 18
 
-		createPassTitle.text = "Create passcode"
-		createPassTitle.textColor = .Pino.label
-		createPassTitle.font = .PinoStyle.semiboldTitle3
+		managePassTitle.text = managePassVM.title
+		managePassTitle.textColor = .Pino.label
+		managePassTitle.font = .PinoStyle.semiboldTitle3
 
-		createPassDesc.text = "This passcode is for maximizing wallet security. It cannot be used to recover it."
-		createPassDesc.textColor = .Pino.secondaryLabel
-		createPassDesc.font = .PinoStyle.mediumCallout
-		createPassDesc.numberOfLines = 0
+		managePassDescription.text = managePassVM.description
+		managePassDescription.textColor = .Pino.secondaryLabel
+		managePassDescription.font = .PinoStyle.mediumCallout
+		managePassDescription.numberOfLines = 0
 	}
 
 	private func setupContstraint() {

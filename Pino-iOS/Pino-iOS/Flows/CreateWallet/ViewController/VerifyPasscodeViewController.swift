@@ -1,13 +1,13 @@
 //
-//  CreatePasscodeViewController.swift
+//  VerifyPasscodeViewController.swift
 //  Pino-iOS
 //
-//  Created by Mohi Raoufi on 11/15/22.
+//  Created by Sobhan Eskandari on 11/20/22.
 //
 
 import UIKit
 
-class CreatePasscodeViewController: UIViewController {
+class VerifyPasscodeViewController: UIViewController {
 	// MARK: Private Properties
 
 	public var createPassView: ManagePasscodeView?
@@ -29,13 +29,10 @@ class CreatePasscodeViewController: UIViewController {
 
 	private func stupView() {
 		// Custom view should be created
-
-		let createPassVM = CreatePassVM {
-			// Passcode was chose -> Show verify passcode page
-			let verifyPassVC = VerifyPasscodeViewController()
-			self.navigationController?.pushViewController(verifyPassVC, animated: true)
+		let verifyPassVM = VerifyPassVM {
+			// Passcode waa verified -> Show all done page
 		}
-		createPassView = ManagePasscodeView(managePassVM: createPassVM)
+		createPassView = ManagePasscodeView(managePassVM: verifyPassVM)
 		view = createPassView
 		view.backgroundColor = .Pino.secondaryBackground
 	}
