@@ -12,6 +12,7 @@ public class IntroCollectionViewCell: UICollectionViewCell {
 
 	private let contentStackView = UIStackView()
 	private let introImage = UIImageView()
+	private let titleStackView = UIStackView()
 	private let introTitle = UILabel()
 	private let introDescription = UILabel()
 
@@ -34,14 +35,19 @@ extension IntroCollectionViewCell {
 	private func setupView() {
 		contentView.addSubview(contentStackView)
 		contentStackView.addArrangedSubview(introImage)
-		contentStackView.addArrangedSubview(introTitle)
-		contentStackView.addArrangedSubview(introDescription)
+		contentStackView.addArrangedSubview(titleStackView)
+		titleStackView.addArrangedSubview(introTitle)
+		titleStackView.addArrangedSubview(introDescription)
 	}
 
 	private func setupStyle() {
 		contentStackView.axis = .vertical
-		contentStackView.spacing = 30
+		contentStackView.spacing = 31
 		contentStackView.alignment = .center
+
+		titleStackView.axis = .vertical
+		titleStackView.spacing = 25
+		titleStackView.alignment = .center
 
 		introImage.image = introModel.image
 		introImage.backgroundColor = .Pino.background
@@ -60,7 +66,8 @@ extension IntroCollectionViewCell {
 
 	private func setupConstraint() {
 		contentStackView.pin(
-			.allEdges(padding: 48)
+			.horizontalEdges(padding: 48),
+			.verticalEdges
 		)
 		introImage.pin(
 			.relative(.width, 0, to: introImage, .height)

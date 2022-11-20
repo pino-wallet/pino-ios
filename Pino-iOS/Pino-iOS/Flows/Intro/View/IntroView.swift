@@ -11,8 +11,6 @@ class IntroView: UIView {
 	// MARK: Private Properties
 
 	private let introCollectionView = IntroCollectionView()
-	private let dotsStackView = UIStackView()
-	private var dotsView: [UIImageView] = []
 	private let signinStackView = UIStackView()
 	private let createWalletButton = PinoButton(style: .active, title: "Create New Wallet")
 	private let importWalletButton = UIButton()
@@ -48,11 +46,6 @@ extension IntroView {
 		addSubview(introCollectionView)
 		addSubview(pageControl)
 		addSubview(signinStackView)
-		for _ in 0 ..< 3 {
-			let dotImageView = UIImageView()
-			dotsView.append(dotImageView)
-			dotsStackView.addArrangedSubview(dotImageView)
-		}
 
 		introCollectionView.pageDidChange = { currentPage in
 			self.pageControl.currentPage = currentPage
@@ -84,26 +77,17 @@ extension IntroView {
 		pageControl.currentPage = 0
 		pageControl.currentPageIndicatorTintColor = .Pino.primary
 		pageControl.pageIndicatorTintColor = .Pino.gray4
-
-		dotsStackView.axis = .horizontal
-		dotsStackView.spacing = 8
-
-		for dotImageView in dotsView {
-			let dotImage = UIImage(systemName: "circle.fill")
-			dotImageView.image = dotImage
-			dotImageView.tintColor = .Pino.background
-		}
 	}
 
 	private func setupContstraint() {
 		introCollectionView.pin(
 			.width(to: self),
-			.bottom(padding: 305),
+			.bottom(padding: 334),
 			.top(padding: 117),
 			.centerX
 		)
 		signinStackView.pin(
-			.bottom(padding: 42),
+			.bottom(padding: 36),
 			.horizontalEdges(padding: 16)
 		)
 		createWalletButton.pin(
@@ -111,7 +95,7 @@ extension IntroView {
 		)
 		pageControl.pin(
 			.centerX,
-			.bottom(padding: 189)
+			.bottom(padding: 182)
 		)
 	}
 }

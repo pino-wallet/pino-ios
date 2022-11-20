@@ -24,7 +24,7 @@ class IntroCollectionView: UICollectionView {
 	convenience init() {
 		// Set flow layout for collection view
 		let flowLayout = UICollectionViewFlowLayout()
-		flowLayout.itemSize = CGSize(width: 0, height: 0)
+		flowLayout.itemSize = UICollectionViewFlowLayout.automaticSize
 		flowLayout.scrollDirection = .horizontal
 		self.init(frame: .zero, collectionViewLayout: flowLayout)
 
