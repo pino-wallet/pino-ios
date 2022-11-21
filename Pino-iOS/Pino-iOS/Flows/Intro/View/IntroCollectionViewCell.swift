@@ -42,11 +42,11 @@ extension IntroCollectionViewCell {
 
 	private func setupStyle() {
 		contentStackView.axis = .vertical
-		contentStackView.spacing = 31
+		contentStackView.spacing = 32
 		contentStackView.alignment = .center
 
 		titleStackView.axis = .vertical
-		titleStackView.spacing = 25
+		titleStackView.spacing = 20
 		titleStackView.alignment = .center
 
 		introImage.image = introModel.image

@@ -68,7 +68,7 @@ extension IntroView {
 		importWalletButton.titleLabel?.font = .PinoStyle.semiboldBody
 
 		signinStackView.axis = .vertical
-		signinStackView.spacing = 40
+		signinStackView.spacing = 36
 		signinStackView.alignment = .fill
 
 		introCollectionView.introContents = introContent
@@ -82,12 +82,12 @@ extension IntroView {
 	private func setupContstraint() {
 		introCollectionView.pin(
 			.width(to: self),
-			.bottom(padding: 334),
-			.top(padding: 117),
+			.relative(.bottom, 88, to: self, .centerY),
+			.top(to: layoutMarginsGuide, padding: 26),
 			.centerX
 		)
 		signinStackView.pin(
-			.bottom(padding: 36),
+			.bottom(to: layoutMarginsGuide, padding: 1),
 			.horizontalEdges(padding: 16)
 		)
 		createWalletButton.pin(
@@ -95,7 +95,7 @@ extension IntroView {
 		)
 		pageControl.pin(
 			.centerX,
-			.bottom(padding: 182)
+			.relative(.bottom, -24, to: signinStackView, .top)
 		)
 	}
 }
