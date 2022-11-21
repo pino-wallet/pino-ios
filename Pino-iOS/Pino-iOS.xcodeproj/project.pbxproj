@@ -54,6 +54,8 @@
 		E31159742929F83500804CE1 /* IntroCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31159732929F83500804CE1 /* IntroCollectionViewCell.swift */; };
 		E3115979292A2BFC00804CE1 /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3115978292A2BFC00804CE1 /* IntroModel.swift */; };
 		DFCE5F562923FFAC0054DA62 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCE5F552923FFAC0054DA62 /* KeychainHelper.swift */; };
+		DFCE5F6129267B1A0054DA62 /* PinoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCE5F6029267B1A0054DA62 /* PinoLabel.swift */; };
+		DFCE5F6329267B2F0054DA62 /* PinoLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCE5F6229267B2F0054DA62 /* PinoLabelStyle.swift */; };
 		E3702F55292012C200BA39C9 /* PPPangramSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3D292012C100BA39C9 /* PPPangramSans-Bold.ttf */; };
 		E3702F56292012C200BA39C9 /* PPPangramSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3E292012C100BA39C9 /* PPPangramSans-BoldItalic.ttf */; };
 		E3702F57292012C200BA39C9 /* PPPangramSans-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3F292012C100BA39C9 /* PPPangramSans-RegularItalic.ttf */; };
@@ -165,6 +167,8 @@
 		E31159732929F83500804CE1 /* IntroCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCollectionViewCell.swift; sourceTree = "<group>"; };
 		E3115978292A2BFC00804CE1 /* IntroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroModel.swift; sourceTree = "<group>"; };
 		DFCE5F552923FFAC0054DA62 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		DFCE5F6029267B1A0054DA62 /* PinoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoLabel.swift; sourceTree = "<group>"; };
+		DFCE5F6229267B2F0054DA62 /* PinoLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoLabelStyle.swift; sourceTree = "<group>"; };
 		E3702F3D292012C100BA39C9 /* PPPangramSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Bold.ttf"; sourceTree = "<group>"; };
 		E3702F3E292012C100BA39C9 /* PPPangramSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		E3702F3F292012C100BA39C9 /* PPPangramSans-RegularItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-RegularItalic.ttf"; sourceTree = "<group>"; };
@@ -367,6 +371,7 @@
 		DF2B041C2919549F00781052 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				DFCE5F5F29267B0E0054DA62 /* Label */,
 				E3B72335291B84F900D4F46C /* Typography */,
 				E3B72340291B878B00D4F46C /* Color */,
 				E3B72343291B89F900D4F46C /* Button */,
@@ -501,6 +506,15 @@
 			);
 			path = KeychainManager;
       
+			sourceTree = "<group>";
+		};
+		DFCE5F5F29267B0E0054DA62 /* Label */ = {
+			isa = PBXGroup;
+			children = (
+				DFCE5F6029267B1A0054DA62 /* PinoLabel.swift */,
+				DFCE5F6229267B2F0054DA62 /* PinoLabelStyle.swift */,
+			);
+			path = Label;
 			sourceTree = "<group>";
 		};
 		E3B72304291B811300D4F46C /* Fonts */ = {
@@ -908,6 +922,7 @@
 				E31159722929F81F00804CE1 /* IntroCollectionView.swift in Sources */,
 				E3B72339291B85A300D4F46C /* BoldStyle.swift in Sources */,
 				DF05F6A5291644B7005A3338 /* Pino_iOS.xcdatamodeld in Sources */,
+				DFCE5F6329267B2F0054DA62 /* PinoLabelStyle.swift in Sources */,
 				E3EDCC31292117C10011B9A8 /* SecretPhraseCollectionView.swift in Sources */,
 				E3EDCC3D29221C930011B9A8 /* SecretPhraseViewModel.swift in Sources */,
 				E3B7234C291B8D8A00D4F46C /* PinoCheckBoxStyle.swift in Sources */,
@@ -925,6 +940,7 @@
 				E3EDCC142920C6D70011B9A8 /* MockSeedPhraseList.swift in Sources */,
 				E3EDCC35292117DB0011B9A8 /* SecretPhraseCell.swift in Sources */,
 				E3B7233D291B85C500D4F46C /* MediumStyle.swift in Sources */,
+				DFCE5F6129267B1A0054DA62 /* PinoLabel.swift in Sources */,
 				E3B72345291B8A2300D4F46C /* PinoButton.swift in Sources */,
 				E311596C29290DFD00804CE1 /* IntroView.swift in Sources */,
 				E3B72342291B87A200D4F46C /* PinoColor.swift in Sources */,
