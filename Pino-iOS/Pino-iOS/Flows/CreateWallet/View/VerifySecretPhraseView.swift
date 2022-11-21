@@ -15,6 +15,7 @@ class VerifySecretPhraseView: UIView {
 	private let titleStackView = UIStackView()
 	private let pageTitle = UILabel()
 	private let pageDescription = UILabel()
+	private let collectionsStackView = UIStackView()
 	private let sortedPhraseBoxView = UIView()
 	private let sortedPhraseCollectionView = SecretPhraseCollectionView()
 	private let errorStackView = UIStackView()
@@ -106,8 +107,9 @@ extension VerifySecretPhraseView {
 
 	private func setupView() {
 		contentStackView.addArrangedSubview(titleStackView)
-		contentStackView.addArrangedSubview(sortedPhraseBoxView)
-		contentStackView.addArrangedSubview(randomPhraseCollectionView)
+		contentStackView.addArrangedSubview(collectionsStackView)
+		collectionsStackView.addArrangedSubview(sortedPhraseBoxView)
+		collectionsStackView.addArrangedSubview(randomPhraseCollectionView)
 		titleStackView.addArrangedSubview(pageTitle)
 		titleStackView.addArrangedSubview(pageDescription)
 		errorStackView.addArrangedSubview(errorIcon)
@@ -141,11 +143,33 @@ extension VerifySecretPhraseView {
 		pageTitle.text = "Verify seed pharase"
 		pageTitle.textColor = .Pino.label
 		pageTitle.font = .PinoStyle.semiboldTitle3
+		var attributedString = NSMutableAttributedString(string: "Verify seed pharase")
+		var paragraphStyle = NSMutableParagraphStyle()
+		paragraphStyle.lineSpacing = 8
+		attributedString.addAttribute(
+			.paragraphStyle,
+			value: paragraphStyle,
+			range: NSRange(location: 0, length: attributedString.length)
+		)
+		pageTitle.attributedText = attributedString
 
 		pageDescription.text = "A two line description should be here. A two line description should be here"
 		pageDescription.textColor = .Pino.secondaryLabel
 		pageDescription.font = .PinoStyle.mediumCallout
 		pageDescription.numberOfLines = 0
+
+		attributedString =
+			NSMutableAttributedString(
+				string: "A two line description should be here. A two line description should be here"
+			)
+		paragraphStyle = NSMutableParagraphStyle()
+		paragraphStyle.lineSpacing = 6
+		attributedString.addAttribute(
+			.paragraphStyle,
+			value: paragraphStyle,
+			range: NSRange(location: 0, length: attributedString.length)
+		)
+		pageDescription.attributedText = attributedString
 
 		errorLabel.text = "Invalid order! Try again"
 		errorLabel.textColor = .Pino.ErrorRed
@@ -157,10 +181,13 @@ extension VerifySecretPhraseView {
 		errorIcon.tintColor = .Pino.ErrorRed
 
 		contentStackView.axis = .vertical
-		contentStackView.spacing = 32
+		contentStackView.spacing = 36
+
+		collectionsStackView.axis = .vertical
+		collectionsStackView.spacing = 18
 
 		titleStackView.axis = .vertical
-		titleStackView.spacing = 12
+		titleStackView.spacing = 16
 
 		errorStackView.axis = .horizontal
 		errorStackView.spacing = 5
@@ -171,7 +198,10 @@ extension VerifySecretPhraseView {
 
 	private func setupContstraint() {
 		contentStackView.pin(
-			.top(padding: 115),
+			.top(padding: 117),
+			.horizontalEdges
+		)
+		collectionsStackView.pin(
 			.horizontalEdges
 		)
 		titleStackView.pin(
@@ -184,7 +214,7 @@ extension VerifySecretPhraseView {
 		)
 		sortedPhraseBoxView.pin(
 			.horizontalEdges,
-			.height(to: randomPhraseCollectionView, padding: 100)
+			.height(to: randomPhraseCollectionView, padding: 102)
 		)
 		sortedPhraseCollectionView.pin(
 			.horizontalEdges(padding: 16),

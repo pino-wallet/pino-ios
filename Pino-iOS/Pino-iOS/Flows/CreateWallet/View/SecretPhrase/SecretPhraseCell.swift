@@ -99,7 +99,7 @@ extension SecretPhraseCell {
 		)
 		seedPhraseStackView.pin(
 			.horizontalEdges(padding: 14),
-			.verticalEdges(padding: 6)
+			.verticalEdges(padding: 8)
 		)
 	}
 

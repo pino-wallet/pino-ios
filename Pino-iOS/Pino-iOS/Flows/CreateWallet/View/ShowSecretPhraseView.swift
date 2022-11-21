@@ -111,25 +111,27 @@ extension ShowSecretPhraseView {
 		revealButton.titleLabel?.font = .PinoStyle.semiboldTitle3
 
 		contentStackView.axis = .vertical
-		contentStackView.spacing = 32
+		contentStackView.spacing = 14
 
 		titleStackView.axis = .vertical
-		titleStackView.spacing = 10
+		titleStackView.spacing = 12
 
 		seedPhraseStackView.axis = .vertical
-		seedPhraseStackView.spacing = 32
+		seedPhraseStackView.spacing = 52
 		seedPhraseStackView.alignment = .center
 	}
 
 	private func setupContstraint() {
 		firstDescriptionLabel.pin(
-			.allEdges(padding: 12)
+			.verticalEdges(padding: 14),
+			.horizontalEdges(padding: 10)
 		)
 		secondDescriptionLabel.pin(
-			.allEdges(padding: 12)
+			.verticalEdges(padding: 14),
+			.horizontalEdges(padding: 10)
 		)
 		contentStackView.pin(
-			.top(padding: 115),
+			.top(padding: 117),
 			.horizontalEdges(padding: 16)
 		)
 		continueButton.pin(
@@ -141,8 +143,8 @@ extension ShowSecretPhraseView {
 			.horizontalEdges
 		)
 		seedPhraseStackView.pin(
-			.verticalEdges(padding: 10),
-			.horizontalEdges
+			.horizontalEdges(padding: 1),
+			.verticalEdges(padding: 10)
 		)
 		seedPhraseBlurView.pin(
 			.allEdges()
