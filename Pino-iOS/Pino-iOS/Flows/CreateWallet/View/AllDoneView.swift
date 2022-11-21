@@ -4,6 +4,7 @@
 //
 //  Created by Mohi Raoufi on 11/19/22.
 //
+// swiftlint: disable trailing_comma
 
 import UIKit
 
@@ -80,28 +81,28 @@ extension AllDoneView {
 		privacyPolicyLabel.font = .PinoStyle.mediumSubheadline
 
 		allDoneStackView.axis = .vertical
-		allDoneStackView.spacing = 24
+		allDoneStackView.spacing = 27
 		allDoneStackView.alignment = .center
 
 		titleStackView.axis = .vertical
-		titleStackView.spacing = 12
+		titleStackView.spacing = 18
 		titleStackView.alignment = .center
 
 		privacyPolicyStackView.axis = .horizontal
-		privacyPolicyStackView.spacing = 6
+		privacyPolicyStackView.spacing = 0
 
 		getStartedStackView.axis = .vertical
-		getStartedStackView.spacing = 40
+		getStartedStackView.spacing = 35
 		getStartedStackView.alignment = .leading
 	}
 
 	private func setupContstraint() {
 		allDoneStackView.pin(
-			.centerY(padding: -66),
+			.centerY(padding: -62),
 			.centerX
 		)
 		getStartedStackView.pin(
-			.bottom(padding: 42),
+			.bottom(padding: 44),
 			.horizontalEdges(padding: 16)
 		)
 		allDoneImage.pin(
@@ -114,10 +115,6 @@ extension AllDoneView {
 		)
 		privacyPolicyStackView.pin(
 			.horizontalEdges
-		)
-		privacyPolicyLabel.pin(
-			.trailing,
-			.centerY
 		)
 	}
 
@@ -133,12 +130,13 @@ extension AllDoneView {
 		#warning("This must be replaced with pino urls")
 		let temporaryTermOfServiceURL = URL(string: "http://google.com/")!
 		let temporaryPrivacyPolicyURL = URL(string: "http://google.com/")!
-		let attributedString = NSMutableAttributedString(string: "I agree to the Term of use and Privacy policy")
-		attributedString.setAttributes([.link: temporaryTermOfServiceURL], range: NSRange(location: 15, length: 11))
-		attributedString.setAttributes([.link: temporaryPrivacyPolicyURL], range: NSRange(location: 31, length: 14))
-		privacyPolicyLabel.attributedText = attributedString
-		privacyPolicyLabel.isUserInteractionEnabled = true
-		privacyPolicyLabel.isSelectable = true
+		let attributedText = NSMutableAttributedString(string: "I agree to the Term of use and Privacy policy")
+		let termOfUseRange = (attributedText.string as NSString).range(of: "Term of use")
+		let privacyPolicyRange = (attributedText.string as NSString).range(of: "Privacy policy")
+		attributedText.setAttributes([.link: temporaryTermOfServiceURL], range: termOfUseRange)
+		attributedText.setAttributes([.link: temporaryPrivacyPolicyURL], range: privacyPolicyRange)
+		privacyPolicyLabel.attributedText = attributedText
+		privacyPolicyLabel.isEditable = false
 		privacyPolicyLabel.isScrollEnabled = false
 		privacyPolicyLabel.linkTextAttributes = [
 			.foregroundColor: UIColor.Pino.primary,
