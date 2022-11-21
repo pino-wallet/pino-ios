@@ -8,12 +8,11 @@
 import UIKit
 
 class CreatePasscodeViewController: UIViewController {
-	// MARK: Private Properties
-
-	public var createPassView: ManagePasscodeView?
-
 	// MARK: Public Properties
 
+	public var createPassView: ManagePasscodeView?
+    public var createPassVM: CreatePassVM!
+    
 	// MARK: View Overrides
 
 	override func viewDidLoad() {
@@ -25,22 +24,23 @@ class CreatePasscodeViewController: UIViewController {
 		setSteperView()
 	}
 
-	override func viewDidAppear() {
-		// Everytime create pass page appears whther anypass is saved or not its better 
-		// be deleted.
-		createPassVM.deletePasscode();
-	}
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // Everytime create pass page appears whther anypass is saved or not its better
+        // be deleted.
+        createPassVM.resetPassword();
+    }
 
 	// MARK: Private Methods
 
 	private func stupView() {
 		// Custom view should be created
 
-		let createPassVM = CreatePassVM {
-			// Passcode was chose -> Show verify passcode page
-			let verifyPassVC = VerifyPasscodeViewController()
-			self.navigationController?.pushViewController(verifyPassVC, animated: true)
-		}
+        createPassVM = CreatePassVM(finishPassCreation: {
+            // Passcode was chose -> Show verify passcode page
+            let verifyPassVC = VerifyPasscodeViewController()
+            self.navigationController?.pushViewController(verifyPassVC, animated: true)
+        })
 		createPassView = ManagePasscodeView(managePassVM: createPassVM)
 		view = createPassView
 		view.backgroundColor = .Pino.secondaryBackground

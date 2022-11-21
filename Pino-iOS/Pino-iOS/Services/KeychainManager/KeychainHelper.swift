@@ -496,3 +496,5 @@ public enum KeychainSwiftAccessOptions {
 		KeychainSwiftConstants.toString(value)
 	}
 }
+
+extension KeychainSwift: KeychainWrapper { }
