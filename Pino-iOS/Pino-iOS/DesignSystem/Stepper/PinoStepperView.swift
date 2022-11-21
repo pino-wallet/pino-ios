@@ -23,7 +23,6 @@ public class PinoStepperView: UIView {
 	public init(stepsCount: Int, currentStep: Int) {
 		self.currentStep = currentStep
 		self.stepsCount = stepsCount
-
 		super.init(frame: .zero)
 
 		createStepsView()
@@ -36,18 +35,19 @@ public class PinoStepperView: UIView {
 	// MARK: Private methods
 
 	private func updateStep() {
-		// Current step value must be greater than zero and less than the total number of steps
-		switch currentStep {
-		case _ where currentStep > stepsCount:
-			currentStep = stepsCount
-		case _ where currentStep < 1:
-			currentStep = 1
-		default:
-			break
-		}
+		assert(isCurrentStepValid(), "Index out of bounds!")
 		// Update the colors when the current step changes
-		stepViews.forEach { $0.backgroundColor = .Pino.gray4 }
-		stepViews[currentStep - 1].backgroundColor = .Pino.primary
+		for (index, stepView) in stepViews.enumerated() {
+			if index < currentStep {
+				stepView.backgroundColor = .Pino.primary
+			} else {
+				stepView.backgroundColor = .Pino.gray4
+			}
+		}
+	}
+
+	private func isCurrentStepValid() -> Bool {
+		stepViews.indices.contains(currentStep - 1)
 	}
 
 	private func createStepsView() {
