@@ -119,9 +119,10 @@ extension VerifySecretPhraseView {
 		sortedPhraseBoxView.addSubview(sortedPhraseCollectionView)
 		sortedPhraseBoxView.addSubview(errorStackView)
 		contentView.addSubview(contentStackView)
+		contentView.addSubview(continueButton)
 		scrollView.addSubview(contentView)
 		addSubview(scrollView)
-		addSubview(continueButton)
+//		addSubview(continueButton)
 
 		continueButton.addAction(UIAction(handler: { _ in
 			if self.continueButton.style == .active {
@@ -180,17 +181,15 @@ extension VerifySecretPhraseView {
 
 	private func setupContstraint() {
 		scrollView.pin(
-			.top(to: layoutMarginsGuide),
-			.relative(.bottom, 0, to: continueButton, .top),
-			.horizontalEdges
+			.allEdges
 		)
 		contentView.pin(
 			.allEdges,
-			.width(to: self)
+			.width
 		)
 		contentStackView.pin(
 			.horizontalEdges,
-			.verticalEdges(padding: 24)
+			.top(padding: 25)
 		)
 		collectionsStackView.pin(
 			.horizontalEdges
@@ -199,7 +198,7 @@ extension VerifySecretPhraseView {
 			.horizontalEdges(padding: 16)
 		)
 		continueButton.pin(
-			.bottom(padding: 42),
+			.bottom(padding: 8),
 			.horizontalEdges(padding: 16),
 			.fixedHeight(56)
 		)
@@ -225,5 +224,10 @@ extension VerifySecretPhraseView {
 		randomPhraseCollectionView.pin(
 			.horizontalEdges(padding: 16)
 		)
+
+		NSLayoutConstraint.activate([
+			contentView.heightAnchor.constraint(greaterThanOrEqualTo: layoutMarginsGuide.heightAnchor),
+			continueButton.topAnchor.constraint(greaterThanOrEqualTo: contentStackView.bottomAnchor, constant: 64),
+		])
 	}
 }
