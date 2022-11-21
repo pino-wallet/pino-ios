@@ -23,15 +23,27 @@ extension PinoCheckBox {
 
 extension PinoCheckBox.Style {
 	public static let defaultStyle = PinoCheckBox.Style(
-		uncheckedImage: UIImage(systemName: "square"),
-		checkedImage: UIImage(systemName: "checkmark.square.fill"),
+		uncheckedImage: UIImage(
+			systemName: "square",
+			withConfiguration: UIImage.SymbolConfiguration(pointSize: 26)
+		),
+		checkedImage: UIImage(
+			systemName: "checkmark.square.fill",
+			withConfiguration: UIImage.SymbolConfiguration(pointSize: 26)
+		),
 		unchekedTintColor: .Pino.gray3,
 		checkedTintColor: .Pino.primary
 	)
 
 	public static let deactive = PinoCheckBox.Style(
-		uncheckedImage: UIImage(systemName: "checkmark.square"),
-		checkedImage: UIImage(systemName: "checkmark.square.fill"),
+		uncheckedImage: UIImage(
+			systemName: "checkmark.square",
+			withConfiguration: UIImage.SymbolConfiguration(pointSize: 26)
+		),
+		checkedImage: UIImage(
+			systemName: "checkmark.square.fill",
+			withConfiguration: UIImage.SymbolConfiguration(pointSize: 26)
+		),
 		unchekedTintColor: .Pino.gray3,
 		checkedTintColor: .Pino.primary
 	)
