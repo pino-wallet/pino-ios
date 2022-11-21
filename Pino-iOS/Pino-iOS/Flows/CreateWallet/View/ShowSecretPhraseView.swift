@@ -131,7 +131,7 @@ extension ShowSecretPhraseView {
 			.horizontalEdges(padding: 10)
 		)
 		contentStackView.pin(
-			.top(padding: 117),
+			.top(to: layoutMarginsGuide, padding: 24),
 			.horizontalEdges(padding: 16)
 		)
 		continueButton.pin(

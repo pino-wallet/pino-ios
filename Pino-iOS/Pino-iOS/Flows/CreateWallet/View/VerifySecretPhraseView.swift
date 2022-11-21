@@ -11,6 +11,8 @@ import UIKit
 class VerifySecretPhraseView: UIView {
 	// MARK: Private Properties
 
+	private let scrollView = UIScrollView()
+	private let contentView = UIView()
 	private let contentStackView = UIStackView()
 	private let titleStackView = UIStackView()
 	private let pageTitle = UILabel()
@@ -116,7 +118,9 @@ extension VerifySecretPhraseView {
 		errorStackView.addArrangedSubview(errorLabel)
 		sortedPhraseBoxView.addSubview(sortedPhraseCollectionView)
 		sortedPhraseBoxView.addSubview(errorStackView)
-		addSubview(contentStackView)
+		contentView.addSubview(contentStackView)
+		scrollView.addSubview(contentView)
+		addSubview(scrollView)
 		addSubview(continueButton)
 
 		continueButton.addAction(UIAction(handler: { _ in
@@ -143,33 +147,11 @@ extension VerifySecretPhraseView {
 		pageTitle.text = "Verify seed pharase"
 		pageTitle.textColor = .Pino.label
 		pageTitle.font = .PinoStyle.semiboldTitle3
-		var attributedString = NSMutableAttributedString(string: "Verify seed pharase")
-		var paragraphStyle = NSMutableParagraphStyle()
-		paragraphStyle.lineSpacing = 8
-		attributedString.addAttribute(
-			.paragraphStyle,
-			value: paragraphStyle,
-			range: NSRange(location: 0, length: attributedString.length)
-		)
-		pageTitle.attributedText = attributedString
 
 		pageDescription.text = "A two line description should be here. A two line description should be here"
 		pageDescription.textColor = .Pino.secondaryLabel
 		pageDescription.font = .PinoStyle.mediumCallout
 		pageDescription.numberOfLines = 0
-
-		attributedString =
-			NSMutableAttributedString(
-				string: "A two line description should be here. A two line description should be here"
-			)
-		paragraphStyle = NSMutableParagraphStyle()
-		paragraphStyle.lineSpacing = 6
-		attributedString.addAttribute(
-			.paragraphStyle,
-			value: paragraphStyle,
-			range: NSRange(location: 0, length: attributedString.length)
-		)
-		pageDescription.attributedText = attributedString
 
 		errorLabel.text = "Invalid order! Try again"
 		errorLabel.textColor = .Pino.ErrorRed
@@ -197,9 +179,18 @@ extension VerifySecretPhraseView {
 	}
 
 	private func setupContstraint() {
-		contentStackView.pin(
-			.top(padding: 117),
+		scrollView.pin(
+			.top(to: layoutMarginsGuide),
+			.relative(.bottom, 0, to: continueButton, .top),
 			.horizontalEdges
+		)
+		contentView.pin(
+			.allEdges,
+			.width(to: self)
+		)
+		contentStackView.pin(
+			.horizontalEdges,
+			.verticalEdges(padding: 24)
 		)
 		collectionsStackView.pin(
 			.horizontalEdges

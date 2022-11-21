@@ -54,6 +54,7 @@ extension VerifySecretPhraseViewController {
 		let steperView = PinoStepperView(stepsCount: 3, currentStep: 2)
 		navigationItem.titleView = steperView
 		navigationController?.navigationBar.backgroundColor = .Pino.secondaryBackground
+		navigationController?.navigationBar.shadowImage = UIImage()
 	}
 
 	private func setNavigationBackButton() {
