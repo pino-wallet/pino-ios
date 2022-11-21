@@ -13,12 +13,4 @@ public struct IntroModel {
 	public let image: UIImage
 	public let title: String
 	public let description: String
-
-	// MARK: Initializers
-
-	init(image: UIImage, title: String, description: String) {
-		self.image = image
-		self.title = title
-		self.description = description
-	}
 }

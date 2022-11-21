@@ -84,6 +84,7 @@ extension IntroCollectionView: UICollectionViewDelegate {
 		willDisplay cell: UICollectionViewCell,
 		forItemAt indexPath: IndexPath
 	) {
+		// The page control in the parent view needs it to update current page
 		if let pageDidChange {
 			pageDidChange(indexPath.item)
 		}
