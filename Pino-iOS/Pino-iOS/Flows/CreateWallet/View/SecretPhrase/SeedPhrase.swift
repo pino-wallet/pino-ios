@@ -14,7 +14,7 @@ public protocol SeedPhrase {
 }
 
 struct DefaultSeedPhrase: SeedPhrase {
-	var style = SecretPhraseCell.Style.regular
+	let style = SecretPhraseCell.Style.regular
 	var sequence: Int?
 	var title: String?
 
@@ -25,7 +25,7 @@ struct DefaultSeedPhrase: SeedPhrase {
 }
 
 struct UnorderedSeedPhrase: SeedPhrase {
-	var style = SecretPhraseCell.Style.unordered
+	let style = SecretPhraseCell.Style.unordered
 	var sequence: Int?
 	var title: String?
 
@@ -36,7 +36,7 @@ struct UnorderedSeedPhrase: SeedPhrase {
 }
 
 struct EmptySeedPhrase: SeedPhrase {
-	var style = SecretPhraseCell.Style.empty
+	let style = SecretPhraseCell.Style.empty
 	var sequence: Int?
 	var title: String?
 

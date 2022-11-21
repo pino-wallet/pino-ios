@@ -23,7 +23,6 @@ class SecretPhraseViewModel {
 	public func getRandomWords(numberOfWords: Int) {
 		// This should be replaced by the library words list
 		let shuffledList = MockSeedPhrase.wordList.shuffled()
-		let secretPhraseWordsList = Array(shuffledList.prefix(numberOfWords))
-		secretPhrase = secretPhraseWordsList
+		secretPhrase = Array(shuffledList.prefix(numberOfWords))
 	}
 }
