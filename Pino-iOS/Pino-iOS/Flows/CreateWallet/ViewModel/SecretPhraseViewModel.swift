@@ -26,12 +26,4 @@ class SecretPhraseViewModel {
 		let secretPhraseWordsList = Array(shuffledList.prefix(numberOfWords))
 		secretPhrase = secretPhraseWordsList
 	}
-
-	public func isVerified(selectedPhrase: [String]) -> Bool {
-		if selectedPhrase == secretPhrase {
-			return true
-		} else {
-			return false
-		}
-	}
 }

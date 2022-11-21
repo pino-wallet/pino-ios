@@ -31,12 +31,10 @@ class VerifySecretPhraseViewController: UIViewController {
 	// MARK: Private Methods
 
 	private func createWallet(_ sortedPhrase: [String]) {
-		if secretPhraseVM.isVerified(selectedPhrase: sortedPhrase) {
-			// Wallet should be created here
-			// Go to create passcode page
-			let createPasscodeViewController = CreatePasscodeViewController()
-			navigationController?.pushViewController(createPasscodeViewController, animated: true)
-		}
+		// Wallet should be created here
+		// Go to create passcode page
+		let createPasscodeViewController = CreatePasscodeViewController()
+		navigationController?.pushViewController(createPasscodeViewController, animated: true)
 	}
 
 	@objc
