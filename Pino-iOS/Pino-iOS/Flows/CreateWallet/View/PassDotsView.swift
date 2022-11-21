@@ -25,14 +25,6 @@ extension PasscodeManagerPages {
 		guard !password.isEmpty else { return }
 		_ = password.popLast()
 	}
-
-	mutating func passInserted(passChar: String) {
-		guard password.count < passDigitsCount else { return }
-		password.append(passChar)
-		if password.count == 6 {
-			finishPassCreation()
-		}
-	}
 }
 
 struct CreatePassVM: PasscodeManagerPages {
@@ -40,6 +32,26 @@ struct CreatePassVM: PasscodeManagerPages {
 	var description = "This passcode is for maximizing wallet security. It cannot be used to recover it."
 	var password = ""
 	var finishPassCreation: () -> Void
+	let keychainHelper = PasscodeManager(keychainHelper: KeychainSwift())
+
+	mutating func passInserted(passChar: String) {
+		guard password.count < passDigitsCount else { return }
+		password.append(passChar)
+		if password.count == 6 {
+			if keychainHelper.store(passcode) {
+				// pass storation succeeds
+				finishPassCreation() 
+			} else {
+				// pass storation fails
+				// In case keychain is disabled We should show a critical Error 
+			}
+		}
+	}
+
+	func resetPassword() {
+		// User returns from verify screens to edit the passcode so previous passcode
+		// Should be removed from keychain and the new one be replaced
+	}
 }
 
 struct VerifyPassVM: PasscodeManagerPages {
@@ -47,6 +59,25 @@ struct VerifyPassVM: PasscodeManagerPages {
 	var description = "This passcode is for maximizing wallet security. It cannot be used to recover it."
 	var password = ""
 	var finishPassCreation: () -> Void
+
+	mutating func passInserted(passChar: String) {
+		guard password.count < passDigitsCount else { return }
+		password.append(passChar)
+		if password.count == 6 {
+			if let createdPasscode = keychainHelper.retrievePasscode() {
+				// pass storation succeeds
+				if createdPasscode == passcode {
+					finishPassCreation() 
+				} else {
+					// This case is almost impossibele -> Fatal Error
+				}
+			} else {
+				// pass retrival failed
+				// Probably the app should crash Or return user back to prev page to create again
+
+			}
+		}
+	}
 }
 
 class PassDotsView: UIView {

@@ -25,6 +25,12 @@ class CreatePasscodeViewController: UIViewController {
 		setSteperView()
 	}
 
+	override func viewDidAppear() {
+		// Everytime create pass page appears whther anypass is saved or not its better 
+		// be deleted.
+		createPassVM.deletePasscode();
+	}
+
 	// MARK: Private Methods
 
 	private func stupView() {
