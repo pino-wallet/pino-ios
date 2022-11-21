@@ -49,6 +49,11 @@
 		DF2B04292919640300781052 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2B04282919640300781052 /* IntroViewController.swift */; };
 		E311596E2929215B00804CE1 /* AllDoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E311596D2929215B00804CE1 /* AllDoneViewController.swift */; };
 		E31159702929223500804CE1 /* AllDoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E311596F2929223500804CE1 /* AllDoneView.swift */; };
+		E311596C29290DFD00804CE1 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E311596B29290DFD00804CE1 /* IntroView.swift */; };
+		E31159722929F81F00804CE1 /* IntroCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31159712929F81F00804CE1 /* IntroCollectionView.swift */; };
+		E31159742929F83500804CE1 /* IntroCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31159732929F83500804CE1 /* IntroCollectionViewCell.swift */; };
+		E3115979292A2BFC00804CE1 /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3115978292A2BFC00804CE1 /* IntroModel.swift */; };
+		DFCE5F562923FFAC0054DA62 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCE5F552923FFAC0054DA62 /* KeychainHelper.swift */; };
 		E3702F55292012C200BA39C9 /* PPPangramSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3D292012C100BA39C9 /* PPPangramSans-Bold.ttf */; };
 		E3702F56292012C200BA39C9 /* PPPangramSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3E292012C100BA39C9 /* PPPangramSans-BoldItalic.ttf */; };
 		E3702F57292012C200BA39C9 /* PPPangramSans-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3F292012C100BA39C9 /* PPPangramSans-RegularItalic.ttf */; };
@@ -155,6 +160,11 @@
 		DF2B04282919640300781052 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		E311596D2929215B00804CE1 /* AllDoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDoneViewController.swift; sourceTree = "<group>"; };
 		E311596F2929223500804CE1 /* AllDoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDoneView.swift; sourceTree = "<group>"; };
+		E311596B29290DFD00804CE1 /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
+		E31159712929F81F00804CE1 /* IntroCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCollectionView.swift; sourceTree = "<group>"; };
+		E31159732929F83500804CE1 /* IntroCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCollectionViewCell.swift; sourceTree = "<group>"; };
+		E3115978292A2BFC00804CE1 /* IntroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroModel.swift; sourceTree = "<group>"; };
+		DFCE5F552923FFAC0054DA62 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		E3702F3D292012C100BA39C9 /* PPPangramSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Bold.ttf"; sourceTree = "<group>"; };
 		E3702F3E292012C100BA39C9 /* PPPangramSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		E3702F3F292012C100BA39C9 /* PPPangramSans-RegularItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-RegularItalic.ttf"; sourceTree = "<group>"; };
@@ -379,6 +389,7 @@
 		DF2B041E2919574E00781052 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				DFCE5F542923FF850054DA62 /* KeychainManager */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -457,6 +468,39 @@
 				DF05F6A3291644B7005A3338 /* Pino_iOS.xcdatamodeld */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		E3115975292A2B9D00804CE1 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DF2B04282919640300781052 /* IntroViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E3115976292A2BBD00804CE1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E311596B29290DFD00804CE1 /* IntroView.swift */,
+				E31159712929F81F00804CE1 /* IntroCollectionView.swift */,
+				E31159732929F83500804CE1 /* IntroCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E3115977292A2BD800804CE1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E3115978292A2BFC00804CE1 /* IntroModel.swift */,
+			);
+			path = Model;
+		DFCE5F542923FF850054DA62 /* KeychainManager */ = {
+			isa = PBXGroup;
+			children = (
+				DFCE5F552923FFAC0054DA62 /* KeychainHelper.swift */,
+			);
+			path = KeychainManager;
+      
 			sourceTree = "<group>";
 		};
 		E3B72304291B811300D4F46C /* Fonts */ = {
@@ -540,7 +584,9 @@
 		E3EDCC20292102420011B9A8 /* Intro */ = {
 			isa = PBXGroup;
 			children = (
-				DF2B04282919640300781052 /* IntroViewController.swift */,
+				E3115977292A2BD800804CE1 /* Model */,
+				E3115976292A2BBD00804CE1 /* View */,
+				E3115975292A2B9D00804CE1 /* ViewController */,
 			);
 			path = Intro;
 			sourceTree = "<group>";
@@ -859,6 +905,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E31159722929F81F00804CE1 /* IntroCollectionView.swift in Sources */,
 				E3B72339291B85A300D4F46C /* BoldStyle.swift in Sources */,
 				DF05F6A5291644B7005A3338 /* Pino_iOS.xcdatamodeld in Sources */,
 				E3EDCC31292117C10011B9A8 /* SecretPhraseCollectionView.swift in Sources */,
@@ -868,8 +915,10 @@
 				E3EDCC3929220F490011B9A8 /* SecretPhraseCenteredFlowLayout.swift in Sources */,
 				E3B72337291B853200D4F46C /* PinoFont.swift in Sources */,
 				E3EDCC252921036F0011B9A8 /* ShowSecretPhraseViewController.swift in Sources */,
+				E3115979292A2BFC00804CE1 /* IntroModel.swift in Sources */,
 				DF05F69B291644B7005A3338 /* AppDelegate.swift in Sources */,
 				E311596E2929215B00804CE1 /* AllDoneViewController.swift in Sources */,
+				E31159742929F83500804CE1 /* IntroCollectionViewCell.swift in Sources */,
 				DF05F69D291644B7005A3338 /* SceneDelegate.swift in Sources */,
 				E3EDCC182920CA1D0011B9A8 /* PinoStepperView.swift in Sources */,
 				E3B7234A291B8D7200D4F46C /* PinoCheckBox.swift in Sources */,
@@ -877,11 +926,13 @@
 				E3EDCC35292117DB0011B9A8 /* SecretPhraseCell.swift in Sources */,
 				E3B7233D291B85C500D4F46C /* MediumStyle.swift in Sources */,
 				E3B72345291B8A2300D4F46C /* PinoButton.swift in Sources */,
+				E311596C29290DFD00804CE1 /* IntroView.swift in Sources */,
 				E3B72342291B87A200D4F46C /* PinoColor.swift in Sources */,
 				E31159702929223500804CE1 /* AllDoneView.swift in Sources */,
 				E3EDCC29292105470011B9A8 /* ShowSecretPhraseView.swift in Sources */,
 				E3EDCC42292236C20011B9A8 /* SecretPhraseModel.swift in Sources */,
 				CE5757B5291C7DBA001B4EFE /* AutolayoutHelper.swift in Sources */,
+				DFCE5F562923FFAC0054DA62 /* KeychainHelper.swift in Sources */,
 				DF2B04292919640300781052 /* IntroViewController.swift in Sources */,
 				E3EDCC1D2920F56F0011B9A8 /* StepWrapper.swift in Sources */,
 				E3B7233F291B85D700D4F46C /* RegularStyle.swift in Sources */,
