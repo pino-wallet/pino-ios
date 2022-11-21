@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		322D581C08B55163A8663852 /* Pods_Pino_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0F9DCB7B301E8270C900FF /* Pods_Pino_iOSTests.framework */; };
 		342FC8B4E91C08AC7E6EF487 /* Pods_Pino_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B07DDB48E26F1946E47DC3 /* Pods_Pino_iOS.framework */; };
+		400DD20E292BC0D900B248CA /* PasscodeManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DD20D292BC0D900B248CA /* PasscodeManagerService.swift */; };
 		5FE00D5229A8A6EB50C770BB /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B94B1E768003126CB948B2C3 /* Pods_Pino_iOS_Pino_iOSUITests.framework */; };
 		CE5757B5291C7DBA001B4EFE /* AutolayoutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5757B4291C7DBA001B4EFE /* AutolayoutHelper.swift */; };
 		DF05F69B291644B7005A3338 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F69A291644B7005A3338 /* AppDelegate.swift */; };
@@ -140,6 +141,7 @@
 		08AB256DD8187012AD029D14 /* Pods-Pino-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		259CCB16EC1F6255B4737FC5 /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2C8FA2512F8FA126D474D3E0 /* Pods-Pino-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		400DD20D292BC0D900B248CA /* PasscodeManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeManagerService.swift; sourceTree = "<group>"; };
 		52B07DDB48E26F1946E47DC3 /* Pods_Pino_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B94B1E768003126CB948B2C3 /* Pods_Pino_iOS_Pino_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS_Pino_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAD4E54BC53F8997AD564B9E /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -280,6 +282,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		400DD20C292BC0B200B248CA /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				400DD20D292BC0D900B248CA /* PasscodeManagerService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		4EF3C9816CF975D5E8C63B88 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -405,6 +415,7 @@
 		DF2B04202919578800781052 /* CreateWallet */ = {
 			isa = PBXGroup;
 			children = (
+				400DD20C292BC0B200B248CA /* Service */,
 				E3EDCC22292102D90011B9A8 /* ViewController */,
 				E3EDCC212921025C0011B9A8 /* View */,
 				E3EDCC23292102E70011B9A8 /* ViewModel */,
@@ -892,6 +903,7 @@
 				E33E318F2923D0680028ECDB /* VerifySecretPhraseViewController.swift in Sources */,
 				E3EDCC35292117DB0011B9A8 /* SecretPhraseCell.swift in Sources */,
 				E3B7233D291B85C500D4F46C /* MediumStyle.swift in Sources */,
+				400DD20E292BC0D900B248CA /* PasscodeManagerService.swift in Sources */,
 				E33E31912923D1A40028ECDB /* VerifySecretPhraseView.swift in Sources */,
 				E3B72345291B8A2300D4F46C /* PinoButton.swift in Sources */,
 				E3B72342291B87A200D4F46C /* PinoColor.swift in Sources */,

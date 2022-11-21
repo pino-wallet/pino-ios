@@ -7,15 +7,15 @@
 
 protocol KeychainHelperProtocol {
     get(key: String) -> String? {}
-    @discardableResult 
+    @discardableResult
     open func set(_ value: String, forKey key: String, withAccess access: KeychainSwiftAccessOptions? = nil) -> Bool
 }
 public struct PasscodeManager {
-	// MARK: Private Properties
+    // MARK: Private Properties
 
     private let keychainHelper: KeychainHelperProtocol!
 
-	private static enum StorageKeys: String {
+    private static enum StorageKeys: String {
         case passcodeStorage
     }
 
