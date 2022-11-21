@@ -11,7 +11,7 @@ import UIKit
 class SecretPhraseCollectionView: UICollectionView {
 	// MARK: Public Properties
 
-	public var words: [String] = [] {
+	public var secretWords: [String] = [] {
 		didSet {
 			reloadData()
 		}
@@ -73,7 +73,7 @@ class SecretPhraseCollectionView: UICollectionView {
 
 extension SecretPhraseCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		words.count
+		secretWords.count
 	}
 
 	func collectionView(
@@ -88,9 +88,9 @@ extension SecretPhraseCollectionView: UICollectionViewDataSource {
 
 		switch cellStyle {
 		case .regular:
-			secretPhraseCell.seedPhrase = DefaultSeedPhrase(sequence: index + 1, title: words[index])
+			secretPhraseCell.seedPhrase = DefaultSeedPhrase(sequence: index + 1, title: secretWords[index])
 		case .unordered:
-			secretPhraseCell.seedPhrase = UnorderedSeedPhrase(title: words[index])
+			secretPhraseCell.seedPhrase = UnorderedSeedPhrase(title: secretWords[index])
 		case .empty:
 			secretPhraseCell.seedPhrase = EmptySeedPhrase()
 		}
@@ -104,7 +104,7 @@ extension SecretPhraseCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let index = indexPath.item
 		if let wordSelected = wordSelected {
-			wordSelected(words[index])
+			wordSelected(secretWords[index])
 		}
 	}
 }

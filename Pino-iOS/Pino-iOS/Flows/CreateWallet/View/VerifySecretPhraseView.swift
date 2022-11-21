@@ -33,9 +33,9 @@ class VerifySecretPhraseView: UIView {
 		self.userSecretPhrase = secretPhrase
 		self.randomPhrase = secretPhrase.shuffled()
 		super.init(frame: .zero)
-		randomPhraseCollectionView.words = randomPhrase
+		randomPhraseCollectionView.secretWords = randomPhrase
 		randomPhraseCollectionView.cellStyle = .unordered
-		sortedPhraseCollectionView.words = []
+		sortedPhraseCollectionView.secretWords = []
 		setupView()
 		setupStyle()
 		setupContstraint()
@@ -78,15 +78,15 @@ extension VerifySecretPhraseView {
 	}
 
 	private func addSelectedWordToSortedPhrase(_ selectedWord: String) {
-		sortedPhraseCollectionView.words.append(selectedWord)
+		sortedPhraseCollectionView.secretWords.append(selectedWord)
 	}
 
 	private func removeSelectedWordFromSortedPhrase(_ selectedWord: String) {
-		sortedPhraseCollectionView.words.removeAll(where: { $0 == selectedWord })
+		sortedPhraseCollectionView.secretWords.removeAll(where: { $0 == selectedWord })
 	}
 
 	private func checkSecretPhraseSequence() {
-		let sortedWords = sortedPhraseCollectionView.words
+		let sortedWords = sortedPhraseCollectionView.secretWords
 
 		switch sortedWords {
 		// All words are selected in the correct order
@@ -123,7 +123,7 @@ extension VerifySecretPhraseView {
 
 		continueButton.addAction(UIAction(handler: { _ in
 			if self.continueButton.style == .active {
-				self.createWallet(self.sortedPhraseCollectionView.words)
+				self.createWallet(self.sortedPhraseCollectionView.secretWords)
 			}
 		}), for: .touchUpInside)
 

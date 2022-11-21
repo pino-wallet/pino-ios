@@ -33,7 +33,7 @@ class ShowSecretPhraseView: UIView {
 		self.shareSecretPhrase = shareSecretPhare
 		self.savedSecretPhrase = savedSecretPhrase
 		super.init(frame: .zero)
-		seedPhraseCollectionView.words = secretPhrase
+		seedPhraseCollectionView.secretWords = secretPhrase
 		setupView()
 		setupStyle()
 		setupContstraint()
