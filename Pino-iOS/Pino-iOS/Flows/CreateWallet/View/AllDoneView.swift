@@ -81,18 +81,18 @@ extension AllDoneView {
 		privacyPolicyLabel.font = .PinoStyle.mediumSubheadline
 
 		allDoneStackView.axis = .vertical
-		allDoneStackView.spacing = 27
+		allDoneStackView.spacing = 26
 		allDoneStackView.alignment = .center
 
 		titleStackView.axis = .vertical
-		titleStackView.spacing = 18
+		titleStackView.spacing = 16
 		titleStackView.alignment = .center
 
 		privacyPolicyStackView.axis = .horizontal
-		privacyPolicyStackView.spacing = 0
+		privacyPolicyStackView.spacing = -2
 
 		getStartedStackView.axis = .vertical
-		getStartedStackView.spacing = 35
+		getStartedStackView.spacing = 34
 		getStartedStackView.alignment = .leading
 	}
 
@@ -102,8 +102,8 @@ extension AllDoneView {
 			.centerX
 		)
 		getStartedStackView.pin(
-			.bottom(padding: 44),
-			.horizontalEdges(padding: 16)
+			.bottom(to: layoutMarginsGuide, padding: 8),
+			.horizontalEdges
 		)
 		allDoneImage.pin(
 			.fixedWidth(80),
@@ -111,10 +111,11 @@ extension AllDoneView {
 		)
 		getStartedButton.pin(
 			.fixedHeight(56),
-			.horizontalEdges
+			.horizontalEdges(padding: 16)
 		)
 		privacyPolicyStackView.pin(
-			.horizontalEdges
+			.leading(padding: 16),
+			.trailing(padding: 0)
 		)
 	}
 
