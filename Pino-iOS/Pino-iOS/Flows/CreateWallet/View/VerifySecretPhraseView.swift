@@ -33,9 +33,7 @@ class VerifySecretPhraseView: UIView {
 		self.userSecretPhrase = secretPhrase
 		self.randomPhrase = secretPhrase.shuffled()
 		super.init(frame: .zero)
-		randomPhraseCollectionView.secretWords = randomPhrase
-		randomPhraseCollectionView.cellStyle = .unordered
-		sortedPhraseCollectionView.secretWords = []
+
 		setupView()
 		setupStyle()
 		setupContstraint()
@@ -49,32 +47,30 @@ class VerifySecretPhraseView: UIView {
 extension VerifySecretPhraseView {
 	// MARK: Secret Phrase Methods
 
-	func selectSeedPhraseCell(_ selectedWord: String) {
-		let emptyCell = EmptySeedPhrase()
-		updateSecretPhraseCell(to: emptyCell, selectedWord: selectedWord) { isSelectable in
-			if isSelectable {
-				addSelectedWordToSortedPhrase(selectedWord)
-				checkSecretPhraseSequence()
-			}
-		}
+	private func selectSeedPhraseCell(_ selectedWord: String) {
+		updateSecretPhraseCell(to: .empty, selectedWord: selectedWord)
+		addSelectedWordToSortedPhrase(selectedWord)
+		checkSecretPhraseSequence()
 	}
 
-	func deselectSeedPhraseCell(_ selectedWord: String) {
-		let unorderedCell = UnorderedSeedPhrase(title: selectedWord)
-		updateSecretPhraseCell(to: unorderedCell, selectedWord: selectedWord) { isSelectable in
-			if isSelectable {
-				removeSelectedWordFromSortedPhrase(selectedWord)
-				checkSecretPhraseSequence()
-			}
-		}
+	private func deselectSeedPhraseCell(_ selectedWord: String) {
+		updateSecretPhraseCell(to: .unordered, selectedWord: selectedWord)
+		removeSelectedWordFromSortedPhrase(selectedWord)
+		checkSecretPhraseSequence()
 	}
 
-	private func updateSecretPhraseCell(to seedPhrase: SeedPhrase, selectedWord: String, isSelectable: (Bool) -> Void) {
+	private func updateSecretPhraseCell(to style: SecretPhraseCell.Style, selectedWord: String) {
 		guard let index = randomPhrase.firstIndex(of: selectedWord) else { return }
 		let indexPath = IndexPath(row: index, section: 0)
 		let cell = randomPhraseCollectionView.cellForItem(at: indexPath) as! SecretPhraseCell
-		isSelectable(cell.seedPhrase.title != seedPhrase.title)
-		cell.seedPhrase = seedPhrase
+		switch style {
+		case .regular:
+			cell.seedPhrase = DefaultSeedPhrase(sequence: index, title: selectedWord)
+		case .unordered:
+			cell.seedPhrase = UnorderedSeedPhrase(title: selectedWord)
+		case .empty:
+			cell.seedPhrase = EmptySeedPhrase()
+		}
 	}
 
 	private func addSelectedWordToSortedPhrase(_ selectedWord: String) {
@@ -127,16 +123,20 @@ extension VerifySecretPhraseView {
 			}
 		}), for: .touchUpInside)
 
-		randomPhraseCollectionView.wordSelected = { word in
-			self.selectSeedPhraseCell(word)
+		randomPhraseCollectionView.wordSelected = { secretPhraseword in
+			self.selectSeedPhraseCell(secretPhraseword)
 		}
-		sortedPhraseCollectionView.wordSelected = { word in
-			self.deselectSeedPhraseCell(word)
+		sortedPhraseCollectionView.wordSelected = { secretPhraseword in
+			self.deselectSeedPhraseCell(secretPhraseword)
 		}
 	}
 
 	private func setupStyle() {
 		backgroundColor = .Pino.secondaryBackground
+
+		randomPhraseCollectionView.secretWords = randomPhrase
+		randomPhraseCollectionView.cellStyle = .unordered
+		sortedPhraseCollectionView.secretWords = []
 
 		pageTitle.text = "Verify seed pharase"
 		pageTitle.textColor = .Pino.label

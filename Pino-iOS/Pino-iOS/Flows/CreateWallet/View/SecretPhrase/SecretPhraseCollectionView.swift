@@ -102,9 +102,15 @@ extension SecretPhraseCollectionView: UICollectionViewDataSource {
 
 extension SecretPhraseCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		let index = indexPath.item
-		if let wordSelected = wordSelected {
-			wordSelected(secretWords[index])
+		if let wordSelected {
+			// Cell with regular or unordered style is selectable
+			// Cell with empty style isn't selectable
+			let secretPhraseCell = cellForItem(at: indexPath) as! SecretPhraseCell
+			switch secretPhraseCell.seedPhrase.style {
+			case .regular, .unordered:
+				wordSelected(secretWords[indexPath.item])
+			case .empty: break
+			}
 		}
 	}
 }

@@ -60,9 +60,7 @@ public class SecretPhraseCell: UICollectionViewCell {
 
 	private func updateSeedphraseBorder(_ style: SecretPhraseCell.Style) {
 		switch style {
-		case .regular:
-			dashedBorder.lineDashPattern = [1, 0]
-		case .unordered:
+		case .regular, .unordered:
 			dashedBorder.lineDashPattern = [1, 0]
 		case .empty:
 			dashedBorder.lineDashPattern = [3, 3]
