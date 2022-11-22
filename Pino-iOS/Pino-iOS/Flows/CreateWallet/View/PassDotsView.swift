@@ -11,7 +11,7 @@ import UIKit
 protocol PasscodeManagerPages {
 	var title: String { get set }
 	var description: String { get set }
-	var password: String { get set }
+	var passcode: String { get set }
 	var passDigitsCount: Int { get }
 	mutating func passInserted(passChar: String) // Added new pass number
 	mutating func passRemoved() // Cleared last pass number
@@ -22,12 +22,10 @@ extension PasscodeManagerPages {
 	var passDigitsCount: Int { 6 } // Default number of Password digits count
 
 	mutating func passRemoved() {
-		guard !password.isEmpty else { return }
-		_ = password.popLast()
+		guard !passcode.isEmpty else { return }
+		_ = passcode.popLast()
 	}
 }
-
-
 
 class PassDotsView: UIView {
 	// MARK: Private Properties
@@ -112,6 +110,19 @@ extension PassDotsView {
 			dotView.layer.borderColor = UIColor.Pino.errorRed.cgColor
 		}
 	}
+    
+    func showErrorState() {
+        passDotsContainerView.subviews.forEach { dotView in
+            setStyle(of: dotView, withState: .error)
+        }
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.error)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
+            self.passDotsContainerView.subviews.forEach { dotView in
+                self.setStyle(of: dotView, withState: .empty)
+            }
+        })
+    }
 
 	enum PassdotState {
 		case fill
@@ -127,18 +138,18 @@ extension PassDotsView: UIKeyInput, UITextInputTraits {
 	override var canBecomeFirstResponder: Bool { true }
 	override var canResignFirstResponder: Bool { true }
 
-	var hasText: Bool { passcodeManagerVM.password.isEmpty == false }
+	var hasText: Bool { passcodeManagerVM.passcode.isEmpty == false }
 
 	var keyboardType: UIKeyboardType { get { UIKeyboardType.numberPad } set {} }
 
 	func insertText(_ text: String) {
 		passcodeManagerVM.passInserted(passChar: text)
-		setDotviewStyleAt(index: passcodeManagerVM.password.count - 1, withState: .fill)
+		setDotviewStyleAt(index: passcodeManagerVM.passcode.count - 1, withState: .fill)
 	}
 
 	func deleteBackward() {
 		passcodeManagerVM.passRemoved()
-		setDotviewStyleAt(index: passcodeManagerVM.password.count, withState: .empty)
+		setDotviewStyleAt(index: passcodeManagerVM.passcode.count, withState: .empty)
 	}
 
 	func setDotviewStyleAt(index: Int, withState state: PassdotState) {

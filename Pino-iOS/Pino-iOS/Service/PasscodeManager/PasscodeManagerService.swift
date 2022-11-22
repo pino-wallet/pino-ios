@@ -6,19 +6,30 @@
 //
 
 public struct PasscodeManager {
-    // MARK: Private Properties
 
-    let keychainHelper: KeychainWrapper!
+    // MARK: Public Properties
+
+    public let keychainHelper: KeychainWrapper!
+
+    // MARK: Private Properties
 
     private enum StorageKeys: String {
         case passcodeStorage
     }
 
-    func store(passcode: String) -> Bool {
+    // MARK: Public Functions
+
+    public func store(_ passcode: String) -> Bool {
         keychainHelper.set(passcode, forKey: PasscodeManager.StorageKeys.passcodeStorage.rawValue, withAccess: nil)
     }
 
-    func retrievePasscode() -> String? {
+    public func retrievePasscode() -> String? {
         keychainHelper.get(PasscodeManager.StorageKeys.passcodeStorage.rawValue)
     }
+    
+    public func resetPasscode() -> Bool {
+        keychainHelper.delete(PasscodeManager.StorageKeys.passcodeStorage.rawValue)
+    }
+    
+    
 }

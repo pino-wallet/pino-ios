@@ -10,25 +10,25 @@ import Foundation
 struct VerifyPassVM: PasscodeManagerPages {
     var title = "Retype passcode"
     var description = "This passcode is for maximizing wallet security. It cannot be used to recover it."
-    var password = ""
+    var passcode = ""
     var finishPassCreation: () -> Void
+    var passcodeWasWrong: () -> Void
     let keychainHelper = PasscodeManager(keychainHelper: KeychainSwift())
 
     mutating func passInserted(passChar: String) {
-        guard password.count < passDigitsCount else { return }
-        password.append(passChar)
-        if password.count == 6 {
+        guard passcode.count < passDigitsCount else { return }
+        passcode.append(passChar)
+        if passcode.count == passDigitsCount {
             if let createdPasscode = keychainHelper.retrievePasscode() {
                 // pass storation succeeds
-                if createdPasscode == password {
+                if createdPasscode == passcode {
                     finishPassCreation()
                 } else {
-                    // This case is almost impossibele -> Fatal Error
+                    passcodeWasWrong()
                 }
             } else {
-                // pass retrival failed
                 // Probably the app should crash Or return user back to prev page to create again
-
+                fatalError("Password retrieval failed")
             }
         }
     }

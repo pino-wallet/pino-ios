@@ -290,14 +290,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		400DD20C292BC0B200B248CA /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				400DD20D292BC0D900B248CA /* PasscodeManagerService.swift */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
 		4EF3C9816CF975D5E8C63B88 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,7 +336,7 @@
 				CE5757B6291C7DBF001B4EFE /* Utility */,
 				DF2B042729195B8A00781052 /* Models */,
 				DF2B041F2919577800781052 /* Flows */,
-				DF2B041E2919574E00781052 /* Services */,
+				DF2B041E2919574E00781052 /* Service */,
 				DF2B041D2919563A00781052 /* App */,
 				DF2B041C2919549F00781052 /* DesignSystem */,
 				DF2B041B2919549800781052 /* Resources */,
@@ -402,12 +394,13 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		DF2B041E2919574E00781052 /* Services */ = {
+		DF2B041E2919574E00781052 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				DF5CA643292BDEA200422052 /* PasscodeManager */,
 				DFCE5F542923FF850054DA62 /* KeychainManager */,
 			);
-			path = Services;
+			path = Service;
 			sourceTree = "<group>";
 		};
 		DF2B041F2919577800781052 /* Flows */ = {
@@ -424,7 +417,6 @@
 		DF2B04202919578800781052 /* CreateWallet */ = {
 			isa = PBXGroup;
 			children = (
-				400DD20C292BC0B200B248CA /* Service */,
 				E3EDCC22292102D90011B9A8 /* ViewController */,
 				E3EDCC212921025C0011B9A8 /* View */,
 				E3EDCC23292102E70011B9A8 /* ViewModel */,
@@ -485,6 +477,14 @@
 				DF05F6A3291644B7005A3338 /* Pino_iOS.xcdatamodeld */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		DF5CA643292BDEA200422052 /* PasscodeManager */ = {
+			isa = PBXGroup;
+			children = (
+				400DD20D292BC0D900B248CA /* PasscodeManagerService.swift */,
+			);
+			path = PasscodeManager;
 			sourceTree = "<group>";
 		};
 		DFCE5F542923FF850054DA62 /* KeychainManager */ = {

@@ -497,4 +497,5 @@ public enum KeychainSwiftAccessOptions {
 	}
 }
 
+// KeychainSwift can conform to our KeychainWrapper Protocol
 extension KeychainSwift: KeychainWrapper { }

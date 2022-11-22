@@ -24,11 +24,10 @@ class CreatePasscodeViewController: UIViewController {
 		setSteperView()
 	}
 
-    
     override func viewDidAppear(_ animated: Bool) {
-        // Everytime create pass page appears whther anypass is saved or not its better
-        // be deleted.
-        createPassVM.resetPassword();
+        // User might enter a passcode, Head to verify page, but then navigate back to
+        // Create Pass again. In this scenario we reset the already defined passcode
+        createPassVM.resetPassword()
     }
 
 	// MARK: Private Methods
