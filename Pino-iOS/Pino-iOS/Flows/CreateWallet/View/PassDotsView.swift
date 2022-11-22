@@ -7,15 +7,17 @@
 
 import Foundation
 import UIKit
+import Combine
 
 protocol PasscodeManagerPages {
 	var title: String { get set }
 	var description: String { get set }
 	var passcode: String { get set }
 	var passDigitsCount: Int { get }
-	mutating func passInserted(passChar: String) // Added new pass number
+    var finishPassCreation: () -> Void { get set }
+    mutating func passInserted(passChar: String) // Added new pass number
 	mutating func passRemoved() // Cleared last pass number
-	var finishPassCreation: () -> Void { get set }
+    var error : DynamicValue<PassError?> { get set }
 }
 
 extension PasscodeManagerPages {
@@ -44,9 +46,6 @@ class PassDotsView: UIView {
 		setupView()
 		setupStyle()
 		setupContstraint()
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-			self.becomeFirstResponder()
-		}
 	}
 
 	required init?(coder: NSCoder) {
@@ -117,12 +116,17 @@ extension PassDotsView {
 		}
 		let generator = UINotificationFeedbackGenerator()
 		generator.notificationOccurred(.error)
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-			self.passDotsContainerView.subviews.forEach { dotView in
-				self.setStyle(of: dotView, withState: .empty)
-			}
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.resetDotsView()
 		}
 	}
+    
+    func resetDotsView() {
+        passcodeManagerVM.passcode = ""
+        self.passDotsContainerView.subviews.forEach { dotView in
+            self.setStyle(of: dotView, withState: .empty)
+        }
+    }
 
 	enum PassdotState {
 		case fill
@@ -143,8 +147,9 @@ extension PassDotsView: UIKeyInput, UITextInputTraits {
 	var keyboardType: UIKeyboardType { get { UIKeyboardType.numberPad } set {} }
 
 	func insertText(_ text: String) {
-		passcodeManagerVM.passInserted(passChar: text)
-		setDotviewStyleAt(index: passcodeManagerVM.passcode.count - 1, withState: .fill)
+		setDotviewStyleAt(index: passcodeManagerVM.passcode.count, withState: .fill)
+        passcodeManagerVM.passInserted(passChar: text)
+
 	}
 
 	func deleteBackward() {

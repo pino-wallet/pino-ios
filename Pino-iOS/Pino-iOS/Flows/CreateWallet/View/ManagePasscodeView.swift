@@ -14,7 +14,7 @@ class ManagePasscodeView: UIView {
 	private let managePassTitle = UILabel()
 	private let managePassDescription = UILabel()
 	private let topInfoContainerView = UIStackView()
-	private let passDotsView: PassDotsView!
+	public let passDotsView: PassDotsView!
 
 	// MARK: Public Properties
 
