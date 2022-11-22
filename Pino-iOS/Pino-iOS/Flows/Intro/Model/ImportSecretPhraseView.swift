@@ -50,8 +50,14 @@ extension ImportSecretPhraseView {
 		addSubview(contentStackView)
 		addSubview(importButton)
 
+		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
+
 		importButton.addAction(UIAction(handler: { _ in
 			self.importSecretPhrase()
+		}), for: .touchUpInside)
+
+		seedPhrasePasteButton.addAction(UIAction(handler: { _ in
+			self.pasteseedPhrase()
 		}), for: .touchUpInside)
 	}
 
@@ -110,6 +116,20 @@ extension ImportSecretPhraseView {
 			.horizontalEdges(padding: 16),
 			.fixedHeight(56)
 		)
+	}
+
+	private func pasteseedPhrase() {
+		let pasteboardString = UIPasteboard.general.string
+		if let pasteboardString {
+			seedPhrasetextView.text = pasteboardString
+			seedPhrasetextView.textColor = .Pino.label
+			dissmisskeyBoard()
+		}
+	}
+
+	@objc
+	private func dissmisskeyBoard() {
+		seedPhrasetextView.endEditing(true)
 	}
 }
 
