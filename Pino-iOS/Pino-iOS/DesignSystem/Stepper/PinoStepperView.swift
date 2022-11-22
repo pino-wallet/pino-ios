@@ -35,7 +35,13 @@ public class PinoStepperView: UIView {
 	// MARK: Private methods
 
 	private func updateStep() {
-		assert(isCurrentStepValid(), "Index out of bounds!")
+		// Current step must be greater than zero and less than steps count
+		if currentStep > stepsCount {
+			currentStep = stepsCount
+		}
+		if currentStep < 1 {
+			currentStep = 1
+		}
 		// Update the colors when the current step changes
 		for (index, stepView) in stepViews.enumerated() {
 			if index < currentStep {
