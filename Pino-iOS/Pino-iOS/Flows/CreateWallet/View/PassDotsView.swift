@@ -110,19 +110,19 @@ extension PassDotsView {
 			dotView.layer.borderColor = UIColor.Pino.errorRed.cgColor
 		}
 	}
-    
-    func showErrorState() {
-        passDotsContainerView.subviews.forEach { dotView in
-            setStyle(of: dotView, withState: .error)
-        }
-        let generator = UINotificationFeedbackGenerator()
-        generator.notificationOccurred(.error)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
-            self.passDotsContainerView.subviews.forEach { dotView in
-                self.setStyle(of: dotView, withState: .empty)
-            }
-        })
-    }
+
+	func showErrorState() {
+		passDotsContainerView.subviews.forEach { dotView in
+			setStyle(of: dotView, withState: .error)
+		}
+		let generator = UINotificationFeedbackGenerator()
+		generator.notificationOccurred(.error)
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+			self.passDotsContainerView.subviews.forEach { dotView in
+				self.setStyle(of: dotView, withState: .empty)
+			}
+		}
+	}
 
 	enum PassdotState {
 		case fill
