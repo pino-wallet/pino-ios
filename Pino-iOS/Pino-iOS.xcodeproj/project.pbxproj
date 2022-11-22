@@ -57,6 +57,7 @@
 		E31159742929F83500804CE1 /* IntroCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31159732929F83500804CE1 /* IntroCollectionViewCell.swift */; };
 		E3115979292A2BFC00804CE1 /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3115978292A2BFC00804CE1 /* IntroModel.swift */; };
 		E369D759292CB3B6002AA8DE /* ImportSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D758292CB3B6002AA8DE /* ImportSecretPhraseViewController.swift */; };
+		E369D75B292CB762002AA8DE /* ImportSecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D75A292CB762002AA8DE /* ImportSecretPhraseView.swift */; };
 		E3702F55292012C200BA39C9 /* PPPangramSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3D292012C100BA39C9 /* PPPangramSans-Bold.ttf */; };
 		E3702F56292012C200BA39C9 /* PPPangramSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3E292012C100BA39C9 /* PPPangramSans-BoldItalic.ttf */; };
 		E3702F57292012C200BA39C9 /* PPPangramSans-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3F292012C100BA39C9 /* PPPangramSans-RegularItalic.ttf */; };
@@ -171,6 +172,7 @@
 		E31159732929F83500804CE1 /* IntroCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCollectionViewCell.swift; sourceTree = "<group>"; };
 		E3115978292A2BFC00804CE1 /* IntroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroModel.swift; sourceTree = "<group>"; };
 		E369D758292CB3B6002AA8DE /* ImportSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImportSecretPhraseViewController.swift; path = "Pino-iOS/Flows/Intro/Model/ImportSecretPhraseViewController.swift"; sourceTree = SOURCE_ROOT; };
+		E369D75A292CB762002AA8DE /* ImportSecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImportSecretPhraseView.swift; path = "Pino-iOS/Flows/Intro/Model/ImportSecretPhraseView.swift"; sourceTree = SOURCE_ROOT; };
 		E3702F3D292012C100BA39C9 /* PPPangramSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Bold.ttf"; sourceTree = "<group>"; };
 		E3702F3E292012C100BA39C9 /* PPPangramSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		E3702F3F292012C100BA39C9 /* PPPangramSans-RegularItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-RegularItalic.ttf"; sourceTree = "<group>"; };
@@ -427,6 +429,7 @@
 			isa = PBXGroup;
 			children = (
 				E369D758292CB3B6002AA8DE /* ImportSecretPhraseViewController.swift */,
+				E369D75A292CB762002AA8DE /* ImportSecretPhraseView.swift */,
 			);
 			path = ImportWallet;
 			sourceTree = "<group>";
@@ -937,6 +940,7 @@
 				E3EDCC252921036F0011B9A8 /* ShowSecretPhraseViewController.swift in Sources */,
 				E3115979292A2BFC00804CE1 /* IntroModel.swift in Sources */,
 				DF05F69B291644B7005A3338 /* AppDelegate.swift in Sources */,
+				E369D75B292CB762002AA8DE /* ImportSecretPhraseView.swift in Sources */,
 				E311596E2929215B00804CE1 /* AllDoneViewController.swift in Sources */,
 				E31159742929F83500804CE1 /* IntroCollectionViewCell.swift in Sources */,
 				DF05F69D291644B7005A3338 /* SceneDelegate.swift in Sources */,

@@ -23,7 +23,10 @@ class ImportSecretPhraseViewController: UIViewController {
 	// MARK: Private Methods
 
 	private func stupView() {
-		view = UIView()
+		let importSecretPhraseView = ImportSecretPhraseView {
+			self.importWallet()
+		}
+		view = importSecretPhraseView
 	}
 
 	private func setSteperView() {
@@ -49,4 +52,6 @@ class ImportSecretPhraseViewController: UIViewController {
 	private func backToPreviousPage() {
 		navigationController?.popViewController(animated: true)
 	}
+
+	private func importWallet() {}
 }
