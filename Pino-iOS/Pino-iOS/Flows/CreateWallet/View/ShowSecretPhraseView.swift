@@ -115,7 +115,7 @@ extension ShowSecretPhraseView {
 
 		titleStackView.axis = .vertical
 		titleStackView.spacing = 12
-		titleStackView.alignment = .center
+		titleStackView.alignment = .leading
 
 		seedPhraseStackView.axis = .vertical
 		seedPhraseStackView.spacing = 52
@@ -135,6 +135,9 @@ extension ShowSecretPhraseView {
 			.horizontalEdges(padding: 16)
 		)
 		secondDescriptionBox.pin(
+			.horizontalEdges(padding: 16)
+		)
+		titleLabel.pin(
 			.horizontalEdges(padding: 16)
 		)
 		contentStackView.pin(
