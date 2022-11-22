@@ -18,7 +18,7 @@ class ShowSecretPhraseView: UIView {
 	private let firstDescriptionLabel = UILabel()
 	private let secondDescriptionLabel = UILabel()
 	private let seedPhraseView = UIView()
-	private let revealButton = UIButton()
+	private let revealLabel = UILabel()
 	private let seedPhraseBlurView = BlurEffectView()
 	private let seedPhraseStackView = UIStackView()
 	private let seedPhraseCollectionView = SecretPhraseCollectionView()
@@ -57,7 +57,7 @@ extension ShowSecretPhraseView {
 		secondDescriptionBox.addSubview(secondDescriptionLabel)
 		seedPhraseView.addSubview(seedPhraseStackView)
 		seedPhraseView.addSubview(seedPhraseBlurView)
-		seedPhraseView.addSubview(revealButton)
+		seedPhraseView.addSubview(revealLabel)
 		seedPhraseStackView.addArrangedSubview(seedPhraseCollectionView)
 		seedPhraseStackView.addArrangedSubview(shareButton)
 		addSubview(contentStackView)
@@ -106,15 +106,16 @@ extension ShowSecretPhraseView {
 		shareButton.setImage(UIImage(systemName: "square.on.square"), for: .normal)
 		shareButton.imageView?.tintColor = .Pino.primary
 
-		revealButton.setTitle("Tap to reveal", for: .normal)
-		revealButton.setTitleColor(.Pino.label, for: .normal)
-		revealButton.titleLabel?.font = .PinoStyle.semiboldTitle3
+		revealLabel.text = "Tap to reveal"
+		revealLabel.textColor = .Pino.label
+		revealLabel.font = .PinoStyle.semiboldTitle3
 
 		contentStackView.axis = .vertical
-		contentStackView.spacing = 14
+		contentStackView.spacing = 8
 
 		titleStackView.axis = .vertical
 		titleStackView.spacing = 12
+		titleStackView.alignment = .center
 
 		seedPhraseStackView.axis = .vertical
 		seedPhraseStackView.spacing = 52
@@ -130,9 +131,15 @@ extension ShowSecretPhraseView {
 			.verticalEdges(padding: 14),
 			.horizontalEdges(padding: 10)
 		)
+		firstDescriptionBox.pin(
+			.horizontalEdges(padding: 16)
+		)
+		secondDescriptionBox.pin(
+			.horizontalEdges(padding: 16)
+		)
 		contentStackView.pin(
 			.top(to: layoutMarginsGuide, padding: 25),
-			.horizontalEdges(padding: 16)
+			.horizontalEdges
 		)
 		continueButton.pin(
 			.bottom(to: layoutMarginsGuide, padding: 8),
@@ -143,13 +150,12 @@ extension ShowSecretPhraseView {
 			.horizontalEdges
 		)
 		seedPhraseStackView.pin(
-			.horizontalEdges(padding: 1),
-			.verticalEdges(padding: 10)
+			.allEdges(padding: 16)
 		)
 		seedPhraseBlurView.pin(
 			.allEdges()
 		)
-		revealButton.pin(
+		revealLabel.pin(
 			.centerX,
 			.centerY
 		)
@@ -157,8 +163,10 @@ extension ShowSecretPhraseView {
 
 	@objc
 	private func showSeedPhrase() {
-		seedPhraseBlurView.isHidden = true
-		revealButton.isHidden = true
-		continueButton.style = .active
+		UIView.animate(withDuration: 0.5) {
+			self.seedPhraseBlurView.alpha = 0
+			self.revealLabel.alpha = 0
+			self.continueButton.style = .active
+		}
 	}
 }
