@@ -499,13 +499,14 @@
 				E3115978292A2BFC00804CE1 /* IntroModel.swift */,
 			);
 			path = Model;
+            sourceTree = "<group>";
+		};
 		DFCE5F542923FF850054DA62 /* KeychainManager */ = {
 			isa = PBXGroup;
 			children = (
 				DFCE5F552923FFAC0054DA62 /* KeychainHelper.swift */,
 			);
 			path = KeychainManager;
-      
 			sourceTree = "<group>";
 		};
 		DFCE5F5F29267B0E0054DA62 /* Label */ = {
