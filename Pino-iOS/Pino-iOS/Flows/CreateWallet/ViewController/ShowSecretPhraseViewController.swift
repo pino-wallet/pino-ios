@@ -21,6 +21,7 @@ class ShowSecretPhraseViewController: UIViewController {
 	override func loadView() {
 		stupView()
 		setSteperView()
+		setNavigationBackButton()
 	}
 
 	// MARK: Private Methods
@@ -52,5 +53,21 @@ class ShowSecretPhraseViewController: UIViewController {
 		let verifyViewController = VerifySecretPhraseViewController()
 		verifyViewController.secretPhraseVM = secretPhraseVM
 		navigationController?.pushViewController(verifyViewController, animated: true)
+  }
+	private func setNavigationBackButton() {
+		let backImage = UIImage(systemName: "arrow.left")
+		let backButton = UIBarButtonItem(
+			image: backImage,
+			style: .plain,
+			target: self,
+			action: #selector(backToPreviousPage)
+		)
+		backButton.tintColor = .Pino.label
+		navigationItem.setLeftBarButton(backButton, animated: true)
+	}
+
+	@objc
+	private func backToPreviousPage() {
+		navigationController?.popViewController(animated: true)
 	}
 }
