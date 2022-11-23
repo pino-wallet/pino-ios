@@ -17,19 +17,6 @@ class CreatePasscodeViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		createPassVM.error.addObserver(self) { error in
-			// display error
-			switch error {
-			case .notTheSame:
-				self.createPassView?.passDotsView.showErrorState()
-			case .saveFailed:
-				fatalError("Print Failed")
-			case .none:
-				fatalError("Uknown Error")
-			}
-		}
-		createPassView?.passDotsView.becomeFirstResponder()
 	}
 
 	override func loadView() {
@@ -40,19 +27,31 @@ class CreatePasscodeViewController: UIViewController {
 	override func viewDidAppear(_ animated: Bool) {
 		// User might enter a passcode, Head to verify page, but then navigate back to
 		// Create Pass again. In this scenario we reset the already defined passcode
-		createPassVM.resetPassword()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		createPassView?.passDotsView.resetDotsView()
+		createPassView?.passDotsView.becomeFirstResponder()
 	}
 
 	// MARK: Private Methods
 
-	private func stupView() {
+	private func configCreatePassVM() {
 		// Custom view should be created
 
-		createPassVM = CreatePassVM(finishPassCreation: {
+		createPassVM = CreatePassVM(finishPassCreation: { passcode in
 			// Passcode was chose -> Show verify passcode page
 			let verifyPassVC = VerifyPasscodeViewController()
+			verifyPassVC.selectedPasscode = passcode
 			self.navigationController?.pushViewController(verifyPassVC, animated: true)
 		})
+		createPassVM.onErrorHandling = { error in
+		}
+	}
+
+	private func stupView() {
+		configCreatePassVM()
 		createPassView = ManagePasscodeView(managePassVM: createPassVM)
 		view = createPassView
 		view.backgroundColor = .Pino.secondaryBackground

@@ -12,6 +12,7 @@ class VerifyPasscodeViewController: UIViewController {
 
 	public var createPassView: ManagePasscodeView?
 	public var verifyPassVM: VerifyPassVM!
+	public var selectedPasscode = ""
 
 	// MARK: Public Properties
 
@@ -19,19 +20,6 @@ class VerifyPasscodeViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		verifyPassVM.error.addObserver(self) { error in
-			// display error
-			switch error {
-			case .notTheSame:
-				self.createPassView?.passDotsView.showErrorState()
-			case .saveFailed:
-				fatalError("Print Failed")
-			case .none:
-				fatalError("Uknown Error")
-			}
-		}
-		createPassView?.passDotsView.becomeFirstResponder()
 	}
 
 	override func loadView() {
@@ -43,12 +31,30 @@ class VerifyPasscodeViewController: UIViewController {
 
 	private func stupView() {
 		// Custom view should be created
-		verifyPassVM = VerifyPassVM {
-			// Passcode waa verified -> Show all done page
-		}
+
+		configVerifyPassVM()
 		createPassView = ManagePasscodeView(managePassVM: verifyPassVM)
 		view = createPassView
 		view.backgroundColor = .Pino.secondaryBackground
+		createPassView?.passDotsView.becomeFirstResponder()
+	}
+
+	func configVerifyPassVM() {
+		verifyPassVM = VerifyPassVM(finishPassCreation: {
+			// Passcode waa verified -> Show all done page
+		}, selectedPasscode: selectedPasscode)
+
+		verifyPassVM.onErrorHandling = { error in
+			// display error
+			switch error {
+			case .notTheSame:
+				self.createPassView?.passDotsView.showErrorState()
+			case .saveFailed:
+				fatalError("Print Failed")
+			case .unknown:
+				fatalError("Uknown Error")
+			}
+		}
 	}
 
 	private func setSteperView() {

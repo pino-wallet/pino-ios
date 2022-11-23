@@ -144,6 +144,5 @@ extension ShowSecretPhraseView {
 			.trailing(to: seedPhraseStackView),
 			.leading(to: seedPhraseStackView)
 		)
-        
 	}
 }

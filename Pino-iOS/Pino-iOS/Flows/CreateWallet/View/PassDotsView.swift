@@ -9,26 +9,6 @@ import Combine
 import Foundation
 import UIKit
 
-protocol PasscodeManagerPages {
-	var title: String { get set }
-	var description: String { get set }
-	var passcode: String { get set }
-	var passDigitsCount: Int { get }
-	var finishPassCreation: () -> Void { get set }
-	mutating func passInserted(passChar: String) // Added new pass number
-	mutating func passRemoved() // Cleared last pass number
-    var onErrorHandling : ((PassError) -> Void)? { get set }
-}
-
-extension PasscodeManagerPages {
-	var passDigitsCount: Int { 6 } // Default number of Password digits count
-
-	mutating func passRemoved() {
-		guard !passcode.isEmpty else { return }
-		_ = passcode.popLast()
-	}
-}
-
 class PassDotsView: UIView {
 	// MARK: Private Properties
 

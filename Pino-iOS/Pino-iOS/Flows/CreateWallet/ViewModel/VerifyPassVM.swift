@@ -7,13 +7,12 @@
 
 import Foundation
 
-enum PassSaveError: Error {
-	case notTheSame
-	case saveFailed
-}
+enum PassSaveError: Error {}
 
 enum PassVerifyError: Error {
-    
+	case notTheSame
+	case saveFailed
+	case unknown
 }
 
 struct VerifyPassVM: PasscodeManagerPages {
@@ -21,24 +20,35 @@ struct VerifyPassVM: PasscodeManagerPages {
 	var description = "This passcode is for maximizing wallet security. It cannot be used to recover it."
 	var passcode = ""
 	var finishPassCreation: () -> Void
-	let keychainHelper = PasscodeManager(keychainHelper: KeychainSwift())
-	var error = DynamicValue<PassError?>(nil)
+	var onErrorHandling: ((PassVerifyError) -> Void)?
+	var selectedPasscode: String
 
 	mutating func passInserted(passChar: String) {
 		guard passcode.count < passDigitsCount else { return }
 		passcode.append(passChar)
+		verifyPasscode()
+	}
+
+	func verifyPasscode() {
 		if passcode.count == passDigitsCount {
-			if let createdPasscode = keychainHelper.retrievePasscode() {
-				if createdPasscode == passcode {
-					// pass storation succeeds
-					finishPassCreation()
-				} else {
-					error.value = .notTheSame
-				}
+			if passcode == selectedPasscode {
+				// pass storation succeeds
+				finishPassCreation()
+				savePasscodeInKeychain()
 			} else {
-				// Probably the app should crash Or return user back to prev page to create again
-				fatalError("Password retrieval failed")
+				onErrorHandling!(.notTheSame)
 			}
+		}
+	}
+
+	func savePasscodeInKeychain() {
+		let keychainHelper = PasscodeManager(keychainHelper: KeychainSwift())
+		do {
+			try keychainHelper.store(passcode)
+		} catch PassVerifyError.saveFailed {
+			onErrorHandling!(.saveFailed)
+		} catch {
+			onErrorHandling!(.unknown)
 		}
 	}
 }

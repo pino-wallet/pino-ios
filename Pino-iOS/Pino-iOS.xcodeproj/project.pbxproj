@@ -13,6 +13,7 @@
 		400DD210292BCEF500B248CA /* KeychainWrapperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DD20F292BCEF500B248CA /* KeychainWrapperProtocol.swift */; };
 		400DD212292BCF6C00B248CA /* CreatePassVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DD211292BCF6C00B248CA /* CreatePassVM.swift */; };
 		400DD214292BCF7B00B248CA /* VerifyPassVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DD213292BCF7B00B248CA /* VerifyPassVM.swift */; };
+		408AE772292EBBCB00AD6401 /* PasscodeManagerPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408AE771292EBBCB00AD6401 /* PasscodeManagerPages.swift */; };
 		5FE00D5229A8A6EB50C770BB /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B94B1E768003126CB948B2C3 /* Pods_Pino_iOS_Pino_iOSUITests.framework */; };
 		CE5757B5291C7DBA001B4EFE /* AutolayoutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5757B4291C7DBA001B4EFE /* AutolayoutHelper.swift */; };
 		DF05F69B291644B7005A3338 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F69A291644B7005A3338 /* AppDelegate.swift */; };
@@ -150,6 +151,7 @@
 		400DD20F292BCEF500B248CA /* KeychainWrapperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapperProtocol.swift; sourceTree = "<group>"; };
 		400DD211292BCF6C00B248CA /* CreatePassVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePassVM.swift; sourceTree = "<group>"; };
 		400DD213292BCF7B00B248CA /* VerifyPassVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPassVM.swift; sourceTree = "<group>"; };
+		408AE771292EBBCB00AD6401 /* PasscodeManagerPages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeManagerPages.swift; sourceTree = "<group>"; };
 		52B07DDB48E26F1946E47DC3 /* Pods_Pino_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B94B1E768003126CB948B2C3 /* Pods_Pino_iOS_Pino_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS_Pino_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAD4E54BC53F8997AD564B9E /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -292,6 +294,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		408AE770292EBBB100AD6401 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				408AE771292EBBCB00AD6401 /* PasscodeManagerPages.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		4EF3C9816CF975D5E8C63B88 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -420,6 +430,7 @@
 		DF2B04202919578800781052 /* CreateWallet */ = {
 			isa = PBXGroup;
 			children = (
+				408AE770292EBBB100AD6401 /* Protocols */,
 				E3EDCC22292102D90011B9A8 /* ViewController */,
 				E3EDCC212921025C0011B9A8 /* View */,
 				E3EDCC23292102E70011B9A8 /* ViewModel */,
@@ -919,6 +930,7 @@
 				DFCE5F58292557370054DA62 /* PassDotsView.swift in Sources */,
 				DF5CA642292AABE100422052 /* VerifyPasscodeViewController.swift in Sources */,
 				E3EDCC252921036F0011B9A8 /* ShowSecretPhraseViewController.swift in Sources */,
+				408AE772292EBBCB00AD6401 /* PasscodeManagerPages.swift in Sources */,
 				DF05F69B291644B7005A3338 /* AppDelegate.swift in Sources */,
 				DF05F69D291644B7005A3338 /* SceneDelegate.swift in Sources */,
 				E3EDCC182920CA1D0011B9A8 /* PinoStepperView.swift in Sources */,

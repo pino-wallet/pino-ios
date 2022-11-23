@@ -35,10 +35,6 @@ class ManagePasscodeView: UIView {
 	required init?(coder: NSCoder) {
 		fatalError()
 	}
-
-	// MARK: Public Methods
-
-	// MARK: Private Methods
 }
 
 extension ManagePasscodeView {

@@ -19,9 +19,10 @@ public struct PasscodeManager {
 	// MARK: Public Functions
 
 	public func store(_ passcode: String) throws {
-        if !keychainHelper.set(passcode, forKey: PasscodeManager.StorageKeys.passcodeStorage.rawValue, withAccess: nil) {
-            throw PassError.saveFailed
-        }
+		if !keychainHelper
+			.set(passcode, forKey: PasscodeManager.StorageKeys.passcodeStorage.rawValue, withAccess: nil) {
+			throw PassVerifyError.saveFailed
+		}
 	}
 
 	public func retrievePasscode() -> String? {
