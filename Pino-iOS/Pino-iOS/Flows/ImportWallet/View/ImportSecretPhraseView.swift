@@ -12,14 +12,13 @@ class ImportSecretPhraseView: UIView {
 
 	private let contentStackView = UIStackView()
 	private let titleStackView = UIStackView()
-	private let pageTitle = UILabel()
-	private let pageDescription = UILabel()
+	private let pageTitle = PinoLabel(style: .title, text: nil)
+	private let pageDescription = PinoLabel(style: .description, text: nil)
 	private let seedPhraseBox = UIView()
 	private let seedPhrasetextView = SecretPhraseTextView()
 	private let seedPhrasePasteButton = UIButton()
 	private let importButton = PinoButton(style: .deactive, title: "Import")
 	private var importSecretPhrase: () -> Void
-	private var textViewPlaceHolderText = "Seed Phrase"
 
 	// MARK: Initializers
 
@@ -65,13 +64,8 @@ extension ImportSecretPhraseView {
 		backgroundColor = .Pino.secondaryBackground
 
 		pageTitle.text = "Import secret phrase"
-		pageTitle.textColor = .Pino.label
-		pageTitle.font = .PinoStyle.semiboldTitle3
 
 		pageDescription.text = "Typically 12 words separated by single spaces"
-		pageDescription.textColor = .Pino.secondaryLabel
-		pageDescription.font = .PinoStyle.mediumCallout
-		pageDescription.numberOfLines = 0
 
 		seedPhrasePasteButton.setTitle("Paste", for: .normal)
 		seedPhrasePasteButton.setTitleColor(.Pino.primary, for: .normal)
@@ -82,15 +76,15 @@ extension ImportSecretPhraseView {
 		seedPhraseBox.layer.borderWidth = 1
 
 		contentStackView.axis = .vertical
-		contentStackView.spacing = 32
+		contentStackView.spacing = 33
 
 		titleStackView.axis = .vertical
-		titleStackView.spacing = 12
+		titleStackView.spacing = 18
 	}
 
 	private func setupContstraint() {
 		contentStackView.pin(
-			.top(to: layoutMarginsGuide, padding: 24),
+			.top(to: layoutMarginsGuide, padding: 26),
 			.horizontalEdges(padding: 16)
 		)
 		seedPhrasetextView.pin(
@@ -104,7 +98,7 @@ extension ImportSecretPhraseView {
 		)
 
 		seedPhraseBox.pin(
-			.fixedHeight(197)
+			.fixedHeight(160)
 		)
 		importButton.pin(
 			.bottom(to: layoutMarginsGuide, padding: 8),

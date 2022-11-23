@@ -17,6 +17,8 @@ class SuggestedSeedPhraseCollectionView: UICollectionView {
 		}
 	}
 
+	public var seedPhraseDidSelect: ((String) -> Void)?
+
 	// MARK: Initializers
 
 	convenience init() {
@@ -49,7 +51,7 @@ class SuggestedSeedPhraseCollectionView: UICollectionView {
 	}
 
 	private func setupStyle() {
-		backgroundColor = .Pino.secondaryBackground
+		backgroundColor = .Pino.clear
 	}
 }
 
@@ -76,9 +78,10 @@ extension SuggestedSeedPhraseCollectionView: UICollectionViewDataSource {
 // MARK: Collection View Delegate
 
 extension SuggestedSeedPhraseCollectionView: UICollectionViewDelegate {
-	func collectionView(
-		_ collectionView: UICollectionView,
-		willDisplay cell: UICollectionViewCell,
-		forItemAt indexPath: IndexPath
-	) {}
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		if let seedPhraseDidSelect {
+			let suggestedSeedPhraseCell = collectionView.cellForItem(at: indexPath) as! SuggestedSeedPhraseCell
+			seedPhraseDidSelect(suggestedSeedPhraseCell.suggestedWord)
+		}
+	}
 }
