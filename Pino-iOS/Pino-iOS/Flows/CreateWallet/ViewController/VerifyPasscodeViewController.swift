@@ -11,7 +11,7 @@ class VerifyPasscodeViewController: UIViewController {
 	// MARK: Private Properties
 
 	public var createPassView: ManagePasscodeView?
-    public var verifyPassVM: VerifyPassVM!
+	public var verifyPassVM: VerifyPassVM!
 
 	// MARK: Public Properties
 
@@ -19,20 +19,19 @@ class VerifyPasscodeViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-        
-        self.verifyPassVM.error.addObserver(self) { error in
-            // display error
-            switch error {
-            case .notTheSame:
-                self.createPassView?.passDotsView.showErrorState()
-            case .saveFailed:
-                fatalError("Print Failed")
-            case .none:
-                fatalError("Uknown Error")
-            }
-        }
-        createPassView?.passDotsView.becomeFirstResponder()
 
+		verifyPassVM.error.addObserver(self) { error in
+			// display error
+			switch error {
+			case .notTheSame:
+				self.createPassView?.passDotsView.showErrorState()
+			case .saveFailed:
+				fatalError("Print Failed")
+			case .none:
+				fatalError("Uknown Error")
+			}
+		}
+		createPassView?.passDotsView.becomeFirstResponder()
 	}
 
 	override func loadView() {
@@ -44,7 +43,7 @@ class VerifyPasscodeViewController: UIViewController {
 
 	private func stupView() {
 		// Custom view should be created
-        verifyPassVM = VerifyPassVM {
+		verifyPassVM = VerifyPassVM {
 			// Passcode waa verified -> Show all done page
 		}
 		createPassView = ManagePasscodeView(managePassVM: verifyPassVM)

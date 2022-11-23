@@ -17,19 +17,19 @@ class CreatePasscodeViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-        
-        self.createPassVM.error.addObserver(self) { error in
-            // display error
-            switch error {
-            case .notTheSame:
-                self.createPassView?.passDotsView.showErrorState()
-            case .saveFailed:
-                fatalError("Print Failed")
-            case .none:
-                fatalError("Uknown Error")
-            }
-        }
-        createPassView?.passDotsView.becomeFirstResponder()
+
+		createPassVM.error.addObserver(self) { error in
+			// display error
+			switch error {
+			case .notTheSame:
+				self.createPassView?.passDotsView.showErrorState()
+			case .saveFailed:
+				fatalError("Print Failed")
+			case .none:
+				fatalError("Uknown Error")
+			}
+		}
+		createPassView?.passDotsView.becomeFirstResponder()
 	}
 
 	override func loadView() {

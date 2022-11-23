@@ -5,19 +5,19 @@
 //  Created by Sobhan Eskandari on 11/16/22.
 //
 
+import Combine
 import Foundation
 import UIKit
-import Combine
 
 protocol PasscodeManagerPages {
 	var title: String { get set }
 	var description: String { get set }
 	var passcode: String { get set }
 	var passDigitsCount: Int { get }
-    var finishPassCreation: () -> Void { get set }
-    mutating func passInserted(passChar: String) // Added new pass number
+	var finishPassCreation: () -> Void { get set }
+	mutating func passInserted(passChar: String) // Added new pass number
 	mutating func passRemoved() // Cleared last pass number
-    var error : DynamicValue<PassError?> { get set }
+    var onErrorHandling : ((PassError) -> Void)? { get set }
 }
 
 extension PasscodeManagerPages {
@@ -117,16 +117,16 @@ extension PassDotsView {
 		let generator = UINotificationFeedbackGenerator()
 		generator.notificationOccurred(.error)
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.resetDotsView()
+			self.resetDotsView()
 		}
 	}
-    
-    func resetDotsView() {
-        passcodeManagerVM.passcode = ""
-        self.passDotsContainerView.subviews.forEach { dotView in
-            self.setStyle(of: dotView, withState: .empty)
-        }
-    }
+
+	func resetDotsView() {
+		passcodeManagerVM.passcode = ""
+		passDotsContainerView.subviews.forEach { dotView in
+			self.setStyle(of: dotView, withState: .empty)
+		}
+	}
 
 	enum PassdotState {
 		case fill
@@ -148,8 +148,7 @@ extension PassDotsView: UIKeyInput, UITextInputTraits {
 
 	func insertText(_ text: String) {
 		setDotviewStyleAt(index: passcodeManagerVM.passcode.count, withState: .fill)
-        passcodeManagerVM.passInserted(passChar: text)
-
+		passcodeManagerVM.passInserted(passChar: text)
 	}
 
 	func deleteBackward() {
