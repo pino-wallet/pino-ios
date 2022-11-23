@@ -14,9 +14,13 @@ class ImportSecretPhraseView: UIView {
 	private let titleStackView = UIStackView()
 	private let pageTitle = PinoLabel(style: .title, text: nil)
 	private let pageDescription = PinoLabel(style: .description, text: nil)
+	private let seedPhraseStackView = UIStackView()
 	private let seedPhraseBox = UIView()
 	private let seedPhrasetextView = SecretPhraseTextView()
 	private let seedPhrasePasteButton = UIButton()
+	private let errorStackView = UIStackView()
+	private let errorLabel = UILabel()
+	private let errorIcon = UIImageView()
 	private let importButton = PinoButton(style: .deactive, title: "Import")
 	private var importSecretPhrase: () -> Void
 
@@ -41,18 +45,24 @@ extension ImportSecretPhraseView {
 
 	private func setupView() {
 		contentStackView.addArrangedSubview(titleStackView)
-		contentStackView.addArrangedSubview(seedPhraseBox)
+		contentStackView.addArrangedSubview(seedPhraseStackView)
 		titleStackView.addArrangedSubview(pageTitle)
 		titleStackView.addArrangedSubview(pageDescription)
+		seedPhraseStackView.addArrangedSubview(seedPhraseBox)
+		seedPhraseStackView.addArrangedSubview(errorStackView)
 		seedPhraseBox.addSubview(seedPhrasetextView)
 		seedPhraseBox.addSubview(seedPhrasePasteButton)
+		errorStackView.addArrangedSubview(errorIcon)
+		errorStackView.addArrangedSubview(errorLabel)
 		addSubview(contentStackView)
 		addSubview(importButton)
 
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
 
 		importButton.addAction(UIAction(handler: { _ in
-			self.importSecretPhrase()
+			if self.importButton.style == .active {
+				self.importSecretPhrase()
+			}
 		}), for: .touchUpInside)
 
 		seedPhrasePasteButton.addAction(UIAction(handler: { _ in
@@ -64,8 +74,22 @@ extension ImportSecretPhraseView {
 		backgroundColor = .Pino.secondaryBackground
 
 		pageTitle.text = "Import secret phrase"
-
 		pageDescription.text = "Typically 12 words separated by single spaces"
+		errorLabel.text = "Invalid Secret Phrase"
+		errorLabel.textColor = .Pino.ErrorRed
+		errorLabel.font = .PinoStyle.mediumCallout
+		errorLabel.textAlignment = .center
+
+		errorIcon.image = UIImage(systemName: "exclamationmark.circle.fill")
+		errorIcon.tintColor = .Pino.ErrorRed
+
+		contentStackView.axis = .horizontal
+		errorStackView.spacing = 5
+		seedPhraseStackView.alignment = .leading
+		errorStackView.isHidden = true
+
+		seedPhraseStackView.axis = .vertical
+		seedPhraseStackView.spacing = 8
 
 		seedPhrasePasteButton.setTitle("Paste", for: .normal)
 		seedPhrasePasteButton.setTitleColor(.Pino.primary, for: .normal)
@@ -88,17 +112,24 @@ extension ImportSecretPhraseView {
 			.horizontalEdges(padding: 16)
 		)
 		seedPhrasetextView.pin(
-			.horizontalEdges(padding: 16),
-			.top(padding: 16)
+			.top(padding: 12),
+			.horizontalEdges(padding: 12)
 		)
 		seedPhrasePasteButton.pin(
 			.relative(.top, 8, to: seedPhrasetextView, .bottom),
-			.bottom(padding: 10),
-			.trailing(padding: 10)
+			.bottom(padding: 6),
+			.trailing(padding: 8)
 		)
-
 		seedPhraseBox.pin(
-			.fixedHeight(160)
+			.fixedHeight(160),
+			.width
+		)
+		errorIcon.pin(
+			.fixedWidth(16),
+			.fixedHeight(16)
+		)
+		errorLabel.pin(
+			.fixedHeight(24)
 		)
 		importButton.pin(
 			.bottom(to: layoutMarginsGuide, padding: 8),

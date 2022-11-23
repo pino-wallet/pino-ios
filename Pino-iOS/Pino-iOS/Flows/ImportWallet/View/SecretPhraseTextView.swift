@@ -11,7 +11,7 @@ class SecretPhraseTextView: UITextView {
 	// MARK: Private Property
 
 	private let suggestedSeedPhraseCollectionView = SuggestedSeedPhraseCollectionView()
-	private var placeHolderText = "Seed Phrase"
+	private var placeHolderText = "Secret Phrase"
 	private let mockSeedPhraseList = Array(MockSeedPhrase.wordList.shuffled().prefix(100))
 
 	// MARK: Initializer
@@ -67,7 +67,7 @@ class SecretPhraseTextView: UITextView {
 	private func filterSeedPhrase(textViewString: String, textRange: NSRange, replacementText: String) {
 		// Suggest word only when the cursor is at the end of the phrase
 		if let selectedTextRange, selectedTextRange.end == endOfDocument {
-			var seedPhraseArray = textViewString.components(separatedBy: " ")
+			let seedPhraseArray = textViewString.components(separatedBy: " ")
 			if let currentWord = seedPhraseArray.last {
 				let filteredWords = mockSeedPhraseList.filter {
 					$0.lowercased().hasPrefix(currentWord.lowercased())
