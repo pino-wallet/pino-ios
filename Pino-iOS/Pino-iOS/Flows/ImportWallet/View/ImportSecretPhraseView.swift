@@ -15,10 +15,9 @@ class ImportSecretPhraseView: UIView {
 	private let pageTitle = UILabel()
 	private let pageDescription = UILabel()
 	private let seedPhraseBox = UIView()
-	private let seedPhrasetextView = UITextView()
+	private let seedPhrasetextView = SecretPhraseTextView()
 	private let seedPhrasePasteButton = UIButton()
 	private let importButton = PinoButton(style: .deactive, title: "Import")
-	private let suggestedSeedPhraseCollectionView = SuggestedSeedPhraseCollectionView()
 	private var importSecretPhrase: () -> Void
 	private var textViewPlaceHolderText = "Seed Phrase"
 
@@ -51,9 +50,6 @@ extension ImportSecretPhraseView {
 		addSubview(contentStackView)
 		addSubview(importButton)
 
-		suggestedSeedPhraseCollectionView.suggestedSeedPhrase = []
-		seedPhrasetextView.inputAccessoryView = suggestedSeedPhraseCollectionView
-
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
 
 		importButton.addAction(UIAction(handler: { _ in
@@ -61,7 +57,7 @@ extension ImportSecretPhraseView {
 		}), for: .touchUpInside)
 
 		seedPhrasePasteButton.addAction(UIAction(handler: { _ in
-			self.pasteseedPhrase()
+			self.seedPhrasetextView.pasteText()
 		}), for: .touchUpInside)
 	}
 
@@ -76,11 +72,6 @@ extension ImportSecretPhraseView {
 		pageDescription.textColor = .Pino.secondaryLabel
 		pageDescription.font = .PinoStyle.mediumCallout
 		pageDescription.numberOfLines = 0
-
-		seedPhrasetextView.text = textViewPlaceHolderText
-		seedPhrasetextView.textColor = .Pino.gray2
-		seedPhrasetextView.font = .PinoStyle.mediumBody
-		seedPhrasetextView.delegate = self
 
 		seedPhrasePasteButton.setTitle("Paste", for: .normal)
 		seedPhrasePasteButton.setTitleColor(.Pino.primary, for: .normal)
@@ -122,35 +113,8 @@ extension ImportSecretPhraseView {
 		)
 	}
 
-	private func pasteseedPhrase() {
-		let pasteboardString = UIPasteboard.general.string
-		if let pasteboardString {
-			seedPhrasetextView.text = pasteboardString
-			seedPhrasetextView.textColor = .Pino.label
-			dissmisskeyBoard()
-		}
-	}
-
 	@objc
 	private func dissmisskeyBoard() {
 		seedPhrasetextView.endEditing(true)
-	}
-}
-
-extension ImportSecretPhraseView: UITextViewDelegate {
-	func textViewDidBeginEditing(_ textView: UITextView) {
-		if seedPhrasetextView.text == textViewPlaceHolderText {
-			seedPhrasetextView.text = nil
-			seedPhrasetextView.textColor = .Pino.label
-		}
-		textView.becomeFirstResponder()
-	}
-
-	func textViewDidEndEditing(_ textView: UITextView) {
-		if textView.text.isEmpty {
-			textView.text = textViewPlaceHolderText
-			textView.textColor = .Pino.gray2
-		}
-		textView.resignFirstResponder()
 	}
 }

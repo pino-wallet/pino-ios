@@ -60,6 +60,7 @@
 		E369D75B292CB762002AA8DE /* ImportSecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D75A292CB762002AA8DE /* ImportSecretPhraseView.swift */; };
 		E369D763292DF12A002AA8DE /* SuggestedSeedPhraseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D762292DF12A002AA8DE /* SuggestedSeedPhraseCollectionView.swift */; };
 		E369D765292DF143002AA8DE /* SuggestedSeedPhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D764292DF143002AA8DE /* SuggestedSeedPhraseCell.swift */; };
+		E369D769292DF35D002AA8DE /* SecretPhraseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D768292DF35D002AA8DE /* SecretPhraseTextView.swift */; };
 		E3702F55292012C200BA39C9 /* PPPangramSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3D292012C100BA39C9 /* PPPangramSans-Bold.ttf */; };
 		E3702F56292012C200BA39C9 /* PPPangramSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3E292012C100BA39C9 /* PPPangramSans-BoldItalic.ttf */; };
 		E3702F57292012C200BA39C9 /* PPPangramSans-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3F292012C100BA39C9 /* PPPangramSans-RegularItalic.ttf */; };
@@ -177,6 +178,7 @@
 		E369D75A292CB762002AA8DE /* ImportSecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImportSecretPhraseView.swift; path = "Pino-iOS/Flows/ImportWallet/View/ImportSecretPhraseView.swift"; sourceTree = SOURCE_ROOT; };
 		E369D762292DF12A002AA8DE /* SuggestedSeedPhraseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SuggestedSeedPhraseCollectionView.swift; path = "Pino-iOS/Flows/ImportWallet/View/SuggestedSeedPhraseCollectionView.swift"; sourceTree = SOURCE_ROOT; };
 		E369D764292DF143002AA8DE /* SuggestedSeedPhraseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SuggestedSeedPhraseCell.swift; path = "Pino-iOS/Flows/ImportWallet/View/SuggestedSeedPhraseCell.swift"; sourceTree = SOURCE_ROOT; };
+		E369D768292DF35D002AA8DE /* SecretPhraseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseTextView.swift; sourceTree = "<group>"; };
 		E3702F3D292012C100BA39C9 /* PPPangramSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Bold.ttf"; sourceTree = "<group>"; };
 		E3702F3E292012C100BA39C9 /* PPPangramSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		E3702F3F292012C100BA39C9 /* PPPangramSans-RegularItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-RegularItalic.ttf"; sourceTree = "<group>"; };
@@ -543,6 +545,7 @@
 				E369D75A292CB762002AA8DE /* ImportSecretPhraseView.swift */,
 				E369D762292DF12A002AA8DE /* SuggestedSeedPhraseCollectionView.swift */,
 				E369D764292DF143002AA8DE /* SuggestedSeedPhraseCell.swift */,
+				E369D768292DF35D002AA8DE /* SecretPhraseTextView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -968,6 +971,7 @@
 				E31159742929F83500804CE1 /* IntroCollectionViewCell.swift in Sources */,
 				E369D765292DF143002AA8DE /* SuggestedSeedPhraseCell.swift in Sources */,
 				DF05F69D291644B7005A3338 /* SceneDelegate.swift in Sources */,
+				E369D769292DF35D002AA8DE /* SecretPhraseTextView.swift in Sources */,
 				E3EDCC182920CA1D0011B9A8 /* PinoStepperView.swift in Sources */,
 				E369D763292DF12A002AA8DE /* SuggestedSeedPhraseCollectionView.swift in Sources */,
 				E3B7234A291B8D7200D4F46C /* PinoCheckBox.swift in Sources */,
