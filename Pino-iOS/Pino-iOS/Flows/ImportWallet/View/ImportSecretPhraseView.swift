@@ -18,6 +18,7 @@ class ImportSecretPhraseView: UIView {
 	private let seedPhrasetextView = UITextView()
 	private let seedPhrasePasteButton = UIButton()
 	private let importButton = PinoButton(style: .deactive, title: "Import")
+	private let suggestedSeedPhraseCollectionView = SuggestedSeedPhraseCollectionView()
 	private var importSecretPhrase: () -> Void
 	private var textViewPlaceHolderText = "Seed Phrase"
 
@@ -49,6 +50,9 @@ extension ImportSecretPhraseView {
 		seedPhraseBox.addSubview(seedPhrasePasteButton)
 		addSubview(contentStackView)
 		addSubview(importButton)
+
+		suggestedSeedPhraseCollectionView.suggestedSeedPhrase = []
+		seedPhrasetextView.inputAccessoryView = suggestedSeedPhraseCollectionView
 
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
 
