@@ -47,6 +47,9 @@
 		DF2B0417291813C700781052 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B0416291813C700781052 /* FirebaseStorage */; };
 		DF2B0419291813C700781052 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DF2B0418291813C700781052 /* FirebaseStorageCombine-Community */; };
 		DF2B04292919640300781052 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2B04282919640300781052 /* IntroViewController.swift */; };
+		DF5CA647292D136A00422052 /* SecretPhraseCenteredFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CA644292D136A00422052 /* SecretPhraseCenteredFlowLayout.swift */; };
+		DF5CA648292D136A00422052 /* SecretPhraseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CA645292D136A00422052 /* SecretPhraseCollectionView.swift */; };
+		DF5CA649292D136A00422052 /* SecretPhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CA646292D136A00422052 /* SecretPhraseCell.swift */; };
 		DFCE5F562923FFAC0054DA62 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCE5F552923FFAC0054DA62 /* KeychainHelper.swift */; };
 		DFCE5F6129267B1A0054DA62 /* PinoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCE5F6029267B1A0054DA62 /* PinoLabel.swift */; };
 		DFCE5F6329267B2F0054DA62 /* PinoLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCE5F6229267B2F0054DA62 /* PinoLabelStyle.swift */; };
@@ -56,6 +59,10 @@
 		E31159722929F81F00804CE1 /* IntroCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31159712929F81F00804CE1 /* IntroCollectionView.swift */; };
 		E31159742929F83500804CE1 /* IntroCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31159732929F83500804CE1 /* IntroCollectionViewCell.swift */; };
 		E3115979292A2BFC00804CE1 /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3115978292A2BFC00804CE1 /* IntroModel.swift */; };
+		E33E318F2923D0680028ECDB /* VerifySecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33E318E2923D0680028ECDB /* VerifySecretPhraseViewController.swift */; };
+		E33E31912923D1A40028ECDB /* VerifySecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33E31902923D1A40028ECDB /* VerifySecretPhraseView.swift */; };
+		E33E31932923DD8E0028ECDB /* CreatePasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33E31922923DD8E0028ECDB /* CreatePasscodeViewController.swift */; };
+		E33E31952924CDFB0028ECDB /* BlurEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33E31942924CDFB0028ECDB /* BlurEffectView.swift */; };
 		E369D759292CB3B6002AA8DE /* ImportSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D758292CB3B6002AA8DE /* ImportSecretPhraseViewController.swift */; };
 		E369D75B292CB762002AA8DE /* ImportSecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D75A292CB762002AA8DE /* ImportSecretPhraseView.swift */; };
 		E369D763292DF12A002AA8DE /* SuggestedSeedPhraseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D762292DF12A002AA8DE /* SuggestedSeedPhraseCollectionView.swift */; };
@@ -85,6 +92,7 @@
 		E3702F6A292012C200BA39C9 /* PPPangramSans-ExtralightReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F52292012C200BA39C9 /* PPPangramSans-ExtralightReclined.ttf */; };
 		E3702F6B292012C200BA39C9 /* PPPangramSans-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F53292012C200BA39C9 /* PPPangramSans-MediumItalic.ttf */; };
 		E3702F6C292012C200BA39C9 /* PPPangramSans-SemiboldReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F54292012C200BA39C9 /* PPPangramSans-SemiboldReclined.ttf */; };
+		E3AFDC7C2928B3B900230935 /* SeedPhrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFDC7B2928B3B900230935 /* SeedPhrase.swift */; };
 		E3B72337291B853200D4F46C /* PinoFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B72336291B853200D4F46C /* PinoFont.swift */; };
 		E3B72339291B85A300D4F46C /* BoldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B72338291B85A300D4F46C /* BoldStyle.swift */; };
 		E3B7233B291B85B400D4F46C /* SemiboldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B7233A291B85B400D4F46C /* SemiboldStyle.swift */; };
@@ -101,30 +109,15 @@
 		E3EDCC182920CA1D0011B9A8 /* PinoStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC172920CA1D0011B9A8 /* PinoStepperView.swift */; };
 		E3EDCC192920CA1D0011B9A8 /* PinoStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC172920CA1D0011B9A8 /* PinoStepperView.swift */; };
 		E3EDCC1A2920CA1D0011B9A8 /* PinoStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC172920CA1D0011B9A8 /* PinoStepperView.swift */; };
-		E3EDCC1D2920F56F0011B9A8 /* StepWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC1C2920F56F0011B9A8 /* StepWrapper.swift */; };
-		E3EDCC1E2920F56F0011B9A8 /* StepWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC1C2920F56F0011B9A8 /* StepWrapper.swift */; };
-		E3EDCC1F2920F56F0011B9A8 /* StepWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC1C2920F56F0011B9A8 /* StepWrapper.swift */; };
 		E3EDCC252921036F0011B9A8 /* ShowSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC242921036F0011B9A8 /* ShowSecretPhraseViewController.swift */; };
 		E3EDCC262921036F0011B9A8 /* ShowSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC242921036F0011B9A8 /* ShowSecretPhraseViewController.swift */; };
 		E3EDCC272921036F0011B9A8 /* ShowSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC242921036F0011B9A8 /* ShowSecretPhraseViewController.swift */; };
 		E3EDCC29292105470011B9A8 /* ShowSecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC28292105470011B9A8 /* ShowSecretPhraseView.swift */; };
 		E3EDCC2A292105470011B9A8 /* ShowSecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC28292105470011B9A8 /* ShowSecretPhraseView.swift */; };
 		E3EDCC2B292105470011B9A8 /* ShowSecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC28292105470011B9A8 /* ShowSecretPhraseView.swift */; };
-		E3EDCC31292117C10011B9A8 /* SecretPhraseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC30292117C10011B9A8 /* SecretPhraseCollectionView.swift */; };
-		E3EDCC32292117C10011B9A8 /* SecretPhraseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC30292117C10011B9A8 /* SecretPhraseCollectionView.swift */; };
-		E3EDCC33292117C10011B9A8 /* SecretPhraseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC30292117C10011B9A8 /* SecretPhraseCollectionView.swift */; };
-		E3EDCC35292117DB0011B9A8 /* SecretPhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC34292117DB0011B9A8 /* SecretPhraseCell.swift */; };
-		E3EDCC36292117DB0011B9A8 /* SecretPhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC34292117DB0011B9A8 /* SecretPhraseCell.swift */; };
-		E3EDCC37292117DB0011B9A8 /* SecretPhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC34292117DB0011B9A8 /* SecretPhraseCell.swift */; };
-		E3EDCC3929220F490011B9A8 /* SecretPhraseCenteredFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC3829220F490011B9A8 /* SecretPhraseCenteredFlowLayout.swift */; };
-		E3EDCC3A29220F490011B9A8 /* SecretPhraseCenteredFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC3829220F490011B9A8 /* SecretPhraseCenteredFlowLayout.swift */; };
-		E3EDCC3B29220F490011B9A8 /* SecretPhraseCenteredFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC3829220F490011B9A8 /* SecretPhraseCenteredFlowLayout.swift */; };
 		E3EDCC3D29221C930011B9A8 /* SecretPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC3C29221C930011B9A8 /* SecretPhraseViewModel.swift */; };
 		E3EDCC3E29221C930011B9A8 /* SecretPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC3C29221C930011B9A8 /* SecretPhraseViewModel.swift */; };
 		E3EDCC3F29221C930011B9A8 /* SecretPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC3C29221C930011B9A8 /* SecretPhraseViewModel.swift */; };
-		E3EDCC42292236C20011B9A8 /* SecretPhraseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC41292236C20011B9A8 /* SecretPhraseModel.swift */; };
-		E3EDCC43292236C20011B9A8 /* SecretPhraseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC41292236C20011B9A8 /* SecretPhraseModel.swift */; };
-		E3EDCC44292236C20011B9A8 /* SecretPhraseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC41292236C20011B9A8 /* SecretPhraseModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,6 +158,9 @@
 		DF05F6BE291644B9005A3338 /* Pino_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pino_iOSUITests.swift; sourceTree = "<group>"; };
 		DF05F6C0291644B9005A3338 /* Pino_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pino_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		DF2B04282919640300781052 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
+		DF5CA644292D136A00422052 /* SecretPhraseCenteredFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecretPhraseCenteredFlowLayout.swift; sourceTree = "<group>"; };
+		DF5CA645292D136A00422052 /* SecretPhraseCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecretPhraseCollectionView.swift; sourceTree = "<group>"; };
+		DF5CA646292D136A00422052 /* SecretPhraseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecretPhraseCell.swift; sourceTree = "<group>"; };
 		DFCE5F552923FFAC0054DA62 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		DFCE5F6029267B1A0054DA62 /* PinoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoLabel.swift; sourceTree = "<group>"; };
 		DFCE5F6229267B2F0054DA62 /* PinoLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoLabelStyle.swift; sourceTree = "<group>"; };
@@ -174,6 +170,10 @@
 		E31159712929F81F00804CE1 /* IntroCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCollectionView.swift; sourceTree = "<group>"; };
 		E31159732929F83500804CE1 /* IntroCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCollectionViewCell.swift; sourceTree = "<group>"; };
 		E3115978292A2BFC00804CE1 /* IntroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroModel.swift; sourceTree = "<group>"; };
+		E33E318E2923D0680028ECDB /* VerifySecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseViewController.swift; sourceTree = "<group>"; };
+		E33E31902923D1A40028ECDB /* VerifySecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseView.swift; sourceTree = "<group>"; };
+		E33E31922923DD8E0028ECDB /* CreatePasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeViewController.swift; sourceTree = "<group>"; };
+		E33E31942924CDFB0028ECDB /* BlurEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurEffectView.swift; sourceTree = "<group>"; };
 		E369D758292CB3B6002AA8DE /* ImportSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImportSecretPhraseViewController.swift; path = "Pino-iOS/Flows/ImportWallet/Pino-iOS/Flows/ImportWallet/View Controller/ImportSecretPhraseViewController.swift"; sourceTree = SOURCE_ROOT; };
 		E369D75A292CB762002AA8DE /* ImportSecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImportSecretPhraseView.swift; path = "Pino-iOS/Flows/ImportWallet/View/ImportSecretPhraseView.swift"; sourceTree = SOURCE_ROOT; };
 		E369D762292DF12A002AA8DE /* SuggestedSeedPhraseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SuggestedSeedPhraseCollectionView.swift; path = "Pino-iOS/Flows/ImportWallet/View/SuggestedSeedPhraseCollectionView.swift"; sourceTree = SOURCE_ROOT; };
@@ -203,6 +203,7 @@
 		E3702F52292012C200BA39C9 /* PPPangramSans-ExtralightReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtralightReclined.ttf"; sourceTree = "<group>"; };
 		E3702F53292012C200BA39C9 /* PPPangramSans-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-MediumItalic.ttf"; sourceTree = "<group>"; };
 		E3702F54292012C200BA39C9 /* PPPangramSans-SemiboldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-SemiboldReclined.ttf"; sourceTree = "<group>"; };
+		E3AFDC7B2928B3B900230935 /* SeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhrase.swift; sourceTree = "<group>"; };
 		E3B72336291B853200D4F46C /* PinoFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoFont.swift; sourceTree = "<group>"; };
 		E3B72338291B85A300D4F46C /* BoldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldStyle.swift; sourceTree = "<group>"; };
 		E3B7233A291B85B400D4F46C /* SemiboldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiboldStyle.swift; sourceTree = "<group>"; };
@@ -215,14 +216,9 @@
 		E3B7234B291B8D8A00D4F46C /* PinoCheckBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoCheckBoxStyle.swift; sourceTree = "<group>"; };
 		E3EDCC132920C6D70011B9A8 /* MockSeedPhraseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSeedPhraseList.swift; sourceTree = "<group>"; };
 		E3EDCC172920CA1D0011B9A8 /* PinoStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoStepperView.swift; sourceTree = "<group>"; };
-		E3EDCC1C2920F56F0011B9A8 /* StepWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepWrapper.swift; sourceTree = "<group>"; };
 		E3EDCC242921036F0011B9A8 /* ShowSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseViewController.swift; sourceTree = "<group>"; };
 		E3EDCC28292105470011B9A8 /* ShowSecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseView.swift; sourceTree = "<group>"; };
-		E3EDCC30292117C10011B9A8 /* SecretPhraseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseCollectionView.swift; sourceTree = "<group>"; };
-		E3EDCC34292117DB0011B9A8 /* SecretPhraseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseCell.swift; sourceTree = "<group>"; };
-		E3EDCC3829220F490011B9A8 /* SecretPhraseCenteredFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseCenteredFlowLayout.swift; sourceTree = "<group>"; };
 		E3EDCC3C29221C930011B9A8 /* SecretPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseViewModel.swift; sourceTree = "<group>"; };
-		E3EDCC41292236C20011B9A8 /* SecretPhraseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseModel.swift; sourceTree = "<group>"; };
 		ED0F9DCB7B301E8270C900FF /* Pods_Pino_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5195DA4C1EDE2A3E99135F3 /* Pods-Pino-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		F72F8FE5D57E2883D84569BB /* Pods-Pino-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -310,6 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				CE5757B4291C7DBA001B4EFE /* AutolayoutHelper.swift */,
+				E33E31942924CDFB0028ECDB /* BlurEffectView.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -530,6 +527,17 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		E3AFDC7D2928F04B00230935 /* SecretPhrase */ = {
+			isa = PBXGroup;
+			children = (
+				DF5CA646292D136A00422052 /* SecretPhraseCell.swift */,
+				DF5CA644292D136A00422052 /* SecretPhraseCenteredFlowLayout.swift */,
+				DF5CA645292D136A00422052 /* SecretPhraseCollectionView.swift */,
+				E3AFDC7B2928B3B900230935 /* SeedPhrase.swift */,
+			);
+			path = SecretPhrase;
+            sourceTree = "<group>";
+		};
 		E369D766292DF275002AA8DE /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -623,7 +631,6 @@
 			isa = PBXGroup;
 			children = (
 				E3EDCC172920CA1D0011B9A8 /* PinoStepperView.swift */,
-				E3EDCC1C2920F56F0011B9A8 /* StepWrapper.swift */,
 			);
 			path = Stepper;
 			sourceTree = "<group>";
@@ -641,10 +648,9 @@
 		E3EDCC212921025C0011B9A8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E3AFDC7D2928F04B00230935 /* SecretPhrase */,
 				E3EDCC28292105470011B9A8 /* ShowSecretPhraseView.swift */,
-				E3EDCC34292117DB0011B9A8 /* SecretPhraseCell.swift */,
-				E3EDCC30292117C10011B9A8 /* SecretPhraseCollectionView.swift */,
-				E3EDCC3829220F490011B9A8 /* SecretPhraseCenteredFlowLayout.swift */,
+				E33E31902923D1A40028ECDB /* VerifySecretPhraseView.swift */,
 				E311596F2929223500804CE1 /* AllDoneView.swift */,
 			);
 			path = View;
@@ -654,6 +660,8 @@
 			isa = PBXGroup;
 			children = (
 				E3EDCC242921036F0011B9A8 /* ShowSecretPhraseViewController.swift */,
+				E33E318E2923D0680028ECDB /* VerifySecretPhraseViewController.swift */,
+				E33E31922923DD8E0028ECDB /* CreatePasscodeViewController.swift */,
 				E311596D2929215B00804CE1 /* AllDoneViewController.swift */,
 			);
 			path = ViewController;
@@ -670,7 +678,6 @@
 		E3EDCC40292236610011B9A8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E3EDCC41292236C20011B9A8 /* SecretPhraseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -954,13 +961,13 @@
 			files = (
 				E31159722929F81F00804CE1 /* IntroCollectionView.swift in Sources */,
 				E3B72339291B85A300D4F46C /* BoldStyle.swift in Sources */,
+				DF5CA648292D136A00422052 /* SecretPhraseCollectionView.swift in Sources */,
 				DF05F6A5291644B7005A3338 /* Pino_iOS.xcdatamodeld in Sources */,
 				DFCE5F6329267B2F0054DA62 /* PinoLabelStyle.swift in Sources */,
-				E3EDCC31292117C10011B9A8 /* SecretPhraseCollectionView.swift in Sources */,
+				DF5CA649292D136A00422052 /* SecretPhraseCell.swift in Sources */,
 				E3EDCC3D29221C930011B9A8 /* SecretPhraseViewModel.swift in Sources */,
 				E3B7234C291B8D8A00D4F46C /* PinoCheckBoxStyle.swift in Sources */,
 				E3B7233B291B85B400D4F46C /* SemiboldStyle.swift in Sources */,
-				E3EDCC3929220F490011B9A8 /* SecretPhraseCenteredFlowLayout.swift in Sources */,
 				E3B72337291B853200D4F46C /* PinoFont.swift in Sources */,
 				E369D759292CB3B6002AA8DE /* ImportSecretPhraseViewController.swift in Sources */,
 				E3EDCC252921036F0011B9A8 /* ShowSecretPhraseViewController.swift in Sources */,
@@ -976,19 +983,22 @@
 				E369D763292DF12A002AA8DE /* SuggestedSeedPhraseCollectionView.swift in Sources */,
 				E3B7234A291B8D7200D4F46C /* PinoCheckBox.swift in Sources */,
 				E3EDCC142920C6D70011B9A8 /* MockSeedPhraseList.swift in Sources */,
-				E3EDCC35292117DB0011B9A8 /* SecretPhraseCell.swift in Sources */,
+				E33E31932923DD8E0028ECDB /* CreatePasscodeViewController.swift in Sources */,
+				E33E318F2923D0680028ECDB /* VerifySecretPhraseViewController.swift in Sources */,
+				E3AFDC7C2928B3B900230935 /* SeedPhrase.swift in Sources */,
 				E3B7233D291B85C500D4F46C /* MediumStyle.swift in Sources */,
+				E33E31912923D1A40028ECDB /* VerifySecretPhraseView.swift in Sources */,
 				DFCE5F6129267B1A0054DA62 /* PinoLabel.swift in Sources */,
+				DF5CA647292D136A00422052 /* SecretPhraseCenteredFlowLayout.swift in Sources */,
 				E3B72345291B8A2300D4F46C /* PinoButton.swift in Sources */,
 				E311596C29290DFD00804CE1 /* IntroView.swift in Sources */,
 				E3B72342291B87A200D4F46C /* PinoColor.swift in Sources */,
 				E31159702929223500804CE1 /* AllDoneView.swift in Sources */,
 				E3EDCC29292105470011B9A8 /* ShowSecretPhraseView.swift in Sources */,
-				E3EDCC42292236C20011B9A8 /* SecretPhraseModel.swift in Sources */,
+				E33E31952924CDFB0028ECDB /* BlurEffectView.swift in Sources */,
 				CE5757B5291C7DBA001B4EFE /* AutolayoutHelper.swift in Sources */,
 				DFCE5F562923FFAC0054DA62 /* KeychainHelper.swift in Sources */,
 				DF2B04292919640300781052 /* IntroViewController.swift in Sources */,
-				E3EDCC1D2920F56F0011B9A8 /* StepWrapper.swift in Sources */,
 				E3B7233F291B85D700D4F46C /* RegularStyle.swift in Sources */,
 				E3B72347291B8A4700D4F46C /* PinoButtonStyle.swift in Sources */,
 			);
@@ -1000,12 +1010,7 @@
 			files = (
 				DF05F6B5291644B9005A3338 /* Pino_iOSTests.swift in Sources */,
 				E3EDCC3E29221C930011B9A8 /* SecretPhraseViewModel.swift in Sources */,
-				E3EDCC1E2920F56F0011B9A8 /* StepWrapper.swift in Sources */,
-				E3EDCC36292117DB0011B9A8 /* SecretPhraseCell.swift in Sources */,
-				E3EDCC43292236C20011B9A8 /* SecretPhraseModel.swift in Sources */,
-				E3EDCC32292117C10011B9A8 /* SecretPhraseCollectionView.swift in Sources */,
 				E3EDCC2A292105470011B9A8 /* ShowSecretPhraseView.swift in Sources */,
-				E3EDCC3A29220F490011B9A8 /* SecretPhraseCenteredFlowLayout.swift in Sources */,
 				E3EDCC262921036F0011B9A8 /* ShowSecretPhraseViewController.swift in Sources */,
 				E3EDCC192920CA1D0011B9A8 /* PinoStepperView.swift in Sources */,
 				E3EDCC152920C6D70011B9A8 /* MockSeedPhraseList.swift in Sources */,
@@ -1020,14 +1025,9 @@
 				E3EDCC162920C6D70011B9A8 /* MockSeedPhraseList.swift in Sources */,
 				E3EDCC3F29221C930011B9A8 /* SecretPhraseViewModel.swift in Sources */,
 				DF05F6C1291644B9005A3338 /* Pino_iOSUITestsLaunchTests.swift in Sources */,
-				E3EDCC37292117DB0011B9A8 /* SecretPhraseCell.swift in Sources */,
-				E3EDCC44292236C20011B9A8 /* SecretPhraseModel.swift in Sources */,
 				E3EDCC1A2920CA1D0011B9A8 /* PinoStepperView.swift in Sources */,
 				E3EDCC2B292105470011B9A8 /* ShowSecretPhraseView.swift in Sources */,
 				DF05F6BF291644B9005A3338 /* Pino_iOSUITests.swift in Sources */,
-				E3EDCC33292117C10011B9A8 /* SecretPhraseCollectionView.swift in Sources */,
-				E3EDCC3B29220F490011B9A8 /* SecretPhraseCenteredFlowLayout.swift in Sources */,
-				E3EDCC1F2920F56F0011B9A8 /* StepWrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

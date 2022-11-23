@@ -10,7 +10,7 @@ import Foundation
 class SecretPhraseViewModel {
 	// MARK: public Properties
 
-	public var secretPhrase: [SeedPhrase] = []
+	public var secretPhrase: [String] = []
 
 	// MARK: Initializers
 
@@ -23,10 +23,6 @@ class SecretPhraseViewModel {
 	public func getRandomWords(numberOfWords: Int) {
 		// This should be replaced by the library words list
 		let shuffledList = MockSeedPhrase.wordList.shuffled()
-		let secretPhraseWordsList = Array(shuffledList.prefix(numberOfWords))
-
-		secretPhrase = secretPhraseWordsList.enumerated().map { index, element in
-			SeedPhrase(title: element, sequence: index + 1)
-		}
+		secretPhrase = Array(shuffledList.prefix(numberOfWords))
 	}
 }

@@ -27,9 +27,11 @@ class ShowSecretPhraseViewController: UIViewController {
 	// MARK: Private Methods
 
 	private func stupView() {
-		let secretPhraseView = ShowSecretPhraseView(secretPhraseVM.secretPhrase) {
+		let secretPhraseView = ShowSecretPhraseView(secretPhraseVM.secretPhrase, shareSecretPhare: {
 			self.shareSecretPhrase()
-		}
+		}, savedSecretPhrase: {
+			self.goToVerifyPage()
+		})
 		view = secretPhraseView
 	}
 
@@ -40,12 +42,17 @@ class ShowSecretPhraseViewController: UIViewController {
 		navigationController?.navigationBar.backgroundColor = .Pino.secondaryBackground
 	}
 
-	@objc
 	private func shareSecretPhrase() {
-		let userWords = secretPhraseVM.secretPhrase.map { $0.title }
+		let userWords = secretPhraseVM.secretPhrase
 		let shareText = "Secret Phrase: \(userWords.joined(separator: " "))"
 		let shareActivity = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
 		present(shareActivity, animated: true) {}
+	}
+
+	private func goToVerifyPage() {
+		let verifyViewController = VerifySecretPhraseViewController()
+		verifyViewController.secretPhraseVM = secretPhraseVM
+		navigationController?.pushViewController(verifyViewController, animated: true)
 	}
 
 	private func setNavigationBackButton() {
