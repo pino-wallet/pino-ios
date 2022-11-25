@@ -9,7 +9,7 @@ import Foundation
 
 // Checks if index is valid in array
 extension Array {
-    func isIndexValid(index: Int) -> Bool {
-        indices.contains(index)
-    }
+	func isIndexValid(index: Int) -> Bool {
+		indices.contains(index)
+	}
 }

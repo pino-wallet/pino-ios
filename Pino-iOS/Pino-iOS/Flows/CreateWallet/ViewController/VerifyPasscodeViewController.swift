@@ -25,7 +25,7 @@ class VerifyPasscodeViewController: UIViewController {
 	override func loadView() {
 		stupView()
 		setSteperView()
-        setNavigationBackButton()
+		setNavigationBackButton()
 	}
 
 	// MARK: Private Methods
@@ -42,8 +42,8 @@ class VerifyPasscodeViewController: UIViewController {
 	func configVerifyPassVM() {
 		verifyPassVM = VerifyPassVM(finishPassCreation: {
 			// Passcode waa verified -> Show all done page
-            let allDoneVC = AllDoneViewController()
-            self.navigationController?.pushViewController(allDoneVC, animated: true)
+			let allDoneVC = AllDoneViewController()
+			self.navigationController?.pushViewController(allDoneVC, animated: true)
 		}, onErrorHandling: { error in
 			// display error
 			switch error {
@@ -64,21 +64,21 @@ class VerifyPasscodeViewController: UIViewController {
 		navigationItem.titleView = steperView
 		navigationController?.navigationBar.backgroundColor = .Pino.secondaryBackground
 	}
-    
-    private func setNavigationBackButton() {
-        let backImage = UIImage(systemName: "arrow.left")
-        let backButton = UIBarButtonItem(
-            image: backImage,
-            style: .plain,
-            target: self,
-            action: #selector(backToPreviousPage)
-        )
-        backButton.tintColor = .Pino.label
-        navigationItem.setLeftBarButton(backButton, animated: true)
-    }
-    
-    @objc
-    private func backToPreviousPage() {
-        navigationController?.popViewController(animated: true)
-    }
+
+	private func setNavigationBackButton() {
+		let backImage = UIImage(systemName: "arrow.left")
+		let backButton = UIBarButtonItem(
+			image: backImage,
+			style: .plain,
+			target: self,
+			action: #selector(backToPreviousPage)
+		)
+		backButton.tintColor = .Pino.label
+		navigationItem.setLeftBarButton(backButton, animated: true)
+	}
+
+	@objc
+	private func backToPreviousPage() {
+		navigationController?.popViewController(animated: true)
+	}
 }

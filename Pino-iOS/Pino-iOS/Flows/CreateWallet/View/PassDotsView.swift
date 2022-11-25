@@ -29,7 +29,6 @@ class PassDotsView: UIView {
 	required init?(coder: NSCoder) {
 		fatalError()
 	}
-
 }
 
 extension PassDotsView {

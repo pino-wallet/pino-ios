@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 struct SelectPassVM: PasscodeManagerPages {
-    var title = "Create passcode"
+	var title = "Create passcode"
 	var description = "This passcode is for maximizing wallet security. It cannot be used to recover it."
 	var passcode = ""
 	var finishPassCreation: (String) -> Void

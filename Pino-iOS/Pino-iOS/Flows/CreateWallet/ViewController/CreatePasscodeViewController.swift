@@ -22,7 +22,7 @@ class CreatePasscodeViewController: UIViewController {
 	override func loadView() {
 		stupView()
 		setSteperView()
-        setNavigationBackButton()
+		setNavigationBackButton()
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -64,21 +64,21 @@ class CreatePasscodeViewController: UIViewController {
 		navigationItem.titleView = steperView
 		navigationController?.navigationBar.backgroundColor = .Pino.secondaryBackground
 	}
-    
-    private func setNavigationBackButton() {
-        let backImage = UIImage(systemName: "arrow.left")
-        let backButton = UIBarButtonItem(
-            image: backImage,
-            style: .plain,
-            target: self,
-            action: #selector(backToPreviousPage)
-        )
-        backButton.tintColor = .Pino.label
-        navigationItem.setLeftBarButton(backButton, animated: true)
-    }
-    
-    @objc
-    private func backToPreviousPage() {
-        navigationController?.popViewController(animated: true)
-    }
+
+	private func setNavigationBackButton() {
+		let backImage = UIImage(systemName: "arrow.left")
+		let backButton = UIBarButtonItem(
+			image: backImage,
+			style: .plain,
+			target: self,
+			action: #selector(backToPreviousPage)
+		)
+		backButton.tintColor = .Pino.label
+		navigationItem.setLeftBarButton(backButton, animated: true)
+	}
+
+	@objc
+	private func backToPreviousPage() {
+		navigationController?.popViewController(animated: true)
+	}
 }
