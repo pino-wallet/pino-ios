@@ -8,12 +8,12 @@
 import Combine
 import Foundation
 
-struct CreatePassVM: PasscodeManagerPages {
-	var title = "Create passcode"
+struct SelectPassVM: PasscodeManagerPages {
+    var title = "Create passcode"
 	var description = "This passcode is for maximizing wallet security. It cannot be used to recover it."
 	var passcode = ""
 	var finishPassCreation: (String) -> Void
-	var onErrorHandling: ((PassSaveError) -> Void)?
+	var onErrorHandling: (PassSelectionError) -> Void
 
 	mutating func passInserted(passChar: String) {
 		guard passcode.count < passDigitsCount else { return }

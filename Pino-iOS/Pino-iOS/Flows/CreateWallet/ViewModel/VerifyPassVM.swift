@@ -7,20 +7,12 @@
 
 import Foundation
 
-enum PassSaveError: Error {}
-
-enum PassVerifyError: Error {
-	case notTheSame
-	case saveFailed
-	case unknown
-}
-
 struct VerifyPassVM: PasscodeManagerPages {
 	var title = "Retype passcode"
 	var description = "This passcode is for maximizing wallet security. It cannot be used to recover it."
 	var passcode = ""
 	var finishPassCreation: () -> Void
-	var onErrorHandling: ((PassVerifyError) -> Void)?
+	var onErrorHandling: (PassVerifyError) -> Void
 	var selectedPasscode: String
 
 	mutating func passInserted(passChar: String) {
@@ -29,26 +21,26 @@ struct VerifyPassVM: PasscodeManagerPages {
 		verifyPasscode()
 	}
 
-	func verifyPasscode() {
+	private func verifyPasscode() {
 		if passcode.count == passDigitsCount {
 			if passcode == selectedPasscode {
 				// pass storation succeeds
 				finishPassCreation()
 				savePasscodeInKeychain()
 			} else {
-				onErrorHandling!(.notTheSame)
+				onErrorHandling(.dontMatch)
 			}
 		}
 	}
 
-	func savePasscodeInKeychain() {
+	private func savePasscodeInKeychain() {
 		let keychainHelper = PasscodeManager(keychainHelper: KeychainSwift())
 		do {
 			try keychainHelper.store(passcode)
 		} catch PassVerifyError.saveFailed {
-			onErrorHandling!(.saveFailed)
+			onErrorHandling(.saveFailed)
 		} catch {
-			onErrorHandling!(.unknown)
+			onErrorHandling(.unknown)
 		}
 	}
 }

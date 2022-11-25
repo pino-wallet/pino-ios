@@ -31,7 +31,6 @@ class VerifyPasscodeViewController: UIViewController {
 
 	private func stupView() {
 		// Custom view should be created
-
 		configVerifyPassVM()
 		createPassView = ManagePasscodeView(managePassVM: verifyPassVM)
 		view = createPassView
@@ -42,19 +41,18 @@ class VerifyPasscodeViewController: UIViewController {
 	func configVerifyPassVM() {
 		verifyPassVM = VerifyPassVM(finishPassCreation: {
 			// Passcode waa verified -> Show all done page
-		}, selectedPasscode: selectedPasscode)
-
-		verifyPassVM.onErrorHandling = { error in
+		}, onErrorHandling: { error in
 			// display error
 			switch error {
-			case .notTheSame:
+			case .dontMatch:
 				self.createPassView?.passDotsView.showErrorState()
+				self.createPassView?.showErrorWith(text: "Incorrect, try again!")
 			case .saveFailed:
 				fatalError("Print Failed")
 			case .unknown:
 				fatalError("Uknown Error")
 			}
-		}
+		}, selectedPasscode: selectedPasscode)
 	}
 
 	private func setSteperView() {

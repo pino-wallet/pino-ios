@@ -15,8 +15,6 @@ class PassDotsView: UIView {
 	private let passDotsContainerView = UIStackView()
 	private var passcodeManagerVM: PasscodeManagerPages!
 
-	// MARK: Public Properties
-
 	// MARK: Initializers
 
 	init(passcodeManagerVM: PasscodeManagerPages) {
@@ -32,9 +30,6 @@ class PassDotsView: UIView {
 		fatalError()
 	}
 
-	// MARK: Public Methods
-
-	// MARK: Private Methods
 }
 
 extension PassDotsView {
