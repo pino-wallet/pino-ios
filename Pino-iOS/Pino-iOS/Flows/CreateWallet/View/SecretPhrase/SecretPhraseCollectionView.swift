@@ -11,22 +11,23 @@ import UIKit
 class SecretPhraseCollectionView: UICollectionView {
 	// MARK: Public Properties
 
-	public var seedPhrase: [SeedPhrase] = [] {
+	public var secretWords: [String] = [] {
 		didSet {
 			reloadData()
 		}
 	}
 
-	public var defultStyle = SecretPhraseCell.SeedPhraseStyle.defaultStyle
-	public var wordSelected: ((SeedPhrase) -> Void)?
+	public var cellStyle: SecretPhraseCell.Style = .regular
+	public var wordSelected: ((String) -> Void)?
 
 	// MARK: Initializers
 
 	convenience init() {
 		// Set flow layout for collection view
 		let flowLayout = SecretPhraseCenteredFlowLayout()
+		flowLayout.sectionInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
 		flowLayout.minimumInteritemSpacing = 8
-		flowLayout.minimumLineSpacing = 8
+		flowLayout.minimumLineSpacing = 9
 		flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
 		self.init(frame: .zero, collectionViewLayout: flowLayout)
 
@@ -45,7 +46,7 @@ class SecretPhraseCollectionView: UICollectionView {
 	// MARK: Private Methods
 
 	private func registerCell() {
-		register(SecretPhraseCell.self, forCellWithReuseIdentifier: "secretPhrase")
+		register(SecretPhraseCell.self, forCellWithReuseIdentifier: SecretPhraseCell.reuseID)
 		dataSource = self
 		delegate = self
 	}
@@ -72,7 +73,7 @@ class SecretPhraseCollectionView: UICollectionView {
 
 extension SecretPhraseCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		seedPhrase.count
+		secretWords.count
 	}
 
 	func collectionView(
@@ -81,11 +82,18 @@ extension SecretPhraseCollectionView: UICollectionViewDataSource {
 	) -> UICollectionViewCell {
 		let index = indexPath.item
 		let secretPhraseCell = collectionView.dequeueReusableCell(
-			withReuseIdentifier: "secretPhrase",
+			withReuseIdentifier: SecretPhraseCell.reuseID,
 			for: indexPath
 		) as! SecretPhraseCell
-		secretPhraseCell.seedPhrase = seedPhrase[index]
-		secretPhraseCell.seedPhraseStyle = defultStyle
+
+		switch cellStyle {
+		case .regular:
+			secretPhraseCell.seedPhrase = DefaultSeedPhrase(sequence: index + 1, title: secretWords[index])
+		case .unordered:
+			secretPhraseCell.seedPhrase = UnorderedSeedPhrase(title: secretWords[index])
+		case .empty:
+			secretPhraseCell.seedPhrase = EmptySeedPhrase()
+		}
 		return secretPhraseCell
 	}
 }
@@ -94,9 +102,15 @@ extension SecretPhraseCollectionView: UICollectionViewDataSource {
 
 extension SecretPhraseCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		let index = indexPath.item
-		if let wordSelected = wordSelected {
-			wordSelected(seedPhrase[index])
+		if let wordSelected {
+			// Cell with regular or unordered style is selectable
+			// Cell with empty style isn't selectable
+			let secretPhraseCell = cellForItem(at: indexPath) as! SecretPhraseCell
+			switch secretPhraseCell.seedPhrase.style {
+			case .regular, .unordered:
+				wordSelected(secretWords[indexPath.item])
+			case .empty: break
+			}
 		}
 	}
 }

@@ -22,38 +22,38 @@ extension PinoButton {
 
 extension PinoButton.Style {
 	public static let active = PinoButton.Style(
-		titleColor: .white,
+		titleColor: .Pino.white,
 		backgroundColor: .Pino.primary,
-		borderColor: .clear
+		borderColor: .Pino.clear
 	)
 
 	public static let deactive = PinoButton.Style(
-		titleColor: .secondaryLabel,
+		titleColor: .Pino.gray2,
 		backgroundColor: .Pino.gray5,
-		borderColor: .clear
+		borderColor: .Pino.clear
 	)
 
 	public static let success = PinoButton.Style(
-		titleColor: .white,
+		titleColor: .Pino.white,
 		backgroundColor: .Pino.successGreen,
-		borderColor: .clear
+		borderColor: .Pino.clear
 	)
 
 	public static let delete = PinoButton.Style(
-		titleColor: .white,
-		backgroundColor: .Pino.errorRed,
-		borderColor: .clear
+		titleColor: .Pino.white,
+		backgroundColor: .Pino.ErrorRed,
+		borderColor: .Pino.clear
 	)
 
 	public static let secondary = PinoButton.Style(
 		titleColor: .Pino.primary,
-		backgroundColor: .clear,
+		backgroundColor: .Pino.clear,
 		borderColor: .Pino.primary
 	)
 
 	public static let loading = PinoButton.Style(
-		titleColor: .white,
+		titleColor: .Pino.white,
 		backgroundColor: .Pino.green3,
-		borderColor: .clear
+		borderColor: .Pino.clear
 	)
 }

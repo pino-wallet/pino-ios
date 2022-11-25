@@ -66,7 +66,7 @@ public class PinoButton: UIButton {
 
 	private func updateTitle() {
 		setTitle(title, for: .normal)
-		titleLabel?.font = UIFont.PinoStyle.semiboldTitle2
+		titleLabel?.font = UIFont.PinoStyle.semiboldBody
 	}
 
 	private func setupLoading() {

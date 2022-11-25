@@ -13,6 +13,7 @@ import Security
  A collection of helper functions for saving text and data in the keychain.
 
  */
+// swiftlint:disable all
 open class KeychainSwift {
 	var lastQueryParameters: [String: Any]? // Used by the unit tests
 
