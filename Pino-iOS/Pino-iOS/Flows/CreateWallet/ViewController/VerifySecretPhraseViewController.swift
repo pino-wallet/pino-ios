@@ -64,7 +64,8 @@ extension VerifySecretPhraseViewController {
 		// Go to create passcode page
 		let createPassVC = CreatePasscodeViewController()
 		navigationController?.pushViewController(createPassVC, animated: true)
-//		}
+    }
+    
 	private func setNavigationBackButton() {
 		let backImage = UIImage(systemName: "arrow.left")
 		let backButton = UIBarButtonItem(

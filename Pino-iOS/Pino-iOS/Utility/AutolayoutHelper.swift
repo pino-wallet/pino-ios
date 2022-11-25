@@ -9,7 +9,7 @@
 import UIKit
 
 // MARK: - Constraint
-
+// swiftlint:disable all
 enum Constraint {
 	case relative(NSLayoutConstraint.Attribute, CGFloat, to: Anchorable? = nil, NSLayoutConstraint.Attribute? = nil)
 	case fixed(NSLayoutConstraint.Attribute, CGFloat)

@@ -111,6 +111,7 @@ extension PassDotsView {
 }
 
 // Confirming to UIKeyInput In order to show keyboard
+// swiftlint: disable unused_setter_value
 extension PassDotsView: UIKeyInput, UITextInputTraits {
 	// MARK: Overrides
 
@@ -135,11 +136,5 @@ extension PassDotsView: UIKeyInput, UITextInputTraits {
 		guard passDotsContainerView.subviews.isIndexValid(index: index) else { return }
 		let fillingDotView = passDotsContainerView.subviews[index]
 		setStyle(of: fillingDotView, withState: state)
-	}
-}
-
-extension Array {
-	func isIndexValid(index: Int) -> Bool {
-		indices.contains(index)
 	}
 }

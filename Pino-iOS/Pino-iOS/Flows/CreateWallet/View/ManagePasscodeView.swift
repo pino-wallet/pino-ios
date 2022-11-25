@@ -110,7 +110,7 @@ extension ManagePasscodeView {
 }
 
 extension ManagePasscodeView {
-	// swiftlint: disable redundant_void_return
+	// swiftlint: redundant_void_return
 	@objc
 	internal func keyboardWillShow(_ notification: Notification?) {
 		var kbSize: CGSize!
