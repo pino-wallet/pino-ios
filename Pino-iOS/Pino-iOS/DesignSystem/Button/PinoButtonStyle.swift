@@ -41,7 +41,7 @@ extension PinoButton.Style {
 
 	public static let delete = PinoButton.Style(
 		titleColor: .Pino.white,
-		backgroundColor: .Pino.errorRed,
+    backgroundColor: .Pino.errorRed,
 		borderColor: .Pino.clear
 	)
 
