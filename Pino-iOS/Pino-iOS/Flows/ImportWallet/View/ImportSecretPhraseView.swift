@@ -73,6 +73,7 @@ extension ImportSecretPhraseView {
 
 		pageTitle.text = "Import secret phrase"
 		pageDescription.text = "Typically 12 words separated by single spaces"
+
 		errorLabel.text = "Invalid Secret Phrase"
 		errorLabel.textColor = .Pino.ErrorRed
 		errorLabel.font = .PinoStyle.mediumCallout

@@ -16,6 +16,12 @@ public class PinoLabel: UILabel {
 		}
 	}
 
+	override public var text: String? {
+		didSet {
+			setLineSpacing()
+		}
+	}
+
 	// MARK: - Initializers
 
 	public init(style: Style, text: String?) {
