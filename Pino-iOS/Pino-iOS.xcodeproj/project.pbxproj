@@ -63,6 +63,11 @@
 		E33E31912923D1A40028ECDB /* VerifySecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33E31902923D1A40028ECDB /* VerifySecretPhraseView.swift */; };
 		E33E31932923DD8E0028ECDB /* CreatePasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33E31922923DD8E0028ECDB /* CreatePasscodeViewController.swift */; };
 		E33E31952924CDFB0028ECDB /* BlurEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33E31942924CDFB0028ECDB /* BlurEffectView.swift */; };
+		E369D759292CB3B6002AA8DE /* ImportSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D758292CB3B6002AA8DE /* ImportSecretPhraseViewController.swift */; };
+		E369D75B292CB762002AA8DE /* ImportSecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D75A292CB762002AA8DE /* ImportSecretPhraseView.swift */; };
+		E369D763292DF12A002AA8DE /* SuggestedSeedPhraseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D762292DF12A002AA8DE /* SuggestedSeedPhraseCollectionView.swift */; };
+		E369D765292DF143002AA8DE /* SuggestedSeedPhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D764292DF143002AA8DE /* SuggestedSeedPhraseCell.swift */; };
+		E369D769292DF35D002AA8DE /* SecretPhraseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D768292DF35D002AA8DE /* SecretPhraseTextView.swift */; };
 		E3702F55292012C200BA39C9 /* PPPangramSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3D292012C100BA39C9 /* PPPangramSans-Bold.ttf */; };
 		E3702F56292012C200BA39C9 /* PPPangramSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3E292012C100BA39C9 /* PPPangramSans-BoldItalic.ttf */; };
 		E3702F57292012C200BA39C9 /* PPPangramSans-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3702F3F292012C100BA39C9 /* PPPangramSans-RegularItalic.ttf */; };
@@ -169,6 +174,11 @@
 		E33E31902923D1A40028ECDB /* VerifySecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseView.swift; sourceTree = "<group>"; };
 		E33E31922923DD8E0028ECDB /* CreatePasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeViewController.swift; sourceTree = "<group>"; };
 		E33E31942924CDFB0028ECDB /* BlurEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurEffectView.swift; sourceTree = "<group>"; };
+		E369D758292CB3B6002AA8DE /* ImportSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImportSecretPhraseViewController.swift; path = "Pino-iOS/Flows/ImportWallet/Pino-iOS/Flows/ImportWallet/View Controller/ImportSecretPhraseViewController.swift"; sourceTree = SOURCE_ROOT; };
+		E369D75A292CB762002AA8DE /* ImportSecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImportSecretPhraseView.swift; path = "Pino-iOS/Flows/ImportWallet/View/ImportSecretPhraseView.swift"; sourceTree = SOURCE_ROOT; };
+		E369D762292DF12A002AA8DE /* SuggestedSeedPhraseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SuggestedSeedPhraseCollectionView.swift; path = "Pino-iOS/Flows/ImportWallet/View/SuggestedSeedPhraseCollectionView.swift"; sourceTree = SOURCE_ROOT; };
+		E369D764292DF143002AA8DE /* SuggestedSeedPhraseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SuggestedSeedPhraseCell.swift; path = "Pino-iOS/Flows/ImportWallet/View/SuggestedSeedPhraseCell.swift"; sourceTree = SOURCE_ROOT; };
+		E369D768292DF35D002AA8DE /* SecretPhraseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseTextView.swift; sourceTree = "<group>"; };
 		E3702F3D292012C100BA39C9 /* PPPangramSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Bold.ttf"; sourceTree = "<group>"; };
 		E3702F3E292012C100BA39C9 /* PPPangramSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		E3702F3F292012C100BA39C9 /* PPPangramSans-RegularItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-RegularItalic.ttf"; sourceTree = "<group>"; };
@@ -421,6 +431,8 @@
 		DF2B04212919581F00781052 /* ImportWallet */ = {
 			isa = PBXGroup;
 			children = (
+				E369D766292DF275002AA8DE /* View Controller */,
+				E369D767292DF295002AA8DE /* View */,
 			);
 			path = ImportWallet;
 			sourceTree = "<group>";
@@ -524,6 +536,26 @@
 				E3AFDC7B2928B3B900230935 /* SeedPhrase.swift */,
 			);
 			path = SecretPhrase;
+            sourceTree = "<group>";
+		};
+		E369D766292DF275002AA8DE /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E369D758292CB3B6002AA8DE /* ImportSecretPhraseViewController.swift */,
+			);
+			name = "View Controller";
+			path = "Pino-iOS/Flows/ImportWallet/View Controller";
+			sourceTree = "<group>";
+		};
+		E369D767292DF295002AA8DE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E369D75A292CB762002AA8DE /* ImportSecretPhraseView.swift */,
+				E369D762292DF12A002AA8DE /* SuggestedSeedPhraseCollectionView.swift */,
+				E369D764292DF143002AA8DE /* SuggestedSeedPhraseCell.swift */,
+				E369D768292DF35D002AA8DE /* SecretPhraseTextView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		E3B72304291B811300D4F46C /* Fonts */ = {
@@ -937,13 +969,18 @@
 				E3B7234C291B8D8A00D4F46C /* PinoCheckBoxStyle.swift in Sources */,
 				E3B7233B291B85B400D4F46C /* SemiboldStyle.swift in Sources */,
 				E3B72337291B853200D4F46C /* PinoFont.swift in Sources */,
+				E369D759292CB3B6002AA8DE /* ImportSecretPhraseViewController.swift in Sources */,
 				E3EDCC252921036F0011B9A8 /* ShowSecretPhraseViewController.swift in Sources */,
 				E3115979292A2BFC00804CE1 /* IntroModel.swift in Sources */,
 				DF05F69B291644B7005A3338 /* AppDelegate.swift in Sources */,
+				E369D75B292CB762002AA8DE /* ImportSecretPhraseView.swift in Sources */,
 				E311596E2929215B00804CE1 /* AllDoneViewController.swift in Sources */,
 				E31159742929F83500804CE1 /* IntroCollectionViewCell.swift in Sources */,
+				E369D765292DF143002AA8DE /* SuggestedSeedPhraseCell.swift in Sources */,
 				DF05F69D291644B7005A3338 /* SceneDelegate.swift in Sources */,
+				E369D769292DF35D002AA8DE /* SecretPhraseTextView.swift in Sources */,
 				E3EDCC182920CA1D0011B9A8 /* PinoStepperView.swift in Sources */,
+				E369D763292DF12A002AA8DE /* SuggestedSeedPhraseCollectionView.swift in Sources */,
 				E3B7234A291B8D7200D4F46C /* PinoCheckBox.swift in Sources */,
 				E3EDCC142920C6D70011B9A8 /* MockSeedPhraseList.swift in Sources */,
 				E33E31932923DD8E0028ECDB /* CreatePasscodeViewController.swift in Sources */,

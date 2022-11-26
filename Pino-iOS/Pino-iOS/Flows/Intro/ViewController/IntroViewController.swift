@@ -40,15 +40,25 @@ class IntroViewController: UIViewController {
 			),
 		]
 
-		let introView = IntroView(content: introContents) {
-			self.goToCreateWalletPage()
-		} importWallet: {}
-
+		let introView = IntroView(
+			content: introContents,
+			createWallet: {
+				self.goToCreateWalletPage()
+			},
+			importWallet: {
+				self.goToImportWalletPage()
+			}
+		)
 		view = introView
 	}
 
 	private func goToCreateWalletPage() {
 		let showSecretPhrasePage = ShowSecretPhraseViewController()
 		navigationController?.pushViewController(showSecretPhrasePage, animated: true)
+	}
+
+	private func goToImportWalletPage() {
+		let importSecretPhrasePage = ImportSecretPhraseViewController()
+		navigationController?.pushViewController(importSecretPhrasePage, animated: true)
 	}
 }
