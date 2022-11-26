@@ -73,6 +73,7 @@ extension AllDoneView {
 		setupPrivacyPolicyLinks()
 		privacyPolicyLabel.textColor = .Pino.secondaryLabel
 		privacyPolicyLabel.font = .PinoStyle.mediumSubheadline
+		privacyPolicyLabel.backgroundColor = .clear
 
 		allDoneStackView.axis = .vertical
 		allDoneStackView.spacing = 26
