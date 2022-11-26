@@ -23,19 +23,18 @@ class VerifyPasscodeViewController: UIViewController {
 	}
 
 	override func loadView() {
-		stupView()
+		setupView()
 		setSteperView()
 		setNavigationBackButton()
 	}
 
 	// MARK: Private Methods
 
-	private func stupView() {
+	private func setupView() {
 		// Custom view should be created
 		configVerifyPassVM()
 		createPassView = ManagePasscodeView(managePassVM: verifyPassVM)
 		view = createPassView
-		view.backgroundColor = .Pino.secondaryBackground
 		createPassView?.passDotsView.becomeFirstResponder()
 	}
 
@@ -54,6 +53,8 @@ class VerifyPasscodeViewController: UIViewController {
 				fatalError("Print Failed")
 			case .unknown:
 				fatalError("Uknown Error")
+			case .emptyPasscode:
+				fatalError("Passcode sent to verify is empty")
 			}
 		}, selectedPasscode: selectedPasscode)
 	}

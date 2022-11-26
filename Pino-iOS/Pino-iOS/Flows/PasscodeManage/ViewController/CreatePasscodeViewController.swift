@@ -25,13 +25,10 @@ class CreatePasscodeViewController: UIViewController {
 		setNavigationBackButton()
 	}
 
-	override func viewDidAppear(_ animated: Bool) {
-		// User might enter a passcode, Head to verify page, but then navigate back to
-		// Create Pass again. In this scenario we reset the already defined passcode
-	}
-
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		// User might enter a passcode, Head to verify page, but then navigate back to
+		// Create Pass again. In this scenario we reset the already defined passcode
 		createPassView?.passDotsView.resetDotsView()
 		createPassView?.passDotsView.becomeFirstResponder()
 	}
@@ -46,8 +43,11 @@ class CreatePasscodeViewController: UIViewController {
 			let verifyPassVC = VerifyPasscodeViewController()
 			verifyPassVC.selectedPasscode = passcode
 			self.navigationController?.pushViewController(verifyPassVC, animated: true)
-		}, onErrorHandling: { _ in
-			// Handle errors of pass selection
+		}, onErrorHandling: { error in
+			switch error {
+			case .emptySelectedPasscode:
+				fatalError("Selected passcode by user is empty")
+			}
 		})
 	}
 
@@ -55,7 +55,6 @@ class CreatePasscodeViewController: UIViewController {
 		configCreatePassVM()
 		createPassView = ManagePasscodeView(managePassVM: createPassVM)
 		view = createPassView
-		view.backgroundColor = .Pino.secondaryBackground
 	}
 
 	private func setSteperView() {

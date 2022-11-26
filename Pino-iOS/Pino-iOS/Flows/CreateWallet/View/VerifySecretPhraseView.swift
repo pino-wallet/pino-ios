@@ -122,9 +122,7 @@ extension VerifySecretPhraseView {
 		contentView.addSubview(continueButton)
 		scrollView.addSubview(contentView)
 		addSubview(scrollView)
-//		addSubview(continueButton)
 
-		#warning("This code should be uncommented before push")
 		continueButton.addAction(UIAction(handler: { _ in
 			if self.continueButton.style == .active {
 				self.createWallet(self.sortedPhraseCollectionView.secretWords)

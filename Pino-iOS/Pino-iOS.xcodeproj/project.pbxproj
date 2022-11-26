@@ -59,7 +59,6 @@
 		DF5CA647292D136A00422052 /* SecretPhraseCenteredFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CA644292D136A00422052 /* SecretPhraseCenteredFlowLayout.swift */; };
 		DF5CA648292D136A00422052 /* SecretPhraseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CA645292D136A00422052 /* SecretPhraseCollectionView.swift */; };
 		DF5CA649292D136A00422052 /* SecretPhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CA646292D136A00422052 /* SecretPhraseCell.swift */; };
-		DF5CA64B292D36B000422052 /* DynamicValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CA64A292D36B000422052 /* DynamicValue.swift */; };
 		DFCE5F562923FFAC0054DA62 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCE5F552923FFAC0054DA62 /* KeychainHelper.swift */; };
 		DFCE5F58292557370054DA62 /* PassDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCE5F57292557370054DA62 /* PassDotsView.swift */; };
 		DFCE5F5A2925649A0054DA62 /* ManagePasscodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCE5F592925649A0054DA62 /* ManagePasscodeView.swift */; };
@@ -177,7 +176,6 @@
 		DF5CA644292D136A00422052 /* SecretPhraseCenteredFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecretPhraseCenteredFlowLayout.swift; sourceTree = "<group>"; };
 		DF5CA645292D136A00422052 /* SecretPhraseCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecretPhraseCollectionView.swift; sourceTree = "<group>"; };
 		DF5CA646292D136A00422052 /* SecretPhraseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecretPhraseCell.swift; sourceTree = "<group>"; };
-		DF5CA64A292D36B000422052 /* DynamicValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicValue.swift; sourceTree = "<group>"; };
 		DFCE5F552923FFAC0054DA62 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		DFCE5F57292557370054DA62 /* PassDotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassDotsView.swift; sourceTree = "<group>"; };
 		DFCE5F592925649A0054DA62 /* ManagePasscodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagePasscodeView.swift; sourceTree = "<group>"; };
@@ -443,7 +441,6 @@
 			children = (
 				DF5CA643292BDEA200422052 /* PasscodeManager */,
 				DFCE5F542923FF850054DA62 /* KeychainManager */,
-				DF5CA64A292D36B000422052 /* DynamicValue.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -451,6 +448,7 @@
 		DF2B041F2919577800781052 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				DFE33C46293277510055BA58 /* PasscodeManage */,
 				DF2B0422291958DD00781052 /* Unlock */,
 				E3EDCC20292102420011B9A8 /* Intro */,
 				DF2B04202919578800781052 /* CreateWallet */,
@@ -462,8 +460,6 @@
 		DF2B04202919578800781052 /* CreateWallet */ = {
 			isa = PBXGroup;
 			children = (
-				40DAB859293105460069AFEA /* Error */,
-				408AE770292EBBB100AD6401 /* Protocols */,
 				E3EDCC22292102D90011B9A8 /* ViewController */,
 				E3EDCC212921025C0011B9A8 /* View */,
 				E3EDCC23292102E70011B9A8 /* ViewModel */,
@@ -550,6 +546,44 @@
 				DFCE5F6229267B2F0054DA62 /* PinoLabelStyle.swift */,
 			);
 			path = Label;
+			sourceTree = "<group>";
+		};
+		DFE33C46293277510055BA58 /* PasscodeManage */ = {
+			isa = PBXGroup;
+			children = (
+				DFE33C492932778B0055BA58 /* ViewModel */,
+				DFE33C48293277860055BA58 /* View */,
+				408AE770292EBBB100AD6401 /* Protocols */,
+				DFE33C472932776F0055BA58 /* ViewController */,
+				40DAB859293105460069AFEA /* Error */,
+			);
+			path = PasscodeManage;
+			sourceTree = "<group>";
+		};
+		DFE33C472932776F0055BA58 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E33E31922923DD8E0028ECDB /* CreatePasscodeViewController.swift */,
+				DF5CA641292AABE100422052 /* VerifyPasscodeViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		DFE33C48293277860055BA58 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DFCE5F592925649A0054DA62 /* ManagePasscodeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DFE33C492932778B0055BA58 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				400DD211292BCF6C00B248CA /* SelectPassVM.swift */,
+				400DD213292BCF7B00B248CA /* VerifyPassVM.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		E3115975292A2B9D00804CE1 /* ViewController */ = {
@@ -683,7 +717,6 @@
 				E3EDCC28292105470011B9A8 /* ShowSecretPhraseView.swift */,
 				E33E31902923D1A40028ECDB /* VerifySecretPhraseView.swift */,
 				DFCE5F57292557370054DA62 /* PassDotsView.swift */,
-				DFCE5F592925649A0054DA62 /* ManagePasscodeView.swift */,
 				E311596F2929223500804CE1 /* AllDoneView.swift */,
 			);
 			path = View;
@@ -694,8 +727,6 @@
 			children = (
 				E3EDCC242921036F0011B9A8 /* ShowSecretPhraseViewController.swift */,
 				E33E318E2923D0680028ECDB /* VerifySecretPhraseViewController.swift */,
-				E33E31922923DD8E0028ECDB /* CreatePasscodeViewController.swift */,
-				DF5CA641292AABE100422052 /* VerifyPasscodeViewController.swift */,
 				E311596D2929215B00804CE1 /* AllDoneViewController.swift */,
 			);
 			path = ViewController;
@@ -705,8 +736,6 @@
 			isa = PBXGroup;
 			children = (
 				E3EDCC3C29221C930011B9A8 /* SecretPhraseViewModel.swift */,
-				400DD211292BCF6C00B248CA /* SelectPassVM.swift */,
-				400DD213292BCF7B00B248CA /* VerifyPassVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1042,7 +1071,6 @@
 				DF2B04292919640300781052 /* IntroViewController.swift in Sources */,
 				400DD210292BCEF500B248CA /* KeychainWrapperProtocol.swift in Sources */,
 				E3B7233F291B85D700D4F46C /* RegularStyle.swift in Sources */,
-				DF5CA64B292D36B000422052 /* DynamicValue.swift in Sources */,
 				E3B72347291B8A4700D4F46C /* PinoButtonStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1229,6 +1257,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1258,6 +1287,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (

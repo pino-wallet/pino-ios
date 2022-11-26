@@ -11,19 +11,16 @@ import UIKit
 class ManagePasscodeView: UIView {
 	// MARK: Private Properties
 
-	private let managePassTitle = UILabel()
-	private let managePassDescription = UILabel()
+	private let managePassTitle = PinoLabel(style: .title, text: nil)
+	private let managePassDescription = PinoLabel(style: .description, text: nil)
 	private let topInfoContainerView = UIStackView()
 	private let errorLabel = UILabel()
-	private let managePassVM: PasscodeManagerPages!
-	private var keyboardSize = CGSize(
-		width: .zero,
-		height: 320
-	) // Minimum height in rare case keyboard of height was not calculated
+	private let managePassVM: PasscodeManagerPages
+	private var keyboardHeight: CGFloat = 320 // Minimum height in rare case keyboard of height was not calculated
 
 	// MARK: Public Properties
 
-	public let passDotsView: PassDotsView!
+	public let passDotsView: PassDotsView
 
 	// MARK: Initializers
 
@@ -71,17 +68,11 @@ extension ManagePasscodeView {
 		topInfoContainerView.spacing = 18
 
 		managePassTitle.text = managePassVM.title
-		managePassTitle.textColor = .Pino.label
-		managePassTitle.font = .PinoStyle.semiboldTitle3
+		managePassDescription.text = managePassVM.description
 
 		errorLabel.isHidden = true
 		errorLabel.textColor = .Pino.errorRed
 		errorLabel.font = UIFont.PinoStyle.mediumTitle3
-
-		managePassDescription.text = managePassVM.description
-		managePassDescription.textColor = .Pino.secondaryLabel
-		managePassDescription.font = .PinoStyle.mediumCallout
-		managePassDescription.numberOfLines = 0
 	}
 
 	public func showErrorWith(text: String) {
@@ -91,7 +82,7 @@ extension ManagePasscodeView {
 
 	private func setupContstraint() {
 		topInfoContainerView.pin(
-			.top(padding: 115),
+			.top(to: layoutMarginsGuide, padding: 25),
 			.horizontalEdges(padding: 16)
 		)
 
@@ -104,7 +95,7 @@ extension ManagePasscodeView {
 
 		errorLabel.pin(
 			.centerX,
-			.bottom(padding: keyboardSize.height + 20)
+			.bottom(padding: keyboardHeight + 20)
 		)
 	}
 }
@@ -113,7 +104,6 @@ extension ManagePasscodeView {
 	// swiftlint: redundant_void_return
 	@objc
 	internal func keyboardWillShow(_ notification: Notification?) {
-		var kbSize: CGSize!
 		if let info = notification?.userInfo {
 			let frameEndUserInfoKey = UIResponder.keyboardFrameEndUserInfoKey
 			//  Getting UIKeyboardSize.
@@ -121,11 +111,10 @@ extension ManagePasscodeView {
 				let screenSize = UIScreen.main.bounds
 				let intersectRect = kbFrame.intersection(screenSize)
 				if intersectRect.isNull {
-					kbSize = CGSize(width: screenSize.size.width, height: 0)
+					keyboardHeight = 0
 				} else {
-					kbSize = intersectRect.size
+					keyboardHeight = intersectRect.size.height
 				}
-				keyboardSize = kbSize
 			}
 		}
 	}

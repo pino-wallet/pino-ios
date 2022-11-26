@@ -74,7 +74,7 @@ extension PassDotsView {
 		switch state {
 		case .fill:
 			dotView.backgroundColor = .Pino.green3
-			dotView.layer.borderColor = UIColor.clear.cgColor
+			dotView.layer.borderColor = UIColor.Pino.clear.cgColor
 		case .empty:
 			dotView.backgroundColor = .Pino.white
 			dotView.layer.borderColor = UIColor.Pino.gray4.cgColor
@@ -117,18 +117,19 @@ extension PassDotsView: UIKeyInput, UITextInputTraits {
 	override var canBecomeFirstResponder: Bool { true }
 	override var canResignFirstResponder: Bool { true }
 
-	var hasText: Bool { passcodeManagerVM.passcode.isEmpty == false }
+	var hasText: Bool { passcodeManagerVM.passcode?.isEmpty == false }
 
 	var keyboardType: UIKeyboardType { get { UIKeyboardType.numberPad } set {} }
 
 	func insertText(_ text: String) {
-		setDotviewStyleAt(index: passcodeManagerVM.passcode.count, withState: .fill)
+		setDotviewStyleAt(index: passcodeManagerVM.passcode?.count ?? 0, withState: .fill)
 		passcodeManagerVM.passInserted(passChar: text)
 	}
 
 	func deleteBackward() {
+		guard let passCode = passcodeManagerVM.passcode else { return }
 		passcodeManagerVM.passRemoved()
-		setDotviewStyleAt(index: passcodeManagerVM.passcode.count, withState: .empty)
+		setDotviewStyleAt(index: passCode.count, withState: .empty)
 	}
 
 	func setDotviewStyleAt(index: Int, withState state: PassdotState) {

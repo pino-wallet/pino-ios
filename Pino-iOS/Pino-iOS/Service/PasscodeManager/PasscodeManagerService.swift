@@ -8,7 +8,7 @@
 public struct PasscodeManager {
 	// MARK: Public Properties
 
-	public let keychainHelper: KeychainWrapper!
+	public let keychainHelper: KeychainWrapper
 
 	// MARK: Private Properties
 

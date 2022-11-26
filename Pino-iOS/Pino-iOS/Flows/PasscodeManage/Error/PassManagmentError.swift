@@ -8,11 +8,14 @@
 import Foundation
 
 // Errors related to pass entering for the first time
-enum PassSelectionError: Error {}
+enum PassSelectionError: Error {
+	case emptySelectedPasscode
+}
 
 // Errors related to pass verification and storage
 enum PassVerifyError: Error {
 	case dontMatch
 	case saveFailed
+	case emptyPasscode
 	case unknown
 }

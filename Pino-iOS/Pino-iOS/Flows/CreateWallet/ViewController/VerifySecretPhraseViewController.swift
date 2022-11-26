@@ -58,8 +58,6 @@ extension VerifySecretPhraseViewController {
 	}
 
 	private func createWallet(_ sortedPhrase: [SeedPhrase]) {
-		#warning("This code should be uncommented before push")
-//		if secretPhraseVM.isVerified(selectedPhrase: sortedPhrase) {
 		// Wallet should be created here
 		// Go to create passcode page
 		let createPassVC = CreatePasscodeViewController()

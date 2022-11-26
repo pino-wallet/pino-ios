@@ -16,7 +16,7 @@ class AllDoneViewController: UIViewController {
 
 	override func loadView() {
 		stupView()
-    setNavigationBackButton()
+		setNavigationBackButton()
 	}
 
 	// MARK: Private Methods
@@ -48,5 +48,4 @@ class AllDoneViewController: UIViewController {
 	private func backToPreviousPage() {
 		navigationController?.popViewController(animated: true)
 	}
-
 }
