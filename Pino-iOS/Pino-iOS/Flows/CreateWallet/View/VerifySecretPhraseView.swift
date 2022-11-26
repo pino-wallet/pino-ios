@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 11/15/22.
 //
 // swiftlint: disable force_cast
+// swiftlint: disable trailing_comma
 
 import UIKit
 
@@ -122,12 +123,9 @@ extension VerifySecretPhraseView {
 		contentView.addSubview(continueButton)
 		scrollView.addSubview(contentView)
 		addSubview(scrollView)
-//		addSubview(continueButton)
 
 		continueButton.addAction(UIAction(handler: { _ in
-			if self.continueButton.style == .active {
-				self.createWallet(self.sortedPhraseCollectionView.secretWords)
-			}
+			self.createWallet(self.sortedPhraseCollectionView.secretWords)
 		}), for: .touchUpInside)
 
 		randomPhraseCollectionView.wordSelected = { secretPhraseword in
@@ -199,8 +197,7 @@ extension VerifySecretPhraseView {
 		)
 		continueButton.pin(
 			.bottom(padding: 8),
-			.horizontalEdges(padding: 16),
-			.fixedHeight(56)
+			.horizontalEdges(padding: 16)
 		)
 		sortedPhraseBoxView.pin(
 			.horizontalEdges,

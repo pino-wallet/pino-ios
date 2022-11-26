@@ -60,9 +60,7 @@ extension ImportSecretPhraseView {
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
 
 		importButton.addAction(UIAction(handler: { _ in
-			if self.importButton.style == .active {
-				self.importSecretPhrase()
-			}
+			self.importSecretPhrase()
 		}), for: .touchUpInside)
 
 		seedPhrasePasteButton.addAction(UIAction(handler: { _ in
@@ -133,8 +131,7 @@ extension ImportSecretPhraseView {
 		)
 		importButton.pin(
 			.bottom(to: layoutMarginsGuide, padding: 8),
-			.horizontalEdges(padding: 16),
-			.fixedHeight(56)
+			.horizontalEdges(padding: 16)
 		)
 	}
 

@@ -110,7 +110,6 @@ extension AllDoneView {
 			.fixedHeight(80)
 		)
 		getStartedButton.pin(
-			.fixedHeight(56),
 			.horizontalEdges(padding: 16)
 		)
 		privacyPolicyStackView.pin(

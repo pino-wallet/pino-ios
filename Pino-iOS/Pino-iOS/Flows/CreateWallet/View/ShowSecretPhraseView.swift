@@ -71,9 +71,7 @@ extension ShowSecretPhraseView {
 		}), for: .touchUpInside)
 
 		continueButton.addAction(UIAction(handler: { _ in
-			if self.continueButton.style == .active {
-				self.savedSecretPhrase()
-			}
+			self.savedSecretPhrase()
 		}), for: .touchUpInside)
 	}
 
@@ -146,8 +144,7 @@ extension ShowSecretPhraseView {
 		)
 		continueButton.pin(
 			.bottom(to: layoutMarginsGuide, padding: 8),
-			.horizontalEdges(padding: 16),
-			.fixedHeight(56)
+			.horizontalEdges(padding: 16)
 		)
 		seedPhraseCollectionView.pin(
 			.horizontalEdges
