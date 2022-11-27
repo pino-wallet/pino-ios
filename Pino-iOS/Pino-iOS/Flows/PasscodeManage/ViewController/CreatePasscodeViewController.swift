@@ -12,6 +12,7 @@ class CreatePasscodeViewController: UIViewController {
 
 	public var createPassView: ManagePasscodeView?
 	public var createPassVM: SelectPassVM!
+	public var pageSteps = 3
 
 	// MARK: View Overrides
 
@@ -21,7 +22,7 @@ class CreatePasscodeViewController: UIViewController {
 
 	override func loadView() {
 		stupView()
-		setSteperView(stepsCount: 3, curreuntStep: 3)
+		setSteperView(stepsCount: pageSteps, curreuntStep: pageSteps)
 		setupNavigationBackButton()
 	}
 

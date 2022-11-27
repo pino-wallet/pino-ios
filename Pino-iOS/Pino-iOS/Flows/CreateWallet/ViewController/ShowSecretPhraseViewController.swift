@@ -33,6 +33,27 @@ class ShowSecretPhraseViewController: UIViewController {
 			self.goToVerifyPage()
 		})
 		view = secretPhraseView
+
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(screenshotTaken),
+			name: UIApplication.userDidTakeScreenshotNotification,
+			object: nil
+		)
+	}
+
+	@objc
+	private func screenshotTaken() {
+		var screenShotDialogMessage = UIAlertController(
+			title: "Warning",
+			message: "It isn't safe to take a screenshot of a secret phrase!",
+			preferredStyle: .alert
+		)
+		let okButton = UIAlertAction(title: "Got it", style: .default) { _ in
+			screenShotDialogMessage.dismiss(animated: true)
+		}
+		screenShotDialogMessage.addAction(okButton)
+		present(screenShotDialogMessage, animated: true, completion: nil)
 	}
 
 	private func shareSecretPhrase() {
