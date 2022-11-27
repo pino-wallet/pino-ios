@@ -52,8 +52,6 @@ extension PassDotsView {
 		passDotsContainerView.pin(
 			.allEdges
 		)
-		passDotsContainerView.widthAnchor
-			.constraint(lessThanOrEqualToConstant: CGFloat(passcodeManagerVM.passDigitsCount * 34)).isActive = true
 	}
 
 	private func createDotsView() {
