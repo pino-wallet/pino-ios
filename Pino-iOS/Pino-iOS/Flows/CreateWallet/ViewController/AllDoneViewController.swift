@@ -16,7 +16,7 @@ class AllDoneViewController: UIViewController {
 
 	override func loadView() {
 		stupView()
-		setNavigationBackButton()
+		removeNavigationBackButton()
 	}
 
 	// MARK: Private Methods
@@ -30,22 +30,5 @@ class AllDoneViewController: UIViewController {
 
 	private func getStarted() {
 		// Go to homepage
-	}
-
-	private func setNavigationBackButton() {
-		let backImage = UIImage(systemName: "arrow.left")
-		let backButton = UIBarButtonItem(
-			image: backImage,
-			style: .plain,
-			target: self,
-			action: #selector(backToPreviousPage)
-		)
-		backButton.tintColor = .Pino.label
-		navigationItem.setLeftBarButton(backButton, animated: true)
-	}
-
-	@objc
-	private func backToPreviousPage() {
-		navigationController?.popViewController(animated: true)
 	}
 }

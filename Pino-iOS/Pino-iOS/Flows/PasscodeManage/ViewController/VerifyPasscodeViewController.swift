@@ -24,8 +24,8 @@ class VerifyPasscodeViewController: UIViewController {
 
 	override func loadView() {
 		setupView()
-		setSteperView()
-		setNavigationBackButton()
+		setSteperView(stepsCount: 3, curreuntStep: 3)
+		setupNavigationBackButton()
 	}
 
 	// MARK: Private Methods
@@ -57,29 +57,5 @@ class VerifyPasscodeViewController: UIViewController {
 				fatalError("Passcode sent to verify is empty")
 			}
 		}, selectedPasscode: selectedPasscode)
-	}
-
-	private func setSteperView() {
-		// show steper view in navigation bar
-		let steperView = PinoStepperView(stepsCount: 3, currentStep: 3)
-		navigationItem.titleView = steperView
-		navigationController?.navigationBar.backgroundColor = .Pino.secondaryBackground
-	}
-
-	private func setNavigationBackButton() {
-		let backImage = UIImage(systemName: "arrow.left")
-		let backButton = UIBarButtonItem(
-			image: backImage,
-			style: .plain,
-			target: self,
-			action: #selector(backToPreviousPage)
-		)
-		backButton.tintColor = .Pino.label
-		navigationItem.setLeftBarButton(backButton, animated: true)
-	}
-
-	@objc
-	private func backToPreviousPage() {
-		navigationController?.popViewController(animated: true)
 	}
 }

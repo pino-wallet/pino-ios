@@ -15,7 +15,7 @@
 		400DD214292BCF7B00B248CA /* VerifyPassVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DD213292BCF7B00B248CA /* VerifyPassVM.swift */; };
 		408AE772292EBBCB00AD6401 /* PasscodeManagerPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408AE771292EBBCB00AD6401 /* PasscodeManagerPages.swift */; };
 		40BFF57D29313829005215A3 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BFF57C29313829005215A3 /* Array+Extension.swift */; };
-		40BFF57F29313842005215A3 /* Navigation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BFF57E29313842005215A3 /* Navigation+Extension.swift */; };
+		40BFF57F29313842005215A3 /* ViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BFF57E29313842005215A3 /* ViewController+Extension.swift */; };
 		40DAB85B2931055C0069AFEA /* PassManagmentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40DAB85A2931055C0069AFEA /* PassManagmentError.swift */; };
 		5FE00D5229A8A6EB50C770BB /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B94B1E768003126CB948B2C3 /* Pods_Pino_iOS_Pino_iOSUITests.framework */; };
 		CE5757B5291C7DBA001B4EFE /* AutolayoutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5757B4291C7DBA001B4EFE /* AutolayoutHelper.swift */; };
@@ -153,7 +153,7 @@
 		400DD213292BCF7B00B248CA /* VerifyPassVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPassVM.swift; sourceTree = "<group>"; };
 		408AE771292EBBCB00AD6401 /* PasscodeManagerPages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeManagerPages.swift; sourceTree = "<group>"; };
 		40BFF57C29313829005215A3 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
-		40BFF57E29313842005215A3 /* Navigation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Navigation+Extension.swift"; sourceTree = "<group>"; };
+		40BFF57E29313842005215A3 /* ViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Extension.swift"; sourceTree = "<group>"; };
 		40DAB85A2931055C0069AFEA /* PassManagmentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassManagmentError.swift; sourceTree = "<group>"; };
 		52B07DDB48E26F1946E47DC3 /* Pods_Pino_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B94B1E768003126CB948B2C3 /* Pods_Pino_iOS_Pino_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS_Pino_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -316,7 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				40BFF57C29313829005215A3 /* Array+Extension.swift */,
-				40BFF57E29313842005215A3 /* Navigation+Extension.swift */,
+				40BFF57E29313842005215A3 /* ViewController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1026,7 +1026,7 @@
 			files = (
 				400DD214292BCF7B00B248CA /* VerifyPassVM.swift in Sources */,
 				E31159722929F81F00804CE1 /* IntroCollectionView.swift in Sources */,
-				40BFF57F29313842005215A3 /* Navigation+Extension.swift in Sources */,
+				40BFF57F29313842005215A3 /* ViewController+Extension.swift in Sources */,
 				E3B72339291B85A300D4F46C /* BoldStyle.swift in Sources */,
 				400DD212292BCF6C00B248CA /* SelectPassVM.swift in Sources */,
 				DF5CA648292D136A00422052 /* SecretPhraseCollectionView.swift in Sources */,

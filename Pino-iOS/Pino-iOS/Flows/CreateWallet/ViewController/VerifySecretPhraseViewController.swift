@@ -20,8 +20,8 @@ class VerifySecretPhraseViewController: UIViewController {
 
 	override func loadView() {
 		stupView()
-		setSteperView()
-		setNavigationBackButton()
+		setSteperView(stepsCount: 3, curreuntStep: 2)
+		setupNavigationBackButton()
 	}
 
 	// MARK: Private Methods
@@ -31,11 +31,6 @@ class VerifySecretPhraseViewController: UIViewController {
 		// Go to create passcode page
 		let createPasscodeViewController = CreatePasscodeViewController()
 		navigationController?.pushViewController(createPasscodeViewController, animated: true)
-	}
-
-	@objc
-	private func backToPreviousPage() {
-		navigationController?.popViewController(animated: true)
 	}
 }
 
@@ -47,32 +42,5 @@ extension VerifySecretPhraseViewController {
 			self.createWallet(sortedPhrase)
 		}
 		view = verifySecretPhraseView
-	}
-
-	private func setSteperView() {
-		// show steper view in navigation bar
-		let steperView = PinoStepperView(stepsCount: 3, currentStep: 2)
-		navigationItem.titleView = steperView
-		navigationController?.navigationBar.backgroundColor = .Pino.secondaryBackground
-		navigationController?.navigationBar.shadowImage = UIImage()
-	}
-
-	private func createWallet(_ sortedPhrase: [SeedPhrase]) {
-		// Wallet should be created here
-		// Go to create passcode page
-		let createPassVC = CreatePasscodeViewController()
-		navigationController?.pushViewController(createPassVC, animated: true)
-	}
-
-	private func setNavigationBackButton() {
-		let backImage = UIImage(systemName: "arrow.left")
-		let backButton = UIBarButtonItem(
-			image: backImage,
-			style: .plain,
-			target: self,
-			action: #selector(backToPreviousPage)
-		)
-		backButton.tintColor = .Pino.label
-		navigationItem.setLeftBarButton(backButton, animated: true)
 	}
 }
