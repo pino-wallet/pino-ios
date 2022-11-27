@@ -12,13 +12,13 @@ class ShowSecretPhraseView: UIView {
 
 	private let contentStackView = UIStackView()
 	private let titleStackView = UIStackView()
-	private let titleLabel = UILabel()
+	private let titleLabel = PinoLabel(style: .title, text: nil)
 	private let firstDescriptionBox = UIView()
 	private let secondDescriptionBox = UIView()
-	private let firstDescriptionLabel = UILabel()
-	private let secondDescriptionLabel = UILabel()
+	private let firstDescriptionLabel = PinoLabel(style: .description, text: nil)
+	private let secondDescriptionLabel = PinoLabel(style: .description, text: nil)
 	private let seedPhraseView = UIView()
-	private let revealLabel = UILabel()
+	private let revealLabel = PinoLabel(style: .title, text: nil)
 	private let seedPhraseBlurView = BlurEffectView()
 	private let seedPhraseStackView = UIStackView()
 	private let seedPhraseCollectionView = SecretPhraseCollectionView()
@@ -71,32 +71,22 @@ extension ShowSecretPhraseView {
 		}), for: .touchUpInside)
 
 		continueButton.addAction(UIAction(handler: { _ in
-			if self.continueButton.style == .active {
-				self.savedSecretPhrase()
-			}
+			self.savedSecretPhrase()
 		}), for: .touchUpInside)
 	}
 
 	private func setupStyle() {
 		backgroundColor = .Pino.secondaryBackground
 
-		titleLabel.text = "Backup seed pharase"
-		titleLabel.textColor = .Pino.label
-		titleLabel.font = .PinoStyle.semiboldTitle3
-
+		titleLabel.text = "Backup seed phrase"
+		revealLabel.text = "Tap to reveal"
 		firstDescriptionLabel.text = "Write down your Secret Phrase and store it in a safe place."
 		firstDescriptionLabel.textColor = .Pino.label
-		firstDescriptionLabel.font = .PinoStyle.mediumCallout
-		firstDescriptionLabel.numberOfLines = 0
-
 		secondDescriptionLabel.text = "It allows you to recover your wallet if you lose your device or password"
 		secondDescriptionLabel.textColor = .Pino.label
-		secondDescriptionLabel.font = .PinoStyle.mediumCallout
-		secondDescriptionLabel.numberOfLines = 0
 
 		firstDescriptionBox.backgroundColor = .Pino.background
 		firstDescriptionBox.layer.cornerRadius = 8
-
 		secondDescriptionBox.backgroundColor = .Pino.background
 		secondDescriptionBox.layer.cornerRadius = 8
 
@@ -105,10 +95,6 @@ extension ShowSecretPhraseView {
 		shareButton.titleLabel?.font = .PinoStyle.semiboldBody
 		shareButton.setImage(UIImage(systemName: "square.on.square"), for: .normal)
 		shareButton.imageView?.tintColor = .Pino.primary
-
-		revealLabel.text = "Tap to reveal"
-		revealLabel.textColor = .Pino.label
-		revealLabel.font = .PinoStyle.semiboldTitle3
 
 		contentStackView.axis = .vertical
 		contentStackView.spacing = 8
@@ -146,8 +132,7 @@ extension ShowSecretPhraseView {
 		)
 		continueButton.pin(
 			.bottom(to: layoutMarginsGuide, padding: 8),
-			.horizontalEdges(padding: 16),
-			.fixedHeight(56)
+			.horizontalEdges(padding: 16)
 		)
 		seedPhraseCollectionView.pin(
 			.horizontalEdges

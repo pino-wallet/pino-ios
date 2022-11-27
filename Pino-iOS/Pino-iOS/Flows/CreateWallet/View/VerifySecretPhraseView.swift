@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 11/15/22.
 //
 // swiftlint: disable force_cast
+// swiftlint: disable trailing_comma
 
 import UIKit
 
@@ -15,8 +16,8 @@ class VerifySecretPhraseView: UIView {
 	private let contentView = UIView()
 	private let contentStackView = UIStackView()
 	private let titleStackView = UIStackView()
-	private let pageTitle = UILabel()
-	private let pageDescription = UILabel()
+	private let pageTitle = PinoLabel(style: .title, text: nil)
+	private let pageDescription = PinoLabel(style: .description, text: nil)
 	private let collectionsStackView = UIStackView()
 	private let sortedPhraseBoxView = UIView()
 	private let sortedPhraseCollectionView = SecretPhraseCollectionView()
@@ -124,9 +125,7 @@ extension VerifySecretPhraseView {
 		addSubview(scrollView)
 
 		continueButton.addAction(UIAction(handler: { _ in
-			if self.continueButton.style == .active {
-				self.createWallet(self.sortedPhraseCollectionView.secretWords)
-			}
+			self.createWallet(self.sortedPhraseCollectionView.secretWords)
 		}), for: .touchUpInside)
 
 		randomPhraseCollectionView.wordSelected = { secretPhraseword in
@@ -144,14 +143,8 @@ extension VerifySecretPhraseView {
 		randomPhraseCollectionView.cellStyle = .unordered
 		sortedPhraseCollectionView.secretWords = []
 
-		pageTitle.text = "Verify seed pharase"
-		pageTitle.textColor = .Pino.label
-		pageTitle.font = .PinoStyle.semiboldTitle3
-
+		pageTitle.text = "Verify seed phrase"
 		pageDescription.text = "A two line description should be here. A two line description should be here"
-		pageDescription.textColor = .Pino.secondaryLabel
-		pageDescription.font = .PinoStyle.mediumCallout
-		pageDescription.numberOfLines = 0
 
 		errorLabel.text = "Invalid order! Try again"
 		errorLabel.textColor = .Pino.errorRed
@@ -198,8 +191,7 @@ extension VerifySecretPhraseView {
 		)
 		continueButton.pin(
 			.bottom(padding: 8),
-			.horizontalEdges(padding: 16),
-			.fixedHeight(56)
+			.horizontalEdges(padding: 16)
 		)
 		sortedPhraseBoxView.pin(
 			.horizontalEdges,

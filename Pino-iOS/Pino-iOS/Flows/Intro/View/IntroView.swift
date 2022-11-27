@@ -90,9 +90,6 @@ extension IntroView {
 			.bottom(to: layoutMarginsGuide, padding: 1),
 			.horizontalEdges(padding: 16)
 		)
-		createWalletButton.pin(
-			.fixedHeight(56)
-		)
 		pageControl.pin(
 			.centerX,
 			.relative(.bottom, -24, to: signinStackView, .top)
