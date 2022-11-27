@@ -16,8 +16,8 @@ class ImportSecretPhraseViewController: UIViewController {
 
 	override func loadView() {
 		stupView()
-		setSteperView()
-		setNavigationBackButton()
+		setSteperView(stepsCount: 2, curreuntStep: 1)
+		setupNavigationBackButton()
 	}
 
 	// MARK: Private Methods
@@ -29,29 +29,11 @@ class ImportSecretPhraseViewController: UIViewController {
 		view = importSecretPhraseView
 	}
 
-	private func setSteperView() {
-		// show steper view in navigation bar
-		let stepperView = PinoStepperView(stepsCount: 2, currentStep: 1)
-		navigationItem.titleView = stepperView
-		navigationController?.navigationBar.backgroundColor = .Pino.secondaryBackground
+	private func importWallet() {
+		// Wallet should be verified here
+		// Go to create passcode page
+		let createPasscodeViewController = CreatePasscodeViewController()
+		navigationController?.pushViewController(createPasscodeViewController, animated: true)
 	}
 
-	private func setNavigationBackButton() {
-		let backImage = UIImage(systemName: "arrow.left")
-		let backButton = UIBarButtonItem(
-			image: backImage,
-			style: .plain,
-			target: self,
-			action: #selector(backToPreviousPage)
-		)
-		backButton.tintColor = .Pino.label
-		navigationItem.setLeftBarButton(backButton, animated: true)
-	}
-
-	@objc
-	private func backToPreviousPage() {
-		navigationController?.popViewController(animated: true)
-	}
-
-	private func importWallet() {}
 }

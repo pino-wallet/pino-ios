@@ -78,7 +78,8 @@ extension ShowSecretPhraseView {
 	private func setupStyle() {
 		backgroundColor = .Pino.secondaryBackground
 
-		titleLabel.text = "Backup seed pharase"
+		titleLabel.text = "Backup seed phrase"
+    
 		revealLabel.text = "Tap to reveal"
 		firstDescriptionLabel.text = "Write down your Secret Phrase and store it in a safe place."
 		firstDescriptionLabel.textColor = .Pino.label

@@ -75,12 +75,13 @@ extension ImportSecretPhraseView {
 		pageDescription.text = "Typically 12 words separated by single spaces"
 
 		errorLabel.text = "Invalid Secret Phrase"
-		errorLabel.textColor = .Pino.ErrorRed
+		errorLabel.textColor = .Pino.errorRed
+
 		errorLabel.font = .PinoStyle.mediumCallout
 		errorLabel.textAlignment = .center
 
 		errorIcon.image = UIImage(systemName: "exclamationmark.circle.fill")
-		errorIcon.tintColor = .Pino.ErrorRed
+		errorIcon.tintColor = .Pino.errorRed
 
 		contentStackView.axis = .horizontal
 		errorStackView.spacing = 5

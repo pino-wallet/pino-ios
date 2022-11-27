@@ -16,6 +16,7 @@ class AllDoneViewController: UIViewController {
 
 	override func loadView() {
 		stupView()
+		removeNavigationBackButton()
 	}
 
 	// MARK: Private Methods

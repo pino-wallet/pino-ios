@@ -2,6 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>PPPangramSans-Bold.ttf</string>
+		<string>PPPangramSans-Semibold.ttf</string>
+		<string>PPPangramSans-Thin.ttf</string>
+		<string>PPPangramSans-Regular.ttf</string>
+		<string>PPPangramSans-Light.ttf</string>
+		<string>PPPangramSans-Medium.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -19,14 +28,5 @@
 			</array>
 		</dict>
 	</dict>
-    <key>UIAppFonts</key>
-    <array>
-        <string>PPPangramSans-Bold.ttf</string>
-        <string>PPPangramSans-Semibold.ttf</string>
-        <string>PPPangramSans-Thin.ttf</string>
-        <string>PPPangramSans-Regular.ttf</string>
-        <string>PPPangramSans-Light.ttf</string>
-        <string>PPPangramSans-Medium.ttf</string>
-    </array>
 </dict>
 </plist>

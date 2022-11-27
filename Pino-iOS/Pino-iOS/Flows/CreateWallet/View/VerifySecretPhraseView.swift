@@ -143,17 +143,17 @@ extension VerifySecretPhraseView {
 		randomPhraseCollectionView.cellStyle = .unordered
 		sortedPhraseCollectionView.secretWords = []
 
-		pageTitle.text = "Verify seed pharase"
+		pageTitle.text = "Verify seed phrase"
 		pageDescription.text = "A two line description should be here. A two line description should be here"
 
 		errorLabel.text = "Invalid order! Try again"
-		errorLabel.textColor = .Pino.ErrorRed
+		errorLabel.textColor = .Pino.errorRed
 		errorLabel.font = .PinoStyle.mediumCallout
 		errorLabel.textAlignment = .center
 		errorStackView.isHidden = true
 
 		errorIcon.image = UIImage(systemName: "exclamationmark.circle.fill")
-		errorIcon.tintColor = .Pino.ErrorRed
+		errorIcon.tintColor = .Pino.errorRed
 
 		contentStackView.axis = .vertical
 		contentStackView.spacing = 36

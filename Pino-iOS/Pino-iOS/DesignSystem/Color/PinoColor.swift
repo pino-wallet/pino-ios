@@ -30,7 +30,7 @@ extension UIColor {
 
 		static let pendingOrange = UIColor(named: "Pending Orange Color") ?? UIColor.orange
 		static let successGreen = UIColor(named: "Success Green Color") ?? UIColor.green
-		static let ErrorRed = UIColor(named: "Error Red Color") ?? UIColor.red
+		static let errorRed = UIColor(named: "Error Red Color") ?? UIColor.red
 
 		// MARK: - Gray
 
