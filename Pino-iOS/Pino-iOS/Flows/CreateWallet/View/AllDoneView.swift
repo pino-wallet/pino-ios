@@ -14,8 +14,8 @@ class AllDoneView: UIView {
 	private let allDoneStackView = UIStackView()
 	private let allDoneImage = UIImageView()
 	private let titleStackView = UIStackView()
-	private let allDoneTitle = UILabel()
-	private let allDoneDescription = UILabel()
+	private let allDoneTitle = PinoLabel(style: .title, text: nil)
+	private let allDoneDescription = PinoLabel(style: .description, text: nil)
 	private let privacyPolicyStackView = UIStackView()
 	private let privacyPolicyCheckBox = PinoCheckBox()
 	private let getStartedStackView = UIStackView()
@@ -68,17 +68,12 @@ extension AllDoneView {
 		allDoneImage.image = UIImage(named: "pino_logo")
 
 		allDoneTitle.text = "You’re all done!"
-		allDoneTitle.textColor = .Pino.label
-		allDoneTitle.font = .PinoStyle.semiboldTitle2
-
 		allDoneDescription.text = "A one line description should be here"
-		allDoneDescription.textColor = .Pino.secondaryLabel
-		allDoneDescription.font = .PinoStyle.mediumCallout
-		allDoneDescription.numberOfLines = 0
 
 		setupPrivacyPolicyLinks()
 		privacyPolicyLabel.textColor = .Pino.secondaryLabel
 		privacyPolicyLabel.font = .PinoStyle.mediumSubheadline
+		privacyPolicyLabel.backgroundColor = .clear
 
 		allDoneStackView.axis = .vertical
 		allDoneStackView.spacing = 26
@@ -110,7 +105,6 @@ extension AllDoneView {
 			.fixedHeight(80)
 		)
 		getStartedButton.pin(
-			.fixedHeight(56),
 			.horizontalEdges(padding: 16)
 		)
 		privacyPolicyStackView.pin(

@@ -60,9 +60,7 @@ extension ImportSecretPhraseView {
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
 
 		importButton.addAction(UIAction(handler: { _ in
-			if self.importButton.style == .active {
-				self.importSecretPhrase()
-			}
+			self.importSecretPhrase()
 		}), for: .touchUpInside)
 
 		seedPhrasePasteButton.addAction(UIAction(handler: { _ in
@@ -75,6 +73,7 @@ extension ImportSecretPhraseView {
 
 		pageTitle.text = "Import secret phrase"
 		pageDescription.text = "Typically 12 words separated by single spaces"
+
 		errorLabel.text = "Invalid Secret Phrase"
 		errorLabel.textColor = .Pino.ErrorRed
 		errorLabel.font = .PinoStyle.mediumCallout
@@ -133,8 +132,7 @@ extension ImportSecretPhraseView {
 		)
 		importButton.pin(
 			.bottom(to: layoutMarginsGuide, padding: 8),
-			.horizontalEdges(padding: 16),
-			.fixedHeight(56)
+			.horizontalEdges(padding: 16)
 		)
 	}
 

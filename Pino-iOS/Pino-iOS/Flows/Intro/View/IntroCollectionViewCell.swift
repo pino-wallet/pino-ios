@@ -13,8 +13,8 @@ public class IntroCollectionViewCell: UICollectionViewCell {
 	private let contentStackView = UIStackView()
 	private let introImage = UIImageView()
 	private let titleStackView = UIStackView()
-	private let introTitle = UILabel()
-	private let introDescription = UILabel()
+	private let introTitle = PinoLabel(style: .title, text: nil)
+	private let introDescription = PinoLabel(style: .description, text: nil)
 
 	// MARK: Public Properties
 
@@ -52,14 +52,7 @@ extension IntroCollectionViewCell {
 		introImage.image = introModel.image
 		introImage.backgroundColor = .Pino.background
 
-		introTitle.font = .PinoStyle.semiboldTitle3
-		introTitle.textColor = .Pino.label
 		introTitle.text = introModel.title
-		introTitle.textAlignment = .center
-
-		introDescription.font = .PinoStyle.mediumCallout
-		introDescription.textColor = .Pino.secondaryLabel
-		introDescription.numberOfLines = 0
 		introDescription.text = introModel.description
 		introDescription.textAlignment = .center
 	}
