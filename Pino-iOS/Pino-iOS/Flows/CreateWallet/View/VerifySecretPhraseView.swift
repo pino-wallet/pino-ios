@@ -124,7 +124,7 @@ extension VerifySecretPhraseView {
 		addSubview(scrollView)
 
 		continueButton.addAction(UIAction(handler: { _ in
-			if self.continueButton.style == .active {
+			if self.continueButton.style == .deactive {
 				self.createWallet(self.sortedPhraseCollectionView.secretWords)
 			}
 		}), for: .touchUpInside)

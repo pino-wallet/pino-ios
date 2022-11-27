@@ -13,7 +13,7 @@ class PassDotsView: UIView {
 	// MARK: Private Properties
 
 	private let passDotsContainerView = UIStackView()
-	private var passcodeManagerVM: PasscodeManagerPages!
+	private var passcodeManagerVM: PasscodeManagerPages
 
 	// MARK: Initializers
 

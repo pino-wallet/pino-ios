@@ -573,6 +573,7 @@
 			isa = PBXGroup;
 			children = (
 				DFCE5F592925649A0054DA62 /* ManagePasscodeView.swift */,
+				DFCE5F57292557370054DA62 /* PassDotsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -716,7 +717,6 @@
 				E3AFDC7D2928F04B00230935 /* SecretPhrase */,
 				E3EDCC28292105470011B9A8 /* ShowSecretPhraseView.swift */,
 				E33E31902923D1A40028ECDB /* VerifySecretPhraseView.swift */,
-				DFCE5F57292557370054DA62 /* PassDotsView.swift */,
 				E311596F2929223500804CE1 /* AllDoneView.swift */,
 			);
 			path = View;

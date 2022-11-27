@@ -56,6 +56,8 @@ class VerifyPasscodeViewController: UIViewController {
 			case .emptyPasscode:
 				fatalError("Passcode sent to verify is empty")
 			}
+		}, hideError: {
+			self.createPassView?.hideError()
 		}, selectedPasscode: selectedPasscode)
 	}
 }

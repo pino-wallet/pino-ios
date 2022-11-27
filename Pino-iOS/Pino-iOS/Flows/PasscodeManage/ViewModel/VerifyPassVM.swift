@@ -13,6 +13,7 @@ struct VerifyPassVM: PasscodeManagerPages {
 	var passcode: String? = ""
 	var finishPassCreation: () -> Void
 	var onErrorHandling: (PassVerifyError) -> Void
+	var hideError: () -> Void
 	var selectedPasscode: String
 
 	mutating func passInserted(passChar: String) {
@@ -34,6 +35,9 @@ struct VerifyPassVM: PasscodeManagerPages {
 			} else {
 				onErrorHandling(.dontMatch)
 			}
+		}
+		if enteredPass.count == 1 {
+			hideError()
 		}
 	}
 

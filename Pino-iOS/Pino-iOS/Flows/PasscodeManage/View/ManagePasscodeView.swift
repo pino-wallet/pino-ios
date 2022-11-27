@@ -80,6 +80,10 @@ extension ManagePasscodeView {
 		errorLabel.isHidden = false
 	}
 
+	public func hideError() {
+		errorLabel.isHidden = true
+	}
+
 	private func setupContstraint() {
 		topInfoContainerView.pin(
 			.top(to: layoutMarginsGuide, padding: 25),
@@ -87,15 +91,14 @@ extension ManagePasscodeView {
 		)
 
 		passDotsView.pin(
-			.top(to: topInfoContainerView, padding: 89),
+			.relative(.top, 90, to: topInfoContainerView, .bottom),
 			.centerX(),
-			.centerY(padding: -50),
 			.fixedHeight(20)
 		)
 
 		errorLabel.pin(
 			.centerX,
-			.bottom(padding: keyboardHeight + 20)
+			.bottom(to: layoutMarginsGuide, padding: keyboardHeight - 16)
 		)
 	}
 }
