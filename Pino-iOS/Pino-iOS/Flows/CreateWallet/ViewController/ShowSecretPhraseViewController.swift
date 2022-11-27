@@ -22,6 +22,7 @@ class ShowSecretPhraseViewController: UIViewController {
 		stupView()
 		setSteperView(stepsCount: 3, curreuntStep: 1)
 		setupNavigationBackButton()
+		setupNotifications()
 	}
 
 	// MARK: Private Methods
@@ -33,7 +34,9 @@ class ShowSecretPhraseViewController: UIViewController {
 			self.goToVerifyPage()
 		})
 		view = secretPhraseView
+	}
 
+	private func setupNotifications() {
 		NotificationCenter.default.addObserver(
 			self,
 			selector: #selector(screenshotTaken),
@@ -44,7 +47,7 @@ class ShowSecretPhraseViewController: UIViewController {
 
 	@objc
 	private func screenshotTaken() {
-		var screenShotDialogMessage = UIAlertController(
+		let screenShotDialogMessage = UIAlertController(
 			title: "Warning",
 			message: "It isn't safe to take a screenshot of a secret phrase!",
 			preferredStyle: .alert
