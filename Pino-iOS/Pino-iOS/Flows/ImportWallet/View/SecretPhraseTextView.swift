@@ -13,7 +13,6 @@ class SecretPhraseTextView: UITextView {
 	private let suggestedSeedPhraseCollectionView = SuggestedSeedPhraseCollectionView()
 	private var placeHolderText = "Secret Phrase"
 	private let mockSeedPhraseList = MockSeedPhrase.wordList
-
 	public var seedPhraseCountVerified: ((Bool) -> Void)?
 
 	// MARK: Initializer
@@ -51,14 +50,14 @@ class SecretPhraseTextView: UITextView {
 	}
 
 	private func setupSuggestedSeedPhrase() {
-		suggestedSeedPhraseCollectionView.suggestedSeedPhrase = mockSeedPhraseList
+		suggestedSeedPhraseCollectionView.suggestedSeedPhrase = []
 		suggestedSeedPhraseCollectionView.seedPhraseDidSelect = { selectedWord in
 			self.appendSelectedWordToTextView(selectedWord)
 		}
 		inputAccessoryView = suggestedSeedPhraseCollectionView
 	}
 
-	#warning("These 2 functions are temporary and should be replaced by mnemonic generator functions")
+	#warning("These 3 functions are temporary and should be replaced by mnemonic generator functions")
 
 	private func appendSelectedWordToTextView(_ selectedWord: String) {
 		var seedPhraseArray = text.components(separatedBy: " ")

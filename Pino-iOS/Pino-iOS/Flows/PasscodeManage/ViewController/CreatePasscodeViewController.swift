@@ -12,7 +12,7 @@ class CreatePasscodeViewController: UIViewController {
 
 	public var createPassView: ManagePasscodeView?
 	public var createPassVM: SelectPassVM!
-	public var pageSteps = 3
+	public var pageSteps: Int!
 
 	// MARK: View Overrides
 

@@ -70,7 +70,7 @@ extension ImportSecretPhraseView {
 		seedPhrasetextView.seedPhraseCountVerified = { isVerified in
 			if isVerified {
 				self.importButton.style = .active
-			} else if self.importButton.style == .active {
+			} else {
 				self.importButton.style = .deactive
 			}
 		}
