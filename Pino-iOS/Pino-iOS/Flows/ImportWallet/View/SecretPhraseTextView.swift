@@ -12,7 +12,9 @@ class SecretPhraseTextView: UITextView {
 
 	private let suggestedSeedPhraseCollectionView = SuggestedSeedPhraseCollectionView()
 	private var placeHolderText = "Secret Phrase"
-	private let mockSeedPhraseList = Array(MockSeedPhrase.wordList.shuffled().prefix(100))
+	private let mockSeedPhraseList = MockSeedPhrase.wordList
+
+	public var seedPhraseCountVerified: ((Bool) -> Void)?
 
 	// MARK: Initializer
 
@@ -41,14 +43,15 @@ class SecretPhraseTextView: UITextView {
 	// MARK: Private Method
 
 	private func setupStyle() {
-		backgroundColor = .clear
+		backgroundColor = .Pino.clear
 		text = placeHolderText
 		textColor = .Pino.gray2
 		font = .PinoStyle.mediumBody
+		returnKeyType = UIReturnKeyType.done
 	}
 
 	private func setupSuggestedSeedPhrase() {
-		suggestedSeedPhraseCollectionView.suggestedSeedPhrase = []
+		suggestedSeedPhraseCollectionView.suggestedSeedPhrase = mockSeedPhraseList
 		suggestedSeedPhraseCollectionView.seedPhraseDidSelect = { selectedWord in
 			self.appendSelectedWordToTextView(selectedWord)
 		}
@@ -60,11 +63,12 @@ class SecretPhraseTextView: UITextView {
 	private func appendSelectedWordToTextView(_ selectedWord: String) {
 		var seedPhraseArray = text.components(separatedBy: " ")
 		seedPhraseArray.removeLast()
-		seedPhraseArray.append(selectedWord)
+		seedPhraseArray.append("\(selectedWord) ")
 		text = seedPhraseArray.joined(separator: " ")
+		verifySeedPhrase()
 	}
 
-	private func filterSeedPhrase(textViewString: String, textRange: NSRange, replacementText: String) {
+	private func filterSeedPhrase(textViewString: String) {
 		// Suggest word only when the cursor is at the end of the phrase
 		if let selectedTextRange, selectedTextRange.end == endOfDocument {
 			let seedPhraseArray = textViewString.components(separatedBy: " ")
@@ -77,6 +81,37 @@ class SecretPhraseTextView: UITextView {
 		} else {
 			suggestedSeedPhraseCollectionView.suggestedSeedPhrase = []
 		}
+	}
+
+	private func verifySeedPhrase() {
+		if let seedPhraseCountVerified {
+			var seedPhraseArray = text.components(separatedBy: " ")
+			seedPhraseArray.removeAll(where: { $0.isEmpty })
+			if seedPhraseArray.count == 12 {
+				seedPhraseCountVerified(true)
+			} else {
+				seedPhraseCountVerified(false)
+			}
+		}
+	}
+
+	func addDoneButtonOnKeyboard() {
+		let doneToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+		doneToolbar.barStyle = .default
+
+		let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+		let done = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonAction))
+
+		let items = [flexSpace, done]
+		doneToolbar.items = items
+		doneToolbar.sizeToFit()
+
+		inputAccessoryView = doneToolbar
+	}
+
+	@objc
+	func doneButtonAction() {
+		resignFirstResponder()
 	}
 }
 
@@ -99,19 +134,24 @@ extension SecretPhraseTextView: UITextViewDelegate {
 		resignFirstResponder()
 	}
 
-	internal func textView(
-		_ textView: UITextView,
-		shouldChangeTextIn range: NSRange,
-		replacementText text: String
-	) -> Bool {
-		filterSeedPhrase(textViewString: textView.text, textRange: range, replacementText: text)
-		return true
+	internal func textViewDidChange(_ textView: UITextView) {
+		filterSeedPhrase(textViewString: textView.text)
+		verifySeedPhrase()
 	}
 
 	internal func textViewDidChangeSelection(_ textView: UITextView) {
 		// Don't suggest word when the curser is not at the end of the phrase
 		if let selectedTextRange, selectedTextRange.end != endOfDocument {
 			suggestedSeedPhraseCollectionView.suggestedSeedPhrase = []
+		}
+	}
+
+	func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+		if text == "\n" {
+			textView.resignFirstResponder()
+			return false
+		} else {
+			return true
 		}
 	}
 }

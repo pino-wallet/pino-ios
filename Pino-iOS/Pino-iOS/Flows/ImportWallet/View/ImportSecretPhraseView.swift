@@ -66,6 +66,14 @@ extension ImportSecretPhraseView {
 		seedPhrasePasteButton.addAction(UIAction(handler: { _ in
 			self.seedPhrasetextView.pasteText()
 		}), for: .touchUpInside)
+
+		seedPhrasetextView.seedPhraseCountVerified = { isVerified in
+			if isVerified {
+				self.importButton.style = .active
+			} else if self.importButton.style == .active {
+				self.importButton.style = .deactive
+			}
+		}
 	}
 
 	private func setupStyle() {
