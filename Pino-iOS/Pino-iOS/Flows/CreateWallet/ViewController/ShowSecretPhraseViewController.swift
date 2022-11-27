@@ -47,16 +47,11 @@ class ShowSecretPhraseViewController: UIViewController {
 
 	@objc
 	private func screenshotTaken() {
-		let screenShotDialogMessage = UIAlertController(
+		AlertHelper.showAlert(
 			title: "Warning",
 			message: "It isn't safe to take a screenshot of a secret phrase!",
-			preferredStyle: .alert
+			over: self
 		)
-		let okButton = UIAlertAction(title: "Got it", style: .default) { _ in
-			screenShotDialogMessage.dismiss(animated: true)
-		}
-		screenShotDialogMessage.addAction(okButton)
-		present(screenShotDialogMessage, animated: true, completion: nil)
 	}
 
 	private func shareSecretPhrase() {
