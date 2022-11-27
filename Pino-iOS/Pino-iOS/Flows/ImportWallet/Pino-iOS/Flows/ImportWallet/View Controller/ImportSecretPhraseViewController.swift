@@ -35,4 +35,5 @@ class ImportSecretPhraseViewController: UIViewController {
 		let createPasscodeViewController = CreatePasscodeViewController()
 		navigationController?.pushViewController(createPasscodeViewController, animated: true)
 	}
+
 }

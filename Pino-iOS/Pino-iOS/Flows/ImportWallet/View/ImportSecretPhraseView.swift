@@ -76,6 +76,7 @@ extension ImportSecretPhraseView {
 
 		errorLabel.text = "Invalid Secret Phrase"
 		errorLabel.textColor = .Pino.errorRed
+
 		errorLabel.font = .PinoStyle.mediumCallout
 		errorLabel.textAlignment = .center
 
