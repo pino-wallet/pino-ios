@@ -59,7 +59,7 @@ class SuggestedSeedPhraseCollectionView: UICollectionView {
 
 extension SuggestedSeedPhraseCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		suggestedSeedPhrase.count
+		min(10, suggestedSeedPhrase.count)
 	}
 
 	func collectionView(

@@ -33,7 +33,7 @@ class ImportSecretPhraseViewController: UIViewController {
 		// Wallet should be verified here
 		// Go to create passcode page
 		let createPasscodeViewController = CreatePasscodeViewController()
+		createPasscodeViewController.pageSteps = 2
 		navigationController?.pushViewController(createPasscodeViewController, animated: true)
 	}
-
 }

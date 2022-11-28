@@ -70,6 +70,7 @@
 		E31159722929F81F00804CE1 /* IntroCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31159712929F81F00804CE1 /* IntroCollectionView.swift */; };
 		E31159742929F83500804CE1 /* IntroCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31159732929F83500804CE1 /* IntroCollectionViewCell.swift */; };
 		E3115979292A2BFC00804CE1 /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3115978292A2BFC00804CE1 /* IntroModel.swift */; };
+		E32529AE2933D6E8009C0401 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32529AD2933D6E8009C0401 /* AlertHelper.swift */; };
 		E33E318F2923D0680028ECDB /* VerifySecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33E318E2923D0680028ECDB /* VerifySecretPhraseViewController.swift */; };
 		E33E31912923D1A40028ECDB /* VerifySecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33E31902923D1A40028ECDB /* VerifySecretPhraseView.swift */; };
 		E33E31932923DD8E0028ECDB /* CreatePasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33E31922923DD8E0028ECDB /* CreatePasscodeViewController.swift */; };
@@ -192,6 +193,7 @@
 		E31159712929F81F00804CE1 /* IntroCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCollectionView.swift; sourceTree = "<group>"; };
 		E31159732929F83500804CE1 /* IntroCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCollectionViewCell.swift; sourceTree = "<group>"; };
 		E3115978292A2BFC00804CE1 /* IntroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroModel.swift; sourceTree = "<group>"; };
+		E32529AD2933D6E8009C0401 /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 		E33E318E2923D0680028ECDB /* VerifySecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseViewController.swift; sourceTree = "<group>"; };
 		E33E31902923D1A40028ECDB /* VerifySecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseView.swift; sourceTree = "<group>"; };
 		E33E31922923DD8E0028ECDB /* CreatePasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeViewController.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 			children = (
 				CE5757B4291C7DBA001B4EFE /* AutolayoutHelper.swift */,
 				E33E31942924CDFB0028ECDB /* BlurEffectView.swift */,
+				E32529AD2933D6E8009C0401 /* AlertHelper.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -625,17 +628,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		E3AFDC7D2928F04B00230935 /* SecretPhrase */ = {
-			isa = PBXGroup;
-			children = (
-				DF5CA646292D136A00422052 /* SecretPhraseCell.swift */,
-				DF5CA644292D136A00422052 /* SecretPhraseCenteredFlowLayout.swift */,
-				DF5CA645292D136A00422052 /* SecretPhraseCollectionView.swift */,
-				E3AFDC7B2928B3B900230935 /* SeedPhrase.swift */,
-			);
-			path = SecretPhrase;
-            sourceTree = "<group>";
-		};
 		E369D766292DF275002AA8DE /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -654,6 +646,17 @@
 				E369D768292DF35D002AA8DE /* SecretPhraseTextView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E3AFDC7D2928F04B00230935 /* SecretPhrase */ = {
+			isa = PBXGroup;
+			children = (
+				DF5CA646292D136A00422052 /* SecretPhraseCell.swift */,
+				DF5CA644292D136A00422052 /* SecretPhraseCenteredFlowLayout.swift */,
+				DF5CA645292D136A00422052 /* SecretPhraseCollectionView.swift */,
+				E3AFDC7B2928B3B900230935 /* SeedPhrase.swift */,
+			);
+			path = SecretPhrase;
 			sourceTree = "<group>";
 		};
 		E3B72304291B811300D4F46C /* Fonts */ = {
@@ -1080,6 +1083,7 @@
 				E369D75B292CB762002AA8DE /* ImportSecretPhraseView.swift in Sources */,
 				E311596E2929215B00804CE1 /* AllDoneViewController.swift in Sources */,
 				E31159742929F83500804CE1 /* IntroCollectionViewCell.swift in Sources */,
+				E32529AE2933D6E8009C0401 /* AlertHelper.swift in Sources */,
 				E369D765292DF143002AA8DE /* SuggestedSeedPhraseCell.swift in Sources */,
 				DF05F69D291644B7005A3338 /* SceneDelegate.swift in Sources */,
 				E369D769292DF35D002AA8DE /* SecretPhraseTextView.swift in Sources */,

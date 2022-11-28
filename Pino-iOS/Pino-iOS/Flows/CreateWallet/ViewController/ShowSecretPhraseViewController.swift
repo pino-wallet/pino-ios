@@ -22,6 +22,7 @@ class ShowSecretPhraseViewController: UIViewController {
 		stupView()
 		setSteperView(stepsCount: 3, curreuntStep: 1)
 		setupNavigationBackButton()
+		setupNotifications()
 	}
 
 	// MARK: Private Methods
@@ -35,9 +36,27 @@ class ShowSecretPhraseViewController: UIViewController {
 		view = secretPhraseView
 	}
 
+	private func setupNotifications() {
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(screenshotTaken),
+			name: UIApplication.userDidTakeScreenshotNotification,
+			object: nil
+		)
+	}
+
+	@objc
+	private func screenshotTaken() {
+		AlertHelper.showAlert(
+			title: "Warning",
+			message: "It isn't safe to take a screenshot of a secret phrase!",
+			over: self
+		)
+	}
+
 	private func shareSecretPhrase() {
 		let userWords = secretPhraseVM.secretPhrase
-		let shareText = "Secret Phrase: \(userWords.joined(separator: " "))"
+		let shareText = userWords.joined(separator: " ")
 		let shareActivity = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
 		present(shareActivity, animated: true) {}
 	}
