@@ -31,6 +31,9 @@ class CreatePasscodeViewController: UIViewController {
 		// User might enter a passcode, Head to verify page, but then navigate back to
 		// Create Pass again. In this scenario we reset the already defined passcode
 		createPassView?.passDotsView.resetDotsView()
+	}
+
+	override func viewDidAppear(_ animated: Bool) {
 		createPassView?.passDotsView.becomeFirstResponder()
 	}
 
