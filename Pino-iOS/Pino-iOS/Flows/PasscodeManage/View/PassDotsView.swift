@@ -118,6 +118,7 @@ extension PassDotsView: UIKeyInput, UITextInputTraits {
 	var hasText: Bool { passcodeManagerVM.passcode?.isEmpty == false }
 
 	var keyboardType: UIKeyboardType { get { UIKeyboardType.numberPad } set {} }
+	var keyboardAppearance: UIKeyboardAppearance { get { UIKeyboardAppearance.light } set {} }
 
 	func insertText(_ text: String) {
 		setDotviewStyleAt(index: passcodeManagerVM.passcode?.count ?? 0, withState: .fill)
