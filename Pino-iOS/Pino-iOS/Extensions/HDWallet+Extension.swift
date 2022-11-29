@@ -1,19 +1,80 @@
 //
-//  MockSeedPhraseList.swift
+//  HDWallet+Extension.swift
 //  Pino-iOS
 //
-//  Created by Mohi Raoufi on 11/13/22.
+//  Created by MohammadHossein on 11/29/22.
 //
-// swiftlint: disable type_body_length
-// swiftlint: disable file_length
-// swiftlint: disable trailing_comma
 
+import BigInt
 import Foundation
+import WalletCore
 
-struct MockSeedPhrase {
-	// MARK: public Properties
+public typealias HDWallet = WalletCore.HDWallet
+extension HDWallet {
+	public static let validSeedPhraseCounts = [
+		HDWallet.SeedPhraseCount.word12.count,
+		HDWallet.SeedPhraseCount.word24.count,
+	]
 
-	public static var wordList = [
+	public enum SeedPhraseCount {
+		case word12
+		case word24
+
+		init(seed: String) {
+			if seed.count > 33 {
+				self = .word24
+			} else {
+				self = .word12
+			}
+		}
+
+		public var strength: Int32 {
+			switch self {
+			case .word12:
+				return 128
+			case .word24:
+				return 256
+			}
+		}
+
+		public var entropyWithoutChecksumHexCount: Int {
+			Int(strength) / 8 * 2
+		}
+
+		public var checksumHexCount: Int {
+			switch self {
+			case .word12:
+				return 1
+			case .word24:
+				return 2
+			}
+		}
+
+		public var count: Int {
+			switch self {
+			case .word12:
+				return 12
+			case .word24:
+				return 24
+			}
+		}
+	}
+}
+
+extension HDWallet {
+	public static func isWordInWordList(_ word: String) -> Bool {
+		englishWordList.contains(word)
+	}
+
+	public static func getSuggestions(forWord word: String) -> [String] {
+		let word = word.lowercased()
+		return englishWordList.filter { $0.hasPrefix(word) }
+	}
+
+	// From https://github.com/trezor/python-mnemonic/blob/master/mnemonic/wordlist/english.txt
+	// swiftlint:disable all
+	// Explicit type declaration to speed up build time. 500msec -> <100ms, as of Xcode 11.7
+	public static let englishWordList: [String] = [
 		"abandon",
 		"ability",
 		"able",
@@ -2063,4 +2124,5 @@ struct MockSeedPhrase {
 		"zone",
 		"zoo",
 	]
+	// swiftlint:enable all
 }

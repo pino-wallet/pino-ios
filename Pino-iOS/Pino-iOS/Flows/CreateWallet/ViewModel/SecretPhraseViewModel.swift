@@ -6,23 +6,27 @@
 //
 
 import Foundation
+import WalletCore
 
 class SecretPhraseViewModel {
 	// MARK: public Properties
 
+	private let emptyPassphrase = ""
 	public var secretPhrase: [String] = []
 
 	// MARK: Initializers
 
 	init() {
-		getRandomWords(numberOfWords: 12)
+		generateMnemonic()
 	}
 
-	// MARK: Public Methods
+	// MARK: Method
 
-	public func getRandomWords(numberOfWords: Int) {
-		// This should be replaced by the library words list
-		let shuffledList = MockSeedPhrase.wordList.shuffled()
-		secretPhrase = Array(shuffledList.prefix(numberOfWords))
+	private func generateMnemonic() {
+		let seedPhraseCount: HDWallet.SeedPhraseCount = .word12
+		if let newHdWallet = HDWallet(strength: seedPhraseCount.strength, passphrase: emptyPassphrase) {
+			let mnemonic = newHdWallet.mnemonic
+			secretPhrase = mnemonic.byWords
+		}
 	}
 }

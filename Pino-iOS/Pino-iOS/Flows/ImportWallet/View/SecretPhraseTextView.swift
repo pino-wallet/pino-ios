@@ -12,8 +12,8 @@ class SecretPhraseTextView: UITextView {
 
 	private let suggestedSeedPhraseCollectionView = SuggestedSeedPhraseCollectionView()
 	private var placeHolderText = "Secret Phrase"
-	private let mockSeedPhraseList = MockSeedPhrase.wordList
 	public var seedPhraseCountVerified: ((Bool) -> Void)?
+	var seedPhraseArray = [String]()
 
 	// MARK: Initializer
 
@@ -72,10 +72,8 @@ class SecretPhraseTextView: UITextView {
 		if let selectedTextRange, selectedTextRange.end == endOfDocument {
 			let seedPhraseArray = textViewString.components(separatedBy: " ")
 			if let currentWord = seedPhraseArray.last {
-				let filteredWords = mockSeedPhraseList.filter {
-					$0.lowercased().hasPrefix(currentWord.lowercased())
-				}
-				suggestedSeedPhraseCollectionView.suggestedSeedPhrase = filteredWords
+				let fiteredWords = HDWallet.getSuggestions(forWord: currentWord)
+				suggestedSeedPhraseCollectionView.suggestedSeedPhrase = fiteredWords
 			}
 		} else {
 			suggestedSeedPhraseCollectionView.suggestedSeedPhrase = []
@@ -84,7 +82,7 @@ class SecretPhraseTextView: UITextView {
 
 	private func verifySeedPhrase() {
 		if let seedPhraseCountVerified {
-			var seedPhraseArray = text.components(separatedBy: " ")
+			seedPhraseArray = text.components(separatedBy: " ")
 			seedPhraseArray.removeAll(where: { $0.isEmpty })
 			if seedPhraseArray.count == 12 {
 				seedPhraseCountVerified(true)
