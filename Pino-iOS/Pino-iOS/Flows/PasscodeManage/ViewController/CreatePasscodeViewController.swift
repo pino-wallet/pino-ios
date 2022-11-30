@@ -23,7 +23,6 @@ class CreatePasscodeViewController: UIViewController {
 	override func loadView() {
 		stupView()
 		setSteperView(stepsCount: pageSteps, curreuntStep: pageSteps)
-		setupNavigationBackButton()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
