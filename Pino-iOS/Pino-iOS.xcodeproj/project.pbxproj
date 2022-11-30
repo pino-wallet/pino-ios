@@ -191,6 +191,8 @@
 		E3B72347291B8A4700D4F46C /* PinoButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B72346291B8A4700D4F46C /* PinoButtonStyle.swift */; };
 		E3B7234A291B8D7200D4F46C /* PinoCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B72349291B8D7200D4F46C /* PinoCheckBox.swift */; };
 		E3B7234C291B8D8A00D4F46C /* PinoCheckBoxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B7234B291B8D8A00D4F46C /* PinoCheckBoxStyle.swift */; };
+		E3DAC3D42936178A005CACD6 /* CreateWalletUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DAC3D329361789005CACD6 /* CreateWalletUITests.swift */; };
+		E3DAC3D629364BFF005CACD6 /* CreatePasscodeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DAC3D529364BFF005CACD6 /* CreatePasscodeUITests.swift */; };
 		E3EDCC142920C6D70011B9A8 /* MockSeedPhraseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC132920C6D70011B9A8 /* MockSeedPhraseList.swift */; };
 		E3EDCC152920C6D70011B9A8 /* MockSeedPhraseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC132920C6D70011B9A8 /* MockSeedPhraseList.swift */; };
 		E3EDCC162920C6D70011B9A8 /* MockSeedPhraseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC132920C6D70011B9A8 /* MockSeedPhraseList.swift */; };
@@ -310,6 +312,8 @@
 		E3B72346291B8A4700D4F46C /* PinoButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoButtonStyle.swift; sourceTree = "<group>"; };
 		E3B72349291B8D7200D4F46C /* PinoCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoCheckBox.swift; sourceTree = "<group>"; };
 		E3B7234B291B8D8A00D4F46C /* PinoCheckBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoCheckBoxStyle.swift; sourceTree = "<group>"; };
+		E3DAC3D329361789005CACD6 /* CreateWalletUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWalletUITests.swift; sourceTree = "<group>"; };
+		E3DAC3D529364BFF005CACD6 /* CreatePasscodeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeUITests.swift; sourceTree = "<group>"; };
 		E3EDCC132920C6D70011B9A8 /* MockSeedPhraseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSeedPhraseList.swift; sourceTree = "<group>"; };
 		E3EDCC172920CA1D0011B9A8 /* PinoStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoStepperView.swift; sourceTree = "<group>"; };
 		E3EDCC242921036F0011B9A8 /* ShowSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseViewController.swift; sourceTree = "<group>"; };
@@ -483,7 +487,9 @@
 		DF05F6BD291644B9005A3338 /* Pino-iOSUITests */ = {
 			isa = PBXGroup;
 			children = (
+				E3DAC3D329361789005CACD6 /* CreateWalletUITests.swift */,
 				DF05F6BE291644B9005A3338 /* ImportWalletUITests.swift */,
+				E3DAC3D529364BFF005CACD6 /* CreatePasscodeUITests.swift */,
 				DF05F6C0291644B9005A3338 /* Pino_iOSUITestsLaunchTests.swift */,
 			);
 			path = "Pino-iOSUITests";
@@ -1267,9 +1273,11 @@
 				E3EDCC1A2920CA1D0011B9A8 /* PinoStepperView.swift in Sources */,
 				E37337FE2935EE46002D2D67 /* VerifySecretPhraseViewController.swift in Sources */,
 				E37338252935F0AF002D2D67 /* ViewController+Extension.swift in Sources */,
+				E3DAC3D42936178A005CACD6 /* CreateWalletUITests.swift in Sources */,
 				E37337F12935ED0D002D2D67 /* MediumStyle.swift in Sources */,
 				E373381B2935F016002D2D67 /* AllDoneViewController.swift in Sources */,
 				E37337E72935EC33002D2D67 /* PinoColor.swift in Sources */,
+				E3DAC3D629364BFF005CACD6 /* CreatePasscodeUITests.swift in Sources */,
 				E37338042935EEB5002D2D67 /* ManagePasscodeView.swift in Sources */,
 				E37338062935EEBD002D2D67 /* SelectPassVM.swift in Sources */,
 				E37337E12935EB0D002D2D67 /* PinoButtonStyle.swift in Sources */,

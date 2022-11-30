@@ -7,84 +7,155 @@
 
 import XCTest
 
-// swiftlint:disable type_name
 final class ImportWalletUITests: XCTestCase {
+	let app = XCUIApplication()
+	var importButton: XCUIElement!
 	override func setUpWithError() throws {
-		// Put setup code here. This method is called before the invocation of each test method in the class.
-
-		// In UI tests it is usually best to stop immediately when a failure occurs.
 		continueAfterFailure = false
-
-		// In UI tests it’s important to set the initial state - such as interface orientation - required for your tests
-		// before they run. The setUp method is a good place to do this.
 	}
 
 	override func tearDownWithError() throws {
 		// Put teardown code here. This method is called after the invocation of each test method in the class.
 	}
 
-	func testImportSecretPhrase() throws {
-		// UI tests must launch the application that they test.
-		let app = XCUIApplication()
-		app.launch()
-		// Go to import secret phrase Page
-		let importWalletButton = app.buttons.element(boundBy: 1)
-		importWalletButton.tap()
-		let importButton = app.buttons["Import"]
-		XCTAssertFalse(importButton.isEnabled)
+	func testTypeSecretPhrase() throws {
+		openImportWalletPage()
 		// Test import button activation and deactivation
 		let seedPhraseTextField = app.textViews.element(boundBy: 0)
 		seedPhraseTextField.tap()
-		app.keys["A"].tap()
-		app.keys["space"].tap()
+		app.typeText("a ")
 		XCTAssertFalse(importButton.isEnabled)
-		app.keys["b"].tap()
-		app.keys["space"].tap()
+		app.typeText("b ")
 		XCTAssertFalse(importButton.isEnabled)
-		app.keys["c"].tap()
-		app.keys["space"].tap()
+		app.typeText("c ")
 		XCTAssertFalse(importButton.isEnabled)
-		app.keys["d"].tap()
-		app.keys["space"].tap()
+		app.typeText("d ")
 		XCTAssertFalse(importButton.isEnabled)
-		app.keys["e"].tap()
-		app.keys["space"].tap()
+		app.typeText("e ")
 		XCTAssertFalse(importButton.isEnabled)
-		app.keys["f"].tap()
-		app.keys["space"].tap()
+		app.typeText("f ")
 		XCTAssertFalse(importButton.isEnabled)
-		app.keys["g"].tap()
-		app.keys["space"].tap()
+		app.typeText("g ")
 		XCTAssertFalse(importButton.isEnabled)
-		app.keys["h"].tap()
-		app.keys["space"].tap()
+		app.typeText("h ")
 		XCTAssertFalse(importButton.isEnabled)
-		app.keys["i"].tap()
-		app.keys["space"].tap()
+		app.typeText("i ")
 		XCTAssertFalse(importButton.isEnabled)
-		app.keys["j"].tap()
-		app.keys["space"].tap()
+		app.typeText("j ")
 		XCTAssertFalse(importButton.isEnabled)
-		app.keys["k"].tap()
-		app.keys["space"].tap()
+		app.typeText("k ")
 		XCTAssertFalse(importButton.isEnabled)
-		app.keys["l"].tap()
+		app.typeText("l")
 		XCTAssertTrue(importButton.isEnabled)
-		app.keys["space"].tap()
+		app.typeText(" ")
 		XCTAssertTrue(importButton.isEnabled)
-		app.keys["m"].tap()
+		app.typeText("m")
 		XCTAssertFalse(importButton.isEnabled)
 		app.typeText(XCUIKeyboardKey.delete.rawValue)
 		app.typeText(XCUIKeyboardKey.return.rawValue)
 		importButton.tap()
 	}
 
-	func testLaunchPerformance() throws {
-		if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-			// This measures how long it takes to launch your application.
-			measure(metrics: [XCTApplicationLaunchMetric()]) {
-				XCUIApplication().launch()
-			}
-		}
+	func testSelectSuggestedWord() throws {
+		openImportWalletPage()
+		let seedPhraseTextField = app.textViews.element(boundBy: 0)
+		seedPhraseTextField.tap()
+
+		app.typeText("a")
+		let firstSuggestedWord = app.collectionViews.element(boundBy: 0).cells.element(boundBy: 0)
+		firstSuggestedWord.tap()
+		XCTAssertFalse(importButton.isEnabled)
+		app.typeText("b")
+		firstSuggestedWord.tap()
+		XCTAssertFalse(importButton.isEnabled)
+		app.typeText("c")
+		firstSuggestedWord.tap()
+		XCTAssertFalse(importButton.isEnabled)
+		app.typeText("d")
+		firstSuggestedWord.tap()
+		XCTAssertFalse(importButton.isEnabled)
+		app.typeText("e")
+		firstSuggestedWord.tap()
+		XCTAssertFalse(importButton.isEnabled)
+		app.typeText("f")
+		firstSuggestedWord.tap()
+		XCTAssertFalse(importButton.isEnabled)
+		app.typeText("g")
+		firstSuggestedWord.tap()
+		XCTAssertFalse(importButton.isEnabled)
+		app.typeText("h")
+		firstSuggestedWord.tap()
+		XCTAssertFalse(importButton.isEnabled)
+		app.typeText("i")
+		firstSuggestedWord.tap()
+		XCTAssertFalse(importButton.isEnabled)
+		app.typeText("j")
+		firstSuggestedWord.tap()
+		XCTAssertFalse(importButton.isEnabled)
+		app.typeText("k")
+		firstSuggestedWord.tap()
+		XCTAssertFalse(importButton.isEnabled)
+		app.typeText("l")
+		firstSuggestedWord.tap()
+		XCTAssertTrue(importButton.isEnabled)
+		app.tap()
+		importButton.tap()
+		createPasscode()
+		//        app.typeText("m")
+//		firstSuggestedWord.tap()
+//		XCTAssertFalse(importButton.isEnabled)
+	}
+
+	func createPasscode() {
+		app.keys["1"].tap()
+		app.keys["2"].tap()
+		app.keys["3"].tap()
+		app.keys["4"].tap()
+		app.keys["5"].tap()
+		app.keys["6"].tap()
+		sleep(1)
+
+		app.keys["1"].tap()
+		app.keys["2"].tap()
+		app.keys["3"].tap()
+		app.keys["4"].tap()
+		app.keys["5"].tap()
+		app.keys["0"].tap()
+		sleep(1)
+
+		app.keys["1"].tap()
+		app.keys["2"].tap()
+		app.keys["3"].tap()
+		app.keys["4"].tap()
+		app.keys["5"].tap()
+		app.keys["6"].tap()
+	}
+
+	func testPasteSecretPhrase() throws {
+		openImportWalletPage()
+		let pasteButton = app.buttons["Paste"]
+
+		// Paste 11 words
+		UIPasteboard.general.string = "a b c d e f g h i j k "
+		pasteButton.tap()
+		XCTAssertFalse(importButton.isEnabled)
+		// Paste 12 words
+		UIPasteboard.general.string = "a b c d e f g h i j k l"
+		pasteButton.tap()
+		XCTAssertTrue(importButton.isEnabled)
+		// Paste 13 words
+		UIPasteboard.general.string = "a b c d e f g h i j k l m"
+		pasteButton.tap()
+		XCTAssertFalse(importButton.isEnabled)
+	}
+
+	func openImportWalletPage() {
+		// UI tests must launch the application
+		app.launch()
+		// Go to import secret phrase Page
+		let importWalletButton = app.buttons.element(boundBy: 1)
+		importWalletButton.tap()
+		importButton = app.buttons["Import"]
+		XCTAssertFalse(importButton.isEnabled)
 	}
 }

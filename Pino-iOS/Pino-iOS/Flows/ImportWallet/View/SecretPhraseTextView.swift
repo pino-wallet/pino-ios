@@ -36,6 +36,7 @@ class SecretPhraseTextView: UITextView {
 			text = pasteboardString
 			textColor = .Pino.label
 			endEditing(true)
+			verifySeedPhrase()
 		}
 	}
 
