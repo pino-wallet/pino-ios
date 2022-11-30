@@ -95,6 +95,7 @@ extension AppDelegate {
 		navigationBar.backIndicatorImage = backImage
 		navigationBar.backIndicatorTransitionMaskImage = backImage
 		navigationBar.tintColor = .Pino.label
+		navigationBar.overrideUserInterfaceStyle = .light
 		navigationBar.shadowImage = UIImage()
 		let attributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
 		UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: .normal)
