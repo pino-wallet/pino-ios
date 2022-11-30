@@ -56,6 +56,7 @@ extension ImportSecretPhraseView {
 		errorStackView.addArrangedSubview(errorLabel)
 		addSubview(contentStackView)
 		addSubview(importButton)
+		addSubview(seedPhrasetextView.enteredWordsCount)
 
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
 
@@ -142,6 +143,10 @@ extension ImportSecretPhraseView {
 		importButton.pin(
 			.bottom(to: layoutMarginsGuide, padding: 8),
 			.horizontalEdges(padding: 16)
+		)
+		seedPhrasetextView.enteredWordsCount.pin(
+			.relative(.top, 10, to: seedPhraseBox, .bottom),
+			.trailing(padding: 17)
 		)
 	}
 

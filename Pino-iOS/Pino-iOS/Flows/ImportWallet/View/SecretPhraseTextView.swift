@@ -14,6 +14,7 @@ class SecretPhraseTextView: UITextView {
 	private var placeHolderText = "Secret Phrase"
 	private let mockSeedPhraseList = MockSeedPhrase.wordList
 	public var seedPhraseCountVerified: ((Bool) -> Void)?
+	public var enteredWordsCount = UILabel()
 
 	// MARK: Initializer
 
@@ -48,6 +49,10 @@ class SecretPhraseTextView: UITextView {
 		textColor = .Pino.gray2
 		font = .PinoStyle.mediumBody
 		returnKeyType = UIReturnKeyType.done
+
+		enteredWordsCount.text = "0/12"
+		enteredWordsCount.textColor = .Pino.secondaryLabel
+		enteredWordsCount.font = .PinoStyle.mediumFootnote
 	}
 
 	private func setupSuggestedSeedPhrase() {
@@ -84,9 +89,10 @@ class SecretPhraseTextView: UITextView {
 	}
 
 	private func verifySeedPhrase() {
+		var seedPhraseArray = text.components(separatedBy: " ")
+		seedPhraseArray.removeAll(where: { $0.isEmpty })
+		enteredWordsCount.text = "\(seedPhraseArray.count)/12"
 		if let seedPhraseCountVerified {
-			var seedPhraseArray = text.components(separatedBy: " ")
-			seedPhraseArray.removeAll(where: { $0.isEmpty })
 			if seedPhraseArray.count == 12 {
 				seedPhraseCountVerified(true)
 			} else {
