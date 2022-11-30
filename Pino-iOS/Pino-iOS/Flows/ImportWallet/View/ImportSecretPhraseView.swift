@@ -18,18 +18,17 @@ class ImportSecretPhraseView: UIView {
 	private let seedPhraseBox = UIView()
 	private let seedPhrasetextView = SecretPhraseTextView()
 	private let seedPhrasePasteButton = UIButton()
-	private let errorStackView = UIStackView()
 	private let errorLabel = UILabel()
 	private let errorIcon = UIImageView()
 	private let importButton = PinoButton(style: .deactive, title: "Import")
-	private var importSecretPhrase: () -> Void
+	private var importSecretPhrase: ([String]) -> Void
 
 	// MARK: Initializers
 
-	init(importSecretPhrase: @escaping (() -> Void)) {
+    init(importSecretPhrase: @escaping (([String]) -> Void)) {
 		self.importSecretPhrase = importSecretPhrase
 		super.init(frame: .zero)
-
+        NotificationCenter.default.addObserver(self, selector: #selector(showErrorMessage(_:)), name: NSNotification.Name(rawValue: "validateSecretPhraseCheck"), object: nil)
 		setupView()
 		setupStyle()
 		setupContstraint()
@@ -38,6 +37,22 @@ class ImportSecretPhraseView: UIView {
 	required init?(coder: NSCoder) {
 		fatalError()
 	}
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func showErrorMessage(_ notification: NSNotification) {
+        let validationPhraseCheck = notification.userInfo as? [String :Bool]
+        if let containtSeed = validationPhraseCheck?["containtSeed"] {
+            if  containtSeed == false {
+                errorLabel.text = "invalid phrase"
+                seedPhrasetextView.errorStackView.isHidden = false
+            }else{
+                seedPhrasetextView.errorStackView.isHidden = true
+            }
+        }
+    }
 }
 
 extension ImportSecretPhraseView {
@@ -49,11 +64,11 @@ extension ImportSecretPhraseView {
 		titleStackView.addArrangedSubview(pageTitle)
 		titleStackView.addArrangedSubview(pageDescription)
 		seedPhraseStackView.addArrangedSubview(seedPhraseBox)
-		seedPhraseStackView.addArrangedSubview(errorStackView)
+        seedPhraseStackView.addArrangedSubview(seedPhrasetextView.errorStackView)
 		seedPhraseBox.addSubview(seedPhrasetextView)
 		seedPhraseBox.addSubview(seedPhrasePasteButton)
-		errorStackView.addArrangedSubview(errorIcon)
-		errorStackView.addArrangedSubview(errorLabel)
+        seedPhrasetextView.errorStackView.addArrangedSubview(errorIcon)
+        seedPhrasetextView.errorStackView.addArrangedSubview(errorLabel)
 		addSubview(contentStackView)
 		addSubview(importButton)
 		addSubview(seedPhrasetextView.enteredWordsCount)
@@ -61,7 +76,7 @@ extension ImportSecretPhraseView {
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
 
 		importButton.addAction(UIAction(handler: { _ in
-			self.importSecretPhrase()
+            self.importSecretPhrase(self.seedPhrasetextView.seedPhraseArray)
 		}), for: .touchUpInside)
 
 		seedPhrasePasteButton.addAction(UIAction(handler: { _ in
@@ -93,9 +108,9 @@ extension ImportSecretPhraseView {
 		errorIcon.tintColor = .Pino.errorRed
 
 		contentStackView.axis = .horizontal
-		errorStackView.spacing = 5
+        seedPhrasetextView.errorStackView.spacing = 5
 		seedPhraseStackView.alignment = .leading
-		errorStackView.isHidden = true
+        seedPhrasetextView.errorStackView.isHidden = true
 
 		seedPhraseStackView.axis = .vertical
 		seedPhraseStackView.spacing = 8
