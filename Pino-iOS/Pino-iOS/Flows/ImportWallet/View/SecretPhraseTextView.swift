@@ -12,6 +12,7 @@ class SecretPhraseTextView: UITextView {
 
 	private let suggestedSeedPhraseCollectionView = SuggestedSeedPhraseCollectionView()
 	private var placeHolderText = "Secret Phrase"
+    public let errorStackView = UIStackView()
 	public var seedPhraseCountVerified: ((Bool) -> Void)?
 	var seedPhraseArray = [String]()
 
@@ -81,6 +82,7 @@ class SecretPhraseTextView: UITextView {
 	}
 
 	private func verifySeedPhrase() {
+        errorStackView.isHidden = false
 		if let seedPhraseCountVerified {
 			seedPhraseArray = text.components(separatedBy: " ")
 			seedPhraseArray.removeAll(where: { $0.isEmpty })
@@ -97,6 +99,7 @@ extension SecretPhraseTextView: UITextViewDelegate {
 	// MARK: Text View Delegate Method
 
 	internal func textViewDidBeginEditing(_ textView: UITextView) {
+        
 		if text == placeHolderText {
 			text = nil
 			textColor = .Pino.label
