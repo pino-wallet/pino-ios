@@ -12,7 +12,7 @@ class SecretPhraseTextView: UITextView {
 
 	private let suggestedSeedPhraseCollectionView = SuggestedSeedPhraseCollectionView()
 	private var placeHolderText = "Secret Phrase"
-    public let errorStackView = UIStackView()
+	public let errorStackView = UIStackView()
 	public var seedPhraseCountVerified: ((Bool) -> Void)?
 	var seedPhraseArray = [String]()
 
@@ -58,8 +58,6 @@ class SecretPhraseTextView: UITextView {
 		inputAccessoryView = suggestedSeedPhraseCollectionView
 	}
 
-	#warning("These 3 functions are temporary and should be replaced by mnemonic generator functions")
-
 	private func appendSelectedWordToTextView(_ selectedWord: String) {
 		var seedPhraseArray = text.components(separatedBy: " ")
 		seedPhraseArray.removeLast()
@@ -82,7 +80,6 @@ class SecretPhraseTextView: UITextView {
 	}
 
 	private func verifySeedPhrase() {
-        errorStackView.isHidden = false
 		if let seedPhraseCountVerified {
 			seedPhraseArray = text.components(separatedBy: " ")
 			seedPhraseArray.removeAll(where: { $0.isEmpty })
@@ -99,7 +96,6 @@ extension SecretPhraseTextView: UITextViewDelegate {
 	// MARK: Text View Delegate Method
 
 	internal func textViewDidBeginEditing(_ textView: UITextView) {
-        
 		if text == placeHolderText {
 			text = nil
 			textColor = .Pino.label
@@ -116,6 +112,7 @@ extension SecretPhraseTextView: UITextViewDelegate {
 	}
 
 	internal func textViewDidChange(_ textView: UITextView) {
+		errorStackView.isHidden = true
 		filterSeedPhrase(textViewString: textView.text)
 		verifySeedPhrase()
 	}

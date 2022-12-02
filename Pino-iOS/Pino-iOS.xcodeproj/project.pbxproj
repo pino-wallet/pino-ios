@@ -20,7 +20,8 @@
 		5FE00D5229A8A6EB50C770BB /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B94B1E768003126CB948B2C3 /* Pods_Pino_iOS_Pino_iOSUITests.framework */; };
 		8564A220293577D6001B5507 /* HDWallet+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8564A21F293577D6001B5507 /* HDWallet+Extension.swift */; };
 		8564A2222935781A001B5507 /* StringProtocol+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8564A2212935781A001B5507 /* StringProtocol+Extension.swift */; };
-		8564A22629357D65001B5507 /* ValidateSecratPhraseVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8564A22529357D65001B5507 /* ValidateSecratPhraseVM.swift */; };
+		8564A22629357D65001B5507 /* ValidateSecretPhraseVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8564A22529357D65001B5507 /* ValidateSecretPhraseVM.swift */; };
+		CE297B382938E484000DF50E /* ImportWalletError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE297B372938E484000DF50E /* ImportWalletError.swift */; };
 		CE5757B5291C7DBA001B4EFE /* AutolayoutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5757B4291C7DBA001B4EFE /* AutolayoutHelper.swift */; };
 		DF05F69B291644B7005A3338 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F69A291644B7005A3338 /* AppDelegate.swift */; };
 		DF05F69D291644B7005A3338 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F69C291644B7005A3338 /* SceneDelegate.swift */; };
@@ -164,9 +165,10 @@
 		52B07DDB48E26F1946E47DC3 /* Pods_Pino_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8564A21F293577D6001B5507 /* HDWallet+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HDWallet+Extension.swift"; sourceTree = "<group>"; };
 		8564A2212935781A001B5507 /* StringProtocol+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringProtocol+Extension.swift"; sourceTree = "<group>"; };
-		8564A22529357D65001B5507 /* ValidateSecratPhraseVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateSecratPhraseVM.swift; sourceTree = "<group>"; };
+		8564A22529357D65001B5507 /* ValidateSecretPhraseVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateSecretPhraseVM.swift; sourceTree = "<group>"; };
 		B94B1E768003126CB948B2C3 /* Pods_Pino_iOS_Pino_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS_Pino_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAD4E54BC53F8997AD564B9E /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		CE297B372938E484000DF50E /* ImportWalletError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletError.swift; sourceTree = "<group>"; };
 		CE5757B4291C7DBA001B4EFE /* AutolayoutHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutolayoutHelper.swift; sourceTree = "<group>"; };
 		DF05F697291644B7005A3338 /* Pino-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pino-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF05F69A291644B7005A3338 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -358,9 +360,17 @@
 		8564A22729357D89001B5507 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				8564A22529357D65001B5507 /* ValidateSecratPhraseVM.swift */,
+				8564A22529357D65001B5507 /* ValidateSecretPhraseVM.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CE297B392938E489000DF50E /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				CE297B372938E484000DF50E /* ImportWalletError.swift */,
+			);
+			path = Error;
 			sourceTree = "<group>";
 		};
 		CE5757B6291C7DBF001B4EFE /* Utility */ = {
@@ -498,6 +508,7 @@
 				E369D766292DF275002AA8DE /* View Controller */,
 				E369D767292DF295002AA8DE /* View */,
 				8564A22729357D89001B5507 /* ViewModel */,
+				CE297B392938E489000DF50E /* Error */,
 			);
 			path = ImportWallet;
 			sourceTree = "<group>";
@@ -1125,7 +1136,7 @@
 				DFCE5F58292557370054DA62 /* PassDotsView.swift in Sources */,
 				DF5CA642292AABE100422052 /* VerifyPasscodeViewController.swift in Sources */,
 				E3EDCC252921036F0011B9A8 /* ShowSecretPhraseViewController.swift in Sources */,
-				8564A22629357D65001B5507 /* ValidateSecratPhraseVM.swift in Sources */,
+				8564A22629357D65001B5507 /* ValidateSecretPhraseVM.swift in Sources */,
 				8564A2222935781A001B5507 /* StringProtocol+Extension.swift in Sources */,
 				408AE772292EBBCB00AD6401 /* PasscodeManagerPages.swift in Sources */,
 				E3115979292A2BFC00804CE1 /* IntroModel.swift in Sources */,
@@ -1157,6 +1168,7 @@
 				40BFF57D29313829005215A3 /* Array+Extension.swift in Sources */,
 				E33E31952924CDFB0028ECDB /* BlurEffectView.swift in Sources */,
 				CE5757B5291C7DBA001B4EFE /* AutolayoutHelper.swift in Sources */,
+				CE297B382938E484000DF50E /* ImportWalletError.swift in Sources */,
 				DFCE5F562923FFAC0054DA62 /* KeychainHelper.swift in Sources */,
 				DF2B04292919640300781052 /* IntroViewController.swift in Sources */,
 				400DD210292BCEF500B248CA /* KeychainWrapperProtocol.swift in Sources */,
@@ -1340,13 +1352,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 44E38FYW6J;
+				DEVELOPMENT_TEAM = ZQNSPP3WHU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1354,7 +1367,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aurora.pino.Pino-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.aurora.pino.Pino-iOS1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1370,13 +1383,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 44E38FYW6J;
+				DEVELOPMENT_TEAM = ZQNSPP3WHU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1384,7 +1398,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aurora.pino.Pino-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.aurora.pino.Pino-iOS1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
