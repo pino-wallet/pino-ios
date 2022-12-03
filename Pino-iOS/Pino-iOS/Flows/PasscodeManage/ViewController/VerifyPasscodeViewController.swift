@@ -29,7 +29,6 @@ class VerifyPasscodeViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setSteperView(stepsCount: 3, curreuntStep: 3)
-		setupNavigationBackButton()
 	}
 
 	// MARK: Private Methods

@@ -21,7 +21,6 @@ class ShowSecretPhraseViewController: UIViewController {
 	override func loadView() {
 		stupView()
 		setSteperView(stepsCount: 3, curreuntStep: 1)
-		setupNavigationBackButton()
 		setupNotifications()
 	}
 

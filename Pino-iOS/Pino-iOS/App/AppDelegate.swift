@@ -45,7 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
 	) -> Bool {
 		// Override point for customization after application launch.
-		true
+		setupNavigationBarCustomBackButton()
+		return true
 	}
 
 	// MARK: UISceneSession Lifecycle
@@ -82,5 +83,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
 			}
 		}
+	}
+}
+
+extension AppDelegate {
+	// MARK: - Custom Navigation Bar
+
+	private func setupNavigationBarCustomBackButton() {
+		let backImage = UIImage(systemName: "arrow.left")
+		let navigationBar = UINavigationBar.appearance()
+		navigationBar.backIndicatorImage = backImage
+		navigationBar.backIndicatorTransitionMaskImage = backImage
+		navigationBar.tintColor = .Pino.label
+		navigationBar.overrideUserInterfaceStyle = .light
+		navigationBar.shadowImage = UIImage()
+		let attributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
+		UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: .normal)
+		UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: .highlighted)
 	}
 }

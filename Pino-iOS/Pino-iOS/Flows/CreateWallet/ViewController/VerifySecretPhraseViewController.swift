@@ -21,7 +21,6 @@ class VerifySecretPhraseViewController: UIViewController {
 	override func loadView() {
 		stupView()
 		setSteperView(stepsCount: 3, curreuntStep: 2)
-		setupNavigationBackButton()
 	}
 
 	// MARK: Private Methods
