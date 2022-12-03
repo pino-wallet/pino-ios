@@ -13,7 +13,10 @@ class SecretPhraseTextView: UITextView {
 	private let suggestedSeedPhraseCollectionView = SuggestedSeedPhraseCollectionView()
 	private var placeHolderText = "Secret Phrase"
 	private let mockSeedPhraseList = MockSeedPhrase.wordList
-	public var seedPhraseCountVerified: ((Bool) -> Void)?
+
+	// MARK: Private Property
+
+	public var seedPhraseCountVerified: ((Bool) -> Void)!
 	public var enteredWordsCount = UILabel()
 
 	// MARK: Initializer
@@ -92,12 +95,10 @@ class SecretPhraseTextView: UITextView {
 		var seedPhraseArray = text.components(separatedBy: " ")
 		seedPhraseArray.removeAll(where: { $0.isEmpty })
 		enteredWordsCount.text = "\(seedPhraseArray.count)/12"
-		if let seedPhraseCountVerified {
-			if seedPhraseArray.count == 12 {
-				seedPhraseCountVerified(true)
-			} else {
-				seedPhraseCountVerified(false)
-			}
+		if seedPhraseArray.count == 12 {
+			seedPhraseCountVerified(true)
+		} else {
+			seedPhraseCountVerified(false)
 		}
 	}
 }
