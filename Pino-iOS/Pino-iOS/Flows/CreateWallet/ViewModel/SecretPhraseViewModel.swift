@@ -30,8 +30,8 @@ class SecretPhraseViewModel {
 		if let newHdWallet = HDWallet(strength: seedPhraseCount.strength, passphrase: emptyPassphrase) {
 			let mnemonic = newHdWallet.mnemonic
 			secretPhrase = mnemonic.toArray
-        } else {
-            fatalError("ganerate mnemonic faild.")
-        }
+		} else {
+			fatalError("ganerate mnemonic faild.")
+		}
 	}
 }
