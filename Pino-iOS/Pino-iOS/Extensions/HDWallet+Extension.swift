@@ -5,7 +5,6 @@
 //  Created by MohammadHossein on 11/29/22.
 //
 
-import BigInt
 import Foundation
 import WalletCore
 
@@ -13,50 +12,17 @@ public typealias HDWallet = WalletCore.HDWallet
 extension HDWallet {
 	public static let validSeedPhraseCounts = [
 		HDWallet.SeedPhraseCount.word12.count,
-		HDWallet.SeedPhraseCount.word24.count,
 	]
 
 	public enum SeedPhraseCount {
 		case word12
-		case word24
-
-		init(seed: String) {
-			if seed.count > 33 {
-				self = .word24
-			} else {
-				self = .word12
-			}
-		}
 
 		public var strength: Int32 {
-			switch self {
-			case .word12:
-				return 128
-			case .word24:
-				return 256
-			}
-		}
-
-		public var entropyWithoutChecksumHexCount: Int {
-			Int(strength) / 8 * 2
-		}
-
-		public var checksumHexCount: Int {
-			switch self {
-			case .word12:
-				return 1
-			case .word24:
-				return 2
-			}
+			128
 		}
 
 		public var count: Int {
-			switch self {
-			case .word12:
-				return 12
-			case .word24:
-				return 24
-			}
+			12
 		}
 	}
 }
@@ -72,7 +38,8 @@ extension HDWallet {
 	}
 
 	// From https://github.com/trezor/python-mnemonic/blob/master/mnemonic/wordlist/english.txt
-	// swiftlint:disable all
+	// swiftlint: disable file_length
+	// swiftlint: disable trailing_comma
 	// Explicit type declaration to speed up build time. 500msec -> <100ms, as of Xcode 11.7
 	public static let englishWordList: [String] = [
 		"abandon",
@@ -2124,5 +2091,4 @@ extension HDWallet {
 		"zone",
 		"zoo",
 	]
-	// swiftlint:enable all
 }

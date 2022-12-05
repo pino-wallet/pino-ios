@@ -7,20 +7,14 @@
 
 import Foundation
 
-extension StringProtocol {
-	var byWords: [String] {
-		var byWords: [String] = []
+extension String {
+	var toArray: [String] {
+		var array: [String] = []
 		enumerateSubstrings(in: startIndex..., options: .byWords) { _, range, _, _ in
-			byWords.append(
+			array.append(
 				String(self[range])
 			)
 		}
-		return byWords
-	}
-}
-
-extension String {
-	public var trimmed: String {
-		trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+		return array
 	}
 }

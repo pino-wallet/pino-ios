@@ -9,7 +9,7 @@ target 'Pino-iOS' do
 
   
   # Pods for Pino-iOS
-  pod 'BigInt'
+#  pod 'BigInt'
   pod 'TrustWalletCore'
 
   target 'Pino-iOSTests' do
