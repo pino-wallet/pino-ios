@@ -8,12 +8,12 @@
 import UIKit
 
 class ImportSecretPhraseViewController: UIViewController {
-	// MARK: - Properties
+	// MARK: PublicProperties
 
-	public var importsecretPhradseView: ImportSecretPhraseView?
-	public var validationSecretPhraseViewVM: ValidateSecretPhraseVM!
+	public var importsecretPhraseView: ImportSecretPhraseView?
+	public var validationSecretPhraseViewVM: ValidateSecretPhraseViewModel!
 
-	// MARK: - View Overrides
+	// MARK: View Overrides
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -25,30 +25,37 @@ class ImportSecretPhraseViewController: UIViewController {
 		setupNavigationBackButton()
 	}
 
-	// MARK: - Private Methods
+	// MARK: Private Methods
 
 	private func stupView() {
-		configValidationVM()
-		importsecretPhradseView = ImportSecretPhraseView(validationPharaseVM: validationSecretPhraseViewVM)
-		view = importsecretPhradseView
+        configValidationVM()
+		importsecretPhraseView = ImportSecretPhraseView(validationPharaseVM: validationSecretPhraseViewVM)
+        addButtonsAction()
+        view = importsecretPhraseView
 	}
 
 	func configValidationVM() {
-		validationSecretPhraseViewVM = ValidateSecretPhraseVM(onSuccess: {
+		validationSecretPhraseViewVM = ValidateSecretPhraseViewModel(onSuccess: {
 			self.importWallet()
 		}, onFailure: { validationError in
 			switch validationError {
 			case .invalidSecretPhrase:
-				self.importsecretPhradseView?.showError()
+				self.importsecretPhraseView?.showError()
 			}
 		})
 	}
 
 	private func importWallet() {
-		// Wallet should be verified here
 		// Go to create passcode page
 		let createPasscodeViewController = CreatePasscodeViewController()
 		createPasscodeViewController.pageSteps = 2
 		navigationController?.pushViewController(createPasscodeViewController, animated: true)
+	}
+
+	private func addButtonsAction() {
+		importsecretPhraseView?.importButton.addAction(UIAction(handler: { _ in
+			self.validationSecretPhraseViewVM
+				.validate(secretPhrase: self.importsecretPhraseView?.seedPhrasetextView.seedPhraseArray ?? [""])
+		}), for: .touchUpInside)
 	}
 }

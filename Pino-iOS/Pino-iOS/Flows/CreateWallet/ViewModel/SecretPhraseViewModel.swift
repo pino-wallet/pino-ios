@@ -9,10 +9,13 @@ import Foundation
 import WalletCore
 
 class SecretPhraseViewModel {
-	// MARK: public Properties
+	// MARK: Public Properties
+
+	public var secretPhrase: [String] = []
+
+	// MARK: - Privare Properties
 
 	private let emptyPassphrase = ""
-	public var secretPhrase: [String] = []
 
 	// MARK: Initializers
 
@@ -20,13 +23,15 @@ class SecretPhraseViewModel {
 		generateMnemonic()
 	}
 
-	// MARK: Method
+	// MARK: - Private Methods
 
 	private func generateMnemonic() {
 		let seedPhraseCount: HDWallet.SeedPhraseCount = .word12
 		if let newHdWallet = HDWallet(strength: seedPhraseCount.strength, passphrase: emptyPassphrase) {
 			let mnemonic = newHdWallet.mnemonic
-			secretPhrase = mnemonic.byWords
-		}
+			secretPhrase = mnemonic.toArray
+        } else {
+            fatalError("ganerate mnemonic faild.")
+        }
 	}
 }
