@@ -44,18 +44,18 @@ final class CreatePasscodeUITests: XCTestCase {
 		for number in invalidPasscode {
 			app.keys[number].tap()
 		}
-		testErrorDisplay(true)
+		checkErrorDisplay(true)
 	}
 
 	func verifyValidPasscode() {
 		sleep(1)
 		for number in testPassCode {
 			app.keys[number].tap()
-			testErrorDisplay(false)
+			checkErrorDisplay(false)
 		}
 	}
 
-	func testErrorDisplay(_ isDisplay: Bool) {
+	func checkErrorDisplay(_ isDisplay: Bool) {
 		if isDisplay {
 			XCTAssertTrue(errorLabel.exists)
 		} else {

@@ -25,7 +25,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		navigationController.setViewControllers([IntroViewController()], animated: true)
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
-		checkForUITests()
+
+		// Disable animations in test mode to speed up tests
+		disableAllAnimationsInTestMode()
 	}
 
 	func sceneDidDisconnect(_ scene: UIScene) {
@@ -60,7 +62,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		(UIApplication.shared.delegate as? AppDelegate)?.saveContext()
 	}
 
-	private func checkForUITests() {
+	private func disableAllAnimationsInTestMode() {
 		if ProcessInfo.processInfo.arguments.contains(LaunchArguments.isRunningUITests.rawValue) {
 			if let scene = UIApplication.shared.connectedScenes.first,
 			   let windowSceneDelegate = scene.delegate as? UIWindowSceneDelegate,

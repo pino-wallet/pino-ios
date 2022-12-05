@@ -511,10 +511,8 @@
 		DF05F6BD291644B9005A3338 /* Pino-iOSUITests */ = {
 			isa = PBXGroup;
 			children = (
-				E3DAC3D329361789005CACD6 /* CreateWalletUITests.swift */,
-				DF05F6BE291644B9005A3338 /* ImportWalletUITests.swift */,
-				E3DAC3D529364BFF005CACD6 /* CreatePasscodeUITests.swift */,
-				DF05F6C0291644B9005A3338 /* Pino_iOSUITestsLaunchTests.swift */,
+				E3EEA70C293E07BC00F75C15 /* Launch */,
+				E3EEA70B293E078900F75C15 /* Wallet */,
 			);
 			path = "Pino-iOSUITests";
 			sourceTree = "<group>";
@@ -882,6 +880,24 @@
 			children = (
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		E3EEA70B293E078900F75C15 /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				E3DAC3D329361789005CACD6 /* CreateWalletUITests.swift */,
+				DF05F6BE291644B9005A3338 /* ImportWalletUITests.swift */,
+				E3DAC3D529364BFF005CACD6 /* CreatePasscodeUITests.swift */,
+			);
+			path = Wallet;
+			sourceTree = "<group>";
+		};
+		E3EEA70C293E07BC00F75C15 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				DF05F6C0291644B9005A3338 /* Pino_iOSUITestsLaunchTests.swift */,
+			);
+			path = Launch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

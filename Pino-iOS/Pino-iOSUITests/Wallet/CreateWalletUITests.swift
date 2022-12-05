@@ -11,8 +11,8 @@ final class CreateWalletUITests: XCTestCase {
 	let app = XCUIApplication()
 	var saveButton: XCUIElement!
 	var verifyButton: XCUIElement!
-	let secretPhraseWordCell = XCUIApplication().collectionViews.element(boundBy: 0).cells
-	let sortedSeedPhraseCell = XCUIApplication().collectionViews.element(boundBy: 1).cells
+	let secretPhraseCells = XCUIApplication().collectionViews.element(boundBy: 0).cells
+	let sortedSecretPhraseCells = XCUIApplication().collectionViews.element(boundBy: 1).cells
 	var testSecretPhrase: [String] = []
 	let errorLabel = XCUIApplication().staticTexts["Invalid order! Try again"]
 
@@ -38,7 +38,7 @@ final class CreateWalletUITests: XCTestCase {
 		openShowSecretPhrasePage()
 		showSecretPhraseWords()
 		checkSecretPhraseCount()
-		checkSecretPhraseSequence(in: secretPhraseWordCell)
+		checkSecretPhraseSequence(in: secretPhraseCells)
 	}
 
 	func testInvalidSecretPhrase() throws {
@@ -62,36 +62,36 @@ final class CreateWalletUITests: XCTestCase {
 		tapToReveal.tap()
 		XCTAssertTrue(saveButton.isEnabled)
 		// Save Secret phrase words from collection view
-		for index in 0 ..< secretPhraseWordCell.count {
-			testSecretPhrase.append(secretPhraseWordCell.element(boundBy: index).staticTexts.element(boundBy: 1).label)
+		for index in 0 ..< secretPhraseCells.count {
+			testSecretPhrase.append(secretPhraseCells.element(boundBy: index).staticTexts.element(boundBy: 1).label)
 		}
 	}
 
 	func selectValidSecretPhraseWords() {
 		// Select words in the order of secret phrase words
 		for word in testSecretPhrase {
-			secretPhraseWordCell.staticTexts[word].tap()
+			secretPhraseCells.staticTexts[word].tap()
 			checkErrorDisplay(false)
 		}
-		checkSecretPhraseSequence(in: sortedSeedPhraseCell)
+		checkSecretPhraseSequence(in: sortedSecretPhraseCells)
 		checkVerifyButtonActivation(true)
 	}
 
 	func selectInvalidSecretPhraseWords() {
 		// Select words in the order of collection view cells
-		for index in 0 ..< secretPhraseWordCell.count {
-			secretPhraseWordCell.element(boundBy: index).tap()
+		for index in 0 ..< secretPhraseCells.count {
+			secretPhraseCells.element(boundBy: index).tap()
 		}
-		checkSecretPhraseSequence(in: sortedSeedPhraseCell)
+		checkSecretPhraseSequence(in: sortedSecretPhraseCells)
 		checkErrorDisplay(true)
 		checkVerifyButtonActivation(false)
 	}
 
 	func deselectAllSecretPhraseWords() {
 		// Deselect all words
-		for _ in 0 ..< sortedSeedPhraseCell.count {
-			sortedSeedPhraseCell.firstMatch.tap()
-			checkSecretPhraseSequence(in: sortedSeedPhraseCell)
+		for _ in 0 ..< sortedSecretPhraseCells.count {
+			sortedSecretPhraseCells.firstMatch.tap()
+			checkSecretPhraseSequence(in: sortedSecretPhraseCells)
 		}
 		checkErrorDisplay(false)
 		checkVerifyButtonActivation(false)
