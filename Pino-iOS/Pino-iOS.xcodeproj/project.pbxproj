@@ -204,6 +204,30 @@
 		E3EDCC3D29221C930011B9A8 /* SecretPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC3C29221C930011B9A8 /* SecretPhraseViewModel.swift */; };
 		E3EDCC3E29221C930011B9A8 /* SecretPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC3C29221C930011B9A8 /* SecretPhraseViewModel.swift */; };
 		E3EDCC3F29221C930011B9A8 /* SecretPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC3C29221C930011B9A8 /* SecretPhraseViewModel.swift */; };
+		E3EEA6F3293DE03C00F75C15 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F69C291644B7005A3338 /* SceneDelegate.swift */; };
+		E3EEA6F4293DE03D00F75C15 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F69C291644B7005A3338 /* SceneDelegate.swift */; };
+		E3EEA6F5293DE12900F75C15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F69A291644B7005A3338 /* AppDelegate.swift */; };
+		E3EEA6F6293DE12A00F75C15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F69A291644B7005A3338 /* AppDelegate.swift */; };
+		E3EEA6F7293DE14400F75C15 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2B04282919640300781052 /* IntroViewController.swift */; };
+		E3EEA6F8293DE14400F75C15 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2B04282919640300781052 /* IntroViewController.swift */; };
+		E3EEA6F9293DE28E00F75C15 /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3115978292A2BFC00804CE1 /* IntroModel.swift */; };
+		E3EEA6FA293DE28E00F75C15 /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3115978292A2BFC00804CE1 /* IntroModel.swift */; };
+		E3EEA6FB293DE29300F75C15 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E311596B29290DFD00804CE1 /* IntroView.swift */; };
+		E3EEA6FC293DE29400F75C15 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E311596B29290DFD00804CE1 /* IntroView.swift */; };
+		E3EEA6FD293DE29700F75C15 /* IntroCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31159712929F81F00804CE1 /* IntroCollectionView.swift */; };
+		E3EEA6FE293DE29800F75C15 /* IntroCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31159712929F81F00804CE1 /* IntroCollectionView.swift */; };
+		E3EEA6FF293DE29B00F75C15 /* IntroCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31159732929F83500804CE1 /* IntroCollectionViewCell.swift */; };
+		E3EEA700293DE29C00F75C15 /* IntroCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31159732929F83500804CE1 /* IntroCollectionViewCell.swift */; };
+		E3EEA701293DE2B400F75C15 /* ImportSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D758292CB3B6002AA8DE /* ImportSecretPhraseViewController.swift */; };
+		E3EEA702293DE2B500F75C15 /* ImportSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D758292CB3B6002AA8DE /* ImportSecretPhraseViewController.swift */; };
+		E3EEA703293DE2E300F75C15 /* ImportSecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D75A292CB762002AA8DE /* ImportSecretPhraseView.swift */; };
+		E3EEA704293DE2E400F75C15 /* ImportSecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D75A292CB762002AA8DE /* ImportSecretPhraseView.swift */; };
+		E3EEA705293DE2E700F75C15 /* SuggestedSeedPhraseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D762292DF12A002AA8DE /* SuggestedSeedPhraseCollectionView.swift */; };
+		E3EEA706293DE2E800F75C15 /* SuggestedSeedPhraseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D762292DF12A002AA8DE /* SuggestedSeedPhraseCollectionView.swift */; };
+		E3EEA707293DE2EB00F75C15 /* SuggestedSeedPhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D764292DF143002AA8DE /* SuggestedSeedPhraseCell.swift */; };
+		E3EEA708293DE2EC00F75C15 /* SuggestedSeedPhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D764292DF143002AA8DE /* SuggestedSeedPhraseCell.swift */; };
+		E3EEA709293DE2F000F75C15 /* SecretPhraseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D768292DF35D002AA8DE /* SecretPhraseTextView.swift */; };
+		E3EEA70A293DE2F000F75C15 /* SecretPhraseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D768292DF35D002AA8DE /* SecretPhraseTextView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1198,25 +1222,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3EEA705293DE2E700F75C15 /* SuggestedSeedPhraseCollectionView.swift in Sources */,
+				E3EEA6F7293DE14400F75C15 /* IntroViewController.swift in Sources */,
+				E3EEA6F5293DE12900F75C15 /* AppDelegate.swift in Sources */,
 				E373381A2935F016002D2D67 /* AllDoneViewController.swift in Sources */,
 				E37338162935EFE3002D2D67 /* PasscodeManagerService.swift in Sources */,
 				E37337DA2935EAF8002D2D67 /* PinoLabel.swift in Sources */,
+				E3EEA6F3293DE03C00F75C15 /* SceneDelegate.swift in Sources */,
 				E37337FD2935EE45002D2D67 /* VerifySecretPhraseViewController.swift in Sources */,
 				E37337EE2935ED09002D2D67 /* SemiboldStyle.swift in Sources */,
 				E37338072935EED5002D2D67 /* VerifyPasscodeViewController.swift in Sources */,
 				E37338032935EEB4002D2D67 /* ManagePasscodeView.swift in Sources */,
 				DF05F6B5291644B9005A3338 /* Pino_iOSTests.swift in Sources */,
 				E373380E2935EF33002D2D67 /* PassDotsView.swift in Sources */,
+				E3EEA6F9293DE28E00F75C15 /* IntroModel.swift in Sources */,
 				E37337DE2935EB07002D2D67 /* PinoLabelStyle.swift in Sources */,
 				E3EDCC3E29221C930011B9A8 /* SecretPhraseViewModel.swift in Sources */,
 				E37337E82935EC57002D2D67 /* PinoFont.swift in Sources */,
 				E37338052935EEBC002D2D67 /* SelectPassVM.swift in Sources */,
+				E3EEA703293DE2E300F75C15 /* ImportSecretPhraseView.swift in Sources */,
 				E37337F22935ED11002D2D67 /* RegularStyle.swift in Sources */,
 				E37337FF2935EE6D002D2D67 /* VerifySecretPhraseView.swift in Sources */,
+				E3EEA6FB293DE29300F75C15 /* IntroView.swift in Sources */,
 				E37338012935EE79002D2D67 /* CreatePasscodeViewController.swift in Sources */,
 				E37337E42935EB39002D2D67 /* SecretPhraseCell.swift in Sources */,
 				E37337DC2935EB02002D2D67 /* PinoButton.swift in Sources */,
 				E373380C2935EF1A002D2D67 /* PasscodeManagerPages.swift in Sources */,
+				E3EEA701293DE2B400F75C15 /* ImportSecretPhraseViewController.swift in Sources */,
+				E3EEA707293DE2EB00F75C15 /* SuggestedSeedPhraseCell.swift in Sources */,
 				E37338092935EEFA002D2D67 /* SecretPhraseCenteredFlowLayout.swift in Sources */,
 				E37337E22935EB34002D2D67 /* SecretPhraseCollectionView.swift in Sources */,
 				E37337F82935ED68002D2D67 /* AlertHelper.swift in Sources */,
@@ -1225,6 +1258,7 @@
 				E37337FC2935EE16002D2D67 /* ShowSecretPhraseViewController.swift in Sources */,
 				E37337EC2935ED05002D2D67 /* BoldStyle.swift in Sources */,
 				E37338122935EF63002D2D67 /* PassManagmentError.swift in Sources */,
+				E3EEA6FF293DE29B00F75C15 /* IntroCollectionViewCell.swift in Sources */,
 				E37338182935F007002D2D67 /* KeychainWrapperProtocol.swift in Sources */,
 				E37337F42935ED34002D2D67 /* SeedPhrase.swift in Sources */,
 				E37337E62935EC33002D2D67 /* PinoColor.swift in Sources */,
@@ -1232,6 +1266,7 @@
 				E37338202935F067002D2D67 /* PinoCheckBoxStyle.swift in Sources */,
 				E37338262935F863002D2D67 /* ShowSecretPhraseView.swift in Sources */,
 				E373381E2935F046002D2D67 /* PinoCheckBox.swift in Sources */,
+				E3EEA6FD293DE29700F75C15 /* IntroCollectionView.swift in Sources */,
 				E37338102935EF40002D2D67 /* VerifyPassVM.swift in Sources */,
 				E37337EA2935ECBF002D2D67 /* AutolayoutHelper.swift in Sources */,
 				E37337F02935ED0D002D2D67 /* MediumStyle.swift in Sources */,
@@ -1239,6 +1274,7 @@
 				E37338242935F0AF002D2D67 /* ViewController+Extension.swift in Sources */,
 				E3EDCC152920C6D70011B9A8 /* MockSeedPhraseList.swift in Sources */,
 				E373381C2935F02D002D2D67 /* AllDoneView.swift in Sources */,
+				E3EEA709293DE2F000F75C15 /* SecretPhraseTextView.swift in Sources */,
 				E37338142935EFBF002D2D67 /* KeychainHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1250,6 +1286,7 @@
 				E37337F32935ED11002D2D67 /* RegularStyle.swift in Sources */,
 				E373380D2935EF1B002D2D67 /* PasscodeManagerPages.swift in Sources */,
 				E37338082935EED5002D2D67 /* VerifyPasscodeViewController.swift in Sources */,
+				E3EEA700293DE29C00F75C15 /* IntroCollectionViewCell.swift in Sources */,
 				E37337DB2935EAF9002D2D67 /* PinoLabel.swift in Sources */,
 				E37337E32935EB34002D2D67 /* SecretPhraseCollectionView.swift in Sources */,
 				E37337F92935ED69002D2D67 /* AlertHelper.swift in Sources */,
@@ -1259,9 +1296,14 @@
 				E37338192935F008002D2D67 /* KeychainWrapperProtocol.swift in Sources */,
 				E373381F2935F046002D2D67 /* PinoCheckBox.swift in Sources */,
 				E373380A2935EEFA002D2D67 /* SecretPhraseCenteredFlowLayout.swift in Sources */,
+				E3EEA6F6293DE12A00F75C15 /* AppDelegate.swift in Sources */,
 				E3EDCC3F29221C930011B9A8 /* SecretPhraseViewModel.swift in Sources */,
 				E37337F72935ED4A002D2D67 /* BlurEffectView.swift in Sources */,
+				E3EEA70A293DE2F000F75C15 /* SecretPhraseTextView.swift in Sources */,
+				E3EEA6F8293DE14400F75C15 /* IntroViewController.swift in Sources */,
+				E3EEA702293DE2B500F75C15 /* ImportSecretPhraseViewController.swift in Sources */,
 				E37337E92935EC58002D2D67 /* PinoFont.swift in Sources */,
+				E3EEA6FC293DE29400F75C15 /* IntroView.swift in Sources */,
 				E37338172935EFE4002D2D67 /* PasscodeManagerService.swift in Sources */,
 				E37338022935EE7A002D2D67 /* CreatePasscodeViewController.swift in Sources */,
 				E37338132935EF63002D2D67 /* PassManagmentError.swift in Sources */,
@@ -1274,8 +1316,12 @@
 				E37337FE2935EE46002D2D67 /* VerifySecretPhraseViewController.swift in Sources */,
 				E37338252935F0AF002D2D67 /* ViewController+Extension.swift in Sources */,
 				E3DAC3D42936178A005CACD6 /* CreateWalletUITests.swift in Sources */,
+				E3EEA704293DE2E400F75C15 /* ImportSecretPhraseView.swift in Sources */,
+				E3EEA6FE293DE29800F75C15 /* IntroCollectionView.swift in Sources */,
 				E37337F12935ED0D002D2D67 /* MediumStyle.swift in Sources */,
 				E373381B2935F016002D2D67 /* AllDoneViewController.swift in Sources */,
+				E3EEA706293DE2E800F75C15 /* SuggestedSeedPhraseCollectionView.swift in Sources */,
+				E3EEA6F4293DE03D00F75C15 /* SceneDelegate.swift in Sources */,
 				E37337E72935EC33002D2D67 /* PinoColor.swift in Sources */,
 				E3DAC3D629364BFF005CACD6 /* CreatePasscodeUITests.swift in Sources */,
 				E37338042935EEB5002D2D67 /* ManagePasscodeView.swift in Sources */,
@@ -1285,11 +1331,13 @@
 				E373380F2935EF34002D2D67 /* PassDotsView.swift in Sources */,
 				E373381D2935F02E002D2D67 /* AllDoneView.swift in Sources */,
 				E37337DF2935EB08002D2D67 /* PinoLabelStyle.swift in Sources */,
+				E3EEA708293DE2EC00F75C15 /* SuggestedSeedPhraseCell.swift in Sources */,
 				E37337FB2935EE15002D2D67 /* ShowSecretPhraseViewController.swift in Sources */,
 				E37338212935F067002D2D67 /* PinoCheckBoxStyle.swift in Sources */,
 				E37337F52935ED34002D2D67 /* SeedPhrase.swift in Sources */,
 				E37338112935EF41002D2D67 /* VerifyPassVM.swift in Sources */,
 				E37338232935F085002D2D67 /* Array+Extension.swift in Sources */,
+				E3EEA6FA293DE28E00F75C15 /* IntroModel.swift in Sources */,
 				E37338002935EE6D002D2D67 /* VerifySecretPhraseView.swift in Sources */,
 				E37337E52935EB3A002D2D67 /* SecretPhraseCell.swift in Sources */,
 			);

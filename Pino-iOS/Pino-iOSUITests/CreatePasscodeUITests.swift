@@ -15,17 +15,18 @@ final class CreatePasscodeUITests: XCTestCase {
 
 	override func setUpWithError() throws {
 		continueAfterFailure = false
+		app.launchArguments.append(LaunchArguments.isRunningUITests.rawValue)
 	}
 
 	override func tearDownWithError() throws {}
 
 	func testPasscode() throws {
-		let importWalletUiTest = ImportWalletUITests()
-		importWalletUiTest.openImportWalletPage()
-		importWalletUiTest.openKeyboard()
-		app.typeText(importWalletUiTest.testSecretPhrase.joined(separator: " "))
-		app.tap()
-		importWalletUiTest.importButton.tap()
+		let createWalletUITests = CreateWalletUITests()
+		createWalletUITests.openShowSecretPhrasePage()
+		createWalletUITests.showSecretPhraseWords()
+		createWalletUITests.openVerifySecretPhrasePage()
+		createWalletUITests.selectValidSecretPhraseWords()
+		createWalletUITests.verifyButton.tap()
 		createPasscode()
 		verifyInvalidPasscode()
 		verifyValidPasscode()

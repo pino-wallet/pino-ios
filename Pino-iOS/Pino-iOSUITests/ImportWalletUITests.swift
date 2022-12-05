@@ -15,6 +15,7 @@ final class ImportWalletUITests: XCTestCase {
 
 	override func setUpWithError() throws {
 		continueAfterFailure = false
+		app.launchArguments.append(LaunchArguments.isRunningUITests.rawValue)
 	}
 
 	override func tearDownWithError() throws {
@@ -94,7 +95,7 @@ final class ImportWalletUITests: XCTestCase {
 		pasteButton.tap()
 		testImportButtonActivation(false)
 		// Paste 13 words
-		UIPasteboard.general.string = testSecretPhrase.joined(separator: " ") + " thirteenth"
+		UIPasteboard.general.string = "\(testSecretPhrase.joined(separator: " ")) \(secretPhraseThirteenthWord)"
 		pasteButton.tap()
 		testImportButtonActivation(false)
 		// Paste 12 words

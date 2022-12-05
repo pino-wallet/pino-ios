@@ -19,7 +19,7 @@ class ShowSecretPhraseView: UIView {
 	private let secondDescriptionLabel = PinoLabel(style: .description, text: nil)
 	private let seedPhraseView = UIView()
 	private let revealLabel = PinoLabel(style: .title, text: nil)
-	private let seedPhraseBlurView = UIView()
+	private let seedPhraseBlurView = BlurEffectView()
 	private let seedPhraseStackView = UIStackView()
 	private let seedPhraseCollectionView = SecretPhraseCollectionView()
 	private let shareButton = UIButton()
