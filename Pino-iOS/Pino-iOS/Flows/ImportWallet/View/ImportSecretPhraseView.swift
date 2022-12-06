@@ -32,7 +32,7 @@ class ImportSecretPhraseView: UIView {
 	init(validationPharaseVM: ValidateSecretPhraseViewModel) {
 		self.validationPhraseVM = validationPharaseVM
 		super.init(frame: .zero)
-        seedPhrasetextView.seedPhraseMaxCount = validationPharaseVM.maxSeedPhraseCount
+		seedPhrasetextView.seedPhraseMaxCount = validationPharaseVM.maxSeedPhraseCount
 		setupView()
 		setupStyle()
 		setupContstraint()

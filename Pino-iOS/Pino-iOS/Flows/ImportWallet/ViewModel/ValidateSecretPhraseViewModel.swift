@@ -13,8 +13,10 @@ struct ValidateSecretPhraseViewModel {
 	private var onSuccess: () -> Void
 	private var onFailure: (SecretPhraseValidationError) -> Void
 
-    // MARK: Public Properties
-    public var maxSeedPhraseCount = HDWallet.validSeedPhraseCounts[0]
+	// MARK: Public Properties
+
+	public var maxSeedPhraseCount = HDWallet.validSeedPhraseCounts[0]
+
 	// MARK: Initializers
 
 	init(onSuccess: @escaping () -> Void, onFailure: @escaping (SecretPhraseValidationError) -> Void) {
@@ -23,6 +25,7 @@ struct ValidateSecretPhraseViewModel {
 	}
 
 	// MARK: Public Methods
+
 	public func validate(secretPhrase: [String]) {
 		let intersction = Array(Set(secretPhrase).intersection(HDWallet.englishWordList))
 		if intersction.count == secretPhrase.count {

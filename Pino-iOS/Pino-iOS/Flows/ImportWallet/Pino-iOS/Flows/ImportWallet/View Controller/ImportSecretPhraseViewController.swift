@@ -27,13 +27,13 @@ class ImportSecretPhraseViewController: UIViewController {
 	// MARK: Private Methods
 
 	private func stupView() {
-        configValidationVM()
+		configValidationVM()
 		importsecretPhraseView = ImportSecretPhraseView(validationPharaseVM: validationSecretPhraseViewVM)
-        addButtonsAction()
-        view = importsecretPhraseView
+		addButtonsAction()
+		view = importsecretPhraseView
 	}
 
-	func configValidationVM() {
+	private func configValidationVM() {
 		validationSecretPhraseViewVM = ValidateSecretPhraseViewModel(onSuccess: {
 			self.importWallet()
 		}, onFailure: { validationError in
