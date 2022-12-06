@@ -8,22 +8,26 @@
 import XCTest
 
 final class CreateWalletUITests: XCTestCase {
-	let app = XCUIApplication()
-	var saveButton: XCUIElement!
-	var verifyButton: XCUIElement!
-	let secretPhraseCells = XCUIApplication().collectionViews.element(boundBy: 0).cells
-	let sortedSecretPhraseCells = XCUIApplication().collectionViews.element(boundBy: 1).cells
-	var testSecretPhrase: [String] = []
-	let errorLabel = XCUIApplication().staticTexts["Invalid order! Try again"]
+	// MARK: Private Properties
 
-	override func setUpWithError() throws {
+	private let app = XCUIApplication()
+	private var saveButton: XCUIElement!
+	private var verifyButton: XCUIElement!
+	private let secretPhraseCells = XCUIApplication().collectionViews.element(boundBy: 0).cells
+	private let sortedSecretPhraseCells = XCUIApplication().collectionViews.element(boundBy: 1).cells
+	private var testSecretPhrase: [String] = []
+	private let errorLabel = XCUIApplication().staticTexts["Invalid order! Try again"]
+
+	// MARK: Internal Functions
+
+	override internal func setUpWithError() throws {
 		continueAfterFailure = false
 		app.launchArguments.append(LaunchArguments.isRunningUITests.rawValue)
 	}
 
-	override func tearDownWithError() throws {}
+	override internal func tearDownWithError() throws {}
 
-	func testCreateWallet() throws {
+	internal func testCreateWallet() throws {
 		openShowSecretPhrasePage()
 		showSecretPhraseWords()
 		checkSecretPhraseCount()
@@ -31,17 +35,17 @@ final class CreateWalletUITests: XCTestCase {
 		selectInvalidSecretPhraseWords()
 		deselectAllSecretPhraseWords()
 		selectValidSecretPhraseWords()
-		openCreatePasscode()
+		verifyButton.tap()
 	}
 
-	func testShowSecretPhrase() {
+	internal func testShowSecretPhrase() {
 		openShowSecretPhrasePage()
 		showSecretPhraseWords()
 		checkSecretPhraseCount()
 		checkSecretPhraseSequence(in: secretPhraseCells)
 	}
 
-	func testInvalidSecretPhrase() throws {
+	internal func testInvalidSecretPhrase() throws {
 		openShowSecretPhrasePage()
 		showSecretPhraseWords()
 		openVerifySecretPhrasePage()
@@ -49,15 +53,17 @@ final class CreateWalletUITests: XCTestCase {
 		deselectAllSecretPhraseWords()
 	}
 
-	func testValidSecretPhrase() {
+	internal func testValidSecretPhrase() {
 		openShowSecretPhrasePage()
 		showSecretPhraseWords()
 		openVerifySecretPhrasePage()
 		selectValidSecretPhraseWords()
-		openCreatePasscode()
+		verifyButton.tap()
 	}
 
-	func showSecretPhraseWords() {
+	// MARK: Private Functions
+
+	private func showSecretPhraseWords() {
 		let tapToReveal = app.staticTexts["Tap to reveal"]
 		tapToReveal.tap()
 		XCTAssertTrue(saveButton.isEnabled)
@@ -67,7 +73,7 @@ final class CreateWalletUITests: XCTestCase {
 		}
 	}
 
-	func selectValidSecretPhraseWords() {
+	private func selectValidSecretPhraseWords() {
 		// Select words in the order of secret phrase words
 		for word in testSecretPhrase {
 			secretPhraseCells.staticTexts[word].tap()
@@ -77,7 +83,7 @@ final class CreateWalletUITests: XCTestCase {
 		checkVerifyButtonActivation(true)
 	}
 
-	func selectInvalidSecretPhraseWords() {
+	private func selectInvalidSecretPhraseWords() {
 		// Select words in the order of collection view cells
 		for index in 0 ..< secretPhraseCells.count {
 			secretPhraseCells.element(boundBy: index).tap()
@@ -87,7 +93,7 @@ final class CreateWalletUITests: XCTestCase {
 		checkVerifyButtonActivation(false)
 	}
 
-	func deselectAllSecretPhraseWords() {
+	private func deselectAllSecretPhraseWords() {
 		// Deselect all words
 		for _ in 0 ..< sortedSecretPhraseCells.count {
 			sortedSecretPhraseCells.firstMatch.tap()
@@ -97,12 +103,12 @@ final class CreateWalletUITests: XCTestCase {
 		checkVerifyButtonActivation(false)
 	}
 
-	func checkSecretPhraseCount() {
+	private func checkSecretPhraseCount() {
 		let seedPhrase = app.collectionViews.firstMatch.cells
 		XCTAssertEqual(seedPhrase.count, 12)
 	}
 
-	func checkSecretPhraseSequence(in secretPhraseCell: XCUIElementQuery) {
+	private func checkSecretPhraseSequence(in secretPhraseCell: XCUIElementQuery) {
 		for index in 0 ..< secretPhraseCell.count {
 			XCTAssertEqual(
 				secretPhraseCell.element(boundBy: index).staticTexts.element(boundBy: 0).label,
@@ -111,23 +117,23 @@ final class CreateWalletUITests: XCTestCase {
 		}
 	}
 
-	func checkVerifyButtonActivation(_ isActive: Bool) {
-		if isActive {
+	private func checkVerifyButtonActivation(_ buttonShouldEnabled: Bool) {
+		if buttonShouldEnabled {
 			XCTAssertTrue(verifyButton.isEnabled)
 		} else {
 			XCTAssertFalse(verifyButton.isEnabled)
 		}
 	}
 
-	func checkErrorDisplay(_ isDisplay: Bool) {
-		if isDisplay {
+	private func checkErrorDisplay(_ errorShouldDisplay: Bool) {
+		if errorShouldDisplay {
 			XCTAssertTrue(errorLabel.exists)
 		} else {
 			XCTAssertFalse(errorLabel.exists)
 		}
 	}
 
-	func openShowSecretPhrasePage() {
+	private func openShowSecretPhrasePage() {
 		// UI tests must launch the application
 		app.launch()
 		let createWalletButton = app.buttons.element(boundBy: 0)
@@ -137,15 +143,8 @@ final class CreateWalletUITests: XCTestCase {
 		XCTAssertFalse(saveButton.isEnabled)
 	}
 
-	func openVerifySecretPhrasePage() {
+	private func openVerifySecretPhrasePage() {
 		saveButton.tap()
 		verifyButton = app.buttons["Continue"]
-	}
-
-	func openCreatePasscode() {
-		verifyButton.tap()
-		let createPasscodeUITest = CreatePasscodeUITests()
-		createPasscodeUITest.createPasscode()
-		createPasscodeUITest.verifyValidPasscode()
 	}
 }

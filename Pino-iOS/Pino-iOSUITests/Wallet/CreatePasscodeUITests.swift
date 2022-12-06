@@ -8,38 +8,41 @@
 import XCTest
 
 final class CreatePasscodeUITests: XCTestCase {
-	let app = XCUIApplication()
-	let errorLabel = XCUIApplication().staticTexts["Incorrect, try again!"]
-	let testPassCode = ["1", "2", "3", "4", "5", "6"]
-	let invalidPasscode = ["1", "2", "3", "4", "5", "0"]
+	// MARK: Private Properties
 
-	override func setUpWithError() throws {
+	private let app = XCUIApplication()
+	private let errorLabel = XCUIApplication().staticTexts["Incorrect, try again!"]
+	private let testPassCode = ["1", "2", "3", "4", "5", "6"]
+	private let invalidPasscode = ["1", "2", "3", "4", "5", "0"]
+
+	// MARK: Internal Functions
+
+	override internal func setUpWithError() throws {
 		continueAfterFailure = false
 		app.launchArguments.append(LaunchArguments.isRunningUITests.rawValue)
 	}
 
-	override func tearDownWithError() throws {}
+	override internal func tearDownWithError() throws {}
 
-	func testPasscode() throws {
+	internal func testPasscode() throws {
 		let createWalletUITests = CreateWalletUITests()
-		createWalletUITests.openShowSecretPhrasePage()
-		createWalletUITests.showSecretPhraseWords()
-		createWalletUITests.openVerifySecretPhrasePage()
-		createWalletUITests.selectValidSecretPhraseWords()
-		createWalletUITests.verifyButton.tap()
+		try createWalletUITests.setUpWithError()
+		createWalletUITests.testValidSecretPhrase()
 		createPasscode()
 		verifyInvalidPasscode()
 		verifyValidPasscode()
 	}
 
-	func createPasscode() {
+	// MARK: Private Functions
+
+	private func createPasscode() {
 		sleep(1)
 		for number in testPassCode {
 			app.keys[number].tap()
 		}
 	}
 
-	func verifyInvalidPasscode() {
+	private func verifyInvalidPasscode() {
 		sleep(1)
 		for number in invalidPasscode {
 			app.keys[number].tap()
@@ -47,7 +50,7 @@ final class CreatePasscodeUITests: XCTestCase {
 		checkErrorDisplay(true)
 	}
 
-	func verifyValidPasscode() {
+	private func verifyValidPasscode() {
 		sleep(1)
 		for number in testPassCode {
 			app.keys[number].tap()
@@ -55,8 +58,8 @@ final class CreatePasscodeUITests: XCTestCase {
 		}
 	}
 
-	func checkErrorDisplay(_ isDisplay: Bool) {
-		if isDisplay {
+	private func checkErrorDisplay(_ errorShouldDisplay: Bool) {
+		if errorShouldDisplay {
 			XCTAssertTrue(errorLabel.exists)
 		} else {
 			XCTAssertFalse(errorLabel.exists)

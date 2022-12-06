@@ -76,7 +76,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		}
 	}
 }
-
-enum LaunchArguments: String {
-	case isRunningUITests
-}

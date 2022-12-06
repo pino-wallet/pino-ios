@@ -8,21 +8,25 @@
 import XCTest
 
 final class ImportWalletUITests: XCTestCase {
-	let app = XCUIApplication()
-	var importButton: XCUIElement!
-	let testSecretPhrase = Array(MockSeedPhrase.wordList.shuffled().prefix(12))
-	let secretPhraseThirteenthWord = "thirteenth"
+	// MARK: Private Properties
 
-	override func setUpWithError() throws {
+	private let app = XCUIApplication()
+	private var importButton: XCUIElement!
+	private let testSecretPhrase = Array(MockSeedPhrase.wordList.shuffled().prefix(12))
+	private let secretPhraseThirteenthWord = "thirteenth"
+
+	// MARK: Internal Functions
+
+	override internal func setUpWithError() throws {
 		continueAfterFailure = false
 		app.launchArguments.append(LaunchArguments.isRunningUITests.rawValue)
 	}
 
-	override func tearDownWithError() throws {
+	override internal func tearDownWithError() throws {
 		// Put teardown code here. This method is called after the invocation of each test method in the class.
 	}
 
-	func testTypeSecretPhrase() throws {
+	internal func testTypeSecretPhrase() throws {
 		openImportWalletPage()
 		openKeyboard()
 		for (index, word) in testSecretPhrase.enumerated() {
@@ -30,27 +34,28 @@ final class ImportWalletUITests: XCTestCase {
 			app.typeText("\(word) ")
 			if index == 11 {
 				// Words count is 12
-				testImportButtonActivation(true)
+				checkImportButtonActivation(true)
 				// Type 13th word
 				app.typeText(secretPhraseThirteenthWord)
-				testImportButtonActivation(false)
+				checkImportButtonActivation(false)
 				// delete 13th word
 				for _ in secretPhraseThirteenthWord {
-					testImportButtonActivation(false)
+					checkImportButtonActivation(false)
 					app.typeText(XCUIKeyboardKey.delete.rawValue)
 				}
 				// Words count is 12 again
-				testImportButtonActivation(true)
+				checkImportButtonActivation(true)
 			} else {
 				// Words count is less than 12
-				testImportButtonActivation(false)
+				checkImportButtonActivation(false)
 			}
 		}
 
-		openCreatePasscode()
+		app.tap()
+		importButton.tap()
 	}
 
-	func testSelectSuggestedWord() throws {
+	internal func testSelectSuggestedWord() throws {
 		openImportWalletPage()
 		openKeyboard()
 
@@ -64,76 +69,72 @@ final class ImportWalletUITests: XCTestCase {
 			firstSuggestedWord.tap()
 			if index == 11 {
 				// Words count is 12
-				testImportButtonActivation(true)
+				checkImportButtonActivation(true)
 				// Type 13th word
 				for char in secretPhraseThirteenthWord {
 					app.typeText(String(char))
 				}
-				testImportButtonActivation(false)
+				checkImportButtonActivation(false)
 				// delete 13th word
 				for _ in secretPhraseThirteenthWord {
-					testImportButtonActivation(false)
+					checkImportButtonActivation(false)
 					app.typeText(XCUIKeyboardKey.delete.rawValue)
 				}
 				// Words count is 12 again
-				testImportButtonActivation(true)
+				checkImportButtonActivation(true)
 			} else {
 				// Words count is less than 12
-				testImportButtonActivation(false)
+				checkImportButtonActivation(false)
 			}
 		}
 
-		openCreatePasscode()
+		app.tap()
+		importButton.tap()
 	}
 
-	func testPasteSecretPhrase() throws {
+	internal func testPasteSecretPhrase() throws {
 		openImportWalletPage()
 		let pasteButton = app.buttons["Paste"]
 
 		// Paste 11 words
 		UIPasteboard.general.string = Array(testSecretPhrase.prefix(11)).joined(separator: " ")
 		pasteButton.tap()
-		testImportButtonActivation(false)
+		checkImportButtonActivation(false)
 		// Paste 13 words
 		UIPasteboard.general.string = "\(testSecretPhrase.joined(separator: " ")) \(secretPhraseThirteenthWord)"
 		pasteButton.tap()
-		testImportButtonActivation(false)
+		checkImportButtonActivation(false)
 		// Paste 12 words
 		UIPasteboard.general.string = testSecretPhrase.joined(separator: " ")
 		pasteButton.tap()
-		testImportButtonActivation(true)
+		checkImportButtonActivation(true)
 
-		openCreatePasscode()
+		app.tap()
+		importButton.tap()
 	}
 
-	func openImportWalletPage() {
+	// MARK: Private Functions
+
+	private func openImportWalletPage() {
 		// UI tests must launch the application
 		app.launch()
 		// Go to import secret phrase Page
 		let importWalletButton = app.buttons.element(boundBy: 1)
 		importWalletButton.tap()
 		importButton = app.buttons["Import"]
-		testImportButtonActivation(false)
+		checkImportButtonActivation(false)
 	}
 
-	func openKeyboard() {
+	private func openKeyboard() {
 		let seedPhraseTextField = app.textViews.element(boundBy: 0)
 		seedPhraseTextField.tap()
 	}
 
-	func testImportButtonActivation(_ isActive: Bool) {
-		if isActive {
+	private func checkImportButtonActivation(_ buttonShouldEnabled: Bool) {
+		if buttonShouldEnabled {
 			XCTAssertTrue(importButton.isEnabled)
 		} else {
 			XCTAssertFalse(importButton.isEnabled)
 		}
-	}
-
-	func openCreatePasscode() {
-		app.tap()
-		importButton.tap()
-		let createPasscodeUITest = CreatePasscodeUITests()
-		createPasscodeUITest.createPasscode()
-		createPasscodeUITest.verifyValidPasscode()
 	}
 }

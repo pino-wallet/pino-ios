@@ -228,6 +228,9 @@
 		E3EEA708293DE2EC00F75C15 /* SuggestedSeedPhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D764292DF143002AA8DE /* SuggestedSeedPhraseCell.swift */; };
 		E3EEA709293DE2F000F75C15 /* SecretPhraseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D768292DF35D002AA8DE /* SecretPhraseTextView.swift */; };
 		E3EEA70A293DE2F000F75C15 /* SecretPhraseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E369D768292DF35D002AA8DE /* SecretPhraseTextView.swift */; };
+		E3EEA710293F165C00F75C15 /* LaunchSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EEA70F293F165C00F75C15 /* LaunchSettings.swift */; };
+		E3EEA711293F4EB200F75C15 /* LaunchSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EEA70F293F165C00F75C15 /* LaunchSettings.swift */; };
+		E3EEA712293F4EB300F75C15 /* LaunchSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EEA70F293F165C00F75C15 /* LaunchSettings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -343,6 +346,7 @@
 		E3EDCC242921036F0011B9A8 /* ShowSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseViewController.swift; sourceTree = "<group>"; };
 		E3EDCC28292105470011B9A8 /* ShowSecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseView.swift; sourceTree = "<group>"; };
 		E3EDCC3C29221C930011B9A8 /* SecretPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseViewModel.swift; sourceTree = "<group>"; };
+		E3EEA70F293F165C00F75C15 /* LaunchSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchSettings.swift; sourceTree = "<group>"; };
 		ED0F9DCB7B301E8270C900FF /* Pods_Pino_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5195DA4C1EDE2A3E99135F3 /* Pods-Pino-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		F72F8FE5D57E2883D84569BB /* Pods-Pino-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -545,6 +549,7 @@
 				DF05F6AB291644B9005A3338 /* Info.plist */,
 				DF05F69A291644B7005A3338 /* AppDelegate.swift */,
 				DF05F69C291644B7005A3338 /* SceneDelegate.swift */,
+				E3EEA70F293F165C00F75C15 /* LaunchSettings.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -1220,6 +1225,7 @@
 				DF5CA647292D136A00422052 /* SecretPhraseCenteredFlowLayout.swift in Sources */,
 				E3B72345291B8A2300D4F46C /* PinoButton.swift in Sources */,
 				E311596C29290DFD00804CE1 /* IntroView.swift in Sources */,
+				E3EEA710293F165C00F75C15 /* LaunchSettings.swift in Sources */,
 				E3B72342291B87A200D4F46C /* PinoColor.swift in Sources */,
 				E31159702929223500804CE1 /* AllDoneView.swift in Sources */,
 				E3EDCC29292105470011B9A8 /* ShowSecretPhraseView.swift in Sources */,
@@ -1281,6 +1287,7 @@
 				E37337F62935ED49002D2D67 /* BlurEffectView.swift in Sources */,
 				E37338202935F067002D2D67 /* PinoCheckBoxStyle.swift in Sources */,
 				E37338262935F863002D2D67 /* ShowSecretPhraseView.swift in Sources */,
+				E3EEA711293F4EB200F75C15 /* LaunchSettings.swift in Sources */,
 				E373381E2935F046002D2D67 /* PinoCheckBox.swift in Sources */,
 				E3EEA6FD293DE29700F75C15 /* IntroCollectionView.swift in Sources */,
 				E37338102935EF40002D2D67 /* VerifyPassVM.swift in Sources */,
@@ -1332,6 +1339,7 @@
 				E37337FE2935EE46002D2D67 /* VerifySecretPhraseViewController.swift in Sources */,
 				E37338252935F0AF002D2D67 /* ViewController+Extension.swift in Sources */,
 				E3DAC3D42936178A005CACD6 /* CreateWalletUITests.swift in Sources */,
+				E3EEA712293F4EB300F75C15 /* LaunchSettings.swift in Sources */,
 				E3EEA704293DE2E400F75C15 /* ImportSecretPhraseView.swift in Sources */,
 				E3EEA6FE293DE29800F75C15 /* IntroCollectionView.swift in Sources */,
 				E37337F12935ED0D002D2D67 /* MediumStyle.swift in Sources */,
