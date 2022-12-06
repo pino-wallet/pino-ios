@@ -12,19 +12,16 @@ class SecretPhraseTextView: UITextView {
 
 	private let suggestedSeedPhraseCollectionView = SuggestedSeedPhraseCollectionView()
 	private var placeHolderText = "Secret Phrase"
+    public var enteredWordsCount = UILabel()
 
-	// MARK: - Public Properties
+	// MARK:  Public Properties
 
 	public let errorStackView = UIStackView()
 	public var seedPhraseArray = [String]()
 	public var seedPhraseCountVerified: ((Bool) -> Void)?
     public var seedPhraseMaxCount: Int!
-	private let mockSeedPhraseList = MockSeedPhrase.wordList
 
-	// MARK: Private Property
 
-	public var seedPhraseCountVerified: ((Bool) -> Void)!
-	public var enteredWordsCount = UILabel()
 
 	// MARK: Initializer
 
