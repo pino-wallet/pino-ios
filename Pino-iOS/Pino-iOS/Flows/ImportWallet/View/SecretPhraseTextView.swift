@@ -12,12 +12,14 @@ class SecretPhraseTextView: UITextView {
 
 	private let suggestedSeedPhraseCollectionView = SuggestedSeedPhraseCollectionView()
 	private var placeHolderText = "Secret Phrase"
-	private let mockSeedPhraseList = MockSeedPhrase.wordList
-
-	// MARK: Private Property
-
-	public var seedPhraseCountVerified: ((Bool) -> Void)!
 	public var enteredWordsCount = UILabel()
+
+	// MARK: Public Properties
+
+	public let errorStackView = UIStackView()
+	public var seedPhraseArray = [String]()
+	public var seedPhraseCountVerified: ((Bool) -> Void)?
+	public var seedPhraseMaxCount: Int!
 
 	// MARK: Initializer
 
@@ -35,6 +37,7 @@ class SecretPhraseTextView: UITextView {
 	// MARK: Public Method
 
 	public func pasteText() {
+		hideError()
 		let pasteboardString = UIPasteboard.general.string
 		if let pasteboardString {
 			text = pasteboardString
@@ -66,9 +69,8 @@ class SecretPhraseTextView: UITextView {
 		inputAccessoryView = suggestedSeedPhraseCollectionView
 	}
 
-	#warning("These 3 functions are temporary and should be replaced by mnemonic generator functions")
-
 	private func appendSelectedWordToTextView(_ selectedWord: String) {
+		hideError()
 		var seedPhraseArray = text.components(separatedBy: " ")
 		seedPhraseArray.removeLast()
 		seedPhraseArray.append("\(selectedWord) ")
@@ -81,10 +83,8 @@ class SecretPhraseTextView: UITextView {
 		if let selectedTextRange, selectedTextRange.end == endOfDocument {
 			let seedPhraseArray = textViewString.components(separatedBy: " ")
 			if let currentWord = seedPhraseArray.last {
-				let filteredWords = mockSeedPhraseList.filter {
-					$0.lowercased().hasPrefix(currentWord.lowercased())
-				}
-				suggestedSeedPhraseCollectionView.suggestedSeedPhrase = filteredWords
+				let fiteredWords = HDWallet.getSuggestions(forWord: currentWord.lowercased())
+				suggestedSeedPhraseCollectionView.suggestedSeedPhrase = fiteredWords
 			}
 		} else {
 			suggestedSeedPhraseCollectionView.suggestedSeedPhrase = []
@@ -92,14 +92,20 @@ class SecretPhraseTextView: UITextView {
 	}
 
 	private func verifySeedPhrase() {
-		var seedPhraseArray = text.components(separatedBy: " ")
-		seedPhraseArray.removeAll(where: { $0.isEmpty })
-		enteredWordsCount.text = "\(seedPhraseArray.count)/12"
-		if seedPhraseArray.count == 12 {
-			seedPhraseCountVerified(true)
-		} else {
-			seedPhraseCountVerified(false)
+		if let seedPhraseCountVerified {
+			seedPhraseArray = text.components(separatedBy: " ")
+			seedPhraseArray.removeAll(where: { $0.isEmpty })
+			enteredWordsCount.text = "\(seedPhraseArray.count)/12"
+			if seedPhraseArray.count == seedPhraseMaxCount {
+				seedPhraseCountVerified(true)
+			} else {
+				seedPhraseCountVerified(false)
+			}
 		}
+	}
+
+	private func hideError() {
+		errorStackView.isHidden = true
 	}
 }
 
@@ -123,6 +129,7 @@ extension SecretPhraseTextView: UITextViewDelegate {
 	}
 
 	internal func textViewDidChange(_ textView: UITextView) {
+		hideError()
 		filterSeedPhrase(textViewString: textView.text)
 		verifySeedPhrase()
 	}

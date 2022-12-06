@@ -2,10 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
-	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleDarkContent</string>
+    <key>UIStatusBarStyle</key>
+    <string>UIStatusBarStyleDarkContent</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>PPPangramSans-Bold.ttf</string>
@@ -32,5 +30,7 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>
