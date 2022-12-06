@@ -23,6 +23,7 @@
 		8564A22629357D65001B5507 /* ValidateSecretPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8564A22529357D65001B5507 /* ValidateSecretPhraseViewModel.swift */; };
 		CE297B382938E484000DF50E /* ImportWalletError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE297B372938E484000DF50E /* ImportWalletError.swift */; };
 		CE5757B5291C7DBA001B4EFE /* AutolayoutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5757B4291C7DBA001B4EFE /* AutolayoutHelper.swift */; };
+		CEAF6681293F981E00600444 /* WalletConnect in Frameworks */ = {isa = PBXBuildFile; productRef = CEAF6680293F981E00600444 /* WalletConnect */; };
 		DF05F69B291644B7005A3338 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F69A291644B7005A3338 /* AppDelegate.swift */; };
 		DF05F69D291644B7005A3338 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F69C291644B7005A3338 /* SceneDelegate.swift */; };
 		DF05F6A5291644B7005A3338 /* Pino_iOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DF05F6A3291644B7005A3338 /* Pino_iOS.xcdatamodeld */; };
@@ -285,6 +286,7 @@
 				DF2B03FB291813C700781052 /* FirebaseDynamicLinks in Frameworks */,
 				DF2B03FD291813C700781052 /* FirebaseFirestore in Frameworks */,
 				DF2B0415291813C700781052 /* FirebaseRemoteConfigSwift in Frameworks */,
+				CEAF6681293F981E00600444 /* WalletConnect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -817,7 +819,6 @@
 				DF05F694291644B7005A3338 /* Frameworks */,
 				DF05F695291644B7005A3338 /* Resources */,
 				DF2B041A291817EE00781052 /* ShellScript */,
-				82A711C29F413EDCDB2636EA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -852,6 +853,7 @@
 				DF2B0414291813C700781052 /* FirebaseRemoteConfigSwift */,
 				DF2B0416291813C700781052 /* FirebaseStorage */,
 				DF2B0418291813C700781052 /* FirebaseStorageCombine-Community */,
+				CEAF6680293F981E00600444 /* WalletConnect */,
 			);
 			productName = "Pino-iOS";
 			productReference = DF05F697291644B7005A3338 /* Pino-iOS.app */;
@@ -884,7 +886,6 @@
 				DF05F6B6291644B9005A3338 /* Sources */,
 				DF05F6B7291644B9005A3338 /* Frameworks */,
 				DF05F6B8291644B9005A3338 /* Resources */,
-				0E5346517C618B98DBA1A411 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -930,6 +931,7 @@
 			mainGroup = DF05F68E291644B7005A3338;
 			packageReferences = (
 				DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CEAF667F293F981E00600444 /* XCRemoteSwiftPackageReference "wallet-connect-swift" */,
 			);
 			productRefGroup = DF05F698291644B7005A3338 /* Products */;
 			projectDirPath = "";
@@ -993,23 +995,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0E5346517C618B98DBA1A411 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7763DA825D47C7F43C19C5F9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1030,23 +1015,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		82A711C29F413EDCDB2636EA /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9A2CB295E4AD6DF5278EBFA1 /* [CP] Check Pods Manifest.lock */ = {
@@ -1528,6 +1496,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CEAF667F293F981E00600444 /* XCRemoteSwiftPackageReference "wallet-connect-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/trustwallet/wallet-connect-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -1539,6 +1515,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CEAF6680293F981E00600444 /* WalletConnect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEAF667F293F981E00600444 /* XCRemoteSwiftPackageReference "wallet-connect-swift" */;
+			productName = WalletConnect;
+		};
 		DF2B03E4291813C700781052 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

@@ -9,7 +9,6 @@ target 'Pino-iOS' do
 
   
   # Pods for Pino-iOS
-  pod 'TrustWalletCore'
 
   target 'Pino-iOSTests' do
     inherit! :search_paths
