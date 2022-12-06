@@ -19,6 +19,12 @@ class SecretPhraseTextView: UITextView {
 	public var seedPhraseArray = [String]()
 	public var seedPhraseCountVerified: ((Bool) -> Void)?
     public var seedPhraseMaxCount: Int!
+	private let mockSeedPhraseList = MockSeedPhrase.wordList
+
+	// MARK: Private Property
+
+	public var seedPhraseCountVerified: ((Bool) -> Void)!
+	public var enteredWordsCount = UILabel()
 
 	// MARK: Initializer
 
@@ -42,6 +48,7 @@ class SecretPhraseTextView: UITextView {
 			text = pasteboardString
 			textColor = .Pino.label
 			endEditing(true)
+			verifySeedPhrase()
 		}
 	}
 
@@ -53,6 +60,10 @@ class SecretPhraseTextView: UITextView {
 		textColor = .Pino.gray2
 		font = .PinoStyle.mediumBody
 		returnKeyType = UIReturnKeyType.done
+
+		enteredWordsCount.text = "0/12"
+		enteredWordsCount.textColor = .Pino.secondaryLabel
+		enteredWordsCount.font = .PinoStyle.mediumFootnote
 	}
 
 	private func setupSuggestedSeedPhrase() {

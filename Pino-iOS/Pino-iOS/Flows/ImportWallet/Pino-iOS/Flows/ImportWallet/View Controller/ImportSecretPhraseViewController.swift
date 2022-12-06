@@ -22,7 +22,6 @@ class ImportSecretPhraseViewController: UIViewController {
 	override func loadView() {
 		stupView()
 		setSteperView(stepsCount: 2, curreuntStep: 1)
-		setupNavigationBackButton()
 	}
 
 	// MARK: Private Methods
