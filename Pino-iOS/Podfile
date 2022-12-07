@@ -10,7 +10,6 @@ target 'Pino-iOS' do
   
   # Pods for Pino-iOS
 
-
   target 'Pino-iOSTests' do
     inherit! :search_paths
     # Pods for testing

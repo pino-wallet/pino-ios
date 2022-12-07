@@ -6,23 +6,32 @@
 //
 
 import Foundation
+import WalletCore
 
 class SecretPhraseViewModel {
-	// MARK: public Properties
+	// MARK: Public Properties
 
 	public var secretPhrase: [String] = []
+
+	// MARK: - Privare Properties
+
+	private let emptyPassphrase = ""
 
 	// MARK: Initializers
 
 	init() {
-		getRandomWords(numberOfWords: 12)
+		generateMnemonic()
 	}
 
-	// MARK: Public Methods
+	// MARK: - Private Methods
 
-	public func getRandomWords(numberOfWords: Int) {
-		// This should be replaced by the library words list
-		let shuffledList = MockSeedPhrase.wordList.shuffled()
-		secretPhrase = Array(shuffledList.prefix(numberOfWords))
+	private func generateMnemonic() {
+		let seedPhraseCount: HDWallet.SeedPhraseCount = .word12
+		if let newHdWallet = HDWallet(strength: seedPhraseCount.strength, passphrase: emptyPassphrase) {
+			let mnemonic = newHdWallet.mnemonic
+			secretPhrase = mnemonic.toArray
+		} else {
+			fatalError("ganerate mnemonic faild.")
+		}
 	}
 }
