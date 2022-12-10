@@ -12,7 +12,8 @@ final class ImportWalletUITests: XCTestCase {
 
 	private let app = XCUIApplication()
 	private var importButton: XCUIElement!
-	private let testSecretPhrase = Array(MockSeedPhrase.wordList.shuffled().prefix(12))
+	private var testSecretPhrase: [String]!
+	private var seedPhraseMaxCount: Int!
 	private let secretPhraseThirteenthWord = "thirteenth"
 
 	// MARK: Internal Functions
@@ -20,6 +21,9 @@ final class ImportWalletUITests: XCTestCase {
 	override internal func setUpWithError() throws {
 		continueAfterFailure = false
 		app.launchArguments.append(LaunchArguments.isRunningUITests.rawValue)
+		let validateSecretPhraseVM = ValidateSecretPhraseViewModel()
+		seedPhraseMaxCount = validateSecretPhraseVM.maxSeedPhraseCount
+		testSecretPhrase = Array(SeedPhraseMock.testWords.shuffled().prefix(seedPhraseMaxCount))
 	}
 
 	override internal func tearDownWithError() throws {
@@ -32,7 +36,7 @@ final class ImportWalletUITests: XCTestCase {
 		for (index, word) in testSecretPhrase.enumerated() {
 			// Type words of the secret phrase
 			app.typeText("\(word) ")
-			if index == 11 {
+			if index == seedPhraseMaxCount - 1 {
 				// Words count is 12
 				checkImportButtonActivation(true)
 				// Type 13th word
@@ -67,7 +71,7 @@ final class ImportWalletUITests: XCTestCase {
 			// Select first suggested word
 			let firstSuggestedWord = app.collectionViews.element(boundBy: 0).cells.element(boundBy: 0)
 			firstSuggestedWord.tap()
-			if index == 11 {
+			if index == seedPhraseMaxCount - 1 {
 				// Words count is 12
 				checkImportButtonActivation(true)
 				// Type 13th word
@@ -97,7 +101,7 @@ final class ImportWalletUITests: XCTestCase {
 		let pasteButton = app.buttons["Paste"]
 
 		// Paste 11 words
-		UIPasteboard.general.string = Array(testSecretPhrase.prefix(11)).joined(separator: " ")
+		UIPasteboard.general.string = Array(testSecretPhrase.prefix(seedPhraseMaxCount - 1)).joined(separator: " ")
 		pasteButton.tap()
 		checkImportButtonActivation(false)
 		// Paste 13 words

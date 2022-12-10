@@ -23,7 +23,6 @@
 		8564A22629357D65001B5507 /* ValidateSecretPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8564A22529357D65001B5507 /* ValidateSecretPhraseViewModel.swift */; };
 		CE297B382938E484000DF50E /* ImportWalletError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE297B372938E484000DF50E /* ImportWalletError.swift */; };
 		CE5757B5291C7DBA001B4EFE /* AutolayoutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5757B4291C7DBA001B4EFE /* AutolayoutHelper.swift */; };
-		CEAF6681293F981E00600444 /* WalletConnect in Frameworks */ = {isa = PBXBuildFile; productRef = CEAF6680293F981E00600444 /* WalletConnect */; };
 		DF05F69B291644B7005A3338 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F69A291644B7005A3338 /* AppDelegate.swift */; };
 		DF05F69D291644B7005A3338 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF05F69C291644B7005A3338 /* SceneDelegate.swift */; };
 		DF05F6A5291644B7005A3338 /* Pino_iOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DF05F6A3291644B7005A3338 /* Pino_iOS.xcdatamodeld */; };
@@ -68,6 +67,16 @@
 		DFCE5F5A2925649A0054DA62 /* ManagePasscodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCE5F592925649A0054DA62 /* ManagePasscodeView.swift */; };
 		DFCE5F6129267B1A0054DA62 /* PinoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCE5F6029267B1A0054DA62 /* PinoLabel.swift */; };
 		DFCE5F6329267B2F0054DA62 /* PinoLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCE5F6229267B2F0054DA62 /* PinoLabelStyle.swift */; };
+		E3037EA629447CA000177A96 /* SeedPhraseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3037EA529447CA000177A96 /* SeedPhraseMock.swift */; };
+		E3037EA729447D5800177A96 /* SeedPhraseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3037EA529447CA000177A96 /* SeedPhraseMock.swift */; };
+		E3037EA829447DD200177A96 /* ValidateSecretPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8564A22529357D65001B5507 /* ValidateSecretPhraseViewModel.swift */; };
+		E3037EA929447DD300177A96 /* ValidateSecretPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8564A22529357D65001B5507 /* ValidateSecretPhraseViewModel.swift */; };
+		E3037EAA29447DFF00177A96 /* StringProtocol+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8564A2212935781A001B5507 /* StringProtocol+Extension.swift */; };
+		E3037EAB29447E0000177A96 /* StringProtocol+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8564A2212935781A001B5507 /* StringProtocol+Extension.swift */; };
+		E3037EAC29447E0800177A96 /* HDWallet+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8564A21F293577D6001B5507 /* HDWallet+Extension.swift */; };
+		E3037EAD29447E0800177A96 /* HDWallet+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8564A21F293577D6001B5507 /* HDWallet+Extension.swift */; };
+		E3037EAE29447E8C00177A96 /* ImportWalletError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE297B372938E484000DF50E /* ImportWalletError.swift */; };
+		E3037EAF29447E8D00177A96 /* ImportWalletError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE297B372938E484000DF50E /* ImportWalletError.swift */; };
 		E311596C29290DFD00804CE1 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E311596B29290DFD00804CE1 /* IntroView.swift */; };
 		E311596E2929215B00804CE1 /* AllDoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E311596D2929215B00804CE1 /* AllDoneViewController.swift */; };
 		E31159702929223500804CE1 /* AllDoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E311596F2929223500804CE1 /* AllDoneView.swift */; };
@@ -294,6 +303,7 @@
 		DFCE5F592925649A0054DA62 /* ManagePasscodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagePasscodeView.swift; sourceTree = "<group>"; };
 		DFCE5F6029267B1A0054DA62 /* PinoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoLabel.swift; sourceTree = "<group>"; };
 		DFCE5F6229267B2F0054DA62 /* PinoLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoLabelStyle.swift; sourceTree = "<group>"; };
+		E3037EA529447CA000177A96 /* SeedPhraseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseMock.swift; sourceTree = "<group>"; };
 		E311596B29290DFD00804CE1 /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
 		E311596D2929215B00804CE1 /* AllDoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDoneViewController.swift; sourceTree = "<group>"; };
 		E311596F2929223500804CE1 /* AllDoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDoneView.swift; sourceTree = "<group>"; };
@@ -390,7 +400,6 @@
 				DF2B03FB291813C700781052 /* FirebaseDynamicLinks in Frameworks */,
 				DF2B03FD291813C700781052 /* FirebaseFirestore in Frameworks */,
 				DF2B0415291813C700781052 /* FirebaseRemoteConfigSwift in Frameworks */,
-				CEAF6681293F981E00600444 /* WalletConnect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,6 +539,7 @@
 		DF05F6B3291644B9005A3338 /* Pino-iOSTests */ = {
 			isa = PBXGroup;
 			children = (
+				E3037EA429447C6E00177A96 /* Mock */,
 				DF05F6B4291644B9005A3338 /* Pino_iOSTests.swift */,
 			);
 			path = "Pino-iOSTests";
@@ -730,6 +740,14 @@
 				400DD213292BCF7B00B248CA /* VerifyPassVM.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E3037EA429447C6E00177A96 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				E3037EA529447CA000177A96 /* SeedPhraseMock.swift */,
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 		E3115975292A2B9D00804CE1 /* ViewController */ = {
@@ -942,6 +960,7 @@
 				DF05F694291644B7005A3338 /* Frameworks */,
 				DF05F695291644B7005A3338 /* Resources */,
 				DF2B041A291817EE00781052 /* ShellScript */,
+				F3CDDF7C5708C50EB4025F0C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -976,7 +995,6 @@
 				DF2B0414291813C700781052 /* FirebaseRemoteConfigSwift */,
 				DF2B0416291813C700781052 /* FirebaseStorage */,
 				DF2B0418291813C700781052 /* FirebaseStorageCombine-Community */,
-				CEAF6680293F981E00600444 /* WalletConnect */,
 			);
 			productName = "Pino-iOS";
 			productReference = DF05F697291644B7005A3338 /* Pino-iOS.app */;
@@ -1009,6 +1027,7 @@
 				DF05F6B6291644B9005A3338 /* Sources */,
 				DF05F6B7291644B9005A3338 /* Frameworks */,
 				DF05F6B8291644B9005A3338 /* Resources */,
+				703416DFC251F14C86C8B25B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1054,7 +1073,6 @@
 			mainGroup = DF05F68E291644B7005A3338;
 			packageReferences = (
 				DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				CEAF667F293F981E00600444 /* XCRemoteSwiftPackageReference "wallet-connect-swift" */,
 			);
 			productRefGroup = DF05F698291644B7005A3338 /* Products */;
 			projectDirPath = "";
@@ -1118,6 +1136,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		703416DFC251F14C86C8B25B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7763DA825D47C7F43C19C5F9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1202,6 +1237,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F3CDDF7C5708C50EB4025F0C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1275,9 +1327,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3EEA705293DE2E700F75C15 /* SuggestedSeedPhraseCollectionView.swift in Sources */,
+				E3037EAE29447E8C00177A96 /* ImportWalletError.swift in Sources */,
 				E3EEA6F7293DE14400F75C15 /* IntroViewController.swift in Sources */,
 				E3EEA6F5293DE12900F75C15 /* AppDelegate.swift in Sources */,
 				E373381A2935F016002D2D67 /* AllDoneViewController.swift in Sources */,
+				E3037EAA29447DFF00177A96 /* StringProtocol+Extension.swift in Sources */,
 				E37338162935EFE3002D2D67 /* PasscodeManagerService.swift in Sources */,
 				E37337DA2935EAF8002D2D67 /* PinoLabel.swift in Sources */,
 				E3EEA6F3293DE03C00F75C15 /* SceneDelegate.swift in Sources */,
@@ -1295,6 +1349,7 @@
 				E3EEA703293DE2E300F75C15 /* ImportSecretPhraseView.swift in Sources */,
 				E37337F22935ED11002D2D67 /* RegularStyle.swift in Sources */,
 				E37337FF2935EE6D002D2D67 /* VerifySecretPhraseView.swift in Sources */,
+				E3037EA629447CA000177A96 /* SeedPhraseMock.swift in Sources */,
 				E3EEA6FB293DE29300F75C15 /* IntroView.swift in Sources */,
 				E37338012935EE79002D2D67 /* CreatePasscodeViewController.swift in Sources */,
 				E37337E42935EB39002D2D67 /* SecretPhraseCell.swift in Sources */,
@@ -1302,6 +1357,7 @@
 				E373380C2935EF1A002D2D67 /* PasscodeManagerPages.swift in Sources */,
 				E3EEA701293DE2B400F75C15 /* ImportSecretPhraseViewController.swift in Sources */,
 				E3EEA707293DE2EB00F75C15 /* SuggestedSeedPhraseCell.swift in Sources */,
+				E3037EA829447DD200177A96 /* ValidateSecretPhraseViewModel.swift in Sources */,
 				E37338092935EEFA002D2D67 /* SecretPhraseCenteredFlowLayout.swift in Sources */,
 				E37337E22935EB34002D2D67 /* SecretPhraseCollectionView.swift in Sources */,
 				E37337F82935ED68002D2D67 /* AlertHelper.swift in Sources */,
@@ -1313,6 +1369,7 @@
 				E3EEA6FF293DE29B00F75C15 /* IntroCollectionViewCell.swift in Sources */,
 				E37338182935F007002D2D67 /* KeychainWrapperProtocol.swift in Sources */,
 				E37337F42935ED34002D2D67 /* SeedPhrase.swift in Sources */,
+				E3037EAC29447E0800177A96 /* HDWallet+Extension.swift in Sources */,
 				E37337E62935EC33002D2D67 /* PinoColor.swift in Sources */,
 				E37337F62935ED49002D2D67 /* BlurEffectView.swift in Sources */,
 				E37338202935F067002D2D67 /* PinoCheckBoxStyle.swift in Sources */,
@@ -1325,7 +1382,6 @@
 				E37337F02935ED0D002D2D67 /* MediumStyle.swift in Sources */,
 				E37338222935F084002D2D67 /* Array+Extension.swift in Sources */,
 				E37338242935F0AF002D2D67 /* ViewController+Extension.swift in Sources */,
-				E3EDCC152920C6D70011B9A8 /* HDWallet+Extension.swift in Sources */,
 				E373381C2935F02D002D2D67 /* AllDoneView.swift in Sources */,
 				E3EEA709293DE2F000F75C15 /* SecretPhraseTextView.swift in Sources */,
 				E37338142935EFBF002D2D67 /* KeychainHelper.swift in Sources */,
@@ -1345,9 +1401,9 @@
 				E37337F92935ED69002D2D67 /* AlertHelper.swift in Sources */,
 				E37337ED2935ED06002D2D67 /* BoldStyle.swift in Sources */,
 				E37337DD2935EB03002D2D67 /* PinoButton.swift in Sources */,
-				E3EDCC162920C6D70011B9A8 /* HDWallet+Extension.swift in Sources */,
 				E37338192935F008002D2D67 /* KeychainWrapperProtocol.swift in Sources */,
 				E373381F2935F046002D2D67 /* PinoCheckBox.swift in Sources */,
+				E3037EA929447DD300177A96 /* ValidateSecretPhraseViewModel.swift in Sources */,
 				E373380A2935EEFA002D2D67 /* SecretPhraseCenteredFlowLayout.swift in Sources */,
 				E3EEA6F6293DE12A00F75C15 /* AppDelegate.swift in Sources */,
 				E3EDCC3F29221C930011B9A8 /* SecretPhraseViewModel.swift in Sources */,
@@ -1380,6 +1436,8 @@
 				E3DAC3D629364BFF005CACD6 /* CreatePasscodeUITests.swift in Sources */,
 				E37338042935EEB5002D2D67 /* ManagePasscodeView.swift in Sources */,
 				E37338062935EEBD002D2D67 /* SelectPassVM.swift in Sources */,
+				E3037EAF29447E8D00177A96 /* ImportWalletError.swift in Sources */,
+				E3037EAD29447E0800177A96 /* HDWallet+Extension.swift in Sources */,
 				E37337E12935EB0D002D2D67 /* PinoButtonStyle.swift in Sources */,
 				E37337EF2935ED09002D2D67 /* SemiboldStyle.swift in Sources */,
 				E373380F2935EF34002D2D67 /* PassDotsView.swift in Sources */,
@@ -1390,9 +1448,11 @@
 				E37338212935F067002D2D67 /* PinoCheckBoxStyle.swift in Sources */,
 				E37337F52935ED34002D2D67 /* SeedPhrase.swift in Sources */,
 				E37338112935EF41002D2D67 /* VerifyPassVM.swift in Sources */,
+				E3037EA729447D5800177A96 /* SeedPhraseMock.swift in Sources */,
 				E37338232935F085002D2D67 /* Array+Extension.swift in Sources */,
 				E3EEA6FA293DE28E00F75C15 /* IntroModel.swift in Sources */,
 				E37338002935EE6D002D2D67 /* VerifySecretPhraseView.swift in Sources */,
+				E3037EAB29447E0000177A96 /* StringProtocol+Extension.swift in Sources */,
 				E37337E52935EB3A002D2D67 /* SecretPhraseCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1546,7 +1606,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = ZQNSPP3WHU;
+				DEVELOPMENT_TEAM = 44E38FYW6J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
@@ -1561,7 +1621,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aurora.pino.Pino-iOS1";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.aurora.pino.Pino-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1577,7 +1637,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = ZQNSPP3WHU;
+				DEVELOPMENT_TEAM = 44E38FYW6J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
@@ -1592,7 +1652,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aurora.pino.Pino-iOS1";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.aurora.pino.Pino-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1722,14 +1782,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CEAF667F293F981E00600444 /* XCRemoteSwiftPackageReference "wallet-connect-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/trustwallet/wallet-connect-swift";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -1741,11 +1793,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CEAF6680293F981E00600444 /* WalletConnect */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CEAF667F293F981E00600444 /* XCRemoteSwiftPackageReference "wallet-connect-swift" */;
-			productName = WalletConnect;
-		};
 		DF2B03E4291813C700781052 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DF2B03E3291813C700781052 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
