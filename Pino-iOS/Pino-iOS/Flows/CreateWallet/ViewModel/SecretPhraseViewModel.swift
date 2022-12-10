@@ -26,7 +26,7 @@ class SecretPhraseViewModel {
 	// MARK: - Private Methods
 
 	private func generateMnemonic() {
-		let seedPhraseCount: HDWallet.SeedPhraseCount = .word12
+		let seedPhraseCount = SeedPhraseCount.word12
 		if let newHdWallet = HDWallet(strength: seedPhraseCount.strength, passphrase: emptyPassphrase) {
 			let mnemonic = newHdWallet.mnemonic
 			secretPhrase = mnemonic.toArray

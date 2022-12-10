@@ -27,21 +27,25 @@ class ImportSecretPhraseViewController: UIViewController {
 	// MARK: Private Methods
 
 	private func stupView() {
-		configValidationVM()
+		validationSecretPhraseViewVM = ValidateSecretPhraseViewModel()
 		importsecretPhraseView = ImportSecretPhraseView(validationPharaseVM: validationSecretPhraseViewVM)
 		addButtonsAction()
 		view = importsecretPhraseView
 	}
 
-	private func configValidationVM() {
-		validationSecretPhraseViewVM = ValidateSecretPhraseViewModel(onSuccess: {
-			self.importWallet()
-		}, onFailure: { validationError in
-			switch validationError {
-			case .invalidSecretPhrase:
-				self.importsecretPhraseView?.showError()
-			}
-		})
+	private func addButtonsAction() {
+		importsecretPhraseView?.importButton.addAction(UIAction(handler: { _ in
+			self.validationSecretPhraseViewVM
+				.validate(secretPhrase: self.importsecretPhraseView?.seedPhrasetextView.seedPhraseArray ?? [""]) {
+					self.importWallet()
+				} onFailure: { validationError in
+					switch validationError {
+					case .invalidSecretPhrase:
+						self.importsecretPhraseView?.showError()
+					}
+				}
+
+		}), for: .touchUpInside)
 	}
 
 	private func importWallet() {
@@ -49,12 +53,5 @@ class ImportSecretPhraseViewController: UIViewController {
 		let createPasscodeViewController = CreatePasscodeViewController()
 		createPasscodeViewController.pageSteps = 2
 		navigationController?.pushViewController(createPasscodeViewController, animated: true)
-	}
-
-	private func addButtonsAction() {
-		importsecretPhraseView?.importButton.addAction(UIAction(handler: { _ in
-			self.validationSecretPhraseViewVM
-				.validate(secretPhrase: self.importsecretPhraseView?.seedPhrasetextView.seedPhraseArray ?? [""])
-		}), for: .touchUpInside)
 	}
 }

@@ -25,6 +25,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		navigationController.setViewControllers([IntroViewController()], animated: true)
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
+
+		// Disable animations in test mode to speed up tests
+		disableAllAnimationsInTestMode()
 	}
 
 	func sceneDidDisconnect(_ scene: UIScene) {
@@ -57,5 +60,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 		// Save changes in the application's managed object context when the application transitions to the background.
 		(UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+	}
+
+	private func disableAllAnimationsInTestMode() {
+		if ProcessInfo.processInfo.arguments.contains(LaunchArguments.isRunningUITests.rawValue) {
+			if let scene = UIApplication.shared.connectedScenes.first,
+			   let windowSceneDelegate = scene.delegate as? UIWindowSceneDelegate,
+			   let window = windowSceneDelegate.window {
+				// Disable Core Animations
+				window?.layer.speed = 0
+			}
+
+			// Disable UIView animations
+			UIView.setAnimationsEnabled(false)
+		}
 	}
 }
