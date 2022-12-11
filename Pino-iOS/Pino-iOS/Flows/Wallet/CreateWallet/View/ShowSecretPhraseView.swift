@@ -26,19 +26,19 @@ class ShowSecretPhraseView: UIView {
 	private let continueButton = PinoButton(style: .deactive)
 	private var shareSecretPhrase: () -> Void
 	private var savedSecretPhrase: () -> Void
-	private var secretPhraseVM: SecretPhraseViewModel!
+	private var secretPhraseVM: ShowSecretPhraseViewModel
 
 	// MARK: Initializers
 
 	init(
-		_ secretPhraseVM: SecretPhraseViewModel,
+		_ secretPhraseVM: ShowSecretPhraseViewModel,
 		shareSecretPhare: @escaping (() -> Void),
 		savedSecretPhrase: @escaping (() -> Void)
 	) {
 		self.shareSecretPhrase = shareSecretPhare
 		self.savedSecretPhrase = savedSecretPhrase
-		super.init(frame: .zero)
 		self.secretPhraseVM = secretPhraseVM
+		super.init(frame: .zero)
 		setupView()
 		setupStyle()
 		setupContstraint()

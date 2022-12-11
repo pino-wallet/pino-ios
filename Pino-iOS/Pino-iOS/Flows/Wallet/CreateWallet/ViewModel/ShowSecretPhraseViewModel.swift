@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct SecretPhraseViewModel {
+struct ShowSecretPhraseViewModel {
 	// MARK: Public Properties
 
 	public let title = "Backup secret phrase"

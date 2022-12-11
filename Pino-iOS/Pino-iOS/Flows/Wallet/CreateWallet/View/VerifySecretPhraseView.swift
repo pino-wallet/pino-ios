@@ -16,8 +16,8 @@ class VerifySecretPhraseView: UIView {
 	private let contentView = UIView()
 	private let contentStackView = UIStackView()
 	private let titleStackView = UIStackView()
-	private let pageTitle = PinoLabel(style: .title, text: nil)
-	private let pageDescription = PinoLabel(style: .description, text: nil)
+	private let titleLabel = PinoLabel(style: .title, text: nil)
+	private let descriptionLabel = PinoLabel(style: .description, text: nil)
 	private let collectionsStackView = UIStackView()
 	private let sortedPhraseBoxView = UIView()
 	private let sortedPhraseCollectionView = SecretPhraseCollectionView()
@@ -27,17 +27,14 @@ class VerifySecretPhraseView: UIView {
 	private let randomPhraseCollectionView = SecretPhraseCollectionView()
 	private let continueButton = PinoButton(style: .deactive, title: "Continue")
 	private var createWallet: ([String]) -> Void
-	private var userSecretPhrase: [String]
-	private var randomPhrase: [String]
+	private var secretPhraseVM: VerifySecretPhraseViewModel
 
 	// MARK: Initializers
 
-	init(_ secretPhrase: [String], createWallet: @escaping (([String]) -> Void)) {
+	init(_ secretPhraseVM: VerifySecretPhraseViewModel, createWallet: @escaping (([String]) -> Void)) {
 		self.createWallet = createWallet
-		self.userSecretPhrase = secretPhrase
-		self.randomPhrase = secretPhrase.shuffled()
+		self.secretPhraseVM = secretPhraseVM
 		super.init(frame: .zero)
-
 		setupView()
 		setupStyle()
 		setupContstraint()
@@ -64,7 +61,7 @@ extension VerifySecretPhraseView {
 	}
 
 	private func updateSecretPhraseCell(to style: SecretPhraseCell.Style, selectedWord: String) {
-		guard let index = randomPhrase.firstIndex(of: selectedWord) else { return }
+		guard let index = secretPhraseVM.randomSecretPhraseList.firstIndex(of: selectedWord) else { return }
 		let indexPath = IndexPath(row: index, section: 0)
 		let cell = randomPhraseCollectionView.cellForItem(at: indexPath) as! SecretPhraseCell
 		switch style {
@@ -90,11 +87,11 @@ extension VerifySecretPhraseView {
 
 		switch sortedWords {
 		// All words are selected in the correct order
-		case userSecretPhrase:
+		case secretPhraseVM.userSecretPhraseList:
 			errorStackView.isHidden = true
 			continueButton.style = .active
 		// Some words are selected in the correct order
-		case Array(userSecretPhrase.prefix(upTo: sortedWords.count)):
+		case Array(secretPhraseVM.userSecretPhraseList.prefix(upTo: sortedWords.count)):
 			errorStackView.isHidden = true
 			continueButton.style = .deactive
 		// The words are NOT selected in the correct order
@@ -109,12 +106,16 @@ extension VerifySecretPhraseView {
 	// MARK: UI Methods
 
 	private func setupView() {
+		randomPhraseCollectionView.secretWords = secretPhraseVM.randomSecretPhraseList
+		randomPhraseCollectionView.cellStyle = .unordered
+		sortedPhraseCollectionView.secretWords = []
+
 		contentStackView.addArrangedSubview(titleStackView)
 		contentStackView.addArrangedSubview(collectionsStackView)
 		collectionsStackView.addArrangedSubview(sortedPhraseBoxView)
 		collectionsStackView.addArrangedSubview(randomPhraseCollectionView)
-		titleStackView.addArrangedSubview(pageTitle)
-		titleStackView.addArrangedSubview(pageDescription)
+		titleStackView.addArrangedSubview(titleLabel)
+		titleStackView.addArrangedSubview(descriptionLabel)
 		errorStackView.addArrangedSubview(errorIcon)
 		errorStackView.addArrangedSubview(errorLabel)
 		sortedPhraseBoxView.addSubview(sortedPhraseCollectionView)
@@ -137,38 +138,36 @@ extension VerifySecretPhraseView {
 	}
 
 	private func setupStyle() {
+		// Background color
 		backgroundColor = .Pino.secondaryBackground
-
-		randomPhraseCollectionView.secretWords = randomPhrase
-		randomPhraseCollectionView.cellStyle = .unordered
-		sortedPhraseCollectionView.secretWords = []
-
-		pageTitle.text = "Verify seed phrase"
-		pageDescription.text = "A two line description should be here. A two line description should be here"
-
-		errorLabel.text = "Invalid order! Try again"
-		errorLabel.textColor = .Pino.errorRed
-		errorLabel.font = .PinoStyle.mediumCallout
-		errorLabel.textAlignment = .center
-		errorStackView.isHidden = true
-
-		errorIcon.image = UIImage(systemName: "exclamationmark.circle.fill")
-		errorIcon.tintColor = .Pino.errorRed
-
-		contentStackView.axis = .vertical
-		contentStackView.spacing = 36
-
-		collectionsStackView.axis = .vertical
-		collectionsStackView.spacing = 18
-
-		titleStackView.axis = .vertical
-		titleStackView.spacing = 16
-
-		errorStackView.axis = .horizontal
-		errorStackView.spacing = 5
-		errorStackView.alignment = .center
-
 		sortedPhraseBoxView.backgroundColor = .Pino.background
+		// Tint & text color
+		errorLabel.textColor = .Pino.errorRed
+		errorIcon.tintColor = .Pino.errorRed
+		// Font
+		errorLabel.font = .PinoStyle.mediumCallout
+		// Text
+		titleLabel.text = secretPhraseVM.title
+		descriptionLabel.text = secretPhraseVM.description
+		errorLabel.text = secretPhraseVM.errorTitle
+		continueButton.title = secretPhraseVM.continueButtonTitle
+		// Image
+		errorIcon.image = secretPhraseVM.errorIcon
+		// Stack view axis
+		contentStackView.axis = .vertical
+		titleStackView.axis = .vertical
+		collectionsStackView.axis = .vertical
+		errorStackView.axis = .horizontal
+		// Stack view spacing
+		contentStackView.spacing = 36
+		titleStackView.spacing = 16
+		collectionsStackView.spacing = 18
+		errorStackView.spacing = 5
+		// Alignment
+		errorLabel.textAlignment = .center
+		errorStackView.alignment = .center
+		// Hidden
+		errorStackView.isHidden = true
 	}
 
 	private func setupContstraint() {

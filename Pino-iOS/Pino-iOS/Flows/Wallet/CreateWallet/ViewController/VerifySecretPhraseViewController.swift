@@ -10,7 +10,7 @@ import UIKit
 class VerifySecretPhraseViewController: UIViewController {
 	// MARK: Public Properties
 
-	public var secretPhraseVM: SecretPhraseViewModel!
+	public var secretPhraseVM: VerifySecretPhraseViewModel!
 
 	// MARK: View Overrides
 
@@ -38,7 +38,7 @@ extension VerifySecretPhraseViewController {
 	// MARK: Private UI Methods
 
 	private func stupView() {
-		let verifySecretPhraseView = VerifySecretPhraseView(secretPhraseVM.secretPhrase) { sortedPhrase in
+		let verifySecretPhraseView = VerifySecretPhraseView(secretPhraseVM) { sortedPhrase in
 			self.createWallet(sortedPhrase)
 		}
 		view = verifySecretPhraseView

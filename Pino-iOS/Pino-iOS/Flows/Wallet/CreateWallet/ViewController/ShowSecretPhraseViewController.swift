@@ -10,7 +10,7 @@ import UIKit
 class ShowSecretPhraseViewController: UIViewController {
 	// MARK: Private Properties
 
-	private let secretPhraseVM = SecretPhraseViewModel()
+	private let secretPhraseVM = ShowSecretPhraseViewModel()
 
 	// MARK: View Overrides
 
@@ -63,7 +63,7 @@ class ShowSecretPhraseViewController: UIViewController {
 
 	private func goToVerifyPage() {
 		let verifyViewController = VerifySecretPhraseViewController()
-		verifyViewController.secretPhraseVM = secretPhraseVM
+		verifyViewController.secretPhraseVM = VerifySecretPhraseViewModel(secretPhraseVM.secretPhraseList)
 		navigationController?.pushViewController(verifyViewController, animated: true)
 	}
 }

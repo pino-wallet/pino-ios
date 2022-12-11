@@ -1,8 +1,8 @@
 //
-//  ImportWalletViewController.swift
+//  ImportSecretPhraseViewController.swift
 //  Pino-iOS
 //
-//  Created by Mohi Raoufi on 11/22/22.
+//  Created by Mohi Raoufi on 12/11/22.
 //
 
 import UIKit
