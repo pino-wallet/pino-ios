@@ -8,6 +8,10 @@
 import UIKit
 
 class AllDoneViewController: UIViewController {
+	// MARK: Private Properties
+
+	private let allDoneVM = AllDoneViewModel()
+
 	// MARK: View Overrides
 
 	override func viewDidLoad() {
@@ -22,7 +26,7 @@ class AllDoneViewController: UIViewController {
 	// MARK: Private Methods
 
 	private func stupView() {
-		let allDoneView = AllDoneView {
+		let allDoneView = AllDoneView(allDoneVM) {
 			self.getStarted()
 		}
 		view = allDoneView

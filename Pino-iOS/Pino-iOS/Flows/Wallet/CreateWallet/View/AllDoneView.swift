@@ -16,17 +16,19 @@ class AllDoneView: UIView {
 	private let titleStackView = UIStackView()
 	private let allDoneTitle = PinoLabel(style: .title, text: nil)
 	private let allDoneDescription = PinoLabel(style: .description, text: nil)
-	private let privacyPolicyStackView = UIStackView()
-	private let privacyPolicyCheckBox = PinoCheckBox()
+	private let agreementStackView = UIStackView()
+	private let agreementCheckBox = PinoCheckBox()
 	private let getStartedStackView = UIStackView()
-	private let privacyPolicyLabel = UITextView()
+	private let agreementLabel = UITextView()
 	private let getStartedButton = PinoButton(style: .deactive, title: "Get Started")
 	private var getStarted: () -> Void
+	private var allDoneVM: AllDoneViewModel
 
 	// MARK: Initializers
 
-	init(getStarted: @escaping (() -> Void)) {
+	init(_ allDoneVM: AllDoneViewModel, getStarted: @escaping (() -> Void)) {
 		self.getStarted = getStarted
+		self.allDoneVM = allDoneVM
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -46,9 +48,9 @@ extension AllDoneView {
 		allDoneStackView.addArrangedSubview(titleStackView)
 		titleStackView.addArrangedSubview(allDoneTitle)
 		titleStackView.addArrangedSubview(allDoneDescription)
-		privacyPolicyStackView.addArrangedSubview(privacyPolicyCheckBox)
-		privacyPolicyStackView.addArrangedSubview(privacyPolicyLabel)
-		getStartedStackView.addArrangedSubview(privacyPolicyStackView)
+		agreementStackView.addArrangedSubview(agreementCheckBox)
+		agreementStackView.addArrangedSubview(agreementLabel)
+		getStartedStackView.addArrangedSubview(agreementStackView)
 		getStartedStackView.addArrangedSubview(getStartedButton)
 		addSubview(allDoneStackView)
 		addSubview(getStartedStackView)
@@ -57,38 +59,34 @@ extension AllDoneView {
 			self.getStarted()
 		}), for: .touchUpInside)
 
-		privacyPolicyCheckBox.addAction(UIAction(handler: { _ in
-			self.activateContinueButton(self.privacyPolicyCheckBox.isChecked)
+		agreementCheckBox.addAction(UIAction(handler: { _ in
+			self.activateContinueButton(self.agreementCheckBox.isChecked)
 		}), for: .touchUpInside)
 	}
 
 	private func setupStyle() {
+		allDoneImage.image = allDoneVM.image
+
+		allDoneTitle.text = allDoneVM.title
+		allDoneDescription.text = allDoneVM.description
+
 		backgroundColor = .Pino.secondaryBackground
 
-		allDoneImage.image = UIImage(named: "pino_logo")
-
-		allDoneTitle.text = "You’re all done!"
-		allDoneDescription.text = "A one line description should be here"
-
-		setupPrivacyPolicyLinks()
-		privacyPolicyLabel.textColor = .Pino.secondaryLabel
-		privacyPolicyLabel.font = .PinoStyle.mediumSubheadline
-		privacyPolicyLabel.backgroundColor = .Pino.clear
-
 		allDoneStackView.axis = .vertical
-		allDoneStackView.spacing = 26
-		allDoneStackView.alignment = .center
-
 		titleStackView.axis = .vertical
-		titleStackView.spacing = 16
-		titleStackView.alignment = .center
-
-		privacyPolicyStackView.axis = .horizontal
-		privacyPolicyStackView.spacing = -2
-
+		agreementStackView.axis = .horizontal
 		getStartedStackView.axis = .vertical
+
+		allDoneStackView.spacing = 26
+		titleStackView.spacing = 16
+		agreementStackView.spacing = -2
 		getStartedStackView.spacing = 34
+
+		allDoneStackView.alignment = .center
+		titleStackView.alignment = .center
 		getStartedStackView.alignment = .leading
+
+		setupAgreementLinks()
 	}
 
 	private func setupContstraint() {
@@ -107,7 +105,7 @@ extension AllDoneView {
 		getStartedButton.pin(
 			.horizontalEdges(padding: 16)
 		)
-		privacyPolicyStackView.pin(
+		agreementStackView.pin(
 			.leading(padding: 16),
 			.trailing(padding: 0)
 		)
@@ -121,21 +119,16 @@ extension AllDoneView {
 		}
 	}
 
-	private func setupPrivacyPolicyLinks() {
-		#warning("This must be replaced with pino urls")
-		let temporaryTermOfServiceURL = URL(string: "http://google.com/")!
-		let temporaryPrivacyPolicyURL = URL(string: "http://google.com/")!
-		let attributedText = NSMutableAttributedString(string: "I agree to the Term of use and Privacy policy")
-		let termOfUseRange = (attributedText.string as NSString).range(of: "Term of use")
-		let privacyPolicyRange = (attributedText.string as NSString).range(of: "Privacy policy")
-		attributedText.setAttributes([.link: temporaryTermOfServiceURL], range: termOfUseRange)
-		attributedText.setAttributes([.link: temporaryPrivacyPolicyURL], range: privacyPolicyRange)
-		privacyPolicyLabel.attributedText = attributedText
-		privacyPolicyLabel.isEditable = false
-		privacyPolicyLabel.isScrollEnabled = false
-		privacyPolicyLabel.linkTextAttributes = [
+	private func setupAgreementLinks() {
+		agreementLabel.attributedText = allDoneVM.agreementAttributedTest
+		agreementLabel.isEditable = false
+		agreementLabel.isScrollEnabled = false
+		agreementLabel.linkTextAttributes = [
 			.foregroundColor: UIColor.Pino.primary,
 			.font: UIFont.PinoStyle.semiboldSubheadline as Any,
 		]
+		agreementLabel.textColor = .Pino.secondaryLabel
+		agreementLabel.font = .PinoStyle.mediumSubheadline
+		agreementLabel.backgroundColor = .Pino.clear
 	}
 }
