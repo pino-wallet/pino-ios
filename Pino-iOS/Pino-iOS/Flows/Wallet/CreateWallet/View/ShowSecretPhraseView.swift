@@ -23,17 +23,22 @@ class ShowSecretPhraseView: UIView {
 	private let seedPhraseStackView = UIStackView()
 	private let seedPhraseCollectionView = SecretPhraseCollectionView()
 	private let shareButton = UIButton()
-	private let continueButton = PinoButton(style: .deactive, title: "I Saved")
+	private let continueButton = PinoButton(style: .deactive)
 	private var shareSecretPhrase: () -> Void
 	private var savedSecretPhrase: () -> Void
+	private var secretPhraseVM: SecretPhraseViewModel!
 
 	// MARK: Initializers
 
-	init(_ secretPhrase: [String], shareSecretPhare: @escaping (() -> Void), savedSecretPhrase: @escaping (() -> Void)) {
+	init(
+		_ secretPhraseVM: SecretPhraseViewModel,
+		shareSecretPhare: @escaping (() -> Void),
+		savedSecretPhrase: @escaping (() -> Void)
+	) {
 		self.shareSecretPhrase = shareSecretPhare
 		self.savedSecretPhrase = savedSecretPhrase
 		super.init(frame: .zero)
-		seedPhraseCollectionView.secretWords = secretPhrase
+		self.secretPhraseVM = secretPhraseVM
 		setupView()
 		setupStyle()
 		setupContstraint()
@@ -48,6 +53,8 @@ extension ShowSecretPhraseView {
 	// MARK: UI Methods
 
 	private func setupView() {
+		seedPhraseCollectionView.secretWords = secretPhraseVM.secretPhraseList
+
 		contentStackView.addArrangedSubview(titleStackView)
 		contentStackView.addArrangedSubview(seedPhraseView)
 		titleStackView.addArrangedSubview(titleLabel)
@@ -76,37 +83,40 @@ extension ShowSecretPhraseView {
 	}
 
 	private func setupStyle() {
+		// Set background color
 		backgroundColor = .Pino.secondaryBackground
-
-		titleLabel.text = "Backup seed phrase"
-
-		revealLabel.text = "Tap to reveal"
-		firstDescriptionLabel.text = "Write down your Secret Phrase and store it in a safe place."
-		firstDescriptionLabel.textColor = .Pino.label
-		secondDescriptionLabel.text = "It allows you to recover your wallet if you lose your device or password"
-		secondDescriptionLabel.textColor = .Pino.label
-
 		firstDescriptionBox.backgroundColor = .Pino.background
-		firstDescriptionBox.layer.cornerRadius = 8
 		secondDescriptionBox.backgroundColor = .Pino.background
-		secondDescriptionBox.layer.cornerRadius = 8
-
-		shareButton.setTitle("Copy", for: .normal)
+		// Set text color
+		firstDescriptionLabel.textColor = .Pino.label
+		secondDescriptionLabel.textColor = .Pino.label
 		shareButton.setTitleColor(.Pino.primary, for: .normal)
-		shareButton.titleLabel?.font = .PinoStyle.semiboldBody
-		shareButton.setImage(UIImage(systemName: "square.on.square"), for: .normal)
 		shareButton.imageView?.tintColor = .Pino.primary
-
+		// Set font
+		shareButton.titleLabel?.font = .PinoStyle.semiboldBody
+		// Set text
+		titleLabel.text = secretPhraseVM.title
+		firstDescriptionLabel.text = secretPhraseVM.firstDescription
+		secondDescriptionLabel.text = secretPhraseVM.secondDescription
+		revealLabel.text = secretPhraseVM.revealButtonTitle
+		shareButton.setTitle(secretPhraseVM.shareButtonTitle, for: .normal)
+		continueButton.title = secretPhraseVM.continueButtonTitle
+		// Set image
+		shareButton.setImage(secretPhraseVM.shareButtonIcon, for: .normal)
+		// Set stack view axis
 		contentStackView.axis = .vertical
-		contentStackView.spacing = 8
-
 		titleStackView.axis = .vertical
-		titleStackView.spacing = 12
-		titleStackView.alignment = .leading
-
 		seedPhraseStackView.axis = .vertical
+		// Set stack view spacing
+		contentStackView.spacing = 8
+		titleStackView.spacing = 12
 		seedPhraseStackView.spacing = 52
+		// Set stack view alignment
+		titleStackView.alignment = .leading
 		seedPhraseStackView.alignment = .center
+		// Set corner radius
+		firstDescriptionBox.layer.cornerRadius = 8
+		secondDescriptionBox.layer.cornerRadius = 8
 	}
 
 	private func setupContstraint() {

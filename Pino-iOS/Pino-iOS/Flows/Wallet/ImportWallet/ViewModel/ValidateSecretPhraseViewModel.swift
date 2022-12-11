@@ -10,6 +10,10 @@ import Foundation
 struct ValidateSecretPhraseViewModel {
 	// MARK: Public Properties
 
+	public let title = "Verify secret phrase"
+	public let description = "Please select each word in the correct order to verify you have saved your Secret Phrase."
+	public let errorTitle = "Invalid Secret Phrase"
+	public let continueButtonTitle = "Continue"
 	public var maxSeedPhraseCount = HDWallet.validSeedPhraseCounts[0]
 
 	// MARK: Public Methods

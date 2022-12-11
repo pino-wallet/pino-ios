@@ -77,6 +77,8 @@
 		E3037EAD29447E0800177A96 /* HDWallet+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8564A21F293577D6001B5507 /* HDWallet+Extension.swift */; };
 		E3037EAE29447E8C00177A96 /* ImportWalletError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE297B372938E484000DF50E /* ImportWalletError.swift */; };
 		E3037EAF29447E8D00177A96 /* ImportWalletError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE297B372938E484000DF50E /* ImportWalletError.swift */; };
+		E3037EB12945E27B00177A96 /* IntroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3037EB02945E27B00177A96 /* IntroViewModel.swift */; };
+		E3037EB42945EAB500177A96 /* AllDoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3037EB32945EAB500177A96 /* AllDoneViewModel.swift */; };
 		E311596C29290DFD00804CE1 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E311596B29290DFD00804CE1 /* IntroView.swift */; };
 		E311596E2929215B00804CE1 /* AllDoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E311596D2929215B00804CE1 /* AllDoneViewController.swift */; };
 		E31159702929223500804CE1 /* AllDoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E311596F2929223500804CE1 /* AllDoneView.swift */; };
@@ -304,6 +306,8 @@
 		DFCE5F6029267B1A0054DA62 /* PinoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoLabel.swift; sourceTree = "<group>"; };
 		DFCE5F6229267B2F0054DA62 /* PinoLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoLabelStyle.swift; sourceTree = "<group>"; };
 		E3037EA529447CA000177A96 /* SeedPhraseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseMock.swift; sourceTree = "<group>"; };
+		E3037EB02945E27B00177A96 /* IntroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IntroViewModel.swift; path = ../IntroViewModel.swift; sourceTree = "<group>"; };
+		E3037EB32945EAB500177A96 /* AllDoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDoneViewModel.swift; sourceTree = "<group>"; };
 		E311596B29290DFD00804CE1 /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
 		E311596D2929215B00804CE1 /* AllDoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDoneViewController.swift; sourceTree = "<group>"; };
 		E311596F2929223500804CE1 /* AllDoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDoneView.swift; sourceTree = "<group>"; };
@@ -599,11 +603,7 @@
 		DF2B041F2919577800781052 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
-				DFE33C46293277510055BA58 /* PasscodeManage */,
-				DF2B0422291958DD00781052 /* Unlock */,
-				E3EDCC20292102420011B9A8 /* Intro */,
-				DF2B04202919578800781052 /* CreateWallet */,
-				DF2B04212919581F00781052 /* ImportWallet */,
+				E3037EB52945F16100177A96 /* Wallet */,
 			);
 			path = Flows;
 			sourceTree = "<group>";
@@ -628,45 +628,6 @@
 				CE297B392938E489000DF50E /* Error */,
 			);
 			path = ImportWallet;
-			sourceTree = "<group>";
-		};
-		DF2B0422291958DD00781052 /* Unlock */ = {
-			isa = PBXGroup;
-			children = (
-				DF2B0423291958F000781052 /* PassCodeUnlock */,
-			);
-			path = Unlock;
-			sourceTree = "<group>";
-		};
-		DF2B0423291958F000781052 /* PassCodeUnlock */ = {
-			isa = PBXGroup;
-			children = (
-				DF2B04262919594000781052 /* Views */,
-				DF2B04252919592A00781052 /* ViewControllers */,
-				DF2B04242919591E00781052 /* ViewModels */,
-			);
-			path = PassCodeUnlock;
-			sourceTree = "<group>";
-		};
-		DF2B04242919591E00781052 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		DF2B04252919592A00781052 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		DF2B04262919594000781052 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		DF2B042729195B8A00781052 /* Models */ = {
@@ -748,6 +709,25 @@
 				E3037EA529447CA000177A96 /* SeedPhraseMock.swift */,
 			);
 			path = Mock;
+			sourceTree = "<group>";
+		};
+		E3037EB22945E28000177A96 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E3037EB02945E27B00177A96 /* IntroViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E3037EB52945F16100177A96 /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				E3EDCC20292102420011B9A8 /* Intro */,
+				DF2B04202919578800781052 /* CreateWallet */,
+				DF2B04212919581F00781052 /* ImportWallet */,
+				DFE33C46293277510055BA58 /* PasscodeManage */,
+			);
+			path = Wallet;
 			sourceTree = "<group>";
 		};
 		E3115975292A2B9D00804CE1 /* ViewController */ = {
@@ -887,9 +867,10 @@
 		E3EDCC20292102420011B9A8 /* Intro */ = {
 			isa = PBXGroup;
 			children = (
-				E3115977292A2BD800804CE1 /* Model */,
-				E3115976292A2BBD00804CE1 /* View */,
 				E3115975292A2B9D00804CE1 /* ViewController */,
+				E3115976292A2BBD00804CE1 /* View */,
+				E3037EB22945E28000177A96 /* ViewModel */,
+				E3115977292A2BD800804CE1 /* Model */,
 			);
 			path = Intro;
 			sourceTree = "<group>";
@@ -919,6 +900,7 @@
 			isa = PBXGroup;
 			children = (
 				E3EDCC3C29221C930011B9A8 /* SecretPhraseViewModel.swift */,
+				E3037EB32945EAB500177A96 /* AllDoneViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1309,12 +1291,14 @@
 				E3B72342291B87A200D4F46C /* PinoColor.swift in Sources */,
 				E31159702929223500804CE1 /* AllDoneView.swift in Sources */,
 				E3EDCC29292105470011B9A8 /* ShowSecretPhraseView.swift in Sources */,
+				E3037EB42945EAB500177A96 /* AllDoneViewModel.swift in Sources */,
 				40BFF57D29313829005215A3 /* Array+Extension.swift in Sources */,
 				E33E31952924CDFB0028ECDB /* BlurEffectView.swift in Sources */,
 				CE5757B5291C7DBA001B4EFE /* AutolayoutHelper.swift in Sources */,
 				CE297B382938E484000DF50E /* ImportWalletError.swift in Sources */,
 				DFCE5F562923FFAC0054DA62 /* KeychainHelper.swift in Sources */,
 				DF2B04292919640300781052 /* IntroViewController.swift in Sources */,
+				E3037EB12945E27B00177A96 /* IntroViewModel.swift in Sources */,
 				400DD210292BCEF500B248CA /* KeychainWrapperProtocol.swift in Sources */,
 				E3B7233F291B85D700D4F46C /* RegularStyle.swift in Sources */,
 				E3B72347291B8A4700D4F46C /* PinoButtonStyle.swift in Sources */,

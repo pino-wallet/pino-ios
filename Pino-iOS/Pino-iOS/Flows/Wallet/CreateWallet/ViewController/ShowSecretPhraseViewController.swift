@@ -27,7 +27,7 @@ class ShowSecretPhraseViewController: UIViewController {
 	// MARK: Private Methods
 
 	private func stupView() {
-		let secretPhraseView = ShowSecretPhraseView(secretPhraseVM.secretPhrase, shareSecretPhare: {
+		let secretPhraseView = ShowSecretPhraseView(secretPhraseVM, shareSecretPhare: {
 			self.shareSecretPhrase()
 		}, savedSecretPhrase: {
 			self.goToVerifyPage()
@@ -46,15 +46,16 @@ class ShowSecretPhraseViewController: UIViewController {
 
 	@objc
 	private func screenshotTaken() {
-		AlertHelper.showAlert(
-			title: "Warning",
-			message: "It isn't safe to take a screenshot of a secret phrase!",
-			over: self
+		let screenshotAlertController = AlertHelper.alertController(
+			title: secretPhraseVM.screenshotAlertTitle,
+			message: secretPhraseVM.screenshotAlertMessage,
+			actions: [.gotIt]
 		)
+		present(screenshotAlertController, animated: true)
 	}
 
 	private func shareSecretPhrase() {
-		let userWords = secretPhraseVM.secretPhrase
+		let userWords = secretPhraseVM.secretPhraseList
 		let shareText = userWords.joined(separator: " ")
 		let shareActivity = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
 		present(shareActivity, animated: true) {}
