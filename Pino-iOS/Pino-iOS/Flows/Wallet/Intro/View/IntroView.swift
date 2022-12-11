@@ -12,21 +12,20 @@ class IntroView: UIView {
 
 	private let introCollectionView = IntroCollectionView()
 	private let signinStackView = UIStackView()
-	private let createWalletButton = PinoButton(style: .active, title: "Create New Wallet")
+	private let createWalletButton = PinoButton(style: .active)
 	private let importWalletButton = UIButton()
 	private let pageControl = UIPageControl()
 	private var createWallet: () -> Void
 	private var importWallet: () -> Void
-	private var introContent: [IntroModel]
+	private var introVM: IntroViewModel
 
 	// MARK: Initializers
 
-	init(content: [IntroModel], createWallet: @escaping (() -> Void), importWallet: @escaping (() -> Void)) {
+	init(_ introVM: IntroViewModel, createWallet: @escaping (() -> Void), importWallet: @escaping (() -> Void)) {
 		self.createWallet = createWallet
 		self.importWallet = importWallet
-		self.introContent = content
+		self.introVM = introVM
 		super.init(frame: .zero)
-
 		setupView()
 		setupStyle()
 		setupContstraint()
@@ -41,6 +40,8 @@ extension IntroView {
 	// MARK: UI Methods
 
 	private func setupView() {
+		introCollectionView.introContents = introVM.contentList
+
 		signinStackView.addArrangedSubview(createWalletButton)
 		signinStackView.addArrangedSubview(importWalletButton)
 		addSubview(introCollectionView)
@@ -61,19 +62,22 @@ extension IntroView {
 	}
 
 	private func setupStyle() {
+		createWalletButton.title = introVM.createButtonTitle
+		importWalletButton.setTitle(introVM.importButtonTitle, for: .normal)
+
 		backgroundColor = .Pino.secondaryBackground
 
-		importWalletButton.setTitle("I already have a wallet", for: .normal)
 		importWalletButton.setTitleColor(.Pino.primary, for: .normal)
+
 		importWalletButton.titleLabel?.font = .PinoStyle.semiboldBody
 
 		signinStackView.axis = .vertical
+
 		signinStackView.spacing = 36
+
 		signinStackView.alignment = .fill
 
-		introCollectionView.introContents = introContent
-
-		pageControl.numberOfPages = introContent.count
+		pageControl.numberOfPages = introVM.contentList.count
 		pageControl.currentPage = 0
 		pageControl.currentPageIndicatorTintColor = .Pino.primary
 		pageControl.pageIndicatorTintColor = .Pino.gray4

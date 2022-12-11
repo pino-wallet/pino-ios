@@ -83,38 +83,37 @@ extension ShowSecretPhraseView {
 	}
 
 	private func setupStyle() {
-		// Set background color
-		backgroundColor = .Pino.secondaryBackground
-		firstDescriptionBox.backgroundColor = .Pino.background
-		secondDescriptionBox.backgroundColor = .Pino.background
-		// Set text color
-		firstDescriptionLabel.textColor = .Pino.label
-		secondDescriptionLabel.textColor = .Pino.label
-		shareButton.setTitleColor(.Pino.primary, for: .normal)
-		shareButton.imageView?.tintColor = .Pino.primary
-		// Set font
-		shareButton.titleLabel?.font = .PinoStyle.semiboldBody
-		// Set text
 		titleLabel.text = secretPhraseVM.title
 		firstDescriptionLabel.text = secretPhraseVM.firstDescription
 		secondDescriptionLabel.text = secretPhraseVM.secondDescription
 		revealLabel.text = secretPhraseVM.revealButtonTitle
 		shareButton.setTitle(secretPhraseVM.shareButtonTitle, for: .normal)
 		continueButton.title = secretPhraseVM.continueButtonTitle
-		// Set image
+
 		shareButton.setImage(secretPhraseVM.shareButtonIcon, for: .normal)
-		// Set stack view axis
+
+		backgroundColor = .Pino.secondaryBackground
+		firstDescriptionBox.backgroundColor = .Pino.background
+		secondDescriptionBox.backgroundColor = .Pino.background
+
+		firstDescriptionLabel.textColor = .Pino.label
+		secondDescriptionLabel.textColor = .Pino.label
+		shareButton.setTitleColor(.Pino.primary, for: .normal)
+		shareButton.imageView?.tintColor = .Pino.primary
+
+		shareButton.titleLabel?.font = .PinoStyle.semiboldBody
+
 		contentStackView.axis = .vertical
 		titleStackView.axis = .vertical
 		seedPhraseStackView.axis = .vertical
-		// Set stack view spacing
+
 		contentStackView.spacing = 8
 		titleStackView.spacing = 12
 		seedPhraseStackView.spacing = 52
-		// Set stack view alignment
+
 		titleStackView.alignment = .leading
 		seedPhraseStackView.alignment = .center
-		// Set corner radius
+
 		firstDescriptionBox.layer.cornerRadius = 8
 		secondDescriptionBox.layer.cornerRadius = 8
 	}

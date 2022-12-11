@@ -138,35 +138,34 @@ extension VerifySecretPhraseView {
 	}
 
 	private func setupStyle() {
-		// Background color
-		backgroundColor = .Pino.secondaryBackground
-		sortedPhraseBoxView.backgroundColor = .Pino.background
-		// Tint & text color
-		errorLabel.textColor = .Pino.errorRed
-		errorIcon.tintColor = .Pino.errorRed
-		// Font
-		errorLabel.font = .PinoStyle.mediumCallout
-		// Text
 		titleLabel.text = secretPhraseVM.title
 		descriptionLabel.text = secretPhraseVM.description
 		errorLabel.text = secretPhraseVM.errorTitle
 		continueButton.title = secretPhraseVM.continueButtonTitle
-		// Image
+
 		errorIcon.image = secretPhraseVM.errorIcon
-		// Stack view axis
+
+		backgroundColor = .Pino.secondaryBackground
+		sortedPhraseBoxView.backgroundColor = .Pino.background
+
+		errorLabel.textColor = .Pino.errorRed
+		errorIcon.tintColor = .Pino.errorRed
+
+		errorLabel.font = .PinoStyle.mediumCallout
+
 		contentStackView.axis = .vertical
 		titleStackView.axis = .vertical
 		collectionsStackView.axis = .vertical
 		errorStackView.axis = .horizontal
-		// Stack view spacing
+
 		contentStackView.spacing = 36
 		titleStackView.spacing = 16
 		collectionsStackView.spacing = 18
 		errorStackView.spacing = 5
-		// Alignment
+
 		errorLabel.textAlignment = .center
 		errorStackView.alignment = .center
-		// Hidden
+
 		errorStackView.isHidden = true
 	}
 

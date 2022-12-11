@@ -616,7 +616,6 @@
 				E3EDCC22292102D90011B9A8 /* ViewController */,
 				E3EDCC212921025C0011B9A8 /* View */,
 				E3EDCC23292102E70011B9A8 /* ViewModel */,
-				E3EDCC40292236610011B9A8 /* Model */,
 			);
 			path = CreateWallet;
 			sourceTree = "<group>";
@@ -906,13 +905,6 @@
 				E3037EB72945F70D00177A96 /* VerifySecretPhraseViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		E3EDCC40292236610011B9A8 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		E3EEA70B293E078900F75C15 /* Wallet */ = {
