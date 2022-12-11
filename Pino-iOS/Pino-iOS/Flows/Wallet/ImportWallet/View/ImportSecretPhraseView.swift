@@ -12,8 +12,8 @@ class ImportSecretPhraseView: UIView {
 
 	private let contentStackView = UIStackView()
 	private let titleStackView = UIStackView()
-	private let pageTitle = PinoLabel(style: .title, text: nil)
-	private let pageDescription = PinoLabel(style: .description, text: nil)
+	private let titleLabel = PinoLabel(style: .title, text: nil)
+	private let descriptionLabel = PinoLabel(style: .description, text: nil)
 	private let seedPhraseStackView = UIStackView()
 	private let seedPhraseBox = UIView()
 	private let seedPhrasePasteButton = UIButton()
@@ -24,7 +24,7 @@ class ImportSecretPhraseView: UIView {
 	// MARK: Public Properties
 
 	public let errorStackView = UIStackView()
-	public let importButton = PinoButton(style: .deactive, title: "Import")
+	public let importButton = PinoButton(style: .deactive)
 	public let seedPhrasetextView = SecretPhraseTextView()
 
 	// MARK: Initializers
@@ -49,8 +49,8 @@ extension ImportSecretPhraseView {
 	private func setupView() {
 		contentStackView.addArrangedSubview(titleStackView)
 		contentStackView.addArrangedSubview(seedPhraseStackView)
-		titleStackView.addArrangedSubview(pageTitle)
-		titleStackView.addArrangedSubview(pageDescription)
+		titleStackView.addArrangedSubview(titleLabel)
+		titleStackView.addArrangedSubview(descriptionLabel)
 		seedPhraseStackView.addArrangedSubview(seedPhraseBox)
 		seedPhraseStackView.addArrangedSubview(seedPhrasetextView.errorStackView)
 		seedPhraseBox.addSubview(seedPhrasetextView)
@@ -81,41 +81,40 @@ extension ImportSecretPhraseView {
 	}
 
 	private func setupStyle() {
+		titleLabel.text = validationPhraseVM.title
+		descriptionLabel.text = validationPhraseVM.description
+		errorLabel.text = validationPhraseVM.errorTitle
+		errorIcon.image = validationPhraseVM.errorIcon
+		importButton.title = validationPhraseVM.continueButtonTitle
+		seedPhrasePasteButton.setTitle(validationPhraseVM.pasteButtonTitle, for: .normal)
+
 		backgroundColor = .Pino.secondaryBackground
 
-		pageTitle.text = "Import secret phrase"
-		pageDescription.text = "Typically 12 words separated by single spaces"
-
-		errorLabel.text = "Invalid secret phrase"
 		errorLabel.textColor = .Pino.errorRed
+		errorIcon.tintColor = .Pino.errorRed
+		seedPhrasePasteButton.setTitleColor(.Pino.primary, for: .normal)
 
 		errorLabel.font = .PinoStyle.mediumCallout
-		errorLabel.textAlignment = .center
-
-		errorIcon.image = UIImage(systemName: "exclamationmark.circle.fill")
-		errorIcon.tintColor = .Pino.errorRed
+		seedPhrasePasteButton.titleLabel?.font = .PinoStyle.semiboldCallout
 
 		contentStackView.axis = .horizontal
-		seedPhrasetextView.errorStackView.spacing = 5
-		seedPhraseStackView.alignment = .leading
-		seedPhrasetextView.errorStackView.isHidden = true
-
 		seedPhraseStackView.axis = .vertical
-		seedPhraseStackView.spacing = 8
+		contentStackView.axis = .vertical
+		titleStackView.axis = .vertical
 
-		seedPhrasePasteButton.setTitle("Paste", for: .normal)
-		seedPhrasePasteButton.setTitleColor(.Pino.primary, for: .normal)
-		seedPhrasePasteButton.titleLabel?.font = .PinoStyle.semiboldCallout
+		seedPhrasetextView.errorStackView.spacing = 5
+		seedPhraseStackView.spacing = 8
+		contentStackView.spacing = 33
+		titleStackView.spacing = 18
+
+		seedPhraseStackView.alignment = .leading
+		errorLabel.textAlignment = .center
 
 		seedPhraseBox.layer.cornerRadius = 8
 		seedPhraseBox.layer.borderColor = UIColor.Pino.gray5.cgColor
 		seedPhraseBox.layer.borderWidth = 1
 
-		contentStackView.axis = .vertical
-		contentStackView.spacing = 33
-
-		titleStackView.axis = .vertical
-		titleStackView.spacing = 18
+		seedPhrasetextView.errorStackView.isHidden = true
 	}
 
 	private func setupContstraint() {

@@ -26,7 +26,7 @@ class IntroViewController: UIViewController {
 
 	private func stupView() {
 		let introView = IntroView(
-			introVM,
+			introVM: introVM,
 			createWallet: {
 				self.goToCreateWalletPage()
 			},

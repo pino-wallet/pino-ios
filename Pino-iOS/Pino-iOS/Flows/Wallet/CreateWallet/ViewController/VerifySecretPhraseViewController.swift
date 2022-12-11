@@ -38,7 +38,7 @@ extension VerifySecretPhraseViewController {
 	// MARK: Private UI Methods
 
 	private func stupView() {
-		let verifySecretPhraseView = VerifySecretPhraseView(secretPhraseVM) { sortedPhrase in
+		let verifySecretPhraseView = VerifySecretPhraseView(secretPhraseVM: secretPhraseVM) { sortedPhrase in
 			self.createWallet(sortedPhrase)
 		}
 		view = verifySecretPhraseView

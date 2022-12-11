@@ -20,13 +20,13 @@ class AllDoneView: UIView {
 	private let agreementCheckBox = PinoCheckBox()
 	private let getStartedStackView = UIStackView()
 	private let agreementLabel = UITextView()
-	private let getStartedButton = PinoButton(style: .deactive, title: "Get Started")
+	private let getStartedButton = PinoButton(style: .deactive)
 	private var getStarted: () -> Void
 	private var allDoneVM: AllDoneViewModel
 
 	// MARK: Initializers
 
-	init(_ allDoneVM: AllDoneViewModel, getStarted: @escaping (() -> Void)) {
+	init(allDoneVM: AllDoneViewModel, getStarted: @escaping (() -> Void)) {
 		self.getStarted = getStarted
 		self.allDoneVM = allDoneVM
 		super.init(frame: .zero)
@@ -69,6 +69,7 @@ extension AllDoneView {
 
 		allDoneTitle.text = allDoneVM.title
 		allDoneDescription.text = allDoneVM.description
+		getStartedButton.title = allDoneVM.continueButtonTitle
 
 		backgroundColor = .Pino.secondaryBackground
 

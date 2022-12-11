@@ -31,7 +31,7 @@ class ShowSecretPhraseView: UIView {
 	// MARK: Initializers
 
 	init(
-		_ secretPhraseVM: ShowSecretPhraseViewModel,
+		secretPhraseVM: ShowSecretPhraseViewModel,
 		shareSecretPhare: @escaping (() -> Void),
 		savedSecretPhrase: @escaping (() -> Void)
 	) {

@@ -25,13 +25,13 @@ class VerifySecretPhraseView: UIView {
 	private let errorLabel = UILabel()
 	private let errorIcon = UIImageView()
 	private let randomPhraseCollectionView = SecretPhraseCollectionView()
-	private let continueButton = PinoButton(style: .deactive, title: "Continue")
+	private let continueButton = PinoButton(style: .deactive)
 	private var createWallet: ([String]) -> Void
 	private var secretPhraseVM: VerifySecretPhraseViewModel
 
 	// MARK: Initializers
 
-	init(_ secretPhraseVM: VerifySecretPhraseViewModel, createWallet: @escaping (([String]) -> Void)) {
+	init(secretPhraseVM: VerifySecretPhraseViewModel, createWallet: @escaping (([String]) -> Void)) {
 		self.createWallet = createWallet
 		self.secretPhraseVM = secretPhraseVM
 		super.init(frame: .zero)

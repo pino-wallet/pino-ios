@@ -5,10 +5,18 @@
 //  Created by MohammadHossein on 11/29/22.
 //
 
-import Foundation
+import UIKit
 
 struct ValidateSecretPhraseViewModel {
 	// MARK: Public Properties
+
+	public let title = "Import secret phrase"
+	public let description = "Typically 12 words separated by single spaces"
+	public let textViewPlaceHolder = "Secret phrase"
+	public let pasteButtonTitle = "Paste"
+	public let errorTitle = "Invalid Secret Phrase"
+	public let errorIcon = UIImage(systemName: "exclamationmark.circle.fill")
+	public let continueButtonTitle = "Import"
 
 	public var maxSeedPhraseCount = HDWallet.validSeedPhraseCounts[0]
 

@@ -10,8 +10,8 @@ import UIKit
 class ImportSecretPhraseViewController: UIViewController {
 	// MARK: PublicProperties
 
-	public var importsecretPhraseView: ImportSecretPhraseView?
-	public var validationSecretPhraseViewVM: ValidateSecretPhraseViewModel!
+	public var importsecretPhraseView: ImportSecretPhraseView!
+	public var validationSecretPhraseVM: ValidateSecretPhraseViewModel!
 
 	// MARK: View Overrides
 
@@ -27,24 +27,26 @@ class ImportSecretPhraseViewController: UIViewController {
 	// MARK: Private Methods
 
 	private func stupView() {
-		validationSecretPhraseViewVM = ValidateSecretPhraseViewModel()
-		importsecretPhraseView = ImportSecretPhraseView(validationPharaseVM: validationSecretPhraseViewVM)
+		validationSecretPhraseVM = ValidateSecretPhraseViewModel()
+		importsecretPhraseView = ImportSecretPhraseView(validationPharaseVM: validationSecretPhraseVM)
 		addButtonsAction()
 		view = importsecretPhraseView
 	}
 
 	private func addButtonsAction() {
-		importsecretPhraseView?.importButton.addAction(UIAction(handler: { _ in
-			self.validationSecretPhraseViewVM
-				.validate(secretPhrase: self.importsecretPhraseView?.seedPhrasetextView.seedPhraseArray ?? [""]) {
+		importsecretPhraseView.importButton.addAction(UIAction(handler: { _ in
+			self.validationSecretPhraseVM.validate(
+				secretPhrase: self.importsecretPhraseView.seedPhrasetextView.seedPhraseArray,
+				onSuccess: {
 					self.importWallet()
-				} onFailure: { validationError in
+				},
+				onFailure: { validationError in
 					switch validationError {
 					case .invalidSecretPhrase:
 						self.importsecretPhraseView?.showError()
 					}
 				}
-
+			)
 		}), for: .touchUpInside)
 	}
 

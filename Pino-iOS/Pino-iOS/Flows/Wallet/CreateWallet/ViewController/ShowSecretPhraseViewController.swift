@@ -27,11 +27,15 @@ class ShowSecretPhraseViewController: UIViewController {
 	// MARK: Private Methods
 
 	private func stupView() {
-		let secretPhraseView = ShowSecretPhraseView(secretPhraseVM, shareSecretPhare: {
-			self.shareSecretPhrase()
-		}, savedSecretPhrase: {
-			self.goToVerifyPage()
-		})
+		let secretPhraseView = ShowSecretPhraseView(
+			secretPhraseVM: secretPhraseVM,
+			shareSecretPhare: {
+				self.shareSecretPhrase()
+			},
+			savedSecretPhrase: {
+				self.goToVerifyPage()
+			}
+		)
 		view = secretPhraseView
 	}
 

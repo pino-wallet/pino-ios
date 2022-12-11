@@ -17,7 +17,7 @@ class SecretPhraseTextView: UITextView {
 	// MARK: Public Properties
 
 	public let errorStackView = UIStackView()
-	public var seedPhraseArray = [String]()
+	public var seedPhraseArray: [String] = []
 	public var seedPhraseCountVerified: ((Bool) -> Void)?
 	public var seedPhraseMaxCount: Int!
 

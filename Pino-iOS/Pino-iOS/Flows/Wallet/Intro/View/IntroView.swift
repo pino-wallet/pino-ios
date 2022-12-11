@@ -21,7 +21,7 @@ class IntroView: UIView {
 
 	// MARK: Initializers
 
-	init(_ introVM: IntroViewModel, createWallet: @escaping (() -> Void), importWallet: @escaping (() -> Void)) {
+	init(introVM: IntroViewModel, createWallet: @escaping (() -> Void), importWallet: @escaping (() -> Void)) {
 		self.createWallet = createWallet
 		self.importWallet = importWallet
 		self.introVM = introVM
