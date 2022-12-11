@@ -16,13 +16,17 @@ final class CreateWalletUITests: XCTestCase {
 	private let secretPhraseCells = XCUIApplication().collectionViews.element(boundBy: 0).cells
 	private let sortedSecretPhraseCells = XCUIApplication().collectionViews.element(boundBy: 1).cells
 	private var testSecretPhrase: [String] = []
-	private let errorLabel = XCUIApplication().staticTexts["Invalid order! Try again"]
+	private var errorLabel: XCUIElement!
+	private let introVM = IntroViewModel()
+	private let showSecretPhraseVM = ShowSecretPhraseViewModel()
+	private let verifySecretPhraseVM = VerifySecretPhraseViewModel([])
 
 	// MARK: Internal Functions
 
 	override internal func setUpWithError() throws {
 		continueAfterFailure = false
 		app.launchArguments.append(LaunchArguments.isRunningUITests.rawValue)
+		errorLabel = app.staticTexts[verifySecretPhraseVM.errorTitle]
 	}
 
 	override internal func tearDownWithError() throws {}
@@ -64,7 +68,7 @@ final class CreateWalletUITests: XCTestCase {
 	// MARK: Private Functions
 
 	private func showSecretPhraseWords() {
-		let tapToReveal = app.staticTexts["Tap to reveal"]
+		let tapToReveal = app.staticTexts[showSecretPhraseVM.revealButtonTitle]
 		tapToReveal.tap()
 		XCTAssertTrue(saveButton.isEnabled)
 		// Save Secret phrase words from collection view
@@ -136,15 +140,15 @@ final class CreateWalletUITests: XCTestCase {
 	private func openShowSecretPhrasePage() {
 		// UI tests must launch the application
 		app.launch()
-		let createWalletButton = app.buttons.element(boundBy: 0)
+		let createWalletButton = app.buttons[introVM.createButtonTitle]
 		// Go to show secret phrase Page
 		createWalletButton.tap()
-		saveButton = app.buttons["I Saved"]
+		saveButton = app.buttons[showSecretPhraseVM.continueButtonTitle]
 		XCTAssertFalse(saveButton.isEnabled)
 	}
 
 	private func openVerifySecretPhrasePage() {
 		saveButton.tap()
-		verifyButton = app.buttons["Continue"]
+		verifyButton = app.buttons[verifySecretPhraseVM.continueButtonTitle]
 	}
 }

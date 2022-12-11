@@ -11,7 +11,7 @@ class CreatePasscodeViewController: UIViewController {
 	// MARK: Public Properties
 
 	public var createPassView: ManagePasscodeView?
-	public var createPassVM: SelectPassVM!
+	public var createPassVM: SelectPassViewModel!
 	public var pageSteps: Int!
 
 	// MARK: View Overrides
@@ -41,7 +41,7 @@ class CreatePasscodeViewController: UIViewController {
 	private func configCreatePassVM() {
 		// Custom view should be created
 
-		createPassVM = SelectPassVM(finishPassCreation: { passcode in
+		createPassVM = SelectPassViewModel(finishPassCreation: { passcode in
 			// Passcode was chose -> Show verify passcode page
 			let verifyPassVC = VerifyPasscodeViewController()
 			verifyPassVC.selectedPasscode = passcode

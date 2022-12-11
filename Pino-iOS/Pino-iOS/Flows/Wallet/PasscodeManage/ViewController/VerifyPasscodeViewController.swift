@@ -11,7 +11,7 @@ class VerifyPasscodeViewController: UIViewController {
 	// MARK: Private Properties
 
 	public var verifyPassView: ManagePasscodeView?
-	public var verifyPassVM: VerifyPassVM!
+	public var verifyPassVM: VerifyPassViewModel!
 	public var selectedPasscode = ""
 
 	// MARK: Public Properties
@@ -42,25 +42,30 @@ class VerifyPasscodeViewController: UIViewController {
 	}
 
 	func configVerifyPassVM() {
-		verifyPassVM = VerifyPassVM(finishPassCreation: {
-			// Passcode waa verified -> Show all done page
-			let allDoneVC = AllDoneViewController()
-			self.navigationController?.pushViewController(allDoneVC, animated: true)
-		}, onErrorHandling: { error in
-			// display error
-			switch error {
-			case .dontMatch:
-				self.verifyPassView?.passDotsView.showErrorState()
-				self.verifyPassView?.showErrorWith(text: "Incorrect, try again!")
-			case .saveFailed:
-				fatalError("Print Failed")
-			case .unknown:
-				fatalError("Uknown Error")
-			case .emptyPasscode:
-				fatalError("Passcode sent to verify is empty")
-			}
-		}, hideError: {
-			self.verifyPassView?.hideError()
-		}, selectedPasscode: selectedPasscode)
+		verifyPassVM = VerifyPassViewModel(
+			finishPassCreation: {
+				// Passcode waa verified -> Show all done page
+				let allDoneVC = AllDoneViewController()
+				self.navigationController?.pushViewController(allDoneVC, animated: true)
+			},
+			onErrorHandling: { error in
+				// display error
+				switch error {
+				case .dontMatch:
+					self.verifyPassView?.passDotsView.showErrorState()
+					self.verifyPassView?.showErrorWith(text: self.verifyPassVM.errorTitle)
+				case .saveFailed:
+					fatalError("Print Failed")
+				case .unknown:
+					fatalError("Uknown Error")
+				case .emptyPasscode:
+					fatalError("Passcode sent to verify is empty")
+				}
+			},
+			hideError: {
+				self.verifyPassView?.hideError()
+			},
+			selectedPasscode: selectedPasscode
+		)
 	}
 }

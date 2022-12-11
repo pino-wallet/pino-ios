@@ -7,20 +7,27 @@
 
 import Foundation
 
-struct VerifyPassVM: PasscodeManagerPages {
-	let title = "Retype passcode"
-	let description = "This passcode is for maximizing wallet security. It cannot be used to recover it."
-	var passcode: String? = ""
-	var finishPassCreation: () -> Void
-	var onErrorHandling: (PassVerifyError) -> Void
-	var hideError: () -> Void
-	var selectedPasscode: String
+struct VerifyPassViewModel: PasscodeManagerPages {
+	// MARK: Public Properties
 
-	mutating func passInserted(passChar: String) {
+	public let title = "Retype passcode"
+	public let description = "This passcode is for maximizing wallet security. It cannot be used to recover it."
+	public let errorTitle = "Incorrect, try again!"
+	public var passcode: String? = ""
+	public var finishPassCreation: () -> Void
+	public var onErrorHandling: (PassVerifyError) -> Void
+	public var hideError: () -> Void
+	public var selectedPasscode: String
+
+	// MARK: Public Methods
+
+	public mutating func passInserted(passChar: String) {
 		guard let enteredPass = passcode, enteredPass.count < passDigitsCount else { return }
 		passcode?.append(passChar)
 		verifyPasscode()
 	}
+
+	// MARK: Private Methods
 
 	private func verifyPasscode() {
 		guard let enteredPass = passcode else {

@@ -8,14 +8,18 @@
 import Combine
 import Foundation
 
-struct SelectPassVM: PasscodeManagerPages {
-	let title = "Create passcode"
-	let description = "This passcode is for maximizing wallet security. It cannot be used to recover it."
-	var passcode: String?
-	var finishPassCreation: (String) -> Void
-	var onErrorHandling: (PassSelectionError) -> Void
+struct SelectPassViewModel: PasscodeManagerPages {
+	// MARK: Public Properties
 
-	mutating func passInserted(passChar: String) {
+	public let title = "Create passcode"
+	public let description = "This passcode is for maximizing wallet security. It cannot be used to recover it."
+	public var passcode: String?
+	public var finishPassCreation: (String) -> Void
+	public var onErrorHandling: (PassSelectionError) -> Void
+
+	// MARK: Public Methods
+
+	public mutating func passInserted(passChar: String) {
 		guard let enteredPass = passcode else {
 			onErrorHandling(.emptySelectedPasscode)
 			return
@@ -25,7 +29,7 @@ struct SelectPassVM: PasscodeManagerPages {
 		verifyPass()
 	}
 
-	func verifyPass() {
+	public func verifyPass() {
 		guard let enteredPass = passcode else {
 			onErrorHandling(.emptySelectedPasscode)
 			return
