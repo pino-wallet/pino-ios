@@ -22,10 +22,31 @@ class TabBarViewController: UITabBarController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		setupView()
 		setupTabBarItems()
 	}
 
 	// MARK: - Private Functions
+
+	private func setupView() {
+		tabBar.backgroundColor = .Pino.secondaryBackground
+
+		let appearance = UITabBarAppearance()
+		// Tab title color
+		appearance.stackedLayoutAppearance.selected.titleTextAttributes = [
+			.foregroundColor: UIColor.Pino.primary,
+			.font: UIFont.PinoStyle.SemiboldCaption2!,
+		]
+		appearance.stackedLayoutAppearance.normal.titleTextAttributes = [
+			.foregroundColor: UIColor.Pino.primary,
+			.font: UIFont.PinoStyle.mediumCaption2!,
+		]
+		// Tab icon color
+		appearance.stackedLayoutAppearance.normal.iconColor = .Pino.primary
+		appearance.stackedLayoutAppearance.selected.iconColor = .Pino.primary
+
+		tabBar.standardAppearance = appearance
+	}
 
 	private func setupTabBarItems() {
 		for tabItem in tabBarItems {

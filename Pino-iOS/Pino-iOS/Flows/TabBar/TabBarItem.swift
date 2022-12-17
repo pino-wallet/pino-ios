@@ -16,35 +16,35 @@ struct TabBarItem {
 	static let home = TabBarItem(
 		title: "Home",
 		image: "home_tab",
-		selectedImage: "home_tab",
+		selectedImage: "home_tab_fill",
 		viewController: UIViewController()
 	)
 
 	static let swap = TabBarItem(
 		title: "Swap",
 		image: "swap_tab",
-		selectedImage: "swap_tab",
+		selectedImage: "swap_tab_fill",
 		viewController: UIViewController()
 	)
 
 	static let invest = TabBarItem(
 		title: "Invest",
 		image: "invest_tab",
-		selectedImage: "invest_tab",
+		selectedImage: "invest_tab_fill",
 		viewController: UIViewController()
 	)
 
 	static let borrow = TabBarItem(
 		title: "Borrow",
 		image: "borrow_tab",
-		selectedImage: "borrow_tab",
+		selectedImage: "borrow_tab_fill",
 		viewController: UIViewController()
 	)
 
 	static let activity = TabBarItem(
 		title: "Activity",
 		image: "activity_tab",
-		selectedImage: "activity_tab",
+		selectedImage: "activity_tab_fill",
 		viewController: UIViewController()
 	)
 }
