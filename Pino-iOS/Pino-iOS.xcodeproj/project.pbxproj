@@ -214,6 +214,7 @@
 		E3AB803A294DCEE300D33B46 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AB8039294DCEE300D33B46 /* TabBarViewController.swift */; };
 		E3AB803C294DCF1100D33B46 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AB803B294DCF1100D33B46 /* TabBarItem.swift */; };
 		E3AB8043294DE00200D33B46 /* HomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AB8042294DE00200D33B46 /* HomepageViewController.swift */; };
+		E3AB8045294DE13400D33B46 /* SwapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AB8044294DE13400D33B46 /* SwapViewController.swift */; };
 		E3AFDC7C2928B3B900230935 /* SeedPhrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFDC7B2928B3B900230935 /* SeedPhrase.swift */; };
 		E3B72337291B853200D4F46C /* PinoFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B72336291B853200D4F46C /* PinoFont.swift */; };
 		E3B72339291B85A300D4F46C /* BoldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B72338291B85A300D4F46C /* BoldStyle.swift */; };
@@ -362,6 +363,7 @@
 		E3AB8039294DCEE300D33B46 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		E3AB803B294DCF1100D33B46 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		E3AB8042294DE00200D33B46 /* HomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewController.swift; sourceTree = "<group>"; };
+		E3AB8044294DE13400D33B46 /* SwapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapViewController.swift; sourceTree = "<group>"; };
 		E3AFDC7B2928B3B900230935 /* SeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhrase.swift; sourceTree = "<group>"; };
 		E3B72336291B853200D4F46C /* PinoFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoFont.swift; sourceTree = "<group>"; };
 		E3B72338291B85A300D4F46C /* BoldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldStyle.swift; sourceTree = "<group>"; };
@@ -815,6 +817,7 @@
 		E3AB803E294DDF8B00D33B46 /* Swap */ = {
 			isa = PBXGroup;
 			children = (
+				E3AB8044294DE13400D33B46 /* SwapViewController.swift */,
 			);
 			path = Swap;
 			sourceTree = "<group>";
@@ -1323,6 +1326,7 @@
 				8564A22629357D65001B5507 /* ValidateSecretPhraseViewModel.swift in Sources */,
 				8564A2222935781A001B5507 /* StringProtocol+Extension.swift in Sources */,
 				408AE772292EBBCB00AD6401 /* PasscodeManagerPages.swift in Sources */,
+				E3AB8045294DE13400D33B46 /* SwapViewController.swift in Sources */,
 				E3115979292A2BFC00804CE1 /* IntroModel.swift in Sources */,
 				E3037EB82945F70D00177A96 /* VerifySecretPhraseViewModel.swift in Sources */,
 				DF05F69B291644B7005A3338 /* AppDelegate.swift in Sources */,

@@ -24,7 +24,7 @@ struct TabBarItem {
 		title: "Swap",
 		image: "swap_tab",
 		selectedImage: "swap_tab_fill",
-		viewController: UIViewController()
+		viewController: SwapViewController()
 	)
 
 	static let invest = TabBarItem(
