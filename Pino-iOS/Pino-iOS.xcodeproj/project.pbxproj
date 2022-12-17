@@ -627,7 +627,7 @@
 			children = (
 				E3037EB52945F16100177A96 /* Wallet */,
 				E3AB8038294DCEC300D33B46 /* TabBar */,
-				E3AB803D294DDF7D00D33B46 /* Homepage */,
+				E3AB803D294DDF7D00D33B46 /* Home */,
 				E3AB803E294DDF8B00D33B46 /* Swap */,
 				E3AB803F294DDF9400D33B46 /* Invest */,
 				E3AB8041294DDFAE00D33B46 /* Borrow */,
@@ -812,12 +812,12 @@
 			path = TabBar;
 			sourceTree = "<group>";
 		};
-		E3AB803D294DDF7D00D33B46 /* Homepage */ = {
+		E3AB803D294DDF7D00D33B46 /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				E3AB8042294DE00200D33B46 /* HomepageViewController.swift */,
 			);
-			path = Homepage;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		E3AB803E294DDF8B00D33B46 /* Swap */ = {

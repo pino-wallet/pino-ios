@@ -4,6 +4,7 @@
 //
 //  Created by Mohi Raoufi on 12/17/22.
 //
+// swiftlint: disable trailing_comma
 
 import UIKit
 
