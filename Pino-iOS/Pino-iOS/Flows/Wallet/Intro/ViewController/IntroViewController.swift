@@ -19,12 +19,12 @@ class IntroViewController: UIViewController {
 	}
 
 	override func loadView() {
-		stupView()
+		setupView()
 	}
 
 	// MARK: Private Methods
 
-	private func stupView() {
+	private func setupView() {
 		let introView = IntroView(
 			introVM: introVM,
 			createWallet: {

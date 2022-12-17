@@ -21,7 +21,7 @@ class CreatePasscodeViewController: UIViewController {
 	}
 
 	override func loadView() {
-		stupView()
+		setupView()
 		setSteperView(stepsCount: pageSteps, curreuntStep: pageSteps)
 	}
 
@@ -54,7 +54,7 @@ class CreatePasscodeViewController: UIViewController {
 		})
 	}
 
-	private func stupView() {
+	private func setupView() {
 		configCreatePassVM()
 		createPassView = ManagePasscodeView(managePassVM: createPassVM)
 		view = createPassView
