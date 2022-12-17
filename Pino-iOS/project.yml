@@ -1,0 +1,36 @@
+name: Pino-iOS
+options:
+  bundleIdPrefix: com.aurora.pino
+packages:
+  Firebase:
+    url: https://github.com/firebase/firebase-ios-sdk
+    majorVersion: 9.0.0
+settings:
+  IPHONEOS_DEPLOYMENT_TARGET: "15.0"
+  MARKETING_VERSION: "1.0.0"
+  CURRENT_PROJECT_VERSION: "1"
+targets:
+  Pino-iOS:
+    type: application
+    platform: iOS
+    sources:
+      - Pino-iOS
+    settings:
+      base:
+        INFOPLIST_FILE: Pino-iOS/App/Info.plist
+      configs:
+        Debug:
+          DEBUG_MODE: YES
+        Release:
+          DEBUG_MODE: NO
+  Pino-iOSTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - Pino-iOSTests
+  Pino-iOSUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - Pino-iOSUITests
+    
