@@ -216,6 +216,8 @@
 		E3AB8043294DE00200D33B46 /* HomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AB8042294DE00200D33B46 /* HomepageViewController.swift */; };
 		E3AB8045294DE13400D33B46 /* SwapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AB8044294DE13400D33B46 /* SwapViewController.swift */; };
 		E3AB8047294DE25400D33B46 /* InvestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AB8046294DE25400D33B46 /* InvestViewController.swift */; };
+		E3AB8049294DE2EA00D33B46 /* BorrowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AB8048294DE2EA00D33B46 /* BorrowViewController.swift */; };
+		E3AB804B294DE35200D33B46 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AB804A294DE35200D33B46 /* ActivityViewController.swift */; };
 		E3AFDC7C2928B3B900230935 /* SeedPhrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFDC7B2928B3B900230935 /* SeedPhrase.swift */; };
 		E3B72337291B853200D4F46C /* PinoFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B72336291B853200D4F46C /* PinoFont.swift */; };
 		E3B72339291B85A300D4F46C /* BoldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B72338291B85A300D4F46C /* BoldStyle.swift */; };
@@ -366,6 +368,8 @@
 		E3AB8042294DE00200D33B46 /* HomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewController.swift; sourceTree = "<group>"; };
 		E3AB8044294DE13400D33B46 /* SwapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapViewController.swift; sourceTree = "<group>"; };
 		E3AB8046294DE25400D33B46 /* InvestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestViewController.swift; sourceTree = "<group>"; };
+		E3AB8048294DE2EA00D33B46 /* BorrowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowViewController.swift; sourceTree = "<group>"; };
+		E3AB804A294DE35200D33B46 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		E3AFDC7B2928B3B900230935 /* SeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhrase.swift; sourceTree = "<group>"; };
 		E3B72336291B853200D4F46C /* PinoFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoFont.swift; sourceTree = "<group>"; };
 		E3B72338291B85A300D4F46C /* BoldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldStyle.swift; sourceTree = "<group>"; };
@@ -835,6 +839,7 @@
 		E3AB8040294DDFA500D33B46 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
+				E3AB804A294DE35200D33B46 /* ActivityViewController.swift */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -842,6 +847,7 @@
 		E3AB8041294DDFAE00D33B46 /* Borrow */ = {
 			isa = PBXGroup;
 			children = (
+				E3AB8048294DE2EA00D33B46 /* BorrowViewController.swift */,
 			);
 			path = Borrow;
 			sourceTree = "<group>";
@@ -1348,6 +1354,7 @@
 				40DAB85B2931055C0069AFEA /* PassManagmentError.swift in Sources */,
 				E3AFDC7C2928B3B900230935 /* SeedPhrase.swift in Sources */,
 				E3037EC02945F9AB00177A96 /* ImportSecretPhraseViewController.swift in Sources */,
+				E3AB8049294DE2EA00D33B46 /* BorrowViewController.swift in Sources */,
 				E3AB803C294DCF1100D33B46 /* TabBarItem.swift in Sources */,
 				E3B7233D291B85C500D4F46C /* MediumStyle.swift in Sources */,
 				400DD20E292BC0D900B248CA /* PasscodeManagerService.swift in Sources */,
@@ -1361,6 +1368,7 @@
 				E31159702929223500804CE1 /* AllDoneView.swift in Sources */,
 				E3EDCC29292105470011B9A8 /* ShowSecretPhraseView.swift in Sources */,
 				E3037EB42945EAB500177A96 /* AllDoneViewModel.swift in Sources */,
+				E3AB804B294DE35200D33B46 /* ActivityViewController.swift in Sources */,
 				40BFF57D29313829005215A3 /* Array+Extension.swift in Sources */,
 				E33E31952924CDFB0028ECDB /* BlurEffectView.swift in Sources */,
 				CE5757B5291C7DBA001B4EFE /* AutolayoutHelper.swift in Sources */,

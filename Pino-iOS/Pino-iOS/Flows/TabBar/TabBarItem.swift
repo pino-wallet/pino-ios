@@ -44,13 +44,13 @@ extension TabBarItem {
 		title: "Borrow",
 		image: "borrow_tab",
 		selectedImage: "borrow_tab_fill",
-		viewController: UIViewController()
+		viewController: BorrowViewController()
 	)
 
 	public static let activity = TabBarItem(
 		title: "Activity",
 		image: "activity_tab",
 		selectedImage: "activity_tab_fill",
-		viewController: UIViewController()
+		viewController: ActivityViewController()
 	)
 }
