@@ -5,8 +5,6 @@
 //  Created by MohammadHossein on 11/29/22.
 //
 
-import UIKit
-
 struct ValidateSecretPhraseViewModel {
 	// MARK: Public Properties
 
@@ -15,7 +13,7 @@ struct ValidateSecretPhraseViewModel {
 	public let textViewPlaceHolder = "Secret phrase"
 	public let pasteButtonTitle = "Paste"
 	public let errorTitle = "Invalid Secret Phrase"
-	public let errorIcon = UIImage(systemName: "exclamationmark.circle.fill")
+	public let errorIcon = "exclamationmark.circle.fill"
 	public let continueButtonTitle = "Import"
 
 	public var maxSeedPhraseCount = HDWallet.validSeedPhraseCounts[0]

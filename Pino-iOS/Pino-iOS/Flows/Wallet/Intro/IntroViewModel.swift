@@ -6,8 +6,6 @@
 //
 // swiftlint: disable trailing_comma
 
-import UIKit
-
 struct IntroViewModel {
 	// MARK: Public Properties
 
@@ -26,17 +24,17 @@ struct IntroViewModel {
 	private mutating func setupIntroContentList() {
 		contentList = [
 			IntroModel(
-				image: UIImage(),
+				image: "",
 				title: "DeFi Hub",
 				description: "Invest, borrow, and swap from top DeFi protocols smoothly."
 			),
 			IntroModel(
-				image: UIImage(),
+				image: "",
 				title: "DeFi Hub",
 				description: "Invest, borrow, and swap from top DeFi protocols smoothly."
 			),
 			IntroModel(
-				image: UIImage(),
+				image: "",
 				title: "DeFi Hub",
 				description: "Invest, borrow, and swap from top DeFi protocols smoothly."
 			),

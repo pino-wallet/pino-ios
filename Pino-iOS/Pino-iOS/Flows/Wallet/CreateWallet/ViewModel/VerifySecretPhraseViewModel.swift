@@ -5,15 +5,13 @@
 //  Created by Mohi Raoufi on 12/11/22.
 //
 
-import UIKit
-
 struct VerifySecretPhraseViewModel {
 	// MARK: Public Properties
 
 	public let title = "Verify secret phrase"
 	public let description = "Please select each word in the correct order to verify you have saved your Secret Phrase."
 	public let errorTitle = "Invalid Secret Phrase"
-	public let errorIcon = UIImage(systemName: "exclamationmark.circle.fill")
+	public let errorIcon = "exclamationmark.circle.fill"
 	public let continueButtonTitle = "Continue"
 	public let userSecretPhraseList: [String]
 	public let randomSecretPhraseList: [String]

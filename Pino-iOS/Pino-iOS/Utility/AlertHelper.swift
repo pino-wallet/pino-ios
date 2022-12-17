@@ -4,7 +4,6 @@
 //
 //  Created by Mohi Raoufi on 11/27/22.
 //
-// swiftlint: disable identifier_name
 
 import Foundation
 import UIKit

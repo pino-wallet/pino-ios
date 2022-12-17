@@ -65,7 +65,7 @@ extension AllDoneView {
 	}
 
 	private func setupStyle() {
-		allDoneImage.image = allDoneVM.image
+		allDoneImage.image = UIImage(named: allDoneVM.image)
 
 		allDoneTitle.text = allDoneVM.title
 		allDoneDescription.text = allDoneVM.description

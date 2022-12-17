@@ -84,7 +84,7 @@ extension ImportSecretPhraseView {
 		titleLabel.text = validationPhraseVM.title
 		descriptionLabel.text = validationPhraseVM.description
 		errorLabel.text = validationPhraseVM.errorTitle
-		errorIcon.image = validationPhraseVM.errorIcon
+		errorIcon.image = UIImage(systemName: validationPhraseVM.errorIcon)
 		importButton.title = validationPhraseVM.continueButtonTitle
 		seedPhrasePasteButton.setTitle(validationPhraseVM.pasteButtonTitle, for: .normal)
 

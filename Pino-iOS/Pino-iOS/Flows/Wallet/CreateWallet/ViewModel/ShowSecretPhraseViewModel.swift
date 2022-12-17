@@ -5,8 +5,6 @@
 //  Created by Mohi Raoufi on 11/14/22.
 //
 
-import UIKit
-
 struct ShowSecretPhraseViewModel {
 	// MARK: Public Properties
 
@@ -15,7 +13,7 @@ struct ShowSecretPhraseViewModel {
 	public let secondDescription = "It allows you to recover your wallet if you lose your device or password"
 	public let revealButtonTitle = "Tap to reveal"
 	public let shareButtonTitle = "Copy"
-	public let shareButtonIcon = UIImage(systemName: "square.on.square")
+	public let shareButtonIcon = "square.on.square"
 	public let continueButtonTitle = "I saved"
 	public let screenshotAlertTitle = "Warning"
 	public let screenshotAlertMessage = "It isn't safe to take a screenshot of a secret phrase!"

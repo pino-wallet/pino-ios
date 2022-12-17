@@ -143,7 +143,7 @@ extension VerifySecretPhraseView {
 		errorLabel.text = secretPhraseVM.errorTitle
 		continueButton.title = secretPhraseVM.continueButtonTitle
 
-		errorIcon.image = secretPhraseVM.errorIcon
+		errorIcon.image = UIImage(systemName: secretPhraseVM.errorIcon)
 
 		backgroundColor = .Pino.secondaryBackground
 		sortedPhraseBoxView.backgroundColor = .Pino.background

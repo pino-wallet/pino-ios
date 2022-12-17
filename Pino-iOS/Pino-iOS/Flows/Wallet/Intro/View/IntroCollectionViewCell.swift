@@ -49,7 +49,7 @@ extension IntroCollectionViewCell {
 		titleStackView.spacing = 20
 		titleStackView.alignment = .center
 
-		introImage.image = introModel.image
+		introImage.image = UIImage(named: introModel.image)
 		introImage.backgroundColor = .Pino.background
 
 		introTitle.text = introModel.title

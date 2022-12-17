@@ -5,12 +5,10 @@
 //  Created by Mohi Raoufi on 11/20/22.
 //
 
-import UIKit
-
 public struct IntroModel {
 	// MARK: Public Properties
 
-	public let image: UIImage
+	public let image: String
 	public let title: String
 	public let description: String
 }
