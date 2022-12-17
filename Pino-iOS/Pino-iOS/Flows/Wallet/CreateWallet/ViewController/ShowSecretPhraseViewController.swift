@@ -53,7 +53,7 @@ class ShowSecretPhraseViewController: UIViewController {
 		let screenshotAlertController = AlertHelper.alertController(
 			title: secretPhraseVM.screenshotAlertTitle,
 			message: secretPhraseVM.screenshotAlertMessage,
-			actions: [.gotIt]
+			actions: [.gotIt()]
 		)
 		present(screenshotAlertController, animated: true)
 	}

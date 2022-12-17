@@ -4,6 +4,7 @@
 //
 //  Created by Mohi Raoufi on 11/27/22.
 //
+// swiftlint: disable identifier_name
 
 import Foundation
 import UIKit
@@ -11,6 +12,7 @@ import UIKit
 class AlertHelper {
 	static func alertController(title: String?, message: String?, actions: [UIAlertAction]) -> UIAlertController {
 		assert((title ?? message) != nil, "Title OR message must be passed in")
+		assert(!actions.isEmpty, "Alert actions must not be empty")
 
 		let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 		for action in actions {
@@ -21,35 +23,35 @@ class AlertHelper {
 }
 
 extension UIAlertAction {
-	static var gotIt: UIAlertAction {
-		UIAlertAction(title: "Got it", style: .default, handler: nil)
+	static func gotIt(handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction {
+		UIAlertAction(title: "Got it", style: .default, handler: handler)
 	}
 
-	static var ok: UIAlertAction {
-		UIAlertAction(title: "OK", style: .default, handler: nil)
+	static func ok(handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction {
+		UIAlertAction(title: "OK", style: .default, handler: handler)
 	}
 
-	static var cancel: UIAlertAction {
-		UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+	static func cancel(handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction {
+		UIAlertAction(title: "Cancel", style: .cancel, handler: handler)
 	}
 
-	static var delete: UIAlertAction {
-		UIAlertAction(title: "Delete", style: .destructive, handler: nil)
+	static func delete(handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction {
+		UIAlertAction(title: "Delete", style: .destructive, handler: handler)
 	}
 
-	static var allow: UIAlertAction {
-		UIAlertAction(title: "Allow", style: .default, handler: nil)
+	static func allow(handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction {
+		UIAlertAction(title: "Allow", style: .default, handler: handler)
 	}
 
-	static var dontAllow: UIAlertAction {
-		UIAlertAction(title: "Don't Allow", style: .cancel, handler: nil)
+	static func dontAllow(handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction {
+		UIAlertAction(title: "Don't Allow", style: .cancel, handler: handler)
 	}
 
-	static var yes: UIAlertAction {
-		UIAlertAction(title: "Yes", style: .default, handler: nil)
+	static func yes(handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction {
+		UIAlertAction(title: "Yes", style: .default, handler: handler)
 	}
 
-	static var no: UIAlertAction {
-		UIAlertAction(title: "No", style: .default, handler: nil)
+	static func no(handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction {
+		UIAlertAction(title: "No", style: .default, handler: handler)
 	}
 }
