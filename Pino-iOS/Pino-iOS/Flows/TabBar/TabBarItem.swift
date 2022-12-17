@@ -8,40 +8,46 @@
 import UIKit
 
 struct TabBarItem {
+	// MARK: - Private Properties
+
 	public let title: String
 	public let image: String
 	public let selectedImage: String
 	public let viewController: UIViewController
+}
 
-	static let home = TabBarItem(
+extension TabBarItem {
+	// MARK: - Custom Tab Items
+
+	public static let home = TabBarItem(
 		title: "Home",
 		image: "home_tab",
 		selectedImage: "home_tab_fill",
 		viewController: HomepageViewController()
 	)
 
-	static let swap = TabBarItem(
+	public static let swap = TabBarItem(
 		title: "Swap",
 		image: "swap_tab",
 		selectedImage: "swap_tab_fill",
 		viewController: SwapViewController()
 	)
 
-	static let invest = TabBarItem(
+	public static let invest = TabBarItem(
 		title: "Invest",
 		image: "invest_tab",
 		selectedImage: "invest_tab_fill",
-		viewController: UIViewController()
+		viewController: InvestViewController()
 	)
 
-	static let borrow = TabBarItem(
+	public static let borrow = TabBarItem(
 		title: "Borrow",
 		image: "borrow_tab",
 		selectedImage: "borrow_tab_fill",
 		viewController: UIViewController()
 	)
 
-	static let activity = TabBarItem(
+	public static let activity = TabBarItem(
 		title: "Activity",
 		image: "activity_tab",
 		selectedImage: "activity_tab_fill",

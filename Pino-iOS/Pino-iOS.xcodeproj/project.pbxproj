@@ -215,6 +215,7 @@
 		E3AB803C294DCF1100D33B46 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AB803B294DCF1100D33B46 /* TabBarItem.swift */; };
 		E3AB8043294DE00200D33B46 /* HomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AB8042294DE00200D33B46 /* HomepageViewController.swift */; };
 		E3AB8045294DE13400D33B46 /* SwapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AB8044294DE13400D33B46 /* SwapViewController.swift */; };
+		E3AB8047294DE25400D33B46 /* InvestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AB8046294DE25400D33B46 /* InvestViewController.swift */; };
 		E3AFDC7C2928B3B900230935 /* SeedPhrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFDC7B2928B3B900230935 /* SeedPhrase.swift */; };
 		E3B72337291B853200D4F46C /* PinoFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B72336291B853200D4F46C /* PinoFont.swift */; };
 		E3B72339291B85A300D4F46C /* BoldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B72338291B85A300D4F46C /* BoldStyle.swift */; };
@@ -364,6 +365,7 @@
 		E3AB803B294DCF1100D33B46 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		E3AB8042294DE00200D33B46 /* HomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewController.swift; sourceTree = "<group>"; };
 		E3AB8044294DE13400D33B46 /* SwapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapViewController.swift; sourceTree = "<group>"; };
+		E3AB8046294DE25400D33B46 /* InvestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestViewController.swift; sourceTree = "<group>"; };
 		E3AFDC7B2928B3B900230935 /* SeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhrase.swift; sourceTree = "<group>"; };
 		E3B72336291B853200D4F46C /* PinoFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoFont.swift; sourceTree = "<group>"; };
 		E3B72338291B85A300D4F46C /* BoldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldStyle.swift; sourceTree = "<group>"; };
@@ -825,6 +827,7 @@
 		E3AB803F294DDF9400D33B46 /* Invest */ = {
 			isa = PBXGroup;
 			children = (
+				E3AB8046294DE25400D33B46 /* InvestViewController.swift */,
 			);
 			path = Invest;
 			sourceTree = "<group>";
@@ -1367,6 +1370,7 @@
 				E3037EB12945E27B00177A96 /* IntroViewModel.swift in Sources */,
 				400DD210292BCEF500B248CA /* KeychainWrapperProtocol.swift in Sources */,
 				E3B7233F291B85D700D4F46C /* RegularStyle.swift in Sources */,
+				E3AB8047294DE25400D33B46 /* InvestViewController.swift in Sources */,
 				E3B72347291B8A4700D4F46C /* PinoButtonStyle.swift in Sources */,
 				8564A220293577D6001B5507 /* HDWallet+Extension.swift in Sources */,
 			);
