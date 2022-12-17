@@ -21,7 +21,7 @@ class InvestViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func stupView() {
-		// It have to be replaced with custom view
+		// It must be replaced with custom view
 		view = UIView()
 		view.backgroundColor = .Pino.background
 	}

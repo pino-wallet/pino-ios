@@ -8,7 +8,7 @@
 import UIKit
 
 struct TabBarItem {
-	// MARK: - Private Properties
+	// MARK: - Public Properties
 
 	public let title: String
 	public let image: String
