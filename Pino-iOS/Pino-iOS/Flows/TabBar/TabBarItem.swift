@@ -17,7 +17,7 @@ struct TabBarItem {
 		title: "Home",
 		image: "home_tab",
 		selectedImage: "home_tab_fill",
-		viewController: UIViewController()
+		viewController: HomepageViewController()
 	)
 
 	static let swap = TabBarItem(

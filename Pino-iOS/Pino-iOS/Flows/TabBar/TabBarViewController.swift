@@ -17,7 +17,6 @@ class TabBarViewController: UITabBarController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		delegate = self
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -61,10 +60,4 @@ class TabBarViewController: UITabBarController {
 
 		viewControllers = tabBarItemViewControllers
 	}
-}
-
-extension TabBarViewController: UITabBarControllerDelegate {
-	// MARK: - Delegate Methods
-
-	func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {}
 }
