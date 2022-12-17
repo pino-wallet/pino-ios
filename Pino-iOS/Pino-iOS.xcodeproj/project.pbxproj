@@ -211,6 +211,8 @@
 		E37338252935F0AF002D2D67 /* ViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BFF57E29313842005215A3 /* ViewController+Extension.swift */; };
 		E37338262935F863002D2D67 /* ShowSecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC28292105470011B9A8 /* ShowSecretPhraseView.swift */; };
 		E37338272935F865002D2D67 /* ShowSecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDCC28292105470011B9A8 /* ShowSecretPhraseView.swift */; };
+		E3AB803A294DCEE300D33B46 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AB8039294DCEE300D33B46 /* TabBarViewController.swift */; };
+		E3AB803C294DCF1100D33B46 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AB803B294DCF1100D33B46 /* TabBarItem.swift */; };
 		E3AFDC7C2928B3B900230935 /* SeedPhrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFDC7B2928B3B900230935 /* SeedPhrase.swift */; };
 		E3B72337291B853200D4F46C /* PinoFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B72336291B853200D4F46C /* PinoFont.swift */; };
 		E3B72339291B85A300D4F46C /* BoldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B72338291B85A300D4F46C /* BoldStyle.swift */; };
@@ -356,6 +358,8 @@
 		E3702F52292012C200BA39C9 /* PPPangramSans-ExtralightReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtralightReclined.ttf"; sourceTree = "<group>"; };
 		E3702F53292012C200BA39C9 /* PPPangramSans-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-MediumItalic.ttf"; sourceTree = "<group>"; };
 		E3702F54292012C200BA39C9 /* PPPangramSans-SemiboldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-SemiboldReclined.ttf"; sourceTree = "<group>"; };
+		E3AB8039294DCEE300D33B46 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		E3AB803B294DCF1100D33B46 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		E3AFDC7B2928B3B900230935 /* SeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhrase.swift; sourceTree = "<group>"; };
 		E3B72336291B853200D4F46C /* PinoFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoFont.swift; sourceTree = "<group>"; };
 		E3B72338291B85A300D4F46C /* BoldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldStyle.swift; sourceTree = "<group>"; };
@@ -611,6 +615,7 @@
 		DF2B041F2919577800781052 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				E3AB8038294DCEC300D33B46 /* TabBar */,
 				E3037EB52945F16100177A96 /* Wallet */,
 			);
 			path = Flows;
@@ -781,6 +786,15 @@
 				E369D768292DF35D002AA8DE /* SecretPhraseTextView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E3AB8038294DCEC300D33B46 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				E3AB8039294DCEE300D33B46 /* TabBarViewController.swift */,
+				E3AB803B294DCF1100D33B46 /* TabBarItem.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 		E3AFDC7D2928F04B00230935 /* SecretPhrase */ = {
@@ -1274,6 +1288,7 @@
 				E32529AE2933D6E8009C0401 /* AlertHelper.swift in Sources */,
 				E3037EBB2945F8D500177A96 /* SuggestedSeedPhraseCollectionView.swift in Sources */,
 				DF05F69D291644B7005A3338 /* SceneDelegate.swift in Sources */,
+				E3AB803A294DCEE300D33B46 /* TabBarViewController.swift in Sources */,
 				E369D769292DF35D002AA8DE /* SecretPhraseTextView.swift in Sources */,
 				E3EDCC182920CA1D0011B9A8 /* PinoStepperView.swift in Sources */,
 				E3B7234A291B8D7200D4F46C /* PinoCheckBox.swift in Sources */,
@@ -1282,6 +1297,7 @@
 				40DAB85B2931055C0069AFEA /* PassManagmentError.swift in Sources */,
 				E3AFDC7C2928B3B900230935 /* SeedPhrase.swift in Sources */,
 				E3037EC02945F9AB00177A96 /* ImportSecretPhraseViewController.swift in Sources */,
+				E3AB803C294DCF1100D33B46 /* TabBarItem.swift in Sources */,
 				E3B7233D291B85C500D4F46C /* MediumStyle.swift in Sources */,
 				400DD20E292BC0D900B248CA /* PasscodeManagerService.swift in Sources */,
 				E33E31912923D1A40028ECDB /* VerifySecretPhraseView.swift in Sources */,
