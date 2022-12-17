@@ -15,13 +15,14 @@ final class ImportWalletUITests: XCTestCase {
 	private var testSecretPhrase: [String]!
 	private var seedPhraseMaxCount: Int!
 	private let secretPhraseThirteenthWord = "thirteenth"
+	private let introVM = IntroViewModel()
+	private let validateSecretPhraseVM = ValidateSecretPhraseViewModel()
 
 	// MARK: Internal Functions
 
 	override internal func setUpWithError() throws {
 		continueAfterFailure = false
 		app.launchArguments.append(LaunchArguments.isRunningUITests.rawValue)
-		let validateSecretPhraseVM = ValidateSecretPhraseViewModel()
 		seedPhraseMaxCount = validateSecretPhraseVM.maxSeedPhraseCount
 		testSecretPhrase = Array(SeedPhraseMock.testWords.shuffled().prefix(seedPhraseMaxCount))
 	}
@@ -98,7 +99,7 @@ final class ImportWalletUITests: XCTestCase {
 
 	internal func testPasteSecretPhrase() throws {
 		openImportWalletPage()
-		let pasteButton = app.buttons["Paste"]
+		let pasteButton = app.buttons[validateSecretPhraseVM.pasteButtonTitle]
 
 		// Paste 11 words
 		UIPasteboard.general.string = Array(testSecretPhrase.prefix(seedPhraseMaxCount - 1)).joined(separator: " ")
@@ -123,9 +124,9 @@ final class ImportWalletUITests: XCTestCase {
 		// UI tests must launch the application
 		app.launch()
 		// Go to import secret phrase Page
-		let importWalletButton = app.buttons.element(boundBy: 1)
+		let importWalletButton = app.buttons[introVM.importButtonTitle]
 		importWalletButton.tap()
-		importButton = app.buttons["Import"]
+		importButton = app.buttons[validateSecretPhraseVM.continueButtonTitle]
 		checkImportButtonActivation(false)
 	}
 
