@@ -34,6 +34,11 @@ class HomepageCollectionView: UICollectionView {
 
 	private func configCollectionView() {
 		register(IntroCollectionViewCell.self, forCellWithReuseIdentifier: IntroCollectionViewCell.cellReuseID)
+		register(
+			HomepageHeaderView.self,
+			forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+			withReuseIdentifier: HomepageHeaderView.headerReuseID
+		)
 		dataSource = self
 		delegate = self
 		showsHorizontalScrollIndicator = false
@@ -61,6 +66,28 @@ extension HomepageCollectionView: UICollectionViewDataSource {
 		) as! IntroCollectionViewCell
 		assetCell.introModel = IntroModel(image: "", title: "asset", description: "")
 		return assetCell
+	}
+
+	func collectionView(
+		_ collectionView: UICollectionView,
+		viewForSupplementaryElementOfKind kind: String,
+		at indexPath: IndexPath
+	) -> UICollectionReusableView {
+		let headerView = collectionView.dequeueReusableSupplementaryView(
+			ofKind: kind,
+			withReuseIdentifier: HomepageHeaderView.headerReuseID,
+			for: indexPath
+		) as! HomepageHeaderView
+		headerView.title = "header"
+		return headerView
+	}
+
+	func collectionView(
+		_ collectionView: UICollectionView,
+		layout collectionViewLayout: UICollectionViewLayout,
+		referenceSizeForHeaderInSection section: Int
+	) -> CGSize {
+		CGSize(width: collectionView.frame.width, height: 60)
 	}
 }
 
