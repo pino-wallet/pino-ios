@@ -21,9 +21,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		// `application:configurationForConnectingSceneSession` instead).
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		window = UIWindow(windowScene: windowScene)
-		let navigationController = UINavigationController()
-		navigationController.setViewControllers([IntroViewController()], animated: true)
-		window?.rootViewController = navigationController
+//		let navigationController = UINavigationController()
+//		navigationController.setViewControllers([IntroViewController()], animated: true)
+		window?.rootViewController = TabBarViewController()
 		window?.makeKeyAndVisible()
 
 		// Disable animations in test mode to speed up tests

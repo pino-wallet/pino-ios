@@ -11,15 +11,22 @@ final class CreatePasscodeUITests: XCTestCase {
 	// MARK: Private Properties
 
 	private let app = XCUIApplication()
-	private let errorLabel = XCUIApplication().staticTexts["Incorrect, try again!"]
+	private var errorLabel: XCUIElement!
 	private let testPassCode = ["1", "2", "3", "4", "5", "6"]
 	private let invalidPasscode = ["1", "2", "3", "4", "5", "0"]
+	private let passcodeVM = VerifyPassViewModel(
+		finishPassCreation: {},
+		onErrorHandling: { _ in },
+		hideError: {},
+		selectedPasscode: ""
+	)
 
 	// MARK: Internal Functions
 
 	override internal func setUpWithError() throws {
 		continueAfterFailure = false
 		app.launchArguments.append(LaunchArguments.isRunningUITests.rawValue)
+		errorLabel = app.staticTexts[passcodeVM.errorTitle]
 	}
 
 	override internal func tearDownWithError() throws {}
