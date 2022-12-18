@@ -78,7 +78,7 @@ extension HomepageCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: HomepageHeaderView.headerReuseID,
 			for: indexPath
 		) as! HomepageHeaderView
-		headerView.title = "header"
+		headerView.asset = ""
 		return headerView
 	}
 
@@ -87,7 +87,7 @@ extension HomepageCollectionView: UICollectionViewDataSource {
 		layout collectionViewLayout: UICollectionViewLayout,
 		referenceSizeForHeaderInSection section: Int
 	) -> CGSize {
-		CGSize(width: collectionView.frame.width, height: 60)
+		CGSize(width: collectionView.frame.width, height: 400)
 	}
 }
 
