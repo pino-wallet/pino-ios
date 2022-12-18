@@ -19,14 +19,14 @@ class ShowSecretPhraseViewController: UIViewController {
 	}
 
 	override func loadView() {
-		stupView()
+		setupView()
 		setSteperView(stepsCount: 3, curreuntStep: 1)
 		setupNotifications()
 	}
 
 	// MARK: Private Methods
 
-	private func stupView() {
+	private func setupView() {
 		let secretPhraseView = ShowSecretPhraseView(
 			secretPhraseVM: secretPhraseVM,
 			shareSecretPhare: {

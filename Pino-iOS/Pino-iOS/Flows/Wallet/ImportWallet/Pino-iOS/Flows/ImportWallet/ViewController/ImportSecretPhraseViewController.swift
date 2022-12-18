@@ -20,13 +20,13 @@ class ImportSecretPhraseViewController: UIViewController {
 	}
 
 	override func loadView() {
-		stupView()
+		setupView()
 		setSteperView(stepsCount: 2, curreuntStep: 1)
 	}
 
 	// MARK: Private Methods
 
-	private func stupView() {
+	private func setupView() {
 		validationSecretPhraseVM = ValidateSecretPhraseViewModel()
 		importsecretPhraseView = ImportSecretPhraseView(validationPharaseVM: validationSecretPhraseVM)
 		addButtonsAction()

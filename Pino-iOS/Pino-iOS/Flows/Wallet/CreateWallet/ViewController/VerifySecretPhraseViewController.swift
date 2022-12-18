@@ -19,7 +19,7 @@ class VerifySecretPhraseViewController: UIViewController {
 	}
 
 	override func loadView() {
-		stupView()
+		setupView()
 		setSteperView(stepsCount: 3, curreuntStep: 2)
 	}
 
@@ -37,7 +37,7 @@ class VerifySecretPhraseViewController: UIViewController {
 extension VerifySecretPhraseViewController {
 	// MARK: Private UI Methods
 
-	private func stupView() {
+	private func setupView() {
 		let verifySecretPhraseView = VerifySecretPhraseView(secretPhraseVM: secretPhraseVM) { sortedPhrase in
 			self.createWallet(sortedPhrase)
 		}

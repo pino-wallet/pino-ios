@@ -19,13 +19,13 @@ class AllDoneViewController: UIViewController {
 	}
 
 	override func loadView() {
-		stupView()
+		setupView()
 		removeNavigationBackButton()
 	}
 
 	// MARK: Private Methods
 
-	private func stupView() {
+	private func setupView() {
 		let allDoneView = AllDoneView(allDoneVM: allDoneVM) {
 			self.getStarted()
 		}
