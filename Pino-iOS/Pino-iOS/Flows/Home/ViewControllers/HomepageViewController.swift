@@ -21,8 +21,6 @@ class HomepageViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		// It must be replaced with custom view
-		view = UIView()
-		view.backgroundColor = .Pino.background
+		view = HomepageView()
 	}
 }
