@@ -5,9 +5,10 @@
 //  Created by Mohi Raoufi on 12/18/22.
 //
 
+import Combine
 import UIKit
 
-class HomepageHeaderView: UICollectionReusableView {
+class HomepageHeaderView: UIView {
 	// MARK: - Private Properties
 
 	private var contentStackView = UIStackView()
@@ -21,19 +22,29 @@ class HomepageHeaderView: UICollectionReusableView {
 	private var sendRecieveStackView = UIStackView()
 	private var sendButton = PinoButton(style: .active)
 	private var recieveButton = PinoButton(style: .secondary)
+	private var homeVM: HomepageViewModel!
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 
 	public static let headerReuseID = "homepgaeHeader"
-	public var asset: String! {
-		didSet {
-			setupView()
-			setupStyle()
-			setupConstraint()
-		}
+
+	// MARK: - Initializers
+
+	init(homeVM: HomepageViewModel) {
+		self.homeVM = homeVM
+		super.init(frame: .zero)
+		setupView()
+		setupStyle()
+		setupBindings()
+		setupConstraint()
 	}
 
-	// MARK: Private Methods
+	required init?(coder: NSCoder) {
+		fatalError()
+	}
+
+	// MARK: - Private Methods
 
 	private func setupView() {
 		assetStackView.addArrangedSubview(assetLabel)
@@ -50,15 +61,13 @@ class HomepageHeaderView: UICollectionReusableView {
 	}
 
 	private func setupStyle() {
-		assetLabel.text = "$12,568,000"
-		profitPercentageLabel.text = "+5.6%"
-		profitInDollarLabel.text = "+$58.67"
+		backgroundColor = .Pino.background
 
-		sendButton.title = "Send"
-		recieveButton.title = "Recieve"
+		sendButton.title = homeVM.sendButtonTitle
+		recieveButton.title = homeVM.recieveButtonTitle
 
-		sendButton.setImage(UIImage(systemName: "arrow.up"), for: .normal)
-		recieveButton.setImage(UIImage(systemName: "arrow.down"), for: .normal)
+		sendButton.setImage(UIImage(systemName: homeVM.sendButtonImage), for: .normal)
+		recieveButton.setImage(UIImage(systemName: homeVM.recieveButtonImage), for: .normal)
 
 		sendButton.tintColor = .Pino.white
 		recieveButton.tintColor = .Pino.primary
@@ -108,6 +117,16 @@ class HomepageHeaderView: UICollectionReusableView {
 				recieveButtonConfig.font = UIFont.PinoStyle.semiboldCallout
 				return recieveButtonConfig
 			}
+	}
+
+	func setupBindings() {
+		homeVM.$assetInfo.sink { [weak self] assetInfo in
+			self?.assetLabel.text = assetInfo?.amount
+			self?.profitPercentageLabel.text = assetInfo?.profitPercentage
+			self?.profitInDollarLabel.text = assetInfo?.profitInDollor
+			self?.updateConstraints()
+		}
+		.store(in: &cancellables)
 	}
 
 	private func setupConstraint() {

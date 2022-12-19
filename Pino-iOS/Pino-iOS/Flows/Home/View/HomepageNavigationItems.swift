@@ -10,25 +10,19 @@ import UIKit
 struct HomepageNavigationItems {
 	// MARK: - Private Properties
 
-	private var walletName: String
-	private var walletAddress: String
-	private var manageAssetIcon: String
-	private var profileIcon: String
+	private var walletInfo: WalletModel
 
 	// MARK: - Initializers
 
-	init(walletName: String, walletAddress: String, manageAssetIcon: String, profileIcon: String) {
-		self.walletName = walletName
-		self.walletAddress = walletAddress
-		self.manageAssetIcon = manageAssetIcon
-		self.profileIcon = profileIcon
+	init(walletInfo: WalletModel) {
+		self.walletInfo = walletInfo
 	}
 
 	// MARK: - Public Properties
 
 	public var walletTitle: UIButton {
 		let walletName = NSMutableAttributedString(
-			string: walletName,
+			string: walletInfo.name,
 			attributes: [
 				NSAttributedString.Key.foregroundColor: UIColor.Pino.label,
 				NSAttributedString.Key.font: UIFont.PinoStyle.mediumCallout!,
@@ -36,7 +30,7 @@ struct HomepageNavigationItems {
 		)
 
 		let walletAddress = NSMutableAttributedString(
-			string: "(\(walletAddress.prefix(3))...\(walletAddress.suffix(3)))",
+			string: "(\(walletInfo.address.prefix(3))...\(walletInfo.address.suffix(3)))",
 			attributes: [
 				NSAttributedString.Key.foregroundColor: UIColor.Pino.secondaryLabel,
 				NSAttributedString.Key.font: UIFont.PinoStyle.regularCallout!,
@@ -51,22 +45,9 @@ struct HomepageNavigationItems {
 		return navigationBarTitle
 	}
 
-	public var manageAssetButton: UIBarButtonItem {
-		let manageAssetButton = UIBarButtonItem(
-			image: UIImage(named: manageAssetIcon),
-			style: .plain,
-			target: nil,
-			action: nil
-		)
-
-		manageAssetButton.tintColor = .Pino.primary
-
-		return manageAssetButton
-	}
-
 	public var profileButton: UIBarButtonItem {
 		let profileButton = UIButton()
-		profileButton.setImage(UIImage(named: profileIcon), for: .normal)
+		profileButton.setImage(UIImage(named: walletInfo.profileImage), for: .normal)
 		profileButton.backgroundColor = .Pino.green1
 		profileButton.pin(.fixedWidth(32), .fixedHeight(32))
 		profileButton.layer.cornerRadius = 16
@@ -75,5 +56,18 @@ struct HomepageNavigationItems {
 		navigationBarButton.customView = profileButton
 
 		return navigationBarButton
+	}
+
+	public var manageAssetButton: UIBarButtonItem {
+		let manageAssetButton = UIBarButtonItem(
+			image: UIImage(named: "manage_asset"),
+			style: .plain,
+			target: nil,
+			action: nil
+		)
+
+		manageAssetButton.tintColor = .Pino.primary
+
+		return manageAssetButton
 	}
 }

@@ -5,11 +5,14 @@
 //  Created by Mohi Raoufi on 12/17/22.
 //
 
+import Combine
 import UIKit
 
 class HomepageViewController: UIViewController {
 	// MARK: - Private Properties
 
+	private let homeVM = HomepageViewModel()
+	private var cancellables = Set<AnyCancellable>()
 	private var addressCopiedToastView: PinoToastView!
 
 	// MARK: - View Overrides
@@ -27,20 +30,18 @@ class HomepageViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = HomepageView()
+		// This is temporary until the collection view is implemented
+		view = HomepageHeaderView(homeVM: homeVM)
 	}
 
 	private func setupNavigationBar() {
-		let homepageNavigationItems = HomepageNavigationItems(
-			walletName: "Amir",
-			walletAddress: "gf4bh5n3m2c8l4j5w9i2l6t2de",
-			manageAssetIcon: "manage_asset",
-			profileIcon: "avocado"
-		)
-
-		navigationItem.rightBarButtonItem = homepageNavigationItems.manageAssetButton
-		navigationItem.leftBarButtonItem = homepageNavigationItems.profileButton
-		navigationItem.titleView = homepageNavigationItems.walletTitle
+		homeVM.$walletInfo.sink { [weak self] walletInfo in
+			guard let walletInfo = walletInfo else { return }
+			let homepageNavigationItems = HomepageNavigationItems(walletInfo: walletInfo)
+			self?.navigationItem.titleView = homepageNavigationItems.walletTitle
+			self?.navigationItem.rightBarButtonItem = homepageNavigationItems.manageAssetButton
+			self?.navigationItem.leftBarButtonItem = homepageNavigationItems.profileButton
+		}.store(in: &cancellables)
 
 		(navigationItem.titleView as? UIButton)?.addAction(UIAction(handler: { _ in
 			self.copyWalletAddress()
@@ -48,7 +49,7 @@ class HomepageViewController: UIViewController {
 	}
 
 	private func setupToastView() {
-		addressCopiedToastView = PinoToastView(message: "Copied!")
+		addressCopiedToastView = PinoToastView(message: homeVM.copyToastMessage)
 		view.addSubview(addressCopiedToastView)
 
 		addressCopiedToastView.pin(
@@ -59,7 +60,7 @@ class HomepageViewController: UIViewController {
 
 	private func copyWalletAddress() {
 		let pasteboard = UIPasteboard.general
-		pasteboard.string = "gf4bh5n3m2c8l4j5w9i2l6t2de"
+		pasteboard.string = homeVM.walletInfo.address
 
 		addressCopiedToastView.showToast()
 	}
