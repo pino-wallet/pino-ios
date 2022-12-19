@@ -8,11 +8,11 @@
 import UIKit
 
 class HomepageView: UIView {
-	// MARK: Private Properties
+	// MARK: - Private Properties
 
 	private let assetsCollectionView = HomepageCollectionView()
 
-	// MARK: Initializers
+	// MARK: - Initializers
 
 	init() {
 		super.init(frame: .zero)
@@ -27,7 +27,7 @@ class HomepageView: UIView {
 }
 
 extension HomepageView {
-	// MARK: UI Methods
+	// MARK: - UI Methods
 
 	private func setupView() {
 		addSubview(assetsCollectionView)

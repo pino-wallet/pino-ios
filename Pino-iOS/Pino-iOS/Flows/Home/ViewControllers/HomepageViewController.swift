@@ -10,7 +10,7 @@ import UIKit
 class HomepageViewController: UIViewController {
 	// MARK: - Private Properties
 
-	let copyToastView = UIView()
+	private var addressCopiedToastView: PinoToastView!
 
 	// MARK: - View Overrides
 
@@ -21,108 +21,46 @@ class HomepageViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
+		setupToastView()
 	}
 
 	// MARK: - Private Methods
 
 	private func setupView() {
 		view = HomepageView()
-		setupToastView()
-	}
-
-	private func setupToastView() {
-		let copyLabel = UILabel()
-
-		copyToastView.addSubview(copyLabel)
-		view.addSubview(copyToastView)
-
-		copyLabel.text = "Copied!"
-		copyLabel.textColor = .Pino.white
-		copyLabel.font = .PinoStyle.semiboldFootnote
-
-		copyToastView.backgroundColor = .Pino.primary
-		copyToastView.layer.cornerRadius = 14
-
-		copyToastView.pin(
-			.fixedHeight(28),
-			.top(to: view.layoutMarginsGuide),
-			.centerX
-		)
-		copyLabel.pin(
-			.centerY,
-			.horizontalEdges(padding: 12)
-		)
-
-		copyToastView.alpha = 0
 	}
 
 	private func setupNavigationBar() {
-		setupNavigationtitle()
-		setupManageAssetButton()
-		setupProfileButton()
-	}
-}
-
-extension HomepageViewController {
-	// MARK: - Navigation Bar Private Methods
-
-	private func setupNavigationtitle() {
-		let address = "gf4bh5n3m2c8l4j5w9i2l6t2de"
-		let walletName = NSMutableAttributedString(string: "Amir", attributes: [
-			NSAttributedString.Key.foregroundColor: UIColor.Pino.label,
-			NSAttributedString.Key.font: UIFont.PinoStyle.mediumCallout!])
-
-		let walletAddress = NSMutableAttributedString(
-			string: "(\(address.prefix(3))...\(address.suffix(3)))",
-			attributes: [
-				NSAttributedString.Key.foregroundColor: UIColor.Pino.secondaryLabel,
-				NSAttributedString.Key.font: UIFont.PinoStyle.regularCallout!,
-			]
+		let homepageNavigationItems = HomepageNavigationItems(
+			walletName: "Amir",
+			walletAddress: "gf4bh5n3m2c8l4j5w9i2l6t2de",
+			manageAssetIcon: "manage_asset",
+			profileIcon: "avocado"
 		)
 
-		walletName.append(walletAddress)
+		navigationItem.rightBarButtonItem = homepageNavigationItems.manageAssetButton
+		navigationItem.leftBarButtonItem = homepageNavigationItems.profileButton
+		navigationItem.titleView = homepageNavigationItems.walletTitle
 
-		let navigationBarTitle = UIButton()
-		navigationBarTitle.setAttributedTitle(walletName, for: .normal)
-		navigationBarTitle.addAction(UIAction(handler: { _ in
-			self.copyWalletAddress(address)
+		(navigationItem.titleView as? UIButton)?.addAction(UIAction(handler: { _ in
+			self.copyWalletAddress()
 		}), for: .touchUpInside)
-
-		navigationItem.titleView = navigationBarTitle
 	}
 
-	private func setupManageAssetButton() {
-		let manageAssetButton = UIBarButtonItem(
-			image: UIImage(named: "manage_asset"),
-			style: .plain,
-			target: nil,
-			action: nil
+	private func setupToastView() {
+		addressCopiedToastView = PinoToastView(message: "Copied!")
+		view.addSubview(addressCopiedToastView)
+
+		addressCopiedToastView.pin(
+			.top(to: view.layoutMarginsGuide),
+			.centerX
 		)
-		navigationItem.rightBarButtonItem = manageAssetButton
-		navigationItem.rightBarButtonItem?.tintColor = .Pino.primary
 	}
 
-	private func setupProfileButton() {
-		let profileButton = UIButton()
-		profileButton.setImage(UIImage(named: "avocado"), for: .normal)
-		profileButton.backgroundColor = .Pino.green1
-		profileButton.pin(.fixedWidth(32), .fixedHeight(32))
-		profileButton.layer.cornerRadius = 16
-
-		navigationItem.leftBarButtonItem = UIBarButtonItem()
-		navigationItem.leftBarButtonItem?.customView = profileButton
-	}
-
-	private func copyWalletAddress(_ address: String) {
+	private func copyWalletAddress() {
 		let pasteboard = UIPasteboard.general
-		pasteboard.string = address
+		pasteboard.string = "gf4bh5n3m2c8l4j5w9i2l6t2de"
 
-		UIView.animate(withDuration: 0.5) { [weak self] in
-			self?.copyToastView.alpha = 1
-		}
-
-		UIView.animate(withDuration: 0.5, delay: 2) { [weak self] in
-			self?.copyToastView.alpha = 0
-		}
+		addressCopiedToastView.showToast()
 	}
 }
