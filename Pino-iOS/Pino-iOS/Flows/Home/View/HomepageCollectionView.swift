@@ -33,7 +33,6 @@ class HomepageCollectionView: UICollectionView {
 	// MARK: Private Methods
 
 	private func configCollectionView() {
-		register(IntroCollectionViewCell.self, forCellWithReuseIdentifier: IntroCollectionViewCell.cellReuseID)
 		register(
 			HomepageHeaderView.self,
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -53,18 +52,15 @@ class HomepageCollectionView: UICollectionView {
 
 extension HomepageCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		100
+		0
 	}
 
 	func collectionView(
 		_ collectionView: UICollectionView,
 		cellForItemAt indexPath: IndexPath
 	) -> UICollectionViewCell {
-		let assetCell = collectionView.dequeueReusableCell(
-			withReuseIdentifier: IntroCollectionViewCell.cellReuseID,
-			for: indexPath
-		) as! IntroCollectionViewCell
-		assetCell.introModel = IntroModel(image: "", title: "asset", description: "")
+		let assetCell = UICollectionViewCell()
+		assetCell.backgroundColor = .Pino.secondaryBackground
 		return assetCell
 	}
 

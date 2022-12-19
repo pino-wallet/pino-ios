@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "leafy_greens.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

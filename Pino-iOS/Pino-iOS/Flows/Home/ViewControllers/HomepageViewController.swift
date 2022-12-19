@@ -27,23 +27,13 @@ class HomepageViewController: UIViewController {
 
 	private func setupNavigationBar() {
 		setupNavigationtitle()
-		let manageAssetButton = UIBarButtonItem(
-			image: UIImage(named: "manage_asset"),
-			style: .plain,
-			target: nil,
-			action: nil
-		)
-		navigationItem.rightBarButtonItem = manageAssetButton
-		navigationItem.rightBarButtonItem?.tintColor = .Pino.primary
-
-		let profileButton = UIButton()
-		profileButton.setImage(UIImage(named: "manage_asset"), for: .normal)
-		profileButton.backgroundColor = .Pino.green1
-		profileButton.pin(.fixedWidth(32), .fixedHeight(32))
-		profileButton.layer.cornerRadius = 16
-		navigationItem.leftBarButtonItem = UIBarButtonItem()
-		navigationItem.leftBarButtonItem?.customView = profileButton
+		setupManageAssetButton()
+		setupProfileButton()
 	}
+}
+
+extension HomepageViewController {
+	// MARK: - Navigation Bar Private Methods
 
 	private func setupNavigationtitle() {
 		let walletName = NSMutableAttributedString(string: "Amir", attributes: [
@@ -59,5 +49,32 @@ class HomepageViewController: UIViewController {
 		let navigationBarTitle = UILabel()
 		navigationBarTitle.attributedText = walletName
 		navigationItem.titleView = navigationBarTitle
+	}
+
+	private func setupManageAssetButton() {
+		let manageAssetButton = UIBarButtonItem(
+			image: UIImage(named: "manage_asset"),
+			style: .plain,
+			target: nil,
+			action: nil
+		)
+		navigationItem.rightBarButtonItem = manageAssetButton
+		navigationItem.rightBarButtonItem?.tintColor = .Pino.primary
+	}
+
+	private func setupProfileButton() {
+		let profileButton = UIButton()
+		let walletIcon = UIImageView()
+		walletIcon.image = UIImage(named: "avocado")
+		profileButton.backgroundColor = .Pino.green1
+		profileButton.pin(.fixedWidth(32), .fixedHeight(32))
+		profileButton.layer.cornerRadius = 16
+		profileButton.addSubview(walletIcon)
+		walletIcon.pin(
+			.allEdges(padding: 7)
+		)
+
+		navigationItem.leftBarButtonItem = UIBarButtonItem()
+		navigationItem.leftBarButtonItem?.customView = profileButton
 	}
 }

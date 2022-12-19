@@ -8,20 +8,23 @@
 import UIKit
 
 class HomepageHeaderView: UICollectionReusableView {
+	// MARK: - Private Properties
+
+	private var contentStackView = UIStackView()
+	private var assetStackView = UIStackView()
+	private var assetLabel = UILabel()
+	private var profitStackView = UIStackView()
+	private var profitView = UIView()
+	private var profitPercentageLabel = UILabel()
+	private var profitInDollarLabel = UILabel()
+	private var profitSeparatorLine = UIView()
+	private var sendRecieveStackView = UIStackView()
+	private var sendButton = PinoButton(style: .active)
+	private var recieveButton = PinoButton(style: .secondary)
+
+	// MARK: - Public Properties
+
 	public static let headerReuseID = "homepgaeHeader"
-
-	public var contentStackView = UIStackView()
-	public var assetStackView = UIStackView()
-	public var assetLabel = UILabel()
-	public var profitStackView = UIStackView()
-	public var profitView = UIView()
-	public var profitPercentageLabel = UILabel()
-	public var profitInDollarLabel = UILabel()
-	public var profitSeparatorLine = UIView()
-	public var sendRecieveStackView = UIStackView()
-	public var sendButton = PinoButton(style: .active)
-	public var recieveButton = PinoButton(style: .secondary)
-
 	public var asset: String! {
 		didSet {
 			setupView()
@@ -29,6 +32,8 @@ class HomepageHeaderView: UICollectionReusableView {
 			setupConstraint()
 		}
 	}
+
+	// MARK: Private Methods
 
 	private func setupView() {
 		assetStackView.addArrangedSubview(assetLabel)
@@ -51,6 +56,12 @@ class HomepageHeaderView: UICollectionReusableView {
 
 		sendButton.title = "Send"
 		recieveButton.title = "Recieve"
+
+		sendButton.setImage(UIImage(systemName: "arrow.up"), for: .normal)
+		recieveButton.setImage(UIImage(systemName: "arrow.down"), for: .normal)
+
+		sendButton.tintColor = .Pino.white
+		recieveButton.tintColor = .Pino.primary
 
 		profitView.backgroundColor = .Pino.green1
 		profitSeparatorLine.backgroundColor = .Pino.green3
@@ -78,6 +89,25 @@ class HomepageHeaderView: UICollectionReusableView {
 		sendRecieveStackView.distribution = .fillEqually
 
 		profitView.layer.cornerRadius = 14
+
+		sendButton.configuration = .plain()
+		recieveButton.configuration = .plain()
+		sendButton.configuration?.imagePadding = 16
+		recieveButton.configuration?.imagePadding = 16
+
+		sendButton.configuration?.titleTextAttributesTransformer =
+			UIConfigurationTextAttributesTransformer { btnConfig in
+				var sendButtonConfig = btnConfig
+				sendButtonConfig.font = UIFont.PinoStyle.semiboldCallout
+				return sendButtonConfig
+			}
+
+		recieveButton.configuration?.titleTextAttributesTransformer =
+			UIConfigurationTextAttributesTransformer { btnConfig in
+				var recieveButtonConfig = btnConfig
+				recieveButtonConfig.font = UIFont.PinoStyle.semiboldCallout
+				return recieveButtonConfig
+			}
 	}
 
 	private func setupConstraint() {
