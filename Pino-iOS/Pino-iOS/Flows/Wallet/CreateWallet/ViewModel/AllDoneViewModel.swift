@@ -10,7 +10,7 @@ import Foundation
 struct AllDoneViewModel {
 	// MARK: Public Properties
 
-	public let image = "pino_logo"
+	public let image = "icons-avocado"
 	public let title = "You’re all done!"
 	public let description = "A one line description should be here"
 	public let continueButtonTitle = "Get started"
