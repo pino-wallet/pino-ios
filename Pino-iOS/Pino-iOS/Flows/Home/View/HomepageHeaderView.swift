@@ -118,7 +118,7 @@ class HomepageHeaderView: UIView {
 		homeVM.$walletBalance.sink { [weak self] walletBalance in
 			guard let walletBalance = walletBalance else { return }
 
-			self?.balanceLabel.text = walletBalance.amount
+			self?.balanceLabel.text = walletBalance.balance
 			self?.volatilityPercentageLabel.text = walletBalance.volatilityPercentage
 			self?.volatilityInDollarLabel.text = walletBalance.volatilityInDollor
 

@@ -10,7 +10,7 @@ import UIKit
 class PinoToastView: UIView {
 	// MARK: - Private Properties
 
-	private let copyLabel = UILabel()
+	private let toastLabel = UILabel()
 
 	// MARK: - Initializers
 
@@ -22,7 +22,7 @@ class PinoToastView: UIView {
 	}
 
 	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
+		fatalError()
 	}
 
 	// MARK: - Public Methods
@@ -40,14 +40,14 @@ class PinoToastView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		addSubview(copyLabel)
+		addSubview(toastLabel)
 	}
 
 	private func setupStyle(message: String) {
-		copyLabel.text = message
+		toastLabel.text = message
 
-		copyLabel.textColor = .Pino.white
-		copyLabel.font = .PinoStyle.semiboldFootnote
+		toastLabel.textColor = .Pino.white
+		toastLabel.font = .PinoStyle.semiboldFootnote
 
 		backgroundColor = .Pino.primary
 		layer.cornerRadius = 14
@@ -59,7 +59,7 @@ class PinoToastView: UIView {
 		pin(
 			.fixedHeight(28)
 		)
-		copyLabel.pin(
+		toastLabel.pin(
 			.centerY,
 			.horizontalEdges(padding: 12)
 		)

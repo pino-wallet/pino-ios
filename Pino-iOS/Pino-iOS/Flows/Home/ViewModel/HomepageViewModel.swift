@@ -42,7 +42,7 @@ class HomepageViewModel {
 	private func getWalletBalance() {
 		// Request to get balance
 		let balanceModel = WalletBalanceModel(
-			amount: "$12,568,000",
+			balance: "$12,568,000",
 			volatilityPercentage: "+5.6%",
 			volatilityInDollor: "+$58.67",
 			volatilityType: .profit
