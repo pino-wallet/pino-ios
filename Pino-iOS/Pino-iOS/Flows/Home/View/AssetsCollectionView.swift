@@ -23,7 +23,6 @@ class AssetsCollectionView: UICollectionView {
 
 		self.homeVM = homeVM
 		configCollectionView()
-		setupStyle()
 	}
 
 	override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
@@ -55,8 +54,22 @@ class AssetsCollectionView: UICollectionView {
 		delegate = self
 	}
 
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		setupStyle()
+	}
+
 	private func setupStyle() {
-		backgroundColor = .Pino.background
+		let backgroundGradientView = UIView()
+		let gradientLayer = CAGradientLayer()
+		gradientLayer.frame = bounds
+		gradientLayer.locations = [0.2, 0.5]
+		gradientLayer.colors = [
+			UIColor.Pino.secondaryBackground.cgColor,
+			UIColor.Pino.background.cgColor,
+		]
+		backgroundGradientView.layer.addSublayer(gradientLayer)
+		backgroundView = backgroundGradientView
 	}
 }
 
