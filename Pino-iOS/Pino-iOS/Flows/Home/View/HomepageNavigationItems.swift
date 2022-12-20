@@ -48,7 +48,7 @@ struct HomepageNavigationItems {
 	public var profileButton: UIBarButtonItem {
 		let profileButton = UIButton()
 		profileButton.setImage(UIImage(named: walletInfo.profileImage), for: .normal)
-		profileButton.backgroundColor = .Pino.green1
+		profileButton.backgroundColor = UIColor(named: walletInfo.profileColor)
 		profileButton.pin(.fixedWidth(32), .fixedHeight(32))
 		profileButton.layer.cornerRadius = 16
 
@@ -58,7 +58,7 @@ struct HomepageNavigationItems {
 		return navigationBarButton
 	}
 
-	public var manageAssetButton: UIBarButtonItem {
+	public static var manageAssetButton: UIBarButtonItem {
 		let manageAssetButton = UIBarButtonItem(
 			image: UIImage(named: "manage_asset"),
 			style: .plain,

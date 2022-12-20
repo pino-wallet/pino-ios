@@ -11,4 +11,5 @@ struct WalletInfoModel {
 	public var name: String
 	public var address: String
 	public var profileImage: String
+	public var profileColor: String
 }

@@ -34,7 +34,8 @@ class HomepageViewModel {
 		let walletModel = WalletInfoModel(
 			name: "Amir",
 			address: "gf4bh5n3m2c8l4j5w9i2l6t2de",
-			profileImage: "avocado"
+			profileImage: "avocado",
+			profileColor: "Green 1 Color"
 		)
 		walletInfo = walletModel
 	}

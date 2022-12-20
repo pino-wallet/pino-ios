@@ -24,7 +24,6 @@ class HomepageViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
-		setupToastView()
 	}
 
 	// MARK: - Private Methods
@@ -32,6 +31,7 @@ class HomepageViewController: UIViewController {
 	private func setupView() {
 		// This is temporary until the collection view is implemented
 		view = HomepageHeaderView(homeVM: homeVM)
+		setupToastView()
 	}
 
 	private func setupNavigationBar() {
@@ -39,9 +39,10 @@ class HomepageViewController: UIViewController {
 			guard let walletInfo = walletInfo else { return }
 			let homepageNavigationItems = HomepageNavigationItems(walletInfo: walletInfo)
 			self?.navigationItem.titleView = homepageNavigationItems.walletTitle
-			self?.navigationItem.rightBarButtonItem = homepageNavigationItems.manageAssetButton
 			self?.navigationItem.leftBarButtonItem = homepageNavigationItems.profileButton
 		}.store(in: &cancellables)
+
+		navigationItem.rightBarButtonItem = HomepageNavigationItems.manageAssetButton
 
 		(navigationItem.titleView as? UIButton)?.addAction(UIAction(handler: { _ in
 			self.copyWalletAddress()
