@@ -19,7 +19,6 @@ class AssetsCollectionView: UICollectionView {
 		let flowLayout = UICollectionViewFlowLayout()
 		flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
 		flowLayout.scrollDirection = .vertical
-		flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 12, right: 16)
 		self.init(frame: .zero, collectionViewLayout: flowLayout)
 
 		self.homeVM = homeVM
@@ -39,6 +38,10 @@ class AssetsCollectionView: UICollectionView {
 
 	private func configCollectionView() {
 		register(
+			AssetsCollectionViewCell.self,
+			forCellWithReuseIdentifier: AssetsCollectionViewCell.cellReuseID
+		)
+		register(
 			HomepageHeaderView.self,
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
 			withReuseIdentifier: HomepageHeaderView.headerReuseID
@@ -57,15 +60,18 @@ class AssetsCollectionView: UICollectionView {
 
 extension AssetsCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		0
+		10
 	}
 
 	func collectionView(
 		_ collectionView: UICollectionView,
 		cellForItemAt indexPath: IndexPath
 	) -> UICollectionViewCell {
-		let assetCell = UICollectionViewCell()
-		assetCell.backgroundColor = .Pino.secondaryBackground
+		let assetCell = collectionView.dequeueReusableCell(
+			withReuseIdentifier: AssetsCollectionViewCell.cellReuseID,
+			for: indexPath
+		) as! AssetsCollectionViewCell
+		assetCell.asset = ""
 		return assetCell
 	}
 
@@ -88,7 +94,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 		layout collectionViewLayout: UICollectionViewLayout,
 		referenceSizeForHeaderInSection section: Int
 	) -> CGSize {
-		CGSize(width: collectionView.frame.width, height: 400)
+		CGSize(width: collectionView.frame.width, height: 208)
 	}
 }
 
@@ -106,7 +112,7 @@ extension AssetsCollectionView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		sizeForItemAt indexPath: IndexPath
 	) -> CGSize {
-		CGSize(width: collectionView.frame.width, height: 60)
+		CGSize(width: collectionView.frame.width, height: 64)
 	}
 
 	func collectionView(
@@ -114,6 +120,6 @@ extension AssetsCollectionView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		minimumLineSpacingForSectionAt section: Int
 	) -> CGFloat {
-		0
+		8
 	}
 }

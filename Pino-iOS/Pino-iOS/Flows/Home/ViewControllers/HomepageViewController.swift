@@ -53,7 +53,7 @@ class HomepageViewController: UIViewController {
 		view.addSubview(addressCopiedToastView)
 
 		addressCopiedToastView.pin(
-			.top(to: view.layoutMarginsGuide, padding: -10),
+			.top(to: view.layoutMarginsGuide, padding: -16),
 			.centerX
 		)
 	}

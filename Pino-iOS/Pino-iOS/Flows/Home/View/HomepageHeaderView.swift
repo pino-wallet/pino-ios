@@ -67,7 +67,7 @@ class HomepageHeaderView: UICollectionReusableView {
 
 		balanceLabel.textColor = .Pino.label
 
-		balanceLabel.font = .PinoStyle.semiboldTitle1
+		balanceLabel.font = .PinoStyle.semiboldLargeTitle
 		volatilityPercentageLabel.font = .PinoStyle.semiboldFootnote
 		volatilityInDollarLabel.font = .PinoStyle.semiboldFootnote
 
@@ -77,7 +77,7 @@ class HomepageHeaderView: UICollectionReusableView {
 		sendRecieveStackView.axis = .horizontal
 
 		contentStackView.spacing = 25
-		balanceStackView.spacing = 10
+		balanceStackView.spacing = 13
 		sendRecieveStackView.spacing = 24
 		volatilityStackView.spacing = 6
 
@@ -138,7 +138,7 @@ class HomepageHeaderView: UICollectionReusableView {
 	private func setupConstraint() {
 		contentStackView.pin(
 			.horizontalEdges(padding: 16),
-			.top(to: layoutMarginsGuide, padding: 27)
+			.top(to: layoutMarginsGuide, padding: 12)
 		)
 		volatilityStackView.pin(
 			.centerY,
