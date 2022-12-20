@@ -29,8 +29,7 @@ class HomepageViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		// This is temporary until the collection view is implemented
-		view = HomepageHeaderView(homeVM: homeVM)
+		view = AssetsCollectionView(homeVM: homeVM)
 		setupToastView()
 	}
 
@@ -54,7 +53,7 @@ class HomepageViewController: UIViewController {
 		view.addSubview(addressCopiedToastView)
 
 		addressCopiedToastView.pin(
-			.top(to: view.layoutMarginsGuide),
+			.top(to: view.layoutMarginsGuide, padding: -10),
 			.centerX
 		)
 	}

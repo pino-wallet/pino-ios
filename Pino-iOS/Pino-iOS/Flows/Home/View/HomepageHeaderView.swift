@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-class HomepageHeaderView: UIView {
+class HomepageHeaderView: UICollectionReusableView {
 	// MARK: - Private Properties
 
 	private var contentStackView = UIStackView()
@@ -22,26 +22,19 @@ class HomepageHeaderView: UIView {
 	private var sendRecieveStackView = UIStackView()
 	private var sendButton = PinoButton(style: .active)
 	private var recieveButton = PinoButton(style: .secondary)
-	private var homeVM: HomepageViewModel!
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 
 	public static let headerReuseID = "homepgaeHeader"
 
-	// MARK: - Initializers
-
-	init(homeVM: HomepageViewModel) {
-		self.homeVM = homeVM
-		super.init(frame: .zero)
-		setupView()
-		setupStyle()
-		setupBindings()
-		setupConstraint()
-	}
-
-	required init?(coder: NSCoder) {
-		fatalError()
+	public var homeVM: HomepageViewModel! {
+		didSet {
+			setupView()
+			setupStyle()
+			setupBindings()
+			setupConstraint()
+		}
 	}
 
 	// MARK: - Private Methods
@@ -114,7 +107,7 @@ class HomepageHeaderView: UIView {
 			}
 	}
 
-	func setupBindings() {
+	private func setupBindings() {
 		homeVM.$walletBalance.sink { [weak self] walletBalance in
 			guard let walletBalance = walletBalance else { return }
 
