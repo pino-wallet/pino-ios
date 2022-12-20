@@ -46,9 +46,13 @@ class AssetsCollectionView: UICollectionView {
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
 			withReuseIdentifier: HomepageHeaderView.headerReuseID
 		)
+		register(
+			PositionHeaderView.self,
+			forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+			withReuseIdentifier: PositionHeaderView.headerReuseID
+		)
 		dataSource = self
 		delegate = self
-		showsHorizontalScrollIndicator = false
 	}
 
 	private func setupStyle() {
@@ -59,8 +63,12 @@ class AssetsCollectionView: UICollectionView {
 // MARK: Collection View DataSource
 
 extension AssetsCollectionView: UICollectionViewDataSource {
+	func numberOfSections(in collectionView: UICollectionView) -> Int {
+		2
+	}
+
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		10
+		section == 0 ? 4 : 8
 	}
 
 	func collectionView(
@@ -80,13 +88,23 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 		viewForSupplementaryElementOfKind kind: String,
 		at indexPath: IndexPath
 	) -> UICollectionReusableView {
-		let headerView = collectionView.dequeueReusableSupplementaryView(
-			ofKind: kind,
-			withReuseIdentifier: HomepageHeaderView.headerReuseID,
-			for: indexPath
-		) as! HomepageHeaderView
-		headerView.homeVM = homeVM
-		return headerView
+		if indexPath.section == 0 {
+			let homeHeaderView = collectionView.dequeueReusableSupplementaryView(
+				ofKind: kind,
+				withReuseIdentifier: HomepageHeaderView.headerReuseID,
+				for: indexPath
+			) as! HomepageHeaderView
+			homeHeaderView.homeVM = homeVM
+			return homeHeaderView
+		} else {
+			let positionHeaderView = collectionView.dequeueReusableSupplementaryView(
+				ofKind: kind,
+				withReuseIdentifier: PositionHeaderView.headerReuseID,
+				for: indexPath
+			) as! PositionHeaderView
+			positionHeaderView.title = "Position"
+			return positionHeaderView
+		}
 	}
 
 	func collectionView(
@@ -94,7 +112,11 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 		layout collectionViewLayout: UICollectionViewLayout,
 		referenceSizeForHeaderInSection section: Int
 	) -> CGSize {
-		CGSize(width: collectionView.frame.width, height: 208)
+		if section == 0 {
+			return CGSize(width: collectionView.frame.width, height: 208)
+		} else {
+			return CGSize(width: collectionView.frame.width, height: 54)
+		}
 	}
 }
 

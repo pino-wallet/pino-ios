@@ -54,8 +54,6 @@ class HomepageHeaderView: UICollectionReusableView {
 	}
 
 	private func setupStyle() {
-		backgroundColor = .Pino.background
-
 		sendButton.title = homeVM.sendButtonTitle
 		recieveButton.title = homeVM.recieveButtonTitle
 
