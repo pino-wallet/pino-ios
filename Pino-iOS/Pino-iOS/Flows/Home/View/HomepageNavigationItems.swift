@@ -10,11 +10,11 @@ import UIKit
 struct HomepageNavigationItems {
 	// MARK: - Private Properties
 
-	private var walletInfo: WalletModel
+	private var walletInfo: WalletInfoModel
 
 	// MARK: - Initializers
 
-	init(walletInfo: WalletModel) {
+	init(walletInfo: WalletInfoModel) {
 		self.walletInfo = walletInfo
 	}
 

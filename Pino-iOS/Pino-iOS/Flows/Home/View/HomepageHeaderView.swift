@@ -12,13 +12,13 @@ class HomepageHeaderView: UIView {
 	// MARK: - Private Properties
 
 	private var contentStackView = UIStackView()
-	private var assetStackView = UIStackView()
-	private var assetLabel = UILabel()
-	private var profitStackView = UIStackView()
-	private var profitView = UIView()
-	private var profitPercentageLabel = UILabel()
-	private var profitInDollarLabel = UILabel()
-	private var profitSeparatorLine = UIView()
+	private var balanceStackView = UIStackView()
+	private var balanceLabel = UILabel()
+	private var volatilityStackView = UIStackView()
+	private var volatilityView = UIView()
+	private var volatilityPercentageLabel = UILabel()
+	private var volatilityInDollarLabel = UILabel()
+	private var volatilitySeparatorLine = UIView()
 	private var sendRecieveStackView = UIStackView()
 	private var sendButton = PinoButton(style: .active)
 	private var recieveButton = PinoButton(style: .secondary)
@@ -47,15 +47,15 @@ class HomepageHeaderView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		assetStackView.addArrangedSubview(assetLabel)
-		assetStackView.addArrangedSubview(profitView)
-		profitStackView.addArrangedSubview(profitPercentageLabel)
-		profitStackView.addArrangedSubview(profitSeparatorLine)
-		profitStackView.addArrangedSubview(profitInDollarLabel)
-		profitView.addSubview(profitStackView)
+		balanceStackView.addArrangedSubview(balanceLabel)
+		balanceStackView.addArrangedSubview(volatilityView)
+		volatilityStackView.addArrangedSubview(volatilityPercentageLabel)
+		volatilityStackView.addArrangedSubview(volatilitySeparatorLine)
+		volatilityStackView.addArrangedSubview(volatilityInDollarLabel)
+		volatilityView.addSubview(volatilityStackView)
 		sendRecieveStackView.addArrangedSubview(sendButton)
 		sendRecieveStackView.addArrangedSubview(recieveButton)
-		contentStackView.addArrangedSubview(assetStackView)
+		contentStackView.addArrangedSubview(balanceStackView)
 		contentStackView.addArrangedSubview(sendRecieveStackView)
 		addSubview(contentStackView)
 	}
@@ -72,32 +72,27 @@ class HomepageHeaderView: UIView {
 		sendButton.tintColor = .Pino.white
 		recieveButton.tintColor = .Pino.primary
 
-		profitView.backgroundColor = .Pino.green1
-		profitSeparatorLine.backgroundColor = .Pino.green3
+		balanceLabel.textColor = .Pino.label
 
-		assetLabel.textColor = .Pino.label
-		profitPercentageLabel.textColor = .Pino.green3
-		profitInDollarLabel.textColor = .Pino.green3
-
-		assetLabel.font = .PinoStyle.semiboldTitle1
-		profitPercentageLabel.font = .PinoStyle.semiboldFootnote
-		profitInDollarLabel.font = .PinoStyle.semiboldFootnote
+		balanceLabel.font = .PinoStyle.semiboldTitle1
+		volatilityPercentageLabel.font = .PinoStyle.semiboldFootnote
+		volatilityInDollarLabel.font = .PinoStyle.semiboldFootnote
 
 		contentStackView.axis = .vertical
-		assetStackView.axis = .vertical
-		profitStackView.axis = .horizontal
+		balanceStackView.axis = .vertical
+		volatilityStackView.axis = .horizontal
 		sendRecieveStackView.axis = .horizontal
 
 		contentStackView.spacing = 25
-		assetStackView.spacing = 10
+		balanceStackView.spacing = 10
 		sendRecieveStackView.spacing = 24
-		profitStackView.spacing = 6
+		volatilityStackView.spacing = 6
 
 		contentStackView.alignment = .center
-		assetStackView.alignment = .center
+		balanceStackView.alignment = .center
 		sendRecieveStackView.distribution = .fillEqually
 
-		profitView.layer.cornerRadius = 14
+		volatilityView.layer.cornerRadius = 14
 
 		sendButton.configuration = .plain()
 		recieveButton.configuration = .plain()
@@ -120,10 +115,28 @@ class HomepageHeaderView: UIView {
 	}
 
 	func setupBindings() {
-		homeVM.$assetInfo.sink { [weak self] assetInfo in
-			self?.assetLabel.text = assetInfo?.amount
-			self?.profitPercentageLabel.text = assetInfo?.profitPercentage
-			self?.profitInDollarLabel.text = assetInfo?.profitInDollor
+		homeVM.$walletBalance.sink { [weak self] walletBalance in
+			guard let walletBalance = walletBalance else { return }
+
+			self?.balanceLabel.text = walletBalance.amount
+			self?.volatilityPercentageLabel.text = walletBalance.volatilityPercentage
+			self?.volatilityInDollarLabel.text = walletBalance.volatilityInDollor
+
+			var volatilityViewBackgroundColor: UIColor!
+			var volatilityViewTintColor: UIColor!
+			switch walletBalance.volatilityType {
+			case .profit:
+				volatilityViewBackgroundColor = .Pino.green1
+				volatilityViewTintColor = .Pino.green3
+			case .loss:
+				volatilityViewBackgroundColor = .Pino.lightRed
+				volatilityViewTintColor = .Pino.red
+			}
+
+			self?.volatilityView.backgroundColor = volatilityViewBackgroundColor
+			self?.volatilitySeparatorLine.backgroundColor = volatilityViewTintColor
+			self?.volatilityPercentageLabel.textColor = volatilityViewTintColor
+			self?.volatilityInDollarLabel.textColor = volatilityViewTintColor
 			self?.updateConstraints()
 		}
 		.store(in: &cancellables)
@@ -134,11 +147,11 @@ class HomepageHeaderView: UIView {
 			.horizontalEdges(padding: 16),
 			.top(to: layoutMarginsGuide, padding: 27)
 		)
-		profitStackView.pin(
+		volatilityStackView.pin(
 			.centerY,
 			.horizontalEdges(padding: 12)
 		)
-		profitView.pin(
+		volatilityView.pin(
 			.fixedHeight(28)
 		)
 		sendRecieveStackView.pin(
@@ -151,7 +164,7 @@ class HomepageHeaderView: UIView {
 			.fixedHeight(48)
 		)
 
-		profitSeparatorLine.pin(
+		volatilitySeparatorLine.pin(
 			.fixedWidth(0.6),
 			.verticalEdges
 		)

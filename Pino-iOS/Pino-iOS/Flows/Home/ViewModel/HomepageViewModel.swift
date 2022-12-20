@@ -11,9 +11,9 @@ class HomepageViewModel {
 	// MARK: - Public Properties
 
 	@Published
-	public var walletInfo: WalletModel!
+	public var walletInfo: WalletInfoModel!
 	@Published
-	public var assetInfo: AssetModel!
+	public var walletBalance: WalletBalanceModel!
 	public let copyToastMessage = "Copied!"
 	public let sendButtonTitle = "Send"
 	public let recieveButtonTitle = "Recieve"
@@ -24,14 +24,14 @@ class HomepageViewModel {
 
 	init() {
 		getWalletInfo()
-		getAssetsInfo()
+		getWalletBalance()
 	}
 
 	// MARK: - Private Methods
 
 	private func getWalletInfo() {
 		// Request to get wallet info
-		let walletModel = WalletModel(
+		let walletModel = WalletInfoModel(
 			name: "Amir",
 			address: "gf4bh5n3m2c8l4j5w9i2l6t2de",
 			profileImage: "avocado"
@@ -39,13 +39,14 @@ class HomepageViewModel {
 		walletInfo = walletModel
 	}
 
-	private func getAssetsInfo() {
-		// Request to get assets info
-		let assetModel = AssetModel(
+	private func getWalletBalance() {
+		// Request to get balance
+		let balanceModel = WalletBalanceModel(
 			amount: "$12,568,000",
-			profitPercentage: "+5.6%",
-			profitInDollor: "+$58.67"
+			volatilityPercentage: "+5.6%",
+			volatilityInDollor: "+$58.67",
+			volatilityType: .profit
 		)
-		assetInfo = assetModel
+		walletBalance = balanceModel
 	}
 }

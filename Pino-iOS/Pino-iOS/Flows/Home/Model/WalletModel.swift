@@ -5,7 +5,7 @@
 //  Created by Mohi Raoufi on 12/19/22.
 //
 
-struct WalletModel {
+struct WalletInfoModel {
 	// MARK: - Public Properties
 
 	public var name: String
