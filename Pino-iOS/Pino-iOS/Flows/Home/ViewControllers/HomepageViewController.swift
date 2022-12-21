@@ -21,6 +21,10 @@ class HomepageViewController: UIViewController {
 		super.viewDidLoad()
 	}
 
+	override func viewDidLayoutSubviews() {
+		setupBackgroundGradientLayer()
+	}
+
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
@@ -29,8 +33,22 @@ class HomepageViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = AssetsCollectionView(homeVM: homeVM)
+		view = UIView()
+		let collectionView = AssetsCollectionView(homeVM: homeVM)
+		view.addSubview(collectionView)
+		collectionView.pin(.allEdges)
 		setupToastView()
+	}
+
+	private func setupBackgroundGradientLayer() {
+		let gradientLayer = CAGradientLayer()
+		gradientLayer.frame = view.bounds
+		gradientLayer.locations = [0.3, 1]
+		gradientLayer.colors = [
+			UIColor.Pino.secondaryBackground.cgColor,
+			UIColor.Pino.background.cgColor,
+		]
+		view.layer.insertSublayer(gradientLayer, at: 0)
 	}
 
 	private func setupNavigationBar() {

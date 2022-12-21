@@ -27,12 +27,14 @@ class PositionHeaderView: UICollectionReusableView {
 	private func setupTitleView(_ title: String) {
 		addSubview(titleLabel)
 
+		backgroundColor = .Pino.background
+
 		titleLabel.text = title
 		titleLabel.textColor = .Pino.label
 		titleLabel.font = .PinoStyle.semiboldBody
 
 		titleLabel.pin(
-			.bottom(padding: 9),
+			.bottom(padding: 5),
 			.leading(padding: 16)
 		)
 	}

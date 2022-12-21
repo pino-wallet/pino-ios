@@ -40,6 +40,8 @@ class HomepageHeaderView: UICollectionReusableView {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		setupGradientLayer()
+
 		balanceStackView.addArrangedSubview(balanceLabel)
 		balanceStackView.addArrangedSubview(volatilityView)
 		volatilityStackView.addArrangedSubview(volatilityPercentageLabel)
@@ -87,8 +89,8 @@ class HomepageHeaderView: UICollectionReusableView {
 
 		sendButton.configuration = .plain()
 		recieveButton.configuration = .plain()
-		sendButton.configuration?.imagePadding = 16
-		recieveButton.configuration?.imagePadding = 16
+		sendButton.configuration?.imagePadding = 8
+		recieveButton.configuration?.imagePadding = 8
 
 		sendButton.configuration?.titleTextAttributesTransformer =
 			UIConfigurationTextAttributesTransformer { btnConfig in
@@ -159,5 +161,16 @@ class HomepageHeaderView: UICollectionReusableView {
 			.fixedWidth(0.6),
 			.verticalEdges
 		)
+	}
+
+	private func setupGradientLayer() {
+		let gradientLayer = CAGradientLayer()
+		gradientLayer.frame = bounds
+		gradientLayer.locations = [0.2, 0.5]
+		gradientLayer.colors = [
+			UIColor.Pino.secondaryBackground.cgColor,
+			UIColor.Pino.background.cgColor,
+		]
+		layer.addSublayer(gradientLayer)
 	}
 }

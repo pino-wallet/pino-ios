@@ -52,6 +52,7 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 		assetAmountInDollorLabel.text = "$1,530"
 		assetVolatilityLabel.text = "+$10"
 
+		backgroundColor = .Pino.background
 		assetCardView.backgroundColor = .Pino.secondaryBackground
 		assetImage.backgroundColor = .Pino.background
 
@@ -81,7 +82,7 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 
 	private func setupConstraint() {
 		assetCardView.pin(
-			.verticalEdges,
+			.verticalEdges(padding: 4),
 			.horizontalEdges(padding: 16)
 		)
 		assetStackView.pin(

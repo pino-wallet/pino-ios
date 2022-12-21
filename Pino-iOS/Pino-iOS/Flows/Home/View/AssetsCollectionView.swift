@@ -52,24 +52,8 @@ class AssetsCollectionView: UICollectionView {
 		)
 		dataSource = self
 		delegate = self
-	}
 
-	override func layoutSubviews() {
-		super.layoutSubviews()
-		setupStyle()
-	}
-
-	private func setupStyle() {
-		let backgroundGradientView = UIView()
-		let gradientLayer = CAGradientLayer()
-		gradientLayer.frame = bounds
-		gradientLayer.locations = [0.2, 0.5]
-		gradientLayer.colors = [
-			UIColor.Pino.secondaryBackground.cgColor,
-			UIColor.Pino.background.cgColor,
-		]
-		backgroundGradientView.layer.addSublayer(gradientLayer)
-		backgroundView = backgroundGradientView
+		backgroundColor = .clear
 	}
 }
 
@@ -126,9 +110,9 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 		referenceSizeForHeaderInSection section: Int
 	) -> CGSize {
 		if section == 0 {
-			return CGSize(width: collectionView.frame.width, height: 208)
+			return CGSize(width: collectionView.frame.width, height: 204)
 		} else {
-			return CGSize(width: collectionView.frame.width, height: 54)
+			return CGSize(width: collectionView.frame.width, height: 46)
 		}
 	}
 }
@@ -147,7 +131,7 @@ extension AssetsCollectionView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		sizeForItemAt indexPath: IndexPath
 	) -> CGSize {
-		CGSize(width: collectionView.frame.width, height: 64)
+		CGSize(width: collectionView.frame.width, height: 72)
 	}
 
 	func collectionView(
@@ -155,6 +139,6 @@ extension AssetsCollectionView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		minimumLineSpacingForSectionAt section: Int
 	) -> CGFloat {
-		8
+		0
 	}
 }
