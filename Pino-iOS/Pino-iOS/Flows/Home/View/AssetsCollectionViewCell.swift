@@ -24,7 +24,7 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 
 	public static let cellReuseID = "assetCell"
 
-	public var asset: String! {
+	public var assetVM: AssetViewModel! {
 		didSet {
 			setupView()
 			setupStyle()
@@ -47,10 +47,19 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 	}
 
 	private func setupStyle() {
-		assetTitleLabel.text = "Chainlink"
-		assetAmountLabel.text = "10.04 LINK"
-		assetAmountInDollorLabel.text = "$1,530"
-		assetVolatilityLabel.text = "+$10"
+		assetTitleLabel.text = assetVM.name
+		assetAmountLabel.text = assetVM.amount
+		assetAmountInDollorLabel.text = assetVM.amountInDollor
+		assetVolatilityLabel.text = assetVM.volatility
+
+		switch assetVM.volatilityType {
+		case .profit:
+			assetVolatilityLabel.textColor = .Pino.green
+		case .loss:
+			assetVolatilityLabel.textColor = .Pino.red
+		case .none:
+			assetVolatilityLabel.textColor = .Pino.secondaryLabel
+		}
 
 		backgroundColor = .Pino.background
 		assetCardView.backgroundColor = .Pino.secondaryBackground
@@ -59,7 +68,6 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 		assetTitleLabel.textColor = .Pino.label
 		assetAmountLabel.textColor = .Pino.secondaryLabel
 		assetAmountInDollorLabel.textColor = .Pino.label
-		assetVolatilityLabel.textColor = .Pino.green
 
 		assetTitleLabel.font = .PinoStyle.mediumCallout
 		assetAmountLabel.font = .PinoStyle.mediumFootnote

@@ -5,12 +5,14 @@
 //  Created by Mohi Raoufi on 12/20/22.
 //
 
+import Combine
 import UIKit
 
 class AssetsCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
 	private var homeVM: HomepageViewModel!
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
 
@@ -23,10 +25,12 @@ class AssetsCollectionView: UICollectionView {
 
 		self.homeVM = homeVM
 		configCollectionView()
+		setupStyle()
 	}
 
 	override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
 		super.init(frame: frame, collectionViewLayout: layout)
+		setupBindings()
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -52,8 +56,21 @@ class AssetsCollectionView: UICollectionView {
 		)
 		dataSource = self
 		delegate = self
+	}
 
-		backgroundColor = .clear
+	private func setupStyle() {
+		backgroundColor = .Pino.clear
+		showsVerticalScrollIndicator = false
+	}
+
+	private func setupBindings() {
+		homeVM?.$assetsList.sink { [weak self] _ in
+			self?.reloadSections(IndexSet(integer: 0))
+		}.store(in: &cancellables)
+
+		homeVM?.$positionAssetsList.sink { [weak self] _ in
+			self?.reloadSections(IndexSet(integer: 1))
+		}.store(in: &cancellables)
 	}
 }
 
@@ -65,7 +82,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 	}
 
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		section == 0 ? 4 : 8
+		section == 0 ? homeVM.assetsList.count : homeVM.positionAssetsList.count
 	}
 
 	func collectionView(
@@ -76,7 +93,11 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: AssetsCollectionViewCell.cellReuseID,
 			for: indexPath
 		) as! AssetsCollectionViewCell
-		assetCell.asset = ""
+		if indexPath.section == 0 {
+			assetCell.assetVM = homeVM.assetsList[indexPath.row]
+		} else {
+			assetCell.assetVM = homeVM.positionAssetsList[indexPath.row]
+		}
 		return assetCell
 	}
 

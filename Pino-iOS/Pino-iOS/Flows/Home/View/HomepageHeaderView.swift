@@ -124,6 +124,9 @@ class HomepageHeaderView: UICollectionReusableView {
 			case .loss:
 				volatilityViewBackgroundColor = .Pino.lightRed
 				volatilityViewTintColor = .Pino.red
+			case .none:
+				volatilityViewBackgroundColor = .Pino.gray5
+				volatilityViewTintColor = .Pino.gray2
 			}
 
 			self?.volatilityView.backgroundColor = volatilityViewBackgroundColor
