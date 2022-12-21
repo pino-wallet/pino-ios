@@ -60,7 +60,7 @@ class HomepageViewModel {
 	private func getAssetsList() {
 		let assetsModel = [
 			AssetModel(
-				image: "",
+				image: "Chainlink",
 				name: "Chainlink",
 				codeName: "Link",
 				amount: "10,04",
@@ -69,7 +69,7 @@ class HomepageViewModel {
 				volatilityType: .profit
 			),
 			AssetModel(
-				image: "",
+				image: "Ribon",
 				name: "Ribon",
 				codeName: "RBN",
 				amount: "4,330",
@@ -78,7 +78,7 @@ class HomepageViewModel {
 				volatilityType: .profit
 			),
 			AssetModel(
-				image: "",
+				image: "Tether",
 				name: "Tether",
 				codeName: "USDT",
 				amount: "1.049",
@@ -87,7 +87,7 @@ class HomepageViewModel {
 				volatilityType: .loss
 			),
 			AssetModel(
-				image: "",
+				image: "BTC",
 				name: "BTC",
 				codeName: "BTC",
 				amount: nil,
@@ -103,7 +103,7 @@ class HomepageViewModel {
 	private func getPositionAssetsList() {
 		let assetsModel = [
 			AssetModel(
-				image: "",
+				image: "cETH",
 				name: "cETH",
 				codeName: "ETH",
 				amount: "1.2",
@@ -112,45 +112,45 @@ class HomepageViewModel {
 				volatilityType: .profit
 			),
 			AssetModel(
-				image: "",
+				image: "aDAI",
 				name: "aDAI",
-				codeName: "DAI",
+				codeName: "aDAI",
 				amount: "10.2",
 				amountInDollor: "10,3",
 				volatility: "14",
 				volatilityType: .profit
 			),
 			AssetModel(
-				image: "",
-				name: "Chainlink",
-				codeName: "Link",
+				image: "Sand",
+				name: "Sand",
+				codeName: "SAND",
 				amount: "10,04",
 				amountInDollor: "1,530",
 				volatility: "10",
 				volatilityType: .profit
 			),
 			AssetModel(
-				image: "",
-				name: "Ribon",
-				codeName: "RBN",
+				image: "Status",
+				name: "Status",
+				codeName: "SNT",
 				amount: "4,330",
 				amountInDollor: "1,530",
 				volatility: "115",
 				volatilityType: .profit
 			),
 			AssetModel(
-				image: "",
-				name: "Tether",
-				codeName: "USDT",
+				image: "DAI",
+				name: "DAI",
+				codeName: "DAI",
 				amount: "1.049",
 				amountInDollor: "1,530",
 				volatility: "3.5",
 				volatilityType: .loss
 			),
 			AssetModel(
-				image: "",
-				name: "BTC",
-				codeName: "BTC",
+				image: "USDC",
+				name: "USDC",
+				codeName: "USDC",
 				amount: nil,
 				amountInDollor: nil,
 				volatility: nil,

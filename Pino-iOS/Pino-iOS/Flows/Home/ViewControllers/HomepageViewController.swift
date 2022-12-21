@@ -43,7 +43,7 @@ class HomepageViewController: UIViewController {
 	private func setupBackgroundGradientLayer() {
 		let gradientLayer = CAGradientLayer()
 		gradientLayer.frame = view.bounds
-		gradientLayer.locations = [0.3, 1]
+		gradientLayer.locations = [0.3, 0.7]
 		gradientLayer.colors = [
 			UIColor.Pino.secondaryBackground.cgColor,
 			UIColor.Pino.background.cgColor,

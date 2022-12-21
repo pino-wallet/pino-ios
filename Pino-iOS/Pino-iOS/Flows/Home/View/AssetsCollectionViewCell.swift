@@ -52,6 +52,8 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 		assetAmountInDollorLabel.text = assetVM.amountInDollor
 		assetVolatilityLabel.text = assetVM.volatility
 
+		assetImage.image = UIImage(named: assetVM.image)
+
 		switch assetVM.volatilityType {
 		case .profit:
 			assetVolatilityLabel.textColor = .Pino.green
