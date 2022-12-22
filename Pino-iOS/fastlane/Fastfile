@@ -28,9 +28,15 @@ platform :ios do
       config: "../Pino-iOS/.swiftformat",                # Path to configuration file (optional)
       dryrun: false,                                              # Run in dry mode (without actually changing any files) (optional)
     )
-    git_add()
-    git_commit(message: commitMsg)
-    git_switch_branch(branch: branchName)
+    # shouldCommit = sh("bash ./actions/.CheckStagedFiles.sh")
+
+    begin
+      ensure_git_status_clean
+    rescue
+      git_add()
+      git_commit(path:"*", message: commitMsg)
+    end
+
   end
   
 end
