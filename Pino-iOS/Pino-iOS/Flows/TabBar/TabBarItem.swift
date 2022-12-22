@@ -23,7 +23,7 @@ extension TabBarItem {
 		title: "Home",
 		image: "home_tab",
 		selectedImage: "home_tab_fill",
-		viewController: HomepageViewController()
+		viewController: UINavigationController(rootViewController: HomepageViewController())
 	)
 
 	public static let swap = TabBarItem(
