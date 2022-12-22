@@ -1,0 +1,36 @@
+default_platform(:ios)
+
+platform :ios do
+  
+  lane :register_app do
+    produce(
+      username: 'eskandari.sobhan@gmail.com',
+      app_identifier: 'com.pino.fastlane',
+      app_name: 'Pino Fastlane',
+      language: 'en-US',
+      app_version: '1.0',
+      sku: '123',
+      team_name: 'BIJAN ESKANDARI MANJILI',
+      itc_team_name: 'sobhan eskandari'
+    )
+  end
+
+  lane :get_dev_certs do
+    cert(development: true)
+    sigh(development: true)
+  end
+
+  lane :switch_branch do
+    branchName = prompt(text: "Branch Name: ")
+    commitMsg  = prompt(text: "Message: ")
+    swiftformat(
+      swiftversion: "5.5",                                        # Specify swift version (optional)
+      config: "../Pino-iOS/.swiftformat",                # Path to configuration file (optional)
+      dryrun: false,                                              # Run in dry mode (without actually changing any files) (optional)
+    )
+    git_add()
+    git_commit(message: commitMsg)
+    git_switch_branch(branch: branchName)
+  end
+  
+end
