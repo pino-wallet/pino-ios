@@ -15,7 +15,7 @@ class HomepageViewModel {
 	@Published
 	public var walletInfo: WalletInfoModel!
 	@Published
-	public var walletBalance: WalletBalanceModel!
+	public var walletBalance: WalletBalanceViewModel!
 	@Published
 	public var assetsList: [AssetViewModel]!
 	@Published
@@ -77,12 +77,12 @@ class HomepageViewModel {
 	private func getWalletBalance() {
 		// Request to get balance
 		let balanceModel = WalletBalanceModel(
-			balance: "$12,568,000",
-			volatilityPercentage: "+5.6%",
-			volatilityInDollor: "+$58.67",
+			balance: "12,568,000",
+			volatilityPercentage: "5.6",
+			volatilityInDollor: "58.67",
 			volatilityType: .profit
 		)
-		walletBalance = balanceModel
+		walletBalance = WalletBalanceViewModel(balanceModel: balanceModel)
 	}
 
 	private func getAssetsList() {
