@@ -14,6 +14,7 @@ class AssetsCollectionView: UICollectionView {
 	private var homeVM: HomepageViewModel!
 	private var cancellables = Set<AnyCancellable>()
 	private let assetsRefreshControl = UIRefreshControl()
+	private let refreshErrorToastView = PinoToastView()
 
 	// MARK: Initializers
 
@@ -25,7 +26,7 @@ class AssetsCollectionView: UICollectionView {
 		self.init(frame: .zero, collectionViewLayout: flowLayout)
 
 		self.homeVM = homeVM
-		configCollectionView()
+		setupView()
 		setupStyle()
 	}
 
@@ -40,7 +41,7 @@ class AssetsCollectionView: UICollectionView {
 
 	// MARK: Private Methods
 
-	private func configCollectionView() {
+	private func setupView() {
 		register(
 			AssetsCollectionViewCell.self,
 			forCellWithReuseIdentifier: AssetsCollectionViewCell.cellReuseID
@@ -65,6 +66,7 @@ class AssetsCollectionView: UICollectionView {
 		delegate = self
 
 		setupRefreshControl()
+		setupErrorToastView()
 	}
 
 	private func setupStyle() {
@@ -91,9 +93,26 @@ class AssetsCollectionView: UICollectionView {
 		refreshControl = assetsRefreshControl
 	}
 
+	private func setupErrorToastView() {
+		addSubview(refreshErrorToastView)
+		refreshErrorToastView.pin(
+			.top(padding: -8),
+			.centerX
+		)
+	}
+
 	private func refreshHomeData() {
 		homeVM.refreshHomeData { error in
 			self.assetsRefreshControl.endRefreshing()
+			if let error {
+				switch error {
+				case .requestFailed:
+					self.refreshErrorToastView.message = self.homeVM.requestFailedErrorToastMessage
+				case .networkConnection:
+					self.refreshErrorToastView.message = self.homeVM.connectionErrorToastMessage
+				}
+				self.refreshErrorToastView.showToast()
+			}
 		}
 	}
 }

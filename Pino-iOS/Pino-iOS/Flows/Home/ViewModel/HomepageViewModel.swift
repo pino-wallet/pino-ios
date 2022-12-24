@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import Network
 
 class HomepageViewModel {
 	// MARK: - Public Properties
@@ -21,6 +22,8 @@ class HomepageViewModel {
 	public var positionAssetsList: [AssetViewModel]!
 
 	public let copyToastMessage = "Copied!"
+	public let connectionErrorToastMessage = "No internet connection"
+	public let requestFailedErrorToastMessage = "Couldn't refresh home data"
 	public let sendButtonTitle = "Send"
 	public let recieveButtonTitle = "Recieve"
 	public let sendButtonImage = "arrow.up"
@@ -39,12 +42,23 @@ class HomepageViewModel {
 
 	public func refreshHomeData(completion: @escaping (HomeRefreshError?) -> Void) {
 		// This is temporary and must be replaced with network request
-		DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-			self.getWalletBalance()
-			self.getAssetsList()
-			self.getPositionAssetsList()
-			completion(nil)
+		let monitor = NWPathMonitor()
+		monitor.pathUpdateHandler = { path in
+			DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+				if path.status == .satisfied {
+					self.getWalletBalance()
+					self.getAssetsList()
+					self.getPositionAssetsList()
+					completion(nil)
+					monitor.cancel()
+				} else {
+					completion(.networkConnection)
+					monitor.cancel()
+				}
+			}
 		}
+		let queue = DispatchQueue(label: "InternetConnectionMonitor")
+		monitor.start(queue: queue)
 	}
 
 	// MARK: - Private Methods
