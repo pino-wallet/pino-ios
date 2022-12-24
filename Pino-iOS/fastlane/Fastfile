@@ -2,6 +2,10 @@ default_platform(:ios)
 
 platform :ios do
   
+  before_each do |lane, options|
+    # ensure_git_status_clean
+  end  
+
   lane :register_app do
     produce(
       username: 'eskandari.sobhan@gmail.com',
@@ -37,7 +41,13 @@ platform :ios do
     git_switch_branch(branch: branchName)
     xcodegen
     cocoapods(use_bundle_exec: false)
+  end
 
+  lane :push do
+    scan(
+      workspace: "Pino-iOS.xcworkspace",
+      scheme: "Pino-iOSTests",
+    )
   end
   
 end

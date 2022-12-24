@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="2" failures="0">
+    <testsuite name="Pino-iOSTests" tests="2" failures="0" skipped="0" time="0.5124280452728271">
+        <properties>
+          <property name="Configuration" value="Test Scheme Action"/>
+        </properties>
+        <testcase classname="Pino_iOSTests" name="testExample()" time="0.0010520219802856445">
+        </testcase>
+        <testcase classname="Pino_iOSTests" name="testPerformanceExample()" time="0.5113760232925415">
+        </testcase>
+    </testsuite>
+</testsuites>

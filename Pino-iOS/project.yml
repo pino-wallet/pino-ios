@@ -11,6 +11,8 @@ settings:
   CURRENT_PROJECT_VERSION: "1"
 targets:
   Pino-iOS:
+    scheme:
+      configVariants:
     type: application
     platform: iOS
     sources:
@@ -24,13 +26,24 @@ targets:
         Release:
           DEBUG_MODE: NO
   Pino-iOSTests:
+    scheme:
+      configVariants:
     type: bundle.unit-test
     platform: iOS
     sources:
       - Pino-iOSTests
+    settings:
+      base:
+        INFOPLIST_FILE: Pino-iOS/App/Info.plist
+        TEST_HOST: $(BUILT_PRODUCTS_DIR)/$(PRODUCT_NAME).app/${PRODUCT_NAME}
   Pino-iOSUITests:
+    scheme:
+      configVariants:
     type: bundle.ui-testing
     platform: iOS
     sources:
       - Pino-iOSUITests
+    settings:
+      base:
+        INFOPLIST_FILE: Pino-iOS/App/Info.plist
     
