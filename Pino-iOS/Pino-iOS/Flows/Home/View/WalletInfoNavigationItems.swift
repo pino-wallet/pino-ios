@@ -7,22 +7,22 @@
 
 import UIKit
 
-struct HomepageNavigationItems {
+struct WalletInfoNavigationItems {
 	// MARK: - Private Properties
 
-	private var walletInfo: WalletInfoModel
+	private var walletInfoVM: WalletInfoViewModel
 
 	// MARK: - Initializers
 
-	init(walletInfo: WalletInfoModel) {
-		self.walletInfo = walletInfo
+	init(walletInfoVM: WalletInfoViewModel) {
+		self.walletInfoVM = walletInfoVM
 	}
 
 	// MARK: - Public Properties
 
 	public var walletTitle: UIButton {
 		let walletName = NSMutableAttributedString(
-			string: walletInfo.name,
+			string: walletInfoVM.name,
 			attributes: [
 				NSAttributedString.Key.foregroundColor: UIColor.Pino.label,
 				NSAttributedString.Key.font: UIFont.PinoStyle.mediumCallout!,
@@ -30,7 +30,7 @@ struct HomepageNavigationItems {
 		)
 
 		let walletAddress = NSMutableAttributedString(
-			string: "(\(walletInfo.address.prefix(3))...\(walletInfo.address.suffix(3)))",
+			string: "(\(walletInfoVM.address.prefix(3))...\(walletInfoVM.address.suffix(3)))",
 			attributes: [
 				NSAttributedString.Key.foregroundColor: UIColor.Pino.secondaryLabel,
 				NSAttributedString.Key.font: UIFont.PinoStyle.regularCallout!,
@@ -47,8 +47,8 @@ struct HomepageNavigationItems {
 
 	public var profileButton: UIBarButtonItem {
 		let profileButton = UIButton()
-		profileButton.setImage(UIImage(named: walletInfo.profileImage), for: .normal)
-		profileButton.backgroundColor = UIColor(named: walletInfo.profileColor)
+		profileButton.setImage(UIImage(named: walletInfoVM.profileImage), for: .normal)
+		profileButton.backgroundColor = UIColor(named: walletInfoVM.profileColor)
 		profileButton.pin(.fixedWidth(32), .fixedHeight(32))
 		profileButton.layer.cornerRadius = 16
 

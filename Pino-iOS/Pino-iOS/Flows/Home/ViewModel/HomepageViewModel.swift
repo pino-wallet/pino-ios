@@ -13,7 +13,7 @@ class HomepageViewModel {
 	// MARK: - Public Properties
 
 	@Published
-	public var walletInfo: WalletInfoModel!
+	public var walletInfo: WalletInfoViewModel!
 	@Published
 	public var walletBalance: WalletBalanceViewModel!
 	@Published
@@ -65,13 +65,13 @@ class HomepageViewModel {
 
 	private func getWalletInfo() {
 		// Request to get wallet info
-		let walletModel = WalletInfoModel(
+		let walletInfoModel = WalletInfoModel(
 			name: "Amir",
 			address: "gf4bh5n3m2c8l4j5w9i2l6t2de",
 			profileImage: "avocado",
 			profileColor: "Green 1 Color"
 		)
-		walletInfo = walletModel
+		walletInfo = WalletInfoViewModel(walletInfoModel: walletInfoModel)
 	}
 
 	private func getWalletBalance() {

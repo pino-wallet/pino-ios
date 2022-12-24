@@ -34,9 +34,9 @@ class HomepageViewController: UIViewController {
 
 	private func setupView() {
 		view = UIView()
-		let collectionView = AssetsCollectionView(homeVM: homeVM)
-		view.addSubview(collectionView)
-		collectionView.pin(.allEdges)
+		let assetsCollectionView = AssetsCollectionView(homeVM: homeVM)
+		view.addSubview(assetsCollectionView)
+		assetsCollectionView.pin(.allEdges)
 		setupToastView()
 	}
 
@@ -54,12 +54,12 @@ class HomepageViewController: UIViewController {
 	private func setupNavigationBar() {
 		homeVM.$walletInfo.sink { [weak self] walletInfo in
 			guard let walletInfo = walletInfo else { return }
-			let homepageNavigationItems = HomepageNavigationItems(walletInfo: walletInfo)
-			self?.navigationItem.titleView = homepageNavigationItems.walletTitle
-			self?.navigationItem.leftBarButtonItem = homepageNavigationItems.profileButton
+			let walletInfoNavigationItems = WalletInfoNavigationItems(walletInfoVM: walletInfo)
+			self?.navigationItem.titleView = walletInfoNavigationItems.walletTitle
+			self?.navigationItem.leftBarButtonItem = walletInfoNavigationItems.profileButton
 		}.store(in: &cancellables)
 
-		navigationItem.rightBarButtonItem = HomepageNavigationItems.manageAssetButton
+		navigationItem.rightBarButtonItem = WalletInfoNavigationItems.manageAssetButton
 
 		(navigationItem.titleView as? UIButton)?.addAction(UIAction(handler: { _ in
 			self.copyWalletAddress()

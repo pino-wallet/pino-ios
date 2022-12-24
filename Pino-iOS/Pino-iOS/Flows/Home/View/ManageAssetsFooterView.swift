@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomepageFooterView: UICollectionReusableView {
+class ManageAssetsFooterView: UICollectionReusableView {
 	// MARK: - Private Properties
 
 	private var manageAssetButton = UIButton()
