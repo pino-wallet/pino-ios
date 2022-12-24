@@ -13,6 +13,7 @@ class AssetsCollectionView: UICollectionView {
 
 	private var homeVM: HomepageViewModel!
 	private var cancellables = Set<AnyCancellable>()
+	private let assetsRefreshControl = UIRefreshControl()
 
 	// MARK: Initializers
 
@@ -54,8 +55,16 @@ class AssetsCollectionView: UICollectionView {
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
 			withReuseIdentifier: PositionHeaderView.headerReuseID
 		)
+		register(
+			HomepageFooterView.self,
+			forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+			withReuseIdentifier: HomepageFooterView.footerReuseID
+		)
+
 		dataSource = self
 		delegate = self
+
+		setupRefreshControl()
 	}
 
 	private func setupStyle() {
@@ -71,6 +80,21 @@ class AssetsCollectionView: UICollectionView {
 		homeVM?.$positionAssetsList.sink { [weak self] _ in
 			self?.reloadSections(IndexSet(integer: 1))
 		}.store(in: &cancellables)
+	}
+
+	private func setupRefreshControl() {
+		indicatorStyle = .white
+		assetsRefreshControl.tintColor = .Pino.green2
+		assetsRefreshControl.addAction(UIAction(handler: { _ in
+			self.refreshHomeData()
+		}), for: .valueChanged)
+		refreshControl = assetsRefreshControl
+	}
+
+	private func refreshHomeData() {
+		homeVM.refreshHomeData { error in
+			self.assetsRefreshControl.endRefreshing()
+		}
 	}
 }
 
@@ -106,22 +130,39 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 		viewForSupplementaryElementOfKind kind: String,
 		at indexPath: IndexPath
 	) -> UICollectionReusableView {
-		if indexPath.section == 0 {
-			let homeHeaderView = collectionView.dequeueReusableSupplementaryView(
+		switch kind {
+		case UICollectionView.elementKindSectionFooter:
+			let homepageFooterView = collectionView.dequeueReusableSupplementaryView(
 				ofKind: kind,
-				withReuseIdentifier: HomepageHeaderView.headerReuseID,
+				withReuseIdentifier: HomepageFooterView.footerReuseID,
 				for: indexPath
-			) as! HomepageHeaderView
-			homeHeaderView.homeVM = homeVM
-			return homeHeaderView
-		} else {
-			let positionHeaderView = collectionView.dequeueReusableSupplementaryView(
-				ofKind: kind,
-				withReuseIdentifier: PositionHeaderView.headerReuseID,
-				for: indexPath
-			) as! PositionHeaderView
-			positionHeaderView.title = "Position"
-			return positionHeaderView
+			) as! HomepageFooterView
+			homepageFooterView.title = "Manage assets"
+			return homepageFooterView
+
+		case UICollectionView.elementKindSectionHeader:
+
+			if indexPath.section == 0 {
+				let homeHeaderView = collectionView.dequeueReusableSupplementaryView(
+					ofKind: kind,
+					withReuseIdentifier: HomepageHeaderView.headerReuseID,
+					for: indexPath
+				) as! HomepageHeaderView
+				homeHeaderView.homeVM = homeVM
+				return homeHeaderView
+
+			} else {
+				let positionHeaderView = collectionView.dequeueReusableSupplementaryView(
+					ofKind: kind,
+					withReuseIdentifier: PositionHeaderView.headerReuseID,
+					for: indexPath
+				) as! PositionHeaderView
+				positionHeaderView.title = "Position"
+				return positionHeaderView
+			}
+
+		default:
+			assert(false, "Unexpected element kind")
 		}
 	}
 
@@ -134,6 +175,18 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 			return CGSize(width: collectionView.frame.width, height: 204)
 		} else {
 			return CGSize(width: collectionView.frame.width, height: 46)
+		}
+	}
+
+	func collectionView(
+		_ collectionView: UICollectionView,
+		layout collectionViewLayout: UICollectionViewLayout,
+		referenceSizeForFooterInSection section: Int
+	) -> CGSize {
+		if section == 0 {
+			return CGSize(width: 0, height: 0)
+		} else {
+			return CGSize(width: collectionView.frame.width, height: 68)
 		}
 	}
 }

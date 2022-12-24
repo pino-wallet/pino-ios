@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Foundation
 
 class HomepageViewModel {
 	// MARK: - Public Properties
@@ -18,6 +19,7 @@ class HomepageViewModel {
 	public var assetsList: [AssetViewModel]!
 	@Published
 	public var positionAssetsList: [AssetViewModel]!
+
 	public let copyToastMessage = "Copied!"
 	public let sendButtonTitle = "Send"
 	public let recieveButtonTitle = "Recieve"
@@ -31,6 +33,18 @@ class HomepageViewModel {
 		getWalletBalance()
 		getAssetsList()
 		getPositionAssetsList()
+	}
+
+	// MARK: - Public Methods
+
+	public func refreshHomeData(completion: @escaping (HomeRefreshError?) -> Void) {
+		// This is temporary and must be replaced with network request
+		DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+			self.getWalletBalance()
+			self.getAssetsList()
+			self.getPositionAssetsList()
+			completion(nil)
+		}
 	}
 
 	// MARK: - Private Methods
