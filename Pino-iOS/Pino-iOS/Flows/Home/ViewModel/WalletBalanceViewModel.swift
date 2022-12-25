@@ -10,6 +10,11 @@ struct WalletBalanceViewModel {
 
 	public var balanceModel: WalletBalanceModel!
 
+	public let securityModeText = "••••••"
+	public let showBalanceButtonTitle = "Show balance"
+	public let showBalanceButtonImage = "eye"
+	public var securityMode: Bool
+
 	public var balance: String {
 		if let balance = balanceModel.balance {
 			return "$\(balance)"

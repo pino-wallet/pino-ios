@@ -48,42 +48,60 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 
 	private func setupStyle() {
 		assetTitleLabel.text = assetVM.name
-		assetAmountLabel.text = assetVM.amount
-		assetAmountInDollorLabel.text = assetVM.amountInDollor
-		assetVolatilityLabel.text = assetVM.volatility
+
+		if assetVM.securityMode {
+			assetAmountLabel.text = assetVM.securityModeText
+			assetAmountInDollorLabel.text = assetVM.securityModeText
+			assetVolatilityLabel.text = assetVM.securityModeText
+
+			assetAmountLabel.font = .PinoStyle.boldTitle2
+			assetAmountInDollorLabel.font = .PinoStyle.boldTitle1
+			assetVolatilityLabel.font = .PinoStyle.boldTitle2
+
+			assetVolatilityLabel.textColor = .Pino.gray3
+			assetAmountLabel.textColor = .Pino.gray3
+			assetAmountInDollorLabel.textColor = .Pino.secondaryLabel
+
+		} else {
+			assetAmountLabel.text = assetVM.amount
+			assetAmountInDollorLabel.text = assetVM.amountInDollor
+			assetVolatilityLabel.text = assetVM.volatility
+
+			assetAmountLabel.font = .PinoStyle.mediumFootnote
+			assetAmountInDollorLabel.font = .PinoStyle.mediumCallout
+			assetVolatilityLabel.font = .PinoStyle.mediumFootnote
+
+			assetAmountLabel.textColor = .Pino.secondaryLabel
+			assetAmountInDollorLabel.textColor = .Pino.label
+
+			switch assetVM.volatilityType {
+			case .profit:
+				assetVolatilityLabel.textColor = .Pino.green
+			case .loss:
+				assetVolatilityLabel.textColor = .Pino.red
+			case .none:
+				assetVolatilityLabel.textColor = .Pino.secondaryLabel
+			}
+		}
 
 		assetImage.image = UIImage(named: assetVM.image)
-
-		switch assetVM.volatilityType {
-		case .profit:
-			assetVolatilityLabel.textColor = .Pino.green
-		case .loss:
-			assetVolatilityLabel.textColor = .Pino.red
-		case .none:
-			assetVolatilityLabel.textColor = .Pino.secondaryLabel
-		}
 
 		backgroundColor = .Pino.background
 		assetCardView.backgroundColor = .Pino.secondaryBackground
 		assetImage.backgroundColor = .Pino.background
 
 		assetTitleLabel.textColor = .Pino.label
-		assetAmountLabel.textColor = .Pino.secondaryLabel
-		assetAmountInDollorLabel.textColor = .Pino.label
 
 		assetTitleLabel.font = .PinoStyle.mediumCallout
-		assetAmountLabel.font = .PinoStyle.mediumFootnote
-		assetAmountInDollorLabel.font = .PinoStyle.mediumCallout
-		assetVolatilityLabel.font = .PinoStyle.mediumFootnote
 
 		assetStackView.axis = .horizontal
 		assetTitleStackView.axis = .vertical
 		assetVolatilityStackView.axis = .vertical
 
 		assetStackView.spacing = 10
-		assetTitleStackView.spacing = 4
-		assetVolatilityStackView.spacing = 9
 
+		assetVolatilityStackView.alignment = .trailing
+		assetTitleStackView.alignment = .fill
 		assetVolatilityStackView.alignment = .trailing
 
 		assetCardView.layer.cornerRadius = 12
@@ -95,12 +113,15 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 			.verticalEdges(padding: 4),
 			.horizontalEdges(padding: 16)
 		)
+		assetTitleStackView.pin(
+			.verticalEdges
+		)
 		assetStackView.pin(
-			.centerY,
+			.verticalEdges(padding: 10),
 			.leading(padding: 14)
 		)
 		assetVolatilityStackView.pin(
-			.centerY,
+			.verticalEdges(padding: 10),
 			.trailing(padding: 14)
 		)
 		assetImage.pin(

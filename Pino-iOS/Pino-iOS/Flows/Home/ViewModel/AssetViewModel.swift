@@ -10,6 +10,9 @@ public struct AssetViewModel {
 
 	public var assetModel: AssetModel!
 
+	public let securityModeText = "••••••"
+	public var securityMode: Bool
+
 	public var image: String {
 		assetModel.image
 	}
