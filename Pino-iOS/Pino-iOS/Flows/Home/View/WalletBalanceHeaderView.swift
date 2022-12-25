@@ -122,7 +122,6 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 					string: walletBalance.securityModeText,
 					attributes: [.font: UIFont.PinoStyle.boldExtraLargeTitle!]
 				)
-
 				self?.balanceLabel.attributedText = attributedString
 
 				self?.volatilityView.isHidden = true

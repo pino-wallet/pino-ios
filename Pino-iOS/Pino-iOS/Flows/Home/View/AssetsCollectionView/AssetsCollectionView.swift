@@ -13,7 +13,10 @@ class AssetsCollectionView: UICollectionView {
 
 	private var cancellables = Set<AnyCancellable>()
 	private let assetsRefreshControl = UIRefreshControl()
-	private let refreshErrorToastView = PinoToastView()
+
+	// MARK: - Public Properties
+
+	public let refreshErrorToastView = PinoToastView(style: .secondary)
 
 	// MARK: - Internal Properties
 
@@ -66,7 +69,6 @@ class AssetsCollectionView: UICollectionView {
 		delegate = self
 
 		setupRefreshControl()
-		setupErrorToastView()
 	}
 
 	private func setupStyle() {
@@ -91,14 +93,6 @@ class AssetsCollectionView: UICollectionView {
 			self.refreshHomeData()
 		}), for: .valueChanged)
 		refreshControl = assetsRefreshControl
-	}
-
-	private func setupErrorToastView() {
-		addSubview(refreshErrorToastView)
-		refreshErrorToastView.pin(
-			.top(padding: -8),
-			.centerX
-		)
 	}
 
 	private func refreshHomeData() {

@@ -11,9 +11,10 @@ import UIKit
 class HomepageViewController: UIViewController {
 	// MARK: - Private Properties
 
+	private var assetsCollectionView: AssetsCollectionView!
 	private let homeVM = HomepageViewModel()
 	private var cancellables = Set<AnyCancellable>()
-	private var addressCopiedToastView: PinoToastView!
+	private var addressCopiedToastView = PinoToastView(style: .primary, alignment: .top)
 
 	// MARK: - View Overrides
 
@@ -34,10 +35,11 @@ class HomepageViewController: UIViewController {
 
 	private func setupView() {
 		view = UIView()
-		let assetsCollectionView = AssetsCollectionView(homeVM: homeVM)
+		assetsCollectionView = AssetsCollectionView(homeVM: homeVM)
 		view.addSubview(assetsCollectionView)
 		assetsCollectionView.pin(.allEdges)
-		setupToastView()
+		setupCopyToastView()
+		setupErrorToastView()
 	}
 
 	private func setupBackgroundGradientLayer() {
@@ -66,12 +68,20 @@ class HomepageViewController: UIViewController {
 		}), for: .touchUpInside)
 	}
 
-	private func setupToastView() {
-		addressCopiedToastView = PinoToastView(message: homeVM.copyToastMessage)
+	private func setupCopyToastView() {
+		addressCopiedToastView.message = homeVM.copyToastMessage
 		view.addSubview(addressCopiedToastView)
 
 		addressCopiedToastView.pin(
-			.top(to: view.layoutMarginsGuide, padding: -16),
+			.top(padding: -28),
+			.centerX
+		)
+	}
+
+	private func setupErrorToastView() {
+		view.addSubview(assetsCollectionView.refreshErrorToastView)
+		assetsCollectionView.refreshErrorToastView.pin(
+			.bottom(padding: -28),
 			.centerX
 		)
 	}
