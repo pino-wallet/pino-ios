@@ -30,14 +30,7 @@ class ManageAssetsFooterView: UICollectionReusableView {
 		manageAssetButton.setTitle(title, for: .normal)
 		manageAssetButton.setImage(UIImage(named: "manage_asset"), for: .normal)
 		manageAssetButton.setTitleColor(.Pino.primary, for: .normal)
-		manageAssetButton.configuration = .plain()
-		manageAssetButton.configuration?.imagePadding = 6
-		manageAssetButton.configuration?.titleTextAttributesTransformer =
-			UIConfigurationTextAttributesTransformer { btnConfig in
-				var sendButtonConfig = btnConfig
-				sendButtonConfig.font = UIFont.PinoStyle.mediumCallout
-				return sendButtonConfig
-			}
+		manageAssetButton.setConfiguraton(font: .PinoStyle.mediumCallout!, imagePadding: 6)
 
 		manageAssetButton.pin(
 			.centerY,

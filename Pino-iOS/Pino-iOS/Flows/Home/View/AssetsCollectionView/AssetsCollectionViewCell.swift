@@ -101,7 +101,7 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 		assetStackView.spacing = 10
 
 		assetVolatilityStackView.alignment = .trailing
-		assetTitleStackView.alignment = .fill
+		assetTitleStackView.alignment = .leading
 		assetVolatilityStackView.alignment = .trailing
 
 		assetCardView.layer.cornerRadius = 12
@@ -127,6 +127,18 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 		assetImage.pin(
 			.fixedWidth(44),
 			.fixedHeight(44)
+		)
+		assetTitleLabel.pin(
+			.fixedHeight(22)
+		)
+		assetAmountLabel.pin(
+			.fixedHeight(18)
+		)
+		assetAmountInDollorLabel.pin(
+			.fixedHeight(22)
+		)
+		assetVolatilityLabel.pin(
+			.fixedHeight(18)
 		)
 	}
 }

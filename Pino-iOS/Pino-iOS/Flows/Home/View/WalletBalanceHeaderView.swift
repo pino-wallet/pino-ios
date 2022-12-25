@@ -44,8 +44,8 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 		setupGradientLayer()
 
 		balanceStackView.addArrangedSubview(balanceLabel)
-		balanceStackView.addArrangedSubview(volatilityView)
 		balanceStackView.addArrangedSubview(showBalanceButton)
+		balanceStackView.addArrangedSubview(volatilityView)
 		volatilityStackView.addArrangedSubview(volatilityPercentageLabel)
 		volatilityStackView.addArrangedSubview(volatilitySeparatorLine)
 		volatilityStackView.addArrangedSubview(volatilityInDollarLabel)
@@ -101,34 +101,9 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 
 		volatilityView.layer.cornerRadius = 14
 
-		sendButton.configuration = .plain()
-		recieveButton.configuration = .plain()
-		showBalanceButton.configuration = .plain()
-
-		sendButton.configuration?.imagePadding = 8
-		recieveButton.configuration?.imagePadding = 8
-		showBalanceButton.configuration?.imagePadding = 5
-
-		sendButton.configuration?.titleTextAttributesTransformer =
-			UIConfigurationTextAttributesTransformer { btnConfig in
-				var sendButtonConfig = btnConfig
-				sendButtonConfig.font = UIFont.PinoStyle.semiboldCallout
-				return sendButtonConfig
-			}
-
-		recieveButton.configuration?.titleTextAttributesTransformer =
-			UIConfigurationTextAttributesTransformer { btnConfig in
-				var recieveButtonConfig = btnConfig
-				recieveButtonConfig.font = UIFont.PinoStyle.semiboldCallout
-				return recieveButtonConfig
-			}
-
-		showBalanceButton.configuration?.titleTextAttributesTransformer =
-			UIConfigurationTextAttributesTransformer { btnConfig in
-				var showBalanceButtonConfig = btnConfig
-				showBalanceButtonConfig.font = UIFont.PinoStyle.mediumFootnote
-				return showBalanceButtonConfig
-			}
+		sendButton.setConfiguraton(font: .PinoStyle.semiboldCallout!, imagePadding: 8)
+		recieveButton.setConfiguraton(font: .PinoStyle.semiboldCallout!, imagePadding: 8)
+		showBalanceButton.setConfiguraton(font: .PinoStyle.mediumFootnote!, imagePadding: 5)
 
 		balanceStackView
 			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(activateSecurityMode)))
@@ -143,24 +118,11 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 			guard let walletBalance = walletBalance else { return }
 
 			if walletBalance.securityMode {
-				let attributedString = NSMutableAttributedString(string: walletBalance.securityModeText)
-				let paragraphStyle = NSMutableParagraphStyle()
-				paragraphStyle.lineSpacing = 0
-				attributedString.addAttribute(
-					.paragraphStyle,
-					value: paragraphStyle,
-					range: NSRange(location: 0, length: attributedString.length)
+				let attributedString = NSMutableAttributedString(
+					string: walletBalance.securityModeText,
+					attributes: [.font: UIFont.PinoStyle.boldExtraLargeTitle!]
 				)
-				attributedString.addAttribute(
-					.kern,
-					value: -8,
-					range: NSRange(location: 0, length: attributedString.length)
-				)
-				attributedString.addAttribute(
-					.font,
-					value: UIFont.systemFont(ofSize: 80),
-					range: NSRange(location: 0, length: attributedString.length)
-				)
+
 				self?.balanceLabel.attributedText = attributedString
 
 				self?.volatilityView.isHidden = true
