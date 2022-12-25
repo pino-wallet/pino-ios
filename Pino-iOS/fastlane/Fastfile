@@ -3,7 +3,22 @@ default_platform(:ios)
 platform :ios do
   
   before_each do |lane, options|
-    ensure_git_status_clean
+    commit
+  end
+
+  lane :commit do 
+    commitMsg  = prompt(text: "Message: ")
+    swiftformat(
+      swiftversion: "5.5",                               # Specify swift version (optional)
+      config: "../Pino-iOS/.swiftformat",                # Path to configuration file (optional)
+      dryrun: false,                                     # Run in dry mode (without actually changing any files) (optional)
+    )
+    begin
+      ensure_git_status_clean
+    rescue
+      git_add()
+      git_commit(path:"*", message: commitMsg)
+    end
   end
   
   lane :register_app do
@@ -26,35 +41,17 @@ platform :ios do
 
   lane :switch_branch do
     branchName = prompt(text: "Branch Name: ")
-    commitMsg  = prompt(text: "Message: ")
-    swiftformat(
-      swiftversion: "5.5",                                        # Specify swift version (optional)
-      config: "../Pino-iOS/.swiftformat",                # Path to configuration file (optional)
-      dryrun: false,                                              # Run in dry mode (without actually changing any files) (optional)
-    )
-    begin
-      ensure_git_status_clean
-    rescue
-      git_add()
-      git_commit(path:"*", message: commitMsg)
-    end
     git_switch_branch(branch: branchName)
     xcodegen
     cocoapods(use_bundle_exec: false)
   end
 
   lane :push do
-    swiftformat(
-      swiftversion: "5.5",                               # Specify swift version (optional)
-      config: "../Pino-iOS/.swiftformat",                # Path to configuration file (optional)
-      dryrun: false,                                              # Run in dry mode (without actually changing any files) (optional)
-    )
     xcbuild
     scan(
       workspace: "Pino-iOS.xcworkspace",
       scheme: "Pino-iOSTests"
     )
-    ensure_git_status_clean
     push_to_git_remote
   end
   
