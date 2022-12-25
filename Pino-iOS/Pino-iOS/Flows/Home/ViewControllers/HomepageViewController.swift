@@ -38,8 +38,7 @@ class HomepageViewController: UIViewController {
 		assetsCollectionView = AssetsCollectionView(homeVM: homeVM)
 		view.addSubview(assetsCollectionView)
 		assetsCollectionView.pin(.allEdges)
-		setupCopyToastView()
-		setupErrorToastView()
+		addressCopiedToastView.message = homeVM.copyToastMessage
 	}
 
 	private func setupBackgroundGradientLayer() {
@@ -66,24 +65,6 @@ class HomepageViewController: UIViewController {
 		(navigationItem.titleView as? UIButton)?.addAction(UIAction(handler: { _ in
 			self.copyWalletAddress()
 		}), for: .touchUpInside)
-	}
-
-	private func setupCopyToastView() {
-		addressCopiedToastView.message = homeVM.copyToastMessage
-		view.addSubview(addressCopiedToastView)
-
-		addressCopiedToastView.pin(
-			.top(padding: -28),
-			.centerX
-		)
-	}
-
-	private func setupErrorToastView() {
-		view.addSubview(assetsCollectionView.refreshErrorToastView)
-		assetsCollectionView.refreshErrorToastView.pin(
-			.bottom(padding: -28),
-			.centerX
-		)
 	}
 
 	private func copyWalletAddress() {

@@ -59,29 +59,70 @@ public class PinoToastView: UIView {
 	// MARK: - Public Methods
 
 	public func showToast() {
-		guard let superView = superview else { fatalError("Toast view has not been added to any view") }
 		if !isShowingToast {
 			isShowingToast = true
-			UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveEaseOut) { [weak self] in
-				guard let self else { return }
-				switch self.alignment {
-				case .top:
-					self.frame.origin = CGPoint(x: self.frame.origin.x, y: 80)
-				case .bottom:
-					self.frame.origin = CGPoint(x: self.frame.origin.x, y: superView.frame.height - 120)
-				}
-			} completion: { _ in
-				UIView.animate(withDuration: 0.5, delay: 2, options: .curveEaseOut) { [weak self] in
-					guard let self else { return }
-					switch self.alignment {
-					case .top:
-						self.frame.origin = CGPoint(x: self.frame.origin.x, y: -28)
-					case .bottom:
-						self.frame.origin = CGPoint(x: self.frame.origin.x, y: superView.frame.height)
+			let currentWindow = UIApplication.shared.connectedScenes
+				.filter { $0.activationState == .foregroundActive }
+				.first(where: { $0 is UIWindowScene })
+				.flatMap { $0 as? UIWindowScene }?.windows
+				.first(where: \.isKeyWindow)
+			guard let superView = currentWindow?.rootViewController?.view
+			else { fatalError("Toast view has not been added to any view") }
+			currentWindow?.addSubview(self)
+
+			switch alignment {
+			case .top:
+				pin(.centerX, .top(padding: 80))
+				frame.origin = CGPoint(x: frame.origin.x, y: -28)
+				UIView
+					.animate(
+						withDuration: 0.8,
+						delay: 0,
+						usingSpringWithDamping: 0.6,
+						initialSpringVelocity: 0.5
+					) { [weak self] in
+						guard let self else { return }
+						self.frame.origin = CGPoint(x: self.frame.origin.x, y: 80)
+					} completion: { _ in
+						UIView.animate(
+							withDuration: 0.8,
+							delay: 1.2,
+							usingSpringWithDamping: 0.6,
+							initialSpringVelocity: 0.5
+						) { [weak self] in
+							guard let self else { return }
+							self.frame.origin = CGPoint(x: self.frame.origin.x, y: -28)
+						} completion: { _ in
+							self.isShowingToast = false
+							self.removeFromSuperview()
+						}
 					}
-				} completion: { _ in
-					self.isShowingToast = false
-				}
+			case .bottom:
+				pin(.centerX, .bottom(padding: 100))
+				frame.origin = CGPoint(x: frame.origin.x, y: superView.frame.height)
+				UIView
+					.animate(
+						withDuration: 0.8,
+						delay: 0,
+						usingSpringWithDamping: 0.7,
+						initialSpringVelocity: 0.3
+					) { [weak self] in
+						guard let self else { return }
+						self.frame.origin = CGPoint(x: self.frame.origin.x, y: superView.frame.height - 100)
+					} completion: { _ in
+						UIView.animate(
+							withDuration: 0.4,
+							delay: 2,
+							usingSpringWithDamping: 0.9,
+							initialSpringVelocity: 0.3
+						) { [weak self] in
+							guard let self else { return }
+							self.frame.origin = CGPoint(x: self.frame.origin.x, y: superView.frame.height)
+						} completion: { _ in
+							self.isShowingToast = false
+							self.removeFromSuperview()
+						}
+					}
 			}
 		}
 	}
@@ -98,7 +139,7 @@ public class PinoToastView: UIView {
 		toastLabel.text = message
 		toastImage.image = image
 		toastLabel.font = .PinoStyle.semiboldFootnote
-		layer.cornerRadius = 14
+		layer.cornerRadius = 16
 
 		updateStyle(with: style)
 	}
@@ -120,7 +161,7 @@ public class PinoToastView: UIView {
 
 	private func setupConstraint() {
 		pin(
-			.fixedHeight(28)
+			.fixedHeight(32)
 		)
 		toastStackView.pin(
 			.centerY,

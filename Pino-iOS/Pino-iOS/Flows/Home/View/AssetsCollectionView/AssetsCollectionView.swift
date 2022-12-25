@@ -97,7 +97,7 @@ class AssetsCollectionView: UICollectionView {
 
 	private func refreshHomeData() {
 		homeVM.refreshHomeData { error in
-			self.assetsRefreshControl.endRefreshing()
+			self.refreshControl?.endRefreshing()
 			if let error {
 				switch error {
 				case .requestFailed:
@@ -106,7 +106,7 @@ class AssetsCollectionView: UICollectionView {
 					self.refreshErrorToastView.message = self.homeVM.connectionErrorToastMessage
 				}
 				self.refreshErrorToastView.showToast()
-			}
+			} else {}
 		}
 	}
 }
