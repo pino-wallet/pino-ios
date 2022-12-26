@@ -33,6 +33,9 @@ class AllDoneViewController: UIViewController {
 	}
 
 	private func getStarted() {
-		// Go to homepage
+        UserDefaults.standard.set(true, forKey: "isLogin")
+		let tabBarVC = TabBarViewController()
+        tabBarVC.modalPresentationStyle = .fullScreen
+        present(tabBarVC, animated: true)
 	}
 }
