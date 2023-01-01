@@ -15,6 +15,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
+### ios commit
+
+```sh
+[bundle exec] fastlane ios commit
+```
+
+
+
 ### ios register_app
 
 ```sh
@@ -31,10 +39,10 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 
-### ios switch_branch
+### ios checkout
 
 ```sh
-[bundle exec] fastlane ios switch_branch
+[bundle exec] fastlane ios checkout
 ```
 
 
@@ -43,6 +51,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ```sh
 [bundle exec] fastlane ios push
+```
+
+
+
+### ios testflight_beta
+
+```sh
+[bundle exec] fastlane ios testflight_beta
 ```
 
 
