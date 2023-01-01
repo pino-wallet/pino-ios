@@ -28,7 +28,6 @@ platform :ios do
   end
 
   lane :push do
-    xcbuild
     scan(
       workspace: "Pino-iOS.xcworkspace",
       scheme: "Pino-iOSTests"
