@@ -42,7 +42,9 @@ platform :ios do
     xcbuild
     scan(
       workspace: "Pino-iOS.xcworkspace",
-      scheme: "Pino-iOSTests"
+      scheme: "Pino-iOSTests",
+      device: "iPhone 14",
+      clean: false
     )
     upload_to_testflight(
       beta_app_feedback_email: "email@email.com",
