@@ -17,20 +17,6 @@ platform :ios do
     end
   end
 
-  
-  lane :register_app do
-    produce(
-      username: 'eskandari.sobhan@gmail.com',
-      app_identifier: 'com.pino.fastlane',
-      app_name: 'Pino Fastlane',
-      language: 'en-US',
-      app_version: '1.0',
-      sku: '123',
-      team_name: 'BIJAN ESKANDARI MANJILI',
-      itc_team_name: 'sobhan eskandari'
-    )
-  end
-
   lane :get_dev_certs do
     cert(development: true)
     sigh(development: true)

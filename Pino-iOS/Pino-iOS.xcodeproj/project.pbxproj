@@ -7,121 +7,120 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		007C1C6857A3E1996AB101DF /* PPPangramSans-ExtraboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0EDBBFAD004B3CE088F12483 /* PPPangramSans-ExtraboldItalic.ttf */; };
-		00840F972A3BC4A38A93791F /* KeychainWrapperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F12D00D4BD3A8B271BC47E /* KeychainWrapperProtocol.swift */; };
-		02A97D4A9C207916DE660B71 /* BlurEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FA9F2B6774C623781F9BA2 /* BlurEffectView.swift */; };
-		06218737C45E76782BCD109A /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E63A3FADC136684209F7A94 /* TabBarItem.swift */; };
-		07348C7157600883D19BE3D1 /* VerifySecretPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0F79268C00324C48ACDFE9 /* VerifySecretPhraseViewModel.swift */; };
-		07E7702AD0548B8DB7A2E6ED /* ImportSecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E073F552ABC50DFF611DD6D7 /* ImportSecretPhraseView.swift */; };
-		0A2F2A3C3D6AD92205953E59 /* PPPangramSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C64ED0E420A75845A204FD9 /* PPPangramSans-BoldItalic.ttf */; };
-		0AAF5243F7A695BC9CC6CF16 /* InvestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CEE6EA6F86954BD72ED3DD5 /* InvestViewController.swift */; };
-		120188FCE7A629105DC83F2E /* StringProtocol+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E37262DD3BAB9CAA733F2E /* StringProtocol+Extension.swift */; };
-		120AFF9C42F188B5A9FB235D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506778827BFFAD8480D0F2C2 /* SceneDelegate.swift */; };
-		175302024392F42DD2B8F27F /* TuistFonts+PinoIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60F46869B827F258DCA7672 /* TuistFonts+PinoIOS.swift */; };
-		1BBDBEBF5BEF06E5223ED29D /* ShowSecretPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FD27066FB1D5073296B68A /* ShowSecretPhraseViewModel.swift */; };
-		1CCFE27434928B0335018B89 /* ShowSecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8261937722AB4BF364074A3F /* ShowSecretPhraseView.swift */; };
-		1CFD33910DD070BA67163D66 /* SemiboldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1500554F63220FE7B4551D27 /* SemiboldStyle.swift */; };
-		20C403F37823EEC96AB303C1 /* ImportSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA8EB610C9E5FBEB06A460 /* ImportSecretPhraseViewController.swift */; };
-		20D7C7089C79E025BD88D5F6 /* AllDoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BAA38133ECAEF6F11A90FE /* AllDoneView.swift */; };
-		233F0422E45793A77FBC25D4 /* AllDoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C94D67366BBC5FC2E83690B /* AllDoneViewModel.swift */; };
-		239B53123E599C3B8AD537B8 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CFB36DDA732D8273860EDB /* AlertHelper.swift */; };
-		244864C235A42742FA9574BB /* PPPangramSans-ExtraboldReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D9D19C9FA163F6540E69EB5 /* PPPangramSans-ExtraboldReclined.ttf */; };
-		244B2034B6D44247035B9A44 /* BoldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5873E89FD2DBE91A7B148B47 /* BoldStyle.swift */; };
-		294BA6C699CF377D97E3425C /* CreatePasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5BC47B119D6D83180C9BB4 /* CreatePasscodeViewController.swift */; };
-		2AAB4235ADBFBD812D67698D /* PinoStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF34662FFE25754189C5E1E /* PinoStepperView.swift */; };
-		3256B0244DDF2151666D6D25 /* ValidateSecretPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366A068543C0D3E62EC9633B /* ValidateSecretPhraseViewModel.swift */; };
-		32C5A14C2878AF2717953CE4 /* PPPangramSans-ExtralightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4FD2F4E7B7B989C365E09ED /* PPPangramSans-ExtralightItalic.ttf */; };
-		34F77E3B42F72AE7C04697F5 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67305E6086B83736D23758B5 /* IntroViewController.swift */; };
-		35A80A475B24D411037931E2 /* ViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6106162A4785FF5E96E05450 /* ViewController+Extension.swift */; };
-		35F653178497D3A93EE59E96 /* ImportWalletUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01BABB0D1DFE22BD293AAA1 /* ImportWalletUITests.swift */; };
-		370D435DB8EDAFB747CEA9F6 /* SwapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8EE37C4E43E8C7514B1BE8 /* SwapViewController.swift */; };
-		37A1E23C2C51E48742D7DD75 /* PPPangramSans-RegularReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29E7113D81B6454054D7AE8E /* PPPangramSans-RegularReclined.ttf */; };
-		466880F2B0A5F10F70472A2E /* SecretPhraseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FDCDE60E35D59D29043B3 /* SecretPhraseTextView.swift */; };
-		47FFF2797F79D9634EE23DBD /* PinoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2993F462134BC968390581B /* PinoButton.swift */; };
-		48504F92B8A7034CB0B4071F /* IntroCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8214B6DB674458531FD828D8 /* IntroCollectionViewCell.swift */; };
-		48F457700DB7CE72B7530AD1 /* PinoCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79B1E9C41C5695BA0BD52FA /* PinoCheckBox.swift */; };
-		49DC8279007186A8139D5C91 /* PPPangramSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1BCF5E198C52B3FC3A95AE6E /* PPPangramSans-LightItalic.ttf */; };
-		4C44407F94ED41A43B00D737 /* PasscodeManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EB88C85736B9F693394AA4 /* PasscodeManagerService.swift */; };
-		4E1CBAF16C15CF18F2ABD114 /* PPPangramSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 866F55AC1BF993F3089F58CB /* PPPangramSans-Medium.ttf */; };
-		50B8CB0CE94CDD45FDE87FE2 /* LaunchSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F86A22750AABB6D384EB92 /* LaunchSettings.swift */; };
-		551DBEFEDA1A86C9449731C1 /* CreatePasscodeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A418B7544504B2A6994680 /* CreatePasscodeUITests.swift */; };
-		561483125EFABB6456EE17F1 /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F45940BAC164B704B699D8 /* IntroModel.swift */; };
-		59A3143F8F0941264604C439 /* PassDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1446B74415E48D2296E87BC /* PassDotsView.swift */; };
-		5B9A92B738DA8188F40FF49D /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E8AAE8C17E29DFD088ABAC /* KeychainHelper.swift */; };
-		615FB0112DB5AABF13D5F11D /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4B6F03AD1FCB6C3A27BEA /* ActivityViewController.swift */; };
-		6205D05A546D07F75FBD7044 /* PinoLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BDB65F49615F11E315D469 /* PinoLabelStyle.swift */; };
-		62D76AEA21FA77F1B65B3C02 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0687C68426E0C6FD16E13 /* IntroView.swift */; };
-		666DA2667A31CB08C5D950D8 /* SeedPhraseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A632EA5045D73D766C9E7B9 /* SeedPhraseMock.swift */; };
-		6924D5CB35490AB6CB6545BF /* Pods_Pino_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 274A1907FF0FE4E897536C69 /* Pods_Pino_iOS.framework */; };
-		6AD4E26A99AFC84D2AF3A0C5 /* PPPangramSans-ExtralightReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A2ACF9076A6247FD47F2B30 /* PPPangramSans-ExtralightReclined.ttf */; };
-		6AE519595A6DDBE4F1601A86 /* PassManagmentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F1CB70751B5BDDC10E3D0A /* PassManagmentError.swift */; };
-		6C833B71B6F3BA139A33B322 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F8A08022F6AA1BCD7CE38C /* AppDelegate.swift */; };
-		6FBD490684FF9088441F2F5E /* PPPangramSans-LightReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B83ACA401EAD993F89B7023B /* PPPangramSans-LightReclined.ttf */; };
-		716467A70048EC5A4D7FBBDA /* IntroCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4A5DFEADC2FBAFE7C70004 /* IntroCollectionView.swift */; };
-		71EC190154C695FC5D4C0823 /* PinoCheckBoxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA04D3A0E125429268C463CD /* PinoCheckBoxStyle.swift */; };
-		720765B87A342B788E9A6B47 /* VerifySecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8DCCF3A632ADB9C88A2384 /* VerifySecretPhraseView.swift */; };
-		7FE41C7D4D9B9EEDF56B6B2F /* SecretPhraseCenteredFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8987C33E118C46BE37E3E8F6 /* SecretPhraseCenteredFlowLayout.swift */; };
-		818C29C2AAB8EE3DD35E3047 /* PPPangramSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D63900FFBF6433FDC55C5C54 /* PPPangramSans-Thin.ttf */; };
-		839AD85F3610B1884F399BBD /* SelectPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD8CBC5172C786CEDDB7E7B /* SelectPassViewModel.swift */; };
-		8A97DEF294C4F8A7134382F9 /* PPPangramSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9EB7328D7AFC63F20335F727 /* PPPangramSans-Bold.ttf */; };
-		8D6E5B79F38B3297294D2ABE /* PPPangramSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BC90AED715801C425CA5724 /* PPPangramSans-Semibold.ttf */; };
-		9037BEE05075EFF2E9C65690 /* PPPangramSans-BoldReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39A8266BF566130DDABC5D6C /* PPPangramSans-BoldReclined.ttf */; };
-		90A9F97705B775C38FA8C705 /* RegularStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46610D4A52E19F4867329D2B /* RegularStyle.swift */; };
-		9118540534473F2A1E6F8A59 /* SecretPhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19F2E109660C75F8321C159 /* SecretPhraseCell.swift */; };
-		928422E950AB93CB0FFFF02B /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD34CCD4B3A2FB7FA03043C4 /* Pods_Pino_iOS_Pino_iOSUITests.framework */; };
-		92947DD471513239423A1BCD /* HDWallet+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310CAE9A900100EC87EC2674 /* HDWallet+Extension.swift */; };
-		98F38099849FA1F234D5205A /* SeedPhrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF25240E193E786A8C4D0A0 /* SeedPhrase.swift */; };
-		9D45B189C0C0883C639430C0 /* PinoFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62F9E39B86A096E08664A59 /* PinoFont.swift */; };
-		9E693738B37406E522D53195 /* PPPangramSans-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4CCA419E1D559BA8657B1C70 /* PPPangramSans-ThinItalic.ttf */; };
-		9E6F1F8F5D453181F2383695 /* CreateWalletUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062E6876604749C171EA69BB /* CreateWalletUITests.swift */; };
-		A08CDFD35C7AAC36C74E2CBD /* AllDoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EE3BB5048106C04DE0056D /* AllDoneViewController.swift */; };
-		A726245DE77E256226431CAF /* BorrowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAEB8A09A3BF2817C5D81BE /* BorrowViewController.swift */; };
-		A83C7BC97FD11F4374613E04 /* PPPangramSans-Extralight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 421EC79F9E35B28183D2DA64 /* PPPangramSans-Extralight.ttf */; };
-		A98FCF3568A5F8413CF3856F /* Pods_Pino_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0CD94F8F77DD2E62355F4C1 /* Pods_Pino_iOSTests.framework */; };
-		AB1B4AFE3D2CE9F26E7F280E /* Pino_iOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1C4D60871024122BCDB64F /* Pino_iOSUITestsLaunchTests.swift */; };
-		AD8CFE182E96D91FB17141EC /* PPPangramSans-MediumReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E0010EFD77EBF50D80DC886 /* PPPangramSans-MediumReclined.ttf */; };
-		B1C4FD14B274C7B16BB549DF /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641BE1B139C09070C930E6A6 /* Array+Extension.swift */; };
-		B36A2186CD2F1AEC671E6CA6 /* SecretPhraseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8323ABB59B47EAB52C2FBCB /* SecretPhraseCollectionView.swift */; };
-		B5A21D5DA432C1EAF353FE4E /* VerifySecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF01D364AA00076D41093E /* VerifySecretPhraseViewController.swift */; };
-		B7B9D333F681BE51B4B3AAC3 /* MediumStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556B9675B232923EF1060360 /* MediumStyle.swift */; };
-		B8F78E54C8BF3BBFCFD195AA /* PPPangramSans-SemiboldReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7395D70A3595B215173A4A19 /* PPPangramSans-SemiboldReclined.ttf */; };
-		C4C15FCC4555C46A7D26DEC5 /* ShowSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F95A0A06CAEDD0D0E35B90 /* ShowSecretPhraseViewController.swift */; };
-		C529AFB317518661ED54C292 /* VerifyPasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B654918653EE2005F9BD660A /* VerifyPasscodeViewController.swift */; };
-		C5B60FCBF9C58C5636F3B235 /* PinoColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51E3C9E51997193B3FA7940 /* PinoColor.swift */; };
-		C66BFBFF47B4502F6D41AEEA /* PPPangramSans-ThinReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 883717CE4E37DB31D9601240 /* PPPangramSans-ThinReclined.ttf */; };
-		CD0821E21FFDEF7A687832D4 /* PPPangramSans-Extrabold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 72AFB6F2C99F2ED4135D1247 /* PPPangramSans-Extrabold.ttf */; };
-		CDE54D2B9F6F8D8AD1A62285 /* TuistBundle+PinoIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C38F142DD3FD85EB2F6ED4D /* TuistBundle+PinoIOS.swift */; };
-		CFC1DA719A27D96B673F358D /* ImportWalletError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704129914486224A1BA93799 /* ImportWalletError.swift */; };
-		DAD36881FD66D8BF61980707 /* PPPangramSans-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 02BD45C3E84B3CDFF4733978 /* PPPangramSans-RegularItalic.ttf */; };
-		DDC632441C71223CD333CB92 /* PPPangramSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 83F929215B78F7D302BCF7D2 /* PPPangramSans-Regular.ttf */; };
-		DDF8283679A83C72884AACEF /* PPPangramSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 69D66831651093B0C3F30FEE /* PPPangramSans-SemiboldItalic.ttf */; };
-		DFE73291B4F94E506417C01D /* HomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00C2C6F1682A46755116BB /* HomepageViewController.swift */; };
-		E0DE588983C7AC30B4802B10 /* PPPangramSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0E8C319A84CE10417DAA808 /* PPPangramSans-Light.ttf */; };
-		E165679D239DB2BED33C962C /* VerifyPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158701DA945370613C0A16CE /* VerifyPassViewModel.swift */; };
-		E19A7F2C3DBEA0CE94C5AFD2 /* SuggestedSeedPhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33612257D0CFB9EF89C3D624 /* SuggestedSeedPhraseCell.swift */; };
-		E781ED88BCAB3865AC2D82CF /* PasscodeManagerPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC793D46C0F62CD2D6C831D0 /* PasscodeManagerPages.swift */; };
-		EAB7622AC86DE97A2E743E0B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7610E1FCF6F11ABC7E1235FB /* TabBarViewController.swift */; };
-		EBEB8549012066F481D3084B /* IntroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FF26CDB0C6ED2F4B3AB902 /* IntroViewModel.swift */; };
-		EEB1C4854259141A60231C52 /* TuistAssets+PinoIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46E075E30E36B20CD5AF1BE /* TuistAssets+PinoIOS.swift */; };
-		F34FAEA58B47B70159B2AD6E /* PinoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC6ABCD9A118FA76DBB6D71 /* PinoLabel.swift */; };
-		F4289CF17B60C5A3CE123531 /* SuggestedSeedPhraseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04417724A503C252DB34F9CE /* SuggestedSeedPhraseCollectionView.swift */; };
-		F49FCB2CC09235D0A4A92774 /* ManagePasscodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C77D6D36520EFF14BD7334 /* ManagePasscodeView.swift */; };
-		F54AD7E7F9CD0DD3B2FE12DA /* PinoButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD992292B5AAF2A2B5E9BCE6 /* PinoButtonStyle.swift */; };
-		F8AA65435058EEBDCECD6B84 /* AutolayoutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3770680F63F42C0B0C895F58 /* AutolayoutHelper.swift */; };
-		F9E052C96F840C3A185D9C2A /* PPPangramSans-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A3DB9962BC076A0A1F23256 /* PPPangramSans-MediumItalic.ttf */; };
-		FCF8F498C31B4A3086818600 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA8A35EE9855F8FA9C7C78EA /* Assets.xcassets */; };
-		FD3139836A6E9D0A3EB63BDD /* Pino_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940D4182A6B44B190376836F /* Pino_iOSTests.swift */; };
+		01B0212D90D700DB5C1126FB /* InvestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2A05AC28F553BF890D172 /* InvestViewController.swift */; };
+		02DF93FE57661E220F5EFAAA /* PPPangramSans-LightReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6533175C792A5B71C376C9CD /* PPPangramSans-LightReclined.ttf */; };
+		044B0442ED266685161841A9 /* Pods_Pino_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22448E0014AFC7514DA16AA4 /* Pods_Pino_iOSTests.framework */; };
+		06DB0B31505094D78686694E /* ShowSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D872D11A91B4283F96C4999D /* ShowSecretPhraseViewController.swift */; };
+		078E15176613CB329D507580 /* PassManagmentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BC3A92C32E2046414C06DB /* PassManagmentError.swift */; };
+		09F905F646F025B2A6CD5098 /* HomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32C8BA23237C64550DEB91F /* HomepageViewController.swift */; };
+		0A972ECB0BD4D36DDB793993 /* Pino_iOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2ABE7B20EDB691025C536E /* Pino_iOSUITestsLaunchTests.swift */; };
+		0C37EADB6BFAB0A340582184 /* SecretPhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FCF8F6F9B8A3E6BC755C52 /* SecretPhraseCell.swift */; };
+		0CDD5B1CF93FCD04F68CC1C9 /* IntroCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DD3D417678658C9A87E94E /* IntroCollectionViewCell.swift */; };
+		1171EA77FBBB99743B192CFF /* VerifyPasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE34223ED5A368C78F99208 /* VerifyPasscodeViewController.swift */; };
+		15A1DA694D1E9C595492510B /* PinoCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FBD227A0D3DC2EF5DB6E84 /* PinoCheckBox.swift */; };
+		1B7D25A69FB55D4EAC14A392 /* BoldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7E138148E3838B0ABB336D /* BoldStyle.swift */; };
+		1F73812756988538BC594057 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5952BFBE13B5028BDF1E686D /* LaunchScreen.storyboard */; };
+		2191112109FDB1FDFC11BBEF /* PPPangramSans-ExtraboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF5ED712FA2B8E57F30351AA /* PPPangramSans-ExtraboldItalic.ttf */; };
+		25BF49CF523EA1322C6FC4EB /* PPPangramSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C31426AD24C3B8759699C644 /* PPPangramSans-Regular.ttf */; };
+		325E592A9AA1B24C522EA47F /* MediumStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860A5D67C58E6FF224570BFE /* MediumStyle.swift */; };
+		34F4A2DA1228B50AC3DFA8A2 /* SeedPhrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1575DB9D22AE8EBFE86A7D9 /* SeedPhrase.swift */; };
+		36705A78402D3518B33881DD /* SecretPhraseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78482FE19363A791AB1DBF21 /* SecretPhraseTextView.swift */; };
+		3ACA10D15DD3199674C38954 /* PinoButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E1101FD968CD52ACD11718 /* PinoButtonStyle.swift */; };
+		3B5C5C7C3020F2A2CDBE5CA5 /* ImportWalletError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC81FCD14624F47792B02A71 /* ImportWalletError.swift */; };
+		3D47F14ECA2A8CAE61061F57 /* PPPangramSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DEF9234B1A724D51BE836376 /* PPPangramSans-LightItalic.ttf */; };
+		3D67A109E1B8A070074C038B /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997149E589FE9217AF43908F /* Pods_Pino_iOS_Pino_iOSUITests.framework */; };
+		41B9F1002F97DF04A075D75D /* PinoStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262D77EFE984EBA7A19D23DC /* PinoStepperView.swift */; };
+		44C3312B501D7A88C6ADB659 /* SelectPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DADC99C41136A35EF49EF9B /* SelectPassViewModel.swift */; };
+		4BD24A38B1C81FA80EB0B6E8 /* AllDoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151E5726229379FA18870AA2 /* AllDoneViewModel.swift */; };
+		4C5FCC355F7D7307B778F686 /* AllDoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C76CCF2D1DB532F1B1F544 /* AllDoneView.swift */; };
+		4C7FBB094D7EA8820D1F4D69 /* ViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33656AE9BB6138666D2E679 /* ViewController+Extension.swift */; };
+		4CEF60EEF4EB1F6FFF04D23D /* PinoColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B08E01F8697BCB86DF01F6 /* PinoColor.swift */; };
+		5172E07495C5EBFA21772580 /* AllDoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF85809C0811ADB69A1512D9 /* AllDoneViewController.swift */; };
+		51F472CF1A7E5D15F58A5CF5 /* PPPangramSans-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2CAFAD80E0F8FFD621B92AC /* PPPangramSans-RegularItalic.ttf */; };
+		55CBB37768826DE00CDAF5FB /* PinoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1248800A47DD9BD31AA1488B /* PinoLabel.swift */; };
+		58B890F4377EE8853C655AFA /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B3B78BD52ACE1726AEB2DF /* TabBarItem.swift */; };
+		59F0D2F9CA8BEA2BB4728B8E /* SwapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A6676B929BBCE1E8B10CDF /* SwapViewController.swift */; };
+		5A0A4A23ED01BFB3E5315791 /* VerifySecretPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBA47FB0ED959F0E18DAD21 /* VerifySecretPhraseViewModel.swift */; };
+		5ED1362DD243A8E87A1B1176 /* PPPangramSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 56B86857945EBDDBE2116217 /* PPPangramSans-Light.ttf */; };
+		62227423FCF2309039BB6FAC /* PPPangramSans-Extralight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 75ADAFE23081B750B20B7F27 /* PPPangramSans-Extralight.ttf */; };
+		643BAB8ABDEFDA509D258D94 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BDF4D66564915FBD19B9A4 /* SceneDelegate.swift */; };
+		6493F198BF5B402E4D922A79 /* PPPangramSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1055FF6B587AAF1786CDA125 /* PPPangramSans-SemiboldItalic.ttf */; };
+		66FD350CBC69B67E8EAEF71C /* IntroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62739F701C3CE3224596049E /* IntroViewModel.swift */; };
+		6C3ACBB9EEE454EC433A907D /* PinoLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE296532DABA81FAA3B00A3 /* PinoLabelStyle.swift */; };
+		710BFFE4625F76FC84268937 /* PPPangramSans-ExtralightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 068F5D74F8B1876B22DD2AC0 /* PPPangramSans-ExtralightItalic.ttf */; };
+		7568B477DFF82F1069E4F911 /* VerifySecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D859A59CF3F5322ACE7356E4 /* VerifySecretPhraseView.swift */; };
+		79073EE50BEA80FAE0356625 /* PPPangramSans-ExtralightReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7D3566CBF0C2E2689423E90 /* PPPangramSans-ExtralightReclined.ttf */; };
+		79B36BD7606F060231E076F1 /* VerifySecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5992C9313824BC32EC68C32E /* VerifySecretPhraseViewController.swift */; };
+		7B6CE232F6C074F30AFAF23D /* ManagePasscodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D79E6ABFF159E2B8FB5C0A2 /* ManagePasscodeView.swift */; };
+		7C0A3AF81DFE67829149BBBE /* CreateWalletUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63629240845E89034EB1956 /* CreateWalletUITests.swift */; };
+		7DD0703DDA2759A33DB4F582 /* SuggestedSeedPhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB0B1B5F9A48B80542BF12C /* SuggestedSeedPhraseCell.swift */; };
+		7EF5AA653545082C4C0D04EF /* PinoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74657FA0D994E06D0289F3A4 /* PinoButton.swift */; };
+		7F59BB0C6DAAC2B010D1AB7F /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AFDF060E381B9453B01D3A /* KeychainHelper.swift */; };
+		822D161496971BD8810457B7 /* PPPangramSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDFE5537D79C7116114C45E6 /* PPPangramSans-Medium.ttf */; };
+		825CA7D8BA6E45A3D5A28A12 /* KeychainWrapperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24229F313641948C73439197 /* KeychainWrapperProtocol.swift */; };
+		84D88149949C0D8A0E7C2BF5 /* PPPangramSans-BoldReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B106F2028FD8799A5277CE30 /* PPPangramSans-BoldReclined.ttf */; };
+		858596F6A073F29FF9BB7033 /* PinoFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEAF1A6DB0A8C3F3D5F8742 /* PinoFont.swift */; };
+		879CCE498D1A04C8EDE64430 /* PPPangramSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C054674B5A17E87E59B6946F /* PPPangramSans-Bold.ttf */; };
+		87D5D64B10D301DA28F383FE /* SuggestedSeedPhraseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBF81923E5F2C83F0DB3C9 /* SuggestedSeedPhraseCollectionView.swift */; };
+		88F5D80113398502A2D2BE03 /* ValidateSecretPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712A56F371843AF47B6362CE /* ValidateSecretPhraseViewModel.swift */; };
+		8ECABB94DCBB30B784D22CFF /* BorrowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB7798DEE2598C367E87BE /* BorrowViewController.swift */; };
+		9131F7218905C2F4AFD3CDE7 /* PinoCheckBoxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27234FAA3BF23A48ABC72E43 /* PinoCheckBoxStyle.swift */; };
+		917064233A24F0460102BC15 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D527D8AB60BF6A7C1EA2D9 /* Array+Extension.swift */; };
+		92BC3A7553A87622AD6F640E /* ShowSecretPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902ADB6DDACF4604CCD18D3E /* ShowSecretPhraseViewModel.swift */; };
+		98D92FBB51CC774F95B06CB8 /* IntroCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794AA4C69F21813E48C811E4 /* IntroCollectionView.swift */; };
+		9A7CE65990DD193F0FAF3C75 /* SecretPhraseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5289053822F33893527540E /* SecretPhraseCollectionView.swift */; };
+		9AD896368BEA2DF5FD408FDF /* PPPangramSans-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 742C62AB6E73DB2037B72C61 /* PPPangramSans-MediumItalic.ttf */; };
+		9B84D9D0C1C08536C00A31CD /* Pods_Pino_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B839A7441259DB3BFD07F60 /* Pods_Pino_iOS.framework */; };
+		9F374A025E01D130ECA95384 /* CreatePasscodeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939D3C65704892C0B83453C5 /* CreatePasscodeUITests.swift */; };
+		A56FBAD2E31C10F504631CD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D17DC5FE81A16A6E44C346 /* AppDelegate.swift */; };
+		A57E4F2D75D4BAAB0F29A83B /* RegularStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF855A1A34B8BFA442582D3 /* RegularStyle.swift */; };
+		A6BFD6F684AF4BA205C23CE7 /* Pino_iOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 281840026D1004B10CE8DAFD /* Pino_iOS.xcdatamodeld */; };
+		A895518EB79CEB4B5CD8758A /* PPPangramSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1B4ADB676ED9AAC2196899E /* PPPangramSans-BoldItalic.ttf */; };
+		A9DD712BF1A1511733B479FA /* LaunchSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC80E0DF7C9912485736BC47 /* LaunchSettings.swift */; };
+		A9EB8A9CA5BE7BA334FBB816 /* SecretPhraseCenteredFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5512C825B9C868060EE43E /* SecretPhraseCenteredFlowLayout.swift */; };
+		A9F646376FF00EFCBE4E1F19 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6710F2AE386548BC8BF46278 /* AlertHelper.swift */; };
+		AAA1EE9680DD6A62A7F88602 /* ImportSecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE59B4F8A912C260EBD9FD8 /* ImportSecretPhraseView.swift */; };
+		AE47F248DD308C61B717B086 /* PPPangramSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F488BFAA1B7C30ABB20FD7B /* PPPangramSans-Semibold.ttf */; };
+		B2555AA57E466EAE75423515 /* PasscodeManagerPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90544A16A36443BB22A6216C /* PasscodeManagerPages.swift */; };
+		B5021409923FBC4DF43B6138 /* PPPangramSans-RegularReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55CD7DABDCFD6941F9E22E49 /* PPPangramSans-RegularReclined.ttf */; };
+		B6C747AA398D7E37B1B727AC /* PassDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DCACC427D66E42E2D55705 /* PassDotsView.swift */; };
+		B986F3B51CE73D69417A51FF /* BlurEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A353D68057FE946A083C7BD /* BlurEffectView.swift */; };
+		BA45498BC5E24EE8ACDA819E /* PPPangramSans-SemiboldReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AACC44FE53317ADAF4E94A03 /* PPPangramSans-SemiboldReclined.ttf */; };
+		BA5A805884B41CA1F182245E /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E3F8B61B1FB024B075BDE9 /* TabBarViewController.swift */; };
+		BB737A7216F658EFFE43401C /* PPPangramSans-ExtraboldReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F052F464B4443A09B569492 /* PPPangramSans-ExtraboldReclined.ttf */; };
+		BCF6A33ADF417A2CD0A0D248 /* ImportSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BEFCC5B997C1B1BBCD4B9 /* ImportSecretPhraseViewController.swift */; };
+		BF6452CE7D0A190C9E9ED3E1 /* AutolayoutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636666E7A7E66F5616275610 /* AutolayoutHelper.swift */; };
+		C0BFA5D21284FA2DAEA8A6CE /* ImportWalletUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0D9155FD8F0605BFF14EB /* ImportWalletUITests.swift */; };
+		C24E36E3E6B2C4A8D1CA3665 /* Pino_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697E9251687D7B285EFCB53 /* Pino_iOSTests.swift */; };
+		C7947A17B0833FA7A202FA92 /* PPPangramSans-MediumReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86F8C6EC31E9AE1094243D0B /* PPPangramSans-MediumReclined.ttf */; };
+		CC788E5AD6EC8CE9488DA049 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3A2C1FAE1267AB6DCED6D4 /* IntroViewController.swift */; };
+		D50E904CB4FBD07E10DE3E9B /* PPPangramSans-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76670736A779E64FF9997E82 /* PPPangramSans-ThinItalic.ttf */; };
+		DC74CB48AE9A2EF8F7AD3EC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C27C5CD593A5978426386378 /* Assets.xcassets */; };
+		DE33FFB7D492FA770FF9FB5C /* SemiboldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50080A9D2083CDB39EEB969A /* SemiboldStyle.swift */; };
+		E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCBF9CC6A3C63CAA0DB0AA7 /* ActivityViewController.swift */; };
+		EB0A89CA5CD87C0FE83A682B /* PasscodeManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4486671985C3EC4841BF82AF /* PasscodeManagerService.swift */; };
+		EE23BD62B18C9118376A405C /* PPPangramSans-ThinReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7C48BF270C9A3E1CA6D9F33 /* PPPangramSans-ThinReclined.ttf */; };
+		EFC5F586A70E988F98620A79 /* PPPangramSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CC36053D1265CD704BF7F722 /* PPPangramSans-Thin.ttf */; };
+		F29B5E085D9D0D99354034C9 /* StringProtocol+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D476E770DF75B119476A1AC /* StringProtocol+Extension.swift */; };
+		F7D22B022E9C48DDF930FAD9 /* SeedPhraseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B485AFB6815162BF8CD215C /* SeedPhraseMock.swift */; };
+		F8BA0B9925700FFF405AB76D /* VerifyPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582B119F599D60CB68C55E2F /* VerifyPassViewModel.swift */; };
+		FAF0C3C48227F773D772FF6E /* CreatePasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EEC20862FCD98123D65A01 /* CreatePasscodeViewController.swift */; };
+		FBEBDE533CAA644C5EF987A1 /* HDWallet+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7713B677A7921CBCB8CCCF /* HDWallet+Extension.swift */; };
+		FC0D80A069760DC032C1B9D6 /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E7642C1C0BE45725F5B549 /* IntroModel.swift */; };
+		FDC9B8DDC75EF47C7D607182 /* ShowSecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D243D736A087A5296804FB9 /* ShowSecretPhraseView.swift */; };
+		FDEF1CFCCEFF7401C0A664FD /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6607F3D23F306FA733008E8D /* IntroView.swift */; };
+		FF58849FC74FCDF3DB174C34 /* PPPangramSans-Extrabold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D91B98B8A47DBAE96AE7956F /* PPPangramSans-Extrabold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		69F0BAF5F4CA11531B5F2E2E /* PBXContainerItemProxy */ = {
+		40318F5529620CDA00039FE0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5939E0FFBB001767AF40C17F /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 76B66D03FC77A6B968427190;
 			remoteInfo = "Pino-iOS";
 		};
-		DBA0CDD520BFA313CF8CDA96 /* PBXContainerItemProxy */ = {
+		40318F5729620CDC00039FE0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5939E0FFBB001767AF40C17F /* Project object */;
 			proxyType = 1;
@@ -130,777 +129,715 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		3BFEBA09CFB4A7B70880C090 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3E1C42A66789FB013BD13642 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C74161FE8841D6B6E5C098A8 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		02BD45C3E84B3CDFF4733978 /* PPPangramSans-RegularItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-RegularItalic.ttf"; sourceTree = "<group>"; };
-		04417724A503C252DB34F9CE /* SuggestedSeedPhraseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedSeedPhraseCollectionView.swift; sourceTree = "<group>"; };
-		062E6876604749C171EA69BB /* CreateWalletUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWalletUITests.swift; sourceTree = "<group>"; };
-		06F95A0A06CAEDD0D0E35B90 /* ShowSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseViewController.swift; sourceTree = "<group>"; };
-		0A9E7D9EC8768B1B55DFA2F2 /* Pods-Pino-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS.debug.xcconfig"; sourceTree = "<group>"; };
-		0D8DCCF3A632ADB9C88A2384 /* VerifySecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseView.swift; sourceTree = "<group>"; };
-		0EDBBFAD004B3CE088F12483 /* PPPangramSans-ExtraboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtraboldItalic.ttf"; sourceTree = "<group>"; };
-		132F0B27ACD56BA431F25865 /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		14EE3BB5048106C04DE0056D /* AllDoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDoneViewController.swift; sourceTree = "<group>"; };
-		1500554F63220FE7B4551D27 /* SemiboldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiboldStyle.swift; sourceTree = "<group>"; };
-		158701DA945370613C0A16CE /* VerifyPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPassViewModel.swift; sourceTree = "<group>"; };
-		18DF01D364AA00076D41093E /* VerifySecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseViewController.swift; sourceTree = "<group>"; };
-		1BCF5E198C52B3FC3A95AE6E /* PPPangramSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-LightItalic.ttf"; sourceTree = "<group>"; };
-		1C38F142DD3FD85EB2F6ED4D /* TuistBundle+PinoIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+PinoIOS.swift"; sourceTree = "<group>"; };
-		1C64ED0E420A75845A204FD9 /* PPPangramSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-BoldItalic.ttf"; sourceTree = "<group>"; };
-		1C94D67366BBC5FC2E83690B /* AllDoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDoneViewModel.swift; sourceTree = "<group>"; };
-		1E63A3FADC136684209F7A94 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
-		274A1907FF0FE4E897536C69 /* Pods_Pino_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		29E7113D81B6454054D7AE8E /* PPPangramSans-RegularReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-RegularReclined.ttf"; sourceTree = "<group>"; };
-		29FA9F2B6774C623781F9BA2 /* BlurEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurEffectView.swift; sourceTree = "<group>"; };
-		30FD27066FB1D5073296B68A /* ShowSecretPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseViewModel.swift; sourceTree = "<group>"; };
-		310CAE9A900100EC87EC2674 /* HDWallet+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HDWallet+Extension.swift"; sourceTree = "<group>"; };
-		33612257D0CFB9EF89C3D624 /* SuggestedSeedPhraseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedSeedPhraseCell.swift; sourceTree = "<group>"; };
-		366A068543C0D3E62EC9633B /* ValidateSecretPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateSecretPhraseViewModel.swift; sourceTree = "<group>"; };
-		3770680F63F42C0B0C895F58 /* AutolayoutHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutolayoutHelper.swift; sourceTree = "<group>"; };
-		39A8266BF566130DDABC5D6C /* PPPangramSans-BoldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-BoldReclined.ttf"; sourceTree = "<group>"; };
-		3A3DB9962BC076A0A1F23256 /* PPPangramSans-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-MediumItalic.ttf"; sourceTree = "<group>"; };
-		3B8EE37C4E43E8C7514B1BE8 /* SwapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapViewController.swift; sourceTree = "<group>"; };
-		3BC6ABCD9A118FA76DBB6D71 /* PinoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoLabel.swift; sourceTree = "<group>"; };
-		3D9D19C9FA163F6540E69EB5 /* PPPangramSans-ExtraboldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtraboldReclined.ttf"; sourceTree = "<group>"; };
-		3E0010EFD77EBF50D80DC886 /* PPPangramSans-MediumReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-MediumReclined.ttf"; sourceTree = "<group>"; };
-		41EB88C85736B9F693394AA4 /* PasscodeManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeManagerService.swift; sourceTree = "<group>"; };
-		421EC79F9E35B28183D2DA64 /* PPPangramSans-Extralight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Extralight.ttf"; sourceTree = "<group>"; };
-		43F45940BAC164B704B699D8 /* IntroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroModel.swift; sourceTree = "<group>"; };
-		46610D4A52E19F4867329D2B /* RegularStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularStyle.swift; sourceTree = "<group>"; };
-		4A632EA5045D73D766C9E7B9 /* SeedPhraseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseMock.swift; sourceTree = "<group>"; };
-		4CCA419E1D559BA8657B1C70 /* PPPangramSans-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ThinItalic.ttf"; sourceTree = "<group>"; };
-		506778827BFFAD8480D0F2C2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		52FA8EB610C9E5FBEB06A460 /* ImportSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSecretPhraseViewController.swift; sourceTree = "<group>"; };
-		556B9675B232923EF1060360 /* MediumStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumStyle.swift; sourceTree = "<group>"; };
-		57AE994012288D40FAEB175B /* Pino-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Pino-iOS-Info.plist"; sourceTree = "<group>"; };
-		5873E89FD2DBE91A7B148B47 /* BoldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldStyle.swift; sourceTree = "<group>"; };
-		5CD8CBC5172C786CEDDB7E7B /* SelectPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPassViewModel.swift; sourceTree = "<group>"; };
-		5CE4B6F03AD1FCB6C3A27BEA /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
-		5EC98207842980D5328B25F8 /* Pino_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Pino_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6106162A4785FF5E96E05450 /* ViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Extension.swift"; sourceTree = "<group>"; };
-		641BE1B139C09070C930E6A6 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
-		67305E6086B83736D23758B5 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
-		68C77D6D36520EFF14BD7334 /* ManagePasscodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagePasscodeView.swift; sourceTree = "<group>"; };
-		69D66831651093B0C3F30FEE /* PPPangramSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
-		704129914486224A1BA93799 /* ImportWalletError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletError.swift; sourceTree = "<group>"; };
-		71E37262DD3BAB9CAA733F2E /* StringProtocol+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringProtocol+Extension.swift"; sourceTree = "<group>"; };
-		721F517E2069F5C34B4EE0B1 /* Pods-Pino-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		72AFB6F2C99F2ED4135D1247 /* PPPangramSans-Extrabold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Extrabold.ttf"; sourceTree = "<group>"; };
-		7395D70A3595B215173A4A19 /* PPPangramSans-SemiboldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-SemiboldReclined.ttf"; sourceTree = "<group>"; };
-		7610E1FCF6F11ABC7E1235FB /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
-		7A2ACF9076A6247FD47F2B30 /* PPPangramSans-ExtralightReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtralightReclined.ttf"; sourceTree = "<group>"; };
-		7BC90AED715801C425CA5724 /* PPPangramSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Semibold.ttf"; sourceTree = "<group>"; };
-		8214B6DB674458531FD828D8 /* IntroCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCollectionViewCell.swift; sourceTree = "<group>"; };
-		8261937722AB4BF364074A3F /* ShowSecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseView.swift; sourceTree = "<group>"; };
-		83F929215B78F7D302BCF7D2 /* PPPangramSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Regular.ttf"; sourceTree = "<group>"; };
-		866F55AC1BF993F3089F58CB /* PPPangramSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Medium.ttf"; sourceTree = "<group>"; };
-		883717CE4E37DB31D9601240 /* PPPangramSans-ThinReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ThinReclined.ttf"; sourceTree = "<group>"; };
-		88E8AAE8C17E29DFD088ABAC /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
-		8987C33E118C46BE37E3E8F6 /* SecretPhraseCenteredFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseCenteredFlowLayout.swift; sourceTree = "<group>"; };
-		8AF34662FFE25754189C5E1E /* PinoStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoStepperView.swift; sourceTree = "<group>"; };
-		8CEE6EA6F86954BD72ED3DD5 /* InvestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestViewController.swift; sourceTree = "<group>"; };
-		8E1C4D60871024122BCDB64F /* Pino_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pino_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		8EF25240E193E786A8C4D0A0 /* SeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhrase.swift; sourceTree = "<group>"; };
-		940D4182A6B44B190376836F /* Pino_iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pino_iOSTests.swift; sourceTree = "<group>"; };
-		9B356FACE5AD121691B5EB0B /* Pino_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pino_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9EB7328D7AFC63F20335F727 /* PPPangramSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Bold.ttf"; sourceTree = "<group>"; };
-		A0FF26CDB0C6ED2F4B3AB902 /* IntroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewModel.swift; sourceTree = "<group>"; };
-		A2993F462134BC968390581B /* PinoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoButton.swift; sourceTree = "<group>"; };
-		A5CFB36DDA732D8273860EDB /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
-		A990075B21467D9A8513640B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		A9A418B7544504B2A6994680 /* CreatePasscodeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeUITests.swift; sourceTree = "<group>"; };
-		AA00C2C6F1682A46755116BB /* HomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewController.swift; sourceTree = "<group>"; };
-		AA8A35EE9855F8FA9C7C78EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		ABAEB8A09A3BF2817C5D81BE /* BorrowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowViewController.swift; sourceTree = "<group>"; };
-		AD19E2C62A071C379D1A291E /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
-		AD992292B5AAF2A2B5E9BCE6 /* PinoButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoButtonStyle.swift; sourceTree = "<group>"; };
-		AE566C3E5C85B51E58D04E7F /* Pods-Pino-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		B0CD94F8F77DD2E62355F4C1 /* Pods_Pino_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B1446B74415E48D2296E87BC /* PassDotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassDotsView.swift; sourceTree = "<group>"; };
-		B60F46869B827F258DCA7672 /* TuistFonts+PinoIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistFonts+PinoIOS.swift"; sourceTree = "<group>"; };
-		B62F9E39B86A096E08664A59 /* PinoFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoFont.swift; sourceTree = "<group>"; };
-		B654918653EE2005F9BD660A /* VerifyPasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPasscodeViewController.swift; sourceTree = "<group>"; };
-		B8323ABB59B47EAB52C2FBCB /* SecretPhraseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseCollectionView.swift; sourceTree = "<group>"; };
-		B83ACA401EAD993F89B7023B /* PPPangramSans-LightReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-LightReclined.ttf"; sourceTree = "<group>"; };
-		BF4A5DFEADC2FBAFE7C70004 /* IntroCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCollectionView.swift; sourceTree = "<group>"; };
-		C01FDCDE60E35D59D29043B3 /* SecretPhraseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseTextView.swift; sourceTree = "<group>"; };
-		C19F2E109660C75F8321C159 /* SecretPhraseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseCell.swift; sourceTree = "<group>"; };
-		C4FD2F4E7B7B989C365E09ED /* PPPangramSans-ExtralightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtralightItalic.ttf"; sourceTree = "<group>"; };
-		C8C678EA95588267D7E14551 /* Pods-Pino-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS.release.xcconfig"; sourceTree = "<group>"; };
-		CA04D3A0E125429268C463CD /* PinoCheckBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoCheckBoxStyle.swift; sourceTree = "<group>"; };
-		CD34CCD4B3A2FB7FA03043C4 /* Pods_Pino_iOS_Pino_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS_Pino_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D3F86A22750AABB6D384EB92 /* LaunchSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchSettings.swift; sourceTree = "<group>"; };
-		D3F8A08022F6AA1BCD7CE38C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D46E075E30E36B20CD5AF1BE /* TuistAssets+PinoIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistAssets+PinoIOS.swift"; sourceTree = "<group>"; };
-		D51E3C9E51997193B3FA7940 /* PinoColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoColor.swift; sourceTree = "<group>"; };
-		D63900FFBF6433FDC55C5C54 /* PPPangramSans-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Thin.ttf"; sourceTree = "<group>"; };
-		D7BDB65F49615F11E315D469 /* PinoLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoLabelStyle.swift; sourceTree = "<group>"; };
-		E073F552ABC50DFF611DD6D7 /* ImportSecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSecretPhraseView.swift; sourceTree = "<group>"; };
-		E0F1CB70751B5BDDC10E3D0A /* PassManagmentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassManagmentError.swift; sourceTree = "<group>"; };
-		E2F12D00D4BD3A8B271BC47E /* KeychainWrapperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapperProtocol.swift; sourceTree = "<group>"; };
-		E79B1E9C41C5695BA0BD52FA /* PinoCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoCheckBox.swift; sourceTree = "<group>"; };
-		EB5BC47B119D6D83180C9BB4 /* CreatePasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeViewController.swift; sourceTree = "<group>"; };
-		F01BABB0D1DFE22BD293AAA1 /* ImportWalletUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletUITests.swift; sourceTree = "<group>"; };
-		F0E8C319A84CE10417DAA808 /* PPPangramSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Light.ttf"; sourceTree = "<group>"; };
-		F2EAF5AADABDA7A37067D88E /* Pino_iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Pino_iOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F8BAA38133ECAEF6F11A90FE /* AllDoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDoneView.swift; sourceTree = "<group>"; };
-		FB0F79268C00324C48ACDFE9 /* VerifySecretPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseViewModel.swift; sourceTree = "<group>"; };
-		FBF0687C68426E0C6FD16E13 /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
-		FC793D46C0F62CD2D6C831D0 /* PasscodeManagerPages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeManagerPages.swift; sourceTree = "<group>"; };
+		068F5D74F8B1876B22DD2AC0 /* PPPangramSans-ExtralightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtralightItalic.ttf"; sourceTree = "<group>"; };
+		0A353D68057FE946A083C7BD /* BlurEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurEffectView.swift; sourceTree = "<group>"; };
+		0EDB7798DEE2598C367E87BE /* BorrowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowViewController.swift; sourceTree = "<group>"; };
+		1055FF6B587AAF1786CDA125 /* PPPangramSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
+		1248800A47DD9BD31AA1488B /* PinoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoLabel.swift; sourceTree = "<group>"; };
+		12D527D8AB60BF6A7C1EA2D9 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		151E5726229379FA18870AA2 /* AllDoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDoneViewModel.swift; sourceTree = "<group>"; };
+		164BEFCC5B997C1B1BBCD4B9 /* ImportSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSecretPhraseViewController.swift; sourceTree = "<group>"; };
+		1697E9251687D7B285EFCB53 /* Pino_iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pino_iOSTests.swift; sourceTree = "<group>"; };
+		1AE59B4F8A912C260EBD9FD8 /* ImportSecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSecretPhraseView.swift; sourceTree = "<group>"; };
+		1D79E6ABFF159E2B8FB5C0A2 /* ManagePasscodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagePasscodeView.swift; sourceTree = "<group>"; };
+		1F488BFAA1B7C30ABB20FD7B /* PPPangramSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Semibold.ttf"; sourceTree = "<group>"; };
+		22448E0014AFC7514DA16AA4 /* Pods_Pino_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		24229F313641948C73439197 /* KeychainWrapperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapperProtocol.swift; sourceTree = "<group>"; };
+		262D77EFE984EBA7A19D23DC /* PinoStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoStepperView.swift; sourceTree = "<group>"; };
+		27234FAA3BF23A48ABC72E43 /* PinoCheckBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoCheckBoxStyle.swift; sourceTree = "<group>"; };
+		2CE296532DABA81FAA3B00A3 /* PinoLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoLabelStyle.swift; sourceTree = "<group>"; };
+		308218817F62BF5BBE6444F2 /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
+		34DCACC427D66E42E2D55705 /* PassDotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassDotsView.swift; sourceTree = "<group>"; };
+		35DD3D417678658C9A87E94E /* IntroCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCollectionViewCell.swift; sourceTree = "<group>"; };
+		3BB0B1B5F9A48B80542BF12C /* SuggestedSeedPhraseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedSeedPhraseCell.swift; sourceTree = "<group>"; };
+		3DADC99C41136A35EF49EF9B /* SelectPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPassViewModel.swift; sourceTree = "<group>"; };
+		3F052F464B4443A09B569492 /* PPPangramSans-ExtraboldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtraboldReclined.ttf"; sourceTree = "<group>"; };
+		401F284295C66156BE83D796 /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		4486671985C3EC4841BF82AF /* PasscodeManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeManagerService.swift; sourceTree = "<group>"; };
+		47A6676B929BBCE1E8B10CDF /* SwapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapViewController.swift; sourceTree = "<group>"; };
+		49D17DC5FE81A16A6E44C346 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		50080A9D2083CDB39EEB969A /* SemiboldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiboldStyle.swift; sourceTree = "<group>"; };
+		55CD7DABDCFD6941F9E22E49 /* PPPangramSans-RegularReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-RegularReclined.ttf"; sourceTree = "<group>"; };
+		55E1101FD968CD52ACD11718 /* PinoButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoButtonStyle.swift; sourceTree = "<group>"; };
+		56B86857945EBDDBE2116217 /* PPPangramSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Light.ttf"; sourceTree = "<group>"; };
+		56CFE2D2639257199BC27B3A /* Pods-Pino-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		582B119F599D60CB68C55E2F /* VerifyPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPassViewModel.swift; sourceTree = "<group>"; };
+		5992C9313824BC32EC68C32E /* VerifySecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseViewController.swift; sourceTree = "<group>"; };
+		5B485AFB6815162BF8CD215C /* SeedPhraseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseMock.swift; sourceTree = "<group>"; };
+		5EFC7CBAB68C417D56B4764A /* Pino_iOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Pino_iOS.xcdatamodel; sourceTree = "<group>"; };
+		62739F701C3CE3224596049E /* IntroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewModel.swift; sourceTree = "<group>"; };
+		636666E7A7E66F5616275610 /* AutolayoutHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutolayoutHelper.swift; sourceTree = "<group>"; };
+		6533175C792A5B71C376C9CD /* PPPangramSans-LightReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-LightReclined.ttf"; sourceTree = "<group>"; };
+		6607F3D23F306FA733008E8D /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
+		6710F2AE386548BC8BF46278 /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
+		69B08E01F8697BCB86DF01F6 /* PinoColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoColor.swift; sourceTree = "<group>"; };
+		69F80E5332D902C3DF82DC4A /* Pino-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pino-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		712A56F371843AF47B6362CE /* ValidateSecretPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateSecretPhraseViewModel.swift; sourceTree = "<group>"; };
+		71EEC20862FCD98123D65A01 /* CreatePasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeViewController.swift; sourceTree = "<group>"; };
+		72BC3A92C32E2046414C06DB /* PassManagmentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassManagmentError.swift; sourceTree = "<group>"; };
+		742C62AB6E73DB2037B72C61 /* PPPangramSans-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-MediumItalic.ttf"; sourceTree = "<group>"; };
+		74657FA0D994E06D0289F3A4 /* PinoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoButton.swift; sourceTree = "<group>"; };
+		75ADAFE23081B750B20B7F27 /* PPPangramSans-Extralight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Extralight.ttf"; sourceTree = "<group>"; };
+		76670736A779E64FF9997E82 /* PPPangramSans-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ThinItalic.ttf"; sourceTree = "<group>"; };
+		78482FE19363A791AB1DBF21 /* SecretPhraseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseTextView.swift; sourceTree = "<group>"; };
+		794AA4C69F21813E48C811E4 /* IntroCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCollectionView.swift; sourceTree = "<group>"; };
+		79FCF8F6F9B8A3E6BC755C52 /* SecretPhraseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseCell.swift; sourceTree = "<group>"; };
+		7BF855A1A34B8BFA442582D3 /* RegularStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularStyle.swift; sourceTree = "<group>"; };
+		7D243D736A087A5296804FB9 /* ShowSecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseView.swift; sourceTree = "<group>"; };
+		7D476E770DF75B119476A1AC /* StringProtocol+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringProtocol+Extension.swift"; sourceTree = "<group>"; };
+		7F3A2C1FAE1267AB6DCED6D4 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
+		7FD0D9155FD8F0605BFF14EB /* ImportWalletUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletUITests.swift; sourceTree = "<group>"; };
+		8407E9F899DB999F8C0513D8 /* Pods-Pino-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		860A5D67C58E6FF224570BFE /* MediumStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumStyle.swift; sourceTree = "<group>"; };
+		86F8C6EC31E9AE1094243D0B /* PPPangramSans-MediumReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-MediumReclined.ttf"; sourceTree = "<group>"; };
+		8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "Pino-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EEAF1A6DB0A8C3F3D5F8742 /* PinoFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoFont.swift; sourceTree = "<group>"; };
+		8F7E138148E3838B0ABB336D /* BoldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldStyle.swift; sourceTree = "<group>"; };
+		902ADB6DDACF4604CCD18D3E /* ShowSecretPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseViewModel.swift; sourceTree = "<group>"; };
+		90544A16A36443BB22A6216C /* PasscodeManagerPages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeManagerPages.swift; sourceTree = "<group>"; };
+		91B3B78BD52ACE1726AEB2DF /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
+		939D3C65704892C0B83453C5 /* CreatePasscodeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeUITests.swift; sourceTree = "<group>"; };
+		997149E589FE9217AF43908F /* Pods_Pino_iOS_Pino_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS_Pino_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B839A7441259DB3BFD07F60 /* Pods_Pino_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C2ABE7B20EDB691025C536E /* Pino_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pino_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A63629240845E89034EB1956 /* CreateWalletUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWalletUITests.swift; sourceTree = "<group>"; };
+		A7C48BF270C9A3E1CA6D9F33 /* PPPangramSans-ThinReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ThinReclined.ttf"; sourceTree = "<group>"; };
+		AACC44FE53317ADAF4E94A03 /* PPPangramSans-SemiboldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-SemiboldReclined.ttf"; sourceTree = "<group>"; };
+		B106F2028FD8799A5277CE30 /* PPPangramSans-BoldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-BoldReclined.ttf"; sourceTree = "<group>"; };
+		B2CAFAD80E0F8FFD621B92AC /* PPPangramSans-RegularItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-RegularItalic.ttf"; sourceTree = "<group>"; };
+		B33656AE9BB6138666D2E679 /* ViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Extension.swift"; sourceTree = "<group>"; };
+		B3BDF4D66564915FBD19B9A4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		B40D6EF0262990FF33E91CCD /* Pino-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pino-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB7713B677A7921CBCB8CCCF /* HDWallet+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HDWallet+Extension.swift"; sourceTree = "<group>"; };
+		BDFE5537D79C7116114C45E6 /* PPPangramSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Medium.ttf"; sourceTree = "<group>"; };
+		C054674B5A17E87E59B6946F /* PPPangramSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Bold.ttf"; sourceTree = "<group>"; };
+		C27C5CD593A5978426386378 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C31426AD24C3B8759699C644 /* PPPangramSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Regular.ttf"; sourceTree = "<group>"; };
+		C5AFDF060E381B9453B01D3A /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		C6E3F8B61B1FB024B075BDE9 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		CC36053D1265CD704BF7F722 /* PPPangramSans-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Thin.ttf"; sourceTree = "<group>"; };
+		CCCBF9CC6A3C63CAA0DB0AA7 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		CEC2A05AC28F553BF890D172 /* InvestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestViewController.swift; sourceTree = "<group>"; };
+		CF85809C0811ADB69A1512D9 /* AllDoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDoneViewController.swift; sourceTree = "<group>"; };
+		D5289053822F33893527540E /* SecretPhraseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseCollectionView.swift; sourceTree = "<group>"; };
+		D5E7642C1C0BE45725F5B549 /* IntroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroModel.swift; sourceTree = "<group>"; };
+		D7D3566CBF0C2E2689423E90 /* PPPangramSans-ExtralightReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtralightReclined.ttf"; sourceTree = "<group>"; };
+		D859A59CF3F5322ACE7356E4 /* VerifySecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseView.swift; sourceTree = "<group>"; };
+		D872D11A91B4283F96C4999D /* ShowSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseViewController.swift; sourceTree = "<group>"; };
+		D91B98B8A47DBAE96AE7956F /* PPPangramSans-Extrabold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Extrabold.ttf"; sourceTree = "<group>"; };
+		DCDBF81923E5F2C83F0DB3C9 /* SuggestedSeedPhraseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedSeedPhraseCollectionView.swift; sourceTree = "<group>"; };
+		DDBA47FB0ED959F0E18DAD21 /* VerifySecretPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseViewModel.swift; sourceTree = "<group>"; };
+		DEF9234B1A724D51BE836376 /* PPPangramSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		E014267A11D9442B3923F2F8 /* Pods-Pino-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		E1575DB9D22AE8EBFE86A7D9 /* SeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhrase.swift; sourceTree = "<group>"; };
+		E5039C2C00BEB653F3B0D399 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E5C76CCF2D1DB532F1B1F544 /* AllDoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDoneView.swift; sourceTree = "<group>"; };
+		EA71EC229911D193381225AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EAAB50E4A8C365B55E38D57D /* Pods-Pino-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		EC80E0DF7C9912485736BC47 /* LaunchSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchSettings.swift; sourceTree = "<group>"; };
+		EDE34223ED5A368C78F99208 /* VerifyPasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPasscodeViewController.swift; sourceTree = "<group>"; };
+		EF5ED712FA2B8E57F30351AA /* PPPangramSans-ExtraboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtraboldItalic.ttf"; sourceTree = "<group>"; };
+		F1B4ADB676ED9AAC2196899E /* PPPangramSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		F1FBD227A0D3DC2EF5DB6E84 /* PinoCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoCheckBox.swift; sourceTree = "<group>"; };
+		F32C8BA23237C64550DEB91F /* HomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewController.swift; sourceTree = "<group>"; };
+		FC81FCD14624F47792B02A71 /* ImportWalletError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletError.swift; sourceTree = "<group>"; };
+		FE5512C825B9C868060EE43E /* SecretPhraseCenteredFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseCenteredFlowLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4A0E4C654CDEA35DB394F991 /* Frameworks */ = {
+		3344F5C84B1CDB44EB9E12CC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				928422E950AB93CB0FFFF02B /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */,
+				3D67A109E1B8A070074C038B /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4EA6AE73A5024A507FB32B94 /* Frameworks */ = {
+		AFC63CC39FA931FF7ACB05E0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A98FCF3568A5F8413CF3856F /* Pods_Pino_iOSTests.framework in Frameworks */,
+				044B0442ED266685161841A9 /* Pods_Pino_iOSTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5DA1CEFB65DEF1E6AE951ADA /* Frameworks */ = {
+		FD5CD0927FAE3FC33888EF20 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6924D5CB35490AB6CB6545BF /* Pods_Pino_iOS.framework in Frameworks */,
+				9B84D9D0C1C08536C00A31CD /* Pods_Pino_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		05217A9919CE8A04E7F825B6 /* Launch */ = {
+		003A926B6A7FCC04DB681BCA /* Pino-iOSUITests */ = {
 			isa = PBXGroup;
 			children = (
-				8E1C4D60871024122BCDB64F /* Pino_iOSUITestsLaunchTests.swift */,
+				939A8889E73CA87DF2FC1E15 /* Launch */,
+				46D4240E9B4A36B315CAEEB8 /* Wallet */,
 			);
-			path = Launch;
+			path = "Pino-iOSUITests";
 			sourceTree = "<group>";
 		};
-		09C8092D37F56E11B5A310B5 /* Frameworks */ = {
+		02F7EC4A2D81621079530268 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
-				274A1907FF0FE4E897536C69 /* Pods_Pino_iOS.framework */,
-				CD34CCD4B3A2FB7FA03043C4 /* Pods_Pino_iOS_Pino_iOSUITests.framework */,
-				B0CD94F8F77DD2E62355F4C1 /* Pods_Pino_iOSTests.framework */,
+				454AFE7F0BDC59A5CA92FB2B /* Button */,
+				52B01938BA713C20BBDAD165 /* CheckBox */,
+				2A49E5F5C22C3E760C88D1F4 /* Color */,
+				BF1F9424921ABEE617444686 /* Label */,
+				7A20D213409A0FB263C8C645 /* Stepper */,
+				83C1CBBD3388262B0A9FBCF8 /* Typography */,
 			);
-			name = Frameworks;
+			path = DesignSystem;
 			sourceTree = "<group>";
 		};
-		101EC518813BB364763239A8 /* Utility */ = {
+		0492D2075569B8DAADC8CF8F /* PasscodeManage */ = {
 			isa = PBXGroup;
 			children = (
-				A5CFB36DDA732D8273860EDB /* AlertHelper.swift */,
-				3770680F63F42C0B0C895F58 /* AutolayoutHelper.swift */,
-				29FA9F2B6774C623781F9BA2 /* BlurEffectView.swift */,
+				765029B7C03A19ADACDB9846 /* Error */,
+				97AE5E59D425F7C6D350D3BE /* Protocols */,
+				73BCAAF9F14D57582879BF95 /* View */,
+				2BDF0225C8F07F9C7338DDB6 /* ViewController */,
+				51D4469C227B8D3278BB6A3E /* ViewModel */,
 			);
-			path = Utility;
+			path = PasscodeManage;
 			sourceTree = "<group>";
 		};
-		1AF9A3F81164EB60BDF5AF7F /* Wallet */ = {
+		04B106B3DF470073D0EB3602 /* CreateWallet */ = {
 			isa = PBXGroup;
 			children = (
-				A9A418B7544504B2A6994680 /* CreatePasscodeUITests.swift */,
-				062E6876604749C171EA69BB /* CreateWalletUITests.swift */,
-				F01BABB0D1DFE22BD293AAA1 /* ImportWalletUITests.swift */,
+				75B7BC37397A677F7ECD5D82 /* View */,
+				4899FB7A992B2CB40A8D2FDF /* ViewController */,
+				AC733BF0B7C3FC9C9BB39756 /* ViewModel */,
 			);
-			path = Wallet;
+			path = CreateWallet;
 			sourceTree = "<group>";
 		};
-		1F89FBE5BE386D1DB629BF78 /* Swap */ = {
+		08F6C5346D722CF16AB89790 /* Borrow */ = {
 			isa = PBXGroup;
 			children = (
-				3B8EE37C4E43E8C7514B1BE8 /* SwapViewController.swift */,
+				0EDB7798DEE2598C367E87BE /* BorrowViewController.swift */,
 			);
-			path = Swap;
+			path = Borrow;
 			sourceTree = "<group>";
 		};
-		20110620C9DB7CB4C91DD7E0 /* PasscodeManager */ = {
+		0A8C8735A267A40CD87F6460 /* ImportWallet */ = {
 			isa = PBXGroup;
 			children = (
-				41EB88C85736B9F693394AA4 /* PasscodeManagerService.swift */,
+				A71CFE6FCB50D714B6B8F979 /* Error */,
+				E4E70C8737CE1DDF9D98700D /* Pino-iOS */,
+				5363337182DDAC655D7A3E00 /* View */,
+				701296F9043E020094B51C0F /* ViewModel */,
 			);
-			path = PasscodeManager;
+			path = ImportWallet;
+			sourceTree = "<group>";
+		};
+		151BB1B5F14D4004A888D11A /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				5B485AFB6815162BF8CD215C /* SeedPhraseMock.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		1D13366B966864F971A82F68 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C27C5CD593A5978426386378 /* Assets.xcassets */,
+				941DD7FB51B23C52ED61480C /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		1F574BD7E5BA9952845C29CF /* App */ = {
+			isa = PBXGroup;
+			children = (
+				49D17DC5FE81A16A6E44C346 /* AppDelegate.swift */,
+				EA71EC229911D193381225AB /* Info.plist */,
+				EC80E0DF7C9912485736BC47 /* LaunchSettings.swift */,
+				B3BDF4D66564915FBD19B9A4 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		20080CFF515DAFA7F79DA2AD /* SecretPhrase */ = {
+			isa = PBXGroup;
+			children = (
+				79FCF8F6F9B8A3E6BC755C52 /* SecretPhraseCell.swift */,
+				FE5512C825B9C868060EE43E /* SecretPhraseCenteredFlowLayout.swift */,
+				D5289053822F33893527540E /* SecretPhraseCollectionView.swift */,
+				E1575DB9D22AE8EBFE86A7D9 /* SeedPhrase.swift */,
+			);
+			path = SecretPhrase;
 			sourceTree = "<group>";
 		};
 		2277E1FFDD10A1C98A64D20C = {
 			isa = PBXGroup;
 			children = (
-				A4A5A8D8D0620DABE2CA326F /* Project */,
-				09C8092D37F56E11B5A310B5 /* Frameworks */,
+				23F1BD4FAC784DB47F844F5D /* Pino-iOS */,
+				BF60D065B05ED69B89F714A0 /* Pino-iOSTests */,
+				003A926B6A7FCC04DB681BCA /* Pino-iOSUITests */,
 				2821FB9CEE9F9B9E6BAE9FD7 /* Products */,
-				5974B46B816879513E1EB78A /* Pods */,
+				7D48DCC9840F5331C427D8F4 /* Pods */,
+				3C2446901B5094D5818EE391 /* Frameworks */,
 			);
+			sourceTree = "<group>";
+		};
+		23ECD4F5456527D7C2AA2F14 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D5E7642C1C0BE45725F5B549 /* IntroModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		23F1BD4FAC784DB47F844F5D /* Pino-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				5952BFBE13B5028BDF1E686D /* LaunchScreen.storyboard */,
+				1F574BD7E5BA9952845C29CF /* App */,
+				02F7EC4A2D81621079530268 /* DesignSystem */,
+				5363AEA6EDCA8D7801AD3050 /* Extensions */,
+				2FA22488D62B1AF3C6FD3600 /* Flows */,
+				B306C5049CC723CBB7E23D2B /* Models */,
+				1D13366B966864F971A82F68 /* Resources */,
+				B2318BBF6E8BBE00B7D2266B /* Service */,
+				47EC6C484A284C6D6403248A /* Utility */,
+			);
+			path = "Pino-iOS";
 			sourceTree = "<group>";
 		};
 		2821FB9CEE9F9B9E6BAE9FD7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9B356FACE5AD121691B5EB0B /* Pino_iOS.app */,
-				5EC98207842980D5328B25F8 /* Pino_iOSTests.xctest */,
-				F2EAF5AADABDA7A37067D88E /* Pino_iOSUITests.xctest */,
+				8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */,
+				69F80E5332D902C3DF82DC4A /* Pino-iOSTests.xctest */,
+				B40D6EF0262990FF33E91CCD /* Pino-iOSUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2BD8D453458E01F21E644BC0 /* Error */ = {
+		288472B6121EDFB78B4AE8F9 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
-				E0F1CB70751B5BDDC10E3D0A /* PassManagmentError.swift */,
-			);
-			path = Error;
-			sourceTree = "<group>";
-		};
-		2BDFDEC1457A196FB08DD9BA /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				67305E6086B83736D23758B5 /* IntroViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		315E726DE6F092F6FDE96D93 /* TabBar */ = {
-			isa = PBXGroup;
-			children = (
-				1E63A3FADC136684209F7A94 /* TabBarItem.swift */,
-				7610E1FCF6F11ABC7E1235FB /* TabBarViewController.swift */,
+				91B3B78BD52ACE1726AEB2DF /* TabBarItem.swift */,
+				C6E3F8B61B1FB024B075BDE9 /* TabBarViewController.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
 		};
-		31BFC11DEBA92185BE804327 /* Pino-iOSTests */ = {
+		2A49E5F5C22C3E760C88D1F4 /* Color */ = {
 			isa = PBXGroup;
 			children = (
-				3C24A8B3379630539FFB8DCA /* Mock */,
-				940D4182A6B44B190376836F /* Pino_iOSTests.swift */,
-			);
-			path = "Pino-iOSTests";
-			sourceTree = "<group>";
-		};
-		331D58D49D7A64B3CA06452A /* Borrow */ = {
-			isa = PBXGroup;
-			children = (
-				ABAEB8A09A3BF2817C5D81BE /* BorrowViewController.swift */,
-			);
-			path = Borrow;
-			sourceTree = "<group>";
-		};
-		36FEA499E855519BB6352EA2 /* CheckBox */ = {
-			isa = PBXGroup;
-			children = (
-				E79B1E9C41C5695BA0BD52FA /* PinoCheckBox.swift */,
-				CA04D3A0E125429268C463CD /* PinoCheckBoxStyle.swift */,
-			);
-			path = CheckBox;
-			sourceTree = "<group>";
-		};
-		381E40B205FEEC8751D36936 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				641BE1B139C09070C930E6A6 /* Array+Extension.swift */,
-				310CAE9A900100EC87EC2674 /* HDWallet+Extension.swift */,
-				71E37262DD3BAB9CAA733F2E /* StringProtocol+Extension.swift */,
-				6106162A4785FF5E96E05450 /* ViewController+Extension.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		396A80A4004154A9420D6350 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				E073F552ABC50DFF611DD6D7 /* ImportSecretPhraseView.swift */,
-				C01FDCDE60E35D59D29043B3 /* SecretPhraseTextView.swift */,
-				33612257D0CFB9EF89C3D624 /* SuggestedSeedPhraseCell.swift */,
-				04417724A503C252DB34F9CE /* SuggestedSeedPhraseCollectionView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		3C24A8B3379630539FFB8DCA /* Mock */ = {
-			isa = PBXGroup;
-			children = (
-				4A632EA5045D73D766C9E7B9 /* SeedPhraseMock.swift */,
-			);
-			path = Mock;
-			sourceTree = "<group>";
-		};
-		44D6C57A2134920342E295B5 /* PasscodeManage */ = {
-			isa = PBXGroup;
-			children = (
-				2BD8D453458E01F21E644BC0 /* Error */,
-				9FA3A854B93C480F85D365C9 /* Protocols */,
-				EB496FF2EF582FAC11C547FC /* View */,
-				5B85546CE7CD9F9D63575DAF /* ViewController */,
-				EDC56E437E0EE3E77B7E39B2 /* ViewModel */,
-			);
-			path = PasscodeManage;
-			sourceTree = "<group>";
-		};
-		48EE246D4E0E4272DC82321E /* ImportWallet */ = {
-			isa = PBXGroup;
-			children = (
-				E1BA5CD835C6E49F0796F5F1 /* Error */,
-				DC4CCB0A6F1B6B404E0936F6 /* Pino-iOS */,
-				396A80A4004154A9420D6350 /* View */,
-				F07D6A0E8869D4AB9040F5DB /* ViewModel */,
-			);
-			path = ImportWallet;
-			sourceTree = "<group>";
-		};
-		5974B46B816879513E1EB78A /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				0A9E7D9EC8768B1B55DFA2F2 /* Pods-Pino-iOS.debug.xcconfig */,
-				C8C678EA95588267D7E14551 /* Pods-Pino-iOS.release.xcconfig */,
-				132F0B27ACD56BA431F25865 /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */,
-				AD19E2C62A071C379D1A291E /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */,
-				AE566C3E5C85B51E58D04E7F /* Pods-Pino-iOSTests.debug.xcconfig */,
-				721F517E2069F5C34B4EE0B1 /* Pods-Pino-iOSTests.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		5B85546CE7CD9F9D63575DAF /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				EB5BC47B119D6D83180C9BB4 /* CreatePasscodeViewController.swift */,
-				B654918653EE2005F9BD660A /* VerifyPasscodeViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		62E747DBBEAEA1FE12957C66 /* DesignSystem */ = {
-			isa = PBXGroup;
-			children = (
-				647B4541C7244B14D725CD8A /* Button */,
-				36FEA499E855519BB6352EA2 /* CheckBox */,
-				E9E334E2D21CA23278D7C11C /* Color */,
-				8BB5AB06A278CD291270AE5F /* Label */,
-				DC247FAC9A48430E1697DE04 /* Stepper */,
-				B76E438CB75C23B5CE761E6F /* Typography */,
-			);
-			path = DesignSystem;
-			sourceTree = "<group>";
-		};
-		647B4541C7244B14D725CD8A /* Button */ = {
-			isa = PBXGroup;
-			children = (
-				A2993F462134BC968390581B /* PinoButton.swift */,
-				AD992292B5AAF2A2B5E9BCE6 /* PinoButtonStyle.swift */,
-			);
-			path = Button;
-			sourceTree = "<group>";
-		};
-		6C74B02A32C768C0FC1DA29E /* Wallet */ = {
-			isa = PBXGroup;
-			children = (
-				6E5FA9A500F9C8A96A7E9E87 /* CreateWallet */,
-				48EE246D4E0E4272DC82321E /* ImportWallet */,
-				A1538B6DC1DB75D5A7A75802 /* Intro */,
-				44D6C57A2134920342E295B5 /* PasscodeManage */,
-			);
-			path = Wallet;
-			sourceTree = "<group>";
-		};
-		6E5FA9A500F9C8A96A7E9E87 /* CreateWallet */ = {
-			isa = PBXGroup;
-			children = (
-				AA3CF41F5C67399E6FBDA2B3 /* View */,
-				B87B0A24EB8A0F01E0DC6C57 /* ViewController */,
-				8E4CC01956485469A740DA73 /* ViewModel */,
-			);
-			path = CreateWallet;
-			sourceTree = "<group>";
-		};
-		7189E0E8CB14921465DABE0E /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				E3691C89AD11FD1849D192A6 /* Fonts */,
-				AA8A35EE9855F8FA9C7C78EA /* Assets.xcassets */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		75A843CE0F066F88E5EA7CF9 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				9FA18764AC9A9F4013229189 /* KeychainManager */,
-				20110620C9DB7CB4C91DD7E0 /* PasscodeManager */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
-		7ED1183C93C16ADE1D4EFE51 /* InfoPlists */ = {
-			isa = PBXGroup;
-			children = (
-				57AE994012288D40FAEB175B /* Pino-iOS-Info.plist */,
-			);
-			path = InfoPlists;
-			sourceTree = "<group>";
-		};
-		8646ACA026B2EC421ACAC63F /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				AA00C2C6F1682A46755116BB /* HomepageViewController.swift */,
-			);
-			path = Home;
-			sourceTree = "<group>";
-		};
-		8BB5AB06A278CD291270AE5F /* Label */ = {
-			isa = PBXGroup;
-			children = (
-				3BC6ABCD9A118FA76DBB6D71 /* PinoLabel.swift */,
-				D7BDB65F49615F11E315D469 /* PinoLabelStyle.swift */,
-			);
-			path = Label;
-			sourceTree = "<group>";
-		};
-		8E4CC01956485469A740DA73 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				1C94D67366BBC5FC2E83690B /* AllDoneViewModel.swift */,
-				30FD27066FB1D5073296B68A /* ShowSecretPhraseViewModel.swift */,
-				FB0F79268C00324C48ACDFE9 /* VerifySecretPhraseViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		906D10E2D698500FB81168F0 /* Pino-iOS */ = {
-			isa = PBXGroup;
-			children = (
-				97480E14D63E350AB26CD333 /* App */,
-				62E747DBBEAEA1FE12957C66 /* DesignSystem */,
-				381E40B205FEEC8751D36936 /* Extensions */,
-				CFF16DDF8E5360A177B9A6DA /* Flows */,
-				7189E0E8CB14921465DABE0E /* Resources */,
-				75A843CE0F066F88E5EA7CF9 /* Service */,
-				101EC518813BB364763239A8 /* Utility */,
-			);
-			path = "Pino-iOS";
-			sourceTree = "<group>";
-		};
-		92D24B3AF852C66756BD9D91 /* SecretPhrase */ = {
-			isa = PBXGroup;
-			children = (
-				C19F2E109660C75F8321C159 /* SecretPhraseCell.swift */,
-				8987C33E118C46BE37E3E8F6 /* SecretPhraseCenteredFlowLayout.swift */,
-				B8323ABB59B47EAB52C2FBCB /* SecretPhraseCollectionView.swift */,
-				8EF25240E193E786A8C4D0A0 /* SeedPhrase.swift */,
-			);
-			path = SecretPhrase;
-			sourceTree = "<group>";
-		};
-		97407AB29001778E36C1EC32 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				43F45940BAC164B704B699D8 /* IntroModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		97480E14D63E350AB26CD333 /* App */ = {
-			isa = PBXGroup;
-			children = (
-				D3F8A08022F6AA1BCD7CE38C /* AppDelegate.swift */,
-				A990075B21467D9A8513640B /* Info.plist */,
-				D3F86A22750AABB6D384EB92 /* LaunchSettings.swift */,
-				506778827BFFAD8480D0F2C2 /* SceneDelegate.swift */,
-			);
-			path = App;
-			sourceTree = "<group>";
-		};
-		9D41858E78525C2493FCAE5C /* Pino-iOSUITests */ = {
-			isa = PBXGroup;
-			children = (
-				05217A9919CE8A04E7F825B6 /* Launch */,
-				1AF9A3F81164EB60BDF5AF7F /* Wallet */,
-			);
-			path = "Pino-iOSUITests";
-			sourceTree = "<group>";
-		};
-		9FA18764AC9A9F4013229189 /* KeychainManager */ = {
-			isa = PBXGroup;
-			children = (
-				88E8AAE8C17E29DFD088ABAC /* KeychainHelper.swift */,
-				E2F12D00D4BD3A8B271BC47E /* KeychainWrapperProtocol.swift */,
-			);
-			path = KeychainManager;
-			sourceTree = "<group>";
-		};
-		9FA3A854B93C480F85D365C9 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				FC793D46C0F62CD2D6C831D0 /* PasscodeManagerPages.swift */,
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
-		A1538B6DC1DB75D5A7A75802 /* Intro */ = {
-			isa = PBXGroup;
-			children = (
-				97407AB29001778E36C1EC32 /* Model */,
-				E34B5A5C353138D890B7BF1C /* View */,
-				2BDFDEC1457A196FB08DD9BA /* ViewController */,
-				A0FF26CDB0C6ED2F4B3AB902 /* IntroViewModel.swift */,
-			);
-			path = Intro;
-			sourceTree = "<group>";
-		};
-		A4A5A8D8D0620DABE2CA326F /* Project */ = {
-			isa = PBXGroup;
-			children = (
-				D9068EB35FAEC3E75F61310C /* Derived */,
-				906D10E2D698500FB81168F0 /* Pino-iOS */,
-				31BFC11DEBA92185BE804327 /* Pino-iOSTests */,
-				9D41858E78525C2493FCAE5C /* Pino-iOSUITests */,
-			);
-			name = Project;
-			sourceTree = "<group>";
-		};
-		A8949CFF153EC130CFC19EA0 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				52FA8EB610C9E5FBEB06A460 /* ImportSecretPhraseViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		AA3CF41F5C67399E6FBDA2B3 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				92D24B3AF852C66756BD9D91 /* SecretPhrase */,
-				F8BAA38133ECAEF6F11A90FE /* AllDoneView.swift */,
-				8261937722AB4BF364074A3F /* ShowSecretPhraseView.swift */,
-				0D8DCCF3A632ADB9C88A2384 /* VerifySecretPhraseView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		B76E438CB75C23B5CE761E6F /* Typography */ = {
-			isa = PBXGroup;
-			children = (
-				5873E89FD2DBE91A7B148B47 /* BoldStyle.swift */,
-				556B9675B232923EF1060360 /* MediumStyle.swift */,
-				B62F9E39B86A096E08664A59 /* PinoFont.swift */,
-				46610D4A52E19F4867329D2B /* RegularStyle.swift */,
-				1500554F63220FE7B4551D27 /* SemiboldStyle.swift */,
-			);
-			path = Typography;
-			sourceTree = "<group>";
-		};
-		B87B0A24EB8A0F01E0DC6C57 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				14EE3BB5048106C04DE0056D /* AllDoneViewController.swift */,
-				06F95A0A06CAEDD0D0E35B90 /* ShowSecretPhraseViewController.swift */,
-				18DF01D364AA00076D41093E /* VerifySecretPhraseViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		BCB917E6DE76D90CC87B792A /* Activity */ = {
-			isa = PBXGroup;
-			children = (
-				5CE4B6F03AD1FCB6C3A27BEA /* ActivityViewController.swift */,
-			);
-			path = Activity;
-			sourceTree = "<group>";
-		};
-		CFF16DDF8E5360A177B9A6DA /* Flows */ = {
-			isa = PBXGroup;
-			children = (
-				BCB917E6DE76D90CC87B792A /* Activity */,
-				331D58D49D7A64B3CA06452A /* Borrow */,
-				8646ACA026B2EC421ACAC63F /* Home */,
-				FA18351F82F301D6ED9BB300 /* Invest */,
-				1F89FBE5BE386D1DB629BF78 /* Swap */,
-				315E726DE6F092F6FDE96D93 /* TabBar */,
-				6C74B02A32C768C0FC1DA29E /* Wallet */,
-			);
-			path = Flows;
-			sourceTree = "<group>";
-		};
-		D9068EB35FAEC3E75F61310C /* Derived */ = {
-			isa = PBXGroup;
-			children = (
-				7ED1183C93C16ADE1D4EFE51 /* InfoPlists */,
-				FE34A181AF6266D1508D0EE5 /* Sources */,
-			);
-			path = Derived;
-			sourceTree = "<group>";
-		};
-		DC247FAC9A48430E1697DE04 /* Stepper */ = {
-			isa = PBXGroup;
-			children = (
-				8AF34662FFE25754189C5E1E /* PinoStepperView.swift */,
-			);
-			path = Stepper;
-			sourceTree = "<group>";
-		};
-		DC4CCB0A6F1B6B404E0936F6 /* Pino-iOS */ = {
-			isa = PBXGroup;
-			children = (
-				E76EF9F3AFDAA4439C5F2FE7 /* Flows */,
-			);
-			path = "Pino-iOS";
-			sourceTree = "<group>";
-		};
-		E1BA5CD835C6E49F0796F5F1 /* Error */ = {
-			isa = PBXGroup;
-			children = (
-				704129914486224A1BA93799 /* ImportWalletError.swift */,
-			);
-			path = Error;
-			sourceTree = "<group>";
-		};
-		E34B5A5C353138D890B7BF1C /* View */ = {
-			isa = PBXGroup;
-			children = (
-				BF4A5DFEADC2FBAFE7C70004 /* IntroCollectionView.swift */,
-				8214B6DB674458531FD828D8 /* IntroCollectionViewCell.swift */,
-				FBF0687C68426E0C6FD16E13 /* IntroView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		E3691C89AD11FD1849D192A6 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				9EB7328D7AFC63F20335F727 /* PPPangramSans-Bold.ttf */,
-				1C64ED0E420A75845A204FD9 /* PPPangramSans-BoldItalic.ttf */,
-				39A8266BF566130DDABC5D6C /* PPPangramSans-BoldReclined.ttf */,
-				72AFB6F2C99F2ED4135D1247 /* PPPangramSans-Extrabold.ttf */,
-				0EDBBFAD004B3CE088F12483 /* PPPangramSans-ExtraboldItalic.ttf */,
-				3D9D19C9FA163F6540E69EB5 /* PPPangramSans-ExtraboldReclined.ttf */,
-				421EC79F9E35B28183D2DA64 /* PPPangramSans-Extralight.ttf */,
-				C4FD2F4E7B7B989C365E09ED /* PPPangramSans-ExtralightItalic.ttf */,
-				7A2ACF9076A6247FD47F2B30 /* PPPangramSans-ExtralightReclined.ttf */,
-				F0E8C319A84CE10417DAA808 /* PPPangramSans-Light.ttf */,
-				1BCF5E198C52B3FC3A95AE6E /* PPPangramSans-LightItalic.ttf */,
-				B83ACA401EAD993F89B7023B /* PPPangramSans-LightReclined.ttf */,
-				866F55AC1BF993F3089F58CB /* PPPangramSans-Medium.ttf */,
-				3A3DB9962BC076A0A1F23256 /* PPPangramSans-MediumItalic.ttf */,
-				3E0010EFD77EBF50D80DC886 /* PPPangramSans-MediumReclined.ttf */,
-				83F929215B78F7D302BCF7D2 /* PPPangramSans-Regular.ttf */,
-				02BD45C3E84B3CDFF4733978 /* PPPangramSans-RegularItalic.ttf */,
-				29E7113D81B6454054D7AE8E /* PPPangramSans-RegularReclined.ttf */,
-				7BC90AED715801C425CA5724 /* PPPangramSans-Semibold.ttf */,
-				69D66831651093B0C3F30FEE /* PPPangramSans-SemiboldItalic.ttf */,
-				7395D70A3595B215173A4A19 /* PPPangramSans-SemiboldReclined.ttf */,
-				D63900FFBF6433FDC55C5C54 /* PPPangramSans-Thin.ttf */,
-				4CCA419E1D559BA8657B1C70 /* PPPangramSans-ThinItalic.ttf */,
-				883717CE4E37DB31D9601240 /* PPPangramSans-ThinReclined.ttf */,
-			);
-			path = Fonts;
-			sourceTree = "<group>";
-		};
-		E76EF9F3AFDAA4439C5F2FE7 /* Flows */ = {
-			isa = PBXGroup;
-			children = (
-				F26F092EDBB37C2386021061 /* ImportWallet */,
-			);
-			path = Flows;
-			sourceTree = "<group>";
-		};
-		E9E334E2D21CA23278D7C11C /* Color */ = {
-			isa = PBXGroup;
-			children = (
-				D51E3C9E51997193B3FA7940 /* PinoColor.swift */,
+				69B08E01F8697BCB86DF01F6 /* PinoColor.swift */,
 			);
 			path = Color;
 			sourceTree = "<group>";
 		};
-		EB496FF2EF582FAC11C547FC /* View */ = {
+		2BDF0225C8F07F9C7338DDB6 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				68C77D6D36520EFF14BD7334 /* ManagePasscodeView.swift */,
-				B1446B74415E48D2296E87BC /* PassDotsView.swift */,
+				71EEC20862FCD98123D65A01 /* CreatePasscodeViewController.swift */,
+				EDE34223ED5A368C78F99208 /* VerifyPasscodeViewController.swift */,
 			);
-			path = View;
+			path = ViewController;
 			sourceTree = "<group>";
 		};
-		EDC56E437E0EE3E77B7E39B2 /* ViewModel */ = {
+		2E6015DD7671F8419307719D /* PasscodeManager */ = {
 			isa = PBXGroup;
 			children = (
-				5CD8CBC5172C786CEDDB7E7B /* SelectPassViewModel.swift */,
-				158701DA945370613C0A16CE /* VerifyPassViewModel.swift */,
+				4486671985C3EC4841BF82AF /* PasscodeManagerService.swift */,
 			);
-			path = ViewModel;
+			path = PasscodeManager;
 			sourceTree = "<group>";
 		};
-		F07D6A0E8869D4AB9040F5DB /* ViewModel */ = {
+		2EDECC5AD232916A0492E930 /* Invest */ = {
 			isa = PBXGroup;
 			children = (
-				366A068543C0D3E62EC9633B /* ValidateSecretPhraseViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		F26F092EDBB37C2386021061 /* ImportWallet */ = {
-			isa = PBXGroup;
-			children = (
-				A8949CFF153EC130CFC19EA0 /* ViewController */,
-			);
-			path = ImportWallet;
-			sourceTree = "<group>";
-		};
-		FA18351F82F301D6ED9BB300 /* Invest */ = {
-			isa = PBXGroup;
-			children = (
-				8CEE6EA6F86954BD72ED3DD5 /* InvestViewController.swift */,
+				CEC2A05AC28F553BF890D172 /* InvestViewController.swift */,
 			);
 			path = Invest;
 			sourceTree = "<group>";
 		};
-		FE34A181AF6266D1508D0EE5 /* Sources */ = {
+		2FA22488D62B1AF3C6FD3600 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
-				D46E075E30E36B20CD5AF1BE /* TuistAssets+PinoIOS.swift */,
-				1C38F142DD3FD85EB2F6ED4D /* TuistBundle+PinoIOS.swift */,
-				B60F46869B827F258DCA7672 /* TuistFonts+PinoIOS.swift */,
+				8F87D654352C570B4F7592D9 /* Activity */,
+				08F6C5346D722CF16AB89790 /* Borrow */,
+				E592A8E4290E95A67BA5D5CF /* Home */,
+				2EDECC5AD232916A0492E930 /* Invest */,
+				DA54BC6AF891B9433AFFD30F /* Swap */,
+				288472B6121EDFB78B4AE8F9 /* TabBar */,
+				B3C54D90FD2C46C3C7B36B30 /* Wallet */,
 			);
-			path = Sources;
+			path = Flows;
+			sourceTree = "<group>";
+		};
+		3C2446901B5094D5818EE391 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9B839A7441259DB3BFD07F60 /* Pods_Pino_iOS.framework */,
+				997149E589FE9217AF43908F /* Pods_Pino_iOS_Pino_iOSUITests.framework */,
+				22448E0014AFC7514DA16AA4 /* Pods_Pino_iOSTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		454AFE7F0BDC59A5CA92FB2B /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				74657FA0D994E06D0289F3A4 /* PinoButton.swift */,
+				55E1101FD968CD52ACD11718 /* PinoButtonStyle.swift */,
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
+		46D4240E9B4A36B315CAEEB8 /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				939D3C65704892C0B83453C5 /* CreatePasscodeUITests.swift */,
+				A63629240845E89034EB1956 /* CreateWalletUITests.swift */,
+				7FD0D9155FD8F0605BFF14EB /* ImportWalletUITests.swift */,
+			);
+			path = Wallet;
+			sourceTree = "<group>";
+		};
+		47EC6C484A284C6D6403248A /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				6710F2AE386548BC8BF46278 /* AlertHelper.swift */,
+				636666E7A7E66F5616275610 /* AutolayoutHelper.swift */,
+				0A353D68057FE946A083C7BD /* BlurEffectView.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		4899FB7A992B2CB40A8D2FDF /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CF85809C0811ADB69A1512D9 /* AllDoneViewController.swift */,
+				D872D11A91B4283F96C4999D /* ShowSecretPhraseViewController.swift */,
+				5992C9313824BC32EC68C32E /* VerifySecretPhraseViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		51D4469C227B8D3278BB6A3E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3DADC99C41136A35EF49EF9B /* SelectPassViewModel.swift */,
+				582B119F599D60CB68C55E2F /* VerifyPassViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		52B01938BA713C20BBDAD165 /* CheckBox */ = {
+			isa = PBXGroup;
+			children = (
+				F1FBD227A0D3DC2EF5DB6E84 /* PinoCheckBox.swift */,
+				27234FAA3BF23A48ABC72E43 /* PinoCheckBoxStyle.swift */,
+			);
+			path = CheckBox;
+			sourceTree = "<group>";
+		};
+		5363337182DDAC655D7A3E00 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1AE59B4F8A912C260EBD9FD8 /* ImportSecretPhraseView.swift */,
+				78482FE19363A791AB1DBF21 /* SecretPhraseTextView.swift */,
+				3BB0B1B5F9A48B80542BF12C /* SuggestedSeedPhraseCell.swift */,
+				DCDBF81923E5F2C83F0DB3C9 /* SuggestedSeedPhraseCollectionView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5363AEA6EDCA8D7801AD3050 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				12D527D8AB60BF6A7C1EA2D9 /* Array+Extension.swift */,
+				BB7713B677A7921CBCB8CCCF /* HDWallet+Extension.swift */,
+				7D476E770DF75B119476A1AC /* StringProtocol+Extension.swift */,
+				B33656AE9BB6138666D2E679 /* ViewController+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		61A918451D808E1FA7E50CF0 /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				A5DD16E4AE8C2965F3C87972 /* ImportWallet */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
+		623EBCE65BD02DDCD39D2A62 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				794AA4C69F21813E48C811E4 /* IntroCollectionView.swift */,
+				35DD3D417678658C9A87E94E /* IntroCollectionViewCell.swift */,
+				6607F3D23F306FA733008E8D /* IntroView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		701296F9043E020094B51C0F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				712A56F371843AF47B6362CE /* ValidateSecretPhraseViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		73BCAAF9F14D57582879BF95 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1D79E6ABFF159E2B8FB5C0A2 /* ManagePasscodeView.swift */,
+				34DCACC427D66E42E2D55705 /* PassDotsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		75B7BC37397A677F7ECD5D82 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E5C76CCF2D1DB532F1B1F544 /* AllDoneView.swift */,
+				7D243D736A087A5296804FB9 /* ShowSecretPhraseView.swift */,
+				D859A59CF3F5322ACE7356E4 /* VerifySecretPhraseView.swift */,
+				20080CFF515DAFA7F79DA2AD /* SecretPhrase */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		765029B7C03A19ADACDB9846 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				72BC3A92C32E2046414C06DB /* PassManagmentError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		7A20D213409A0FB263C8C645 /* Stepper */ = {
+			isa = PBXGroup;
+			children = (
+				262D77EFE984EBA7A19D23DC /* PinoStepperView.swift */,
+			);
+			path = Stepper;
+			sourceTree = "<group>";
+		};
+		7D48DCC9840F5331C427D8F4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EAAB50E4A8C365B55E38D57D /* Pods-Pino-iOS.debug.xcconfig */,
+				8407E9F899DB999F8C0513D8 /* Pods-Pino-iOS.release.xcconfig */,
+				401F284295C66156BE83D796 /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */,
+				308218817F62BF5BBE6444F2 /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */,
+				56CFE2D2639257199BC27B3A /* Pods-Pino-iOSTests.debug.xcconfig */,
+				E014267A11D9442B3923F2F8 /* Pods-Pino-iOSTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		7F66794FB8C844FB7B097CF8 /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+				62739F701C3CE3224596049E /* IntroViewModel.swift */,
+				23ECD4F5456527D7C2AA2F14 /* Model */,
+				623EBCE65BD02DDCD39D2A62 /* View */,
+				EC86064AAC631675B9DC661A /* ViewController */,
+			);
+			path = Intro;
+			sourceTree = "<group>";
+		};
+		83C1CBBD3388262B0A9FBCF8 /* Typography */ = {
+			isa = PBXGroup;
+			children = (
+				8F7E138148E3838B0ABB336D /* BoldStyle.swift */,
+				860A5D67C58E6FF224570BFE /* MediumStyle.swift */,
+				8EEAF1A6DB0A8C3F3D5F8742 /* PinoFont.swift */,
+				7BF855A1A34B8BFA442582D3 /* RegularStyle.swift */,
+				50080A9D2083CDB39EEB969A /* SemiboldStyle.swift */,
+			);
+			path = Typography;
+			sourceTree = "<group>";
+		};
+		8F87D654352C570B4F7592D9 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				CCCBF9CC6A3C63CAA0DB0AA7 /* ActivityViewController.swift */,
+			);
+			path = Activity;
+			sourceTree = "<group>";
+		};
+		939A8889E73CA87DF2FC1E15 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				9C2ABE7B20EDB691025C536E /* Pino_iOSUITestsLaunchTests.swift */,
+			);
+			path = Launch;
+			sourceTree = "<group>";
+		};
+		941DD7FB51B23C52ED61480C /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C054674B5A17E87E59B6946F /* PPPangramSans-Bold.ttf */,
+				F1B4ADB676ED9AAC2196899E /* PPPangramSans-BoldItalic.ttf */,
+				B106F2028FD8799A5277CE30 /* PPPangramSans-BoldReclined.ttf */,
+				D91B98B8A47DBAE96AE7956F /* PPPangramSans-Extrabold.ttf */,
+				EF5ED712FA2B8E57F30351AA /* PPPangramSans-ExtraboldItalic.ttf */,
+				3F052F464B4443A09B569492 /* PPPangramSans-ExtraboldReclined.ttf */,
+				75ADAFE23081B750B20B7F27 /* PPPangramSans-Extralight.ttf */,
+				068F5D74F8B1876B22DD2AC0 /* PPPangramSans-ExtralightItalic.ttf */,
+				D7D3566CBF0C2E2689423E90 /* PPPangramSans-ExtralightReclined.ttf */,
+				56B86857945EBDDBE2116217 /* PPPangramSans-Light.ttf */,
+				DEF9234B1A724D51BE836376 /* PPPangramSans-LightItalic.ttf */,
+				6533175C792A5B71C376C9CD /* PPPangramSans-LightReclined.ttf */,
+				BDFE5537D79C7116114C45E6 /* PPPangramSans-Medium.ttf */,
+				742C62AB6E73DB2037B72C61 /* PPPangramSans-MediumItalic.ttf */,
+				86F8C6EC31E9AE1094243D0B /* PPPangramSans-MediumReclined.ttf */,
+				C31426AD24C3B8759699C644 /* PPPangramSans-Regular.ttf */,
+				B2CAFAD80E0F8FFD621B92AC /* PPPangramSans-RegularItalic.ttf */,
+				55CD7DABDCFD6941F9E22E49 /* PPPangramSans-RegularReclined.ttf */,
+				1F488BFAA1B7C30ABB20FD7B /* PPPangramSans-Semibold.ttf */,
+				1055FF6B587AAF1786CDA125 /* PPPangramSans-SemiboldItalic.ttf */,
+				AACC44FE53317ADAF4E94A03 /* PPPangramSans-SemiboldReclined.ttf */,
+				CC36053D1265CD704BF7F722 /* PPPangramSans-Thin.ttf */,
+				76670736A779E64FF9997E82 /* PPPangramSans-ThinItalic.ttf */,
+				A7C48BF270C9A3E1CA6D9F33 /* PPPangramSans-ThinReclined.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		97AE5E59D425F7C6D350D3BE /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				90544A16A36443BB22A6216C /* PasscodeManagerPages.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		A5DD16E4AE8C2965F3C87972 /* ImportWallet */ = {
+			isa = PBXGroup;
+			children = (
+				C85141FC0F7639360B3F1523 /* ViewController */,
+			);
+			path = ImportWallet;
+			sourceTree = "<group>";
+		};
+		A71CFE6FCB50D714B6B8F979 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				FC81FCD14624F47792B02A71 /* ImportWalletError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		AC733BF0B7C3FC9C9BB39756 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				151E5726229379FA18870AA2 /* AllDoneViewModel.swift */,
+				902ADB6DDACF4604CCD18D3E /* ShowSecretPhraseViewModel.swift */,
+				DDBA47FB0ED959F0E18DAD21 /* VerifySecretPhraseViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B2318BBF6E8BBE00B7D2266B /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				F45AF6BC6CE3964321C8F380 /* KeychainManager */,
+				2E6015DD7671F8419307719D /* PasscodeManager */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		B306C5049CC723CBB7E23D2B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				281840026D1004B10CE8DAFD /* Pino_iOS.xcdatamodeld */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B3C54D90FD2C46C3C7B36B30 /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				04B106B3DF470073D0EB3602 /* CreateWallet */,
+				0A8C8735A267A40CD87F6460 /* ImportWallet */,
+				7F66794FB8C844FB7B097CF8 /* Intro */,
+				0492D2075569B8DAADC8CF8F /* PasscodeManage */,
+			);
+			path = Wallet;
+			sourceTree = "<group>";
+		};
+		BF1F9424921ABEE617444686 /* Label */ = {
+			isa = PBXGroup;
+			children = (
+				1248800A47DD9BD31AA1488B /* PinoLabel.swift */,
+				2CE296532DABA81FAA3B00A3 /* PinoLabelStyle.swift */,
+			);
+			path = Label;
+			sourceTree = "<group>";
+		};
+		BF60D065B05ED69B89F714A0 /* Pino-iOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				1697E9251687D7B285EFCB53 /* Pino_iOSTests.swift */,
+				151BB1B5F14D4004A888D11A /* Mock */,
+			);
+			path = "Pino-iOSTests";
+			sourceTree = "<group>";
+		};
+		C85141FC0F7639360B3F1523 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				164BEFCC5B997C1B1BBCD4B9 /* ImportSecretPhraseViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		DA54BC6AF891B9433AFFD30F /* Swap */ = {
+			isa = PBXGroup;
+			children = (
+				47A6676B929BBCE1E8B10CDF /* SwapViewController.swift */,
+			);
+			path = Swap;
+			sourceTree = "<group>";
+		};
+		E4E70C8737CE1DDF9D98700D /* Pino-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				61A918451D808E1FA7E50CF0 /* Flows */,
+			);
+			path = "Pino-iOS";
+			sourceTree = "<group>";
+		};
+		E592A8E4290E95A67BA5D5CF /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F32C8BA23237C64550DEB91F /* HomepageViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		EC86064AAC631675B9DC661A /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7F3A2C1FAE1267AB6DCED6D4 /* IntroViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		F45AF6BC6CE3964321C8F380 /* KeychainManager */ = {
+			isa = PBXGroup;
+			children = (
+				C5AFDF060E381B9453B01D3A /* KeychainHelper.swift */,
+				24229F313641948C73439197 /* KeychainWrapperProtocol.swift */,
+			);
+			path = KeychainManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -910,61 +847,56 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 65C12F53E1AD046FA840632E /* Build configuration list for PBXNativeTarget "Pino-iOS" */;
 			buildPhases = (
-				0553EA8C872EE73B9E67949B /* [CP] Check Pods Manifest.lock */,
+				5D41F74F9305A4988D7AD9B7 /* [CP] Check Pods Manifest.lock */,
 				31EF4D935BDD78B5348A34D5 /* Sources */,
 				76BA89512FCF3114FC9C7AE9 /* Resources */,
-				C74161FE8841D6B6E5C098A8 /* Embed Frameworks */,
-				5DA1CEFB65DEF1E6AE951ADA /* Frameworks */,
-				6B6587538DB7AA4F4B02963A /* [CP] Embed Pods Frameworks */,
+				FD5CD0927FAE3FC33888EF20 /* Frameworks */,
+				22DDDDEC05891492343CC534 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "Pino-iOS";
-			productName = Pino_iOS;
-			productReference = 9B356FACE5AD121691B5EB0B /* Pino_iOS.app */;
+			productName = "Pino-iOS";
+			productReference = 8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 		A7CDCF5E2B678210FB4DF98B /* Pino-iOSTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6B6518EC167C528E1CC9BE07 /* Build configuration list for PBXNativeTarget "Pino-iOSTests" */;
 			buildPhases = (
-				4D20A773F8EC254D29F8325A /* [CP] Check Pods Manifest.lock */,
+				945A7EFFC883EA391003D492 /* [CP] Check Pods Manifest.lock */,
 				D1ED70C2ECF3B1FB44FE3240 /* Sources */,
-				C8404B46510C1F7B681F575F /* Resources */,
-				3E1C42A66789FB013BD13642 /* Embed Frameworks */,
-				4EA6AE73A5024A507FB32B94 /* Frameworks */,
+				AFC63CC39FA931FF7ACB05E0 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				DA66B669DF97EDE3C543C4E2 /* PBXTargetDependency */,
+				40318F5629620CDA00039FE0 /* PBXTargetDependency */,
 			);
 			name = "Pino-iOSTests";
-			productName = Pino_iOSTests;
-			productReference = 5EC98207842980D5328B25F8 /* Pino_iOSTests.xctest */;
+			productName = "Pino-iOSTests";
+			productReference = 69F80E5332D902C3DF82DC4A /* Pino-iOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		B000153529B2F9816B43109C /* Pino-iOSUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE46D7586D2BB3F3472DCBF5 /* Build configuration list for PBXNativeTarget "Pino-iOSUITests" */;
 			buildPhases = (
-				C0AA7A901DA0C2F98E11FD5D /* [CP] Check Pods Manifest.lock */,
+				B453919C80703C1D21CBFDDE /* [CP] Check Pods Manifest.lock */,
 				DF3F5A26D2D6406EDA43045B /* Sources */,
-				AEE1BAB12F0F44B3D5EBA917 /* Resources */,
-				3BFEBA09CFB4A7B70880C090 /* Embed Frameworks */,
-				4A0E4C654CDEA35DB394F991 /* Frameworks */,
-				77C1893C56BC389ED6621910 /* [CP] Embed Pods Frameworks */,
+				3344F5C84B1CDB44EB9E12CC /* Frameworks */,
+				0413509F46F183DE3903DE17 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				28DA6D17929362A89FBCFBA6 /* PBXTargetDependency */,
+				40318F5829620CDC00039FE0 /* PBXTargetDependency */,
 			);
 			name = "Pino-iOSUITests";
-			productName = Pino_iOSUITests;
-			productReference = F2EAF5AADABDA7A37067D88E /* Pino_iOSUITests.xctest */;
+			productName = "Pino-iOSUITests";
+			productReference = B40D6EF0262990FF33E91CCD /* Pino-iOSUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -973,7 +905,7 @@
 		5939E0FFBB001767AF40C17F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				ORGANIZATIONNAME = "<YOUR_ORG_NAME_HERE>";
+				LastUpgradeCheck = 1200;
 				TargetAttributes = {
 					A7CDCF5E2B678210FB4DF98B = {
 						TestTargetID = 76B66D03FC77A6B968427190;
@@ -984,7 +916,7 @@
 				};
 			};
 			buildConfigurationList = 8551383759BECA79C9F7F85D /* Build configuration list for PBXProject "Pino-iOS" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1011,52 +943,73 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCF8F498C31B4A3086818600 /* Assets.xcassets in Resources */,
-				8A97DEF294C4F8A7134382F9 /* PPPangramSans-Bold.ttf in Resources */,
-				0A2F2A3C3D6AD92205953E59 /* PPPangramSans-BoldItalic.ttf in Resources */,
-				9037BEE05075EFF2E9C65690 /* PPPangramSans-BoldReclined.ttf in Resources */,
-				CD0821E21FFDEF7A687832D4 /* PPPangramSans-Extrabold.ttf in Resources */,
-				007C1C6857A3E1996AB101DF /* PPPangramSans-ExtraboldItalic.ttf in Resources */,
-				244864C235A42742FA9574BB /* PPPangramSans-ExtraboldReclined.ttf in Resources */,
-				A83C7BC97FD11F4374613E04 /* PPPangramSans-Extralight.ttf in Resources */,
-				32C5A14C2878AF2717953CE4 /* PPPangramSans-ExtralightItalic.ttf in Resources */,
-				6AD4E26A99AFC84D2AF3A0C5 /* PPPangramSans-ExtralightReclined.ttf in Resources */,
-				E0DE588983C7AC30B4802B10 /* PPPangramSans-Light.ttf in Resources */,
-				49DC8279007186A8139D5C91 /* PPPangramSans-LightItalic.ttf in Resources */,
-				6FBD490684FF9088441F2F5E /* PPPangramSans-LightReclined.ttf in Resources */,
-				4E1CBAF16C15CF18F2ABD114 /* PPPangramSans-Medium.ttf in Resources */,
-				F9E052C96F840C3A185D9C2A /* PPPangramSans-MediumItalic.ttf in Resources */,
-				AD8CFE182E96D91FB17141EC /* PPPangramSans-MediumReclined.ttf in Resources */,
-				DDC632441C71223CD333CB92 /* PPPangramSans-Regular.ttf in Resources */,
-				DAD36881FD66D8BF61980707 /* PPPangramSans-RegularItalic.ttf in Resources */,
-				37A1E23C2C51E48742D7DD75 /* PPPangramSans-RegularReclined.ttf in Resources */,
-				8D6E5B79F38B3297294D2ABE /* PPPangramSans-Semibold.ttf in Resources */,
-				DDF8283679A83C72884AACEF /* PPPangramSans-SemiboldItalic.ttf in Resources */,
-				B8F78E54C8BF3BBFCFD195AA /* PPPangramSans-SemiboldReclined.ttf in Resources */,
-				818C29C2AAB8EE3DD35E3047 /* PPPangramSans-Thin.ttf in Resources */,
-				9E693738B37406E522D53195 /* PPPangramSans-ThinItalic.ttf in Resources */,
-				C66BFBFF47B4502F6D41AEEA /* PPPangramSans-ThinReclined.ttf in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AEE1BAB12F0F44B3D5EBA917 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C8404B46510C1F7B681F575F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				DC74CB48AE9A2EF8F7AD3EC1 /* Assets.xcassets in Resources */,
+				1F73812756988538BC594057 /* LaunchScreen.storyboard in Resources */,
+				879CCE498D1A04C8EDE64430 /* PPPangramSans-Bold.ttf in Resources */,
+				A895518EB79CEB4B5CD8758A /* PPPangramSans-BoldItalic.ttf in Resources */,
+				84D88149949C0D8A0E7C2BF5 /* PPPangramSans-BoldReclined.ttf in Resources */,
+				FF58849FC74FCDF3DB174C34 /* PPPangramSans-Extrabold.ttf in Resources */,
+				2191112109FDB1FDFC11BBEF /* PPPangramSans-ExtraboldItalic.ttf in Resources */,
+				BB737A7216F658EFFE43401C /* PPPangramSans-ExtraboldReclined.ttf in Resources */,
+				62227423FCF2309039BB6FAC /* PPPangramSans-Extralight.ttf in Resources */,
+				710BFFE4625F76FC84268937 /* PPPangramSans-ExtralightItalic.ttf in Resources */,
+				79073EE50BEA80FAE0356625 /* PPPangramSans-ExtralightReclined.ttf in Resources */,
+				5ED1362DD243A8E87A1B1176 /* PPPangramSans-Light.ttf in Resources */,
+				3D47F14ECA2A8CAE61061F57 /* PPPangramSans-LightItalic.ttf in Resources */,
+				02DF93FE57661E220F5EFAAA /* PPPangramSans-LightReclined.ttf in Resources */,
+				822D161496971BD8810457B7 /* PPPangramSans-Medium.ttf in Resources */,
+				9AD896368BEA2DF5FD408FDF /* PPPangramSans-MediumItalic.ttf in Resources */,
+				C7947A17B0833FA7A202FA92 /* PPPangramSans-MediumReclined.ttf in Resources */,
+				25BF49CF523EA1322C6FC4EB /* PPPangramSans-Regular.ttf in Resources */,
+				51F472CF1A7E5D15F58A5CF5 /* PPPangramSans-RegularItalic.ttf in Resources */,
+				B5021409923FBC4DF43B6138 /* PPPangramSans-RegularReclined.ttf in Resources */,
+				AE47F248DD308C61B717B086 /* PPPangramSans-Semibold.ttf in Resources */,
+				6493F198BF5B402E4D922A79 /* PPPangramSans-SemiboldItalic.ttf in Resources */,
+				BA45498BC5E24EE8ACDA819E /* PPPangramSans-SemiboldReclined.ttf in Resources */,
+				EFC5F586A70E988F98620A79 /* PPPangramSans-Thin.ttf in Resources */,
+				D50E904CB4FBD07E10DE3E9B /* PPPangramSans-ThinItalic.ttf in Resources */,
+				EE23BD62B18C9118376A405C /* PPPangramSans-ThinReclined.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0553EA8C872EE73B9E67949B /* [CP] Check Pods Manifest.lock */ = {
+		0413509F46F183DE3903DE17 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		22DDDDEC05891492343CC534 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5D41F74F9305A4988D7AD9B7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1078,7 +1031,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4D20A773F8EC254D29F8325A /* [CP] Check Pods Manifest.lock */ = {
+		945A7EFFC883EA391003D492 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1100,41 +1053,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6B6587538DB7AA4F4B02963A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		77C1893C56BC389ED6621910 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C0AA7A901DA0C2F98E11FD5D /* [CP] Check Pods Manifest.lock */ = {
+		B453919C80703C1D21CBFDDE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1163,76 +1082,74 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEB1C4854259141A60231C52 /* TuistAssets+PinoIOS.swift in Sources */,
-				CDE54D2B9F6F8D8AD1A62285 /* TuistBundle+PinoIOS.swift in Sources */,
-				175302024392F42DD2B8F27F /* TuistFonts+PinoIOS.swift in Sources */,
-				6C833B71B6F3BA139A33B322 /* AppDelegate.swift in Sources */,
-				50B8CB0CE94CDD45FDE87FE2 /* LaunchSettings.swift in Sources */,
-				120AFF9C42F188B5A9FB235D /* SceneDelegate.swift in Sources */,
-				47FFF2797F79D9634EE23DBD /* PinoButton.swift in Sources */,
-				F54AD7E7F9CD0DD3B2FE12DA /* PinoButtonStyle.swift in Sources */,
-				48F457700DB7CE72B7530AD1 /* PinoCheckBox.swift in Sources */,
-				71EC190154C695FC5D4C0823 /* PinoCheckBoxStyle.swift in Sources */,
-				C5B60FCBF9C58C5636F3B235 /* PinoColor.swift in Sources */,
-				F34FAEA58B47B70159B2AD6E /* PinoLabel.swift in Sources */,
-				6205D05A546D07F75FBD7044 /* PinoLabelStyle.swift in Sources */,
-				2AAB4235ADBFBD812D67698D /* PinoStepperView.swift in Sources */,
-				244B2034B6D44247035B9A44 /* BoldStyle.swift in Sources */,
-				B7B9D333F681BE51B4B3AAC3 /* MediumStyle.swift in Sources */,
-				9D45B189C0C0883C639430C0 /* PinoFont.swift in Sources */,
-				90A9F97705B775C38FA8C705 /* RegularStyle.swift in Sources */,
-				1CFD33910DD070BA67163D66 /* SemiboldStyle.swift in Sources */,
-				B1C4FD14B274C7B16BB549DF /* Array+Extension.swift in Sources */,
-				92947DD471513239423A1BCD /* HDWallet+Extension.swift in Sources */,
-				120188FCE7A629105DC83F2E /* StringProtocol+Extension.swift in Sources */,
-				35A80A475B24D411037931E2 /* ViewController+Extension.swift in Sources */,
-				615FB0112DB5AABF13D5F11D /* ActivityViewController.swift in Sources */,
-				A726245DE77E256226431CAF /* BorrowViewController.swift in Sources */,
-				DFE73291B4F94E506417C01D /* HomepageViewController.swift in Sources */,
-				0AAF5243F7A695BC9CC6CF16 /* InvestViewController.swift in Sources */,
-				370D435DB8EDAFB747CEA9F6 /* SwapViewController.swift in Sources */,
-				06218737C45E76782BCD109A /* TabBarItem.swift in Sources */,
-				EAB7622AC86DE97A2E743E0B /* TabBarViewController.swift in Sources */,
-				20D7C7089C79E025BD88D5F6 /* AllDoneView.swift in Sources */,
-				9118540534473F2A1E6F8A59 /* SecretPhraseCell.swift in Sources */,
-				7FE41C7D4D9B9EEDF56B6B2F /* SecretPhraseCenteredFlowLayout.swift in Sources */,
-				B36A2186CD2F1AEC671E6CA6 /* SecretPhraseCollectionView.swift in Sources */,
-				98F38099849FA1F234D5205A /* SeedPhrase.swift in Sources */,
-				1CCFE27434928B0335018B89 /* ShowSecretPhraseView.swift in Sources */,
-				720765B87A342B788E9A6B47 /* VerifySecretPhraseView.swift in Sources */,
-				A08CDFD35C7AAC36C74E2CBD /* AllDoneViewController.swift in Sources */,
-				C4C15FCC4555C46A7D26DEC5 /* ShowSecretPhraseViewController.swift in Sources */,
-				B5A21D5DA432C1EAF353FE4E /* VerifySecretPhraseViewController.swift in Sources */,
-				233F0422E45793A77FBC25D4 /* AllDoneViewModel.swift in Sources */,
-				1BBDBEBF5BEF06E5223ED29D /* ShowSecretPhraseViewModel.swift in Sources */,
-				07348C7157600883D19BE3D1 /* VerifySecretPhraseViewModel.swift in Sources */,
-				CFC1DA719A27D96B673F358D /* ImportWalletError.swift in Sources */,
-				20C403F37823EEC96AB303C1 /* ImportSecretPhraseViewController.swift in Sources */,
-				07E7702AD0548B8DB7A2E6ED /* ImportSecretPhraseView.swift in Sources */,
-				466880F2B0A5F10F70472A2E /* SecretPhraseTextView.swift in Sources */,
-				E19A7F2C3DBEA0CE94C5AFD2 /* SuggestedSeedPhraseCell.swift in Sources */,
-				F4289CF17B60C5A3CE123531 /* SuggestedSeedPhraseCollectionView.swift in Sources */,
-				3256B0244DDF2151666D6D25 /* ValidateSecretPhraseViewModel.swift in Sources */,
-				EBEB8549012066F481D3084B /* IntroViewModel.swift in Sources */,
-				561483125EFABB6456EE17F1 /* IntroModel.swift in Sources */,
-				716467A70048EC5A4D7FBBDA /* IntroCollectionView.swift in Sources */,
-				48504F92B8A7034CB0B4071F /* IntroCollectionViewCell.swift in Sources */,
-				62D76AEA21FA77F1B65B3C02 /* IntroView.swift in Sources */,
-				34F77E3B42F72AE7C04697F5 /* IntroViewController.swift in Sources */,
-				6AE519595A6DDBE4F1601A86 /* PassManagmentError.swift in Sources */,
-				E781ED88BCAB3865AC2D82CF /* PasscodeManagerPages.swift in Sources */,
-				F49FCB2CC09235D0A4A92774 /* ManagePasscodeView.swift in Sources */,
-				59A3143F8F0941264604C439 /* PassDotsView.swift in Sources */,
-				294BA6C699CF377D97E3425C /* CreatePasscodeViewController.swift in Sources */,
-				C529AFB317518661ED54C292 /* VerifyPasscodeViewController.swift in Sources */,
-				839AD85F3610B1884F399BBD /* SelectPassViewModel.swift in Sources */,
-				E165679D239DB2BED33C962C /* VerifyPassViewModel.swift in Sources */,
-				5B9A92B738DA8188F40FF49D /* KeychainHelper.swift in Sources */,
-				00840F972A3BC4A38A93791F /* KeychainWrapperProtocol.swift in Sources */,
-				4C44407F94ED41A43B00D737 /* PasscodeManagerService.swift in Sources */,
-				239B53123E599C3B8AD537B8 /* AlertHelper.swift in Sources */,
-				F8AA65435058EEBDCECD6B84 /* AutolayoutHelper.swift in Sources */,
-				02A97D4A9C207916DE660B71 /* BlurEffectView.swift in Sources */,
+				E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */,
+				A9F646376FF00EFCBE4E1F19 /* AlertHelper.swift in Sources */,
+				4C5FCC355F7D7307B778F686 /* AllDoneView.swift in Sources */,
+				5172E07495C5EBFA21772580 /* AllDoneViewController.swift in Sources */,
+				4BD24A38B1C81FA80EB0B6E8 /* AllDoneViewModel.swift in Sources */,
+				A56FBAD2E31C10F504631CD6 /* AppDelegate.swift in Sources */,
+				917064233A24F0460102BC15 /* Array+Extension.swift in Sources */,
+				BF6452CE7D0A190C9E9ED3E1 /* AutolayoutHelper.swift in Sources */,
+				B986F3B51CE73D69417A51FF /* BlurEffectView.swift in Sources */,
+				1B7D25A69FB55D4EAC14A392 /* BoldStyle.swift in Sources */,
+				8ECABB94DCBB30B784D22CFF /* BorrowViewController.swift in Sources */,
+				FAF0C3C48227F773D772FF6E /* CreatePasscodeViewController.swift in Sources */,
+				FBEBDE533CAA644C5EF987A1 /* HDWallet+Extension.swift in Sources */,
+				09F905F646F025B2A6CD5098 /* HomepageViewController.swift in Sources */,
+				AAA1EE9680DD6A62A7F88602 /* ImportSecretPhraseView.swift in Sources */,
+				BCF6A33ADF417A2CD0A0D248 /* ImportSecretPhraseViewController.swift in Sources */,
+				3B5C5C7C3020F2A2CDBE5CA5 /* ImportWalletError.swift in Sources */,
+				98D92FBB51CC774F95B06CB8 /* IntroCollectionView.swift in Sources */,
+				0CDD5B1CF93FCD04F68CC1C9 /* IntroCollectionViewCell.swift in Sources */,
+				FC0D80A069760DC032C1B9D6 /* IntroModel.swift in Sources */,
+				FDEF1CFCCEFF7401C0A664FD /* IntroView.swift in Sources */,
+				CC788E5AD6EC8CE9488DA049 /* IntroViewController.swift in Sources */,
+				66FD350CBC69B67E8EAEF71C /* IntroViewModel.swift in Sources */,
+				01B0212D90D700DB5C1126FB /* InvestViewController.swift in Sources */,
+				7F59BB0C6DAAC2B010D1AB7F /* KeychainHelper.swift in Sources */,
+				825CA7D8BA6E45A3D5A28A12 /* KeychainWrapperProtocol.swift in Sources */,
+				A9DD712BF1A1511733B479FA /* LaunchSettings.swift in Sources */,
+				7B6CE232F6C074F30AFAF23D /* ManagePasscodeView.swift in Sources */,
+				325E592A9AA1B24C522EA47F /* MediumStyle.swift in Sources */,
+				B6C747AA398D7E37B1B727AC /* PassDotsView.swift in Sources */,
+				078E15176613CB329D507580 /* PassManagmentError.swift in Sources */,
+				B2555AA57E466EAE75423515 /* PasscodeManagerPages.swift in Sources */,
+				EB0A89CA5CD87C0FE83A682B /* PasscodeManagerService.swift in Sources */,
+				7EF5AA653545082C4C0D04EF /* PinoButton.swift in Sources */,
+				3ACA10D15DD3199674C38954 /* PinoButtonStyle.swift in Sources */,
+				15A1DA694D1E9C595492510B /* PinoCheckBox.swift in Sources */,
+				9131F7218905C2F4AFD3CDE7 /* PinoCheckBoxStyle.swift in Sources */,
+				4CEF60EEF4EB1F6FFF04D23D /* PinoColor.swift in Sources */,
+				858596F6A073F29FF9BB7033 /* PinoFont.swift in Sources */,
+				55CBB37768826DE00CDAF5FB /* PinoLabel.swift in Sources */,
+				6C3ACBB9EEE454EC433A907D /* PinoLabelStyle.swift in Sources */,
+				41B9F1002F97DF04A075D75D /* PinoStepperView.swift in Sources */,
+				A6BFD6F684AF4BA205C23CE7 /* Pino_iOS.xcdatamodeld in Sources */,
+				A57E4F2D75D4BAAB0F29A83B /* RegularStyle.swift in Sources */,
+				643BAB8ABDEFDA509D258D94 /* SceneDelegate.swift in Sources */,
+				0C37EADB6BFAB0A340582184 /* SecretPhraseCell.swift in Sources */,
+				A9EB8A9CA5BE7BA334FBB816 /* SecretPhraseCenteredFlowLayout.swift in Sources */,
+				9A7CE65990DD193F0FAF3C75 /* SecretPhraseCollectionView.swift in Sources */,
+				36705A78402D3518B33881DD /* SecretPhraseTextView.swift in Sources */,
+				34F4A2DA1228B50AC3DFA8A2 /* SeedPhrase.swift in Sources */,
+				44C3312B501D7A88C6ADB659 /* SelectPassViewModel.swift in Sources */,
+				DE33FFB7D492FA770FF9FB5C /* SemiboldStyle.swift in Sources */,
+				FDC9B8DDC75EF47C7D607182 /* ShowSecretPhraseView.swift in Sources */,
+				06DB0B31505094D78686694E /* ShowSecretPhraseViewController.swift in Sources */,
+				92BC3A7553A87622AD6F640E /* ShowSecretPhraseViewModel.swift in Sources */,
+				F29B5E085D9D0D99354034C9 /* StringProtocol+Extension.swift in Sources */,
+				7DD0703DDA2759A33DB4F582 /* SuggestedSeedPhraseCell.swift in Sources */,
+				87D5D64B10D301DA28F383FE /* SuggestedSeedPhraseCollectionView.swift in Sources */,
+				59F0D2F9CA8BEA2BB4728B8E /* SwapViewController.swift in Sources */,
+				58B890F4377EE8853C655AFA /* TabBarItem.swift in Sources */,
+				BA5A805884B41CA1F182245E /* TabBarViewController.swift in Sources */,
+				88F5D80113398502A2D2BE03 /* ValidateSecretPhraseViewModel.swift in Sources */,
+				F8BA0B9925700FFF405AB76D /* VerifyPassViewModel.swift in Sources */,
+				1171EA77FBBB99743B192CFF /* VerifyPasscodeViewController.swift in Sources */,
+				7568B477DFF82F1069E4F911 /* VerifySecretPhraseView.swift in Sources */,
+				79B36BD7606F060231E076F1 /* VerifySecretPhraseViewController.swift in Sources */,
+				5A0A4A23ED01BFB3E5315791 /* VerifySecretPhraseViewModel.swift in Sources */,
+				4C7FBB094D7EA8820D1F4D69 /* ViewController+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1240,8 +1157,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				666DA2667A31CB08C5D950D8 /* SeedPhraseMock.swift in Sources */,
-				FD3139836A6E9D0A3EB63BDD /* Pino_iOSTests.swift in Sources */,
+				C24E36E3E6B2C4A8D1CA3665 /* Pino_iOSTests.swift in Sources */,
+				F7D22B022E9C48DDF930FAD9 /* SeedPhraseMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1249,36 +1166,44 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB1B4AFE3D2CE9F26E7F280E /* Pino_iOSUITestsLaunchTests.swift in Sources */,
-				551DBEFEDA1A86C9449731C1 /* CreatePasscodeUITests.swift in Sources */,
-				9E6F1F8F5D453181F2383695 /* CreateWalletUITests.swift in Sources */,
-				35F653178497D3A93EE59E96 /* ImportWalletUITests.swift in Sources */,
+				9F374A025E01D130ECA95384 /* CreatePasscodeUITests.swift in Sources */,
+				7C0A3AF81DFE67829149BBBE /* CreateWalletUITests.swift in Sources */,
+				C0BFA5D21284FA2DAEA8A6CE /* ImportWalletUITests.swift in Sources */,
+				0A972ECB0BD4D36DDB793993 /* Pino_iOSUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		28DA6D17929362A89FBCFBA6 /* PBXTargetDependency */ = {
+		40318F5629620CDA00039FE0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "Pino-iOS";
 			target = 76B66D03FC77A6B968427190 /* Pino-iOS */;
-			targetProxy = 69F0BAF5F4CA11531B5F2E2E /* PBXContainerItemProxy */;
+			targetProxy = 40318F5529620CDA00039FE0 /* PBXContainerItemProxy */;
 		};
-		DA66B669DF97EDE3C543C4E2 /* PBXTargetDependency */ = {
+		40318F5829620CDC00039FE0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "Pino-iOS";
 			target = 76B66D03FC77A6B968427190 /* Pino-iOS */;
-			targetProxy = DBA0CDD520BFA313CF8CDA96 /* PBXContainerItemProxy */;
+			targetProxy = 40318F5729620CDC00039FE0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		5952BFBE13B5028BDF1E686D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E5039C2C00BEB653F3B0D399 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		18C0C7105E9F47F5CEC08BAB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1309,7 +1234,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1318,8 +1243,8 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
+					"DEBUG=1",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1327,41 +1252,42 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		224281A6BD8FC96C15842DC0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0A9E7D9EC8768B1B55DFA2F2 /* Pods-Pino-iOS.debug.xcconfig */;
+			baseConfigurationReference = EAAB50E4A8C365B55E38D57D /* Pods-Pino-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "Derived/InfoPlists/Pino-iOS-Info.plist";
+				DEBUG_MODE = YES;
+				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.aurora.pino.Pino-iOS";
-				PRODUCT_NAME = Pino_iOS;
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_COMPILATION_MODE = singlefile;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		326094F11CFBB79B529B22C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 721F517E2069F5C34B4EE0B1 /* Pods-Pino-iOSTests.release.xcconfig */;
+			baseConfigurationReference = E014267A11D9442B3923F2F8 /* Pods-Pino-iOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1369,23 +1295,17 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.aurora.pino.Pino-iOSTests";
-				PRODUCT_NAME = Pino_iOSTests;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pino_iOS.app/Pino_iOS";
-				TEST_TARGET_NAME = "Pino-iOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pino-iOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Pino-iOS";
 			};
 			name = Release;
 		};
 		7651F5C9499B813D4EF201EF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AE566C3E5C85B51E58D04E7F /* Pods-Pino-iOSTests.debug.xcconfig */;
+			baseConfigurationReference = 56CFE2D2639257199BC27B3A /* Pods-Pino-iOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1393,45 +1313,35 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.aurora.pino.Pino-iOSTests";
-				PRODUCT_NAME = Pino_iOSTests;
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_COMPILATION_MODE = singlefile;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pino_iOS.app/Pino_iOS";
-				TEST_TARGET_NAME = "Pino-iOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pino-iOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Pino-iOS";
 			};
 			name = Debug;
 		};
 		7B083790ABEB8391B5A40C82 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C8C678EA95588267D7E14551 /* Pods-Pino-iOS.release.xcconfig */;
+			baseConfigurationReference = 8407E9F899DB999F8C0513D8 /* Pods-Pino-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "Derived/InfoPlists/Pino-iOS-Info.plist";
+				DEBUG_MODE = NO;
+				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.aurora.pino.Pino-iOS";
-				PRODUCT_NAME = Pino_iOS;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
 		B7A1A216F88ED9C8ECF1C97A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AD19E2C62A071C379D1A291E /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */;
+			baseConfigurationReference = 308218817F62BF5BBE6444F2 /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1439,11 +1349,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.aurora.pino.Pino-iOSUITests";
-				PRODUCT_NAME = Pino_iOSUITests;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "Pino-iOS";
 			};
@@ -1451,9 +1357,9 @@
 		};
 		D6E9BFF79FB2B0241EF47EB3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 132F0B27ACD56BA431F25865 /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */;
+			baseConfigurationReference = 401F284295C66156BE83D796 /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1461,12 +1367,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.aurora.pino.Pino-iOSUITests";
-				PRODUCT_NAME = Pino_iOSUITests;
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_COMPILATION_MODE = singlefile;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "Pino-iOS";
 			};
@@ -1476,7 +1377,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1507,7 +1407,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1519,9 +1419,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALIDATE_PRODUCT = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -1535,7 +1441,7 @@
 				7B083790ABEB8391B5A40C82 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		6B6518EC167C528E1CC9BE07 /* Build configuration list for PBXNativeTarget "Pino-iOSTests" */ = {
 			isa = XCConfigurationList;
@@ -1544,7 +1450,7 @@
 				326094F11CFBB79B529B22C7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		8551383759BECA79C9F7F85D /* Build configuration list for PBXProject "Pino-iOS" */ = {
 			isa = XCConfigurationList;
@@ -1553,7 +1459,7 @@
 				F393FE673BB9F54B6A3CF074 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		EE46D7586D2BB3F3472DCBF5 /* Build configuration list for PBXNativeTarget "Pino-iOSUITests" */ = {
 			isa = XCConfigurationList;
@@ -1562,7 +1468,7 @@
 				B7A1A216F88ED9C8ECF1C97A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 
@@ -1576,6 +1482,19 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCVersionGroup section */
+		281840026D1004B10CE8DAFD /* Pino_iOS.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5EFC7CBAB68C417D56B4764A /* Pino_iOS.xcdatamodel */,
+			);
+			currentVersion = 5EFC7CBAB68C417D56B4764A /* Pino_iOS.xcdatamodel */;
+			path = Pino_iOS.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5939E0FFBB001767AF40C17F /* Project object */;
 }
