@@ -3,7 +3,6 @@ default_platform(:ios)
 platform :ios do
   
   before_each do |lane, options|
-    commitMsg  = prompt(text: "Message: ")
     swiftformat(
       swiftversion: "5.5",                               # Specify swift version (optional)
       config: "../Pino-iOS/.swiftformat",                # Path to configuration file (optional)
@@ -12,6 +11,7 @@ platform :ios do
     begin
       ensure_git_status_clean
     rescue
+      commitMsg  = prompt(text: "Message: ")
       git_add()
       git_commit(path:"*", message: commitMsg)
     end
