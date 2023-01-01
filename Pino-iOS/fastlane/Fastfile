@@ -42,7 +42,6 @@ platform :ios do
   lane :switch_branch do
     branchName = prompt(text: "Branch Name: ")
     git_switch_branch(branch: branchName)
-    xcodegen
     cocoapods(use_bundle_exec: false)
   end
 
