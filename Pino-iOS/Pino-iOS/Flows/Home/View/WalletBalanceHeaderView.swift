@@ -107,10 +107,6 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 
 		balanceStackView
 			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(activateSecurityMode)))
-
-		showBalanceButton.addAction(UIAction(handler: { _ in
-			self.deactivateSecurityMode()
-		}), for: .touchUpInside)
 	}
 
 	private func setupBindings() {
@@ -207,10 +203,6 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 
 	@objc
 	private func activateSecurityMode() {
-		homeVM.securityMode = true
-	}
-
-	private func deactivateSecurityMode() {
-		homeVM.securityMode = false
+		homeVM.securityMode.toggle()
 	}
 }

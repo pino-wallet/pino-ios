@@ -72,7 +72,7 @@ public class PinoToastView: UIView {
 
 			switch alignment {
 			case .top:
-                pin(.centerX, .top(to: currentWindow?.layoutMarginsGuide, padding: 25))
+				pin(.centerX, .top(to: currentWindow?.layoutMarginsGuide, padding: 25))
 				frame.origin = CGPoint(x: frame.origin.x, y: -28)
 				UIView
 					.animate(

@@ -117,7 +117,7 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 			.verticalEdges
 		)
 		assetStackView.pin(
-			.verticalEdges(padding: 10),
+			.centerY,
 			.leading(padding: 14)
 		)
 		assetVolatilityStackView.pin(
