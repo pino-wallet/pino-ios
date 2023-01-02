@@ -11,7 +11,6 @@ import UIKit
 class HomepageViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private var assetsCollectionView: AssetsCollectionView!
 	private let homeVM = HomepageViewModel()
 	private var cancellables = Set<AnyCancellable>()
 	private var addressCopiedToastView = PinoToastView(style: .primary, alignment: .top)
@@ -36,7 +35,7 @@ class HomepageViewController: UIViewController {
 
 	private func setupView() {
 		view = UIView()
-		assetsCollectionView = AssetsCollectionView(homeVM: homeVM)
+		let assetsCollectionView = AssetsCollectionView(homeVM: homeVM)
 		view.addSubview(assetsCollectionView)
 		assetsCollectionView.pin(.allEdges)
 		addressCopiedToastView.message = homeVM.copyToastMessage

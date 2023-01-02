@@ -13,10 +13,7 @@ class AssetsCollectionView: UICollectionView {
 
 	private var cancellables = Set<AnyCancellable>()
 	private let assetsRefreshControl = UIRefreshControl()
-
-	// MARK: - Public Properties
-
-	public let refreshErrorToastView = PinoToastView(style: .secondary)
+	private let refreshErrorToastView = PinoToastView(style: .secondary)
 
 	// MARK: - Internal Properties
 
@@ -109,7 +106,7 @@ class AssetsCollectionView: UICollectionView {
 					self.refreshErrorToastView.message = self.homeVM.connectionErrorToastMessage
 				}
 				self.refreshErrorToastView.showToast()
-			} else {}
+			}
 		}
 	}
 }
