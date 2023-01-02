@@ -40,8 +40,8 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		setupGradientLayer()
-
+		let gradientLayer = GradientLayer(frame: bounds, style: .headerBackground)
+		layer.addSublayer(gradientLayer)
 		balanceStackView.addArrangedSubview(balanceLabel)
 		balanceStackView.addArrangedSubview(volatilityView)
 		volatilityStackView.addArrangedSubview(volatilityPercentageLabel)
@@ -164,16 +164,5 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 			.fixedWidth(0.6),
 			.verticalEdges
 		)
-	}
-
-	private func setupGradientLayer() {
-		let gradientLayer = CAGradientLayer()
-		gradientLayer.frame = bounds
-		gradientLayer.locations = [0.2, 0.5]
-		gradientLayer.colors = [
-			UIColor.Pino.secondaryBackground.cgColor,
-			UIColor.Pino.background.cgColor,
-		]
-		layer.addSublayer(gradientLayer)
 	}
 }

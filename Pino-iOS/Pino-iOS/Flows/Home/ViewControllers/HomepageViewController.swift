@@ -22,7 +22,8 @@ class HomepageViewController: UIViewController {
 	}
 
 	override func viewDidLayoutSubviews() {
-		setupBackgroundGradientLayer()
+		let gradientLayer = GradientLayer(frame: view.bounds, style: .homeBackground)
+		view.layer.insertSublayer(gradientLayer, at: 0)
 	}
 
 	override func loadView() {
@@ -38,17 +39,6 @@ class HomepageViewController: UIViewController {
 		view.addSubview(assetsCollectionView)
 		assetsCollectionView.pin(.allEdges)
 		setupToastView()
-	}
-
-	private func setupBackgroundGradientLayer() {
-		let gradientLayer = CAGradientLayer()
-		gradientLayer.frame = view.bounds
-		gradientLayer.locations = [0.3, 0.7]
-		gradientLayer.colors = [
-			UIColor.Pino.secondaryBackground.cgColor,
-			UIColor.Pino.background.cgColor,
-		]
-		view.layer.insertSublayer(gradientLayer, at: 0)
 	}
 
 	private func setupNavigationBar() {
