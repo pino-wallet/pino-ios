@@ -50,7 +50,7 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 		assetTitleLabel.text = assetVM.name
 		assetAmountLabel.text = assetVM.amount
 		assetAmountInDollorLabel.text = assetVM.amountInDollor
-		assetVolatilityLabel.text = assetVM.volatility
+		assetVolatilityLabel.text = assetVM.volatilityInDollor
 
 		assetImage.image = UIImage(named: assetVM.image)
 

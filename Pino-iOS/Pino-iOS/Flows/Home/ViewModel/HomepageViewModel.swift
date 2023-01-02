@@ -93,7 +93,7 @@ class HomepageViewModel {
 				codeName: "Link",
 				amount: "10,04",
 				amountInDollor: "1,530",
-				volatility: "10",
+				volatilityInDollor: "10",
 				volatilityType: .profit
 			),
 			AssetModel(
@@ -102,7 +102,7 @@ class HomepageViewModel {
 				codeName: "RBN",
 				amount: "4,330",
 				amountInDollor: "1,530",
-				volatility: "115",
+				volatilityInDollor: "115",
 				volatilityType: .profit
 			),
 			AssetModel(
@@ -111,7 +111,7 @@ class HomepageViewModel {
 				codeName: "USDT",
 				amount: "1.049",
 				amountInDollor: "1,530",
-				volatility: "3.5",
+				volatilityInDollor: "3.5",
 				volatilityType: .loss
 			),
 			AssetModel(
@@ -120,7 +120,7 @@ class HomepageViewModel {
 				codeName: "BTC",
 				amount: nil,
 				amountInDollor: nil,
-				volatility: nil,
+				volatilityInDollor: nil,
 				volatilityType: nil
 			),
 		]
@@ -136,7 +136,7 @@ class HomepageViewModel {
 				codeName: "ETH",
 				amount: "1.2",
 				amountInDollor: "1,530",
-				volatility: "10",
+				volatilityInDollor: "10",
 				volatilityType: .profit
 			),
 			AssetModel(
@@ -145,7 +145,7 @@ class HomepageViewModel {
 				codeName: "aDAI",
 				amount: "10.2",
 				amountInDollor: "10,3",
-				volatility: "14",
+				volatilityInDollor: "14",
 				volatilityType: .profit
 			),
 			AssetModel(
@@ -154,7 +154,7 @@ class HomepageViewModel {
 				codeName: "SAND",
 				amount: "10,04",
 				amountInDollor: "1,530",
-				volatility: "10",
+				volatilityInDollor: "10",
 				volatilityType: .profit
 			),
 			AssetModel(
@@ -163,7 +163,7 @@ class HomepageViewModel {
 				codeName: "SNT",
 				amount: "4,330",
 				amountInDollor: "1,530",
-				volatility: "115",
+				volatilityInDollor: "115",
 				volatilityType: .profit
 			),
 			AssetModel(
@@ -172,7 +172,7 @@ class HomepageViewModel {
 				codeName: "DAI",
 				amount: "1.049",
 				amountInDollor: "1,530",
-				volatility: "3.5",
+				volatilityInDollor: "3.5",
 				volatilityType: .loss
 			),
 			AssetModel(
@@ -181,7 +181,7 @@ class HomepageViewModel {
 				codeName: "USDC",
 				amount: nil,
 				amountInDollor: nil,
-				volatility: nil,
+				volatilityInDollor: nil,
 				volatilityType: nil
 			),
 		]

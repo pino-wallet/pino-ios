@@ -137,7 +137,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 	}
 
 	enum HomeSection: Int, CaseIterable {
-		case asset = 0
-		case position = 1
+		case asset
+		case position
 	}
 }

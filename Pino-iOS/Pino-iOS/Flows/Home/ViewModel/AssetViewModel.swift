@@ -34,8 +34,8 @@ public struct AssetViewModel {
 		}
 	}
 
-	public var volatility: String {
-		if let volatility = assetModel.volatility {
+	public var volatilityInDollor: String {
+		if let volatility = assetModel.volatilityInDollor {
 			switch volatilityType {
 			case .loss:
 				return "-$\(volatility)"
