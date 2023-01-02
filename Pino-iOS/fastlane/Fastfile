@@ -3,18 +3,18 @@ default_platform(:ios)
 platform :ios do
   
   before_each do |lane, options|
-    swiftformat(
-      swiftversion: "5.5",                               # Specify swift version (optional)
-      config: "../Pino-iOS/.swiftformat",                # Path to configuration file (optional)
-      dryrun: false,                                     # Run in dry mode (without actually changing any files) (optional)
-    )
-    begin
-      ensure_git_status_clean
-    rescue
-      commitMsg  = prompt(text: "Message: ")
-      git_add()
-      git_commit(path:"*", message: commitMsg)
-    end
+    # swiftformat(
+    #   swiftversion: "5.5",                               # Specify swift version (optional)
+    #   config: "../Pino-iOS/.swiftformat",                # Path to configuration file (optional)
+    #   dryrun: false,                                     # Run in dry mode (without actually changing any files) (optional)
+    # )
+    # begin
+    #   ensure_git_status_clean
+    # rescue
+    #   commitMsg  = prompt(text: "Message: ")
+    #   git_add()
+    #   git_commit(path:"*", message: commitMsg)
+    # end
   end
 
   lane :get_dev_certs do
@@ -30,16 +30,16 @@ platform :ios do
   lane :push do
     scan(
       workspace: "Pino-iOS.xcworkspace",
-      scheme: "Pino-iOSTests"
+      scheme: "Pino-iOSTests",
+      device: "iPhone 14",
+      clean: false
     )
-    push_to_git_remote
+    # push_to_git_remote
   end
   
   lane :testflight_beta do
+    bump
     changelog = prompt(text: "What to Test: ")
-    xcodegen
-    cocoapods(use_bundle_exec: false)
-    xcbuild
     scan(
       workspace: "Pino-iOS.xcworkspace",
       scheme: "Pino-iOSTests",
@@ -53,7 +53,7 @@ platform :ios do
       notify_external_testers: true,
       changelog: changelog,
       username: "eskandari.sobhan@gmail.com",
-      app_identifier: "com.krausefx.app",
+      app_identifier: "com.aurora.pino.Pino-iOS",
       api_key: ""
     )
   end
