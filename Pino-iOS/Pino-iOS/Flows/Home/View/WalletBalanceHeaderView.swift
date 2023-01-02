@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-class HomepageHeaderView: UIView {
+class WalletBalanceHeaderView: UICollectionReusableView {
 	// MARK: - Private Properties
 
 	private var contentStackView = UIStackView()
@@ -22,31 +22,26 @@ class HomepageHeaderView: UIView {
 	private var sendRecieveStackView = UIStackView()
 	private var sendButton = PinoButton(style: .active)
 	private var recieveButton = PinoButton(style: .secondary)
-	private var homeVM: HomepageViewModel!
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 
 	public static let headerReuseID = "homepgaeHeader"
 
-	// MARK: - Initializers
-
-	init(homeVM: HomepageViewModel) {
-		self.homeVM = homeVM
-		super.init(frame: .zero)
-		setupView()
-		setupStyle()
-		setupBindings()
-		setupConstraint()
-	}
-
-	required init?(coder: NSCoder) {
-		fatalError()
+	public var homeVM: HomepageViewModel! {
+		didSet {
+			setupView()
+			setupStyle()
+			setupBindings()
+			setupConstraint()
+		}
 	}
 
 	// MARK: - Private Methods
 
 	private func setupView() {
+		let gradientLayer = GradientLayer(frame: bounds, style: .headerBackground)
+		layer.addSublayer(gradientLayer)
 		balanceStackView.addArrangedSubview(balanceLabel)
 		balanceStackView.addArrangedSubview(volatilityView)
 		volatilityStackView.addArrangedSubview(volatilityPercentageLabel)
@@ -61,8 +56,6 @@ class HomepageHeaderView: UIView {
 	}
 
 	private func setupStyle() {
-		backgroundColor = .Pino.background
-
 		sendButton.title = homeVM.sendButtonTitle
 		recieveButton.title = homeVM.recieveButtonTitle
 
@@ -74,7 +67,7 @@ class HomepageHeaderView: UIView {
 
 		balanceLabel.textColor = .Pino.label
 
-		balanceLabel.font = .PinoStyle.semiboldTitle1
+		balanceLabel.font = .PinoStyle.semiboldLargeTitle
 		volatilityPercentageLabel.font = .PinoStyle.semiboldFootnote
 		volatilityInDollarLabel.font = .PinoStyle.semiboldFootnote
 
@@ -84,7 +77,7 @@ class HomepageHeaderView: UIView {
 		sendRecieveStackView.axis = .horizontal
 
 		contentStackView.spacing = 25
-		balanceStackView.spacing = 10
+		balanceStackView.spacing = 13
 		sendRecieveStackView.spacing = 24
 		volatilityStackView.spacing = 6
 
@@ -96,8 +89,8 @@ class HomepageHeaderView: UIView {
 
 		sendButton.configuration = .plain()
 		recieveButton.configuration = .plain()
-		sendButton.configuration?.imagePadding = 16
-		recieveButton.configuration?.imagePadding = 16
+		sendButton.configuration?.imagePadding = 8
+		recieveButton.configuration?.imagePadding = 8
 
 		sendButton.configuration?.titleTextAttributesTransformer =
 			UIConfigurationTextAttributesTransformer { btnConfig in
@@ -114,7 +107,7 @@ class HomepageHeaderView: UIView {
 			}
 	}
 
-	func setupBindings() {
+	private func setupBindings() {
 		homeVM.$walletBalance.sink { [weak self] walletBalance in
 			guard let walletBalance = walletBalance else { return }
 
@@ -131,6 +124,9 @@ class HomepageHeaderView: UIView {
 			case .loss:
 				volatilityViewBackgroundColor = .Pino.lightRed
 				volatilityViewTintColor = .Pino.red
+			case .none:
+				volatilityViewBackgroundColor = .Pino.gray5
+				volatilityViewTintColor = .Pino.gray2
 			}
 
 			self?.volatilityView.backgroundColor = volatilityViewBackgroundColor
@@ -145,7 +141,7 @@ class HomepageHeaderView: UIView {
 	private func setupConstraint() {
 		contentStackView.pin(
 			.horizontalEdges(padding: 16),
-			.top(to: layoutMarginsGuide, padding: 27)
+			.top(to: layoutMarginsGuide, padding: 12)
 		)
 		volatilityStackView.pin(
 			.centerY,

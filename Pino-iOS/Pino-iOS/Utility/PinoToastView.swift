@@ -12,12 +12,19 @@ class PinoToastView: UIView {
 
 	private let toastLabel = UILabel()
 
+	public var message: String {
+		didSet {
+			toastLabel.text = message
+		}
+	}
+
 	// MARK: - Initializers
 
-	init(message: String) {
+	init(message: String = "") {
+		self.message = message
 		super.init(frame: .zero)
 		setupView()
-		setupStyle(message: message)
+		setupStyle()
 		setupConstraint()
 	}
 
@@ -43,7 +50,7 @@ class PinoToastView: UIView {
 		addSubview(toastLabel)
 	}
 
-	private func setupStyle(message: String) {
+	private func setupStyle() {
 		toastLabel.text = message
 
 		toastLabel.textColor = .Pino.white

@@ -21,6 +21,11 @@ class HomepageViewController: UIViewController {
 		super.viewDidLoad()
 	}
 
+	override func viewDidLayoutSubviews() {
+		let gradientLayer = GradientLayer(frame: view.bounds, style: .homeBackground)
+		view.layer.insertSublayer(gradientLayer, at: 0)
+	}
+
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
@@ -29,20 +34,22 @@ class HomepageViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		// This is temporary until the collection view is implemented
-		view = HomepageHeaderView(homeVM: homeVM)
+		view = UIView()
+		let assetsCollectionView = AssetsCollectionView(homeVM: homeVM)
+		view.addSubview(assetsCollectionView)
+		assetsCollectionView.pin(.allEdges)
 		setupToastView()
 	}
 
 	private func setupNavigationBar() {
 		homeVM.$walletInfo.sink { [weak self] walletInfo in
 			guard let walletInfo = walletInfo else { return }
-			let homepageNavigationItems = HomepageNavigationItems(walletInfo: walletInfo)
-			self?.navigationItem.titleView = homepageNavigationItems.walletTitle
-			self?.navigationItem.leftBarButtonItem = homepageNavigationItems.profileButton
+			let walletInfoNavigationItems = WalletInfoNavigationItems(walletInfoVM: walletInfo)
+			self?.navigationItem.titleView = walletInfoNavigationItems.walletTitle
+			self?.navigationItem.leftBarButtonItem = walletInfoNavigationItems.profileButton
 		}.store(in: &cancellables)
 
-		navigationItem.rightBarButtonItem = HomepageNavigationItems.manageAssetButton
+		navigationItem.rightBarButtonItem = WalletInfoNavigationItems.manageAssetButton
 
 		(navigationItem.titleView as? UIButton)?.addAction(UIAction(handler: { _ in
 			self.copyWalletAddress()
@@ -54,7 +61,7 @@ class HomepageViewController: UIViewController {
 		view.addSubview(addressCopiedToastView)
 
 		addressCopiedToastView.pin(
-			.top(to: view.layoutMarginsGuide),
+			.top(to: view.layoutMarginsGuide, padding: -16),
 			.centerX
 		)
 	}
