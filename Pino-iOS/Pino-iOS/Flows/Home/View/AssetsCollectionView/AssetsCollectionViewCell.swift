@@ -65,7 +65,7 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 		} else {
 			assetAmountLabel.text = assetVM.amount
 			assetAmountInDollorLabel.text = assetVM.amountInDollor
-			assetVolatilityLabel.text = assetVM.volatility
+			assetVolatilityLabel.text = assetVM.volatilityInDollor
 
 			assetAmountLabel.font = .PinoStyle.mediumFootnote
 			assetAmountInDollorLabel.font = .PinoStyle.mediumCallout

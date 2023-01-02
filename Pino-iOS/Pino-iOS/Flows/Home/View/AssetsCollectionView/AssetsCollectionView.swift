@@ -33,6 +33,7 @@ class AssetsCollectionView: UICollectionView {
 		flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 
+		configCollectionView()
 		setupView()
 		setupStyle()
 		setupBindings()
@@ -44,7 +45,7 @@ class AssetsCollectionView: UICollectionView {
 
 	// MARK: Private Methods
 
-	private func setupView() {
+	private func configCollectionView() {
 		register(
 			AssetsCollectionViewCell.self,
 			forCellWithReuseIdentifier: AssetsCollectionViewCell.cellReuseID
@@ -67,7 +68,9 @@ class AssetsCollectionView: UICollectionView {
 
 		dataSource = self
 		delegate = self
+	}
 
+	private func setupView() {
 		setupRefreshControl()
 	}
 

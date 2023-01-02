@@ -41,8 +41,8 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		setupGradientLayer()
-
+		let gradientLayer = GradientLayer(frame: bounds, style: .headerBackground)
+		layer.addSublayer(gradientLayer)
 		balanceStackView.addArrangedSubview(balanceLabel)
 		balanceStackView.addArrangedSubview(showBalanceButton)
 		balanceStackView.addArrangedSubview(volatilityView)

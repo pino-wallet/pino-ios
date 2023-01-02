@@ -13,6 +13,6 @@ public struct AssetModel {
 	public var codeName: String
 	public var amount: String?
 	public var amountInDollor: String?
-	public var volatility: String?
+	public var volatilityInDollor: String?
 	public var volatilityType: AssetVolatilityType?
 }
