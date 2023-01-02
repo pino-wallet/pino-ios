@@ -14,6 +14,7 @@ public class PinoToastView: UIView {
 	private let toastLabel = UILabel()
 	private let toastImage = UIImageView()
 	private var isShowingToast = false
+	private var superView: UIView!
 
 	// MARK: - Public Properties
 
@@ -61,68 +62,23 @@ public class PinoToastView: UIView {
 	public func showToast() {
 		if !isShowingToast {
 			isShowingToast = true
-			let currentWindow = UIApplication.shared.connectedScenes
-				.filter { $0.activationState == .foregroundActive }
-				.first(where: { $0 is UIWindowScene })
-				.flatMap { $0 as? UIWindowScene }?.windows
-				.first(where: \.isKeyWindow)
-			guard let superView = currentWindow?.rootViewController?.view
-			else { fatalError("Toast view has not been added to any view") }
-			currentWindow?.addSubview(self)
-
+			setupSuperView()
 			switch alignment {
 			case .top:
-				pin(.centerX, .top(to: currentWindow?.layoutMarginsGuide, padding: 25))
-				frame.origin = CGPoint(x: frame.origin.x, y: -28)
-				UIView
-					.animate(
-						withDuration: 0.8,
-						delay: 0,
-						usingSpringWithDamping: 0.6,
-						initialSpringVelocity: 0.5
-					) { [weak self] in
-						guard let self else { return }
-						self.frame.origin = CGPoint(x: self.frame.origin.x, y: 25)
-					} completion: { _ in
-						UIView.animate(
-							withDuration: 0.8,
-							delay: 1.2,
-							usingSpringWithDamping: 0.6,
-							initialSpringVelocity: 0.5
-						) { [weak self] in
-							guard let self else { return }
-							self.frame.origin = CGPoint(x: self.frame.origin.x, y: -32)
-						} completion: { _ in
-							self.isShowingToast = false
-							self.removeFromSuperview()
-						}
-					}
+				animateToastView(
+					originY: 10,
+					destinationY: 32,
+					delay: 1.2,
+					verticalConstraint: .top(to: superView.layoutMarginsGuide, padding: 32),
+					isFade: true
+				)
 			case .bottom:
-				pin(.centerX, .bottom(to: currentWindow?.layoutMarginsGuide, padding: 50))
-				frame.origin = CGPoint(x: frame.origin.x, y: superView.frame.height)
-				UIView
-					.animate(
-						withDuration: 0.8,
-						delay: 0,
-						usingSpringWithDamping: 0.7,
-						initialSpringVelocity: 0.3
-					) { [weak self] in
-						guard let self else { return }
-						self.frame.origin = CGPoint(x: self.frame.origin.x, y: superView.frame.height - 50)
-					} completion: { _ in
-						UIView.animate(
-							withDuration: 0.4,
-							delay: 2,
-							usingSpringWithDamping: 0.9,
-							initialSpringVelocity: 0.3
-						) { [weak self] in
-							guard let self else { return }
-							self.frame.origin = CGPoint(x: self.frame.origin.x, y: superView.frame.height)
-						} completion: { _ in
-							self.isShowingToast = false
-							self.removeFromSuperview()
-						}
-					}
+				animateToastView(
+					originY: superView.frame.height,
+					destinationY: superView.frame.height - 60,
+					delay: 2,
+					verticalConstraint: .bottom(to: superView.layoutMarginsGuide, padding: 60)
+				)
 			}
 		}
 	}
@@ -167,6 +123,56 @@ public class PinoToastView: UIView {
 			.centerY,
 			.horizontalEdges(padding: 12)
 		)
+	}
+
+	private func setupSuperView() {
+		let currentWindow = UIApplication
+			.shared
+			.connectedScenes
+			.filter { $0.activationState == .foregroundActive }
+			.first(where: { $0 is UIWindowScene })
+			.flatMap { $0 as? UIWindowScene }?.windows
+			.first(where: \.isKeyWindow)
+		guard let superView = currentWindow?.rootViewController?.view
+		else { fatalError("Toast view has not been added to any view") }
+		superView.addSubview(self)
+		self.superView = superView
+	}
+
+	private func animateToastView(
+		originY: CGFloat,
+		destinationY: CGFloat,
+		delay: Double,
+		verticalConstraint: Constraint,
+		isFade: Bool = false
+	) {
+		alpha = isFade ? 0 : 1
+		pin(.centerX, verticalConstraint)
+		frame.origin = CGPoint(x: frame.origin.x, y: originY)
+		UIView.animate(
+			withDuration: 0.9,
+			delay: 0,
+			usingSpringWithDamping: 0.7,
+			initialSpringVelocity: 0.3
+		) { [weak self] in
+			guard let self else { return }
+			self.alpha = 1
+			self.frame.origin = CGPoint(x: self.frame.origin.x, y: destinationY)
+		} completion: { _ in
+			UIView.animate(
+				withDuration: 0.8,
+				delay: delay,
+				usingSpringWithDamping: 0.7,
+				initialSpringVelocity: 0.3
+			) { [weak self] in
+				guard let self else { return }
+				self.alpha = isFade ? 0 : 1
+				self.frame.origin = CGPoint(x: self.frame.origin.x, y: originY + self.frame.height)
+			} completion: { _ in
+				self.isShowingToast = false
+				self.removeFromSuperview()
+			}
+		}
 	}
 
 	public enum Alignment {
