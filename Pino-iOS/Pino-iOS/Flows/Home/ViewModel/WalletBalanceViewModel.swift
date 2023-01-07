@@ -13,10 +13,12 @@ struct WalletBalanceViewModel {
 	public let securityModeText = "••••••"
 	public let showBalanceButtonTitle = "Show balance"
 	public let showBalanceButtonImage = "eye"
-	public var securityMode: Bool
+	public var securityMode = false
 
 	public var balance: String {
-		if let balance = balanceModel.balance {
+		if securityMode {
+			return securityModeText
+		} else if let balance = balanceModel.balance {
 			return "$\(balance)"
 		} else {
 			return "$0.0"

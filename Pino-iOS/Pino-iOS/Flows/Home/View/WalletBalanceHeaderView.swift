@@ -81,7 +81,6 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 		balanceLabel.textColor = .Pino.label
 		showBalanceButton.setTitleColor(.Pino.gray2, for: .normal)
 
-		balanceLabel.font = .PinoStyle.semiboldLargeTitle
 		volatilityPercentageLabel.font = .PinoStyle.semiboldFootnote
 		volatilityInDollarLabel.font = .PinoStyle.semiboldFootnote
 
@@ -113,41 +112,34 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 		homeVM.$walletBalance.sink { [weak self] walletBalance in
 			guard let walletBalance = walletBalance else { return }
 
-			if walletBalance.securityMode {
-				let attributedString = NSMutableAttributedString(
-					string: walletBalance.securityModeText,
-					attributes: [.font: UIFont.PinoStyle.boldExtraLargeTitle!]
-				)
-				self?.balanceLabel.attributedText = attributedString
+			self?.balanceLabel.text = walletBalance.balance
+			self?.volatilityPercentageLabel.text = walletBalance.volatilityPercentage
+			self?.volatilityInDollarLabel.text = walletBalance.volatilityInDollor
 
+			var volatilityViewBackgroundColor: UIColor!
+			var volatilityViewTintColor: UIColor!
+			switch walletBalance.volatilityType {
+			case .profit:
+				volatilityViewBackgroundColor = .Pino.green1
+				volatilityViewTintColor = .Pino.green3
+			case .loss:
+				volatilityViewBackgroundColor = .Pino.lightRed
+				volatilityViewTintColor = .Pino.red
+			case .none:
+				volatilityViewBackgroundColor = .Pino.gray5
+				volatilityViewTintColor = .Pino.gray2
+			}
+			self?.volatilityView.backgroundColor = volatilityViewBackgroundColor
+			self?.volatilitySeparatorLine.backgroundColor = volatilityViewTintColor
+			self?.volatilityPercentageLabel.textColor = volatilityViewTintColor
+			self?.volatilityInDollarLabel.textColor = volatilityViewTintColor
+
+			if walletBalance.securityMode {
+				self?.balanceLabel.font = .PinoStyle.boldExtraLargeTitle
 				self?.volatilityView.isHidden = true
 				self?.showBalanceButton.isHidden = false
-
 			} else {
-				self?.balanceLabel.attributedText = nil
-				self?.balanceLabel.text = walletBalance.balance
-				self?.volatilityPercentageLabel.text = walletBalance.volatilityPercentage
-				self?.volatilityInDollarLabel.text = walletBalance.volatilityInDollor
-
-				var volatilityViewBackgroundColor: UIColor!
-				var volatilityViewTintColor: UIColor!
-				switch walletBalance.volatilityType {
-				case .profit:
-					volatilityViewBackgroundColor = .Pino.green1
-					volatilityViewTintColor = .Pino.green3
-				case .loss:
-					volatilityViewBackgroundColor = .Pino.lightRed
-					volatilityViewTintColor = .Pino.red
-				case .none:
-					volatilityViewBackgroundColor = .Pino.gray5
-					volatilityViewTintColor = .Pino.gray2
-				}
-
-				self?.volatilityView.backgroundColor = volatilityViewBackgroundColor
-				self?.volatilitySeparatorLine.backgroundColor = volatilityViewTintColor
-				self?.volatilityPercentageLabel.textColor = volatilityViewTintColor
-				self?.volatilityInDollarLabel.textColor = volatilityViewTintColor
-
+				self?.balanceLabel.font = .PinoStyle.semiboldLargeTitle
 				self?.volatilityView.isHidden = false
 				self?.showBalanceButton.isHidden = true
 			}

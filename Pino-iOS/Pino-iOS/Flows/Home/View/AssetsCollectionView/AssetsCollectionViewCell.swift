@@ -48,12 +48,11 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 
 	private func setupStyle() {
 		assetTitleLabel.text = assetVM.name
+		assetAmountLabel.text = assetVM.amount
+		assetAmountInDollorLabel.text = assetVM.amountInDollor
+		assetVolatilityLabel.text = assetVM.volatilityInDollor
 
 		if assetVM.securityMode {
-			assetAmountLabel.text = assetVM.securityModeText
-			assetAmountInDollorLabel.text = assetVM.securityModeText
-			assetVolatilityLabel.text = assetVM.securityModeText
-
 			assetAmountLabel.font = .PinoStyle.boldTitle2
 			assetAmountInDollorLabel.font = .PinoStyle.boldTitle1
 			assetVolatilityLabel.font = .PinoStyle.boldTitle2
@@ -63,10 +62,6 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 			assetAmountInDollorLabel.textColor = .Pino.secondaryLabel
 
 		} else {
-			assetAmountLabel.text = assetVM.amount
-			assetAmountInDollorLabel.text = assetVM.amountInDollor
-			assetVolatilityLabel.text = assetVM.volatilityInDollor
-
 			assetAmountLabel.font = .PinoStyle.mediumFootnote
 			assetAmountInDollorLabel.font = .PinoStyle.mediumCallout
 			assetVolatilityLabel.font = .PinoStyle.mediumFootnote

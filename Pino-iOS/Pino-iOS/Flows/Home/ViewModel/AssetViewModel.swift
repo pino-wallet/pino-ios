@@ -5,13 +5,13 @@
 //  Created by Mohi Raoufi on 12/21/22.
 //
 
-public struct AssetViewModel {
+public class AssetViewModel {
 	// MARK: - Public Properties
 
 	public var assetModel: AssetModel!
 
 	public let securityModeText = "••••••"
-	public var securityMode: Bool
+	public var securityMode = false
 
 	public var image: String {
 		assetModel.image
@@ -22,7 +22,9 @@ public struct AssetViewModel {
 	}
 
 	public var amount: String {
-		if let amount = assetModel.amount {
+		if securityMode {
+			return securityModeText
+		} else if let amount = assetModel.amount {
 			return "\(amount) \(assetModel.codeName)"
 		} else {
 			return "0 \(assetModel.codeName)"
@@ -30,7 +32,9 @@ public struct AssetViewModel {
 	}
 
 	public var amountInDollor: String {
-		if let amountInDollor = assetModel.amountInDollor {
+		if securityMode {
+			return securityModeText
+		} else if let amountInDollor = assetModel.amountInDollor {
 			return "$\(amountInDollor)"
 		} else {
 			return "-"
@@ -38,7 +42,9 @@ public struct AssetViewModel {
 	}
 
 	public var volatilityInDollor: String {
-		if let volatility = assetModel.volatilityInDollor {
+		if securityMode {
+			return securityModeText
+		} else if let volatility = assetModel.volatilityInDollor {
 			switch volatilityType {
 			case .loss:
 				return "-$\(volatility)"
@@ -56,5 +62,11 @@ public struct AssetViewModel {
 		} else {
 			return .none
 		}
+	}
+
+	// MARK: - Initializers
+
+	init(assetModel: AssetModel) {
+		self.assetModel = assetModel
 	}
 }

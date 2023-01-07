@@ -11,13 +11,13 @@ import UIKit
 class AssetsCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
-	private var cancellables = Set<AnyCancellable>()
 	private let assetsRefreshControl = UIRefreshControl()
 	private let refreshErrorToastView = PinoToastView(message: nil, style: .secondary)
 
 	// MARK: - Internal Properties
 
 	internal var homeVM: HomepageViewModel!
+	internal var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
 

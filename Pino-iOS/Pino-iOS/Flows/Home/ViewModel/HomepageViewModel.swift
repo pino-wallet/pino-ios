@@ -88,8 +88,9 @@ class HomepageViewModel {
 			volatilityInDollor: "58.67",
 			volatilityType: .profit
 		)
+		walletBalance = WalletBalanceViewModel(balanceModel: balanceModel)
 		$securityMode.sink { [weak self] securityMode in
-			self?.walletBalance = WalletBalanceViewModel(balanceModel: balanceModel, securityMode: securityMode)
+			self?.walletBalance.securityMode = securityMode
 		}.store(in: &cancellables)
 	}
 
@@ -133,8 +134,14 @@ class HomepageViewModel {
 			),
 		]
 
+		assetsList = assetsModel.compactMap { AssetViewModel(assetModel: $0) }
+
 		$securityMode.sink { [weak self] securityMode in
-			self?.assetsList = assetsModel.compactMap { AssetViewModel(assetModel: $0, securityMode: securityMode) }
+			guard let assetsList = self?.assetsList else { return }
+			for asset in assetsList {
+				asset.securityMode = securityMode
+				self?.assetsList = assetsList
+			}
 		}.store(in: &cancellables)
 	}
 
@@ -196,9 +203,14 @@ class HomepageViewModel {
 			),
 		]
 
+		positionAssetsList = assetsModel.compactMap { AssetViewModel(assetModel: $0) }
+
 		$securityMode.sink { [weak self] securityMode in
-			self?.positionAssetsList = assetsModel
-				.compactMap { AssetViewModel(assetModel: $0, securityMode: securityMode) }
+			guard let positionAssetsList = self?.positionAssetsList else { return }
+			for asset in positionAssetsList {
+				asset.securityMode = securityMode
+			}
+			self?.positionAssetsList = positionAssetsList
 		}.store(in: &cancellables)
 	}
 }
