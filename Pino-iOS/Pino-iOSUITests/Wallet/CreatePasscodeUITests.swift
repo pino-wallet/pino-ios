@@ -7,6 +7,7 @@
 
 import XCTest
 
+@testable import Pino_iOS
 final class CreatePasscodeUITests: XCTestCase {
 	// MARK: Private Properties
 

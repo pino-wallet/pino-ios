@@ -7,6 +7,7 @@
 
 import XCTest
 
+@testable import Pino_iOS
 final class ImportWalletUITests: XCTestCase {
 	// MARK: Private Properties
 

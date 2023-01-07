@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		01B0212D90D700DB5C1126FB /* InvestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2A05AC28F553BF890D172 /* InvestViewController.swift */; };
 		02DF93FE57661E220F5EFAAA /* PPPangramSans-LightReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6533175C792A5B71C376C9CD /* PPPangramSans-LightReclined.ttf */; };
-		044B0442ED266685161841A9 /* Pods_Pino_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22448E0014AFC7514DA16AA4 /* Pods_Pino_iOSTests.framework */; };
 		06DB0B31505094D78686694E /* ShowSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D872D11A91B4283F96C4999D /* ShowSecretPhraseViewController.swift */; };
 		078E15176613CB329D507580 /* PassManagmentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BC3A92C32E2046414C06DB /* PassManagmentError.swift */; };
 		09F905F646F025B2A6CD5098 /* HomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32C8BA23237C64550DEB91F /* HomepageViewController.swift */; };
@@ -28,7 +27,6 @@
 		3ACA10D15DD3199674C38954 /* PinoButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E1101FD968CD52ACD11718 /* PinoButtonStyle.swift */; };
 		3B5C5C7C3020F2A2CDBE5CA5 /* ImportWalletError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC81FCD14624F47792B02A71 /* ImportWalletError.swift */; };
 		3D47F14ECA2A8CAE61061F57 /* PPPangramSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DEF9234B1A724D51BE836376 /* PPPangramSans-LightItalic.ttf */; };
-		3D67A109E1B8A070074C038B /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997149E589FE9217AF43908F /* Pods_Pino_iOS_Pino_iOSUITests.framework */; };
 		41B9F1002F97DF04A075D75D /* PinoStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262D77EFE984EBA7A19D23DC /* PinoStepperView.swift */; };
 		44C3312B501D7A88C6ADB659 /* SelectPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DADC99C41136A35EF49EF9B /* SelectPassViewModel.swift */; };
 		4BD24A38B1C81FA80EB0B6E8 /* AllDoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151E5726229379FA18870AA2 /* AllDoneViewModel.swift */; };
@@ -37,6 +35,7 @@
 		4CEF60EEF4EB1F6FFF04D23D /* PinoColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B08E01F8697BCB86DF01F6 /* PinoColor.swift */; };
 		5172E07495C5EBFA21772580 /* AllDoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF85809C0811ADB69A1512D9 /* AllDoneViewController.swift */; };
 		51F472CF1A7E5D15F58A5CF5 /* PPPangramSans-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2CAFAD80E0F8FFD621B92AC /* PPPangramSans-RegularItalic.ttf */; };
+		54FC72E05F048C264C12F8F9 /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F116F2F839302C762C21DA3D /* Pods_Pino_iOS_Pino_iOSUITests.framework */; };
 		55CBB37768826DE00CDAF5FB /* PinoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1248800A47DD9BD31AA1488B /* PinoLabel.swift */; };
 		58B890F4377EE8853C655AFA /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B3B78BD52ACE1726AEB2DF /* TabBarItem.swift */; };
 		59F0D2F9CA8BEA2BB4728B8E /* SwapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A6676B929BBCE1E8B10CDF /* SwapViewController.swift */; };
@@ -70,7 +69,6 @@
 		98D92FBB51CC774F95B06CB8 /* IntroCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794AA4C69F21813E48C811E4 /* IntroCollectionView.swift */; };
 		9A7CE65990DD193F0FAF3C75 /* SecretPhraseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5289053822F33893527540E /* SecretPhraseCollectionView.swift */; };
 		9AD896368BEA2DF5FD408FDF /* PPPangramSans-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 742C62AB6E73DB2037B72C61 /* PPPangramSans-MediumItalic.ttf */; };
-		9B84D9D0C1C08536C00A31CD /* Pods_Pino_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B839A7441259DB3BFD07F60 /* Pods_Pino_iOS.framework */; };
 		9F374A025E01D130ECA95384 /* CreatePasscodeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939D3C65704892C0B83453C5 /* CreatePasscodeUITests.swift */; };
 		A56FBAD2E31C10F504631CD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D17DC5FE81A16A6E44C346 /* AppDelegate.swift */; };
 		A57E4F2D75D4BAAB0F29A83B /* RegularStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF855A1A34B8BFA442582D3 /* RegularStyle.swift */; };
@@ -84,6 +82,7 @@
 		B2555AA57E466EAE75423515 /* PasscodeManagerPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90544A16A36443BB22A6216C /* PasscodeManagerPages.swift */; };
 		B5021409923FBC4DF43B6138 /* PPPangramSans-RegularReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55CD7DABDCFD6941F9E22E49 /* PPPangramSans-RegularReclined.ttf */; };
 		B6C747AA398D7E37B1B727AC /* PassDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DCACC427D66E42E2D55705 /* PassDotsView.swift */; };
+		B6CE4513F700FA5214A45A9C /* Pods_Pino_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 706FEA04F48DEDBBC54C7949 /* Pods_Pino_iOS.framework */; };
 		B986F3B51CE73D69417A51FF /* BlurEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A353D68057FE946A083C7BD /* BlurEffectView.swift */; };
 		BA45498BC5E24EE8ACDA819E /* PPPangramSans-SemiboldReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AACC44FE53317ADAF4E94A03 /* PPPangramSans-SemiboldReclined.ttf */; };
 		BA5A805884B41CA1F182245E /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E3F8B61B1FB024B075BDE9 /* TabBarViewController.swift */; };
@@ -93,10 +92,12 @@
 		C0BFA5D21284FA2DAEA8A6CE /* ImportWalletUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0D9155FD8F0605BFF14EB /* ImportWalletUITests.swift */; };
 		C24E36E3E6B2C4A8D1CA3665 /* Pino_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697E9251687D7B285EFCB53 /* Pino_iOSTests.swift */; };
 		C7947A17B0833FA7A202FA92 /* PPPangramSans-MediumReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86F8C6EC31E9AE1094243D0B /* PPPangramSans-MediumReclined.ttf */; };
+		CADEA100D59D084217F588CE /* Pods_Pino_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3114D602D6571C2A72CE981E /* Pods_Pino_iOSTests.framework */; };
 		CC788E5AD6EC8CE9488DA049 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3A2C1FAE1267AB6DCED6D4 /* IntroViewController.swift */; };
 		D50E904CB4FBD07E10DE3E9B /* PPPangramSans-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76670736A779E64FF9997E82 /* PPPangramSans-ThinItalic.ttf */; };
 		DC74CB48AE9A2EF8F7AD3EC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C27C5CD593A5978426386378 /* Assets.xcassets */; };
 		DE33FFB7D492FA770FF9FB5C /* SemiboldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50080A9D2083CDB39EEB969A /* SemiboldStyle.swift */; };
+		DF81136C2968956500D83B93 /* SeedPhraseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B485AFB6815162BF8CD215C /* SeedPhraseMock.swift */; };
 		E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCBF9CC6A3C63CAA0DB0AA7 /* ActivityViewController.swift */; };
 		EB0A89CA5CD87C0FE83A682B /* PasscodeManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4486671985C3EC4841BF82AF /* PasscodeManagerService.swift */; };
 		EE23BD62B18C9118376A405C /* PPPangramSans-ThinReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7C48BF270C9A3E1CA6D9F33 /* PPPangramSans-ThinReclined.ttf */; };
@@ -113,14 +114,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		40318F5529620CDA00039FE0 /* PBXContainerItemProxy */ = {
+		DF81136A2968944C00D83B93 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5939E0FFBB001767AF40C17F /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 76B66D03FC77A6B968427190;
 			remoteInfo = "Pino-iOS";
 		};
-		40318F5729620CDC00039FE0 /* PBXContainerItemProxy */ = {
+		DF81136D2968958700D83B93 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5939E0FFBB001767AF40C17F /* Project object */;
 			proxyType = 1;
@@ -133,6 +134,7 @@
 		068F5D74F8B1876B22DD2AC0 /* PPPangramSans-ExtralightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtralightItalic.ttf"; sourceTree = "<group>"; };
 		0A353D68057FE946A083C7BD /* BlurEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurEffectView.swift; sourceTree = "<group>"; };
 		0EDB7798DEE2598C367E87BE /* BorrowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowViewController.swift; sourceTree = "<group>"; };
+		0FFABD927E42818C42E5AB53 /* Pods-Pino-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		1055FF6B587AAF1786CDA125 /* PPPangramSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		1248800A47DD9BD31AA1488B /* PinoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoLabel.swift; sourceTree = "<group>"; };
 		12D527D8AB60BF6A7C1EA2D9 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
@@ -142,18 +144,17 @@
 		1AE59B4F8A912C260EBD9FD8 /* ImportSecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSecretPhraseView.swift; sourceTree = "<group>"; };
 		1D79E6ABFF159E2B8FB5C0A2 /* ManagePasscodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagePasscodeView.swift; sourceTree = "<group>"; };
 		1F488BFAA1B7C30ABB20FD7B /* PPPangramSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Semibold.ttf"; sourceTree = "<group>"; };
-		22448E0014AFC7514DA16AA4 /* Pods_Pino_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		24229F313641948C73439197 /* KeychainWrapperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapperProtocol.swift; sourceTree = "<group>"; };
 		262D77EFE984EBA7A19D23DC /* PinoStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoStepperView.swift; sourceTree = "<group>"; };
 		27234FAA3BF23A48ABC72E43 /* PinoCheckBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoCheckBoxStyle.swift; sourceTree = "<group>"; };
+		28C10764D688C4162E1B2E94 /* Pods-Pino-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		2CE296532DABA81FAA3B00A3 /* PinoLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoLabelStyle.swift; sourceTree = "<group>"; };
-		308218817F62BF5BBE6444F2 /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
+		3114D602D6571C2A72CE981E /* Pods_Pino_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34DCACC427D66E42E2D55705 /* PassDotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassDotsView.swift; sourceTree = "<group>"; };
 		35DD3D417678658C9A87E94E /* IntroCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCollectionViewCell.swift; sourceTree = "<group>"; };
 		3BB0B1B5F9A48B80542BF12C /* SuggestedSeedPhraseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedSeedPhraseCell.swift; sourceTree = "<group>"; };
 		3DADC99C41136A35EF49EF9B /* SelectPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPassViewModel.swift; sourceTree = "<group>"; };
 		3F052F464B4443A09B569492 /* PPPangramSans-ExtraboldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtraboldReclined.ttf"; sourceTree = "<group>"; };
-		401F284295C66156BE83D796 /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		4486671985C3EC4841BF82AF /* PasscodeManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeManagerService.swift; sourceTree = "<group>"; };
 		47A6676B929BBCE1E8B10CDF /* SwapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapViewController.swift; sourceTree = "<group>"; };
 		49D17DC5FE81A16A6E44C346 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -161,7 +162,6 @@
 		55CD7DABDCFD6941F9E22E49 /* PPPangramSans-RegularReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-RegularReclined.ttf"; sourceTree = "<group>"; };
 		55E1101FD968CD52ACD11718 /* PinoButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoButtonStyle.swift; sourceTree = "<group>"; };
 		56B86857945EBDDBE2116217 /* PPPangramSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Light.ttf"; sourceTree = "<group>"; };
-		56CFE2D2639257199BC27B3A /* Pods-Pino-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		582B119F599D60CB68C55E2F /* VerifyPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPassViewModel.swift; sourceTree = "<group>"; };
 		5992C9313824BC32EC68C32E /* VerifySecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseViewController.swift; sourceTree = "<group>"; };
 		5B485AFB6815162BF8CD215C /* SeedPhraseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseMock.swift; sourceTree = "<group>"; };
@@ -173,6 +173,7 @@
 		6710F2AE386548BC8BF46278 /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 		69B08E01F8697BCB86DF01F6 /* PinoColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoColor.swift; sourceTree = "<group>"; };
 		69F80E5332D902C3DF82DC4A /* Pino-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pino-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		706FEA04F48DEDBBC54C7949 /* Pods_Pino_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		712A56F371843AF47B6362CE /* ValidateSecretPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateSecretPhraseViewModel.swift; sourceTree = "<group>"; };
 		71EEC20862FCD98123D65A01 /* CreatePasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeViewController.swift; sourceTree = "<group>"; };
 		72BC3A92C32E2046414C06DB /* PassManagmentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassManagmentError.swift; sourceTree = "<group>"; };
@@ -188,23 +189,22 @@
 		7D476E770DF75B119476A1AC /* StringProtocol+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringProtocol+Extension.swift"; sourceTree = "<group>"; };
 		7F3A2C1FAE1267AB6DCED6D4 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		7FD0D9155FD8F0605BFF14EB /* ImportWalletUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletUITests.swift; sourceTree = "<group>"; };
-		8407E9F899DB999F8C0513D8 /* Pods-Pino-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		83001D6F8C290D6F3964DBD5 /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		860A5D67C58E6FF224570BFE /* MediumStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumStyle.swift; sourceTree = "<group>"; };
 		86F8C6EC31E9AE1094243D0B /* PPPangramSans-MediumReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-MediumReclined.ttf"; sourceTree = "<group>"; };
-		8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "Pino-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pino-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EEAF1A6DB0A8C3F3D5F8742 /* PinoFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoFont.swift; sourceTree = "<group>"; };
 		8F7E138148E3838B0ABB336D /* BoldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldStyle.swift; sourceTree = "<group>"; };
 		902ADB6DDACF4604CCD18D3E /* ShowSecretPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseViewModel.swift; sourceTree = "<group>"; };
 		90544A16A36443BB22A6216C /* PasscodeManagerPages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeManagerPages.swift; sourceTree = "<group>"; };
 		91B3B78BD52ACE1726AEB2DF /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		939D3C65704892C0B83453C5 /* CreatePasscodeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeUITests.swift; sourceTree = "<group>"; };
-		997149E589FE9217AF43908F /* Pods_Pino_iOS_Pino_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS_Pino_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9B839A7441259DB3BFD07F60 /* Pods_Pino_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C2ABE7B20EDB691025C536E /* Pino_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pino_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A63629240845E89034EB1956 /* CreateWalletUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWalletUITests.swift; sourceTree = "<group>"; };
 		A7C48BF270C9A3E1CA6D9F33 /* PPPangramSans-ThinReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ThinReclined.ttf"; sourceTree = "<group>"; };
 		AACC44FE53317ADAF4E94A03 /* PPPangramSans-SemiboldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-SemiboldReclined.ttf"; sourceTree = "<group>"; };
 		B106F2028FD8799A5277CE30 /* PPPangramSans-BoldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-BoldReclined.ttf"; sourceTree = "<group>"; };
+		B259960490244F93D71A8DB2 /* Pods-Pino-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B2CAFAD80E0F8FFD621B92AC /* PPPangramSans-RegularItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-RegularItalic.ttf"; sourceTree = "<group>"; };
 		B33656AE9BB6138666D2E679 /* ViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Extension.swift"; sourceTree = "<group>"; };
 		B3BDF4D66564915FBD19B9A4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -216,6 +216,7 @@
 		C31426AD24C3B8759699C644 /* PPPangramSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Regular.ttf"; sourceTree = "<group>"; };
 		C5AFDF060E381B9453B01D3A /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		C6E3F8B61B1FB024B075BDE9 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		C7085B54D591445D350446BF /* Pods-Pino-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		CC36053D1265CD704BF7F722 /* PPPangramSans-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Thin.ttf"; sourceTree = "<group>"; };
 		CCCBF9CC6A3C63CAA0DB0AA7 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		CEC2A05AC28F553BF890D172 /* InvestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestViewController.swift; sourceTree = "<group>"; };
@@ -229,44 +230,44 @@
 		DCDBF81923E5F2C83F0DB3C9 /* SuggestedSeedPhraseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedSeedPhraseCollectionView.swift; sourceTree = "<group>"; };
 		DDBA47FB0ED959F0E18DAD21 /* VerifySecretPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseViewModel.swift; sourceTree = "<group>"; };
 		DEF9234B1A724D51BE836376 /* PPPangramSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-LightItalic.ttf"; sourceTree = "<group>"; };
-		E014267A11D9442B3923F2F8 /* Pods-Pino-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		E1575DB9D22AE8EBFE86A7D9 /* SeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhrase.swift; sourceTree = "<group>"; };
 		E5039C2C00BEB653F3B0D399 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E5C76CCF2D1DB532F1B1F544 /* AllDoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDoneView.swift; sourceTree = "<group>"; };
 		EA71EC229911D193381225AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		EAAB50E4A8C365B55E38D57D /* Pods-Pino-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		EC80E0DF7C9912485736BC47 /* LaunchSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchSettings.swift; sourceTree = "<group>"; };
 		EDE34223ED5A368C78F99208 /* VerifyPasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPasscodeViewController.swift; sourceTree = "<group>"; };
 		EF5ED712FA2B8E57F30351AA /* PPPangramSans-ExtraboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtraboldItalic.ttf"; sourceTree = "<group>"; };
+		F116F2F839302C762C21DA3D /* Pods_Pino_iOS_Pino_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS_Pino_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1B4ADB676ED9AAC2196899E /* PPPangramSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		F1FBD227A0D3DC2EF5DB6E84 /* PinoCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoCheckBox.swift; sourceTree = "<group>"; };
 		F32C8BA23237C64550DEB91F /* HomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewController.swift; sourceTree = "<group>"; };
+		F3E79D901FF7C57AA621A761 /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		FC81FCD14624F47792B02A71 /* ImportWalletError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletError.swift; sourceTree = "<group>"; };
 		FE5512C825B9C868060EE43E /* SecretPhraseCenteredFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseCenteredFlowLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3344F5C84B1CDB44EB9E12CC /* Frameworks */ = {
+		0DEFABEF77996715554446C5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D67A109E1B8A070074C038B /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */,
+				B6CE4513F700FA5214A45A9C /* Pods_Pino_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AFC63CC39FA931FF7ACB05E0 /* Frameworks */ = {
+		4D1E6034E300A4DF89B43217 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				044B0442ED266685161841A9 /* Pods_Pino_iOSTests.framework in Frameworks */,
+				CADEA100D59D084217F588CE /* Pods_Pino_iOSTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FD5CD0927FAE3FC33888EF20 /* Frameworks */ = {
+		F7945D04566DBA3B12BB6724 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B84D9D0C1C08536C00A31CD /* Pods_Pino_iOS.framework in Frameworks */,
+				54FC72E05F048C264C12F8F9 /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,8 +383,8 @@
 				BF60D065B05ED69B89F714A0 /* Pino-iOSTests */,
 				003A926B6A7FCC04DB681BCA /* Pino-iOSUITests */,
 				2821FB9CEE9F9B9E6BAE9FD7 /* Products */,
-				7D48DCC9840F5331C427D8F4 /* Pods */,
-				3C2446901B5094D5818EE391 /* Frameworks */,
+				EEF2812801170494B0D910B2 /* Pods */,
+				FD43443C24A68BE485CF6365 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -475,16 +476,6 @@
 				B3C54D90FD2C46C3C7B36B30 /* Wallet */,
 			);
 			path = Flows;
-			sourceTree = "<group>";
-		};
-		3C2446901B5094D5818EE391 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				9B839A7441259DB3BFD07F60 /* Pods_Pino_iOS.framework */,
-				997149E589FE9217AF43908F /* Pods_Pino_iOS_Pino_iOSUITests.framework */,
-				22448E0014AFC7514DA16AA4 /* Pods_Pino_iOSTests.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		454AFE7F0BDC59A5CA92FB2B /* Button */ = {
@@ -626,19 +617,6 @@
 				262D77EFE984EBA7A19D23DC /* PinoStepperView.swift */,
 			);
 			path = Stepper;
-			sourceTree = "<group>";
-		};
-		7D48DCC9840F5331C427D8F4 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				EAAB50E4A8C365B55E38D57D /* Pods-Pino-iOS.debug.xcconfig */,
-				8407E9F899DB999F8C0513D8 /* Pods-Pino-iOS.release.xcconfig */,
-				401F284295C66156BE83D796 /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */,
-				308218817F62BF5BBE6444F2 /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */,
-				56CFE2D2639257199BC27B3A /* Pods-Pino-iOSTests.debug.xcconfig */,
-				E014267A11D9442B3923F2F8 /* Pods-Pino-iOSTests.release.xcconfig */,
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		7F66794FB8C844FB7B097CF8 /* Intro */ = {
@@ -831,6 +809,19 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		EEF2812801170494B0D910B2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0FFABD927E42818C42E5AB53 /* Pods-Pino-iOS.debug.xcconfig */,
+				C7085B54D591445D350446BF /* Pods-Pino-iOS.release.xcconfig */,
+				83001D6F8C290D6F3964DBD5 /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */,
+				F3E79D901FF7C57AA621A761 /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */,
+				B259960490244F93D71A8DB2 /* Pods-Pino-iOSTests.debug.xcconfig */,
+				28C10764D688C4162E1B2E94 /* Pods-Pino-iOSTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		F45AF6BC6CE3964321C8F380 /* KeychainManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -840,6 +831,16 @@
 			path = KeychainManager;
 			sourceTree = "<group>";
 		};
+		FD43443C24A68BE485CF6365 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				706FEA04F48DEDBBC54C7949 /* Pods_Pino_iOS.framework */,
+				F116F2F839302C762C21DA3D /* Pods_Pino_iOS_Pino_iOSUITests.framework */,
+				3114D602D6571C2A72CE981E /* Pods_Pino_iOSTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -847,11 +848,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 65C12F53E1AD046FA840632E /* Build configuration list for PBXNativeTarget "Pino-iOS" */;
 			buildPhases = (
-				5D41F74F9305A4988D7AD9B7 /* [CP] Check Pods Manifest.lock */,
+				A3E261C3A0AFECC92D2088A7 /* [CP] Check Pods Manifest.lock */,
 				31EF4D935BDD78B5348A34D5 /* Sources */,
 				76BA89512FCF3114FC9C7AE9 /* Resources */,
-				FD5CD0927FAE3FC33888EF20 /* Frameworks */,
-				22DDDDEC05891492343CC534 /* [CP] Embed Pods Frameworks */,
+				0DEFABEF77996715554446C5 /* Frameworks */,
+				62A44C0C0560E6C107AD69C8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -866,14 +867,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6B6518EC167C528E1CC9BE07 /* Build configuration list for PBXNativeTarget "Pino-iOSTests" */;
 			buildPhases = (
-				945A7EFFC883EA391003D492 /* [CP] Check Pods Manifest.lock */,
+				AAD8F24C19584A92EA03CDC1 /* [CP] Check Pods Manifest.lock */,
 				D1ED70C2ECF3B1FB44FE3240 /* Sources */,
-				AFC63CC39FA931FF7ACB05E0 /* Frameworks */,
+				4D1E6034E300A4DF89B43217 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				40318F5629620CDA00039FE0 /* PBXTargetDependency */,
+				DF81136B2968944C00D83B93 /* PBXTargetDependency */,
 			);
 			name = "Pino-iOSTests";
 			productName = "Pino-iOSTests";
@@ -884,15 +885,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE46D7586D2BB3F3472DCBF5 /* Build configuration list for PBXNativeTarget "Pino-iOSUITests" */;
 			buildPhases = (
-				B453919C80703C1D21CBFDDE /* [CP] Check Pods Manifest.lock */,
+				8210803062455A098371C7B0 /* [CP] Check Pods Manifest.lock */,
 				DF3F5A26D2D6406EDA43045B /* Sources */,
-				3344F5C84B1CDB44EB9E12CC /* Frameworks */,
-				0413509F46F183DE3903DE17 /* [CP] Embed Pods Frameworks */,
+				F7945D04566DBA3B12BB6724 /* Frameworks */,
+				8D477F6BE5A653D39A769178 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				40318F5829620CDC00039FE0 /* PBXTargetDependency */,
+				DF81136E2968958700D83B93 /* PBXTargetDependency */,
 			);
 			name = "Pino-iOSUITests";
 			productName = "Pino-iOSUITests";
@@ -975,24 +976,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0413509F46F183DE3903DE17 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		22DDDDEC05891492343CC534 /* [CP] Embed Pods Frameworks */ = {
+		62A44C0C0560E6C107AD69C8 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1009,7 +993,46 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5D41F74F9305A4988D7AD9B7 /* [CP] Check Pods Manifest.lock */ = {
+		8210803062455A098371C7B0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Pino-iOS-Pino-iOSUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8D477F6BE5A653D39A769178 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A3E261C3A0AFECC92D2088A7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1031,7 +1054,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		945A7EFFC883EA391003D492 /* [CP] Check Pods Manifest.lock */ = {
+		AAD8F24C19584A92EA03CDC1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1047,28 +1070,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Pino-iOSTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B453919C80703C1D21CBFDDE /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Pino-iOS-Pino-iOSUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1167,6 +1168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F374A025E01D130ECA95384 /* CreatePasscodeUITests.swift in Sources */,
+				DF81136C2968956500D83B93 /* SeedPhraseMock.swift in Sources */,
 				7C0A3AF81DFE67829149BBBE /* CreateWalletUITests.swift in Sources */,
 				C0BFA5D21284FA2DAEA8A6CE /* ImportWalletUITests.swift in Sources */,
 				0A972ECB0BD4D36DDB793993 /* Pino_iOSUITestsLaunchTests.swift in Sources */,
@@ -1176,15 +1178,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		40318F5629620CDA00039FE0 /* PBXTargetDependency */ = {
+		DF81136B2968944C00D83B93 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 76B66D03FC77A6B968427190 /* Pino-iOS */;
-			targetProxy = 40318F5529620CDA00039FE0 /* PBXContainerItemProxy */;
+			targetProxy = DF81136A2968944C00D83B93 /* PBXContainerItemProxy */;
 		};
-		40318F5829620CDC00039FE0 /* PBXTargetDependency */ = {
+		DF81136E2968958700D83B93 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 76B66D03FC77A6B968427190 /* Pino-iOS */;
-			targetProxy = 40318F5729620CDC00039FE0 /* PBXContainerItemProxy */;
+			targetProxy = DF81136D2968958700D83B93 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1267,12 +1269,13 @@
 		};
 		224281A6BD8FC96C15842DC0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EAAB50E4A8C365B55E38D57D /* Pods-Pino-iOS.debug.xcconfig */;
+			baseConfigurationReference = 0FFABD927E42818C42E5AB53 /* Pods-Pino-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_MODE = YES;
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1285,7 +1288,7 @@
 		};
 		326094F11CFBB79B529B22C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E014267A11D9442B3923F2F8 /* Pods-Pino-iOSTests.release.xcconfig */;
+			baseConfigurationReference = 28C10764D688C4162E1B2E94 /* Pods-Pino-iOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
@@ -1303,7 +1306,7 @@
 		};
 		7651F5C9499B813D4EF201EF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 56CFE2D2639257199BC27B3A /* Pods-Pino-iOSTests.debug.xcconfig */;
+			baseConfigurationReference = B259960490244F93D71A8DB2 /* Pods-Pino-iOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
@@ -1321,12 +1324,13 @@
 		};
 		7B083790ABEB8391B5A40C82 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8407E9F899DB999F8C0513D8 /* Pods-Pino-iOS.release.xcconfig */;
+			baseConfigurationReference = C7085B54D591445D350446BF /* Pods-Pino-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_MODE = NO;
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1339,7 +1343,7 @@
 		};
 		B7A1A216F88ED9C8ECF1C97A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 308218817F62BF5BBE6444F2 /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */;
+			baseConfigurationReference = F3E79D901FF7C57AA621A761 /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
@@ -1349,6 +1353,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.aurora.pino.Pino-iOSUITests";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "Pino-iOS";
@@ -1357,7 +1362,7 @@
 		};
 		D6E9BFF79FB2B0241EF47EB3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 401F284295C66156BE83D796 /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */;
+			baseConfigurationReference = 83001D6F8C290D6F3964DBD5 /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
@@ -1367,6 +1372,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.aurora.pino.Pino-iOSUITests";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "Pino-iOS";
