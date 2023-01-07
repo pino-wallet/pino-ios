@@ -5,9 +5,9 @@
 //  Created by Mohi Raoufi on 11/29/22.
 //
 
+@testable import Pino_iOS
 import XCTest
 
-@testable import Pino_iOS
 final class CreatePasscodeUITests: XCTestCase {
 	// MARK: Private Properties
 

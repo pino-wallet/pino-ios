@@ -5,9 +5,9 @@
 //  Created by Sobhan Eskandari on 11/5/22.
 //
 
+@testable import Pino_iOS
 import XCTest
 
-@testable import Pino_iOS
 final class ImportWalletUITests: XCTestCase {
 	// MARK: Private Properties
 
