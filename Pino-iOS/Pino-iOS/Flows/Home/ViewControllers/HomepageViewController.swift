@@ -13,7 +13,7 @@ class HomepageViewController: UIViewController {
 
 	private let homeVM = HomepageViewModel()
 	private var cancellables = Set<AnyCancellable>()
-	private var addressCopiedToastView = PinoToastView(style: .primary, alignment: .top)
+	private var addressCopiedToastView = PinoToastView(message: nil, style: .primary, alignment: .top)
 
 	// MARK: - View Overrides
 

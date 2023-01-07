@@ -20,7 +20,7 @@ public class PinoToastView: UIView {
 
 	public var alignment: Alignment
 
-	public var message: String {
+	public var message: String? {
 		didSet {
 			toastLabel.text = message
 		}
@@ -42,7 +42,7 @@ public class PinoToastView: UIView {
 
 	// MARK: - Initializers
 
-	init(message: String = "", image: UIImage? = nil, style: Style, alignment: Alignment = .bottom) {
+	init(message: String?, image: UIImage? = nil, style: Style, alignment: Alignment = .bottom) {
 		self.alignment = alignment
 		self.message = message
 		self.image = image
@@ -95,8 +95,6 @@ public class PinoToastView: UIView {
 		toastLabel.text = message
 		toastImage.image = image
 		toastLabel.font = .PinoStyle.semiboldFootnote
-		layer.cornerRadius = 16
-
 		updateStyle(with: style)
 	}
 
@@ -116,12 +114,9 @@ public class PinoToastView: UIView {
 	}
 
 	private func setupConstraint() {
-		pin(
-			.fixedHeight(32)
-		)
 		toastStackView.pin(
-			.centerY,
-			.horizontalEdges(padding: 12)
+			.verticalEdges(padding: 7),
+			.horizontalEdges(padding: 14)
 		)
 	}
 
@@ -149,6 +144,7 @@ public class PinoToastView: UIView {
 		alpha = isFade ? 0 : 1
 		pin(.centerX, verticalConstraint)
 		frame.origin = CGPoint(x: frame.origin.x, y: originY)
+		updateCornerRadius()
 		UIView.animate(
 			withDuration: 0.9,
 			delay: 0,
@@ -173,6 +169,11 @@ public class PinoToastView: UIView {
 				self.removeFromSuperview()
 			}
 		}
+	}
+
+	private func updateCornerRadius() {
+		layoutIfNeeded()
+		layer.cornerRadius = frame.height / 2
 	}
 
 	public enum Alignment {

@@ -13,7 +13,7 @@ class AssetsCollectionView: UICollectionView {
 
 	private var cancellables = Set<AnyCancellable>()
 	private let assetsRefreshControl = UIRefreshControl()
-	private let refreshErrorToastView = PinoToastView(style: .secondary)
+	private let refreshErrorToastView = PinoToastView(message: nil, style: .secondary)
 
 	// MARK: - Internal Properties
 

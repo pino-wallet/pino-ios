@@ -12,7 +12,7 @@ extension UIFont.PinoStyle {
 
 	static let boldExtraLargeTitle = UIFont(
 		name: FontName.pinoBold.rawValue,
-		size: FontSize.ExtraLargeTitle.rawValue
+		size: FontSize.extraLargeTitle.rawValue
 	)
 
 	static let boldLargeTitle = UIFont(
