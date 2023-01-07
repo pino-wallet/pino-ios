@@ -5,3 +5,4 @@
 gem 'fastlane-plugin-swiftformat'
 gem 'fastlane-plugin-git_switch_branch'
 gem 'fastlane-plugin-xcodegen'
+gem 'fastlane-plugin-swiftformat'
