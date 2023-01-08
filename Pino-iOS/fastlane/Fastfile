@@ -27,8 +27,8 @@ platform :ios do
   end
 
   lane :checkout do
-    branchName = prompt(text: "Branch Name: ")
-    git_switch_branch(branch: branchName)
+    # branchName = prompt(text: "Branch Name: ")
+    # git_switch_branch(branch: branchName)
     xcodegen(
         spec: "../Pino-iOS/project.yml",
         project: "../Pino-iOS/Pino-iOS.xcodeproj",
