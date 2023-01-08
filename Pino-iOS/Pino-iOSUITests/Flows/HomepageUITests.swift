@@ -30,4 +30,10 @@ final class HomepageUITests: XCTestCase {
 		let tabBar = app.tabBars.element(boundBy: 0)
 		balanceLabel.press(forDuration: 0, thenDragTo: tabBar)
 	}
+
+	internal func testCopyWalletAddress() throws {
+		app.launch()
+		app.navigationBars.element(boundBy: 0).buttons.element(boundBy: 1).tap()
+		XCTAssertNotNil(UIPasteboard.general.string)
+	}
 }
