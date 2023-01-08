@@ -22,7 +22,7 @@ final class ImportWalletUITests: XCTestCase {
 	override internal func setUpWithError() throws {
 		continueAfterFailure = false
 		app.launchArguments.append(LaunchArguments.isRunningUITests.rawValue)
-		seedPhraseMaxCount = validateSecretPhraseVM.maxSeedPhraseCount
+		seedPhraseMaxCount = 12
 		testSecretPhrase = Array(SeedPhraseMock.testWords.shuffled().prefix(seedPhraseMaxCount))
 	}
 
