@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "manage_asset.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

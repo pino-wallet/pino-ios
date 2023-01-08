@@ -32,6 +32,8 @@ class TabBarViewController: UITabBarController {
 		tabBar.backgroundColor = .Pino.secondaryBackground
 
 		let appearance = UITabBarAppearance()
+		// Tab bar background color
+		appearance.backgroundColor = .Pino.secondaryBackground
 		// Tab title color
 		appearance.stackedLayoutAppearance.selected.titleTextAttributes = [
 			.foregroundColor: UIColor.Pino.primary,
