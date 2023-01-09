@@ -44,7 +44,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 		case UICollectionView.elementKindSectionHeader:
 			return homepageHeaderView(kind: kind, indexPath: indexPath)!
 		default:
-			assert(false, "Unexpected element kind")
+			fatalError("Unexpected element kind")
 		}
 	}
 

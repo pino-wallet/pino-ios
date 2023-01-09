@@ -3,18 +3,18 @@ default_platform(:ios)
 platform :ios do
   
   before_each do |lane, options|
-    swiftformat(
-      swiftversion: "5.5",                               # Specify swift version (optional)
-      config: "../Pino-iOS/.swiftformat",                # Path to configuration file (optional)
-      dryrun: false,                                     # Run in dry mode (without actually changing any files) (optional)
-    )
-    begin
-      ensure_git_status_clean
-    rescue
-      commitMsg  = prompt(text: "Message: ")
-      git_add()
-      git_commit(path:"*", message: commitMsg)
-    end
+    # swiftformat(
+    #   swiftversion: "5.5",                               # Specify swift version (optional)
+    #   config: "../Pino-iOS/.swiftformat",                # Path to configuration file (optional)
+    #   dryrun: false,                                     # Run in dry mode (without actually changing any files) (optional)
+    # )
+    # begin
+    #   ensure_git_status_clean
+    # rescue
+    #   commitMsg  = prompt(text: "Message: ")
+    #   git_add()
+    #   git_commit(path:"*", message: commitMsg)
+    # end
   end
 
   lane :sync_development do
@@ -27,27 +27,17 @@ platform :ios do
   end
 
   lane :checkout do
-    # branchName = prompt(text: "Branch Name: ")
-    # git_switch_branch(branch: branchName)
+    branchName = prompt(text: "Branch Name: ")
+    git_switch_branch(branch: branchName)
     xcodegen(
         spec: "../Pino-iOS/project.yml",
-        project: "../Pino-iOS/Pino-iOS.xcodeproj",
         quiet: true,
         use_cache: true,
-        project_root: "../Pino-iOS"
     )
     cocoapods(use_bundle_exec: false)
   end
 
   lane :push do
-    xcodegen(
-        spec: "../Pino-iOS/project.yml",
-        project: "../Pino-iOS/Pino-iOS.xcodeproj",
-        quiet: true,
-        use_cache: true,
-        project_root: "../Pino-iOS"
-    )
-    cocoapods(use_bundle_exec: false)
     scan(
       workspace: "Pino-iOS.xcworkspace",
       scheme: "Pino-iOSTests",
@@ -61,15 +51,22 @@ platform :ios do
     app_store_connect_api_key
     increment_build_number
     changelog = prompt(text: "What to Test: ")
-    scan(
-      workspace: "Pino-iOS.xcworkspace",
-      scheme: "Pino-iOSTests",
-      device: "iPhone 14",
-      clean: false
-    )
+    # scan(
+    #   workspace: "Pino-iOS.xcworkspace",
+    #   scheme: "Pino-iOSTests",
+    #   device: "iPhone 14",
+    #   clean: false
+    # )
     build_ios_app(
       scheme: "Pino-iOS",
+      export_method: "development",
+      export_options: {
+        provisioningProfiles: {
+          "com.aurora.pino.Pino-iOS" => "match Development com.aurora.pino.Pino-iOS",
+        }
+      }
     )
+    match(type: "development", readonly: true)
     upload_to_testflight(
       beta_app_feedback_email: "email@email.com",
       beta_app_description: "Pino is a crypto wallet app for iOS devices.",
@@ -79,7 +76,7 @@ platform :ios do
       distribute_external: true,
       username: "eskandari.sobhan@gmail.com",
       app_identifier: "com.aurora.pino.Pino-iOS",
-      groups: "Pino External Testers"
+      groups: "Pino External Testers",
     )
   end
 
