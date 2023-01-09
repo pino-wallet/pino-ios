@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 1/8/23.
 //
 
+import Network
 import Pino_iOS
 import XCTest
 
@@ -19,34 +20,45 @@ final class HomepageUITests: XCTestCase {
 
 	override internal func setUpWithError() throws {
 		continueAfterFailure = false
-		//        app.launchArguments.append(LaunchArguments.isRunningUITests.rawValue)
+		app.launchArguments.append(LaunchArguments.isRunningUITests.rawValue)
 	}
 
 	override internal func tearDownWithError() throws {}
 
 	internal func testPullToRefresh() {
 		app.launch()
-		let balanceLabel = app.staticTexts.element(boundBy: 2)
+		let balanceTitle = app.staticTexts.element(boundBy: 2).label
+		let balanceLabel = app.staticTexts[balanceTitle]
 		let tabBar = app.tabBars.element(boundBy: 0)
+		// Pull to refresh
 		balanceLabel.press(forDuration: 0, thenDragTo: tabBar)
+		// Wait until refresh ends
+		let predicate = NSPredicate(block: { _, _ -> Bool in
+			balanceLabel.frame.minY == 111
+		})
+		wait(for: [expectation(for: predicate, evaluatedWith: balanceLabel, handler: nil)], timeout: 10)
+		testToastView()
 	}
 
 	internal func testCopyWalletAddress() throws {
 		app.launch()
 		app.navigationBars.element(boundBy: 0).buttons.element(boundBy: 1).tap()
-		XCTAssertNotNil(UIPasteboard.general.string)
+		XCTAssert(app.staticTexts["Copied!"].exists)
 	}
 
 	internal func testSecurityMode() {
 		let balanceLabel = app.staticTexts.element(boundBy: 2)
 		let showBalanceButton = app.staticTexts["Show balance"]
 		app.launch()
+		// Enable security mode
 		balanceLabel.tap()
 		XCTAssertEqual(balanceLabel.label, securityText)
 		XCTAssert(showBalanceButton.exists)
 		checkAssetsSecurityMode(isEnabled: true)
+		// Disable security mode
 		balanceLabel.tap()
 		XCTAssertNotEqual(balanceLabel.label, securityText)
+		XCTAssertFalse(showBalanceButton.exists)
 		checkAssetsSecurityMode(isEnabled: false)
 	}
 
@@ -66,5 +78,23 @@ final class HomepageUITests: XCTestCase {
 			}
 			XCTAssertNotEqual(asset.staticTexts.element(boundBy: 2).label, securityText)
 		}
+	}
+
+	private func testToastView() {
+		// Check internet connection
+		let monitor = NWPathMonitor()
+		monitor.pathUpdateHandler = { path in
+			if path.status == .satisfied {
+				// Test not showing the toast view
+				XCTAssertFalse(self.app.staticTexts["No internet connection"].exists)
+				monitor.cancel()
+			} else {
+				// Test showing the toast view
+				XCTAssert(self.app.staticTexts["No internet connection"].exists)
+				monitor.cancel()
+			}
+		}
+		let queue = DispatchQueue(label: "InternetConnectionMonitor")
+		monitor.start(queue: queue)
 	}
 }
