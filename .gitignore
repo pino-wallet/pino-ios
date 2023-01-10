@@ -58,8 +58,8 @@ playground.xcworkspace
 Pods/
 #
 # Add this line if you want to avoid checking in source code from the Xcode workspace
-#*.xcworkspace
-#*.xcodeproj  
+*.xcworkspace
+*.xcodeproj  
 
 # Carthage
 #
@@ -83,6 +83,8 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+fastlane/AuthKey_76VYZ92QRJ.p8
+fastlane/.env
 
 # Code Injection
 #
