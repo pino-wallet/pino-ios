@@ -47,6 +47,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 
+### ios pull
+
+```sh
+[bundle exec] fastlane ios pull
+```
+
+
+
 ### ios testflight_beta
 
 ```sh
