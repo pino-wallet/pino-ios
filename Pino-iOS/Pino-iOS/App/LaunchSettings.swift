@@ -8,3 +8,8 @@
 public enum LaunchArguments: String {
 	case isRunningUITests
 }
+
+public enum LaunchingRootView: String {
+	case intro
+	case homepage
+}

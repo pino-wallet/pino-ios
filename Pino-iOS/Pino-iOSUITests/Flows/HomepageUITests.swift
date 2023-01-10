@@ -25,6 +25,8 @@ final class HomepageUITests: XCTestCase {
 
 	override internal func tearDownWithError() throws {}
 
+	// MARK: Private Methods
+
 	internal func testPullToRefresh() {
 		app.launch()
 		let balanceTitle = app.staticTexts.element(boundBy: 2).label
@@ -40,16 +42,16 @@ final class HomepageUITests: XCTestCase {
 		testToastView()
 	}
 
-	internal func testCopyWalletAddress() throws {
+	internal func testCopyWalletAddress() {
 		app.launch()
 		app.navigationBars.element(boundBy: 0).buttons.element(boundBy: 1).tap()
 		XCTAssert(app.staticTexts["Copied!"].exists)
 	}
 
 	internal func testSecurityMode() {
+		app.launch()
 		let balanceLabel = app.staticTexts.element(boundBy: 2)
 		let showBalanceButton = app.staticTexts["Show balance"]
-		app.launch()
 		// Enable security mode
 		balanceLabel.tap()
 		XCTAssertEqual(balanceLabel.label, securityText)
@@ -61,8 +63,6 @@ final class HomepageUITests: XCTestCase {
 		XCTAssertFalse(showBalanceButton.exists)
 		checkAssetsSecurityMode(isEnabled: false)
 	}
-
-	// MARK: Private Methods
 
 	private func checkAssetsSecurityMode(isEnabled: Bool) {
 		for index in 0 ..< assets.count {
