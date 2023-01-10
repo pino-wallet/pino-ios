@@ -3,18 +3,18 @@ default_platform(:ios)
 platform :ios do
   
   before_each do |lane, options|
-    # swiftformat(
-    #   swiftversion: "5.5",                               # Specify swift version (optional)
-    #   config: "../Pino-iOS/.swiftformat",                # Path to configuration file (optional)
-    #   dryrun: false,                                     # Run in dry mode (without actually changing any files) (optional)
-    # )
-    # begin
-    #   ensure_git_status_clean
-    # rescue
-    #   commitMsg  = prompt(text: "Message: ")
-    #   git_add()
-    #   git_commit(path:"*", message: commitMsg)
-    # end
+    swiftformat(
+      swiftversion: "5.5",                               # Specify swift version (optional)
+      config: "../Pino-iOS/.swiftformat",                # Path to configuration file (optional)
+      dryrun: false,                                     # Run in dry mode (without actually changing any files) (optional)
+    )
+    begin
+      ensure_git_status_clean
+    rescue
+      commitMsg  = prompt(text: "Message: ")
+      git_add()
+      git_commit(path:"*", message: commitMsg)
+    end
   end
 
   lane :sync_development do
@@ -45,6 +45,17 @@ platform :ios do
       clean: false
     )
     push_to_git_remote
+  end
+
+  lane :pull do 
+    branchName = prompt(text: "Branch Name: ")
+    sh("git", "pull", "origin", branchName)
+    xcodegen(
+        spec: "../Pino-iOS/project.yml",
+        quiet: true,
+        use_cache: true,
+    )
+    cocoapods(use_bundle_exec: false)
   end
   
   lane :testflight_beta do
