@@ -5,7 +5,7 @@
 //  Created by Mohi Raoufi on 11/29/22.
 //
 
-import Pino_iOS
+@testable import Pino_iOS
 import XCTest
 
 final class CreatePasscodeUITests: XCTestCase {
