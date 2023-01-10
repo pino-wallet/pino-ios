@@ -37,6 +37,37 @@ platform :ios do
     cocoapods(use_bundle_exec: false)
   end
 
+  lane :run_ui_tests do
+    xcodegen(
+        spec: "../Pino-iOS/project.yml",
+        quiet: true,
+        use_cache: true,
+    )
+    cocoapods(use_bundle_exec: false)
+    scan(
+      workspace: "Pino-iOS.xcworkspace",
+      scheme: "Pino-iOSUITests",
+      device: "iPhone 14",
+      clean: false
+    )
+  end
+
+  lane :run_unit_tests do
+    xcodegen(
+        spec: "../Pino-iOS/project.yml",
+        quiet: true,
+        use_cache: true,
+    )
+    cocoapods(use_bundle_exec: false)
+    scan(
+      workspace: "Pino-iOS.xcworkspace",
+      scheme: "Pino-iOSTests",
+      device: "iPhone 14",
+      clean: false
+    )
+  end
+
+
   lane :push do
     scan(
       workspace: "Pino-iOS.xcworkspace",
