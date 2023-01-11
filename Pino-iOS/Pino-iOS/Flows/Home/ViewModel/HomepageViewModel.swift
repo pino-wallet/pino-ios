@@ -42,6 +42,7 @@ class HomepageViewModel {
 		getWalletBalance()
 		getAssetsList()
 		getPositionAssetsList()
+		setupBindings()
 	}
 
 	// MARK: - Public Methods
@@ -89,9 +90,6 @@ class HomepageViewModel {
 			volatilityType: .profit
 		)
 		walletBalance = WalletBalanceViewModel(balanceModel: balanceModel)
-		$securityMode.sink { [weak self] securityMode in
-			self?.walletBalance.securityMode = securityMode
-		}.store(in: &cancellables)
 	}
 
 	private func getAssetsList() {
@@ -135,14 +133,6 @@ class HomepageViewModel {
 		]
 
 		assetsList = assetsModel.compactMap { AssetViewModel(assetModel: $0) }
-
-		$securityMode.sink { [weak self] securityMode in
-			guard let assetsList = self?.assetsList else { return }
-			for asset in assetsList {
-				asset.securityMode = securityMode
-				self?.assetsList = assetsList
-			}
-		}.store(in: &cancellables)
 	}
 
 	private func getPositionAssetsList() {
@@ -204,13 +194,44 @@ class HomepageViewModel {
 		]
 
 		positionAssetsList = assetsModel.compactMap { AssetViewModel(assetModel: $0) }
+	}
 
+	private func setupBindings() {
 		$securityMode.sink { [weak self] securityMode in
-			guard let positionAssetsList = self?.positionAssetsList else { return }
-			for asset in positionAssetsList {
-				asset.securityMode = securityMode
+			guard let self = self else { return }
+			if securityMode {
+				self.enableSecurityMode()
+			} else {
+				self.disableSecurityMode()
 			}
-			self?.positionAssetsList = positionAssetsList
 		}.store(in: &cancellables)
+	}
+
+	private func enableSecurityMode() {
+		walletBalance.enableSecurityMode()
+
+		for asset in assetsList {
+			asset.enableSecurityMode()
+		}
+		for asset in positionAssetsList {
+			asset.enableSecurityMode()
+		}
+
+		assetsList = assetsList
+		positionAssetsList = positionAssetsList
+	}
+
+	private func disableSecurityMode() {
+		walletBalance.disableSecurityMode()
+
+		for asset in assetsList {
+			asset.disableSecurityMode()
+		}
+		for asset in positionAssetsList {
+			asset.disableSecurityMode()
+		}
+
+		assetsList = assetsList
+		positionAssetsList = positionAssetsList
 	}
 }
