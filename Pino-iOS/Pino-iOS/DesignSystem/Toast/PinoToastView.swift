@@ -7,7 +7,10 @@
 
 import UIKit
 
-public class PinoToastView: UIView {
+public class PinoToastView: UIView, ToastView {
+	typealias alignmentType = Alignment
+	typealias styleType = Style
+
 	// MARK: - Private Properties
 
 	private let toastStackView = UIStackView()
@@ -36,7 +39,7 @@ public class PinoToastView: UIView {
 
 	public var style: Style {
 		didSet {
-			updateStyle(with: style)
+			updateStyle()
 		}
 	}
 
@@ -95,10 +98,10 @@ public class PinoToastView: UIView {
 		toastLabel.text = message
 		toastImage.image = image
 		toastLabel.font = .PinoStyle.semiboldFootnote
-		updateStyle(with: style)
+		updateStyle()
 	}
 
-	private func updateStyle(with style: Style) {
+	private func updateStyle() {
 		toastLabel.textColor = style.tintColor
 		toastImage.tintColor = style.tintColor
 		backgroundColor = style.backgroundColor
