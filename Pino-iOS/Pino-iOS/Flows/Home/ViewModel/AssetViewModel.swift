@@ -5,10 +5,11 @@
 //  Created by Mohi Raoufi on 12/21/22.
 //
 
-public struct AssetViewModel {
+public class AssetViewModel: SecurityModeProtocol {
 	// MARK: - Public Properties
 
 	public var assetModel: AssetModel!
+	public var securityMode = false
 
 	public var image: String {
 		assetModel.image
@@ -18,15 +19,69 @@ public struct AssetViewModel {
 		assetModel.name
 	}
 
-	public var amount: String {
-		if let amount = assetModel.amount {
-			return "\(amount) \(assetModel.codeName)"
+	public var amount: String
+	public var amountInDollor: String
+	public var volatilityInDollor: String
+
+	public var volatilityType: AssetVolatilityType {
+		if let volatilityType = assetModel.volatilityType {
+			return volatilityType
 		} else {
-			return "0 \(assetModel.codeName)"
+			return .none
 		}
 	}
 
-	public var amountInDollor: String {
+	// MARK: - Initializers
+
+	init(assetModel: AssetModel) {
+		self.assetModel = assetModel
+
+		let amount = assetModel.amount ?? "0"
+		self.amount = "\(amount) \(assetModel.codeName)"
+
+		if let amountInDollor = assetModel.amountInDollor {
+			self.amountInDollor = "$\(amountInDollor)"
+		} else {
+			self.amountInDollor = "-"
+		}
+
+		if let volatility = assetModel.volatilityInDollor {
+			let volatilityType = assetModel.volatilityType ?? .none
+			switch volatilityType {
+			case .loss:
+				self.volatilityInDollor = "-$\(volatility)"
+			case .profit, .none:
+				self.volatilityInDollor = "+$\(volatility)"
+			}
+		} else {
+			self.volatilityInDollor = "-"
+		}
+	}
+
+	// MARK: - Public Methods
+
+	public func enableSecurityMode() {
+		securityMode = true
+		amount = securityText
+		amountInDollor = securityText
+		volatilityInDollor = securityText
+	}
+
+	public func disableSecurityMode() {
+		securityMode = false
+		amount = getFormattedAmount()
+		amountInDollor = getFormattedAmountInDollor()
+		volatilityInDollor = getFormattedVolatility()
+	}
+
+	// MARK: - Private Methods
+
+	private func getFormattedAmount() -> String {
+		let amount = assetModel.amount ?? "0"
+		return "\(amount) \(assetModel.codeName)"
+	}
+
+	private func getFormattedAmountInDollor() -> String {
 		if let amountInDollor = assetModel.amountInDollor {
 			return "$\(amountInDollor)"
 		} else {
@@ -34,7 +89,7 @@ public struct AssetViewModel {
 		}
 	}
 
-	public var volatilityInDollor: String {
+	private func getFormattedVolatility() -> String {
 		if let volatility = assetModel.volatilityInDollor {
 			switch volatilityType {
 			case .loss:
@@ -44,14 +99,6 @@ public struct AssetViewModel {
 			}
 		} else {
 			return "-"
-		}
-	}
-
-	public var volatilityType: AssetVolatilityType {
-		if let volatilityType = assetModel.volatilityType {
-			return volatilityType
-		} else {
-			return .none
 		}
 	}
 }

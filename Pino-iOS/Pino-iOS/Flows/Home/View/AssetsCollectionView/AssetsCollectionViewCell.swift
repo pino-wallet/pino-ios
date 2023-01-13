@@ -52,38 +52,51 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 		assetAmountInDollorLabel.text = assetVM.amountInDollor
 		assetVolatilityLabel.text = assetVM.volatilityInDollor
 
-		assetImage.image = UIImage(named: assetVM.image)
+		if assetVM.securityMode {
+			assetAmountLabel.font = .PinoStyle.boldTitle2
+			assetAmountInDollorLabel.font = .PinoStyle.boldTitle1
+			assetVolatilityLabel.font = .PinoStyle.boldTitle2
 
-		switch assetVM.volatilityType {
-		case .profit:
-			assetVolatilityLabel.textColor = .Pino.green
-		case .loss:
-			assetVolatilityLabel.textColor = .Pino.red
-		case .none:
-			assetVolatilityLabel.textColor = .Pino.secondaryLabel
+			assetVolatilityLabel.textColor = .Pino.gray3
+			assetAmountLabel.textColor = .Pino.gray3
+			assetAmountInDollorLabel.textColor = .Pino.secondaryLabel
+
+		} else {
+			assetAmountLabel.font = .PinoStyle.mediumFootnote
+			assetAmountInDollorLabel.font = .PinoStyle.mediumCallout
+			assetVolatilityLabel.font = .PinoStyle.mediumFootnote
+
+			assetAmountLabel.textColor = .Pino.secondaryLabel
+			assetAmountInDollorLabel.textColor = .Pino.label
+
+			switch assetVM.volatilityType {
+			case .profit:
+				assetVolatilityLabel.textColor = .Pino.green
+			case .loss:
+				assetVolatilityLabel.textColor = .Pino.red
+			case .none:
+				assetVolatilityLabel.textColor = .Pino.secondaryLabel
+			}
 		}
+
+		assetImage.image = UIImage(named: assetVM.image)
 
 		backgroundColor = .Pino.background
 		assetCardView.backgroundColor = .Pino.secondaryBackground
 		assetImage.backgroundColor = .Pino.background
 
 		assetTitleLabel.textColor = .Pino.label
-		assetAmountLabel.textColor = .Pino.secondaryLabel
-		assetAmountInDollorLabel.textColor = .Pino.label
 
 		assetTitleLabel.font = .PinoStyle.mediumCallout
-		assetAmountLabel.font = .PinoStyle.mediumFootnote
-		assetAmountInDollorLabel.font = .PinoStyle.mediumCallout
-		assetVolatilityLabel.font = .PinoStyle.mediumFootnote
 
 		assetStackView.axis = .horizontal
 		assetTitleStackView.axis = .vertical
 		assetVolatilityStackView.axis = .vertical
 
 		assetStackView.spacing = 10
-		assetTitleStackView.spacing = 4
-		assetVolatilityStackView.spacing = 9
 
+		assetVolatilityStackView.alignment = .trailing
+		assetTitleStackView.alignment = .leading
 		assetVolatilityStackView.alignment = .trailing
 
 		assetCardView.layer.cornerRadius = 12
@@ -95,17 +108,32 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 			.verticalEdges(padding: 4),
 			.horizontalEdges(padding: 16)
 		)
+		assetTitleStackView.pin(
+			.verticalEdges
+		)
 		assetStackView.pin(
 			.centerY,
 			.leading(padding: 14)
 		)
 		assetVolatilityStackView.pin(
-			.centerY,
+			.verticalEdges(padding: 10),
 			.trailing(padding: 14)
 		)
 		assetImage.pin(
 			.fixedWidth(44),
 			.fixedHeight(44)
+		)
+		assetTitleLabel.pin(
+			.fixedHeight(22)
+		)
+		assetAmountLabel.pin(
+			.fixedHeight(18)
+		)
+		assetAmountInDollorLabel.pin(
+			.fixedHeight(22)
+		)
+		assetVolatilityLabel.pin(
+			.fixedHeight(18)
 		)
 	}
 }

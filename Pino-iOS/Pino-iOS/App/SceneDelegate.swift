@@ -21,9 +21,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		// `application:configurationForConnectingSceneSession` instead).
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		window = UIWindow(windowScene: windowScene)
-//		let navigationController = UINavigationController()
-//		navigationController.setViewControllers([IntroViewController()], animated: true)
-		window?.rootViewController = TabBarViewController()
+		if UserDefaults.standard.bool(forKey: "isLogin") {
+			window?.rootViewController = TabBarViewController()
+		} else {
+			let navigationController = UINavigationController()
+			navigationController.setViewControllers([IntroViewController()], animated: true)
+			window?.rootViewController = navigationController
+		}
 		window?.makeKeyAndVisible()
 
 		// Disable animations in test mode to speed up tests

@@ -11,13 +11,13 @@ import UIKit
 class AssetsCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
-	private var cancellables = Set<AnyCancellable>()
 	private let assetsRefreshControl = UIRefreshControl()
-	private let refreshErrorToastView = PinoToastView()
+	private let refreshErrorToastView = PinoToastView(message: nil, style: .secondary)
 
 	// MARK: - Internal Properties
 
 	internal var homeVM: HomepageViewModel!
+	internal var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
 
@@ -69,7 +69,6 @@ class AssetsCollectionView: UICollectionView {
 
 	private func setupView() {
 		setupRefreshControl()
-		setupErrorToastView()
 	}
 
 	private func setupStyle() {
@@ -96,17 +95,9 @@ class AssetsCollectionView: UICollectionView {
 		refreshControl = assetsRefreshControl
 	}
 
-	private func setupErrorToastView() {
-		addSubview(refreshErrorToastView)
-		refreshErrorToastView.pin(
-			.top(padding: -8),
-			.centerX
-		)
-	}
-
 	private func refreshHomeData() {
 		homeVM.refreshHomeData { error in
-			self.assetsRefreshControl.endRefreshing()
+			self.refreshControl?.endRefreshing()
 			if let error {
 				switch error {
 				case .requestFailed:
