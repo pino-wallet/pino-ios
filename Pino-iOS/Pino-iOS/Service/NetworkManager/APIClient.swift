@@ -32,7 +32,7 @@ final class APIClient: APIService {
 					throw APIError.failedRequest
 				}
 
-				guard (200 ..< 300).contains(statusCode) else {
+                guard statusCode.isSuccess else {
 					if statusCode == 401 {
 						throw APIError.unauthorized
 					} else {
@@ -70,3 +70,5 @@ final class APIClient: APIService {
 struct Transaction: Codable {}
 
 struct NoContent: Codable {}
+
+

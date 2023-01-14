@@ -71,6 +71,8 @@ enum APIEndpoint {
 }
 
 typealias Headers = [String: String]
+typealias StatusCode = Int
+
 
 extension URLRequest {
 	fileprivate mutating func addHeaders(_ headers: Headers) {
