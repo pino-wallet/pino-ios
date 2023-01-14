@@ -12,5 +12,5 @@ public struct ManageAssetModel {
 	public var name: String
 	public var codeName: String
 	public var amount: String
-	public var selected: Bool
+	public var isSelected: Bool
 }

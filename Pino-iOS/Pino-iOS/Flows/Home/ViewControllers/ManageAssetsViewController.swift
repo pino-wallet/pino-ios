@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ManageAssetsViewController: UIViewController {
+class ManageAssetsViewController: UIViewController, UISearchControllerDelegate {
 	// MARK: - Public Properties
 
 	public var manageAssetsList: [ManageAssetViewModel]
@@ -30,6 +30,7 @@ class ManageAssetsViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
+		setupSearchBar()
 	}
 
 	// MARK: - Private Methods
@@ -48,14 +49,51 @@ class ManageAssetsViewController: UIViewController {
 		navigationTitle.font = .PinoStyle.semiboldBody
 		navigationItem.titleView = navigationTitle
 
-		navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .add)
+		navigationItem.leftBarButtonItem = UIBarButtonItem(
+			image: UIImage(systemName: "plus"),
+			style: .plain,
+			target: self,
+			action: #selector(addCustomAssets)
+		)
 		navigationItem.leftBarButtonItem?.tintColor = .Pino.white
 
-		navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .done)
 		let textAttributes = [
 			NSAttributedString.Key.foregroundColor: UIColor.Pino.white,
 			NSAttributedString.Key.font: UIFont.PinoStyle.semiboldBody!,
 		]
+		navigationItem.rightBarButtonItem = UIBarButtonItem(
+			title: "Done",
+			style: .plain,
+			target: self,
+			action: #selector(dismissManageAsset)
+		)
 		navigationItem.rightBarButtonItem?.setTitleTextAttributes(textAttributes, for: .normal)
+	}
+
+	@objc
+	private func dismissManageAsset() {
+		dismiss(animated: true)
+	}
+
+	@objc
+	private func addCustomAssets() {}
+
+	private func setupSearchBar() {
+		let searchController = UISearchController(searchResultsController: nil)
+		searchController.searchBar.searchTextField.tintColor = .Pino.green2
+		searchController.searchBar.searchTextField.leftView?.tintColor = .Pino.green2
+		searchController.searchBar.showsBookmarkButton = true
+		searchController.searchBar.setImage(UIImage(systemName: "mic.fill"), for: .bookmark, state: [])
+
+		searchController.delegate = self
+		searchController.searchBar.delegate = self
+		searchController.searchBar.searchTextField.attributedPlaceholder = NSAttributedString(
+			string: "Search",
+			attributes: [NSAttributedString.Key.foregroundColor: UIColor.Pino.green2]
+		)
+
+		navigationItem.searchController = searchController
+		navigationItem.hidesSearchBarWhenScrolling = false
+		navigationItem.searchController?.searchBar.searchTextField.textColor = .Pino.white
 	}
 }

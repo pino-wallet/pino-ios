@@ -21,4 +21,8 @@ public struct ManageAssetViewModel {
 	public var amount: String {
 		manageAssetModel.amount + manageAssetModel.codeName
 	}
+
+	public var isSelected: Bool {
+		manageAssetModel.isSelected
+	}
 }
