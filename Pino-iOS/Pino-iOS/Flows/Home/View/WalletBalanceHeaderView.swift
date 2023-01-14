@@ -111,10 +111,10 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 	private func setupBindings() {
 		homeVM.$walletBalance.sink { [weak self] walletBalance in
 			guard let walletBalance = walletBalance else { return }
-
-			self?.balanceLabel.text = walletBalance.balance
-			self?.volatilityPercentageLabel.text = walletBalance.volatilityPercentage
-			self?.volatilityInDollarLabel.text = walletBalance.volatilityInDollor
+			guard let self = self else { return }
+			self.balanceLabel.text = walletBalance.balance
+			self.volatilityPercentageLabel.text = walletBalance.volatilityPercentage
+			self.volatilityInDollarLabel.text = walletBalance.volatilityInDollor
 
 			var volatilityViewBackgroundColor: UIColor!
 			var volatilityViewTintColor: UIColor!
@@ -129,21 +129,21 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 				volatilityViewBackgroundColor = .Pino.gray5
 				volatilityViewTintColor = .Pino.gray2
 			}
-			self?.volatilityView.backgroundColor = volatilityViewBackgroundColor
-			self?.volatilitySeparatorLine.backgroundColor = volatilityViewTintColor
-			self?.volatilityPercentageLabel.textColor = volatilityViewTintColor
-			self?.volatilityInDollarLabel.textColor = volatilityViewTintColor
+			self.volatilityView.backgroundColor = volatilityViewBackgroundColor
+			self.volatilitySeparatorLine.backgroundColor = volatilityViewTintColor
+			self.volatilityPercentageLabel.textColor = volatilityViewTintColor
+			self.volatilityInDollarLabel.textColor = volatilityViewTintColor
 
 			if walletBalance.securityMode {
-				self?.balanceLabel.font = .PinoStyle.boldExtraLargeTitle
-				self?.volatilityView.isHidden = true
-				self?.showBalanceButton.isHidden = false
+				self.balanceLabel.font = .PinoStyle.boldExtraLargeTitle
+				self.volatilityView.isHidden = true
+				self.showBalanceButton.isHidden = false
 			} else {
-				self?.balanceLabel.font = .PinoStyle.semiboldLargeTitle
-				self?.volatilityView.isHidden = false
-				self?.showBalanceButton.isHidden = true
+				self.balanceLabel.font = .PinoStyle.semiboldLargeTitle
+				self.volatilityView.isHidden = false
+				self.showBalanceButton.isHidden = true
 			}
-			self?.updateConstraints()
+			self.updateConstraints()
 		}
 		.store(in: &cancellables)
 	}

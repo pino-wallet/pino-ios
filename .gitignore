@@ -83,6 +83,8 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+fastlane/AuthKey_76VYZ92QRJ.p8
+fastlane/.env
 
 # Code Injection
 #

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000145">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: prompt" time="17.681239">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: prompt" time="24.594424">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: swiftformat" time="0.133943">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: git_add" time="0.038004">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: git_commit" time="172.037041">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="6: git_switch_branch" time="0.03781">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>

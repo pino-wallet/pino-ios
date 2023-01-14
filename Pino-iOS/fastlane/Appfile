@@ -1,0 +1,4 @@
+app_identifier("com.aurora.pino.Pino-iOS") # The bundle identifier of Pino app
+apple_id("eskandari.sobhan@gmail.com") # Pino Apple Developer Portal username
+team_name("BIJAN ESKANDARI MANJILI")
+itc_team_name("sobhan eskandari")

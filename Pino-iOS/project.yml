@@ -11,6 +11,8 @@ settings:
   CURRENT_PROJECT_VERSION: "1"
 targets:
   Pino-iOS:
+    scheme:
+      configVariants:
     type: application
     platform: iOS
     sources:
@@ -18,19 +20,44 @@ targets:
     settings:
       base:
         INFOPLIST_FILE: Pino-iOS/App/Info.plist
+        
+        CODE_SIGN_STYLE: Manual
       configs:
-        Debug:
-          DEBUG_MODE: YES
-        Release:
-          DEBUG_MODE: NO
+          Debug:
+              CODE_SIGN_IDENTITY: "iPhone Developer"
+              PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]: "match Development com.aurora.pino.Pino-iOS"
+              DEVELOPMENT_TEAM[sdk=iphoneos*]: "44E38FYW6J"
+          Release:
+              CODE_SIGN_IDENTITY: "iPhone Distribution"
+              PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]: "match AppStore com.aurora.pino.Pino-iOS"
+              DEVELOPMENT_TEAM[sdk=iphoneos*]: "44E38FYW6J"
   Pino-iOSTests:
+    scheme:
+      testTargets:
+        - Pino-iOSTests
     type: bundle.unit-test
     platform: iOS
+    dependencies:
+      - target: Pino-iOSTests
     sources:
       - Pino-iOSTests
+    settings:
+      base:
+        INFOPLIST_FILE: Pino-iOS/App/Info.plist
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Pino-iOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Pino-iOS"
   Pino-iOSUITests:
+    scheme:
+      testTargets:
+        - Pino-iOSUITests
     type: bundle.ui-testing
+    dependencies:
+      - target: Pino-iOSUITests
     platform: iOS
     sources:
       - Pino-iOSUITests
+    settings:
+      base:
+        INFOPLIST_FILE: Pino-iOS/App/Info.plist
+        TEST_TARGET_NAME: "Pino-iOS"
+
     
