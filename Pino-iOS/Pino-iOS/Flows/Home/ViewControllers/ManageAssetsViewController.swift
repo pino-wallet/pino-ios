@@ -5,13 +5,21 @@
 //  Created by Mohi Raoufi on 1/14/23.
 //
 
-import Combine
 import UIKit
 
 class ManageAssetsViewController: UIViewController {
-	// MARK: - Private Properties
+	// MARK: - Public Properties
 
-	private var cancellables = Set<AnyCancellable>()
+	public var manageAssetsList: [ManageAssetViewModel]
+
+	init(manageAssetsList: [ManageAssetViewModel]) {
+		self.manageAssetsList = manageAssetsList
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	// MARK: - View Overrides
 
@@ -27,7 +35,7 @@ class ManageAssetsViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = UIView()
+		view = ManageAssetsCollectionView(manageAssetsList: manageAssetsList)
 		view.backgroundColor = .Pino.background
 	}
 

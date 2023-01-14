@@ -22,6 +22,8 @@ class HomepageViewModel {
 	public var positionAssetsList: [AssetViewModel]!
 	@Published
 	public var securityMode = false
+	@Published
+	public var manageAssetsList: [ManageAssetViewModel]!
 
 	public let copyToastMessage = "Copied!"
 	public let connectionErrorToastMessage = "No internet connection"
@@ -42,6 +44,7 @@ class HomepageViewModel {
 		getWalletBalance()
 		getAssetsList()
 		getPositionAssetsList()
+		getManageAssetsList()
 		setupBindings()
 	}
 
@@ -194,6 +197,69 @@ class HomepageViewModel {
 		]
 
 		positionAssetsList = assetsModel.compactMap { AssetViewModel(assetModel: $0) }
+	}
+
+	private func getManageAssetsList() {
+		let manageAssetsModel = [
+			ManageAssetModel(
+				image: "Chainlink",
+				name: "Chainlink",
+				codeName: "Link",
+				amount: "10,04",
+				selected: false
+			),
+			ManageAssetModel(
+				image: "Ribon",
+				name: "Ribon",
+				codeName: "RBN",
+				amount: "4,330",
+				selected: false
+			),
+			ManageAssetModel(
+				image: "Tether",
+				name: "Tether",
+				codeName: "USDT",
+				amount: "1.049",
+				selected: false
+			),
+			ManageAssetModel(
+				image: "cETH",
+				name: "cETH",
+				codeName: "ETH",
+				amount: "1.2",
+				selected: false
+			),
+			ManageAssetModel(
+				image: "aDAI",
+				name: "aDAI",
+				codeName: "aDAI",
+				amount: "10.2",
+				selected: false
+			),
+			ManageAssetModel(
+				image: "Sand",
+				name: "Sand",
+				codeName: "SAND",
+				amount: "10,04",
+				selected: false
+			),
+			ManageAssetModel(
+				image: "Status",
+				name: "Status",
+				codeName: "SNT",
+				amount: "4,330",
+				selected: false
+			),
+			ManageAssetModel(
+				image: "DAI",
+				name: "DAI",
+				codeName: "DAI",
+				amount: "1.049",
+				selected: false
+			),
+		]
+
+		manageAssetsList = manageAssetsModel.compactMap { ManageAssetViewModel(manageAssetModel: $0) }
 	}
 
 	private func setupBindings() {

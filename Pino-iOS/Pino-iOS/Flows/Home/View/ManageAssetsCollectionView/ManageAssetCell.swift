@@ -77,8 +77,7 @@ public class ManageAssetCell: UICollectionViewCell {
 		)
 		assetStackView.pin(
 			.centerY,
-			.leading(padding: 16),
-			.trailing(to: selectAssetSwitch)
+			.leading(padding: 16)
 		)
 		selectAssetSwitch.pin(
 			.centerY,
