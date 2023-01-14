@@ -50,16 +50,26 @@ class HomepageViewController: UIViewController {
 		}.store(in: &cancellables)
 
 		navigationItem.rightBarButtonItem = WalletInfoNavigationItems.manageAssetButton
+		navigationItem.rightBarButtonItem?.target = self
+		navigationItem.rightBarButtonItem?.action = #selector(openManageAssetsPage)
 
-		(navigationItem.titleView as? UIButton)?.addAction(UIAction(handler: { _ in
-			self.copyWalletAddress()
-		}), for: .touchUpInside)
+		navigationItem.titleView?
+			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(copyWalletAddress)))
 	}
 
+	@objc
 	private func copyWalletAddress() {
 		let pasteboard = UIPasteboard.general
 		pasteboard.string = homeVM.walletInfo.address
 
 		addressCopiedToastView.showToast()
+	}
+
+	@objc
+	private func openManageAssetsPage() {
+		let manageAssetsVC = ManageAssetsViewController()
+		let navigationVC = UINavigationController()
+		navigationVC.viewControllers = [manageAssetsVC]
+		present(navigationVC, animated: true)
 	}
 }
