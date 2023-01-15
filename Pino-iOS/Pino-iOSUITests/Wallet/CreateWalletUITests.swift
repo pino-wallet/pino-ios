@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 11/29/22.
 //
 
+@testable import Pino_iOS
 import XCTest
 
 final class CreateWalletUITests: XCTestCase {
