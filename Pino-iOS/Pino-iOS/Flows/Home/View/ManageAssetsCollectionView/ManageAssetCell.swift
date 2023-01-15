@@ -30,6 +30,12 @@ public class ManageAssetCell: UICollectionViewCell {
 		}
 	}
 
+	// MARK: Public Methods
+
+	public func toggleAssetSwitch() {
+		selectAssetSwitch.setOn(!selectAssetSwitch.isOn, animated: true)
+	}
+
 	// MARK: Private UI Methods
 
 	private func setupView() {
@@ -69,6 +75,7 @@ public class ManageAssetCell: UICollectionViewCell {
 
 		selectAssetSwitch.onTintColor = .Pino.green3
 		selectAssetSwitch.setOn(assetVM.isSelected, animated: false)
+		selectAssetSwitch.isUserInteractionEnabled = false
 	}
 
 	private func setupConstraint() {

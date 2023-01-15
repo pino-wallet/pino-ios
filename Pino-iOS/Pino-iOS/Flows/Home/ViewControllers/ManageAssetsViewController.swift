@@ -10,10 +10,10 @@ import UIKit
 class ManageAssetsViewController: UIViewController, UISearchControllerDelegate {
 	// MARK: - Public Properties
 
-	public var manageAssetsList: [ManageAssetViewModel]
+	public var homeVM: HomepageViewModel
 
-	init(manageAssetsList: [ManageAssetViewModel]) {
-		self.manageAssetsList = manageAssetsList
+	init(homeVM: HomepageViewModel) {
+		self.homeVM = homeVM
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -33,10 +33,14 @@ class ManageAssetsViewController: UIViewController, UISearchControllerDelegate {
 		setupSearchBar()
 	}
 
+	override func viewWillDisappear(_ animated: Bool) {
+		homeVM.saveAssetsInUserDefaults(assets: homeVM.manageAssetsList.compactMap { $0.assetModel })
+	}
+
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = ManageAssetsCollectionView(manageAssetsList: manageAssetsList)
+		view = ManageAssetsCollectionView(homeVM: homeVM)
 		view.backgroundColor = .Pino.background
 	}
 
@@ -85,8 +89,6 @@ class ManageAssetsViewController: UIViewController, UISearchControllerDelegate {
 		searchController.searchBar.showsBookmarkButton = true
 		searchController.searchBar.setImage(UIImage(systemName: "mic.fill"), for: .bookmark, state: [])
 
-		searchController.delegate = self
-		searchController.searchBar.delegate = self
 		searchController.searchBar.searchTextField.attributedPlaceholder = NSAttributedString(
 			string: "Search",
 			attributes: [NSAttributedString.Key.foregroundColor: UIColor.Pino.green2]

@@ -42,9 +42,9 @@ class HomepageViewModel {
 	init() {
 		getWalletInfo()
 		getWalletBalance()
+		getManageAssetsList()
 		getAssetsList()
 		getPositionAssetsList()
-		getManageAssetsList()
 		setupBindings()
 	}
 
@@ -96,46 +96,12 @@ class HomepageViewModel {
 	}
 
 	private func getAssetsList() {
-		let assetsModel = [
-			AssetModel(
-				image: "Chainlink",
-				name: "Chainlink",
-				codeName: "Link",
-				amount: "10,04",
-				amountInDollor: "1,530",
-				volatilityInDollor: "10",
-				volatilityType: .profit
-			),
-			AssetModel(
-				image: "Ribon",
-				name: "Ribon",
-				codeName: "RBN",
-				amount: "4,330",
-				amountInDollor: "1,530",
-				volatilityInDollor: "115",
-				volatilityType: .profit
-			),
-			AssetModel(
-				image: "Tether",
-				name: "Tether",
-				codeName: "USDT",
-				amount: "1.049",
-				amountInDollor: "1,530",
-				volatilityInDollor: "3.5",
-				volatilityType: .loss
-			),
-			AssetModel(
-				image: "BTC",
-				name: "BTC",
-				codeName: "BTC",
-				amount: nil,
-				amountInDollor: nil,
-				volatilityInDollor: nil,
-				volatilityType: nil
-			),
-		]
-
-		assetsList = assetsModel.compactMap { AssetViewModel(assetModel: $0) }
+		$manageAssetsList.sink { [weak self] manageAssetsList in
+			guard let self = self else { return }
+			guard let manageAssetsList = manageAssetsList else { return }
+			let assetsModel = manageAssetsList.compactMap { $0.assetModel }.filter { $0.isSelected == true }
+			self.assetsList = assetsModel.compactMap { AssetViewModel(assetModel: $0) }
+		}.store(in: &cancellables)
 	}
 
 	private func getPositionAssetsList() {
@@ -147,7 +113,8 @@ class HomepageViewModel {
 				amount: "1.2",
 				amountInDollor: "1,530",
 				volatilityInDollor: "10",
-				volatilityType: .profit
+				volatilityType: .profit,
+				isSelected: false
 			),
 			AssetModel(
 				image: "aDAI",
@@ -156,7 +123,8 @@ class HomepageViewModel {
 				amount: "10.2",
 				amountInDollor: "10,3",
 				volatilityInDollor: "14",
-				volatilityType: .profit
+				volatilityType: .profit,
+				isSelected: false
 			),
 			AssetModel(
 				image: "Sand",
@@ -165,7 +133,8 @@ class HomepageViewModel {
 				amount: "10,04",
 				amountInDollor: "1,530",
 				volatilityInDollor: "10",
-				volatilityType: .profit
+				volatilityType: .profit,
+				isSelected: false
 			),
 			AssetModel(
 				image: "Status",
@@ -174,7 +143,8 @@ class HomepageViewModel {
 				amount: "4,330",
 				amountInDollor: "1,530",
 				volatilityInDollor: "115",
-				volatilityType: .profit
+				volatilityType: .profit,
+				isSelected: false
 			),
 			AssetModel(
 				image: "DAI",
@@ -183,7 +153,8 @@ class HomepageViewModel {
 				amount: "1.049",
 				amountInDollor: "1,530",
 				volatilityInDollor: "3.5",
-				volatilityType: .loss
+				volatilityType: .loss,
+				isSelected: false
 			),
 			AssetModel(
 				image: "USDC",
@@ -192,7 +163,8 @@ class HomepageViewModel {
 				amount: nil,
 				amountInDollor: nil,
 				volatilityInDollor: nil,
-				volatilityType: nil
+				volatilityType: nil,
+				isSelected: false
 			),
 		]
 
@@ -200,66 +172,9 @@ class HomepageViewModel {
 	}
 
 	private func getManageAssetsList() {
-		let manageAssetsModel = [
-			ManageAssetModel(
-				image: "Chainlink",
-				name: "Chainlink",
-				codeName: "Link",
-				amount: "10,04",
-				isSelected: false
-			),
-			ManageAssetModel(
-				image: "Ribon",
-				name: "Ribon",
-				codeName: "RBN",
-				amount: "4,330",
-				isSelected: false
-			),
-			ManageAssetModel(
-				image: "Tether",
-				name: "Tether",
-				codeName: "USDT",
-				amount: "1.049",
-				isSelected: true
-			),
-			ManageAssetModel(
-				image: "cETH",
-				name: "cETH",
-				codeName: "ETH",
-				amount: "1.2",
-				isSelected: false
-			),
-			ManageAssetModel(
-				image: "aDAI",
-				name: "aDAI",
-				codeName: "aDAI",
-				amount: "10.2",
-				isSelected: true
-			),
-			ManageAssetModel(
-				image: "Sand",
-				name: "Sand",
-				codeName: "SAND",
-				amount: "10,04",
-				isSelected: true
-			),
-			ManageAssetModel(
-				image: "Status",
-				name: "Status",
-				codeName: "SNT",
-				amount: "4,330",
-				isSelected: false
-			),
-			ManageAssetModel(
-				image: "DAI",
-				name: "DAI",
-				codeName: "DAI",
-				amount: "1.049",
-				isSelected: false
-			),
-		]
-
-		manageAssetsList = manageAssetsModel.compactMap { ManageAssetViewModel(manageAssetModel: $0) }
+		registerAssetsUserDefaults()
+		let manageAssetsModel = getAssetsFromUserDefaults()
+		manageAssetsList = manageAssetsModel.compactMap { ManageAssetViewModel(assetModel: $0) }
 	}
 
 	private func setupBindings() {
@@ -299,5 +214,126 @@ class HomepageViewModel {
 
 		assetsList = assetsList
 		positionAssetsList = positionAssetsList
+	}
+
+	public func saveAssetsInUserDefaults(assets: [AssetModel]) {
+		do {
+			let encodedAssets = try JSONEncoder().encode(assets)
+			UserDefaults.standard.set(encodedAssets, forKey: "assets")
+		} catch {
+			UserDefaults.standard.set([], forKey: "assets")
+		}
+	}
+
+	public func getAssetsFromUserDefaults() -> [AssetModel] {
+		guard let encodedAssets = UserDefaults.standard.data(forKey: "assets") else { return [] }
+		do {
+			return try JSONDecoder().decode([AssetModel].self, from: encodedAssets)
+		} catch {
+			print(error)
+			return []
+		}
+	}
+
+	public func registerAssetsUserDefaults() {
+		let manageAssetsModel = [
+			AssetModel(
+				image: "Chainlink",
+				name: "Chainlink",
+				codeName: "Link",
+				amount: "10,04",
+				amountInDollor: "1,530",
+				volatilityInDollor: "10",
+				volatilityType: .profit,
+				isSelected: true
+			),
+			AssetModel(
+				image: "Ribon",
+				name: "Ribon",
+				codeName: "RBN",
+				amount: "4,330",
+				amountInDollor: "1,530",
+				volatilityInDollor: "115",
+				volatilityType: .profit,
+				isSelected: true
+			),
+			AssetModel(
+				image: "Tether",
+				name: "Tether",
+				codeName: "USDT",
+				amount: "1.049",
+				amountInDollor: "1,530",
+				volatilityInDollor: "3.5",
+				volatilityType: .loss,
+				isSelected: true
+			),
+			AssetModel(
+				image: "BTC",
+				name: "BTC",
+				codeName: "BTC",
+				amount: nil,
+				amountInDollor: nil,
+				volatilityInDollor: nil,
+				volatilityType: nil,
+				isSelected: true
+			),
+			AssetModel(
+				image: "cETH",
+				name: "cETH",
+				codeName: "ETH",
+				amount: "1.2",
+				amountInDollor: nil,
+				volatilityInDollor: nil,
+				volatilityType: nil,
+				isSelected: false
+			),
+			AssetModel(
+				image: "aDAI",
+				name: "aDAI",
+				codeName: "aDAI",
+				amount: "10.2",
+				amountInDollor: nil,
+				volatilityInDollor: nil,
+				volatilityType: nil,
+				isSelected: false
+			),
+			AssetModel(
+				image: "Sand",
+				name: "Sand",
+				codeName: "SAND",
+				amount: "10,04",
+				amountInDollor: nil,
+				volatilityInDollor: nil,
+				volatilityType: nil,
+				isSelected: false
+			),
+			AssetModel(
+				image: "Status",
+				name: "Status",
+				codeName: "SNT",
+				amount: "4,330",
+				amountInDollor: nil,
+				volatilityInDollor: nil,
+				volatilityType: nil,
+				isSelected: false
+			),
+			AssetModel(
+				image: "DAI",
+				name: "DAI",
+				codeName: "DAI",
+				amount: "1.049",
+				amountInDollor: nil,
+				volatilityInDollor: nil,
+				volatilityType: nil,
+				isSelected: false
+			),
+		]
+		do {
+			let encodedAssets = try JSONEncoder().encode(manageAssetsModel)
+			UserDefaults.standard.register(defaults: ["assets": encodedAssets])
+		} catch {
+			print(error)
+			UserDefaults.standard.register(defaults: ["assets": []])
+		}
 	}
 }

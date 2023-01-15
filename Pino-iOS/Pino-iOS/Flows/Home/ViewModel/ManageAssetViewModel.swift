@@ -8,21 +8,27 @@
 public struct ManageAssetViewModel {
 	// MARK: - Public Properties
 
-	public var manageAssetModel: ManageAssetModel!
+	public var assetModel: AssetModel!
 
 	public var image: String {
-		manageAssetModel.image
+		assetModel.image
 	}
 
 	public var name: String {
-		manageAssetModel.name
+		assetModel.name
 	}
 
 	public var amount: String {
-		manageAssetModel.amount + manageAssetModel.codeName
+		(assetModel.amount ?? "0.0") + assetModel.codeName
 	}
 
 	public var isSelected: Bool {
-		manageAssetModel.isSelected
+		assetModel.isSelected
+	}
+
+	// MARK: - Public Methods
+
+	public mutating func toggleIsSelected() {
+		assetModel.toggleIsSelected()
 	}
 }

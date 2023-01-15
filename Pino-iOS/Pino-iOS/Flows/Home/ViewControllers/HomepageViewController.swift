@@ -67,7 +67,7 @@ class HomepageViewController: UIViewController {
 
 	@objc
 	private func openManageAssetsPage() {
-		let manageAssetsVC = ManageAssetsViewController(manageAssetsList: homeVM.manageAssetsList)
+		let manageAssetsVC = ManageAssetsViewController(homeVM: homeVM)
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [manageAssetsVC]
 		present(navigationVC, animated: true)

@@ -10,12 +10,12 @@ import UIKit
 class ManageAssetsCollectionView: UICollectionView {
 	// MARK: - Public Properties
 
-	public var manageAssetsList: [ManageAssetViewModel]!
+	public var homeVM: HomepageViewModel!
 
 	// MARK: Initializers
 
-	init(manageAssetsList: [ManageAssetViewModel]) {
-		self.manageAssetsList = manageAssetsList
+	init(homeVM: HomepageViewModel) {
+		self.homeVM = homeVM
 		// Set flow layout for collection view
 		let flowLayout = UICollectionViewFlowLayout()
 		flowLayout.minimumLineSpacing = 0
@@ -53,7 +53,7 @@ class ManageAssetsCollectionView: UICollectionView {
 
 extension ManageAssetsCollectionView: UICollectionViewDataSource {
 	internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		manageAssetsList.count
+		homeVM.manageAssetsList.count
 	}
 
 	internal func collectionView(
@@ -64,8 +64,18 @@ extension ManageAssetsCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: ManageAssetCell.cellReuseID,
 			for: indexPath
 		) as! ManageAssetCell
-		assetCell.assetVM = manageAssetsList[indexPath.item]
+		assetCell.assetVM = homeVM.manageAssetsList[indexPath.item]
 		return assetCell
+	}
+}
+
+// MARK: Collection Delegate
+
+extension ManageAssetsCollectionView: UICollectionViewDelegate {
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		let manageAssetCell = cellForItem(at: indexPath) as! ManageAssetCell
+		manageAssetCell.toggleAssetSwitch()
+		homeVM.manageAssetsList[indexPath.item].toggleIsSelected()
 	}
 }
 
