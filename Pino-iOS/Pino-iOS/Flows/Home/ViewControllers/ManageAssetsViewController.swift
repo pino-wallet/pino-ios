@@ -89,14 +89,16 @@ class ManageAssetsViewController: UIViewController {
 		let searchController = UISearchController(searchResultsController: nil)
 		searchController.searchBar.searchTextField.tintColor = .Pino.green2
 		searchController.searchBar.searchTextField.leftView?.tintColor = .Pino.green2
-		searchController.searchBar.showsBookmarkButton = true
-		searchController.searchBar.setImage(UIImage(systemName: "mic.fill"), for: .bookmark, state: [])
 		searchController.searchResultsUpdater = self
 		searchController.searchBar.searchTextField.attributedPlaceholder = NSAttributedString(
 			string: "Search",
 			attributes: [NSAttributedString.Key.foregroundColor: UIColor.Pino.green2]
 		)
-
+		if let clearButton = searchController.searchBar.searchTextField.value(forKey: "_clearButton") as? UIButton {
+			let templateImage = clearButton.imageView?.image?.withRenderingMode(.alwaysTemplate)
+			clearButton.setImage(templateImage, for: .normal)
+			clearButton.tintColor = .Pino.green2
+		}
 		navigationItem.searchController = searchController
 		navigationItem.hidesSearchBarWhenScrolling = false
 		navigationItem.searchController?.searchBar.searchTextField.textColor = .Pino.white
