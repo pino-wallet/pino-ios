@@ -7,13 +7,16 @@
 
 import UIKit
 
-class ManageAssetsViewController: UIViewController, UISearchControllerDelegate {
+class ManageAssetsViewController: UIViewController {
 	// MARK: - Public Properties
 
 	public var homeVM: HomepageViewModel
 
+	private var manageAssetCollectionview: ManageAssetsCollectionView
+
 	init(homeVM: HomepageViewModel) {
 		self.homeVM = homeVM
+		self.manageAssetCollectionview = ManageAssetsCollectionView(homeVM: homeVM)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -40,7 +43,7 @@ class ManageAssetsViewController: UIViewController, UISearchControllerDelegate {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = ManageAssetsCollectionView(homeVM: homeVM)
+		view = manageAssetCollectionview
 		view.backgroundColor = .Pino.background
 	}
 
@@ -88,7 +91,7 @@ class ManageAssetsViewController: UIViewController, UISearchControllerDelegate {
 		searchController.searchBar.searchTextField.leftView?.tintColor = .Pino.green2
 		searchController.searchBar.showsBookmarkButton = true
 		searchController.searchBar.setImage(UIImage(systemName: "mic.fill"), for: .bookmark, state: [])
-
+		searchController.searchResultsUpdater = self
 		searchController.searchBar.searchTextField.attributedPlaceholder = NSAttributedString(
 			string: "Search",
 			attributes: [NSAttributedString.Key.foregroundColor: UIColor.Pino.green2]
@@ -97,5 +100,16 @@ class ManageAssetsViewController: UIViewController, UISearchControllerDelegate {
 		navigationItem.searchController = searchController
 		navigationItem.hidesSearchBarWhenScrolling = false
 		navigationItem.searchController?.searchBar.searchTextField.textColor = .Pino.white
+	}
+}
+
+extension ManageAssetsViewController: UISearchResultsUpdating {
+	func updateSearchResults(for searchController: UISearchController) {
+		if let searchText = searchController.searchBar.searchTextField.text, searchText != "" {
+			manageAssetCollectionview.filteredAssets = homeVM.manageAssetsList
+				.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+		} else {
+			manageAssetCollectionview.filteredAssets = homeVM.manageAssetsList
+		}
 	}
 }
