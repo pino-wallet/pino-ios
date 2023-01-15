@@ -7,14 +7,34 @@
 
 import Foundation
 
-enum APIEndpoint {
+protocol EndpointType {
+    
+    func request(privateKey: String?) throws -> URLRequest
+    var url: URL { get }
+    var baseURL: URL { get }
+    var path: String { get }
+    var httpBody: Data? { get }
+    var httpMethod: HTTPMethod { get }
+    var headers: Headers { get }
+
+}
+
+extension EndpointType {
+    var baseURL: URL {
+        Environment.apiBaseURL
+    }
+}
+
+enum TransactionsEndpoints: EndpointType {
+    
 	// MARK: - Cases
-
-	case transactions
-
+    case transactions
+    case transactionDetail(id: String)
+    case removeTransaction(id: String)
+    
 	// MARK: - Properties
-
-	func request(privateKey: String?) throws -> URLRequest {
+    
+    func request(privateKey: String?) throws -> URLRequest {
 		var request = URLRequest(url: url)
 		request.addHeaders(headers)
 		request.httpMethod = httpMethod.rawValue
@@ -33,38 +53,40 @@ enum APIEndpoint {
 		return request
 	}
 
-	private var url: URL {
-		Environment.apiBaseURL.appendingPathComponent(path)
-	}
-
-	private var path: String {
+    var requiresAuthentication: Bool {
 		switch self {
-		case .transactions:
-			return "transactions"
-		}
-	}
-
-	private var requiresAuthentication: Bool {
-		switch self {
-		case .transactions:
+		case .transactions,.transactionDetail,.removeTransaction:
 			return true
 		}
 	}
 
-	private var httpBody: Data? {
+    var httpBody: Data? {
 		nil
 	}
 
-	private var headers: Headers {
+    var headers: Headers {
 		[
 			"Content-Type": "application/json",
 			"X-API-TOKEN": "token",
 		]
 	}
 
-	private var httpMethod: HTTPMethod {
-		switch self {
-		case .transactions:
+    var url: URL {
+        Environment.apiBaseURL.appendingPathComponent(path)
+    }
+    
+    var path: String {
+        switch self {
+        case .transactions:
+            return "transactions"
+        case .transactionDetail(let id),.removeTransaction(let id):
+            return "transactions/\(id)"
+        }
+    }
+    
+    var httpMethod: HTTPMethod {
+        switch self. {
+        case .transactions,.transactionDetail,.removeTransaction:
 			return .get
 		}
 	}

@@ -8,6 +8,11 @@
 import Combine
 import Foundation
 
-protocol APIService {
+protocol TransactionsAPIService {
 	func transactions() -> AnyPublisher<[Transaction], APIError>
+    func transactionDetail(id: String) -> AnyPublisher<Transaction, APIError>
+}
+
+protocol WalletAPIService {
+    func walletDetail(id: String) -> AnyPublisher<Transaction, APIError>
 }
