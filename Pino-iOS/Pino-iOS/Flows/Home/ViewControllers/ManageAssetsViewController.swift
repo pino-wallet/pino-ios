@@ -12,7 +12,11 @@ class ManageAssetsViewController: UIViewController {
 
 	public var homeVM: HomepageViewModel
 
+	// MARK: Private Properties
+
 	private var manageAssetCollectionview: ManageAssetsCollectionView
+
+	// MARK: Initializers
 
 	init(homeVM: HomepageViewModel) {
 		self.homeVM = homeVM
@@ -48,14 +52,24 @@ class ManageAssetsViewController: UIViewController {
 	}
 
 	private func setupNavigationBar() {
-		navigationController?.navigationBar.backgroundColor = .Pino.primary
-
+		// Setup appreance for navigation bar
+		let navBarAppearance = UINavigationBarAppearance()
+		navBarAppearance.configureWithOpaqueBackground()
+		navBarAppearance.backgroundColor = .Pino.primary
+		navigationController?.navigationBar.standardAppearance = navBarAppearance
+		navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+		let textAttributes = [
+			NSAttributedString.Key.foregroundColor: UIColor.Pino.white,
+			NSAttributedString.Key.font: UIFont.PinoStyle.semiboldBody!,
+		]
+		UIBarButtonItem.appearance().setTitleTextAttributes(textAttributes, for: .normal)
+		// Setup title view
 		let navigationTitle = UILabel()
 		navigationTitle.text = "Manage assets"
 		navigationTitle.textColor = .Pino.white
 		navigationTitle.font = .PinoStyle.semiboldBody
 		navigationItem.titleView = navigationTitle
-
+		// Setup add asset button
 		navigationItem.leftBarButtonItem = UIBarButtonItem(
 			image: UIImage(systemName: "plus"),
 			style: .plain,
@@ -63,18 +77,13 @@ class ManageAssetsViewController: UIViewController {
 			action: #selector(addCustomAssets)
 		)
 		navigationItem.leftBarButtonItem?.tintColor = .Pino.white
-
-		let textAttributes = [
-			NSAttributedString.Key.foregroundColor: UIColor.Pino.white,
-			NSAttributedString.Key.font: UIFont.PinoStyle.semiboldBody!,
-		]
+		// Setup done button
 		navigationItem.rightBarButtonItem = UIBarButtonItem(
 			title: "Done",
 			style: .plain,
 			target: self,
 			action: #selector(dismissManageAsset)
 		)
-		navigationItem.rightBarButtonItem?.setTitleTextAttributes(textAttributes, for: .normal)
 	}
 
 	@objc
@@ -95,8 +104,8 @@ class ManageAssetsViewController: UIViewController {
 			attributes: [NSAttributedString.Key.foregroundColor: UIColor.Pino.green2]
 		)
 		if let clearButton = searchController.searchBar.searchTextField.value(forKey: "_clearButton") as? UIButton {
-			let templateImage = clearButton.imageView?.image?.withRenderingMode(.alwaysTemplate)
-			clearButton.setImage(templateImage, for: .normal)
+			let clearButtonImage = clearButton.imageView?.image?.withRenderingMode(.alwaysTemplate)
+			clearButton.setImage(clearButtonImage, for: .normal)
 			clearButton.tintColor = .Pino.green2
 		}
 		navigationItem.searchController = searchController

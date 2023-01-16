@@ -14,6 +14,10 @@ class AssetsCollectionView: UICollectionView {
 	private let assetsRefreshControl = UIRefreshControl()
 	private let refreshErrorToastView = PinoToastView(message: nil, style: .secondary)
 
+	// MARK: - Public Properties
+
+	public var manageAssetButtonTapped: () -> Void
+
 	// MARK: - Internal Properties
 
 	internal var homeVM: HomepageViewModel!
@@ -21,8 +25,9 @@ class AssetsCollectionView: UICollectionView {
 
 	// MARK: Initializers
 
-	init(homeVM: HomepageViewModel) {
+	init(homeVM: HomepageViewModel, manageAssetButtonTapped: @escaping () -> Void) {
 		self.homeVM = homeVM
+		self.manageAssetButtonTapped = manageAssetButtonTapped
 		// Set flow layout for collection view
 		let flowLayout = UICollectionViewFlowLayout()
 		flowLayout.minimumLineSpacing = 0

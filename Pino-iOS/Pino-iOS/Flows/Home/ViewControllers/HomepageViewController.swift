@@ -34,8 +34,13 @@ class HomepageViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		let assetsCollectionView = AssetsCollectionView(
+			homeVM: homeVM,
+			manageAssetButtonTapped: {
+				self.openManageAssetsPage()
+			}
+		)
 		view = UIView()
-		let assetsCollectionView = AssetsCollectionView(homeVM: homeVM)
 		view.addSubview(assetsCollectionView)
 		assetsCollectionView.pin(.allEdges)
 		addressCopiedToastView.message = homeVM.copyToastMessage
