@@ -19,7 +19,7 @@ public struct ManageAssetViewModel {
 	}
 
 	public var amount: String {
-		(assetModel.amount ?? "0.0") + assetModel.codeName
+		(assetModel.amount ?? "-") + assetModel.codeName
 	}
 
 	public var isSelected: Bool {
