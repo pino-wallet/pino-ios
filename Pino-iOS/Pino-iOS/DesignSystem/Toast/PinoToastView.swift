@@ -144,32 +144,34 @@ public class PinoToastView: UIView, ToastView {
 		verticalConstraint: Constraint,
 		isFade: Bool = false
 	) {
-		alpha = isFade ? 0 : 1
 		pin(.centerX, verticalConstraint)
-		frame.origin = CGPoint(x: frame.origin.x, y: originY)
-		updateCornerRadius()
-		UIView.animate(
-			withDuration: 0.9,
-			delay: 0,
-			usingSpringWithDamping: 0.7,
-			initialSpringVelocity: 0.3
-		) { [weak self] in
-			guard let self else { return }
-			self.alpha = 1
-			self.frame.origin = CGPoint(x: self.frame.origin.x, y: destinationY)
-		} completion: { _ in
+		if !ProcessInfo.processInfo.arguments.contains(LaunchArguments.isRunningUITests.rawValue) {
+			alpha = isFade ? 0 : 1
+			frame.origin = CGPoint(x: frame.origin.x, y: originY)
+			updateCornerRadius()
 			UIView.animate(
-				withDuration: 0.8,
-				delay: delay,
+				withDuration: 0.9,
+				delay: 0,
 				usingSpringWithDamping: 0.7,
 				initialSpringVelocity: 0.3
 			) { [weak self] in
 				guard let self else { return }
-				self.alpha = isFade ? 0 : 1
-				self.frame.origin = CGPoint(x: self.frame.origin.x, y: originY + self.frame.height)
+				self.alpha = 1
+				self.frame.origin = CGPoint(x: self.frame.origin.x, y: destinationY)
 			} completion: { _ in
-				self.isShowingToast = false
-				self.removeFromSuperview()
+				UIView.animate(
+					withDuration: 0.8,
+					delay: delay,
+					usingSpringWithDamping: 0.7,
+					initialSpringVelocity: 0.3
+				) { [weak self] in
+					guard let self else { return }
+					self.alpha = isFade ? 0 : 1
+					self.frame.origin = CGPoint(x: self.frame.origin.x, y: originY + self.frame.height)
+				} completion: { _ in
+					self.isShowingToast = false
+					self.removeFromSuperview()
+				}
 			}
 		}
 	}
