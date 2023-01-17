@@ -28,11 +28,7 @@ class AssetsCollectionView: UICollectionView {
 	init(homeVM: HomepageViewModel, manageAssetButtonTapped: @escaping () -> Void) {
 		self.homeVM = homeVM
 		self.manageAssetButtonTapped = manageAssetButtonTapped
-		// Set flow layout for collection view
-		let flowLayout = UICollectionViewFlowLayout()
-		flowLayout.minimumLineSpacing = 0
-		flowLayout.scrollDirection = .vertical
-		flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 
 		configCollectionView()

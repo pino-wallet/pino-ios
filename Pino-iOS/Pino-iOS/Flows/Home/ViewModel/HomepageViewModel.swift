@@ -73,6 +73,47 @@ class HomepageViewModel {
 
 	// MARK: - Private Methods
 
+	private func setupBindings() {
+		$securityMode.sink { [weak self] securityMode in
+			guard let self = self else { return }
+			if securityMode {
+				self.enableSecurityMode()
+			} else {
+				self.disableSecurityMode()
+			}
+		}.store(in: &cancellables)
+	}
+
+	private func enableSecurityMode() {
+		walletBalance.enableSecurityMode()
+
+		for asset in assetsList {
+			asset.enableSecurityMode()
+		}
+		for asset in positionAssetsList {
+			asset.enableSecurityMode()
+		}
+
+		assetsList = assetsList
+		positionAssetsList = positionAssetsList
+	}
+
+	private func disableSecurityMode() {
+		walletBalance.disableSecurityMode()
+
+		for asset in assetsList {
+			asset.disableSecurityMode()
+		}
+		for asset in positionAssetsList {
+			asset.disableSecurityMode()
+		}
+
+		assetsList = assetsList
+		positionAssetsList = positionAssetsList
+	}
+
+	#warning("all the following functions are temporary and should be replaced by network requests")
+
 	private func getWalletInfo() {
 		// Request to get wallet info
 		let walletInfoModel = WalletInfoModel(
@@ -175,45 +216,6 @@ class HomepageViewModel {
 		registerAssetsUserDefaults()
 		let manageAssetsModel = getAssetsFromUserDefaults()
 		manageAssetsList = manageAssetsModel.compactMap { ManageAssetViewModel(assetModel: $0) }
-	}
-
-	private func setupBindings() {
-		$securityMode.sink { [weak self] securityMode in
-			guard let self = self else { return }
-			if securityMode {
-				self.enableSecurityMode()
-			} else {
-				self.disableSecurityMode()
-			}
-		}.store(in: &cancellables)
-	}
-
-	private func enableSecurityMode() {
-		walletBalance.enableSecurityMode()
-
-		for asset in assetsList {
-			asset.enableSecurityMode()
-		}
-		for asset in positionAssetsList {
-			asset.enableSecurityMode()
-		}
-
-		assetsList = assetsList
-		positionAssetsList = positionAssetsList
-	}
-
-	private func disableSecurityMode() {
-		walletBalance.disableSecurityMode()
-
-		for asset in assetsList {
-			asset.disableSecurityMode()
-		}
-		for asset in positionAssetsList {
-			asset.disableSecurityMode()
-		}
-
-		assetsList = assetsList
-		positionAssetsList = positionAssetsList
 	}
 
 	public func saveAssetsInUserDefaults(assets: [AssetModel]) {
