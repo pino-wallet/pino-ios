@@ -7,15 +7,10 @@
 
 import Foundation
 
-struct APIErrorMapper {
+struct APIErrorManager {
 	// MARK: - Properties
 
-	enum Context {
-		case transactions
-	}
-
 	let error: APIError
-	let context: Context
 
 	var message: String {
 		switch error {

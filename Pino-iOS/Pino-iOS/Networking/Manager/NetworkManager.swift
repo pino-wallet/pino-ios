@@ -1,33 +1,12 @@
 //
-//  APIClient.swift
+//  NetworkManager.swift
 //  Pino-iOS
 //
-//  Created by Sobhan Eskandari on 1/12/23.
+//  Created by Sobhan Eskandari on 1/15/23.
 //
 
-import Combine
 import Foundation
-
-final class APIClient: TransactionsAPIService {
-    
-    
-	// MARK: - Properties
-    let networkManager = NetworkManager<TransactionsEndpoints>(keychainService: KeychainSwift())
-    
-	// MARK: - Initialization
-
-	func transactions() -> AnyPublisher<[Transaction], APIError> {
-        networkManager.request(.transactions)
-	}
-
-    func transactionDetail(id: String) -> AnyPublisher<Transaction, APIError> {
-        
-    }
-}
-
-struct Transaction: Codable {}
-
-struct NoContent: Codable {}
+import Combine
 
 protocol NetworkRouter {
     associatedtype EndPoint: EndpointType

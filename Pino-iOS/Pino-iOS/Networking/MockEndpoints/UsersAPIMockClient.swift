@@ -8,13 +8,17 @@
 import Combine
 import Foundation
 
-final class APIMockClient: APIService {
-	func transactions() -> AnyPublisher<[Transaction], APIError> {
-		publisher(for: "transactions-mock")
-	}
+final class UsersAPIMockClient: UsersAPIService {
+    
+    func users() -> AnyPublisher<Users, APIError> {
+        publisher(for: "all-users-stub")
+    }
+    func userDetail(id: String) -> AnyPublisher<UserModel, APIError> {
+        publisher(for: "all-users-stub")
+    }
 }
 
-extension APIMockClient {
+extension UsersAPIMockClient {
 	fileprivate func publisher<T: Decodable>(for resource: String) -> AnyPublisher<T, APIError> {
 		Just(stubData(for: resource))
 			.setFailureType(to: APIError.self)

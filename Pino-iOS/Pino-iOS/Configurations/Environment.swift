@@ -7,8 +7,22 @@
 
 import Foundation
 
+enum NetworkEnvironment {
+    case qa
+    case production
+    case staging
+}
+
 enum Environment {
+    
+    static var networkEnvironment: NetworkEnvironment {
+        return .staging
+    }
+    
 	static var apiBaseURL: URL {
-		URL(string: "https://cocoacasts-mock-api.herokuapp.com/api/vl")!
+        switch networkEnvironment {
+        case .staging,.production,.qa:
+            return URL(string: "https://reqres.in/api/")!
+        }
 	}
 }

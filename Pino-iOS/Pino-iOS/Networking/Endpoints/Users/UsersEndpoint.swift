@@ -1,0 +1,131 @@
+//
+//  APIEndpoint.swift
+//  Pino-iOS
+//
+//  Created by Sobhan Eskandari on 1/12/23.
+//
+
+import Foundation
+
+enum UsersEndpoint: EndpointType {
+            
+	// MARK: - Cases
+    case users
+    case userDetail(id: String)
+    case register(user: UserModel)
+    
+	// MARK: - Properties
+    
+    func request(privateKey: String?) throws -> URLRequest {
+		var request = URLRequest(url: url)
+		request.httpMethod = httpMethod.rawValue
+
+		if requiresAuthentication {
+			if let privateKey {
+				print(privateKey)
+				// Add privateKey as a token
+			} else {
+				throw APIError.unauthorized
+			}
+		}
+
+        do {
+            switch task {
+            case .request:
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            case .requestParameters(let bodyParameters,
+                                    let bodyEncoding,
+                                    let urlParameters):
+                
+                try self.configureParameters(bodyParameters: bodyParameters,
+                                             bodyEncoding: bodyEncoding,
+                                             urlParameters: urlParameters,
+                                             request: &request)
+                
+            case .requestParametersAndHeaders(let bodyParameters,
+                                              let bodyEncoding,
+                                              let urlParameters,
+                                              let additionalHeaders):
+                request.addHeaders(additionalHeaders)
+                try self.configureParameters(bodyParameters: bodyParameters,
+                                             bodyEncoding: bodyEncoding,
+                                             urlParameters: urlParameters,
+                                             request: &request)
+            }
+            return request
+        } catch {
+            throw error
+        }
+
+	}
+
+    var requiresAuthentication: Bool {
+		switch self {
+		case .users,.userDetail,.register:
+			return false
+		}
+	}
+    
+    var task: HTTPTask {
+        switch self {
+        case .register(let userInfo):
+            return .requestParameters(bodyParameters: .object(userInfo),
+                                      bodyEncoding: .jsonEncoding,
+                                      urlParameters:nil)
+        case .users,.userDetail:
+            return .request
+        }
+    }
+
+    fileprivate func configureParameters(bodyParameters: BodyParamsType?,
+                                         bodyEncoding: ParameterEncoding,
+                                         urlParameters: Parameters?,
+                                         request: inout URLRequest) throws {
+        do {
+            try bodyEncoding.encode(urlRequest: &request,
+                                    bodyParameters: bodyParameters, urlParameters: urlParameters)
+        } catch {
+            throw error
+        }
+    }
+    
+    var headers: HTTPHeaders {
+		[
+			"Content-Type": "application/json",
+			"X-API-TOKEN": "token",
+		]
+	}
+
+    var url: URL {
+        Environment.apiBaseURL.appendingPathComponent(path)
+    }
+    
+    var path: String {
+        switch self {
+        case .users,.register:
+            return "users"
+        case .userDetail(let id):
+            return "users/\(id)"
+        }
+    }
+    
+    var httpMethod: HTTPMethod {
+        switch self {
+        case .users,.userDetail:
+            return .get
+        case .register:
+            return .post
+        }
+	}
+}
+
+typealias StatusCode = Int
+
+
+extension URLRequest {
+    mutating func addHeaders(_ headers: HTTPHeaders) {
+		headers.forEach { header, value in
+			addValue(value, forHTTPHeaderField: header)
+		}
+	}
+}
