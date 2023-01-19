@@ -9,13 +9,13 @@ import Combine
 import Foundation
 
 final class UsersAPIMockClient: UsersAPIService {
-    
-    func users() -> AnyPublisher<Users, APIError> {
-        publisher(for: "all-users-stub")
-    }
-    func userDetail(id: String) -> AnyPublisher<UserModel, APIError> {
-        publisher(for: "all-users-stub")
-    }
+	func users() -> AnyPublisher<Users, APIError> {
+		publisher(for: "all-users-stub")
+	}
+
+	func userDetail(id: String) -> AnyPublisher<UserModel, APIError> {
+		publisher(for: "all-users-stub")
+	}
 }
 
 extension UsersAPIMockClient {

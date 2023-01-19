@@ -126,7 +126,7 @@ fileprivate extension APIClientTest {
                 switch response {
                 case .data(let data):
                     return HTTPStubsResponse(data: data, statusCode: statusCode, headers: nil)
-                case .file(let name)
+                case .file(let name):
                     if let stubPath = OHPathForFile(name, type(of: self)) {
                         return fixture(filePath: stubPath, status: 200, headers: [:])
                     } else {

@@ -8,21 +8,20 @@
 import Foundation
 
 enum NetworkEnvironment {
-    case qa
-    case production
-    case staging
+	case qa
+	case production
+	case staging
 }
 
 enum Environment {
-    
-    static var networkEnvironment: NetworkEnvironment {
-        return .staging
-    }
-    
+	static var networkEnvironment: NetworkEnvironment {
+		.staging
+	}
+
 	static var apiBaseURL: URL {
-        switch networkEnvironment {
-        case .staging,.production,.qa:
-            return URL(string: "https://reqres.in/api/")!
-        }
+		switch networkEnvironment {
+		case .staging, .production, .qa:
+			return URL(string: "https://reqres.in/api/")!
+		}
 	}
 }

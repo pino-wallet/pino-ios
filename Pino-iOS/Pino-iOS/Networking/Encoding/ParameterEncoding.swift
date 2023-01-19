@@ -8,57 +8,56 @@
 
 import Foundation
 
-public typealias Parameters = [String:Any]
+public typealias Parameters = [String: Any]
 
 public protocol ParameterEncoder {
-    func encode(urlRequest: inout URLRequest, with parameters: Parameters) throws
-    func encode(urlRequest: inout URLRequest, with parameters: Encodable) throws
+	func encode(urlRequest: inout URLRequest, with parameters: Parameters) throws
+	func encode(urlRequest: inout URLRequest, with parameters: Encodable) throws
 }
 
 public enum BodyParamsType {
-    case json(Parameters)
-    case object(Encodable)
+	case json(Parameters)
+	case object(Encodable)
 }
 
 public enum ParameterEncoding {
-    
-    case urlEncoding
-    case jsonEncoding
-    case urlAndJsonEncoding
-    
-    // MARK: - Public Methods
-    
-    public func encode(urlRequest: inout URLRequest,
-                       bodyParameters: BodyParamsType? = nil,
-                       urlParameters: Parameters?) throws {
-        do {
-            switch self {
-            case .urlEncoding:
-                guard let urlParameters = urlParameters else { return }
-                try URLParameterEncoder().encode(urlRequest: &urlRequest, with: urlParameters)
-                
-            case .jsonEncoding:
-                guard let bodyParameters = bodyParameters else { return }
-                try encodeBodyParams(urlRequest: &urlRequest, params: bodyParameters)
-            case .urlAndJsonEncoding:
-                guard let bodyParameters = bodyParameters,
-                    let urlParameters = urlParameters else { return }
-                try URLParameterEncoder().encode(urlRequest: &urlRequest, with: urlParameters)
-                try encodeBodyParams(urlRequest: &urlRequest, params: bodyParameters)
-            }
-        }catch {
-            throw error
-        }
-    }
-    
-    private func encodeBodyParams(urlRequest: inout URLRequest, params:BodyParamsType) throws {
-        switch params {
-        case .object(let object):
-            try BodyParameterEncoder().encode(urlRequest: &urlRequest, with: object)
-        case .json(let json):
-            try BodyParameterEncoder().encode(urlRequest: &urlRequest, with: json)
-        }
-    }
-    
-}
+	case urlEncoding
+	case jsonEncoding
+	case urlAndJsonEncoding
 
+	// MARK: - Public Methods
+
+	public func encode(
+		urlRequest: inout URLRequest,
+		bodyParameters: BodyParamsType? = nil,
+		urlParameters: Parameters?
+	) throws {
+		do {
+			switch self {
+			case .urlEncoding:
+				guard let urlParameters = urlParameters else { return }
+				try URLParameterEncoder().encode(urlRequest: &urlRequest, with: urlParameters)
+
+			case .jsonEncoding:
+				guard let bodyParameters = bodyParameters else { return }
+				try encodeBodyParams(urlRequest: &urlRequest, params: bodyParameters)
+			case .urlAndJsonEncoding:
+				guard let bodyParameters = bodyParameters,
+				      let urlParameters = urlParameters else { return }
+				try URLParameterEncoder().encode(urlRequest: &urlRequest, with: urlParameters)
+				try encodeBodyParams(urlRequest: &urlRequest, params: bodyParameters)
+			}
+		} catch {
+			throw error
+		}
+	}
+
+	private func encodeBodyParams(urlRequest: inout URLRequest, params: BodyParamsType) throws {
+		switch params {
+		case let .object(object):
+			try BodyParameterEncoder().encode(urlRequest: &urlRequest, with: object)
+		case let .json(json):
+			try BodyParameterEncoder().encode(urlRequest: &urlRequest, with: json)
+		}
+	}
+}
