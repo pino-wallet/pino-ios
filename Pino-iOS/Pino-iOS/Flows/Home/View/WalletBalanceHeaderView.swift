@@ -22,6 +22,7 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 	private var sendRecieveStackView = UIStackView()
 	private var sendButton = PinoButton(style: .active)
 	private var recieveButton = PinoButton(style: .secondary)
+	private var showBalanceButton = UIButton()
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
@@ -43,6 +44,7 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 		let gradientLayer = GradientLayer(frame: bounds, style: .headerBackground)
 		layer.addSublayer(gradientLayer)
 		balanceStackView.addArrangedSubview(balanceLabel)
+		balanceStackView.addArrangedSubview(showBalanceButton)
 		balanceStackView.addArrangedSubview(volatilityView)
 		volatilityStackView.addArrangedSubview(volatilityPercentageLabel)
 		volatilityStackView.addArrangedSubview(volatilitySeparatorLine)
@@ -58,16 +60,27 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 	private func setupStyle() {
 		sendButton.title = homeVM.sendButtonTitle
 		recieveButton.title = homeVM.recieveButtonTitle
+		showBalanceButton.setTitle(
+			homeVM.walletBalance.showBalanceButtonTitle,
+			for: .normal
+		)
 
 		sendButton.setImage(UIImage(systemName: homeVM.sendButtonImage), for: .normal)
 		recieveButton.setImage(UIImage(systemName: homeVM.recieveButtonImage), for: .normal)
 
+		let showBalanceImageConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .regular, scale: .small)
+		showBalanceButton.setImage(
+			UIImage(systemName: homeVM.walletBalance.showBalanceButtonImage, withConfiguration: showBalanceImageConfig),
+			for: .normal
+		)
+
 		sendButton.tintColor = .Pino.white
 		recieveButton.tintColor = .Pino.primary
+		showBalanceButton.tintColor = .Pino.gray2
 
 		balanceLabel.textColor = .Pino.label
+		showBalanceButton.setTitleColor(.Pino.gray2, for: .normal)
 
-		balanceLabel.font = .PinoStyle.semiboldLargeTitle
 		volatilityPercentageLabel.font = .PinoStyle.semiboldFootnote
 		volatilityInDollarLabel.font = .PinoStyle.semiboldFootnote
 
@@ -87,33 +100,21 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 
 		volatilityView.layer.cornerRadius = 14
 
-		sendButton.configuration = .plain()
-		recieveButton.configuration = .plain()
-		sendButton.configuration?.imagePadding = 8
-		recieveButton.configuration?.imagePadding = 8
+		sendButton.setConfiguraton(font: .PinoStyle.semiboldCallout!, imagePadding: 8)
+		recieveButton.setConfiguraton(font: .PinoStyle.semiboldCallout!, imagePadding: 8)
+		showBalanceButton.setConfiguraton(font: .PinoStyle.mediumFootnote!, imagePadding: 5)
 
-		sendButton.configuration?.titleTextAttributesTransformer =
-			UIConfigurationTextAttributesTransformer { btnConfig in
-				var sendButtonConfig = btnConfig
-				sendButtonConfig.font = UIFont.PinoStyle.semiboldCallout
-				return sendButtonConfig
-			}
-
-		recieveButton.configuration?.titleTextAttributesTransformer =
-			UIConfigurationTextAttributesTransformer { btnConfig in
-				var recieveButtonConfig = btnConfig
-				recieveButtonConfig.font = UIFont.PinoStyle.semiboldCallout
-				return recieveButtonConfig
-			}
+		balanceStackView
+			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(activateSecurityMode)))
 	}
 
 	private func setupBindings() {
 		homeVM.$walletBalance.sink { [weak self] walletBalance in
 			guard let walletBalance = walletBalance else { return }
-
-			self?.balanceLabel.text = walletBalance.balance
-			self?.volatilityPercentageLabel.text = walletBalance.volatilityPercentage
-			self?.volatilityInDollarLabel.text = walletBalance.volatilityInDollor
+			guard let self = self else { return }
+			self.balanceLabel.text = walletBalance.balance
+			self.volatilityPercentageLabel.text = walletBalance.volatilityPercentage
+			self.volatilityInDollarLabel.text = walletBalance.volatilityInDollor
 
 			var volatilityViewBackgroundColor: UIColor!
 			var volatilityViewTintColor: UIColor!
@@ -128,12 +129,21 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 				volatilityViewBackgroundColor = .Pino.gray5
 				volatilityViewTintColor = .Pino.gray2
 			}
+			self.volatilityView.backgroundColor = volatilityViewBackgroundColor
+			self.volatilitySeparatorLine.backgroundColor = volatilityViewTintColor
+			self.volatilityPercentageLabel.textColor = volatilityViewTintColor
+			self.volatilityInDollarLabel.textColor = volatilityViewTintColor
 
-			self?.volatilityView.backgroundColor = volatilityViewBackgroundColor
-			self?.volatilitySeparatorLine.backgroundColor = volatilityViewTintColor
-			self?.volatilityPercentageLabel.textColor = volatilityViewTintColor
-			self?.volatilityInDollarLabel.textColor = volatilityViewTintColor
-			self?.updateConstraints()
+			if walletBalance.securityMode {
+				self.balanceLabel.font = .PinoStyle.boldExtraLargeTitle
+				self.volatilityView.isHidden = true
+				self.showBalanceButton.isHidden = false
+			} else {
+				self.balanceLabel.font = .PinoStyle.semiboldLargeTitle
+				self.volatilityView.isHidden = false
+				self.showBalanceButton.isHidden = true
+			}
+			self.updateConstraints()
 		}
 		.store(in: &cancellables)
 	}
@@ -150,6 +160,9 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 		volatilityView.pin(
 			.fixedHeight(28)
 		)
+		showBalanceButton.pin(
+			.fixedHeight(28)
+		)
 		sendRecieveStackView.pin(
 			.horizontalEdges
 		)
@@ -164,5 +177,13 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 			.fixedWidth(0.6),
 			.verticalEdges
 		)
+		balanceLabel.pin(
+			.fixedHeight(41)
+		)
+	}
+
+	@objc
+	private func activateSecurityMode() {
+		homeVM.securityMode.toggle()
 	}
 }

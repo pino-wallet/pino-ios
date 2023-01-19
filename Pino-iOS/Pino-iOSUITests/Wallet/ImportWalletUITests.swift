@@ -22,6 +22,7 @@ final class ImportWalletUITests: XCTestCase {
 	override internal func setUpWithError() throws {
 		continueAfterFailure = false
 		app.launchArguments.append(LaunchArguments.isRunningUITests.rawValue)
+		app.launchArguments.append(LaunchingRootView.intro.rawValue)
 		seedPhraseMaxCount = 12
 		testSecretPhrase = Array(SeedPhraseMock.testWords.shuffled().prefix(seedPhraseMaxCount))
 	}

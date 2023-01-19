@@ -20,6 +20,8 @@ class HomepageViewModel {
 	public var assetsList: [AssetViewModel]!
 	@Published
 	public var positionAssetsList: [AssetViewModel]!
+	@Published
+	public var securityMode = false
 
 	public let copyToastMessage = "Copied!"
 	public let connectionErrorToastMessage = "No internet connection"
@@ -29,6 +31,10 @@ class HomepageViewModel {
 	public let sendButtonImage = "arrow.up"
 	public let recieveButtonImage = "arrow.down"
 
+	// MARK: - Private Properties
+
+	private var cancellables = Set<AnyCancellable>()
+
 	// MARK: - Initializers
 
 	init() {
@@ -36,6 +42,7 @@ class HomepageViewModel {
 		getWalletBalance()
 		getAssetsList()
 		getPositionAssetsList()
+		setupBindings()
 	}
 
 	// MARK: - Public Methods
@@ -187,5 +194,44 @@ class HomepageViewModel {
 		]
 
 		positionAssetsList = assetsModel.compactMap { AssetViewModel(assetModel: $0) }
+	}
+
+	private func setupBindings() {
+		$securityMode.sink { [weak self] securityMode in
+			guard let self = self else { return }
+			if securityMode {
+				self.enableSecurityMode()
+			} else {
+				self.disableSecurityMode()
+			}
+		}.store(in: &cancellables)
+	}
+
+	private func enableSecurityMode() {
+		walletBalance.enableSecurityMode()
+
+		for asset in assetsList {
+			asset.enableSecurityMode()
+		}
+		for asset in positionAssetsList {
+			asset.enableSecurityMode()
+		}
+
+		assetsList = assetsList
+		positionAssetsList = positionAssetsList
+	}
+
+	private func disableSecurityMode() {
+		walletBalance.disableSecurityMode()
+
+		for asset in assetsList {
+			asset.disableSecurityMode()
+		}
+		for asset in positionAssetsList {
+			asset.disableSecurityMode()
+		}
+
+		assetsList = assetsList
+		positionAssetsList = positionAssetsList
 	}
 }

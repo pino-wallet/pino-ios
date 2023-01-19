@@ -31,6 +31,7 @@ extension UIFont.PinoStyle {
 	}
 
 	enum FontSize: CGFloat {
+		case extraLargeTitle = 60
 		case largeTitle = 34
 		case title1 = 28
 		case title2 = 22

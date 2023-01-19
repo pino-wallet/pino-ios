@@ -13,8 +13,8 @@ class HomepageViewController: UIViewController {
 
 	private let homeVM = HomepageViewModel()
 	private var cancellables = Set<AnyCancellable>()
-	private var addressCopiedToastView: PinoToastView!
-    
+	private var addressCopiedToastView = PinoToastView(message: nil, style: .primary, alignment: .top)
+
     #warning("Temprary adding to test network layer")
     private var usersAPIClient = UsersAPIMockClient()
     
@@ -53,7 +53,7 @@ class HomepageViewController: UIViewController {
 		let assetsCollectionView = AssetsCollectionView(homeVM: homeVM)
 		view.addSubview(assetsCollectionView)
 		assetsCollectionView.pin(.allEdges)
-		setupToastView()
+		addressCopiedToastView.message = homeVM.copyToastMessage
 	}
 
 	private func setupNavigationBar() {
@@ -69,16 +69,6 @@ class HomepageViewController: UIViewController {
 		(navigationItem.titleView as? UIButton)?.addAction(UIAction(handler: { _ in
 			self.copyWalletAddress()
 		}), for: .touchUpInside)
-	}
-
-	private func setupToastView() {
-		addressCopiedToastView = PinoToastView(message: homeVM.copyToastMessage)
-		view.addSubview(addressCopiedToastView)
-
-		addressCopiedToastView.pin(
-			.top(to: view.layoutMarginsGuide, padding: -16),
-			.centerX
-		)
 	}
 
 	private func copyWalletAddress() {
