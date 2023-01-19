@@ -39,6 +39,22 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 
+### ios run_ui_tests
+
+```sh
+[bundle exec] fastlane ios run_ui_tests
+```
+
+
+
+### ios run_unit_tests
+
+```sh
+[bundle exec] fastlane ios run_unit_tests
+```
+
+
+
 ### ios push
 
 ```sh
