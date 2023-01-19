@@ -14,9 +14,9 @@ enum UsersEndpoint: EndpointType {
     case userDetail(id: String)
     case register(user: UserModel)
     
-	// MARK: - Properties
-    
-    func request(privateKey: String?) throws -> URLRequest {
+    // MARK: - Internal Methods
+
+    internal func request(privateKey: String?) throws -> URLRequest {
 		var request = URLRequest(url: url)
 		request.httpMethod = httpMethod.rawValue
 
@@ -58,15 +58,17 @@ enum UsersEndpoint: EndpointType {
         }
 
 	}
+    
+    // MARK: - Internal Properties
 
-    var requiresAuthentication: Bool {
+    internal var requiresAuthentication: Bool {
 		switch self {
 		case .users,.userDetail,.register:
 			return false
 		}
 	}
     
-    var task: HTTPTask {
+    internal var task: HTTPTask {
         switch self {
         case .register(let userInfo):
             return .requestParameters(bodyParameters: .object(userInfo),
@@ -76,6 +78,37 @@ enum UsersEndpoint: EndpointType {
             return .request
         }
     }
+    
+    internal var headers: HTTPHeaders {
+		[
+			"Content-Type": "application/json",
+			"X-API-TOKEN": "token",
+		]
+	}
+
+    internal var url: URL {
+        Environment.apiBaseURL.appendingPathComponent(path)
+    }
+    
+    internal var path: String {
+        switch self {
+        case .users,.register:
+            return "users"
+        case .userDetail(let id):
+            return "users/\(id)"
+        }
+    }
+    
+    internal var httpMethod: HTTPMethod {
+        switch self {
+        case .users,.userDetail:
+            return .get
+        case .register:
+            return .post
+        }
+	}
+    
+    // MARK: - Private Methods
 
     fileprivate func configureParameters(bodyParameters: BodyParamsType?,
                                          bodyEncoding: ParameterEncoding,
@@ -88,44 +121,5 @@ enum UsersEndpoint: EndpointType {
             throw error
         }
     }
-    
-    var headers: HTTPHeaders {
-		[
-			"Content-Type": "application/json",
-			"X-API-TOKEN": "token",
-		]
-	}
-
-    var url: URL {
-        Environment.apiBaseURL.appendingPathComponent(path)
-    }
-    
-    var path: String {
-        switch self {
-        case .users,.register:
-            return "users"
-        case .userDetail(let id):
-            return "users/\(id)"
-        }
-    }
-    
-    var httpMethod: HTTPMethod {
-        switch self {
-        case .users,.userDetail:
-            return .get
-        case .register:
-            return .post
-        }
-	}
 }
 
-typealias StatusCode = Int
-
-
-extension URLRequest {
-    mutating func addHeaders(_ headers: HTTPHeaders) {
-		headers.forEach { header, value in
-			addValue(value, forHTTPHeaderField: header)
-		}
-	}
-}

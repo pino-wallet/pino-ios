@@ -26,6 +26,8 @@ public enum ParameterEncoding {
     case jsonEncoding
     case urlAndJsonEncoding
     
+    // MARK: - Public Methods
+    
     public func encode(urlRequest: inout URLRequest,
                        bodyParameters: BodyParamsType? = nil,
                        urlParameters: Parameters?) throws {
@@ -60,9 +62,3 @@ public enum ParameterEncoding {
     
 }
 
-
-public enum NetworkError : String, Error {
-    case parametersNil = "Parameters were nil."
-    case encodingFailed = "Parameter encoding failed."
-    case missingURL = "URL is nil."
-}

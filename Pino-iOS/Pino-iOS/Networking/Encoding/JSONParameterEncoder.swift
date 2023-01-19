@@ -10,6 +10,8 @@ import Foundation
 
 public struct BodyParameterEncoder: ParameterEncoder {
     
+    // MARK: - Public Methods
+
     public func encode(urlRequest: inout URLRequest, with parameters: Parameters) throws {
         do {
             let jsonAsData = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
@@ -18,7 +20,7 @@ public struct BodyParameterEncoder: ParameterEncoder {
                 urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
             }
         }catch {
-            throw NetworkError.encodingFailed
+            throw APIError.encodingFailed
         }
     }
     
@@ -32,7 +34,7 @@ public struct BodyParameterEncoder: ParameterEncoder {
                 urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
             }
         }catch {
-            throw NetworkError.encodingFailed
+            throw APIError.encodingFailed
         }
     }
 }

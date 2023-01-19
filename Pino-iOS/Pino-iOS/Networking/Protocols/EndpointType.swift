@@ -17,6 +17,7 @@ protocol EndpointType {
     var task: HTTPTask { get }
     var httpMethod: HTTPMethod { get }
     var headers: HTTPHeaders { get }
+    var requiresAuthentication: Bool { get }
 }
 
 // `baseURL` should be set based on environment

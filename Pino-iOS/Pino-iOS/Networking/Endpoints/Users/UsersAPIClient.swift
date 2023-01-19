@@ -10,16 +10,16 @@ import Foundation
 
 final class UsersAPIClient: UsersAPIService {
     
-	// MARK: - Properties
-    let networkManager = NetworkManager<UsersEndpoint>(keychainService: KeychainSwift())
+	// MARK: - Private Properties
+    private let networkManager = NetworkManager<UsersEndpoint>(keychainService: KeychainSwift())
     
-	// MARK: - Initialization
+    // MARK: - Public Methods
 
-    func users() -> AnyPublisher<Users, APIError> {
+    public func users() -> AnyPublisher<Users, APIError> {
         networkManager.request(.users)
     }
     
-    func userDetail(id: String) -> AnyPublisher<UserModel, APIError> {
+    public func userDetail(id: String) -> AnyPublisher<UserModel, APIError> {
         networkManager.request(.userDetail(id: id))
     }
 }

@@ -7,6 +7,8 @@
 
 import Foundation
 
+typealias StatusCode = Int
+
 extension StatusCode {
     
     var isSuccess: Bool {
