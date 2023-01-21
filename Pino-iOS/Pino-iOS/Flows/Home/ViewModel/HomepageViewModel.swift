@@ -112,7 +112,9 @@ class HomepageViewModel {
 		positionAssetsList = positionAssetsList
 	}
 
-	#warning("all the following functions are temporary and should be replaced by network requests")
+	#warning("all the following functions are temporary and must be replaced by network requests")
+
+	// MARK: - temporary Methods
 
 	private func getWalletInfo() {
 		// Request to get wallet info
@@ -338,4 +340,6 @@ class HomepageViewModel {
 			UserDefaults.standard.register(defaults: ["assets": []])
 		}
 	}
+
+	// MARK: - The end of temporary Methods
 }

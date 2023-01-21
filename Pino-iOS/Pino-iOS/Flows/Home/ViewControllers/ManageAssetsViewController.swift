@@ -53,22 +53,9 @@ class ManageAssetsViewController: UIViewController {
 
 	private func setupNavigationBar() {
 		// Setup appreance for navigation bar
-		let navBarAppearance = UINavigationBarAppearance()
-		navBarAppearance.configureWithOpaqueBackground()
-		navBarAppearance.backgroundColor = .Pino.primary
-		navigationController?.navigationBar.standardAppearance = navBarAppearance
-		navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-		let textAttributes = [
-			NSAttributedString.Key.foregroundColor: UIColor.Pino.white,
-			NSAttributedString.Key.font: UIFont.PinoStyle.semiboldBody!,
-		]
-		UIBarButtonItem.appearance().setTitleTextAttributes(textAttributes, for: .normal)
+		setupPrimaryColorNavigationBar()
 		// Setup title view
-		let navigationTitle = UILabel()
-		navigationTitle.text = "Manage assets"
-		navigationTitle.textColor = .Pino.white
-		navigationTitle.font = .PinoStyle.semiboldBody
-		navigationItem.titleView = navigationTitle
+		setNavigationTitle("Manage assets")
 		// Setup add asset button
 		navigationItem.leftBarButtonItem = UIBarButtonItem(
 			image: UIImage(systemName: "plus"),
@@ -93,25 +80,6 @@ class ManageAssetsViewController: UIViewController {
 
 	@objc
 	private func addCustomAssets() {}
-
-	private func setupSearchBar() {
-		let searchController = UISearchController(searchResultsController: nil)
-		searchController.searchBar.searchTextField.tintColor = .Pino.green2
-		searchController.searchBar.searchTextField.leftView?.tintColor = .Pino.green2
-		searchController.searchResultsUpdater = self
-		searchController.searchBar.searchTextField.attributedPlaceholder = NSAttributedString(
-			string: "Search",
-			attributes: [NSAttributedString.Key.foregroundColor: UIColor.Pino.green2]
-		)
-		if let clearButton = searchController.searchBar.searchTextField.value(forKey: "_clearButton") as? UIButton {
-			let clearButtonImage = clearButton.imageView?.image?.withRenderingMode(.alwaysTemplate)
-			clearButton.setImage(clearButtonImage, for: .normal)
-			clearButton.tintColor = .Pino.green2
-		}
-		navigationItem.searchController = searchController
-		navigationItem.hidesSearchBarWhenScrolling = false
-		navigationItem.searchController?.searchBar.searchTextField.textColor = .Pino.white
-	}
 }
 
 extension ManageAssetsViewController: UISearchResultsUpdating {
