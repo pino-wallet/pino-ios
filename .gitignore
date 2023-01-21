@@ -85,6 +85,7 @@ fastlane/screenshots/**/*.png
 fastlane/test_output
 fastlane/AuthKey_76VYZ92QRJ.p8
 fastlane/.env
+fastlane/README.md
 
 # Code Injection
 #

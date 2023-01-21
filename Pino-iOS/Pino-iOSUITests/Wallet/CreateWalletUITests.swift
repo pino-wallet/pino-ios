@@ -24,7 +24,6 @@ final class CreateWalletUITests: XCTestCase {
 	override internal func setUpWithError() throws {
 		continueAfterFailure = false
 		app.launchArguments.append(LaunchArguments.isRunningUITests.rawValue)
-		app.launchArguments.append(LaunchingRootView.intro.rawValue)
 		errorLabel = app.staticTexts["Incorrect, try again!"]
 	}
 
