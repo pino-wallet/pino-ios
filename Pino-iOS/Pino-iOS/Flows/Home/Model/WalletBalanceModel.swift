@@ -11,5 +11,5 @@ struct WalletBalanceModel {
 	public var balance: String
 	public var volatilityPercentage: String
 	public var volatilityInDollor: String
-	public var volatilityType: AssetVolatilityType?
+	public var volatilityType: AssetVolatilityType
 }

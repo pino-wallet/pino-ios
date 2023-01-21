@@ -12,10 +12,10 @@ public struct AssetModel: Codable {
 	public var image: String
 	public var name: String
 	public var codeName: String
-	public var amount: String?
-	public var amountInDollor: String?
-	public var volatilityInDollor: String?
-	public var volatilityType: AssetVolatilityType?
+	public var amount: String
+	public var amountInDollor: String
+	public var volatilityInDollor: String
+	public var volatilityType: AssetVolatilityType
 	public var isSelected: Bool
 
 	// MARK: - Public Methods

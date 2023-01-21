@@ -203,10 +203,10 @@ class HomepageViewModel {
 				image: "USDC",
 				name: "USDC",
 				codeName: "USDC",
-				amount: nil,
-				amountInDollor: nil,
-				volatilityInDollor: nil,
-				volatilityType: nil,
+				amount: "0",
+				amountInDollor: "0",
+				volatilityInDollor: "0",
+				volatilityType: .none,
 				isSelected: false
 			),
 		]
@@ -275,10 +275,10 @@ class HomepageViewModel {
 				image: "BTC",
 				name: "BTC",
 				codeName: "BTC",
-				amount: nil,
-				amountInDollor: nil,
-				volatilityInDollor: nil,
-				volatilityType: nil,
+				amount: "0",
+				amountInDollor: "0",
+				volatilityInDollor: "0",
+				volatilityType: .none,
 				isSelected: true
 			),
 			AssetModel(
@@ -286,9 +286,9 @@ class HomepageViewModel {
 				name: "cETH",
 				codeName: "ETH",
 				amount: "1.2",
-				amountInDollor: nil,
-				volatilityInDollor: nil,
-				volatilityType: nil,
+				amountInDollor: "0",
+				volatilityInDollor: "0",
+				volatilityType: .none,
 				isSelected: false
 			),
 			AssetModel(
@@ -296,9 +296,9 @@ class HomepageViewModel {
 				name: "aDAI",
 				codeName: "aDAI",
 				amount: "10.2",
-				amountInDollor: nil,
-				volatilityInDollor: nil,
-				volatilityType: nil,
+				amountInDollor: "0",
+				volatilityInDollor: "0",
+				volatilityType: .none,
 				isSelected: false
 			),
 			AssetModel(
@@ -306,9 +306,9 @@ class HomepageViewModel {
 				name: "Sand",
 				codeName: "SAND",
 				amount: "10,04",
-				amountInDollor: nil,
-				volatilityInDollor: nil,
-				volatilityType: nil,
+				amountInDollor: "0",
+				volatilityInDollor: "0",
+				volatilityType: .none,
 				isSelected: false
 			),
 			AssetModel(
@@ -316,9 +316,9 @@ class HomepageViewModel {
 				name: "Status",
 				codeName: "SNT",
 				amount: "4,330",
-				amountInDollor: nil,
-				volatilityInDollor: nil,
-				volatilityType: nil,
+				amountInDollor: "0",
+				volatilityInDollor: "0",
+				volatilityType: .none,
 				isSelected: false
 			),
 			AssetModel(
@@ -326,9 +326,9 @@ class HomepageViewModel {
 				name: "DAI",
 				codeName: "DAI",
 				amount: "1.049",
-				amountInDollor: nil,
-				volatilityInDollor: nil,
-				volatilityType: nil,
+				amountInDollor: "0",
+				volatilityInDollor: "0",
+				volatilityType: .none,
 				isSelected: false
 			),
 		]
