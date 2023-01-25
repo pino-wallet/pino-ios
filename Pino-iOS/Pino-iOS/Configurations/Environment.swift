@@ -7,6 +7,7 @@
 
 import Foundation
 
+#warning("Environment file is temporary for when we add different Environments")
 enum NetworkEnvironment {
 	case qa
 	case production

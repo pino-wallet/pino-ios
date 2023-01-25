@@ -16,7 +16,7 @@ public struct BodyParameterEncoder: ParameterEncoder {
 			let jsonAsData = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
 			urlRequest.httpBody = jsonAsData
 			if urlRequest.value(forHTTPHeaderField: "Content-Type") == nil {
-				urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                urlRequest.addHeaders(["Content-Type":"application/json"])
 			}
 		} catch {
 			throw APIError.encodingFailed
@@ -25,12 +25,9 @@ public struct BodyParameterEncoder: ParameterEncoder {
 
 	public func encode(urlRequest: inout URLRequest, with parameters: Encodable) throws {
 		do {
-			let encoder = JSONEncoder()
-			encoder.outputFormatting = .prettyPrinted
-			encoder.dateEncodingStrategy = .iso8601
-			urlRequest.httpBody = try encoder.encode(parameters)
+            urlRequest.httpBody = try parameters.jsonData()
 			if urlRequest.value(forHTTPHeaderField: "Content-Type") == nil {
-				urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                urlRequest.addHeaders(["Content-Type":"application/json"])
 			}
 		} catch {
 			throw APIError.encodingFailed

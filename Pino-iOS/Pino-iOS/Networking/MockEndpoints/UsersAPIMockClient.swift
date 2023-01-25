@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 
+#warning("UsersAPIMockClient is temporary and its for demonstration of network layer")
 final class UsersAPIMockClient: UsersAPIService {
 	func users() -> AnyPublisher<Users, APIError> {
 		publisher(for: "all-users-stub")

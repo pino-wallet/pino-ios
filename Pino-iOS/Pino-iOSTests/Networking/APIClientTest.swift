@@ -8,9 +8,9 @@
 import Combine
 import OHHTTPStubs
 import OHHTTPStubsSwift
-@testable import Pino_iOS
 import XCTest
 
+@testable import Pino_iOS
 final class APIClientTest: XCTestCase {
 	// MARK: - Properties
 
@@ -124,7 +124,7 @@ extension APIClientTest {
 			if statusCode.isSuccess {
 				switch response {
 				case let .data(data):
-					return HTTPStubsResponse(data: data, statusCode: statusCode, headers: nil)
+                    return HTTPStubsResponse(data: data, statusCode: Int32(statusCode), headers: nil)
 				case let .file(name):
 					if let stubPath = OHPathForFile(name, type(of: self)) {
 						return fixture(filePath: stubPath, status: 200, headers: [:])

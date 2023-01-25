@@ -30,7 +30,7 @@ public struct URLParameterEncoder {
 		}
 
 		if urlRequest.value(forHTTPHeaderField: "Content-Type") == nil {
-			urlRequest.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            urlRequest.addHeaders(["Content-Type":"application/x-www-form-urlencoded; charset=utf-8"])
 		}
 	}
 }

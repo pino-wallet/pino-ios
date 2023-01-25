@@ -7,6 +7,7 @@
 
 import Foundation
 
+#warning("UsersEndpoint is temprary and only for network layer demonstration")
 enum UsersEndpoint: EndpointType {
 	// MARK: - Cases
 
@@ -32,7 +33,7 @@ enum UsersEndpoint: EndpointType {
 		do {
 			switch task {
 			case .request:
-				request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addHeaders(["Content-Type":"application/json"])
 			case let .requestParameters(
 				bodyParameters,
 				bodyEncoding,

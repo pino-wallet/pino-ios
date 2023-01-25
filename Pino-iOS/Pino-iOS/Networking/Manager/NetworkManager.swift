@@ -8,11 +8,6 @@
 import Combine
 import Foundation
 
-protocol NetworkRouter {
-	associatedtype EndPoint: EndpointType
-	func request<T: Codable>(_ endpoint: EndPoint) -> AnyPublisher<T, APIError>
-}
-
 struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 	#warning("Keychain here is temprary for when we want to request to eth network")
 	let keychainService: KeychainWrapper!

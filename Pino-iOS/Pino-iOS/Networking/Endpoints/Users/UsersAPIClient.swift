@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 
+#warning("Temprary class for network layer demonstration")
 final class UsersAPIClient: UsersAPIService {
 	// MARK: - Private Properties
 

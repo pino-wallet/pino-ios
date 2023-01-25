@@ -17,7 +17,7 @@ public enum APIError: Error {
 	case encodingFailed
 	case missingURL
 
-	var description: String {
+	public var description: String {
 		switch self {
 		case .failedRequest:
 			return "Sent request is failed."
