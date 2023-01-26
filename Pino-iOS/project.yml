@@ -43,6 +43,8 @@ targets:
     dependencies:
       - target: Pino-iOSTests
       - package: OHHTTPStubs
+        product: OHHTTPStubs
+        product: OHHTTPStubsSwift
     sources:
       - Pino-iOSTests
     settings:

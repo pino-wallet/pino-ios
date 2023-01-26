@@ -12,7 +12,7 @@ import Foundation
 protocol EndpointType {
 	func request(privateKey: String?) throws -> URLRequest
 	var url: URL { get }
-	var baseURL: URL { get }
+    var baseURL: URL { get }
 	var path: String { get }
 	var task: HTTPTask { get }
 	var httpMethod: HTTPMethod { get }

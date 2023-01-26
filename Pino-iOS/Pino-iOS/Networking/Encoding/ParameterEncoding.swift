@@ -8,18 +8,6 @@
 
 import Foundation
 
-public typealias Parameters = [String: Any]
-
-public protocol ParameterEncoder {
-	func encode(urlRequest: inout URLRequest, with parameters: Parameters) throws
-	func encode(urlRequest: inout URLRequest, with parameters: Encodable) throws
-}
-
-public enum BodyParamsType {
-	case json(Parameters)
-	case object(Encodable)
-}
-
 public enum ParameterEncoding {
 	case urlEncoding
 	case jsonEncoding
@@ -30,7 +18,7 @@ public enum ParameterEncoding {
 	public func encode(
 		urlRequest: inout URLRequest,
 		bodyParameters: BodyParamsType? = nil,
-		urlParameters: Parameters?
+		urlParameters: HTTPParameters?
 	) throws {
 		do {
 			switch self {

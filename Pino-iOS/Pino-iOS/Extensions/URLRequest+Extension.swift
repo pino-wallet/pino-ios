@@ -8,9 +8,18 @@
 import Foundation
 
 extension URLRequest {
+    
 	mutating func addHeaders(_ headers: HTTPHeaders) {
 		headers.forEach { header, value in
 			addValue(value, forHTTPHeaderField: header)
 		}
 	}
+    
+    mutating func addJSONContentType() {
+        if self.value(forHTTPHeaderField: "Content-Type") == nil {
+            self.addHeaders(["Content-Type":"application/json"])
+        }
+    }
+    
 }
+

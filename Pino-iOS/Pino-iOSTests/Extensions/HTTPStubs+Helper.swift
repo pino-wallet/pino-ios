@@ -6,10 +6,9 @@
 //
 
 import OHHTTPStubs
-import OHHTTPStubsSwift
 
 extension HTTPStubsDescriptor {
-	func store(in stubsDescriptor: inout [HTTPStubsDescriptor]) {
+	public func store(in stubsDescriptor: inout [HTTPStubsDescriptor]) {
 		stubsDescriptor.append(self)
 	}
 }

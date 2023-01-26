@@ -12,15 +12,18 @@ import XCTest
 
 @testable import Pino_iOS
 final class APIClientTest: XCTestCase {
-	// MARK: - Properties
+	
+    // MARK: - Private Properties
 
-	private var apiClient: APIClient!
+	private var apiClient: UsersAPIClient!
 	private var subscriptions: Set<AnyCancellable> = []
 	private var stubsDescriptors: [HTTPStubsDescriptor] = []
 
+    // MARK: - Test Cases
+
 	override func setUpWithError() throws {
 		// Put setup code here. This method is called before the invocation of each test method in the class.
-		apiClient = APIClient(keychainService: MockKeychainService())
+		apiClient = UsersAPIClient()
 	}
 
 	override func tearDownWithError() throws {
@@ -43,7 +46,7 @@ final class APIClientTest: XCTestCase {
 	}
 
 	func runTransactionsTests(statusCode: StatusCode) {
-		let endPoint = Endpoint.transactions
+		let endPoint = Endpoint.users
 		stubAPI(
 			endPoint: endPoint,
 			statusCode: statusCode,
@@ -53,7 +56,7 @@ final class APIClientTest: XCTestCase {
 
 		let expectation = XCTestExpectation(description: "Fetch transactions")
 
-		apiClient.transactions().sink(receiveCompletion: { completion in
+		apiClient.users().sink(receiveCompletion: { completion in
 			switch completion {
 			case .finished:
 				if !statusCode.isSuccess {
@@ -80,21 +83,24 @@ final class APIClientTest: XCTestCase {
 }
 
 fileprivate enum Endpoint {
-	// MARK: - Cases
+	
+    // MARK: - Cases
 
-	case transactions
+	case users
 
-	var path: String {
+    // MARK: - Fileprivate Properties
+
+	fileprivate var path: String {
 		switch self {
-		case .transactions:
-			return "transactions"
+		case .users:
+			return "users"
 		}
 	}
 
-	var stubPath: String {
+    fileprivate var stubPath: String {
 		switch self {
-		case .transactions:
-			return "transactions-mock"
+		case .users:
+			return "all-users-mock"
 		}
 	}
 }
