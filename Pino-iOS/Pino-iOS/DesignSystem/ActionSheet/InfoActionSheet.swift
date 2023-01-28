@@ -42,9 +42,7 @@ class InfoActionSheet: UIAlertController {
 		titleLabel.text = title
 		descriptionLabel.text = description
 		actionButton.title = "Got it"
-
 		titleIcon.image = UIImage(systemName: "info.circle.fill")
-
 		titleIcon.tintColor = .Pino.primary
 
 		contentStackView.axis = .vertical
