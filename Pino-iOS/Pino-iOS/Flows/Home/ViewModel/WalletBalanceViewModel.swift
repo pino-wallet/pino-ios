@@ -13,7 +13,7 @@ struct WalletBalanceViewModel: SecurityModeProtocol {
 	public let showBalanceButtonImage = "eye"
 	public var securityMode = false
 
-	public var balance: String
+	public var balance = "0.0"
 
 	public var volatilityPercentage: String {
 		getFormattedVolatilityPercentage()
@@ -31,7 +31,7 @@ struct WalletBalanceViewModel: SecurityModeProtocol {
 
 	init(balanceModel: WalletBalanceModel) {
 		self.balanceModel = balanceModel
-		self.balance = "$\(balanceModel.balance)"
+		self.balance = getFormattedBalance()
 	}
 
 	// MARK: - Public Methods

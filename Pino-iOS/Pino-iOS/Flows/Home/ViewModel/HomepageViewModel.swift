@@ -256,7 +256,7 @@ class HomepageViewModel {
 				name: "Ribon",
 				codeName: "RBN",
 				amount: "4,330",
-				amountInDollor: "1,530",
+				amountInDollor: "1,420",
 				volatilityInDollor: "115",
 				volatilityType: .profit,
 				isSelected: true
@@ -266,7 +266,7 @@ class HomepageViewModel {
 				name: "Tether",
 				codeName: "USDT",
 				amount: "1.049",
-				amountInDollor: "1,530",
+				amountInDollor: "1,130",
 				volatilityInDollor: "3.5",
 				volatilityType: .loss,
 				isSelected: true

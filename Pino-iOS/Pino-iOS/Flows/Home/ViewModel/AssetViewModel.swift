@@ -19,9 +19,9 @@ public class AssetViewModel: SecurityModeProtocol {
 		assetModel.name
 	}
 
-	public var amount: String
-	public var amountInDollor: String
-	public var volatilityInDollor: String
+	public var amount = "0"
+	public var amountInDollor = "-"
+	public var volatilityInDollor = "-"
 
 	public var volatilityType: AssetVolatilityType {
 		assetModel.volatilityType
@@ -31,24 +31,9 @@ public class AssetViewModel: SecurityModeProtocol {
 
 	init(assetModel: AssetModel) {
 		self.assetModel = assetModel
-		self.amount = "\(assetModel.amount) \(assetModel.codeName)"
-
-		if Int(assetModel.amountInDollor) == 0 {
-			self.amountInDollor = "-"
-		} else {
-			self.amountInDollor = "$\(assetModel.amountInDollor)"
-		}
-
-		if Int(assetModel.volatilityInDollor) == 0 {
-			self.volatilityInDollor = "-"
-		} else {
-			switch assetModel.volatilityType {
-			case .loss:
-				self.volatilityInDollor = "-$\(assetModel.volatilityInDollor)"
-			case .profit, .none:
-				self.volatilityInDollor = "+$\(assetModel.volatilityInDollor)"
-			}
-		}
+		self.amount = getFormattedAmount()
+		self.amountInDollor = getFormattedAmountInDollor()
+		self.volatilityInDollor = getFormattedVolatility()
 	}
 
 	// MARK: - Public Methods
@@ -77,7 +62,7 @@ public class AssetViewModel: SecurityModeProtocol {
 		if Int(assetModel.amountInDollor) == 0 {
 			return "-"
 		} else {
-			return "$\(amountInDollor)"
+			return "$\(assetModel.amountInDollor)"
 		}
 	}
 
