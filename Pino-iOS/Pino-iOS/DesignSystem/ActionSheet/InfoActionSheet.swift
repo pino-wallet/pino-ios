@@ -17,8 +17,8 @@ class InfoActionSheet: UIAlertController {
 	private let descriptionLabel = PinoLabel(style: .description, text: nil)
 	private let actionButton = PinoButton(style: .active)
 
-	public var buttonTitle = "Got it"
-	public var onButtonTap: (() -> Void)?
+	public var actionButtonTitle = "Got it"
+	public var onActionButtonTap: (() -> Void)?
 
 	// MARK: - Initializers
 
@@ -44,7 +44,7 @@ class InfoActionSheet: UIAlertController {
 	private func setupStyle(title: String, description: String) {
 		titleLabel.text = title
 		descriptionLabel.text = description
-		actionButton.title = buttonTitle
+		actionButton.title = actionButtonTitle
 		titleIcon.image = UIImage(systemName: "info.circle.fill")
 		titleIcon.tintColor = .Pino.primary
 
@@ -55,7 +55,7 @@ class InfoActionSheet: UIAlertController {
 		titleStackView.spacing = 6
 
 		actionButton.addAction(UIAction(handler: { _ in
-			if let onButtonTap = self.onButtonTap {
+			if let onButtonTap = self.onActionButtonTap {
 				onButtonTap()
 			} else {
 				self.dismiss(animated: true)
