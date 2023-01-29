@@ -6,9 +6,12 @@
 //
 
 public class AssetViewModel: SecurityModeProtocol {
+	// MARK: - Private Properties
+
+	private var assetModel: AssetModel!
+
 	// MARK: - Public Properties
 
-	public var assetModel: AssetModel!
 	public var securityMode = false
 
 	public var image: String {

@@ -6,9 +6,12 @@
 //
 
 struct WalletBalanceViewModel: SecurityModeProtocol {
+	// MARK: - Private Properties
+
+	private var balanceModel: WalletBalanceModel!
+
 	// MARK: - Public Properties
 
-	public var balanceModel: WalletBalanceModel!
 	public let showBalanceButtonTitle = "Show balance"
 	public let showBalanceButtonImage = "eye"
 	public var securityMode = false
