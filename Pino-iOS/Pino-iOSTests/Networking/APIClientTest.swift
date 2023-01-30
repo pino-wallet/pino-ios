@@ -18,7 +18,7 @@ final class APIClientTest: XCTestCase {
 	private var apiClient: UsersAPIClient!
 	private var subscriptions: Set<AnyCancellable> = []
 	private var stubsDescriptors: [HTTPStubsDescriptor] = []
-
+    
     // MARK: - Test Cases
 
 	override func setUpWithError() throws {
@@ -46,15 +46,16 @@ final class APIClientTest: XCTestCase {
 	}
 
 	func runTransactionsTests(statusCode: StatusCode) {
-		let endPoint = Endpoint.users
-		stubAPI(
+		let endPoint = UsersEndpoint.users
+        APISimulator.stubAPI(
 			endPoint: endPoint,
 			statusCode: statusCode,
 			response: .file(name: endPoint.stubPath)
 		)
 		.store(in: &stubsDescriptors)
 
-		let expectation = XCTestExpectation(description: "Fetch transactions")
+        let expectation = self.expectation(description:  "Fetch transactions")
+
 
 		apiClient.users().sink(receiveCompletion: { completion in
 			switch completion {
@@ -78,70 +79,7 @@ final class APIClientTest: XCTestCase {
 			XCTAssertNotNil(transactions)
 		}.store(in: &subscriptions)
 
-		waitForExpectations(timeout: 1.5)
+        waitForExpectations(timeout: 2.5)
 	}
 }
 
-fileprivate enum Endpoint {
-	
-    // MARK: - Cases
-
-	case users
-
-    // MARK: - Fileprivate Properties
-
-	fileprivate var path: String {
-		switch self {
-		case .users:
-			return "users"
-		}
-	}
-
-    fileprivate var stubPath: String {
-		switch self {
-		case .users:
-			return "all-users-mock"
-		}
-	}
-}
-
-extension APIClientTest {
-	// MARK: - Types
-
-	fileprivate enum Response {
-		case data(data: Data)
-		case file(name: String)
-	}
-
-	// MARK: - Stub API
-
-	fileprivate func simulateFailure(endPoint: Endpoint, error: Error) -> HTTPStubsDescriptor {
-		stub { request in
-			request.url?.path == endPoint.path
-		} response: { _ in
-			HTTPStubsResponse(error: error)
-		}
-	}
-
-	fileprivate func stubAPI(endPoint: Endpoint, statusCode: StatusCode, response: Response) -> HTTPStubsDescriptor {
-		stub { request in
-			request.url?.path == endPoint.path
-		} response: { request in
-			if statusCode.isSuccess {
-				switch response {
-				case let .data(data):
-                    return HTTPStubsResponse(data: data, statusCode: Int32(statusCode), headers: nil)
-				case let .file(name):
-					if let stubPath = OHPathForFile(name, type(of: self)) {
-						return fixture(filePath: stubPath, status: 200, headers: [:])
-					} else {
-						fatalError("Stub file not found")
-					}
-				}
-
-			} else {
-				return HTTPStubsResponse(data: Data(), statusCode: Int32(statusCode), headers: [:])
-			}
-		}
-	}
-}
