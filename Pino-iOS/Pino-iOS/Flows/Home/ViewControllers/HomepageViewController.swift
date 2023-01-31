@@ -48,8 +48,13 @@ class HomepageViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		let assetsCollectionView = AssetsCollectionView(
+			homeVM: homeVM,
+			manageAssetButtonTapped: {
+				self.openManageAssetsPage()
+			}
+		)
 		view = UIView()
-		let assetsCollectionView = AssetsCollectionView(homeVM: homeVM)
 		view.addSubview(assetsCollectionView)
 		assetsCollectionView.pin(.allEdges)
 		addressCopiedToastView.message = homeVM.copyToastMessage
@@ -64,16 +69,26 @@ class HomepageViewController: UIViewController {
 		}.store(in: &cancellables)
 
 		navigationItem.rightBarButtonItem = WalletInfoNavigationItems.manageAssetButton
+		navigationItem.rightBarButtonItem?.target = self
+		navigationItem.rightBarButtonItem?.action = #selector(openManageAssetsPage)
 
-		(navigationItem.titleView as? UIButton)?.addAction(UIAction(handler: { _ in
-			self.copyWalletAddress()
-		}), for: .touchUpInside)
+		navigationItem.titleView?
+			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(copyWalletAddress)))
 	}
 
+	@objc
 	private func copyWalletAddress() {
 		let pasteboard = UIPasteboard.general
 		pasteboard.string = homeVM.walletInfo.address
 
 		addressCopiedToastView.showToast()
+	}
+
+	@objc
+	private func openManageAssetsPage() {
+		let manageAssetsVC = ManageAssetsViewController(homeVM: homeVM)
+		let navigationVC = UINavigationController()
+		navigationVC.viewControllers = [manageAssetsVC]
+		present(navigationVC, animated: true)
 	}
 }

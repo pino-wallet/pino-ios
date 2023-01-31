@@ -21,13 +21,12 @@ final class CreatePasscodeUITests: XCTestCase {
 	override internal func setUpWithError() throws {
 		continueAfterFailure = false
 		app.launchArguments.append(LaunchArguments.isRunningUITests.rawValue)
-		app.launchArguments.append(LaunchingRootView.intro.rawValue)
 		errorLabel = app.staticTexts["Incorrect, try again!"]
 	}
 
 	override internal func tearDownWithError() throws {}
 
-	internal func testCreateWalletAndPasscode() throws {
+	internal func testPasscode() throws {
 		let createWalletUITests = CreateWalletUITests()
 		try createWalletUITests.setUpWithError()
 		createWalletUITests.testValidSecretPhrase()

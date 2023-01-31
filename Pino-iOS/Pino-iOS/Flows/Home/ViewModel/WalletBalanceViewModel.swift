@@ -6,14 +6,17 @@
 //
 
 struct WalletBalanceViewModel: SecurityModeProtocol {
+	// MARK: - Private Properties
+
+	private var balanceModel: WalletBalanceModel!
+
 	// MARK: - Public Properties
 
-	public var balanceModel: WalletBalanceModel!
 	public let showBalanceButtonTitle = "Show balance"
 	public let showBalanceButtonImage = "eye"
 	public var securityMode = false
 
-	public var balance: String
+	public var balance = "0.0"
 
 	public var volatilityPercentage: String {
 		getFormattedVolatilityPercentage()
@@ -24,19 +27,14 @@ struct WalletBalanceViewModel: SecurityModeProtocol {
 	}
 
 	public var volatilityType: AssetVolatilityType {
-		if let volatilityType = balanceModel.volatilityType {
-			return volatilityType
-		} else {
-			return .none
-		}
+		balanceModel.volatilityType
 	}
 
 	// MARK: - Initializers
 
 	init(balanceModel: WalletBalanceModel) {
 		self.balanceModel = balanceModel
-		let balance = balanceModel.balance ?? "0.0"
-		self.balance = "$\(balance)"
+		self.balance = getFormattedBalance()
 	}
 
 	// MARK: - Public Methods
@@ -54,37 +52,28 @@ struct WalletBalanceViewModel: SecurityModeProtocol {
 	// MARK: - Private Methods
 
 	private func getFormattedBalance() -> String {
-		let balance = balanceModel.balance ?? "0.0"
-		return "$\(balance)"
+		"$\(balanceModel.balance)"
 	}
 
 	private func getFormattedVolatilityPercentage() -> String {
-		if let volatility = balanceModel.volatilityPercentage {
-			switch volatilityType {
-			case .profit:
-				return "+\(volatility)%"
-			case .loss:
-				return "-\(volatility)%"
-			case .none:
-				return "\(volatility)%"
-			}
-		} else {
-			return "0.0%"
+		switch volatilityType {
+		case .profit:
+			return "+\(balanceModel.volatilityPercentage)%"
+		case .loss:
+			return "-\(balanceModel.volatilityPercentage)%"
+		case .none:
+			return "\(balanceModel.volatilityPercentage)%"
 		}
 	}
 
 	private func getFormattedVolatilityInDollor() -> String {
-		if let volatility = balanceModel.volatilityInDollor {
-			switch volatilityType {
-			case .profit:
-				return "+$\(volatility)"
-			case .loss:
-				return "-$\(volatility)"
-			case .none:
-				return "$\(volatility)"
-			}
-		} else {
-			return "$0.0"
+		switch volatilityType {
+		case .profit:
+			return "+$\(balanceModel.volatilityInDollor)"
+		case .loss:
+			return "-$\(balanceModel.volatilityInDollor)"
+		case .none:
+			return "$\(balanceModel.volatilityInDollor)"
 		}
 	}
 }

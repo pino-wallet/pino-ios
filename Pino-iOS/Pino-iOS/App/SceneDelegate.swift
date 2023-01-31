@@ -21,31 +21,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		// `application:configurationForConnectingSceneSession` instead).
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		window = UIWindow(windowScene: windowScene)
-		setupRootView()
+		if UserDefaults.standard.bool(forKey: "isLogin") {
+			window?.rootViewController = TabBarViewController()
+		} else {
+			let navigationController = UINavigationController()
+			navigationController.setViewControllers([IntroViewController()], animated: true)
+			window?.rootViewController = navigationController
+		}
 		window?.makeKeyAndVisible()
 
 		// Disable animations in test mode to speed up tests
 		disableAllAnimationsInTestMode()
-	}
-
-	func setupRootView() {
-		if ProcessInfo.processInfo.arguments.contains(LaunchArguments.isRunningUITests.rawValue) {
-			if ProcessInfo.processInfo.arguments.contains(LaunchingRootView.intro.rawValue) {
-				let navigationController = UINavigationController()
-				navigationController.setViewControllers([IntroViewController()], animated: true)
-				window?.rootViewController = navigationController
-			} else {
-				window?.rootViewController = TabBarViewController()
-			}
-		} else {
-			if UserDefaults.standard.bool(forKey: "isLogin") {
-				window?.rootViewController = TabBarViewController()
-			} else {
-				let navigationController = UINavigationController()
-				navigationController.setViewControllers([IntroViewController()], animated: true)
-				window?.rootViewController = navigationController
-			}
-		}
 	}
 
 	func sceneDidDisconnect(_ scene: UIScene) {

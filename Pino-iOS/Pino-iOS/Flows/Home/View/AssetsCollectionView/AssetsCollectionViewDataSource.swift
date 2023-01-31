@@ -115,6 +115,9 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 			for: indexPath
 		) as! ManageAssetsFooterView
 		manageAssetsFooterView.title = "Manage assets"
+		manageAssetsFooterView.manageAssetButton.addAction(UIAction(handler: { _ in
+			self.manageAssetButtonTapped()
+		}), for: .touchUpInside)
 		return manageAssetsFooterView
 	}
 

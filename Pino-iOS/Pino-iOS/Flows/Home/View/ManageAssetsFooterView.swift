@@ -8,14 +8,10 @@
 import UIKit
 
 class ManageAssetsFooterView: UICollectionReusableView {
-	// MARK: - Private Properties
-
-	private var manageAssetButton = UIButton()
-
 	// MARK: - Public Properties
 
 	public static let footerReuseID = "homepageFooter"
-
+	public var manageAssetButton = UIButton()
 	public var title: String! {
 		didSet {
 			setupManageAssetView(title)
