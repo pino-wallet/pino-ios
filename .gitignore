@@ -79,13 +79,12 @@ Dependencies/
 # For more information about the recommended setup visit:
 # https://docs.fastlane.tools/best-practices/source-control/#source-control
 
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots/**/*.png
-fastlane/test_output
-fastlane/AuthKey_76VYZ92QRJ.p8
-fastlane/.env
-fastlane/README.md
+Pino-iOS/fastlane/report.xml
+Pino-iOS/fastlane/Preview.html
+Pino-iOS/fastlane/screenshots/**/*.png
+Pino-iOS/fastlane/test_output
+Pino-iOS/fastlane/AuthKey_76VYZ92QRJ.p8
+Pino-iOS/fastlane/.env
 
 # Code Injection
 #
