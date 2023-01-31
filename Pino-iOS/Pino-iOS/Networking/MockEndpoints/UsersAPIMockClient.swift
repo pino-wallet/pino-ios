@@ -10,16 +10,20 @@ import Foundation
 
 #warning("UsersAPIMockClient is temporary and its for demonstration of network layer")
 final class UsersAPIMockClient: UsersAPIService {
-	func users() -> AnyPublisher<Users, APIError> {
+	// MARK: Public Methods
+
+	public func users() -> AnyPublisher<Users, APIError> {
 		publisher(for: "all-users-stub")
 	}
 
-	func userDetail(id: String) -> AnyPublisher<UserModel, APIError> {
+	public func userDetail(id: String) -> AnyPublisher<UserModel, APIError> {
 		publisher(for: "all-users-stub")
 	}
 }
 
 extension UsersAPIMockClient {
+	// MARK: Fileprivate Methods
+
 	fileprivate func publisher<T: Decodable>(for resource: String) -> AnyPublisher<T, APIError> {
 		Just(stubData(for: resource))
 			.setFailureType(to: APIError.self)

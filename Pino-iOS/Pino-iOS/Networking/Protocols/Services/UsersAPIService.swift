@@ -19,10 +19,17 @@ protocol UsersAPIService {
 // MARK: - Welcome
 
 struct Users: Codable {
-	let page, perPage, total, totalPages: Int
-	let users: [UserModel]
+	// MARK: Private Properties
 
-	enum CodingKeys: String, CodingKey {
+	private let page, perPage, total, totalPages: Int
+
+	// MARK: Public Properties
+
+	public let users: [UserModel]
+
+	// MARK: Public Enums
+
+	public enum CodingKeys: String, CodingKey {
 		case page
 		case perPage = "per_page"
 		case total
@@ -34,11 +41,15 @@ struct Users: Codable {
 // MARK: - Datum
 
 struct UserModel: Codable {
-	let id: Int
-	let email, firstName, lastName: String
-	let avatar: String
+	// MARK: Private Properties
 
-	enum CodingKeys: String, CodingKey {
+	private let id: Int
+	private let email, firstName, lastName: String
+	private let avatar: String
+
+	// MARK: Public Enums
+
+	public enum CodingKeys: String, CodingKey {
 		case id
 		case email
 		case firstName = "first_name"

@@ -40,6 +40,8 @@ public enum ParameterEncoding {
 		}
 	}
 
+	// MARK: Private Methods
+
 	private func encodeBodyParams(urlRequest: inout URLRequest, params: BodyParamsType) throws {
 		switch params {
 		case let .object(object):

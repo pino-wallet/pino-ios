@@ -10,6 +10,6 @@ import Foundation
 // Types of params that can be passed to network layer
 // Either a dictionary or an object type
 public enum BodyParamsType {
-    case json(HTTPParameters)
-    case object(Encodable)
+	case json(HTTPParameters)
+	case object(Encodable)
 }

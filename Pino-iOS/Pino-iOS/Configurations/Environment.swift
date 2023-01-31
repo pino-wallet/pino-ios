@@ -15,11 +15,13 @@ enum NetworkEnvironment {
 }
 
 enum Environment {
-	static var networkEnvironment: NetworkEnvironment {
+	// MARK: Public Properties
+
+	public static var networkEnvironment: NetworkEnvironment {
 		.staging
 	}
 
-	static var apiBaseURL: URL {
+	public static var apiBaseURL: URL {
 		switch networkEnvironment {
 		case .staging, .production, .qa:
 			return URL(string: "https://reqres.in/api/")!

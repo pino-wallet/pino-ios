@@ -9,6 +9,6 @@ import Foundation
 
 // Each endpoint in Test should conform to EndpointType protocol
 protocol EndpointType {
-    var path: String { get }
-    var stubPath: String { get }
+	var path: String { get }
+	var stubPath: String { get }
 }

@@ -8,6 +8,8 @@
 import OHHTTPStubs
 
 extension HTTPStubsDescriptor {
+	// MARK: Public Methods
+
 	public func store(in stubsDescriptor: inout [HTTPStubsDescriptor]) {
 		stubsDescriptor.append(self)
 	}

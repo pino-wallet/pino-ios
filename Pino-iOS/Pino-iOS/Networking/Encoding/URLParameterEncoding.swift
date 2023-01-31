@@ -9,7 +9,8 @@
 import Foundation
 
 public struct URLParameterEncoder: ParameterEncoder {
-    
+	// MARK: Public Methods
+
 	public func encode(urlRequest: inout URLRequest, with parameters: HTTPParameters) throws {
 		guard let url = urlRequest.url else { throw APIError.missingURL }
 
@@ -31,35 +32,35 @@ public struct URLParameterEncoder: ParameterEncoder {
 		}
 
 		if urlRequest.value(forHTTPHeaderField: "Content-Type") == nil {
-            urlRequest.addHeaders(["Content-Type":"application/x-www-form-urlencoded; charset=utf-8"])
+			urlRequest.addHeaders(["Content-Type": "application/x-www-form-urlencoded; charset=utf-8"])
 		}
 	}
-    
-    public func encode(urlRequest: inout URLRequest, with parameters: Encodable) throws {
-        guard let url = urlRequest.url else { throw APIError.missingURL }
 
-        if var urlComponents = URLComponents(
-            url: url,
-            resolvingAgainstBaseURL: false
-        ) {
-            urlComponents.queryItems = [URLQueryItem]()
+	public func encode(urlRequest: inout URLRequest, with parameters: Encodable) throws {
+		guard let url = urlRequest.url else { throw APIError.missingURL }
 
-            let mirror = Mirror(reflecting: parameters)
+		if var urlComponents = URLComponents(
+			url: url,
+			resolvingAgainstBaseURL: false
+		) {
+			urlComponents.queryItems = [URLQueryItem]()
 
-            mirror.children.forEach { child in
-                let queryItem = URLQueryItem(
-                    name: child.label!,
-                    value: "\(child.value)"
-                        .addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-                )
-                urlComponents.queryItems?.append(queryItem)
-            }
-            
-            urlRequest.url = urlComponents.url
-        }
+			let mirror = Mirror(reflecting: parameters)
 
-        if urlRequest.value(forHTTPHeaderField: "Content-Type") == nil {
-            urlRequest.addHeaders(["Content-Type":"application/x-www-form-urlencoded; charset=utf-8"])
-        }
-    }
+			mirror.children.forEach { child in
+				let queryItem = URLQueryItem(
+					name: child.label!,
+					value: "\(child.value)"
+						.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+				)
+				urlComponents.queryItems?.append(queryItem)
+			}
+
+			urlRequest.url = urlComponents.url
+		}
+
+		if urlRequest.value(forHTTPHeaderField: "Content-Type") == nil {
+			urlRequest.addHeaders(["Content-Type": "application/x-www-form-urlencoded; charset=utf-8"])
+		}
+	}
 }

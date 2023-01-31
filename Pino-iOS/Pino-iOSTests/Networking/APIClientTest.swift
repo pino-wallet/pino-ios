@@ -8,18 +8,17 @@
 import Combine
 import OHHTTPStubs
 import OHHTTPStubsSwift
+@testable import Pino_iOS
 import XCTest
 
-@testable import Pino_iOS
 final class APIClientTest: XCTestCase {
-	
-    // MARK: - Private Properties
+	// MARK: - Private Properties
 
 	private var apiClient: UsersAPIClient!
 	private var subscriptions: Set<AnyCancellable> = []
 	private var stubsDescriptors: [HTTPStubsDescriptor] = []
-    
-    // MARK: - Test Cases
+
+	// MARK: - Test Cases
 
 	override func setUpWithError() throws {
 		// Put setup code here. This method is called before the invocation of each test method in the class.
@@ -47,15 +46,14 @@ final class APIClientTest: XCTestCase {
 
 	func runTransactionsTests(statusCode: StatusCode) {
 		let endPoint = UsersEndpoint.users
-        APISimulator.stubAPI(
+		APISimulator.stubAPI(
 			endPoint: endPoint,
 			statusCode: statusCode,
 			response: .file(name: endPoint.stubPath)
 		)
 		.store(in: &stubsDescriptors)
 
-        let expectation = self.expectation(description:  "Fetch transactions")
-
+		let expectation = expectation(description: "Fetch transactions")
 
 		apiClient.users().sink(receiveCompletion: { completion in
 			switch completion {
@@ -79,7 +77,6 @@ final class APIClientTest: XCTestCase {
 			XCTAssertNotNil(transactions)
 		}.store(in: &subscriptions)
 
-        waitForExpectations(timeout: 2.5)
+		waitForExpectations(timeout: 2.5)
 	}
 }
-

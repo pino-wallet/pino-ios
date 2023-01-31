@@ -17,6 +17,8 @@ public enum APIError: Error {
 	case encodingFailed
 	case missingURL
 
+	// MARK: Public Properties
+
 	public var description: String {
 		switch self {
 		case .failedRequest:

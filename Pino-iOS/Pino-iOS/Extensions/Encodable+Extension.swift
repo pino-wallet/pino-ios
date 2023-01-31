@@ -8,8 +8,10 @@
 import Foundation
 
 extension Encodable {
+	// MARK: Public Methods
+
 	/// Encode into JSON and return `Data`
-	func jsonData() throws -> Data {
+	public func jsonData() throws -> Data {
 		let encoder = JSONEncoder()
 		encoder.outputFormatting = .prettyPrinted
 		encoder.dateEncodingStrategy = .iso8601

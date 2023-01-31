@@ -10,7 +10,9 @@ import Foundation
 typealias StatusCode = Int
 
 extension StatusCode {
-    public var isSuccess: Bool {
-        (200 ..< 300).contains(self)
-    }
+	// MARK: Public Methods
+
+	public var isSuccess: Bool {
+		(200 ..< 300).contains(self)
+	}
 }

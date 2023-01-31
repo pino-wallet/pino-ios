@@ -8,24 +8,23 @@
 import Foundation
 
 internal enum UsersEndpoint: EndpointType {
-    
-    // MARK: - Cases
+	// MARK: - Cases
 
-    case users
+	case users
 
-    // MARK: - Fileprivate Properties
+	// MARK: - Fileprivate Properties
 
-    internal var path: String {
-        switch self {
-        case .users:
-            return "/api/users"
-        }
-    }
+	internal var path: String {
+		switch self {
+		case .users:
+			return "/api/users"
+		}
+	}
 
-    internal var stubPath: String {
-        switch self {
-        case .users:
-            return "all-users-stub.json"
-        }
-    }
+	internal var stubPath: String {
+		switch self {
+		case .users:
+			return "all-users-stub.json"
+		}
+	}
 }
