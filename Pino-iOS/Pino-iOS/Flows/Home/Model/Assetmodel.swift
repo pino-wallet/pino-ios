@@ -9,6 +9,7 @@ import Foundation
 public struct AssetModel: Codable {
 	// MARK: - Public Properties
 
+	public var id: String
 	public var image: String
 	public var name: String
 	public var codeName: String
@@ -22,5 +23,17 @@ public struct AssetModel: Codable {
 
 	public mutating func toggleIsSelected() {
 		isSelected.toggle()
+	}
+}
+
+struct Assets: Codable {
+	// MARK: Public Properties
+
+	public let assets: [AssetModel]
+
+	// MARK: Public Enums
+
+	public enum CodingKeys: String, CodingKey {
+		case assets = "data"
 	}
 }

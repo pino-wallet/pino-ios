@@ -1,7 +1,8 @@
 {
-    "assets":
+    "data":
     [
         {
+            "id": "0",
             "image": "Chainlink",
             "name": "Chainlink",
             "codeName": "Link",
@@ -12,6 +13,7 @@
             "isSelected": true
         },
         {
+            "id": "1",
             "image": "Ribon",
             "name": "Ribon",
             "codeName": "RBN",
@@ -22,6 +24,7 @@
             "isSelected": true
         },
         {
+            "id": "2",
             "image": "Tether",
             "name": "Tether",
             "codeName": "USDT",
@@ -32,6 +35,7 @@
             "isSelected": true
         },
         {
+            "id": "3",
             "image": "BTC",
             "name": "BTC",
             "codeName": "BTC",
@@ -42,6 +46,7 @@
             "isSelected": true
         },
         {
+            "id": "4",
             "image": "cETH",
             "name": "cETH",
             "codeName": "cETH",
@@ -52,6 +57,7 @@
             "isSelected": false
         },
         {
+            "id": "5",
             "image": "aDAI",
             "name": "aDAI",
             "codeName": "aDAI",
@@ -62,6 +68,7 @@
             "isSelected": false
         },
         {
+            "id": "6",
             "image": "Sand",
             "name": "Sand",
             "codeName": "SAND",
@@ -72,6 +79,7 @@
             "isSelected": false
         },
         {
+            "id": "7",
             "image": "Status",
             "name": "Status",
             "codeName": "SNT",
@@ -82,6 +90,7 @@
             "isSelected": false
         },
         {
+            "id": "8",
             "image": "DAI",
             "name": "DAI",
             "codeName": "DAI",
