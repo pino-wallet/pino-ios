@@ -1,0 +1,96 @@
+{
+    "assets":
+    [
+        {
+            "image": "Chainlink",
+            "name": "Chainlink",
+            "codeName": "Link",
+            "amount": "10,04",
+            "amountInDollor": "1,530",
+            "volatilityInDollor": "10",
+            "volatilityType": "profit",
+            "isSelected": true
+        },
+        {
+            "image": "Ribon",
+            "name": "Ribon",
+            "codeName": "RBN",
+            "amount": "4,330",
+            "amountInDollor": "1,420",
+            "volatilityInDollor": "115",
+            "volatilityType": "profit",
+            "isSelected": true
+        },
+        {
+            "image": "Tether",
+            "name": "Tether",
+            "codeName": "USDT",
+            "amount": "1.049",
+            "amountInDollor": "1,130",
+            "volatilityInDollor": "3.5",
+            "volatilityType": "loss",
+            "isSelected": true
+        },
+        {
+            "image": "BTC",
+            "name": "BTC",
+            "codeName": "BTC",
+            "amount": "0",
+            "amountInDollor": "0",
+            "volatilityInDollor": "0",
+            "volatilityType": "none",
+            "isSelected": true
+        },
+        {
+            "image": "cETH",
+            "name": "cETH",
+            "codeName": "cETH",
+            "amount": "1.2",
+            "amountInDollor": "0",
+            "volatilityInDollor": "0",
+            "volatilityType": "none",
+            "isSelected": false
+        },
+        {
+            "image": "aDAI",
+            "name": "aDAI",
+            "codeName": "aDAI",
+            "amount": "10.2",
+            "amountInDollor": "0",
+            "volatilityInDollor": "0",
+            "volatilityType": "none",
+            "isSelected": false
+        },
+        {
+            "image": "Sand",
+            "name": "Sand",
+            "codeName": "SAND",
+            "amount": "10.04",
+            "amountInDollor": "0",
+            "volatilityInDollor": "0",
+            "volatilityType": "none",
+            "isSelected": false
+        },
+        {
+            "image": "Status",
+            "name": "Status",
+            "codeName": "SNT",
+            "amount": "4,330",
+            "amountInDollor": "0",
+            "volatilityInDollor": "0",
+            "volatilityType": "none",
+            "isSelected": false
+        },
+        {
+            "image": "DAI",
+            "name": "DAI",
+            "codeName": "DAI",
+            "amount": "1.049",
+            "amountInDollor": "0",
+            "volatilityInDollor": "0",
+            "volatilityType": "none",
+            "isSelected": false
+        }
+        
+    ]
+}

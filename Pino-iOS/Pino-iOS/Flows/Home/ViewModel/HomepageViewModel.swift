@@ -156,7 +156,7 @@ class HomepageViewModel {
 				amount: "1.2",
 				amountInDollor: "1,530",
 				volatilityInDollor: "10",
-				volatilityType: .profit,
+				volatilityType: "profit",
 				isSelected: false
 			),
 			AssetModel(
@@ -166,7 +166,7 @@ class HomepageViewModel {
 				amount: "10.2",
 				amountInDollor: "10,3",
 				volatilityInDollor: "14",
-				volatilityType: .profit,
+				volatilityType: "profit",
 				isSelected: false
 			),
 			AssetModel(
@@ -176,7 +176,7 @@ class HomepageViewModel {
 				amount: "10,04",
 				amountInDollor: "1,530",
 				volatilityInDollor: "10",
-				volatilityType: .profit,
+				volatilityType: "profit",
 				isSelected: false
 			),
 			AssetModel(
@@ -186,7 +186,7 @@ class HomepageViewModel {
 				amount: "4,330",
 				amountInDollor: "1,530",
 				volatilityInDollor: "115",
-				volatilityType: .profit,
+				volatilityType: "profit",
 				isSelected: false
 			),
 			AssetModel(
@@ -196,7 +196,7 @@ class HomepageViewModel {
 				amount: "1.049",
 				amountInDollor: "1,530",
 				volatilityInDollor: "3.5",
-				volatilityType: .loss,
+				volatilityType: "loss",
 				isSelected: false
 			),
 			AssetModel(
@@ -206,7 +206,7 @@ class HomepageViewModel {
 				amount: "0",
 				amountInDollor: "0",
 				volatilityInDollor: "0",
-				volatilityType: .none,
+				volatilityType: "none",
 				isSelected: false
 			),
 		]
@@ -248,7 +248,7 @@ class HomepageViewModel {
 				amount: "10,04",
 				amountInDollor: "1,530",
 				volatilityInDollor: "10",
-				volatilityType: .profit,
+				volatilityType: "profit",
 				isSelected: true
 			),
 			AssetModel(
@@ -258,7 +258,7 @@ class HomepageViewModel {
 				amount: "4,330",
 				amountInDollor: "1,420",
 				volatilityInDollor: "115",
-				volatilityType: .profit,
+				volatilityType: "profit",
 				isSelected: true
 			),
 			AssetModel(
@@ -268,7 +268,7 @@ class HomepageViewModel {
 				amount: "1.049",
 				amountInDollor: "1,130",
 				volatilityInDollor: "3.5",
-				volatilityType: .loss,
+				volatilityType: "loss",
 				isSelected: true
 			),
 			AssetModel(
@@ -278,7 +278,7 @@ class HomepageViewModel {
 				amount: "0",
 				amountInDollor: "0",
 				volatilityInDollor: "0",
-				volatilityType: .none,
+				volatilityType: "none",
 				isSelected: true
 			),
 			AssetModel(
@@ -288,7 +288,7 @@ class HomepageViewModel {
 				amount: "1.2",
 				amountInDollor: "0",
 				volatilityInDollor: "0",
-				volatilityType: .none,
+				volatilityType: "none",
 				isSelected: false
 			),
 			AssetModel(
@@ -298,7 +298,7 @@ class HomepageViewModel {
 				amount: "10.2",
 				amountInDollor: "0",
 				volatilityInDollor: "0",
-				volatilityType: .none,
+				volatilityType: "none",
 				isSelected: false
 			),
 			AssetModel(
@@ -308,7 +308,7 @@ class HomepageViewModel {
 				amount: "10,04",
 				amountInDollor: "0",
 				volatilityInDollor: "0",
-				volatilityType: .none,
+				volatilityType: "none",
 				isSelected: false
 			),
 			AssetModel(
@@ -318,7 +318,7 @@ class HomepageViewModel {
 				amount: "4,330",
 				amountInDollor: "0",
 				volatilityInDollor: "0",
-				volatilityType: .none,
+				volatilityType: "none",
 				isSelected: false
 			),
 			AssetModel(
@@ -328,7 +328,7 @@ class HomepageViewModel {
 				amount: "1.049",
 				amountInDollor: "0",
 				volatilityInDollor: "0",
-				volatilityType: .none,
+				volatilityType: "none",
 				isSelected: false
 			),
 		]

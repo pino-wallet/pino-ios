@@ -27,7 +27,7 @@ public class AssetViewModel: SecurityModeProtocol {
 	public var volatilityInDollor = "-"
 
 	public var volatilityType: AssetVolatilityType {
-		assetModel.volatilityType
+		AssetVolatilityType(rawValue: assetModel.volatilityType) ?? .none
 	}
 
 	// MARK: - Initializers
