@@ -23,13 +23,14 @@ class ManageAssetsFooterView: UICollectionReusableView {
 	private func setupManageAssetView(_ title: String) {
 		addSubview(manageAssetButton)
 
+		backgroundColor = .Pino.background
 		manageAssetButton.setTitle(title, for: .normal)
 		manageAssetButton.setImage(UIImage(named: "manage_asset"), for: .normal)
 		manageAssetButton.setTitleColor(.Pino.primary, for: .normal)
 		manageAssetButton.setConfiguraton(font: .PinoStyle.mediumCallout!, imagePadding: 6)
 
 		manageAssetButton.pin(
-			.centerY,
+			.top(padding: 16),
 			.centerX
 		)
 	}

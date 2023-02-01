@@ -29,11 +29,23 @@ public struct AssetModel: Codable {
 struct Assets: Codable {
 	// MARK: Public Properties
 
-	public let assets: [AssetModel]
+	public let assetsList: [AssetModel]
 
 	// MARK: Public Enums
 
 	public enum CodingKeys: String, CodingKey {
-		case assets = "data"
+		case assetsList = "data"
+	}
+}
+
+struct Positions: Codable {
+	// MARK: Public Properties
+
+	public let positionsList: [AssetModel]
+
+	// MARK: Public Enums
+
+	public enum CodingKeys: String, CodingKey {
+		case positionsList = "data"
 	}
 }

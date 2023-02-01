@@ -18,4 +18,8 @@ final class AssetsAPIClient: AssetsAPIService {
 	public func assets() -> AnyPublisher<Assets, APIError> {
 		networkManager.request(.assets)
 	}
+
+	public func positions() -> AnyPublisher<Positions, APIError> {
+		networkManager.request(.positions)
+	}
 }

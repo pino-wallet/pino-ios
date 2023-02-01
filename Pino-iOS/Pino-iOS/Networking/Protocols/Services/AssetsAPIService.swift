@@ -10,4 +10,5 @@ import Foundation
 
 protocol AssetsAPIService {
 	func assets() -> AnyPublisher<Assets, APIError>
+	func positions() -> AnyPublisher<Positions, APIError>
 }

@@ -5,7 +5,7 @@
 //  Created by Mohi Raoufi on 12/21/22.
 //
 
-public enum AssetVolatilityType: Codable, String {
+public enum AssetVolatilityType: String, Codable {
 	case profit
 	case loss
 	case none

@@ -74,7 +74,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 		case .asset, .none:
 			return .zero
 		case .position:
-			return CGSize(width: collectionView.frame.width, height: 68)
+			return CGSize(width: collectionView.frame.width, height: 100)
 		}
 	}
 
