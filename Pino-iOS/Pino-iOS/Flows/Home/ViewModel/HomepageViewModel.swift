@@ -134,7 +134,7 @@ class HomepageViewModel {
 			balance: "12,568,000",
 			volatilityPercentage: "5.6",
 			volatilityInDollor: "58.67",
-			volatilityType: .profit
+			volatilityType: "profit"
 		)
 		walletBalance = WalletBalanceViewModel(balanceModel: balanceModel)
 	}
@@ -149,69 +149,6 @@ class HomepageViewModel {
 	}
 
 	private func getPositionAssetsList() {
-		let assetsModel: [AssetModel] = [
-			//			AssetModel(
-//				image: "cETH",
-//				name: "cETH",
-//				codeName: "ETH",
-//				amount: "1.2",
-//				amountInDollor: "1,530",
-//				volatilityInDollor: "10",
-//				volatilityType: "profit",
-//				isSelected: false
-//			),
-//			AssetModel(
-//				image: "aDAI",
-//				name: "aDAI",
-//				codeName: "aDAI",
-//				amount: "10.2",
-//				amountInDollor: "10,3",
-//				volatilityInDollor: "14",
-//				volatilityType: "profit",
-//				isSelected: false
-//			),
-//			AssetModel(
-//				image: "Sand",
-//				name: "Sand",
-//				codeName: "SAND",
-//				amount: "10,04",
-//				amountInDollor: "1,530",
-//				volatilityInDollor: "10",
-//				volatilityType: "profit",
-//				isSelected: false
-//			),
-//			AssetModel(
-//				image: "Status",
-//				name: "Status",
-//				codeName: "SNT",
-//				amount: "4,330",
-//				amountInDollor: "1,530",
-//				volatilityInDollor: "115",
-//				volatilityType: "profit",
-//				isSelected: false
-//			),
-//			AssetModel(
-//				image: "DAI",
-//				name: "DAI",
-//				codeName: "DAI",
-//				amount: "1.049",
-//				amountInDollor: "1,530",
-//				volatilityInDollor: "3.5",
-//				volatilityType: "loss",
-//				isSelected: false
-//			),
-//			AssetModel(
-//				image: "USDC",
-//				name: "USDC",
-//				codeName: "USDC",
-//				amount: "0",
-//				amountInDollor: "0",
-//				volatilityInDollor: "0",
-//				volatilityType: "none",
-//				isSelected: false
-//			),
-		]
-
 		assetsAPIClient.positions().sink { completed in
 			switch completed {
 			case .finished:

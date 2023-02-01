@@ -1,0 +1,16 @@
+{
+    "wallet_info":
+    {
+        "name": "Amir",
+        "address": "gf4bh5n3m2c8l4j5w9i2l6t2de",
+        "profileImage": "avocado",
+        "profileColor": "Green 1 Color"
+    },
+    "wallet_balance":
+    {
+        "balance": "12,568,000",
+        "volatilityPercentage": "5.6",
+        "volatilityInDollor": "58.67",
+        "volatilityType": "profit"
+    }
+}
