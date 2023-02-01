@@ -12,4 +12,11 @@ struct WalletInfoModel: Codable {
 	public var address: String
 	public var profileImage: String
 	public var profileColor: String
+
+	enum CodingKeys: String, CodingKey {
+		case name
+		case address
+		case profileImage = "profile_image"
+		case profileColor = "profile_color"
+	}
 }

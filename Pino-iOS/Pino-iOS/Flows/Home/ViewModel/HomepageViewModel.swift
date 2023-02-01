@@ -36,7 +36,10 @@ class HomepageViewModel {
 	// MARK: - Private Properties
 
 	private var cancellables = Set<AnyCancellable>()
+
+	#warning("Mock client is temporary and must be replaced by API client")
 	private var assetsAPIClient = AssetsAPIMockClient()
+	private var walletAPIClient = WalletAPIMockClient()
 
 	// MARK: - Initializers
 
@@ -113,30 +116,32 @@ class HomepageViewModel {
 		positionAssetsList = positionAssetsList
 	}
 
-	#warning("all the following functions are temporary and must be replaced by network requests")
-
-	// MARK: - temporary Methods
-
 	private func getWalletInfo() {
 		// Request to get wallet info
-		let walletInfoModel = WalletInfoModel(
-			name: "Amir",
-			address: "gf4bh5n3m2c8l4j5w9i2l6t2de",
-			profileImage: "avocado",
-			profileColor: "Green 1 Color"
-		)
-		walletInfo = WalletInfoViewModel(walletInfoModel: walletInfoModel)
+		walletAPIClient.walletInfo().sink { completed in
+			switch completed {
+			case .finished:
+				print("Wallet info received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { walletInfo in
+			self.walletInfo = WalletInfoViewModel(walletInfoModel: walletInfo)
+		}.store(in: &cancellables)
 	}
 
 	private func getWalletBalance() {
 		// Request to get balance
-		let balanceModel = WalletBalanceModel(
-			balance: "12,568,000",
-			volatilityPercentage: "5.6",
-			volatilityInDollor: "58.67",
-			volatilityType: "profit"
-		)
-		walletBalance = WalletBalanceViewModel(balanceModel: balanceModel)
+		walletAPIClient.walletBalance().sink { completed in
+			switch completed {
+			case .finished:
+				print("Wallet balance received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { walletBalance in
+			self.walletBalance = WalletBalanceViewModel(balanceModel: walletBalance)
+		}.store(in: &cancellables)
 	}
 
 	private func getAssetsList() {
@@ -204,6 +209,4 @@ class HomepageViewModel {
 			}
 		}.store(in: &cancellables)
 	}
-
-	// MARK: - The end of temporary Methods
 }

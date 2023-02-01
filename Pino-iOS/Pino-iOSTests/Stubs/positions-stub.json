@@ -5,56 +5,56 @@
             "id": "4",
             "image": "cETH",
             "name": "cETH",
-            "codeName": "cETH",
+            "code_name": "cETH",
             "amount": "1.2",
-            "amountInDollor": "0",
-            "volatilityInDollor": "0",
-            "volatilityType": "none",
-            "isSelected": false
+            "amount_in_dollor": "0",
+            "volatility_in_dollor": "0",
+            "volatility_type": "none",
+            "is_selected": false
         },
         {
             "id": "5",
             "image": "aDAI",
             "name": "aDAI",
-            "codeName": "aDAI",
+            "code_name": "aDAI",
             "amount": "10.2",
-            "amountInDollor": "0",
-            "volatilityInDollor": "0",
-            "volatilityType": "none",
-            "isSelected": false
+            "amount_in_dollor": "0",
+            "volatility_in_dollor": "0",
+            "volatility_type": "none",
+            "is_selected": false
         },
         {
             "id": "6",
             "image": "Sand",
             "name": "Sand",
-            "codeName": "SAND",
+            "code_name": "SAND",
             "amount": "10.04",
-            "amountInDollor": "0",
-            "volatilityInDollor": "0",
-            "volatilityType": "none",
-            "isSelected": false
+            "amount_in_dollor": "0",
+            "volatility_in_dollor": "0",
+            "volatility_type": "none",
+            "is_selected": false
         },
         {
             "id": "7",
             "image": "Status",
             "name": "Status",
-            "codeName": "SNT",
+            "code_name": "SNT",
             "amount": "4,330",
-            "amountInDollor": "0",
-            "volatilityInDollor": "0",
-            "volatilityType": "none",
-            "isSelected": false
+            "amount_in_dollor": "0",
+            "volatility_in_dollor": "0",
+            "volatility_type": "none",
+            "is_selected": false
         },
         {
             "id": "8",
             "image": "DAI",
             "name": "DAI",
-            "codeName": "DAI",
+            "code_name": "DAI",
             "amount": "1.049",
-            "amountInDollor": "0",
-            "volatilityInDollor": "0",
-            "volatilityType": "none",
-            "isSelected": false
+            "amount_in_dollor": "0",
+            "volatility_in_dollor": "0",
+            "volatility_type": "none",
+            "is_selected": false
         }
         
     ]

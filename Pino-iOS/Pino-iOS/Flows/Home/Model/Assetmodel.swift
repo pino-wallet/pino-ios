@@ -19,6 +19,18 @@ public struct AssetModel: Codable {
 	public var volatilityType: String
 	public var isSelected: Bool
 
+	enum CodingKeys: String, CodingKey {
+		case id
+		case image
+		case name
+		case codeName = "code_name"
+		case amount
+		case amountInDollor = "amount_in_dollor"
+		case volatilityInDollor = "volatility_in_dollor"
+		case volatilityType = "volatility_type"
+		case isSelected = "is_selected"
+	}
+
 	// MARK: - Public Methods
 
 	public mutating func toggleIsSelected() {
