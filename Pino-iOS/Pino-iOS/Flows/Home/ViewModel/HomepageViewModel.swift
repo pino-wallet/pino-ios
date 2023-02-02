@@ -37,6 +37,10 @@ class HomepageViewModel {
 
 	private var cancellables = Set<AnyCancellable>()
 
+	#warning("Mock client is temporary and must be replaced by API client")
+	private var assetsAPIClient = AssetsAPIMockClient()
+	private var walletAPIClient = WalletAPIMockClient()
+
 	// MARK: - Initializers
 
 	init() {
@@ -112,30 +116,32 @@ class HomepageViewModel {
 		positionAssetsList = positionAssetsList
 	}
 
-	#warning("all the following functions are temporary and must be replaced by network requests")
-
-	// MARK: - temporary Methods
-
 	private func getWalletInfo() {
 		// Request to get wallet info
-		let walletInfoModel = WalletInfoModel(
-			name: "Amir",
-			address: "gf4bh5n3m2c8l4j5w9i2l6t2de",
-			profileImage: "avocado",
-			profileColor: "Green 1 Color"
-		)
-		walletInfo = WalletInfoViewModel(walletInfoModel: walletInfoModel)
+		walletAPIClient.walletInfo().sink { completed in
+			switch completed {
+			case .finished:
+				print("Wallet info received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { walletInfo in
+			self.walletInfo = WalletInfoViewModel(walletInfoModel: walletInfo)
+		}.store(in: &cancellables)
 	}
 
 	private func getWalletBalance() {
 		// Request to get balance
-		let balanceModel = WalletBalanceModel(
-			balance: "12,568,000",
-			volatilityPercentage: "5.6",
-			volatilityInDollor: "58.67",
-			volatilityType: .profit
-		)
-		walletBalance = WalletBalanceViewModel(balanceModel: balanceModel)
+		walletAPIClient.walletBalance().sink { completed in
+			switch completed {
+			case .finished:
+				print("Wallet balance received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { walletBalance in
+			self.walletBalance = WalletBalanceViewModel(balanceModel: walletBalance)
+		}.store(in: &cancellables)
 	}
 
 	private func getAssetsList() {
@@ -148,70 +154,16 @@ class HomepageViewModel {
 	}
 
 	private func getPositionAssetsList() {
-		let assetsModel = [
-			AssetModel(
-				image: "cETH",
-				name: "cETH",
-				codeName: "ETH",
-				amount: "1.2",
-				amountInDollor: "1,530",
-				volatilityInDollor: "10",
-				volatilityType: .profit,
-				isSelected: false
-			),
-			AssetModel(
-				image: "aDAI",
-				name: "aDAI",
-				codeName: "aDAI",
-				amount: "10.2",
-				amountInDollor: "10,3",
-				volatilityInDollor: "14",
-				volatilityType: .profit,
-				isSelected: false
-			),
-			AssetModel(
-				image: "Sand",
-				name: "Sand",
-				codeName: "SAND",
-				amount: "10,04",
-				amountInDollor: "1,530",
-				volatilityInDollor: "10",
-				volatilityType: .profit,
-				isSelected: false
-			),
-			AssetModel(
-				image: "Status",
-				name: "Status",
-				codeName: "SNT",
-				amount: "4,330",
-				amountInDollor: "1,530",
-				volatilityInDollor: "115",
-				volatilityType: .profit,
-				isSelected: false
-			),
-			AssetModel(
-				image: "DAI",
-				name: "DAI",
-				codeName: "DAI",
-				amount: "1.049",
-				amountInDollor: "1,530",
-				volatilityInDollor: "3.5",
-				volatilityType: .loss,
-				isSelected: false
-			),
-			AssetModel(
-				image: "USDC",
-				name: "USDC",
-				codeName: "USDC",
-				amount: "0",
-				amountInDollor: "0",
-				volatilityInDollor: "0",
-				volatilityType: .none,
-				isSelected: false
-			),
-		]
-
-		positionAssetsList = assetsModel.compactMap { AssetViewModel(assetModel: $0) }
+		assetsAPIClient.positions().sink { completed in
+			switch completed {
+			case .finished:
+				print("Positions received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { positions in
+			self.positionAssetsList = positions.positionsList.compactMap { AssetViewModel(assetModel: $0) }
+		}.store(in: &cancellables)
 	}
 
 	private func getManageAssetsList() {
@@ -240,106 +192,21 @@ class HomepageViewModel {
 	}
 
 	public func registerAssetsUserDefaults() {
-		let manageAssetsModel = [
-			AssetModel(
-				image: "Chainlink",
-				name: "Chainlink",
-				codeName: "Link",
-				amount: "10,04",
-				amountInDollor: "1,530",
-				volatilityInDollor: "10",
-				volatilityType: .profit,
-				isSelected: true
-			),
-			AssetModel(
-				image: "Ribon",
-				name: "Ribon",
-				codeName: "RBN",
-				amount: "4,330",
-				amountInDollor: "1,420",
-				volatilityInDollor: "115",
-				volatilityType: .profit,
-				isSelected: true
-			),
-			AssetModel(
-				image: "Tether",
-				name: "Tether",
-				codeName: "USDT",
-				amount: "1.049",
-				amountInDollor: "1,130",
-				volatilityInDollor: "3.5",
-				volatilityType: .loss,
-				isSelected: true
-			),
-			AssetModel(
-				image: "BTC",
-				name: "BTC",
-				codeName: "BTC",
-				amount: "0",
-				amountInDollor: "0",
-				volatilityInDollor: "0",
-				volatilityType: .none,
-				isSelected: true
-			),
-			AssetModel(
-				image: "cETH",
-				name: "cETH",
-				codeName: "ETH",
-				amount: "1.2",
-				amountInDollor: "0",
-				volatilityInDollor: "0",
-				volatilityType: .none,
-				isSelected: false
-			),
-			AssetModel(
-				image: "aDAI",
-				name: "aDAI",
-				codeName: "aDAI",
-				amount: "10.2",
-				amountInDollor: "0",
-				volatilityInDollor: "0",
-				volatilityType: .none,
-				isSelected: false
-			),
-			AssetModel(
-				image: "Sand",
-				name: "Sand",
-				codeName: "SAND",
-				amount: "10,04",
-				amountInDollor: "0",
-				volatilityInDollor: "0",
-				volatilityType: .none,
-				isSelected: false
-			),
-			AssetModel(
-				image: "Status",
-				name: "Status",
-				codeName: "SNT",
-				amount: "4,330",
-				amountInDollor: "0",
-				volatilityInDollor: "0",
-				volatilityType: .none,
-				isSelected: false
-			),
-			AssetModel(
-				image: "DAI",
-				name: "DAI",
-				codeName: "DAI",
-				amount: "1.049",
-				amountInDollor: "0",
-				volatilityInDollor: "0",
-				volatilityType: .none,
-				isSelected: false
-			),
-		]
-		do {
-			let encodedAssets = try JSONEncoder().encode(manageAssetsModel)
-			UserDefaults.standard.register(defaults: ["assets": encodedAssets])
-		} catch {
-			print(error)
-			UserDefaults.standard.register(defaults: ["assets": []])
-		}
+		assetsAPIClient.assets().sink { completed in
+			switch completed {
+			case .finished:
+				print("Assets received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { assets in
+			do {
+				let encodedAssets = try JSONEncoder().encode(assets.assetsList)
+				UserDefaults.standard.register(defaults: ["assets": encodedAssets])
+			} catch {
+				print(error)
+				UserDefaults.standard.register(defaults: ["assets": []])
+			}
+		}.store(in: &cancellables)
 	}
-
-	// MARK: - The end of temporary Methods
 }

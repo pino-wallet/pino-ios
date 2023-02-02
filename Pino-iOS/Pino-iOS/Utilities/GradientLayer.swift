@@ -32,7 +32,7 @@ extension GradientLayer {
 		// Custom Styles
 		public static let homeBackground = Style(
 			colors: [UIColor.Pino.secondaryBackground.cgColor, UIColor.Pino.background.cgColor],
-			locations: [0.5, 0.5]
+			locations: [0.4, 0.45]
 		)
 		public static let headerBackground = Style(
 			colors: [UIColor.Pino.secondaryBackground.cgColor, UIColor.Pino.background.cgColor],

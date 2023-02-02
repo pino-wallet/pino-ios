@@ -1,0 +1,61 @@
+{
+    "data":
+    [
+        {
+            "id": "4",
+            "image": "cETH",
+            "name": "cETH",
+            "code_name": "cETH",
+            "amount": "1.2",
+            "amount_in_dollor": "0",
+            "volatility_in_dollor": "0",
+            "volatility_type": "none",
+            "is_selected": false
+        },
+        {
+            "id": "5",
+            "image": "aDAI",
+            "name": "aDAI",
+            "code_name": "aDAI",
+            "amount": "10.2",
+            "amount_in_dollor": "0",
+            "volatility_in_dollor": "0",
+            "volatility_type": "none",
+            "is_selected": false
+        },
+        {
+            "id": "6",
+            "image": "Sand",
+            "name": "Sand",
+            "code_name": "SAND",
+            "amount": "10.04",
+            "amount_in_dollor": "0",
+            "volatility_in_dollor": "0",
+            "volatility_type": "none",
+            "is_selected": false
+        },
+        {
+            "id": "7",
+            "image": "Status",
+            "name": "Status",
+            "code_name": "SNT",
+            "amount": "4,330",
+            "amount_in_dollor": "0",
+            "volatility_in_dollor": "0",
+            "volatility_type": "none",
+            "is_selected": false
+        },
+        {
+            "id": "8",
+            "image": "DAI",
+            "name": "DAI",
+            "code_name": "DAI",
+            "amount": "1.049",
+            "amount_in_dollor": "0",
+            "volatility_in_dollor": "0",
+            "volatility_type": "none",
+            "is_selected": false
+        }
+        
+    ]
+}
