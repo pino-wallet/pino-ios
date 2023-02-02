@@ -3,3 +3,4 @@
 
 npx --no -- commitlint --edit
 git-format-staged --formatter "swiftformat stdin --stdinpath '{}'" "*.swift"
+npx --no -- commitlint --edit 

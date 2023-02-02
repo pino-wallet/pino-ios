@@ -19,7 +19,7 @@ class AssetsCollectionView: UICollectionView {
 
 	internal var homeVM: HomepageViewModel!
 
-	// MARK: Initializers
+	// MARK: -Initializers
 
 	init(homeVM: HomepageViewModel) {
 		self.homeVM = homeVM
