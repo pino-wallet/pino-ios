@@ -33,9 +33,9 @@ class ResentHistoryHeaderView: UICollectionReusableView {
 	private func setupStyle() {
 		backgroundColor = .Pino.background
 
-		titleLabel.text = title
+        titleLabel.text = title
 		titleLabel.textColor = .Pino.label
-		titleLabel.font = .PinoStyle.semiboldBody
+		titleLabel.font = .PinoStyle.mediumSubheadline
 	}
 
 	private func setupConstraint() {

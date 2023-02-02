@@ -59,6 +59,7 @@ class HistoryCollectionViewCell: UICollectionViewCell {
 		case .pending:
 			statusLabel.alpha = 1
 			statusLabel.text = "Pending..."
+            statusIcon.alpha = 0
 		case .success:
 			statusIcon.alpha = 0
 			statusLabel.alpha = 0
@@ -73,6 +74,7 @@ class HistoryCollectionViewCell: UICollectionViewCell {
 		contentStackView.axis = .horizontal
 		actionTitleStackView.axis = .vertical
 		statusStackView.axis = .horizontal
+        statusStackView.distribution = .fill
 
 		contentStackView.spacing = 12
 		actionTitleStackView.spacing = 8
@@ -81,7 +83,7 @@ class HistoryCollectionViewCell: UICollectionViewCell {
 		actionIcon.backgroundColor = .Pino.background
 		actionIcon.contentMode = .center
 
-		actionTitleLabel.font = .PinoStyle.mediumFootnote
+		actionTitleLabel.font = .PinoStyle.mediumCallout
 		timeLabel.font = .PinoStyle.mediumFootnote
 		statusLabel.font = .PinoStyle.mediumFootnote
 
@@ -90,6 +92,9 @@ class HistoryCollectionViewCell: UICollectionViewCell {
 		timeLabel.textColor = .Pino.black
 
 		statusLabel.textAlignment = .center
+        statusIcon.image = UIImage(named: "Info-Circle, error")
+        statusIcon.tintColor = .Pino.red
+        
 	}
 
 	override func layoutIfNeeded() {

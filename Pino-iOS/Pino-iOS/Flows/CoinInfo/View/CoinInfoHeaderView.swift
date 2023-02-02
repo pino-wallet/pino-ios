@@ -111,25 +111,27 @@ class CoinInfoHeaderView: UICollectionReusableView {
 		lineView.backgroundColor = .Pino.gray5
 
 		contentStackView.axis = .vertical
+        contentStackView.distribution = .fill
+        contentStackView.spacing = 30
+        
 		topStackView.axis = .vertical
+        topStackView.spacing = -20
+
+        
 		amountStackView.axis = .horizontal
+        
 		changingRateStackView.axis = .horizontal
 
 		coinStackView.axis = .vertical
 		coinStackView.spacing = 13
 		coinStackView.alignment = .center
 		coinStackView.distribution = .fill
+        
+        bottonStackView.axis = .vertical
+        bottonStackView.distribution = .fillEqually
+        bottonStackView.spacing = 25
 
 		assetsTitleLabel.font = .PinoStyle.semiboldTitle2
-
-		contentStackView.distribution = .fill
-		contentStackView.spacing = 30
-
-		topStackView.spacing = -20
-
-		bottonStackView.axis = .vertical
-		bottonStackView.distribution = .fillEqually
-		bottonStackView.spacing = 25
 
 		[investStackView, collateralStackView, borrowStackView].forEach {
 			$0.axis = .horizontal
@@ -179,7 +181,6 @@ class CoinInfoHeaderView: UICollectionReusableView {
 			self?.investTitleLabel.text = "Invest"
 			self?.collateralTitleLabel.text = "Collateral"
 			self?.borrowTitleLabel.text = "Borrow"
-
 		}.store(in: &cancellables)
 	}
 

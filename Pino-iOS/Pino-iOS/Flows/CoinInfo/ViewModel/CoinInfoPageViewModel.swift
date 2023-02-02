@@ -52,7 +52,7 @@ class CoinInfoPageViewModel {
 			userAmount: "12,43",
 			coinAmount: "5,3",
 			name: "4.98 APE",
-			changingRate: "12,9",
+			changingRate: "12,9 %",
 			changingRateType: .decrease,
 			barrowAmount: "12,1"
 		)
