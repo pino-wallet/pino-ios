@@ -6,6 +6,6 @@
 //
 
 enum CoinInfoError: Error {
-    case networkingConnection
-    case requestFaild
+	case networkingConnection
+	case requestFaild
 }

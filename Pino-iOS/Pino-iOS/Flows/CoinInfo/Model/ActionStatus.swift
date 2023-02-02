@@ -6,7 +6,7 @@
 //
 
 public enum ActionStatus {
-    case failed
-    case success
-    case pending
+	case failed
+	case success
+	case pending
 }

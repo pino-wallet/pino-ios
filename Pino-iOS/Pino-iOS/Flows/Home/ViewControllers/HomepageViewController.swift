@@ -19,11 +19,10 @@ class HomepageViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-        
-        let coinInfoVC = UINavigationController()
-        coinInfoVC.viewControllers = [CoinInfoViewController()]
-        present(coinInfoVC, animated: true)
-        
+
+		let coinInfoVC = UINavigationController()
+		coinInfoVC.viewControllers = [CoinInfoViewController()]
+		present(coinInfoVC, animated: true)
 	}
 
 	override func viewDidLayoutSubviews() {

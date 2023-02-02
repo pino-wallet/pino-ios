@@ -8,28 +8,27 @@
 import Foundation
 
 struct ActionHistoryViewModel {
-    //MARK: - Public Properties
-    public var actionHistoryModel: ActionHistoryModel!
+	// MARK: - Public Properties
 
-    
-    public var actionIcon:String{
-       return actionHistoryModel.actinIcon
-    }
-    
-    public var actionTitle :String{
-        return actionHistoryModel.actionTitle
-    }
-    
-    public var time :String{
-        return actionHistoryModel.time
-    }
-    
-    public var status : ActionStatus{
-        if let status = actionHistoryModel.status {
-          return status
-        }else{
-            return .success
-        }
-    }
-    
+	public var actionHistoryModel: ActionHistoryModel!
+
+	public var actionIcon: String {
+		actionHistoryModel.actinIcon
+	}
+
+	public var actionTitle: String {
+		actionHistoryModel.actionTitle
+	}
+
+	public var time: String {
+		actionHistoryModel.time
+	}
+
+	public var status: ActionStatus {
+		if let status = actionHistoryModel.status {
+			return status
+		} else {
+			return .success
+		}
+	}
 }
