@@ -83,7 +83,7 @@ public class PinoToastView: UIView, ToastView {
 					)
 				}
 			} else {
-				print("Toast view has not been added to any view")
+				fatalError("Toast view has not been added to any view")
 			}
 		}
 	}
