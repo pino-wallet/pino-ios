@@ -35,4 +35,11 @@ extension PinoLabel.Style {
 		numberOfLine: 0,
 		lineSpacing: 6
 	)
+    
+  public static let info = PinoLabel.Style(
+        textColor: .Pino.label,
+        font: .PinoStyle.mediumBody,
+        numberOfLine: 1,
+        lineSpacing: 0
+    )
 }

@@ -17,4 +17,10 @@ extension String {
 		}
 		return array
 	}
+    static func minimizeText(text: String, textCount: Int) -> String {
+        let firstIndex = text.index(text.startIndex, offsetBy: 4)
+        let endIndex = text.index(text.endIndex, offsetBy: -4)
+        
+        return "\(text[..<firstIndex])...\(text[endIndex...])"
+    }
 }
