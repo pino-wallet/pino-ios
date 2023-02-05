@@ -17,7 +17,6 @@ public class PinoToastView: UIView, ToastView {
 	private let toastLabel = UILabel()
 	private let toastImage = UIImageView()
 	private var isShowingToast = false
-	private var superView: UIView!
 
 	// MARK: - Public Properties
 
@@ -65,23 +64,26 @@ public class PinoToastView: UIView, ToastView {
 	public func showToast() {
 		if !isShowingToast {
 			isShowingToast = true
-			setupSuperView()
-			switch alignment {
-			case .top:
-				animateToastView(
-					originY: 10,
-					destinationY: 32,
-					delay: 1.2,
-					verticalConstraint: .top(to: superView.layoutMarginsGuide, padding: 32),
-					isFade: true
-				)
-			case .bottom:
-				animateToastView(
-					originY: superView.frame.height,
-					destinationY: superView.frame.height - 60,
-					delay: 2,
-					verticalConstraint: .bottom(to: superView.layoutMarginsGuide, padding: 60)
-				)
+			if let superView = superView() {
+				switch alignment {
+				case .top:
+					animateToastView(
+						originY: 10,
+						destinationY: 32,
+						delay: 1.2,
+						verticalConstraint: .top(to: superView.layoutMarginsGuide, padding: 32),
+						isFade: true
+					)
+				case .bottom:
+					animateToastView(
+						originY: superView.frame.height,
+						destinationY: superView.frame.height - 60,
+						delay: 2,
+						verticalConstraint: .bottom(to: superView.layoutMarginsGuide, padding: 60)
+					)
+				}
+			} else {
+				fatalError("Toast view has not been added to any view")
 			}
 		}
 	}
@@ -123,7 +125,7 @@ public class PinoToastView: UIView, ToastView {
 		)
 	}
 
-	private func setupSuperView() {
+	private func superView() -> UIView? {
 		let currentWindow = UIApplication
 			.shared
 			.connectedScenes
@@ -131,10 +133,16 @@ public class PinoToastView: UIView, ToastView {
 			.first(where: { $0 is UIWindowScene })
 			.flatMap { $0 as? UIWindowScene }?.windows
 			.first(where: \.isKeyWindow)
-		guard let superView = currentWindow?.rootViewController?.view
-		else { fatalError("Toast view has not been added to any view") }
-		superView.addSubview(self)
-		self.superView = superView
+		if var topController = currentWindow?.rootViewController {
+			while let presentedViewController = topController.presentedViewController {
+				topController = presentedViewController
+			}
+			let superView = topController.view
+			superView?.addSubview(self)
+			return superView
+		} else {
+			return nil
+		}
 	}
 
 	private func animateToastView(

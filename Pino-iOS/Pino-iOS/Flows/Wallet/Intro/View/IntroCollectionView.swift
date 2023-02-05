@@ -79,14 +79,12 @@ extension IntroCollectionView: UICollectionViewDataSource {
 // MARK: Collection View Delegate
 
 extension IntroCollectionView: UICollectionViewDelegate {
-	func collectionView(
-		_ collectionView: UICollectionView,
-		willDisplay cell: UICollectionViewCell,
-		forItemAt indexPath: IndexPath
-	) {
+	func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
 		// The page control in the parent view needs it to update current page
 		if let pageDidChange {
-			pageDidChange(indexPath.item)
+			// Get the current page based on the scroll offset
+			let page = Int(round(scrollView.contentOffset.x / scrollView.frame.size.width))
+			pageDidChange(page)
 		}
 	}
 }
