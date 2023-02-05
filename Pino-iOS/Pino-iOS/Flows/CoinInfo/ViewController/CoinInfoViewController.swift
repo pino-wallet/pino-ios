@@ -41,8 +41,19 @@ class CoinInfoViewController: UIViewController {
 
 	private func setupNavigationBar() {
 		navigationController?.navigationBar.backgroundColor = .Pino.primary
-		navigationItem.leftBarButtonItem = CoinInfoNavigationItems.closeButton
+		navigationItem.leftBarButtonItem = UIBarButtonItem(
+			image: UIImage(named: "close"),
+			style: .plain,
+			target: self,
+			action: #selector(closePage)
+		)
+		navigationItem.leftBarButtonItem?.tintColor = .white
 		navigationItem.rightBarButtonItem = CoinInfoNavigationItems.chartButton
 		navigationItem.titleView = CoinInfoNavigationItems.coinTitle
+	}
+
+	@objc
+	func closePage() {
+		dismiss(animated: true)
 	}
 }

@@ -19,10 +19,6 @@ class HomepageViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		let coinInfoVC = UINavigationController()
-		coinInfoVC.viewControllers = [CoinInfoViewController()]
-		present(coinInfoVC, animated: true)
 	}
 
 	override func viewDidLayoutSubviews() {
@@ -39,7 +35,9 @@ class HomepageViewController: UIViewController {
 
 	private func setupView() {
 		view = UIView()
-		let assetsCollectionView = AssetsCollectionView(homeVM: homeVM)
+		let assetsCollectionView = AssetsCollectionView(homeVM: homeVM, itemSelected: {
+			self.presentCoinInfoPage()
+		})
 		view.addSubview(assetsCollectionView)
 		assetsCollectionView.pin(.allEdges)
 		setupToastView()
@@ -75,5 +73,11 @@ class HomepageViewController: UIViewController {
 		pasteboard.string = homeVM.walletInfo.address
 
 		addressCopiedToastView.showToast()
+	}
+
+	private func presentCoinInfoPage() {
+		let coinInfoNav = UINavigationController()
+		coinInfoNav.viewControllers = [CoinInfoViewController()]
+		present(coinInfoNav, animated: true)
 	}
 }

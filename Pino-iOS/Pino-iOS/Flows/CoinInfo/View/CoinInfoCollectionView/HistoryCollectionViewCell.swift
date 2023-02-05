@@ -52,19 +52,6 @@ class HistoryCollectionViewCell: UICollectionViewCell {
 		actionTitleLabel.text = historyCoinInfoVM.actionTitle
 		timeLabel.text = historyCoinInfoVM.time
 
-		switch historyCoinInfoVM.status {
-		case .failed:
-			statusIcon.alpha = 1
-			statusLabel.alpha = 0
-		case .pending:
-			statusLabel.alpha = 1
-			statusLabel.text = "Pending..."
-			statusIcon.alpha = 0
-		case .success:
-			statusIcon.alpha = 0
-			statusLabel.alpha = 0
-		}
-
 		backgroundColor = .Pino.background
 
 		actionCardView.layer.cornerRadius = 12
@@ -80,6 +67,8 @@ class HistoryCollectionViewCell: UICollectionViewCell {
 		actionTitleStackView.spacing = 8
 		statusStackView.spacing = 4
 
+		actionTitleStackView.alignment = .leading
+
 		actionIcon.backgroundColor = .Pino.background
 		actionIcon.contentMode = .center
 
@@ -91,9 +80,23 @@ class HistoryCollectionViewCell: UICollectionViewCell {
 		statusLabel.textColor = .Pino.pendingOrange
 		timeLabel.textColor = .Pino.black
 
+		statusLabel.text = "Pending..."
+
 		statusLabel.textAlignment = .center
 		statusIcon.image = UIImage(named: "Info-Circle, error")
 		statusIcon.tintColor = .Pino.red
+
+		switch historyCoinInfoVM.status {
+		case .failed:
+			statusIcon.isHidden = false
+			statusLabel.isHidden = true
+		case .pending:
+			statusIcon.isHidden = true
+			statusLabel.isHidden = false
+		case .success:
+			statusIcon.isHidden = true
+			statusLabel.isHidden = true
+		}
 	}
 
 	override func layoutIfNeeded() {
@@ -110,9 +113,7 @@ class HistoryCollectionViewCell: UICollectionViewCell {
 		)
 		contentStackView.pin(.centerY, .leading(padding: 14))
 		actionIcon.pin(.fixedWidth(44), .fixedHeight(44))
-
 		actionTitleStackView.pin(.trailing(padding: 14))
-
 		statusLabel.pin(.fixedHeight(20), .fixedWidth(80))
 	}
 }

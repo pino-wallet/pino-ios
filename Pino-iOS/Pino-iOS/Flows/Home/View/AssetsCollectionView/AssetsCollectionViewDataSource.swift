@@ -78,6 +78,10 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 		}
 	}
 
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		itemSelected()
+	}
+
 	// MARK: - Private Methods
 
 	private func homepageHeaderView(kind: String, indexPath: IndexPath) -> UICollectionReusableView? {

@@ -15,14 +15,19 @@ class AssetsCollectionView: UICollectionView {
 	private let assetsRefreshControl = UIRefreshControl()
 	private let refreshErrorToastView = PinoToastView()
 
+	// MARK: - Public Properties
+
+	public var itemSelected: () -> Void
+
 	// MARK: - Internal Properties
 
 	internal var homeVM: HomepageViewModel!
 
 	// MARK: - Initializers
 
-	init(homeVM: HomepageViewModel) {
+	init(homeVM: HomepageViewModel, itemSelected: @escaping () -> Void) {
 		self.homeVM = homeVM
+		self.itemSelected = itemSelected
 		// Set flow layout for collection view
 		let flowLayout = UICollectionViewFlowLayout()
 		flowLayout.minimumLineSpacing = 0
