@@ -13,21 +13,21 @@ public class PinoTextFieldView: UIView {
 			updateStyle()
 		}
 	}
-    public var customRightView: UIView! {
-        didSet {
-            updateStyle()
-        }
-    }
-    
-    public var errorText: String! {
-        didSet {
-            updateStyle()
-        }
-    }
-    
-    
-    let textField = UITextField()
-    let errorLabel = UILabel()
+
+	public var customRightView: UIView! {
+		didSet {
+			updateStyle()
+		}
+	}
+
+	public var errorText: String! {
+		didSet {
+			updateStyle()
+		}
+	}
+
+	let textField = UITextField()
+	let errorLabel = UILabel()
 
 	init(style: Style) {
 		self.style = style
@@ -41,20 +41,19 @@ public class PinoTextFieldView: UIView {
 	}
 
 	private func updateStyle() {
-        addSubview(textField)
-        
-        // Setup error label
-        addSubview(errorLabel)
-        errorLabel.isHidden = true
-        errorLabel.textColor = .Pino.red
-        errorLabel.font = UIFont.PinoStyle.mediumFootnote
-        
-        
+		addSubview(textField)
+
+		// Setup error label
+		addSubview(errorLabel)
+		errorLabel.isHidden = true
+		errorLabel.textColor = .Pino.red
+		errorLabel.font = UIFont.PinoStyle.mediumFootnote
+
 		textField.attributedPlaceholder = NSAttributedString(
 			string: textField.placeholder ?? " ",
 			attributes: [NSAttributedString.Key.foregroundColor: style.placeholderColor]
 		)
-        textField.layer.cornerRadius = 8
+		textField.layer.cornerRadius = 8
 		textField.layer.borderWidth = 1
 		textField.layer.borderColor = style.borderColor.cgColor
 		textField.backgroundColor = .Pino.secondaryBackground
@@ -64,41 +63,41 @@ public class PinoTextFieldView: UIView {
 		let textFieldLeftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 48))
 		textField.leftView = textFieldLeftView
 		textField.leftViewMode = .always
-        let textFieldRightView = UIView()
-        textFieldRightView.translatesAutoresizingMaskIntoConstraints = false
-        textFieldRightView.pin(.fixedWidth(46), .fixedHeight(48))
-        let errorIcon = UIImageView(image: UIImage(named: "error"))
-       textField.rightView = textFieldRightView
-        textField.rightViewMode = .always
-                        switch style {
-            case .error:
-                            pin(.fixedHeight(74))
-                textFieldRightView.addSubview(errorIcon)
-                            errorIcon.pin(
-                                .centerY(to: errorIcon.superview),
-                                .centerX(to: errorIcon.superview)
-                            )
-                            errorLabel.isHidden = false
-                            errorLabel.text = errorText
-                        case .customRightView:
-                            pin(.fixedHeight(48))
-                            guard let customRightView = customRightView as UIView? else {
-                                return
-                            }
-                textFieldRightView.addSubview(customRightView)
-                            customRightView.pin(
-                                .centerY(to: customRightView.superview),
-                                .centerX(to: customRightView.superview)
-                            )
-                        default:
-                            pin(.fixedHeight(48))
-                            textField.rightViewMode = .never
-            }
+		let textFieldRightView = UIView()
+		textFieldRightView.translatesAutoresizingMaskIntoConstraints = false
+		textFieldRightView.pin(.fixedWidth(46), .fixedHeight(48))
+		let errorIcon = UIImageView(image: UIImage(named: "error"))
+		textField.rightView = textFieldRightView
+		textField.rightViewMode = .always
+		switch style {
+		case .error:
+			pin(.fixedHeight(74))
+			textFieldRightView.addSubview(errorIcon)
+			errorIcon.pin(
+				.centerY(to: errorIcon.superview),
+				.centerX(to: errorIcon.superview)
+			)
+			errorLabel.isHidden = false
+			errorLabel.text = errorText
+		case .customRightView:
+			pin(.fixedHeight(48))
+			guard let customRightView = customRightView as UIView? else {
+				return
+			}
+			textFieldRightView.addSubview(customRightView)
+			customRightView.pin(
+				.centerY(to: customRightView.superview),
+				.centerX(to: customRightView.superview)
+			)
+		default:
+			pin(.fixedHeight(48))
+			textField.rightViewMode = .never
+		}
 	}
 
 	private func setupConstraints() {
-        textField.pin(.fixedHeight(48), .top(to: superview, padding: 0), .horizontalEdges(to: superview, padding: 0))
-        errorLabel.pin(.relative(.top, 8, to: textField, .bottom))
+		textField.pin(.fixedHeight(48), .top(to: superview, padding: 0), .horizontalEdges(to: superview, padding: 0))
+		errorLabel.pin(.relative(.top, 8, to: textField, .bottom))
 	}
 }
 

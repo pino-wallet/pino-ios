@@ -8,11 +8,20 @@
 import UIKit
 
 class AddCustomAssetView: UIView {
+	// MARK: - Private Properties
+
 	private let contractTextfieldView = PinoTextFieldView(style: .customRightView)
 	private let addButton = PinoButton(style: .active, title: "Add")
-    private let scanQRCodeIconButton = UIButton()
-    private let pasteFromClipboardview = PasteFromClipboardView(contractAddress: "0x4108A1698EDB3d3E66aAD93E030dbF28Ea5ABB11")
-    private let customAssetInfoView = CustomAssetInfoView(assetName: "USDC", assetIcon: "USDC", userBalance: 230.1, assetWebsite: "www.usdc.com", assetContractAddress: "0x4108A1698EDB3d3E66aAD93E030dbF28Ea5ABB11")
+	private let scanQRCodeIconButton = UIButton()
+	private let pasteFromClipboardview =
+		PasteFromClipboardView(contractAddress: "0x4108A1698EDB3d3E66aAD93E030dbF28Ea5ABB11")
+	private let customAssetInfoView = CustomAssetInfoView(
+		assetName: "USDC",
+		assetIcon: "USDC",
+		userBalance: 230.1,
+		assetWebsite: "www.usdc.com",
+		assetContractAddress: "0x4108A1698EDB3d3E66aAD93E030dbF28Ea5ABB11"
+	)
 
 	init() {
 		super.init(frame: .zero)
@@ -25,13 +34,15 @@ class AddCustomAssetView: UIView {
 	}
 
 	private func setupView() {
+		// Setup subviews
 		addSubview(addButton)
 		addSubview(contractTextfieldView)
-        addSubview(pasteFromClipboardview)
-//        addSubview(customAssetInfoView)
-        contractTextfieldView.textField.placeholder = "Enter contract address"
-        scanQRCodeIconButton.setImage(UIImage(named: "qr_code_scanner"), for: .normal)
-        contractTextfieldView.customRightView = scanQRCodeIconButton
+		addSubview(pasteFromClipboardview)
+		//        addSubview(customAssetInfoView)
+		// Setup contract text field view
+		contractTextfieldView.textField.placeholder = "Enter contract address"
+		scanQRCodeIconButton.setImage(UIImage(named: "qr_code_scanner"), for: .normal)
+		contractTextfieldView.customRightView = scanQRCodeIconButton
 	}
 
 	private func setupConstraints() {
@@ -43,7 +54,11 @@ class AddCustomAssetView: UIView {
 			.bottom(to: layoutMarginsGuide, padding: 0),
 			.horizontalEdges(to: layoutMarginsGuide, padding: 0)
 		)
-        pasteFromClipboardview.pin(.relative(.top, 8, to: contractTextfieldView, .bottom), .horizontalEdges(to: layoutMarginsGuide, padding: 0))
-//        customAssetInfoView.pin(.relative(.top, 16, to: contractTextfieldView, .bottom), .horizontalEdges(to: layoutMarginsGuide, padding: 0))
+		pasteFromClipboardview.pin(
+			.relative(.top, 8, to: contractTextfieldView, .bottom),
+			.horizontalEdges(to: layoutMarginsGuide, padding: 0)
+		)
+		//        customAssetInfoView.pin(.relative(.top, 16, to: contractTextfieldView, .bottom), .horizontalEdges(to:
+		//        layoutMarginsGuide, padding: 0))
 	}
 }
