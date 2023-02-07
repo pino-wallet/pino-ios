@@ -19,4 +19,6 @@ struct CoinInfoModel {
 	public var investAmount: String?
 	public var callateralAmount: String?
 	public var barrowAmount: String?
+    
+    
 }
