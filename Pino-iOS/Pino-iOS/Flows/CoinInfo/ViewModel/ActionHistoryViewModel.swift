@@ -13,7 +13,7 @@ struct ActionHistoryViewModel {
 	public var actionHistoryModel: ActionHistoryModel!
 
 	public var actionIcon: String {
-		actionHistoryModel.actinIcon
+		actionHistoryModel.actionIcon
 	}
 
 	public var actionTitle: String {

@@ -62,19 +62,19 @@ class CoinInfoPageViewModel {
 	private func getHistoryList() {
 		let actionsHistoryList = [
 			ActionHistoryModel(
-				actinIcon: "swap",
+				actionIcon: "swap",
 				actionTitle: "Swap 2.4 APE -> 200 DAI",
 				time: "20 min ago",
 				status: .pending
 			),
 			ActionHistoryModel(
-				actinIcon: "Borrow",
+				actionIcon: "Borrow",
 				actionTitle: "Borrow 1.44 APE",
 				time: "1 hour ago",
 				status: .success
 			),
-			ActionHistoryModel(actinIcon: "send", actionTitle: "Send 2 APE", time: "3 hours ago", status: .failed),
-			ActionHistoryModel(actinIcon: "recive", actionTitle: "Receive 1.4 APE", time: "1 day ago", status: .failed),
+			ActionHistoryModel(actionIcon: "send", actionTitle: "Send 2 APE", time: "3 hours ago", status: .failed),
+			ActionHistoryModel(actionIcon: "recive", actionTitle: "Receive 1.4 APE", time: "1 day ago", status: .failed),
 		]
 
 		historyList = actionsHistoryList.compactMap { ActionHistoryViewModel(actionHistoryModel: $0) }
