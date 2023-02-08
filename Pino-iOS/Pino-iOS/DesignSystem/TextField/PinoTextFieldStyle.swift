@@ -8,35 +8,10 @@
 import UIKit
 
 extension PinoTextFieldView {
-	public struct Style: Equatable {
-		public let placeholderColor: UIColor
-		public let textColor: UIColor
-		public let borderColor: UIColor
-		public let editingBorderColor: UIColor
-		public let type: String
+	public enum Style {
+		case normal
+		case error
+		case success
+		case customIcon(UIView)
 	}
-}
-
-extension PinoTextFieldView.Style {
-	public static let normal = PinoTextFieldView.Style(
-		placeholderColor: .Pino.gray2,
-		textColor: .Pino.label,
-		borderColor: .Pino.gray5,
-		editingBorderColor: .Pino.green3,
-		type: "normal"
-	)
-	public static let error = PinoTextFieldView.Style(
-		placeholderColor: .Pino.gray2,
-		textColor: .Pino.label,
-		borderColor: .Pino.gray5,
-		editingBorderColor: .Pino.green3,
-		type: "error"
-	)
-	public static let customRightView = PinoTextFieldView.Style(
-		placeholderColor: .Pino.gray2,
-		textColor: .Pino.label,
-		borderColor: .Pino.gray5,
-		editingBorderColor: .Pino.green3,
-		type: "customRightView"
-	)
 }

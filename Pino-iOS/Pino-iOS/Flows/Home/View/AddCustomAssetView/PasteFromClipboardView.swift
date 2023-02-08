@@ -43,21 +43,14 @@ class PasteFromClipboardView: UIView {
 		layer.cornerRadius = 8
 
 		// Setup paste button view
-		pasteButton.configuration = UIButton.Configuration.borderless()
-		let attributedPastebuttonLabel = AttributedString(
-			"Paste from clipboard",
-			attributes: AttributeContainer([
-				NSAttributedString.Key.font: UIFont.PinoStyle.semiboldSubheadline!,
-				NSAttributedString.Key.foregroundColor: UIColor.Pino.green3,
-			])
-		)
-		pasteButton.configuration?.attributedTitle = attributedPastebuttonLabel
-		pasteButton.configuration?.image = UIImage(named: "copy")
-		pasteButton.configuration?.imagePadding = 4
-		pasteButton.contentHorizontalAlignment = .left
-		var pasteButtonContentInset = NSDirectionalEdgeInsets()
-		pasteButtonContentInset.leading = 0
-		pasteButton.configuration?.contentInsets = pasteButtonContentInset
+		pasteButton.setImage(UIImage(named: "copy"), for: .normal)
+		pasteButton.setTitle("Paste from clipboard", for: .normal)
+		pasteButton.setTitleColor(.Pino.green3, for: .normal)
+		pasteButton.tintColor = .Pino.primary
+		pasteButton.setConfiguraton(font: .PinoStyle.semiboldSubheadline!, imagePadding: 4)
+		var pasteButtonContentInsets = NSDirectionalEdgeInsets()
+		pasteButtonContentInsets.leading = 0
+		pasteButton.configuration?.contentInsets = pasteButtonContentInsets
 
 		// Setup contract address label view
 		contractAddressLabel.text = contractAddress
@@ -67,6 +60,7 @@ class PasteFromClipboardView: UIView {
 		// Setup stackview
 		addSubview(stackView)
 		stackView.axis = .vertical
+		stackView.alignment = .leading
 		stackView.addArrangedSubview(pasteButton)
 		stackView.addArrangedSubview(contractAddressLabel)
 		stackView.spacing = 6
@@ -74,6 +68,5 @@ class PasteFromClipboardView: UIView {
 
 	private func setupConstraints() {
 		stackView.pin(.verticalEdges(to: superview, padding: 12), .horizontalEdges(to: superview, padding: 14))
-		pasteButton.pin(.top(to: stackView, padding: 0), .fixedHeight(22), .leading(to: stackView, padding: 0))
 	}
 }

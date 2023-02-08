@@ -4,10 +4,16 @@
 //
 //  Created by Amir hossein kazemi seresht on 2/5/23.
 //
-
 import UIKit
 
 class CustomAssetViewItem: UIView {
+	// Typealias
+	typealias presentTooltipAlertClosureType = (_ tooltipTitle: String, _ tooltipDescription: String) -> Void
+
+	// MARK: - Closure
+
+	var presentTooltipAlertClosure: presentTooltipAlertClosureType?
+
 	// MARK: - Public Properties
 
 	public var titleText: String
@@ -21,8 +27,17 @@ class CustomAssetViewItem: UIView {
 
 	// MARK: - Private Properties
 
+	private let mainStackView = UIStackView()
+	private let titleStackView = UIStackView()
+	private let betweenStackView = UIStackView()
+	private let infoStackView = UIStackView()
 	private let titleLabel = UILabel()
 	private let tooltipIconViewButton = UIButton()
+	private var assetIconView: UIImageView? {
+		didSet {
+			setupAssetIconViewConstraints()
+		}
+	}
 
 	init(titleText: String, tooltipText: String, infoView: UIView) {
 		self.titleText = titleText
@@ -46,46 +61,53 @@ class CustomAssetViewItem: UIView {
 		titleLabel.textColor = .Pino.secondaryLabel
 
 		// Setup subviews
-		addSubview(titleLabel)
-		addSubview(tooltipIconViewButton)
-		addSubview(infoView)
+		addSubview(mainStackView)
+
+		// Setup title stackview
+		titleStackView.axis = .horizontal
+		titleStackView.alignment = .center
+		titleStackView.spacing = 2
+		titleStackView.addArrangedSubview(titleLabel)
+		titleStackView.addArrangedSubview(tooltipIconViewButton)
+
+		// Setup center stackview
+		betweenStackView.alignment = .center
+
+		// Setup main stackview
+		mainStackView.axis = .horizontal
+		mainStackView.addArrangedSubview(titleStackView)
+		mainStackView.addArrangedSubview(betweenStackView)
+		mainStackView.addArrangedSubview(infoStackView)
 
 		// Setup tooltipViewButton
 		tooltipIconViewButton.setImage(UIImage(named: "tooltip"), for: .normal)
 		tooltipIconViewButton.addTarget(self, action: #selector(handleOpenTooltip(_:)), for: .touchUpInside)
 
+		// Setup info stack view
+		infoStackView.axis = .horizontal
+		infoStackView.alignment = .center
+		infoStackView.spacing = 4
 		if let infoIconName = infoIconName {
-			let assetIconView = UIImageView(image: UIImage(named: infoIconName))
-			addSubview(assetIconView)
-			assetIconView.pin(
-				.fixedWidth(20),
-				.fixedHeight(20),
-				.relative(.trailing, -4, to: infoView, .leading),
-				.centerY(to: superview)
-			)
+			assetIconView = UIImageView(image: UIImage(named: infoIconName))
+			infoStackView.addArrangedSubview(assetIconView ?? UIImageView())
 		}
+		infoStackView.addArrangedSubview(infoView)
 	}
 
 	private func setupConstraints() {
 		pin(.fixedHeight(24))
-		titleLabel.pin(.leading(to: superview, padding: 0), .centerY(to: superview))
-		tooltipIconViewButton.pin(
-			.fixedHeight(16),
-			.fixedWidth(16),
-			.centerY(to: superview),
-			.relative(.leading, 2, to: titleLabel, .trailing)
-		)
-		infoView.pin(.trailing(to: superview, padding: 0), .centerY(to: superview))
+		titleStackView.pin(.fixedHeight(24))
+		infoStackView.pin(.fixedHeight(24))
+		mainStackView.pin(.allEdges(to: superview))
+	}
+
+	private func setupAssetIconViewConstraints() {
+		assetIconView?.pin(.fixedHeight(20), .fixedWidth(20))
 	}
 
 	// Handle open tooltip
 	@objc
 	func handleOpenTooltip(_ sender: UIGestureRecognizer) {
-		let tooltipAlert = InfoActionSheet(title: titleText, message: tooltipText, preferredStyle: .alert)
-		tooltipAlert.addAction(UIAlertAction(title: "Got it", style: .cancel))
-		guard let viewController = next?.next?.next?.next as? UIViewController else {
-			return
-		}
-		viewController.present(tooltipAlert, animated: true)
+		presentTooltipAlertClosure?(titleText, tooltipText)
 	}
 }

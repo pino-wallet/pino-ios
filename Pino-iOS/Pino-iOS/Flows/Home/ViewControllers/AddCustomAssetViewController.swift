@@ -8,14 +8,9 @@
 import UIKit
 
 class AddCustomAssetViewController: UIViewController {
-	// MARK: - Private Properties
-
-	private var addCustomAssetView: AddCustomAssetView
-
 	// MARK: - Initializers
 
 	init() {
-		self.addCustomAssetView = AddCustomAssetView()
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -35,6 +30,11 @@ class AddCustomAssetViewController: UIViewController {
 	}
 
 	private func setupView() {
+		let addCustomAssetView =
+			AddCustomAssetView(presentTooltipAlertClosure: { [weak self] tooltipTitle, tooltipDescription in
+				let tooltipAlert = InfoActionSheet(title: tooltipTitle, description: tooltipDescription)
+				self?.present(tooltipAlert, animated: true)
+			})
 		view = addCustomAssetView
 		view.backgroundColor = .Pino.background
 	}
