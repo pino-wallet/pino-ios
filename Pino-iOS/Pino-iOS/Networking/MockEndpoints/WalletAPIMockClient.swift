@@ -12,11 +12,10 @@ final class WalletAPIMockClient: WalletAPIService {
 	// MARK: Public Methods
 
 	public func walletInfo() -> AnyPublisher<WalletInfoModel, APIError> {
-        StubManager.publisher(for: "wallet-info-stub")
+		StubManager.publisher(for: "wallet-info-stub")
 	}
 
 	public func walletBalance() -> AnyPublisher<WalletBalanceModel, APIError> {
-        StubManager.publisher(for: "wallet-balance-stub")
+		StubManager.publisher(for: "wallet-balance-stub")
 	}
 }
-

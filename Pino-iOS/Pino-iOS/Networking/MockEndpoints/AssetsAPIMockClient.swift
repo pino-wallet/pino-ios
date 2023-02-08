@@ -12,10 +12,10 @@ final class AssetsAPIMockClient: AssetsAPIService {
 	// MARK: Public Methods
 
 	public func assets() -> AnyPublisher<Assets, APIError> {
-        StubManager.publisher(for: "assets-stub")
+		StubManager.publisher(for: "assets-stub")
 	}
 
 	public func positions() -> AnyPublisher<Positions, APIError> {
-        StubManager.publisher(for: "positions-stub")
+		StubManager.publisher(for: "positions-stub")
 	}
 }
