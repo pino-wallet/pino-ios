@@ -31,8 +31,6 @@ class SettingsHeaderView: UICollectionReusableView {
 	}
 
 	private func setupStyle() {
-		backgroundColor = .Pino.background
-
 		titleLabel.text = title
 		titleLabel.textColor = .Pino.secondaryLabel
 		titleLabel.font = .PinoStyle.mediumSubheadline

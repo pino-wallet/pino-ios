@@ -8,14 +8,14 @@
 import UIKit
 
 class ProfileCollectionView: UICollectionView {
-	private let accountSettings: [SettingViewModel]
-	private let generalSettings: [SettingViewModel]
+	// MARK: Private Properties
+
+	private let profileVM: ProfileViewModel
 
 	// MARK: Initializers
 
-	init(accountSettings: [SettingViewModel], generalSettings: [SettingViewModel]) {
-		self.accountSettings = accountSettings
-		self.generalSettings = generalSettings
+	init(profileVM: ProfileViewModel) {
+		self.profileVM = profileVM
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 
@@ -35,9 +35,9 @@ class ProfileCollectionView: UICollectionView {
 			forCellWithReuseIdentifier: SettingCell.cellReuseID
 		)
 		register(
-			WalletBalanceHeaderView.self,
+			AccountHeaderView.self,
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-			withReuseIdentifier: WalletBalanceHeaderView.headerReuseID
+			withReuseIdentifier: AccountHeaderView.headerReuseID
 		)
 		register(
 			SettingsHeaderView.self,
@@ -89,9 +89,9 @@ extension ProfileCollectionView: UICollectionViewDataSource {
 	internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		switch section {
 		case 0:
-			return accountSettings.count
+			return profileVM.accountSettings.count
 		case 1:
-			return generalSettings.count
+			return profileVM.generalSettings.count
 		default:
 			return .zero
 		}
@@ -107,11 +107,17 @@ extension ProfileCollectionView: UICollectionViewDataSource {
 		) as! SettingCell
 		switch indexPath.section {
 		case 0:
-			settingCell.settingVM = accountSettings[indexPath.item]
-			settingCell.style = settingCellStyle(currentItem: indexPath.item, totalItems: accountSettings.count)
+			settingCell.settingVM = profileVM.accountSettings[indexPath.item]
+			settingCell.style = settingCellStyle(
+				currentItem: indexPath.item,
+				totalItems: profileVM.accountSettings.count
+			)
 		case 1:
-			settingCell.settingVM = generalSettings[indexPath.item]
-			settingCell.style = settingCellStyle(currentItem: indexPath.item, totalItems: generalSettings.count)
+			settingCell.settingVM = profileVM.generalSettings[indexPath.item]
+			settingCell.style = settingCellStyle(
+				currentItem: indexPath.item,
+				totalItems: profileVM.generalSettings.count
+			)
 		default: break
 		}
 		return settingCell
@@ -129,10 +135,10 @@ extension ProfileCollectionView: UICollectionViewDataSource {
 				// Account header
 				let accountHeaderView = dequeueReusableSupplementaryView(
 					ofKind: kind,
-					withReuseIdentifier: WalletBalanceHeaderView.headerReuseID,
+					withReuseIdentifier: AccountHeaderView.headerReuseID,
 					for: indexPath
-				) as! WalletBalanceHeaderView
-
+				) as! AccountHeaderView
+				accountHeaderView.walletInfoVM = profileVM.walletInfo
 				return accountHeaderView
 
 			case 1:

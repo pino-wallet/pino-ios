@@ -12,6 +12,8 @@ class ProfileViewController: UIViewController {
 
 	// MARK: Private Properties
 
+	private let profileVM = ProfileViewModel()
+
 	// MARK: Initializers
 
 	init() {
@@ -36,19 +38,7 @@ class ProfileViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = ProfileCollectionView(
-			accountSettings: [
-				SettingViewModel(id: "0", image: "Sand", title: "Wallets", description: nil),
-			],
-			generalSettings: [
-				SettingViewModel(id: "0", image: "Sand", title: "Currency", description: "USD -US Dollar"),
-				SettingViewModel(id: "1", image: "Sand", title: "Notification", description: nil),
-				SettingViewModel(id: "2", image: "Sand", title: "Security lock", description: nil),
-				SettingViewModel(id: "3", image: "Sand", title: "Recover phrase", description: nil),
-				SettingViewModel(id: "4", image: "Sand", title: "Support", description: nil),
-				SettingViewModel(id: "5", image: "Sand", title: "About pino", description: nil),
-			]
-		)
+		view = ProfileCollectionView(profileVM: profileVM)
 		view.backgroundColor = .Pino.background
 	}
 
