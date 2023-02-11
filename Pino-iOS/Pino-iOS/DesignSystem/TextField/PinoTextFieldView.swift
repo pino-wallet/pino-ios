@@ -8,6 +8,8 @@
 import UIKit
 
 public class PinoTextFieldView: UIView {
+    // MARK: - Private Properties
+    
 	private let textFieldStackView = UIStackView()
 	private let textFieldCard = UIView()
 	private let textField = UITextField()
@@ -31,6 +33,8 @@ public class PinoTextFieldView: UIView {
 		}
 	}
 
+    // MARK: - Initializers
+    
 	init(style: Style = .normal, placeholder: String = "", errorText: String = "") {
 		self.style = style
 		self.placeholderText = placeholder
@@ -45,6 +49,8 @@ public class PinoTextFieldView: UIView {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+    
+    // MARK: - Private Methods
 
 	private func setupView() {
 		textFieldStackView.addArrangedSubview(textFieldCard)
