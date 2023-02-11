@@ -81,7 +81,7 @@ class CustomAssetViewItem: UIView {
 
 		// Setup tooltipViewButton
 		tooltipIconViewButton.setImage(UIImage(named: "tooltip"), for: .normal)
-		tooltipIconViewButton.addTarget(self, action: #selector(handleOpenTooltip(_:)), for: .touchUpInside)
+		tooltipIconViewButton.addTarget(self, action: #selector(handleOpenTooltip), for: .touchUpInside)
 
 		// Setup info stack view
 		infoStackView.axis = .horizontal
@@ -107,7 +107,7 @@ class CustomAssetViewItem: UIView {
 
 	// Handle open tooltip
 	@objc
-	func handleOpenTooltip(_ sender: UIGestureRecognizer) {
+	func handleOpenTooltip() {
 		presentTooltipAlertClosure?(titleText, tooltipText)
 	}
 }

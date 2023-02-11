@@ -8,18 +8,26 @@
 import UIKit
 
 public class PinoTextFieldView: UIView {
-    // MARK: - Private Properties
-    
+	// MARK: - Public Methods
+
+	public var textFieldKeyboardOnReturn: (() -> Void)?
+
+	// MARK: - Private Properties
+
 	private let textFieldStackView = UIStackView()
 	private let textFieldCard = UIView()
 	private let textField = UITextField()
 	private let errorLabel = UILabel()
+
+	// MARK: - Public Properties
 
 	public var style: Style {
 		didSet {
 			updateStyle()
 		}
 	}
+
+	public var returnKeyType: ReturnKeyType
 
 	public var placeholderText: String {
 		didSet {
@@ -33,12 +41,18 @@ public class PinoTextFieldView: UIView {
 		}
 	}
 
-    // MARK: - Initializers
-    
-	init(style: Style = .normal, placeholder: String = "", errorText: String = "") {
+	// MARK: - Initializers
+
+	init(
+		style: Style = .normal,
+		placeholder: String = "",
+		errorText: String = "",
+		returnKeyType: ReturnKeyType = .Default
+	) {
 		self.style = style
 		self.placeholderText = placeholder
 		self.errorText = errorText
+		self.returnKeyType = returnKeyType
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -49,8 +63,8 @@ public class PinoTextFieldView: UIView {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-    
-    // MARK: - Private Methods
+
+	// MARK: - Private Methods
 
 	private func setupView() {
 		textFieldStackView.addArrangedSubview(textFieldCard)
@@ -91,6 +105,27 @@ public class PinoTextFieldView: UIView {
 			textField.rightViewMode = .always
 			errorLabel.isHidden = true
 		}
+
+		switch returnKeyType {
+		case .Continue:
+			updateReturnKeyType(newType: .continue)
+		case .Done:
+			updateReturnKeyType(newType: .done)
+		case .Go:
+			updateReturnKeyType(newType: .go)
+		case .Join:
+			updateReturnKeyType(newType: .join)
+		case .Next:
+			updateReturnKeyType(newType: .next)
+		case .Route:
+			updateReturnKeyType(newType: .route)
+		case .Search:
+			updateReturnKeyType(newType: .search)
+		case .Send:
+			updateReturnKeyType(newType: .send)
+		case .Default:
+			updateReturnKeyType(newType: .default)
+		}
 	}
 
 	private func updateErrorText(_ errorText: String) {
@@ -108,6 +143,10 @@ public class PinoTextFieldView: UIView {
 		textFieldStackView.pin(.allEdges)
 		textField.pin(.fixedHeight(48), .verticalEdges(), .horizontalEdges(padding: 14))
 	}
+
+	private func updateReturnKeyType(newType: UIReturnKeyType) {
+		textField.returnKeyType = newType
+	}
 }
 
 extension PinoTextFieldView: UITextFieldDelegate {
@@ -117,5 +156,12 @@ extension PinoTextFieldView: UITextFieldDelegate {
 
 	public func textFieldDidEndEditing(_ textField: UITextField) {
 		textFieldCard.layer.borderColor = UIColor.Pino.gray5.cgColor
+	}
+
+	public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		if let textFieldKeyboardOnReturn = textFieldKeyboardOnReturn {
+			textFieldKeyboardOnReturn()
+		}
+		return true
 	}
 }

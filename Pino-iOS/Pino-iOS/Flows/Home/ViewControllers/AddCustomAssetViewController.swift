@@ -34,6 +34,8 @@ class AddCustomAssetViewController: UIViewController {
 			AddCustomAssetView(presentTooltipAlertClosure: { [weak self] tooltipTitle, tooltipDescription in
 				let tooltipAlert = InfoActionSheet(title: tooltipTitle, description: tooltipDescription)
 				self?.present(tooltipAlert, animated: true)
+			}, dissmissKeybaordClosure: { [weak self] in
+				self?.view.endEditing(true)
 			})
 		view = addCustomAssetView
 		view.backgroundColor = .Pino.background
