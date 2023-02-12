@@ -24,7 +24,7 @@ class HistoryCollectionViewCell: UICollectionViewCell {
 
 	public static let cellID = "historyCell"
 
-	public var historyCoinInfoVM: ActionHistoryViewModel! {
+	public var historyCoinInfoVM: ActivityHistoryViewModel! {
 		didSet {
 			setupView()
 			setupStyle()
@@ -48,8 +48,8 @@ class HistoryCollectionViewCell: UICollectionViewCell {
 	}
 
 	private func setupStyle() {
-		actionIcon.image = UIImage(named: historyCoinInfoVM.actionIcon)
-		actionTitleLabel.text = historyCoinInfoVM.actionTitle
+		actionIcon.image = UIImage(named: historyCoinInfoVM.activityIcon)
+		actionTitleLabel.text = historyCoinInfoVM.activityTitle
 		timeLabel.text = historyCoinInfoVM.time
 
 		backgroundColor = .Pino.background

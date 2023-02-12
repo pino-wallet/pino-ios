@@ -20,7 +20,7 @@ struct CoinInfoViewModel {
 		if let userAmount = coinInfoModel.userAmount {
 			return"$\(userAmount)"
 		} else {
-			return "$0.0"
+            fatalError()
 		}
 	}
 
@@ -28,7 +28,7 @@ struct CoinInfoViewModel {
 		if let coinAmount = coinInfoModel.coinAmount {
 			return"$\(coinAmount)"
 		} else {
-			return"$0.0"
+			fatalError()
 		}
 	}
 
@@ -36,8 +36,8 @@ struct CoinInfoViewModel {
 		coinInfoModel.name
 	}
 
-	public var changingRate: String {
-		coinInfoModel.changingRate
+	public var volatilityRate: String {
+		coinInfoModel.volatilityRate
 	}
 
 	public var investAmount: String {
@@ -49,8 +49,8 @@ struct CoinInfoViewModel {
 	}
 
 	public var callateralAmount: String {
-		if let callateralAmount = coinInfoModel.callateralAmount {
-			return "\(callateralAmount) \(name)"
+		if let collateralAmount = coinInfoModel.collateralAmount {
+			return "\(collateralAmount) \(name)"
 		} else {
 			return "0\(name)"
 		}

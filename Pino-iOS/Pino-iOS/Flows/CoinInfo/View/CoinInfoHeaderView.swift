@@ -24,9 +24,9 @@ class CoinInfoHeaderView: UICollectionReusableView {
 	private var assetsIcon = UIImageView()
 	private var assetsTitleLabel = UILabel()
 	private var userAmountLabel = UILabel()
-	private var changingRateStackView = UIStackView()
-	private var changingRateIcon = UIImageView()
-	private var changingRateLabel = UILabel()
+	private var volatilityRateStackView = UIStackView()
+	private var volatilityRateIcon = UIImageView()
+	private var volatilityRateLabel = UILabel()
 
 	private var investStackView = UIStackView()
 	private var investInfoStackView = UIStackView()
@@ -71,9 +71,9 @@ class CoinInfoHeaderView: UICollectionReusableView {
 		contentStackView.addArrangedSubview(bottonStackView)
 		topStackView.addArrangedSubview(amountStackView)
 		amountStackView.addArrangedSubview(amountLabel)
-		amountStackView.addArrangedSubview(changingRateStackView)
-		changingRateStackView.addArrangedSubview(changingRateIcon)
-		changingRateStackView.addArrangedSubview(changingRateLabel)
+		amountStackView.addArrangedSubview(volatilityRateStackView)
+		volatilityRateStackView.addArrangedSubview(volatilityRateIcon)
+		volatilityRateStackView.addArrangedSubview(volatilityRateLabel)
 		topStackView.addArrangedSubview(coinStackView)
 		coinStackView.addArrangedSubview(assetsIcon)
 		coinStackView.addArrangedSubview(assetsTitleLabel)
@@ -119,7 +119,7 @@ class CoinInfoHeaderView: UICollectionReusableView {
 
 		amountStackView.axis = .horizontal
 
-		changingRateStackView.axis = .horizontal
+		volatilityRateStackView.axis = .horizontal
 
 		coinStackView.axis = .vertical
 		coinStackView.spacing = 13
@@ -173,7 +173,7 @@ class CoinInfoHeaderView: UICollectionReusableView {
 			self?.assetsIcon.image = UIImage(named: coininfo.assetImage)
 			self?.assetsTitleLabel.text = coininfo.name
 			self?.userAmountLabel.text = coininfo.userAmount
-			self?.changingRateLabel.text = coininfo.changingRate
+			self?.volatilityRateLabel.text = coininfo.volatilityRate
 			self?.investLabel.text = coininfo.investAmount
 			self?.collateralLabel.text = coininfo.callateralAmount
 			self?.borrowLabel.text = coininfo.borrowAmount

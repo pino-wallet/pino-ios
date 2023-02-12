@@ -14,7 +14,7 @@ class CoinInfoPageViewModel {
 	@Published
 	public var coinInfo: CoinInfoViewModel!
 	@Published
-	public var historyList: [ActionHistoryViewModel]!
+	public var historyList: [ActivityHistoryViewModel]!
 
 	public let requestFailedErrorToastMessage = "Couldn't refresh home data"
 	public let connectionErrorToastMessage = "No internet connection"
@@ -52,8 +52,8 @@ class CoinInfoPageViewModel {
 			userAmount: "12,43",
 			coinAmount: "5,3",
 			name: "4.98 APE",
-			changingRate: "12,9 %",
-			changingRateType: .decrease,
+            volatilityRate: "12,9 %",
+            volatilityType: .loss ,
 			barrowAmount: "12,1"
 		)
 		coinInfo = CoinInfoViewModel(coinInfoModel: coinInfoModel)
@@ -61,22 +61,22 @@ class CoinInfoPageViewModel {
 
 	private func getHistoryList() {
 		let actionsHistoryList = [
-			ActionHistoryModel(
+			ActivityHistoryModel(
 				actionIcon: "swap",
 				actionTitle: "Swap 2.4 APE -> 200 DAI",
 				time: "20 min ago",
 				status: .pending
 			),
-			ActionHistoryModel(
+			ActivityHistoryModel(
 				actionIcon: "Borrow",
 				actionTitle: "Borrow 1.44 APE",
 				time: "1 hour ago",
 				status: .success
 			),
-			ActionHistoryModel(actionIcon: "send", actionTitle: "Send 2 APE", time: "3 hours ago", status: .failed),
-			ActionHistoryModel(actionIcon: "recive", actionTitle: "Receive 1.4 APE", time: "1 day ago", status: .failed),
+			ActivityHistoryModel(actionIcon: "send", actionTitle: "Send 2 APE", time: "3 hours ago", status: .failed),
+			ActivityHistoryModel(actionIcon: "recive", actionTitle: "Receive 1.4 APE", time: "1 day ago", status: .failed),
 		]
 
-		historyList = actionsHistoryList.compactMap { ActionHistoryViewModel(actionHistoryModel: $0) }
+		historyList = actionsHistoryList.compactMap { ActivityHistoryViewModel(activityHistoryModel: $0) }
 	}
 }

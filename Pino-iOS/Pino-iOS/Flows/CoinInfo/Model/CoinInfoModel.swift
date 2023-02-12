@@ -14,9 +14,9 @@ struct CoinInfoModel {
 	public var userAmount: String?
 	public var coinAmount: String?
 	public var name: String
-	public var changingRate: String
-	public var changingRateType: ChangingRateType?
+	public var volatilityRate: String
+	public var volatilityType: AssetVolatilityType?
 	public var investAmount: String?
-	public var callateralAmount: String?
+	public var collateralAmount: String?
 	public var barrowAmount: String?
 }
