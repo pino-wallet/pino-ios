@@ -64,7 +64,7 @@ class AddCustomAssetView: UIView {
 		contractTextfieldView.returnKeyType = .Search
 		contractTextfieldView.textFieldKeyboardOnReturn = dissmissKeyboardClosure
 		scanQRCodeIconButton.setImage(UIImage(named: "qr_code_scanner"), for: .normal)
-		contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
+		contractTextfieldView.style = .pending
 		#warning("error text is for test and should be change")
 		contractTextfieldView.errorText = "This is an error!"
 	}

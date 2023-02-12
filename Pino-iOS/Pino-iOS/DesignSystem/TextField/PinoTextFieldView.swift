@@ -18,6 +18,7 @@ public class PinoTextFieldView: UIView {
 	private let textFieldCard = UIView()
 	private let textField = UITextField()
 	private let errorLabel = UILabel()
+	private let pendingLoading = PinoLoading(size: 22)
 
 	// MARK: - Public Properties
 
@@ -102,6 +103,10 @@ public class PinoTextFieldView: UIView {
 			errorLabel.isHidden = true
 		case let .customIcon(customView):
 			textField.rightView = customView
+			textField.rightViewMode = .always
+			errorLabel.isHidden = true
+		case .pending:
+			textField.rightView = pendingLoading
 			textField.rightViewMode = .always
 			errorLabel.isHidden = true
 		}

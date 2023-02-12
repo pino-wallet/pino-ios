@@ -13,5 +13,6 @@ extension PinoTextFieldView {
 		case error
 		case success
 		case customIcon(UIView)
+		case pending
 	}
 }
