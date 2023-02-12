@@ -6,7 +6,7 @@
 //
 
 enum CoinInfoError: Error {
-    #warning("Type of errors will show to user in sending request")
+	#warning("Type of errors will show to user in sending request")
 	case networkingConnection
 	case requestFaild
 }

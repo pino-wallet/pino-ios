@@ -52,8 +52,8 @@ class CoinInfoPageViewModel {
 			userAmount: "12,43",
 			coinAmount: "5,3",
 			name: "4.98 APE",
-            volatilityRate: "12,9 %",
-            volatilityType: .loss ,
+			volatilityRate: "12,9 %",
+			volatilityType: .loss,
 			barrowAmount: "12,1"
 		)
 		coinInfo = CoinInfoViewModel(coinInfoModel: coinInfoModel)

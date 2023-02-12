@@ -20,7 +20,7 @@ struct CoinInfoViewModel {
 		if let userAmount = coinInfoModel.userAmount {
 			return"$\(userAmount)"
 		} else {
-            fatalError()
+			fatalError()
 		}
 	}
 
