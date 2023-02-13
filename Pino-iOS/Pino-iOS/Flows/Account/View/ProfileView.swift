@@ -12,10 +12,13 @@ class ProfileCollectionView: UICollectionView {
 
 	private let profileVM: ProfileViewModel
 
+	public var settingsItemSelected: (SettingsViewModel) -> Void
+
 	// MARK: Initializers
 
-	init(profileVM: ProfileViewModel) {
+	init(profileVM: ProfileViewModel, settingsItemSelected: @escaping (SettingsViewModel) -> Void) {
 		self.profileVM = profileVM
+		self.settingsItemSelected = settingsItemSelected
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 
@@ -67,9 +70,21 @@ extension ProfileCollectionView: UICollectionViewDelegateFlowLayout {
 	}
 }
 
-extension ProfileCollectionView: UICollectionViewDataSource {
-	// MARK: - CollectionView DataSource Methods
+extension ProfileCollectionView: UICollectionViewDelegate {
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		switch indexPath.section {
+		case 0:
+			settingsItemSelected(profileVM.accountSettings[indexPath.item])
+		case 1:
+			settingsItemSelected(profileVM.generalSettings[indexPath.item])
+		default: break
+		}
+	}
+}
 
+// MARK: - CollectionView DataSource Methods
+
+extension ProfileCollectionView: UICollectionViewDataSource {
 	internal func numberOfSections(in collectionView: UICollectionView) -> Int {
 		2
 	}

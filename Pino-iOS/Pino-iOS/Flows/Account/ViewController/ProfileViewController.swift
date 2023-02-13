@@ -38,13 +38,15 @@ class ProfileViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = ProfileCollectionView(profileVM: profileVM)
+		view = ProfileCollectionView(profileVM: profileVM, settingsItemSelected: { settingVM in
+			self.openSettingDetail(settingVM: settingVM)
+		})
 		view.backgroundColor = .Pino.background
 	}
 
 	private func setupNavigationBar() {
 		// Setup appreance for navigation bar
-		setupPrimaryColorNavigationBar()
+		navigationController?.navigationBar.backgroundColor = .Pino.primary
 		// Setup title view
 		setNavigationTitle("Profile")
 		// Setup add asset button
@@ -54,11 +56,20 @@ class ProfileViewController: UIViewController {
 			target: self,
 			action: #selector(dismissProfile)
 		)
-		navigationItem.leftBarButtonItem?.tintColor = .Pino.white
+		navigationController?.navigationBar.tintColor = .Pino.white
 	}
 
 	@objc
 	private func dismissProfile() {
 		dismiss(animated: true)
+	}
+
+	private func openSettingDetail(settingVM: SettingsViewModel) {
+		switch settingVM {
+		case .wallets:
+			let WalletsVC = WalletsViewController()
+			navigationController?.pushViewController(WalletsVC, animated: true)
+		default: break
+		}
 	}
 }

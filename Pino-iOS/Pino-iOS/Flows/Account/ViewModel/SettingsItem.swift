@@ -5,7 +5,7 @@
 //  Created by Mohi Raoufi on 2/8/23.
 //
 
-public struct SettingsViewModel {
+public struct SettingsViewModel: Equatable {
 	// MARK: - Public Properties
 
 	public let image: String
