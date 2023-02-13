@@ -25,4 +25,8 @@ public struct WalletInfoViewModel {
 	public var profileColor: String {
 		walletInfoModel.profileColor
 	}
+
+	public var balance: String {
+		"$\(walletInfoModel.balance)"
+	}
 }

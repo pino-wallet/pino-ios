@@ -26,13 +26,16 @@ class WalletsViewModel {
 	// MARK: - Private Methods
 
 	private func getWallets() {
-		// Request to get wallet info
-		walletsList =
-			[WalletInfoViewModel(walletInfoModel: WalletInfoModel(
-				name: "Amir",
-				address: "",
-				profileImage: "avocado",
-				profileColor: "Green 1 Color"
-			))]
+		// Request to get wallets
+		walletAPIClient.walletsList().sink { completed in
+			switch completed {
+			case .finished:
+				print("Wallets received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { wallets in
+			self.walletsList = wallets.walletsList.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
+		}.store(in: &cancellables)
 	}
 }

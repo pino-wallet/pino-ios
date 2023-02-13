@@ -1,0 +1,29 @@
+{
+    "data":
+    [
+        {
+            "id": "0",
+            "name": "Amir",
+            "address": "gf4bh5n3m2c8l4j5w9i2l6t2de",
+            "profile_image": "avocado",
+            "profile_color": "Green 1 Color",
+            "balance": "12,568,000"
+        },
+        {
+            "id": "0",
+            "name": "Samuel",
+            "address": "gf4bh5n3m2c8l4j5w9i2l6t2de",
+            "profile_image": "avocado",
+            "profile_color": "Green 1 Color",
+            "balance": "290"
+        },
+        {
+            "id": "0",
+            "name": "Jennifer",
+            "address": "gf4bh5n3m2c8l4j5w9i2l6t2de",
+            "profile_image": "avocado",
+            "profile_color": "Green 1 Color",
+            "balance": "2,308,000"
+        }
+    ]
+}

@@ -46,7 +46,7 @@ public class WalletCell: UICollectionViewCell {
 
 	private func setupStyle() {
 		walletname.text = walletVM.name
-		walletBalance.text = "100"
+		walletBalance.text = walletVM.balance
 		walletIcon.image = UIImage(named: walletVM.profileImage)
 		editIcon.image = UIImage(named: "dots-menu")
 
@@ -66,7 +66,7 @@ public class WalletCell: UICollectionViewCell {
 		walletInfoStackView.axis = .horizontal
 
 		walletInfoStackView.alignment = .center
-		titleStackView.alignment = .center
+		titleStackView.alignment = .leading
 
 		titleStackView.spacing = 4
 		walletInfoStackView.spacing = 8
@@ -89,7 +89,7 @@ public class WalletCell: UICollectionViewCell {
 			.fixedHeight(44)
 		)
 		walletIcon.pin(
-			.allEdges(padding: 10)
+			.allEdges(padding: 6)
 		)
 		editIcon.pin(
 			.fixedWidth(28),
@@ -97,5 +97,12 @@ public class WalletCell: UICollectionViewCell {
 			.trailing(padding: 14),
 			.centerY
 		)
+	}
+}
+
+extension WalletCell {
+	public enum Style {
+		case regular
+		case selected
 	}
 }
