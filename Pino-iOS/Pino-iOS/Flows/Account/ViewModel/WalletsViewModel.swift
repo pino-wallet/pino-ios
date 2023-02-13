@@ -32,7 +32,7 @@ class WalletsViewModel {
 				name: "Amir",
 				address: "",
 				profileImage: "avocado",
-				profileColor: "Green color 2"
+				profileColor: "Green 1 Color"
 			))]
 	}
 }

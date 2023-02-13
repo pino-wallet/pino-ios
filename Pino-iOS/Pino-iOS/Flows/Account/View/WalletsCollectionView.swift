@@ -20,6 +20,7 @@ class WalletsCollectionView: UICollectionView {
 		self.walletsVM = walletsVM
 		self.walletSelected = walletSelected
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
+		flowLayout.sectionInset = UIEdgeInsets(top: 24, left: 0, bottom: 24, right: 0)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 
 		configCollectionView()

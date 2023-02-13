@@ -48,17 +48,17 @@ public class WalletCell: UICollectionViewCell {
 		walletname.text = walletVM.name
 		walletBalance.text = "100"
 		walletIcon.image = UIImage(named: walletVM.profileImage)
-		editIcon.image = UIImage(named: "arrow_right")
+		editIcon.image = UIImage(named: "dots-menu")
 
 		editIcon.tintColor = .Pino.gray3
 
 		walletIconBackgroundView.backgroundColor = UIColor(named: walletVM.profileColor)
 
-		walletname.font = .PinoStyle.mediumBody
-		walletBalance.font = .PinoStyle.mediumBody
+		walletname.font = .PinoStyle.semiboldCallout
+		walletBalance.font = .PinoStyle.mediumFootnote
 
 		walletname.textColor = .Pino.label
-		walletBalance.textColor = .Pino.gray2
+		walletBalance.textColor = .Pino.secondaryLabel
 
 		walletCardView.backgroundColor = .Pino.secondaryBackground
 
