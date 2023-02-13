@@ -10,6 +10,8 @@ import Foundation
 struct CoinInfoModel {
 	// MARK: - public properties
 
+	#warning("need to refactor after merge master")
+
 	public var assetImage: String
 	public var userAmount: String?
 	public var coinAmount: String?

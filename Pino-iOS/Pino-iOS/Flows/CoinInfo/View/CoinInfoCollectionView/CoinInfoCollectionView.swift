@@ -21,6 +21,7 @@ class CoinInfoCollectionView: UICollectionView {
 
 	// MARK: - Initializers
 
+	#warning("need to refactor")
 	init(coinInfoVM: CoinInfoPageViewModel) {
 		self.coinInfoVM = coinInfoVM
 		let flowLayout = UICollectionViewFlowLayout()
@@ -72,6 +73,7 @@ class CoinInfoCollectionView: UICollectionView {
 		}.store(in: &cacncellabel)
 	}
 
+	#warning("need to refctor")
 	private func setupErrorTostView() {
 		addSubview(refreshErrorTostView)
 		refreshErrorTostView.pin(

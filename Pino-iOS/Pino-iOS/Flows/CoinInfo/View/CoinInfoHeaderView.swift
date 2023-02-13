@@ -13,12 +13,11 @@ class CoinInfoHeaderView: UICollectionReusableView {
 
 	private var contentStackView = UIStackView()
 	private var contentView = UIView()
-	private var topStackView = UIStackView()
+	private var userCoinInfoStackView = UIStackView()
 	private var separatorLineView = UIView()
-	private var bottonStackView = UIStackView()
+	private var userPortfolioStackView = UIStackView()
 
-	private var coinStackView = UIStackView()
-	private var coinInfoView = UIView()
+	private var coinInfoStackView = UIStackView()
 	private var amountStackView = UIStackView()
 	private var amountLabel = UILabel()
 	private var assetsIcon = UIImageView()
@@ -66,22 +65,22 @@ class CoinInfoHeaderView: UICollectionReusableView {
 	private func setupView() {
 		backgroundColor = .Pino.background
 		contentView.addSubview(contentStackView)
-		contentStackView.addArrangedSubview(topStackView)
+		contentStackView.addArrangedSubview(userCoinInfoStackView)
 		contentStackView.addArrangedSubview(separatorLineView)
-		contentStackView.addArrangedSubview(bottonStackView)
-		topStackView.addArrangedSubview(amountStackView)
+		contentStackView.addArrangedSubview(userPortfolioStackView)
+		userCoinInfoStackView.addArrangedSubview(amountStackView)
 		amountStackView.addArrangedSubview(amountLabel)
 		amountStackView.addArrangedSubview(volatilityRateStackView)
 		volatilityRateStackView.addArrangedSubview(volatilityRateIcon)
 		volatilityRateStackView.addArrangedSubview(volatilityRateLabel)
-		topStackView.addArrangedSubview(coinStackView)
-		coinStackView.addArrangedSubview(assetsIcon)
-		coinStackView.addArrangedSubview(assetsTitleLabel)
-		coinStackView.addArrangedSubview(userAmountLabel)
+		userCoinInfoStackView.addArrangedSubview(coinInfoStackView)
+		coinInfoStackView.addArrangedSubview(assetsIcon)
+		coinInfoStackView.addArrangedSubview(assetsTitleLabel)
+		coinInfoStackView.addArrangedSubview(userAmountLabel)
 
-		bottonStackView.addArrangedSubview(investStackView)
-		bottonStackView.addArrangedSubview(collateralStackView)
-		bottonStackView.addArrangedSubview(borrowStackView)
+		userPortfolioStackView.addArrangedSubview(investStackView)
+		userPortfolioStackView.addArrangedSubview(collateralStackView)
+		userPortfolioStackView.addArrangedSubview(borrowStackView)
 
 		investStackView.addArrangedSubview(investInfoStackView)
 		investStackView.addArrangedSubview(investLabel)
@@ -114,21 +113,21 @@ class CoinInfoHeaderView: UICollectionReusableView {
 		contentStackView.distribution = .fill
 		contentStackView.spacing = 30
 
-		topStackView.axis = .vertical
-		topStackView.spacing = -20
+		userCoinInfoStackView.axis = .vertical
+		userCoinInfoStackView.spacing = -20
 
 		amountStackView.axis = .horizontal
 
 		volatilityRateStackView.axis = .horizontal
 
-		coinStackView.axis = .vertical
-		coinStackView.spacing = 13
-		coinStackView.alignment = .center
-		coinStackView.distribution = .fill
+		coinInfoStackView.axis = .vertical
+		coinInfoStackView.spacing = 13
+		coinInfoStackView.alignment = .center
+		coinInfoStackView.distribution = .fill
 
-		bottonStackView.axis = .vertical
-		bottonStackView.distribution = .fillEqually
-		bottonStackView.spacing = 25
+		userPortfolioStackView.axis = .vertical
+		userPortfolioStackView.distribution = .fillEqually
+		userPortfolioStackView.spacing = 25
 
 		amountLabel.textColor = .secondaryLabel
 		amountLabel.font = .PinoStyle.mediumSubheadline
