@@ -62,7 +62,7 @@ class CoinInfoCollectionView: UICollectionView {
 	}
 
 	private func setUpStyle() {
-		backgroundColor = .Pino.clear
+		backgroundColor = .Pino.background
 		showsVerticalScrollIndicator = false
 	}
 
