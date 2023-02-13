@@ -8,6 +8,8 @@
 import UIKit
 
 class CoinInfoNavigationItems {
+	// MARK: - Public properties
+
 	public static var coinTitle: UILabel {
 		let coinTitle = PinoLabel(style: .title, text: nil)
 		coinTitle.font = .PinoStyle.semiboldBody
@@ -23,18 +25,7 @@ class CoinInfoNavigationItems {
 			target: self,
 			action: nil
 		)
-		chartButton.tintColor = .white
+		chartButton.tintColor = .Pino.white
 		return chartButton
-	}
-
-	public static var closeButton: UIBarButtonItem {
-		let closeButton = UIBarButtonItem(
-			image: UIImage(named: "close"),
-			style: .plain,
-			target: self,
-			action: nil
-		)
-		closeButton.tintColor = .white
-		return closeButton
 	}
 }

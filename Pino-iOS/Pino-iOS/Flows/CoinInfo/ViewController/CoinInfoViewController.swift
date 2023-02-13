@@ -12,17 +12,11 @@ class CoinInfoViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let coinInfoVM = CoinInfoPageViewModel()
-	private var cacnellabeles = Set<AnyCancellable>()
 
 	// MARK: - viewOverrides
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-	}
-
-	override func viewDidLayoutSubviews() {
-		let gradientLayer = GradientLayer(frame: view.bounds, style: .homeBackground)
-		view.layer.insertSublayer(gradientLayer, at: 0)
 	}
 
 	override func loadView() {
@@ -35,8 +29,7 @@ class CoinInfoViewController: UIViewController {
 	private func setUpView() {
 		view = UIView()
 		let coinInfoCollectionView = CoinInfoCollectionView(coinInfoVM: coinInfoVM)
-		view.addSubview(coinInfoCollectionView)
-		coinInfoCollectionView.pin(.allEdges)
+		view = coinInfoCollectionView
 	}
 
 	private func setupNavigationBar() {
@@ -47,7 +40,7 @@ class CoinInfoViewController: UIViewController {
 			target: self,
 			action: #selector(closePage)
 		)
-		navigationItem.leftBarButtonItem?.tintColor = .white
+		navigationItem.leftBarButtonItem?.tintColor = .Pino.white
 		navigationItem.rightBarButtonItem = CoinInfoNavigationItems.chartButton
 		navigationItem.titleView = CoinInfoNavigationItems.coinTitle
 	}
