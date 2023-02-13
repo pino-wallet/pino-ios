@@ -8,17 +8,25 @@
 import Combine
 
 class ProfileViewModel {
+	// MARK: - Public Properties
+
 	public var walletInfo: WalletInfoViewModel!
-	public var accountSettings: [SettingViewModel]!
-	public var generalSettings: [SettingViewModel]!
+	public var accountSettings: [SettingsViewModel]!
+	public var generalSettings: [SettingsViewModel]!
+
+	// MARK: - Private Properties
 
 	private var walletAPIClient = WalletAPIMockClient()
 	private var cancellables = Set<AnyCancellable>()
 
+	// MARK: - Initializers
+
 	init() {
 		getWalletInfo()
-		setSettings()
+		setupSettings()
 	}
+
+	// MARK: - Private Methods
 
 	private func getWalletInfo() {
 		// Request to get wallet info
@@ -34,17 +42,15 @@ class ProfileViewModel {
 		}.store(in: &cancellables)
 	}
 
-	private func setSettings() {
-		accountSettings = [
-			SettingViewModel(id: "0", image: "Sand", title: "Wallets", description: nil),
-		]
+	private func setupSettings() {
+		accountSettings = [.wallets]
 		generalSettings = [
-			SettingViewModel(id: "0", image: "Sand", title: "Currency", description: "USD -US Dollar"),
-			SettingViewModel(id: "1", image: "Sand", title: "Notification", description: nil),
-			SettingViewModel(id: "2", image: "Sand", title: "Security lock", description: nil),
-			SettingViewModel(id: "3", image: "Sand", title: "Recover phrase", description: nil),
-			SettingViewModel(id: "4", image: "Sand", title: "Support", description: nil),
-			SettingViewModel(id: "5", image: "Sand", title: "About pino", description: nil),
+			.currency,
+			.notification,
+			.securityLock,
+			.recoverPhrase,
+			.support,
+			.aboutPino,
 		]
 	}
 }

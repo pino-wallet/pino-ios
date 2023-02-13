@@ -23,7 +23,7 @@ public class SettingCell: UICollectionViewCell {
 
 	public static let cellReuseID = "settingCell"
 
-	public var settingVM: SettingViewModel! {
+	public var settingVM: SettingsViewModel! {
 		didSet {
 			setupView()
 			setupStyle()
@@ -78,6 +78,8 @@ public class SettingCell: UICollectionViewCell {
 		detailStackView.spacing = 2
 
 		settingCardView.layer.cornerRadius = 8
+		settingImage.layer.cornerRadius = 7
+		settingImage.layer.masksToBounds = true
 	}
 
 	private func setupConstraint() {
@@ -110,28 +112,53 @@ public class SettingCell: UICollectionViewCell {
 	}
 
 	private func updateStyle() {
-		switch style {
-		case .regular:
-			separatorLine.isHidden = false
-			settingCardView.layer.cornerRadius = 0
-		case .singleCell:
-			separatorLine.isHidden = true
-			settingCardView.layer.cornerRadius = 8
-		case .firstCell:
-			separatorLine.isHidden = false
-			settingCardView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-		case .lastCell:
-			separatorLine.isHidden = true
-			settingCardView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-		}
+		separatorLine.isHidden = style.separatorLineIsHidden
+		settingCardView.layer.maskedCorners = style.maskedCorners
 	}
 }
 
 extension SettingCell {
+	// MARK: - Cell Style
+
 	public enum Style {
 		case regular
 		case singleCell
 		case firstCell
 		case lastCell
+
+		public var separatorLineIsHidden: Bool {
+			switch self {
+			case .regular, .firstCell:
+				return false
+			case .singleCell, .lastCell:
+				return true
+			}
+		}
+
+		public var maskedCorners: CACornerMask {
+			switch self {
+			case .regular:
+				return []
+			case .firstCell:
+				return [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+			case .lastCell:
+				return [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+			case .singleCell:
+				return [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner]
+			}
+		}
+	}
+
+	public func setCellStyle(currentItem: Int, itemsCount: Int) {
+		switch (currentItem, itemsCount) {
+		case (0, 1):
+			style = .singleCell
+		case (0, _):
+			style = .firstCell
+		case (itemsCount - 1, _):
+			style = .lastCell
+		default:
+			style = .regular
+		}
 	}
 }

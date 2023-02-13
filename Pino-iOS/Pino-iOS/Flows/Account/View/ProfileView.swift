@@ -53,18 +53,6 @@ class ProfileCollectionView: UICollectionView {
 		backgroundColor = .Pino.clear
 		showsVerticalScrollIndicator = false
 	}
-
-	private func settingCellStyle(currentItem: Int, totalItems: Int) -> SettingCell.Style {
-		if totalItems == 1 {
-			return .singleCell
-		} else if currentItem == 0 {
-			return .firstCell
-		} else if (currentItem + 1) == totalItems {
-			return .lastCell
-		} else {
-			return .regular
-		}
-	}
 }
 
 // MARK: Collection View Flow Layout
@@ -108,16 +96,10 @@ extension ProfileCollectionView: UICollectionViewDataSource {
 		switch indexPath.section {
 		case 0:
 			settingCell.settingVM = profileVM.accountSettings[indexPath.item]
-			settingCell.style = settingCellStyle(
-				currentItem: indexPath.item,
-				totalItems: profileVM.accountSettings.count
-			)
+			settingCell.setCellStyle(currentItem: indexPath.item, itemsCount: profileVM.accountSettings.count)
 		case 1:
 			settingCell.settingVM = profileVM.generalSettings[indexPath.item]
-			settingCell.style = settingCellStyle(
-				currentItem: indexPath.item,
-				totalItems: profileVM.generalSettings.count
-			)
+			settingCell.setCellStyle(currentItem: indexPath.item, itemsCount: profileVM.generalSettings.count)
 		default: break
 		}
 		return settingCell
