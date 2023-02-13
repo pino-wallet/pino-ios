@@ -10,11 +10,11 @@ import UIKit
 class HistoryCollectionViewCell: UICollectionViewCell {
 	// MARK: - private Properties
 
-	private var actionCardView = UIView()
+	private var activiityCardView = UIView()
 	private var contentStackView = UIStackView()
-	private var actionIcon = UIImageView()
-	private var actionTitleStackView = UIStackView()
-	private var actionTitleLabel = UILabel()
+	private var activityIcon = UIImageView()
+	private var activityTitleStackView = UIStackView()
+	private var activityTitleLabel = PinoLabel(style: .title, text: nil)
 	private var statusStackView = UIStackView()
 	private var timeLabel = UILabel()
 	private var statusLabel = UILabel()
@@ -36,49 +36,50 @@ class HistoryCollectionViewCell: UICollectionViewCell {
 	// MARK: - private UI method
 
 	private func setupView() {
-		contentView.addSubview(actionCardView)
-		actionCardView.addSubview(contentStackView)
-		contentStackView.addArrangedSubview(actionIcon)
-		contentStackView.addArrangedSubview(actionTitleStackView)
-		actionTitleStackView.addArrangedSubview(actionTitleLabel)
-		actionTitleStackView.addArrangedSubview(statusStackView)
+		contentView.addSubview(activiityCardView)
+		activiityCardView.addSubview(contentStackView)
+		contentStackView.addArrangedSubview(activityIcon)
+		contentStackView.addArrangedSubview(activityTitleStackView)
+		activityTitleStackView.addArrangedSubview(activityTitleLabel)
+		activityTitleStackView.addArrangedSubview(statusStackView)
 		statusStackView.addArrangedSubview(timeLabel)
 		statusStackView.addArrangedSubview(statusLabel)
 		statusStackView.addArrangedSubview(statusIcon)
 	}
 
 	private func setupStyle() {
-		actionIcon.image = UIImage(named: historyCoinInfoVM.activityIcon)
-		actionTitleLabel.text = historyCoinInfoVM.activityTitle
+		activityIcon.image = UIImage(named: historyCoinInfoVM.activityIcon)
+		activityTitleLabel.text = historyCoinInfoVM.activityTitle
 		timeLabel.text = historyCoinInfoVM.time
 
 		backgroundColor = .Pino.background
 
-		actionCardView.layer.cornerRadius = 12
-		actionCardView.backgroundColor = .Pino.secondaryBackground
-		actionIcon.backgroundColor = .Pino.background
+		activiityCardView.layer.cornerRadius = 12
+		activiityCardView.backgroundColor = .Pino.secondaryBackground
+		activityIcon.backgroundColor = .Pino.background
 
 		contentStackView.axis = .horizontal
-		actionTitleStackView.axis = .vertical
+		activityTitleStackView.axis = .vertical
 		statusStackView.axis = .horizontal
 		statusStackView.distribution = .fill
 
 		contentStackView.spacing = 12
-		actionTitleStackView.spacing = 8
+		activityTitleStackView.spacing = 8
 		statusStackView.spacing = 4
 
-		actionTitleStackView.alignment = .leading
+		activityTitleStackView.alignment = .leading
 
-		actionIcon.backgroundColor = .Pino.background
-		actionIcon.contentMode = .center
+		activityIcon.backgroundColor = .Pino.background
+		activityIcon.contentMode = .center
 
-		actionTitleLabel.font = .PinoStyle.mediumCallout
+		activityTitleLabel.font = .PinoStyle.mediumCallout
 		timeLabel.font = .PinoStyle.mediumFootnote
 		statusLabel.font = .PinoStyle.mediumFootnote
 
+		activityTitleLabel.textColor = .Pino.label
 		statusLabel.backgroundColor = .Pino.lightOrange
 		statusLabel.textColor = .Pino.pendingOrange
-		timeLabel.textColor = .Pino.black
+		timeLabel.textColor = .Pino.secondaryLabel
 
 		statusLabel.text = "Pending..."
 
@@ -101,19 +102,18 @@ class HistoryCollectionViewCell: UICollectionViewCell {
 
 	override func layoutIfNeeded() {
 		super.layoutIfNeeded()
-		actionIcon.layer.cornerRadius = actionIcon.frame.height * 0.5
+		activityIcon.layer.cornerRadius = activityIcon.frame.height * 0.5
 		statusLabel.layer.cornerRadius = 10
 		statusLabel.layer.masksToBounds = true
 	}
 
 	private func setupConstraint() {
-		actionCardView.pin(
+		activiityCardView.pin(
 			.verticalEdges(padding: 4),
 			.horizontalEdges(padding: 16)
 		)
 		contentStackView.pin(.centerY, .leading(padding: 14))
-		actionIcon.pin(.fixedWidth(44), .fixedHeight(44))
-		actionTitleStackView.pin(.trailing(padding: 14))
+		activityIcon.pin(.fixedWidth(44), .fixedHeight(44))
 		statusLabel.pin(.fixedHeight(20), .fixedWidth(80))
 	}
 }

@@ -51,7 +51,7 @@ extension CoinInfoCollectionView: UICollectionViewDataSource {
 		case 1:
 			return recentHistoryHeaderView(kind: kind, indexPath: indexPath) as! ResentHistoryHeaderView
 		default:
-			return coinInfoHeaderView(kind: kind, indexPath: indexPath) as! CoinInfoHeaderView
+			return UICollectionReusableView()
 		}
 	}
 
