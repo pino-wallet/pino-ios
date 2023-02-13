@@ -10,6 +10,8 @@ import UIKit
 class WalletsViewController: UIViewController {
 	// MARK: - Public Properties
 
+	private let walletVM = WalletsViewModel()
+
 	// MARK: Private Properties
 
 	// MARK: Initializers
@@ -36,7 +38,9 @@ class WalletsViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = UIView()
+		view = WalletsCollectionView(walletsVM: walletVM, walletSelected: { selectedWallet in
+
+		})
 		view.backgroundColor = .Pino.background
 	}
 

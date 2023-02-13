@@ -58,7 +58,7 @@ class ProfileCollectionView: UICollectionView {
 	}
 }
 
-// MARK: Collection View Flow Layout
+// MARK: - Collection View Flow Layout
 
 extension ProfileCollectionView: UICollectionViewDelegateFlowLayout {
 	func collectionView(
@@ -69,6 +69,8 @@ extension ProfileCollectionView: UICollectionViewDelegateFlowLayout {
 		CGSize(width: collectionView.frame.width, height: 48)
 	}
 }
+
+// MARK: - CollectionView Delegate
 
 extension ProfileCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -82,7 +84,7 @@ extension ProfileCollectionView: UICollectionViewDelegate {
 	}
 }
 
-// MARK: - CollectionView DataSource Methods
+// MARK: - CollectionView DataSource
 
 extension ProfileCollectionView: UICollectionViewDataSource {
 	internal func numberOfSections(in collectionView: UICollectionView) -> Int {

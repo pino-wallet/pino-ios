@@ -5,7 +5,7 @@
 //  Created by Mohi Raoufi on 12/24/22.
 //
 
-struct WalletInfoViewModel {
+public struct WalletInfoViewModel {
 	// MARK: - Public Properties
 
 	public var walletInfoModel: WalletInfoModel!

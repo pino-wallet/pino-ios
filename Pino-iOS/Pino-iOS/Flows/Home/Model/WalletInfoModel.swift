@@ -5,7 +5,7 @@
 //  Created by Mohi Raoufi on 12/19/22.
 //
 
-struct WalletInfoModel: Codable {
+public struct WalletInfoModel: Codable {
 	// MARK: - Public Properties
 
 	public var name: String
