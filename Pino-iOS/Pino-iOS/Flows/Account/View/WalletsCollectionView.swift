@@ -5,12 +5,16 @@
 //  Created by Mohi Raoufi on 2/13/23.
 //
 
+import Combine
 import UIKit
 
 class WalletsCollectionView: UICollectionView {
 	// MARK: Private Properties
 
 	private var walletsVM: WalletsViewModel
+	private var cancellables = Set<AnyCancellable>()
+
+	// MARK: Public Properties
 
 	public var walletSelected: (WalletInfoViewModel) -> Void
 
@@ -25,6 +29,7 @@ class WalletsCollectionView: UICollectionView {
 
 		configCollectionView()
 		setupStyle()
+		setupBindings()
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -47,6 +52,12 @@ class WalletsCollectionView: UICollectionView {
 		backgroundColor = .Pino.clear
 		showsVerticalScrollIndicator = false
 	}
+
+	private func setupBindings() {
+		walletsVM.$selectedWallet.sink { [weak self] selectedWallet in
+			self?.reloadData()
+		}.store(in: &cancellables)
+	}
 }
 
 // MARK: Collection View Flow Layout
@@ -64,7 +75,9 @@ extension WalletsCollectionView: UICollectionViewDelegateFlowLayout {
 // MARK: - CollectionView Delegate
 
 extension WalletsCollectionView: UICollectionViewDelegate {
-	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {}
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		walletsVM.selectedWallet = walletsVM.walletsList[indexPath.item]
+	}
 }
 
 // MARK: - CollectionView DataSource
@@ -83,6 +96,11 @@ extension WalletsCollectionView: UICollectionViewDataSource {
 			for: indexPath
 		) as! WalletCell
 		walletCell.walletVM = walletsVM.walletsList[indexPath.item]
+		if walletsVM.walletsList[indexPath.item] == walletsVM.selectedWallet {
+			walletCell.style = .selected
+		} else {
+			walletCell.style = .regular
+		}
 		return walletCell
 	}
 }

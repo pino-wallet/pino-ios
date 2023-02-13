@@ -10,6 +10,8 @@ import Combine
 class WalletsViewModel {
 	// MARK: - Public Properties
 
+	@Published
+	public var selectedWallet: WalletInfoViewModel!
 	public var walletsList: [WalletInfoViewModel]!
 
 	// MARK: - Private Properties
@@ -36,6 +38,7 @@ class WalletsViewModel {
 			}
 		} receiveValue: { wallets in
 			self.walletsList = wallets.walletsList.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
+			self.selectedWallet = self.walletsList.first
 		}.store(in: &cancellables)
 	}
 }

@@ -5,7 +5,7 @@
 //  Created by Mohi Raoufi on 12/24/22.
 //
 
-public struct WalletInfoViewModel {
+public struct WalletInfoViewModel: Equatable {
 	// MARK: - Public Properties
 
 	public var walletInfoModel: WalletInfoModel!

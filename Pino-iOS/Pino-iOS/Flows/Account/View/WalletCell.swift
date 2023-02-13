@@ -31,6 +31,12 @@ public class WalletCell: UICollectionViewCell {
 		}
 	}
 
+	public var style: Style = .regular {
+		didSet {
+			updateStyle()
+		}
+	}
+
 	// MARK: Private UI Methods
 
 	private func setupView() {
@@ -50,17 +56,15 @@ public class WalletCell: UICollectionViewCell {
 		walletIcon.image = UIImage(named: walletVM.profileImage)
 		editIcon.image = UIImage(named: "dots-menu")
 
-		editIcon.tintColor = .Pino.gray3
-
 		walletIconBackgroundView.backgroundColor = UIColor(named: walletVM.profileColor)
-
-		walletname.font = .PinoStyle.semiboldCallout
-		walletBalance.font = .PinoStyle.mediumFootnote
+		walletCardView.backgroundColor = .Pino.secondaryBackground
+		walletCardView.layer.borderColor = UIColor.Pino.primary.cgColor
+		editIcon.tintColor = .Pino.gray3
 
 		walletname.textColor = .Pino.label
 		walletBalance.textColor = .Pino.secondaryLabel
 
-		walletCardView.backgroundColor = .Pino.secondaryBackground
+		walletBalance.font = .PinoStyle.mediumFootnote
 
 		titleStackView.axis = .vertical
 		walletInfoStackView.axis = .horizontal
@@ -73,6 +77,8 @@ public class WalletCell: UICollectionViewCell {
 
 		walletCardView.layer.cornerRadius = 12
 		walletIconBackgroundView.layer.cornerRadius = 22
+
+		updateStyle()
 	}
 
 	private func setupConstraint() {
@@ -97,6 +103,17 @@ public class WalletCell: UICollectionViewCell {
 			.trailing(padding: 14),
 			.centerY
 		)
+	}
+
+	private func updateStyle() {
+		switch style {
+		case .regular:
+			walletname.font = .PinoStyle.mediumCallout
+			walletCardView.layer.borderWidth = 0
+		case .selected:
+			walletname.font = .PinoStyle.semiboldCallout
+			walletCardView.layer.borderWidth = 1.2
+		}
 	}
 }
 
