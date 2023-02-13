@@ -31,7 +31,7 @@ class CustomAssetViewItem: UIView {
 	private let titleStackView = UIStackView()
 	private let betweenStackView = UIStackView()
 	private let infoStackView = UIStackView()
-	private let titleLabel = UILabel()
+	private let titleLabel: PinoLabel
 	private let tooltipIconViewButton = UIButton()
 	private var assetIconView: UIImageView? {
 		didSet {
@@ -39,10 +39,23 @@ class CustomAssetViewItem: UIView {
 		}
 	}
 
+	// MARK: - Initializers
+
 	init(titleText: String, tooltipText: String, infoView: UIView) {
 		self.titleText = titleText
 		self.tooltipText = tooltipText
 		self.infoView = infoView
+
+		self.titleLabel = PinoLabel(
+			style: PinoLabel
+				.Style(
+					textColor: UIColor.Pino.secondaryLabel,
+					font: UIFont.PinoStyle.mediumBody,
+					numberOfLine: 0,
+					lineSpacing: 6
+				),
+			text: ""
+		)
 
 		super.init(frame: .zero)
 
@@ -54,11 +67,12 @@ class CustomAssetViewItem: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - PrivateMethods
+
 	private func setupView() {
 		// Setup titleLabel
 		titleLabel.text = titleText
-		titleLabel.font = UIFont.PinoStyle.mediumBody
-		titleLabel.textColor = .Pino.secondaryLabel
+		titleLabel.lineBreakMode = .byWordWrapping
 
 		// Setup subviews
 		addSubview(mainStackView)
@@ -95,9 +109,9 @@ class CustomAssetViewItem: UIView {
 	}
 
 	private func setupConstraints() {
-		pin(.fixedHeight(24))
-		titleStackView.pin(.fixedHeight(24))
-		infoStackView.pin(.fixedHeight(24))
+		titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 138).isActive = true
+		heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
+		betweenStackView.widthAnchor.constraint(greaterThanOrEqualToConstant: 32).isActive = true
 		mainStackView.pin(.allEdges(to: superview))
 	}
 

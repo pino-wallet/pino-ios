@@ -20,19 +20,24 @@ class AddCustomAssetView: UIView {
 	// MARK: - Private Properties
 
 	private let contractTextfieldView = PinoTextFieldView()
-	private let addButton = PinoButton(style: .active, title: "Add")
+	private let addButton = PinoButton(style: .active, title: "")
 	private let scanQRCodeIconButton = UIButton()
 	private let pasteFromClipboardview =
-		PasteFromClipboardView(contractAddress: "0x4108A1698EDB3d3E66aAD93E030dbF28Ea5ABB11")
+		PasteFromClipboardView(contractAddress: "")
 	private var customAssetInfoView: CustomAssetInfoView?
 	private lazy var dissmissTapGesture = UITapGestureRecognizer(target: self, action: #selector(dissmissKeyboard(_:)))
+	private var addCustomAssetVM: AddCustomAssetViewModel
+
+	// MARK: - Initializers
 
 	init(
 		presentTooltipAlertClosure: @escaping presentTooltipAlertClosureType,
-		dissmissKeybaordClosure: @escaping dissmissKeyboardClosureType
+		dissmissKeybaordClosure: @escaping dissmissKeyboardClosureType,
+		addCustomAssetVM: AddCustomAssetViewModel
 	) {
 		self.presentTooltipAlertClosure = presentTooltipAlertClosure
 		self.dissmissKeyboardClosure = dissmissKeybaordClosure
+		self.addCustomAssetVM = addCustomAssetVM
 		super.init(frame: .zero)
 		setupView()
 		setupConstraints()
@@ -45,13 +50,13 @@ class AddCustomAssetView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		addButton.title = addCustomAssetVM.addCustomAssetButtonTitle
+
+		pasteFromClipboardview.contractAddress = addCustomAssetVM.customAsset.contractAddress
+
 		addGestureRecognizer(dissmissTapGesture)
 		customAssetInfoView = CustomAssetInfoView(
-			assetName: "USDC",
-			assetIcon: "USDC",
-			userBalance: 230.1,
-			assetWebsite: "www.usdc.com",
-			assetContractAddress: "0x4108A1698EDB3d3E66aAD93E030dbF28Ea5ABB11",
+			addCustomAssetVM: addCustomAssetVM,
 			presentTooltipAlertClosure: presentTooltipAlertClosure
 		)
 		// Setup subviews
@@ -60,13 +65,12 @@ class AddCustomAssetView: UIView {
 //		addSubview(pasteFromClipboardview)
 		addSubview(customAssetInfoView ?? UIView())
 		// Setup contract text field view
-		contractTextfieldView.placeholderText = "Enter contract address"
+		contractTextfieldView.placeholderText = addCustomAssetVM.addCustomAssetTextfieldPlaceholder
 		contractTextfieldView.returnKeyType = .Search
 		contractTextfieldView.textFieldKeyboardOnReturn = dissmissKeyboardClosure
-		scanQRCodeIconButton.setImage(UIImage(named: "qr_code_scanner"), for: .normal)
-		contractTextfieldView.style = .pending
-		#warning("error text is for test and should be change")
-		contractTextfieldView.errorText = "This is an error!"
+		scanQRCodeIconButton.setImage(UIImage(named: addCustomAssetVM.addCustomAssetTextfieldIcon), for: .normal)
+		contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
+		contractTextfieldView.errorText = addCustomAssetVM.addCustomAssetTextfieldError
 	}
 
 	private func setupConstraints() {

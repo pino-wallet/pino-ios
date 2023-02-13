@@ -10,18 +10,20 @@ import UIKit
 class PasteFromClipboardView: UIView {
 	// MARK: - Public Properties
 
-	public var contractAddress: String
+	public var contractAddress: String {
+		didSet {
+			setupContractAddressLabel()
+		}
+	}
 
 	// MARK: - Private Properties
 
-	private let stackView = UIStackView()
+	private let mainStackView = UIStackView()
 	private let pasteButton = UIButton()
-	private let contractAddressLabel = PinoLabel(
-		style: PinoLabel
-			.Style(textColor: .Pino.label, font: UIFont.PinoStyle.mediumSubheadline, numberOfLine: 0, lineSpacing: 6),
-		text: ""
-	)
+	private var contractAddressLabel: PinoLabel?
 	private let pasteButtonIcon = UIImage(named: "copy")
+
+	// MARK: - Initializers
 
 	init(contractAddress: String) {
 		self.contractAddress = contractAddress
@@ -29,11 +31,14 @@ class PasteFromClipboardView: UIView {
 
 		setupView()
 		setupConstraints()
+		setupContractAddressLabel()
 	}
 
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+
+	// MARK: - Private Methods
 
 	private func setupView() {
 		// Setup self view
@@ -52,21 +57,26 @@ class PasteFromClipboardView: UIView {
 		pasteButtonContentInsets.leading = 0
 		pasteButton.configuration?.contentInsets = pasteButtonContentInsets
 
-		// Setup contract address label view
-		contractAddressLabel.text = contractAddress
-		contractAddressLabel.font = UIFont.PinoStyle.mediumSubheadline
-		contractAddressLabel.lineBreakMode = .byWordWrapping
-
 		// Setup stackview
-		addSubview(stackView)
-		stackView.axis = .vertical
-		stackView.alignment = .leading
-		stackView.addArrangedSubview(pasteButton)
-		stackView.addArrangedSubview(contractAddressLabel)
-		stackView.spacing = 6
+		addSubview(mainStackView)
+		mainStackView.axis = .vertical
+		mainStackView.alignment = .leading
+		mainStackView.addArrangedSubview(pasteButton)
+		mainStackView.spacing = 6
 	}
 
 	private func setupConstraints() {
-		stackView.pin(.verticalEdges(to: superview, padding: 12), .horizontalEdges(to: superview, padding: 14))
+		mainStackView.pin(.verticalEdges(to: superview, padding: 12), .horizontalEdges(to: superview, padding: 14))
+	}
+
+	private func setupContractAddressLabel() {
+		// Setup contract address label view
+		contractAddressLabel = PinoLabel(
+			style: PinoLabel
+				.Style(textColor: .Pino.label, font: UIFont.PinoStyle.mediumSubheadline, numberOfLine: 0, lineSpacing: 6),
+			text: contractAddress
+		)
+		contractAddressLabel?.lineBreakMode = .byWordWrapping
+		mainStackView.addArrangedSubview(contractAddressLabel ?? UIView())
 	}
 }

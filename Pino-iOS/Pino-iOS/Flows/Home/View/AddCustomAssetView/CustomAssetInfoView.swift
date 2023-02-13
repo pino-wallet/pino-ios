@@ -15,53 +15,42 @@ class CustomAssetInfoView: UIView {
 
 	var presentTooltipAlertClosure: presentTooltipAlertClosureType
 
-	// MARK: - Public Properties
-
-	public var assetName: String
-	public var assetIconName: String
-	public var userBalance: Double?
-	public var assetWebsite: String
-	public var assetContractAddress: String
-
 	// MARK: - Private Properties
 
-	private let stackView = UIStackView()
+	private let mainStackView = UIStackView()
 	private let nameItem: CustomAssetViewItem
 	private var userBalanceItem: CustomAssetViewItem?
 	private let websiteItem: CustomAssetViewItem
 	private let contractAddressItem: CustomAssetViewItem
 
+	private let nameLabel = PinoLabel(style: .info, text: "")
+	private let userBalanceLabel = PinoLabel(style: .info, text: "")
 	private let contractAddressLabel = PinoLabel(style: .info, text: "")
+	private let websiteLabel = PinoLabel(style: .info, text: "")
+	private var addCustomAssetVM: AddCustomAssetViewModel
+
+	// MARK: - Initializers
 
 	init(
-		assetName: String,
-		assetIcon: String,
-		userBalance: Double?,
-		assetWebsite: String,
-		assetContractAddress: String,
+		addCustomAssetVM: AddCustomAssetViewModel,
 		presentTooltipAlertClosure: @escaping presentTooltipAlertClosureType
 	) {
-		self.assetName = assetName
-		self.assetIconName = assetIcon
-		self.userBalance = userBalance
-		self.assetWebsite = assetWebsite
-		self.assetContractAddress = assetContractAddress
+		self.addCustomAssetVM = addCustomAssetVM
 		self.presentTooltipAlertClosure = presentTooltipAlertClosure
 
-		#warning("These tooltip messages are for testing and should be changed")
 		self.nameItem = CustomAssetViewItem(
-			titleText: "Name",
-			tooltipText: "Sample text",
-			infoView: PinoLabel(style: .info, text: assetName)
+			titleText: addCustomAssetVM.customAssetNameItem.title,
+			tooltipText: addCustomAssetVM.customAssetNameItem.tooltipText,
+			infoView: nameLabel
 		)
 		self.websiteItem = CustomAssetViewItem(
-			titleText: "Website",
-			tooltipText: "Sample text",
-			infoView: PinoLabel(style: .info, text: assetWebsite)
+			titleText: addCustomAssetVM.customAssetWebsiteItem.title,
+			tooltipText: addCustomAssetVM.customAssetWebsiteItem.tooltipText,
+			infoView: websiteLabel
 		)
 		self.contractAddressItem = CustomAssetViewItem(
-			titleText: "Contract address",
-			tooltipText: "Sample text",
+			titleText: addCustomAssetVM.customAssetContractAddressItem.title,
+			tooltipText: addCustomAssetVM.customAssetContractAddressItem.tooltipText,
 			infoView: contractAddressLabel
 		)
 
@@ -76,6 +65,8 @@ class CustomAssetInfoView: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - Private Methods
+
 	private func setupClosures() {
 		nameItem.presentTooltipAlertClosure = presentTooltipAlertClosure
 		websiteItem.presentTooltipAlertClosure = presentTooltipAlertClosure
@@ -84,11 +75,22 @@ class CustomAssetInfoView: UIView {
 	}
 
 	private func setupView() {
+		let customAsset = addCustomAssetVM.customAsset
 		// Setup nameItem icon
-		nameItem.infoIconName = assetIconName
+		nameItem.infoIconName = customAsset?.icon
+
+		// Setup asset name label
+		nameLabel.text = customAsset?.name
+		nameLabel.numberOfLines = 0
+		nameLabel.lineBreakMode = .byWordWrapping
+
+		// Setup asset website label
+		websiteLabel.text = customAsset?.website
+		websiteLabel.numberOfLines = 0
+		websiteLabel.lineBreakMode = .byWordWrapping
 
 		// Setup contract address label
-		contractAddressLabel.text = assetContractAddress
+		contractAddressLabel.text = customAsset?.contractAddress
 		contractAddressLabel.lineBreakMode = .byTruncatingMiddle
 
 		// Setup self view
@@ -96,27 +98,30 @@ class CustomAssetInfoView: UIView {
 		layer.cornerRadius = 12
 
 		// Setup stackview
-		addSubview(stackView)
-		stackView.axis = .vertical
-		stackView.spacing = 16
-		stackView.addArrangedSubview(nameItem)
-		if let userBalance = userBalance {
+		addSubview(mainStackView)
+		mainStackView.axis = .vertical
+		mainStackView.spacing = 16
+		mainStackView.addArrangedSubview(nameItem)
+		if let userBalance = customAsset?.balance {
+			userBalanceLabel.text = userBalance
+			userBalanceLabel.numberOfLines = 0
+			userBalanceLabel.lineBreakMode = .byWordWrapping
 			userBalanceItem = CustomAssetViewItem(
-				titleText: "Your balance",
-				tooltipText: "Sample text",
-				infoView: PinoLabel(style: .info, text: String(describing: userBalance))
+				titleText: addCustomAssetVM.customAssetUserBalanceItem.title,
+				tooltipText: addCustomAssetVM.customAssetUserBalanceItem.tooltipText,
+				infoView: userBalanceLabel
 			)
 			guard let finalUserBalanceItem = userBalanceItem! as CustomAssetViewItem? else {
 				return
 			}
-			stackView.addArrangedSubview(finalUserBalanceItem)
+			mainStackView.addArrangedSubview(finalUserBalanceItem)
 		}
-		stackView.addArrangedSubview(websiteItem)
-		stackView.addArrangedSubview(contractAddressItem)
+		mainStackView.addArrangedSubview(websiteItem)
+		mainStackView.addArrangedSubview(contractAddressItem)
 	}
 
 	private func setupConstraints() {
-		stackView.pin(.horizontalEdges(to: superview, padding: 14), .verticalEdges(to: superview, padding: 18))
+		mainStackView.pin(.horizontalEdges(to: superview, padding: 14), .verticalEdges(to: superview, padding: 18))
 		contractAddressLabel.pin(.fixedWidth(92))
 	}
 }

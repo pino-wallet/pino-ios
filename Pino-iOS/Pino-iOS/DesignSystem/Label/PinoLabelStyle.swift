@@ -40,6 +40,6 @@ extension PinoLabel.Style {
 		textColor: .Pino.label,
 		font: .PinoStyle.mediumBody,
 		numberOfLine: 1,
-		lineSpacing: 0
+		lineSpacing: 6
 	)
 }

@@ -8,6 +8,8 @@
 import UIKit
 
 class AddCustomAssetViewController: UIViewController {
+	private let AddCustomAssetVM = AddCustomAssetViewModel()
+
 	// MARK: - Initializers
 
 	init() {
@@ -29,14 +31,20 @@ class AddCustomAssetViewController: UIViewController {
 		setupNavigationBar()
 	}
 
+	// MARK: - Private Methods
+
 	private func setupView() {
 		let addCustomAssetView =
-			AddCustomAssetView(presentTooltipAlertClosure: { [weak self] tooltipTitle, tooltipDescription in
-				let tooltipAlert = InfoActionSheet(title: tooltipTitle, description: tooltipDescription)
-				self?.present(tooltipAlert, animated: true)
-			}, dissmissKeybaordClosure: { [weak self] in
-				self?.view.endEditing(true)
-			})
+			AddCustomAssetView(
+				presentTooltipAlertClosure: { [weak self] tooltipTitle, tooltipDescription in
+					let tooltipAlert = InfoActionSheet(title: tooltipTitle, description: tooltipDescription)
+					self?.present(tooltipAlert, animated: true)
+				},
+				dissmissKeybaordClosure: { [weak self] in
+					self?.view.endEditing(true)
+				},
+				addCustomAssetVM: AddCustomAssetVM
+			)
 		view = addCustomAssetView
 		view.backgroundColor = .Pino.background
 	}
@@ -45,18 +53,18 @@ class AddCustomAssetViewController: UIViewController {
 		// Setup appreance for navigation bar
 		setupPrimaryColorNavigationBar()
 		// Setup navigation title
-		setNavigationTitle("Add custom asset")
+		setNavigationTitle(AddCustomAssetVM.addcustomAssetPageTitle)
 
 		// Setup dismiss button
 		navigationItem.leftBarButtonItem = UIBarButtonItem(
-			image: UIImage(named: "arrow_left"), style: .plain, target: self,
+			image: UIImage(named: AddCustomAssetVM.addCustomAssetPageBackButtonIcon), style: .plain, target: self,
 			action: #selector(dismissAddCustomAssetVC)
 		)
 		navigationItem.leftBarButtonItem?.tintColor = .Pino.white
 
 		// Setup add button
 		navigationItem.rightBarButtonItem = UIBarButtonItem(
-			title: "Add",
+			title: AddCustomAssetVM.addCustomAssetButtonTitle,
 			style: .plain,
 			target: self,
 			action: #selector(addCustomAssetHandler)
