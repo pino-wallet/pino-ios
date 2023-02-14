@@ -8,7 +8,7 @@
 struct CustomAssetModel {
 	public let name: String
 	public let icon: String
-	public let balance: String
+	public let balance: String?
 	public let website: String
 	public let contractAddress: String
 }

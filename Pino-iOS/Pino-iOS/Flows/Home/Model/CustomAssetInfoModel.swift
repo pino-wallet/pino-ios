@@ -5,7 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 2/13/23.
 //
 
-struct CustomAssetItemModel {
+struct CustomAssetInfoModel {
 	public let title: String
-	public let tooltipText: String
+	public let alertText: String
 }

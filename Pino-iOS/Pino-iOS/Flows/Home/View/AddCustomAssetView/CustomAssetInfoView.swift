@@ -1,125 +1,127 @@
 //
-//  CustomAssetInfoView.swift
+//  CustomAssetViewSection.swift
 //  Pino-iOS
 //
-//  Created by Amir hossein kazemi seresht on 2/3/23.
+//  Created by Amir hossein kazemi seresht on 2/5/23.
 //
-
 import UIKit
 
 class CustomAssetInfoView: UIView {
 	// Typealias
-	typealias presentTooltipAlertClosureType = (_ tooltipTitle: String, _ tooltipDescription: String) -> Void
+	typealias presentAlertClosureType = (_ alertTitle: String, _ alertDescription: String) -> Void
 
 	// MARK: - Closure
 
-	var presentTooltipAlertClosure: presentTooltipAlertClosureType
+	var presentAlertClosure: presentAlertClosureType?
+
+	// MARK: - Public Properties
+
+	public var titleText: String
+	public var alertText: String
+	public var infoView: UIView
+	public var infoIconImage: UIImage? {
+		didSet {
+			setupView()
+		}
+	}
 
 	// MARK: - Private Properties
 
 	private let mainStackView = UIStackView()
-	private let nameView: CustomAssetView
-	private var userBalanceView: CustomAssetView?
-	private let websiteView: CustomAssetView
-	private let contractAddressView: CustomAssetView
-
-	private let nameLabel = PinoLabel(style: .info, text: "")
-	private let userBalanceLabel = PinoLabel(style: .info, text: "")
-	private let contractAddressLabel = PinoLabel(style: .info, text: "")
-	private let websiteLabel = PinoLabel(style: .info, text: "")
-	private var addCustomAssetVM: AddCustomAssetViewModel
+	private let titleStackView = UIStackView()
+	private let betweenStackView = UIStackView()
+	private let infoStackView = UIStackView()
+	private let titleLabel: PinoLabel
+	private let alertIconButtonView = UIButton()
+	private var assetIconView: UIImageView? {
+		didSet {
+			setupAssetIconViewConstraints()
+		}
+	}
 
 	// MARK: - Initializers
 
-	init(
-		addCustomAssetVM: AddCustomAssetViewModel,
-		presentTooltipAlertClosure: @escaping presentTooltipAlertClosureType
-	) {
-		self.addCustomAssetVM = addCustomAssetVM
-		self.presentTooltipAlertClosure = presentTooltipAlertClosure
+	init(titleText: String, alertText: String, infoView: UIView) {
+		self.titleText = titleText
+		self.alertText = alertText
+		self.infoView = infoView
 
-		self.nameView = CustomAssetView(
-			titleText: addCustomAssetVM.customAssetNameItem.title,
-			tooltipText: addCustomAssetVM.customAssetNameItem.tooltipText,
-			infoView: nameLabel
-		)
-		self.websiteView = CustomAssetView(
-			titleText: addCustomAssetVM.customAssetWebsiteItem.title,
-			tooltipText: addCustomAssetVM.customAssetWebsiteItem.tooltipText,
-			infoView: websiteLabel
-		)
-		self.contractAddressView = CustomAssetView(
-			titleText: addCustomAssetVM.customAssetContractAddressItem.title,
-			tooltipText: addCustomAssetVM.customAssetContractAddressItem.tooltipText,
-			infoView: contractAddressLabel
+		self.titleLabel = PinoLabel(
+			style: PinoLabel
+				.Style(
+					textColor: UIColor.Pino.secondaryLabel,
+					font: UIFont.PinoStyle.mediumBody,
+					numberOfLine: 0,
+					lineSpacing: 6
+				),
+			text: ""
 		)
 
 		super.init(frame: .zero)
 
 		setupView()
 		setupConstraints()
-		setupClosures()
 	}
 
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - Private Methods
-
-	private func setupClosures() {
-		nameView.presentTooltipAlertClosure = presentTooltipAlertClosure
-		websiteView.presentTooltipAlertClosure = presentTooltipAlertClosure
-		contractAddressView.presentTooltipAlertClosure = presentTooltipAlertClosure
-		userBalanceView?.presentTooltipAlertClosure = presentTooltipAlertClosure
-	}
+	// MARK: - PrivateMethods
 
 	private func setupView() {
-		let customAsset = addCustomAssetVM.customAsset
-		// Setup nameItem icon
-		nameView.infoIconName = customAsset?.icon
+		// Setup titleLabel
+		titleLabel.text = titleText
+		titleLabel.lineBreakMode = .byWordWrapping
 
-		// Setup asset name label
-		nameLabel.text = customAsset?.name
-		nameLabel.numberOfLines = 0
-		nameLabel.lineBreakMode = .byWordWrapping
-
-		// Setup asset website label
-		websiteLabel.text = customAsset?.website
-		websiteLabel.numberOfLines = 0
-		websiteLabel.lineBreakMode = .byWordWrapping
-
-		// Setup contract address label
-		contractAddressLabel.text = customAsset?.contractAddress
-		contractAddressLabel.lineBreakMode = .byTruncatingMiddle
-
-		// Setup self view
-		backgroundColor = .Pino.secondaryBackground
-		layer.cornerRadius = 12
-
-		// Setup stackview
+		// Setup subviews
 		addSubview(mainStackView)
-		mainStackView.axis = .vertical
-		mainStackView.spacing = 16
-		mainStackView.addArrangedSubview(nameView)
-		if let userBalance = customAsset?.balance {
-			userBalanceLabel.text = userBalance
-			userBalanceLabel.numberOfLines = 0
-			userBalanceLabel.lineBreakMode = .byWordWrapping
-			userBalanceView = CustomAssetView(
-				titleText: addCustomAssetVM.customAssetUserBalanceItem.title,
-				tooltipText: addCustomAssetVM.customAssetUserBalanceItem.tooltipText,
-				infoView: userBalanceLabel
-			)
 
-			mainStackView.addArrangedSubview(userBalanceView!)
+		// Setup title stackview
+		titleStackView.axis = .horizontal
+		titleStackView.alignment = .center
+		titleStackView.spacing = 2
+		titleStackView.addArrangedSubview(titleLabel)
+		titleStackView.addArrangedSubview(alertIconButtonView)
+
+		// Setup center stackview
+		betweenStackView.alignment = .center
+
+		// Setup main stackview
+		mainStackView.axis = .horizontal
+		mainStackView.addArrangedSubview(titleStackView)
+		mainStackView.addArrangedSubview(betweenStackView)
+		mainStackView.addArrangedSubview(infoStackView)
+
+		// Setup alertViewButton
+		alertIconButtonView.setImage(UIImage(named: "alert"), for: .normal)
+		alertIconButtonView.addTarget(self, action: #selector(handlePresentAlert), for: .touchUpInside)
+
+		// Setup info stack view
+		infoStackView.axis = .horizontal
+		infoStackView.alignment = .center
+		infoStackView.spacing = 4
+		if let infoIconImage {
+			assetIconView = UIImageView(image: infoIconImage)
+			infoStackView.addArrangedSubview(assetIconView!)
 		}
-		mainStackView.addArrangedSubview(websiteView)
-		mainStackView.addArrangedSubview(contractAddressView)
+		infoStackView.addArrangedSubview(infoView)
 	}
 
 	private func setupConstraints() {
-		mainStackView.pin(.horizontalEdges(to: superview, padding: 14), .verticalEdges(to: superview, padding: 18))
-		contractAddressLabel.pin(.fixedWidth(92))
+		titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 138).isActive = true
+		heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
+		betweenStackView.widthAnchor.constraint(greaterThanOrEqualToConstant: 32).isActive = true
+		mainStackView.pin(.allEdges(to: superview))
+	}
+
+	private func setupAssetIconViewConstraints() {
+		assetIconView?.pin(.fixedHeight(20), .fixedWidth(20))
+	}
+
+	// Handle open alert
+	@objc
+	func handlePresentAlert() {
+		presentAlertClosure?(titleText, alertText)
 	}
 }

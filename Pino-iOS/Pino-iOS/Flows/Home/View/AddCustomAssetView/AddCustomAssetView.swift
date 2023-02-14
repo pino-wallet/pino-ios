@@ -9,12 +9,12 @@ import UIKit
 
 class AddCustomAssetView: UIView {
 	// Typealias
-	typealias presentTooltipAlertClosureType = (_ tooltipTitle: String, _ tooltipDescription: String) -> Void
+	typealias presentAlertClosureType = (_ alertTitle: String, _ alertDescription: String) -> Void
 	typealias dissmissKeyboardClosureType = () -> Void
 
 	// MARK: - Closure
 
-	var presentTooltipAlertClosure: presentTooltipAlertClosureType
+	var presentAlertClosure: presentAlertClosureType
 	var dissmissKeyboardClosure: dissmissKeyboardClosureType
 
 	// MARK: - Private Properties
@@ -24,7 +24,7 @@ class AddCustomAssetView: UIView {
 	private let scanQRCodeIconButton = UIButton()
 	private let pasteFromClipboardview =
 		PasteFromClipboardView(contractAddress: "")
-	private var customAssetInfoView: CustomAssetInfoView?
+	private var customAssetInfoView: CustomAssetInfoContainerView?
 	private lazy var dissmissKeyboardTapGesture = UITapGestureRecognizer(
 		target: self,
 		action: #selector(dissmissKeyboard(_:))
@@ -34,11 +34,11 @@ class AddCustomAssetView: UIView {
 	// MARK: - Initializers
 
 	init(
-		presentTooltipAlertClosure: @escaping presentTooltipAlertClosureType,
+		presentAlertClosure: @escaping presentAlertClosureType,
 		dissmissKeybaordClosure: @escaping dissmissKeyboardClosureType,
 		addCustomAssetVM: AddCustomAssetViewModel
 	) {
-		self.presentTooltipAlertClosure = presentTooltipAlertClosure
+		self.presentAlertClosure = presentAlertClosure
 		self.dissmissKeyboardClosure = dissmissKeybaordClosure
 		self.addCustomAssetVM = addCustomAssetVM
 		super.init(frame: .zero)
@@ -58,9 +58,9 @@ class AddCustomAssetView: UIView {
 		pasteFromClipboardview.contractAddress = addCustomAssetVM.customAsset.contractAddress
 
 		addGestureRecognizer(dissmissKeyboardTapGesture)
-		customAssetInfoView = CustomAssetInfoView(
+		customAssetInfoView = CustomAssetInfoContainerView(
 			addCustomAssetVM: addCustomAssetVM,
-			presentTooltipAlertClosure: presentTooltipAlertClosure
+			presentAlertClosure: presentAlertClosure
 		)
 		// Setup subviews
 		addSubview(addButton)

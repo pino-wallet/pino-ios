@@ -38,9 +38,9 @@ class AddCustomAssetViewController: UIViewController {
 	private func setupView() {
 		let addCustomAssetView =
 			AddCustomAssetView(
-				presentTooltipAlertClosure: { [weak self] tooltipTitle, tooltipDescription in
-					let tooltipAlert = InfoActionSheet(title: tooltipTitle, description: tooltipDescription)
-					self?.present(tooltipAlert, animated: true)
+				presentAlertClosure: { [weak self] alertTitle, alertDescription in
+					let alert = InfoActionSheet(title: alertTitle, description: alertDescription)
+					self?.present(alert, animated: true)
 				},
 				dissmissKeybaordClosure: { [weak self] in
 					self?.view.endEditing(true)
