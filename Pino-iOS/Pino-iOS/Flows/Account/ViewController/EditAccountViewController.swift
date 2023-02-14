@@ -1,21 +1,23 @@
 //
-//  WalletsViewController.swift
+//  EditAccountViewController.swift
 //  Pino-iOS
 //
-//  Created by Mohi Raoufi on 2/13/23.
+//  Created by Mohi Raoufi on 2/14/23.
 //
 
 import UIKit
 
-class WalletsViewController: UIViewController {
+class EditAccountViewController: UIViewController {
 	// MARK: Private Properties
 
 	private let walletVM: WalletsViewModel
+	private let selectedWallet: WalletInfoViewModel
 
 	// MARK: Initializers
 
-	init(walletVM: WalletsViewModel) {
+	init(walletVM: WalletsViewModel, selectedWallet: WalletInfoViewModel) {
 		self.walletVM = walletVM
+		self.selectedWallet = selectedWallet
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -37,28 +39,29 @@ class WalletsViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = WalletsCollectionView(walletsVM: walletVM, editAccountTapped: { selectedWallet in
-			self.openEditAccountPage(selectedWallet: selectedWallet)
-		})
+		view = UIView()
 		view.backgroundColor = .Pino.background
 	}
 
 	private func setupNavigationBar() {
 		// Setup title view
-		setNavigationTitle("Wallets")
+		setNavigationTitle("Edit account")
 		// Setup add asset button
 		navigationItem.rightBarButtonItem = UIBarButtonItem(
-			image: UIImage(systemName: "plus"),
+			title: "Done",
 			style: .plain,
 			target: self,
-			action: nil
+			action: #selector(dismissPage)
 		)
+		let textAttributes = [
+			NSAttributedString.Key.foregroundColor: UIColor.Pino.white,
+			NSAttributedString.Key.font: UIFont.PinoStyle.semiboldBody!,
+		]
+		navigationItem.rightBarButtonItem?.setTitleTextAttributes(textAttributes, for: .normal)
 	}
 
-	private func openEditAccountPage(selectedWallet: WalletInfoViewModel) {
-		let editAccountVC = EditAccountViewController(walletVM: walletVM, selectedWallet: selectedWallet)
-		if navigationController?.viewControllers.last is WalletsViewController {
-			navigationController?.pushViewController(editAccountVC, animated: true)
-		}
+	@objc
+	private func dismissPage() {
+		dismiss(animated: true)
 	}
 }
