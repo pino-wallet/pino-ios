@@ -16,13 +16,16 @@ class WalletsCollectionView: UICollectionView {
 
 	// MARK: Public Properties
 
-	public var walletSelected: (WalletInfoViewModel) -> Void
+	public var editAccountTapped: (WalletInfoViewModel) -> Void
 
 	// MARK: Initializers
 
-	init(walletsVM: WalletsViewModel, walletSelected: @escaping (WalletInfoViewModel) -> Void) {
+	init(
+		walletsVM: WalletsViewModel,
+		editAccountTapped: @escaping (WalletInfoViewModel) -> Void
+	) {
 		self.walletsVM = walletsVM
-		self.walletSelected = walletSelected
+		self.editAccountTapped = editAccountTapped
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		flowLayout.sectionInset = UIEdgeInsets(top: 24, left: 0, bottom: 24, right: 0)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
@@ -100,6 +103,9 @@ extension WalletsCollectionView: UICollectionViewDataSource {
 			walletCell.style = .selected
 		} else {
 			walletCell.style = .regular
+		}
+		walletCell.editButtonTapped = {
+			self.editAccountTapped(self.walletsVM.walletsList[indexPath.item])
 		}
 		return walletCell
 	}

@@ -17,11 +17,12 @@ public class WalletCell: UICollectionViewCell {
 	private let titleStackView = UIStackView()
 	private let walletname = UILabel()
 	private let walletBalance = UILabel()
-	private let editIcon = UIImageView()
+	private let editButton = UIButton()
 
 	// MARK: Public Properties
 
 	public static let cellReuseID = "walletCell"
+	public var editButtonTapped: (() -> Void)?
 
 	public var walletVM: WalletInfoViewModel! {
 		didSet {
@@ -42,24 +43,30 @@ public class WalletCell: UICollectionViewCell {
 	private func setupView() {
 		contentView.addSubview(walletCardView)
 		walletCardView.addSubview(walletInfoStackView)
-		walletCardView.addSubview(editIcon)
+		walletCardView.addSubview(editButton)
 		walletInfoStackView.addArrangedSubview(walletIconBackgroundView)
 		walletInfoStackView.addArrangedSubview(titleStackView)
 		titleStackView.addArrangedSubview(walletname)
 		titleStackView.addArrangedSubview(walletBalance)
 		walletIconBackgroundView.addSubview(walletIcon)
+
+		editButton.addAction(UIAction(handler: { _ in
+			if let editButtonTapped = self.editButtonTapped {
+				editButtonTapped()
+			}
+		}), for: .touchUpInside)
 	}
 
 	private func setupStyle() {
 		walletname.text = walletVM.name
 		walletBalance.text = walletVM.balance
 		walletIcon.image = UIImage(named: walletVM.profileImage)
-		editIcon.image = UIImage(named: "dots-menu")
+		editButton.setImage(UIImage(named: "dots-menu"), for: .normal)
 
 		walletIconBackgroundView.backgroundColor = UIColor(named: walletVM.profileColor)
 		walletCardView.backgroundColor = .Pino.secondaryBackground
 		walletCardView.layer.borderColor = UIColor.Pino.primary.cgColor
-		editIcon.tintColor = .Pino.gray3
+		editButton.tintColor = .Pino.gray3
 
 		walletname.textColor = .Pino.label
 		walletBalance.textColor = .Pino.secondaryLabel
@@ -97,7 +104,7 @@ public class WalletCell: UICollectionViewCell {
 		walletIcon.pin(
 			.allEdges(padding: 6)
 		)
-		editIcon.pin(
+		editButton.pin(
 			.fixedWidth(28),
 			.fixedHeight(28),
 			.trailing(padding: 14),
