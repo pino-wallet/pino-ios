@@ -10,15 +10,20 @@ class AddCustomAssetViewModel {
 
 	// MARK: - Private Properties
 
-	public var customAsset: CustomAssetModel!
+	private var originalCustomAsset: CustomAssetModel!
+
+	// MARK: - Public Properties
+
+	public var customAsset: CustomAssetModel! {
+		originalCustomAsset
+	}
+
 	public let addCustomAssetButtonTitle = "Add"
 	public let addcustomAssetPageTitle = "Add custom asset"
 	public let addCustomAssetPageBackButtonIcon = "arrow_left"
 	public let addCustomAssetTextfieldPlaceholder = "Enter contract address"
 	public let addCustomAssetTextfieldError = "This is an error!"
 	public let addCustomAssetTextfieldIcon = "qr_code_scanner"
-
-	// MARK: - Public Properties
 
 	public let customAssetNameItem = CustomAssetItemModel(title: "Name", tooltipText: "Some text")
 	public let customAssetUserBalanceItem = CustomAssetItemModel(title: "Your balance", tooltipText: "Some text")
@@ -37,7 +42,7 @@ class AddCustomAssetViewModel {
 	// MARK: - Private Methods
 
 	private func setCustomAsset() {
-		customAsset = CustomAssetModel(
+		originalCustomAsset = CustomAssetModel(
 			name: "USDC",
 			icon: "USDC",
 			balance: "201.2",
