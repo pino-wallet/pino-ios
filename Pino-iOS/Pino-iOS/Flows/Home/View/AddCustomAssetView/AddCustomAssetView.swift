@@ -66,7 +66,7 @@ class AddCustomAssetView: UIView {
 		addSubview(customAssetInfoView ?? UIView())
 		// Setup contract text field view
 		contractTextfieldView.placeholderText = addCustomAssetVM.addCustomAssetTextfieldPlaceholder
-		contractTextfieldView.returnKeyType = .Search
+		contractTextfieldView.returnKeyType = .search
 		contractTextfieldView.textFieldKeyboardOnReturn = dissmissKeyboardClosure
 		scanQRCodeIconButton.setImage(UIImage(named: addCustomAssetVM.addCustomAssetTextfieldIcon), for: .normal)
 		contractTextfieldView.style = .customIcon(scanQRCodeIconButton)

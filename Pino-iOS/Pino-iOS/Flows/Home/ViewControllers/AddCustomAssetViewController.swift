@@ -8,7 +8,9 @@
 import UIKit
 
 class AddCustomAssetViewController: UIViewController {
-	private let AddCustomAssetVM = AddCustomAssetViewModel()
+	// MARK: - Private Properties
+
+	private let addCustomAssetVM = AddCustomAssetViewModel()
 
 	// MARK: - Initializers
 
@@ -43,7 +45,7 @@ class AddCustomAssetViewController: UIViewController {
 				dissmissKeybaordClosure: { [weak self] in
 					self?.view.endEditing(true)
 				},
-				addCustomAssetVM: AddCustomAssetVM
+				addCustomAssetVM: addCustomAssetVM
 			)
 		view = addCustomAssetView
 		view.backgroundColor = .Pino.background
@@ -53,18 +55,18 @@ class AddCustomAssetViewController: UIViewController {
 		// Setup appreance for navigation bar
 		setupPrimaryColorNavigationBar()
 		// Setup navigation title
-		setNavigationTitle(AddCustomAssetVM.addcustomAssetPageTitle)
+		setNavigationTitle(addCustomAssetVM.addcustomAssetPageTitle)
 
 		// Setup dismiss button
 		navigationItem.leftBarButtonItem = UIBarButtonItem(
-			image: UIImage(named: AddCustomAssetVM.addCustomAssetPageBackButtonIcon), style: .plain, target: self,
+			image: UIImage(named: addCustomAssetVM.addCustomAssetPageBackButtonIcon), style: .plain, target: self,
 			action: #selector(dismissAddCustomAssetVC)
 		)
 		navigationItem.leftBarButtonItem?.tintColor = .Pino.white
 
 		// Setup add button
 		navigationItem.rightBarButtonItem = UIBarButtonItem(
-			title: AddCustomAssetVM.addCustomAssetButtonTitle,
+			title: addCustomAssetVM.addCustomAssetButtonTitle,
 			style: .plain,
 			target: self,
 			action: #selector(addCustomAssetHandler)

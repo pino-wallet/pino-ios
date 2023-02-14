@@ -28,7 +28,11 @@ public class PinoTextFieldView: UIView {
 		}
 	}
 
-	public var returnKeyType: ReturnKeyType
+	public var returnKeyType: UIReturnKeyType {
+		didSet {
+			updateReturnKeyType(newType: returnKeyType)
+		}
+	}
 
 	public var placeholderText: String {
 		didSet {
@@ -48,7 +52,7 @@ public class PinoTextFieldView: UIView {
 		style: Style = .normal,
 		placeholder: String = "",
 		errorText: String = "",
-		returnKeyType: ReturnKeyType = .Default
+		returnKeyType: UIReturnKeyType = .default
 	) {
 		self.style = style
 		self.placeholderText = placeholder
@@ -109,27 +113,6 @@ public class PinoTextFieldView: UIView {
 			textField.rightView = pendingLoading
 			textField.rightViewMode = .always
 			errorLabel.isHidden = true
-		}
-
-		switch returnKeyType {
-		case .Continue:
-			updateReturnKeyType(newType: .continue)
-		case .Done:
-			updateReturnKeyType(newType: .done)
-		case .Go:
-			updateReturnKeyType(newType: .go)
-		case .Join:
-			updateReturnKeyType(newType: .join)
-		case .Next:
-			updateReturnKeyType(newType: .next)
-		case .Route:
-			updateReturnKeyType(newType: .route)
-		case .Search:
-			updateReturnKeyType(newType: .search)
-		case .Send:
-			updateReturnKeyType(newType: .send)
-		case .Default:
-			updateReturnKeyType(newType: .default)
 		}
 	}
 
