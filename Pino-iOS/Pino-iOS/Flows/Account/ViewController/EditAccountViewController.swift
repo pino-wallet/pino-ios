@@ -39,7 +39,7 @@ class EditAccountViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = UIView()
+		view = EditAccountView(walletVM: selectedWallet)
 		view.backgroundColor = .Pino.background
 	}
 
