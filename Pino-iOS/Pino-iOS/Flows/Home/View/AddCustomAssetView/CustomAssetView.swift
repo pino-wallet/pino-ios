@@ -6,7 +6,7 @@
 //
 import UIKit
 
-class CustomAssetViewItem: UIView {
+class CustomAssetView: UIView {
 	// Typealias
 	typealias presentTooltipAlertClosureType = (_ tooltipTitle: String, _ tooltipDescription: String) -> Void
 
@@ -32,7 +32,7 @@ class CustomAssetViewItem: UIView {
 	private let betweenStackView = UIStackView()
 	private let infoStackView = UIStackView()
 	private let titleLabel: PinoLabel
-	private let tooltipIconViewButton = UIButton()
+	private let tooltipIconButtonView = UIButton()
 	private var assetIconView: UIImageView? {
 		didSet {
 			setupAssetIconViewConstraints()
@@ -82,7 +82,7 @@ class CustomAssetViewItem: UIView {
 		titleStackView.alignment = .center
 		titleStackView.spacing = 2
 		titleStackView.addArrangedSubview(titleLabel)
-		titleStackView.addArrangedSubview(tooltipIconViewButton)
+		titleStackView.addArrangedSubview(tooltipIconButtonView)
 
 		// Setup center stackview
 		betweenStackView.alignment = .center
@@ -94,8 +94,8 @@ class CustomAssetViewItem: UIView {
 		mainStackView.addArrangedSubview(infoStackView)
 
 		// Setup tooltipViewButton
-		tooltipIconViewButton.setImage(UIImage(named: "tooltip"), for: .normal)
-		tooltipIconViewButton.addTarget(self, action: #selector(handleOpenTooltip), for: .touchUpInside)
+		tooltipIconButtonView.setImage(UIImage(named: "tooltip"), for: .normal)
+		tooltipIconButtonView.addTarget(self, action: #selector(handleOpenTooltip), for: .touchUpInside)
 
 		// Setup info stack view
 		infoStackView.axis = .horizontal
@@ -103,7 +103,7 @@ class CustomAssetViewItem: UIView {
 		infoStackView.spacing = 4
 		if let infoIconName = infoIconName {
 			assetIconView = UIImageView(image: UIImage(named: infoIconName))
-			infoStackView.addArrangedSubview(assetIconView ?? UIImageView())
+			infoStackView.addArrangedSubview(assetIconView!)
 		}
 		infoStackView.addArrangedSubview(infoView)
 	}

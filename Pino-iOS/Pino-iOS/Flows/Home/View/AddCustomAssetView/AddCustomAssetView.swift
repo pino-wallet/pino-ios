@@ -25,7 +25,10 @@ class AddCustomAssetView: UIView {
 	private let pasteFromClipboardview =
 		PasteFromClipboardView(contractAddress: "")
 	private var customAssetInfoView: CustomAssetInfoView?
-	private lazy var dissmissTapGesture = UITapGestureRecognizer(target: self, action: #selector(dissmissKeyboard(_:)))
+	private lazy var dissmissKeyboardTapGesture = UITapGestureRecognizer(
+		target: self,
+		action: #selector(dissmissKeyboard(_:))
+	)
 	private var addCustomAssetVM: AddCustomAssetViewModel
 
 	// MARK: - Initializers
@@ -54,7 +57,7 @@ class AddCustomAssetView: UIView {
 
 		pasteFromClipboardview.contractAddress = addCustomAssetVM.customAsset.contractAddress
 
-		addGestureRecognizer(dissmissTapGesture)
+		addGestureRecognizer(dissmissKeyboardTapGesture)
 		customAssetInfoView = CustomAssetInfoView(
 			addCustomAssetVM: addCustomAssetVM,
 			presentTooltipAlertClosure: presentTooltipAlertClosure
@@ -63,7 +66,7 @@ class AddCustomAssetView: UIView {
 		addSubview(addButton)
 		addSubview(contractTextfieldView)
 //		addSubview(pasteFromClipboardview)
-		addSubview(customAssetInfoView ?? UIView())
+		addSubview(customAssetInfoView!)
 		// Setup contract text field view
 		contractTextfieldView.placeholderText = addCustomAssetVM.addCustomAssetTextfieldPlaceholder
 		contractTextfieldView.returnKeyType = .search

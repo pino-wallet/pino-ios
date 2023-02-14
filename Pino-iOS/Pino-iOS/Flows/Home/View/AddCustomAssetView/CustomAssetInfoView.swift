@@ -18,10 +18,10 @@ class CustomAssetInfoView: UIView {
 	// MARK: - Private Properties
 
 	private let mainStackView = UIStackView()
-	private let nameItem: CustomAssetViewItem
-	private var userBalanceItem: CustomAssetViewItem?
-	private let websiteItem: CustomAssetViewItem
-	private let contractAddressItem: CustomAssetViewItem
+	private let nameView: CustomAssetView
+	private var userBalanceView: CustomAssetView?
+	private let websiteView: CustomAssetView
+	private let contractAddressView: CustomAssetView
 
 	private let nameLabel = PinoLabel(style: .info, text: "")
 	private let userBalanceLabel = PinoLabel(style: .info, text: "")
@@ -38,17 +38,17 @@ class CustomAssetInfoView: UIView {
 		self.addCustomAssetVM = addCustomAssetVM
 		self.presentTooltipAlertClosure = presentTooltipAlertClosure
 
-		self.nameItem = CustomAssetViewItem(
+		self.nameView = CustomAssetView(
 			titleText: addCustomAssetVM.customAssetNameItem.title,
 			tooltipText: addCustomAssetVM.customAssetNameItem.tooltipText,
 			infoView: nameLabel
 		)
-		self.websiteItem = CustomAssetViewItem(
+		self.websiteView = CustomAssetView(
 			titleText: addCustomAssetVM.customAssetWebsiteItem.title,
 			tooltipText: addCustomAssetVM.customAssetWebsiteItem.tooltipText,
 			infoView: websiteLabel
 		)
-		self.contractAddressItem = CustomAssetViewItem(
+		self.contractAddressView = CustomAssetView(
 			titleText: addCustomAssetVM.customAssetContractAddressItem.title,
 			tooltipText: addCustomAssetVM.customAssetContractAddressItem.tooltipText,
 			infoView: contractAddressLabel
@@ -68,16 +68,16 @@ class CustomAssetInfoView: UIView {
 	// MARK: - Private Methods
 
 	private func setupClosures() {
-		nameItem.presentTooltipAlertClosure = presentTooltipAlertClosure
-		websiteItem.presentTooltipAlertClosure = presentTooltipAlertClosure
-		contractAddressItem.presentTooltipAlertClosure = presentTooltipAlertClosure
-		userBalanceItem?.presentTooltipAlertClosure = presentTooltipAlertClosure
+		nameView.presentTooltipAlertClosure = presentTooltipAlertClosure
+		websiteView.presentTooltipAlertClosure = presentTooltipAlertClosure
+		contractAddressView.presentTooltipAlertClosure = presentTooltipAlertClosure
+		userBalanceView?.presentTooltipAlertClosure = presentTooltipAlertClosure
 	}
 
 	private func setupView() {
 		let customAsset = addCustomAssetVM.customAsset
 		// Setup nameItem icon
-		nameItem.infoIconName = customAsset?.icon
+		nameView.infoIconName = customAsset?.icon
 
 		// Setup asset name label
 		nameLabel.text = customAsset?.name
@@ -101,23 +101,21 @@ class CustomAssetInfoView: UIView {
 		addSubview(mainStackView)
 		mainStackView.axis = .vertical
 		mainStackView.spacing = 16
-		mainStackView.addArrangedSubview(nameItem)
+		mainStackView.addArrangedSubview(nameView)
 		if let userBalance = customAsset?.balance {
 			userBalanceLabel.text = userBalance
 			userBalanceLabel.numberOfLines = 0
 			userBalanceLabel.lineBreakMode = .byWordWrapping
-			userBalanceItem = CustomAssetViewItem(
+			userBalanceView = CustomAssetView(
 				titleText: addCustomAssetVM.customAssetUserBalanceItem.title,
 				tooltipText: addCustomAssetVM.customAssetUserBalanceItem.tooltipText,
 				infoView: userBalanceLabel
 			)
-			guard let finalUserBalanceItem = userBalanceItem! as CustomAssetViewItem? else {
-				return
-			}
-			mainStackView.addArrangedSubview(finalUserBalanceItem)
+
+			mainStackView.addArrangedSubview(userBalanceView!)
 		}
-		mainStackView.addArrangedSubview(websiteItem)
-		mainStackView.addArrangedSubview(contractAddressItem)
+		mainStackView.addArrangedSubview(websiteView)
+		mainStackView.addArrangedSubview(contractAddressView)
 	}
 
 	private func setupConstraints() {
