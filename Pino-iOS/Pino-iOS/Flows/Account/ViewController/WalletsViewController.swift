@@ -40,7 +40,6 @@ class WalletsViewController: UIViewController {
 		view = WalletsCollectionView(walletsVM: walletVM, editAccountTapped: { selectedWallet in
 			self.openEditAccountPage(selectedWallet: selectedWallet)
 		})
-		view.backgroundColor = .Pino.background
 	}
 
 	private func setupNavigationBar() {
@@ -51,14 +50,9 @@ class WalletsViewController: UIViewController {
 			image: UIImage(systemName: "plus"),
 			style: .plain,
 			target: self,
-			action: #selector(dismissProfile)
+			action: nil
 		)
 	}
 
 	private func openEditAccountPage(selectedWallet: WalletInfoViewModel) {}
-
-	@objc
-	private func dismissProfile() {
-		dismiss(animated: true)
-	}
 }
