@@ -60,6 +60,10 @@ class WalletsCollectionView: UICollectionView {
 		walletsVM.$selectedWallet.sink { [weak self] _ in
 			self?.reloadData()
 		}.store(in: &cancellables)
+
+		walletsVM.$walletsList.sink { [weak self] _ in
+			self?.reloadData()
+		}.store(in: &cancellables)
 	}
 }
 

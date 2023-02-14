@@ -38,7 +38,7 @@ class WalletsViewController: UIViewController {
 
 	private func setupView() {
 		view = WalletsCollectionView(walletsVM: walletVM, editAccountTapped: { selectedWallet in
-			self.openEditAccountPage(walletVM: selectedWallet)
+			self.openEditAccountPage(selectedWallet: selectedWallet)
 		})
 		view.backgroundColor = .Pino.background
 	}
@@ -55,7 +55,7 @@ class WalletsViewController: UIViewController {
 		)
 	}
 
-	private func openEditAccountPage(walletVM: WalletInfoViewModel) {}
+	private func openEditAccountPage(selectedWallet: WalletInfoViewModel) {}
 
 	@objc
 	private func dismissProfile() {

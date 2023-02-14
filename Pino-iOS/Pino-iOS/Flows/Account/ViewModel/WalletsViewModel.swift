@@ -13,6 +13,7 @@ class WalletsViewModel {
 
 	@Published
 	public var selectedWallet: WalletInfoViewModel!
+	@Published
 	public var walletsList: [WalletInfoViewModel]!
 
 	// MARK: - Private Properties
