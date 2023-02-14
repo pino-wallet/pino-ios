@@ -10,19 +10,19 @@
             "balance": "12,568,000"
         },
         {
-            "id": "0",
+            "id": "1",
             "name": "Samuel",
             "address": "gf4bh5n3m2c8l4j5w9i2l6t2de",
-            "profile_image": "avocado",
-            "profile_color": "Green 1 Color",
+            "profile_image": "coconut",
+            "profile_color": "coconut",
             "balance": "290"
         },
         {
-            "id": "0",
+            "id": "2",
             "name": "Jennifer",
             "address": "gf4bh5n3m2c8l4j5w9i2l6t2de",
-            "profile_image": "avocado",
-            "profile_color": "Green 1 Color",
+            "profile_image": "strawberry",
+            "profile_color": "strawberry",
             "balance": "2,308,000"
         }
     ]

@@ -43,8 +43,8 @@ class HomepageViewController: UIViewController {
 
 	override func loadView() {
 		setupView()
-		setupBindings()
 		setupNavigationBar()
+		setupBindings()
 	}
 
 	// MARK: - Private Methods
@@ -68,16 +68,15 @@ class HomepageViewController: UIViewController {
 			let walletInfoNavigationItems = WalletInfoNavigationItems(walletInfoVM: walletInfo)
 			self?.navigationItem.titleView = walletInfoNavigationItems.walletTitle
 			self?.navigationItem.leftBarButtonItem = walletInfoNavigationItems.profileButton
+			self?.navigationItem.titleView?
+				.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self?.copyWalletAddress)))
+			self?.navigationItem.leftBarButtonItem?.customView?
+				.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self?.openProfilePage)))
 		}.store(in: &cancellables)
 
 		navigationItem.rightBarButtonItem = WalletInfoNavigationItems.manageAssetButton
 		navigationItem.rightBarButtonItem?.target = self
 		navigationItem.rightBarButtonItem?.action = #selector(openManageAssetsPage)
-
-		navigationItem.titleView?
-			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(copyWalletAddress)))
-		navigationItem.leftBarButtonItem?.customView?
-			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openProfilePage)))
 	}
 
 	private func setupBindings() {
