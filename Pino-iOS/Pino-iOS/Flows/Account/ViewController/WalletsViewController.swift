@@ -8,15 +8,14 @@
 import UIKit
 
 class WalletsViewController: UIViewController {
-	// MARK: - Public Properties
-
-	private let walletVM = WalletsViewModel()
-
 	// MARK: Private Properties
+
+	private let walletVM: WalletsViewModel
 
 	// MARK: Initializers
 
-	init() {
+	init(walletVM: WalletsViewModel) {
+		self.walletVM = walletVM
 		super.init(nibName: nil, bundle: nil)
 	}
 

@@ -118,16 +118,11 @@ class HomepageViewModel {
 
 	private func getWalletInfo() {
 		// Request to get wallet info
-		walletAPIClient.walletInfo().sink { completed in
-			switch completed {
-			case .finished:
-				print("Wallet info received successfully")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { walletInfo in
-			self.walletInfo = WalletInfoViewModel(walletInfoModel: walletInfo)
-		}.store(in: &cancellables)
+		if let walletInfoModel = getWalletInfoFromUserDefaults() {
+			walletInfo = WalletInfoViewModel(walletInfoModel: walletInfoModel)
+		} else {
+			registerFirstWalletUserDefaults()
+		}
 	}
 
 	private func getWalletBalance() {
@@ -206,6 +201,34 @@ class HomepageViewModel {
 			} catch {
 				print(error)
 				UserDefaults.standard.register(defaults: ["assets": []])
+			}
+		}.store(in: &cancellables)
+	}
+
+	public func getWalletInfoFromUserDefaults() -> WalletInfoModel? {
+		guard let encodedWallet = UserDefaults.standard.data(forKey: "selectedWallet") else { return nil }
+		do {
+			return try JSONDecoder().decode(WalletInfoModel.self, from: encodedWallet)
+		} catch {
+			return nil
+		}
+	}
+
+	public func registerFirstWalletUserDefaults() {
+		walletAPIClient.walletsList().sink { completed in
+			switch completed {
+			case .finished:
+				print("wallets received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { wallets in
+			guard let firstWallet = wallets.walletsList.first else { fatalError("No wallet found") }
+			do {
+				let encodedWallet = try JSONEncoder().encode(firstWallet)
+				UserDefaults.standard.register(defaults: ["selectedWallet": encodedWallet])
+			} catch {
+				fatalError(error.localizedDescription)
 			}
 		}.store(in: &cancellables)
 	}

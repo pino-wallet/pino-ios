@@ -5,18 +5,20 @@
 //  Created by Mohi Raoufi on 2/8/23.
 //
 
+import Combine
 import UIKit
 
 class ProfileViewController: UIViewController {
-	// MARK: - Public Properties
-
 	// MARK: Private Properties
 
-	private let profileVM = ProfileViewModel()
+	private let profileVM: ProfileViewModel
+	private let walletsVM = WalletsViewModel()
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
 
-	init() {
+	init(profileVM: ProfileViewModel) {
+		self.profileVM = profileVM
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -33,6 +35,7 @@ class ProfileViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
+		setupBindings()
 	}
 
 	// MARK: - Private Methods
@@ -59,6 +62,12 @@ class ProfileViewController: UIViewController {
 		navigationController?.navigationBar.tintColor = .Pino.white
 	}
 
+	private func setupBindings() {
+		walletsVM.$selectedWallet.sink { selectedWallet in
+			self.profileVM.walletInfo = selectedWallet
+		}.store(in: &cancellables)
+	}
+
 	@objc
 	private func dismissProfile() {
 		dismiss(animated: true)
@@ -67,7 +76,7 @@ class ProfileViewController: UIViewController {
 	private func openSettingDetail(settingVM: SettingsViewModel) {
 		switch settingVM {
 		case .wallets:
-			let WalletsVC = WalletsViewController()
+			let WalletsVC = WalletsViewController(walletVM: walletsVM)
 			navigationController?.pushViewController(WalletsVC, animated: true)
 		default: break
 		}

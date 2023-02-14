@@ -5,12 +5,16 @@
 //  Created by Mohi Raoufi on 2/8/23.
 //
 
+import Combine
 import UIKit
 
 class ProfileCollectionView: UICollectionView {
 	// MARK: Private Properties
 
 	private let profileVM: ProfileViewModel
+	private var cancellables = Set<AnyCancellable>()
+
+	// MARK: Public Properties
 
 	public var settingsItemSelected: (SettingsViewModel) -> Void
 
@@ -24,6 +28,7 @@ class ProfileCollectionView: UICollectionView {
 
 		configCollectionView()
 		setupStyle()
+		setupBindings()
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -55,6 +60,12 @@ class ProfileCollectionView: UICollectionView {
 	private func setupStyle() {
 		backgroundColor = .Pino.clear
 		showsVerticalScrollIndicator = false
+	}
+
+	private func setupBindings() {
+		profileVM.$walletInfo.sink { _ in
+			self.reloadData()
+		}.store(in: &cancellables)
 	}
 }
 

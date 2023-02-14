@@ -54,7 +54,7 @@ class WalletsCollectionView: UICollectionView {
 	}
 
 	private func setupBindings() {
-		walletsVM.$selectedWallet.sink { [weak self] selectedWallet in
+		walletsVM.$selectedWallet.sink { [weak self] _ in
 			self?.reloadData()
 		}.store(in: &cancellables)
 	}
@@ -76,7 +76,7 @@ extension WalletsCollectionView: UICollectionViewDelegateFlowLayout {
 
 extension WalletsCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		walletsVM.selectedWallet = walletsVM.walletsList[indexPath.item]
+		walletsVM.updateSelectedWallet(with: walletsVM.walletsList[indexPath.item])
 	}
 }
 

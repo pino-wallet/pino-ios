@@ -12,6 +12,7 @@ class HomepageViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let homeVM = HomepageViewModel()
+	private let profileVM = ProfileViewModel()
 	private var cancellables = Set<AnyCancellable>()
 	private var addressCopiedToastView = PinoToastView(message: nil, style: .primary, alignment: .top)
 
@@ -42,6 +43,7 @@ class HomepageViewController: UIViewController {
 
 	override func loadView() {
 		setupView()
+		setupBindings()
 		setupNavigationBar()
 	}
 
@@ -78,6 +80,12 @@ class HomepageViewController: UIViewController {
 			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openProfilePage)))
 	}
 
+	private func setupBindings() {
+		profileVM.$walletInfo.sink { walletInfo in
+			self.homeVM.walletInfo = walletInfo
+		}.store(in: &cancellables)
+	}
+
 	@objc
 	private func copyWalletAddress() {
 		let pasteboard = UIPasteboard.general
@@ -96,7 +104,7 @@ class HomepageViewController: UIViewController {
 
 	@objc
 	private func openProfilePage() {
-		let profileVC = ProfileViewController()
+		let profileVC = ProfileViewController(profileVM: profileVM)
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [profileVC]
 		present(navigationVC, animated: true)
