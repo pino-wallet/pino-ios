@@ -12,7 +12,7 @@ class HomepageViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let homeVM = HomepageViewModel()
-	private let profileVM = ProfileViewModel()
+	private var profileVM: ProfileViewModel!
 	private var cancellables = Set<AnyCancellable>()
 	private var addressCopiedToastView = PinoToastView(message: nil, style: .primary, alignment: .top)
 
@@ -42,6 +42,7 @@ class HomepageViewController: UIViewController {
 	}
 
 	override func loadView() {
+		profileVM = ProfileViewModel(walletInfo: homeVM.walletInfo)
 		setupView()
 		setupNavigationBar()
 		setupBindings()
