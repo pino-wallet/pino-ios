@@ -8,8 +8,6 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-	// MARK: - Public Properties
-
 	// MARK: Private Properties
 
 	private let profileVM = ProfileViewModel()
