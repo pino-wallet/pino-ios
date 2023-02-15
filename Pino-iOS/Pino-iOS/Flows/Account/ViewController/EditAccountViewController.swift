@@ -44,7 +44,6 @@ class EditAccountViewController: UIViewController {
 			self.openAvatarPage()
 		})
 		view = editAccountView
-		view.backgroundColor = .Pino.background
 	}
 
 	private func setupNavigationBar() {

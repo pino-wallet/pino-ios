@@ -40,7 +40,6 @@ class WalletsViewController: UIViewController {
 		view = WalletsCollectionView(walletsVM: walletVM, editAccountTapped: { selectedWallet in
 			self.openEditAccountPage(selectedWallet: selectedWallet)
 		})
-		view.backgroundColor = .Pino.background
 	}
 
 	private func setupNavigationBar() {
