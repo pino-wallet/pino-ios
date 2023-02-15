@@ -121,7 +121,7 @@ class HomepageViewModel {
 		if let walletInfoModel = getWalletInfoFromUserDefaults() {
 			walletInfo = WalletInfoViewModel(walletInfoModel: walletInfoModel)
 		} else {
-			registerFirstWalletUserDefaults()
+			registerWalletsUserDefaults()
 		}
 	}
 
@@ -214,7 +214,7 @@ class HomepageViewModel {
 		}
 	}
 
-	public func registerFirstWalletUserDefaults() {
+	public func registerWalletsUserDefaults() {
 		walletAPIClient.walletsList().sink { completed in
 			switch completed {
 			case .finished:
@@ -223,6 +223,12 @@ class HomepageViewModel {
 				print(error)
 			}
 		} receiveValue: { wallets in
+			do {
+				let encodedWallets = try JSONEncoder().encode(wallets.walletsList)
+				UserDefaults.standard.register(defaults: ["wallets": encodedWallets])
+			} catch {
+				UserDefaults.standard.register(defaults: ["wallets": []])
+			}
 			guard let firstWallet = wallets.walletsList.first else { fatalError("No wallet found") }
 			do {
 				let encodedWallet = try JSONEncoder().encode(firstWallet)
@@ -230,6 +236,7 @@ class HomepageViewModel {
 			} catch {
 				fatalError(error.localizedDescription)
 			}
+			self.walletInfo = WalletInfoViewModel(walletInfoModel: firstWallet)
 		}.store(in: &cancellables)
 	}
 }

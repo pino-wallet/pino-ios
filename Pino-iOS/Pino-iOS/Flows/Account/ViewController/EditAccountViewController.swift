@@ -12,6 +12,7 @@ class EditAccountViewController: UIViewController {
 
 	private let walletVM: WalletsViewModel
 	private let selectedWallet: WalletInfoViewModel
+	private var editAccountView: EditAccountView!
 
 	// MARK: Initializers
 
@@ -39,7 +40,8 @@ class EditAccountViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = EditAccountView(walletVM: selectedWallet)
+		editAccountView = EditAccountView(walletVM: selectedWallet)
+		view = editAccountView
 		view.backgroundColor = .Pino.background
 	}
 
@@ -51,7 +53,7 @@ class EditAccountViewController: UIViewController {
 			title: "Done",
 			style: .plain,
 			target: self,
-			action: #selector(dismissPage)
+			action: #selector(saveChanges)
 		)
 		let textAttributes = [
 			NSAttributedString.Key.foregroundColor: UIColor.Pino.white,
@@ -61,7 +63,11 @@ class EditAccountViewController: UIViewController {
 	}
 
 	@objc
-	private func dismissPage() {
-		dismiss(animated: true)
+	private func saveChanges() {
+		let newName = editAccountView.walletNameTextField.text
+		if selectedWallet.name != newName {
+			walletVM.editWallet(id: selectedWallet.id, newName: newName, newImage: nil, newColor: nil)
+			navigationController?.popViewController(animated: true)
+		} else {}
 	}
 }

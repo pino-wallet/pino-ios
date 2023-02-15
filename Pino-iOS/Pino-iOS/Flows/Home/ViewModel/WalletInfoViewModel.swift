@@ -10,6 +10,10 @@ public struct WalletInfoViewModel: Equatable {
 
 	public var walletInfoModel: WalletInfoModel!
 
+	public var id: String {
+		walletInfoModel.id
+	}
+
 	public var name: String {
 		walletInfoModel.name
 	}

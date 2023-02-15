@@ -14,10 +14,15 @@ class EditAccountView: UIView {
 	private let walletAvatarStackView = UIStackView()
 	private let avatarBackgroundView = UIView()
 	private let walletAvatar = UIImageView()
-	private let walletNameTextField = UITextField()
 	private let setAvatarButton = UIButton()
-
+	private let privateKeyStackView = UIStackView()
+	private let privateKeyButton = PinoButton(style: .secondary)
+	private let removeAccountButton = UIButton()
 	private let walletVM: WalletInfoViewModel
+
+	// MARK: - Public Properties
+
+	public let walletNameTextField = UITextField()
 
 	// MARK: - Initializers
 
@@ -40,33 +45,43 @@ class EditAccountView: UIView {
 		walletInfoStackview.addArrangedSubview(walletNameTextField)
 		walletAvatarStackView.addArrangedSubview(avatarBackgroundView)
 		walletAvatarStackView.addArrangedSubview(setAvatarButton)
+		privateKeyStackView.addArrangedSubview(privateKeyButton)
+		privateKeyStackView.addArrangedSubview(removeAccountButton)
 		avatarBackgroundView.addSubview(walletAvatar)
 		addSubview(walletInfoStackview)
+		addSubview(privateKeyStackView)
 	}
 
 	private func setupStyle() {
-		backgroundColor = .Pino.background
 		walletNameTextField.text = walletVM.name
-		walletAvatar.image = UIImage(named: walletVM.profileImage)
-		avatarBackgroundView.backgroundColor = UIColor(named: walletVM.profileColor)
 		setAvatarButton.setTitle("Set new avatar", for: .normal)
+		privateKeyButton.title = "Show private key"
+		removeAccountButton.setTitle("Remove account", for: .normal)
+		walletAvatar.image = UIImage(named: walletVM.profileImage)
+		privateKeyButton.setImage(UIImage(named: "private_key"), for: .normal)
+		privateKeyButton.setConfiguraton(font: .PinoStyle.semiboldBody!, imagePadding: 10)
+
+		backgroundColor = .Pino.background
+		avatarBackgroundView.backgroundColor = UIColor(named: walletVM.profileColor)
 		setAvatarButton.setTitleColor(.Pino.blue, for: .normal)
-		walletNameTextField.layer.borderColor = UIColor.Pino.gray5.cgColor
-
-		walletNameTextField.borderStyle = .roundedRect
-
 		walletNameTextField.textColor = .Pino.label
+		removeAccountButton.setTitleColor(.Pino.red, for: .normal)
+
 		walletNameTextField.font = .PinoStyle.mediumBody
+		removeAccountButton.titleLabel?.font = .PinoStyle.semiboldBody
 
 		walletInfoStackview.axis = .vertical
 		walletAvatarStackView.axis = .vertical
+		privateKeyStackView.axis = .vertical
 
 		walletAvatarStackView.alignment = .center
 		walletInfoStackview.alignment = .fill
 
 		walletInfoStackview.spacing = 21
 		walletAvatarStackView.spacing = 14
+		privateKeyStackView.spacing = 48
 
+		walletNameTextField.borderStyle = .roundedRect
 		avatarBackgroundView.layer.cornerRadius = 44
 	}
 
@@ -84,6 +99,10 @@ class EditAccountView: UIView {
 		)
 		walletNameTextField.pin(
 			.fixedHeight(48)
+		)
+		privateKeyStackView.pin(
+			.bottom(padding: 48),
+			.horizontalEdges(padding: 16)
 		)
 	}
 }
