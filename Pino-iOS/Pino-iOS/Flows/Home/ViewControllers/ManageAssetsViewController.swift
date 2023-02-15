@@ -79,7 +79,12 @@ class ManageAssetsViewController: UIViewController {
 	}
 
 	@objc
-	private func addCustomAssets() {}
+	private func addCustomAssets() {
+		let addCustomAssetVC = AddCustomAssetViewController()
+		let navigationVC = UINavigationController()
+		navigationVC.viewControllers = [addCustomAssetVC]
+		present(navigationVC, animated: true)
+	}
 }
 
 extension ManageAssetsViewController: UISearchResultsUpdating {
