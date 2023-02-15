@@ -12,6 +12,14 @@ public class PinoTextFieldView: UIView {
 
 	public var textFieldKeyboardOnReturn: (() -> Void)?
 
+	// MARK: - Public Properties
+
+	public var textFieldText: String? {
+		didSet {
+			setTextFieldText(text: textFieldText)
+		}
+	}
+
 	// MARK: - Private Properties
 
 	private let textFieldStackView = UIStackView()
@@ -134,6 +142,10 @@ public class PinoTextFieldView: UIView {
 
 	private func updateReturnKeyType(newType: UIReturnKeyType) {
 		textField.returnKeyType = newType
+	}
+
+	private func setTextFieldText(text: String?) {
+		textField.text = text
 	}
 }
 

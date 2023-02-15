@@ -6,6 +6,15 @@
 //
 
 class AddCustomAssetViewModel {
+	// MARK: - Typealias
+
+	public typealias setupPasteFromClipboardViewClosureType =
+		(_ validatedContractAddressVM: ValidatedContractAddressViewModel) -> Void
+
+	// MARK: - Closures
+
+	public var setupPasteFromClipboardViewClosure: setupPasteFromClipboardViewClosureType?
+
 	#warning("Those values are for testing and should be changed")
 
 	// MARK: - Public Properties
@@ -55,5 +64,17 @@ class AddCustomAssetViewModel {
 				title: "Contract address",
 				alertText: "Sample Text"
 			))
+	}
+
+	// MARK: - Public Methods
+
+	public func validateContractAddressFromClipboard(clipboardText: String) {
+		if clipboardText.isEmpty {
+			return
+		}
+		if clipboardText.validateETHContractAddress() {
+			let validatedContractaddressVM = ValidatedContractAddressViewModel(validatedAddress: clipboardText)
+			setupPasteFromClipboardViewClosure?(validatedContractaddressVM)
+		}
 	}
 }

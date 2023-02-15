@@ -5,6 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 2/1/23.
 //
 
+import NotificationCenter
 import UIKit
 
 class AddCustomAssetView: UIView {
@@ -44,6 +45,13 @@ class AddCustomAssetView: UIView {
 		super.init(frame: .zero)
 		setupView()
 		setupConstraints()
+		validateContractAddressFromClipboard()
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(detectClipboardText),
+			name: UIApplication.didBecomeActiveNotification,
+			object: nil
+		)
 	}
 
 	required init?(coder: NSCoder) {
@@ -55,8 +63,6 @@ class AddCustomAssetView: UIView {
 	private func setupView() {
 		addButton.title = addCustomAssetVM.addCustomAssetButtonTitle
 
-		pasteFromClipboardview.contractAddress = addCustomAssetVM.customAsset.contractAddress
-
 		addGestureRecognizer(dissmissKeyboardTapGesture)
 		customAssetInfoView = CustomAssetInfoContainerView(
 			addCustomAssetVM: addCustomAssetVM,
@@ -65,8 +71,7 @@ class AddCustomAssetView: UIView {
 		// Setup subviews
 		addSubview(addButton)
 		addSubview(contractTextfieldView)
-//		addSubview(pasteFromClipboardview)
-		addSubview(customAssetInfoView!)
+//		addSubview(customAssetInfoView!)
 		// Setup contract text field view
 		contractTextfieldView.placeholderText = addCustomAssetVM.addCustomAssetTextfieldPlaceholder
 		contractTextfieldView.returnKeyType = .search
@@ -85,19 +90,47 @@ class AddCustomAssetView: UIView {
 			.bottom(to: layoutMarginsGuide, padding: 0),
 			.horizontalEdges(to: layoutMarginsGuide, padding: 0)
 		)
-//		pasteFromClipboardview.pin(
-//			.relative(.top, 8, to: contractTextfieldView, .bottom),
-//			.horizontalEdges(to: layoutMarginsGuide, padding: 0)
-//		)
-		customAssetInfoView?.pin(.relative(.top, 16, to: contractTextfieldView, .bottom), .horizontalEdges(
-			to:
-			layoutMarginsGuide,
-			padding: 0
-		))
+
+//		customAssetInfoView?.pin(.relative(.top, 16, to: contractTextfieldView, .bottom), .horizontalEdges(
+//			to:
+//			layoutMarginsGuide,
+//			padding: 0
+//		))
+	}
+
+	private func validateContractAddressFromClipboard() {
+		guard let clipboardText = UIPasteboard.general.string else {
+			return
+		}
+		addCustomAssetVM.setupPasteFromClipboardViewClosure = { [weak self] validatedContractAddressVM in
+			self?.customAssetInfoView?.removeFromSuperview()
+			self?.pasteFromClipboardview.contractAddress = validatedContractAddressVM.finalValidatedAddress
+			self?.addSubview(self?.pasteFromClipboardview ?? UIView())
+			self?.setupPasteFromClipboardViewConstraints()
+			self?.pasteFromClipboardview.onPaste = onPasteFromClipboardButtonTap
+
+			func onPasteFromClipboardButtonTap() {
+				self?.contractTextfieldView.textFieldText = clipboardText
+				self?.pasteFromClipboardview.removeFromSuperview()
+			}
+		}
+		addCustomAssetVM.validateContractAddressFromClipboard(clipboardText: clipboardText)
+	}
+
+	private func setupPasteFromClipboardViewConstraints() {
+		pasteFromClipboardview.pin(
+			.relative(.top, 8, to: contractTextfieldView, .bottom),
+			.horizontalEdges(to: layoutMarginsGuide, padding: 0)
+		)
 	}
 
 	@objc
 	private func dissmissKeyboard(_ sender: UITapGestureRecognizer) {
 		dissmissKeyboardClosure()
+	}
+
+	@objc
+	private func detectClipboardText() {
+		validateContractAddressFromClipboard()
 	}
 }
