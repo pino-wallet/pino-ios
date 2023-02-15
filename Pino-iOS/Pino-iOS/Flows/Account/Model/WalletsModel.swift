@@ -5,7 +5,9 @@
 //  Created by Mohi Raoufi on 2/13/23.
 //
 
-struct Wallets: Codable {
+#warning("This model should be changed base on the API model")
+
+struct WalletsStubModel: Codable {
 	// MARK: Public Properties
 
 	public let walletsList: [WalletInfoModel]
