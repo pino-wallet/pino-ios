@@ -40,14 +40,17 @@ class EditAccountViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		editAccountView = EditAccountView(walletVM: selectedWallet)
+		editAccountView = EditAccountView(walletVM: selectedWallet, newAvatarTapped: {
+			let changeAvatarVC = ChangeAvatarViewController()
+			self.navigationController?.pushViewController(changeAvatarVC, animated: true)
+		})
 		view = editAccountView
 		view.backgroundColor = .Pino.background
 	}
 
 	private func setupNavigationBar() {
 		// Setup title view
-		setNavigationTitle("Edit account")
+		setNavigationTitle("Change avatar")
 		// Setup add asset button
 		navigationItem.rightBarButtonItem = UIBarButtonItem(
 			title: "Done",

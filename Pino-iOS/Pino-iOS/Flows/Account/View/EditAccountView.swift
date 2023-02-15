@@ -19,6 +19,7 @@ class EditAccountView: UIView {
 	private let privateKeyButton = PinoButton(style: .secondary)
 	private let removeAccountButton = UIButton()
 	private let walletVM: WalletInfoViewModel
+	private let newAvatarTapped: () -> Void
 
 	// MARK: - Public Properties
 
@@ -26,7 +27,8 @@ class EditAccountView: UIView {
 
 	// MARK: - Initializers
 
-	init(walletVM: WalletInfoViewModel) {
+	init(walletVM: WalletInfoViewModel, newAvatarTapped: @escaping () -> Void) {
+		self.newAvatarTapped = newAvatarTapped
 		self.walletVM = walletVM
 		super.init(frame: .zero)
 		setupView()
@@ -50,6 +52,10 @@ class EditAccountView: UIView {
 		avatarBackgroundView.addSubview(walletAvatar)
 		addSubview(walletInfoStackview)
 		addSubview(privateKeyStackView)
+
+		setAvatarButton.addAction(UIAction(handler: { _ in
+			self.newAvatarTapped()
+		}), for: .touchUpInside)
 	}
 
 	private func setupStyle() {
