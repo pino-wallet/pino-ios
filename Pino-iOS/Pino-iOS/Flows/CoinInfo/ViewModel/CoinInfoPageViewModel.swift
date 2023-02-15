@@ -28,6 +28,7 @@ class CoinInfoPageViewModel {
 
 	// MARK: - public Methods
 
+	#warning("need refactore after connect to api.")
 	public func refreshCoinInfoData(complition: @escaping (CoinInfoError?) -> Void) {
 		let monitor = NWPathMonitor()
 		monitor.pathUpdateHandler = { path in
@@ -46,6 +47,7 @@ class CoinInfoPageViewModel {
 
 	// MARK: - private Methods
 
+	#warning("need refacotr after connect api.")
 	private func getCoinInfoDetail() {
 		let coinInfoModel = CoinInfoModel(
 			assetImage: "BTC",
@@ -59,6 +61,7 @@ class CoinInfoPageViewModel {
 		coinInfo = CoinInfoViewModel(coinInfoModel: coinInfoModel)
 	}
 
+	#warning("need refactor after connect api.")
 	private func getHistoryList() {
 		let actionsHistoryList = [
 			ActivityHistoryModel(

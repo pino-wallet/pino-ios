@@ -40,9 +40,28 @@ class CoinInfoViewController: UIViewController {
 			target: self,
 			action: #selector(closePage)
 		)
+
 		navigationItem.leftBarButtonItem?.tintColor = .Pino.white
-		navigationItem.rightBarButtonItem = CoinInfoNavigationItems.chartButton
-		navigationItem.titleView = CoinInfoNavigationItems.coinTitle
+
+		#warning("need to refactore this connect to api.")
+		var coinTitle: UILabel {
+			let coinTitle = PinoLabel(style: .title, text: nil)
+			coinTitle.font = .PinoStyle.semiboldBody
+			coinTitle.text = coinInfoVM.coinInfo.name
+			coinTitle.textColor = UIColor.Pino.white
+			return coinTitle
+		}
+
+		navigationItem.titleView = coinTitle
+
+		navigationItem.rightBarButtonItem = UIBarButtonItem(
+			image: UIImage(named: "chart"),
+			style: .plain,
+			target: self,
+			action: nil
+		)
+
+		navigationItem.rightBarButtonItem?.tintColor = .Pino.white
 	}
 
 	@objc
