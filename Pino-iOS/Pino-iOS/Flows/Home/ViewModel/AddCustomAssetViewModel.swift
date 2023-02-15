@@ -56,6 +56,4 @@ class AddCustomAssetViewModel {
 				alertText: "Sample Text"
 			))
 	}
-
-	// MARK: - Private Methods
 }

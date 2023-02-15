@@ -6,6 +6,8 @@
 //
 
 struct CustomAssetViewModel {
+	// MARK: - Public Properties
+
 	public var customAsset: CustomAssetModel
 
 	public var name: String {

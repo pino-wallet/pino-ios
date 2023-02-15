@@ -6,6 +6,8 @@
 //
 
 struct CustomAssetInfoViewModel {
+	// MARK: - Public Properties
+
 	public let customAssetInfo: CustomAssetInfoModel
 
 	public var title: String {
