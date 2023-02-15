@@ -86,7 +86,7 @@ class HistoryCollectionViewCell: UICollectionViewCell {
 		statusLabel.textAlignment = .center
 		statusIcon.image = UIImage(named: "Info-Circle, error")
 		statusIcon.tintColor = .Pino.red
-
+		#warning("move to binding after connect api.")
 		switch historyCoinInfoVM.status {
 		case .failed:
 			statusIcon.isHidden = false

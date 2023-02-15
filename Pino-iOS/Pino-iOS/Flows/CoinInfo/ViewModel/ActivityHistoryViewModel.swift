@@ -13,11 +13,11 @@ struct ActivityHistoryViewModel {
 	public var activityHistoryModel: ActivityHistoryModel!
 
 	public var activityIcon: String {
-		activityHistoryModel.actionIcon
+		activityHistoryModel.activityIcon
 	}
 
 	public var activityTitle: String {
-		activityHistoryModel.actionTitle
+		activityHistoryModel.activityTitle
 	}
 
 	public var time: String {

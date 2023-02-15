@@ -28,7 +28,7 @@ class CoinInfoPageViewModel {
 
 	// MARK: - public Methods
 
-	#warning("need refactore after connect to api.")
+	#warning("need refactore after connect to api. three funcs")
 	public func refreshCoinInfoData(complition: @escaping (CoinInfoError?) -> Void) {
 		let monitor = NWPathMonitor()
 		monitor.pathUpdateHandler = { path in
@@ -47,7 +47,6 @@ class CoinInfoPageViewModel {
 
 	// MARK: - private Methods
 
-	#warning("need refacotr after connect api.")
 	private func getCoinInfoDetail() {
 		let coinInfoModel = CoinInfoModel(
 			assetImage: "BTC",
@@ -61,23 +60,23 @@ class CoinInfoPageViewModel {
 		coinInfo = CoinInfoViewModel(coinInfoModel: coinInfoModel)
 	}
 
-	#warning("need refactor after connect api.")
 	private func getHistoryList() {
 		let actionsHistoryList = [
 			ActivityHistoryModel(
-				actionIcon: "swap",
-				actionTitle: "Swap 2.4 APE -> 200 DAI",
+				activityIcon: "swap",
+				activityTitle: "Swap 2.4 APE -> 200 DAI",
 				time: "20 min ago",
-				status: .pending
+				status: .failed
 			),
 			ActivityHistoryModel(
-				actionIcon: "Borrow",
-				actionTitle: "Borrow 1.44 APE",
+				activityIcon: "Borrow",
+				activityTitle: "Borrow 1.44 APE",
 				time: "1 hour ago",
 				status: .success
 			),
-			ActivityHistoryModel(actionIcon: "send", actionTitle: "Send 2 APE", time: "3 hours ago", status: .failed),
-			ActivityHistoryModel(actionIcon: "recive", actionTitle: "Receive 1.4 APE", time: "1 day ago", status: .failed),
+			ActivityHistoryModel(activityIcon: "send", activityTitle: "Send 2 APE", time: "3 hours ago", status: .failed),
+			ActivityHistoryModel(activityIcon: "recive", activityTitle: "Receive 1.4 APE", time: "1 day ago", status: .failed),
+			ActivityHistoryModel(activityIcon: "swap", activityTitle: "Swap 2.4 APE -> 200 DAI", time: "5 hours ago"),
 		]
 
 		historyList = actionsHistoryList.compactMap { ActivityHistoryViewModel(activityHistoryModel: $0) }
