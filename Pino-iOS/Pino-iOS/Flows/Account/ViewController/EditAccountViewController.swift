@@ -41,8 +41,7 @@ class EditAccountViewController: UIViewController {
 
 	private func setupView() {
 		editAccountView = EditAccountView(walletVM: selectedWallet, newAvatarTapped: {
-			let changeAvatarVC = ChangeAvatarViewController()
-			self.navigationController?.pushViewController(changeAvatarVC, animated: true)
+			self.openAvatarPage()
 		})
 		view = editAccountView
 		view.backgroundColor = .Pino.background
@@ -67,10 +66,19 @@ class EditAccountViewController: UIViewController {
 
 	@objc
 	private func saveChanges() {
-		let newName = editAccountView.walletNameTextField.text
-		if selectedWallet.name != newName {
-			walletVM.editWallet(id: selectedWallet.id, newName: newName, newImage: nil, newColor: nil)
-			navigationController?.popViewController(animated: true)
-		} else {}
+		let newName = editAccountView.newNameTextField.text
+		let newAvatar = editAccountView.newAvatar
+		if selectedWallet.name != newName || selectedWallet.profileImage != newAvatar {
+			walletVM.editWallet(id: selectedWallet.id, newName: newName, newImage: newAvatar, newColor: newAvatar)
+		}
+		navigationController?.popViewController(animated: true)
+	}
+
+	private func openAvatarPage() {
+		let avatarVM = AvatarViewModel(selectedAvatar: selectedWallet.profileImage)
+		let changeAvatarVC = ChangeAvatarViewController(avatarVM: avatarVM) { avatarName in
+			self.editAccountView.newAvatar = avatarName
+		}
+		navigationController?.pushViewController(changeAvatarVC, animated: true)
 	}
 }

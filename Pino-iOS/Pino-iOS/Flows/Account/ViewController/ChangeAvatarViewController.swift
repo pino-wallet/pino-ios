@@ -10,9 +10,14 @@ import UIKit
 class ChangeAvatarViewController: UIViewController {
 	// MARK: Private Properties
 
+	private var avatarVM: AvatarViewModel
+	private var avatarChanged: (String) -> Void
+
 	// MARK: Initializers
 
-	init() {
+	init(avatarVM: AvatarViewModel, avatarChanged: @escaping (String) -> Void) {
+		self.avatarVM = avatarVM
+		self.avatarChanged = avatarChanged
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -34,7 +39,12 @@ class ChangeAvatarViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = UIView()
+		view = AvatarCollectionView(
+			avatarVM: avatarVM,
+			avatarSelected: { selectedAvatar in
+				self.avatarVM.selectedAvatar = selectedAvatar
+			}
+		)
 	}
 
 	private func setupNavigationBar() {
@@ -55,5 +65,8 @@ class ChangeAvatarViewController: UIViewController {
 	}
 
 	@objc
-	private func saveChanges() {}
+	private func saveChanges() {
+		avatarChanged(avatarVM.selectedAvatar)
+		navigationController?.popViewController(animated: true)
+	}
 }
