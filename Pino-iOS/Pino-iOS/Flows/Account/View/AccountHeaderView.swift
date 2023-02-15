@@ -43,7 +43,7 @@ class AccountHeaderView: UICollectionReusableView {
 
 	private func setupStyle() {
 		walletName.text = walletInfoVM.name
-		walletAddress.text = "\(walletInfoVM.address.prefix(4))...\(walletInfoVM.address.suffix(4))"
+		walletAddress.text = walletInfoVM.address.shortenedString(characterCount: 4)
 		accountSettingsTitle.text = "Accounts"
 		walletIcon.image = UIImage(named: walletInfoVM.profileImage)
 		walletIconBackgroundView.backgroundColor = UIColor(named: walletInfoVM.profileColor)

@@ -22,7 +22,7 @@ public class WalletCell: UICollectionViewCell {
 	// MARK: Public Properties
 
 	public static let cellReuseID = "walletCell"
-	public var editButtonTapped: (() -> Void)?
+	public var editButtonTapped: (() -> Void)!
 
 	public var walletVM: WalletInfoViewModel! {
 		didSet {
@@ -51,9 +51,7 @@ public class WalletCell: UICollectionViewCell {
 		walletIconBackgroundView.addSubview(walletIcon)
 
 		editButton.addAction(UIAction(handler: { _ in
-			if let editButtonTapped = self.editButtonTapped {
-				editButtonTapped()
-			}
+			self.editButtonTapped()
 		}), for: .touchUpInside)
 	}
 
