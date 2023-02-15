@@ -74,6 +74,8 @@ class HomepageViewController: UIViewController {
 
 		navigationItem.titleView?
 			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(copyWalletAddress)))
+		navigationItem.leftBarButtonItem?.customView?
+			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openProfilePage)))
 	}
 
 	@objc
@@ -89,6 +91,14 @@ class HomepageViewController: UIViewController {
 		let manageAssetsVC = ManageAssetsViewController(homeVM: homeVM)
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [manageAssetsVC]
+		present(navigationVC, animated: true)
+	}
+
+	@objc
+	private func openProfilePage() {
+		let profileVC = ProfileViewController()
+		let navigationVC = UINavigationController()
+		navigationVC.viewControllers = [profileVC]
 		present(navigationVC, animated: true)
 	}
 }

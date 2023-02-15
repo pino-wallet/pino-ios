@@ -13,10 +13,10 @@ final class UsersAPIMockClient: UsersAPIService {
 	// MARK: Public Methods
 
 	public func users() -> AnyPublisher<Users, APIError> {
-        StubManager.publisher(for: "all-users-stub")
+		StubManager.publisher(for: "all-users-stub")
 	}
 
 	public func userDetail(id: String) -> AnyPublisher<UserModel, APIError> {
-        StubManager.publisher(for: "all-users-stub")
+		StubManager.publisher(for: "all-users-stub")
 	}
 }
