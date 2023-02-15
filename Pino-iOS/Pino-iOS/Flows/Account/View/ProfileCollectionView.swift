@@ -5,22 +5,30 @@
 //  Created by Mohi Raoufi on 2/8/23.
 //
 
+import Combine
 import UIKit
 
 class ProfileCollectionView: UICollectionView {
 	// MARK: Private Properties
 
 	private let profileVM: ProfileViewModel
+	private var cancellables = Set<AnyCancellable>()
+
+	// MARK: Public Properties
+
+	public var settingsItemSelected: (SettingsViewModel) -> Void
 
 	// MARK: Initializers
 
-	init(profileVM: ProfileViewModel) {
+	init(profileVM: ProfileViewModel, settingsItemSelected: @escaping (SettingsViewModel) -> Void) {
 		self.profileVM = profileVM
+		self.settingsItemSelected = settingsItemSelected
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 
 		configCollectionView()
 		setupStyle()
+		setupBindings()
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -50,12 +58,18 @@ class ProfileCollectionView: UICollectionView {
 	}
 
 	private func setupStyle() {
-		backgroundColor = .Pino.clear
+		backgroundColor = .Pino.background
 		showsVerticalScrollIndicator = false
+	}
+
+	private func setupBindings() {
+		profileVM.$walletInfo.sink { _ in
+			self.reloadData()
+		}.store(in: &cancellables)
 	}
 }
 
-// MARK: Collection View Flow Layout
+// MARK: - Collection View Flow Layout
 
 extension ProfileCollectionView: UICollectionViewDelegateFlowLayout {
 	func collectionView(
@@ -67,9 +81,23 @@ extension ProfileCollectionView: UICollectionViewDelegateFlowLayout {
 	}
 }
 
-extension ProfileCollectionView: UICollectionViewDataSource {
-	// MARK: - CollectionView DataSource Methods
+// MARK: - CollectionView Delegate
 
+extension ProfileCollectionView: UICollectionViewDelegate {
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		switch indexPath.section {
+		case 0:
+			settingsItemSelected(profileVM.accountSettings[indexPath.item])
+		case 1:
+			settingsItemSelected(profileVM.generalSettings[indexPath.item])
+		default: break
+		}
+	}
+}
+
+// MARK: - CollectionView DataSource
+
+extension ProfileCollectionView: UICollectionViewDataSource {
 	internal func numberOfSections(in collectionView: UICollectionView) -> Int {
 		2
 	}

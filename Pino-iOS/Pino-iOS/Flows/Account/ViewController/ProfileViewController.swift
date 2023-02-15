@@ -5,16 +5,20 @@
 //  Created by Mohi Raoufi on 2/8/23.
 //
 
+import Combine
 import UIKit
 
 class ProfileViewController: UIViewController {
 	// MARK: Private Properties
 
-	private let profileVM = ProfileViewModel()
+	private let profileVM: ProfileViewModel
+	private let walletsVM = WalletsViewModel()
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
 
-	init() {
+	init(profileVM: ProfileViewModel) {
+		self.profileVM = profileVM
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -31,18 +35,20 @@ class ProfileViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
+		setupBindings()
 	}
 
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = ProfileCollectionView(profileVM: profileVM)
-		view.backgroundColor = .Pino.background
+		view = ProfileCollectionView(profileVM: profileVM, settingsItemSelected: { settingVM in
+			self.openSettingDetail(settingVM: settingVM)
+		})
 	}
 
 	private func setupNavigationBar() {
 		// Setup appreance for navigation bar
-		setupPrimaryColorNavigationBar()
+		navigationController?.navigationBar.backgroundColor = .Pino.primary
 		// Setup title view
 		setNavigationTitle("Profile")
 		// Setup add asset button
@@ -52,11 +58,26 @@ class ProfileViewController: UIViewController {
 			target: self,
 			action: #selector(dismissProfile)
 		)
-		navigationItem.leftBarButtonItem?.tintColor = .Pino.white
+		navigationController?.navigationBar.tintColor = .Pino.white
+	}
+
+	private func setupBindings() {
+		walletsVM.$selectedWallet.sink { selectedWallet in
+			self.profileVM.walletInfo = selectedWallet
+		}.store(in: &cancellables)
 	}
 
 	@objc
 	private func dismissProfile() {
 		dismiss(animated: true)
+	}
+
+	private func openSettingDetail(settingVM: SettingsViewModel) {
+		switch settingVM {
+		case .wallets:
+			let WalletsVC = WalletsViewController(walletVM: walletsVM)
+			navigationController?.pushViewController(WalletsVC, animated: true)
+		default: break
+		}
 	}
 }

@@ -18,4 +18,8 @@ final class WalletAPIMockClient: WalletAPIService {
 	public func walletBalance() -> AnyPublisher<WalletBalanceModel, APIError> {
 		StubManager.publisher(for: "wallet-balance-stub")
 	}
+
+	public func walletsList() -> AnyPublisher<WalletsStubModel, APIError> {
+		StubManager.publisher(for: "wallets-stub")
+	}
 }

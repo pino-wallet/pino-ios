@@ -5,7 +5,7 @@
 //  Created by Mohi Raoufi on 12/24/22.
 //
 
-struct WalletInfoViewModel {
+public struct WalletInfoViewModel: Equatable {
 	// MARK: - Public Properties
 
 	public var walletInfoModel: WalletInfoModel!
@@ -24,5 +24,9 @@ struct WalletInfoViewModel {
 
 	public var profileColor: String {
 		walletInfoModel.profileColor
+	}
+
+	public var balance: String {
+		"$\(walletInfoModel.balance)"
 	}
 }

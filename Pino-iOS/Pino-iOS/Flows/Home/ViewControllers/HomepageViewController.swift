@@ -12,6 +12,7 @@ class HomepageViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let homeVM = HomepageViewModel()
+	private var profileVM: ProfileViewModel!
 	private var cancellables = Set<AnyCancellable>()
 	private var addressCopiedToastView = PinoToastView(message: nil, style: .primary, alignment: .top)
 
@@ -41,8 +42,10 @@ class HomepageViewController: UIViewController {
 	}
 
 	override func loadView() {
+		profileVM = ProfileViewModel(walletInfo: homeVM.walletInfo)
 		setupView()
 		setupNavigationBar()
+		setupBindings()
 	}
 
 	// MARK: - Private Methods
@@ -66,16 +69,21 @@ class HomepageViewController: UIViewController {
 			let walletInfoNavigationItems = WalletInfoNavigationItems(walletInfoVM: walletInfo)
 			self?.navigationItem.titleView = walletInfoNavigationItems.walletTitle
 			self?.navigationItem.leftBarButtonItem = walletInfoNavigationItems.profileButton
+			self?.navigationItem.titleView?
+				.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self?.copyWalletAddress)))
+			self?.navigationItem.leftBarButtonItem?.customView?
+				.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self?.openProfilePage)))
 		}.store(in: &cancellables)
 
 		navigationItem.rightBarButtonItem = WalletInfoNavigationItems.manageAssetButton
 		navigationItem.rightBarButtonItem?.target = self
 		navigationItem.rightBarButtonItem?.action = #selector(openManageAssetsPage)
+	}
 
-		navigationItem.titleView?
-			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(copyWalletAddress)))
-		navigationItem.leftBarButtonItem?.customView?
-			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openProfilePage)))
+	private func setupBindings() {
+		profileVM.$walletInfo.sink { walletInfo in
+			self.homeVM.walletInfo = walletInfo
+		}.store(in: &cancellables)
 	}
 
 	@objc
@@ -96,7 +104,7 @@ class HomepageViewController: UIViewController {
 
 	@objc
 	private func openProfilePage() {
-		let profileVC = ProfileViewController()
+		let profileVC = ProfileViewController(profileVM: profileVM)
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [profileVC]
 		present(navigationVC, animated: true)
