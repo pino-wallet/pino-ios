@@ -58,7 +58,7 @@ class ProfileCollectionView: UICollectionView {
 	}
 
 	private func setupStyle() {
-		backgroundColor = .Pino.clear
+		backgroundColor = .Pino.background
 		showsVerticalScrollIndicator = false
 	}
 

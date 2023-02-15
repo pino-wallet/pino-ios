@@ -44,7 +44,6 @@ class ProfileViewController: UIViewController {
 		view = ProfileCollectionView(profileVM: profileVM, settingsItemSelected: { settingVM in
 			self.openSettingDetail(settingVM: settingVM)
 		})
-		view.backgroundColor = .Pino.background
 	}
 
 	private func setupNavigationBar() {

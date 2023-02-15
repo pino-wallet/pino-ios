@@ -42,7 +42,6 @@ class EditAccountViewController: UIViewController {
 	private func setupView() {
 		editAccountView = EditAccountView(walletVM: selectedWallet)
 		view = editAccountView
-		view.backgroundColor = .Pino.background
 	}
 
 	private func setupNavigationBar() {
