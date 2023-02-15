@@ -17,4 +17,8 @@ extension String {
 		}
 		return array
 	}
+
+	public func shortenedString(characterCount: Int) -> String {
+		"\(prefix(characterCount))...\(suffix(characterCount))"
+	}
 }
