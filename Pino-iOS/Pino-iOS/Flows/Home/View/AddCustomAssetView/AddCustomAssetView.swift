@@ -103,7 +103,6 @@ class AddCustomAssetView: UIView {
 			return
 		}
 		addCustomAssetVM.setupPasteFromClipboardViewClosure = { [weak self] validatedContractAddressVM in
-			self?.customAssetInfoView?.removeFromSuperview()
 			self?.pasteFromClipboardview.contractAddress = validatedContractAddressVM.finalValidatedAddress
 			self?.addSubview(self?.pasteFromClipboardview ?? UIView())
 			self?.setupPasteFromClipboardViewConstraints()
