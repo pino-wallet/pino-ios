@@ -12,8 +12,6 @@ class WalletsViewModel {
 	// MARK: - Public Properties
 
 	@Published
-	public var selectedWallet: WalletInfoViewModel!
-	@Published
 	public var walletsList: [WalletInfoViewModel]!
 
 	// MARK: - Private Properties
@@ -30,8 +28,15 @@ class WalletsViewModel {
 	// MARK: - Public Methods
 
 	public func updateSelectedWallet(with selectedWallet: WalletInfoViewModel) {
-		self.selectedWallet = selectedWallet
-		saveSelectedWalletInUserDefaults(selectedWallet)
+		for index in 0 ..< walletsList.count {
+			if walletsList[index].id == selectedWallet.id {
+				walletsList[index].isSelected(true)
+			} else {
+				walletsList[index].isSelected(false)
+			}
+		}
+		walletsList = walletsList
+		saveWalletsInUserDefaults(walletsList)
 	}
 
 	public func editWallet(id: String, newName: String?, newImage: String?, newColor: String?) {
@@ -43,15 +48,12 @@ class WalletsViewModel {
 			address: walletsList[walletIndex].address,
 			profileImage: newImage ?? walletsList[walletIndex].profileImage,
 			profileColor: newColor ?? walletsList[walletIndex].profileColor,
-			balance: walletsList[walletIndex].walletInfoModel.balance
+			balance: walletsList[walletIndex].walletInfoModel.balance,
+			isSelected: walletsList[walletIndex].isSelected
 		)
 		let editedWalletViewModel = WalletInfoViewModel(walletInfoModel: editedWalletModel)
 		walletsList[walletIndex] = editedWalletViewModel
 		saveWalletsInUserDefaults(walletsList)
-
-		if id == selectedWallet.id {
-			updateSelectedWallet(with: editedWalletViewModel)
-		}
 	}
 
 	// MARK: - Private Methods
@@ -60,12 +62,6 @@ class WalletsViewModel {
 		// Request to get wallets
 		let walletsModel = getWalletsFromUserDefaults()
 		walletsList = walletsModel.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
-		if let selectedWallet = getSelectedWalletFromUserDefaults() {
-			self.selectedWallet = selectedWallet
-		} else {
-			guard let firstWallet = walletsList.first else { fatalError("No wallet found") }
-			updateSelectedWallet(with: firstWallet)
-		}
 	}
 
 	public func getWalletsFromUserDefaults() -> [WalletInfoModel] {
@@ -74,27 +70,6 @@ class WalletsViewModel {
 		}
 		do {
 			return try JSONDecoder().decode([WalletInfoModel].self, from: encodedWallets)
-		} catch {
-			fatalError(error.localizedDescription)
-		}
-	}
-
-	private func getSelectedWalletFromUserDefaults() -> WalletInfoViewModel? {
-		guard let encodedWallet = UserDefaults.standard.data(forKey: "selectedWallet") else {
-			fatalError("No wallet found in user defaults")
-		}
-		do {
-			let walletModel = try JSONDecoder().decode(WalletInfoModel.self, from: encodedWallet)
-			return WalletInfoViewModel(walletInfoModel: walletModel)
-		} catch {
-			fatalError(error.localizedDescription)
-		}
-	}
-
-	private func saveSelectedWalletInUserDefaults(_ selectedWallet: WalletInfoViewModel) {
-		do {
-			let encodedWallet = try JSONEncoder().encode(selectedWallet.walletInfoModel)
-			UserDefaults.standard.set(encodedWallet, forKey: "selectedWallet")
 		} catch {
 			fatalError(error.localizedDescription)
 		}

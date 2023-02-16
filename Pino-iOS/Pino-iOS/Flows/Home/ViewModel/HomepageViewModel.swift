@@ -143,7 +143,7 @@ class HomepageViewModel {
 		$manageAssetsList.sink { [weak self] manageAssetsList in
 			guard let self = self else { return }
 			guard let manageAssetsList = manageAssetsList else { return }
-			let assetsModel = manageAssetsList.compactMap { $0.assetModel }.filter { $0.isSelected == true }
+			let assetsModel = manageAssetsList.compactMap { $0.assetModel }.filter { $0.isSelected }
 			self.assetsList = assetsModel.compactMap { AssetViewModel(assetModel: $0) }
 		}.store(in: &cancellables)
 	}
@@ -207,9 +207,10 @@ class HomepageViewModel {
 	}
 
 	public func getWalletInfoFromUserDefaults() -> WalletInfoModel? {
-		guard let encodedWallet = UserDefaults.standard.data(forKey: "selectedWallet") else { return nil }
+		guard let encodedWallet = UserDefaults.standard.data(forKey: "wallets") else { return nil }
 		do {
-			return try JSONDecoder().decode(WalletInfoModel.self, from: encodedWallet)
+			let decodedWallets = try JSONDecoder().decode([WalletInfoModel].self, from: encodedWallet)
+			return decodedWallets.first(where: { $0.isSelected })
 		} catch {
 			fatalError(error.localizedDescription)
 		}
@@ -230,14 +231,8 @@ class HomepageViewModel {
 			} catch {
 				fatalError(error.localizedDescription)
 			}
-			guard let firstWallet = wallets.walletsList.first else {
-				fatalError("No wallet found in user defaults")
-			}
-			do {
-				let encodedWallet = try JSONEncoder().encode(firstWallet)
-				UserDefaults.standard.register(defaults: ["selectedWallet": encodedWallet])
-			} catch {
-				fatalError(error.localizedDescription)
+			guard let firstWallet = wallets.walletsList.first(where: { $0.isSelected }) else {
+				fatalError("No selected wallet found in user defaults")
 			}
 			self.walletInfo = WalletInfoViewModel(walletInfoModel: firstWallet)
 		}.store(in: &cancellables)

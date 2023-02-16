@@ -14,6 +14,7 @@ public struct WalletInfoModel: Codable, Equatable {
 	public var profileImage: String
 	public var profileColor: String
 	public var balance: String
+	public var isSelected: Bool
 
 	enum CodingKeys: String, CodingKey {
 		case id
@@ -22,5 +23,12 @@ public struct WalletInfoModel: Codable, Equatable {
 		case profileImage = "profile_image"
 		case profileColor = "profile_color"
 		case balance
+		case isSelected = "is_selected"
+	}
+
+	// MARK: - Public Methods
+
+	public mutating func isSelected(_ isSelected: Bool) {
+		self.isSelected = isSelected
 	}
 }
