@@ -22,7 +22,7 @@ class EditAccountView: UIView {
 
 	// MARK: - Public Properties
 
-	public let walletNameTextField = UITextField()
+	public let walletNameTextFieldView = PinoTextFieldView(style: .normal)
 
 	// MARK: - Initializers
 
@@ -42,7 +42,7 @@ class EditAccountView: UIView {
 
 	private func setupView() {
 		walletInfoStackview.addArrangedSubview(walletAvatarStackView)
-		walletInfoStackview.addArrangedSubview(walletNameTextField)
+		walletInfoStackview.addArrangedSubview(walletNameTextFieldView)
 		walletAvatarStackView.addArrangedSubview(avatarBackgroundView)
 		walletAvatarStackView.addArrangedSubview(setAvatarButton)
 		privateKeyStackView.addArrangedSubview(privateKeyButton)
@@ -53,7 +53,8 @@ class EditAccountView: UIView {
 	}
 
 	private func setupStyle() {
-		walletNameTextField.text = walletVM.name
+		walletNameTextFieldView.text = walletVM.name
+		walletNameTextFieldView.errorText = "Please enter wallet's name!"
 		setAvatarButton.setTitle("Set new avatar", for: .normal)
 		privateKeyButton.title = "Show private key"
 		removeAccountButton.setTitle("Remove account", for: .normal)
@@ -64,11 +65,8 @@ class EditAccountView: UIView {
 		backgroundColor = .Pino.background
 		avatarBackgroundView.backgroundColor = UIColor(named: walletVM.profileColor)
 		setAvatarButton.setTitleColor(.Pino.blue, for: .normal)
-		walletNameTextField.textColor = .Pino.label
-		walletNameTextField.backgroundColor = .Pino.secondaryBackground
 		removeAccountButton.setTitleColor(.Pino.red, for: .normal)
 
-		walletNameTextField.font = .PinoStyle.mediumBody
 		removeAccountButton.titleLabel?.font = .PinoStyle.semiboldBody
 
 		walletInfoStackview.axis = .vertical
@@ -82,8 +80,11 @@ class EditAccountView: UIView {
 		walletAvatarStackView.spacing = 14
 		privateKeyStackView.spacing = 48
 
-		walletNameTextField.borderStyle = .roundedRect
 		avatarBackgroundView.layer.cornerRadius = 44
+
+		walletNameTextFieldView.textDidChange = {
+			self.walletNameTextFieldView.style = .normal
+		}
 	}
 
 	private func setupConstraint() {
@@ -98,9 +99,9 @@ class EditAccountView: UIView {
 		walletAvatar.pin(
 			.allEdges(padding: 16)
 		)
-		walletNameTextField.pin(
-			.fixedHeight(48)
-		)
+//		walletNameTextFieldView.pin(
+//			.fixedHeight(48)
+//		)
 		privateKeyStackView.pin(
 			.bottom(padding: 48),
 			.horizontalEdges(padding: 16)

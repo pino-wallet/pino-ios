@@ -63,15 +63,15 @@ class EditAccountViewController: UIViewController {
 
 	@objc
 	private func saveChanges() {
-		guard let walletName = editAccountView.walletNameTextField.text else {
-			// Show error alert
-			return
+		if let walletName = editAccountView.walletNameTextFieldView.getText() {
+			let builder = WalletBuilder(walletInfo: selectedWallet)
+			if selectedWallet.name != walletName {
+				builder.setProfileName(walletName)
+			}
+			walletVM.editWallet(newWallet: builder.build())
+			navigationController?.popViewController(animated: true)
+		} else {
+			editAccountView.walletNameTextFieldView.style = .error
 		}
-		let builder = WalletBuilder(walletInfo: selectedWallet)
-		if selectedWallet.name != walletName {
-			builder.setProfileName(walletName)
-		}
-		walletVM.editWallet(newWallet: builder.build())
-		navigationController?.popViewController(animated: true)
 	}
 }
