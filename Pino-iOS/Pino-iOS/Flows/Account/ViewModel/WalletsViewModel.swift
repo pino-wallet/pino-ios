@@ -39,20 +39,11 @@ class WalletsViewModel {
 		saveWalletsInUserDefaults(walletsList)
 	}
 
-	public func editWallet(id: String, newName: String?, newImage: String?, newColor: String?) {
-		guard let walletIndex = walletsList.firstIndex(where: { $0.id == id })
-		else { fatalError("No wallet found with this ID") }
-		let editedWalletModel = WalletInfoModel(
-			id: id,
-			name: newName ?? walletsList[walletIndex].name,
-			address: walletsList[walletIndex].address,
-			profileImage: newImage ?? walletsList[walletIndex].profileImage,
-			profileColor: newColor ?? walletsList[walletIndex].profileColor,
-			balance: walletsList[walletIndex].walletInfoModel.balance,
-			isSelected: walletsList[walletIndex].isSelected
-		)
-		let editedWalletViewModel = WalletInfoViewModel(walletInfoModel: editedWalletModel)
-		walletsList[walletIndex] = editedWalletViewModel
+	func editWallet(newWallet: WalletInfoModel) {
+		guard let walletIndex = walletsList.firstIndex(where: { $0.id == newWallet.id }) else {
+			fatalError("No wallet found with this ID")
+		}
+		walletsList[walletIndex] = WalletInfoViewModel(walletInfoModel: newWallet)
 		saveWalletsInUserDefaults(walletsList)
 	}
 
