@@ -66,7 +66,7 @@ class EditAccountViewController: UIViewController {
 		let newName = editAccountView.walletNameTextField.text
 		if selectedWallet.name != newName {
 			walletVM.editWallet(id: selectedWallet.id, newName: newName, newImage: nil, newColor: nil)
-			navigationController?.popViewController(animated: true)
-		} else {}
+		}
+		navigationController?.popViewController(animated: true)
 	}
 }

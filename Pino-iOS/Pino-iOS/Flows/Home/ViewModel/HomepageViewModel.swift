@@ -162,9 +162,11 @@ class HomepageViewModel {
 	}
 
 	private func getManageAssetsList() {
-		registerAssetsUserDefaults()
-		let manageAssetsModel = getAssetsFromUserDefaults()
-		manageAssetsList = manageAssetsModel.compactMap { ManageAssetViewModel(assetModel: $0) }
+		if let manageAssetsModel = getAssetsFromUserDefaults() {
+			manageAssetsList = manageAssetsModel.compactMap { ManageAssetViewModel(assetModel: $0) }
+		} else {
+			registerAssetsUserDefaults()
+		}
 	}
 
 	public func saveAssetsInUserDefaults(assets: [AssetModel]) {
@@ -172,17 +174,16 @@ class HomepageViewModel {
 			let encodedAssets = try JSONEncoder().encode(assets)
 			UserDefaults.standard.set(encodedAssets, forKey: "assets")
 		} catch {
-			UserDefaults.standard.set([], forKey: "assets")
+			fatalError(error.localizedDescription)
 		}
 	}
 
-	public func getAssetsFromUserDefaults() -> [AssetModel] {
-		guard let encodedAssets = UserDefaults.standard.data(forKey: "assets") else { return [] }
+	public func getAssetsFromUserDefaults() -> [AssetModel]? {
+		guard let encodedAssets = UserDefaults.standard.data(forKey: "assets") else { return nil }
 		do {
 			return try JSONDecoder().decode([AssetModel].self, from: encodedAssets)
 		} catch {
-			print(error)
-			return []
+			fatalError(error.localizedDescription)
 		}
 	}
 
@@ -199,9 +200,9 @@ class HomepageViewModel {
 				let encodedAssets = try JSONEncoder().encode(assets.assetsList)
 				UserDefaults.standard.register(defaults: ["assets": encodedAssets])
 			} catch {
-				print(error)
-				UserDefaults.standard.register(defaults: ["assets": []])
+				fatalError(error.localizedDescription)
 			}
+			self.manageAssetsList = assets.assetsList.compactMap { ManageAssetViewModel(assetModel: $0) }
 		}.store(in: &cancellables)
 	}
 
@@ -210,7 +211,7 @@ class HomepageViewModel {
 		do {
 			return try JSONDecoder().decode(WalletInfoModel.self, from: encodedWallet)
 		} catch {
-			return nil
+			fatalError(error.localizedDescription)
 		}
 	}
 
@@ -227,9 +228,11 @@ class HomepageViewModel {
 				let encodedWallets = try JSONEncoder().encode(wallets.walletsList)
 				UserDefaults.standard.register(defaults: ["wallets": encodedWallets])
 			} catch {
-				UserDefaults.standard.register(defaults: ["wallets": []])
+				fatalError(error.localizedDescription)
 			}
-			guard let firstWallet = wallets.walletsList.first else { fatalError("No wallet found") }
+			guard let firstWallet = wallets.walletsList.first else {
+				fatalError("No wallet found in user defaults")
+			}
 			do {
 				let encodedWallet = try JSONEncoder().encode(firstWallet)
 				UserDefaults.standard.register(defaults: ["selectedWallet": encodedWallet])

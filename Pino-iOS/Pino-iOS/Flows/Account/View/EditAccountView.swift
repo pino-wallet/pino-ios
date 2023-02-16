@@ -65,6 +65,7 @@ class EditAccountView: UIView {
 		avatarBackgroundView.backgroundColor = UIColor(named: walletVM.profileColor)
 		setAvatarButton.setTitleColor(.Pino.blue, for: .normal)
 		walletNameTextField.textColor = .Pino.label
+		walletNameTextField.backgroundColor = .Pino.secondaryBackground
 		removeAccountButton.setTitleColor(.Pino.red, for: .normal)
 
 		walletNameTextField.font = .PinoStyle.mediumBody

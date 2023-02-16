@@ -69,22 +69,25 @@ class WalletsViewModel {
 	}
 
 	public func getWalletsFromUserDefaults() -> [WalletInfoModel] {
-		guard let encodedWallets = UserDefaults.standard.data(forKey: "wallets") else { return [] }
+		guard let encodedWallets = UserDefaults.standard.data(forKey: "wallets") else {
+			fatalError("No wallet found in user defaults")
+		}
 		do {
 			return try JSONDecoder().decode([WalletInfoModel].self, from: encodedWallets)
 		} catch {
-			print(error)
-			return []
+			fatalError(error.localizedDescription)
 		}
 	}
 
 	private func getSelectedWalletFromUserDefaults() -> WalletInfoViewModel? {
-		guard let encodedWallet = UserDefaults.standard.data(forKey: "selectedWallet") else { return nil }
+		guard let encodedWallet = UserDefaults.standard.data(forKey: "selectedWallet") else {
+			fatalError("No wallet found in user defaults")
+		}
 		do {
 			let walletModel = try JSONDecoder().decode(WalletInfoModel.self, from: encodedWallet)
 			return WalletInfoViewModel(walletInfoModel: walletModel)
 		} catch {
-			return nil
+			fatalError(error.localizedDescription)
 		}
 	}
 
@@ -93,7 +96,7 @@ class WalletsViewModel {
 			let encodedWallet = try JSONEncoder().encode(selectedWallet.walletInfoModel)
 			UserDefaults.standard.set(encodedWallet, forKey: "selectedWallet")
 		} catch {
-			UserDefaults.standard.set(nil, forKey: "selectedWallet")
+			fatalError(error.localizedDescription)
 		}
 	}
 
@@ -103,7 +106,7 @@ class WalletsViewModel {
 			let encodedWallets = try JSONEncoder().encode(walletsModel)
 			UserDefaults.standard.set(encodedWallets, forKey: "wallets")
 		} catch {
-			UserDefaults.standard.set([], forKey: "wallets")
+			fatalError(error.localizedDescription)
 		}
 	}
 }
