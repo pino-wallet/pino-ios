@@ -150,8 +150,13 @@ extension SettingCell {
 	}
 
 	public func setCellStyle(currentItem: Int, itemsCount: Int) {
+		// We have 4 types of cells,
+		// If the number of cells is 1, it'll have the single cell style
+		// If the current cell index is 0, it'll have the first cell style
+		// If the current cell index is equal to the number of items, it'll have the last cell style
+		// Otherwise it'll have the regular style
 		switch (currentItem, itemsCount) {
-		case (0, 1):
+		case (_, 1):
 			style = .singleCell
 		case (0, _):
 			style = .firstCell

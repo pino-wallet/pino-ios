@@ -30,7 +30,7 @@ struct WalletInfoNavigationItems {
 		)
 
 		let walletAddress = NSMutableAttributedString(
-			string: " (\(walletInfoVM.address.prefix(3))...\(walletInfoVM.address.suffix(3)))",
+			string: " (\(walletInfoVM.address.shortenedString(characterCount: 3)))",
 			attributes: [
 				NSAttributedString.Key.foregroundColor: UIColor.Pino.secondaryLabel,
 				NSAttributedString.Key.font: UIFont.PinoStyle.mediumCallout!,
