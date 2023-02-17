@@ -27,7 +27,7 @@ class EditAccountView: UIView {
 
 	@Published
 	public var newAvatar: String
-	public let newNameTextField = UITextField()
+	public let walletNameTextFieldView = PinoTextFieldView(style: .normal)
 
 	// MARK: - Initializers
 
@@ -50,7 +50,7 @@ class EditAccountView: UIView {
 
 	private func setupView() {
 		walletInfoStackview.addArrangedSubview(walletAvatarStackView)
-		walletInfoStackview.addArrangedSubview(newNameTextField)
+		walletInfoStackview.addArrangedSubview(walletNameTextFieldView)
 		walletAvatarStackView.addArrangedSubview(avatarBackgroundView)
 		walletAvatarStackView.addArrangedSubview(setAvatarButton)
 		privateKeyStackView.addArrangedSubview(privateKeyButton)
@@ -64,7 +64,8 @@ class EditAccountView: UIView {
 	}
 
 	private func setupStyle() {
-		newNameTextField.text = walletVM.name
+		walletNameTextFieldView.text = walletVM.name
+		walletNameTextFieldView.errorText = "Please enter wallet's name!"
 		setAvatarButton.text = "Set new avatar"
 		privateKeyButton.title = "Show private key"
 		removeAccountButton.setTitle("Remove account", for: .normal)
@@ -75,10 +76,8 @@ class EditAccountView: UIView {
 		backgroundColor = .Pino.background
 		avatarBackgroundView.backgroundColor = UIColor(named: walletVM.profileColor)
 		setAvatarButton.textColor = .Pino.blue
-		newNameTextField.textColor = .Pino.label
 		removeAccountButton.setTitleColor(.Pino.red, for: .normal)
 
-		newNameTextField.font = .PinoStyle.mediumBody
 		removeAccountButton.titleLabel?.font = .PinoStyle.semiboldBody
 
 		walletInfoStackview.axis = .vertical
@@ -92,8 +91,11 @@ class EditAccountView: UIView {
 		walletAvatarStackView.spacing = 14
 		privateKeyStackView.spacing = 48
 
-		newNameTextField.borderStyle = .roundedRect
 		avatarBackgroundView.layer.cornerRadius = 44
+
+		walletNameTextFieldView.textDidChange = {
+			self.walletNameTextFieldView.style = .normal
+		}
 	}
 
 	private func setupConstraint() {
@@ -108,14 +110,11 @@ class EditAccountView: UIView {
 		walletAvatar.pin(
 			.allEdges(padding: 16)
 		)
-		newNameTextField.pin(
-			.fixedHeight(48)
-		)
 		privateKeyStackView.pin(
 			.bottom(padding: 48),
 			.horizontalEdges(padding: 16)
 		)
-		newNameTextField.pin(
+		walletNameTextFieldView.pin(
 			.horizontalEdges
 		)
 	}

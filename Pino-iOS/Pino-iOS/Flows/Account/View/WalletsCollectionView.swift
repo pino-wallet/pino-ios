@@ -57,10 +57,6 @@ class WalletsCollectionView: UICollectionView {
 	}
 
 	private func setupBindings() {
-		walletsVM.$selectedWallet.sink { [weak self] _ in
-			self?.reloadData()
-		}.store(in: &cancellables)
-
 		walletsVM.$walletsList.sink { [weak self] _ in
 			self?.reloadData()
 		}.store(in: &cancellables)
@@ -103,7 +99,7 @@ extension WalletsCollectionView: UICollectionViewDataSource {
 			for: indexPath
 		) as! WalletCell
 		walletCell.walletVM = walletsVM.walletsList[indexPath.item]
-		if walletsVM.walletsList[indexPath.item] == walletsVM.selectedWallet {
+		if walletsVM.walletsList[indexPath.item].isSelected {
 			walletCell.style = .selected
 		} else {
 			walletCell.style = .regular

@@ -65,12 +65,23 @@ class EditAccountViewController: UIViewController {
 
 	@objc
 	private func saveChanges() {
-		let newName = editAccountView.newNameTextField.text
-		let newAvatar = editAccountView.newAvatar
-		if selectedWallet.name != newName || selectedWallet.profileImage != newAvatar {
-			walletVM.editWallet(id: selectedWallet.id, newName: newName, newImage: newAvatar, newColor: newAvatar)
+		if let newName = editAccountView.walletNameTextFieldView.getText() {
+			let newAvatar = editAccountView.newAvatar
+			let builder = WalletBuilder(walletInfo: selectedWallet)
+			if selectedWallet.name != newName {
+				builder.setProfileName(newName)
+			}
+			if selectedWallet.profileImage != newAvatar {
+				builder.setProfileImage(newAvatar)
+			}
+			if selectedWallet.profileColor != newAvatar {
+				builder.setProfileColor(newAvatar)
+			}
+			walletVM.editWallet(newWallet: builder.build())
+			navigationController!.popViewController(animated: true)
+		} else {
+			editAccountView.walletNameTextFieldView.style = .error
 		}
-		navigationController?.popViewController(animated: true)
 	}
 
 	private func openAvatarPage() {

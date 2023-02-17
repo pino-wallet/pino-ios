@@ -33,4 +33,14 @@ public struct WalletInfoViewModel: Equatable {
 	public var balance: String {
 		"$\(walletInfoModel.balance)"
 	}
+
+	public var isSelected: Bool {
+		walletInfoModel.isSelected
+	}
+
+	// MARK: - Public Methods
+
+	public mutating func isSelected(_ isSelected: Bool) {
+		walletInfoModel.isSelected(isSelected)
+	}
 }

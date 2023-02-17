@@ -7,7 +7,8 @@
             "address": "gf4bh5n3m2c8l4j5w9i2l6t2de",
             "profile_image": "avocado",
             "profile_color": "avocado",
-            "balance": "12,568,000"
+            "balance": "12,568,000",
+            "is_selected": true
         },
         {
             "id": "1",
@@ -15,7 +16,8 @@
             "address": "gf4bh5n3m2c8l4j5w9i2l6t2de",
             "profile_image": "coconut",
             "profile_color": "coconut",
-            "balance": "290"
+            "balance": "290",
+            "is_selected": false
         },
         {
             "id": "2",
@@ -23,7 +25,8 @@
             "address": "gf4bh5n3m2c8l4j5w9i2l6t2de",
             "profile_image": "strawberry",
             "profile_color": "strawberry",
-            "balance": "2,308,000"
+            "balance": "2,308,000",
+            "is_selected": false
         }
     ]
 }
