@@ -16,7 +16,7 @@ class CoinInfoHeaderView: UICollectionReusableView {
 	private var userCoinInfoStackView = UIStackView()
 	private var separatorLineView = UIView()
 	private var userPortfolioStackView = UIStackView()
-
+	private var coinTitleStackView = UIStackView()
 	private var coinInfoStackView = UIStackView()
 	private var amountStackView = UIStackView()
 	private var amountLabel = UILabel()
@@ -76,8 +76,9 @@ class CoinInfoHeaderView: UICollectionReusableView {
 		volatilityRateStackView.addArrangedSubview(volatilityRateIcon)
 		volatilityRateStackView.addArrangedSubview(volatilityRateLabel)
 		coinInfoStackView.addArrangedSubview(assetsIcon)
-		coinInfoStackView.addArrangedSubview(assetsTitleLabel)
-		coinInfoStackView.addArrangedSubview(userAmountLabel)
+		coinInfoStackView.addArrangedSubview(coinTitleStackView)
+		coinTitleStackView.addArrangedSubview(assetsTitleLabel)
+		coinTitleStackView.addArrangedSubview(userAmountLabel)
 
 		userPortfolioStackView.addArrangedSubview(investStackView)
 		userPortfolioStackView.addArrangedSubview(collateralStackView)
@@ -131,13 +132,18 @@ class CoinInfoHeaderView: UICollectionReusableView {
 		volatilityRateStackView.axis = .horizontal
 		coinInfoStackView.axis = .vertical
 		userPortfolioStackView.axis = .vertical
+		coinTitleStackView.axis = .vertical
 
-		coinInfoStackView.spacing = 13
-		contentStackView.spacing = 30
-		userCoinInfoStackView.spacing = -20
-		userPortfolioStackView.spacing = 25
+		coinInfoStackView.spacing = 14
+		contentStackView.spacing = 20
+		userCoinInfoStackView.spacing = -18
+		userPortfolioStackView.spacing = 30
+		coinTitleStackView.spacing = 8
+		volatilityRateStackView.spacing = 2
 
 		coinInfoStackView.alignment = .center
+		coinTitleStackView.alignment = .center
+		volatilityRateStackView.alignment = .top
 		volatilityRateIcon.contentMode = .scaleAspectFill
 
 		coinInfoStackView.distribution = .fill
@@ -157,7 +163,7 @@ class CoinInfoHeaderView: UICollectionReusableView {
 
 		[investInfoStackView, collateralInfoStackView, borrowInfoStackView].forEach {
 			$0.axis = .horizontal
-			$0.spacing = 5
+			$0.spacing = 2
 			$0.alignment = .center
 		}
 
@@ -204,12 +210,12 @@ class CoinInfoHeaderView: UICollectionReusableView {
 
 	private func setupConstraint() {
 		contentView.pin(
-			.top(padding: 32),
+			.top(padding: 24),
 			.horizontalEdges(padding: 16)
 		)
 		recentHistoryTitle.pin(
 			.relative(.top, 24, to: contentView, .bottom),
-			.bottom(padding: 8),
+			.bottom(padding: 10),
 			.horizontalEdges(padding: 16)
 		)
 		contentStackView.pin(
@@ -217,20 +223,20 @@ class CoinInfoHeaderView: UICollectionReusableView {
 			.horizontalEdges(padding: 14)
 		)
 		assetsIcon.pin(
-			.fixedHeight(70),
-			.fixedWidth(70)
+			.fixedHeight(64),
+			.fixedWidth(64)
 		)
 		separatorLineView.pin(
 			.fixedHeight(1)
 		)
 		volatilityRateIcon.pin(
-			.fixedWidth(16),
-			.fixedHeight(16)
+			.fixedWidth(12),
+			.fixedHeight(12)
 		)
 		[investInfoButtton, collateralInfoButton, borrowInfoButton].forEach {
 			$0.pin(
-				.fixedHeight(20),
-				.fixedWidth(20)
+				.fixedHeight(16),
+				.fixedWidth(16)
 			)
 		}
 	}
