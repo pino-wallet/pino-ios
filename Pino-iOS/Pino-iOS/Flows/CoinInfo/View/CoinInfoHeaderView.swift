@@ -26,25 +26,21 @@ class CoinInfoHeaderView: UICollectionReusableView {
 	private var volatilityRateStackView = UIStackView()
 	private var volatilityRateIcon = UIImageView()
 	private var volatilityRateLabel = UILabel()
-
 	private var investStackView = UIStackView()
 	private var investInfoStackView = UIStackView()
 	private var investTitleLabel = UILabel()
 	private var investInfoButtton = UIButton()
 	private var investLabel = UILabel()
-
 	private var collateralStackView = UIStackView()
 	private var collateralInfoStackView = UIStackView()
 	private var collateralTitleLabel = UILabel()
 	private var collateralInfoButton = UIButton()
 	private var collateralLabel = UILabel()
-
 	private var borrowStackView = UIStackView()
 	private var borrowInfoStackView = UIStackView()
 	private var borrowTitleLabel = UILabel()
 	private var borrowInfoButton = UIButton()
 	private var borrowLabel = UILabel()
-
 	private var recentHistoryTitle = UILabel()
 
 	private var cancellables = Set<AnyCancellable>()
@@ -52,6 +48,7 @@ class CoinInfoHeaderView: UICollectionReusableView {
 	// MARK: - public properties
 
 	public static let headerReuseID = "coinInfoHeader"
+	public var infoButtonTapped: (() -> Void)!
 
 	public var coinInfoVM: CoinInfoViewModel! {
 		didSet {
@@ -104,6 +101,18 @@ class CoinInfoHeaderView: UICollectionReusableView {
 
 		addSubview(contentView)
 		addSubview(recentHistoryTitle)
+
+		investInfoButtton.addAction(UIAction(handler: { _ in
+			self.infoButtonTapped()
+		}), for: .touchUpInside)
+
+		borrowInfoButton.addAction(UIAction(handler: { _ in
+			self.infoButtonTapped()
+		}), for: .touchUpInside)
+
+		collateralInfoButton.addAction(UIAction(handler: { _ in
+			self.infoButtonTapped()
+		}), for: .touchUpInside)
 	}
 
 	private func setupStyle() {

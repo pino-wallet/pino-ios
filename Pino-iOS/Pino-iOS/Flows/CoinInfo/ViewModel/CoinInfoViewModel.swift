@@ -18,6 +18,9 @@ class CoinInfoViewModel {
 	public var coinHistoryList: [CoinHistoryViewModel]!
 	public let requestFailedErrorToastMessage = "Couldn't refresh coin data"
 	public let connectionErrorToastMessage = "No internet connection"
+	public let infoActionSheetTitle = "Price impact"
+	public let infoActionSheetDescription =
+		"The difference between the market price and the estimated price based on your order size."
 
 	// MARK: - Private Properties
 

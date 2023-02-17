@@ -10,6 +10,7 @@ import UIKit
 class InfoActionSheet: UIAlertController {
 	// MARK: - Private Properties
 
+	private let contentView = UIView()
 	private let contentStackView = UIStackView()
 	private let titleStackView = UIStackView()
 	private let titleLabel = PinoLabel(style: .title, text: nil)
@@ -38,16 +39,19 @@ class InfoActionSheet: UIAlertController {
 		contentStackView.addArrangedSubview(actionButton)
 		titleStackView.addArrangedSubview(titleIcon)
 		titleStackView.addArrangedSubview(titleLabel)
-		view.addSubview(contentStackView)
+		contentView.addSubview(contentStackView)
+		view.addSubview(contentView)
 	}
 
 	private func setupStyle(title: String, description: String) {
 		titleLabel.text = title
 		descriptionLabel.text = description
 		actionButton.title = actionButtonTitle
-		titleIcon.image = UIImage(systemName: "info.circle.fill")
+		titleIcon.image = UIImage(named: "info")
 		titleIcon.tintColor = .Pino.primary
 
+		contentView.backgroundColor = .Pino.secondaryBackground
+		contentView.layer.cornerRadius = 12
 		contentStackView.axis = .vertical
 		titleStackView.axis = .horizontal
 
@@ -73,6 +77,9 @@ class InfoActionSheet: UIAlertController {
 		)
 		contentStackView.pin(
 			.allEdges(padding: 16)
+		)
+		contentView.pin(
+			.allEdges
 		)
 	}
 }

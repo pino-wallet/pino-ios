@@ -14,15 +14,14 @@ class CoinInfoCollectionView: UICollectionView {
 	private var cancellable = Set<AnyCancellable>()
 	private let historyRefreshContorl = UIRefreshControl()
 	private let refreshErrorTostView = PinoToastView(message: nil, style: .secondary, padding: 16)
-
-	// MARK: - Internal Properties
-
-	internal var coinInfoVM: CoinInfoViewModel!
+	private var coinInfoVM: CoinInfoViewModel!
+	private var portfolioInfoButtonTapped: () -> Void
 
 	// MARK: - Initializers
 
-	init(coinInfoVM: CoinInfoViewModel) {
+	init(coinInfoVM: CoinInfoViewModel, portfolioInfoButtonTapped: @escaping () -> Void) {
 		self.coinInfoVM = coinInfoVM
+		self.portfolioInfoButtonTapped = portfolioInfoButtonTapped
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 		configCollectionView()
@@ -121,6 +120,9 @@ extension CoinInfoCollectionView: UICollectionViewDataSource {
 			for: indexPath
 		) as! CoinInfoHeaderView
 		coinInfoHeaderView.coinInfoVM = coinInfoVM
+		coinInfoHeaderView.infoButtonTapped = {
+			self.portfolioInfoButtonTapped()
+		}
 		return coinInfoHeaderView
 	}
 

@@ -37,7 +37,9 @@ class CoinInfoViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = CoinInfoCollectionView(coinInfoVM: coinInfoVM)
+		view = CoinInfoCollectionView(coinInfoVM: coinInfoVM, portfolioInfoButtonTapped: {
+			self.openActionSheet()
+		})
 	}
 
 	private func setupNavigationBar() {
@@ -65,5 +67,13 @@ class CoinInfoViewController: UIViewController {
 	@objc
 	private func dismissCoinInfo() {
 		dismiss(animated: true)
+	}
+
+	private func openActionSheet() {
+		let actionSheet = InfoActionSheet(
+			title: coinInfoVM.infoActionSheetTitle,
+			description: coinInfoVM.infoActionSheetDescription
+		)
+		present(actionSheet, animated: true)
 	}
 }
