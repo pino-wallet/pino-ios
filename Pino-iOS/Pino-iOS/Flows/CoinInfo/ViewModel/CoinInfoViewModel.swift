@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 2/17/23.
 //
 
+import Combine
 import Foundation
 import Network
 
@@ -17,6 +18,11 @@ class CoinInfoViewModel {
 	public var coinHistoryList: [CoinHistoryViewModel]!
 	public let requestFailedErrorToastMessage = "Couldn't refresh coin data"
 	public let connectionErrorToastMessage = "No internet connection"
+
+	// MARK: - Private Properties
+
+	private var assetsAPIClient = AssetsAPIMockClient()
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Inintializers
 
@@ -48,55 +54,28 @@ class CoinInfoViewModel {
 	// MARK: - private Methods
 
 	private func getCoinPortfolio() {
-		let coinPortfolioModel = CoinPortfolioModel(
-			assetName: "COMP",
-			assetImage: "COMP",
-			assetValue: "4.98",
-			volatilityRate: "2.77",
-			volatilityType: "loss",
-			coinAmount: "30,022",
-			userAmount: "124,89",
-			investAmount: "2",
-			collateralAmount: "1.2",
-			barrowAmount: "3.4"
-		)
-		coinPortfolio = CoinPortfolioViewModel(coinPortfolioModel: coinPortfolioModel)
+		assetsAPIClient.coinPortfolio().sink { completed in
+			switch completed {
+			case .finished:
+				print("Coin portfolio received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { coinPortfolio in
+			self.coinPortfolio = CoinPortfolioViewModel(coinPortfolioModel: coinPortfolio)
+		}.store(in: &cancellables)
 	}
 
 	private func getHistoryList() {
-		let coinHistoryModelList = [
-			CoinHistoryModel(
-				icon: "swap",
-				title: "Swap 2.4 APE -> 200 DAI",
-				time: "20 min ago",
-				status: "pending"
-			),
-			CoinHistoryModel(
-				icon: "borrow",
-				title: "Borrow 1.44 APE",
-				time: "1 hour ago",
-				status: "success"
-			),
-			CoinHistoryModel(
-				icon: "send",
-				title: "Send 2 APE",
-				time: "3 hours ago",
-				status: "failed"
-			),
-			CoinHistoryModel(
-				icon: "receive",
-				title: "Receive 1.4 APE",
-				time: "1 day ago",
-				status: "failed"
-			),
-			CoinHistoryModel(
-				icon: "swap",
-				title: "Swap 2.4 APE -> 200 DAI",
-				time: "5 hours ago",
-				status: "success"
-			),
-		]
-
-		coinHistoryList = coinHistoryModelList.compactMap { CoinHistoryViewModel(coinHistoryModel: $0) }
+		assetsAPIClient.coinHistory().sink { completed in
+			switch completed {
+			case .finished:
+				print("Coin history received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { coinHistoryModelList in
+			self.coinHistoryList = coinHistoryModelList.compactMap { CoinHistoryViewModel(coinHistoryModel: $0) }
+		}.store(in: &cancellables)
 	}
 }

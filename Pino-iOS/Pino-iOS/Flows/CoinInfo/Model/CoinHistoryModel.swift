@@ -5,7 +5,7 @@
 //  Created by Mohi Raoufi on 2/17/23.
 //
 
-public struct CoinHistoryModel {
+public struct CoinHistoryModel: Codable {
 	// MARK: - Public Properties
 
 	public var icon: String

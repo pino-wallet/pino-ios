@@ -1,0 +1,13 @@
+{
+    "id": "0",
+    "asset_name": "COMP",
+    "asset_image": "COMP",
+    "asset_value": "4.98",
+    "volatility_rate": "2.77",
+    "volatility_type": "loss",
+    "coin_amount": "30,022",
+    "user_amount": "124,89",
+    "invest_amount": "2",
+    "collateral_amount": "1.2",
+    "barrow_amount": "3.4"
+}
