@@ -121,7 +121,7 @@ class HomepageViewModel {
 		if let walletInfoModel = getWalletInfoFromUserDefaults() {
 			walletInfo = WalletInfoViewModel(walletInfoModel: walletInfoModel)
 		} else {
-			registerFirstWalletUserDefaults()
+			registerWalletsUserDefaults()
 		}
 	}
 
@@ -143,7 +143,7 @@ class HomepageViewModel {
 		$manageAssetsList.sink { [weak self] manageAssetsList in
 			guard let self = self else { return }
 			guard let manageAssetsList = manageAssetsList else { return }
-			let assetsModel = manageAssetsList.compactMap { $0.assetModel }.filter { $0.isSelected == true }
+			let assetsModel = manageAssetsList.compactMap { $0.assetModel }.filter { $0.isSelected }
 			self.assetsList = assetsModel.compactMap { AssetViewModel(assetModel: $0) }
 		}.store(in: &cancellables)
 	}
@@ -162,9 +162,11 @@ class HomepageViewModel {
 	}
 
 	private func getManageAssetsList() {
-		registerAssetsUserDefaults()
-		let manageAssetsModel = getAssetsFromUserDefaults()
-		manageAssetsList = manageAssetsModel.compactMap { ManageAssetViewModel(assetModel: $0) }
+		if let manageAssetsModel = getAssetsFromUserDefaults() {
+			manageAssetsList = manageAssetsModel.compactMap { ManageAssetViewModel(assetModel: $0) }
+		} else {
+			registerAssetsUserDefaults()
+		}
 	}
 
 	public func saveAssetsInUserDefaults(assets: [AssetModel]) {
@@ -172,17 +174,16 @@ class HomepageViewModel {
 			let encodedAssets = try JSONEncoder().encode(assets)
 			UserDefaults.standard.set(encodedAssets, forKey: "assets")
 		} catch {
-			UserDefaults.standard.set([], forKey: "assets")
+			fatalError(error.localizedDescription)
 		}
 	}
 
-	public func getAssetsFromUserDefaults() -> [AssetModel] {
-		guard let encodedAssets = UserDefaults.standard.data(forKey: "assets") else { return [] }
+	public func getAssetsFromUserDefaults() -> [AssetModel]? {
+		guard let encodedAssets = UserDefaults.standard.data(forKey: "assets") else { return nil }
 		do {
 			return try JSONDecoder().decode([AssetModel].self, from: encodedAssets)
 		} catch {
-			print(error)
-			return []
+			fatalError(error.localizedDescription)
 		}
 	}
 
@@ -199,22 +200,23 @@ class HomepageViewModel {
 				let encodedAssets = try JSONEncoder().encode(assets.assetsList)
 				UserDefaults.standard.register(defaults: ["assets": encodedAssets])
 			} catch {
-				print(error)
-				UserDefaults.standard.register(defaults: ["assets": []])
+				fatalError(error.localizedDescription)
 			}
+			self.manageAssetsList = assets.assetsList.compactMap { ManageAssetViewModel(assetModel: $0) }
 		}.store(in: &cancellables)
 	}
 
 	public func getWalletInfoFromUserDefaults() -> WalletInfoModel? {
-		guard let encodedWallet = UserDefaults.standard.data(forKey: "selectedWallet") else { return nil }
+		guard let encodedWallet = UserDefaults.standard.data(forKey: "wallets") else { return nil }
 		do {
-			return try JSONDecoder().decode(WalletInfoModel.self, from: encodedWallet)
+			let decodedWallets = try JSONDecoder().decode([WalletInfoModel].self, from: encodedWallet)
+			return decodedWallets.first(where: { $0.isSelected })
 		} catch {
-			return nil
+			fatalError(error.localizedDescription)
 		}
 	}
 
-	public func registerFirstWalletUserDefaults() {
+	public func registerWalletsUserDefaults() {
 		walletAPIClient.walletsList().sink { completed in
 			switch completed {
 			case .finished:
@@ -223,13 +225,16 @@ class HomepageViewModel {
 				print(error)
 			}
 		} receiveValue: { wallets in
-			guard let firstWallet = wallets.walletsList.first else { fatalError("No wallet found") }
 			do {
-				let encodedWallet = try JSONEncoder().encode(firstWallet)
-				UserDefaults.standard.register(defaults: ["selectedWallet": encodedWallet])
+				let encodedWallets = try JSONEncoder().encode(wallets.walletsList)
+				UserDefaults.standard.register(defaults: ["wallets": encodedWallets])
 			} catch {
 				fatalError(error.localizedDescription)
 			}
+			guard let firstWallet = wallets.walletsList.first(where: { $0.isSelected }) else {
+				fatalError("No selected wallet found in user defaults")
+			}
+			self.walletInfo = WalletInfoViewModel(walletInfoModel: firstWallet)
 		}.store(in: &cancellables)
 	}
 }
