@@ -99,9 +99,6 @@ class EditAccountView: UIView {
 		walletAvatar.pin(
 			.allEdges(padding: 16)
 		)
-//		walletNameTextFieldView.pin(
-//			.fixedHeight(48)
-//		)
 		privateKeyStackView.pin(
 			.bottom(padding: 48),
 			.horizontalEdges(padding: 16)

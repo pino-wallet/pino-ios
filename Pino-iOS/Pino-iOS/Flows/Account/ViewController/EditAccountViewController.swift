@@ -69,7 +69,7 @@ class EditAccountViewController: UIViewController {
 				builder.setProfileName(walletName)
 			}
 			walletVM.editWallet(newWallet: builder.build())
-			navigationController?.popViewController(animated: true)
+			navigationController!.popViewController(animated: true)
 		} else {
 			editAccountView.walletNameTextFieldView.style = .error
 		}
