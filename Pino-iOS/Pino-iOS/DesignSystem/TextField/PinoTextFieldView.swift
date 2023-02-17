@@ -53,11 +53,7 @@ public class PinoTextFieldView: UIView {
 		}
 	}
 
-	public var textFieldText: String? {
-		didSet {
-			setTextFieldText(text: textFieldText)
-		}
-	}
+	
 
 	// MARK: - Initializers
 
@@ -164,9 +160,6 @@ public class PinoTextFieldView: UIView {
 		textField.returnKeyType = newType
 	}
 
-	private func setTextFieldText(text: String?) {
-		textField.text = text
-	}
 
 	@objc
 	private func textFieldTextDidChange() {

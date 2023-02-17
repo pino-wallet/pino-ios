@@ -103,7 +103,7 @@ class AddCustomAssetView: UIView {
 			self?.pasteFromClipboardview.contractAddress = validatedAddress
 			self?.pasteFromClipboardview.isHidden = false
 			self?.pasteFromClipboardview.onPaste = {
-				self?.contractTextfieldView.textFieldText = validatedAddress
+				self?.contractTextfieldView.text = validatedAddress
 				self?.pasteFromClipboardview.isHidden = true
 			}
 		}
