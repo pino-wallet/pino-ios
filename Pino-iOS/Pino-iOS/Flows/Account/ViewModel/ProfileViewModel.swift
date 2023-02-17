@@ -6,41 +6,24 @@
 //
 
 import Combine
+import Foundation
 
 class ProfileViewModel {
 	// MARK: - Public Properties
 
+	@Published
 	public var walletInfo: WalletInfoViewModel!
 	public var accountSettings: [SettingsViewModel]!
 	public var generalSettings: [SettingsViewModel]!
 
-	// MARK: - Private Properties
-
-	private var walletAPIClient = WalletAPIMockClient()
-	private var cancellables = Set<AnyCancellable>()
-
 	// MARK: - Initializers
 
-	init() {
-		getWalletInfo()
+	init(walletInfo: WalletInfoViewModel) {
+		self.walletInfo = walletInfo
 		setupSettings()
 	}
 
 	// MARK: - Private Methods
-
-	private func getWalletInfo() {
-		// Request to get wallet info
-		walletAPIClient.walletInfo().sink { completed in
-			switch completed {
-			case .finished:
-				print("Wallet info received successfully")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { walletInfo in
-			self.walletInfo = WalletInfoViewModel(walletInfoModel: walletInfo)
-		}.store(in: &cancellables)
-	}
 
 	private func setupSettings() {
 		accountSettings = [.wallets]

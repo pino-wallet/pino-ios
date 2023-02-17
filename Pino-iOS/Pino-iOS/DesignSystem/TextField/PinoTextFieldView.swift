@@ -54,6 +54,14 @@ public class PinoTextFieldView: UIView {
 		}
 	}
 
+	public var text: String? {
+		didSet {
+			textField.text = text
+		}
+	}
+
+	public var textDidChange: (() -> Void)?
+
 	// MARK: - Initializers
 
 	init(
@@ -77,6 +85,20 @@ public class PinoTextFieldView: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - Public Methods
+
+	public func isEmpty() -> Bool {
+		textField.text == nil || textField.text == ""
+	}
+
+	public func getText() -> String? {
+		if isEmpty() {
+			return nil
+		} else {
+			return textField.text
+		}
+	}
+
 	// MARK: - Private Methods
 
 	private func setupView() {
@@ -85,6 +107,7 @@ public class PinoTextFieldView: UIView {
 		textFieldCard.addSubview(textField)
 		addSubview(textFieldStackView)
 		textField.delegate = self
+		textField.addTarget(self, action: #selector(textFieldTextDidChange), for: .editingChanged)
 	}
 
 	private func setupStyle() {
@@ -144,10 +167,18 @@ public class PinoTextFieldView: UIView {
 		textField.returnKeyType = newType
 	}
 
+
 	private func setTextFieldText(text: String?) {
 		textField.text = text
-	}
 }
+
+	@objc
+	private func textFieldTextDidChange() {
+		if let textDidChange {
+			textDidChange()
+		}
+	}
+
 
 extension PinoTextFieldView: UITextFieldDelegate {
 	public func textFieldDidBeginEditing(_ textField: UITextField) {
