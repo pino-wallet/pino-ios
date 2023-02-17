@@ -55,6 +55,9 @@ class HomepageViewController: UIViewController {
 			homeVM: homeVM,
 			manageAssetButtonTapped: {
 				self.openManageAssetsPage()
+			},
+			assetTapped: { assetVM in
+				self.openCoinInfo(assetVM: assetVM)
 			}
 		)
 		view = UIView()
@@ -107,6 +110,12 @@ class HomepageViewController: UIViewController {
 		let profileVC = ProfileViewController(profileVM: profileVM)
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [profileVC]
+		present(navigationVC, animated: true)
+	}
+
+	private func openCoinInfo(assetVM: AssetViewModel) {
+		let coinInfoVC = CoinInfoViewController(assetVM: assetVM)
+		let navigationVC = UINavigationController(rootViewController: coinInfoVC)
 		present(navigationVC, animated: true)
 	}
 }

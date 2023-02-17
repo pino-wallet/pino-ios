@@ -17,6 +17,7 @@ class AssetsCollectionView: UICollectionView {
 	// MARK: - Public Properties
 
 	public var manageAssetButtonTapped: () -> Void
+	public var assetTapped: (AssetViewModel) -> Void
 
 	// MARK: - Internal Properties
 
@@ -25,9 +26,14 @@ class AssetsCollectionView: UICollectionView {
 
 	// MARK: Initializers
 
-	init(homeVM: HomepageViewModel, manageAssetButtonTapped: @escaping () -> Void) {
+	init(
+		homeVM: HomepageViewModel,
+		manageAssetButtonTapped: @escaping () -> Void,
+		assetTapped: @escaping (AssetViewModel) -> Void
+	) {
 		self.homeVM = homeVM
 		self.manageAssetButtonTapped = manageAssetButtonTapped
+		self.assetTapped = assetTapped
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 
@@ -121,5 +127,18 @@ extension AssetsCollectionView: UICollectionViewDelegateFlowLayout {
 		sizeForItemAt indexPath: IndexPath
 	) -> CGSize {
 		CGSize(width: collectionView.frame.width, height: 72)
+	}
+}
+
+extension AssetsCollectionView: UICollectionViewDelegate {
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		let homeSection = HomeSection(rawValue: indexPath.section)
+		switch homeSection {
+		case .asset:
+			assetTapped(homeVM.assetsList[indexPath.item])
+		case .position:
+			assetTapped(homeVM.positionAssetsList[indexPath.item])
+		default: break
+		}
 	}
 }
