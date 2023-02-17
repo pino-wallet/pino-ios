@@ -11,8 +11,8 @@ import UIKit
 class CoinInfoHeaderView: UICollectionReusableView {
 	// MARK: - Private Properties
 
-	private var contentStackView = UIStackView()
 	private var contentView = UIView()
+	private var contentStackView = UIStackView()
 	private var userCoinInfoStackView = UIStackView()
 	private var separatorLineView = UIView()
 	private var userPortfolioStackView = UIStackView()
@@ -65,17 +65,16 @@ class CoinInfoHeaderView: UICollectionReusableView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		backgroundColor = .Pino.background
 		contentView.addSubview(contentStackView)
 		contentStackView.addArrangedSubview(userCoinInfoStackView)
 		contentStackView.addArrangedSubview(separatorLineView)
 		contentStackView.addArrangedSubview(userPortfolioStackView)
 		userCoinInfoStackView.addArrangedSubview(amountStackView)
+		userCoinInfoStackView.addArrangedSubview(coinInfoStackView)
 		amountStackView.addArrangedSubview(amountLabel)
 		amountStackView.addArrangedSubview(volatilityRateStackView)
 		volatilityRateStackView.addArrangedSubview(volatilityRateIcon)
 		volatilityRateStackView.addArrangedSubview(volatilityRateLabel)
-		userCoinInfoStackView.addArrangedSubview(coinInfoStackView)
 		coinInfoStackView.addArrangedSubview(assetsIcon)
 		coinInfoStackView.addArrangedSubview(assetsTitleLabel)
 		coinInfoStackView.addArrangedSubview(userAmountLabel)
@@ -116,8 +115,8 @@ class CoinInfoHeaderView: UICollectionReusableView {
 		separatorLineView.backgroundColor = .Pino.gray5
 
 		recentHistoryTitle.textColor = .Pino.label
-		amountLabel.textColor = .secondaryLabel
-		userAmountLabel.textColor = .secondaryLabel
+		amountLabel.textColor = .Pino.secondaryLabel
+		userAmountLabel.textColor = .Pino.secondaryLabel
 		assetsTitleLabel.textColor = .Pino.label
 
 		recentHistoryTitle.font = .PinoStyle.mediumSubheadline
@@ -139,13 +138,14 @@ class CoinInfoHeaderView: UICollectionReusableView {
 		userPortfolioStackView.spacing = 25
 
 		coinInfoStackView.alignment = .center
+		volatilityRateIcon.contentMode = .scaleAspectFill
 
 		coinInfoStackView.distribution = .fill
 		userPortfolioStackView.distribution = .fillEqually
 		contentStackView.distribution = .fill
 
 		[investInfoButtton, borrowInfoButton, collateralInfoButton].forEach {
-			$0.setImage(UIImage(named: "Info-Circle, error"), for: .normal)
+			$0.setImage(UIImage(named: "info"), for: .normal)
 			$0.tintColor = .Pino.gray3
 		}
 
@@ -185,6 +185,20 @@ class CoinInfoHeaderView: UICollectionReusableView {
 			self?.investLabel.text = coinPortfolio.investAmount
 			self?.collateralLabel.text = coinPortfolio.callateralAmount
 			self?.borrowLabel.text = coinPortfolio.borrowAmount
+
+			switch coinPortfolio.volatilityType {
+			case .profit:
+				self?.volatilityRateLabel.textColor = .Pino.green
+				self?.volatilityRateIcon.tintColor = .Pino.green
+				self?.volatilityRateIcon.image = UIImage(systemName: "arrow.up")
+			case .loss:
+				self?.volatilityRateLabel.textColor = .Pino.red
+				self?.volatilityRateIcon.tintColor = .Pino.red
+				self?.volatilityRateIcon.image = UIImage(systemName: "arrow.down")
+			case .none:
+				self?.volatilityRateLabel.textColor = .Pino.secondaryLabel
+				self?.volatilityRateIcon.image = nil
+			}
 		}.store(in: &cancellables)
 	}
 
@@ -202,7 +216,6 @@ class CoinInfoHeaderView: UICollectionReusableView {
 			.verticalEdges(padding: 16),
 			.horizontalEdges(padding: 14)
 		)
-
 		assetsIcon.pin(
 			.fixedHeight(70),
 			.fixedWidth(70)
@@ -210,7 +223,10 @@ class CoinInfoHeaderView: UICollectionReusableView {
 		separatorLineView.pin(
 			.fixedHeight(1)
 		)
-
+		volatilityRateIcon.pin(
+			.fixedWidth(16),
+			.fixedHeight(16)
+		)
 		[investInfoButtton, collateralInfoButton, borrowInfoButton].forEach {
 			$0.pin(
 				.fixedHeight(20),

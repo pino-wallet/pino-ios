@@ -27,16 +27,18 @@ class CoinInfoViewModel {
 
 	// MARK: - public Methods
 
-	public func refreshCoinInfoData(complition: @escaping (CoinInfoError?) -> Void) {
+	public func refreshCoinInfoData(completion: @escaping (CoinInfoError?) -> Void) {
 		let monitor = NWPathMonitor()
 		monitor.pathUpdateHandler = { path in
 			DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
 				if path.status == .satisfied {
 					self.getCoinPortfolio()
 					self.getHistoryList()
-					complition(nil)
-					monitor.cancel()
+					completion(nil)
+				} else {
+					completion(.networkingConnection)
 				}
+				monitor.cancel()
 			}
 		}
 		let queue = DispatchQueue(label: "InternetConnectionMonitor")
@@ -47,8 +49,8 @@ class CoinInfoViewModel {
 
 	private func getCoinPortfolio() {
 		let coinPortfolioModel = CoinPortfolioModel(
-			assetName: "APE",
-			assetImage: "BTC",
+			assetName: "4.98 COMP",
+			assetImage: "COMP",
 			volatilityRate: "2.77",
 			volatilityType: "loss",
 			coinAmount: "30,022",
@@ -66,10 +68,10 @@ class CoinInfoViewModel {
 				icon: "swap",
 				title: "Swap 2.4 APE -> 200 DAI",
 				time: "20 min ago",
-				status: "failed"
+				status: "pending"
 			),
 			CoinHistoryModel(
-				icon: "Borrow",
+				icon: "borrow",
 				title: "Borrow 1.44 APE",
 				time: "1 hour ago",
 				status: "success"
@@ -81,7 +83,7 @@ class CoinInfoViewModel {
 				status: "failed"
 			),
 			CoinHistoryModel(
-				icon: "recive",
+				icon: "receive",
 				title: "Receive 1.4 APE",
 				time: "1 day ago",
 				status: "failed"

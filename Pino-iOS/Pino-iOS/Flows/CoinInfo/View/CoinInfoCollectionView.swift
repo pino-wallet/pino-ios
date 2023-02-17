@@ -13,7 +13,7 @@ class CoinInfoCollectionView: UICollectionView {
 
 	private var cacncellabel = Set<AnyCancellable>()
 	private let historyRefreshContorl = UIRefreshControl()
-	private let refreshErrorTostView = PinoToastView(message: nil, style: .secondary)
+	private let refreshErrorTostView = PinoToastView(message: nil, style: .secondary, padding: 16)
 
 	// MARK: - Internal Properties
 

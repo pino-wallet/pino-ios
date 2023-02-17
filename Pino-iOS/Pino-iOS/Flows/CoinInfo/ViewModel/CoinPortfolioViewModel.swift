@@ -26,6 +26,10 @@ struct CoinPortfolioViewModel {
 		coinPortfolioModel.assetName
 	}
 
+	public var volatilityType: AssetVolatilityType {
+		AssetVolatilityType(rawValue: coinPortfolioModel.volatilityType) ?? .none
+	}
+
 	public var volatilityRate: String {
 		"\(coinPortfolioModel.volatilityRate)%"
 	}

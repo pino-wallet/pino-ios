@@ -48,44 +48,39 @@ class CoinHistoryCell: UICollectionViewCell {
 	}
 
 	private func setupStyle() {
-		historyIcon.image = UIImage(named: coinHistoryVM.icon)
 		historyTitleLabel.text = coinHistoryVM.title
 		historyTimeLabel.text = coinHistoryVM.time
+		statusLabel.text = "Pending..."
 
-		backgroundColor = .Pino.background
+		historyIcon.image = UIImage(named: coinHistoryVM.icon)
+		statusIcon.image = UIImage(named: "info")
 
-		historyCardView.layer.cornerRadius = 12
 		historyCardView.backgroundColor = .Pino.secondaryBackground
 		historyIcon.backgroundColor = .Pino.background
+		historyIcon.backgroundColor = .Pino.background
+		statusLabel.backgroundColor = .Pino.lightOrange
+
+		historyTitleLabel.textColor = .Pino.label
+		historyTimeLabel.textColor = .Pino.secondaryLabel
+		statusLabel.textColor = .Pino.pendingOrange
+		statusIcon.tintColor = .Pino.red
+
+		historyTitleLabel.font = .PinoStyle.mediumCallout
+		historyTimeLabel.font = .PinoStyle.mediumFootnote
+		statusLabel.font = .PinoStyle.SemiboldCaption2
 
 		contentStackView.axis = .horizontal
 		historyTitleStackView.axis = .vertical
 		statusStackView.axis = .horizontal
-		statusStackView.distribution = .fill
 
 		contentStackView.spacing = 12
 		historyTitleStackView.spacing = 8
 		statusStackView.spacing = 4
 
 		historyTitleStackView.alignment = .leading
-
-		historyIcon.backgroundColor = .Pino.background
+		statusStackView.alignment = .center
 		historyIcon.contentMode = .center
-
-		historyTitleLabel.font = .PinoStyle.mediumCallout
-		historyTimeLabel.font = .PinoStyle.mediumFootnote
-		statusLabel.font = .PinoStyle.mediumFootnote
-
-		historyTitleLabel.textColor = .Pino.label
-		statusLabel.backgroundColor = .Pino.lightOrange
-		statusLabel.textColor = .Pino.pendingOrange
-		historyTimeLabel.textColor = .Pino.secondaryLabel
-
-		statusLabel.text = "Pending..."
-
 		statusLabel.textAlignment = .center
-		statusIcon.image = UIImage(named: "Info-Circle, error")
-		statusIcon.tintColor = .Pino.red
 
 		switch coinHistoryVM.status {
 		case .failed:
@@ -98,6 +93,8 @@ class CoinHistoryCell: UICollectionViewCell {
 			statusIcon.isHidden = true
 			statusLabel.isHidden = true
 		}
+
+		historyCardView.layer.cornerRadius = 12
 	}
 
 	override func layoutIfNeeded() {
@@ -112,8 +109,21 @@ class CoinHistoryCell: UICollectionViewCell {
 			.verticalEdges(padding: 4),
 			.horizontalEdges(padding: 16)
 		)
-		contentStackView.pin(.centerY, .leading(padding: 14))
-		historyIcon.pin(.fixedWidth(44), .fixedHeight(44))
-		statusLabel.pin(.fixedHeight(20), .fixedWidth(80))
+		contentStackView.pin(
+			.centerY,
+			.leading(padding: 14)
+		)
+		historyIcon.pin(
+			.fixedWidth(44),
+			.fixedHeight(44)
+		)
+		statusIcon.pin(
+			.fixedWidth(16),
+			.fixedHeight(16)
+		)
+		statusLabel.pin(
+			.fixedHeight(20),
+			.fixedWidth(65)
+		)
 	}
 }
