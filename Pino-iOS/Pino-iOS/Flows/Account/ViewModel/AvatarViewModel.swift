@@ -6,13 +6,19 @@
 //
 
 struct AvatarViewModel {
+	// MARK: - Public Properties
+
 	public var selectedAvatar: String
 	public var avatarsList: [String]!
+
+	// MARK: - Initializers
 
 	init(selectedAvatar: String) {
 		self.selectedAvatar = selectedAvatar
 		setAvatarList()
 	}
+
+	// MARK: - Private Methods
 
 	private mutating func setAvatarList() {
 		avatarsList = [

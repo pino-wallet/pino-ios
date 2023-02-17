@@ -17,7 +17,6 @@ public class AvatarCell: UICollectionViewCell {
 	// MARK: Public Properties
 
 	public static let cellReuseID = "avatarCell"
-	public var editButtonTapped: (() -> Void)?
 
 	public var avatarName: String! {
 		didSet {
