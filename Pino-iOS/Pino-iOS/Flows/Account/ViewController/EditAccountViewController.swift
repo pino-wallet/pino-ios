@@ -48,7 +48,7 @@ class EditAccountViewController: UIViewController {
 
 	private func setupNavigationBar() {
 		// Setup title view
-		setNavigationTitle("Change avatar")
+		setNavigationTitle("Edit account")
 		// Setup add asset button
 		navigationItem.rightBarButtonItem = UIBarButtonItem(
 			title: "Done",
