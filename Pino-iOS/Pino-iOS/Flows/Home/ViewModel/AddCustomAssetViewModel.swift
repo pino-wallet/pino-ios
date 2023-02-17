@@ -6,14 +6,9 @@
 //
 
 class AddCustomAssetViewModel {
-	// MARK: - Typealias
-
-	public typealias setupPasteFromClipboardViewClosureType =
-		(_ validatedContractAddressVM: ValidatedContractAddressViewModel) -> Void
-
 	// MARK: - Closures
 
-	public var setupPasteFromClipboardViewClosure: setupPasteFromClipboardViewClosureType?
+	public var setupPasteFromClipboardViewClosure: ((String) -> Void)!
 
 	#warning("Those values are for testing and should be changed")
 
@@ -73,8 +68,7 @@ class AddCustomAssetViewModel {
 			return
 		}
 		if clipboardText.validateETHContractAddress() {
-			let validatedContractaddressVM = ValidatedContractAddressViewModel(validatedAddress: clipboardText)
-			setupPasteFromClipboardViewClosure?(validatedContractaddressVM)
+			setupPasteFromClipboardViewClosure?(clipboardText)
 		}
 	}
 }

@@ -57,6 +57,8 @@ class PasteFromClipboardView: UIView {
 		layer.borderWidth = 1
 		layer.borderColor = UIColor.Pino.gray5.cgColor
 		layer.cornerRadius = 8
+		let onPasteTapGesture = UITapGestureRecognizer(target: self, action: #selector(onPasteTap))
+		addGestureRecognizer(onPasteTapGesture)
 
 		// Setup paste button view
 		pasteButton.setImage(UIImage(named: "copy"), for: .normal)
@@ -64,7 +66,7 @@ class PasteFromClipboardView: UIView {
 		pasteButton.setTitleColor(.Pino.green3, for: .normal)
 		pasteButton.tintColor = .Pino.primary
 		pasteButton.setConfiguraton(font: .PinoStyle.semiboldSubheadline!, imagePadding: 4)
-		pasteButton.addTarget(self, action: #selector(onPasteTap), for: .touchUpInside)
+		pasteButton.isUserInteractionEnabled = false
 		var pasteButtonContentInsets = NSDirectionalEdgeInsets()
 		pasteButtonContentInsets.leading = 0
 		pasteButton.configuration?.contentInsets = pasteButtonContentInsets
