@@ -48,8 +48,8 @@ class CoinHistoryCell: UICollectionViewCell {
 	}
 
 	private func setupStyle() {
-		historyIcon.image = UIImage(named: coinHistoryVM.activityIcon)
-		historyTitleLabel.text = coinHistoryVM.activityTitle
+		historyIcon.image = UIImage(named: coinHistoryVM.icon)
+		historyTitleLabel.text = coinHistoryVM.title
 		historyTimeLabel.text = coinHistoryVM.time
 
 		backgroundColor = .Pino.background

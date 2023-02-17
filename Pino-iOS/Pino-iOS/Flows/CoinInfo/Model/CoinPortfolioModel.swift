@@ -8,12 +8,12 @@
 struct CoinPortfolioModel {
 	// MARK: - public properties
 
+	public var assetName: String
 	public var assetImage: String
-	public var userAmount: String
-	public var coinAmount: String
-	public var name: String
 	public var volatilityRate: String
 	public var volatilityType: String
+	public var coinAmount: String
+	public var userAmount: String
 	public var investAmount: String
 	public var collateralAmount: String
 	public var barrowAmount: String

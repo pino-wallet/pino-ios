@@ -39,8 +39,8 @@ class CoinInfoViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = UIView()
-		view.backgroundColor = .Pino.background
+		let coinInfoVM = CoinInfoViewModel()
+		view = CoinInfoCollectionView(coinInfoVM: coinInfoVM)
 	}
 
 	private func setupNavigationBar() {

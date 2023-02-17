@@ -17,11 +17,10 @@ class CoinInfoCollectionView: UICollectionView {
 
 	// MARK: - Internal Properties
 
-	internal var coinInfoVM: CoinInfoPageViewModel!
+	internal var coinInfoVM: CoinInfoViewModel!
 
 	// MARK: - Initializers
 
-	#warning("need to refactor")
 	init(coinInfoVM: CoinInfoViewModel) {
 		self.coinInfoVM = coinInfoVM
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
@@ -62,7 +61,7 @@ class CoinInfoCollectionView: UICollectionView {
 	}
 
 	private func setupBinding() {
-		coinInfoVM.$historyList.sink { [weak self] _ in
+		coinInfoVM.$coinHistoryList.sink { [weak self] _ in
 			self?.reloadData()
 		}.store(in: &cacncellabel)
 	}
@@ -108,7 +107,7 @@ extension CoinInfoCollectionView: UICollectionViewDelegateFlowLayout {
 
 extension CoinInfoCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		coinInfoVM.historyList.count
+		coinInfoVM.coinHistoryList.count
 	}
 
 	func collectionView(
@@ -150,8 +149,8 @@ extension CoinInfoCollectionView: UICollectionViewDataSource {
 		let coinHistoryCell = dequeueReusableCell(
 			withReuseIdentifier: CoinHistoryCell.cellID,
 			for: indexPath
-		) as! HistoryCollectionViewCell
-		coinHistoryCell.historyCoinInfoVM = coinInfoVM.historyList[indexPath.row]
+		) as! CoinHistoryCell
+		coinHistoryCell.coinHistoryVM = coinInfoVM.coinHistoryList[indexPath.row]
 		return coinHistoryCell
 	}
 }

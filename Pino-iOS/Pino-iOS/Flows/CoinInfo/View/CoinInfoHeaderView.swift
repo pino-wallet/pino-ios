@@ -45,6 +45,8 @@ class CoinInfoHeaderView: UICollectionReusableView {
 	private var borrowInfoButton = UIButton()
 	private var borrowLabel = UILabel()
 
+	private var recentHistoryTitle = UILabel()
+
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - public properties
@@ -101,44 +103,51 @@ class CoinInfoHeaderView: UICollectionReusableView {
 		borrowInfoStackView.addArrangedSubview(borrowInfoButton)
 
 		addSubview(contentView)
+		addSubview(recentHistoryTitle)
 	}
 
 	private func setupStyle() {
-		contentView.layer.cornerRadius = 10
-		contentView.backgroundColor = .Pino.secondaryBackground
+		recentHistoryTitle.text = "Recent history"
+		investTitleLabel.text = "Invest"
+		collateralTitleLabel.text = "Collateral"
+		borrowTitleLabel.text = "Borrow"
 
+		contentView.backgroundColor = .Pino.secondaryBackground
 		separatorLineView.backgroundColor = .Pino.gray5
 
+		recentHistoryTitle.textColor = .Pino.label
+		amountLabel.textColor = .secondaryLabel
+		userAmountLabel.textColor = .secondaryLabel
+		assetsTitleLabel.textColor = .Pino.label
+
+		recentHistoryTitle.font = .PinoStyle.mediumSubheadline
+		amountLabel.font = .PinoStyle.mediumSubheadline
+		userAmountLabel.font = .PinoStyle.mediumCallout
+		volatilityRateLabel.font = .PinoStyle.mediumSubheadline
+		assetsTitleLabel.font = .PinoStyle.semiboldTitle2
+
 		contentStackView.axis = .vertical
-		contentStackView.distribution = .fill
-		contentStackView.spacing = 30
-
 		userCoinInfoStackView.axis = .vertical
-		userCoinInfoStackView.spacing = -20
-
 		amountStackView.axis = .horizontal
-
 		volatilityRateStackView.axis = .horizontal
-
 		coinInfoStackView.axis = .vertical
-		coinInfoStackView.spacing = 13
-		coinInfoStackView.alignment = .center
-		coinInfoStackView.distribution = .fill
-
 		userPortfolioStackView.axis = .vertical
-		userPortfolioStackView.distribution = .fillEqually
+
+		coinInfoStackView.spacing = 13
+		contentStackView.spacing = 30
+		userCoinInfoStackView.spacing = -20
 		userPortfolioStackView.spacing = 25
 
-		amountLabel.textColor = .secondaryLabel
-		amountLabel.font = .PinoStyle.mediumSubheadline
+		coinInfoStackView.alignment = .center
 
-		userAmountLabel.textColor = .secondaryLabel
-		userAmountLabel.font = .PinoStyle.mediumCallout
+		coinInfoStackView.distribution = .fill
+		userPortfolioStackView.distribution = .fillEqually
+		contentStackView.distribution = .fill
 
-		volatilityRateLabel.font = .PinoStyle.mediumSubheadline
-
-		assetsTitleLabel.font = .PinoStyle.semiboldTitle2
-		assetsTitleLabel.textColor = .Pino.label
+		[investInfoButtton, borrowInfoButton, collateralInfoButton].forEach {
+			$0.setImage(UIImage(named: "Info-Circle, error"), for: .normal)
+			$0.tintColor = .Pino.gray3
+		}
 
 		[investStackView, collateralStackView, borrowStackView].forEach {
 			$0.axis = .horizontal
@@ -146,23 +155,11 @@ class CoinInfoHeaderView: UICollectionReusableView {
 			$0.distribution = .equalCentering
 		}
 
-		[investInfoButtton, borrowInfoButton, collateralInfoButton].forEach {
-			$0.setImage(UIImage(named: "Info-Circle, error"), for: .normal)
-			$0.tintColor = .Pino.gray3
-		}
-
 		[investInfoStackView, collateralInfoStackView, borrowInfoStackView].forEach {
+			$0.axis = .horizontal
 			$0.spacing = 5
 			$0.alignment = .center
 		}
-
-		investInfoStackView.axis = .horizontal
-		collateralInfoStackView.axis = .horizontal
-		borrowInfoStackView.axis = .horizontal
-
-		investTitleLabel.text = "Invest"
-		collateralTitleLabel.text = "Collateral"
-		borrowTitleLabel.text = "Borrow"
 
 		[investTitleLabel, collateralTitleLabel, borrowTitleLabel].forEach {
 			$0.font = .PinoStyle.mediumBody
@@ -173,33 +170,52 @@ class CoinInfoHeaderView: UICollectionReusableView {
 			$0.font = .PinoStyle.mediumBody
 			$0.textColor = .Pino.label
 		}
+
+		contentView.layer.cornerRadius = 10
 	}
 
 	private func setupBinding() {
-		coinInfoVM.$coinInfo.sink { [weak self] coinInfo in
-			guard let coininfo = coinInfo else { return }
-			self?.amountLabel.text = coininfo.coinAmount
-			self?.assetsIcon.image = UIImage(named: coininfo.assetImage)
-			self?.assetsTitleLabel.text = coininfo.name
-			self?.userAmountLabel.text = coininfo.userAmount
-			self?.volatilityRateLabel.text = coininfo.volatilityRate
-			self?.investLabel.text = coininfo.investAmount
-			self?.collateralLabel.text = coininfo.callateralAmount
-			self?.borrowLabel.text = coininfo.borrowAmount
-
+		coinInfoVM.$coinPortfolio.sink { [weak self] coinPortfolio in
+			guard let coinPortfolio = coinPortfolio else { return }
+			self?.amountLabel.text = coinPortfolio.coinAmount
+			self?.assetsIcon.image = UIImage(named: coinPortfolio.assetImage)
+			self?.assetsTitleLabel.text = coinPortfolio.name
+			self?.userAmountLabel.text = coinPortfolio.userAmount
+			self?.volatilityRateLabel.text = coinPortfolio.volatilityRate
+			self?.investLabel.text = coinPortfolio.investAmount
+			self?.collateralLabel.text = coinPortfolio.callateralAmount
+			self?.borrowLabel.text = coinPortfolio.borrowAmount
 		}.store(in: &cancellables)
 	}
 
 	private func setupConstraint() {
-		contentView.pin(.top(padding: 32), .leading(padding: 16), .trailing(padding: 16), .bottom(padding: 0))
+		contentView.pin(
+			.top(padding: 32),
+			.horizontalEdges(padding: 16)
+		)
+		recentHistoryTitle.pin(
+			.relative(.top, 24, to: contentView, .bottom),
+			.bottom(padding: 8),
+			.horizontalEdges(padding: 16)
+		)
+		contentStackView.pin(
+			.verticalEdges(padding: 16),
+			.horizontalEdges(padding: 14)
+		)
 
-		contentStackView.pin(.verticalEdges(padding: 16), .horizontalEdges(padding: 14))
-
-		assetsIcon.pin(.fixedHeight(70), .fixedWidth(70))
-		separatorLineView.pin(.fixedHeight(1))
+		assetsIcon.pin(
+			.fixedHeight(70),
+			.fixedWidth(70)
+		)
+		separatorLineView.pin(
+			.fixedHeight(1)
+		)
 
 		[investInfoButtton, collateralInfoButton, borrowInfoButton].forEach {
-			$0.pin(.fixedHeight(20), .fixedWidth(20))
+			$0.pin(
+				.fixedHeight(20),
+				.fixedWidth(20)
+			)
 		}
 	}
 }
