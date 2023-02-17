@@ -44,10 +44,12 @@ class AddCustomAssetViewController: UIViewController {
 		validateClipboardText()
 	}
 
-    // MARK: - Deinit
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
+	// MARK: - Deinit
+
+	deinit {
+		NotificationCenter.default.removeObserver(self)
+	}
+
 	// MARK: - Private Methods
 
 	private func setupView() {

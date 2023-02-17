@@ -53,8 +53,6 @@ public class PinoTextFieldView: UIView {
 		}
 	}
 
-	
-
 	// MARK: - Initializers
 
 	init(
@@ -159,7 +157,6 @@ public class PinoTextFieldView: UIView {
 	private func updateReturnKeyType(newType: UIReturnKeyType) {
 		textField.returnKeyType = newType
 	}
-
 
 	@objc
 	private func textFieldTextDidChange() {
