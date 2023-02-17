@@ -15,7 +15,7 @@ class EditAccountView: UIView {
 	private let walletAvatarStackView = UIStackView()
 	private let avatarBackgroundView = UIView()
 	private let walletAvatar = UIImageView()
-	private let setAvatarButton = UIButton()
+	private let setAvatarButton = UILabel()
 	private let privateKeyStackView = UIStackView()
 	private let privateKeyButton = PinoButton(style: .secondary)
 	private let removeAccountButton = UIButton()
@@ -59,14 +59,13 @@ class EditAccountView: UIView {
 		addSubview(walletInfoStackview)
 		addSubview(privateKeyStackView)
 
-		setAvatarButton.addAction(UIAction(handler: { _ in
-			self.newAvatarTapped()
-		}), for: .touchUpInside)
+		walletAvatarStackView
+			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(setNewAvatar)))
 	}
 
 	private func setupStyle() {
 		newNameTextField.text = walletVM.name
-		setAvatarButton.setTitle("Set new avatar", for: .normal)
+		setAvatarButton.text = "Set new avatar"
 		privateKeyButton.title = "Show private key"
 		removeAccountButton.setTitle("Remove account", for: .normal)
 		walletAvatar.image = UIImage(named: walletVM.profileImage)
@@ -75,7 +74,7 @@ class EditAccountView: UIView {
 
 		backgroundColor = .Pino.background
 		avatarBackgroundView.backgroundColor = UIColor(named: walletVM.profileColor)
-		setAvatarButton.setTitleColor(.Pino.blue, for: .normal)
+		setAvatarButton.textColor = .Pino.blue
 		newNameTextField.textColor = .Pino.label
 		removeAccountButton.setTitleColor(.Pino.red, for: .normal)
 
@@ -87,7 +86,7 @@ class EditAccountView: UIView {
 		privateKeyStackView.axis = .vertical
 
 		walletAvatarStackView.alignment = .center
-		walletInfoStackview.alignment = .fill
+		walletInfoStackview.alignment = .center
 
 		walletInfoStackview.spacing = 21
 		walletAvatarStackView.spacing = 14
@@ -116,6 +115,9 @@ class EditAccountView: UIView {
 			.bottom(padding: 48),
 			.horizontalEdges(padding: 16)
 		)
+		newNameTextField.pin(
+			.horizontalEdges
+		)
 	}
 
 	private func setupBindings() {
@@ -123,5 +125,10 @@ class EditAccountView: UIView {
 			self.walletAvatar.image = UIImage(named: avatar)
 			self.avatarBackgroundView.backgroundColor = UIColor(named: avatar)
 		}.store(in: &cancellables)
+	}
+
+	@objc
+	private func setNewAvatar() {
+		newAvatarTapped()
 	}
 }
