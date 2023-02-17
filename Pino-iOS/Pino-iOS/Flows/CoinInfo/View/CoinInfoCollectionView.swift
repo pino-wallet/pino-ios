@@ -80,10 +80,10 @@ class CoinInfoCollectionView: UICollectionView {
 			self.refreshControl?.endRefreshing()
 			if let error {
 				switch error {
-				case .requestFaild:
-					self.refreshErrorTostView.message = self.coinInfoVM.requestFailedErrorToastMessage
-				case .networkingConnection:
+				case .unreachable:
 					self.refreshErrorTostView.message = self.coinInfoVM.connectionErrorToastMessage
+				default:
+					self.refreshErrorTostView.message = self.coinInfoVM.requestFailedErrorToastMessage
 				}
 				self.refreshErrorTostView.showToast()
 			}

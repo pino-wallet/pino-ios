@@ -27,7 +27,7 @@ class CoinInfoViewModel {
 
 	// MARK: - public Methods
 
-	public func refreshCoinInfoData(completion: @escaping (CoinInfoError?) -> Void) {
+	public func refreshCoinInfoData(completion: @escaping (APIError?) -> Void) {
 		let monitor = NWPathMonitor()
 		monitor.pathUpdateHandler = { path in
 			DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
@@ -36,7 +36,7 @@ class CoinInfoViewModel {
 					self.getHistoryList()
 					completion(nil)
 				} else {
-					completion(.networkingConnection)
+					completion(.unreachable)
 				}
 				monitor.cancel()
 			}
@@ -49,8 +49,9 @@ class CoinInfoViewModel {
 
 	private func getCoinPortfolio() {
 		let coinPortfolioModel = CoinPortfolioModel(
-			assetName: "4.98 COMP",
+			assetName: "COMP",
 			assetImage: "COMP",
+			assetValue: "4.98",
 			volatilityRate: "2.77",
 			volatilityType: "loss",
 			coinAmount: "30,022",

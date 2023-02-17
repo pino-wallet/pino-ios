@@ -8,16 +8,14 @@
 import UIKit
 
 class CoinInfoViewController: UIViewController {
-	// MARK: - Public Properties
-
 	// MARK: Private Properties
 
-	private let assetVM: AssetViewModel
+	private let coinInfoVM = CoinInfoViewModel()
 
 	// MARK: Initializers
 
-	init(assetVM: AssetViewModel) {
-		self.assetVM = assetVM
+	init(coinID: String) {
+		// Request to get coin with id
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -39,7 +37,6 @@ class CoinInfoViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		let coinInfoVM = CoinInfoViewModel()
 		view = CoinInfoCollectionView(coinInfoVM: coinInfoVM)
 	}
 
@@ -48,7 +45,7 @@ class CoinInfoViewController: UIViewController {
 		setupPrimaryColorNavigationBar()
 		navigationController?.navigationBar.tintColor = .Pino.white
 		// Setup title view
-		setNavigationTitle("\(assetVM.name)")
+		setNavigationTitle("\(coinInfoVM.coinPortfolio.name)")
 		// Setup close button
 		navigationItem.leftBarButtonItem = UIBarButtonItem(
 			image: UIImage(systemName: "multiply"),

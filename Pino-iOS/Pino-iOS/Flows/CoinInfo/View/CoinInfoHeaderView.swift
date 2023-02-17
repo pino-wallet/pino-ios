@@ -179,7 +179,7 @@ class CoinInfoHeaderView: UICollectionReusableView {
 			guard let coinPortfolio = coinPortfolio else { return }
 			self?.amountLabel.text = coinPortfolio.coinAmount
 			self?.assetsIcon.image = UIImage(named: coinPortfolio.assetImage)
-			self?.assetsTitleLabel.text = coinPortfolio.name
+			self?.assetsTitleLabel.text = "\(coinPortfolio.assetValue) \(coinPortfolio.name)"
 			self?.userAmountLabel.text = coinPortfolio.userAmount
 			self?.volatilityRateLabel.text = coinPortfolio.volatilityRate
 			self?.investLabel.text = coinPortfolio.investAmount

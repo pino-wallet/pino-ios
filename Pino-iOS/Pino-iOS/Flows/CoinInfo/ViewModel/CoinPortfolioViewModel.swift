@@ -10,20 +10,16 @@ struct CoinPortfolioViewModel {
 
 	public var coinPortfolioModel: CoinPortfolioModel!
 
+	public var name: String {
+		coinPortfolioModel.assetName
+	}
+
 	public var assetImage: String {
 		coinPortfolioModel.assetImage
 	}
 
-	public var userAmount: String {
-		"$\(coinPortfolioModel.userAmount)"
-	}
-
-	public var coinAmount: String {
-		"$\(coinPortfolioModel.coinAmount)"
-	}
-
-	public var name: String {
-		coinPortfolioModel.assetName
+	public var assetValue: String {
+		coinPortfolioModel.assetValue
 	}
 
 	public var volatilityType: AssetVolatilityType {
@@ -32,6 +28,14 @@ struct CoinPortfolioViewModel {
 
 	public var volatilityRate: String {
 		"\(coinPortfolioModel.volatilityRate)%"
+	}
+
+	public var coinAmount: String {
+		"$\(coinPortfolioModel.coinAmount)"
+	}
+
+	public var userAmount: String {
+		"$\(coinPortfolioModel.userAmount)"
 	}
 
 	public var investAmount: String {

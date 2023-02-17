@@ -10,6 +10,7 @@ struct CoinPortfolioModel {
 
 	public var assetName: String
 	public var assetImage: String
+	public var assetValue: String
 	public var volatilityRate: String
 	public var volatilityType: String
 	public var coinAmount: String
