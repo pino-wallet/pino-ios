@@ -11,14 +11,7 @@ public class PinoTextFieldView: UIView {
 	// MARK: - Public Methods
 
 	public var textFieldKeyboardOnReturn: (() -> Void)?
-
-	// MARK: - Public Properties
-
-	public var textFieldText: String? {
-		didSet {
-			setTextFieldText(text: textFieldText)
-		}
-	}
+	public var textDidChange: (() -> Void)?
 
 	// MARK: - Private Properties
 
@@ -60,7 +53,11 @@ public class PinoTextFieldView: UIView {
 		}
 	}
 
-	public var textDidChange: (() -> Void)?
+	public var textFieldText: String? {
+		didSet {
+			setTextFieldText(text: textFieldText)
+		}
+	}
 
 	// MARK: - Initializers
 
@@ -167,10 +164,9 @@ public class PinoTextFieldView: UIView {
 		textField.returnKeyType = newType
 	}
 
-
 	private func setTextFieldText(text: String?) {
 		textField.text = text
-}
+	}
 
 	@objc
 	private func textFieldTextDidChange() {
@@ -178,7 +174,7 @@ public class PinoTextFieldView: UIView {
 			textDidChange()
 		}
 	}
-
+}
 
 extension PinoTextFieldView: UITextFieldDelegate {
 	public func textFieldDidBeginEditing(_ textField: UITextField) {
