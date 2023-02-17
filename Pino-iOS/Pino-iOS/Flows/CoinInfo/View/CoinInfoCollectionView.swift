@@ -11,7 +11,7 @@ import UIKit
 class CoinInfoCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
-	private var cacncellabel = Set<AnyCancellable>()
+	private var cancellable = Set<AnyCancellable>()
 	private let historyRefreshContorl = UIRefreshControl()
 	private let refreshErrorTostView = PinoToastView(message: nil, style: .secondary, padding: 16)
 
@@ -63,7 +63,7 @@ class CoinInfoCollectionView: UICollectionView {
 	private func setupBinding() {
 		coinInfoVM.$coinHistoryList.sink { [weak self] _ in
 			self?.reloadData()
-		}.store(in: &cacncellabel)
+		}.store(in: &cancellable)
 	}
 
 	private func setupRefreshControl() {
