@@ -24,6 +24,7 @@ class AvatarCollectionView: UICollectionView {
 		let flowLayout = UICollectionViewFlowLayout(
 			scrollDirection: .vertical,
 			minimumLineSpacing: 26,
+			minimumItemSpacing: 26,
 			sectionInset: UIEdgeInsets(top: 44, left: 16, bottom: 24, right: 16)
 		)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)

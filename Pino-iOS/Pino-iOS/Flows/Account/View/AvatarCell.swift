@@ -69,10 +69,12 @@ public class AvatarCell: UICollectionViewCell {
 		switch style {
 		case .regular:
 			avatarIconBackgroundView.layer.borderWidth = 0
-			checkMarkImageView.isHidden = true
+			checkMarkImageView.alpha = 0
 		case .selected:
-			avatarIconBackgroundView.layer.borderWidth = 2
-			checkMarkImageView.isHidden = false
+			UIView.animate(withDuration: 0.3) {
+				self.avatarIconBackgroundView.layer.borderWidth = 2.2
+				self.checkMarkImageView.alpha = 1
+			}
 		}
 	}
 }
