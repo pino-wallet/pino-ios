@@ -40,7 +40,9 @@ class EditAccountViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		editAccountView = EditAccountView(walletVM: selectedWallet)
+		editAccountView = EditAccountView(walletVM: selectedWallet, newAvatarTapped: {
+			self.openAvatarPage()
+		})
 		view = editAccountView
 	}
 
@@ -63,15 +65,30 @@ class EditAccountViewController: UIViewController {
 
 	@objc
 	private func saveChanges() {
-		if let walletName = editAccountView.walletNameTextFieldView.getText() {
+		if let newName = editAccountView.walletNameTextFieldView.getText() {
+			let newAvatar = editAccountView.newAvatar
 			let builder = WalletBuilder(walletInfo: selectedWallet)
-			if selectedWallet.name != walletName {
-				builder.setProfileName(walletName)
+			if selectedWallet.name != newName {
+				builder.setProfileName(newName)
+			}
+			if selectedWallet.profileImage != newAvatar {
+				builder.setProfileImage(newAvatar)
+			}
+			if selectedWallet.profileColor != newAvatar {
+				builder.setProfileColor(newAvatar)
 			}
 			walletVM.editWallet(newWallet: builder.build())
 			navigationController!.popViewController(animated: true)
 		} else {
 			editAccountView.walletNameTextFieldView.style = .error
 		}
+	}
+
+	private func openAvatarPage() {
+		let avatarVM = AvatarViewModel(selectedAvatar: selectedWallet.profileImage)
+		let changeAvatarVC = ChangeAvatarViewController(avatarVM: avatarVM) { avatarName in
+			self.editAccountView.newAvatar = avatarName
+		}
+		navigationController?.pushViewController(changeAvatarVC, animated: true)
 	}
 }
