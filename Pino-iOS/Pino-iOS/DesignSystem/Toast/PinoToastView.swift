@@ -17,6 +17,7 @@ public class PinoToastView: UIView, ToastView {
 	private let toastLabel = UILabel()
 	private let toastImage = UIImageView()
 	private var isShowingToast = false
+	private var padding: CGFloat
 
 	// MARK: - Public Properties
 
@@ -44,11 +45,12 @@ public class PinoToastView: UIView, ToastView {
 
 	// MARK: - Initializers
 
-	init(message: String?, image: UIImage? = nil, style: Style, alignment: Alignment = .bottom) {
+	init(message: String?, image: UIImage? = nil, style: Style, alignment: Alignment = .bottom, padding: CGFloat = 60) {
 		self.alignment = alignment
 		self.message = message
 		self.image = image
 		self.style = style
+		self.padding = padding
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -77,9 +79,9 @@ public class PinoToastView: UIView, ToastView {
 				case .bottom:
 					animateToastView(
 						originY: superView.frame.height,
-						destinationY: superView.frame.height - 60,
+						destinationY: superView.frame.height - padding,
 						delay: 2,
-						verticalConstraint: .bottom(to: superView.layoutMarginsGuide, padding: 60)
+						verticalConstraint: .bottom(to: superView.layoutMarginsGuide, padding: padding)
 					)
 				}
 			} else {
@@ -100,6 +102,7 @@ public class PinoToastView: UIView, ToastView {
 		toastLabel.text = message
 		toastImage.image = image
 		toastLabel.font = .PinoStyle.semiboldFootnote
+		toastStackView.spacing = 4
 		updateStyle()
 	}
 
@@ -107,6 +110,9 @@ public class PinoToastView: UIView, ToastView {
 		toastLabel.textColor = style.tintColor
 		toastImage.tintColor = style.tintColor
 		backgroundColor = style.backgroundColor
+		toastImage.image = UIImage(named: "info_circle")
+
+		toastImage.isHidden = style.imageIsHidden
 
 		if style.hasShadow {
 			layer.shadowColor = UIColor.Pino.black.cgColor
@@ -122,6 +128,10 @@ public class PinoToastView: UIView, ToastView {
 		toastStackView.pin(
 			.verticalEdges(padding: 7),
 			.horizontalEdges(padding: 14)
+		)
+		toastImage.pin(
+			.fixedWidth(20),
+			.fixedHeight(20)
 		)
 	}
 

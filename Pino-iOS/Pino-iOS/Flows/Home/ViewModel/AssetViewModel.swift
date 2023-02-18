@@ -14,6 +14,10 @@ public class AssetViewModel: SecurityModeProtocol {
 
 	public var securityMode = false
 
+	public var id: String {
+		assetModel.id
+	}
+
 	public var image: String {
 		assetModel.image
 	}

@@ -15,6 +15,7 @@ extension PinoToastView {
 		public let tintColor: UIColor
 		public let backgroundColor: UIColor
 		public let hasShadow: Bool
+		public let imageIsHidden: Bool
 	}
 }
 
@@ -24,16 +25,19 @@ extension PinoToastView.Style {
 	public static let primary = PinoToastView.Style(
 		tintColor: .Pino.white,
 		backgroundColor: .Pino.primary,
-		hasShadow: false
+		hasShadow: false,
+		imageIsHidden: true
 	)
 	public static let secondary = PinoToastView.Style(
 		tintColor: .Pino.label,
 		backgroundColor: .Pino.secondaryBackground,
-		hasShadow: true
+		hasShadow: true,
+		imageIsHidden: false
 	)
 	public static let error = PinoToastView.Style(
 		tintColor: .Pino.errorRed,
 		backgroundColor: .Pino.secondaryBackground,
-		hasShadow: true
+		hasShadow: true,
+		imageIsHidden: false
 	)
 }
