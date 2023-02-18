@@ -23,9 +23,9 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var volatilityType: AssetVolatilityType {
-        guard let volatilityType = AssetVolatilityType(rawValue: coinPortfolioModel.volatilityType) else {
-            fatalError("Volitility type unknown")
-        }
+		guard let volatilityType = AssetVolatilityType(rawValue: coinPortfolioModel.volatilityType) else {
+			fatalError("Volitility type unknown")
+		}
 		return volatilityType
 	}
 
