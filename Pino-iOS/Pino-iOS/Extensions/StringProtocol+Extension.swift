@@ -21,4 +21,13 @@ extension String {
 	public func shortenedString(characterCount: Int) -> String {
 		"\(prefix(characterCount))...\(suffix(characterCount))"
 	}
+
+	public func validateETHContractAddress() -> Bool {
+		let ethAddressRegex = "^0x[0-9a-fA-F]{40}$"
+		if range(of: ethAddressRegex, options: .regularExpression, range: nil, locale: nil) != nil {
+			return true
+		} else {
+			return false
+		}
+	}
 }

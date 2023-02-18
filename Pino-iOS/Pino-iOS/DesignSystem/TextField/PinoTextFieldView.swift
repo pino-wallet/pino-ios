@@ -11,6 +11,7 @@ public class PinoTextFieldView: UIView {
 	// MARK: - Public Methods
 
 	public var textFieldKeyboardOnReturn: (() -> Void)?
+	public var textDidChange: (() -> Void)?
 
 	// MARK: - Private Properties
 
@@ -51,8 +52,6 @@ public class PinoTextFieldView: UIView {
 			textField.text = text
 		}
 	}
-
-	public var textDidChange: (() -> Void)?
 
 	// MARK: - Initializers
 

@@ -44,6 +44,7 @@ class AddCustomAssetView: UIView {
 		super.init(frame: .zero)
 		setupView()
 		setupConstraints()
+		setupPasteFromClipboardClosure()
 	}
 
 	required init?(coder: NSCoder) {
@@ -55,8 +56,6 @@ class AddCustomAssetView: UIView {
 	private func setupView() {
 		addButton.title = addCustomAssetVM.addCustomAssetButtonTitle
 
-		pasteFromClipboardview.contractAddress = addCustomAssetVM.customAsset.contractAddress
-
 		addGestureRecognizer(dissmissKeyboardTapGesture)
 		customAssetInfoView = CustomAssetInfoContainerView(
 			addCustomAssetVM: addCustomAssetVM,
@@ -65,8 +64,8 @@ class AddCustomAssetView: UIView {
 		// Setup subviews
 		addSubview(addButton)
 		addSubview(contractTextfieldView)
-//		addSubview(pasteFromClipboardview)
-		addSubview(customAssetInfoView!)
+		addSubview(pasteFromClipboardview)
+//		addSubview(customAssetInfoView!)
 		// Setup contract text field view
 		contractTextfieldView.placeholderText = addCustomAssetVM.addCustomAssetTextfieldPlaceholder
 		contractTextfieldView.returnKeyType = .search
@@ -74,6 +73,8 @@ class AddCustomAssetView: UIView {
 		scanQRCodeIconButton.setImage(UIImage(named: addCustomAssetVM.addCustomAssetTextfieldIcon), for: .normal)
 		contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
 		contractTextfieldView.errorText = addCustomAssetVM.addCustomAssetTextfieldError
+		// Setup pasteFromClipboardView
+		pasteFromClipboardview.isHidden = true
 	}
 
 	private func setupConstraints() {
@@ -85,15 +86,27 @@ class AddCustomAssetView: UIView {
 			.bottom(to: layoutMarginsGuide, padding: 0),
 			.horizontalEdges(to: layoutMarginsGuide, padding: 0)
 		)
-//		pasteFromClipboardview.pin(
-//			.relative(.top, 8, to: contractTextfieldView, .bottom),
-//			.horizontalEdges(to: layoutMarginsGuide, padding: 0)
-//		)
-		customAssetInfoView?.pin(.relative(.top, 16, to: contractTextfieldView, .bottom), .horizontalEdges(
-			to:
-			layoutMarginsGuide,
-			padding: 0
-		))
+		pasteFromClipboardview.pin(
+			.relative(.top, 8, to: contractTextfieldView, .bottom),
+			.horizontalEdges(to: layoutMarginsGuide, padding: 0)
+		)
+
+//		customAssetInfoView?.pin(.relative(.top, 16, to: contractTextfieldView, .bottom), .horizontalEdges(
+//			to:
+//			layoutMarginsGuide,
+//			padding: 0
+//		))
+	}
+
+	private func setupPasteFromClipboardClosure() {
+		addCustomAssetVM.setupPasteFromClipboardViewClosure = { [weak self] validatedAddress in
+			self?.pasteFromClipboardview.contractAddress = validatedAddress
+			self?.pasteFromClipboardview.isHidden = false
+			self?.pasteFromClipboardview.onPaste = {
+				self?.contractTextfieldView.text = validatedAddress
+				self?.pasteFromClipboardview.isHidden = true
+			}
+		}
 	}
 
 	@objc

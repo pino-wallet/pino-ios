@@ -5,6 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 2/1/23.
 //
 
+import NotificationCenter
 import UIKit
 
 class AddCustomAssetViewController: UIViewController {
@@ -16,6 +17,12 @@ class AddCustomAssetViewController: UIViewController {
 
 	init() {
 		super.init(nibName: nil, bundle: nil)
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(validateClipboardTextAfterAppDidBecomeActive),
+			name: UIApplication.didBecomeActiveNotification,
+			object: nil
+		)
 	}
 
 	required init?(coder: NSCoder) {
@@ -31,6 +38,16 @@ class AddCustomAssetViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
+	}
+
+	override func viewDidAppear(_ animated: Bool) {
+		validateClipboardText()
+	}
+
+	// MARK: - Deinit
+
+	deinit {
+		NotificationCenter.default.removeObserver(self)
 	}
 
 	// MARK: - Private Methods
@@ -73,6 +90,13 @@ class AddCustomAssetViewController: UIViewController {
 		)
 	}
 
+	private func validateClipboardText() {
+		guard let clipboardText = UIPasteboard.general.string else {
+			return
+		}
+		addCustomAssetVM.validateContractAddressFromClipboard(clipboardText: clipboardText)
+	}
+
 	// Setup dismiss button handler
 	@objc
 	private func dismissAddCustomAssetVC() {
@@ -83,5 +107,10 @@ class AddCustomAssetViewController: UIViewController {
 	@objc
 	private func addCustomAssetHandler() {
 		print("added")
+	}
+
+	@objc
+	private func validateClipboardTextAfterAppDidBecomeActive() {
+		validateClipboardText()
 	}
 }

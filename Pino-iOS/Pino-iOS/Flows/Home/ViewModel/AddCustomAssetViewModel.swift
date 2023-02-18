@@ -6,6 +6,10 @@
 //
 
 class AddCustomAssetViewModel {
+	// MARK: - Closures
+
+	public var setupPasteFromClipboardViewClosure: ((String) -> Void)!
+
 	#warning("Those values are for testing and should be changed")
 
 	// MARK: - Public Properties
@@ -55,5 +59,16 @@ class AddCustomAssetViewModel {
 				title: "Contract address",
 				alertText: "Sample Text"
 			))
+	}
+
+	// MARK: - Public Methods
+
+	public func validateContractAddressFromClipboard(clipboardText: String) {
+		if clipboardText.isEmpty {
+			return
+		}
+		if clipboardText.validateETHContractAddress() {
+			setupPasteFromClipboardViewClosure?(clipboardText)
+		}
 	}
 }
