@@ -18,18 +18,12 @@ class CoinInfoChartView: UIView {
 	private let infoCardView = UIView()
 	private let infoStackView = UIStackView()
 	private let viewInExplorerButton = UIButton()
-	private let infoItems: [String: String]
+	private let coinInfoChartVM: CoinInfoChartViewModel
 
 	// MARK: Initializers
 
-	init() {
-		self.infoItems = [
-			"Website": "Something.com",
-			"Market Cap": "$465,836,000",
-			"Valume (24h)": "19,476,500",
-			"Circulating supply": "4,933,588",
-			"Total supply": "4,933,588",
-		]
+	init(coinInfoChartVM: CoinInfoChartViewModel) {
+		self.coinInfoChartVM = coinInfoChartVM
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -50,15 +44,13 @@ class CoinInfoChartView: UIView {
 		contentView.addSubview(contentStackview)
 		scrollView.addSubview(contentView)
 		addSubview(scrollView)
-
-		for item in infoItems {
-			if infoStackView.arrangedSubviews.count == infoItems.count - 1 {
-				infoStackView.addArrangedSubview(ChartInfoItems(item: item, separatorIsHidden: true))
-			} else {
-				infoStackView.addArrangedSubview(ChartInfoItems(item: item))
-			}
-		}
 		infoCardView.addSubview(infoStackView)
+
+		infoStackView.addArrangedSubview(ChartInfoItems(item: coinInfoChartVM.website))
+		infoStackView.addArrangedSubview(ChartInfoItems(item: coinInfoChartVM.marketCap))
+		infoStackView.addArrangedSubview(ChartInfoItems(item: coinInfoChartVM.Valume))
+		infoStackView.addArrangedSubview(ChartInfoItems(item: coinInfoChartVM.circulatingSupply))
+		infoStackView.addArrangedSubview(ChartInfoItems(item: coinInfoChartVM.totalSuply, separatorIsHidden: true))
 	}
 
 	private func setupStyle() {
@@ -82,8 +74,8 @@ class CoinInfoChartView: UIView {
 
 		contentStackview.spacing = 75
 		cardStackView.spacing = 24
-
 		infoStackView.spacing = 14
+
 		infoCardView.layer.cornerRadius = 12
 		chartCardView.layer.cornerRadius = 12
 	}

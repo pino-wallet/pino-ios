@@ -10,6 +10,8 @@ import UIKit
 class CoinInfoChartViewController: UIViewController {
 	// MARK: Private Properties
 
+	private let coinInfoChartVM = CoinInfoChartViewModel()
+
 	// MARK: Initializers
 
 	init() {
@@ -34,7 +36,7 @@ class CoinInfoChartViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = CoinInfoChartView()
+		view = CoinInfoChartView(coinInfoChartVM: coinInfoChartVM)
 	}
 
 	private func setupNavigationBar() {
