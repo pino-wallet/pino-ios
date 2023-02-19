@@ -32,6 +32,8 @@ struct CoinInfoChartViewModel {
 		(key: "Total supply", value: coinInfoChartModel.totalSuply)
 	}
 
+	public var explorerURL = "https://www.google.com"
+
 	// MARK: - Initializers
 
 	init() {

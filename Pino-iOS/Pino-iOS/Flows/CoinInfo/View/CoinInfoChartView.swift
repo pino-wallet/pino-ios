@@ -51,6 +51,12 @@ class CoinInfoChartView: UIView {
 		infoStackView.addArrangedSubview(ChartInfoItems(item: coinInfoChartVM.Valume))
 		infoStackView.addArrangedSubview(ChartInfoItems(item: coinInfoChartVM.circulatingSupply))
 		infoStackView.addArrangedSubview(ChartInfoItems(item: coinInfoChartVM.totalSuply, separatorIsHidden: true))
+
+		viewInExplorerButton.addAction(UIAction(handler: { _ in
+			if let url = URL(string: self.coinInfoChartVM.explorerURL) {
+				UIApplication.shared.open(url)
+			}
+		}), for: .touchUpInside)
 	}
 
 	private func setupStyle() {
