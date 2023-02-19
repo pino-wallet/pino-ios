@@ -34,7 +34,7 @@ class CoinInfoChartViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = UIView()
+		view = CoinInfoChartView()
 	}
 
 	private func setupNavigationBar() {
