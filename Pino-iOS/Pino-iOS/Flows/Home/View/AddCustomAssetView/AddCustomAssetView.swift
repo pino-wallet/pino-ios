@@ -8,6 +8,15 @@
 import UIKit
 
 class AddCustomAssetView: UIView {
+	// Private Enum
+	private enum viewStatuses {
+		case clearView
+		case errorView
+		case pending
+		case pasteFromClipboardView
+		case success
+	}
+
 	// Typealias
 	typealias presentAlertClosureType = (_ alertTitle: String, _ alertDescription: String) -> Void
 	typealias dissmissKeyboardClosureType = () -> Void
@@ -30,6 +39,11 @@ class AddCustomAssetView: UIView {
 		action: #selector(dissmissKeyboard(_:))
 	)
 	private var addCustomAssetVM: AddCustomAssetViewModel
+	private var viewStatus: viewStatuses = .clearView {
+		didSet {
+			switchViewStatus()
+		}
+	}
 
 	// MARK: - Initializers
 
@@ -45,6 +59,9 @@ class AddCustomAssetView: UIView {
 		setupView()
 		setupConstraints()
 		setupPasteFromClipboardClosure()
+		setupCustomAssetInfoViewClosure()
+		setupfailedToValidateContractAddressClosure()
+		enableContractAddressTextfieldPendingClosure()
 	}
 
 	required init?(coder: NSCoder) {
@@ -57,19 +74,27 @@ class AddCustomAssetView: UIView {
 		addButton.title = addCustomAssetVM.addCustomAssetButtonTitle
 
 		addGestureRecognizer(dissmissKeyboardTapGesture)
+
 		customAssetInfoView = CustomAssetInfoContainerView(
 			addCustomAssetVM: addCustomAssetVM,
 			presentAlertClosure: presentAlertClosure
 		)
+		customAssetInfoView?.isHidden = true
 		// Setup subviews
 		addSubview(addButton)
 		addSubview(contractTextfieldView)
 		addSubview(pasteFromClipboardview)
-//		addSubview(customAssetInfoView!)
+		addSubview(customAssetInfoView!)
 		// Setup contract text field view
 		contractTextfieldView.placeholderText = addCustomAssetVM.addCustomAssetTextfieldPlaceholder
 		contractTextfieldView.returnKeyType = .search
 		contractTextfieldView.textFieldKeyboardOnReturn = dissmissKeyboardClosure
+		contractTextfieldView.textDidChange = { [weak self] in
+			self?.addCustomAssetVM.validateContractAddressFromTextField(
+				textFieldText: self?.contractTextfieldView.getText() ?? "",
+				delay: .small
+			)
+		}
 		scanQRCodeIconButton.setImage(UIImage(named: addCustomAssetVM.addCustomAssetTextfieldIcon), for: .normal)
 		contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
 		contractTextfieldView.errorText = addCustomAssetVM.addCustomAssetTextfieldError
@@ -91,21 +116,77 @@ class AddCustomAssetView: UIView {
 			.horizontalEdges(to: layoutMarginsGuide, padding: 0)
 		)
 
-//		customAssetInfoView?.pin(.relative(.top, 16, to: contractTextfieldView, .bottom), .horizontalEdges(
-//			to:
-//			layoutMarginsGuide,
-//			padding: 0
-//		))
+		customAssetInfoView?.pin(.relative(.top, 16, to: contractTextfieldView, .bottom), .horizontalEdges(
+			to:
+			layoutMarginsGuide,
+			padding: 0
+		))
 	}
 
 	private func setupPasteFromClipboardClosure() {
 		addCustomAssetVM.setupPasteFromClipboardViewClosure = { [weak self] validatedAddress in
 			self?.pasteFromClipboardview.contractAddress = validatedAddress
-			self?.pasteFromClipboardview.isHidden = false
+			self?.viewStatus = .pasteFromClipboardView
 			self?.pasteFromClipboardview.onPaste = {
 				self?.contractTextfieldView.text = validatedAddress
-				self?.pasteFromClipboardview.isHidden = true
+				self?.addCustomAssetVM.validateContractAddressFromTextField(
+					textFieldText: self?.contractTextfieldView.text ?? "",
+					delay: .none
+				)
 			}
+		}
+	}
+
+	private func setupCustomAssetInfoViewClosure() {
+		addCustomAssetVM.setupCustomAssetInfoViewClosure = { [weak self] in
+			self?.customAssetInfoView?.newAddCustomAssetVM = self?.addCustomAssetVM
+			self?.viewStatus = .success
+		}
+	}
+
+	private func setupfailedToValidateContractAddressClosure() {
+		addCustomAssetVM.failedToValidateContractAddressClosure = { [weak self] error in
+			if error == .isEmpty {
+				self?.viewStatus = .clearView
+			} else {
+				self?.contractTextfieldView.errorText = error.rawValue
+				self?.viewStatus = .errorView
+			}
+		}
+	}
+
+	private func enableContractAddressTextfieldPendingClosure() {
+		addCustomAssetVM.enableContractAddressTextfieldPendingClosure = { [weak self] in
+			self?.viewStatus = .pending
+		}
+	}
+
+	private func switchViewStatus() {
+		switch viewStatus {
+		case .clearView:
+			pasteFromClipboardview.isHidden = true
+			customAssetInfoView?.isHidden = true
+			contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
+
+		case .errorView:
+			pasteFromClipboardview.isHidden = true
+			customAssetInfoView?.isHidden = true
+			contractTextfieldView.style = .error
+
+		case .pending:
+			pasteFromClipboardview.isHidden = true
+			customAssetInfoView?.isHidden = true
+			contractTextfieldView.style = .pending
+
+		case .pasteFromClipboardView:
+			customAssetInfoView?.isHidden = true
+			pasteFromClipboardview.isHidden = false
+			contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
+
+		case .success:
+			pasteFromClipboardview.isHidden = true
+			customAssetInfoView?.isHidden = false
+			contractTextfieldView.style = .success
 		}
 	}
 

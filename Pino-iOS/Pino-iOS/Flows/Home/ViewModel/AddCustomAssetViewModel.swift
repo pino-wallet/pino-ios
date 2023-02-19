@@ -5,10 +5,29 @@
 //  Created by Amir hossein kazemi seresht on 2/13/23.
 //
 
+import Foundation
+
 class AddCustomAssetViewModel {
+	// MARK: - Public Enums
+
+	public enum validateTextFieldDelay: Double {
+		case small = 0.5
+		case none = 0.0
+	}
+
+	public enum failedToValidateCustomAssetStatus: String {
+		case isEmpty
+		case notValid = "Address is not an ETH valid address"
+		case networkError = "No internet connection, retrying..."
+		case notValidFromServer = "Custom asset not found"
+	}
+
 	// MARK: - Closures
 
 	public var setupPasteFromClipboardViewClosure: ((String) -> Void)!
+	public var setupCustomAssetInfoViewClosure: (() -> Void)!
+	public var failedToValidateContractAddressClosure: ((failedToValidateCustomAssetStatus) -> Void)!
+	public var enableContractAddressTextfieldPendingClosure: (() -> Void)!
 
 	#warning("Those values are for testing and should be changed")
 
@@ -28,17 +47,21 @@ class AddCustomAssetViewModel {
 	public var customAssetWebsiteInfo: CustomAssetInfoViewModel
 	public var customAssetContractAddressInfo: CustomAssetInfoViewModel
 
+	// MARK: - Private Properties
+
+	private var getCustomAssetInfoRequestWork: DispatchWorkItem!
+
 	// MARK: - Initializers
 
 	init() {
 		self.customAsset = CustomAssetViewModel(
 			customAsset:
 			CustomAssetModel(
-				name: "USDC",
-				icon: "USDC",
-				balance: "201.2",
-				website: "www.USDC.com",
-				contractAddress: "0x4108A1698EDB3d3E66aAD93E030dbF28Ea5ABB11"
+				name: "",
+				icon: "",
+				balance: "",
+				website: "",
+				contractAddress: ""
 			)
 		)
 		self
@@ -69,6 +92,45 @@ class AddCustomAssetViewModel {
 		}
 		if clipboardText.validateETHContractAddress() {
 			setupPasteFromClipboardViewClosure?(clipboardText)
+		}
+	}
+
+	public func validateContractAddressFromTextField(textFieldText: String, delay: validateTextFieldDelay) {
+		if textFieldText.isEmpty {
+			failedToValidateContractAddressClosure(.isEmpty)
+			cancelGetCustomAssetRequestWork()
+			return
+		}
+
+		if textFieldText.validateETHContractAddress() {
+			enableContractAddressTextfieldPendingClosure()
+			cancelGetCustomAssetRequestWork()
+			getCustomAssetInfoRequestWork = DispatchWorkItem(block: { [weak self] in
+				self?.getCustomAssetInfo(contractAddress: textFieldText)
+			})
+			DispatchQueue.main.asyncAfter(deadline: .now() + delay.rawValue + 2, execute: getCustomAssetInfoRequestWork)
+		} else {
+			failedToValidateContractAddressClosure(.notValid)
+			cancelGetCustomAssetRequestWork()
+		}
+	}
+
+	// MARK: - Private Methods
+
+	private func getCustomAssetInfo(contractAddress: String) {
+		customAsset = CustomAssetViewModel(customAsset: CustomAssetModel(
+			name: "USDC",
+			icon: "USDC",
+			balance: "201.2",
+			website: "www.USDC.com",
+			contractAddress: "0x4108A1698EDB3d3E66aAD93E030dbF28Ea5ABB11"
+		))
+		setupCustomAssetInfoViewClosure()
+	}
+
+	private func cancelGetCustomAssetRequestWork() {
+		if let getCustomAssetInfoRequestWork {
+			getCustomAssetInfoRequestWork.cancel()
 		}
 	}
 }

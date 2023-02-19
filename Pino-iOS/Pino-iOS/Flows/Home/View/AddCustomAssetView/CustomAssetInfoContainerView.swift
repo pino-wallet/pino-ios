@@ -19,7 +19,7 @@ class CustomAssetInfoContainerView: UIView {
 
 	private let mainStackView = UIStackView()
 	private let nameView: CustomAssetInfoView
-	private var userBalanceView: CustomAssetInfoView?
+	private var userBalanceView: CustomAssetInfoView
 	private let websiteView: CustomAssetInfoView
 	private let contractAddressView: CustomAssetInfoView
 
@@ -28,6 +28,15 @@ class CustomAssetInfoContainerView: UIView {
 	private let contractAddressLabel = PinoLabel(style: .info, text: "")
 	private let websiteLabel = PinoLabel(style: .info, text: "")
 	private var addCustomAssetVM: AddCustomAssetViewModel
+
+	// MARK: - Public Properties
+
+	public var newAddCustomAssetVM: AddCustomAssetViewModel? {
+		didSet {
+			addCustomAssetVM = newAddCustomAssetVM ?? addCustomAssetVM
+			setupViewCustomValues()
+		}
+	}
 
 	// MARK: - Initializers
 
@@ -42,6 +51,11 @@ class CustomAssetInfoContainerView: UIView {
 			titleText: addCustomAssetVM.customAssetNameInfo.title,
 			alertText: addCustomAssetVM.customAssetNameInfo.alertText,
 			infoView: nameLabel
+		)
+		self.userBalanceView = CustomAssetInfoView(
+			titleText: addCustomAssetVM.customAssetUserBalanceInfo.title,
+			alertText: addCustomAssetVM.customAssetUserBalanceInfo.alertText,
+			infoView: userBalanceLabel
 		)
 		self.websiteView = CustomAssetInfoView(
 			titleText: addCustomAssetVM.customAssetWebsiteInfo.title,
@@ -59,6 +73,7 @@ class CustomAssetInfoContainerView: UIView {
 		setupView()
 		setupConstraints()
 		setupClosures()
+		setupViewCustomValues()
 	}
 
 	required init?(coder: NSCoder) {
@@ -71,51 +86,54 @@ class CustomAssetInfoContainerView: UIView {
 		nameView.presentAlertClosure = presentAlertClosure
 		websiteView.presentAlertClosure = presentAlertClosure
 		contractAddressView.presentAlertClosure = presentAlertClosure
-		userBalanceView?.presentAlertClosure = presentAlertClosure
+		userBalanceView.presentAlertClosure = presentAlertClosure
 	}
 
 	private func setupView() {
-		let customAsset = addCustomAssetVM.customAsset
-		// Setup nameItem icon
-		nameView.infoIconImage = UIImage(named: customAsset.icon)
-
 		// Setup asset name label
-		nameLabel.text = customAsset.name
 		nameLabel.numberOfLines = 0
 		nameLabel.lineBreakMode = .byWordWrapping
 
 		// Setup asset website label
-		websiteLabel.text = customAsset.website
 		websiteLabel.numberOfLines = 0
 		websiteLabel.lineBreakMode = .byWordWrapping
-
-		// Setup contract address label
-		contractAddressLabel.text = customAsset.contractAddress
-		contractAddressLabel.lineBreakMode = .byTruncatingMiddle
 
 		// Setup self view
 		backgroundColor = .Pino.secondaryBackground
 		layer.cornerRadius = 12
+
+		// Setup UserBalanceView
+		userBalanceLabel.numberOfLines = 0
+		userBalanceLabel.lineBreakMode = .byWordWrapping
+		userBalanceView = CustomAssetInfoView(
+			titleText: addCustomAssetVM.customAssetUserBalanceInfo.title,
+			alertText: addCustomAssetVM.customAssetUserBalanceInfo.alertText,
+			infoView: userBalanceLabel
+		)
+		userBalanceView.isHidden = true
 
 		// Setup stackview
 		addSubview(mainStackView)
 		mainStackView.axis = .vertical
 		mainStackView.spacing = 16
 		mainStackView.addArrangedSubview(nameView)
-		if let userBalance = customAsset.balance {
-			userBalanceLabel.text = userBalance
-			userBalanceLabel.numberOfLines = 0
-			userBalanceLabel.lineBreakMode = .byWordWrapping
-			userBalanceView = CustomAssetInfoView(
-				titleText: addCustomAssetVM.customAssetUserBalanceInfo.title,
-				alertText: addCustomAssetVM.customAssetUserBalanceInfo.alertText,
-				infoView: userBalanceLabel
-			)
-
-			mainStackView.addArrangedSubview(userBalanceView!)
-		}
+		mainStackView.addArrangedSubview(userBalanceView)
 		mainStackView.addArrangedSubview(websiteView)
 		mainStackView.addArrangedSubview(contractAddressView)
+	}
+
+	private func setupViewCustomValues() {
+		let customAsset = addCustomAssetVM.customAsset
+
+		nameView.infoIconImage = UIImage(named: customAsset.icon)
+		nameLabel.text = customAsset.name
+		websiteLabel.text = customAsset.website
+		contractAddressLabel.text = customAsset.contractAddress
+		contractAddressLabel.lineBreakMode = .byTruncatingMiddle
+		if let userBalance = customAsset.balance {
+			userBalanceLabel.text = userBalance
+			userBalanceView.isHidden = false
+		}
 	}
 
 	private func setupConstraints() {
