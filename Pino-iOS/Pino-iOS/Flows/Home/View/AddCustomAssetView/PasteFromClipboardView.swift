@@ -22,16 +22,7 @@ class PasteFromClipboardView: UIView {
 
 	private let mainStackView = UIStackView()
 	private let pasteButton = UIButton()
-	private var contractAddressLabel = PinoLabel(
-		style: PinoLabel
-			.Style(
-				textColor: .Pino.label,
-				font: UIFont.PinoStyle.mediumSubheadline,
-				numberOfLine: 0,
-				lineSpacing: 6
-			),
-		text: ""
-	)
+	private var contractAddressLabel: PinoLabel?
 	private let pasteButtonIcon = UIImage(named: "copy")
 
 	// MARK: - Initializers
@@ -79,8 +70,18 @@ class PasteFromClipboardView: UIView {
 		mainStackView.spacing = 6
 
 		// Setup contract address label view
-		contractAddressLabel.lineBreakMode = .byWordWrapping
-		mainStackView.addArrangedSubview(contractAddressLabel)
+		contractAddressLabel = PinoLabel(
+			style: PinoLabel
+				.Style(
+					textColor: .Pino.label,
+					font: UIFont.PinoStyle.mediumSubheadline,
+					numberOfLine: 0,
+					lineSpacing: 6
+				),
+			text: ""
+		)
+		contractAddressLabel?.lineBreakMode = .byWordWrapping
+		mainStackView.addArrangedSubview(contractAddressLabel!)
 	}
 
 	private func setupConstraints() {
@@ -88,7 +89,7 @@ class PasteFromClipboardView: UIView {
 	}
 
 	private func setupContractAddressLabelText() {
-		contractAddressLabel.text = contractAddress
+		contractAddressLabel?.text = contractAddress
 	}
 
 	@objc
