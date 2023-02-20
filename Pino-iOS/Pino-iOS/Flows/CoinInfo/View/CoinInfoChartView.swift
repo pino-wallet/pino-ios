@@ -19,12 +19,14 @@ class CoinInfoChartView: UIView {
 	private let infoCardView = UIView()
 	private let infoStackView = UIStackView()
 	private let viewInExplorerButton = UIButton()
+	private let lineChart: LineChart
 	private let coinInfoChartVM: CoinInfoChartViewModel
 
 	// MARK: Initializers
 
 	init(coinInfoChartVM: CoinInfoChartViewModel) {
 		self.coinInfoChartVM = coinInfoChartVM
+		self.lineChart = LineChart(chartVM: coinInfoChartVM)
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -46,6 +48,7 @@ class CoinInfoChartView: UIView {
 		scrollView.addSubview(contentView)
 		addSubview(scrollView)
 		infoCardView.addSubview(infoStackView)
+		chartCardView.addSubview(lineChart)
 
 		infoStackView.addArrangedSubview(ChartInfoItems(item: coinInfoChartVM.website))
 		infoStackView.addArrangedSubview(ChartInfoItems(item: coinInfoChartVM.marketCap))
@@ -107,5 +110,7 @@ class CoinInfoChartView: UIView {
 			.verticalEdges(padding: 15),
 			.horizontalEdges
 		)
+
+		lineChart.pin(.allEdges)
 	}
 }

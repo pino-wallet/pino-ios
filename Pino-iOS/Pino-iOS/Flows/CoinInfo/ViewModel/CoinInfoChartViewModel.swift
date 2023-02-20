@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 2/19/23.
 //
 
+import Charts
 import Combine
 
 class CoinInfoChartViewModel {
@@ -17,6 +18,38 @@ class CoinInfoChartViewModel {
 	private var coinInfoChartModel: CoinInfoChartModel!
 
 	// MARK: - Public Properties
+
+	public var chartDataEntry: [ChartDataEntry]!
+
+	public var balance: String {
+		"$\(coinInfoChartModel.balance)"
+	}
+
+	public var volatilityInDollor: String {
+		switch volatilityType {
+		case .profit:
+			return "+$\(coinInfoChartModel.volatilityInDollor)"
+		case .loss:
+			return "-$\(coinInfoChartModel.volatilityInDollor)"
+		case .none:
+			return "$\(coinInfoChartModel.volatilityInDollor)"
+		}
+	}
+
+	public var volatilityPercentage: String {
+		switch volatilityType {
+		case .profit:
+			return "+\(coinInfoChartModel.volatilityPercentage)%"
+		case .loss:
+			return "-\(coinInfoChartModel.volatilityPercentage)%"
+		case .none:
+			return "\(coinInfoChartModel.volatilityPercentage)%"
+		}
+	}
+
+	public var volatilityType: AssetVolatilityType {
+		AssetVolatilityType(rawValue: coinInfoChartModel.volatilityType) ?? .none
+	}
 
 	public var website: (key: String, value: String) {
 		(key: "Website", value: coinInfoChartModel.website)
@@ -61,5 +94,15 @@ class CoinInfoChartViewModel {
 		} receiveValue: { [weak self] chartModel in
 			self?.coinInfoChartModel = chartModel
 		}.store(in: &cancellables)
+
+		chartDataEntry = [
+			ChartDataEntry(x: 0, y: 0),
+			ChartDataEntry(x: 1, y: 1),
+			ChartDataEntry(x: 2, y: 0),
+			ChartDataEntry(x: 3, y: 3),
+			ChartDataEntry(x: 4, y: 1),
+			ChartDataEntry(x: 5, y: 2),
+			ChartDataEntry(x: 6, y: 1),
+		]
 	}
 }
