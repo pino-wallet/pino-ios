@@ -12,9 +12,9 @@ class AddCustomAssetView: UIView {
 	private enum viewStatuses {
 		case clearView
 		case errorView
-		case pending
+		case pendingView
 		case pasteFromClipboardView
-		case success
+		case successView
 	}
 
 	// Typealias
@@ -58,10 +58,7 @@ class AddCustomAssetView: UIView {
 		super.init(frame: .zero)
 		setupView()
 		setupConstraints()
-		setupPasteFromClipboardClosure()
-		setupCustomAssetInfoViewClosure()
-		setupfailedToValidateContractAddressClosure()
-		enableContractAddressTextfieldPendingClosure()
+		setupChangeStatusClosure()
 	}
 
 	required init?(coder: NSCoder) {
@@ -123,41 +120,30 @@ class AddCustomAssetView: UIView {
 		))
 	}
 
-	private func setupPasteFromClipboardClosure() {
-		addCustomAssetVM.setupPasteFromClipboardViewClosure = { [weak self] validatedAddress in
-			self?.pasteFromClipboardview.contractAddress = validatedAddress
-			self?.viewStatus = .pasteFromClipboardView
-			self?.pasteFromClipboardview.onPaste = {
-				self?.contractTextfieldView.text = validatedAddress
-				self?.addCustomAssetVM.validateContractAddressFromTextField(
-					textFieldText: self?.contractTextfieldView.text ?? "",
-					delay: .none
-				)
-			}
-		}
-	}
-
-	private func setupCustomAssetInfoViewClosure() {
-		addCustomAssetVM.setupCustomAssetInfoViewClosure = { [weak self] in
-			self?.customAssetInfoView?.newAddCustomAssetVM = self?.addCustomAssetVM
-			self?.viewStatus = .success
-		}
-	}
-
-	private func setupfailedToValidateContractAddressClosure() {
-		addCustomAssetVM.failedToValidateContractAddressClosure = { [weak self] error in
-			if error == .isEmpty {
+	private func setupChangeStatusClosure() {
+		addCustomAssetVM.changeViewStatusClosure = { [weak self] currentStatus in
+			switch currentStatus {
+			case .clear:
 				self?.viewStatus = .clearView
-			} else {
-				self?.contractTextfieldView.errorText = error.rawValue
+			case let .pasteFromClipboard(validatedContractAddress):
+				self?.pasteFromClipboardview.contractAddress = validatedContractAddress
+				self?.viewStatus = .pasteFromClipboardView
+				self?.pasteFromClipboardview.onPaste = {
+					self?.contractTextfieldView.text = validatedContractAddress
+					self?.addCustomAssetVM.validateContractAddressFromTextField(
+						textFieldText: self?.contractTextfieldView.text ?? "",
+						delay: .none
+					)
+				}
+			case .pending:
+				self?.viewStatus = .pendingView
+			case let .error(error):
+				self?.contractTextfieldView.errorText = error.description
 				self?.viewStatus = .errorView
+			case .success:
+				self?.customAssetInfoView?.newAddCustomAssetVM = self?.addCustomAssetVM
+				self?.viewStatus = .successView
 			}
-		}
-	}
-
-	private func enableContractAddressTextfieldPendingClosure() {
-		addCustomAssetVM.enableContractAddressTextfieldPendingClosure = { [weak self] in
-			self?.viewStatus = .pending
 		}
 	}
 
@@ -173,7 +159,7 @@ class AddCustomAssetView: UIView {
 			customAssetInfoView?.isHidden = true
 			contractTextfieldView.style = .error
 
-		case .pending:
+		case .pendingView:
 			pasteFromClipboardview.isHidden = true
 			customAssetInfoView?.isHidden = true
 			contractTextfieldView.style = .pending
@@ -183,7 +169,7 @@ class AddCustomAssetView: UIView {
 			pasteFromClipboardview.isHidden = false
 			contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
 
-		case .success:
+		case .successView:
 			pasteFromClipboardview.isHidden = true
 			customAssetInfoView?.isHidden = false
 			contractTextfieldView.style = .success

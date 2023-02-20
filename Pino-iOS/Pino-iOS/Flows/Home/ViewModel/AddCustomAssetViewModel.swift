@@ -10,24 +10,40 @@ import Foundation
 class AddCustomAssetViewModel {
 	// MARK: - Public Enums
 
-	public enum validateTextFieldDelay: Double {
+	public enum ResponseStatus {
+		case clear
+		case pasteFromClipboard(String)
+		case pending
+		case error(FailedToValidateCustomAssetStatus)
+		case success
+	}
+
+	#warning("These values are for testing and should be changed")
+	public enum ValidateTextFieldDelay: Double {
 		case small = 0.5
 		case none = 0.0
 	}
 
-	public enum failedToValidateCustomAssetStatus: String {
-		case isEmpty
-		case notValid = "Address is not an ETH valid address"
-		case networkError = "No internet connection, retrying..."
-		case notValidFromServer = "Custom asset not found"
+	public enum FailedToValidateCustomAssetStatus: Error {
+		case notValid
+		case networkError
+		case notValidFromServer
+
+		public var description: String {
+			switch self {
+			case .notValid:
+				return "Address is not an ETH valid address"
+			case .networkError:
+				return "No internet connection, retrying..."
+			case .notValidFromServer:
+				return "Custom asset not found"
+			}
+		}
 	}
 
 	// MARK: - Closures
 
-	public var setupPasteFromClipboardViewClosure: ((String) -> Void)!
-	public var setupCustomAssetInfoViewClosure: (() -> Void)!
-	public var failedToValidateContractAddressClosure: ((failedToValidateCustomAssetStatus) -> Void)!
-	public var enableContractAddressTextfieldPendingClosure: (() -> Void)!
+	public var changeViewStatusClosure: ((ResponseStatus) -> Void)!
 
 	#warning("Those values are for testing and should be changed")
 
@@ -91,26 +107,27 @@ class AddCustomAssetViewModel {
 			return
 		}
 		if clipboardText.validateETHContractAddress() {
-			setupPasteFromClipboardViewClosure?(clipboardText)
+			changeViewStatusClosure(.pasteFromClipboard(clipboardText))
 		}
 	}
 
-	public func validateContractAddressFromTextField(textFieldText: String, delay: validateTextFieldDelay) {
+	public func validateContractAddressFromTextField(textFieldText: String, delay: ValidateTextFieldDelay) {
 		if textFieldText.isEmpty {
-			failedToValidateContractAddressClosure(.isEmpty)
+			changeViewStatusClosure(.clear)
 			cancelGetCustomAssetRequestWork()
 			return
 		}
 
 		if textFieldText.validateETHContractAddress() {
-			enableContractAddressTextfieldPendingClosure()
+			changeViewStatusClosure(.pending)
 			cancelGetCustomAssetRequestWork()
 			getCustomAssetInfoRequestWork = DispatchWorkItem(block: { [weak self] in
 				self?.getCustomAssetInfo(contractAddress: textFieldText)
 			})
+			#warning("This 2 second delay is for testing and should be removed")
 			DispatchQueue.main.asyncAfter(deadline: .now() + delay.rawValue + 2, execute: getCustomAssetInfoRequestWork)
 		} else {
-			failedToValidateContractAddressClosure(.notValid)
+			changeViewStatusClosure(.error(.notValid))
 			cancelGetCustomAssetRequestWork()
 		}
 	}
@@ -125,7 +142,7 @@ class AddCustomAssetViewModel {
 			website: "www.USDC.com",
 			contractAddress: "0x4108A1698EDB3d3E66aAD93E030dbF28Ea5ABB11"
 		))
-		setupCustomAssetInfoViewClosure()
+		changeViewStatusClosure(.success)
 	}
 
 	private func cancelGetCustomAssetRequestWork() {
