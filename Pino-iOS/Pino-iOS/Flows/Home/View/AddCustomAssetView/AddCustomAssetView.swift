@@ -18,13 +18,15 @@ class AddCustomAssetView: UIView {
 	}
 
 	// Typealias
-	typealias presentAlertClosureType = (_ alertTitle: String, _ alertDescription: String) -> Void
-	typealias dissmissKeyboardClosureType = () -> Void
+	typealias PresentAlertClosureType = (_ alertTitle: String, _ alertDescription: String) -> Void
+	typealias DissmissKeyboardClosureType = () -> Void
+	typealias ToggleNavigationRightButtonEnabledClosureType = (_ isEnabled: Bool) -> Void
 
 	// MARK: - Closure
 
-	var presentAlertClosure: presentAlertClosureType
-	var dissmissKeyboardClosure: dissmissKeyboardClosureType
+	var presentAlertClosure: PresentAlertClosureType
+	var dissmissKeyboardClosure: DissmissKeyboardClosureType
+	var toggleNavigationRightButtonEnabledClosure: ToggleNavigationRightButtonEnabledClosureType
 
 	// MARK: - Private Properties
 
@@ -48,17 +50,20 @@ class AddCustomAssetView: UIView {
 	// MARK: - Initializers
 
 	init(
-		presentAlertClosure: @escaping presentAlertClosureType,
-		dissmissKeybaordClosure: @escaping dissmissKeyboardClosureType,
-		addCustomAssetVM: AddCustomAssetViewModel
+		presentAlertClosure: @escaping PresentAlertClosureType,
+		dissmissKeybaordClosure: @escaping DissmissKeyboardClosureType,
+		addCustomAssetVM: AddCustomAssetViewModel,
+		toggleNavigationRightButtonEnabledClosure: @escaping ToggleNavigationRightButtonEnabledClosureType
 	) {
 		self.presentAlertClosure = presentAlertClosure
 		self.dissmissKeyboardClosure = dissmissKeybaordClosure
 		self.addCustomAssetVM = addCustomAssetVM
+		self.toggleNavigationRightButtonEnabledClosure = toggleNavigationRightButtonEnabledClosure
 		super.init(frame: .zero)
 		setupView()
 		setupConstraints()
 		setupChangeStatusClosure()
+		switchViewStatus()
 	}
 
 	required init?(coder: NSCoder) {
@@ -153,26 +158,36 @@ class AddCustomAssetView: UIView {
 			pasteFromClipboardview.isHidden = true
 			customAssetInfoView?.isHidden = true
 			contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
+			addButton.style = .deactive
+			toggleNavigationRightButtonEnabledClosure(false)
 
 		case .errorView:
 			pasteFromClipboardview.isHidden = true
 			customAssetInfoView?.isHidden = true
 			contractTextfieldView.style = .error
+			addButton.style = .deactive
+			toggleNavigationRightButtonEnabledClosure(false)
 
 		case .pendingView:
 			pasteFromClipboardview.isHidden = true
 			customAssetInfoView?.isHidden = true
 			contractTextfieldView.style = .pending
+			addButton.style = .deactive
+			toggleNavigationRightButtonEnabledClosure(false)
 
 		case .pasteFromClipboardView:
 			customAssetInfoView?.isHidden = true
 			pasteFromClipboardview.isHidden = false
 			contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
+			addButton.style = .deactive
+			toggleNavigationRightButtonEnabledClosure(false)
 
 		case .successView:
 			pasteFromClipboardview.isHidden = true
 			customAssetInfoView?.isHidden = false
 			contractTextfieldView.style = .success
+			addButton.style = .active
+			toggleNavigationRightButtonEnabledClosure(true)
 		}
 	}
 

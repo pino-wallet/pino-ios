@@ -62,7 +62,10 @@ class AddCustomAssetViewController: UIViewController {
 				dissmissKeybaordClosure: { [weak self] in
 					self?.view.endEditing(true)
 				},
-				addCustomAssetVM: addCustomAssetVM
+				addCustomAssetVM: addCustomAssetVM,
+				toggleNavigationRightButtonEnabledClosure: { [weak self] isEnabled in
+					self?.navigationItem.rightBarButtonItem?.isEnabled = isEnabled
+				}
 			)
 		view = addCustomAssetView
 		view.backgroundColor = .Pino.background
@@ -88,6 +91,7 @@ class AddCustomAssetViewController: UIViewController {
 			target: self,
 			action: #selector(addCustomAssetHandler)
 		)
+		navigationItem.rightBarButtonItem?.isEnabled = false
 	}
 
 	private func validateClipboardText() {
