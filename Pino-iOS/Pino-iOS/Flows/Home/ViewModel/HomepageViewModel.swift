@@ -29,9 +29,9 @@ class HomepageViewModel {
 	public let connectionErrorToastMessage = "No internet connection"
 	public let requestFailedErrorToastMessage = "Couldn't refresh home data"
 	public let sendButtonTitle = "Send"
-	public let recieveButtonTitle = "Recieve"
+	public let receiveButtonTitle = "Receive"
 	public let sendButtonImage = "arrow.up"
-	public let recieveButtonImage = "arrow.down"
+	public let receiveButtonImage = "arrow.down"
 
 	// MARK: - Private Properties
 
