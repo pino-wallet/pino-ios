@@ -29,7 +29,7 @@ class ReceiveAssetViewController: UIViewController {
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
-		receiveAssetView.generatedQRCodeImage = generateQRCodeFromString(string: homeVM.walletInfo.address)
+		receiveAssetView.generatedQRCodeImage = homeVM.walletInfo.address.QRCodeImage()
 	}
 
 	// MARK: - Initializers
@@ -48,7 +48,7 @@ class ReceiveAssetViewController: UIViewController {
 	private func setupView() {
 		receiveAssetView = ReceiveAssetView(
 			homeVM: homeVM,
-			presentShareActivityViewControllerClosure: { [weak self] sharedText in
+			presentShareActivityClosure: { [weak self] sharedText in
 				self?.presentShareActivityViewController(sharedText: sharedText)
 			},
 			receiveVM: receiveVM
@@ -79,22 +79,5 @@ class ReceiveAssetViewController: UIViewController {
 	@objc
 	private func dismissVC() {
 		dismiss(animated: true)
-	}
-}
-
-extension ReceiveAssetViewController {
-	fileprivate func generateQRCodeFromString(string: String) -> UIImage! {
-		let data = string.data(using: String.Encoding.ascii)
-
-		if let filter = CIFilter(name: "CIQRCodeGenerator") {
-			filter.setValue(data, forKey: "inputMessage")
-			let transform = CGAffineTransform(scaleX: 3, y: 3)
-
-			if let output = filter.outputImage?.transformed(by: transform) {
-				return UIImage(ciImage: output)
-			}
-		}
-
-		return nil
 	}
 }

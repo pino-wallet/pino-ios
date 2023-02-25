@@ -22,7 +22,7 @@ class ReceiveViewActionButton: UIStackView {
 		}
 	}
 
-	public var onTap: (() -> Void)!
+	public var onTap: () -> Void
 
 	// MARK: - Private Properties
 
@@ -31,9 +31,10 @@ class ReceiveViewActionButton: UIStackView {
 
 	// MARK: - Initializers
 
-	init(iconName: String = "", titleText: String = "") {
+	init(iconName: String = "", titleText: String = "", onTap: @escaping () -> Void = {}) {
 		self.iconName = iconName
 		self.titleText = titleText
+		self.onTap = onTap
 		super.init(frame: .zero)
 		setupView()
 	}
@@ -58,9 +59,7 @@ class ReceiveViewActionButton: UIStackView {
 
 	@objc
 	private func onGestureTap() {
-		if let onTap {
-			onTap()
-		}
+		onTap()
 	}
 }
 

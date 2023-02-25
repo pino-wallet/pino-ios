@@ -10,7 +10,7 @@ import UIKit
 class ReceiveAssetView: UIView {
 	// MARK: Typealias
 
-	typealias presentShareActivityViewControllerClosureType = (_ sharedText: String) -> Void
+	typealias presentShareActivityClosureType = (_ sharedText: String) -> Void
 
 	// MARK: - Public Properties
 
@@ -24,7 +24,7 @@ class ReceiveAssetView: UIView {
 
 	// MARK: - Closure
 
-	public var presentShareActivityViewControllerClosure: presentShareActivityViewControllerClosureType
+	public var presentShareActivityClosure: presentShareActivityClosureType
 
 	// MARK: - Private Properties
 
@@ -44,12 +44,12 @@ class ReceiveAssetView: UIView {
 
 	init(
 		homeVM: HomepageViewModel,
-		presentShareActivityViewControllerClosure: @escaping presentShareActivityViewControllerClosureType,
+		presentShareActivityClosure: @escaping presentShareActivityClosureType,
 		receiveVM: ReceiveViewModel
 	) {
 		self.homeVM = homeVM
 		self.receiveVM = receiveVM
-		self.presentShareActivityViewControllerClosure = presentShareActivityViewControllerClosure
+		self.presentShareActivityClosure = presentShareActivityClosure
 		super.init(frame: .zero)
 		setupView()
 		setupContstraints()
@@ -101,7 +101,7 @@ class ReceiveAssetView: UIView {
 		shareAddressButton.iconName = receiveVM.shareAddressButtonIconName
 		shareAddressButton.titleText = receiveVM.shareAddressButtonText
 		shareAddressButton.onTap = { [weak self] in
-			self?.presentShareActivityViewControllerClosure((self?.homeVM.walletInfo.address)!)
+			self?.presentShareActivityClosure((self?.homeVM.walletInfo.address)!)
 		}
 
 		actionButtonsStackView.axis = .horizontal
