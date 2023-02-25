@@ -12,7 +12,7 @@ class PinoLoading: UIActivityIndicatorView {
 
 	public var size: Int {
 		didSet {
-			setupConstraints()
+			setupFrame()
 		}
 	}
 
@@ -29,7 +29,7 @@ class PinoLoading: UIActivityIndicatorView {
 		self.indicatorColor = indicatorColor
 		super.init(frame: .zero)
 		setupView()
-		setupConstraints()
+		setupFrame()
 		startAnimating()
 	}
 
@@ -43,7 +43,8 @@ class PinoLoading: UIActivityIndicatorView {
 		color = indicatorColor
 	}
 
-	private func setupConstraints() {
-		pin(.fixedHeight(CGFloat(size)), .fixedWidth(CGFloat(size)))
+	private func setupFrame() {
+		let sizeCGFloat = CGFloat(size)
+		frame = CGRectMake(0, 0, sizeCGFloat, sizeCGFloat)
 	}
 }
