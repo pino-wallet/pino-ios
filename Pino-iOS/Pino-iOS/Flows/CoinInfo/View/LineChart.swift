@@ -20,12 +20,14 @@ class LineChart: UIView {
 	private let coinVolatilityInDollor = UILabel()
 	private let dateLabel = UILabel()
 	private let lineChartView = LineChartView()
+	private var chartSegmentedControl: UISegmentedControl!
 
 	private var chartVM: CoinInfoChartViewModel
 	private var chartDataSet: LineChartDataSet!
 
 	init(chartVM: CoinInfoChartViewModel) {
 		self.chartVM = chartVM
+		self.chartSegmentedControl = UISegmentedControl(items: chartVM.dateFilters.map { $0.rawValue })
 		super.init(frame: .zero)
 
 		setupView()
@@ -48,6 +50,7 @@ class LineChart: UIView {
 		infoStackView.addArrangedSubview(dateLabel)
 		chartStackView.addArrangedSubview(infoStackView)
 		chartStackView.addArrangedSubview(lineChartView)
+		chartStackView.addArrangedSubview(chartSegmentedControl)
 		addSubview(chartStackView)
 		chartDataSet = LineChartDataSet(entries: chartVM.chartDataEntry)
 		lineChartView.delegate = self
@@ -89,12 +92,35 @@ class LineChart: UIView {
 
 		volatilityStackView.spacing = 8
 		balanceStackview.spacing = 8
+
+		chartSegmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.Pino.secondaryLabel], for: .normal)
+		chartSegmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.Pino.primary], for: .selected)
+		chartSegmentedControl.setDividerImage(
+			UIImage(),
+			forLeftSegmentState: .normal,
+			rightSegmentState: .normal,
+			barMetrics: .default
+		)
+		chartSegmentedControl.setBackgroundImage(
+			UIImage(named: "segmented_control_background"),
+			for: .normal,
+			barMetrics: .default
+		)
+		chartSegmentedControl.setBackgroundImage(
+			UIImage(named: "segmented_control_selected_background"),
+			for: .selected,
+			barMetrics: .default
+		)
+		chartSegmentedControl.layer.maskedCorners = []
+		chartSegmentedControl.selectedSegmentIndex = 0
+		chartSegmentedControl.addTarget(self, action: #selector(updateChart), for: .valueChanged)
 	}
 
 	public func setupCostraints() {
 		chartStackView.pin(
 			.horizontalEdges,
-			.verticalEdges(padding: 16)
+			.top(padding: 16),
+			.bottom
 		)
 		infoStackView.pin(
 			.horizontalEdges(padding: 16)
@@ -105,33 +131,39 @@ class LineChart: UIView {
 		dateLabel.pin(
 			.relative(.centerY, 0, to: coinBalanceLabel, .centerY)
 		)
+
+		chartSegmentedControl.pin(
+			.horizontalEdges(padding: 16),
+			.fixedHeight(35)
+		)
 	}
 
 	private func setupLineChart() {
 		lineChartView.drawGridBackgroundEnabled = false
 		chartDataSet.setColor(.Pino.green3)
+
 		chartDataSet.drawCirclesEnabled = false
 		chartDataSet.lineWidth = 2
 		chartDataSet.mode = .cubicBezier
 		chartDataSet.fillAlpha = 0.5
 		if let chartGradient = CGGradient(
 			colorsSpace: CGColorSpaceCreateDeviceRGB(),
-			colors: [UIColor.Pino.green2.cgColor, UIColor.Pino.secondaryBackground.cgColor] as CFArray,
+			colors: [UIColor.Pino.lightBlue.cgColor, UIColor.Pino.secondaryBackground.cgColor] as CFArray,
 			locations: [1, 0]
 		) {
 			chartDataSet.fill = LinearGradientFill(gradient: chartGradient, angle: 90)
 		}
 		chartDataSet.drawFilledEnabled = true
-		//        chartDataSet.highlightColor = .Pino.green1
-		//        chartDataSet.drawCircleHoleEnabled = false
-		//        chartDataSet.highlightEnabled = true
+		chartDataSet.highlightColor = .Pino.green2
+		chartDataSet.drawCircleHoleEnabled = false
+		chartDataSet.highlightEnabled = true
 		lineChartView.xAxis.drawGridLinesEnabled = false
 		lineChartView.leftAxis.drawGridLinesEnabled = false
 		lineChartView.rightAxis.drawGridLinesEnabled = false
 		lineChartView.xAxis.drawAxisLineEnabled = false
 		lineChartView.leftAxis.drawAxisLineEnabled = false
 		lineChartView.rightAxis.drawAxisLineEnabled = false
-
+		lineChartView.legend.enabled = false
 		lineChartView.data = LineChartData(dataSets: [chartDataSet])
 
 		let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressDetected))
@@ -141,6 +173,25 @@ class LineChart: UIView {
 
 	@objc
 	private func longPressDetected() {}
+
+	@objc
+	private func updateChart(sender: UISegmentedControl) {
+		switch sender.selectedSegmentIndex {
+		case 0:
+			chartVM.updateChartData(by: .hour)
+		case 1:
+			chartVM.updateChartData(by: .day)
+		case 2:
+			chartVM.updateChartData(by: .week)
+		case 3:
+			chartVM.updateChartData(by: .month)
+		case 4:
+			chartVM.updateChartData(by: .year)
+		case 5:
+			chartVM.updateChartData(by: .all)
+		default: break
+		}
+	}
 }
 
 extension LineChart: ChartViewDelegate {}

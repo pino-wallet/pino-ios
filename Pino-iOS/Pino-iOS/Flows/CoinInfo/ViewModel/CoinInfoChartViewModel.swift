@@ -20,6 +20,7 @@ class CoinInfoChartViewModel {
 	// MARK: - Public Properties
 
 	public var chartDataEntry: [ChartDataEntry]!
+	public var dateFilters: [ChartDateFilter]!
 
 	public var balance: String {
 		"$\(coinInfoChartModel.balance)"
@@ -79,7 +80,12 @@ class CoinInfoChartViewModel {
 
 	init() {
 		getChartInfo()
+		setDateFilters()
 	}
+
+	// MARK: - Public Methods
+
+	public func updateChartData(by dateFilter: ChartDateFilter) {}
 
 	// MARK: - Private Methods
 
@@ -98,11 +104,25 @@ class CoinInfoChartViewModel {
 		chartDataEntry = [
 			ChartDataEntry(x: 0, y: 0),
 			ChartDataEntry(x: 1, y: 1),
-			ChartDataEntry(x: 2, y: 0),
-			ChartDataEntry(x: 3, y: 3),
+			ChartDataEntry(x: 2, y: 0.5),
+			ChartDataEntry(x: 3, y: 1.5),
 			ChartDataEntry(x: 4, y: 1),
 			ChartDataEntry(x: 5, y: 2),
-			ChartDataEntry(x: 6, y: 1),
+			ChartDataEntry(x: 6, y: 0.5),
+			ChartDataEntry(x: 7, y: 1),
+			ChartDataEntry(x: 8, y: 0),
+			ChartDataEntry(x: 9, y: 2),
+		]
+	}
+
+	private func setDateFilters() {
+		dateFilters = [
+			.hour,
+			.day,
+			.week,
+			.month,
+			.year,
+			.all,
 		]
 	}
 }
