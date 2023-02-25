@@ -6,6 +6,7 @@
 //
 
 import Charts
+import Combine
 import UIKit
 
 class LineChart: UIView {
@@ -22,17 +23,27 @@ class LineChart: UIView {
 	private let lineChartView = LineChartView()
 	private var chartSegmentedControl: UISegmentedControl!
 
-	private var chartVM: CoinInfoChartViewModel
 	private var chartDataSet: LineChartDataSet!
+	private var cancellables = Set<AnyCancellable>()
+	private var dateFilterChanged: (ChartDateFilter) -> Void
 
-	init(chartVM: CoinInfoChartViewModel) {
+	// MARK: - Public Properties
+
+	@Published
+	public var chartVM: AssetChartViewModel
+
+	// MARK: Initializers
+
+	init(chartVM: AssetChartViewModel, dateFilterChanged: @escaping (ChartDateFilter) -> Void) {
 		self.chartVM = chartVM
+		self.dateFilterChanged = dateFilterChanged
 		self.chartSegmentedControl = UISegmentedControl(items: chartVM.dateFilters.map { $0.rawValue })
 		super.init(frame: .zero)
 
 		setupView()
 		setupStyle()
 		setupCostraints()
+		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -58,22 +69,10 @@ class LineChart: UIView {
 
 	private func setupStyle() {
 		setupLineChart()
-		coinBalanceLabel.text = chartVM.balance
-		coinVolatilityPersentage.text = chartVM.volatilityPercentage
-		coinVolatilityInDollor.text = chartVM.volatilityInDollor
-		dateLabel.text = "June 7,2022"
 
 		coinBalanceLabel.textColor = .Pino.label
 		coinVolatilityInDollor.textColor = .Pino.secondaryLabel
 		dateLabel.textColor = .Pino.secondaryLabel
-		switch chartVM.volatilityType {
-		case .profit:
-			coinVolatilityPersentage.textColor = .Pino.green
-		case .loss:
-			coinVolatilityPersentage.textColor = .Pino.red
-		case .none:
-			coinVolatilityPersentage.textColor = .Pino.secondaryLabel
-		}
 
 		coinBalanceLabel.font = .PinoStyle.semiboldTitle1
 		coinVolatilityInDollor.font = .PinoStyle.mediumSubheadline
@@ -138,6 +137,24 @@ class LineChart: UIView {
 		)
 	}
 
+	private func setupBindings() {
+		$chartVM.sink { chart in
+			self.coinBalanceLabel.text = chart.balance
+			self.coinVolatilityPersentage.text = chart.volatilityPercentage
+			self.coinVolatilityInDollor.text = chart.volatilityInDollor
+			self.dateLabel.text = chart.chartDate
+			switch chart.volatilityType {
+			case .profit:
+				self.coinVolatilityPersentage.textColor = .Pino.green
+			case .loss:
+				self.coinVolatilityPersentage.textColor = .Pino.red
+			case .none:
+				self.coinVolatilityPersentage.textColor = .Pino.secondaryLabel
+			}
+
+		}.store(in: &cancellables)
+	}
+
 	private func setupLineChart() {
 		lineChartView.drawGridBackgroundEnabled = false
 		chartDataSet.setColor(.Pino.green3)
@@ -178,17 +195,17 @@ class LineChart: UIView {
 	private func updateChart(sender: UISegmentedControl) {
 		switch sender.selectedSegmentIndex {
 		case 0:
-			chartVM.updateChartData(by: .hour)
+			dateFilterChanged(.hour)
 		case 1:
-			chartVM.updateChartData(by: .day)
+			dateFilterChanged(.day)
 		case 2:
-			chartVM.updateChartData(by: .week)
+			dateFilterChanged(.week)
 		case 3:
-			chartVM.updateChartData(by: .month)
+			dateFilterChanged(.month)
 		case 4:
-			chartVM.updateChartData(by: .year)
+			dateFilterChanged(.year)
 		case 5:
-			chartVM.updateChartData(by: .all)
+			dateFilterChanged(.all)
 		default: break
 		}
 	}

@@ -3,10 +3,46 @@
     "volatility_in_dollor": "1,03",
     "volatility_percentage": "0.4",
     "volatility_type": "profit",
-    "website": "Something.com",
-    "market_cap": "465,836,000",
-    "valume": "19,476,500",
-    "circulating_supply": "4,933,588",
-    "total_suply": "4,933,588",
-    "explorer_url": "https://www.google.com"
+    "chart_data": [
+        {
+            "networth": 0,
+            "time": "0"
+        },
+        {
+            "networth": 1,
+            "time": "1"
+        },
+        {
+            "networth": 0.5,
+            "time": "2"
+        },
+        {
+            "networth": 1.5,
+            "time": "3"
+        },
+        {
+            "networth": 1,
+            "time": "4"
+        },
+        {
+            "networth": 2,
+            "time": "5"
+        },
+        {
+            "networth": 0.5,
+            "time": "6"
+        },
+        {
+            "networth": 1,
+            "time": "7"
+        },
+        {
+            "networth": 0,
+            "time": "8"
+        },
+        {
+            "networth": 2,
+            "time": "9"
+        }
+    ]
 }

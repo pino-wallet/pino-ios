@@ -15,81 +15,22 @@ class CoinInfoChartViewModel {
 	private var assetsAPIClient = AssetsAPIMockClient()
 	private var cancellables = Set<AnyCancellable>()
 
-	private var coinInfoChartModel: CoinInfoChartModel!
-
 	// MARK: - Public Properties
 
-	public var chartDataEntry: [ChartDataEntry]!
-	public var dateFilters: [ChartDateFilter]!
-
-	public var balance: String {
-		"$\(coinInfoChartModel.balance)"
-	}
-
-	public var volatilityInDollor: String {
-		switch volatilityType {
-		case .profit:
-			return "+$\(coinInfoChartModel.volatilityInDollor)"
-		case .loss:
-			return "-$\(coinInfoChartModel.volatilityInDollor)"
-		case .none:
-			return "$\(coinInfoChartModel.volatilityInDollor)"
-		}
-	}
-
-	public var volatilityPercentage: String {
-		switch volatilityType {
-		case .profit:
-			return "+\(coinInfoChartModel.volatilityPercentage)%"
-		case .loss:
-			return "-\(coinInfoChartModel.volatilityPercentage)%"
-		case .none:
-			return "\(coinInfoChartModel.volatilityPercentage)%"
-		}
-	}
-
-	public var volatilityType: AssetVolatilityType {
-		AssetVolatilityType(rawValue: coinInfoChartModel.volatilityType) ?? .none
-	}
-
-	public var website: (key: String, value: String) {
-		(key: "Website", value: coinInfoChartModel.website)
-	}
-
-	public var marketCap: (key: String, value: String) {
-		(key: "Market Cap", value: "$\(coinInfoChartModel.marketCap)")
-	}
-
-	public var Valume: (key: String, value: String) {
-		(key: "Valume (24h)", value: coinInfoChartModel.valume)
-	}
-
-	public var circulatingSupply: (key: String, value: String) {
-		(key: "Circulating supply", value: coinInfoChartModel.circulatingSupply)
-	}
-
-	public var totalSuply: (key: String, value: String) {
-		(key: "Total supply", value: coinInfoChartModel.totalSuply)
-	}
-
-	public var explorerURL: String {
-		coinInfoChartModel.explorerURL
-	}
+	@Published
+	public var chartVM: AssetChartViewModel!
+	public var aboutCoinVM: AboutCoinViewModel!
 
 	// MARK: - Initializers
 
 	init() {
-		getChartInfo()
-		setDateFilters()
+		getChartData()
+		getAboutCoin()
 	}
-
-	// MARK: - Public Methods
-
-	public func updateChartData(by dateFilter: ChartDateFilter) {}
 
 	// MARK: - Private Methods
 
-	private func getChartInfo() {
+	private func getChartData() {
 		assetsAPIClient.coinInfoChart().sink { completed in
 			switch completed {
 			case .finished:
@@ -98,31 +39,33 @@ class CoinInfoChartViewModel {
 				print(error)
 			}
 		} receiveValue: { [weak self] chartModel in
-			self?.coinInfoChartModel = chartModel
+			self?.chartVM = AssetChartViewModel(chartModel: chartModel, dateFilter: .hour)
 		}.store(in: &cancellables)
-
-		chartDataEntry = [
-			ChartDataEntry(x: 0, y: 0),
-			ChartDataEntry(x: 1, y: 1),
-			ChartDataEntry(x: 2, y: 0.5),
-			ChartDataEntry(x: 3, y: 1.5),
-			ChartDataEntry(x: 4, y: 1),
-			ChartDataEntry(x: 5, y: 2),
-			ChartDataEntry(x: 6, y: 0.5),
-			ChartDataEntry(x: 7, y: 1),
-			ChartDataEntry(x: 8, y: 0),
-			ChartDataEntry(x: 9, y: 2),
-		]
 	}
 
-	private func setDateFilters() {
-		dateFilters = [
-			.hour,
-			.day,
-			.week,
-			.month,
-			.year,
-			.all,
-		]
+	private func getAboutCoin() {
+		assetsAPIClient.aboutCoin().sink { completed in
+			switch completed {
+			case .finished:
+				print("Coin info received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { [weak self] aboutCoin in
+			self?.aboutCoinVM = AboutCoinViewModel(aboutCoin: aboutCoin)
+		}.store(in: &cancellables)
+	}
+
+	public func updateChartData(by dateFilter: ChartDateFilter) {
+		assetsAPIClient.coinInfoChart().sink { completed in
+			switch completed {
+			case .finished:
+				print("Chart info received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { [weak self] chartModel in
+			self?.chartVM = AssetChartViewModel(chartModel: chartModel, dateFilter: dateFilter)
+		}.store(in: &cancellables)
 	}
 }
