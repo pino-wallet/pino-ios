@@ -92,6 +92,10 @@ class AddCustomAssetViewController: UIViewController {
 			action: #selector(addCustomAssetHandler)
 		)
 		navigationItem.rightBarButtonItem?.isEnabled = false
+		navigationItem.rightBarButtonItem?.setTitleTextAttributes(
+			[NSAttributedString.Key.foregroundColor: UIColor.Pino.gray2],
+			for: .disabled
+		)
 	}
 
 	private func validateClipboardText() {

@@ -153,34 +153,28 @@ class AddCustomAssetView: UIView {
 	}
 
 	private func switchViewStatus() {
+		toggleNavigationRightButtonEnabledClosure(false)
+		addButton.style = .deactive
 		switch viewStatus {
 		case .clearView:
 			pasteFromClipboardview.isHidden = true
 			customAssetInfoView?.isHidden = true
 			contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
-			addButton.style = .deactive
-			toggleNavigationRightButtonEnabledClosure(false)
 
 		case .errorView:
 			pasteFromClipboardview.isHidden = true
 			customAssetInfoView?.isHidden = true
 			contractTextfieldView.style = .error
-			addButton.style = .deactive
-			toggleNavigationRightButtonEnabledClosure(false)
 
 		case .pendingView:
 			pasteFromClipboardview.isHidden = true
 			customAssetInfoView?.isHidden = true
 			contractTextfieldView.style = .pending
-			addButton.style = .deactive
-			toggleNavigationRightButtonEnabledClosure(false)
 
 		case .pasteFromClipboardView:
 			customAssetInfoView?.isHidden = true
 			pasteFromClipboardview.isHidden = false
 			contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
-			addButton.style = .deactive
-			toggleNavigationRightButtonEnabledClosure(false)
 
 		case .successView:
 			pasteFromClipboardview.isHidden = true
