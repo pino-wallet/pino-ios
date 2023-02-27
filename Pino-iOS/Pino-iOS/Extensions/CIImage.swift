@@ -4,6 +4,8 @@
 //
 //  Created by Amir hossein kazemi seresht on 2/27/23.
 //
+// Source = https://www.avanderlee.com/swift/qr-code-generation-swift/
+
 import UIKit
 
 extension CIImage {
