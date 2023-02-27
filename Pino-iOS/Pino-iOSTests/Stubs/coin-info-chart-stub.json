@@ -1,48 +1,290 @@
-{
-    "balance": "30,022",
-    "volatility_in_dollor": "1,03",
-    "volatility_percentage": "0.4",
-    "volatility_type": "profit",
-    "chart_data": [
-        {
-            "networth": 0,
-            "time": "0"
-        },
-        {
-            "networth": 1,
-            "time": "1"
-        },
-        {
-            "networth": 0.5,
-            "time": "2"
-        },
-        {
-            "networth": 1.5,
-            "time": "3"
-        },
-        {
-            "networth": 1,
-            "time": "4"
-        },
-        {
-            "networth": 2,
-            "time": "5"
-        },
-        {
-            "networth": 0.5,
-            "time": "6"
-        },
-        {
-            "networth": 1,
-            "time": "7"
-        },
-        {
-            "networth": 0,
-            "time": "8"
-        },
-        {
-            "networth": 2,
-            "time": "9"
-        }
-    ]
-}
+[
+    {
+        "balance": "30,022",
+        "volatility_in_dollor": "1,03",
+        "volatility_percentage": "0.4",
+        "volatility_type": "profit",
+        "chart_data": [
+            {
+                "networth": 10,
+                "time": "0"
+            },
+            {
+                "networth": 110,
+                "time": "1"
+            },
+            {
+                "networth": 50,
+                "time": "2"
+            },
+            {
+                "networth": 160,
+                "time": "3"
+            },
+            {
+                "networth": 110,
+                "time": "4"
+            },
+            {
+                "networth": 200,
+                "time": "5"
+            },
+            {
+                "networth": 50,
+                "time": "6"
+            },
+            {
+                "networth": 100,
+                "time": "7"
+            },
+            {
+                "networth": 10,
+                "time": "8"
+            },
+            {
+                "networth": 210,
+                "time": "9"
+            }
+        ]
+    },
+    {
+        "balance": "10,102",
+        "volatility_in_dollor": "1,26",
+        "volatility_percentage": "0.6",
+        "volatility_type": "profit",
+        "chart_data": [
+            {
+                "networth": 140,
+                "time": "0"
+            },
+            {
+                "networth": 100,
+                "time": "1"
+            },
+            {
+                "networth": 160,
+                "time": "2"
+            },
+            {
+                "networth": 60,
+                "time": "3"
+            },
+            {
+                "networth": 80,
+                "time": "4"
+            },
+            {
+                "networth": 30,
+                "time": "5"
+            },
+            {
+                "networth": 110,
+                "time": "6"
+            },
+            {
+                "networth": 50,
+                "time": "7"
+            },
+            {
+                "networth": 90,
+                "time": "8"
+            },
+            {
+                "networth": 40,
+                "time": "9"
+            }
+        ]
+    },
+    {
+        "balance": "20,013",
+        "volatility_in_dollor": "0,94",
+        "volatility_percentage": "0.08",
+        "volatility_type": "profit",
+        "chart_data": [
+            {
+                "networth": 0,
+                "time": "0"
+            },
+            {
+                "networth": 100,
+                "time": "1"
+            },
+            {
+                "networth": 60,
+                "time": "2"
+            },
+            {
+                "networth": 190,
+                "time": "3"
+            },
+            {
+                "networth": 110,
+                "time": "4"
+            },
+            {
+                "networth": 200,
+                "time": "5"
+            },
+            {
+                "networth": 70,
+                "time": "6"
+            },
+            {
+                "networth": 90,
+                "time": "7"
+            },
+            {
+                "networth": 10,
+                "time": "8"
+            },
+            {
+                "networth": 115,
+                "time": "9"
+            }
+        ]
+    },
+    {
+        "balance": "11,022",
+        "volatility_in_dollor": "0.36",
+        "volatility_percentage": "0.04",
+        "volatility_type": "loss",
+        "chart_data": [
+            {
+                "networth": 10,
+                "time": "0"
+            },
+            {
+                "networth": 30,
+                "time": "1"
+            },
+            {
+                "networth": 50,
+                "time": "2"
+            },
+            {
+                "networth": 160,
+                "time": "3"
+            },
+            {
+                "networth": 110,
+                "time": "4"
+            },
+            {
+                "networth": 200,
+                "time": "5"
+            },
+            {
+                "networth": 50,
+                "time": "6"
+            },
+            {
+                "networth": 100,
+                "time": "7"
+            },
+            {
+                "networth": 10,
+                "time": "8"
+            },
+            {
+                "networth": 210,
+                "time": "9"
+            }
+        ]
+    },
+    {
+        "balance": "28,202",
+        "volatility_in_dollor": "2,03",
+        "volatility_percentage": "1.2",
+        "volatility_type": "profit",
+        "chart_data": [
+            {
+                "networth": 150,
+                "time": "0"
+            },
+            {
+                "networth": 110,
+                "time": "1"
+            },
+            {
+                "networth": 50,
+                "time": "2"
+            },
+            {
+                "networth": 160,
+                "time": "3"
+            },
+            {
+                "networth": 110,
+                "time": "4"
+            },
+            {
+                "networth": 200,
+                "time": "5"
+            },
+            {
+                "networth": 50,
+                "time": "6"
+            },
+            {
+                "networth": 100,
+                "time": "7"
+            },
+            {
+                "networth": 10,
+                "time": "8"
+            },
+            {
+                "networth": 210,
+                "time": "9"
+            }
+        ]
+    },
+    {
+        "balance": "9,022",
+        "volatility_in_dollor": "0.13",
+        "volatility_percentage": "0.06",
+        "volatility_type": "loss",
+        "chart_data": [
+            {
+                "networth": 60,
+                "time": "0"
+            },
+            {
+                "networth": 30,
+                "time": "1"
+            },
+            {
+                "networth": 50,
+                "time": "2"
+            },
+            {
+                "networth": 160,
+                "time": "3"
+            },
+            {
+                "networth": 110,
+                "time": "4"
+            },
+            {
+                "networth": 200,
+                "time": "5"
+            },
+            {
+                "networth": 50,
+                "time": "6"
+            },
+            {
+                "networth": 100,
+                "time": "7"
+            },
+            {
+                "networth": 10,
+                "time": "8"
+            },
+            {
+                "networth": 210,
+                "time": "9"
+            }
+        ]
+    }
+]

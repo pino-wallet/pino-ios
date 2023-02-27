@@ -38,8 +38,8 @@ class CoinInfoChartViewModel {
 			case let .failure(error):
 				print(error)
 			}
-		} receiveValue: { [weak self] chartModel in
-			self?.chartVM = AssetChartViewModel(chartModel: chartModel, dateFilter: .hour)
+		} receiveValue: { [weak self] chartModelList in
+			self?.chartVM = AssetChartViewModel(chartModel: chartModelList.first!, dateFilter: .hour)
 		}.store(in: &cancellables)
 	}
 
@@ -64,7 +64,22 @@ class CoinInfoChartViewModel {
 			case let .failure(error):
 				print(error)
 			}
-		} receiveValue: { [weak self] chartModel in
+		} receiveValue: { [weak self] chartModelList in
+			var chartModel: AssetChartModel
+			switch dateFilter {
+			case .hour:
+				chartModel = chartModelList[0]
+			case .day:
+				chartModel = chartModelList[1]
+			case .week:
+				chartModel = chartModelList[2]
+			case .month:
+				chartModel = chartModelList[3]
+			case .year:
+				chartModel = chartModelList[4]
+			case .all:
+				chartModel = chartModelList[5]
+			}
 			self?.chartVM = AssetChartViewModel(chartModel: chartModel, dateFilter: dateFilter)
 		}.store(in: &cancellables)
 	}

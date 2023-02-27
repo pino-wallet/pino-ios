@@ -47,10 +47,10 @@ class CoinInfoChartView: UIView {
 			self.coinInfoChartVM.updateChartData(by: dateFilter)
 		})
 		contentStackview.addArrangedSubview(cardStackView)
-		contentStackview.addArrangedSubview(viewInExplorerButton)
 		cardStackView.addArrangedSubview(chartCardView)
 		cardStackView.addArrangedSubview(infoCardView)
 		contentView.addSubview(contentStackview)
+		contentView.addSubview(viewInExplorerButton)
 		scrollView.addSubview(contentView)
 		addSubview(scrollView)
 		infoCardView.addSubview(infoStackView)
@@ -89,9 +89,11 @@ class CoinInfoChartView: UIView {
 		cardStackView.axis = .vertical
 		infoStackView.axis = .vertical
 
-		contentStackview.spacing = 75
+//		contentStackview.spacing = 75
 		cardStackView.spacing = 24
 		infoStackView.spacing = 14
+
+		viewInExplorerButton.contentMode = .bottom
 
 		infoCardView.layer.cornerRadius = 12
 		chartCardView.layer.cornerRadius = 12
@@ -99,7 +101,7 @@ class CoinInfoChartView: UIView {
 
 	private func setupContstraint() {
 		scrollView.pin(
-			.allEdges
+			.allEdges()
 		)
 		contentView.pin(
 			.allEdges,
@@ -107,8 +109,7 @@ class CoinInfoChartView: UIView {
 		)
 		contentStackview.pin(
 			.horizontalEdges(padding: 16),
-			.top(padding: 24),
-			.bottom
+			.top(padding: 24)
 		)
 		chartCardView.pin(
 			.fixedHeight(300)
@@ -117,8 +118,21 @@ class CoinInfoChartView: UIView {
 			.verticalEdges(padding: 15),
 			.horizontalEdges
 		)
+		lineChart.pin(
+			.allEdges
+		)
+		viewInExplorerButton.pin(
+			.centerX,
+			.bottom(padding: 16)
+		)
 
-		lineChart.pin(.allEdges)
+		NSLayoutConstraint.activate([
+			contentView.heightAnchor.constraint(greaterThanOrEqualTo: heightAnchor, constant: -90),
+			viewInExplorerButton.topAnchor.constraint(
+				greaterThanOrEqualTo: contentStackview.bottomAnchor,
+				constant: 20
+			),
+		])
 	}
 
 	private func setupBindings() {

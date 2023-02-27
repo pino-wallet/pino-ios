@@ -21,6 +21,7 @@ class LineChart: UIView {
 	private let coinVolatilityInDollor = UILabel()
 	private let dateLabel = UILabel()
 	private let lineChartView = LineChartView()
+	private let chartPointer = UIImageView()
 	private var chartSegmentedControl: UISegmentedControl!
 
 	private var chartDataSet: LineChartDataSet!
@@ -63,13 +64,13 @@ class LineChart: UIView {
 		chartStackView.addArrangedSubview(lineChartView)
 		chartStackView.addArrangedSubview(chartSegmentedControl)
 		addSubview(chartStackView)
-		chartDataSet = LineChartDataSet(entries: chartVM.chartDataEntry)
+		addSubview(chartPointer)
 		lineChartView.delegate = self
 	}
 
 	private func setupStyle() {
-		setupLineChart()
-
+		chartPointer.image = UIImage(systemName: "circle.fill")
+		chartPointer.tintColor = .Pino.primary
 		coinBalanceLabel.textColor = .Pino.label
 		coinVolatilityInDollor.textColor = .Pino.secondaryLabel
 		dateLabel.textColor = .Pino.secondaryLabel
@@ -113,6 +114,8 @@ class LineChart: UIView {
 		chartSegmentedControl.layer.maskedCorners = []
 		chartSegmentedControl.selectedSegmentIndex = 0
 		chartSegmentedControl.addTarget(self, action: #selector(updateChart), for: .valueChanged)
+
+		chartPointer.isHidden = true
 	}
 
 	public func setupCostraints() {
@@ -135,6 +138,11 @@ class LineChart: UIView {
 			.horizontalEdges(padding: 16),
 			.fixedHeight(35)
 		)
+
+		chartPointer.pin(
+			.fixedWidth(10),
+			.fixedHeight(10)
+		)
 	}
 
 	private func setupBindings() {
@@ -152,6 +160,8 @@ class LineChart: UIView {
 				self.coinVolatilityPersentage.textColor = .Pino.secondaryLabel
 			}
 
+			self.chartDataSet = LineChartDataSet(entries: chart.chartDataEntry)
+			self.setupLineChart()
 		}.store(in: &cancellables)
 	}
 
@@ -173,23 +183,38 @@ class LineChart: UIView {
 		chartDataSet.drawFilledEnabled = true
 		chartDataSet.highlightColor = .Pino.green2
 		chartDataSet.drawCircleHoleEnabled = false
-		chartDataSet.highlightEnabled = true
-		lineChartView.xAxis.drawGridLinesEnabled = false
-		lineChartView.leftAxis.drawGridLinesEnabled = false
-		lineChartView.rightAxis.drawGridLinesEnabled = false
-		lineChartView.xAxis.drawAxisLineEnabled = false
-		lineChartView.leftAxis.drawAxisLineEnabled = false
-		lineChartView.rightAxis.drawAxisLineEnabled = false
+
+		lineChartView.xAxis.enabled = false
+		lineChartView.leftAxis.enabled = false
+		lineChartView.rightAxis.enabled = false
+
 		lineChartView.legend.enabled = false
 		lineChartView.data = LineChartData(dataSets: [chartDataSet])
+		lineChartView.data?.setDrawValues(false)
+		lineChartView.doubleTapToZoomEnabled = false
+		lineChartView.pinchZoomEnabled = false
+		lineChartView.setScaleEnabled(false)
 
 		let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressDetected))
 		longPressGesture.allowableMovement = 50
+		longPressGesture.delegate = self
 		lineChartView.addGestureRecognizer(longPressGesture)
+
+		let marker = BalloonMarker(
+			color: .Pino.green1,
+			font: .PinoStyle.mediumFootnote!,
+			textColor: .Pino.primary
+		)
+		marker.chartView = lineChartView
+		lineChartView.marker = marker
 	}
 
 	@objc
-	private func longPressDetected() {}
+	private func longPressDetected(gesture: UILongPressGestureRecognizer) {
+		guard let point = lineChartView.getHighlightByTouchPoint(gesture.location(in: lineChartView)) else { return }
+		chartPointer.center = CGPoint(x: point.xPx, y: point.yPx)
+		lineChartView.highlightValue(x: point.x, dataSetIndex: point.dataSetIndex)
+	}
 
 	@objc
 	private func updateChart(sender: UISegmentedControl) {
@@ -211,4 +236,11 @@ class LineChart: UIView {
 	}
 }
 
-extension LineChart: ChartViewDelegate {}
+extension LineChart: ChartViewDelegate, UIGestureRecognizerDelegate {
+	func gestureRecognizer(
+		_ gestureRecognizer: UIGestureRecognizer,
+		shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
+	) -> Bool {
+		true
+	}
+}
