@@ -56,6 +56,8 @@ class CoinInfoChartViewModel {
 		}.store(in: &cancellables)
 	}
 
+	// MARK: - Public Methods
+
 	public func updateChartData(by dateFilter: ChartDateFilter) {
 		assetsAPIClient.coinInfoChart().sink { completed in
 			switch completed {
@@ -66,6 +68,7 @@ class CoinInfoChartViewModel {
 			}
 		} receiveValue: { [weak self] chartModelList in
 			var chartModel: AssetChartModel
+			#warning("It is temporary and must be replaced by API data")
 			switch dateFilter {
 			case .hour:
 				chartModel = chartModelList[0]

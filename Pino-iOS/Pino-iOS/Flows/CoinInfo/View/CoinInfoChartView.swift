@@ -89,7 +89,6 @@ class CoinInfoChartView: UIView {
 		cardStackView.axis = .vertical
 		infoStackView.axis = .vertical
 
-//		contentStackview.spacing = 75
 		cardStackView.spacing = 24
 		infoStackView.spacing = 14
 
