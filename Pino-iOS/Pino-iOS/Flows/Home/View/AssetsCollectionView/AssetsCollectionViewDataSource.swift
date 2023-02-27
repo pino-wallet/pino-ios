@@ -91,6 +91,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 				for: indexPath
 			) as! WalletBalanceHeaderView
 			walletBalanceHeaderView.homeVM = homeVM
+			walletBalanceHeaderView.portfolioPerformanceTapped = portfolioPerformanceTapped
 			return walletBalanceHeaderView
 
 		case .position:

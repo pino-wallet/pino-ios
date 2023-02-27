@@ -18,6 +18,7 @@ class AssetsCollectionView: UICollectionView {
 
 	public var manageAssetButtonTapped: () -> Void
 	public var assetTapped: (AssetViewModel) -> Void
+	internal var portfolioPerformanceTapped: () -> Void
 
 	// MARK: - Internal Properties
 
@@ -29,11 +30,13 @@ class AssetsCollectionView: UICollectionView {
 	init(
 		homeVM: HomepageViewModel,
 		manageAssetButtonTapped: @escaping () -> Void,
-		assetTapped: @escaping (AssetViewModel) -> Void
+		assetTapped: @escaping (AssetViewModel) -> Void,
+		portfolioPerformanceTapped: @escaping () -> Void
 	) {
 		self.homeVM = homeVM
 		self.manageAssetButtonTapped = manageAssetButtonTapped
 		self.assetTapped = assetTapped
+		self.portfolioPerformanceTapped = portfolioPerformanceTapped
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 
