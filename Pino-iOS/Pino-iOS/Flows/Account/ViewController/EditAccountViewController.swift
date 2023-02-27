@@ -40,8 +40,10 @@ class EditAccountViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		editAccountView = EditAccountView(walletVM: selectedWallet, newAvatarTapped: {
-			self.openAvatarPage()
+		editAccountView = EditAccountView(walletVM: selectedWallet, newAvatarTapped: { [weak self] in
+			self?.openAvatarPage()
+		}, navigateToRemoveAccountPageClosure: { [weak self] in
+			self?.openRemoveAccountPage()
 		})
 		view = editAccountView
 	}
@@ -90,5 +92,12 @@ class EditAccountViewController: UIViewController {
 			self.editAccountView.newAvatar = avatarName
 		}
 		navigationController?.pushViewController(changeAvatarVC, animated: true)
+	}
+
+	private func openRemoveAccountPage() {
+		let navigationVC = UINavigationController()
+		let removeAccountVC = RemoveAccountViewController()
+		navigationVC.viewControllers = [removeAccountVC]
+		present(navigationVC, animated: true)
 	}
 }
