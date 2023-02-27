@@ -36,7 +36,7 @@ extension String {
 		let data = data(using: String.Encoding.ascii)
 		if let QRFilter = CIFilter(name: "CIQRCodeGenerator") {
 			QRFilter.setValue(data, forKey: "inputMessage")
-			guard var QRImage = QRFilter.outputImage else { return nil }
+			guard var QRImage = QRFilter.outputImage else { fatalError("Cant generate qrcode image") }
 			QRImage = QRImage.tinted(using: UIColor.Pino.primary)!
 			return UIImage(ciImage: QRImage)
 		}
