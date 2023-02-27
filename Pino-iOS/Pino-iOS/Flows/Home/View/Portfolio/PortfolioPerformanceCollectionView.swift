@@ -10,6 +10,8 @@ import UIKit
 class PortfolioPerformanceCollectionView: UICollectionView {
 	// MARK: Private Properties
 
+	private let portfolioPerformanceVM = PortfolioPerformanceViewModel()
+
 	// MARK: Public Properties
 
 	public var assetSelected: () -> Void
@@ -34,13 +36,13 @@ class PortfolioPerformanceCollectionView: UICollectionView {
 
 	private func configCollectionView() {
 		register(
-			GroupCollectionViewCell.self,
-			forCellWithReuseIdentifier: "s"
+			PortfolioPerformanceCell.self,
+			forCellWithReuseIdentifier: PortfolioPerformanceCell.cellReuseID
 		)
 		register(
-			AccountHeaderView.self,
+			PortfolioPerformanceHeaderView.self,
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-			withReuseIdentifier: AccountHeaderView.headerReuseID
+			withReuseIdentifier: PortfolioPerformanceHeaderView.headerReuseID
 		)
 
 		dataSource = self
@@ -63,7 +65,7 @@ extension PortfolioPerformanceCollectionView: UICollectionViewDelegateFlowLayout
 		layout collectionViewLayout: UICollectionViewLayout,
 		sizeForItemAt indexPath: IndexPath
 	) -> CGSize {
-		CGSize(width: collectionView.frame.width, height: 66)
+		CGSize(width: collectionView.frame.width, height: 68)
 	}
 }
 
@@ -87,9 +89,10 @@ extension PortfolioPerformanceCollectionView: UICollectionViewDataSource {
 		cellForItemAt indexPath: IndexPath
 	) -> UICollectionViewCell {
 		let assetCell = dequeueReusableCell(
-			withReuseIdentifier: "s",
+			withReuseIdentifier: PortfolioPerformanceCell.cellReuseID,
 			for: indexPath
-		) as! GroupCollectionViewCell
+		) as! PortfolioPerformanceCell
+		assetCell.assetVM = ""
 		assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: 5)
 		return assetCell
 	}
@@ -103,9 +106,10 @@ extension PortfolioPerformanceCollectionView: UICollectionViewDataSource {
 		case UICollectionView.elementKindSectionHeader:
 			let chartHedear = dequeueReusableSupplementaryView(
 				ofKind: kind,
-				withReuseIdentifier: AccountHeaderView.headerReuseID,
+				withReuseIdentifier: PortfolioPerformanceHeaderView.headerReuseID,
 				for: indexPath
-			) as! AccountHeaderView
+			) as! PortfolioPerformanceHeaderView
+			chartHedear.portfolioPerformanceVM = portfolioPerformanceVM
 			return chartHedear
 		default:
 			fatalError("Invalid element type")
@@ -117,6 +121,16 @@ extension PortfolioPerformanceCollectionView: UICollectionViewDataSource {
 		layout collectionViewLayout: UICollectionViewLayout,
 		referenceSizeForHeaderInSection section: Int
 	) -> CGSize {
-		CGSize(width: collectionView.frame.width, height: 490)
+		let indexPath = IndexPath(row: 0, section: section)
+		let headerView = self.collectionView(
+			collectionView,
+			viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader,
+			at: indexPath
+		)
+		return headerView.systemLayoutSizeFitting(
+			CGSize(width: collectionView.frame.width, height: UIView.layoutFittingExpandedSize.height),
+			withHorizontalFittingPriority: .required,
+			verticalFittingPriority: .fittingSizeLevel
+		)
 	}
 }
