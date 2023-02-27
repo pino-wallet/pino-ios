@@ -34,16 +34,12 @@ extension String {
 
 	public func QRCodeImage() -> UIImage! {
 		let data = data(using: String.Encoding.ascii)
-
-		if let filter = CIFilter(name: "CIQRCodeGenerator") {
-			filter.setValue(data, forKey: "inputMessage")
-			let transform = CGAffineTransform(scaleX: 3, y: 3)
-
-			if let output = filter.outputImage?.transformed(by: transform) {
-				return UIImage(ciImage: output)
-			}
+		if let QRFilter = CIFilter(name: "CIQRCodeGenerator") {
+			QRFilter.setValue(data, forKey: "inputMessage")
+			guard var QRImage = QRFilter.outputImage else { return nil }
+			QRImage = QRImage.tinted(using: UIColor.Pino.primary)!
+			return UIImage(ciImage: QRImage)
 		}
-
 		return nil
 	}
 }

@@ -105,7 +105,7 @@ class ReceiveAssetView: UIView {
 		}
 
 		actionButtonsStackView.axis = .horizontal
-		actionButtonsStackView.spacing = 40
+		actionButtonsStackView.spacing = 60
 		actionButtonsStackView.addArrangedSubview(copyAddressButton)
 		actionButtonsStackView.addArrangedSubview(shareAddressButton)
 
