@@ -36,7 +36,7 @@ class PortfolioPerformanceViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = CoinInfoChartView(coinInfoChartVM: coinInfoChartVM)
+		view = PortfolioPerformanceCollectionView(assetSelected: {})
 	}
 
 	private func setupNavigationBar() {
