@@ -45,7 +45,7 @@ class RemoveAccountViewController: UIViewController {
 
 	private func presentConfirmRemoveAccountAlert() {
 		let confirmRemoveAccountAlert = UIAlertController(
-			title: "Are you sure you want to remove your account?",
+			title: removeAccountVM.confirmActionSheetTitle,
 			message: removeAccountVM.confirmActionSheetDescriptionText,
 			preferredStyle: .alert
 		)
