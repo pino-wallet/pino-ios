@@ -44,19 +44,13 @@ class RemoveAccountViewController: UIViewController {
 	}
 
 	private func presentConfirmRemoveAccountAlert() {
-		let confirmRemoveAccountAlert = UIAlertController(
+		#warning("this handler is for testing and should be changed")
+		let confirmRemoveAccountAlert = AlertHelper.alertController(
 			title: removeAccountVM.confirmActionSheetTitle,
 			message: removeAccountVM.confirmActionSheetDescriptionText,
-			preferredStyle: .alert
+			actions: [.cancel(), .delete(handler: { _ in print("Removed!") })]
 		)
-		confirmRemoveAccountAlert
-			.addAction(UIAlertAction(title: removeAccountVM.dismissActionsheetButtonTitle, style: .cancel))
-		#warning("this handler is for testing and should be changed")
-		confirmRemoveAccountAlert.addAction(UIAlertAction(
-			title: removeAccountVM.confirmActionSheetButtonTitle,
-			style: .destructive,
-			handler: { _ in print("removed!") }
-		))
+
 		present(confirmRemoveAccountAlert, animated: true)
 	}
 
