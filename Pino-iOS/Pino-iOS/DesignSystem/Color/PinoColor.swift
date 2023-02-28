@@ -40,7 +40,6 @@ extension UIColor {
 		static let gray4 = UIColor(named: "Gray 4 Color") ?? UIColor.systemGray4
 		static let gray5 = UIColor(named: "Gray 5 Color") ?? UIColor.systemGray5
 		static let gray6 = UIColor(named: "Gray 6 Color") ?? UIColor.systemGray6
-		static let gray7 = UIColor(named: "Gray 7 Color") ?? UIColor.systemGray
 
 		// MARK: - Green
 
