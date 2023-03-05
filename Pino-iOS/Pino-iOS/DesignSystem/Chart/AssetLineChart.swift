@@ -92,8 +92,14 @@ class AssetLineChart: UIView {
 		volatilityStackView.spacing = 8
 		balanceStackview.spacing = 8
 
-		chartDateFilter.setTitleTextAttributes([.foregroundColor: UIColor.Pino.secondaryLabel], for: .normal)
-		chartDateFilter.setTitleTextAttributes([.foregroundColor: UIColor.Pino.primary], for: .selected)
+		chartDateFilter.setTitleTextAttributes([
+			.foregroundColor: UIColor.Pino.secondaryLabel,
+			.font: UIFont.PinoStyle.mediumCaption1!,
+		], for: .normal)
+		chartDateFilter.setTitleTextAttributes([
+			.foregroundColor: UIColor.Pino.primary,
+			.font: UIFont.PinoStyle.semiboldCaption1!,
+		], for: .selected)
 		chartDateFilter.setDividerImage(
 			UIImage(),
 			forLeftSegmentState: .normal,
@@ -165,20 +171,6 @@ class AssetLineChart: UIView {
 
 	@objc
 	private func updateChart(sender: UISegmentedControl) {
-		switch sender.selectedSegmentIndex {
-		case 0:
-			dateFilterChanged(.hour)
-		case 1:
-			dateFilterChanged(.day)
-		case 2:
-			dateFilterChanged(.week)
-		case 3:
-			dateFilterChanged(.month)
-		case 4:
-			dateFilterChanged(.year)
-		case 5:
-			dateFilterChanged(.all)
-		default: break
-		}
+		dateFilterChanged(chartVM.dateFilters[sender.selectedSegmentIndex])
 	}
 }
