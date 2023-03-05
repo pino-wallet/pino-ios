@@ -36,7 +36,11 @@ class PortfolioPerformanceViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = PortfolioPerformanceCollectionView(assetSelected: {})
+		let portfolioPerformaneVM = PortfolioPerformanceViewModel()
+		view = PortfolioPerformanceCollectionView(
+			portfolioPerformanceVM: portfolioPerformaneVM,
+			assetSelected: {}
+		)
 	}
 
 	private func setupNavigationBar() {

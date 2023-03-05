@@ -18,11 +18,13 @@ class PortfolioPerformanceViewModel {
 
 	@Published
 	public var chartVM: AssetChartViewModel!
+	public var shareOfAssetsVM: [ShareOfAssetsViewModel]!
 
 	// MARK: - Initializers
 
 	init() {
 		getChartData()
+		getShareOfAssets()
 	}
 
 	// MARK: - Public Methods
@@ -68,6 +70,19 @@ class PortfolioPerformanceViewModel {
 			}
 		} receiveValue: { [weak self] chartModelList in
 			self?.chartVM = AssetChartViewModel(chartModel: chartModelList.first!, dateFilter: .hour)
+		}.store(in: &cancellables)
+	}
+
+	private func getShareOfAssets() {
+		assetsAPIClient.assets().sink { completed in
+			switch completed {
+			case .finished:
+				print("Share of assets received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { [weak self] assets in
+			self?.shareOfAssetsVM = assets.assetsList.compactMap { ShareOfAssetsViewModel(assetModel: $0) }
 		}.store(in: &cancellables)
 	}
 }

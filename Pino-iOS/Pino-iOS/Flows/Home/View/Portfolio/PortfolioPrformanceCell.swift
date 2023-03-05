@@ -18,13 +18,13 @@ class PortfolioPerformanceCell: GroupCollectionViewCell {
 	private let assetName = UILabel()
 	private let assetAmount = UILabel()
 	private let assetAmountPercentage = UILabel()
-	private let progressBackgroundView = UIView()
+	private let progressView = UIProgressView()
 
 	// MARK: Public Properties
 
 	public static let cellReuseID = "portfolioPerformanceCell"
 
-	public var assetVM: String! {
+	public var assetVM: ShareOfAssetsViewModel! {
 		didSet {
 			setupView()
 			setupStyle()
@@ -42,17 +42,19 @@ class PortfolioPerformanceCell: GroupCollectionViewCell {
 		amountStackView.addArrangedSubview(progressStackView)
 		titleStackView.addArrangedSubview(assetName)
 		titleStackView.addArrangedSubview(assetAmount)
-		progressStackView.addArrangedSubview(progressBackgroundView)
+		progressStackView.addArrangedSubview(progressView)
 		progressStackView.addArrangedSubview(assetAmountPercentage)
 	}
 
 	private func setupStyle() {
-		assetName.text = "DAI"
-		assetAmount.text = "$342.93"
-		assetAmountPercentage.text = "30%"
-		assetImage.image = UIImage(named: "DAI")
+		assetName.text = assetVM.assetName
+		assetAmount.text = assetVM.assetAmount
+		assetAmountPercentage.text = assetVM.amountPercentage
+		assetImage.image = UIImage(named: assetVM.assetImage)
 
-		progressBackgroundView.backgroundColor = .Pino.green
+		progressView.setProgress(assetVM.progressBarValue, animated: false)
+		progressView.progressTintColor = .Pino.green
+		progressView.trackTintColor = .Pino.clear
 
 		assetName.textColor = .Pino.label
 		assetAmount.textColor = .Pino.label
@@ -81,11 +83,12 @@ class PortfolioPerformanceCell: GroupCollectionViewCell {
 			.horizontalEdges(padding: 14),
 			.centerY
 		)
-		progressBackgroundView.pin(
+		progressView.pin(
 			.fixedHeight(3)
 		)
-		titleStackView.pin(
-			.top(padding: 5)
+		assetImage.pin(
+			.fixedWidth(40),
+			.fixedHeight(40)
 		)
 	}
 }

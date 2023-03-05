@@ -10,7 +10,7 @@ import UIKit
 class PortfolioPerformanceCollectionView: UICollectionView {
 	// MARK: Private Properties
 
-	private let portfolioPerformanceVM = PortfolioPerformanceViewModel()
+	private let portfolioPerformanceVM: PortfolioPerformanceViewModel
 
 	// MARK: Public Properties
 
@@ -18,7 +18,8 @@ class PortfolioPerformanceCollectionView: UICollectionView {
 
 	// MARK: Initializers
 
-	init(assetSelected: @escaping () -> Void) {
+	init(portfolioPerformanceVM: PortfolioPerformanceViewModel, assetSelected: @escaping () -> Void) {
+		self.portfolioPerformanceVM = portfolioPerformanceVM
 		self.assetSelected = assetSelected
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
@@ -81,7 +82,7 @@ extension PortfolioPerformanceCollectionView: UICollectionViewDelegate {
 
 extension PortfolioPerformanceCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		5
+		portfolioPerformanceVM.shareOfAssetsVM.count
 	}
 
 	func collectionView(
@@ -92,8 +93,8 @@ extension PortfolioPerformanceCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: PortfolioPerformanceCell.cellReuseID,
 			for: indexPath
 		) as! PortfolioPerformanceCell
-		assetCell.assetVM = ""
-		assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: 5)
+		assetCell.assetVM = portfolioPerformanceVM.shareOfAssetsVM[indexPath.item]
+		assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: portfolioPerformanceVM.shareOfAssetsVM.count)
 		return assetCell
 	}
 
