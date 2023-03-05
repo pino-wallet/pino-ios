@@ -25,8 +25,8 @@ class CoinPerformanceView: UIView {
 	private let infoStackView = UIStackView()
 	private let moreInfoTitle = UILabel()
 	private var lineChart: LineChart!
-	private let coinPerformanceVM: CoinPerformanceViewModel
 
+	private let coinPerformanceVM: CoinPerformanceViewModel
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
@@ -112,7 +112,8 @@ class CoinPerformanceView: UIView {
 		)
 		contentStackview.pin(
 			.horizontalEdges(padding: 16),
-			.top(padding: 24)
+			.top(padding: 24),
+			.bottom
 		)
 		chartCardView.pin(
 			.fixedHeight(423)

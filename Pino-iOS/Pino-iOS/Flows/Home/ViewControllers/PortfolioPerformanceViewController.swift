@@ -67,6 +67,7 @@ class PortfolioPerformanceViewController: UIViewController {
 
 	private func openCoinPerformancePage() {
 		let coinPerformanceVC = CoinPerformanceViewController()
+		coinPerformanceVC.modalPresentationStyle = .automatic
 		let navigationVC = UINavigationController(rootViewController: coinPerformanceVC)
 		present(navigationVC, animated: true)
 	}
