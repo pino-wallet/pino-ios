@@ -1,15 +1,15 @@
 //
-//  LineChart.swift
+//  PinoLineChart.swift
 //  Pino-iOS
 //
-//  Created by Mohi Raoufi on 2/20/23.
+//  Created by Mohi Raoufi on 3/5/23.
 //
 
 import Charts
 import Combine
 import UIKit
 
-class LineChart: UIView {
+class AssetLineChart: UIView {
 	// MARK: - Private Properties
 
 	private let balanceStackview = UIStackView()
@@ -20,10 +20,10 @@ class LineChart: UIView {
 	private let coinVolatilityPersentage = UILabel()
 	private let coinVolatilityInDollor = UILabel()
 	private let dateLabel = UILabel()
-	private let lineChartView = LineChartView()
 	private let chartPointer = UIImageView()
 	private var chartDateFilter: UISegmentedControl!
 
+	private let lineChartView = PinoLineChart(chartDataEntries: [])
 	private var chartDataSet: LineChartDataSet!
 	private var cancellables = Set<AnyCancellable>()
 	private var dateFilterChanged: (ChartDateFilter) -> Void
@@ -65,7 +65,6 @@ class LineChart: UIView {
 		chartStackView.addArrangedSubview(chartDateFilter)
 		addSubview(chartStackView)
 		addSubview(chartPointer)
-		lineChartView.delegate = self
 	}
 
 	private func setupStyle() {
@@ -160,60 +159,8 @@ class LineChart: UIView {
 				self.coinVolatilityPersentage.textColor = .Pino.secondaryLabel
 			}
 
-			self.chartDataSet = LineChartDataSet(entries: chart.chartDataEntry)
-			self.setupLineChart()
+			self.lineChartView.chartDataEntries = chart.chartDataEntry
 		}.store(in: &cancellables)
-	}
-
-	private func setupLineChart() {
-		lineChartView.drawGridBackgroundEnabled = false
-		chartDataSet.setColor(.Pino.green3)
-
-		chartDataSet.drawCirclesEnabled = false
-		chartDataSet.lineWidth = 2
-		chartDataSet.mode = .cubicBezier
-		chartDataSet.fillAlpha = 0.5
-		if let chartGradient = CGGradient(
-			colorsSpace: CGColorSpaceCreateDeviceRGB(),
-			colors: [UIColor.Pino.lightBlue.cgColor, UIColor.Pino.secondaryBackground.cgColor] as CFArray,
-			locations: [1, 0]
-		) {
-			chartDataSet.fill = LinearGradientFill(gradient: chartGradient, angle: 90)
-		}
-		chartDataSet.drawFilledEnabled = true
-		chartDataSet.highlightColor = .Pino.green2
-		chartDataSet.drawCircleHoleEnabled = false
-
-		lineChartView.xAxis.enabled = false
-		lineChartView.leftAxis.enabled = false
-		lineChartView.rightAxis.enabled = false
-
-		lineChartView.legend.enabled = false
-		lineChartView.data = LineChartData(dataSets: [chartDataSet])
-		lineChartView.data?.setDrawValues(false)
-		lineChartView.doubleTapToZoomEnabled = false
-		lineChartView.pinchZoomEnabled = false
-		lineChartView.setScaleEnabled(false)
-
-		let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressDetected))
-		longPressGesture.allowableMovement = 50
-		longPressGesture.delegate = self
-		lineChartView.addGestureRecognizer(longPressGesture)
-
-		let marker = BalloonMarker(
-			color: .Pino.green1,
-			font: .PinoStyle.mediumFootnote!,
-			textColor: .Pino.primary
-		)
-		marker.chartView = lineChartView
-		lineChartView.marker = marker
-	}
-
-	@objc
-	private func longPressDetected(gesture: UILongPressGestureRecognizer) {
-		guard let point = lineChartView.getHighlightByTouchPoint(gesture.location(in: lineChartView)) else { return }
-		chartPointer.center = CGPoint(x: point.xPx, y: point.yPx)
-		lineChartView.highlightValue(x: point.x, dataSetIndex: point.dataSetIndex)
 	}
 
 	@objc
@@ -233,14 +180,5 @@ class LineChart: UIView {
 			dateFilterChanged(.all)
 		default: break
 		}
-	}
-}
-
-extension LineChart: ChartViewDelegate, UIGestureRecognizerDelegate {
-	func gestureRecognizer(
-		_ gestureRecognizer: UIGestureRecognizer,
-		shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
-	) -> Bool {
-		true
 	}
 }

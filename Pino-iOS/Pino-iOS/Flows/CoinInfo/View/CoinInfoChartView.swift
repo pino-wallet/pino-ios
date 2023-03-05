@@ -20,7 +20,7 @@ class CoinInfoChartView: UIView {
 	private let infoCardView = UIView()
 	private let infoStackView = UIStackView()
 	private let viewInExplorerButton = UIButton()
-	private var lineChart: LineChart!
+	private var assetLineChart: AssetLineChart!
 	private let coinInfoChartVM: CoinInfoChartViewModel
 
 	private var cancellables = Set<AnyCancellable>()
@@ -43,7 +43,7 @@ class CoinInfoChartView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		lineChart = LineChart(chartVM: coinInfoChartVM.chartVM, dateFilterChanged: { dateFilter in
+		assetLineChart = AssetLineChart(chartVM: coinInfoChartVM.chartVM, dateFilterChanged: { dateFilter in
 			self.coinInfoChartVM.updateChartData(by: dateFilter)
 		})
 		contentStackview.addArrangedSubview(cardStackView)
@@ -54,7 +54,7 @@ class CoinInfoChartView: UIView {
 		scrollView.addSubview(contentView)
 		addSubview(scrollView)
 		infoCardView.addSubview(infoStackView)
-		chartCardView.addSubview(lineChart)
+		chartCardView.addSubview(assetLineChart)
 
 		infoStackView.addArrangedSubview(ChartInfoItem(item: coinInfoChartVM.aboutCoinVM.website))
 		infoStackView.addArrangedSubview(ChartInfoItem(item: coinInfoChartVM.aboutCoinVM.marketCap))
@@ -117,7 +117,7 @@ class CoinInfoChartView: UIView {
 			.verticalEdges(padding: 15),
 			.horizontalEdges
 		)
-		lineChart.pin(
+		assetLineChart.pin(
 			.allEdges
 		)
 		viewInExplorerButton.pin(
@@ -136,7 +136,7 @@ class CoinInfoChartView: UIView {
 
 	private func setupBindings() {
 		coinInfoChartVM.$chartVM.sink { chart in
-			self.lineChart.chartVM = chart!
+			self.assetLineChart.chartVM = chart!
 		}.store(in: &cancellables)
 	}
 }
