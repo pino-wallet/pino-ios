@@ -43,8 +43,8 @@ class CoinInfoItem: UIView {
 		itemValueLabel.text = item.value
 
 		backgroundColor = .Pino.clear
-		itemTitleLabel.textColor = .Pino.label
-		itemValueLabel.textColor = .Pino.gray2
+		itemTitleLabel.textColor = .Pino.secondaryLabel
+		itemValueLabel.textColor = .Pino.label
 
 		itemTitleLabel.font = .PinoStyle.mediumBody
 		itemValueLabel.font = .PinoStyle.mediumBody

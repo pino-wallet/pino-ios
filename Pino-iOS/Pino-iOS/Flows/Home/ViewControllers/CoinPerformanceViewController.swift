@@ -10,7 +10,7 @@ import UIKit
 class CoinPerformanceViewController: UIViewController {
 	// MARK: Private Properties
 
-	private let coinPerformanceVM = CoinInfoChartViewModel()
+	private let coinPerformanceVM = CoinPerformanceViewModel()
 
 	// MARK: Initializers
 
@@ -36,7 +36,7 @@ class CoinPerformanceViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = CoinPerformanceView(coinPerformanceVM: coinInfoChartVM)
+		view = CoinPerformanceView(coinPerformanceVM: coinPerformanceVM)
 	}
 
 	private func setupNavigationBar() {
