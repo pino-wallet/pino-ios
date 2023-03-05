@@ -39,7 +39,9 @@ class PortfolioPerformanceViewController: UIViewController {
 		let portfolioPerformaneVM = PortfolioPerformanceViewModel()
 		view = PortfolioPerformanceCollectionView(
 			portfolioPerformanceVM: portfolioPerformaneVM,
-			assetSelected: {}
+			assetSelected: {
+				self.openCoinPerformancePage()
+			}
 		)
 	}
 
@@ -61,5 +63,11 @@ class PortfolioPerformanceViewController: UIViewController {
 	@objc
 	private func closePage() {
 		dismiss(animated: true)
+	}
+
+	private func openCoinPerformancePage() {
+		let coinPerformanceVC = CoinPerformanceViewController()
+		let navigationVC = UINavigationController(rootViewController: coinPerformanceVC)
+		present(navigationVC, animated: true)
 	}
 }
