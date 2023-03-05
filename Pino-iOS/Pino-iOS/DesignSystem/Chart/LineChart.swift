@@ -22,7 +22,7 @@ class LineChart: UIView {
 	private let dateLabel = UILabel()
 	private let lineChartView = LineChartView()
 	private let chartPointer = UIImageView()
-	private var chartSegmentedControl: UISegmentedControl!
+	private var chartDateFilter: UISegmentedControl!
 
 	private var chartDataSet: LineChartDataSet!
 	private var cancellables = Set<AnyCancellable>()
@@ -38,7 +38,7 @@ class LineChart: UIView {
 	init(chartVM: AssetChartViewModel, dateFilterChanged: @escaping (ChartDateFilter) -> Void) {
 		self.chartVM = chartVM
 		self.dateFilterChanged = dateFilterChanged
-		self.chartSegmentedControl = UISegmentedControl(items: chartVM.dateFilters.map { $0.rawValue })
+		self.chartDateFilter = UISegmentedControl(items: chartVM.dateFilters.map { $0.rawValue })
 		super.init(frame: .zero)
 
 		setupView()
@@ -62,7 +62,7 @@ class LineChart: UIView {
 		infoStackView.addArrangedSubview(dateLabel)
 		chartStackView.addArrangedSubview(infoStackView)
 		chartStackView.addArrangedSubview(lineChartView)
-		chartStackView.addArrangedSubview(chartSegmentedControl)
+		chartStackView.addArrangedSubview(chartDateFilter)
 		addSubview(chartStackView)
 		addSubview(chartPointer)
 		lineChartView.delegate = self
@@ -93,27 +93,27 @@ class LineChart: UIView {
 		volatilityStackView.spacing = 8
 		balanceStackview.spacing = 8
 
-		chartSegmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.Pino.secondaryLabel], for: .normal)
-		chartSegmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.Pino.primary], for: .selected)
-		chartSegmentedControl.setDividerImage(
+		chartDateFilter.setTitleTextAttributes([.foregroundColor: UIColor.Pino.secondaryLabel], for: .normal)
+		chartDateFilter.setTitleTextAttributes([.foregroundColor: UIColor.Pino.primary], for: .selected)
+		chartDateFilter.setDividerImage(
 			UIImage(),
 			forLeftSegmentState: .normal,
 			rightSegmentState: .normal,
 			barMetrics: .default
 		)
-		chartSegmentedControl.setBackgroundImage(
+		chartDateFilter.setBackgroundImage(
 			UIImage(named: "segmented_control_background"),
 			for: .normal,
 			barMetrics: .default
 		)
-		chartSegmentedControl.setBackgroundImage(
+		chartDateFilter.setBackgroundImage(
 			UIImage(named: "segmented_control_selected_background"),
 			for: .selected,
 			barMetrics: .default
 		)
-		chartSegmentedControl.layer.maskedCorners = []
-		chartSegmentedControl.selectedSegmentIndex = 0
-		chartSegmentedControl.addTarget(self, action: #selector(updateChart), for: .valueChanged)
+		chartDateFilter.layer.maskedCorners = []
+		chartDateFilter.selectedSegmentIndex = 0
+		chartDateFilter.addTarget(self, action: #selector(updateChart), for: .valueChanged)
 
 		chartPointer.isHidden = true
 	}
@@ -134,7 +134,7 @@ class LineChart: UIView {
 			.relative(.centerY, 0, to: coinBalanceLabel, .centerY)
 		)
 
-		chartSegmentedControl.pin(
+		chartDateFilter.pin(
 			.horizontalEdges(padding: 16),
 			.fixedHeight(35)
 		)

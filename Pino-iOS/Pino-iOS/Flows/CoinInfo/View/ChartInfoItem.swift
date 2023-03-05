@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChartInfoItems: UIView {
+class ChartInfoItem: UIView {
 	// MARK: - Private Properties
 
 	private let cellStackView = UIStackView()

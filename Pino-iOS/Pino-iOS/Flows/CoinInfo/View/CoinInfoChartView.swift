@@ -56,12 +56,12 @@ class CoinInfoChartView: UIView {
 		infoCardView.addSubview(infoStackView)
 		chartCardView.addSubview(lineChart)
 
-		infoStackView.addArrangedSubview(ChartInfoItems(item: coinInfoChartVM.aboutCoinVM.website))
-		infoStackView.addArrangedSubview(ChartInfoItems(item: coinInfoChartVM.aboutCoinVM.marketCap))
-		infoStackView.addArrangedSubview(ChartInfoItems(item: coinInfoChartVM.aboutCoinVM.Valume))
-		infoStackView.addArrangedSubview(ChartInfoItems(item: coinInfoChartVM.aboutCoinVM.circulatingSupply))
+		infoStackView.addArrangedSubview(ChartInfoItem(item: coinInfoChartVM.aboutCoinVM.website))
+		infoStackView.addArrangedSubview(ChartInfoItem(item: coinInfoChartVM.aboutCoinVM.marketCap))
+		infoStackView.addArrangedSubview(ChartInfoItem(item: coinInfoChartVM.aboutCoinVM.Valume))
+		infoStackView.addArrangedSubview(ChartInfoItem(item: coinInfoChartVM.aboutCoinVM.circulatingSupply))
 		infoStackView
-			.addArrangedSubview(ChartInfoItems(item: coinInfoChartVM.aboutCoinVM.totalSuply, separatorIsHidden: true))
+			.addArrangedSubview(ChartInfoItem(item: coinInfoChartVM.aboutCoinVM.totalSuply, separatorIsHidden: true))
 
 		viewInExplorerButton.addAction(UIAction(handler: { _ in
 			if let url = URL(string: self.coinInfoChartVM.aboutCoinVM.explorerURL) {
