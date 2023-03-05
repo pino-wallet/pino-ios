@@ -17,6 +17,10 @@ class CoinPerformanceView: UIView {
 	private let contentStackview = UIStackView()
 	private let moreInfoStackView = UIStackView()
 	private let chartCardView = UIView()
+	private let chartStackView = UIStackView()
+	private let coinImage = UIImageView()
+	private let coinName = UILabel()
+	private let separatorLine = UIView()
 	private let infoCardView = UIView()
 	private let infoStackView = UIStackView()
 	private let moreInfoTitle = UILabel()
@@ -54,7 +58,11 @@ class CoinPerformanceView: UIView {
 		scrollView.addSubview(contentView)
 		addSubview(scrollView)
 		infoCardView.addSubview(infoStackView)
-		chartCardView.addSubview(lineChart)
+		chartCardView.addSubview(chartStackView)
+		chartStackView.addArrangedSubview(coinImage)
+		chartStackView.addArrangedSubview(coinName)
+		chartStackView.addArrangedSubview(separatorLine)
+		chartStackView.addArrangedSubview(lineChart)
 
 		infoStackView.addArrangedSubview(CoinInfoItem(item: coinPerformanceVM.coinInfoVM.netProfit))
 		infoStackView.addArrangedSubview(CoinInfoItem(item: coinPerformanceVM.coinInfoVM.allTimeHigh))
@@ -62,18 +70,33 @@ class CoinPerformanceView: UIView {
 	}
 
 	private func setupStyle() {
+		moreInfoTitle.text = "More info"
+		coinName.text = coinPerformanceVM.coinInfoVM.name
+		coinImage.image = UIImage(named: coinPerformanceVM.coinInfoVM.image)
+
 		backgroundColor = .Pino.background
 		chartCardView.backgroundColor = .Pino.secondaryBackground
 		infoCardView.backgroundColor = .Pino.secondaryBackground
 		contentView.backgroundColor = .Pino.clear
 		scrollView.backgroundColor = .Pino.clear
+		separatorLine.backgroundColor = .Pino.gray6
+
+		moreInfoTitle.textColor = .Pino.label
+		coinName.textColor = .Pino.label
+
+		moreInfoTitle.font = .PinoStyle.semiboldTitle3
+		coinName.font = .PinoStyle.semiboldTitle2
 
 		contentStackview.axis = .vertical
 		moreInfoStackView.axis = .vertical
 		infoStackView.axis = .vertical
+		chartStackView.axis = .vertical
 
 		contentStackview.spacing = 32
 		moreInfoStackView.spacing = 8
+		chartStackView.spacing = 16
+
+		chartStackView.alignment = .center
 
 		infoCardView.layer.cornerRadius = 12
 		chartCardView.layer.cornerRadius = 12
@@ -98,8 +121,21 @@ class CoinPerformanceView: UIView {
 			.verticalEdges(padding: 2),
 			.horizontalEdges
 		)
+		chartStackView.pin(
+			.horizontalEdges,
+			.top(padding: 16),
+			.bottom
+		)
+		coinImage.pin(
+			.fixedWidth(48),
+			.fixedHeight(48)
+		)
+		separatorLine.pin(
+			.fixedHeight(1),
+			.horizontalEdges
+		)
 		lineChart.pin(
-			.allEdges
+			.horizontalEdges
 		)
 	}
 
