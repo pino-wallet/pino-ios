@@ -92,9 +92,9 @@ class CoinPerformanceView: UIView {
 		infoStackView.axis = .vertical
 		chartStackView.axis = .vertical
 
-		contentStackview.spacing = 32
-		moreInfoStackView.spacing = 8
-		chartStackView.spacing = 16
+		contentStackview.spacing = 34
+		moreInfoStackView.spacing = 10
+		chartStackView.spacing = 18
 
 		chartStackView.alignment = .center
 
@@ -112,14 +112,14 @@ class CoinPerformanceView: UIView {
 		)
 		contentStackview.pin(
 			.horizontalEdges(padding: 16),
-			.top(padding: 24),
+			.top(padding: 22),
 			.bottom
 		)
 		chartCardView.pin(
-			.fixedHeight(423)
+			.fixedHeight(425)
 		)
 		infoStackView.pin(
-			.verticalEdges(padding: 2),
+			.verticalEdges(padding: 10),
 			.horizontalEdges
 		)
 		chartStackView.pin(
@@ -136,7 +136,8 @@ class CoinPerformanceView: UIView {
 			.horizontalEdges
 		)
 		lineChart.pin(
-			.horizontalEdges
+			.horizontalEdges,
+			.top(to: separatorLine, padding: 5)
 		)
 	}
 

@@ -57,7 +57,8 @@ class CoinInfoItem: UIView {
 
 	private func setupContstraint() {
 		contentStackView.pin(
-			.allEdges(padding: 16)
+			.horizontalEdges(padding: 14),
+			.verticalEdges(padding: 11)
 		)
 	}
 }
