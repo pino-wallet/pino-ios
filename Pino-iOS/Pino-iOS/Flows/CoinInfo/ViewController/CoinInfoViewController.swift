@@ -44,7 +44,7 @@ class CoinInfoViewController: UIViewController {
 
 	private func setupNavigationBar() {
 		// Setup appreance for navigation bar
-		setupPrimaryColorNavigationBar()
+		navigationController?.navigationBar.backgroundColor = .Pino.primary
 		navigationController?.navigationBar.tintColor = .Pino.white
 		// Setup title view
 		setNavigationTitle("\(coinInfoVM.coinPortfolio.name)")
@@ -60,7 +60,7 @@ class CoinInfoViewController: UIViewController {
 			image: UIImage(named: "chart"),
 			style: .plain,
 			target: self,
-			action: nil
+			action: #selector(openCoinInfoChartPage)
 		)
 	}
 
@@ -75,5 +75,11 @@ class CoinInfoViewController: UIViewController {
 			description: coinInfoVM.infoActionSheetDescription
 		)
 		present(actionSheet, animated: true)
+	}
+
+	@objc
+	private func openCoinInfoChartPage() {
+		let coinInfoChartVC = CoinInfoChartViewController()
+		navigationController!.pushViewController(coinInfoChartVC, animated: true)
 	}
 }
