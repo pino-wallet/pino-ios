@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Foundation
 import UIKit
 
 class WalletBalanceHeaderView: UICollectionReusableView {
@@ -20,9 +21,9 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 	private var volatilityInDollarLabel = UILabel()
 	private var volatilitySeparatorLine = UIView()
 	private var volatilityDetailButton = UIImageView()
-	private var sendRecieveStackView = UIStackView()
+	private var sendReceiveStackView = UIStackView()
 	private var sendButton = PinoButton(style: .active)
-	private var recieveButton = PinoButton(style: .secondary)
+	private var receiveButton = PinoButton(style: .secondary)
 	private var showBalanceButton = UIButton()
 	private var cancellables = Set<AnyCancellable>()
 
@@ -40,6 +41,9 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 		}
 	}
 
+	public var receiveButtonTappedClosure: (() -> Void)!
+	public var sendButtonTappedClosure: (() -> Void)!
+
 	// MARK: - Private Methods
 
 	private func setupView() {
@@ -53,23 +57,23 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 		volatilityStackView.addArrangedSubview(volatilityInDollarLabel)
 		volatilityStackView.addArrangedSubview(volatilityDetailButton)
 		volatilityView.addSubview(volatilityStackView)
-		sendRecieveStackView.addArrangedSubview(sendButton)
-		sendRecieveStackView.addArrangedSubview(recieveButton)
+		sendReceiveStackView.addArrangedSubview(sendButton)
+		sendReceiveStackView.addArrangedSubview(receiveButton)
 		contentStackView.addArrangedSubview(balanceStackView)
-		contentStackView.addArrangedSubview(sendRecieveStackView)
+		contentStackView.addArrangedSubview(sendReceiveStackView)
 		addSubview(contentStackView)
 	}
 
 	private func setupStyle() {
 		sendButton.title = homeVM.sendButtonTitle
-		recieveButton.title = homeVM.recieveButtonTitle
+		receiveButton.title = homeVM.receiveButtonTitle
 		showBalanceButton.setTitle(
 			homeVM.walletBalance.showBalanceButtonTitle,
 			for: .normal
 		)
 
 		sendButton.setImage(UIImage(systemName: homeVM.sendButtonImage), for: .normal)
-		recieveButton.setImage(UIImage(systemName: homeVM.recieveButtonImage), for: .normal)
+		receiveButton.setImage(UIImage(systemName: homeVM.receiveButtonImage), for: .normal)
 		volatilityDetailButton.image = UIImage(systemName: "arrow.right")
 
 		let showBalanceImageConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .regular, scale: .small)
@@ -79,7 +83,7 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 		)
 
 		sendButton.tintColor = .Pino.white
-		recieveButton.tintColor = .Pino.primary
+		receiveButton.tintColor = .Pino.primary
 		showBalanceButton.tintColor = .Pino.gray2
 
 		balanceLabel.textColor = .Pino.label
@@ -91,21 +95,23 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 		contentStackView.axis = .vertical
 		balanceStackView.axis = .vertical
 		volatilityStackView.axis = .horizontal
-		sendRecieveStackView.axis = .horizontal
+		sendReceiveStackView.axis = .horizontal
 
 		contentStackView.spacing = 25
 		balanceStackView.spacing = 13
-		sendRecieveStackView.spacing = 24
+		sendReceiveStackView.spacing = 24
 		volatilityStackView.spacing = 6
 
 		contentStackView.alignment = .center
 		balanceStackView.alignment = .center
-		sendRecieveStackView.distribution = .fillEqually
+		sendReceiveStackView.distribution = .fillEqually
 
 		volatilityView.layer.cornerRadius = 14
 
 		sendButton.setConfiguraton(font: .PinoStyle.semiboldCallout!, imagePadding: 8)
-		recieveButton.setConfiguraton(font: .PinoStyle.semiboldCallout!, imagePadding: 8)
+		sendButton.addTarget(self, action: #selector(openSendAssetVC), for: .touchUpInside)
+		receiveButton.setConfiguraton(font: .PinoStyle.semiboldCallout!, imagePadding: 8)
+		receiveButton.addTarget(self, action: #selector(openReceiveButtonVC), for: .touchUpInside)
 		showBalanceButton.setConfiguraton(font: .PinoStyle.mediumFootnote!, imagePadding: 5)
 		showBalanceButton.isUserInteractionEnabled = false
 
@@ -171,13 +177,13 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 		showBalanceButton.pin(
 			.fixedHeight(28)
 		)
-		sendRecieveStackView.pin(
+		sendReceiveStackView.pin(
 			.horizontalEdges
 		)
 		sendButton.pin(
 			.fixedHeight(48)
 		)
-		recieveButton.pin(
+		receiveButton.pin(
 			.fixedHeight(48)
 		)
 
@@ -198,5 +204,13 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 	@objc
 	private func openVolatilityDetailPage() {
 		portfolioPerformanceTapped()
+	}
+
+	@objc
+	private func openSendAssetVC() {}
+
+	@objc
+	private func openReceiveButtonVC() {
+		receiveButtonTappedClosure()
 	}
 }

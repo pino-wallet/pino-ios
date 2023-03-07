@@ -5,10 +5,45 @@
 //  Created by Amir hossein kazemi seresht on 2/13/23.
 //
 
+import Foundation
+
 class AddCustomAssetViewModel {
+	// MARK: - Public Enums
+
+	public enum ResponseStatus {
+		case clear
+		case pasteFromClipboard(String)
+		case pending
+		case error(FailedToValidateCustomAssetStatus)
+		case success
+	}
+
+	#warning("These values are for testing and should be changed")
+	public enum ValidateTextFieldDelay: Double {
+		case small = 0.5
+		case none = 0.0
+	}
+
+	public enum FailedToValidateCustomAssetStatus: Error {
+		case notValid
+		case networkError
+		case notValidFromServer
+
+		public var description: String {
+			switch self {
+			case .notValid:
+				return "Address is not an ETH valid address"
+			case .networkError:
+				return "No internet connection, retrying..."
+			case .notValidFromServer:
+				return "Custom asset not found"
+			}
+		}
+	}
+
 	// MARK: - Closures
 
-	public var setupPasteFromClipboardViewClosure: ((String) -> Void)!
+	public var changeViewStatusClosure: ((ResponseStatus) -> Void)!
 
 	#warning("Those values are for testing and should be changed")
 
@@ -28,17 +63,21 @@ class AddCustomAssetViewModel {
 	public var customAssetWebsiteInfo: CustomAssetInfoViewModel
 	public var customAssetContractAddressInfo: CustomAssetInfoViewModel
 
+	// MARK: - Private Properties
+
+	private var getCustomAssetInfoRequestWork: DispatchWorkItem!
+
 	// MARK: - Initializers
 
 	init() {
 		self.customAsset = CustomAssetViewModel(
 			customAsset:
 			CustomAssetModel(
-				name: "USDC",
-				icon: "USDC",
-				balance: "201.2",
-				website: "www.USDC.com",
-				contractAddress: "0x4108A1698EDB3d3E66aAD93E030dbF28Ea5ABB11"
+				name: "",
+				icon: "",
+				balance: "",
+				website: "",
+				contractAddress: ""
 			)
 		)
 		self
@@ -68,7 +107,47 @@ class AddCustomAssetViewModel {
 			return
 		}
 		if clipboardText.validateETHContractAddress() {
-			setupPasteFromClipboardViewClosure?(clipboardText)
+			changeViewStatusClosure(.pasteFromClipboard(clipboardText))
+		}
+	}
+
+	public func validateContractAddressFromTextField(textFieldText: String, delay: ValidateTextFieldDelay) {
+		if textFieldText.isEmpty {
+			changeViewStatusClosure(.clear)
+			cancelGetCustomAssetRequestWork()
+			return
+		}
+
+		if textFieldText.validateETHContractAddress() {
+			changeViewStatusClosure(.pending)
+			cancelGetCustomAssetRequestWork()
+			getCustomAssetInfoRequestWork = DispatchWorkItem(block: { [weak self] in
+				self?.getCustomAssetInfo(contractAddress: textFieldText)
+			})
+			#warning("This 2 second delay is for testing and should be removed")
+			DispatchQueue.main.asyncAfter(deadline: .now() + delay.rawValue + 2, execute: getCustomAssetInfoRequestWork)
+		} else {
+			changeViewStatusClosure(.error(.notValid))
+			cancelGetCustomAssetRequestWork()
+		}
+	}
+
+	// MARK: - Private Methods
+
+	private func getCustomAssetInfo(contractAddress: String) {
+		customAsset = CustomAssetViewModel(customAsset: CustomAssetModel(
+			name: "USDC",
+			icon: "USDC",
+			balance: "201.2",
+			website: "www.USDC.com",
+			contractAddress: "0x4108A1698EDB3d3E66aAD93E030dbF28Ea5ABB11"
+		))
+		changeViewStatusClosure(.success)
+	}
+
+	private func cancelGetCustomAssetRequestWork() {
+		if let getCustomAssetInfoRequestWork {
+			getCustomAssetInfoRequestWork.cancel()
 		}
 	}
 }

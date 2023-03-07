@@ -9,6 +9,10 @@ import Combine
 import UIKit
 
 class EditAccountView: UIView {
+	// MARK: - Closure
+
+	public var navigateToRemoveAccountPageClosure: () -> Void
+
 	// MARK: - Private Properties
 
 	private let walletInfoStackview = UIStackView()
@@ -31,10 +35,15 @@ class EditAccountView: UIView {
 
 	// MARK: - Initializers
 
-	init(walletVM: WalletInfoViewModel, newAvatarTapped: @escaping () -> Void) {
+	init(
+		walletVM: WalletInfoViewModel,
+		newAvatarTapped: @escaping () -> Void,
+		navigateToRemoveAccountPageClosure: @escaping () -> Void
+	) {
 		self.newAvatarTapped = newAvatarTapped
 		self.walletVM = walletVM
 		self.newAvatar = walletVM.profileImage
+		self.navigateToRemoveAccountPageClosure = navigateToRemoveAccountPageClosure
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -69,6 +78,7 @@ class EditAccountView: UIView {
 		setAvatarButton.text = "Set new avatar"
 		privateKeyButton.title = "Show private key"
 		removeAccountButton.setTitle("Remove account", for: .normal)
+		removeAccountButton.addTarget(self, action: #selector(navigateToRemoveAccountPage), for: .touchUpInside)
 		walletAvatar.image = UIImage(named: walletVM.profileImage)
 		privateKeyButton.setImage(UIImage(named: "private_key"), for: .normal)
 		privateKeyButton.setConfiguraton(font: .PinoStyle.semiboldBody!, imagePadding: 10)
@@ -129,5 +139,10 @@ class EditAccountView: UIView {
 	@objc
 	private func setNewAvatar() {
 		newAvatarTapped()
+	}
+
+	@objc
+	private func navigateToRemoveAccountPage() {
+		navigateToRemoveAccountPageClosure()
 	}
 }

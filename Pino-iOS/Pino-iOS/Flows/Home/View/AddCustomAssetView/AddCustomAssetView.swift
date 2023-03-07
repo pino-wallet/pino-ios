@@ -8,14 +8,25 @@
 import UIKit
 
 class AddCustomAssetView: UIView {
+	// Private Enum
+	private enum viewStatuses {
+		case clearView
+		case errorView
+		case pendingView
+		case pasteFromClipboardView
+		case successView
+	}
+
 	// Typealias
-	typealias presentAlertClosureType = (_ alertTitle: String, _ alertDescription: String) -> Void
-	typealias dissmissKeyboardClosureType = () -> Void
+	typealias PresentAlertClosureType = (_ alertTitle: String, _ alertDescription: String) -> Void
+	typealias DissmissKeyboardClosureType = () -> Void
+	typealias ToggleNavigationRightButtonEnabledClosureType = (_ isEnabled: Bool) -> Void
 
 	// MARK: - Closure
 
-	var presentAlertClosure: presentAlertClosureType
-	var dissmissKeyboardClosure: dissmissKeyboardClosureType
+	var presentAlertClosure: PresentAlertClosureType
+	var dissmissKeyboardClosure: DissmissKeyboardClosureType
+	var toggleNavigationRightButtonEnabledClosure: ToggleNavigationRightButtonEnabledClosureType
 
 	// MARK: - Private Properties
 
@@ -30,21 +41,29 @@ class AddCustomAssetView: UIView {
 		action: #selector(dissmissKeyboard(_:))
 	)
 	private var addCustomAssetVM: AddCustomAssetViewModel
+	private var viewStatus: viewStatuses = .clearView {
+		didSet {
+			switchViewStatus()
+		}
+	}
 
 	// MARK: - Initializers
 
 	init(
-		presentAlertClosure: @escaping presentAlertClosureType,
-		dissmissKeybaordClosure: @escaping dissmissKeyboardClosureType,
-		addCustomAssetVM: AddCustomAssetViewModel
+		presentAlertClosure: @escaping PresentAlertClosureType,
+		dissmissKeybaordClosure: @escaping DissmissKeyboardClosureType,
+		addCustomAssetVM: AddCustomAssetViewModel,
+		toggleNavigationRightButtonEnabledClosure: @escaping ToggleNavigationRightButtonEnabledClosureType
 	) {
 		self.presentAlertClosure = presentAlertClosure
 		self.dissmissKeyboardClosure = dissmissKeybaordClosure
 		self.addCustomAssetVM = addCustomAssetVM
+		self.toggleNavigationRightButtonEnabledClosure = toggleNavigationRightButtonEnabledClosure
 		super.init(frame: .zero)
 		setupView()
 		setupConstraints()
-		setupPasteFromClipboardClosure()
+		setupChangeStatusClosure()
+		switchViewStatus()
 	}
 
 	required init?(coder: NSCoder) {
@@ -57,19 +76,27 @@ class AddCustomAssetView: UIView {
 		addButton.title = addCustomAssetVM.addCustomAssetButtonTitle
 
 		addGestureRecognizer(dissmissKeyboardTapGesture)
+
 		customAssetInfoView = CustomAssetInfoContainerView(
 			addCustomAssetVM: addCustomAssetVM,
 			presentAlertClosure: presentAlertClosure
 		)
+		customAssetInfoView?.isHidden = true
 		// Setup subviews
 		addSubview(addButton)
 		addSubview(contractTextfieldView)
 		addSubview(pasteFromClipboardview)
-//		addSubview(customAssetInfoView!)
+		addSubview(customAssetInfoView!)
 		// Setup contract text field view
 		contractTextfieldView.placeholderText = addCustomAssetVM.addCustomAssetTextfieldPlaceholder
 		contractTextfieldView.returnKeyType = .search
 		contractTextfieldView.textFieldKeyboardOnReturn = dissmissKeyboardClosure
+		contractTextfieldView.textDidChange = { [weak self] in
+			self?.addCustomAssetVM.validateContractAddressFromTextField(
+				textFieldText: self?.contractTextfieldView.getText() ?? "",
+				delay: .small
+			)
+		}
 		scanQRCodeIconButton.setImage(UIImage(named: addCustomAssetVM.addCustomAssetTextfieldIcon), for: .normal)
 		contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
 		contractTextfieldView.errorText = addCustomAssetVM.addCustomAssetTextfieldError
@@ -91,21 +118,70 @@ class AddCustomAssetView: UIView {
 			.horizontalEdges(to: layoutMarginsGuide, padding: 0)
 		)
 
-//		customAssetInfoView?.pin(.relative(.top, 16, to: contractTextfieldView, .bottom), .horizontalEdges(
-//			to:
-//			layoutMarginsGuide,
-//			padding: 0
-//		))
+		customAssetInfoView?.pin(.relative(.top, 16, to: contractTextfieldView, .bottom), .horizontalEdges(
+			to:
+			layoutMarginsGuide,
+			padding: 0
+		))
 	}
 
-	private func setupPasteFromClipboardClosure() {
-		addCustomAssetVM.setupPasteFromClipboardViewClosure = { [weak self] validatedAddress in
-			self?.pasteFromClipboardview.contractAddress = validatedAddress
-			self?.pasteFromClipboardview.isHidden = false
-			self?.pasteFromClipboardview.onPaste = {
-				self?.contractTextfieldView.text = validatedAddress
-				self?.pasteFromClipboardview.isHidden = true
+	private func setupChangeStatusClosure() {
+		addCustomAssetVM.changeViewStatusClosure = { [weak self] currentStatus in
+			switch currentStatus {
+			case .clear:
+				self?.viewStatus = .clearView
+			case let .pasteFromClipboard(validatedContractAddress):
+				self?.pasteFromClipboardview.contractAddress = validatedContractAddress
+				self?.viewStatus = .pasteFromClipboardView
+				self?.pasteFromClipboardview.onPaste = {
+					self?.contractTextfieldView.text = validatedContractAddress
+					self?.addCustomAssetVM.validateContractAddressFromTextField(
+						textFieldText: self?.contractTextfieldView.text ?? "",
+						delay: .none
+					)
+				}
+			case .pending:
+				self?.viewStatus = .pendingView
+			case let .error(error):
+				self?.contractTextfieldView.errorText = error.description
+				self?.viewStatus = .errorView
+			case .success:
+				self?.customAssetInfoView?.newAddCustomAssetVM = self?.addCustomAssetVM
+				self?.viewStatus = .successView
 			}
+		}
+	}
+
+	private func switchViewStatus() {
+		toggleNavigationRightButtonEnabledClosure(false)
+		addButton.style = .deactive
+		switch viewStatus {
+		case .clearView:
+			pasteFromClipboardview.isHidden = true
+			customAssetInfoView?.isHidden = true
+			contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
+
+		case .errorView:
+			pasteFromClipboardview.isHidden = true
+			customAssetInfoView?.isHidden = true
+			contractTextfieldView.style = .error
+
+		case .pendingView:
+			pasteFromClipboardview.isHidden = true
+			customAssetInfoView?.isHidden = true
+			contractTextfieldView.style = .pending
+
+		case .pasteFromClipboardView:
+			customAssetInfoView?.isHidden = true
+			pasteFromClipboardview.isHidden = false
+			contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
+
+		case .successView:
+			pasteFromClipboardview.isHidden = true
+			customAssetInfoView?.isHidden = false
+			contractTextfieldView.style = .success
+			addButton.style = .active
+			toggleNavigationRightButtonEnabledClosure(true)
 		}
 	}
 

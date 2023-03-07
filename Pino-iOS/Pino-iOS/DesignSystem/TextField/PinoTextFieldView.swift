@@ -19,7 +19,7 @@ public class PinoTextFieldView: UIView {
 	private let textFieldCard = UIView()
 	private let textField = UITextField()
 	private let errorLabel = UILabel()
-	private let pendingLoading = PinoLoading(size: 22)
+	private let pendingLoading = PinoLoading(size: 24)
 
 	// MARK: - Public Properties
 
@@ -120,19 +120,19 @@ public class PinoTextFieldView: UIView {
 			textField.rightViewMode = .never
 			errorLabel.isHidden = true
 		case .error:
-			textField.rightView = UIImageView(image: UIImage(named: "error"))
+			textField.setRightViewWithPadding(UIImageView(image: UIImage(named: "error")), paddingLeft: 10)
 			textField.rightViewMode = .always
 			errorLabel.isHidden = false
 		case .success:
-			textField.rightView = UIImageView(image: UIImage(named: "done"))
+			textField.setRightViewWithPadding(UIImageView(image: UIImage(named: "done")), paddingLeft: 10)
 			textField.rightViewMode = .always
 			errorLabel.isHidden = true
 		case let .customIcon(customView):
-			textField.rightView = customView
+			textField.setRightViewWithPadding(customView, paddingLeft: 10)
 			textField.rightViewMode = .always
 			errorLabel.isHidden = true
 		case .pending:
-			textField.rightView = pendingLoading
+			textField.setRightViewWithPadding(pendingLoading, paddingLeft: 10)
 			textField.rightViewMode = .always
 			errorLabel.isHidden = true
 		}
@@ -180,5 +180,32 @@ extension PinoTextFieldView: UITextFieldDelegate {
 			textFieldKeyboardOnReturn()
 		}
 		return true
+	}
+}
+
+extension UITextField {
+	fileprivate func setRightViewWithPadding(_ view: UIView, paddingLeft: CGFloat) {
+		let rightViewContentSize = CGFloat(24)
+		view.translatesAutoresizingMaskIntoConstraints = true
+		view.frame = CGRectMake(0, 0, rightViewContentSize, rightViewContentSize)
+
+		let outerView = UIView()
+		outerView.translatesAutoresizingMaskIntoConstraints = true
+		outerView.addSubview(view)
+
+		outerView.frame = CGRect(
+			origin: .zero,
+			size: CGSize(
+				width: view.frame.size.width + paddingLeft,
+				height: view.frame.size.height
+			)
+		)
+
+		view.center = CGPoint(
+			x: outerView.bounds.size.width - (rightViewContentSize / 2),
+			y: outerView.bounds.size.height / 2
+		)
+
+		rightView = outerView
 	}
 }

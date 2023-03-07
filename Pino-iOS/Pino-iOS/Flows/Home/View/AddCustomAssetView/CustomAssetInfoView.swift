@@ -21,7 +21,7 @@ class CustomAssetInfoView: UIView {
 	public var infoView: UIView
 	public var infoIconImage: UIImage? {
 		didSet {
-			setupView()
+			setupAssetIconImageView()
 		}
 	}
 
@@ -33,11 +33,7 @@ class CustomAssetInfoView: UIView {
 	private let infoStackView = UIStackView()
 	private let titleLabel: PinoLabel
 	private let alertIconButtonView = UIButton()
-	private var assetIconView: UIImageView? {
-		didSet {
-			setupAssetIconViewConstraints()
-		}
-	}
+	private var assetIconView = UIImageView()
 
 	// MARK: - Initializers
 
@@ -101,10 +97,8 @@ class CustomAssetInfoView: UIView {
 		infoStackView.axis = .horizontal
 		infoStackView.alignment = .center
 		infoStackView.spacing = 4
-		if let infoIconImage {
-			assetIconView = UIImageView(image: infoIconImage)
-			infoStackView.addArrangedSubview(assetIconView!)
-		}
+		infoStackView.addArrangedSubview(assetIconView)
+		assetIconView.isHidden = true
 		infoStackView.addArrangedSubview(infoView)
 	}
 
@@ -113,10 +107,12 @@ class CustomAssetInfoView: UIView {
 		heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 		betweenStackView.widthAnchor.constraint(greaterThanOrEqualToConstant: 32).isActive = true
 		mainStackView.pin(.allEdges(to: superview))
+		assetIconView.pin(.fixedHeight(20), .fixedWidth(20))
 	}
 
-	private func setupAssetIconViewConstraints() {
-		assetIconView?.pin(.fixedHeight(20), .fixedWidth(20))
+	private func setupAssetIconImageView() {
+		assetIconView.image = infoIconImage
+		assetIconView.isHidden = false
 	}
 
 	// Handle open alert

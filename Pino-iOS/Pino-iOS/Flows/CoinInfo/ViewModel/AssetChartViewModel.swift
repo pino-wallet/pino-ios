@@ -64,7 +64,7 @@ struct AssetChartViewModel {
 			return "\(oneMonthAgo.monthName()) \(date.get(.day)) - \(date.monthName()) \(date.get(.day)), \(date.get(.year))"
 		case .year:
 			let oneYearAgo = date - 365
-			return "\(date.monthName()) \(date.get(.day)), \(oneYearAgo.get(.year)) - \(date.monthName()) \(date.get(.day)), \(date.get(.year))"
+			return "\(date.monthName()), \(oneYearAgo.get(.year)) - \(date.monthName()), \(date.get(.year))"
 		case .all:
 			return ""
 		}

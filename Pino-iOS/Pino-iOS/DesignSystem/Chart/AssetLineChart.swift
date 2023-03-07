@@ -1,15 +1,15 @@
 //
-//  LineChart.swift
+//  PinoLineChart.swift
 //  Pino-iOS
 //
-//  Created by Mohi Raoufi on 2/20/23.
+//  Created by Mohi Raoufi on 3/5/23.
 //
 
 import Charts
 import Combine
 import UIKit
 
-class LineChart: UIView {
+class AssetLineChart: UIView {
 	// MARK: - Private Properties
 
 	private let balanceStackview = UIStackView()
@@ -20,10 +20,10 @@ class LineChart: UIView {
 	private let coinVolatilityPersentage = UILabel()
 	private let coinVolatilityInDollor = UILabel()
 	private let dateLabel = UILabel()
-	private let lineChartView = LineChartView()
 	private let chartPointer = UIImageView()
-	private var chartSegmentedControl: UISegmentedControl!
+	private var chartDateFilter: UISegmentedControl!
 
+	private let lineChartView = PinoLineChart(chartDataEntries: [])
 	private var chartDataSet: LineChartDataSet!
 	private var cancellables = Set<AnyCancellable>()
 	private var dateFilterChanged: (ChartDateFilter) -> Void
@@ -38,7 +38,7 @@ class LineChart: UIView {
 	init(chartVM: AssetChartViewModel, dateFilterChanged: @escaping (ChartDateFilter) -> Void) {
 		self.chartVM = chartVM
 		self.dateFilterChanged = dateFilterChanged
-		self.chartSegmentedControl = UISegmentedControl(items: chartVM.dateFilters.map { $0.rawValue })
+		self.chartDateFilter = UISegmentedControl(items: chartVM.dateFilters.map { $0.rawValue })
 		super.init(frame: .zero)
 
 		setupView()
@@ -62,10 +62,9 @@ class LineChart: UIView {
 		infoStackView.addArrangedSubview(dateLabel)
 		chartStackView.addArrangedSubview(infoStackView)
 		chartStackView.addArrangedSubview(lineChartView)
-		chartStackView.addArrangedSubview(chartSegmentedControl)
+		chartStackView.addArrangedSubview(chartDateFilter)
 		addSubview(chartStackView)
 		addSubview(chartPointer)
-		lineChartView.delegate = self
 	}
 
 	private func setupStyle() {
@@ -93,27 +92,33 @@ class LineChart: UIView {
 		volatilityStackView.spacing = 8
 		balanceStackview.spacing = 8
 
-		chartSegmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.Pino.secondaryLabel], for: .normal)
-		chartSegmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.Pino.primary], for: .selected)
-		chartSegmentedControl.setDividerImage(
+		chartDateFilter.setTitleTextAttributes([
+			.foregroundColor: UIColor.Pino.secondaryLabel,
+			.font: UIFont.PinoStyle.mediumCaption1!,
+		], for: .normal)
+		chartDateFilter.setTitleTextAttributes([
+			.foregroundColor: UIColor.Pino.primary,
+			.font: UIFont.PinoStyle.semiboldCaption1!,
+		], for: .selected)
+		chartDateFilter.setDividerImage(
 			UIImage(),
 			forLeftSegmentState: .normal,
 			rightSegmentState: .normal,
 			barMetrics: .default
 		)
-		chartSegmentedControl.setBackgroundImage(
+		chartDateFilter.setBackgroundImage(
 			UIImage(named: "segmented_control_background"),
 			for: .normal,
 			barMetrics: .default
 		)
-		chartSegmentedControl.setBackgroundImage(
+		chartDateFilter.setBackgroundImage(
 			UIImage(named: "segmented_control_selected_background"),
 			for: .selected,
 			barMetrics: .default
 		)
-		chartSegmentedControl.layer.maskedCorners = []
-		chartSegmentedControl.selectedSegmentIndex = 0
-		chartSegmentedControl.addTarget(self, action: #selector(updateChart), for: .valueChanged)
+		chartDateFilter.layer.maskedCorners = []
+		chartDateFilter.selectedSegmentIndex = 0
+		chartDateFilter.addTarget(self, action: #selector(updateChart), for: .valueChanged)
 
 		chartPointer.isHidden = true
 	}
@@ -134,7 +139,7 @@ class LineChart: UIView {
 			.relative(.centerY, 0, to: coinBalanceLabel, .centerY)
 		)
 
-		chartSegmentedControl.pin(
+		chartDateFilter.pin(
 			.horizontalEdges(padding: 16),
 			.fixedHeight(35)
 		)
@@ -160,87 +165,12 @@ class LineChart: UIView {
 				self.coinVolatilityPersentage.textColor = .Pino.secondaryLabel
 			}
 
-			self.chartDataSet = LineChartDataSet(entries: chart.chartDataEntry)
-			self.setupLineChart()
+			self.lineChartView.chartDataEntries = chart.chartDataEntry
 		}.store(in: &cancellables)
-	}
-
-	private func setupLineChart() {
-		lineChartView.drawGridBackgroundEnabled = false
-		chartDataSet.setColor(.Pino.green3)
-
-		chartDataSet.drawCirclesEnabled = false
-		chartDataSet.lineWidth = 2
-		chartDataSet.mode = .cubicBezier
-		chartDataSet.fillAlpha = 0.5
-		if let chartGradient = CGGradient(
-			colorsSpace: CGColorSpaceCreateDeviceRGB(),
-			colors: [UIColor.Pino.lightBlue.cgColor, UIColor.Pino.secondaryBackground.cgColor] as CFArray,
-			locations: [1, 0]
-		) {
-			chartDataSet.fill = LinearGradientFill(gradient: chartGradient, angle: 90)
-		}
-		chartDataSet.drawFilledEnabled = true
-		chartDataSet.highlightColor = .Pino.green2
-		chartDataSet.drawCircleHoleEnabled = false
-
-		lineChartView.xAxis.enabled = false
-		lineChartView.leftAxis.enabled = false
-		lineChartView.rightAxis.enabled = false
-
-		lineChartView.legend.enabled = false
-		lineChartView.data = LineChartData(dataSets: [chartDataSet])
-		lineChartView.data?.setDrawValues(false)
-		lineChartView.doubleTapToZoomEnabled = false
-		lineChartView.pinchZoomEnabled = false
-		lineChartView.setScaleEnabled(false)
-
-		let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressDetected))
-		longPressGesture.allowableMovement = 50
-		longPressGesture.delegate = self
-		lineChartView.addGestureRecognizer(longPressGesture)
-
-		let marker = BalloonMarker(
-			color: .Pino.green1,
-			font: .PinoStyle.mediumFootnote!,
-			textColor: .Pino.primary
-		)
-		marker.chartView = lineChartView
-		lineChartView.marker = marker
-	}
-
-	@objc
-	private func longPressDetected(gesture: UILongPressGestureRecognizer) {
-		guard let point = lineChartView.getHighlightByTouchPoint(gesture.location(in: lineChartView)) else { return }
-		chartPointer.center = CGPoint(x: point.xPx, y: point.yPx)
-		lineChartView.highlightValue(x: point.x, dataSetIndex: point.dataSetIndex)
 	}
 
 	@objc
 	private func updateChart(sender: UISegmentedControl) {
-		switch sender.selectedSegmentIndex {
-		case 0:
-			dateFilterChanged(.hour)
-		case 1:
-			dateFilterChanged(.day)
-		case 2:
-			dateFilterChanged(.week)
-		case 3:
-			dateFilterChanged(.month)
-		case 4:
-			dateFilterChanged(.year)
-		case 5:
-			dateFilterChanged(.all)
-		default: break
-		}
-	}
-}
-
-extension LineChart: ChartViewDelegate, UIGestureRecognizerDelegate {
-	func gestureRecognizer(
-		_ gestureRecognizer: UIGestureRecognizer,
-		shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
-	) -> Bool {
-		true
+		dateFilterChanged(chartVM.dateFilters[sender.selectedSegmentIndex])
 	}
 }

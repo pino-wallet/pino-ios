@@ -17,7 +17,7 @@ class PortfolioPerformanceHeaderView: UICollectionReusableView {
 	private let chartCardView = UIView()
 	private let chartTitle = UILabel()
 	private let assetsTitle = UILabel()
-	private var lineChart: LineChart!
+	private var lineChart: AssetLineChart!
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Public Properties
@@ -36,7 +36,7 @@ class PortfolioPerformanceHeaderView: UICollectionReusableView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		lineChart = LineChart(chartVM: portfolioPerformanceVM.chartVM, dateFilterChanged: { dateFilter in
+		lineChart = AssetLineChart(chartVM: portfolioPerformanceVM.chartVM, dateFilterChanged: { dateFilter in
 			self.portfolioPerformanceVM.updateChartData(by: dateFilter)
 		})
 		chartStackView.addArrangedSubview(chartTitle)

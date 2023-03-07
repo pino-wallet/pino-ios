@@ -9,6 +9,11 @@ import Combine
 import UIKit
 
 class AssetsCollectionView: UICollectionView {
+	// MARK: - Closure
+
+	public var receiveButtonTappedClosure: () -> Void
+	public var sendButtonTappedClosure: () -> Void
+
 	// MARK: - Private Properties
 
 	private let assetsRefreshControl = UIRefreshControl()
@@ -31,11 +36,15 @@ class AssetsCollectionView: UICollectionView {
 		homeVM: HomepageViewModel,
 		manageAssetButtonTapped: @escaping () -> Void,
 		assetTapped: @escaping (AssetViewModel) -> Void,
+		receiveButtonTappedClosure: @escaping () -> Void,
+		sendButtonTappedClosure: @escaping () -> Void,
 		portfolioPerformanceTapped: @escaping () -> Void
 	) {
 		self.homeVM = homeVM
 		self.manageAssetButtonTapped = manageAssetButtonTapped
 		self.assetTapped = assetTapped
+		self.receiveButtonTappedClosure = receiveButtonTappedClosure
+		self.sendButtonTappedClosure = sendButtonTappedClosure
 		self.portfolioPerformanceTapped = portfolioPerformanceTapped
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)

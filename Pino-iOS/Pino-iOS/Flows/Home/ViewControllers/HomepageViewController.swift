@@ -53,11 +53,17 @@ class HomepageViewController: UIViewController {
 	private func setupView() {
 		let assetsCollectionView = AssetsCollectionView(
 			homeVM: homeVM,
-			manageAssetButtonTapped: {
-				self.openManageAssetsPage()
+			manageAssetButtonTapped: { [weak self] in
+				self?.openManageAssetsPage()
 			},
-			assetTapped: { assetVM in
-				self.openCoinInfo(assetVM: assetVM)
+			assetTapped: { [weak self] assetVM in
+				self?.openCoinInfo(assetVM: assetVM)
+			},
+			receiveButtonTappedClosure: { [weak self] in
+				self?.openReceiveAssetPage()
+			},
+			sendButtonTappedClosure: { [weak self] in
+				self?.openSendAssetPage()
 			},
 			portfolioPerformanceTapped: {
 				self.openPortfolioPage()
@@ -128,4 +134,13 @@ class HomepageViewController: UIViewController {
 		let navigationVC = UINavigationController(rootViewController: portfolioPerformanceVC)
 		present(navigationVC, animated: true)
 	}
+
+	private func openReceiveAssetPage() {
+		let navigationVC = UINavigationController()
+		let receiveAssetVC = ReceiveAssetViewController(homeVM: homeVM)
+		navigationVC.viewControllers = [receiveAssetVC]
+		present(navigationVC, animated: true)
+	}
+
+	private func openSendAssetPage() {}
 }
