@@ -46,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	) -> Bool {
 		// Override point for customization after application launch.
 		setupNavigationBarCustomBackButton()
+		setupLightKeyboardForTextFields()
 		return true
 	}
 
@@ -100,5 +101,9 @@ extension AppDelegate {
 		let attributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
 		UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: .normal)
 		UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: .highlighted)
+	}
+
+	private func setupLightKeyboardForTextFields() {
+		UITextField.appearance().keyboardAppearance = .light
 	}
 }
