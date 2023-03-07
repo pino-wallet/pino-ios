@@ -71,7 +71,7 @@ class AccountHeaderView: UICollectionReusableView {
 	private func setupConstraint() {
 		walletInfoStackview.pin(
 			.top(padding: 24),
-			.centerX
+			.horizontalEdges(padding: 16)
 		)
 		walletIconBackgroundView.pin(
 			.fixedHeight(88),
