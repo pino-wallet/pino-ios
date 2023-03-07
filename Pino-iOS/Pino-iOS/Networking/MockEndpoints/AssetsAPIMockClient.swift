@@ -34,8 +34,4 @@ final class AssetsAPIMockClient: AssetsAPIService {
 	public func aboutCoin() -> AnyPublisher<AboutCoinModel, APIError> {
 		StubManager.publisher(for: "about-coin-stub")
 	}
-
-	public func performanceInfo() -> AnyPublisher<CoinPerformanceInfoModel, APIError> {
-		StubManager.publisher(for: "coin-performance-info-stub")
-	}
 }
