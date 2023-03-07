@@ -28,6 +28,8 @@ class CoinInfoChartViewController: UIViewController {
 		super.viewDidLoad()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {}
+
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
@@ -40,9 +42,6 @@ class CoinInfoChartViewController: UIViewController {
 	}
 
 	private func setupNavigationBar() {
-		// Setup appreance for navigation bar
-		navigationController?.navigationBar.backgroundColor = .Pino.primary
-		navigationController?.navigationBar.tintColor = .Pino.white
 		// Setup title view
 		setNavigationTitle("COMP")
 	}

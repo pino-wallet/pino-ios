@@ -67,7 +67,6 @@ class ReceiveAssetViewController: UIViewController {
 			target: self,
 			action: #selector(dismissVC)
 		)
-		navigationItem.leftBarButtonItem?.tintColor = .Pino.white
 	}
 
 	private func presentShareActivityViewController(sharedText: String) {

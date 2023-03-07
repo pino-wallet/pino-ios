@@ -48,7 +48,7 @@ class ProfileViewController: UIViewController {
 
 	private func setupNavigationBar() {
 		// Setup appreance for navigation bar
-		navigationController?.navigationBar.backgroundColor = .Pino.primary
+		setupPrimaryColorNavigationBar()
 		// Setup title view
 		setNavigationTitle("Profile")
 		// Setup add asset button
@@ -58,7 +58,6 @@ class ProfileViewController: UIViewController {
 			target: self,
 			action: #selector(dismissProfile)
 		)
-		navigationController?.navigationBar.tintColor = .Pino.white
 	}
 
 	private func setupBindings() {

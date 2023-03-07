@@ -41,17 +41,8 @@ extension UIViewController {
 		navBarAppearance.backgroundColor = .Pino.primary
 		navigationController?.navigationBar.standardAppearance = navBarAppearance
 		navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-
-		let textAttributes = [
-			NSAttributedString.Key.foregroundColor: UIColor.Pino.white,
-			NSAttributedString.Key.font: UIFont.PinoStyle.semiboldBody!,
-		]
-
-		let cancelButton = UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self])
-		let offset = UIOffset(horizontal: 0, vertical: 3)
-		cancelButton.setTitlePositionAdjustment(offset, for: .default)
-
-		UIBarButtonItem.appearance().setTitleTextAttributes(textAttributes, for: .normal)
+		navigationController?.navigationBar.tintColor = .white
+		navigationController?.navigationBar.topItem?.title = ""
 	}
 
 	public func setupSearchBar() {
@@ -74,5 +65,16 @@ extension UIViewController {
 		navigationItem.searchController = searchController
 		navigationItem.hidesSearchBarWhenScrolling = false
 		navigationItem.searchController?.searchBar.searchTextField.textColor = .Pino.white
+
+		let textAttributes = [
+			NSAttributedString.Key.foregroundColor: UIColor.Pino.white,
+			NSAttributedString.Key.font: UIFont.PinoStyle.semiboldBody!,
+		]
+
+		let cancelButton = UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self])
+		let offset = UIOffset(horizontal: 0, vertical: 3)
+		cancelButton.setTitlePositionAdjustment(offset, for: .default)
+
+		UIBarButtonItem.appearance().setTitleTextAttributes(textAttributes, for: .normal)
 	}
 }

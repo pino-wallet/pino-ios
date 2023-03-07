@@ -48,6 +48,7 @@ class ChangeAvatarViewController: UIViewController {
 	}
 
 	private func setupNavigationBar() {
+		setupPrimaryColorNavigationBar()
 		// Setup title view
 		setNavigationTitle("Change avatar")
 		// Setup add asset button
