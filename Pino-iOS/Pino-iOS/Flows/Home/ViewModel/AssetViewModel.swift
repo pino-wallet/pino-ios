@@ -8,7 +8,7 @@
 public class AssetViewModel: SecurityModeProtocol {
 	// MARK: - Private Properties
 
-	private var assetModel: AssetModel!
+	private var assetModel: AssetProtocol!
 
 	// MARK: - Public Properties
 
@@ -19,11 +19,11 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	public var image: String {
-		assetModel.image
+        assetModel.detail!.logo
 	}
 
 	public var name: String {
-		assetModel.name
+        assetModel.detail!.name
 	}
 
 	public var amount = "0"
@@ -31,12 +31,13 @@ public class AssetViewModel: SecurityModeProtocol {
 	public var volatilityInDollor = "-"
 
 	public var volatilityType: AssetVolatilityType {
-		AssetVolatilityType(rawValue: assetModel.volatilityType) ?? .none
+//		AssetVolatilityType(rawValue: assetModel.volatilityType) ?? .none
+        .profit
 	}
 
 	// MARK: - Initializers
 
-	init(assetModel: AssetModel) {
+	init(assetModel: AssetProtocol) {
 		self.assetModel = assetModel
 		self.amount = getFormattedAmount()
 		self.amountInDollor = getFormattedAmountInDollor()
@@ -62,27 +63,28 @@ public class AssetViewModel: SecurityModeProtocol {
 	// MARK: - Private Methods
 
 	private func getFormattedAmount() -> String {
-		"\(assetModel.amount) \(assetModel.codeName)"
+        "\(assetModel.hold) \(assetModel.detail!.symbol)"
 	}
 
 	private func getFormattedAmountInDollor() -> String {
-		if Int(assetModel.amountInDollor) == 0 {
+        if Int(assetModel.detail!.price) == 0 {
 			return "-"
 		} else {
-			return "$\(assetModel.amountInDollor)"
+            return "$\(assetModel.detail!.price)"
 		}
 	}
 
 	private func getFormattedVolatility() -> String {
-		if Int(assetModel.volatilityInDollor) == 0 {
-			return "-"
-		} else {
-			switch volatilityType {
-			case .loss:
-				return "-$\(assetModel.volatilityInDollor)"
-			case .profit, .none:
-				return "+$\(assetModel.volatilityInDollor)"
-			}
-		}
+        "+$3.5"
+//		if Int(assetModel.volatilityInDollor) == 0 {
+//			return "-"
+//		} else {
+//			switch volatilityType {
+//			case .loss:
+//				return "-$\(assetModel.volatilityInDollor)"
+//			case .profit, .none:
+//				return "+$\(assetModel.volatilityInDollor)"
+//			}
+//		}
 	}
 }
