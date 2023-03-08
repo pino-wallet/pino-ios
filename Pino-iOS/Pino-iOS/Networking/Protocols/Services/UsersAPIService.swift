@@ -9,5 +9,5 @@ import Combine
 import Foundation
 
 protocol AccountingAPIService {
-    func userBalance() -> AnyPublisher<BalanceModel, APIError>
+	func userBalance() -> AnyPublisher<BalanceModel, APIError>
 }

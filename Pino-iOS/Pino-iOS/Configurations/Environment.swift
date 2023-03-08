@@ -9,22 +9,22 @@ import Foundation
 
 #warning("Environment file is temporary for when we add different Environments")
 enum NetworkEnvironment {
-    case qa
-    case production
-    case staging
+	case qa
+	case production
+	case staging
 }
 
 enum Environment {
-    // MARK: Public Properties
+	// MARK: Public Properties
 
-    public static var networkEnvironment: NetworkEnvironment {
-        .staging
-    }
+	public static var networkEnvironment: NetworkEnvironment {
+		.staging
+	}
 
-    public static var apiBaseURL: URL {
-        switch networkEnvironment {
-        case .staging, .production, .qa:
-            return URL(string: "https://demo-api.pino.xyz/v1/")!
-        }
-    }
+	public static var apiBaseURL: URL {
+		switch networkEnvironment {
+		case .staging, .production, .qa:
+			return URL(string: "https://demo-api.pino.xyz/v1/")!
+		}
+	}
 }

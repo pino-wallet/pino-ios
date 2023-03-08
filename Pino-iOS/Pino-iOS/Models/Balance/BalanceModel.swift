@@ -8,44 +8,43 @@ import Foundation
 // MARK: - BalanceModelElement
 
 struct BalanceAssetModel: Codable, AssetProtocol {
-    let id, hold, investment: String
-    let isVerified: Bool
-    let detail: Detail?
+	let id, hold, investment: String
+	let isVerified: Bool
+	let detail: Detail?
 
-    enum CodingKeys: String, CodingKey {
-        case id
-        case hold
-        case investment
-        case isVerified = "is_verified"
-        case detail
-    }
+	enum CodingKeys: String, CodingKey {
+		case id
+		case hold
+		case investment
+		case isVerified = "is_verified"
+		case detail
+	}
 }
 
 // MARK: - Detail
 
 struct Detail: Codable {
-    let id, symbol, name, logo: String
-    let decimals: Int
-    let change24H, changePercentage, price: String
+	let id, symbol, name, logo: String
+	let decimals: Int
+	let change24H, changePercentage, price: String
 
-    enum CodingKeys: String, CodingKey {
-        case id
-        case symbol
-        case name
-        case logo
-        case decimals
-        case change24H = "change_24h"
-        case changePercentage = "change_percentage"
-        case price
-    }
+	enum CodingKeys: String, CodingKey {
+		case id
+		case symbol
+		case name
+		case logo
+		case decimals
+		case change24H = "change_24h"
+		case changePercentage = "change_percentage"
+		case price
+	}
 }
 
 typealias BalanceModel = [BalanceAssetModel]
 
-
 protocol AssetProtocol {
-    var id: String { get }
-    var hold: String { get }
-    var isVerified: Bool { get }
-    var detail: Detail? { get }
+	var id: String { get }
+	var hold: String { get }
+	var isVerified: Bool { get }
+	var detail: Detail? { get }
 }

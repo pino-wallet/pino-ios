@@ -22,7 +22,7 @@ public class ManageAssetCell: UICollectionViewCell {
 
 	public static let cellReuseID = "manageAssetCell"
 
-	public var assetVM: ManageAssetViewModel! {
+	public var assetVM: AssetViewModel! {
 		didSet {
 			setupView()
 			setupStyle()

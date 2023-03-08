@@ -9,15 +9,15 @@ import Combine
 import Foundation
 
 final class AccountingAPIClient: AccountingAPIService {
-    // MARK: - Private Properties
+	// MARK: - Private Properties
 
-    private let networkManager = NetworkManager<AccountingEndpoint>(keychainService: KeychainSwift())
+	private let networkManager = NetworkManager<AccountingEndpoint>(keychainService: KeychainSwift())
 
-    // MARK: - Public Methods
+	// MARK: - Public Methods
 
-    public func userBalance() -> AnyPublisher<BalanceModel, APIError> {
-        networkManager.request(.balances)
-    }
+	public func userBalance() -> AnyPublisher<BalanceModel, APIError> {
+		networkManager.request(.balances)
+	}
 }
 
 struct NoContent: Codable {}

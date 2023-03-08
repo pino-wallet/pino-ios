@@ -23,7 +23,7 @@ class HomepageViewModel {
 	@Published
 	public var securityMode = false
 	@Published
-	public var manageAssetsList: [ManageAssetViewModel]!
+	public var manageAssetsList: [AssetViewModel]!
 
 	public let copyToastMessage = "Copied!"
 	public let connectionErrorToastMessage = "No internet connection"
@@ -40,14 +40,13 @@ class HomepageViewModel {
 	#warning("Mock client is temporary and must be replaced by API client")
 	private var assetsAPIClient = AssetsAPIMockClient()
 	private var walletAPIClient = WalletAPIMockClient()
-    private var accountingAPIClient = AccountingAPIClient()
+	private var accountingAPIClient = AccountingAPIClient()
 
 	// MARK: - Initializers
 
 	init() {
 		getWalletInfo()
 		getWalletBalance()
-		getManageAssetsList()
 		getAssetsList()
 		getPositionAssetsList()
 		setupBindings()
@@ -141,30 +140,27 @@ class HomepageViewModel {
 	}
 
 	private func getAssetsList() {
-        accountingAPIClient.userBalance()
-            .map({ balanceAssets in
-                return balanceAssets.filter({ $0.isVerified })
-            })
-            .sink { completed in
-            switch completed {
-            case .finished:
-                print("Assets received successfully")
-            case let .failure(error):
-                print(error)
-            }
-        } receiveValue: { assets in
-            self.assetsList = assets.compactMap { AssetViewModel(assetModel: $0) }
-        }.store(in: &cancellables)
+		accountingAPIClient.userBalance()
+			.map { balanceAssets in
+				balanceAssets.filter { $0.isVerified }
+			}
+			.sink { completed in
+				switch completed {
+				case .finished:
+					print("Assets received successfully")
+				case let .failure(error):
+					print(error)
+				}
+			} receiveValue: { assets in
+				self.manageAssetsList = assets.compactMap { AssetViewModel(assetModel: $0) }
+				self.assetsList = self.manageAssetsList.filter { $0.isSelected }
+			}.store(in: &cancellables)
 	}
 
 	private func getPositionAssetsList() {
-        positionAssetsList = []
+		positionAssetsList = []
 	}
 
-	private func getManageAssetsList() {
-        manageAssetsList = []
-	}
-    
 	public func getWalletInfoFromUserDefaults() -> WalletInfoModel? {
 		guard let encodedWallet = UserDefaults.standard.data(forKey: "wallets") else { return nil }
 		do {

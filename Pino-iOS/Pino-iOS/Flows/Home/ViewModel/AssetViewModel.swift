@@ -19,11 +19,11 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	public var image: String {
-        assetModel.detail!.logo
+		assetModel.detail!.logo
 	}
 
 	public var name: String {
-        assetModel.detail!.name
+		assetModel.detail!.name
 	}
 
 	public var amount = "0"
@@ -32,8 +32,10 @@ public class AssetViewModel: SecurityModeProtocol {
 
 	public var volatilityType: AssetVolatilityType {
 //		AssetVolatilityType(rawValue: assetModel.volatilityType) ?? .none
-        .profit
+		.profit
 	}
+
+	public var isSelected = true
 
 	// MARK: - Initializers
 
@@ -60,22 +62,26 @@ public class AssetViewModel: SecurityModeProtocol {
 		volatilityInDollor = getFormattedVolatility()
 	}
 
+	public func toggleIsSelected() {
+		isSelected.toggle()
+	}
+
 	// MARK: - Private Methods
 
 	private func getFormattedAmount() -> String {
-        "\(assetModel.hold) \(assetModel.detail!.symbol)"
+		"\(assetModel.hold) \(assetModel.detail!.symbol)"
 	}
 
 	private func getFormattedAmountInDollor() -> String {
-        if Int(assetModel.detail!.price) == 0 {
+		if Int(assetModel.detail!.price) == 0 {
 			return "-"
 		} else {
-            return "$\(assetModel.detail!.price)"
+			return "$\(assetModel.detail!.price)"
 		}
 	}
 
 	private func getFormattedVolatility() -> String {
-        "+$3.5"
+		"+$3.5"
 //		if Int(assetModel.volatilityInDollor) == 0 {
 //			return "-"
 //		} else {

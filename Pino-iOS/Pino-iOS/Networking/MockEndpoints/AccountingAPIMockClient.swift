@@ -9,9 +9,9 @@ import Combine
 import Foundation
 
 final class AccountingAPIMockClient: AccountingAPIService {
-    // MARK: Public Methods
+	// MARK: Public Methods
 
-    public func userBalance() -> AnyPublisher<BalanceModel, APIError> {
-        StubManager.publisher(for: "user-balance-stub")
-    }
+	public func userBalance() -> AnyPublisher<BalanceModel, APIError> {
+		StubManager.publisher(for: "user-balance-stub")
+	}
 }

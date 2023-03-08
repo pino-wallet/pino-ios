@@ -41,8 +41,8 @@ class ManageAssetsViewController: UIViewController {
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
-        // Save selected assets locally
-    }
+		// Save selected assets locally
+	}
 
 	// MARK: - Private Methods
 
