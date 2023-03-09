@@ -1,0 +1,50 @@
+{
+  "name": "@bitjson/qr-code",
+  "version": "1.0.2",
+  "description": "QR Code Web Component",
+  "module": "dist/esm/index.js",
+  "main": "dist/index.js",
+  "types": "dist/types/components.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "stencil build",
+    "watch": "stencil build --dev --watch --serve",
+    "watch:prod": "stencil build --watch --serve --prod",
+    "serve": "stencil-dev-server",
+    "start": "npm run watch",
+    "test": "jest",
+    "test.watch": "jest --watch"
+  },
+  "devDependencies": {
+    "@stencil/core": "^0.10.2",
+    "@types/jest": "^21.1.1",
+    "jest": "^21.2.1",
+    "just-animate": "^2.5.0",
+    "qrcode-generator": "^1.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitjson/qr-code.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bitjson/qr-code"
+  },
+  "homepage": "https://qr.bitjson.com",
+  "jest": {
+    "transform": {
+      "^.+\\.(ts|tsx)$": "<rootDir>/node_modules/@stencil/core/testing/jest.preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(tsx?|jsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json",
+      "jsx"
+    ]
+  }
+}

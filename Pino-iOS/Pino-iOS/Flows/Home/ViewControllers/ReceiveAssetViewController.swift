@@ -28,10 +28,6 @@ class ReceiveAssetViewController: UIViewController {
 		setupNavigationBar()
 	}
 
-	override func viewDidAppear(_ animated: Bool) {
-		receiveAssetView.generatedQRCodeImage = homeVM.walletInfo.address.QRCodeImage()
-	}
-
 	// MARK: - Initializers
 
 	init(homeVM: HomepageViewModel) {
