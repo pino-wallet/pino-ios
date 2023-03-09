@@ -137,11 +137,6 @@ class ReceiveAssetView: UIView, WKUIDelegate {
 		addressQRCodeWebView.uiDelegate = self
 		addressQRCodeWebView.navigationDelegate = self
 	}
-
-	@objc
-	private func onTapQRCode() {
-		print("eh")
-	}
 }
 
 extension ReceiveAssetView: WKNavigationDelegate {
