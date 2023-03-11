@@ -14,7 +14,7 @@ class HomepageViewController: UIViewController {
 	private let homeVM = HomepageViewModel()
 	private var profileVM: ProfileViewModel!
 	private var cancellables = Set<AnyCancellable>()
-	private var addressCopiedToastView = PinoToastView(message: nil, style: .primary, alignment: .top)
+	private var addressCopiedToastView = CopyToastView(message: nil)
 
 	#warning("Temprary adding to test network layer")
 	private var usersAPIClient = UsersAPIMockClient()

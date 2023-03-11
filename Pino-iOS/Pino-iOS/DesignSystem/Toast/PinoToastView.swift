@@ -8,7 +8,6 @@
 import UIKit
 
 public class PinoToastView: UIView, ToastView {
-	typealias alignmentType = Alignment
 	typealias styleType = Style
 
 	// MARK: - Private Properties
@@ -20,8 +19,6 @@ public class PinoToastView: UIView, ToastView {
 	private var padding: CGFloat
 
 	// MARK: - Public Properties
-
-	public var alignment: Alignment
 
 	public var message: String? {
 		didSet {
@@ -45,8 +42,7 @@ public class PinoToastView: UIView, ToastView {
 
 	// MARK: - Initializers
 
-	init(message: String?, image: UIImage? = nil, style: Style, alignment: Alignment = .bottom, padding: CGFloat = 60) {
-		self.alignment = alignment
+	init(message: String?, image: UIImage? = nil, style: Style, padding: CGFloat = 60) {
 		self.message = message
 		self.image = image
 		self.style = style
@@ -67,23 +63,12 @@ public class PinoToastView: UIView, ToastView {
 		if !isShowingToast {
 			isShowingToast = true
 			if let superView = superView() {
-				switch alignment {
-				case .top:
-					animateToastView(
-						originY: 10,
-						destinationY: 32,
-						delay: 1.2,
-						verticalConstraint: .top(to: superView.layoutMarginsGuide, padding: 32),
-						isFade: true
-					)
-				case .bottom:
-					animateToastView(
-						originY: superView.frame.height,
-						destinationY: superView.frame.height - padding,
-						delay: 2,
-						verticalConstraint: .bottom(to: superView.layoutMarginsGuide, padding: padding)
-					)
-				}
+				animateToastView(
+					originY: superView.frame.height,
+					destinationY: superView.frame.height - padding,
+					delay: 2,
+					verticalConstraint: .bottom(to: superView.layoutMarginsGuide, padding: padding)
+				)
 			} else {
 				fatalError("Toast view has not been added to any view")
 			}
@@ -195,10 +180,5 @@ public class PinoToastView: UIView, ToastView {
 	private func updateCornerRadius() {
 		layoutIfNeeded()
 		layer.cornerRadius = frame.height / 2
-	}
-
-	public enum Alignment {
-		case top
-		case bottom
 	}
 }
