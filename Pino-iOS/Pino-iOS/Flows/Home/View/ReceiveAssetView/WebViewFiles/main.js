@@ -1,6 +1,5 @@
 
 
-
 function generateAndShowQRCode(qrCode) {
                let qrCodeComponent = document.getElementById("qr1")
                qrCodeComponent.contents = qrCode
