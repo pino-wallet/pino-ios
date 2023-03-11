@@ -93,6 +93,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 			walletBalanceHeaderView.homeVM = homeVM
 			walletBalanceHeaderView.sendButtonTappedClosure = sendButtonTappedClosure
 			walletBalanceHeaderView.receiveButtonTappedClosure = receiveButtonTappedClosure
+			walletBalanceHeaderView.portfolioPerformanceTapped = portfolioPerformanceTapped
 			return walletBalanceHeaderView
 
 		case .position:

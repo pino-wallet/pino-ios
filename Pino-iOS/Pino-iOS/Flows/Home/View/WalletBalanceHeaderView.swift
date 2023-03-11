@@ -30,6 +30,7 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 	// MARK: - Public Properties
 
 	public static let headerReuseID = "homepgaeHeader"
+	public var portfolioPerformanceTapped: (() -> Void)!
 
 	public var homeVM: HomepageViewModel! {
 		didSet {
@@ -201,7 +202,9 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 	}
 
 	@objc
-	private func openVolatilityDetailPage() {}
+	private func openVolatilityDetailPage() {
+		portfolioPerformanceTapped()
+	}
 
 	@objc
 	private func openSendAssetVC() {}
