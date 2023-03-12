@@ -78,8 +78,8 @@ public class AssetViewModel: SecurityModeProtocol {
 //		} else {
 //			return "$\(assetModel.detail!.price)"
 //		}
-        let holdAmmount = PercisionCalculate.trimmedValueOf(money: assetModel.detail!.price.doubleValue)
-        return "$\(holdAmmount)"
+		let holdAmmount = PercisionCalculate.trimmedValueOf(money: assetModel.detail!.price.doubleValue)
+		return "$\(holdAmmount)"
 	}
 
 	private func getFormattedVolatility() -> String {

@@ -18,14 +18,14 @@ extension String {
 		}
 		return array
 	}
-    
-    var doubleValue: Double {
-        if let doubleValue = Double(self) {
-            return doubleValue
-        } else {
-            fatalError("Failed to convert string to double")
-        }
-    }
+
+	var doubleValue: Double {
+		if let doubleValue = Double(self) {
+			return doubleValue
+		} else {
+			fatalError("Failed to convert string to double")
+		}
+	}
 
 	public func shortenedString(characterCount: Int) -> String {
 		"\(prefix(characterCount))...\(suffix(characterCount))"
@@ -49,7 +49,4 @@ extension String {
 			return UIImage(ciImage: QRImage)
 		} else { fatalError("Cant generate qrcode image") }
 	}
-    
-    
-    
 }
