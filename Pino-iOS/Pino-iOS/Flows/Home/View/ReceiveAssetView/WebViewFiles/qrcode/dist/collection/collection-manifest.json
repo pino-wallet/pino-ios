@@ -4,7 +4,7 @@
       "tag": "qr-code",
       "dependencies": [],
       "componentClass": "BpQRCode",
-      "componentPath": "components/qr-code/qr-code.js",
+      "componentPath": "components/qr-code/qr-code-comp.js",
       "styles": {
         "$": {
           "stylePaths": [
