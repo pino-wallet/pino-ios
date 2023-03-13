@@ -40,11 +40,18 @@ class EditAccountViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		editAccountView = EditAccountView(walletVM: selectedWallet, newAvatarTapped: { [weak self] in
-			self?.openAvatarPage()
-		}, navigateToRemoveAccountPageClosure: { [weak self] in
-			self?.openRemoveAccountPage()
-		})
+		editAccountView = EditAccountView(
+			walletVM: selectedWallet,
+			newAvatarTapped: { [weak self] in
+				self?.openAvatarPage()
+			},
+			navigateToRemoveAccountPageClosure: { [weak self] in
+				self?.openRemoveAccountPage()
+			},
+			showPrivateKeyTapped: {
+				self.openRevealPrivateKey()
+			}
+		)
 		view = editAccountView
 	}
 
@@ -99,5 +106,10 @@ class EditAccountViewController: UIViewController {
 		let removeAccountVC = RemoveAccountViewController()
 		navigationVC.viewControllers = [removeAccountVC]
 		present(navigationVC, animated: true)
+	}
+
+	private func openRevealPrivateKey() {
+		let revaelPrivateKeyVC = RevealPrivateKeyViewController()
+		navigationController?.pushViewController(revaelPrivateKeyVC, animated: true)
 	}
 }

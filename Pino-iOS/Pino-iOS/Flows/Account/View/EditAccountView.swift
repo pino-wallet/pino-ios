@@ -26,6 +26,7 @@ class EditAccountView: UIView {
 	private let walletVM: WalletInfoViewModel
 	private let newAvatarTapped: () -> Void
 	private var cancellables = Set<AnyCancellable>()
+	private let showPrivateKeyTapped: () -> Void
 
 	// MARK: - Public Properties
 
@@ -38,12 +39,14 @@ class EditAccountView: UIView {
 	init(
 		walletVM: WalletInfoViewModel,
 		newAvatarTapped: @escaping () -> Void,
-		navigateToRemoveAccountPageClosure: @escaping () -> Void
+		navigateToRemoveAccountPageClosure: @escaping () -> Void,
+		showPrivateKeyTapped: @escaping () -> Void
 	) {
 		self.newAvatarTapped = newAvatarTapped
 		self.walletVM = walletVM
 		self.newAvatar = walletVM.profileImage
 		self.navigateToRemoveAccountPageClosure = navigateToRemoveAccountPageClosure
+		self.showPrivateKeyTapped = showPrivateKeyTapped
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -70,6 +73,9 @@ class EditAccountView: UIView {
 
 		walletAvatarStackView
 			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(setNewAvatar)))
+		privateKeyButton.addAction(UIAction(handler: { _ in
+			self.showPrivateKeyTapped()
+		}), for: .touchUpInside)
 	}
 
 	private func setupStyle() {
