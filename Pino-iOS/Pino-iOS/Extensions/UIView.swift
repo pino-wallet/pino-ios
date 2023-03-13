@@ -5,8 +5,6 @@
 //  Created by Amir hossein kazemi seresht on 3/4/23.
 //
 
-import Foundation
-import ObjectiveC
 import UIKit
 
 extension UIView {
