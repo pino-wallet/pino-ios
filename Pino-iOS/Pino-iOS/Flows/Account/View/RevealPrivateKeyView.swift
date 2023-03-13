@@ -132,6 +132,7 @@ class RevealPrivateKeyView: UIView {
 		privateKeyView.layer.borderWidth = 1
 
 		privateKeyLabel.alpha = 0.4
+		copyPrivateKeyButton.alpha = 0
 	}
 
 	private func setupContstraint() {
@@ -169,6 +170,7 @@ class RevealPrivateKeyView: UIView {
 			self.privateKeyLabel.alpha = 0.9
 			self.revealBlurView.alpha = 0
 			self.revealStackView.alpha = 0
+			self.copyPrivateKeyButton.alpha = 1
 		}
 	}
 }
