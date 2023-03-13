@@ -14,6 +14,10 @@ class RemoveAccountViewController: UIViewController {
 	private let dismissButton = UIButton()
 	private let dismissButtonContainerView = UIView()
 
+	// MARK: - Public Properties
+
+	public var walletIsDeleted: (() -> Void)!
+
 	// MARK: - View Overrides
 
 	override func viewDidLoad() {
@@ -44,11 +48,16 @@ class RemoveAccountViewController: UIViewController {
 	}
 
 	private func presentConfirmRemoveAccountAlert() {
-		#warning("this handler is for testing and should be changed")
 		let confirmRemoveAccountAlert = AlertHelper.alertController(
 			title: removeAccountVM.confirmActionSheetTitle,
 			message: removeAccountVM.confirmActionSheetDescriptionText,
-			actions: [.cancel(), .delete(handler: { _ in print("Removed!") })]
+			actions: [
+				.cancel(),
+				.delete(handler: { _ in
+					self.dismiss(animated: true)
+					self.walletIsDeleted()
+				}),
+			]
 		)
 
 		present(confirmRemoveAccountAlert, animated: true)

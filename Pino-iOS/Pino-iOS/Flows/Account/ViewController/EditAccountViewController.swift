@@ -95,5 +95,13 @@ class EditAccountViewController: UIViewController {
 		let removeAccountVC = RemoveAccountViewController()
 		navigationVC.viewControllers = [removeAccountVC]
 		present(navigationVC, animated: true)
+		removeAccountVC.walletIsDeleted = {
+			self.removeWallet()
+		}
+	}
+
+	private func removeWallet() {
+		walletVM.removeWallet(selectedWallet)
+		navigationController!.popViewController(animated: true)
 	}
 }
