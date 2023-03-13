@@ -123,6 +123,11 @@ extension CoinInfoCollectionView: UICollectionViewDataSource {
 		coinInfoHeaderView.infoButtonTapped = {
 			self.portfolioInfoButtonTapped()
 		}
+		#warning("this loading is for testing and should be updated")
+		coinInfoHeaderView.showSkeletonView()
+		DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+			coinInfoHeaderView.hideSkeletonView()
+		}
 		return coinInfoHeaderView
 	}
 

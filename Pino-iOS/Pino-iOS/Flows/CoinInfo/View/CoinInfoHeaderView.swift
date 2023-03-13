@@ -135,6 +135,25 @@ class CoinInfoHeaderView: UICollectionReusableView {
 		volatilityRateLabel.font = .PinoStyle.mediumSubheadline
 		assetsTitleLabel.font = .PinoStyle.semiboldTitle2
 
+		#warning("this loading is for testing and should be updated")
+		amountLabel.isSkeletonable = true
+		userAmountLabel.isSkeletonable = true
+		volatilityRateLabel.isSkeletonable = true
+		assetsTitleLabel.isSkeletonable = true
+		assetsIcon.isSkeletonable = true
+		contentView.layer.borderWidth = 1
+		contentView.layer.borderColor = UIColor.Pino.white.cgColor
+		contentView.isSkeletonBordered = true
+		borrowLabel.isSkeletonable = true
+		borrowInfoButton.isSkeletonable = true
+		borrowTitleLabel.isSkeletonable = true
+		collateralLabel.isSkeletonable = true
+		collateralInfoButton.isSkeletonable = true
+		collateralTitleLabel.isSkeletonable = true
+		investLabel.isSkeletonable = true
+		investTitleLabel.isSkeletonable = true
+		investInfoButtton.isSkeletonable = true
+
 		contentStackView.axis = .vertical
 		userCoinInfoStackView.axis = .vertical
 		amountStackView.axis = .horizontal
