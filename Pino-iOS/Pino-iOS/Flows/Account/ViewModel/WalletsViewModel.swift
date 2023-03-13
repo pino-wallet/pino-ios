@@ -47,6 +47,19 @@ class WalletsViewModel {
 		saveWalletsInUserDefaults(walletsList)
 	}
 
+	func removeWallet(_ wallet: WalletInfoViewModel) {
+		if walletsList.count > 1 {
+			guard let walletIndex = walletsList.firstIndex(where: { $0.id == wallet.id }) else {
+				fatalError("No wallet found with this ID")
+			}
+			walletsList.remove(at: walletIndex)
+			if wallet.isSelected {
+				walletsList[0].isSelected(true)
+			}
+			saveWalletsInUserDefaults(walletsList)
+		}
+	}
+
 	// MARK: - Private Methods
 
 	private func getWallets() {

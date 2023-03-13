@@ -44,8 +44,7 @@ class CoinInfoViewController: UIViewController {
 
 	private func setupNavigationBar() {
 		// Setup appreance for navigation bar
-		navigationController?.navigationBar.backgroundColor = .Pino.primary
-		navigationController?.navigationBar.tintColor = .Pino.white
+		setupPrimaryColorNavigationBar()
 		// Setup title view
 		setNavigationTitle("\(coinInfoVM.coinPortfolio.name)")
 		// Setup close button

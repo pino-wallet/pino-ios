@@ -43,9 +43,9 @@ public class WalletCell: UICollectionViewCell {
 	private func setupView() {
 		contentView.addSubview(walletCardView)
 		walletCardView.addSubview(walletInfoStackView)
-		walletCardView.addSubview(editButton)
 		walletInfoStackView.addArrangedSubview(walletIconBackgroundView)
 		walletInfoStackView.addArrangedSubview(titleStackView)
+		walletInfoStackView.addArrangedSubview(editButton)
 		titleStackView.addArrangedSubview(walletname)
 		titleStackView.addArrangedSubview(walletBalance)
 		walletIconBackgroundView.addSubview(walletIcon)
@@ -89,10 +89,11 @@ public class WalletCell: UICollectionViewCell {
 	private func setupConstraint() {
 		walletCardView.pin(
 			.verticalEdges(padding: 4),
-			.horizontalEdges(padding: 16)
+			.horizontalEdges(padding: 16),
+			.fixedWidth(contentView.frame.width - 32)
 		)
 		walletInfoStackView.pin(
-			.leading(padding: 14),
+			.horizontalEdges(padding: 14),
 			.centerY
 		)
 		walletIconBackgroundView.pin(
@@ -104,9 +105,7 @@ public class WalletCell: UICollectionViewCell {
 		)
 		editButton.pin(
 			.fixedWidth(28),
-			.fixedHeight(28),
-			.trailing(padding: 14),
-			.centerY
+			.fixedHeight(28)
 		)
 	}
 
