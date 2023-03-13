@@ -26,7 +26,7 @@ class RevealPrivateKeyViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = UIView()
+		view = RevealPrivateKeyView(revealPrivateKeyVM: revealPrivateKeyVM)
 	}
 
 	private func setupNavigationBar() {
