@@ -27,17 +27,20 @@ class RevealPrivateKeyView: UIView {
 	private var revealPrivateKeyVM: RevealPrivateKeyViewModel
 	private let copyPrivateKeyTapped: () -> Void
 	private let doneButtonTapped: () -> Void
+	private let revealTapped: () -> Void
 
 	// MARK: Initializers
 
 	init(
 		revealPrivateKeyVM: RevealPrivateKeyViewModel,
 		copyPrivateKeyTapped: @escaping () -> Void,
-		doneButtonTapped: @escaping () -> Void
+		doneButtonTapped: @escaping () -> Void,
+		revealTapped: @escaping () -> Void
 	) {
 		self.revealPrivateKeyVM = revealPrivateKeyVM
 		self.copyPrivateKeyTapped = copyPrivateKeyTapped
 		self.doneButtonTapped = doneButtonTapped
+		self.revealTapped = revealTapped
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -66,7 +69,7 @@ class RevealPrivateKeyView: UIView {
 		addSubview(contentStackView)
 		addSubview(continueButton)
 
-		let revealTapGesture = UITapGestureRecognizer(target: self, action: #selector(showSeedPhrase))
+		let revealTapGesture = UITapGestureRecognizer(target: self, action: #selector(revealPrivateKey))
 		revealPrivateKeyView.addGestureRecognizer(revealTapGesture)
 
 		copyPrivateKeyButton.addAction(UIAction(handler: { _ in
@@ -164,7 +167,7 @@ class RevealPrivateKeyView: UIView {
 	}
 
 	@objc
-	private func showSeedPhrase() {
+	private func showPrivateKey() {
 		UIView.animate(withDuration: 0.5) {
 			self.privateKeyView.backgroundColor = .Pino.gray5
 			self.privateKeyLabel.alpha = 0.9
@@ -172,5 +175,10 @@ class RevealPrivateKeyView: UIView {
 			self.revealStackView.alpha = 0
 			self.copyPrivateKeyButton.alpha = 1
 		}
+	}
+
+	@objc
+	private func revealPrivateKey() {
+		revealTapped()
 	}
 }

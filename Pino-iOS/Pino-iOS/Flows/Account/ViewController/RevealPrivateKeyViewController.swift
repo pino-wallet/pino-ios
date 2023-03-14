@@ -34,6 +34,9 @@ class RevealPrivateKeyViewController: UIViewController {
 			},
 			doneButtonTapped: {
 				self.dismissPage()
+			},
+			revealTapped: {
+				self.showFaceID()
 			}
 		)
 	}
@@ -69,5 +72,9 @@ class RevealPrivateKeyViewController: UIViewController {
 
 	private func dismissPage() {
 		navigationController?.popViewController(animated: true)
+	}
+
+	private func showFaceID() {
+		BiometricAuthentication.evaluate {}
 	}
 }
