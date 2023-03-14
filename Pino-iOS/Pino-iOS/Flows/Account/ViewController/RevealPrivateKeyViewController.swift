@@ -62,7 +62,10 @@ class RevealPrivateKeyViewController: UIViewController {
 		present(screenshotAlertController, animated: true)
 	}
 
-	private func copyPrivateKey() {}
+	private func copyPrivateKey() {
+		let pasteboard = UIPasteboard.general
+		pasteboard.string = revealPrivateKeyVM.privateKey
+	}
 
 	private func dismissPage() {
 		navigationController?.popViewController(animated: true)
