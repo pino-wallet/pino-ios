@@ -31,7 +31,7 @@ class AboutPinoView: UIView {
 
 	// MARK: - Initializers
 
-	init(aboutPinoVM: AboutPinoViewModel, getStarted: @escaping (() -> Void)) {
+	init(aboutPinoVM: AboutPinoViewModel) {
 		self.aboutPinoVM = aboutPinoVM
 		super.init(frame: .zero)
 		setupView()
@@ -66,6 +66,12 @@ class AboutPinoView: UIView {
 		pinoInfoStackView.addArrangedSubview(separatorLines[1])
 		pinoInfoStackView.addArrangedSubview(websiteStackView)
 		addSubview(contentStackView)
+
+		termsOfServiceStackView
+			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showTermsOfServices)))
+		privacyPolicyStackView
+			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showPrivacyPolicy)))
+		websiteStackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showWebsite)))
 	}
 
 	private func setupStyle() {
@@ -146,6 +152,27 @@ class AboutPinoView: UIView {
 				.fixedWidth(32),
 				.trailing(padding: 12)
 			)
+		}
+	}
+
+	@objc
+	private func showTermsOfServices() {
+		if let url = URL(string: aboutPinoVM.termsOfServiceURL) {
+			UIApplication.shared.open(url)
+		}
+	}
+
+	@objc
+	private func showPrivacyPolicy() {
+		if let url = URL(string: aboutPinoVM.privacyPolicyURL) {
+			UIApplication.shared.open(url)
+		}
+	}
+
+	@objc
+	private func showWebsite() {
+		if let url = URL(string: aboutPinoVM.websiteURL) {
+			UIApplication.shared.open(url)
 		}
 	}
 }

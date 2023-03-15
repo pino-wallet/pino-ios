@@ -26,8 +26,7 @@ class AboutPinoViewController: UIViewController {
 	// MARK: Private Methods
 
 	private func setupView() {
-		let aboutPinoView = AboutPinoView(aboutPinoVM: aboutPinoVM) {}
-		view = aboutPinoView
+		view = AboutPinoView(aboutPinoVM: aboutPinoVM)
 	}
 
 	private func setupNavigationBar() {
