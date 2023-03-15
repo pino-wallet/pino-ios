@@ -22,12 +22,12 @@ class RecoveryPhraseView: UIView {
 	private let warningTitleLabel = PinoLabel(style: .description, text: nil)
 	private let warningDescriptionLabel = PinoLabel(style: .description, text: nil)
 	private var copySecretPhraseTapped: () -> Void
-	private var secretPhraseVM: ShowSecretPhraseViewModel
+	private var secretPhraseVM: RecoveryPhraseViewModel
 
 	// MARK: - Initializers
 
 	init(
-		secretPhraseVM: ShowSecretPhraseViewModel,
+		secretPhraseVM: RecoveryPhraseViewModel,
 		copySecretPhraseTapped: @escaping (() -> Void)
 	) {
 		self.copySecretPhraseTapped = copySecretPhraseTapped
@@ -66,12 +66,12 @@ class RecoveryPhraseView: UIView {
 
 	private func setupStyle() {
 		titleLabel.text = secretPhraseVM.title
-		descriptionLabel.text = secretPhraseVM.firstDescription
-		copySeedPhraseButton.setTitle(secretPhraseVM.shareButtonTitle, for: .normal)
-		warningTitleLabel.text = "DO NOT share your phrase with anyone as this gives full access to your wallet!"
-		warningDescriptionLabel.text = "Pino support will NEVER reach out to ask for it!"
+		descriptionLabel.text = secretPhraseVM.description
+		copySeedPhraseButton.setTitle(secretPhraseVM.copyButtonTitle, for: .normal)
+		warningTitleLabel.text = secretPhraseVM.warningTitle
+		warningDescriptionLabel.text = secretPhraseVM.warningDescription
 
-		let copyButtonImage = UIImage(named: secretPhraseVM.shareButtonIcon)
+		let copyButtonImage = UIImage(named: secretPhraseVM.copyButtonIcon)
 		copySeedPhraseButton.setImage(copyButtonImage, for: .normal)
 
 		copySeedPhraseButton.setConfiguraton(font: .PinoStyle.semiboldBody!, imagePadding: 10)
@@ -106,17 +106,22 @@ class RecoveryPhraseView: UIView {
 		titleStackView.alignment = .leading
 		seedPhraseStackView.alignment = .center
 		warningStackView.alignment = .center
-
 		warningCardView.layer.cornerRadius = 12
 	}
 
 	private func setupContstraint() {
 		contentStackView.pin(
 			.top(to: layoutMarginsGuide, padding: 25),
-			.horizontalEdges(padding: 16)
+			.horizontalEdges
 		)
 		seedPhraseCollectionView.pin(
-			.horizontalEdges
+			.horizontalEdges(padding: 6)
+		)
+		titleLabel.pin(
+			.horizontalEdges(padding: 16)
+		)
+		descriptionLabel.pin(
+			.horizontalEdges(padding: 16)
 		)
 		warningCardView.pin(
 			.horizontalEdges(padding: 16),

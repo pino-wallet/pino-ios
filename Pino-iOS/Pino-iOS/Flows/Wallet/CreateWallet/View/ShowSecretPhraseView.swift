@@ -90,7 +90,7 @@ extension ShowSecretPhraseView {
 		shareButton.setTitle(secretPhraseVM.shareButtonTitle, for: .normal)
 		continueButton.title = secretPhraseVM.continueButtonTitle
 
-		let shareButtonImage = UIImage(named: secretPhraseVM.shareButtonIcon)
+		let shareButtonImage = UIImage(systemName: secretPhraseVM.shareButtonIcon)
 		shareButton.setImage(shareButtonImage, for: .normal)
 
 		backgroundColor = .Pino.secondaryBackground

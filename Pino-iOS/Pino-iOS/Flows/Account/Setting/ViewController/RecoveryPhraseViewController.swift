@@ -10,8 +10,8 @@ import UIKit
 class RecoveryPhraseViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let secretPhraseVM = ShowSecretPhraseViewModel()
-	private let copyToastView = PinoToastView(message: nil, style: .secondary, padding: 23)
+	private let secretPhraseVM = RecoveryPhraseViewModel()
+	private let copyToastView = PinoToastView(message: nil, style: .secondary, padding: 24)
 
 	// MARK: - View Overrides
 
