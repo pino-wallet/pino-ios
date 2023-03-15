@@ -12,7 +12,7 @@ struct AboutPinoViewModel {
 
 	public let logo = "pino_logo_light"
 	public let name = "Pino"
-	public let version = "Version 2.1.1"
+	public let version = "Version 1.0.0"
 	public let termsOfServiceURL = "http://google.com/"
 	public let privacyPolicyURL = "http://google.com/"
 	public let websiteURL = "http://google.com/"
