@@ -45,6 +45,7 @@ class RevealPrivateKeyViewController: UIViewController {
 	}
 
 	private func setupNavigationBar() {
+		setupPrimaryColorNavigationBar()
 		// Setup title view
 		setNavigationTitle("Your private key")
 	}
