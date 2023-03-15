@@ -11,6 +11,7 @@ class RecoveryPhraseViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let secretPhraseVM = ShowSecretPhraseViewModel()
+	private let copyToastView = PinoToastView(message: nil, style: .secondary, padding: 23)
 
 	// MARK: - View Overrides
 
@@ -29,11 +30,8 @@ class RecoveryPhraseViewController: UIViewController {
 	private func setupView() {
 		let recoverPhraseView = RecoveryPhraseView(
 			secretPhraseVM: secretPhraseVM,
-			shareSecretPhare: {
-				self.shareSecretPhrase()
-			},
-			savedSecretPhrase: {
-				self.goToVerifyPage()
+			copySecretPhraseTapped: {
+				self.copySecretPhrase()
 			}
 		)
 		view = recoverPhraseView
@@ -63,16 +61,10 @@ class RecoveryPhraseViewController: UIViewController {
 		present(screenshotAlertController, animated: true)
 	}
 
-	private func shareSecretPhrase() {
-		let userWords = secretPhraseVM.secretPhraseList
-		let shareText = userWords.joined(separator: " ")
-		let shareActivity = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
-		present(shareActivity, animated: true) {}
-	}
-
-	private func goToVerifyPage() {
-		let verifyViewController = VerifySecretPhraseViewController()
-		verifyViewController.secretPhraseVM = VerifySecretPhraseViewModel(secretPhraseVM.secretPhraseList)
-		navigationController?.pushViewController(verifyViewController, animated: true)
+	private func copySecretPhrase() {
+		let pasteboard = UIPasteboard.general
+		pasteboard.string = secretPhraseVM.secretPhraseList.joined(separator: " ")
+		copyToastView.message = "Secret phrase has been copied"
+		copyToastView.showToast()
 	}
 }

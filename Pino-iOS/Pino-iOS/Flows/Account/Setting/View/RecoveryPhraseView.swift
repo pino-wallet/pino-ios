@@ -14,26 +14,23 @@ class RecoveryPhraseView: UIView {
 	private let titleStackView = UIStackView()
 	private let titleLabel = PinoLabel(style: .title, text: nil)
 	private let descriptionLabel = PinoLabel(style: .description, text: nil)
-	private let seedPhraseView = UIView()
-	private let revealLabel = PinoLabel(style: .title, text: nil)
-	private let seedPhraseBlurView = BlurEffectView()
 	private let seedPhraseStackView = UIStackView()
 	private let seedPhraseCollectionView = SecretPhraseCollectionView()
-	private let shareButton = UIButton()
-	private let continueButton = PinoButton(style: .deactive)
-	private var shareSecretPhrase: () -> Void
-	private var savedSecretPhrase: () -> Void
+	private let copySeedPhraseButton = UIButton()
+	private let warningCardView = UIView()
+	private let warningStackView = UIStackView()
+	private let warningTitleLabel = PinoLabel(style: .description, text: nil)
+	private let warningDescriptionLabel = PinoLabel(style: .description, text: nil)
+	private var copySecretPhraseTapped: () -> Void
 	private var secretPhraseVM: ShowSecretPhraseViewModel
 
 	// MARK: - Initializers
 
 	init(
 		secretPhraseVM: ShowSecretPhraseViewModel,
-		shareSecretPhare: @escaping (() -> Void),
-		savedSecretPhrase: @escaping (() -> Void)
+		copySecretPhraseTapped: @escaping (() -> Void)
 	) {
-		self.shareSecretPhrase = shareSecretPhare
-		self.savedSecretPhrase = savedSecretPhrase
+		self.copySecretPhraseTapped = copySecretPhraseTapped
 		self.secretPhraseVM = secretPhraseVM
 		super.init(frame: .zero)
 		setupView()
@@ -51,92 +48,83 @@ class RecoveryPhraseView: UIView {
 		seedPhraseCollectionView.secretWords = secretPhraseVM.secretPhraseList
 
 		contentStackView.addArrangedSubview(titleStackView)
-		contentStackView.addArrangedSubview(seedPhraseView)
+		contentStackView.addArrangedSubview(seedPhraseStackView)
 		titleStackView.addArrangedSubview(titleLabel)
 		titleStackView.addArrangedSubview(descriptionLabel)
-		seedPhraseView.addSubview(seedPhraseStackView)
-		seedPhraseView.addSubview(seedPhraseBlurView)
-		seedPhraseView.addSubview(revealLabel)
 		seedPhraseStackView.addArrangedSubview(seedPhraseCollectionView)
-		seedPhraseStackView.addArrangedSubview(shareButton)
+		seedPhraseStackView.addArrangedSubview(copySeedPhraseButton)
+		warningStackView.addArrangedSubview(warningTitleLabel)
+		warningStackView.addArrangedSubview(warningDescriptionLabel)
+		warningCardView.addSubview(warningStackView)
 		addSubview(contentStackView)
-		addSubview(continueButton)
+		addSubview(warningCardView)
 
-		let revealTapGesture = UITapGestureRecognizer(target: self, action: #selector(showSeedPhrase))
-		seedPhraseView.addGestureRecognizer(revealTapGesture)
-
-		shareButton.addAction(UIAction(handler: { _ in
-			self.shareSecretPhrase()
-		}), for: .touchUpInside)
-
-		continueButton.addAction(UIAction(handler: { _ in
-			self.savedSecretPhrase()
+		copySeedPhraseButton.addAction(UIAction(handler: { _ in
+			self.copySecretPhraseTapped()
 		}), for: .touchUpInside)
 	}
 
 	private func setupStyle() {
 		titleLabel.text = secretPhraseVM.title
 		descriptionLabel.text = secretPhraseVM.firstDescription
-		revealLabel.text = secretPhraseVM.revealButtonTitle
-		shareButton.setTitle(secretPhraseVM.shareButtonTitle, for: .normal)
-		continueButton.title = secretPhraseVM.continueButtonTitle
+		copySeedPhraseButton.setTitle(secretPhraseVM.shareButtonTitle, for: .normal)
+		warningTitleLabel.text = "DO NOT share your phrase with anyone as this gives full access to your wallet!"
+		warningDescriptionLabel.text = "Pino support will NEVER reach out to ask for it!"
 
-		let shareButtonImage = UIImage(systemName: secretPhraseVM.shareButtonIcon)
-		shareButton.setImage(shareButtonImage, for: .normal)
+		let copyButtonImage = UIImage(named: secretPhraseVM.shareButtonIcon)
+		copySeedPhraseButton.setImage(copyButtonImage, for: .normal)
 
-		backgroundColor = .Pino.secondaryBackground
+		copySeedPhraseButton.setConfiguraton(font: .PinoStyle.semiboldBody!, imagePadding: 10)
 
-		shareButton.setTitleColor(.Pino.primary, for: .normal)
-		shareButton.imageView?.tintColor = .Pino.primary
+		backgroundColor = .Pino.background
+		warningCardView.backgroundColor = .Pino.lightRed
+
+		copySeedPhraseButton.setTitleColor(.Pino.primary, for: .normal)
+		copySeedPhraseButton.imageView?.tintColor = .Pino.primary
+		warningTitleLabel.textColor = .Pino.red
+		warningDescriptionLabel.textColor = .Pino.red
 
 		titleLabel.font = .PinoStyle.mediumTitle2
-		shareButton.titleLabel?.font = .PinoStyle.semiboldBody
+		warningDescriptionLabel.font = .PinoStyle.regularCallout
+
+		warningTitleLabel.numberOfLines = 0
+		warningDescriptionLabel.numberOfLines = 0
+
+		warningTitleLabel.textAlignment = .center
+		warningDescriptionLabel.textAlignment = .center
 
 		contentStackView.axis = .vertical
 		titleStackView.axis = .vertical
 		seedPhraseStackView.axis = .vertical
+		warningStackView.axis = .vertical
 
-		contentStackView.spacing = 30
-		titleStackView.spacing = 12
-		seedPhraseStackView.spacing = 52
+		contentStackView.spacing = 24
+		titleStackView.spacing = 18
+		seedPhraseStackView.spacing = 50
+		warningStackView.spacing = 26
 
 		titleStackView.alignment = .leading
 		seedPhraseStackView.alignment = .center
+		warningStackView.alignment = .center
+
+		warningCardView.layer.cornerRadius = 12
 	}
 
 	private func setupContstraint() {
-		titleStackView.pin(
-			.horizontalEdges(padding: 16)
-		)
 		contentStackView.pin(
 			.top(to: layoutMarginsGuide, padding: 25),
-			.horizontalEdges
-		)
-		continueButton.pin(
-			.bottom(to: layoutMarginsGuide, padding: 8),
 			.horizontalEdges(padding: 16)
 		)
 		seedPhraseCollectionView.pin(
 			.horizontalEdges
 		)
-		seedPhraseStackView.pin(
-			.allEdges(padding: 16)
+		warningCardView.pin(
+			.horizontalEdges(padding: 16),
+			.bottom(padding: 38)
 		)
-		seedPhraseBlurView.pin(
-			.allEdges()
+		warningStackView.pin(
+			.horizontalEdges(padding: 22),
+			.verticalEdges(padding: 16)
 		)
-		revealLabel.pin(
-			.centerX,
-			.centerY
-		)
-	}
-
-	@objc
-	private func showSeedPhrase() {
-		UIView.animate(withDuration: 0.5) {
-			self.seedPhraseBlurView.alpha = 0
-			self.revealLabel.alpha = 0
-			self.continueButton.style = .active
-		}
 	}
 }
