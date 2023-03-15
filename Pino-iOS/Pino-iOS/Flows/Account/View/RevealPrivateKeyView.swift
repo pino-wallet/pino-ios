@@ -166,8 +166,7 @@ class RevealPrivateKeyView: UIView {
 		)
 	}
 
-	@objc
-	private func showPrivateKey() {
+	public func showPrivateKey() {
 		UIView.animate(withDuration: 0.5) {
 			self.privateKeyView.backgroundColor = .Pino.gray5
 			self.privateKeyLabel.alpha = 0.9

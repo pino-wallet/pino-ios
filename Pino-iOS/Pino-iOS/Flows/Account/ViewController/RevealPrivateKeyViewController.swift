@@ -10,6 +10,7 @@ import UIKit
 class RevealPrivateKeyViewController: UIViewController {
 	// MARK: Private Properties
 
+	private var revealPrivateKeyView: RevealPrivateKeyView!
 	private let revealPrivateKeyVM = RevealPrivateKeyViewModel()
 
 	// MARK: - View Overrides
@@ -27,7 +28,7 @@ class RevealPrivateKeyViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = RevealPrivateKeyView(
+		revealPrivateKeyView = RevealPrivateKeyView(
 			revealPrivateKeyVM: revealPrivateKeyVM,
 			copyPrivateKeyTapped: {
 				self.copyPrivateKey()
@@ -39,6 +40,7 @@ class RevealPrivateKeyViewController: UIViewController {
 				self.showFaceID()
 			}
 		)
+		view = revealPrivateKeyView
 	}
 
 	private func setupNavigationBar() {
@@ -75,6 +77,9 @@ class RevealPrivateKeyViewController: UIViewController {
 	}
 
 	private func showFaceID() {
-		BiometricAuthentication.evaluate {}
+		var faceIDLock = BiometricAuthentication()
+		faceIDLock.evaluate {
+			self.revealPrivateKeyView.showPrivateKey()
+		}
 	}
 }
