@@ -5,7 +5,7 @@ function generateAndShowQRCode(qrCode) {
                qrCodeComponent.contents = qrCode
     setTimeout(() => {
             animateQRCode(qrCodeComponent)
-    } , 10)
+    } , 20)
            }
 function animateQRCode(qrCodeComponent) {
     qrCodeComponent.style = `${qrCodeComponent.style} display: block;`
