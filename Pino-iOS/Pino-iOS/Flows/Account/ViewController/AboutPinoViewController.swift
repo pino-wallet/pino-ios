@@ -10,7 +10,7 @@ import UIKit
 class AboutPinoViewController: UIViewController {
 	// MARK: Private Properties
 
-	private let aboutPinoVM = AllDoneViewModel()
+	private let aboutPinoVM = AboutPinoViewModel()
 
 	// MARK: View Overrides
 

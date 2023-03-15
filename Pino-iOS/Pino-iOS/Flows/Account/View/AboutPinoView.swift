@@ -15,15 +15,24 @@ class AboutPinoView: UIView {
 	private let titleStackView = UIStackView()
 	private let logoBackgroundView = UIView()
 	private let pinoLogo = UIImageView()
-	private let pinoName = PinoLabel(style: .title, text: nil)
-	private let pinoAppVersion = PinoLabel(style: .description, text: nil)
+	private let pinoName = UILabel()
+	private let pinoAppVersion = UILabel()
+	private let pinoInfoCardView = UIView()
 	private let pinoInfoStackView = UIStackView()
-	private var allDoneVM: AllDoneViewModel
+	private let termsOfServiceStackView = UIStackView()
+	private let privacyPolicyStackView = UIStackView()
+	private let websiteStackView = UIStackView()
+	private let termsOfServiceTitle = UILabel()
+	private let privacyPolicyTitle = UILabel()
+	private let websiteTitle = UILabel()
+	private let separatorLines = [UIView(), UIView()]
+	private let detailIcons = [UIImageView(), UIImageView(), UIImageView()]
+	private var aboutPinoVM: AboutPinoViewModel
 
 	// MARK: - Initializers
 
-	init(aboutPinoVM: AllDoneViewModel, getStarted: @escaping (() -> Void)) {
-		self.allDoneVM = aboutPinoVM
+	init(aboutPinoVM: AboutPinoViewModel, getStarted: @escaping (() -> Void)) {
+		self.aboutPinoVM = aboutPinoVM
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -38,39 +47,74 @@ class AboutPinoView: UIView {
 
 	private func setupView() {
 		contentStackView.addArrangedSubview(logoStackView)
-		contentStackView.addArrangedSubview(pinoInfoStackView)
+		contentStackView.addArrangedSubview(pinoInfoCardView)
 		logoStackView.addArrangedSubview(logoBackgroundView)
 		logoStackView.addArrangedSubview(titleStackView)
 		titleStackView.addArrangedSubview(pinoName)
 		titleStackView.addArrangedSubview(pinoAppVersion)
 		logoBackgroundView.addSubview(pinoLogo)
+		pinoInfoCardView.addSubview(pinoInfoStackView)
+		termsOfServiceStackView.addArrangedSubview(termsOfServiceTitle)
+		termsOfServiceStackView.addArrangedSubview(detailIcons[0])
+		privacyPolicyStackView.addArrangedSubview(privacyPolicyTitle)
+		privacyPolicyStackView.addArrangedSubview(detailIcons[1])
+		websiteStackView.addArrangedSubview(websiteTitle)
+		websiteStackView.addArrangedSubview(detailIcons[2])
+		pinoInfoStackView.addArrangedSubview(termsOfServiceStackView)
+		pinoInfoStackView.addArrangedSubview(separatorLines[0])
+		pinoInfoStackView.addArrangedSubview(privacyPolicyStackView)
+		pinoInfoStackView.addArrangedSubview(separatorLines[1])
+		pinoInfoStackView.addArrangedSubview(websiteStackView)
 		addSubview(contentStackView)
 	}
 
 	private func setupStyle() {
-		pinoLogo.image = UIImage(named: allDoneVM.image)
-
-		pinoName.text = allDoneVM.title
-		pinoAppVersion.text = allDoneVM.description
+		pinoName.text = aboutPinoVM.name
+		pinoAppVersion.text = aboutPinoVM.version
+		termsOfServiceTitle.text = "Terms of service"
+		privacyPolicyTitle.text = "Privacy policy"
+		websiteTitle.text = "Visit website"
+		pinoLogo.image = UIImage(named: aboutPinoVM.logo)
+		for detailIcon in detailIcons {
+			detailIcon.image = UIImage(named: "arrow_right")
+			detailIcon.contentMode = .left
+		}
 
 		backgroundColor = .Pino.background
 		logoBackgroundView.backgroundColor = .Pino.primary
+		pinoInfoCardView.backgroundColor = .Pino.secondaryBackground
+		for line in separatorLines {
+			line.backgroundColor = .Pino.gray5
+		}
+
+		pinoName.textColor = .Pino.green6
+		pinoAppVersion.textColor = .Pino.label
+		termsOfServiceTitle.textColor = .Pino.label
+		privacyPolicyTitle.textColor = .Pino.label
+		websiteTitle.textColor = .Pino.label
+
+		pinoName.font = .PinoStyle.semiboldTitle1
+		pinoAppVersion.font = .PinoStyle.regularCallout
+		termsOfServiceTitle.font = .PinoStyle.mediumBody
+		privacyPolicyTitle.font = .PinoStyle.mediumBody
+		websiteTitle.font = .PinoStyle.mediumBody
 
 		contentStackView.axis = .vertical
 		titleStackView.axis = .vertical
 		pinoInfoStackView.axis = .vertical
 		logoStackView.axis = .vertical
 
-		contentStackView.spacing = 26
-		titleStackView.spacing = 8
-		pinoInfoStackView.spacing = 0
-		logoStackView.spacing = 18
+		contentStackView.spacing = 44
+		titleStackView.spacing = 12
+		pinoInfoStackView.spacing = 12
+		logoStackView.spacing = 16
 
 		contentStackView.alignment = .center
 		titleStackView.alignment = .center
 		logoStackView.alignment = .center
 
 		logoBackgroundView.layer.cornerRadius = 12
+		pinoInfoCardView.layer.cornerRadius = 12
 	}
 
 	private func setupContstraint() {
@@ -79,9 +123,29 @@ class AboutPinoView: UIView {
 			.horizontalEdges(padding: 16)
 		)
 		pinoLogo.pin(
-			.fixedWidth(70),
-			.fixedHeight(70),
-			.allEdges(padding: 5)
+			.fixedWidth(60),
+			.fixedHeight(60),
+			.allEdges(padding: 10)
 		)
+		pinoInfoStackView.pin(
+			.leading(padding: 16),
+			.trailing,
+			.verticalEdges(padding: 12)
+		)
+		pinoInfoCardView.pin(
+			.horizontalEdges()
+		)
+		for line in separatorLines {
+			line.pin(
+				.fixedHeight(1)
+			)
+		}
+		for detailIcon in detailIcons {
+			detailIcon.pin(
+				.fixedHeight(24),
+				.fixedWidth(32),
+				.trailing(padding: 12)
+			)
+		}
 	}
 }
