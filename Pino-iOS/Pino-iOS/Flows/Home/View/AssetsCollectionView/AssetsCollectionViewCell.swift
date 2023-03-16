@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 public class AssetsCollectionViewCell: UICollectionViewCell {
 	// MARK: Private Properties
@@ -79,7 +80,8 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 			}
 		}
 
-		assetImage.image = UIImage(named: assetVM.image)
+        assetImage.kf.indicatorType = .activity
+        assetImage.kf.setImage(with: assetVM.image)
 
 		backgroundColor = .Pino.background
 		assetCardView.backgroundColor = .Pino.secondaryBackground

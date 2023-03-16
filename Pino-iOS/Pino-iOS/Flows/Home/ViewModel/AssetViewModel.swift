@@ -19,8 +19,8 @@ public class AssetViewModel: SecurityModeProtocol {
 		assetModel.id
 	}
 
-	public var image: String {
-		assetModel.detail!.logo
+	public var image: URL {
+		URL(string: assetModel.detail!.logo)!
 	}
 
 	public var name: String {

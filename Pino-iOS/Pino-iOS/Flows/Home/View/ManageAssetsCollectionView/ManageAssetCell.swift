@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 public class ManageAssetCell: UICollectionViewCell {
 	// MARK: Private Properties
@@ -52,8 +53,9 @@ public class ManageAssetCell: UICollectionViewCell {
 		assetTitleLabel.text = assetVM.name
 		assetAmountLabel.text = assetVM.amount
 
-		assetImage.image = UIImage(named: assetVM.image)
-
+        assetImage.kf.indicatorType = .activity
+        assetImage.kf.setImage(with: assetVM.image)
+        
 		backgroundColor = .Pino.background
 		assetCardView.backgroundColor = .Pino.secondaryBackground
 		assetImage.backgroundColor = .Pino.background
