@@ -78,7 +78,8 @@ public class AssetViewModel: SecurityModeProtocol {
 //		} else {
 //			return "$\(assetModel.detail!.price)"
 //		}
-        let holdAmmount = PercisionCalculate.trimmedValueOf(money: assetModel.detail!.price.doubleValue ?? 0)
+        let temp = [0.343534534,12.343534534,124.343534534,1263.343534534,12634.343534534,126345.343534534]
+        let holdAmmount = PercisionCalculate.trimmedValueOf(coin: temp.randomElement()!)
 		return "$\(holdAmmount)"
 	}
 

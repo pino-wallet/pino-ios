@@ -9,7 +9,8 @@ import Foundation
 
 class PercisionCalculate {
 	private static let formatter = NumberFormatter()
-	private static let trimDigit = 6
+    private static let moneyTrimDigit = 6
+    private static let coinTrimDigit = 7
 
 	static func trimmedValueOf(money moneyValue: Double) -> String {
 		let moneyNumber = NSNumber(value: moneyValue)
@@ -18,13 +19,13 @@ class PercisionCalculate {
 		let numDigits = String(format: "%.0f", moneyValue).count
 		print("\(moneyValue) : \(numDigits)")
 
-		if numDigits < trimDigit {
+		if numDigits > moneyTrimDigit {
 			formatter.maximumFractionDigits = 0
 		}
-		if numDigits == trimDigit {
+		if numDigits == moneyTrimDigit {
 			formatter.maximumFractionDigits = 1
 		}
-		if numDigits < trimDigit {
+		if numDigits < moneyTrimDigit {
 			formatter.maximumFractionDigits = 2
 		}
 
@@ -35,7 +36,29 @@ class PercisionCalculate {
 		}
 	}
 
-	static func trimmedValueOf(coin: String) -> String {
-		" "
+	static func trimmedValueOf(coin coinValue: Double) -> String {
+        let coinNumber = NSNumber(value: coinValue)
+        formatter.numberStyle = .decimal
+
+        let numDigits = String(format: "%.0f", coinValue).count
+        print("\(coinValue) : \(numDigits) : \(Int(coinValue.whole))")
+
+        formatter.maximumFractionDigits = coinTrimDigit - numDigits
+        
+        // |   SAMPLE NUMBER   | SHORTENED | FRACTION CNT |
+        // ------------------------------------------------
+        // | 1.343534534       | 1.343534  |      6       |
+        // | 12.343534534      | 12.34353  |      5       |
+        // | 124.343534534     | 126.3435  |      4       |
+        // | 1245.343534534    | 1263.343  |      3       |
+        // | 12634.343534534   | 12634.34  |      2       |
+        // | 126343.343534534  | 126345.3  |      1       |
+        // | 1263451.343534534 | 1263451   |      0       |
+        
+        if let trimmedValue = formatter.string(from: coinNumber) {
+            return trimmedValue
+        } else {
+            fatalError("Failed to trimm the number")
+        }
 	}
 }
