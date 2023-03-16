@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 12/21/22.
 //
 import Foundation
+import BigInt
 
 public class AssetViewModel: SecurityModeProtocol {
 	// MARK: - Private Properties
@@ -27,24 +28,30 @@ public class AssetViewModel: SecurityModeProtocol {
 		assetModel.detail!.name
 	}
     
-    public var hold: String {
-        assetModel.hold
+    public var hold: BigInt {
+        BigInt(assetModel.hold)!
     }
     
-    public var price: String {
-        assetModel.detail!.price
+    public var price: BigInt {
+        BigInt(assetModel.detail!.price)!
     }
 
     public var decimal: Int {
         assetModel.detail!.decimals
     }
 
-    public var holdAmount: Double {
-        Double(assetModel.hold)! / pow(10, Double(assetModel.detail!.decimals))
+    public var holdAmount: BigInt {
+        print(hold / BigInt(10).power(assetModel.detail!.decimals))
+        
+        let devideBy = BigInt(10).power(assetModel.detail!.decimals)
+        let result = hold.quotientAndRemainder(dividingBy: devideBy)
+        print(result)
+        
+        return hold / BigInt(10).power(assetModel.detail!.decimals)
     }
     
-    public var holdAmountInDollar: Double {
-        holdAmount * price.doubleValue!
+    public var holdAmountInDollar: BigInt {
+        holdAmount * price
     }
     
     
@@ -91,11 +98,11 @@ public class AssetViewModel: SecurityModeProtocol {
 	// MARK: - Private Methods
 
 	private func getFormattedAmount() -> String {
-        "\(PercisionCalculate.trimmedValueOf(coin: holdAmount)) \(assetModel.detail!.symbol)"
+        return "\(PercisionCalculate.trimmedValueOf(coin: holdAmount)) \(assetModel.detail!.symbol)"
 	}
 
 	private func getFormattedAmountInDollor() -> String {
-		if Int(assetModel.hold) == 0 {
+        if hold.isZero {
 			return "-"
 		} else {
 			return "$\(holdAmountInDollar)"

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import BigInt
 
 class PercisionCalculate {
 	private static let formatter = NumberFormatter()
@@ -36,14 +37,13 @@ class PercisionCalculate {
 		}
 	}
 
-	static func trimmedValueOf(coin coinValue: Double) -> String {
-        let coinNumber = NSNumber(value: coinValue)
+	static func trimmedValueOf(coin coinValue: BigInt) -> String {
+//        let coinNumber = NSNumber(value: coinValue)
         formatter.numberStyle = .decimal
 
-        let numDigits = String(format: "%.0f", coinValue).count
-        print("\(coinValue) : \(numDigits) : \(Int(coinValue.whole))")
-
-        formatter.maximumFractionDigits = coinTrimDigit - numDigits
+//        let numDigits = String(format: "%.0f", coinValue).count
+    
+        formatter.maximumFractionDigits = coinTrimDigit - coinValue.words.count
         
         // |   SAMPLE NUMBER   | SHORTENED | FRACTION CNT |
         // ------------------------------------------------
@@ -55,10 +55,12 @@ class PercisionCalculate {
         // | 126343.343534534  | 126345.3  |      1       |
         // | 1263451.343534534 | 1263451   |      0       |
         
-        if let trimmedValue = formatter.string(from: coinNumber) {
-            return trimmedValue
-        } else {
-            fatalError("Failed to trimm the number")
-        }
+        return coinValue.description
+        
+//        if let trimmedValue = formatter.string(from: coinNumber) {
+//            return trimmedValue
+//        } else {
+//            fatalError("Failed to trimm the number")
+//        }
 	}
 }
