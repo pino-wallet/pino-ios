@@ -19,12 +19,8 @@ extension String {
 		return array
 	}
 
-	var doubleValue: Double {
-		if let doubleValue = Double(self) {
-			return doubleValue
-		} else {
-			fatalError("Failed to convert string to double")
-		}
+	var doubleValue: Double? {
+        Double(self)
 	}
 
 	public func shortenedString(characterCount: Int) -> String {
