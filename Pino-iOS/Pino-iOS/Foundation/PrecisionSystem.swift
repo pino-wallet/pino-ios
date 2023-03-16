@@ -12,6 +12,7 @@ class PercisionCalculate {
 	private static let formatter = NumberFormatter()
     private static let moneyTrimDigit = 6
     private static let coinTrimDigit = 7
+    private let maximumFractionDigits = 4
 
 	static func trimmedValueOf(money moneyValue: Double) -> String {
 		let moneyNumber = NSNumber(value: moneyValue)
@@ -63,4 +64,6 @@ class PercisionCalculate {
 //            fatalError("Failed to trimm the number")
 //        }
 	}
+    
+    
 }

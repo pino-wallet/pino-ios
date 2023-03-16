@@ -6,6 +6,7 @@
 //
 import Foundation
 import BigInt
+import Web3Core
 
 public class AssetViewModel: SecurityModeProtocol {
 	// MARK: - Private Properties
@@ -39,19 +40,21 @@ public class AssetViewModel: SecurityModeProtocol {
     public var decimal: Int {
         assetModel.detail!.decimals
     }
+    
+    public var change24h: BigInt {
+        BigInt(assetModel.detail!.change24H)!
+    }
 
-    public var holdAmount: BigInt {
-        print(hold / BigInt(10).power(assetModel.detail!.decimals))
+    public var holdAmount: Double {
+                
+        let amount = Utilities.formatToPrecision(hold, units: .custom(assetModel.detail!.decimals), formattingDecimals: 6, decimalSeparator: ".", fallbackToScientific: true)
         
-        let devideBy = BigInt(10).power(assetModel.detail!.decimals)
-        let result = hold.quotientAndRemainder(dividingBy: devideBy)
-        print(result)
-        
-        return hold / BigInt(10).power(assetModel.detail!.decimals)
+        print("\(name): \(amount)")
+        return Double(amount)!
     }
     
     public var holdAmountInDollar: BigInt {
-        holdAmount * price
+        BigInt(holdAmount) * price
     }
     
     
@@ -60,8 +63,17 @@ public class AssetViewModel: SecurityModeProtocol {
 	public var volatilityInDollor = "-"
 
 	public var volatilityType: AssetVolatilityType {
-//		AssetVolatilityType(rawValue: assetModel.volatilityType) ?? .none
-		.profit
+        if change24h.isZero {
+            return .none
+        } else {
+            switch change24h.sign {
+            case .minus:
+                return .loss
+            case .plus:
+                return .profit
+            }
+        }
+        
 	}
 
 	public var isSelected = true
@@ -98,7 +110,8 @@ public class AssetViewModel: SecurityModeProtocol {
 	// MARK: - Private Methods
 
 	private func getFormattedAmount() -> String {
-        return "\(PercisionCalculate.trimmedValueOf(coin: holdAmount)) \(assetModel.detail!.symbol)"
+        return "\(holdAmount) \(assetModel.detail!.symbol)"
+//        return "\(PercisionCalculate.trimmedValueOf(coin: holdAmount)) \(assetModel.detail!.symbol)"
 	}
 
 	private func getFormattedAmountInDollor() -> String {
@@ -109,17 +122,22 @@ public class AssetViewModel: SecurityModeProtocol {
 		}
     }
 
+    public var volatilityDollorValue: Double {
+        return assetModel.detail!.change24H.doubleValue! / pow(10, 2)
+    }
+    
 	private func getFormattedVolatility() -> String {
-		"+$3.5"
-//		if Int(assetModel.volatilityInDollor) == 0 {
-//			return "-"
-//		} else {
-//			switch volatilityType {
-//			case .loss:
-//				return "-$\(assetModel.volatilityInDollor)"
-//			case .profit, .none:
-//				return "+$\(assetModel.volatilityInDollor)"
-//			}
-//		}
+        if change24h.isZero {
+			return "-"
+		} else {
+			switch volatilityType {
+			case .loss:
+                var lossValue = String(volatilityDollorValue)
+                lossValue.removeFirst()
+                return "-$\(lossValue)"
+			case .profit, .none:
+				return "+$\(volatilityDollorValue)"
+			}
+		}
 	}
 }
