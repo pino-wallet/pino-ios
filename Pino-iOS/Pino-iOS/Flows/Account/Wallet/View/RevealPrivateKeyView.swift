@@ -87,7 +87,7 @@ class RevealPrivateKeyView: UIView {
 		copyPrivateKeyButton.setTitle(revealPrivateKeyVM.copyButtonTitle, for: .normal)
 		continueButton.title = "Done"
 
-		let shareButtonImage = UIImage(systemName: revealPrivateKeyVM.copyButtonImage)
+		let shareButtonImage = UIImage(named: revealPrivateKeyVM.copyButtonImage)
 		copyPrivateKeyButton.setImage(shareButtonImage, for: .normal)
 
 		backgroundColor = .Pino.background
