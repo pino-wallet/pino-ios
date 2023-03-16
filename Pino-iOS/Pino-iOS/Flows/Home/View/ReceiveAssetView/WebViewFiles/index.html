@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="qrcode/dist/qr-code.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+        <link rel="stylesheet" href="customStyles/custom.css" >
+    </head>
+<body>
+        <qr-code
+            id="qr1"
+            contents=""
+            module-color="#003940"
+            position-ring-color="#003940"
+            position-center-color="#20C148"
+            mask-x-to-y-ratio="1"
+            style="
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            display: none;
+          ">
+          <img src="customAssets/pino-icon.png" slot="icon" />
+        </qr-code>
+</body>
+</html>
