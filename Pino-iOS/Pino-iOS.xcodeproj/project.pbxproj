@@ -76,6 +76,7 @@
 		4083E05B29C2EF4F007CBC45 /* coin-portfolio-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B0095EE8C266D11D502576F /* coin-portfolio-stub.json */; };
 		4083E05C29C2EF4F007CBC45 /* coin-info-chart-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7F15207743692E4CE3445A4C /* coin-info-chart-stub.json */; };
 		4083E05D29C2EF4F007CBC45 /* assets-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B2220BAE0D7613EB95414ED /* assets-stub.json */; };
+		4083E06029C307B8007CBC45 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4083E05F29C307B8007CBC45 /* Kingfisher */; };
 		41B9F1002F97DF04A075D75D /* PinoStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262D77EFE984EBA7A19D23DC /* PinoStepperView.swift */; };
 		4249EFC00F914608B9BE7171 /* AssetsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F34A6DD9D5B0DA99D3D282 /* AssetsCollectionViewCell.swift */; };
 		44C3312B501D7A88C6ADB659 /* SelectPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DADC99C41136A35EF49EF9B /* SelectPassViewModel.swift */; };
@@ -551,6 +552,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4083E06029C307B8007CBC45 /* Kingfisher in Frameworks */,
 				0589D8AB62B8FAB9A279B91A /* Pods_Pino_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1620,6 +1622,9 @@
 			dependencies = (
 			);
 			name = "Pino-iOS";
+			packageProductDependencies = (
+				4083E05F29C307B8007CBC45 /* Kingfisher */,
+			);
 			productName = "Pino-iOS";
 			productReference = 8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -1686,6 +1691,9 @@
 				en,
 			);
 			mainGroup = 2277E1FFDD10A1C98A64D20C;
+			packageReferences = (
+				4083E05E29C307B8007CBC45 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 2821FB9CEE9F9B9E6BAE9FD7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -2387,6 +2395,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4083E05E29C307B8007CBC45 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4083E05F29C307B8007CBC45 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4083E05E29C307B8007CBC45 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		281840026D1004B10CE8DAFD /* Pino_iOS.xcdatamodeld */ = {
