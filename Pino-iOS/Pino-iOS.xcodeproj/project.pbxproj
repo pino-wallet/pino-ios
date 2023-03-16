@@ -77,6 +77,7 @@
 		4083E05C29C2EF4F007CBC45 /* coin-info-chart-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7F15207743692E4CE3445A4C /* coin-info-chart-stub.json */; };
 		4083E05D29C2EF4F007CBC45 /* assets-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B2220BAE0D7613EB95414ED /* assets-stub.json */; };
 		4083E06029C307B8007CBC45 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4083E05F29C307B8007CBC45 /* Kingfisher */; };
+		4083E06329C3104F007CBC45 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 4083E06229C3104F007CBC45 /* BigInt */; };
 		41B9F1002F97DF04A075D75D /* PinoStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262D77EFE984EBA7A19D23DC /* PinoStepperView.swift */; };
 		4249EFC00F914608B9BE7171 /* AssetsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F34A6DD9D5B0DA99D3D282 /* AssetsCollectionViewCell.swift */; };
 		44C3312B501D7A88C6ADB659 /* SelectPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DADC99C41136A35EF49EF9B /* SelectPassViewModel.swift */; };
@@ -552,6 +553,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4083E06329C3104F007CBC45 /* BigInt in Frameworks */,
 				4083E06029C307B8007CBC45 /* Kingfisher in Frameworks */,
 				0589D8AB62B8FAB9A279B91A /* Pods_Pino_iOS.framework in Frameworks */,
 			);
@@ -1624,6 +1626,7 @@
 			name = "Pino-iOS";
 			packageProductDependencies = (
 				4083E05F29C307B8007CBC45 /* Kingfisher */,
+				4083E06229C3104F007CBC45 /* BigInt */,
 			);
 			productName = "Pino-iOS";
 			productReference = 8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */;
@@ -1693,6 +1696,7 @@
 			mainGroup = 2277E1FFDD10A1C98A64D20C;
 			packageReferences = (
 				4083E05E29C307B8007CBC45 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				4083E06129C3104F007CBC45 /* XCRemoteSwiftPackageReference "BigInt" */,
 			);
 			productRefGroup = 2821FB9CEE9F9B9E6BAE9FD7 /* Products */;
 			projectDirPath = "";
@@ -2405,6 +2409,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		4083E06129C3104F007CBC45 /* XCRemoteSwiftPackageReference "BigInt" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/attaswift/BigInt";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2412,6 +2424,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4083E05E29C307B8007CBC45 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		4083E06229C3104F007CBC45 /* BigInt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4083E06129C3104F007CBC45 /* XCRemoteSwiftPackageReference "BigInt" */;
+			productName = BigInt;
 		};
 /* End XCSwiftPackageProductDependency section */
 
