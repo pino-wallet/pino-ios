@@ -4,6 +4,7 @@
 //
 //  Created by Mohi Raoufi on 12/21/22.
 //
+import Foundation
 
 public class AssetViewModel: SecurityModeProtocol {
 	// MARK: - Private Properties
@@ -25,7 +26,28 @@ public class AssetViewModel: SecurityModeProtocol {
 	public var name: String {
 		assetModel.detail!.name
 	}
+    
+    public var hold: String {
+        assetModel.hold
+    }
+    
+    public var price: String {
+        assetModel.detail!.price
+    }
 
+    public var decimal: Int {
+        assetModel.detail!.decimals
+    }
+
+    public var holdAmount: Double {
+        Double(assetModel.hold)! / pow(10, Double(assetModel.detail!.decimals))
+    }
+    
+    public var holdAmountInDollar: Double {
+        holdAmount * price.doubleValue!
+    }
+    
+    
 	public var amount = "0"
 	public var amountInDollor = "-"
 	public var volatilityInDollor = "-"
@@ -69,19 +91,16 @@ public class AssetViewModel: SecurityModeProtocol {
 	// MARK: - Private Methods
 
 	private func getFormattedAmount() -> String {
-		"\(assetModel.hold) \(assetModel.detail!.symbol)"
+        "\(PercisionCalculate.trimmedValueOf(coin: holdAmount)) \(assetModel.detail!.symbol)"
 	}
 
 	private func getFormattedAmountInDollor() -> String {
-//		if Int(assetModel.detail!.price) == 0 {
-//			return "-"
-//		} else {
-//			return "$\(assetModel.detail!.price)"
-//		}
-        let temp = [0.343534534,12.343534534,124.343534534,1263.343534534,12634.343534534,126345.343534534]
-        let holdAmmount = PercisionCalculate.trimmedValueOf(coin: temp.randomElement()!)
-		return "$\(holdAmmount)"
-	}
+		if Int(assetModel.hold) == 0 {
+			return "-"
+		} else {
+			return "$\(holdAmountInDollar)"
+		}
+    }
 
 	private func getFormattedVolatility() -> String {
 		"+$3.5"
