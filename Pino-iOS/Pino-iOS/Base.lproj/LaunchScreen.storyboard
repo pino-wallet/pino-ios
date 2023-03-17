@@ -41,7 +41,7 @@
     <resources>
         <image name="pino_logo_light" width="99" height="98"/>
         <namedColor name="Primary Color">
-            <color red="0.0" green="0.22699999809265137" blue="0.25099998712539673" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.22352941176470589" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

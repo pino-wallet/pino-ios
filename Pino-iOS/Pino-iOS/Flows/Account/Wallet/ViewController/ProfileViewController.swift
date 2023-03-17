@@ -80,6 +80,9 @@ class ProfileViewController: UIViewController {
 		case .recoverPhrase:
 			let recoverPhraseVC = RecoveryPhraseViewController()
 			navigationController?.pushViewController(recoverPhraseVC, animated: true)
+		case .aboutPino:
+			let aboutPino = AboutPinoViewController()
+			navigationController?.pushViewController(aboutPino, animated: true)
 		default: break
 		}
 	}
