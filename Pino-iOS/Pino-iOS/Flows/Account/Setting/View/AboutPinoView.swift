@@ -157,22 +157,19 @@ class AboutPinoView: UIView {
 
 	@objc
 	private func showTermsOfServices() {
-		if let url = URL(string: aboutPinoVM.termsOfServiceURL) {
-			UIApplication.shared.open(url)
-		}
+		let url = URL(string: aboutPinoVM.termsOfServiceURL)
+		UIApplication.shared.open(url!)
 	}
 
 	@objc
 	private func showPrivacyPolicy() {
-		if let url = URL(string: aboutPinoVM.privacyPolicyURL) {
-			UIApplication.shared.open(url)
-		}
+		let url = URL(string: aboutPinoVM.privacyPolicyURL)
+		UIApplication.shared.open(url!)
 	}
 
 	@objc
 	private func showWebsite() {
-		if let url = URL(string: aboutPinoVM.websiteURL) {
-			UIApplication.shared.open(url)
-		}
+		let url = URL(string: aboutPinoVM.websiteURL)
+		UIApplication.shared.open(url!)
 	}
 }
