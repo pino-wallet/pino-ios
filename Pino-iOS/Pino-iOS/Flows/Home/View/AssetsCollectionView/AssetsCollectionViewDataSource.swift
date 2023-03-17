@@ -56,7 +56,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 		let homeSection = HomeSection(rawValue: section)
 		switch homeSection {
 		case .asset:
-			return CGSize(width: collectionView.frame.width, height: 204)
+			return CGSize(width: collectionView.frame.width, height: 212)
 		case .position:
 			return CGSize(width: collectionView.frame.width, height: 46)
 		case .none:
@@ -93,6 +93,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 			walletBalanceHeaderView.homeVM = homeVM
 			walletBalanceHeaderView.sendButtonTappedClosure = sendButtonTappedClosure
 			walletBalanceHeaderView.receiveButtonTappedClosure = receiveButtonTappedClosure
+			walletBalanceHeaderView.portfolioPerformanceTapped = portfolioPerformanceTapped
 			return walletBalanceHeaderView
 
 		case .position:

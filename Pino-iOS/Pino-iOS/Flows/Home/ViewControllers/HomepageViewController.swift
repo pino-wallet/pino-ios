@@ -14,7 +14,7 @@ class HomepageViewController: UIViewController {
 	private let homeVM = HomepageViewModel()
 	private var profileVM: ProfileViewModel!
 	private var cancellables = Set<AnyCancellable>()
-	private var addressCopiedToastView = PinoToastView(message: nil, style: .primary, alignment: .top)
+	private var addressCopiedToastView = CopyToastView(message: nil)
 
 	// MARK: - View Overrides
 
@@ -50,6 +50,9 @@ class HomepageViewController: UIViewController {
 			},
 			sendButtonTappedClosure: { [weak self] in
 				self?.openSendAssetPage()
+			},
+			portfolioPerformanceTapped: {
+				self.openPortfolioPage()
 			}
 		)
 		view = UIView()
@@ -108,6 +111,13 @@ class HomepageViewController: UIViewController {
 	private func openCoinInfo(assetVM: AssetViewModel) {
 		let coinInfoVC = CoinInfoViewController(coinID: assetVM.id)
 		let navigationVC = UINavigationController(rootViewController: coinInfoVC)
+		present(navigationVC, animated: true)
+	}
+
+	private func openPortfolioPage() {
+		let portfolioPerformanceVC = PortfolioPerformanceViewController()
+		portfolioPerformanceVC.modalPresentationStyle = .automatic
+		let navigationVC = UINavigationController(rootViewController: portfolioPerformanceVC)
 		present(navigationVC, animated: true)
 	}
 

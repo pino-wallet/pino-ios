@@ -30,6 +30,7 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 	// MARK: - Public Properties
 
 	public static let headerReuseID = "homepgaeHeader"
+	public var portfolioPerformanceTapped: (() -> Void)!
 
 	public var homeVM: HomepageViewModel! {
 		didSet {
@@ -71,8 +72,8 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 			for: .normal
 		)
 
-		sendButton.setImage(UIImage(systemName: homeVM.sendButtonImage), for: .normal)
-		receiveButton.setImage(UIImage(systemName: homeVM.receiveButtonImage), for: .normal)
+		sendButton.setImage(UIImage(named: homeVM.sendButtonImage), for: .normal)
+		receiveButton.setImage(UIImage(named: homeVM.receiveButtonImage), for: .normal)
 		volatilityDetailButton.image = UIImage(systemName: "arrow.right")
 
 		let showBalanceImageConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .regular, scale: .small)
@@ -96,8 +97,8 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 		volatilityStackView.axis = .horizontal
 		sendReceiveStackView.axis = .horizontal
 
-		contentStackView.spacing = 25
-		balanceStackView.spacing = 13
+		contentStackView.spacing = 32
+		balanceStackView.spacing = 10
 		sendReceiveStackView.spacing = 24
 		volatilityStackView.spacing = 6
 
@@ -107,9 +108,17 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 
 		volatilityView.layer.cornerRadius = 14
 
-		sendButton.setConfiguraton(font: .PinoStyle.semiboldCallout!, imagePadding: 8)
+		sendButton.setConfiguraton(
+			font: .PinoStyle.semiboldCallout!,
+			imagePadding: 10,
+			contentInset: NSDirectionalEdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 13)
+		)
 		sendButton.addTarget(self, action: #selector(openSendAssetVC), for: .touchUpInside)
-		receiveButton.setConfiguraton(font: .PinoStyle.semiboldCallout!, imagePadding: 8)
+		receiveButton.setConfiguraton(
+			font: .PinoStyle.semiboldCallout!,
+			imagePadding: 10,
+			contentInset: NSDirectionalEdgeInsets(top: 1, leading: 0, bottom: 0, trailing: 10)
+		)
 		receiveButton.addTarget(self, action: #selector(openReceiveButtonVC), for: .touchUpInside)
 		showBalanceButton.setConfiguraton(font: .PinoStyle.mediumFootnote!, imagePadding: 5)
 		showBalanceButton.isUserInteractionEnabled = false
@@ -164,7 +173,7 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 	private func setupConstraint() {
 		contentStackView.pin(
 			.horizontalEdges(padding: 16),
-			.top(to: layoutMarginsGuide, padding: 12)
+			.top(to: layoutMarginsGuide, padding: 10)
 		)
 		volatilityStackView.pin(
 			.centerY,
@@ -201,7 +210,9 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 	}
 
 	@objc
-	private func openVolatilityDetailPage() {}
+	private func openVolatilityDetailPage() {
+		portfolioPerformanceTapped()
+	}
 
 	@objc
 	private func openSendAssetVC() {}

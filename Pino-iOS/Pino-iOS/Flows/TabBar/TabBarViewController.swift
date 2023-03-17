@@ -49,6 +49,7 @@ class TabBarViewController: UITabBarController {
 		appearance.stackedLayoutAppearance.selected.iconColor = .Pino.primary
 
 		tabBar.standardAppearance = appearance
+		tabBar.scrollEdgeAppearance = appearance
 	}
 
 	private func setupTabBarItems() {

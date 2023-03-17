@@ -30,8 +30,8 @@ class HomepageViewModel {
 	public let requestFailedErrorToastMessage = "Couldn't refresh home data"
 	public let sendButtonTitle = "Send"
 	public let receiveButtonTitle = "Receive"
-	public let sendButtonImage = "arrow.up"
-	public let receiveButtonImage = "arrow.down"
+	public let sendButtonImage = "arrow_up"
+	public let receiveButtonImage = "arrow_down"
 
 	// MARK: - Private Properties
 

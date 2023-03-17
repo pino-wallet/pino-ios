@@ -63,7 +63,6 @@ class ManageAssetsViewController: UIViewController {
 			target: self,
 			action: #selector(addCustomAssets)
 		)
-		navigationItem.leftBarButtonItem?.tintColor = .Pino.white
 		// Setup done button
 		navigationItem.rightBarButtonItem = UIBarButtonItem(
 			title: "Done",

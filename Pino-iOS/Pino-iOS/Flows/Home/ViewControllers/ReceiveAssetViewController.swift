@@ -28,10 +28,6 @@ class ReceiveAssetViewController: UIViewController {
 		setupNavigationBar()
 	}
 
-	override func viewDidAppear(_ animated: Bool) {
-		receiveAssetView.generatedQRCodeImage = homeVM.walletInfo.address.QRCodeImage()
-	}
-
 	// MARK: - Initializers
 
 	init(homeVM: HomepageViewModel) {
@@ -67,7 +63,6 @@ class ReceiveAssetViewController: UIViewController {
 			target: self,
 			action: #selector(dismissVC)
 		)
-		navigationItem.leftBarButtonItem?.tintColor = .Pino.white
 	}
 
 	private func presentShareActivityViewController(sharedText: String) {
