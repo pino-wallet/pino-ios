@@ -17,6 +17,7 @@ class AlertHelper {
 		for action in actions {
 			alertController.addAction(action)
 		}
+		alertController.overrideUserInterfaceStyle = .light
 		return alertController
 	}
 }

@@ -20,19 +20,20 @@ struct BiometricAuthentication {
 					if isSuccess {
 						onSuccess()
 					} else {
+						#warning("Talk to designer about handling failed auth")
 						print(error?.localizedDescription ?? "Authentication failed")
 					}
 				}
 			})
+		} else {
+			fatalError("Auth evaluation failed")
 		}
 	}
 
 	private mutating func canEvaluate() -> Bool {
 		guard laContext.canEvaluatePolicy(biometricsPolicy, error: &error) else {
-			// Maps error to our BiometricError
 			return false
 		}
-		// Context can evaluate the Policy
 		return true
 	}
 }

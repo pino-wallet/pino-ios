@@ -40,9 +40,6 @@ class CoinInfoChartViewController: UIViewController {
 	}
 
 	private func setupNavigationBar() {
-		// Setup appreance for navigation bar
-		navigationController?.navigationBar.backgroundColor = .Pino.primary
-		navigationController?.navigationBar.tintColor = .Pino.white
 		// Setup title view
 		setNavigationTitle("COMP")
 	}
