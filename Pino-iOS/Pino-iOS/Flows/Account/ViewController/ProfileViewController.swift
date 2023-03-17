@@ -77,9 +77,6 @@ class ProfileViewController: UIViewController {
 		case .wallets:
 			let WalletsVC = WalletsViewController(walletVM: walletsVM)
 			navigationController?.pushViewController(WalletsVC, animated: true)
-		case .aboutPino:
-			let aboutPinoVC = AboutPinoViewController()
-			navigationController?.pushViewController(aboutPinoVC, animated: true)
 		default: break
 		}
 	}
