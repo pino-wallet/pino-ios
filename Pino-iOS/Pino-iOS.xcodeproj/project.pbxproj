@@ -8,52 +8,66 @@
 
 /* Begin PBXBuildFile section */
 		01B0212D90D700DB5C1126FB /* InvestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC2A05AC28F553BF890D172 /* InvestViewController.swift */; };
+		01E728E04EE08EBEA612D29F /* Pods_Pino_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9B2BE1170C6DAF7A21CA6F6 /* Pods_Pino_iOSTests.framework */; };
 		02DF93FE57661E220F5EFAAA /* PPPangramSans-LightReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6533175C792A5B71C376C9CD /* PPPangramSans-LightReclined.ttf */; };
-		0372101FF5BB4E006DBEDB71 /* ChangeAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0F1B4697C1345104F44104 /* ChangeAvatarViewController.swift */; };
 		03C069F70295746815C20F42 /* AssetVolatilityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA036F6EC2BEF8D87529AC9 /* AssetVolatilityType.swift */; };
-		0589D8AB62B8FAB9A279B91A /* Pods_Pino_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E28AD4D1317A902C01CC2AA /* Pods_Pino_iOS.framework */; };
 		05B960E15A9EEF333D3A8296 /* ReceiveAssetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C39A3F6B8ACA2CF53DFB7F3 /* ReceiveAssetView.swift */; };
 		05BF3ACA571459B68B3451D6 /* CoinInfoChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308BF4A6046B235F66E9DCCF /* CoinInfoChartViewController.swift */; };
+		0613EF4F55B5F6FA90BA65C0 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3999578123171FE22EDEEE70 /* ProfileViewModel.swift */; };
 		0682CFAA6E20C8AEA43A55AC /* CoinInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E135038F69F74B221F7A09 /* CoinInfoViewController.swift */; };
 		06DB0B31505094D78686694E /* ShowSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D872D11A91B4283F96C4999D /* ShowSecretPhraseViewController.swift */; };
 		06E5204105CFC5FFF4B310EE /* JSONParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975B5A87FF8FB56BD7877A1D /* JSONParameterEncoder.swift */; };
 		078E15176613CB329D507580 /* PassManagmentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BC3A92C32E2046414C06DB /* PassManagmentError.swift */; };
 		0A972ECB0BD4D36DDB793993 /* Pino_iOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2ABE7B20EDB691025C536E /* Pino_iOSUITestsLaunchTests.swift */; };
 		0AF4C45B72B37F11F656A4B0 /* PositionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C67E904C0B3815BD92FF78 /* PositionHeaderView.swift */; };
+		0BB077D3A362E14524196936 /* PortfolioPerformanceCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C71F21D8358EA08AACC253 /* PortfolioPerformanceCollectionView.swift */; };
 		0C37EADB6BFAB0A340582184 /* SecretPhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FCF8F6F9B8A3E6BC755C52 /* SecretPhraseCell.swift */; };
 		0CDD5B1CF93FCD04F68CC1C9 /* IntroCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DD3D417678658C9A87E94E /* IntroCollectionViewCell.swift */; };
 		0CE266292D956CA5666233BB /* CustomAssetInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A633C709E0DA7D3F5A540C /* CustomAssetInfoView.swift */; };
+		0D3E98673CD274381A698BBA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C64F3EBDE687319FAF19A7B /* ProfileViewController.swift */; };
+		0DC7141183DFDC22EDA3C327 /* RecoveryPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38B35BEB7646037614A159D /* RecoveryPhraseViewModel.swift */; };
+		0F5854171F8774FEF94497FB /* EditAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59650CC316C115E7C9106AC2 /* EditAccountViewController.swift */; };
 		0F91AD673ECAFFCD63C38A33 /* WalletBalanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648E26A2D324DFC28EE856F6 /* WalletBalanceModel.swift */; };
+		10CD67476F9AA1C6EE89AA6F /* CoinPerformanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE3198FB191E8A67A84E0B5 /* CoinPerformanceView.swift */; };
 		1171EA77FBBB99743B192CFF /* VerifyPasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE34223ED5A368C78F99208 /* VerifyPasscodeViewController.swift */; };
+		11B58980B34C46C54E1CA0B2 /* AvatarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16C5C234F1699EC6C69C191 /* AvatarCell.swift */; };
+		12265EA20032CC8CF48199E7 /* AboutPinoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC2CDEAEF61D4DF137970F /* AboutPinoViewModel.swift */; };
+		122DC5E683E6405E0B3FCE54 /* PortfolioPrformanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEA0CA763C18978C5255304 /* PortfolioPrformanceCell.swift */; };
 		130F1B30243DA82379EB2BD4 /* CoinInfoChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C20C9FE9BA8113C2A0BF18 /* CoinInfoChartViewModel.swift */; };
+		133389D38DF23CB5BE195DDC /* ProfileCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302F0396182FFFCA37617086 /* ProfileCollectionView.swift */; };
 		1362C46CED869A0C712B9DA0 /* BalanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B8E4B322CA8BD26A71AD22 /* BalanceModel.swift */; };
 		138F82B48C2B07891AF13F38 /* StubManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB2C343099A9B87E6C231F0 /* StubManager.swift */; };
 		13F430044A23AF2BA55BBDFB /* SecurityModeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BCB139B9DD46E47FA2E234 /* SecurityModeProtocol.swift */; };
-		1457B7D709FAF4F8D63EE364 /* AvatarCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D6130730044AF6531467A7 /* AvatarCollectionView.swift */; };
 		15A1DA694D1E9C595492510B /* PinoCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FBD227A0D3DC2EF5DB6E84 /* PinoCheckBox.swift */; };
+		17551EDA11F4F1BE495D1823 /* PortfolioPerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DD8352DE65D9AE5199096D /* PortfolioPerformanceViewController.swift */; };
 		180F866A8ECFDBE0380BECDB /* ReceiveAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF1E21D81662F03636BF664 /* ReceiveAssetViewController.swift */; };
 		1992F8B5148577FD7611E892 /* about-coin-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 0AE19B638118F9E2565134EF /* about-coin-stub.json */; };
-		1B2C635DCE4329526DACFCBC /* WalletsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7209B25ECC062F3C849953 /* WalletsViewController.swift */; };
+		1AC53E3B2AB70C2C7F419A38 /* AccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E81CD0ED79EC99EC4A1DD5 /* AccountHeaderView.swift */; };
+		1AD184E82488453998E5A2E5 /* CoinPerformanceInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CD4DA384F1F614C5064ACA /* CoinPerformanceInfoModel.swift */; };
 		1B60F4A0467FB90C104F4521 /* AssetsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8DDADB525EE16967656C35 /* AssetsCollectionView.swift */; };
 		1B7D25A69FB55D4EAC14A392 /* BoldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7E138148E3838B0ABB336D /* BoldStyle.swift */; };
 		1E52C64C4D1C7492BCD960FB /* PinoToastViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B598793C2F5A5C34939271A4 /* PinoToastViewStyle.swift */; };
-		1E947EAF390655A06E3BA521 /* RemoveAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B005AC80372520D68EB9D1D /* RemoveAccountView.swift */; };
 		1EA05F6363FCD68B38A3B13B /* WalletBalanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6325D0E27CD114807676AB /* WalletBalanceViewModel.swift */; };
 		1F73812756988538BC594057 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5952BFBE13B5028BDF1E686D /* LaunchScreen.storyboard */; };
 		1F98DAC473200ACED0BA403B /* ParameterEncoderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B9E44B654532DB80DF4382 /* ParameterEncoderProtocol.swift */; };
+		20CB5C205624F431E278A914 /* CoinPerformanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769C35FFBDE24FB0BF817BDF /* CoinPerformanceViewModel.swift */; };
 		2191112109FDB1FDFC11BBEF /* PPPangramSans-ExtraboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF5ED712FA2B8E57F30351AA /* PPPangramSans-ExtraboldItalic.ttf */; };
+		221F423020A78CA891331436 /* RevealPrivateKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98101844EE616C4A2DCF6CCF /* RevealPrivateKeyViewController.swift */; };
 		225160794A3F677530CF8181 /* WalletInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1050FC38D33C71B1E7962D8B /* WalletInfoModel.swift */; };
 		23E2F4FB7A273DD99312DACA /* Assetmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C02A809BFBBB71DE91F2C0 /* Assetmodel.swift */; };
+		2412CFB01F9D91D18F01EACD /* SettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C189AE04251D77F00CA80C64 /* SettingsHeaderView.swift */; };
 		24D1C890843C5A3AE41A1442 /* AssetsAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89DE5D7DDB69B4C20F1D56D /* AssetsAPIClient.swift */; };
 		2551C3796076DA146C40F1AC /* IntroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493670F85AF24449B805AFDA /* IntroViewModel.swift */; };
-		255AD8409BC96ABF3FE0BB42 /* RemoveAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C0C48308F15E5813F59F8 /* RemoveAccountViewController.swift */; };
 		25BF49CF523EA1322C6FC4EB /* PPPangramSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C31426AD24C3B8759699C644 /* PPPangramSans-Regular.ttf */; };
 		26C5FF82B48BB5E4C7C2B9D5 /* CoinPortfolioModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A21FC93E1137D3A150ACCD4 /* CoinPortfolioModel.swift */; };
 		2B63ED181686EAEDFBC9A1EC /* UsersAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5899CF9A0F20C4887576290A /* UsersAPIService.swift */; };
 		2BC73AE9759B87DCBF761327 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016DB0AD44B6C2F7D74B730 /* AlertHelper.swift */; };
 		2E5C040F84977824A977D541 /* WalletInfoNavigationItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = E149E7B618CEFE5E909B2D78 /* WalletInfoNavigationItems.swift */; };
+		316F0DDECBB3FA68BFFA1577 /* WalletsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662126D2932FB4BDCEAAB8DB /* WalletsViewController.swift */; };
+		3235264ABD3DF5ABAA756574 /* CoinPerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40D0AB7515630563347CBDA /* CoinPerformanceViewController.swift */; };
 		324CF2EFF8A4FE86E6609254 /* CustomAssetInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEC2EBFE1F49130DE1B36E3 /* CustomAssetInfoViewModel.swift */; };
 		325E592A9AA1B24C522EA47F /* MediumStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860A5D67C58E6FF224570BFE /* MediumStyle.swift */; };
+		33647E7FA041A9CC0130F158 /* WalletsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63744AB248EE37D52AC065D5 /* WalletsViewModel.swift */; };
 		34974909379D77088510A2BB /* ReceiveViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C692B063F7DF262E32FBCF9 /* ReceiveViewModel.swift */; };
 		34F4A2DA1228B50AC3DFA8A2 /* SeedPhrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1575DB9D22AE8EBFE86A7D9 /* SeedPhrase.swift */; };
 		3539B17693A50D61A650070A /* positions-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 74B1573BA999C25926136C27 /* positions-stub.json */; };
@@ -66,19 +80,20 @@
 		3D47F14ECA2A8CAE61061F57 /* PPPangramSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DEF9234B1A724D51BE836376 /* PPPangramSans-LightItalic.ttf */; };
 		3E5FFA532C0440149913FE32 /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA73CCD58C583E964396CF7 /* Encodable+Extension.swift */; };
 		3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6922A1FD91EE9D2DAF8D928 /* AccountingEndpoint.swift */; };
-		4083E05429C2EF4F007CBC45 /* wallet-info-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = C999216F5B71C41870392AD2 /* wallet-info-stub.json */; };
-		4083E05529C2EF4F007CBC45 /* wallet-balance-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 326B0DAFD947F590C331F13D /* wallet-balance-stub.json */; };
-		4083E05629C2EF4F007CBC45 /* wallets-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = DE9E95DAD0FE359D802524FC /* wallets-stub.json */; };
-		4083E05729C2EF4F007CBC45 /* all-users-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 054F035BC1020A3673EEB0AD /* all-users-stub.json */; };
-		4083E05829C2EF4F007CBC45 /* positions-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 74B1573BA999C25926136C27 /* positions-stub.json */; };
-		4083E05929C2EF4F007CBC45 /* coin-history-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 53E1EE1161F0B464BD31F642 /* coin-history-stub.json */; };
-		4083E05A29C2EF4F007CBC45 /* about-coin-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 0AE19B638118F9E2565134EF /* about-coin-stub.json */; };
-		4083E05B29C2EF4F007CBC45 /* coin-portfolio-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B0095EE8C266D11D502576F /* coin-portfolio-stub.json */; };
-		4083E05C29C2EF4F007CBC45 /* coin-info-chart-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7F15207743692E4CE3445A4C /* coin-info-chart-stub.json */; };
-		4083E05D29C2EF4F007CBC45 /* assets-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B2220BAE0D7613EB95414ED /* assets-stub.json */; };
-		4083E06029C307B8007CBC45 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4083E05F29C307B8007CBC45 /* Kingfisher */; };
-		4083E06329C3104F007CBC45 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 4083E06229C3104F007CBC45 /* BigInt */; };
-		4083E06629C32E16007CBC45 /* web3swift in Frameworks */ = {isa = PBXBuildFile; productRef = 4083E06529C32E16007CBC45 /* web3swift */; };
+		40ACD7A729C4C2B100CFD557 /* web3swift in Frameworks */ = {isa = PBXBuildFile; productRef = 40ACD7A629C4C2B100CFD557 /* web3swift */; };
+		40ACD7AA29C4C2DC00CFD557 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 40ACD7A929C4C2DC00CFD557 /* Kingfisher */; };
+		40ACD7AB29C4C30B00CFD557 /* coin-performance-info-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = EA79C702C8831F7059E16070 /* coin-performance-info-stub.json */; };
+		40ACD7AC29C4C30B00CFD557 /* wallets-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = DE9E95DAD0FE359D802524FC /* wallets-stub.json */; };
+		40ACD7AD29C4C30B00CFD557 /* coin-history-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 53E1EE1161F0B464BD31F642 /* coin-history-stub.json */; };
+		40ACD7AE29C4C30B00CFD557 /* coin-portfolio-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B0095EE8C266D11D502576F /* coin-portfolio-stub.json */; };
+		40ACD7AF29C4C30B00CFD557 /* positions-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 74B1573BA999C25926136C27 /* positions-stub.json */; };
+		40ACD7B029C4C30B00CFD557 /* wallet-info-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = C999216F5B71C41870392AD2 /* wallet-info-stub.json */; };
+		40ACD7B129C4C30B00CFD557 /* coin-info-chart-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7F15207743692E4CE3445A4C /* coin-info-chart-stub.json */; };
+		40ACD7B229C4C30B00CFD557 /* assets-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B2220BAE0D7613EB95414ED /* assets-stub.json */; };
+		40ACD7B329C4C30B00CFD557 /* about-coin-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 0AE19B638118F9E2565134EF /* about-coin-stub.json */; };
+		40ACD7B429C4C30B00CFD557 /* all-users-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 054F035BC1020A3673EEB0AD /* all-users-stub.json */; };
+		40ACD7B529C4C30B00CFD557 /* wallet-balance-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 326B0DAFD947F590C331F13D /* wallet-balance-stub.json */; };
+		40ACD7B729C4C38300CFD557 /* WebViewFiles in Resources */ = {isa = PBXBuildFile; fileRef = 40ACD7B629C4C38300CFD557 /* WebViewFiles */; };
 		41B9F1002F97DF04A075D75D /* PinoStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262D77EFE984EBA7A19D23DC /* PinoStepperView.swift */; };
 		4249EFC00F914608B9BE7171 /* AssetsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F34A6DD9D5B0DA99D3D282 /* AssetsCollectionViewCell.swift */; };
 		44C3312B501D7A88C6ADB659 /* SelectPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DADC99C41136A35EF49EF9B /* SelectPassViewModel.swift */; };
@@ -94,11 +109,10 @@
 		5172E07495C5EBFA21772580 /* AllDoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF85809C0811ADB69A1512D9 /* AllDoneViewController.swift */; };
 		51F472CF1A7E5D15F58A5CF5 /* PPPangramSans-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2CAFAD80E0F8FFD621B92AC /* PPPangramSans-RegularItalic.ttf */; };
 		535DAC5A885056552EC3C09F /* Button+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3AAF615A47F05E1D03D4B8 /* Button+Extension.swift */; };
-		54590A9381032CA7611C41BE /* EditAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07590A023561D345234009B /* EditAccountView.swift */; };
 		54E9764329CE5F067EFE92D1 /* AssetsEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A9D51E2876395DCD62E189 /* AssetsEndpoint.swift */; };
 		554EDEC45A556632B849D3BD /* WalletAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AAB7DCE4D2AE7A8022C030 /* WalletAPIClient.swift */; };
 		55CBB37768826DE00CDAF5FB /* PinoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1248800A47DD9BD31AA1488B /* PinoLabel.swift */; };
-		562C99F74E698463BA50014D /* AccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3D3341D692E8CE96170656 /* AccountHeaderView.swift */; };
+		5699C13A59EF90BDE1758CF3 /* RevealPrivateKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454A974DE896C90CB46C201A /* RevealPrivateKeyView.swift */; };
 		5845D3E43E1C94CCA89A6104 /* NetworkManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55BFF5F48EC55A7D9EB418E /* NetworkManagerProtocol.swift */; };
 		58725E16FF09C251760EF717 /* AssetLineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8CF125BFB23FDB6B149995 /* AssetLineChart.swift */; };
 		58B890F4377EE8853C655AFA /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B3B78BD52ACE1726AEB2DF /* TabBarItem.swift */; };
@@ -106,7 +120,6 @@
 		58FE43283099B1D4516B33B1 /* CustomAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */; };
 		59F0D2F9CA8BEA2BB4728B8E /* SwapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A6676B929BBCE1E8B10CDF /* SwapViewController.swift */; };
 		5A0A4A23ED01BFB3E5315791 /* VerifySecretPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBA47FB0ED959F0E18DAD21 /* VerifySecretPhraseViewModel.swift */; };
-		5C765FDEADEC2398E57E134A /* WalletsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C970B4F19E96A96669EA29F /* WalletsViewModel.swift */; };
 		5C825328F79DAF5AE4BBD66C /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2DF579AD7CEC1A805691B6 /* EndpointType.swift */; };
 		5CDFF4C90BE60A5FF26C2596 /* ManageAssetsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBDAE3E61D4F73804CBA92E /* ManageAssetsCollectionView.swift */; };
 		5CE69653C9688E3C116CC0E6 /* HomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B01A75DCB335D25714C2F08 /* HomepageViewController.swift */; };
@@ -117,37 +130,38 @@
 		643BAB8ABDEFDA509D258D94 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BDF4D66564915FBD19B9A4 /* SceneDelegate.swift */; };
 		6493F198BF5B402E4D922A79 /* PPPangramSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1055FF6B587AAF1786CDA125 /* PPPangramSans-SemiboldItalic.ttf */; };
 		6525706F29E918A363FD270C /* SeedPhraseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3EE6FFF0A8D8C792452E18 /* SeedPhraseMock.swift */; };
-		669304E3553958C12991370E /* WalletsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0A1FE58D8CAA1EA8F939E8 /* WalletsCollectionView.swift */; };
 		66F6B5B9FA886D1F48A4F627 /* ManageAssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12A95AE8F841F78F0112091 /* ManageAssetsViewController.swift */; };
 		6C3ACBB9EEE454EC433A907D /* PinoLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE296532DABA81FAA3B00A3 /* PinoLabelStyle.swift */; };
 		6D6ECC6BF79139F030C8039A /* ManageAssetsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037EE814D04B9042E0D65DB1 /* ManageAssetsFooterView.swift */; };
 		6E539ADB99F2D4F23ECC14A1 /* ToastViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB426B36AF7DA6CC9B5DE111 /* ToastViewProtocol.swift */; };
+		6FB3C66B1E98C7C2B7886069 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A3C8D0587A7C0B53C0EC4 /* SettingCell.swift */; };
+		7060BC04A8267A9B50B8BF09 /* BiometricAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B3471DBAE7B1EDD075DAF /* BiometricAuthentication.swift */; };
 		70A38450573C86C7CA6A6C27 /* APIClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EBD8E6BF7C5877B562FCA2 /* APIClientTest.swift */; };
 		710BFFE4625F76FC84268937 /* PPPangramSans-ExtralightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 068F5D74F8B1876B22DD2AC0 /* PPPangramSans-ExtralightItalic.ttf */; };
-		74BDF28EC1FB2E439FF05F8D /* AvatarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C3A5BBC418D08904005393 /* AvatarCell.swift */; };
 		74FAC78D968D7F4FEC7AB7CD /* ReceiveViewActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B6E17946325E1FB152F02 /* ReceiveViewActionButton.swift */; };
 		7568B477DFF82F1069E4F911 /* VerifySecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D859A59CF3F5322ACE7356E4 /* VerifySecretPhraseView.swift */; };
-		75EAAF78EC60FD290AB8809C /* AvatarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90612CAAD12A1F4A36E00D63 /* AvatarViewModel.swift */; };
 		763F91967E4347D64BD561C4 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C640FE522F73C9313D7ECB /* KeychainHelper.swift */; };
 		7788C1D86DF1F4B1E6B2DE54 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C18443FFB775271061875D9 /* URLRequest+Extension.swift */; };
 		79073EE50BEA80FAE0356625 /* PPPangramSans-ExtralightReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7D3566CBF0C2E2689423E90 /* PPPangramSans-ExtralightReclined.ttf */; };
 		798A57BFA5D028A04B449F34 /* WalletInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA3E5DF9FE696BD1307327F /* WalletInfoViewModel.swift */; };
 		79B36BD7606F060231E076F1 /* VerifySecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5992C9313824BC32EC68C32E /* VerifySecretPhraseViewController.swift */; };
 		7A69C254CF23590AE51260DC /* WalletEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA9BA379C5D10107A5209E /* WalletEndpoint.swift */; };
+		7AD456E027211FE731B27DF8 /* RevealPrivateKeyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD64F05EA52CD663591510D /* RevealPrivateKeyViewModel.swift */; };
 		7B6CE232F6C074F30AFAF23D /* ManagePasscodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D79E6ABFF159E2B8FB5C0A2 /* ManagePasscodeView.swift */; };
 		7B93C0D0822EF34F9EB40FAA /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = B677CAE87B1A7D14774BE29D /* HTTPTask.swift */; };
 		7C0A3AF81DFE67829149BBBE /* CreateWalletUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63629240845E89034EB1956 /* CreateWalletUITests.swift */; };
 		7CF95B0F99AE30C81601CFAA /* GradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791209DFE36FC4B7F33E3198 /* GradientLayer.swift */; };
+		7D789F2B97B770D2B2B8DF05 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1094D274BD4EBC64C6CD721 /* SettingsViewModel.swift */; };
 		7DD0703DDA2759A33DB4F582 /* SuggestedSeedPhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB0B1B5F9A48B80542BF12C /* SuggestedSeedPhraseCell.swift */; };
 		7EF5AA653545082C4C0D04EF /* PinoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74657FA0D994E06D0289F3A4 /* PinoButton.swift */; };
 		7F76547A1A35AA66A144803F /* coin-history-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 53E1EE1161F0B464BD31F642 /* coin-history-stub.json */; };
 		7F79C44B5BF6EB8B1D1674A0 /* KeychainWrapperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFC918E160F2D1A3CD397AD /* KeychainWrapperProtocol.swift */; };
 		7FFA5D89CACB5BA3422D7376 /* WalletAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33B3D945C5DD81488E117CB /* WalletAPIService.swift */; };
 		807A3209FA3C30C37B860B91 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC98E3A780E5E5D45D7E739 /* NetworkManager.swift */; };
-		810BF82836BB8064B03199BD /* WalletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B72DF4508FD5E4869CDC92 /* WalletCell.swift */; };
 		8124946C56803F5336426CFA /* BodyParamsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29586CCAC21CB070FEBA025F /* BodyParamsType.swift */; };
 		822D161496971BD8810457B7 /* PPPangramSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDFE5537D79C7116114C45E6 /* PPPangramSans-Medium.ttf */; };
 		823831E3B3F7F3BA8B633D09 /* PinoTextFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB3C819F5D78DC8AB98A263 /* PinoTextFieldStyle.swift */; };
+		8311422EA67D10D257FDD530 /* RemoveAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055C2DD5220751B49AE69351 /* RemoveAccountViewModel.swift */; };
 		83B5CD9C30D7E34EE3215B50 /* APISimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E58CA3A90543D8B4D5AE22 /* APISimulator.swift */; };
 		84D88149949C0D8A0E7C2BF5 /* PPPangramSans-BoldReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B106F2028FD8799A5277CE30 /* PPPangramSans-BoldReclined.ttf */; };
 		858596F6A073F29FF9BB7033 /* PinoFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEAF1A6DB0A8C3F3D5F8742 /* PinoFont.swift */; };
@@ -156,30 +170,35 @@
 		879CCE498D1A04C8EDE64430 /* PPPangramSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C054674B5A17E87E59B6946F /* PPPangramSans-Bold.ttf */; };
 		87D5D64B10D301DA28F383FE /* SuggestedSeedPhraseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBF81923E5F2C83F0DB3C9 /* SuggestedSeedPhraseCollectionView.swift */; };
 		87F08F9B76154826B35A43F3 /* CustomAssetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B892625118DF231D53AD596 /* CustomAssetModel.swift */; };
-		880DB94190DA5E091CDD348A /* EditAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9918833BB180478671749B44 /* EditAccountViewController.swift */; };
-		8871592C847256931F640282 /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A089FF04336399F878C82EE /* Pods_Pino_iOS_Pino_iOSUITests.framework */; };
 		88F5D80113398502A2D2BE03 /* ValidateSecretPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712A56F371843AF47B6362CE /* ValidateSecretPhraseViewModel.swift */; };
+		8A10D639170969ECFADE0FE4 /* CoinPerformanceInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77EE6734CEDAE75B2EDBEE5 /* CoinPerformanceInfoViewModel.swift */; };
 		8A92E3CC08C836C248DAB1B1 /* HTTPStubs+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4606CCB9D451853BA369516C /* HTTPStubs+Helper.swift */; };
 		8DAEADFEFB2B89FAD4955536 /* AutolayoutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEEB6F436B93FB09ECB4CB1 /* AutolayoutHelper.swift */; };
 		8EA8AEFE97CEC48A2C1DFCB7 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA9CD145390F39AFB12714B /* ParameterEncoding.swift */; };
+		8EADE74E5260CF1542FF0EF0 /* AvatarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AE3680C6C881D44A865492 /* AvatarViewModel.swift */; };
 		8ECABB94DCBB30B784D22CFF /* BorrowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB7798DEE2598C367E87BE /* BorrowViewController.swift */; };
 		8F2B1AD252EE32B2F328105B /* URLParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C94607CE73545EF32031FA /* URLParameterEncoding.swift */; };
 		8F54F4F399FE38DC1B1FDEED /* InfoActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7C5231800B75EB304677F5 /* InfoActionSheet.swift */; };
 		8FEE7479372B430975CF245D /* AssetChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412EA8786DF547325A94AE49 /* AssetChartViewModel.swift */; };
+		902BA90F4366DD5D18B06A90 /* AboutPinoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE00D81C2E445CD26124F30 /* AboutPinoView.swift */; };
 		9131F7218905C2F4AFD3CDE7 /* PinoCheckBoxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27234FAA3BF23A48ABC72E43 /* PinoCheckBoxStyle.swift */; };
 		917064233A24F0460102BC15 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D527D8AB60BF6A7C1EA2D9 /* Array+Extension.swift */; };
 		92BC3A7553A87622AD6F640E /* ShowSecretPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902ADB6DDACF4604CCD18D3E /* ShowSecretPhraseViewModel.swift */; };
-		935DF597336FB4B7A1CEF98C /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A30DEF71296ABC5661751A /* ProfileViewModel.swift */; };
-		93B4418F9D6286D8345E81FA /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F5BA9D8A87B83F5FA4C034 /* SettingCell.swift */; };
+		9564A69D20BD22A50221D63B /* CoinPerformanceInfoItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEC9118028F28BE505CEF38 /* CoinPerformanceInfoItems.swift */; };
 		96892E44DA2E5556E1679817 /* WalletBalanceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0370664A9072624853167972 /* WalletBalanceHeaderView.swift */; };
 		96A4F385AA97CE506A416820 /* WalletAPIMockClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE11F8850559AC3C48F2100E /* WalletAPIMockClient.swift */; };
+		974786FAAE954BC802E5CD46 /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 851C04AF5FA6ED39EA92FAB3 /* Pods_Pino_iOS_Pino_iOSUITests.framework */; };
 		975DCAC87FF17EA9C5CC5668 /* ImportSecretPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7EB4347903BC7C1E33DC5F /* ImportSecretPhraseViewController.swift */; };
 		98D92FBB51CC774F95B06CB8 /* IntroCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794AA4C69F21813E48C811E4 /* IntroCollectionView.swift */; };
 		9A7CE65990DD193F0FAF3C75 /* SecretPhraseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5289053822F33893527540E /* SecretPhraseCollectionView.swift */; };
 		9AD896368BEA2DF5FD408FDF /* PPPangramSans-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 742C62AB6E73DB2037B72C61 /* PPPangramSans-MediumItalic.ttf */; };
+		9B356BB4D7AD512DAD0A05D2 /* RecoveryPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C282DA27E1C4F2A33C6BD8BC /* RecoveryPhraseViewController.swift */; };
+		9C3606E4114D73E964762BF1 /* WalletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BB06BD3791B59D7E6798E3 /* WalletCell.swift */; };
 		9CC2D1EE167451483C8E7F4F /* PinoLineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6055599998C2FB2F7A1AC39 /* PinoLineChart.swift */; };
 		9D1B6611143AB2A88028763C /* CustomAssetInfoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D35DF0CCAAD770B74A6F576 /* CustomAssetInfoContainerView.swift */; };
+		9DAA41E3693EB0D2B084C3F8 /* AvatarCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411833622E37F06E2DC49DFD /* AvatarCollectionView.swift */; };
 		9F374A025E01D130ECA95384 /* CreatePasscodeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939D3C65704892C0B83453C5 /* CreatePasscodeUITests.swift */; };
+		A1664AE26C5D333D2213330F /* PortfolioPerformanceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F371CC814D9B6F61E65806 /* PortfolioPerformanceHeaderView.swift */; };
 		A19CFCA76D9396A5A2612F7E /* AssetsAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B410EE93ECE88B2097A2DF /* AssetsAPIService.swift */; };
 		A1CB57E01D2C66A314CD3BE4 /* CoinInfoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F680208960473A9C1B27BF0 /* CoinInfoCollectionView.swift */; };
 		A56FBAD2E31C10F504631CD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D17DC5FE81A16A6E44C346 /* AppDelegate.swift */; };
@@ -193,6 +212,7 @@
 		A9EB8A9CA5BE7BA334FBB816 /* SecretPhraseCenteredFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5512C825B9C868060EE43E /* SecretPhraseCenteredFlowLayout.swift */; };
 		AAA1EE9680DD6A62A7F88602 /* ImportSecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE59B4F8A912C260EBD9FD8 /* ImportSecretPhraseView.swift */; };
 		AC39E74F527151DCAE1E9AAE /* AccountingAPIMockClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23582FDA6171EC603F911DA /* AccountingAPIMockClient.swift */; };
+		AD68BBE3C5E6C48C129C6BA7 /* WalletsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC5EB37269D67FF33569DB0 /* WalletsCollectionView.swift */; };
 		AE0D8851396508976A2F43DE /* PinoToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048462E075A91DDC5CE4C22E /* PinoToastView.swift */; };
 		AE47F248DD308C61B717B086 /* PPPangramSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F488BFAA1B7C30ABB20FD7B /* PPPangramSans-Semibold.ttf */; };
 		B0AB10C04E985064573878F8 /* AddCustomAssetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66AFBFD0E793B2BDF5BF9D8F /* AddCustomAssetView.swift */; };
@@ -201,6 +221,7 @@
 		B30473249B4729CA259033E6 /* CIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE8D7091B73141234A25CEC /* CIImage.swift */; };
 		B4E756CF19F769668E2A4FB5 /* ChartInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8ADDD22F193963D587AE57 /* ChartInfoItem.swift */; };
 		B5021409923FBC4DF43B6138 /* PPPangramSans-RegularReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55CD7DABDCFD6941F9E22E49 /* PPPangramSans-RegularReclined.ttf */; };
+		B50FCAEE54A91AE8515115B9 /* coin-performance-info-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = EA79C702C8831F7059E16070 /* coin-performance-info-stub.json */; };
 		B6C747AA398D7E37B1B727AC /* PassDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DCACC427D66E42E2D55705 /* PassDotsView.swift */; };
 		B6CA82D12404F5406CFF9CFD /* HomeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A884CD0074F3F660E0B8C960 /* HomeError.swift */; };
 		B8DEA2647A8204A5771748D2 /* CustomAssetInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3B71C440B0E4128B1952D6 /* CustomAssetInfoModel.swift */; };
@@ -209,41 +230,49 @@
 		BA5A805884B41CA1F182245E /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E3F8B61B1FB024B075BDE9 /* TabBarViewController.swift */; };
 		BB737A7216F658EFFE43401C /* PPPangramSans-ExtraboldReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F052F464B4443A09B569492 /* PPPangramSans-ExtraboldReclined.ttf */; };
 		BBEFD9CD18FB5626C32FB5DE /* HistoryStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE0C2CA6B34603B490425D3 /* HistoryStatus.swift */; };
+		C08B09A1A89A6859D79D25D7 /* RecoveryPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCC6457265C54F56DE92A17 /* RecoveryPhraseView.swift */; };
 		C0BFA5D21284FA2DAEA8A6CE /* ImportWalletUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0D9155FD8F0605BFF14EB /* ImportWalletUITests.swift */; };
 		C18F61B7AEF94EEC4A102666 /* ChartDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635EFDC4F44BD212A8195289 /* ChartDataModel.swift */; };
+		C3321EBB6DC83BCDC3CFC3B0 /* WalletsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886A8F723E50C884CA276AB4 /* WalletsModel.swift */; };
 		C450E796AAC076DD8C15D8F9 /* AboutCoinModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6350F6379C2C13562527B05C /* AboutCoinModel.swift */; };
 		C626E1AF0A864B29E9F0CDF6 /* MockKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5132EBB2A09F9C6AAB1481 /* MockKeychainService.swift */; };
 		C6B2D50A8E7A92DE60F957E2 /* PasteFromClipboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF1DD088DBE71EAD3CEB3F9 /* PasteFromClipboardView.swift */; };
 		C6F911527FDF8516478B4961 /* CoinInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0B2CBC9118CD481635941C /* CoinInfoHeaderView.swift */; };
 		C72379E2E2BFAEFF3257EDCE /* Networking+Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05644B4808E74C108ADD10B4 /* Networking+Aliases.swift */; };
 		C7947A17B0833FA7A202FA92 /* PPPangramSans-MediumReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86F8C6EC31E9AE1094243D0B /* PPPangramSans-MediumReclined.ttf */; };
+		C80CBD3207E96C5A8E495662 /* EditAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F65D48C44F581B2A792A18 /* EditAccountView.swift */; };
 		C95E4117EE56405E9C6A00CB /* AssetsCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D2475E308AB37CA7492584 /* AssetsCollectionViewDataSource.swift */; };
 		CBFE7BF98941FDC0A72FFD51 /* wallets-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = DE9E95DAD0FE359D802524FC /* wallets-stub.json */; };
 		CC788E5AD6EC8CE9488DA049 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3A2C1FAE1267AB6DCED6D4 /* IntroViewController.swift */; };
+		CE531A77B8439ADDF1F63C68 /* Pods_Pino_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA5A212CE6AB0D23C424FBA /* Pods_Pino_iOS.framework */; };
+		CF804994E4C23A919B78E4B4 /* WalletBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE159994023D1616204FD7CB /* WalletBuilder.swift */; };
+		CF82272F4C822C722A111064 /* CopyToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D3A1E20E82D148B16ADA1 /* CopyToastView.swift */; };
 		CFE2848389AB3D7A9AF12C6C /* AddCustomAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B596DBDA65A59B498030E742 /* AddCustomAssetViewModel.swift */; };
-		D07B4A11D607D020D87D9E59 /* RemoveAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F595BBB52958F2F27DF2A3 /* RemoveAccountViewModel.swift */; };
 		D09AAD1A88DD6C97185FD51B /* PinoLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8912BBC7E97E01533DB6A76 /* PinoLoading.swift */; };
 		D16E6EA70136FF5D5C83ED88 /* AssetsAPIMockClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B078176E881DE8EC3498AB5D /* AssetsAPIMockClient.swift */; };
+		D2D65A4730F14DFCD4BE1B32 /* ChangeAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE14A508CA87D5CB98A39FB /* ChangeAvatarViewController.swift */; };
 		D4FCAA07F82037BF6EF0B823 /* AssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91253F27E551525F01C51F04 /* AssetViewModel.swift */; };
 		D50E904CB4FBD07E10DE3E9B /* PPPangramSans-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76670736A779E64FF9997E82 /* PPPangramSans-ThinItalic.ttf */; };
 		D5AF586CED6D64131278865F /* coin-portfolio-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B0095EE8C266D11D502576F /* coin-portfolio-stub.json */; };
+		D615530893452E25B58471EF /* ShareOfAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6721806A1540B888590AFF4C /* ShareOfAssetsViewModel.swift */; };
+		D964AC6B0907B2432359A129 /* GroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D7CE3AA42604B8F78EA87C /* GroupCollectionViewCell.swift */; };
 		D97CF62C25B975AD3C131881 /* CoinHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26427FD948787141E7AA599B /* CoinHistoryModel.swift */; };
+		D9DD538BAF953A18503AB3F0 /* RemoveAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887EDE19A8B81F1FB217E0FA /* RemoveAccountView.swift */; };
+		D9E34BC92C3AE69B3D5EC4F2 /* PortfolioPerformanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4FFBB4CC6D342FF946AB9 /* PortfolioPerformanceViewModel.swift */; };
 		DBE3307F29EF0E7E1926B2B4 /* CoinInfoChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05FB16B9B1B3CADA89C02F6 /* CoinInfoChartView.swift */; };
 		DC74CB48AE9A2EF8F7AD3EC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C27C5CD593A5978426386378 /* Assets.xcassets */; };
 		DD1FECFBF7AD18C1E7832CAF /* wallet-info-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = C999216F5B71C41870392AD2 /* wallet-info-stub.json */; };
-		DE0CB86509DFD8DF640DC7BB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE87D983307C474C4B1A572 /* ProfileViewController.swift */; };
+		DD2E33C472905FA32AE84797 /* AboutPinoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386E9EB6770D54847A0B49F3 /* AboutPinoViewController.swift */; };
 		DE33FFB7D492FA770FF9FB5C /* SemiboldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50080A9D2083CDB39EEB969A /* SemiboldStyle.swift */; };
 		DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF705C69E87F6C936F8261B /* AccountingAPIClient.swift */; };
-		E1A1DA17362DCC9CD1ACC7E5 /* WalletBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C99B3AA3E7F7CEF783F49 /* WalletBuilder.swift */; };
 		E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCBF9CC6A3C63CAA0DB0AA7 /* ActivityViewController.swift */; };
-		E2C26D247F339E60E73C92ED /* WalletsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047ADEBD8DD6A4A44A3A34C3 /* WalletsModel.swift */; };
+		E25F4C14C3273F63F22E983C /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA3FFE35308EBEC961CD7BF /* UIView.swift */; };
 		E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D680E48001C060BADD248 /* EndpointType.swift */; };
 		E4FF2E5E60CA74F3324945A8 /* CoinInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D5774D76FC507F8B176185 /* CoinInfoViewModel.swift */; };
 		E52C3E716C6ACBCE6C8BE230 /* NoInternetConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73792E48AD4925E61A0B074B /* NoInternetConnectionView.swift */; };
 		E55DCCDCC37B827E5DBEEB82 /* FlowLayout+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D79E3BC818F81D3B095A99A /* FlowLayout+Extension.swift */; };
 		E6A9D57DCF1C0D793FDBEDBF /* CoinPortfolioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF69CD04334D4EE4C9272B8 /* CoinPortfolioViewModel.swift */; };
-		E8C436469712133C089B3BC7 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE456BF0BDEF4A39E0BCC4F1 /* SettingsViewModel.swift */; };
-		EA7F9A0D001F1D0B5BB3825E /* ProfileCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFAEA53AAE9F7223080E7E7 /* ProfileCollectionView.swift */; };
+		E785EA31CC4E6721B72481DE /* RemoveAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494BDE684B29E6CA2138470D /* RemoveAccountViewController.swift */; };
 		EE23BD62B18C9118376A405C /* PPPangramSans-ThinReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7C48BF270C9A3E1CA6D9F33 /* PPPangramSans-ThinReclined.ttf */; };
 		EFC5F586A70E988F98620A79 /* PPPangramSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CC36053D1265CD704BF7F722 /* PPPangramSans-Thin.ttf */; };
 		EFCE871CCDF8A29DA4F8950F /* ManageAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6232F5D274252F511DC03A52 /* ManageAssetCell.swift */; };
@@ -255,12 +284,10 @@
 		F9E38D8724A64E725FB39612 /* PrecisionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6053BA1EF5B9764BF881B904 /* PrecisionSystem.swift */; };
 		FAC1CE991D3CCB7951E7F8F4 /* UsersEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53CC53CADE628A988B8BD2F /* UsersEndpoint.swift */; };
 		FADF64026A19F019F554FEA5 /* AssetChartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFABD75C54559DC6EC13C293 /* AssetChartModel.swift */; };
-		FAE60013C8F26D66F69DAE7A /* SettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F083C21FA14DA40A48D5A6A /* SettingsHeaderView.swift */; };
 		FAF0C3C48227F773D772FF6E /* CreatePasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EEC20862FCD98123D65A01 /* CreatePasscodeViewController.swift */; };
 		FBA81FB09332C152D88C289E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404287D5077C670FADEE9987 /* HTTPMethod.swift */; };
 		FBEBDE533CAA644C5EF987A1 /* HDWallet+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7713B677A7921CBCB8CCCF /* HDWallet+Extension.swift */; };
 		FC0D80A069760DC032C1B9D6 /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E7642C1C0BE45725F5B549 /* IntroModel.swift */; };
-		FD88B05B94FDCF43640558C5 /* Pods_Pino_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FFAE9C77F39137C04066FEA /* Pods_Pino_iOSTests.framework */; };
 		FDC9B8DDC75EF47C7D607182 /* ShowSecretPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D243D736A087A5296804FB9 /* ShowSecretPhraseView.swift */; };
 		FDEF1CFCCEFF7401C0A664FD /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6607F3D23F306FA733008E8D /* IntroView.swift */; };
 		FF58849FC74FCDF3DB174C34 /* PPPangramSans-Extrabold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D91B98B8A47DBAE96AE7956F /* PPPangramSans-Extrabold.ttf */; };
@@ -279,9 +306,9 @@
 /* Begin PBXFileReference section */
 		0370664A9072624853167972 /* WalletBalanceHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletBalanceHeaderView.swift; sourceTree = "<group>"; };
 		037EE814D04B9042E0D65DB1 /* ManageAssetsFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAssetsFooterView.swift; sourceTree = "<group>"; };
-		047ADEBD8DD6A4A44A3A34C3 /* WalletsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsModel.swift; sourceTree = "<group>"; };
 		048462E075A91DDC5CE4C22E /* PinoToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoToastView.swift; sourceTree = "<group>"; };
 		054F035BC1020A3673EEB0AD /* all-users-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "all-users-stub.json"; sourceTree = "<group>"; };
+		055C2DD5220751B49AE69351 /* RemoveAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveAccountViewModel.swift; sourceTree = "<group>"; };
 		05644B4808E74C108ADD10B4 /* Networking+Aliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Networking+Aliases.swift"; sourceTree = "<group>"; };
 		068F5D74F8B1876B22DD2AC0 /* PPPangramSans-ExtralightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtralightItalic.ttf"; sourceTree = "<group>"; };
 		0AE19B638118F9E2565134EF /* about-coin-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "about-coin-stub.json"; sourceTree = "<group>"; };
@@ -294,61 +321,70 @@
 		0F8CF125BFB23FDB6B149995 /* AssetLineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetLineChart.swift; sourceTree = "<group>"; };
 		1050FC38D33C71B1E7962D8B /* WalletInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoModel.swift; sourceTree = "<group>"; };
 		1055FF6B587AAF1786CDA125 /* PPPangramSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
+		1185B5EB690B43AA8DF4EE28 /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		1248800A47DD9BD31AA1488B /* PinoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoLabel.swift; sourceTree = "<group>"; };
 		12D527D8AB60BF6A7C1EA2D9 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		13A68168292819817F8D256A /* Pods-Pino-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		151E5726229379FA18870AA2 /* AllDoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDoneViewModel.swift; sourceTree = "<group>"; };
 		15BA9BA379C5D10107A5209E /* WalletEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletEndpoint.swift; sourceTree = "<group>"; };
 		17EF5982289ED9E758D0777F /* CoinHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinHistoryViewModel.swift; sourceTree = "<group>"; };
 		1999DA19B91CEBCAD9352C43 /* ChartDateFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDateFilter.swift; sourceTree = "<group>"; };
 		1AE0C2CA6B34603B490425D3 /* HistoryStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStatus.swift; sourceTree = "<group>"; };
 		1AE59B4F8A912C260EBD9FD8 /* ImportSecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSecretPhraseView.swift; sourceTree = "<group>"; };
-		1B005AC80372520D68EB9D1D /* RemoveAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveAccountView.swift; sourceTree = "<group>"; };
+		1B8B3471DBAE7B1EDD075DAF /* BiometricAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuthentication.swift; sourceTree = "<group>"; };
 		1D79E6ABFF159E2B8FB5C0A2 /* ManagePasscodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagePasscodeView.swift; sourceTree = "<group>"; };
+		1DE3198FB191E8A67A84E0B5 /* CoinPerformanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceView.swift; sourceTree = "<group>"; };
 		1E7C5231800B75EB304677F5 /* InfoActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoActionSheet.swift; sourceTree = "<group>"; };
-		1EFAEA53AAE9F7223080E7E7 /* ProfileCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionView.swift; sourceTree = "<group>"; };
 		1F488BFAA1B7C30ABB20FD7B /* PPPangramSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Semibold.ttf"; sourceTree = "<group>"; };
 		1FCF004E3A9B86F7C31A3D66 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		20C4513D94D36C6FA0CF933F /* Pods-Pino-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		231D680E48001C060BADD248 /* EndpointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointType.swift; sourceTree = "<group>"; };
 		262D77EFE984EBA7A19D23DC /* PinoStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoStepperView.swift; sourceTree = "<group>"; };
 		26427FD948787141E7AA599B /* CoinHistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinHistoryModel.swift; sourceTree = "<group>"; };
 		27234FAA3BF23A48ABC72E43 /* PinoCheckBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoCheckBoxStyle.swift; sourceTree = "<group>"; };
 		27C67E904C0B3815BD92FF78 /* PositionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionHeaderView.swift; sourceTree = "<group>"; };
 		29586CCAC21CB070FEBA025F /* BodyParamsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyParamsType.swift; sourceTree = "<group>"; };
-		29A30DEF71296ABC5661751A /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
-		2A089FF04336399F878C82EE /* Pods_Pino_iOS_Pino_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS_Pino_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		29AE3680C6C881D44A865492 /* AvatarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarViewModel.swift; sourceTree = "<group>"; };
 		2C692B063F7DF262E32FBCF9 /* ReceiveViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveViewModel.swift; sourceTree = "<group>"; };
 		2CE296532DABA81FAA3B00A3 /* PinoLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoLabelStyle.swift; sourceTree = "<group>"; };
 		2F0B2CBC9118CD481635941C /* CoinInfoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoHeaderView.swift; sourceTree = "<group>"; };
-		2F5C99B3AA3E7F7CEF783F49 /* WalletBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletBuilder.swift; sourceTree = "<group>"; };
+		302F0396182FFFCA37617086 /* ProfileCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionView.swift; sourceTree = "<group>"; };
 		308BF4A6046B235F66E9DCCF /* CoinInfoChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoChartViewController.swift; sourceTree = "<group>"; };
 		326B0DAFD947F590C331F13D /* wallet-balance-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "wallet-balance-stub.json"; sourceTree = "<group>"; };
 		32921F6D59819745CA7E48EE /* AddCustomAssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomAssetViewController.swift; sourceTree = "<group>"; };
 		34DCACC427D66E42E2D55705 /* PassDotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassDotsView.swift; sourceTree = "<group>"; };
 		35DD3D417678658C9A87E94E /* IntroCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCollectionViewCell.swift; sourceTree = "<group>"; };
-		366C095A063BC410213B7840 /* Pods-Pino-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		37D6130730044AF6531467A7 /* AvatarCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCollectionView.swift; sourceTree = "<group>"; };
-		39C3A5BBC418D08904005393 /* AvatarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCell.swift; sourceTree = "<group>"; };
+		386E9EB6770D54847A0B49F3 /* AboutPinoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPinoViewController.swift; sourceTree = "<group>"; };
+		3999578123171FE22EDEEE70 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		3AA5A212CE6AB0D23C424FBA /* Pods_Pino_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B3AAF615A47F05E1D03D4B8 /* Button+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extension.swift"; sourceTree = "<group>"; };
 		3BB0B1B5F9A48B80542BF12C /* SuggestedSeedPhraseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedSeedPhraseCell.swift; sourceTree = "<group>"; };
 		3DADC99C41136A35EF49EF9B /* SelectPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPassViewModel.swift; sourceTree = "<group>"; };
 		3F052F464B4443A09B569492 /* PPPangramSans-ExtraboldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtraboldReclined.ttf"; sourceTree = "<group>"; };
 		404287D5077C670FADEE9987 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		40ACD7B629C4C38300CFD557 /* WebViewFiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WebViewFiles; sourceTree = "<group>"; };
+		411833622E37F06E2DC49DFD /* AvatarCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCollectionView.swift; sourceTree = "<group>"; };
 		412EA8786DF547325A94AE49 /* AssetChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetChartViewModel.swift; sourceTree = "<group>"; };
 		422ABB90CBB3565389FAB0E3 /* StatusCode+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatusCode+Helper.swift"; sourceTree = "<group>"; };
+		42F371CC814D9B6F61E65806 /* PortfolioPerformanceHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioPerformanceHeaderView.swift; sourceTree = "<group>"; };
+		454A974DE896C90CB46C201A /* RevealPrivateKeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevealPrivateKeyView.swift; sourceTree = "<group>"; };
 		4606CCB9D451853BA369516C /* HTTPStubs+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPStubs+Helper.swift"; sourceTree = "<group>"; };
 		47A6676B929BBCE1E8B10CDF /* SwapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapViewController.swift; sourceTree = "<group>"; };
 		493670F85AF24449B805AFDA /* IntroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewModel.swift; sourceTree = "<group>"; };
+		494BDE684B29E6CA2138470D /* RemoveAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveAccountViewController.swift; sourceTree = "<group>"; };
 		49D17DC5FE81A16A6E44C346 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4C970B4F19E96A96669EA29F /* WalletsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsViewModel.swift; sourceTree = "<group>"; };
+		4DC5EB37269D67FF33569DB0 /* WalletsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsCollectionView.swift; sourceTree = "<group>"; };
 		4E6325D0E27CD114807676AB /* WalletBalanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletBalanceViewModel.swift; sourceTree = "<group>"; };
 		50080A9D2083CDB39EEB969A /* SemiboldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiboldStyle.swift; sourceTree = "<group>"; };
 		53E1EE1161F0B464BD31F642 /* coin-history-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "coin-history-stub.json"; sourceTree = "<group>"; };
+		542336FAD3B2D7DF0D6B5E25 /* Pods-Pino-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		54C02A809BFBBB71DE91F2C0 /* Assetmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assetmodel.swift; sourceTree = "<group>"; };
 		55CD7DABDCFD6941F9E22E49 /* PPPangramSans-RegularReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-RegularReclined.ttf"; sourceTree = "<group>"; };
 		55E1101FD968CD52ACD11718 /* PinoButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoButtonStyle.swift; sourceTree = "<group>"; };
 		56B86857945EBDDBE2116217 /* PPPangramSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Light.ttf"; sourceTree = "<group>"; };
 		582B119F599D60CB68C55E2F /* VerifyPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPassViewModel.swift; sourceTree = "<group>"; };
 		5899CF9A0F20C4887576290A /* UsersAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersAPIService.swift; sourceTree = "<group>"; };
+		59650CC316C115E7C9106AC2 /* EditAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountViewController.swift; sourceTree = "<group>"; };
 		5992C9313824BC32EC68C32E /* VerifySecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseViewController.swift; sourceTree = "<group>"; };
 		5A21FC93E1137D3A150ACCD4 /* CoinPortfolioModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPortfolioModel.swift; sourceTree = "<group>"; };
 		5C5132EBB2A09F9C6AAB1481 /* MockKeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockKeychainService.swift; sourceTree = "<group>"; };
@@ -361,25 +397,28 @@
 		631FBF2AFF294932B1650457 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		6350F6379C2C13562527B05C /* AboutCoinModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutCoinModel.swift; sourceTree = "<group>"; };
 		635EFDC4F44BD212A8195289 /* ChartDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataModel.swift; sourceTree = "<group>"; };
+		63744AB248EE37D52AC065D5 /* WalletsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsViewModel.swift; sourceTree = "<group>"; };
 		63AAB7DCE4D2AE7A8022C030 /* WalletAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletAPIClient.swift; sourceTree = "<group>"; };
 		648E26A2D324DFC28EE856F6 /* WalletBalanceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletBalanceModel.swift; sourceTree = "<group>"; };
 		6533175C792A5B71C376C9CD /* PPPangramSans-LightReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-LightReclined.ttf"; sourceTree = "<group>"; };
+		65BB06BD3791B59D7E6798E3 /* WalletCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCell.swift; sourceTree = "<group>"; };
 		6607F3D23F306FA733008E8D /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
+		662126D2932FB4BDCEAAB8DB /* WalletsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsViewController.swift; sourceTree = "<group>"; };
 		66AFBFD0E793B2BDF5BF9D8F /* AddCustomAssetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomAssetView.swift; sourceTree = "<group>"; };
 		66D2475E308AB37CA7492584 /* AssetsCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		66E135038F69F74B221F7A09 /* CoinInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoViewController.swift; sourceTree = "<group>"; };
 		66EBD8E6BF7C5877B562FCA2 /* APIClientTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTest.swift; sourceTree = "<group>"; };
+		6721806A1540B888590AFF4C /* ShareOfAssetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOfAssetsViewModel.swift; sourceTree = "<group>"; };
 		68C640FE522F73C9313D7ECB /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		68F65D48C44F581B2A792A18 /* EditAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountView.swift; sourceTree = "<group>"; };
 		69B08E01F8697BCB86DF01F6 /* PinoColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoColor.swift; sourceTree = "<group>"; };
 		69F80E5332D902C3DF82DC4A /* Pino-iOSTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = "Pino-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B2220BAE0D7613EB95414ED /* assets-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "assets-stub.json"; sourceTree = "<group>"; };
 		6C39A3F6B8ACA2CF53DFB7F3 /* ReceiveAssetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAssetView.swift; sourceTree = "<group>"; };
-		6F083C21FA14DA40A48D5A6A /* SettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderView.swift; sourceTree = "<group>"; };
+		6EEC9118028F28BE505CEF38 /* CoinPerformanceInfoItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceInfoItems.swift; sourceTree = "<group>"; };
 		6FDF52EAF23E4F882F6EE8DA /* BlurEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurEffectView.swift; sourceTree = "<group>"; };
 		6FF1DD088DBE71EAD3CEB3F9 /* PasteFromClipboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteFromClipboardView.swift; sourceTree = "<group>"; };
-		6FFAE9C77F39137C04066FEA /* Pods_Pino_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FFC918E160F2D1A3CD397AD /* KeychainWrapperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapperProtocol.swift; sourceTree = "<group>"; };
-		70F5BA9D8A87B83F5FA4C034 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		712A56F371843AF47B6362CE /* ValidateSecretPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateSecretPhraseViewModel.swift; sourceTree = "<group>"; };
 		71EEC20862FCD98123D65A01 /* CreatePasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeViewController.swift; sourceTree = "<group>"; };
 		720B6E17946325E1FB152F02 /* ReceiveViewActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveViewActionButton.swift; sourceTree = "<group>"; };
@@ -391,19 +430,18 @@
 		74B1573BA999C25926136C27 /* positions-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "positions-stub.json"; sourceTree = "<group>"; };
 		75ADAFE23081B750B20B7F27 /* PPPangramSans-Extralight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Extralight.ttf"; sourceTree = "<group>"; };
 		76670736A779E64FF9997E82 /* PPPangramSans-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ThinItalic.ttf"; sourceTree = "<group>"; };
+		769C35FFBDE24FB0BF817BDF /* CoinPerformanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceViewModel.swift; sourceTree = "<group>"; };
 		7776DA7356BDD42193B0B925 /* AboutCoinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutCoinViewModel.swift; sourceTree = "<group>"; };
 		78482FE19363A791AB1DBF21 /* SecretPhraseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseTextView.swift; sourceTree = "<group>"; };
 		791209DFE36FC4B7F33E3198 /* GradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientLayer.swift; sourceTree = "<group>"; };
 		794AA4C69F21813E48C811E4 /* IntroCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCollectionView.swift; sourceTree = "<group>"; };
 		79BCB139B9DD46E47FA2E234 /* SecurityModeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityModeProtocol.swift; sourceTree = "<group>"; };
 		79FCF8F6F9B8A3E6BC755C52 /* SecretPhraseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseCell.swift; sourceTree = "<group>"; };
-		7AE87D983307C474C4B1A572 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		7B0095EE8C266D11D502576F /* coin-portfolio-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "coin-portfolio-stub.json"; sourceTree = "<group>"; };
 		7BBDAE3E61D4F73804CBA92E /* ManageAssetsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAssetsCollectionView.swift; sourceTree = "<group>"; };
 		7BF855A1A34B8BFA442582D3 /* RegularStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularStyle.swift; sourceTree = "<group>"; };
 		7CF705C69E87F6C936F8261B /* AccountingAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountingAPIClient.swift; sourceTree = "<group>"; };
 		7D243D736A087A5296804FB9 /* ShowSecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseView.swift; sourceTree = "<group>"; };
-		7D3D3341D692E8CE96170656 /* AccountHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHeaderView.swift; sourceTree = "<group>"; };
 		7D476E770DF75B119476A1AC /* StringProtocol+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringProtocol+Extension.swift"; sourceTree = "<group>"; };
 		7DF2F5E7FF747EA6B929BCA7 /* PasscodeManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeManagerService.swift; sourceTree = "<group>"; };
 		7EA9CD145390F39AFB12714B /* ParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
@@ -413,42 +451,48 @@
 		80323CF07CAE3913B0E6D67C /* CoinHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinHistoryCell.swift; sourceTree = "<group>"; };
 		829CA4C0A06D84219F432590 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		82E58CA3A90543D8B4D5AE22 /* APISimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APISimulator.swift; sourceTree = "<group>"; };
-		842C0C48308F15E5813F59F8 /* RemoveAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveAccountViewController.swift; sourceTree = "<group>"; };
+		83E266DC39849750CA7B2DC6 /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
+		851C04AF5FA6ED39EA92FAB3 /* Pods_Pino_iOS_Pino_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS_Pino_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85B8E4B322CA8BD26A71AD22 /* BalanceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceModel.swift; sourceTree = "<group>"; };
 		860A5D67C58E6FF224570BFE /* MediumStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumStyle.swift; sourceTree = "<group>"; };
 		86F8C6EC31E9AE1094243D0B /* PPPangramSans-MediumReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-MediumReclined.ttf"; sourceTree = "<group>"; };
 		8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pino-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		886A8F723E50C884CA276AB4 /* WalletsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsModel.swift; sourceTree = "<group>"; };
+		887EDE19A8B81F1FB217E0FA /* RemoveAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveAccountView.swift; sourceTree = "<group>"; };
 		88A9D51E2876395DCD62E189 /* AssetsEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsEndpoint.swift; sourceTree = "<group>"; };
+		8C64F3EBDE687319FAF19A7B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		8E3EE6FFF0A8D8C792452E18 /* SeedPhraseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseMock.swift; sourceTree = "<group>"; };
 		8EEAF1A6DB0A8C3F3D5F8742 /* PinoFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoFont.swift; sourceTree = "<group>"; };
 		8F7E138148E3838B0ABB336D /* BoldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldStyle.swift; sourceTree = "<group>"; };
 		902ADB6DDACF4604CCD18D3E /* ShowSecretPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseViewModel.swift; sourceTree = "<group>"; };
 		90544A16A36443BB22A6216C /* PasscodeManagerPages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeManagerPages.swift; sourceTree = "<group>"; };
-		90612CAAD12A1F4A36E00D63 /* AvatarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarViewModel.swift; sourceTree = "<group>"; };
 		91253F27E551525F01C51F04 /* AssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewModel.swift; sourceTree = "<group>"; };
 		91B3B78BD52ACE1726AEB2DF /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		939D3C65704892C0B83453C5 /* CreatePasscodeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeUITests.swift; sourceTree = "<group>"; };
+		93DD8352DE65D9AE5199096D /* PortfolioPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioPerformanceViewController.swift; sourceTree = "<group>"; };
 		95C94607CE73545EF32031FA /* URLParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLParameterEncoding.swift; sourceTree = "<group>"; };
 		975B5A87FF8FB56BD7877A1D /* JSONParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParameterEncoder.swift; sourceTree = "<group>"; };
 		97B410EE93ECE88B2097A2DF /* AssetsAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsAPIService.swift; sourceTree = "<group>"; };
-		9918833BB180478671749B44 /* EditAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountViewController.swift; sourceTree = "<group>"; };
+		98101844EE616C4A2DCF6CCF /* RevealPrivateKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevealPrivateKeyViewController.swift; sourceTree = "<group>"; };
+		98D7CE3AA42604B8F78EA87C /* GroupCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCollectionViewCell.swift; sourceTree = "<group>"; };
 		99C20C9FE9BA8113C2A0BF18 /* CoinInfoChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoChartViewModel.swift; sourceTree = "<group>"; };
 		9C2ABE7B20EDB691025C536E /* Pino_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pino_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		9D0A1FE58D8CAA1EA8F939E8 /* WalletsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsCollectionView.swift; sourceTree = "<group>"; };
 		9D35DF0CCAAD770B74A6F576 /* CustomAssetInfoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetInfoContainerView.swift; sourceTree = "<group>"; };
 		9D79E3BC818F81D3B095A99A /* FlowLayout+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlowLayout+Extension.swift"; sourceTree = "<group>"; };
 		9DA036F6EC2BEF8D87529AC9 /* AssetVolatilityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetVolatilityType.swift; sourceTree = "<group>"; };
-		9E28AD4D1317A902C01CC2AA /* Pods_Pino_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EA3E5DF9FE696BD1307327F /* WalletInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoViewModel.swift; sourceTree = "<group>"; };
-		9ED1D7181EA16CDAE41E69D0 /* Pods-Pino-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOSTests/Pods-Pino-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		9F680208960473A9C1B27BF0 /* CoinInfoCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoCollectionView.swift; sourceTree = "<group>"; };
 		9FF69CD04334D4EE4C9272B8 /* CoinPortfolioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPortfolioViewModel.swift; sourceTree = "<group>"; };
 		A016DB0AD44B6C2F7D74B730 /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
+		A1094D274BD4EBC64C6CD721 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		A38B35BEB7646037614A159D /* RecoveryPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPhraseViewModel.swift; sourceTree = "<group>"; };
 		A63629240845E89034EB1956 /* CreateWalletUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWalletUITests.swift; sourceTree = "<group>"; };
 		A7C48BF270C9A3E1CA6D9F33 /* PPPangramSans-ThinReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ThinReclined.ttf"; sourceTree = "<group>"; };
-		A85A223153B7162BB49DEC7F /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A884CD0074F3F660E0B8C960 /* HomeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeError.swift; sourceTree = "<group>"; };
+		A9CD4DA384F1F614C5064ACA /* CoinPerformanceInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceInfoModel.swift; sourceTree = "<group>"; };
 		AACC44FE53317ADAF4E94A03 /* PPPangramSans-SemiboldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-SemiboldReclined.ttf"; sourceTree = "<group>"; };
+		ABE00D81C2E445CD26124F30 /* AboutPinoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPinoView.swift; sourceTree = "<group>"; };
+		AE159994023D1616204FD7CB /* WalletBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletBuilder.swift; sourceTree = "<group>"; };
 		B078176E881DE8EC3498AB5D /* AssetsAPIMockClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsAPIMockClient.swift; sourceTree = "<group>"; };
 		B106F2028FD8799A5277CE30 /* PPPangramSans-BoldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-BoldReclined.ttf"; sourceTree = "<group>"; };
 		B2CAFAD80E0F8FFD621B92AC /* PPPangramSans-RegularItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-RegularItalic.ttf"; sourceTree = "<group>"; };
@@ -460,20 +504,22 @@
 		B598793C2F5A5C34939271A4 /* PinoToastViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoToastViewStyle.swift; sourceTree = "<group>"; };
 		B677CAE87B1A7D14774BE29D /* HTTPTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
 		B6922A1FD91EE9D2DAF8D928 /* AccountingEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountingEndpoint.swift; sourceTree = "<group>"; };
-		B6B72DF4508FD5E4869CDC92 /* WalletCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCell.swift; sourceTree = "<group>"; };
+		BA5D3A1E20E82D148B16ADA1 /* CopyToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyToastView.swift; sourceTree = "<group>"; };
 		BAC98E3A780E5E5D45D7E739 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		BB7713B677A7921CBCB8CCCF /* HDWallet+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HDWallet+Extension.swift"; sourceTree = "<group>"; };
 		BBEC2EBFE1F49130DE1B36E3 /* CustomAssetInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetInfoViewModel.swift; sourceTree = "<group>"; };
-		BC7209B25ECC062F3C849953 /* WalletsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsViewController.swift; sourceTree = "<group>"; };
 		BCEEB6F436B93FB09ECB4CB1 /* AutolayoutHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutolayoutHelper.swift; sourceTree = "<group>"; };
 		BDE8D7091B73141234A25CEC /* CIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIImage.swift; sourceTree = "<group>"; };
 		BDFE5537D79C7116114C45E6 /* PPPangramSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Medium.ttf"; sourceTree = "<group>"; };
 		BE2DF579AD7CEC1A805691B6 /* EndpointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointType.swift; sourceTree = "<group>"; };
+		BEEA0CA763C18978C5255304 /* PortfolioPrformanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioPrformanceCell.swift; sourceTree = "<group>"; };
 		C054674B5A17E87E59B6946F /* PPPangramSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Bold.ttf"; sourceTree = "<group>"; };
 		C0D8EDE345F75B3753795F37 /* NoInternetConnectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInternetConnectionViewModel.swift; sourceTree = "<group>"; };
+		C16C5C234F1699EC6C69C191 /* AvatarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCell.swift; sourceTree = "<group>"; };
+		C189AE04251D77F00CA80C64 /* SettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderView.swift; sourceTree = "<group>"; };
 		C27C5CD593A5978426386378 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C282DA27E1C4F2A33C6BD8BC /* RecoveryPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPhraseViewController.swift; sourceTree = "<group>"; };
 		C31426AD24C3B8759699C644 /* PPPangramSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Regular.ttf"; sourceTree = "<group>"; };
-		C4DE7218B3B0C2E67D119EE7 /* Pods-Pino-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		C55BFF5F48EC55A7D9EB418E /* NetworkManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerProtocol.swift; sourceTree = "<group>"; };
 		C6055599998C2FB2F7A1AC39 /* PinoLineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoLineChart.swift; sourceTree = "<group>"; };
 		C6E3F8B61B1FB024B075BDE9 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -484,14 +530,16 @@
 		CB8DDADB525EE16967656C35 /* AssetsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsCollectionView.swift; sourceTree = "<group>"; };
 		CC36053D1265CD704BF7F722 /* PPPangramSans-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Thin.ttf"; sourceTree = "<group>"; };
 		CCCBF9CC6A3C63CAA0DB0AA7 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		CCE14A508CA87D5CB98A39FB /* ChangeAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAvatarViewController.swift; sourceTree = "<group>"; };
 		CEC2A05AC28F553BF890D172 /* InvestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestViewController.swift; sourceTree = "<group>"; };
 		CF85809C0811ADB69A1512D9 /* AllDoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDoneViewController.swift; sourceTree = "<group>"; };
 		CFA73CCD58C583E964396CF7 /* Encodable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Extension.swift"; sourceTree = "<group>"; };
 		D33B3D945C5DD81488E117CB /* WalletAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletAPIService.swift; sourceTree = "<group>"; };
 		D5289053822F33893527540E /* SecretPhraseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseCollectionView.swift; sourceTree = "<group>"; };
+		D5C71F21D8358EA08AACC253 /* PortfolioPerformanceCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioPerformanceCollectionView.swift; sourceTree = "<group>"; };
 		D5E7642C1C0BE45725F5B549 /* IntroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroModel.swift; sourceTree = "<group>"; };
+		D67A3C8D0587A7C0B53C0EC4 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		D7D3566CBF0C2E2689423E90 /* PPPangramSans-ExtralightReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtralightReclined.ttf"; sourceTree = "<group>"; };
-		D825F005F5D0D4E466311520 /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D846BDE4ED7AF8234497E621 /* LaunchSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchSettings.swift; sourceTree = "<group>"; };
 		D859A59CF3F5322ACE7356E4 /* VerifySecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseView.swift; sourceTree = "<group>"; };
 		D872D11A91B4283F96C4999D /* ShowSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseViewController.swift; sourceTree = "<group>"; };
@@ -499,22 +547,24 @@
 		DA8ADDD22F193963D587AE57 /* ChartInfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartInfoItem.swift; sourceTree = "<group>"; };
 		DCDBF81923E5F2C83F0DB3C9 /* SuggestedSeedPhraseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedSeedPhraseCollectionView.swift; sourceTree = "<group>"; };
 		DDBA47FB0ED959F0E18DAD21 /* VerifySecretPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseViewModel.swift; sourceTree = "<group>"; };
-		DE456BF0BDEF4A39E0BCC4F1 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		DE9E95DAD0FE359D802524FC /* wallets-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "wallets-stub.json"; sourceTree = "<group>"; };
+		DEA3FFE35308EBEC961CD7BF /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		DEF9234B1A724D51BE836376 /* PPPangramSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-LightItalic.ttf"; sourceTree = "<group>"; };
 		DFB2C343099A9B87E6C231F0 /* StubManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubManager.swift; sourceTree = "<group>"; };
-		E07590A023561D345234009B /* EditAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountView.swift; sourceTree = "<group>"; };
 		E149E7B618CEFE5E909B2D78 /* WalletInfoNavigationItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoNavigationItems.swift; sourceTree = "<group>"; };
 		E1575DB9D22AE8EBFE86A7D9 /* SeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhrase.swift; sourceTree = "<group>"; };
 		E19FF7EA659493C72C4B0AD9 /* PinoTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoTextFieldView.swift; sourceTree = "<group>"; };
-		E4710064AAD1DF8D1CABD80D /* Pods-Pino-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		E40D0AB7515630563347CBDA /* CoinPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceViewController.swift; sourceTree = "<group>"; };
 		E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetViewModel.swift; sourceTree = "<group>"; };
 		E5039C2C00BEB653F3B0D399 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E5C76CCF2D1DB532F1B1F544 /* AllDoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDoneView.swift; sourceTree = "<group>"; };
+		E5D4FFBB4CC6D342FF946AB9 /* PortfolioPerformanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioPerformanceViewModel.swift; sourceTree = "<group>"; };
+		E8E81CD0ED79EC99EC4A1DD5 /* AccountHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHeaderView.swift; sourceTree = "<group>"; };
 		EA71EC229911D193381225AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EA79C702C8831F7059E16070 /* coin-performance-info-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "coin-performance-info-stub.json"; sourceTree = "<group>"; };
+		EBCC6457265C54F56DE92A17 /* RecoveryPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPhraseView.swift; sourceTree = "<group>"; };
 		EC80E0DF7C9912485736BC47 /* LaunchSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchSettings.swift; sourceTree = "<group>"; };
 		EDE34223ED5A368C78F99208 /* VerifyPasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPasscodeViewController.swift; sourceTree = "<group>"; };
-		EF0F1B4697C1345104F44104 /* ChangeAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAvatarViewController.swift; sourceTree = "<group>"; };
 		EF5ED712FA2B8E57F30351AA /* PPPangramSans-ExtraboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtraboldItalic.ttf"; sourceTree = "<group>"; };
 		EFABD75C54559DC6EC13C293 /* AssetChartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetChartModel.swift; sourceTree = "<group>"; };
 		EFB3C819F5D78DC8AB98A263 /* PinoTextFieldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoTextFieldStyle.swift; sourceTree = "<group>"; };
@@ -523,41 +573,44 @@
 		F1B4ADB676ED9AAC2196899E /* PPPangramSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		F1FBD227A0D3DC2EF5DB6E84 /* PinoCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoCheckBox.swift; sourceTree = "<group>"; };
 		F23582FDA6171EC603F911DA /* AccountingAPIMockClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountingAPIMockClient.swift; sourceTree = "<group>"; };
+		F4DC2CDEAEF61D4DF137970F /* AboutPinoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPinoViewModel.swift; sourceTree = "<group>"; };
 		F53CC53CADE628A988B8BD2F /* UsersEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersEndpoint.swift; sourceTree = "<group>"; };
 		F6B9E44B654532DB80DF4382 /* ParameterEncoderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoderProtocol.swift; sourceTree = "<group>"; };
-		F6F595BBB52958F2F27DF2A3 /* RemoveAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveAccountViewModel.swift; sourceTree = "<group>"; };
+		F77EE6734CEDAE75B2EDBEE5 /* CoinPerformanceInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceInfoViewModel.swift; sourceTree = "<group>"; };
 		F8912BBC7E97E01533DB6A76 /* PinoLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoLoading.swift; sourceTree = "<group>"; };
+		F92BDFDD1D5CCF2337BDA2CF /* Pods-Pino-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pino-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		F9B2BE1170C6DAF7A21CA6F6 /* Pods_Pino_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9F34A6DD9D5B0DA99D3D282 /* AssetsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsCollectionViewCell.swift; sourceTree = "<group>"; };
 		FC81FCD14624F47792B02A71 /* ImportWalletError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletError.swift; sourceTree = "<group>"; };
+		FCD64F05EA52CD663591510D /* RevealPrivateKeyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevealPrivateKeyViewModel.swift; sourceTree = "<group>"; };
 		FE11F8850559AC3C48F2100E /* WalletAPIMockClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletAPIMockClient.swift; sourceTree = "<group>"; };
 		FE5512C825B9C868060EE43E /* SecretPhraseCenteredFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPhraseCenteredFlowLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		0A09DF9B24D2640C421D2E6E /* Frameworks */ = {
+		614C9FD81E63439E252C2098 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8871592C847256931F640282 /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */,
+				01E728E04EE08EBEA612D29F /* Pods_Pino_iOSTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5B2AF9EFA21044785D94DFC1 /* Frameworks */ = {
+		C9BDA948A9D980A048A9F305 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD88B05B94FDCF43640558C5 /* Pods_Pino_iOSTests.framework in Frameworks */,
+				974786FAAE954BC802E5CD46 /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F24F0EBE8B28696955A2E6B7 /* Frameworks */ = {
+		E5A5789ED00DA0FEF70A2541 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4083E06329C3104F007CBC45 /* BigInt in Frameworks */,
-				4083E06029C307B8007CBC45 /* Kingfisher in Frameworks */,
-				0589D8AB62B8FAB9A279B91A /* Pods_Pino_iOS.framework in Frameworks */,
-				4083E06629C32E16007CBC45 /* web3swift in Frameworks */,
+				40ACD7AA29C4C2DC00CFD557 /* Kingfisher in Frameworks */,
+				CE531A77B8439ADDF1F63C68 /* Pods_Pino_iOS.framework in Frameworks */,
+				40ACD7A729C4C2B100CFD557 /* web3swift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,19 +643,6 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
-		02E03BCC4E026A0C83B96A7E /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E4710064AAD1DF8D1CABD80D /* Pods-Pino-iOS.debug.xcconfig */,
-				C4DE7218B3B0C2E67D119EE7 /* Pods-Pino-iOS.release.xcconfig */,
-				A85A223153B7162BB49DEC7F /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */,
-				D825F005F5D0D4E466311520 /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */,
-				366C095A063BC410213B7840 /* Pods-Pino-iOSTests.debug.xcconfig */,
-				9ED1D7181EA16CDAE41E69D0 /* Pods-Pino-iOSTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		02F7EC4A2D81621079530268 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
@@ -633,13 +673,14 @@
 			path = Types;
 			sourceTree = "<group>";
 		};
-		03FDA480FA7FD831FFA86518 /* Model */ = {
+		037706AD20C41813DDE38BD3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2F5C99B3AA3E7F7CEF783F49 /* WalletBuilder.swift */,
-				047ADEBD8DD6A4A44A3A34C3 /* WalletsModel.swift */,
+				3AA5A212CE6AB0D23C424FBA /* Pods_Pino_iOS.framework */,
+				851C04AF5FA6ED39EA92FAB3 /* Pods_Pino_iOS_Pino_iOSUITests.framework */,
+				F9B2BE1170C6DAF7A21CA6F6 /* Pods_Pino_iOSTests.framework */,
 			);
-			path = Model;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		0492D2075569B8DAADC8CF8F /* PasscodeManage */ = {
@@ -700,6 +741,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		1F338AEE78D32C9BE431189A /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				386E9EB6770D54847A0B49F3 /* AboutPinoViewController.swift */,
+				C282DA27E1C4F2A33C6BD8BC /* RecoveryPhraseViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		1F574BD7E5BA9952845C29CF /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -739,8 +789,8 @@
 				BF60D065B05ED69B89F714A0 /* Pino-iOSTests */,
 				003A926B6A7FCC04DB681BCA /* Pino-iOSUITests */,
 				2821FB9CEE9F9B9E6BAE9FD7 /* Products */,
-				02E03BCC4E026A0C83B96A7E /* Pods */,
-				2D1BBD077F386DAA921B9DF0 /* Frameworks */,
+				AF5E7EF08BEAB81334F76668 /* Pods */,
+				037706AD20C41813DDE38BD3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -807,16 +857,6 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		2D1BBD077F386DAA921B9DF0 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				9E28AD4D1317A902C01CC2AA /* Pods_Pino_iOS.framework */,
-				2A089FF04336399F878C82EE /* Pods_Pino_iOS_Pino_iOSUITests.framework */,
-				6FFAE9C77F39137C04066FEA /* Pods_Pino_iOSTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		2DF8930CF6FC02BBFE525BEC /* KeychainManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -860,6 +900,15 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		345FDB77DF4A0C6D9F702142 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F4DC2CDEAEF61D4DF137970F /* AboutPinoViewModel.swift */,
+				A38B35BEB7646037614A159D /* RecoveryPhraseViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		36FF61A6F582D4EF2EBBA3CD /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -891,16 +940,15 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		3FAA24A71039CC59D307CFA2 /* ViewController */ = {
+		44599A41EC08E944C9D78DD4 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
-				EF0F1B4697C1345104F44104 /* ChangeAvatarViewController.swift */,
-				9918833BB180478671749B44 /* EditAccountViewController.swift */,
-				7AE87D983307C474C4B1A572 /* ProfileViewController.swift */,
-				842C0C48308F15E5813F59F8 /* RemoveAccountViewController.swift */,
-				BC7209B25ECC062F3C849953 /* WalletsViewController.swift */,
+				5B4C22D7038C9E92A6701C4B /* Model */,
+				F8D12A1F942AB0E1AE178C9D /* View */,
+				C8D0FB00472E07C984452318 /* ViewController */,
+				667D10381B32552815DD010A /* ViewModel */,
 			);
-			path = ViewController;
+			path = Wallet;
 			sourceTree = "<group>";
 		};
 		454AFE7F0BDC59A5CA92FB2B /* Button */ = {
@@ -922,23 +970,6 @@
 			path = Wallet;
 			sourceTree = "<group>";
 		};
-		47C748A7CA4411E301A0212D /* View */ = {
-			isa = PBXGroup;
-			children = (
-				7D3D3341D692E8CE96170656 /* AccountHeaderView.swift */,
-				39C3A5BBC418D08904005393 /* AvatarCell.swift */,
-				37D6130730044AF6531467A7 /* AvatarCollectionView.swift */,
-				E07590A023561D345234009B /* EditAccountView.swift */,
-				1EFAEA53AAE9F7223080E7E7 /* ProfileCollectionView.swift */,
-				1B005AC80372520D68EB9D1D /* RemoveAccountView.swift */,
-				70F5BA9D8A87B83F5FA4C034 /* SettingCell.swift */,
-				6F083C21FA14DA40A48D5A6A /* SettingsHeaderView.swift */,
-				B6B72DF4508FD5E4869CDC92 /* WalletCell.swift */,
-				9D0A1FE58D8CAA1EA8F939E8 /* WalletsCollectionView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		4899FB7A992B2CB40A8D2FDF /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -947,6 +978,15 @@
 				5992C9313824BC32EC68C32E /* VerifySecretPhraseViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		4DC8F6F03B0F4497C003557D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				ABE00D81C2E445CD26124F30 /* AboutPinoView.swift */,
+				EBCC6457265C54F56DE92A17 /* RecoveryPhraseView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		4DD0A37BEA615CE0F5A32961 /* Loading */ = {
@@ -961,8 +1001,10 @@
 			isa = PBXGroup;
 			children = (
 				32921F6D59819745CA7E48EE /* AddCustomAssetViewController.swift */,
+				E40D0AB7515630563347CBDA /* CoinPerformanceViewController.swift */,
 				0B01A75DCB335D25714C2F08 /* HomepageViewController.swift */,
 				F12A95AE8F841F78F0112091 /* ManageAssetsViewController.swift */,
+				93DD8352DE65D9AE5199096D /* PortfolioPerformanceViewController.swift */,
 				5FF1E21D81662F03636BF664 /* ReceiveAssetViewController.swift */,
 			);
 			path = ViewControllers;
@@ -1009,6 +1051,7 @@
 				BB7713B677A7921CBCB8CCCF /* HDWallet+Extension.swift */,
 				422ABB90CBB3565389FAB0E3 /* StatusCode+Helper.swift */,
 				7D476E770DF75B119476A1AC /* StringProtocol+Extension.swift */,
+				DEA3FFE35308EBEC961CD7BF /* UIView.swift */,
 				0C18443FFB775271061875D9 /* URLRequest+Extension.swift */,
 				B33656AE9BB6138666D2E679 /* ViewController+Extension.swift */,
 			);
@@ -1045,6 +1088,18 @@
 			path = AddCustomAssetView;
 			sourceTree = "<group>";
 		};
+		568D90CC915CBBC27AB56C39 /* Portfolio */ = {
+			isa = PBXGroup;
+			children = (
+				6EEC9118028F28BE505CEF38 /* CoinPerformanceInfoItems.swift */,
+				1DE3198FB191E8A67A84E0B5 /* CoinPerformanceView.swift */,
+				D5C71F21D8358EA08AACC253 /* PortfolioPerformanceCollectionView.swift */,
+				42F371CC814D9B6F61E65806 /* PortfolioPerformanceHeaderView.swift */,
+				BEEA0CA763C18978C5255304 /* PortfolioPrformanceCell.swift */,
+			);
+			path = Portfolio;
+			sourceTree = "<group>";
+		};
 		568F0D82E0693F27D3974202 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1061,6 +1116,15 @@
 			path = ActionSheet;
 			sourceTree = "<group>";
 		};
+		5B4C22D7038C9E92A6701C4B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AE159994023D1616204FD7CB /* WalletBuilder.swift */,
+				886A8F723E50C884CA276AB4 /* WalletsModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		5BF756DDC1A3035E2801A7EE /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1071,21 +1135,10 @@
 				55D09939AE0791A97C71E859 /* AddCustomAssetView */,
 				8F0DA0B575132072F9462E66 /* AssetsCollectionView */,
 				378738E9160BC02790091E65 /* ManageAssetsCollectionView */,
+				568D90CC915CBBC27AB56C39 /* Portfolio */,
 				A58E149ED2A2086795EF5E28 /* ReceiveAssetView */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		5EF1EDEAD54C3B025E7A8D25 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				90612CAAD12A1F4A36E00D63 /* AvatarViewModel.swift */,
-				29A30DEF71296ABC5661751A /* ProfileViewModel.swift */,
-				F6F595BBB52958F2F27DF2A3 /* RemoveAccountViewModel.swift */,
-				DE456BF0BDEF4A39E0BCC4F1 /* SettingsViewModel.swift */,
-				4C970B4F19E96A96669EA29F /* WalletsViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		6204A1AEB94F779966B28753 /* Utilities */ = {
@@ -1093,8 +1146,10 @@
 			children = (
 				A016DB0AD44B6C2F7D74B730 /* AlertHelper.swift */,
 				BCEEB6F436B93FB09ECB4CB1 /* AutolayoutHelper.swift */,
+				1B8B3471DBAE7B1EDD075DAF /* BiometricAuthentication.swift */,
 				6FDF52EAF23E4F882F6EE8DA /* BlurEffectView.swift */,
 				791209DFE36FC4B7F33E3198 /* GradientLayer.swift */,
+				98D7CE3AA42604B8F78EA87C /* GroupCollectionViewCell.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1131,9 +1186,23 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		667D10381B32552815DD010A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				29AE3680C6C881D44A865492 /* AvatarViewModel.swift */,
+				3999578123171FE22EDEEE70 /* ProfileViewModel.swift */,
+				055C2DD5220751B49AE69351 /* RemoveAccountViewModel.swift */,
+				FCD64F05EA52CD663591510D /* RevealPrivateKeyViewModel.swift */,
+				A1094D274BD4EBC64C6CD721 /* SettingsViewModel.swift */,
+				63744AB248EE37D52AC065D5 /* WalletsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		68C89F18E1F6EEF28FF356D7 /* Toast */ = {
 			isa = PBXGroup;
 			children = (
+				BA5D3A1E20E82D148B16ADA1 /* CopyToastView.swift */,
 				048462E075A91DDC5CE4C22E /* PinoToastView.swift */,
 				B598793C2F5A5C34939271A4 /* PinoToastViewStyle.swift */,
 				CB426B36AF7DA6CC9B5DE111 /* ToastViewProtocol.swift */,
@@ -1281,6 +1350,7 @@
 				6B2220BAE0D7613EB95414ED /* assets-stub.json */,
 				53E1EE1161F0B464BD31F642 /* coin-history-stub.json */,
 				7F15207743692E4CE3445A4C /* coin-info-chart-stub.json */,
+				EA79C702C8831F7059E16070 /* coin-performance-info-stub.json */,
 				7B0095EE8C266D11D502576F /* coin-portfolio-stub.json */,
 				74B1573BA999C25926136C27 /* positions-stub.json */,
 				326B0DAFD947F590C331F13D /* wallet-balance-stub.json */,
@@ -1381,6 +1451,7 @@
 			children = (
 				54C02A809BFBBB71DE91F2C0 /* Assetmodel.swift */,
 				9DA036F6EC2BEF8D87529AC9 /* AssetVolatilityType.swift */,
+				A9CD4DA384F1F614C5064ACA /* CoinPerformanceInfoModel.swift */,
 				0D3B71C440B0E4128B1952D6 /* CustomAssetInfoModel.swift */,
 				0B892625118DF231D53AD596 /* CustomAssetModel.swift */,
 				648E26A2D324DFC28EE856F6 /* WalletBalanceModel.swift */,
@@ -1408,10 +1479,8 @@
 		99C279C49EE9A767DEB155C7 /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				03FDA480FA7FD831FFA86518 /* Model */,
-				47C748A7CA4411E301A0212D /* View */,
-				3FAA24A71039CC59D307CFA2 /* ViewController */,
-				5EF1EDEAD54C3B025E7A8D25 /* ViewModel */,
+				B2B1300CCC925B865109ABAF /* Setting */,
+				44599A41EC08E944C9D78DD4 /* Wallet */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1430,6 +1499,7 @@
 			children = (
 				6C39A3F6B8ACA2CF53DFB7F3 /* ReceiveAssetView.swift */,
 				720B6E17946325E1FB152F02 /* ReceiveViewActionButton.swift */,
+				40ACD7B629C4C38300CFD557 /* WebViewFiles */,
 			);
 			path = ReceiveAssetView;
 			sourceTree = "<group>";
@@ -1450,6 +1520,29 @@
 				DDBA47FB0ED959F0E18DAD21 /* VerifySecretPhraseViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AF5E7EF08BEAB81334F76668 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F92BDFDD1D5CCF2337BDA2CF /* Pods-Pino-iOS.debug.xcconfig */,
+				13A68168292819817F8D256A /* Pods-Pino-iOS.release.xcconfig */,
+				1185B5EB690B43AA8DF4EE28 /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */,
+				83E266DC39849750CA7B2DC6 /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */,
+				20C4513D94D36C6FA0CF933F /* Pods-Pino-iOSTests.debug.xcconfig */,
+				542336FAD3B2D7DF0D6B5E25 /* Pods-Pino-iOSTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		B2B1300CCC925B865109ABAF /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				4DC8F6F03B0F4497C003557D /* View */,
+				1F338AEE78D32C9BE431189A /* ViewController */,
+				345FDB77DF4A0C6D9F702142 /* ViewModel */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		B306C5049CC723CBB7E23D2B /* Models */ = {
@@ -1512,16 +1605,33 @@
 			path = "Pino-iOSTests";
 			sourceTree = "<group>";
 		};
+		C8D0FB00472E07C984452318 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CCE14A508CA87D5CB98A39FB /* ChangeAvatarViewController.swift */,
+				59650CC316C115E7C9106AC2 /* EditAccountViewController.swift */,
+				8C64F3EBDE687319FAF19A7B /* ProfileViewController.swift */,
+				494BDE684B29E6CA2138470D /* RemoveAccountViewController.swift */,
+				98101844EE616C4A2DCF6CCF /* RevealPrivateKeyViewController.swift */,
+				662126D2932FB4BDCEAAB8DB /* WalletsViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		D8BCC2D34E5C52A36E084E91 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				B596DBDA65A59B498030E742 /* AddCustomAssetViewModel.swift */,
 				91253F27E551525F01C51F04 /* AssetViewModel.swift */,
+				F77EE6734CEDAE75B2EDBEE5 /* CoinPerformanceInfoViewModel.swift */,
+				769C35FFBDE24FB0BF817BDF /* CoinPerformanceViewModel.swift */,
 				BBEC2EBFE1F49130DE1B36E3 /* CustomAssetInfoViewModel.swift */,
 				E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */,
 				0BFF0D6A4C815B6269EDD928 /* HomepageViewModel.swift */,
+				E5D4FFBB4CC6D342FF946AB9 /* PortfolioPerformanceViewModel.swift */,
 				2C692B063F7DF262E32FBCF9 /* ReceiveViewModel.swift */,
 				79BCB139B9DD46E47FA2E234 /* SecurityModeProtocol.swift */,
+				6721806A1540B888590AFF4C /* ShareOfAssetsViewModel.swift */,
 				4E6325D0E27CD114807676AB /* WalletBalanceViewModel.swift */,
 				9EA3E5DF9FE696BD1307327F /* WalletInfoViewModel.swift */,
 			);
@@ -1608,6 +1718,24 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		F8D12A1F942AB0E1AE178C9D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E8E81CD0ED79EC99EC4A1DD5 /* AccountHeaderView.swift */,
+				C16C5C234F1699EC6C69C191 /* AvatarCell.swift */,
+				411833622E37F06E2DC49DFD /* AvatarCollectionView.swift */,
+				68F65D48C44F581B2A792A18 /* EditAccountView.swift */,
+				302F0396182FFFCA37617086 /* ProfileCollectionView.swift */,
+				887EDE19A8B81F1FB217E0FA /* RemoveAccountView.swift */,
+				454A974DE896C90CB46C201A /* RevealPrivateKeyView.swift */,
+				D67A3C8D0587A7C0B53C0EC4 /* SettingCell.swift */,
+				C189AE04251D77F00CA80C64 /* SettingsHeaderView.swift */,
+				65BB06BD3791B59D7E6798E3 /* WalletCell.swift */,
+				4DC5EB37269D67FF33569DB0 /* WalletsCollectionView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1615,11 +1743,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 65C12F53E1AD046FA840632E /* Build configuration list for PBXNativeTarget "Pino-iOS" */;
 			buildPhases = (
-				87E34AEE000C29744A057E31 /* [CP] Check Pods Manifest.lock */,
+				9180E758E1DAF2DB573791AA /* [CP] Check Pods Manifest.lock */,
 				31EF4D935BDD78B5348A34D5 /* Sources */,
 				76BA89512FCF3114FC9C7AE9 /* Resources */,
-				F24F0EBE8B28696955A2E6B7 /* Frameworks */,
-				02D3D944EDFCFEBC452E27EA /* [CP] Embed Pods Frameworks */,
+				E5A5789ED00DA0FEF70A2541 /* Frameworks */,
+				01EAA1E8F58563B8C9F5917B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1627,9 +1755,8 @@
 			);
 			name = "Pino-iOS";
 			packageProductDependencies = (
-				4083E05F29C307B8007CBC45 /* Kingfisher */,
-				4083E06229C3104F007CBC45 /* BigInt */,
-				4083E06529C32E16007CBC45 /* web3swift */,
+				40ACD7A629C4C2B100CFD557 /* web3swift */,
+				40ACD7A929C4C2DC00CFD557 /* Kingfisher */,
 			);
 			productName = "Pino-iOS";
 			productReference = 8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */;
@@ -1639,10 +1766,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6B6518EC167C528E1CC9BE07 /* Build configuration list for PBXNativeTarget "Pino-iOSTests" */;
 			buildPhases = (
-				9BCF4F66F48D0A2CB3000A4A /* [CP] Check Pods Manifest.lock */,
+				B59A1DB9E00F9AA189687E68 /* [CP] Check Pods Manifest.lock */,
 				D1ED70C2ECF3B1FB44FE3240 /* Sources */,
 				C8404B46510C1F7B681F575F /* Resources */,
-				5B2AF9EFA21044785D94DFC1 /* Frameworks */,
+				614C9FD81E63439E252C2098 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1657,10 +1784,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE46D7586D2BB3F3472DCBF5 /* Build configuration list for PBXNativeTarget "Pino-iOSUITests" */;
 			buildPhases = (
-				93BBBC1D7275F655CEF0EEEC /* [CP] Check Pods Manifest.lock */,
+				BA6F6DD6FE6E88AF824FF546 /* [CP] Check Pods Manifest.lock */,
 				DF3F5A26D2D6406EDA43045B /* Sources */,
-				0A09DF9B24D2640C421D2E6E /* Frameworks */,
-				35E3726ADA2AD11ACE7ABC56 /* [CP] Embed Pods Frameworks */,
+				C9BDA948A9D980A048A9F305 /* Frameworks */,
+				9F57FDE60703D1E6E99A0111 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1695,9 +1822,8 @@
 			);
 			mainGroup = 2277E1FFDD10A1C98A64D20C;
 			packageReferences = (
-				4083E05E29C307B8007CBC45 /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				4083E06129C3104F007CBC45 /* XCRemoteSwiftPackageReference "BigInt" */,
-				4083E06429C32E16007CBC45 /* XCRemoteSwiftPackageReference "web3swift" */,
+				40ACD7A529C4C2B100CFD557 /* XCRemoteSwiftPackageReference "web3swift" */,
+				40ACD7A829C4C2DC00CFD557 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 2821FB9CEE9F9B9E6BAE9FD7 /* Products */;
 			projectDirPath = "";
@@ -1717,6 +1843,7 @@
 			files = (
 				DC74CB48AE9A2EF8F7AD3EC1 /* Assets.xcassets in Resources */,
 				1F73812756988538BC594057 /* LaunchScreen.storyboard in Resources */,
+				40ACD7AC29C4C30B00CFD557 /* wallets-stub.json in Resources */,
 				879CCE498D1A04C8EDE64430 /* PPPangramSans-Bold.ttf in Resources */,
 				A895518EB79CEB4B5CD8758A /* PPPangramSans-BoldItalic.ttf in Resources */,
 				84D88149949C0D8A0E7C2BF5 /* PPPangramSans-BoldReclined.ttf in Resources */,
@@ -1725,32 +1852,33 @@
 				BB737A7216F658EFFE43401C /* PPPangramSans-ExtraboldReclined.ttf in Resources */,
 				62227423FCF2309039BB6FAC /* PPPangramSans-Extralight.ttf in Resources */,
 				710BFFE4625F76FC84268937 /* PPPangramSans-ExtralightItalic.ttf in Resources */,
-				4083E05729C2EF4F007CBC45 /* all-users-stub.json in Resources */,
 				79073EE50BEA80FAE0356625 /* PPPangramSans-ExtralightReclined.ttf in Resources */,
 				5ED1362DD243A8E87A1B1176 /* PPPangramSans-Light.ttf in Resources */,
 				3D47F14ECA2A8CAE61061F57 /* PPPangramSans-LightItalic.ttf in Resources */,
-				4083E05C29C2EF4F007CBC45 /* coin-info-chart-stub.json in Resources */,
 				02DF93FE57661E220F5EFAAA /* PPPangramSans-LightReclined.ttf in Resources */,
 				822D161496971BD8810457B7 /* PPPangramSans-Medium.ttf in Resources */,
 				9AD896368BEA2DF5FD408FDF /* PPPangramSans-MediumItalic.ttf in Resources */,
-				4083E05929C2EF4F007CBC45 /* coin-history-stub.json in Resources */,
-				4083E05A29C2EF4F007CBC45 /* about-coin-stub.json in Resources */,
 				C7947A17B0833FA7A202FA92 /* PPPangramSans-MediumReclined.ttf in Resources */,
 				25BF49CF523EA1322C6FC4EB /* PPPangramSans-Regular.ttf in Resources */,
 				51F472CF1A7E5D15F58A5CF5 /* PPPangramSans-RegularItalic.ttf in Resources */,
+				40ACD7B329C4C30B00CFD557 /* about-coin-stub.json in Resources */,
 				B5021409923FBC4DF43B6138 /* PPPangramSans-RegularReclined.ttf in Resources */,
+				40ACD7B129C4C30B00CFD557 /* coin-info-chart-stub.json in Resources */,
 				AE47F248DD308C61B717B086 /* PPPangramSans-Semibold.ttf in Resources */,
 				6493F198BF5B402E4D922A79 /* PPPangramSans-SemiboldItalic.ttf in Resources */,
-				4083E05D29C2EF4F007CBC45 /* assets-stub.json in Resources */,
+				40ACD7B429C4C30B00CFD557 /* all-users-stub.json in Resources */,
+				40ACD7B729C4C38300CFD557 /* WebViewFiles in Resources */,
 				BA45498BC5E24EE8ACDA819E /* PPPangramSans-SemiboldReclined.ttf in Resources */,
 				EFC5F586A70E988F98620A79 /* PPPangramSans-Thin.ttf in Resources */,
-				4083E05429C2EF4F007CBC45 /* wallet-info-stub.json in Resources */,
-				4083E05829C2EF4F007CBC45 /* positions-stub.json in Resources */,
-				4083E05629C2EF4F007CBC45 /* wallets-stub.json in Resources */,
 				D50E904CB4FBD07E10DE3E9B /* PPPangramSans-ThinItalic.ttf in Resources */,
-				4083E05B29C2EF4F007CBC45 /* coin-portfolio-stub.json in Resources */,
 				EE23BD62B18C9118376A405C /* PPPangramSans-ThinReclined.ttf in Resources */,
-				4083E05529C2EF4F007CBC45 /* wallet-balance-stub.json in Resources */,
+				40ACD7AD29C4C30B00CFD557 /* coin-history-stub.json in Resources */,
+				40ACD7AE29C4C30B00CFD557 /* coin-portfolio-stub.json in Resources */,
+				40ACD7B229C4C30B00CFD557 /* assets-stub.json in Resources */,
+				40ACD7B029C4C30B00CFD557 /* wallet-info-stub.json in Resources */,
+				40ACD7AB29C4C30B00CFD557 /* coin-performance-info-stub.json in Resources */,
+				40ACD7AF29C4C30B00CFD557 /* positions-stub.json in Resources */,
+				40ACD7B529C4C30B00CFD557 /* wallet-balance-stub.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1763,6 +1891,7 @@
 				58C2B8902F4D924D71DB537D /* assets-stub.json in Resources */,
 				7F76547A1A35AA66A144803F /* coin-history-stub.json in Resources */,
 				6209CC4533F84BCB2707BBAF /* coin-info-chart-stub.json in Resources */,
+				B50FCAEE54A91AE8515115B9 /* coin-performance-info-stub.json in Resources */,
 				D5AF586CED6D64131278865F /* coin-portfolio-stub.json in Resources */,
 				3539B17693A50D61A650070A /* positions-stub.json in Resources */,
 				3D1C4A50429CB1A5CD624E44 /* wallet-balance-stub.json in Resources */,
@@ -1774,7 +1903,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		02D3D944EDFCFEBC452E27EA /* [CP] Embed Pods Frameworks */ = {
+		01EAA1E8F58563B8C9F5917B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1791,24 +1920,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS/Pods-Pino-iOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		35E3726ADA2AD11ACE7ABC56 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		87E34AEE000C29744A057E31 /* [CP] Check Pods Manifest.lock */ = {
+		9180E758E1DAF2DB573791AA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1830,29 +1942,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		93BBBC1D7275F655CEF0EEEC /* [CP] Check Pods Manifest.lock */ = {
+		9F57FDE60703D1E6E99A0111 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Pino-iOS-Pino-iOSUITests-checkManifestLockResult.txt",
+				"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pino-iOS-Pino-iOSUITests/Pods-Pino-iOS-Pino-iOSUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9BCF4F66F48D0A2CB3000A4A /* [CP] Check Pods Manifest.lock */ = {
+		B59A1DB9E00F9AA189687E68 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1874,6 +1981,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		BA6F6DD6FE6E88AF824FF546 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Pino-iOS-Pino-iOSUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1884,7 +2013,10 @@
 				F1C2F0DA68898BE55C08D853 /* APIError.swift in Sources */,
 				C450E796AAC076DD8C15D8F9 /* AboutCoinModel.swift in Sources */,
 				A6A306BA4B25BC475B98C8BD /* AboutCoinViewModel.swift in Sources */,
-				562C99F74E698463BA50014D /* AccountHeaderView.swift in Sources */,
+				902BA90F4366DD5D18B06A90 /* AboutPinoView.swift in Sources */,
+				DD2E33C472905FA32AE84797 /* AboutPinoViewController.swift in Sources */,
+				12265EA20032CC8CF48199E7 /* AboutPinoViewModel.swift in Sources */,
+				1AC53E3B2AB70C2C7F419A38 /* AccountHeaderView.swift in Sources */,
 				DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */,
 				AC39E74F527151DCAE1E9AAE /* AccountingAPIMockClient.swift in Sources */,
 				3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */,
@@ -1913,17 +2045,18 @@
 				54E9764329CE5F067EFE92D1 /* AssetsEndpoint.swift in Sources */,
 				B25B61BF5F1999D414ACD42B /* AuthKeyProvider.swift in Sources */,
 				8DAEADFEFB2B89FAD4955536 /* AutolayoutHelper.swift in Sources */,
-				74BDF28EC1FB2E439FF05F8D /* AvatarCell.swift in Sources */,
-				1457B7D709FAF4F8D63EE364 /* AvatarCollectionView.swift in Sources */,
-				75EAAF78EC60FD290AB8809C /* AvatarViewModel.swift in Sources */,
+				11B58980B34C46C54E1CA0B2 /* AvatarCell.swift in Sources */,
+				9DAA41E3693EB0D2B084C3F8 /* AvatarCollectionView.swift in Sources */,
+				8EADE74E5260CF1542FF0EF0 /* AvatarViewModel.swift in Sources */,
 				1362C46CED869A0C712B9DA0 /* BalanceModel.swift in Sources */,
+				7060BC04A8267A9B50B8BF09 /* BiometricAuthentication.swift in Sources */,
 				F46E91AF149D34F200213B3F /* BlurEffectView.swift in Sources */,
 				8124946C56803F5336426CFA /* BodyParamsType.swift in Sources */,
 				1B7D25A69FB55D4EAC14A392 /* BoldStyle.swift in Sources */,
 				8ECABB94DCBB30B784D22CFF /* BorrowViewController.swift in Sources */,
 				535DAC5A885056552EC3C09F /* Button+Extension.swift in Sources */,
 				B30473249B4729CA259033E6 /* CIImage.swift in Sources */,
-				0372101FF5BB4E006DBEDB71 /* ChangeAvatarViewController.swift in Sources */,
+				D2D65A4730F14DFCD4BE1B32 /* ChangeAvatarViewController.swift in Sources */,
 				C18F61B7AEF94EEC4A102666 /* ChartDataModel.swift in Sources */,
 				86AE4E895C42E9E1302295FD /* ChartDateFilter.swift in Sources */,
 				B4E756CF19F769668E2A4FB5 /* ChartInfoItem.swift in Sources */,
@@ -1938,8 +2071,15 @@
 				C6F911527FDF8516478B4961 /* CoinInfoHeaderView.swift in Sources */,
 				0682CFAA6E20C8AEA43A55AC /* CoinInfoViewController.swift in Sources */,
 				E4FF2E5E60CA74F3324945A8 /* CoinInfoViewModel.swift in Sources */,
+				9564A69D20BD22A50221D63B /* CoinPerformanceInfoItems.swift in Sources */,
+				1AD184E82488453998E5A2E5 /* CoinPerformanceInfoModel.swift in Sources */,
+				8A10D639170969ECFADE0FE4 /* CoinPerformanceInfoViewModel.swift in Sources */,
+				10CD67476F9AA1C6EE89AA6F /* CoinPerformanceView.swift in Sources */,
+				3235264ABD3DF5ABAA756574 /* CoinPerformanceViewController.swift in Sources */,
+				20CB5C205624F431E278A914 /* CoinPerformanceViewModel.swift in Sources */,
 				26C5FF82B48BB5E4C7C2B9D5 /* CoinPortfolioModel.swift in Sources */,
 				E6A9D57DCF1C0D793FDBEDBF /* CoinPortfolioViewModel.swift in Sources */,
+				CF82272F4C822C722A111064 /* CopyToastView.swift in Sources */,
 				FAF0C3C48227F773D772FF6E /* CreatePasscodeViewController.swift in Sources */,
 				9D1B6611143AB2A88028763C /* CustomAssetInfoContainerView.swift in Sources */,
 				B8DEA2647A8204A5771748D2 /* CustomAssetInfoModel.swift in Sources */,
@@ -1948,13 +2088,14 @@
 				87F08F9B76154826B35A43F3 /* CustomAssetModel.swift in Sources */,
 				58FE43283099B1D4516B33B1 /* CustomAssetViewModel.swift in Sources */,
 				4CF290BDB2B49F698A864B28 /* Date+Extension.swift in Sources */,
-				54590A9381032CA7611C41BE /* EditAccountView.swift in Sources */,
-				880DB94190DA5E091CDD348A /* EditAccountViewController.swift in Sources */,
+				C80CBD3207E96C5A8E495662 /* EditAccountView.swift in Sources */,
+				0F5854171F8774FEF94497FB /* EditAccountViewController.swift in Sources */,
 				3E5FFA532C0440149913FE32 /* Encodable+Extension.swift in Sources */,
 				E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */,
 				A64D2DFF6C7D5354F2CA6D50 /* Environment.swift in Sources */,
 				E55DCCDCC37B827E5DBEEB82 /* FlowLayout+Extension.swift in Sources */,
 				7CF95B0F99AE30C81601CFAA /* GradientLayer.swift in Sources */,
+				D964AC6B0907B2432359A129 /* GroupCollectionViewCell.swift in Sources */,
 				FBEBDE533CAA644C5EF987A1 /* HDWallet+Extension.swift in Sources */,
 				FBA81FB09332C152D88C289E /* HTTPMethod.swift in Sources */,
 				7B93C0D0822EF34F9EB40FAA /* HTTPTask.swift in Sources */,
@@ -2011,19 +2152,30 @@
 				AE0D8851396508976A2F43DE /* PinoToastView.swift in Sources */,
 				1E52C64C4D1C7492BCD960FB /* PinoToastViewStyle.swift in Sources */,
 				A6BFD6F684AF4BA205C23CE7 /* Pino_iOS.xcdatamodeld in Sources */,
+				0BB077D3A362E14524196936 /* PortfolioPerformanceCollectionView.swift in Sources */,
+				A1664AE26C5D333D2213330F /* PortfolioPerformanceHeaderView.swift in Sources */,
+				17551EDA11F4F1BE495D1823 /* PortfolioPerformanceViewController.swift in Sources */,
+				D9E34BC92C3AE69B3D5EC4F2 /* PortfolioPerformanceViewModel.swift in Sources */,
+				122DC5E683E6405E0B3FCE54 /* PortfolioPrformanceCell.swift in Sources */,
 				0AF4C45B72B37F11F656A4B0 /* PositionHeaderView.swift in Sources */,
 				F9E38D8724A64E725FB39612 /* PrecisionSystem.swift in Sources */,
-				EA7F9A0D001F1D0B5BB3825E /* ProfileCollectionView.swift in Sources */,
-				DE0CB86509DFD8DF640DC7BB /* ProfileViewController.swift in Sources */,
-				935DF597336FB4B7A1CEF98C /* ProfileViewModel.swift in Sources */,
+				133389D38DF23CB5BE195DDC /* ProfileCollectionView.swift in Sources */,
+				0D3E98673CD274381A698BBA /* ProfileViewController.swift in Sources */,
+				0613EF4F55B5F6FA90BA65C0 /* ProfileViewModel.swift in Sources */,
 				05B960E15A9EEF333D3A8296 /* ReceiveAssetView.swift in Sources */,
 				180F866A8ECFDBE0380BECDB /* ReceiveAssetViewController.swift in Sources */,
 				74FAC78D968D7F4FEC7AB7CD /* ReceiveViewActionButton.swift in Sources */,
 				34974909379D77088510A2BB /* ReceiveViewModel.swift in Sources */,
+				C08B09A1A89A6859D79D25D7 /* RecoveryPhraseView.swift in Sources */,
+				9B356BB4D7AD512DAD0A05D2 /* RecoveryPhraseViewController.swift in Sources */,
+				0DC7141183DFDC22EDA3C327 /* RecoveryPhraseViewModel.swift in Sources */,
 				A57E4F2D75D4BAAB0F29A83B /* RegularStyle.swift in Sources */,
-				1E947EAF390655A06E3BA521 /* RemoveAccountView.swift in Sources */,
-				255AD8409BC96ABF3FE0BB42 /* RemoveAccountViewController.swift in Sources */,
-				D07B4A11D607D020D87D9E59 /* RemoveAccountViewModel.swift in Sources */,
+				D9DD538BAF953A18503AB3F0 /* RemoveAccountView.swift in Sources */,
+				E785EA31CC4E6721B72481DE /* RemoveAccountViewController.swift in Sources */,
+				8311422EA67D10D257FDD530 /* RemoveAccountViewModel.swift in Sources */,
+				5699C13A59EF90BDE1758CF3 /* RevealPrivateKeyView.swift in Sources */,
+				221F423020A78CA891331436 /* RevealPrivateKeyViewController.swift in Sources */,
+				7AD456E027211FE731B27DF8 /* RevealPrivateKeyViewModel.swift in Sources */,
 				643BAB8ABDEFDA509D258D94 /* SceneDelegate.swift in Sources */,
 				0C37EADB6BFAB0A340582184 /* SecretPhraseCell.swift in Sources */,
 				A9EB8A9CA5BE7BA334FBB816 /* SecretPhraseCenteredFlowLayout.swift in Sources */,
@@ -2033,9 +2185,10 @@
 				34F4A2DA1228B50AC3DFA8A2 /* SeedPhrase.swift in Sources */,
 				44C3312B501D7A88C6ADB659 /* SelectPassViewModel.swift in Sources */,
 				DE33FFB7D492FA770FF9FB5C /* SemiboldStyle.swift in Sources */,
-				93B4418F9D6286D8345E81FA /* SettingCell.swift in Sources */,
-				FAE60013C8F26D66F69DAE7A /* SettingsHeaderView.swift in Sources */,
-				E8C436469712133C089B3BC7 /* SettingsViewModel.swift in Sources */,
+				6FB3C66B1E98C7C2B7886069 /* SettingCell.swift in Sources */,
+				2412CFB01F9D91D18F01EACD /* SettingsHeaderView.swift in Sources */,
+				7D789F2B97B770D2B2B8DF05 /* SettingsViewModel.swift in Sources */,
+				D615530893452E25B58471EF /* ShareOfAssetsViewModel.swift in Sources */,
 				FDC9B8DDC75EF47C7D607182 /* ShowSecretPhraseView.swift in Sources */,
 				06DB0B31505094D78686694E /* ShowSecretPhraseViewController.swift in Sources */,
 				92BC3A7553A87622AD6F640E /* ShowSecretPhraseViewModel.swift in Sources */,
@@ -2048,6 +2201,7 @@
 				58B890F4377EE8853C655AFA /* TabBarItem.swift in Sources */,
 				BA5A805884B41CA1F182245E /* TabBarViewController.swift in Sources */,
 				6E539ADB99F2D4F23ECC14A1 /* ToastViewProtocol.swift in Sources */,
+				E25F4C14C3273F63F22E983C /* UIView.swift in Sources */,
 				8F2B1AD252EE32B2F328105B /* URLParameterEncoding.swift in Sources */,
 				7788C1D86DF1F4B1E6B2DE54 /* URLRequest+Extension.swift in Sources */,
 				2B63ED181686EAEDFBC9A1EC /* UsersAPIService.swift in Sources */,
@@ -2064,16 +2218,16 @@
 				96892E44DA2E5556E1679817 /* WalletBalanceHeaderView.swift in Sources */,
 				0F91AD673ECAFFCD63C38A33 /* WalletBalanceModel.swift in Sources */,
 				1EA05F6363FCD68B38A3B13B /* WalletBalanceViewModel.swift in Sources */,
-				E1A1DA17362DCC9CD1ACC7E5 /* WalletBuilder.swift in Sources */,
-				810BF82836BB8064B03199BD /* WalletCell.swift in Sources */,
+				CF804994E4C23A919B78E4B4 /* WalletBuilder.swift in Sources */,
+				9C3606E4114D73E964762BF1 /* WalletCell.swift in Sources */,
 				7A69C254CF23590AE51260DC /* WalletEndpoint.swift in Sources */,
 				225160794A3F677530CF8181 /* WalletInfoModel.swift in Sources */,
 				2E5C040F84977824A977D541 /* WalletInfoNavigationItems.swift in Sources */,
 				798A57BFA5D028A04B449F34 /* WalletInfoViewModel.swift in Sources */,
-				669304E3553958C12991370E /* WalletsCollectionView.swift in Sources */,
-				E2C26D247F339E60E73C92ED /* WalletsModel.swift in Sources */,
-				1B2C635DCE4329526DACFCBC /* WalletsViewController.swift in Sources */,
-				5C765FDEADEC2398E57E134A /* WalletsViewModel.swift in Sources */,
+				AD68BBE3C5E6C48C129C6BA7 /* WalletsCollectionView.swift in Sources */,
+				C3321EBB6DC83BCDC3CFC3B0 /* WalletsModel.swift in Sources */,
+				316F0DDECBB3FA68BFFA1577 /* WalletsViewController.swift in Sources */,
+				33647E7FA041A9CC0130F158 /* WalletsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2192,7 +2346,7 @@
 		};
 		224281A6BD8FC96C15842DC0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E4710064AAD1DF8D1CABD80D /* Pods-Pino-iOS.debug.xcconfig */;
+			baseConfigurationReference = F92BDFDD1D5CCF2337BDA2CF /* Pods-Pino-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -2212,7 +2366,7 @@
 		};
 		326094F11CFBB79B529B22C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9ED1D7181EA16CDAE41E69D0 /* Pods-Pino-iOSTests.release.xcconfig */;
+			baseConfigurationReference = 542336FAD3B2D7DF0D6B5E25 /* Pods-Pino-iOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
@@ -2230,7 +2384,7 @@
 		};
 		7651F5C9499B813D4EF201EF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 366C095A063BC410213B7840 /* Pods-Pino-iOSTests.debug.xcconfig */;
+			baseConfigurationReference = 20C4513D94D36C6FA0CF933F /* Pods-Pino-iOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
@@ -2248,7 +2402,7 @@
 		};
 		7B083790ABEB8391B5A40C82 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C4DE7218B3B0C2E67D119EE7 /* Pods-Pino-iOS.release.xcconfig */;
+			baseConfigurationReference = 13A68168292819817F8D256A /* Pods-Pino-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -2268,7 +2422,7 @@
 		};
 		B7A1A216F88ED9C8ECF1C97A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D825F005F5D0D4E466311520 /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */;
+			baseConfigurationReference = 83E266DC39849750CA7B2DC6 /* Pods-Pino-iOS-Pino-iOSUITests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
@@ -2286,7 +2440,7 @@
 		};
 		D6E9BFF79FB2B0241EF47EB3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A85A223153B7162BB49DEC7F /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */;
+			baseConfigurationReference = 1185B5EB690B43AA8DF4EE28 /* Pods-Pino-iOS-Pino-iOSUITests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
@@ -2402,23 +2556,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4083E05E29C307B8007CBC45 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.0;
-			};
-		};
-		4083E06129C3104F007CBC45 /* XCRemoteSwiftPackageReference "BigInt" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/attaswift/BigInt";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-		4083E06429C32E16007CBC45 /* XCRemoteSwiftPackageReference "web3swift" */ = {
+		40ACD7A529C4C2B100CFD557 /* XCRemoteSwiftPackageReference "web3swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/web3swift-team/web3swift.git";
 			requirement = {
@@ -2426,23 +2564,26 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		40ACD7A829C4C2DC00CFD557 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4083E05F29C307B8007CBC45 /* Kingfisher */ = {
+		40ACD7A629C4C2B100CFD557 /* web3swift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4083E05E29C307B8007CBC45 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
-		};
-		4083E06229C3104F007CBC45 /* BigInt */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4083E06129C3104F007CBC45 /* XCRemoteSwiftPackageReference "BigInt" */;
-			productName = BigInt;
-		};
-		4083E06529C32E16007CBC45 /* web3swift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4083E06429C32E16007CBC45 /* XCRemoteSwiftPackageReference "web3swift" */;
+			package = 40ACD7A529C4C2B100CFD557 /* XCRemoteSwiftPackageReference "web3swift" */;
 			productName = web3swift;
+		};
+		40ACD7A929C4C2DC00CFD557 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 40ACD7A829C4C2DC00CFD557 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 
