@@ -11,6 +11,7 @@ class VerifySecretPhraseViewController: UIViewController {
 	// MARK: Public Properties
 
 	public var secretPhraseVM: VerifySecretPhraseViewModel!
+	public var showSteperView = true
 
 	// MARK: View Overrides
 
@@ -20,7 +21,9 @@ class VerifySecretPhraseViewController: UIViewController {
 
 	override func loadView() {
 		setupView()
-		setSteperView(stepsCount: 3, curreuntStep: 2)
+		if showSteperView {
+			setSteperView(stepsCount: 3, curreuntStep: 2)
+		}
 	}
 
 	// MARK: Private Methods

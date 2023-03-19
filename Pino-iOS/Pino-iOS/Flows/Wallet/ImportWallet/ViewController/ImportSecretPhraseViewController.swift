@@ -12,6 +12,7 @@ class ImportSecretPhraseViewController: UIViewController {
 
 	public var importsecretPhraseView: ImportSecretPhraseView!
 	public var validationSecretPhraseVM: ValidateSecretPhraseViewModel!
+	public var showSteperView = true
 
 	// MARK: View Overrides
 
@@ -21,7 +22,9 @@ class ImportSecretPhraseViewController: UIViewController {
 
 	override func loadView() {
 		setupView()
-		setSteperView(stepsCount: 2, curreuntStep: 1)
+		if showSteperView {
+			setSteperView(stepsCount: 2, curreuntStep: 1)
+		}
 	}
 
 	// MARK: Private Methods

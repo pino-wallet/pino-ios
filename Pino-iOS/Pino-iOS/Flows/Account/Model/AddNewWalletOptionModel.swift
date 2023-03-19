@@ -6,16 +6,17 @@
 //
 
 struct AddNewWalletOptionModel {
-    public let title: String
-    public let descrption: String
-    public let iconName: String
-    public let page: page
+	// MARK: - Public Properties
+
+	public let title: String
+	public let descrption: String
+	public let iconName: String
+	public let page: page
 }
 
-
 extension AddNewWalletOptionModel {
-    public enum page {
-        case Create
-        case Import
-    }
+	public enum page {
+		case Create
+		case Import
+	}
 }

@@ -8,6 +8,10 @@
 import UIKit
 
 class ShowSecretPhraseViewController: UIViewController {
+	// MARK: Public Properties
+
+	public var showSteperView = true
+
 	// MARK: Private Properties
 
 	private let secretPhraseVM = ShowSecretPhraseViewModel()
@@ -20,8 +24,10 @@ class ShowSecretPhraseViewController: UIViewController {
 
 	override func loadView() {
 		setupView()
-		setSteperView(stepsCount: 3, curreuntStep: 1)
 		setupNotifications()
+		if showSteperView {
+			setSteperView(stepsCount: 3, curreuntStep: 1)
+		}
 	}
 
 	// MARK: Private Methods
@@ -67,6 +73,9 @@ class ShowSecretPhraseViewController: UIViewController {
 
 	private func goToVerifyPage() {
 		let verifyViewController = VerifySecretPhraseViewController()
+		if !showSteperView {
+			verifyViewController.showSteperView = false
+		}
 		verifyViewController.secretPhraseVM = VerifySecretPhraseViewModel(secretPhraseVM.secretPhraseList)
 		navigationController?.pushViewController(verifyViewController, animated: true)
 	}
