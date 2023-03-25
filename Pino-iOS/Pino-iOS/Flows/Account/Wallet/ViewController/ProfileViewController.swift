@@ -77,6 +77,12 @@ class ProfileViewController: UIViewController {
 		case .wallets:
 			let WalletsVC = WalletsViewController(walletVM: walletsVM)
 			navigationController?.pushViewController(WalletsVC, animated: true)
+		case .recoverPhrase:
+			let recoverPhraseVC = RecoveryPhraseViewController()
+			navigationController?.pushViewController(recoverPhraseVC, animated: true)
+		case .aboutPino:
+			let aboutPino = AboutPinoViewController()
+			navigationController?.pushViewController(aboutPino, animated: true)
 		default: break
 		}
 	}

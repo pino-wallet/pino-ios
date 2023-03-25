@@ -10,7 +10,9 @@ import UIKit
 class RevealPrivateKeyViewController: UIViewController {
 	// MARK: Private Properties
 
+	private var revealPrivateKeyView: RevealPrivateKeyView!
 	private let revealPrivateKeyVM = RevealPrivateKeyViewModel()
+	private let copyPrivateKeyToastView = PinoToastView(message: nil, style: .secondary, padding: 80)
 
 	// MARK: - View Overrides
 
@@ -27,18 +29,23 @@ class RevealPrivateKeyViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = RevealPrivateKeyView(
+		revealPrivateKeyView = RevealPrivateKeyView(
 			revealPrivateKeyVM: revealPrivateKeyVM,
 			copyPrivateKeyTapped: {
 				self.copyPrivateKey()
 			},
 			doneButtonTapped: {
 				self.dismissPage()
+			},
+			revealTapped: {
+				self.showFaceID()
 			}
 		)
+		view = revealPrivateKeyView
 	}
 
 	private func setupNavigationBar() {
+		setupPrimaryColorNavigationBar()
 		// Setup title view
 		setNavigationTitle("Your private key")
 	}
@@ -65,9 +72,18 @@ class RevealPrivateKeyViewController: UIViewController {
 	private func copyPrivateKey() {
 		let pasteboard = UIPasteboard.general
 		pasteboard.string = revealPrivateKeyVM.privateKey
+		copyPrivateKeyToastView.message = "Private key has been copied"
+		copyPrivateKeyToastView.showToast()
 	}
 
 	private func dismissPage() {
 		navigationController?.popViewController(animated: true)
+	}
+
+	private func showFaceID() {
+		var faceIDLock = BiometricAuthentication()
+		faceIDLock.evaluate {
+			self.revealPrivateKeyView.showPrivateKey()
+		}
 	}
 }
