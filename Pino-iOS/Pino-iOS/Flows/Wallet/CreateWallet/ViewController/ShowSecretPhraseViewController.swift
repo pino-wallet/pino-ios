@@ -27,6 +27,8 @@ class ShowSecretPhraseViewController: UIViewController {
 		setupNotifications()
 		if showSteperView {
 			setSteperView(stepsCount: 3, curreuntStep: 1)
+		} else {
+			setupPrimaryColorNavigationBar()
 		}
 	}
 

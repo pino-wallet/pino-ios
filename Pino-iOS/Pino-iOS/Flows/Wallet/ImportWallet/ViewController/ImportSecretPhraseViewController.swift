@@ -24,6 +24,8 @@ class ImportSecretPhraseViewController: UIViewController {
 		setupView()
 		if showSteperView {
 			setSteperView(stepsCount: 2, curreuntStep: 1)
+		} else {
+			setupPrimaryColorNavigationBar()
 		}
 	}
 
