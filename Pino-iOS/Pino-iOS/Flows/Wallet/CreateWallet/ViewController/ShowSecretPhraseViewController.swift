@@ -29,7 +29,7 @@ class ShowSecretPhraseViewController: UIViewController {
 			setSteperView(stepsCount: 3, curreuntStep: 1)
 		} else {
 			setupPrimaryColorNavigationBar()
-			setNavigationTitle("Create new wallet")
+			setNavigationTitle(secretPhraseVM.pageTitle)
 		}
 	}
 

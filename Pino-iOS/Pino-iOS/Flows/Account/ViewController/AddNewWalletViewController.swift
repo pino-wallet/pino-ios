@@ -47,7 +47,7 @@ class AddNewWalletViewController: UIViewController {
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
 
-		setNavigationTitle("Create / Import wallet")
+		setNavigationTitle(addNewWalletVM.pageTitle)
 	}
 
 	private func openAddNewWalletPage(option: AddNewWalletOptionModel) {

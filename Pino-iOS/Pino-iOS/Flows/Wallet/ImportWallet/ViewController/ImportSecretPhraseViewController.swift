@@ -26,7 +26,7 @@ class ImportSecretPhraseViewController: UIViewController {
 			setSteperView(stepsCount: 2, curreuntStep: 1)
 		} else {
 			setupPrimaryColorNavigationBar()
-			setNavigationTitle("Import new wallet")
+			setNavigationTitle(validationSecretPhraseVM.pageTitle)
 		}
 	}
 

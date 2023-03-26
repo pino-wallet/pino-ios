@@ -42,9 +42,8 @@ class AddNewWalletCollectionViewCell: UICollectionViewCell {
 		descriptionLabel.text = addNewWalletOptionVM.description
 		descriptionLabel.font = .PinoStyle.mediumSubheadline
 
-		iconImageView.image = UIImage(named: addNewWalletOptionVM.iconName)
-		iconImageView.image = iconImageView.image?.withRenderingMode(.alwaysTemplate)
-		iconImageView.tintColor = .secondaryLabel
+		iconImageView.image = UIImage(named: addNewWalletOptionVM.iconName)?.withRenderingMode(.alwaysTemplate)
+		iconImageView.tintColor = .Pino.secondaryLabel
 
 		textStackView.axis = .vertical
 		textStackView.spacing = 4

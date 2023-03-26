@@ -21,4 +21,6 @@ class AddNewWalletViewModel {
 			page: .Import
 		),
 	]
+
+	public let pageTitle = "Create / Import wallet"
 }

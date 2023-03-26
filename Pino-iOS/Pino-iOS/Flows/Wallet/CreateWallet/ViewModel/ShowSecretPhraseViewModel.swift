@@ -17,6 +17,7 @@ struct ShowSecretPhraseViewModel {
 	public let continueButtonTitle = "I saved"
 	public let screenshotAlertTitle = "Warning"
 	public let screenshotAlertMessage = "It isn't safe to take a screenshot of a secret phrase!"
+	public let pageTitle = "Create new wallet"
 	public var secretPhraseList: [String] = []
 
 	// MARK: - Privare Properties
