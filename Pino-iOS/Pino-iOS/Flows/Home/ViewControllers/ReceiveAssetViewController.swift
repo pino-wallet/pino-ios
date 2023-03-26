@@ -60,11 +60,17 @@ class ReceiveAssetViewController: UIViewController {
 			target: self,
 			action: #selector(dismissVC)
 		)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: receiveVM.shareAddressButtonIconName), style: .plain, target: self, action: #selector(presentShareActivityViewController))
+		navigationItem.rightBarButtonItem = UIBarButtonItem(
+			image: UIImage(named: receiveVM.shareAddressButtonIconName),
+			style: .plain,
+			target: self,
+			action: #selector(presentShareActivityViewController)
+		)
 	}
 
-	@objc private func presentShareActivityViewController() {
-        let sharedText = homeVM.walletInfo.address
+	@objc
+	private func presentShareActivityViewController() {
+		let sharedText = homeVM.walletInfo.address
 		let shareItems = [sharedText]
 		let activityVC = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
 		present(activityVC, animated: true)

@@ -9,13 +9,10 @@ import UIKit
 import WebKit
 
 class ReceiveAssetView: UIView, WKUIDelegate {
-
 	// MARK: - Public Properties
 
 	public var homeVM: HomepageViewModel
 	public var receiveVM: ReceiveViewModel
-
-
 
 	// MARK: - Private Properties
 
@@ -25,7 +22,7 @@ class ReceiveAssetView: UIView, WKUIDelegate {
 	private let walletInfoStackView = UIStackView()
 	private let walletOwnerName = PinoLabel(style: .title, text: "")
 	private let addressLabel = PinoLabel(style: .description, text: "")
-    private let addressLabelContainer = UIView()
+	private let addressLabelContainer = UIView()
 	private let copyAddressButton = ReceiveActionButton()
 	private let copiedToastView = PinoToastView(message: nil, style: .primary)
 
@@ -62,28 +59,28 @@ class ReceiveAssetView: UIView, WKUIDelegate {
 		addressQRCodeImageCardView.layer.borderWidth = 1
 		addressQRCodeImageCardView.layer.borderColor = UIColor.Pino.background.cgColor
 		addressQRCodeImageCardView.layer.cornerRadius = 12
-        
-        addressQRCodeWebView.backgroundColor = .Pino.white
+
+		addressQRCodeWebView.backgroundColor = .Pino.white
 
 		walletOwnerName.font = UIFont.PinoStyle.semiboldTitle2
 		walletOwnerName.numberOfLines = 0
 		walletOwnerName.text = "\(homeVM.walletInfo.name)’s \(receiveVM.walletOwnerNameDescriptionText)"
 
-        addressLabelContainer.layer.borderColor = UIColor.Pino.background.cgColor
-        addressLabelContainer.layer.borderWidth = 1
-        addressLabelContainer.layer.cornerRadius = 20
-        addressLabelContainer.addSubview(addressLabel)
-        
-        addressLabel.numberOfLines = 1
+		addressLabelContainer.layer.borderColor = UIColor.Pino.background.cgColor
+		addressLabelContainer.layer.borderWidth = 1
+		addressLabelContainer.layer.cornerRadius = 20
+		addressLabelContainer.addSubview(addressLabel)
+
+		addressLabel.numberOfLines = 1
 		addressLabel.text = homeVM.walletInfo.address
-        addressLabel.lineBreakMode = .byTruncatingMiddle
-        addressLabel.textAlignment = .center
-        addressLabel.textColor = .Pino.primary
+		addressLabel.lineBreakMode = .byTruncatingMiddle
+		addressLabel.textAlignment = .center
+		addressLabel.textColor = .Pino.primary
 
 		walletInfoStackView.axis = .horizontal
 		walletInfoStackView.spacing = 12
-        walletInfoStackView.addArrangedSubview(addressLabelContainer)
-        walletInfoStackView.addArrangedSubview(copyAddressButton)
+		walletInfoStackView.addArrangedSubview(addressLabelContainer)
+		walletInfoStackView.addArrangedSubview(copyAddressButton)
 
 		copyAddressButton.iconName = receiveVM.copyAddressButtonIconName
 		copyAddressButton.titleText = receiveVM.copyAddressButtonText
@@ -93,16 +90,16 @@ class ReceiveAssetView: UIView, WKUIDelegate {
 			self?.copiedToastView.showToast()
 		}
 
-        addSubview(walletOwnerName)
-        walletOwnerName.textAlignment = .center
+		addSubview(walletOwnerName)
+		walletOwnerName.textAlignment = .center
 		addSubview(addressQRCodeImageCardView)
 		addSubview(walletInfoStackView)
 	}
 
 	private func setupContstraints() {
-        walletOwnerName.pin(.top(to: layoutMarginsGuide, padding: 32), .centerX())
+		walletOwnerName.pin(.top(to: layoutMarginsGuide, padding: 32), .centerX())
 		addressQRCodeImageCardView.pin(
-            .relative(.top, 24, to: walletOwnerName, .bottom),
+			.relative(.top, 24, to: walletOwnerName, .bottom),
 			.centerX(to: layoutMarginsGuide),
 			.fixedWidth(300),
 			.fixedHeight(300)
@@ -112,10 +109,10 @@ class ReceiveAssetView: UIView, WKUIDelegate {
 		walletInfoStackView.pin(
 			.relative(.top, 16, to: addressQRCodeImageCardView, .bottom),
 			.centerX(),
-            .fixedHeight(40),
-            .fixedWidth(300)
+			.fixedHeight(40),
+			.fixedWidth(300)
 		)
-        addressLabel.pin(.centerY(), .horizontalEdges(to: superview, padding: 22))
+		addressLabel.pin(.centerY(), .horizontalEdges(to: superview, padding: 22))
 	}
 
 	private func setupQRCode() {
@@ -136,9 +133,9 @@ extension ReceiveAssetView: WKNavigationDelegate {
 			"generateAndShowQRCode('\(qrCode)')",
 			completionHandler: { result, error in
 				guard error == nil else {
-                    print(error)
+					print(error)
 //					fatalError("cant generate qrCode")
-                    return
+					return
 				}
 			}
 		)

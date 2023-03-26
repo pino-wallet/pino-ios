@@ -12,9 +12,9 @@ class ReceiveActionButton: UIView {
 
 	public var iconName: String {
 		didSet {
-            let buttonIcon = UIImage(named: iconName)?.withRenderingMode(.alwaysTemplate)
+			let buttonIcon = UIImage(named: iconName)?.withRenderingMode(.alwaysTemplate)
 			iconView.image = buttonIcon
-            iconView.tintColor = .Pino.white
+			iconView.tintColor = .Pino.white
 		}
 	}
 
@@ -30,8 +30,8 @@ class ReceiveActionButton: UIView {
 
 	private let iconView = UIImageView()
 	private let titleLabel = PinoLabel(style: .receiveButtonActionTitle, text: "")
-    private let contentStackView = UIStackView()
-    
+	private let contentStackView = UIStackView()
+
 	// MARK: - Initializers
 
 	init(iconName: String = "", titleText: String = "", onTap: @escaping () -> Void = {}) {
@@ -40,7 +40,7 @@ class ReceiveActionButton: UIView {
 		self.onTap = onTap
 		super.init(frame: .zero)
 		setupView()
-        setupConstraints()
+		setupConstraints()
 	}
 
 	required init(coder: NSCoder) {
@@ -51,28 +51,27 @@ class ReceiveActionButton: UIView {
 
 	private func setupView() {
 		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onGestureTap))
-        contentStackView.addGestureRecognizer(tapGesture)
-        contentStackView.axis = .horizontal
-        contentStackView.alignment = .center
-        contentStackView.spacing = 4
-        
-        layer.cornerRadius = 20
-        
-        contentStackView.addArrangedSubview(titleLabel)
-        contentStackView.addArrangedSubview(iconView)
+		contentStackView.addGestureRecognizer(tapGesture)
+		contentStackView.axis = .horizontal
+		contentStackView.alignment = .center
+		contentStackView.spacing = 4
+
+		layer.cornerRadius = 20
+
+		contentStackView.addArrangedSubview(titleLabel)
+		contentStackView.addArrangedSubview(iconView)
 		titleLabel.textAlignment = .center
-        
-        backgroundColor = .Pino.primary
-        
-        
-        addSubview(contentStackView)
+
+		backgroundColor = .Pino.primary
+
+		addSubview(contentStackView)
 	}
-    
-    private func setupConstraints() {
-        titleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 10).isActive = true
-        contentStackView.pin(.horizontalEdges(to: superview, padding: 10), .centerY())
-        iconView.pin(.fixedHeight(22), .fixedWidth(22))
-    }
+
+	private func setupConstraints() {
+		titleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 10).isActive = true
+		contentStackView.pin(.horizontalEdges(to: superview, padding: 10), .centerY())
+		iconView.pin(.fixedHeight(22), .fixedWidth(22))
+	}
 
 	@objc
 	private func onGestureTap() {
