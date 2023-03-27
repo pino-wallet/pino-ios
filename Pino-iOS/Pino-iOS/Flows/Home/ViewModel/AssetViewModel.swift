@@ -33,8 +33,12 @@ public class AssetViewModel: SecurityModeProtocol {
         BigInt(assetModel.hold)!
     }
     
-    public var price: BigInt {
-        BigInt(assetModel.detail!.price)!
+    public var price: Double {
+        
+        let bigPrice = BigInt(assetModel.detail!.price)!
+        let amount = Utilities.formatToPrecision(bigPrice, units: .custom(6), formattingDecimals: 2, decimalSeparator: ".", fallbackToScientific: false)
+
+        return amount.doubleValue!
     }
 
     public var decimal: Int {
@@ -48,13 +52,20 @@ public class AssetViewModel: SecurityModeProtocol {
     public var holdAmount: Double {
                 
         let amount = Utilities.formatToPrecision(hold, units: .custom(assetModel.detail!.decimals), formattingDecimals: 6, decimalSeparator: ".", fallbackToScientific: true)
-        
-        print("\(name): \(amount)")
+            
         return Double(amount)!
     }
     
-    public var holdAmountInDollar: BigInt {
-        BigInt(holdAmount) * price
+    public var holdAmountInDollar: String {
+        print("\(name)")
+        print("Big:\(holdAmount) | \(BigInt(holdAmount))")
+        print("BigPrice:\(price) | \(BigInt(price))")
+        print("BigxBigPrice:\(BigInt(holdAmount) * BigInt(price))")
+        print("---------------------------------------")
+
+        let amount = holdAmount * price
+        
+        return PercisionCalculate.trimmedValueOf(money: amount)
     }
     
     
@@ -122,8 +133,10 @@ public class AssetViewModel: SecurityModeProtocol {
 		}
     }
 
-    public var volatilityDollorValue: Double {
-        return assetModel.detail!.change24H.doubleValue! / pow(10, 2)
+    public var volatilityDollorValue: String {
+        let volaitility = BigInt(assetModel.detail!.change24H)!
+        let amount = Utilities.formatToPrecision(volaitility, units: .custom(6), formattingDecimals: 2, decimalSeparator: ".", fallbackToScientific: false)
+        return amount
     }
     
 	private func getFormattedVolatility() -> String {
@@ -132,7 +145,7 @@ public class AssetViewModel: SecurityModeProtocol {
 		} else {
 			switch volatilityType {
 			case .loss:
-                var lossValue = String(volatilityDollorValue)
+                var lossValue = volatilityDollorValue
                 lossValue.removeFirst()
                 return "-$\(lossValue)"
 			case .profit, .none:

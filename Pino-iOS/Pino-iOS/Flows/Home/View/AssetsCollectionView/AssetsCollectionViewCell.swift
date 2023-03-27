@@ -25,7 +25,7 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 
 	public static let cellReuseID = "assetCell"
 
-	public var assetVM: AssetViewModel! {
+	public var assetVM: AssetViewModel? {
 		didSet {
 			setupView()
 			setupStyle()
@@ -48,12 +48,14 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 	}
 
 	private func setupStyle() {
-		assetTitleLabel.text = assetVM.name
-		assetAmountLabel.text = assetVM.amount
-		assetAmountInDollorLabel.text = assetVM.amountInDollor
-		assetVolatilityLabel.text = assetVM.volatilityInDollor
+        setSkeletonable()
+        
+		assetTitleLabel.text = assetVM?.name ?? "                  "
+		assetAmountLabel.text = assetVM?.amount ?? "               "
+		assetAmountInDollorLabel.text = assetVM?.amountInDollor ?? "               "
+		assetVolatilityLabel.text = assetVM?.volatilityInDollor ?? "               "
 
-		if assetVM.securityMode {
+		if assetVM?.securityMode ?? false{
 			assetAmountLabel.font = .PinoStyle.boldTitle2
 			assetAmountInDollorLabel.font = .PinoStyle.boldTitle1
 			assetVolatilityLabel.font = .PinoStyle.boldTitle2
@@ -70,7 +72,7 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 			assetAmountLabel.textColor = .Pino.secondaryLabel
 			assetAmountInDollorLabel.textColor = .Pino.label
 
-			switch assetVM.volatilityType {
+            switch assetVM?.volatilityType ?? .none {
 			case .profit:
 				assetVolatilityLabel.textColor = .Pino.green
 			case .loss:
@@ -81,7 +83,7 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 		}
 
         assetImage.kf.indicatorType = .activity
-        assetImage.kf.setImage(with: assetVM.image)
+        assetImage.kf.setImage(with: assetVM?.image)
 
 		backgroundColor = .Pino.background
 		assetCardView.backgroundColor = .Pino.secondaryBackground
@@ -100,10 +102,22 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 		assetVolatilityStackView.alignment = .trailing
 		assetTitleStackView.alignment = .leading
 		assetVolatilityStackView.alignment = .trailing
+        assetTitleStackView.distribution = .equalCentering
+        assetVolatilityStackView.distribution = .equalCentering
 
 		assetCardView.layer.cornerRadius = 12
 		assetImage.layer.cornerRadius = 22
+        
+        assetImage.layer.masksToBounds = true
 	}
+    
+    private func setSkeletonable() {
+        assetImage.isSkeletonable = true
+        assetTitleLabel.isSkeletonable = true
+        assetAmountLabel.isSkeletonable = true
+        assetVolatilityLabel.isSkeletonable = true
+        assetAmountInDollorLabel.isSkeletonable = true
+    }
 
 	private func setupConstraint() {
 		assetCardView.pin(
@@ -111,31 +125,48 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 			.horizontalEdges(padding: 16)
 		)
 		assetTitleStackView.pin(
-			.verticalEdges
+			.top(padding: 4),
+            .bottom(padding: 2)
 		)
 		assetStackView.pin(
 			.centerY,
 			.leading(padding: 14)
 		)
 		assetVolatilityStackView.pin(
-			.centerY,
+			.verticalEdges(to: assetTitleStackView),
 			.trailing(padding: 14)
 		)
 		assetImage.pin(
 			.fixedWidth(44),
 			.fixedHeight(44)
 		)
-		assetTitleLabel.pin(
-			.fixedHeight(22)
-		)
-		assetAmountLabel.pin(
-			.fixedHeight(18)
-		)
-		assetAmountInDollorLabel.pin(
-			.fixedHeight(22)
-		)
-		assetVolatilityLabel.pin(
-			.fixedHeight(18)
-		)
+//        if assetVM != nil {
+//            assetTitleLabel.pin(
+//                .fixedHeight(22)
+//            )
+//            assetAmountLabel.pin(
+//                .fixedHeight(18)
+//            )
+//            assetAmountInDollorLabel.pin(
+//                .fixedHeight(22)
+//            )
+//            assetVolatilityLabel.pin(
+//                .fixedHeight(18)
+//            )
+//        }else {
+//            assetTitleLabel.pin(
+//                .fixedHeight(14)
+//            )
+//            assetAmountLabel.pin(
+//                .fixedHeight(14)
+//            )
+//            assetAmountInDollorLabel.pin(
+//                .fixedHeight(14)
+//            )
+//            assetVolatilityLabel.pin(
+//                .fixedHeight(14)
+//            )
+//        }
+		
 	}
 }
