@@ -133,9 +133,7 @@ extension ReceiveAssetView: WKNavigationDelegate {
 			"generateAndShowQRCode('\(qrCode)')",
 			completionHandler: { result, error in
 				guard error == nil else {
-					print(error)
-//					fatalError("cant generate qrCode")
-					return
+					fatalError("cant generate qrCode")
 				}
 			}
 		)
