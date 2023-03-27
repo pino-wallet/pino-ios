@@ -13,12 +13,13 @@ class ReceiveAssetView: UIView, WKUIDelegate {
 
 	public var homeVM: HomepageViewModel
 	public var receiveVM: ReceiveViewModel
+	public var addressQRCodeWebView: WKWebView
+	public var qrCodeLoadingIndicator: PinoLoading
 
 	// MARK: - Private Properties
 
 	private let addressQRCodeImageCardView = UIView()
 	private let qrCodeBordersCard = UIView()
-	private var addressQRCodeWebView = WKWebView()
 	private let walletInfoStackView = UIStackView()
 	private let walletOwnerName = PinoLabel(style: .title, text: "")
 	private let addressLabel = PinoLabel(style: .description, text: "")
@@ -30,10 +31,14 @@ class ReceiveAssetView: UIView, WKUIDelegate {
 
 	init(
 		homeVM: HomepageViewModel,
-		receiveVM: ReceiveViewModel
+		receiveVM: ReceiveViewModel,
+		addressQRCodeWebView: WKWebView,
+		qrCodeLoadingIndicator: PinoLoading
 	) {
 		self.homeVM = homeVM
 		self.receiveVM = receiveVM
+		self.addressQRCodeWebView = addressQRCodeWebView
+		self.qrCodeLoadingIndicator = qrCodeLoadingIndicator
 		super.init(frame: .zero)
 		setupView()
 		setupQRCode()
@@ -59,6 +64,8 @@ class ReceiveAssetView: UIView, WKUIDelegate {
 		addressQRCodeImageCardView.layer.borderWidth = 1
 		addressQRCodeImageCardView.layer.borderColor = UIColor.Pino.background.cgColor
 		addressQRCodeImageCardView.layer.cornerRadius = 12
+
+		addressQRCodeImageCardView.addSubview(qrCodeLoadingIndicator)
 
 		addressQRCodeWebView.backgroundColor = .Pino.white
 
@@ -104,6 +111,7 @@ class ReceiveAssetView: UIView, WKUIDelegate {
 			.fixedWidth(300),
 			.fixedHeight(300)
 		)
+		qrCodeLoadingIndicator.pin(.centerY(to: superview), .centerX(to: superview))
 		addressQRCodeWebView.pin(.allEdges(to: addressQRCodeImageCardView, padding: 9))
 		qrCodeBordersCard.pin(.allEdges(to: addressQRCodeImageCardView, padding: 18))
 		walletInfoStackView.pin(
@@ -122,20 +130,5 @@ class ReceiveAssetView: UIView, WKUIDelegate {
 		let request = URLRequest(url: url)
 		addressQRCodeWebView.load(request)
 		addressQRCodeWebView.uiDelegate = self
-		addressQRCodeWebView.navigationDelegate = self
-	}
-}
-
-extension ReceiveAssetView: WKNavigationDelegate {
-	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-		let qrCode = homeVM.walletInfo.address
-		addressQRCodeWebView.evaluateJavaScript(
-			"generateAndShowQRCode('\(qrCode)')",
-			completionHandler: { result, error in
-				guard error == nil else {
-					fatalError("cant generate qrCode")
-				}
-			}
-		)
 	}
 }
