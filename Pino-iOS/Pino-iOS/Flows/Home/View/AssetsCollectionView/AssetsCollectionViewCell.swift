@@ -50,10 +50,10 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 	private func setupStyle() {
 		setSkeletonable()
 
-		assetTitleLabel.text = assetVM?.name ?? "                  "
-		assetAmountLabel.text = assetVM?.amount ?? "               "
-		assetAmountInDollorLabel.text = assetVM?.amountInDollor ?? "               "
-		assetVolatilityLabel.text = assetVM?.volatilityInDollor ?? "               "
+		assetTitleLabel.text = assetVM?.name
+		assetAmountLabel.text = assetVM?.amount
+		assetAmountInDollorLabel.text = assetVM?.amountInDollor
+		assetVolatilityLabel.text = assetVM?.volatilityInDollor
 
 		if assetVM?.securityMode ?? false {
 			assetAmountLabel.font = .PinoStyle.boldTitle2
@@ -109,6 +109,9 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 		assetImage.layer.cornerRadius = 22
 
 		assetImage.layer.masksToBounds = true
+
+		assetAmountInDollorLabel.textAlignment = .right
+		assetVolatilityLabel.textAlignment = .right
 	}
 
 	private func setSkeletonable() {
@@ -140,32 +143,16 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 			.fixedWidth(44),
 			.fixedHeight(44)
 		)
-		//        if assetVM != nil {
-		//            assetTitleLabel.pin(
-		//                .fixedHeight(22)
-		//            )
-		//            assetAmountLabel.pin(
-		//                .fixedHeight(18)
-		//            )
-		//            assetAmountInDollorLabel.pin(
-		//                .fixedHeight(22)
-		//            )
-		//            assetVolatilityLabel.pin(
-		//                .fixedHeight(18)
-		//            )
-		//        }else {
-		//            assetTitleLabel.pin(
-		//                .fixedHeight(14)
-		//            )
-		//            assetAmountLabel.pin(
-		//                .fixedHeight(14)
-		//            )
-		//            assetAmountInDollorLabel.pin(
-		//                .fixedHeight(14)
-		//            )
-		//            assetVolatilityLabel.pin(
-		//                .fixedHeight(14)
-		//            )
-		//        }
+
+		NSLayoutConstraint.activate([
+			assetTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
+			assetAmountLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60),
+			assetAmountInDollorLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60),
+			assetVolatilityLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 40),
+			assetTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14),
+			assetAmountLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14),
+			assetAmountInDollorLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14),
+			assetVolatilityLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14),
+		])
 	}
 }
