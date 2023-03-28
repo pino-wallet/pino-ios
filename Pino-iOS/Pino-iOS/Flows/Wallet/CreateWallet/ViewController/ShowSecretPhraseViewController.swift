@@ -10,7 +10,7 @@ import UIKit
 class ShowSecretPhraseViewController: UIViewController {
 	// MARK: Public Properties
 
-	public var showSteperView = true
+	public var isNewWallet = false
 
 	// MARK: Private Properties
 
@@ -25,11 +25,11 @@ class ShowSecretPhraseViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setupNotifications()
-		if showSteperView {
-			setSteperView(stepsCount: 3, curreuntStep: 1)
-		} else {
+		if isNewWallet {
 			setupPrimaryColorNavigationBar()
 			setNavigationTitle(secretPhraseVM.pageTitle)
+		} else {
+			setSteperView(stepsCount: 3, curreuntStep: 1)
 		}
 	}
 
@@ -76,9 +76,7 @@ class ShowSecretPhraseViewController: UIViewController {
 
 	private func goToVerifyPage() {
 		let verifyViewController = VerifySecretPhraseViewController()
-		if !showSteperView {
-			verifyViewController.showSteperView = false
-		}
+		verifyViewController.isNewWallet = isNewWallet
 		verifyViewController.secretPhraseVM = VerifySecretPhraseViewModel(secretPhraseVM.secretPhraseList)
 		navigationController?.pushViewController(verifyViewController, animated: true)
 	}

@@ -54,17 +54,12 @@ class AddNewWalletViewController: UIViewController {
 		switch option.page {
 		case .Create:
 			let createWalletVC = ShowSecretPhraseViewController()
-			createWalletVC.showSteperView = false
+			createWalletVC.isNewWallet = true
 			navigationController?.pushViewController(createWalletVC, animated: true)
 		case .Import:
 			let importWalletVC = ImportSecretPhraseViewController()
-			importWalletVC.showSteperView = false
+			importWalletVC.isNewWallet = true
 			navigationController?.pushViewController(importWalletVC, animated: true)
 		}
-	}
-
-	@objc
-	private func goToPrevPage() {
-		navigationController?.popViewController(animated: true)
 	}
 }
