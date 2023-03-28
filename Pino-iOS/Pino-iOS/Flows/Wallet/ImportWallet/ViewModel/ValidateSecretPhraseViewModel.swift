@@ -15,6 +15,7 @@ struct ValidateSecretPhraseViewModel {
 	public let errorTitle = "Invalid Secret Phrase"
 	public let errorIcon = "exclamationmark.circle.fill"
 	public let continueButtonTitle = "Import"
+	public let pageTitle = "Import new wallet"
 
 	public var maxSeedPhraseCount = HDWallet.validSeedPhraseCounts[0]
 

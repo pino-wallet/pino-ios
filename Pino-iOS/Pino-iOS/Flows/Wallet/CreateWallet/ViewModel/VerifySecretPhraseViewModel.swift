@@ -13,6 +13,7 @@ struct VerifySecretPhraseViewModel {
 	public let errorTitle = "Invalid Secret Phrase"
 	public let errorIcon = "exclamationmark.circle.fill"
 	public let continueButtonTitle = "Continue"
+	public let pageTitle = "Verify secret phrase"
 	public let userSecretPhraseList: [String]
 	public let randomSecretPhraseList: [String]
 

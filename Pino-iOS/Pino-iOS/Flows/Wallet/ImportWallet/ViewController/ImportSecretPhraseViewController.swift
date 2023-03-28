@@ -12,6 +12,7 @@ class ImportSecretPhraseViewController: UIViewController {
 
 	public var importsecretPhraseView: ImportSecretPhraseView!
 	public var validationSecretPhraseVM: ValidateSecretPhraseViewModel!
+	public var isNewWallet = false
 
 	// MARK: View Overrides
 
@@ -21,7 +22,12 @@ class ImportSecretPhraseViewController: UIViewController {
 
 	override func loadView() {
 		setupView()
-		setSteperView(stepsCount: 2, curreuntStep: 1)
+		if isNewWallet {
+			setupPrimaryColorNavigationBar()
+			setNavigationTitle(validationSecretPhraseVM.pageTitle)
+		} else {
+			setSteperView(stepsCount: 2, curreuntStep: 1)
+		}
 	}
 
 	// MARK: Private Methods
@@ -51,9 +57,16 @@ class ImportSecretPhraseViewController: UIViewController {
 	}
 
 	private func importWallet() {
-		// Go to create passcode page
-		let createPasscodeViewController = CreatePasscodeViewController()
-		createPasscodeViewController.pageSteps = 2
-		navigationController?.pushViewController(createPasscodeViewController, animated: true)
+		if isNewWallet {
+			UserDefaults.standard.set(true, forKey: "isLogin")
+			let tabBarVC = TabBarViewController()
+			tabBarVC.modalPresentationStyle = .fullScreen
+			present(tabBarVC, animated: true)
+		} else {
+			// Go to create passcode page
+			let createPasscodeViewController = CreatePasscodeViewController()
+			createPasscodeViewController.pageSteps = 2
+			navigationController?.pushViewController(createPasscodeViewController, animated: true)
+		}
 	}
 }

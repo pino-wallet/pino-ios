@@ -50,7 +50,7 @@ class WalletsViewController: UIViewController {
 			image: UIImage(systemName: "plus"),
 			style: .plain,
 			target: self,
-			action: nil
+			action: #selector(openCreateImportWalletPage)
 		)
 	}
 
@@ -59,5 +59,11 @@ class WalletsViewController: UIViewController {
 		if navigationController?.viewControllers.last is WalletsViewController {
 			navigationController?.pushViewController(editAccountVC, animated: true)
 		}
+	}
+
+	@objc
+	private func openCreateImportWalletPage() {
+		let createImportWalletVC = AddNewWalletViewController()
+		navigationController?.pushViewController(createImportWalletVC, animated: true)
 	}
 }
