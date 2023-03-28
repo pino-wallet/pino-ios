@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		if UserDefaults.standard.bool(forKey: "isLogin") {
 			window?.rootViewController = TabBarViewController()
 		} else {
-			let navigationController = UINavigationController()
+			let navigationController = CustomNavigationController()
 			navigationController.setViewControllers([IntroViewController()], animated: true)
 			window?.rootViewController = navigationController
 		}

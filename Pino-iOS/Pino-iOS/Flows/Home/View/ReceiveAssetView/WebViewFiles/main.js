@@ -1,4 +1,3 @@
-
 let timeout;
 
  function generateAndShowQRCode(qrCode) {
@@ -24,3 +23,5 @@ function animateQRCode(qrCodeComponent) {
       }
     }));
 }
+
+
