@@ -11,6 +11,7 @@ class ShowSecretPhraseViewController: UIViewController {
 	// MARK: Public Properties
 
 	public var isNewWallet = false
+	public var addedNewWallet: (() -> Void)?
 
 	// MARK: Private Properties
 
@@ -77,6 +78,7 @@ class ShowSecretPhraseViewController: UIViewController {
 	private func goToVerifyPage() {
 		let verifyViewController = VerifySecretPhraseViewController()
 		verifyViewController.isNewWallet = isNewWallet
+		verifyViewController.addedNewWallet = addedNewWallet
 		verifyViewController.secretPhraseVM = VerifySecretPhraseViewModel(secretPhraseVM.secretPhraseList)
 		navigationController?.pushViewController(verifyViewController, animated: true)
 	}

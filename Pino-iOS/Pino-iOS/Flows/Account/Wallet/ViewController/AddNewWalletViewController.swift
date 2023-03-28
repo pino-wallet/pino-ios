@@ -57,6 +57,9 @@ class AddNewWalletViewController: UIViewController {
 		case .Create:
 			let createWalletVC = ShowSecretPhraseViewController()
 			createWalletVC.isNewWallet = true
+			createWalletVC.addedNewWallet = {
+				self.updateWallets()
+			}
 			navigationController?.pushViewController(createWalletVC, animated: true)
 		case .Import:
 			let importWalletVC = ImportSecretPhraseViewController()

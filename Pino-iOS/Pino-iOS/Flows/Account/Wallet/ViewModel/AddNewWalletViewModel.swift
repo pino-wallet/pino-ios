@@ -34,12 +34,13 @@ class AddNewWalletViewModel {
 		for index in 0 ..< wallets.count {
 			wallets[index].isSelected(false)
 		}
+		let avatar = Constants.avatars.randomElement() ?? "green_apple"
 		let newWallet = WalletInfoModel(
 			id: "\(Int(wallets.last!.id)! + 1)",
-			name: "Wallet",
+			name: "Wallet \(wallets.count + 1)",
 			address: "gf4bh5n3m2c8l4j5w9i2l6t2de",
-			profileImage: "green_apple",
-			profileColor: "green_apple",
+			profileImage: avatar,
+			profileColor: avatar,
 			balance: "0",
 			isSelected: true
 		)
