@@ -37,10 +37,6 @@ public class AssetViewModel: SecurityModeProtocol {
 		assetModel.detail!.decimals
 	}
 
-	public var change24h: BigInt {
-		BigInt(assetModel.detail!.change24H)!
-	}
-
 	public var holdAmount: HoldNumberFormatter {
 		HoldNumberFormatter(value: assetModel.hold, decimal: decimal)
 	}
@@ -50,15 +46,19 @@ public class AssetViewModel: SecurityModeProtocol {
 		return NumberPercisionFormatter.trimmedValueOf(money: amount)
 	}
 
+    public var change24h: PriceNumberFormatter {
+        PriceNumberFormatter(value: assetModel.detail!.change24H)
+    }
+    
 	public var amount = "0"
 	public var amountInDollor = "-"
 	public var volatilityInDollor = "-"
 
 	public var volatilityType: AssetVolatilityType {
-		if change24h.isZero {
+        if change24h.doubleValue.isZero {
 			return .none
 		} else {
-			switch change24h.sign {
+            switch change24h.doubleValue.sign {
 			case .minus:
 				return .loss
 			case .plus:
@@ -112,29 +112,17 @@ public class AssetViewModel: SecurityModeProtocol {
 		}
 	}
 
-	public var volatilityDollorValue: String {
-		let volaitility = BigInt(assetModel.detail!.change24H)!
-		let amount = Utilities.formatToPrecision(
-			volaitility,
-			units: .custom(6),
-			formattingDecimals: 2,
-			decimalSeparator: ".",
-			fallbackToScientific: false
-		)
-		return amount
-	}
-
 	private func getFormattedVolatility() -> String {
-		if change24h.isZero {
+        if change24h.formattedDoubleValue.isZero {
 			return "-"
 		} else {
 			switch volatilityType {
 			case .loss:
-				var lossValue = volatilityDollorValue
-				lossValue.removeFirst()
+                var lossValue = change24h.formattedAmount
+                lossValue.removeFirst()
 				return "-$\(lossValue)"
 			case .profit, .none:
-				return "+$\(volatilityDollorValue)"
+                return "+$\(change24h.formattedAmount)"
 			}
 		}
 	}
