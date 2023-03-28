@@ -37,9 +37,9 @@ class ReceiveAssetViewController: UIViewController {
 		addressQrCodeWebView.evaluateJavaScript(
 			"generateAndShowQRCode('\(qrCode)')",
 			completionHandler: { result, error in
-//				guard error == nil else {
-				////					fatalError("cant generate qrCode")
-//				}
+				guard error == nil else {
+					fatalError("cant generate qrCode")
+				}
 			}
 		)
 	}
