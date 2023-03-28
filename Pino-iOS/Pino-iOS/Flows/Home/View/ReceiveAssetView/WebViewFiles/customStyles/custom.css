@@ -7,8 +7,12 @@ height: 100%;
 
 #qr1 {
 position: absolute;
-width: 120.5%;
-height: 120%.5;
-top: -60px;
-left: -60px;
+width: 132.4%;
+height: 132.4%;
+top: -69px;
+left: -69px;
+}
+
+* {
+    overflow: hidden;
 }

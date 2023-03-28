@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import WebKit
 
 class ReceiveAssetViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private var receiveAssetView: ReceiveAssetView!
 	private var receiveVM = ReceiveViewModel()
+	private let addressQrCodeWebView = WKWebView()
+	private let qrCodeLoadingIndicator = PinoLoading(size: 32)
 
 	// MARK: - Public Properties
 
@@ -26,6 +29,19 @@ class ReceiveAssetViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
+	}
+
+	override func viewDidAppear(_ animated: Bool) {
+		qrCodeLoadingIndicator.isHidden = true
+		let qrCode = homeVM.walletInfo.address
+		addressQrCodeWebView.evaluateJavaScript(
+			"generateAndShowQRCode('\(qrCode)')",
+			completionHandler: { result, error in
+				guard error == nil else {
+					fatalError("cant generate qrCode")
+				}
+			}
+		)
 	}
 
 	// MARK: - Initializers
@@ -44,10 +60,9 @@ class ReceiveAssetViewController: UIViewController {
 	private func setupView() {
 		receiveAssetView = ReceiveAssetView(
 			homeVM: homeVM,
-			presentShareActivityClosure: { [weak self] sharedText in
-				self?.presentShareActivityViewController(sharedText: sharedText)
-			},
-			receiveVM: receiveVM
+			receiveVM: receiveVM,
+			addressQRCodeWebView: addressQrCodeWebView,
+			qrCodeLoadingIndicator: qrCodeLoadingIndicator
 		)
 		view = receiveAssetView
 	}
@@ -63,9 +78,17 @@ class ReceiveAssetViewController: UIViewController {
 			target: self,
 			action: #selector(dismissVC)
 		)
+		navigationItem.rightBarButtonItem = UIBarButtonItem(
+			image: UIImage(named: receiveVM.shareAddressButtonIconName),
+			style: .plain,
+			target: self,
+			action: #selector(presentShareActivityViewController)
+		)
 	}
 
-	private func presentShareActivityViewController(sharedText: String) {
+	@objc
+	private func presentShareActivityViewController() {
+		let sharedText = homeVM.walletInfo.address
 		let shareItems = [sharedText]
 		let activityVC = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
 		present(activityVC, animated: true)
