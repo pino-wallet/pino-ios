@@ -5,8 +5,8 @@
 //  Created by Mohi Raoufi on 1/14/23.
 //
 
-import UIKit
 import Kingfisher
+import UIKit
 
 public class ManageAssetCell: UICollectionViewCell {
 	// MARK: Private Properties
@@ -53,9 +53,9 @@ public class ManageAssetCell: UICollectionViewCell {
 		assetTitleLabel.text = assetVM.name
 		assetAmountLabel.text = assetVM.amount
 
-        assetImage.kf.indicatorType = .activity
-        assetImage.kf.setImage(with: assetVM.image)
-        
+		assetImage.kf.indicatorType = .activity
+		assetImage.kf.setImage(with: assetVM.image)
+
 		backgroundColor = .Pino.background
 		assetCardView.backgroundColor = .Pino.secondaryBackground
 		assetImage.backgroundColor = .Pino.background

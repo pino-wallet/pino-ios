@@ -20,7 +20,7 @@ extension String {
 	}
 
 	var doubleValue: Double? {
-        Double(self)
+		Double(self)
 	}
 
 	public func shortenedString(characterCount: Int) -> String {

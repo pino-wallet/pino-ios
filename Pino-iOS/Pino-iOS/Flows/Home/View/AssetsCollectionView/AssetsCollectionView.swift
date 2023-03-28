@@ -48,7 +48,7 @@ class AssetsCollectionView: UICollectionView {
 		self.portfolioPerformanceTapped = portfolioPerformanceTapped
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
-        
+
 		configCollectionView()
 		setupView()
 		setupStyle()
@@ -98,7 +98,7 @@ class AssetsCollectionView: UICollectionView {
 	private func setupBindings() {
 		homeVM.$assetsList.sink { [weak self] _ in
 			self?.reloadData()
-            
+
 		}.store(in: &cancellables)
 
 		homeVM.$positionAssetsList.sink { [weak self] _ in

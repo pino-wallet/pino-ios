@@ -80,6 +80,8 @@
 		3D47F14ECA2A8CAE61061F57 /* PPPangramSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DEF9234B1A724D51BE836376 /* PPPangramSans-LightItalic.ttf */; };
 		3E5FFA532C0440149913FE32 /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA73CCD58C583E964396CF7 /* Encodable+Extension.swift */; };
 		3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6922A1FD91EE9D2DAF8D928 /* AccountingEndpoint.swift */; };
+		4079E5C629D2CB88003E138A /* NumberFormatterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4079E5C529D2CB88003E138A /* NumberFormatterProtocol.swift */; };
+		4079E5C829D2CC6C003E138A /* FormatterTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4079E5C729D2CC6C003E138A /* FormatterTypes.swift */; };
 		40ACD7A729C4C2B100CFD557 /* web3swift in Frameworks */ = {isa = PBXBuildFile; productRef = 40ACD7A629C4C2B100CFD557 /* web3swift */; };
 		40ACD7AA29C4C2DC00CFD557 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 40ACD7A929C4C2DC00CFD557 /* Kingfisher */; };
 		40ACD7AB29C4C30B00CFD557 /* coin-performance-info-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = EA79C702C8831F7059E16070 /* coin-performance-info-stub.json */; };
@@ -362,6 +364,8 @@
 		3DADC99C41136A35EF49EF9B /* SelectPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPassViewModel.swift; sourceTree = "<group>"; };
 		3F052F464B4443A09B569492 /* PPPangramSans-ExtraboldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtraboldReclined.ttf"; sourceTree = "<group>"; };
 		404287D5077C670FADEE9987 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		4079E5C529D2CB88003E138A /* NumberFormatterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatterProtocol.swift; sourceTree = "<group>"; };
+		4079E5C729D2CC6C003E138A /* FormatterTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatterTypes.swift; sourceTree = "<group>"; };
 		40ACD7B629C4C38300CFD557 /* WebViewFiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WebViewFiles; sourceTree = "<group>"; };
 		411833622E37F06E2DC49DFD /* AvatarCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCollectionView.swift; sourceTree = "<group>"; };
 		412EA8786DF547325A94AE49 /* AssetChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetChartViewModel.swift; sourceTree = "<group>"; };
@@ -940,6 +944,15 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		4079E5C429D2CB34003E138A /* NumberFormatting */ = {
+			isa = PBXGroup;
+			children = (
+				4079E5C529D2CB88003E138A /* NumberFormatterProtocol.swift */,
+				4079E5C729D2CC6C003E138A /* FormatterTypes.swift */,
+			);
+			path = NumberFormatting;
+			sourceTree = "<group>";
+		};
 		44599A41EC08E944C9D78DD4 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
@@ -1463,6 +1476,7 @@
 		9644A21ECD0A37919E016265 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				4079E5C429D2CB34003E138A /* NumberFormatting */,
 				6053BA1EF5B9764BF881B904 /* PrecisionSystem.swift */,
 			);
 			path = Foundation;
@@ -2171,6 +2185,7 @@
 				0DC7141183DFDC22EDA3C327 /* RecoveryPhraseViewModel.swift in Sources */,
 				A57E4F2D75D4BAAB0F29A83B /* RegularStyle.swift in Sources */,
 				D9DD538BAF953A18503AB3F0 /* RemoveAccountView.swift in Sources */,
+				4079E5C629D2CB88003E138A /* NumberFormatterProtocol.swift in Sources */,
 				E785EA31CC4E6721B72481DE /* RemoveAccountViewController.swift in Sources */,
 				8311422EA67D10D257FDD530 /* RemoveAccountViewModel.swift in Sources */,
 				5699C13A59EF90BDE1758CF3 /* RevealPrivateKeyView.swift in Sources */,
@@ -2213,6 +2228,7 @@
 				5A0A4A23ED01BFB3E5315791 /* VerifySecretPhraseViewModel.swift in Sources */,
 				4C7FBB094D7EA8820D1F4D69 /* ViewController+Extension.swift in Sources */,
 				554EDEC45A556632B849D3BD /* WalletAPIClient.swift in Sources */,
+				4079E5C829D2CC6C003E138A /* FormatterTypes.swift in Sources */,
 				96A4F385AA97CE506A416820 /* WalletAPIMockClient.swift in Sources */,
 				7FFA5D89CACB5BA3422D7376 /* WalletAPIService.swift in Sources */,
 				96892E44DA2E5556E1679817 /* WalletBalanceHeaderView.swift in Sources */,

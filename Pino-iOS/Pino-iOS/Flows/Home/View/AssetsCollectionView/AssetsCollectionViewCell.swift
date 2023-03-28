@@ -5,8 +5,8 @@
 //  Created by Mohi Raoufi on 12/20/22.
 //
 
-import UIKit
 import Kingfisher
+import UIKit
 
 public class AssetsCollectionViewCell: UICollectionViewCell {
 	// MARK: Private Properties
@@ -48,14 +48,14 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 	}
 
 	private func setupStyle() {
-        setSkeletonable()
-        
+		setSkeletonable()
+
 		assetTitleLabel.text = assetVM?.name ?? "                  "
 		assetAmountLabel.text = assetVM?.amount ?? "               "
 		assetAmountInDollorLabel.text = assetVM?.amountInDollor ?? "               "
 		assetVolatilityLabel.text = assetVM?.volatilityInDollor ?? "               "
 
-		if assetVM?.securityMode ?? false{
+		if assetVM?.securityMode ?? false {
 			assetAmountLabel.font = .PinoStyle.boldTitle2
 			assetAmountInDollorLabel.font = .PinoStyle.boldTitle1
 			assetVolatilityLabel.font = .PinoStyle.boldTitle2
@@ -72,7 +72,7 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 			assetAmountLabel.textColor = .Pino.secondaryLabel
 			assetAmountInDollorLabel.textColor = .Pino.label
 
-            switch assetVM?.volatilityType ?? .none {
+			switch assetVM?.volatilityType ?? .none {
 			case .profit:
 				assetVolatilityLabel.textColor = .Pino.green
 			case .loss:
@@ -82,8 +82,8 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 			}
 		}
 
-        assetImage.kf.indicatorType = .activity
-        assetImage.kf.setImage(with: assetVM?.image)
+		assetImage.kf.indicatorType = .activity
+		assetImage.kf.setImage(with: assetVM?.image)
 
 		backgroundColor = .Pino.background
 		assetCardView.backgroundColor = .Pino.secondaryBackground
@@ -102,22 +102,22 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 		assetVolatilityStackView.alignment = .trailing
 		assetTitleStackView.alignment = .leading
 		assetVolatilityStackView.alignment = .trailing
-        assetTitleStackView.distribution = .equalCentering
-        assetVolatilityStackView.distribution = .equalCentering
+		assetTitleStackView.distribution = .equalCentering
+		assetVolatilityStackView.distribution = .equalCentering
 
 		assetCardView.layer.cornerRadius = 12
 		assetImage.layer.cornerRadius = 22
-        
-        assetImage.layer.masksToBounds = true
+
+		assetImage.layer.masksToBounds = true
 	}
-    
-    private func setSkeletonable() {
-        assetImage.isSkeletonable = true
-        assetTitleLabel.isSkeletonable = true
-        assetAmountLabel.isSkeletonable = true
-        assetVolatilityLabel.isSkeletonable = true
-        assetAmountInDollorLabel.isSkeletonable = true
-    }
+
+	private func setSkeletonable() {
+		assetImage.isSkeletonable = true
+		assetTitleLabel.isSkeletonable = true
+		assetAmountLabel.isSkeletonable = true
+		assetVolatilityLabel.isSkeletonable = true
+		assetAmountInDollorLabel.isSkeletonable = true
+	}
 
 	private func setupConstraint() {
 		assetCardView.pin(
@@ -126,7 +126,7 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 		)
 		assetTitleStackView.pin(
 			.top(padding: 4),
-            .bottom(padding: 2)
+			.bottom(padding: 2)
 		)
 		assetStackView.pin(
 			.centerY,
@@ -140,33 +140,32 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 			.fixedWidth(44),
 			.fixedHeight(44)
 		)
-//        if assetVM != nil {
-//            assetTitleLabel.pin(
-//                .fixedHeight(22)
-//            )
-//            assetAmountLabel.pin(
-//                .fixedHeight(18)
-//            )
-//            assetAmountInDollorLabel.pin(
-//                .fixedHeight(22)
-//            )
-//            assetVolatilityLabel.pin(
-//                .fixedHeight(18)
-//            )
-//        }else {
-//            assetTitleLabel.pin(
-//                .fixedHeight(14)
-//            )
-//            assetAmountLabel.pin(
-//                .fixedHeight(14)
-//            )
-//            assetAmountInDollorLabel.pin(
-//                .fixedHeight(14)
-//            )
-//            assetVolatilityLabel.pin(
-//                .fixedHeight(14)
-//            )
-//        }
-		
+		//        if assetVM != nil {
+		//            assetTitleLabel.pin(
+		//                .fixedHeight(22)
+		//            )
+		//            assetAmountLabel.pin(
+		//                .fixedHeight(18)
+		//            )
+		//            assetAmountInDollorLabel.pin(
+		//                .fixedHeight(22)
+		//            )
+		//            assetVolatilityLabel.pin(
+		//                .fixedHeight(18)
+		//            )
+		//        }else {
+		//            assetTitleLabel.pin(
+		//                .fixedHeight(14)
+		//            )
+		//            assetAmountLabel.pin(
+		//                .fixedHeight(14)
+		//            )
+		//            assetAmountInDollorLabel.pin(
+		//                .fixedHeight(14)
+		//            )
+		//            assetVolatilityLabel.pin(
+		//                .fixedHeight(14)
+		//            )
+		//        }
 	}
 }

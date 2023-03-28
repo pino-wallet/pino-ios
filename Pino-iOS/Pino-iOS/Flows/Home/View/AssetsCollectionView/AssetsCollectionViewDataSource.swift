@@ -16,18 +16,18 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 
 	internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		let homeSection = HomeSection(rawValue: section)
-        if homeVM.assetsList.isEmpty{
-            return 6
-        } else {
-            switch homeSection {
-            case .asset:
-                return homeVM.assetsList.count
-            case .position:
-                return homeVM.positionAssetsList.count
-            case .none:
-                return .zero
-            }
-        }
+		if homeVM.assetsList.isEmpty {
+			return 6
+		} else {
+			switch homeSection {
+			case .asset:
+				return homeVM.assetsList.count
+			case .position:
+				return homeVM.positionAssetsList.count
+			case .none:
+				return .zero
+			}
+		}
 	}
 
 	internal func collectionView(
@@ -98,11 +98,11 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 			walletBalanceHeaderView.sendButtonTappedClosure = sendButtonTappedClosure
 			walletBalanceHeaderView.receiveButtonTappedClosure = receiveButtonTappedClosure
 			walletBalanceHeaderView.portfolioPerformanceTapped = portfolioPerformanceTapped
-            if homeVM.assetsList.isEmpty {
-                walletBalanceHeaderView.showSkeletonView()
-            } else {
-                walletBalanceHeaderView.hideSkeletonView()
-            }
+			if homeVM.assetsList.isEmpty {
+				walletBalanceHeaderView.showSkeletonView()
+			} else {
+				walletBalanceHeaderView.hideSkeletonView()
+			}
 			return walletBalanceHeaderView
 
 		case .position:
@@ -138,20 +138,20 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: AssetsCollectionViewCell.cellReuseID,
 			for: indexPath
 		) as! AssetsCollectionViewCell
-        if homeVM.assetsList.isEmpty {
-            assetCell.assetVM = nil
-            assetCell.showSkeletonView()
-        } else {
-            assetCell.hideSkeletonView()
-            let homeSection = HomeSection(rawValue: indexPath.section)
-            switch homeSection {
-            case .asset:
-                assetCell.assetVM = homeVM.assetsList[indexPath.row]
-            case .position:
-                assetCell.assetVM = homeVM.positionAssetsList[indexPath.row]
-            case .none: break
-            }
-        }
+		if homeVM.assetsList.isEmpty {
+			assetCell.assetVM = nil
+			assetCell.showSkeletonView()
+		} else {
+			assetCell.hideSkeletonView()
+			let homeSection = HomeSection(rawValue: indexPath.section)
+			switch homeSection {
+			case .asset:
+				assetCell.assetVM = homeVM.assetsList[indexPath.row]
+			case .position:
+				assetCell.assetVM = homeVM.positionAssetsList[indexPath.row]
+			case .none: break
+			}
+		}
 		return assetCell
 	}
 

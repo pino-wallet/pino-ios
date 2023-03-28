@@ -47,8 +47,8 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-        setSkeletonable()
-        
+		setSkeletonable()
+
 		let gradientLayer = GradientLayer(frame: bounds, style: .headerBackground)
 		layer.addSublayer(gradientLayer)
 		balanceStackView.addArrangedSubview(balanceLabel)
@@ -109,7 +109,7 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 		sendReceiveStackView.distribution = .fillEqually
 
 		volatilityView.layer.cornerRadius = 14
-        volatilityView.layer.masksToBounds = true
+		volatilityView.layer.masksToBounds = true
 
 		sendButton.setConfiguraton(
 			font: .PinoStyle.semiboldCallout!,
@@ -131,11 +131,11 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 		volatilityView
 			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openVolatilityDetailPage)))
 	}
-    
-    private func setSkeletonable() {
-        balanceLabel.isSkeletonable = true
-        volatilityView.isSkeletonable = true
-    }
+
+	private func setSkeletonable() {
+		balanceLabel.isSkeletonable = true
+		volatilityView.isSkeletonable = true
+	}
 
 	private func setupBindings() {
 		homeVM.$walletBalance.sink { [weak self] walletBalance in
