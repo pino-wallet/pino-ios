@@ -80,7 +80,7 @@ extension IntroView {
 		pageControl.numberOfPages = introVM.contentList.count
 		pageControl.currentPage = 0
 		pageControl.currentPageIndicatorTintColor = .Pino.primary
-		pageControl.pageIndicatorTintColor = .Pino.gray4
+		pageControl.pageIndicatorTintColor = .Pino.gray5
 	}
 
 	private func setupContstraint() {
