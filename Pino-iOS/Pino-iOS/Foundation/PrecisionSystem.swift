@@ -10,25 +10,24 @@ import Foundation
 import Web3Core
 
 class NumberPercisionFormatter {
-    // MARK: - Private Properties
+	// MARK: - Private Properties
 
-    private static var formatter: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.decimalSeparator = "."
-        formatter.groupingSeparator = ""
-        return formatter
-    }
+	private static var formatter: NumberFormatter {
+		let formatter = NumberFormatter()
+		formatter.numberStyle = .decimal
+		formatter.decimalSeparator = "."
+		formatter.groupingSeparator = ""
+		return formatter
+	}
+
 	private static let moneyTrimDigit = 6
 	private static let coinTrimDigit = 7
 
-    // MARK: - Public Methods
+	// MARK: - Public Methods
 
 	public static func trimmedValueOf(money moneyValue: Double) -> String {
 		let moneyNumber = NSNumber(value: moneyValue)
-
 		let numDigits = String(format: "%.0f", moneyValue).count
-		print("\(moneyValue) : \(numDigits)")
 
 		if numDigits > moneyTrimDigit {
 			formatter.maximumFractionDigits = 0
@@ -70,4 +69,3 @@ class NumberPercisionFormatter {
 		}
 	}
 }
-

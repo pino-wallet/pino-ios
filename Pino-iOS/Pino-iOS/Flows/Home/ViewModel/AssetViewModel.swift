@@ -16,6 +16,10 @@ public class AssetViewModel: SecurityModeProtocol {
 	// MARK: - Public Properties
 
 	public var securityMode = false
+	public var isSelected = true
+	public var amount = "0"
+	public var amountInDollor = "-"
+	public var volatilityInDollor = "-"
 
 	public var id: String {
 		assetModel.id
@@ -46,19 +50,15 @@ public class AssetViewModel: SecurityModeProtocol {
 		return NumberPercisionFormatter.trimmedValueOf(money: amount)
 	}
 
-    public var change24h: PriceNumberFormatter {
-        PriceNumberFormatter(value: assetModel.detail!.change24H)
-    }
-    
-	public var amount = "0"
-	public var amountInDollor = "-"
-	public var volatilityInDollor = "-"
+	public var change24h: PriceNumberFormatter {
+		PriceNumberFormatter(value: assetModel.detail!.change24H)
+	}
 
 	public var volatilityType: AssetVolatilityType {
-        if change24h.doubleValue.isZero {
+		if change24h.doubleValue.isZero {
 			return .none
 		} else {
-            switch change24h.doubleValue.sign {
+			switch change24h.doubleValue.sign {
 			case .minus:
 				return .loss
 			case .plus:
@@ -66,8 +66,6 @@ public class AssetViewModel: SecurityModeProtocol {
 			}
 		}
 	}
-
-	public var isSelected = true
 
 	// MARK: - Initializers
 
@@ -113,16 +111,16 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	private func getFormattedVolatility() -> String {
-        if change24h.formattedDoubleValue.isZero {
+		if change24h.formattedDoubleValue.isZero {
 			return "-"
 		} else {
 			switch volatilityType {
 			case .loss:
-                var lossValue = change24h.formattedAmount
-                lossValue.removeFirst()
+				var lossValue = change24h.formattedAmount
+				lossValue.removeFirst()
 				return "-$\(lossValue)"
 			case .profit, .none:
-                return "+$\(change24h.formattedAmount)"
+				return "+$\(change24h.formattedAmount)"
 			}
 		}
 	}

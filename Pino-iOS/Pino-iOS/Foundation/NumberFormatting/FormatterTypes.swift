@@ -10,13 +10,13 @@ import Foundation
 // MARK: - Public Properties
 
 public struct PriceNumberFormatter: NumberFormatterProtocol {
-    public let value: String
-    public let decimal = 6
-    public let formattingDecimal = 2
+	public let value: String
+	public let decimal = 6
+	public let formattingDecimal = 2
 }
 
 public struct HoldNumberFormatter: NumberFormatterProtocol {
-    public let value: String
-    public let decimal: Int
-    public let formattingDecimal = 6
+	public let value: String
+	public let decimal: Int
+	public let formattingDecimal = 6
 }
