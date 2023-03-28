@@ -12,6 +12,7 @@ class RecoveryPhraseViewController: UIViewController {
 
 	private let secretPhraseVM = RecoveryPhraseViewModel()
 	private let copyToastView = PinoToastView(message: nil, style: .secondary, padding: 24)
+	private var recoverPhraseView: RecoveryPhraseView!
 
 	// MARK: - View Overrides
 
@@ -28,10 +29,13 @@ class RecoveryPhraseViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		let recoverPhraseView = RecoveryPhraseView(
+		recoverPhraseView = RecoveryPhraseView(
 			secretPhraseVM: secretPhraseVM,
 			copySecretPhraseTapped: {
 				self.copySecretPhrase()
+			},
+			revealTapped: {
+				self.showFaceID()
 			}
 		)
 		view = recoverPhraseView
@@ -66,5 +70,12 @@ class RecoveryPhraseViewController: UIViewController {
 		pasteboard.string = secretPhraseVM.secretPhraseList.joined(separator: " ")
 		copyToastView.message = "Secret phrase has been copied"
 		copyToastView.showToast()
+	}
+
+	private func showFaceID() {
+		var faceIDLock = BiometricAuthentication()
+		faceIDLock.evaluate {
+			self.recoverPhraseView.showSeedPhrase()
+		}
 	}
 }

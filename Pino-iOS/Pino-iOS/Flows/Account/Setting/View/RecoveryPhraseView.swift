@@ -15,6 +15,9 @@ class RecoveryPhraseView: UIView {
 	private let titleLabel = PinoLabel(style: .title, text: nil)
 	private let descriptionLabel = PinoLabel(style: .description, text: nil)
 	private let seedPhraseStackView = UIStackView()
+	private let seedPhraseView = UIView()
+	private let revealLabel = PinoLabel(style: .title, text: nil)
+	private let seedPhraseBlurView = BlurEffectView()
 	private let seedPhraseCollectionView = SecretPhraseCollectionView()
 	private let copySeedPhraseButton = UIButton()
 	private let warningCardView = UIView()
@@ -23,15 +26,18 @@ class RecoveryPhraseView: UIView {
 	private let warningDescriptionLabel = PinoLabel(style: .description, text: nil)
 	private var copySecretPhraseTapped: () -> Void
 	private var secretPhraseVM: RecoveryPhraseViewModel
+	private let revealTapped: () -> Void
 
 	// MARK: - Initializers
 
 	init(
 		secretPhraseVM: RecoveryPhraseViewModel,
-		copySecretPhraseTapped: @escaping (() -> Void)
+		copySecretPhraseTapped: @escaping (() -> Void),
+		revealTapped: @escaping () -> Void
 	) {
 		self.copySecretPhraseTapped = copySecretPhraseTapped
 		self.secretPhraseVM = secretPhraseVM
+		self.revealTapped = revealTapped
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -48,9 +54,12 @@ class RecoveryPhraseView: UIView {
 		seedPhraseCollectionView.secretWords = secretPhraseVM.secretPhraseList
 
 		contentStackView.addArrangedSubview(titleStackView)
-		contentStackView.addArrangedSubview(seedPhraseStackView)
+		contentStackView.addArrangedSubview(seedPhraseView)
 		titleStackView.addArrangedSubview(titleLabel)
 		titleStackView.addArrangedSubview(descriptionLabel)
+		seedPhraseView.addSubview(seedPhraseStackView)
+		seedPhraseView.addSubview(seedPhraseBlurView)
+		seedPhraseView.addSubview(revealLabel)
 		seedPhraseStackView.addArrangedSubview(seedPhraseCollectionView)
 		seedPhraseStackView.addArrangedSubview(copySeedPhraseButton)
 		warningStackView.addArrangedSubview(warningTitleLabel)
@@ -62,6 +71,9 @@ class RecoveryPhraseView: UIView {
 		copySeedPhraseButton.addAction(UIAction(handler: { _ in
 			self.copySecretPhraseTapped()
 		}), for: .touchUpInside)
+
+		let revealTapGesture = UITapGestureRecognizer(target: self, action: #selector(revealSeedPhrase))
+		seedPhraseView.addGestureRecognizer(revealTapGesture)
 	}
 
 	private func setupStyle() {
@@ -70,6 +82,7 @@ class RecoveryPhraseView: UIView {
 		copySeedPhraseButton.setTitle(secretPhraseVM.copyButtonTitle, for: .normal)
 		warningTitleLabel.text = secretPhraseVM.warningTitle
 		warningDescriptionLabel.text = secretPhraseVM.warningDescription
+		revealLabel.text = secretPhraseVM.revealButtonTitle
 
 		let copyButtonImage = UIImage(named: secretPhraseVM.copyButtonIcon)
 		copySeedPhraseButton.setImage(copyButtonImage, for: .normal)
@@ -131,5 +144,29 @@ class RecoveryPhraseView: UIView {
 			.horizontalEdges(padding: 22),
 			.verticalEdges(padding: 16)
 		)
+		seedPhraseStackView.pin(
+			.allEdges(padding: 16)
+		)
+		seedPhraseBlurView.pin(
+			.allEdges()
+		)
+		revealLabel.pin(
+			.centerX,
+			.centerY
+		)
+	}
+
+	@objc
+	private func revealSeedPhrase() {
+		revealTapped()
+	}
+
+	// MARK: - Public Methods
+
+	public func showSeedPhrase() {
+		UIView.animate(withDuration: 0.5) {
+			self.seedPhraseBlurView.alpha = 0
+			self.revealLabel.alpha = 0
+		}
 	}
 }

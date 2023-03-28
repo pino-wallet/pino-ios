@@ -23,34 +23,34 @@ extension TabBarItem {
 		title: "Home",
 		image: "home_tab",
 		selectedImage: "home_tab_fill",
-		viewController: UINavigationController(rootViewController: HomepageViewController())
+		viewController: CustomNavigationController(rootViewController: HomepageViewController())
 	)
 
 	public static let swap = TabBarItem(
 		title: "Swap",
 		image: "swap_tab",
 		selectedImage: "swap_tab_fill",
-		viewController: SwapViewController()
+		viewController: CustomNavigationController(rootViewController: SwapViewController())
 	)
 
 	public static let invest = TabBarItem(
 		title: "Invest",
 		image: "invest_tab",
 		selectedImage: "invest_tab_fill",
-		viewController: InvestViewController()
+		viewController: CustomNavigationController(rootViewController: InvestViewController())
 	)
 
 	public static let borrow = TabBarItem(
 		title: "Borrow",
 		image: "borrow_tab",
 		selectedImage: "borrow_tab_fill",
-		viewController: BorrowViewController()
+		viewController: CustomNavigationController(rootViewController: BorrowViewController())
 	)
 
 	public static let activity = TabBarItem(
 		title: "Activity",
 		image: "activity_tab",
 		selectedImage: "activity_tab_fill",
-		viewController: ActivityViewController()
+		viewController: CustomNavigationController(rootViewController: ActivityViewController())
 	)
 }

@@ -11,6 +11,8 @@ class VerifySecretPhraseViewController: UIViewController {
 	// MARK: Public Properties
 
 	public var secretPhraseVM: VerifySecretPhraseViewModel!
+	public var isNewWallet = false
+	public var addedNewWallet: (() -> Void)?
 
 	// MARK: View Overrides
 
@@ -20,17 +22,27 @@ class VerifySecretPhraseViewController: UIViewController {
 
 	override func loadView() {
 		setupView()
-		setSteperView(stepsCount: 3, curreuntStep: 2)
+		if isNewWallet {
+			setupPrimaryColorNavigationBar()
+			setNavigationTitle(secretPhraseVM.pageTitle)
+		} else {
+			setSteperView(stepsCount: 3, curreuntStep: 2)
+		}
 	}
 
 	// MARK: Private Methods
 
 	private func createWallet(_ sortedPhrase: [String]) {
-		// Wallet should be created here
-		// Go to create passcode page
-		let createPasscodeViewController = CreatePasscodeViewController()
-		createPasscodeViewController.pageSteps = 3
-		navigationController?.pushViewController(createPasscodeViewController, animated: true)
+		if isNewWallet {
+			addedNewWallet!()
+			dismiss(animated: true)
+		} else {
+			// Wallet should be created here
+			// Go to create passcode page
+			let createPasscodeViewController = CreatePasscodeViewController()
+			createPasscodeViewController.pageSteps = 3
+			navigationController?.pushViewController(createPasscodeViewController, animated: true)
+		}
 	}
 }
 

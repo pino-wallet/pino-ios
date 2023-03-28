@@ -9,42 +9,36 @@ import UIKit
 import WebKit
 
 class ReceiveAssetView: UIView, WKUIDelegate {
-	// MARK: Typealias
-
-	typealias presentShareActivityClosureType = (_ sharedText: String) -> Void
-
 	// MARK: - Public Properties
 
 	public var homeVM: HomepageViewModel
 	public var receiveVM: ReceiveViewModel
-
-	// MARK: - Closure
-
-	public var presentShareActivityClosure: presentShareActivityClosureType
+	public var addressQRCodeWebView: WKWebView
+	public var qrCodeLoadingIndicator: PinoLoading
 
 	// MARK: - Private Properties
 
 	private let addressQRCodeImageCardView = UIView()
 	private let qrCodeBordersCard = UIView()
-	private var addressQRCodeWebView = WKWebView()
 	private let walletInfoStackView = UIStackView()
 	private let walletOwnerName = PinoLabel(style: .title, text: "")
 	private let addressLabel = PinoLabel(style: .description, text: "")
-	private let actionButtonsStackView = UIStackView()
-	private let copyAddressButton = ReceiveViewActionButton()
-	private let shareAddressButton = ReceiveViewActionButton()
+	private let addressLabelContainer = UIView()
+	private let copyAddressButton = ReceiveActionButton()
 	private let copiedToastView = PinoToastView(message: nil, style: .primary)
 
 	// MARK: Initializers
 
 	init(
 		homeVM: HomepageViewModel,
-		presentShareActivityClosure: @escaping presentShareActivityClosureType,
-		receiveVM: ReceiveViewModel
+		receiveVM: ReceiveViewModel,
+		addressQRCodeWebView: WKWebView,
+		qrCodeLoadingIndicator: PinoLoading
 	) {
 		self.homeVM = homeVM
 		self.receiveVM = receiveVM
-		self.presentShareActivityClosure = presentShareActivityClosure
+		self.addressQRCodeWebView = addressQRCodeWebView
+		self.qrCodeLoadingIndicator = qrCodeLoadingIndicator
 		super.init(frame: .zero)
 		setupView()
 		setupQRCode()
@@ -71,19 +65,29 @@ class ReceiveAssetView: UIView, WKUIDelegate {
 		addressQRCodeImageCardView.layer.borderColor = UIColor.Pino.background.cgColor
 		addressQRCodeImageCardView.layer.cornerRadius = 12
 
-		walletOwnerName.font = UIFont.PinoStyle.mediumTitle3
+		addressQRCodeImageCardView.addSubview(qrCodeLoadingIndicator)
+
+		addressQRCodeWebView.backgroundColor = .Pino.white
+
+		walletOwnerName.font = UIFont.PinoStyle.semiboldTitle2
 		walletOwnerName.numberOfLines = 0
-		walletOwnerName.text = "\(homeVM.walletInfo.name) \(receiveVM.walletOwnerNameDescriptionText)"
+		walletOwnerName.text = "\(homeVM.walletInfo.name)’s \(receiveVM.walletOwnerNameDescriptionText)"
 
+		addressLabelContainer.layer.borderColor = UIColor.Pino.background.cgColor
+		addressLabelContainer.layer.borderWidth = 1
+		addressLabelContainer.layer.cornerRadius = 20
+		addressLabelContainer.addSubview(addressLabel)
+
+		addressLabel.numberOfLines = 1
 		addressLabel.text = homeVM.walletInfo.address
-
-		walletInfoStackView.axis = .vertical
-		walletInfoStackView.alignment = .center
-		walletInfoStackView.spacing = 12
-		walletInfoStackView.addArrangedSubview(walletOwnerName)
-		walletOwnerName.textAlignment = .center
-		walletInfoStackView.addArrangedSubview(addressLabel)
+		addressLabel.lineBreakMode = .byTruncatingMiddle
 		addressLabel.textAlignment = .center
+		addressLabel.textColor = .Pino.primary
+
+		walletInfoStackView.axis = .horizontal
+		walletInfoStackView.spacing = 12
+		walletInfoStackView.addArrangedSubview(addressLabelContainer)
+		walletInfoStackView.addArrangedSubview(copyAddressButton)
 
 		copyAddressButton.iconName = receiveVM.copyAddressButtonIconName
 		copyAddressButton.titleText = receiveVM.copyAddressButtonText
@@ -93,39 +97,30 @@ class ReceiveAssetView: UIView, WKUIDelegate {
 			self?.copiedToastView.showToast()
 		}
 
-		shareAddressButton.iconName = receiveVM.shareAddressButtonIconName
-		shareAddressButton.titleText = receiveVM.shareAddressButtonText
-		shareAddressButton.onTap = { [weak self] in
-			self?.presentShareActivityClosure((self?.homeVM.walletInfo.address)!)
-		}
-
-		actionButtonsStackView.axis = .horizontal
-		actionButtonsStackView.spacing = 60
-		actionButtonsStackView.addArrangedSubview(copyAddressButton)
-		actionButtonsStackView.addArrangedSubview(shareAddressButton)
-
+		addSubview(walletOwnerName)
+		walletOwnerName.textAlignment = .center
 		addSubview(addressQRCodeImageCardView)
 		addSubview(walletInfoStackView)
-		addSubview(actionButtonsStackView)
 	}
 
 	private func setupContstraints() {
+		walletOwnerName.pin(.top(to: layoutMarginsGuide, padding: 32), .centerX())
 		addressQRCodeImageCardView.pin(
-			.top(to: layoutMarginsGuide, padding: 32),
+			.relative(.top, 24, to: walletOwnerName, .bottom),
 			.centerX(to: layoutMarginsGuide),
-			.fixedWidth(270),
-			.fixedHeight(270)
+			.fixedWidth(300),
+			.fixedHeight(300)
 		)
-		addressQRCodeWebView.pin(.allEdges(to: addressQRCodeImageCardView, padding: 6))
-		qrCodeBordersCard.pin(.allEdges(to: addressQRCodeImageCardView, padding: 15))
+		qrCodeLoadingIndicator.pin(.centerY(to: superview), .centerX(to: superview))
+		addressQRCodeWebView.pin(.allEdges(to: addressQRCodeImageCardView, padding: 9))
+		qrCodeBordersCard.pin(.allEdges(to: addressQRCodeImageCardView, padding: 18))
 		walletInfoStackView.pin(
-			.relative(.top, 32, to: addressQRCodeImageCardView, .bottom),
-			.horizontalEdges(to: layoutMarginsGuide, padding: 24)
+			.relative(.top, 16, to: addressQRCodeImageCardView, .bottom),
+			.centerX(),
+			.fixedHeight(40),
+			.fixedWidth(300)
 		)
-		actionButtonsStackView.pin(
-			.centerX(to: layoutMarginsGuide),
-			.relative(.top, 38, to: walletInfoStackView, .bottom)
-		)
+		addressLabel.pin(.centerY(), .horizontalEdges(to: superview, padding: 22))
 	}
 
 	private func setupQRCode() {
@@ -135,20 +130,5 @@ class ReceiveAssetView: UIView, WKUIDelegate {
 		let request = URLRequest(url: url)
 		addressQRCodeWebView.load(request)
 		addressQRCodeWebView.uiDelegate = self
-		addressQRCodeWebView.navigationDelegate = self
-	}
-}
-
-extension ReceiveAssetView: WKNavigationDelegate {
-	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-		let qrCode = homeVM.walletInfo.address
-		addressQRCodeWebView.evaluateJavaScript(
-			"generateAndShowQRCode('\(qrCode)')",
-			completionHandler: { result, error in
-				guard error == nil else {
-					fatalError("cant generate qrCode")
-				}
-			}
-		)
 	}
 }

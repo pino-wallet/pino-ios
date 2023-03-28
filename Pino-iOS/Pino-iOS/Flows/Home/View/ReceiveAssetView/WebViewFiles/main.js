@@ -1,10 +1,16 @@
-function generateAndShowQRCode(qrCode) {
-               let qrCodeComponent = document.getElementById("qr1")
+let timeout;
+
+ function generateAndShowQRCode(qrCode) {
+     clearTimeout(timeout)
+         let qrCodeComponent = document.getElementById("qr1")
                qrCodeComponent.contents = qrCode
-    setTimeout(() => {
-            animateQRCode(qrCodeComponent)
-    } , 10)
+     
+    timeout = setTimeout(() => {
+     animateQRCode(qrCodeComponent)
+     }, 0)
+
            }
+
 function animateQRCode(qrCodeComponent) {
     qrCodeComponent.style = `${qrCodeComponent.style} display: block;`
     qrCodeComponent
