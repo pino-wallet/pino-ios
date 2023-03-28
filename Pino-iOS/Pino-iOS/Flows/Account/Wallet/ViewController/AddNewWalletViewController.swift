@@ -11,10 +11,12 @@ class AddNewWalletViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let addNewWalletVM = AddNewWalletViewModel()
+	private let walletsVM: WalletsViewModel
 
 	// MARK: - Initializers
 
-	init() {
+	init(walletsVM: WalletsViewModel) {
+		self.walletsVM = walletsVM
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -55,11 +57,22 @@ class AddNewWalletViewController: UIViewController {
 		case .Create:
 			let createWalletVC = ShowSecretPhraseViewController()
 			createWalletVC.isNewWallet = true
+			createWalletVC.addedNewWallet = {
+				self.updateWallets()
+			}
 			navigationController?.pushViewController(createWalletVC, animated: true)
 		case .Import:
 			let importWalletVC = ImportSecretPhraseViewController()
 			importWalletVC.isNewWallet = true
+			importWalletVC.addedNewWallet = {
+				self.updateWallets()
+			}
 			navigationController?.pushViewController(importWalletVC, animated: true)
 		}
+	}
+
+	private func updateWallets() {
+		addNewWalletVM.addNewWallet()
+		walletsVM.updateWallets()
 	}
 }

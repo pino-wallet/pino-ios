@@ -39,7 +39,7 @@ class WalletsViewModel {
 		saveWalletsInUserDefaults(walletsList)
 	}
 
-	func editWallet(newWallet: WalletInfoModel) {
+	public func editWallet(newWallet: WalletInfoModel) {
 		guard let walletIndex = walletsList.firstIndex(where: { $0.id == newWallet.id }) else {
 			fatalError("No wallet found with this ID")
 		}
@@ -47,7 +47,7 @@ class WalletsViewModel {
 		saveWalletsInUserDefaults(walletsList)
 	}
 
-	func removeWallet(_ wallet: WalletInfoViewModel) {
+	public func removeWallet(_ wallet: WalletInfoViewModel) {
 		if walletsList.count > 1 {
 			guard let walletIndex = walletsList.firstIndex(where: { $0.id == wallet.id }) else {
 				fatalError("No wallet found with this ID")
@@ -58,6 +58,11 @@ class WalletsViewModel {
 			}
 			saveWalletsInUserDefaults(walletsList)
 		}
+	}
+
+	public func updateWallets() {
+		let wallets = getWalletsFromUserDefaults().compactMap { WalletInfoViewModel(walletInfoModel: $0) }
+		walletsList = wallets
 	}
 
 	// MARK: - Private Methods

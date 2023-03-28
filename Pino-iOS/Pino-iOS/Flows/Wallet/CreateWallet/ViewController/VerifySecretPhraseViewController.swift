@@ -12,6 +12,7 @@ class VerifySecretPhraseViewController: UIViewController {
 
 	public var secretPhraseVM: VerifySecretPhraseViewModel!
 	public var isNewWallet = false
+	public var addedNewWallet: (() -> Void)?
 
 	// MARK: View Overrides
 
@@ -33,10 +34,8 @@ class VerifySecretPhraseViewController: UIViewController {
 
 	private func createWallet(_ sortedPhrase: [String]) {
 		if isNewWallet {
-			UserDefaults.standard.set(true, forKey: "isLogin")
-			let tabBarVC = TabBarViewController()
-			tabBarVC.modalPresentationStyle = .fullScreen
-			present(tabBarVC, animated: true)
+			addedNewWallet!()
+			dismiss(animated: true)
 		} else {
 			// Wallet should be created here
 			// Go to create passcode page
