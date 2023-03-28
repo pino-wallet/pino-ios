@@ -98,9 +98,6 @@ extension AppDelegate {
 		navigationBar.tintColor = .Pino.label
 		navigationBar.overrideUserInterfaceStyle = .light
 		navigationBar.shadowImage = UIImage()
-		let attributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
-		UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: .normal)
-		UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: .highlighted)
 	}
 
 	private func setupLightKeyboardForTextFields() {
