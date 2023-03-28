@@ -29,16 +29,8 @@ public class AssetViewModel: SecurityModeProtocol {
 		assetModel.detail!.name
 	}
     
-    public var hold: BigInt {
-        BigInt(assetModel.hold)!
-    }
-    
-    public var price: Double {
-        
-        let bigPrice = BigInt(assetModel.detail!.price)!
-        let amount = Utilities.formatToPrecision(bigPrice, units: .custom(6), formattingDecimals: 2, decimalSeparator: ".", fallbackToScientific: false)
-
-        return amount.doubleValue!
+    public var price: PriceNumberFormatter {
+        PriceNumberFormatter(value: assetModel.detail!.price)
     }
 
     public var decimal: Int {
@@ -49,23 +41,13 @@ public class AssetViewModel: SecurityModeProtocol {
         BigInt(assetModel.detail!.change24H)!
     }
 
-    public var holdAmount: Double {
-                
-        let amount = Utilities.formatToPrecision(hold, units: .custom(assetModel.detail!.decimals), formattingDecimals: 6, decimalSeparator: ".", fallbackToScientific: true)
-            
-        return Double(amount)!
+    public var holdAmount: HoldNumberFormatter {
+        HoldNumberFormatter(value: assetModel.hold, decimal: decimal)
     }
     
     public var holdAmountInDollar: String {
-        print("\(name)")
-        print("Big:\(holdAmount) | \(BigInt(holdAmount))")
-        print("BigPrice:\(price) | \(BigInt(price))")
-        print("BigxBigPrice:\(BigInt(holdAmount) * BigInt(price))")
-        print("---------------------------------------")
-
-        let amount = holdAmount * price
-        
-        return PercisionCalculate.trimmedValueOf(money: amount)
+        let amount = holdAmount.formattedDoubleValue * price.formattedDoubleValue
+        return NumberPercisionFormatter.trimmedValueOf(money: amount)
     }
     
     
@@ -121,12 +103,11 @@ public class AssetViewModel: SecurityModeProtocol {
 	// MARK: - Private Methods
 
 	private func getFormattedAmount() -> String {
-        return "\(holdAmount) \(assetModel.detail!.symbol)"
-//        return "\(PercisionCalculate.trimmedValueOf(coin: holdAmount)) \(assetModel.detail!.symbol)"
+        return "\(holdAmount.formattedAmount) \(assetModel.detail!.symbol)"
 	}
 
 	private func getFormattedAmountInDollor() -> String {
-        if hold.isZero {
+        if holdAmount.bigValue.isZero {
 			return "-"
 		} else {
 			return "$\(holdAmountInDollar)"
