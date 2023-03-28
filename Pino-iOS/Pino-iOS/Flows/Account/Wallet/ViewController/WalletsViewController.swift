@@ -63,7 +63,7 @@ class WalletsViewController: UIViewController {
 
 	@objc
 	private func openCreateImportWalletPage() {
-		let createImportWalletVC = AddNewWalletViewController()
+		let createImportWalletVC = AddNewWalletViewController(walletsVM: walletVM)
 		navigationController?.pushViewController(createImportWalletVC, animated: true)
 	}
 }

@@ -13,6 +13,7 @@ class ImportSecretPhraseViewController: UIViewController {
 	public var importsecretPhraseView: ImportSecretPhraseView!
 	public var validationSecretPhraseVM: ValidateSecretPhraseViewModel!
 	public var isNewWallet = false
+	public var addedNewWallet: (() -> Void)!
 
 	// MARK: View Overrides
 
@@ -58,10 +59,8 @@ class ImportSecretPhraseViewController: UIViewController {
 
 	private func importWallet() {
 		if isNewWallet {
-			UserDefaults.standard.set(true, forKey: "isLogin")
-			let tabBarVC = TabBarViewController()
-			tabBarVC.modalPresentationStyle = .fullScreen
-			present(tabBarVC, animated: true)
+			addedNewWallet()
+			dismiss(animated: true)
 		} else {
 			// Go to create passcode page
 			let createPasscodeViewController = CreatePasscodeViewController()
