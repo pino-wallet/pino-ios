@@ -23,7 +23,7 @@ class HomepageViewModel {
 	@Published
 	public var securityMode = false
 	@Published
-	public var manageAssetsList: [AssetViewModel]!
+	public var manageAssetsList: [AssetViewModel]! = []
 
 	public let copyToastMessage = "Copied!"
 	public let connectionErrorToastMessage = "No internet connection"
