@@ -37,8 +37,6 @@ class HomepageViewModel {
 
 	private var cancellables = Set<AnyCancellable>()
 
-	#warning("Mock client is temporary and must be replaced by API client")
-	private var assetsAPIClient = AssetsAPIMockClient()
 	private var walletAPIClient = WalletAPIMockClient()
 	private var accountingAPIClient = AccountingAPIClient()
 

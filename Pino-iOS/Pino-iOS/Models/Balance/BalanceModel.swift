@@ -42,9 +42,4 @@ struct Detail: Codable {
 
 typealias BalanceModel = [BalanceAssetModel]
 
-protocol AssetProtocol {
-	var id: String { get }
-	var hold: String { get }
-	var isVerified: Bool { get }
-	var detail: Detail? { get }
-}
+
