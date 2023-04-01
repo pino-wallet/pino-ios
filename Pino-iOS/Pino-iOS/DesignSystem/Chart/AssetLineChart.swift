@@ -9,7 +9,7 @@ import Charts
 import Combine
 import UIKit
 
-class AssetLineChart: UIView {
+class AssetLineChart: UIView, LineChartDelegate {
 	// MARK: - Private Properties
 
 	private let balanceStackview = UIStackView()
@@ -65,6 +65,8 @@ class AssetLineChart: UIView {
 		chartStackView.addArrangedSubview(chartDateFilter)
 		addSubview(chartStackView)
 		addSubview(chartPointer)
+
+		lineChartView.chartDelegate = self
 	}
 
 	private func setupStyle() {
@@ -123,7 +125,7 @@ class AssetLineChart: UIView {
 		chartPointer.isHidden = true
 	}
 
-	public func setupCostraints() {
+	private func setupCostraints() {
 		chartStackView.pin(
 			.horizontalEdges,
 			.top(padding: 16),
@@ -164,7 +166,6 @@ class AssetLineChart: UIView {
 			case .none:
 				self.coinVolatilityPersentage.textColor = .Pino.secondaryLabel
 			}
-
 			self.lineChartView.chartDataEntries = chart.chartDataEntry
 		}.store(in: &cancellables)
 	}
@@ -172,5 +173,13 @@ class AssetLineChart: UIView {
 	@objc
 	private func updateChart(sender: UISegmentedControl) {
 		dateFilterChanged(chartVM.dateFilters[sender.selectedSegmentIndex])
+	}
+
+	internal func valueDidChange(pointValue: Double?) {
+		if let pointValue {
+			coinBalanceLabel.text = "$\(pointValue)"
+		} else {
+			coinBalanceLabel.text = chartVM.balance
+		}
 	}
 }

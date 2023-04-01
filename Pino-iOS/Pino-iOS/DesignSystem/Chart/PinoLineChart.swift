@@ -19,6 +19,7 @@ class PinoLineChart: LineChartView {
 
 	@Published
 	public var chartDataEntries: [ChartDataEntry]
+	public weak var chartDelegate: LineChartDelegate?
 
 	// MARK: Initializers
 
@@ -72,6 +73,9 @@ class PinoLineChart: LineChartView {
 		pinchZoomEnabled = false
 		setScaleEnabled(false)
 
+		highlightPerDragEnabled = false
+		highlightPerTapEnabled = false
+
 		let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressDetected))
 		longPressGesture.allowableMovement = 50
 		longPressGesture.delegate = self
@@ -109,7 +113,15 @@ class PinoLineChart: LineChartView {
 
 	@objc
 	private func longPressDetected(gesture: UILongPressGestureRecognizer) {
-		guard let point = getHighlightByTouchPoint(gesture.location(in: self)) else { return }
-		highlightValue(x: point.x, dataSetIndex: point.dataSetIndex)
+		let point: Highlight?
+		if gesture.state == .ended {
+			point = nil
+		} else {
+			point = getHighlightByTouchPoint(gesture.location(in: self))
+		}
+		highlightValue(point)
+		if let chartDelegate {
+			chartDelegate.valueDidChange(pointValue: point?.y)
+		}
 	}
 }
