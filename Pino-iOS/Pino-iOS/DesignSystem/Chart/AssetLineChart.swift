@@ -157,14 +157,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 			self.coinBalanceLabel.text = chart.balance
 			self.coinVolatilityPersentage.text = chart.volatilityPercentage
 			self.dateLabel.text = chart.chartDate
-			switch chart.volatilityType {
-			case .profit:
-				self.coinVolatilityPersentage.textColor = .Pino.green
-			case .loss:
-				self.coinVolatilityPersentage.textColor = .Pino.red
-			case .none:
-				self.coinVolatilityPersentage.textColor = .Pino.secondaryLabel
-			}
+			self.updateVolatilityColor(type: chart.volatilityType)
 			self.lineChartView.chartDataEntries = chart.chartDataEntry
 		}.store(in: &cancellables)
 	}
@@ -174,32 +167,38 @@ class AssetLineChart: UIView, LineChartDelegate {
 		dateFilterChanged(chartVM.dateFilters[sender.selectedSegmentIndex])
 	}
 
-	internal func valueDidChange(pointValue: Double?, valueChangePercentage: Double?) {
-		var volatilityType: AssetVolatilityType
-		if let pointValue, let valueChangePercentage {
-			let formattedPointValue = "$\(pointValue)"
-			var formattedValueChange = "\(String(format: "%.2f", valueChangePercentage))%"
-			if valueChangePercentage >= 0 {
-				formattedValueChange = "+\(formattedValueChange)"
-				volatilityType = .profit
-			} else {
-				volatilityType = .loss
-			}
-			coinVolatilityPersentage.text = formattedValueChange
-			coinBalanceLabel.text = formattedPointValue
+	private func updateVolatility(_ valueChangePercentage: Double) {
+		var formattedVolatolity = "\(String(format: "%.2f", valueChangePercentage))%"
+		if valueChangePercentage > 0 {
+			updateVolatilityColor(type: .profit)
+			formattedVolatolity = "+\(formattedVolatolity)"
+		} else if valueChangePercentage < 0 {
+			updateVolatilityColor(type: .loss)
 		} else {
-			coinBalanceLabel.text = chartVM.balance
-			coinVolatilityPersentage.text = chartVM.volatilityPercentage
-			volatilityType = chartVM.volatilityType
+			updateVolatilityColor(type: .none)
 		}
+		coinVolatilityPersentage.text = formattedVolatolity
+	}
 
-		switch volatilityType {
+	private func updateVolatilityColor(type: AssetVolatilityType) {
+		switch type {
 		case .profit:
 			coinVolatilityPersentage.textColor = .Pino.green
 		case .loss:
 			coinVolatilityPersentage.textColor = .Pino.red
 		case .none:
 			coinVolatilityPersentage.textColor = .Pino.secondaryLabel
+		}
+	}
+
+	internal func valueDidChange(pointValue: Double?, valueChangePercentage: Double?) {
+		if let pointValue, let valueChangePercentage {
+			coinBalanceLabel.text = "$\(pointValue)"
+			updateVolatility(valueChangePercentage)
+		} else {
+			coinBalanceLabel.text = chartVM.balance
+			coinVolatilityPersentage.text = chartVM.volatilityPercentage
+			updateVolatilityColor(type: chartVM.volatilityType)
 		}
 	}
 }
