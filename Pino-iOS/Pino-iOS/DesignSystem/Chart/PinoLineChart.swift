@@ -106,14 +106,24 @@ class PinoLineChart: LineChartView {
 	@objc
 	private func longPressDetected(gesture: UILongPressGestureRecognizer) {
 		let point: Highlight?
+		let valueChange: Double?
 		if gesture.state == .ended {
 			point = nil
+			valueChange = nil
 		} else {
 			point = getHighlightByTouchPoint(gesture.location(in: self))
+			let pointData = ChartDataEntry(x: point!.x, y: point!.y)
+			if let pointIndex = chartDataEntries.firstIndex(of: pointData), pointIndex > 0 {
+				let selectedPointValue = point!.y
+				let previousPointValue = chartDataEntries[pointIndex - 1].y
+				valueChange = ((selectedPointValue - previousPointValue) / previousPointValue) * 100
+			} else {
+				valueChange = 0
+			}
 		}
 		highlightValue(point)
 		if let chartDelegate {
-			chartDelegate.valueDidChange(pointValue: point?.y)
+			chartDelegate.valueDidChange(pointValue: point?.y, valueChangePercentage: valueChange)
 		}
 	}
 }

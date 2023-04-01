@@ -7,6 +7,7 @@
 
 import Charts
 import Combine
+import Foundation
 import UIKit
 
 class AssetLineChart: UIView, LineChartDelegate {
@@ -54,7 +55,6 @@ class AssetLineChart: UIView, LineChartDelegate {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		volatilityStackView.addArrangedSubview(coinVolatilityInDollor)
 		volatilityStackView.addArrangedSubview(coinVolatilityPersentage)
 		balanceStackview.addArrangedSubview(coinBalanceLabel)
 		balanceStackview.addArrangedSubview(volatilityStackView)
@@ -156,7 +156,6 @@ class AssetLineChart: UIView, LineChartDelegate {
 		$chartVM.sink { chart in
 			self.coinBalanceLabel.text = chart.balance
 			self.coinVolatilityPersentage.text = chart.volatilityPercentage
-			self.coinVolatilityInDollor.text = chart.volatilityInDollor
 			self.dateLabel.text = chart.chartDate
 			switch chart.volatilityType {
 			case .profit:
@@ -175,11 +174,32 @@ class AssetLineChart: UIView, LineChartDelegate {
 		dateFilterChanged(chartVM.dateFilters[sender.selectedSegmentIndex])
 	}
 
-	internal func valueDidChange(pointValue: Double?) {
-		if let pointValue {
-			coinBalanceLabel.text = "$\(pointValue)"
+	internal func valueDidChange(pointValue: Double?, valueChangePercentage: Double?) {
+		var volatilityType: AssetVolatilityType
+		if let pointValue, let valueChangePercentage {
+			let formattedPointValue = "$\(pointValue)"
+			var formattedValueChange = "\(String(format: "%.2f", valueChangePercentage))%"
+			if valueChangePercentage >= 0 {
+				formattedValueChange = "+\(formattedValueChange)"
+				volatilityType = .profit
+			} else {
+				volatilityType = .loss
+			}
+			coinVolatilityPersentage.text = formattedValueChange
+			coinBalanceLabel.text = formattedPointValue
 		} else {
 			coinBalanceLabel.text = chartVM.balance
+			coinVolatilityPersentage.text = chartVM.volatilityPercentage
+			volatilityType = chartVM.volatilityType
+		}
+
+		switch volatilityType {
+		case .profit:
+			coinVolatilityPersentage.textColor = .Pino.green
+		case .loss:
+			coinVolatilityPersentage.textColor = .Pino.red
+		case .none:
+			coinVolatilityPersentage.textColor = .Pino.secondaryLabel
 		}
 	}
 }
