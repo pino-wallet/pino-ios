@@ -80,14 +80,6 @@ class PinoLineChart: LineChartView {
 		longPressGesture.allowableMovement = 50
 		longPressGesture.delegate = self
 		addGestureRecognizer(longPressGesture)
-
-		let marker = BalloonMarker(
-			color: .Pino.green1,
-			font: .PinoStyle.mediumFootnote!,
-			textColor: .Pino.primary
-		)
-		marker.chartView = self
-		self.marker = marker
 	}
 
 	private func updateChartView() {
