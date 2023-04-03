@@ -32,16 +32,18 @@ class ReceiveAssetViewController: UIViewController {
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
-		qrCodeLoadingIndicator.isHidden = true
-		let qrCode = homeVM.walletInfo.address
-		addressQrCodeWebView.evaluateJavaScript(
-			"generateAndShowQRCode('\(qrCode)')",
-			completionHandler: { result, error in
-				guard error == nil else {
-					fatalError("cant generate qrCode")
+		if isBeingPresented || isMovingToParent {
+			qrCodeLoadingIndicator.isHidden = true
+			let qrCode = homeVM.walletInfo.address
+			addressQrCodeWebView.evaluateJavaScript(
+				"generateAndShowQRCode('\(qrCode)')",
+				completionHandler: { result, error in
+					guard error == nil else {
+						fatalError("cant generate qrCode")
+					}
 				}
-			}
-		)
+			)
+		}
 	}
 
 	// MARK: - Initializers
