@@ -19,6 +19,7 @@ class PinoLineChart: LineChartView {
 
 	@Published
 	public var chartDataEntries: [ChartDataEntry]
+	public weak var chartDelegate: LineChartDelegate?
 
 	// MARK: Initializers
 
@@ -72,18 +73,13 @@ class PinoLineChart: LineChartView {
 		pinchZoomEnabled = false
 		setScaleEnabled(false)
 
+		highlightPerDragEnabled = false
+		highlightPerTapEnabled = false
+
 		let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressDetected))
 		longPressGesture.allowableMovement = 50
 		longPressGesture.delegate = self
 		addGestureRecognizer(longPressGesture)
-
-		let marker = BalloonMarker(
-			color: .Pino.green1,
-			font: .PinoStyle.mediumFootnote!,
-			textColor: .Pino.primary
-		)
-		marker.chartView = self
-		self.marker = marker
 	}
 
 	private func updateChartView() {
@@ -109,7 +105,41 @@ class PinoLineChart: LineChartView {
 
 	@objc
 	private func longPressDetected(gesture: UILongPressGestureRecognizer) {
-		guard let point = getHighlightByTouchPoint(gesture.location(in: self)) else { return }
-		highlightValue(x: point.x, dataSetIndex: point.dataSetIndex)
+		if gesture.state == .ended {
+			updateHighlightValue(selectedPoint: nil)
+		} else {
+			guard let selectedPoint = getHighlightByTouchPoint(gesture.location(in: self)) else { return }
+			updateHighlightValue(selectedPoint: selectedPoint)
+		}
+	}
+
+	private func updateHighlightValue(selectedPoint: Highlight?) {
+		highlightValue(selectedPoint)
+		if let selectedPoint {
+			let previousPoint = getPreviousPoint(point: selectedPoint)
+			let valueChange = getValueChangePercentage(selectedPoint: selectedPoint, previousPoint: previousPoint)
+			chartDelegate?.valueDidChange(pointValue: selectedPoint.y, valueChangePercentage: valueChange)
+		} else {
+			chartDelegate?.valueDidChange(pointValue: nil, valueChangePercentage: nil)
+		}
+	}
+
+	private func getPreviousPoint(point: Highlight) -> ChartDataEntry? {
+		let pointData = ChartDataEntry(x: point.x, y: point.y)
+		if let pointIndex = chartDataEntries.firstIndex(of: pointData), pointIndex > 0 {
+			let previousPoint = chartDataEntries[pointIndex - 1]
+			return previousPoint
+		} else {
+			return nil
+		}
+	}
+
+	private func getValueChangePercentage(selectedPoint: Highlight, previousPoint: ChartDataEntry?) -> Double {
+		let selectedPointValue = selectedPoint.y
+		if let previousPointValue = previousPoint?.y, previousPointValue != 0 {
+			return ((selectedPointValue - previousPointValue) / previousPointValue) * 100
+		} else {
+			return 0
+		}
 	}
 }

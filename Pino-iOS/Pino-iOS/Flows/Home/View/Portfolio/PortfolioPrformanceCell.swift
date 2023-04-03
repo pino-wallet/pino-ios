@@ -53,12 +53,12 @@ class PortfolioPerformanceCell: GroupCollectionViewCell {
 		assetImage.image = UIImage(named: assetVM.assetImage)
 
 		progressView.setProgress(assetVM.progressBarValue, animated: false)
-		progressView.progressTintColor = .Pino.green
+		progressView.progressTintColor = .Pino.secondaryLabel
 		progressView.trackTintColor = .Pino.clear
 
 		assetName.textColor = .Pino.label
 		assetAmount.textColor = .Pino.label
-		assetAmountPercentage.textColor = .Pino.green
+		assetAmountPercentage.textColor = .Pino.secondaryLabel
 
 		assetName.font = .PinoStyle.mediumCallout
 		assetAmount.font = .PinoStyle.mediumCallout

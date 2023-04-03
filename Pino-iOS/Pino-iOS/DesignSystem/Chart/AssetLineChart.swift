@@ -7,9 +7,10 @@
 
 import Charts
 import Combine
+import Foundation
 import UIKit
 
-class AssetLineChart: UIView {
+class AssetLineChart: UIView, LineChartDelegate {
 	// MARK: - Private Properties
 
 	private let balanceStackview = UIStackView()
@@ -54,7 +55,6 @@ class AssetLineChart: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		volatilityStackView.addArrangedSubview(coinVolatilityInDollor)
 		volatilityStackView.addArrangedSubview(coinVolatilityPersentage)
 		balanceStackview.addArrangedSubview(coinBalanceLabel)
 		balanceStackview.addArrangedSubview(volatilityStackView)
@@ -65,6 +65,8 @@ class AssetLineChart: UIView {
 		chartStackView.addArrangedSubview(chartDateFilter)
 		addSubview(chartStackView)
 		addSubview(chartPointer)
+
+		lineChartView.chartDelegate = self
 	}
 
 	private func setupStyle() {
@@ -123,7 +125,7 @@ class AssetLineChart: UIView {
 		chartPointer.isHidden = true
 	}
 
-	public func setupCostraints() {
+	private func setupCostraints() {
 		chartStackView.pin(
 			.horizontalEdges,
 			.top(padding: 16),
@@ -154,17 +156,8 @@ class AssetLineChart: UIView {
 		$chartVM.sink { chart in
 			self.coinBalanceLabel.text = chart.balance
 			self.coinVolatilityPersentage.text = chart.volatilityPercentage
-			self.coinVolatilityInDollor.text = chart.volatilityInDollor
 			self.dateLabel.text = chart.chartDate
-			switch chart.volatilityType {
-			case .profit:
-				self.coinVolatilityPersentage.textColor = .Pino.green
-			case .loss:
-				self.coinVolatilityPersentage.textColor = .Pino.red
-			case .none:
-				self.coinVolatilityPersentage.textColor = .Pino.secondaryLabel
-			}
-
+			self.updateVolatilityColor(type: chart.volatilityType)
 			self.lineChartView.chartDataEntries = chart.chartDataEntry
 		}.store(in: &cancellables)
 	}
@@ -172,5 +165,44 @@ class AssetLineChart: UIView {
 	@objc
 	private func updateChart(sender: UISegmentedControl) {
 		dateFilterChanged(chartVM.dateFilters[sender.selectedSegmentIndex])
+	}
+
+	private func updateVolatility(_ valueChangePercentage: Double) {
+		var formattedVolatolity = "\(String(format: "%.2f", valueChangePercentage))%"
+		if valueChangePercentage > 0 {
+			updateVolatilityColor(type: .profit)
+			formattedVolatolity = "+\(formattedVolatolity)"
+		} else if valueChangePercentage < 0 {
+			updateVolatilityColor(type: .loss)
+		} else {
+			updateVolatilityColor(type: .none)
+		}
+		coinVolatilityPersentage.text = formattedVolatolity
+	}
+
+	private func updateVolatilityColor(type: AssetVolatilityType) {
+		switch type {
+		case .profit:
+			coinVolatilityPersentage.textColor = .Pino.green
+		case .loss:
+			coinVolatilityPersentage.textColor = .Pino.red
+		case .none:
+			coinVolatilityPersentage.textColor = .Pino.secondaryLabel
+		}
+	}
+
+	internal func valueDidChange(pointValue: Double?, valueChangePercentage: Double?) {
+		if let pointValue {
+			coinBalanceLabel.text = "$\(pointValue)"
+		} else {
+			coinBalanceLabel.text = chartVM.balance
+		}
+
+		if let valueChangePercentage {
+			updateVolatility(valueChangePercentage)
+		} else {
+			coinVolatilityPersentage.text = chartVM.volatilityPercentage
+			updateVolatilityColor(type: chartVM.volatilityType)
+		}
 	}
 }
