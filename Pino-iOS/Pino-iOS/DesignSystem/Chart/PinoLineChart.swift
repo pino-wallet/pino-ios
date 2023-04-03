@@ -105,25 +105,41 @@ class PinoLineChart: LineChartView {
 
 	@objc
 	private func longPressDetected(gesture: UILongPressGestureRecognizer) {
-		let point: Highlight?
-		let valueChange: Double?
 		if gesture.state == .ended {
-			point = nil
-			valueChange = nil
+			updateHighlightValue(selectedPoint: nil)
 		} else {
-			point = getHighlightByTouchPoint(gesture.location(in: self))
-			let pointData = ChartDataEntry(x: point!.x, y: point!.y)
-			if let pointIndex = chartDataEntries.firstIndex(of: pointData), pointIndex > 0 {
-				let selectedPointValue = point!.y
-				let previousPointValue = chartDataEntries[pointIndex - 1].y
-				valueChange = ((selectedPointValue - previousPointValue) / previousPointValue) * 100
-			} else {
-				valueChange = 0
-			}
+			guard let selectedPoint = getHighlightByTouchPoint(gesture.location(in: self)) else { return }
+			updateHighlightValue(selectedPoint: selectedPoint)
 		}
-		highlightValue(point)
-		if let chartDelegate {
-			chartDelegate.valueDidChange(pointValue: point?.y, valueChangePercentage: valueChange)
+	}
+
+	private func updateHighlightValue(selectedPoint: Highlight?) {
+		highlightValue(selectedPoint)
+		if let selectedPoint {
+			let previousPoint = getPreviousPoint(point: selectedPoint)
+			let valueChange = getValueChangePercentage(selectedPoint: selectedPoint, previousPoint: previousPoint)
+			chartDelegate?.valueDidChange(pointValue: selectedPoint.y, valueChangePercentage: valueChange)
+		} else {
+			chartDelegate?.valueDidChange(pointValue: nil, valueChangePercentage: nil)
+		}
+	}
+
+	private func getPreviousPoint(point: Highlight) -> ChartDataEntry? {
+		let pointData = ChartDataEntry(x: point.x, y: point.y)
+		if let pointIndex = chartDataEntries.firstIndex(of: pointData), pointIndex > 0 {
+			let previousPoint = chartDataEntries[pointIndex - 1]
+			return previousPoint
+		} else {
+			return nil
+		}
+	}
+
+	private func getValueChangePercentage(selectedPoint: Highlight, previousPoint: ChartDataEntry?) -> Double {
+		let selectedPointValue = selectedPoint.y
+		if let previousPointValue = previousPoint?.y, previousPointValue != 0 {
+			return ((selectedPointValue - previousPointValue) / previousPointValue) * 100
+		} else {
+			return 0
 		}
 	}
 }

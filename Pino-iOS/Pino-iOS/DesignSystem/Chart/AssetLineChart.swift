@@ -192,11 +192,15 @@ class AssetLineChart: UIView, LineChartDelegate {
 	}
 
 	internal func valueDidChange(pointValue: Double?, valueChangePercentage: Double?) {
-		if let pointValue, let valueChangePercentage {
+		if let pointValue {
 			coinBalanceLabel.text = "$\(pointValue)"
-			updateVolatility(valueChangePercentage)
 		} else {
 			coinBalanceLabel.text = chartVM.balance
+		}
+
+		if let valueChangePercentage {
+			updateVolatility(valueChangePercentage)
+		} else {
 			coinVolatilityPersentage.text = chartVM.volatilityPercentage
 			updateVolatilityColor(type: chartVM.volatilityType)
 		}
