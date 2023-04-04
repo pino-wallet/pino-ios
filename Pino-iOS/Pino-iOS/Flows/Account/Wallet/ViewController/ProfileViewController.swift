@@ -75,8 +75,11 @@ class ProfileViewController: UIViewController {
 	private func openSettingDetail(settingVM: SettingsViewModel) {
 		switch settingVM {
 		case .wallets:
-			let WalletsVC = WalletsViewController(walletVM: walletsVM)
-			navigationController?.pushViewController(WalletsVC, animated: true)
+			let walletsVC = WalletsViewController(walletVM: walletsVM)
+			navigationController?.pushViewController(walletsVC, animated: true)
+		case .securityLock:
+			let securityLockVC = SecurityLockViewController()
+			navigationController?.pushViewController(securityLockVC, animated: true)
 		case .recoverPhrase:
 			let recoverPhraseVC = RecoveryPhraseViewController()
 			navigationController?.pushViewController(recoverPhraseVC, animated: true)
