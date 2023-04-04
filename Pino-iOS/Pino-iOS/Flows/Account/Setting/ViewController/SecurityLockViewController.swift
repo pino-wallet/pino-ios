@@ -45,6 +45,7 @@ class SecurityLockViewController: UIViewController {
 			message: "",
 			preferredStyle: .actionSheet
 		)
+		lockSelectMethodAlert.overrideUserInterfaceStyle = .light
 		lockSelectMethodAlert
 			.addAction(UIAlertAction(title: securityLockVM.alertCancelButtonTitle, style: .cancel, handler: nil))
 

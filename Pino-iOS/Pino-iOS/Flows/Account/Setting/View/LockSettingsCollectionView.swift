@@ -96,7 +96,7 @@ extension LockSettingsCollectionView: UICollectionViewDataSource {
 			for: indexPath
 		) as! CustomSwitchCollectionViewCell
 		cell
-			.customSwitchCollectionCiewCellVM = LockSettingViewModel(
+			.customSwitchCollectionViewCellVM = LockSettingViewModel(
 				lockSettingOption: securityLockVM
 					.lockSettings[indexPath.item]
 			)

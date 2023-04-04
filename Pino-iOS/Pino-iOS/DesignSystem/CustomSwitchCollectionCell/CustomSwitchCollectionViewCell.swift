@@ -31,10 +31,11 @@ class CustomSwitchCollectionViewCell: UICollectionViewCell {
 
 	// MARK: - Public Properties
 
-	public var customSwitchCollectionCiewCellVM: CustomSwitchCollectionCellVM! {
+	public var customSwitchCollectionViewCellVM: CustomSwitchCollectionCellVM! {
 		didSet {
 			setupView()
 			setupConstraints()
+			setupStyle()
 		}
 	}
 
@@ -46,37 +47,16 @@ class CustomSwitchCollectionViewCell: UICollectionViewCell {
 
 	public static let cellReuseID = "CustomSwitchCollectionViewCell"
 
-	// MARK: - Private Properties
+	// MARK: - Private Methods
 
 	private func setupView() {
 		contentView.addSubview(mainStackView)
-		contentView.layer.cornerRadius = 8
-		contentView.layer.maskedCorners = []
-		contentView.backgroundColor = .Pino.white
 		contentView.addSubview(topBorderView)
 
-		topBorderView.backgroundColor = .Pino.gray3
-		topBorderView.isHidden = true
-
-		mainStackView.axis = .horizontal
-		mainStackView.alignment = .center
-
-		titleLabel.text = customSwitchCollectionCiewCellVM.title
-
-		switcher.onTintColor = .Pino.green3
-		switcher.isOn = customSwitchCollectionCiewCellVM.isSelected
+		switcher.isOn = customSwitchCollectionViewCellVM.isSelected
 		switcher.addTarget(self, action: #selector(onSwitcherChange), for: .valueChanged)
 
-		tooltipImageView.setImage(UIImage(named: "alert"), for: .normal)
-		tooltipImageView.isHidden = true
-		if customSwitchCollectionCiewCellVM.tooltipText != nil {
-			tooltipImageView.isHidden = false
-		}
-
 		tooltipImageView.addTarget(self, action: #selector(onTooltipTap), for: .touchUpInside)
-
-		infoStackView.axis = .horizontal
-		infoStackView.spacing = 1
 
 		infoStackView.addArrangedSubview(titleLabel)
 		infoStackView.addArrangedSubview(tooltipImageView)
@@ -91,6 +71,32 @@ class CustomSwitchCollectionViewCell: UICollectionViewCell {
 		mainStackView.pin(.verticalEdges(padding: 8.5), .horizontalEdges(padding: 16))
 		topBorderView.pin(.fixedHeight(0.5), .top(padding: 0), .leading(padding: 16), .trailing(padding: 0))
 		tooltipImageView.pin(.fixedWidth(16), .fixedHeight(16))
+	}
+
+	private func setupStyle() {
+		contentView.layer.cornerRadius = 8
+		contentView.layer.maskedCorners = []
+		contentView.backgroundColor = .Pino.white
+
+		topBorderView.backgroundColor = .Pino.gray3
+		topBorderView.isHidden = true
+
+		mainStackView.axis = .horizontal
+		mainStackView.alignment = .center
+
+		titleLabel.text = customSwitchCollectionViewCellVM.title
+
+		switcher.onTintColor = .Pino.green3
+
+		tooltipImageView.isHidden = true
+		if customSwitchCollectionViewCellVM.tooltipText != nil {
+			tooltipImageView.isHidden = false
+		}
+
+		infoStackView.axis = .horizontal
+		infoStackView.spacing = 1
+
+		tooltipImageView.setImage(UIImage(named: "alert"), for: .normal)
 	}
 
 	private func showTopBorder() {
@@ -121,11 +127,11 @@ class CustomSwitchCollectionViewCell: UICollectionViewCell {
 
 	@objc
 	private func onSwitcherChange() {
-		switchValueClosure(switcher.isOn, customSwitchCollectionCiewCellVM.type)
+		switchValueClosure(switcher.isOn, customSwitchCollectionViewCellVM.type)
 	}
 
 	@objc
 	private func onTooltipTap() {
-		onTooltipTapClosure(customSwitchCollectionCiewCellVM.tooltipText)
+		onTooltipTapClosure(customSwitchCollectionViewCellVM.tooltipText)
 	}
 }

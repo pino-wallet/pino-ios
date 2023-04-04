@@ -18,6 +18,7 @@ class LockSettingsHeaderCollectionReusableView: UICollectionReusableView {
 		didSet {
 			setupView()
 			setupConstraints()
+			setupStyle()
 		}
 	}
 
@@ -37,8 +38,6 @@ class LockSettingsHeaderCollectionReusableView: UICollectionReusableView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		backgroundColor = .Pino.background
-
 		addSubview(changeLockMethodView)
 		addSubview(lockSettingsTitleLabel)
 
@@ -47,6 +46,26 @@ class LockSettingsHeaderCollectionReusableView: UICollectionReusableView {
 			action: #selector(openSelectLockMethodModal)
 		)
 		changeLockMethodView.addGestureRecognizer(openSelectLockMethodGesture)
+
+		selectedLockMethodStackView.addArrangedSubview(selectedLockMethodLabel)
+		selectedLockMethodStackView.addArrangedSubview(changeLockMethodDetailIcon)
+
+		changeLockMethodStackView.addArrangedSubview(changeLockMethodTitleLabel)
+		changeLockMethodStackView.addArrangedSubview(changeLockMethodBetweenStackview)
+		changeLockMethodStackView.addArrangedSubview(selectedLockMethodStackView)
+
+		changeLockMethodView.addSubview(changeLockMethodStackView)
+	}
+
+	private func setupConstraints() {
+		changeLockMethodView.pin(.top(padding: 24), .horizontalEdges(padding: 16), .fixedHeight(48))
+		changeLockMethodStackView.pin(.leading(padding: 16), .trailing(padding: 8), .centerY())
+		changeLockMethodDetailIcon.pin(.fixedHeight(24), .fixedWidth(24))
+		lockSettingsTitleLabel.pin(.leading(padding: 16), .bottom(padding: 8))
+	}
+
+	private func setupStyle() {
+		backgroundColor = .Pino.background
 
 		changeLockMethodView.backgroundColor = .Pino.white
 		changeLockMethodView.layer.cornerRadius = 7
@@ -65,22 +84,8 @@ class LockSettingsHeaderCollectionReusableView: UICollectionReusableView {
 
 		selectedLockMethodStackView.axis = .horizontal
 		selectedLockMethodStackView.spacing = 2
-		selectedLockMethodStackView.addArrangedSubview(selectedLockMethodLabel)
-		selectedLockMethodStackView.addArrangedSubview(changeLockMethodDetailIcon)
 
 		changeLockMethodStackView.axis = .horizontal
-		changeLockMethodStackView.addArrangedSubview(changeLockMethodTitleLabel)
-		changeLockMethodStackView.addArrangedSubview(changeLockMethodBetweenStackview)
-		changeLockMethodStackView.addArrangedSubview(selectedLockMethodStackView)
-
-		changeLockMethodView.addSubview(changeLockMethodStackView)
-	}
-
-	private func setupConstraints() {
-		changeLockMethodView.pin(.top(padding: 24), .horizontalEdges(padding: 16), .fixedHeight(48))
-		changeLockMethodStackView.pin(.leading(padding: 16), .trailing(padding: 8), .centerY())
-		changeLockMethodDetailIcon.pin(.fixedHeight(24), .fixedWidth(24))
-		lockSettingsTitleLabel.pin(.leading(padding: 16), .bottom(padding: 8))
 	}
 
 	@objc

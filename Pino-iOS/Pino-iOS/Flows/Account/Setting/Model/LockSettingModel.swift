@@ -7,13 +7,13 @@
 
 struct LockSettingModel {
 	public let title: String
-	public let type: type
+	public let type: LockType
 	public let isSelected: Bool
 }
 
 extension LockSettingModel {
-	public enum type: String {
-		case on_transactions = "on_transactions"
-		case immediately = "immediately"
+	public enum LockType: String {
+		case on_transactions
+		case immediately
 	}
 }

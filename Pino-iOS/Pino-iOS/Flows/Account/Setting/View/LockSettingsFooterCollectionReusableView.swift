@@ -14,6 +14,7 @@ class LockSettingsFooterCollectionReusableView: UICollectionReusableView {
 		didSet {
 			setupView()
 			setupConstraints()
+			setupStyle()
 		}
 	}
 
@@ -26,12 +27,15 @@ class LockSettingsFooterCollectionReusableView: UICollectionReusableView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		lockSettingsFooterLaebl.text = securityLockVM.lockSettingsFooterTitle
-		lockSettingsFooterLaebl.font = .PinoStyle.mediumSubheadline
 		addSubview(lockSettingsFooterLaebl)
 	}
 
 	private func setupConstraints() {
-		lockSettingsFooterLaebl.pin(.leading(padding: 32), .top(padding: 10))
+		lockSettingsFooterLaebl.pin(.leading(padding: 32), .top(padding: 10), .trailing(padding: 0))
+	}
+
+	private func setupStyle() {
+		lockSettingsFooterLaebl.text = securityLockVM.lockSettingsFooterTitle
+		lockSettingsFooterLaebl.font = .PinoStyle.mediumSubheadline
 	}
 }

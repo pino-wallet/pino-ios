@@ -7,12 +7,12 @@
 
 struct LockMethodModel {
 	public let title: String
-	public let type: type
+	public let type: LockMethodType
 }
 
 extension LockMethodModel {
-	public enum type: String {
-		case face_id = "face_id"
-		case passcode = "passcode"
+	public enum LockMethodType: String {
+		case face_id
+		case passcode
 	}
 }
