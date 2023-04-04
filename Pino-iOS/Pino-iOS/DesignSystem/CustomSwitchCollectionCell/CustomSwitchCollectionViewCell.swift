@@ -11,13 +11,13 @@ class CustomSwitchCollectionViewCell: UICollectionViewCell {
 	// MARK: - Typealiases
 
 	typealias manageIndexType = (cellIndex: Int, cellsCount: Int)
-	typealias switchValueClosure = (_ isOn: Bool, _ type: String) -> Void
-	typealias onTooltipTapClosure = (_ tooltipText: String) -> Void
+	typealias switchValueClosureType = (_ isOn: Bool, _ type: String) -> Void
+	typealias onTooltipTapClosureType = (_ tooltipText: String) -> Void
 
 	// MARK: - Closures
 
-	public var switchValueClosure: switchValueClosure!
-	public var onTooltipTapClosure: onTooltipTapClosure!
+	public var switchValueClosure: switchValueClosureType! = { isOn, type in }
+	public var onTooltipTapClosure: onTooltipTapClosureType! = { tooltipText in }
 
 	// MARK: - Private Properties
 
