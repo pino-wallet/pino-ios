@@ -8,7 +8,7 @@
 import Foundation
 
 enum AccountingEndpoint: EndpointType {
-    #warning("Temporary address to test the api")
+	#warning("Temporary address to test the api")
 	static let accountADD = "0x81Ad046aE9a7Ad56092fa7A7F09A04C82064e16C"
 
 	// MARK: - Cases

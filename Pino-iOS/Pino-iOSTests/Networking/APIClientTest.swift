@@ -14,7 +14,7 @@ import XCTest
 final class APIClientTest: XCTestCase {
 	// MARK: - Private Properties
 
-	private var apiClient: UsersAPIClient!
+	private var apiClient: AccountingAPIClient!
 	private var subscriptions: Set<AnyCancellable> = []
 	private var stubsDescriptors: [HTTPStubsDescriptor] = []
 
@@ -22,7 +22,7 @@ final class APIClientTest: XCTestCase {
 
 	override func setUpWithError() throws {
 		// Put setup code here. This method is called before the invocation of each test method in the class.
-		apiClient = UsersAPIClient()
+		apiClient = AccountingAPIClient()
 	}
 
 	override func tearDownWithError() throws {
@@ -55,7 +55,7 @@ final class APIClientTest: XCTestCase {
 
 		let expectation = expectation(description: "Fetch transactions")
 
-		apiClient.users().sink(receiveCompletion: { completion in
+		apiClient.userBalance().sink(receiveCompletion: { completion in
 			switch completion {
 			case .finished:
 				if !statusCode.isSuccess {

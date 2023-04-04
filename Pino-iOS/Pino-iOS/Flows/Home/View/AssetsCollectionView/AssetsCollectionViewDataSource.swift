@@ -11,11 +11,11 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 	// MARK: - CollectionView DataSource Methods
 
 	internal func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if homeVM.positionAssetsList.isEmpty {
-                return 1
-        } else {
-                return 2
-        }
+		if homeVM.positionAssetsList.isEmpty {
+			return 1
+		} else {
+			return 2
+		}
 	}
 
 	internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

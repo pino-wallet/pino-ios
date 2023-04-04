@@ -20,6 +20,16 @@ class HomepageViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		let num1 = NumberType(number: 127_892, decimal: 1)
+		let num2 = NumberType(number: 340_001, decimal: 2)
+
+		// 580184
+		print(num1.whole)
+		print(num1.fraction)
+
+		print(num2.whole)
+		print(num2.fraction)
 	}
 
 	override func viewDidLayoutSubviews() {

@@ -8,8 +8,8 @@
 import Foundation
 
 protocol AssetProtocol {
-    var id: String { get }
-    var hold: String { get }
-    var isVerified: Bool { get }
-    var detail: Detail? { get }
+	var id: String { get }
+	var hold: String { get }
+	var isVerified: Bool { get }
+	var detail: Detail? { get }
 }

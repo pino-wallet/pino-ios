@@ -81,7 +81,19 @@
 		3D47F14ECA2A8CAE61061F57 /* PPPangramSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DEF9234B1A724D51BE836376 /* PPPangramSans-LightItalic.ttf */; };
 		3E5FFA532C0440149913FE32 /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA73CCD58C583E964396CF7 /* Encodable+Extension.swift */; };
 		3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6922A1FD91EE9D2DAF8D928 /* AccountingEndpoint.swift */; };
-		4068FE7429D31C530095CD7F /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 4068FE7329D31C530095CD7F /* BigInt */; };
+		4040BD8C29DB05E50075572A /* NumberTypeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4040BD8B29DB05E50075572A /* NumberTypeTest.swift */; };
+		4040BD8F29DB06160075572A /* BigNumberGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4040BD8E29DB06160075572A /* BigNumberGenerator.swift */; };
+		4040BD9529DB0A7E0075572A /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 4040BD9429DB0A7E0075572A /* BigInt */; };
+		4040BD9F29DB11FD0075572A /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = 4040BD9E29DB11FD0075572A /* OHHTTPStubs */; };
+		4040BDA129DB11FD0075572A /* OHHTTPStubsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4040BDA029DB11FD0075572A /* OHHTTPStubsSwift */; };
+		4040BDA329DB12AA0075572A /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = 4040BDA229DB12AA0075572A /* OHHTTPStubs */; };
+		4040BDA529DB12AA0075572A /* OHHTTPStubsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4040BDA429DB12AA0075572A /* OHHTTPStubsSwift */; };
+		4040BDA729DB12D00075572A /* web3swift in Frameworks */ = {isa = PBXBuildFile; productRef = 4040BDA629DB12D00075572A /* web3swift */; };
+		4040BDA929DB12D00075572A /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 4040BDA829DB12D00075572A /* BigInt */; };
+		4040BDAA29DB13210075572A /* StatusCode+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422ABB90CBB3565389FAB0E3 /* StatusCode+Helper.swift */; };
+		4040BDAC29DB1BEA0075572A /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4040BDAB29DB1BEA0075572A /* Double+Extension.swift */; };
+		4040BDAE29DC920B0075572A /* BigInt+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4040BDAD29DC920A0075572A /* BigInt+Extension.swift */; };
+		4040BDB029DC93220075572A /* Decimal+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4040BDAF29DC93220075572A /* Decimal+Extension.swift */; };
 		4068FE7729D31CA70095CD7F /* web3swift in Frameworks */ = {isa = PBXBuildFile; productRef = 4068FE7629D31CA70095CD7F /* web3swift */; };
 		4068FE7A29D31D6C0095CD7F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4068FE7929D31D6C0095CD7F /* Kingfisher */; };
 		4068FE7B29D31DB60095CD7F /* coin-info-chart-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7F15207743692E4CE3445A4C /* coin-info-chart-stub.json */; };
@@ -313,6 +325,13 @@
 			remoteGlobalIDString = B000153529B2F9816B43109C;
 			remoteInfo = "Pino-iOSUITests";
 		};
+		4040BD9B29DB0E720075572A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5939E0FFBB001767AF40C17F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 76B66D03FC77A6B968427190;
+			remoteInfo = "Pino-iOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -373,6 +392,11 @@
 		3BB0B1B5F9A48B80542BF12C /* SuggestedSeedPhraseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedSeedPhraseCell.swift; sourceTree = "<group>"; };
 		3DADC99C41136A35EF49EF9B /* SelectPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPassViewModel.swift; sourceTree = "<group>"; };
 		3F052F464B4443A09B569492 /* PPPangramSans-ExtraboldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtraboldReclined.ttf"; sourceTree = "<group>"; };
+		4040BD8B29DB05E50075572A /* NumberTypeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberTypeTest.swift; sourceTree = "<group>"; };
+		4040BD8E29DB06160075572A /* BigNumberGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigNumberGenerator.swift; sourceTree = "<group>"; };
+		4040BDAB29DB1BEA0075572A /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
+		4040BDAD29DC920A0075572A /* BigInt+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BigInt+Extension.swift"; sourceTree = "<group>"; };
+		4040BDAF29DC93220075572A /* Decimal+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+Extension.swift"; sourceTree = "<group>"; };
 		404287D5077C670FADEE9987 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		4068FE8629D31E100095CD7F /* WebViewFiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WebViewFiles; sourceTree = "<group>"; };
 		40D0ADC129D45E28007E8983 /* AssetProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetProtocol.swift; sourceTree = "<group>"; };
@@ -428,7 +452,7 @@
 		68C640FE522F73C9313D7ECB /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		68F65D48C44F581B2A792A18 /* EditAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountView.swift; sourceTree = "<group>"; };
 		69B08E01F8697BCB86DF01F6 /* PinoColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoColor.swift; sourceTree = "<group>"; };
-		69F80E5332D902C3DF82DC4A /* Pino-iOSTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = "Pino-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		69F80E5332D902C3DF82DC4A /* Pino-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pino-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B2220BAE0D7613EB95414ED /* assets-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "assets-stub.json"; sourceTree = "<group>"; };
 		6C39A3F6B8ACA2CF53DFB7F3 /* ReceiveAssetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAssetView.swift; sourceTree = "<group>"; };
 		6D1841514C846DEDE9AD60D7 /* Pods_Pino_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -615,7 +639,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4040BDA929DB12D00075572A /* BigInt in Frameworks */,
 				E5DEAC8897552FF468042433 /* Pods_Pino_iOSTests.framework in Frameworks */,
+				4040BDA529DB12AA0075572A /* OHHTTPStubsSwift in Frameworks */,
+				4040BDA329DB12AA0075572A /* OHHTTPStubs in Frameworks */,
+				4040BDA729DB12D00075572A /* web3swift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,10 +659,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4040BD9F29DB11FD0075572A /* OHHTTPStubs in Frameworks */,
+				4040BDA129DB11FD0075572A /* OHHTTPStubsSwift in Frameworks */,
 				4068FE7A29D31D6C0095CD7F /* Kingfisher in Frameworks */,
 				631DECA29D97146C42E98E6B /* Pods_Pino_iOS.framework in Frameworks */,
-				4068FE7429D31C530095CD7F /* BigInt in Frameworks */,
 				4068FE7729D31CA70095CD7F /* web3swift in Frameworks */,
+				4040BD9529DB0A7E0075572A /* BigInt in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -955,6 +985,30 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		4040BD8929DB05C60075572A /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				4040BD8A29DB05CC0075572A /* NumberFormatter */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		4040BD8A29DB05CC0075572A /* NumberFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				4040BD8B29DB05E50075572A /* NumberTypeTest.swift */,
+			);
+			path = NumberFormatter;
+			sourceTree = "<group>";
+		};
+		4040BD8D29DB06030075572A /* TestUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				4040BD8E29DB06160075572A /* BigNumberGenerator.swift */,
+			);
+			path = TestUtilities;
+			sourceTree = "<group>";
+		};
 		44599A41EC08E944C9D78DD4 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
@@ -1069,6 +1123,8 @@
 				DEA3FFE35308EBEC961CD7BF /* UIView.swift */,
 				0C18443FFB775271061875D9 /* URLRequest+Extension.swift */,
 				B33656AE9BB6138666D2E679 /* ViewController+Extension.swift */,
+				4040BDAD29DC920A0075572A /* BigInt+Extension.swift */,
+				4040BDAF29DC93220075572A /* Decimal+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1120,6 +1176,7 @@
 			isa = PBXGroup;
 			children = (
 				4606CCB9D451853BA369516C /* HTTPStubs+Helper.swift */,
+				4040BDAB29DB1BEA0075572A /* Double+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1614,6 +1671,8 @@
 		BF60D065B05ED69B89F714A0 /* Pino-iOSTests */ = {
 			isa = PBXGroup;
 			children = (
+				4040BD8D29DB06030075572A /* TestUtilities */,
+				4040BD8929DB05C60075572A /* Foundation */,
 				568F0D82E0693F27D3974202 /* Extensions */,
 				02D1FD4CAB5DDBECAC83AAE4 /* Mocks */,
 				7628E61DCDAA6E76BFCAF04E /* Networking */,
@@ -1798,9 +1857,11 @@
 			);
 			name = "Pino-iOS";
 			packageProductDependencies = (
-				4068FE7329D31C530095CD7F /* BigInt */,
 				4068FE7629D31CA70095CD7F /* web3swift */,
 				4068FE7929D31D6C0095CD7F /* Kingfisher */,
+				4040BD9429DB0A7E0075572A /* BigInt */,
+				4040BD9E29DB11FD0075572A /* OHHTTPStubs */,
+				4040BDA029DB11FD0075572A /* OHHTTPStubsSwift */,
 			);
 			productName = "Pino-iOS";
 			productReference = 8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */;
@@ -1818,8 +1879,15 @@
 			buildRules = (
 			);
 			dependencies = (
+				4040BD9C29DB0E720075572A /* PBXTargetDependency */,
 			);
 			name = "Pino-iOSTests";
+			packageProductDependencies = (
+				4040BDA229DB12AA0075572A /* OHHTTPStubs */,
+				4040BDA429DB12AA0075572A /* OHHTTPStubsSwift */,
+				4040BDA629DB12D00075572A /* web3swift */,
+				4040BDA829DB12D00075572A /* BigInt */,
+			);
 			productName = "Pino-iOSTests";
 			productReference = 69F80E5332D902C3DF82DC4A /* Pino-iOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -1851,6 +1919,9 @@
 			attributes = {
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
+					A7CDCF5E2B678210FB4DF98B = {
+						TestTargetID = 76B66D03FC77A6B968427190;
+					};
 					B000153529B2F9816B43109C = {
 						TestTargetID = 76B66D03FC77A6B968427190;
 					};
@@ -1866,9 +1937,10 @@
 			);
 			mainGroup = 2277E1FFDD10A1C98A64D20C;
 			packageReferences = (
-				4068FE7229D31C530095CD7F /* XCRemoteSwiftPackageReference "BigInt" */,
 				4068FE7529D31CA70095CD7F /* XCRemoteSwiftPackageReference "web3swift" */,
 				4068FE7829D31D6C0095CD7F /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				4040BD9329DB0A7E0075572A /* XCRemoteSwiftPackageReference "BigInt" */,
+				4040BD9D29DB11FD0075572A /* XCRemoteSwiftPackageReference "OHHTTPStubs" */,
 			);
 			productRefGroup = 2821FB9CEE9F9B9E6BAE9FD7 /* Products */;
 			projectDirPath = "";
@@ -2183,8 +2255,10 @@
 				C72379E2E2BFAEFF3257EDCE /* Networking+Aliases.swift in Sources */,
 				E52C3E716C6ACBCE6C8BE230 /* NoInternetConnectionView.swift in Sources */,
 				44DBA60846C0B1DA8E26EAD8 /* NoInternetConnectionViewModel.swift in Sources */,
+				4040BDB029DC93220075572A /* Decimal+Extension.swift in Sources */,
 				19347AB9E9EF1B9F26885949 /* NumberFormatterProtocol.swift in Sources */,
 				1F98DAC473200ACED0BA403B /* ParameterEncoderProtocol.swift in Sources */,
+				4040BDAE29DC920B0075572A /* BigInt+Extension.swift in Sources */,
 				8EA8AEFE97CEC48A2C1DFCB7 /* ParameterEncoding.swift in Sources */,
 				B6C747AA398D7E37B1B727AC /* PassDotsView.swift in Sources */,
 				078E15176613CB329D507580 /* PassManagmentError.swift in Sources */,
@@ -2294,8 +2368,12 @@
 				70A38450573C86C7CA6A6C27 /* APIClientTest.swift in Sources */,
 				83B5CD9C30D7E34EE3215B50 /* APISimulator.swift in Sources */,
 				5C825328F79DAF5AE4BBD66C /* EndpointType.swift in Sources */,
+				4040BD8C29DB05E50075572A /* NumberTypeTest.swift in Sources */,
 				8A92E3CC08C836C248DAB1B1 /* HTTPStubs+Helper.swift in Sources */,
+				4040BD8F29DB06160075572A /* BigNumberGenerator.swift in Sources */,
+				4040BDAA29DB13210075572A /* StatusCode+Helper.swift in Sources */,
 				C626E1AF0A864B29E9F0CDF6 /* MockKeychainService.swift in Sources */,
+				4040BDAC29DB1BEA0075572A /* Double+Extension.swift in Sources */,
 				FAC1CE991D3CCB7951E7F8F4 /* UsersEndpoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2316,6 +2394,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4040BD9C29DB0E720075572A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 76B66D03FC77A6B968427190 /* Pino-iOS */;
+			targetProxy = 4040BD9B29DB0E720075572A /* PBXContainerItemProxy */;
+		};
 		4831CA9871884FE52B6516E4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B000153529B2F9816B43109C /* Pino-iOSUITests */;
@@ -2426,6 +2509,7 @@
 			baseConfigurationReference = 760F84B82B656C3BB2B80173 /* Pods-Pino-iOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 44E38FYW6J;
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2444,6 +2528,7 @@
 			baseConfigurationReference = 6ECC10E6C7697A7674FF5470 /* Pods-Pino-iOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 44E38FYW6J;
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2614,12 +2699,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4068FE7229D31C530095CD7F /* XCRemoteSwiftPackageReference "BigInt" */ = {
+		4040BD9329DB0A7E0075572A /* XCRemoteSwiftPackageReference "BigInt" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/attaswift/BigInt";
 			requirement = {
-				kind = exactVersion;
-				version = 5.3.0;
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		4040BD9D29DB11FD0075572A /* XCRemoteSwiftPackageReference "OHHTTPStubs" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AliSoftware/OHHTTPStubs";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
 			};
 		};
 		4068FE7529D31CA70095CD7F /* XCRemoteSwiftPackageReference "web3swift" */ = {
@@ -2641,9 +2734,39 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4068FE7329D31C530095CD7F /* BigInt */ = {
+		4040BD9429DB0A7E0075572A /* BigInt */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4068FE7229D31C530095CD7F /* XCRemoteSwiftPackageReference "BigInt" */;
+			package = 4040BD9329DB0A7E0075572A /* XCRemoteSwiftPackageReference "BigInt" */;
+			productName = BigInt;
+		};
+		4040BD9E29DB11FD0075572A /* OHHTTPStubs */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4040BD9D29DB11FD0075572A /* XCRemoteSwiftPackageReference "OHHTTPStubs" */;
+			productName = OHHTTPStubs;
+		};
+		4040BDA029DB11FD0075572A /* OHHTTPStubsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4040BD9D29DB11FD0075572A /* XCRemoteSwiftPackageReference "OHHTTPStubs" */;
+			productName = OHHTTPStubsSwift;
+		};
+		4040BDA229DB12AA0075572A /* OHHTTPStubs */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4040BD9D29DB11FD0075572A /* XCRemoteSwiftPackageReference "OHHTTPStubs" */;
+			productName = OHHTTPStubs;
+		};
+		4040BDA429DB12AA0075572A /* OHHTTPStubsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4040BD9D29DB11FD0075572A /* XCRemoteSwiftPackageReference "OHHTTPStubs" */;
+			productName = OHHTTPStubsSwift;
+		};
+		4040BDA629DB12D00075572A /* web3swift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4068FE7529D31CA70095CD7F /* XCRemoteSwiftPackageReference "web3swift" */;
+			productName = web3swift;
+		};
+		4040BDA829DB12D00075572A /* BigInt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4040BD9329DB0A7E0075572A /* XCRemoteSwiftPackageReference "BigInt" */;
 			productName = BigInt;
 		};
 		4068FE7629D31CA70095CD7F /* web3swift */ = {
