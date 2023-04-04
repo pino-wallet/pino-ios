@@ -1,0 +1,90 @@
+//
+//  LockSettingsCollectionReusableView.swift
+//  Pino-iOS
+//
+//  Created by Amir hossein kazemi seresht on 4/3/23.
+//
+
+import UIKit
+
+class LockSettingsHeaderCollectionReusableView: UICollectionReusableView {
+	// MARK: - Closures
+
+	public var openSelectLockMethodAlertClosure: (() -> Void) = {}
+
+	// MARK: - Public Peoperties
+
+	public var securityLockVM: SecurityLockViewModel! {
+		didSet {
+			setupView()
+			setupConstraints()
+		}
+	}
+
+	public static let viewReuseID = "LockSettingsHeaderReuseID"
+
+	// MARK: - Private Properties
+
+	private let changeLockMethodView = UIView()
+	private let changeLockMethodStackView = UIStackView()
+	private let changeLockMethodBetweenStackview = UIStackView()
+	private let selectedLockMethodStackView = UIStackView()
+	private let changeLockMethodTitleLabel = PinoLabel(style: .info, text: "")
+	private let selectedLockMethodLabel = PinoLabel(style: .info, text: "")
+	private let changeLockMethodDetailIcon = UIImageView()
+	private let lockSettingsTitleLabel = PinoLabel(style: .description, text: "")
+
+	// MARK: - Private Methods
+
+	private func setupView() {
+		backgroundColor = .Pino.background
+
+		addSubview(changeLockMethodView)
+		addSubview(lockSettingsTitleLabel)
+
+		let openSelectLockMethodGesture = UITapGestureRecognizer(
+			target: self,
+			action: #selector(openSelectLockMethodModal)
+		)
+		changeLockMethodView.addGestureRecognizer(openSelectLockMethodGesture)
+
+		changeLockMethodView.backgroundColor = .Pino.white
+		changeLockMethodView.layer.cornerRadius = 7
+
+		changeLockMethodTitleLabel.text = securityLockVM.changeLockMethodTitle
+
+		selectedLockMethodLabel.text = "Passcode"
+		selectedLockMethodLabel.textColor = .Pino.gray2
+
+		lockSettingsTitleLabel.text = securityLockVM.lockSettingsHeaderTitle
+		lockSettingsTitleLabel.font = .PinoStyle.mediumSubheadline
+
+		changeLockMethodDetailIcon.image = UIImage(named: securityLockVM.changeLockMethodDetailIcon)?
+			.withRenderingMode(.alwaysTemplate)
+		changeLockMethodDetailIcon.tintColor = .Pino.gray3
+
+		selectedLockMethodStackView.axis = .horizontal
+		selectedLockMethodStackView.spacing = 2
+		selectedLockMethodStackView.addArrangedSubview(selectedLockMethodLabel)
+		selectedLockMethodStackView.addArrangedSubview(changeLockMethodDetailIcon)
+
+		changeLockMethodStackView.axis = .horizontal
+		changeLockMethodStackView.addArrangedSubview(changeLockMethodTitleLabel)
+		changeLockMethodStackView.addArrangedSubview(changeLockMethodBetweenStackview)
+		changeLockMethodStackView.addArrangedSubview(selectedLockMethodStackView)
+
+		changeLockMethodView.addSubview(changeLockMethodStackView)
+	}
+
+	private func setupConstraints() {
+		changeLockMethodView.pin(.top(padding: 24), .horizontalEdges(padding: 16), .fixedHeight(48))
+		changeLockMethodStackView.pin(.leading(padding: 16), .trailing(padding: 8), .centerY())
+		changeLockMethodDetailIcon.pin(.fixedHeight(24), .fixedWidth(24))
+		lockSettingsTitleLabel.pin(.leading(padding: 16), .bottom(padding: 8))
+	}
+
+	@objc
+	private func openSelectLockMethodModal() {
+		openSelectLockMethodAlertClosure()
+	}
+}
