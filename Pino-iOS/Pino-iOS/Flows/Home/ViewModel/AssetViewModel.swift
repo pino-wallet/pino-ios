@@ -42,12 +42,12 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	public var holdAmount: BigNumber {
-        BigNumber(number: assetModel.hold, decimal: decimal)
+		BigNumber(number: assetModel.hold, decimal: decimal)
 	}
 
 	public var holdAmountInDollar: String {
 		let amount = holdAmount * price
-        return amount.formattedAmountOf(type: .price)
+		return amount.formattedAmountOf(type: .price)
 	}
 
 	public var change24h: PriceNumberFormatter {
@@ -99,7 +99,7 @@ public class AssetViewModel: SecurityModeProtocol {
 	// MARK: - Private Methods
 
 	private func getFormattedAmount() -> String {
-        "\(holdAmount.formattedAmountOf(type: .hold)) \(assetModel.detail!.symbol)"
+		"\(holdAmount.formattedAmountOf(type: .hold)) \(assetModel.detail!.symbol)"
 	}
 
 	private func getFormattedAmountInDollor() -> String {
