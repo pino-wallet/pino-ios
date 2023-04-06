@@ -44,6 +44,23 @@ public struct NumberType {
 	static func * (left: NumberType, right: NumberType) -> NumberType {
 		NumberType(number: left.number * right.number, decimal: left.decimal + right.decimal)
 	}
+
+	static func / (left: NumberType, right: NumberType) -> NumberType? {
+		// Handle divisor equal to zero
+		if right.number == 0 {
+			print("Error: Division by zero is undefined.")
+			return nil
+		}
+
+		// Scale the operands to have the same decimal places
+		let scaledLeft = left.number * BigInt(10).power(right.decimal)
+		let scaledRight = right.number * BigInt(10).power(left.decimal)
+
+		// Perform the division operation and adjust the result
+		let quotient = scaledLeft / scaledRight
+
+		return NumberType(number: quotient, decimal: 0)
+	}
 }
 
 extension NumberType: CustomStringConvertible {

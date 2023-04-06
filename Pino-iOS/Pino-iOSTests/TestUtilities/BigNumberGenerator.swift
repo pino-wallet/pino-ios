@@ -8,7 +8,10 @@
 import BigInt
 import Foundation
 
-/// The BigNumberGenerator class generates pairs of random decimal numbers and stores them in two arrays. It creates random decimals with varying whole and fraction digits and converts them to a BigNumberType tuple (BigInt, Int). The generate() method populates the arrays with random decimal numbers using a private helper method. This class is useful for generating random BigNumberType instances for testing or implementing mathematical operations.
+/// The BigNumberGenerator class generates pairs of random decimal numbers and stores them in two arrays. It creates
+/// random decimals with varying whole and fraction digits and converts them to a BigNumberType tuple (BigInt, Int). The
+/// generate() method populates the arrays with random decimal numbers using a private helper method. This class is
+/// useful for generating random BigNumberType instances for testing or implementing mathematical operations.
 class BigNumberGenerator {
 	// MARK: - Typealias
 
