@@ -81,6 +81,7 @@
 		3D47F14ECA2A8CAE61061F57 /* PPPangramSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DEF9234B1A724D51BE836376 /* PPPangramSans-LightItalic.ttf */; };
 		3E5FFA532C0440149913FE32 /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA73CCD58C583E964396CF7 /* Encodable+Extension.swift */; };
 		3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6922A1FD91EE9D2DAF8D928 /* AccountingEndpoint.swift */; };
+		4006728C29DEA6A0008F3D24 /* BigNumberType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4006728B29DEA6A0008F3D24 /* BigNumberType.swift */; };
 		4040BD8C29DB05E50075572A /* NumberTypeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4040BD8B29DB05E50075572A /* NumberTypeTest.swift */; };
 		4040BD8F29DB06160075572A /* BigNumberGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4040BD8E29DB06160075572A /* BigNumberGenerator.swift */; };
 		4040BD9529DB0A7E0075572A /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 4040BD9429DB0A7E0075572A /* BigInt */; };
@@ -392,6 +393,7 @@
 		3BB0B1B5F9A48B80542BF12C /* SuggestedSeedPhraseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedSeedPhraseCell.swift; sourceTree = "<group>"; };
 		3DADC99C41136A35EF49EF9B /* SelectPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPassViewModel.swift; sourceTree = "<group>"; };
 		3F052F464B4443A09B569492 /* PPPangramSans-ExtraboldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtraboldReclined.ttf"; sourceTree = "<group>"; };
+		4006728B29DEA6A0008F3D24 /* BigNumberType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigNumberType.swift; sourceTree = "<group>"; };
 		4040BD8B29DB05E50075572A /* NumberTypeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberTypeTest.swift; sourceTree = "<group>"; };
 		4040BD8E29DB06160075572A /* BigNumberGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigNumberGenerator.swift; sourceTree = "<group>"; };
 		4040BDAB29DB1BEA0075572A /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
@@ -1371,6 +1373,7 @@
 			children = (
 				6053BA1EF5B9764BF881B904 /* PrecisionSystem.swift */,
 				EFFB02FBC9148ACB2A85220F /* FormatterTypes.swift */,
+				4006728B29DEA6A0008F3D24 /* BigNumberType.swift */,
 				A08EF211DAB23688EF528FA0 /* NumberFormatterProtocol.swift */,
 			);
 			path = NumberFormatting;
@@ -2178,6 +2181,7 @@
 				1B7D25A69FB55D4EAC14A392 /* BoldStyle.swift in Sources */,
 				8ECABB94DCBB30B784D22CFF /* BorrowViewController.swift in Sources */,
 				535DAC5A885056552EC3C09F /* Button+Extension.swift in Sources */,
+				4006728C29DEA6A0008F3D24 /* BigNumberType.swift in Sources */,
 				B30473249B4729CA259033E6 /* CIImage.swift in Sources */,
 				D2D65A4730F14DFCD4BE1B32 /* ChangeAvatarViewController.swift in Sources */,
 				C18F61B7AEF94EEC4A102666 /* ChartDataModel.swift in Sources */,
