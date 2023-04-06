@@ -7,6 +7,7 @@
 
 import BigInt
 import Foundation
+import Web3Core
 
 /** The BigNumber struct is a custom numerical data type that allows for the representation and manipulation of large
  numbers with high precision. The struct holds a BigInt value for the number and an integer for the decimal places.
@@ -28,6 +29,16 @@ public struct BigNumber {
 	var number: BigInt
 	var decimal: Int
 
+    public init(number: String, decimal: Int) {
+        self.number = BigInt(number)!
+        self.decimal = decimal
+    }
+    
+    public init(number: BigInt, decimal: Int) {
+        self.number = number
+        self.decimal = decimal
+    }
+    
 	public var whole: BigInt {
 		number.quotientAndRemainder(dividingBy: BigInt(10).power(decimal)).quotient
 	}
@@ -41,6 +52,10 @@ public struct BigNumber {
 	public var decimalValue: Decimal {
 		Decimal(string: number.description)! * pow(10, -decimal)
 	}
+    
+    public var isZero: Bool {
+        number.isZero
+    }
 
 	static func + (left: BigNumber, right: BigNumber) -> BigNumber {
 		let a = left.number * BigInt(10).power(right.decimal)
@@ -78,14 +93,51 @@ public struct BigNumber {
 	}
 }
 
-extension BigNumber: CustomStringConvertible {
-	public var description: String {
-		number.description
-	}
+extension BigNumber: Equatable {
+    public static func == (lhs: BigNumber, rhs: BigNumber) -> Bool {
+        lhs.number == rhs.number && lhs.decimal == rhs.decimal
+    }
 }
 
-extension BigNumber: Equatable {
-	public static func == (lhs: BigNumber, rhs: BigNumber) -> Bool {
-		lhs.number == rhs.number && lhs.decimal == rhs.decimal
+extension BigNumber: CustomStringConvertible {
+	
+    public var description: String {
+		number.description
 	}
+
+	public var decimalString: String {
+		"\(whole).\(fraction)"
+	}
+
+    public func formattedAmountOf(type: FormatTypes) -> String {
+		Utilities.formatToPrecision(
+			number,
+			units: .custom(decimal),
+            formattingDecimals: type.formattingDecimal,
+			decimalSeparator: ".",
+			fallbackToScientific: false
+		)
+	}
+    
 }
+
+extension BigNumber {
+    public enum FormatTypes {
+        case price
+        case hold
+        case custom(Int)
+        
+        public var formattingDecimal: Int {
+            switch self {
+            case .price:
+                return 2
+            case .hold:
+                return 6
+            case .custom(let number):
+                return number
+            }
+        }
+    }
+}
+
+

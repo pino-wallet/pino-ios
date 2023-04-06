@@ -10,14 +10,11 @@ import Foundation
 import Web3Core
 
 public protocol NumberFormatterProtocol {
+	var bigNumber: BigNumber { get }
 	var value: String { get }
 	var decimal: Int { get }
 	var formattingDecimal: Int { get }
 	var formattedAmount: String { get }
-	var bigValue: BigInt { get }
-	var doubleValue: Double { get }
-	var formattedBigValue: BigInt { get }
-	var formattedDoubleValue: Double { get }
 }
 
 extension NumberFormatterProtocol {
@@ -25,7 +22,7 @@ extension NumberFormatterProtocol {
 
 	public var formattedAmount: String {
 		Utilities.formatToPrecision(
-			bigValue,
+			bigNumber.number,
 			units: .custom(decimal),
 			formattingDecimals: formattingDecimal,
 			decimalSeparator: ".",
@@ -33,19 +30,7 @@ extension NumberFormatterProtocol {
 		)
 	}
 
-	public var bigValue: BigInt {
-		BigInt(value)!
-	}
-
-	public var doubleValue: Double {
-		value.doubleValue!
-	}
-
-	public var formattedBigValue: BigInt {
-		BigInt(formattedAmount)!
-	}
-
-	public var formattedDoubleValue: Double {
-		formattedAmount.doubleValue!
+	public var bigNumber: BigNumber {
+		BigNumber(number: BigInt(value)!, decimal: decimal)
 	}
 }

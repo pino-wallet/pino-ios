@@ -33,21 +33,21 @@ public class AssetViewModel: SecurityModeProtocol {
 		assetModel.detail!.name
 	}
 
-	public var price: PriceNumberFormatter {
-		PriceNumberFormatter(value: assetModel.detail!.price)
+	public var price: BigNumber {
+		BigNumber(number: assetModel.detail!.price, decimal: 6)
 	}
 
 	public var decimal: Int {
 		assetModel.detail!.decimals
 	}
 
-	public var holdAmount: HoldNumberFormatter {
-		HoldNumberFormatter(value: assetModel.hold, decimal: decimal)
+	public var holdAmount: BigNumber {
+        BigNumber(number: assetModel.hold, decimal: decimal)
 	}
 
 	public var holdAmountInDollar: String {
-		let amount = holdAmount.formattedDoubleValue * price.formattedDoubleValue
-		return NumberPercisionFormatter.trimmedValueOf(money: amount)
+		let amount = holdAmount * price
+        return amount.formattedAmountOf(type: .price)
 	}
 
 	public var change24h: PriceNumberFormatter {
@@ -55,10 +55,10 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	public var volatilityType: AssetVolatilityType {
-		if change24h.doubleValue.isZero {
+		if change24h.bigNumber.isZero {
 			return .none
 		} else {
-			switch change24h.doubleValue.sign {
+			switch change24h.bigNumber.number.sign {
 			case .minus:
 				return .loss
 			case .plus:
@@ -99,11 +99,11 @@ public class AssetViewModel: SecurityModeProtocol {
 	// MARK: - Private Methods
 
 	private func getFormattedAmount() -> String {
-		"\(holdAmount.formattedAmount) \(assetModel.detail!.symbol)"
+        "\(holdAmount.formattedAmountOf(type: .hold)) \(assetModel.detail!.symbol)"
 	}
 
 	private func getFormattedAmountInDollor() -> String {
-		if holdAmount.bigValue.isZero {
+		if holdAmount.isZero {
 			return "-"
 		} else {
 			return "$\(holdAmountInDollar)"
@@ -111,7 +111,7 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	private func getFormattedVolatility() -> String {
-		if change24h.formattedDoubleValue.isZero {
+		if change24h.bigNumber.isZero {
 			return "-"
 		} else {
 			switch volatilityType {
