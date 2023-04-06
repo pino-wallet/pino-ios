@@ -11,13 +11,17 @@ struct VerifyPassViewModel: PasscodeManagerPages {
 	// MARK: Public Properties
 
 	public let title = "Retype passcode"
-	public let description = "This passcode is for maximizing wallet security. It cannot be used to recover it."
+	public let description: String? =
+		"This passcode is for maximizing wallet security. It cannot be used to recover it."
 	public let errorTitle = "Incorrect, try again!"
 	public var passcode: String? = ""
 	public var finishPassCreation: () -> Void
 	public var onErrorHandling: (PassVerifyError) -> Void
 	public var hideError: () -> Void
 	public var selectedPasscode: String
+	public let faceIdTitle: String? = nil
+	public let useFaceIdTitle: String? = nil
+	public let useFaceIdIcon: String? = nil
 
 	// MARK: Public Methods
 

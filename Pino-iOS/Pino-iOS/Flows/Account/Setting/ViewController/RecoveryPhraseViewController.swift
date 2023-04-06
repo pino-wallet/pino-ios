@@ -73,9 +73,14 @@ class RecoveryPhraseViewController: UIViewController {
 	}
 
 	private func showFaceID() {
-		var faceIDLock = BiometricAuthentication()
-		faceIDLock.evaluate {
-			self.recoverPhraseView.showSeedPhrase()
-		}
+//		var faceIDLock = BiometricAuthentication()
+//		faceIDLock.evaluate {
+//			self.recoverPhraseView.showSeedPhrase()
+//		}
+		let unlockAppVC = UnlockAppViewController(onSuccessUnlock: { [weak self] in
+			self?.recoverPhraseView.showSeedPhrase()
+		})
+		unlockAppVC.modalPresentationStyle = .fullScreen
+		present(unlockAppVC, animated: true)
 	}
 }
