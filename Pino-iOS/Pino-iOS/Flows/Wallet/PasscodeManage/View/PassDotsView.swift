@@ -5,7 +5,6 @@
 //  Created by Sobhan Eskandari on 11/16/22.
 //
 
-import Combine
 import Foundation
 import UIKit
 
@@ -128,7 +127,7 @@ extension PassDotsView: UIKeyInput, UITextInputTraits {
 	func deleteBackward() {
 		guard let passCode = passcodeManagerVM.passcode else { return }
 		passcodeManagerVM.passRemoved()
-		setDotviewStyleAt(index: passCode.count, withState: .empty)
+		setDotviewStyleAt(index: passCode.count - 1, withState: .empty)
 	}
 
 	func setDotviewStyleAt(index: Int, withState state: PassdotState) {

@@ -19,3 +19,10 @@ enum PassVerifyError: Error {
 	case emptyPasscode
 	case unknown
 }
+
+// Errors related to unlock app with passcode and face id
+enum UnlockAppError: Error {
+	case dontMatch
+	case getPasswordFailed
+	case emptyPasscode
+}

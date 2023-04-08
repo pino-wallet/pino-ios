@@ -1,33 +1,49 @@
 //
-//  CreatePassView.swift
+//  UnlockPasscodeView.swift
 //  Pino-iOS
 //
-//  Created by Sobhan Eskandari on 11/16/22.
+//  Created by Amir hossein kazemi seresht on 4/8/23.
 //
 
 import Foundation
 import UIKit
 
-class ManagePasscodeView: UIView {
+class UnlockPasscodeView: UIView {
 	// MARK: Private Properties
 
-	private let managePassTitle = PinoLabel(style: .title, text: nil)
-	private let managePassDescription = PinoLabel(style: .description, text: nil)
+	private let unlockPageTitle = PinoLabel(style: .title, text: nil)
 	private let topInfoContainerView = UIStackView()
 	private let errorLabel = UILabel()
-	private let managePassVM: PasscodeManagerPages
-	private let errorInfoStackView = UIStackView()
-	private let errorInfoStackViewBottomConstant = CGFloat(40)
+	private let managePassVM: UnlockPasscodePageManager
+	private let useFaceIdAndErrorStackView = UIStackView()
+	private let useFaceIDOptionStackView = UIStackView()
+	private let useFaceIDIcon = UIImageView()
+	private let useFaceIDTitleLabel = PinoLabel(style: .title, text: "")
+	private let useFaceIDSwitch = UISwitch()
+	private let useFaceIDIconContainer = UIView()
+	private let useFaceIDbetweenStackView = UIStackView()
+	private let useFaceIDInfoStackView = UIStackView()
+	private let useFaceIdAndErrorStackViewBottomConstant = CGFloat(40)
 	private var keyboardHeight: CGFloat = 320 // Minimum height in rare case keyboard of height was not calculated
-	private var errorInfoStackViewBottomConstraint: NSLayoutConstraint!
+	private var useFaceIdAndErrorStackViewBottomConstraint: NSLayoutConstraint!
 
 	// MARK: Public Properties
 
 	public let passDotsView: PassDotsView
 
+	public var hasFaceIDMode = false {
+		didSet {
+			setupFaceIDOptionStyles()
+		}
+	}
+
+	// MARK: - Closures
+
+	public var onSuccessUnlockClosure: (() -> Void)!
+
 	// MARK: Initializers
 
-	init(managePassVM: PasscodeManagerPages) {
+	init(managePassVM: UnlockPasscodePageManager) {
 		self.managePassVM = managePassVM
 		self.passDotsView = PassDotsView(passcodeManagerVM: managePassVM)
 		super.init(frame: .zero)
@@ -43,7 +59,7 @@ class ManagePasscodeView: UIView {
 	}
 }
 
-extension ManagePasscodeView {
+extension UnlockPasscodeView {
 	// MARK: Private Methods
 
 	private func setupNotifications() {
@@ -63,30 +79,69 @@ extension ManagePasscodeView {
 	}
 
 	private func setupView() {
-		topInfoContainerView.addArrangedSubview(managePassTitle)
-		topInfoContainerView.addArrangedSubview(managePassDescription)
+		topInfoContainerView.addArrangedSubview(unlockPageTitle)
 
-		errorInfoStackView.addArrangedSubview(errorLabel)
+		useFaceIDIconContainer.addSubview(useFaceIDIcon)
+		useFaceIDInfoStackView.addArrangedSubview(useFaceIDIconContainer)
+		useFaceIDInfoStackView.addArrangedSubview(useFaceIDTitleLabel)
+
+		useFaceIDOptionStackView.addArrangedSubview(useFaceIDInfoStackView)
+		useFaceIDOptionStackView.addArrangedSubview(useFaceIDbetweenStackView)
+		useFaceIDOptionStackView.addArrangedSubview(useFaceIDSwitch)
+
+		useFaceIdAndErrorStackView.addArrangedSubview(errorLabel)
+		useFaceIdAndErrorStackView.addArrangedSubview(useFaceIDOptionStackView)
+
+		useFaceIDSwitch.addTarget(self, action: #selector(onUseFaceIDSwitchChange), for: .valueChanged)
 
 		addSubview(topInfoContainerView)
 		addSubview(passDotsView)
-		addSubview(errorInfoStackView)
+		addSubview(useFaceIdAndErrorStackView)
 	}
 
 	private func setupStyle() {
+		useFaceIDInfoStackView.axis = .horizontal
+		useFaceIDInfoStackView.spacing = 4
+
 		backgroundColor = .Pino.secondaryBackground
 
 		topInfoContainerView.axis = .vertical
 		topInfoContainerView.spacing = 18
+		topInfoContainerView.alignment = .center
 
-		managePassTitle.text = managePassVM.title
-		managePassDescription.text = managePassVM.description
+		unlockPageTitle.text = managePassVM.title
+		unlockPageTitle.font = .PinoStyle.mediumTitle2
 
 		errorLabel.isHidden = true
 		errorLabel.textColor = .Pino.errorRed
 		errorLabel.font = UIFont.PinoStyle.mediumTitle3
 
-		errorInfoStackView.axis = .vertical
+		useFaceIDOptionStackView.axis = .horizontal
+		useFaceIDOptionStackView.alignment = .center
+		useFaceIDOptionStackView.isHidden = true
+
+		useFaceIdAndErrorStackView.axis = .vertical
+	}
+
+	private func setupFaceIDOptionStyles() {
+		useFaceIDIcon.image = UIImage(named: managePassVM.useFaceIdIcon!)
+
+		useFaceIDTitleLabel.text = managePassVM.useFaceIdTitle
+		useFaceIDTitleLabel.font = .PinoStyle.mediumSubheadline
+
+		useFaceIDSwitch.onTintColor = .Pino.green3
+
+		useFaceIDOptionStackView.isHidden = false
+	}
+
+	@objc
+	private func onUseFaceIDSwitchChange() {
+		if useFaceIDSwitch.isOn {
+			var faceIDAuthentication = BiometricAuthentication()
+			faceIDAuthentication.evaluate { [weak self] in
+				self?.onSuccessUnlockClosure()
+			}
+		}
 	}
 
 	// MARK: - Public Methods
@@ -103,16 +158,17 @@ extension ManagePasscodeView {
 
 	private func setupContstraint() {
 		errorLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 42).isActive = true
-		errorInfoStackViewBottomConstraint = NSLayoutConstraint(
-			item: errorInfoStackView,
+		useFaceIDOptionStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 42).isActive = true
+		useFaceIdAndErrorStackViewBottomConstraint = NSLayoutConstraint(
+			item: useFaceIdAndErrorStackView,
 			attribute: .bottom,
 			relatedBy: .equal,
 			toItem: layoutMarginsGuide,
 			attribute: .bottom,
 			multiplier: 1,
-			constant: -errorInfoStackViewBottomConstant
+			constant: -useFaceIdAndErrorStackViewBottomConstant
 		)
-		addConstraint(errorInfoStackViewBottomConstraint)
+		addConstraint(useFaceIdAndErrorStackViewBottomConstraint)
 
 		topInfoContainerView.pin(
 			.top(to: layoutMarginsGuide, padding: 24),
@@ -120,14 +176,17 @@ extension ManagePasscodeView {
 		)
 
 		passDotsView.pin(
-			.relative(.top, 85, to: topInfoContainerView, .bottom),
+			.relative(.top, 130, to: topInfoContainerView, .bottom),
 			.centerX(),
 			.fixedHeight(20)
 		)
 
-		errorInfoStackView.pin(
+		useFaceIdAndErrorStackView.pin(
 			.horizontalEdges(padding: 16)
 		)
+
+		useFaceIDIcon.pin(.fixedWidth(24), .fixedHeight(24), .centerY())
+		useFaceIDIconContainer.pin(.fixedWidth(24))
 	}
 
 	private func moveViewWithKeyboard(notification: NSNotification, keyboardWillShow: Bool) {
@@ -146,9 +205,9 @@ extension ManagePasscodeView {
 		if keyboardWillShow {
 			let safeAreaExists = (window?.safeAreaInsets.bottom != 0) // Check if safe area exists
 			let keyboardOpenConstant = keyboardHeight - (safeAreaExists ? 20 : 0)
-			errorInfoStackViewBottomConstraint.constant = -keyboardOpenConstant
+			useFaceIdAndErrorStackViewBottomConstraint.constant = -keyboardOpenConstant
 		} else {
-			errorInfoStackViewBottomConstraint.constant = -errorInfoStackViewBottomConstant
+			useFaceIdAndErrorStackViewBottomConstraint.constant = -useFaceIdAndErrorStackViewBottomConstant
 		}
 
 		// Animate the view the same way the keyboard animates
@@ -162,7 +221,7 @@ extension ManagePasscodeView {
 	}
 }
 
-extension ManagePasscodeView {
+extension UnlockPasscodeView {
 	// swiftlint: redundant_void_return
 	@objc
 	internal func keyboardWillShow(_ notification: NSNotification) {

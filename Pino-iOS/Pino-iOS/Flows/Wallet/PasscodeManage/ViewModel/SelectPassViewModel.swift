@@ -11,7 +11,8 @@ struct SelectPassViewModel: PasscodeManagerPages {
 	// MARK: Public Properties
 
 	public let title = "Create passcode"
-	public let description = "This passcode is for maximizing wallet security. It cannot be used to recover it."
+	public let description: String? =
+		"This passcode is for maximizing wallet security. It cannot be used to recover it."
 	public var passcode: String?
 	public var finishPassCreation: (String) -> Void
 	public var onErrorHandling: (PassSelectionError) -> Void
