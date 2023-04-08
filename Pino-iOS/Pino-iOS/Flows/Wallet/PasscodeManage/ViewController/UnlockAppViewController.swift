@@ -25,7 +25,7 @@ class UnlockAppViewController: UIViewController {
 
 	override func loadView() {
 		setupView()
-		managePasscodeView?.passDotsView.becomeFirstResponder()
+        self.managePasscodeView?.passDotsView.becomeFirstResponder()
 	}
 
 	// MARK: - Initializers

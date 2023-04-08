@@ -25,7 +25,9 @@ class ManagePasscodeView: UIView {
 	private let useFaceIDIconContainer = UIView()
 	private let useFaceIDbetweenStackView = UIStackView()
 	private let useFaceIDInfoStackView = UIStackView()
+    private let useFaceIdAndErrorStackViewBottomConstant = CGFloat(40)
 	private var keyboardHeight: CGFloat = 320 // Minimum height in rare case keyboard of height was not calculated
+    private var useFaceIdAndErrorStackViewBottomConstraint: NSLayoutConstraint!
 
 	// MARK: Public Properties
 
@@ -74,6 +76,8 @@ extension ManagePasscodeView {
 			name: UIResponder.keyboardWillShowNotification,
 			object: nil
 		)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
 	}
 
 	private func setupView() {
@@ -167,6 +171,8 @@ extension ManagePasscodeView {
 	private func setupContstraint() {
 		errorLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 42).isActive = true
 		useFaceIDOptionStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 42).isActive = true
+        useFaceIdAndErrorStackViewBottomConstraint = NSLayoutConstraint(item: useFaceIdAndErrorStackView, attribute: .bottom, relatedBy: .equal, toItem: layoutMarginsGuide, attribute: .bottom, multiplier: 1, constant: -useFaceIdAndErrorStackViewBottomConstant)
+        addConstraint(useFaceIdAndErrorStackViewBottomConstraint)
 
 		topInfoContainerView.pin(
 			.top(to: layoutMarginsGuide, padding: 24),
@@ -182,20 +188,49 @@ extension ManagePasscodeView {
 		spaceBetweenTopView.pin(.fixedHeight(45))
 
 		useFaceIdAndErrorStackView.pin(
-			.horizontalEdges(padding: 16),
-			.bottom(to: layoutMarginsGuide, padding: keyboardHeight - 60)
+			.horizontalEdges(padding: 16)
 		)
 
 		useFaceIDIcon.pin(.fixedWidth(24), .fixedHeight(24), .centerY())
 		useFaceIDIconContainer.pin(.fixedWidth(24))
 	}
+    
+    private func moveViewWithKeyboard(notification: NSNotification, keyboardWillShow: Bool) {
+        // Keyboard's animation duration
+               let keyboardDuration = notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
+
+               // Keyboard's animation curve
+               let keyboardCurve = UIView.AnimationCurve(rawValue: notification.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! Int)!
+
+               // Change the constant
+               if keyboardWillShow {
+                   let safeAreaExists = (self.window?.safeAreaInsets.bottom != 0) // Check if safe area exists
+                   let keyboardOpenConstant = keyboardHeight - (safeAreaExists ? 20 : 0)
+                   useFaceIdAndErrorStackViewBottomConstraint.constant = -keyboardOpenConstant
+               } else {
+                   useFaceIdAndErrorStackViewBottomConstraint.constant = -useFaceIdAndErrorStackViewBottomConstant
+               }
+
+               // Animate the view the same way the keyboard animates
+               let animator = UIViewPropertyAnimator(duration: keyboardDuration, curve: keyboardCurve) { [weak self] in
+                   // Update Constraints
+                   self?.layoutIfNeeded()
+               }
+
+               // Perform the animation
+               animator.startAnimation()
+    }
+    
+    private func setFaceIdAndErrorStackViewConstraint() {
+    
+    }
 }
 
 extension ManagePasscodeView {
 	// swiftlint: redundant_void_return
 	@objc
-	internal func keyboardWillShow(_ notification: Notification?) {
-		if let info = notification?.userInfo {
+	internal func keyboardWillShow(_ notification: NSNotification) {
+		if let info = notification.userInfo {
 			let frameEndUserInfoKey = UIResponder.keyboardFrameEndUserInfoKey
 			//  Getting UIKeyboardSize.
 			if let kbFrame = info[frameEndUserInfoKey] as? CGRect {
@@ -208,5 +243,10 @@ extension ManagePasscodeView {
 				}
 			}
 		}
+        moveViewWithKeyboard(notification: notification, keyboardWillShow: true)
 	}
+    
+    @objc internal func keyboardWillHide(_ notification: NSNotification) {
+        moveViewWithKeyboard(notification: notification, keyboardWillShow: false)
+    }
 }
