@@ -5,7 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 4/5/23.
 //
 
-struct UnlockAppViewModel: PasscodeManagerPages {
+struct UnlockAppViewModel: UnlockPasscodePageManager {
 	// MARK: - Public Properties
 
 	public let title = "Enter your passcode"

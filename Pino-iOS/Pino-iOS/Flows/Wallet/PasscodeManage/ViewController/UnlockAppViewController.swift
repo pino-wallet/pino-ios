@@ -15,7 +15,7 @@ class UnlockAppViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private var unlockAppVM: UnlockAppViewModel!
-	private var managePasscodeView: ManagePasscodeView!
+	private var managePasscodeView: UnlockPasscodeView!
 
 	// MARK: - View Overrides
 
@@ -25,7 +25,7 @@ class UnlockAppViewController: UIViewController {
 
 	override func loadView() {
 		setupView()
-        self.managePasscodeView?.passDotsView.becomeFirstResponder()
+		managePasscodeView?.passDotsView.becomeFirstResponder()
 	}
 
 	// MARK: - Initializers
@@ -43,12 +43,11 @@ class UnlockAppViewController: UIViewController {
 
 	private func setupView() {
 		setupUnlockAppVM()
-		managePasscodeView = ManagePasscodeView(managePassVM: unlockAppVM)
+		managePasscodeView = UnlockPasscodeView(managePassVM: unlockAppVM)
 		managePasscodeView.onSuccessUnlockClosure = { [weak self] in
 			self?.onSuccessUnlock()
 		}
 		checkIfUserHasFaceID()
-		managePasscodeView.isUnlockMode = true
 		view = managePasscodeView
 	}
 

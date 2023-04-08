@@ -16,9 +16,6 @@ struct SelectPassViewModel: PasscodeManagerPages {
 	public var passcode: String?
 	public var finishPassCreation: (String) -> Void
 	public var onErrorHandling: (PassSelectionError) -> Void
-	public let faceIdTitle: String? = nil
-	public let useFaceIdTitle: String? = nil
-	public let useFaceIdIcon: String? = nil
 
 	// MARK: Public Methods
 

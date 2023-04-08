@@ -12,9 +12,6 @@ protocol PasscodeManagerPages {
 	var description: String? { get }
 	var passcode: String? { get set }
 	var passDigitsCount: Int { get }
-	var faceIdTitle: String? { get }
-	var useFaceIdTitle: String? { get }
-	var useFaceIdIcon: String? { get }
 	mutating func passInserted(passChar: String) // Added new pass number
 	mutating func passRemoved() // Cleared last pass number
 }

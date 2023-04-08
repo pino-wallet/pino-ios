@@ -19,9 +19,6 @@ struct VerifyPassViewModel: PasscodeManagerPages {
 	public var onErrorHandling: (PassVerifyError) -> Void
 	public var hideError: () -> Void
 	public var selectedPasscode: String
-	public let faceIdTitle: String? = nil
-	public let useFaceIdTitle: String? = nil
-	public let useFaceIdIcon: String? = nil
 
 	// MARK: Public Methods
 
