@@ -11,7 +11,7 @@ class ManageAssetsCollectionView: UICollectionView {
 	// MARK: - Public Properties
 
 	public var homeVM: HomepageViewModel
-	public var filteredAssets: [ManageAssetViewModel] {
+	public var filteredAssets: [AssetViewModel] {
 		didSet {
 			reloadData()
 		}

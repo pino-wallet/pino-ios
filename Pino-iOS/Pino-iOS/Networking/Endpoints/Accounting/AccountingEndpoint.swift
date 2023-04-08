@@ -7,13 +7,13 @@
 
 import Foundation
 
-#warning("UsersEndpoint is temprary and only for network layer demonstration")
-enum UsersEndpoint: EndpointType {
+enum AccountingEndpoint: EndpointType {
+	#warning("Temporary address to test the api")
+	static let accountADD = "0x81Ad046aE9a7Ad56092fa7A7F09A04C82064e16C"
+
 	// MARK: - Cases
 
-	case users
-	case userDetail(id: String)
-	case register(user: UserModel)
+	case balances
 
 	// MARK: - Internal Methods
 
@@ -37,22 +37,20 @@ enum UsersEndpoint: EndpointType {
 
 	// MARK: - Internal Properties
 
+	internal var endpointParent: String {
+		"accounting"
+	}
+
 	internal var requiresAuthentication: Bool {
 		switch self {
-		case .users, .userDetail, .register:
+		case .balances:
 			return false
 		}
 	}
 
 	internal var task: HTTPTask {
 		switch self {
-		case let .register(userInfo):
-			return .requestParameters(
-				bodyParameters: .object(userInfo),
-				bodyEncoding: .jsonEncoding,
-				urlParameters: nil
-			)
-		case .users, .userDetail:
+		case .balances:
 			return .request
 		}
 	}
@@ -70,19 +68,15 @@ enum UsersEndpoint: EndpointType {
 
 	internal var path: String {
 		switch self {
-		case .users, .register:
-			return "users"
-		case let .userDetail(id):
-			return "users/\(id)"
+		case .balances:
+			return "\(endpointParent)/user/\(AccountingEndpoint.accountADD)/balances"
 		}
 	}
 
 	internal var httpMethod: HTTPMethod {
 		switch self {
-		case .users, .userDetail:
+		case .balances:
 			return .get
-		case .register:
-			return .post
 		}
 	}
 }

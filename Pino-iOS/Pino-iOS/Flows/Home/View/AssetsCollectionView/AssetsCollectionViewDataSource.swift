@@ -11,18 +11,26 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 	// MARK: - CollectionView DataSource Methods
 
 	internal func numberOfSections(in collectionView: UICollectionView) -> Int {
-		HomeSection.allCases.count
+		if homeVM.positionAssetsList.isEmpty {
+			return 1
+		} else {
+			return 2
+		}
 	}
 
 	internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		let homeSection = HomeSection(rawValue: section)
-		switch homeSection {
-		case .asset:
-			return homeVM.assetsList.count
-		case .position:
-			return homeVM.positionAssetsList.count
-		case .none:
-			return .zero
+		if homeVM.assetsList.isEmpty {
+			return 6
+		} else {
+			switch homeSection {
+			case .asset:
+				return homeVM.assetsList.count
+			case .position:
+				return homeVM.positionAssetsList.count
+			case .none:
+				return .zero
+			}
 		}
 	}
 
@@ -94,6 +102,11 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 			walletBalanceHeaderView.sendButtonTappedClosure = sendButtonTappedClosure
 			walletBalanceHeaderView.receiveButtonTappedClosure = receiveButtonTappedClosure
 			walletBalanceHeaderView.portfolioPerformanceTapped = portfolioPerformanceTapped
+			if homeVM.assetsList.isEmpty {
+				walletBalanceHeaderView.showSkeletonView()
+			} else {
+				walletBalanceHeaderView.hideSkeletonView()
+			}
 			return walletBalanceHeaderView
 
 		case .position:
@@ -129,16 +142,20 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: AssetsCollectionViewCell.cellReuseID,
 			for: indexPath
 		) as! AssetsCollectionViewCell
-
-		let homeSection = HomeSection(rawValue: indexPath.section)
-		switch homeSection {
-		case .asset:
-			assetCell.assetVM = homeVM.assetsList[indexPath.row]
-		case .position:
-			assetCell.assetVM = homeVM.positionAssetsList[indexPath.row]
-		case .none: break
+		if homeVM.assetsList.isEmpty {
+			assetCell.assetVM = nil
+			assetCell.showSkeletonView()
+		} else {
+			assetCell.hideSkeletonView()
+			let homeSection = HomeSection(rawValue: indexPath.section)
+			switch homeSection {
+			case .asset:
+				assetCell.assetVM = homeVM.assetsList[indexPath.row]
+			case .position:
+				assetCell.assetVM = homeVM.positionAssetsList[indexPath.row]
+			case .none: break
+			}
 		}
-
 		return assetCell
 	}
 

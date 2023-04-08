@@ -19,6 +19,10 @@ extension String {
 		return array
 	}
 
+	var doubleValue: Double? {
+		Double(self)
+	}
+
 	public func shortenedString(characterCount: Int) -> String {
 		"\(prefix(characterCount))...\(suffix(characterCount))"
 	}

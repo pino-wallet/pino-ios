@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 12/20/22.
 //
 
+import Kingfisher
 import UIKit
 
 public class AssetsCollectionViewCell: UICollectionViewCell {
@@ -24,7 +25,7 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 
 	public static let cellReuseID = "assetCell"
 
-	public var assetVM: AssetViewModel! {
+	public var assetVM: AssetViewModel? {
 		didSet {
 			setupView()
 			setupStyle()
@@ -47,12 +48,14 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 	}
 
 	private func setupStyle() {
-		assetTitleLabel.text = assetVM.name
-		assetAmountLabel.text = assetVM.amount
-		assetAmountInDollorLabel.text = assetVM.amountInDollor
-		assetVolatilityLabel.text = assetVM.volatilityInDollor
+		setSkeletonable()
 
-		if assetVM.securityMode {
+		assetTitleLabel.text = assetVM?.name
+		assetAmountLabel.text = assetVM?.amount
+		assetAmountInDollorLabel.text = assetVM?.amountInDollor
+		assetVolatilityLabel.text = assetVM?.volatilityInDollor
+
+		if assetVM?.securityMode ?? false {
 			assetAmountLabel.font = .PinoStyle.boldTitle2
 			assetAmountInDollorLabel.font = .PinoStyle.boldTitle1
 			assetVolatilityLabel.font = .PinoStyle.boldTitle2
@@ -69,7 +72,7 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 			assetAmountLabel.textColor = .Pino.secondaryLabel
 			assetAmountInDollorLabel.textColor = .Pino.label
 
-			switch assetVM.volatilityType {
+			switch assetVM?.volatilityType ?? .none {
 			case .profit:
 				assetVolatilityLabel.textColor = .Pino.green
 			case .loss:
@@ -79,7 +82,8 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 			}
 		}
 
-		assetImage.image = UIImage(named: assetVM.image)
+		assetImage.kf.indicatorType = .activity
+		assetImage.kf.setImage(with: assetVM?.image)
 
 		backgroundColor = .Pino.background
 		assetCardView.backgroundColor = .Pino.secondaryBackground
@@ -98,9 +102,24 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 		assetVolatilityStackView.alignment = .trailing
 		assetTitleStackView.alignment = .leading
 		assetVolatilityStackView.alignment = .trailing
+		assetTitleStackView.distribution = .equalCentering
+		assetVolatilityStackView.distribution = .equalCentering
 
 		assetCardView.layer.cornerRadius = 12
 		assetImage.layer.cornerRadius = 22
+
+		assetImage.layer.masksToBounds = true
+
+		assetAmountInDollorLabel.textAlignment = .right
+		assetVolatilityLabel.textAlignment = .right
+	}
+
+	private func setSkeletonable() {
+		assetImage.isSkeletonable = true
+		assetTitleLabel.isSkeletonable = true
+		assetAmountLabel.isSkeletonable = true
+		assetVolatilityLabel.isSkeletonable = true
+		assetAmountInDollorLabel.isSkeletonable = true
 	}
 
 	private func setupConstraint() {
@@ -109,31 +128,31 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 			.horizontalEdges(padding: 16)
 		)
 		assetTitleStackView.pin(
-			.verticalEdges
+			.top(padding: 4),
+			.bottom(padding: 2)
 		)
 		assetStackView.pin(
 			.centerY,
 			.leading(padding: 14)
 		)
 		assetVolatilityStackView.pin(
-			.centerY,
+			.verticalEdges(to: assetTitleStackView),
 			.trailing(padding: 14)
 		)
 		assetImage.pin(
 			.fixedWidth(44),
 			.fixedHeight(44)
 		)
-		assetTitleLabel.pin(
-			.fixedHeight(22)
-		)
-		assetAmountLabel.pin(
-			.fixedHeight(18)
-		)
-		assetAmountInDollorLabel.pin(
-			.fixedHeight(22)
-		)
-		assetVolatilityLabel.pin(
-			.fixedHeight(18)
-		)
+
+		NSLayoutConstraint.activate([
+			assetTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
+			assetAmountLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60),
+			assetAmountInDollorLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60),
+			assetVolatilityLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 40),
+			assetTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14),
+			assetAmountLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14),
+			assetAmountInDollorLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14),
+			assetVolatilityLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14),
+		])
 	}
 }

@@ -58,11 +58,6 @@ class ChangeAvatarViewController: UIViewController {
 			target: self,
 			action: #selector(saveChanges)
 		)
-		let textAttributes = [
-			NSAttributedString.Key.foregroundColor: UIColor.Pino.white,
-			NSAttributedString.Key.font: UIFont.PinoStyle.semiboldBody!,
-		]
-		navigationItem.rightBarButtonItem?.setTitleTextAttributes(textAttributes, for: .normal)
 	}
 
 	@objc

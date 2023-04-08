@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 1/14/23.
 //
 
+import Kingfisher
 import UIKit
 
 public class ManageAssetCell: UICollectionViewCell {
@@ -22,7 +23,7 @@ public class ManageAssetCell: UICollectionViewCell {
 
 	public static let cellReuseID = "manageAssetCell"
 
-	public var assetVM: ManageAssetViewModel! {
+	public var assetVM: AssetViewModel! {
 		didSet {
 			setupView()
 			setupStyle()
@@ -52,7 +53,8 @@ public class ManageAssetCell: UICollectionViewCell {
 		assetTitleLabel.text = assetVM.name
 		assetAmountLabel.text = assetVM.amount
 
-		assetImage.image = UIImage(named: assetVM.image)
+		assetImage.kf.indicatorType = .activity
+		assetImage.kf.setImage(with: assetVM.image)
 
 		backgroundColor = .Pino.background
 		assetCardView.backgroundColor = .Pino.secondaryBackground

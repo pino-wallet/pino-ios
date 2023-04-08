@@ -41,7 +41,7 @@ class ManageAssetsViewController: UIViewController {
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
-		homeVM.saveAssetsInUserDefaults(assets: homeVM.manageAssetsList.compactMap { $0.assetModel })
+		// Save selected assets locally
 	}
 
 	// MARK: - Private Methods

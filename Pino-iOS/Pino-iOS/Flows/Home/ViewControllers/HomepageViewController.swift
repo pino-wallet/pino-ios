@@ -16,24 +16,10 @@ class HomepageViewController: UIViewController {
 	private var cancellables = Set<AnyCancellable>()
 	private var addressCopiedToastView = CopyToastView(message: nil)
 
-	#warning("Temprary adding to test network layer")
-	private var usersAPIClient = UsersAPIMockClient()
-
 	// MARK: - View Overrides
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		usersAPIClient.users().sink { completed in
-			switch completed {
-			case .finished:
-				print("finished")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { users in
-			print(users)
-		}.store(in: &cancellables)
 	}
 
 	override func viewDidLayoutSubviews() {

@@ -17,13 +17,13 @@ class HomepageViewModel {
 	@Published
 	public var walletBalance: WalletBalanceViewModel!
 	@Published
-	public var assetsList: [AssetViewModel]!
+	public var assetsList: [AssetViewModel] = []
 	@Published
 	public var positionAssetsList: [AssetViewModel]!
 	@Published
 	public var securityMode = false
 	@Published
-	public var manageAssetsList: [ManageAssetViewModel]!
+	public var manageAssetsList: [AssetViewModel]! = []
 
 	public let copyToastMessage = "Copied!"
 	public let connectionErrorToastMessage = "No internet connection"
@@ -37,16 +37,14 @@ class HomepageViewModel {
 
 	private var cancellables = Set<AnyCancellable>()
 
-	#warning("Mock client is temporary and must be replaced by API client")
-	private var assetsAPIClient = AssetsAPIMockClient()
 	private var walletAPIClient = WalletAPIMockClient()
+	private var accountingAPIClient = AccountingAPIClient()
 
 	// MARK: - Initializers
 
 	init() {
 		getWalletInfo()
 		getWalletBalance()
-		getManageAssetsList()
 		getAssetsList()
 		getPositionAssetsList()
 		setupBindings()
@@ -140,70 +138,25 @@ class HomepageViewModel {
 	}
 
 	private func getAssetsList() {
-		$manageAssetsList.sink { [weak self] manageAssetsList in
-			guard let self = self else { return }
-			guard let manageAssetsList = manageAssetsList else { return }
-			let assetsModel = manageAssetsList.compactMap { $0.assetModel }.filter { $0.isSelected }
-			self.assetsList = assetsModel.compactMap { AssetViewModel(assetModel: $0) }
-		}.store(in: &cancellables)
+		accountingAPIClient.userBalance()
+			.map { balanceAssets in
+				balanceAssets.filter { $0.isVerified }
+			}
+			.sink { completed in
+				switch completed {
+				case .finished:
+					print("Assets received successfully")
+				case let .failure(error):
+					print(error)
+				}
+			} receiveValue: { assets in
+				self.manageAssetsList = assets.compactMap { AssetViewModel(assetModel: $0) }
+				self.assetsList = self.manageAssetsList.filter { $0.isSelected }
+			}.store(in: &cancellables)
 	}
 
 	private func getPositionAssetsList() {
-		assetsAPIClient.positions().sink { completed in
-			switch completed {
-			case .finished:
-				print("Positions received successfully")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { positions in
-			self.positionAssetsList = positions.positionsList.compactMap { AssetViewModel(assetModel: $0) }
-		}.store(in: &cancellables)
-	}
-
-	private func getManageAssetsList() {
-		if let manageAssetsModel = getAssetsFromUserDefaults() {
-			manageAssetsList = manageAssetsModel.compactMap { ManageAssetViewModel(assetModel: $0) }
-		} else {
-			registerAssetsUserDefaults()
-		}
-	}
-
-	public func saveAssetsInUserDefaults(assets: [AssetModel]) {
-		do {
-			let encodedAssets = try JSONEncoder().encode(assets)
-			UserDefaults.standard.set(encodedAssets, forKey: "assets")
-		} catch {
-			fatalError(error.localizedDescription)
-		}
-	}
-
-	public func getAssetsFromUserDefaults() -> [AssetModel]? {
-		guard let encodedAssets = UserDefaults.standard.data(forKey: "assets") else { return nil }
-		do {
-			return try JSONDecoder().decode([AssetModel].self, from: encodedAssets)
-		} catch {
-			fatalError(error.localizedDescription)
-		}
-	}
-
-	public func registerAssetsUserDefaults() {
-		assetsAPIClient.assets().sink { completed in
-			switch completed {
-			case .finished:
-				print("Assets received successfully")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { assets in
-			do {
-				let encodedAssets = try JSONEncoder().encode(assets.assetsList)
-				UserDefaults.standard.register(defaults: ["assets": encodedAssets])
-			} catch {
-				fatalError(error.localizedDescription)
-			}
-			self.manageAssetsList = assets.assetsList.compactMap { ManageAssetViewModel(assetModel: $0) }
-		}.store(in: &cancellables)
+		positionAssetsList = []
 	}
 
 	public func getWalletInfoFromUserDefaults() -> WalletInfoModel? {
