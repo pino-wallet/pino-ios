@@ -327,6 +327,7 @@
 		DF0F65F929E1B29C00DB7290 /* wallet-balance-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 326B0DAFD947F590C331F13D /* wallet-balance-stub.json */; };
 		DF0F65FA29E1B29C00DB7290 /* assets-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B2220BAE0D7613EB95414ED /* assets-stub.json */; };
 		DF0F65FB29E1B29C00DB7290 /* wallets-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = DE9E95DAD0FE359D802524FC /* wallets-stub.json */; };
+		DF0F660629E1B47B00DB7290 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F660529E1B47B00DB7290 /* Charts */; };
 		DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF705C69E87F6C936F8261B /* AccountingAPIClient.swift */; };
 		DF75D7BA11B6049962E559DD /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED04DC43CDE62FC3786D51F4 /* Pods_Pino_iOS_Pino_iOSUITests.framework */; };
 		E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCBF9CC6A3C63CAA0DB0AA7 /* ActivityViewController.swift */; };
@@ -761,6 +762,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF0F660629E1B47B00DB7290 /* Charts in Frameworks */,
 				DF0F65F029E1B27200DB7290 /* Kingfisher in Frameworks */,
 				5C2406A791AFEA56B9374873 /* Pods_Pino_iOS.framework in Frameworks */,
 				DF0F65E529E1B20F00DB7290 /* BigInt in Frameworks */,
@@ -2159,6 +2161,7 @@
 				DF0F65E429E1B20F00DB7290 /* BigInt */,
 				DF0F65E729E1B22A00DB7290 /* web3swift */,
 				DF0F65EF29E1B27200DB7290 /* Kingfisher */,
+				DF0F660529E1B47B00DB7290 /* Charts */,
 			);
 			productName = "Pino-iOS";
 			productReference = 8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */;
@@ -2236,6 +2239,7 @@
 				DF0F65E629E1B22A00DB7290 /* XCRemoteSwiftPackageReference "web3swift" */,
 				DF0F65E929E1B24500DB7290 /* XCRemoteSwiftPackageReference "OHHTTPStubs" */,
 				DF0F65EE29E1B27200DB7290 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				DF0F660429E1B47B00DB7290 /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = 2821FB9CEE9F9B9E6BAE9FD7 /* Products */;
 			projectDirPath = "";
@@ -3079,6 +3083,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		DF0F660429E1B47B00DB7290 /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -3106,6 +3118,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DF0F65EE29E1B27200DB7290 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		DF0F660529E1B47B00DB7290 /* Charts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF0F660429E1B47B00DB7290 /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = Charts;
 		};
 /* End XCSwiftPackageProductDependency section */
 
