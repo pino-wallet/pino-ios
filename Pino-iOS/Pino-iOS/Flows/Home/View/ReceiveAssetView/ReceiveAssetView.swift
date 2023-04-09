@@ -13,8 +13,11 @@ class ReceiveAssetView: UIView, WKUIDelegate {
 
 	public var homeVM: HomepageViewModel
 	public var receiveVM: ReceiveViewModel
-	public var addressQRCodeWebView: WKWebView
-	public var qrCodeLoadingIndicator: PinoLoading
+	public var addressQrCodeImage: UIImage? {
+		didSet {
+			setupQRCode()
+		}
+	}
 
 	// MARK: - Private Properties
 
@@ -26,22 +29,20 @@ class ReceiveAssetView: UIView, WKUIDelegate {
 	private let addressLabelContainer = UIView()
 	private let copyAddressButton = ReceiveActionButton()
 	private let copiedToastView = PinoToastView(message: nil, style: .primary)
+	private let qrCodeLoadingIndicator = PinoLoading(size: 32)
+	private let addressQrCodeImageView = UIImageView()
+	private let paymentMethodOption = PaymentMethodOptionView()
 
 	// MARK: Initializers
 
 	init(
 		homeVM: HomepageViewModel,
-		receiveVM: ReceiveViewModel,
-		addressQRCodeWebView: WKWebView,
-		qrCodeLoadingIndicator: PinoLoading
+		receiveVM: ReceiveViewModel
 	) {
 		self.homeVM = homeVM
 		self.receiveVM = receiveVM
-		self.addressQRCodeWebView = addressQRCodeWebView
-		self.qrCodeLoadingIndicator = qrCodeLoadingIndicator
 		super.init(frame: .zero)
 		setupView()
-		setupQRCode()
 		setupContstraints()
 	}
 
@@ -59,7 +60,7 @@ class ReceiveAssetView: UIView, WKUIDelegate {
 		qrCodeBordersCard.layer.cornerRadius = 4
 		qrCodeBordersCard.isHidden = true
 
-		addressQRCodeImageCardView.addSubview(addressQRCodeWebView)
+		addressQRCodeImageCardView.addSubview(addressQrCodeImageView)
 		addressQRCodeImageCardView.addSubview(qrCodeBordersCard)
 		addressQRCodeImageCardView.layer.borderWidth = 1
 		addressQRCodeImageCardView.layer.borderColor = UIColor.Pino.background.cgColor
@@ -67,7 +68,7 @@ class ReceiveAssetView: UIView, WKUIDelegate {
 
 		addressQRCodeImageCardView.addSubview(qrCodeLoadingIndicator)
 
-		addressQRCodeWebView.backgroundColor = .Pino.white
+		addressQrCodeImageView.backgroundColor = .Pino.white
 
 		walletOwnerName.font = UIFont.PinoStyle.semiboldTitle2
 		walletOwnerName.numberOfLines = 0
@@ -101,6 +102,9 @@ class ReceiveAssetView: UIView, WKUIDelegate {
 		walletOwnerName.textAlignment = .center
 		addSubview(addressQRCodeImageCardView)
 		addSubview(walletInfoStackView)
+		paymentMethodOption
+			.paymentMethodOptionVM = PaymentMethodOptionViewModel(paymentMethodOption: receiveVM.paymentMethodOptions[0])
+		addSubview(paymentMethodOption)
 	}
 
 	private func setupContstraints() {
@@ -112,7 +116,7 @@ class ReceiveAssetView: UIView, WKUIDelegate {
 			.fixedHeight(300)
 		)
 		qrCodeLoadingIndicator.pin(.centerY(to: superview), .centerX(to: superview))
-		addressQRCodeWebView.pin(.allEdges(to: addressQRCodeImageCardView, padding: 9))
+		addressQrCodeImageView.pin(.allEdges(to: addressQRCodeImageCardView, padding: 9))
 		qrCodeBordersCard.pin(.allEdges(to: addressQRCodeImageCardView, padding: 18))
 		walletInfoStackView.pin(
 			.relative(.top, 16, to: addressQRCodeImageCardView, .bottom),
@@ -121,14 +125,12 @@ class ReceiveAssetView: UIView, WKUIDelegate {
 			.fixedWidth(300)
 		)
 		addressLabel.pin(.centerY(), .horizontalEdges(to: superview, padding: 22))
+		paymentMethodOption.pin(.horizontalEdges(padding: 16), .relative(.top, 174, to: walletInfoStackView, .bottom))
 	}
 
 	private func setupQRCode() {
 		qrCodeBordersCard.isHidden = false
-		let url = Bundle.main.url(forResource: "index", withExtension: "html", subdirectory: "WebViewFiles")!
-		addressQRCodeWebView.loadFileURL(url, allowingReadAccessTo: url)
-		let request = URLRequest(url: url)
-		addressQRCodeWebView.load(request)
-		addressQRCodeWebView.uiDelegate = self
+		qrCodeLoadingIndicator.isHidden = true
+		addressQrCodeImageView.image = addressQrCodeImage
 	}
 }
