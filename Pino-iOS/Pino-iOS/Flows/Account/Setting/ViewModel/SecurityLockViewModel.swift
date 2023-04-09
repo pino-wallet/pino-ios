@@ -26,5 +26,5 @@ class SecurityLockViewModel {
 
 	// MARK: - Public Methods
 
-	public func changeLockMethod(type: LockMethodModel.LockMethodType) {}
+	public func changeLockMethod(type: LockMethodType) {}
 }

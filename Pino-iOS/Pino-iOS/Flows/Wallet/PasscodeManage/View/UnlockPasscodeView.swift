@@ -40,12 +40,17 @@ class UnlockPasscodeView: UIView {
 	// MARK: - Closures
 
 	public var onSuccessUnlockClosure: (() -> Void)!
+	public var onFaceIDFallback: () -> Void
 
 	// MARK: Initializers
 
-	init(managePassVM: UnlockPasscodePageManager) {
+	init(
+		managePassVM: UnlockPasscodePageManager,
+		onFaceIDFallback: @escaping () -> Void
+	) {
 		self.managePassVM = managePassVM
 		self.passDotsView = PassDotsView(passcodeManagerVM: managePassVM)
+		self.onFaceIDFallback = onFaceIDFallback
 		super.init(frame: .zero)
 
 		setupNotifications()
@@ -137,10 +142,7 @@ extension UnlockPasscodeView {
 	@objc
 	private func onUseFaceIDSwitchChange() {
 		if useFaceIDSwitch.isOn {
-			var faceIDAuthentication = BiometricAuthentication()
-			faceIDAuthentication.evaluate { [weak self] in
-				self?.onSuccessUnlockClosure()
-			}
+			onFaceIDFallback()
 		}
 	}
 

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RevealPrivateKeyViewController: UIViewController {
+class RevealPrivateKeyViewController: AuthenticationLockViewController {
 	// MARK: Private Properties
 
 	private var revealPrivateKeyView: RevealPrivateKeyView!
@@ -81,8 +81,7 @@ class RevealPrivateKeyViewController: UIViewController {
 	}
 
 	private func showFaceID() {
-		var faceIDLock = BiometricAuthentication()
-		faceIDLock.evaluate {
+		unlockApp {
 			self.revealPrivateKeyView.showPrivateKey()
 		}
 	}
