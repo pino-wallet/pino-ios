@@ -5,20 +5,23 @@
 //  Created by Amir hossein kazemi seresht on 4/3/23.
 //
 
+import Combine
 import UIKit
 
 class LockSettingsHeaderCollectionReusableView: UICollectionReusableView {
-	// MARK: - Closures
+	// MARK: - Private Properties
 
-	public var openSelectLockMethodAlertClosure: (() -> Void) = {}
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Peoperties
 
+	public var openSelectLockMethodAlertClosure: (() -> Void) = {}
 	public var securityLockVM: SecurityLockViewModel! {
 		didSet {
 			setupView()
 			setupConstraints()
 			setupStyle()
+			setupBinding()
 		}
 	}
 
@@ -72,7 +75,6 @@ class LockSettingsHeaderCollectionReusableView: UICollectionReusableView {
 
 		changeLockMethodTitleLabel.text = securityLockVM.changeLockMethodTitle
 
-		selectedLockMethodLabel.text = "Passcode"
 		selectedLockMethodLabel.textColor = .Pino.gray2
 
 		lockSettingsTitleLabel.text = securityLockVM.lockSettingsHeaderTitle
@@ -86,6 +88,12 @@ class LockSettingsHeaderCollectionReusableView: UICollectionReusableView {
 		selectedLockMethodStackView.spacing = 2
 
 		changeLockMethodStackView.axis = .horizontal
+	}
+
+	private func setupBinding() {
+		securityLockVM.$selectedLockMethod.sink { lockMethod in
+			self.selectedLockMethodLabel.text = lockMethod?.title
+		}.store(in: &cancellables)
 	}
 
 	@objc

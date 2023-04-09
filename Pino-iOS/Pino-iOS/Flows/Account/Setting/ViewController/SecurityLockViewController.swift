@@ -49,10 +49,9 @@ class SecurityLockViewController: UIViewController {
 		lockSelectMethodAlert
 			.addAction(UIAlertAction(title: securityLockVM.alertCancelButtonTitle, style: .cancel, handler: nil))
 
-		for action in securityLockVM.lockMethods {
-			let alertAction = UIAlertAction(title: action.title, style: .default, handler: { [weak self] _ in
-				self?.securityLockVM.changeLockMethod(type: action.type)
-
+		for lockMethod in securityLockVM.lockMethods {
+			let alertAction = UIAlertAction(title: lockMethod.title, style: .default, handler: { [weak self] _ in
+				self?.securityLockVM.changeLockMethod(to: lockMethod)
 			})
 			lockSelectMethodAlert.addAction(alertAction)
 		}

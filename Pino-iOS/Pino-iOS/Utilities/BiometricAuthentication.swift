@@ -5,13 +5,16 @@
 //  Created by Mohi Raoufi on 3/14/23.
 //
 
+import Foundation
 import LocalAuthentication
 import UIKit
 
 class AuthenticationLockViewController: UIViewController {
-	private var lockMethod = LockMethodType.face_id
+	// MARK: - Public Methods
 
 	public func unlockApp(onSuccess: @escaping () -> Void) {
+		let lockMethod = getLockMethod()
+
 		switch lockMethod {
 		case .face_id:
 			unlockWithBiometric {
@@ -22,6 +25,15 @@ class AuthenticationLockViewController: UIViewController {
 				onSuccess()
 			}
 		}
+	}
+
+	// MARK: - Private Methods
+
+	private func getLockMethod() -> LockMethodType {
+		let defaultLockMethod = LockMethodType.face_id
+		let savedLockMethod = UserDefaults.standard.string(forKey: "lockMethodType") ?? defaultLockMethod.rawValue
+		let lockMethod = LockMethodType(rawValue: savedLockMethod) ?? defaultLockMethod
+		return lockMethod
 	}
 
 	private func unlockWithBiometric(onSuccess: @escaping () -> Void) {
@@ -74,10 +86,14 @@ class AuthenticationLockViewController: UIViewController {
 
 extension AuthenticationLockViewController {
 	struct BiometricAuthentication {
+		// MARK: - Private Properties
+
 		private let laContext = LAContext()
 		private let biometricsPolicy = LAPolicy.deviceOwnerAuthenticationWithBiometrics
 		private var localizedReason = "Unlock device"
 		private var error: NSError?
+
+		// MARK: - Public Methods
 
 		public mutating func evaluate(onSuccess: @escaping () -> Void, onFailure: @escaping (Int) -> Void) {
 			if canEvaluate() {
@@ -99,6 +115,8 @@ extension AuthenticationLockViewController {
 				onFailure(LAError.authenticationFailed.rawValue)
 			}
 		}
+
+		// MARK: - Private Methods
 
 		private mutating func canEvaluate() -> Bool {
 			guard laContext.canEvaluatePolicy(biometricsPolicy, error: &error) else {
