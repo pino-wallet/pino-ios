@@ -19,4 +19,6 @@ struct RevealPrivateKeyViewModel {
 
 	#warning("Private key is temporary and must be replaced by Keychain key")
 	public let privateKey = "2ZdGD9g7Jb4QuZvLKRsMZfsr2CtpNwWn6kZdW8SqyjCLuWM8RmVE4C1aSjxApuo53j6EbZ8zTpbgx6MseRWyF3qS"
+	public let lockedPrivateKey =
+		"****************************************************************************************"
 }

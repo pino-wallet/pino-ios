@@ -52,6 +52,7 @@ class RecoveryPhraseView: UIView {
 
 	private func setupView() {
 		seedPhraseCollectionView.secretWords = secretPhraseVM.secretPhraseList
+		seedPhraseCollectionView.isLocked = true
 
 		contentStackView.addArrangedSubview(titleStackView)
 		contentStackView.addArrangedSubview(seedPhraseView)
@@ -167,6 +168,7 @@ class RecoveryPhraseView: UIView {
 		UIView.animate(withDuration: 0.5) {
 			self.seedPhraseBlurView.alpha = 0
 			self.revealLabel.alpha = 0
+			self.seedPhraseCollectionView.isLocked = false
 		}
 	}
 }

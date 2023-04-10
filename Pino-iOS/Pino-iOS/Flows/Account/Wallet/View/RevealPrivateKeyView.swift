@@ -86,7 +86,7 @@ class RevealPrivateKeyView: UIView {
 		descriptionLabel.text = revealPrivateKeyVM.pageDescription
 		revealTitleLabel.text = revealPrivateKeyVM.revealTitle
 		revealDescriptionLabel.text = revealPrivateKeyVM.revealDescription
-		privateKeyLabel.text = revealPrivateKeyVM.privateKey
+		privateKeyLabel.text = revealPrivateKeyVM.lockedPrivateKey
 		copyPrivateKeyButton.setTitle(revealPrivateKeyVM.copyButtonTitle, for: .normal)
 		continueButton.title = "Done"
 
@@ -133,6 +133,7 @@ class RevealPrivateKeyView: UIView {
 		privateKeyView.layer.cornerRadius = 12
 		privateKeyView.layer.borderColor = UIColor.Pino.gray3.cgColor
 		privateKeyView.layer.borderWidth = 1
+		privateKeyView.backgroundColor = .Pino.gray5
 
 		privateKeyLabel.alpha = 0.4
 		copyPrivateKeyButton.alpha = 0
@@ -168,7 +169,7 @@ class RevealPrivateKeyView: UIView {
 
 	public func showPrivateKey() {
 		UIView.animate(withDuration: 0.5) {
-			self.privateKeyView.backgroundColor = .Pino.gray5
+			self.privateKeyLabel.text = self.revealPrivateKeyVM.privateKey
 			self.privateKeyLabel.alpha = 0.9
 			self.revealBlurView.alpha = 0
 			self.revealStackView.alpha = 0
