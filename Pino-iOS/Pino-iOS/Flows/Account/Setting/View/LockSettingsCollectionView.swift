@@ -103,8 +103,6 @@ extension LockSettingsCollectionView: UICollectionViewDataSource {
 		cell.manageIndex = (cellIndex: indexPath.item, cellsCount: securityLockVM.lockSettings.count)
 		cell.switchValueClosure = { isOn, type in
 		}
-		cell.onTooltipTapClosure = { tooltipText in
-		}
 		return cell
 	}
 

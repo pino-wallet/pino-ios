@@ -12,12 +12,12 @@ class CustomSwitchCollectionViewCell: UICollectionViewCell {
 
 	typealias manageIndexType = (cellIndex: Int, cellsCount: Int)
 	typealias switchValueClosureType = (_ isOn: Bool, _ type: String) -> Void
-	typealias onTooltipTapClosureType = (_ tooltipText: String) -> Void
+	typealias onTooltipTapClosureType = (_ tooltipTitle: String, _ tooltipText: String) -> Void
 
 	// MARK: - Closures
 
 	public var switchValueClosure: switchValueClosureType! = { isOn, type in }
-	public var onTooltipTapClosure: onTooltipTapClosureType! = { tooltipText in }
+	public var onTooltipTapClosure: onTooltipTapClosureType! = { tooltipTitle, tooltipText in }
 
 	// MARK: - Private Properties
 
@@ -68,6 +68,7 @@ class CustomSwitchCollectionViewCell: UICollectionViewCell {
 
 	private func setupConstraints() {
 		mainStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 31).isActive = true
+		infoStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
 		mainStackView.pin(.verticalEdges(padding: 8.5), .horizontalEdges(padding: 16))
 		topBorderView.pin(.fixedHeight(0.5), .top(padding: 0), .leading(padding: 16), .trailing(padding: 0))
 		tooltipImageView.pin(.fixedWidth(16), .fixedHeight(16))
@@ -132,6 +133,6 @@ class CustomSwitchCollectionViewCell: UICollectionViewCell {
 
 	@objc
 	private func onTooltipTap() {
-		onTooltipTapClosure(customSwitchCollectionViewCellVM.tooltipText)
+		onTooltipTapClosure(customSwitchCollectionViewCellVM.title, customSwitchCollectionViewCellVM.tooltipText)
 	}
 }

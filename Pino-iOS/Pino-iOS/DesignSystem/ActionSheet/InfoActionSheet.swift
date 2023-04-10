@@ -18,6 +18,8 @@ class InfoActionSheet: UIAlertController {
 	private let descriptionLabel = PinoLabel(style: .description, text: nil)
 	private let actionButton = PinoButton(style: .active)
 
+	// MARK: - Public Properties
+
 	public var actionButtonTitle = "Got it"
 	public var onActionButtonTap: (() -> Void)?
 

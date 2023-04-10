@@ -299,6 +299,12 @@
 		D50E904CB4FBD07E10DE3E9B /* PPPangramSans-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76670736A779E64FF9997E82 /* PPPangramSans-ThinItalic.ttf */; };
 		D5AF586CED6D64131278865F /* coin-portfolio-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B0095EE8C266D11D502576F /* coin-portfolio-stub.json */; };
 		D615530893452E25B58471EF /* ShareOfAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6721806A1540B888590AFF4C /* ShareOfAssetsViewModel.swift */; };
+		D91A39FD29E40EA400004CB2 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A39FC29E40EA400004CB2 /* NotificationsViewController.swift */; };
+		D91A39FF29E40F8900004CB2 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A39FE29E40F8900004CB2 /* NotificationsViewModel.swift */; };
+		D91A3A0129E4109500004CB2 /* NotificationOptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A3A0029E4109500004CB2 /* NotificationOptionModel.swift */; };
+		D91A3A0329E4124A00004CB2 /* NotificationsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A3A0229E4124A00004CB2 /* NotificationsCollectionView.swift */; };
+		D91A3A0529E412A200004CB2 /* NotificationsHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A3A0429E412A200004CB2 /* NotificationsHeaderCollectionReusableView.swift */; };
+		D91A3A0729E41C1800004CB2 /* NotificationOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A3A0629E41C1800004CB2 /* NotificationOptionViewModel.swift */; };
 		D964AC6B0907B2432359A129 /* GroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D7CE3AA42604B8F78EA87C /* GroupCollectionViewCell.swift */; };
 		D97CF62C25B975AD3C131881 /* CoinHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26427FD948787141E7AA599B /* CoinHistoryModel.swift */; };
 		D9DD538BAF953A18503AB3F0 /* RemoveAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887EDE19A8B81F1FB217E0FA /* RemoveAccountView.swift */; };
@@ -686,6 +692,12 @@
 		D846BDE4ED7AF8234497E621 /* LaunchSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchSettings.swift; sourceTree = "<group>"; };
 		D859A59CF3F5322ACE7356E4 /* VerifySecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseView.swift; sourceTree = "<group>"; };
 		D872D11A91B4283F96C4999D /* ShowSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseViewController.swift; sourceTree = "<group>"; };
+		D91A39FC29E40EA400004CB2 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
+		D91A39FE29E40F8900004CB2 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
+		D91A3A0029E4109500004CB2 /* NotificationOptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationOptionModel.swift; sourceTree = "<group>"; };
+		D91A3A0229E4124A00004CB2 /* NotificationsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCollectionView.swift; sourceTree = "<group>"; };
+		D91A3A0429E412A200004CB2 /* NotificationsHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		D91A3A0629E41C1800004CB2 /* NotificationOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationOptionViewModel.swift; sourceTree = "<group>"; };
 		D91B98B8A47DBAE96AE7956F /* PPPangramSans-Extrabold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Extrabold.ttf"; sourceTree = "<group>"; };
 		DA8ADDD22F193963D587AE57 /* ChartInfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartInfoItem.swift; sourceTree = "<group>"; };
 		DBAB3BCDE2EE38AC5F9D140A /* Pods_Pino_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -918,6 +930,7 @@
 				386E9EB6770D54847A0B49F3 /* AboutPinoViewController.swift */,
 				C282DA27E1C4F2A33C6BD8BC /* RecoveryPhraseViewController.swift */,
 				7DB500BB3E02CB030D09B2A0 /* SecurityLockViewController.swift */,
+				D91A39FC29E40EA400004CB2 /* NotificationsViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1104,6 +1117,8 @@
 				97BB5C0ABDA0E3F2CB0877D6 /* LockSettingViewModel.swift */,
 				A38B35BEB7646037614A159D /* RecoveryPhraseViewModel.swift */,
 				1ACC445FAA9626AB655BE5E6 /* SecurityLockViewModel.swift */,
+				D91A39FE29E40F8900004CB2 /* NotificationsViewModel.swift */,
+				D91A3A0629E41C1800004CB2 /* NotificationOptionViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1202,6 +1217,7 @@
 			children = (
 				386676E7E643B6AB252A5653 /* LockMethodModel.swift */,
 				A76E946D4DB4C97594C15C22 /* LockSettingModel.swift */,
+				D91A3A0029E4109500004CB2 /* NotificationOptionModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1214,6 +1230,8 @@
 				3CE50ED0CBE7191895D8D9F4 /* LockSettingsFooterCollectionReusableView.swift */,
 				175F2C022C8A660F5B11211F /* LockSettingsHeaderCollectionReusableView.swift */,
 				EBCC6457265C54F56DE92A17 /* RecoveryPhraseView.swift */,
+				D91A3A0229E4124A00004CB2 /* NotificationsCollectionView.swift */,
+				D91A3A0429E412A200004CB2 /* NotificationsHeaderCollectionReusableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2469,6 +2487,7 @@
 				A6A306BA4B25BC475B98C8BD /* AboutCoinViewModel.swift in Sources */,
 				902BA90F4366DD5D18B06A90 /* AboutPinoView.swift in Sources */,
 				DD2E33C472905FA32AE84797 /* AboutPinoViewController.swift in Sources */,
+				D91A39FF29E40F8900004CB2 /* NotificationsViewModel.swift in Sources */,
 				12265EA20032CC8CF48199E7 /* AboutPinoViewModel.swift in Sources */,
 				1AC53E3B2AB70C2C7F419A38 /* AccountHeaderView.swift in Sources */,
 				DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */,
@@ -2490,6 +2509,7 @@
 				5172E07495C5EBFA21772580 /* AllDoneViewController.swift in Sources */,
 				4BD24A38B1C81FA80EB0B6E8 /* AllDoneViewModel.swift in Sources */,
 				A56FBAD2E31C10F504631CD6 /* AppDelegate.swift in Sources */,
+				D91A3A0529E412A200004CB2 /* NotificationsHeaderCollectionReusableView.swift in Sources */,
 				917064233A24F0460102BC15 /* Array+Extension.swift in Sources */,
 				FADF64026A19F019F554FEA5 /* AssetChartModel.swift in Sources */,
 				8FEE7479372B430975CF245D /* AssetChartViewModel.swift in Sources */,
@@ -2538,12 +2558,14 @@
 				9564A69D20BD22A50221D63B /* CoinPerformanceInfoItems.swift in Sources */,
 				1AD184E82488453998E5A2E5 /* CoinPerformanceInfoModel.swift in Sources */,
 				8A10D639170969ECFADE0FE4 /* CoinPerformanceInfoViewModel.swift in Sources */,
+				D91A3A0129E4109500004CB2 /* NotificationOptionModel.swift in Sources */,
 				10CD67476F9AA1C6EE89AA6F /* CoinPerformanceView.swift in Sources */,
 				3235264ABD3DF5ABAA756574 /* CoinPerformanceViewController.swift in Sources */,
 				20CB5C205624F431E278A914 /* CoinPerformanceViewModel.swift in Sources */,
 				26C5FF82B48BB5E4C7C2B9D5 /* CoinPortfolioModel.swift in Sources */,
 				E6A9D57DCF1C0D793FDBEDBF /* CoinPortfolioViewModel.swift in Sources */,
 				CF82272F4C822C722A111064 /* CopyToastView.swift in Sources */,
+				D91A3A0329E4124A00004CB2 /* NotificationsCollectionView.swift in Sources */,
 				FAF0C3C48227F773D772FF6E /* CreatePasscodeViewController.swift in Sources */,
 				9D1B6611143AB2A88028763C /* CustomAssetInfoContainerView.swift in Sources */,
 				B8DEA2647A8204A5771748D2 /* CustomAssetInfoModel.swift in Sources */,
@@ -2560,6 +2582,7 @@
 				0F5854171F8774FEF94497FB /* EditAccountViewController.swift in Sources */,
 				3E5FFA532C0440149913FE32 /* Encodable+Extension.swift in Sources */,
 				E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */,
+				D91A3A0729E41C1800004CB2 /* NotificationOptionViewModel.swift in Sources */,
 				A64D2DFF6C7D5354F2CA6D50 /* Environment.swift in Sources */,
 				E55DCCDCC37B827E5DBEEB82 /* FlowLayout+Extension.swift in Sources */,
 				EFA259C9FE0473172660E5C7 /* FormatterTypes.swift in Sources */,
@@ -2666,6 +2689,7 @@
 				44C3312B501D7A88C6ADB659 /* SelectPassViewModel.swift in Sources */,
 				DE33FFB7D492FA770FF9FB5C /* SemiboldStyle.swift in Sources */,
 				6FB3C66B1E98C7C2B7886069 /* SettingCell.swift in Sources */,
+				D91A39FD29E40EA400004CB2 /* NotificationsViewController.swift in Sources */,
 				2412CFB01F9D91D18F01EACD /* SettingsHeaderView.swift in Sources */,
 				7D789F2B97B770D2B2B8DF05 /* SettingsViewModel.swift in Sources */,
 				D615530893452E25B58471EF /* ShareOfAssetsViewModel.swift in Sources */,
