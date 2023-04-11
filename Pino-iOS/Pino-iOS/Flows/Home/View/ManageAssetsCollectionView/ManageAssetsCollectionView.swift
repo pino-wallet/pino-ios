@@ -77,40 +77,7 @@ extension ManageAssetsCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let manageAssetCell = cellForItem(at: indexPath) as! ManageAssetCell
 		manageAssetCell.toggleAssetSwitch()
-		updateManageAssetSelection(assetIndex: indexPath.item, isSelected: manageAssetCell.isSwitchOn())
-	}
-
-	private func updateManageAssetSelection(assetIndex: Int, isSelected: Bool) {
-		if let selectedAssetIndex = homeVM.manageAssetsList.firstIndex(where: {
-			$0.id == filteredAssets[assetIndex].id
-		}) {
-			let updatedAssets = homeVM.manageAssetsList
-			updatedAssets?[selectedAssetIndex].toggleIsSelected()
-			homeVM.manageAssetsList = updatedAssets
-
-			if isSelected {
-				insertAssetInCoreData(homeVM.manageAssetsList[selectedAssetIndex])
-			} else {
-				deleteAssetFromCoreData(homeVM.manageAssetsList[selectedAssetIndex])
-			}
-		}
-	}
-
-	private func insertAssetInCoreData(_ asset: AssetViewModel) {
-		let managedContext = AppDelegate.sharedAppDelegate.coreDataStack.managedContext
-		let newAsset = SelectedAsset(context: managedContext)
-		newAsset.setValue(asset.id, forKey: "id")
-		homeVM.selectedAssets.append(newAsset)
-		// Save changes in CoreData
-		AppDelegate.sharedAppDelegate.coreDataStack.saveContext()
-	}
-
-	private func deleteAssetFromCoreData(_ asset: AssetViewModel) {
-		guard let selectedAsset = homeVM.selectedAssets.first(where: { $0.id == asset.id }) else { return }
-		AppDelegate.sharedAppDelegate.coreDataStack.managedContext.delete(selectedAsset)
-		homeVM.selectedAssets.removeAll(where: { $0.id == asset.id })
-		// Save changes in CoreData
-		AppDelegate.sharedAppDelegate.coreDataStack.saveContext()
+		homeVM.updateSelectedAssets(filteredAssets[indexPath.item], isSelected: manageAssetCell.isSwitchOn())
 	}
 }
 
