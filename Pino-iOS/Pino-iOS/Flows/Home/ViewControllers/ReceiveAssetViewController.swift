@@ -6,14 +6,12 @@
 //
 
 import UIKit
-import WebKit
 
 class ReceiveAssetViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private var receiveAssetView: ReceiveAssetView!
 	private var receiveVM = ReceiveViewModel()
-	private let addressQrCodeWebView = WKWebView()
 
 	// MARK: - Public Properties
 

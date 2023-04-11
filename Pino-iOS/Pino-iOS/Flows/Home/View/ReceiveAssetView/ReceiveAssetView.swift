@@ -6,9 +6,8 @@
 //
 
 import UIKit
-import WebKit
 
-class ReceiveAssetView: UIView, WKUIDelegate {
+class ReceiveAssetView: UIView {
 	// MARK: - Public Properties
 
 	public var homeVM: HomepageViewModel

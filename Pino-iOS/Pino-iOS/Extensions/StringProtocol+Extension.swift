@@ -46,7 +46,6 @@ extension String {
 			if let qrImage = filter.outputImage {
 				let scaleX = CGFloat(customWidth) / qrImage.extent.size.width
 				let scaleY = CGFloat(customHeight) / qrImage.extent.size.height
-				print(scaleX, scaleY)
 				let transform = CGAffineTransform(scaleX: scaleX, y: scaleY)
 				let output = qrImage.transformed(by: transform)
 				return UIImage(ciImage: output)
