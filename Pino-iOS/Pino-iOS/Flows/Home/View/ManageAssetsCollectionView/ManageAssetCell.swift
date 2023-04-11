@@ -17,7 +17,7 @@ public class ManageAssetCell: UICollectionViewCell {
 	private let assetTitleStackView = UIStackView()
 	private let assetTitleLabel = UILabel()
 	private let assetAmountLabel = UILabel()
-	private let selectAssetSwitch = UISwitch()
+	public let selectAssetSwitch = UISwitch()
 
 	// MARK: Public Properties
 
@@ -34,7 +34,11 @@ public class ManageAssetCell: UICollectionViewCell {
 	// MARK: Public Methods
 
 	public func toggleAssetSwitch() {
-		selectAssetSwitch.setOn(!selectAssetSwitch.isOn, animated: true)
+		selectAssetSwitch.setOn(!isSwitchOn(), animated: true)
+	}
+
+	public func isSwitchOn() -> Bool {
+		selectAssetSwitch.isOn
 	}
 
 	// MARK: Private UI Methods
