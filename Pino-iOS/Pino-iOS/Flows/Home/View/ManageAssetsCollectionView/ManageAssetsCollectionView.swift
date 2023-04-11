@@ -79,7 +79,9 @@ extension ManageAssetsCollectionView: UICollectionViewDelegate {
 		manageAssetCell.toggleAssetSwitch()
 		if let selectedAssetIndex = homeVM.manageAssetsList
 			.firstIndex(where: { $0.name == filteredAssets[indexPath.item].name }) {
-			homeVM.manageAssetsList[selectedAssetIndex].toggleIsSelected()
+			var updatedAssets = homeVM.manageAssetsList
+			updatedAssets?[selectedAssetIndex].toggleIsSelected()
+			homeVM.manageAssetsList = updatedAssets
 		}
 	}
 }

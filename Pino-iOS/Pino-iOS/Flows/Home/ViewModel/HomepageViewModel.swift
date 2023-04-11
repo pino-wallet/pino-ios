@@ -6,6 +6,7 @@
 //
 
 import Combine
+import CoreData
 import Foundation
 import Network
 
@@ -24,6 +25,7 @@ class HomepageViewModel {
 	public var securityMode = false
 	@Published
 	public var manageAssetsList: [AssetViewModel]! = []
+	public var selectedAssets = [SelectedAsset]()
 
 	public let copyToastMessage = "Copied!"
 	public let connectionErrorToastMessage = "No internet connection"
@@ -43,6 +45,7 @@ class HomepageViewModel {
 	// MARK: - Initializers
 
 	init() {
+		getSelectedAssets()
 		getWalletInfo()
 		getWalletBalance()
 		getAssetsList()
@@ -138,6 +141,7 @@ class HomepageViewModel {
 	}
 
 	private func getAssetsList() {
+		let selectedAssetsID = selectedAssets.map { $0.id }
 		accountingAPIClient.userBalance()
 			.map { balanceAssets in
 				balanceAssets.filter { $0.isVerified }
@@ -150,9 +154,18 @@ class HomepageViewModel {
 					print(error)
 				}
 			} receiveValue: { assets in
-				self.manageAssetsList = assets.compactMap { AssetViewModel(assetModel: $0) }
-				self.assetsList = self.manageAssetsList.filter { $0.isSelected }
+				self.manageAssetsList = assets.compactMap {
+					AssetViewModel(assetModel: $0, isSelected: selectedAssetsID.contains($0.id))
+				}
+				self.bindAssetsListToManageAssetList()
 			}.store(in: &cancellables)
+	}
+
+	private func bindAssetsListToManageAssetList() {
+		$manageAssetsList.sink { assets in
+			guard let assets else { return }
+			self.assetsList = assets.filter { $0.isSelected }
+		}.store(in: &cancellables)
 	}
 
 	private func getPositionAssetsList() {
@@ -189,5 +202,16 @@ class HomepageViewModel {
 			}
 			self.walletInfo = WalletInfoViewModel(walletInfoModel: firstWallet)
 		}.store(in: &cancellables)
+	}
+
+	private func getSelectedAssets() {
+		let selectedAssetsFetch: NSFetchRequest<SelectedAsset> = SelectedAsset.fetchRequest()
+		do {
+			let managedContext = AppDelegate.sharedAppDelegate.coreDataStack.managedContext
+			let results = try managedContext.fetch(selectedAssetsFetch)
+			selectedAssets = results
+		} catch let error as NSError {
+			print("Fetch error: \(error) description: \(error.userInfo)")
+		}
 	}
 }
