@@ -54,7 +54,6 @@ extension ShowSecretPhraseView {
 
 	private func setupView() {
 		seedPhraseCollectionView.secretWords = secretPhraseVM.secretPhraseList
-		seedPhraseCollectionView.isLocked = true
 
 		contentStackView.addArrangedSubview(titleStackView)
 		contentStackView.addArrangedSubview(seedPhraseView)
@@ -167,7 +166,7 @@ extension ShowSecretPhraseView {
 			self.seedPhraseBlurView.alpha = 0
 			self.revealLabel.alpha = 0
 			self.continueButton.style = .active
-			self.seedPhraseCollectionView.isLocked = false
+			self.seedPhraseCollectionView.showMockCreds = false
 		}
 	}
 }

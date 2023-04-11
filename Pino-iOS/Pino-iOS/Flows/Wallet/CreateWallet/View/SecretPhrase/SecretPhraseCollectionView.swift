@@ -19,7 +19,7 @@ class SecretPhraseCollectionView: UICollectionView {
 
 	public var cellStyle: SecretPhraseCell.Style = .regular
 	public var wordSelected: ((String) -> Void)?
-	public var isLocked = true {
+	public var showMockCreds = true {
 		didSet {
 			reloadData()
 		}
@@ -95,7 +95,7 @@ extension SecretPhraseCollectionView: UICollectionViewDataSource {
 		case .regular:
 			secretPhraseCell.seedPhrase = DefaultSeedPhrase(
 				sequence: index + 1,
-				title: isLocked ? "*****" : secretWords[index]
+				title: showMockCreds ? "*****" : secretWords[index]
 			)
 		case .unordered:
 			secretPhraseCell.seedPhrase = UnorderedSeedPhrase(title: secretWords[index])
