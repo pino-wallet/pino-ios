@@ -86,7 +86,7 @@ class RevealPrivateKeyView: UIView {
 		descriptionLabel.text = revealPrivateKeyVM.pageDescription
 		revealTitleLabel.text = revealPrivateKeyVM.revealTitle
 		revealDescriptionLabel.text = revealPrivateKeyVM.revealDescription
-		privateKeyLabel.text = revealPrivateKeyVM.lockedPrivateKey
+		privateKeyLabel.text = revealPrivateKeyVM.mockPrivateKey
 		copyPrivateKeyButton.setTitle(revealPrivateKeyVM.copyButtonTitle, for: .normal)
 		continueButton.title = "Done"
 
