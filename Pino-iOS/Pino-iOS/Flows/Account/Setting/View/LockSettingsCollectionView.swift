@@ -37,8 +37,8 @@ class LockSettingsCollectionView: UICollectionView {
 
 	private func configureCollectionView() {
 		register(
-			CustomSwitchCollectionViewCell.self,
-			forCellWithReuseIdentifier: CustomSwitchCollectionViewCell.cellReuseID
+			LockSettingsCell.self,
+			forCellWithReuseIdentifier: LockSettingsCell.cellReuseID
 		)
 		register(
 			LockSettingsHeaderCollectionReusableView.self,
@@ -62,7 +62,7 @@ extension LockSettingsCollectionView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		sizeForItemAt indexPath: IndexPath
 	) -> CGSize {
-		CGSize(width: collectionView.frame.width - 32, height: 48)
+		CGSize(width: collectionView.frame.width - 32, height: 0)
 	}
 
 	func collectionView(
@@ -92,15 +92,15 @@ extension LockSettingsCollectionView: UICollectionViewDataSource {
 		cellForItemAt indexPath: IndexPath
 	) -> UICollectionViewCell {
 		let cell = dequeueReusableCell(
-			withReuseIdentifier: CustomSwitchCollectionViewCell.cellReuseID,
+			withReuseIdentifier: LockSettingsCell.cellReuseID,
 			for: indexPath
-		) as! CustomSwitchCollectionViewCell
+		) as! LockSettingsCell
 		cell
-			.customSwitchCollectionViewCellVM = LockSettingViewModel(
+			.lockSettingVM = LockSettingViewModel(
 				lockSettingOption: securityLockVM
 					.lockSettings[indexPath.item]
 			)
-		cell.manageIndex = (cellIndex: indexPath.item, cellsCount: securityLockVM.lockSettings.count)
+		cell.manageIndex = (viewIndex: indexPath.item, viewsCount: securityLockVM.lockSettings.count)
 		cell.switchValueClosure = { isOn, type in
 		}
 		return cell

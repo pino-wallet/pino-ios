@@ -7,11 +7,10 @@
 
 import Foundation
 
-class NotificationsViewModel {
+class NotificationSettingsViewModel {
 	// MARK: - Public Properties
 
 	public let pageTitle = "Notifications"
-	public let allowNotficationsTitle = "Allow notification"
 	public let notificationOptionsSectionTitle = "Options"
 
 	#warning("this tooltip texts are for testing and should be changed")
@@ -44,6 +43,14 @@ class NotificationsViewModel {
 			title: "Pino update",
 			type: .pino_update,
 			tooltipText: "this is pino update",
+			isSelected: true
+		),
+	]
+	public let generalNotificationOptions = [
+		NotificationOptionModel(
+			title: "Allow notification",
+			type: .allow_notification,
+			tooltipText: nil,
 			isSelected: true
 		),
 	]

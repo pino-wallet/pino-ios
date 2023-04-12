@@ -78,7 +78,7 @@ class ProfileViewController: UIViewController {
 			let walletsVC = WalletsViewController(walletVM: walletsVM)
 			navigationController?.pushViewController(walletsVC, animated: true)
 		case .notification:
-			let notificationsVC = NotificationsViewController()
+			let notificationsVC = NotificationSettingsViewController()
 			navigationController?.pushViewController(notificationsVC, animated: true)
 		case .securityLock:
 			let securityLockVC = SecurityLockViewController()

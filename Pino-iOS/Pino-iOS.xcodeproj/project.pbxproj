@@ -73,7 +73,7 @@
 		26C5FF82B48BB5E4C7C2B9D5 /* CoinPortfolioModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A21FC93E1137D3A150ACCD4 /* CoinPortfolioModel.swift */; };
 		26EAC7199DBF6959FA1780CE /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 9CF3D981408909339564F3E5 /* main.js */; };
 		276C28D6E5C8FE68FFDFD36A /* string.js in Resources */ = {isa = PBXBuildFile; fileRef = 5D5A8C53AC85B9ECA1F24F76 /* string.js */; };
-		2919216FFA72DA25EADE5CF3 /* CustomSwitchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC85295F255DE999F94EA171 /* CustomSwitchCollectionViewCell.swift */; };
+		2919216FFA72DA25EADE5CF3 /* CustomSwitchOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC85295F255DE999F94EA171 /* CustomSwitchOptionView.swift */; };
 		2BC73AE9759B87DCBF761327 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016DB0AD44B6C2F7D74B730 /* AlertHelper.swift */; };
 		2E5C040F84977824A977D541 /* WalletInfoNavigationItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = E149E7B618CEFE5E909B2D78 /* WalletInfoNavigationItems.swift */; };
 		316F0DDECBB3FA68BFFA1577 /* WalletsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662126D2932FB4BDCEAAB8DB /* WalletsViewController.swift */; };
@@ -299,16 +299,19 @@
 		D50E904CB4FBD07E10DE3E9B /* PPPangramSans-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76670736A779E64FF9997E82 /* PPPangramSans-ThinItalic.ttf */; };
 		D5AF586CED6D64131278865F /* coin-portfolio-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B0095EE8C266D11D502576F /* coin-portfolio-stub.json */; };
 		D615530893452E25B58471EF /* ShareOfAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6721806A1540B888590AFF4C /* ShareOfAssetsViewModel.swift */; };
-		D91A39FD29E40EA400004CB2 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A39FC29E40EA400004CB2 /* NotificationsViewController.swift */; };
-		D91A39FF29E40F8900004CB2 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A39FE29E40F8900004CB2 /* NotificationsViewModel.swift */; };
+		D91A39FD29E40EA400004CB2 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A39FC29E40EA400004CB2 /* NotificationSettingsViewController.swift */; };
+		D91A39FF29E40F8900004CB2 /* NotificationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A39FE29E40F8900004CB2 /* NotificationSettingsViewModel.swift */; };
 		D91A3A0129E4109500004CB2 /* NotificationOptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A3A0029E4109500004CB2 /* NotificationOptionModel.swift */; };
-		D91A3A0329E4124A00004CB2 /* NotificationsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A3A0229E4124A00004CB2 /* NotificationsCollectionView.swift */; };
-		D91A3A0529E412A200004CB2 /* NotificationsHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A3A0429E412A200004CB2 /* NotificationsHeaderCollectionReusableView.swift */; };
-		D91A3A0729E41C1800004CB2 /* NotificationOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A3A0629E41C1800004CB2 /* NotificationOptionViewModel.swift */; };
+		D91A3A0329E4124A00004CB2 /* NotificationSettingsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A3A0229E4124A00004CB2 /* NotificationSettingsCollectionView.swift */; };
+		D91A3A0529E412A200004CB2 /* NotificationSettingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A3A0429E412A200004CB2 /* NotificationSettingsHeader.swift */; };
+		D91A3A0729E41C1800004CB2 /* NotificationSettingsOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A3A0629E41C1800004CB2 /* NotificationSettingsOptionViewModel.swift */; };
 		D964AC6B0907B2432359A129 /* GroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D7CE3AA42604B8F78EA87C /* GroupCollectionViewCell.swift */; };
 		D97CF62C25B975AD3C131881 /* CoinHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26427FD948787141E7AA599B /* CoinHistoryModel.swift */; };
+		D9AF6DCC29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */; };
 		D9DD538BAF953A18503AB3F0 /* RemoveAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887EDE19A8B81F1FB217E0FA /* RemoveAccountView.swift */; };
 		D9E34BC92C3AE69B3D5EC4F2 /* PortfolioPerformanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4FFBB4CC6D342FF946AB9 /* PortfolioPerformanceViewModel.swift */; };
+		D9F2508029E576FB00DE0410 /* NotificationSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F2507F29E576FB00DE0410 /* NotificationSettingsCell.swift */; };
+		D9F2508229E5855500DE0410 /* LockSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F2508129E5855500DE0410 /* LockSettingsCell.swift */; };
 		DAB2FF91D5EAF0795A12201B /* AddNewWalletOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D375B5D2DBB3E66A081076C /* AddNewWalletOptionViewModel.swift */; };
 		DBE3307F29EF0E7E1926B2B4 /* CoinInfoChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05FB16B9B1B3CADA89C02F6 /* CoinInfoChartView.swift */; };
 		DC66DEF4A366F740111CA309 /* SecurityLockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ACC445FAA9626AB655BE5E6 /* SecurityLockViewModel.swift */; };
@@ -352,7 +355,7 @@
 		EFA259C9FE0473172660E5C7 /* FormatterTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFB02FBC9148ACB2A85220F /* FormatterTypes.swift */; };
 		EFC5F586A70E988F98620A79 /* PPPangramSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CC36053D1265CD704BF7F722 /* PPPangramSans-Thin.ttf */; };
 		EFCE871CCDF8A29DA4F8950F /* ManageAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6232F5D274252F511DC03A52 /* ManageAssetCell.swift */; };
-		F1655D3CC058F9A6ED4E8521 /* CustomSwitchCollectionCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0140F34FAFBD0BA844D704 /* CustomSwitchCollectionCellVM.swift */; };
+		F1655D3CC058F9A6ED4E8521 /* CustomSwitchOptionVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0140F34FAFBD0BA844D704 /* CustomSwitchOptionVM.swift */; };
 		F1692DBD3D2161D15F1D3662 /* components.d.ts in Resources */ = {isa = PBXBuildFile; fileRef = 1B20250AAB9D82BC7A6F07F9 /* components.d.ts */; };
 		F1C2F0DA68898BE55C08D853 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829CA4C0A06D84219F432590 /* APIError.swift */; };
 		F29B5E085D9D0D99354034C9 /* StringProtocol+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D476E770DF75B119476A1AC /* StringProtocol+Extension.swift */; };
@@ -400,7 +403,7 @@
 		068F5D74F8B1876B22DD2AC0 /* PPPangramSans-ExtralightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtralightItalic.ttf"; sourceTree = "<group>"; };
 		0AAC0A267D7735732C2AF85A /* animations.d.ts */ = {isa = PBXFileReference; lastKnownFileType = text; path = animations.d.ts; sourceTree = "<group>"; };
 		0AE19B638118F9E2565134EF /* about-coin-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "about-coin-stub.json"; sourceTree = "<group>"; };
-		0B0140F34FAFBD0BA844D704 /* CustomSwitchCollectionCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSwitchCollectionCellVM.swift; sourceTree = "<group>"; };
+		0B0140F34FAFBD0BA844D704 /* CustomSwitchOptionVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSwitchOptionVM.swift; sourceTree = "<group>"; };
 		0B01A75DCB335D25714C2F08 /* HomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewController.swift; sourceTree = "<group>"; };
 		0B892625118DF231D53AD596 /* CustomAssetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetModel.swift; sourceTree = "<group>"; };
 		0BFF0D6A4C815B6269EDD928 /* HomepageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewModel.swift; sourceTree = "<group>"; };
@@ -626,7 +629,7 @@
 		A9CD4DA384F1F614C5064ACA /* CoinPerformanceInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceInfoModel.swift; sourceTree = "<group>"; };
 		AACC44FE53317ADAF4E94A03 /* PPPangramSans-SemiboldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-SemiboldReclined.ttf"; sourceTree = "<group>"; };
 		ABE00D81C2E445CD26124F30 /* AboutPinoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPinoView.swift; sourceTree = "<group>"; };
-		AC85295F255DE999F94EA171 /* CustomSwitchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSwitchCollectionViewCell.swift; sourceTree = "<group>"; };
+		AC85295F255DE999F94EA171 /* CustomSwitchOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSwitchOptionView.swift; sourceTree = "<group>"; };
 		AE159994023D1616204FD7CB /* WalletBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletBuilder.swift; sourceTree = "<group>"; };
 		AEA8CD995085C5DC347DACBF /* mu42bxql.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = mu42bxql.js; sourceTree = "<group>"; };
 		B008BFDEFA5F3ED319D3D533 /* UnlockAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockAppViewController.swift; sourceTree = "<group>"; };
@@ -692,13 +695,16 @@
 		D846BDE4ED7AF8234497E621 /* LaunchSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchSettings.swift; sourceTree = "<group>"; };
 		D859A59CF3F5322ACE7356E4 /* VerifySecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseView.swift; sourceTree = "<group>"; };
 		D872D11A91B4283F96C4999D /* ShowSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseViewController.swift; sourceTree = "<group>"; };
-		D91A39FC29E40EA400004CB2 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
-		D91A39FE29E40F8900004CB2 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
+		D91A39FC29E40EA400004CB2 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
+		D91A39FE29E40F8900004CB2 /* NotificationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewModel.swift; sourceTree = "<group>"; };
 		D91A3A0029E4109500004CB2 /* NotificationOptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationOptionModel.swift; sourceTree = "<group>"; };
-		D91A3A0229E4124A00004CB2 /* NotificationsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCollectionView.swift; sourceTree = "<group>"; };
-		D91A3A0429E412A200004CB2 /* NotificationsHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
-		D91A3A0629E41C1800004CB2 /* NotificationOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationOptionViewModel.swift; sourceTree = "<group>"; };
+		D91A3A0229E4124A00004CB2 /* NotificationSettingsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsCollectionView.swift; sourceTree = "<group>"; };
+		D91A3A0429E412A200004CB2 /* NotificationSettingsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsHeader.swift; sourceTree = "<group>"; };
+		D91A3A0629E41C1800004CB2 /* NotificationSettingsOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsOptionViewModel.swift; sourceTree = "<group>"; };
 		D91B98B8A47DBAE96AE7956F /* PPPangramSans-Extrabold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Extrabold.ttf"; sourceTree = "<group>"; };
+		D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralNotificationSettingsHeader.swift; sourceTree = "<group>"; };
+		D9F2507F29E576FB00DE0410 /* NotificationSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsCell.swift; sourceTree = "<group>"; };
+		D9F2508129E5855500DE0410 /* LockSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockSettingsCell.swift; sourceTree = "<group>"; };
 		DA8ADDD22F193963D587AE57 /* ChartInfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartInfoItem.swift; sourceTree = "<group>"; };
 		DBAB3BCDE2EE38AC5F9D140A /* Pods_Pino_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pino_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCDBF81923E5F2C83F0DB3C9 /* SuggestedSeedPhraseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedSeedPhraseCollectionView.swift; sourceTree = "<group>"; };
@@ -930,7 +936,7 @@
 				386E9EB6770D54847A0B49F3 /* AboutPinoViewController.swift */,
 				C282DA27E1C4F2A33C6BD8BC /* RecoveryPhraseViewController.swift */,
 				7DB500BB3E02CB030D09B2A0 /* SecurityLockViewController.swift */,
-				D91A39FC29E40EA400004CB2 /* NotificationsViewController.swift */,
+				D91A39FC29E40EA400004CB2 /* NotificationSettingsViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1117,8 +1123,8 @@
 				97BB5C0ABDA0E3F2CB0877D6 /* LockSettingViewModel.swift */,
 				A38B35BEB7646037614A159D /* RecoveryPhraseViewModel.swift */,
 				1ACC445FAA9626AB655BE5E6 /* SecurityLockViewModel.swift */,
-				D91A39FE29E40F8900004CB2 /* NotificationsViewModel.swift */,
-				D91A3A0629E41C1800004CB2 /* NotificationOptionViewModel.swift */,
+				D91A39FE29E40F8900004CB2 /* NotificationSettingsViewModel.swift */,
+				D91A3A0629E41C1800004CB2 /* NotificationSettingsOptionViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1230,8 +1236,11 @@
 				3CE50ED0CBE7191895D8D9F4 /* LockSettingsFooterCollectionReusableView.swift */,
 				175F2C022C8A660F5B11211F /* LockSettingsHeaderCollectionReusableView.swift */,
 				EBCC6457265C54F56DE92A17 /* RecoveryPhraseView.swift */,
-				D91A3A0229E4124A00004CB2 /* NotificationsCollectionView.swift */,
-				D91A3A0429E412A200004CB2 /* NotificationsHeaderCollectionReusableView.swift */,
+				D91A3A0229E4124A00004CB2 /* NotificationSettingsCollectionView.swift */,
+				D91A3A0429E412A200004CB2 /* NotificationSettingsHeader.swift */,
+				D9F2507F29E576FB00DE0410 /* NotificationSettingsCell.swift */,
+				D9F2508129E5855500DE0410 /* LockSettingsCell.swift */,
+				D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1917,7 +1926,7 @@
 		BAEFAEDB965ACA15068D97D4 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				0B0140F34FAFBD0BA844D704 /* CustomSwitchCollectionCellVM.swift */,
+				0B0140F34FAFBD0BA844D704 /* CustomSwitchOptionVM.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -2049,7 +2058,7 @@
 		DF6971184EDF0A9D6DD15E69 /* CustomSwitchCollectionCell */ = {
 			isa = PBXGroup;
 			children = (
-				AC85295F255DE999F94EA171 /* CustomSwitchCollectionViewCell.swift */,
+				AC85295F255DE999F94EA171 /* CustomSwitchOptionView.swift */,
 				BAEFAEDB965ACA15068D97D4 /* Protocol */,
 			);
 			path = CustomSwitchCollectionCell;
@@ -2487,7 +2496,7 @@
 				A6A306BA4B25BC475B98C8BD /* AboutCoinViewModel.swift in Sources */,
 				902BA90F4366DD5D18B06A90 /* AboutPinoView.swift in Sources */,
 				DD2E33C472905FA32AE84797 /* AboutPinoViewController.swift in Sources */,
-				D91A39FF29E40F8900004CB2 /* NotificationsViewModel.swift in Sources */,
+				D91A39FF29E40F8900004CB2 /* NotificationSettingsViewModel.swift in Sources */,
 				12265EA20032CC8CF48199E7 /* AboutPinoViewModel.swift in Sources */,
 				1AC53E3B2AB70C2C7F419A38 /* AccountHeaderView.swift in Sources */,
 				DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */,
@@ -2509,7 +2518,8 @@
 				5172E07495C5EBFA21772580 /* AllDoneViewController.swift in Sources */,
 				4BD24A38B1C81FA80EB0B6E8 /* AllDoneViewModel.swift in Sources */,
 				A56FBAD2E31C10F504631CD6 /* AppDelegate.swift in Sources */,
-				D91A3A0529E412A200004CB2 /* NotificationsHeaderCollectionReusableView.swift in Sources */,
+				D9F2508229E5855500DE0410 /* LockSettingsCell.swift in Sources */,
+				D91A3A0529E412A200004CB2 /* NotificationSettingsHeader.swift in Sources */,
 				917064233A24F0460102BC15 /* Array+Extension.swift in Sources */,
 				FADF64026A19F019F554FEA5 /* AssetChartModel.swift in Sources */,
 				8FEE7479372B430975CF245D /* AssetChartViewModel.swift in Sources */,
@@ -2541,10 +2551,12 @@
 				535DAC5A885056552EC3C09F /* Button+Extension.swift in Sources */,
 				B30473249B4729CA259033E6 /* CIImage.swift in Sources */,
 				D2D65A4730F14DFCD4BE1B32 /* ChangeAvatarViewController.swift in Sources */,
+				D9F2508029E576FB00DE0410 /* NotificationSettingsCell.swift in Sources */,
 				C18F61B7AEF94EEC4A102666 /* ChartDataModel.swift in Sources */,
 				86AE4E895C42E9E1302295FD /* ChartDateFilter.swift in Sources */,
 				B4E756CF19F769668E2A4FB5 /* ChartInfoItem.swift in Sources */,
 				B96CE8969DBE6398977B87D5 /* ChartMarker.swift in Sources */,
+				D9AF6DCC29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift in Sources */,
 				3C9F0B46C521474D32854C66 /* CoinHistoryCell.swift in Sources */,
 				D97CF62C25B975AD3C131881 /* CoinHistoryModel.swift in Sources */,
 				4BCC037123752C19CB2B98D3 /* CoinHistoryViewModel.swift in Sources */,
@@ -2565,7 +2577,7 @@
 				26C5FF82B48BB5E4C7C2B9D5 /* CoinPortfolioModel.swift in Sources */,
 				E6A9D57DCF1C0D793FDBEDBF /* CoinPortfolioViewModel.swift in Sources */,
 				CF82272F4C822C722A111064 /* CopyToastView.swift in Sources */,
-				D91A3A0329E4124A00004CB2 /* NotificationsCollectionView.swift in Sources */,
+				D91A3A0329E4124A00004CB2 /* NotificationSettingsCollectionView.swift in Sources */,
 				FAF0C3C48227F773D772FF6E /* CreatePasscodeViewController.swift in Sources */,
 				9D1B6611143AB2A88028763C /* CustomAssetInfoContainerView.swift in Sources */,
 				B8DEA2647A8204A5771748D2 /* CustomAssetInfoModel.swift in Sources */,
@@ -2574,15 +2586,15 @@
 				87F08F9B76154826B35A43F3 /* CustomAssetModel.swift in Sources */,
 				58FE43283099B1D4516B33B1 /* CustomAssetViewModel.swift in Sources */,
 				F606F78789DCF2CDED5E8BB0 /* CustomNavigationController.swift in Sources */,
-				F1655D3CC058F9A6ED4E8521 /* CustomSwitchCollectionCellVM.swift in Sources */,
-				2919216FFA72DA25EADE5CF3 /* CustomSwitchCollectionViewCell.swift in Sources */,
+				F1655D3CC058F9A6ED4E8521 /* CustomSwitchOptionVM.swift in Sources */,
+				2919216FFA72DA25EADE5CF3 /* CustomSwitchOptionView.swift in Sources */,
 				4CF290BDB2B49F698A864B28 /* Date+Extension.swift in Sources */,
 				33B1FBC74480BD66A74733E5 /* Decimal+Extension.swift in Sources */,
 				C80CBD3207E96C5A8E495662 /* EditAccountView.swift in Sources */,
 				0F5854171F8774FEF94497FB /* EditAccountViewController.swift in Sources */,
 				3E5FFA532C0440149913FE32 /* Encodable+Extension.swift in Sources */,
 				E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */,
-				D91A3A0729E41C1800004CB2 /* NotificationOptionViewModel.swift in Sources */,
+				D91A3A0729E41C1800004CB2 /* NotificationSettingsOptionViewModel.swift in Sources */,
 				A64D2DFF6C7D5354F2CA6D50 /* Environment.swift in Sources */,
 				E55DCCDCC37B827E5DBEEB82 /* FlowLayout+Extension.swift in Sources */,
 				EFA259C9FE0473172660E5C7 /* FormatterTypes.swift in Sources */,
@@ -2689,7 +2701,7 @@
 				44C3312B501D7A88C6ADB659 /* SelectPassViewModel.swift in Sources */,
 				DE33FFB7D492FA770FF9FB5C /* SemiboldStyle.swift in Sources */,
 				6FB3C66B1E98C7C2B7886069 /* SettingCell.swift in Sources */,
-				D91A39FD29E40EA400004CB2 /* NotificationsViewController.swift in Sources */,
+				D91A39FD29E40EA400004CB2 /* NotificationSettingsViewController.swift in Sources */,
 				2412CFB01F9D91D18F01EACD /* SettingsHeaderView.swift in Sources */,
 				7D789F2B97B770D2B2B8DF05 /* SettingsViewModel.swift in Sources */,
 				D615530893452E25B58471EF /* ShareOfAssetsViewModel.swift in Sources */,

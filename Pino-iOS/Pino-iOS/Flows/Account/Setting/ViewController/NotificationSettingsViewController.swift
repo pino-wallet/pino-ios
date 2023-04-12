@@ -7,10 +7,10 @@
 
 import UIKit
 
-class NotificationsViewController: UIViewController {
+class NotificationSettingsViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let notificationsVM = NotificationsViewModel()
+	private let notificationsVM = NotificationSettingsViewModel()
 
 	// MARK: - View Overrides
 
@@ -31,7 +31,7 @@ class NotificationsViewController: UIViewController {
 	}
 
 	private func setupView() {
-		let notificationsCollectionView = NotificationsCollectionView(
+		let notificationsCollectionView = NotificationSettingsCollectionView(
 			notificationsVM: notificationsVM,
 			openTooltipAlert: { [weak self] tooltipTitle, tooltipText in
 				self?.openTooltipAlertAction(tooltipTitle: tooltipTitle, tooltipText: tooltipText)

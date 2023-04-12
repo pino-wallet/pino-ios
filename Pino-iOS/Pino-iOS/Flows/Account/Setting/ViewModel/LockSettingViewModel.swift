@@ -5,7 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 4/1/23.
 //
 
-struct LockSettingViewModel: CustomSwitchCollectionCellVM {
+struct LockSettingViewModel: CustomSwitchOptionVM {
 	// MARK: - Public Properties
 
 	public let lockSettingOption: LockSettingModel

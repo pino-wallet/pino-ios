@@ -5,7 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 4/10/23.
 //
 
-struct NotificationOptionViewModel: CustomSwitchCollectionCellVM {
+struct NotificationSettingsOptionViewModel: CustomSwitchOptionVM {
 	// MARK: - Public Properties
 
 	public var notificationOption: NotificationOptionModel
