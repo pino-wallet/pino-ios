@@ -6,15 +6,12 @@
 //
 
 import UIKit
-import WebKit
 
 class ReceiveAssetViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private var receiveAssetView: ReceiveAssetView!
 	private var receiveVM = ReceiveViewModel()
-	private let addressQrCodeWebView = WKWebView()
-	private let qrCodeLoadingIndicator = PinoLoading(size: 32)
 
 	// MARK: - Public Properties
 
@@ -31,17 +28,11 @@ class ReceiveAssetViewController: UIViewController {
 		setupNavigationBar()
 	}
 
-	override func viewDidAppear(_ animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		if isBeingPresented || isMovingToParent {
-			qrCodeLoadingIndicator.isHidden = true
-			let qrCode = homeVM.walletInfo.address
-			addressQrCodeWebView.evaluateJavaScript(
-				"generateAndShowQRCode('\(qrCode)')",
-				completionHandler: { result, error in
-					guard error == nil else {
-						fatalError("cant generate qrCode")
-					}
-				}
+			receiveAssetView.addressQrCodeImage = homeVM.walletInfo.address.generateQRCode(
+				customHeight: 264,
+				customWidth: 264
 			)
 		}
 	}
@@ -62,9 +53,7 @@ class ReceiveAssetViewController: UIViewController {
 	private func setupView() {
 		receiveAssetView = ReceiveAssetView(
 			homeVM: homeVM,
-			receiveVM: receiveVM,
-			addressQRCodeWebView: addressQrCodeWebView,
-			qrCodeLoadingIndicator: qrCodeLoadingIndicator
+			receiveVM: receiveVM
 		)
 		view = receiveAssetView
 	}
