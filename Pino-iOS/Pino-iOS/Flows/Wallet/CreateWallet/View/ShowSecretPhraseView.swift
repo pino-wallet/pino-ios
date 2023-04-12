@@ -166,6 +166,7 @@ extension ShowSecretPhraseView {
 			self.seedPhraseBlurView.alpha = 0
 			self.revealLabel.alpha = 0
 			self.continueButton.style = .active
+			self.seedPhraseCollectionView.showMockCreds = false
 		}
 	}
 }
