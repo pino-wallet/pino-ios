@@ -28,7 +28,7 @@ class ReceiveAssetViewController: UIViewController {
 		setupNavigationBar()
 	}
 
-	override func viewDidAppear(_ animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		if isBeingPresented || isMovingToParent {
 			receiveAssetView.addressQrCodeImage = homeVM.walletInfo.address.generateQRCode(
 				customHeight: 264,

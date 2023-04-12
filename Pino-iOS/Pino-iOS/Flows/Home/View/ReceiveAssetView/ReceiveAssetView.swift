@@ -28,7 +28,6 @@ class ReceiveAssetView: UIView {
 	private let addressLabelContainer = UIView()
 	private let copyAddressButton = ReceiveActionButton()
 	private let copiedToastView = PinoToastView(message: nil, style: .primary)
-	private let qrCodeLoadingIndicator = PinoLoading(size: 32)
 	private let addressQrCodeImageView = UIImageView()
 	private let paymentMethodOption = PaymentMethodOptionView()
 
@@ -64,8 +63,6 @@ class ReceiveAssetView: UIView {
 		addressQRCodeImageCardView.layer.borderWidth = 1
 		addressQRCodeImageCardView.layer.borderColor = UIColor.Pino.background.cgColor
 		addressQRCodeImageCardView.layer.cornerRadius = 12
-
-		addressQRCodeImageCardView.addSubview(qrCodeLoadingIndicator)
 
 		addressQrCodeImageView.backgroundColor = .Pino.white
 
@@ -114,7 +111,6 @@ class ReceiveAssetView: UIView {
 			.fixedWidth(300),
 			.fixedHeight(300)
 		)
-		qrCodeLoadingIndicator.pin(.centerY(to: superview), .centerX(to: superview))
 		addressQrCodeImageView.pin(.allEdges(to: addressQRCodeImageCardView, padding: 9))
 		qrCodeBordersCard.pin(.allEdges(to: addressQRCodeImageCardView, padding: 18))
 		walletInfoStackView.pin(
@@ -129,7 +125,6 @@ class ReceiveAssetView: UIView {
 
 	private func setupQRCode() {
 		qrCodeBordersCard.isHidden = false
-		qrCodeLoadingIndicator.isHidden = true
 		addressQrCodeImageView.image = addressQrCodeImage
 	}
 }
