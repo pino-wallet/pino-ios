@@ -137,7 +137,8 @@
 		6E539ADB99F2D4F23ECC14A1 /* ToastViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB426B36AF7DA6CC9B5DE111 /* ToastViewProtocol.swift */; };
 		6FB08C15B02317A1FE3C012D /* AccountingAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46070D648E66AFA3E1563008 /* AccountingAPIService.swift */; };
 		6FB3C66B1E98C7C2B7886069 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A3C8D0587A7C0B53C0EC4 /* SettingCell.swift */; };
-		7060BC04A8267A9B50B8BF09 /* BiometricAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B3471DBAE7B1EDD075DAF /* BiometricAuthentication.swift */; };
+		6FF7DDDE72D57770EB9B6461 /* index.js in Resources */ = {isa = PBXBuildFile; fileRef = 3952DFF4D505BCBB9677386B /* index.js */; };
+		7060BC04A8267A9B50B8BF09 /* AuthenticationLockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B3471DBAE7B1EDD075DAF /* AuthenticationLockViewController.swift */; };
 		70A38450573C86C7CA6A6C27 /* APIClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EBD8E6BF7C5877B562FCA2 /* APIClientTest.swift */; };
 		710BFFE4625F76FC84268937 /* PPPangramSans-ExtralightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 068F5D74F8B1876B22DD2AC0 /* PPPangramSans-ExtralightItalic.ttf */; };
 		71ED4673E278D4F56B0CC895 /* UnlockAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B008BFDEFA5F3ED319D3D533 /* UnlockAppViewController.swift */; };
@@ -377,7 +378,8 @@
 		1ACC445FAA9626AB655BE5E6 /* SecurityLockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityLockViewModel.swift; sourceTree = "<group>"; };
 		1AE0C2CA6B34603B490425D3 /* HistoryStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStatus.swift; sourceTree = "<group>"; };
 		1AE59B4F8A912C260EBD9FD8 /* ImportSecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSecretPhraseView.swift; sourceTree = "<group>"; };
-		1B8B3471DBAE7B1EDD075DAF /* BiometricAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuthentication.swift; sourceTree = "<group>"; };
+		1B20250AAB9D82BC7A6F07F9 /* components.d.ts */ = {isa = PBXFileReference; lastKnownFileType = text; path = components.d.ts; sourceTree = "<group>"; };
+		1B8B3471DBAE7B1EDD075DAF /* AuthenticationLockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationLockViewController.swift; sourceTree = "<group>"; };
 		1D79E6ABFF159E2B8FB5C0A2 /* ManagePasscodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagePasscodeView.swift; sourceTree = "<group>"; };
 		1DE3198FB191E8A67A84E0B5 /* CoinPerformanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceView.swift; sourceTree = "<group>"; };
 		1E7C5231800B75EB304677F5 /* InfoActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoActionSheet.swift; sourceTree = "<group>"; };
@@ -727,6 +729,7 @@
 		02F7EC4A2D81621079530268 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				E34728EF29E7E32500AB8265 /* GroupCollectionView */,
 				57CB028E64599114A425B906 /* ActionSheet */,
 				454AFE7F0BDC59A5CA92FB2B /* Button */,
 				ECF78D62276A974DAD7A3091 /* Chart */,
@@ -926,6 +929,7 @@
 			isa = PBXGroup;
 			children = (
 				71EEC20862FCD98123D65A01 /* CreatePasscodeViewController.swift */,
+				1B8B3471DBAE7B1EDD075DAF /* AuthenticationLockViewController.swift */,
 				B008BFDEFA5F3ED319D3D533 /* UnlockAppViewController.swift */,
 				EDE34223ED5A368C78F99208 /* VerifyPasscodeViewController.swift */,
 			);
@@ -1240,10 +1244,8 @@
 			children = (
 				A016DB0AD44B6C2F7D74B730 /* AlertHelper.swift */,
 				BCEEB6F436B93FB09ECB4CB1 /* AutolayoutHelper.swift */,
-				1B8B3471DBAE7B1EDD075DAF /* BiometricAuthentication.swift */,
 				6FDF52EAF23E4F882F6EE8DA /* BlurEffectView.swift */,
 				791209DFE36FC4B7F33E3198 /* GradientLayer.swift */,
-				98D7CE3AA42604B8F78EA87C /* GroupCollectionViewCell.swift */,
 				360DDE55AF8AE72416D221FB /* ProfileIcons.swift */,
 			);
 			path = Utilities;
@@ -1836,6 +1838,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		E34728EF29E7E32500AB8265 /* GroupCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				98D7CE3AA42604B8F78EA87C /* GroupCollectionViewCell.swift */,
+			);
+			path = GroupCollectionView;
+			sourceTree = "<group>";
+		};
 		E592A8E4290E95A67BA5D5CF /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -2249,7 +2259,7 @@
 				1362C46CED869A0C712B9DA0 /* BalanceModel.swift in Sources */,
 				152CA78F967F16F922365095 /* BigInt+Extension.swift in Sources */,
 				AE303633276027AB6FD058F9 /* BigNumberType.swift in Sources */,
-				7060BC04A8267A9B50B8BF09 /* BiometricAuthentication.swift in Sources */,
+				7060BC04A8267A9B50B8BF09 /* AuthenticationLockViewController.swift in Sources */,
 				F46E91AF149D34F200213B3F /* BlurEffectView.swift in Sources */,
 				8124946C56803F5336426CFA /* BodyParamsType.swift in Sources */,
 				1B7D25A69FB55D4EAC14A392 /* BoldStyle.swift in Sources */,
