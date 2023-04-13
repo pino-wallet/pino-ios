@@ -5,9 +5,14 @@
 //  Created by Mohi Raoufi on 1/14/23.
 //
 
+import Combine
 import UIKit
 
 class ManageAssetsCollectionView: UICollectionView {
+	// MARK: - Private Properties
+
+	private var cancellables = Set<AnyCancellable>()
+
 	// MARK: - Public Properties
 
 	public var homeVM: HomepageViewModel
@@ -21,12 +26,13 @@ class ManageAssetsCollectionView: UICollectionView {
 
 	init(homeVM: HomepageViewModel) {
 		self.homeVM = homeVM
-		self.filteredAssets = homeVM.manageAssetsList
+		self.filteredAssets = homeVM.manageAssetsList ?? []
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 
 		configCollectionView()
 		setupStyle()
+		setupBindings()
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -48,6 +54,13 @@ class ManageAssetsCollectionView: UICollectionView {
 	private func setupStyle() {
 		backgroundColor = .Pino.background
 		showsVerticalScrollIndicator = false
+	}
+
+	private func setupBindings() {
+		homeVM.$manageAssetsList.sink { assets in
+			guard let assets else { return }
+			self.filteredAssets = assets
+		}.store(in: &cancellables)
 	}
 }
 
