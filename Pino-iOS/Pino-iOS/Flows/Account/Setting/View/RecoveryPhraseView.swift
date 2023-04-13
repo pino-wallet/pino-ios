@@ -167,6 +167,7 @@ class RecoveryPhraseView: UIView {
 		UIView.animate(withDuration: 0.5) {
 			self.seedPhraseBlurView.alpha = 0
 			self.revealLabel.alpha = 0
+			self.seedPhraseCollectionView.showMockCreds = false
 		}
 	}
 }

@@ -16,4 +16,12 @@ class ReceiveViewModel {
 	public let navigationDismissButtonIconName = "arrow_left"
 	public let navigationTitleText = "Receive"
 	public let walletOwnerNameDescriptionText = "wallet"
+
+	public let paymentMethodOptions = [PaymentMethodOptionModel(
+		title: "MoonPay",
+		description: "Buy crypto with fiat",
+		iconName: "moon_pay",
+		url: "https://www.moonpay.com/buy",
+		rightInfoIconName: "right_arrow_green3"
+	)]
 }
