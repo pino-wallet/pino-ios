@@ -40,17 +40,17 @@ class UnlockPasscodeView: UIView {
 	// MARK: - Closures
 
 	public var onSuccessUnlockClosure: (() -> Void)!
-	public var onFaceIDFallback: () -> Void
+	public var onFaceIDSelected: () -> Void
 
 	// MARK: Initializers
 
 	init(
 		managePassVM: UnlockPasscodePageManager,
-		onFaceIDFallback: @escaping () -> Void
+		onFaceIDSelected: @escaping () -> Void
 	) {
 		self.managePassVM = managePassVM
 		self.passDotsView = PassDotsView(passcodeManagerVM: managePassVM)
-		self.onFaceIDFallback = onFaceIDFallback
+		self.onFaceIDSelected = onFaceIDSelected
 		super.init(frame: .zero)
 
 		setupNotifications()
@@ -142,7 +142,7 @@ extension UnlockPasscodeView {
 	@objc
 	private func onUseFaceIDSwitchChange() {
 		if useFaceIDSwitch.isOn {
-			onFaceIDFallback()
+			onFaceIDSelected()
 		}
 	}
 

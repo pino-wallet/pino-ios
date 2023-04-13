@@ -11,7 +11,7 @@ class UnlockAppViewController: UIViewController {
 	// MARK: - Public Properties
 
 	public var onSuccessUnlock: () -> Void
-	public var onFaceIDFallback: () -> Void
+	public var onFaceIDSelected: () -> Void
 
 	// MARK: - Private Properties
 
@@ -31,9 +31,9 @@ class UnlockAppViewController: UIViewController {
 
 	// MARK: - Initializers
 
-	init(onSuccessUnlock: @escaping () -> Void, onFaceIDFallback: @escaping () -> Void) {
+	init(onSuccessUnlock: @escaping () -> Void, onFaceIDSelected: @escaping () -> Void) {
 		self.onSuccessUnlock = onSuccessUnlock
-		self.onFaceIDFallback = onFaceIDFallback
+		self.onFaceIDSelected = onFaceIDSelected
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -47,8 +47,8 @@ class UnlockAppViewController: UIViewController {
 		setupUnlockAppVM()
 		managePasscodeView = UnlockPasscodeView(
 			managePassVM: unlockAppVM,
-			onFaceIDFallback: {
-				self.onFaceIDFallback()
+			onFaceIDSelected: {
+				self.onFaceIDSelected()
 			}
 		)
 		managePasscodeView.onSuccessUnlockClosure = { [weak self] in

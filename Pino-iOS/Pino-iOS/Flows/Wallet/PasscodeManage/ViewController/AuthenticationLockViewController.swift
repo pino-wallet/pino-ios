@@ -63,7 +63,7 @@ class AuthenticationLockViewController: UIViewController {
 				onSuccess()
 				self.dismiss(animated: true)
 			},
-			onFaceIDFallback: {
+			onFaceIDSelected: {
 				self.unlockWithBiometric {
 					onSuccess()
 					self.dismiss(animated: true)
