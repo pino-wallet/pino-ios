@@ -19,6 +19,11 @@ class SecretPhraseCollectionView: UICollectionView {
 
 	public var cellStyle: SecretPhraseCell.Style = .regular
 	public var wordSelected: ((String) -> Void)?
+	public var showMockCreds = true {
+		didSet {
+			reloadData()
+		}
+	}
 
 	// MARK: Initializers
 
@@ -88,7 +93,10 @@ extension SecretPhraseCollectionView: UICollectionViewDataSource {
 
 		switch cellStyle {
 		case .regular:
-			secretPhraseCell.seedPhrase = DefaultSeedPhrase(sequence: index + 1, title: secretWords[index])
+			secretPhraseCell.seedPhrase = DefaultSeedPhrase(
+				sequence: index + 1,
+				title: showMockCreds ? "*****" : secretWords[index]
+			)
 		case .unordered:
 			secretPhraseCell.seedPhrase = UnorderedSeedPhrase(title: secretWords[index])
 		case .empty:
