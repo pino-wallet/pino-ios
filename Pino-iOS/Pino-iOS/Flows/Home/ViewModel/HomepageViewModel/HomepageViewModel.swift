@@ -59,17 +59,15 @@ class HomepageViewModel {
 		// This is temporary and must be replaced with network request
 		let monitor = NWPathMonitor()
 		monitor.pathUpdateHandler = { path in
-			DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-				if path.status == .satisfied {
-					self.getWalletBalance()
-					self.getAssetsList()
-					self.getPositionAssetsList()
-					completion(nil)
-					monitor.cancel()
-				} else {
-					completion(.networkConnection)
-					monitor.cancel()
-				}
+			if path.status == .satisfied {
+				self.getWalletBalance()
+				self.getAssetsList()
+				self.getPositionAssetsList()
+				completion(nil)
+				monitor.cancel()
+			} else {
+				completion(.networkConnection)
+				monitor.cancel()
 			}
 		}
 		let queue = DispatchQueue(label: "InternetConnectionMonitor")

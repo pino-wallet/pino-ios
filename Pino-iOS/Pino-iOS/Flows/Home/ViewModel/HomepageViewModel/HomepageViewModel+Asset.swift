@@ -11,7 +11,6 @@ extension HomepageViewModel {
 	// MARK: Internal Methods
 
 	internal func getAssetsList() {
-		let selectedAssetsID = selectedAssets.map { $0.id }
 		accountingAPIClient.userBalance()
 			.map { balanceAssets in
 				balanceAssets.filter { $0.isVerified }
@@ -24,6 +23,8 @@ extension HomepageViewModel {
 					print(error)
 				}
 			} receiveValue: { assets in
+				self.checkDefultAssetsAdded(assets)
+				let selectedAssetsID = self.selectedAssets.map { $0.id }
 				self.manageAssetsList = assets.compactMap {
 					AssetViewModel(assetModel: $0, isSelected: selectedAssetsID.contains($0.id))
 				}
@@ -62,6 +63,26 @@ extension HomepageViewModel {
 		selectedAssets.removeAll(where: { $0.id == asset.id })
 		// Save changes in CoreData
 		AppDelegate.sharedAppDelegate.coreDataStack.saveContext()
+	}
+
+	private func addDefultAssetsToCoreData(_ assets: [BalanceAssetModel]) {
+		let managedContext = AppDelegate.sharedAppDelegate.coreDataStack.managedContext
+		let defaultAssetsCount = assets.count < 4 ? assets.count : 4
+		for index in 0 ..< defaultAssetsCount {
+			let newDefultAsset = SelectedAsset(context: managedContext)
+			newDefultAsset.setValue(assets[index].id, forKey: "id")
+			selectedAssets.append(newDefultAsset)
+		}
+		// Save changes in CoreData
+		AppDelegate.sharedAppDelegate.coreDataStack.saveContext()
+	}
+
+	private func checkDefultAssetsAdded(_ assets: [BalanceAssetModel]) {
+		let defultAssetUserDefaultsKey = "isDefultAssetsAdded"
+		if !UserDefaults.standard.bool(forKey: defultAssetUserDefaultsKey) {
+			addDefultAssetsToCoreData(assets)
+			UserDefaults.standard.setValue(true, forKey: defultAssetUserDefaultsKey)
+		}
 	}
 
 	// MARK: Public Methods
