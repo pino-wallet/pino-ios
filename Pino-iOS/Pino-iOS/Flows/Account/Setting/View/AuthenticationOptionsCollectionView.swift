@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LockSettingsCollectionView: UICollectionView {
+class AuthenticationOptionsCollectionView: UICollectionView {
 	// MARK: - Closures
 
 	public var openSelectLockMethodAlertClosure: () -> Void
@@ -37,18 +37,18 @@ class LockSettingsCollectionView: UICollectionView {
 
 	private func configureCollectionView() {
 		register(
-			LockSettingsCell.self,
-			forCellWithReuseIdentifier: LockSettingsCell.cellReuseID
+			AuthenticationOptionCell.self,
+			forCellWithReuseIdentifier: AuthenticationOptionCell.cellReuseID
 		)
 		register(
-			LockSettingsHeaderCollectionReusableView.self,
+			AuthenticationOptionsSection.self,
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-			withReuseIdentifier: LockSettingsHeaderCollectionReusableView.viewReuseID
+			withReuseIdentifier: AuthenticationOptionsSection.viewReuseID
 		)
 		register(
-			LockSettingsFooterCollectionReusableView.self,
+			AuthenticationOptionsFooter.self,
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
-			withReuseIdentifier: LockSettingsFooterCollectionReusableView.viewReuseID
+			withReuseIdentifier: AuthenticationOptionsFooter.viewReuseID
 		)
 
 		delegate = self
@@ -56,7 +56,7 @@ class LockSettingsCollectionView: UICollectionView {
 	}
 }
 
-extension LockSettingsCollectionView: UICollectionViewDelegateFlowLayout {
+extension AuthenticationOptionsCollectionView: UICollectionViewDelegateFlowLayout {
 	func collectionView(
 		_ collectionView: UICollectionView,
 		layout collectionViewLayout: UICollectionViewLayout,
@@ -82,9 +82,9 @@ extension LockSettingsCollectionView: UICollectionViewDelegateFlowLayout {
 	}
 }
 
-extension LockSettingsCollectionView: UICollectionViewDataSource {
+extension AuthenticationOptionsCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		securityLockVM.lockSettings.count
+		securityLockVM.authenticationOptions.count
 	}
 
 	func collectionView(
@@ -92,15 +92,15 @@ extension LockSettingsCollectionView: UICollectionViewDataSource {
 		cellForItemAt indexPath: IndexPath
 	) -> UICollectionViewCell {
 		let cell = dequeueReusableCell(
-			withReuseIdentifier: LockSettingsCell.cellReuseID,
+			withReuseIdentifier: AuthenticationOptionCell.cellReuseID,
 			for: indexPath
-		) as! LockSettingsCell
+		) as! AuthenticationOptionCell
 		cell
 			.lockSettingVM = LockSettingViewModel(
 				lockSettingOption: securityLockVM
-					.lockSettings[indexPath.item]
+					.authenticationOptions[indexPath.item]
 			)
-		cell.manageIndex = (viewIndex: indexPath.item, viewsCount: securityLockVM.lockSettings.count)
+		cell.manageIndex = (viewIndex: indexPath.item, viewsCount: securityLockVM.authenticationOptions.count)
 		cell.switchValueClosure = { isOn, type in
 		}
 		return cell
@@ -115,9 +115,9 @@ extension LockSettingsCollectionView: UICollectionViewDataSource {
 		case UICollectionView.elementKindSectionHeader:
 			let headerView = dequeueReusableSupplementaryView(
 				ofKind: UICollectionView.elementKindSectionHeader,
-				withReuseIdentifier: LockSettingsHeaderCollectionReusableView.viewReuseID,
+				withReuseIdentifier: AuthenticationOptionsSection.viewReuseID,
 				for: indexPath
-			) as! LockSettingsHeaderCollectionReusableView
+			) as! AuthenticationOptionsSection
 
 			headerView.securityLockVM = securityLockVM
 			headerView.openSelectLockMethodAlertClosure = openSelectLockMethodAlertClosure
@@ -126,9 +126,9 @@ extension LockSettingsCollectionView: UICollectionViewDataSource {
 		case UICollectionView.elementKindSectionFooter:
 			let footerView = dequeueReusableSupplementaryView(
 				ofKind: UICollectionView.elementKindSectionFooter,
-				withReuseIdentifier: LockSettingsFooterCollectionReusableView.viewReuseID,
+				withReuseIdentifier: AuthenticationOptionsFooter.viewReuseID,
 				for: indexPath
-			) as! LockSettingsFooterCollectionReusableView
+			) as! AuthenticationOptionsFooter
 
 			footerView.securityLockVM = securityLockVM
 

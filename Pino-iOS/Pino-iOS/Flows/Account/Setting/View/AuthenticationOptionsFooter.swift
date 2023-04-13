@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LockSettingsFooterCollectionReusableView: UICollectionReusableView {
+class AuthenticationOptionsFooter: UICollectionReusableView {
 	// MARK: - Public Properties
 
 	public var securityLockVM: SecurityLockViewModel! {

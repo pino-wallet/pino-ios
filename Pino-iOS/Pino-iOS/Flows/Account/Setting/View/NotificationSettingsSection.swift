@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NotificationSettingsHeader: UICollectionReusableView {
+class NotificationSettingsSection: UICollectionReusableView {
 	// MARK: - Public Properties
 
 	public var notificationsVM: NotificationSettingsViewModel? {

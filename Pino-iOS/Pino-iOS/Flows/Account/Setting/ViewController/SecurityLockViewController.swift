@@ -31,7 +31,7 @@ class SecurityLockViewController: UIViewController {
 	}
 
 	private func setupView() {
-		view = LockSettingsCollectionView(
+		view = AuthenticationOptionsCollectionView(
 			securityLockVM: securityLockVM,
 			openSelectLockMethodAlertClosure: { [weak self] in
 				self?.openLockSelectMethodAlert()

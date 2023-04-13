@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LockSettingsHeaderCollectionReusableView: UICollectionReusableView {
+class AuthenticationOptionsSection: UICollectionReusableView {
 	// MARK: - Closures
 
 	public var openSelectLockMethodAlertClosure: (() -> Void) = {}

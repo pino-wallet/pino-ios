@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LockSettingsCell: UICollectionViewCell {
+class AuthenticationOptionCell: UICollectionViewCell {
 	// MARK: - Public Properties
 
 	public var lockSettingVM: LockSettingViewModel! {

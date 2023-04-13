@@ -48,9 +48,9 @@ class NotificationSettingsCollectionView: UICollectionView {
 		)
 
 		register(
-			NotificationSettingsHeader.self,
+			NotificationSettingsSection.self,
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-			withReuseIdentifier: NotificationSettingsHeader.viewReuseID
+			withReuseIdentifier: NotificationSettingsSection.viewReuseID
 		)
 
 		delegate = self
@@ -151,9 +151,9 @@ extension NotificationSettingsCollectionView: UICollectionViewDataSource {
 		case 1:
 			let notificationSettingsHeader = dequeueReusableSupplementaryView(
 				ofKind: UICollectionView.elementKindSectionHeader,
-				withReuseIdentifier: NotificationSettingsHeader.viewReuseID,
+				withReuseIdentifier: NotificationSettingsSection.viewReuseID,
 				for: indexPath
-			) as! NotificationSettingsHeader
+			) as! NotificationSettingsSection
 			notificationSettingsHeader.notificationsVM = notificationsVM
 			#warning("this closure is for testing and should be updated")
 			notificationSettingsHeader.changeAllowNotificationsClosure = { isAllowed in

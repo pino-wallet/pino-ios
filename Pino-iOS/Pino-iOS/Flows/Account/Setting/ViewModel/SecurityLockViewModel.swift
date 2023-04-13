@@ -19,7 +19,7 @@ class SecurityLockViewModel {
 		LockMethodModel(title: "Passcode", type: .passcode),
 		LockMethodModel(title: "Face ID", type: .face_id),
 	]
-	public let lockSettings = [
+	public let authenticationOptions = [
 		LockSettingModel(title: "Immediately", type: .immediately, isSelected: true),
 		LockSettingModel(title: "Make a transaction", type: .on_transactions, isSelected: false),
 	]
