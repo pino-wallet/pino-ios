@@ -8,15 +8,14 @@
 import Combine
 import UIKit
 
-class LockSettingsHeaderCollectionReusableView: UICollectionReusableView {
-	// MARK: - Private Properties
+class SecurityOptionsSection: UICollectionReusableView {
+	// MARK: - Closures
 
-	private var cancellables = Set<AnyCancellable>()
+	public var openSelectLockMethodAlertClosure: (() -> Void) = {}
 
 	// MARK: - Public Peoperties
 
-	public var openSelectLockMethodAlertClosure: (() -> Void) = {}
-	public var securityLockVM: SecurityLockViewModel! {
+	public var securityVM: SecurityViewModel! {
 		didSet {
 			setupView()
 			setupConstraints()
@@ -28,6 +27,8 @@ class LockSettingsHeaderCollectionReusableView: UICollectionReusableView {
 	public static let viewReuseID = "LockSettingsHeaderReuseID"
 
 	// MARK: - Private Properties
+
+	private var cancellables = Set<AnyCancellable>()
 
 	private let changeLockMethodView = UIView()
 	private let changeLockMethodStackView = UIStackView()
@@ -73,14 +74,14 @@ class LockSettingsHeaderCollectionReusableView: UICollectionReusableView {
 		changeLockMethodView.backgroundColor = .Pino.white
 		changeLockMethodView.layer.cornerRadius = 7
 
-		changeLockMethodTitleLabel.text = securityLockVM.changeLockMethodTitle
+		changeLockMethodTitleLabel.text = securityVM.changeLockMethodTitle
 
 		selectedLockMethodLabel.textColor = .Pino.gray2
 
-		lockSettingsTitleLabel.text = securityLockVM.lockSettingsHeaderTitle
+		lockSettingsTitleLabel.text = securityVM.lockSettingsHeaderTitle
 		lockSettingsTitleLabel.font = .PinoStyle.mediumSubheadline
 
-		changeLockMethodDetailIcon.image = UIImage(named: securityLockVM.changeLockMethodDetailIcon)?
+		changeLockMethodDetailIcon.image = UIImage(named: securityVM.changeLockMethodDetailIcon)?
 			.withRenderingMode(.alwaysTemplate)
 		changeLockMethodDetailIcon.tintColor = .Pino.gray3
 
@@ -91,7 +92,7 @@ class LockSettingsHeaderCollectionReusableView: UICollectionReusableView {
 	}
 
 	private func setupBinding() {
-		securityLockVM.$selectedLockMethod.sink { lockMethod in
+		securityVM.$selectedLockMethod.sink { lockMethod in
 			self.selectedLockMethodLabel.text = lockMethod?.title
 		}.store(in: &cancellables)
 	}

@@ -7,18 +7,18 @@
 
 import UIKit
 
-class LockSettingsCollectionView: UICollectionView {
+class SecurityOptionsCollectionView: UICollectionView {
 	// MARK: - Closures
 
 	public var openSelectLockMethodAlertClosure: () -> Void
 
 	// MARK: - Public Peoperties
 
-	public let securityLockVM: SecurityLockViewModel
+	public let securityLockVM: SecurityViewModel
 
 	// MARK: - Initializers
 
-	init(securityLockVM: SecurityLockViewModel, openSelectLockMethodAlertClosure: @escaping () -> Void) {
+	init(securityLockVM: SecurityViewModel, openSelectLockMethodAlertClosure: @escaping () -> Void) {
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 		self.securityLockVM = securityLockVM
@@ -37,18 +37,18 @@ class LockSettingsCollectionView: UICollectionView {
 
 	private func configureCollectionView() {
 		register(
-			CustomSwitchCollectionViewCell.self,
-			forCellWithReuseIdentifier: CustomSwitchCollectionViewCell.cellReuseID
+			SecurityOptionCell.self,
+			forCellWithReuseIdentifier: SecurityOptionCell.cellReuseID
 		)
 		register(
-			LockSettingsHeaderCollectionReusableView.self,
+			SecurityOptionsSection.self,
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-			withReuseIdentifier: LockSettingsHeaderCollectionReusableView.viewReuseID
+			withReuseIdentifier: SecurityOptionsSection.viewReuseID
 		)
 		register(
-			LockSettingsFooterCollectionReusableView.self,
+			SecurityOptionsFooter.self,
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
-			withReuseIdentifier: LockSettingsFooterCollectionReusableView.viewReuseID
+			withReuseIdentifier: SecurityOptionsFooter.viewReuseID
 		)
 
 		delegate = self
@@ -56,13 +56,13 @@ class LockSettingsCollectionView: UICollectionView {
 	}
 }
 
-extension LockSettingsCollectionView: UICollectionViewDelegateFlowLayout {
+extension SecurityOptionsCollectionView: UICollectionViewDelegateFlowLayout {
 	func collectionView(
 		_ collectionView: UICollectionView,
 		layout collectionViewLayout: UICollectionViewLayout,
 		sizeForItemAt indexPath: IndexPath
 	) -> CGSize {
-		CGSize(width: collectionView.frame.width - 32, height: 48)
+		CGSize(width: collectionView.frame.width - 32, height: 0)
 	}
 
 	func collectionView(
@@ -82,9 +82,9 @@ extension LockSettingsCollectionView: UICollectionViewDelegateFlowLayout {
 	}
 }
 
-extension LockSettingsCollectionView: UICollectionViewDataSource {
+extension SecurityOptionsCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		securityLockVM.lockSettings.count
+		securityLockVM.securityOptions.count
 	}
 
 	func collectionView(
@@ -92,18 +92,16 @@ extension LockSettingsCollectionView: UICollectionViewDataSource {
 		cellForItemAt indexPath: IndexPath
 	) -> UICollectionViewCell {
 		let cell = dequeueReusableCell(
-			withReuseIdentifier: CustomSwitchCollectionViewCell.cellReuseID,
+			withReuseIdentifier: SecurityOptionCell.cellReuseID,
 			for: indexPath
-		) as! CustomSwitchCollectionViewCell
+		) as! SecurityOptionCell
 		cell
-			.customSwitchCollectionViewCellVM = LockSettingViewModel(
+			.securityOptionVM = SecurityOptionViewModel(
 				lockSettingOption: securityLockVM
-					.lockSettings[indexPath.item]
+					.securityOptions[indexPath.item]
 			)
-		cell.manageIndex = (cellIndex: indexPath.item, cellsCount: securityLockVM.lockSettings.count)
+		cell.manageIndex = (viewIndex: indexPath.item, viewsCount: securityLockVM.securityOptions.count)
 		cell.switchValueClosure = { isOn, type in
-		}
-		cell.onTooltipTapClosure = { tooltipText in
 		}
 		return cell
 	}
@@ -117,22 +115,22 @@ extension LockSettingsCollectionView: UICollectionViewDataSource {
 		case UICollectionView.elementKindSectionHeader:
 			let headerView = dequeueReusableSupplementaryView(
 				ofKind: UICollectionView.elementKindSectionHeader,
-				withReuseIdentifier: LockSettingsHeaderCollectionReusableView.viewReuseID,
+				withReuseIdentifier: SecurityOptionsSection.viewReuseID,
 				for: indexPath
-			) as! LockSettingsHeaderCollectionReusableView
+			) as! SecurityOptionsSection
 
-			headerView.securityLockVM = securityLockVM
+			headerView.securityVM = securityLockVM
 			headerView.openSelectLockMethodAlertClosure = openSelectLockMethodAlertClosure
 
 			return headerView
 		case UICollectionView.elementKindSectionFooter:
 			let footerView = dequeueReusableSupplementaryView(
 				ofKind: UICollectionView.elementKindSectionFooter,
-				withReuseIdentifier: LockSettingsFooterCollectionReusableView.viewReuseID,
+				withReuseIdentifier: SecurityOptionsFooter.viewReuseID,
 				for: indexPath
-			) as! LockSettingsFooterCollectionReusableView
+			) as! SecurityOptionsFooter
 
-			footerView.securityLockVM = securityLockVM
+			footerView.securityVM = securityLockVM
 
 			return footerView
 		default:

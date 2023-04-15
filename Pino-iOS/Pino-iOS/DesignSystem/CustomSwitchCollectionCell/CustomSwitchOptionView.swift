@@ -7,17 +7,17 @@
 
 import UIKit
 
-class CustomSwitchCollectionViewCell: UICollectionViewCell {
+class CustomSwitchOptionView: UIView {
 	// MARK: - Typealiases
 
-	typealias manageIndexType = (cellIndex: Int, cellsCount: Int)
+	typealias manageIndexType = (viewIndex: Int, viewsCount: Int)
 	typealias switchValueClosureType = (_ isOn: Bool, _ type: String) -> Void
-	typealias onTooltipTapClosureType = (_ tooltipText: String) -> Void
+	typealias onTooltipTapClosureType = (_ tooltipTitle: String, _ tooltipText: String) -> Void
 
 	// MARK: - Closures
 
 	public var switchValueClosure: switchValueClosureType! = { isOn, type in }
-	public var onTooltipTapClosure: onTooltipTapClosureType! = { tooltipText in }
+	public var onTooltipTapClosure: onTooltipTapClosureType! = { tooltipTitle, tooltipText in }
 
 	// MARK: - Private Properties
 
@@ -27,11 +27,11 @@ class CustomSwitchCollectionViewCell: UICollectionViewCell {
 	private let switcher = UISwitch()
 	private let tooltipImageView = UIButton()
 	private let betWeenView = UIView()
-	private let infoStackView = UIStackView()
+	private let titleLabelContainverView = UIView()
 
 	// MARK: - Public Properties
 
-	public var customSwitchCollectionViewCellVM: CustomSwitchCollectionCellVM! {
+	public var customSwitchCollectionViewCellVM: CustomSwitchOptionVM! {
 		didSet {
 			setupView()
 			setupConstraints()
@@ -45,38 +45,40 @@ class CustomSwitchCollectionViewCell: UICollectionViewCell {
 		}
 	}
 
-	public static let cellReuseID = "CustomSwitchCollectionViewCell"
-
 	// MARK: - Private Methods
 
 	private func setupView() {
-		contentView.addSubview(mainStackView)
-		contentView.addSubview(topBorderView)
+		addSubview(mainStackView)
+		addSubview(topBorderView)
 
 		switcher.isOn = customSwitchCollectionViewCellVM.isSelected
 		switcher.addTarget(self, action: #selector(onSwitcherChange), for: .valueChanged)
 
 		tooltipImageView.addTarget(self, action: #selector(onTooltipTap), for: .touchUpInside)
 
-		infoStackView.addArrangedSubview(titleLabel)
-		infoStackView.addArrangedSubview(tooltipImageView)
+		titleLabelContainverView.addSubview(titleLabel)
 
-		mainStackView.addArrangedSubview(infoStackView)
+		mainStackView.addArrangedSubview(titleLabelContainverView)
+		mainStackView.addArrangedSubview(tooltipImageView)
+
 		mainStackView.addArrangedSubview(betWeenView)
 		mainStackView.addArrangedSubview(switcher)
 	}
 
 	private func setupConstraints() {
-		mainStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 31).isActive = true
+		titleLabel.translatesAutoresizingMaskIntoConstraints = false
+		titleLabelContainverView.widthAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
+
+		titleLabel.pin(.allEdges(padding: 0))
 		mainStackView.pin(.verticalEdges(padding: 8.5), .horizontalEdges(padding: 16))
 		topBorderView.pin(.fixedHeight(0.5), .top(padding: 0), .leading(padding: 16), .trailing(padding: 0))
 		tooltipImageView.pin(.fixedWidth(16), .fixedHeight(16))
 	}
 
 	private func setupStyle() {
-		contentView.layer.cornerRadius = 8
-		contentView.layer.maskedCorners = []
-		contentView.backgroundColor = .Pino.white
+		layer.cornerRadius = 8
+		layer.maskedCorners = []
+		backgroundColor = .Pino.white
 
 		topBorderView.backgroundColor = .Pino.gray3
 		topBorderView.isHidden = true
@@ -85,6 +87,8 @@ class CustomSwitchCollectionViewCell: UICollectionViewCell {
 		mainStackView.alignment = .center
 
 		titleLabel.text = customSwitchCollectionViewCellVM.title
+		titleLabel.numberOfLines = 0
+		titleLabel.lineBreakMode = .byWordWrapping
 
 		switcher.onTintColor = .Pino.green3
 
@@ -92,9 +96,6 @@ class CustomSwitchCollectionViewCell: UICollectionViewCell {
 		if customSwitchCollectionViewCellVM.tooltipText != nil {
 			tooltipImageView.isHidden = false
 		}
-
-		infoStackView.axis = .horizontal
-		infoStackView.spacing = 1
 
 		tooltipImageView.setImage(UIImage(named: "alert"), for: .normal)
 	}
@@ -104,18 +105,26 @@ class CustomSwitchCollectionViewCell: UICollectionViewCell {
 	}
 
 	private func setupTopCornerRadius() {
-		contentView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+		layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
 	}
 
 	private func setupBottomCornerRadius() {
-		contentView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+		layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+	}
+
+	private func setupAllCornerRadiuses() {
+		layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
 	}
 
 	private func manageViewUsingIndex(manageIndex: manageIndexType) {
-		switch manageIndex.cellIndex {
-		case let index where index == manageIndex.cellsCount - 1:
-			setupBottomCornerRadius()
+		switch manageIndex.viewIndex {
+		case let index where index == manageIndex.viewsCount - 1 && manageIndex.viewsCount > 1:
 			showTopBorder()
+			setupBottomCornerRadius()
+		case let index where index == 0 && manageIndex.viewsCount == 1:
+			setupAllCornerRadiuses()
+		case let index where index == manageIndex.viewsCount - 1:
+			setupBottomCornerRadius()
 		case let index where index == 0:
 			setupTopCornerRadius()
 		case let index where index > 0:
@@ -132,6 +141,6 @@ class CustomSwitchCollectionViewCell: UICollectionViewCell {
 
 	@objc
 	private func onTooltipTap() {
-		onTooltipTapClosure(customSwitchCollectionViewCellVM.tooltipText)
+		onTooltipTapClosure(customSwitchCollectionViewCellVM.title, customSwitchCollectionViewCellVM.tooltipText)
 	}
 }

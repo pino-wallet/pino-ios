@@ -5,13 +5,13 @@
 //  Created by Amir hossein kazemi seresht on 4/3/23.
 //
 
-struct LockSettingModel {
+struct SecurityOptionModel {
 	public let title: String
 	public let type: LockType
 	public let isSelected: Bool
 }
 
-extension LockSettingModel {
+extension SecurityOptionModel {
 	public enum LockType: String {
 		case on_transactions
 		case immediately

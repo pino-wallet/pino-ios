@@ -7,10 +7,10 @@
 
 import Foundation
 
-class SecurityLockViewModel {
+class SecurityViewModel {
 	// MARK: - Public Properties
 
-	public let pageTitle = "Security lock"
+	public let pageTitle = "Security"
 	public let changeLockMethodTitle = "Lock method"
 	public let changeLockMethodDetailIcon = "arrow_right"
 	public let changeLockMethodAlertTitle = "Select the security method"
@@ -21,9 +21,9 @@ class SecurityLockViewModel {
 		LockMethodModel(title: "Face ID", type: .face_id),
 		LockMethodModel(title: "Passcode", type: .passcode),
 	]
-	public let lockSettings = [
-		LockSettingModel(title: "Immediately", type: .immediately, isSelected: true),
-		LockSettingModel(title: "Make a transaction", type: .on_transactions, isSelected: false),
+	public let securityOptions = [
+		SecurityOptionModel(title: "Immediately", type: .immediately, isSelected: true),
+		SecurityOptionModel(title: "For every transaction", type: .on_transactions, isSelected: false),
 	]
 
 	@Published

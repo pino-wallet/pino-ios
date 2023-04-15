@@ -5,10 +5,10 @@
 //  Created by Amir hossein kazemi seresht on 4/1/23.
 //
 
-struct LockSettingViewModel: CustomSwitchCollectionCellVM {
+struct SecurityOptionViewModel: CustomSwitchOptionVM {
 	// MARK: - Public Properties
 
-	public let lockSettingOption: LockSettingModel
+	public let lockSettingOption: SecurityOptionModel
 
 	public var title: String {
 		lockSettingOption.title
