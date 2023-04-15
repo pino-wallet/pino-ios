@@ -10,7 +10,7 @@ import UIKit
 class SecurityOptionsFooter: UICollectionReusableView {
 	// MARK: - Public Properties
 
-	public var securityLockVM: SecurityViewModel! {
+	public var securityVM: SecurityViewModel! {
 		didSet {
 			setupView()
 			setupConstraints()
@@ -35,7 +35,7 @@ class SecurityOptionsFooter: UICollectionReusableView {
 	}
 
 	private func setupStyle() {
-		lockSettingsFooterLaebl.text = securityLockVM.lockSettingsFooterTitle
+		lockSettingsFooterLaebl.text = securityVM.lockSettingsFooterTitle
 		lockSettingsFooterLaebl.font = .PinoStyle.mediumSubheadline
 	}
 }

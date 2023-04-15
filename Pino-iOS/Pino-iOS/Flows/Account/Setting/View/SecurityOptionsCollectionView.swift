@@ -130,7 +130,7 @@ extension SecurityOptionsCollectionView: UICollectionViewDataSource {
 				for: indexPath
 			) as! SecurityOptionsFooter
 
-			footerView.securityLockVM = securityLockVM
+			footerView.securityVM = securityLockVM
 
 			return footerView
 		default:
