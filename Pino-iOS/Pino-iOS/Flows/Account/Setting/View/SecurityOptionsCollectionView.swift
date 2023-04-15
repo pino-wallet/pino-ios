@@ -119,7 +119,7 @@ extension SecurityOptionsCollectionView: UICollectionViewDataSource {
 				for: indexPath
 			) as! SecurityOptionsSection
 
-			headerView.securityLockVM = securityLockVM
+			headerView.securityVM = securityLockVM
 			headerView.openSelectLockMethodAlertClosure = openSelectLockMethodAlertClosure
 
 			return headerView

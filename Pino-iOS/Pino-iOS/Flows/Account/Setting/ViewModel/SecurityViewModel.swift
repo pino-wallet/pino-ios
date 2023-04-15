@@ -5,13 +5,9 @@
 //  Created by Amir hossein kazemi seresht on 4/1/23.
 //
 
-<<<<<<< HEAD:Pino-iOS/Pino-iOS/Flows/Account/Setting/ViewModel/SecurityViewModel.swift
-class SecurityViewModel {
-=======
 import Foundation
 
-class SecurityLockViewModel {
->>>>>>> master:Pino-iOS/Pino-iOS/Flows/Account/Setting/ViewModel/SecurityLockViewModel.swift
+class SecurityViewModel {
 	// MARK: - Public Properties
 
 	public let pageTitle = "Security"
