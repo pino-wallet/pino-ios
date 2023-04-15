@@ -18,6 +18,10 @@ final class AccountingAPIClient: AccountingAPIService {
 	public func userBalance() -> AnyPublisher<BalanceModel, APIError> {
 		networkManager.request(.balances)
 	}
+
+	public func userPortfolio() -> AnyPublisher<PortfolioModel, APIError> {
+		networkManager.request(.portfolio)
+	}
 }
 
 struct NoContent: Codable {}

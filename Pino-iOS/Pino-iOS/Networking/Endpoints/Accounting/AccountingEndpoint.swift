@@ -14,6 +14,7 @@ enum AccountingEndpoint: EndpointType {
 	// MARK: - Cases
 
 	case balances
+	case portfolio
 
 	// MARK: - Internal Methods
 
@@ -45,6 +46,8 @@ enum AccountingEndpoint: EndpointType {
 		switch self {
 		case .balances:
 			return false
+		case .portfolio:
+			return false
 		}
 	}
 
@@ -52,6 +55,9 @@ enum AccountingEndpoint: EndpointType {
 		switch self {
 		case .balances:
 			return .request
+		case .portfolio:
+			let urlParameters: [String: Any] = ["timeframe": "1h"]
+			return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: urlParameters)
 		}
 	}
 
@@ -70,12 +76,16 @@ enum AccountingEndpoint: EndpointType {
 		switch self {
 		case .balances:
 			return "\(endpointParent)/user/\(AccountingEndpoint.accountADD)/balances"
+		case .portfolio:
+			return "\(endpointParent)/user/\(AccountingEndpoint.accountADD)/portfolio"
 		}
 	}
 
 	internal var httpMethod: HTTPMethod {
 		switch self {
 		case .balances:
+			return .get
+		case .portfolio:
 			return .get
 		}
 	}

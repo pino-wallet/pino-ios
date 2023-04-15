@@ -14,7 +14,7 @@ struct AssetChartViewModel {
 	public var dateFilter: ChartDateFilter
 
 	public var chartDataEntry: [ChartDataEntry] {
-		chartModel.chartData.map { ChartDataEntry(x: Double($0.time)!, y: $0.networth) }
+		chartModel.chartData.map { ChartDataEntry(x: Double($0.time)!, y: Double($0.networth)) }
 	}
 
 	public var dateFilters: [ChartDateFilter] {

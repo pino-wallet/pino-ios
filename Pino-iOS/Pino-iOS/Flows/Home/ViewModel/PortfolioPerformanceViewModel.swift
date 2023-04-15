@@ -12,6 +12,7 @@ class PortfolioPerformanceViewModel {
 
 	#warning("Mock client is temporary and must be replaced by API client")
 	private var assetsAPIClient = AssetsAPIMockClient()
+	private var accountingAPIClient = AccountingAPIClient()
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
@@ -61,6 +62,18 @@ class PortfolioPerformanceViewModel {
 	// MARK: - Private Methods
 
 	private func getChartData() {
+		accountingAPIClient.userPortfolio()
+			.sink { completed in
+				switch completed {
+				case .finished:
+					print("Portfolio received successfully")
+				case let .failure(error):
+					print(error)
+				}
+			} receiveValue: { portfolio in
+				print(portfolio)
+			}.store(in: &cancellables)
+
 		assetsAPIClient.coinInfoChart().sink { completed in
 			switch completed {
 			case .finished:
