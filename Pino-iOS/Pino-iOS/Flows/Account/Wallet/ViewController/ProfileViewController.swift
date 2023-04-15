@@ -81,7 +81,7 @@ class ProfileViewController: UIViewController {
 			let notificationsVC = NotificationSettingsViewController()
 			navigationController?.pushViewController(notificationsVC, animated: true)
 		case .securityLock:
-			let securityLockVC = SecurityLockViewController()
+			let securityLockVC = SecurityViewController()
 			navigationController?.pushViewController(securityLockVC, animated: true)
 		case .recoverPhrase:
 			let recoverPhraseVC = RecoveryPhraseViewController()

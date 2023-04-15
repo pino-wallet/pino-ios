@@ -7,18 +7,18 @@
 
 import UIKit
 
-class AuthenticationOptionsCollectionView: UICollectionView {
+class SecurityOptionsCollectionView: UICollectionView {
 	// MARK: - Closures
 
 	public var openSelectLockMethodAlertClosure: () -> Void
 
 	// MARK: - Public Peoperties
 
-	public let securityLockVM: SecurityLockViewModel
+	public let securityLockVM: SecurityViewModel
 
 	// MARK: - Initializers
 
-	init(securityLockVM: SecurityLockViewModel, openSelectLockMethodAlertClosure: @escaping () -> Void) {
+	init(securityLockVM: SecurityViewModel, openSelectLockMethodAlertClosure: @escaping () -> Void) {
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 		self.securityLockVM = securityLockVM
@@ -37,18 +37,18 @@ class AuthenticationOptionsCollectionView: UICollectionView {
 
 	private func configureCollectionView() {
 		register(
-			AuthenticationOptionCell.self,
-			forCellWithReuseIdentifier: AuthenticationOptionCell.cellReuseID
+			SecurityOptionCell.self,
+			forCellWithReuseIdentifier: SecurityOptionCell.cellReuseID
 		)
 		register(
-			AuthenticationOptionsSection.self,
+			SecurityOptionsSection.self,
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-			withReuseIdentifier: AuthenticationOptionsSection.viewReuseID
+			withReuseIdentifier: SecurityOptionsSection.viewReuseID
 		)
 		register(
-			AuthenticationOptionsFooter.self,
+			SecurityOptionsFooter.self,
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
-			withReuseIdentifier: AuthenticationOptionsFooter.viewReuseID
+			withReuseIdentifier: SecurityOptionsFooter.viewReuseID
 		)
 
 		delegate = self
@@ -56,7 +56,7 @@ class AuthenticationOptionsCollectionView: UICollectionView {
 	}
 }
 
-extension AuthenticationOptionsCollectionView: UICollectionViewDelegateFlowLayout {
+extension SecurityOptionsCollectionView: UICollectionViewDelegateFlowLayout {
 	func collectionView(
 		_ collectionView: UICollectionView,
 		layout collectionViewLayout: UICollectionViewLayout,
@@ -82,9 +82,9 @@ extension AuthenticationOptionsCollectionView: UICollectionViewDelegateFlowLayou
 	}
 }
 
-extension AuthenticationOptionsCollectionView: UICollectionViewDataSource {
+extension SecurityOptionsCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		securityLockVM.authenticationOptions.count
+		securityLockVM.securityOptions.count
 	}
 
 	func collectionView(
@@ -92,15 +92,15 @@ extension AuthenticationOptionsCollectionView: UICollectionViewDataSource {
 		cellForItemAt indexPath: IndexPath
 	) -> UICollectionViewCell {
 		let cell = dequeueReusableCell(
-			withReuseIdentifier: AuthenticationOptionCell.cellReuseID,
+			withReuseIdentifier: SecurityOptionCell.cellReuseID,
 			for: indexPath
-		) as! AuthenticationOptionCell
+		) as! SecurityOptionCell
 		cell
-			.lockSettingVM = LockSettingViewModel(
+			.securityOptionVM = SecurityOptionViewModel(
 				lockSettingOption: securityLockVM
-					.authenticationOptions[indexPath.item]
+					.securityOptions[indexPath.item]
 			)
-		cell.manageIndex = (viewIndex: indexPath.item, viewsCount: securityLockVM.authenticationOptions.count)
+		cell.manageIndex = (viewIndex: indexPath.item, viewsCount: securityLockVM.securityOptions.count)
 		cell.switchValueClosure = { isOn, type in
 		}
 		return cell
@@ -115,9 +115,9 @@ extension AuthenticationOptionsCollectionView: UICollectionViewDataSource {
 		case UICollectionView.elementKindSectionHeader:
 			let headerView = dequeueReusableSupplementaryView(
 				ofKind: UICollectionView.elementKindSectionHeader,
-				withReuseIdentifier: AuthenticationOptionsSection.viewReuseID,
+				withReuseIdentifier: SecurityOptionsSection.viewReuseID,
 				for: indexPath
-			) as! AuthenticationOptionsSection
+			) as! SecurityOptionsSection
 
 			headerView.securityLockVM = securityLockVM
 			headerView.openSelectLockMethodAlertClosure = openSelectLockMethodAlertClosure
@@ -126,9 +126,9 @@ extension AuthenticationOptionsCollectionView: UICollectionViewDataSource {
 		case UICollectionView.elementKindSectionFooter:
 			let footerView = dequeueReusableSupplementaryView(
 				ofKind: UICollectionView.elementKindSectionFooter,
-				withReuseIdentifier: AuthenticationOptionsFooter.viewReuseID,
+				withReuseIdentifier: SecurityOptionsFooter.viewReuseID,
 				for: indexPath
-			) as! AuthenticationOptionsFooter
+			) as! SecurityOptionsFooter
 
 			footerView.securityLockVM = securityLockVM
 

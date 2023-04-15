@@ -7,14 +7,14 @@
 
 import UIKit
 
-class AuthenticationOptionsSection: UICollectionReusableView {
+class SecurityOptionsSection: UICollectionReusableView {
 	// MARK: - Closures
 
 	public var openSelectLockMethodAlertClosure: (() -> Void) = {}
 
 	// MARK: - Public Peoperties
 
-	public var securityLockVM: SecurityLockViewModel! {
+	public var securityLockVM: SecurityViewModel! {
 		didSet {
 			setupView()
 			setupConstraints()

@@ -7,10 +7,10 @@
 
 import UIKit
 
-class SecurityLockViewController: UIViewController {
+class SecurityViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let securityLockVM = SecurityLockViewModel()
+	private let securityVM = SecurityViewModel()
 
 	// MARK: - View Overrides
 
@@ -27,12 +27,12 @@ class SecurityLockViewController: UIViewController {
 
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
-		setNavigationTitle(securityLockVM.pageTitle)
+		setNavigationTitle(securityVM.pageTitle)
 	}
 
 	private func setupView() {
-		view = AuthenticationOptionsCollectionView(
-			securityLockVM: securityLockVM,
+		view = SecurityOptionsCollectionView(
+			securityLockVM: securityVM,
 			openSelectLockMethodAlertClosure: { [weak self] in
 				self?.openLockSelectMethodAlert()
 			}
@@ -41,17 +41,17 @@ class SecurityLockViewController: UIViewController {
 
 	private func openLockSelectMethodAlert() {
 		let lockSelectMethodAlert = UIAlertController(
-			title: securityLockVM.changeLockMethodAlertTitle,
+			title: securityVM.changeLockMethodAlertTitle,
 			message: "",
 			preferredStyle: .actionSheet
 		)
 		lockSelectMethodAlert.overrideUserInterfaceStyle = .light
 		lockSelectMethodAlert
-			.addAction(UIAlertAction(title: securityLockVM.alertCancelButtonTitle, style: .cancel, handler: nil))
+			.addAction(UIAlertAction(title: securityVM.alertCancelButtonTitle, style: .cancel, handler: nil))
 
-		for action in securityLockVM.lockMethods {
+		for action in securityVM.lockMethods {
 			let alertAction = UIAlertAction(title: action.title, style: .default, handler: { [weak self] _ in
-				self?.securityLockVM.changeLockMethod(type: action.type)
+				self?.securityVM.changeLockMethod(type: action.type)
 
 			})
 			lockSelectMethodAlert.addAction(alertAction)

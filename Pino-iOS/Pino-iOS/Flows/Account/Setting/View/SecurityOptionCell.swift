@@ -7,10 +7,10 @@
 
 import UIKit
 
-class AuthenticationOptionCell: UICollectionViewCell {
+class SecurityOptionCell: UICollectionViewCell {
 	// MARK: - Public Properties
 
-	public var lockSettingVM: LockSettingViewModel! {
+	public var securityOptionVM: SecurityOptionViewModel! {
 		didSet {
 			setupView()
 			setupConstraints()
@@ -37,7 +37,7 @@ class AuthenticationOptionCell: UICollectionViewCell {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		customSwitchOptionView.customSwitchCollectionViewCellVM = lockSettingVM
+		customSwitchOptionView.customSwitchCollectionViewCellVM = securityOptionVM
 		customSwitchOptionView.switchValueClosure = { [weak self] isOn, type in
 			self?.switchValueClosure(isOn, type)
 		}

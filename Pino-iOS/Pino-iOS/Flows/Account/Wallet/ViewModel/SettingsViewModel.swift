@@ -33,7 +33,7 @@ extension SettingsViewModel {
 	)
 	public static let securityLock = SettingsViewModel(
 		image: "setting_security",
-		title: "Security lock",
+		title: "Security",
 		description: nil
 	)
 	public static let recoverPhrase = SettingsViewModel(
