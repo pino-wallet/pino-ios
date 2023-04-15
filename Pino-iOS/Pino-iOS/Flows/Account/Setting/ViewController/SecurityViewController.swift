@@ -49,10 +49,16 @@ class SecurityViewController: UIViewController {
 		lockSelectMethodAlert
 			.addAction(UIAlertAction(title: securityVM.alertCancelButtonTitle, style: .cancel, handler: nil))
 
+<<<<<<< HEAD:Pino-iOS/Pino-iOS/Flows/Account/Setting/ViewController/SecurityViewController.swift
 		for action in securityVM.lockMethods {
 			let alertAction = UIAlertAction(title: action.title, style: .default, handler: { [weak self] _ in
 				self?.securityVM.changeLockMethod(type: action.type)
 
+=======
+		for lockMethod in securityLockVM.lockMethods {
+			let alertAction = UIAlertAction(title: lockMethod.title, style: .default, handler: { [weak self] _ in
+				self?.securityLockVM.changeLockMethod(to: lockMethod)
+>>>>>>> master:Pino-iOS/Pino-iOS/Flows/Account/Setting/ViewController/SecurityLockViewController.swift
 			})
 			lockSelectMethodAlert.addAction(alertAction)
 		}

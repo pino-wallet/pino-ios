@@ -5,20 +5,32 @@
 //  Created by Amir hossein kazemi seresht on 4/3/23.
 //
 
+import Combine
 import UIKit
 
+<<<<<<< HEAD:Pino-iOS/Pino-iOS/Flows/Account/Setting/View/SecurityOptionsSection.swift
 class SecurityOptionsSection: UICollectionReusableView {
 	// MARK: - Closures
+=======
+class LockSettingsHeaderCollectionReusableView: UICollectionReusableView {
+	// MARK: - Private Properties
+>>>>>>> master:Pino-iOS/Pino-iOS/Flows/Account/Setting/View/LockSettingsHeaderCollectionReusableView.swift
 
-	public var openSelectLockMethodAlertClosure: (() -> Void) = {}
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Peoperties
 
+<<<<<<< HEAD:Pino-iOS/Pino-iOS/Flows/Account/Setting/View/SecurityOptionsSection.swift
 	public var securityLockVM: SecurityViewModel! {
+=======
+	public var openSelectLockMethodAlertClosure: (() -> Void) = {}
+	public var securityLockVM: SecurityLockViewModel! {
+>>>>>>> master:Pino-iOS/Pino-iOS/Flows/Account/Setting/View/LockSettingsHeaderCollectionReusableView.swift
 		didSet {
 			setupView()
 			setupConstraints()
 			setupStyle()
+			setupBinding()
 		}
 	}
 
@@ -72,7 +84,6 @@ class SecurityOptionsSection: UICollectionReusableView {
 
 		changeLockMethodTitleLabel.text = securityLockVM.changeLockMethodTitle
 
-		selectedLockMethodLabel.text = "Passcode"
 		selectedLockMethodLabel.textColor = .Pino.gray2
 
 		lockSettingsTitleLabel.text = securityLockVM.lockSettingsHeaderTitle
@@ -86,6 +97,12 @@ class SecurityOptionsSection: UICollectionReusableView {
 		selectedLockMethodStackView.spacing = 2
 
 		changeLockMethodStackView.axis = .horizontal
+	}
+
+	private func setupBinding() {
+		securityLockVM.$selectedLockMethod.sink { lockMethod in
+			self.selectedLockMethodLabel.text = lockMethod?.title
+		}.store(in: &cancellables)
 	}
 
 	@objc
