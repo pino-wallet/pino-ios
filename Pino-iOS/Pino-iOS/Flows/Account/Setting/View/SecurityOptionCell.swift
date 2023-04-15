@@ -32,7 +32,7 @@ class SecurityOptionCell: UICollectionViewCell {
 
 	// MARK: - Private Properties
 
-	let customSwitchOptionView = CustomSwitchOptionView()
+	private let customSwitchOptionView = CustomSwitchOptionView()
 
 	// MARK: - Private Methods
 
