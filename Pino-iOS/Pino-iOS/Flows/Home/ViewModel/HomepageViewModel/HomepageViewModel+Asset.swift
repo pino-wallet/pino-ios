@@ -67,10 +67,10 @@ extension HomepageViewModel {
 	}
 
 	private func addDefaultAssetsToCoreData(_ assets: [BalanceAssetModel]) {
-		let defaultAssetsCount = assets.count < 4 ? assets.count : 4
-		for index in 0 ..< defaultAssetsCount {
+		let defaultAssets = assets.prefix(4)
+		for asset in defaultAssets {
 			let newDefaultAsset = SelectedAsset(context: managedContext)
-			newDefaultAsset.setValue(assets[index].id, forKey: "id")
+			newDefaultAsset.setValue(asset.id, forKey: "id")
 			selectedAssets.append(newDefaultAsset)
 		}
 		// Save changes in CoreData
