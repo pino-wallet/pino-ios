@@ -12,4 +12,21 @@ public enum ChartDateFilter: String {
 	case month = "1M"
 	case year = "1Y"
 	case all = "All"
+
+	public var timeFrame: String {
+		switch self {
+		case .hour:
+			return "1h"
+		case .day:
+			return "1d"
+		case .week:
+			return "7d"
+		case .month:
+			return "1m"
+		case .year:
+			return "1y"
+		case .all:
+			return "all"
+		}
+	}
 }

@@ -31,38 +31,7 @@ class PortfolioPerformanceViewModel {
 	// MARK: - Public Methods
 
 	public func updateChartData(by dateFilter: ChartDateFilter) {
-		assetsAPIClient.coinInfoChart().sink { completed in
-			switch completed {
-			case .finished:
-				print("Chart info received successfully")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { [weak self] chartModelList in
-			var chartModel: AssetChartModel
-			#warning("It is temporary and must be replaced by API data")
-			switch dateFilter {
-			case .hour:
-				chartModel = chartModelList[0]
-			case .day:
-				chartModel = chartModelList[1]
-			case .week:
-				chartModel = chartModelList[2]
-			case .month:
-				chartModel = chartModelList[3]
-			case .year:
-				chartModel = chartModelList[4]
-			case .all:
-				chartModel = chartModelList[5]
-			}
-			self?.chartVM = AssetChartViewModel(chartModel: chartModel, dateFilter: dateFilter)
-		}.store(in: &cancellables)
-	}
-
-	// MARK: - Private Methods
-
-	private func getChartData() {
-		accountingAPIClient.userPortfolio()
+		accountingAPIClient.userPortfolio(timeFrame: dateFilter.timeFrame)
 			.sink { completed in
 				switch completed {
 				case .finished:
@@ -79,7 +48,32 @@ class PortfolioPerformanceViewModel {
 					volatilityType: "profit",
 					chartData: portfolio
 				)
-				self.chartVM = AssetChartViewModel(chartModel: chartModel, dateFilter: .hour)
+				self.chartVM = AssetChartViewModel(chartModel: chartModel, dateFilter: dateFilter)
+			}.store(in: &cancellables)
+	}
+
+	// MARK: - Private Methods
+
+	private func getChartData() {
+		let dateFilter = ChartDateFilter.hour
+		accountingAPIClient.userPortfolio(timeFrame: dateFilter.timeFrame)
+			.sink { completed in
+				switch completed {
+				case .finished:
+					print("Portfolio received successfully")
+				case let .failure(error):
+					print(error)
+				}
+			} receiveValue: { portfolio in
+				print(portfolio)
+				let chartModel = AssetChartModel(
+					balance: "30,000",
+					volatilityInDollor: "0.4",
+					volatilityPercentage: "0.4",
+					volatilityType: "profit",
+					chartData: portfolio
+				)
+				self.chartVM = AssetChartViewModel(chartModel: chartModel, dateFilter: dateFilter)
 			}.store(in: &cancellables)
 	}
 

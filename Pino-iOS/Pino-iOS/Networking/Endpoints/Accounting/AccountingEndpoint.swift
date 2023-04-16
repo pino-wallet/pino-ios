@@ -14,7 +14,7 @@ enum AccountingEndpoint: EndpointType {
 	// MARK: - Cases
 
 	case balances
-	case portfolio
+	case portfolio(timeFrame: String)
 
 	// MARK: - Internal Methods
 
@@ -55,8 +55,8 @@ enum AccountingEndpoint: EndpointType {
 		switch self {
 		case .balances:
 			return .request
-		case .portfolio:
-			let urlParameters: [String: Any] = ["timeframe": "1h"]
+		case let .portfolio(timeFrame):
+			let urlParameters: [String: Any] = ["timeframe": timeFrame]
 			return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: urlParameters)
 		}
 	}

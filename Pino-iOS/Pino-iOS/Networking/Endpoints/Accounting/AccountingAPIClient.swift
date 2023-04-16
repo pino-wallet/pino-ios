@@ -19,8 +19,8 @@ final class AccountingAPIClient: AccountingAPIService {
 		networkManager.request(.balances)
 	}
 
-	public func userPortfolio() -> AnyPublisher<PortfolioModel, APIError> {
-		networkManager.request(.portfolio)
+	public func userPortfolio(timeFrame: String) -> AnyPublisher<PortfolioModel, APIError> {
+		networkManager.request(.portfolio(timeFrame: timeFrame))
 	}
 }
 
