@@ -81,17 +81,6 @@ class PortfolioPerformanceViewModel {
 				)
 				self.chartVM = AssetChartViewModel(chartModel: chartModel, dateFilter: .hour)
 			}.store(in: &cancellables)
-
-//		assetsAPIClient.coinInfoChart().sink { completed in
-//			switch completed {
-//			case .finished:
-//				print("Chart info received successfully")
-//			case let .failure(error):
-//				print(error)
-//			}
-//		} receiveValue: { [weak self] chartModelList in
-//			self?.chartVM = AssetChartViewModel(chartModel: chartModelList.first!, dateFilter: .hour)
-//		}.store(in: &cancellables)
 	}
 
 	private func getShareOfAssets() {
