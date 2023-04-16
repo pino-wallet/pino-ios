@@ -55,6 +55,7 @@ class HomepageViewModel {
 
 	// MARK: - Public Methods
 
+	#warning("This function must be rafctored based on GCD")
 	public func refreshHomeData(completion: @escaping (HomeRefreshError?) -> Void) {
 		// This is temporary and must be replaced with network request
 		let monitor = NWPathMonitor()

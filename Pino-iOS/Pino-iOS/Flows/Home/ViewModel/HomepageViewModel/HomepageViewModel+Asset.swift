@@ -31,9 +31,12 @@ extension HomepageViewModel {
 			}.store(in: &cancellables)
 	}
 
+	#warning("This is temporary and must be replaced with API data")
 	internal func getPositionAssetsList() {
 		positionAssetsList = []
 	}
+
+	#warning("Core data functions should be moved to a separate layer")
 
 	internal func getSelectedAssetsFromCoreData() {
 		let selectedAssetsFetch: NSFetchRequest<SelectedAsset> = SelectedAsset.fetchRequest()
