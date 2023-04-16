@@ -23,6 +23,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 	private let dateLabel = UILabel()
 	private let chartPointer = UIImageView()
 	private var chartDateFilter: UISegmentedControl!
+	private let dateFilters: [ChartDateFilter] = [.hour, .day, .week, .month, .year, .all]
 
 	private let lineChartView = PinoLineChart(chartDataEntries: [])
 	private var chartDataSet: LineChartDataSet!
@@ -32,14 +33,14 @@ class AssetLineChart: UIView, LineChartDelegate {
 	// MARK: - Public Properties
 
 	@Published
-	public var chartVM: AssetChartViewModel
+	public var chartVM: AssetChartViewModel?
 
 	// MARK: Initializers
 
-	init(chartVM: AssetChartViewModel, dateFilterChanged: @escaping (ChartDateFilter) -> Void) {
+	init(chartVM: AssetChartViewModel?, dateFilterChanged: @escaping (ChartDateFilter) -> Void) {
 		self.chartVM = chartVM
 		self.dateFilterChanged = dateFilterChanged
-		self.chartDateFilter = UISegmentedControl(items: chartVM.dateFilters.map { $0.rawValue })
+		self.chartDateFilter = UISegmentedControl(items: dateFilters.map { $0.rawValue })
 		super.init(frame: .zero)
 
 		setupView()
@@ -154,6 +155,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 
 	private func setupBindings() {
 		$chartVM.sink { chart in
+			guard let chart else { return }
 			self.coinBalanceLabel.text = chart.balance
 			self.coinVolatilityPersentage.text = chart.volatilityPercentage
 			self.dateLabel.text = chart.chartDate
@@ -164,6 +166,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 
 	@objc
 	private func updateChart(sender: UISegmentedControl) {
+		guard let chartVM else { return }
 		dateFilterChanged(chartVM.dateFilters[sender.selectedSegmentIndex])
 	}
 
@@ -192,6 +195,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 	}
 
 	internal func valueDidChange(pointValue: Double?, valueChangePercentage: Double?) {
+		guard let chartVM else { return }
 		if let pointValue {
 			coinBalanceLabel.text = "$\(pointValue)"
 		} else {

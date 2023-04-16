@@ -18,7 +18,7 @@ class PortfolioPerformanceViewModel {
 	// MARK: - Public Properties
 
 	@Published
-	public var chartVM: AssetChartViewModel!
+	public var chartVM: AssetChartViewModel?
 	public var shareOfAssetsVM: [ShareOfAssetsViewModel]!
 
 	// MARK: - Initializers
@@ -72,18 +72,26 @@ class PortfolioPerformanceViewModel {
 				}
 			} receiveValue: { portfolio in
 				print(portfolio)
+				let chartModel = AssetChartModel(
+					balance: "30,000",
+					volatilityInDollor: "0.4",
+					volatilityPercentage: "0.4",
+					volatilityType: "profit",
+					chartData: portfolio
+				)
+				self.chartVM = AssetChartViewModel(chartModel: chartModel, dateFilter: .hour)
 			}.store(in: &cancellables)
 
-		assetsAPIClient.coinInfoChart().sink { completed in
-			switch completed {
-			case .finished:
-				print("Chart info received successfully")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { [weak self] chartModelList in
-			self?.chartVM = AssetChartViewModel(chartModel: chartModelList.first!, dateFilter: .hour)
-		}.store(in: &cancellables)
+//		assetsAPIClient.coinInfoChart().sink { completed in
+//			switch completed {
+//			case .finished:
+//				print("Chart info received successfully")
+//			case let .failure(error):
+//				print(error)
+//			}
+//		} receiveValue: { [weak self] chartModelList in
+//			self?.chartVM = AssetChartViewModel(chartModel: chartModelList.first!, dateFilter: .hour)
+//		}.store(in: &cancellables)
 	}
 
 	private func getShareOfAssets() {

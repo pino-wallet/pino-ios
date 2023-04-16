@@ -84,7 +84,8 @@ class PortfolioPerformanceHeaderView: UICollectionReusableView {
 
 	private func setupBindings() {
 		portfolioPerformanceVM.$chartVM.sink { chart in
-			self.lineChart.chartVM = chart!
+			guard let chart else { return }
+			self.lineChart.chartVM = chart
 		}.store(in: &cancellables)
 	}
 }
