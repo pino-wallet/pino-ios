@@ -17,7 +17,7 @@ public class ManageAssetCell: UICollectionViewCell {
 	private let assetTitleStackView = UIStackView()
 	private let assetTitleLabel = UILabel()
 	private let assetAmountLabel = UILabel()
-	public let selectAssetSwitch = UISwitch()
+	private let selectAssetSwitch = UISwitch()
 
 	// MARK: Public Properties
 

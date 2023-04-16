@@ -23,7 +23,7 @@ extension HomepageViewModel {
 					print(error)
 				}
 			} receiveValue: { assets in
-				self.checkDefultAssetsAdded(assets)
+				self.checkDefaultAssetsAdded(assets)
 				let selectedAssetsID = self.selectedAssets.map { $0.id }
 				self.manageAssetsList = assets.compactMap {
 					AssetViewModel(assetModel: $0, isSelected: selectedAssetsID.contains($0.id))
@@ -41,7 +41,6 @@ extension HomepageViewModel {
 	internal func getSelectedAssetsFromCoreData() {
 		let selectedAssetsFetch: NSFetchRequest<SelectedAsset> = SelectedAsset.fetchRequest()
 		do {
-			let managedContext = AppDelegate.sharedAppDelegate.coreDataStack.managedContext
 			let results = try managedContext.fetch(selectedAssetsFetch)
 			selectedAssets = results
 		} catch let error as NSError {
@@ -52,39 +51,37 @@ extension HomepageViewModel {
 	// MARK: Private Methods
 
 	private func insertSelectedAssetInCoreData(_ asset: AssetViewModel) {
-		let managedContext = AppDelegate.sharedAppDelegate.coreDataStack.managedContext
 		let newAsset = SelectedAsset(context: managedContext)
 		newAsset.setValue(asset.id, forKey: "id")
 		selectedAssets.append(newAsset)
 		// Save changes in CoreData
-		AppDelegate.sharedAppDelegate.coreDataStack.saveContext()
+		coreDataStack.saveContext()
 	}
 
 	private func deleteSelectedAssetFromCoreData(_ asset: AssetViewModel) {
 		guard let selectedAsset = selectedAssets.first(where: { $0.id == asset.id }) else { return }
-		AppDelegate.sharedAppDelegate.coreDataStack.managedContext.delete(selectedAsset)
+		managedContext.delete(selectedAsset)
 		selectedAssets.removeAll(where: { $0.id == asset.id })
 		// Save changes in CoreData
-		AppDelegate.sharedAppDelegate.coreDataStack.saveContext()
+		coreDataStack.saveContext()
 	}
 
-	private func addDefultAssetsToCoreData(_ assets: [BalanceAssetModel]) {
-		let managedContext = AppDelegate.sharedAppDelegate.coreDataStack.managedContext
+	private func addDefaultAssetsToCoreData(_ assets: [BalanceAssetModel]) {
 		let defaultAssetsCount = assets.count < 4 ? assets.count : 4
 		for index in 0 ..< defaultAssetsCount {
-			let newDefultAsset = SelectedAsset(context: managedContext)
-			newDefultAsset.setValue(assets[index].id, forKey: "id")
-			selectedAssets.append(newDefultAsset)
+			let newDefaultAsset = SelectedAsset(context: managedContext)
+			newDefaultAsset.setValue(assets[index].id, forKey: "id")
+			selectedAssets.append(newDefaultAsset)
 		}
 		// Save changes in CoreData
-		AppDelegate.sharedAppDelegate.coreDataStack.saveContext()
+		coreDataStack.saveContext()
 	}
 
-	private func checkDefultAssetsAdded(_ assets: [BalanceAssetModel]) {
-		let defultAssetUserDefaultsKey = "isDefultAssetsAdded"
-		if !UserDefaults.standard.bool(forKey: defultAssetUserDefaultsKey) {
-			addDefultAssetsToCoreData(assets)
-			UserDefaults.standard.setValue(true, forKey: defultAssetUserDefaultsKey)
+	private func checkDefaultAssetsAdded(_ assets: [BalanceAssetModel]) {
+		let defaultAssetUserDefaultsKey = "isDefaultAssetsAdded"
+		if !UserDefaults.standard.bool(forKey: defaultAssetUserDefaultsKey) {
+			addDefaultAssetsToCoreData(assets)
+			UserDefaults.standard.setValue(true, forKey: defaultAssetUserDefaultsKey)
 		}
 	}
 
