@@ -289,6 +289,8 @@
 		DD1FECFBF7AD18C1E7832CAF /* wallet-info-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = C999216F5B71C41870392AD2 /* wallet-info-stub.json */; };
 		DD2E33C472905FA32AE84797 /* AboutPinoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386E9EB6770D54847A0B49F3 /* AboutPinoViewController.swift */; };
 		DE33FFB7D492FA770FF9FB5C /* SemiboldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50080A9D2083CDB39EEB969A /* SemiboldStyle.swift */; };
+		DF00178029E80696001164EA /* SecureEnclave.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00177F29E80696001164EA /* SecureEnclave.swift */; };
+		DF00178229E82084001164EA /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00178129E82084001164EA /* KeychainManager.swift */; };
 		DF0F65E529E1B20F00DB7290 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65E429E1B20F00DB7290 /* BigInt */; };
 		DF0F65E829E1B22A00DB7290 /* web3swift in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65E729E1B22A00DB7290 /* web3swift */; };
 		DF0F65EB29E1B24500DB7290 /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65EA29E1B24500DB7290 /* OHHTTPStubs */; };
@@ -644,6 +646,8 @@
 		DE9E95DAD0FE359D802524FC /* wallets-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "wallets-stub.json"; sourceTree = "<group>"; };
 		DEA3FFE35308EBEC961CD7BF /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		DEF9234B1A724D51BE836376 /* PPPangramSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		DF00177F29E80696001164EA /* SecureEnclave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureEnclave.swift; sourceTree = "<group>"; };
+		DF00178129E82084001164EA /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		DFB2C343099A9B87E6C231F0 /* StubManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubManager.swift; sourceTree = "<group>"; };
 		E149E7B618CEFE5E909B2D78 /* WalletInfoNavigationItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoNavigationItems.swift; sourceTree = "<group>"; };
 		E1575DB9D22AE8EBFE86A7D9 /* SeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhrase.swift; sourceTree = "<group>"; };
@@ -1610,6 +1614,7 @@
 		9644A21ECD0A37919E016265 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				DF00177E29E80683001164EA /* SecureEnclave */,
 				7AF1DCDDC903DE2CE5A2B1A1 /* NumberFormatting */,
 			);
 			path = Foundation;
@@ -1838,6 +1843,15 @@
 				5F7EB4347903BC7C1E33DC5F /* ImportSecretPhraseViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		DF00177E29E80683001164EA /* SecureEnclave */ = {
+			isa = PBXGroup;
+			children = (
+				DF00177F29E80696001164EA /* SecureEnclave.swift */,
+				DF00178129E82084001164EA /* KeychainManager.swift */,
+			);
+			path = SecureEnclave;
 			sourceTree = "<group>";
 		};
 		DF6971184EDF0A9D6DD15E69 /* CustomSwitchCollectionCell */ = {
@@ -2300,6 +2314,7 @@
 				C18F61B7AEF94EEC4A102666 /* ChartDataModel.swift in Sources */,
 				86AE4E895C42E9E1302295FD /* ChartDateFilter.swift in Sources */,
 				B4E756CF19F769668E2A4FB5 /* ChartInfoItem.swift in Sources */,
+				DF00178029E80696001164EA /* SecureEnclave.swift in Sources */,
 				B96CE8969DBE6398977B87D5 /* ChartMarker.swift in Sources */,
 				D9AF6DCC29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift in Sources */,
 				3C9F0B46C521474D32854C66 /* CoinHistoryCell.swift in Sources */,
@@ -2390,6 +2405,7 @@
 				1F98DAC473200ACED0BA403B /* ParameterEncoderProtocol.swift in Sources */,
 				8EA8AEFE97CEC48A2C1DFCB7 /* ParameterEncoding.swift in Sources */,
 				B6C747AA398D7E37B1B727AC /* PassDotsView.swift in Sources */,
+				DF00178229E82084001164EA /* KeychainManager.swift in Sources */,
 				078E15176613CB329D507580 /* PassManagmentError.swift in Sources */,
 				B2555AA57E466EAE75423515 /* PasscodeManagerPages.swift in Sources */,
 				A9D7256A81B9271BA56435AE /* PasscodeManagerService.swift in Sources */,

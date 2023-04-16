@@ -54,4 +54,8 @@ extension String {
 
 		return nil
 	}
+
+	public var utf8Data: Data {
+		data(using: .utf8)!
+	}
 }
