@@ -23,7 +23,7 @@ class KeychainManager {
 
 	// MARK: - Create and store keys in Keychain
 
-	static func createPrivateKey(name: String) throws -> SecKey {
+	public static func createPrivateKey(name: String) throws -> SecKey {
 		// First check if key already exists
 		if let key = keyExists(name: name) {
 			return key
@@ -66,7 +66,7 @@ class KeychainManager {
 
 	// MARK: - Read key from keychain
 
-	static func loadKey(name: String, context: LAContext) -> Result<SecKey, KeyManagmentError> {
+    public static func loadKey(name: String, context: LAContext) -> Result<SecKey, KeyManagmentError> {
 		let tag = name.data(using: .utf8)!
 		var query: [String: Any] = [
 			kSecClass as String: kSecClassKey,
@@ -89,7 +89,7 @@ class KeychainManager {
 		return .success(item as! SecKey)
 	}
 
-	static func keyExists(name: String) -> SecKey? {
+    public static func keyExists(name: String) -> SecKey? {
 		switch loadKey(name: name, context: context) {
 		case let .success(key):
 			return key
@@ -100,7 +100,7 @@ class KeychainManager {
 
 	// MARK: - Delete keys from Keychain
 
-	static func removeKey(name: String) {
+    public static func removeKey(name: String) {
 		let tag = name.data(using: .utf8)!
 		let query: [String: Any] = [
 			kSecClass as String: kSecClassKey,
@@ -110,12 +110,4 @@ class KeychainManager {
 		SecItemDelete(query as CFDictionary)
 	}
 
-	static func remove(key: String) {
-		let query = [
-			kSecClass as String: kSecClassGenericPassword as String,
-			kSecAttrAccount as String: key,
-		]
-
-		SecItemDelete(query as CFDictionary)
-	}
 }
