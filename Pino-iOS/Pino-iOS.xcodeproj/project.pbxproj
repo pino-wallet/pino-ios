@@ -137,7 +137,6 @@
 		6E539ADB99F2D4F23ECC14A1 /* ToastViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB426B36AF7DA6CC9B5DE111 /* ToastViewProtocol.swift */; };
 		6FB08C15B02317A1FE3C012D /* AccountingAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46070D648E66AFA3E1563008 /* AccountingAPIService.swift */; };
 		6FB3C66B1E98C7C2B7886069 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A3C8D0587A7C0B53C0EC4 /* SettingCell.swift */; };
-		6FF7DDDE72D57770EB9B6461 /* index.js in Resources */ = {isa = PBXBuildFile; fileRef = 3952DFF4D505BCBB9677386B /* index.js */; };
 		7060BC04A8267A9B50B8BF09 /* AuthenticationLockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B3471DBAE7B1EDD075DAF /* AuthenticationLockViewController.swift */; };
 		70A38450573C86C7CA6A6C27 /* APIClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EBD8E6BF7C5877B562FCA2 /* APIClientTest.swift */; };
 		710BFFE4625F76FC84268937 /* PPPangramSans-ExtralightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 068F5D74F8B1876B22DD2AC0 /* PPPangramSans-ExtralightItalic.ttf */; };
@@ -291,6 +290,8 @@
 		DE33FFB7D492FA770FF9FB5C /* SemiboldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50080A9D2083CDB39EEB969A /* SemiboldStyle.swift */; };
 		DF00178029E80696001164EA /* SecureEnclave.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00177F29E80696001164EA /* SecureEnclave.swift */; };
 		DF00178229E82084001164EA /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00178129E82084001164EA /* KeychainManager.swift */; };
+		DF00178529EC37AF001164EA /* WalletCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00178429EC37AF001164EA /* WalletCore.swift */; };
+		DF00178729EDA59E001164EA /* WalletKeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00178629EDA59E001164EA /* WalletKeyManager.swift */; };
 		DF0F65E529E1B20F00DB7290 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65E429E1B20F00DB7290 /* BigInt */; };
 		DF0F65E829E1B22A00DB7290 /* web3swift in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65E729E1B22A00DB7290 /* web3swift */; };
 		DF0F65EB29E1B24500DB7290 /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65EA29E1B24500DB7290 /* OHHTTPStubs */; };
@@ -389,7 +390,6 @@
 		1ACC445FAA9626AB655BE5E6 /* SecurityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityViewModel.swift; sourceTree = "<group>"; };
 		1AE0C2CA6B34603B490425D3 /* HistoryStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStatus.swift; sourceTree = "<group>"; };
 		1AE59B4F8A912C260EBD9FD8 /* ImportSecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSecretPhraseView.swift; sourceTree = "<group>"; };
-		1B20250AAB9D82BC7A6F07F9 /* components.d.ts */ = {isa = PBXFileReference; lastKnownFileType = text; path = components.d.ts; sourceTree = "<group>"; };
 		1B8B3471DBAE7B1EDD075DAF /* AuthenticationLockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationLockViewController.swift; sourceTree = "<group>"; };
 		1D79E6ABFF159E2B8FB5C0A2 /* ManagePasscodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagePasscodeView.swift; sourceTree = "<group>"; };
 		1DE3198FB191E8A67A84E0B5 /* CoinPerformanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceView.swift; sourceTree = "<group>"; };
@@ -648,6 +648,8 @@
 		DEF9234B1A724D51BE836376 /* PPPangramSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-LightItalic.ttf"; sourceTree = "<group>"; };
 		DF00177F29E80696001164EA /* SecureEnclave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureEnclave.swift; sourceTree = "<group>"; };
 		DF00178129E82084001164EA /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		DF00178429EC37AF001164EA /* WalletCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCore.swift; sourceTree = "<group>"; };
+		DF00178629EDA59E001164EA /* WalletKeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletKeyManager.swift; sourceTree = "<group>"; };
 		DFB2C343099A9B87E6C231F0 /* StubManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubManager.swift; sourceTree = "<group>"; };
 		E149E7B618CEFE5E909B2D78 /* WalletInfoNavigationItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoNavigationItems.swift; sourceTree = "<group>"; };
 		E1575DB9D22AE8EBFE86A7D9 /* SeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhrase.swift; sourceTree = "<group>"; };
@@ -1614,6 +1616,7 @@
 		9644A21ECD0A37919E016265 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				DF00178329EC37A0001164EA /* Wallet */,
 				DF00177E29E80683001164EA /* SecureEnclave */,
 				7AF1DCDDC903DE2CE5A2B1A1 /* NumberFormatting */,
 			);
@@ -1850,8 +1853,17 @@
 			children = (
 				DF00177F29E80696001164EA /* SecureEnclave.swift */,
 				DF00178129E82084001164EA /* KeychainManager.swift */,
+				DF00178629EDA59E001164EA /* WalletKeyManager.swift */,
 			);
 			path = SecureEnclave;
+			sourceTree = "<group>";
+		};
+		DF00178329EC37A0001164EA /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				DF00178429EC37AF001164EA /* WalletCore.swift */,
+			);
+			path = Wallet;
 			sourceTree = "<group>";
 		};
 		DF6971184EDF0A9D6DD15E69 /* CustomSwitchCollectionCell */ = {
@@ -2419,6 +2431,7 @@
 				858596F6A073F29FF9BB7033 /* PinoFont.swift in Sources */,
 				55CBB37768826DE00CDAF5FB /* PinoLabel.swift in Sources */,
 				6C3ACBB9EEE454EC433A907D /* PinoLabelStyle.swift in Sources */,
+				DF00178729EDA59E001164EA /* WalletKeyManager.swift in Sources */,
 				9CC2D1EE167451483C8E7F4F /* PinoLineChart.swift in Sources */,
 				D09AAD1A88DD6C97185FD51B /* PinoLoading.swift in Sources */,
 				41B9F1002F97DF04A075D75D /* PinoStepperView.swift in Sources */,
@@ -2511,6 +2524,7 @@
 				C3321EBB6DC83BCDC3CFC3B0 /* WalletsModel.swift in Sources */,
 				316F0DDECBB3FA68BFFA1577 /* WalletsViewController.swift in Sources */,
 				33647E7FA041A9CC0130F158 /* WalletsViewModel.swift in Sources */,
+				DF00178529EC37AF001164EA /* WalletCore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

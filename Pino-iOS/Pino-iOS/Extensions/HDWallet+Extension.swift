@@ -11,19 +11,20 @@ import WalletCore
 
 public typealias HDWallet = WalletCore.HDWallet
 
-public enum SeedPhraseCount {
-	case word12
-
-	public var strength: Int32 {
-		128
-	}
-
-	public var count: Int {
-		12
-	}
-}
-
 extension HDWallet {
+        
+    public enum SeedPhraseCount {
+        case word12
+
+        public var strength: Int32 {
+            128
+        }
+
+        public var count: Int {
+            12
+        }
+    }
+    
 	public static let validSeedPhraseCounts = [
 		SeedPhraseCount.word12.count,
 	]
@@ -36,6 +37,37 @@ extension HDWallet {
 		let word = word.lowercased()
 		return englishWordList.filter { $0.hasPrefix(word) }
 	}
+    
+    static func generateMnemonic(seedPhraseCount: HDWallet.SeedPhraseCount, passphrase: String = .emptyString) -> String {
+        if let newHdWallet = HDWallet(strength: seedPhraseCount.strength, passphrase: passphrase) {
+            #warning("some sort of validation maybe required for mnemonics")
+            // WalletCore.Mnemonic.isValid(mnemonic: newHdWallet.mnemonic)
+            return newHdWallet.mnemonic
+        } else {
+            fatalError(WalletError.mnemonicGenerationFailed.localizedDescription)
+        }
+    }
+    
+    /*
+    //Defensive check. Make sure mnemonic is OK and signs data correctly
+    static fileprivate func doesSeedMatchWalletAddress(mnemonic: String) -> Bool {
+        guard let wallet = HDWallet(mnemonic: mnemonic, passphrase: emptyPassphrase) else { return false }
+        guard wallet.mnemonic == mnemonic else { return false }
+        guard let walletWhenImported = HDWallet(entropy: wallet.entropy, passphrase: emptyPassphrase) else { return false }
+        //If seed phrase has a typo, the typo will be dropped and "abandon" added as the first word, deriving a different mnemonic silently. We don't want that to happen!
+
+        guard walletWhenImported.mnemonic == mnemonic else { return false }
+        let privateKey = derivePrivateKeyOfAccount0(fromHdWallet: walletWhenImported)
+        guard let address = AlphaWallet.Address(fromPrivateKey: privateKey) else { return false }
+        let testData = "any data will do here"
+        let hash = testData.data(using: .utf8)!.sha3(.keccak256)
+        //Do not use EthereumSigner.vitaliklizeConstant because the ECRecover implementation doesn't include it
+        guard let signature = try? EthereumSigner().sign(hash: hash, withPrivateKey: privateKey) else { return false }
+        guard let recoveredAddress = Web3.Utils.hashECRecover(hash: hash, signature: signature) else { return false }
+        //Make sure the wallet address (recoveredAddress) is what we think it is (address)
+        return address.sameContract(as: recoveredAddress.address)
+    }
+     */
 
 	// From https://github.com/trezor/python-mnemonic/blob/master/mnemonic/wordlist/english.txt
 	// Explicit type declaration to speed up build time. 500msec -> <100ms, as of Xcode 11.7
