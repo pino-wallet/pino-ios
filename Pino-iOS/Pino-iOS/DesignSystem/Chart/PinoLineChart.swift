@@ -117,10 +117,9 @@ class PinoLineChart: LineChartView {
 		highlightValue(selectedPoint)
 		if let selectedPoint {
 			let previousPoint = getPreviousPoint(point: selectedPoint)
-			let valueChange = getValueChangePercentage(selectedPoint: selectedPoint, previousPoint: previousPoint)
-			chartDelegate?.valueDidChange(pointValue: selectedPoint.y, valueChangePercentage: valueChange)
+			chartDelegate?.valueDidChange(pointValue: selectedPoint.y, previousValue: previousPoint?.y)
 		} else {
-			chartDelegate?.valueDidChange(pointValue: nil, valueChangePercentage: nil)
+			chartDelegate?.valueDidChange(pointValue: nil, previousValue: nil)
 		}
 	}
 
@@ -131,15 +130,6 @@ class PinoLineChart: LineChartView {
 			return previousPoint
 		} else {
 			return nil
-		}
-	}
-
-	private func getValueChangePercentage(selectedPoint: Highlight, previousPoint: ChartDataEntry?) -> Double {
-		let selectedPointValue = selectedPoint.y
-		if let previousPointValue = previousPoint?.y, previousPointValue != 0 {
-			return ((selectedPointValue - previousPointValue) / previousPointValue) * 100
-		} else {
-			return 0
 		}
 	}
 }

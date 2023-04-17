@@ -6,5 +6,5 @@
 //
 
 protocol LineChartDelegate: AnyObject {
-	func valueDidChange(pointValue: Double?, valueChangePercentage: Double?)
+	func valueDidChange(pointValue: Double?, previousValue: Double?)
 }

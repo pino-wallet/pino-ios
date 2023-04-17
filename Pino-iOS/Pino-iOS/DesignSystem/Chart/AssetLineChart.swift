@@ -170,17 +170,11 @@ class AssetLineChart: UIView, LineChartDelegate {
 		dateFilterChanged(chartVM.dateFilters[sender.selectedSegmentIndex])
 	}
 
-	private func updateVolatility(_ valueChangePercentage: Double) {
-		var formattedVolatolity = "\(String(format: "%.2f", valueChangePercentage))%"
-		if valueChangePercentage > 0 {
-			updateVolatilityColor(type: .profit)
-			formattedVolatolity = "+\(formattedVolatolity)"
-		} else if valueChangePercentage < 0 {
-			updateVolatilityColor(type: .loss)
-		} else {
-			updateVolatilityColor(type: .none)
-		}
-		coinVolatilityPersentage.text = formattedVolatolity
+	private func updateVolatility(pointValue: Double, previousValue: Double?) {
+		guard let chartVM else { return }
+		var valueChangePercentage = chartVM.valueChangePercentage(pointValue: pointValue, previousValue: previousValue)
+		coinVolatilityPersentage.text = chartVM.formattedVolatility(valueChangePercentage)
+		updateVolatilityColor(type: chartVM.volatilityType(valueChangePercentage))
 	}
 
 	private func updateVolatilityColor(type: AssetVolatilityType) {
@@ -194,17 +188,14 @@ class AssetLineChart: UIView, LineChartDelegate {
 		}
 	}
 
-	internal func valueDidChange(pointValue: Double?, valueChangePercentage: Double?) {
+	internal func valueDidChange(pointValue: Double?, previousValue: Double?) {
 		guard let chartVM else { return }
 		if let pointValue {
 			coinBalanceLabel.text = "$\(pointValue)"
+			updateVolatility(pointValue: pointValue, previousValue: previousValue)
+
 		} else {
 			coinBalanceLabel.text = chartVM.balance
-		}
-
-		if let valueChangePercentage {
-			updateVolatility(valueChangePercentage)
-		} else {
 			coinVolatilityPersentage.text = chartVM.volatilityPercentage
 			updateVolatilityColor(type: chartVM.volatilityType)
 		}

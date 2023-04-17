@@ -10,11 +10,11 @@ import Foundation
 struct AssetChartViewModel {
 	// MARK: - Public Properties
 
-	public let chartModel: AssetChartModel
+	public let chartData: [ChartDataModel]
 	public var dateFilter: ChartDateFilter
 
 	public var chartDataEntry: [ChartDataEntry] {
-		chartModel.chartData.map {
+		chartData.map {
 			let timeStamp = getDate(from: $0.time)?.timeIntervalSinceNow
 			return ChartDataEntry(x: timeStamp!, y: Double($0.networth))
 		}
@@ -25,39 +25,20 @@ struct AssetChartViewModel {
 	}
 
 	public var balance: String {
-		"$\(chartModel.balance)"
-	}
-
-	public var volatilityInDollor: String {
-		switch volatilityType {
-		case .profit:
-			return "+$\(chartModel.volatilityInDollor)"
-		case .loss:
-			return "-$\(chartModel.volatilityInDollor)"
-		case .none:
-			return "$\(chartModel.volatilityInDollor)"
-		}
+		"$\(chartDataEntry.last!.y)"
 	}
 
 	public var volatilityPercentage: String {
-		switch volatilityType {
-		case .profit:
-			return "+\(chartModel.volatilityPercentage)%"
-		case .loss:
-			return "-\(chartModel.volatilityPercentage)%"
-		case .none:
-			return "\(chartModel.volatilityPercentage)%"
-		}
+		formattedVolatility(valueChangePercentage())
 	}
 
 	public var volatilityType: AssetVolatilityType {
-		AssetVolatilityType(rawValue: chartModel.volatilityType) ?? .none
+		volatilityType(valueChangePercentage())
 	}
 
-	#warning("Chart date is temporary and must be calculated based on API data")
 	public var chartDate: String {
-		let firstDate = getDate(from: chartModel.chartData.first!.time)!
-		let lastDate = getDate(from: chartModel.chartData.last!.time)!
+		let firstDate = getDate(from: chartData.first!.time)!
+		let lastDate = getDate(from: chartData.last!.time)!
 		switch dateFilter {
 		case .hour, .day:
 			return "\(firstDate.monthName()) \(firstDate.get(.day)), " +
@@ -86,10 +67,54 @@ struct AssetChartViewModel {
 		}
 	}
 
+	// MARK: - Private Methods
+
 	private func getDate(from time: String) -> Date? {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
 		let date = dateFormatter.date(from: time)
 		return date
+	}
+
+	private func valueChangePercentage() -> Double {
+		if chartDataEntry.count > 1 {
+			let valueChangePercentage = valueChangePercentage(
+				pointValue: chartDataEntry[chartDataEntry.count - 1].y,
+				previousValue: chartDataEntry[chartDataEntry.count - 2].y
+			)
+			return valueChangePercentage
+		} else {
+			return 0
+		}
+	}
+
+	// MARK: - Public Methods
+
+	public func valueChangePercentage(pointValue: Double, previousValue: Double?) -> Double {
+		if let previousValue, previousValue != 0 {
+			return ((pointValue - previousValue) / previousValue) * 100
+		} else {
+			return 0
+		}
+	}
+
+	public func formattedVolatility(_ valueChangePercentage: Double) -> String {
+		let formattedVolatolity = "\(String(format: "%.2f", valueChangePercentage))%"
+		switch volatilityType(valueChangePercentage) {
+		case .profit:
+			return "+\(formattedVolatolity)"
+		default:
+			return formattedVolatolity
+		}
+	}
+
+	public func volatilityType(_ valueChangePercentage: Double) -> AssetVolatilityType {
+		if valueChangePercentage > 0 {
+			return .profit
+		} else if valueChangePercentage < 0 {
+			return .loss
+		} else {
+			return .none
+		}
 	}
 }

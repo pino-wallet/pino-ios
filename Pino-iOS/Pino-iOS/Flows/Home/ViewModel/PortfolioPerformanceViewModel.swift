@@ -40,15 +40,7 @@ class PortfolioPerformanceViewModel {
 					print(error)
 				}
 			} receiveValue: { portfolio in
-				print(portfolio)
-				let chartModel = AssetChartModel(
-					balance: "30,000",
-					volatilityInDollor: "0.4",
-					volatilityPercentage: "0.4",
-					volatilityType: "profit",
-					chartData: portfolio
-				)
-				self.chartVM = AssetChartViewModel(chartModel: chartModel, dateFilter: dateFilter)
+				self.chartVM = AssetChartViewModel(chartData: portfolio, dateFilter: dateFilter)
 			}.store(in: &cancellables)
 	}
 
@@ -65,15 +57,7 @@ class PortfolioPerformanceViewModel {
 					print(error)
 				}
 			} receiveValue: { portfolio in
-				print(portfolio)
-				let chartModel = AssetChartModel(
-					balance: "30,000",
-					volatilityInDollor: "0.4",
-					volatilityPercentage: "0.4",
-					volatilityType: "profit",
-					chartData: portfolio
-				)
-				self.chartVM = AssetChartViewModel(chartModel: chartModel, dateFilter: dateFilter)
+				self.chartVM = AssetChartViewModel(chartData: portfolio, dateFilter: dateFilter)
 			}.store(in: &cancellables)
 	}
 
