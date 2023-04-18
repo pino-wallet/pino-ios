@@ -10,9 +10,7 @@ struct LockMethodModel {
 	public let type: LockMethodType
 }
 
-extension LockMethodModel {
-	public enum LockMethodType: String {
-		case face_id
-		case passcode
-	}
+public enum LockMethodType: String {
+	case face_id
+	case passcode
 }

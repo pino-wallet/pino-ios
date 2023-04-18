@@ -36,13 +36,26 @@ extension String {
 		}
 	}
 
-	public func QRCodeImage() -> UIImage {
+	public func generateQRCode(customHeight: Int, customWidth: Int) -> UIImage? {
 		let data = data(using: String.Encoding.ascii)
-		if let QRFilter = CIFilter(name: "CIQRCodeGenerator") {
-			QRFilter.setValue(data, forKey: "inputMessage")
-			guard var QRImage = QRFilter.outputImage else { fatalError("Cant generate qrcode image") }
-			QRImage = QRImage.tinted(using: UIColor.Pino.primary)!
-			return UIImage(ciImage: QRImage)
-		} else { fatalError("Cant generate qrcode image") }
+		if let filter = CIFilter(name: "CIQRCodeGenerator") {
+			filter.setValue(data, forKey: "inputMessage")
+			// L: 7%, M: 15%, Q: 25%, H: 30%
+			filter.setValue("M", forKey: "inputCorrectionLevel")
+
+			if let qrImage = filter.outputImage {
+				let scaleX = CGFloat(customWidth) / qrImage.extent.size.width
+				let scaleY = CGFloat(customHeight) / qrImage.extent.size.height
+				let transform = CGAffineTransform(scaleX: scaleX, y: scaleY)
+				let output = qrImage.transformed(by: transform)
+				return UIImage(ciImage: output)
+			}
+		}
+
+		return nil
+	}
+
+	public var utf8Data: Data {
+		data(using: .utf8)!
 	}
 }
