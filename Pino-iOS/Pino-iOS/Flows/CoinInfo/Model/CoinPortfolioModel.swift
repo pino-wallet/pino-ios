@@ -8,29 +8,36 @@
 struct CoinPortfolioModel: Codable {
 	// MARK: - public properties
 
-	public var id: String
-	public var assetName: String
-	public var assetImage: String
-	public var assetValue: String
-	public var volatilityRate: String
-	public var volatilityType: String
-	public var coinAmount: String
-	public var userAmount: String
-	public var investAmount: String
-	public var collateralAmount: String
-	public var barrowAmount: String
+	public let id, amount, hold, investment: String
+	public let isVerified: Bool
+	public let detail: Detail
 
-	enum CodingKeys: String, CodingKey {
+	public enum CodingKeys: String, CodingKey {
 		case id
-		case assetName = "asset_name"
-		case assetImage = "asset_image"
-		case assetValue = "asset_value"
-		case volatilityRate = "volatility_rate"
-		case volatilityType = "volatility_type"
-		case coinAmount = "coin_amount"
-		case userAmount = "user_amount"
-		case investAmount = "invest_amount"
-		case collateralAmount = "collateral_amount"
-		case barrowAmount = "barrow_amount"
+		case amount
+		case hold
+		case investment
+		case isVerified = "is_verified"
+		case detail
+	}
+}
+
+extension CoinInfoViewModel {
+	struct Detail: Codable {
+		public let id, symbol, name: String
+		public let logo: String
+		public let decimals: Int
+		public let change24H, changePercentage, price: String
+
+		public enum CodingKeys: String, CodingKey {
+			case id
+			case symbol
+			case name
+			case logo
+			case decimals
+			case change24H = "change_24h"
+			case changePercentage = "change_percentage"
+			case price
+		}
 	}
 }

@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "gray_error_alert.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

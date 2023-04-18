@@ -10,3 +10,17 @@ public enum AssetVolatilityType: String, Codable {
 	case loss
 	case none
 }
+
+public func calculateAssetVolatilityType(change24h: String) -> AssetVolatilityType {
+	let change24hInt = PriceNumberFormatter(value: change24h)
+	if change24hInt.bigNumber.isZero {
+		return .none
+	} else {
+		switch change24hInt.bigNumber.number.sign {
+		case .minus:
+			return .loss
+		case .plus:
+			return .profit
+		}
+	}
+}
