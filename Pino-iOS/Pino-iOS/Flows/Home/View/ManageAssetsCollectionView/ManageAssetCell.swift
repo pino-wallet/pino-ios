@@ -34,7 +34,11 @@ public class ManageAssetCell: UICollectionViewCell {
 	// MARK: Public Methods
 
 	public func toggleAssetSwitch() {
-		selectAssetSwitch.setOn(!selectAssetSwitch.isOn, animated: true)
+		selectAssetSwitch.setOn(!isSwitchOn(), animated: true)
+	}
+
+	public func isSwitchOn() -> Bool {
+		selectAssetSwitch.isOn
 	}
 
 	// MARK: Private UI Methods
