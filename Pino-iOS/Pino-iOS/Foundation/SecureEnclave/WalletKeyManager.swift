@@ -104,11 +104,7 @@ public struct PinoWalletKeyManager: WalletKeyManager {
 
     private func getSeedForHdWallet(forAccount account: AlphaWallet.Address, prompt: String, context: LAContext, withUserPresence: Bool, shouldWriteWithUserPresenceIfNotFound: Bool = true) -> WalletSeedOrKey {
         let prefix: String
-        if withUserPresence {
-            prefix = Keys.ethereumSeedUserPresenceRequiredPrefix
-        } else {
-            prefix = Keys.ethereumSeedUserPresenceNotRequiredPrefix
-        }
+        prefix = Keys.ethereumSeedUserPresenceRequiredPrefix
         let data = keychain.getData("\(prefix)\(account.eip55String)", prompt: prompt, withContext: context)
                 .flatMap { decryptHdWalletSeed(fromCipherTextData: $0, forAccount: account, withUserPresence: withUserPresence, withContext: context) }
                 .flatMap { String(data: $0, encoding: .utf8) }
@@ -144,13 +140,8 @@ public struct PinoWalletKeyManager: WalletKeyManager {
         guard let cipherTextData = encryptPrivateKey(privateKey, forAccount: account, withUserPresence: withUserPresence, withContext: context) else { return false }
         let access: AccessOptions
         let prefix: String
-        if withUserPresence {
-            access = defaultKeychainAccessUserPresenceRequired
-            prefix = Keys.ethereumRawPrivateKeyUserPresenceRequiredPrefix
-        } else {
-            access = defaultKeychainAccessUserPresenceNotRequired
-            prefix = Keys.ethereumRawPrivateKeyUserPresenceNotRequiredPrefix
-        }
+        access = defaultKeychainAccessUserPresenceRequired
+        prefix = Keys.ethereumRawPrivateKeyUserPresenceRequiredPrefix
         return keychain.set(cipherTextData, forKey: "\(prefix)\(account.eip55String)", withAccess: access)
     }
     
@@ -159,13 +150,8 @@ public struct PinoWalletKeyManager: WalletKeyManager {
         guard let cipherTextData = seed.data(using: .utf8).flatMap({ self.encryptHdWalletSeed($0, forAccount: account, withUserPresence: withUserPresence, withContext: context) }) else { return false }
         let access: AccessOptions
         let prefix: String
-        if withUserPresence {
-            access = defaultKeychainAccessUserPresenceRequired
-            prefix = Keys.ethereumSeedUserPresenceRequiredPrefix
-        } else {
-            access = defaultKeychainAccessUserPresenceNotRequired
-            prefix = Keys.ethereumSeedUserPresenceNotRequiredPrefix
-        }
+        access = defaultKeychainAccessUserPresenceRequired
+        prefix = Keys.ethereumSeedUserPresenceRequiredPrefix
         return keychain.set(cipherTextData, forKey: "\(prefix)\(account.eip55String)", withAccess: access)
     }
     
@@ -191,21 +177,13 @@ public struct PinoWalletKeyManager: WalletKeyManager {
     
     private func encryptionKeyForSeedLabel(fromAccount account: AlphaWallet.Address, withUserPresence: Bool) -> String {
         let prefix: String
-        if withUserPresence {
-            prefix = Keys.encryptionKeyForSeedUserPresenceRequiredPrefix
-        } else {
-            prefix = Keys.encryptionKeyForSeedUserPresenceNotRequiredPrefix
-        }
+        prefix = Keys.encryptionKeyForSeedUserPresenceRequiredPrefix
         return "\(prefix)\(account.eip55String)"
     }
     
     private func encryptionKeyForPrivateKeyLabel(fromAccount account: AlphaWallet.Address, withUserPresence: Bool) -> String {
         let prefix: String
-        if withUserPresence {
-            prefix = Keys.encryptionKeyForPrivateKeyUserPresenceRequiredPrefix
-        } else {
-            prefix = Keys.encryptionKeyForPrivateKeyUserPresenceNotRequiredPrefix
-        }
+        prefix = Keys.encryptionKeyForPrivateKeyUserPresenceRequiredPrefix
         return "\(prefix)\(account.eip55String)"
     }
     

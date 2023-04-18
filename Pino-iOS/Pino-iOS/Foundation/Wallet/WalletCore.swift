@@ -38,12 +38,47 @@ public struct PHDWallet {
     }
 }
 
+public class Validator {
+    func validatePrivateKey()
+    func validatePublicKey()
+    func validateMnemonics()
+    func validateAddress()
+}
+
 public struct Account {
-    
+    public var address: Address
+
 }
 
 public struct Address {
-    
+
+    /// Raw address bytes, length 20.
+    public private(set) var data: Data
+
+    /// EIP55 representation of the address.
+    public let eip55String: String
+
+    public static func == (lhs: Address, rhs: Address) -> Bool {
+        return lhs.data == rhs.data
+    }
+
+    /// Creates an address with an EIP55 string representation.
+    ///
+    /// This initializer will fail if the EIP55 string fails validation.
+    public init?(eip55 string: String) {
+        guard let data = Data(hexString: string), data.count == 20 else {
+            return nil
+        }
+        self.data = data
+        let notBurnAddress = Address.checkNotBurnAddress(data: data)
+        if !notBurnAddress {
+            return nil
+        }
+        eip55String = Address.computeEIP55String(for: data)
+        if eip55String != string {
+            return nil
+        }
+    }
 }
 
 typealias Mnemonics = [String]
