@@ -95,7 +95,6 @@ extension HomepageViewModel {
 			let updatedAssets = manageAssetsList
 			updatedAssets[selectedAssetIndex].toggleIsSelected()
 			self.manageAssetsList = updatedAssets
-
 			if isSelected {
 				insertSelectedAssetInCoreData(manageAssetsList[selectedAssetIndex])
 			} else {

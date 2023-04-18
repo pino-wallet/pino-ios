@@ -8,11 +8,13 @@
 import CoreData
 
 class CoreDataStack {
-	private let modelName: String
+	// MARK: - Public Properties
 
-	init(modelName: String) {
-		self.modelName = modelName
-	}
+	public lazy var managedContext: NSManagedObjectContext = self.storeContainer.viewContext
+
+	// MARK: - Private Properties
+
+	private let modelName: String
 
 	private lazy var storeContainer: NSPersistentContainer = {
 		let container = NSPersistentContainer(name: self.modelName)
@@ -24,9 +26,15 @@ class CoreDataStack {
 		return container
 	}()
 
-	lazy var managedContext: NSManagedObjectContext = self.storeContainer.viewContext
+	// MARK: - Initializers
 
-	func saveContext() {
+	init(modelName: String) {
+		self.modelName = modelName
+	}
+
+	// MARK: - Public Properties
+
+	public func saveContext() {
 		guard managedContext.hasChanges else { return }
 		do {
 			try managedContext.save()
