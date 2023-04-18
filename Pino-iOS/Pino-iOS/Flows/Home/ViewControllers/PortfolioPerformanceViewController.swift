@@ -8,10 +8,6 @@
 import UIKit
 
 class PortfolioPerformanceViewController: UIViewController {
-	// MARK: Private Properties
-
-	private let coinInfoChartVM = CoinInfoChartViewModel()
-
 	// MARK: Initializers
 
 	init() {

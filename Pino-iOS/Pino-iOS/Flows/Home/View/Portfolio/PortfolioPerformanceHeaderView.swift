@@ -37,7 +37,7 @@ class PortfolioPerformanceHeaderView: UICollectionReusableView {
 
 	private func setupView() {
 		lineChart = AssetLineChart(chartVM: portfolioPerformanceVM.chartVM, dateFilterChanged: { dateFilter in
-			self.portfolioPerformanceVM.updateChartData(by: dateFilter)
+			self.portfolioPerformanceVM.getChartData(dateFilter: dateFilter)
 		})
 		chartStackView.addArrangedSubview(chartTitle)
 		chartStackView.addArrangedSubview(chartCardView)

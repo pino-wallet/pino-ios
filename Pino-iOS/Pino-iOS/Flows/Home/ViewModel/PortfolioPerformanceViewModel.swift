@@ -30,7 +30,7 @@ class PortfolioPerformanceViewModel {
 
 	// MARK: - Public Methods
 
-	public func updateChartData(by dateFilter: ChartDateFilter) {
+	public func getChartData(dateFilter: ChartDateFilter = .hour) {
 		accountingAPIClient.userPortfolio(timeFrame: dateFilter.timeFrame)
 			.sink { completed in
 				switch completed {
@@ -40,26 +40,12 @@ class PortfolioPerformanceViewModel {
 					print(error)
 				}
 			} receiveValue: { portfolio in
-				self.chartVM = AssetChartViewModel(chartData: portfolio, dateFilter: dateFilter)
+				let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0) }
+				self.chartVM = AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: dateFilter)
 			}.store(in: &cancellables)
 	}
 
 	// MARK: - Private Methods
-
-	private func getChartData() {
-		let dateFilter = ChartDateFilter.hour
-		accountingAPIClient.userPortfolio(timeFrame: dateFilter.timeFrame)
-			.sink { completed in
-				switch completed {
-				case .finished:
-					print("Portfolio received successfully")
-				case let .failure(error):
-					print(error)
-				}
-			} receiveValue: { portfolio in
-				self.chartVM = AssetChartViewModel(chartData: portfolio, dateFilter: dateFilter)
-			}.store(in: &cancellables)
-	}
 
 	private func getShareOfAssets() {
 		assetsAPIClient.assets().sink { completed in

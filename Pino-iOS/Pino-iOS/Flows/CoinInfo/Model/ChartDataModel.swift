@@ -8,7 +8,7 @@
 struct ChartDataModel: Codable {
 	// MARK: - public properties
 
-	public var networth: Int
+	public var networth: String
 	public var time: String
 }
 

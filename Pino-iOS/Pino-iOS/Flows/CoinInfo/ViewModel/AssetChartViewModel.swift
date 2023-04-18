@@ -10,14 +10,11 @@ import Foundation
 struct AssetChartViewModel {
 	// MARK: - Public Properties
 
-	public let chartData: [ChartDataModel]
+	public let chartDataVM: [AssetChartDataViewModel]
 	public var dateFilter: ChartDateFilter
 
 	public var chartDataEntry: [ChartDataEntry] {
-		chartData.map {
-			let timeStamp = getDate(from: $0.time)?.timeIntervalSinceNow
-			return ChartDataEntry(x: timeStamp!, y: Double($0.networth))
-		}
+		chartDataVM.map { ChartDataEntry(x: $0.date.timeIntervalSinceNow, y: $0.networth.doubleValue) }
 	}
 
 	public var dateFilters: [ChartDateFilter] {
@@ -25,7 +22,7 @@ struct AssetChartViewModel {
 	}
 
 	public var balance: String {
-		"$\(chartDataEntry.last!.y)"
+		"$\(chartDataVM.last!.networth.decimalString)"
 	}
 
 	public var volatilityPercentage: String {
@@ -37,8 +34,8 @@ struct AssetChartViewModel {
 	}
 
 	public var chartDate: String {
-		let firstDate = getDate(from: chartData.first!.time)!
-		let lastDate = getDate(from: chartData.last!.time)!
+		let firstDate = chartDataVM.first!.date
+		let lastDate = chartDataVM.last!.date
 		switch dateFilter {
 		case .hour, .day:
 			return "\(firstDate.monthName()) \(firstDate.get(.day)), " +
@@ -68,13 +65,6 @@ struct AssetChartViewModel {
 	}
 
 	// MARK: - Private Methods
-
-	private func getDate(from time: String) -> Date? {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-		let date = dateFormatter.date(from: time)
-		return date
-	}
 
 	private func valueChangePercentage() -> Double {
 		if chartDataEntry.count > 1 {

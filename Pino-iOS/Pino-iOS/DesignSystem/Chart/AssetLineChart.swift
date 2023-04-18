@@ -172,7 +172,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 
 	private func updateVolatility(pointValue: Double, previousValue: Double?) {
 		guard let chartVM else { return }
-		var valueChangePercentage = chartVM.valueChangePercentage(pointValue: pointValue, previousValue: previousValue)
+		let valueChangePercentage = chartVM.valueChangePercentage(pointValue: pointValue, previousValue: previousValue)
 		coinVolatilityPersentage.text = chartVM.formattedVolatility(valueChangePercentage)
 		updateVolatilityColor(type: chartVM.volatilityType(valueChangePercentage))
 	}
