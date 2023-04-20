@@ -15,7 +15,6 @@ class CoinInfoCollectionView: UICollectionView {
 	private let historyRefreshContorl = UIRefreshControl()
 	private let refreshErrorTostView = PinoToastView(message: nil, style: .secondary, padding: 16)
 	private var coinInfoVM: CoinInfoViewModel!
-	private var coinPortfolioInfo: CoinPortfolioViewModel!
 
 	// MARK: - Initializers
 
@@ -66,10 +65,6 @@ class CoinInfoCollectionView: UICollectionView {
 
 	private func setupBinding() {
 		coinInfoVM.$coinPortfolio.sink { [weak self] coinPortfolio in
-			self?.coinPortfolioInfo = coinPortfolio
-			self?.reloadData()
-		}.store(in: &cancellable)
-		coinInfoVM.$coinHistoryList.sink { [weak self] _ in
 			self?.reloadData()
 		}.store(in: &cancellable)
 	}
@@ -115,7 +110,7 @@ extension CoinInfoCollectionView: UICollectionViewDelegateFlowLayout {
 
 extension CoinInfoCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		switch coinPortfolioInfo.type {
+		switch coinInfoVM.coinPortfolio.type {
 		case .verified:
 			return coinInfoVM.coinHistoryList.count
 		case .unVerified:
@@ -176,7 +171,7 @@ extension CoinInfoCollectionView: UICollectionViewDataSource {
 		layout collectionViewLayout: UICollectionViewLayout,
 		referenceSizeForFooterInSection section: Int
 	) -> CGSize {
-		switch coinPortfolioInfo.type {
+		switch coinInfoVM.coinPortfolio.type {
 		case .verified:
 			return CGSize(width: 0, height: 0)
 		case .unVerified:
