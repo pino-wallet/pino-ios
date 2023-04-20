@@ -64,7 +64,7 @@ class CoinInfoCollectionView: UICollectionView {
 	}
 
 	private func setupBinding() {
-		coinInfoVM.$coinPortfolio.sink { [weak self] coinPortfolio in
+		Publishers.Zip(coinInfoVM.$coinPortfolio, coinInfoVM.$coinHistoryList).sink { [weak self] _ in
 			self?.reloadData()
 		}.store(in: &cancellable)
 	}
