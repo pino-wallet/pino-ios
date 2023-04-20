@@ -54,7 +54,7 @@ public struct BigNumber {
 	}
 
 	public var doubleValue: Double {
-		number.description.doubleValue!
+		decimalString.doubleValue!
 	}
 
 	public var isZero: Bool {
