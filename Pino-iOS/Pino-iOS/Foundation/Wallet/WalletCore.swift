@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import WalletCore
+import Web3Core
 
 enum WalletError: LocalizedError {
     case mnemonicGenerationFailed
@@ -13,41 +15,83 @@ enum WalletError: LocalizedError {
     case walletCreationFailed
 }
 
-public enum Seed {
-    case stringValue
-    case arrayValue
+enum WalletValidatorError: LocalizedError {
+    case privateKeyIsInvalid
+    case publicKeyIsInvalid
+    case addressIsInvalid
+    case seedIsInvalid
 }
 
-public struct Key {
-    let privateKey: Data
-    let publicKey: Data
-}
-
-public struct PHDWallet {
-    let id: String
-    let seed: Seed
-    let key: Key
-    let accounts: [Account] = []
-    let importType: ImportType
-    let entropy: Data
-    
-    enum ImportType {
-        case mnemonics
-        case privateKey
-        case newWallet
+public class WalletValidator {
+    func isPrivateKeyValid(key: Data) -> Bool {
+        PrivateKey.isValid(data: key, curve: .secp256k1)
+    }
+    func isPublicKeyValid(key: Data) -> Bool {
+        PublicKey.isValid(data: key, type: .secp256k1)
+    }
+    func isMnemonicsValid(mnemonic: String) -> Bool {
+        Mnemonic.isValid(mnemonic: mnemonic)
+    }
+    func isMnemonicsValid(mnemonic: [String]) -> Bool {
+        return Mnemonic.isValid(mnemonic: mnemonic.joined())
+    }
+    func isEthAddressValid(address: String) -> Bool {
+        AnyAddress.isValid(string: address, coin: .ethereum)
     }
 }
 
-public class Validator {
-    func validatePrivateKey()
-    func validatePublicKey()
-    func validateMnemonics()
-    func validateAddress()
+
+protocol WalletKeyHelper {
+    func deletePrivateKeyOf(account: Account) -> Bool
+    func getPrivateKeyOf(account: Account) -> Bool
+    func saveSeedOf(account: Account) -> Bool
+    func getSeedOf(account: Account) -> Bool
+    func saveMnemonicsOf(account: Account) -> Bool
+    func keychainKeyOf(acccount: Account)
+}
+
+protocol PinoWallet {
+    var id: String { get }
+    var accounts: [Account] { get set }
+    var error: WalletError { get set }
+    var secureEnclave: SecureEnclave { get }
+    var walletValidator: WalletValidator { get }
+    var keyManagement: WalletKeyHelper { get set }
+    var walletManagementDelegate: PinoWalletDelegate { get set }
+    func accountExist() -> Bool
+    func deleteAccount() -> Result<Account, WalletError>
+    static func == (lhs: PinoWallet, rhs: PinoWallet) -> Bool
+}
+
+protocol PHDWallet: PinoWallet {
+    var seed: Data { get set }
+    var mnemonic: String { get set }
+    var entropy: Data { get }
+    func createWallet(mnemonics: String)
+    func createAccount() -> Result<Account, WalletError>
+}
+
+protocol PNonHDWallet: PinoWallet {
+    func importAccount() -> Result<Account, WalletError>
+}
+
+protocol PinoWalletDelegate {
+    func walletCreated(wallet: PinoWallet)
+    func accountCreated(account: Account)
+    func accountDeleted(account: Account)
+}
+
+public struct PinoHDWallet: PHDWallet {
+    
+}
+
+public struct PinoNonHDWallet: PNonHDWallet {
+    
 }
 
 public struct Account {
     public var address: Address
-
+    public var isActiveAccount: Bool
 }
 
 public struct Address {
@@ -58,70 +102,27 @@ public struct Address {
     /// EIP55 representation of the address.
     public let eip55String: String
 
-    public static func == (lhs: Address, rhs: Address) -> Bool {
-        return lhs.data == rhs.data
-    }
-
     /// Creates an address with an EIP55 string representation.
     ///
     /// This initializer will fail if the EIP55 string fails validation.
-    public init?(eip55 string: String) {
-        guard let data = Data(hexString: string), data.count == 20 else {
+    public init?(string: String) {
+        guard let address = Address(string: string.addHexPrefix()) else {
             return nil
         }
-        self.data = data
-        let notBurnAddress = Address.checkNotBurnAddress(data: data)
-        if !notBurnAddress {
-            return nil
-        }
-        eip55String = Address.computeEIP55String(for: data)
-        if eip55String != string {
-            return nil
-        }
+        self.eip55String = address.eip55String
+        self.data = address.data
     }
 }
 
-typealias Mnemonics = [String]
-
-protocol WalletCoreManagment {
-    func createHDWallet() -> Result<PHDWallet, WalletError>
-    func restoreWallet(with mnemonics:Seed) -> Result<PHDWallet, WalletError>
-    func restoreWallet(with privateKey:Seed) -> Result<PHDWallet, WalletError>
-    func delete(wallet: PHDWallet)
+extension Address: CustomStringConvertible {
+    //TODO should not be using this in production code
+    public var description: String {
+        return eip55String
+    }
 }
 
-public class PinoWalletCore: WalletCoreManagment {
-    
-    func createHDWallet() -> Result<PHDWallet, WalletError> {
-        // 1: Create Mnemonics
-        let mnemonicStr = HDWallet.generateMnemonic(seedPhraseCount: .word12)
-        let mnemonic: Mnemonics = mnemonicStr.split(separator: " ").map { String($0) }
-
-        // 2: Create HDWallet
-        guard let hdWallet = HDWallet(mnemonic: mnemonicStr, passphrase: .emptyString) else { return .failure(WalletError.walletCreationFailed) }
-        let privateKey = functional.derivePrivateKeyOfAccount0(fromHdWallet: hdWallet)
-        
-        guard let address = AlphaWallet.Address(fromPrivateKey: privateKey) else { return .failure(KeystoreError.failedToCreateWallet) }
-        guard !isAddressAlreadyInWalletsList(address: address) else { return .failure(KeystoreError.duplicateAccount) }
-        let seed = HDWallet.computeSeedWithChecksum(fromSeedPhrase: mnemonicString)
-        let isSuccessful = saveSeedForHdWallet(seed, forAccount: address, withUserPresence: false)
-        guard isSuccessful else { return .failure(KeystoreError.failedToCreateWallet) }
-        let _ = saveSeedForHdWallet(seed, forAccount: address, withUserPresence: true)
-
-        return .success(Wallet(address: address, origin: .hd))
+extension Address: Equatable {
+    public static func == (lhs: Address, rhs: Address) -> Bool {
+        return lhs.data == rhs.data
     }
-    
-    func restoreWallet(with mnemonics: Mnemonics) -> Result<Wallet, WalletError> {
-        
-    }
-    
-    func restoreWallet(with privateKey:Seed) -> Result<PHDWallet, WalletError> {
-
-    }
-    
-    func delete(wallet: Wallet) {
-        
-    }
-    
-    
 }
