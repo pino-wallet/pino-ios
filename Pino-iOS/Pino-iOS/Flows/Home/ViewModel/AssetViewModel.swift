@@ -54,7 +54,7 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	public var volatilityType: AssetVolatilityType {
-		calculateAssetVolatilityType(change24h: assetModel.detail!.change24H)
+		AssetVolatilityType(change24h: assetModel.detail!.change24H)
 	}
 
 	// MARK: - Initializers

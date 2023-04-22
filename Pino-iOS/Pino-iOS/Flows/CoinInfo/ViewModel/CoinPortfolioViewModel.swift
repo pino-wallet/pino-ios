@@ -25,11 +25,11 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var volatilityType: AssetVolatilityType {
-		calculateAssetVolatilityType(change24h: coinPortfolioModel.detail.change24H)
+		AssetVolatilityType(change24h: coinPortfolioModel.detail.change24H)
 	}
 
 	public var volatilityRatePercentage: String {
-		"\(generateVolatilityPrepend())\(BigNumber(number: coinPortfolioModel.detail.changePercentage, decimal: 2).formattedAmountOf(type: .price))%"
+		"\(volatilityType.prependSign)\(BigNumber(number: coinPortfolioModel.detail.changePercentage, decimal: 2).formattedAmountOf(type: .price))%"
 	}
 
 	public var price: String {
@@ -54,7 +54,7 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var contractAddress: String {
-		if coinPortfolioModel.detail.id == ethID {
+		if coinPortfolioModel.detail.id == AssetsEndpoint.ethID {
 			return "-"
 		}
 		return coinPortfolioModel.detail.id
@@ -66,24 +66,5 @@ extension CoinPortfolioViewModel {
 		case verified
 		case unVerified
 		case position
-	}
-}
-
-extension CoinPortfolioViewModel {
-	private func generateVolatilityPrepend() -> String {
-		switch volatilityType {
-		case .profit:
-			return "+"
-		case .loss:
-			return "-"
-		case .none:
-			return ""
-		}
-	}
-}
-
-extension CoinPortfolioViewModel {
-	private var ethID: String {
-		"0x0000000000000000000000000000000000000000"
 	}
 }

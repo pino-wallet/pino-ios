@@ -22,7 +22,7 @@ struct CoinPortfolioModel: Codable {
 	}
 }
 
-extension CoinInfoViewModel {
+extension CoinPortfolioModel {
 	struct Detail: Codable {
 		public let id, symbol, name: String
 		public let logo: String
