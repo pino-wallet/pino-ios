@@ -54,7 +54,7 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var contractAddress: String {
-		if coinPortfolioModel.detail.id == AssetsEndpoint.ethID {
+		if coinPortfolioModel.detail.id == AccountingEndpoint.ethID {
 			return "-"
 		}
 		return coinPortfolioModel.detail.id
