@@ -82,6 +82,8 @@ class AssetLineChart: UIView, LineChartDelegate {
 		coinVolatilityPersentage.font = .PinoStyle.mediumSubheadline
 		dateLabel.font = .PinoStyle.mediumSubheadline
 
+		coinBalanceLabel.adjustsFontSizeToFitWidth = true
+
 		chartStackView.axis = .vertical
 		infoStackView.axis = .horizontal
 		balanceStackview.axis = .vertical
@@ -94,6 +96,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 
 		volatilityStackView.spacing = 8
 		balanceStackview.spacing = 8
+		infoStackView.spacing = 8
 
 		chartDateFilter.setTitleTextAttributes([
 			.foregroundColor: UIColor.Pino.secondaryLabel,
@@ -188,16 +191,22 @@ class AssetLineChart: UIView, LineChartDelegate {
 		}
 	}
 
-	internal func valueDidChange(pointValue: Double?, previousValue: Double?) {
+	public func updateChartDate(date: Double) {
+		let formattedDate = chartVM?.selectedDate(timeStamp: date)
+		dateLabel.text = formattedDate
+	}
+
+	internal func valueDidChange(pointValue: Double?, previousValue: Double?, date: Double?) {
 		guard let chartVM else { return }
 		if let pointValue {
 			coinBalanceLabel.text = "$\(pointValue)"
 			updateVolatility(pointValue: pointValue, previousValue: previousValue)
-
+			updateChartDate(date: date!)
 		} else {
 			coinBalanceLabel.text = chartVM.balance
 			coinVolatilityPersentage.text = chartVM.volatilityPercentage
 			updateVolatilityColor(type: chartVM.volatilityType)
+			dateLabel.text = chartVM.chartDate
 		}
 	}
 }

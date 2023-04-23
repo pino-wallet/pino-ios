@@ -34,34 +34,8 @@ struct AssetChartViewModel {
 	}
 
 	public var chartDate: String {
-		let firstDate = chartDataVM.first!.date
-		let lastDate = chartDataVM.last!.date
-		switch dateFilter {
-		case .hour, .day:
-			return "\(firstDate.monthName()) \(firstDate.get(.day)), " +
-				"\(firstDate.get(.year))"
-		case .week:
-			return "\(firstDate.monthName()) \(firstDate.get(.day)) - " +
-				"\(lastDate.monthName()) \(lastDate.get(.day)), " +
-				"\(lastDate.get(.year))"
-		case .month:
-			if firstDate.get(.year) == lastDate.get(.year) {
-				return "\(firstDate.monthName()) \(firstDate.get(.day)) - " +
-					"\(lastDate.monthName()) \(lastDate.get(.day)), " +
-					"\(lastDate.get(.year))"
-			} else {
-				return "\(firstDate.monthName()) \(firstDate.get(.day)), " +
-					"\(firstDate.get(.year)) - " +
-					"\(lastDate.monthName()) \(lastDate.get(.day)), " +
-					"\(lastDate.get(.year))"
-			}
-
-		case .year:
-			return "\(firstDate.monthName()), \(firstDate.get(.year)) - " +
-				"\(lastDate.monthName()), \(lastDate.get(.year))"
-		case .all:
-			return ""
-		}
+		let chartDateBuilder = ChartDateBuilder(dateFilter: dateFilter)
+		return chartDateBuilder.dateRange(firstDate: chartDataVM.first!.date, lastDate: chartDataVM.last!.date)
 	}
 
 	// MARK: - Private Methods
@@ -70,9 +44,9 @@ struct AssetChartViewModel {
 		if chartDataEntry.count > 1 {
 			let valueChangePercentage = valueChangePercentage(
 				pointValue: chartDataEntry[chartDataEntry.count - 1].y,
-				previousValue: chartDataEntry[chartDataEntry.count - 2].y
+				previousValue: chartDataEntry[0].y
 			)
-			return valueChangePercentage
+			return round(valueChangePercentage * 100) / 100
 		} else {
 			return 0
 		}
@@ -82,19 +56,21 @@ struct AssetChartViewModel {
 
 	public func valueChangePercentage(pointValue: Double, previousValue: Double?) -> Double {
 		if let previousValue, previousValue != 0 {
-			return ((pointValue - previousValue) / previousValue) * 100
+			let changePercentage = ((pointValue - previousValue) / previousValue) * 100
+			return round(changePercentage * 100) / 100
 		} else {
 			return 0
 		}
 	}
 
 	public func formattedVolatility(_ valueChangePercentage: Double) -> String {
-		let formattedVolatolity = "\(String(format: "%.2f", valueChangePercentage))%"
 		switch volatilityType(valueChangePercentage) {
 		case .profit:
-			return "+\(formattedVolatolity)"
-		default:
-			return formattedVolatolity
+			return "+\(abs(valueChangePercentage))%"
+		case .loss:
+			return "-\(abs(valueChangePercentage))%"
+		case .none:
+			return "\(abs(valueChangePercentage))%"
 		}
 	}
 
@@ -106,5 +82,11 @@ struct AssetChartViewModel {
 		} else {
 			return .none
 		}
+	}
+
+	public func selectedDate(timeStamp: Double) -> String {
+		let date = Date(timeIntervalSinceNow: timeStamp)
+		let chartDateBuilder = ChartDateBuilder(dateFilter: dateFilter)
+		return chartDateBuilder.selectedDate(date: date)
 	}
 }

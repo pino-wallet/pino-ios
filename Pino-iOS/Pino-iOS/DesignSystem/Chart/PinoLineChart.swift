@@ -117,9 +117,13 @@ class PinoLineChart: LineChartView {
 		highlightValue(selectedPoint)
 		if let selectedPoint {
 			let previousPoint = getPreviousPoint(point: selectedPoint)
-			chartDelegate?.valueDidChange(pointValue: selectedPoint.y, previousValue: previousPoint?.y)
+			chartDelegate?.valueDidChange(
+				pointValue: selectedPoint.y,
+				previousValue: previousPoint?.y,
+				date: selectedPoint.x
+			)
 		} else {
-			chartDelegate?.valueDidChange(pointValue: nil, previousValue: nil)
+			chartDelegate?.valueDidChange(pointValue: nil, previousValue: nil, date: nil)
 		}
 	}
 
