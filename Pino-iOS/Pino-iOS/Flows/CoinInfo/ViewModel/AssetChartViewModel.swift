@@ -46,7 +46,7 @@ struct AssetChartViewModel {
 				pointValue: chartDataEntry[chartDataEntry.count - 1].y,
 				previousValue: chartDataEntry[0].y
 			)
-			return round(valueChangePercentage * 100) / 100
+			return valueChangePercentage
 		} else {
 			return 0
 		}
