@@ -23,19 +23,20 @@ enum WalletValidatorError: LocalizedError {
 }
 
 public class WalletValidator {
-    func isPrivateKeyValid(key: Data) -> Bool {
+    
+    static func isPrivateKeyValid(key: Data) -> Bool {
         PrivateKey.isValid(data: key, curve: .secp256k1)
     }
-    func isPublicKeyValid(key: Data) -> Bool {
+    static func isPublicKeyValid(key: Data) -> Bool {
         PublicKey.isValid(data: key, type: .secp256k1)
     }
-    func isMnemonicsValid(mnemonic: String) -> Bool {
+    static func isMnemonicsValid(mnemonic: String) -> Bool {
         Mnemonic.isValid(mnemonic: mnemonic)
     }
-    func isMnemonicsValid(mnemonic: [String]) -> Bool {
+    static func isMnemonicsValid(mnemonic: [String]) -> Bool {
         return Mnemonic.isValid(mnemonic: mnemonic.joined())
     }
-    func isEthAddressValid(address: String) -> Bool {
+    static func isEthAddressValid(address: String) -> Bool {
         AnyAddress.isValid(string: address, coin: .ethereum)
     }
 }
@@ -60,7 +61,6 @@ protocol PinoWallet {
     var walletManagementDelegate: PinoWalletDelegate { get set }
     func accountExist() -> Bool
     func deleteAccount() -> Result<Account, WalletError>
-    static func == (lhs: PinoWallet, rhs: PinoWallet) -> Bool
 }
 
 protocol PHDWallet: PinoWallet {
@@ -87,11 +87,53 @@ public struct PinoHDWallet: PHDWallet {
 
 public struct PinoNonHDWallet: PNonHDWallet {
     
+    var id: String
+    
+    var accounts: [Account]
+    
+    var error: WalletError
+    
+    var secureEnclave: SecureEnclave
+    
+    var walletValidator: WalletValidator
+    
+    var keyManagement: WalletKeyHelper
+    
+    var walletManagementDelegate: PinoWalletDelegate
+    
+    func importAccount() -> Result<Account, WalletError> {
+        
+    }
+    
+    func accountExist() -> Bool {
+        
+    }
+    
+    func deleteAccount() -> Result<Account, WalletError> {
+        
+    }
+    
+}
+
+extension PinoNonHDWallet: Equatable {
+    public static func == (lhs: PinoNonHDWallet, rhs: PinoNonHDWallet) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
 public struct Account {
     public var address: Address
     public var isActiveAccount: Bool
+    /// For Accounts derived from HDWallet
+    public var derivationPath: String?
+    public var publicKey: Data
+    
+    internal init(address: String, isActiveAccount: Bool, derivationPath: String? = nil, publicKey: Data) {
+        self.address = Address(string: address)!
+        self.isActiveAccount = isActiveAccount
+        self.derivationPath = derivationPath
+        self.publicKey = publicKey
+    }
 }
 
 public struct Address {
@@ -106,6 +148,9 @@ public struct Address {
     ///
     /// This initializer will fail if the EIP55 string fails validation.
     public init?(string: String) {
+        guard WalletValidator.isEthAddressValid(address: string.addHexPrefix()) else {
+            return nil
+        }
         guard let address = Address(string: string.addHexPrefix()) else {
             return nil
         }
