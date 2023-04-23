@@ -15,13 +15,11 @@ class CoinInfoCollectionView: UICollectionView {
 	private let historyRefreshContorl = UIRefreshControl()
 	private let refreshErrorTostView = PinoToastView(message: nil, style: .secondary, padding: 16)
 	private var coinInfoVM: CoinInfoViewModel!
-	private var portfolioInfoButtonTapped: () -> Void
 
 	// MARK: - Initializers
 
-	init(coinInfoVM: CoinInfoViewModel, portfolioInfoButtonTapped: @escaping () -> Void) {
+	init(coinInfoVM: CoinInfoViewModel) {
 		self.coinInfoVM = coinInfoVM
-		self.portfolioInfoButtonTapped = portfolioInfoButtonTapped
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 		configCollectionView()
@@ -46,6 +44,12 @@ class CoinInfoCollectionView: UICollectionView {
 			CoinHistoryCell.self,
 			forCellWithReuseIdentifier: CoinHistoryCell.cellID
 		)
+		register(
+			CoinInfoFooterview.self,
+			forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+			withReuseIdentifier: CoinInfoFooterview.footerReuseID
+		)
+
 		dataSource = self
 		delegate = self
 	}
@@ -60,7 +64,7 @@ class CoinInfoCollectionView: UICollectionView {
 	}
 
 	private func setupBinding() {
-		coinInfoVM.$coinHistoryList.sink { [weak self] _ in
+		Publishers.Zip(coinInfoVM.$coinPortfolio, coinInfoVM.$coinHistoryList).sink { [weak self] _ in
 			self?.reloadData()
 		}.store(in: &cancellable)
 	}
@@ -106,7 +110,14 @@ extension CoinInfoCollectionView: UICollectionViewDelegateFlowLayout {
 
 extension CoinInfoCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		coinInfoVM.coinHistoryList.count
+		switch coinInfoVM.coinPortfolio.type {
+		case .verified:
+			return coinInfoVM.coinHistoryList.count
+		case .unVerified:
+			return 0
+		case .position:
+			return 0
+		}
 	}
 
 	func collectionView(
@@ -114,16 +125,27 @@ extension CoinInfoCollectionView: UICollectionViewDataSource {
 		viewForSupplementaryElementOfKind kind: String,
 		at indexPath: IndexPath
 	) -> UICollectionReusableView {
-		let coinInfoHeaderView = dequeueReusableSupplementaryView(
-			ofKind: kind,
-			withReuseIdentifier: CoinInfoHeaderView.headerReuseID,
-			for: indexPath
-		) as! CoinInfoHeaderView
-		coinInfoHeaderView.coinInfoVM = coinInfoVM
-		coinInfoHeaderView.infoButtonTapped = {
-			self.portfolioInfoButtonTapped()
+		switch kind {
+		case UICollectionView.elementKindSectionHeader:
+			let coinInfoHeaderView = dequeueReusableSupplementaryView(
+				ofKind: kind,
+				withReuseIdentifier: CoinInfoHeaderView.headerReuseID,
+				for: indexPath
+			) as! CoinInfoHeaderView
+			coinInfoHeaderView.coinInfoVM = coinInfoVM
+			return coinInfoHeaderView
+		case UICollectionView.elementKindSectionFooter:
+			let coinInfoFooterView = dequeueReusableSupplementaryView(
+				ofKind: UICollectionView.elementKindSectionFooter,
+				withReuseIdentifier: CoinInfoFooterview.footerReuseID,
+				for: indexPath
+			) as! CoinInfoFooterview
+			coinInfoFooterView.coinInfoVM = coinInfoVM
+
+			return coinInfoFooterView
+		default:
+			fatalError("Unknown kind of coin info reusable view")
 		}
-		return coinInfoHeaderView
 	}
 
 	func collectionView(
@@ -142,6 +164,21 @@ extension CoinInfoCollectionView: UICollectionViewDataSource {
 			withHorizontalFittingPriority: .required,
 			verticalFittingPriority: .fittingSizeLevel
 		)
+	}
+
+	func collectionView(
+		_ collectionView: UICollectionView,
+		layout collectionViewLayout: UICollectionViewLayout,
+		referenceSizeForFooterInSection section: Int
+	) -> CGSize {
+		switch coinInfoVM.coinPortfolio.type {
+		case .verified:
+			return CGSize(width: 0, height: 0)
+		case .unVerified:
+			return CGSize(width: collectionView.frame.width, height: 200)
+		case .position:
+			return CGSize(width: collectionView.frame.width, height: 200)
+		}
 	}
 
 	func collectionView(

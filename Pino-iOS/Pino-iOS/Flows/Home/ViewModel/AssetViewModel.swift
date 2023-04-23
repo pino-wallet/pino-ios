@@ -6,7 +6,6 @@
 //
 import BigInt
 import Foundation
-import Web3Core
 
 public class AssetViewModel: SecurityModeProtocol {
 	// MARK: - Private Properties
@@ -55,16 +54,7 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	public var volatilityType: AssetVolatilityType {
-		if change24h.bigNumber.isZero {
-			return .none
-		} else {
-			switch change24h.bigNumber.number.sign {
-			case .minus:
-				return .loss
-			case .plus:
-				return .profit
-			}
-		}
+		AssetVolatilityType(change24h: assetModel.detail!.change24H)
 	}
 
 	// MARK: - Initializers
