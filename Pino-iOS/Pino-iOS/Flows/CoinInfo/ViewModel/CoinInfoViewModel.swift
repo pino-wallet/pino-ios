@@ -16,11 +16,36 @@ class CoinInfoViewModel {
 	public var coinPortfolio: CoinPortfolioViewModel!
 	@Published
 	public var coinHistoryList: [CoinHistoryViewModel]!
+
 	public let requestFailedErrorToastMessage = "Couldn't refresh coin data"
 	public let connectionErrorToastMessage = "No internet connection"
 	public let infoActionSheetTitle = "Price impact"
 	public let infoActionSheetDescription =
 		"The difference between the market price and the estimated price based on your order size."
+	public let websiteTitle = "Website"
+	public let priceTitle = "Price"
+	public let contractAddressTitle = "Contract address"
+	public let protocolTitle = "Protocol"
+	public let positionTitle = "Position"
+	public let assetTitle = "Asset"
+	public let recentHistoryTitle = "Recent history"
+	public let tooltipIconName = "info"
+	public let positionAssetTitle = "Position asset"
+	public let priceSepratorText = "|"
+	public let noUserAmountInDollarText = "--"
+	public let unverifiedAssetIcon = "unverified_asset"
+	public let noAssetPriceText = "-"
+	public let unavailableRecentHistoryText = "The history are only available for verified assets!"
+	public let unavailableRecentHistoryIconName = "gray_error_alert"
+
+	#warning("this text is for testing and should be removed")
+	public let positionAssetInfoText = """
+	This asset represents your DAI collateral
+	 position in the Compound Protocol. Note that
+	 transferring this asset to another address will
+	 fully transfer your position to the new
+	 address.
+	"""
 
 	// MARK: - Private Properties
 

@@ -6,17 +6,16 @@
 //
 import BigInt
 import Foundation
-import Web3Core
 
 public class AssetViewModel: SecurityModeProtocol {
 	// MARK: - Private Properties
 
-	private var assetModel: AssetProtocol!
+	private var assetModel: AssetProtocol
 
 	// MARK: - Public Properties
 
 	public var securityMode = false
-	public var isSelected = true
+	public var isSelected: Bool
 	public var amount = "0"
 	public var amountInDollor = "-"
 	public var volatilityInDollor = "-"
@@ -55,22 +54,14 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	public var volatilityType: AssetVolatilityType {
-		if change24h.bigNumber.isZero {
-			return .none
-		} else {
-			switch change24h.bigNumber.number.sign {
-			case .minus:
-				return .loss
-			case .plus:
-				return .profit
-			}
-		}
+		AssetVolatilityType(change24h: assetModel.detail!.change24H)
 	}
 
 	// MARK: - Initializers
 
-	init(assetModel: AssetProtocol) {
+	init(assetModel: AssetProtocol, isSelected: Bool) {
 		self.assetModel = assetModel
+		self.isSelected = isSelected
 		self.amount = getFormattedAmount()
 		self.amountInDollor = getFormattedAmountInDollor()
 		self.volatilityInDollor = getFormattedVolatility()

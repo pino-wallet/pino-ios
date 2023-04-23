@@ -88,11 +88,12 @@ class ManageAssetsViewController: UIViewController {
 
 extension ManageAssetsViewController: UISearchResultsUpdating {
 	func updateSearchResults(for searchController: UISearchController) {
+		guard let manageAssetsList = homeVM.manageAssetsList else { return }
 		if let searchText = searchController.searchBar.searchTextField.text, searchText != "" {
-			manageAssetCollectionview.filteredAssets = homeVM.manageAssetsList
+			manageAssetCollectionview.filteredAssets = manageAssetsList
 				.filter { $0.name.lowercased().contains(searchText.lowercased()) }
 		} else {
-			manageAssetCollectionview.filteredAssets = homeVM.manageAssetsList
+			manageAssetCollectionview.filteredAssets = manageAssetsList
 		}
 	}
 }

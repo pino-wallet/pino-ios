@@ -16,6 +16,10 @@ enum AccountingEndpoint: EndpointType {
 	case balances
 	case portfolio(timeFrame: String)
 
+	// MARK: - Public Properties
+
+	public static let ethID = "0x0000000000000000000000000000000000000000"
+
 	// MARK: - Internal Methods
 
 	internal func request(privateKey: String?) throws -> URLRequest {

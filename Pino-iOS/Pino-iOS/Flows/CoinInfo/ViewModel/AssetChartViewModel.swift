@@ -64,14 +64,8 @@ struct AssetChartViewModel {
 	}
 
 	public func formattedVolatility(_ valueChangePercentage: Double) -> String {
-		switch volatilityType(valueChangePercentage) {
-		case .profit:
-			return "+\(abs(valueChangePercentage))%"
-		case .loss:
-			return "-\(abs(valueChangePercentage))%"
-		case .none:
-			return "\(abs(valueChangePercentage))%"
-		}
+		let volatilityType = volatilityType(valueChangePercentage)
+		return "\(volatilityType.prependSign)\(abs(valueChangePercentage))%"
 	}
 
 	public func volatilityType(_ valueChangePercentage: Double) -> AssetVolatilityType {

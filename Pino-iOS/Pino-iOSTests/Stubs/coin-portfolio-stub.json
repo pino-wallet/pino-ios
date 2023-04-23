@@ -1,13 +1,17 @@
 {
-    "id": "0",
-    "asset_name": "COMP",
-    "asset_image": "COMP",
-    "asset_value": "4.98",
-    "volatility_rate": "2.77",
-    "volatility_type": "profit",
-    "coin_amount": "30,022",
-    "user_amount": "124,89",
-    "invest_amount": "2",
-    "collateral_amount": "1.2",
-    "barrow_amount": "3.4"
+  "id": "0x6b175474e89094c44da98b954eedeac495271d0f",
+  "amount": "71184314253552331245",
+  "hold": "71184314253552331245",
+  "investment": "0",
+  "is_verified": true,
+  "detail": {
+    "id": "0x6b175474e89094c44da98b954eedeac495271d0f",
+    "symbol": "DAI",
+    "name": "DAI Stablecoin",
+    "logo": "https://demo-cdn.pino.xyz/tokens/dai.png",
+    "decimals": 18,
+    "change_24h": "-98",
+    "change_percentage": "0",
+    "price": "999771"
+  }
 }
