@@ -119,7 +119,7 @@ class ChartDateBuilder {
 	// MARK: - Private Methods
 
 	private func setTime(date: Date) {
-		let time = date.getTime()
+		let time = date.getHourMinuteTime()
 		dateRange.append(time)
 	}
 

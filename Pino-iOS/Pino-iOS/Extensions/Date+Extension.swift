@@ -22,7 +22,7 @@ extension Date {
 		return dateFormatter.string(from: self)
 	}
 
-	func getTime() -> String {
+	func getHourMinuteTime() -> String {
 		let dateFormatter = DateFormatter()
 		dateFormatter.setLocalizedDateFormatFromTemplate("HH:mm")
 		return dateFormatter.string(from: self)

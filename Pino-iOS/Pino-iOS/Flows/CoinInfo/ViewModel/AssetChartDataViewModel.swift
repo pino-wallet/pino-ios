@@ -8,6 +8,8 @@
 import Foundation
 
 struct AssetChartDataViewModel {
+	// MARK: - Public Properties
+
 	public var chartModel: ChartDataModel
 
 	public var date: Date {
@@ -17,6 +19,8 @@ struct AssetChartDataViewModel {
 	public var networth: BigNumber {
 		BigNumber(number: chartModel.networth, decimal: 2)
 	}
+
+	// MARK: - Private Methods
 
 	private func getDate(from time: String) -> Date? {
 		let dateFormatter = DateFormatter()
