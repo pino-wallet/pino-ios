@@ -11,8 +11,10 @@ import Web3Core
 
 enum WalletError: LocalizedError {
     case mnemonicGenerationFailed
-    case mnemonicIsInvalid
     case walletCreationFailed
+    case accountAlreadyExists
+    case accountNotFound
+    case accountDeletionFailed
 }
 
 enum WalletValidatorError: LocalizedError {
@@ -20,6 +22,19 @@ enum WalletValidatorError: LocalizedError {
     case publicKeyIsInvalid
     case addressIsInvalid
     case seedIsInvalid
+    case mnemonicIsInvalid
+}
+
+enum KeyManagementError: LocalizedError {
+    case seedStorageFailed
+    case privateKeyStorageFailed
+    case publicKeyStorageFailed
+}
+
+enum WalletOperationError: LocalizedError {
+    case wallet(WalletError)
+    case validator(WalletValidatorError)
+    case keyManager(KeyManagementError)
 }
 
 public class WalletValidator {
@@ -43,12 +58,14 @@ public class WalletValidator {
 
 
 protocol WalletKeyHelper {
-    func deletePrivateKeyOf(account: Account) -> Bool
-    func getPrivateKeyOf(account: Account) -> Bool
-    func saveSeedOf(account: Account) -> Bool
-    func getSeedOf(account: Account) -> Bool
-    func saveMnemonicsOf(account: Account) -> Bool
     func keychainKeyOf(acccount: Account)
+   
+    func saveSeedOfWallet(seed: Data) -> Bool
+    func getSeedOfWallet(account: Account) -> Bool
+    func saveMnemonicsOfWallet(mnemonics: String) -> Bool
+
+    func getPrivateKeyOf(account: Account) -> Bool
+    func deletePrivateKeyOf(account: Account) -> Bool
 }
 
 protocol PinoWallet {
@@ -56,23 +73,42 @@ protocol PinoWallet {
     var accounts: [Account] { get set }
     var error: WalletError { get set }
     var secureEnclave: SecureEnclave { get }
-    var walletValidator: WalletValidator { get }
-    var keyManagement: WalletKeyHelper { get set }
+    var keyManager: WalletKeyHelper { get set }
     var walletManagementDelegate: PinoWalletDelegate { get set }
-    func accountExist() -> Bool
-    func deleteAccount() -> Result<Account, WalletError>
+    func accountExist(account: Account) -> Bool
+    func deleteAccount(account: Account) -> Result<Account, WalletOperationError>
+}
+
+extension PinoWallet {
+   
+    func accountExist(account: Account) -> Bool {
+        accounts.contains(where: { $0 == account })
+    }
+    
+    func deleteAccount(account: Account) -> Result<Account, WalletOperationError> {
+        guard let deletingAccount = accounts.first(where: { $0 == account }) else {
+            return .failure(.wallet(.accountNotFound))
+        }
+        if keyManager.deletePrivateKeyOf(account: account) {
+            return .success(deletingAccount)
+        } else {
+            return .failure(.wallet(.accountDeletionFailed))
+        }
+    }
+    
 }
 
 protocol PHDWallet: PinoWallet {
     var seed: Data { get set }
     var mnemonic: String { get set }
     var entropy: Data { get }
-    func createWallet(mnemonics: String)
-    func createAccount() -> Result<Account, WalletError>
+    var hdWallet: HDWallet { get set }
+    mutating func createWallet(mnemonics: String) -> Result<HDWallet, WalletOperationError>
+    func createAccount() -> Result<Account, WalletOperationError>
 }
 
 protocol PNonHDWallet: PinoWallet {
-    func importAccount() -> Result<Account, WalletError>
+    mutating func importAccount(privateKey: Data) -> Result<Account, WalletOperationError>
 }
 
 protocol PinoWalletDelegate {
@@ -83,34 +119,90 @@ protocol PinoWalletDelegate {
 
 public struct PinoHDWallet: PHDWallet {
     
+   
+    var seed: Data
+    var mnemonic: String
+    var entropy: Data
+    var id: String
+    
+    var accounts: [Account]
+    var hdWallet: HDWallet
+    var error: WalletError
+    var secureEnclave: SecureEnclave
+    var keyManager: WalletKeyHelper
+    var walletManagementDelegate: PinoWalletDelegate
+    
+    mutating func createWallet(mnemonics: String) -> Result<HDWallet, WalletOperationError> {
+        guard WalletValidator.isMnemonicsValid(mnemonic: mnemonics) else {
+            return .failure(.validator(.mnemonicIsInvalid))
+        }
+        guard let wallet = HDWallet(mnemonic: mnemonics, passphrase: .emptyString) else {
+            return .failure(.wallet(.walletCreationFailed))
+        }
+        self.entropy = wallet.entropy
+        self.seed = wallet.seed
+        
+        if !keyManager.saveSeedOfWallet(seed: seed) {
+            return .failure(.validator(.seedIsInvalid))
+        }
+        
+        do {
+            let firstAccountPrivateKey = getPrivateKeyOfFirstAccount(wallet: wallet)
+            let account = try Account(privateKey: firstAccountPrivateKey)
+            if accountExist(account: account) {
+                return .failure(.wallet(.accountAlreadyExists))
+            } else {
+                self.hdWallet = wallet
+                return .success(wallet)
+            }
+        } catch {
+            return .failure(error as! WalletOperationError)
+        }
+    }
+    
+    
+    func createAccount() -> Result<Account, WalletOperationError> {
+        let coinType = CoinType.ethereum
+        let derivationPath = "m/44'/60'/0'/0/1"
+        let privateKey = hdWallet.getKey(coin: coinType, derivationPath: derivationPath)
+        let publicKey = privateKey.getPublicKeySecp256k1(compressed: false)
+        let address = try! Account(publicKey: publicKey.data)
+        
+        print("Private Key: \(privateKey.data.hexString)")
+        print("Public Key: \(publicKey.data.hexString)")
+        print("Ethereum Address: \(address)")
+    }
+    
+    func getPrivateKeyOfFirstAccount(wallet: HDWallet) -> Data {
+        let firstAccountIndex = UInt32(0)
+        let changeConstant = UInt32(0)
+        let addressIndex = UInt32(0)
+        let privateKey = wallet.getDerivedKey(coin: .ethereum, account: firstAccountIndex, change: changeConstant, address: addressIndex)
+        return privateKey.data
+    }
+    
 }
 
 public struct PinoNonHDWallet: PNonHDWallet {
     
     var id: String
-    
     var accounts: [Account]
-    
     var error: WalletError
-    
     var secureEnclave: SecureEnclave
-    
     var walletValidator: WalletValidator
-    
-    var keyManagement: WalletKeyHelper
-    
+    var keyManager: WalletKeyHelper
     var walletManagementDelegate: PinoWalletDelegate
     
-    func importAccount() -> Result<Account, WalletError> {
-        
-    }
-    
-    func accountExist() -> Bool {
-        
-    }
-    
-    func deleteAccount() -> Result<Account, WalletError> {
-        
+    mutating func importAccount(privateKey: Data) -> Result<Account, WalletOperationError> {
+        do {
+            let account = try Account(privateKey: privateKey)
+            guard accountExist(account: account) else { return .failure(.wallet(.accountAlreadyExists))}
+            accounts.append(account)
+            keyManager.savePrivateKeyOf(acccount: account)
+            return .success(account)
+        } catch {
+            return .failure(.wallet(.walletCreationFailed))
+        }
     }
     
 }
@@ -122,52 +214,52 @@ extension PinoNonHDWallet: Equatable {
 }
 
 public struct Account {
-    public var address: Address
+    public var address: EthereumAddress
     public var isActiveAccount: Bool
     /// For Accounts derived from HDWallet
     public var derivationPath: String?
     public var publicKey: Data
     
-    internal init(address: String, isActiveAccount: Bool, derivationPath: String? = nil, publicKey: Data) {
-        self.address = Address(string: address)!
-        self.isActiveAccount = isActiveAccount
+    init(address: String, derivationPath: String? = nil, publicKey: Data) throws {
+        guard let address = EthereumAddress(address) else { throw WalletValidatorError.addressIsInvalid }
+        self.address = address
+        self.isActiveAccount = true
         self.derivationPath = derivationPath
         self.publicKey = publicKey
     }
-}
-
-public struct Address {
-
-    /// Raw address bytes, length 20.
-    public private(set) var data: Data
-
-    /// EIP55 representation of the address.
-    public let eip55String: String
-
-    /// Creates an address with an EIP55 string representation.
-    ///
-    /// This initializer will fail if the EIP55 string fails validation.
-    public init?(string: String) {
-        guard WalletValidator.isEthAddressValid(address: string.addHexPrefix()) else {
-            return nil
+    
+    init(privateKey: Data) throws {
+        guard WalletValidator.isPrivateKeyValid(key: privateKey) else { throw WalletOperationError.validator(.privateKeyIsInvalid) }
+        let publicKeyData = Utilities.privateToPublic(privateKey)
+        guard let publicKey = publicKeyData, WalletValidator.isPublicKeyValid(key: publicKey) else {
+            throw WalletOperationError.validator(.publicKeyIsInvalid)
         }
-        guard let address = Address(string: string.addHexPrefix()) else {
-            return nil
+        guard let address = Utilities.publicToAddress(publicKey) else {
+            throw WalletOperationError.validator(.addressIsInvalid)
         }
-        self.eip55String = address.eip55String
-        self.data = address.data
+        self.derivationPath = nil
+        self.publicKey = publicKey
+        self.address = address
+        self.isActiveAccount = true
     }
+    
+    init(publicKey: Data) throws {
+        guard WalletValidator.isPublicKeyValid(key: publicKey) else {
+            throw WalletOperationError.validator(.publicKeyIsInvalid)
+        }
+        guard let address = Utilities.publicToAddress(publicKey) else {
+            throw WalletOperationError.validator(.addressIsInvalid)
+        }
+        self.derivationPath = nil
+        self.publicKey = publicKey
+        self.address = address
+        self.isActiveAccount = true
+    }
+    
 }
 
-extension Address: CustomStringConvertible {
-    //TODO should not be using this in production code
-    public var description: String {
-        return eip55String
-    }
-}
-
-extension Address: Equatable {
-    public static func == (lhs: Address, rhs: Address) -> Bool {
-        return lhs.data == rhs.data
+extension Account: Equatable {
+    public static func == (lhs: Account, rhs: Account) -> Bool {
+        lhs.address == rhs.address
     }
 }
