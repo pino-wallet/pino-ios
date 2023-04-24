@@ -34,7 +34,7 @@ class SecureEnclave: KeyManagmentProtocol {
 	public func encrypt(plainData: Data, withPublicKeyLabel label: String) -> Data {
 		do {
 			// 1: Create private key (If private key exists it will be returned else created)
-			let privateKey = try KeychainManager.createPrivateKey(name: label)
+			let privateKey = try SecureEnclaveHelper.createPrivateKey(name: label)
 
 			// 2: Generate public key from our private key
 			guard let publicKey = SecKeyCopyPublicKey(privateKey) else {
@@ -68,7 +68,7 @@ class SecureEnclave: KeyManagmentProtocol {
 	public func decrypt(cipherData: Data, withPublicKeyLabel label: String) throws -> Data {
 		// 1: Load private key
 		#warning("context should be analyzed more")
-		let fetchedPrivateKey = KeychainManager.loadKey(name: label, context: LAContext())
+		let fetchedPrivateKey = SecureEnclaveHelper.loadKey(name: label, context: LAContext())
 		var privateKey: SecKey!
 
 		switch fetchedPrivateKey {

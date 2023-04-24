@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import LocalAuthentication
 
-class KeychainManager {
+class SecureEnclaveHelper {
 	// MARK: - Private Initializer
 
 	private init() {}
@@ -33,7 +33,7 @@ class KeychainManager {
 		let tag = name.data(using: .utf8)!
 		let attributes: [String: Any] = [
 			kSecAttrKeyType as String: kSecAttrKeyTypeEC,
-			kSecAttrKeySizeInBits as String: KeychainManager.bitSize,
+			kSecAttrKeySizeInBits as String: SecureEnclaveHelper.bitSize,
 			kSecAttrTokenID as String: kSecAttrTokenIDSecureEnclave,
 			kSecPrivateKeyAttrs as String: [
 				kSecAttrIsPermanent as String: true,

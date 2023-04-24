@@ -57,15 +57,40 @@ public class WalletValidator {
 }
 
 
-protocol WalletKeyHelper {
-    func keychainKeyOf(acccount: Account)
-   
-    func saveSeedOfWallet(seed: Data) -> Bool
-    func getSeedOfWallet(account: Account) -> Bool
-    func saveMnemonicsOfWallet(mnemonics: String) -> Bool
+//protocol WalletKeyHelper {
+//    func saveSeedOfWallet(seed: Data, key: String)
+//    func getSeedOfWallet(key: String) -> Date
+//    func saveMnemonicsOfWallet(mnemonics: String) -> Bool
+//
+//    func getPrivateKeyOf(account: Account) -> Bool
+//    func deletePrivateKeyOf(account: Account) -> Bool
+//}
 
-    func getPrivateKeyOf(account: Account) -> Bool
-    func deletePrivateKeyOf(account: Account) -> Bool
+enum KeychainManager: String {
+
+    case mnemonics
+    case seed
+    case privateKey
+
+    func getValueWith(key: String) -> Data {
+        let keychainHelper = KeychainSwift()
+        return keychainHelper.getData("\(self)\(key)")!
+    }
+    
+    func setValue(value: Data, key: String) -> Bool {
+        let keychainHelper = KeychainSwift()
+        return keychainHelper.set(value, forKey: "\(self)\(key)")
+    }
+    
+    func setValue(value: String, key: String) -> Bool {
+        let keychainHelper = KeychainSwift()
+        return keychainHelper.set(value, forKey: "\(self)\(key)")
+    }
+    
+    func deleteValueWith(key: String) -> Bool {
+        let keychainHelper = KeychainSwift()
+        return keychainHelper.delete("\(self)\(key)")
+    }
 }
 
 protocol PinoWallet {
@@ -73,7 +98,6 @@ protocol PinoWallet {
     var accounts: [Account] { get set }
     var error: WalletError { get set }
     var secureEnclave: SecureEnclave { get }
-    var keyManager: WalletKeyHelper { get set }
     var walletManagementDelegate: PinoWalletDelegate { get set }
     func accountExist(account: Account) -> Bool
     func deleteAccount(account: Account) -> Result<Account, WalletOperationError>
@@ -89,7 +113,7 @@ extension PinoWallet {
         guard let deletingAccount = accounts.first(where: { $0 == account }) else {
             return .failure(.wallet(.accountNotFound))
         }
-        if keyManager.deletePrivateKeyOf(account: account) {
+        if KeychainManager.privateKey.deleteValueWith(key: deletingAccount.eip55Address) {
             return .success(deletingAccount)
         } else {
             return .failure(.wallet(.accountDeletionFailed))
@@ -119,17 +143,15 @@ protocol PinoWalletDelegate {
 
 public struct PinoHDWallet: PHDWallet {
     
-   
+    
     var seed: Data
     var mnemonic: String
     var entropy: Data
     var id: String
-    
+    var secureEnclave: SecureEnclave
     var accounts: [Account]
     var hdWallet: HDWallet
     var error: WalletError
-    var secureEnclave: SecureEnclave
-    var keyManager: WalletKeyHelper
     var walletManagementDelegate: PinoWalletDelegate
     
     mutating func createWallet(mnemonics: String) -> Result<HDWallet, WalletOperationError> {
@@ -142,13 +164,14 @@ public struct PinoHDWallet: PHDWallet {
         self.entropy = wallet.entropy
         self.seed = wallet.seed
         
-        if !keyManager.saveSeedOfWallet(seed: seed) {
-            return .failure(.validator(.seedIsInvalid))
-        }
-        
         do {
             let firstAccountPrivateKey = getPrivateKeyOfFirstAccount(wallet: wallet)
             let account = try Account(privateKey: firstAccountPrivateKey)
+            
+            if !KeychainManager.seed.setValue(value: seed, key: account.eip55Address) {
+                return .failure(.keyManager(.seedStorageFailed))
+            }
+            
             if accountExist(account: account) {
                 return .failure(.wallet(.accountAlreadyExists))
             } else {
@@ -190,7 +213,6 @@ public struct PinoNonHDWallet: PNonHDWallet {
     var error: WalletError
     var secureEnclave: SecureEnclave
     var walletValidator: WalletValidator
-    var keyManager: WalletKeyHelper
     var walletManagementDelegate: PinoWalletDelegate
     
     mutating func importAccount(privateKey: Data) -> Result<Account, WalletOperationError> {
@@ -198,7 +220,8 @@ public struct PinoNonHDWallet: PNonHDWallet {
             let account = try Account(privateKey: privateKey)
             guard accountExist(account: account) else { return .failure(.wallet(.accountAlreadyExists))}
             accounts.append(account)
-            keyManager.savePrivateKeyOf(acccount: account)
+            let keyCipherData = secureEnclave.encrypt(plainData: privateKey, withPublicKeyLabel: account.eip55Address)
+            KeychainManager.privateKey.setValue(value: keyCipherData, key: account.eip55Address)
             return .success(account)
         } catch {
             return .failure(.wallet(.walletCreationFailed))
@@ -219,6 +242,10 @@ public struct Account {
     /// For Accounts derived from HDWallet
     public var derivationPath: String?
     public var publicKey: Data
+    
+    public var eip55Address: String {
+        address.address
+    }
     
     init(address: String, derivationPath: String? = nil, publicKey: Data) throws {
         guard let address = EthereumAddress(address) else { throw WalletValidatorError.addressIsInvalid }
