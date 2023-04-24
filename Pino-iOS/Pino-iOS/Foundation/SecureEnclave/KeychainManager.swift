@@ -66,7 +66,7 @@ class KeychainManager {
 
 	// MARK: - Read key from keychain
 
-    public static func loadKey(name: String, context: LAContext) -> Result<SecKey, KeyManagmentError> {
+	public static func loadKey(name: String, context: LAContext) -> Result<SecKey, KeyManagmentError> {
 		let tag = name.data(using: .utf8)!
 		var query: [String: Any] = [
 			kSecClass as String: kSecClassKey,
@@ -89,7 +89,7 @@ class KeychainManager {
 		return .success(item as! SecKey)
 	}
 
-    public static func keyExists(name: String) -> SecKey? {
+	public static func keyExists(name: String) -> SecKey? {
 		switch loadKey(name: name, context: context) {
 		case let .success(key):
 			return key
@@ -100,7 +100,7 @@ class KeychainManager {
 
 	// MARK: - Delete keys from Keychain
 
-    public static func removeKey(name: String) {
+	public static func removeKey(name: String) {
 		let tag = name.data(using: .utf8)!
 		let query: [String: Any] = [
 			kSecClass as String: kSecClassKey,
@@ -109,5 +109,4 @@ class KeychainManager {
 
 		SecItemDelete(query as CFDictionary)
 	}
-
 }

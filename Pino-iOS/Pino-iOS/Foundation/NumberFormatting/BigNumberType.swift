@@ -53,6 +53,10 @@ public struct BigNumber {
 		Decimal(string: number.description)! * pow(10, -decimal)
 	}
 
+	public var doubleValue: Double {
+		decimalString.doubleValue!
+	}
+
 	public var isZero: Bool {
 		number.isZero
 	}

@@ -8,6 +8,8 @@
 struct ChartDataModel: Codable {
 	// MARK: - public properties
 
-	public var networth: Double
+	public var networth: String
 	public var time: String
 }
+
+typealias PortfolioModel = [ChartDataModel]

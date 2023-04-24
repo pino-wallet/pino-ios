@@ -17,9 +17,15 @@ extension Date {
 	}
 
 	func monthName() -> String {
-		let df = DateFormatter()
-		df.setLocalizedDateFormatFromTemplate("MMM")
-		return df.string(from: self)
+		let dateFormatter = DateFormatter()
+		dateFormatter.setLocalizedDateFormatFromTemplate("MMM")
+		return dateFormatter.string(from: self)
+	}
+
+	func getHourMinuteTime() -> String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.setLocalizedDateFormatFromTemplate("HH:mm")
+		return dateFormatter.string(from: self)
 	}
 
 	static func - (lhs: Date, rhs: Int) -> Date {

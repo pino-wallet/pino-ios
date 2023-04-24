@@ -39,7 +39,8 @@ class CoinInfoChartViewModel {
 				print(error)
 			}
 		} receiveValue: { [weak self] chartModelList in
-			self?.chartVM = AssetChartViewModel(chartModel: chartModelList.first!, dateFilter: .hour)
+			let chartDataVM = chartModelList.first!.chartData.compactMap { AssetChartDataViewModel(chartModel: $0) }
+			self?.chartVM = AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: .hour)
 		}.store(in: &cancellables)
 	}
 
@@ -83,7 +84,8 @@ class CoinInfoChartViewModel {
 			case .all:
 				chartModel = chartModelList[5]
 			}
-			self?.chartVM = AssetChartViewModel(chartModel: chartModel, dateFilter: dateFilter)
+			let chartDataVM = chartModel.chartData.compactMap { AssetChartDataViewModel(chartModel: $0) }
+			self?.chartVM = AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: dateFilter)
 		}.store(in: &cancellables)
 	}
 }
