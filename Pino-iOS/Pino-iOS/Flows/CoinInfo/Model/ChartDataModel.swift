@@ -11,5 +11,3 @@ struct ChartDataModel: Codable {
 	public var networth: String
 	public var time: String
 }
-
-typealias PortfolioModel = [ChartDataModel]

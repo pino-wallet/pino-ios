@@ -12,12 +12,13 @@ class CoinPerformanceViewModel {
 
 	#warning("Mock client is temporary and must be replaced by API client")
 	private var assetsAPIClient = AssetsAPIMockClient()
+	private var accountingAPIClient = AccountingAPIClient()
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 
 	@Published
-	public var chartVM: AssetChartViewModel!
+	public var chartVM: AssetChartViewModel?
 	public var coinInfoVM: CoinPerformanceInfoViewModel!
 
 	// MARK: - Initializers
@@ -29,18 +30,19 @@ class CoinPerformanceViewModel {
 
 	// MARK: - Private Methods
 
-	private func getChartData() {
-		assetsAPIClient.coinInfoChart().sink { completed in
-			switch completed {
-			case .finished:
-				print("Chart info received successfully")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { [weak self] chartModelList in
-			let chartDataVM = chartModelList.first!.chartData.compactMap { AssetChartDataViewModel(chartModel: $0) }
-			self?.chartVM = AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: .hour)
-		}.store(in: &cancellables)
+	public func getChartData(dateFilter: ChartDateFilter = .hour) {
+		accountingAPIClient.coinPerformance(timeFrame: dateFilter.timeFrame)
+			.sink { completed in
+				switch completed {
+				case .finished:
+					print("Portfolio received successfully")
+				case let .failure(error):
+					print(error)
+				}
+			} receiveValue: { portfolio in
+				let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0) }
+				self.chartVM = AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: dateFilter)
+			}.store(in: &cancellables)
 	}
 
 	private func getCoinInfo() {
@@ -53,35 +55,6 @@ class CoinPerformanceViewModel {
 			}
 		} receiveValue: { [weak self] coinInfo in
 			self?.coinInfoVM = CoinPerformanceInfoViewModel(coinPerformanceInfoModel: coinInfo)
-		}.store(in: &cancellables)
-	}
-
-	public func updateChartData(by dateFilter: ChartDateFilter) {
-		assetsAPIClient.coinInfoChart().sink { completed in
-			switch completed {
-			case .finished:
-				print("Chart info received successfully")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { [weak self] chartModelList in
-			var chartModel: AssetChartModel
-			switch dateFilter {
-			case .hour:
-				chartModel = chartModelList[0]
-			case .day:
-				chartModel = chartModelList[1]
-			case .week:
-				chartModel = chartModelList[2]
-			case .month:
-				chartModel = chartModelList[3]
-			case .year:
-				chartModel = chartModelList[4]
-			case .all:
-				chartModel = chartModelList[5]
-			}
-			let chartDataVM = chartModel.chartData.compactMap { AssetChartDataViewModel(chartModel: $0) }
-			self?.chartVM = AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: dateFilter)
 		}.store(in: &cancellables)
 	}
 }

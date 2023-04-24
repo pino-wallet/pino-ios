@@ -8,17 +8,17 @@
 import Foundation
 
 enum AccountingEndpoint: EndpointType {
+	// MARK: - Public Properties
+
 	#warning("Temporary address to test the api")
 	static let accountADD = "0x81Ad046aE9a7Ad56092fa7A7F09A04C82064e16C"
+	public static let ethID = "0x0000000000000000000000000000000000000000"
 
 	// MARK: - Cases
 
 	case balances
 	case portfolio(timeFrame: String)
-
-	// MARK: - Public Properties
-
-	public static let ethID = "0x0000000000000000000000000000000000000000"
+	case coinPerformance(timeFrame: String, tokenID: String)
 
 	// MARK: - Internal Methods
 
@@ -48,9 +48,7 @@ enum AccountingEndpoint: EndpointType {
 
 	internal var requiresAuthentication: Bool {
 		switch self {
-		case .balances:
-			return false
-		case .portfolio:
+		case .balances, .portfolio, .coinPerformance:
 			return false
 		}
 	}
@@ -60,6 +58,9 @@ enum AccountingEndpoint: EndpointType {
 		case .balances:
 			return .request
 		case let .portfolio(timeFrame):
+			let urlParameters: [String: Any] = ["timeframe": timeFrame]
+			return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: urlParameters)
+		case let .coinPerformance(timeFrame: timeFrame, tokenID: _):
 			let urlParameters: [String: Any] = ["timeframe": timeFrame]
 			return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: urlParameters)
 		}
@@ -82,14 +83,14 @@ enum AccountingEndpoint: EndpointType {
 			return "\(endpointParent)/user/\(AccountingEndpoint.accountADD)/balances"
 		case .portfolio:
 			return "\(endpointParent)/user/\(AccountingEndpoint.accountADD)/portfolio"
+		case let .coinPerformance(timeFrame: _, tokenID: tokenID):
+			return "\(endpointParent)/user/\(AccountingEndpoint.accountADD)/portfolio/\(tokenID)"
 		}
 	}
 
 	internal var httpMethod: HTTPMethod {
 		switch self {
-		case .balances:
-			return .get
-		case .portfolio:
+		case .balances, .portfolio, .coinPerformance:
 			return .get
 		}
 	}

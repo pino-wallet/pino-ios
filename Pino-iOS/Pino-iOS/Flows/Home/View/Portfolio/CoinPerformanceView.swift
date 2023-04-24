@@ -48,7 +48,7 @@ class CoinPerformanceView: UIView {
 
 	private func setupView() {
 		lineChart = AssetLineChart(chartVM: coinPerformanceVM.chartVM, dateFilterChanged: { dateFilter in
-			self.coinPerformanceVM.updateChartData(by: dateFilter)
+			self.coinPerformanceVM.getChartData(dateFilter: dateFilter)
 		})
 		contentStackview.addArrangedSubview(chartCardView)
 		contentStackview.addArrangedSubview(moreInfoStackView)
@@ -143,7 +143,8 @@ class CoinPerformanceView: UIView {
 
 	private func setupBindings() {
 		coinPerformanceVM.$chartVM.sink { chart in
-			self.lineChart.chartVM = chart!
+			guard let chart else { return }
+			self.lineChart.chartVM = chart
 		}.store(in: &cancellables)
 	}
 }
