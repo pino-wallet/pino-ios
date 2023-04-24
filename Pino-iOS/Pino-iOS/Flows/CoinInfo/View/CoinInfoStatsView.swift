@@ -95,15 +95,18 @@ class CoinInfoStatsView: UIStackView {
 		[firstTitleLabel, secondTitleLabel, thirdTitleLabel].forEach {
 			$0.font = .PinoStyle.mediumBody
 			$0.textColor = .Pino.secondaryLabel
+			$0.isSkeletonable = true
 		}
 
 		[firstStatLabel, secondStatLabel, thirdStatLabel].forEach {
 			$0.font = .PinoStyle.mediumBody
 			$0.textColor = .Pino.label
+			$0.isSkeletonable = true
 		}
 
 		coinPriceStackView.axis = .horizontal
 		coinPriceStackView.spacing = 3
+		coinPriceStackView.isSkeletonable = true
 
 		coinPriceChangeLabel.font = .PinoStyle.mediumBody
 

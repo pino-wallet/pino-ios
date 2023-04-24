@@ -109,7 +109,7 @@ class HomepageViewController: UIViewController {
 	}
 
 	private func openCoinInfo(assetVM: AssetViewModel) {
-		let coinInfoVC = CoinInfoViewController(coinID: assetVM.id)
+		let coinInfoVC = CoinInfoViewController(coinID: assetVM.id, homeVM: homeVM)
 		let navigationVC = UINavigationController(rootViewController: coinInfoVC)
 		present(navigationVC, animated: true)
 	}

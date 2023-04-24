@@ -72,6 +72,14 @@ class CoinInfoHeaderView: UICollectionReusableView {
 		userAmountLabel.textColor = .Pino.secondaryLabel
 		assetsTitleLabel.textColor = .Pino.label
 
+		assetsIcon.isSkeletonable = true
+		assetsTitleLabel.isSkeletonable = true
+		userAmountLabel.isSkeletonable = true
+
+		contentView.layer.borderWidth = 1
+		contentView.layer.borderColor = UIColor.Pino.white.cgColor
+		contentView.isSkeletonBordered = true
+
 		recentHistoryTitle.font = .PinoStyle.mediumSubheadline
 		amountLabel.font = .PinoStyle.mediumSubheadline
 		userAmountLabel.font = .PinoStyle.mediumCallout

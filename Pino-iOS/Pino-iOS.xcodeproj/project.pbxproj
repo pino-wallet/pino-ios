@@ -66,7 +66,6 @@
 		24D1C890843C5A3AE41A1442 /* AssetsAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89DE5D7DDB69B4C20F1D56D /* AssetsAPIClient.swift */; };
 		2551C3796076DA146C40F1AC /* IntroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493670F85AF24449B805AFDA /* IntroViewModel.swift */; };
 		25BF49CF523EA1322C6FC4EB /* PPPangramSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C31426AD24C3B8759699C644 /* PPPangramSans-Regular.ttf */; };
-		26C5FF82B48BB5E4C7C2B9D5 /* CoinPortfolioModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A21FC93E1137D3A150ACCD4 /* CoinPortfolioModel.swift */; };
 		2919216FFA72DA25EADE5CF3 /* CustomSwitchOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC85295F255DE999F94EA171 /* CustomSwitchOptionView.swift */; };
 		2BC73AE9759B87DCBF761327 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016DB0AD44B6C2F7D74B730 /* AlertHelper.swift */; };
 		2E5C040F84977824A977D541 /* WalletInfoNavigationItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = E149E7B618CEFE5E909B2D78 /* WalletInfoNavigationItems.swift */; };
@@ -455,7 +454,6 @@
 		582B119F599D60CB68C55E2F /* VerifyPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPassViewModel.swift; sourceTree = "<group>"; };
 		59650CC316C115E7C9106AC2 /* EditAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountViewController.swift; sourceTree = "<group>"; };
 		5992C9313824BC32EC68C32E /* VerifySecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseViewController.swift; sourceTree = "<group>"; };
-		5A21FC93E1137D3A150ACCD4 /* CoinPortfolioModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPortfolioModel.swift; sourceTree = "<group>"; };
 		5AAB52242BF560BDAB89F473 /* ReceiveActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveActionButton.swift; sourceTree = "<group>"; };
 		5C5132EBB2A09F9C6AAB1481 /* MockKeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockKeychainService.swift; sourceTree = "<group>"; };
 		5C5C79F3D0D33EA9AA1FE7F8 /* UnlockAppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockAppViewModel.swift; sourceTree = "<group>"; };
@@ -1032,7 +1030,6 @@
 				EFABD75C54559DC6EC13C293 /* AssetChartModel.swift */,
 				635EFDC4F44BD212A8195289 /* ChartDataModel.swift */,
 				26427FD948787141E7AA599B /* CoinHistoryModel.swift */,
-				5A21FC93E1137D3A150ACCD4 /* CoinPortfolioModel.swift */,
 				1AE0C2CA6B34603B490425D3 /* HistoryStatus.swift */,
 			);
 			path = Model;
@@ -1909,7 +1906,7 @@
 				E34728EC29E7DDCE00AB8265 /* HomepageViewModel+SecurityMode.swift */,
 			);
 			path = HomepageViewModel;
-      sourceTree = "<group>";
+			sourceTree = "<group>";
 		};
 		E34728EF29E7E32500AB8265 /* GroupCollectionView */ = {
 			isa = PBXGroup;
@@ -2371,7 +2368,6 @@
 				3235264ABD3DF5ABAA756574 /* CoinPerformanceViewController.swift in Sources */,
 				20CB5C205624F431E278A914 /* CoinPerformanceViewModel.swift in Sources */,
 				D9C7D76229EBDCAE006BC446 /* CoinInfoStatsView.swift in Sources */,
-				26C5FF82B48BB5E4C7C2B9D5 /* CoinPortfolioModel.swift in Sources */,
 				E6A9D57DCF1C0D793FDBEDBF /* CoinPortfolioViewModel.swift in Sources */,
 				CF82272F4C822C722A111064 /* CopyToastView.swift in Sources */,
 				D91A3A0329E4124A00004CB2 /* NotificationSettingsCollectionView.swift in Sources */,

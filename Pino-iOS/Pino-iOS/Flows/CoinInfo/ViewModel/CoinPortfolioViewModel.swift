@@ -10,34 +10,42 @@ import Foundation
 struct CoinPortfolioViewModel {
 	// MARK: - Public Properties
 
-	public var coinPortfolioModel: CoinPortfolioModel!
+	public var coinPortfolioModel: AssetProtocol!
+
+	public var showSkeletonLoading = false
 
 	public var symbol: String {
-		coinPortfolioModel.detail.symbol
+		coinPortfolioModel.detail!.symbol
 	}
 
 	public var userAmountAndCoinSymbol: String {
-		"\(BigNumber(number: coinPortfolioModel.amount, decimal: coinPortfolioModel.detail.decimals).formattedAmountOf(type: .price)) \(coinPortfolioModel.detail.symbol)"
+		"\(BigNumber(number: coinPortfolioModel.amount, decimal: coinPortfolioModel.detail!.decimals).formattedAmountOf(type: .price)) \(coinPortfolioModel.detail!.symbol)"
 	}
 
 	public var logo: URL? {
-		URL(string: coinPortfolioModel.detail.logo)
+		URL(string: coinPortfolioModel.detail!.logo)
 	}
 
 	public var volatilityType: AssetVolatilityType {
-		AssetVolatilityType(change24h: coinPortfolioModel.detail.change24H)
+		AssetVolatilityType(change24h: coinPortfolioModel.detail!.change24H)
 	}
 
 	public var volatilityRatePercentage: String {
-		"\(volatilityType.prependSign)\(BigNumber(number: coinPortfolioModel.detail.changePercentage, decimal: 2).formattedAmountOf(type: .price))%"
+		let volatilityTypePrepend = PriceNumberFormatter(value: coinPortfolioModel.detail!.changePercentage).bigNumber
+			.number.sign == .minus ? "" : volatilityType.prependSign
+		return "\(volatilityTypePrepend)\(BigNumber(number: coinPortfolioModel.detail!.changePercentage, decimal: 2).formattedAmountOf(type: .price))%"
 	}
 
 	public var price: String {
-		"$\(BigNumber(number: coinPortfolioModel.detail.price, decimal: 6).formattedAmountOf(type: .price))"
+		"$\(BigNumber(number: coinPortfolioModel.detail!.price, decimal: 6).formattedAmountOf(type: .price))"
 	}
 
 	public var type: CoinType {
-		CoinType.verified
+		if coinPortfolioModel.isVerified {
+			return CoinType.verified
+		} else {
+			return CoinType.unVerified
+		}
 	}
 
 	public var website: String {
@@ -47,17 +55,17 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var userAmountInDollar: String {
-		let userAmount = BigNumber(number: coinPortfolioModel.amount, decimal: coinPortfolioModel.detail.decimals)
-		let coinPrice = BigNumber(number: coinPortfolioModel.detail.price, decimal: 6)
+		let userAmount = BigNumber(number: coinPortfolioModel.amount, decimal: coinPortfolioModel.detail!.decimals)
+		let coinPrice = BigNumber(number: coinPortfolioModel.detail!.price, decimal: 6)
 		let totalAmountInDollar = userAmount * coinPrice
-		return totalAmountInDollar.formattedAmountOf(type: .hold)
+		return "$\(totalAmountInDollar.formattedAmountOf(type: .hold))"
 	}
 
 	public var contractAddress: String {
-		if coinPortfolioModel.detail.id == AccountingEndpoint.ethID {
+		if coinPortfolioModel.detail!.id == AccountingEndpoint.ethID {
 			return "-"
 		}
-		return coinPortfolioModel.detail.id
+		return coinPortfolioModel.detail!.id
 	}
 }
 

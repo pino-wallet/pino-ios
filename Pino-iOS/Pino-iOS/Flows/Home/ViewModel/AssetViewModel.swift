@@ -41,7 +41,7 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	public var holdAmount: BigNumber {
-		BigNumber(number: assetModel.hold, decimal: decimal)
+		BigNumber(number: assetModel.amount, decimal: decimal)
 	}
 
 	public var holdAmountInDollar: String {

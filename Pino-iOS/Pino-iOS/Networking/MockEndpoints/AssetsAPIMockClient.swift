@@ -19,10 +19,6 @@ final class AssetsAPIMockClient: AssetsAPIService {
 		StubManager.publisher(for: "positions-stub")
 	}
 
-	public func coinPortfolio() -> AnyPublisher<CoinPortfolioModel, APIError> {
-		StubManager.publisher(for: "coin-portfolio-stub")
-	}
-
 	public func coinHistory() -> AnyPublisher<[CoinHistoryModel], APIError> {
 		StubManager.publisher(for: "coin-history-stub")
 	}

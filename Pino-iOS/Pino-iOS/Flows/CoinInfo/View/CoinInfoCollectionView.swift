@@ -133,6 +133,11 @@ extension CoinInfoCollectionView: UICollectionViewDataSource {
 				for: indexPath
 			) as! CoinInfoHeaderView
 			coinInfoHeaderView.coinInfoVM = coinInfoVM
+			if coinInfoVM.coinPortfolio.showSkeletonLoading {
+				coinInfoHeaderView.showSkeletonView()
+			} else {
+				coinInfoHeaderView.hideSkeletonView()
+			}
 			return coinInfoHeaderView
 		case UICollectionView.elementKindSectionFooter:
 			let coinInfoFooterView = dequeueReusableSupplementaryView(

@@ -8,15 +8,15 @@
 import UIKit
 
 class CoinInfoViewController: UIViewController {
-	// MARK: Private Properties
+	// MARK: - Private Properties
 
-	private let coinInfoVM = CoinInfoViewModel()
+	private var coinInfoVM: CoinInfoViewModel!
 
-	// MARK: Initializers
+	// MARK: - Initializers
 
-	init(coinID: String) {
-		// Request to get coin with id
+	init(coinID: String, homeVM: HomepageViewModel) {
 		super.init(nibName: nil, bundle: nil)
+		self.coinInfoVM = CoinInfoViewModel(homeVM: homeVM, coinID: coinID)
 	}
 
 	required init?(coder: NSCoder) {
