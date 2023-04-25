@@ -290,7 +290,13 @@
 		DE33FFB7D492FA770FF9FB5C /* SemiboldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50080A9D2083CDB39EEB969A /* SemiboldStyle.swift */; };
 		DF00178029E80696001164EA /* SecureEnclave.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00177F29E80696001164EA /* SecureEnclave.swift */; };
 		DF00178229E82084001164EA /* SecureEnclaveHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00178129E82084001164EA /* SecureEnclaveHelper.swift */; };
-		DF00178529EC37AF001164EA /* WalletCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00178429EC37AF001164EA /* WalletCore.swift */; };
+		DF00178529EC37AF001164EA /* PinoWalletCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00178429EC37AF001164EA /* PinoWalletCore.swift */; };
+		DF00178B29F85579001164EA /* WalletErrorTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00178A29F85579001164EA /* WalletErrorTypes.swift */; };
+		DF00178D29F855DF001164EA /* WalletValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00178C29F855DF001164EA /* WalletValidator.swift */; };
+		DF00178F29F8567C001164EA /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00178E29F8567C001164EA /* Account.swift */; };
+		DF00179129F856D5001164EA /* PinoHDWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00179029F856D5001164EA /* PinoHDWallet.swift */; };
+		DF00179329F85727001164EA /* PinoNonHDWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00179229F85727001164EA /* PinoNonHDWallet.swift */; };
+		DF00179529F85774001164EA /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00179429F85774001164EA /* KeychainManager.swift */; };
 		DF0F65E529E1B20F00DB7290 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65E429E1B20F00DB7290 /* BigInt */; };
 		DF0F65E829E1B22A00DB7290 /* web3swift in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65E729E1B22A00DB7290 /* web3swift */; };
 		DF0F65EB29E1B24500DB7290 /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65EA29E1B24500DB7290 /* OHHTTPStubs */; };
@@ -647,7 +653,13 @@
 		DEF9234B1A724D51BE836376 /* PPPangramSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-LightItalic.ttf"; sourceTree = "<group>"; };
 		DF00177F29E80696001164EA /* SecureEnclave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureEnclave.swift; sourceTree = "<group>"; };
 		DF00178129E82084001164EA /* SecureEnclaveHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureEnclaveHelper.swift; sourceTree = "<group>"; };
-		DF00178429EC37AF001164EA /* WalletCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCore.swift; sourceTree = "<group>"; };
+		DF00178429EC37AF001164EA /* PinoWalletCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoWalletCore.swift; sourceTree = "<group>"; };
+		DF00178A29F85579001164EA /* WalletErrorTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletErrorTypes.swift; sourceTree = "<group>"; };
+		DF00178C29F855DF001164EA /* WalletValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletValidator.swift; sourceTree = "<group>"; };
+		DF00178E29F8567C001164EA /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		DF00179029F856D5001164EA /* PinoHDWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoHDWallet.swift; sourceTree = "<group>"; };
+		DF00179229F85727001164EA /* PinoNonHDWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoNonHDWallet.swift; sourceTree = "<group>"; };
+		DF00179429F85774001164EA /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		DFB2C343099A9B87E6C231F0 /* StubManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubManager.swift; sourceTree = "<group>"; };
 		E149E7B618CEFE5E909B2D78 /* WalletInfoNavigationItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoNavigationItems.swift; sourceTree = "<group>"; };
 		E1575DB9D22AE8EBFE86A7D9 /* SeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhrase.swift; sourceTree = "<group>"; };
@@ -1858,7 +1870,13 @@
 		DF00178329EC37A0001164EA /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
-				DF00178429EC37AF001164EA /* WalletCore.swift */,
+				DF00178429EC37AF001164EA /* PinoWalletCore.swift */,
+				DF00178A29F85579001164EA /* WalletErrorTypes.swift */,
+				DF00178C29F855DF001164EA /* WalletValidator.swift */,
+				DF00179029F856D5001164EA /* PinoHDWallet.swift */,
+				DF00179229F85727001164EA /* PinoNonHDWallet.swift */,
+				DF00179429F85774001164EA /* KeychainManager.swift */,
+				DF00178E29F8567C001164EA /* Account.swift */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -2368,6 +2386,7 @@
 				A64D2DFF6C7D5354F2CA6D50 /* Environment.swift in Sources */,
 				E55DCCDCC37B827E5DBEEB82 /* FlowLayout+Extension.swift in Sources */,
 				EFA259C9FE0473172660E5C7 /* FormatterTypes.swift in Sources */,
+				DF00179329F85727001164EA /* PinoNonHDWallet.swift in Sources */,
 				7CF95B0F99AE30C81601CFAA /* GradientLayer.swift in Sources */,
 				D964AC6B0907B2432359A129 /* GroupCollectionViewCell.swift in Sources */,
 				FBEBDE533CAA644C5EF987A1 /* HDWallet+Extension.swift in Sources */,
@@ -2404,6 +2423,7 @@
 				6D6ECC6BF79139F030C8039A /* ManageAssetsFooterView.swift in Sources */,
 				66F6B5B9FA886D1F48A4F627 /* ManageAssetsViewController.swift in Sources */,
 				7B6CE232F6C074F30AFAF23D /* ManagePasscodeView.swift in Sources */,
+				DF00179529F85774001164EA /* KeychainManager.swift in Sources */,
 				325E592A9AA1B24C522EA47F /* MediumStyle.swift in Sources */,
 				807A3209FA3C30C37B860B91 /* NetworkManager.swift in Sources */,
 				5845D3E43E1C94CCA89A6104 /* NetworkManagerProtocol.swift in Sources */,
@@ -2470,6 +2490,7 @@
 				DC66DEF4A366F740111CA309 /* SecurityViewModel.swift in Sources */,
 				13F430044A23AF2BA55BBDFB /* SecurityModeProtocol.swift in Sources */,
 				34F4A2DA1228B50AC3DFA8A2 /* SeedPhrase.swift in Sources */,
+				DF00179129F856D5001164EA /* PinoHDWallet.swift in Sources */,
 				44C3312B501D7A88C6ADB659 /* SelectPassViewModel.swift in Sources */,
 				DE33FFB7D492FA770FF9FB5C /* SemiboldStyle.swift in Sources */,
 				D99F4B2329E2C619009F7F55 /* PaymentMethodOptionModel.swift in Sources */,
@@ -2481,10 +2502,12 @@
 				FDC9B8DDC75EF47C7D607182 /* ShowSecretPhraseView.swift in Sources */,
 				06DB0B31505094D78686694E /* ShowSecretPhraseViewController.swift in Sources */,
 				92BC3A7553A87622AD6F640E /* ShowSecretPhraseViewModel.swift in Sources */,
+				DF00178F29F8567C001164EA /* Account.swift in Sources */,
 				3836332BCEDEABE67456B3D1 /* StatusCode+Helper.swift in Sources */,
 				F29B5E085D9D0D99354034C9 /* StringProtocol+Extension.swift in Sources */,
 				138F82B48C2B07891AF13F38 /* StubManager.swift in Sources */,
 				7DD0703DDA2759A33DB4F582 /* SuggestedSeedPhraseCell.swift in Sources */,
+				DF00178D29F855DF001164EA /* WalletValidator.swift in Sources */,
 				87D5D64B10D301DA28F383FE /* SuggestedSeedPhraseCollectionView.swift in Sources */,
 				59F0D2F9CA8BEA2BB4728B8E /* SwapViewController.swift in Sources */,
 				58B890F4377EE8853C655AFA /* TabBarItem.swift in Sources */,
@@ -2520,7 +2543,8 @@
 				C3321EBB6DC83BCDC3CFC3B0 /* WalletsModel.swift in Sources */,
 				316F0DDECBB3FA68BFFA1577 /* WalletsViewController.swift in Sources */,
 				33647E7FA041A9CC0130F158 /* WalletsViewModel.swift in Sources */,
-				DF00178529EC37AF001164EA /* WalletCore.swift in Sources */,
+				DF00178529EC37AF001164EA /* PinoWalletCore.swift in Sources */,
+				DF00178B29F85579001164EA /* WalletErrorTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

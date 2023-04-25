@@ -1,0 +1,65 @@
+//
+//  Account.swift
+//  Pino-iOS
+//
+//  Created by Sobhan Eskandari on 4/25/23.
+//
+
+import Foundation
+import WalletCore
+import Web3Core
+
+public struct Account {
+    public var address: EthereumAddress
+    public var isActiveAccount: Bool
+    /// For Accounts derived from HDWallet
+    public var derivationPath: String?
+    public var publicKey: Data
+    
+    public var eip55Address: String {
+        address.address
+    }
+    
+    init(address: String, derivationPath: String? = nil, publicKey: Data) throws {
+        guard let address = EthereumAddress(address) else { throw WalletValidatorError.addressIsInvalid }
+        self.address = address
+        self.isActiveAccount = true
+        self.derivationPath = derivationPath
+        self.publicKey = publicKey
+    }
+    
+    init(privateKey: Data) throws {
+        guard WalletValidator.isPrivateKeyValid(key: privateKey) else { throw WalletOperationError.validator(.privateKeyIsInvalid) }
+        let publicKeyData = Utilities.privateToPublic(privateKey)
+        guard let publicKey = publicKeyData, WalletValidator.isPublicKeyValid(key: publicKey) else {
+            throw WalletOperationError.validator(.publicKeyIsInvalid)
+        }
+        guard let address = Utilities.publicToAddress(publicKey) else {
+            throw WalletOperationError.validator(.addressIsInvalid)
+        }
+        self.derivationPath = nil
+        self.publicKey = publicKey
+        self.address = address
+        self.isActiveAccount = true
+    }
+    
+    init(publicKey: Data) throws {
+        guard WalletValidator.isPublicKeyValid(key: publicKey) else {
+            throw WalletOperationError.validator(.publicKeyIsInvalid)
+        }
+        guard let address = Utilities.publicToAddress(publicKey) else {
+            throw WalletOperationError.validator(.addressIsInvalid)
+        }
+        self.derivationPath = nil
+        self.publicKey = publicKey
+        self.address = address
+        self.isActiveAccount = true
+    }
+    
+}
+
+extension Account: Equatable {
+    public static func == (lhs: Account, rhs: Account) -> Bool {
+        lhs.address == rhs.address
+    }
+}
