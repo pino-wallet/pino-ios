@@ -17,6 +17,7 @@ class CoinPerformanceView: UIView {
 	private let contentStackview = UIStackView()
 	private let moreInfoStackView = UIStackView()
 	private let chartCardView = UIView()
+	private let titleStackView = UIStackView()
 	private let chartStackView = UIStackView()
 	private let coinImage = UIImageView()
 	private let coinName = UILabel()
@@ -59,9 +60,10 @@ class CoinPerformanceView: UIView {
 		scrollView.addSubview(contentView)
 		addSubview(scrollView)
 		chartCardView.addSubview(chartStackView)
-		chartStackView.addArrangedSubview(coinImage)
-		chartStackView.addArrangedSubview(coinName)
-		chartStackView.addArrangedSubview(separatorLine)
+		titleStackView.addArrangedSubview(coinImage)
+		titleStackView.addArrangedSubview(coinName)
+		titleStackView.addArrangedSubview(separatorLine)
+		chartStackView.addArrangedSubview(titleStackView)
 		chartStackView.addArrangedSubview(lineChart)
 	}
 
@@ -85,12 +87,14 @@ class CoinPerformanceView: UIView {
 		contentStackview.axis = .vertical
 		moreInfoStackView.axis = .vertical
 		chartStackView.axis = .vertical
+		titleStackView.axis = .vertical
 
 		contentStackview.spacing = 34
 		moreInfoStackView.spacing = 10
-		chartStackView.spacing = 18
+		chartStackView.spacing = 5
+		titleStackView.spacing = 16
 
-		chartStackView.alignment = .center
+		titleStackView.alignment = .center
 
 		chartCardView.layer.cornerRadius = 12
 	}
@@ -114,7 +118,7 @@ class CoinPerformanceView: UIView {
 		chartStackView.pin(
 			.horizontalEdges,
 			.top(padding: 16),
-			.bottom
+			.bottom()
 		)
 		coinImage.pin(
 			.fixedWidth(48),
@@ -125,8 +129,7 @@ class CoinPerformanceView: UIView {
 			.horizontalEdges
 		)
 		lineChart.pin(
-			.horizontalEdges,
-			.top(to: separatorLine, padding: 5)
+			.horizontalEdges
 		)
 	}
 
