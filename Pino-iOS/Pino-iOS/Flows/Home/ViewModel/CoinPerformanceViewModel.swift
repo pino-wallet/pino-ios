@@ -19,13 +19,15 @@ class CoinPerformanceViewModel {
 
 	@Published
 	public var chartVM: AssetChartViewModel?
-	public var coinInfoVM: CoinPerformanceInfoViewModel!
+	@Published
+	public var coinInfoVM: CoinPerformanceInfoViewModel?
 
 	// MARK: - Initializers
 
 	init() {
 		getChartData()
-		getCoinInfo()
+//		getCoinInfo()
+		setupBindings()
 	}
 
 	// MARK: - Private Methods
@@ -45,16 +47,30 @@ class CoinPerformanceViewModel {
 			}.store(in: &cancellables)
 	}
 
-	private func getCoinInfo() {
-		assetsAPIClient.performanceInfo().sink { completed in
-			switch completed {
-			case .finished:
-				print("Coin info received successfully")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { [weak self] coinInfo in
-			self?.coinInfoVM = CoinPerformanceInfoViewModel(coinPerformanceInfoModel: coinInfo)
+	private func setupBindings() {
+		$chartVM.sink { chart in
+			guard let chart else { return }
+			self.updateCoinPerformanceInfo(chart: chart)
 		}.store(in: &cancellables)
+	}
+
+	private func updateCoinPerformanceInfo(chart: AssetChartViewModel) {
+		coinInfoVM = CoinPerformanceInfoViewModel(
+			netProfit: "0",
+			ATH: allTimeHigh(chart: chart),
+			ATL: allTimeLow(chart: chart)
+		)
+	}
+
+	private func allTimeHigh(chart: AssetChartViewModel) -> String {
+		let networthList = chart.chartDataEntry.map { $0.y }
+		let maxNetworth = networthList.max()
+		return String(maxNetworth!)
+	}
+
+	private func allTimeLow(chart: AssetChartViewModel) -> String {
+		let networthList = chart.chartDataEntry.map { $0.y }
+		let minNetworth = networthList.min()
+		return String(minNetworth!)
 	}
 }

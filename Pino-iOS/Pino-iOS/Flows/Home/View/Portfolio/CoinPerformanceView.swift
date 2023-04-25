@@ -21,8 +21,7 @@ class CoinPerformanceView: UIView {
 	private let coinImage = UIImageView()
 	private let coinName = UILabel()
 	private let separatorLine = UIView()
-	private let infoCardView = UIView()
-	private let infoStackView = UIStackView()
+	private let coinInfoView = CoinPerformanceInfoView()
 	private let moreInfoTitle = UILabel()
 	private var lineChart: AssetLineChart!
 
@@ -50,33 +49,28 @@ class CoinPerformanceView: UIView {
 		lineChart = AssetLineChart(chartVM: coinPerformanceVM.chartVM, dateFilterChanged: { dateFilter in
 			self.coinPerformanceVM.getChartData(dateFilter: dateFilter)
 		})
+
 		contentStackview.addArrangedSubview(chartCardView)
 		contentStackview.addArrangedSubview(moreInfoStackView)
 		moreInfoStackView.addArrangedSubview(moreInfoTitle)
-		moreInfoStackView.addArrangedSubview(infoCardView)
+		moreInfoStackView.addArrangedSubview(coinInfoView)
 		contentView.addSubview(contentStackview)
 		scrollView.addSubview(contentView)
 		addSubview(scrollView)
-		infoCardView.addSubview(infoStackView)
 		chartCardView.addSubview(chartStackView)
 		chartStackView.addArrangedSubview(coinImage)
 		chartStackView.addArrangedSubview(coinName)
 		chartStackView.addArrangedSubview(separatorLine)
 		chartStackView.addArrangedSubview(lineChart)
-
-		infoStackView.addArrangedSubview(CoinPerformanceInfoItem(item: coinPerformanceVM.coinInfoVM.netProfit))
-		infoStackView.addArrangedSubview(CoinPerformanceInfoItem(item: coinPerformanceVM.coinInfoVM.allTimeHigh))
-		infoStackView.addArrangedSubview(CoinPerformanceInfoItem(item: coinPerformanceVM.coinInfoVM.allTimeLow))
 	}
 
 	private func setupStyle() {
 		moreInfoTitle.text = "More info"
-		coinName.text = coinPerformanceVM.coinInfoVM.name
-		coinImage.image = UIImage(named: coinPerformanceVM.coinInfoVM.image)
+		coinName.text = coinPerformanceVM.coinInfoVM?.name
+		coinImage.image = UIImage(named: coinPerformanceVM.coinInfoVM?.image ?? "")
 
 		backgroundColor = .Pino.background
 		chartCardView.backgroundColor = .Pino.secondaryBackground
-		infoCardView.backgroundColor = .Pino.secondaryBackground
 		contentView.backgroundColor = .Pino.clear
 		scrollView.backgroundColor = .Pino.clear
 		separatorLine.backgroundColor = .Pino.gray6
@@ -89,7 +83,6 @@ class CoinPerformanceView: UIView {
 
 		contentStackview.axis = .vertical
 		moreInfoStackView.axis = .vertical
-		infoStackView.axis = .vertical
 		chartStackView.axis = .vertical
 
 		contentStackview.spacing = 34
@@ -98,7 +91,6 @@ class CoinPerformanceView: UIView {
 
 		chartStackView.alignment = .center
 
-		infoCardView.layer.cornerRadius = 12
 		chartCardView.layer.cornerRadius = 12
 	}
 
@@ -117,10 +109,6 @@ class CoinPerformanceView: UIView {
 		)
 		chartCardView.pin(
 			.fixedHeight(425)
-		)
-		infoStackView.pin(
-			.verticalEdges(padding: 10),
-			.horizontalEdges
 		)
 		chartStackView.pin(
 			.horizontalEdges,
@@ -145,6 +133,11 @@ class CoinPerformanceView: UIView {
 		coinPerformanceVM.$chartVM.sink { chart in
 			guard let chart else { return }
 			self.lineChart.chartVM = chart
+		}.store(in: &cancellables)
+
+		coinPerformanceVM.$coinInfoVM.sink { coinInfoVM in
+			guard let coinInfoVM else { return }
+			self.coinInfoView.coinPerformanceInfoVM = coinInfoVM
 		}.store(in: &cancellables)
 	}
 }
