@@ -21,8 +21,8 @@ class CoinPerformanceView: UIView {
 	private let coinImage = UIImageView()
 	private let coinName = UILabel()
 	private let separatorLine = UIView()
-	private let coinInfoView = CoinPerformanceInfoView()
 	private let moreInfoTitle = UILabel()
+	private let coinInfoView: CoinPerformanceInfoView
 	private var lineChart: AssetLineChart!
 
 	private let coinPerformanceVM: CoinPerformanceViewModel
@@ -32,6 +32,7 @@ class CoinPerformanceView: UIView {
 
 	init(coinPerformanceVM: CoinPerformanceViewModel) {
 		self.coinPerformanceVM = coinPerformanceVM
+		self.coinInfoView = CoinPerformanceInfoView(coinPerformanceVM: coinPerformanceVM)
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -66,8 +67,8 @@ class CoinPerformanceView: UIView {
 
 	private func setupStyle() {
 		moreInfoTitle.text = "More info"
-		coinName.text = coinPerformanceVM.coinInfoVM?.name
-		coinImage.image = UIImage(named: coinPerformanceVM.coinInfoVM?.image ?? "")
+		coinName.text = coinPerformanceVM.assetName
+		coinImage.image = UIImage(named: coinPerformanceVM.assetImage)
 
 		backgroundColor = .Pino.background
 		chartCardView.backgroundColor = .Pino.secondaryBackground
@@ -133,11 +134,6 @@ class CoinPerformanceView: UIView {
 		coinPerformanceVM.$chartVM.sink { chart in
 			guard let chart else { return }
 			self.lineChart.chartVM = chart
-		}.store(in: &cancellables)
-
-		coinPerformanceVM.$coinInfoVM.sink { coinInfoVM in
-			guard let coinInfoVM else { return }
-			self.coinInfoView.coinPerformanceInfoVM = coinInfoVM
 		}.store(in: &cancellables)
 	}
 }

@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 4/24/23.
 //
 
+import Combine
 import UIKit
 
 class CoinPerformanceInfoView: UIView {
@@ -14,20 +15,19 @@ class CoinPerformanceInfoView: UIView {
 	private var netProfitItem = CoinPerformanceInfoItem()
 	private var allTimeHighItem = CoinPerformanceInfoItem()
 	private var allTimeLowItem = CoinPerformanceInfoItem()
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 
-	public var coinPerformanceInfoVM: CoinPerformanceInfoViewModel! {
-		didSet {
-			updateItems(coinPerformanceInfoVM)
-		}
-	}
+	public var coinPerformanceVM: CoinPerformanceViewModel!
 
-	init() {
+	init(coinPerformanceVM: CoinPerformanceViewModel) {
+		self.coinPerformanceVM = coinPerformanceVM
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
 		setupConstraint()
+		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -44,9 +44,9 @@ class CoinPerformanceInfoView: UIView {
 	}
 
 	private func setupStyle() {
-		netProfitItem.key = "Net profit"
-		allTimeHighItem.key = "ATH"
-		allTimeLowItem.key = "ATL"
+		netProfitItem.key = coinPerformanceVM.netProfitTitle
+		allTimeHighItem.key = coinPerformanceVM.allTimeHighTitle
+		allTimeLowItem.key = coinPerformanceVM.allTimeLowTitle
 
 		infoStackView.axis = .vertical
 		backgroundColor = .Pino.secondaryBackground
@@ -64,5 +64,12 @@ class CoinPerformanceInfoView: UIView {
 		netProfitItem.value = coinInfoVM.netProfit
 		allTimeHighItem.value = coinInfoVM.allTimeHigh
 		allTimeLowItem.value = coinInfoVM.allTimeLow
+	}
+
+	private func setupBindings() {
+		coinPerformanceVM.$coinInfoVM.sink { coinInfo in
+			guard let coinInfo else { return }
+			self.updateItems(coinInfo)
+		}.store(in: &cancellables)
 	}
 }

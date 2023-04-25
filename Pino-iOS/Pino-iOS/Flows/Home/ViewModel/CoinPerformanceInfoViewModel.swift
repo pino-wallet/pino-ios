@@ -9,14 +9,6 @@ struct CoinPerformanceInfoViewModel {
 
 	public var coinPerformanceInfoModel: CoinPerformanceInfoModel
 
-	public var image: String {
-		coinPerformanceInfoModel.image
-	}
-
-	public var name: String {
-		coinPerformanceInfoModel.name
-	}
-
 	public var netProfit: String {
 		"$\(coinPerformanceInfoModel.netProfit)"
 	}
@@ -31,8 +23,6 @@ struct CoinPerformanceInfoViewModel {
 
 	init(netProfit: String, ATH: String, ATL: String) {
 		self.coinPerformanceInfoModel = CoinPerformanceInfoModel(
-			image: "",
-			name: "",
 			netProfit: netProfit,
 			allTimeHigh: ATH,
 			allTimeLow: ATL

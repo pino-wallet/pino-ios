@@ -35,8 +35,8 @@ class PortfolioPerformanceViewController: UIViewController {
 		let portfolioPerformaneVM = PortfolioPerformanceViewModel()
 		view = PortfolioPerformanceCollectionView(
 			portfolioPerformanceVM: portfolioPerformaneVM,
-			assetSelected: {
-				self.openCoinPerformancePage()
+			assetSelected: { selectedAsset in
+				self.openCoinPerformancePage(selectedAsset: selectedAsset)
 			}
 		)
 	}
@@ -61,8 +61,8 @@ class PortfolioPerformanceViewController: UIViewController {
 		dismiss(animated: true)
 	}
 
-	private func openCoinPerformancePage() {
-		let coinPerformanceVC = CoinPerformanceViewController()
+	private func openCoinPerformancePage(selectedAsset: ShareOfAssetsViewModel) {
+		let coinPerformanceVC = CoinPerformanceViewController(selectedAsset: selectedAsset)
 		coinPerformanceVC.modalPresentationStyle = .automatic
 		let navigationVC = UINavigationController(rootViewController: coinPerformanceVC)
 		present(navigationVC, animated: true)

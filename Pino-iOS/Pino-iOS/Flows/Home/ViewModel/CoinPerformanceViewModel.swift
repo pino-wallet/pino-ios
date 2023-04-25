@@ -14,9 +14,15 @@ class CoinPerformanceViewModel {
 	private var assetsAPIClient = AssetsAPIMockClient()
 	private var accountingAPIClient = AccountingAPIClient()
 	private var cancellables = Set<AnyCancellable>()
+	private let selectedAsset: ShareOfAssetsViewModel
 
 	// MARK: - Public Properties
 
+	public let assetName: String
+	public let assetImage: String
+	public let netProfitTitle = "Net profit"
+	public let allTimeHighTitle = "ATH"
+	public let allTimeLowTitle = "ATL"
 	@Published
 	public var chartVM: AssetChartViewModel?
 	@Published
@@ -24,9 +30,11 @@ class CoinPerformanceViewModel {
 
 	// MARK: - Initializers
 
-	init() {
+	init(selectedAsset: ShareOfAssetsViewModel) {
+		self.selectedAsset = selectedAsset
+		self.assetName = selectedAsset.assetName
+		self.assetImage = selectedAsset.assetImage
 		getChartData()
-//		getCoinInfo()
 		setupBindings()
 	}
 
