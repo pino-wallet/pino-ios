@@ -65,7 +65,7 @@ class SecureEnclave: KeyManagmentProtocol {
 		}
 	}
 
-	public func decrypt(cipherData: Data, withPublicKeyLabel label: String) throws -> Data {
+	public func decrypt(cipherData: Data, withPublicKeyLabel label: String) -> Data {
 		// 1: Load private key
 		#warning("context should be analyzed more")
 		let fetchedPrivateKey = SecureEnclaveHelper.loadKey(name: label, context: LAContext())

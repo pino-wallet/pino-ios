@@ -56,16 +56,6 @@ public class WalletValidator {
     }
 }
 
-
-//protocol WalletKeyHelper {
-//    func saveSeedOfWallet(seed: Data, key: String)
-//    func getSeedOfWallet(key: String) -> Date
-//    func saveMnemonicsOfWallet(mnemonics: String) -> Bool
-//
-//    func getPrivateKeyOf(account: Account) -> Bool
-//    func deletePrivateKeyOf(account: Account) -> Bool
-//}
-
 enum KeychainManager: String {
 
     case mnemonics
@@ -90,6 +80,10 @@ enum KeychainManager: String {
     func deleteValueWith(key: String) -> Bool {
         let keychainHelper = KeychainSwift()
         return keychainHelper.delete("\(self)\(key)")
+    }
+    
+    func getKey(account: Account) -> String {
+        "\(self)\(account.eip55Address)"
     }
 }
 
@@ -118,6 +112,15 @@ extension PinoWallet {
         } else {
             return .failure(.wallet(.accountDeletionFailed))
         }
+    }
+    
+    private func encryptPrivateKey(_ key: Data, forAccount account: Account) -> Data {
+        secureEnclave.encrypt(plainData: key, withPublicKeyLabel: KeychainManager.privateKey.getKey(account: account))
+
+    }
+    
+    private func decryptPrivateKey(fromEncryptedData encryptedData: Data, forAccount account: Account) -> Data {
+        secureEnclave.decrypt(cipherData: encryptedData, withPublicKeyLabel: KeychainManager.privateKey.getKey(account: account))
     }
     
 }
@@ -168,7 +171,8 @@ public struct PinoHDWallet: PHDWallet {
             let firstAccountPrivateKey = getPrivateKeyOfFirstAccount(wallet: wallet)
             let account = try Account(privateKey: firstAccountPrivateKey)
             
-            if !KeychainManager.seed.setValue(value: seed, key: account.eip55Address) {
+            let encryptedSeedData = encryptHdWalletSeed(seed, forAccount: account)
+            if !KeychainManager.seed.setValue(value: encryptedSeedData, key: account.eip55Address) {
                 return .failure(.keyManager(.seedStorageFailed))
             }
             
@@ -203,6 +207,15 @@ public struct PinoHDWallet: PHDWallet {
         let privateKey = wallet.getDerivedKey(coin: .ethereum, account: firstAccountIndex, change: changeConstant, address: addressIndex)
         return privateKey.data
     }
+    
+    private func encryptHdWalletSeed(_ seed: Data, forAccount account: Account) -> Data {
+        secureEnclave.encrypt(plainData: seed, withPublicKeyLabel: KeychainManager.seed.getKey(account: account))
+    }
+    
+    private func decryptHdWalletSeed(fromEncryptedData encryptedSeed: Data, forAccount account: Account) -> Data {
+        secureEnclave.decrypt(cipherData: encryptedSeed, withPublicKeyLabel: KeychainManager.seed.getKey(account: account))
+    }
+
     
 }
 
