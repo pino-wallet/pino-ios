@@ -21,6 +21,8 @@ struct CoinPerformanceInfoViewModel {
 		"$\(coinPerformanceInfoModel.allTimeLow)"
 	}
 
+	// MARK: - Initializers
+
 	init(netProfit: String, ATH: String, ATL: String) {
 		self.coinPerformanceInfoModel = CoinPerformanceInfoModel(
 			netProfit: netProfit,

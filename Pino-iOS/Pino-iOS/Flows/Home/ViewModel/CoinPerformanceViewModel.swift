@@ -10,8 +10,6 @@ import Combine
 class CoinPerformanceViewModel {
 	// MARK: - Private Properties
 
-	#warning("Mock client is temporary and must be replaced by API client")
-	private var assetsAPIClient = AssetsAPIMockClient()
 	private var accountingAPIClient = AccountingAPIClient()
 	private var cancellables = Set<AnyCancellable>()
 	private let selectedAsset: ShareOfAssetsViewModel
