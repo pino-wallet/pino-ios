@@ -14,11 +14,14 @@ class PortfolioPerformanceCollectionView: UICollectionView {
 
 	// MARK: Public Properties
 
-	public var assetSelected: () -> Void
+	public var assetSelected: (ShareOfAssetsViewModel) -> Void
 
 	// MARK: Initializers
 
-	init(portfolioPerformanceVM: PortfolioPerformanceViewModel, assetSelected: @escaping () -> Void) {
+	init(
+		portfolioPerformanceVM: PortfolioPerformanceViewModel,
+		assetSelected: @escaping (ShareOfAssetsViewModel) -> Void
+	) {
 		self.portfolioPerformanceVM = portfolioPerformanceVM
 		self.assetSelected = assetSelected
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
@@ -74,7 +77,7 @@ extension PortfolioPerformanceCollectionView: UICollectionViewDelegateFlowLayout
 
 extension PortfolioPerformanceCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		assetSelected()
+		assetSelected(portfolioPerformanceVM.shareOfAssetsVM[indexPath.item])
 	}
 }
 

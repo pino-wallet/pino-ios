@@ -17,13 +17,13 @@ class CoinPerformanceView: UIView {
 	private let contentStackview = UIStackView()
 	private let moreInfoStackView = UIStackView()
 	private let chartCardView = UIView()
+	private let titleStackView = UIStackView()
 	private let chartStackView = UIStackView()
 	private let coinImage = UIImageView()
 	private let coinName = UILabel()
 	private let separatorLine = UIView()
-	private let infoCardView = UIView()
-	private let infoStackView = UIStackView()
 	private let moreInfoTitle = UILabel()
+	private let coinInfoView: CoinPerformanceInfoView
 	private var lineChart: AssetLineChart!
 
 	private let coinPerformanceVM: CoinPerformanceViewModel
@@ -33,6 +33,7 @@ class CoinPerformanceView: UIView {
 
 	init(coinPerformanceVM: CoinPerformanceViewModel) {
 		self.coinPerformanceVM = coinPerformanceVM
+		self.coinInfoView = CoinPerformanceInfoView(coinPerformanceVM: coinPerformanceVM)
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -48,35 +49,31 @@ class CoinPerformanceView: UIView {
 
 	private func setupView() {
 		lineChart = AssetLineChart(chartVM: coinPerformanceVM.chartVM, dateFilterChanged: { dateFilter in
-			self.coinPerformanceVM.updateChartData(by: dateFilter)
+			self.coinPerformanceVM.getChartData(dateFilter: dateFilter)
 		})
+
 		contentStackview.addArrangedSubview(chartCardView)
 		contentStackview.addArrangedSubview(moreInfoStackView)
 		moreInfoStackView.addArrangedSubview(moreInfoTitle)
-		moreInfoStackView.addArrangedSubview(infoCardView)
+		moreInfoStackView.addArrangedSubview(coinInfoView)
 		contentView.addSubview(contentStackview)
 		scrollView.addSubview(contentView)
 		addSubview(scrollView)
-		infoCardView.addSubview(infoStackView)
 		chartCardView.addSubview(chartStackView)
-		chartStackView.addArrangedSubview(coinImage)
-		chartStackView.addArrangedSubview(coinName)
-		chartStackView.addArrangedSubview(separatorLine)
+		titleStackView.addArrangedSubview(coinImage)
+		titleStackView.addArrangedSubview(coinName)
+		titleStackView.addArrangedSubview(separatorLine)
+		chartStackView.addArrangedSubview(titleStackView)
 		chartStackView.addArrangedSubview(lineChart)
-
-		infoStackView.addArrangedSubview(CoinPerformanceInfoItem(item: coinPerformanceVM.coinInfoVM.netProfit))
-		infoStackView.addArrangedSubview(CoinPerformanceInfoItem(item: coinPerformanceVM.coinInfoVM.allTimeHigh))
-		infoStackView.addArrangedSubview(CoinPerformanceInfoItem(item: coinPerformanceVM.coinInfoVM.allTimeLow))
 	}
 
 	private func setupStyle() {
 		moreInfoTitle.text = "More info"
-		coinName.text = coinPerformanceVM.coinInfoVM.name
-		coinImage.image = UIImage(named: coinPerformanceVM.coinInfoVM.image)
+		coinName.text = coinPerformanceVM.assetName
+		coinImage.image = UIImage(named: coinPerformanceVM.assetImage)
 
 		backgroundColor = .Pino.background
 		chartCardView.backgroundColor = .Pino.secondaryBackground
-		infoCardView.backgroundColor = .Pino.secondaryBackground
 		contentView.backgroundColor = .Pino.clear
 		scrollView.backgroundColor = .Pino.clear
 		separatorLine.backgroundColor = .Pino.gray6
@@ -89,16 +86,16 @@ class CoinPerformanceView: UIView {
 
 		contentStackview.axis = .vertical
 		moreInfoStackView.axis = .vertical
-		infoStackView.axis = .vertical
 		chartStackView.axis = .vertical
+		titleStackView.axis = .vertical
 
 		contentStackview.spacing = 34
 		moreInfoStackView.spacing = 10
-		chartStackView.spacing = 18
+		chartStackView.spacing = 5
+		titleStackView.spacing = 16
 
-		chartStackView.alignment = .center
+		titleStackView.alignment = .center
 
-		infoCardView.layer.cornerRadius = 12
 		chartCardView.layer.cornerRadius = 12
 	}
 
@@ -118,14 +115,10 @@ class CoinPerformanceView: UIView {
 		chartCardView.pin(
 			.fixedHeight(425)
 		)
-		infoStackView.pin(
-			.verticalEdges(padding: 10),
-			.horizontalEdges
-		)
 		chartStackView.pin(
 			.horizontalEdges,
 			.top(padding: 16),
-			.bottom
+			.bottom()
 		)
 		coinImage.pin(
 			.fixedWidth(48),
@@ -136,14 +129,14 @@ class CoinPerformanceView: UIView {
 			.horizontalEdges
 		)
 		lineChart.pin(
-			.horizontalEdges,
-			.top(to: separatorLine, padding: 5)
+			.horizontalEdges
 		)
 	}
 
 	private func setupBindings() {
 		coinPerformanceVM.$chartVM.sink { chart in
-			self.lineChart.chartVM = chart!
+			guard let chart else { return }
+			self.lineChart.chartVM = chart
 		}.store(in: &cancellables)
 	}
 }

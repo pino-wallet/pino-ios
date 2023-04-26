@@ -9,23 +9,25 @@ struct CoinPerformanceInfoViewModel {
 
 	public var coinPerformanceInfoModel: CoinPerformanceInfoModel
 
-	public var image: String {
-		coinPerformanceInfoModel.image
+	public var netProfit: String {
+		"$\(coinPerformanceInfoModel.netProfit)"
 	}
 
-	public var name: String {
-		coinPerformanceInfoModel.name
+	public var allTimeHigh: String {
+		"$\(coinPerformanceInfoModel.allTimeHigh)"
 	}
 
-	public var netProfit: (key: String, value: String) {
-		(key: "Net profit", value: "$\(coinPerformanceInfoModel.netProfit)")
+	public var allTimeLow: String {
+		"$\(coinPerformanceInfoModel.allTimeLow)"
 	}
 
-	public var allTimeHigh: (key: String, value: String) {
-		(key: "All time high", value: "$\(coinPerformanceInfoModel.allTimeHigh)")
-	}
+	// MARK: - Initializers
 
-	public var allTimeLow: (key: String, value: String) {
-		(key: "All time low", value: "$\(coinPerformanceInfoModel.allTimeLow)")
+	init(netProfit: String, ATH: String, ATL: String) {
+		self.coinPerformanceInfoModel = CoinPerformanceInfoModel(
+			netProfit: netProfit,
+			allTimeHigh: ATH,
+			allTimeLow: ATL
+		)
 	}
 }

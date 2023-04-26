@@ -21,12 +21,23 @@ class CoinPerformanceInfoItem: UIView {
 	private let itemTitleLabel = UILabel()
 	private let itemValueLabel = UILabel()
 
-	private let item: (key: String, value: String)
+	// MARK: - Public Properties
+
+	public var key: String! {
+		didSet {
+			updateKey(key)
+		}
+	}
+
+	public var value: String! {
+		didSet {
+			updateValue(value)
+		}
+	}
 
 	// MARK: Initializers
 
-	init(item: (key: String, value: String)) {
-		self.item = item
+	init() {
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -46,9 +57,6 @@ class CoinPerformanceInfoItem: UIView {
 	}
 
 	private func setupStyle() {
-		itemTitleLabel.text = item.key
-		itemValueLabel.text = item.value
-
 		backgroundColor = .Pino.clear
 		itemTitleLabel.textColor = .Pino.secondaryLabel
 		itemValueLabel.textColor = .Pino.label
@@ -67,5 +75,13 @@ class CoinPerformanceInfoItem: UIView {
 			.horizontalEdges(padding: 14),
 			.verticalEdges(padding: 11)
 		)
+	}
+
+	private func updateValue(_ value: String) {
+		itemValueLabel.text = value
+	}
+
+	private func updateKey(_ key: String) {
+		itemTitleLabel.text = key
 	}
 }

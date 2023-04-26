@@ -10,11 +10,12 @@ import UIKit
 class CoinPerformanceViewController: UIViewController {
 	// MARK: Private Properties
 
-	private let coinPerformanceVM = CoinPerformanceViewModel()
+	private let selectedAsset: ShareOfAssetsViewModel
 
 	// MARK: Initializers
 
-	init() {
+	init(selectedAsset: ShareOfAssetsViewModel) {
+		self.selectedAsset = selectedAsset
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -36,6 +37,7 @@ class CoinPerformanceViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		let coinPerformanceVM = CoinPerformanceViewModel(selectedAsset: selectedAsset)
 		view = CoinPerformanceView(coinPerformanceVM: coinPerformanceVM)
 	}
 

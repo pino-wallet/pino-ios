@@ -10,78 +10,73 @@ import Combine
 class CoinPerformanceViewModel {
 	// MARK: - Private Properties
 
-	#warning("Mock client is temporary and must be replaced by API client")
-	private var assetsAPIClient = AssetsAPIMockClient()
+	private var accountingAPIClient = AccountingAPIClient()
 	private var cancellables = Set<AnyCancellable>()
+	private let selectedAsset: ShareOfAssetsViewModel
 
 	// MARK: - Public Properties
 
+	public let assetName: String
+	public let assetImage: String
+	public let netProfitTitle = "Net profit"
+	public let allTimeHighTitle = "ATH"
+	public let allTimeLowTitle = "ATL"
 	@Published
-	public var chartVM: AssetChartViewModel!
-	public var coinInfoVM: CoinPerformanceInfoViewModel!
+	public var chartVM: AssetChartViewModel?
+	@Published
+	public var coinInfoVM: CoinPerformanceInfoViewModel?
 
 	// MARK: - Initializers
 
-	init() {
+	init(selectedAsset: ShareOfAssetsViewModel) {
+		self.selectedAsset = selectedAsset
+		self.assetName = selectedAsset.assetName
+		self.assetImage = selectedAsset.assetImage
 		getChartData()
-		getCoinInfo()
+		setupBindings()
 	}
 
 	// MARK: - Private Methods
 
-	private func getChartData() {
-		assetsAPIClient.coinInfoChart().sink { completed in
-			switch completed {
-			case .finished:
-				print("Chart info received successfully")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { [weak self] chartModelList in
-			let chartDataVM = chartModelList.first!.chartData.compactMap { AssetChartDataViewModel(chartModel: $0) }
-			self?.chartVM = AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: .hour)
+	public func getChartData(dateFilter: ChartDateFilter = .hour) {
+		accountingAPIClient.coinPerformance(timeFrame: dateFilter.timeFrame)
+			.sink { completed in
+				switch completed {
+				case .finished:
+					print("Portfolio received successfully")
+				case let .failure(error):
+					print(error)
+				}
+			} receiveValue: { portfolio in
+				let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0) }
+				self.chartVM = AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: dateFilter)
+			}.store(in: &cancellables)
+	}
+
+	private func setupBindings() {
+		$chartVM.sink { chart in
+			guard let chart else { return }
+			self.updateCoinPerformanceInfo(chart: chart)
 		}.store(in: &cancellables)
 	}
 
-	private func getCoinInfo() {
-		assetsAPIClient.performanceInfo().sink { completed in
-			switch completed {
-			case .finished:
-				print("Coin info received successfully")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { [weak self] coinInfo in
-			self?.coinInfoVM = CoinPerformanceInfoViewModel(coinPerformanceInfoModel: coinInfo)
-		}.store(in: &cancellables)
+	private func updateCoinPerformanceInfo(chart: AssetChartViewModel) {
+		coinInfoVM = CoinPerformanceInfoViewModel(
+			netProfit: "0",
+			ATH: allTimeHigh(chart: chart),
+			ATL: allTimeLow(chart: chart)
+		)
 	}
 
-	public func updateChartData(by dateFilter: ChartDateFilter) {
-		assetsAPIClient.coinInfoChart().sink { completed in
-			switch completed {
-			case .finished:
-				print("Chart info received successfully")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { [weak self] chartModelList in
-			var chartModel: AssetChartModel
-			switch dateFilter {
-			case .hour:
-				chartModel = chartModelList[0]
-			case .day:
-				chartModel = chartModelList[1]
-			case .week:
-				chartModel = chartModelList[2]
-			case .month:
-				chartModel = chartModelList[3]
-			case .year:
-				chartModel = chartModelList[4]
-			case .all:
-				chartModel = chartModelList[5]
-			}
-			let chartDataVM = chartModel.chartData.compactMap { AssetChartDataViewModel(chartModel: $0) }
-			self?.chartVM = AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: dateFilter)
-		}.store(in: &cancellables)
+	private func allTimeHigh(chart: AssetChartViewModel) -> String {
+		let networthList = chart.chartDataEntry.map { $0.y }
+		let maxNetworth = networthList.max()
+		return String(maxNetworth!)
+	}
+
+	private func allTimeLow(chart: AssetChartViewModel) -> String {
+		let networthList = chart.chartDataEntry.map { $0.y }
+		let minNetworth = networthList.min()
+		return String(minNetworth!)
 	}
 }
