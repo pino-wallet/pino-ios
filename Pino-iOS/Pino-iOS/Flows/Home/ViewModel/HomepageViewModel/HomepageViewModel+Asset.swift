@@ -23,6 +23,7 @@ extension HomepageViewModel {
 					print(error)
 				}
 			} receiveValue: { assets in
+				self.assetsModelList = assets
 				self.checkDefaultAssetsAdded(assets)
 				let selectedAssetsID = self.selectedAssets.map { $0.id }
 				self.manageAssetsList = assets.compactMap {

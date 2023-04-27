@@ -23,10 +23,6 @@ final class AssetsAPIClient: AssetsAPIService {
 		networkManager.request(.positions)
 	}
 
-	public func coinPortfolio() -> AnyPublisher<CoinPortfolioModel, APIError> {
-		networkManager.request(.coinPortfolio)
-	}
-
 	public func coinPortfolio() -> AnyPublisher<[CoinHistoryModel], APIError> {
 		networkManager.request(.coinHistory)
 	}

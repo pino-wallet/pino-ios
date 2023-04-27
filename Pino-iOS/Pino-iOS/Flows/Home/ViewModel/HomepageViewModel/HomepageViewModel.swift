@@ -26,6 +26,8 @@ class HomepageViewModel {
 	@Published
 	public var manageAssetsList: [AssetViewModel]?
 	public var selectedAssets = [SelectedAsset]()
+	@Published
+	public var assetsModelList: [AssetProtocol]!
 
 	public let copyToastMessage = "Copied!"
 	public let connectionErrorToastMessage = "No internet connection"
@@ -62,11 +64,11 @@ class HomepageViewModel {
 	public func refreshHomeData(completion: @escaping (HomeRefreshError?) -> Void) {
 		// This is temporary and must be replaced with network request
 		let monitor = NWPathMonitor()
-		monitor.pathUpdateHandler = { path in
+		monitor.pathUpdateHandler = { [weak self] path in
 			if path.status == .satisfied {
-				self.getWalletBalance()
-				self.getAssetsList()
-				self.getPositionAssetsList()
+				self?.getWalletBalance()
+				self?.getAssetsList()
+				self?.getPositionAssetsList()
 				completion(nil)
 				monitor.cancel()
 			} else {
@@ -74,8 +76,7 @@ class HomepageViewModel {
 				monitor.cancel()
 			}
 		}
-		let queue = DispatchQueue(label: "InternetConnectionMonitor")
-		monitor.start(queue: queue)
+		monitor.start(queue: DispatchQueue.main)
 	}
 
 	// MARK: Private Methods
