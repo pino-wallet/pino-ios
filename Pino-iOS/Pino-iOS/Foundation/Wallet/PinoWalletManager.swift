@@ -31,12 +31,23 @@ protocol WalletManagement {
 
 class PinoWalletManager: WalletManagement {
    
-    var accounts: [Account]
-    var currentAccount: Account!
     var currentWallet: PinoWallet!
     var secureEnclave = SecureEnclave()
     var walletManagementDelegate: PinoWalletDelegate?
-
+    var hdWallet = PinoHDWallet()
+    var nonHDWallet = PinoNonHDWallet()
+    
+    var accounts: [Account] {
+        hdWallet.getAllAccounts() + nonHDWallet.getAllAccounts()
+    }
+    
+    var currentAccount: Account {
+        guard let foundAccount = accounts.first(where: { $0.isActiveAccount }) else {
+            return accounts.first!
+        }
+        return foundAccount
+    }
+    
     func generateMnemonics() -> String {
         HDWallet.generateMnemonic(seedPhraseCount: .word12)
     }
@@ -55,10 +66,6 @@ class PinoWalletManager: WalletManagement {
         }
     }
     
-    func importWallet(mnemonics: String) {
-        
-    }
-    
     func createAccount() {
         let account = (currentWallet as! PinoHDWallet).createAccount()
         switch account {
@@ -71,10 +78,6 @@ class PinoWalletManager: WalletManagement {
     
     func deleteAccount() {
         
-    }
-    
-    func getAllAccounts() -> [Account] {
-        return []
     }
     
     func importAccount(privateKey: String) {

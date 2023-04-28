@@ -21,7 +21,6 @@ public struct Account {
     /// For Accounts derived from HDWallet
     public var derivationPath: String?
     public var publicKey: Data
-    public var extendedPublicKey: Data
     public var accountSource: AccountSource
     
     public var eip55Address: String {
@@ -34,9 +33,10 @@ public struct Account {
         self.isActiveAccount = true
         self.derivationPath = derivationPath
         self.publicKey = publicKey
+        self.accountSource = .hdWallet
     }
     
-    init(privateKeyData: Data) throws {
+    init(privateKeyData: Data, accountSource: AccountSource = .hdWallet) throws {
         guard WalletValidator.isPrivateKeyValid(key: privateKeyData) else { throw WalletOperationError.validator(.privateKeyIsInvalid) }
         let privateKey = PrivateKey(data: privateKeyData)!
         let publicKey = privateKey.getPublicKeySecp256k1(compressed: true)
@@ -51,9 +51,10 @@ public struct Account {
         self.publicKey = publicKey.data
         self.address = address
         self.isActiveAccount = true
+        self.accountSource = accountSource
     }
     
-    init(publicKey: Data) throws {
+    init(publicKey: Data, accountSource: AccountSource = .hdWallet) throws {
         guard WalletValidator.isPublicKeyValid(key: publicKey) else {
             throw WalletOperationError.validator(.publicKeyIsInvalid)
         }
@@ -64,6 +65,7 @@ public struct Account {
         self.publicKey = publicKey
         self.address = address
         self.isActiveAccount = true
+        self.accountSource = accountSource
     }
     
 }

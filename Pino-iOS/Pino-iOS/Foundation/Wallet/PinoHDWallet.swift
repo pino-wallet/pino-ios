@@ -27,8 +27,27 @@ public class PinoHDWallet: PHDWallet {
     var entropy: Data
     var id: String
     var secureEnclave = SecureEnclave()
-    var accounts: [Account] = []
-    var hdWallet: HDWallet!
+    
+    var accounts: [Account] {
+        getAllAccounts()
+    }
+    
+    let rawValue: OpaquePointer
+    
+    var currentAccount: Account {
+        guard let foundAccount = getAllAccounts().first(where: { $0.isActiveAccount }) else {
+            fatalError("No account exists")
+        }
+        return foundAccount
+    }
+    
+    var currentHDWallet: HDWallet {
+        let accountSeed = exportSeedphrase(account: currentAccount)
+        let currentWallet = HDWallet(entropy: accountSeed, passphrase: .emptyString)!
+        return currentWallet
+    }
+    
+    convenience init() {}
     
     required init(mnemonics: String) throws {
         guard WalletValidator.isMnemonicsValid(mnemonic: mnemonics) else {
@@ -55,8 +74,7 @@ public class PinoHDWallet: PHDWallet {
             if accountExist(account: account) {
                 throw WalletOperationError.wallet(.accountAlreadyExists)
             } else {
-                accounts.append(account)
-                self.hdWallet = wallet
+                addNewAccount(account: account)
             }
         } catch {
             throw error
@@ -65,19 +83,18 @@ public class PinoHDWallet: PHDWallet {
     
     func createAccount() -> Result<Account, WalletOperationError> {
         let coinType = CoinType.ethereum
-        let derivationPath = "m/44'/60'/0'/0/1"
-        let privateKey = hdWallet.getKey(coin: coinType, derivationPath: derivationPath)
+        let derivationPath = "m/44'/60'/0'/0/\(getAllAccounts().count)"
+        let privateKey = currentHDWallet.getKey(coin: coinType, derivationPath: derivationPath)
         let publicKey = privateKey.getPublicKeySecp256k1(compressed: false)
         let account = try! Account(publicKey: publicKey.data)
-        accounts.append(account)
-        
+        addNewAccount(account: account)
         print("Private Key: \(privateKey.data.hexString)")
         print("Public Key: \(publicKey.data.hexString)")
         print("Ethereum Address: \(account)")
         return .success(account)
     }
     
-    func getPrivateKeyOfFirstAccount(wallet: HDWallet) -> Data {
+    private func getPrivateKeyOfFirstAccount(wallet: HDWallet) -> Data {
         let firstAccountIndex = UInt32(0)
         let changeConstant = UInt32(0)
         let addressIndex = UInt32(0)
@@ -98,6 +115,16 @@ public class PinoHDWallet: PHDWallet {
         let decryptedSeed = decryptHdWalletSeed(fromEncryptedData: cipherData, forAccount: account)
         return decryptedSeed
     }
+
+    public func getAllAccounts() -> [Account] {
+        return []
+    }
     
+    private func addNewAccount(account: Account) {
+        #warning("write account to core data")
+        if !accountExist(account: account) {
+            
+        }
+    }
     
 }
