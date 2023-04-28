@@ -297,6 +297,7 @@
 		DF00179129F856D5001164EA /* PinoHDWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00179029F856D5001164EA /* PinoHDWallet.swift */; };
 		DF00179329F85727001164EA /* PinoNonHDWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00179229F85727001164EA /* PinoNonHDWallet.swift */; };
 		DF00179529F85774001164EA /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00179429F85774001164EA /* KeychainManager.swift */; };
+		DF00179729F96D3D001164EA /* PinoWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00179629F96D3D001164EA /* PinoWalletManager.swift */; };
 		DF0F65E529E1B20F00DB7290 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65E429E1B20F00DB7290 /* BigInt */; };
 		DF0F65E829E1B22A00DB7290 /* web3swift in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65E729E1B22A00DB7290 /* web3swift */; };
 		DF0F65EB29E1B24500DB7290 /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65EA29E1B24500DB7290 /* OHHTTPStubs */; };
@@ -660,6 +661,7 @@
 		DF00179029F856D5001164EA /* PinoHDWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoHDWallet.swift; sourceTree = "<group>"; };
 		DF00179229F85727001164EA /* PinoNonHDWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoNonHDWallet.swift; sourceTree = "<group>"; };
 		DF00179429F85774001164EA /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		DF00179629F96D3D001164EA /* PinoWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoWalletManager.swift; sourceTree = "<group>"; };
 		DFB2C343099A9B87E6C231F0 /* StubManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubManager.swift; sourceTree = "<group>"; };
 		E149E7B618CEFE5E909B2D78 /* WalletInfoNavigationItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoNavigationItems.swift; sourceTree = "<group>"; };
 		E1575DB9D22AE8EBFE86A7D9 /* SeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhrase.swift; sourceTree = "<group>"; };
@@ -1870,11 +1872,12 @@
 		DF00178329EC37A0001164EA /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
+				DF00179629F96D3D001164EA /* PinoWalletManager.swift */,
 				DF00178429EC37AF001164EA /* PinoWalletCore.swift */,
-				DF00178A29F85579001164EA /* WalletErrorTypes.swift */,
-				DF00178C29F855DF001164EA /* WalletValidator.swift */,
 				DF00179029F856D5001164EA /* PinoHDWallet.swift */,
 				DF00179229F85727001164EA /* PinoNonHDWallet.swift */,
+				DF00178A29F85579001164EA /* WalletErrorTypes.swift */,
+				DF00178C29F855DF001164EA /* WalletValidator.swift */,
 				DF00179429F85774001164EA /* KeychainManager.swift */,
 				DF00178E29F8567C001164EA /* Account.swift */,
 			);
@@ -2470,6 +2473,7 @@
 				1DACABBF0C73761FBAF64811 /* ReceiveActionButton.swift in Sources */,
 				05B960E15A9EEF333D3A8296 /* ReceiveAssetView.swift in Sources */,
 				180F866A8ECFDBE0380BECDB /* ReceiveAssetViewController.swift in Sources */,
+				DF00179729F96D3D001164EA /* PinoWalletManager.swift in Sources */,
 				34974909379D77088510A2BB /* ReceiveViewModel.swift in Sources */,
 				C08B09A1A89A6859D79D25D7 /* RecoveryPhraseView.swift in Sources */,
 				9B356BB4D7AD512DAD0A05D2 /* RecoveryPhraseViewController.swift in Sources */,

@@ -10,11 +10,19 @@ import WalletCore
 import Web3Core
 
 public struct Account {
+    
+    public enum AccountSource {
+        case hdWallet
+        case nonHDWallet
+    }
+    
     public var address: EthereumAddress
     public var isActiveAccount: Bool
     /// For Accounts derived from HDWallet
     public var derivationPath: String?
     public var publicKey: Data
+    public var extendedPublicKey: Data
+    public var accountSource: AccountSource
     
     public var eip55Address: String {
         address.address
@@ -28,17 +36,19 @@ public struct Account {
         self.publicKey = publicKey
     }
     
-    init(privateKey: Data) throws {
-        guard WalletValidator.isPrivateKeyValid(key: privateKey) else { throw WalletOperationError.validator(.privateKeyIsInvalid) }
-        let publicKeyData = Utilities.privateToPublic(privateKey)
-        guard let publicKey = publicKeyData, WalletValidator.isPublicKeyValid(key: publicKey) else {
+    init(privateKeyData: Data) throws {
+        guard WalletValidator.isPrivateKeyValid(key: privateKeyData) else { throw WalletOperationError.validator(.privateKeyIsInvalid) }
+        let privateKey = PrivateKey(data: privateKeyData)!
+        let publicKey = privateKey.getPublicKeySecp256k1(compressed: true)
+//        let publicKeyData = Utilities.privateToPublic(privateKey)
+        guard WalletValidator.isPublicKeyValid(key: publicKey.data) else {
             throw WalletOperationError.validator(.publicKeyIsInvalid)
         }
-        guard let address = Utilities.publicToAddress(publicKey) else {
+        guard let address = Utilities.publicToAddress(publicKey.data) else {
             throw WalletOperationError.validator(.addressIsInvalid)
         }
         self.derivationPath = nil
-        self.publicKey = publicKey
+        self.publicKey = publicKey.data
         self.address = address
         self.isActiveAccount = true
     }

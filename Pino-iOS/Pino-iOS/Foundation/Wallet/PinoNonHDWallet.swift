@@ -24,7 +24,7 @@ public struct PinoNonHDWallet: PNonHDWallet {
     
     mutating func importAccount(privateKey: Data) -> Result<Account, WalletOperationError> {
         do {
-            let account = try Account(privateKey: privateKey)
+            let account = try Account(privateKeyData: privateKey)
             guard accountExist(account: account) else { return .failure(.wallet(.accountAlreadyExists))}
             accounts.append(account)
             let keyCipherData = secureEnclave.encrypt(plainData: privateKey, withPublicKeyLabel: account.eip55Address)
