@@ -46,8 +46,10 @@ class PortfolioPerformanceViewModel {
 	// MARK: - Private Methods
 
 	private func getShareOfAssets(assets: [AssetViewModel]) {
-		let userAssets = assets.filter { !$0.holdAmount.isZero }
-		let totalAmount = userAssets.map { $0.holdAmountInDollorNumber }.reduce(BigNumber(number: 0, decimal: 0), +)
+		let userAssets = assets
+			.filter { !$0.holdAmount.isZero }
+			.sorted { Double($0.holdAmountInDollar)! > Double($1.holdAmountInDollar)! }
+		let totalAmount = userAssets.compactMap { Double($0.holdAmountInDollar) }.reduce(0.0, +)
 		shareOfAssetsVM = userAssets.compactMap { ShareOfAssetsViewModel(assetVM: $0, totalAmount: totalAmount) }
 	}
 }

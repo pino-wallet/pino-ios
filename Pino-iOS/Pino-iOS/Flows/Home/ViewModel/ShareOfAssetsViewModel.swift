@@ -11,7 +11,7 @@ struct ShareOfAssetsViewModel {
 	// MARK: - Public Properties
 
 	public var assetVM: AssetViewModel!
-	public var totalAmount: BigNumber
+	public var totalAmount: Double
 
 	public var assetName: String {
 		assetVM.name
@@ -26,17 +26,17 @@ struct ShareOfAssetsViewModel {
 	}
 
 	public var amountPercentage: String {
-		let amountPercentage = (assetVM.holdAmountInDollorNumber * BigNumber(number: 100, decimal: 0)) / totalAmount
-		return "\(amountPercentage!.formattedAmountOf(type: .price))%"
+		let amountPercentage = (Double(assetVM.holdAmountInDollar)! / totalAmount) * 100
+		return "\(round(amountPercentage * 100) / 100)%"
 	}
 
 	public var progressBarValue: Float {
-		Float(assetVM.holdAmountInDollorNumber.doubleValue / totalAmount.doubleValue)
+		Float(Double(assetVM.holdAmountInDollar)! / totalAmount)
 	}
 
 	// MARK: - Initializers
 
-	init(assetVM: AssetViewModel!, totalAmount: BigNumber) {
+	init(assetVM: AssetViewModel!, totalAmount: Double) {
 		self.assetVM = assetVM
 		self.totalAmount = totalAmount
 	}
