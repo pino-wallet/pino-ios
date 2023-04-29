@@ -11,82 +11,65 @@ import Web3Core
 
 
 protocol PHDWallet: PinoWallet {
-    var seed: Data { get set }
-    var mnemonic: String { get set }
-    var entropy: Data { get }
-    var hdWallet: HDWallet! { get set }
-    init(mnemonics: String) throws
-    func createAccount() -> Result<Account, WalletOperationError>
-    func exportSeedphrase(account: Account) -> Data
+    func createHDWallet(mnemonics: String) throws -> Result<HDWallet, WalletOperationError>
+    func createHDWallet(seed: Data) -> Result<HDWallet, WalletOperationError>
 }
 
 public class PinoHDWallet: PHDWallet {
-   
-    var seed: Data
-    var mnemonic: String
-    var entropy: Data
-    var id: String
+        
+    var id: String = UUID().uuidString
     var secureEnclave = SecureEnclave()
     
     var accounts: [Account] {
         getAllAccounts()
     }
     
-    let rawValue: OpaquePointer
-    
-    var currentAccount: Account {
-        guard let foundAccount = getAllAccounts().first(where: { $0.isActiveAccount }) else {
-            fatalError("No account exists")
-        }
-        return foundAccount
-    }
-    
-    var currentHDWallet: HDWallet {
-        let accountSeed = exportSeedphrase(account: currentAccount)
-        let currentWallet = HDWallet(entropy: accountSeed, passphrase: .emptyString)!
-        return currentWallet
-    }
-    
-    convenience init() {}
-    
-    required init(mnemonics: String) throws {
+    func createHDWallet(mnemonics: String) -> Result<HDWallet, WalletOperationError> {
         guard WalletValidator.isMnemonicsValid(mnemonic: mnemonics) else {
-            throw WalletOperationError.validator(.mnemonicIsInvalid)
+            return .failure(.validator(.mnemonicIsInvalid))
         }
         guard let wallet = HDWallet(mnemonic: mnemonics, passphrase: .emptyString) else {
-            throw WalletOperationError.wallet(.walletCreationFailed)
+            return .failure(.wallet(.walletCreationFailed))
         }
-        
-        self.entropy = wallet.entropy
-        self.seed = wallet.seed
-        self.mnemonic = mnemonics
-        self.id = UUID().uuidString
         
         do {
             let firstAccountPrivateKey = getPrivateKeyOfFirstAccount(wallet: wallet)
             let account = try Account(privateKeyData: firstAccountPrivateKey)
             
-            let encryptedSeedData = encryptHdWalletSeed(seed, forAccount: account)
+            let encryptedSeedData = encryptHdWalletSeed(wallet.seed, forAccount: account)
             if !KeychainManager.seed.setValue(value: encryptedSeedData, key: account.eip55Address) {
-                throw WalletOperationError.keyManager(.seedStorageFailed)
+                return .failure(.keyManager(.seedStorageFailed))
             }
             
             if accountExist(account: account) {
-                throw WalletOperationError.wallet(.accountAlreadyExists)
+                return .failure(.wallet(.accountAlreadyExists))
             } else {
                 addNewAccount(account: account)
+                return .success(wallet)
             }
+        } catch let (error) where error is WalletOperationError {
+            return .failure(error as! WalletOperationError)
         } catch {
-            throw error
+            return .failure(.wallet(.unknownError))
         }
-    }    
+    }
     
-    func createAccount() -> Result<Account, WalletOperationError> {
+    func createHDWallet(seed: Data) -> Result<HDWallet, WalletOperationError> {
+        let hdWallet = HDWallet(entropy: seed, passphrase: .emptyString)
+        if let hdWallet {
+            return .success(hdWallet)
+        } else {
+            return .failure(.wallet(.walletCreationFailed))
+        }
+    }
+   
+    
+    func createAccountIn(wallet: HDWallet) throws -> Result<Account, WalletOperationError> {
         let coinType = CoinType.ethereum
         let derivationPath = "m/44'/60'/0'/0/\(getAllAccounts().count)"
-        let privateKey = currentHDWallet.getKey(coin: coinType, derivationPath: derivationPath)
+        let privateKey = wallet.getKey(coin: coinType, derivationPath: derivationPath)
         let publicKey = privateKey.getPublicKeySecp256k1(compressed: false)
-        let account = try! Account(publicKey: publicKey.data)
+        let account = try Account(publicKey: publicKey.data)
         addNewAccount(account: account)
         print("Private Key: \(privateKey.data.hexString)")
         print("Public Key: \(publicKey.data.hexString)")
@@ -110,12 +93,7 @@ public class PinoHDWallet: PHDWallet {
         secureEnclave.decrypt(cipherData: encryptedSeed, withPublicKeyLabel: KeychainManager.seed.getKey(account: account))
     }
 
-    func exportSeedphrase(account: Account) -> Data {
-        let cipherData = KeychainManager.seed.getValueWith(key: account.eip55Address)
-        let decryptedSeed = decryptHdWalletSeed(fromEncryptedData: cipherData, forAccount: account)
-        return decryptedSeed
-    }
-
+    #warning("should read accounts from core data")
     public func getAllAccounts() -> [Account] {
         return []
     }

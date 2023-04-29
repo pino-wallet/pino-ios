@@ -15,11 +15,7 @@ protocol PNonHDWallet: PinoWallet {
 
 public struct PinoNonHDWallet: PNonHDWallet {
     
-    var id: String
-    var error: WalletError
-    var secureEnclave: SecureEnclave
-    var walletValidator: WalletValidator
-    var walletManagementDelegate: PinoWalletDelegate
+    var secureEnclave = SecureEnclave()
     
     var accounts: [Account] {
         getAllAccounts()
@@ -31,13 +27,16 @@ public struct PinoNonHDWallet: PNonHDWallet {
             guard accountExist(account: account) else { return .failure(.wallet(.accountAlreadyExists))}
             addNewAccount(account)
             let keyCipherData = secureEnclave.encrypt(plainData: privateKey, withPublicKeyLabel: account.eip55Address)
-            KeychainManager.privateKey.setValue(value: keyCipherData, key: account.eip55Address)
+            if !KeychainManager.privateKey.setValue(value: keyCipherData, key: account.eip55Address) {
+                return .failure(.wallet(.importAccountFailed))
+            }
             return .success(account)
         } catch {
-            return .failure(.wallet(.walletCreationFailed))
+            return .failure(.wallet(.importAccountFailed))
         }
     }
     
+    #warning("read accouns from core data")
     public func getAllAccounts() -> [Account] {
         return []
     }
@@ -51,9 +50,4 @@ public struct PinoNonHDWallet: PNonHDWallet {
     
 }
 
-extension PinoNonHDWallet: Equatable {
-    public static func == (lhs: PinoNonHDWallet, rhs: PinoNonHDWallet) -> Bool {
-        lhs.id == rhs.id
-    }
-}
 

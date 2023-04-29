@@ -12,9 +12,11 @@ import Web3Core
 enum WalletError: LocalizedError {
     case mnemonicGenerationFailed
     case walletCreationFailed
+    case importAccountFailed
     case accountAlreadyExists
     case accountNotFound
     case accountDeletionFailed
+    case unknownError
 }
 
 enum WalletValidatorError: LocalizedError {

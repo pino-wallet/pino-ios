@@ -40,7 +40,6 @@ public struct Account {
         guard WalletValidator.isPrivateKeyValid(key: privateKeyData) else { throw WalletOperationError.validator(.privateKeyIsInvalid) }
         let privateKey = PrivateKey(data: privateKeyData)!
         let publicKey = privateKey.getPublicKeySecp256k1(compressed: true)
-//        let publicKeyData = Utilities.privateToPublic(privateKey)
         guard WalletValidator.isPublicKeyValid(key: publicKey.data) else {
             throw WalletOperationError.validator(.publicKeyIsInvalid)
         }

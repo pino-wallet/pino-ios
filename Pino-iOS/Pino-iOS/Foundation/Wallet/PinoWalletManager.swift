@@ -9,36 +9,48 @@ import Foundation
 
 protocol WalletManagement {
     // Attributes
-    var accounts: [Account] { get set }
-    var currentAccount: Account! { get set }
+    var accounts: [Account] { get }
+    var currentAccount: Account { get }
     var walletManagementDelegate: PinoWalletDelegate? { get }
-    var currentWallet: PinoWallet! { get set }
+    var currentWallet: HDWallet? { get }
 
     // Wallet
-    mutating func createHDWallet(mnemonics: String) throws
+    func createHDWallet(mnemonics: String) -> Result<HDWallet, WalletOperationError>
     func generateMnemonics() -> String
-    func exportMnemonics(walletSeed: Data) -> String
-    func importWallet(mnemonics: String)
+    func exportMnemonics() -> String
     
     // Account
-    func deleteAccount()
-    func getAllAccounts() -> [Account]
-    func importAccount(privateKey: String)
+    func deleteAccount(account: Account) -> Result<Account, WalletOperationError>
+    func importAccount(privateKey: Data) -> Result<Account, WalletOperationError>
     func exportPrivateKey() -> Data
     func getPrivateKey(account: Account)
         
 }
 
 class PinoWalletManager: WalletManagement {
-   
-    var currentWallet: PinoWallet!
-    var secureEnclave = SecureEnclave()
-    var walletManagementDelegate: PinoWalletDelegate?
-    var hdWallet = PinoHDWallet()
-    var nonHDWallet = PinoNonHDWallet()
+    public var walletManagementDelegate: PinoWalletDelegate?
+    
+    private var secureEnclave = SecureEnclave()
+    private var pinoHDWallet = PinoHDWallet()
+    private var nonHDWallet = PinoNonHDWallet()
     
     var accounts: [Account] {
-        hdWallet.getAllAccounts() + nonHDWallet.getAllAccounts()
+        pinoHDWallet.getAllAccounts() + nonHDWallet.getAllAccounts()
+    }
+    
+    var currentWallet: HDWallet? {
+        get {
+            let decryptedSeed = exportSeedphrase(account: currentAccount)
+            switch pinoHDWallet.createHDWallet(seed: decryptedSeed) {
+            case .success(let wallet):
+                return wallet
+            case .failure(_):
+                return nil
+            }
+        }
+        set {
+            self.currentWallet = newValue
+        }
     }
     
     var currentAccount: Account {
@@ -48,26 +60,27 @@ class PinoWalletManager: WalletManagement {
         return foundAccount
     }
     
+    var fetchKey: String {
+        currentAccount.eip55Address
+    }
+    
     func generateMnemonics() -> String {
         HDWallet.generateMnemonic(seedPhraseCount: .word12)
     }
     
-    func createHDWallet(mnemonics: String) throws {
-        let hdWallet = try PinoHDWallet(mnemonics: mnemonics)
-        self.currentWallet = hdWallet
-        walletManagementDelegate?.walletCreated(wallet: hdWallet)
+    func createHDWallet(mnemonics: String) -> Result<HDWallet, WalletOperationError> {
+        let hdWallet = pinoHDWallet.createHDWallet(mnemonics: mnemonics)
+        return hdWallet
     }
     
-    func exportMnemonics(walletSeed: Data) -> String {
-        if let hdWallet = currentWallet as? PinoHDWallet {
-            return hdWallet.mnemonic
-        } else {
-            return ""
-        }
+    func exportMnemonics() -> String {
+        #warning("be careful of force unwrap")
+        return currentWallet!.mnemonic
     }
     
     func createAccount() {
-        let account = (currentWallet as! PinoHDWallet).createAccount()
+        #warning("be careful of force unwrap")
+        let account = try! pinoHDWallet.createAccountIn(wallet: currentWallet!)
         switch account {
         case .success(let account):
             print(account)
@@ -76,12 +89,12 @@ class PinoWalletManager: WalletManagement {
         }
     }
     
-    func deleteAccount() {
-        
+    public func deleteAccount(account: Account) -> Result<Account, WalletOperationError> {
+        pinoHDWallet.deleteAccount(account: account)
     }
     
-    func importAccount(privateKey: String) {
-        
+    public func importAccount(privateKey: Data) -> Result<Account, WalletOperationError> {
+        nonHDWallet.importAccount(privateKey: privateKey)
     }
     
     func exportPrivateKey() -> Data {
@@ -98,9 +111,5 @@ class PinoWalletManager: WalletManagement {
         return decryptedSeed
     }
     
-    init() {
-        accounts = []
-    }
-    
-    
+ 
 }

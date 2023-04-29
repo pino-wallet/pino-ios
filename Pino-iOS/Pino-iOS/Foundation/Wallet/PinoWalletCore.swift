@@ -10,8 +10,7 @@ import WalletCore
 import Web3Core
 
 protocol PinoWallet {
-    var id: String { get }
-    var accounts: [Account] { get set }
+    var accounts: [Account] { get }
     var secureEnclave: SecureEnclave { get }
     func accountExist(account: Account) -> Bool
     func deleteAccount(account: Account) -> Result<Account, WalletOperationError>
@@ -49,7 +48,7 @@ extension PinoWallet {
 
 
 protocol PinoWalletDelegate {
-    func walletCreated(wallet: PinoWallet)
+    func hdWalletCreated(wallet: HDWallet)
     func accountCreated(account: Account)
     func accountDeleted(account: Account)
 }
