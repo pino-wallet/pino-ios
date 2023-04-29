@@ -31,7 +31,7 @@ struct ShareOfAssetsViewModel {
 	}
 
 	public var progressBarValue: Float {
-		0.5
+		Float(assetVM.holdAmountInDollorNumber.doubleValue / totalAmount.doubleValue)
 	}
 
 	// MARK: - Initializers
