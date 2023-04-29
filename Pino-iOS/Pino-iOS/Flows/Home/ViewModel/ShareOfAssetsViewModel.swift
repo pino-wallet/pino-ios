@@ -5,26 +5,39 @@
 //  Created by Mohi Raoufi on 2/27/23.
 //
 
+import Foundation
+
 struct ShareOfAssetsViewModel {
-	public var assetModel: AssetModel!
-	public var randProgressValue = Int.random(in: 10 ... 90)
+	// MARK: - Public Properties
+
+	public var assetVM: AssetViewModel!
+	public var totalAmount: BigNumber
+
 	public var assetName: String {
-		assetModel.name
+		assetVM.name
 	}
 
-	public var assetImage: String {
-		assetModel.image
+	public var assetImage: URL {
+		assetVM.image
 	}
 
 	public var assetAmount: String {
-		"$\(assetModel.amountInDollor)"
+		"$\(assetVM.holdAmountInDollar)"
 	}
 
 	public var amountPercentage: String {
-		"\(randProgressValue)%"
+		let amountPercentage = (assetVM.holdAmountInDollorNumber * BigNumber(number: 100, decimal: 0)) / totalAmount
+		return "\(amountPercentage!.formattedAmountOf(type: .price))%"
 	}
 
 	public var progressBarValue: Float {
-		Float(randProgressValue) / 100
+		0.5
+	}
+
+	// MARK: - Initializers
+
+	init(assetVM: AssetViewModel!, totalAmount: BigNumber) {
+		self.assetVM = assetVM
+		self.totalAmount = totalAmount
 	}
 }

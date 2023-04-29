@@ -8,9 +8,14 @@
 import UIKit
 
 class PortfolioPerformanceViewController: UIViewController {
+	// MARK: - Private Properties
+
+	private let assets: [AssetViewModel]
+
 	// MARK: Initializers
 
-	init() {
+	init(assets: [AssetViewModel]) {
+		self.assets = assets
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -32,7 +37,7 @@ class PortfolioPerformanceViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		let portfolioPerformaneVM = PortfolioPerformanceViewModel()
+		let portfolioPerformaneVM = PortfolioPerformanceViewModel(assets: assets)
 		view = PortfolioPerformanceCollectionView(
 			portfolioPerformanceVM: portfolioPerformaneVM,
 			assetSelected: { selectedAsset in

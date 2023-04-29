@@ -50,7 +50,9 @@ class PortfolioPerformanceCell: GroupCollectionViewCell {
 		assetName.text = assetVM.assetName
 		assetAmount.text = assetVM.assetAmount
 		assetAmountPercentage.text = assetVM.amountPercentage
-		assetImage.image = UIImage(named: assetVM.assetImage)
+
+		assetImage.kf.indicatorType = .activity
+		assetImage.kf.setImage(with: assetVM.assetImage)
 
 		progressView.setProgress(assetVM.progressBarValue, animated: false)
 		progressView.progressTintColor = .Pino.secondaryLabel

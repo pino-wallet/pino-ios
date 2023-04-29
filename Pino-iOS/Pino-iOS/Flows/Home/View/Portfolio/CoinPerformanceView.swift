@@ -70,7 +70,9 @@ class CoinPerformanceView: UIView {
 	private func setupStyle() {
 		moreInfoTitle.text = "More info"
 		coinName.text = coinPerformanceVM.assetName
-		coinImage.image = UIImage(named: coinPerformanceVM.assetImage)
+
+		coinImage.kf.indicatorType = .activity
+		coinImage.kf.setImage(with: coinPerformanceVM.assetImage)
 
 		backgroundColor = .Pino.background
 		chartCardView.backgroundColor = .Pino.secondaryBackground

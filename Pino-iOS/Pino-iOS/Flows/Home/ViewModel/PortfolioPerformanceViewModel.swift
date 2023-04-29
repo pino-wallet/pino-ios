@@ -10,8 +10,6 @@ import Combine
 class PortfolioPerformanceViewModel {
 	// MARK: - Private Properties
 
-	#warning("Mock client is temporary and must be replaced by API client")
-	private var assetsAPIClient = AssetsAPIMockClient()
 	private var accountingAPIClient = AccountingAPIClient()
 	private var cancellables = Set<AnyCancellable>()
 
@@ -23,9 +21,9 @@ class PortfolioPerformanceViewModel {
 
 	// MARK: - Initializers
 
-	init() {
+	init(assets: [AssetViewModel]) {
 		getChartData()
-		getShareOfAssets()
+		getShareOfAssets(assets: assets)
 	}
 
 	// MARK: - Public Methods
@@ -47,16 +45,8 @@ class PortfolioPerformanceViewModel {
 
 	// MARK: - Private Methods
 
-	private func getShareOfAssets() {
-		assetsAPIClient.assets().sink { completed in
-			switch completed {
-			case .finished:
-				print("Share of assets received successfully")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { [weak self] assets in
-			self?.shareOfAssetsVM = assets.assetsList.compactMap { ShareOfAssetsViewModel(assetModel: $0) }
-		}.store(in: &cancellables)
+	private func getShareOfAssets(assets: [AssetViewModel]) {
+		let totalAmount = assets.map { $0.holdAmountInDollorNumber }.reduce(BigNumber(number: 0, decimal: 0), +)
+		shareOfAssetsVM = assets.compactMap { ShareOfAssetsViewModel(assetVM: $0, totalAmount: totalAmount) }
 	}
 }
