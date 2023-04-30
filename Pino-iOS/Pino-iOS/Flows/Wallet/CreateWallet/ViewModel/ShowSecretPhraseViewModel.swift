@@ -33,7 +33,7 @@ struct ShowSecretPhraseViewModel {
 	// MARK: - Private Methods
 
 	private mutating func generateMnemonic() {
-        let seedPhraseCount = HDWallet.SeedPhraseCount.word12
+		let seedPhraseCount = HDWallet.SeedPhraseCount.word12
 		if let newHdWallet = HDWallet(strength: seedPhraseCount.strength, passphrase: emptyPassphrase) {
 			let mnemonic = newHdWallet.mnemonic
 			secretPhraseList = mnemonic.toArray

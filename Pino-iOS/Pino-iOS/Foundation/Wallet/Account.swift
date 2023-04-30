@@ -10,67 +10,66 @@ import WalletCore
 import Web3Core
 
 public struct Account {
-    
-    public enum AccountSource {
-        case hdWallet
-        case nonHDWallet
-    }
-    
-    public var address: EthereumAddress
-    public var isActiveAccount: Bool
-    /// For Accounts derived from HDWallet
-    public var derivationPath: String?
-    public var publicKey: Data
-    public var accountSource: AccountSource
-    
-    public var eip55Address: String {
-        address.address
-    }
-    
-    init(address: String, derivationPath: String? = nil, publicKey: Data) throws {
-        guard let address = EthereumAddress(address) else { throw WalletValidatorError.addressIsInvalid }
-        self.address = address
-        self.isActiveAccount = true
-        self.derivationPath = derivationPath
-        self.publicKey = publicKey
-        self.accountSource = .hdWallet
-    }
-    
-    init(privateKeyData: Data, accountSource: AccountSource = .hdWallet) throws {
-        guard WalletValidator.isPrivateKeyValid(key: privateKeyData) else { throw WalletOperationError.validator(.privateKeyIsInvalid) }
-        let privateKey = PrivateKey(data: privateKeyData)!
-        let publicKey = privateKey.getPublicKeySecp256k1(compressed: true)
-        guard WalletValidator.isPublicKeyValid(key: publicKey.data) else {
-            throw WalletOperationError.validator(.publicKeyIsInvalid)
-        }
-        guard let address = Utilities.publicToAddress(publicKey.data) else {
-            throw WalletOperationError.validator(.addressIsInvalid)
-        }
-        self.derivationPath = nil
-        self.publicKey = publicKey.data
-        self.address = address
-        self.isActiveAccount = true
-        self.accountSource = accountSource
-    }
-    
-    init(publicKey: Data, accountSource: AccountSource = .hdWallet) throws {
-        guard WalletValidator.isPublicKeyValid(key: publicKey) else {
-            throw WalletOperationError.validator(.publicKeyIsInvalid)
-        }
-        guard let address = Utilities.publicToAddress(publicKey) else {
-            throw WalletOperationError.validator(.addressIsInvalid)
-        }
-        self.derivationPath = nil
-        self.publicKey = publicKey
-        self.address = address
-        self.isActiveAccount = true
-        self.accountSource = accountSource
-    }
-    
+	public enum AccountSource {
+		case hdWallet
+		case nonHDWallet
+	}
+
+	public var address: EthereumAddress
+	public var isActiveAccount: Bool
+	/// For Accounts derived from HDWallet
+	public var derivationPath: String?
+	public var publicKey: Data
+	public var accountSource: AccountSource
+
+	public var eip55Address: String {
+		address.address
+	}
+
+	init(address: String, derivationPath: String? = nil, publicKey: Data) throws {
+		guard let address = EthereumAddress(address) else { throw WalletValidatorError.addressIsInvalid }
+		self.address = address
+		self.isActiveAccount = true
+		self.derivationPath = derivationPath
+		self.publicKey = publicKey
+		self.accountSource = .hdWallet
+	}
+
+	init(privateKeyData: Data, accountSource: AccountSource = .hdWallet) throws {
+		guard WalletValidator.isPrivateKeyValid(key: privateKeyData)
+		else { throw WalletOperationError.validator(.privateKeyIsInvalid) }
+		let privateKey = PrivateKey(data: privateKeyData)!
+		let publicKey = privateKey.getPublicKeySecp256k1(compressed: true)
+		guard WalletValidator.isPublicKeyValid(key: publicKey.data) else {
+			throw WalletOperationError.validator(.publicKeyIsInvalid)
+		}
+		guard let address = Utilities.publicToAddress(publicKey.data) else {
+			throw WalletOperationError.validator(.addressIsInvalid)
+		}
+		self.derivationPath = nil
+		self.publicKey = publicKey.data
+		self.address = address
+		self.isActiveAccount = true
+		self.accountSource = accountSource
+	}
+
+	init(publicKey: Data, accountSource: AccountSource = .hdWallet) throws {
+		guard WalletValidator.isPublicKeyValid(key: publicKey) else {
+			throw WalletOperationError.validator(.publicKeyIsInvalid)
+		}
+		guard let address = Utilities.publicToAddress(publicKey) else {
+			throw WalletOperationError.validator(.addressIsInvalid)
+		}
+		self.derivationPath = nil
+		self.publicKey = publicKey
+		self.address = address
+		self.isActiveAccount = true
+		self.accountSource = accountSource
+	}
 }
 
 extension Account: Equatable {
-    public static func == (lhs: Account, rhs: Account) -> Bool {
-        lhs.address == rhs.address
-    }
+	public static func == (lhs: Account, rhs: Account) -> Bool {
+		lhs.address == rhs.address
+	}
 }

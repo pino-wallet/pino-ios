@@ -20,20 +20,20 @@ class HomepageViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-        
-        let walletManager = PinoWalletManager()
-//        let mnemonics = HDWallet.generateMnemonic(seedPhraseCount: .word12)
-        let mnemonics = "leader prosper walk brush peasant trial assist mystery good whip wear disorder"
-        print(mnemonics)
-//        do {
-//            do {
-//                try walletManager.createHDWallet(mnemonics: mnemonics)
-//                print(walletManager.currentWallet.accounts)
-//            } catch {
-//                print(error)
-//            }
+
+		let walletManager = PinoWalletManager()
+		//        let mnemonics = HDWallet.generateMnemonic(seedPhraseCount: .word12)
+		let mnemonics = "leader prosper walk brush peasant trial assist mystery good whip wear disorder"
+		print(mnemonics)
+		//        do {
+		//            do {
+		//                try walletManager.createHDWallet(mnemonics: mnemonics)
+		//                print(walletManager.currentWallet.accounts)
+		//            } catch {
+		//                print(error)
+		//            }
 //
-//        }
+		//        }
 	}
 
 	override func viewDidLayoutSubviews() {

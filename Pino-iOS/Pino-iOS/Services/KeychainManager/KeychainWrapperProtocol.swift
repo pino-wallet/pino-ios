@@ -16,6 +16,6 @@ public protocol KeychainWrapper {
 		forKey key: String,
 		withAccess access: KeychainSwiftAccessOptions?
 	) -> Bool
-    
+
 	func delete(_ key: String) -> Bool
 }

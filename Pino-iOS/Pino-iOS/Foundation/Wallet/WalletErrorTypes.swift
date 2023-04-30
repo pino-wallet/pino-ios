@@ -9,32 +9,32 @@ import Foundation
 import WalletCore
 import Web3Core
 
-enum WalletError: LocalizedError {
-    case mnemonicGenerationFailed
-    case walletCreationFailed
-    case importAccountFailed
-    case accountAlreadyExists
-    case accountNotFound
-    case accountDeletionFailed
-    case unknownError
+public enum WalletError: LocalizedError {
+	case mnemonicGenerationFailed
+	case walletCreationFailed
+	case importAccountFailed
+	case accountAlreadyExists
+	case accountNotFound
+	case accountDeletionFailed
+	case unknownError
 }
 
-enum WalletValidatorError: LocalizedError {
-    case privateKeyIsInvalid
-    case publicKeyIsInvalid
-    case addressIsInvalid
-    case seedIsInvalid
-    case mnemonicIsInvalid
+public enum WalletValidatorError: LocalizedError {
+	case privateKeyIsInvalid
+	case publicKeyIsInvalid
+	case addressIsInvalid
+	case seedIsInvalid
+	case mnemonicIsInvalid
 }
 
-enum KeyManagementError: LocalizedError {
-    case seedStorageFailed
-    case privateKeyStorageFailed
-    case publicKeyStorageFailed
+public enum KeyManagementError: LocalizedError {
+	case seedStorageFailed
+	case privateKeyStorageFailed
+	case publicKeyStorageFailed
 }
 
-enum WalletOperationError: LocalizedError {
-    case wallet(WalletError)
-    case validator(WalletValidatorError)
-    case keyManager(KeyManagementError)
+public enum WalletOperationError: LocalizedError {
+	case wallet(WalletError)
+	case validator(WalletValidatorError)
+	case keyManager(KeyManagementError)
 }

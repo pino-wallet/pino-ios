@@ -10,47 +10,47 @@ import WalletCore
 import Web3Core
 
 protocol PinoWallet {
-    var accounts: [Account] { get }
-    var secureEnclave: SecureEnclave { get }
-    func accountExist(account: Account) -> Bool
-    func deleteAccount(account: Account) -> Result<Account, WalletOperationError>
-    func encryptPrivateKey(_ key: Data, forAccount account: Account) -> Data
-    func decryptPrivateKey(fromEncryptedData encryptedData: Data, forAccount account: Account) -> Data
+	var accounts: [Account] { get }
+	func accountExist(account: Account) -> Bool
+	func deleteAccount(account: Account) -> Result<Account, WalletOperationError>
+	func encryptPrivateKey(_ key: Data, forAccount account: Account) -> Data
+	func decryptPrivateKey(fromEncryptedData encryptedData: Data, forAccount account: Account) -> Data
+	func getAllAccounts() -> [Account]
+	func addNewAccount(_ account: Account)
 }
 
 extension PinoWallet {
-   
-    func accountExist(account: Account) -> Bool {
-        accounts.contains(where: { $0 == account })
-    }
-    
-    func deleteAccount(account: Account) -> Result<Account, WalletOperationError> {
-        guard let deletingAccount = accounts.first(where: { $0 == account }) else {
-            return .failure(.wallet(.accountNotFound))
-        }
-        if KeychainManager.privateKey.deleteValueWith(key: deletingAccount.eip55Address) {
-            return .success(deletingAccount)
-        } else {
-            return .failure(.wallet(.accountDeletionFailed))
-        }
-    }
-    
-    func encryptPrivateKey(_ key: Data, forAccount account: Account) -> Data {
-        secureEnclave.encrypt(plainData: key, withPublicKeyLabel: KeychainManager.privateKey.getKey(account: account))
+	fileprivate var secureEnclave: SecureEnclave {
+		.init()
+	}
 
-    }
-    
-    func decryptPrivateKey(fromEncryptedData encryptedData: Data, forAccount account: Account) -> Data {
-        secureEnclave.decrypt(cipherData: encryptedData, withPublicKeyLabel: KeychainManager.privateKey.getKey(account: account))
-    }
-    
+	// MARK: - Public Methods
+
+	public func accountExist(account: Account) -> Bool {
+		accounts.contains(where: { $0 == account })
+	}
+
+	public func deleteAccount(account: Account) -> Result<Account, WalletOperationError> {
+		guard let deletingAccount = accounts.first(where: { $0 == account }) else {
+			return .failure(.wallet(.accountNotFound))
+		}
+		if KeychainManager.privateKey.deleteValueWith(key: deletingAccount.eip55Address) {
+			return .success(deletingAccount)
+		} else {
+			return .failure(.wallet(.accountDeletionFailed))
+		}
+	}
+
+	// MARK: - Private Methods
+
+	internal func encryptPrivateKey(_ key: Data, forAccount account: Account) -> Data {
+		secureEnclave.encrypt(plainData: key, withPublicKeyLabel: KeychainManager.privateKey.getKey(account: account))
+	}
+
+	internal func decryptPrivateKey(fromEncryptedData encryptedData: Data, forAccount account: Account) -> Data {
+		secureEnclave.decrypt(
+			cipherData: encryptedData,
+			withPublicKeyLabel: KeychainManager.privateKey.getKey(account: account)
+		)
+	}
 }
-
-
-protocol PinoWalletDelegate {
-    func hdWalletCreated(wallet: HDWallet)
-    func accountCreated(account: Account)
-    func accountDeleted(account: Account)
-}
-
-
