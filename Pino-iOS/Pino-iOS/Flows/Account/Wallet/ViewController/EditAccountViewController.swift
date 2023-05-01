@@ -5,19 +5,25 @@
 //  Created by Mohi Raoufi on 2/14/23.
 //
 
+import Combine
 import UIKit
 
 class EditAccountViewController: UIViewController {
 	// MARK: Private Properties
 
-	private let walletVM: WalletsViewModel
-	private let selectedWallet: WalletInfoViewModel
+	private var selectedWallet: WalletInfoViewModel
+
+	private let walletsVM: WalletsViewModel
+
+	private let editAccountVM = EditAccountViewModel()
+	private var cancellables = Set<AnyCancellable>()
+
 	private var editAccountView: EditAccountView!
 
 	// MARK: Initializers
 
-	init(walletVM: WalletsViewModel, selectedWallet: WalletInfoViewModel) {
-		self.walletVM = walletVM
+	init(walletsVM: WalletsViewModel, selectedWallet: WalletInfoViewModel) {
+		self.walletsVM = walletsVM
 		self.selectedWallet = selectedWallet
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -35,21 +41,26 @@ class EditAccountViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
+		setupBinding()
 	}
 
 	// MARK: - Private Methods
 
 	private func setupView() {
 		editAccountView = EditAccountView(
-			walletVM: selectedWallet,
-			newAvatarTapped: { [weak self] in
+			editAccountVM: editAccountVM,
+			selectedWalletVM: selectedWallet,
+			openAvatarPage: { [weak self] in
 				self?.openAvatarPage()
 			},
-			navigateToRemoveAccountPageClosure: { [weak self] in
+			openRemoveAccount: { [weak self] in
 				self?.openRemoveAccountPage()
 			},
-			showPrivateKeyTapped: {
-				self.openRevealPrivateKey()
+			openRevealPrivateKey: { [weak self] in
+				self?.openRevealPrivateKey()
+			},
+			openEditWalletNameClosure: { [weak self] in
+				self?.openEditWalletName()
 			}
 		)
 		view = editAccountView
@@ -58,10 +69,10 @@ class EditAccountViewController: UIViewController {
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
 		// Setup title view
-		setNavigationTitle("Edit account")
+		setNavigationTitle(editAccountVM.pageTitle)
 		// Setup add asset button
 		navigationItem.rightBarButtonItem = UIBarButtonItem(
-			title: "Done",
+			title: editAccountVM.doneButtonText,
 			style: .plain,
 			target: self,
 			action: #selector(saveChanges)
@@ -70,29 +81,18 @@ class EditAccountViewController: UIViewController {
 
 	@objc
 	private func saveChanges() {
-		if let newName = editAccountView.walletNameTextFieldView.getText() {
-			let newAvatar = editAccountView.newAvatar
-			let builder = WalletBuilder(walletInfo: selectedWallet)
-			if selectedWallet.name != newName {
-				builder.setProfileName(newName)
-			}
-			if selectedWallet.profileImage != newAvatar {
-				builder.setProfileImage(newAvatar)
-			}
-			if selectedWallet.profileColor != newAvatar {
-				builder.setProfileColor(newAvatar)
-			}
-			walletVM.editWallet(newWallet: builder.build())
-			navigationController!.popViewController(animated: true)
-		} else {
-			editAccountView.walletNameTextFieldView.style = .error
-		}
+		dismiss(animated: true)
 	}
 
 	private func openAvatarPage() {
 		let avatarVM = AvatarViewModel(selectedAvatar: selectedWallet.profileImage)
-		let changeAvatarVC = ChangeAvatarViewController(avatarVM: avatarVM) { avatarName in
-			self.editAccountView.newAvatar = avatarName
+		let changeAvatarVC = ChangeAvatarViewController(avatarVM: avatarVM) { [weak self] avatarName in
+			if self?.selectedWallet.profileImage != avatarName {
+				let newWallet = WalletBuilder(walletInfo: self!.selectedWallet)
+				newWallet.setProfileImage(avatarName)
+				newWallet.setProfileColor(avatarName)
+				self?.walletsVM.editWallet(newWallet: newWallet.build())
+			}
 		}
 		navigationController?.pushViewController(changeAvatarVC, animated: true)
 	}
@@ -108,12 +108,25 @@ class EditAccountViewController: UIViewController {
 	}
 
 	private func removeWallet() {
-		walletVM.removeWallet(selectedWallet)
+		walletsVM.removeWallet(selectedWallet)
 		navigationController!.popViewController(animated: true)
 	}
 
 	private func openRevealPrivateKey() {
 		let revaelPrivateKeyVC = RevealPrivateKeyViewController()
 		navigationController?.pushViewController(revaelPrivateKeyVC, animated: true)
+	}
+
+	private func openEditWalletName() {
+		let editWalletNameVC = EditWalletNameViewController(selectedWalletVM: selectedWallet, walletsVM: walletsVM)
+		navigationController?.pushViewController(editWalletNameVC, animated: true)
+	}
+
+	private func setupBinding() {
+		walletsVM.$walletsList.sink { [weak self] walletsList in
+			let updatedSelectAsset = walletsList?.first(where: { $0.id == self?.selectedWallet.id })
+			self?.editAccountView.selectedWalletVM = updatedSelectAsset!
+			self?.selectedWallet = updatedSelectAsset!
+		}.store(in: &cancellables)
 	}
 }

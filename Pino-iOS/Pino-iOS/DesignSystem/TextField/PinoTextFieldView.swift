@@ -79,7 +79,7 @@ public class PinoTextFieldView: UIView {
 	// MARK: - Public Methods
 
 	public func isEmpty() -> Bool {
-		textField.text == nil || textField.text == ""
+		textField.text == nil || textField.text?.trimmingCharacters(in: .whitespaces).isEmpty ?? false
 	}
 
 	public func getText() -> String? {

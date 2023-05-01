@@ -2,153 +2,109 @@
 //  EditAccountView.swift
 //  Pino-iOS
 //
-//  Created by Mohi Raoufi on 2/14/23.
+//  Created by Amir hossein kazemi seresht on 4/30/23.
 //
 
 import Combine
 import UIKit
 
 class EditAccountView: UIView {
-	// MARK: - Closure
+	// MARK: - Closures
 
-	public var navigateToRemoveAccountPageClosure: () -> Void
-
-	// MARK: - Private Properties
-
-	private let walletInfoStackview = UIStackView()
-	private let walletAvatarStackView = UIStackView()
-	private let avatarBackgroundView = UIView()
-	private let walletAvatar = UIImageView()
-	private let setAvatarButton = UILabel()
-	private let privateKeyStackView = UIStackView()
-	private let privateKeyButton = PinoButton(style: .secondary)
-	private let removeAccountButton = UIButton()
-	private let walletVM: WalletInfoViewModel
-	private let newAvatarTapped: () -> Void
-	private var cancellables = Set<AnyCancellable>()
-	private let showPrivateKeyTapped: () -> Void
+	public var openAvatarPage: () -> Void
+	public var openRevealPrivateKey: () -> Void
+	public var openRemoveAccount: () -> Void
+	public let openEditWalletNameClosure: () -> Void
 
 	// MARK: - Public Properties
 
+	public var editAccountVM: EditAccountViewModel
 	@Published
-	public var newAvatar: String
-	public let walletNameTextFieldView = PinoTextFieldView(style: .normal)
+	public var selectedWalletVM: WalletInfoViewModel
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
 	init(
-		walletVM: WalletInfoViewModel,
-		newAvatarTapped: @escaping () -> Void,
-		navigateToRemoveAccountPageClosure: @escaping () -> Void,
-		showPrivateKeyTapped: @escaping () -> Void
+		editAccountVM: EditAccountViewModel,
+		selectedWalletVM: WalletInfoViewModel,
+		openAvatarPage: @escaping () -> Void,
+		openRemoveAccount: @escaping () -> Void,
+		openRevealPrivateKey: @escaping () -> Void,
+		openEditWalletNameClosure: @escaping () -> Void
 	) {
-		self.newAvatarTapped = newAvatarTapped
-		self.walletVM = walletVM
-		self.newAvatar = walletVM.profileImage
-		self.navigateToRemoveAccountPageClosure = navigateToRemoveAccountPageClosure
-		self.showPrivateKeyTapped = showPrivateKeyTapped
+		self.openAvatarPage = openAvatarPage
+		self.openRevealPrivateKey = openRevealPrivateKey
+		self.editAccountVM = editAccountVM
+		self.selectedWalletVM = selectedWalletVM
+		self.openRemoveAccount = openRemoveAccount
+		self.openEditWalletNameClosure = openEditWalletNameClosure
 		super.init(frame: .zero)
+
 		setupView()
-		setupStyle()
-		setupConstraint()
-		setupBindings()
+		setupStyles()
+		setupConstraints()
+		setupBinding()
 	}
 
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - Private Properties
+
+	private var editAccountCollectionView: EditAccountCollectionView!
+	private let removeAccountButton = PinoButton(style: .remove, title: "")
+
 	// MARK: - Private Methods
 
 	private func setupView() {
-		walletInfoStackview.addArrangedSubview(walletAvatarStackView)
-		walletInfoStackview.addArrangedSubview(walletNameTextFieldView)
-		walletAvatarStackView.addArrangedSubview(avatarBackgroundView)
-		walletAvatarStackView.addArrangedSubview(setAvatarButton)
-		privateKeyStackView.addArrangedSubview(privateKeyButton)
-		privateKeyStackView.addArrangedSubview(removeAccountButton)
-		avatarBackgroundView.addSubview(walletAvatar)
-		addSubview(walletInfoStackview)
-		addSubview(privateKeyStackView)
+		editAccountCollectionView = EditAccountCollectionView(
+			editAccountVM: editAccountVM,
+			walletVM: selectedWalletVM,
+			newAvatarTappedClosure: { [weak self] in
+				self?.openAvatarPage()
+			},
+			openRevealPrivateKeyClosure: { [weak self] in
+				self?.openRevealPrivateKey()
+			},
+			openEditWalletNameClosure: { [weak self] in
+				self?.openEditWalletNameClosure()
+			}
+		)
 
-		walletAvatarStackView
-			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(setNewAvatar)))
-		privateKeyButton.addAction(UIAction(handler: { _ in
-			self.showPrivateKeyTapped()
-		}), for: .touchUpInside)
+		removeAccountButton.addTarget(self, action: #selector(openRemoveAccountPage), for: .touchUpInside)
+
+		addSubview(editAccountCollectionView)
+		addSubview(removeAccountButton)
 	}
 
-	private func setupStyle() {
-		walletNameTextFieldView.text = walletVM.name
-		walletNameTextFieldView.errorText = "Please enter wallet's name!"
-		setAvatarButton.text = "Set new avatar"
-		privateKeyButton.title = "Show private key"
-		removeAccountButton.setTitle("Remove account", for: .normal)
-		removeAccountButton.addTarget(self, action: #selector(navigateToRemoveAccountPage), for: .touchUpInside)
-		walletAvatar.image = UIImage(named: walletVM.profileImage)
-		privateKeyButton.setImage(UIImage(named: "private_key"), for: .normal)
-		privateKeyButton.setConfiguraton(font: .PinoStyle.semiboldBody!, imagePadding: 10)
-
+	private func setupStyles() {
 		backgroundColor = .Pino.background
-		avatarBackgroundView.backgroundColor = UIColor(named: walletVM.profileColor)
-		setAvatarButton.textColor = .Pino.blue
-		removeAccountButton.setTitleColor(.Pino.red, for: .normal)
 
-		removeAccountButton.titleLabel?.font = .PinoStyle.semiboldBody
-
-		walletInfoStackview.axis = .vertical
-		walletAvatarStackView.axis = .vertical
-		privateKeyStackView.axis = .vertical
-
-		walletAvatarStackView.alignment = .center
-		walletInfoStackview.alignment = .center
-
-		walletInfoStackview.spacing = 21
-		walletAvatarStackView.spacing = 14
-		privateKeyStackView.spacing = 48
-
-		avatarBackgroundView.layer.cornerRadius = 44
-
-		walletNameTextFieldView.textDidChange = {
-			self.walletNameTextFieldView.style = .normal
-		}
+		removeAccountButton.setTitle(editAccountVM.removeAccountButtonTitle, for: .normal)
 	}
 
-	private func setupConstraint() {
-		walletInfoStackview.pin(
-			.top(padding: 82),
-			.horizontalEdges(padding: 16)
-		)
-		avatarBackgroundView.pin(
-			.fixedHeight(88),
-			.fixedWidth(88)
-		)
-		walletAvatar.pin(
-			.allEdges(padding: 16)
-		)
-		privateKeyStackView.pin(
-			.bottom(padding: 48),
-			.horizontalEdges(padding: 16)
-		)
-		walletNameTextFieldView.pin(
-			.horizontalEdges
-		)
+	private func setupConstraints() {
+		editAccountCollectionView.pin(.horizontalEdges(padding: 0), .top(padding: 0), .bottom(padding: 100))
+		removeAccountButton.pin(.horizontalEdges(padding: 16), .bottom(padding: 32))
 	}
 
-	private func setupBindings() {
-		$newAvatar.sink { avatar in
-			self.walletAvatar.image = UIImage(named: avatar)
-			self.avatarBackgroundView.backgroundColor = UIColor(named: avatar)
+	private func setupBinding() {
+		$selectedWalletVM.sink { [weak self] selectedWallet in
+			self?.editAccountCollectionView.selectedWalletVM = selectedWallet
+			self?.editAccountCollectionView.reloadData()
 		}.store(in: &cancellables)
 	}
 
 	@objc
-	private func setNewAvatar() {
-		newAvatarTapped()
+	private func openRemoveAccountPage() {
+		openRemoveAccount()
 	}
+}
 
-	@objc
-	private func navigateToRemoveAccountPage() {
-		navigateToRemoveAccountPageClosure()
+extension PinoButton.Style {
+	fileprivate static var remove: PinoButton.Style {
+		PinoButton.Style(titleColor: .Pino.red, backgroundColor: .Pino.white, borderColor: .Pino.white)
 	}
 }
