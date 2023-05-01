@@ -32,7 +32,7 @@ class CoinPerformanceViewModel {
 	init(selectedAsset: ShareOfAssetsViewModel) {
 		self.selectedAsset = selectedAsset
 		self.assetName = selectedAsset.assetName
-		self.assetImage = selectedAsset.assetImage
+		self.assetImage = selectedAsset.assetImage!
 		getChartData()
 		setupBindings()
 	}

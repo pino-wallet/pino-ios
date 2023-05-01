@@ -41,7 +41,11 @@ class PortfolioPerformanceViewController: UIViewController {
 		view = PortfolioPerformanceCollectionView(
 			portfolioPerformanceVM: portfolioPerformaneVM,
 			assetSelected: { selectedAsset in
-				self.openCoinPerformancePage(selectedAsset: selectedAsset)
+				if let selectedAsset = selectedAsset as? ShareOfAssetsViewModel {
+					self.openCoinPerformancePage(selectedAsset: selectedAsset)
+				} else {
+					// Open others page if nedded
+				}
 			}
 		)
 	}

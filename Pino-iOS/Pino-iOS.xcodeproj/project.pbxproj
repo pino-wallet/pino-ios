@@ -320,6 +320,9 @@
 		E34728F129EEA81000AB8265 /* AssetChartDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34728F029EEA81000AB8265 /* AssetChartDataViewModel.swift */; };
 		E351A72729F5247000635715 /* ChartDateBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E351A72629F5247000635715 /* ChartDateBuilder.swift */; };
 		E384CB1229F6A931009C74F5 /* CoinPerformanceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E384CB1129F6A931009C74F5 /* CoinPerformanceInfoView.swift */; };
+		E384CB1629FFABAB009C74F5 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E384CB1529FFABAB009C74F5 /* Double+Extension.swift */; };
+		E384CB1829FFADA0009C74F5 /* ShareOfAssetProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E384CB1729FFADA0009C74F5 /* ShareOfAssetProtocol.swift */; };
+		E384CB1A29FFADE9009C74F5 /* OtherShareOfAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E384CB1929FFADE9009C74F5 /* OtherShareOfAssetsViewModel.swift */; };
 		E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D680E48001C060BADD248 /* EndpointType.swift */; };
 		E4BC1D70FBAF66825B9358E7 /* LockMethodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386676E7E643B6AB252A5653 /* LockMethodModel.swift */; };
 		E4FF2E5E60CA74F3324945A8 /* CoinInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D5774D76FC507F8B176185 /* CoinInfoViewModel.swift */; };
@@ -668,6 +671,9 @@
 		E34728F029EEA81000AB8265 /* AssetChartDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetChartDataViewModel.swift; sourceTree = "<group>"; };
 		E351A72629F5247000635715 /* ChartDateBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDateBuilder.swift; sourceTree = "<group>"; };
 		E384CB1129F6A931009C74F5 /* CoinPerformanceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceInfoView.swift; sourceTree = "<group>"; };
+		E384CB1529FFABAB009C74F5 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
+		E384CB1729FFADA0009C74F5 /* ShareOfAssetProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOfAssetProtocol.swift; sourceTree = "<group>"; };
+		E384CB1929FFADE9009C74F5 /* OtherShareOfAssetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherShareOfAssetsViewModel.swift; sourceTree = "<group>"; };
 		E40D0AB7515630563347CBDA /* CoinPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceViewController.swift; sourceTree = "<group>"; };
 		E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetViewModel.swift; sourceTree = "<group>"; };
 		E5039C2C00BEB653F3B0D399 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -1196,6 +1202,7 @@
 				DEA3FFE35308EBEC961CD7BF /* UIView.swift */,
 				0C18443FFB775271061875D9 /* URLRequest+Extension.swift */,
 				B33656AE9BB6138666D2E679 /* ViewController+Extension.swift */,
+				E384CB1529FFABAB009C74F5 /* Double+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1810,17 +1817,14 @@
 		D8BCC2D34E5C52A36E084E91 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				E384CB1429FF9346009C74F5 /* Portfolio */,
 				E34728EE29E7DDE800AB8265 /* HomepageViewModel */,
 				D99F4B1F29E2C405009F7F55 /* ReceiveViewModels */,
 				B596DBDA65A59B498030E742 /* AddCustomAssetViewModel.swift */,
 				91253F27E551525F01C51F04 /* AssetViewModel.swift */,
-				F77EE6734CEDAE75B2EDBEE5 /* CoinPerformanceInfoViewModel.swift */,
-				769C35FFBDE24FB0BF817BDF /* CoinPerformanceViewModel.swift */,
 				BBEC2EBFE1F49130DE1B36E3 /* CustomAssetInfoViewModel.swift */,
 				E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */,
-				E5D4FFBB4CC6D342FF946AB9 /* PortfolioPerformanceViewModel.swift */,
 				79BCB139B9DD46E47FA2E234 /* SecurityModeProtocol.swift */,
-				6721806A1540B888590AFF4C /* ShareOfAssetsViewModel.swift */,
 				4E6325D0E27CD114807676AB /* WalletBalanceViewModel.swift */,
 				9EA3E5DF9FE696BD1307327F /* WalletInfoViewModel.swift */,
 			);
@@ -1925,6 +1929,19 @@
 				98D7CE3AA42604B8F78EA87C /* GroupCollectionViewCell.swift */,
 			);
 			path = GroupCollectionView;
+			sourceTree = "<group>";
+		};
+		E384CB1429FF9346009C74F5 /* Portfolio */ = {
+			isa = PBXGroup;
+			children = (
+				6721806A1540B888590AFF4C /* ShareOfAssetsViewModel.swift */,
+				E5D4FFBB4CC6D342FF946AB9 /* PortfolioPerformanceViewModel.swift */,
+				769C35FFBDE24FB0BF817BDF /* CoinPerformanceViewModel.swift */,
+				F77EE6734CEDAE75B2EDBEE5 /* CoinPerformanceInfoViewModel.swift */,
+				E384CB1729FFADA0009C74F5 /* ShareOfAssetProtocol.swift */,
+				E384CB1929FFADE9009C74F5 /* OtherShareOfAssetsViewModel.swift */,
+			);
+			path = Portfolio;
 			sourceTree = "<group>";
 		};
 		E592A8E4290E95A67BA5D5CF /* Home */ = {
@@ -2420,6 +2437,7 @@
 				8F54F4F399FE38DC1B1FDEED /* InfoActionSheet.swift in Sources */,
 				98D92FBB51CC774F95B06CB8 /* IntroCollectionView.swift in Sources */,
 				0CDD5B1CF93FCD04F68CC1C9 /* IntroCollectionViewCell.swift in Sources */,
+				E384CB1629FFABAB009C74F5 /* Double+Extension.swift in Sources */,
 				FC0D80A069760DC032C1B9D6 /* IntroModel.swift in Sources */,
 				FDEF1CFCCEFF7401C0A664FD /* IntroView.swift in Sources */,
 				CC788E5AD6EC8CE9488DA049 /* IntroViewController.swift in Sources */,
@@ -2434,6 +2452,7 @@
 				0A7A1624380B55CB1876A9B2 /* SecurityOptionModel.swift in Sources */,
 				1F88E4148A66AB6442600B4D /* SecurityOptionViewModel.swift in Sources */,
 				3FB363922C364DE0175B075E /* SecurityOptionsCollectionView.swift in Sources */,
+				E384CB1A29FFADE9009C74F5 /* OtherShareOfAssetsViewModel.swift in Sources */,
 				8BF8943C4316B64F59BC29DC /* SecurityOptionsFooter.swift in Sources */,
 				066B803BA2A7039F8168FAB2 /* SecurityOptionsSection.swift in Sources */,
 				EFCE871CCDF8A29DA4F8950F /* ManageAssetCell.swift in Sources */,
@@ -2521,6 +2540,7 @@
 				92BC3A7553A87622AD6F640E /* ShowSecretPhraseViewModel.swift in Sources */,
 				3836332BCEDEABE67456B3D1 /* StatusCode+Helper.swift in Sources */,
 				F29B5E085D9D0D99354034C9 /* StringProtocol+Extension.swift in Sources */,
+				E384CB1829FFADA0009C74F5 /* ShareOfAssetProtocol.swift in Sources */,
 				138F82B48C2B07891AF13F38 /* StubManager.swift in Sources */,
 				7DD0703DDA2759A33DB4F582 /* SuggestedSeedPhraseCell.swift in Sources */,
 				87D5D64B10D301DA28F383FE /* SuggestedSeedPhraseCollectionView.swift in Sources */,
