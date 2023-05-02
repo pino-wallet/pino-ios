@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ShareOfAssetsViewModel: ShareOfAssets {
+struct ShareOfAssetsViewModel: ShareOfAssetsProtocol {
 	// MARK: - Public Properties
 
 	public var assetVM: AssetViewModel

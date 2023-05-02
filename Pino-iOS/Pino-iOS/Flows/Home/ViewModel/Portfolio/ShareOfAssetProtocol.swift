@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ShareOfAssets {
+protocol ShareOfAssetsProtocol {
 	var holdAmount: Double { get set }
 	var totalAmount: Double { get set }
 	var assetAmount: String { get }
@@ -18,7 +18,7 @@ protocol ShareOfAssets {
 	var othersImage: String { get }
 }
 
-extension ShareOfAssets {
+extension ShareOfAssetsProtocol {
 	var assetAmount: String {
 		"$\(holdAmount.roundToPlaces(2))"
 	}

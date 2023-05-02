@@ -17,7 +17,7 @@ class PortfolioPerformanceViewModel {
 
 	@Published
 	public var chartVM: AssetChartViewModel?
-	public var shareOfAssetsVM: [ShareOfAssets]!
+	public var shareOfAssetsVM: [ShareOfAssetsProtocol]!
 
 	// MARK: - Initializers
 
@@ -51,13 +51,13 @@ class PortfolioPerformanceViewModel {
 			.sorted { Double($0.holdAmountInDollar)! > Double($1.holdAmountInDollar)! }
 		let totalAmount = userAssets.compactMap { Double($0.holdAmountInDollar) }.reduce(0.0, +)
 		shareOfAssetsVM = userAssets.prefix(10).compactMap {
-            ShareOfAssetsViewModel(assetVM: $0, totalAmount: totalAmount)
-        }
+			ShareOfAssetsViewModel(assetVM: $0, totalAmount: totalAmount)
+		}
 		if userAssets.count > 10 {
 			shareOfAssetsVM.append(OtherShareOfAssetsViewModel(
-					assetsVM: Array(userAssets.suffix(from: 10)),
-					totalAmount: totalAmount
-				))
+				assetsVM: Array(userAssets.suffix(from: 10)),
+				totalAmount: totalAmount
+			))
 		}
 	}
 }

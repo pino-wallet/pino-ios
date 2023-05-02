@@ -24,7 +24,7 @@ class PortfolioPerformanceCell: GroupCollectionViewCell {
 
 	public static let cellReuseID = "portfolioPerformanceCell"
 
-	public var assetVM: ShareOfAssets! {
+	public var assetVM: ShareOfAssetsProtocol! {
 		didSet {
 			setupView()
 			setupStyle()
