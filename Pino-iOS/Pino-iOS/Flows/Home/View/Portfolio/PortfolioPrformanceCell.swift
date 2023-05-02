@@ -24,7 +24,7 @@ class PortfolioPerformanceCell: GroupCollectionViewCell {
 
 	public static let cellReuseID = "portfolioPerformanceCell"
 
-	public var assetVM: ShareOfAssetsViewModel! {
+	public var assetVM: ShareOfAssetsProtocol! {
 		didSet {
 			setupView()
 			setupStyle()
@@ -50,7 +50,13 @@ class PortfolioPerformanceCell: GroupCollectionViewCell {
 		assetName.text = assetVM.assetName
 		assetAmount.text = assetVM.assetAmount
 		assetAmountPercentage.text = assetVM.amountPercentage
-		assetImage.image = UIImage(named: assetVM.assetImage)
+
+		if let assetImageURL = assetVM.assetImage {
+			assetImage.kf.indicatorType = .activity
+			assetImage.kf.setImage(with: assetImageURL)
+		} else {
+			assetImage.image = UIImage(named: assetVM.othersImage)
+		}
 
 		progressView.setProgress(assetVM.progressBarValue, animated: false)
 		progressView.progressTintColor = .Pino.secondaryLabel

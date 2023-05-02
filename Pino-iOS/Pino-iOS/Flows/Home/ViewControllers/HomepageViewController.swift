@@ -115,7 +115,8 @@ class HomepageViewController: UIViewController {
 	}
 
 	private func openPortfolioPage() {
-		let portfolioPerformanceVC = PortfolioPerformanceViewController()
+		guard let assets = homeVM.manageAssetsList else { return }
+		let portfolioPerformanceVC = PortfolioPerformanceViewController(assets: assets)
 		portfolioPerformanceVC.modalPresentationStyle = .automatic
 		let navigationVC = UINavigationController(rootViewController: portfolioPerformanceVC)
 		present(navigationVC, animated: true)

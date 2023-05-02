@@ -57,7 +57,7 @@ struct AssetChartViewModel {
 	public func valueChangePercentage(pointValue: Double, previousValue: Double?) -> Double {
 		if let previousValue, previousValue != 0 {
 			let changePercentage = ((pointValue - previousValue) / previousValue) * 100
-			return round(changePercentage * 100) / 100
+			return changePercentage.roundToPlaces(2)
 		} else {
 			return 0
 		}

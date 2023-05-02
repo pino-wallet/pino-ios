@@ -6,6 +6,7 @@
 //
 import Charts
 import Combine
+import Foundation
 
 class CoinPerformanceViewModel {
 	// MARK: - Private Properties
@@ -17,7 +18,7 @@ class CoinPerformanceViewModel {
 	// MARK: - Public Properties
 
 	public let assetName: String
-	public let assetImage: String
+	public let assetImage: URL
 	public let netProfitTitle = "Net profit"
 	public let allTimeHighTitle = "ATH"
 	public let allTimeLowTitle = "ATL"
@@ -31,7 +32,7 @@ class CoinPerformanceViewModel {
 	init(selectedAsset: ShareOfAssetsViewModel) {
 		self.selectedAsset = selectedAsset
 		self.assetName = selectedAsset.assetName
-		self.assetImage = selectedAsset.assetImage
+		self.assetImage = selectedAsset.assetImage!
 		getChartData()
 		setupBindings()
 	}

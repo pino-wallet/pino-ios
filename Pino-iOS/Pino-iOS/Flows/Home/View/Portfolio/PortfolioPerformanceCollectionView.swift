@@ -14,13 +14,13 @@ class PortfolioPerformanceCollectionView: UICollectionView {
 
 	// MARK: Public Properties
 
-	public var assetSelected: (ShareOfAssetsViewModel) -> Void
+	public var assetSelected: (ShareOfAssetsProtocol) -> Void
 
 	// MARK: Initializers
 
 	init(
 		portfolioPerformanceVM: PortfolioPerformanceViewModel,
-		assetSelected: @escaping (ShareOfAssetsViewModel) -> Void
+		assetSelected: @escaping (ShareOfAssetsProtocol) -> Void
 	) {
 		self.portfolioPerformanceVM = portfolioPerformanceVM
 		self.assetSelected = assetSelected
