@@ -11,7 +11,8 @@ extension HomepageViewModel {
 	// MARK: Internal Methods
 
 	internal func enableSecurityMode() {
-		walletBalance.enableSecurityMode()
+		guard walletBalance != nil else { return }
+		walletBalance!.enableSecurityMode()
 		guard let assetsList else { return }
 
 		for asset in assetsList {
@@ -26,7 +27,8 @@ extension HomepageViewModel {
 	}
 
 	internal func disableSecurityMode() {
-		walletBalance.disableSecurityMode()
+		guard walletBalance != nil else { return }
+		walletBalance!.disableSecurityMode()
 		guard let assetsList else { return }
 
 		for asset in assetsList {

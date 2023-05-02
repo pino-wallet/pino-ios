@@ -70,7 +70,7 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 		sendButton.title = homeVM.sendButtonTitle
 		receiveButton.title = homeVM.receiveButtonTitle
 		showBalanceButton.setTitle(
-			homeVM.walletBalance.showBalanceButtonTitle,
+			homeVM.showBalanceButtonTitle,
 			for: .normal
 		)
 
@@ -80,7 +80,7 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 
 		let showBalanceImageConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .regular, scale: .small)
 		showBalanceButton.setImage(
-			UIImage(systemName: homeVM.walletBalance.showBalanceButtonImage, withConfiguration: showBalanceImageConfig),
+			UIImage(systemName: homeVM.showBalanceButtonImage, withConfiguration: showBalanceImageConfig),
 			for: .normal
 		)
 

@@ -16,7 +16,7 @@ class HomepageViewModel {
 	@Published
 	public var walletInfo: WalletInfoViewModel!
 	@Published
-	public var walletBalance: WalletBalanceViewModel!
+	public var walletBalance: WalletBalanceViewModel?
 	@Published
 	public var assetsList: [AssetViewModel]?
 	@Published
@@ -36,6 +36,8 @@ class HomepageViewModel {
 	public let receiveButtonTitle = "Receive"
 	public let sendButtonImage = "arrow_up"
 	public let receiveButtonImage = "arrow_down"
+	public let showBalanceButtonTitle = "Show balance"
+	public let showBalanceButtonImage = "eye"
 
 	// MARK: Internal Properties
 
@@ -52,7 +54,6 @@ class HomepageViewModel {
 	init() {
 		getSelectedAssetsFromCoreData()
 		getWalletInfo()
-		getWalletBalance()
 		getAssetsList()
 		getPositionAssetsList()
 		setupBindings()
@@ -66,7 +67,6 @@ class HomepageViewModel {
 		let monitor = NWPathMonitor()
 		monitor.pathUpdateHandler = { [weak self] path in
 			if path.status == .satisfied {
-				self?.getWalletBalance()
 				self?.getAssetsList()
 				self?.getPositionAssetsList()
 				completion(nil)

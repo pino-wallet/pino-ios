@@ -19,18 +19,18 @@ extension HomepageViewModel {
 		}
 	}
 
-	internal func getWalletBalance() {
-		// Request to get balance
-		walletAPIClient.walletBalance().sink { completed in
-			switch completed {
-			case .finished:
-				print("Wallet balance received successfully")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { walletBalance in
-			self.walletBalance = WalletBalanceViewModel(balanceModel: walletBalance)
-		}.store(in: &cancellables)
+	internal func getWalletBalance(assets: [AssetViewModel]) {
+		let initialNumber = BigNumber(number: 0, decimal: 0)
+		let balance = assets
+			.compactMap { $0.holdAmountInDollorNumber }
+			.reduce(initialNumber, +)
+			.formattedAmountOf(type: .price)
+		walletBalance = WalletBalanceViewModel(balanceModel: WalletBalanceModel(
+			balance: balance,
+			volatilityPercentage: "0",
+			volatilityInDollor: "0",
+			volatilityType: "profit"
+		))
 	}
 
 	// MARK: Private Methods

@@ -44,9 +44,12 @@ public class AssetViewModel: SecurityModeProtocol {
 		BigNumber(number: assetModel.amount, decimal: decimal)
 	}
 
+	public var holdAmountInDollorNumber: BigNumber {
+		holdAmount * price
+	}
+
 	public var holdAmountInDollar: String {
-		let amount = holdAmount * price
-		return amount.formattedAmountOf(type: .price)
+		holdAmountInDollorNumber.formattedAmountOf(type: .price)
 	}
 
 	public var change24h: PriceNumberFormatter {

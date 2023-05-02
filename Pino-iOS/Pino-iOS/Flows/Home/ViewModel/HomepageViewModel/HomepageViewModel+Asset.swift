@@ -29,6 +29,7 @@ extension HomepageViewModel {
 				self.manageAssetsList = assets.compactMap {
 					AssetViewModel(assetModel: $0, isSelected: selectedAssetsID.contains($0.id))
 				}
+				self.getWalletBalance(assets: self.manageAssetsList!)
 			}.store(in: &cancellables)
 	}
 
