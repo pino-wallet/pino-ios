@@ -130,6 +130,8 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(activateSecurityMode)))
 		volatilityView
 			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openVolatilityDetailPage)))
+
+		showBalanceButton.isHidden = true
 	}
 
 	private func setSkeletonable() {

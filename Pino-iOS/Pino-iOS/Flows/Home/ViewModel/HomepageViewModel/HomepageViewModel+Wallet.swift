@@ -20,16 +20,18 @@ extension HomepageViewModel {
 	}
 
 	internal func getWalletBalance(assets: [AssetViewModel]) {
-		let initialNumber = BigNumber(number: 0, decimal: 0)
 		let balance = assets
 			.compactMap { $0.holdAmountInDollorNumber }
-			.reduce(initialNumber, +)
+			.reduce(BigNumber(number: 0, decimal: 0), +)
 			.formattedAmountOf(type: .price)
+		let volatility = assets
+			.compactMap { $0.change24h.bigNumber }
+			.reduce(BigNumber(number: 0, decimal: 0), +)
 		walletBalance = WalletBalanceViewModel(balanceModel: WalletBalanceModel(
 			balance: balance,
+			volatilityNumber: volatility.description,
 			volatilityPercentage: "0",
-			volatilityInDollor: "0",
-			volatilityType: "profit"
+			volatilityInDollor: volatility.formattedAmountOf(type: .price)
 		))
 	}
 

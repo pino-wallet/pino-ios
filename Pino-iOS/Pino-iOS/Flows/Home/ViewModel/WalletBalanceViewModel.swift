@@ -25,7 +25,7 @@ struct WalletBalanceViewModel: SecurityModeProtocol {
 	}
 
 	public var volatilityType: AssetVolatilityType {
-		AssetVolatilityType(rawValue: balanceModel.volatilityType) ?? .none
+		AssetVolatilityType(change24h: balanceModel.volatilityNumber)
 	}
 
 	// MARK: - Initializers
