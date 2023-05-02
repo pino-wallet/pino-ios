@@ -7,26 +7,19 @@
 
 import UIKit
 
-class EditAccountCell: UICollectionViewCell {
-	// MARK: - Typealiases
-
-	typealias manageIndexType = (viewIndex: Int, viewsCount: Int)
-
+class EditAccountCell: GroupCollectionViewCell {
 	// MARK: - Private Properties
 
 	private let mainStackView = UIStackView()
-	private let topBorderView = UIView()
+	private let titleLabelContainerView = UIView()
 	private let titleLabel = PinoLabel(style: .info, text: "")
 	private let betWeenView = UIView()
-	private let titleLabelContainverView = UIView()
-	private let infoStackView = UIStackView()
-	private let infoStackViewContainerView = UIView()
 	private let describtionLabel = PinoLabel(style: .description, text: "")
-	private let describtionLabelContainerView = UIView()
 	private let rightIconImageView = UIImageView()
 
 	// MARK: - Public Properties
 
+	public static let cellReuseID = "editAccountCellReuseID"
 	public var editAccountOptionVM: EditAccountOptionViewModel! {
 		didSet {
 			setupView()
@@ -35,117 +28,61 @@ class EditAccountCell: UICollectionViewCell {
 		}
 	}
 
-	public var manageIndex: manageIndexType! {
-		didSet {
-			manageViewUsingIndex(manageIndex: manageIndex)
-		}
-	}
-
 	public var cellDescribtionText: String! {
 		didSet {
 			describtionLabel.text = cellDescribtionText
-			describtionLabel.font = .PinoStyle.mediumBody
-			describtionLabel.textColor = .Pino.gray2
-			describtionLabel.numberOfLines = 0
-			describtionLabel.lineBreakMode = .byWordWrapping
+			describtionLabel.lineBreakMode = .byTruncatingTail
+			describtionLabel.textAlignment = .right
 		}
 	}
-
-	public static let cellReuseID = "editAccountCellReuseID"
 
 	// MARK: - Private Methods
 
 	private func setupView() {
-		titleLabelContainverView.addSubview(titleLabel)
+		titleLabelContainerView.addSubview(titleLabel)
 
-		describtionLabelContainerView.addSubview(describtionLabel)
-
-		infoStackView.addArrangedSubview(describtionLabelContainerView)
-		infoStackView.addArrangedSubview(rightIconImageView)
-
-		infoStackViewContainerView.addSubview(infoStackView)
-
-		mainStackView.addArrangedSubview(titleLabelContainverView)
+		mainStackView.addArrangedSubview(titleLabelContainerView)
 		mainStackView.addArrangedSubview(betWeenView)
-		mainStackView.addArrangedSubview(infoStackViewContainerView)
+		mainStackView.addArrangedSubview(describtionLabel)
+		mainStackView.addArrangedSubview(rightIconImageView)
 
-		contentView.addSubview(mainStackView)
-		contentView.addSubview(topBorderView)
-	}
-
-	private func setupConstraints() {
-		titleLabel.translatesAutoresizingMaskIntoConstraints = false
-		titleLabelContainverView.widthAnchor.constraint(lessThanOrEqualToConstant: 150).isActive = true
-		describtionLabel.translatesAutoresizingMaskIntoConstraints = false
-		describtionLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 120).isActive = true
-
-		contentView.pin(.allEdges(padding: 0))
-		titleLabel.pin(.allEdges(padding: 0))
-		infoStackView.pin(.allEdges(padding: 0))
-		describtionLabel.pin(.allEdges(padding: 0))
-		mainStackView.pin(.verticalEdges(padding: 12), .horizontalEdges(padding: 16))
-		topBorderView.pin(.fixedHeight(0.5), .top(padding: 0), .leading(padding: 16), .trailing(padding: 0))
-		rightIconImageView.pin(.fixedWidth(24), .fixedHeight(24))
+		cardView.addSubview(mainStackView)
 	}
 
 	private func setupStyle() {
-		contentView.layer.cornerRadius = 8
-		contentView.layer.maskedCorners = []
-		contentView.backgroundColor = .Pino.white
-
-		topBorderView.backgroundColor = .Pino.gray3
-		topBorderView.isHidden = true
-
-		mainStackView.axis = .horizontal
-		mainStackView.alignment = .center
-
-		infoStackView.axis = .horizontal
-		infoStackView.spacing = 2
-		infoStackView.alignment = .center
-
-		rightIconImageView.image = UIImage(named: editAccountOptionVM.rightIconName)
-
 		titleLabel.text = editAccountOptionVM.title
 		titleLabel.numberOfLines = 0
 		titleLabel.lineBreakMode = .byWordWrapping
+
+		rightIconImageView.image = UIImage(named: editAccountOptionVM.rightIconName)
+
+		describtionLabel.font = .PinoStyle.mediumBody
+		describtionLabel.textColor = .Pino.gray2
+		describtionLabel.numberOfLines = 1
+
+		mainStackView.axis = .horizontal
+		mainStackView.alignment = .center
 	}
 
-	private func showTopBorder() {
-		topBorderView.isHidden = false
-	}
+	private func setupConstraints() {
+		titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 150).isActive = true
+		titleLabelContainerView.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 
-	private func setupTopCornerRadius() {
-		contentView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-	}
+		betWeenView.widthAnchor.constraint(equalToConstant: 30).isActive = true
 
-	private func setupBottomCornerRadius() {
-		contentView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-	}
-
-	private func setupAllCornerRadiuses() {
-		contentView.layer.maskedCorners = [
-			.layerMaxXMinYCorner,
-			.layerMinXMinYCorner,
-			.layerMaxXMaxYCorner,
-			.layerMinXMaxYCorner,
-		]
-	}
-
-	private func manageViewUsingIndex(manageIndex: manageIndexType) {
-		switch manageIndex.viewIndex {
-		case let index where index == manageIndex.viewsCount - 1 && manageIndex.viewsCount > 1:
-			showTopBorder()
-			setupBottomCornerRadius()
-		case let index where index == 0 && manageIndex.viewsCount == 1:
-			setupAllCornerRadiuses()
-		case let index where index == manageIndex.viewsCount - 1:
-			setupBottomCornerRadius()
-		case let index where index == 0:
-			setupTopCornerRadius()
-		case let index where index > 0:
-			showTopBorder()
-		default:
-			break
-		}
+		mainStackView.pin(
+			.verticalEdges(padding: 12),
+			.horizontalEdges(padding: 16),
+			.fixedWidth(contentView.frame.width - 32)
+		)
+		rightIconImageView.pin(
+			.fixedWidth(24),
+			.fixedHeight(24)
+		)
+		titleLabel.pin(.allEdges(padding: 0))
+		NSLayoutConstraint.deactivate([separatorLeadingConstraint])
+		separatorLine.pin(
+			.leading(padding: 16)
+		)
 	}
 }

@@ -8,16 +8,32 @@
 import UIKit
 
 class EditWalletNameView: UIView {
+	// MARK: - Typealiases
+
+	typealias updateIsValidatedNameClosureType = (_ isValidated: Bool) -> Void
+
+	// MARK: - Closures
+
+	public var endEditingViewclosure: () -> Void = {}
+	public let updateIsValidatedNameClosure: updateIsValidatedNameClosureType
+
 	// MARK: - Public Properties
 
-	public var walletNameTextFieldView: PinoTextFieldView
-	public var doneButton: PinoButton
+	public var editWalletNameVM: EditWalletNameViewModel
+	public var selectedWalletVM: WalletInfoViewModel
+	public var walletNameTextFieldView = PinoTextFieldView()
+	public var doneButton = PinoButton(style: .active, title: "")
 
 	// MARK: - Initializers
 
-	init(walletNameTextFieldView: PinoTextFieldView, doneButton: PinoButton) {
-		self.walletNameTextFieldView = walletNameTextFieldView
-		self.doneButton = doneButton
+	init(
+		editWalletNameVM: EditWalletNameViewModel,
+		selectedWalletVM: WalletInfoViewModel,
+		updateIsValidatedNameClosure: @escaping updateIsValidatedNameClosureType
+	) {
+		self.editWalletNameVM = editWalletNameVM
+		self.selectedWalletVM = selectedWalletVM
+		self.updateIsValidatedNameClosure = updateIsValidatedNameClosure
 		super.init(frame: .zero)
 
 		setupNotifications()
@@ -45,6 +61,24 @@ class EditWalletNameView: UIView {
 
 	private func setupStyles() {
 		backgroundColor = .Pino.background
+
+		walletNameTextFieldView.textDidChange = { [weak self] in
+			if self?.walletNameTextFieldView.isEmpty() ?? false {
+				self?.doneButton.style = .deactive
+				self?.updateIsValidatedNameClosure(false)
+			} else {
+				self?.doneButton.style = .active
+				self?.updateIsValidatedNameClosure(true)
+			}
+		}
+		walletNameTextFieldView.textFieldKeyboardOnReturn = { [weak self] in
+			self?.endEditingViewclosure()
+		}
+
+		walletNameTextFieldView.text = selectedWalletVM.name
+		walletNameTextFieldView.placeholderText = editWalletNameVM.walletNamePlaceHolder
+
+		doneButton.title = editWalletNameVM.doneButtonName
 	}
 
 	private func setupConstraints() {

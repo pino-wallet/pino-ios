@@ -17,8 +17,6 @@ class EditWalletNameViewController: UIViewController {
 
 	private var editWalletNameView: EditWalletNameView!
 	private let editWalletNameVM = EditWalletNameViewModel()
-	private let walletNameTextFieldView = PinoTextFieldView()
-	private let doneButton = PinoButton(style: .active, title: "")
 
 	// MARK: - Initializers
 
@@ -41,7 +39,6 @@ class EditWalletNameViewController: UIViewController {
 	override func loadView() {
 		setupNotificationBar()
 		setupView()
-		setupStyles()
 	}
 
 	// MARK: - Private Methods
@@ -61,39 +58,26 @@ class EditWalletNameViewController: UIViewController {
 
 	private func setupView() {
 		editWalletNameView = EditWalletNameView(
-			walletNameTextFieldView: walletNameTextFieldView,
-			doneButton: doneButton
+			editWalletNameVM: editWalletNameVM,
+			selectedWalletVM: selectedWalletVM,
+			updateIsValidatedNameClosure: { [weak self] isWalletNameValidated in
+				self?.navigationItem.rightBarButtonItem?.isEnabled = isWalletNameValidated
+			}
 		)
 
-		walletNameTextFieldView.textDidChange = { [weak self] in
-			if self?.walletNameTextFieldView.isEmpty() ?? false {
-				self?.doneButton.style = .deactive
-				self?.navigationItem.rightBarButtonItem?.isEnabled = false
-			} else {
-				self?.doneButton.style = .active
-				self?.navigationItem.rightBarButtonItem?.isEnabled = true
-			}
-		}
-		walletNameTextFieldView.textFieldKeyboardOnReturn = { [weak self] in
+		editWalletNameView.endEditingViewclosure = { [weak self] in
 			self?.view.endEditing(true)
 		}
 
-		doneButton.addTarget(self, action: #selector(saveWalletName), for: .touchUpInside)
+		editWalletNameView.doneButton.addTarget(self, action: #selector(saveWalletName), for: .touchUpInside)
 
 		view = editWalletNameView
-	}
-
-	private func setupStyles() {
-		walletNameTextFieldView.text = selectedWalletVM.name
-		walletNameTextFieldView.placeholderText = editWalletNameVM.walletNamePlaceHolder
-
-		doneButton.title = editWalletNameVM.doneButtonName
 	}
 
 	@objc
 	private func saveWalletName() {
 		let newWallet = WalletBuilder(walletInfo: selectedWalletVM)
-		newWallet.setProfileName(walletNameTextFieldView.getText()!)
+		newWallet.setProfileName(editWalletNameView.walletNameTextFieldView.getText()!)
 		selectedWalletVM = WalletInfoViewModel(walletInfoModel: newWallet.build())
 		walletsVM.editWallet(newWallet: newWallet.build())
 		navigationController?.popViewController(animated: true)

@@ -21,7 +21,6 @@ class EditAccountView: UIView {
 	public var editAccountVM: EditAccountViewModel
 	@Published
 	public var selectedWalletVM: WalletInfoViewModel
-	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -55,6 +54,7 @@ class EditAccountView: UIView {
 
 	private var editAccountCollectionView: EditAccountCollectionView!
 	private let removeAccountButton = PinoButton(style: .remove, title: "")
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Private Methods
 

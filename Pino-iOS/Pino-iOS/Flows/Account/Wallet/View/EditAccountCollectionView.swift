@@ -90,9 +90,9 @@ extension EditAccountCollectionView: UICollectionViewDataSource {
 		) as! EditAccountCell
 		let editAccountOption = editAccountVM.editAccountOptions[indexPath.item]
 		cell.editAccountOptionVM = EditAccountOptionViewModel(editAccountOption: editAccountOption)
-		cell.manageIndex = (viewIndex: indexPath.item, viewsCount: editAccountVM.editAccountOptions.count)
+		cell.setCellStyle(currentItem: indexPath.item, itemsCount: editAccountVM.editAccountOptions.count)
 		if editAccountOption.type == .name {
-			cell.cellDescribtionText = "\(selectedWalletVM.name)\(editAccountVM.accountNameSuffix)"
+			cell.cellDescribtionText = "\(selectedWalletVM.name)"
 		}
 		return cell
 	}
