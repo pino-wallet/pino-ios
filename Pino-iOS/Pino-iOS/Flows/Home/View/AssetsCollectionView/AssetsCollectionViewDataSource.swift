@@ -99,7 +99,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 			walletBalanceHeaderView.sendButtonTappedClosure = sendButtonTappedClosure
 			walletBalanceHeaderView.receiveButtonTappedClosure = receiveButtonTappedClosure
 			walletBalanceHeaderView.portfolioPerformanceTapped = portfolioPerformanceTapped
-			if homeVM.assetsList == nil {
+			if homeVM.walletBalance == nil {
 				walletBalanceHeaderView.showSkeletonView()
 			} else {
 				walletBalanceHeaderView.hideSkeletonView()

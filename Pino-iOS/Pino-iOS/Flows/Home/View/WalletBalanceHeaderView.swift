@@ -212,6 +212,12 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 		balanceLabel.pin(
 			.fixedHeight(41)
 		)
+
+		NSLayoutConstraint.activate([
+			balanceLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 150),
+			volatilityInDollarLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 20),
+			volatilityPercentageLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 20),
+		])
 	}
 
 	@objc

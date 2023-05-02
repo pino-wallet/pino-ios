@@ -27,6 +27,7 @@ extension HomepageViewModel {
 		let volatility = assets
 			.compactMap { $0.change24h.bigNumber }
 			.reduce(BigNumber(number: 0, decimal: 0), +)
+		let volatilityPercentage = assets
 		walletBalance = WalletBalanceViewModel(balanceModel: WalletBalanceModel(
 			balance: balance,
 			volatilityNumber: volatility.description,
