@@ -31,9 +31,12 @@ class PinoWalletManager: WalletManagement {
 	private var pinoHDWallet = PinoHDWallet()
 	private var nonHDWallet = PinoNonHDWallet()
 
-	private var fetchKey: String {
-		currentAccount.eip55Address
+	private var privateKeyFetchKey: String {
+        KeychainManager.privateKey.getKey(account: currentAccount)
 	}
+    private var seedKeyFetchKey: String {
+        KeychainManager.seed.getKey(account: currentAccount)
+    }
 
 	// MARK: - Public Properties
 
@@ -95,16 +98,16 @@ class PinoWalletManager: WalletManagement {
 
 	public func exportPrivateKeyFor(account: Account) -> Data {
 		let encryptedPrivateKey = KeychainManager.privateKey.getValueWith(key: account.eip55Address)
-		return secureEnclave.decrypt(cipherData: encryptedPrivateKey, withPublicKeyLabel: fetchKey)
+		return secureEnclave.decrypt(cipherData: encryptedPrivateKey, withPublicKeyLabel: privateKeyFetchKey)
 	}
 
-	// MARK: - Provate Methods
+	// MARK: - Private Methods
 
 	private func exportSeedphrase(account: Account) -> Data {
 		let encryptedSeedData = KeychainManager.seed.getValueWith(key: account.eip55Address)
 		let decryptedSeed = secureEnclave.decrypt(
 			cipherData: encryptedSeedData,
-			withPublicKeyLabel: account.eip55Address
+			withPublicKeyLabel: seedKeyFetchKey
 		)
 		return decryptedSeed
 	}

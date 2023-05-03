@@ -25,6 +25,9 @@ public class PinoHDWallet: PHDWallet {
 	public var accounts: [Account] {
 		getAllAccounts()
 	}
+    
+    #warning("this is for testing purposes")
+    private var tempAccounts: [Account] = []
 
 	// MARK: - Public Methods
 
@@ -82,12 +85,14 @@ public class PinoHDWallet: PHDWallet {
 
 	#warning("should read accounts from core data")
 	public func getAllAccounts() -> [Account] {
-		[]
+		tempAccounts
 	}
 
 	#warning("write account to core data")
 	public func addNewAccount(_ account: Account) {
-		if !accountExist(account: account) {}
+		if !accountExist(account: account) {
+            tempAccounts.append(account)
+        }
 	}
 
 	// MARK: - Private Methods

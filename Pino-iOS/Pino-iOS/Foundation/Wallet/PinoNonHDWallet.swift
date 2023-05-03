@@ -14,7 +14,7 @@ protocol PNonHDWallet: PinoWallet {
 }
 
 public struct PinoNonHDWallet: PNonHDWallet {
-	
+    
     // MARK: - Private Properties
 
     private var secureEnclave = SecureEnclave()
@@ -25,6 +25,9 @@ public struct PinoNonHDWallet: PNonHDWallet {
 		getAllAccounts()
 	}
     
+    #warning("this is for testing purposes")
+    private var tempAccounts: [Account] = []
+
     // MARK: - Public Methods
 
 	public mutating func importAccount(privateKey: Data) -> Result<Account, WalletOperationError> {
@@ -32,8 +35,8 @@ public struct PinoNonHDWallet: PNonHDWallet {
 			let account = try Account(privateKeyData: privateKey)
 			guard accountExist(account: account) else { return .failure(.wallet(.accountAlreadyExists)) }
 			addNewAccount(account)
-			let keyCipherData = secureEnclave.encrypt(plainData: privateKey, withPublicKeyLabel: account.eip55Address)
-			if !KeychainManager.privateKey.setValue(value: keyCipherData, key: account.eip55Address) {
+			let keyCipherData = secureEnclave.encrypt(plainData: privateKey, withPublicKeyLabel: KeychainManager.privateKey.getKey(account: account))
+			if !KeychainManager.privateKey.setValue(value: keyCipherData, key: KeychainManager.privateKey.getKey(account: account)) {
 				return .failure(.wallet(.importAccountFailed))
 			}
 			return .success(account)
@@ -44,11 +47,13 @@ public struct PinoNonHDWallet: PNonHDWallet {
 
 	#warning("read accouns from core data")
 	public func getAllAccounts() -> [Account] {
-		[]
+		tempAccounts
 	}
 
-	public func addNewAccount(_ account: Account) {
+	public mutating func addNewAccount(_ account: Account) {
 		#warning("write account to core data")
-		if !accountExist(account: account) {}
+		if !accountExist(account: account) {
+            tempAccounts.append(account)
+        }
 	}
 }

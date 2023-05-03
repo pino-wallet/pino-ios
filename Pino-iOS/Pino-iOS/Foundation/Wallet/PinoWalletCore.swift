@@ -16,7 +16,7 @@ protocol PinoWallet {
 	func encryptPrivateKey(_ key: Data, forAccount account: Account) -> Data
 	func decryptPrivateKey(fromEncryptedData encryptedData: Data, forAccount account: Account) -> Data
 	func getAllAccounts() -> [Account]
-	func addNewAccount(_ account: Account)
+    mutating func addNewAccount(_ account: Account)
 }
 
 extension PinoWallet {

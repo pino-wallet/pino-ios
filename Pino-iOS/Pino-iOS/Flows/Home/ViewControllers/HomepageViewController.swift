@@ -25,15 +25,18 @@ class HomepageViewController: UIViewController {
 		//        let mnemonics = HDWallet.generateMnemonic(seedPhraseCount: .word12)
 		let mnemonics = "leader prosper walk brush peasant trial assist mystery good whip wear disorder"
 		print(mnemonics)
-		//        do {
-		//            do {
-		//                try walletManager.createHDWallet(mnemonics: mnemonics)
-		//                print(walletManager.currentWallet.accounts)
-		//            } catch {
-		//                print(error)
-		//            }
-//
-		//        }
+        print(res)
+        switch walletManager.createHDWallet(mnemonics: mnemonics) {
+        case .success(let wallet):
+            print(wallet.mnemonic)
+            print(walletManager.currentWallet)
+//            print(walletManager.currentAccount)
+//            print(walletManager.exportMnemonics())
+//            print(walletManager.createAccount())
+//            print(walletManager.exportPrivateKeyFor(account: walletManager.currentAccount))
+        case .failure(let error):
+            print(error)
+        }
 	}
 
 	override func viewDidLayoutSubviews() {
