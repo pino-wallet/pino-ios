@@ -28,9 +28,12 @@ public enum WalletValidatorError: LocalizedError {
 }
 
 public enum KeyManagementError: LocalizedError {
-	case seedStorageFailed
+	case mnemonicsStorageFailed
 	case privateKeyStorageFailed
 	case publicKeyStorageFailed
+	case mnemonicsRetrievalFailed
+	case privateKeyRetrievalFailed
+	case publicKeyRetrievalFailed
 }
 
 public enum WalletOperationError: LocalizedError {

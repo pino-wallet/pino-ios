@@ -11,8 +11,7 @@ import Web3Core
 
 protocol PHDWallet: PinoWallet {
 	func createHDWallet(mnemonics: String) throws -> Result<HDWallet, WalletOperationError>
-	func createHDWallet(seed: Data) -> Result<HDWallet, WalletOperationError>
-    func createAccountIn(wallet: HDWallet) throws -> Result<Account, WalletOperationError>
+	func createAccountIn(wallet: HDWallet) throws -> Result<Account, WalletOperationError>
 }
 
 public class PinoHDWallet: PHDWallet {
@@ -25,9 +24,9 @@ public class PinoHDWallet: PHDWallet {
 	public var accounts: [Account] {
 		getAllAccounts()
 	}
-    
-    #warning("this is for testing purposes")
-    private var tempAccounts: [Account] = []
+
+	#warning("this is for testing purposes")
+	private var tempAccounts: [Account] = []
 
 	// MARK: - Public Methods
 
@@ -43,13 +42,13 @@ public class PinoHDWallet: PHDWallet {
 			let firstAccountPrivateKey = getPrivateKeyOfFirstAccount(wallet: wallet)
 			let account = try Account(privateKeyData: firstAccountPrivateKey)
 
-			let encryptedSeedData = encryptHdWalletSeed(wallet.seed, forAccount: account)
-			if !KeychainManager.seed.setValue(value: encryptedSeedData, key: account.eip55Address) {
-				return .failure(.keyManager(.seedStorageFailed))
+			let encryptedMnemonicsData = encryptHdWalletMnemonics(wallet.mnemonic, forAccount: account)
+			if !KeychainManager.mnemonics.setValue(value: encryptedMnemonicsData, key: account.eip55Address) {
+				return .failure(.keyManager(.mnemonicsStorageFailed))
 			}
 
 			if accountExist(account: account) {
-				return .failure(.wallet(.accountAlreadyExists))
+				return .success(wallet)
 			} else {
 				addNewAccount(account)
 				return .success(wallet)
@@ -58,15 +57,6 @@ public class PinoHDWallet: PHDWallet {
 			return .failure(error as! WalletOperationError)
 		} catch {
 			return .failure(.wallet(.unknownError))
-		}
-	}
-
-	public func createHDWallet(seed: Data) -> Result<HDWallet, WalletOperationError> {
-		let hdWallet = HDWallet(entropy: seed, passphrase: .emptyString)
-		if let hdWallet {
-			return .success(hdWallet)
-		} else {
-			return .failure(.wallet(.walletCreationFailed))
 		}
 	}
 
@@ -91,8 +81,8 @@ public class PinoHDWallet: PHDWallet {
 	#warning("write account to core data")
 	public func addNewAccount(_ account: Account) {
 		if !accountExist(account: account) {
-            tempAccounts.append(account)
-        }
+			tempAccounts.append(account)
+		}
 	}
 
 	// MARK: - Private Methods
@@ -110,14 +100,20 @@ public class PinoHDWallet: PHDWallet {
 		return privateKey.data
 	}
 
-	private func encryptHdWalletSeed(_ seed: Data, forAccount account: Account) -> Data {
-		secureEnclave.encrypt(plainData: seed, withPublicKeyLabel: KeychainManager.seed.getKey(account: account))
+	private func encryptHdWalletMnemonics(_ mnemonics: String, forAccount account: Account) -> Data {
+		secureEnclave.encrypt(
+			plainData: mnemonics.utf8Data,
+			withPublicKeyLabel: KeychainManager.mnemonics.getKey(account: account)
+		)
 	}
 
-	private func decryptHdWalletSeed(fromEncryptedData encryptedSeed: Data, forAccount account: Account) -> Data {
+	private func decryptHdWalletMnemonics(
+		fromEncryptedData encryptedMnemonics: Data,
+		forAccount account: Account
+	) -> Data {
 		secureEnclave.decrypt(
-			cipherData: encryptedSeed,
-			withPublicKeyLabel: KeychainManager.seed.getKey(account: account)
+			cipherData: encryptedMnemonics,
+			withPublicKeyLabel: KeychainManager.mnemonics.getKey(account: account)
 		)
 	}
 }

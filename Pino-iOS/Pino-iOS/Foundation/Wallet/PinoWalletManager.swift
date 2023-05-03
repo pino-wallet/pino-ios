@@ -32,11 +32,12 @@ class PinoWalletManager: WalletManagement {
 	private var nonHDWallet = PinoNonHDWallet()
 
 	private var privateKeyFetchKey: String {
-        KeychainManager.privateKey.getKey(account: currentAccount)
+		KeychainManager.privateKey.getKey(account: currentAccount)
 	}
-    private var seedKeyFetchKey: String {
-        KeychainManager.seed.getKey(account: currentAccount)
-    }
+
+	private var mnemonicsKeyFetchKey: String {
+		KeychainManager.mnemonics.getKey(account: currentAccount)
+	}
 
 	// MARK: - Public Properties
 
@@ -45,8 +46,12 @@ class PinoWalletManager: WalletManagement {
 	}
 
 	public var currentWallet: HDWallet? {
-		let decryptedSeed = exportSeedphrase(account: currentAccount)
-		switch pinoHDWallet.createHDWallet(seed: decryptedSeed) {
+		let decryptedMnemonicsData = exportMnemonics(account: currentAccount)
+		let decryptedMnemonics = String(data: decryptedMnemonicsData, encoding: .utf8)
+		guard let decryptedMnemonics else {
+			return nil
+		}
+		switch pinoHDWallet.createHDWallet(mnemonics: decryptedMnemonics) {
 		case let .success(wallet):
 			return wallet
 		case .failure:
@@ -97,18 +102,22 @@ class PinoWalletManager: WalletManagement {
 	}
 
 	public func exportPrivateKeyFor(account: Account) -> Data {
-		let encryptedPrivateKey = KeychainManager.privateKey.getValueWith(key: account.eip55Address)
+		guard let encryptedPrivateKey = KeychainManager.privateKey.getValueWith(key: account.eip55Address) else {
+			fatalError(WalletOperationError.keyManager(.privateKeyRetrievalFailed).localizedDescription)
+		}
 		return secureEnclave.decrypt(cipherData: encryptedPrivateKey, withPublicKeyLabel: privateKeyFetchKey)
 	}
 
 	// MARK: - Private Methods
 
-	private func exportSeedphrase(account: Account) -> Data {
-		let encryptedSeedData = KeychainManager.seed.getValueWith(key: account.eip55Address)
-		let decryptedSeed = secureEnclave.decrypt(
-			cipherData: encryptedSeedData,
-			withPublicKeyLabel: seedKeyFetchKey
+	private func exportMnemonics(account: Account) -> Data {
+		guard let encryptedMnemonicsData = KeychainManager.mnemonics.getValueWith(key: account.eip55Address) else {
+			fatalError(WalletOperationError.keyManager(.mnemonicsRetrievalFailed).localizedDescription)
+		}
+		let decryptedMnemonics = secureEnclave.decrypt(
+			cipherData: encryptedMnemonicsData,
+			withPublicKeyLabel: mnemonicsKeyFetchKey
 		)
-		return decryptedSeed
+		return decryptedMnemonics
 	}
 }

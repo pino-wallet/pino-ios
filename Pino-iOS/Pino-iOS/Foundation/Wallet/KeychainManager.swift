@@ -11,17 +11,21 @@ import Web3Core
 
 enum KeychainManager: String {
 	case mnemonics
-	case seed
 	case privateKey
 
-	func getValueWith(key: String) -> Data {
+	func getValueWith(key: String) -> Data? {
 		let keychainHelper = KeychainSwift()
-		return keychainHelper.getData("\(self)\(key)")!
+		return keychainHelper.getData("\(self)\(key)")
 	}
 
 	func setValue(value: Data, key: String) -> Bool {
 		let keychainHelper = KeychainSwift()
-		return keychainHelper.set(value, forKey: "\(self)\(key)")
+		if let storedValue = getValueWith(key: key) {
+			// Value already exists
+			return true
+		} else {
+			return keychainHelper.set(value, forKey: "\(self)\(key)")
+		}
 	}
 
 	func setValue(value: String, key: String) -> Bool {

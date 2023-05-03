@@ -57,7 +57,7 @@ class SecureEnclaveHelper {
 		access = SecAccessControlCreateWithFlags(
 			nil,
 			kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-			[.privateKeyUsage, .userPresence],
+			[.privateKeyUsage],
 			&error
 		)
 		precondition(access != nil, "SecAccessControlCreateWithFlags failed")
