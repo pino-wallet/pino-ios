@@ -44,12 +44,12 @@ public class AssetViewModel: SecurityModeProtocol {
 		BigNumber(number: assetModel.amount, decimal: decimal)
 	}
 
-	public var holdAmountInDollorNumber: BigNumber {
+	public var holdAmountInDollor: BigNumber {
 		holdAmount * price
 	}
 
-	public var holdAmountInDollar: String {
-		holdAmountInDollorNumber.formattedAmountOf(type: .price)
+	public var formattedHoldAmount: String {
+		holdAmountInDollor.formattedAmountOf(type: .price)
 	}
 
 	public var change24h: PriceNumberFormatter {
@@ -100,7 +100,7 @@ public class AssetViewModel: SecurityModeProtocol {
 		if holdAmount.isZero {
 			return "-"
 		} else {
-			return "$\(holdAmountInDollar)"
+			return "$\(formattedHoldAmount)"
 		}
 	}
 

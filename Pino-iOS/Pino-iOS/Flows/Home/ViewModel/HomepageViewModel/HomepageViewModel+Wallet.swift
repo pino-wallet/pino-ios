@@ -21,7 +21,7 @@ extension HomepageViewModel {
 
 	internal func getWalletBalance(assets: [AssetViewModel]) {
 		let balance = assets
-			.compactMap { $0.holdAmountInDollorNumber }
+			.compactMap { $0.holdAmountInDollor }
 			.reduce(BigNumber(number: 0, decimal: 0), +)
 			.formattedAmountOf(type: .price)
 		let volatility = assets
