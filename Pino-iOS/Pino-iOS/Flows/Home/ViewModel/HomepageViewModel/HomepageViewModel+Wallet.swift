@@ -27,11 +27,12 @@ extension HomepageViewModel {
 		let volatility = assets
 			.compactMap { $0.change24h.bigNumber }
 			.reduce(BigNumber(number: 0, decimal: 0), +)
-		let volatilityPercentage = assets
+		#warning("volatilityPercentage is static for now and must be changed later")
+		let volatilityPercentage = "5.5"
 		walletBalance = WalletBalanceViewModel(balanceModel: WalletBalanceModel(
 			balance: balance,
 			volatilityNumber: volatility.description,
-			volatilityPercentage: "0",
+			volatilityPercentage: volatilityPercentage,
 			volatilityInDollor: volatility.formattedAmountOf(type: .price)
 		))
 	}
