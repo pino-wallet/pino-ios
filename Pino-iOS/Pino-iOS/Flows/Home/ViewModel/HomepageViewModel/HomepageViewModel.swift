@@ -20,7 +20,7 @@ class HomepageViewModel {
 	@Published
 	public var assetsList: [AssetViewModel]?
 	@Published
-	public var positionAssetsList: [AssetViewModel]!
+	public var positionAssetsList: [AssetViewModel]?
 	@Published
 	public var securityMode = false
 	@Published
@@ -54,32 +54,51 @@ class HomepageViewModel {
 	init() {
 		getSelectedAssetsFromCoreData()
 		getWalletInfo()
-		getAssetsList()
-		getPositionAssetsList()
 		setupBindings()
 	}
 
 	// MARK: - Public Methods
 
-	#warning("This function must be rafctored based on GCD")
-	public func refreshHomeData(completion: @escaping (HomeRefreshError?) -> Void) {
-		// This is temporary and must be replaced with network request
-		let monitor = NWPathMonitor()
-		monitor.pathUpdateHandler = { [weak self] path in
-			if path.status == .satisfied {
-				self?.getAssetsList()
-				self?.getPositionAssetsList()
-				completion(nil)
-				monitor.cancel()
+	public func getHomeData(completion: @escaping (HomeRefreshError?) -> Void) {
+		checkInternetConnection { [weak self] isConnected in
+			if isConnected {
+				guard let self else { return }
+				self.getAssetsList { assets, error in
+					if let assets {
+						self.assetsModelList = assets
+						self.checkDefaultAssetsAdded(assets)
+						let selectedAssetsID = self.selectedAssets.map { $0.id }
+						self.manageAssetsList = assets.compactMap {
+							AssetViewModel(assetModel: $0, isSelected: selectedAssetsID.contains($0.id))
+						}
+						self.getWalletBalance(assets: self.manageAssetsList!)
+						completion(nil)
+					} else {
+						completion(.requestFailed)
+					}
+				}
+				self.getPositionAssetsList()
 			} else {
 				completion(.networkConnection)
+			}
+		}
+	}
+
+	// MARK: Private Methods
+
+	private func checkInternetConnection(completion: @escaping (_ isConnected: Bool) -> Void) {
+		let monitor = NWPathMonitor()
+		monitor.pathUpdateHandler = { path in
+			if path.status == .satisfied {
+				completion(true)
+				monitor.cancel()
+			} else {
+				completion(false)
 				monitor.cancel()
 			}
 		}
 		monitor.start(queue: DispatchQueue.main)
 	}
-
-	// MARK: Private Methods
 
 	private func setupBindings() {
 		$securityMode.sink { [weak self] securityMode in

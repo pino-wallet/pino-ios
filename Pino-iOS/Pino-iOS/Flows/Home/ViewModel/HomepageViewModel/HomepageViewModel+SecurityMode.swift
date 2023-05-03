@@ -13,32 +13,37 @@ extension HomepageViewModel {
 	internal func enableSecurityMode() {
 		guard walletBalance != nil else { return }
 		walletBalance!.enableSecurityMode()
-		guard let assetsList else { return }
 
-		for asset in assetsList {
-			asset.enableSecurityMode()
+		if let assetsList {
+			for asset in assetsList {
+				asset.enableSecurityMode()
+			}
 		}
-		for asset in positionAssetsList {
-			asset.enableSecurityMode()
+		if let positionAssetsList {
+			for asset in positionAssetsList {
+				asset.enableSecurityMode()
+			}
 		}
-
-		self.assetsList = assetsList
+		assetsList = assetsList
 		positionAssetsList = positionAssetsList
 	}
 
 	internal func disableSecurityMode() {
 		guard walletBalance != nil else { return }
 		walletBalance!.disableSecurityMode()
-		guard let assetsList else { return }
 
-		for asset in assetsList {
-			asset.disableSecurityMode()
-		}
-		for asset in positionAssetsList {
-			asset.disableSecurityMode()
+		if let assetsList {
+			for asset in assetsList {
+				asset.disableSecurityMode()
+			}
 		}
 
-		self.assetsList = assetsList
+		if let positionAssetsList {
+			for asset in positionAssetsList {
+				asset.disableSecurityMode()
+			}
+		}
+		assetsList = assetsList
 		positionAssetsList = positionAssetsList
 	}
 }

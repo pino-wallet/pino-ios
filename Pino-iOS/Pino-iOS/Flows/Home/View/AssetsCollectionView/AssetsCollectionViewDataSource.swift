@@ -11,7 +11,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 	// MARK: - CollectionView DataSource Methods
 
 	internal func numberOfSections(in collectionView: UICollectionView) -> Int {
-		if homeVM.positionAssetsList.isEmpty {
+		if homeVM.positionAssetsList?.isEmpty ?? true {
 			return 1
 		} else {
 			return 2
@@ -25,7 +25,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 		case .asset:
 			return assetList.count
 		case .position:
-			return homeVM.positionAssetsList.count
+			return homeVM.positionAssetsList?.count ?? .zero
 		case .none:
 			return .zero
 		}
@@ -146,7 +146,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 			case .asset:
 				assetCell.assetVM = assetList[indexPath.row]
 			case .position:
-				assetCell.assetVM = homeVM.positionAssetsList[indexPath.row]
+				assetCell.assetVM = homeVM.positionAssetsList?[indexPath.row]
 			case .none: break
 			}
 		} else {
