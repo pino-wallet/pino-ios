@@ -65,13 +65,7 @@ class HomepageViewModel {
 				guard let self else { return }
 				self.getAssetsList { assets, error in
 					if let assets {
-						self.assetsModelList = assets
-						self.checkDefaultAssetsAdded(assets)
-						let selectedAssetsID = self.selectedAssets.map { $0.id }
-						self.manageAssetsList = assets.compactMap {
-							AssetViewModel(assetModel: $0, isSelected: selectedAssetsID.contains($0.id))
-						}
-						self.getWalletBalance(assets: self.manageAssetsList!)
+						self.getManageAsset(assets: assets)
 						completion(nil)
 					} else {
 						completion(.requestFailed)
@@ -100,19 +94,34 @@ class HomepageViewModel {
 		monitor.start(queue: DispatchQueue.main)
 	}
 
+	private func switchSecurityMode(_ isOn: Bool) {
+		if let walletBalance {
+			walletBalance.switchSecurityMode(isOn)
+		}
+		if let assetsList {
+			for asset in assetsList {
+				asset.switchSecurityMode(isOn)
+			}
+		}
+		if let positionAssetsList {
+			for asset in positionAssetsList {
+				asset.switchSecurityMode(isOn)
+			}
+		}
+		assetsList = assetsList
+		positionAssetsList = positionAssetsList
+	}
+
 	private func setupBindings() {
 		$securityMode.sink { [weak self] securityMode in
 			guard let self = self else { return }
-			if securityMode {
-				self.enableSecurityMode()
-			} else {
-				self.disableSecurityMode()
-			}
+			self.switchSecurityMode(securityMode)
 		}.store(in: &cancellables)
 
 		$manageAssetsList.sink { assets in
 			guard let assets else { return }
 			self.assetsList = assets.filter { $0.isSelected }
+			self.getWalletBalance(assets: assets)
 		}.store(in: &cancellables)
 	}
 }

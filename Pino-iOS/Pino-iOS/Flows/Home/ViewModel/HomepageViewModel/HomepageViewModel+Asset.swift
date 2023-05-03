@@ -28,6 +28,15 @@ extension HomepageViewModel {
 			}.store(in: &cancellables)
 	}
 
+	internal func getManageAsset(assets: [BalanceAssetModel]) {
+		assetsModelList = assets
+		checkDefaultAssetsAdded(assets)
+		let selectedAssetsID = selectedAssets.map { $0.id }
+		manageAssetsList = assets.compactMap {
+			AssetViewModel(assetModel: $0, isSelected: selectedAssetsID.contains($0.id))
+		}
+	}
+
 	#warning("This is temporary and must be replaced with API data")
 	internal func getPositionAssetsList() {
 		positionAssetsList = []

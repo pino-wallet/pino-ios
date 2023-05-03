@@ -72,18 +72,18 @@ public class AssetViewModel: SecurityModeProtocol {
 
 	// MARK: - Public Methods
 
-	public func enableSecurityMode() {
-		securityMode = true
-		amount = securityText
-		amountInDollor = securityText
-		volatilityInDollor = securityText
-	}
-
-	public func disableSecurityMode() {
-		securityMode = false
-		amount = getFormattedAmount()
-		amountInDollor = getFormattedAmountInDollor()
-		volatilityInDollor = getFormattedVolatility()
+	public func switchSecurityMode(_ isOn: Bool) {
+		if isOn {
+			securityMode = true
+			amount = securityText
+			amountInDollor = securityText
+			volatilityInDollor = securityText
+		} else {
+			securityMode = false
+			amount = getFormattedAmount()
+			amountInDollor = getFormattedAmountInDollor()
+			volatilityInDollor = getFormattedVolatility()
+		}
 	}
 
 	public func toggleIsSelected() {

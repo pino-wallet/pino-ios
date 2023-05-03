@@ -5,7 +5,7 @@
 //  Created by Mohi Raoufi on 12/24/22.
 //
 
-struct WalletBalanceViewModel: SecurityModeProtocol {
+class WalletBalanceViewModel: SecurityModeProtocol {
 	// MARK: - Private Properties
 
 	private var balanceModel: WalletBalanceModel!
@@ -37,14 +37,14 @@ struct WalletBalanceViewModel: SecurityModeProtocol {
 
 	// MARK: - Public Methods
 
-	public mutating func enableSecurityMode() {
-		securityMode = true
-		balance = securityText
-	}
-
-	public mutating func disableSecurityMode() {
-		securityMode = false
-		balance = getFormattedBalance()
+	public func switchSecurityMode(_ isOn: Bool) {
+		if isOn {
+			securityMode = true
+			balance = securityText
+		} else {
+			securityMode = false
+			balance = getFormattedBalance()
+		}
 	}
 
 	// MARK: - Private Methods
