@@ -16,7 +16,7 @@ class EditWalletNameViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private var editWalletNameView: EditWalletNameView!
-	private let editWalletNameVM = EditWalletNameViewModel()
+	private var editWalletNameVM: EditWalletNameViewModel!
 
 	// MARK: - Initializers
 
@@ -37,6 +37,7 @@ class EditWalletNameViewController: UIViewController {
 	}
 
 	override func loadView() {
+		setupEditWalletNameVM()
 		setupNotificationBar()
 		setupView()
 	}
@@ -59,10 +60,7 @@ class EditWalletNameViewController: UIViewController {
 	private func setupView() {
 		editWalletNameView = EditWalletNameView(
 			editWalletNameVM: editWalletNameVM,
-			selectedWalletVM: selectedWalletVM,
-			updateIsValidatedNameClosure: { [weak self] isWalletNameValidated in
-				self?.navigationItem.rightBarButtonItem?.isEnabled = isWalletNameValidated
-			}
+			selectedWalletVM: selectedWalletVM
 		)
 
 		editWalletNameView.endEditingViewclosure = { [weak self] in
@@ -72,6 +70,30 @@ class EditWalletNameViewController: UIViewController {
 		editWalletNameView.doneButton.addTarget(self, action: #selector(saveWalletName), for: .touchUpInside)
 
 		view = editWalletNameView
+	}
+
+	private func setupEditWalletNameVM() {
+		editWalletNameVM = EditWalletNameViewModel(didValidatedWalletName: { [weak self] error in
+			switch error {
+			case .isEmpty:
+				self?.navigationItem.rightBarButtonItem?.isEnabled = false
+				self?.editWalletNameView.doneButton.style = .deactive
+				self?.editWalletNameView.walletNameTextFieldView.style = .error
+				self?.editWalletNameView.walletNameTextFieldView.errorText = self?.editWalletNameVM
+					.walletIsEmptyNameErrorText ?? ""
+			case .repeatedName:
+				self?.navigationItem.rightBarButtonItem?.isEnabled = false
+				self?.editWalletNameView.doneButton.style = .deactive
+				self?.editWalletNameView.walletNameTextFieldView.style = .error
+				self?.editWalletNameView.walletNameTextFieldView.errorText = self?.editWalletNameVM
+					.walletRepeatedNameErrorText ?? ""
+			case .clear:
+				self?.navigationItem.rightBarButtonItem?.isEnabled = true
+				self?.editWalletNameView.doneButton.style = .active
+				self?.editWalletNameView.walletNameTextFieldView.style = .normal
+				self?.editWalletNameView.walletNameTextFieldView.errorText = ""
+			}
+		}, selectedWalletID: selectedWalletVM.id)
 	}
 
 	@objc
