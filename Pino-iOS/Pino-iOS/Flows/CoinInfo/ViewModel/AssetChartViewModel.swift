@@ -10,11 +10,11 @@ import Foundation
 struct AssetChartViewModel {
 	// MARK: - Public Properties
 
-	public let chartModel: AssetChartModel
+	public let chartDataVM: [AssetChartDataViewModel]
 	public var dateFilter: ChartDateFilter
 
 	public var chartDataEntry: [ChartDataEntry] {
-		chartModel.chartData.map { ChartDataEntry(x: Double($0.time)!, y: $0.networth) }
+		chartDataVM.map { ChartDataEntry(x: $0.date.timeIntervalSinceNow, y: $0.networth.doubleValue) }
 	}
 
 	public var dateFilters: [ChartDateFilter] {
@@ -22,52 +22,65 @@ struct AssetChartViewModel {
 	}
 
 	public var balance: String {
-		"$\(chartModel.balance)"
-	}
-
-	public var volatilityInDollor: String {
-		switch volatilityType {
-		case .profit:
-			return "+$\(chartModel.volatilityInDollor)"
-		case .loss:
-			return "-$\(chartModel.volatilityInDollor)"
-		case .none:
-			return "$\(chartModel.volatilityInDollor)"
-		}
+		"$\(chartDataVM.last!.networth.decimalString)"
 	}
 
 	public var volatilityPercentage: String {
-		switch volatilityType {
-		case .profit:
-			return "+\(chartModel.volatilityPercentage)%"
-		case .loss:
-			return "-\(chartModel.volatilityPercentage)%"
-		case .none:
-			return "\(chartModel.volatilityPercentage)%"
-		}
+		formattedVolatility(valueChangePercentage())
 	}
 
 	public var volatilityType: AssetVolatilityType {
-		AssetVolatilityType(rawValue: chartModel.volatilityType) ?? .none
+		volatilityType(valueChangePercentage())
 	}
 
-	#warning("Chart date is temporary and must be calculated based on API data")
 	public var chartDate: String {
-		let date = Date()
-		switch dateFilter {
-		case .hour, .day:
-			return "\(date.monthName()) \(date.get(.day)), \(date.get(.year))"
-		case .week:
-			let oneWeekAgo = date - 7
-			return "\(oneWeekAgo.monthName()) \(oneWeekAgo.get(.day)) - \(date.monthName()) \(date.get(.day)), \(date.get(.year))"
-		case .month:
-			let oneMonthAgo = date - 30
-			return "\(oneMonthAgo.monthName()) \(date.get(.day)) - \(date.monthName()) \(date.get(.day)), \(date.get(.year))"
-		case .year:
-			let oneYearAgo = date - 365
-			return "\(date.monthName()), \(oneYearAgo.get(.year)) - \(date.monthName()), \(date.get(.year))"
-		case .all:
-			return ""
+		let chartDateBuilder = ChartDateBuilder(dateFilter: dateFilter)
+		return chartDateBuilder.dateRange(firstDate: chartDataVM.first!.date, lastDate: chartDataVM.last!.date)
+	}
+
+	// MARK: - Private Methods
+
+	private func valueChangePercentage() -> Double {
+		if chartDataEntry.count > 1 {
+			let valueChangePercentage = valueChangePercentage(
+				pointValue: chartDataEntry[chartDataEntry.count - 1].y,
+				previousValue: chartDataEntry[0].y
+			)
+			return valueChangePercentage
+		} else {
+			return 0
 		}
+	}
+
+	// MARK: - Public Methods
+
+	public func valueChangePercentage(pointValue: Double, previousValue: Double?) -> Double {
+		if let previousValue, previousValue != 0 {
+			let changePercentage = ((pointValue - previousValue) / previousValue) * 100
+			return changePercentage.roundToPlaces(2)
+		} else {
+			return 0
+		}
+	}
+
+	public func formattedVolatility(_ valueChangePercentage: Double) -> String {
+		let volatilityType = volatilityType(valueChangePercentage)
+		return "\(volatilityType.prependSign)\(abs(valueChangePercentage))%"
+	}
+
+	public func volatilityType(_ valueChangePercentage: Double) -> AssetVolatilityType {
+		if valueChangePercentage > 0 {
+			return .profit
+		} else if valueChangePercentage < 0 {
+			return .loss
+		} else {
+			return .none
+		}
+	}
+
+	public func selectedDate(timeStamp: Double) -> String {
+		let date = Date(timeIntervalSinceNow: timeStamp)
+		let chartDateBuilder = ChartDateBuilder(dateFilter: dateFilter)
+		return chartDateBuilder.selectedDate(date: date)
 	}
 }

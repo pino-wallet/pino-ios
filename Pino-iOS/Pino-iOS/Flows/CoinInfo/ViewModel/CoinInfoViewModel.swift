@@ -12,15 +12,43 @@ import Network
 class CoinInfoViewModel {
 	// MARK: - Public Properties
 
+	public let homeVM: HomepageViewModel
+	public let coinID: String
+
 	@Published
 	public var coinPortfolio: CoinPortfolioViewModel!
 	@Published
 	public var coinHistoryList: [CoinHistoryViewModel]!
+
 	public let requestFailedErrorToastMessage = "Couldn't refresh coin data"
 	public let connectionErrorToastMessage = "No internet connection"
 	public let infoActionSheetTitle = "Price impact"
 	public let infoActionSheetDescription =
 		"The difference between the market price and the estimated price based on your order size."
+	public let websiteTitle = "Website"
+	public let priceTitle = "Price"
+	public let contractAddressTitle = "Contract address"
+	public let protocolTitle = "Protocol"
+	public let positionTitle = "Position"
+	public let assetTitle = "Asset"
+	public let recentHistoryTitle = "Recent history"
+	public let tooltipIconName = "info"
+	public let positionAssetTitle = "Position asset"
+	public let priceSepratorText = "|"
+	public let noUserAmountInDollarText = "--"
+	public let unverifiedAssetIcon = "unverified_asset"
+	public let noAssetPriceText = "-"
+	public let unavailableRecentHistoryText = "The history are only available for verified assets!"
+	public let unavailableRecentHistoryIconName = "gray_error_alert"
+
+	#warning("this text is for testing and should be removed")
+	public let positionAssetInfoText = """
+	This asset represents your DAI collateral
+	 position in the Compound Protocol. Note that
+	 transferring this asset to another address will
+	 fully transfer your position to the new
+	 address.
+	"""
 
 	// MARK: - Private Properties
 
@@ -29,7 +57,9 @@ class CoinInfoViewModel {
 
 	// MARK: - Inintializers
 
-	init() {
+	init(homeVM: HomepageViewModel, coinID: String) {
+		self.homeVM = homeVM
+		self.coinID = coinID
 		getCoinPortfolio()
 		getHistoryList()
 	}
@@ -37,35 +67,21 @@ class CoinInfoViewModel {
 	// MARK: - public Methods
 
 	public func refreshCoinInfoData(completion: @escaping (APIError?) -> Void) {
-		let monitor = NWPathMonitor()
-		monitor.pathUpdateHandler = { path in
-			DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-				if path.status == .satisfied {
-					self.getCoinPortfolio()
-					self.getHistoryList()
-					completion(nil)
-				} else {
-					completion(.unreachable)
-				}
-				monitor.cancel()
-			}
-		}
-		let queue = DispatchQueue(label: "InternetConnectionMonitor")
-		monitor.start(queue: queue)
+		coinPortfolio.showSkeletonLoading = true
+		getHistoryList()
+		homeVM.refreshHomeData(completion: { _ in
+			completion(nil)
+		})
 	}
 
 	// MARK: - private Methods
 
 	private func getCoinPortfolio() {
-		assetsAPIClient.coinPortfolio().sink { completed in
-			switch completed {
-			case .finished:
-				print("Coin portfolio received successfully")
-			case let .failure(error):
-				print(error)
+		homeVM.$assetsModelList.sink { [weak self] assetsList in
+			guard let coinInfo = assetsList!.first(where: { $0.id == self?.coinID }) else {
+				fatalError("Cant find asset with id")
 			}
-		} receiveValue: { coinPortfolio in
-			self.coinPortfolio = CoinPortfolioViewModel(coinPortfolioModel: coinPortfolio)
+			self?.coinPortfolio = CoinPortfolioViewModel(coinPortfolioModel: coinInfo)
 		}.store(in: &cancellables)
 	}
 
@@ -77,8 +93,12 @@ class CoinInfoViewModel {
 			case let .failure(error):
 				print(error)
 			}
-		} receiveValue: { coinHistoryModelList in
-			self.coinHistoryList = coinHistoryModelList.compactMap { CoinHistoryViewModel(coinHistoryModel: $0) }
+		} receiveValue: { [weak self] coinHistoryModelList in
+			self?.coinHistoryList = coinHistoryModelList.compactMap { CoinHistoryViewModel(coinHistoryModel: $0) }
+			#warning(
+				"this line is for testing because these two publishers were pinned to each other and their value should be changed together"
+			)
+			self?.coinHistoryList.removeLast()
 		}.store(in: &cancellables)
 	}
 }

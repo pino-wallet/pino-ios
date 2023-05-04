@@ -6,43 +6,43 @@
         "volatility_type": "profit",
         "chart_data": [
             {
-                "networth": 10,
+                "networth": "10",
                 "time": "0"
             },
             {
-                "networth": 110,
+                "networth": "110",
                 "time": "1"
             },
             {
-                "networth": 50,
+                "networth": "50",
                 "time": "2"
             },
             {
-                "networth": 160,
+                "networth": "160",
                 "time": "3"
             },
             {
-                "networth": 110,
+                "networth": "110",
                 "time": "4"
             },
             {
-                "networth": 200,
+                "networth": "200",
                 "time": "5"
             },
             {
-                "networth": 50,
+                "networth": "50",
                 "time": "6"
             },
             {
-                "networth": 100,
+                "networth": "100",
                 "time": "7"
             },
             {
-                "networth": 10,
+                "networth": "10",
                 "time": "8"
             },
             {
-                "networth": 210,
+                "networth": "210",
                 "time": "9"
             }
         ]

@@ -37,7 +37,7 @@ class PortfolioPerformanceHeaderView: UICollectionReusableView {
 
 	private func setupView() {
 		lineChart = AssetLineChart(chartVM: portfolioPerformanceVM.chartVM, dateFilterChanged: { dateFilter in
-			self.portfolioPerformanceVM.updateChartData(by: dateFilter)
+			self.portfolioPerformanceVM.getChartData(dateFilter: dateFilter)
 		})
 		chartStackView.addArrangedSubview(chartTitle)
 		chartStackView.addArrangedSubview(chartCardView)
@@ -84,7 +84,8 @@ class PortfolioPerformanceHeaderView: UICollectionReusableView {
 
 	private func setupBindings() {
 		portfolioPerformanceVM.$chartVM.sink { chart in
-			self.lineChart.chartVM = chart!
+			guard let chart else { return }
+			self.lineChart.chartVM = chart
 		}.store(in: &cancellables)
 	}
 }

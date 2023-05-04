@@ -8,13 +8,14 @@
 import UIKit
 
 class PortfolioPerformanceViewController: UIViewController {
-	// MARK: Private Properties
+	// MARK: - Private Properties
 
-	private let coinInfoChartVM = CoinInfoChartViewModel()
+	private let assets: [AssetViewModel]
 
 	// MARK: Initializers
 
-	init() {
+	init(assets: [AssetViewModel]) {
+		self.assets = assets
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -36,11 +37,15 @@ class PortfolioPerformanceViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		let portfolioPerformaneVM = PortfolioPerformanceViewModel()
+		let portfolioPerformaneVM = PortfolioPerformanceViewModel(assets: assets)
 		view = PortfolioPerformanceCollectionView(
 			portfolioPerformanceVM: portfolioPerformaneVM,
-			assetSelected: {
-				self.openCoinPerformancePage()
+			assetSelected: { selectedAsset in
+				if let selectedAsset = selectedAsset as? ShareOfAssetsViewModel {
+					self.openCoinPerformancePage(selectedAsset: selectedAsset)
+				} else {
+					// Open others page if nedded
+				}
 			}
 		)
 	}
@@ -65,8 +70,8 @@ class PortfolioPerformanceViewController: UIViewController {
 		dismiss(animated: true)
 	}
 
-	private func openCoinPerformancePage() {
-		let coinPerformanceVC = CoinPerformanceViewController()
+	private func openCoinPerformancePage(selectedAsset: ShareOfAssetsViewModel) {
+		let coinPerformanceVC = CoinPerformanceViewController(selectedAsset: selectedAsset)
 		coinPerformanceVC.modalPresentationStyle = .automatic
 		let navigationVC = UINavigationController(rootViewController: coinPerformanceVC)
 		present(navigationVC, animated: true)

@@ -148,7 +148,8 @@ extension AssetsCollectionView: UICollectionViewDelegate {
 		let homeSection = HomeSection(rawValue: indexPath.section)
 		switch homeSection {
 		case .asset:
-			assetTapped(homeVM.assetsList[indexPath.item])
+			guard let assetsList = homeVM.assetsList else { return }
+			assetTapped(assetsList[indexPath.item])
 		case .position:
 			assetTapped(homeVM.positionAssetsList[indexPath.item])
 		default: break

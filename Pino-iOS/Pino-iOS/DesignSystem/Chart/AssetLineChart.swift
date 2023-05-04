@@ -23,6 +23,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 	private let dateLabel = UILabel()
 	private let chartPointer = UIImageView()
 	private var chartDateFilter: UISegmentedControl!
+	private let dateFilters: [ChartDateFilter] = [.hour, .day, .week, .month, .year, .all]
 
 	private let lineChartView = PinoLineChart(chartDataEntries: [])
 	private var chartDataSet: LineChartDataSet!
@@ -32,14 +33,14 @@ class AssetLineChart: UIView, LineChartDelegate {
 	// MARK: - Public Properties
 
 	@Published
-	public var chartVM: AssetChartViewModel
+	public var chartVM: AssetChartViewModel?
 
 	// MARK: Initializers
 
-	init(chartVM: AssetChartViewModel, dateFilterChanged: @escaping (ChartDateFilter) -> Void) {
+	init(chartVM: AssetChartViewModel?, dateFilterChanged: @escaping (ChartDateFilter) -> Void) {
 		self.chartVM = chartVM
 		self.dateFilterChanged = dateFilterChanged
-		self.chartDateFilter = UISegmentedControl(items: chartVM.dateFilters.map { $0.rawValue })
+		self.chartDateFilter = UISegmentedControl(items: dateFilters.map { $0.rawValue })
 		super.init(frame: .zero)
 
 		setupView()
@@ -81,6 +82,8 @@ class AssetLineChart: UIView, LineChartDelegate {
 		coinVolatilityPersentage.font = .PinoStyle.mediumSubheadline
 		dateLabel.font = .PinoStyle.mediumSubheadline
 
+		coinBalanceLabel.adjustsFontSizeToFitWidth = true
+
 		chartStackView.axis = .vertical
 		infoStackView.axis = .horizontal
 		balanceStackview.axis = .vertical
@@ -93,6 +96,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 
 		volatilityStackView.spacing = 8
 		balanceStackview.spacing = 8
+		infoStackView.spacing = 8
 
 		chartDateFilter.setTitleTextAttributes([
 			.foregroundColor: UIColor.Pino.secondaryLabel,
@@ -154,6 +158,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 
 	private func setupBindings() {
 		$chartVM.sink { chart in
+			guard let chart else { return }
 			self.coinBalanceLabel.text = chart.balance
 			self.coinVolatilityPersentage.text = chart.volatilityPercentage
 			self.dateLabel.text = chart.chartDate
@@ -164,20 +169,15 @@ class AssetLineChart: UIView, LineChartDelegate {
 
 	@objc
 	private func updateChart(sender: UISegmentedControl) {
+		guard let chartVM else { return }
 		dateFilterChanged(chartVM.dateFilters[sender.selectedSegmentIndex])
 	}
 
-	private func updateVolatility(_ valueChangePercentage: Double) {
-		var formattedVolatolity = "\(String(format: "%.2f", valueChangePercentage))%"
-		if valueChangePercentage > 0 {
-			updateVolatilityColor(type: .profit)
-			formattedVolatolity = "+\(formattedVolatolity)"
-		} else if valueChangePercentage < 0 {
-			updateVolatilityColor(type: .loss)
-		} else {
-			updateVolatilityColor(type: .none)
-		}
-		coinVolatilityPersentage.text = formattedVolatolity
+	private func updateVolatility(pointValue: Double, previousValue: Double?) {
+		guard let chartVM else { return }
+		let valueChangePercentage = chartVM.valueChangePercentage(pointValue: pointValue, previousValue: previousValue)
+		coinVolatilityPersentage.text = chartVM.formattedVolatility(valueChangePercentage)
+		updateVolatilityColor(type: chartVM.volatilityType(valueChangePercentage))
 	}
 
 	private func updateVolatilityColor(type: AssetVolatilityType) {
@@ -191,18 +191,22 @@ class AssetLineChart: UIView, LineChartDelegate {
 		}
 	}
 
-	internal func valueDidChange(pointValue: Double?, valueChangePercentage: Double?) {
+	public func updateChartDate(date: Double) {
+		let formattedDate = chartVM?.selectedDate(timeStamp: date)
+		dateLabel.text = formattedDate
+	}
+
+	internal func valueDidChange(pointValue: Double?, previousValue: Double?, date: Double?) {
+		guard let chartVM else { return }
 		if let pointValue {
 			coinBalanceLabel.text = "$\(pointValue)"
+			updateVolatility(pointValue: pointValue, previousValue: previousValue)
+			updateChartDate(date: date!)
 		} else {
 			coinBalanceLabel.text = chartVM.balance
-		}
-
-		if let valueChangePercentage {
-			updateVolatility(valueChangePercentage)
-		} else {
 			coinVolatilityPersentage.text = chartVM.volatilityPercentage
 			updateVolatilityColor(type: chartVM.volatilityType)
+			dateLabel.text = chartVM.chartDate
 		}
 	}
 }

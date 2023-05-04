@@ -8,15 +8,15 @@
 import UIKit
 
 class CoinInfoViewController: UIViewController {
-	// MARK: Private Properties
+	// MARK: - Private Properties
 
-	private let coinInfoVM = CoinInfoViewModel()
+	private var coinInfoVM: CoinInfoViewModel!
 
-	// MARK: Initializers
+	// MARK: - Initializers
 
-	init(coinID: String) {
-		// Request to get coin with id
+	init(coinID: String, homeVM: HomepageViewModel) {
 		super.init(nibName: nil, bundle: nil)
+		self.coinInfoVM = CoinInfoViewModel(homeVM: homeVM, coinID: coinID)
 	}
 
 	required init?(coder: NSCoder) {
@@ -37,16 +37,14 @@ class CoinInfoViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = CoinInfoCollectionView(coinInfoVM: coinInfoVM, portfolioInfoButtonTapped: {
-			self.openActionSheet()
-		})
+		view = CoinInfoCollectionView(coinInfoVM: coinInfoVM)
 	}
 
 	private func setupNavigationBar() {
 		// Setup appreance for navigation bar
 		setupPrimaryColorNavigationBar()
 		// Setup title view
-		setNavigationTitle("\(coinInfoVM.coinPortfolio.name)")
+		setNavigationTitle("\(coinInfoVM.coinPortfolio.symbol)")
 		// Setup close button
 		navigationItem.leftBarButtonItem = UIBarButtonItem(
 			image: UIImage(systemName: "multiply"),
@@ -66,14 +64,6 @@ class CoinInfoViewController: UIViewController {
 	@objc
 	private func dismissCoinInfo() {
 		dismiss(animated: true)
-	}
-
-	private func openActionSheet() {
-		let actionSheet = InfoActionSheet(
-			title: coinInfoVM.infoActionSheetTitle,
-			description: coinInfoVM.infoActionSheetDescription
-		)
-		present(actionSheet, animated: true)
 	}
 
 	@objc
