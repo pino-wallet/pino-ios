@@ -9,8 +9,8 @@ import Foundation
 import WalletCore
 import Web3Core
 
-public struct Account {
-	public enum AccountSource {
+public struct Account: Codable {
+    public enum AccountSource: Codable {
 		case hdWallet
 		case nonHDWallet
 	}
