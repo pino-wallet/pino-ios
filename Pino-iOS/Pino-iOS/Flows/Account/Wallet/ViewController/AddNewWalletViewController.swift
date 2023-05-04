@@ -55,12 +55,10 @@ class AddNewWalletViewController: UIViewController {
 	private func openAddNewWalletPage(option: AddNewWalletOptionModel) {
 		switch option.page {
 		case .Create:
-			let createWalletVC = ShowSecretPhraseViewController()
-			createWalletVC.isNewWallet = true
-			createWalletVC.addedNewWallet = {
-				self.updateWallets()
-			}
-			navigationController?.pushViewController(createWalletVC, animated: true)
+			// New Wallet should be created
+            // Loading should be shown
+            // Homepage in the new account should be opened
+            print("new wallet tapped")
 		case .Import:
 			let importWalletVC = ImportSecretPhraseViewController()
 			importWalletVC.isNewWallet = true

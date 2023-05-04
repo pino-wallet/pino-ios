@@ -85,20 +85,24 @@ extension VerifySecretPhraseView {
 	private func checkSecretPhraseSequence() {
 		let sortedWords = sortedPhraseCollectionView.secretWords
 
-		switch sortedWords {
-		// All words are selected in the correct order
-		case secretPhraseVM.userSecretPhraseList:
-			errorStackView.isHidden = true
-			continueButton.style = .active
-		// Some words are selected in the correct order
-		case Array(secretPhraseVM.userSecretPhraseList.prefix(upTo: sortedWords.count)):
-			errorStackView.isHidden = true
-			continueButton.style = .deactive
-		// The words are NOT selected in the correct order
-		default:
-			errorStackView.isHidden = false
-			continueButton.style = .deactive
-		}
+//		switch sortedWords {
+//		// All words are selected in the correct order
+//		case secretPhraseVM.userSecretPhraseList:
+//			errorStackView.isHidden = true
+//			continueButton.style = .active
+//		// Some words are selected in the correct order
+//		case Array(secretPhraseVM.userSecretPhraseList.prefix(upTo: sortedWords.count)):
+//			errorStackView.isHidden = true
+//			continueButton.style = .deactive
+//		// The words are NOT selected in the correct order
+//		default:
+//			errorStackView.isHidden = false
+//			continueButton.style = .deactive
+//		}
+        
+        #warning("this is for test")
+        continueButton.style = .active
+
 	}
 }
 
@@ -108,6 +112,7 @@ extension VerifySecretPhraseView {
 	private func setupView() {
 		randomPhraseCollectionView.secretWords = secretPhraseVM.randomSecretPhraseList
 		randomPhraseCollectionView.cellStyle = .unordered
+        sortedPhraseCollectionView.showMockCreds = false
 		sortedPhraseCollectionView.secretWords = []
 
 		contentStackView.addArrangedSubview(titleStackView)

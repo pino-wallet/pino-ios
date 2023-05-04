@@ -56,7 +56,8 @@ extension AllDoneView {
 		addSubview(getStartedStackView)
 
 		getStartedButton.addAction(UIAction(handler: { _ in
-			self.getStarted()
+            self.getStartedButton.style = .loading
+//			self.getStarted()
 		}), for: .touchUpInside)
 
 		agreementCheckBox.addAction(UIAction(handler: { _ in

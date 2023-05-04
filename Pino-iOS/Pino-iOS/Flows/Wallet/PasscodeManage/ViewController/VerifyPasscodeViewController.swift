@@ -44,7 +44,7 @@ class VerifyPasscodeViewController: UIViewController {
 	func configVerifyPassVM() {
 		verifyPassVM = VerifyPassViewModel(
 			finishPassCreation: {
-				// Passcode waa verified -> Show all done page
+				// Passcode was verified -> Show all done page
 				let allDoneVC = AllDoneViewController()
 				self.navigationController?.pushViewController(allDoneVC, animated: true)
 			},

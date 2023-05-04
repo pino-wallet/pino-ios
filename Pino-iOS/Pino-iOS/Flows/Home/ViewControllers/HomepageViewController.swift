@@ -21,21 +21,6 @@ class HomepageViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		let walletManager = PinoWalletManager()
-		let mnemonics = HDWallet.generateMnemonic(seedPhraseCount: .word12)
-//		let mnemonics = "leader prosper walk brush peasant trial assist mystery good whip wear absurd"
-		print(mnemonics)
-		switch walletManager.createHDWallet(mnemonics: mnemonics) {
-		case let .success(wallet):
-			print(wallet.mnemonic)
-			print(walletManager.currentWallet)
-		//            print(walletManager.currentAccount)
-		//            print(walletManager.exportMnemonics())
-		//            print(walletManager.createAccount())
-		//            print(walletManager.exportPrivateKeyFor(account: walletManager.currentAccount))
-		case let .failure(error):
-			print(error)
-		}
 	}
 
 	override func viewDidLayoutSubviews() {

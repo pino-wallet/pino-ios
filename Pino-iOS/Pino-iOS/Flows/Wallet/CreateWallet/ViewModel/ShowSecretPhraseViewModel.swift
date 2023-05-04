@@ -23,22 +23,16 @@ struct ShowSecretPhraseViewModel {
 	// MARK: - Privare Properties
 
 	private let emptyPassphrase = ""
+    private let pinoWalletManager = PinoWalletManager()
 
 	// MARK: Initializers
 
-	init() {
-		generateMnemonic()
-	}
+	init() { }
 
 	// MARK: - Private Methods
 
-	private mutating func generateMnemonic() {
-		let seedPhraseCount = HDWallet.SeedPhraseCount.word12
-		if let newHdWallet = HDWallet(strength: seedPhraseCount.strength, passphrase: emptyPassphrase) {
-			let mnemonic = newHdWallet.mnemonic
-			secretPhraseList = mnemonic.toArray
-		} else {
-			fatalError("ganerate mnemonic faild.")
-		}
+	public mutating func generateMnemonics() {
+        let mnemonics = HDWallet.generateMnemonic(seedPhraseCount: .word12)
+        secretPhraseList = mnemonics.split(separator: " ").map { String($0) }
 	}
 }
