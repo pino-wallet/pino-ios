@@ -11,14 +11,14 @@ enum AccountingEndpoint: EndpointType {
 	// MARK: - Public Properties
 
 	#warning("Temporary address to test the api")
-	static let accountADD = "0x81Ad046aE9a7Ad56092fa7A7F09A04C82064e16C"
+//	static let accountADD = "0x81Ad046aE9a7Ad56092fa7A7F09A04C82064e16C"
 	public static let ethID = "0x0000000000000000000000000000000000000000"
 
 	// MARK: - Cases
 
-	case balances
-	case portfolio(timeFrame: String)
-	case coinPerformance(timeFrame: String, tokenID: String)
+    case balances(accountADD: String)
+	case portfolio(timeFrame: String, accountADD: String)
+	case coinPerformance(timeFrame: String, tokenID: String, accountADD: String)
     case activateAccountWith(address: String)
 
 	// MARK: - Internal Methods
@@ -58,10 +58,10 @@ enum AccountingEndpoint: EndpointType {
 		switch self {
 		case .balances:
 			return .request
-		case let .portfolio(timeFrame):
+		case let .portfolio(timeFrame,_):
 			let urlParameters: [String: Any] = ["timeframe": timeFrame]
 			return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: urlParameters)
-		case let .coinPerformance(timeFrame: timeFrame, tokenID: _):
+        case let .coinPerformance(timeFrame: timeFrame, tokenID: _, accountADD: _):
 			let urlParameters: [String: Any] = ["timeframe": timeFrame]
 			return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: urlParameters)
         case .activateAccountWith:
@@ -82,12 +82,12 @@ enum AccountingEndpoint: EndpointType {
 
 	internal var path: String {
 		switch self {
-		case .balances:
-			return "\(endpointParent)/user/\(AccountingEndpoint.accountADD)/balances"
-		case .portfolio:
-			return "\(endpointParent)/user/\(AccountingEndpoint.accountADD)/portfolio"
-		case let .coinPerformance(timeFrame: _, tokenID: tokenID):
-			return "\(endpointParent)/user/\(AccountingEndpoint.accountADD)/portfolio/\(tokenID)"
+		case .balances(let accountADD):
+			return "\(endpointParent)/user/\(accountADD)/balances"
+		case .portfolio(_, let accountADD):
+			return "\(endpointParent)/user/\(accountADD)/portfolio"
+        case let .coinPerformance(_, tokenID: tokenID, accountADD: accountADD):
+			return "\(endpointParent)/user/\(accountADD)/portfolio/\(tokenID)"
         case .activateAccountWith(address: let address):
             return "\(endpointParent)/activate/\(address)"
         }

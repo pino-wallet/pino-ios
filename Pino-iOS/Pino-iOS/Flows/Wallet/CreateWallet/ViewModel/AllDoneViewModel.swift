@@ -48,6 +48,7 @@ struct AllDoneViewModel {
                         print(error)
                     }
                 }) { activatedAccount in
+                    print(activatedAccount.id)
                     walletCreated(activatedAccount.id)
                 }.store(in: &cancellables)
         case .failure(let error):
