@@ -19,6 +19,7 @@ enum AccountingEndpoint: EndpointType {
 	case balances
 	case portfolio(timeFrame: String)
 	case coinPerformance(timeFrame: String, tokenID: String)
+    case activateAccountWith(address: String)
 
 	// MARK: - Internal Methods
 
@@ -48,7 +49,7 @@ enum AccountingEndpoint: EndpointType {
 
 	internal var requiresAuthentication: Bool {
 		switch self {
-		case .balances, .portfolio, .coinPerformance:
+        case .balances, .portfolio, .coinPerformance, .activateAccountWith:
 			return false
 		}
 	}
@@ -63,7 +64,9 @@ enum AccountingEndpoint: EndpointType {
 		case let .coinPerformance(timeFrame: timeFrame, tokenID: _):
 			let urlParameters: [String: Any] = ["timeframe": timeFrame]
 			return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: urlParameters)
-		}
+        case .activateAccountWith:
+            return .request
+        }
 	}
 
 	internal var headers: HTTPHeaders {
@@ -85,13 +88,17 @@ enum AccountingEndpoint: EndpointType {
 			return "\(endpointParent)/user/\(AccountingEndpoint.accountADD)/portfolio"
 		case let .coinPerformance(timeFrame: _, tokenID: tokenID):
 			return "\(endpointParent)/user/\(AccountingEndpoint.accountADD)/portfolio/\(tokenID)"
-		}
+        case .activateAccountWith(address: let address):
+            return "\(endpointParent)/activate/\(address)"
+        }
 	}
 
 	internal var httpMethod: HTTPMethod {
 		switch self {
 		case .balances, .portfolio, .coinPerformance:
 			return .get
-		}
+        case .activateAccountWith:
+            return .post
+        }
 	}
 }

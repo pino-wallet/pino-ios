@@ -9,6 +9,7 @@ import Combine
 import Foundation
 
 final class AccountingAPIClient: AccountingAPIService {
+    
 	// MARK: - Private Properties
 
 	private let networkManager = NetworkManager<AccountingEndpoint>(keychainService: KeychainSwift())
@@ -23,10 +24,14 @@ final class AccountingAPIClient: AccountingAPIService {
 		networkManager.request(.portfolio(timeFrame: timeFrame))
 	}
 
-	public func coinPerformance(timeFrame: String, tokenID: String = AccountingEndpoint.ethID)
+	public func coinPerformance(timeFrame: String, tokenID: String)
 		-> AnyPublisher<[ChartDataModel], APIError> {
-		networkManager.request(.coinPerformance(timeFrame: timeFrame, tokenID: tokenID))
+        networkManager.request(.coinPerformance(timeFrame: timeFrame, tokenID: tokenID))
 	}
+    
+    func activateAccountWith(address: String) -> AnyPublisher<AccountActivationModel, APIError> {
+        networkManager.request(.activateAccountWith(address: address))
+    }
 }
 
 struct NoContent: Codable {}

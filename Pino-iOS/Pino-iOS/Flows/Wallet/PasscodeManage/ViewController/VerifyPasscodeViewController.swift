@@ -13,6 +13,7 @@ class VerifyPasscodeViewController: UIViewController {
 	public var verifyPassView: ManagePasscodeView?
 	public var verifyPassVM: VerifyPassViewModel!
 	public var selectedPasscode = ""
+    public var walletMnemonics: String!
 
 	// MARK: Public Properties
 
@@ -46,6 +47,7 @@ class VerifyPasscodeViewController: UIViewController {
 			finishPassCreation: {
 				// Passcode was verified -> Show all done page
 				let allDoneVC = AllDoneViewController()
+                allDoneVC.walletMnemonics = self.walletMnemonics
 				self.navigationController?.pushViewController(allDoneVC, animated: true)
 			},
 			onErrorHandling: { error in
