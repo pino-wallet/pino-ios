@@ -47,22 +47,11 @@ class WalletManager {
 	}
 
 	public func editWallet(newWallet: WalletInfoModel) -> walletsListType {
-		var newWallet = newWallet
 		var wallets = getWalletsFromUserDefaults()
 
 		guard let currentWalletIndex = wallets.firstIndex(where: { $0.id == newWallet.id }) else {
 			fatalError("Cant find wallet with this wallet id")
 		}
-		let currentWallet = wallets[currentWalletIndex]
-
-		let currentWalletFruitName = Constants.FruitNames[currentWallet.profileImage]
-		// detect if user are changeing his wallet avatar
-		if newWallet.profileImage != currentWallet.profileImage && currentWallet.name
-			.contains(currentWalletFruitName!) {
-			newWallet = setWalletNameFromWalletAvatar(newWallet: newWallet, currentWallet: currentWallet)
-		}
-
-		newWallet = renameNewWalletIfNeeded(wallets: wallets, newWallet: newWallet)
 		wallets[currentWalletIndex] = newWallet
 		saveWalletsInUserDefaults(wallets)
 
@@ -70,17 +59,22 @@ class WalletManager {
 	}
 
 	public func addNewWallet() -> walletsListType {
+		var availableAvatars = Constants.avatars
 		var wallets = getWalletsFromUserDefaults()
-		for index in 0 ..< wallets.count {
-			wallets[index].isSelected(false)
+		for (walletIndex, wallet) in wallets.enumerated() {
+			wallets[walletIndex].isSelected(false)
+			let walletFruitName = Constants.FruitNames[wallet.profileImage]
+			if wallet.name == walletFruitName {
+				availableAvatars = availableAvatars.filter { $0 != wallet.profileImage }
+			}
 		}
-		let avatarName = Constants.avatars.randomElement() ?? "green_apple"
+		let avatarName = availableAvatars.randomElement() ?? "green_apple"
 		guard let avatarFruitName = Constants.FruitNames[avatarName] else {
 			fatalError("Cant find avatar fruit name")
 		}
 
 		#warning("this address is for testing and we should refactor this code")
-		var newWallet = WalletInfoModel(
+		let newWallet = WalletInfoModel(
 			id: "\(Int(wallets.last!.id)! + 1)",
 			name: "\(String(describing: avatarFruitName))",
 			address: "gf4bh5n3m2c8l4j5w9i2l6t2de",
@@ -89,7 +83,6 @@ class WalletManager {
 			balance: "0",
 			isSelected: true
 		)
-		newWallet = renameNewWalletIfNeeded(wallets: wallets, newWallet: newWallet)
 		wallets.append(newWallet)
 		saveWalletsInUserDefaults(wallets)
 
@@ -108,35 +101,6 @@ class WalletManager {
 	}
 
 	// MARK: - Private Methods
-
-	private func setWalletNameFromWalletAvatar(
-		newWallet: WalletInfoModel,
-		currentWallet: WalletInfoModel
-	) -> WalletInfoModel {
-		var newWallet = newWallet
-		guard let newAvatarFruitName = Constants.FruitNames[newWallet.profileImage] else {
-			fatalError("Cant find new avatar fruitname")
-		}
-		guard let currentAvatarFruitName = Constants.FruitNames[currentWallet.profileImage] else {
-			fatalError("Cant find current avatar fruitname")
-		}
-
-		newWallet.name = newWallet.name.replacingOccurrences(of: currentAvatarFruitName, with: newAvatarFruitName)
-
-		return newWallet
-	}
-
-	private func renameNewWalletIfNeeded(wallets: walletsListType, newWallet: WalletInfoModel) -> WalletInfoModel {
-		var newWallet = newWallet
-		var suffix = 1
-		for wallet in wallets {
-			if newWallet.name == wallet.name {
-				newWallet.name = "\(newWallet.name) (\(suffix))"
-				suffix = suffix + 1
-			}
-		}
-		return newWallet
-	}
 
 	private func saveWalletsInUserDefaults(_ wallets: walletsListType) {
 		do {
