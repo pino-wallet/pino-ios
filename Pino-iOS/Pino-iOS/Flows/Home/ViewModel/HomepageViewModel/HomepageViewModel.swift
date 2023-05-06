@@ -8,6 +8,7 @@
 import Combine
 import CoreData
 import Foundation
+import Hyperconnectivity
 import Network
 
 class HomepageViewModel {
@@ -30,8 +31,6 @@ class HomepageViewModel {
 	public var assetsModelList: [AssetProtocol]!
 
 	public let copyToastMessage = "Copied!"
-	public let connectionErrorToastMessage = "No internet connection"
-	public let requestFailedErrorToastMessage = "Couldn't refresh home data"
 	public let sendButtonTitle = "Send"
 	public let receiveButtonTitle = "Receive"
 	public let sendButtonImage = "arrow_up"
@@ -40,6 +39,8 @@ class HomepageViewModel {
 	public let showBalanceButtonImage = "eye"
 
 	// MARK: Internal Properties
+
+	internal var internetConnectivity = InternetConnectivity()
 
 	internal var cancellables = Set<AnyCancellable>()
 
@@ -59,40 +60,26 @@ class HomepageViewModel {
 
 	// MARK: - Public Methods
 
-	public func getHomeData(completion: @escaping (HomeRefreshError?) -> Void) {
-		checkInternetConnection { [weak self] isConnected in
+	public func getHomeData(completion: @escaping (Result<Void, HomeRefreshError>) -> Void) {
+		internetConnectivity.$isConnected.sink { isConnected in
+			guard let isConnected else { return }
 			if isConnected {
-				guard let self else { return }
-				self.getAssetsList { assets, error in
-					if let assets {
+				self.getAssetsList { result in
+					switch result {
+					case let .success(assets):
 						self.getManageAsset(assets: assets)
-						completion(nil)
-					} else {
-						completion(.requestFailed)
+						completion(.success(()))
+					case .failure:
+						completion(.failure(.requestFailed))
 					}
 				}
-				self.getPositionAssetsList()
 			} else {
-				completion(.networkConnection)
+				completion(.failure(.networkConnection))
 			}
-		}
+		}.store(in: &cancellables)
 	}
 
 	// MARK: Private Methods
-
-	private func checkInternetConnection(completion: @escaping (_ isConnected: Bool) -> Void) {
-		let monitor = NWPathMonitor()
-		monitor.pathUpdateHandler = { path in
-			if path.status == .satisfied {
-				completion(true)
-				monitor.cancel()
-			} else {
-				completion(false)
-				monitor.cancel()
-			}
-		}
-		monitor.start(queue: DispatchQueue.main)
-	}
 
 	private func switchSecurityMode(_ isOn: Bool) {
 		if let walletBalance {

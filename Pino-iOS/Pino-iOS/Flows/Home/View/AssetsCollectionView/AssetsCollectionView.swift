@@ -114,16 +114,13 @@ class AssetsCollectionView: UICollectionView {
 	// MARK: - Public Methods
 
 	public func getHomeData() {
-		homeVM.getHomeData { error in
+		homeVM.getHomeData { result in
 			self.refreshControl?.endRefreshing()
-			if let error {
-				switch error {
-				case .requestFailed:
-					self.refreshErrorToastView.message = self.homeVM.requestFailedErrorToastMessage
-				case .networkConnection:
-					self.refreshErrorToastView.message = self.homeVM.connectionErrorToastMessage
-				}
+			switch result {
+			case let .failure(error):
+				self.refreshErrorToastView.message = error.message
 				self.refreshErrorToastView.showToast()
+			case .success: break
 			}
 		}
 	}

@@ -10,7 +10,7 @@ import CoreData
 extension HomepageViewModel {
 	// MARK: Internal Methods
 
-	internal func getAssetsList(completion: @escaping (_ assets: [BalanceAssetModel]?, _ error: APIError?) -> Void) {
+	internal func getAssetsList(completion: @escaping (Result<[BalanceAssetModel], APIError>) -> Void) {
 		accountingAPIClient.userBalance()
 			.map { balanceAssets in
 				balanceAssets.filter { $0.isVerified }
@@ -20,11 +20,10 @@ extension HomepageViewModel {
 				case .finished:
 					print("Assets received successfully")
 				case let .failure(error):
-					completion(nil, error)
-					print(error)
+					completion(.failure(error))
 				}
 			} receiveValue: { assets in
-				completion(assets, nil)
+				completion(.success(assets))
 			}.store(in: &cancellables)
 	}
 

@@ -321,6 +321,8 @@
 		E384CB1629FFABAB009C74F5 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E384CB1529FFABAB009C74F5 /* Double+Extension.swift */; };
 		E384CB1829FFADA0009C74F5 /* ShareOfAssetProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E384CB1729FFADA0009C74F5 /* ShareOfAssetProtocol.swift */; };
 		E384CB1A29FFADE9009C74F5 /* OtherShareOfAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E384CB1929FFADE9009C74F5 /* OtherShareOfAssetsViewModel.swift */; };
+		E3E009E02A0635C800234707 /* Hyperconnectivity in Frameworks */ = {isa = PBXBuildFile; productRef = E3E009DF2A0635C800234707 /* Hyperconnectivity */; };
+		E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E009E12A06377D00234707 /* InternetConnectivity.swift */; };
 		E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D680E48001C060BADD248 /* EndpointType.swift */; };
 		E4BC1D70FBAF66825B9358E7 /* LockMethodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386676E7E643B6AB252A5653 /* LockMethodModel.swift */; };
 		E4FF2E5E60CA74F3324945A8 /* CoinInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D5774D76FC507F8B176185 /* CoinInfoViewModel.swift */; };
@@ -670,6 +672,7 @@
 		E384CB1529FFABAB009C74F5 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		E384CB1729FFADA0009C74F5 /* ShareOfAssetProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOfAssetProtocol.swift; sourceTree = "<group>"; };
 		E384CB1929FFADE9009C74F5 /* OtherShareOfAssetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherShareOfAssetsViewModel.swift; sourceTree = "<group>"; };
+		E3E009E12A06377D00234707 /* InternetConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectivity.swift; sourceTree = "<group>"; };
 		E40D0AB7515630563347CBDA /* CoinPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceViewController.swift; sourceTree = "<group>"; };
 		E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetViewModel.swift; sourceTree = "<group>"; };
 		E5039C2C00BEB653F3B0D399 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -731,6 +734,7 @@
 			files = (
 				DF0F660629E1B47B00DB7290 /* Charts in Frameworks */,
 				DF0F65F029E1B27200DB7290 /* Kingfisher in Frameworks */,
+				E3E009E02A0635C800234707 /* Hyperconnectivity in Frameworks */,
 				5C2406A791AFEA56B9374873 /* Pods_Pino_iOS.framework in Frameworks */,
 				DF0F65E529E1B20F00DB7290 /* BigInt in Frameworks */,
 				DF0F65E829E1B22A00DB7290 /* web3swift in Frameworks */,
@@ -1297,6 +1301,7 @@
 				6FDF52EAF23E4F882F6EE8DA /* BlurEffectView.swift */,
 				791209DFE36FC4B7F33E3198 /* GradientLayer.swift */,
 				360DDE55AF8AE72416D221FB /* ProfileIcons.swift */,
+				E3E009E12A06377D00234707 /* InternetConnectivity.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -2040,6 +2045,7 @@
 				DF0F65E729E1B22A00DB7290 /* web3swift */,
 				DF0F65EF29E1B27200DB7290 /* Kingfisher */,
 				DF0F660529E1B47B00DB7290 /* Charts */,
+				E3E009DF2A0635C800234707 /* Hyperconnectivity */,
 			);
 			productName = "Pino-iOS";
 			productReference = 8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */;
@@ -2118,6 +2124,7 @@
 				DF0F65E929E1B24500DB7290 /* XCRemoteSwiftPackageReference "OHHTTPStubs" */,
 				DF0F65EE29E1B27200DB7290 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				DF0F660429E1B47B00DB7290 /* XCRemoteSwiftPackageReference "Charts" */,
+				E3E009DE2A0635C800234707 /* XCRemoteSwiftPackageReference "hyperconnectivity" */,
 			);
 			productRefGroup = 2821FB9CEE9F9B9E6BAE9FD7 /* Products */;
 			projectDirPath = "";
@@ -2315,6 +2322,7 @@
 				AC39E74F527151DCAE1E9AAE /* AccountingAPIMockClient.swift in Sources */,
 				6FB08C15B02317A1FE3C012D /* AccountingAPIService.swift in Sources */,
 				3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */,
+				E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */,
 				E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */,
 				B0AB10C04E985064573878F8 /* AddCustomAssetView.swift in Sources */,
 				4A19B10E59268C480A530395 /* AddCustomAssetViewController.swift in Sources */,
@@ -2953,6 +2961,14 @@
 				kind = branch;
 			};
 		};
+		E3E009DE2A0635C800234707 /* XCRemoteSwiftPackageReference "hyperconnectivity" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rwbutler/hyperconnectivity";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2985,6 +3001,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DF0F660429E1B47B00DB7290 /* XCRemoteSwiftPackageReference "Charts" */;
 			productName = Charts;
+		};
+		E3E009DF2A0635C800234707 /* Hyperconnectivity */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E3E009DE2A0635C800234707 /* XCRemoteSwiftPackageReference "hyperconnectivity" */;
+			productName = Hyperconnectivity;
 		};
 /* End XCSwiftPackageProductDependency section */
 
