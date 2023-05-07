@@ -10,7 +10,7 @@ import CoreData
 extension HomepageViewModel {
 	// MARK: Internal Methods
 
-	internal func getAssetsList() {
+	internal func getAssetsList(completion: @escaping (Result<[BalanceAssetModel], APIError>) -> Void) {
 		accountingAPIClient.userBalance()
 			.map { balanceAssets in
 				balanceAssets.filter { $0.isVerified }
@@ -20,16 +20,20 @@ extension HomepageViewModel {
 				case .finished:
 					print("Assets received successfully")
 				case let .failure(error):
-					print(error)
+					completion(.failure(error))
 				}
 			} receiveValue: { assets in
-				self.assetsModelList = assets
-				self.checkDefaultAssetsAdded(assets)
-				let selectedAssetsID = self.selectedAssets.map { $0.id }
-				self.manageAssetsList = assets.compactMap {
-					AssetViewModel(assetModel: $0, isSelected: selectedAssetsID.contains($0.id))
-				}
+				completion(.success(assets))
 			}.store(in: &cancellables)
+	}
+
+	internal func getManageAsset(assets: [BalanceAssetModel]) {
+		assetsModelList = assets
+		checkDefaultAssetsAdded(assets)
+		let selectedAssetsID = selectedAssets.map { $0.id }
+		manageAssetsList = assets.compactMap {
+			AssetViewModel(assetModel: $0, isSelected: selectedAssetsID.contains($0.id))
+		}
 	}
 
 	#warning("This is temporary and must be replaced with API data")
@@ -46,6 +50,14 @@ extension HomepageViewModel {
 			selectedAssets = results
 		} catch let error as NSError {
 			print("Fetch error: \(error) description: \(error.userInfo)")
+		}
+	}
+
+	internal func checkDefaultAssetsAdded(_ assets: [BalanceAssetModel]) {
+		let defaultAssetUserDefaultsKey = "isDefaultAssetsAdded"
+		if !UserDefaults.standard.bool(forKey: defaultAssetUserDefaultsKey) {
+			addDefaultAssetsToCoreData(assets)
+			UserDefaults.standard.setValue(true, forKey: defaultAssetUserDefaultsKey)
 		}
 	}
 
@@ -76,14 +88,6 @@ extension HomepageViewModel {
 		}
 		// Save changes in CoreData
 		coreDataStack.saveContext()
-	}
-
-	private func checkDefaultAssetsAdded(_ assets: [BalanceAssetModel]) {
-		let defaultAssetUserDefaultsKey = "isDefaultAssetsAdded"
-		if !UserDefaults.standard.bool(forKey: defaultAssetUserDefaultsKey) {
-			addDefaultAssetsToCoreData(assets)
-			UserDefaults.standard.setValue(true, forKey: defaultAssetUserDefaultsKey)
-		}
 	}
 
 	// MARK: Public Methods
