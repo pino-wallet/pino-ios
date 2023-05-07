@@ -9,14 +9,14 @@ struct WalletBalanceModel: Codable {
 	// MARK: - Public Properties
 
 	public var balance: String
+	public var volatilityNumber: String
 	public var volatilityPercentage: String
 	public var volatilityInDollor: String
-	public var volatilityType: String
 
 	enum CodingKeys: String, CodingKey {
 		case balance
+		case volatilityNumber = "volatility_number"
 		case volatilityPercentage = "volatility_percentage"
 		case volatilityInDollor = "volatility_in_dollor"
-		case volatilityType = "volatility_type"
 	}
 }
