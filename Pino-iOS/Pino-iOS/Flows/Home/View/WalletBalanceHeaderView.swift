@@ -86,6 +86,7 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 
 		sendButton.tintColor = .Pino.white
 		receiveButton.tintColor = .Pino.primary
+		receiveButton.backgroundColor = .Pino.white
 		showBalanceButton.tintColor = .Pino.gray2
 
 		balanceLabel.textColor = .Pino.label
