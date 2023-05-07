@@ -88,6 +88,7 @@ class ImportSecretPhraseViewController: UIViewController {
 			// Go to create passcode page
 			let createPasscodeViewController = CreatePasscodeViewController()
 			createPasscodeViewController.pageSteps = 2
+            createPasscodeViewController.walletMnemonics = importsecretPhraseView.textViewText
 			navigationController?.pushViewController(createPasscodeViewController, animated: true)
 		}
 	}

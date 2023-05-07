@@ -49,6 +49,8 @@ class PrivateKeyTextView: UITextView, ImportTextViewType {
     // MARK: - Private Method
 
     private func setupStyle() {
+        self.autocorrectionType = .no
+        self.autocapitalizationType = .none
         backgroundColor = .Pino.clear
         text = placeHolderText
         textColor = .Pino.gray2

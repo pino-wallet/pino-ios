@@ -27,6 +27,9 @@ class ImportSecretPhraseView: UIView {
 	public let errorStackView = UIStackView()
 	public let importButton = PinoButton(style: .deactive)
     public let importTextView: ImportTextViewType!
+    public var textViewText: String {
+        importTextView.text
+    }
 
 	// MARK: - Initializers
 
