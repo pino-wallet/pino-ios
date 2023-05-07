@@ -7,7 +7,8 @@
 
 import Foundation
 
-class AddNewWalletViewModel {
+struct AddNewWalletViewModel {
+            
 	// MARK: - Public Properties
 
 	public let AddNewWalletOptions: [AddNewWalletOptionModel?] = [

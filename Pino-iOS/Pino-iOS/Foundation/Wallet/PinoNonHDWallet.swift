@@ -10,7 +10,7 @@ import WalletCore
 import Web3Core
 
 protocol PNonHDWallet: PinoWallet {
-	mutating func importAccount(privateKey: Data) -> Result<Account, WalletOperationError>
+	mutating func importAccount(privateKey: String) -> Result<Account, WalletOperationError>
 }
 
 public struct PinoNonHDWallet: PNonHDWallet {
@@ -24,18 +24,16 @@ public struct PinoNonHDWallet: PNonHDWallet {
 		getAllAccounts()
 	}
 
-	#warning("this is for testing purposes")
-	private var tempAccounts: [Account] = []
-
 	// MARK: - Public Methods
 
-	public mutating func importAccount(privateKey: Data) -> Result<Account, WalletOperationError> {
+	public mutating func importAccount(privateKey: String) -> Result<Account, WalletOperationError> {
 		do {
-			let account = try Account(privateKeyData: privateKey)
+            let keyData = Data(hexString: privateKey)!
+			let account = try Account(privateKeyData: keyData)
 			guard accountExist(account: account) else { return .success(account) }
 			addNewAccount(account)
 			let keyCipherData = secureEnclave.encrypt(
-				plainData: privateKey,
+				plainData: keyData,
 				withPublicKeyLabel: KeychainManager.privateKey.getKey(account: account)
 			)
 			if !KeychainManager.privateKey.setValue(
@@ -50,15 +48,4 @@ public struct PinoNonHDWallet: PNonHDWallet {
 		}
 	}
 
-	#warning("read accouns from core data")
-	public func getAllAccounts() -> [Account] {
-		tempAccounts
-	}
-
-	public mutating func addNewAccount(_ account: Account) {
-		#warning("write account to core data")
-		if !accountExist(account: account) {
-			tempAccounts.append(account)
-		}
-	}
 }

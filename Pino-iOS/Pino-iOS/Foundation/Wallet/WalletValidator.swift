@@ -10,9 +10,15 @@ import WalletCore
 import Web3Core
 
 public enum WalletValidator {
-	static func isPrivateKeyValid(key: Data) -> Bool {
-		PrivateKey.isValid(data: key, curve: .secp256k1)
+	
+    static func isPrivateKeyValid(key: String) -> Bool {
+        let keyData = Data(hexString: key)!
+		return PrivateKey.isValid(data: keyData, curve: .secp256k1)
 	}
+    
+    static func isPrivateKeyValid(key: Data) -> Bool {
+        return PrivateKey.isValid(data: key, curve: .secp256k1)
+    }
 
 	static func isPublicKeyValid(key: Data) -> Bool {
 		PublicKey.isValid(data: key, type: .secp256k1)

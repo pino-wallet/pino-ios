@@ -73,47 +73,6 @@ public class PinoHDWallet: PHDWallet {
 		return .success(account)
 	}
 
-	#warning("should read accounts from core data")
-	public func getAllAccounts() -> [Account] {
-        let userDefaults = UserDefaults.standard
-        // 1
-        if let savedData = userDefaults.object(forKey: "accounts") as? Data {
-
-            do{
-                // 2
-                let savedAccounts = try JSONDecoder().decode([Account].self, from: savedData)
-                return savedAccounts
-            } catch {
-                // Failed to convert Data to Contact
-                return []
-            }
-        } else {
-            return []
-        }
-	}
-
-	#warning("write account to core data")
-	public func addNewAccount(_ account: Account) {
-		if !accountExist(account: account) {
-            
-            do {
-                //0
-                var allAccounts = getAllAccounts()
-                allAccounts.append(account)
-                
-                // 1
-                let encodedData = try JSONEncoder().encode(allAccounts)
-                let userDefaults = UserDefaults.standard
-                
-                // 2
-                userDefaults.set(encodedData, forKey: "accounts")
-
-            } catch {
-                // Failed to encode Contact to Data
-            }
-        }
-	}
-
 	// MARK: - Private Methods
 
 	private func getPrivateKeyOfFirstAccount(wallet: HDWallet) -> Data {

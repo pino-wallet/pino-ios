@@ -61,7 +61,7 @@ class AddNewWalletViewController: UIViewController {
             print("new wallet tapped")
 		case .Import:
 			let importWalletVC = ImportSecretPhraseViewController()
-			importWalletVC.isNewWallet = true
+			importWalletVC.isNewWallet = false
 			importWalletVC.addedNewWallet = {
 				self.updateWallets()
 			}

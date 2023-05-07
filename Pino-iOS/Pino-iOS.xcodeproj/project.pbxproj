@@ -89,6 +89,7 @@
 		3FB363922C364DE0175B075E /* SecurityOptionsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F220C035F946AABEE3C81 /* SecurityOptionsCollectionView.swift */; };
 		3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6922A1FD91EE9D2DAF8D928 /* AccountingEndpoint.swift */; };
 		40F704572A03AFFF004D74FE /* AccountActivationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F704562A03AFFF004D74FE /* AccountActivationModel.swift */; };
+		40F704592A03D5DC004D74FE /* PrivateKeyTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F704582A03D5DC004D74FE /* PrivateKeyTextView.swift */; };
 		41B9F1002F97DF04A075D75D /* PinoStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262D77EFE984EBA7A19D23DC /* PinoStepperView.swift */; };
 		4249EFC00F914608B9BE7171 /* AssetsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F34A6DD9D5B0DA99D3D282 /* AssetsCollectionViewCell.swift */; };
 		44C3312B501D7A88C6ADB659 /* SelectPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DADC99C41136A35EF49EF9B /* SelectPassViewModel.swift */; };
@@ -175,7 +176,7 @@
 		879CCE498D1A04C8EDE64430 /* PPPangramSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C054674B5A17E87E59B6946F /* PPPangramSans-Bold.ttf */; };
 		87D5D64B10D301DA28F383FE /* SuggestedSeedPhraseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBF81923E5F2C83F0DB3C9 /* SuggestedSeedPhraseCollectionView.swift */; };
 		87F08F9B76154826B35A43F3 /* CustomAssetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B892625118DF231D53AD596 /* CustomAssetModel.swift */; };
-		88F5D80113398502A2D2BE03 /* ValidateSecretPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712A56F371843AF47B6362CE /* ValidateSecretPhraseViewModel.swift */; };
+		88F5D80113398502A2D2BE03 /* ImportAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712A56F371843AF47B6362CE /* ImportAccountViewModel.swift */; };
 		8A10D639170969ECFADE0FE4 /* CoinPerformanceInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77EE6734CEDAE75B2EDBEE5 /* CoinPerformanceInfoViewModel.swift */; };
 		8A92E3CC08C836C248DAB1B1 /* HTTPStubs+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4606CCB9D451853BA369516C /* HTTPStubs+Helper.swift */; };
 		8BB89902879DDF1FE9C46EF4 /* UnlockPasscodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E0DC27B3A2CA3D50A64780 /* UnlockPasscodeView.swift */; };
@@ -454,6 +455,7 @@
 		3F052F464B4443A09B569492 /* PPPangramSans-ExtraboldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtraboldReclined.ttf"; sourceTree = "<group>"; };
 		404287D5077C670FADEE9987 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		40F704562A03AFFF004D74FE /* AccountActivationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountActivationModel.swift; sourceTree = "<group>"; };
+		40F704582A03D5DC004D74FE /* PrivateKeyTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKeyTextView.swift; sourceTree = "<group>"; };
 		411833622E37F06E2DC49DFD /* AvatarCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCollectionView.swift; sourceTree = "<group>"; };
 		412EA8786DF547325A94AE49 /* AssetChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetChartViewModel.swift; sourceTree = "<group>"; };
 		417C7ECF5FA6FD9201D1F8D4 /* LineChartDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartDelegate.swift; sourceTree = "<group>"; };
@@ -511,7 +513,7 @@
 		6FDF52EAF23E4F882F6EE8DA /* BlurEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurEffectView.swift; sourceTree = "<group>"; };
 		6FF1DD088DBE71EAD3CEB3F9 /* PasteFromClipboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteFromClipboardView.swift; sourceTree = "<group>"; };
 		6FFC918E160F2D1A3CD397AD /* KeychainWrapperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapperProtocol.swift; sourceTree = "<group>"; };
-		712A56F371843AF47B6362CE /* ValidateSecretPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateSecretPhraseViewModel.swift; sourceTree = "<group>"; };
+		712A56F371843AF47B6362CE /* ImportAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountViewModel.swift; sourceTree = "<group>"; };
 		71EEC20862FCD98123D65A01 /* CreatePasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeViewController.swift; sourceTree = "<group>"; };
 		72BC3A92C32E2046414C06DB /* PassManagmentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassManagmentError.swift; sourceTree = "<group>"; };
 		73792E48AD4925E61A0B074B /* NoInternetConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInternetConnectionView.swift; sourceTree = "<group>"; };
@@ -1221,6 +1223,7 @@
 			children = (
 				1AE59B4F8A912C260EBD9FD8 /* ImportSecretPhraseView.swift */,
 				78482FE19363A791AB1DBF21 /* SecretPhraseTextView.swift */,
+				40F704582A03D5DC004D74FE /* PrivateKeyTextView.swift */,
 				3BB0B1B5F9A48B80542BF12C /* SuggestedSeedPhraseCell.swift */,
 				DCDBF81923E5F2C83F0DB3C9 /* SuggestedSeedPhraseCollectionView.swift */,
 			);
@@ -1421,7 +1424,7 @@
 		701296F9043E020094B51C0F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				712A56F371843AF47B6362CE /* ValidateSecretPhraseViewModel.swift */,
+				712A56F371843AF47B6362CE /* ImportAccountViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2631,13 +2634,14 @@
 				6E539ADB99F2D4F23ECC14A1 /* ToastViewProtocol.swift in Sources */,
 				E384CB1229F6A931009C74F5 /* CoinPerformanceInfoView.swift in Sources */,
 				E25F4C14C3273F63F22E983C /* UIView.swift in Sources */,
+				40F704592A03D5DC004D74FE /* PrivateKeyTextView.swift in Sources */,
 				8F2B1AD252EE32B2F328105B /* URLParameterEncoding.swift in Sources */,
 				7788C1D86DF1F4B1E6B2DE54 /* URLRequest+Extension.swift in Sources */,
 				71ED4673E278D4F56B0CC895 /* UnlockAppViewController.swift in Sources */,
 				99B64004802220934AD0B60B /* UnlockAppViewModel.swift in Sources */,
 				038A90F28F66ACC57B0A3CF5 /* UnlockPasscodePageManager.swift in Sources */,
 				8BB89902879DDF1FE9C46EF4 /* UnlockPasscodeView.swift in Sources */,
-				88F5D80113398502A2D2BE03 /* ValidateSecretPhraseViewModel.swift in Sources */,
+				88F5D80113398502A2D2BE03 /* ImportAccountViewModel.swift in Sources */,
 				F8BA0B9925700FFF405AB76D /* VerifyPassViewModel.swift in Sources */,
 				1171EA77FBBB99743B192CFF /* VerifyPasscodeViewController.swift in Sources */,
 				40F704572A03AFFF004D74FE /* AccountActivationModel.swift in Sources */,
