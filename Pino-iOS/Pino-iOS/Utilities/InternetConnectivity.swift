@@ -13,7 +13,6 @@ class InternetConnectivity {
 	// MARK: - Private Properties
 
 	private var cancellable: AnyCancellable?
-	public var isCheckingConnectivity: Bool?
 
 	// MARK: - Public Properties
 
@@ -29,7 +28,6 @@ class InternetConnectivity {
 	// MARK: - Private Methods
 
 	private func startConnectivityChecks() {
-		isCheckingConnectivity = true
 		cancellable = Hyperconnectivity.Publisher()
 			.receive(on: DispatchQueue.main)
 			.eraseToAnyPublisher()
@@ -42,7 +40,6 @@ class InternetConnectivity {
 
 	private func stopConnectivityChecks() {
 		cancellable?.cancel()
-		isCheckingConnectivity = false
 	}
 
 	private func updateConnectionStatus(_ result: ConnectivityResult) {

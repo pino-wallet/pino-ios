@@ -108,6 +108,10 @@ class HomepageViewModel {
 		$manageAssetsList.sink { assets in
 			guard let assets else { return }
 			self.assetsList = assets.filter { $0.isSelected }
+		}.store(in: &cancellables)
+
+		$assetsList.sink { assets in
+			guard let assets else { return }
 			self.getWalletBalance(assets: assets)
 		}.store(in: &cancellables)
 	}
