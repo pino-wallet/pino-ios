@@ -61,8 +61,8 @@ class HomepageViewModel {
 	// MARK: - Public Methods
 
 	public func getHomeData(completion: @escaping (HomeNetworkError?) -> Void) {
-		internetConnectivity.$isConnected.sink { isConnected in
-			guard let isConnected else { return }
+		internetConnectivity.$isConnected.tryCompactMap { $0 }.sink { _ in
+		} receiveValue: { isConnected in
 			if isConnected {
 				self.getAssetsList { result in
 					switch result {
