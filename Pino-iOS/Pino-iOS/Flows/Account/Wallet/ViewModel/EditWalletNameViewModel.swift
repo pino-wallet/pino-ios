@@ -15,8 +15,8 @@ class EditWalletNameViewModel {
 	public let pageTitle = "Wallet name"
 	public let doneButtonName = "Done"
 	public let walletNamePlaceHolder = "Enter name"
-	public let walletRepeatedNameErrorText = "This wallet name is allready taken!"
-	public let walletIsEmptyNameErrorText = "Wallet name cant be empty"
+	public let walletNameIsRepeatedError = "This wallet name is already taken!"
+	public let walletNameIsEmptyError = "Wallet name cant be empty"
 
 	public var selectedWalletID: String
 

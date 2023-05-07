@@ -31,7 +31,7 @@ enum Constants {
 		"leafy_greens",
 		"pineapple",
 	]
-	public static var FruitNames = [
+	public static var fruitNames = [
 		"grapes": "Grapes",
 		"tangerine": "Tangerine",
 		"coconut": "Coconut",

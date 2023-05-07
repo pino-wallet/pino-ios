@@ -80,13 +80,13 @@ class EditWalletNameViewController: UIViewController {
 				self?.editWalletNameView.doneButton.style = .deactive
 				self?.editWalletNameView.walletNameTextFieldView.style = .error
 				self?.editWalletNameView.walletNameTextFieldView.errorText = self?.editWalletNameVM
-					.walletIsEmptyNameErrorText ?? ""
+					.walletNameIsEmptyError ?? ""
 			case .repeatedName:
 				self?.navigationItem.rightBarButtonItem?.isEnabled = false
 				self?.editWalletNameView.doneButton.style = .deactive
 				self?.editWalletNameView.walletNameTextFieldView.style = .error
 				self?.editWalletNameView.walletNameTextFieldView.errorText = self?.editWalletNameVM
-					.walletRepeatedNameErrorText ?? ""
+					.walletNameIsRepeatedError ?? ""
 			case .clear:
 				self?.navigationItem.rightBarButtonItem?.isEnabled = true
 				self?.editWalletNameView.doneButton.style = .active

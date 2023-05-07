@@ -7,10 +7,10 @@
 
 import Foundation
 
-class WalletManager {
+struct WalletManager {
 	// MARK: - Public Typealiases
 
-	public typealias walletsListType = [WalletInfoModel]
+	public typealias WalletsListType = [WalletInfoModel]
 
 	// MARK: - Initializers
 
@@ -18,7 +18,7 @@ class WalletManager {
 
 	// MARK: - Public Methods
 
-	public func updateSelectedWallet(wallet: WalletInfoModel) -> walletsListType {
+	public func setSelectedState(wallet: WalletInfoModel) -> WalletsListType {
 		var wallets = getWalletsFromUserDefaults()
 		for index in 0 ..< wallets.count {
 			if wallets[index].id == wallet.id {
@@ -31,7 +31,7 @@ class WalletManager {
 		return wallets
 	}
 
-	public func removeWallet(wallet: WalletInfoModel) -> walletsListType {
+	public func removeWallet(wallet: WalletInfoModel) -> WalletsListType {
 		var wallets = getWalletsFromUserDefaults()
 		if wallets.count > 1 {
 			guard let walletIndex = wallets.firstIndex(where: { $0.id == wallet.id }) else {
@@ -46,7 +46,7 @@ class WalletManager {
 		return wallets
 	}
 
-	public func editWallet(newWallet: WalletInfoModel) -> walletsListType {
+	public func editWallet(newWallet: WalletInfoModel) -> WalletsListType {
 		var wallets = getWalletsFromUserDefaults()
 
 		guard let currentWalletIndex = wallets.firstIndex(where: { $0.id == newWallet.id }) else {
@@ -58,18 +58,18 @@ class WalletManager {
 		return wallets
 	}
 
-	public func addNewWallet() -> walletsListType {
+	public func addNewWallet() -> WalletsListType {
 		var availableAvatars = Constants.avatars
 		var wallets = getWalletsFromUserDefaults()
 		for (walletIndex, wallet) in wallets.enumerated() {
 			wallets[walletIndex].isSelected(false)
-			let walletFruitName = Constants.FruitNames[wallet.profileImage]
+			let walletFruitName = Constants.fruitNames[wallet.profileImage]
 			if wallet.name == walletFruitName {
 				availableAvatars = availableAvatars.filter { $0 != wallet.profileImage }
 			}
 		}
 		let avatarName = availableAvatars.randomElement() ?? "green_apple"
-		guard let avatarFruitName = Constants.FruitNames[avatarName] else {
+		guard let avatarFruitName = Constants.fruitNames[avatarName] else {
 			fatalError("Cant find avatar fruit name")
 		}
 
@@ -89,12 +89,12 @@ class WalletManager {
 		return wallets
 	}
 
-	public func getWalletsFromUserDefaults() -> walletsListType {
+	public func getWalletsFromUserDefaults() -> WalletsListType {
 		guard let encodedWallets = UserDefaults.standard.data(forKey: "wallets") else {
 			fatalError("No wallet found in user defaults")
 		}
 		do {
-			return try JSONDecoder().decode(walletsListType.self, from: encodedWallets)
+			return try JSONDecoder().decode(WalletsListType.self, from: encodedWallets)
 		} catch {
 			fatalError(error.localizedDescription)
 		}
@@ -102,7 +102,7 @@ class WalletManager {
 
 	// MARK: - Private Methods
 
-	private func saveWalletsInUserDefaults(_ wallets: walletsListType) {
+	private func saveWalletsInUserDefaults(_ wallets: WalletsListType) {
 		do {
 			let encodedWallets = try JSONEncoder().encode(wallets)
 			UserDefaults.standard.set(encodedWallets, forKey: "wallets")

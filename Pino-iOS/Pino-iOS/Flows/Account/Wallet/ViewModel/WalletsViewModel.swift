@@ -29,7 +29,7 @@ class WalletsViewModel {
 	// MARK: - Public Methods
 
 	public func updateSelectedWallet(with selectedWallet: WalletInfoModel) {
-		let wallets = walletManager.updateSelectedWallet(wallet: selectedWallet)
+		let wallets = walletManager.setSelectedState(wallet: selectedWallet)
 		walletsList = wallets.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
 	}
 
@@ -43,14 +43,7 @@ class WalletsViewModel {
 		walletsList = wallets.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
 	}
 
-	public func updateWallets() {
-		let wallets = walletManager.getWalletsFromUserDefaults().compactMap { WalletInfoViewModel(walletInfoModel: $0) }
-		walletsList = wallets
-	}
-
-	// MARK: - Private Methods
-
-	private func getWallets() {
+	public func getWallets() {
 		// Request to get wallets
 		let wallets = walletManager.getWalletsFromUserDefaults()
 		walletsList = wallets.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
