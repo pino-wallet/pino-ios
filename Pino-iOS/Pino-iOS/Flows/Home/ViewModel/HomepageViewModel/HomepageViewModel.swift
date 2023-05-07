@@ -60,7 +60,7 @@ class HomepageViewModel {
 
 	// MARK: - Public Methods
 
-	public func getHomeData(completion: @escaping (Result<Void, HomeRefreshError>) -> Void) {
+	public func getHomeData(completion: @escaping (Result<Void, HomeNetworkError>) -> Void) {
 		internetConnectivity.$isConnected.sink { isConnected in
 			guard let isConnected else { return }
 			if isConnected {

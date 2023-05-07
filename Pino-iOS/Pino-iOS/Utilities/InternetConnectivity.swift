@@ -31,15 +31,9 @@ class InternetConnectivity {
 		cancellable = Hyperconnectivity.Publisher()
 			.receive(on: DispatchQueue.main)
 			.eraseToAnyPublisher()
-			.sink(receiveCompletion: { [weak self] _ in
-				self?.stopConnectivityChecks()
-			}, receiveValue: { [weak self] connectivityResult in
+			.sink(receiveValue: { [weak self] connectivityResult in
 				self?.updateConnectionStatus(connectivityResult)
 			})
-	}
-
-	private func stopConnectivityChecks() {
-		cancellable?.cancel()
 	}
 
 	private func updateConnectionStatus(_ result: ConnectivityResult) {
