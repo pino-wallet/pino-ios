@@ -60,7 +60,7 @@ class HomepageViewModel {
 
 	// MARK: - Public Methods
 
-	public func getHomeData(completion: @escaping (Result<Void, HomeNetworkError>) -> Void) {
+	public func getHomeData(completion: @escaping (HomeNetworkError?) -> Void) {
 		internetConnectivity.$isConnected.sink { isConnected in
 			guard let isConnected else { return }
 			if isConnected {
@@ -68,13 +68,13 @@ class HomepageViewModel {
 					switch result {
 					case let .success(assets):
 						self.getManageAsset(assets: assets)
-						completion(.success(()))
+						completion(nil)
 					case .failure:
-						completion(.failure(.requestFailed))
+						completion(.requestFailed)
 					}
 				}
 			} else {
-				completion(.failure(.networkConnection))
+				completion(.networkConnection)
 			}
 		}.store(in: &cancellables)
 	}
