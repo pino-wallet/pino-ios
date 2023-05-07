@@ -89,7 +89,8 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 		receiveButton.backgroundColor = .Pino.white
 		showBalanceButton.tintColor = .Pino.gray2
 
-		balanceLabel.textColor = .Pino.label
+        balanceLabel.textColor = .Pino.label
+		balanceLabel.textAlignment = .center
 		showBalanceButton.setTitleColor(.Pino.gray2, for: .normal)
 
 		volatilityPercentageLabel.font = .PinoStyle.semiboldFootnote

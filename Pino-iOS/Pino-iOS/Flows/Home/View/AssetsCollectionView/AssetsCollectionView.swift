@@ -23,12 +23,12 @@ class AssetsCollectionView: UICollectionView {
 
 	public var manageAssetButtonTapped: () -> Void
 	public var assetTapped: (AssetViewModel) -> Void
-	internal var portfolioPerformanceTapped: () -> Void
 
 	// MARK: - Internal Properties
 
 	internal var homeVM: HomepageViewModel!
 	internal var cancellables = Set<AnyCancellable>()
+    internal var portfolioPerformanceTapped: () -> Void
 
 	// MARK: Initializers
 
