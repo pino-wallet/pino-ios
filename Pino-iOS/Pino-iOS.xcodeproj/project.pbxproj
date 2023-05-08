@@ -330,6 +330,10 @@
 		DF0F660629E1B47B00DB7290 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F660529E1B47B00DB7290 /* Charts */; };
 		DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF705C69E87F6C936F8261B /* AccountingAPIClient.swift */; };
 		DF75D7BA11B6049962E559DD /* Pods_Pino_iOS_Pino_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED04DC43CDE62FC3786D51F4 /* Pods_Pino_iOS_Pino_iOSUITests.framework */; };
+		DFB1E9D02A08EC1800041B26 /* DataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB1E9CF2A08EC1800041B26 /* DataSourceProtocol.swift */; };
+		DFB1E9D22A08EC6100041B26 /* WalletDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB1E9D12A08EC6100041B26 /* WalletDataSource.swift */; };
+		DFB1E9D42A08F19C00041B26 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB1E9D32A08F19C00041B26 /* CoreDataManager.swift */; };
+		DFB1E9D62A08F21C00041B26 /* SelectedAssetsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB1E9D52A08F21C00041B26 /* SelectedAssetsDataSource.swift */; };
 		E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCBF9CC6A3C63CAA0DB0AA7 /* ActivityViewController.swift */; };
 		E25F4C14C3273F63F22E983C /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA3FFE35308EBEC961CD7BF /* UIView.swift */; };
 		E34728E229E5360300AB8265 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34728E129E5360300AB8265 /* CoreDataStack.swift */; };
@@ -699,6 +703,10 @@
 		DF00179229F85727001164EA /* PinoNonHDWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoNonHDWallet.swift; sourceTree = "<group>"; };
 		DF00179429F85774001164EA /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		DF00179629F96D3D001164EA /* PinoWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoWalletManager.swift; sourceTree = "<group>"; };
+		DFB1E9CF2A08EC1800041B26 /* DataSourceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceProtocol.swift; sourceTree = "<group>"; };
+		DFB1E9D12A08EC6100041B26 /* WalletDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDataSource.swift; sourceTree = "<group>"; };
+		DFB1E9D32A08F19C00041B26 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		DFB1E9D52A08F21C00041B26 /* SelectedAssetsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedAssetsDataSource.swift; sourceTree = "<group>"; };
 		DFB2C343099A9B87E6C231F0 /* StubManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubManager.swift; sourceTree = "<group>"; };
 		E149E7B618CEFE5E909B2D78 /* WalletInfoNavigationItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoNavigationItems.swift; sourceTree = "<group>"; };
 		E1575DB9D22AE8EBFE86A7D9 /* SeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhrase.swift; sourceTree = "<group>"; };
@@ -966,6 +974,7 @@
 		23F1BD4FAC784DB47F844F5D /* Pino-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				DFB1E9CE2A08EBAF00041B26 /* CoreData */,
 				5952BFBE13B5028BDF1E686D /* LaunchScreen.storyboard */,
 				1F574BD7E5BA9952845C29CF /* App */,
 				941BD4A2D76FCCBA3BE081DA /* Configurations */,
@@ -1780,8 +1789,6 @@
 			isa = PBXGroup;
 			children = (
 				40F704552A03AFEF004D74FE /* AccountActivation */,
-				281840026D1004B10CE8DAFD /* Pino_iOS.xcdatamodeld */,
-				E34728E529E5590E00AB8265 /* SelectedAsset */,
 				5397B46094F691BBC0A1882B /* Balance */,
 			);
 			path = Models;
@@ -1968,6 +1975,19 @@
 			path = CustomSwitchCollectionCell;
 			sourceTree = "<group>";
 		};
+		DFB1E9CE2A08EBAF00041B26 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				281840026D1004B10CE8DAFD /* Pino_iOS.xcdatamodeld */,
+				E34728E129E5360300AB8265 /* CoreDataStack.swift */,
+				DFB1E9CF2A08EC1800041B26 /* DataSourceProtocol.swift */,
+				DFB1E9D52A08F21C00041B26 /* SelectedAssetsDataSource.swift */,
+				DFB1E9D12A08EC6100041B26 /* WalletDataSource.swift */,
+				DFB1E9D32A08F19C00041B26 /* CoreDataManager.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		E01D034F43576AABD037FDFE /* NumberFormatter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1982,14 +2002,6 @@
 				493670F85AF24449B805AFDA /* IntroViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		E34728E529E5590E00AB8265 /* SelectedAsset */ = {
-			isa = PBXGroup;
-			children = (
-				E34728E129E5360300AB8265 /* CoreDataStack.swift */,
-			);
-			path = SelectedAsset;
 			sourceTree = "<group>";
 		};
 		E34728EE29E7DDE800AB8265 /* HomepageViewModel */ = {
@@ -2482,6 +2494,7 @@
 				8A10D639170969ECFADE0FE4 /* CoinPerformanceInfoViewModel.swift in Sources */,
 				D91A3A0129E4109500004CB2 /* NotificationOptionModel.swift in Sources */,
 				10CD67476F9AA1C6EE89AA6F /* CoinPerformanceView.swift in Sources */,
+				DFB1E9D02A08EC1800041B26 /* DataSourceProtocol.swift in Sources */,
 				3235264ABD3DF5ABAA756574 /* CoinPerformanceViewController.swift in Sources */,
 				20CB5C205624F431E278A914 /* CoinPerformanceViewModel.swift in Sources */,
 				D9C7D76229EBDCAE006BC446 /* CoinInfoStatsView.swift in Sources */,
@@ -2544,6 +2557,7 @@
 				3FB363922C364DE0175B075E /* SecurityOptionsCollectionView.swift in Sources */,
 				E384CB1A29FFADE9009C74F5 /* OtherShareOfAssetsViewModel.swift in Sources */,
 				8BF8943C4316B64F59BC29DC /* SecurityOptionsFooter.swift in Sources */,
+				DFB1E9D22A08EC6100041B26 /* WalletDataSource.swift in Sources */,
 				066B803BA2A7039F8168FAB2 /* SecurityOptionsSection.swift in Sources */,
 				EFCE871CCDF8A29DA4F8950F /* ManageAssetCell.swift in Sources */,
 				5CDFF4C90BE60A5FF26C2596 /* ManageAssetsCollectionView.swift in Sources */,
@@ -2593,6 +2607,7 @@
 				7B98A5C0E4D54CE1290B009B /* PrecisionSystem.swift in Sources */,
 				133389D38DF23CB5BE195DDC /* ProfileCollectionView.swift in Sources */,
 				7656A61006C2DB8A8F75F498 /* ProfileIcons.swift in Sources */,
+				DFB1E9D62A08F21C00041B26 /* SelectedAssetsDataSource.swift in Sources */,
 				0D3E98673CD274381A698BBA /* ProfileViewController.swift in Sources */,
 				0613EF4F55B5F6FA90BA65C0 /* ProfileViewModel.swift in Sources */,
 				1DACABBF0C73761FBAF64811 /* ReceiveActionButton.swift in Sources */,
@@ -2656,6 +2671,7 @@
 				71ED4673E278D4F56B0CC895 /* UnlockAppViewController.swift in Sources */,
 				99B64004802220934AD0B60B /* UnlockAppViewModel.swift in Sources */,
 				038A90F28F66ACC57B0A3CF5 /* UnlockPasscodePageManager.swift in Sources */,
+				DFB1E9D42A08F19C00041B26 /* CoreDataManager.swift in Sources */,
 				8BB89902879DDF1FE9C46EF4 /* UnlockPasscodeView.swift in Sources */,
 				88F5D80113398502A2D2BE03 /* ImportAccountViewModel.swift in Sources */,
 				F8BA0B9925700FFF405AB76D /* VerifyPassViewModel.swift in Sources */,

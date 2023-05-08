@@ -8,8 +8,7 @@
 import UIKit
 
 class ImportSecretPhraseView: UIView {
-	
-    // MARK: - Private Properties
+	// MARK: - Private Properties
 
 	private let contentStackView = UIStackView()
 	private let titleStackView = UIStackView()
@@ -26,19 +25,19 @@ class ImportSecretPhraseView: UIView {
 
 	public let errorStackView = UIStackView()
 	public let importButton = PinoButton(style: .deactive)
-    public let importTextView: ImportTextViewType!
-    public var textViewText: String {
-        importTextView.text
-    }
+	public let importTextView: ImportTextViewType!
+	public var textViewText: String {
+		importTextView.text
+	}
 
 	// MARK: - Initializers
 
-    init(validationPharaseVM: ImportAccountViewModel, textViewType: ImportTextViewType) {
+	init(validationPharaseVM: ImportAccountViewModel, textViewType: ImportTextViewType) {
 		self.validationPhraseVM = validationPharaseVM
-        self.importTextView = textViewType
-        if let seedPhraseTextView = importTextView as? SecretPhraseTextView {
-            seedPhraseTextView.seedPhraseMaxCount = validationPharaseVM.maxSeedPhraseCount
-        }
+		self.importTextView = textViewType
+		if let seedPhraseTextView = importTextView as? SecretPhraseTextView {
+			seedPhraseTextView.seedPhraseMaxCount = validationPharaseVM.maxSeedPhraseCount
+		}
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -62,8 +61,8 @@ extension ImportSecretPhraseView {
 		seedPhraseStackView.addArrangedSubview(importTextView.errorStackView)
 		seedPhraseBox.addSubview(importTextView)
 		seedPhraseBox.addSubview(seedPhrasePasteButton)
-        importTextView.errorStackView.addArrangedSubview(errorIcon)
-        importTextView.errorStackView.addArrangedSubview(errorLabel)
+		importTextView.errorStackView.addArrangedSubview(errorIcon)
+		importTextView.errorStackView.addArrangedSubview(errorLabel)
 		addSubview(contentStackView)
 		addSubview(importButton)
 		addSubview(importTextView.enteredWordsCount)
@@ -74,7 +73,7 @@ extension ImportSecretPhraseView {
 			self.importTextView.pasteText()
 		}), for: .touchUpInside)
 
-        importTextView.importKeyCountVerified = { isVerified in
+		importTextView.importKeyCountVerified = { isVerified in
 			if isVerified {
 				self.importButton.style = .active
 			} else {
@@ -84,7 +83,7 @@ extension ImportSecretPhraseView {
 	}
 
 	public func showError() {
-        importTextView.errorStackView.isHidden = false
+		importTextView.errorStackView.isHidden = false
 	}
 
 	private func setupStyle() {
@@ -109,7 +108,7 @@ extension ImportSecretPhraseView {
 		contentStackView.axis = .vertical
 		titleStackView.axis = .vertical
 
-        importTextView.errorStackView.spacing = 5
+		importTextView.errorStackView.spacing = 5
 		seedPhraseStackView.spacing = 8
 		contentStackView.spacing = 33
 		titleStackView.spacing = 18
@@ -121,7 +120,7 @@ extension ImportSecretPhraseView {
 		seedPhraseBox.layer.borderColor = UIColor.Pino.gray5.cgColor
 		seedPhraseBox.layer.borderWidth = 1
 
-        importTextView.errorStackView.isHidden = true
+		importTextView.errorStackView.isHidden = true
 	}
 
 	private func setupContstraint() {
@@ -129,7 +128,7 @@ extension ImportSecretPhraseView {
 			.top(to: layoutMarginsGuide, padding: 26),
 			.horizontalEdges(padding: 16)
 		)
-        importTextView.pin(
+		importTextView.pin(
 			.top(padding: 12),
 			.horizontalEdges(padding: 12)
 		)
@@ -153,7 +152,7 @@ extension ImportSecretPhraseView {
 			.bottom(to: layoutMarginsGuide, padding: 8),
 			.horizontalEdges(padding: 16)
 		)
-        importTextView.enteredWordsCount.pin(
+		importTextView.enteredWordsCount.pin(
 			.relative(.top, 10, to: seedPhraseBox, .bottom),
 			.trailing(padding: 17)
 		)
@@ -161,6 +160,6 @@ extension ImportSecretPhraseView {
 
 	@objc
 	private func dissmisskeyBoard() {
-        importTextView.endEditing(true)
+		importTextView.endEditing(true)
 	}
 }

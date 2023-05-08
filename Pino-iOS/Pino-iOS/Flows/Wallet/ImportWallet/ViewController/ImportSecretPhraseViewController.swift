@@ -8,13 +8,12 @@
 import UIKit
 
 class ImportSecretPhraseViewController: UIViewController {
-	
-    // MARK: - PublicProperties
+	// MARK: - PublicProperties
 
 	public var importsecretPhraseView: ImportSecretPhraseView!
 	public var validationSecretPhraseVM: ImportAccountViewModel!
-    public var isNewWallet: Bool!
-	public var addedNewWallet: (() -> Void)!
+	public var isNewWallet: Bool!
+	public var addedNewWalletWithPrivateKey: ((String) -> Void)!
 
 	// MARK: - View Overrides
 
@@ -25,70 +24,75 @@ class ImportSecretPhraseViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		if isNewWallet {
-            setSteperView(stepsCount: 2, curreuntStep: 1)
+			setSteperView(stepsCount: 2, curreuntStep: 1)
 		} else {
-            setupPrimaryColorNavigationBar()
-            setNavigationTitle(validationSecretPhraseVM.pageTitle)
+			setupPrimaryColorNavigationBar()
+			setNavigationTitle(validationSecretPhraseVM.pageTitle)
 		}
 	}
 
 	// MARK: - Private Methods
 
 	private func setupView() {
-        validationSecretPhraseVM = ImportAccountViewModel(isNewWallet: isNewWallet)
-        if isNewWallet {
-            importsecretPhraseView = ImportSecretPhraseView(validationPharaseVM: validationSecretPhraseVM, textViewType: SecretPhraseTextView())
-        } else {
-            importsecretPhraseView = ImportSecretPhraseView(validationPharaseVM: validationSecretPhraseVM, textViewType: PrivateKeyTextView())
-        }
+		validationSecretPhraseVM = ImportAccountViewModel(isNewWallet: isNewWallet)
+		if isNewWallet {
+			importsecretPhraseView = ImportSecretPhraseView(
+				validationPharaseVM: validationSecretPhraseVM,
+				textViewType: SecretPhraseTextView()
+			)
+		} else {
+			importsecretPhraseView = ImportSecretPhraseView(
+				validationPharaseVM: validationSecretPhraseVM,
+				textViewType: PrivateKeyTextView()
+			)
+		}
 		addButtonsAction()
 		view = importsecretPhraseView
 	}
 
 	private func addButtonsAction() {
-        if isNewWallet {
-            importsecretPhraseView.importButton.addAction(UIAction(handler: { _ in
-                self.validationSecretPhraseVM.validate(
-                    secretPhrase: self.importsecretPhraseView.importTextView.text,
-                    onSuccess: {
-                        self.importWallet()
-                    },
-                    onFailure: { validationError in
-                        switch validationError {
-                        case .invalidSecretPhrase:
-                            self.importsecretPhraseView?.showError()
-                        }
-                    }
-                )
-            }), for: .touchUpInside)
-        } else {
-            importsecretPhraseView.importButton.addAction(UIAction(handler: { _ in
-                self.validationSecretPhraseVM.validate(
-                    privateKey: self.importsecretPhraseView.importTextView.text,
-                    onSuccess: {
-                        self.importWallet()
-                    },
-                    onFailure: { validationError in
-                        switch validationError {
-                        case .invalidSecretPhrase:
-                            self.importsecretPhraseView?.showError()
-                        }
-                    }
-                )
-            }), for: .touchUpInside)
-        }
-		
+		if isNewWallet {
+			importsecretPhraseView.importButton.addAction(UIAction(handler: { _ in
+				self.validationSecretPhraseVM.validate(
+					secretPhrase: self.importsecretPhraseView.importTextView.text,
+					onSuccess: {
+						self.importWallet()
+					},
+					onFailure: { validationError in
+						switch validationError {
+						case .invalidSecretPhrase:
+							self.importsecretPhraseView?.showError()
+						}
+					}
+				)
+			}), for: .touchUpInside)
+		} else {
+			importsecretPhraseView.importButton.addAction(UIAction(handler: { _ in
+				self.validationSecretPhraseVM.validate(
+					privateKey: self.importsecretPhraseView.importTextView.text,
+					onSuccess: {
+						self.importWallet()
+					},
+					onFailure: { validationError in
+						switch validationError {
+						case .invalidSecretPhrase:
+							self.importsecretPhraseView?.showError()
+						}
+					}
+				)
+			}), for: .touchUpInside)
+		}
 	}
 
 	private func importWallet() {
 		if !isNewWallet {
-			addedNewWallet()
+			addedNewWalletWithPrivateKey(importsecretPhraseView.textViewText)
 			dismiss(animated: true)
 		} else {
 			// Go to create passcode page
 			let createPasscodeViewController = CreatePasscodeViewController()
 			createPasscodeViewController.pageSteps = 2
-            createPasscodeViewController.walletMnemonics = importsecretPhraseView.textViewText
+			createPasscodeViewController.walletMnemonics = importsecretPhraseView.textViewText
 			navigationController?.pushViewController(createPasscodeViewController, animated: true)
 		}
 	}

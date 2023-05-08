@@ -28,7 +28,7 @@ class AssetsCollectionView: UICollectionView {
 
 	internal var homeVM: HomepageViewModel!
 	internal var cancellables = Set<AnyCancellable>()
-    internal var portfolioPerformanceTapped: () -> Void
+	internal var portfolioPerformanceTapped: () -> Void
 
 	// MARK: Initializers
 

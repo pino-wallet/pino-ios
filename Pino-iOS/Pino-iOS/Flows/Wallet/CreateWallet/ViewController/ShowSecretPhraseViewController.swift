@@ -19,8 +19,8 @@ class ShowSecretPhraseViewController: UIViewController {
 	// MARK: View Overrides
 
 	override func viewDidLoad() {
-        secretPhraseVM.generateMnemonics()
-        setupView()
+		secretPhraseVM.generateMnemonics()
+		setupView()
 		super.viewDidLoad()
 	}
 

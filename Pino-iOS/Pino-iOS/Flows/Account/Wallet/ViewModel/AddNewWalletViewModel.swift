@@ -8,7 +8,6 @@
 import Foundation
 
 struct AddNewWalletViewModel {
-            
 	// MARK: - Public Properties
 
 	public let AddNewWalletOptions: [AddNewWalletOptionModel?] = [
@@ -30,8 +29,8 @@ struct AddNewWalletViewModel {
 
 	// MARK: - Public Methods
 
-	public func addNewWallet() {
+	public func addNewWalletWithAddress(_ address: String) {
 		let walletManager = WalletManager()
-		walletManager.addNewWallet()
+		walletManager.addNewWalletWith(address: address)
 	}
 }

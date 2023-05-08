@@ -8,6 +8,7 @@
 import Foundation
 
 // MARK: - Welcome
+
 struct AccountActivationModel: Codable {
-    let id: String
+	let id: String
 }

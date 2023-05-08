@@ -99,10 +99,9 @@ extension VerifySecretPhraseView {
 //			errorStackView.isHidden = false
 //			continueButton.style = .deactive
 //		}
-        
-        #warning("this is for test")
-        continueButton.style = .active
 
+		#warning("this is for test")
+		continueButton.style = .active
 	}
 }
 
@@ -112,7 +111,7 @@ extension VerifySecretPhraseView {
 	private func setupView() {
 		randomPhraseCollectionView.secretWords = secretPhraseVM.randomSecretPhraseList
 		randomPhraseCollectionView.cellStyle = .unordered
-        sortedPhraseCollectionView.showMockCreds = false
+		sortedPhraseCollectionView.showMockCreds = false
 		sortedPhraseCollectionView.secretWords = []
 
 		contentStackView.addArrangedSubview(titleStackView)

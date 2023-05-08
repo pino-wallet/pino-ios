@@ -28,9 +28,10 @@ public struct PinoNonHDWallet: PNonHDWallet {
 
 	public mutating func importAccount(privateKey: String) -> Result<Account, WalletOperationError> {
 		do {
-            let keyData = Data(hexString: privateKey)!
-			let account = try Account(privateKeyData: keyData)
-			guard accountExist(account: account) else { return .success(account) }
+			let keyData = Data(hexString: privateKey)!
+			var account = try Account(privateKeyData: keyData)
+			guard !accountExist(account: account) else { return .success(account) }
+			account.isActiveAccount = true
 			addNewAccount(account)
 			let keyCipherData = secureEnclave.encrypt(
 				plainData: keyData,
@@ -47,5 +48,4 @@ public struct PinoNonHDWallet: PNonHDWallet {
 			return .failure(.wallet(.importAccountFailed))
 		}
 	}
-
 }

@@ -5,8 +5,8 @@
 //  Created by Mohi Raoufi on 12/11/22.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 struct AllDoneViewModel {
 	// MARK: Public Properties
@@ -27,33 +27,34 @@ struct AllDoneViewModel {
 		attributedText.setAttributes([.link: temporaryPrivacyPolicyURL], range: privacyPolicyRange)
 		return attributedText
 	}
-    
-    // MARK: - Private Properties
-    private let pinoWalletManager = PinoWalletManager()
-    private var accountingAPIClient = AccountingAPIClient()
-    private var cancellables = Set<AnyCancellable>()
-    
-    // MARK: - Public Methods
-    mutating func createWallet(mnemonics: String, walletCreated: @escaping (String)->() ) {
-        #warning("should have a fallback plan in case request failed")
-        let wallet = pinoWalletManager.createHDWallet(mnemonics: mnemonics)
-        switch wallet {
-        case .success(_):
-            accountingAPIClient.activateAccountWith(address: pinoWalletManager.currentAccount.eip55Address)
-                .sink(receiveCompletion: { completed in
-                    switch completed {
-                    case .finished:
-                        print("Wallet balance received successfully")
-                    case let .failure(error):
-                        print(error)
-                    }
-                }) { activatedAccount in
-                    print(activatedAccount.id)
-                    walletCreated(activatedAccount.id)
-                }.store(in: &cancellables)
-        case .failure(let error):
-            fatalError(error.localizedDescription)
-        }
-    }
 
+	// MARK: - Private Properties
+
+	private let pinoWalletManager = PinoWalletManager()
+	private var accountingAPIClient = AccountingAPIClient()
+	private var cancellables = Set<AnyCancellable>()
+
+	// MARK: - Public Methods
+
+	mutating func createWallet(mnemonics: String, walletCreated: @escaping (String) -> Void) {
+		#warning("should have a fallback plan in case request failed")
+		let wallet = pinoWalletManager.createHDWallet(mnemonics: mnemonics)
+		switch wallet {
+		case .success:
+			accountingAPIClient.activateAccountWith(address: pinoWalletManager.currentAccount.eip55Address)
+				.sink(receiveCompletion: { completed in
+					switch completed {
+					case .finished:
+						print("Wallet balance received successfully")
+					case let .failure(error):
+						print(error)
+					}
+				}) { activatedAccount in
+					print(activatedAccount.id)
+					walletCreated(activatedAccount.id)
+				}.store(in: &cancellables)
+		case let .failure(error):
+			fatalError(error.localizedDescription)
+		}
+	}
 }

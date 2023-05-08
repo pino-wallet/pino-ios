@@ -12,6 +12,7 @@ class AddNewWalletViewController: UIViewController {
 
 	private let addNewWalletVM = AddNewWalletViewModel()
 	private let walletsVM: WalletsViewModel
+	private let pinoWalletManager = PinoWalletManager()
 
 	// MARK: - Initializers
 
@@ -56,21 +57,27 @@ class AddNewWalletViewController: UIViewController {
 		switch option.page {
 		case .Create:
 			// New Wallet should be created
-            // Loading should be shown
-            // Homepage in the new account should be opened
-            print("new wallet tapped")
+			// Loading should be shown
+			// Homepage in the new account should be opened
+			print("new wallet tapped")
 		case .Import:
 			let importWalletVC = ImportSecretPhraseViewController()
 			importWalletVC.isNewWallet = false
-			importWalletVC.addedNewWallet = {
-				self.updateWallets()
+			importWalletVC.addedNewWalletWithPrivateKey = { privateKey in
+				self.importAccountWithKey(privateKey)
 			}
 			navigationController?.pushViewController(importWalletVC, animated: true)
 		}
 	}
 
-	private func updateWallets() {
-		addNewWalletVM.addNewWallet()
-		walletsVM.getWallets()
+	private func importAccountWithKey(_ privateKey: String) {
+		let importedAccount = pinoWalletManager.importAccount(privateKey: privateKey)
+		switch importedAccount {
+		case let .success(account):
+			addNewWalletVM.addNewWalletWithAddress(account.eip55Address)
+			walletsVM.getWallets()
+		case let .failure(error):
+			fatalError(error.localizedDescription)
+		}
 	}
 }

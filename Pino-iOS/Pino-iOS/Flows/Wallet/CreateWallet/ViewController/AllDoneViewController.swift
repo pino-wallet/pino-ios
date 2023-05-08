@@ -10,11 +10,11 @@ import UIKit
 class AllDoneViewController: UIViewController {
 	// MARK: Private Properties
 
-    private var allDoneVM = AllDoneViewModel()
-    
-    // MARK: Public Properties
+	private var allDoneVM = AllDoneViewModel()
 
-    public var walletMnemonics: String!
+	// MARK: Public Properties
+
+	public var walletMnemonics: String!
 
 	// MARK: View Overrides
 
@@ -37,11 +37,11 @@ class AllDoneViewController: UIViewController {
 	}
 
 	private func getStarted() {
-        allDoneVM.createWallet(mnemonics: walletMnemonics) { wallet in
-            UserDefaults.standard.set(true, forKey: "isLogin")
-            let tabBarVC = TabBarViewController()
-            tabBarVC.modalPresentationStyle = .fullScreen
-            self.present(tabBarVC, animated: true)
-        }
+		allDoneVM.createWallet(mnemonics: walletMnemonics) { wallet in
+			UserDefaults.standard.set(true, forKey: "isLogin")
+			let tabBarVC = TabBarViewController()
+			tabBarVC.modalPresentationStyle = .fullScreen
+			self.present(tabBarVC, animated: true)
+		}
 	}
 }

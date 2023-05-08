@@ -58,7 +58,7 @@ struct WalletManager {
 		return wallets
 	}
 
-	public func addNewWallet() -> WalletsListType {
+	public func addNewWalletWith(address: String) -> WalletsListType {
 		var availableAvatars = Constants.avatars
 		var wallets = getWalletsFromUserDefaults()
 		for (walletIndex, wallet) in wallets.enumerated() {
@@ -77,7 +77,7 @@ struct WalletManager {
 		let newWallet = WalletInfoModel(
 			id: "\(Int(wallets.last!.id)! + 1)",
 			name: "\(String(describing: avatarFruitName))",
-			address: "gf4bh5n3m2c8l4j5w9i2l6t2de",
+			address: address,
 			profileImage: avatarName,
 			profileColor: avatarName,
 			balance: "0",

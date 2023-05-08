@@ -25,7 +25,6 @@ protocol WalletManagement {
 }
 
 class PinoWalletManager: WalletManagement {
-  
 	// MARK: - Private Properties
 
 	private var secureEnclave = SecureEnclave()
@@ -61,8 +60,8 @@ class PinoWalletManager: WalletManagement {
 	}
 
 	public var currentAccount: Account {
-		guard let foundAccount = accounts.first(where: { $0.isActiveAccount }) else {
-            return accounts.last!
+		guard let foundAccount = accounts.last(where: { $0.isActiveAccount }) else {
+			return accounts.last!
 		}
 		return foundAccount
 	}
@@ -93,13 +92,13 @@ class PinoWalletManager: WalletManagement {
 			print(error)
 		}
 	}
-    
+
 	public func deleteAccount(account: Account) -> Result<Account, WalletOperationError> {
 		pinoHDWallet.deleteAccount(account: account)
 	}
 
 	public func importAccount(privateKey: String) -> Result<Account, WalletOperationError> {
-        nonHDWallet.importAccount(privateKey: privateKey)
+		nonHDWallet.importAccount(privateKey: privateKey)
 	}
 
 	public func exportPrivateKeyFor(account: Account) -> Data {
@@ -108,14 +107,14 @@ class PinoWalletManager: WalletManagement {
 		}
 		return secureEnclave.decrypt(cipherData: encryptedPrivateKey, withPublicKeyLabel: privateKeyFetchKey)
 	}
-    
-    public func isMnemonicsValid(_ mnemonics: String) -> Bool {
-        WalletValidator.isMnemonicsValid(mnemonic: mnemonics)
-    }
-    
-    public func isPrivatekeyValid(_ key: String) -> Bool {
-        WalletValidator.isPrivateKeyValid(key: key)
-    }
+
+	public func isMnemonicsValid(_ mnemonics: String) -> Bool {
+		WalletValidator.isMnemonicsValid(mnemonic: mnemonics)
+	}
+
+	public func isPrivatekeyValid(_ key: String) -> Bool {
+		WalletValidator.isPrivateKeyValid(key: key)
+	}
 
 	// MARK: - Private Methods
 

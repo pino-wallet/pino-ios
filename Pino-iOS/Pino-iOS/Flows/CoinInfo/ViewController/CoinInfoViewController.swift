@@ -58,5 +58,4 @@ class CoinInfoViewController: UIViewController {
 	private func dismissCoinInfo() {
 		dismiss(animated: true)
 	}
-
 }

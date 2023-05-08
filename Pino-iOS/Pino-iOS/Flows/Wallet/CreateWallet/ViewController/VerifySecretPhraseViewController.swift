@@ -20,18 +20,18 @@ class VerifySecretPhraseViewController: UIViewController {
 
 	override func loadView() {
 		setupView()
-        setSteperView(stepsCount: 3, curreuntStep: 2)
+		setSteperView(stepsCount: 3, curreuntStep: 2)
 	}
 
 	// MARK: Private Methods
 
 	private func createWallet(_ sortedPhrase: [String]) {
-        // Wallet should be created here
-        // Go to create passcode page
-        let createPasscodeViewController = CreatePasscodeViewController()
-        createPasscodeViewController.walletMnemonics = sortedPhrase.joined(separator: " ")
-        createPasscodeViewController.pageSteps = 3
-        navigationController?.pushViewController(createPasscodeViewController, animated: true)
+		// Wallet should be created here
+		// Go to create passcode page
+		let createPasscodeViewController = CreatePasscodeViewController()
+		createPasscodeViewController.walletMnemonics = sortedPhrase.joined(separator: " ")
+		createPasscodeViewController.pageSteps = 3
+		navigationController?.pushViewController(createPasscodeViewController, animated: true)
 	}
 }
 

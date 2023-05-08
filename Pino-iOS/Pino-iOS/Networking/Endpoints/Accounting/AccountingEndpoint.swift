@@ -16,10 +16,10 @@ enum AccountingEndpoint: EndpointType {
 
 	// MARK: - Cases
 
-    case balances(accountADD: String)
+	case balances(accountADD: String)
 	case portfolio(timeFrame: String, accountADD: String)
 	case coinPerformance(timeFrame: String, tokenID: String, accountADD: String)
-    case activateAccountWith(address: String)
+	case activateAccountWith(address: String)
 
 	// MARK: - Internal Methods
 
@@ -49,7 +49,7 @@ enum AccountingEndpoint: EndpointType {
 
 	internal var requiresAuthentication: Bool {
 		switch self {
-        case .balances, .portfolio, .coinPerformance, .activateAccountWith:
+		case .balances, .portfolio, .coinPerformance, .activateAccountWith:
 			return false
 		}
 	}
@@ -58,15 +58,15 @@ enum AccountingEndpoint: EndpointType {
 		switch self {
 		case .balances:
 			return .request
-		case let .portfolio(timeFrame,_):
+		case let .portfolio(timeFrame, _):
 			let urlParameters: [String: Any] = ["timeframe": timeFrame]
 			return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: urlParameters)
-        case let .coinPerformance(timeFrame: timeFrame, tokenID: _, accountADD: _):
+		case let .coinPerformance(timeFrame: timeFrame, tokenID: _, accountADD: _):
 			let urlParameters: [String: Any] = ["timeframe": timeFrame]
 			return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: urlParameters)
-        case .activateAccountWith:
-            return .request
-        }
+		case .activateAccountWith:
+			return .request
+		}
 	}
 
 	internal var headers: HTTPHeaders {
@@ -82,23 +82,23 @@ enum AccountingEndpoint: EndpointType {
 
 	internal var path: String {
 		switch self {
-		case .balances(let accountADD):
+		case let .balances(accountADD):
 			return "\(endpointParent)/user/\(accountADD)/balances"
-		case .portfolio(_, let accountADD):
+		case let .portfolio(_, accountADD):
 			return "\(endpointParent)/user/\(accountADD)/portfolio"
-        case let .coinPerformance(_, tokenID: tokenID, accountADD: accountADD):
+		case let .coinPerformance(_, tokenID: tokenID, accountADD: accountADD):
 			return "\(endpointParent)/user/\(accountADD)/portfolio/\(tokenID)"
-        case .activateAccountWith(address: let address):
-            return "\(endpointParent)/activate/\(address)"
-        }
+		case let .activateAccountWith(address: address):
+			return "\(endpointParent)/activate/\(address)"
+		}
 	}
 
 	internal var httpMethod: HTTPMethod {
 		switch self {
 		case .balances, .portfolio, .coinPerformance:
 			return .get
-        case .activateAccountWith:
-            return .post
-        }
+		case .activateAccountWith:
+			return .post
+		}
 	}
 }

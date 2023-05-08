@@ -20,7 +20,8 @@ struct RecoveryPhraseViewModel {
 	public var secretPhraseList: [String] = []
 
 	// MARK: Initializers
-    private let pinoWalletManager = PinoWalletManager()
+
+	private let pinoWalletManager = PinoWalletManager()
 
 	init() {
 		getSecretPhrase()
@@ -29,6 +30,6 @@ struct RecoveryPhraseViewModel {
 	// MARK: - Private Methods
 
 	private mutating func getSecretPhrase() {
-        secretPhraseList = pinoWalletManager.exportMnemonics().split(separator: " ").map( { String($0) })
+		secretPhraseList = pinoWalletManager.exportMnemonics().split(separator: " ").map { String($0) }
 	}
 }
