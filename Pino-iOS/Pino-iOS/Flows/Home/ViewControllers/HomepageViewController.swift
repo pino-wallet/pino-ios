@@ -32,6 +32,10 @@ class HomepageViewController: UIViewController {
 		setupView()
 		setupNavigationBar()
 		setupBindings()
+		let navigationVC = UINavigationController()
+		let testVC = AllowNotificationsViewController()
+		navigationVC.viewControllers = [testVC]
+		present(navigationVC, animated: true)
 	}
 
 	// MARK: - Private Methods

@@ -287,6 +287,9 @@
 		D9AEA0A029F9818300DD61A8 /* EditAccountOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AEA09F29F9818300DD61A8 /* EditAccountOptionViewModel.swift */; };
 		D9AF6DCC29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */; };
 		D9C7D76229EBDCAE006BC446 /* CoinInfoStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C7D76129EBDCAE006BC446 /* CoinInfoStatsView.swift */; };
+		D9CC10822A07AB0F00571ABC /* AllowNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CC10812A07AB0F00571ABC /* AllowNotificationsViewController.swift */; };
+		D9CC10842A07AB2A00571ABC /* AllowNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CC10832A07AB2A00571ABC /* AllowNotificationsViewModel.swift */; };
+		D9CC10862A07AB6C00571ABC /* AllowNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CC10852A07AB6C00571ABC /* AllowNotificationsView.swift */; };
 		D9DD538BAF953A18503AB3F0 /* RemoveAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887EDE19A8B81F1FB217E0FA /* RemoveAccountView.swift */; };
 		D9E34BC92C3AE69B3D5EC4F2 /* PortfolioPerformanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4FFBB4CC6D342FF946AB9 /* PortfolioPerformanceViewModel.swift */; };
 		D9F2508029E576FB00DE0410 /* NotificationSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F2507F29E576FB00DE0410 /* NotificationSettingsCell.swift */; };
@@ -664,6 +667,9 @@
 		D9AEA09F29F9818300DD61A8 /* EditAccountOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountOptionViewModel.swift; sourceTree = "<group>"; };
 		D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralNotificationSettingsHeader.swift; sourceTree = "<group>"; };
 		D9C7D76129EBDCAE006BC446 /* CoinInfoStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoStatsView.swift; sourceTree = "<group>"; };
+		D9CC10812A07AB0F00571ABC /* AllowNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsViewController.swift; sourceTree = "<group>"; };
+		D9CC10832A07AB2A00571ABC /* AllowNotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsViewModel.swift; sourceTree = "<group>"; };
+		D9CC10852A07AB6C00571ABC /* AllowNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsView.swift; sourceTree = "<group>"; };
 		D9F2507F29E576FB00DE0410 /* NotificationSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsCell.swift; sourceTree = "<group>"; };
 		D9F2508129E5855500DE0410 /* SecurityOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityOptionCell.swift; sourceTree = "<group>"; };
 		DA8ADDD22F193963D587AE57 /* ChartInfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartInfoItem.swift; sourceTree = "<group>"; };
@@ -1119,6 +1125,7 @@
 				CF85809C0811ADB69A1512D9 /* AllDoneViewController.swift */,
 				D872D11A91B4283F96C4999D /* ShowSecretPhraseViewController.swift */,
 				5992C9313824BC32EC68C32E /* VerifySecretPhraseViewController.swift */,
+				D9CC10812A07AB0F00571ABC /* AllowNotificationsViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1417,6 +1424,7 @@
 				7D243D736A087A5296804FB9 /* ShowSecretPhraseView.swift */,
 				D859A59CF3F5322ACE7356E4 /* VerifySecretPhraseView.swift */,
 				20080CFF515DAFA7F79DA2AD /* SecretPhrase */,
+				D9CC10852A07AB6C00571ABC /* AllowNotificationsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1725,6 +1733,7 @@
 				151E5726229379FA18870AA2 /* AllDoneViewModel.swift */,
 				902ADB6DDACF4604CCD18D3E /* ShowSecretPhraseViewModel.swift */,
 				DDBA47FB0ED959F0E18DAD21 /* VerifySecretPhraseViewModel.swift */,
+				D9CC10832A07AB2A00571ABC /* AllowNotificationsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2340,6 +2349,7 @@
 				DD2E33C472905FA32AE84797 /* AboutPinoViewController.swift in Sources */,
 				D91A39FF29E40F8900004CB2 /* NotificationSettingsViewModel.swift in Sources */,
 				12265EA20032CC8CF48199E7 /* AboutPinoViewModel.swift in Sources */,
+				D9CC10842A07AB2A00571ABC /* AllowNotificationsViewModel.swift in Sources */,
 				1AC53E3B2AB70C2C7F419A38 /* AccountHeaderView.swift in Sources */,
 				DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */,
 				AC39E74F527151DCAE1E9AAE /* AccountingAPIMockClient.swift in Sources */,
@@ -2364,6 +2374,7 @@
 				D9F2508229E5855500DE0410 /* SecurityOptionCell.swift in Sources */,
 				D91A3A0529E412A200004CB2 /* NotificationSettingsSection.swift in Sources */,
 				917064233A24F0460102BC15 /* Array+Extension.swift in Sources */,
+				D9CC10822A07AB0F00571ABC /* AllowNotificationsViewController.swift in Sources */,
 				FADF64026A19F019F554FEA5 /* AssetChartModel.swift in Sources */,
 				8FEE7479372B430975CF245D /* AssetChartViewModel.swift in Sources */,
 				58725E16FF09C251760EF717 /* AssetLineChart.swift in Sources */,
@@ -2507,6 +2518,7 @@
 				D99F4B2129E2C48D009F7F55 /* PaymentMethodOptionViewModel.swift in Sources */,
 				7EF5AA653545082C4C0D04EF /* PinoButton.swift in Sources */,
 				3ACA10D15DD3199674C38954 /* PinoButtonStyle.swift in Sources */,
+				D9CC10862A07AB6C00571ABC /* AllowNotificationsView.swift in Sources */,
 				15A1DA694D1E9C595492510B /* PinoCheckBox.swift in Sources */,
 				9131F7218905C2F4AFD3CDE7 /* PinoCheckBoxStyle.swift in Sources */,
 				4CEF60EEF4EB1F6FFF04D23D /* PinoColor.swift in Sources */,
