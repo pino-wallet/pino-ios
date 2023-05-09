@@ -44,4 +44,8 @@ class AllDoneViewController: UIViewController {
 			self.present(tabBarVC, animated: true)
 		}
 	}
+    
+    private func createInitialWallet(_ wallet: Wallet) {
+        
+    }
 }

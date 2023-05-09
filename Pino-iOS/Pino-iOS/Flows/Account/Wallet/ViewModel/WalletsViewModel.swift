@@ -51,13 +51,13 @@ class WalletsViewModel {
 	}
 
 	public func editWallet(wallet: WalletInfoViewModel, newName: String) -> WalletInfoViewModel {
-		let edittedWallet = coreDataManager.EditWallet(wallet.walletInfoModel, newName: newName)
+		let edittedWallet = coreDataManager.editWallet(wallet.walletInfoModel, newName: newName)
 		getWallets()
 		return WalletInfoViewModel(walletInfoModel: edittedWallet)
 	}
 
 	public func editWallet(wallet: WalletInfoViewModel, newAvatar: String) -> WalletInfoViewModel {
-		let edittedWallet = coreDataManager.EditWallet(wallet.walletInfoModel, newAvatar: newAvatar)
+		let edittedWallet = coreDataManager.editWallet(wallet.walletInfoModel, newAvatar: newAvatar)
 		getWallets()
 		return WalletInfoViewModel(walletInfoModel: edittedWallet)
 	}

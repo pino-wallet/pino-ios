@@ -21,6 +21,7 @@ class CoreDataManager {
 		walletDataSource.get(byId: id)
 	}
 
+    @discardableResult
 	public func createWallet(
 		id: String,
 		address: String,
@@ -41,13 +42,13 @@ class CoreDataManager {
 		return newWallet
 	}
 
-	public func EditWallet(_ wallet: Wallet, newName: String) -> Wallet {
+	public func editWallet(_ wallet: Wallet, newName: String) -> Wallet {
 		wallet.name = newName
 		walletDataSource.save(wallet)
 		return wallet
 	}
 
-	public func EditWallet(_ wallet: Wallet, newAvatar: String) -> Wallet {
+	public func editWallet(_ wallet: Wallet, newAvatar: String) -> Wallet {
 		wallet.avatarIcon = newAvatar
 		wallet.avatarColor = newAvatar
 		walletDataSource.save(wallet)

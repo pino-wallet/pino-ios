@@ -32,6 +32,7 @@ struct AllDoneViewModel {
 
 	private let pinoWalletManager = PinoWalletManager()
 	private var accountingAPIClient = AccountingAPIClient()
+    private let coreDataManager = CoreDataManager()
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Methods
@@ -40,7 +41,8 @@ struct AllDoneViewModel {
 		#warning("should have a fallback plan in case request failed")
 		let wallet = pinoWalletManager.createHDWallet(mnemonics: mnemonics)
 		switch wallet {
-		case .success:
+		case .success(let createdWallet):
+            createInitialWallet(createdWallet)
 			accountingAPIClient.activateAccountWith(address: pinoWalletManager.currentAccount.eip55Address)
 				.sink(receiveCompletion: { completed in
 					switch completed {
@@ -57,4 +59,18 @@ struct AllDoneViewModel {
 			fatalError(error.localizedDescription)
 		}
 	}
+    
+    private func createInitialWallet(_ wallet: HDWallet) {
+        let wallets = coreDataManager.getAllWallets()
+        let newWalletId = "0"
+        let avatar = Avatar.allCases.randomElement() ?? .green_apple
+
+        coreDataManager.createWallet(
+            id: String(newWalletId),
+            address: pinoWalletManager.currentAccount.eip55Address,
+            name: avatar.name,
+            avatarIcon: avatar.rawValue,
+            avatarColor: avatar.rawValue
+        )
+    }
 }
