@@ -21,7 +21,7 @@ protocol WalletManagement {
 	// Account
 	func deleteAccount(account: Account) -> Result<Account, WalletOperationError>
 	func importAccount(privateKey: String) -> Result<Account, WalletOperationError>
-	func exportPrivateKeyFor(account: Account) -> Data
+    func exportPrivateKeyFor(account: Account) -> (data: Data, string: String)
 }
 
 class PinoWalletManager: WalletManagement {
@@ -101,11 +101,13 @@ class PinoWalletManager: WalletManagement {
 		nonHDWallet.importAccount(privateKey: privateKey)
 	}
 
-	public func exportPrivateKeyFor(account: Account) -> Data {
+    public func exportPrivateKeyFor(account: Account) -> (data: Data, string: String) {
 		guard let encryptedPrivateKey = KeychainManager.privateKey.getValueWith(key: account.eip55Address) else {
 			fatalError(WalletOperationError.keyManager(.privateKeyRetrievalFailed).localizedDescription)
 		}
-		return secureEnclave.decrypt(cipherData: encryptedPrivateKey, withPublicKeyLabel: privateKeyFetchKey)
+		let decryptedData = secureEnclave.decrypt(cipherData: encryptedPrivateKey, withPublicKeyLabel: privateKeyFetchKey)
+        let privateKeyString = String(data: decryptedData, encoding: .utf8)!
+        return (decryptedData, privateKeyString)
 	}
 
 	public func isMnemonicsValid(_ mnemonics: String) -> Bool {

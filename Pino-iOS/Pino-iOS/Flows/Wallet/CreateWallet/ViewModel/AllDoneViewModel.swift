@@ -44,6 +44,7 @@ struct AllDoneViewModel {
 		case .success(let createdWallet):
             createInitialWallet(createdWallet)
 			accountingAPIClient.activateAccountWith(address: pinoWalletManager.currentAccount.eip55Address)
+                .retry(3)
 				.sink(receiveCompletion: { completed in
 					switch completed {
 					case .finished:

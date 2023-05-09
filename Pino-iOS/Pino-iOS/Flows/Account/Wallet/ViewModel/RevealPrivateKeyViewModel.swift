@@ -18,7 +18,15 @@ struct RevealPrivateKeyViewModel {
 	public let screenshotAlertMessage = "It isn't safe to take a screenshot of your private key!"
 
 	#warning("Private key is temporary and must be replaced by Keychain key")
-	public let privateKey = "2ZdGD9g7Jb4QuZvLKRsMZfsr2CtpNwWn6kZdW8SqyjCLuWM8RmVE4C1aSjxApuo53j6EbZ8zTpbgx6MseRWyF3qS"
+    public var privateKey: String {
+        getPrivate()
+    }
 	public let mockPrivateKey =
 		"****************************************************************************************"
+    
+    // MARK: - Private Properties
+    private func getPrivate() -> String {
+        let pinoWalletManager = PinoWalletManager()
+        return pinoWalletManager.exportPrivateKeyFor(account: pinoWalletManager.currentAccount).string
+    }
 }

@@ -45,7 +45,4 @@ class AllDoneViewController: UIViewController {
 		}
 	}
     
-    private func createInitialWallet(_ wallet: Wallet) {
-        
-    }
 }
