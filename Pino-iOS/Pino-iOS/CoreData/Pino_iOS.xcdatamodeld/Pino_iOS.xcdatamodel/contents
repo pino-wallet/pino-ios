@@ -8,6 +8,7 @@
         <attribute name="avatarColor" optional="YES" attributeType="String"/>
         <attribute name="avatarIcon" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="isSelected" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
 </model>

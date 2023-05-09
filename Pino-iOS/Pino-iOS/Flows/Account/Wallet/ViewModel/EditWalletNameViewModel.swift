@@ -20,10 +20,6 @@ class EditWalletNameViewModel {
 
 	public var selectedWalletID: String
 
-	// MARK: - Private Properties
-
-	private let walletManager = WalletManager()
-
 	// MARK: - Initializers
 
 	init(didValidatedWalletName: @escaping (_: ValidateWalletNameErrorType) -> Void, selectedWalletID: String) {
@@ -37,12 +33,12 @@ class EditWalletNameViewModel {
 		if newWalletName.trimmingCharacters(in: .whitespaces).isEmpty {
 			didValidatedWalletName(.isEmpty)
 		} else {
-			let wallets = walletManager.getWalletsFromUserDefaults()
-			if wallets.contains(where: { $0.name == newWalletName && $0.id != selectedWalletID }) {
-				didValidatedWalletName(.repeatedName)
-			} else {
-				didValidatedWalletName(.clear)
-			}
+//			let wallets = walletManager.getWalletsFromUserDefaults()
+//			if wallets.contains(where: { $0.name == newWalletName && $0.id != selectedWalletID }) {
+//				didValidatedWalletName(.repeatedName)
+//			} else {
+//				didValidatedWalletName(.clear)
+//			}
 		}
 	}
 }

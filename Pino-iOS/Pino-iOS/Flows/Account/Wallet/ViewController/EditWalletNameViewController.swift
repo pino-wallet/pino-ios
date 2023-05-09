@@ -100,8 +100,9 @@ class EditWalletNameViewController: UIViewController {
 	private func saveWalletName() {
 		let newWallet = WalletBuilder(walletInfo: selectedWalletVM)
 		newWallet.setProfileName(editWalletNameView.walletNameTextFieldView.getText()!)
-		selectedWalletVM = WalletInfoViewModel(walletInfoModel: newWallet.build())
-		walletsVM.editWallet(newWallet: newWallet.build())
+		let walletViewModel = newWallet.build()
+		selectedWalletVM = walletViewModel
+		walletsVM.editWallet(newWallet: walletViewModel)
 		navigationController?.popViewController(animated: true)
 	}
 }

@@ -26,11 +26,4 @@ struct AddNewWalletViewModel {
 	]
 
 	public let pageTitle = "Create / Import wallet"
-
-	// MARK: - Public Methods
-
-	public func addNewWalletWithAddress(_ address: String) {
-		let walletManager = WalletManager()
-		walletManager.addNewWalletWith(address: address)
-	}
 }

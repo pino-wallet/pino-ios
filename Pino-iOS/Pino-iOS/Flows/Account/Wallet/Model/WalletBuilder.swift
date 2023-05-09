@@ -35,15 +35,16 @@ class WalletBuilder {
 		profileColor = color
 	}
 
-	public func build() -> WalletInfoModel {
-		WalletInfoModel(
+	public func build() -> WalletInfoViewModel {
+		let coreDataManager = CoreDataManager()
+		let wallet = coreDataManager.createWallet(
 			id: id,
-			name: name ?? selectedWallet.name,
 			address: selectedWallet.address,
-			profileImage: profileImage ?? selectedWallet.profileImage,
-			profileColor: profileColor ?? selectedWallet.profileColor,
-			balance: selectedWallet.walletInfoModel.balance,
+			name: name ?? selectedWallet.name,
+			avatarIcon: profileImage ?? selectedWallet.profileImage,
+			avatarColor: profileColor ?? selectedWallet.profileColor,
 			isSelected: selectedWallet.isSelected
 		)
+		return WalletInfoViewModel(walletInfoModel: wallet)
 	}
 }

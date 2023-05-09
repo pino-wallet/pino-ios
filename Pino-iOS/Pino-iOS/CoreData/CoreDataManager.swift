@@ -5,7 +5,7 @@
 //  Created by Sobhan Eskandari on 5/8/23.
 //
 
-class DataManager {
+class CoreDataManager {
 	// MARK: - Private Properties
 
 	private var walletDataSource = WalletDataSource()
@@ -21,23 +21,30 @@ class DataManager {
 		walletDataSource.get(byId: id)
 	}
 
-	public func saveWallet(_ wallet: Wallet) {
-		walletDataSource.save(wallet)
+	public func createWallet(
+		id: String,
+		address: String,
+		name: String,
+		avatarIcon: String,
+		avatarColor: String,
+		isSelected: Bool = true
+	) -> Wallet {
+		let newWallet = Wallet(context: walletDataSource.managedContext)
+		newWallet.id = id
+		newWallet.address = address
+		newWallet.name = name
+		newWallet.avatarIcon = avatarIcon
+		newWallet.avatarColor = avatarColor
+		newWallet.isSelected = isSelected
+		walletDataSource.save(newWallet)
+		return newWallet
 	}
 
 	public func deleteWallet(_ wallet: Wallet) {
 		walletDataSource.delete(wallet)
 	}
 
-	public func getAllSelectedAssets() -> [SelectedAsset] {
-		selectedAssetDataSource.getAll()
-	}
-
-	public func saveSelectedAsset(_ asset: SelectedAsset) {
-		selectedAssetDataSource.save(asset)
-	}
-
-	public func deleteSelectedAsset(_ asset: SelectedAsset) {
-		selectedAssetDataSource.delete(asset)
+	public func updateSelectedWallet(_ wallet: Wallet) {
+		walletDataSource.updateSelected(wallet)
 	}
 }

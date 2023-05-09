@@ -8,39 +8,33 @@
 public struct WalletInfoViewModel: Equatable {
 	// MARK: - Public Properties
 
-	public var walletInfoModel: WalletInfoModel!
+	public var walletInfoModel: Wallet!
 
 	public var id: String {
-		walletInfoModel.id
+		walletInfoModel.id!
 	}
 
 	public var name: String {
-		walletInfoModel.name
+		walletInfoModel.name!
 	}
 
 	public var address: String {
-		walletInfoModel.address
+		walletInfoModel.address!
 	}
 
 	public var profileImage: String {
-		walletInfoModel.profileImage
+		walletInfoModel.avatarIcon!
 	}
 
 	public var profileColor: String {
-		walletInfoModel.profileColor
+		walletInfoModel.avatarColor!
 	}
 
 	public var balance: String {
-		"$\(walletInfoModel.balance)"
+		"$0"
 	}
 
 	public var isSelected: Bool {
 		walletInfoModel.isSelected
-	}
-
-	// MARK: - Public Methods
-
-	public mutating func isSelected(_ isSelected: Bool) {
-		walletInfoModel.isSelected(isSelected)
 	}
 }

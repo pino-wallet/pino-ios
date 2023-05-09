@@ -18,7 +18,7 @@ class WalletsViewModel {
 
 	private var walletAPIClient = WalletAPIMockClient()
 	private var cancellables = Set<AnyCancellable>()
-	private let walletManager = WalletManager()
+	private let coreDataManager = CoreDataManager()
 
 	// MARK: - Initializers
 
@@ -28,24 +28,40 @@ class WalletsViewModel {
 
 	// MARK: - Public Methods
 
-	public func updateSelectedWallet(with selectedWallet: WalletInfoModel) {
-		let wallets = walletManager.setSelectedState(wallet: selectedWallet)
-		walletsList = wallets.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
-	}
-
-	public func editWallet(newWallet: WalletInfoModel) {
-		let wallets = walletManager.editWallet(newWallet: newWallet)
-		walletsList = wallets.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
-	}
-
-	public func removeWallet(_ wallet: WalletInfoModel) {
-		let wallets = walletManager.removeWallet(wallet: wallet)
-		walletsList = wallets.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
-	}
-
 	public func getWallets() {
 		// Request to get wallets
-		let wallets = walletManager.getWalletsFromUserDefaults()
+		let wallets = coreDataManager.getAllWallets()
 		walletsList = wallets.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
+	}
+
+	public func addNewWalletWithAddress(_ address: String) {
+		let wallets = coreDataManager.getAllWallets()
+		let lastWalletId = wallets.last?.id ?? "0"
+		let newWalletId = (Int(lastWalletId) ?? 0) + 1
+		let avatar = Avatar.allCases.randomElement() ?? .green_apple
+
+		coreDataManager.createWallet(
+			id: String(newWalletId),
+			address: address,
+			name: avatar.name,
+			avatarIcon: avatar.rawValue,
+			avatarColor: avatar.rawValue
+		)
+		getWallets()
+	}
+
+	public func editWallet(newWallet: WalletInfoViewModel) {
+//		let wallets = walletManager.editWallet(newWallet: newWallet)
+//		walletsList = wallets.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
+	}
+
+	public func removeWallet(_ walletVM: WalletInfoViewModel) {
+		coreDataManager.deleteWallet(walletVM.walletInfoModel)
+		getWallets()
+	}
+
+	public func updateSelectedWallet(with selectedWallet: WalletInfoViewModel) {
+		coreDataManager.updateSelectedWallet(selectedWallet.walletInfoModel)
+		getWallets()
 	}
 }

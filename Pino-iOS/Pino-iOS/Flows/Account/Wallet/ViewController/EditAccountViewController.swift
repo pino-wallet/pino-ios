@@ -41,7 +41,6 @@ class EditAccountViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
-		setupBinding()
 	}
 
 	// MARK: - Private Methods
@@ -108,8 +107,7 @@ class EditAccountViewController: UIViewController {
 	}
 
 	private func removeWallet() {
-		let walletModel = WalletBuilder(walletInfo: selectedWallet).build()
-		walletsVM.removeWallet(walletModel)
+		walletsVM.removeWallet(selectedWallet)
 		navigationController!.popViewController(animated: true)
 	}
 
@@ -121,15 +119,5 @@ class EditAccountViewController: UIViewController {
 	private func openEditWalletName() {
 		let editWalletNameVC = EditWalletNameViewController(selectedWalletVM: selectedWallet, walletsVM: walletsVM)
 		navigationController?.pushViewController(editWalletNameVC, animated: true)
-	}
-
-	private func setupBinding() {
-		walletsVM.$walletsList.sink { [weak self] walletsList in
-			guard let updatedSelectAsset = walletsList?.first(where: { $0.id == self?.selectedWallet.id }) else {
-				return
-			}
-			self?.editAccountView.selectedWalletVM = updatedSelectAsset
-			self?.selectedWallet = updatedSelectAsset
-		}.store(in: &cancellables)
 	}
 }
