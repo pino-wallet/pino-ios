@@ -37,7 +37,21 @@ class CoreDataManager {
 		newWallet.avatarColor = avatarColor
 		newWallet.isSelected = isSelected
 		walletDataSource.save(newWallet)
+		walletDataSource.updateSelected(newWallet)
 		return newWallet
+	}
+
+	public func EditWallet(_ wallet: Wallet, newName: String) -> Wallet {
+		wallet.name = newName
+		walletDataSource.save(wallet)
+		return wallet
+	}
+
+	public func EditWallet(_ wallet: Wallet, newAvatar: String) -> Wallet {
+		wallet.avatarIcon = newAvatar
+		wallet.avatarColor = newAvatar
+		walletDataSource.save(wallet)
+		return wallet
 	}
 
 	public func deleteWallet(_ wallet: Wallet) {

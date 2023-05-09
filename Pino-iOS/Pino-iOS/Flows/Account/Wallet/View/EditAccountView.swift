@@ -19,14 +19,11 @@ class EditAccountView: UIView {
 	// MARK: - Public Properties
 
 	public var editAccountVM: EditAccountViewModel
-	@Published
-	public var selectedWalletVM: WalletInfoViewModel
 
 	// MARK: - Initializers
 
 	init(
 		editAccountVM: EditAccountViewModel,
-		selectedWalletVM: WalletInfoViewModel,
 		openAvatarPage: @escaping () -> Void,
 		openRemoveAccount: @escaping () -> Void,
 		openRevealPrivateKey: @escaping () -> Void,
@@ -35,7 +32,6 @@ class EditAccountView: UIView {
 		self.openAvatarPage = openAvatarPage
 		self.openRevealPrivateKey = openRevealPrivateKey
 		self.editAccountVM = editAccountVM
-		self.selectedWalletVM = selectedWalletVM
 		self.openRemoveAccount = openRemoveAccount
 		self.openEditWalletNameClosure = openEditWalletNameClosure
 		super.init(frame: .zero)
@@ -61,7 +57,6 @@ class EditAccountView: UIView {
 	private func setupView() {
 		editAccountCollectionView = EditAccountCollectionView(
 			editAccountVM: editAccountVM,
-			walletVM: selectedWalletVM,
 			newAvatarTappedClosure: { [weak self] in
 				self?.openAvatarPage()
 			},
@@ -91,8 +86,7 @@ class EditAccountView: UIView {
 	}
 
 	private func setupBinding() {
-		$selectedWalletVM.sink { [weak self] selectedWallet in
-			self?.editAccountCollectionView.selectedWalletVM = selectedWallet
+		editAccountVM.$selectedWallet.sink { [weak self] selectedWallet in
 			self?.editAccountCollectionView.reloadData()
 		}.store(in: &cancellables)
 

@@ -17,12 +17,14 @@ class EditWalletNameViewController: UIViewController {
 
 	private var editWalletNameView: EditWalletNameView!
 	private var editWalletNameVM: EditWalletNameViewModel!
+	private var nameChanged: (String) -> Void
 
 	// MARK: - Initializers
 
-	init(selectedWalletVM: WalletInfoViewModel!, walletsVM: WalletsViewModel) {
+	init(selectedWalletVM: WalletInfoViewModel!, walletsVM: WalletsViewModel, nameChanged: @escaping (String) -> Void) {
 		self.selectedWalletVM = selectedWalletVM
 		self.walletsVM = walletsVM
+		self.nameChanged = nameChanged
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -73,36 +75,38 @@ class EditWalletNameViewController: UIViewController {
 	}
 
 	private func setupEditWalletNameVM() {
-		editWalletNameVM = EditWalletNameViewModel(didValidatedWalletName: { [weak self] error in
-			switch error {
-			case .isEmpty:
-				self?.navigationItem.rightBarButtonItem?.isEnabled = false
-				self?.editWalletNameView.doneButton.style = .deactive
-				self?.editWalletNameView.walletNameTextFieldView.style = .error
-				self?.editWalletNameView.walletNameTextFieldView.errorText = self?.editWalletNameVM
-					.walletNameIsEmptyError ?? ""
-			case .repeatedName:
-				self?.navigationItem.rightBarButtonItem?.isEnabled = false
-				self?.editWalletNameView.doneButton.style = .deactive
-				self?.editWalletNameView.walletNameTextFieldView.style = .error
-				self?.editWalletNameView.walletNameTextFieldView.errorText = self?.editWalletNameVM
-					.walletNameIsRepeatedError ?? ""
-			case .clear:
-				self?.navigationItem.rightBarButtonItem?.isEnabled = true
-				self?.editWalletNameView.doneButton.style = .active
-				self?.editWalletNameView.walletNameTextFieldView.style = .normal
-				self?.editWalletNameView.walletNameTextFieldView.errorText = ""
-			}
-		}, selectedWalletID: selectedWalletVM.id)
+		editWalletNameVM = EditWalletNameViewModel(
+			didValidatedWalletName: { [weak self] error in
+				self?.showErrorMessage(error: error)
+			},
+			selectedWallet: selectedWalletVM,
+			wallets: walletsVM.walletsList
+		)
 	}
 
 	@objc
 	private func saveWalletName() {
-		let newWallet = WalletBuilder(walletInfo: selectedWalletVM)
-		newWallet.setProfileName(editWalletNameView.walletNameTextFieldView.getText()!)
-		let walletViewModel = newWallet.build()
-		selectedWalletVM = walletViewModel
-		walletsVM.editWallet(newWallet: walletViewModel)
+		nameChanged(editWalletNameView.walletNameTextFieldView.getText()!)
 		navigationController?.popViewController(animated: true)
+	}
+
+	private func showErrorMessage(error: EditWalletNameViewModel.ValidateWalletNameErrorType) {
+		switch error {
+		case .isEmpty:
+			navigationItem.rightBarButtonItem?.isEnabled = false
+			editWalletNameView.doneButton.style = .deactive
+			editWalletNameView.walletNameTextFieldView.style = .error
+			editWalletNameView.walletNameTextFieldView.errorText = editWalletNameVM.walletNameIsEmptyError
+		case .repeatedName:
+			navigationItem.rightBarButtonItem?.isEnabled = false
+			editWalletNameView.doneButton.style = .deactive
+			editWalletNameView.walletNameTextFieldView.style = .error
+			editWalletNameView.walletNameTextFieldView.errorText = editWalletNameVM.walletNameIsRepeatedError
+		case .clear:
+			navigationItem.rightBarButtonItem?.isEnabled = true
+			editWalletNameView.doneButton.style = .active
+			editWalletNameView.walletNameTextFieldView.style = .normal
+			editWalletNameView.walletNameTextFieldView.errorText = ""
+		}
 	}
 }

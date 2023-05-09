@@ -48,7 +48,6 @@ struct WalletDataSource: DataSourceProtocol {
 			wallets.append(wallet)
 		}
 		coreDataStack.saveContext()
-		updateSelected(wallet)
 	}
 
 	public mutating func delete(_ wallet: Wallet) {

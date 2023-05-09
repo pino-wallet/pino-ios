@@ -55,7 +55,8 @@ class WalletsViewController: UIViewController {
 	}
 
 	private func openEditAccountPage(selectedWallet: WalletInfoViewModel) {
-		let editAccountVC = EditAccountViewController(walletsVM: walletVM, selectedWallet: selectedWallet)
+		let editAccountVM = EditAccountViewModel(selectedWallet: selectedWallet)
+		let editAccountVC = EditAccountViewController(walletsVM: walletVM, editAccountVM: editAccountVM)
 		if navigationController?.viewControllers.last is WalletsViewController {
 			navigationController?.pushViewController(editAccountVC, animated: true)
 		}

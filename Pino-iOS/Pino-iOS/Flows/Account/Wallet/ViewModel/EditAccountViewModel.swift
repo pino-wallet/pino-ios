@@ -11,6 +11,9 @@ class EditAccountViewModel {
 	// MARK: - Public Properties
 
 	@Published
+	public var selectedWallet: WalletInfoViewModel
+
+	@Published
 	public var isLastWallet = false
 
 	public let pageTitle = "Edit account"
@@ -23,4 +26,8 @@ class EditAccountViewModel {
 		EditAccountOptionModel(title: "Wallet name", type: .name, rightIconName: "arrow_right"),
 		EditAccountOptionModel(title: "Show private key", type: .private_key, rightIconName: "arrow_right"),
 	]
+
+	init(selectedWallet: WalletInfoViewModel) {
+		self.selectedWallet = selectedWallet
+	}
 }

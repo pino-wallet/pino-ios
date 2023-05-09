@@ -18,13 +18,19 @@ class EditWalletNameViewModel {
 	public let walletNameIsRepeatedError = "This wallet name is already taken!"
 	public let walletNameIsEmptyError = "Wallet name cant be empty"
 
-	public var selectedWalletID: String
+	public var selectedWallet: WalletInfoViewModel
+	public var wallets: [WalletInfoViewModel]
 
 	// MARK: - Initializers
 
-	init(didValidatedWalletName: @escaping (_: ValidateWalletNameErrorType) -> Void, selectedWalletID: String) {
+	init(
+		didValidatedWalletName: @escaping (_: ValidateWalletNameErrorType) -> Void,
+		selectedWallet: WalletInfoViewModel,
+		wallets: [WalletInfoViewModel]
+	) {
 		self.didValidatedWalletName = didValidatedWalletName
-		self.selectedWalletID = selectedWalletID
+		self.selectedWallet = selectedWallet
+		self.wallets = wallets
 	}
 
 	// MARK: - Public Methods
@@ -33,12 +39,11 @@ class EditWalletNameViewModel {
 		if newWalletName.trimmingCharacters(in: .whitespaces).isEmpty {
 			didValidatedWalletName(.isEmpty)
 		} else {
-//			let wallets = walletManager.getWalletsFromUserDefaults()
-//			if wallets.contains(where: { $0.name == newWalletName && $0.id != selectedWalletID }) {
-//				didValidatedWalletName(.repeatedName)
-//			} else {
-//				didValidatedWalletName(.clear)
-//			}
+			if wallets.contains(where: { $0.name == newWalletName && $0.id != selectedWallet.id }) {
+				didValidatedWalletName(.repeatedName)
+			} else {
+				didValidatedWalletName(.clear)
+			}
 		}
 	}
 }

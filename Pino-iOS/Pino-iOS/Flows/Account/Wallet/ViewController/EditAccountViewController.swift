@@ -11,19 +11,17 @@ import UIKit
 class EditAccountViewController: UIViewController {
 	// MARK: Private Properties
 
-	private var selectedWallet: WalletInfoViewModel
-
 	private let walletsVM: WalletsViewModel
-	private let editAccountVM = EditAccountViewModel()
+	private let editAccountVM: EditAccountViewModel
 	private var cancellables = Set<AnyCancellable>()
 
 	private var editAccountView: EditAccountView!
 
 	// MARK: Initializers
 
-	init(walletsVM: WalletsViewModel, selectedWallet: WalletInfoViewModel) {
+	init(walletsVM: WalletsViewModel, editAccountVM: EditAccountViewModel) {
 		self.walletsVM = walletsVM
-		self.selectedWallet = selectedWallet
+		self.editAccountVM = editAccountVM
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -48,7 +46,6 @@ class EditAccountViewController: UIViewController {
 	private func setupView() {
 		editAccountView = EditAccountView(
 			editAccountVM: editAccountVM,
-			selectedWalletVM: selectedWallet,
 			openAvatarPage: { [weak self] in
 				self?.openAvatarPage()
 			},
@@ -95,14 +92,9 @@ class EditAccountViewController: UIViewController {
 	}
 
 	private func openAvatarPage() {
-		let avatarVM = AvatarViewModel(selectedAvatar: selectedWallet.profileImage)
+		let avatarVM = AvatarViewModel(selectedAvatar: editAccountVM.selectedWallet.profileImage)
 		let changeAvatarVC = ChangeAvatarViewController(avatarVM: avatarVM) { [weak self] avatarName in
-			if self?.selectedWallet.profileImage != avatarName {
-				let newWallet = WalletBuilder(walletInfo: self!.selectedWallet)
-				newWallet.setProfileImage(avatarName)
-				newWallet.setProfileColor(avatarName)
-				self?.walletsVM.editWallet(newWallet: newWallet.build())
-			}
+			self?.editWalletAvatar(newAvatar: avatarName)
 		}
 		navigationController?.pushViewController(changeAvatarVC, animated: true)
 	}
@@ -118,7 +110,7 @@ class EditAccountViewController: UIViewController {
 	}
 
 	private func removeWallet() {
-		walletsVM.removeWallet(selectedWallet)
+		walletsVM.removeWallet(editAccountVM.selectedWallet)
 		navigationController!.popViewController(animated: true)
 	}
 
@@ -128,7 +120,22 @@ class EditAccountViewController: UIViewController {
 	}
 
 	private func openEditWalletName() {
-		let editWalletNameVC = EditWalletNameViewController(selectedWalletVM: selectedWallet, walletsVM: walletsVM)
+		let editWalletNameVC = EditWalletNameViewController(
+			selectedWalletVM: editAccountVM.selectedWallet,
+			walletsVM: walletsVM
+		) { [weak self] walletName in
+			self?.editWalletName(newName: walletName)
+		}
 		navigationController?.pushViewController(editWalletNameVC, animated: true)
+	}
+
+	private func editWalletName(newName: String) {
+		let edittedWallet = walletsVM.editWallet(wallet: editAccountVM.selectedWallet, newName: newName)
+		editAccountVM.selectedWallet = edittedWallet
+	}
+
+	private func editWalletAvatar(newAvatar: String) {
+		let edittedWallet = walletsVM.editWallet(wallet: editAccountVM.selectedWallet, newAvatar: newAvatar)
+		editAccountVM.selectedWallet = edittedWallet
 	}
 }

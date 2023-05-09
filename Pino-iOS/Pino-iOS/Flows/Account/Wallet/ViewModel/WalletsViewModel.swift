@@ -50,9 +50,16 @@ class WalletsViewModel {
 		getWallets()
 	}
 
-	public func editWallet(newWallet: WalletInfoViewModel) {
-//		let wallets = walletManager.editWallet(newWallet: newWallet)
-//		walletsList = wallets.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
+	public func editWallet(wallet: WalletInfoViewModel, newName: String) -> WalletInfoViewModel {
+		let edittedWallet = coreDataManager.EditWallet(wallet.walletInfoModel, newName: newName)
+		getWallets()
+		return WalletInfoViewModel(walletInfoModel: edittedWallet)
+	}
+
+	public func editWallet(wallet: WalletInfoViewModel, newAvatar: String) -> WalletInfoViewModel {
+		let edittedWallet = coreDataManager.EditWallet(wallet.walletInfoModel, newAvatar: newAvatar)
+		getWallets()
+		return WalletInfoViewModel(walletInfoModel: edittedWallet)
 	}
 
 	public func removeWallet(_ walletVM: WalletInfoViewModel) {

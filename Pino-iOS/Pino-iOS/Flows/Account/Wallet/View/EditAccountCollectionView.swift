@@ -17,20 +17,17 @@ class EditAccountCollectionView: UICollectionView {
 
 	// MARK: - Public Properties
 
-	public var selectedWalletVM: WalletInfoViewModel
 	public let editAccountVM: EditAccountViewModel
 
 	// MARK: - Initializers
 
 	init(
 		editAccountVM: EditAccountViewModel,
-		walletVM: WalletInfoViewModel,
 		newAvatarTappedClosure: @escaping () -> Void,
 		openRevealPrivateKeyClosure: @escaping () -> Void,
 		openEditWalletNameClosure: @escaping () -> Void
 	) {
 		self.editAccountVM = editAccountVM
-		self.selectedWalletVM = walletVM
 		self.newAvatarTappedClosure = newAvatarTappedClosure
 		self.openRevealPrivateKeyClosure = openRevealPrivateKeyClosure
 		self.openEditWalletNameClosure = openEditWalletNameClosure
@@ -62,6 +59,8 @@ class EditAccountCollectionView: UICollectionView {
 		delegate = self
 		dataSource = self
 	}
+
+	private func setupBindings() {}
 }
 
 extension EditAccountCollectionView: UICollectionViewDelegate {
@@ -92,7 +91,7 @@ extension EditAccountCollectionView: UICollectionViewDataSource {
 		cell.editAccountOptionVM = EditAccountOptionViewModel(editAccountOption: editAccountOption)
 		cell.setCellStyle(currentItem: indexPath.item, itemsCount: editAccountVM.editAccountOptions.count)
 		if editAccountOption.type == .name {
-			cell.cellDescribtionText = "\(selectedWalletVM.name)"
+			cell.cellDescribtionText = "\(editAccountVM.selectedWallet.name)"
 		}
 		return cell
 	}
@@ -108,7 +107,7 @@ extension EditAccountCollectionView: UICollectionViewDataSource {
 			for: indexPath
 		) as! EditAccountHeaderView
 		headerView.editAccountVM = editAccountVM
-		headerView.selectedWalletVM = selectedWalletVM
+		headerView.selectedWalletVM = editAccountVM.selectedWallet
 		headerView.newAvatarTapped = newAvatarTappedClosure
 		return headerView
 	}
