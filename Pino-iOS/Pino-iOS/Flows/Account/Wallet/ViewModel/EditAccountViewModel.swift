@@ -5,8 +5,13 @@
 //  Created by Amir hossein kazemi seresht on 4/25/23.
 //
 
+import Combine
+
 class EditAccountViewModel {
 	// MARK: - Public Properties
+
+	@Published
+	public var isLastWallet = false
 
 	public let pageTitle = "Edit account"
 	public let changeAvatarTitle = "Set new avatar"

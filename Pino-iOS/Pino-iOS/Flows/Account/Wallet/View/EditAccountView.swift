@@ -95,6 +95,14 @@ class EditAccountView: UIView {
 			self?.editAccountCollectionView.selectedWalletVM = selectedWallet
 			self?.editAccountCollectionView.reloadData()
 		}.store(in: &cancellables)
+
+		editAccountVM.$isLastWallet.sink { isLastWallet in
+			if isLastWallet {
+				self.removeAccountButton.isHidden = true
+			} else {
+				self.removeAccountButton.isHidden = false
+			}
+		}.store(in: &cancellables)
 	}
 
 	@objc

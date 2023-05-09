@@ -14,7 +14,6 @@ class EditAccountViewController: UIViewController {
 	private var selectedWallet: WalletInfoViewModel
 
 	private let walletsVM: WalletsViewModel
-
 	private let editAccountVM = EditAccountViewModel()
 	private var cancellables = Set<AnyCancellable>()
 
@@ -41,6 +40,7 @@ class EditAccountViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
+		setupBindings()
 	}
 
 	// MARK: - Private Methods
@@ -76,6 +76,17 @@ class EditAccountViewController: UIViewController {
 			target: self,
 			action: #selector(saveChanges)
 		)
+	}
+
+	private func setupBindings() {
+		walletsVM.$walletsList.sink { wallets in
+			guard let wallets else { return }
+			if wallets.count > 1 {
+				self.editAccountVM.isLastWallet = false
+			} else {
+				self.editAccountVM.isLastWallet = true
+			}
+		}.store(in: &cancellables)
 	}
 
 	@objc
