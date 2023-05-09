@@ -8,14 +8,19 @@
 import UIKit
 
 class AllowNotificationsView: UIView {
+	// MARK: - Closures
+
+	public let dismissPage: () -> Void
+
 	// MARK: - Public Properties
 
 	public let allowNotificationsVM: AllowNotificationsViewModel
 
 	// MARK: - Initializers
 
-	init(allowNotificationsVM: AllowNotificationsViewModel) {
+	init(allowNotificationsVM: AllowNotificationsViewModel, dismissPage: @escaping () -> Void) {
 		self.allowNotificationsVM = allowNotificationsVM
+		self.dismissPage = dismissPage
 		super.init(frame: .zero)
 
 		setupView()
@@ -61,6 +66,10 @@ class AllowNotificationsView: UIView {
 
 		buttonsStackView.addArrangedSubview(enableNotificationsButton)
 		buttonsStackView.addArrangedSubview(skipButton)
+
+		enableNotificationsButton.addTarget(self, action: #selector(enableNotififcations), for: .touchUpInside)
+
+		skipButton.addTarget(self, action: #selector(onSkip), for: .touchUpInside)
 
 		sampleNotificationsContainerView.addSubview(sampleNotificationCard1)
 		sampleNotificationsContainerView.addSubview(sampleNotificationCard2)
@@ -157,6 +166,19 @@ class AllowNotificationsView: UIView {
 		sampleNotificationCard2.pin(.horizontalEdges(padding: 0))
 		buttonsStackView.pin(.horizontalEdges(padding: 16), .bottom(to: layoutMarginsGuide, padding: paddingFromButtom))
 	}
+
+	@objc
+	private func onSkip() {
+		dismissPage()
+	}
+
+	@objc
+	private func enableNotififcations() {
+		allowNotificationsVM.enableNotifications()
+		dismissPage()
+	}
+
+	// MARK: - Public Methods
 
 	public func animateSmapleNotificationsCard() {
 		sampleNotificationCard1.isHidden = false

@@ -34,7 +34,12 @@ class AllowNotificationsViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		allowNotificationsView = AllowNotificationsView(allowNotificationsVM: allowNotificationsVM)
+		allowNotificationsView = AllowNotificationsView(
+			allowNotificationsVM: allowNotificationsVM,
+			dismissPage: { [weak self] in
+				self?.dismiss(animated: true)
+			}
+		)
 		view = allowNotificationsView
 	}
 }
