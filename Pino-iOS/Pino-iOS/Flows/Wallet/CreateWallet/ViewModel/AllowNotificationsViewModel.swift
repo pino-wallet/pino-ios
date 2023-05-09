@@ -15,4 +15,6 @@ class AllowNotificationsViewModel {
 	public let descriptionText = "Get instant notifications whenever an event occurs on your wallet."
 	public let enableNotificationsButtonTitleText = "Enable notification"
 	public let skipButtonTitleText = "Skip"
+	public let sampleNotificationCardImage1 = "sample_notification_1"
+	public let sampleNotificationCardImage2 = "sample_notification_2"
 }

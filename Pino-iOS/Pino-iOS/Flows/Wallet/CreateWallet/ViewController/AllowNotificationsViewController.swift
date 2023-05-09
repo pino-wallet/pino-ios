@@ -19,6 +19,13 @@ class AllowNotificationsViewController: UIViewController {
 		super.viewDidLoad()
 	}
 
+	override func viewDidAppear(_ animated: Bool) {
+		if isBeingPresented || isMovingToParent {
+			allowNotificationsView.setupGradientStyle()
+			allowNotificationsView.animateSmapleNotificationsCard()
+		}
+	}
+
 	override func loadView() {
 		setupView()
 		setupClearColorNavigationBar()
