@@ -8,10 +8,6 @@
 import UIKit
 
 class AllDoneViewController: UIViewController {
-	// MARK: - Public Properties
-
-	public var isNewWallet = false
-
 	// MARK: - Private Properties
 
 	private let allDoneVM = AllDoneViewModel()
