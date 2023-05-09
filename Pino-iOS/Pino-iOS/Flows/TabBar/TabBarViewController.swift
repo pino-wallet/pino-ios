@@ -68,7 +68,9 @@ class TabBarViewController: UITabBarController {
 	}
 
 	private func presentAllowNotifications() {
+		let navigationVC = UINavigationController()
 		let allowNotificationsVC = AllowNotificationsViewController()
-		present(allowNotificationsVC, animated: true)
+		navigationVC.viewControllers = [allowNotificationsVC]
+		present(navigationVC, animated: true)
 	}
 }
