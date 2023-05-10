@@ -5,29 +5,31 @@
 //  Created by Mohi Raoufi on 12/24/22.
 //
 
+import CoreData
+
 public struct WalletInfoViewModel: Equatable {
 	// MARK: - Public Properties
 
-	public var walletInfoModel: Wallet!
+	public var walletInfoModel: WalletAccount!
 
-	public var id: String {
-		walletInfoModel.id!
+	public var id: NSManagedObjectID {
+		walletInfoModel.objectID
 	}
 
 	public var name: String {
-		walletInfoModel.name!
+		walletInfoModel.name
 	}
 
 	public var address: String {
-		walletInfoModel.address!
+		walletInfoModel.eip55Address
 	}
 
 	public var profileImage: String {
-		walletInfoModel.avatarIcon!
+		walletInfoModel.avatarIcon
 	}
 
 	public var profileColor: String {
-		walletInfoModel.avatarColor!
+		walletInfoModel.avatarColor
 	}
 
 	public var balance: String {

@@ -10,8 +10,8 @@ import WalletCore
 import Web3Core
 
 public struct Account: Codable {
-	public enum AccountSource: Codable {
-		case hdWallet
+	public enum AccountSource: Int32, Codable {
+		case hdWallet = 0
 		case nonHDWallet
 	}
 

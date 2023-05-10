@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22E252" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="SelectedAsset" representedClassName="SelectedAsset" syncable="YES" codeGenerationType="class">
-        <attribute name="id" optional="YES" attributeType="String"/>
+    <entity name="SelectedAsset" representedClassName="SelectedAsset" syncable="YES">
+        <attribute name="id" attributeType="String"/>
     </entity>
-    <entity name="Wallet" representedClassName="Wallet" syncable="YES" codeGenerationType="class">
-        <attribute name="address" optional="YES" attributeType="String"/>
+    <entity name="Wallet" representedClassName="Wallet" syncable="YES">
+        <relationship name="account" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WalletAccount" inverseName="wallet" inverseEntity="WalletAccount"/>
+    </entity>
+    <entity name="WalletAccount" representedClassName="WalletAccount" syncable="YES">
         <attribute name="avatarColor" optional="YES" attributeType="String"/>
         <attribute name="avatarIcon" optional="YES" attributeType="String"/>
-        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="derivationPath" attributeType="String"/>
+        <attribute name="eip55Address" attributeType="String"/>
         <attribute name="isSelected" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="publicKey" attributeType="String"/>
+        <relationship name="source" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WalletAccountType"/>
+        <relationship name="wallet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wallet" inverseName="account" inverseEntity="Wallet"/>
+    </entity>
+    <entity name="WalletAccountType" representedClassName="WalletAccountType" syncable="YES">
+        <attribute name="source" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
 </model>

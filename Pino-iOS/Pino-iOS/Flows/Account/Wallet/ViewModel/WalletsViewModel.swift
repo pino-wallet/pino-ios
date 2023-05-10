@@ -36,12 +36,9 @@ class WalletsViewModel {
 
 	public func addNewWalletWithAddress(_ address: String) {
 		let wallets = coreDataManager.getAllWallets()
-		let lastWalletId = wallets.last?.id ?? "0"
-		let newWalletId = (Int(lastWalletId) ?? 0) + 1
 		let avatar = Avatar.allCases.randomElement() ?? .green_apple
 
 		coreDataManager.createWallet(
-			id: String(newWalletId),
 			address: address,
 			name: avatar.name,
 			avatarIcon: avatar.rawValue,

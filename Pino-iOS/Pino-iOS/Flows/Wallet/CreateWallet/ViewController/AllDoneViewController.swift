@@ -44,5 +44,4 @@ class AllDoneViewController: UIViewController {
 			self.present(tabBarVC, animated: true)
 		}
 	}
-    
 }

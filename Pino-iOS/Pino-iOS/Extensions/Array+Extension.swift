@@ -18,3 +18,10 @@ extension FloatingPoint {
 	var whole: Self { modf(self).0 }
 	var fraction: Self { modf(self).1 }
 }
+
+extension NSSet {
+	func toArray<T>() -> [T] {
+		let array = map { $0 as! T }
+		return array
+	}
+}
