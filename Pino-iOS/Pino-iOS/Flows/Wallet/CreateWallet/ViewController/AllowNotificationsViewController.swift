@@ -28,7 +28,6 @@ class AllowNotificationsViewController: UIViewController {
 
 	override func loadView() {
 		setupView()
-		setupClearColorNavigationBar()
 	}
 
 	// MARK: - Private Methods

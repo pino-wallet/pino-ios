@@ -24,7 +24,6 @@ class RemoveAccountViewController: UIViewController {
 
 	override func loadView() {
 		setupView()
-		setupClearColorNavigationBar()
 	}
 
 	// MARK: - Private Methods
@@ -33,6 +32,9 @@ class RemoveAccountViewController: UIViewController {
 		let removeAccountView = RemoveAccountView(presentConfirmActionsheetClosure: { [weak self] in
 			self?.presentConfirmRemoveAccountAlert()
 		}, removeAccountVM: removeAccountVM)
+		removeAccountView.dismissPage = { [weak self] in
+			self?.dismiss(animated: true)
+		}
 		view = removeAccountView
 	}
 

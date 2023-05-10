@@ -45,18 +45,6 @@ extension UIViewController {
 		navigationController?.navigationBar.topItem?.title = ""
 	}
 
-	public func setupClearColorNavigationBar() {
-		let dismissButton = UIButton()
-		let dismissButtonContainerView = UIView()
-
-		dismissButton.setImage(UIImage(named: "close"), for: .normal)
-		dismissButtonContainerView.frame = CGRectMake(0, 0, 30, 46)
-		dismissButtonContainerView.addSubview(dismissButton)
-		dismissButton.frame = CGRectMake(0, 14, 30, 30)
-		dismissButton.addTarget(self, action: #selector(dismissSelf), for: .touchUpInside)
-		navigationItem.rightBarButtonItem = UIBarButtonItem(customView: dismissButtonContainerView)
-	}
-
 	public func setupSearchBar() {
 		guard let self = self as? UISearchResultsUpdating else {
 			fatalError("View controller doesn't confirm to UISearchResultUpdating protocol")

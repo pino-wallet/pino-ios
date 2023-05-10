@@ -34,6 +34,7 @@ class AllowNotificationsView: UIView {
 
 	// MARK: - Private Properties
 
+	private var clearNavigationBar = ClearNavigationBar()
 	private let headerStackView = UIStackView()
 	private let headerIconContainerView = UIView()
 	private let headerIconView = UIImageView()
@@ -50,10 +51,15 @@ class AllowNotificationsView: UIView {
 	private let skipButton = PinoButton(style: .white, title: "")
 	private var paddingFromButtom: CGFloat!
 	private var sampleNotificationGradientLayer: GradientLayer!
+	private let animationTime = 0.8
 
 	// MARK: - Private Methods
 
 	private func setupView() {
+		clearNavigationBar.onDismiss = { [weak self] in
+			self?.dismissPage()
+		}
+
 		headerIconContainerView.addSubview(headerIconView)
 
 		headerTitleLabelContainerView.addSubview(headerTitleLabel)
@@ -75,6 +81,7 @@ class AllowNotificationsView: UIView {
 		sampleNotificationsContainerView.addSubview(sampleNotificationCard2)
 		sampleNotificationsContainerView.addSubview(sampleNotificationGradientContainer)
 
+		addSubview(clearNavigationBar)
 		addSubview(headerStackView)
 		addSubview(sampleNotificationsContainerView)
 		addSubview(buttonsStackView)
@@ -86,6 +93,7 @@ class AllowNotificationsView: UIView {
 		headerStackView.axis = .vertical
 		headerStackView.spacing = 8
 		headerStackView.alignment = .center
+		headerStackView.distribution = .fillProportionally
 
 		buttonsStackView.axis = .vertical
 		buttonsStackView.spacing = 24
@@ -147,8 +155,9 @@ class AllowNotificationsView: UIView {
 			sampleNotificationCard2Constraint,
 		])
 
+		clearNavigationBar.pin(.horizontalEdges(padding: 0), .top(padding: 0))
 		headerIconView.pin(.fixedWidth(56), .fixedHeight(56))
-		headerStackView.pin(.top(to: layoutMarginsGuide, padding: 8), .horizontalEdges(padding: 16))
+		headerStackView.pin(.relative(.top, 8, to: clearNavigationBar, .bottom), .horizontalEdges(padding: 16))
 		headerTitleLabel.pin(.horizontalEdges(padding: 0), .top(padding: 10), .bottom(padding: 0))
 		headerIconView.pin(.allEdges(padding: 0))
 		headerDescriptionLabel.pin(.verticalEdges(padding: 0), .horizontalEdges(padding: 16))
@@ -184,10 +193,10 @@ class AllowNotificationsView: UIView {
 		sampleNotificationCard1.isHidden = false
 		sampleNotificationCard2.isHidden = false
 		UIView.animate(
-			withDuration: 1,
+			withDuration: animationTime,
 			delay: 0,
-			usingSpringWithDamping: 1,
-			initialSpringVelocity: 1,
+			usingSpringWithDamping: animationTime,
+			initialSpringVelocity: animationTime,
 			options: .curveEaseIn,
 			animations: { [weak self] in
 				let sampleNotificationCard1Constraint = NSLayoutConstraint(
@@ -203,12 +212,12 @@ class AllowNotificationsView: UIView {
 				NSLayoutConstraint.activate([sampleNotificationCard1Constraint])
 				self?.layoutIfNeeded()
 			}
-		) { _ in
+		) { [weak self] _ in
 			UIView.animate(
-				withDuration: 1,
+				withDuration: self!.animationTime,
 				delay: 0,
-				usingSpringWithDamping: 1,
-				initialSpringVelocity: 1,
+				usingSpringWithDamping: self!.animationTime,
+				initialSpringVelocity: self!.animationTime,
 				options: .curveEaseIn,
 				animations: { [weak self] in
 					let sampleNotificationCard2Constraint = NSLayoutConstraint(

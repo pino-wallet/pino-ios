@@ -278,6 +278,7 @@
 		D94A9A2029FE6C4E00DCA28D /* EditWalletNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A1F29FE6C4E00DCA28D /* EditWalletNameViewController.swift */; };
 		D94A9A2229FE6CDA00DCA28D /* EditWalletNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A2129FE6CDA00DCA28D /* EditWalletNameView.swift */; };
 		D94A9A2429FE75FC00DCA28D /* EditWalletNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A2329FE75FC00DCA28D /* EditWalletNameViewModel.swift */; };
+		D9591D542A0B9E780013270E /* ClearNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9591D532A0B9E780013270E /* ClearNavigationBar.swift */; };
 		D964AC6B0907B2432359A129 /* GroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D7CE3AA42604B8F78EA87C /* GroupCollectionViewCell.swift */; };
 		D9703F6A29ED547000D09277 /* CoinInfoFooterview.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9703F6929ED547000D09277 /* CoinInfoFooterview.swift */; };
 		D97CF62C25B975AD3C131881 /* CoinHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26427FD948787141E7AA599B /* CoinHistoryModel.swift */; };
@@ -660,6 +661,7 @@
 		D94A9A1F29FE6C4E00DCA28D /* EditWalletNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWalletNameViewController.swift; sourceTree = "<group>"; };
 		D94A9A2129FE6CDA00DCA28D /* EditWalletNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWalletNameView.swift; sourceTree = "<group>"; };
 		D94A9A2329FE75FC00DCA28D /* EditWalletNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWalletNameViewModel.swift; sourceTree = "<group>"; };
+		D9591D532A0B9E780013270E /* ClearNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearNavigationBar.swift; sourceTree = "<group>"; };
 		D9703F6929ED547000D09277 /* CoinInfoFooterview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoFooterview.swift; sourceTree = "<group>"; };
 		D99F4B1C29E2C25C009F7F55 /* PaymentMethodOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodOptionView.swift; sourceTree = "<group>"; };
 		D99F4B2029E2C48D009F7F55 /* PaymentMethodOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodOptionViewModel.swift; sourceTree = "<group>"; };
@@ -795,6 +797,7 @@
 		02F7EC4A2D81621079530268 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				D9591D522A0B9E610013270E /* NavigationBar */,
 				E34728EF29E7E32500AB8265 /* GroupCollectionView */,
 				57CB028E64599114A425B906 /* ActionSheet */,
 				454AFE7F0BDC59A5CA92FB2B /* Button */,
@@ -1860,6 +1863,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		D9591D522A0B9E610013270E /* NavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				D9591D532A0B9E780013270E /* ClearNavigationBar.swift */,
+			);
+			path = NavigationBar;
+			sourceTree = "<group>";
+		};
 		D99F4B1F29E2C405009F7F55 /* ReceiveViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -2409,6 +2420,7 @@
 				D93C41F729F7C1F9003F2297 /* EditAccountCollectionView.swift in Sources */,
 				C18F61B7AEF94EEC4A102666 /* ChartDataModel.swift in Sources */,
 				86AE4E895C42E9E1302295FD /* ChartDateFilter.swift in Sources */,
+				D9591D542A0B9E780013270E /* ClearNavigationBar.swift in Sources */,
 				D9703F6A29ED547000D09277 /* CoinInfoFooterview.swift in Sources */,
 				B4E756CF19F769668E2A4FB5 /* ChartInfoItem.swift in Sources */,
 				E34728E229E5360300AB8265 /* CoreDataStack.swift in Sources */,
