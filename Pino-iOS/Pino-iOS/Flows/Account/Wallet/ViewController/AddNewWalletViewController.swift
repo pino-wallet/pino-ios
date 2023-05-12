@@ -74,7 +74,7 @@ class AddNewWalletViewController: UIViewController {
 		let importedAccount = pinoWalletManager.importAccount(privateKey: privateKey)
 		switch importedAccount {
 		case let .success(account):
-			walletsVM.addNewWalletWithAddress(account.eip55Address)
+			walletsVM.activateNewAccountAddress(account.eip55Address)
 		case let .failure(error):
 			fatalError(error.localizedDescription)
 		}

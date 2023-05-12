@@ -13,7 +13,7 @@ extension HomepageViewModel {
 	internal func getWalletInfo() {
 		// Request to get wallet info
 		let coreDataManager = CoreDataManager()
-		let selectedWallet = coreDataManager.getAllWallets().first(where: { $0.isSelected })
+		let selectedWallet = coreDataManager.getAllAccounts().first(where: { $0.isSelected })
 		walletInfo = WalletInfoViewModel(walletInfoModel: selectedWallet)
 	}
 

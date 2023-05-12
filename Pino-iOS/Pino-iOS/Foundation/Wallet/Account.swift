@@ -66,6 +66,14 @@ public struct Account: Codable {
 		self.isActiveAccount = true
 		self.accountSource = accountSource
 	}
+    
+    init(account: WalletAccount) {
+        self.derivationPath = account.derivationPath
+        self.publicKey = account.publicKey
+        self.address = EthereumAddress(account.eip55Address)!
+        self.isActiveAccount = account.isSelected
+        self.accountSource = account.source.accountSource
+    }
 }
 
 extension Account: Equatable {

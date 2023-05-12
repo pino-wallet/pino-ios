@@ -11,7 +11,7 @@ import Web3Core
 
 public enum WalletValidator {
 	static func isPrivateKeyValid(key: String) -> Bool {
-		let keyData = Data(hexString: key)!
+        let keyData = Data(hexString: key.trimmingCharacters(in: .whitespacesAndNewlines))!
 		return PrivateKey.isValid(data: keyData, curve: .secp256k1)
 	}
 

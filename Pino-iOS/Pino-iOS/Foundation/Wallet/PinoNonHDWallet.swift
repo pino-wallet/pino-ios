@@ -32,7 +32,6 @@ public struct PinoNonHDWallet: PNonHDWallet {
 			var account = try Account(privateKeyData: keyData)
 			guard !accountExist(account: account) else { return .success(account) }
 			account.isActiveAccount = true
-			addNewAccount(account)
 			let keyCipherData = secureEnclave.encrypt(
 				plainData: keyData,
 				withPublicKeyLabel: KeychainManager.privateKey.getKey(account: account)

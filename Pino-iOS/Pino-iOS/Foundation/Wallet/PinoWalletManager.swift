@@ -42,7 +42,8 @@ class PinoWalletManager: WalletManagement {
 	// MARK: - Public Properties
 
 	public var accounts: [Account] {
-		pinoHDWallet.getAllAccounts() + nonHDWallet.getAllAccounts()
+        let coreDataManager = CoreDataManager()
+        return coreDataManager.getAllAccounts().map( Account.init )
 	}
 
 	public var currentWallet: HDWallet? {

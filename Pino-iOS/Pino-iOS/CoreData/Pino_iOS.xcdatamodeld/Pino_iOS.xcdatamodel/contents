@@ -13,7 +13,7 @@
         <attribute name="eip55Address" attributeType="String"/>
         <attribute name="isSelected" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="publicKey" attributeType="String"/>
+        <attribute name="publicKey" attributeType="Binary"/>
         <relationship name="source" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WalletAccountType"/>
         <relationship name="wallet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wallet" inverseName="account" inverseEntity="Wallet"/>
     </entity>

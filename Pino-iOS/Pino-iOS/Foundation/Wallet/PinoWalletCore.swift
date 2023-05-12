@@ -20,9 +20,17 @@ protocol PinoWallet {
 }
 
 extension PinoWallet {
-	fileprivate var secureEnclave: SecureEnclave {
+	
+    // MARK: - Private Properties
+
+    fileprivate var secureEnclave: SecureEnclave {
 		.init()
 	}
+    
+    fileprivate var coreDataManager: CoreDataManager {
+        .init()
+    }
+    
 
 	// MARK: - Public Methods
 
@@ -54,42 +62,20 @@ extension PinoWallet {
 		)
 	}
 
-	#warning("should read accounts from core data")
 	public func getAllAccounts() -> [Account] {
-		let userDefaults = UserDefaults.standard
-		// 1
-		if let savedData = userDefaults.object(forKey: "accounts") as? Data {
-			do {
-				// 2
-				let savedAccounts = try JSONDecoder().decode([Account].self, from: savedData)
-				return savedAccounts
-			} catch {
-				// Failed to convert Data to Contact
-				return []
-			}
-		} else {
-			return []
-		}
+        return coreDataManager.getAllAccounts().map( Account.init )
 	}
 
-	#warning("write account to core data")
-	public func addNewAccount(_ account: Account) {
-		if !accountExist(account: account) {
-			do {
-				// 0
-				var allAccounts = getAllAccounts()
-				allAccounts.append(account)
+    public func addNewAccount(_ account: Account) {
 
-				// 1
-				let encodedData = try JSONEncoder().encode(allAccounts)
-				let userDefaults = UserDefaults.standard
+        let avatar = Avatar.allCases.randomElement() ?? .green_apple
 
-				// 2
-				userDefaults.set(encodedData, forKey: "accounts")
-
-			} catch {
-				// Failed to encode Contact to Data
-			}
-		}
-	}
+        coreDataManager.createWallet(
+            address: account.eip55Address,
+            name: avatar.name,
+            avatarIcon: avatar.rawValue,
+            avatarColor: avatar.rawValue
+        )
+    }
+    
 }

@@ -61,14 +61,8 @@ struct AllDoneViewModel {
 		}
 	}
 
+    #warning("// Here the wallet should be created not the account")
 	private func createInitialWallet(_ wallet: HDWallet) {
-		let avatar = Avatar.allCases.randomElement() ?? .green_apple
-
-		coreDataManager.createWallet(
-			address: pinoWalletManager.currentAccount.eip55Address,
-			name: avatar.name,
-			avatarIcon: avatar.rawValue,
-			avatarColor: avatar.rawValue
-		)
+        
 	}
 }

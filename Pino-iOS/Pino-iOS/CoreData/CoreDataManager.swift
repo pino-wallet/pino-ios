@@ -13,7 +13,7 @@ class CoreDataManager {
 
 	// MARK: - Public Methods
 
-	public func getAllWallets() -> [WalletAccount] {
+	public func getAllAccounts() -> [WalletAccount] {
 		accountDataSource.getAll()
 	}
 
@@ -31,7 +31,7 @@ class CoreDataManager {
 	) -> WalletAccount {
 		let newAccount = WalletAccount(context: accountDataSource.managedContext)
 		newAccount.eip55Address = address
-		newAccount.publicKey = ""
+        newAccount.publicKey = .empty
 		newAccount.derivationPath = ""
 		newAccount.name = name
 		newAccount.avatarIcon = avatarIcon

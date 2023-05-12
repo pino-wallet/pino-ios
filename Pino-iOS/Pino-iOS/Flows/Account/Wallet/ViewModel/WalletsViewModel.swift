@@ -16,6 +16,7 @@ class WalletsViewModel {
 
 	// MARK: - Private Properties
 
+    private var accountingAPIClient = AccountingAPIClient()
 	private var walletAPIClient = WalletAPIMockClient()
 	private var cancellables = Set<AnyCancellable>()
 	private let coreDataManager = CoreDataManager()
@@ -23,19 +24,33 @@ class WalletsViewModel {
 	// MARK: - Initializers
 
 	init() {
-		getWallets()
+		getAccounts()
 	}
 
 	// MARK: - Public Methods
 
-	public func getWallets() {
+	public func getAccounts() {
 		// Request to get wallets
-		let wallets = coreDataManager.getAllWallets()
+		let wallets = coreDataManager.getAllAccounts()
 		walletsList = wallets.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
 	}
+    
+    public func activateNewAccountAddress(_ address: String) {
+        accountingAPIClient.activateAccountWith(address: address)
+            .retry(3)
+            .sink(receiveCompletion: { completed in
+                switch completed {
+                case .finished:
+                    print("Wallet activated")
+                case let .failure(error):
+                    print(error)
+                }
+            }) { activatedAccount in
+                self.addNewWalletWithAddress(address)
+            }.store(in: &cancellables)
+    }
 
-	public func addNewWalletWithAddress(_ address: String) {
-		let wallets = coreDataManager.getAllWallets()
+	private func addNewWalletWithAddress(_ address: String) {
 		let avatar = Avatar.allCases.randomElement() ?? .green_apple
 
 		coreDataManager.createWallet(
@@ -44,28 +59,28 @@ class WalletsViewModel {
 			avatarIcon: avatar.rawValue,
 			avatarColor: avatar.rawValue
 		)
-		getWallets()
+		getAccounts()
 	}
 
 	public func editWallet(wallet: WalletInfoViewModel, newName: String) -> WalletInfoViewModel {
 		let edittedWallet = coreDataManager.editWallet(wallet.walletInfoModel, newName: newName)
-		getWallets()
+		getAccounts()
 		return WalletInfoViewModel(walletInfoModel: edittedWallet)
 	}
 
 	public func editWallet(wallet: WalletInfoViewModel, newAvatar: String) -> WalletInfoViewModel {
 		let edittedWallet = coreDataManager.editWallet(wallet.walletInfoModel, newAvatar: newAvatar)
-		getWallets()
+		getAccounts()
 		return WalletInfoViewModel(walletInfoModel: edittedWallet)
 	}
 
 	public func removeWallet(_ walletVM: WalletInfoViewModel) {
 		coreDataManager.deleteWallet(walletVM.walletInfoModel)
-		getWallets()
+		getAccounts()
 	}
 
 	public func updateSelectedWallet(with selectedWallet: WalletInfoViewModel) {
 		coreDataManager.updateSelectedWallet(selectedWallet.walletInfoModel)
-		getWallets()
+		getAccounts()
 	}
 }

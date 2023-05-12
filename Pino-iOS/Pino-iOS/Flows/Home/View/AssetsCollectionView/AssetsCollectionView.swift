@@ -98,8 +98,14 @@ class AssetsCollectionView: UICollectionView {
 	private func setupBindings() {
 		homeVM.$assetsList.sink { [weak self] _ in
 			self?.reloadData()
-
 		}.store(in: &cancellables)
+        
+        homeVM.$walletInfo.sink { [weak self] walletInfo in
+            if self?.homeVM.walletInfo.id != walletInfo?.id {
+                self?.showSkeletonView()
+                self?.getHomeData()
+            }
+        }.store(in: &cancellables)
 	}
 
 	private func setupRefreshControl() {
@@ -116,9 +122,12 @@ class AssetsCollectionView: UICollectionView {
 	public func getHomeData() {
 		homeVM.getHomeData { error in
 			self.refreshControl?.endRefreshing()
-			guard let error else { return }
-			self.refreshErrorToastView.message = error.message
-			self.refreshErrorToastView.showToast()
+			if let error {
+                self.refreshErrorToastView.message = error.message
+                self.refreshErrorToastView.showToast()
+            } else {
+                self.hideSkeletonView()
+            }
 		}
 	}
 }
