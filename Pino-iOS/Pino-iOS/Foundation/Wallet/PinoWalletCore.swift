@@ -51,6 +51,7 @@ extension PinoWallet {
 
 	// MARK: - Private Methods
 
+    @discardableResult
 	internal func encryptPrivateKey(_ key: Data, forAccount account: Account) -> Data {
 		secureEnclave.encrypt(plainData: key, withPublicKeyLabel: KeychainManager.privateKey.getKey(account: account))
 	}

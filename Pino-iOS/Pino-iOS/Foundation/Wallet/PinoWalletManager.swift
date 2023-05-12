@@ -103,12 +103,7 @@ class PinoWalletManager: WalletManagement {
 	}
 
 	public func exportPrivateKeyFor(account: Account) -> (data: Data, string: String) {
-		guard let encryptedPrivateKey = KeychainManager.privateKey.getValueWith(key: account.eip55Address) else {
-			fatalError(WalletOperationError.keyManager(.privateKeyRetrievalFailed).localizedDescription)
-		}
-		let decryptedData = secureEnclave.decrypt(cipherData: encryptedPrivateKey, withPublicKeyLabel: privateKeyFetchKey)
-		let privateKeyString = String(data: decryptedData, encoding: .utf8)!
-		return (decryptedData, privateKeyString)
+        return (account.privateKey, account.privateKey.hexString)
 	}
 
 	public func isMnemonicsValid(_ mnemonics: String) -> Bool {

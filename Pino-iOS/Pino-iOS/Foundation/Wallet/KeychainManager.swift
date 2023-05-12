@@ -20,7 +20,7 @@ enum KeychainManager: String {
 
 	func setValue(value: Data, key: String) -> Bool {
 		let keychainHelper = KeychainSwift()
-		if let storedValue = getValueWith(key: key) {
+        if (getValueWith(key: key) != nil) {
 			// Value already exists
 			return true
 		} else {

@@ -98,6 +98,7 @@ class HomepageViewController: UIViewController {
 		let manageAssetsVC = ManageAssetsViewController(homeVM: homeVM)
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [manageAssetsVC]
+        navigationVC.modalPresentationStyle = .formSheet
 		present(navigationVC, animated: true)
 	}
 
@@ -105,6 +106,7 @@ class HomepageViewController: UIViewController {
 	private func openProfilePage() {
 		let profileVC = ProfileViewController(profileVM: profileVM)
 		let navigationVC = UINavigationController()
+        navigationVC.modalPresentationStyle = .formSheet
 		navigationVC.viewControllers = [profileVC]
 		present(navigationVC, animated: true)
 	}
@@ -118,7 +120,7 @@ class HomepageViewController: UIViewController {
 	private func openPortfolioPage() {
 		guard let assets = homeVM.manageAssetsList else { return }
 		let portfolioPerformanceVC = PortfolioPerformanceViewController(assets: assets)
-		portfolioPerformanceVC.modalPresentationStyle = .automatic
+        portfolioPerformanceVC.modalPresentationStyle = .formSheet
 		let navigationVC = UINavigationController(rootViewController: portfolioPerformanceVC)
 		present(navigationVC, animated: true)
 	}

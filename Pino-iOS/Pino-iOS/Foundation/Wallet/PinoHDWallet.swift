@@ -43,9 +43,14 @@ public class PinoHDWallet: PHDWallet {
 			let account = try Account(privateKeyData: firstAccountPrivateKey)
 
 			let encryptedMnemonicsData = encryptHdWalletMnemonics(wallet.mnemonic, forAccount: account)
+            let encryptedPrivateKeyData = encryptPrivateKey(firstAccountPrivateKey, forAccount: account)
+
 			if !KeychainManager.mnemonics.setValue(value: encryptedMnemonicsData, key: account.eip55Address) {
 				return .failure(.keyManager(.mnemonicsStorageFailed))
 			}
+            if !KeychainManager.privateKey.setValue(value: encryptedPrivateKeyData, key: account.eip55Address) {
+                return .failure(.keyManager(.privateKeyStorageFailed))
+            }
 
 			if accountExist(account: account) {
 				return .success(wallet)

@@ -25,6 +25,16 @@ public struct Account: Codable {
 	public var eip55Address: String {
 		address.address
 	}
+    public var privateKey: Data {
+        let privateKeyFetchKey = KeychainManager.privateKey.getKey(account: self)
+        let secureEnclave = SecureEnclave()
+        guard let encryptedPrivateKey = KeychainManager.privateKey.getValueWith(key: eip55Address) else {
+            fatalError(WalletOperationError.keyManager(.privateKeyRetrievalFailed).localizedDescription)
+        }
+        let decryptedData = secureEnclave.decrypt(cipherData: encryptedPrivateKey, withPublicKeyLabel: privateKeyFetchKey)
+        let privateKey = PrivateKey(data: decryptedData)
+        return privateKey!.data
+    }
 
 	init(address: String, derivationPath: String? = nil, publicKey: Data) throws {
 		guard let address = EthereumAddress(address) else { throw WalletValidatorError.addressIsInvalid }
