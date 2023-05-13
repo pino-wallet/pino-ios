@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 
+#warning("This class should rename to AccountsViewModel")
 class WalletsViewModel {
 	// MARK: - Public Properties
 
@@ -35,7 +36,7 @@ class WalletsViewModel {
 		walletsList = wallets.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
 	}
     
-    public func activateNewAccountAddress(_ address: String) {
+    public func activateNewAccountAddress(_ address: String, derivationPath: String? = nil, completion: @escaping ()->Void) {
         accountingAPIClient.activateAccountWith(address: address)
             .retry(3)
             .sink(receiveCompletion: { completed in
@@ -46,16 +47,18 @@ class WalletsViewModel {
                     print(error)
                 }
             }) { activatedAccount in
-                self.addNewWalletWithAddress(address)
+                self.addNewWalletWithAddress(address, derivationPath: derivationPath)
+                completion()
             }.store(in: &cancellables)
     }
 
-	private func addNewWalletWithAddress(_ address: String) {
-        let wallet = coreDataManager.getAllWallets().first(where: { $0.accountSource == .nonHDWallet })
+    private func addNewWalletWithAddress(_ address: String, derivationPath: String? = nil) {
+        let wallet = coreDataManager.getAllWallets().first(where: { $0.walletType == .nonHDWallet })
 		let avatar = Avatar.allCases.randomElement() ?? .green_apple
 
 		coreDataManager.createWalletAccount(
 			address: address,
+            derivationPath: derivationPath,
 			name: avatar.name,
 			avatarIcon: avatar.rawValue,
 			avatarColor: avatar.rawValue,

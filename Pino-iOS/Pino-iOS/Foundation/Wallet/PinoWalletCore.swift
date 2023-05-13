@@ -48,20 +48,28 @@ extension PinoWallet {
 			return .failure(.wallet(.accountDeletionFailed))
 		}
 	}
-
+    
 	// MARK: - Private Methods
 
     @discardableResult
 	internal func encryptPrivateKey(_ key: Data, forAccount account: Account) -> Data {
-		secureEnclave.encrypt(plainData: key, withPublicKeyLabel: KeychainManager.privateKey.getKey(account: account))
+		secureEnclave.encrypt(plainData: key, withPublicKeyLabel: KeychainManager.privateKey.getKey(account.eip55Address))
 	}
 
 	internal func decryptPrivateKey(fromEncryptedData encryptedData: Data, forAccount account: Account) -> Data {
 		secureEnclave.decrypt(
 			cipherData: encryptedData,
-			withPublicKeyLabel: KeychainManager.privateKey.getKey(account: account)
+			withPublicKeyLabel: KeychainManager.privateKey.getKey(account.eip55Address)
 		)
 	}
+    
+    internal func saveCredsInKeychain(keychainManagerType: KeychainManager, data: Data, key: String) -> WalletOperationError? {
+        if !keychainManagerType.setValue(value: data, key: key) {
+            return .keyManager(.mnemonicsStorageFailed)
+        } else {
+            return nil
+        }
+    }
 
 	public func getAllAccounts() -> [Account] {
         return coreDataManager.getAllWalletAccounts().map( Account.init )

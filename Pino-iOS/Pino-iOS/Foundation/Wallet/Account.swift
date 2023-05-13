@@ -15,13 +15,13 @@ public struct Account: Codable {
 	/// For Accounts derived from HDWallet
 	public var derivationPath: String?
 	public var publicKey: Data
-    public var accountSource: Wallet.AccountSource
+    public var accountSource: Wallet.WalletType
 
 	public var eip55Address: String {
 		address.address
 	}
     public var privateKey: Data {
-        let privateKeyFetchKey = KeychainManager.privateKey.getKey(account: self)
+        let privateKeyFetchKey = KeychainManager.privateKey.getKey(eip55Address)
         let secureEnclave = SecureEnclave()
         guard let encryptedPrivateKey = KeychainManager.privateKey.getValueWith(key: eip55Address) else {
             fatalError(WalletOperationError.keyManager(.privateKeyRetrievalFailed).localizedDescription)
@@ -40,7 +40,7 @@ public struct Account: Codable {
 		self.accountSource = .hdWallet
 	}
 
-	init(privateKeyData: Data, accountSource: Wallet.AccountSource = .hdWallet) throws {
+	init(privateKeyData: Data, accountSource: Wallet.WalletType = .hdWallet) throws {
 		guard WalletValidator.isPrivateKeyValid(key: privateKeyData)
 		else { throw WalletOperationError.validator(.privateKeyIsInvalid) }
 		let privateKey = PrivateKey(data: privateKeyData)!
@@ -58,7 +58,7 @@ public struct Account: Codable {
 		self.accountSource = accountSource
 	}
 
-	init(publicKey: Data, accountSource: Wallet.AccountSource = .hdWallet) throws {
+	init(publicKey: Data, accountSource: Wallet.WalletType = .hdWallet) throws {
 		guard WalletValidator.isPublicKeyValid(key: publicKey) else {
 			throw WalletOperationError.validator(.publicKeyIsInvalid)
 		}
@@ -77,7 +77,7 @@ public struct Account: Codable {
         self.publicKey = account.publicKey
         self.address = EthereumAddress(account.eip55Address)!
         self.isActiveAccount = account.isSelected
-        self.accountSource = account.wallet.accountSource
+        self.accountSource = account.wallet.walletType
     }
 }
 

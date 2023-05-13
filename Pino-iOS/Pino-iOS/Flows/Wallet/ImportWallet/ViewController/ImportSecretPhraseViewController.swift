@@ -33,61 +33,53 @@ class ImportSecretPhraseViewController: UIViewController {
 
 	// MARK: - Private Methods
 
+    #warning("this code needs refactoring too much nested")
 	private func setupView() {
 		validationSecretPhraseVM = ImportAccountViewModel(isNewWallet: isNewWallet)
 		if isNewWallet {
 			importsecretPhraseView = ImportSecretPhraseView(
 				validationPharaseVM: validationSecretPhraseVM,
-				textViewType: SecretPhraseTextView()
+                textViewType: SecretPhraseTextView(), importBtnTapped: {
+                    self.validationSecretPhraseVM.validate(
+                        secretPhrase: self.importsecretPhraseView.importTextView.text,
+                        onSuccess: {
+                            self.importWallet()
+                        },
+                        onFailure: { validationError in
+                            switch validationError {
+                            case .invalidSecretPhrase:
+                                self.importsecretPhraseView?.showError()
+                            }
+                        }
+                    )
+                }
 			)
 		} else {
 			importsecretPhraseView = ImportSecretPhraseView(
 				validationPharaseVM: validationSecretPhraseVM,
-				textViewType: PrivateKeyTextView()
+                textViewType: PrivateKeyTextView(), importBtnTapped: {
+                    self.validationSecretPhraseVM.validate(
+                        privateKey: self.importsecretPhraseView.importTextView.text,
+                        onSuccess: {
+                            self.importWallet()
+                        },
+                        onFailure: { validationError in
+                            switch validationError {
+                            case .invalidSecretPhrase:
+                                self.importsecretPhraseView?.showError()
+                            }
+                        }
+                    )
+                }
 			)
 		}
-		addButtonsAction()
 		view = importsecretPhraseView
 	}
 
-	private func addButtonsAction() {
-		if isNewWallet {
-			importsecretPhraseView.importButton.addAction(UIAction(handler: { _ in
-				self.validationSecretPhraseVM.validate(
-					secretPhrase: self.importsecretPhraseView.importTextView.text,
-					onSuccess: {
-						self.importWallet()
-					},
-					onFailure: { validationError in
-						switch validationError {
-						case .invalidSecretPhrase:
-							self.importsecretPhraseView?.showError()
-						}
-					}
-				)
-			}), for: .touchUpInside)
-		} else {
-			importsecretPhraseView.importButton.addAction(UIAction(handler: { _ in
-				self.validationSecretPhraseVM.validate(
-					privateKey: self.importsecretPhraseView.importTextView.text,
-					onSuccess: {
-						self.importWallet()
-					},
-					onFailure: { validationError in
-						switch validationError {
-						case .invalidSecretPhrase:
-							self.importsecretPhraseView?.showError()
-						}
-					}
-				)
-			}), for: .touchUpInside)
-		}
-	}
 
 	private func importWallet() {
 		if !isNewWallet {
 			addedNewWalletWithPrivateKey(importsecretPhraseView.textViewText)
-			dismiss(animated: true)
 		} else {
 			// Go to create passcode page
 			let createPasscodeViewController = CreatePasscodeViewController()

@@ -34,11 +34,11 @@ public struct PinoNonHDWallet: PNonHDWallet {
 			account.isActiveAccount = true
 			let keyCipherData = secureEnclave.encrypt(
 				plainData: keyData,
-				withPublicKeyLabel: KeychainManager.privateKey.getKey(account: account)
+				withPublicKeyLabel: KeychainManager.privateKey.getKey(account.eip55Address)
 			)
 			if !KeychainManager.privateKey.setValue(
 				value: keyCipherData,
-				key: KeychainManager.privateKey.getKey(account: account)
+                key: KeychainManager.privateKey.getKey(account.eip55Address)
 			) {
 				return .failure(.wallet(.importAccountFailed))
 			}

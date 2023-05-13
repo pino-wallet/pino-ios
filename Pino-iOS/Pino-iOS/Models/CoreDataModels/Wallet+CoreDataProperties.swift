@@ -18,6 +18,7 @@ extension Wallet {
 
     @NSManaged public var lastDrivedIndex: Int32
     @NSManaged public var type: Int32
+    @NSManaged public var isSelected: Bool
     @NSManaged public var account: NSSet?
 
 }
@@ -40,16 +41,16 @@ extension Wallet {
 }
 
 extension Wallet {
-    public enum AccountSource: Int32, Codable {
+    public enum WalletType: Int32, Codable {
         case hdWallet = 0
         case nonHDWallet = 1
     }
     
-    var accountSource: AccountSource {
+    var walletType: WalletType {
         // To get a State enum from stateValue, initialize the
         // State type from the Int32 value stateValue
         get {
-            return AccountSource(rawValue: self.type)!
+            return WalletType(rawValue: self.type)!
         }
 
         // newValue will be of type State, thus rawValue will

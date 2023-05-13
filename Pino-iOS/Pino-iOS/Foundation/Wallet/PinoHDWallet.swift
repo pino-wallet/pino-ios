@@ -11,7 +11,7 @@ import Web3Core
 
 protocol PHDWallet: PinoWallet {
 	func createHDWallet(mnemonics: String) throws -> Result<HDWallet, WalletOperationError>
-	func createAccountIn(wallet: HDWallet) throws -> Result<Account, WalletOperationError>
+	func createAccountIn(wallet: HDWallet, lastIndex: Int) throws -> Account
 }
 
 public class PinoHDWallet: PHDWallet {
@@ -45,13 +45,13 @@ public class PinoHDWallet: PHDWallet {
 			let encryptedMnemonicsData = encryptHdWalletMnemonics(wallet.mnemonic, forAccount: account)
             let encryptedPrivateKeyData = encryptPrivateKey(firstAccountPrivateKey, forAccount: account)
 
-			if !KeychainManager.mnemonics.setValue(value: encryptedMnemonicsData, key: account.eip55Address) {
-				return .failure(.keyManager(.mnemonicsStorageFailed))
-			}
-            if !KeychainManager.privateKey.setValue(value: encryptedPrivateKeyData, key: account.eip55Address) {
-                return .failure(.keyManager(.privateKeyStorageFailed))
+            if let error = saveCredsInKeychain(keychainManagerType: KeychainManager.mnemonics, data: encryptedMnemonicsData, key: account.eip55Address) {
+                return .failure(error)
             }
-
+            if let error = saveCredsInKeychain(keychainManagerType: KeychainManager.privateKey, data: encryptedPrivateKeyData, key: account.eip55Address) {
+                return .failure(error)
+            }
+            
 			if accountExist(account: account) {
 				return .success(wallet)
 			} else {
@@ -67,17 +67,28 @@ public class PinoHDWallet: PHDWallet {
 		}
 	}
 
-	public func createAccountIn(wallet: HDWallet) throws -> Result<Account, WalletOperationError> {
+    public func createAccountIn(wallet: HDWallet,lastIndex: Int) throws -> Account {
 		let coinType = CoinType.ethereum
-		let derivationPath = "m/44'/60'/0'/0/\(getAllAccounts().count)"
+		let derivationPath = "m/44'/60'/0'/0/\(lastIndex+1)"
 		let privateKey = wallet.getKey(coin: coinType, derivationPath: derivationPath)
-		let publicKey = privateKey.getPublicKeySecp256k1(compressed: false)
-		let account = try Account(publicKey: publicKey.data)
-//		addNewAccount(account)
+		let publicKey = privateKey.getPublicKeySecp256k1(compressed: true)
+		var account = try Account(publicKey: publicKey.data)
+        account.derivationPath = derivationPath
+        
+        let encryptedMnemonicsData = encryptHdWalletMnemonics(wallet.mnemonic, forAccount: account)
+        let encryptedPrivateKeyData = encryptPrivateKey(privateKey.data, forAccount: account)
+        
+        if let error = saveCredsInKeychain(keychainManagerType: KeychainManager.mnemonics, data: encryptedMnemonicsData, key: account.eip55Address) {
+            throw error
+        }
+        if let error = saveCredsInKeychain(keychainManagerType: KeychainManager.privateKey, data: encryptedPrivateKeyData, key: account.eip55Address) {
+            throw error
+        }
+        
 		print("Private Key: \(privateKey.data.hexString)")
 		print("Public Key: \(publicKey.data.hexString)")
 		print("Ethereum Address: \(account)")
-		return .success(account)
+		return account
 	}
 
 	// MARK: - Private Methods
@@ -98,7 +109,7 @@ public class PinoHDWallet: PHDWallet {
 	private func encryptHdWalletMnemonics(_ mnemonics: String, forAccount account: Account) -> Data {
 		secureEnclave.encrypt(
 			plainData: mnemonics.utf8Data,
-			withPublicKeyLabel: KeychainManager.mnemonics.getKey(account: account)
+			withPublicKeyLabel: KeychainManager.mnemonics.getKey(account.eip55Address)
 		)
 	}
 
@@ -108,11 +119,11 @@ public class PinoHDWallet: PHDWallet {
 	) -> Data {
 		secureEnclave.decrypt(
 			cipherData: encryptedMnemonics,
-			withPublicKeyLabel: KeychainManager.mnemonics.getKey(account: account)
+			withPublicKeyLabel: KeychainManager.mnemonics.getKey(account.eip55Address)
 		)
 	}
     
-    private func createWalletInCoreData(type: Wallet.AccountSource) -> Wallet {
+    private func createWalletInCoreData(type: Wallet.WalletType) -> Wallet {
         let coreDataManager = CoreDataManager()
         let newWallet = coreDataManager.createWallet(type: type)
         return newWallet

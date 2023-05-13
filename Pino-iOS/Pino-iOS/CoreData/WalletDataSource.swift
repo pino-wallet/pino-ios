@@ -40,6 +40,10 @@ struct WalletDataSource: DataSourceProtocol {
     public func get(byId id: String) -> Wallet? {
         wallets.first(where: { $0.objectID.description == id })
     }
+    
+    public func get(byType type: Wallet.WalletType) -> Wallet? {
+        wallets.first(where: { $0.walletType == type && $0.isSelected == true })
+    }
 
     public mutating func save(_ wallet: Wallet) {
         if let index = wallets.firstIndex(where: { $0.objectID == wallet.objectID }) {

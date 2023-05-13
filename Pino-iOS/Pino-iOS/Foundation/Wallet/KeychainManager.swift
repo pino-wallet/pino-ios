@@ -12,6 +12,7 @@ import Web3Core
 enum KeychainManager: String {
 	case mnemonics
 	case privateKey
+    case mainAddress
 
 	func getValueWith(key: String) -> Data? {
 		let keychainHelper = KeychainSwift()
@@ -38,7 +39,7 @@ enum KeychainManager: String {
 		return keychainHelper.delete("\(self)\(key)")
 	}
 
-	func getKey(account: Account) -> String {
-		"\(self)\(account.eip55Address)"
+	func getKey(_ key: String) -> String {
+		"\(self)\(key)"
 	}
 }
