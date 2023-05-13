@@ -4,6 +4,8 @@
         <attribute name="id" attributeType="String"/>
     </entity>
     <entity name="Wallet" representedClassName="Wallet" syncable="YES">
+        <attribute name="lastDrivedIndex" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="account" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WalletAccount" inverseName="wallet" inverseEntity="WalletAccount"/>
     </entity>
     <entity name="WalletAccount" representedClassName="WalletAccount" syncable="YES">
@@ -14,10 +16,6 @@
         <attribute name="isSelected" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="publicKey" attributeType="Binary"/>
-        <relationship name="source" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WalletAccountType"/>
         <relationship name="wallet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wallet" inverseName="account" inverseEntity="Wallet"/>
-    </entity>
-    <entity name="WalletAccountType" representedClassName="WalletAccountType" syncable="YES">
-        <attribute name="source" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
 </model>

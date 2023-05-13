@@ -1,13 +1,15 @@
 //
 //  Wallet+CoreDataClass.swift
+//  
 //
-//
-//  Created by Sobhan Eskandari on 5/10/23.
+//  Created by Sobhan Eskandari on 5/13/23.
 //
 //
 
-import CoreData
 import Foundation
+import CoreData
 
 @objc(Wallet)
-public class Wallet: NSManagedObject {}
+public class Wallet: NSManagedObject {
+
+}

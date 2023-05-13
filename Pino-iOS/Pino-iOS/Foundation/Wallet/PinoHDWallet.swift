@@ -55,7 +55,9 @@ public class PinoHDWallet: PHDWallet {
 			if accountExist(account: account) {
 				return .success(wallet)
 			} else {
-				addNewAccount(account)
+                let coreDataWallet = createWalletInCoreData(type: .hdWallet)
+                let _ = createWalletInCoreData(type: .nonHDWallet)
+				addNewAccount(account, wallet: coreDataWallet)
 				return .success(wallet)
 			}
 		} catch let error where error is WalletOperationError {
@@ -71,7 +73,7 @@ public class PinoHDWallet: PHDWallet {
 		let privateKey = wallet.getKey(coin: coinType, derivationPath: derivationPath)
 		let publicKey = privateKey.getPublicKeySecp256k1(compressed: false)
 		let account = try Account(publicKey: publicKey.data)
-		addNewAccount(account)
+//		addNewAccount(account)
 		print("Private Key: \(privateKey.data.hexString)")
 		print("Public Key: \(publicKey.data.hexString)")
 		print("Ethereum Address: \(account)")
@@ -109,4 +111,10 @@ public class PinoHDWallet: PHDWallet {
 			withPublicKeyLabel: KeychainManager.mnemonics.getKey(account: account)
 		)
 	}
+    
+    private func createWalletInCoreData(type: Wallet.AccountSource) -> Wallet {
+        let coreDataManager = CoreDataManager()
+        let newWallet = coreDataManager.createWallet(type: type)
+        return newWallet
+    }
 }

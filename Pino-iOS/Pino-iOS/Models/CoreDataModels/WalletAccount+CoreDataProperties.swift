@@ -2,7 +2,7 @@
 //  WalletAccount+CoreDataProperties.swift
 //  
 //
-//  Created by Sobhan Eskandari on 5/10/23.
+//  Created by Sobhan Eskandari on 5/13/23.
 //
 //
 
@@ -18,12 +18,11 @@ extension WalletAccount {
 
     @NSManaged public var avatarColor: String
     @NSManaged public var avatarIcon: String
-    @NSManaged public var derivationPath: String
+    @NSManaged public var derivationPath: String?
     @NSManaged public var eip55Address: String
     @NSManaged public var isSelected: Bool
     @NSManaged public var name: String
     @NSManaged public var publicKey: Data
-    @NSManaged public var source: WalletAccountType
     @NSManaged public var wallet: Wallet
 
 }

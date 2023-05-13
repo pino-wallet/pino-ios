@@ -10,17 +10,12 @@ import WalletCore
 import Web3Core
 
 public struct Account: Codable {
-	public enum AccountSource: Int32, Codable {
-		case hdWallet = 0
-		case nonHDWallet
-	}
-
 	public var address: EthereumAddress
 	public var isActiveAccount: Bool
 	/// For Accounts derived from HDWallet
 	public var derivationPath: String?
 	public var publicKey: Data
-	public var accountSource: AccountSource
+    public var accountSource: Wallet.AccountSource
 
 	public var eip55Address: String {
 		address.address
@@ -45,7 +40,7 @@ public struct Account: Codable {
 		self.accountSource = .hdWallet
 	}
 
-	init(privateKeyData: Data, accountSource: AccountSource = .hdWallet) throws {
+	init(privateKeyData: Data, accountSource: Wallet.AccountSource = .hdWallet) throws {
 		guard WalletValidator.isPrivateKeyValid(key: privateKeyData)
 		else { throw WalletOperationError.validator(.privateKeyIsInvalid) }
 		let privateKey = PrivateKey(data: privateKeyData)!
@@ -63,7 +58,7 @@ public struct Account: Codable {
 		self.accountSource = accountSource
 	}
 
-	init(publicKey: Data, accountSource: AccountSource = .hdWallet) throws {
+	init(publicKey: Data, accountSource: Wallet.AccountSource = .hdWallet) throws {
 		guard WalletValidator.isPublicKeyValid(key: publicKey) else {
 			throw WalletOperationError.validator(.publicKeyIsInvalid)
 		}
@@ -82,7 +77,7 @@ public struct Account: Codable {
         self.publicKey = account.publicKey
         self.address = EthereumAddress(account.eip55Address)!
         self.isActiveAccount = account.isSelected
-        self.accountSource = account.source.accountSource
+        self.accountSource = account.wallet.accountSource
     }
 }
 

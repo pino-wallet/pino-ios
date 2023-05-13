@@ -16,7 +16,7 @@ protocol PinoWallet {
 	func encryptPrivateKey(_ key: Data, forAccount account: Account) -> Data
 	func decryptPrivateKey(fromEncryptedData encryptedData: Data, forAccount account: Account) -> Data
 	func getAllAccounts() -> [Account]
-	mutating func addNewAccount(_ account: Account)
+    mutating func addNewAccount(_ account: Account, wallet: Wallet)
 }
 
 extension PinoWallet {
@@ -64,18 +64,19 @@ extension PinoWallet {
 	}
 
 	public func getAllAccounts() -> [Account] {
-        return coreDataManager.getAllAccounts().map( Account.init )
+        return coreDataManager.getAllWalletAccounts().map( Account.init )
 	}
 
-    public func addNewAccount(_ account: Account) {
+    public func addNewAccount(_ account: Account, wallet: Wallet) {
 
         let avatar = Avatar.allCases.randomElement() ?? .green_apple
 
-        coreDataManager.createWallet(
+        coreDataManager.createWalletAccount(
             address: account.eip55Address,
             name: avatar.name,
             avatarIcon: avatar.rawValue,
-            avatarColor: avatar.rawValue
+            avatarColor: avatar.rawValue,
+            wallet: wallet
         )
     }
     

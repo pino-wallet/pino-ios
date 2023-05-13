@@ -43,7 +43,7 @@ class PinoWalletManager: WalletManagement {
 
 	public var accounts: [Account] {
         let coreDataManager = CoreDataManager()
-        return coreDataManager.getAllAccounts().map( Account.init )
+        return coreDataManager.getAllWalletAccounts().map( Account.init )
 	}
 
 	public var currentWallet: HDWallet? {

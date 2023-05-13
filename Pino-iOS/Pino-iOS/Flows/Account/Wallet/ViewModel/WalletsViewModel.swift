@@ -31,7 +31,7 @@ class WalletsViewModel {
 
 	public func getAccounts() {
 		// Request to get wallets
-		let wallets = coreDataManager.getAllAccounts()
+		let wallets = coreDataManager.getAllWalletAccounts()
 		walletsList = wallets.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
 	}
     
@@ -51,36 +51,38 @@ class WalletsViewModel {
     }
 
 	private func addNewWalletWithAddress(_ address: String) {
+        let wallet = coreDataManager.getAllWallets().first(where: { $0.accountSource == .nonHDWallet })
 		let avatar = Avatar.allCases.randomElement() ?? .green_apple
 
-		coreDataManager.createWallet(
+		coreDataManager.createWalletAccount(
 			address: address,
 			name: avatar.name,
 			avatarIcon: avatar.rawValue,
-			avatarColor: avatar.rawValue
+			avatarColor: avatar.rawValue,
+            wallet: wallet!
 		)
 		getAccounts()
 	}
 
 	public func editWallet(wallet: WalletInfoViewModel, newName: String) -> WalletInfoViewModel {
-		let edittedWallet = coreDataManager.editWallet(wallet.walletInfoModel, newName: newName)
+		let edittedWallet = coreDataManager.editWalletAccount(wallet.walletInfoModel, newName: newName)
 		getAccounts()
 		return WalletInfoViewModel(walletInfoModel: edittedWallet)
 	}
 
 	public func editWallet(wallet: WalletInfoViewModel, newAvatar: String) -> WalletInfoViewModel {
-		let edittedWallet = coreDataManager.editWallet(wallet.walletInfoModel, newAvatar: newAvatar)
+		let edittedWallet = coreDataManager.editWalletAccount(wallet.walletInfoModel, newAvatar: newAvatar)
 		getAccounts()
 		return WalletInfoViewModel(walletInfoModel: edittedWallet)
 	}
 
 	public func removeWallet(_ walletVM: WalletInfoViewModel) {
-		coreDataManager.deleteWallet(walletVM.walletInfoModel)
+		coreDataManager.deleteWalletAccount(walletVM.walletInfoModel)
 		getAccounts()
 	}
 
 	public func updateSelectedWallet(with selectedWallet: WalletInfoViewModel) {
-		coreDataManager.updateSelectedWallet(selectedWallet.walletInfoModel)
+		coreDataManager.updateSelectedWalletAccount(selectedWallet.walletInfoModel)
 		getAccounts()
 	}
 }
