@@ -79,7 +79,8 @@ extension WalletsCollectionView: UICollectionViewDelegateFlowLayout {
 
 extension WalletsCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		walletsVM.updateSelectedWallet(with: walletsVM.walletsList[indexPath.item])
+		let walletModel = WalletBuilder(walletInfo: walletsVM.walletsList[indexPath.item]).build()
+		walletsVM.updateSelectedWallet(with: walletModel)
 	}
 }
 

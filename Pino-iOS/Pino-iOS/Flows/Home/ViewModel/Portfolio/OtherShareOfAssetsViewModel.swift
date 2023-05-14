@@ -25,7 +25,7 @@ struct OtherShareOfAssetsViewModel: ShareOfAssetsProtocol {
 		self.assetsVM = assetsVM
 		self.assetName = "Others"
 		self.assetImage = nil
-		self.holdAmount = assetsVM.compactMap { Double($0.holdAmountInDollar) }.reduce(0, +)
+		self.holdAmount = assetsVM.compactMap { $0.holdAmountInDollor.doubleValue }.reduce(0, +)
 		self.totalAmount = totalAmount
 	}
 }
