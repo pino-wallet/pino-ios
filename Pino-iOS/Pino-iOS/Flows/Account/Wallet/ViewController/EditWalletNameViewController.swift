@@ -39,7 +39,6 @@ class EditWalletNameViewController: UIViewController {
 	}
 
 	override func loadView() {
-		setupEditWalletNameVM()
 		setupNotificationBar()
 		setupView()
 	}
@@ -62,7 +61,10 @@ class EditWalletNameViewController: UIViewController {
 	private func setupView() {
 		editWalletNameView = EditWalletNameView(
 			editWalletNameVM: editWalletNameVM,
-			selectedWalletVM: selectedWalletVM
+			selectedWalletVM: selectedWalletVM,
+			updateIsValidatedNameClosure: { [weak self] isWalletNameValidated in
+				self?.navigationItem.rightBarButtonItem?.isEnabled = isWalletNameValidated
+			}
 		)
 
 		editWalletNameView.endEditingViewclosure = { [weak self] in

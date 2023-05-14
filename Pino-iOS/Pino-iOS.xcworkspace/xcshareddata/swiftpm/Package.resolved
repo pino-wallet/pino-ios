@@ -28,15 +28,6 @@
       }
     },
     {
-      "identity" : "hyperconnectivity",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/rwbutler/hyperconnectivity",
-      "state" : {
-        "revision" : "2dd9fcc032668da97a424e4d8347faa649d3d016",
-        "version" : "1.2.1"
-      }
-    },
-    {
       "identity" : "kingfisher",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/onevcat/Kingfisher",

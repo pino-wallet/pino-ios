@@ -70,7 +70,7 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 		sendButton.title = homeVM.sendButtonTitle
 		receiveButton.title = homeVM.receiveButtonTitle
 		showBalanceButton.setTitle(
-			homeVM.showBalanceButtonTitle,
+			homeVM.walletBalance.showBalanceButtonTitle,
 			for: .normal
 		)
 
@@ -80,13 +80,12 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 
 		let showBalanceImageConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .regular, scale: .small)
 		showBalanceButton.setImage(
-			UIImage(systemName: homeVM.showBalanceButtonImage, withConfiguration: showBalanceImageConfig),
+			UIImage(systemName: homeVM.walletBalance.showBalanceButtonImage, withConfiguration: showBalanceImageConfig),
 			for: .normal
 		)
 
 		sendButton.tintColor = .Pino.white
 		receiveButton.tintColor = .Pino.primary
-		receiveButton.backgroundColor = .Pino.white
 		showBalanceButton.tintColor = .Pino.gray2
 
 		balanceLabel.textColor = .Pino.label
@@ -132,8 +131,6 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(activateSecurityMode)))
 		volatilityView
 			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openVolatilityDetailPage)))
-
-		showBalanceButton.isHidden = true
 	}
 
 	private func setSkeletonable() {
@@ -214,12 +211,6 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 		balanceLabel.pin(
 			.fixedHeight(41)
 		)
-
-		NSLayoutConstraint.activate([
-			balanceLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 150),
-			volatilityInDollarLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 20),
-			volatilityPercentageLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 20),
-		])
 	}
 
 	@objc

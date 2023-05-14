@@ -69,7 +69,7 @@ class CoinInfoViewModel {
 	public func refreshCoinInfoData(completion: @escaping (APIError?) -> Void) {
 		coinPortfolio.showSkeletonLoading = true
 		getHistoryList()
-		homeVM.getHomeData(completion: { _ in
+		homeVM.refreshHomeData(completion: { _ in
 			completion(nil)
 		})
 	}

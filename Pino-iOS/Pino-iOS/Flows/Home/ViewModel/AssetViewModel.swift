@@ -44,12 +44,9 @@ public class AssetViewModel: SecurityModeProtocol {
 		BigNumber(number: assetModel.amount, decimal: decimal)
 	}
 
-	public var holdAmountInDollor: BigNumber {
-		holdAmount * price
-	}
-
-	public var formattedHoldAmount: String {
-		holdAmountInDollor.formattedAmountOf(type: .price)
+	public var holdAmountInDollar: String {
+		let amount = holdAmount * price
+		return amount.formattedAmountOf(type: .price)
 	}
 
 	public var change24h: PriceNumberFormatter {
@@ -72,18 +69,18 @@ public class AssetViewModel: SecurityModeProtocol {
 
 	// MARK: - Public Methods
 
-	public func switchSecurityMode(_ isOn: Bool) {
-		if isOn {
-			securityMode = true
-			amount = securityText
-			amountInDollor = securityText
-			volatilityInDollor = securityText
-		} else {
-			securityMode = false
-			amount = getFormattedAmount()
-			amountInDollor = getFormattedAmountInDollor()
-			volatilityInDollor = getFormattedVolatility()
-		}
+	public func enableSecurityMode() {
+		securityMode = true
+		amount = securityText
+		amountInDollor = securityText
+		volatilityInDollor = securityText
+	}
+
+	public func disableSecurityMode() {
+		securityMode = false
+		amount = getFormattedAmount()
+		amountInDollor = getFormattedAmountInDollor()
+		volatilityInDollor = getFormattedVolatility()
 	}
 
 	public func toggleIsSelected() {
@@ -100,7 +97,7 @@ public class AssetViewModel: SecurityModeProtocol {
 		if holdAmount.isZero {
 			return "-"
 		} else {
-			return "$\(formattedHoldAmount)"
+			return "$\(holdAmountInDollar)"
 		}
 	}
 

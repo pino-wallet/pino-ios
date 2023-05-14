@@ -11,7 +11,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 	// MARK: - CollectionView DataSource Methods
 
 	internal func numberOfSections(in collectionView: UICollectionView) -> Int {
-		if homeVM.positionAssetsList?.isEmpty ?? true {
+		if homeVM.positionAssetsList.isEmpty {
 			return 1
 		} else {
 			return 2
@@ -25,7 +25,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 		case .asset:
 			return assetList.count
 		case .position:
-			return homeVM.positionAssetsList?.count ?? .zero
+			return homeVM.positionAssetsList.count
 		case .none:
 			return .zero
 		}
@@ -99,7 +99,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 			walletBalanceHeaderView.sendButtonTappedClosure = sendButtonTappedClosure
 			walletBalanceHeaderView.receiveButtonTappedClosure = receiveButtonTappedClosure
 			walletBalanceHeaderView.portfolioPerformanceTapped = portfolioPerformanceTapped
-			if homeVM.walletBalance == nil {
+			if homeVM.assetsList == nil {
 				walletBalanceHeaderView.showSkeletonView()
 			} else {
 				walletBalanceHeaderView.hideSkeletonView()
@@ -146,7 +146,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 			case .asset:
 				assetCell.assetVM = assetList[indexPath.row]
 			case .position:
-				assetCell.assetVM = homeVM.positionAssetsList?[indexPath.row]
+				assetCell.assetVM = homeVM.positionAssetsList[indexPath.row]
 			case .none: break
 			}
 		} else {

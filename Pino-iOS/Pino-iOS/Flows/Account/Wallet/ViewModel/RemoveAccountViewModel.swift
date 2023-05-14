@@ -8,7 +8,6 @@
 class RemoveAccountViewModel {
 	// MARK: - Public Properties
 
-	public let navigationDismissButtonIconName = "close"
 	public let titleIconName = "warning"
 	public let titleText = "Remove wallet"
 	public let describtionText =
