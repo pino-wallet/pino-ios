@@ -8,7 +8,6 @@
 import Combine
 import CoreData
 import Foundation
-import Hyperconnectivity
 import Network
 
 class HomepageViewModel {
@@ -17,11 +16,11 @@ class HomepageViewModel {
 	@Published
 	public var walletInfo: WalletInfoViewModel!
 	@Published
-	public var walletBalance: WalletBalanceViewModel?
+	public var walletBalance: WalletBalanceViewModel!
 	@Published
 	public var assetsList: [AssetViewModel]?
 	@Published
-	public var positionAssetsList: [AssetViewModel]?
+	public var positionAssetsList: [AssetViewModel]!
 	@Published
 	public var securityMode = false
 	@Published
@@ -31,16 +30,14 @@ class HomepageViewModel {
 	public var assetsModelList: [AssetProtocol]!
 
 	public let copyToastMessage = "Copied!"
+	public let connectionErrorToastMessage = "No internet connection"
+	public let requestFailedErrorToastMessage = "Couldn't refresh home data"
 	public let sendButtonTitle = "Send"
 	public let receiveButtonTitle = "Receive"
 	public let sendButtonImage = "arrow_up"
 	public let receiveButtonImage = "arrow_down"
-	public let showBalanceButtonTitle = "Show balance"
-	public let showBalanceButtonImage = "eye"
 
 	// MARK: Internal Properties
-
-	internal var internetConnectivity = InternetConnectivity()
 
 	internal var cancellables = Set<AnyCancellable>()
 
@@ -55,64 +52,48 @@ class HomepageViewModel {
 	init() {
 		getSelectedAssetsFromCoreData()
 		getWalletInfo()
+		getWalletBalance()
+		getAssetsList()
+		getPositionAssetsList()
 		setupBindings()
 	}
 
 	// MARK: - Public Methods
 
-	public func getHomeData(completion: @escaping (HomeNetworkError?) -> Void) {
-		internetConnectivity.$isConnected.tryCompactMap { $0 }.sink { _ in
-		} receiveValue: { isConnected in
-			if isConnected {
-				self.getAssetsList { result in
-					switch result {
-					case let .success(assets):
-						self.getManageAsset(assets: assets)
-						completion(nil)
-					case .failure:
-						completion(.requestFailed)
-					}
-				}
+	#warning("This function must be rafctored based on GCD")
+	public func refreshHomeData(completion: @escaping (HomeRefreshError?) -> Void) {
+		// This is temporary and must be replaced with network request
+		let monitor = NWPathMonitor()
+		monitor.pathUpdateHandler = { [weak self] path in
+			if path.status == .satisfied {
+				self?.getWalletBalance()
+				self?.getAssetsList()
+				self?.getPositionAssetsList()
+				completion(nil)
+				monitor.cancel()
 			} else {
 				completion(.networkConnection)
+				monitor.cancel()
 			}
-		}.store(in: &cancellables)
+		}
+		monitor.start(queue: DispatchQueue.main)
 	}
 
 	// MARK: Private Methods
 
-	private func switchSecurityMode(_ isOn: Bool) {
-		if let walletBalance {
-			walletBalance.switchSecurityMode(isOn)
-		}
-		if let assetsList {
-			for asset in assetsList {
-				asset.switchSecurityMode(isOn)
-			}
-		}
-		if let positionAssetsList {
-			for asset in positionAssetsList {
-				asset.switchSecurityMode(isOn)
-			}
-		}
-		assetsList = assetsList
-		positionAssetsList = positionAssetsList
-	}
-
 	private func setupBindings() {
 		$securityMode.sink { [weak self] securityMode in
 			guard let self = self else { return }
-			self.switchSecurityMode(securityMode)
+			if securityMode {
+				self.enableSecurityMode()
+			} else {
+				self.disableSecurityMode()
+			}
 		}.store(in: &cancellables)
 
 		$manageAssetsList.sink { assets in
 			guard let assets else { return }
 			self.assetsList = assets.filter { $0.isSelected }
-		}.store(in: &cancellables)
-
-		$assetsList.sink { assets in
-			guard let assets else { return }
-			self.getWalletBalance(assets: assets)
 		}.store(in: &cancellables)
 	}
 }

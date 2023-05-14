@@ -8,7 +8,8 @@
 protocol SecurityModeProtocol {
 	var securityMode: Bool { get set }
 	var securityText: String { get }
-	func switchSecurityMode(_ isOn: Bool)
+	mutating func enableSecurityMode()
+	mutating func disableSecurityMode()
 }
 
 extension SecurityModeProtocol {

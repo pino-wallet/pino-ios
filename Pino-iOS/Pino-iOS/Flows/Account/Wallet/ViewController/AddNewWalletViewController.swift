@@ -73,6 +73,6 @@ class AddNewWalletViewController: UIViewController {
 
 	private func updateWallets() {
 		addNewWalletVM.addNewWallet()
-		walletsVM.getWallets()
+		walletsVM.updateWallets()
 	}
 }

@@ -18,7 +18,6 @@ class WalletsViewModel {
 
 	private var walletAPIClient = WalletAPIMockClient()
 	private var cancellables = Set<AnyCancellable>()
-	private let walletManager = WalletManager()
 
 	// MARK: - Initializers
 
@@ -28,24 +27,70 @@ class WalletsViewModel {
 
 	// MARK: - Public Methods
 
-	public func updateSelectedWallet(with selectedWallet: WalletInfoModel) {
-		let wallets = walletManager.setSelectedState(wallet: selectedWallet)
-		walletsList = wallets.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
+	public func updateSelectedWallet(with selectedWallet: WalletInfoViewModel) {
+		for index in 0 ..< walletsList.count {
+			if walletsList[index].id == selectedWallet.id {
+				walletsList[index].isSelected(true)
+			} else {
+				walletsList[index].isSelected(false)
+			}
+		}
+		walletsList = walletsList
+		saveWalletsInUserDefaults(walletsList)
 	}
 
 	public func editWallet(newWallet: WalletInfoModel) {
-		let wallets = walletManager.editWallet(newWallet: newWallet)
-		walletsList = wallets.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
+		guard let walletIndex = walletsList.firstIndex(where: { $0.id == newWallet.id }) else {
+			fatalError("No wallet found with this ID")
+		}
+		walletsList[walletIndex] = WalletInfoViewModel(walletInfoModel: newWallet)
+		saveWalletsInUserDefaults(walletsList)
 	}
 
-	public func removeWallet(_ wallet: WalletInfoModel) {
-		let wallets = walletManager.removeWallet(wallet: wallet)
-		walletsList = wallets.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
+	public func removeWallet(_ wallet: WalletInfoViewModel) {
+		if walletsList.count > 1 {
+			guard let walletIndex = walletsList.firstIndex(where: { $0.id == wallet.id }) else {
+				fatalError("No wallet found with this ID")
+			}
+			walletsList.remove(at: walletIndex)
+			if wallet.isSelected {
+				walletsList[0].isSelected(true)
+			}
+			saveWalletsInUserDefaults(walletsList)
+		}
 	}
 
-	public func getWallets() {
+	public func updateWallets() {
+		let wallets = getWalletsFromUserDefaults().compactMap { WalletInfoViewModel(walletInfoModel: $0) }
+		walletsList = wallets
+	}
+
+	// MARK: - Private Methods
+
+	private func getWallets() {
 		// Request to get wallets
-		let wallets = walletManager.getWalletsFromUserDefaults()
-		walletsList = wallets.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
+		let walletsModel = getWalletsFromUserDefaults()
+		walletsList = walletsModel.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
+	}
+
+	public func getWalletsFromUserDefaults() -> [WalletInfoModel] {
+		guard let encodedWallets = UserDefaults.standard.data(forKey: "wallets") else {
+			fatalError("No wallet found in user defaults")
+		}
+		do {
+			return try JSONDecoder().decode([WalletInfoModel].self, from: encodedWallets)
+		} catch {
+			fatalError(error.localizedDescription)
+		}
+	}
+
+	private func saveWalletsInUserDefaults(_ wallets: [WalletInfoViewModel]) {
+		let walletsModel = wallets.compactMap { $0.walletInfoModel }
+		do {
+			let encodedWallets = try JSONEncoder().encode(walletsModel)
+			UserDefaults.standard.set(encodedWallets, forKey: "wallets")
+		} catch {
+			fatalError(error.localizedDescription)
+		}
 	}
 }

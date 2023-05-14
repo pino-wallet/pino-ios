@@ -8,9 +8,14 @@
 import UIKit
 
 class EditWalletNameView: UIView {
+	// MARK: - Typealiases
+
+	typealias updateIsValidatedNameClosureType = (_ isValidated: Bool) -> Void
+
 	// MARK: - Closures
 
 	public var endEditingViewclosure: () -> Void = {}
+	public let updateIsValidatedNameClosure: updateIsValidatedNameClosureType
 
 	// MARK: - Public Properties
 
@@ -23,10 +28,12 @@ class EditWalletNameView: UIView {
 
 	init(
 		editWalletNameVM: EditWalletNameViewModel,
-		selectedWalletVM: WalletInfoViewModel
+		selectedWalletVM: WalletInfoViewModel,
+		updateIsValidatedNameClosure: @escaping updateIsValidatedNameClosureType
 	) {
 		self.editWalletNameVM = editWalletNameVM
 		self.selectedWalletVM = selectedWalletVM
+		self.updateIsValidatedNameClosure = updateIsValidatedNameClosure
 		super.init(frame: .zero)
 
 		setupNotifications()
@@ -56,7 +63,13 @@ class EditWalletNameView: UIView {
 		backgroundColor = .Pino.background
 
 		walletNameTextFieldView.textDidChange = { [weak self] in
-			self?.editWalletNameVM.validateWalletName(newWalletName: (self?.walletNameTextFieldView.getText()) ?? "")
+			if self?.walletNameTextFieldView.isEmpty() ?? false {
+				self?.doneButton.style = .deactive
+				self?.updateIsValidatedNameClosure(false)
+			} else {
+				self?.doneButton.style = .active
+				self?.updateIsValidatedNameClosure(true)
+			}
 		}
 		walletNameTextFieldView.textFieldKeyboardOnReturn = { [weak self] in
 			self?.endEditingViewclosure()
