@@ -279,7 +279,6 @@
 		D94A9A2029FE6C4E00DCA28D /* EditWalletNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A1F29FE6C4E00DCA28D /* EditWalletNameViewController.swift */; };
 		D94A9A2229FE6CDA00DCA28D /* EditWalletNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A2129FE6CDA00DCA28D /* EditWalletNameView.swift */; };
 		D94A9A2429FE75FC00DCA28D /* EditWalletNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A2329FE75FC00DCA28D /* EditWalletNameViewModel.swift */; };
-		D94B64712A0258F30092ABE0 /* WalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94B64702A0258F30092ABE0 /* WalletManager.swift */; };
 		D964AC6B0907B2432359A129 /* GroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D7CE3AA42604B8F78EA87C /* GroupCollectionViewCell.swift */; };
 		D9703F6A29ED547000D09277 /* CoinInfoFooterview.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9703F6929ED547000D09277 /* CoinInfoFooterview.swift */; };
 		D97CF62C25B975AD3C131881 /* CoinHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26427FD948787141E7AA599B /* CoinHistoryModel.swift */; };
@@ -680,7 +679,6 @@
 		D94A9A1F29FE6C4E00DCA28D /* EditWalletNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWalletNameViewController.swift; sourceTree = "<group>"; };
 		D94A9A2129FE6CDA00DCA28D /* EditWalletNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWalletNameView.swift; sourceTree = "<group>"; };
 		D94A9A2329FE75FC00DCA28D /* EditWalletNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWalletNameViewModel.swift; sourceTree = "<group>"; };
-		D94B64702A0258F30092ABE0 /* WalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletManager.swift; sourceTree = "<group>"; };
 		D9703F6929ED547000D09277 /* CoinInfoFooterview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoFooterview.swift; sourceTree = "<group>"; };
 		D99F4B1C29E2C25C009F7F55 /* PaymentMethodOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodOptionView.swift; sourceTree = "<group>"; };
 		D99F4B2029E2C48D009F7F55 /* PaymentMethodOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodOptionViewModel.swift; sourceTree = "<group>"; };
@@ -1122,7 +1120,6 @@
 		3E4B7A8B106106B96A2983A0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				D94B64722A0259280092ABE0 /* WalletManager */,
 				2DF8930CF6FC02BBFE525BEC /* KeychainManager */,
 				6D2C6AE44164F7D140AB3226 /* PasscodeManager */,
 			);
@@ -1907,14 +1904,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		D94B64722A0259280092ABE0 /* WalletManager */ = {
-			isa = PBXGroup;
-			children = (
-				D94B64702A0258F30092ABE0 /* WalletManager.swift */,
-			);
-			path = WalletManager;
-			sourceTree = "<group>";
-		};
 		D99F4B1F29E2C405009F7F55 /* ReceiveViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -2667,7 +2656,6 @@
 				B890491BC2BBD99CF83AFE9A /* SecurityViewController.swift in Sources */,
 				DC66DEF4A366F740111CA309 /* SecurityViewModel.swift in Sources */,
 				D93C41F929F7C5C6003F2297 /* EditAccountHeaderView.swift in Sources */,
-				D94B64712A0258F30092ABE0 /* WalletManager.swift in Sources */,
 				13F430044A23AF2BA55BBDFB /* SecurityModeProtocol.swift in Sources */,
 				D94A9A1D29FE4C6700DCA28D /* EditAccountView.swift in Sources */,
 				34F4A2DA1228B50AC3DFA8A2 /* SeedPhrase.swift in Sources */,
@@ -2864,6 +2852,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 44E38FYW6J;
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2924,6 +2913,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 44E38FYW6J;
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
