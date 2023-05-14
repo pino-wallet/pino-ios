@@ -8,7 +8,7 @@
 import UIKit
 
 class AllDoneViewController: UIViewController {
-	// MARK: - Private Properties
+	// MARK: Private Properties
 
 	private var allDoneVM = AllDoneViewModel()
 
@@ -16,7 +16,7 @@ class AllDoneViewController: UIViewController {
 
 	public var walletMnemonics: String!
 
-	// MARK: - View Overrides
+	// MARK: View Overrides
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -27,7 +27,7 @@ class AllDoneViewController: UIViewController {
 		removeNavigationBackButton()
 	}
 
-	// MARK: - Private Methods
+	// MARK: Private Methods
 
 	private func setupView() {
 		let allDoneView = AllDoneView(allDoneVM: allDoneVM) {

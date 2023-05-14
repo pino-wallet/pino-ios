@@ -6,6 +6,10 @@
 //
 
 class EditWalletNameViewModel {
+	// MARK: - Closures
+
+	public var didValidatedWalletName: (_ error: ValidateWalletNameErrorType) -> Void
+
 	// MARK: - Public Properties
 
 	public let pageTitle = "Wallet name"
@@ -41,5 +45,13 @@ class EditWalletNameViewModel {
 				didValidatedWalletName(.clear)
 			}
 		}
+	}
+}
+
+extension EditWalletNameViewModel {
+	public enum ValidateWalletNameErrorType: Error {
+		case isEmpty
+		case repeatedName
+		case clear
 	}
 }

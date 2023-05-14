@@ -100,8 +100,10 @@ class EditAccountViewController: UIViewController {
 	}
 
 	private func openRemoveAccountPage() {
+		let navigationVC = UINavigationController()
 		let removeAccountVC = RemoveAccountViewController()
-		present(removeAccountVC, animated: true)
+		navigationVC.viewControllers = [removeAccountVC]
+		present(navigationVC, animated: true)
 		removeAccountVC.walletIsDeleted = {
 			self.removeWallet()
 		}
