@@ -24,7 +24,6 @@ class TabBarViewController: UITabBarController {
 		super.viewWillAppear(animated)
 		setupView()
 		setupTabBarItems()
-		presentAllowNotifications()
 	}
 
 	// MARK: - Private Functions
@@ -65,10 +64,5 @@ class TabBarViewController: UITabBarController {
 		}
 
 		viewControllers = tabBarItemViewControllers
-	}
-
-	private func presentAllowNotifications() {
-		let allowNotificationsVC = AllowNotificationsViewController()
-		present(allowNotificationsVC, animated: true)
 	}
 }

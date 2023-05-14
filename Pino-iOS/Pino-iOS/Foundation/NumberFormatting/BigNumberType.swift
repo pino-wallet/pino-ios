@@ -114,7 +114,7 @@ extension BigNumber: CustomStringConvertible {
 
 	public func formattedAmountOf(type: FormatTypes) -> String {
 		Utilities.formatToPrecision(
-			number,
+			number.magnitude,
 			units: .custom(decimal),
 			formattingDecimals: type.formattingDecimal,
 			decimalSeparator: ".",

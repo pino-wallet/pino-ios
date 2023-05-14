@@ -98,15 +98,18 @@ class EditAccountViewController: UIViewController {
 	}
 
 	private func openRemoveAccountPage() {
+		let navigationVC = UINavigationController()
 		let removeAccountVC = RemoveAccountViewController()
-		present(removeAccountVC, animated: true)
+		navigationVC.viewControllers = [removeAccountVC]
+		present(navigationVC, animated: true)
 		removeAccountVC.walletIsDeleted = {
 			self.removeWallet()
 		}
 	}
 
 	private func removeWallet() {
-		walletsVM.removeWallet(selectedWallet)
+		let walletModel = WalletBuilder(walletInfo: selectedWallet).build()
+		walletsVM.removeWallet(walletModel)
 		navigationController!.popViewController(animated: true)
 	}
 
@@ -122,9 +125,11 @@ class EditAccountViewController: UIViewController {
 
 	private func setupBinding() {
 		walletsVM.$walletsList.sink { [weak self] walletsList in
-			let updatedSelectAsset = walletsList?.first(where: { $0.id == self?.selectedWallet.id })
-			self?.editAccountView.selectedWalletVM = updatedSelectAsset!
-			self?.selectedWallet = updatedSelectAsset!
+			guard let updatedSelectAsset = walletsList?.first(where: { $0.id == self?.selectedWallet.id }) else {
+				return
+			}
+			self?.editAccountView.selectedWalletVM = updatedSelectAsset
+			self?.selectedWallet = updatedSelectAsset
 		}.store(in: &cancellables)
 	}
 }
