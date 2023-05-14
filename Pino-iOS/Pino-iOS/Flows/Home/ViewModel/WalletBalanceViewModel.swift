@@ -5,13 +5,15 @@
 //  Created by Mohi Raoufi on 12/24/22.
 //
 
-class WalletBalanceViewModel: SecurityModeProtocol {
+struct WalletBalanceViewModel: SecurityModeProtocol {
 	// MARK: - Private Properties
 
 	private var balanceModel: WalletBalanceModel!
 
 	// MARK: - Public Properties
 
+	public let showBalanceButtonTitle = "Show balance"
+	public let showBalanceButtonImage = "eye"
 	public var securityMode = false
 
 	public var balance = "0.0"
@@ -25,7 +27,7 @@ class WalletBalanceViewModel: SecurityModeProtocol {
 	}
 
 	public var volatilityType: AssetVolatilityType {
-		AssetVolatilityType(change24h: balanceModel.volatilityNumber)
+		AssetVolatilityType(rawValue: balanceModel.volatilityType) ?? .none
 	}
 
 	// MARK: - Initializers
@@ -37,14 +39,14 @@ class WalletBalanceViewModel: SecurityModeProtocol {
 
 	// MARK: - Public Methods
 
-	public func switchSecurityMode(_ isOn: Bool) {
-		if isOn {
-			securityMode = true
-			balance = securityText
-		} else {
-			securityMode = false
-			balance = getFormattedBalance()
-		}
+	public mutating func enableSecurityMode() {
+		securityMode = true
+		balance = securityText
+	}
+
+	public mutating func disableSecurityMode() {
+		securityMode = false
+		balance = getFormattedBalance()
 	}
 
 	// MARK: - Private Methods

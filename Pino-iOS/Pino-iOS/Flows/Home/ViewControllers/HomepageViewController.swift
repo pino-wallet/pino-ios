@@ -14,13 +14,12 @@ class HomepageViewController: UIViewController {
 	private let homeVM = HomepageViewModel()
 	private var profileVM: ProfileViewModel!
 	private var cancellables = Set<AnyCancellable>()
-	private var assetsCollectionView: AssetsCollectionView!
 	private var addressCopiedToastView = CopyToastView(message: nil)
 
 	// MARK: - View Overrides
 
-	override func viewDidAppear(_ animated: Bool) {
-		assetsCollectionView.getHomeData()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 	}
 
 	override func viewDidLayoutSubviews() {
@@ -38,7 +37,7 @@ class HomepageViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		assetsCollectionView = AssetsCollectionView(
+		let assetsCollectionView = AssetsCollectionView(
 			homeVM: homeVM,
 			manageAssetButtonTapped: { [weak self] in
 				self?.openManageAssetsPage()

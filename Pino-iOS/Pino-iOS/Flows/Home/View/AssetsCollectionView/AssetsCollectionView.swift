@@ -100,25 +100,33 @@ class AssetsCollectionView: UICollectionView {
 			self?.reloadData()
 
 		}.store(in: &cancellables)
+
+		homeVM.$positionAssetsList.sink { [weak self] _ in
+			self?.reloadData()
+		}.store(in: &cancellables)
 	}
 
 	private func setupRefreshControl() {
 		indicatorStyle = .white
 		assetsRefreshControl.tintColor = .Pino.green2
 		assetsRefreshControl.addAction(UIAction(handler: { _ in
-			self.getHomeData()
+			self.refreshHomeData()
 		}), for: .valueChanged)
 		refreshControl = assetsRefreshControl
 	}
 
-	// MARK: - Public Methods
-
-	public func getHomeData() {
-		homeVM.getHomeData { error in
+	private func refreshHomeData() {
+		homeVM.refreshHomeData { error in
 			self.refreshControl?.endRefreshing()
-			guard let error else { return }
-			self.refreshErrorToastView.message = error.message
-			self.refreshErrorToastView.showToast()
+			if let error {
+				switch error {
+				case .requestFailed:
+					self.refreshErrorToastView.message = self.homeVM.requestFailedErrorToastMessage
+				case .networkConnection:
+					self.refreshErrorToastView.message = self.homeVM.connectionErrorToastMessage
+				}
+				self.refreshErrorToastView.showToast()
+			}
 		}
 	}
 }
@@ -143,7 +151,7 @@ extension AssetsCollectionView: UICollectionViewDelegate {
 			guard let assetsList = homeVM.assetsList else { return }
 			assetTapped(assetsList[indexPath.item])
 		case .position:
-			assetTapped(homeVM.positionAssetsList![indexPath.item])
+			assetTapped(homeVM.positionAssetsList[indexPath.item])
 		default: break
 		}
 	}
