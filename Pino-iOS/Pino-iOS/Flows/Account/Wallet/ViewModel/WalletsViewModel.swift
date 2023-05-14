@@ -58,14 +58,20 @@ class WalletsViewModel {
 
 	private func addNewWalletWithAddress(_ address: String, derivationPath: String? = nil) {
 		let wallet = coreDataManager.getAllWallets().first(where: { $0.walletType == .nonHDWallet })
-		let avatar = Avatar.allCases.randomElement() ?? .green_apple
+		let walletsAvatar = walletsList.map { $0.profileImage }
+		let walletsName = walletsList.map { $0.name }
+		let newAvatar = Avatar
+			.allCases
+			.filter { !walletsAvatar.contains($0.rawValue) && !walletsName.contains($0.name) }
+			.randomElement()
+			?? .green_apple
 
 		coreDataManager.createWalletAccount(
 			address: address,
 			derivationPath: derivationPath,
-			name: avatar.name,
-			avatarIcon: avatar.rawValue,
-			avatarColor: avatar.rawValue,
+			name: newAvatar.name,
+			avatarIcon: newAvatar.rawValue,
+			avatarColor: newAvatar.rawValue,
 			wallet: wallet!
 		)
 		getAccounts()
