@@ -10,8 +10,7 @@ import UIKit
 class RemoveAccountView: UIView {
 	// MARK: - Closure
 
-	public var presentConfirmActionsheetClosure: () -> Void = {}
-	public var dismissPage: () -> Void = {}
+	public var presentConfirmActionsheetClosure: () -> Void
 
 	// MARK: - Public Properties
 
@@ -19,7 +18,6 @@ class RemoveAccountView: UIView {
 
 	// MARK: - Private Properties
 
-	private let clearNavigationBar = ClearNavigationBar()
 	private let titleImageView = UIImageView()
 	private let titleLabel = PinoLabel(style: .title, text: "")
 	private let descriptonLabel = PinoLabel(style: .description, text: "")
@@ -45,10 +43,6 @@ class RemoveAccountView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		clearNavigationBar.onDismiss = { [weak self] in
-			self?.dismissPage()
-		}
-
 		backgroundColor = .Pino.secondaryBackground
 
 		titleImageView.image = UIImage(named: removeAccountVM.titleIconName)
@@ -82,14 +76,12 @@ class RemoveAccountView: UIView {
 		mainStackView.addArrangedSubview(titleStackView)
 		mainStackView.addArrangedSubview(infoStackview)
 
-		addSubview(clearNavigationBar)
 		addSubview(mainStackView)
 	}
 
 	private func setupConstraints() {
-		clearNavigationBar.pin(.horizontalEdges(padding: 0), .top(padding: 0))
 		mainStackView.pin(
-			.relative(.top, 119, to: clearNavigationBar, .bottom),
+			.top(to: layoutMarginsGuide, padding: 119),
 			.centerX(to: superview),
 			.horizontalEdges(padding: 16)
 		)

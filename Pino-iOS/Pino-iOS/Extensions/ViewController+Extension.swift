@@ -77,11 +77,4 @@ extension UIViewController {
 
 		UIBarButtonItem.appearance().setTitleTextAttributes(textAttributes, for: .normal)
 	}
-
-	// MARK: - Private Methods
-
-	@objc
-	private func dismissSelf() {
-		dismiss(animated: true)
-	}
 }

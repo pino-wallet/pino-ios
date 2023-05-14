@@ -19,18 +19,22 @@ extension HomepageViewModel {
 		}
 	}
 
-	internal func getWalletBalance() {
-		// Request to get balance
-		walletAPIClient.walletBalance().sink { completed in
-			switch completed {
-			case .finished:
-				print("Wallet balance received successfully")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { walletBalance in
-			self.walletBalance = WalletBalanceViewModel(balanceModel: walletBalance)
-		}.store(in: &cancellables)
+	internal func getWalletBalance(assets: [AssetViewModel]) {
+		let balance = assets
+			.compactMap { $0.holdAmountInDollor }
+			.reduce(BigNumber(number: 0, decimal: 0), +)
+			.formattedAmountOf(type: .price)
+		let volatility = assets
+			.compactMap { $0.change24h.bigNumber }
+			.reduce(BigNumber(number: 0, decimal: 0), +)
+		#warning("volatilityPercentage is static for now and must be changed later")
+		let volatilityPercentage = "5.5"
+		walletBalance = WalletBalanceViewModel(balanceModel: WalletBalanceModel(
+			balance: balance,
+			volatilityNumber: volatility.description,
+			volatilityPercentage: volatilityPercentage,
+			volatilityInDollor: volatility.formattedAmountOf(type: .price)
+		))
 	}
 
 	// MARK: Private Methods
