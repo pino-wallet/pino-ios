@@ -7,6 +7,8 @@
 
 class ReceiveViewModel {
 	// MARK: - Public Properties
+    
+    public let walletInfo: WalletInfoViewModel
 
 	public let shareAddressButtonText = "Share"
 	public let copyAddressButtonText = "Copy"
@@ -24,4 +26,8 @@ class ReceiveViewModel {
 		url: "https://www.moonpay.com/buy",
 		rightInfoIconName: "right_arrow_green3"
 	)]
+    
+    init(walletInfo: WalletInfoViewModel) {
+        self.walletInfo = walletInfo
+    }
 }

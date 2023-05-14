@@ -10,7 +10,6 @@ import UIKit
 class ReceiveAssetView: UIView {
 	// MARK: - Public Properties
 
-	public var homeVM: HomepageViewModel
 	public var receiveVM: ReceiveViewModel
 	public var addressQrCodeImage: UIImage? {
 		didSet {
@@ -34,10 +33,8 @@ class ReceiveAssetView: UIView {
 	// MARK: Initializers
 
 	init(
-		homeVM: HomepageViewModel,
 		receiveVM: ReceiveViewModel
 	) {
-		self.homeVM = homeVM
 		self.receiveVM = receiveVM
 		super.init(frame: .zero)
 		setupView()
@@ -68,7 +65,7 @@ class ReceiveAssetView: UIView {
 
 		walletOwnerName.font = UIFont.PinoStyle.semiboldTitle2
 		walletOwnerName.numberOfLines = 0
-		walletOwnerName.text = "\(homeVM.walletInfo.name)’s \(receiveVM.walletOwnerNameDescriptionText)"
+		walletOwnerName.text = "\(receiveVM.walletInfo.name)’s \(receiveVM.walletOwnerNameDescriptionText)"
 
 		addressLabelContainer.layer.borderColor = UIColor.Pino.background.cgColor
 		addressLabelContainer.layer.borderWidth = 1
@@ -76,7 +73,7 @@ class ReceiveAssetView: UIView {
 		addressLabelContainer.addSubview(addressLabel)
 
 		addressLabel.numberOfLines = 1
-		addressLabel.text = homeVM.walletInfo.address
+		addressLabel.text = receiveVM.walletInfo.address
 		addressLabel.lineBreakMode = .byTruncatingMiddle
 		addressLabel.textAlignment = .center
 		addressLabel.textColor = .Pino.primary
@@ -89,7 +86,7 @@ class ReceiveAssetView: UIView {
 		copyAddressButton.iconName = receiveVM.copyAddressButtonIconName
 		copyAddressButton.titleText = receiveVM.copyAddressButtonText
 		copyAddressButton.onTap = { [weak self] in
-			UIPasteboard.general.string = self?.homeVM.walletInfo.address
+			UIPasteboard.general.string = self?.receiveVM.walletInfo.address
 			self?.copiedToastView.message = self?.receiveVM.copiedToastViewText
 			self?.copiedToastView.showToast()
 		}
