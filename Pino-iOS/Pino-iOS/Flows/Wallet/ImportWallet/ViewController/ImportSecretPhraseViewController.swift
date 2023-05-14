@@ -33,49 +33,48 @@ class ImportSecretPhraseViewController: UIViewController {
 
 	// MARK: - Private Methods
 
-    #warning("this code needs refactoring too much nested")
+	#warning("this code needs refactoring too much nested")
 	private func setupView() {
 		validationSecretPhraseVM = ImportAccountViewModel(isNewWallet: isNewWallet)
 		if isNewWallet {
 			importsecretPhraseView = ImportSecretPhraseView(
 				validationPharaseVM: validationSecretPhraseVM,
-                textViewType: SecretPhraseTextView(), importBtnTapped: {
-                    self.validationSecretPhraseVM.validate(
-                        secretPhrase: self.importsecretPhraseView.importTextView.text,
-                        onSuccess: {
-                            self.importWallet()
-                        },
-                        onFailure: { validationError in
-                            switch validationError {
-                            case .invalidSecretPhrase:
-                                self.importsecretPhraseView?.showError()
-                            }
-                        }
-                    )
-                }
+				textViewType: SecretPhraseTextView(), importBtnTapped: {
+					self.validationSecretPhraseVM.validate(
+						secretPhrase: self.importsecretPhraseView.importTextView.text,
+						onSuccess: {
+							self.importWallet()
+						},
+						onFailure: { validationError in
+							switch validationError {
+							case .invalidSecretPhrase:
+								self.importsecretPhraseView?.showError()
+							}
+						}
+					)
+				}
 			)
 		} else {
 			importsecretPhraseView = ImportSecretPhraseView(
 				validationPharaseVM: validationSecretPhraseVM,
-                textViewType: PrivateKeyTextView(), importBtnTapped: {
-                    self.validationSecretPhraseVM.validate(
-                        privateKey: self.importsecretPhraseView.importTextView.text,
-                        onSuccess: {
-                            self.importWallet()
-                        },
-                        onFailure: { validationError in
-                            switch validationError {
-                            case .invalidSecretPhrase:
-                                self.importsecretPhraseView?.showError()
-                            }
-                        }
-                    )
-                }
+				textViewType: PrivateKeyTextView(), importBtnTapped: {
+					self.validationSecretPhraseVM.validate(
+						privateKey: self.importsecretPhraseView.importTextView.text,
+						onSuccess: {
+							self.importWallet()
+						},
+						onFailure: { validationError in
+							switch validationError {
+							case .invalidSecretPhrase:
+								self.importsecretPhraseView?.showError()
+							}
+						}
+					)
+				}
 			)
 		}
 		view = importsecretPhraseView
 	}
-
 
 	private func importWallet() {
 		if !isNewWallet {

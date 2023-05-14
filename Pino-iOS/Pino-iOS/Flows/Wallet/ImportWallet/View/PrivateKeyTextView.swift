@@ -65,10 +65,16 @@ class PrivateKeyTextView: UITextView, ImportTextViewType {
 			enteredWordsCount.text = "\(text.count)/64"
 			if pinoWalletManager.isPrivatekeyValid(text) {
 				importKeyCountVerified(true)
+				hideError()
 			} else {
 				importKeyCountVerified(false)
+				showError()
 			}
 		}
+	}
+
+	private func showError() {
+		errorStackView.isHidden = false
 	}
 
 	private func hideError() {

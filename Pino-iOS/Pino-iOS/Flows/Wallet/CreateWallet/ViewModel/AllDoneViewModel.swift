@@ -61,8 +61,6 @@ struct AllDoneViewModel {
 		}
 	}
 
-    #warning("// Here the wallet should be created not the account")
-	private func createInitialWallet(_ wallet: HDWallet) {
-        
-	}
+	#warning("// Here the wallet should be created not the account")
+	private func createInitialWallet(_ wallet: HDWallet) {}
 }

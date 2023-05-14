@@ -43,20 +43,28 @@ public class PinoHDWallet: PHDWallet {
 			let account = try Account(privateKeyData: firstAccountPrivateKey)
 
 			let encryptedMnemonicsData = encryptHdWalletMnemonics(wallet.mnemonic, forAccount: account)
-            let encryptedPrivateKeyData = encryptPrivateKey(firstAccountPrivateKey, forAccount: account)
+			let encryptedPrivateKeyData = encryptPrivateKey(firstAccountPrivateKey, forAccount: account)
 
-            if let error = saveCredsInKeychain(keychainManagerType: KeychainManager.mnemonics, data: encryptedMnemonicsData, key: account.eip55Address) {
-                return .failure(error)
-            }
-            if let error = saveCredsInKeychain(keychainManagerType: KeychainManager.privateKey, data: encryptedPrivateKeyData, key: account.eip55Address) {
-                return .failure(error)
-            }
-            
+			if let error = saveCredsInKeychain(
+				keychainManagerType: KeychainManager.mnemonics,
+				data: encryptedMnemonicsData,
+				key: account.eip55Address
+			) {
+				return .failure(error)
+			}
+			if let error = saveCredsInKeychain(
+				keychainManagerType: KeychainManager.privateKey,
+				data: encryptedPrivateKeyData,
+				key: account.eip55Address
+			) {
+				return .failure(error)
+			}
+
 			if accountExist(account: account) {
 				return .success(wallet)
 			} else {
-                let coreDataWallet = createWalletInCoreData(type: .hdWallet)
-                let _ = createWalletInCoreData(type: .nonHDWallet)
+				let coreDataWallet = createWalletInCoreData(type: .hdWallet)
+				let _ = createWalletInCoreData(type: .nonHDWallet)
 				addNewAccount(account, wallet: coreDataWallet)
 				return .success(wallet)
 			}
@@ -67,24 +75,32 @@ public class PinoHDWallet: PHDWallet {
 		}
 	}
 
-    public func createAccountIn(wallet: HDWallet,lastIndex: Int) throws -> Account {
+	public func createAccountIn(wallet: HDWallet, lastIndex: Int) throws -> Account {
 		let coinType = CoinType.ethereum
-		let derivationPath = "m/44'/60'/0'/0/\(lastIndex+1)"
+		let derivationPath = "m/44'/60'/0'/0/\(lastIndex + 1)"
 		let privateKey = wallet.getKey(coin: coinType, derivationPath: derivationPath)
 		let publicKey = privateKey.getPublicKeySecp256k1(compressed: true)
 		var account = try Account(publicKey: publicKey.data)
-        account.derivationPath = derivationPath
-        
-        let encryptedMnemonicsData = encryptHdWalletMnemonics(wallet.mnemonic, forAccount: account)
-        let encryptedPrivateKeyData = encryptPrivateKey(privateKey.data, forAccount: account)
-        
-        if let error = saveCredsInKeychain(keychainManagerType: KeychainManager.mnemonics, data: encryptedMnemonicsData, key: account.eip55Address) {
-            throw error
-        }
-        if let error = saveCredsInKeychain(keychainManagerType: KeychainManager.privateKey, data: encryptedPrivateKeyData, key: account.eip55Address) {
-            throw error
-        }
-        
+		account.derivationPath = derivationPath
+
+		let encryptedMnemonicsData = encryptHdWalletMnemonics(wallet.mnemonic, forAccount: account)
+		let encryptedPrivateKeyData = encryptPrivateKey(privateKey.data, forAccount: account)
+
+		if let error = saveCredsInKeychain(
+			keychainManagerType: KeychainManager.mnemonics,
+			data: encryptedMnemonicsData,
+			key: account.eip55Address
+		) {
+			throw error
+		}
+		if let error = saveCredsInKeychain(
+			keychainManagerType: KeychainManager.privateKey,
+			data: encryptedPrivateKeyData,
+			key: account.eip55Address
+		) {
+			throw error
+		}
+
 		print("Private Key: \(privateKey.data.hexString)")
 		print("Public Key: \(publicKey.data.hexString)")
 		print("Ethereum Address: \(account)")
@@ -122,10 +138,10 @@ public class PinoHDWallet: PHDWallet {
 			withPublicKeyLabel: KeychainManager.mnemonics.getKey(account.eip55Address)
 		)
 	}
-    
-    private func createWalletInCoreData(type: Wallet.WalletType) -> Wallet {
-        let coreDataManager = CoreDataManager()
-        let newWallet = coreDataManager.createWallet(type: type)
-        return newWallet
-    }
+
+	private func createWalletInCoreData(type: Wallet.WalletType) -> Wallet {
+		let coreDataManager = CoreDataManager()
+		let newWallet = coreDataManager.createWallet(type: type)
+		return newWallet
+	}
 }

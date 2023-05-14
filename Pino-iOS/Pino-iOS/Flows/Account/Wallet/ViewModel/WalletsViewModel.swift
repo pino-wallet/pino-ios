@@ -17,7 +17,7 @@ class WalletsViewModel {
 
 	// MARK: - Private Properties
 
-    private var accountingAPIClient = AccountingAPIClient()
+	private var accountingAPIClient = AccountingAPIClient()
 	private var walletAPIClient = WalletAPIMockClient()
 	private var cancellables = Set<AnyCancellable>()
 	private let coreDataManager = CoreDataManager()
@@ -35,34 +35,38 @@ class WalletsViewModel {
 		let wallets = coreDataManager.getAllWalletAccounts()
 		walletsList = wallets.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
 	}
-    
-    public func activateNewAccountAddress(_ address: String, derivationPath: String? = nil, completion: @escaping ()->Void) {
-        accountingAPIClient.activateAccountWith(address: address)
-            .retry(3)
-            .sink(receiveCompletion: { completed in
-                switch completed {
-                case .finished:
-                    print("Wallet activated")
-                case let .failure(error):
-                    print(error)
-                }
-            }) { activatedAccount in
-                self.addNewWalletWithAddress(address, derivationPath: derivationPath)
-                completion()
-            }.store(in: &cancellables)
-    }
 
-    private func addNewWalletWithAddress(_ address: String, derivationPath: String? = nil) {
-        let wallet = coreDataManager.getAllWallets().first(where: { $0.walletType == .nonHDWallet })
+	public func activateNewAccountAddress(
+		_ address: String,
+		derivationPath: String? = nil,
+		completion: @escaping () -> Void
+	) {
+		accountingAPIClient.activateAccountWith(address: address)
+			.retry(3)
+			.sink(receiveCompletion: { completed in
+				switch completed {
+				case .finished:
+					print("Wallet activated")
+				case let .failure(error):
+					print(error)
+				}
+			}) { activatedAccount in
+				self.addNewWalletWithAddress(address, derivationPath: derivationPath)
+				completion()
+			}.store(in: &cancellables)
+	}
+
+	private func addNewWalletWithAddress(_ address: String, derivationPath: String? = nil) {
+		let wallet = coreDataManager.getAllWallets().first(where: { $0.walletType == .nonHDWallet })
 		let avatar = Avatar.allCases.randomElement() ?? .green_apple
 
 		coreDataManager.createWalletAccount(
 			address: address,
-            derivationPath: derivationPath,
+			derivationPath: derivationPath,
 			name: avatar.name,
 			avatarIcon: avatar.rawValue,
 			avatarColor: avatar.rawValue,
-            wallet: wallet!
+			wallet: wallet!
 		)
 		getAccounts()
 	}

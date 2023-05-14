@@ -31,32 +31,32 @@ class PinoWalletManager: WalletManagement {
 	private var pinoHDWallet = PinoHDWallet()
 	private var nonHDWallet = PinoNonHDWallet()
 
-    private func privateKeyFetchKey(key: String) -> String {
-        KeychainManager.privateKey.getKey(key)
+	private func privateKeyFetchKey(key: String) -> String {
+		KeychainManager.privateKey.getKey(key)
 	}
 
-    private func mnemonicsKeyFetchKey(key: String) -> String {
+	private func mnemonicsKeyFetchKey(key: String) -> String {
 		KeychainManager.mnemonics.getKey(key)
 	}
 
 	// MARK: - Public Properties
 
 	public var accounts: [Account] {
-        let coreDataManager = CoreDataManager()
-        return coreDataManager.getAllWalletAccounts().map( Account.init )
+		let coreDataManager = CoreDataManager()
+		return coreDataManager.getAllWalletAccounts().map(Account.init)
 	}
 
-    public var currentAccount: Account {
-        guard let foundAccount = accounts.first(where: { $0.isActiveAccount }) else {
-            return accounts.last!
-        }
-        return foundAccount
-    }
-    
+	public var currentAccount: Account {
+		guard let foundAccount = accounts.first(where: { $0.isActiveAccount }) else {
+			return accounts.last!
+		}
+		return foundAccount
+	}
+
 	public var currentHDWallet: HDWallet? {
-        let coreDataManager = CoreDataManager()
-        let hdwalletAccount = coreDataManager.getWalletAccountsOfType(walletType: .hdWallet).first!
-        let decryptedMnemonicsData = exportMnemonics(key: hdwalletAccount.eip55Address)
+		let coreDataManager = CoreDataManager()
+		let hdwalletAccount = coreDataManager.getWalletAccountsOfType(walletType: .hdWallet).first!
+		let decryptedMnemonicsData = exportMnemonics(key: hdwalletAccount.eip55Address)
 		let decryptedMnemonics = String(data: decryptedMnemonicsData, encoding: .utf8)
 		guard let decryptedMnemonics else {
 			return nil
@@ -85,9 +85,9 @@ class PinoWalletManager: WalletManagement {
 		return currentHDWallet!.mnemonic
 	}
 
-    public func createAccount(lastAccountIndex: Int) -> Account {
+	public func createAccount(lastAccountIndex: Int) -> Account {
 		#warning("be careful of force unwrap")
-        let account = try! pinoHDWallet.createAccountIn(wallet: currentHDWallet!, lastIndex: lastAccountIndex)
+		let account = try! pinoHDWallet.createAccountIn(wallet: currentHDWallet!, lastIndex: lastAccountIndex)
 		return account
 	}
 
@@ -100,7 +100,7 @@ class PinoWalletManager: WalletManagement {
 	}
 
 	public func exportPrivateKeyFor(account: Account) -> (data: Data, string: String) {
-        return (account.privateKey, account.privateKey.hexString)
+		(account.privateKey, account.privateKey.hexString)
 	}
 
 	public func isMnemonicsValid(_ mnemonics: String) -> Bool {

@@ -1,21 +1,20 @@
 //
 //  SelectedAsset+CoreDataProperties.swift
-//  
+//
 //
 //  Created by Sobhan Eskandari on 5/13/23.
 //
 //
 
-import Foundation
 import CoreData
-
+import Foundation
 
 extension SelectedAsset {
+	@nonobjc
+	public class func fetchRequest() -> NSFetchRequest<SelectedAsset> {
+		NSFetchRequest<SelectedAsset>(entityName: "SelectedAsset")
+	}
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<SelectedAsset> {
-        return NSFetchRequest<SelectedAsset>(entityName: "SelectedAsset")
-    }
-
-    @NSManaged public var id: String?
-
+	@NSManaged
+	public var id: String?
 }

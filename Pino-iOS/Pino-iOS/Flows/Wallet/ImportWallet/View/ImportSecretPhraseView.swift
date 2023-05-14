@@ -20,8 +20,7 @@ class ImportSecretPhraseView: UIView {
 	private let errorLabel = UILabel()
 	private let errorIcon = UIImageView()
 	private var validationPhraseVM: ImportAccountViewModel
-    private let importButton = PinoButton(style: .deactive)
-
+	private let importButton = PinoButton(style: .deactive)
 
 	// MARK: - Public Properties
 
@@ -30,17 +29,22 @@ class ImportSecretPhraseView: UIView {
 	public var textViewText: String {
 		importTextView.text
 	}
-    public let importBtnTapped: ()->Void
+
+	public let importBtnTapped: () -> Void
 
 	// MARK: - Initializers
 
-    init(validationPharaseVM: ImportAccountViewModel, textViewType: ImportTextViewType, importBtnTapped: @escaping ()->Void) {
+	init(
+		validationPharaseVM: ImportAccountViewModel,
+		textViewType: ImportTextViewType,
+		importBtnTapped: @escaping () -> Void
+	) {
 		self.validationPhraseVM = validationPharaseVM
 		self.importTextView = textViewType
 		if let seedPhraseTextView = importTextView as? SecretPhraseTextView {
 			seedPhraseTextView.seedPhraseMaxCount = validationPharaseVM.maxSeedPhraseCount
 		}
-        self.importBtnTapped = importBtnTapped
+		self.importBtnTapped = importBtnTapped
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -83,11 +87,11 @@ extension ImportSecretPhraseView {
 				self.importButton.style = .deactive
 			}
 		}
-        
-        importButton.addAction(UIAction(handler: { _ in
-            self.importButton.style = .loading
-            self.importBtnTapped()
-        }), for: .touchUpInside)
+
+		importButton.addAction(UIAction(handler: { _ in
+			self.importButton.style = .loading
+			self.importBtnTapped()
+		}), for: .touchUpInside)
 	}
 
 	public func showError() {

@@ -12,7 +12,7 @@ import Web3Core
 enum KeychainManager: String {
 	case mnemonics
 	case privateKey
-    case mainAddress
+	case mainAddress
 
 	func getValueWith(key: String) -> Data? {
 		let keychainHelper = KeychainSwift()
@@ -21,7 +21,7 @@ enum KeychainManager: String {
 
 	func setValue(value: Data, key: String) -> Bool {
 		let keychainHelper = KeychainSwift()
-        if (getValueWith(key: key) != nil) {
+		if getValueWith(key: key) != nil {
 			// Value already exists
 			return true
 		} else {

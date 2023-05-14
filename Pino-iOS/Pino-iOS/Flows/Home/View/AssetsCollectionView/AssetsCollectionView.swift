@@ -99,13 +99,13 @@ class AssetsCollectionView: UICollectionView {
 		homeVM.$assetsList.sink { [weak self] _ in
 			self?.reloadData()
 		}.store(in: &cancellables)
-        
-        homeVM.$walletInfo.sink { [weak self] walletInfo in
-            if self?.homeVM.walletInfo.id != walletInfo?.id {
-                self?.showSkeletonView()
-                self?.getHomeData()
-            }
-        }.store(in: &cancellables)
+
+		homeVM.$walletInfo.sink { [weak self] walletInfo in
+			if self?.homeVM.walletInfo.id != walletInfo?.id {
+				self?.showSkeletonView()
+				self?.getHomeData()
+			}
+		}.store(in: &cancellables)
 	}
 
 	private func setupRefreshControl() {
@@ -123,11 +123,11 @@ class AssetsCollectionView: UICollectionView {
 		homeVM.getHomeData { error in
 			self.refreshControl?.endRefreshing()
 			if let error {
-                self.refreshErrorToastView.message = error.message
-                self.refreshErrorToastView.showToast()
-            } else {
-                self.hideSkeletonView()
-            }
+				self.refreshErrorToastView.message = error.message
+				self.refreshErrorToastView.showToast()
+			} else {
+				self.hideSkeletonView()
+			}
 		}
 	}
 }

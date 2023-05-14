@@ -38,7 +38,7 @@ public struct PinoNonHDWallet: PNonHDWallet {
 			)
 			if !KeychainManager.privateKey.setValue(
 				value: keyCipherData,
-                key: KeychainManager.privateKey.getKey(account.eip55Address)
+				key: KeychainManager.privateKey.getKey(account.eip55Address)
 			) {
 				return .failure(.wallet(.importAccountFailed))
 			}

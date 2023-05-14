@@ -16,21 +16,19 @@ protocol PinoWallet {
 	func encryptPrivateKey(_ key: Data, forAccount account: Account) -> Data
 	func decryptPrivateKey(fromEncryptedData encryptedData: Data, forAccount account: Account) -> Data
 	func getAllAccounts() -> [Account]
-    mutating func addNewAccount(_ account: Account, wallet: Wallet)
+	mutating func addNewAccount(_ account: Account, wallet: Wallet)
 }
 
 extension PinoWallet {
-	
-    // MARK: - Private Properties
+	// MARK: - Private Properties
 
-    fileprivate var secureEnclave: SecureEnclave {
+	fileprivate var secureEnclave: SecureEnclave {
 		.init()
 	}
-    
-    fileprivate var coreDataManager: CoreDataManager {
-        .init()
-    }
-    
+
+	fileprivate var coreDataManager: CoreDataManager {
+		.init()
+	}
 
 	// MARK: - Public Methods
 
@@ -48,10 +46,10 @@ extension PinoWallet {
 			return .failure(.wallet(.accountDeletionFailed))
 		}
 	}
-    
+
 	// MARK: - Private Methods
 
-    @discardableResult
+	@discardableResult
 	internal func encryptPrivateKey(_ key: Data, forAccount account: Account) -> Data {
 		secureEnclave.encrypt(plainData: key, withPublicKeyLabel: KeychainManager.privateKey.getKey(account.eip55Address))
 	}
@@ -62,30 +60,32 @@ extension PinoWallet {
 			withPublicKeyLabel: KeychainManager.privateKey.getKey(account.eip55Address)
 		)
 	}
-    
-    internal func saveCredsInKeychain(keychainManagerType: KeychainManager, data: Data, key: String) -> WalletOperationError? {
-        if !keychainManagerType.setValue(value: data, key: key) {
-            return .keyManager(.mnemonicsStorageFailed)
-        } else {
-            return nil
-        }
-    }
 
-	public func getAllAccounts() -> [Account] {
-        return coreDataManager.getAllWalletAccounts().map( Account.init )
+	internal func saveCredsInKeychain(
+		keychainManagerType: KeychainManager,
+		data: Data,
+		key: String
+	) -> WalletOperationError? {
+		if !keychainManagerType.setValue(value: data, key: key) {
+			return .keyManager(.mnemonicsStorageFailed)
+		} else {
+			return nil
+		}
 	}
 
-    public func addNewAccount(_ account: Account, wallet: Wallet) {
+	public func getAllAccounts() -> [Account] {
+		coreDataManager.getAllWalletAccounts().map(Account.init)
+	}
 
-        let avatar = Avatar.allCases.randomElement() ?? .green_apple
+	public func addNewAccount(_ account: Account, wallet: Wallet) {
+		let avatar = Avatar.allCases.randomElement() ?? .green_apple
 
-        coreDataManager.createWalletAccount(
-            address: account.eip55Address,
-            name: avatar.name,
-            avatarIcon: avatar.rawValue,
-            avatarColor: avatar.rawValue,
-            wallet: wallet
-        )
-    }
-    
+		coreDataManager.createWalletAccount(
+			address: account.eip55Address,
+			name: avatar.name,
+			avatarIcon: avatar.rawValue,
+			avatarColor: avatar.rawValue,
+			wallet: wallet
+		)
+	}
 }

@@ -32,8 +32,15 @@ struct ImportAccountViewModel {
 		}
 	}
 
+	public var errorTitle: String {
+		if isNewWallet {
+			return "Invalid Secret Phrase"
+		} else {
+			return "Invalid Private Key"
+		}
+	}
+
 	public let pasteButtonTitle = "Paste"
-	public let errorTitle = "Invalid Secret Phrase"
 	public let errorIcon = "exclamationmark.circle.fill"
 	public let continueButtonTitle = "Import"
 	public let pageTitle = "Import new wallet"
