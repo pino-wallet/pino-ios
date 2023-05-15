@@ -8,32 +8,38 @@
 import UIKit
 
 class AllowNotificationsViewController: UIViewController {
-    // MARK: - Private Properties
-    private let allowNotificationsVM = AllowNotificationsViewModel()
-    private var allowNotificationsView: AllowNotificationsView!
+	// MARK: - Private Properties
 
-    // MARK: - View Overrides
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-            if isBeingPresented || isMovingToParent {
-                allowNotificationsView.setupGradientStyle()
-                allowNotificationsView.animateSmapleNotificationsCard()
-            }
-    }
+	private let allowNotificationsVM = AllowNotificationsViewModel()
+	private var allowNotificationsView: AllowNotificationsView!
 
-    override func loadView() {
-        setupView()
-//        setupClearColorNavigationBar()
-    }
+	// MARK: - View Overrides
 
-    // MARK: - Private Methods
-    private func setupView() {
-        allowNotificationsView = AllowNotificationsView(allowNotificationsVM: allowNotificationsVM, dismissPage: { [weak self] in
-            self?.dismiss(animated: true)
-        })
-        view = allowNotificationsView
-    }
+	override func viewDidLoad() {
+		super.viewDidLoad()
+	}
+
+	override func viewDidAppear(_ animated: Bool) {
+		if isBeingPresented || isMovingToParent {
+			allowNotificationsView.setupGradientStyle()
+			allowNotificationsView.animateSmapleNotificationsCard()
+		}
+	}
+
+	override func loadView() {
+		setupView()
+		//        setupClearColorNavigationBar()
+	}
+
+	// MARK: - Private Methods
+
+	private func setupView() {
+		allowNotificationsView = AllowNotificationsView(
+			allowNotificationsVM: allowNotificationsVM,
+			dismissPage: { [weak self] in
+				self?.dismiss(animated: true)
+			}
+		)
+		view = allowNotificationsView
+	}
 }

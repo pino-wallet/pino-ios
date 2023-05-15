@@ -10,6 +10,7 @@ import UIKit
 class RemoveAccountView: UIView {
 	// MARK: - Closure
 
+	public var dismissPage: () -> Void
 	public var presentConfirmActionsheetClosure: () -> Void
 
 	// MARK: - Public Properties
@@ -18,6 +19,7 @@ class RemoveAccountView: UIView {
 
 	// MARK: - Private Properties
 
+	private let clearNavigationBar = ClearNavigationBar()
 	private let titleImageView = UIImageView()
 	private let titleLabel = PinoLabel(style: .title, text: "")
 	private let descriptonLabel = PinoLabel(style: .description, text: "")
@@ -25,12 +27,18 @@ class RemoveAccountView: UIView {
 	private let mainStackView = UIStackView()
 	private let titleStackView = UIStackView()
 	private let infoStackview = UIStackView()
+	private var navigationBarDismissButton: NavigationBarDismissButton!
 
 	// MARK: - Initializers
 
-	init(presentConfirmActionsheetClosure: @escaping () -> Void, removeAccountVM: RemoveAccountViewModel) {
+	init(
+		presentConfirmActionsheetClosure: @escaping () -> Void,
+		removeAccountVM: RemoveAccountViewModel,
+		dismissPage: @escaping () -> Void
+	) {
 		self.presentConfirmActionsheetClosure = presentConfirmActionsheetClosure
 		self.removeAccountVM = removeAccountVM
+		self.dismissPage = dismissPage
 		super.init(frame: .zero)
 		setupView()
 		setupConstraints()
@@ -76,12 +84,20 @@ class RemoveAccountView: UIView {
 		mainStackView.addArrangedSubview(titleStackView)
 		mainStackView.addArrangedSubview(infoStackview)
 
+		navigationBarDismissButton = NavigationBarDismissButton(onDismiss: { [weak self] in
+			self?.dismissPage()
+		})
+
+		clearNavigationBar.setRightSectionView(view: navigationBarDismissButton)
+
+		addSubview(clearNavigationBar)
 		addSubview(mainStackView)
 	}
 
 	private func setupConstraints() {
+		clearNavigationBar.pin(.horizontalEdges(padding: 0), .top(padding: 0))
 		mainStackView.pin(
-			.top(to: layoutMarginsGuide, padding: 119),
+			.relative(.top, 119, to: clearNavigationBar, .bottom),
 			.centerX(to: superview),
 			.horizontalEdges(padding: 16)
 		)
