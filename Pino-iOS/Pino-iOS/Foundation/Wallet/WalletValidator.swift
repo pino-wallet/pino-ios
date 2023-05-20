@@ -10,7 +10,7 @@ import WalletCore
 import Web3Core
 
 public enum WalletValidator {
-	static func isPrivateKeyValid(key: String) -> Bool {
+	public static func isPrivateKeyValid(key: String) -> Bool {
 		if let keyData = Data(hexString: key.trimmingCharacters(in: .whitespacesAndNewlines)) {
 			return PrivateKey.isValid(data: keyData, curve: .secp256k1)
 		} else {
@@ -18,23 +18,23 @@ public enum WalletValidator {
 		}
 	}
 
-	static func isPrivateKeyValid(key: Data) -> Bool {
+    public static func isPrivateKeyValid(key: Data) -> Bool {
 		PrivateKey.isValid(data: key, curve: .secp256k1)
 	}
 
-	static func isPublicKeyValid(key: Data) -> Bool {
+    public static func isPublicKeyValid(key: Data) -> Bool {
 		PublicKey.isValid(data: key, type: .secp256k1)
 	}
 
-	static func isMnemonicsValid(mnemonic: String) -> Bool {
+    public static func isMnemonicsValid(mnemonic: String) -> Bool {
 		Mnemonic.isValid(mnemonic: mnemonic)
 	}
 
-	static func isMnemonicsValid(mnemonic: [String]) -> Bool {
+    public static func isMnemonicsValid(mnemonic: [String]) -> Bool {
 		Mnemonic.isValid(mnemonic: mnemonic.joined())
 	}
 
-	static func isEthAddressValid(address: String) -> Bool {
+    public static func isEthAddressValid(address: String) -> Bool {
 		AnyAddress.isValid(string: address, coin: .ethereum)
 	}
 }

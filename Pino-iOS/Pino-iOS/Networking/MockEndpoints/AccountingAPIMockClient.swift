@@ -16,13 +16,15 @@ final class AccountingAPIMockClient: AccountingAPIService {
 	}
 
 	func userPortfolio(timeFrame: String) -> AnyPublisher<[ChartDataModel], APIError> {
-		#warning("just for test")
-		return StubManager.publisher(for: "user-balance-stub")
+        Just([])
+            .setFailureType(to: APIError.self)
+            .eraseToAnyPublisher()
 	}
 
 	func coinPerformance(timeFrame: String, tokenID: String) -> AnyPublisher<[ChartDataModel], APIError> {
-		#warning("just for test")
-		return StubManager.publisher(for: "user-balance-stub")
+        Just([])
+            .setFailureType(to: APIError.self)
+            .eraseToAnyPublisher()
 	}
 
 	func activateAccountWith(address: String) -> AnyPublisher<AccountActivationModel, APIError> {
