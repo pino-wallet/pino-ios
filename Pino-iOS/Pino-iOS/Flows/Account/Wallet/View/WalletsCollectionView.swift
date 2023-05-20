@@ -14,18 +14,21 @@ class WalletsCollectionView: UICollectionView {
 	private var walletsVM: WalletsViewModel
 	private var cancellables = Set<AnyCancellable>()
 
-	// MARK: Public Properties
+	// MARK: - Closures
 
+	public var dismissPage: () -> Void
 	public var editAccountTapped: (WalletInfoViewModel) -> Void
 
-	// MARK: Initializers
+	// MARK: - Initializers
 
 	init(
 		walletsVM: WalletsViewModel,
-		editAccountTapped: @escaping (WalletInfoViewModel) -> Void
+		editAccountTapped: @escaping (WalletInfoViewModel) -> Void,
+		dismissPage: @escaping () -> Void
 	) {
 		self.walletsVM = walletsVM
 		self.editAccountTapped = editAccountTapped
+		self.dismissPage = dismissPage
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		flowLayout.sectionInset = UIEdgeInsets(top: 24, left: 0, bottom: 24, right: 0)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
@@ -39,7 +42,7 @@ class WalletsCollectionView: UICollectionView {
 		fatalError()
 	}
 
-	// MARK: Private Methods
+	// MARK: - Private Methods
 
 	private func configCollectionView() {
 		register(
@@ -63,7 +66,7 @@ class WalletsCollectionView: UICollectionView {
 	}
 }
 
-// MARK: Collection View Flow Layout
+// MARK: - Collection View Flow Layout
 
 extension WalletsCollectionView: UICollectionViewDelegateFlowLayout {
 	func collectionView(
@@ -81,6 +84,7 @@ extension WalletsCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let walletModel = WalletBuilder(walletInfo: walletsVM.walletsList[indexPath.item]).build()
 		walletsVM.updateSelectedWallet(with: walletModel)
+		dismissPage()
 	}
 }
 

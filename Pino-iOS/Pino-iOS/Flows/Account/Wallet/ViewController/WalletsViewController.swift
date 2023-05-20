@@ -39,6 +39,8 @@ class WalletsViewController: UIViewController {
 	private func setupView() {
 		view = WalletsCollectionView(walletsVM: walletVM, editAccountTapped: { selectedWallet in
 			self.openEditAccountPage(selectedWallet: selectedWallet)
+		}, dismissPage: { [weak self] in
+			self?.dismiss(animated: true)
 		})
 	}
 
