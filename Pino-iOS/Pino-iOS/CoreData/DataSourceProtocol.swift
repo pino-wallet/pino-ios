@@ -8,18 +8,18 @@
 import CoreData
 
 protocol DataSourceProtocol {
-	associatedtype T
+	associatedtype CoreDataType
 
 	var coreDataStack: CoreDataStack { get }
 	var managedContext: NSManagedObjectContext { get }
 
-	func getAll() -> [T]
-	func get(byId id: String) -> T?
-	mutating func save(_ item: T)
-	mutating func delete(_ item: T)
+	func getAll() -> [CoreDataType]
+	func get(byId id: String) -> CoreDataType?
+	mutating func save(_ item: CoreDataType)
+	mutating func delete(_ item: CoreDataType)
 
-	func filter(_ predicate: (T) -> Bool) -> [T]
-	func sort(by sorter: (T, T) -> Bool) -> [T]
+	func filter(_ predicate: (CoreDataType) -> Bool) -> [CoreDataType]
+	func sort(by sorter: (CoreDataType, CoreDataType) -> Bool) -> [CoreDataType]
 }
 
 extension DataSourceProtocol {

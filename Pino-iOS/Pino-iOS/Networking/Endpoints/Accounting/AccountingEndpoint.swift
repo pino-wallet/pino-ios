@@ -10,8 +10,6 @@ import Foundation
 enum AccountingEndpoint: EndpointType {
 	// MARK: - Public Properties
 
-	#warning("Temporary address to test the api")
-//	static let accountADD = "0x81Ad046aE9a7Ad56092fa7A7F09A04C82064e16C"
 	public static let ethID = "0x0000000000000000000000000000000000000000"
 
 	// MARK: - Cases
@@ -27,15 +25,6 @@ enum AccountingEndpoint: EndpointType {
 		var request = URLRequest(url: url)
 		request.httpMethod = httpMethod.rawValue
 
-		if requiresAuthentication {
-			if let privateKey {
-				print(privateKey)
-				// Add privateKey as a token
-			} else {
-				throw APIError.unauthorized
-			}
-		}
-
 		try task.configParams(&request)
 
 		return request
@@ -45,13 +34,6 @@ enum AccountingEndpoint: EndpointType {
 
 	internal var endpointParent: String {
 		"accounting"
-	}
-
-	internal var requiresAuthentication: Bool {
-		switch self {
-		case .balances, .portfolio, .coinPerformance, .activateAccountWith:
-			return false
-		}
 	}
 
 	internal var task: HTTPTask {

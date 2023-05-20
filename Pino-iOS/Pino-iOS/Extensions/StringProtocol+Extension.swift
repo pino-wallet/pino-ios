@@ -59,14 +59,6 @@ extension String {
 		data(using: .utf8)!
 	}
 
-	public var addHexPrefix: Self {
-		if hasPrefix("0x") {
-			return self
-		} else {
-			return "0x\(self)"
-		}
-	}
-
 	public static var emptyString: Self {
 		""
 	}

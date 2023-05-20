@@ -14,12 +14,12 @@ enum KeychainManager: String {
 	case privateKey
 	case mainAddress
 
-	func getValueWith(key: String) -> Data? {
+    public func getValueWith(key: String) -> Data? {
 		let keychainHelper = KeychainSwift()
 		return keychainHelper.getData("\(self)\(key)")
 	}
 
-	func setValue(value: Data, key: String) -> Bool {
+    public func setValue(value: Data, key: String) -> Bool {
 		let keychainHelper = KeychainSwift()
 		if getValueWith(key: key) != nil {
 			// Value already exists
@@ -29,17 +29,17 @@ enum KeychainManager: String {
 		}
 	}
 
-	func setValue(value: String, key: String) -> Bool {
+    public func setValue(value: String, key: String) -> Bool {
 		let keychainHelper = KeychainSwift()
 		return keychainHelper.set(value, forKey: "\(self)\(key)")
 	}
 
-	func deleteValueWith(key: String) -> Bool {
+    public func deleteValueWith(key: String) -> Bool {
 		let keychainHelper = KeychainSwift()
 		return keychainHelper.delete("\(self)\(key)")
 	}
 
-	func getKey(_ key: String) -> String {
+    public func getKey(_ key: String) -> String {
 		"\(self)\(key)"
 	}
 }

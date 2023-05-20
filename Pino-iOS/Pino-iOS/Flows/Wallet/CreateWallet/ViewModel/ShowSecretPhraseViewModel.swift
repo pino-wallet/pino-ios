@@ -22,12 +22,9 @@ struct ShowSecretPhraseViewModel {
 
 	// MARK: - Privare Properties
 
-	private let emptyPassphrase = ""
 	private let pinoWalletManager = PinoWalletManager()
 
 	// MARK: Initializers
-
-	init() {}
 
 	// MARK: - Private Methods
 
