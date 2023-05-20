@@ -7,7 +7,7 @@
         <attribute name="isSelected" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="lastDrivedIndex" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="account" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WalletAccount" inverseName="wallet" inverseEntity="WalletAccount"/>
+        <relationship name="accounts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WalletAccount" inverseName="wallet" inverseEntity="WalletAccount"/>
     </entity>
     <entity name="WalletAccount" representedClassName="WalletAccount" syncable="YES">
         <attribute name="avatarColor" optional="YES" attributeType="String"/>
@@ -17,6 +17,6 @@
         <attribute name="isSelected" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="publicKey" attributeType="Binary"/>
-        <relationship name="wallet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wallet" inverseName="account" inverseEntity="Wallet"/>
+        <relationship name="wallet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wallet" inverseName="accounts" inverseEntity="Wallet"/>
     </entity>
 </model>

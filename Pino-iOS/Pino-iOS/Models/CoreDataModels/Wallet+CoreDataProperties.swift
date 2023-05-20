@@ -22,7 +22,7 @@ extension Wallet {
 	@NSManaged
 	public var isSelected: Bool
 	@NSManaged
-	public var account: NSSet?
+	public var accounts: NSSet?
 }
 
 // MARK: Generated accessors for account
