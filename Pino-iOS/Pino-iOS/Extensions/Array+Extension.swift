@@ -20,8 +20,8 @@ extension FloatingPoint {
 }
 
 extension NSSet {
-	func toArray<T>() -> [T] {
-		let array = map { $0 as! T }
+	func toArray<Item>() -> [Item] {
+		let array = map { $0 as! Item }
 		return array
 	}
 }

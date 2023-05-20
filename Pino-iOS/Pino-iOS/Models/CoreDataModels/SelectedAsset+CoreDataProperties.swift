@@ -16,5 +16,5 @@ extension SelectedAsset {
 	}
 
 	@NSManaged
-	public var id: String?
+	public var id: String
 }
