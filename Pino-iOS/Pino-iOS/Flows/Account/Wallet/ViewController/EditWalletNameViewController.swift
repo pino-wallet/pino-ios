@@ -80,7 +80,7 @@ class EditWalletNameViewController: UIViewController {
 				self?.showErrorMessage(error: error)
 			},
 			selectedWallet: selectedWalletVM,
-			wallets: walletsVM.walletsList
+			wallets: walletsVM.accountsList
 		)
 	}
 

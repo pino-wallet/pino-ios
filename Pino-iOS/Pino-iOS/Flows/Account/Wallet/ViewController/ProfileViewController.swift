@@ -61,7 +61,7 @@ class ProfileViewController: UIViewController {
 	}
 
 	private func setupBindings() {
-		walletsVM.$walletsList.sink { wallets in
+		walletsVM.$accountsList.sink { wallets in
 			let selectedWallet = wallets?.first(where: { $0.isSelected })
 			self.profileVM.walletInfo = selectedWallet
 		}.store(in: &cancellables)

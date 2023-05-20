@@ -76,7 +76,7 @@ class EditAccountViewController: UIViewController {
 	}
 
 	private func setupBindings() {
-		walletsVM.$walletsList.sink { wallets in
+		walletsVM.$accountsList.sink { wallets in
 			guard let wallets else { return }
 			if wallets.count > 1 {
 				self.editAccountVM.isLastWallet = false

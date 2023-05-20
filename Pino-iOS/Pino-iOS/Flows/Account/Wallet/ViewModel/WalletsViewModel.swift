@@ -13,7 +13,7 @@ class WalletsViewModel {
 	// MARK: - Public Properties
 
 	@Published
-	public var walletsList: [WalletInfoViewModel]!
+	public var accountsList: [WalletInfoViewModel]!
 
 	// MARK: - Private Properties
 
@@ -33,7 +33,7 @@ class WalletsViewModel {
 	public func getAccounts() {
 		// Request to get wallets
 		let wallets = coreDataManager.getAllWalletAccounts()
-		walletsList = wallets.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
+		accountsList = wallets.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
 	}
 
 	public func activateNewAccountAddress(
@@ -58,8 +58,8 @@ class WalletsViewModel {
 
 	private func addNewWalletWithAddress(_ address: String, derivationPath: String? = nil) {
 		let wallet = coreDataManager.getAllWallets().first(where: { $0.walletType == .nonHDWallet })
-		let walletsAvatar = walletsList.map { $0.profileImage }
-		let walletsName = walletsList.map { $0.name }
+		let walletsAvatar = accountsList.map { $0.profileImage }
+		let walletsName = accountsList.map { $0.name }
 		let newAvatar = Avatar
 			.allCases
 			.filter { !walletsAvatar.contains($0.rawValue) && !walletsName.contains($0.name) }

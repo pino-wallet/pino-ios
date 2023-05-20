@@ -57,7 +57,7 @@ class WalletsCollectionView: UICollectionView {
 	}
 
 	private func setupBindings() {
-		walletsVM.$walletsList.sink { [weak self] _ in
+		walletsVM.$accountsList.sink { [weak self] _ in
 			self?.reloadData()
 		}.store(in: &cancellables)
 	}
@@ -79,7 +79,7 @@ extension WalletsCollectionView: UICollectionViewDelegateFlowLayout {
 
 extension WalletsCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		walletsVM.updateSelectedWallet(with: walletsVM.walletsList[indexPath.item])
+		walletsVM.updateSelectedWallet(with: walletsVM.accountsList[indexPath.item])
 	}
 }
 
@@ -87,7 +87,7 @@ extension WalletsCollectionView: UICollectionViewDelegate {
 
 extension WalletsCollectionView: UICollectionViewDataSource {
 	internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		walletsVM.walletsList.count
+		walletsVM.accountsList.count
 	}
 
 	internal func collectionView(
@@ -98,14 +98,14 @@ extension WalletsCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: WalletCell.cellReuseID,
 			for: indexPath
 		) as! WalletCell
-		walletCell.walletVM = walletsVM.walletsList[indexPath.item]
-		if walletsVM.walletsList[indexPath.item].isSelected {
+		walletCell.walletVM = walletsVM.accountsList[indexPath.item]
+		if walletsVM.accountsList[indexPath.item].isSelected {
 			walletCell.style = .selected
 		} else {
 			walletCell.style = .regular
 		}
 		walletCell.editButtonTapped = {
-			self.editAccountTapped(self.walletsVM.walletsList[indexPath.item])
+			self.editAccountTapped(self.walletsVM.accountsList[indexPath.item])
 		}
 		return walletCell
 	}

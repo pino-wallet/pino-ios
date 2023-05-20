@@ -29,11 +29,6 @@ enum KeychainManager: String {
 		}
 	}
 
-    public func setValue(value: String, key: String) -> Bool {
-		let keychainHelper = KeychainSwift()
-		return keychainHelper.set(value, forKey: "\(self)\(key)")
-	}
-
     public func deleteValueWith(key: String) -> Bool {
 		let keychainHelper = KeychainSwift()
 		return keychainHelper.delete("\(self)\(key)")
