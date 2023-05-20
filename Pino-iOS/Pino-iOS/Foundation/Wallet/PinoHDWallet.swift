@@ -9,12 +9,12 @@ import Foundation
 import WalletCore
 import Web3Core
 
-protocol PHDWallet: PinoWallet {
+protocol PinoHDWalletType: PinoWallet {
 	func createHDWallet(mnemonics: String) throws -> Result<HDWallet, WalletOperationError>
 	func createAccountIn(wallet: HDWallet, lastIndex: Int) throws -> Account
 }
 
-public class PinoHDWallet: PHDWallet {
+public class PinoHDWallet: PinoHDWalletType {
 	// MARK: - Private Properties
 
 	private var secureEnclave = SecureEnclave()

@@ -62,8 +62,7 @@ class AddNewWalletViewController: UIViewController {
 			let coreDataManager = CoreDataManager()
 			let currentWallet = coreDataManager.getSelectedWalletOf(type: .hdWallet)!
 			let createdAccount = pinoWalletManager.createAccount(lastAccountIndex: Int(currentWallet.lastDrivedIndex))
-			let avatar = Avatar.allCases.randomElement() ?? .green_apple
-
+            
 			walletsVM.activateNewAccountAddress(
 				createdAccount.eip55Address,
 				derivationPath: createdAccount.derivationPath

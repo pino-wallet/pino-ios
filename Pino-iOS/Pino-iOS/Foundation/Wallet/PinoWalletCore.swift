@@ -78,7 +78,7 @@ extension PinoWallet {
 	}
 
 	public func addNewAccount(_ account: Account, wallet: Wallet) {
-		let avatar = Avatar.allCases.randomElement() ?? .green_apple
+		let avatar = Avatar.randAvatar()
 
 		coreDataManager.createWalletAccount(
 			address: account.eip55Address,

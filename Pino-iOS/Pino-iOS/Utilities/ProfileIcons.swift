@@ -83,4 +83,8 @@ enum Avatar: String, CaseIterable {
 			return "Pineapple"
 		}
 	}
+    
+    public static func randAvatar() -> Self {
+        return self.allCases.randomElement() ?? .green_apple
+    }
 }

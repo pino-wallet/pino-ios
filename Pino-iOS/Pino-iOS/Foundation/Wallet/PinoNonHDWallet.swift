@@ -9,11 +9,11 @@ import Foundation
 import WalletCore
 import Web3Core
 
-protocol PNonHDWallet: PinoWallet {
+protocol PinoNonHDWalletType: PinoWallet {
 	mutating func importAccount(privateKey: String) -> Result<Account, WalletOperationError>
 }
 
-public struct PinoNonHDWallet: PNonHDWallet {
+public struct PinoNonHDWallet: PinoNonHDWalletType {
 	// MARK: - Private Properties
 
 	private var secureEnclave = SecureEnclave()
