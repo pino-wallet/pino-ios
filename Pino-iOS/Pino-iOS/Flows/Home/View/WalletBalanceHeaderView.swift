@@ -111,6 +111,7 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 
 		volatilityView.layer.cornerRadius = 14
 		volatilityView.layer.masksToBounds = true
+		balanceLabel.isUserInteractionEnabled = true
 
 		sendButton.setConfiguraton(
 			font: .PinoStyle.semiboldCallout!,
@@ -127,10 +128,13 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 		showBalanceButton.setConfiguraton(font: .PinoStyle.mediumFootnote!, imagePadding: 5)
 		showBalanceButton.isUserInteractionEnabled = false
 
-		balanceStackView
-			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(activateSecurityMode)))
 		volatilityView
 			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openVolatilityDetailPage)))
+		balanceLabel
+			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(activateSecurityMode)))
+		showBalanceButton.addAction(UIAction(handler: { _ in
+			self.activateSecurityMode()
+		}), for: .touchUpInside)
 
 		showBalanceButton.isHidden = true
 	}
@@ -175,6 +179,14 @@ class WalletBalanceHeaderView: UICollectionReusableView {
 				self.balanceLabel.font = .PinoStyle.semiboldLargeTitle
 				self.volatilityView.isHidden = false
 				self.showBalanceButton.isHidden = true
+			}
+
+			if let balance = Double(walletBalance.balanceModel.balance), balance <= 0 {
+				self.volatilityDetailButton.isHidden = true
+				self.volatilityView.isUserInteractionEnabled = false
+			} else {
+				self.volatilityDetailButton.isHidden = false
+				self.volatilityView.isUserInteractionEnabled = true
 			}
 			self.updateConstraints()
 		}
