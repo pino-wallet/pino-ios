@@ -63,9 +63,9 @@ class PinoWalletManager: WalletManagement {
 		return hdWallet
 	}
 
-	public func exportMnemonics() -> String {
+    public func exportMnemonics() -> (string:String, array:[String]) {
 		#warning("be careful of force unwrap")
-		return currentHDWallet!.mnemonic
+        return (currentHDWallet!.mnemonic, currentHDWallet!.mnemonic.split(separator: " ").map { String($0) })
 	}
 
 	public func createAccount(lastAccountIndex: Int) -> Account {

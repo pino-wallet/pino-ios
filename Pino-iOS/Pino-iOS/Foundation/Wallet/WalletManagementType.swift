@@ -16,7 +16,7 @@ protocol WalletManagement {
     // Wallet
     func createHDWallet(mnemonics: String) -> Result<HDWallet, WalletOperationError>
     func generateMnemonics() -> String
-    func exportMnemonics() -> String
+    func exportMnemonics() -> (string:String, array:[String])
 
     // Account
     func deleteAccount(account: Account) -> Result<Account, WalletOperationError>

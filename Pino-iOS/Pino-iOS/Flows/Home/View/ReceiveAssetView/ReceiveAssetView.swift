@@ -65,7 +65,7 @@ class ReceiveAssetView: UIView {
 
 		accountOwnerName.font = UIFont.PinoStyle.semiboldTitle2
 		accountOwnerName.numberOfLines = 0
-		accountOwnerName.text = "\(receiveVM.accountInfo.name)’s \(receiveVM.accountOwnerNameDescriptionText)"
+		accountOwnerName.text = "\(receiveVM.accountName)’s \(receiveVM.accountOwnerNameDescriptionText)"
 
 		addressLabelContainer.layer.borderColor = UIColor.Pino.background.cgColor
 		addressLabelContainer.layer.borderWidth = 1
@@ -73,7 +73,7 @@ class ReceiveAssetView: UIView {
 		addressLabelContainer.addSubview(addressLabel)
 
 		addressLabel.numberOfLines = 1
-		addressLabel.text = receiveVM.accountInfo.address
+		addressLabel.text = receiveVM.accountAddress
 		addressLabel.lineBreakMode = .byTruncatingMiddle
 		addressLabel.textAlignment = .center
 		addressLabel.textColor = .Pino.primary
@@ -86,7 +86,7 @@ class ReceiveAssetView: UIView {
 		copyAddressButton.iconName = receiveVM.copyAddressButtonIconName
 		copyAddressButton.titleText = receiveVM.copyAddressButtonText
 		copyAddressButton.onTap = { [weak self] in
-			UIPasteboard.general.string = self?.receiveVM.accountInfo.address
+			UIPasteboard.general.string = self?.receiveVM.accountAddress
 			self?.copiedToastView.message = self?.receiveVM.copiedToastViewText
 			self?.copiedToastView.showToast()
 		}

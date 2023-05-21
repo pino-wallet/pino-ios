@@ -30,6 +30,6 @@ struct RecoveryPhraseViewModel {
 	// MARK: - Private Methods
 
 	private mutating func getSecretPhrase() {
-		secretPhraseList = pinoWalletManager.exportMnemonics().split(separator: " ").map { String($0) }
+		secretPhraseList = pinoWalletManager.exportMnemonics().array
 	}
 }

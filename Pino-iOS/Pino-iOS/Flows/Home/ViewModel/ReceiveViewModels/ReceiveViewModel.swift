@@ -8,8 +8,6 @@
 class ReceiveViewModel {
 	// MARK: - Public Properties
     
-    public let accountInfo: AccountInfoViewModel
-
 	public let shareAddressButtonText = "Share"
 	public let copyAddressButtonText = "Copy"
 	public let copiedToastViewText = "Copied!"
@@ -26,6 +24,19 @@ class ReceiveViewModel {
 		url: "https://www.moonpay.com/buy",
 		rightInfoIconName: "right_arrow_green3"
 	)]
+    
+    public var accountAddress: String {
+        return accountInfo.address
+    }
+    
+    public var accountName: String {
+        return accountInfo.name
+    }
+    
+    // MARK: - Private Properties
+
+    private let accountInfo: AccountInfoViewModel
+
     
     init(accountInfo: AccountInfoViewModel) {
         self.accountInfo = accountInfo

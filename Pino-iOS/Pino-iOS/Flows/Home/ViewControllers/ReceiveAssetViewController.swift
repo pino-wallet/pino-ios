@@ -26,7 +26,7 @@ class ReceiveAssetViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		if isBeingPresented || isMovingToParent {
-			receiveAssetView.addressQrCodeImage = receiveVM.accountInfo.address.generateQRCode(
+			receiveAssetView.addressQrCodeImage = receiveVM.accountAddress.generateQRCode(
 				customHeight: 264,
 				customWidth: 264
 			)
@@ -74,7 +74,7 @@ class ReceiveAssetViewController: UIViewController {
 
 	@objc
 	private func presentShareActivityViewController() {
-		let sharedText = receiveVM.accountInfo.address
+		let sharedText = receiveVM.accountAddress
 		let shareItems = [sharedText]
 		let activityVC = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
 		present(activityVC, animated: true)
