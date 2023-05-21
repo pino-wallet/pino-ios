@@ -56,4 +56,10 @@ extension PinoButton.Style {
 		backgroundColor: .Pino.green3,
 		borderColor: .Pino.clear
 	)
+
+	public static let clear = PinoButton.Style(
+		titleColor: .Pino.primary,
+		backgroundColor: .Pino.clear,
+		borderColor: .clear
+	)
 }

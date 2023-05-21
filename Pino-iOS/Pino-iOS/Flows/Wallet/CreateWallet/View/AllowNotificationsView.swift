@@ -12,6 +12,29 @@ class AllowNotificationsView: UIView {
 
 	public let dismissPage: () -> Void
 
+	// MARK: - Private Properties
+
+	private let clearNavgiationBar = ClearNavigationBar()
+	private let headerStackView = UIStackView()
+	private let headerIconContainerView = UIView()
+	private let headerIconView = UIImageView()
+	private let headerTitleLabelContainerView = UIView()
+	private let headerTitleLabel = PinoLabel(style: .title, text: "")
+	private let headerDescriptionLabelContainerView = UIView()
+	private let headerDescriptionLabel = PinoLabel(style: .info, text: "")
+	private let sampleNotificationsContainerView = UIView()
+	private let sampleNotificationCard1 = UIImageView()
+	private let sampleNotificationCard2 = UIImageView()
+	private let sampleNotificationGradientContainer = UIView()
+	private let buttonsStackView = UIStackView()
+	private let enableNotificationsButton = PinoButton(style: .active, title: "")
+	private let skipButton = PinoButton(style: .clear, title: "")
+	private let animationTime = 0.8
+	private let navigationBarRightSideView = UIView()
+	private let navigationBarDismissButton = UIButton()
+	private var paddingFromButtom: CGFloat!
+	private var sampleNotificationGradientLayer: GradientLayer!
+
 	// MARK: - Public Properties
 
 	public let allowNotificationsVM: AllowNotificationsViewModel
@@ -31,28 +54,6 @@ class AllowNotificationsView: UIView {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-
-	// MARK: - Private Properties
-
-	private let clearNavgiationBar = ClearNavigationBar()
-	private let headerStackView = UIStackView()
-	private let headerIconContainerView = UIView()
-	private let headerIconView = UIImageView()
-	private let headerTitleLabelContainerView = UIView()
-	private let headerTitleLabel = PinoLabel(style: .title, text: "")
-	private let headerDescriptionLabelContainerView = UIView()
-	private let headerDescriptionLabel = PinoLabel(style: .info, text: "")
-	private let sampleNotificationsContainerView = UIView()
-	private let sampleNotificationCard1 = UIImageView()
-	private let sampleNotificationCard2 = UIImageView()
-	private let sampleNotificationGradientContainer = UIView()
-	private let buttonsStackView = UIStackView()
-	private let enableNotificationsButton = PinoButton(style: .active, title: "")
-	private let skipButton = PinoButton(style: .white, title: "")
-	private let animationTime = 0.8
-	private var paddingFromButtom: CGFloat!
-	private var sampleNotificationGradientLayer: GradientLayer!
-	private var navigationBarDismissButton: NavigationBarDismissButton!
 
 	// MARK: - Private Methods
 
@@ -78,11 +79,11 @@ class AllowNotificationsView: UIView {
 		sampleNotificationsContainerView.addSubview(sampleNotificationCard2)
 		sampleNotificationsContainerView.addSubview(sampleNotificationGradientContainer)
 
-		navigationBarDismissButton = NavigationBarDismissButton(onDismiss: { [weak self] in
-			self?.dismissPage()
-		})
+		navigationBarDismissButton.addTarget(self, action: #selector(onDismissTap), for: .touchUpInside)
 
-		clearNavgiationBar.setRightSectionView(view: navigationBarDismissButton)
+		navigationBarRightSideView.addSubview(navigationBarDismissButton)
+
+		clearNavgiationBar.setRightSectionView(view: navigationBarRightSideView)
 
 		addSubview(clearNavgiationBar)
 		addSubview(headerStackView)
@@ -92,15 +93,17 @@ class AllowNotificationsView: UIView {
 	}
 
 	private func setupStyles() {
-		backgroundColor = .Pino.white
+		backgroundColor = .Pino.secondaryBackground
 
 		headerStackView.axis = .vertical
 		headerStackView.spacing = 8
 		headerStackView.alignment = .center
 
+		navigationBarDismissButton.setImage(UIImage(named: allowNotificationsVM.navbarDismissImageName), for: .normal)
+
 		buttonsStackView.axis = .vertical
 		buttonsStackView.spacing = 24
-		buttonsStackView.backgroundColor = .Pino.white
+		buttonsStackView.backgroundColor = .Pino.clear
 
 		sampleNotificationCard1.image = UIImage(named: allowNotificationsVM.sampleNotificationCardImage1)
 		sampleNotificationCard1.isHidden = true
@@ -158,6 +161,7 @@ class AllowNotificationsView: UIView {
 			sampleNotificationCard2Constraint,
 		])
 
+		navigationBarDismissButton.pin(.fixedHeight(30), .fixedHeight(30), .top(padding: 22), .trailing(padding: 0))
 		headerIconView.pin(.fixedWidth(56), .fixedHeight(56))
 		clearNavgiationBar.pin(.horizontalEdges(padding: 0), .top(padding: 0))
 		headerStackView.pin(.relative(.top, 8, to: clearNavgiationBar, .bottom), .horizontalEdges(padding: 16))
@@ -187,6 +191,11 @@ class AllowNotificationsView: UIView {
 	@objc
 	private func enableNotififcations() {
 		allowNotificationsVM.enableNotifications()
+		dismissPage()
+	}
+
+	@objc
+	private func onDismissTap() {
 		dismissPage()
 	}
 
@@ -247,19 +256,4 @@ class AllowNotificationsView: UIView {
 		)
 		sampleNotificationGradientContainer.layer.addSublayer(sampleNotificationGradientLayer)
 	}
-}
-
-extension PinoButton.Style {
-	fileprivate static let white = PinoButton.Style(
-		titleColor: .Pino.primary,
-		backgroundColor: .Pino.white,
-		borderColor: .clear
-	)
-}
-
-extension GradientLayer.Style {
-	fileprivate static let notificationSample = GradientLayer.Style(
-		colors: [UIColor.Pino.clear.cgColor, UIColor.Pino.white.cgColor],
-		locations: [0, 0.4]
-	)
 }

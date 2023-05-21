@@ -8,20 +8,6 @@
 import UIKit
 
 class ClearNavigationBar: UINavigationBar {
-	// MARK: - Public Methods
-
-	public func setRightSectionView(view: UIView) {
-		rightSectionView.addSubview(view)
-
-		view.pin(.allEdges(padding: 0))
-	}
-
-	public func setLeftSectionView(view: UIView) {
-		leftSectionView.addSubview(view)
-
-		view.pin(.allEdges(padding: 0))
-	}
-
 	// MARK: - Private Properties
 
 	private let mainStackView = UIStackView()
@@ -40,6 +26,20 @@ class ClearNavigationBar: UINavigationBar {
 
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+
+	// MARK: - Public Methods
+
+	public func setRightSectionView(view: UIView) {
+		rightSectionView.addSubview(view)
+
+		view.pin(.allEdges(padding: 0))
+	}
+
+	public func setLeftSectionView(view: UIView) {
+		leftSectionView.addSubview(view)
+
+		view.pin(.allEdges(padding: 0))
 	}
 
 	// MARK: - Private Methods

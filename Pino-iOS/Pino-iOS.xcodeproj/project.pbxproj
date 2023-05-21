@@ -291,7 +291,6 @@
 		D9BFEC392A121719007DFF40 /* AllowNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC382A121719007DFF40 /* AllowNotificationsView.swift */; };
 		D9BFEC3B2A12177C007DFF40 /* AllowNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC3A2A12177C007DFF40 /* AllowNotificationsViewModel.swift */; };
 		D9BFEC3E2A12236C007DFF40 /* ClearNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC3D2A12236C007DFF40 /* ClearNavigationBar.swift */; };
-		D9BFEC412A1223BA007DFF40 /* NavigationBarDismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC402A1223BA007DFF40 /* NavigationBarDismissButton.swift */; };
 		D9C7D76229EBDCAE006BC446 /* CoinInfoStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C7D76129EBDCAE006BC446 /* CoinInfoStatsView.swift */; };
 		D9DD538BAF953A18503AB3F0 /* RemoveAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887EDE19A8B81F1FB217E0FA /* RemoveAccountView.swift */; };
 		D9E34BC92C3AE69B3D5EC4F2 /* PortfolioPerformanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4FFBB4CC6D342FF946AB9 /* PortfolioPerformanceViewModel.swift */; };
@@ -675,7 +674,6 @@
 		D9BFEC382A121719007DFF40 /* AllowNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsView.swift; sourceTree = "<group>"; };
 		D9BFEC3A2A12177C007DFF40 /* AllowNotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsViewModel.swift; sourceTree = "<group>"; };
 		D9BFEC3D2A12236C007DFF40 /* ClearNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearNavigationBar.swift; sourceTree = "<group>"; };
-		D9BFEC402A1223BA007DFF40 /* NavigationBarDismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarDismissButton.swift; sourceTree = "<group>"; };
 		D9C7D76129EBDCAE006BC446 /* CoinInfoStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoStatsView.swift; sourceTree = "<group>"; };
 		D9F2507F29E576FB00DE0410 /* NotificationSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsCell.swift; sourceTree = "<group>"; };
 		D9F2508129E5855500DE0410 /* SecurityOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityOptionCell.swift; sourceTree = "<group>"; };
@@ -803,8 +801,7 @@
 		02F7EC4A2D81621079530268 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
-				D9BFEC3F2A1223A2007DFF40 /* NavigationBarDismissbutton */,
-				D9BFEC3C2A1222FB007DFF40 /* ClearNavigationBar */,
+				D9FE90A22A1A2479001AD8E4 /* NavigationBar */,
 				E34728EF29E7E32500AB8265 /* GroupCollectionView */,
 				57CB028E64599114A425B906 /* ActionSheet */,
 				454AFE7F0BDC59A5CA92FB2B /* Button */,
@@ -1897,12 +1894,12 @@
 			path = ClearNavigationBar;
 			sourceTree = "<group>";
 		};
-		D9BFEC3F2A1223A2007DFF40 /* NavigationBarDismissbutton */ = {
+		D9FE90A22A1A2479001AD8E4 /* NavigationBar */ = {
 			isa = PBXGroup;
 			children = (
-				D9BFEC402A1223BA007DFF40 /* NavigationBarDismissButton.swift */,
+				D9BFEC3C2A1222FB007DFF40 /* ClearNavigationBar */,
 			);
-			path = NavigationBarDismissbutton;
+			path = NavigationBar;
 			sourceTree = "<group>";
 		};
 		DA54BC6AF891B9433AFFD30F /* Swap */ = {
@@ -2609,7 +2606,6 @@
 				13F430044A23AF2BA55BBDFB /* SecurityModeProtocol.swift in Sources */,
 				D94A9A1D29FE4C6700DCA28D /* EditAccountView.swift in Sources */,
 				34F4A2DA1228B50AC3DFA8A2 /* SeedPhrase.swift in Sources */,
-				D9BFEC412A1223BA007DFF40 /* NavigationBarDismissButton.swift in Sources */,
 				44C3312B501D7A88C6ADB659 /* SelectPassViewModel.swift in Sources */,
 				DE33FFB7D492FA770FF9FB5C /* SemiboldStyle.swift in Sources */,
 				D99F4B2329E2C619009F7F55 /* PaymentMethodOptionModel.swift in Sources */,

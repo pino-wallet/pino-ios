@@ -17,6 +17,7 @@ class AllowNotificationsViewModel {
 	public let skipButtonTitleText = "Skip"
 	public let sampleNotificationCardImage1 = "sample_notification_1"
 	public let sampleNotificationCardImage2 = "sample_notification_2"
+	public let navbarDismissImageName = "close"
 
 	// MARK: - Public Properties
 

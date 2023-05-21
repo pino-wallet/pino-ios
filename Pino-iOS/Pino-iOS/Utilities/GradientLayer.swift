@@ -38,5 +38,9 @@ extension GradientLayer {
 			colors: [UIColor.Pino.secondaryBackground.cgColor, UIColor.Pino.background.cgColor],
 			locations: [0.2, 0.5]
 		)
+		public static let notificationSample = GradientLayer.Style(
+			colors: [UIColor.Pino.clear.cgColor, UIColor.Pino.secondaryBackground.cgColor],
+			locations: [0, 0.4]
+		)
 	}
 }
