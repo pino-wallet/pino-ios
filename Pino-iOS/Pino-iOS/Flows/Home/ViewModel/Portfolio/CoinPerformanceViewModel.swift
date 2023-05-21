@@ -40,7 +40,7 @@ class CoinPerformanceViewModel {
 	// MARK: - Private Methods
 
 	public func getChartData(dateFilter: ChartDateFilter = .hour) {
-		accountingAPIClient.coinPerformance(timeFrame: dateFilter.timeFrame, tokenID: AccountingEndpoint.ethID)
+        accountingAPIClient.coinPerformance(timeFrame: dateFilter.timeFrame, tokenID: selectedAsset.assetVM.id)
 			.sink { completed in
 				switch completed {
 				case .finished:
