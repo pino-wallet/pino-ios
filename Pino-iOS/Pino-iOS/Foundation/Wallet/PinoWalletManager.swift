@@ -68,9 +68,8 @@ class PinoWalletManager: WalletManagement {
         return (currentHDWallet!.mnemonic, currentHDWallet!.mnemonic.split(separator: " ").map { String($0) })
 	}
 
-	public func createAccount(lastAccountIndex: Int) -> Account {
-		#warning("be careful of force unwrap")
-		let account = try! pinoHDWallet.createAccountIn(wallet: currentHDWallet!, lastIndex: lastAccountIndex)
+	public func createAccount(lastAccountIndex: Int) throws -> Account {
+		let account = try pinoHDWallet.createAccountIn(wallet: currentHDWallet!, lastIndex: lastAccountIndex)
 		return account
 	}
 

@@ -42,8 +42,6 @@ extension HDWallet {
 		passphrase: String = .emptyString
 	) -> String {
 		if let newHdWallet = HDWallet(strength: seedPhraseCount.strength, passphrase: passphrase) {
-			#warning("some sort of validation maybe required for mnemonics")
-			// WalletCore.Mnemonic.isValid(mnemonic: newHdWallet.mnemonic)
 			return newHdWallet.mnemonic
 		} else {
 			fatalError(WalletError.mnemonicGenerationFailed.localizedDescription)
