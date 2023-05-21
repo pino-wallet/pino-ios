@@ -77,7 +77,7 @@ class PinoLineChart: LineChartView {
 		highlightPerTapEnabled = false
 
 		let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressDetected))
-		longPressGesture.allowableMovement = 50
+		longPressGesture.minimumPressDuration = 0.05
 		longPressGesture.delegate = self
 		addGestureRecognizer(longPressGesture)
 	}

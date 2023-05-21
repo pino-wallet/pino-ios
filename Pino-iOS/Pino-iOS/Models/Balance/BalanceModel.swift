@@ -8,14 +8,13 @@ import Foundation
 // MARK: - BalanceModelElement
 
 struct BalanceAssetModel: Codable, AssetProtocol {
-	let id, amount, investment: String
+	let id, amount: String
 	let isVerified: Bool
 	let detail: Detail?
 
 	enum CodingKeys: String, CodingKey {
 		case id
 		case amount
-		case investment
 		case isVerified = "is_verified"
 		case detail
 	}
