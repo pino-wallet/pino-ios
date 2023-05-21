@@ -23,7 +23,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 	private let dateLabel = UILabel()
 	private let chartPointer = UIImageView()
 	private var chartDateFilter: UISegmentedControl!
-	private let dateFilters: [ChartDateFilter] = [.hour, .day, .week, .month, .year, .all]
+	private let dateFilters: [ChartDateFilter] = [.day, .week, .month, .year, .all]
 
 	private let lineChartView = PinoLineChart(chartDataEntries: [])
 	private var chartDataSet: LineChartDataSet!

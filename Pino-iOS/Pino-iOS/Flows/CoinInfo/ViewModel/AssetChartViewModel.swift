@@ -18,7 +18,7 @@ struct AssetChartViewModel {
 	}
 
 	public var dateFilters: [ChartDateFilter] {
-		[.hour, .day, .week, .month, .year, .all]
+		[.day, .week, .month, .year, .all]
 	}
 
 	public var balance: String {

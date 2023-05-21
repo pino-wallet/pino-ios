@@ -10,7 +10,7 @@ import Foundation
 class ChartDateBuilder {
 	// MARK: - Private Properties
 
-	private var dateFilter: ChartDateFilter = .hour
+	private var dateFilter: ChartDateFilter = .day
 	private var dateRange = ""
 
 	// MARK: - Initializers
@@ -23,8 +23,6 @@ class ChartDateBuilder {
 
 	public func dateRange(firstDate: Date, lastDate: Date) -> String {
 		switch dateFilter {
-		case .hour:
-			return buildDayMonth(date: firstDate)
 		case .day, .week:
 			return buildDayMonth(firstDate: firstDate, lastDate: lastDate)
 		case .month:
@@ -38,7 +36,7 @@ class ChartDateBuilder {
 
 	public func selectedDate(date: Date) -> String {
 		switch dateFilter {
-		case .hour, .day:
+		case .day:
 			return buildTime(date: date)
 		case .week:
 			return buildDayMonthTime(date: date)
