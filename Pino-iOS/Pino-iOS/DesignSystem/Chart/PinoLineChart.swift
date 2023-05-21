@@ -115,8 +115,8 @@ class PinoLineChart: LineChartView {
 	}
 
 	private func updateHighlightValue(selectedPoint: Highlight?) {
-		highlightValue(selectedPoint)
 		if let selectedPoint {
+			generateHapticFeedback(selectedPoint)
 			let previousPoint = getPreviousPoint(point: selectedPoint)
 			chartDelegate?.valueDidChange(
 				pointValue: selectedPoint.y,
@@ -126,6 +126,8 @@ class PinoLineChart: LineChartView {
 		} else {
 			chartDelegate?.valueDidChange(pointValue: nil, previousValue: nil, date: nil)
 		}
+		highlightValue(selectedPoint)
+		lastHighlighted = selectedPoint
 	}
 
 	private func getPreviousPoint(point: Highlight) -> ChartDataEntry? {
@@ -135,6 +137,13 @@ class PinoLineChart: LineChartView {
 			return previousPoint
 		} else {
 			return nil
+		}
+	}
+
+	private func generateHapticFeedback(_ selectedPoint: Highlight) {
+		if lastHighlighted != selectedPoint {
+			let hapticFeedback = UIImpactFeedbackGenerator(style: .light)
+			hapticFeedback.impactOccurred()
 		}
 	}
 }
