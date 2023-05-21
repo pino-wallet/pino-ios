@@ -100,6 +100,9 @@ class AccountHeaderView: UICollectionReusableView {
 
 	@objc
 	private func copyAddress() {
+		let pasteboard = UIPasteboard.general
+		pasteboard.string = walletInfoVM.address
+
 		copyToastView.message = accountHeaderVM.copyMessage
 		copyToastView.showToast()
 	}
