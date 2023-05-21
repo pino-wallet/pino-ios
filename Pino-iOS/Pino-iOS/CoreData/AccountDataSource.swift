@@ -16,12 +16,12 @@ struct AccountDataSource: DataSourceProtocol {
 	// MARK: - Initializers
 
 	init() {
-		fetchWallets()
+		fetchAccounts()
 	}
 
 	// MARK: - Private Methods
 
-	private mutating func fetchWallets() {
+	private mutating func fetchAccounts() {
 		let accountFetch: NSFetchRequest<WalletAccount> = WalletAccount.fetchRequest()
 		do {
 			let results = try managedContext.fetch(accountFetch)
@@ -55,11 +55,11 @@ struct AccountDataSource: DataSourceProtocol {
 	}
 
 	public mutating func delete(_ account: WalletAccount) {
-		let isWalletSelected = account.isSelected
+		let isAccountSelected = account.isSelected
 		accounts.removeAll(where: { $0.objectID == account.objectID })
 		managedContext.delete(account)
 		coreDataStack.saveContext()
-		if isWalletSelected {
+		if isAccountSelected {
 			updateSelected(accounts.first!)
 		}
 	}

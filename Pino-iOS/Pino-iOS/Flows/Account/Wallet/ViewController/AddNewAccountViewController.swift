@@ -7,17 +7,17 @@
 
 import UIKit
 
-class AddNewWalletViewController: UIViewController {
+class AddNewAccountViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let addNewWalletVM = AddNewWalletViewModel()
-	private let walletsVM: WalletsViewModel
+	private let addNewAccountVM = AddNewAccountViewModel()
+	private let accountsVM: AccountsViewModel
 	private let pinoWalletManager = PinoWalletManager()
 
 	// MARK: - Initializers
 
-	init(walletsVM: WalletsViewModel) {
-		self.walletsVM = walletsVM
+	init(accountsVM: AccountsViewModel) {
+		self.accountsVM = accountsVM
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -39,10 +39,10 @@ class AddNewWalletViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = AddNewWalletCollectionView(
-			addNewWalletVM: addNewWalletVM,
-			openAddNewWalletPageClosure: { [weak self] option in
-				self?.openAddNewWalletPage(option: option)
+		view = AddNewAccountCollectionView(
+            addNewAccountVM: addNewAccountVM,
+            openAddNewAccountPageClosure: { [weak self] option in
+				self?.openAddNewAccountPage(option: option)
 			}
 		)
 	}
@@ -50,10 +50,10 @@ class AddNewWalletViewController: UIViewController {
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
 
-		setNavigationTitle(addNewWalletVM.pageTitle)
+		setNavigationTitle(addNewAccountVM.pageTitle)
 	}
 
-	private func openAddNewWalletPage(option: AddNewWalletOptionModel) {
+	private func openAddNewAccountPage(option: AddNewAccountOptionModel) {
 		switch option.page {
 		case .Create:
 			// New Wallet should be created
@@ -63,7 +63,7 @@ class AddNewWalletViewController: UIViewController {
 			let currentWallet = coreDataManager.getSelectedWalletOf(type: .hdWallet)!
 			let createdAccount = pinoWalletManager.createAccount(lastAccountIndex: Int(currentWallet.lastDrivedIndex))
             
-			walletsVM.activateNewAccountAddress(
+			accountsVM.activateNewAccountAddress(
 				createdAccount.eip55Address,
 				derivationPath: createdAccount.derivationPath
 			) {
@@ -83,7 +83,7 @@ class AddNewWalletViewController: UIViewController {
 		let importedAccount = pinoWalletManager.importAccount(privateKey: privateKey)
 		switch importedAccount {
 		case let .success(account):
-			walletsVM.activateNewAccountAddress(account.eip55Address) {
+			accountsVM.activateNewAccountAddress(account.eip55Address) {
 				self.dismiss(animated: true)
 			}
 		case let .failure(error):

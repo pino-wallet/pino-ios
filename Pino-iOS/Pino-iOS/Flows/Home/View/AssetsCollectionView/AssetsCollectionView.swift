@@ -67,9 +67,9 @@ class AssetsCollectionView: UICollectionView {
 			forCellWithReuseIdentifier: AssetsCollectionViewCell.cellReuseID
 		)
 		register(
-			WalletBalanceHeaderView.self,
+			AccountBalanceHeaderView.self,
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-			withReuseIdentifier: WalletBalanceHeaderView.headerReuseID
+			withReuseIdentifier: AccountBalanceHeaderView.headerReuseID
 		)
 		register(
 			PositionHeaderView.self,

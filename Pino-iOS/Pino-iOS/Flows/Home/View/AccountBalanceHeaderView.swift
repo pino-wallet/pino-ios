@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import UIKit
 
-class WalletBalanceHeaderView: UICollectionReusableView {
+class AccountBalanceHeaderView: UICollectionReusableView {
 	// MARK: - Private Properties
 
 	private var contentStackView = UIStackView()

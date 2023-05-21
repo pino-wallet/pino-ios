@@ -7,29 +7,29 @@
 
 import CoreData
 
-public struct WalletInfoViewModel: Equatable {
+public struct AccountInfoViewModel: Equatable {
 	// MARK: - Public Properties
 
-	public var walletInfoModel: WalletAccount!
+	public var walletAccountInfoModel: WalletAccount!
 
 	public var id: NSManagedObjectID {
-		walletInfoModel.objectID
+		walletAccountInfoModel.objectID
 	}
 
 	public var name: String {
-		walletInfoModel.name
+		walletAccountInfoModel.name
 	}
 
 	public var address: String {
-		walletInfoModel.eip55Address
+		walletAccountInfoModel.eip55Address
 	}
 
 	public var profileImage: String {
-		walletInfoModel.avatarIcon
+		walletAccountInfoModel.avatarIcon
 	}
 
 	public var profileColor: String {
-		walletInfoModel.avatarColor
+		walletAccountInfoModel.avatarColor
 	}
 
 	public var balance: String {
@@ -37,6 +37,6 @@ public struct WalletInfoViewModel: Equatable {
 	}
 
 	public var isSelected: Bool {
-		walletInfoModel.isSelected
+		walletAccountInfoModel.isSelected
 	}
 }

@@ -11,7 +11,7 @@ import UIKit
 class EditAccountViewController: UIViewController {
 	// MARK: Private Properties
 
-	private let walletsVM: WalletsViewModel
+	private let accountsVM: AccountsViewModel
 	private let editAccountVM: EditAccountViewModel
 	private var cancellables = Set<AnyCancellable>()
 
@@ -19,8 +19,8 @@ class EditAccountViewController: UIViewController {
 
 	// MARK: Initializers
 
-	init(walletsVM: WalletsViewModel, editAccountVM: EditAccountViewModel) {
-		self.walletsVM = walletsVM
+	init(accountsVM: AccountsViewModel, editAccountVM: EditAccountViewModel) {
+		self.accountsVM = accountsVM
 		self.editAccountVM = editAccountVM
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -55,8 +55,8 @@ class EditAccountViewController: UIViewController {
 			openRevealPrivateKey: { [weak self] in
 				self?.openRevealPrivateKey()
 			},
-			openEditWalletNameClosure: { [weak self] in
-				self?.openEditWalletName()
+			openEditAccountNameClosure: { [weak self] in
+				self?.openEditAccountName()
 			}
 		)
 		view = editAccountView
@@ -76,12 +76,12 @@ class EditAccountViewController: UIViewController {
 	}
 
 	private func setupBindings() {
-		walletsVM.$accountsList.sink { wallets in
+		accountsVM.$accountsList.sink { wallets in
 			guard let wallets else { return }
 			if wallets.count > 1 {
-				self.editAccountVM.isLastWallet = false
+				self.editAccountVM.isLastAccount = false
 			} else {
-				self.editAccountVM.isLastWallet = true
+				self.editAccountVM.isLastAccount = true
 			}
 		}.store(in: &cancellables)
 	}
@@ -92,9 +92,9 @@ class EditAccountViewController: UIViewController {
 	}
 
 	private func openAvatarPage() {
-		let avatarVM = AvatarViewModel(selectedAvatar: editAccountVM.selectedWallet.profileImage)
+		let avatarVM = AvatarViewModel(selectedAvatar: editAccountVM.selectedAccount.profileImage)
 		let changeAvatarVC = ChangeAvatarViewController(avatarVM: avatarVM) { [weak self] avatarName in
-			self?.editWalletAvatar(newAvatar: avatarName)
+			self?.editAccountAvatar(newAvatar: avatarName)
 		}
 		navigationController?.pushViewController(changeAvatarVC, animated: true)
 	}
@@ -105,12 +105,12 @@ class EditAccountViewController: UIViewController {
 		navigationVC.viewControllers = [removeAccountVC]
 		present(navigationVC, animated: true)
 		removeAccountVC.walletIsDeleted = {
-			self.removeWallet()
+			self.removeAccount()
 		}
 	}
 
-	private func removeWallet() {
-		walletsVM.removeWallet(editAccountVM.selectedWallet)
+	private func removeAccount() {
+		accountsVM.removeAccount(editAccountVM.selectedAccount)
 		navigationController!.popViewController(animated: true)
 	}
 
@@ -119,23 +119,23 @@ class EditAccountViewController: UIViewController {
 		navigationController?.pushViewController(revaelPrivateKeyVC, animated: true)
 	}
 
-	private func openEditWalletName() {
-		let editWalletNameVC = EditWalletNameViewController(
-			selectedWalletVM: editAccountVM.selectedWallet,
-			walletsVM: walletsVM
+	private func openEditAccountName() {
+		let editWalletNameVC = EditAccountNameViewController(
+			selectedAccountVM: editAccountVM.selectedAccount,
+            accountsVM: accountsVM
 		) { [weak self] walletName in
-			self?.editWalletName(newName: walletName)
+			self?.editAccountName(newName: walletName)
 		}
 		navigationController?.pushViewController(editWalletNameVC, animated: true)
 	}
 
-	private func editWalletName(newName: String) {
-		let edittedWallet = walletsVM.editWallet(wallet: editAccountVM.selectedWallet, newName: newName)
-		editAccountVM.selectedWallet = edittedWallet
+	private func editAccountName(newName: String) {
+		let edittedAccount = accountsVM.editAccount(account: editAccountVM.selectedAccount, newName: newName)
+		editAccountVM.selectedAccount = edittedAccount
 	}
 
-	private func editWalletAvatar(newAvatar: String) {
-		let edittedWallet = walletsVM.editWallet(wallet: editAccountVM.selectedWallet, newAvatar: newAvatar)
-		editAccountVM.selectedWallet = edittedWallet
+	private func editAccountAvatar(newAvatar: String) {
+		let edittedAccount = accountsVM.editAccount(account: editAccountVM.selectedAccount, newAvatar: newAvatar)
+		editAccountVM.selectedAccount = edittedAccount
 	}
 }

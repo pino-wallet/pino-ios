@@ -7,48 +7,48 @@
 
 import UIKit
 
-struct WalletInfoNavigationItems {
+struct AccountInfoNavigationItems {
 	// MARK: - Private Properties
 
-	private var walletInfoVM: WalletInfoViewModel
+	private var accountInfoVM: AccountInfoViewModel
 
 	// MARK: - Initializers
 
-	init(walletInfoVM: WalletInfoViewModel) {
-		self.walletInfoVM = walletInfoVM
+	init(accountInfoVM: AccountInfoViewModel) {
+		self.accountInfoVM = accountInfoVM
 	}
 
 	// MARK: - Public Properties
 
-	public var walletTitle: UIButton {
-		let walletName = NSMutableAttributedString(
-			string: walletInfoVM.name,
+	public var accountTitle: UIButton {
+		let accountName = NSMutableAttributedString(
+			string: accountInfoVM.name,
 			attributes: [
 				NSAttributedString.Key.foregroundColor: UIColor.Pino.label,
 				NSAttributedString.Key.font: UIFont.PinoStyle.mediumCallout!,
 			]
 		)
 
-		let walletAddress = NSMutableAttributedString(
-			string: " (\(walletInfoVM.address.shortenedString(characterCount: 3)))",
+		let accountAddress = NSMutableAttributedString(
+			string: " (\(accountInfoVM.address.shortenedString(characterCount: 3)))",
 			attributes: [
 				NSAttributedString.Key.foregroundColor: UIColor.Pino.secondaryLabel,
 				NSAttributedString.Key.font: UIFont.PinoStyle.mediumCallout!,
 			]
 		)
 
-		walletName.append(walletAddress)
+		accountName.append(accountAddress)
 
 		let navigationBarTitle = UIButton()
-		navigationBarTitle.setAttributedTitle(walletName, for: .normal)
+		navigationBarTitle.setAttributedTitle(accountName, for: .normal)
 
 		return navigationBarTitle
 	}
 
 	public var profileButton: UIBarButtonItem {
 		let profileButton = UIButton()
-		profileButton.setImage(UIImage(named: walletInfoVM.profileImage), for: .normal)
-		profileButton.backgroundColor = UIColor(named: walletInfoVM.profileColor)
+		profileButton.setImage(UIImage(named: accountInfoVM.profileImage), for: .normal)
+		profileButton.backgroundColor = UIColor(named: accountInfoVM.profileColor)
 		profileButton.pin(.fixedWidth(32), .fixedHeight(32))
 		profileButton.layer.cornerRadius = 16
 

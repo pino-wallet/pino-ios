@@ -7,26 +7,26 @@
 
 import UIKit
 
-class EditWalletNameView: UIView {
+class EditAccountNameView: UIView {
 	// MARK: - Closures
 
 	public var endEditingViewclosure: () -> Void = {}
 
 	// MARK: - Public Properties
 
-	public var editWalletNameVM: EditWalletNameViewModel
-	public var selectedWalletVM: WalletInfoViewModel
+	public var editAccountNameVM: EditAccountNameViewModel
+	public var selectedAccountVM: AccountInfoViewModel
 	public var walletNameTextFieldView = PinoTextFieldView()
 	public var doneButton = PinoButton(style: .active, title: "")
 
 	// MARK: - Initializers
 
 	init(
-		editWalletNameVM: EditWalletNameViewModel,
-		selectedWalletVM: WalletInfoViewModel
+		editAccountNameVM: EditAccountNameViewModel,
+		selectedAccountVM: AccountInfoViewModel
 	) {
-		self.editWalletNameVM = editWalletNameVM
-		self.selectedWalletVM = selectedWalletVM
+		self.editAccountNameVM = editAccountNameVM
+		self.selectedAccountVM = selectedAccountVM
 		super.init(frame: .zero)
 
 		setupNotifications()
@@ -56,16 +56,16 @@ class EditWalletNameView: UIView {
 		backgroundColor = .Pino.background
 
 		walletNameTextFieldView.textDidChange = { [weak self] in
-			self?.editWalletNameVM.validateWalletName(newWalletName: (self?.walletNameTextFieldView.getText()) ?? "")
+			self?.editAccountNameVM.validateAccountName(newAccountName: (self?.walletNameTextFieldView.getText()) ?? "")
 		}
 		walletNameTextFieldView.textFieldKeyboardOnReturn = { [weak self] in
 			self?.endEditingViewclosure()
 		}
 
-		walletNameTextFieldView.text = selectedWalletVM.name
-		walletNameTextFieldView.placeholderText = editWalletNameVM.walletNamePlaceHolder
+		walletNameTextFieldView.text = selectedAccountVM.name
+		walletNameTextFieldView.placeholderText = editAccountNameVM.accountNamePlaceHolder
 
-		doneButton.title = editWalletNameVM.doneButtonName
+		doneButton.title = editAccountNameVM.doneButtonName
 	}
 
 	private func setupConstraints() {
@@ -132,7 +132,7 @@ class EditWalletNameView: UIView {
 	}
 }
 
-extension EditWalletNameView {
+extension EditAccountNameView {
 	// swiftlint: redundant_void_return
 	@objc
 	internal func keyboardWillShow(_ notification: NSNotification) {

@@ -15,7 +15,7 @@ class HomepageViewModel {
 	// MARK: - Public Properties
 
 	@Published
-	public var walletInfo: WalletInfoViewModel!
+	public var walletInfo: AccountInfoViewModel!
 	@Published
 	public var walletBalance: WalletBalanceViewModel?
 	@Published

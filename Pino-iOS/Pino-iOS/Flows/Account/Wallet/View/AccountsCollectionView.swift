@@ -8,23 +8,23 @@
 import Combine
 import UIKit
 
-class WalletsCollectionView: UICollectionView {
+class AccountsCollectionView: UICollectionView {
 	// MARK: Private Properties
 
-	private var walletsVM: WalletsViewModel
+	private var accountsVM: AccountsViewModel
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Public Properties
 
-	public var editAccountTapped: (WalletInfoViewModel) -> Void
+	public var editAccountTapped: (AccountInfoViewModel) -> Void
 
 	// MARK: Initializers
 
 	init(
-		walletsVM: WalletsViewModel,
-		editAccountTapped: @escaping (WalletInfoViewModel) -> Void
+		accountsVM: AccountsViewModel,
+		editAccountTapped: @escaping (AccountInfoViewModel) -> Void
 	) {
-		self.walletsVM = walletsVM
+		self.accountsVM = accountsVM
 		self.editAccountTapped = editAccountTapped
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		flowLayout.sectionInset = UIEdgeInsets(top: 24, left: 0, bottom: 24, right: 0)
@@ -43,8 +43,8 @@ class WalletsCollectionView: UICollectionView {
 
 	private func configCollectionView() {
 		register(
-			WalletCell.self,
-			forCellWithReuseIdentifier: WalletCell.cellReuseID
+			AccountCell.self,
+			forCellWithReuseIdentifier: AccountCell.cellReuseID
 		)
 
 		dataSource = self
@@ -57,7 +57,7 @@ class WalletsCollectionView: UICollectionView {
 	}
 
 	private func setupBindings() {
-		walletsVM.$accountsList.sink { [weak self] _ in
+		accountsVM.$accountsList.sink { [weak self] _ in
 			self?.reloadData()
 		}.store(in: &cancellables)
 	}
@@ -65,7 +65,7 @@ class WalletsCollectionView: UICollectionView {
 
 // MARK: Collection View Flow Layout
 
-extension WalletsCollectionView: UICollectionViewDelegateFlowLayout {
+extension AccountsCollectionView: UICollectionViewDelegateFlowLayout {
 	func collectionView(
 		_ collectionView: UICollectionView,
 		layout collectionViewLayout: UICollectionViewLayout,
@@ -77,36 +77,36 @@ extension WalletsCollectionView: UICollectionViewDelegateFlowLayout {
 
 // MARK: - CollectionView Delegate
 
-extension WalletsCollectionView: UICollectionViewDelegate {
+extension AccountsCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		walletsVM.updateSelectedWallet(with: walletsVM.accountsList[indexPath.item])
+		accountsVM.updateSelectedAccount(with: accountsVM.accountsList[indexPath.item])
 	}
 }
 
 // MARK: - CollectionView DataSource
 
-extension WalletsCollectionView: UICollectionViewDataSource {
+extension AccountsCollectionView: UICollectionViewDataSource {
 	internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		walletsVM.accountsList.count
+		accountsVM.accountsList.count
 	}
 
 	internal func collectionView(
 		_ collectionView: UICollectionView,
 		cellForItemAt indexPath: IndexPath
 	) -> UICollectionViewCell {
-		let walletCell = dequeueReusableCell(
-			withReuseIdentifier: WalletCell.cellReuseID,
+		let accountCell = dequeueReusableCell(
+			withReuseIdentifier: AccountCell.cellReuseID,
 			for: indexPath
-		) as! WalletCell
-		walletCell.walletVM = walletsVM.accountsList[indexPath.item]
-		if walletsVM.accountsList[indexPath.item].isSelected {
-			walletCell.style = .selected
+		) as! AccountCell
+        accountCell.accountVM = accountsVM.accountsList[indexPath.item]
+		if accountsVM.accountsList[indexPath.item].isSelected {
+            accountCell.style = .selected
 		} else {
-			walletCell.style = .regular
+            accountCell.style = .regular
 		}
-		walletCell.editButtonTapped = {
-			self.editAccountTapped(self.walletsVM.accountsList[indexPath.item])
+        accountCell.editButtonTapped = {
+			self.editAccountTapped(self.accountsVM.accountsList[indexPath.item])
 		}
-		return walletCell
+		return accountCell
 	}
 }

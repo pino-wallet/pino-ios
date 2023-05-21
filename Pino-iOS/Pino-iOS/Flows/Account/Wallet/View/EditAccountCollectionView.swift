@@ -13,7 +13,7 @@ class EditAccountCollectionView: UICollectionView {
 
 	public let newAvatarTappedClosure: () -> Void
 	public let openRevealPrivateKeyClosure: () -> Void
-	public let openEditWalletNameClosure: () -> Void
+	public let openEditAccountNameClosure: () -> Void
 
 	// MARK: - Public Properties
 
@@ -25,12 +25,12 @@ class EditAccountCollectionView: UICollectionView {
 		editAccountVM: EditAccountViewModel,
 		newAvatarTappedClosure: @escaping () -> Void,
 		openRevealPrivateKeyClosure: @escaping () -> Void,
-		openEditWalletNameClosure: @escaping () -> Void
+		openEditAccountNameClosure: @escaping () -> Void
 	) {
 		self.editAccountVM = editAccountVM
 		self.newAvatarTappedClosure = newAvatarTappedClosure
 		self.openRevealPrivateKeyClosure = openRevealPrivateKeyClosure
-		self.openEditWalletNameClosure = openEditWalletNameClosure
+		self.openEditAccountNameClosure = openEditAccountNameClosure
 
 		let flowLayout = UICollectionViewFlowLayout(
 			scrollDirection: .vertical,
@@ -67,7 +67,7 @@ extension EditAccountCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		switch editAccountVM.editAccountOptions[indexPath.item].type {
 		case .name:
-			openEditWalletNameClosure()
+			openEditAccountNameClosure()
 		case .private_key:
 			openRevealPrivateKeyClosure()
 		}
@@ -91,7 +91,7 @@ extension EditAccountCollectionView: UICollectionViewDataSource {
 		cell.editAccountOptionVM = EditAccountOptionViewModel(editAccountOption: editAccountOption)
 		cell.setCellStyle(currentItem: indexPath.item, itemsCount: editAccountVM.editAccountOptions.count)
 		if editAccountOption.type == .name {
-			cell.cellDescribtionText = "\(editAccountVM.selectedWallet.name)"
+			cell.cellDescribtionText = "\(editAccountVM.selectedAccount.name)"
 		}
 		return cell
 	}
@@ -107,7 +107,7 @@ extension EditAccountCollectionView: UICollectionViewDataSource {
 			for: indexPath
 		) as! EditAccountHeaderView
 		headerView.editAccountVM = editAccountVM
-		headerView.selectedWalletVM = editAccountVM.selectedWallet
+		headerView.selectedAccountVM = editAccountVM.selectedAccount
 		headerView.newAvatarTapped = newAvatarTappedClosure
 		return headerView
 	}

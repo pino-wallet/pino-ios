@@ -5,7 +5,7 @@
 //  Created by Amir Kazemi on 3/16/23.
 //
 
-struct AddNewWalletOptionModel {
+struct AddNewAccountOptionModel {
 	// MARK: - Public Properties
 
 	public let title: String
@@ -14,7 +14,7 @@ struct AddNewWalletOptionModel {
 	public let page: page
 }
 
-extension AddNewWalletOptionModel {
+extension AddNewAccountOptionModel {
 	public enum page {
 		case Create
 		case Import

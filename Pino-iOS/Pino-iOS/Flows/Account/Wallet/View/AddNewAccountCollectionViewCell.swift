@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddNewWalletCollectionViewCell: UICollectionViewCell {
+class AddNewAccountCollectionViewCell: UICollectionViewCell {
 	// MARK: - Private Properties
 
 	private let mainStackView = UIStackView()
@@ -21,7 +21,7 @@ class AddNewWalletCollectionViewCell: UICollectionViewCell {
 
 	// MARK: - Public Properties
 
-	public var addNewWalletOptionVM: AddNewWalletOptionViewModel! {
+	public var addNewAccountOptionVM: AddNewAccountOptionViewModel! {
 		didSet {
 			setupView()
 			setupConstraints()
@@ -36,13 +36,13 @@ class AddNewWalletCollectionViewCell: UICollectionViewCell {
 		contentView.layer.cornerRadius = 12
 		contentView.layer.backgroundColor = UIColor.Pino.white.cgColor
 
-		titleLabel.text = addNewWalletOptionVM.title
+		titleLabel.text = addNewAccountOptionVM.title
 		titleLabel.font = .PinoStyle.semiboldCallout
 
-		descriptionLabel.text = addNewWalletOptionVM.description
+		descriptionLabel.text = addNewAccountOptionVM.description
 		descriptionLabel.font = .PinoStyle.mediumSubheadline
 
-		iconImageView.image = UIImage(named: addNewWalletOptionVM.iconName)?.withRenderingMode(.alwaysTemplate)
+		iconImageView.image = UIImage(named: addNewAccountOptionVM.iconName)?.withRenderingMode(.alwaysTemplate)
 		iconImageView.tintColor = .Pino.secondaryLabel
 
 		textStackView.axis = .vertical

@@ -7,15 +7,15 @@
 
 import UIKit
 
-class WalletsViewController: UIViewController {
+class AccountsViewController: UIViewController {
 	// MARK: Private Properties
 
-	private let walletVM: WalletsViewModel
+	private let accountsVM: AccountsViewModel
 
 	// MARK: Initializers
 
-	init(walletVM: WalletsViewModel) {
-		self.walletVM = walletVM
+	init(accountsVM: AccountsViewModel) {
+		self.accountsVM = accountsVM
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -37,8 +37,8 @@ class WalletsViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = WalletsCollectionView(walletsVM: walletVM, editAccountTapped: { selectedWallet in
-			self.openEditAccountPage(selectedWallet: selectedWallet)
+		view = AccountsCollectionView(accountsVM: accountsVM, editAccountTapped: { selectedAccount in
+			self.openEditAccountPage(selectedAccount: selectedAccount)
 		})
 	}
 
@@ -54,17 +54,17 @@ class WalletsViewController: UIViewController {
 		)
 	}
 
-	private func openEditAccountPage(selectedWallet: WalletInfoViewModel) {
-		let editAccountVM = EditAccountViewModel(selectedWallet: selectedWallet)
-		let editAccountVC = EditAccountViewController(walletsVM: walletVM, editAccountVM: editAccountVM)
-		if navigationController?.viewControllers.last is WalletsViewController {
+	private func openEditAccountPage(selectedAccount: AccountInfoViewModel) {
+        let editAccountVM = EditAccountViewModel(selectedAccount: selectedAccount)
+		let editAccountVC = EditAccountViewController(accountsVM: accountsVM, editAccountVM: editAccountVM)
+		if navigationController?.viewControllers.last is AccountsViewController {
 			navigationController?.pushViewController(editAccountVC, animated: true)
 		}
 	}
 
 	@objc
 	private func openCreateImportWalletPage() {
-		let createImportWalletVC = AddNewWalletViewController(walletsVM: walletVM)
+		let createImportWalletVC = AddNewAccountViewController(accountsVM: accountsVM)
 		navigationController?.pushViewController(createImportWalletVC, animated: true)
 	}
 }

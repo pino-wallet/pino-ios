@@ -7,17 +7,17 @@
 
 import Foundation
 
-struct AddNewWalletViewModel {
+struct AddNewAccountViewModel {
 	// MARK: - Public Properties
 
-	public let AddNewWalletOptions: [AddNewWalletOptionModel?] = [
-		AddNewWalletOptionModel(
-			title: "Create a new wallet",
+	public let AddNewAccountOptions: [AddNewAccountOptionModel?] = [
+		AddNewAccountOptionModel(
+			title: "Create a new account",
 			descrption: "Generate a new account",
 			iconName: "arrow_right",
 			page: .Create
 		),
-		AddNewWalletOptionModel(
+		AddNewAccountOptionModel(
 			title: "Import wallet",
 			descrption: "Import an existing wallet",
 			iconName: "arrow_right",
@@ -25,5 +25,5 @@ struct AddNewWalletViewModel {
 		),
 	]
 
-	public let pageTitle = "Create / Import wallet"
+	public let pageTitle = "Create / Import Account"
 }

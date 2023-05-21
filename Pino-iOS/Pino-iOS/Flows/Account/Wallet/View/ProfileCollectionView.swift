@@ -148,7 +148,7 @@ extension ProfileCollectionView: UICollectionViewDataSource {
 					withReuseIdentifier: AccountHeaderView.headerReuseID,
 					for: indexPath
 				) as! AccountHeaderView
-				accountHeaderView.walletInfoVM = profileVM.walletInfo
+				accountHeaderView.accountInfoVM = profileVM.walletInfo
 				return accountHeaderView
 
 			case 1:

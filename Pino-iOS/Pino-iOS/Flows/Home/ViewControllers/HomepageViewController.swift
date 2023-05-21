@@ -63,18 +63,18 @@ class HomepageViewController: UIViewController {
 	}
 
 	private func setupNavigationBar() {
-		homeVM.$walletInfo.sink { [weak self] walletInfo in
-			guard let walletInfo = walletInfo else { return }
-			let walletInfoNavigationItems = WalletInfoNavigationItems(walletInfoVM: walletInfo)
-			self?.navigationItem.titleView = walletInfoNavigationItems.walletTitle
-			self?.navigationItem.leftBarButtonItem = walletInfoNavigationItems.profileButton
+		homeVM.$walletInfo.sink { [weak self] accountInfo in
+			guard let accountInfo = accountInfo else { return }
+			let accountInfoNavigationItems = AccountInfoNavigationItems(accountInfoVM: accountInfo)
+			self?.navigationItem.titleView = accountInfoNavigationItems.accountTitle
+			self?.navigationItem.leftBarButtonItem = accountInfoNavigationItems.profileButton
 			self?.navigationItem.titleView?
 				.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self?.copyWalletAddress)))
 			self?.navigationItem.leftBarButtonItem?.customView?
 				.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self?.openProfilePage)))
 		}.store(in: &cancellables)
 
-		navigationItem.rightBarButtonItem = WalletInfoNavigationItems.manageAssetButton
+		navigationItem.rightBarButtonItem = AccountInfoNavigationItems.manageAssetButton
 		navigationItem.rightBarButtonItem?.target = self
 		navigationItem.rightBarButtonItem?.action = #selector(openManageAssetsPage)
 	}
@@ -127,7 +127,7 @@ class HomepageViewController: UIViewController {
 
 	private func openReceiveAssetPage() {
 		let navigationVC = UINavigationController()
-        let receiveAssetVC = ReceiveAssetViewController(walletInfo: homeVM.walletInfo)
+        let receiveAssetVC = ReceiveAssetViewController(accountInfo: homeVM.walletInfo)
 		navigationVC.viewControllers = [receiveAssetVC]
 		present(navigationVC, animated: true)
 	}

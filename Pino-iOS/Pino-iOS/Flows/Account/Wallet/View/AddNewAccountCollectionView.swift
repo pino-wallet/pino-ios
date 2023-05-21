@@ -7,25 +7,25 @@
 
 import UIKit
 
-class AddNewWalletCollectionView: UICollectionView {
+class AddNewAccountCollectionView: UICollectionView {
 	// MARK: - Typealiases
 
-	public typealias openAddNewWalletPageClosureType = (AddNewWalletOptionModel) -> Void
+	public typealias openAddNewAccountPageClosureType = (AddNewAccountOptionModel) -> Void
 
 	// MARK: - Public Properties
 
-	public var openAddNewWalletPageClosure: openAddNewWalletPageClosureType
+	public var openAddNewAccountPageClosure: openAddNewAccountPageClosureType
 
-	public let addNewWalletVM: AddNewWalletViewModel
+	public let addNewAccountVM: AddNewAccountViewModel
 
 	// MARK: - Initializers
 
 	init(
-		addNewWalletVM: AddNewWalletViewModel,
-		openAddNewWalletPageClosure: @escaping openAddNewWalletPageClosureType
+		addNewAccountVM: AddNewAccountViewModel,
+		openAddNewAccountPageClosure: @escaping openAddNewAccountPageClosureType
 	) {
-		self.addNewWalletVM = addNewWalletVM
-		self.openAddNewWalletPageClosure = openAddNewWalletPageClosure
+		self.addNewAccountVM = addNewAccountVM
+		self.openAddNewAccountPageClosure = openAddNewAccountPageClosure
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		flowLayout.sectionInset = UIEdgeInsets(top: 24, left: 0, bottom: 24, right: 0)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
@@ -41,8 +41,8 @@ class AddNewWalletCollectionView: UICollectionView {
 
 	private func configureCollectionView() {
 		register(
-			AddNewWalletCollectionViewCell.self,
-			forCellWithReuseIdentifier: AddNewWalletCollectionViewCell.cellReuseID
+			AddNewAccountCollectionViewCell.self,
+			forCellWithReuseIdentifier: AddNewAccountCollectionViewCell.cellReuseID
 		)
 
 		delegate = self
@@ -50,16 +50,16 @@ class AddNewWalletCollectionView: UICollectionView {
 	}
 }
 
-extension AddNewWalletCollectionView: UICollectionViewDelegate {
+extension AddNewAccountCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		let selectedAddNewWalletOption = addNewWalletVM.AddNewWalletOptions[indexPath.item]
-		openAddNewWalletPageClosure(selectedAddNewWalletOption!)
+		let selectedAddNewAccountOption = addNewAccountVM.AddNewAccountOptions[indexPath.item]
+        openAddNewAccountPageClosure(selectedAddNewAccountOption!)
 	}
 }
 
 // MARK: Collection View Flow Layout
 
-extension AddNewWalletCollectionView: UICollectionViewDelegateFlowLayout {
+extension AddNewAccountCollectionView: UICollectionViewDelegateFlowLayout {
 	func collectionView(
 		_ collectionView: UICollectionView,
 		layout collectionViewLayout: UICollectionViewLayout,
@@ -77,25 +77,25 @@ extension AddNewWalletCollectionView: UICollectionViewDelegateFlowLayout {
 	}
 }
 
-extension AddNewWalletCollectionView: UICollectionViewDataSource {
+extension AddNewAccountCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		addNewWalletVM.AddNewWalletOptions.count
+        addNewAccountVM.AddNewAccountOptions.count
 	}
 
 	func collectionView(
 		_ collectionView: UICollectionView,
 		cellForItemAt indexPath: IndexPath
 	) -> UICollectionViewCell {
-		let addNewWalletCell = dequeueReusableCell(
-			withReuseIdentifier: AddNewWalletCollectionViewCell.cellReuseID,
+		let addNewAccountCell = dequeueReusableCell(
+			withReuseIdentifier: AddNewAccountCollectionViewCell.cellReuseID,
 			for: indexPath
-		) as! AddNewWalletCollectionViewCell
-		addNewWalletCell
-			.addNewWalletOptionVM = AddNewWalletOptionViewModel(
-				AddNewWalletOption: addNewWalletVM
-					.AddNewWalletOptions[indexPath.item]!
+		) as! AddNewAccountCollectionViewCell
+		addNewAccountCell
+			.addNewAccountOptionVM = AddNewAccountOptionViewModel(
+				addNewAccountOption: addNewAccountVM
+					.AddNewAccountOptions[indexPath.item]!
 			)
 
-		return addNewWalletCell
+		return addNewAccountCell
 	}
 }

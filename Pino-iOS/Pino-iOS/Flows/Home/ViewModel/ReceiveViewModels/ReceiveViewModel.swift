@@ -8,7 +8,7 @@
 class ReceiveViewModel {
 	// MARK: - Public Properties
     
-    public let walletInfo: WalletInfoViewModel
+    public let accountInfo: AccountInfoViewModel
 
 	public let shareAddressButtonText = "Share"
 	public let copyAddressButtonText = "Copy"
@@ -17,7 +17,7 @@ class ReceiveViewModel {
 	public let shareAddressButtonIconName = "share"
 	public let navigationDismissButtonIconName = "arrow_left"
 	public let navigationTitleText = "Receive"
-	public let walletOwnerNameDescriptionText = "wallet"
+	public let accountOwnerNameDescriptionText = "account"
 
 	public let paymentMethodOptions = [PaymentMethodOptionModel(
 		title: "MoonPay",
@@ -27,7 +27,7 @@ class ReceiveViewModel {
 		rightInfoIconName: "right_arrow_green3"
 	)]
     
-    init(walletInfo: WalletInfoViewModel) {
-        self.walletInfo = walletInfo
+    init(accountInfo: AccountInfoViewModel) {
+        self.accountInfo = accountInfo
     }
 }

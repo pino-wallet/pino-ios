@@ -8,12 +8,11 @@
 import Combine
 import Foundation
 
-#warning("This class should rename to AccountsViewModel")
-class WalletsViewModel {
+class AccountsViewModel {
 	// MARK: - Public Properties
 
 	@Published
-	public var accountsList: [WalletInfoViewModel]!
+	public var accountsList: [AccountInfoViewModel]!
 
 	// MARK: - Private Properties
 
@@ -31,9 +30,9 @@ class WalletsViewModel {
 	// MARK: - Public Methods
 
 	public func getAccounts() {
-		// Request to get wallets
-		let wallets = coreDataManager.getAllWalletAccounts()
-		accountsList = wallets.compactMap { WalletInfoViewModel(walletInfoModel: $0) }
+		// Request to get accounts
+		let accounts = coreDataManager.getAllWalletAccounts()
+		accountsList = accounts.compactMap { AccountInfoViewModel(walletAccountInfoModel: $0) }
 	}
 
 	public func activateNewAccountAddress(
@@ -51,12 +50,12 @@ class WalletsViewModel {
 					print(error)
 				}
 			}) { activatedAccount in
-				self.addNewWalletWithAddress(address, derivationPath: derivationPath)
+				self.addNewWalletAccountWithAddress(address, derivationPath: derivationPath)
 				completion()
 			}.store(in: &cancellables)
 	}
 
-	private func addNewWalletWithAddress(_ address: String, derivationPath: String? = nil) {
+	private func addNewWalletAccountWithAddress(_ address: String, derivationPath: String? = nil) {
 		let wallet = coreDataManager.getAllWallets().first(where: { $0.walletType == .nonHDWallet })
 		let walletsAvatar = accountsList.map { $0.profileImage }
 		let walletsName = accountsList.map { $0.name }
@@ -77,25 +76,25 @@ class WalletsViewModel {
 		getAccounts()
 	}
 
-	public func editWallet(wallet: WalletInfoViewModel, newName: String) -> WalletInfoViewModel {
-		let edittedWallet = coreDataManager.editWalletAccount(wallet.walletInfoModel, newName: newName)
+	public func editAccount(account: AccountInfoViewModel, newName: String) -> AccountInfoViewModel {
+		let edittedAccount = coreDataManager.editWalletAccount(account.walletAccountInfoModel, newName: newName)
 		getAccounts()
-		return WalletInfoViewModel(walletInfoModel: edittedWallet)
+		return AccountInfoViewModel(walletAccountInfoModel: edittedAccount)
 	}
 
-	public func editWallet(wallet: WalletInfoViewModel, newAvatar: String) -> WalletInfoViewModel {
-		let edittedWallet = coreDataManager.editWalletAccount(wallet.walletInfoModel, newAvatar: newAvatar)
+	public func editAccount(account: AccountInfoViewModel, newAvatar: String) -> AccountInfoViewModel {
+		let edittedAccount = coreDataManager.editWalletAccount(account.walletAccountInfoModel, newAvatar: newAvatar)
 		getAccounts()
-		return WalletInfoViewModel(walletInfoModel: edittedWallet)
+		return AccountInfoViewModel(walletAccountInfoModel: edittedAccount)
 	}
 
-	public func removeWallet(_ walletVM: WalletInfoViewModel) {
-		coreDataManager.deleteWalletAccount(walletVM.walletInfoModel)
+	public func removeAccount(_ walletVM: AccountInfoViewModel) {
+		coreDataManager.deleteWalletAccount(walletVM.walletAccountInfoModel)
 		getAccounts()
 	}
 
-	public func updateSelectedWallet(with selectedWallet: WalletInfoViewModel) {
-		coreDataManager.updateSelectedWalletAccount(selectedWallet.walletInfoModel)
+	public func updateSelectedAccount(with selectedAccount: AccountInfoViewModel) {
+		coreDataManager.updateSelectedWalletAccount(selectedAccount.walletAccountInfoModel)
 		getAccounts()
 	}
 }

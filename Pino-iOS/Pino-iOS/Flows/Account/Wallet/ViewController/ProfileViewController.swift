@@ -12,7 +12,7 @@ class ProfileViewController: UIViewController {
 	// MARK: Private Properties
 
 	private let profileVM: ProfileViewModel
-	private let walletsVM = WalletsViewModel()
+	private let accountsVM = AccountsViewModel()
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
@@ -61,7 +61,7 @@ class ProfileViewController: UIViewController {
 	}
 
 	private func setupBindings() {
-		walletsVM.$accountsList.sink { wallets in
+		accountsVM.$accountsList.sink { wallets in
 			let selectedWallet = wallets?.first(where: { $0.isSelected })
 			self.profileVM.walletInfo = selectedWallet
 		}.store(in: &cancellables)
@@ -75,7 +75,7 @@ class ProfileViewController: UIViewController {
 	private func openSettingDetail(settingVM: SettingsViewModel) {
 		switch settingVM {
 		case .wallets:
-			let walletsVC = WalletsViewController(walletVM: walletsVM)
+			let walletsVC = AccountsViewController(accountsVM: accountsVM)
 			navigationController?.pushViewController(walletsVC, animated: true)
 		case .notification:
 			let notificationsVC = NotificationSettingsViewController()
