@@ -35,7 +35,7 @@ struct AssetChartViewModel {
 
 	public var chartDate: String {
 		let chartDateBuilder = ChartDateBuilder(dateFilter: dateFilter)
-		return chartDateBuilder.dateRange(firstDate: chartDataVM.first!.date, lastDate: chartDataVM.last!.date)
+		return chartDateBuilder.timeFrame()
 	}
 
 	// MARK: - Private Methods

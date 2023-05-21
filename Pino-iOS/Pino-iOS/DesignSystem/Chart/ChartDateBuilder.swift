@@ -21,6 +21,21 @@ class ChartDateBuilder {
 
 	// MARK: - Public Methods
 
+	public func timeFrame() -> String {
+		switch dateFilter {
+		case .day:
+			return "Past day"
+		case .week:
+			return "Past week"
+		case .month:
+			return "Past month"
+		case .year:
+			return "Past year"
+		case .all:
+			return ""
+		}
+	}
+
 	public func dateRange(firstDate: Date, lastDate: Date) -> String {
 		switch dateFilter {
 		case .day, .week:
