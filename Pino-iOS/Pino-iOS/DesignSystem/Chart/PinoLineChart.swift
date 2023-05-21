@@ -101,6 +101,7 @@ class PinoLineChart: LineChartView {
 
 		data = LineChartData(dataSets: [chartDataSet])
 		data?.setDrawValues(false)
+		chartDataSet.drawHorizontalHighlightIndicatorEnabled = false
 	}
 
 	@objc
