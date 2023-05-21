@@ -16,6 +16,8 @@ class AccountHeaderView: UICollectionReusableView {
 	private let walletName = UILabel()
 	private let walletAddress = UILabel()
 	private let accountSettingsTitle = UILabel()
+	private let accountHeaderVM = AccountHeaderViewModel()
+	private let copyToastView = CopyToastView(message: nil)
 
 	// MARK: - Public Properties
 
@@ -26,6 +28,7 @@ class AccountHeaderView: UICollectionReusableView {
 			setupView()
 			setupStyle()
 			setupConstraint()
+			setupWalletAddressTapGesture()
 		}
 	}
 
@@ -34,9 +37,12 @@ class AccountHeaderView: UICollectionReusableView {
 	private func setupView() {
 		walletInfoStackview.addArrangedSubview(walletIconBackgroundView)
 		walletInfoStackview.addArrangedSubview(walletNameStackView)
+
 		walletNameStackView.addArrangedSubview(walletName)
 		walletNameStackView.addArrangedSubview(walletAddress)
+
 		walletIconBackgroundView.addSubview(walletIcon)
+
 		addSubview(walletInfoStackview)
 		addSubview(accountSettingsTitle)
 	}
@@ -44,7 +50,7 @@ class AccountHeaderView: UICollectionReusableView {
 	private func setupStyle() {
 		walletName.text = walletInfoVM.name
 		walletAddress.text = walletInfoVM.address.shortenedString(characterCount: 4)
-		accountSettingsTitle.text = "Accounts"
+		accountSettingsTitle.text = accountHeaderVM.accountsTitleText
 		walletIcon.image = UIImage(named: walletInfoVM.profileImage)
 		walletIconBackgroundView.backgroundColor = UIColor(named: walletInfoVM.profileColor)
 
@@ -84,5 +90,17 @@ class AccountHeaderView: UICollectionReusableView {
 		walletIcon.pin(
 			.allEdges(padding: 16)
 		)
+	}
+
+	private func setupWalletAddressTapGesture() {
+		let addressTapGesture = UITapGestureRecognizer(target: self, action: #selector(copyAddress))
+		walletAddress.addGestureRecognizer(addressTapGesture)
+		walletAddress.isUserInteractionEnabled = true
+	}
+
+	@objc
+	private func copyAddress() {
+		copyToastView.message = accountHeaderVM.copyMessage
+		copyToastView.showToast()
 	}
 }
