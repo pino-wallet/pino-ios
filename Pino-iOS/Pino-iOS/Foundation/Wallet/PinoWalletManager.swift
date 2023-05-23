@@ -14,14 +14,6 @@ class PinoWalletManager: WalletManagement {
 	private var pinoHDWallet = PinoHDWallet()
 	private var nonHDWallet = PinoNonHDWallet()
 
-	private func privateKeyFetchKey(key: String) -> String {
-		KeychainManager.privateKey.getKey(key)
-	}
-
-	private func mnemonicsKeyFetchKey(key: String) -> String {
-		KeychainManager.mnemonics.getKey(key)
-	}
-
 	// MARK: - Public Properties
 
 	public var accounts: [Account] {
@@ -63,9 +55,9 @@ class PinoWalletManager: WalletManagement {
 		return hdWallet
 	}
 
-    public func exportMnemonics() -> (string:String, array:[String]) {
+	public func exportMnemonics() -> (string: String, array: [String]) {
 		#warning("be careful of force unwrap")
-        return (currentHDWallet!.mnemonic, currentHDWallet!.mnemonic.split(separator: " ").map { String($0) })
+		return (currentHDWallet!.mnemonic, currentHDWallet!.mnemonic.split(separator: " ").map { String($0) })
 	}
 
 	public func createAccount(lastAccountIndex: Int) throws -> Account {
@@ -104,5 +96,13 @@ class PinoWalletManager: WalletManagement {
 			withPublicKeyLabel: mnemonicsKeyFetchKey(key: key)
 		)
 		return decryptedMnemonics
+	}
+
+	private func privateKeyFetchKey(key: String) -> String {
+		KeychainManager.privateKey.getKey(key)
+	}
+
+	private func mnemonicsKeyFetchKey(key: String) -> String {
+		KeychainManager.mnemonics.getKey(key)
 	}
 }

@@ -99,7 +99,6 @@ extension VerifySecretPhraseView {
 			errorStackView.isHidden = false
 			continueButton.style = .deactive
 		}
-
 	}
 }
 

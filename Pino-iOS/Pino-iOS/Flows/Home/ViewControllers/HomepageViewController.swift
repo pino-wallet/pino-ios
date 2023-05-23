@@ -127,7 +127,7 @@ class HomepageViewController: UIViewController {
 
 	private func openReceiveAssetPage() {
 		let navigationVC = UINavigationController()
-        let receiveAssetVC = ReceiveAssetViewController(accountInfo: homeVM.walletInfo)
+		let receiveAssetVC = ReceiveAssetViewController(accountInfo: homeVM.walletInfo)
 		navigationVC.viewControllers = [receiveAssetVC]
 		present(navigationVC, animated: true)
 	}

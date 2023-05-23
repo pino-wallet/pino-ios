@@ -11,7 +11,7 @@ class ReceiveAssetViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private var receiveAssetView: ReceiveAssetView!
-    private var receiveVM: ReceiveViewModel
+	private var receiveVM: ReceiveViewModel
 
 	// MARK: - View Overrides
 

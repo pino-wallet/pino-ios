@@ -122,7 +122,7 @@ class EditAccountViewController: UIViewController {
 	private func openEditAccountName() {
 		let editWalletNameVC = EditAccountNameViewController(
 			selectedAccountVM: editAccountVM.selectedAccount,
-            accountsVM: accountsVM
+			accountsVM: accountsVM
 		) { [weak self] walletName in
 			self?.editAccountName(newName: walletName)
 		}

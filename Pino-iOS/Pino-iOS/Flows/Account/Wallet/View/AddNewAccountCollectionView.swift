@@ -53,7 +53,7 @@ class AddNewAccountCollectionView: UICollectionView {
 extension AddNewAccountCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let selectedAddNewAccountOption = addNewAccountVM.AddNewAccountOptions[indexPath.item]
-        openAddNewAccountPageClosure(selectedAddNewAccountOption!)
+		openAddNewAccountPageClosure(selectedAddNewAccountOption!)
 	}
 }
 
@@ -79,7 +79,7 @@ extension AddNewAccountCollectionView: UICollectionViewDelegateFlowLayout {
 
 extension AddNewAccountCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        addNewAccountVM.AddNewAccountOptions.count
+		addNewAccountVM.AddNewAccountOptions.count
 	}
 
 	func collectionView(

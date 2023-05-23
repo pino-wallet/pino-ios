@@ -11,7 +11,7 @@ class ImportSecretPhraseViewController: UIViewController {
 	// MARK: - PublicProperties
 
 	public var importsecretPhraseView: ImportSecretPhraseView!
-	public var validationSecretPhraseVM: ImportAccountViewModel!
+	public var importAccountVM: ImportAccountViewModel!
 	public var isNewWallet: Bool!
 	public var addedNewWalletWithPrivateKey: ((String) -> Void)!
 
@@ -27,7 +27,7 @@ class ImportSecretPhraseViewController: UIViewController {
 			setSteperView(stepsCount: 2, curreuntStep: 1)
 		} else {
 			setupPrimaryColorNavigationBar()
-			setNavigationTitle(validationSecretPhraseVM.pageTitle)
+			setNavigationTitle(importAccountVM.pageTitle)
 		}
 	}
 
@@ -35,12 +35,12 @@ class ImportSecretPhraseViewController: UIViewController {
 
 	#warning("this code needs refactoring too much nested")
 	private func setupView() {
-		validationSecretPhraseVM = ImportAccountViewModel(isNewWallet: isNewWallet)
+		importAccountVM = ImportAccountViewModel(isNewWallet: isNewWallet)
 		if isNewWallet {
 			importsecretPhraseView = ImportSecretPhraseView(
-				validationPharaseVM: validationSecretPhraseVM,
+				validationPharaseVM: importAccountVM,
 				textViewType: SecretPhraseTextView(), importBtnTapped: {
-					self.validationSecretPhraseVM.validate(
+					self.importAccountVM.validate(
 						secretPhrase: self.importsecretPhraseView.importTextView.text,
 						onSuccess: {
 							self.importWallet()
@@ -56,9 +56,9 @@ class ImportSecretPhraseViewController: UIViewController {
 			)
 		} else {
 			importsecretPhraseView = ImportSecretPhraseView(
-				validationPharaseVM: validationSecretPhraseVM,
+				validationPharaseVM: importAccountVM,
 				textViewType: PrivateKeyTextView(), importBtnTapped: {
-					self.validationSecretPhraseVM.validate(
+					self.importAccountVM.validate(
 						privateKey: self.importsecretPhraseView.importTextView.text,
 						onSuccess: {
 							self.importWallet()

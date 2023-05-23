@@ -28,17 +28,20 @@ public struct PinoNonHDWallet: PinoNonHDWalletType {
 
 	public mutating func importAccount(privateKey: String) -> Result<Account, WalletOperationError> {
 		do {
-			let keyData = Data(hexString: privateKey)!
-			var account = try Account(privateKeyData: keyData)
-			guard !accountExist(account: account) else { return .success(account) }
+			guard WalletValidator.isPrivateKeyValid(key: privateKey)
+			else { return .failure(.validator(.privateKeyIsInvalid)) }
+			guard let keyData = Data(hexString: privateKey) else { return .failure(.validator(.privateKeyIsInvalid)) }
+			let account = try Account(privateKeyData: keyData)
+			guard !accountExist(account: account) else { return .failure(.wallet(.accountAlreadyExists)) }
 			account.isActiveAccount = true
+			let key = KeychainManager.privateKey.getKey(account.eip55Address)
 			let keyCipherData = secureEnclave.encrypt(
 				plainData: keyData,
-				withPublicKeyLabel: KeychainManager.privateKey.getKey(account.eip55Address)
+				withPublicKeyLabel: key
 			)
 			if !KeychainManager.privateKey.setValue(
 				value: keyCipherData,
-				key: KeychainManager.privateKey.getKey(account.eip55Address)
+				key: key
 			) {
 				return .failure(.wallet(.importAccountFailed))
 			}

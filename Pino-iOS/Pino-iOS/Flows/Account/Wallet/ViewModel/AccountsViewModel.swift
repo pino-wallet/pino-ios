@@ -19,7 +19,7 @@ class AccountsViewModel {
 	private var accountingAPIClient = AccountingAPIClient()
 	private var walletAPIClient = WalletAPIMockClient()
 	private var cancellables = Set<AnyCancellable>()
-    private let coreDataManager = CoreDataManager()
+	private let coreDataManager = CoreDataManager()
 	private let pinoWalletManager = PinoWalletManager()
 
 	// MARK: - Initializers
@@ -35,34 +35,35 @@ class AccountsViewModel {
 		let accounts = coreDataManager.getAllWalletAccounts()
 		accountsList = accounts.compactMap { AccountInfoViewModel(walletAccountInfoModel: $0) }
 	}
-    
-    public func createNewAccount(completion: @escaping (Error?) -> Void) {
-        let coreDataManager = CoreDataManager()
-        let currentWallet = coreDataManager.getSelectedWalletOf(type: .hdWallet)!
-        do {
-            let createdAccount = try pinoWalletManager.createAccount(lastAccountIndex: Int(currentWallet.lastDrivedIndex))
-            activateNewAccountAddress(
-                createdAccount.eip55Address,
-                derivationPath: createdAccount.derivationPath
-            ) {
-                completion(nil)
-            }
-        } catch {
-            completion(error)
-        }
-    }
-    
-    public func importAccountWith(privateKey: String, completion: @escaping (Error?) -> Void) {
-        let importedAccount = pinoWalletManager.importAccount(privateKey: privateKey)
-        switch importedAccount {
-        case let .success(account):
-            activateNewAccountAddress(account.eip55Address) {
-                completion(nil)
-            }
-        case let .failure(error):
-            completion(error)
-        }
-    }
+
+	public func createNewAccount(completion: @escaping (Error?) -> Void) {
+		let coreDataManager = CoreDataManager()
+		let currentWallet = coreDataManager.getSelectedWalletOf(type: .hdWallet)!
+		do {
+			let createdAccount = try pinoWalletManager
+				.createAccount(lastAccountIndex: Int(currentWallet.lastDrivedIndex))
+			activateNewAccountAddress(
+				createdAccount.eip55Address,
+				derivationPath: createdAccount.derivationPath
+			) {
+				completion(nil)
+			}
+		} catch {
+			completion(error)
+		}
+	}
+
+	public func importAccountWith(privateKey: String, completion: @escaping (Error?) -> Void) {
+		let importedAccount = pinoWalletManager.importAccount(privateKey: privateKey)
+		switch importedAccount {
+		case let .success(account):
+			activateNewAccountAddress(account.eip55Address) {
+				completion(nil)
+			}
+		case let .failure(error):
+			completion(error)
+		}
+	}
 
 	public func activateNewAccountAddress(
 		_ address: String,

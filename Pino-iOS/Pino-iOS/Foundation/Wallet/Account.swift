@@ -9,11 +9,12 @@ import Foundation
 import WalletCore
 import Web3Core
 
-public struct Account: Codable {
+public class Account: Codable {
+	// MARK: - Public Property
+
 	public var address: EthereumAddress
 	public var isActiveAccount: Bool
-	/// For Accounts derived from HDWallet
-	public var derivationPath: String?
+	public var derivationPath: String? /// For Accounts derived from HDWallet
 	public var publicKey: Data
 	public var accountSource: Wallet.WalletType
 
@@ -35,31 +36,14 @@ public struct Account: Codable {
 		return privateKey!.data
 	}
 
-	init(address: String, derivationPath: String? = nil, publicKey: Data) throws {
-		guard let address = EthereumAddress(address) else { throw WalletValidatorError.addressIsInvalid }
-		self.address = address
-		self.isActiveAccount = true
-		self.derivationPath = derivationPath
-		self.publicKey = publicKey
-		self.accountSource = .hdWallet
-	}
+	// MARK: - Initializers
 
-	init(privateKeyData: Data, accountSource: Wallet.WalletType = .hdWallet) throws {
+	convenience init(privateKeyData: Data, accountSource: Wallet.WalletType = .hdWallet) throws {
 		guard WalletValidator.isPrivateKeyValid(key: privateKeyData)
 		else { throw WalletOperationError.validator(.privateKeyIsInvalid) }
 		let privateKey = PrivateKey(data: privateKeyData)!
 		let publicKey = privateKey.getPublicKeySecp256k1(compressed: true)
-		guard WalletValidator.isPublicKeyValid(key: publicKey.data) else {
-			throw WalletOperationError.validator(.publicKeyIsInvalid)
-		}
-		guard let address = Utilities.publicToAddress(publicKey.data) else {
-			throw WalletOperationError.validator(.addressIsInvalid)
-		}
-		self.derivationPath = nil
-		self.publicKey = publicKey.data
-		self.address = address
-		self.isActiveAccount = true
-		self.accountSource = accountSource
+		try self.init(publicKey: publicKey.data, accountSource: accountSource)
 	}
 
 	init(publicKey: Data, accountSource: Wallet.WalletType = .hdWallet) throws {

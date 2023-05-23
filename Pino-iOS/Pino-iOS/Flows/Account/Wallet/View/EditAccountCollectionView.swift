@@ -59,8 +59,6 @@ class EditAccountCollectionView: UICollectionView {
 		delegate = self
 		dataSource = self
 	}
-
-	private func setupBindings() {}
 }
 
 extension EditAccountCollectionView: UICollectionViewDelegate {

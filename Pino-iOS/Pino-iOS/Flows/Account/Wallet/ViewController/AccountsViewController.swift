@@ -55,7 +55,7 @@ class AccountsViewController: UIViewController {
 	}
 
 	private func openEditAccountPage(selectedAccount: AccountInfoViewModel) {
-        let editAccountVM = EditAccountViewModel(selectedAccount: selectedAccount)
+		let editAccountVM = EditAccountViewModel(selectedAccount: selectedAccount)
 		let editAccountVC = EditAccountViewController(accountsVM: accountsVM, editAccountVM: editAccountVM)
 		if navigationController?.viewControllers.last is AccountsViewController {
 			navigationController?.pushViewController(editAccountVC, animated: true)

@@ -21,7 +21,11 @@ class EditAccountNameViewController: UIViewController {
 
 	// MARK: - Initializers
 
-	init(selectedAccountVM: AccountInfoViewModel!, accountsVM: AccountsViewModel, nameChanged: @escaping (String) -> Void) {
+	init(
+		selectedAccountVM: AccountInfoViewModel!,
+		accountsVM: AccountsViewModel,
+		nameChanged: @escaping (String) -> Void
+	) {
 		self.selectedAccountVM = selectedAccountVM
 		self.accountsVM = accountsVM
 		self.nameChanged = nameChanged
@@ -79,7 +83,7 @@ class EditAccountNameViewController: UIViewController {
 			didValidatedAccountName: { [weak self] error in
 				self?.showErrorMessage(error: error)
 			},
-            selectedAccount: selectedAccountVM,
+			selectedAccount: selectedAccountVM,
 			accounts: accountsVM.accountsList
 		)
 	}

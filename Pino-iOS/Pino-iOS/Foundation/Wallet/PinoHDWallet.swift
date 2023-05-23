@@ -25,9 +25,6 @@ public class PinoHDWallet: PinoHDWalletType {
 		getAllAccounts()
 	}
 
-	#warning("this is for testing purposes")
-	private var tempAccounts: [Account] = []
-
 	// MARK: - Public Methods
 
 	public func createHDWallet(mnemonics: String) -> Result<HDWallet, WalletOperationError> {
@@ -61,11 +58,11 @@ public class PinoHDWallet: PinoHDWalletType {
 			}
 
 			if accountExist(account: account) {
-				return .success(wallet)
+				return .failure(.wallet(.accountAlreadyExists))
 			} else {
 				let coreDataWallet = createWalletInCoreData(type: .hdWallet)
 				let _ = createWalletInCoreData(type: .nonHDWallet)
-				addNewAccount(account, wallet: coreDataWallet)
+				addNewAccount(account.eip55Address, wallet: coreDataWallet)
 				return .success(wallet)
 			}
 		} catch let error where error is WalletOperationError {
@@ -80,9 +77,13 @@ public class PinoHDWallet: PinoHDWalletType {
 		let derivationPath = "m/44'/60'/0'/0/\(lastIndex + 1)"
 		let privateKey = wallet.getKey(coin: coinType, derivationPath: derivationPath)
 		let publicKey = privateKey.getPublicKeySecp256k1(compressed: true)
-		var account = try Account(publicKey: publicKey.data)
+		let account = try Account(privateKeyData: privateKey.data)
 		account.derivationPath = derivationPath
 
+		// We save mnemonics with the prefix of account address in keychain
+		// but since accounts can be deleted so will the keys to mnemonics
+		// we need to save mnemonics with each created account address in case
+		// of account removal another duplicate of mnemonics would still exist in keychain
 		let encryptedMnemonicsData = encryptHdWalletMnemonics(wallet.mnemonic, forAccount: account)
 		let encryptedPrivateKeyData = encryptPrivateKey(privateKey.data, forAccount: account)
 

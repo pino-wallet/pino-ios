@@ -18,7 +18,7 @@ struct RevealPrivateKeyViewModel {
 	public let screenshotAlertMessage = "It isn't safe to take a screenshot of your private key!"
 
 	public var privateKey: String {
-        getPrivateKey()
+		getPrivateKey()
 	}
 
 	public let mockPrivateKey = String(repeating: "*", count: 90)

@@ -36,5 +36,4 @@ extension HomepageViewModel {
 	}
 
 	// MARK: Private Methods
-
 }

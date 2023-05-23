@@ -16,15 +16,15 @@ final class AccountingAPIMockClient: AccountingAPIService {
 	}
 
 	func userPortfolio(timeFrame: String) -> AnyPublisher<[ChartDataModel], APIError> {
-        Just([])
-            .setFailureType(to: APIError.self)
-            .eraseToAnyPublisher()
+		Just([])
+			.setFailureType(to: APIError.self)
+			.eraseToAnyPublisher()
 	}
 
 	func coinPerformance(timeFrame: String, tokenID: String) -> AnyPublisher<[ChartDataModel], APIError> {
-        Just([])
-            .setFailureType(to: APIError.self)
-            .eraseToAnyPublisher()
+		Just([])
+			.setFailureType(to: APIError.self)
+			.eraseToAnyPublisher()
 	}
 
 	func activateAccountWith(address: String) -> AnyPublisher<AccountActivationModel, APIError> {

@@ -11,6 +11,7 @@ class CoreDataStack {
 	// MARK: - Public Properties
 
 	public lazy var managedContext: NSManagedObjectContext = self.storeContainer.viewContext
+	public static var pinoSharedStack = CoreDataStack(modelName: "Pino_iOS")
 
 	// MARK: - Private Properties
 

@@ -16,18 +16,18 @@ struct WalletDataSource: DataSourceProtocol {
 	// MARK: - Initializers
 
 	init() {
-		fetchWallets()
+		fetchEntities()
 	}
 
-	// MARK: - Private Methods
+	// MARK: - Internal Methods
 
-	private mutating func fetchWallets() {
+	internal mutating func fetchEntities() {
 		let walletFetch: NSFetchRequest<Wallet> = Wallet.fetchRequest()
 		do {
 			let results = try managedContext.fetch(walletFetch)
 			wallets = results
 		} catch let error as NSError {
-			print("Fetch error: \(error) description: \(error.userInfo)")
+			fatalError("Fetch error: \(error) description: \(error.userInfo)")
 		}
 	}
 

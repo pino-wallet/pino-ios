@@ -53,7 +53,7 @@ class PrivateKeyTextView: UITextView, ImportTextViewType {
 		text = placeHolderText
 		textColor = .Pino.gray2
 		font = .PinoStyle.mediumBody
-		returnKeyType = UIReturnKeyType.done
+		returnKeyType = .done
 
 		enteredWordsCount.text = "0/64"
 		enteredWordsCount.textColor = .Pino.secondaryLabel

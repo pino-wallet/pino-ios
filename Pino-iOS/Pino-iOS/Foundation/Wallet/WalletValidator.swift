@@ -18,23 +18,23 @@ public enum WalletValidator {
 		}
 	}
 
-    public static func isPrivateKeyValid(key: Data) -> Bool {
+	public static func isPrivateKeyValid(key: Data) -> Bool {
 		PrivateKey.isValid(data: key, curve: .secp256k1)
 	}
 
-    public static func isPublicKeyValid(key: Data) -> Bool {
+	public static func isPublicKeyValid(key: Data) -> Bool {
 		PublicKey.isValid(data: key, type: .secp256k1)
 	}
 
-    public static func isMnemonicsValid(mnemonic: String) -> Bool {
+	public static func isMnemonicsValid(mnemonic: String) -> Bool {
 		Mnemonic.isValid(mnemonic: mnemonic)
 	}
 
-    public static func isMnemonicsValid(mnemonic: [String]) -> Bool {
+	public static func isMnemonicsValid(mnemonic: [String]) -> Bool {
 		Mnemonic.isValid(mnemonic: mnemonic.joined())
 	}
 
-    public static func isEthAddressValid(address: String) -> Bool {
+	public static func isEthAddressValid(address: String) -> Bool {
 		AnyAddress.isValid(string: address, coin: .ethereum)
 	}
 }

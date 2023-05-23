@@ -13,6 +13,7 @@ protocol DataSourceProtocol {
 	var coreDataStack: CoreDataStack { get }
 	var managedContext: NSManagedObjectContext { get }
 
+	mutating func fetchEntities()
 	func getAll() -> [CoreDataType]
 	func get(byId id: String) -> CoreDataType?
 	mutating func save(_ item: CoreDataType)
@@ -24,10 +25,10 @@ protocol DataSourceProtocol {
 
 extension DataSourceProtocol {
 	var coreDataStack: CoreDataStack {
-		AppDelegate.sharedAppDelegate.coreDataStack
+		CoreDataStack.pinoSharedStack
 	}
 
 	var managedContext: NSManagedObjectContext {
-		AppDelegate.sharedAppDelegate.coreDataStack.managedContext
+		coreDataStack.managedContext
 	}
 }

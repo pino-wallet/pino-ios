@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SelectedAssetsDataSource: DataSourceProtocol {
+struct SelectedAssetsDataSource {
 	// MARK: - Private Properties
 
 	private var selectedAssets = [SelectedAsset]()

@@ -98,13 +98,13 @@ extension AccountsCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: AccountCell.cellReuseID,
 			for: indexPath
 		) as! AccountCell
-        accountCell.accountVM = accountsVM.accountsList[indexPath.item]
+		accountCell.accountVM = accountsVM.accountsList[indexPath.item]
 		if accountsVM.accountsList[indexPath.item].isSelected {
-            accountCell.style = .selected
+			accountCell.style = .selected
 		} else {
-            accountCell.style = .regular
+			accountCell.style = .regular
 		}
-        accountCell.editButtonTapped = {
+		accountCell.editButtonTapped = {
 			self.editAccountTapped(self.accountsVM.accountsList[indexPath.item])
 		}
 		return accountCell

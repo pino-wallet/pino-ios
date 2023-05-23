@@ -12,8 +12,7 @@ class AddNewAccountViewController: UIViewController {
 
 	private let addNewAccountVM = AddNewAccountViewModel()
 	private let accountsVM: AccountsViewModel
-    private let errorToastview = PinoToastView(message: nil, style: .error, padding: 16)
-
+	private let errorToastview = PinoToastView(message: nil, style: .error, padding: 16)
 
 	// MARK: - Initializers
 
@@ -41,8 +40,8 @@ class AddNewAccountViewController: UIViewController {
 
 	private func setupView() {
 		view = AddNewAccountCollectionView(
-            addNewAccountVM: addNewAccountVM,
-            openAddNewAccountPageClosure: { [weak self] option in
+			addNewAccountVM: addNewAccountVM,
+			openAddNewAccountPageClosure: { [weak self] option in
 				self?.openAddNewAccountPage(option: option)
 			}
 		)
@@ -60,14 +59,14 @@ class AddNewAccountViewController: UIViewController {
 			// New Wallet should be created
 			// Loading should be shown
 			// Homepage in the new account should be opened
-            accountsVM.createNewAccount { error in
-                guard let error else {
-                    self.errorToastview.message = error?.localizedDescription
-                    self.errorToastview.showToast()
-                    return
-                }
-                self.dismiss(animated: true)
-            }
+			accountsVM.createNewAccount { error in
+				guard let error else {
+					self.errorToastview.message = error?.localizedDescription
+					self.errorToastview.showToast()
+					return
+				}
+				self.dismiss(animated: true)
+			}
 		case .Import:
 			let importWalletVC = ImportSecretPhraseViewController()
 			importWalletVC.isNewWallet = false
@@ -79,13 +78,13 @@ class AddNewAccountViewController: UIViewController {
 	}
 
 	private func importAccountWithKey(_ privateKey: String) {
-        accountsVM.importAccountWith(privateKey: privateKey) { error in
-            guard let error else {
-                self.errorToastview.message = error?.localizedDescription
-                self.errorToastview.showToast()
-                return
-            }
-            self.dismiss(animated: true)
-        }
+		accountsVM.importAccountWith(privateKey: privateKey) { error in
+			guard let error else {
+				self.errorToastview.message = error?.localizedDescription
+				self.errorToastview.showToast()
+				return
+			}
+			self.dismiss(animated: true)
+		}
 	}
 }

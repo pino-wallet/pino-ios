@@ -16,7 +16,7 @@ protocol PinoWallet {
 	func encryptPrivateKey(_ key: Data, forAccount account: Account) -> Data
 	func decryptPrivateKey(fromEncryptedData encryptedData: Data, forAccount account: Account) -> Data
 	func getAllAccounts() -> [Account]
-	mutating func addNewAccount(_ account: Account, wallet: Wallet)
+	mutating func addNewAccount(_ address: String, wallet: Wallet)
 }
 
 extension PinoWallet {
@@ -47,7 +47,23 @@ extension PinoWallet {
 		}
 	}
 
-	// MARK: - Private Methods
+	public func getAllAccounts() -> [Account] {
+		coreDataManager.getAllWalletAccounts().map(Account.init)
+	}
+
+	public func addNewAccount(_ address: String, wallet: Wallet) {
+		let avatar = Avatar.randAvatar()
+
+		coreDataManager.createWalletAccount(
+			address: address,
+			name: avatar.name,
+			avatarIcon: avatar.rawValue,
+			avatarColor: avatar.rawValue,
+			wallet: wallet
+		)
+	}
+
+	// MARK: - Internal Methods
 
 	@discardableResult
 	internal func encryptPrivateKey(_ key: Data, forAccount account: Account) -> Data {
@@ -71,21 +87,5 @@ extension PinoWallet {
 		} else {
 			return nil
 		}
-	}
-
-	public func getAllAccounts() -> [Account] {
-		coreDataManager.getAllWalletAccounts().map(Account.init)
-	}
-
-	public func addNewAccount(_ account: Account, wallet: Wallet) {
-		let avatar = Avatar.randAvatar()
-
-		coreDataManager.createWalletAccount(
-			address: account.eip55Address,
-			name: avatar.name,
-			avatarIcon: avatar.rawValue,
-			avatarColor: avatar.rawValue,
-			wallet: wallet
-		)
 	}
 }

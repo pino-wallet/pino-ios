@@ -19,7 +19,7 @@ class ImportSecretPhraseView: UIView {
 	private let seedPhrasePasteButton = UIButton()
 	private let errorLabel = UILabel()
 	private let errorIcon = UIImageView()
-	private var validationPhraseVM: ImportAccountViewModel
+	private var importAccountVM: ImportAccountViewModel
 	private let importButton = PinoButton(style: .deactive)
 
 	// MARK: - Public Properties
@@ -39,7 +39,7 @@ class ImportSecretPhraseView: UIView {
 		textViewType: ImportTextViewType,
 		importBtnTapped: @escaping () -> Void
 	) {
-		self.validationPhraseVM = validationPharaseVM
+		self.importAccountVM = validationPharaseVM
 		self.importTextView = textViewType
 		if let seedPhraseTextView = importTextView as? SecretPhraseTextView {
 			seedPhraseTextView.seedPhraseMaxCount = validationPharaseVM.maxSeedPhraseCount
@@ -99,12 +99,12 @@ extension ImportSecretPhraseView {
 	}
 
 	private func setupStyle() {
-		titleLabel.text = validationPhraseVM.title
-		descriptionLabel.text = validationPhraseVM.description
-		errorLabel.text = validationPhraseVM.errorTitle
-		errorIcon.image = UIImage(systemName: validationPhraseVM.errorIcon)
-		importButton.title = validationPhraseVM.continueButtonTitle
-		seedPhrasePasteButton.setTitle(validationPhraseVM.pasteButtonTitle, for: .normal)
+		titleLabel.text = importAccountVM.title
+		descriptionLabel.text = importAccountVM.description
+		errorLabel.text = importAccountVM.errorTitle
+		errorIcon.image = UIImage(systemName: importAccountVM.errorIcon)
+		importButton.title = importAccountVM.continueButtonTitle
+		seedPhrasePasteButton.setTitle(importAccountVM.pasteButtonTitle, for: .normal)
 
 		backgroundColor = .Pino.secondaryBackground
 
