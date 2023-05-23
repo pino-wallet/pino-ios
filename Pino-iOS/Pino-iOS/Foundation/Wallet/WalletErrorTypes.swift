@@ -16,6 +16,7 @@ public enum WalletError: LocalizedError {
 	case accountAlreadyExists
 	case accountNotFound
 	case accountDeletionFailed
+    case accountActivationFailed(Error)
 	case unknownError
 
 	public var errorDescription: String? {
@@ -32,6 +33,8 @@ public enum WalletError: LocalizedError {
 			return "Account could not be found"
 		case .accountDeletionFailed:
 			return "Failed to delete account"
+        case .accountActivationFailed:
+            return "Failed to activate your account"
 		case .unknownError:
 			return "Unknown Error"
 		}

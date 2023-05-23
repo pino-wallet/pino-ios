@@ -45,8 +45,8 @@ class AccountsViewModel {
 			activateNewAccountAddress(
 				createdAccount.eip55Address,
 				derivationPath: createdAccount.derivationPath
-			) {
-				completion(nil)
+			) { error in
+				completion(error)
 			}
 		} catch {
 			completion(error)
@@ -57,8 +57,8 @@ class AccountsViewModel {
 		let importedAccount = pinoWalletManager.importAccount(privateKey: privateKey)
 		switch importedAccount {
 		case let .success(account):
-			activateNewAccountAddress(account.eip55Address) {
-				completion(nil)
+			activateNewAccountAddress(account.eip55Address) { error in
+				completion(error)
 			}
 		case let .failure(error):
 			completion(error)
@@ -68,7 +68,7 @@ class AccountsViewModel {
 	public func activateNewAccountAddress(
 		_ address: String,
 		derivationPath: String? = nil,
-		completion: @escaping () -> Void
+		completion: @escaping (Error?) -> Void
 	) {
 		accountingAPIClient.activateAccountWith(address: address)
 			.retry(3)
@@ -77,11 +77,11 @@ class AccountsViewModel {
 				case .finished:
 					print("Wallet activated")
 				case let .failure(error):
-					print(error)
+                    completion(WalletOperationError.wallet(.accountActivationFailed(error)))
 				}
 			}) { activatedAccount in
 				self.addNewWalletAccountWithAddress(address, derivationPath: derivationPath)
-				completion()
+				completion(nil)
 			}.store(in: &cancellables)
 	}
 
