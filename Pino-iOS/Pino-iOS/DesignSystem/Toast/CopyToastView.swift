@@ -8,15 +8,10 @@
 import UIKit
 
 public class CopyToastView: UIView {
-	// MARK: - TypeAliases
-
-	typealias superViewDetails = (superView: UIView?, isPresentedVC: Bool)
-
 	// MARK: - Private Properties
 
 	private let toastLabel = UILabel()
 	private var isShowingToast = false
-	private var paddingFromTop: CGFloat!
 
 	// MARK: - Public Properties
 
@@ -45,10 +40,9 @@ public class CopyToastView: UIView {
 	public func showToast() {
 		if !isShowingToast {
 			isShowingToast = true
-			if let superViewDetails = getSuperViewDetails() {
-				paddingFromTop = superViewDetails.isPresentedVC ? 78 : 32
+			if let superView = superView() {
 				alpha = 0
-				pin(.centerX, .top(to: superViewDetails.superView?.layoutMarginsGuide, padding: paddingFromTop))
+				pin(.centerX, .top(to: superView.layoutMarginsGuide, padding: 32))
 				frame.origin = CGPoint(x: frame.origin.x, y: 10)
 				updateCornerRadius()
 				UIView.animate(
@@ -59,7 +53,7 @@ public class CopyToastView: UIView {
 				) { [weak self] in
 					guard let self else { return }
 					self.alpha = 1
-					self.frame.origin = CGPoint(x: self.frame.origin.x, y: self.paddingFromTop)
+					self.frame.origin = CGPoint(x: self.frame.origin.x, y: 32)
 				} completion: { _ in
 					UIView.animate(
 						withDuration: 0.8,
@@ -101,7 +95,7 @@ public class CopyToastView: UIView {
 		)
 	}
 
-	private func getSuperViewDetails() -> superViewDetails! {
+	private func superView() -> UIView? {
 		let currentWindow = UIApplication
 			.shared
 			.connectedScenes
@@ -113,15 +107,9 @@ public class CopyToastView: UIView {
 			if let tabBarController = topController as? UITabBarController {
 				topController = tabBarController.viewControllers?.first ?? topController
 			}
-			var superView = topController.view
-			if topController.presentedViewController != nil {
-				superView = topController.presentedViewController?.view
-				superView?.addSubview(self)
-				return (superView: superView, isPresentedVC: true)
-			} else {
-				superView?.addSubview(self)
-				return (superView: superView, isPresentedVC: false)
-			}
+			let superView = topController.view
+			superView?.addSubview(self)
+			return superView
 		} else {
 			return nil
 		}

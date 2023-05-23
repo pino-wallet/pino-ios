@@ -9,5 +9,5 @@ class AccountHeaderViewModel {
 	// MARK: - Public Properties
 
 	public let accountsTitleText = "Accounts"
-	public let copyMessage = "Copied!"
+	public let copyMessage = "Wallet address has been copied"
 }

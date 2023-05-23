@@ -17,7 +17,7 @@ class AccountHeaderView: UICollectionReusableView {
 	private let walletAddress = UILabel()
 	private let accountSettingsTitle = UILabel()
 	private let accountHeaderVM = AccountHeaderViewModel()
-	private let copyToastView = CopyToastView(message: nil)
+	private let copyToastView = PinoToastView(message: nil, style: .secondary, padding: 80)
 
 	// MARK: - Public Properties
 
