@@ -112,7 +112,7 @@ public class PinoTextFieldView: UIView {
 		textField.font = .PinoStyle.mediumBody
 		textFieldStackView.axis = .vertical
 		textFieldStackView.spacing = 8
-		textField.keyboardType = .alphabet
+		textField.keyboardType = .asciiCapable
 	}
 
 	private func updateStyle() {
