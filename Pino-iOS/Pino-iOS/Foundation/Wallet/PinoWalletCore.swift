@@ -77,15 +77,4 @@ extension PinoWallet {
 		)
 	}
 
-	internal func saveCredsInKeychain(
-		keychainManagerType: KeychainManager,
-		data: Data,
-		key: String
-	) -> WalletOperationError? {
-		if !keychainManagerType.setValue(value: data, key: key) {
-			return .keyManager(.mnemonicsStorageFailed)
-		} else {
-			return nil
-		}
-	}
 }

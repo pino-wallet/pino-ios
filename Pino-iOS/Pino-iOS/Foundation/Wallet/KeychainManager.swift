@@ -12,20 +12,24 @@ import Web3Core
 enum KeychainManager: String {
 	case mnemonics
 	case privateKey
-	case mainAddress
 
 	public func getValueWith(key: String) -> Data? {
 		let keychainHelper = KeychainSwift()
 		return keychainHelper.getData("\(self)\(key)")
 	}
 
-	public func setValue(value: Data, key: String) -> Bool {
+	public func setValue(value: Data, key: String) -> WalletOperationError? {
 		let keychainHelper = KeychainSwift()
 		if getValueWith(key: key) != nil {
 			// Value already exists
-			return true
+			return nil
 		} else {
-			return keychainHelper.set(value, forKey: "\(self)\(key)")
+            switch self {
+            case .mnemonics:
+                return .keyManager(.mnemonicsStorageFailed)
+            case .privateKey:
+                return .keyManager(.privateKeyStorageFailed)
+            }
 		}
 	}
 

@@ -39,28 +39,30 @@ struct AllDoneViewModel {
 
 	mutating func createWallet(mnemonics: String, walletCreated: @escaping (String) -> Void) {
 		#warning("should have a fallback plan in case request failed")
-		let wallet = pinoWalletManager.createHDWallet(mnemonics: mnemonics)
-		switch wallet {
-		case let .success(createdWallet):
-			createInitialWallet(createdWallet)
-			accountingAPIClient.activateAccountWith(address: pinoWalletManager.currentAccount.eip55Address)
-				.retry(3)
-				.sink(receiveCompletion: { completed in
-					switch completed {
-					case .finished:
-						print("Wallet balance received successfully")
-					case let .failure(error):
-						print(error)
-					}
-				}) { activatedAccount in
-					print(activatedAccount.id)
-					walletCreated(activatedAccount.id)
-				}.store(in: &cancellables)
-		case let .failure(error):
-			fatalError(error.localizedDescription)
-		}
+        if let error = pinoWalletManager.createHDWallet(mnemonics: mnemonics) {
+            fatalError(error.localizedDescription)
+        }
+        
+        accountingAPIClient.activateAccountWith(address: pinoWalletManager.currentAccount.eip55Address)
+            .retry(3)
+            .sink(receiveCompletion: { completed in
+                switch completed {
+                case .finished:
+                    print("Wallet balance received successfully")
+                case let .failure(error):
+                    print(error)
+                }
+            }) { activatedAccount in
+                print(activatedAccount.id)
+                walletCreated(activatedAccount.id)
+            }.store(in: &cancellables)
+		
 	}
 
-	#warning("// Here the wallet should be created not the account")
-	private func createInitialWallet(_ wallet: HDWallet) {}
+	private func createInitialWalletsInCoreData() {
+        let coreDataManager = CoreDataManager()
+        coreDataManager.createWallet(type: .hdWallet, lastDrivedIndex: 0)
+        coreDataManager.createWallet(type: .nonHDWallet)
+    }
+    
 }

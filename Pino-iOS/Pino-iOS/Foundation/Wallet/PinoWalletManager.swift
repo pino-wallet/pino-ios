@@ -50,9 +50,8 @@ class PinoWalletManager: WalletManagement {
 		HDWallet.generateMnemonic(seedPhraseCount: .word12)
 	}
 
-	public func createHDWallet(mnemonics: String) -> Result<HDWallet, WalletOperationError> {
-		let hdWallet = pinoHDWallet.createHDWallet(mnemonics: mnemonics)
-		return hdWallet
+	public func createHDWallet(mnemonics: String) -> WalletOperationError? {
+        pinoHDWallet.createInitialHDWallet(mnemonics: mnemonics)
 	}
 
 	public func exportMnemonics() -> (string: String, array: [String]) {

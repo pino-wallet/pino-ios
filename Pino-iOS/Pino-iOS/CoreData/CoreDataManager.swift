@@ -22,6 +22,7 @@ class CoreDataManager {
 		walletDataSource.get(byType: type)
 	}
 
+    @discardableResult
 	public func createWallet(type: Wallet.WalletType, lastDrivedIndex: Int32 = 0) -> Wallet {
 		let newWallet = Wallet(context: walletDataSource.managedContext)
 		newWallet.walletType = type
