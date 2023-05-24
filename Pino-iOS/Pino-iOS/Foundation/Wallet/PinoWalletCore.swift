@@ -34,5 +34,4 @@ extension PinoWallet {
 			withPublicKeyLabel: KeychainManager.privateKey.getKey(account.eip55Address)
 		)
 	}
-
 }

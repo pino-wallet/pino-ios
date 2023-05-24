@@ -32,7 +32,7 @@ public struct AccountInfoViewModel: Equatable {
 		walletAccountInfoModel.avatarColor
 	}
 
-    #warning("It has to be refactored later")
+	#warning("It has to be refactored later")
 	public var balance: String {
 		"$0"
 	}

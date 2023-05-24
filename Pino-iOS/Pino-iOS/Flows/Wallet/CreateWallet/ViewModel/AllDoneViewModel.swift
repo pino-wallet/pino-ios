@@ -38,28 +38,27 @@ struct AllDoneViewModel {
 	// MARK: - Public Methods
 
 	mutating func createWallet(mnemonics: String, walletCreated: @escaping (WalletOperationError?) -> Void) {
-        if let error = pinoWalletManager.createHDWallet(mnemonics: mnemonics) {
-            fatalError(error.localizedDescription)
-        }
-        
-        accountingAPIClient.activateAccountWith(address: pinoWalletManager.currentAccount.eip55Address)
-            .retry(3)
-            .sink(receiveCompletion: { completed in
-                switch completed {
-                case .finished:
-                    walletCreated(nil)
-                case let .failure(error):
-                    walletCreated(.wallet(.accountActivationFailed(error)))
-                }
-            }) { activatedAccount in
-                walletCreated(nil)
-            }.store(in: &cancellables)
+		if let error = pinoWalletManager.createHDWallet(mnemonics: mnemonics) {
+			fatalError(error.localizedDescription)
+		}
+
+		accountingAPIClient.activateAccountWith(address: pinoWalletManager.currentAccount.eip55Address)
+			.retry(3)
+			.sink(receiveCompletion: { completed in
+				switch completed {
+				case .finished:
+					walletCreated(nil)
+				case let .failure(error):
+					walletCreated(.wallet(.accountActivationFailed(error)))
+				}
+			}) { activatedAccount in
+				walletCreated(nil)
+			}.store(in: &cancellables)
 	}
 
 	private func createInitialWalletsInCoreData() {
-        let coreDataManager = CoreDataManager()
-        coreDataManager.createWallet(type: .hdWallet, lastDrivedIndex: 0)
-        coreDataManager.createWallet(type: .nonHDWallet)
-    }
-    
+		let coreDataManager = CoreDataManager()
+		coreDataManager.createWallet(type: .hdWallet, lastDrivedIndex: 0)
+		coreDataManager.createWallet(type: .nonHDWallet)
+	}
 }

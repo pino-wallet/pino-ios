@@ -11,8 +11,7 @@ class AllDoneViewController: UIViewController {
 	// MARK: Private Properties
 
 	private var allDoneVM = AllDoneViewModel()
-    private let errorToastView = PinoToastView(message: nil, style: .error, padding: 24)
-
+	private let errorToastView = PinoToastView(message: nil, style: .error, padding: 24)
 
 	// MARK: Public Properties
 
@@ -40,10 +39,10 @@ class AllDoneViewController: UIViewController {
 
 	private func getStarted() {
 		allDoneVM.createWallet(mnemonics: walletMnemonics) { error in
-            if let error {
-                self.errorToastView.message = error.localizedDescription
-                self.errorToastView.showToast()
-            }
+			if let error {
+				self.errorToastView.message = error.localizedDescription
+				self.errorToastView.showToast()
+			}
 			UserDefaults.standard.set(true, forKey: "isLogin")
 			let tabBarVC = TabBarViewController()
 			tabBarVC.modalPresentationStyle = .fullScreen

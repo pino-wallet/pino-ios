@@ -16,7 +16,7 @@ public class Account: Codable {
 	public var derivationPath: String? /// For Accounts derived from HDWallet
 	public var publicKey: Data
 	public var accountSource: Wallet.WalletType
-    
+
 	public var eip55Address: String {
 		address.address
 	}
