@@ -40,9 +40,9 @@ class PortfolioPerformanceViewController: UIViewController {
 		let portfolioPerformaneVM = PortfolioPerformanceViewModel(assets: assets)
 		view = PortfolioPerformanceCollectionView(
 			portfolioPerformanceVM: portfolioPerformaneVM,
-			assetSelected: { selectedAsset in
-				if let selectedAsset = selectedAsset as? ShareOfAssetsViewModel {
-					self.openCoinPerformancePage(selectedAsset: selectedAsset)
+			assetSelected: { shareOfAsset in
+				if let shareOfAsset = shareOfAsset as? ShareOfAssetsViewModel {
+					self.openCoinPerformancePage(selectedAsset: shareOfAsset.assetVM)
 				} else {
 					// Open others page if nedded
 				}
@@ -70,7 +70,7 @@ class PortfolioPerformanceViewController: UIViewController {
 		dismiss(animated: true)
 	}
 
-	private func openCoinPerformancePage(selectedAsset: ShareOfAssetsViewModel) {
+	private func openCoinPerformancePage(selectedAsset: AssetViewModel) {
 		let coinPerformanceVC = CoinPerformanceViewController(selectedAsset: selectedAsset)
 		coinPerformanceVC.modalPresentationStyle = .automatic
 		let navigationVC = UINavigationController(rootViewController: coinPerformanceVC)
