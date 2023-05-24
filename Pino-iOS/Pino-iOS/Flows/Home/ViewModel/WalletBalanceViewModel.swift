@@ -6,11 +6,9 @@
 //
 
 class WalletBalanceViewModel: SecurityModeProtocol {
-	// MARK: - Private Properties
-
-	private var balanceModel: WalletBalanceModel!
-
 	// MARK: - Public Properties
+
+	public var balanceModel: WalletBalanceModel!
 
 	public var securityMode = false
 

@@ -6,7 +6,6 @@
 //
 
 public enum ChartDateFilter: String {
-	case hour = "1H"
 	case day = "1D"
 	case week = "1W"
 	case month = "1M"
@@ -15,8 +14,6 @@ public enum ChartDateFilter: String {
 
 	public var timeFrame: String {
 		switch self {
-		case .hour:
-			return "1h"
 		case .day:
 			return "1d"
 		case .week:

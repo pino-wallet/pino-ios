@@ -21,7 +21,7 @@ struct AssetChartViewModel {
 	}
 
 	public var dateFilters: [ChartDateFilter] {
-		[.hour, .day, .week, .month, .year, .all]
+		[.day, .week, .month, .year, .all]
 	}
 
 	public var balance: String {
@@ -37,12 +37,8 @@ struct AssetChartViewModel {
 	}
 
 	public var chartDate: String {
-		if let firstDate = chartDataVM.first!.date, let lastDate = chartDataVM.last!.date {
-			let chartDateBuilder = ChartDateBuilder(dateFilter: dateFilter)
-			return chartDateBuilder.dateRange(firstDate: firstDate, lastDate: lastDate)
-		} else {
-			return ""
-		}
+		let chartDateBuilder = ChartDateBuilder(dateFilter: dateFilter)
+		return chartDateBuilder.timeFrame()
 	}
 
 	init(chartDataVM: [AssetChartDataViewModel], dateFilter: ChartDateFilter) {
