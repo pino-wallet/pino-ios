@@ -4,6 +4,7 @@
 //
 //  Created by Sobhan Eskandari on 5/8/23.
 //
+import Foundation
 
 class CoreDataManager {
 	// MARK: - Private Properties
@@ -47,7 +48,8 @@ class CoreDataManager {
 	@discardableResult
 	public func createWalletAccount(
 		address: String,
-		derivationPath: String? = nil,
+        derivationPath: String? = nil,
+        publicKey: Data,
 		name: String,
 		avatarIcon: String,
 		avatarColor: String,
@@ -56,7 +58,7 @@ class CoreDataManager {
 	) -> WalletAccount {
 		let newAccount = WalletAccount(context: accountDataSource.managedContext)
 		newAccount.eip55Address = address
-		newAccount.publicKey = .empty
+		newAccount.publicKey = publicKey
 		newAccount.derivationPath = derivationPath
 		newAccount.name = name
 		newAccount.avatarIcon = avatarIcon

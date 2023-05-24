@@ -37,8 +37,7 @@ struct AllDoneViewModel {
 
 	// MARK: - Public Methods
 
-	mutating func createWallet(mnemonics: String, walletCreated: @escaping (String) -> Void) {
-		#warning("should have a fallback plan in case request failed")
+	mutating func createWallet(mnemonics: String, walletCreated: @escaping (WalletOperationError?) -> Void) {
         if let error = pinoWalletManager.createHDWallet(mnemonics: mnemonics) {
             fatalError(error.localizedDescription)
         }
@@ -48,15 +47,13 @@ struct AllDoneViewModel {
             .sink(receiveCompletion: { completed in
                 switch completed {
                 case .finished:
-                    print("Wallet balance received successfully")
+                    walletCreated(nil)
                 case let .failure(error):
-                    print(error)
+                    walletCreated(.wallet(.accountActivationFailed(error)))
                 }
             }) { activatedAccount in
-                print(activatedAccount.id)
-                walletCreated(activatedAccount.id)
+                walletCreated(nil)
             }.store(in: &cancellables)
-		
 	}
 
 	private func createInitialWalletsInCoreData() {

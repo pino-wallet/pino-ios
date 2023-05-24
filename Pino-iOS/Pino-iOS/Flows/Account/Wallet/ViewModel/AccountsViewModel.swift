@@ -43,7 +43,8 @@ class AccountsViewModel {
 			let createdAccount = try pinoWalletManager
 				.createAccount(lastAccountIndex: Int(currentWallet.lastDrivedIndex))
 			activateNewAccountAddress(
-				createdAccount.eip55Address,
+                createdAccount.eip55Address,
+                publicKey: createdAccount.publicKey,
 				derivationPath: createdAccount.derivationPath
 			) { error in
 				completion(error)
@@ -57,7 +58,7 @@ class AccountsViewModel {
 		let importedAccount = pinoWalletManager.importAccount(privateKey: privateKey)
 		switch importedAccount {
 		case let .success(account):
-			activateNewAccountAddress(account.eip55Address) { error in
+            activateNewAccountAddress(account.eip55Address, publicKey: account.publicKey) { error in
 				completion(error)
 			}
 		case let .failure(error):
@@ -67,6 +68,7 @@ class AccountsViewModel {
 
 	public func activateNewAccountAddress(
 		_ address: String,
+        publicKey: Data,
 		derivationPath: String? = nil,
 		completion: @escaping (Error?) -> Void
 	) {
@@ -80,12 +82,12 @@ class AccountsViewModel {
                     completion(WalletOperationError.wallet(.accountActivationFailed(error)))
 				}
 			}) { activatedAccount in
-				self.addNewWalletAccountWithAddress(address, derivationPath: derivationPath)
+                self.addNewWalletAccountWithAddress(address, derivationPath: derivationPath, publicKey: publicKey)
 				completion(nil)
 			}.store(in: &cancellables)
 	}
 
-	private func addNewWalletAccountWithAddress(_ address: String, derivationPath: String? = nil) {
+    private func addNewWalletAccountWithAddress(_ address: String, derivationPath: String? = nil, publicKey: Data) {
 		let wallet = coreDataManager.getAllWallets().first(where: { $0.walletType == .nonHDWallet })
 		let walletsAvatar = accountsList.map { $0.profileImage }
 		let walletsName = accountsList.map { $0.name }
@@ -97,7 +99,8 @@ class AccountsViewModel {
 
 		coreDataManager.createWalletAccount(
 			address: address,
-			derivationPath: derivationPath,
+            derivationPath: derivationPath,
+            publicKey: publicKey,
 			name: newAvatar.name,
 			avatarIcon: newAvatar.rawValue,
 			avatarColor: newAvatar.rawValue,

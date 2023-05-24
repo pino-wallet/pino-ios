@@ -12,6 +12,8 @@ import WalletCore
 public typealias HDWallet = WalletCore.HDWallet
 
 extension HDWallet {
+    
+    
 	public enum SeedPhraseCount {
 		case word12
 

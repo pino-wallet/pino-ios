@@ -13,11 +13,10 @@ public class Account: Codable {
 	// MARK: - Public Property
 
 	public var address: EthereumAddress
-	public var isActiveAccount: Bool
 	public var derivationPath: String? /// For Accounts derived from HDWallet
 	public var publicKey: Data
 	public var accountSource: Wallet.WalletType
-
+    
 	public var eip55Address: String {
 		address.address
 	}
@@ -56,7 +55,6 @@ public class Account: Codable {
 		self.derivationPath = nil
 		self.publicKey = publicKey
 		self.address = address
-		self.isActiveAccount = true
 		self.accountSource = accountSource
 	}
 
@@ -64,7 +62,6 @@ public class Account: Codable {
 		self.derivationPath = account.derivationPath
 		self.publicKey = account.publicKey
 		self.address = EthereumAddress(account.eip55Address)!
-		self.isActiveAccount = account.isSelected
 		self.accountSource = account.wallet.walletType
 	}
 }

@@ -12,18 +12,14 @@ import Web3Core
 protocol PinoHDWalletType: PinoWallet {
     func createInitialHDWallet(mnemonics: String) -> WalletOperationError?
     func createAccountIn(wallet: HDWallet, lastIndex: Int) throws -> Account
+    func createHDWallet(mnemonics: String) -> Result<HDWallet, WalletOperationError> 
 }
 
 public class PinoHDWallet: PinoHDWalletType {
+   
     // MARK: - Private Properties
     
     private var secureEnclave = SecureEnclave()
-    
-    // MARK: - Public Properties
-    
-    public var accounts: [Account] {
-        getAllAccounts()
-    }
     
     // MARK: - Public Methods
     
@@ -68,7 +64,7 @@ public class PinoHDWallet: PinoHDWalletType {
         
     }
     
-    private func createHDWallet(mnemonics: String) -> Result<HDWallet, WalletOperationError> {
+    public func createHDWallet(mnemonics: String) -> Result<HDWallet, WalletOperationError> {
         guard WalletValidator.isMnemonicsValid(mnemonic: mnemonics) else {
             return .failure(.validator(.mnemonicIsInvalid))
         }
