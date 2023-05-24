@@ -10,7 +10,7 @@ import WalletCore
 import Web3Core
 
 protocol PinoHDWalletType: PinoWallet {
-	func createInitialHDWallet(mnemonics: String) -> WalletOperationError?
+    func createInitialHDWallet(mnemonics: String) -> Result<Account,WalletOperationError>
 	func createAccountIn(wallet: HDWallet, lastIndex: Int) throws -> Account
 	func createHDWallet(mnemonics: String) -> Result<HDWallet, WalletOperationError>
 }
@@ -22,7 +22,7 @@ public class PinoHDWallet: PinoHDWalletType {
 
 	// MARK: - Public Methods
 
-	public func createInitialHDWallet(mnemonics: String) -> WalletOperationError? {
+	public func createInitialHDWallet(mnemonics: String) -> Result<Account,WalletOperationError> {
 		let hdWalelt = createHDWallet(mnemonics: mnemonics)
 		switch hdWalelt {
 		case let .success(createdWallet):
@@ -31,34 +31,32 @@ public class PinoHDWallet: PinoHDWalletType {
 			case let .success(account):
 
 				let encryptedMnemonicsData = encryptHdWalletMnemonics(createdWallet.mnemonic, forAccount: account)
-				let encryptedPrivateKeyData = encryptPrivateKey(account.privateKey, forAccount: account)
-
 				if let error = KeychainManager.mnemonics.setValue(
 					value: encryptedMnemonicsData,
 					key: account.eip55Address
 				) {
-					return error
+                    return .failure(error)
 				}
-				if let error = KeychainManager.privateKey.setValue(
-					value: encryptedPrivateKeyData,
-					key: account.eip55Address
-				) {
-					return error
-				}
-
-			case let .failure(failure):
-				return failure
+                return .success(account)
+			case let .failure(error):
+                return .failure(error)
 			}
 		case let .failure(error):
-			return error
+            return .failure(error)
 		}
-		return nil
 	}
 
 	private func createInitialAccountIn(wallet: HDWallet) -> Result<Account, WalletOperationError> {
 		let firstAccountPrivateKey = getPrivateKeyOfFirstAccount(wallet: wallet)
 		do {
 			let account = try Account(privateKeyData: firstAccountPrivateKey)
+            let encryptedPrivateKeyData = encryptPrivateKey(firstAccountPrivateKey, forAccount: account)
+            if let error = KeychainManager.privateKey.setValue(
+                value: encryptedPrivateKeyData,
+                key: account.eip55Address
+            ) {
+                return .failure(error)
+            }
 			return .success(account)
 		} catch let error where error is WalletOperationError {
 			return .failure(error as! WalletOperationError)
