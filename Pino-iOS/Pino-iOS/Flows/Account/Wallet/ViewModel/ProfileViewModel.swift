@@ -12,13 +12,13 @@ class ProfileViewModel {
 	// MARK: - Public Properties
 
 	@Published
-	public var walletInfo: WalletInfoViewModel!
+	public var walletInfo: AccountInfoViewModel!
 	public var accountSettings: [SettingsViewModel]!
 	public var generalSettings: [SettingsViewModel]!
 
 	// MARK: - Initializers
 
-	init(walletInfo: WalletInfoViewModel) {
+	init(walletInfo: AccountInfoViewModel) {
 		self.walletInfo = walletInfo
 		setupSettings()
 	}

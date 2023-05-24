@@ -71,8 +71,8 @@ extension AvatarCollectionView: UICollectionViewDelegateFlowLayout {
 
 extension AvatarCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		avatarVM.selectedAvatar = avatarVM.avatarsList[indexPath.row]
-		avatarSelected(avatarVM.avatarsList[indexPath.row])
+		avatarVM.selectedAvatar = avatarVM.avatarsList[indexPath.row].rawValue
+		avatarSelected(avatarVM.avatarsList[indexPath.row].rawValue)
 		reloadData()
 	}
 }
@@ -92,8 +92,8 @@ extension AvatarCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: AvatarCell.cellReuseID,
 			for: indexPath
 		) as! AvatarCell
-		avatarCell.avatarName = avatarVM.avatarsList[indexPath.item]
-		if avatarVM.avatarsList[indexPath.item] == avatarVM.selectedAvatar {
+		avatarCell.avatarName = avatarVM.avatarsList[indexPath.item].rawValue
+		if avatarVM.avatarsList[indexPath.item].rawValue == avatarVM.selectedAvatar {
 			avatarCell.style = .selected
 		} else {
 			avatarCell.style = .regular

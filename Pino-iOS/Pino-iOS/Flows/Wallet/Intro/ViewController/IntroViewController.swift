@@ -44,6 +44,7 @@ class IntroViewController: UIViewController {
 
 	private func goToImportWalletPage() {
 		let importSecretPhrasePage = ImportSecretPhraseViewController()
+		importSecretPhrasePage.isNewWallet = true
 		navigationController?.pushViewController(importSecretPhrasePage, animated: true)
 	}
 }

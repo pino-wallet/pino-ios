@@ -52,23 +52,10 @@ class CoinInfoViewController: UIViewController {
 			target: self,
 			action: #selector(dismissCoinInfo)
 		)
-		// Setup chart button
-		navigationItem.rightBarButtonItem = UIBarButtonItem(
-			image: UIImage(named: "chart"),
-			style: .plain,
-			target: self,
-			action: #selector(openCoinInfoChartPage)
-		)
 	}
 
 	@objc
 	private func dismissCoinInfo() {
 		dismiss(animated: true)
-	}
-
-	@objc
-	private func openCoinInfoChartPage() {
-		let coinInfoChartVC = CoinInfoChartViewController()
-		navigationController!.pushViewController(coinInfoChartVC, animated: true)
 	}
 }

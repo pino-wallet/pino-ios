@@ -12,20 +12,28 @@ final class AccountingAPIClient: AccountingAPIService {
 	// MARK: - Private Properties
 
 	private let networkManager = NetworkManager<AccountingEndpoint>(keychainService: KeychainSwift())
+	private let pinoWalletManager = PinoWalletManager()
+	private var currentAccountAdd: String {
+		pinoWalletManager.currentAccount.eip55Address
+	}
 
 	// MARK: - Public Methods
 
 	public func userBalance() -> AnyPublisher<BalanceModel, APIError> {
-		networkManager.request(.balances)
+		networkManager.request(.balances(accountADD: currentAccountAdd))
 	}
 
 	public func userPortfolio(timeFrame: String) -> AnyPublisher<[ChartDataModel], APIError> {
-		networkManager.request(.portfolio(timeFrame: timeFrame))
+		networkManager.request(.portfolio(timeFrame: timeFrame, accountADD: currentAccountAdd))
 	}
 
-	public func coinPerformance(timeFrame: String, tokenID: String = AccountingEndpoint.ethID)
+	public func coinPerformance(timeFrame: String, tokenID: String)
 		-> AnyPublisher<[ChartDataModel], APIError> {
-		networkManager.request(.coinPerformance(timeFrame: timeFrame, tokenID: tokenID))
+		networkManager.request(.coinPerformance(timeFrame: timeFrame, tokenID: tokenID, accountADD: currentAccountAdd))
+	}
+
+	func activateAccountWith(address: String) -> AnyPublisher<AccountActivationModel, APIError> {
+		networkManager.request(.activateAccountWith(address: address))
 	}
 }
 

@@ -58,4 +58,8 @@ extension String {
 	public var utf8Data: Data {
 		data(using: .utf8)!
 	}
+
+	public static var emptyString: Self {
+		""
+	}
 }
