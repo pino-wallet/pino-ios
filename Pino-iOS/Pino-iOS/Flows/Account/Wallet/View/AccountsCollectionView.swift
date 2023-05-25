@@ -9,23 +9,26 @@ import Combine
 import UIKit
 
 class AccountsCollectionView: UICollectionView {
-	// MARK: Private Properties
+	// MARK: - Private Properties
 
 	private var accountsVM: AccountsViewModel
 	private var cancellables = Set<AnyCancellable>()
 
-	// MARK: Public Properties
+	// MARK: - Closures
 
+	public var dismissPage: () -> Void
 	public var editAccountTapped: (AccountInfoViewModel) -> Void
 
-	// MARK: Initializers
+	// MARK: - Initializers
 
 	init(
 		accountsVM: AccountsViewModel,
-		editAccountTapped: @escaping (AccountInfoViewModel) -> Void
+		editAccountTapped: @escaping (AccountInfoViewModel) -> Void,
+		dismissPage: @escaping () -> Void
 	) {
 		self.accountsVM = accountsVM
 		self.editAccountTapped = editAccountTapped
+		self.dismissPage = dismissPage
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		flowLayout.sectionInset = UIEdgeInsets(top: 24, left: 0, bottom: 24, right: 0)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
@@ -39,7 +42,7 @@ class AccountsCollectionView: UICollectionView {
 		fatalError()
 	}
 
-	// MARK: Private Methods
+	// MARK: - Private Methods
 
 	private func configCollectionView() {
 		register(
@@ -63,7 +66,7 @@ class AccountsCollectionView: UICollectionView {
 	}
 }
 
-// MARK: Collection View Flow Layout
+// MARK: - Collection View Flow Layout
 
 extension AccountsCollectionView: UICollectionViewDelegateFlowLayout {
 	func collectionView(
@@ -80,6 +83,7 @@ extension AccountsCollectionView: UICollectionViewDelegateFlowLayout {
 extension AccountsCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		accountsVM.updateSelectedAccount(with: accountsVM.accountsList[indexPath.item])
+		dismissPage()
 	}
 }
 
