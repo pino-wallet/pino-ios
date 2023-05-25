@@ -45,7 +45,7 @@ class PortfolioPerformanceViewController: UIViewController {
 					self.openCoinPerformancePage(selectedAsset: shareOfAsset.assetVM)
 				} else {
 					// Incase we decided to add a special page for assets which contain
-                    // very few amount we can open its page from here
+					// very few amount we can open its page from here
 				}
 			}
 		)

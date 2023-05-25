@@ -70,7 +70,7 @@ class CoinInfoViewController: UIViewController {
 	private func openCoinInfoChartPage() {
 		let coinPerformanceVC = CoinPerformanceViewController(selectedAsset: coinInfoVM.selectedAsset)
 		let navigationVC = UINavigationController(rootViewController: coinPerformanceVC)
-        navigationVC.modalPresentationStyle = .formSheet
+		navigationVC.modalPresentationStyle = .formSheet
 		present(navigationVC, animated: true)
 	}
 }

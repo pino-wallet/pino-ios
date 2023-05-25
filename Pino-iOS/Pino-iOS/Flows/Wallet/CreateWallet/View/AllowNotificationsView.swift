@@ -207,9 +207,9 @@ class AllowNotificationsView: UIView {
 			delay: 0,
 			usingSpringWithDamping: animationTime,
 			initialSpringVelocity: animationTime,
-            options: .curveLinear,
+			options: .curveLinear,
 			animations: { [weak self] in
-                self?.sampleNotificationCard1.alpha = 1
+				self?.sampleNotificationCard1.alpha = 1
 				let sampleNotificationCard1Constraint = NSLayoutConstraint(
 					item: self?.sampleNotificationCard1 as Any,
 					attribute: .top,
@@ -231,7 +231,7 @@ class AllowNotificationsView: UIView {
 				initialSpringVelocity: self!.animationTime,
 				options: .curveLinear,
 				animations: { [weak self] in
-                    self?.sampleNotificationCard2.alpha = 1
+					self?.sampleNotificationCard2.alpha = 1
 					let sampleNotificationCard2Constraint = NSLayoutConstraint(
 						item: self?.sampleNotificationCard2 as Any,
 						attribute: .top,
