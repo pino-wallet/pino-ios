@@ -33,7 +33,7 @@ public class PinoHDWallet: PinoHDWalletType {
 				let encryptedMnemonicsData = encryptHdWalletMnemonics(createdWallet.mnemonic, forAccount: account)
 				if let error = KeychainManager.mnemonics.setValue(
 					value: encryptedMnemonicsData,
-					key: account.eip55Address
+                    key: KeychainManager.mnemonics.getKey(account.eip55Address)
 				) {
 					return .failure(error)
 				}
@@ -53,7 +53,7 @@ public class PinoHDWallet: PinoHDWalletType {
 			let encryptedPrivateKeyData = encryptPrivateKey(firstAccountPrivateKey, forAccount: account)
 			if let error = KeychainManager.privateKey.setValue(
 				value: encryptedPrivateKeyData,
-				key: account.eip55Address
+				key: KeychainManager.privateKey.getKey(account.eip55Address)
 			) {
 				return .failure(error)
 			}
@@ -78,7 +78,7 @@ public class PinoHDWallet: PinoHDWalletType {
 
 	public func createAccountIn(wallet: HDWallet, lastIndex: Int) throws -> Account {
 		let coinType = CoinType.ethereum
-		let derivationPath = "m/44'/60'/0'/0/\(lastIndex + 1)"
+		let derivationPath = "m/44'/60'/0'/0/\(lastIndex)"
 		let privateKey = wallet.getKey(coin: coinType, derivationPath: derivationPath)
 		let publicKey = privateKey.getPublicKeySecp256k1(compressed: true)
 		let account = try Account(privateKeyData: privateKey.data)
@@ -99,7 +99,8 @@ public class PinoHDWallet: PinoHDWalletType {
 		}
 
 		print("Private Key: \(privateKey.data.hexString)")
-		print("Public Key: \(publicKey.data.hexString)")
+        print("Public Key: \(publicKey.data.hexString)")
+		print("EIP Key: \(account.eip55Address)")
 		print("Ethereum Address: \(account)")
 		return account
 	}
