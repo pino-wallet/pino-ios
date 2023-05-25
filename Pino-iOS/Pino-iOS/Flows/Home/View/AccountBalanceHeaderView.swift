@@ -138,7 +138,7 @@ class AccountBalanceHeaderView: UICollectionReusableView {
 		}), for: .touchUpInside)
 
 		showBalanceButton.isHidden = true
-        volatilityDetailButton.isHidden = true
+		volatilityDetailButton.isHidden = true
 	}
 
 	private func setSkeletonable() {
