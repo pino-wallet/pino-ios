@@ -70,7 +70,7 @@ class RevealPrivateKeyView: UIView {
 		addSubview(continueButton)
 
 		let revealTapGesture = UITapGestureRecognizer(target: self, action: #selector(revealPrivateKey))
-		revealPrivateKeyView.addGestureRecognizer(revealTapGesture)
+		revealBlurView.addGestureRecognizer(revealTapGesture)
 
 		copyPrivateKeyButton.addAction(UIAction(handler: { _ in
 			self.copyPrivateKeyTapped()
@@ -137,6 +137,8 @@ class RevealPrivateKeyView: UIView {
 
 		privateKeyLabel.alpha = 0.4
 		copyPrivateKeyButton.alpha = 0
+
+		revealStackView.isUserInteractionEnabled = false
 	}
 
 	private func setupContstraint() {

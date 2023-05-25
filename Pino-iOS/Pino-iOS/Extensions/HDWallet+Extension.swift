@@ -11,19 +11,19 @@ import WalletCore
 
 public typealias HDWallet = WalletCore.HDWallet
 
-public enum SeedPhraseCount {
-	case word12
-
-	public var strength: Int32 {
-		128
-	}
-
-	public var count: Int {
-		12
-	}
-}
-
 extension HDWallet {
+	public enum SeedPhraseCount {
+		case word12
+
+		public var strength: Int32 {
+			128
+		}
+
+		public var count: Int {
+			12
+		}
+	}
+
 	public static let validSeedPhraseCounts = [
 		SeedPhraseCount.word12.count,
 	]
@@ -35,6 +35,17 @@ extension HDWallet {
 	public static func getSuggestions(forWord word: String) -> [String] {
 		let word = word.lowercased()
 		return englishWordList.filter { $0.hasPrefix(word) }
+	}
+
+	static func generateMnemonic(
+		seedPhraseCount: HDWallet.SeedPhraseCount,
+		passphrase: String = .emptyString
+	) -> String {
+		if let newHdWallet = HDWallet(strength: seedPhraseCount.strength, passphrase: passphrase) {
+			return newHdWallet.mnemonic
+		} else {
+			fatalError(WalletError.mnemonicGenerationFailed.localizedDescription)
+		}
 	}
 
 	// From https://github.com/trezor/python-mnemonic/blob/master/mnemonic/wordlist/english.txt

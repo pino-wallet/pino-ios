@@ -9,7 +9,7 @@ struct AvatarViewModel {
 	// MARK: - Public Properties
 
 	public var selectedAvatar: String
-	public var avatarsList = Constants.avatars
+	public var avatarsList = Avatar.allCases
 
 	// MARK: - Initializers
 

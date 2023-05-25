@@ -11,11 +11,7 @@ class ReceiveAssetViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private var receiveAssetView: ReceiveAssetView!
-	private var receiveVM = ReceiveViewModel()
-
-	// MARK: - Public Properties
-
-	public var homeVM: HomepageViewModel
+	private var receiveVM: ReceiveViewModel
 
 	// MARK: - View Overrides
 
@@ -30,7 +26,7 @@ class ReceiveAssetViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		if isBeingPresented || isMovingToParent {
-			receiveAssetView.addressQrCodeImage = homeVM.walletInfo.address.generateQRCode(
+			receiveAssetView.addressQrCodeImage = receiveVM.accountAddress.generateQRCode(
 				customHeight: 264,
 				customWidth: 264
 			)
@@ -39,8 +35,8 @@ class ReceiveAssetViewController: UIViewController {
 
 	// MARK: - Initializers
 
-	init(homeVM: HomepageViewModel) {
-		self.homeVM = homeVM
+	init(accountInfo: AccountInfoViewModel) {
+		self.receiveVM = ReceiveViewModel(accountInfo: accountInfo)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -52,7 +48,6 @@ class ReceiveAssetViewController: UIViewController {
 
 	private func setupView() {
 		receiveAssetView = ReceiveAssetView(
-			homeVM: homeVM,
 			receiveVM: receiveVM
 		)
 		view = receiveAssetView
@@ -79,7 +74,7 @@ class ReceiveAssetViewController: UIViewController {
 
 	@objc
 	private func presentShareActivityViewController() {
-		let sharedText = homeVM.walletInfo.address
+		let sharedText = receiveVM.accountAddress
 		let shareItems = [sharedText]
 		let activityVC = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
 		present(activityVC, animated: true)

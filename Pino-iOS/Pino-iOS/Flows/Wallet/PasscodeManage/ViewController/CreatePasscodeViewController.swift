@@ -13,6 +13,7 @@ class CreatePasscodeViewController: UIViewController {
 	public var createPassView: ManagePasscodeView?
 	public var createPassVM: SelectPassViewModel!
 	public var pageSteps: Int!
+	public var walletMnemonics: String!
 
 	// MARK: View Overrides
 
@@ -45,6 +46,7 @@ class CreatePasscodeViewController: UIViewController {
 			// Passcode was chose -> Show verify passcode page
 			let verifyPassVC = VerifyPasscodeViewController()
 			verifyPassVC.selectedPasscode = passcode
+			verifyPassVC.walletMnemonics = self.walletMnemonics
 			self.navigationController?.pushViewController(verifyPassVC, animated: true)
 		}, onErrorHandling: { error in
 			switch error {

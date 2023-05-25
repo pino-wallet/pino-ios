@@ -52,6 +52,7 @@ extension UIViewController {
 		let searchController = UISearchController(searchResultsController: nil)
 		searchController.searchBar.searchTextField.tintColor = .Pino.green2
 		searchController.searchBar.searchTextField.leftView?.tintColor = .Pino.green2
+		searchController.searchBar.searchTextField.keyboardType = .asciiCapable
 		searchController.searchResultsUpdater = self
 		searchController.searchBar.searchTextField.attributedPlaceholder = NSAttributedString(
 			string: "Search",

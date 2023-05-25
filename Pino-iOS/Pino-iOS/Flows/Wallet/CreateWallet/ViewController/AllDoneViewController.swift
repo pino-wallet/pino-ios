@@ -10,7 +10,12 @@ import UIKit
 class AllDoneViewController: UIViewController {
 	// MARK: Private Properties
 
-	private let allDoneVM = AllDoneViewModel()
+	private var allDoneVM = AllDoneViewModel()
+	private let errorToastView = PinoToastView(message: nil, style: .error, padding: 24)
+
+	// MARK: Public Properties
+
+	public var walletMnemonics: String!
 
 	// MARK: View Overrides
 
@@ -33,9 +38,15 @@ class AllDoneViewController: UIViewController {
 	}
 
 	private func getStarted() {
-		UserDefaults.standard.set(true, forKey: "isLogin")
-		let tabBarVC = TabBarViewController()
-		tabBarVC.modalPresentationStyle = .fullScreen
-		present(tabBarVC, animated: true)
+		allDoneVM.createWallet(mnemonics: walletMnemonics) { error in
+			if let error {
+				self.errorToastView.message = error.localizedDescription
+				self.errorToastView.showToast()
+			}
+			UserDefaults.standard.set(true, forKey: "isLogin")
+			let tabBarVC = TabBarViewController()
+			tabBarVC.modalPresentationStyle = .fullScreen
+			self.present(tabBarVC, animated: true)
+		}
 	}
 }

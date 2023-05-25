@@ -21,6 +21,8 @@ struct RecoveryPhraseViewModel {
 
 	// MARK: Initializers
 
+	private let pinoWalletManager = PinoWalletManager()
+
 	init() {
 		getSecretPhrase()
 	}
@@ -28,20 +30,6 @@ struct RecoveryPhraseViewModel {
 	// MARK: - Private Methods
 
 	private mutating func getSecretPhrase() {
-		#warning("Secret phrase is temporary and must be replaced by Keychain data")
-		secretPhraseList = [
-			"mask",
-			"impose",
-			"destroy",
-			"into",
-			"release",
-			"planet",
-			"warm",
-			"token",
-			"donate",
-			"outside",
-			"alley",
-			"kidney",
-		]
+		secretPhraseList = pinoWalletManager.exportMnemonics().array
 	}
 }

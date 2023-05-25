@@ -15,7 +15,7 @@ class ReceiveViewModel {
 	public let shareAddressButtonIconName = "share"
 	public let navigationDismissButtonIconName = "arrow_left"
 	public let navigationTitleText = "Receive"
-	public let walletOwnerNameDescriptionText = "wallet"
+	public let accountOwnerNameDescriptionText = "account"
 
 	public let paymentMethodOptions = [PaymentMethodOptionModel(
 		title: "MoonPay",
@@ -24,4 +24,20 @@ class ReceiveViewModel {
 		url: "https://www.moonpay.com/buy",
 		rightInfoIconName: "right_arrow_green3"
 	)]
+
+	public var accountAddress: String {
+		accountInfo.address
+	}
+
+	public var accountName: String {
+		accountInfo.name
+	}
+
+	// MARK: - Private Properties
+
+	private let accountInfo: AccountInfoViewModel
+
+	init(accountInfo: AccountInfoViewModel) {
+		self.accountInfo = accountInfo
+	}
 }
