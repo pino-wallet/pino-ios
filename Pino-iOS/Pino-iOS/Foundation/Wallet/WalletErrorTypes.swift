@@ -19,7 +19,7 @@ public enum WalletError: LocalizedError {
 	case accountActivationFailed(Error)
 	case unknownError
 
-	public var errorDescription: String? {
+	public var description: String {
 		switch self {
 		case .mnemonicGenerationFailed:
 			return "Failed to create mnemonics"
@@ -47,7 +47,7 @@ public enum WalletValidatorError: LocalizedError {
 	case addressIsInvalid
 	case mnemonicIsInvalid
 
-	public var errorDescription: String? {
+	public var description: String {
 		switch self {
 		case .privateKeyIsInvalid:
 			return "Private Key is invalid"
@@ -69,7 +69,7 @@ public enum KeyManagementError: LocalizedError {
 	case privateKeyRetrievalFailed
 	case publicKeyRetrievalFailed
 
-	public var errorDescription: String? {
+	public var description: String {
 		switch self {
 		case .mnemonicsStorageFailed:
 			return "Failed to store mnemonics"
@@ -91,4 +91,15 @@ public enum WalletOperationError: LocalizedError {
 	case wallet(WalletError)
 	case validator(WalletValidatorError)
 	case keyManager(KeyManagementError)
+    
+    public var description: String {
+        switch self {
+        case .wallet(let walletError):
+            return walletError.description
+        case .validator(let walletValidatorError):
+            return walletValidatorError.description
+        case .keyManager(let keyManagementError):
+            return keyManagementError.description
+        }
+    }
 }

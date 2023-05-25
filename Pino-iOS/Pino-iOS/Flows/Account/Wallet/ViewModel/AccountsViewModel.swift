@@ -54,13 +54,17 @@ class AccountsViewModel {
 		}
 	}
 
-	public func importAccountWith(privateKey: String, completion: @escaping (Error?) -> Void) {
+	public func importAccountWith(privateKey: String, completion: @escaping (WalletOperationError?) -> Void) {
 		let importedAccount = pinoWalletManager.importAccount(privateKey: privateKey)
 		switch importedAccount {
 		case let .success(account):
-			activateNewAccountAddress(account.eip55Address, publicKey: account.publicKey) { error in
-				completion(error)
-			}
+            if coreDataManager.getAllWalletAccounts().contains(where: { $0.eip55Address == account.eip55Address }) {
+                completion(WalletOperationError.wallet(.accountAlreadyExists))
+            } else {
+                activateNewAccountAddress(account.eip55Address, publicKey: account.publicKey) { error in
+                    completion(error)
+                }
+            }
 		case let .failure(error):
 			completion(error)
 		}
@@ -70,7 +74,7 @@ class AccountsViewModel {
 		_ address: String,
 		publicKey: Data,
 		derivationPath: String? = nil,
-		completion: @escaping (Error?) -> Void
+		completion: @escaping (WalletOperationError?) -> Void
 	) {
 		accountingAPIClient.activateAccountWith(address: address)
 			.retry(3)
