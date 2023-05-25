@@ -44,7 +44,8 @@ class PortfolioPerformanceViewController: UIViewController {
 				if let shareOfAsset = shareOfAsset as? ShareOfAssetsViewModel {
 					self.openCoinPerformancePage(selectedAsset: shareOfAsset.assetVM)
 				} else {
-					// Open others page if nedded
+					// Incase we decided to add a special page for assets which contain
+                    // very few amount we can open its page from here
 				}
 			}
 		)
