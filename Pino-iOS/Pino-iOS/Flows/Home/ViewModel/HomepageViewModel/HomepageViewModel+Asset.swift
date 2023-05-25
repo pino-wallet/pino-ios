@@ -28,12 +28,29 @@ extension HomepageViewModel {
 	}
 
 	internal func getManageAsset(assets: [BalanceAssetModel]) {
-		assetsModelList = assets
-		checkDefaultAssetsAdded(assets)
-		let selectedAssetsID = selectedAssets.map { $0.id }
-		manageAssetsList = assets.compactMap {
-			AssetViewModel(assetModel: $0, isSelected: selectedAssetsID.contains($0.id))
-		}
+		accountingAPIClient.cts().sink { completed in
+			switch completed {
+			case .finished:
+				print("tokens received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { tokens in
+			let tokensModel = tokens.compactMap {
+				let tokenID = $0.id
+				let userAsset = assets.first(where: { $0.id == tokenID })
+				return BalanceAssetModel(
+					id: $0.id,
+					amount: userAsset?.amount ?? "0",
+					isVerified: userAsset?.isVerified ?? true,
+					detail: $0
+				)
+			}
+
+			self.manageAssetsList = tokensModel.compactMap {
+				AssetViewModel(assetModel: $0, isSelected: self.selectedAssets.map { $0.id }.contains($0.id))
+			}
+		}.store(in: &cancellables)
 	}
 
 	#warning("This is temporary and must be replaced with API data")

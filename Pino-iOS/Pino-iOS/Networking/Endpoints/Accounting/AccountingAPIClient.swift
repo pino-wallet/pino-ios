@@ -19,7 +19,7 @@ final class AccountingAPIClient: AccountingAPIService {
 
 	// MARK: - Public Methods
 
-	public func cts() -> AnyPublisher<Detail, APIError> {
+	public func cts() -> AnyPublisher<[Detail], APIError> {
 		networkManager.request(.cts)
 	}
 
