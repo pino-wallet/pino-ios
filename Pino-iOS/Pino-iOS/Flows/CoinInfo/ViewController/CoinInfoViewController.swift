@@ -52,6 +52,13 @@ class CoinInfoViewController: UIViewController {
 			target: self,
 			action: #selector(dismissCoinInfo)
 		)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: "chart"),
+            style: .plain,
+            target: self,
+            action: #selector(openCoinInfoChartPage)
+        )
 	}
 
 	@objc
