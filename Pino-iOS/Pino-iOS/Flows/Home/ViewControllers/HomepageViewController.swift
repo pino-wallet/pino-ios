@@ -114,6 +114,7 @@ class HomepageViewController: UIViewController {
 	private func openCoinInfo(assetVM: AssetViewModel) {
 		let coinInfoVC = CoinInfoViewController(selectedAsset: assetVM, homeVM: homeVM)
 		let navigationVC = UINavigationController(rootViewController: coinInfoVC)
+        navigationVC.modalPresentationStyle = .formSheet
 		present(navigationVC, animated: true)
 	}
 
@@ -129,6 +130,7 @@ class HomepageViewController: UIViewController {
 		let navigationVC = UINavigationController()
 		let receiveAssetVC = ReceiveAssetViewController(accountInfo: homeVM.walletInfo)
 		navigationVC.viewControllers = [receiveAssetVC]
+        navigationVC.modalPresentationStyle = .formSheet
 		present(navigationVC, animated: true)
 	}
 
