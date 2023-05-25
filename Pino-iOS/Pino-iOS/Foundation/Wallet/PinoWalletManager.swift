@@ -34,7 +34,7 @@ class PinoWalletManager: WalletManagement {
 		HDWallet.generateMnemonic(seedPhraseCount: .word12)
 	}
 
-	public func createHDWallet(mnemonics: String) -> WalletOperationError? {
+	public func createHDWallet(mnemonics: String) -> Result<Account, WalletOperationError> {
 		pinoHDWallet.createInitialHDWallet(mnemonics: mnemonics)
 	}
 

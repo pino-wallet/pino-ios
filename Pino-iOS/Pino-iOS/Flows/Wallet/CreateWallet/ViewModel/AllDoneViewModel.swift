@@ -37,28 +37,49 @@ struct AllDoneViewModel {
 
 	// MARK: - Public Methods
 
-	mutating func createWallet(mnemonics: String, walletCreated: @escaping (WalletOperationError?) -> Void) {
-		if let error = pinoWalletManager.createHDWallet(mnemonics: mnemonics) {
-			fatalError(error.localizedDescription)
-		}
-
-		accountingAPIClient.activateAccountWith(address: pinoWalletManager.currentAccount.eip55Address)
-			.retry(3)
-			.sink(receiveCompletion: { completed in
-				switch completed {
-				case .finished:
+	public mutating func createWallet(mnemonics: String, walletCreated: @escaping (WalletOperationError?) -> Void) {
+		let initalAccount = pinoWalletManager.createHDWallet(mnemonics: mnemonics)
+		switch initalAccount {
+		case let .success(account):
+			accountingAPIClient.activateAccountWith(address: account.eip55Address)
+				.retry(3)
+				.sink(receiveCompletion: { completed in
+					switch completed {
+					case .finished:
+						walletCreated(nil)
+					case let .failure(error):
+						walletCreated(.wallet(.accountActivationFailed(error)))
+					}
+				}) { [self] activatedAccount in
+					self.createInitialWalletsInCoreData { createdWallet in
+						self.createInitalAddressInCoreDataIn(wallet: createdWallet, account: account)
+					}
 					walletCreated(nil)
-				case let .failure(error):
-					walletCreated(.wallet(.accountActivationFailed(error)))
-				}
-			}) { activatedAccount in
-				walletCreated(nil)
-			}.store(in: &cancellables)
+				}.store(in: &cancellables)
+		case let .failure(failure):
+			walletCreated(failure)
+		}
 	}
 
-	private func createInitialWalletsInCoreData() {
+	// MARK: - Private Methods
+
+	private func createInitalAddressInCoreDataIn(wallet: Wallet, account: Account) {
+		let newAvatar = Avatar.randAvatar()
+
+		coreDataManager.createWalletAccount(
+			address: account.eip55Address,
+			publicKey: account.publicKey,
+			name: newAvatar.name,
+			avatarIcon: newAvatar.rawValue,
+			avatarColor: newAvatar.rawValue,
+			wallet: wallet
+		)
+	}
+
+	private func createInitialWalletsInCoreData(completion: (Wallet) -> Void) {
 		let coreDataManager = CoreDataManager()
-		coreDataManager.createWallet(type: .hdWallet, lastDrivedIndex: 0)
+		let hdWallet = coreDataManager.createWallet(type: .hdWallet, lastDrivedIndex: 0)
 		coreDataManager.createWallet(type: .nonHDWallet)
+		completion(hdWallet)
 	}
 }

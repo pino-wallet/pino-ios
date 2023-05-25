@@ -54,7 +54,7 @@ public class Account: Codable {
 		}
 		self.derivationPath = nil
 		self.publicKey = publicKey
-		self.address = address
+		self.address = EthereumAddress(address.address)!
 		self.accountSource = accountSource
 	}
 

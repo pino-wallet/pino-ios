@@ -13,7 +13,7 @@ protocol WalletManagement {
 	var currentAccount: WalletAccount { get }
 
 	// Wallet
-	func createHDWallet(mnemonics: String) -> WalletOperationError?
+	func createHDWallet(mnemonics: String) -> Result<Account, WalletOperationError>
 	func generateMnemonics() -> String
 	func exportMnemonics() -> (string: String, array: [String])
 
