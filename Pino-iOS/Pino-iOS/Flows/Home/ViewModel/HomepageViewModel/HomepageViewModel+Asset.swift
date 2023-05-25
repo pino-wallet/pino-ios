@@ -36,6 +36,7 @@ extension HomepageViewModel {
 				print(error)
 			}
 		} receiveValue: { tokens in
+			// Convert Detail model to Asset model
 			let tokensModel = tokens.compactMap {
 				let tokenID = $0.id
 				let userAsset = assets.first(where: { $0.id == tokenID })
@@ -46,7 +47,8 @@ extension HomepageViewModel {
 					detail: $0
 				)
 			}
-
+			self.assetsModelList = tokensModel
+			self.checkDefaultAssetsAdded(tokensModel)
 			self.manageAssetsList = tokensModel.compactMap {
 				AssetViewModel(assetModel: $0, isSelected: self.selectedAssets.map { $0.id }.contains($0.id))
 			}
