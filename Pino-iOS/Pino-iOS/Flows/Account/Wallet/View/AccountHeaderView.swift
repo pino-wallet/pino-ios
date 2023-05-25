@@ -50,7 +50,7 @@ class AccountHeaderView: UICollectionReusableView {
 		accountSettingsTitle.text = accountHeaderVM.accountsTitleText
 		accountIcon.image = UIImage(named: accountInfoVM.profileImage)
 		accountIconBackgroundView.backgroundColor = UIColor(named: accountInfoVM.profileColor)
-    
+
 		accountName.textColor = .Pino.label
 		accountAddress.textColor = .Pino.secondaryLabel
 		accountSettingsTitle.textColor = .Pino.secondaryLabel
@@ -91,14 +91,14 @@ class AccountHeaderView: UICollectionReusableView {
 
 	private func setupWalletAddressTapGesture() {
 		let addressTapGesture = UITapGestureRecognizer(target: self, action: #selector(copyAddress))
-		walletAddress.addGestureRecognizer(addressTapGesture)
-		walletAddress.isUserInteractionEnabled = true
+		accountInfoStackview.addGestureRecognizer(addressTapGesture)
+		accountInfoStackview.isUserInteractionEnabled = true
 	}
 
 	@objc
 	private func copyAddress() {
 		let pasteboard = UIPasteboard.general
-		pasteboard.string = walletInfoVM.address
+		pasteboard.string = accountInfoVM.address
 
 		copyToastView.message = accountHeaderVM.copyMessage
 		copyToastView.showToast()
