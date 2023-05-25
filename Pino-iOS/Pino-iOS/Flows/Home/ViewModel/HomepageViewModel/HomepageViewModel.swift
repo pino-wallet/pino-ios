@@ -47,8 +47,7 @@ class HomepageViewModel {
 	internal var walletAPIClient = WalletAPIMockClient()
 	internal var accountingAPIClient = AccountingAPIClient()
 
-	let coreDataStack = CoreDataStack.pinoSharedStack
-	let managedContext = CoreDataStack.pinoSharedStack.managedContext
+	let coreDataManager = CoreDataManager()
 
 	// MARK: - Initializers
 

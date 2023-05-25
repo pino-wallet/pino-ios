@@ -5,12 +5,31 @@
 //  Created by Sobhan Eskandari on 5/8/23.
 //
 
+import CoreData
 import Foundation
 
-struct SelectedAssetsDataSource {
+struct SelectedAssetsDataSource: DataSourceProtocol {
 	// MARK: - Private Properties
 
 	private var selectedAssets = [SelectedAsset]()
+
+	// MARK: - Initializers
+
+	init() {
+		fetchEntities()
+	}
+
+	// MARK: - Internal Methods
+
+	internal mutating func fetchEntities() {
+		let selectedAssetsFetch: NSFetchRequest<SelectedAsset> = SelectedAsset.fetchRequest()
+		do {
+			let results = try managedContext.fetch(selectedAssetsFetch)
+			selectedAssets = results
+		} catch let error as NSError {
+			print("Fetch error: \(error) description: \(error.userInfo)")
+		}
+	}
 
 	// MARK: - Public Methods
 
@@ -28,10 +47,13 @@ struct SelectedAssetsDataSource {
 		} else {
 			selectedAssets.append(asset)
 		}
+		coreDataStack.saveContext()
 	}
 
 	public mutating func delete(_ asset: SelectedAsset) {
 		selectedAssets.removeAll(where: { $0.id == asset.id })
+		managedContext.delete(asset)
+		coreDataStack.saveContext()
 	}
 
 	public func filter(_ predicate: (SelectedAsset) -> Bool) -> [SelectedAsset] {

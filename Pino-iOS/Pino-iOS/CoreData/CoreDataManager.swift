@@ -93,4 +93,19 @@ class CoreDataManager {
 	public func updateSelectedWalletAccount(_ account: WalletAccount) {
 		accountDataSource.updateSelected(account)
 	}
+
+	public func getAllSelectedAssets() -> [SelectedAsset] {
+		selectedAssetDataSource.getAll()
+	}
+
+	public func addNewSelectedAsset(id: String) -> SelectedAsset {
+		let newSelectedAsset = SelectedAsset(context: selectedAssetDataSource.managedContext)
+		newSelectedAsset.id = id
+		selectedAssetDataSource.save(newSelectedAsset)
+		return newSelectedAsset
+	}
+
+	public func deleteSelectedAsset(_ selectedAsset: SelectedAsset) {
+		selectedAssetDataSource.delete(selectedAsset)
+	}
 }
