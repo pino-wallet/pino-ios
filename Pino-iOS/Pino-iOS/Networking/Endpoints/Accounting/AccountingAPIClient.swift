@@ -19,6 +19,10 @@ final class AccountingAPIClient: AccountingAPIService {
 
 	// MARK: - Public Methods
 
+	public func cts() -> AnyPublisher<Detail, APIError> {
+		networkManager.request(.cts)
+	}
+
 	public func userBalance() -> AnyPublisher<BalanceModel, APIError> {
 		networkManager.request(.balances(accountADD: currentAccountAdd))
 	}
