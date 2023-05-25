@@ -14,11 +14,14 @@ struct AssetChartViewModel {
 	public var dateFilter: ChartDateFilter
 
 	public var chartDataEntry: [ChartDataEntry] {
-		chartDataVM.map { ChartDataEntry(x: $0.date.timeIntervalSinceNow, y: $0.networth.doubleValue) }
+		chartDataVM.map {
+			let timeStamp = $0.date?.timeIntervalSinceNow ?? 0
+			return ChartDataEntry(x: timeStamp, y: $0.networth.doubleValue)
+		}
 	}
 
 	public var dateFilters: [ChartDateFilter] {
-		[.hour, .day, .week, .month, .year, .all]
+		[.day, .week, .month, .year, .all]
 	}
 
 	public var balance: String {
@@ -35,7 +38,16 @@ struct AssetChartViewModel {
 
 	public var chartDate: String {
 		let chartDateBuilder = ChartDateBuilder(dateFilter: dateFilter)
-		return chartDateBuilder.dateRange(firstDate: chartDataVM.first!.date, lastDate: chartDataVM.last!.date)
+		return chartDateBuilder.timeFrame()
+	}
+
+	init(chartDataVM: [AssetChartDataViewModel], dateFilter: ChartDateFilter) {
+		if chartDataVM.isEmpty {
+			self.chartDataVM = [AssetChartDataViewModel(chartModel: ChartDataModel(networth: "0", time: "0"))]
+		} else {
+			self.chartDataVM = chartDataVM
+		}
+		self.dateFilter = dateFilter
 	}
 
 	// MARK: - Private Methods

@@ -14,4 +14,22 @@ final class AccountingAPIMockClient: AccountingAPIService {
 	public func userBalance() -> AnyPublisher<BalanceModel, APIError> {
 		StubManager.publisher(for: "user-balance-stub")
 	}
+
+	func userPortfolio(timeFrame: String) -> AnyPublisher<[ChartDataModel], APIError> {
+		Just([])
+			.setFailureType(to: APIError.self)
+			.eraseToAnyPublisher()
+	}
+
+	func coinPerformance(timeFrame: String, tokenID: String) -> AnyPublisher<[ChartDataModel], APIError> {
+		Just([])
+			.setFailureType(to: APIError.self)
+			.eraseToAnyPublisher()
+	}
+
+	func activateAccountWith(address: String) -> AnyPublisher<AccountActivationModel, APIError> {
+		Just(AccountActivationModel(id: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F"))
+			.setFailureType(to: APIError.self)
+			.eraseToAnyPublisher()
+	}
 }

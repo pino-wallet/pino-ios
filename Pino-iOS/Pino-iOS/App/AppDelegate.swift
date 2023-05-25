@@ -10,19 +10,6 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-	// MARK: - Core Data stack
-
-	lazy var coreDataStack: CoreDataStack = .init(modelName: "Pino_iOS")
-
-	static let sharedAppDelegate: AppDelegate = {
-		guard let delegate = UIApplication.shared.delegate as? AppDelegate else {
-			fatalError(
-				"Unexpected app delegate type, did it change? \(String(describing: UIApplication.shared.delegate))"
-			)
-		}
-		return delegate
-	}()
-
 	func application(
 		_ application: UIApplication,
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?

@@ -22,9 +22,9 @@ class EditAccountHeaderView: UICollectionReusableView {
 		}
 	}
 
-	public var selectedWalletVM: WalletInfoViewModel! {
+	public var selectedAccountVM: AccountInfoViewModel! {
 		didSet {
-			setupWalletProperties()
+			setupAccountProperties()
 		}
 	}
 
@@ -32,29 +32,29 @@ class EditAccountHeaderView: UICollectionReusableView {
 
 	// MARK: - Private Peroperties
 
-	private let walletInfoStackview = UIStackView()
-	private let walletAvatarStackView = UIStackView()
+	private let accountInfoStackview = UIStackView()
+	private let accountAvatarStackView = UIStackView()
 	private let avatarBackgroundView = UIView()
-	private let walletAvatar = UIImageView()
+	private let accountAvatar = UIImageView()
 	private let setAvatarButton = UILabel()
 
 	// MARK: - Private Methods
 
 	private func setupView() {
-		walletInfoStackview.addArrangedSubview(walletAvatarStackView)
-		walletAvatarStackView.addArrangedSubview(avatarBackgroundView)
-		walletAvatarStackView.addArrangedSubview(setAvatarButton)
+		accountInfoStackview.addArrangedSubview(accountAvatarStackView)
+		accountAvatarStackView.addArrangedSubview(avatarBackgroundView)
+		accountAvatarStackView.addArrangedSubview(setAvatarButton)
 
-		avatarBackgroundView.addSubview(walletAvatar)
+		avatarBackgroundView.addSubview(accountAvatar)
 
-		walletAvatarStackView
+		accountAvatarStackView
 			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(setNewAvatar)))
 
-		addSubview(walletInfoStackview)
+		addSubview(accountInfoStackview)
 	}
 
 	private func setupConstraints() {
-		walletInfoStackview.pin(
+		accountInfoStackview.pin(
 			.top(padding: 24),
 			.horizontalEdges(padding: 16),
 			.bottom(padding: 32)
@@ -63,20 +63,20 @@ class EditAccountHeaderView: UICollectionReusableView {
 			.fixedHeight(88),
 			.fixedWidth(88)
 		)
-		walletAvatar.pin(
+		accountAvatar.pin(
 			.allEdges(padding: 16)
 		)
 	}
 
 	private func setupStyles() {
-		walletInfoStackview.axis = .vertical
-		walletAvatarStackView.axis = .vertical
+		accountInfoStackview.axis = .vertical
+		accountAvatarStackView.axis = .vertical
 
-		walletAvatarStackView.alignment = .center
-		walletInfoStackview.alignment = .center
+		accountAvatarStackView.alignment = .center
+		accountInfoStackview.alignment = .center
 
-		walletInfoStackview.spacing = 21
-		walletAvatarStackView.spacing = 8
+		accountInfoStackview.spacing = 21
+		accountAvatarStackView.spacing = 8
 
 		avatarBackgroundView.layer.cornerRadius = 44
 
@@ -85,9 +85,9 @@ class EditAccountHeaderView: UICollectionReusableView {
 		setAvatarButton.text = editAccountVM.changeAvatarTitle
 	}
 
-	private func setupWalletProperties() {
-		walletAvatar.image = UIImage(named: selectedWalletVM.profileImage)
-		avatarBackgroundView.backgroundColor = UIColor(named: selectedWalletVM.profileImage)
+	private func setupAccountProperties() {
+		accountAvatar.image = UIImage(named: selectedAccountVM.profileImage)
+		avatarBackgroundView.backgroundColor = UIColor(named: selectedAccountVM.profileImage)
 	}
 
 	@objc

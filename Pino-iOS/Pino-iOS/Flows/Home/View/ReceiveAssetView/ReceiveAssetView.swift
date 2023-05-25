@@ -10,7 +10,6 @@ import UIKit
 class ReceiveAssetView: UIView {
 	// MARK: - Public Properties
 
-	public var homeVM: HomepageViewModel
 	public var receiveVM: ReceiveViewModel
 	public var addressQrCodeImage: UIImage? {
 		didSet {
@@ -22,8 +21,8 @@ class ReceiveAssetView: UIView {
 
 	private let addressQRCodeImageCardView = UIView()
 	private let qrCodeBordersCard = UIView()
-	private let walletInfoStackView = UIStackView()
-	private let walletOwnerName = PinoLabel(style: .title, text: "")
+	private let accountInfoStackView = UIStackView()
+	private let accountOwnerName = PinoLabel(style: .title, text: "")
 	private let addressLabel = PinoLabel(style: .description, text: "")
 	private let addressLabelContainer = UIView()
 	private let copyAddressButton = ReceiveActionButton()
@@ -34,10 +33,8 @@ class ReceiveAssetView: UIView {
 	// MARK: Initializers
 
 	init(
-		homeVM: HomepageViewModel,
 		receiveVM: ReceiveViewModel
 	) {
-		self.homeVM = homeVM
 		self.receiveVM = receiveVM
 		super.init(frame: .zero)
 		setupView()
@@ -66,9 +63,9 @@ class ReceiveAssetView: UIView {
 
 		addressQrCodeImageView.backgroundColor = .Pino.white
 
-		walletOwnerName.font = UIFont.PinoStyle.semiboldTitle2
-		walletOwnerName.numberOfLines = 0
-		walletOwnerName.text = "\(homeVM.walletInfo.name)’s \(receiveVM.walletOwnerNameDescriptionText)"
+		accountOwnerName.font = UIFont.PinoStyle.semiboldTitle2
+		accountOwnerName.numberOfLines = 0
+		accountOwnerName.text = "\(receiveVM.accountName)’s \(receiveVM.accountOwnerNameDescriptionText)"
 
 		addressLabelContainer.layer.borderColor = UIColor.Pino.background.cgColor
 		addressLabelContainer.layer.borderWidth = 1
@@ -76,51 +73,51 @@ class ReceiveAssetView: UIView {
 		addressLabelContainer.addSubview(addressLabel)
 
 		addressLabel.numberOfLines = 1
-		addressLabel.text = homeVM.walletInfo.address
+		addressLabel.text = receiveVM.accountAddress
 		addressLabel.lineBreakMode = .byTruncatingMiddle
 		addressLabel.textAlignment = .center
 		addressLabel.textColor = .Pino.primary
 
-		walletInfoStackView.axis = .horizontal
-		walletInfoStackView.spacing = 12
-		walletInfoStackView.addArrangedSubview(addressLabelContainer)
-		walletInfoStackView.addArrangedSubview(copyAddressButton)
+		accountInfoStackView.axis = .horizontal
+		accountInfoStackView.spacing = 12
+		accountInfoStackView.addArrangedSubview(addressLabelContainer)
+		accountInfoStackView.addArrangedSubview(copyAddressButton)
 
 		copyAddressButton.iconName = receiveVM.copyAddressButtonIconName
 		copyAddressButton.titleText = receiveVM.copyAddressButtonText
 		copyAddressButton.onTap = { [weak self] in
-			UIPasteboard.general.string = self?.homeVM.walletInfo.address
+			UIPasteboard.general.string = self?.receiveVM.accountAddress
 			self?.copiedToastView.message = self?.receiveVM.copiedToastViewText
 			self?.copiedToastView.showToast()
 		}
 
-		addSubview(walletOwnerName)
-		walletOwnerName.textAlignment = .center
+		addSubview(accountOwnerName)
+		accountOwnerName.textAlignment = .center
 		addSubview(addressQRCodeImageCardView)
-		addSubview(walletInfoStackView)
+		addSubview(accountInfoStackView)
 		paymentMethodOption
 			.paymentMethodOptionVM = PaymentMethodOptionViewModel(paymentMethodOption: receiveVM.paymentMethodOptions[0])
 		addSubview(paymentMethodOption)
 	}
 
 	private func setupContstraints() {
-		walletOwnerName.pin(.top(to: layoutMarginsGuide, padding: 32), .centerX())
+		accountOwnerName.pin(.top(to: layoutMarginsGuide, padding: 32), .centerX())
 		addressQRCodeImageCardView.pin(
-			.relative(.top, 24, to: walletOwnerName, .bottom),
+			.relative(.top, 24, to: accountOwnerName, .bottom),
 			.centerX(to: layoutMarginsGuide),
 			.fixedWidth(300),
 			.fixedHeight(300)
 		)
 		addressQrCodeImageView.pin(.allEdges(to: addressQRCodeImageCardView, padding: 9))
 		qrCodeBordersCard.pin(.allEdges(to: addressQRCodeImageCardView, padding: 18))
-		walletInfoStackView.pin(
+		accountInfoStackView.pin(
 			.relative(.top, 16, to: addressQRCodeImageCardView, .bottom),
 			.centerX(),
 			.fixedHeight(40),
 			.fixedWidth(300)
 		)
 		addressLabel.pin(.centerY(), .horizontalEdges(to: superview, padding: 22))
-		paymentMethodOption.pin(.horizontalEdges(padding: 16), .relative(.top, 174, to: walletInfoStackView, .bottom))
+		paymentMethodOption.pin(.horizontalEdges(padding: 16), .relative(.top, 174, to: accountInfoStackView, .bottom))
 	}
 
 	private func setupQRCode() {

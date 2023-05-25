@@ -11,20 +11,17 @@ import UIKit
 class EditAccountViewController: UIViewController {
 	// MARK: Private Properties
 
-	private var selectedWallet: WalletInfoViewModel
-
-	private let walletsVM: WalletsViewModel
-
-	private let editAccountVM = EditAccountViewModel()
+	private let accountsVM: AccountsViewModel
+	private let editAccountVM: EditAccountViewModel
 	private var cancellables = Set<AnyCancellable>()
 
 	private var editAccountView: EditAccountView!
 
 	// MARK: Initializers
 
-	init(walletsVM: WalletsViewModel, selectedWallet: WalletInfoViewModel) {
-		self.walletsVM = walletsVM
-		self.selectedWallet = selectedWallet
+	init(accountsVM: AccountsViewModel, editAccountVM: EditAccountViewModel) {
+		self.accountsVM = accountsVM
+		self.editAccountVM = editAccountVM
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -41,7 +38,7 @@ class EditAccountViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
-		setupBinding()
+		setupBindings()
 	}
 
 	// MARK: - Private Methods
@@ -49,7 +46,6 @@ class EditAccountViewController: UIViewController {
 	private func setupView() {
 		editAccountView = EditAccountView(
 			editAccountVM: editAccountVM,
-			selectedWalletVM: selectedWallet,
 			openAvatarPage: { [weak self] in
 				self?.openAvatarPage()
 			},
@@ -59,8 +55,8 @@ class EditAccountViewController: UIViewController {
 			openRevealPrivateKey: { [weak self] in
 				self?.openRevealPrivateKey()
 			},
-			openEditWalletNameClosure: { [weak self] in
-				self?.openEditWalletName()
+			openEditAccountNameClosure: { [weak self] in
+				self?.openEditAccountName()
 			}
 		)
 		view = editAccountView
@@ -79,20 +75,26 @@ class EditAccountViewController: UIViewController {
 		)
 	}
 
+	private func setupBindings() {
+		accountsVM.$accountsList.sink { wallets in
+			guard let wallets else { return }
+			if wallets.count > 1 {
+				self.editAccountVM.isLastAccount = false
+			} else {
+				self.editAccountVM.isLastAccount = true
+			}
+		}.store(in: &cancellables)
+	}
+
 	@objc
 	private func saveChanges() {
 		dismiss(animated: true)
 	}
 
 	private func openAvatarPage() {
-		let avatarVM = AvatarViewModel(selectedAvatar: selectedWallet.profileImage)
+		let avatarVM = AvatarViewModel(selectedAvatar: editAccountVM.selectedAccount.profileImage)
 		let changeAvatarVC = ChangeAvatarViewController(avatarVM: avatarVM) { [weak self] avatarName in
-			if self?.selectedWallet.profileImage != avatarName {
-				let newWallet = WalletBuilder(walletInfo: self!.selectedWallet)
-				newWallet.setProfileImage(avatarName)
-				newWallet.setProfileColor(avatarName)
-				self?.walletsVM.editWallet(newWallet: newWallet.build())
-			}
+			self?.editAccountAvatar(newAvatar: avatarName)
 		}
 		navigationController?.pushViewController(changeAvatarVC, animated: true)
 	}
@@ -103,13 +105,12 @@ class EditAccountViewController: UIViewController {
 		navigationVC.viewControllers = [removeAccountVC]
 		present(navigationVC, animated: true)
 		removeAccountVC.walletIsDeleted = {
-			self.removeWallet()
+			self.removeAccount()
 		}
 	}
 
-	private func removeWallet() {
-		let walletModel = WalletBuilder(walletInfo: selectedWallet).build()
-		walletsVM.removeWallet(walletModel)
+	private func removeAccount() {
+		accountsVM.removeAccount(editAccountVM.selectedAccount)
 		navigationController!.popViewController(animated: true)
 	}
 
@@ -118,18 +119,23 @@ class EditAccountViewController: UIViewController {
 		navigationController?.pushViewController(revaelPrivateKeyVC, animated: true)
 	}
 
-	private func openEditWalletName() {
-		let editWalletNameVC = EditWalletNameViewController(selectedWalletVM: selectedWallet, walletsVM: walletsVM)
+	private func openEditAccountName() {
+		let editWalletNameVC = EditAccountNameViewController(
+			selectedAccountVM: editAccountVM.selectedAccount,
+			accountsVM: accountsVM
+		) { [weak self] walletName in
+			self?.editAccountName(newName: walletName)
+		}
 		navigationController?.pushViewController(editWalletNameVC, animated: true)
 	}
 
-	private func setupBinding() {
-		walletsVM.$walletsList.sink { [weak self] walletsList in
-			guard let updatedSelectAsset = walletsList?.first(where: { $0.id == self?.selectedWallet.id }) else {
-				return
-			}
-			self?.editAccountView.selectedWalletVM = updatedSelectAsset
-			self?.selectedWallet = updatedSelectAsset
-		}.store(in: &cancellables)
+	private func editAccountName(newName: String) {
+		let edittedAccount = accountsVM.editAccount(account: editAccountVM.selectedAccount, newName: newName)
+		editAccountVM.selectedAccount = edittedAccount
+	}
+
+	private func editAccountAvatar(newAvatar: String) {
+		let edittedAccount = accountsVM.editAccount(account: editAccountVM.selectedAccount, newAvatar: newAvatar)
+		editAccountVM.selectedAccount = edittedAccount
 	}
 }

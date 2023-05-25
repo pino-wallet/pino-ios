@@ -12,8 +12,8 @@ struct AssetChartDataViewModel {
 
 	public var chartModel: ChartDataModel
 
-	public var date: Date {
-		getDate(from: chartModel.time)!
+	public var date: Date? {
+		getDate(from: chartModel.time)
 	}
 
 	public var networth: BigNumber {

@@ -15,7 +15,7 @@ class HomepageViewModel {
 	// MARK: - Public Properties
 
 	@Published
-	public var walletInfo: WalletInfoViewModel!
+	public var walletInfo: AccountInfoViewModel!
 	@Published
 	public var walletBalance: WalletBalanceViewModel?
 	@Published
@@ -47,8 +47,8 @@ class HomepageViewModel {
 	internal var walletAPIClient = WalletAPIMockClient()
 	internal var accountingAPIClient = AccountingAPIClient()
 
-	let coreDataStack = AppDelegate.sharedAppDelegate.coreDataStack
-	let managedContext = AppDelegate.sharedAppDelegate.coreDataStack.managedContext
+	let coreDataStack = CoreDataStack.pinoSharedStack
+	let managedContext = CoreDataStack.pinoSharedStack.managedContext
 
 	// MARK: - Initializers
 

@@ -92,9 +92,9 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 			// Wallet balance header
 			let walletBalanceHeaderView = dequeueReusableSupplementaryView(
 				ofKind: kind,
-				withReuseIdentifier: WalletBalanceHeaderView.headerReuseID,
+				withReuseIdentifier: AccountBalanceHeaderView.headerReuseID,
 				for: indexPath
-			) as! WalletBalanceHeaderView
+			) as! AccountBalanceHeaderView
 			walletBalanceHeaderView.homeVM = homeVM
 			walletBalanceHeaderView.sendButtonTappedClosure = sendButtonTappedClosure
 			walletBalanceHeaderView.receiveButtonTappedClosure = receiveButtonTappedClosure

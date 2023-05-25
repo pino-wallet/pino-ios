@@ -77,7 +77,7 @@ class PinoLineChart: LineChartView {
 		highlightPerTapEnabled = false
 
 		let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressDetected))
-		longPressGesture.allowableMovement = 50
+		longPressGesture.minimumPressDuration = 0.05
 		longPressGesture.delegate = self
 		addGestureRecognizer(longPressGesture)
 	}
@@ -101,6 +101,7 @@ class PinoLineChart: LineChartView {
 
 		data = LineChartData(dataSets: [chartDataSet])
 		data?.setDrawValues(false)
+		chartDataSet.drawHorizontalHighlightIndicatorEnabled = false
 	}
 
 	@objc
@@ -114,8 +115,8 @@ class PinoLineChart: LineChartView {
 	}
 
 	private func updateHighlightValue(selectedPoint: Highlight?) {
-		highlightValue(selectedPoint)
 		if let selectedPoint {
+			generateHapticFeedback(selectedPoint)
 			let previousPoint = getPreviousPoint(point: selectedPoint)
 			chartDelegate?.valueDidChange(
 				pointValue: selectedPoint.y,
@@ -125,6 +126,8 @@ class PinoLineChart: LineChartView {
 		} else {
 			chartDelegate?.valueDidChange(pointValue: nil, previousValue: nil, date: nil)
 		}
+		highlightValue(selectedPoint)
+		lastHighlighted = selectedPoint
 	}
 
 	private func getPreviousPoint(point: Highlight) -> ChartDataEntry? {
@@ -134,6 +137,13 @@ class PinoLineChart: LineChartView {
 			return previousPoint
 		} else {
 			return nil
+		}
+	}
+
+	private func generateHapticFeedback(_ selectedPoint: Highlight) {
+		if lastHighlighted != selectedPoint {
+			let hapticFeedback = UIImpactFeedbackGenerator(style: .light)
+			hapticFeedback.impactOccurred()
 		}
 	}
 }

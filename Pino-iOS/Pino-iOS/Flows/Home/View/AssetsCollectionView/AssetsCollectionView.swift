@@ -23,12 +23,12 @@ class AssetsCollectionView: UICollectionView {
 
 	public var manageAssetButtonTapped: () -> Void
 	public var assetTapped: (AssetViewModel) -> Void
-	internal var portfolioPerformanceTapped: () -> Void
 
 	// MARK: - Internal Properties
 
 	internal var homeVM: HomepageViewModel!
 	internal var cancellables = Set<AnyCancellable>()
+	internal var portfolioPerformanceTapped: () -> Void
 
 	// MARK: Initializers
 
@@ -67,9 +67,9 @@ class AssetsCollectionView: UICollectionView {
 			forCellWithReuseIdentifier: AssetsCollectionViewCell.cellReuseID
 		)
 		register(
-			WalletBalanceHeaderView.self,
+			AccountBalanceHeaderView.self,
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-			withReuseIdentifier: WalletBalanceHeaderView.headerReuseID
+			withReuseIdentifier: AccountBalanceHeaderView.headerReuseID
 		)
 		register(
 			PositionHeaderView.self,
@@ -98,7 +98,13 @@ class AssetsCollectionView: UICollectionView {
 	private func setupBindings() {
 		homeVM.$assetsList.sink { [weak self] _ in
 			self?.reloadData()
+		}.store(in: &cancellables)
 
+		homeVM.$walletInfo.sink { [weak self] walletInfo in
+			if self?.homeVM.walletInfo.id != walletInfo?.id {
+				self?.showSkeletonView()
+				self?.getHomeData()
+			}
 		}.store(in: &cancellables)
 	}
 
@@ -116,9 +122,12 @@ class AssetsCollectionView: UICollectionView {
 	public func getHomeData() {
 		homeVM.getHomeData { error in
 			self.refreshControl?.endRefreshing()
-			guard let error else { return }
-			self.refreshErrorToastView.message = error.message
-			self.refreshErrorToastView.showToast()
+			if let error {
+				self.refreshErrorToastView.message = error.message
+				self.refreshErrorToastView.showToast()
+			} else {
+				self.hideSkeletonView()
+			}
 		}
 	}
 }
