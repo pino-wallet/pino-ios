@@ -108,6 +108,7 @@ extension VerifySecretPhraseView {
 	private func setupView() {
 		randomPhraseCollectionView.secretWords = secretPhraseVM.randomSecretPhraseList
 		randomPhraseCollectionView.cellStyle = .unordered
+		sortedPhraseCollectionView.showMockCreds = false
 		sortedPhraseCollectionView.secretWords = []
 
 		contentStackView.addArrangedSubview(titleStackView)

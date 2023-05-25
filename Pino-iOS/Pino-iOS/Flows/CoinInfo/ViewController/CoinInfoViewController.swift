@@ -14,9 +14,9 @@ class CoinInfoViewController: UIViewController {
 
 	// MARK: - Initializers
 
-	init(coinID: String, homeVM: HomepageViewModel) {
+	init(selectedAsset: AssetViewModel, homeVM: HomepageViewModel) {
 		super.init(nibName: nil, bundle: nil)
-		self.coinInfoVM = CoinInfoViewModel(homeVM: homeVM, coinID: coinID)
+		self.coinInfoVM = CoinInfoViewModel(homeVM: homeVM, selectedAsset: selectedAsset)
 	}
 
 	required init?(coder: NSCoder) {
@@ -52,7 +52,7 @@ class CoinInfoViewController: UIViewController {
 			target: self,
 			action: #selector(dismissCoinInfo)
 		)
-		// Setup chart button
+
 		navigationItem.rightBarButtonItem = UIBarButtonItem(
 			image: UIImage(named: "chart"),
 			style: .plain,
@@ -68,7 +68,9 @@ class CoinInfoViewController: UIViewController {
 
 	@objc
 	private func openCoinInfoChartPage() {
-		let coinInfoChartVC = CoinInfoChartViewController()
-		navigationController!.pushViewController(coinInfoChartVC, animated: true)
+		let coinPerformanceVC = CoinPerformanceViewController(selectedAsset: coinInfoVM.selectedAsset)
+		coinPerformanceVC.modalPresentationStyle = .automatic
+		let navigationVC = UINavigationController(rootViewController: coinPerformanceVC)
+		present(navigationVC, animated: true)
 	}
 }

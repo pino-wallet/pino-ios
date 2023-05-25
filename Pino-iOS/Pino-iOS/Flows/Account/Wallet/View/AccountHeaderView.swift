@@ -9,71 +9,74 @@ import UIKit
 class AccountHeaderView: UICollectionReusableView {
 	// MARK: - Private Properties
 
-	private let walletInfoStackview = UIStackView()
-	private let walletNameStackView = UIStackView()
-	private let walletIconBackgroundView = UIView()
-	private let walletIcon = UIImageView()
-	private let walletName = UILabel()
-	private let walletAddress = UILabel()
+	private let accountInfoStackview = UIStackView()
+	private let accountNameStackView = UIStackView()
+	private let accountIconBackgroundView = UIView()
+	private let accountIcon = UIImageView()
+	private let accountName = UILabel()
+	private let accountAddress = UILabel()
 	private let accountSettingsTitle = UILabel()
+	private let accountHeaderVM = AccountHeaderViewModel()
+	private let copyToastView = PinoToastView(message: nil, style: .secondary, padding: 80)
 
 	// MARK: - Public Properties
 
 	public static let headerReuseID = "accountHeader"
 
-	public var walletInfoVM: WalletInfoViewModel! {
+	public var accountInfoVM: AccountInfoViewModel! {
 		didSet {
 			setupView()
 			setupStyle()
 			setupConstraint()
+			setupWalletAddressTapGesture()
 		}
 	}
 
 	// MARK: - Private Methods
 
 	private func setupView() {
-		walletInfoStackview.addArrangedSubview(walletIconBackgroundView)
-		walletInfoStackview.addArrangedSubview(walletNameStackView)
-		walletNameStackView.addArrangedSubview(walletName)
-		walletNameStackView.addArrangedSubview(walletAddress)
-		walletIconBackgroundView.addSubview(walletIcon)
-		addSubview(walletInfoStackview)
+		accountInfoStackview.addArrangedSubview(accountIconBackgroundView)
+		accountInfoStackview.addArrangedSubview(accountNameStackView)
+		accountNameStackView.addArrangedSubview(accountName)
+		accountNameStackView.addArrangedSubview(accountAddress)
+		accountIconBackgroundView.addSubview(accountIcon)
+		addSubview(accountInfoStackview)
 		addSubview(accountSettingsTitle)
 	}
 
 	private func setupStyle() {
-		walletName.text = walletInfoVM.name
-		walletAddress.text = walletInfoVM.address.shortenedString(characterCount: 4)
-		accountSettingsTitle.text = "Accounts"
-		walletIcon.image = UIImage(named: walletInfoVM.profileImage)
-		walletIconBackgroundView.backgroundColor = UIColor(named: walletInfoVM.profileColor)
+		accountName.text = accountInfoVM.name
+		accountAddress.text = accountInfoVM.address.shortenedString(characterCount: 4)
+		accountSettingsTitle.text = accountHeaderVM.accountsTitleText
+		accountIcon.image = UIImage(named: accountInfoVM.profileImage)
+		accountIconBackgroundView.backgroundColor = UIColor(named: accountInfoVM.profileColor)
 
-		walletName.textColor = .Pino.label
-		walletAddress.textColor = .Pino.secondaryLabel
+		accountName.textColor = .Pino.label
+		accountAddress.textColor = .Pino.secondaryLabel
 		accountSettingsTitle.textColor = .Pino.secondaryLabel
 
-		walletName.font = .PinoStyle.mediumTitle1
-		walletAddress.font = .PinoStyle.mediumSubheadline
+		accountName.font = .PinoStyle.mediumTitle1
+		accountAddress.font = .PinoStyle.mediumSubheadline
 		accountSettingsTitle.font = .PinoStyle.mediumSubheadline
 
-		walletInfoStackview.axis = .vertical
-		walletNameStackView.axis = .vertical
+		accountInfoStackview.axis = .vertical
+		accountNameStackView.axis = .vertical
 
-		walletNameStackView.alignment = .center
-		walletInfoStackview.alignment = .center
+		accountNameStackView.alignment = .center
+		accountInfoStackview.alignment = .center
 
-		walletInfoStackview.spacing = 8
-		walletNameStackView.spacing = 2
+		accountInfoStackview.spacing = 8
+		accountNameStackView.spacing = 2
 
-		walletIconBackgroundView.layer.cornerRadius = 44
+		accountIconBackgroundView.layer.cornerRadius = 44
 	}
 
 	private func setupConstraint() {
-		walletInfoStackview.pin(
+		accountInfoStackview.pin(
 			.top(padding: 24),
 			.horizontalEdges(padding: 16)
 		)
-		walletIconBackgroundView.pin(
+		accountIconBackgroundView.pin(
 			.fixedHeight(88),
 			.fixedWidth(88)
 		)
@@ -81,8 +84,23 @@ class AccountHeaderView: UICollectionReusableView {
 			.bottom(padding: 12),
 			.horizontalEdges(padding: 16)
 		)
-		walletIcon.pin(
+		accountIcon.pin(
 			.allEdges(padding: 16)
 		)
+	}
+
+	private func setupWalletAddressTapGesture() {
+		let addressTapGesture = UITapGestureRecognizer(target: self, action: #selector(copyAddress))
+		accountInfoStackview.addGestureRecognizer(addressTapGesture)
+		accountInfoStackview.isUserInteractionEnabled = true
+	}
+
+	@objc
+	private func copyAddress() {
+		let pasteboard = UIPasteboard.general
+		pasteboard.string = accountInfoVM.address
+
+		copyToastView.message = accountHeaderVM.copyMessage
+		copyToastView.showToast()
 	}
 }

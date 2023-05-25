@@ -7,21 +7,21 @@
 
 import UIKit
 
-class SecretPhraseTextView: UITextView {
-	// MARK: Private Property
+class SecretPhraseTextView: UITextView, ImportTextViewType {
+	// MARK: - Private Property
 
 	private let suggestedSeedPhraseCollectionView = SuggestedSeedPhraseCollectionView()
 	private var placeHolderText = "Secret Phrase"
+
+	// MARK: - Public Properties
+
+	public var errorStackView = UIStackView()
+	public var seedPhraseArray: [String] = []
+	public var importKeyCountVerified: ((Bool) -> Void)?
+	public var seedPhraseMaxCount: Int!
 	public var enteredWordsCount = UILabel()
 
-	// MARK: Public Properties
-
-	public let errorStackView = UIStackView()
-	public var seedPhraseArray: [String] = []
-	public var seedPhraseCountVerified: ((Bool) -> Void)?
-	public var seedPhraseMaxCount: Int!
-
-	// MARK: Initializer
+	// MARK: - Initializer
 
 	override init(frame: CGRect, textContainer: NSTextContainer?) {
 		super.init(frame: .zero, textContainer: textContainer)
@@ -50,6 +50,8 @@ class SecretPhraseTextView: UITextView {
 	// MARK: Private Method
 
 	private func setupStyle() {
+		autocorrectionType = .no
+		autocapitalizationType = .none
 		backgroundColor = .Pino.clear
 		text = placeHolderText
 		textColor = .Pino.gray2
@@ -92,14 +94,14 @@ class SecretPhraseTextView: UITextView {
 	}
 
 	private func verifySeedPhrase() {
-		if let seedPhraseCountVerified {
+		if let importKeyCountVerified {
 			seedPhraseArray = text.components(separatedBy: " ")
 			seedPhraseArray.removeAll(where: { $0.isEmpty })
 			enteredWordsCount.text = "\(seedPhraseArray.count)/12"
 			if seedPhraseArray.count == seedPhraseMaxCount {
-				seedPhraseCountVerified(true)
+				importKeyCountVerified(true)
 			} else {
-				seedPhraseCountVerified(false)
+				importKeyCountVerified(false)
 			}
 		}
 	}

@@ -14,30 +14,26 @@ class EditAccountView: UIView {
 	public var openAvatarPage: () -> Void
 	public var openRevealPrivateKey: () -> Void
 	public var openRemoveAccount: () -> Void
-	public let openEditWalletNameClosure: () -> Void
+	public let openEditAccountNameClosure: () -> Void
 
 	// MARK: - Public Properties
 
 	public var editAccountVM: EditAccountViewModel
-	@Published
-	public var selectedWalletVM: WalletInfoViewModel
 
 	// MARK: - Initializers
 
 	init(
 		editAccountVM: EditAccountViewModel,
-		selectedWalletVM: WalletInfoViewModel,
 		openAvatarPage: @escaping () -> Void,
 		openRemoveAccount: @escaping () -> Void,
 		openRevealPrivateKey: @escaping () -> Void,
-		openEditWalletNameClosure: @escaping () -> Void
+		openEditAccountNameClosure: @escaping () -> Void
 	) {
 		self.openAvatarPage = openAvatarPage
 		self.openRevealPrivateKey = openRevealPrivateKey
 		self.editAccountVM = editAccountVM
-		self.selectedWalletVM = selectedWalletVM
 		self.openRemoveAccount = openRemoveAccount
-		self.openEditWalletNameClosure = openEditWalletNameClosure
+		self.openEditAccountNameClosure = openEditAccountNameClosure
 		super.init(frame: .zero)
 
 		setupView()
@@ -61,15 +57,14 @@ class EditAccountView: UIView {
 	private func setupView() {
 		editAccountCollectionView = EditAccountCollectionView(
 			editAccountVM: editAccountVM,
-			walletVM: selectedWalletVM,
 			newAvatarTappedClosure: { [weak self] in
 				self?.openAvatarPage()
 			},
 			openRevealPrivateKeyClosure: { [weak self] in
 				self?.openRevealPrivateKey()
 			},
-			openEditWalletNameClosure: { [weak self] in
-				self?.openEditWalletNameClosure()
+			openEditAccountNameClosure: { [weak self] in
+				self?.openEditAccountNameClosure()
 			}
 		)
 
@@ -91,9 +86,16 @@ class EditAccountView: UIView {
 	}
 
 	private func setupBinding() {
-		$selectedWalletVM.sink { [weak self] selectedWallet in
-			self?.editAccountCollectionView.selectedWalletVM = selectedWallet
+		editAccountVM.$selectedAccount.sink { [weak self] selectedAccount in
 			self?.editAccountCollectionView.reloadData()
+		}.store(in: &cancellables)
+
+		editAccountVM.$isLastAccount.sink { isLastAccount in
+			if isLastAccount {
+				self.removeAccountButton.isHidden = true
+			} else {
+				self.removeAccountButton.isHidden = false
+			}
 		}.store(in: &cancellables)
 	}
 

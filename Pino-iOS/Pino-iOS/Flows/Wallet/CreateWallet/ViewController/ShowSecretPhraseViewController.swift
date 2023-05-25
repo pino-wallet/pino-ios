@@ -11,20 +11,20 @@ class ShowSecretPhraseViewController: UIViewController {
 	// MARK: Public Properties
 
 	public var isNewWallet = false
-	public var addedNewWallet: (() -> Void)?
 
 	// MARK: Private Properties
 
-	private let secretPhraseVM = ShowSecretPhraseViewModel()
+	private var secretPhraseVM = ShowSecretPhraseViewModel()
 
 	// MARK: View Overrides
 
 	override func viewDidLoad() {
+		secretPhraseVM.generateMnemonics()
+		setupView()
 		super.viewDidLoad()
 	}
 
 	override func loadView() {
-		setupView()
 		setupNotifications()
 		if isNewWallet {
 			setupPrimaryColorNavigationBar()
@@ -77,8 +77,6 @@ class ShowSecretPhraseViewController: UIViewController {
 
 	private func goToVerifyPage() {
 		let verifyViewController = VerifySecretPhraseViewController()
-		verifyViewController.isNewWallet = isNewWallet
-		verifyViewController.addedNewWallet = addedNewWallet
 		verifyViewController.secretPhraseVM = VerifySecretPhraseViewModel(secretPhraseVM.secretPhraseList)
 		navigationController?.pushViewController(verifyViewController, animated: true)
 	}

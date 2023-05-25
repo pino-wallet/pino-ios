@@ -9,18 +9,21 @@ import Combine
 import UIKit
 
 class ProfileCollectionView: UICollectionView {
-	// MARK: Private Properties
+	// MARK: - Private Properties
 
 	private let profileVM: ProfileViewModel
 	private var cancellables = Set<AnyCancellable>()
 
-	// MARK: Public Properties
+	// MARK: - Closures
 
 	public var settingsItemSelected: (SettingsViewModel) -> Void
 
-	// MARK: Initializers
+	// MARK: - Initializers
 
-	init(profileVM: ProfileViewModel, settingsItemSelected: @escaping (SettingsViewModel) -> Void) {
+	init(
+		profileVM: ProfileViewModel,
+		settingsItemSelected: @escaping (SettingsViewModel) -> Void
+	) {
 		self.profileVM = profileVM
 		self.settingsItemSelected = settingsItemSelected
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
@@ -148,7 +151,7 @@ extension ProfileCollectionView: UICollectionViewDataSource {
 					withReuseIdentifier: AccountHeaderView.headerReuseID,
 					for: indexPath
 				) as! AccountHeaderView
-				accountHeaderView.walletInfoVM = profileVM.walletInfo
+				accountHeaderView.accountInfoVM = profileVM.walletInfo
 				return accountHeaderView
 
 			case 1:

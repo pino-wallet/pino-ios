@@ -63,18 +63,18 @@ class HomepageViewController: UIViewController {
 	}
 
 	private func setupNavigationBar() {
-		homeVM.$walletInfo.sink { [weak self] walletInfo in
-			guard let walletInfo = walletInfo else { return }
-			let walletInfoNavigationItems = WalletInfoNavigationItems(walletInfoVM: walletInfo)
-			self?.navigationItem.titleView = walletInfoNavigationItems.walletTitle
-			self?.navigationItem.leftBarButtonItem = walletInfoNavigationItems.profileButton
+		homeVM.$walletInfo.sink { [weak self] accountInfo in
+			guard let accountInfo = accountInfo else { return }
+			let accountInfoNavigationItems = AccountInfoNavigationItems(accountInfoVM: accountInfo)
+			self?.navigationItem.titleView = accountInfoNavigationItems.accountTitle
+			self?.navigationItem.leftBarButtonItem = accountInfoNavigationItems.profileButton
 			self?.navigationItem.titleView?
 				.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self?.copyWalletAddress)))
 			self?.navigationItem.leftBarButtonItem?.customView?
 				.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self?.openProfilePage)))
 		}.store(in: &cancellables)
 
-		navigationItem.rightBarButtonItem = WalletInfoNavigationItems.manageAssetButton
+		navigationItem.rightBarButtonItem = AccountInfoNavigationItems.manageAssetButton
 		navigationItem.rightBarButtonItem?.target = self
 		navigationItem.rightBarButtonItem?.action = #selector(openManageAssetsPage)
 	}
@@ -98,6 +98,7 @@ class HomepageViewController: UIViewController {
 		let manageAssetsVC = ManageAssetsViewController(homeVM: homeVM)
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [manageAssetsVC]
+		navigationVC.modalPresentationStyle = .formSheet
 		present(navigationVC, animated: true)
 	}
 
@@ -105,12 +106,13 @@ class HomepageViewController: UIViewController {
 	private func openProfilePage() {
 		let profileVC = ProfileViewController(profileVM: profileVM)
 		let navigationVC = UINavigationController()
+		navigationVC.modalPresentationStyle = .formSheet
 		navigationVC.viewControllers = [profileVC]
 		present(navigationVC, animated: true)
 	}
 
 	private func openCoinInfo(assetVM: AssetViewModel) {
-		let coinInfoVC = CoinInfoViewController(coinID: assetVM.id, homeVM: homeVM)
+		let coinInfoVC = CoinInfoViewController(selectedAsset: assetVM, homeVM: homeVM)
 		let navigationVC = UINavigationController(rootViewController: coinInfoVC)
 		present(navigationVC, animated: true)
 	}
@@ -118,14 +120,14 @@ class HomepageViewController: UIViewController {
 	private func openPortfolioPage() {
 		guard let assets = homeVM.manageAssetsList else { return }
 		let portfolioPerformanceVC = PortfolioPerformanceViewController(assets: assets)
-		portfolioPerformanceVC.modalPresentationStyle = .automatic
+		portfolioPerformanceVC.modalPresentationStyle = .formSheet
 		let navigationVC = UINavigationController(rootViewController: portfolioPerformanceVC)
 		present(navigationVC, animated: true)
 	}
 
 	private func openReceiveAssetPage() {
 		let navigationVC = UINavigationController()
-		let receiveAssetVC = ReceiveAssetViewController(homeVM: homeVM)
+		let receiveAssetVC = ReceiveAssetViewController(accountInfo: homeVM.walletInfo)
 		navigationVC.viewControllers = [receiveAssetVC]
 		present(navigationVC, animated: true)
 	}
