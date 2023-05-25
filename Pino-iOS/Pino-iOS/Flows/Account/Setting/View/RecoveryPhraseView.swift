@@ -73,7 +73,7 @@ class RecoveryPhraseView: UIView {
 		}), for: .touchUpInside)
 
 		let revealTapGesture = UITapGestureRecognizer(target: self, action: #selector(revealSeedPhrase))
-		seedPhraseView.addGestureRecognizer(revealTapGesture)
+		seedPhraseBlurView.addGestureRecognizer(revealTapGesture)
 	}
 
 	private func setupStyle() {
