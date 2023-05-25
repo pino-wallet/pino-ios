@@ -106,10 +106,10 @@ class AllowNotificationsView: UIView {
 		buttonsStackView.backgroundColor = .Pino.clear
 
 		sampleNotificationCard1.image = UIImage(named: allowNotificationsVM.sampleNotificationCardImage1)
-		sampleNotificationCard1.isHidden = true
+		sampleNotificationCard1.alpha = 0
 
 		sampleNotificationCard2.image = UIImage(named: allowNotificationsVM.sampleNotificationCardImage2)
-		sampleNotificationCard2.isHidden = true
+		sampleNotificationCard2.alpha = 0
 
 		enableNotificationsButton.title = allowNotificationsVM.enableNotificationsButtonTitleText
 
@@ -202,15 +202,14 @@ class AllowNotificationsView: UIView {
 	// MARK: - Public Methods
 
 	public func animateSmapleNotificationsCard() {
-		sampleNotificationCard1.isHidden = false
-		sampleNotificationCard2.isHidden = false
 		UIView.animate(
 			withDuration: animationTime,
 			delay: 0,
 			usingSpringWithDamping: animationTime,
 			initialSpringVelocity: animationTime,
-			options: .curveEaseIn,
+            options: .curveLinear,
 			animations: { [weak self] in
+                self?.sampleNotificationCard1.alpha = 1
 				let sampleNotificationCard1Constraint = NSLayoutConstraint(
 					item: self?.sampleNotificationCard1 as Any,
 					attribute: .top,
@@ -230,8 +229,9 @@ class AllowNotificationsView: UIView {
 				delay: 0,
 				usingSpringWithDamping: self!.animationTime,
 				initialSpringVelocity: self!.animationTime,
-				options: .curveEaseIn,
+				options: .curveLinear,
 				animations: { [weak self] in
+                    self?.sampleNotificationCard2.alpha = 1
 					let sampleNotificationCard2Constraint = NSLayoutConstraint(
 						item: self?.sampleNotificationCard2 as Any,
 						attribute: .top,
