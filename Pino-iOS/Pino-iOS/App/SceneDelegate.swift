@@ -21,6 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		// `application:configurationForConnectingSceneSession` instead).
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		window = UIWindow(windowScene: windowScene)
+        UserDefaults.standard.register(defaults: ["hasShownNotifPage": false])
 		if UserDefaults.standard.bool(forKey: "isLogin") {
 			window?.rootViewController = TabBarViewController()
 		} else {
