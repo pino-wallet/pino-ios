@@ -13,7 +13,7 @@ class CoinPerformanceViewModel {
 
 	private var accountingAPIClient = AccountingAPIClient()
 	private var cancellables = Set<AnyCancellable>()
-	private let selectedAsset: ShareOfAssetsViewModel
+	private let selectedAsset: AssetViewModel
 
 	// MARK: - Public Properties
 
@@ -29,10 +29,10 @@ class CoinPerformanceViewModel {
 
 	// MARK: - Initializers
 
-	init(selectedAsset: ShareOfAssetsViewModel) {
+	init(selectedAsset: AssetViewModel) {
 		self.selectedAsset = selectedAsset
-		self.assetName = selectedAsset.assetName
-		self.assetImage = selectedAsset.assetImage!
+		self.assetName = selectedAsset.name
+		self.assetImage = selectedAsset.image
 		getChartData()
 		setupBindings()
 	}
@@ -40,7 +40,7 @@ class CoinPerformanceViewModel {
 	// MARK: - Private Methods
 
 	public func getChartData(dateFilter: ChartDateFilter = .day) {
-		accountingAPIClient.coinPerformance(timeFrame: dateFilter.timeFrame, tokenID: selectedAsset.assetVM.id)
+		accountingAPIClient.coinPerformance(timeFrame: dateFilter.timeFrame, tokenID: selectedAsset.id)
 			.sink { completed in
 				switch completed {
 				case .finished:

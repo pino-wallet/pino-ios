@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol AssetProtocol {
+public protocol AssetProtocol {
 	var id: String { get }
 	var amount: String { get }
 	var isVerified: Bool { get }

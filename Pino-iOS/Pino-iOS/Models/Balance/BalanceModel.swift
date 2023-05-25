@@ -22,7 +22,7 @@ struct BalanceAssetModel: Codable, AssetProtocol {
 
 // MARK: - Detail
 
-struct Detail: Codable {
+public struct Detail: Codable {
 	let id, symbol, name, logo: String
 	let decimals: Int
 	let change24H, changePercentage, price: String

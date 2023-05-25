@@ -8,11 +8,9 @@ import BigInt
 import Foundation
 
 public class AssetViewModel: SecurityModeProtocol {
-	// MARK: - Private Properties
-
-	private var assetModel: AssetProtocol
-
 	// MARK: - Public Properties
+
+	public var assetModel: AssetProtocol
 
 	public var securityMode = false
 	public var isSelected: Bool
@@ -60,6 +58,10 @@ public class AssetViewModel: SecurityModeProtocol {
 		AssetVolatilityType(change24h: assetModel.detail!.change24H)
 	}
 
+	public var symbol: String {
+		assetModel.detail!.symbol
+	}
+
 	// MARK: - Initializers
 
 	init(assetModel: AssetProtocol, isSelected: Bool) {
@@ -93,7 +95,7 @@ public class AssetViewModel: SecurityModeProtocol {
 	// MARK: - Private Methods
 
 	private func getFormattedAmount() -> String {
-		"\(holdAmount.formattedAmountOf(type: .hold)) \(assetModel.detail!.symbol)"
+		"\(holdAmount.formattedAmountOf(type: .hold)) \(symbol)"
 	}
 
 	private func getFormattedAmountInDollor() -> String {
