@@ -60,12 +60,13 @@ class AddNewAccountViewController: UIViewController {
 			// Loading should be shown
 			// Homepage in the new account should be opened
 			accountsVM.createNewAccount { error in
-				guard let error else {
-					self.errorToastview.message = error?.localizedDescription
+				if let error {
+                    self.errorToastview.message = error.localizedDescription
 					self.errorToastview.showToast()
 					return
-				}
-				self.dismiss(animated: true)
+                } else {
+                    self.dismiss(animated: true)
+                }
 			}
 		case .Import:
 			let importWalletVC = ImportSecretPhraseViewController()
@@ -79,12 +80,13 @@ class AddNewAccountViewController: UIViewController {
 
 	private func importAccountWithKey(_ privateKey: String) {
 		accountsVM.importAccountWith(privateKey: privateKey) { error in
-			guard let error else {
-				self.errorToastview.message = error?.localizedDescription
+			if let error {
+				self.errorToastview.message = error.localizedDescription
 				self.errorToastview.showToast()
 				return
-			}
-			self.dismiss(animated: true)
+            } else {
+                self.dismiss(animated: true)
+            }
 		}
 	}
 }

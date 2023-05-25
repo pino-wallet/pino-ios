@@ -88,7 +88,11 @@ class AccountsViewModel {
 	}
 
 	private func addNewWalletAccountWithAddress(_ address: String, derivationPath: String? = nil, publicKey: Data) {
-		let wallet = coreDataManager.getAllWallets().first(where: { $0.walletType == .nonHDWallet })
+        var walletType: Wallet.WalletType = .nonHDWallet
+        if derivationPath != nil {
+            walletType = .hdWallet
+        }
+		let wallet = coreDataManager.getAllWallets().first(where: { $0.walletType == walletType })
 		let walletsAvatar = accountsList.map { $0.profileImage }
 		let walletsName = accountsList.map { $0.name }
 		let newAvatar = Avatar

@@ -22,6 +22,11 @@ class CoreDataManager {
 	public func getSelectedWalletOf(type: Wallet.WalletType) -> Wallet? {
 		walletDataSource.get(byType: type)
 	}
+    
+//    public func increaseLastDrivedIndexOf(wallet: Wallet) {
+//        wallet.lastDrivedIndex += 1
+//        walletDataSource.save(wallet)
+//    }
 
 	@discardableResult
 	public func createWallet(type: Wallet.WalletType, lastDrivedIndex: Int32 = 0) -> Wallet {
