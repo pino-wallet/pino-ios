@@ -24,16 +24,16 @@ enum KeychainManager: String {
 			// Value already exists
 			return nil
 		} else {
-            if keychainHelper.set(value, forKey: key) {
-                return nil
-            } else {
-                switch self {
-                case .mnemonics:
-                    return .keyManager(.mnemonicsStorageFailed)
-                case .privateKey:
-                    return .keyManager(.privateKeyStorageFailed)
-                }
-            }
+			if keychainHelper.set(value, forKey: key) {
+				return nil
+			} else {
+				switch self {
+				case .mnemonics:
+					return .keyManager(.mnemonicsStorageFailed)
+				case .privateKey:
+					return .keyManager(.privateKeyStorageFailed)
+				}
+			}
 		}
 	}
 
