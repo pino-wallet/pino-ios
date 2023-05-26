@@ -52,6 +52,7 @@ class HomepageViewModel {
 	// MARK: - Initializers
 
 	init() {
+		checkDefaultAssetsAdded()
 		getSelectedAssetsFromCoreData()
 		getWalletInfo()
 		setupBindings()

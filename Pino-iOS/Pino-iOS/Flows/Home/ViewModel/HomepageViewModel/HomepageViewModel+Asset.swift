@@ -48,7 +48,6 @@ extension HomepageViewModel {
 				)
 			}
 			self.assetsModelList = tokensModel
-			self.checkDefaultAssetsAdded(tokensModel)
 			self.manageAssetsList = tokensModel.compactMap {
 				AssetViewModel(assetModel: $0, isSelected: self.selectedAssets.map { $0.id }.contains($0.id))
 			}
@@ -64,10 +63,10 @@ extension HomepageViewModel {
 		selectedAssets = coreDataManager.getAllSelectedAssets()
 	}
 
-	internal func checkDefaultAssetsAdded(_ assets: [BalanceAssetModel]) {
+	internal func checkDefaultAssetsAdded() {
 		let defaultAssetUserDefaultsKey = "isDefaultAssetsAdded"
 		if !UserDefaults.standard.bool(forKey: defaultAssetUserDefaultsKey) {
-			addDefaultAssetsToCoreData(assets)
+			addDefaultAssetsToCoreData()
 			UserDefaults.standard.setValue(true, forKey: defaultAssetUserDefaultsKey)
 		}
 	}
@@ -85,10 +84,9 @@ extension HomepageViewModel {
 		selectedAssets.removeAll(where: { $0 == selectedAsset })
 	}
 
-	private func addDefaultAssetsToCoreData(_ assets: [BalanceAssetModel]) {
-		let defaultAssets = assets.prefix(4)
-		for asset in defaultAssets {
-			let selectedAsset = coreDataManager.addNewSelectedAsset(id: asset.id)
+	private func addDefaultAssetsToCoreData() {
+		for tokenID in accountingAPIClient.defaultTokensID {
+			let selectedAsset = coreDataManager.addNewSelectedAsset(id: tokenID)
 			selectedAssets.append(selectedAsset)
 		}
 	}
