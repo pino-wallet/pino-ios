@@ -123,8 +123,9 @@ class AssetsCollectionView: UICollectionView {
 		homeVM.getHomeData { error in
 			self.refreshControl?.endRefreshing()
 			if let error {
-				self.refreshErrorToastView.message = error.message
-				self.refreshErrorToastView.showToast()
+                #warning("Temporarily removing to add when toast library is added")
+//				self.refreshErrorToastView.message = error.message
+//				self.refreshErrorToastView.showToast()
 			} else {
 				self.hideSkeletonView()
 			}
