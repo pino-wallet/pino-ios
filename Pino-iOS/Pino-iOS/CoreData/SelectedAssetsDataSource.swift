@@ -27,7 +27,7 @@ struct SelectedAssetsDataSource: DataSourceProtocol {
 			let results = try managedContext.fetch(selectedAssetsFetch)
 			selectedAssets = results
 		} catch let error as NSError {
-			print("Fetch error: \(error) description: \(error.userInfo)")
+			fatalError("Fetch error: \(error) description: \(error.userInfo)")
 		}
 	}
 
