@@ -91,15 +91,15 @@ public enum WalletOperationError: LocalizedError {
 	case wallet(WalletError)
 	case validator(WalletValidatorError)
 	case keyManager(KeyManagementError)
-    
-    public var description: String {
-        switch self {
-        case .wallet(let walletError):
-            return walletError.description
-        case .validator(let walletValidatorError):
-            return walletValidatorError.description
-        case .keyManager(let keyManagementError):
-            return keyManagementError.description
-        }
-    }
+
+	public var description: String {
+		switch self {
+		case let .wallet(walletError):
+			return walletError.description
+		case let .validator(walletValidatorError):
+			return walletValidatorError.description
+		case let .keyManager(keyManagementError):
+			return keyManagementError.description
+		}
+	}
 }

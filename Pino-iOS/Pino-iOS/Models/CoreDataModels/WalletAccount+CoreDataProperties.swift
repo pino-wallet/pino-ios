@@ -32,3 +32,23 @@ extension WalletAccount {
 	@NSManaged
 	public var wallet: Wallet
 }
+
+extension Wallet {
+	public enum WalletType: Int32, Codable {
+		case hdWallet = 0
+		case nonHDWallet = 1
+	}
+
+	var walletType: WalletType {
+		// To get a State enum from stateValue, initialize the
+		// State type from the Int32 value stateValue
+		get {
+			WalletType(rawValue: type)!
+		}
+		// newValue will be of type State, thus rawValue will
+		// be an Int32 value that can be saved in Core Data
+		set {
+			type = newValue.rawValue
+		}
+	}
+}
