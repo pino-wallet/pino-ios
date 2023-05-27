@@ -33,10 +33,6 @@ public class ManageAssetCell: UICollectionViewCell {
 
 	// MARK: Public Methods
 
-	public func toggleAssetSwitch() {
-		selectAssetSwitch.setOn(!isSwitchOn(), animated: true)
-	}
-
 	public func isSwitchOn() -> Bool {
 		selectAssetSwitch.isOn
 	}
@@ -80,7 +76,7 @@ public class ManageAssetCell: UICollectionViewCell {
 		assetImage.layer.cornerRadius = 22
 
 		selectAssetSwitch.onTintColor = .Pino.green3
-		selectAssetSwitch.setOn(assetVM.isSelected, animated: false)
+		selectAssetSwitch.setOn(assetVM.isSelected, animated: true)
 		selectAssetSwitch.isUserInteractionEnabled = false
 	}
 
