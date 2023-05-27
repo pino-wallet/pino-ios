@@ -108,7 +108,7 @@ class ReceiveAssetView: UIView {
 			.fixedWidth(300),
 			.fixedHeight(300)
 		)
-		addressQrCodeImageView.pin(.allEdges(to: addressQRCodeImageCardView, padding: 9))
+		addressQrCodeImageView.pin(.allEdges(to: addressQRCodeImageCardView, padding: 10))
 		qrCodeBordersCard.pin(.allEdges(to: addressQRCodeImageCardView, padding: 18))
 		accountInfoStackView.pin(
 			.relative(.top, 16, to: addressQRCodeImageCardView, .bottom),
