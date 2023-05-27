@@ -94,9 +94,17 @@ extension ImportSecretPhraseView {
 		}), for: .touchUpInside)
 	}
 
+	// MARK: - Public Methods
+
 	public func showError() {
 		importTextView.errorStackView.isHidden = false
 	}
+
+	public func activateButton() {
+		importButton.style = .active
+	}
+
+	// MARK: - Private Methods
 
 	private func setupStyle() {
 		titleLabel.text = importAccountVM.title

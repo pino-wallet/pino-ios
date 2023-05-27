@@ -39,6 +39,8 @@ class AccountsViewController: UIViewController {
 	private func setupView() {
 		view = AccountsCollectionView(accountsVM: accountsVM, editAccountTapped: { selectedAccount in
 			self.openEditAccountPage(selectedAccount: selectedAccount)
+		}, dismissPage: { [weak self] in
+			self?.dismiss(animated: true)
 		})
 	}
 

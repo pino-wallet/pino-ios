@@ -13,7 +13,7 @@ class CoinInfoViewModel {
 	// MARK: - Public Properties
 
 	public let homeVM: HomepageViewModel
-	public let coinID: String
+	public let selectedAsset: AssetViewModel
 
 	@Published
 	public var coinPortfolio: CoinPortfolioViewModel!
@@ -40,6 +40,8 @@ class CoinInfoViewModel {
 	public let noAssetPriceText = "-"
 	public let unavailableRecentHistoryText = "The history are only available for verified assets!"
 	public let unavailableRecentHistoryIconName = "gray_error_alert"
+	public let copyWebsiteToastText = "Coin website has been copied"
+	public let copyContractAddressToastText = "Coin contract address has been copied"
 
 	#warning("this text is for testing and should be removed")
 	public let positionAssetInfoText = """
@@ -57,9 +59,9 @@ class CoinInfoViewModel {
 
 	// MARK: - Inintializers
 
-	init(homeVM: HomepageViewModel, coinID: String) {
+	init(homeVM: HomepageViewModel, selectedAsset: AssetViewModel) {
 		self.homeVM = homeVM
-		self.coinID = coinID
+		self.selectedAsset = selectedAsset
 		getCoinPortfolio()
 		getHistoryList()
 	}
@@ -77,12 +79,7 @@ class CoinInfoViewModel {
 	// MARK: - private Methods
 
 	private func getCoinPortfolio() {
-		homeVM.$assetsModelList.sink { [weak self] assetsList in
-			guard let coinInfo = assetsList!.first(where: { $0.id == self?.coinID }) else {
-				fatalError("Cant find asset with id")
-			}
-			self?.coinPortfolio = CoinPortfolioViewModel(coinPortfolioModel: coinInfo)
-		}.store(in: &cancellables)
+		coinPortfolio = CoinPortfolioViewModel(coinPortfolioModel: selectedAsset.assetModel)
 	}
 
 	private func getHistoryList() {

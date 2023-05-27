@@ -26,7 +26,6 @@ class RemoveAccountViewController: UIViewController {
 
 	override func loadView() {
 		setupView()
-		setupNavigationBar()
 	}
 
 	// MARK: - Private Methods
@@ -34,17 +33,10 @@ class RemoveAccountViewController: UIViewController {
 	private func setupView() {
 		let removeAccountView = RemoveAccountView(presentConfirmActionsheetClosure: { [weak self] in
 			self?.presentConfirmRemoveAccountAlert()
-		}, removeAccountVM: removeAccountVM)
+		}, removeAccountVM: removeAccountVM, dismissPage: { [weak self] in
+			self?.dismiss(animated: true)
+		})
 		view = removeAccountView
-	}
-
-	private func setupNavigationBar() {
-		dismissButton.setImage(UIImage(named: removeAccountVM.navigationDismissButtonIconName), for: .normal)
-		dismissButtonContainerView.frame = CGRectMake(0, 0, 30, 46)
-		dismissButtonContainerView.addSubview(dismissButton)
-		dismissButton.frame = CGRectMake(0, 14, 30, 30)
-		dismissButton.addTarget(self, action: #selector(dismissSelf), for: .touchUpInside)
-		navigationItem.rightBarButtonItem = UIBarButtonItem(customView: dismissButtonContainerView)
 	}
 
 	private func presentConfirmRemoveAccountAlert() {
@@ -61,10 +53,5 @@ class RemoveAccountViewController: UIViewController {
 		)
 
 		present(confirmRemoveAccountAlert, animated: true)
-	}
-
-	@objc
-	private func dismissSelf() {
-		dismiss(animated: true)
 	}
 }

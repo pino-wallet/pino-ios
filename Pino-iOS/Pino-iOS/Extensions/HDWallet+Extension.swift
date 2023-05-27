@@ -44,7 +44,7 @@ extension HDWallet {
 		if let newHdWallet = HDWallet(strength: seedPhraseCount.strength, passphrase: passphrase) {
 			return newHdWallet.mnemonic
 		} else {
-			fatalError(WalletError.mnemonicGenerationFailed.localizedDescription)
+			fatalError(WalletError.mnemonicGenerationFailed.errorDescription!)
 		}
 	}
 

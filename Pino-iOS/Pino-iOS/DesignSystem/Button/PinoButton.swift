@@ -73,6 +73,7 @@ public class PinoButton: UIButton {
 			loadingEnabled(false)
 		default:
 			isEnabled = true
+			updateTitle(title)
 			loadingEnabled(false)
 		}
 	}

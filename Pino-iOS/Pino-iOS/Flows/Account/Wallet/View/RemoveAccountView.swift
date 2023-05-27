@@ -10,6 +10,7 @@ import UIKit
 class RemoveAccountView: UIView {
 	// MARK: - Closure
 
+	public var dismissPage: () -> Void
 	public var presentConfirmActionsheetClosure: () -> Void
 
 	// MARK: - Public Properties
@@ -18,6 +19,7 @@ class RemoveAccountView: UIView {
 
 	// MARK: - Private Properties
 
+	private let clearNavigationBar = ClearNavigationBar()
 	private let titleImageView = UIImageView()
 	private let titleLabel = PinoLabel(style: .title, text: "")
 	private let descriptonLabel = PinoLabel(style: .description, text: "")
@@ -25,14 +27,22 @@ class RemoveAccountView: UIView {
 	private let mainStackView = UIStackView()
 	private let titleStackView = UIStackView()
 	private let infoStackview = UIStackView()
+	private let navigationBarRightSideView = UIView()
+	private let navigationBarDismissButton = UIButton()
 
 	// MARK: - Initializers
 
-	init(presentConfirmActionsheetClosure: @escaping () -> Void, removeAccountVM: RemoveAccountViewModel) {
+	init(
+		presentConfirmActionsheetClosure: @escaping () -> Void,
+		removeAccountVM: RemoveAccountViewModel,
+		dismissPage: @escaping () -> Void
+	) {
 		self.presentConfirmActionsheetClosure = presentConfirmActionsheetClosure
 		self.removeAccountVM = removeAccountVM
+		self.dismissPage = dismissPage
 		super.init(frame: .zero)
 		setupView()
+		setupStyles()
 		setupConstraints()
 	}
 
@@ -43,7 +53,38 @@ class RemoveAccountView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		titleStackView.addArrangedSubview(titleImageView)
+		titleStackView.addArrangedSubview(titleLabel)
+
+		infoStackview.addArrangedSubview(descriptonLabel)
+		infoStackview.addArrangedSubview(removeButton)
+
+		removeButton.addTarget(self, action: #selector(presentConfirmActionsheet), for: .touchUpInside)
+
+		mainStackView.addArrangedSubview(titleStackView)
+		mainStackView.addArrangedSubview(infoStackview)
+
+		navigationBarDismissButton.addTarget(self, action: #selector(onDismissTap), for: .touchUpInside)
+
+		navigationBarRightSideView.addSubview(navigationBarDismissButton)
+
+		clearNavigationBar.setRightSectionView(view: navigationBarRightSideView)
+
+		addSubview(clearNavigationBar)
+		addSubview(mainStackView)
+	}
+
+	private func setupStyles() {
 		backgroundColor = .Pino.secondaryBackground
+
+		mainStackView.axis = .vertical
+		mainStackView.spacing = 16
+		mainStackView.alignment = .fill
+
+		navigationBarDismissButton.setImage(
+			UIImage(named: removeAccountVM.navigationDismissButtonIconName),
+			for: .normal
+		)
 
 		titleImageView.image = UIImage(named: removeAccountVM.titleIconName)
 
@@ -57,31 +98,22 @@ class RemoveAccountView: UIView {
 		titleStackView.axis = .vertical
 		titleStackView.spacing = 24
 		titleStackView.alignment = .center
-		titleStackView.addArrangedSubview(titleImageView)
-		titleStackView.addArrangedSubview(titleLabel)
+
 		titleLabel.textAlignment = .center
 
 		infoStackview.axis = .vertical
 		infoStackview.spacing = 54
-		infoStackview.addArrangedSubview(descriptonLabel)
+
 		descriptonLabel.textAlignment = .center
-		infoStackview.addArrangedSubview(removeButton)
 
 		removeButton.setTitle(removeAccountVM.removeButtonTitle, for: .normal)
-		removeButton.addTarget(self, action: #selector(presentConfirmActionsheet), for: .touchUpInside)
-
-		mainStackView.axis = .vertical
-		mainStackView.spacing = 16
-		mainStackView.alignment = .fill
-		mainStackView.addArrangedSubview(titleStackView)
-		mainStackView.addArrangedSubview(infoStackview)
-
-		addSubview(mainStackView)
 	}
 
 	private func setupConstraints() {
+		navigationBarDismissButton.pin(.fixedHeight(30), .fixedHeight(30), .top(padding: 22), .trailing(padding: 0))
+		clearNavigationBar.pin(.horizontalEdges(padding: 0), .top(padding: 0))
 		mainStackView.pin(
-			.top(to: layoutMarginsGuide, padding: 119),
+			.relative(.top, 119, to: clearNavigationBar, .bottom),
 			.centerX(to: superview),
 			.horizontalEdges(padding: 16)
 		)
@@ -90,5 +122,10 @@ class RemoveAccountView: UIView {
 	@objc
 	private func presentConfirmActionsheet() {
 		presentConfirmActionsheetClosure()
+	}
+
+	@objc
+	private func onDismissTap() {
+		dismissPage()
 	}
 }

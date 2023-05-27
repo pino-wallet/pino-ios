@@ -2,7 +2,7 @@
 //  Wallet+CoreDataProperties.swift
 //
 //
-//  Created by Sobhan Eskandari on 5/13/23.
+//  Created by Sobhan Eskandari on 5/26/23.
 //
 //
 
@@ -16,33 +16,33 @@ extension Wallet {
 	}
 
 	@NSManaged
+	public var isSelected: Bool
+	@NSManaged
 	public var lastDrivedIndex: Int32
 	@NSManaged
 	public var type: Int32
 	@NSManaged
-	public var isSelected: Bool
-	@NSManaged
 	public var accounts: NSSet?
 }
 
-// MARK: Generated accessors for account
+// MARK: Generated accessors for accounts
 
 extension Wallet {
-	@objc(addAccountObject:)
+	@objc(addAccountsObject:)
 	@NSManaged
-	public func addToAccount(_ value: WalletAccount)
+	public func addToAccounts(_ value: WalletAccount)
 
-	@objc(removeAccountObject:)
+	@objc(removeAccountsObject:)
 	@NSManaged
-	public func removeFromAccount(_ value: WalletAccount)
+	public func removeFromAccounts(_ value: WalletAccount)
 
-	@objc(addAccount:)
+	@objc(addAccounts:)
 	@NSManaged
-	public func addToAccount(_ values: NSSet)
+	public func addToAccounts(_ values: NSSet)
 
-	@objc(removeAccount:)
+	@objc(removeAccounts:)
 	@NSManaged
-	public func removeFromAccount(_ values: NSSet)
+	public func removeFromAccounts(_ values: NSSet)
 }
 
 extension Wallet {

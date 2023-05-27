@@ -16,6 +16,8 @@ class AccountHeaderView: UICollectionReusableView {
 	private let accountName = UILabel()
 	private let accountAddress = UILabel()
 	private let accountSettingsTitle = UILabel()
+	private let accountHeaderVM = AccountHeaderViewModel()
+	private let copyToastView = PinoToastView(message: nil, style: .secondary, padding: 80)
 
 	// MARK: - Public Properties
 
@@ -26,6 +28,7 @@ class AccountHeaderView: UICollectionReusableView {
 			setupView()
 			setupStyle()
 			setupConstraint()
+			setupWalletAddressTapGesture()
 		}
 	}
 
@@ -43,8 +46,8 @@ class AccountHeaderView: UICollectionReusableView {
 
 	private func setupStyle() {
 		accountName.text = accountInfoVM.name
-		accountAddress.text = accountInfoVM.address.shortenedString(characterCount: 4)
-		accountSettingsTitle.text = "Accounts"
+		accountAddress.text = accountInfoVM.address.shortenedString(characterCountFromStart: 6, characterCountFromEnd: 4)
+		accountSettingsTitle.text = accountHeaderVM.accountsTitleText
 		accountIcon.image = UIImage(named: accountInfoVM.profileImage)
 		accountIconBackgroundView.backgroundColor = UIColor(named: accountInfoVM.profileColor)
 
@@ -84,5 +87,20 @@ class AccountHeaderView: UICollectionReusableView {
 		accountIcon.pin(
 			.allEdges(padding: 16)
 		)
+	}
+
+	private func setupWalletAddressTapGesture() {
+		let addressTapGesture = UITapGestureRecognizer(target: self, action: #selector(copyAddress))
+		accountInfoStackview.addGestureRecognizer(addressTapGesture)
+		accountInfoStackview.isUserInteractionEnabled = true
+	}
+
+	@objc
+	private func copyAddress() {
+		let pasteboard = UIPasteboard.general
+		pasteboard.string = accountInfoVM.address
+
+		copyToastView.message = accountHeaderVM.copyMessage
+		copyToastView.showToast()
 	}
 }

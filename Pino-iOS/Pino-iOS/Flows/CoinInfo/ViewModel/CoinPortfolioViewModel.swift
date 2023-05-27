@@ -61,11 +61,19 @@ struct CoinPortfolioViewModel {
 		return "$\(totalAmountInDollar.formattedAmountOf(type: .hold))"
 	}
 
-	public var contractAddress: String {
+	public var isEthCoin: Bool {
 		if coinPortfolioModel.detail!.id == AccountingEndpoint.ethID {
-			return "-"
+			return true
 		}
-		return coinPortfolioModel.detail!.id
+		return false
+	}
+
+	public var contractAddress: String {
+		if isEthCoin {
+			return "-"
+		} else {
+			return coinPortfolioModel.detail!.id
+		}
 	}
 }
 
