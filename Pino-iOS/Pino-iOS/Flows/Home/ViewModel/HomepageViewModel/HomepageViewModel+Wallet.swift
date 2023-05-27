@@ -21,7 +21,7 @@ extension HomepageViewModel {
 		let balance = getAssetsHoldAmount(assets)
 		let previousBalance = getAssetsPreviousHoldAmount(assets)
 		let volatility = balance - previousBalance
-		let volatilityPercentage = "0"
+		let volatilityPercentage = getVolatilityPercentage(balance: balance, previousBalance: previousBalance)
 
 		walletBalance = WalletBalanceViewModel(balanceModel: WalletBalanceModel(
 			balance: balance.formattedAmountOf(type: .price),
@@ -43,5 +43,11 @@ extension HomepageViewModel {
 		assets
 			.compactMap { $0.previousDayNetworth }
 			.reduce(BigNumber(number: 0, decimal: 0), +)
+	}
+
+	private func getVolatilityPercentage(balance: BigNumber, previousBalance: BigNumber) -> String {
+		let volatility = balance.doubleValue - previousBalance.doubleValue
+		let volatilityPercentage = (volatility / previousBalance.doubleValue) * 100
+		return "\(abs(volatilityPercentage.roundToPlaces(2)))"
 	}
 }
