@@ -22,7 +22,11 @@ struct AddNewAccountOptionViewModel {
 		addNewAccountOption.iconName
 	}
 
-	public var page: AddNewAccountOptionModel.page {
-		addNewAccountOption.page
+	public var page: AddNewAccountOptionModel.type {
+		addNewAccountOption.type
+	}
+
+	public var isLoading: Bool {
+		addNewAccountOption.isLoading
 	}
 }
