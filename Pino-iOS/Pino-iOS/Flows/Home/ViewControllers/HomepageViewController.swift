@@ -11,7 +11,7 @@ import UIKit
 class HomepageViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let homeVM = HomepageViewModel()
+    private var homeVM:HomepageViewModel!
 	private var profileVM: ProfileViewModel!
 	private var cancellables = Set<AnyCancellable>()
 	private var assetsCollectionView: AssetsCollectionView!
@@ -29,7 +29,12 @@ class HomepageViewController: UIViewController {
 	}
 
 	override func loadView() {
+        homeVM = HomepageViewModel(completion: { error in
+            #warning("A toast should be sgown in case of error")
+            print(error)
+        })
 		profileVM = ProfileViewModel(walletInfo: homeVM.walletInfo)
+        
 		setupView()
 		setupNavigationBar()
 		setupBindings()
