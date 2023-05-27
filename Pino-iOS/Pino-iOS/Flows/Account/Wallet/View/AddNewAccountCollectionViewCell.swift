@@ -16,8 +16,9 @@ class AddNewAccountCollectionViewCell: UICollectionViewCell {
 	private let iconStackView = UIStackView()
 	private let titleLabel = PinoLabel(style: .title, text: "")
 	private let descriptionLabel = PinoLabel(style: .description, text: "")
-	private let iconImageContainerView = UIView()
+	private let cellStatusContainerView = UIView()
 	private let iconImageView = UIImageView()
+	private var loadingView: PinoLoading!
 
 	// MARK: - Public Properties
 
@@ -25,6 +26,7 @@ class AddNewAccountCollectionViewCell: UICollectionViewCell {
 		didSet {
 			setupView()
 			setupConstraints()
+			setupStyles()
 		}
 	}
 
@@ -33,6 +35,26 @@ class AddNewAccountCollectionViewCell: UICollectionViewCell {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		loadingView = PinoLoading(size: 28)
+
+		textStackView.addArrangedSubview(titleLabel)
+		textStackView.addArrangedSubview(descriptionLabel)
+
+		cellStatusContainerView.addSubview(iconImageView)
+		cellStatusContainerView.addSubview(loadingView)
+
+		iconStackView.addArrangedSubview(cellStatusContainerView)
+
+		contentView.addSubview(mainStackView)
+		mainStackView.axis = .horizontal
+		mainStackView.addArrangedSubview(textStackView)
+		mainStackView.addArrangedSubview(betWeenStackView)
+		mainStackView.addArrangedSubview(iconStackView)
+	}
+
+	private func setupStyles() {
+		toggleCellLoading(addNewAccountOptionVM.isLoading)
+
 		contentView.layer.cornerRadius = 12
 		contentView.layer.backgroundColor = UIColor.Pino.white.cgColor
 
@@ -48,25 +70,26 @@ class AddNewAccountCollectionViewCell: UICollectionViewCell {
 		textStackView.axis = .vertical
 		textStackView.spacing = 4
 		textStackView.distribution = .fillEqually
-		textStackView.addArrangedSubview(titleLabel)
-		textStackView.addArrangedSubview(descriptionLabel)
+	}
 
-		iconImageContainerView.addSubview(iconImageView)
-
-		iconStackView.addArrangedSubview(iconImageContainerView)
-
-		contentView.addSubview(mainStackView)
-		mainStackView.axis = .horizontal
-		mainStackView.addArrangedSubview(textStackView)
-		mainStackView.addArrangedSubview(betWeenStackView)
-		mainStackView.addArrangedSubview(iconStackView)
+	private func toggleCellLoading(_ loadingStatus: Bool) {
+		if loadingStatus {
+			isUserInteractionEnabled = false
+			loadingView.isHidden = false
+			iconImageView.isHidden = true
+		} else {
+			isUserInteractionEnabled = true
+			loadingView.isHidden = true
+			iconImageView.isHidden = false
+		}
 	}
 
 	private func setupConstraints() {
 		mainStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
 
-		iconImageContainerView.pin(.fixedWidth(28))
+		cellStatusContainerView.pin(.fixedWidth(28))
 		iconImageView.pin(.fixedWidth(28), .fixedHeight(28), .centerY())
+		loadingView.pin(.centerY())
 		mainStackView.pin(.allEdges(padding: 14))
 	}
 }

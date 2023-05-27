@@ -7,23 +7,33 @@
 
 import Foundation
 
-struct AddNewAccountViewModel {
+class AddNewAccountViewModel {
 	// MARK: - Public Properties
 
-	public let AddNewAccountOptions: [AddNewAccountOptionModel?] = [
+	@Published
+	public var AddNewAccountOptions: [AddNewAccountOptionModel?] = [
 		AddNewAccountOptionModel(
 			title: "Create a new account",
 			descrption: "Generate a new account",
 			iconName: "arrow_right",
-			page: .Create
+			type: .Create,
+			isLoading: false
 		),
 		AddNewAccountOptionModel(
 			title: "Import wallet",
 			descrption: "Import an existing wallet",
 			iconName: "arrow_right",
-			page: .Import
+			type: .Import,
+			isLoading: false
 		),
 	]
 
 	public let pageTitle = "Create / Import Account"
+
+	// MARK: - Public Methods
+
+	public func setLoadingStatusFor(optionType: AddNewAccountOptionModel.type, loadingStatus: Bool) {
+		let optionIndex = AddNewAccountOptions.firstIndex(where: { $0?.type == optionType })
+		AddNewAccountOptions[optionIndex!]?.isLoading = loadingStatus
+	}
 }

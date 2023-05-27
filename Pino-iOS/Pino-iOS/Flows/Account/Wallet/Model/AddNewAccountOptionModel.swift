@@ -11,11 +11,12 @@ struct AddNewAccountOptionModel {
 	public let title: String
 	public let descrption: String
 	public let iconName: String
-	public let page: page
+	public let type: type
+	public var isLoading: Bool
 }
 
 extension AddNewAccountOptionModel {
-	public enum page {
+	public enum type {
 		case Create
 		case Import
 	}

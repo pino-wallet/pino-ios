@@ -5,14 +5,17 @@
 //  Created by Amir Kazemi on 3/15/23.
 //
 
+import Combine
 import UIKit
 
 class AddNewAccountViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let addNewAccountVM = AddNewAccountViewModel()
 	private let accountsVM: AccountsViewModel
 	private let errorToastview = PinoToastView(message: nil, style: .error, padding: 16)
+	private var addNewAccountCollectionView: AddNewAccountCollectionView!
+	private var addNewAccountVM = AddNewAccountViewModel()
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -34,17 +37,19 @@ class AddNewAccountViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
+		setupBindings()
 	}
 
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = AddNewAccountCollectionView(
+		addNewAccountCollectionView = AddNewAccountCollectionView(
 			addNewAccountVM: addNewAccountVM,
 			openAddNewAccountPageClosure: { [weak self] option in
 				self?.openAddNewAccountPage(option: option)
 			}
 		)
+		view = addNewAccountCollectionView
 	}
 
 	private func setupNavigationBar() {
@@ -54,18 +59,20 @@ class AddNewAccountViewController: UIViewController {
 	}
 
 	private func openAddNewAccountPage(option: AddNewAccountOptionModel) {
-		switch option.page {
+		switch option.type {
 		case .Create:
 			// New Wallet should be created
 			// Loading should be shown
 			// Homepage in the new account should be opened
-			accountsVM.createNewAccount { error in
+			addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: true)
+			accountsVM.createNewAccount { [weak self] error in
 				if let error {
-					self.errorToastview.message = error.localizedDescription
-					self.errorToastview.showToast()
+					self?.errorToastview.message = error.localizedDescription
+					self?.errorToastview.showToast()
+					self?.addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: false)
 					return
 				} else {
-					self.dismiss(animated: true)
+					self?.dismiss(animated: true)
 				}
 			}
 		case .Import:
@@ -90,5 +97,11 @@ class AddNewAccountViewController: UIViewController {
 		accountsVM.importAccountWith(privateKey: privateKey) { error in
 			completion(error)
 		}
+	}
+
+	private func setupBindings() {
+		addNewAccountVM.$AddNewAccountOptions.sink { [weak self] _ in
+			self?.addNewAccountCollectionView.reloadData()
+		}.store(in: &cancellables)
 	}
 }
