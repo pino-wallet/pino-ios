@@ -36,7 +36,7 @@ class CoinInfoStatsView: UIStackView {
 	private let coinPriceStackViewSepratorLabel = PinoLabel(style: .title, text: "")
 	private let coinPriceChangeLabel = PinoLabel(style: .title, text: "")
 	private let coinPriceLabel = PinoLabel(style: .title, text: "")
-	private let copyToastview = PinoToastView(message: nil, style: .primary)
+	private let copyToastview = PinoToastView(message: nil, style: .secondary)
 	private var websiteTapGesture: UITapGestureRecognizer!
 	private var contractAddressGesture: UITapGestureRecognizer!
 
