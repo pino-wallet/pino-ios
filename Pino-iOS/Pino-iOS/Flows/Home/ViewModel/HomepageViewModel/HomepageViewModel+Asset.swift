@@ -28,7 +28,7 @@ extension HomepageViewModel {
 	}
 
 	internal func getManageAsset(assets: [BalanceAssetModel]) {
-		accountingAPIClient.cts().sink { completed in
+		ctsAPIclient.tokens().sink { completed in
 			switch completed {
 			case .finished:
 				print("tokens received successfully")
@@ -85,7 +85,7 @@ extension HomepageViewModel {
 	}
 
 	private func addDefaultAssetsToCoreData() {
-		for tokenID in accountingAPIClient.defaultTokensID {
+		for tokenID in ctsAPIclient.defaultTokensID {
 			let selectedAsset = coreDataManager.addNewSelectedAsset(id: tokenID)
 			selectedAssets.append(selectedAsset)
 		}

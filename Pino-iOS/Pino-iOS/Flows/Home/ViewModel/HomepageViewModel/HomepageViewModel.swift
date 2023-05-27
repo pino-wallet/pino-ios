@@ -46,6 +46,7 @@ class HomepageViewModel {
 
 	internal var walletAPIClient = WalletAPIMockClient()
 	internal var accountingAPIClient = AccountingAPIClient()
+	internal var ctsAPIclient = CTSAPIClient()
 
 	internal let coreDataManager = CoreDataManager()
 
