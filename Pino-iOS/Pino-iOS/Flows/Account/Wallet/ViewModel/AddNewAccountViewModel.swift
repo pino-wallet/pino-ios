@@ -32,7 +32,7 @@ class AddNewAccountViewModel {
 
 	// MARK: - Public Methods
 
-	public func updateAddNewAccountOption(optionType: AddNewAccountOptionModel.type, loadingStatus: Bool) {
+	public func setLoadingStatusFor(optionType: AddNewAccountOptionModel.type, loadingStatus: Bool) {
 		let optionIndex = AddNewAccountOptions.firstIndex(where: { $0?.type == optionType })
 		AddNewAccountOptions[optionIndex!]?.isLoading = loadingStatus
 	}

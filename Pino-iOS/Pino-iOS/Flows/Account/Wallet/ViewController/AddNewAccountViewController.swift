@@ -64,12 +64,12 @@ class AddNewAccountViewController: UIViewController {
 			// New Wallet should be created
 			// Loading should be shown
 			// Homepage in the new account should be opened
-			addNewAccountVM.updateAddNewAccountOption(optionType: .Create, loadingStatus: true)
+			addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: true)
 			accountsVM.createNewAccount { [weak self] error in
 				if let error {
 					self?.errorToastview.message = error.localizedDescription
 					self?.errorToastview.showToast()
-					self?.addNewAccountVM.updateAddNewAccountOption(optionType: .Create, loadingStatus: false)
+					self?.addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: false)
 					return
 				} else {
 					self?.dismiss(animated: true)
