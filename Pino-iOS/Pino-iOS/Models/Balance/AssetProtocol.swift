@@ -12,4 +12,5 @@ public protocol AssetProtocol {
 	var amount: String { get }
 	var isVerified: Bool { get }
 	var detail: Detail? { get }
+	var previousDayNetworth: String { get }
 }
