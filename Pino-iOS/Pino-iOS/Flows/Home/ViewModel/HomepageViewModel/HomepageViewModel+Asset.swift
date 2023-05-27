@@ -45,7 +45,8 @@ extension HomepageViewModel {
 					id: $0.id,
 					amount: userAsset?.amount ?? "0",
 					isVerified: userAsset?.isVerified ?? true,
-					detail: $0
+					detail: $0,
+					previousDayNetworth: userAsset?.previousDayNetworth ?? "0"
 				)
 			}
 			self.assetsModelList = tokensModel
