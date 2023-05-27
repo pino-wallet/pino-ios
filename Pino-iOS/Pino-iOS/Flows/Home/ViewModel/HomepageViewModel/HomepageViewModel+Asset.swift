@@ -33,7 +33,7 @@ extension HomepageViewModel {
 			case .finished:
 				print("tokens received successfully")
 			case let .failure(error):
-                #warning("When toast library gets added we should show the error")
+				#warning("When toast library gets added we should show the error")
 				print(error)
 			}
 		} receiveValue: { tokens in
