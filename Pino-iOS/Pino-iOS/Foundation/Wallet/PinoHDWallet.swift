@@ -33,7 +33,7 @@ public class PinoHDWallet: PinoHDWalletType {
 				let encryptedMnemonicsData = encryptHdWalletMnemonics(createdWallet.mnemonic, forAccount: account)
 				if let error = KeychainManager.mnemonics.setValue(
 					value: encryptedMnemonicsData,
-                    key: KeychainManager.mnemonics.getKey(account.eip55Address)
+					key: KeychainManager.mnemonics.getKey(account.eip55Address)
 				) {
 					return .failure(error)
 				}
@@ -99,7 +99,7 @@ public class PinoHDWallet: PinoHDWalletType {
 		}
 
 		print("Private Key: \(privateKey.data.hexString)")
-        print("Public Key: \(publicKey.data.hexString)")
+		print("Public Key: \(publicKey.data.hexString)")
 		print("EIP Key: \(account.eip55Address)")
 		print("Ethereum Address: \(account)")
 		return account

@@ -30,7 +30,7 @@ struct AccountInfoNavigationItems {
 		)
 
 		let accountAddress = NSMutableAttributedString(
-			string: " (\(accountInfoVM.address.shortenedString(characterCount: 3)))",
+			string: " (\(accountInfoVM.address.shortenedString(characterCountFromStart: 6, characterCountFromEnd: 4)))",
 			attributes: [
 				NSAttributedString.Key.foregroundColor: UIColor.Pino.secondaryLabel,
 				NSAttributedString.Key.font: UIFont.PinoStyle.mediumCallout!,

@@ -23,8 +23,8 @@ extension String {
 		Double(self)
 	}
 
-	public func shortenedString(characterCount: Int) -> String {
-		"\(prefix(characterCount))...\(suffix(characterCount))"
+	public func shortenedString(characterCountFromStart: Int, characterCountFromEnd: Int) -> String {
+		"\(prefix(characterCountFromStart))...\(suffix(characterCountFromEnd))"
 	}
 
 	public func validateETHContractAddress() -> Bool {

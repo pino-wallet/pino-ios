@@ -58,13 +58,13 @@ class AccountsViewModel {
 		let importedAccount = pinoWalletManager.importAccount(privateKey: privateKey)
 		switch importedAccount {
 		case let .success(account):
-            if coreDataManager.getAllWalletAccounts().contains(where: { $0.eip55Address == account.eip55Address }) {
-                completion(WalletOperationError.wallet(.accountAlreadyExists))
-            } else {
-                activateNewAccountAddress(account.eip55Address, publicKey: account.publicKey) { error in
-                    completion(error)
-                }
-            }
+			if coreDataManager.getAllWalletAccounts().contains(where: { $0.eip55Address == account.eip55Address }) {
+				completion(WalletOperationError.wallet(.accountAlreadyExists))
+			} else {
+				activateNewAccountAddress(account.eip55Address, publicKey: account.publicKey) { error in
+					completion(error)
+				}
+			}
 		case let .failure(error):
 			completion(error)
 		}
@@ -92,10 +92,10 @@ class AccountsViewModel {
 	}
 
 	private func addNewWalletAccountWithAddress(_ address: String, derivationPath: String? = nil, publicKey: Data) {
-        var walletType: Wallet.WalletType = .nonHDWallet
-        if derivationPath != nil {
-            walletType = .hdWallet
-        }
+		var walletType: Wallet.WalletType = .nonHDWallet
+		if derivationPath != nil {
+			walletType = .hdWallet
+		}
 		let wallet = coreDataManager.getAllWallets().first(where: { $0.walletType == walletType })
 		let walletsAvatar = accountsList.map { $0.profileImage }
 		let walletsName = accountsList.map { $0.name }

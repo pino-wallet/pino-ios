@@ -61,32 +61,32 @@ class AddNewAccountViewController: UIViewController {
 			// Homepage in the new account should be opened
 			accountsVM.createNewAccount { error in
 				if let error {
-                    self.errorToastview.message = error.localizedDescription
+					self.errorToastview.message = error.localizedDescription
 					self.errorToastview.showToast()
 					return
-                } else {
-                    self.dismiss(animated: true)
-                }
+				} else {
+					self.dismiss(animated: true)
+				}
 			}
 		case .Import:
 			let importWalletVC = ImportSecretPhraseViewController()
 			importWalletVC.isNewWallet = false
 			importWalletVC.addedNewWalletWithPrivateKey = { privateKey in
-                self.importAccountWithKey(privateKey) { error in
-                    if let error {
-                        importWalletVC.importsecretPhraseView.activateButton()
-                        self.errorToastview.message = error.description
-                        self.errorToastview.showToast()
-                    } else {
-                        self.dismiss(animated: true)
-                    }
-                }
+				self.importAccountWithKey(privateKey) { error in
+					if let error {
+						importWalletVC.importsecretPhraseView.activateButton()
+						self.errorToastview.message = error.description
+						self.errorToastview.showToast()
+					} else {
+						self.dismiss(animated: true)
+					}
+				}
 			}
 			navigationController?.pushViewController(importWalletVC, animated: true)
 		}
 	}
 
-    private func importAccountWithKey(_ privateKey: String, completion: @escaping (WalletOperationError?) -> Void) {
+	private func importAccountWithKey(_ privateKey: String, completion: @escaping (WalletOperationError?) -> Void) {
 		accountsVM.importAccountWith(privateKey: privateKey) { error in
 			completion(error)
 		}
