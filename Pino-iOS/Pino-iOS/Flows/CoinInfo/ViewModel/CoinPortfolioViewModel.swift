@@ -60,21 +60,21 @@ struct CoinPortfolioViewModel {
 		let totalAmountInDollar = userAmount * coinPrice
 		return "$\(totalAmountInDollar.formattedAmountOf(type: .hold))"
 	}
-    
-    public var isEthCoin: Bool {
-            if coinPortfolioModel.detail!.id == AccountingEndpoint.ethID {
-                return true
-            }
-            return false
-        }
 
-    public var contractAddress: String {
-        if isEthCoin {
-            return "-"
-        } else {
-            return coinPortfolioModel.detail!.id
-        }
-    }
+	public var isEthCoin: Bool {
+		if coinPortfolioModel.detail!.id == AccountingEndpoint.ethID {
+			return true
+		}
+		return false
+	}
+
+	public var contractAddress: String {
+		if isEthCoin {
+			return "-"
+		} else {
+			return coinPortfolioModel.detail!.id
+		}
+	}
 }
 
 extension CoinPortfolioViewModel {
