@@ -14,6 +14,7 @@ class CoinInfoStatsView: UIStackView {
 		didSet {
 			setupStyles()
 			setupStylesFromCoinType()
+			setupTapGesturesByCoinType()
 		}
 	}
 
@@ -35,6 +36,10 @@ class CoinInfoStatsView: UIStackView {
 	private let coinPriceStackViewSepratorLabel = PinoLabel(style: .title, text: "")
 	private let coinPriceChangeLabel = PinoLabel(style: .title, text: "")
 	private let coinPriceLabel = PinoLabel(style: .title, text: "")
+	private let copyWebsiteToastview = PinoToastView(message: nil, style: .secondary)
+	private let copyContractAddressToastview = PinoToastView(message: nil, style: .secondary)
+	private var websiteTapGesture: UITapGestureRecognizer!
+	private var contractAddressGesture: UITapGestureRecognizer!
 
 	// MARK: - Initializers
 
@@ -73,6 +78,26 @@ class CoinInfoStatsView: UIStackView {
 		[firstStatStackView, secondStatStackView, thirdStatStackView].forEach {
 			addArrangedSubview($0)
 		}
+	}
+
+	private func setupTapGesturesByCoinType() {
+		switch coinInfoVM.coinPortfolio.type {
+		case .verified:
+			setupTapGestures()
+		case .unVerified:
+			setupTapGestures()
+		case .position:
+			return
+		}
+	}
+
+	private func setupTapGestures() {
+		websiteTapGesture = UITapGestureRecognizer(target: self, action: #selector(copyWebsite))
+		contractAddressGesture = UITapGestureRecognizer(target: self, action: #selector(copyContractAddress))
+		firstStatLabel.isUserInteractionEnabled = true
+		secondStatLabel.isUserInteractionEnabled = true
+		secondStatLabel.addGestureRecognizer(contractAddressGesture)
+		firstStatLabel.addGestureRecognizer(websiteTapGesture)
 	}
 
 	private func setupStyles() {
@@ -171,5 +196,25 @@ class CoinInfoStatsView: UIStackView {
 
 	private func setupSecondStatLabelConstraint() {
 		secondStatLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 100).isActive = true
+	}
+
+	@objc
+	private func copyWebsite() {
+		let pasteBoard = UIPasteboard.general
+		pasteBoard.string = coinInfoVM.coinPortfolio.website
+
+		copyWebsiteToastview.message = coinInfoVM.copyWebsiteToastText
+		copyWebsiteToastview.showToast()
+	}
+
+	@objc
+	private func copyContractAddress() {
+		if !coinInfoVM.coinPortfolio.isEthCoin {
+			let pasteBoard = UIPasteboard.general
+			pasteBoard.string = coinInfoVM.coinPortfolio.contractAddress
+
+			copyContractAddressToastview.message = coinInfoVM.copyContractAddressToastText
+			copyContractAddressToastview.showToast()
+		}
 	}
 }
