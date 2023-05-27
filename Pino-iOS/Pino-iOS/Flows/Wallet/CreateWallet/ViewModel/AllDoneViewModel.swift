@@ -51,8 +51,8 @@ struct AllDoneViewModel {
 						walletCreated(.wallet(.accountActivationFailed(error)))
 					}
 				}) { [self] activatedAccount in
-					self.createInitialWalletsInCoreData { createdWallet in
-						self.createInitalAddressInCoreDataIn(wallet: createdWallet, account: account)
+					createInitialWalletsInCoreData { createdWallet in
+						createInitalAddressInCoreDataIn(wallet: createdWallet, account: account)
 					}
 					walletCreated(nil)
 				}.store(in: &cancellables)
