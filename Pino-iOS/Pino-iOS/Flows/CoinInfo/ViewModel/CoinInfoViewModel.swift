@@ -40,6 +40,10 @@ class CoinInfoViewModel {
 	public let noAssetPriceText = "-"
 	public let unavailableRecentHistoryText = "The history are only available for verified assets!"
 	public let unavailableRecentHistoryIconName = "gray_error_alert"
+    public let copyWebsiteToastText = "Coin website has been copied"
+        public let copyContractAddressToastText = "Coin contract address has been copied"
+
+
 
 	#warning("this text is for testing and should be removed")
 	public let positionAssetInfoText = """
