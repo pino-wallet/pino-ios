@@ -14,6 +14,7 @@ enum AccountingEndpoint: EndpointType {
 
 	// MARK: - Cases
 
+	case cts
 	case balances(accountADD: String)
 	case portfolio(timeFrame: String, accountADD: String)
 	case coinPerformance(timeFrame: String, tokenID: String, accountADD: String)
@@ -38,6 +39,8 @@ enum AccountingEndpoint: EndpointType {
 
 	internal var task: HTTPTask {
 		switch self {
+		case .cts:
+			return .request
 		case .balances:
 			return .request
 		case let .portfolio(timeFrame, _):
@@ -64,6 +67,8 @@ enum AccountingEndpoint: EndpointType {
 
 	internal var path: String {
 		switch self {
+		case .cts:
+			return "cts/tokens"
 		case let .balances(accountADD):
 			return "\(endpointParent)/user/\(accountADD)/balances"
 		case let .portfolio(_, accountADD):
@@ -77,7 +82,7 @@ enum AccountingEndpoint: EndpointType {
 
 	internal var httpMethod: HTTPMethod {
 		switch self {
-		case .balances, .portfolio, .coinPerformance:
+		case .cts, .balances, .portfolio, .coinPerformance:
 			return .get
 		case .activateAccountWith:
 			return .post

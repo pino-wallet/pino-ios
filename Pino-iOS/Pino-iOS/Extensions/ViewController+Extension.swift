@@ -14,6 +14,7 @@ extension UIViewController {
 		// Show steper view in the navigation bar
 		let stepperView = PinoStepperView(stepsCount: stepsCount, currentStep: curreuntStep)
 		navigationItem.titleView = stepperView
+		navigationController?.navigationBar.topItem?.title = ""
 	}
 
 	public func removeNavigationBackButton() {
@@ -39,6 +40,8 @@ extension UIViewController {
 		let navBarAppearance = UINavigationBarAppearance()
 		navBarAppearance.configureWithOpaqueBackground()
 		navBarAppearance.backgroundColor = .Pino.primary
+		let customBackImage = UIImage(systemName: "arrow.left")
+		navBarAppearance.setBackIndicatorImage(customBackImage, transitionMaskImage: customBackImage)
 		navigationController?.navigationBar.standardAppearance = navBarAppearance
 		navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
 		navigationController?.navigationBar.tintColor = .white

@@ -28,12 +28,31 @@ extension HomepageViewModel {
 	}
 
 	internal func getManageAsset(assets: [BalanceAssetModel]) {
-		assetsModelList = assets
-		checkDefaultAssetsAdded(assets)
-		let selectedAssetsID = selectedAssets.map { $0.id }
-		manageAssetsList = assets.compactMap {
-			AssetViewModel(assetModel: $0, isSelected: selectedAssetsID.contains($0.id))
-		}
+		ctsAPIclient.tokens().sink { completed in
+			switch completed {
+			case .finished:
+				print("tokens received successfully")
+			case let .failure(error):
+                #warning("When toast library gets added we should show the error")
+				print(error)
+			}
+		} receiveValue: { tokens in
+			// Convert Detail model to Asset model
+			let tokensModel = tokens.compactMap {
+				let tokenID = $0.id
+				let userAsset = assets.first(where: { $0.id == tokenID })
+				return BalanceAssetModel(
+					id: $0.id,
+					amount: userAsset?.amount ?? "0",
+					isVerified: userAsset?.isVerified ?? true,
+					detail: $0
+				)
+			}
+			self.assetsModelList = tokensModel
+			self.manageAssetsList = tokensModel.compactMap {
+				AssetViewModel(assetModel: $0, isSelected: self.selectedAssets.map { $0.id }.contains($0.id))
+			}
+		}.store(in: &cancellables)
 	}
 
 	#warning("This is temporary and must be replaced with API data")
@@ -41,53 +60,36 @@ extension HomepageViewModel {
 		positionAssetsList = []
 	}
 
-	#warning("Core data functions should be moved to a separate layer")
-
 	internal func getSelectedAssetsFromCoreData() {
-		let selectedAssetsFetch: NSFetchRequest<SelectedAsset> = SelectedAsset.fetchRequest()
-		do {
-			let results = try managedContext.fetch(selectedAssetsFetch)
-			selectedAssets = results
-		} catch let error as NSError {
-			print("Fetch error: \(error) description: \(error.userInfo)")
-		}
+		selectedAssets = coreDataManager.getAllSelectedAssets()
 	}
 
-	internal func checkDefaultAssetsAdded(_ assets: [BalanceAssetModel]) {
+	internal func checkDefaultAssetsAdded() {
 		let defaultAssetUserDefaultsKey = "isDefaultAssetsAdded"
 		if !UserDefaults.standard.bool(forKey: defaultAssetUserDefaultsKey) {
-			addDefaultAssetsToCoreData(assets)
+			addDefaultAssetsToCoreData()
 			UserDefaults.standard.setValue(true, forKey: defaultAssetUserDefaultsKey)
 		}
 	}
 
 	// MARK: Private Methods
 
-	private func insertSelectedAssetInCoreData(_ asset: AssetViewModel) {
-		let newAsset = SelectedAsset(context: managedContext)
-		newAsset.setValue(asset.id, forKey: "id")
-		selectedAssets.append(newAsset)
-		// Save changes in CoreData
-		coreDataStack.saveContext()
+	private func addSelectedAssetToCoreData(_ asset: AssetViewModel) {
+		let selectedAsset = coreDataManager.addNewSelectedAsset(id: asset.id)
+		selectedAssets.append(selectedAsset)
 	}
 
 	private func deleteSelectedAssetFromCoreData(_ asset: AssetViewModel) {
 		guard let selectedAsset = selectedAssets.first(where: { $0.id == asset.id }) else { return }
-		managedContext.delete(selectedAsset)
-		selectedAssets.removeAll(where: { $0.id == asset.id })
-		// Save changes in CoreData
-		coreDataStack.saveContext()
+		coreDataManager.deleteSelectedAsset(selectedAsset)
+		selectedAssets.removeAll(where: { $0 == selectedAsset })
 	}
 
-	private func addDefaultAssetsToCoreData(_ assets: [BalanceAssetModel]) {
-		let defaultAssets = assets.prefix(4)
-		for asset in defaultAssets {
-			let newDefaultAsset = SelectedAsset(context: managedContext)
-			newDefaultAsset.setValue(asset.id, forKey: "id")
-			selectedAssets.append(newDefaultAsset)
+	private func addDefaultAssetsToCoreData() {
+		for tokenID in ctsAPIclient.defaultTokensID {
+			let selectedAsset = coreDataManager.addNewSelectedAsset(id: tokenID)
+			selectedAssets.append(selectedAsset)
 		}
-		// Save changes in CoreData
-		coreDataStack.saveContext()
 	}
 
 	// MARK: Public Methods
@@ -101,7 +103,7 @@ extension HomepageViewModel {
 			updatedAssets[selectedAssetIndex].toggleIsSelected()
 			self.manageAssetsList = updatedAssets
 			if isSelected {
-				insertSelectedAssetInCoreData(manageAssetsList[selectedAssetIndex])
+				addSelectedAssetToCoreData(manageAssetsList[selectedAssetIndex])
 			} else {
 				deleteSelectedAssetFromCoreData(manageAssetsList[selectedAssetIndex])
 			}
