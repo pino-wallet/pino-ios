@@ -14,7 +14,7 @@ class CoinInfoStatsView: UIStackView {
 		didSet {
 			setupStyles()
 			setupStylesFromCoinType()
-			setupTapGestures()
+			setupTapGesturesByCoinType()
 		}
 	}
 
@@ -36,7 +36,8 @@ class CoinInfoStatsView: UIStackView {
 	private let coinPriceStackViewSepratorLabel = PinoLabel(style: .title, text: "")
 	private let coinPriceChangeLabel = PinoLabel(style: .title, text: "")
 	private let coinPriceLabel = PinoLabel(style: .title, text: "")
-	private let copyToastview = PinoToastView(message: nil, style: .secondary)
+	private let copyWebsiteToastview = PinoToastView(message: nil, style: .secondary)
+	private let copyContractAddressToastview = PinoToastView(message: nil, style: .secondary)
 	private var websiteTapGesture: UITapGestureRecognizer!
 	private var contractAddressGesture: UITapGestureRecognizer!
 
@@ -79,25 +80,24 @@ class CoinInfoStatsView: UIStackView {
 		}
 	}
 
-	private func setupTapGestures() {
+	private func setupTapGesturesByCoinType() {
 		switch coinInfoVM.coinPortfolio.type {
 		case .verified:
-			websiteTapGesture = UITapGestureRecognizer(target: self, action: #selector(copyWebsite))
-			contractAddressGesture = UITapGestureRecognizer(target: self, action: #selector(copyContractAddress))
-			firstStatLabel.isUserInteractionEnabled = true
-			secondStatLabel.isUserInteractionEnabled = true
-			secondStatLabel.addGestureRecognizer(contractAddressGesture)
-			firstStatLabel.addGestureRecognizer(websiteTapGesture)
+			setupTapGestures()
 		case .unVerified:
-			websiteTapGesture = UITapGestureRecognizer(target: self, action: #selector(copyWebsite))
-			contractAddressGesture = UITapGestureRecognizer(target: self, action: #selector(copyContractAddress))
-			firstStatLabel.isUserInteractionEnabled = true
-			secondStatLabel.isUserInteractionEnabled = true
-			secondStatLabel.addGestureRecognizer(contractAddressGesture)
-			firstStatLabel.addGestureRecognizer(websiteTapGesture)
+			setupTapGestures()
 		case .position:
 			return
 		}
+	}
+
+	private func setupTapGestures() {
+		websiteTapGesture = UITapGestureRecognizer(target: self, action: #selector(copyWebsite))
+		contractAddressGesture = UITapGestureRecognizer(target: self, action: #selector(copyContractAddress))
+		firstStatLabel.isUserInteractionEnabled = true
+		secondStatLabel.isUserInteractionEnabled = true
+		secondStatLabel.addGestureRecognizer(contractAddressGesture)
+		firstStatLabel.addGestureRecognizer(websiteTapGesture)
 	}
 
 	private func setupStyles() {
@@ -203,8 +203,8 @@ class CoinInfoStatsView: UIStackView {
 		let pasteBoard = UIPasteboard.general
 		pasteBoard.string = coinInfoVM.coinPortfolio.website
 
-		copyToastview.message = coinInfoVM.copyWebsiteToastText
-		copyToastview.showToast()
+		copyWebsiteToastview.message = coinInfoVM.copyWebsiteToastText
+		copyWebsiteToastview.showToast()
 	}
 
 	@objc
@@ -213,8 +213,8 @@ class CoinInfoStatsView: UIStackView {
 			let pasteBoard = UIPasteboard.general
 			pasteBoard.string = coinInfoVM.coinPortfolio.contractAddress
 
-			copyToastview.message = coinInfoVM.copyContractAddressToastText
-			copyToastview.showToast()
+			copyContractAddressToastview.message = coinInfoVM.copyContractAddressToastText
+			copyContractAddressToastview.showToast()
 		}
 	}
 }
