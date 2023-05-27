@@ -2,7 +2,7 @@
 //  Wallet+CoreDataClass.swift
 //
 //
-//  Created by Amir hossein kazemi seresht on 5/27/23.
+//  Created by Sobhan Eskandari on 5/26/23.
 //
 //
 
