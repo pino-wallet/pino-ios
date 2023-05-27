@@ -18,17 +18,13 @@ extension HomepageViewModel {
 	}
 
 	internal func getWalletBalance(assets: [AssetViewModel]) {
-		let balance = assets
-			.compactMap { $0.holdAmountInDollor }
-			.reduce(BigNumber(number: 0, decimal: 0), +)
-			.formattedAmountOf(type: .price)
-		let volatility = assets
-			.compactMap { $0.change24h.bigNumber }
-			.reduce(BigNumber(number: 0, decimal: 0), +)
-		#warning("volatilityPercentage is static for now and must be changed later")
-		let volatilityPercentage = "5.5"
+		let balance = getAssetsHoldAmount(assets)
+		let previousBalance = getAssetsPreviousHoldAmount(assets)
+		let volatility = balance - previousBalance
+		let volatilityPercentage = getVolatilityPercentage(balance: balance, previousBalance: previousBalance)
+
 		walletBalance = WalletBalanceViewModel(balanceModel: WalletBalanceModel(
-			balance: balance,
+			balance: balance.formattedAmountOf(type: .price),
 			volatilityNumber: volatility.description,
 			volatilityPercentage: volatilityPercentage,
 			volatilityInDollor: volatility.formattedAmountOf(type: .price)
@@ -36,4 +32,25 @@ extension HomepageViewModel {
 	}
 
 	// MARK: Private Methods
+
+	private func getAssetsHoldAmount(_ assets: [AssetViewModel]) -> BigNumber {
+		assets
+			.compactMap { $0.holdAmountInDollor }
+			.reduce(BigNumber(number: 0, decimal: 0), +)
+	}
+
+	private func getAssetsPreviousHoldAmount(_ assets: [AssetViewModel]) -> BigNumber {
+		assets
+			.compactMap { $0.previousDayNetworth }
+			.reduce(BigNumber(number: 0, decimal: 0), +)
+	}
+
+	private func getVolatilityPercentage(balance: BigNumber, previousBalance: BigNumber) -> String {
+		if previousBalance.doubleValue == .zero {
+			return "0.00"
+		}
+		let volatility = balance.doubleValue - previousBalance.doubleValue
+		let volatilityPercentage = (volatility / previousBalance.doubleValue) * 100
+		return "\(abs(volatilityPercentage.roundToPlaces(2)))"
+	}
 }

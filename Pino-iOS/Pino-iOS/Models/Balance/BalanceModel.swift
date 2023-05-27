@@ -11,12 +11,14 @@ struct BalanceAssetModel: Codable, AssetProtocol {
 	let id, amount: String
 	let isVerified: Bool
 	let detail: Detail?
+	let previousDayNetworth: String
 
 	enum CodingKeys: String, CodingKey {
 		case id
 		case amount
 		case isVerified = "is_verified"
 		case detail
+		case previousDayNetworth = "previous_day_networth"
 	}
 }
 
