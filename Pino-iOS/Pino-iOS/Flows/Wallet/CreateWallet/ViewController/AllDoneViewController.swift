@@ -42,11 +42,12 @@ class AllDoneViewController: UIViewController {
 			if let error {
 				self.errorToastView.message = error.localizedDescription
 				self.errorToastView.showToast()
-			}
-			UserDefaults.standard.set(true, forKey: "isLogin")
-			let tabBarVC = TabBarViewController()
-			tabBarVC.modalPresentationStyle = .fullScreen
-			self.present(tabBarVC, animated: true)
+            } else {
+                UserDefaults.standard.set(true, forKey: "isLogin")
+                let tabBarVC = TabBarViewController()
+                tabBarVC.modalPresentationStyle = .fullScreen
+                self.present(tabBarVC, animated: true)
+            }
 		}
 	}
 }
