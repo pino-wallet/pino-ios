@@ -95,11 +95,13 @@ class HomepageViewController: UIViewController {
 
 	@objc
 	private func openManageAssetsPage() {
-		let manageAssetsVC = ManageAssetsViewController(homeVM: homeVM)
-		let navigationVC = UINavigationController()
-		navigationVC.viewControllers = [manageAssetsVC]
-		navigationVC.modalPresentationStyle = .formSheet
-		present(navigationVC, animated: true)
+		if homeVM.manageAssetsList != nil {
+			let manageAssetsVC = ManageAssetsViewController(homeVM: homeVM)
+			let navigationVC = UINavigationController()
+			navigationVC.viewControllers = [manageAssetsVC]
+			navigationVC.modalPresentationStyle = .formSheet
+			present(navigationVC, animated: true)
+		}
 	}
 
 	@objc
