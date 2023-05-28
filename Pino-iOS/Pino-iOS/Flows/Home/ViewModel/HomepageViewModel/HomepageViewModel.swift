@@ -50,16 +50,30 @@ class HomepageViewModel {
 
 	internal let coreDataManager = CoreDataManager()
 
+	var subscriptions = Set<AnyCancellable>()
+	let start = Date()
+
 	// MARK: - Initializers
 
-	init() {
+	init(completion: @escaping (HomeNetworkError?) -> Void) {
 		checkDefaultAssetsAdded()
 		getSelectedAssetsFromCoreData()
+		getHomeDataWithTimer(completion: completion)
 		getWalletInfo()
 		setupBindings()
 	}
 
 	// MARK: - Public Methods
+
+	func getHomeDataWithTimer(completion: @escaping (HomeNetworkError?) -> Void) {
+		Timer.publish(every: 12.0, on: .main, in: .common)
+			.autoconnect()
+			.sink { seconds in
+				print("Seconds: \(seconds)")
+				self.getHomeData(completion: completion)
+			}
+			.store(in: &subscriptions)
+	}
 
 	public func getHomeData(completion: @escaping (HomeNetworkError?) -> Void) {
 		internetConnectivity.$isConnected.tryCompactMap { $0 }.sink { _ in

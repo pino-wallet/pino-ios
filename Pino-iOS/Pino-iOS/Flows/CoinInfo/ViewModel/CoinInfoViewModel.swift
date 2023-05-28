@@ -70,7 +70,7 @@ class CoinInfoViewModel {
 
 	public func refreshCoinInfoData(completion: @escaping (APIError?) -> Void) {
 		getHistoryList()
-		homeVM.getHomeData(completion: { _ in
+		homeVM.getHomeData(completion: { error in
 			completion(nil)
 		})
 	}
