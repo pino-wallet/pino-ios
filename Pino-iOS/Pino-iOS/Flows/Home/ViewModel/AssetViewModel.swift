@@ -50,10 +50,6 @@ public class AssetViewModel: SecurityModeProtocol {
 		holdAmountInDollor.formattedAmountOf(type: .price)
 	}
 
-	public var change24h: PriceNumberFormatter {
-		PriceNumberFormatter(value: assetModel.detail!.change24H)
-	}
-
 	public var volatilityType: AssetVolatilityType {
 		AssetVolatilityType(change24h: assetModel.detail!.change24H)
 	}
@@ -111,16 +107,16 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	private func getFormattedVolatility() -> String {
-		if change24h.bigNumber.isZero {
+		if previousDayNetworth.isZero {
 			return "-"
 		} else {
 			switch volatilityType {
 			case .loss:
-				var lossValue = change24h.formattedAmount
+				var lossValue = previousDayNetworth.formattedAmountOf(type: .price)
 				lossValue.removeFirst()
 				return "-$\(lossValue)"
 			case .profit, .none:
-				return "+$\(change24h.formattedAmount)"
+				return "+$\(previousDayNetworth.formattedAmountOf(type: .price))"
 			}
 		}
 	}
