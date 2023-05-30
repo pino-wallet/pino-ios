@@ -90,6 +90,7 @@ class CoinInfoCollectionView: UICollectionView {
 				}
 				self.refreshErrorTostView.showToast()
 			}
+			self.hideSkeletonView()
 		}
 	}
 }
