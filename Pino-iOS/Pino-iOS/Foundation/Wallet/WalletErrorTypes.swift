@@ -18,6 +18,7 @@ public enum WalletError: LocalizedError {
 	case accountDeletionFailed
 	case accountActivationFailed(Error)
 	case unknownError
+	case netwrokError
 
 	public var description: String {
 		switch self {
@@ -37,6 +38,8 @@ public enum WalletError: LocalizedError {
 			return "Failed to activate your account"
 		case .unknownError:
 			return "Unknown Error"
+		case .netwrokError:
+			return "Please check your internet connection and try again"
 		}
 	}
 }

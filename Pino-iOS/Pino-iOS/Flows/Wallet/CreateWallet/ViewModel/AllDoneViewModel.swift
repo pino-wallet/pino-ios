@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-struct AllDoneViewModel {
+class AllDoneViewModel {
 	// MARK: Public Properties
 
 	public let image = "pino_logo"
@@ -31,34 +31,42 @@ struct AllDoneViewModel {
 	// MARK: - Private Properties
 
 	private let pinoWalletManager = PinoWalletManager()
-	private var accountingAPIClient = AccountingAPIClient()
 	private let coreDataManager = CoreDataManager()
+	private let internetConnectivity = InternetConnectivity()
 	private var cancellables = Set<AnyCancellable>()
+	private var accountingAPIClient = AccountingAPIClient()
 
 	// MARK: - Public Methods
 
-	public mutating func createWallet(mnemonics: String, walletCreated: @escaping (WalletOperationError?) -> Void) {
-		let initalAccount = pinoWalletManager.createHDWallet(mnemonics: mnemonics)
-		switch initalAccount {
-		case let .success(account):
-			accountingAPIClient.activateAccountWith(address: account.eip55Address)
-				.retry(3)
-				.sink(receiveCompletion: { completed in
-					switch completed {
-					case .finished:
-						walletCreated(nil)
-					case let .failure(error):
-						walletCreated(.wallet(.accountActivationFailed(error)))
-					}
-				}) { [self] activatedAccount in
-					createInitialWalletsInCoreData { createdWallet in
-						createInitalAddressInCoreDataIn(wallet: createdWallet, account: account)
-					}
-					walletCreated(nil)
-				}.store(in: &cancellables)
-		case let .failure(failure):
-			walletCreated(failure)
-		}
+	public func createWallet(mnemonics: String, walletCreated: @escaping (WalletOperationError?) -> Void) {
+		internetConnectivity.$isConnected.tryCompactMap { $0 }.sink { _ in } receiveValue: { [self] isConnected in
+			if isConnected {
+				let initalAccount = pinoWalletManager.createHDWallet(mnemonics: mnemonics)
+				switch initalAccount {
+				case let .success(account):
+					accountingAPIClient.activateAccountWith(address: account.eip55Address)
+						.retry(3)
+						.sink(receiveCompletion: { [self] completed in
+							switch completed {
+							case .finished:
+								walletCreated(nil)
+								cancellables.forEach { $0.cancel() }
+							case let .failure(error):
+								walletCreated(.wallet(.accountActivationFailed(error)))
+							}
+						}) { [self] activatedAccount in
+							createInitialWalletsInCoreData { createdWallet in
+								createInitalAddressInCoreDataIn(wallet: createdWallet, account: account)
+							}
+							walletCreated(nil)
+						}.store(in: &cancellables)
+				case let .failure(failure):
+					walletCreated(failure)
+				}
+			} else {
+				walletCreated(.wallet(.netwrokError))
+			}
+		}.store(in: &cancellables)
 	}
 
 	// MARK: - Private Methods
