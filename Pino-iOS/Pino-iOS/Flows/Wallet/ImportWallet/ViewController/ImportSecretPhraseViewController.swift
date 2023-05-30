@@ -39,16 +39,17 @@ class ImportSecretPhraseViewController: UIViewController {
 		if isNewWallet {
 			importsecretPhraseView = ImportSecretPhraseView(
 				validationPharaseVM: importAccountVM,
-				textViewType: SecretPhraseTextView(), importBtnTapped: {
-					self.importAccountVM.validate(
-						secretPhrase: self.importsecretPhraseView.importTextView.text,
+				textViewType: SecretPhraseTextView(), importBtnTapped: { [weak self] in
+					self?.importAccountVM.validate(
+						secretPhrase: (self?.importsecretPhraseView.importTextView.text)!,
 						onSuccess: {
-							self.importWallet()
+							self?.importWallet()
 						},
 						onFailure: { validationError in
 							switch validationError {
 							case .invalidSecretPhrase:
-								self.importsecretPhraseView?.showError()
+								self?.importsecretPhraseView?.showError()
+								self?.importsecretPhraseView?.activateButton()
 							}
 						}
 					)
@@ -57,16 +58,17 @@ class ImportSecretPhraseViewController: UIViewController {
 		} else {
 			importsecretPhraseView = ImportSecretPhraseView(
 				validationPharaseVM: importAccountVM,
-				textViewType: PrivateKeyTextView(), importBtnTapped: {
-					self.importAccountVM.validate(
-						privateKey: self.importsecretPhraseView.importTextView.text,
+				textViewType: PrivateKeyTextView(), importBtnTapped: { [weak self] in
+					self?.importAccountVM.validate(
+						privateKey: (self?.importsecretPhraseView.importTextView.text)!,
 						onSuccess: {
-							self.importWallet()
+							self?.importWallet()
 						},
 						onFailure: { validationError in
 							switch validationError {
 							case .invalidSecretPhrase:
-								self.importsecretPhraseView?.showError()
+								self?.importsecretPhraseView?.showError()
+								self?.importsecretPhraseView?.activateButton()
 							}
 						}
 					)
