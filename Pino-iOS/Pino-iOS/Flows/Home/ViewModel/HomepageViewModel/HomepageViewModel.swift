@@ -24,6 +24,7 @@ class HomepageViewModel {
 	public var positionAssetsList: [AssetViewModel]?
 	@Published
 	public var securityMode = false
+	public var tokens: [Detail]?
 	@Published
 	public var manageAssetsList: [AssetViewModel]?
 	public var selectedAssets = [SelectedAsset]()
@@ -58,9 +59,9 @@ class HomepageViewModel {
 	init(completion: @escaping (HomeNetworkError?) -> Void) {
 		checkDefaultAssetsAdded()
 		getSelectedAssetsFromCoreData()
-		getHomeDataWithTimer(completion: completion)
 		getWalletInfo()
 		setupBindings()
+		getHomeDataWithTimer(completion: completion)
 	}
 
 	// MARK: - Public Methods
@@ -81,8 +82,7 @@ class HomepageViewModel {
 			if isConnected {
 				self.getAssetsList { result in
 					switch result {
-					case let .success(assets):
-						self.getManageAsset(assets: assets)
+					case .success:
 						completion(nil)
 					case .failure:
 						completion(.requestFailed)
