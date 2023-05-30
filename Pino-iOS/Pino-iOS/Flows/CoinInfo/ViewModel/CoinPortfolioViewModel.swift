@@ -18,26 +18,37 @@ struct CoinPortfolioViewModel {
 		coinPortfolioModel.detail!.symbol
 	}
 
+	public var userAmount: BigNumber {
+		BigNumber(number: coinPortfolioModel.amount, decimal: coinPortfolioModel.detail!.decimals)
+	}
+
 	public var userAmountAndCoinSymbol: String {
-		"\(BigNumber(number: coinPortfolioModel.amount, decimal: coinPortfolioModel.detail!.decimals).formattedAmountOf(type: .price)) \(coinPortfolioModel.detail!.symbol)"
+		"\(userAmount.formattedAmountOf(type: .hold)) \(coinPortfolioModel.detail!.symbol)"
 	}
 
 	public var logo: URL? {
 		URL(string: coinPortfolioModel.detail!.logo)
 	}
 
+	public var changePercentage: String {
+		coinPortfolioModel.detail!.changePercentage
+	}
+
 	public var volatilityType: AssetVolatilityType {
-		AssetVolatilityType(change24h: coinPortfolioModel.detail!.change24H)
+		AssetVolatilityType(change24h: changePercentage)
 	}
 
 	public var volatilityRatePercentage: String {
-		let volatilityTypePrepend = PriceNumberFormatter(value: coinPortfolioModel.detail!.changePercentage).bigNumber
-			.number.sign == .minus ? "" : volatilityType.prependSign
-		return "\(volatilityTypePrepend)\(BigNumber(number: coinPortfolioModel.detail!.changePercentage, decimal: 2).formattedAmountOf(type: .price))%"
+		let formattedChangePercentage = BigNumber(number: changePercentage, decimal: 2).formattedAmountOf(type: .price)
+		return "\(volatilityType.prependSign)\(formattedChangePercentage)%"
+	}
+
+	public var coinPrice: BigNumber {
+		BigNumber(number: coinPortfolioModel.detail!.price, decimal: 6)
 	}
 
 	public var price: String {
-		"$\(BigNumber(number: coinPortfolioModel.detail!.price, decimal: 6).formattedAmountOf(type: .price))"
+		"$\(coinPrice.formattedAmountOf(type: .price))"
 	}
 
 	public var type: CoinType {
@@ -55,10 +66,8 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var userAmountInDollar: String {
-		let userAmount = BigNumber(number: coinPortfolioModel.amount, decimal: coinPortfolioModel.detail!.decimals)
-		let coinPrice = BigNumber(number: coinPortfolioModel.detail!.price, decimal: 6)
 		let totalAmountInDollar = userAmount * coinPrice
-		return "$\(totalAmountInDollar.formattedAmountOf(type: .hold))"
+		return "$\(totalAmountInDollar.formattedAmountOf(type: .price))"
 	}
 
 	public var isEthCoin: Bool {
