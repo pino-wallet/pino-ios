@@ -9,7 +9,7 @@
 import UIKit
 
 class AllDoneView: UIView {
-	// MARK: Private Properties
+	// MARK: - Private Properties
 
 	private let allDoneStackView = UIStackView()
 	private let allDoneImage = UIImageView()
@@ -24,7 +24,7 @@ class AllDoneView: UIView {
 	private var getStarted: () -> Void
 	private var allDoneVM: AllDoneViewModel
 
-	// MARK: Initializers
+	// MARK: - Initializers
 
 	init(allDoneVM: AllDoneViewModel, getStarted: @escaping (() -> Void)) {
 		self.getStarted = getStarted
@@ -41,7 +41,13 @@ class AllDoneView: UIView {
 }
 
 extension AllDoneView {
-	// MARK: UI Methods
+	// MARK: - Public Methods
+
+	public func activeGetStartedButton() {
+		getStartedButton.style = .active
+	}
+
+	// MARK: - Private Methods
 
 	private func setupView() {
 		allDoneStackView.addArrangedSubview(allDoneImage)

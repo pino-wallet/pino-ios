@@ -10,8 +10,9 @@ import UIKit
 class AllDoneViewController: UIViewController {
 	// MARK: Private Properties
 
+	private let errorToastView = PinoToastView(message: nil, style: .error, padding: 95)
 	private var allDoneVM = AllDoneViewModel()
-	private let errorToastView = PinoToastView(message: nil, style: .error, padding: 24)
+	private var allDoneView: AllDoneView!
 
 	// MARK: Public Properties
 
@@ -31,7 +32,7 @@ class AllDoneViewController: UIViewController {
 	// MARK: Private Methods
 
 	private func setupView() {
-		let allDoneView = AllDoneView(allDoneVM: allDoneVM) {
+		allDoneView = AllDoneView(allDoneVM: allDoneVM) {
 			self.getStarted()
 		}
 		view = allDoneView
@@ -40,8 +41,9 @@ class AllDoneViewController: UIViewController {
 	private func getStarted() {
 		allDoneVM.createWallet(mnemonics: walletMnemonics) { error in
 			if let error {
-				self.errorToastView.message = error.localizedDescription
+				self.errorToastView.message = error.description
 				self.errorToastView.showToast()
+				self.allDoneView.activeGetStartedButton()
 			} else {
 				UserDefaults.standard.set(true, forKey: "isLogin")
 				let tabBarVC = TabBarViewController()
