@@ -15,4 +15,23 @@ extension Decimal {
 	public func withoutDeicmalDot() -> String {
 		String(describing: self).replacingOccurrences(of: ".", with: "")
 	}
+    
+    public var roundedNumber: String {
+        let stringFromNumber = "\(self)"
+        if let dotIndex = stringFromNumber.range(of: ".")?.upperBound {
+            let charactersCount = stringFromNumber.count
+            let distancToDot = stringFromNumber.distance(from: stringFromNumber.startIndex, to: dotIndex)
+            if charactersCount > (distancToDot + 1){
+                let endIndex = stringFromNumber.index(dotIndex, offsetBy:2)
+                return "\(stringFromNumber[..<endIndex])"
+            } else if charactersCount > distancToDot {
+                let endIndex = stringFromNumber.index(dotIndex, offsetBy:1)
+                return "\(stringFromNumber[..<endIndex])"
+            } else {
+                return stringFromNumber
+            }
+        } else {
+            return stringFromNumber
+        }
+    }
 }
