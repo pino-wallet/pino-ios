@@ -56,7 +56,7 @@ class WalletBalanceViewModel: SecurityModeProtocol {
 		case .profit:
 			return "+\(balanceModel.volatilityPercentage)%"
 		case .loss:
-			return "-\(balanceModel.volatilityPercentage)%"
+			return "\(balanceModel.volatilityPercentage)%"
 		case .none:
 			return "\(balanceModel.volatilityPercentage)%"
 		}

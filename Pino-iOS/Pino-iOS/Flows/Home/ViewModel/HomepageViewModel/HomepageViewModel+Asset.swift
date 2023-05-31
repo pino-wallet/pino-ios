@@ -11,48 +11,63 @@ extension HomepageViewModel {
 	// MARK: Internal Methods
 
 	internal func getAssetsList(completion: @escaping (Result<[BalanceAssetModel], APIError>) -> Void) {
-		accountingAPIClient.userBalance()
-			.map { balanceAssets in
-				balanceAssets.filter { $0.isVerified }
-			}
-			.sink { completed in
-				switch completed {
-				case .finished:
-					print("Assets received successfully")
+		if let tokens {
+			accountingAPIClient.userBalance()
+				.map { balanceAssets in
+					balanceAssets.filter { $0.isVerified }
+				}
+				.sink { completed in
+					switch completed {
+					case .finished:
+						print("Assets received successfully")
+					case let .failure(error):
+						completion(.failure(error))
+					}
+				} receiveValue: { assets in
+					self.getManageAsset(tokens: tokens, userAssets: assets)
+					completion(.success(assets))
+				}.store(in: &cancellables)
+		} else {
+			getTokens { result in
+				switch result {
+				case .success:
+					self.getAssetsList(completion: completion)
 				case let .failure(error):
 					completion(.failure(error))
 				}
-			} receiveValue: { assets in
-				completion(.success(assets))
-			}.store(in: &cancellables)
+			}
+		}
 	}
 
-	internal func getManageAsset(assets: [BalanceAssetModel]) {
+	internal func getManageAsset(tokens: [Detail], userAssets: [BalanceAssetModel]) {
+		let tokensModel = tokens.compactMap {
+			let tokenID = $0.id
+			let userAsset = userAssets.first(where: { $0.id == tokenID })
+			return BalanceAssetModel(
+				id: $0.id,
+				amount: userAsset?.amount ?? "0",
+				isVerified: userAsset?.isVerified ?? true,
+				detail: $0,
+				previousDayNetworth: userAsset?.previousDayNetworth ?? "0"
+			)
+		}
+		assetsModelList = tokensModel
+		manageAssetsList = tokensModel.compactMap {
+			AssetViewModel(assetModel: $0, isSelected: self.selectedAssets.map { $0.id }.contains($0.id))
+		}
+	}
+
+	internal func getTokens(completion: @escaping (Result<[Detail], APIError>) -> Void) {
 		ctsAPIclient.tokens().sink { completed in
 			switch completed {
 			case .finished:
 				print("tokens received successfully")
 			case let .failure(error):
-				#warning("When toast library gets added we should show the error")
-				print(error)
+				completion(.failure(error))
 			}
 		} receiveValue: { tokens in
-			// Convert Detail model to Asset model
-			let tokensModel = tokens.compactMap {
-				let tokenID = $0.id
-				let userAsset = assets.first(where: { $0.id == tokenID })
-				return BalanceAssetModel(
-					id: $0.id,
-					amount: userAsset?.amount ?? "0",
-					isVerified: userAsset?.isVerified ?? true,
-					detail: $0,
-					previousDayNetworth: userAsset?.previousDayNetworth ?? "0"
-				)
-			}
-			self.assetsModelList = tokensModel
-			self.manageAssetsList = tokensModel.compactMap {
-				AssetViewModel(assetModel: $0, isSelected: self.selectedAssets.map { $0.id }.contains($0.id))
-			}
+			self.tokens = tokens
+			completion(.success(tokens))
 		}.store(in: &cancellables)
 	}
 
