@@ -48,12 +48,12 @@ extension HomepageViewModel {
 	private func getVolatilityPercentage(balance: BigNumber, previousBalance: BigNumber) -> String {
 		if previousBalance.doubleValue == .zero {
 			return "0.00"
-        }else {
-            let balanceDecimal = Decimal(balance.doubleValue)
-            let previousBalanceDecimal = Decimal(previousBalance.doubleValue)
-            let volatility = balanceDecimal - previousBalanceDecimal
-            let volatilityPercentage = (volatility / previousBalanceDecimal) * 100
-            return volatilityPercentage.roundedNumber
-        }
+		} else {
+			let balanceDecimal = Decimal(balance.doubleValue)
+			let previousBalanceDecimal = Decimal(previousBalance.doubleValue)
+			let volatility = balanceDecimal - previousBalanceDecimal
+			let volatilityPercentage = (volatility / previousBalanceDecimal) * 100
+			return volatilityPercentage.roundedNumber
+		}
 	}
 }

@@ -55,7 +55,7 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	public var volatilityType: AssetVolatilityType {
-        AssetVolatilityType(change24h: change24h.description)
+		AssetVolatilityType(change24h: change24h.description)
 	}
 
 	public var symbol: String {
