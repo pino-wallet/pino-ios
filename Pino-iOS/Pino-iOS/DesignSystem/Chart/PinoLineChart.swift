@@ -86,7 +86,7 @@ class PinoLineChart: LineChartView {
 		chartDataSet.setColor(.Pino.green3)
 		chartDataSet.drawCirclesEnabled = false
 		chartDataSet.lineWidth = 2
-		chartDataSet.mode = .cubicBezier
+        chartDataSet.mode = .horizontalBezier
 		chartDataSet.fillAlpha = 0.5
 		if let chartGradient = CGGradient(
 			colorsSpace: CGColorSpaceCreateDeviceRGB(),
