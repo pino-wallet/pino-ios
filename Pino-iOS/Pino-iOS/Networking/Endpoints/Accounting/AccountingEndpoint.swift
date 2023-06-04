@@ -70,11 +70,11 @@ enum AccountingEndpoint: EndpointType {
 		case .cts:
 			return "cts/tokens"
 		case let .balances(accountADD):
-			return "\(endpointParent)/user/\(accountADD)/balances"
+			return "user/\(accountADD)/balances"
 		case let .portfolio(_, accountADD):
-			return "\(endpointParent)/user/\(accountADD)/portfolio"
+			return "user/\(accountADD)/portfolio"
 		case let .coinPerformance(_, tokenID: tokenID, accountADD: accountADD):
-			return "\(endpointParent)/user/\(accountADD)/portfolio/\(tokenID)"
+			return "user/\(accountADD)/portfolio/\(tokenID)"
 		case let .activateAccountWith(address: address):
 			return "\(endpointParent)/activate/\(address)"
 		}
