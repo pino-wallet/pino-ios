@@ -117,7 +117,7 @@ public class AssetViewModel: SecurityModeProtocol {
 			switch volatilityType {
 			case .loss:
 				var lossValue = change24h.formattedAmountOf(type: .price)
-                return "-$\(lossValue)"
+				return "-$\(lossValue)"
 			case .profit, .none:
 				return "+$\(change24h.formattedAmountOf(type: .price))"
 			}
