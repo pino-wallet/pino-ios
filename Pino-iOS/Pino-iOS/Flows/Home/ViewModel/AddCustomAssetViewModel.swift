@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Web3Core
 
 class AddCustomAssetViewModel {
 	// MARK: - Public Enums
