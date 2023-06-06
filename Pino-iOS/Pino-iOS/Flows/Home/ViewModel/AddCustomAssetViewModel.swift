@@ -75,7 +75,8 @@ class AddCustomAssetViewModel {
 	public var customAssetUserBalanceInfo: CustomAssetInfoViewModel
 	public var customAssetWebsiteInfo: CustomAssetInfoViewModel
 	public var customAssetContractAddressInfo: CustomAssetInfoViewModel
-	public var homeVM: HomepageViewModel!
+	public var userAddress: String
+	public var userTokens: [Detail]
 
 	// MARK: - Private Properties
 
@@ -90,7 +91,9 @@ class AddCustomAssetViewModel {
 
 	// MARK: - Initializers
 
-	init() {
+	init(useraddress: String, userTokens: [Detail]) {
+		self.userAddress = useraddress
+		self.userTokens = userTokens
 		self.customAsset = CustomAssetViewModel(
 			customAsset:
 			CustomAssetModel(
@@ -141,7 +144,7 @@ class AddCustomAssetViewModel {
 
 		if textFieldText.validateETHContractAddress() {
 			let lowercasedTextFieldText = textFieldText.lowercased()
-			let foundToken = homeVM.tokens?.first(where: { $0.id.lowercased() == lowercasedTextFieldText })
+			let foundToken = userTokens.first(where: { $0.id.lowercased() == lowercasedTextFieldText })
 			if lowercasedTextFieldText == AccountingEndpoint.ethID || foundToken != nil {
 				changeViewStatusClosure(.error(.alreadyAdded))
 				return
@@ -199,7 +202,7 @@ class AddCustomAssetViewModel {
 	private func validateIsERC20Token(contractAddress: String) async -> ResponseStatus {
 		let contract = web3.contract(erc20AbiString, at: EthereumAddress(from: contractAddress))
 
-		let readBalanceOfOpParameters = [homeVM.walletInfo.address]
+		let readBalanceOfOpParameters = [userAddress]
 
 		let readTokenNameOp = contract?.createReadOperation("name")
 		let readTokenSymbolOp = contract?.createReadOperation("symbol")
