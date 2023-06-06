@@ -98,12 +98,14 @@ class PinoLineChart: LineChartView {
 			chartDataSet.fill = LinearGradientFill(gradient: chartGradient, angle: 90)
 		}
 		chartDataSet.drawFilledEnabled = true
-		chartDataSet.highlightColor = .Pino.green2
+		chartDataSet.highlightColor = .Pino.primary
 		chartDataSet.drawCircleHoleEnabled = false
 
 		data = LineChartData(dataSets: [chartDataSet])
 		data?.setDrawValues(false)
 		chartDataSet.drawHorizontalHighlightIndicatorEnabled = false
+		chartDataSet.highlightLineDashLengths = [3, 3]
+		chartDataSet.highlightLineWidth = 1
 	}
 
 	@objc
