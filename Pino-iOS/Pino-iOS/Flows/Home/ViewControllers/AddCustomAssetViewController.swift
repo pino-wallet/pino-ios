@@ -9,13 +9,20 @@ import NotificationCenter
 import UIKit
 
 class AddCustomAssetViewController: UIViewController {
+	// MARK: - Public Properties
+
+	public var userAddress: String
+	public var userTokens: [Detail]
+
 	// MARK: - Private Properties
 
-	private let addCustomAssetVM = AddCustomAssetViewModel()
+	private var addCustomAssetVM: AddCustomAssetViewModel!
 
 	// MARK: - Initializers
 
-	init() {
+	init(userAddress: String, userTokens: [Detail]) {
+		self.userAddress = userAddress
+		self.userTokens = userTokens
 		super.init(nibName: nil, bundle: nil)
 		NotificationCenter.default.addObserver(
 			self,
@@ -41,7 +48,9 @@ class AddCustomAssetViewController: UIViewController {
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
-		validateClipboardText()
+		if isBeingPresented || isMovingToParent {
+			validateClipboardText()
+		}
 	}
 
 	// MARK: - Deinit
@@ -53,6 +62,7 @@ class AddCustomAssetViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		addCustomAssetVM = AddCustomAssetViewModel(useraddress: userAddress, userTokens: userTokens)
 		let addCustomAssetView =
 			AddCustomAssetView(
 				presentAlertClosure: { [weak self] alertTitle, alertDescription in

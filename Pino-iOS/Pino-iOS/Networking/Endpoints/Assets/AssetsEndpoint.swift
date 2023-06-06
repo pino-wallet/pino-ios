@@ -8,6 +8,10 @@
 import Foundation
 
 enum AssetsEndpoint: EndpointType {
+	// MARK: - Public Properties
+
+	public static let currentETHProvider = URL(string: "https://rpc.ankr.com/eth")
+
 	// MARK: - Cases
 
 	case assets
