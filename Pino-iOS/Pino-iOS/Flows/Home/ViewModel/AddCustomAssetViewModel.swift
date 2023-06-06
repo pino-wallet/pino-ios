@@ -13,7 +13,7 @@ import web3swift
 class AddCustomAssetViewModel {
 	// MARK: - Public Enums
 
-	public enum ResponseStatus: Equatable {
+	public enum ContractValidationStatus: Equatable {
 		case clear
 		case pasteFromClipboard(String)
 		case pending
@@ -58,7 +58,7 @@ class AddCustomAssetViewModel {
 
 	// MARK: - Closures
 
-	public var changeViewStatusClosure: ((ResponseStatus) -> Void)!
+	public var changeViewStatusClosure: ((ContractValidationStatus) -> Void)!
 
 	// MARK: - Public Properties
 
@@ -145,7 +145,7 @@ class AddCustomAssetViewModel {
 		if textFieldText.validateETHContractAddress() {
 			let lowercasedTextFieldText = textFieldText.lowercased()
 			let foundToken = userTokens.first(where: { $0.id.lowercased() == lowercasedTextFieldText })
-			if lowercasedTextFieldText == AccountingEndpoint.ethID || foundToken != nil {
+			if foundToken != nil {
 				changeViewStatusClosure(.error(.alreadyAdded))
 				return
 			} else {
@@ -167,7 +167,7 @@ class AddCustomAssetViewModel {
 
 	// MARK: - Private Methods
 
-	private func getCustomAssetInfo(contractAddress: String) async -> ResponseStatus {
+	private func getCustomAssetInfo(contractAddress: String) async -> ContractValidationStatus {
 		do {
 			web3 =
 				try await Web3(provider: Web3HttpProvider(url: AssetsEndpoint.currentETHProvider!, network: .Mainnet))
@@ -184,7 +184,7 @@ class AddCustomAssetViewModel {
 		}
 	}
 
-	private func validateIsSmartContract(contractAddress: String) async -> ResponseStatus {
+	private func validateIsSmartContract(contractAddress: String) async -> ContractValidationStatus {
 		let nodeRequest: APIRequest = .getCode(contractAddress, .latest)
 		var nodeResponse: APIResponse<String>!
 		do {
@@ -199,7 +199,7 @@ class AddCustomAssetViewModel {
 		}
 	}
 
-	private func validateIsERC20Token(contractAddress: String) async -> ResponseStatus {
+	private func validateIsERC20Token(contractAddress: String) async -> ContractValidationStatus {
 		let contract = web3.contract(erc20AbiString, at: EthereumAddress(from: contractAddress))
 
 		let readBalanceOfOpParameters = [userAddress]
