@@ -76,6 +76,8 @@ class PinoLineChart: LineChartView {
 		highlightPerDragEnabled = false
 		highlightPerTapEnabled = false
 
+		marker = CircleMarker(color: .Pino.primary)
+
 		let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressDetected))
 		longPressGesture.minimumPressDuration = 0.05
 		longPressGesture.delegate = self
