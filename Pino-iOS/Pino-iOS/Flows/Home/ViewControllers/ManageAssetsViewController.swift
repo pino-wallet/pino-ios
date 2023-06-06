@@ -79,7 +79,7 @@ class ManageAssetsViewController: UIViewController {
 
 	@objc
 	private func addCustomAssets() {
-		let addCustomAssetVC = AddCustomAssetViewController()
+		let addCustomAssetVC = AddCustomAssetViewController(homeVM: homeVM)
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [addCustomAssetVC]
 		present(navigationVC, animated: true)

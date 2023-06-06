@@ -9,13 +9,18 @@ import NotificationCenter
 import UIKit
 
 class AddCustomAssetViewController: UIViewController {
+	// MARK: - Public Properties
+
+	public var homeVM: HomepageViewModel
+
 	// MARK: - Private Properties
 
 	private let addCustomAssetVM = AddCustomAssetViewModel()
 
 	// MARK: - Initializers
 
-	init() {
+	init(homeVM: HomepageViewModel) {
+		self.homeVM = homeVM
 		super.init(nibName: nil, bundle: nil)
 		NotificationCenter.default.addObserver(
 			self,
@@ -41,7 +46,9 @@ class AddCustomAssetViewController: UIViewController {
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
-		validateClipboardText()
+		if isBeingPresented || isMovingToParent {
+			validateClipboardText()
+		}
 	}
 
 	// MARK: - Deinit
@@ -53,6 +60,7 @@ class AddCustomAssetViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		addCustomAssetVM.homeVM = homeVM
 		let addCustomAssetView =
 			AddCustomAssetView(
 				presentAlertClosure: { [weak self] alertTitle, alertDescription in

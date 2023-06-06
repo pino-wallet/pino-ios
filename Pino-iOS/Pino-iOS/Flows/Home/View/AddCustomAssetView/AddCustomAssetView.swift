@@ -92,7 +92,7 @@ class AddCustomAssetView: UIView {
 		contractTextfieldView.returnKeyType = .search
 		contractTextfieldView.textFieldKeyboardOnReturn = dissmissKeyboardClosure
 		contractTextfieldView.textDidChange = { [weak self] in
-			self?.addCustomAssetVM.validateContractAddressFromTextField(
+			self?.addCustomAssetVM.validateContractAddressBeforeRequest(
 				textFieldText: self?.contractTextfieldView.getText() ?? "",
 				delay: .small
 			)
@@ -135,7 +135,7 @@ class AddCustomAssetView: UIView {
 				self?.viewStatus = .pasteFromClipboardView
 				self?.pasteFromClipboardview.onPaste = {
 					self?.contractTextfieldView.text = validatedContractAddress
-					self?.addCustomAssetVM.validateContractAddressFromTextField(
+					self?.addCustomAssetVM.validateContractAddressBeforeRequest(
 						textFieldText: self?.contractTextfieldView.text ?? "",
 						delay: .none
 					)
