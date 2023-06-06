@@ -85,16 +85,6 @@ class AddCustomAssetViewModel {
 	"""
 	private var getCustomAssetInfoRequestWork: DispatchWorkItem!
 	private var web3: Web3!
-	private var pageStatus: ResponseStatus! {
-		didSet {
-			if pageStatus == .success {
-				changeViewStatusClosure(.success)
-			} else {
-				changeViewStatusClosure(pageStatus)
-			}
-		}
-	}
-
 	private var readNodeContractKey = "0"
 	private var userAddressStaticCode = "0x"
 
@@ -153,13 +143,17 @@ class AddCustomAssetViewModel {
 			let lowercasedTextFieldText = textFieldText.lowercased()
 			let foundToken = homeVM.tokens?.first(where: { $0.id.lowercased() == lowercasedTextFieldText })
 			if lowercasedTextFieldText == AccountingEndpoint.ethID || foundToken != nil {
-				pageStatus = .error(.alreadyAdded)
+				changeViewStatusClosure(.error(.alreadyAdded))
 				return
 			} else {
 				changeViewStatusClosure(.pending)
-				DispatchQueue.main.asyncAfter(deadline: .now() + delay.rawValue) {
+				DispatchQueue.main.asyncAfter(deadline: .now() + delay.rawValue) { [weak self] in
 					Task {
-						self.pageStatus = await self.getCustomAssetInfo(contractAddress: textFieldText)
+						self?
+							.changeViewStatusClosure(
+								await self?
+									.getCustomAssetInfo(contractAddress: textFieldText) ?? .error(.unknownError)
+							)
 					}
 				}
 			}
