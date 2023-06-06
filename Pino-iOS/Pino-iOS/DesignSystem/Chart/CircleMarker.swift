@@ -20,7 +20,7 @@ class CircleMarker: MarkerImage {
 	public init(color: UIColor) {
 		self.color = .Pino.clear
 		super.init()
-		self.image = UIImage(named: "circle_marker_rotated")
+		self.image = UIImage(named: "circle_marker")
 	}
 
 	override func draw(context: CGContext, point: CGPoint) {
