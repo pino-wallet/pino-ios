@@ -355,11 +355,12 @@
 		E384CB1629FFABAB009C74F5 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E384CB1529FFABAB009C74F5 /* Double+Extension.swift */; };
 		E384CB1829FFADA0009C74F5 /* ShareOfAssetProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E384CB1729FFADA0009C74F5 /* ShareOfAssetProtocol.swift */; };
 		E384CB1A29FFADE9009C74F5 /* OtherShareOfAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E384CB1929FFADE9009C74F5 /* OtherShareOfAssetsViewModel.swift */; };
+		E385F6122A22029100EE7EE1 /* Wallet+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E385F6102A22029100EE7EE1 /* Wallet+CoreDataProperties.swift */; };
+		E385F6132A22029100EE7EE1 /* Wallet+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E385F6112A22029100EE7EE1 /* Wallet+CoreDataClass.swift */; };
 		E385F6162A220C6D00EE7EE1 /* CTSEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E385F6152A220C6D00EE7EE1 /* CTSEndpoint.swift */; };
 		E385F6182A220D8200EE7EE1 /* CTSAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E385F6172A220D8200EE7EE1 /* CTSAPIClient.swift */; };
 		E385F61A2A220DCC00EE7EE1 /* CTSAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E385F6192A220DCC00EE7EE1 /* CTSAPIService.swift */; };
-		E385F6122A22029100EE7EE1 /* Wallet+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E385F6102A22029100EE7EE1 /* Wallet+CoreDataProperties.swift */; };
-		E385F6132A22029100EE7EE1 /* Wallet+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E385F6112A22029100EE7EE1 /* Wallet+CoreDataClass.swift */; };
+		E3CFC07A2A2F241500E165A4 /* CircleMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CFC0792A2F241500E165A4 /* CircleMarker.swift */; };
 		E3E009E02A0635C800234707 /* Hyperconnectivity in Frameworks */ = {isa = PBXBuildFile; productRef = E3E009DF2A0635C800234707 /* Hyperconnectivity */; };
 		E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E009E12A06377D00234707 /* InternetConnectivity.swift */; };
 		E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D680E48001C060BADD248 /* EndpointType.swift */; };
@@ -745,11 +746,12 @@
 		E384CB1529FFABAB009C74F5 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		E384CB1729FFADA0009C74F5 /* ShareOfAssetProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOfAssetProtocol.swift; sourceTree = "<group>"; };
 		E384CB1929FFADE9009C74F5 /* OtherShareOfAssetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherShareOfAssetsViewModel.swift; sourceTree = "<group>"; };
+		E385F6102A22029100EE7EE1 /* Wallet+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Wallet+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E385F6112A22029100EE7EE1 /* Wallet+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Wallet+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E385F6152A220C6D00EE7EE1 /* CTSEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTSEndpoint.swift; sourceTree = "<group>"; };
 		E385F6172A220D8200EE7EE1 /* CTSAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTSAPIClient.swift; sourceTree = "<group>"; };
 		E385F6192A220DCC00EE7EE1 /* CTSAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTSAPIService.swift; sourceTree = "<group>"; };
-		E385F6102A22029100EE7EE1 /* Wallet+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Wallet+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		E385F6112A22029100EE7EE1 /* Wallet+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Wallet+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E3CFC0792A2F241500E165A4 /* CircleMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleMarker.swift; sourceTree = "<group>"; };
 		E3E009E12A06377D00234707 /* InternetConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectivity.swift; sourceTree = "<group>"; };
 		E40D0AB7515630563347CBDA /* CoinPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceViewController.swift; sourceTree = "<group>"; };
 		E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetViewModel.swift; sourceTree = "<group>"; };
@@ -2133,6 +2135,7 @@
 				417C7ECF5FA6FD9201D1F8D4 /* LineChartDelegate.swift */,
 				C6055599998C2FB2F7A1AC39 /* PinoLineChart.swift */,
 				E351A72629F5247000635715 /* ChartDateBuilder.swift */,
+				E3CFC0792A2F241500E165A4 /* CircleMarker.swift */,
 			);
 			path = Chart;
 			sourceTree = "<group>";
@@ -2585,6 +2588,7 @@
 				0CE266292D956CA5666233BB /* CustomAssetInfoView.swift in Sources */,
 				DFA968732A0F8A77007D4513 /* WalletDataSource.swift in Sources */,
 				324CF2EFF8A4FE86E6609254 /* CustomAssetInfoViewModel.swift in Sources */,
+				E3CFC07A2A2F241500E165A4 /* CircleMarker.swift in Sources */,
 				87F08F9B76154826B35A43F3 /* CustomAssetModel.swift in Sources */,
 				58FE43283099B1D4516B33B1 /* CustomAssetViewModel.swift in Sources */,
 				F606F78789DCF2CDED5E8BB0 /* CustomNavigationController.swift in Sources */,
