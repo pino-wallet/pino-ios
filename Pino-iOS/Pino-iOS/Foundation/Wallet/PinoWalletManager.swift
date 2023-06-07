@@ -98,7 +98,7 @@ class PinoWalletManager: WalletManagement {
 	}
 
 	private func exportMnemonics(key: String) -> Data {
-		guard let encryptedMnemonicsData = KeychainManager.mnemonics.getValueWith(key: key) else {
+		guard let encryptedMnemonicsData = KeychainManager.mnemonics.getValueWithKey(accountAdd: key) else {
 			fatalError(WalletOperationError.keyManager(.mnemonicsRetrievalFailed).localizedDescription)
 		}
 		let decryptedMnemonics = secureEnclave.decrypt(
