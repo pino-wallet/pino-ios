@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import Kingfisher
 import UIKit
 
 @main
@@ -17,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Override point for customization after application launch.
 		setupNavigationBarCustomBackButton()
 		setupLightKeyboardForTextFields()
+		setCacheLimitForKingFisherImages()
 		return true
 	}
 
@@ -55,5 +57,9 @@ extension AppDelegate {
 
 	private func setupLightKeyboardForTextFields() {
 		UITextField.appearance().keyboardAppearance = .light
+	}
+
+	private func setCacheLimitForKingFisherImages() {
+		ImageCache.default.diskStorage.config.expiration = .seconds(259_200)
 	}
 }
