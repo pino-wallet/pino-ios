@@ -33,7 +33,7 @@ public class PinoHDWallet: PinoHDWalletType {
 				let encryptedMnemonicsData = encryptHdWalletMnemonics(createdWallet.mnemonic, forAccount: account)
 				if let error = KeychainManager.mnemonics.setValueWithAddress(
 					value: encryptedMnemonicsData,
-                    add: account.eip55Address
+					add: account.eip55Address
 				) {
 					return .failure(error)
 				}
@@ -91,10 +91,16 @@ public class PinoHDWallet: PinoHDWalletType {
 		let encryptedMnemonicsData = encryptHdWalletMnemonics(wallet.mnemonic, forAccount: account)
 		let encryptedPrivateKeyData = encryptPrivateKey(privateKey.data, forAccount: account)
 
-        if let error = KeychainManager.mnemonics.setValueWithAddress(value: encryptedMnemonicsData, add: account.eip55Address) {
+		if let error = KeychainManager.mnemonics.setValueWithAddress(
+			value: encryptedMnemonicsData,
+			add: account.eip55Address
+		) {
 			throw error
 		}
-        if let error = KeychainManager.privateKey.setValueWithAddress(value: encryptedPrivateKeyData, add: account.eip55Address) {
+		if let error = KeychainManager.privateKey.setValueWithAddress(
+			value: encryptedPrivateKeyData,
+			add: account.eip55Address
+		) {
 			throw error
 		}
 

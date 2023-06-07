@@ -29,7 +29,7 @@ public struct PinoNonHDWallet: PinoNonHDWalletType {
 			let keyCipherData = encryptPrivateKey(keyData, forAccount: account)
 			if let error = KeychainManager.privateKey.setValueWithAddress(
 				value: keyCipherData,
-                add: account.eip55Address
+				add: account.eip55Address
 			) {
 				return .failure(error)
 			}

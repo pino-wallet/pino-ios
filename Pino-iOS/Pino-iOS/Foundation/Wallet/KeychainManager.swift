@@ -18,17 +18,16 @@ enum KeychainManager: String {
 		return keychainHelper.getData(key)
 	}
 
-    public func getValueWithKey(accountAdd: String) -> Data? {
-        let key = getKey(accountAdd)
-        return getValueWith(key: key)
-    }
+	public func getValueWithKey(accountAdd: String) -> Data? {
+		let key = getKey(accountAdd)
+		return getValueWith(key: key)
+	}
 
-    
-    public func setValueWithAddress(value: Data, add: String) -> WalletOperationError? {
-        let key = getKey(add)
-        return setValue(value: value, key: key)
-    }
-    
+	public func setValueWithAddress(value: Data, add: String) -> WalletOperationError? {
+		let key = getKey(add)
+		return setValue(value: value, key: key)
+	}
+
 	public func setValue(value: Data, key: String) -> WalletOperationError? {
 		let keychainHelper = KeychainSwift()
 		if getValueWith(key: key) != nil {
