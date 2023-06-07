@@ -37,7 +37,9 @@ extension HomepageViewModel {
 	}
 
 	internal func getManageAsset(tokens: [Detail], userAssets: [BalanceAssetModel]) {
-		let tokensModel = tokens.compactMap {
+		let customAssets = getCustomAssets()
+		let allTokens = tokens + customAssets
+		let tokensModel = allTokens.compactMap {
 			let tokenID = $0.id
 			let userAsset = userAssets.first(where: { $0.id == tokenID })
 			return BalanceAssetModel(
@@ -71,6 +73,22 @@ extension HomepageViewModel {
 	#warning("This is temporary and must be replaced with API data")
 	internal func getPositionAssetsList() {
 		positionAssetsList = []
+	}
+
+	internal func getCustomAssets() -> [Detail] {
+		let customAssets = coreDataManager.getAllCustomAssets().compactMap {
+			Detail(
+				id: $0.id,
+				symbol: $0.symbol,
+				name: $0.name,
+				logo: "unverified_asset",
+				decimals: 0,
+				change24H: "0",
+				changePercentage: "0",
+				price: "0"
+			)
+		}
+		return customAssets
 	}
 
 	internal func getSelectedAssetsFromCoreData() {
