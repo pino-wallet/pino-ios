@@ -17,12 +17,14 @@ class AddCustomAssetViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private var addCustomAssetVM: AddCustomAssetViewModel!
+	private var customAssetAdded: (CustomAsset) -> Void
 
 	// MARK: - Initializers
 
-	init(userAddress: String, userTokens: [Detail]) {
+	init(userAddress: String, userTokens: [Detail], customAssetAdded: @escaping (CustomAsset) -> Void) {
 		self.userAddress = userAddress
 		self.userTokens = userTokens
+		self.customAssetAdded = customAssetAdded
 		super.init(nibName: nil, bundle: nil)
 		NotificationCenter.default.addObserver(
 			self,
@@ -124,7 +126,11 @@ class AddCustomAssetViewController: UIViewController {
 	// Setup add button handler
 	@objc
 	private func addCustomAssetHandler() {
-		addCustomAssetVM.saveCustomTokenToCoredata()
+		let customAsset = addCustomAssetVM.saveCustomTokenToCoredata()
+		if let customAsset {
+			customAssetAdded(customAsset)
+		}
+		dismiss(animated: true)
 	}
 
 	@objc

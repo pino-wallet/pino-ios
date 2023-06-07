@@ -1926,13 +1926,11 @@
 		D8BCC2D34E5C52A36E084E91 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				E3D478B42A30B9110030A987 /* CustomAsset */,
 				E384CB1429FF9346009C74F5 /* Portfolio */,
 				E34728EE29E7DDE800AB8265 /* HomepageViewModel */,
 				D99F4B1F29E2C405009F7F55 /* ReceiveViewModels */,
-				B596DBDA65A59B498030E742 /* AddCustomAssetViewModel.swift */,
 				91253F27E551525F01C51F04 /* AssetViewModel.swift */,
-				BBEC2EBFE1F49130DE1B36E3 /* CustomAssetInfoViewModel.swift */,
-				E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */,
 				79BCB139B9DD46E47FA2E234 /* SecurityModeProtocol.swift */,
 				4E6325D0E27CD114807676AB /* WalletBalanceViewModel.swift */,
 				9EA3E5DF9FE696BD1307327F /* AccountInfoViewModel.swift */,
@@ -2113,6 +2111,16 @@
 				E385F6172A220D8200EE7EE1 /* CTSAPIClient.swift */,
 			);
 			path = CTS;
+			sourceTree = "<group>";
+		};
+		E3D478B42A30B9110030A987 /* CustomAsset */ = {
+			isa = PBXGroup;
+			children = (
+				B596DBDA65A59B498030E742 /* AddCustomAssetViewModel.swift */,
+				BBEC2EBFE1F49130DE1B36E3 /* CustomAssetInfoViewModel.swift */,
+				E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */,
+			);
+			path = CustomAsset;
 			sourceTree = "<group>";
 		};
 		E592A8E4290E95A67BA5D5CF /* Home */ = {

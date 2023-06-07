@@ -37,9 +37,7 @@ extension HomepageViewModel {
 	}
 
 	internal func getManageAsset(tokens: [Detail], userAssets: [BalanceAssetModel]) {
-		let customAssets = getCustomAssets()
-		let allTokens = tokens + customAssets
-		let tokensModel = allTokens.compactMap {
+		let tokensModel = tokens.compactMap {
 			let tokenID = $0.id
 			let userAsset = userAssets.first(where: { $0.id == tokenID })
 			return BalanceAssetModel(
@@ -65,7 +63,8 @@ extension HomepageViewModel {
 				completion(.failure(error))
 			}
 		} receiveValue: { tokens in
-			self.tokens = tokens
+			let customAssets = self.getCustomAssets()
+			self.tokens = tokens + customAssets
 			completion(.success(tokens))
 		}.store(in: &cancellables)
 	}
@@ -82,7 +81,7 @@ extension HomepageViewModel {
 				symbol: $0.symbol,
 				name: $0.name,
 				logo: "unverified_asset",
-				decimals: 0,
+				decimals: Int($0.decimal) ?? 0,
 				change24H: "0",
 				changePercentage: "0",
 				price: "0"
@@ -110,6 +109,11 @@ extension HomepageViewModel {
 		selectedAssets.append(selectedAsset)
 	}
 
+	public func addSelectedAssetToCoreData(id: String) {
+		let selectedAsset = coreDataManager.addNewSelectedAsset(id: id)
+		selectedAssets.append(selectedAsset)
+	}
+
 	private func deleteSelectedAssetFromCoreData(_ asset: AssetViewModel) {
 		guard let selectedAsset = selectedAssets.first(where: { $0.id == asset.id }) else { return }
 		coreDataManager.deleteSelectedAsset(selectedAsset)
@@ -124,6 +128,22 @@ extension HomepageViewModel {
 	}
 
 	// MARK: Public Methods
+
+	public func addNewCustomAsset(_ customAsset: CustomAsset) {
+		addSelectedAssetToCoreData(id: customAsset.id)
+		let customAssetDetail = Detail(
+			id: customAsset.id,
+			symbol: customAsset.symbol,
+			name: customAsset.name,
+			logo: "unverified_asset",
+			decimals: Int(customAsset.decimal) ?? 0,
+			change24H: "0",
+			changePercentage: "0",
+			price: "0"
+		)
+		tokens?.append(customAssetDetail)
+		getHomeData { _ in }
+	}
 
 	public func updateSelectedAssets(_ selectedAsset: AssetViewModel, isSelected: Bool) {
 		guard let manageAssetsList else { return }

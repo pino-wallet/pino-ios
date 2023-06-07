@@ -88,6 +88,8 @@ class AddCustomAssetViewModel {
 	private var readNodeContractKey = "0"
 	private var userAddressStaticCode = "0x"
 
+	private let coredataManager = CoreDataManager()
+
 	// MARK: - Initializers
 
 	init(useraddress: String, userTokens: [Detail]) {
@@ -154,14 +156,18 @@ class AddCustomAssetViewModel {
 		}
 	}
 
-	public func saveCustomTokenToCoredata() {
-		guard let customAssetVM else { return }
-		let coredataManager = CoreDataManager()
-		coredataManager.addNewCustomAsset(
-			id: customAssetVM.contractAddress,
-			symbol: customAssetVM.symbol,
-			name: customAssetVM.name
-		)
+	public func saveCustomTokenToCoredata() -> CustomAsset? {
+		guard let customAssetVM else { return nil }
+		if coredataManager.getAllCustomAssets().contains(where: { $0.id == customAssetVM.contractAddress }) {
+			return nil
+		} else {
+			let customAssetModel = coredataManager.addNewCustomAsset(
+				id: customAssetVM.contractAddress,
+				symbol: customAssetVM.symbol,
+				name: customAssetVM.name
+			)
+			return customAssetModel
+		}
 	}
 
 	// MARK: - Private Methods
