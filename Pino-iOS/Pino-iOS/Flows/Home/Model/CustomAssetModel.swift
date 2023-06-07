@@ -5,10 +5,12 @@
 //  Created by Amir hossein kazemi seresht on 2/13/23.
 //
 
+import BigInt
+
 struct CustomAssetModel {
+	public let id: String
 	public let name: String
-	public let icon: String
+	public let symbol: String
 	public let balance: String?
-	public let website: String
-	public let contractAddress: String
+	public let decimal: BigUInt
 }

@@ -49,7 +49,7 @@ class AddCustomAssetViewModel {
 			case .unknownError:
 				return "Unknown error happend, try again later"
 			case .notValidSmartContractAddress:
-				return "Address is not an valid smart contract address"
+				return "Address is not a valid smart contract address"
 			case .alreadyAdded:
 				return "Token is already added"
 			}
@@ -62,7 +62,7 @@ class AddCustomAssetViewModel {
 
 	// MARK: - Public Properties
 
-	public var customAsset: CustomAssetViewModel
+	public var customAssetVM: CustomAssetViewModel?
 
 	public let addCustomAssetButtonTitle = "Add"
 	public let addcustomAssetPageTitle = "Add custom asset"
@@ -73,14 +73,13 @@ class AddCustomAssetViewModel {
 
 	public var customAssetNameInfo: CustomAssetInfoViewModel
 	public var customAssetUserBalanceInfo: CustomAssetInfoViewModel
-	public var customAssetWebsiteInfo: CustomAssetInfoViewModel
-	public var customAssetContractAddressInfo: CustomAssetInfoViewModel
+	public var customAssetSymbolInfo: CustomAssetInfoViewModel
+	public var customAssetDecimalInfo: CustomAssetInfoViewModel
 	public var userAddress: String
 	public var userTokens: [Detail]
 
 	// MARK: - Private Properties
 
-	private let questionLogoImageName = "unverified_asset"
 	private let erc20AbiString = """
 	[{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]
 	"""
@@ -94,16 +93,6 @@ class AddCustomAssetViewModel {
 	init(useraddress: String, userTokens: [Detail]) {
 		self.userAddress = useraddress
 		self.userTokens = userTokens
-		self.customAsset = CustomAssetViewModel(
-			customAsset:
-			CustomAssetModel(
-				name: "",
-				icon: "",
-				balance: "",
-				website: "",
-				contractAddress: ""
-			)
-		)
 		#warning("this aletsTexts are for testing")
 		self
 			.customAssetNameInfo =
@@ -115,12 +104,12 @@ class AddCustomAssetViewModel {
 				alertText: "Sample Text"
 			))
 		self
-			.customAssetWebsiteInfo =
-			CustomAssetInfoViewModel(customAssetInfo: CustomAssetInfoModel(title: "Website", alertText: "Sample Text"))
+			.customAssetSymbolInfo =
+			CustomAssetInfoViewModel(customAssetInfo: CustomAssetInfoModel(title: "Symbol", alertText: "Sample Text"))
 		self
-			.customAssetContractAddressInfo =
+			.customAssetDecimalInfo =
 			CustomAssetInfoViewModel(customAssetInfo: CustomAssetInfoModel(
-				title: "Contract address",
+				title: "Decimal",
 				alertText: "Sample Text"
 			))
 	}
@@ -163,6 +152,16 @@ class AddCustomAssetViewModel {
 		} else {
 			changeViewStatusClosure(.error(.notValid))
 		}
+	}
+
+	public func saveCustomTokenToCoredata() {
+		guard let customAssetVM else { return }
+		let coredataManager = CoreDataManager()
+		coredataManager.addNewCustomAsset(
+			id: customAssetVM.contractAddress,
+			symbol: customAssetVM.symbol,
+			name: customAssetVM.name
+		)
 	}
 
 	// MARK: - Private Methods
@@ -217,37 +216,23 @@ class AddCustomAssetViewModel {
 			else {
 				return .error(.notValidFromServer)
 			}
-			guard let tokenBalanceOf = try await readTokenBalanceOfOp?.callContractMethod()[readNodeContractKey] else {
-				return .error(.notValidFromServer)
-			}
+			let tokenBalanceOf = try await readTokenBalanceOfOp?.callContractMethod()[readNodeContractKey] as? String
+
 			guard let tokenDecimals = try await readTokenDecimalsOp?
 				.callContractMethod()[readNodeContractKey] as? BigUInt else {
 				return .error(.notValidFromServer)
 			}
 
-			guard !tokenDecimals.isZero else {
-				return .error(.notValidFromServer)
-			}
-
-			let userBalanceOfCustomToken = BigNumber(
-				number: String(describing: tokenBalanceOf),
-				decimal: Int(tokenDecimals)
-			)
-			#warning("we should remove website later")
-			customAsset = CustomAssetViewModel(customAsset: CustomAssetModel(
+			customAssetVM = CustomAssetViewModel(customAsset: CustomAssetModel(
+				id: contractAddress,
 				name: tokenName,
-				icon: questionLogoImageName,
-				balance: userBalanceOfCustomToken.formattedAmountOf(type: .hold),
-				website: "www.Example.com",
-				contractAddress: contractAddress
+				symbol: tokenSymbol,
+				balance: tokenBalanceOf,
+				decimal: tokenDecimals
 			))
 			return .success
 		} catch {
 			return .error(.unknownError)
 		}
-	}
-
-	private func saveCustomTokenToCoredata() {
-		// save it ...
 	}
 }

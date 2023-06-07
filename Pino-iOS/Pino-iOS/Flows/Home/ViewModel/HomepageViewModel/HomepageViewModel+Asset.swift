@@ -13,9 +13,6 @@ extension HomepageViewModel {
 	internal func getAssetsList(completion: @escaping (Result<[BalanceAssetModel], APIError>) -> Void) {
 		if let tokens {
 			accountingAPIClient.userBalance()
-				.map { balanceAssets in
-					balanceAssets.filter { $0.isVerified }
-				}
 				.sink { completed in
 					switch completed {
 					case .finished:

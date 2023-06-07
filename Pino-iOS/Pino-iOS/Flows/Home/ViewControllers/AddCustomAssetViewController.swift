@@ -124,7 +124,7 @@ class AddCustomAssetViewController: UIViewController {
 	// Setup add button handler
 	@objc
 	private func addCustomAssetHandler() {
-		print("added")
+		addCustomAssetVM.saveCustomTokenToCoredata()
 	}
 
 	@objc

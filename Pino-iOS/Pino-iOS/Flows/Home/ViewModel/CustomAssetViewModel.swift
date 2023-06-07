@@ -14,19 +14,31 @@ struct CustomAssetViewModel {
 		customAsset.name
 	}
 
+	public var symbol: String {
+		customAsset.symbol
+	}
+
 	public var icon: String {
-		customAsset.icon
+		"unverified_asset"
 	}
 
-	public var balance: String? {
-		customAsset.balance
+	public var decimal: String {
+		"\(customAsset.decimal)"
 	}
 
-	public var website: String {
-		customAsset.website
+	public var balance: String {
+		if let balanceOf = customAsset.balance {
+			let userBalanceOfCustomToken = BigNumber(
+				number: balanceOf,
+				decimal: Int(customAsset.decimal)
+			)
+			return userBalanceOfCustomToken.formattedAmountOf(type: .hold)
+		} else {
+			return "-"
+		}
 	}
 
 	public var contractAddress: String {
-		customAsset.contractAddress
+		customAsset.id
 	}
 }

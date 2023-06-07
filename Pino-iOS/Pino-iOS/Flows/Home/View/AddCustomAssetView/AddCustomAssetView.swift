@@ -127,27 +127,28 @@ class AddCustomAssetView: UIView {
 
 	private func setupChangeStatusClosure() {
 		addCustomAssetVM.changeViewStatusClosure = { [weak self] currentStatus in
+			guard let self else { return }
 			switch currentStatus {
 			case .clear:
-				self?.viewStatus = .clearView
+				self.viewStatus = .clearView
 			case let .pasteFromClipboard(validatedContractAddress):
-				self?.pasteFromClipboardview.contractAddress = validatedContractAddress
-				self?.viewStatus = .pasteFromClipboardView
-				self?.pasteFromClipboardview.onPaste = {
-					self?.contractTextfieldView.text = validatedContractAddress
-					self?.addCustomAssetVM.validateContractAddressBeforeRequest(
-						textFieldText: self?.contractTextfieldView.text ?? "",
+				self.pasteFromClipboardview.contractAddress = validatedContractAddress
+				self.viewStatus = .pasteFromClipboardView
+				self.pasteFromClipboardview.onPaste = {
+					self.contractTextfieldView.text = validatedContractAddress
+					self.addCustomAssetVM.validateContractAddressBeforeRequest(
+						textFieldText: self.contractTextfieldView.text ?? "",
 						delay: .none
 					)
 				}
 			case .pending:
-				self?.viewStatus = .pendingView
+				self.viewStatus = .pendingView
 			case let .error(error):
-				self?.contractTextfieldView.errorText = error.description
-				self?.viewStatus = .errorView
+				self.contractTextfieldView.errorText = error.description
+				self.viewStatus = .errorView
 			case .success:
-				self?.customAssetInfoView?.newAddCustomAssetVM = self?.addCustomAssetVM
-				self?.viewStatus = .successView
+				self.customAssetInfoView?.addCustomAssetVM = self.addCustomAssetVM
+				self.viewStatus = .successView
 			}
 		}
 	}
