@@ -77,6 +77,8 @@ class AddCustomAssetViewController: UIViewController {
 				addCustomAssetVM: addCustomAssetVM,
 				toggleNavigationRightButtonEnabledClosure: { [weak self] isEnabled in
 					self?.navigationItem.rightBarButtonItem?.isEnabled = isEnabled
+				}, addButtonTapped: {
+					self.addCustomAssetHandler()
 				}
 			)
 		view = addCustomAssetView

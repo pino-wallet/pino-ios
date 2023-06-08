@@ -47,18 +47,22 @@ class AddCustomAssetView: UIView {
 		}
 	}
 
+	private let addButtonTapped: () -> Void
+
 	// MARK: - Initializers
 
 	init(
 		presentAlertClosure: @escaping PresentAlertClosureType,
 		dissmissKeybaordClosure: @escaping DissmissKeyboardClosureType,
 		addCustomAssetVM: AddCustomAssetViewModel,
-		toggleNavigationRightButtonEnabledClosure: @escaping ToggleNavigationRightButtonEnabledClosureType
+		toggleNavigationRightButtonEnabledClosure: @escaping ToggleNavigationRightButtonEnabledClosureType,
+		addButtonTapped: @escaping () -> Void
 	) {
 		self.presentAlertClosure = presentAlertClosure
 		self.dissmissKeyboardClosure = dissmissKeybaordClosure
 		self.addCustomAssetVM = addCustomAssetVM
 		self.toggleNavigationRightButtonEnabledClosure = toggleNavigationRightButtonEnabledClosure
+		self.addButtonTapped = addButtonTapped
 		super.init(frame: .zero)
 		setupView()
 		setupConstraints()
@@ -102,6 +106,10 @@ class AddCustomAssetView: UIView {
 		contractTextfieldView.errorText = addCustomAssetVM.addCustomAssetTextfieldError
 		// Setup pasteFromClipboardView
 		pasteFromClipboardview.isHidden = true
+
+		addButton.addAction(UIAction(handler: { _ in
+			self.addButtonTapped()
+		}), for: .touchUpInside)
 	}
 
 	private func setupConstraints() {

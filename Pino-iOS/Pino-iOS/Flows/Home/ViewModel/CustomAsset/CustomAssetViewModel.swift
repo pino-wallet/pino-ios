@@ -27,7 +27,7 @@ struct CustomAssetViewModel {
 	}
 
 	public var balance: String {
-		if let balanceOf = customAsset.balance {
+		if let balanceOf = customAsset.balance?.hexString {
 			let userBalanceOfCustomToken = BigNumber(
 				number: balanceOf,
 				decimal: Int(customAsset.decimal)
