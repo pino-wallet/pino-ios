@@ -141,5 +141,9 @@ class HomepageViewController: UIViewController {
 		present(navigationVC, animated: true)
 	}
 
-	private func openSendAssetPage() {}
+	private func openSendAssetPage() {
+		let enterAmountVC = EnterSendAmountViewController()
+		let sendNavigationVC = UINavigationController(rootViewController: enterAmountVC)
+		present(sendNavigationVC, animated: true)
+	}
 }
