@@ -13,22 +13,35 @@ enum KeychainManager: String {
 	case mnemonics
 	case privateKey
 
-	public func getValueWith(key: String) -> Data? {
+	// MARK: - Public Methods
+
+	public func getValueWithKey(accountAddress: String) -> Data? {
+		let key = getKey(accountAddress)
+		return getValueWith(key: key)
+	}
+
+	public func setValueWithKey(value: Data, accountAddress: String) -> WalletOperationError? {
+		let key = getKey(accountAddress)
+		return setValue(value: value, key: key)
+	}
+
+	public func deleteValueWith(key: String) -> Bool {
+		let keychainHelper = KeychainSwift()
+		return keychainHelper.delete("\(self)\(key)")
+	}
+
+	public func getKey(_ key: String) -> String {
+		"\(self)\(key)"
+	}
+
+	// MARK: - Private Methods
+
+	private func getValueWith(key: String) -> Data? {
 		let keychainHelper = KeychainSwift()
 		return keychainHelper.getData(key)
 	}
 
-	public func getValueWithKey(accountAdd: String) -> Data? {
-		let key = getKey(accountAdd)
-		return getValueWith(key: key)
-	}
-
-	public func setValueWithAddress(value: Data, add: String) -> WalletOperationError? {
-		let key = getKey(add)
-		return setValue(value: value, key: key)
-	}
-
-	public func setValue(value: Data, key: String) -> WalletOperationError? {
+	private func setValue(value: Data, key: String) -> WalletOperationError? {
 		let keychainHelper = KeychainSwift()
 		if getValueWith(key: key) != nil {
 			// Value already exists
@@ -45,14 +58,5 @@ enum KeychainManager: String {
 				}
 			}
 		}
-	}
-
-	public func deleteValueWith(key: String) -> Bool {
-		let keychainHelper = KeychainSwift()
-		return keychainHelper.delete("\(self)\(key)")
-	}
-
-	public func getKey(_ key: String) -> String {
-		"\(self)\(key)"
 	}
 }

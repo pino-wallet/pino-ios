@@ -27,9 +27,9 @@ public struct PinoNonHDWallet: PinoNonHDWalletType {
 			guard let keyData = Data(hexString: privateKey) else { return .failure(.validator(.privateKeyIsInvalid)) }
 			let account = try Account(privateKeyData: keyData)
 			let keyCipherData = encryptPrivateKey(keyData, forAccount: account)
-			if let error = KeychainManager.privateKey.setValueWithAddress(
+			if let error = KeychainManager.privateKey.setValueWithKey(
 				value: keyCipherData,
-				add: account.eip55Address
+				accountAddress: account.eip55Address
 			) {
 				return .failure(error)
 			}
