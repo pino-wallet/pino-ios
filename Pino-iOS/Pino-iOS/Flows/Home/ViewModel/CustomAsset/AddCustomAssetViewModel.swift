@@ -222,7 +222,9 @@ class AddCustomAssetViewModel {
 			else {
 				return .error(.notValidFromServer)
 			}
-			let tokenBalanceOf = try await readTokenBalanceOfOp?.callContractMethod()[readNodeContractKey] as? BigUInt
+			guard let tokenBalanceOf = try await readTokenBalanceOfOp?.callContractMethod()[readNodeContractKey] else {
+				return .error(.notValidFromServer)
+			}
 
 			guard let tokenDecimals = try await readTokenDecimalsOp?
 				.callContractMethod()[readNodeContractKey] as? BigUInt else {

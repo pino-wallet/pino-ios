@@ -57,8 +57,12 @@ public class ManageAssetCell: UICollectionViewCell {
 		assetTitleLabel.text = assetVM.name
 		assetAmountLabel.text = assetVM.amount
 
-		assetImage.kf.indicatorType = .activity
-		assetImage.kf.setImage(with: assetVM.image)
+		if assetVM.isCustomAsset {
+			assetImage.image = UIImage(named: assetVM.customAssetImage)
+		} else {
+			assetImage.kf.indicatorType = .activity
+			assetImage.kf.setImage(with: assetVM.image)
+		}
 
 		backgroundColor = .Pino.background
 		assetCardView.backgroundColor = .Pino.secondaryBackground

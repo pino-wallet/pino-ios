@@ -84,7 +84,8 @@ extension HomepageViewModel {
 				decimals: Int($0.decimal) ?? 0,
 				change24H: "0",
 				changePercentage: "0",
-				price: "0"
+				price: "0",
+				isCustom: true
 			)
 		}
 		return customAssets

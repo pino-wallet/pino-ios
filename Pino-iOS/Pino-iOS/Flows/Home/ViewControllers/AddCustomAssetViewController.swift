@@ -130,9 +130,9 @@ class AddCustomAssetViewController: UIViewController {
 	private func addCustomAssetHandler() {
 		let customAsset = addCustomAssetVM.saveCustomTokenToCoredata()
 		if let customAsset {
+			dismiss(animated: true)
 			customAssetAdded(customAsset)
 		}
-		dismiss(animated: true)
 	}
 
 	@objc

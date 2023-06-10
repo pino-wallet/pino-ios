@@ -28,6 +28,7 @@ public struct Detail: Codable {
 	let id, symbol, name, logo: String
 	let decimals: Int
 	let change24H, changePercentage, price: String
+	var isCustom = false
 
 	enum CodingKeys: String, CodingKey {
 		case id

@@ -26,6 +26,14 @@ public class AssetViewModel: SecurityModeProtocol {
 		URL(string: assetModel.detail!.logo)!
 	}
 
+	public var customAssetImage: String {
+		assetModel.detail!.logo
+	}
+
+	public var isCustomAsset: Bool {
+		assetModel.detail!.isCustom
+	}
+
 	public var name: String {
 		assetModel.detail!.name
 	}
