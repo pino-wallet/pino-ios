@@ -8,7 +8,6 @@
 import BigInt
 import Foundation
 import Web3Core
-import web3swift
 
 /** The BigNumber struct is a custom numerical data type that allows for the representation and manipulation of large
  numbers with high precision. The struct holds a BigInt value for the number and an integer for the decimal places.

@@ -109,7 +109,7 @@ extension HomepageViewModel {
 		selectedAssets.append(selectedAsset)
 	}
 
-	public func addSelectedAssetToCoreData(id: String) {
+	private func addSelectedAssetToCoreData(id: String) {
 		let selectedAsset = coreDataManager.addNewSelectedAsset(id: id)
 		selectedAssets.append(selectedAsset)
 	}
