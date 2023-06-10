@@ -362,6 +362,9 @@
 		E385F6182A220D8200EE7EE1 /* CTSAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E385F6172A220D8200EE7EE1 /* CTSAPIClient.swift */; };
 		E385F61A2A220DCC00EE7EE1 /* CTSAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E385F6192A220DCC00EE7EE1 /* CTSAPIService.swift */; };
 		E3CFC07A2A2F241500E165A4 /* CircleMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CFC0792A2F241500E165A4 /* CircleMarker.swift */; };
+		E3D478B02A3064240030A987 /* CustomAsset+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D478AE2A3064240030A987 /* CustomAsset+CoreDataProperties.swift */; };
+		E3D478B12A3064240030A987 /* CustomAsset+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D478AF2A3064240030A987 /* CustomAsset+CoreDataClass.swift */; };
+		E3D478B32A3064C90030A987 /* CustomAssetDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D478B22A3064C90030A987 /* CustomAssetDataSource.swift */; };
 		E3E009E02A0635C800234707 /* Hyperconnectivity in Frameworks */ = {isa = PBXBuildFile; productRef = E3E009DF2A0635C800234707 /* Hyperconnectivity */; };
 		E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E009E12A06377D00234707 /* InternetConnectivity.swift */; };
 		E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D680E48001C060BADD248 /* EndpointType.swift */; };
@@ -754,6 +757,9 @@
 		E385F6172A220D8200EE7EE1 /* CTSAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTSAPIClient.swift; sourceTree = "<group>"; };
 		E385F6192A220DCC00EE7EE1 /* CTSAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTSAPIService.swift; sourceTree = "<group>"; };
 		E3CFC0792A2F241500E165A4 /* CircleMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleMarker.swift; sourceTree = "<group>"; };
+		E3D478AE2A3064240030A987 /* CustomAsset+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CustomAsset+CoreDataProperties.swift"; path = "/Users/mohiraoufi/Developer/pino-ios/Pino-iOS/Pino-iOS/Models/CoreDataModels/CustomAsset+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		E3D478AF2A3064240030A987 /* CustomAsset+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CustomAsset+CoreDataClass.swift"; path = "/Users/mohiraoufi/Developer/pino-ios/Pino-iOS/Pino-iOS/Models/CoreDataModels/CustomAsset+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		E3D478B22A3064C90030A987 /* CustomAssetDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetDataSource.swift; sourceTree = "<group>"; };
 		E3E009E12A06377D00234707 /* InternetConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectivity.swift; sourceTree = "<group>"; };
 		E40D0AB7515630563347CBDA /* CoinPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceViewController.swift; sourceTree = "<group>"; };
 		E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetViewModel.swift; sourceTree = "<group>"; };
@@ -1923,13 +1929,11 @@
 		D8BCC2D34E5C52A36E084E91 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				E3D478B42A30B9110030A987 /* CustomAsset */,
 				E384CB1429FF9346009C74F5 /* Portfolio */,
 				E34728EE29E7DDE800AB8265 /* HomepageViewModel */,
 				D99F4B1F29E2C405009F7F55 /* ReceiveViewModels */,
-				B596DBDA65A59B498030E742 /* AddCustomAssetViewModel.swift */,
 				91253F27E551525F01C51F04 /* AssetViewModel.swift */,
-				BBEC2EBFE1F49130DE1B36E3 /* CustomAssetInfoViewModel.swift */,
-				E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */,
 				79BCB139B9DD46E47FA2E234 /* SecurityModeProtocol.swift */,
 				4E6325D0E27CD114807676AB /* WalletBalanceViewModel.swift */,
 				9EA3E5DF9FE696BD1307327F /* AccountInfoViewModel.swift */,
@@ -2044,6 +2048,7 @@
 				DFA968722A0F8A77007D4513 /* WalletDataSource.swift */,
 				DFB1E9D12A08EC6100041B26 /* AccountDataSource.swift */,
 				DFB1E9D32A08F19C00041B26 /* CoreDataManager.swift */,
+				E3D478B22A3064C90030A987 /* CustomAssetDataSource.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -2051,6 +2056,8 @@
 		DFB1E9D72A0AB7F900041B26 /* CoreDataModels */ = {
 			isa = PBXGroup;
 			children = (
+				E3D478AF2A3064240030A987 /* CustomAsset+CoreDataClass.swift */,
+				E3D478AE2A3064240030A987 /* CustomAsset+CoreDataProperties.swift */,
 				DFA968752A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift */,
 				DFA968782A0FABB9007D4513 /* WalletAccount+CoreDataProperties.swift */,
 				E385F6112A22029100EE7EE1 /* Wallet+CoreDataClass.swift */,
@@ -2115,6 +2122,16 @@
 				E385F6172A220D8200EE7EE1 /* CTSAPIClient.swift */,
 			);
 			path = CTS;
+			sourceTree = "<group>";
+		};
+		E3D478B42A30B9110030A987 /* CustomAsset */ = {
+			isa = PBXGroup;
+			children = (
+				B596DBDA65A59B498030E742 /* AddCustomAssetViewModel.swift */,
+				BBEC2EBFE1F49130DE1B36E3 /* CustomAssetInfoViewModel.swift */,
+				E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */,
+			);
+			path = CustomAsset;
 			sourceTree = "<group>";
 		};
 		E592A8E4290E95A67BA5D5CF /* Home */ = {
@@ -2561,6 +2578,7 @@
 				C18F61B7AEF94EEC4A102666 /* ChartDataModel.swift in Sources */,
 				86AE4E895C42E9E1302295FD /* ChartDateFilter.swift in Sources */,
 				D9703F6A29ED547000D09277 /* CoinInfoFooterview.swift in Sources */,
+				E3D478B12A3064240030A987 /* CustomAsset+CoreDataClass.swift in Sources */,
 				B4E756CF19F769668E2A4FB5 /* ChartInfoItem.swift in Sources */,
 				E34728E229E5360300AB8265 /* CoreDataStack.swift in Sources */,
 				DF00178029E80696001164EA /* SecureEnclave.swift in Sources */,
@@ -2630,6 +2648,7 @@
 				DFA9687B2A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift in Sources */,
 				975DCAC87FF17EA9C5CC5668 /* ImportSecretPhraseViewController.swift in Sources */,
 				3B5C5C7C3020F2A2CDBE5CA5 /* ImportWalletError.swift in Sources */,
+				E3D478B02A3064240030A987 /* CustomAsset+CoreDataProperties.swift in Sources */,
 				8F54F4F399FE38DC1B1FDEED /* InfoActionSheet.swift in Sources */,
 				98D92FBB51CC774F95B06CB8 /* IntroCollectionView.swift in Sources */,
 				D94A9A2229FE6CDA00DCA28D /* EditAccountNameView.swift in Sources */,
@@ -2744,6 +2763,7 @@
 				DE33FFB7D492FA770FF9FB5C /* SemiboldStyle.swift in Sources */,
 				D99F4B2329E2C619009F7F55 /* PaymentMethodOptionModel.swift in Sources */,
 				6FB3C66B1E98C7C2B7886069 /* SettingCell.swift in Sources */,
+				E3D478B32A3064C90030A987 /* CustomAssetDataSource.swift in Sources */,
 				D9BFEC3E2A12236C007DFF40 /* ClearNavigationBar.swift in Sources */,
 				D91A39FD29E40EA400004CB2 /* NotificationSettingsViewController.swift in Sources */,
 				2412CFB01F9D91D18F01EACD /* SettingsHeaderView.swift in Sources */,

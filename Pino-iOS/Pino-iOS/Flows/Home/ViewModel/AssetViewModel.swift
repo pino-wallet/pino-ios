@@ -26,6 +26,14 @@ public class AssetViewModel: SecurityModeProtocol {
 		URL(string: assetModel.detail!.logo)!
 	}
 
+	public var customAssetImage: String {
+		assetModel.detail!.logo
+	}
+
+	public var isVerified: Bool {
+		assetModel.detail!.isVerified
+	}
+
 	public var name: String {
 		assetModel.detail!.name
 	}
@@ -103,7 +111,7 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	private func getFormattedAmountInDollor() -> String {
-		if holdAmount.isZero {
+		if holdAmountInDollor.isZero {
 			return "-"
 		} else {
 			return "$\(formattedHoldAmount)"
@@ -116,8 +124,7 @@ public class AssetViewModel: SecurityModeProtocol {
 		} else {
 			switch volatilityType {
 			case .loss:
-				var lossValue = change24h.formattedAmountOf(type: .price)
-				return "-$\(lossValue)"
+				return "-$\(change24h.formattedAmountOf(type: .price))"
 			case .profit, .none:
 				return "+$\(change24h.formattedAmountOf(type: .price))"
 			}

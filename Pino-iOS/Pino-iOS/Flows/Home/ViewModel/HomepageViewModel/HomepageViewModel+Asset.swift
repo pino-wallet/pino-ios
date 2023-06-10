@@ -13,9 +13,6 @@ extension HomepageViewModel {
 	internal func getAssetsList(completion: @escaping (Result<[BalanceAssetModel], APIError>) -> Void) {
 		if let tokens {
 			accountingAPIClient.userBalance()
-				.map { balanceAssets in
-					balanceAssets.filter { $0.isVerified }
-				}
 				.sink { completed in
 					switch completed {
 					case .finished:
@@ -46,7 +43,6 @@ extension HomepageViewModel {
 			return BalanceAssetModel(
 				id: $0.id,
 				amount: userAsset?.amount ?? "0",
-				isVerified: userAsset?.isVerified ?? true,
 				detail: $0,
 				previousDayNetworth: userAsset?.previousDayNetworth ?? "0"
 			)
@@ -66,14 +62,32 @@ extension HomepageViewModel {
 				completion(.failure(error))
 			}
 		} receiveValue: { tokens in
-			self.tokens = tokens
-			completion(.success(tokens))
+			let customAssets = self.getCustomAssets()
+			self.tokens = tokens + customAssets
+			completion(.success(self.tokens!))
 		}.store(in: &cancellables)
 	}
 
 	#warning("This is temporary and must be replaced with API data")
 	internal func getPositionAssetsList() {
 		positionAssetsList = []
+	}
+
+	internal func getCustomAssets() -> [Detail] {
+		let customAssets = coreDataManager.getAllCustomAssets().compactMap {
+			Detail(
+				id: $0.id,
+				symbol: $0.symbol,
+				name: $0.name,
+				logo: "unverified_asset",
+				decimals: Int($0.decimal) ?? 0,
+				change24H: "0",
+				changePercentage: "0",
+				price: "0",
+				isVerified: false
+			)
+		}
+		return customAssets
 	}
 
 	internal func getSelectedAssetsFromCoreData() {
@@ -95,6 +109,11 @@ extension HomepageViewModel {
 		selectedAssets.append(selectedAsset)
 	}
 
+	private func addSelectedAssetToCoreData(id: String) {
+		let selectedAsset = coreDataManager.addNewSelectedAsset(id: id)
+		selectedAssets.append(selectedAsset)
+	}
+
 	private func deleteSelectedAssetFromCoreData(_ asset: AssetViewModel) {
 		guard let selectedAsset = selectedAssets.first(where: { $0.id == asset.id }) else { return }
 		coreDataManager.deleteSelectedAsset(selectedAsset)
@@ -109,6 +128,23 @@ extension HomepageViewModel {
 	}
 
 	// MARK: Public Methods
+
+	public func addNewCustomAsset(_ customAsset: CustomAsset) {
+		addSelectedAssetToCoreData(id: customAsset.id)
+		let customAssetDetail = Detail(
+			id: customAsset.id,
+			symbol: customAsset.symbol,
+			name: customAsset.name,
+			logo: "unverified_asset",
+			decimals: Int(customAsset.decimal) ?? 0,
+			change24H: "0",
+			changePercentage: "0",
+			price: "0",
+			isVerified: false
+		)
+		tokens?.append(customAssetDetail)
+		getHomeData { _ in }
+	}
 
 	public func updateSelectedAssets(_ selectedAsset: AssetViewModel, isSelected: Bool) {
 		guard let manageAssetsList else { return }

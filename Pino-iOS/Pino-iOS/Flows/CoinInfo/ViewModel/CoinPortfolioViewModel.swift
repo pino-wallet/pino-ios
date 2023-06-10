@@ -52,7 +52,7 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var type: CoinType {
-		if coinPortfolioModel.isVerified {
+		if coinPortfolioModel.detail!.isVerified {
 			return CoinType.verified
 		} else {
 			return CoinType.unVerified

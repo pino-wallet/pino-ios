@@ -17,12 +17,14 @@ class AddCustomAssetViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private var addCustomAssetVM: AddCustomAssetViewModel!
+	private var customAssetAdded: (CustomAsset) -> Void
 
 	// MARK: - Initializers
 
-	init(userAddress: String, userTokens: [Detail]) {
+	init(userAddress: String, userTokens: [Detail], customAssetAdded: @escaping (CustomAsset) -> Void) {
 		self.userAddress = userAddress
 		self.userTokens = userTokens
+		self.customAssetAdded = customAssetAdded
 		super.init(nibName: nil, bundle: nil)
 		NotificationCenter.default.addObserver(
 			self,
@@ -75,6 +77,8 @@ class AddCustomAssetViewController: UIViewController {
 				addCustomAssetVM: addCustomAssetVM,
 				toggleNavigationRightButtonEnabledClosure: { [weak self] isEnabled in
 					self?.navigationItem.rightBarButtonItem?.isEnabled = isEnabled
+				}, addButtonTapped: {
+					self.addCustomAssetHandler()
 				}
 			)
 		view = addCustomAssetView
@@ -124,7 +128,11 @@ class AddCustomAssetViewController: UIViewController {
 	// Setup add button handler
 	@objc
 	private func addCustomAssetHandler() {
-		print("added")
+		let customAsset = addCustomAssetVM.saveCustomTokenToCoredata()
+		if let customAsset {
+			dismiss(animated: true)
+			customAssetAdded(customAsset)
+		}
 	}
 
 	@objc
