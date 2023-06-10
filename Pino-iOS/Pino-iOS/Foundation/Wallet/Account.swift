@@ -24,7 +24,7 @@ public class Account: Codable {
 	public var privateKey: Data {
 		let privateKeyFetchKey = KeychainManager.privateKey.getKey(eip55Address)
 		let secureEnclave = SecureEnclave()
-		guard let encryptedPrivateKey = KeychainManager.privateKey.getValueWith(key: eip55Address) else {
+		guard let encryptedPrivateKey = KeychainManager.privateKey.getValueWithKey(accountAddress: eip55Address) else {
 			fatalError(WalletOperationError.keyManager(.privateKeyRetrievalFailed).localizedDescription)
 		}
 		let decryptedData = secureEnclave.decrypt(
