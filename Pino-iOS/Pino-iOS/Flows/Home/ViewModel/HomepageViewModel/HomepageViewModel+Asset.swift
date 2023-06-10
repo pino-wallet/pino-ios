@@ -43,7 +43,6 @@ extension HomepageViewModel {
 			return BalanceAssetModel(
 				id: $0.id,
 				amount: userAsset?.amount ?? "0",
-				isVerified: userAsset?.isVerified ?? true,
 				detail: $0,
 				previousDayNetworth: userAsset?.previousDayNetworth ?? "0"
 			)
@@ -65,7 +64,7 @@ extension HomepageViewModel {
 		} receiveValue: { tokens in
 			let customAssets = self.getCustomAssets()
 			self.tokens = tokens + customAssets
-			completion(.success(tokens))
+			completion(.success(self.tokens!))
 		}.store(in: &cancellables)
 	}
 
@@ -85,7 +84,7 @@ extension HomepageViewModel {
 				change24H: "0",
 				changePercentage: "0",
 				price: "0",
-				isCustom: true
+				isVerified: false
 			)
 		}
 		return customAssets
@@ -140,7 +139,8 @@ extension HomepageViewModel {
 			decimals: Int(customAsset.decimal) ?? 0,
 			change24H: "0",
 			changePercentage: "0",
-			price: "0"
+			price: "0",
+			isVerified: false
 		)
 		tokens?.append(customAssetDetail)
 		getHomeData { _ in }

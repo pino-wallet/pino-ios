@@ -119,11 +119,12 @@ class CoreDataManager {
 		customAssetsDataSource.getAll()
 	}
 
-	public func addNewCustomAsset(id: String, symbol: String, name: String) -> CustomAsset {
+	public func addNewCustomAsset(id: String, symbol: String, name: String, decimal: String) -> CustomAsset {
 		let newCustomAsset = CustomAsset(context: customAssetsDataSource.managedContext)
-		newCustomAsset.id = id
+		newCustomAsset.id = id.lowercased()
 		newCustomAsset.symbol = symbol
 		newCustomAsset.name = name
+		newCustomAsset.decimal = decimal
 		customAssetsDataSource.save(newCustomAsset)
 		return newCustomAsset
 	}

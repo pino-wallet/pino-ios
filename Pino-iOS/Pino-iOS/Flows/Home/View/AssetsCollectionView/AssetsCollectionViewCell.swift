@@ -82,7 +82,7 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 			}
 		}
 
-		if let assetVM, assetVM.isCustomAsset {
+		if let assetVM, !assetVM.isVerified {
 			assetImage.image = UIImage(named: assetVM.customAssetImage)
 		} else {
 			assetImage.kf.indicatorType = .activity

@@ -164,7 +164,8 @@ class AddCustomAssetViewModel {
 			let customAssetModel = coredataManager.addNewCustomAsset(
 				id: customAssetVM.contractAddress,
 				symbol: customAssetVM.symbol,
-				name: customAssetVM.name
+				name: customAssetVM.name,
+				decimal: customAssetVM.decimal
 			)
 			return customAssetModel
 		}
