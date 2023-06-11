@@ -142,12 +142,12 @@ class HomepageViewController: UIViewController {
 	}
 
 	private func openSendAssetPage() {
-        if homeVM.manageAssetsList != nil {
-            let navigationVC = UINavigationController()
-            let selectAssetToSendVM = SelectAssetToSendViewModel(assetsList: homeVM.assetsModelList)
-            let selectAssetToSendVC = SelectAssetToSendViewController(selectAssetToSendVM: selectAssetToSendVM)
-            navigationVC.viewControllers = [selectAssetToSendVC]
-            present(navigationVC, animated: true)
-        }
-    }
+		if homeVM.manageAssetsList != nil {
+			let navigationVC = UINavigationController()
+			let selectAssetToSendVM = SelectAssetToSendViewModel(assetsList: homeVM.assetsModelList)
+			let selectAssetToSendVC = SelectAssetToSendViewController(selectAssetToSendVM: selectAssetToSendVM)
+			navigationVC.viewControllers = [selectAssetToSendVC]
+			present(navigationVC, animated: true)
+		}
+	}
 }

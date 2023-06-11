@@ -8,9 +8,9 @@
 import Foundation
 
 protocol SelectAssetCellVMProtocol {
-    var assetModel: AssetProtocol { get set }
-    var assetName: String { get }
-    var assetSymbol: String { get }
-    var assetAmount: String { get }
-    var assetLogo: URL! { get }
+	var assetModel: AssetProtocol { get set }
+	var assetName: String { get }
+	var assetSymbol: String { get }
+	var assetAmount: String { get }
+	var assetLogo: URL! { get }
 }
