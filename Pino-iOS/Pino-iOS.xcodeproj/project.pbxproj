@@ -316,7 +316,6 @@
 		DF00179529F85774001164EA /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00179429F85774001164EA /* KeychainManager.swift */; };
 		DF00179729F96D3D001164EA /* PinoWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00179629F96D3D001164EA /* PinoWalletManager.swift */; };
 		DF0F65E529E1B20F00DB7290 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65E429E1B20F00DB7290 /* BigInt */; };
-		DF0F65E829E1B22A00DB7290 /* web3swift in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65E729E1B22A00DB7290 /* web3swift */; };
 		DF0F65EB29E1B24500DB7290 /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65EA29E1B24500DB7290 /* OHHTTPStubs */; };
 		DF0F65ED29E1B24500DB7290 /* OHHTTPStubsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65EC29E1B24500DB7290 /* OHHTTPStubsSwift */; };
 		DF0F65F029E1B27200DB7290 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65EF29E1B27200DB7290 /* Kingfisher */; };
@@ -345,6 +344,9 @@
 		DFB1E9D62A08F21C00041B26 /* SelectedAssetsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB1E9D52A08F21C00041B26 /* SelectedAssetsDataSource.swift */; };
 		DFB566272A1926C600F9D6A0 /* ImportTextViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB566262A1926C600F9D6A0 /* ImportTextViewType.swift */; };
 		DFB566292A192CD600F9D6A0 /* WalletManagementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB566282A192CD600F9D6A0 /* WalletManagementType.swift */; };
+		DFC4D0332A360C3B00F03DC4 /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = DFC4D0322A360C3B00F03DC4 /* Web3 */; };
+		DFC4D0352A360C3B00F03DC4 /* Web3ContractABI in Frameworks */ = {isa = PBXBuildFile; productRef = DFC4D0342A360C3B00F03DC4 /* Web3ContractABI */; };
+		DFC4D0372A360C3B00F03DC4 /* Web3PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = DFC4D0362A360C3B00F03DC4 /* Web3PromiseKit */; };
 		E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCBF9CC6A3C63CAA0DB0AA7 /* ActivityViewController.swift */; };
 		E25F4C14C3273F63F22E983C /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA3FFE35308EBEC961CD7BF /* UIView.swift */; };
 		E34728E229E5360300AB8265 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34728E129E5360300AB8265 /* CoreDataStack.swift */; };
@@ -823,9 +825,11 @@
 				DF0F660629E1B47B00DB7290 /* Charts in Frameworks */,
 				DF0F65F029E1B27200DB7290 /* Kingfisher in Frameworks */,
 				E3E009E02A0635C800234707 /* Hyperconnectivity in Frameworks */,
+				DFC4D0332A360C3B00F03DC4 /* Web3 in Frameworks */,
 				5C2406A791AFEA56B9374873 /* Pods_Pino_iOS.framework in Frameworks */,
 				DF0F65E529E1B20F00DB7290 /* BigInt in Frameworks */,
-				DF0F65E829E1B22A00DB7290 /* web3swift in Frameworks */,
+				DFC4D0372A360C3B00F03DC4 /* Web3PromiseKit in Frameworks */,
+				DFC4D0352A360C3B00F03DC4 /* Web3ContractABI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2238,10 +2242,12 @@
 			name = "Pino-iOS";
 			packageProductDependencies = (
 				DF0F65E429E1B20F00DB7290 /* BigInt */,
-				DF0F65E729E1B22A00DB7290 /* web3swift */,
 				DF0F65EF29E1B27200DB7290 /* Kingfisher */,
 				DF0F660529E1B47B00DB7290 /* Charts */,
 				E3E009DF2A0635C800234707 /* Hyperconnectivity */,
+				DFC4D0322A360C3B00F03DC4 /* Web3 */,
+				DFC4D0342A360C3B00F03DC4 /* Web3ContractABI */,
+				DFC4D0362A360C3B00F03DC4 /* Web3PromiseKit */,
 			);
 			productName = "Pino-iOS";
 			productReference = 8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */;
@@ -2316,11 +2322,11 @@
 			mainGroup = 2277E1FFDD10A1C98A64D20C;
 			packageReferences = (
 				DF0F65E329E1B20F00DB7290 /* XCRemoteSwiftPackageReference "BigInt" */,
-				DF0F65E629E1B22A00DB7290 /* XCRemoteSwiftPackageReference "web3swift" */,
 				DF0F65E929E1B24500DB7290 /* XCRemoteSwiftPackageReference "OHHTTPStubs" */,
 				DF0F65EE29E1B27200DB7290 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				DF0F660429E1B47B00DB7290 /* XCRemoteSwiftPackageReference "Charts" */,
 				E3E009DE2A0635C800234707 /* XCRemoteSwiftPackageReference "hyperconnectivity" */,
+				DFC4D0312A360C3B00F03DC4 /* XCRemoteSwiftPackageReference "Web3.swift" */,
 			);
 			productRefGroup = 2821FB9CEE9F9B9E6BAE9FD7 /* Products */;
 			projectDirPath = "";
@@ -3171,14 +3177,6 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		DF0F65E629E1B22A00DB7290 /* XCRemoteSwiftPackageReference "web3swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/web3swift-team/web3swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
 		DF0F65E929E1B24500DB7290 /* XCRemoteSwiftPackageReference "OHHTTPStubs" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AliSoftware/OHHTTPStubs";
@@ -3203,6 +3201,14 @@
 				kind = branch;
 			};
 		};
+		DFC4D0312A360C3B00F03DC4 /* XCRemoteSwiftPackageReference "Web3.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Boilertalk/Web3.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.8.3;
+			};
+		};
 		E3E009DE2A0635C800234707 /* XCRemoteSwiftPackageReference "hyperconnectivity" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rwbutler/hyperconnectivity";
@@ -3218,11 +3224,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DF0F65E329E1B20F00DB7290 /* XCRemoteSwiftPackageReference "BigInt" */;
 			productName = BigInt;
-		};
-		DF0F65E729E1B22A00DB7290 /* web3swift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DF0F65E629E1B22A00DB7290 /* XCRemoteSwiftPackageReference "web3swift" */;
-			productName = web3swift;
 		};
 		DF0F65EA29E1B24500DB7290 /* OHHTTPStubs */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -3243,6 +3244,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DF0F660429E1B47B00DB7290 /* XCRemoteSwiftPackageReference "Charts" */;
 			productName = Charts;
+		};
+		DFC4D0322A360C3B00F03DC4 /* Web3 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DFC4D0312A360C3B00F03DC4 /* XCRemoteSwiftPackageReference "Web3.swift" */;
+			productName = Web3;
+		};
+		DFC4D0342A360C3B00F03DC4 /* Web3ContractABI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DFC4D0312A360C3B00F03DC4 /* XCRemoteSwiftPackageReference "Web3.swift" */;
+			productName = Web3ContractABI;
+		};
+		DFC4D0362A360C3B00F03DC4 /* Web3PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DFC4D0312A360C3B00F03DC4 /* XCRemoteSwiftPackageReference "Web3.swift" */;
+			productName = Web3PromiseKit;
 		};
 		E3E009DF2A0635C800234707 /* Hyperconnectivity */ = {
 			isa = XCSwiftPackageProductDependency;
