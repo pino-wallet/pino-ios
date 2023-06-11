@@ -12,9 +12,18 @@ class EnterSendAmountViewController: UIViewController {
 
 	// MARK: Private Properties
 
-	private let enterAmountVM = EnterSendamountViewModel()
+	private let enterAmountVM: EnterSendamountViewModel
 
 	// MARK: Initializers
+
+	init(selectedAsset: AssetViewModel) {
+		self.enterAmountVM = EnterSendamountViewModel(selectedToken: selectedAsset)
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	// MARK: - View Overrides
 

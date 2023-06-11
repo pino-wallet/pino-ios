@@ -142,7 +142,7 @@ class HomepageViewController: UIViewController {
 	}
 
 	private func openSendAssetPage() {
-		let enterAmountVC = EnterSendAmountViewController()
+		let enterAmountVC = EnterSendAmountViewController(selectedAsset: homeVM.manageAssetsList![1])
 		let sendNavigationVC = UINavigationController(rootViewController: enterAmountVC)
 		present(sendNavigationVC, animated: true)
 	}

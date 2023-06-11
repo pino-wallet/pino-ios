@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 6/11/23.
 //
 
+import Combine
 import UIKit
 
 class EnterSendAmountView: UIView {
@@ -30,7 +31,7 @@ class EnterSendAmountView: UIView {
 	private var nextButtonTapped: () -> Void
 	private var enterAmountVM: EnterSendamountViewModel
 
-	private var isDollarEnabled = false
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
 
@@ -46,6 +47,7 @@ class EnterSendAmountView: UIView {
 		setupView()
 		setupStyle()
 		setupContstraint()
+		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -85,16 +87,19 @@ class EnterSendAmountView: UIView {
 	}
 
 	private func setupStyle() {
-		tokenNameLabel.text = "LINK"
-		amountLabel.text = "0.0 LINK"
-		maxAmountTitle.text = "Max: "
-		maxAmountLabel.text = "1000 LINK"
+		tokenNameLabel.text = enterAmountVM.selectedToken.name
+		amountLabel.text = enterAmountVM.enteredAmount
+		maxAmountTitle.text = enterAmountVM.maxTitle
+		maxAmountLabel.text = enterAmountVM.maxAmount
+		continueButton.title = enterAmountVM.continueButtonTitle
 
-		dollarFormatButton.setImage(UIImage(named: "dollar_icon"), for: .normal)
-		tokenImageView.image = UIImage(named: "unverified_asset")
+		tokenImageView.kf.indicatorType = .activity
+		tokenImageView.kf.setImage(with: enterAmountVM.selectedToken.image)
+
+		dollarFormatButton.setImage(UIImage(named: enterAmountVM.dollarIcon), for: .normal)
 
 		amountTextfield.attributedPlaceholder = NSAttributedString(
-			string: "0.0",
+			string: enterAmountVM.textFieldPlaceHolder,
 			attributes: [.font: UIFont.PinoStyle.semiboldTitle1!, .foregroundColor: UIColor.Pino.gray2]
 		)
 
@@ -162,6 +167,26 @@ class EnterSendAmountView: UIView {
 		)
 	}
 
+	private func updateView() {
+		tokenNameLabel.text = enterAmountVM.selectedToken.name
+		amountLabel.text = enterAmountVM.enteredAmount
+		maxAmountLabel.text = enterAmountVM.maxAmount
+
+		tokenImageView.kf.indicatorType = .activity
+		tokenImageView.kf.setImage(with: enterAmountVM.selectedToken.image)
+
+		amountTextfield.attributedPlaceholder = NSAttributedString(
+			string: enterAmountVM.textFieldPlaceHolder,
+			attributes: [.font: UIFont.PinoStyle.semiboldTitle1!, .foregroundColor: UIColor.Pino.gray2]
+		)
+	}
+
+	private func setupBindings() {
+		enterAmountVM.$selectedToken.sink { _ in
+			self.updateView()
+		}.store(in: &cancellables)
+	}
+
 	@objc
 	private func changeToken() {
 		changeSelectedToken()
@@ -169,15 +194,16 @@ class EnterSendAmountView: UIView {
 
 	private func toggleDollarFormat() {
 		UIView.animate(withDuration: 0.3) {
-			if self.isDollarEnabled {
-				self.isDollarEnabled = false
+			if self.enterAmountVM.isDollarEnabled {
+				self.enterAmountVM.isDollarEnabled = false
 				self.dollarFormatButton.backgroundColor = .Pino.background
 				self.dollarFormatButton.tintColor = .Pino.primary
 			} else {
-				self.isDollarEnabled = true
+				self.enterAmountVM.isDollarEnabled = true
 				self.dollarFormatButton.backgroundColor = .Pino.primary
 				self.dollarFormatButton.tintColor = .Pino.green1
 			}
+			self.updateView()
 		}
 	}
 }
