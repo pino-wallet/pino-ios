@@ -44,18 +44,18 @@ class SelectAssetCollectionView: UICollectionView {
 
 extension SelectAssetCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        didSelectAsset(selectAssetVM.filteredAssetListByAmount[indexPath.item]!)
+        didSelectAsset(selectAssetVM.filteredAndSearchedAssetList[indexPath.item]!)
     }
 }
 
 extension SelectAssetCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return selectAssetVM.filteredAssetListByAmount.count
+        return selectAssetVM.filteredAndSearchedAssetList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: SelectAssetCell.cellReuseID, for: indexPath) as! SelectAssetCell
-        cell.selectAssetCellVM = SelectAssetCellViewModel(assetModel: selectAssetVM.filteredAssetListByAmount[indexPath.item]!)
+        cell.selectAssetCellVM = SelectAssetCellViewModel(assetModel: selectAssetVM.filteredAndSearchedAssetList[indexPath.item]!)
         return cell
     }
 }
