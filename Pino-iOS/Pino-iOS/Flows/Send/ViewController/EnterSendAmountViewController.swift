@@ -12,6 +12,8 @@ class EnterSendAmountViewController: UIViewController {
 
 	// MARK: Private Properties
 
+	private let enterAmountVM = EnterSendamountViewModel()
+
 	// MARK: Initializers
 
 	// MARK: - View Overrides
@@ -32,8 +34,11 @@ class EnterSendAmountViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = UIView()
-		view.backgroundColor = .Pino.background
+		view = EnterSendAmountView(
+			enterAmountVM: enterAmountVM,
+			changeSelectedToken: {},
+			nextButtonTapped: {}
+		)
 	}
 
 	private func setupNavigationBar() {
