@@ -246,7 +246,9 @@ class AccountBalanceHeaderView: UICollectionReusableView {
 	}
 
 	@objc
-	private func openSendAssetVC() {}
+	private func openSendAssetVC() {
+        sendButtonTappedClosure()
+    }
 
 	@objc
 	private func openReceiveButtonVC() {
