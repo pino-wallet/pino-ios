@@ -7,7 +7,7 @@
 
 import Foundation
 
-class EnterSendamountViewModel {
+class EnterSendAmountViewModel {
 	// MARK: - Public Properties
 
 	@Published
@@ -17,23 +17,19 @@ class EnterSendamountViewModel {
 	public let dollarIcon = "dollar_icon"
 	public let continueButtonTitle = "Next"
 
-	public var textFieldPlaceHolder: String {
-		if isDollarEnabled {
-			return "$0.0"
-		} else {
-			return "0.0"
-		}
-	}
+	public var textFieldPlaceHolder = "0.0"
 
 	public var maxAmount: String {
 		selectedToken.amount
 	}
 
-	public var enteredAmount: String {
+	public var enteredAmount = "0.0"
+
+	public var formattedAmount: String {
 		if isDollarEnabled {
-			return "0.0 \(selectedToken.symbol)"
+			return "\(enteredAmount) \(selectedToken.symbol)"
 		} else {
-			return "$0.0"
+			return "$\(enteredAmount)"
 		}
 	}
 
@@ -42,5 +38,25 @@ class EnterSendamountViewModel {
 	init(selectedToken: AssetViewModel, isDollarEnabled: Bool = false) {
 		self.selectedToken = selectedToken
 		self.isDollarEnabled = isDollarEnabled
+	}
+
+	// MARK: - Public Methods
+
+	public func calculateAmount(_ amount: String) {
+		if isDollarEnabled {
+			convertDollarAmountToTokenValue(amount: amount)
+		} else {
+			convertEnteredAmountToDollar(amount: amount)
+		}
+	}
+
+	private func convertEnteredAmountToDollar(amount: String) {
+		let enteredAmountNumber = BigNumber(number: amount, decimal: 1) * selectedToken.price
+		enteredAmount = enteredAmountNumber.formattedAmountOf(type: .price)
+	}
+
+	private func convertDollarAmountToTokenValue(amount: String) {
+		let enteredAmountNumber = BigNumber(number: amount, decimal: 1) / selectedToken.price
+		enteredAmount = enteredAmountNumber?.formattedAmountOf(type: .price) ?? "0.0"
 	}
 }

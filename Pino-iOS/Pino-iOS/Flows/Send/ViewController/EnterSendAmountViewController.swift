@@ -12,12 +12,12 @@ class EnterSendAmountViewController: UIViewController {
 
 	// MARK: Private Properties
 
-	private let enterAmountVM: EnterSendamountViewModel
+	private let enterAmountVM: EnterSendAmountViewModel
 
 	// MARK: Initializers
 
 	init(selectedAsset: AssetViewModel) {
-		self.enterAmountVM = EnterSendamountViewModel(selectedToken: selectedAsset)
+		self.enterAmountVM = EnterSendAmountViewModel(selectedToken: selectedAsset)
 		super.init(nibName: nil, bundle: nil)
 	}
 
