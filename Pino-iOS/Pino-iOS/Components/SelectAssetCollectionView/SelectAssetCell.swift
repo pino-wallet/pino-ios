@@ -11,7 +11,7 @@ import UIKit
 class SelectAssetCell: UICollectionViewCell {
 	// MARK: - Public Properties
 
-	public var selectAssetCellVM: SelectAssetCellViewModel! {
+	public var selectAssetCellVM: SelectAssetCellVMProtocol! {
 		didSet {
 			setupView()
 			setupStyles()

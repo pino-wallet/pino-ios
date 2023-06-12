@@ -7,6 +7,6 @@
 
 protocol SelectAssetVMProtocol {
 	var filteredAssetListByAmount: [AssetProtocol?] { get set }
-	var filteredAndSearchedAssetList: [AssetProtocol?] { get set }
+	var filteredAssetList: [AssetProtocol?] { get set }
 	func updateFilteredAndSearchedAssetList(searchValue: String)
 }

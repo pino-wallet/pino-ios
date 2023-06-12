@@ -7,17 +7,17 @@
 
 import Foundation
 
-class SelectAssetCellViewModel: SelectAssetCellVMProtocol {
+struct SelectAssetCellViewModel: SelectAssetCellVMProtocol {
 	// MARK: - Public Properties
 
 	var assetModel: AssetProtocol
 
 	var assetName: String {
-		assetModel.detail?.name ?? ""
+		assetModel.detail!.name
 	}
 
 	var assetSymbol: String {
-		assetModel.detail?.symbol ?? ""
+		assetModel.detail!.symbol
 	}
 
 	var assetAmount: String {

@@ -47,13 +47,13 @@ class SelectAssetCollectionView: UICollectionView {
 
 extension SelectAssetCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		didSelectAsset(selectAssetVM.filteredAndSearchedAssetList[indexPath.item]!)
+		didSelectAsset(selectAssetVM.filteredAssetList[indexPath.item]!)
 	}
 }
 
 extension SelectAssetCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		selectAssetVM.filteredAndSearchedAssetList.count
+		selectAssetVM.filteredAssetList.count
 	}
 
 	func collectionView(
@@ -67,7 +67,7 @@ extension SelectAssetCollectionView: UICollectionViewDataSource {
 		cell
 			.selectAssetCellVM = SelectAssetCellViewModel(
 				assetModel: selectAssetVM
-					.filteredAndSearchedAssetList[indexPath.item]!
+					.filteredAssetList[indexPath.item]!
 			)
 		return cell
 	}

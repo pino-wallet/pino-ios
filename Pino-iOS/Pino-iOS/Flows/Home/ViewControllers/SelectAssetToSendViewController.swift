@@ -63,7 +63,7 @@ class SelectAssetToSendViewController: UIViewController {
 	}
 
 	private func setupBindings() {
-		selectAssetToSendVM.$filteredAndSearchedAssetList.sink { [weak self] _ in
+		selectAssetToSendVM.$filteredAssetList.sink { [weak self] _ in
 			self?.selectAssetcollectionView.reloadData()
 		}.store(in: &cancellables)
 	}

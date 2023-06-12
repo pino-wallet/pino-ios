@@ -14,14 +14,14 @@ class SelectAssetToSendViewModel: SelectAssetVMProtocol {
 	public let dissmissIocnName = "dissmiss"
 
 	@Published
-	var filteredAndSearchedAssetList: [AssetProtocol?]
+	var filteredAssetList: [AssetProtocol?]
 	var filteredAssetListByAmount: [AssetProtocol?]
 
 	// MARK: - initializers
 
 	init(assetsList: [AssetProtocol?]) {
-		self.filteredAssetListByAmount = assetsList.filter { !BigNumber(number: $0!.amount, decimal: 6).isZero }
-		self.filteredAndSearchedAssetList = filteredAssetListByAmount
+		self.filteredAssetListByAmount = assetsList.filter { BigNumber(number: $0!.amount, decimal: 6).isZero }
+		self.filteredAssetList = filteredAssetListByAmount
 	}
 
 	// MARK: - Public Methods
@@ -29,10 +29,16 @@ class SelectAssetToSendViewModel: SelectAssetVMProtocol {
 	public func updateFilteredAndSearchedAssetList(searchValue: String) {
 		let searchValueLowerCased = searchValue.lowercased()
 		if !searchValue.isEmpty {
-			filteredAndSearchedAssetList = filteredAssetListByAmount
-				.filter { $0?.detail?.name.lowercased().contains(searchValueLowerCased) ?? false }
+			filteredAssetList = filteredAssetListByAmount
+				.filter {
+					guard let assetDetails = $0?.detail else {
+						return false
+					}
+					return assetDetails.name.lowercased().contains(searchValueLowerCased) || assetDetails.symbol
+						.lowercased().contains(searchValueLowerCased)
+				}
 		} else {
-			filteredAndSearchedAssetList = filteredAssetListByAmount
+			filteredAssetList = filteredAssetListByAmount
 		}
 	}
 }
