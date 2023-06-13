@@ -147,6 +147,7 @@ class EnterSendAmountView: UIView {
 		contentStackView.spacing = 19
 
 		amountTextfield.keyboardType = .decimalPad
+		amountTextfield.delegate = self
 
 		dollarSignLabel.isHidden = true
 
@@ -237,5 +238,33 @@ class EnterSendAmountView: UIView {
 	@objc
 	private func dissmisskeyBoard() {
 		amountTextfield.endEditing(true)
+	}
+}
+
+extension EnterSendAmountView: UITextFieldDelegate {
+	func textField(
+		_ textField: UITextField,
+		shouldChangeCharactersIn range: NSRange,
+		replacementString string: String
+	) -> Bool {
+		// Allow backspace
+		if string.isEmpty {
+			return true
+		}
+
+		// Check if the replacement string is a decimal point
+		if string == "." {
+			// Check if the existing text already contains a decimal point
+			if let text = textField.text, text.contains(".") {
+				// Disallow entering another decimal point
+				return false
+			}
+		}
+
+		// Allow decimal point and digits
+		let allowedCharacters = CharacterSet(charactersIn: "0123456789.")
+		let replacementStringCharacterSet = CharacterSet(charactersIn: string)
+
+		return allowedCharacters.isSuperset(of: replacementStringCharacterSet)
 	}
 }
