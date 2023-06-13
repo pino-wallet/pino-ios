@@ -82,7 +82,10 @@ class ManageAssetsViewController: UIViewController {
 		let addCustomAssetVC = AddCustomAssetViewController(
 			userAddress: homeVM.walletInfo.address,
 			userTokens: homeVM.tokens!
-		)
+		) { customAsset in
+			self.homeVM.addNewCustomAsset(customAsset)
+			self.dismiss(animated: true)
+		}
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [addCustomAssetVC]
 		present(navigationVC, animated: true)
@@ -92,9 +95,13 @@ class ManageAssetsViewController: UIViewController {
 extension ManageAssetsViewController: UISearchResultsUpdating {
 	func updateSearchResults(for searchController: UISearchController) {
 		guard let manageAssetsList = homeVM.manageAssetsList else { return }
-		if let searchText = searchController.searchBar.searchTextField.text, searchText != "" {
+		if let searchTextLowerCased = searchController.searchBar.searchTextField.text?.lowercased(),
+		   searchTextLowerCased != "" {
 			manageAssetCollectionview.filteredAssets = manageAssetsList
-				.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+				.filter {
+					$0.name.lowercased().contains(searchTextLowerCased) || $0.symbol.lowercased()
+						.contains(searchTextLowerCased)
+				}
 		} else {
 			manageAssetCollectionview.filteredAssets = manageAssetsList
 		}

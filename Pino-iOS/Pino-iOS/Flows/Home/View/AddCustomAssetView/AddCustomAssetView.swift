@@ -47,18 +47,22 @@ class AddCustomAssetView: UIView {
 		}
 	}
 
+	private let addButtonTapped: () -> Void
+
 	// MARK: - Initializers
 
 	init(
 		presentAlertClosure: @escaping PresentAlertClosureType,
 		dissmissKeybaordClosure: @escaping DissmissKeyboardClosureType,
 		addCustomAssetVM: AddCustomAssetViewModel,
-		toggleNavigationRightButtonEnabledClosure: @escaping ToggleNavigationRightButtonEnabledClosureType
+		toggleNavigationRightButtonEnabledClosure: @escaping ToggleNavigationRightButtonEnabledClosureType,
+		addButtonTapped: @escaping () -> Void
 	) {
 		self.presentAlertClosure = presentAlertClosure
 		self.dissmissKeyboardClosure = dissmissKeybaordClosure
 		self.addCustomAssetVM = addCustomAssetVM
 		self.toggleNavigationRightButtonEnabledClosure = toggleNavigationRightButtonEnabledClosure
+		self.addButtonTapped = addButtonTapped
 		super.init(frame: .zero)
 		setupView()
 		setupConstraints()
@@ -102,6 +106,10 @@ class AddCustomAssetView: UIView {
 		contractTextfieldView.errorText = addCustomAssetVM.addCustomAssetTextfieldError
 		// Setup pasteFromClipboardView
 		pasteFromClipboardview.isHidden = true
+
+		addButton.addAction(UIAction(handler: { _ in
+			self.addButtonTapped()
+		}), for: .touchUpInside)
 	}
 
 	private func setupConstraints() {
@@ -127,27 +135,28 @@ class AddCustomAssetView: UIView {
 
 	private func setupChangeStatusClosure() {
 		addCustomAssetVM.changeViewStatusClosure = { [weak self] currentStatus in
+			guard let self else { return }
 			switch currentStatus {
 			case .clear:
-				self?.viewStatus = .clearView
+				self.viewStatus = .clearView
 			case let .pasteFromClipboard(validatedContractAddress):
-				self?.pasteFromClipboardview.contractAddress = validatedContractAddress
-				self?.viewStatus = .pasteFromClipboardView
-				self?.pasteFromClipboardview.onPaste = {
-					self?.contractTextfieldView.text = validatedContractAddress
-					self?.addCustomAssetVM.validateContractAddressBeforeRequest(
-						textFieldText: self?.contractTextfieldView.text ?? "",
+				self.pasteFromClipboardview.contractAddress = validatedContractAddress
+				self.viewStatus = .pasteFromClipboardView
+				self.pasteFromClipboardview.onPaste = {
+					self.contractTextfieldView.text = validatedContractAddress
+					self.addCustomAssetVM.validateContractAddressBeforeRequest(
+						textFieldText: self.contractTextfieldView.text ?? "",
 						delay: .none
 					)
 				}
 			case .pending:
-				self?.viewStatus = .pendingView
+				self.viewStatus = .pendingView
 			case let .error(error):
-				self?.contractTextfieldView.errorText = error.description
-				self?.viewStatus = .errorView
+				self.contractTextfieldView.errorText = error.description
+				self.viewStatus = .errorView
 			case .success:
-				self?.customAssetInfoView?.newAddCustomAssetVM = self?.addCustomAssetVM
-				self?.viewStatus = .successView
+				self.customAssetInfoView?.addCustomAssetVM = self.addCustomAssetVM
+				self.viewStatus = .successView
 			}
 		}
 	}

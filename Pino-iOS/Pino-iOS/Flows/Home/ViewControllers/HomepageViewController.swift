@@ -126,7 +126,7 @@ class HomepageViewController: UIViewController {
 	}
 
 	private func openPortfolioPage() {
-		guard let assets = homeVM.manageAssetsList else { return }
+		guard let assets = homeVM.manageAssetsList?.filter({ $0.isVerified }) else { return }
 		let portfolioPerformanceVC = PortfolioPerformanceViewController(assets: assets)
 		portfolioPerformanceVC.modalPresentationStyle = .formSheet
 		let navigationVC = UINavigationController(rootViewController: portfolioPerformanceVC)
@@ -142,8 +142,12 @@ class HomepageViewController: UIViewController {
 	}
 
 	private func openSendAssetPage() {
-		let enterAmountVC = EnterSendAmountViewController(selectedAsset: homeVM.manageAssetsList![1])
-		let sendNavigationVC = UINavigationController(rootViewController: enterAmountVC)
-		present(sendNavigationVC, animated: true)
+		if homeVM.manageAssetsList != nil {
+			let navigationVC = UINavigationController()
+			let selectAssetToSendVM = SelectAssetToSendViewModel(assetsList: homeVM.assetsModelList)
+			let selectAssetToSendVC = SelectAssetToSendViewController(selectAssetToSendVM: selectAssetToSendVM)
+			navigationVC.viewControllers = [selectAssetToSendVC]
+			present(navigationVC, animated: true)
+		}
 	}
 }

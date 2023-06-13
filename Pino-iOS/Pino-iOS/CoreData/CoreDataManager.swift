@@ -12,6 +12,7 @@ class CoreDataManager {
 	private var walletDataSource = WalletDataSource()
 	private var accountDataSource = AccountDataSource()
 	private var selectedAssetDataSource = SelectedAssetsDataSource()
+	private var customAssetsDataSource = CustomAssetDataSource()
 
 	// MARK: - Public Methods
 
@@ -112,5 +113,19 @@ class CoreDataManager {
 
 	public func deleteSelectedAsset(_ selectedAsset: SelectedAsset) {
 		selectedAssetDataSource.delete(selectedAsset)
+	}
+
+	public func getAllCustomAssets() -> [CustomAsset] {
+		customAssetsDataSource.getAll()
+	}
+
+	public func addNewCustomAsset(id: String, symbol: String, name: String, decimal: String) -> CustomAsset {
+		let newCustomAsset = CustomAsset(context: customAssetsDataSource.managedContext)
+		newCustomAsset.id = id.lowercased()
+		newCustomAsset.symbol = symbol
+		newCustomAsset.name = name
+		newCustomAsset.decimal = decimal
+		customAssetsDataSource.save(newCustomAsset)
+		return newCustomAsset
 	}
 }
