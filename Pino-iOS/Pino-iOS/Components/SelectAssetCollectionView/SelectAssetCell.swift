@@ -11,7 +11,7 @@ import UIKit
 class SelectAssetCell: UICollectionViewCell {
 	// MARK: - Public Properties
 
-	public var selectAssetCellVM: SelectAssetCellVMProtocol! {
+	public var assetVM: AssetViewModel! {
 		didSet {
 			setupView()
 			setupStyles()
@@ -56,15 +56,15 @@ class SelectAssetCell: UICollectionViewCell {
 		assetInfoStackView.spacing = 4
 
 		assetNameLabel.font = .PinoStyle.mediumCallout
-		assetNameLabel.text = selectAssetCellVM.assetName
+		assetNameLabel.text = assetVM.name
 		assetNameLabel.numberOfLines = 0
 
 		assetAmountAndSymbolLabel.font = .PinoStyle.mediumFootnote
-		assetAmountAndSymbolLabel.text = "\(selectAssetCellVM.assetAmount) \(selectAssetCellVM.assetSymbol)"
+		assetAmountAndSymbolLabel.text = "\(assetVM.amount) \(assetVM.symbol)"
 		assetAmountAndSymbolLabel.numberOfLines = 0
 
 		assetImageView.kf.indicatorType = .activity
-		assetImageView.kf.setImage(with: selectAssetCellVM.assetLogo)
+		assetImageView.kf.setImage(with: assetVM.image)
 		assetImageView.backgroundColor = .Pino.background
 		assetImageView.layer.cornerRadius = 22
 	}

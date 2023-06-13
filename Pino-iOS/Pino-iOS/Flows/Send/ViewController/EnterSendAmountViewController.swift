@@ -13,11 +13,13 @@ class EnterSendAmountViewController: UIViewController {
 	// MARK: Private Properties
 
 	private let enterAmountVM: EnterSendAmountViewModel
+	private let assets: [AssetViewModel]
 
 	// MARK: Initializers
 
-	init(selectedAsset: AssetViewModel) {
+	init(selectedAsset: AssetViewModel, assets: [AssetViewModel]) {
 		self.enterAmountVM = EnterSendAmountViewModel(selectedToken: selectedAsset)
+		self.assets = assets
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -45,7 +47,9 @@ class EnterSendAmountViewController: UIViewController {
 	private func setupView() {
 		view = EnterSendAmountView(
 			enterAmountVM: enterAmountVM,
-			changeSelectedToken: {},
+			changeSelectedToken: {
+				self.openSelectAssetPage()
+			},
 			nextButtonTapped: {}
 		)
 	}
@@ -55,5 +59,14 @@ class EnterSendAmountViewController: UIViewController {
 		setupPrimaryColorNavigationBar()
 		// Setup title view
 		setNavigationTitle("Enter amount")
+	}
+
+	private func openSelectAssetPage() {
+		let selectAssetVC = SelectAssetToSendViewController(assets: assets)
+		selectAssetVC.changeAssetFromEnterAmountPage = { selectAsset in
+			self.enterAmountVM.selectedToken = selectAsset
+		}
+		let selectAssetNavigationController = UINavigationController(rootViewController: selectAssetVC)
+		present(selectAssetNavigationController, animated: true)
 	}
 }

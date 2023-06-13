@@ -49,7 +49,6 @@ class EnterSendAmountView: UIView {
 		setupView()
 		setupStyle()
 		setupContstraint()
-		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -150,6 +149,10 @@ class EnterSendAmountView: UIView {
 		amountTextfield.keyboardType = .decimalPad
 
 		dollarSignLabel.isHidden = true
+
+		enterAmountVM.selectedTokenChanged = {
+			self.updateView()
+		}
 	}
 
 	private func setupContstraint() {
@@ -193,12 +196,6 @@ class EnterSendAmountView: UIView {
 		} else {
 			dollarSignLabel.isHidden = true
 		}
-	}
-
-	private func setupBindings() {
-		enterAmountVM.$selectedToken.sink { _ in
-			self.updateView()
-		}.store(in: &cancellables)
 	}
 
 	@objc

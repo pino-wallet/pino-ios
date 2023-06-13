@@ -372,9 +372,9 @@
 		E3D478B32A3064C90030A987 /* CustomAssetDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D478B22A3064C90030A987 /* CustomAssetDataSource.swift */; };
 		E3E009E02A0635C800234707 /* Hyperconnectivity in Frameworks */ = {isa = PBXBuildFile; productRef = E3E009DF2A0635C800234707 /* Hyperconnectivity */; };
 		E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E009E12A06377D00234707 /* InternetConnectivity.swift */; };
+		E3F482EC2A3485A500EEC9CF /* EnterSendAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482EB2A3485A500EEC9CF /* EnterSendAmountViewController.swift */; };
 		E3F482EF2A35A6E900EEC9CF /* CustomAsset+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482ED2A35A6E900EEC9CF /* CustomAsset+CoreDataClass.swift */; };
 		E3F482F02A35A6E900EEC9CF /* CustomAsset+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482EE2A35A6E900EEC9CF /* CustomAsset+CoreDataProperties.swift */; };
-		E3F482EC2A3485A500EEC9CF /* EnterSendAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482EB2A3485A500EEC9CF /* EnterSendAmountViewController.swift */; };
 		E3F482F72A35B2DB00EEC9CF /* EnterSendAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482F62A35B2DB00EEC9CF /* EnterSendAmountView.swift */; };
 		E3F482F92A35B43400EEC9CF /* EnterSendAmountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482F82A35B43400EEC9CF /* EnterSendAmountViewModel.swift */; };
 		E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D680E48001C060BADD248 /* EndpointType.swift */; };
@@ -776,9 +776,9 @@
 		E3CFC0792A2F241500E165A4 /* CircleMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleMarker.swift; sourceTree = "<group>"; };
 		E3D478B22A3064C90030A987 /* CustomAssetDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetDataSource.swift; sourceTree = "<group>"; };
 		E3E009E12A06377D00234707 /* InternetConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectivity.swift; sourceTree = "<group>"; };
+		E3F482EB2A3485A500EEC9CF /* EnterSendAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAmountViewController.swift; sourceTree = "<group>"; };
 		E3F482ED2A35A6E900EEC9CF /* CustomAsset+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CustomAsset+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E3F482EE2A35A6E900EEC9CF /* CustomAsset+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CustomAsset+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		E3F482EB2A3485A500EEC9CF /* EnterSendAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAmountViewController.swift; sourceTree = "<group>"; };
 		E3F482F62A35B2DB00EEC9CF /* EnterSendAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAmountView.swift; sourceTree = "<group>"; };
 		E3F482F82A35B43400EEC9CF /* EnterSendAmountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAmountViewModel.swift; sourceTree = "<group>"; };
 		E40D0AB7515630563347CBDA /* CoinPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceViewController.swift; sourceTree = "<group>"; };
@@ -1274,7 +1274,6 @@
 				F12A95AE8F841F78F0112091 /* ManageAssetsViewController.swift */,
 				93DD8352DE65D9AE5199096D /* PortfolioPerformanceViewController.swift */,
 				5FF1E21D81662F03636BF664 /* ReceiveAssetViewController.swift */,
-				D9A328122A3462B6005A8393 /* SelectAssetToSendViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -2192,8 +2191,8 @@
 				E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */,
 			);
 			path = CustomAsset;
-            sourceTree = "<group>";
-		};         
+			sourceTree = "<group>";
+		};
 		E3F482F22A35B03200EEC9CF /* Send */ = {
 			isa = PBXGroup;
 			children = (
@@ -2207,6 +2206,7 @@
 		E3F482F32A35B04700EEC9CF /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				D9A328122A3462B6005A8393 /* SelectAssetToSendViewController.swift */,
 				E3F482EB2A3485A500EEC9CF /* EnterSendAmountViewController.swift */,
 			);
 			path = ViewController;

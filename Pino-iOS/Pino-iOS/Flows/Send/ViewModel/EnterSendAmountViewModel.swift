@@ -10,14 +10,21 @@ import Foundation
 class EnterSendAmountViewModel {
 	// MARK: - Public Properties
 
-	@Published
-	public var selectedToken: AssetViewModel
 	public var isDollarEnabled: Bool
 	public let maxTitle = "Max: "
 	public let dollarIcon = "dollar_icon"
 	public let continueButtonTitle = "Next"
+	public var selectedTokenChanged: (() -> Void)?
 
 	public var textFieldPlaceHolder = "0.0"
+
+	public var selectedToken: AssetViewModel {
+		didSet {
+			if let selectedTokenChanged {
+				selectedTokenChanged()
+			}
+		}
+	}
 
 	public var maxAmount: String {
 		selectedToken.amount
