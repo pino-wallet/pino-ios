@@ -145,6 +145,15 @@
       }
     },
     {
+      "identity" : "web3-utility",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nitolabs/Web3-Utility",
+      "state" : {
+        "branch" : "master",
+        "revision" : "4d77668d185448014866ab86def6fe7527a418e4"
+      }
+    },
+    {
       "identity" : "web3.swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Boilertalk/Web3.swift.git",

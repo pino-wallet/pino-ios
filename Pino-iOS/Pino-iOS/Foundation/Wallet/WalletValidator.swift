@@ -7,7 +7,6 @@
 
 import Foundation
 import WalletCore
-import Web3Core
 
 public enum WalletValidator {
 	public static func isPrivateKeyValid(key: String) -> Bool {
