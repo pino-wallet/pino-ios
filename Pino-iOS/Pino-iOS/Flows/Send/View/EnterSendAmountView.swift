@@ -11,7 +11,7 @@ import UIKit
 class EnterSendAmountView: UIView {
 	// MARK: Private Properties
 
-	private let contentCardView = UIView()
+	private let contentCardView = PinoContainerCard()
 	private let contentStackView = UIStackView()
 	private let amountStackView = UIStackView()
 	private let maximumStackView = UIStackView()
@@ -144,7 +144,7 @@ class EnterSendAmountView: UIView {
 
 		changeTokenStackView.spacing = 4
 		tokenStackView.spacing = 6
-		contentStackView.spacing = 19
+		contentStackView.spacing = 22
 
 		amountTextfield.keyboardType = .decimalPad
 		amountTextfield.delegate = self
@@ -162,7 +162,7 @@ class EnterSendAmountView: UIView {
 			.top(to: layoutMarginsGuide, padding: 24)
 		)
 		contentStackView.pin(
-			.verticalEdges(padding: 22),
+			.verticalEdges(padding: 23),
 			.horizontalEdges(padding: 14)
 		)
 		continueButton.pin(
