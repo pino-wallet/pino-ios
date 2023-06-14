@@ -65,7 +65,9 @@ class EnterSendAmountViewModel {
 	}
 
 	private func convertDollarAmountToTokenValue(amount: String) {
-		let enteredAmountNumber = BigNumber(decimalNumber: amount) / selectedToken.price
-		enteredAmount = enteredAmountNumber?.formattedAmountOf(type: .hold) ?? "0.0"
+		guard let decimalNumber = Decimal(string: amount),
+		      let price = Decimal(string: selectedToken.price.decimalString) else { return }
+		let enteredAmountNumber = decimalNumber / price
+		enteredAmount = enteredAmountNumber.description
 	}
 }
