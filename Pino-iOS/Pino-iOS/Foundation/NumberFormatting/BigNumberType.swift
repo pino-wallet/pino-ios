@@ -39,6 +39,19 @@ public struct BigNumber {
 		self.decimal = decimal
 	}
 
+	public init(decimalNumber: String) {
+		var numberString = decimalNumber
+		numberString.removeAll(where: { $0 == "." })
+		var decimal = 0
+		if let decimalPointIndex = decimalNumber.firstIndex(of: ".") {
+			var fraction = decimalNumber.suffix(from: decimalPointIndex)
+			fraction.removeAll(where: { $0 == "." })
+			decimal = fraction.count
+		}
+		print(decimal)
+		self.init(number: numberString, decimal: decimal)
+	}
+
 	public var whole: BigInt {
 		number.quotientAndRemainder(dividingBy: BigInt(10).power(decimal)).quotient
 	}

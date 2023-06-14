@@ -60,12 +60,12 @@ class EnterSendAmountViewModel {
 	#warning("Calculations are NOT correct and must be changed in the next branch")
 
 	private func convertEnteredAmountToDollar(amount: String) {
-		let enteredAmountNumber = BigNumber(number: amount, decimal: 1) * selectedToken.price
+		let enteredAmountNumber = BigNumber(decimalNumber: amount) * selectedToken.price
 		enteredAmount = enteredAmountNumber.formattedAmountOf(type: .price)
 	}
 
 	private func convertDollarAmountToTokenValue(amount: String) {
-		let enteredAmountNumber = BigNumber(number: amount, decimal: 1) / selectedToken.price
-		enteredAmount = enteredAmountNumber?.formattedAmountOf(type: .price) ?? "0.0"
+		let enteredAmountNumber = BigNumber(decimalNumber: amount) / selectedToken.price
+		enteredAmount = enteredAmountNumber?.formattedAmountOf(type: .hold) ?? "0.0"
 	}
 }

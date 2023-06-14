@@ -246,7 +246,7 @@ extension EnterSendAmountView: UITextFieldDelegate {
 		// Check if the replacement string is a decimal point
 		if string == "." {
 			// Check if the existing text already contains a decimal point
-			if let text = textField.text, text.contains(".") {
+			if let text = textField.text, text.contains(".") || text.isEmpty {
 				// Disallow entering another decimal point
 				return false
 			}
