@@ -11,83 +11,72 @@ import Web3
 import Web3PromiseKit
 import Web3ContractABI
 
+enum Web3Error: Error {
+    case invalidSmartContractAddress
+}
 
 class Web3Core {
     
+    // MARK: - Private Properties
+    
     private let web3 = Web3(rpcURL: "https://rpc.ankr.com/eth")
-    private let readNodeContractKey = "0"
-    private let userAddressStaticCode = "0x"
     
-    public func getCustomAssetInfo(contractAddress: String) -> AddCustomAssetViewModel.ContractValidationStatus {
-    
-        let validateIsSmartContractStatus = validateIsSmartContract(contractAddress: contractAddress)
-        return .error(.alreadyAdded)
-//        if validateIsSmartContractStatus == .success {
-//            return await validateIsERC20Token(contractAddress: contractAddress)
-//        } else {
-//            return validateIsSmartContractStatus
-//        }
-    }
+    // MARK: - Public Properties
 
-    private func validateIsSmartContract(contractAddress: String) {
+    public enum AssetInfo: String {
+        case decimal = "decimals"
+        case balance = "balanceOf"
+        case name = "name"
+        case symbol = "symbol"
+    }
+    
+    // MARK: - Public Methods
         
-        firstly {
-            try web3.eth.getCode(address: .init(contractAddress), block: .latest)
-        }.done { conctractCode in
-            print(conctractCode)
+    public func getCustomAssetInfo(contractAddress: String) throws -> Promise<[AssetInfo: String]> {
+     
+        var assetInfo: [AssetInfo: String] = [:]
+        
+        return Promise { seal in
+            let _ = firstly {
+                try web3.eth.getCode(address: .init(hex: contractAddress, eip55: true), block: .latest)
+            }.then { conctractCode in
+                if conctractCode.hex() == "0x" {
+                    // In this case the smart contract belongs to an EOA
+                    throw AddCustomAssetViewModel.CustomAssetValidationError.notValidSmartContractAddress
+                } else {
+                    return try self.getInfo(address: contractAddress, info: .decimal)
+                }
+            }.then { decimalValue in
+                if String(describing: decimalValue[.emptyString]) == "0" {
+                    throw AddCustomAssetViewModel.CustomAssetValidationError.notValidSmartContractAddress
+                } else {
+                    assetInfo[.decimal] = String(describing: decimalValue[.emptyString])
+                    return try self.getInfo(address: contractAddress, info: .name)
+                }
+            }.then { name in
+                assetInfo[.name] = String(describing: name[.emptyString])
+                return try self.getInfo(address: contractAddress, info: .balance)
+            }.then { balance in
+                assetInfo[.balance] = String(describing: balance[.emptyString])
+                return try self.getInfo(address: contractAddress, info: .symbol)
+            }.done { symbol in
+                assetInfo[.symbol] = String(describing: symbol[.emptyString])
+                seal.resolve(assetInfo, nil)
+            }
         }
         
-//        let nodeRequest =
-//        var nodeResponse: APIResponse<String>!
-//        do {
-//            nodeResponse = try await APIRequest.sendRequest(with: web3.provider, for: nodeRequest)
-//        } catch {
-//            return .error(.unavailableNode)
-//        }
-//        if nodeResponse.result == userAddressStaticCode {
-//            return .error(.notValidSmartContractAddress)
-//        } else {
-//            return .success
-//        }
     }
+    
+    // MARK: - Private Methods
+    
+    private func getInfo(address: String, info: AssetInfo) throws -> Promise<[String : Any]> {
 
-//    private func validateIsERC20Token(contractAddress: String) async -> ContractValidationStatus {
-//        let contract = web3.contract(erc20AbiString, at: EthereumAddress(from: contractAddress))
-//
-//        let readBalanceOfOpParameters = [userAddress]
-//
-//        let readTokenNameOp = contract?.createReadOperation("name")
-//        let readTokenSymbolOp = contract?.createReadOperation("symbol")
-//        let readTokenBalanceOfOp = contract?.createReadOperation("balanceOf", parameters: readBalanceOfOpParameters)
-//        let readTokenDecimalsOp = contract?.createReadOperation("decimals")
-//
-//        do {
-//            guard let tokenName = try await readTokenNameOp?.callContractMethod()[readNodeContractKey] as? String else {
-//                return .error(.notValidFromServer)
-//            }
-//            guard let tokenSymbol = try await readTokenSymbolOp?.callContractMethod()[readNodeContractKey] as? String
-//            else {
-//                return .error(.notValidFromServer)
-//            }
-//            guard let tokenBalanceOf = try await readTokenBalanceOfOp?.callContractMethod()[readNodeContractKey] else {
-//                return .error(.notValidFromServer)
-//            }
-//
-//            guard let tokenDecimals = try await readTokenDecimalsOp?
-//                .callContractMethod()[readNodeContractKey] as? BigUInt else {
-//                return .error(.notValidFromServer)
-//            }
-//
-//            customAssetVM = CustomAssetViewModel(customAsset: CustomAssetModel(
-//                id: contractAddress,
-//                name: tokenName,
-//                symbol: tokenSymbol,
-//                balance: tokenBalanceOf,
-//                decimal: tokenDecimals
-//            ))
-//            return .success
-//        } catch {
-//            return .error(.unknownError)
-//        }
-//    }
+        let contractAddress = try! EthereumAddress(hex: address, eip55: true)
+        let contractJsonABI = Web3ABI.erc20AbiString.data(using: .utf8)!
+        let contract = try! web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
+
+        return try contract[info.rawValue]!(EthereumAddress(hex: address, eip55: true)).call()
+    }
+    
 }
+

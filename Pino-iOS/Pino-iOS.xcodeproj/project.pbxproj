@@ -316,6 +316,7 @@
 		DF00179529F85774001164EA /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00179429F85774001164EA /* KeychainManager.swift */; };
 		DF00179729F96D3D001164EA /* PinoWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00179629F96D3D001164EA /* PinoWalletManager.swift */; };
 		DF0347B22A38D44300A6C265 /* Web3-Utility in Frameworks */ = {isa = PBXBuildFile; productRef = DF0347B12A38D44300A6C265 /* Web3-Utility */; };
+		DF0347B42A39FAFF00A6C265 /* Web3ABI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0347B32A39FAFF00A6C265 /* Web3ABI.swift */; };
 		DF0F65E529E1B20F00DB7290 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65E429E1B20F00DB7290 /* BigInt */; };
 		DF0F65EB29E1B24500DB7290 /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65EA29E1B24500DB7290 /* OHHTTPStubs */; };
 		DF0F65ED29E1B24500DB7290 /* OHHTTPStubsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65EC29E1B24500DB7290 /* OHHTTPStubsSwift */; };
@@ -731,6 +732,7 @@
 		DF00179229F85727001164EA /* PinoNonHDWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoNonHDWallet.swift; sourceTree = "<group>"; };
 		DF00179429F85774001164EA /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		DF00179629F96D3D001164EA /* PinoWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoWalletManager.swift; sourceTree = "<group>"; };
+		DF0347B32A39FAFF00A6C265 /* Web3ABI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3ABI.swift; sourceTree = "<group>"; };
 		DFA968722A0F8A77007D4513 /* WalletDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDataSource.swift; sourceTree = "<group>"; };
 		DFA968752A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WalletAccount+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DFA968762A0FABB9007D4513 /* SelectedAsset+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SelectedAsset+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -2082,6 +2084,7 @@
 			isa = PBXGroup;
 			children = (
 				DFC4D0392A360D8300F03DC4 /* Web3Core.swift */,
+				DF0347B32A39FAFF00A6C265 /* Web3ABI.swift */,
 			);
 			path = Web3;
 			sourceTree = "<group>";
@@ -2671,6 +2674,7 @@
 				7B93C0D0822EF34F9EB40FAA /* HTTPTask.swift in Sources */,
 				BBEFD9CD18FB5626C32FB5DE /* HistoryStatus.swift in Sources */,
 				B6CA82D12404F5406CFF9CFD /* HomeError.swift in Sources */,
+				DF0347B42A39FAFF00A6C265 /* Web3ABI.swift in Sources */,
 				5CE69653C9688E3C116CC0E6 /* HomepageViewController.swift in Sources */,
 				8585A2F6E4BB1FCBD88E538B /* HomepageViewModel.swift in Sources */,
 				AAA1EE9680DD6A62A7F88602 /* ImportSecretPhraseView.swift in Sources */,

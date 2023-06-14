@@ -16,7 +16,7 @@ class AddCustomAssetViewModel {
 		case clear
 		case pasteFromClipboard(String)
 		case pending
-		case error(FailedToValidateCustomAssetStatus)
+		case error(CustomAssetValidationError)
 		case success
 	}
 
@@ -26,7 +26,7 @@ class AddCustomAssetViewModel {
 		case none = 0.0
 	}
 
-	public enum FailedToValidateCustomAssetStatus: Error {
+	public enum CustomAssetValidationError: Error {
 		case notValid
 		case networkError
 		case notValidFromServer
