@@ -63,8 +63,13 @@ class SelectAssetCell: UICollectionViewCell {
 		assetAmountAndSymbolLabel.text = "\(assetVM.amount) \(assetVM.symbol)"
 		assetAmountAndSymbolLabel.numberOfLines = 0
 
-		assetImageView.kf.indicatorType = .activity
-		assetImageView.kf.setImage(with: assetVM.image)
+		if assetVM.isVerified {
+			assetImageView.kf.indicatorType = .activity
+			assetImageView.kf.setImage(with: assetVM.image)
+		} else {
+			assetImageView.image = UIImage(named: assetVM.customAssetImage)
+		}
+
 		assetImageView.backgroundColor = .Pino.background
 		assetImageView.layer.cornerRadius = 22
 	}

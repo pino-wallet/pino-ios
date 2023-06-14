@@ -9,7 +9,7 @@ import Combine
 import UIKit
 
 class EnterSendAmountView: UIView {
-	// MARK: Private Properties
+	// MARK: - Private Properties
 
 	private let contentCardView = PinoContainerCard()
 	private let contentStackView = UIStackView()
@@ -23,10 +23,7 @@ class EnterSendAmountView: UIView {
 	private let maxAmountStackView = UIStackView()
 	private let maxAmountTitle = UILabel()
 	private let maxAmountLabel = UILabel()
-	private let changeTokenView = UIView()
-	private let changeTokenStackView = UIStackView()
-	private let tokenNameLabel = UILabel()
-	private let tokenImageView = UIImageView()
+	private let changeTokenView = TokenView()
 	private let dollarFormatButton = UIButton()
 	private let continueButton = PinoButton(style: .active)
 	private var changeSelectedToken: () -> Void
@@ -35,7 +32,7 @@ class EnterSendAmountView: UIView {
 
 	private var cancellables = Set<AnyCancellable>()
 
-	// MARK: Initializers
+	// MARK: - Initializers
 
 	init(
 		enterAmountVM: EnterSendAmountViewModel,
@@ -69,9 +66,6 @@ class EnterSendAmountView: UIView {
 		maximumStackView.addArrangedSubview(maxAmountStackView)
 		tokenStackView.addArrangedSubview(dollarFormatButton)
 		tokenStackView.addArrangedSubview(changeTokenView)
-		changeTokenView.addSubview(changeTokenStackView)
-		changeTokenStackView.addArrangedSubview(tokenImageView)
-		changeTokenStackView.addArrangedSubview(tokenNameLabel)
 		maxAmountStackView.addArrangedSubview(maxAmountTitle)
 		maxAmountStackView.addArrangedSubview(maxAmountLabel)
 		amountTextFieldStackView.addArrangedSubview(dollarSignLabel)
@@ -85,23 +79,37 @@ class EnterSendAmountView: UIView {
 			self.toggleDollarFormat()
 		}), for: .touchUpInside)
 
-		let changetokenGesture = UITapGestureRecognizer(target: self, action: #selector(changeToken))
-		changeTokenView.addGestureRecognizer(changetokenGesture)
+		changeTokenView.tokenTapped = {
+			self.changeSelectedToken()
+		}
 
 		amountTextfield.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
 	}
 
 	private func setupStyle() {
-		tokenNameLabel.text = enterAmountVM.selectedToken.name
-		amountLabel.text = enterAmountVM.formattedAmount
 		maxAmountTitle.text = enterAmountVM.maxTitle
 		maxAmountLabel.text = enterAmountVM.maxAmount
 		continueButton.title = enterAmountVM.continueButtonTitle
 		dollarSignLabel.text = "$"
+		changeTokenView.tokenName = enterAmountVM.selectedToken.symbol
 
-		tokenImageView.kf.indicatorType = .activity
-		tokenImageView.kf.setImage(with: enterAmountVM.selectedToken.image)
+		if enterAmountVM.selectedToken.isVerified {
+			changeTokenView.tokenImageURL = enterAmountVM.selectedToken.image
+			amountLabel.text = enterAmountVM.formattedAmount
+			dollarFormatButton.isHidden = false
+			amountLabel.alpha = 1
+		} else {
+			changeTokenView.customTokenImage = enterAmountVM.selectedToken.customAssetImage
+			dollarFormatButton.isHidden = true
+			amountLabel.alpha = 0
+		}
+
+		if enterAmountVM.selectedToken.isVerified {
+			changeTokenView.tokenImageURL = enterAmountVM.selectedToken.image
+		} else {
+			changeTokenView.customTokenImage = enterAmountVM.selectedToken.customAssetImage
+		}
 
 		dollarFormatButton.setImage(UIImage(named: enterAmountVM.dollarIcon), for: .normal)
 
@@ -110,7 +118,6 @@ class EnterSendAmountView: UIView {
 			attributes: [.font: UIFont.PinoStyle.semiboldTitle1!, .foregroundColor: UIColor.Pino.gray2]
 		)
 
-		tokenNameLabel.font = .PinoStyle.mediumCallout
 		amountTextfield.font = .PinoStyle.semiboldTitle1
 		amountLabel.font = .PinoStyle.regularSubheadline
 		maxAmountTitle.font = .PinoStyle.regularSubheadline
@@ -118,7 +125,6 @@ class EnterSendAmountView: UIView {
 		dollarSignLabel.font = .PinoStyle.semiboldTitle1
 
 		dollarFormatButton.tintColor = .Pino.primary
-		tokenNameLabel.textColor = .Pino.label
 		amountLabel.textColor = .Pino.secondaryLabel
 		amountTextfield.textColor = .Pino.label
 		amountTextfield.tintColor = .Pino.primary
@@ -129,20 +135,14 @@ class EnterSendAmountView: UIView {
 		backgroundColor = .Pino.background
 		contentCardView.backgroundColor = .Pino.secondaryBackground
 		dollarFormatButton.backgroundColor = .Pino.background
-		changeTokenView.backgroundColor = .Pino.clear
 
 		dollarFormatButton.layer.cornerRadius = 16
 		contentCardView.layer.cornerRadius = 12
-		changeTokenView.layer.cornerRadius = 20
-
-		changeTokenView.layer.borderColor = UIColor.Pino.background.cgColor
-		changeTokenView.layer.borderWidth = 1
 
 		contentStackView.axis = .vertical
 
 		tokenStackView.alignment = .center
 
-		changeTokenStackView.spacing = 4
 		tokenStackView.spacing = 6
 		contentStackView.spacing = 22
 
@@ -150,6 +150,7 @@ class EnterSendAmountView: UIView {
 		amountTextfield.delegate = self
 
 		dollarSignLabel.isHidden = true
+		dollarFormatButton.isHidden = !enterAmountVM.selectedToken.isVerified
 
 		enterAmountVM.selectedTokenChanged = {
 			self.updateView()
@@ -173,35 +174,25 @@ class EnterSendAmountView: UIView {
 			.fixedWidth(32),
 			.fixedHeight(32)
 		)
-		tokenImageView.pin(
-			.fixedWidth(28),
-			.fixedHeight(28)
-		)
-		changeTokenStackView.pin(
-			.verticalEdges(padding: 6),
-			.horizontalEdges(padding: 8)
-		)
 	}
 
 	private func updateView() {
-		enterAmountVM.calculateAmount(amountTextfield.text ?? "0")
-		tokenNameLabel.text = enterAmountVM.selectedToken.name
-		amountLabel.text = enterAmountVM.formattedAmount
-		maxAmountLabel.text = enterAmountVM.maxAmount
-
-		tokenImageView.kf.indicatorType = .activity
-		tokenImageView.kf.setImage(with: enterAmountVM.selectedToken.image)
-
-		if enterAmountVM.isDollarEnabled {
-			dollarSignLabel.isHidden = false
+		if enterAmountVM.selectedToken.isVerified {
+			changeTokenView.tokenImageURL = enterAmountVM.selectedToken.image
+			enterAmountVM.calculateAmount(amountTextfield.text ?? "0")
+			amountLabel.text = enterAmountVM.formattedAmount
+			dollarSignLabel.isHidden = !enterAmountVM.isDollarEnabled
+			dollarFormatButton.isHidden = false
+			amountLabel.alpha = 1
 		} else {
+			changeTokenView.customTokenImage = enterAmountVM.selectedToken.customAssetImage
+			dollarFormatButton.isHidden = true
 			dollarSignLabel.isHidden = true
+			amountLabel.alpha = 0
 		}
-	}
 
-	@objc
-	private func changeToken() {
-		changeSelectedToken()
+		maxAmountLabel.text = enterAmountVM.maxAmount
+		changeTokenView.tokenName = enterAmountVM.selectedToken.symbol
 	}
 
 	private func toggleDollarFormat() {
