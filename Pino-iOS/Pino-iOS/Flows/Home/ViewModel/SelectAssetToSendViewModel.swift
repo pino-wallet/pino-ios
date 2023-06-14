@@ -14,13 +14,13 @@ class SelectAssetToSendViewModel: SelectAssetVMProtocol {
 	public let dissmissIocnName = "dissmiss"
 
 	@Published
-	var filteredAssetList: [AssetProtocol?]
-	var filteredAssetListByAmount: [AssetProtocol?]
+	var filteredAssetList: [AssetViewModel?]
+	var filteredAssetListByAmount: [AssetViewModel?]
 
 	// MARK: - initializers
 
-	init(assetsList: [AssetProtocol?]) {
-		self.filteredAssetListByAmount = assetsList.filter { !BigNumber(number: $0!.amount, decimal: 6).isZero }
+	init(assetsList: [AssetViewModel?]) {
+		self.filteredAssetListByAmount = assetsList.filter { !$0!.holdAmount.isZero }
 		self.filteredAssetList = filteredAssetListByAmount
 	}
 
@@ -31,11 +31,9 @@ class SelectAssetToSendViewModel: SelectAssetVMProtocol {
 		if !searchValue.isEmpty {
 			filteredAssetList = filteredAssetListByAmount
 				.filter {
-					guard let assetDetails = $0?.detail else {
-						return false
-					}
-					return assetDetails.name.lowercased().contains(searchValueLowerCased) || assetDetails.symbol
-						.lowercased().contains(searchValueLowerCased)
+					guard let asset = $0 else { return false }
+					return asset.name.lowercased().contains(searchValueLowerCased) ||
+						asset.symbol.lowercased().contains(searchValueLowerCased)
 				}
 		} else {
 			filteredAssetList = filteredAssetListByAmount

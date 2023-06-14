@@ -9,11 +9,16 @@ import Combine
 import UIKit
 
 class SelectAssetToSendViewController: UIViewController {
-	// MARK: - Public Properties
+	// MARK: - Private Properties
 
 	private let selectAssetToSendVM: SelectAssetToSendViewModel
 	private var selectAssetcollectionView: SelectAssetCollectionView!
 	private var cancellables = Set<AnyCancellable>()
+	private let assets: [AssetViewModel]
+
+	// MARK: - Public Properties
+
+	public var changeAssetFromEnterAmountPage: ((AssetViewModel) -> Void)?
 
 	// MARK: - View Overrides
 
@@ -29,9 +34,9 @@ class SelectAssetToSendViewController: UIViewController {
 
 	// MARK: - Initializers
 
-	init(selectAssetToSendVM: SelectAssetToSendViewModel) {
-		self.selectAssetToSendVM = selectAssetToSendVM
-
+	init(assets: [AssetViewModel]) {
+		self.selectAssetToSendVM = SelectAssetToSendViewModel(assetsList: assets)
+		self.assets = assets
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -55,9 +60,13 @@ class SelectAssetToSendViewController: UIViewController {
 
 	private func setupView() {
 		selectAssetcollectionView = SelectAssetCollectionView(selectAssetVM: selectAssetToSendVM)
-		selectAssetcollectionView.didSelectAsset = { [weak self] selectedAsset in
-			#warning("this line in for testing and should be updated")
-			print(selectedAsset)
+		selectAssetcollectionView.didSelectAsset = { selectedAsset in
+			if let selectedAssetChanged = self.changeAssetFromEnterAmountPage {
+				selectedAssetChanged(selectedAsset)
+				self.dismissSelf()
+			} else {
+				self.openEnterAmountPage(selectedAsset: selectedAsset)
+			}
 		}
 		view = selectAssetcollectionView
 	}
@@ -71,6 +80,11 @@ class SelectAssetToSendViewController: UIViewController {
 	@objc
 	private func dismissSelf() {
 		dismiss(animated: true)
+	}
+
+	private func openEnterAmountPage(selectedAsset: AssetViewModel) {
+		let enterAmountVC = EnterSendAmountViewController(selectedAsset: selectedAsset, assets: assets)
+		navigationController?.pushViewController(enterAmountVC, animated: true)
 	}
 }
 

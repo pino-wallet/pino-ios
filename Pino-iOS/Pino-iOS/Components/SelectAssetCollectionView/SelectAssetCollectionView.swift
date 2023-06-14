@@ -33,7 +33,7 @@ class SelectAssetCollectionView: UICollectionView {
 
 	// MARK: - Closures
 
-	public var didSelectAsset: (_ selectedAsset: AssetProtocol) -> Void = { _ in }
+	public var didSelectAsset: (_ selectedAsset: AssetViewModel) -> Void = { _ in }
 
 	// MARK: - Private Methods
 
@@ -64,11 +64,7 @@ extension SelectAssetCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: SelectAssetCell.cellReuseID,
 			for: indexPath
 		) as! SelectAssetCell
-		cell
-			.selectAssetCellVM = SelectAssetCellViewModel(
-				assetModel: selectAssetVM
-					.filteredAssetList[indexPath.item]!
-			)
+		cell.assetVM = selectAssetVM.filteredAssetList[indexPath.item]!
 		return cell
 	}
 }
