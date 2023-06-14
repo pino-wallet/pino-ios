@@ -50,10 +50,7 @@ class EnterSendAmountViewController: UIViewController {
 			changeSelectedToken: {
 				self.openSelectAssetPage()
 			},
-			nextButtonTapped: {
-				let qrScanner = QRScannerViewController()
-				self.present(qrScanner, animated: true)
-			}
+			nextButtonTapped: {}
 		)
 	}
 

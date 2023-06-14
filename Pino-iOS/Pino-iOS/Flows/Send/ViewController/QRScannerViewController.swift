@@ -13,6 +13,18 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 
 	private var captureSession: AVCaptureSession!
 	private var previewLayer: AVCaptureVideoPreviewLayer!
+	private var foundAddress: (String) -> Void
+
+	// MARK: - Initializers
+
+	init(foundAddress: @escaping (String) -> Void) {
+		self.foundAddress = foundAddress
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	// MARK: - View Overrides
 
@@ -99,7 +111,6 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 			AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 			found(code: stringValue)
 		}
-
 		dismiss(animated: true)
 	}
 
@@ -117,6 +128,6 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	}
 
 	private func found(code: String) {
-		print(code)
+		foundAddress(code)
 	}
 }
