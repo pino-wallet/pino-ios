@@ -57,6 +57,8 @@ class EnterSendAmountViewModel {
 		}
 	}
 
+	#warning("Calculations are NOT correct and must be changed in the next branch")
+
 	private func convertEnteredAmountToDollar(amount: String) {
 		let enteredAmountNumber = BigNumber(number: amount, decimal: 1) * selectedToken.price
 		enteredAmount = enteredAmountNumber.formattedAmountOf(type: .price)
