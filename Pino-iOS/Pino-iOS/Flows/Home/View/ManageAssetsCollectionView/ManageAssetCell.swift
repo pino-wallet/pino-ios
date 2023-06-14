@@ -84,7 +84,7 @@ public class ManageAssetCell: UICollectionViewCell {
 		assetImage.layer.cornerRadius = 22
 
 		selectAssetSwitch.onTintColor = .Pino.green3
-		selectAssetSwitch.setOn(assetVM.isSelected, animated: true)
+		selectAssetSwitch.setOn(assetVM.isSelected, animated: false)
 		selectAssetSwitch.isUserInteractionEnabled = false
 	}
 
