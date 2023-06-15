@@ -46,7 +46,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		if captureSession.canAddInput(videoInput) {
 			captureSession.addInput(videoInput)
 		} else {
-			failed()
+			scanningIsNotSupported()
 			return
 		}
 
@@ -58,7 +58,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 			metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
 			metadataOutput.metadataObjectTypes = [.qr]
 		} else {
-			failed()
+			scanningIsNotSupported()
 			return
 		}
 
@@ -67,17 +67,21 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		previewLayer.videoGravity = .resizeAspectFill
 		view.layer.addSublayer(previewLayer)
 
-		DispatchQueue.global(qos: .userInitiated).async {
-			self.captureSession.startRunning()
+		startScanning()
+	}
+
+	fileprivate func startScanning() {
+		if captureSession?.isRunning == false {
+			DispatchQueue.global(qos: .userInitiated).async {
+				self.captureSession.startRunning()
+			}
 		}
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		if captureSession?.isRunning == false {
-			captureSession.startRunning()
-		}
+		startScanning()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -116,7 +120,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 
 	// MARK: - Private Methods
 
-	private func failed() {
+	private func scanningIsNotSupported() {
 		let ac = UIAlertController(
 			title: "Scanning not supported",
 			message: "Your device does not support scanning a code from an item. Please use a device with a camera.",
