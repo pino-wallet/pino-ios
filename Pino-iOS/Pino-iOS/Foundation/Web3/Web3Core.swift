@@ -8,8 +8,6 @@
 import Foundation
 import Web3
 import Web3ContractABI
-
-// Optional
 import Web3PromiseKit
 
 enum Web3Error: Error {
@@ -19,8 +17,9 @@ enum Web3Error: Error {
 class Web3Core {
 	// MARK: - Private Properties
 
-	private let web3 = Web3(rpcURL: "https://rpc.ankr.com/eth")
 	private init() {}
+	private let web3 = Web3(rpcURL: "https://rpc.ankr.com/eth")
+	private let walletManager = PinoWalletManager()
 
 	typealias CustomAssetInfo = [AssetInfo: String]
 
@@ -69,6 +68,33 @@ class Web3Core {
 			}.done { symbol in
 				assetInfo.updateValue(symbol, forKey: AssetInfo.symbol)
 				seal.fulfill(assetInfo)
+			}
+		}
+	}
+
+	public func sendEtherTo(address: String, amount: BigUInt) throws -> Promise<String> {
+		Promise<String>() { seal in
+			let privateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
+			firstly {
+				web3.eth.gasPrice()
+			}.then { [self] price in
+				web3.eth.getTransactionCount(address: privateKey.address, block: .latest).map { ($0, price) }
+			}.then { nonce, price in
+				var tx = try EthereumTransaction(
+					nonce: nonce,
+					gasPrice: price,
+					to: EthereumAddress(hex: address, eip55: true),
+					value: EthereumQuantity(quantity: amount)
+				)
+				tx.gasLimit = 21000
+				tx.transactionType = .legacy
+				return try tx.sign(with: privateKey, chainId: 1).promise
+			}.then { [self] tx in
+				web3.eth.sendRawTransaction(transaction: tx)
+			}.done { hash in
+				seal.fulfill(hash.hex())
+			}.catch { error in
+				seal.reject(error)
 			}
 		}
 	}
