@@ -50,7 +50,15 @@ class EnterSendAmountViewController: UIViewController {
 			changeSelectedToken: {
 				self.openSelectAssetPage()
 			},
-			nextButtonTapped: {}
+			nextButtonTapped: {
+				#warning("we should verify this amount and then go to next page")
+				let enterSendAddressVM = EnterSendAddressViewModel(
+					selectedAsset: self.enterAmountVM.selectedToken,
+					enteredAmount: self.enterAmountVM.enteredAmount
+				)
+				let enterSendAddressVC = EnterSendAddressViewController(enterAddressVM: enterSendAddressVM)
+				self.navigationController?.pushViewController(enterSendAddressVC, animated: true)
+			}
 		)
 	}
 

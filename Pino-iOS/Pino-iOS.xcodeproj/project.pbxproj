@@ -285,6 +285,9 @@
 		D964AC6B0907B2432359A129 /* GroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D7CE3AA42604B8F78EA87C /* GroupCollectionViewCell.swift */; };
 		D9703F6A29ED547000D09277 /* CoinInfoFooterview.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9703F6929ED547000D09277 /* CoinInfoFooterview.swift */; };
 		D97CF62C25B975AD3C131881 /* CoinHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26427FD948787141E7AA599B /* CoinHistoryModel.swift */; };
+		D99CAFC92A3AF0D400DBEF2B /* EnterSendAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99CAFC82A3AF0D400DBEF2B /* EnterSendAddressViewController.swift */; };
+		D99CAFCB2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99CAFCA2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift */; };
+		D99CAFCD2A3AF2EE00DBEF2B /* EnterSendAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99CAFCC2A3AF2EE00DBEF2B /* EnterSendAddressView.swift */; };
 		D99F4B1D29E2C25C009F7F55 /* PaymentMethodOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F4B1C29E2C25C009F7F55 /* PaymentMethodOptionView.swift */; };
 		D99F4B2129E2C48D009F7F55 /* PaymentMethodOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F4B2029E2C48D009F7F55 /* PaymentMethodOptionViewModel.swift */; };
 		D99F4B2329E2C619009F7F55 /* PaymentMethodOptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F4B2229E2C619009F7F55 /* PaymentMethodOptionModel.swift */; };
@@ -710,6 +713,9 @@
 		D94A9A2329FE75FC00DCA28D /* EditAccountNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameViewModel.swift; sourceTree = "<group>"; };
 		D95D49812A386BC10042FC85 /* TitleWithInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithInfo.swift; sourceTree = "<group>"; };
 		D9703F6929ED547000D09277 /* CoinInfoFooterview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoFooterview.swift; sourceTree = "<group>"; };
+		D99CAFC82A3AF0D400DBEF2B /* EnterSendAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAddressViewController.swift; sourceTree = "<group>"; };
+		D99CAFCA2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAddressViewModel.swift; sourceTree = "<group>"; };
+		D99CAFCC2A3AF2EE00DBEF2B /* EnterSendAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAddressView.swift; sourceTree = "<group>"; };
 		D99F4B1C29E2C25C009F7F55 /* PaymentMethodOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodOptionView.swift; sourceTree = "<group>"; };
 		D99F4B2029E2C48D009F7F55 /* PaymentMethodOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodOptionViewModel.swift; sourceTree = "<group>"; };
 		D99F4B2229E2C619009F7F55 /* PaymentMethodOptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodOptionModel.swift; sourceTree = "<group>"; };
@@ -1964,7 +1970,6 @@
 				79BCB139B9DD46E47FA2E234 /* SecurityModeProtocol.swift */,
 				4E6325D0E27CD114807676AB /* WalletBalanceViewModel.swift */,
 				9EA3E5DF9FE696BD1307327F /* AccountInfoViewModel.swift */,
-				D9A328142A3464B5005A8393 /* SelectAssetToSendViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2230,6 +2235,7 @@
 			children = (
 				D9A328122A3462B6005A8393 /* SelectAssetToSendViewController.swift */,
 				E3F482EB2A3485A500EEC9CF /* EnterSendAmountViewController.swift */,
+				D99CAFC82A3AF0D400DBEF2B /* EnterSendAddressViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2238,6 +2244,7 @@
 			isa = PBXGroup;
 			children = (
 				E3F482F62A35B2DB00EEC9CF /* EnterSendAmountView.swift */,
+				D99CAFCC2A3AF2EE00DBEF2B /* EnterSendAddressView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2245,7 +2252,9 @@
 		E3F482F52A35B05F00EEC9CF /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				D9A328142A3464B5005A8393 /* SelectAssetToSendViewModel.swift */,
 				E3F482F82A35B43400EEC9CF /* EnterSendAmountViewModel.swift */,
+				D99CAFCA2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2637,6 +2646,7 @@
 				3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */,
 				E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */,
 				E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */,
+				D99CAFCB2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift in Sources */,
 				B0AB10C04E985064573878F8 /* AddCustomAssetView.swift in Sources */,
 				4A19B10E59268C480A530395 /* AddCustomAssetViewController.swift in Sources */,
 				CFE2848389AB3D7A9AF12C6C /* AddCustomAssetViewModel.swift in Sources */,
@@ -2714,6 +2724,7 @@
 				0682CFAA6E20C8AEA43A55AC /* CoinInfoViewController.swift in Sources */,
 				E4FF2E5E60CA74F3324945A8 /* CoinInfoViewModel.swift in Sources */,
 				9564A69D20BD22A50221D63B /* CoinPerformanceInfoItems.swift in Sources */,
+				D99CAFC92A3AF0D400DBEF2B /* EnterSendAddressViewController.swift in Sources */,
 				D9A3281C2A34C444005A8393 /* SelectAssetVMProtocol.swift in Sources */,
 				1AD184E82488453998E5A2E5 /* CoinPerformanceInfoModel.swift in Sources */,
 				8A10D639170969ECFADE0FE4 /* CoinPerformanceInfoViewModel.swift in Sources */,
@@ -2896,6 +2907,7 @@
 				06DB0B31505094D78686694E /* ShowSecretPhraseViewController.swift in Sources */,
 				92BC3A7553A87622AD6F640E /* ShowSecretPhraseViewModel.swift in Sources */,
 				DF00178F29F8567C001164EA /* Account.swift in Sources */,
+				D99CAFCD2A3AF2EE00DBEF2B /* EnterSendAddressView.swift in Sources */,
 				E3F482F92A35B43400EEC9CF /* EnterSendAmountViewModel.swift in Sources */,
 				3836332BCEDEABE67456B3D1 /* StatusCode+Helper.swift in Sources */,
 				F29B5E085D9D0D99354034C9 /* StringProtocol+Extension.swift in Sources */,
