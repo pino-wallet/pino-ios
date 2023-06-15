@@ -72,36 +72,7 @@ class Web3Core {
 			}
 		}
 
-		//        firstly {
-		//            try web3.eth.getCode(address: .init(hex: contractAddress, eip55: true), block: .latest)
-		//        }.then { conctractCode in
-		//            if conctractCode.hex() == "0x" {
-		//                // In this case the smart contract belongs to an EOA
-		//                throw Web3Error.invalidSmartContractAddress
-		//            }
-		//            return try self.getInfo(address: contractAddress, info: .decimal)
-		//        }.then { decimalValue in
-		//            if String(describing: decimalValue[.emptyString]) == "0" {
-		//                throw Web3Error.invalidSmartContractAddress
-		//            }
-		//            assetInfo[.decimal] = String(describing: decimalValue[.emptyString])
-		//            return try self.getInfo(address: contractAddress, info: .name)
-		//        }.done {
-		//            return Promise.value(assetInfo)
-		//        }
-//
-	}
-
-	func brokenPromise(method: String = #function) -> Promise<CustomAssetInfo> {
-		Promise<CustomAssetInfo>() { seal in
-			let err = NSError(
-				domain: "WeatherOrNot",
-				code: 0,
-				userInfo: [NSLocalizedDescriptionKey: "'\(method)' not yet implemented."]
-			)
-			seal.reject(err)
-		}
-	}
+    }
 
 	// MARK: - Private Methods
 
