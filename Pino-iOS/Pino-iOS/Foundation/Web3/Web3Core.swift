@@ -71,8 +71,7 @@ class Web3Core {
 				seal.fulfill(assetInfo)
 			}
 		}
-
-    }
+	}
 
 	// MARK: - Private Methods
 

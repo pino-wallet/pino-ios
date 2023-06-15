@@ -177,5 +177,4 @@ class AddCustomAssetViewModel {
 			return customAssetModel
 		}
 	}
-
 }
