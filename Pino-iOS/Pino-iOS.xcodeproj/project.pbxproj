@@ -88,6 +88,7 @@
 		3E5FFA532C0440149913FE32 /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA73CCD58C583E964396CF7 /* Encodable+Extension.swift */; };
 		3FB363922C364DE0175B075E /* SecurityOptionsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F220C035F946AABEE3C81 /* SecurityOptionsCollectionView.swift */; };
 		3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6922A1FD91EE9D2DAF8D928 /* AccountingEndpoint.swift */; };
+		408463C02A3AEE010058FF16 /* Web3-Utility in Frameworks */ = {isa = PBXBuildFile; productRef = 408463BF2A3AEE010058FF16 /* Web3-Utility */; };
 		40F704572A03AFFF004D74FE /* AccountActivationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F704562A03AFFF004D74FE /* AccountActivationModel.swift */; };
 		40F704592A03D5DC004D74FE /* PrivateKeyTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F704582A03D5DC004D74FE /* PrivateKeyTextView.swift */; };
 		41B9F1002F97DF04A075D75D /* PinoStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262D77EFE984EBA7A19D23DC /* PinoStepperView.swift */; };
@@ -315,7 +316,6 @@
 		DF00179329F85727001164EA /* PinoNonHDWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00179229F85727001164EA /* PinoNonHDWallet.swift */; };
 		DF00179529F85774001164EA /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00179429F85774001164EA /* KeychainManager.swift */; };
 		DF00179729F96D3D001164EA /* PinoWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00179629F96D3D001164EA /* PinoWalletManager.swift */; };
-		DF0347B22A38D44300A6C265 /* Web3-Utility in Frameworks */ = {isa = PBXBuildFile; productRef = DF0347B12A38D44300A6C265 /* Web3-Utility */; };
 		DF0347B42A39FAFF00A6C265 /* Web3ABI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0347B32A39FAFF00A6C265 /* Web3ABI.swift */; };
 		DF0F65E529E1B20F00DB7290 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65E429E1B20F00DB7290 /* BigInt */; };
 		DF0F65EB29E1B24500DB7290 /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65EA29E1B24500DB7290 /* OHHTTPStubs */; };
@@ -831,7 +831,7 @@
 				DF0F65F029E1B27200DB7290 /* Kingfisher in Frameworks */,
 				E3E009E02A0635C800234707 /* Hyperconnectivity in Frameworks */,
 				DFC4D0332A360C3B00F03DC4 /* Web3 in Frameworks */,
-				DF0347B22A38D44300A6C265 /* Web3-Utility in Frameworks */,
+				408463C02A3AEE010058FF16 /* Web3-Utility in Frameworks */,
 				5C2406A791AFEA56B9374873 /* Pods_Pino_iOS.framework in Frameworks */,
 				DF0F65E529E1B20F00DB7290 /* BigInt in Frameworks */,
 				DFC4D0372A360C3B00F03DC4 /* Web3PromiseKit in Frameworks */,
@@ -2272,7 +2272,7 @@
 				DFC4D0322A360C3B00F03DC4 /* Web3 */,
 				DFC4D0342A360C3B00F03DC4 /* Web3ContractABI */,
 				DFC4D0362A360C3B00F03DC4 /* Web3PromiseKit */,
-				DF0347B12A38D44300A6C265 /* Web3-Utility */,
+				408463BF2A3AEE010058FF16 /* Web3-Utility */,
 			);
 			productName = "Pino-iOS";
 			productReference = 8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */;
@@ -2352,7 +2352,7 @@
 				DF0F660429E1B47B00DB7290 /* XCRemoteSwiftPackageReference "Charts" */,
 				E3E009DE2A0635C800234707 /* XCRemoteSwiftPackageReference "hyperconnectivity" */,
 				DFC4D0312A360C3B00F03DC4 /* XCRemoteSwiftPackageReference "Web3.swift" */,
-				DF0347B02A38D44300A6C265 /* XCRemoteSwiftPackageReference "Web3-Utility" */,
+				408463BE2A3AEE010058FF16 /* XCRemoteSwiftPackageReference "Web3-Utility" */,
 			);
 			productRefGroup = 2821FB9CEE9F9B9E6BAE9FD7 /* Products */;
 			projectDirPath = "";
@@ -3197,7 +3197,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		DF0347B02A38D44300A6C265 /* XCRemoteSwiftPackageReference "Web3-Utility" */ = {
+		408463BE2A3AEE010058FF16 /* XCRemoteSwiftPackageReference "Web3-Utility" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nitolabs/Web3-Utility";
 			requirement = {
@@ -3256,9 +3256,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DF0347B12A38D44300A6C265 /* Web3-Utility */ = {
+		408463BF2A3AEE010058FF16 /* Web3-Utility */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DF0347B02A38D44300A6C265 /* XCRemoteSwiftPackageReference "Web3-Utility" */;
+			package = 408463BE2A3AEE010058FF16 /* XCRemoteSwiftPackageReference "Web3-Utility" */;
 			productName = "Web3-Utility";
 		};
 		DF0F65E429E1B20F00DB7290 /* BigInt */ = {

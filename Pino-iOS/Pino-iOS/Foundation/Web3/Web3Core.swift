@@ -5,78 +5,111 @@
 //  Created by Sobhan Eskandari on 6/11/23.
 //
 
+import Foundation
 import Web3
+import Web3ContractABI
 
 // Optional
 import Web3PromiseKit
-import Web3ContractABI
 
 enum Web3Error: Error {
-    case invalidSmartContractAddress
+	case invalidSmartContractAddress
 }
 
 class Web3Core {
-    
-    // MARK: - Private Properties
-    
-    private let web3 = Web3(rpcURL: "https://rpc.ankr.com/eth")
-    
-    // MARK: - Public Properties
+	// MARK: - Private Properties
 
-    public enum AssetInfo: String {
-        case decimal = "decimals"
-        case balance = "balanceOf"
-        case name = "name"
-        case symbol = "symbol"
-    }
-    
-    // MARK: - Public Methods
-        
-    public func getCustomAssetInfo(contractAddress: String) throws -> Promise<[AssetInfo: String]> {
-     
-        var assetInfo: [AssetInfo: String] = [:]
-        
-        return Promise { seal in
-            let _ = firstly {
-                try web3.eth.getCode(address: .init(hex: contractAddress, eip55: true), block: .latest)
-            }.then { conctractCode in
-                if conctractCode.hex() == "0x" {
-                    // In this case the smart contract belongs to an EOA
-                    throw AddCustomAssetViewModel.CustomAssetValidationError.notValidSmartContractAddress
-                } else {
-                    return try self.getInfo(address: contractAddress, info: .decimal)
-                }
-            }.then { decimalValue in
-                if String(describing: decimalValue[.emptyString]) == "0" {
-                    throw AddCustomAssetViewModel.CustomAssetValidationError.notValidSmartContractAddress
-                } else {
-                    assetInfo[.decimal] = String(describing: decimalValue[.emptyString])
-                    return try self.getInfo(address: contractAddress, info: .name)
-                }
-            }.then { name in
-                assetInfo[.name] = String(describing: name[.emptyString])
-                return try self.getInfo(address: contractAddress, info: .balance)
-            }.then { balance in
-                assetInfo[.balance] = String(describing: balance[.emptyString])
-                return try self.getInfo(address: contractAddress, info: .symbol)
-            }.done { symbol in
-                assetInfo[.symbol] = String(describing: symbol[.emptyString])
-                seal.resolve(assetInfo, nil)
-            }
-        }
-        
-    }
-    
-    // MARK: - Private Methods
-    
-    private func getInfo(address: String, info: AssetInfo) throws -> Promise<[String : Any]> {
+	private let web3 = Web3(rpcURL: "https://rpc.ankr.com/eth")
+	private init() {}
 
-        let contractAddress = try! EthereumAddress(hex: address, eip55: true)
-        let contractJsonABI = Web3ABI.erc20AbiString.data(using: .utf8)!
-        let contract = try! web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
+	typealias CustomAssetInfo = [AssetInfo: String]
 
-        return try contract[info.rawValue]!(EthereumAddress(hex: address, eip55: true)).call()
-    }
-    
+	// MARK: - Public Properties
+
+	public static var shared = Web3Core()
+	public enum AssetInfo: String {
+		case decimal = "decimals"
+		case balance = "balanceOf"
+		case name = "name"
+		case symbol = "symbol"
+	}
+
+	// MARK: - Public Methods
+
+	public func getCustomAssetInfo(contractAddress: String) throws -> Promise<CustomAssetInfo> {
+		var assetInfo: CustomAssetInfo = [:]
+
+		return Promise<CustomAssetInfo>() { seal in
+			let _ = firstly {
+				try web3.eth.getCode(address: .init(hex: contractAddress, eip55: true), block: .latest)
+			}.then { conctractCode in
+				if conctractCode.hex() == "0x" {
+					// In this case the smart contract belongs to an EOA
+					seal.reject(Web3Error.invalidSmartContractAddress)
+				}
+				return try self.getInfo(address: contractAddress, info: .decimal)
+			}.then { decimalValue in
+				if String(describing: decimalValue[.emptyString]) == "0" {
+					seal.reject(Web3Error.invalidSmartContractAddress)
+				}
+				assetInfo[AssetInfo.decimal] = "\(decimalValue[String.emptyString]!)"
+				return try self.getInfo(address: contractAddress, info: .name).compactMap { nameValue in
+					nameValue[String.emptyString] as? String
+				}
+			}.then { nameValue in
+				assetInfo.updateValue(nameValue, forKey: AssetInfo.name)
+				return try self.getInfo(address: contractAddress, info: .balance).compactMap { balanceValue in
+					balanceValue[String.emptyString] as? BigUInt
+				}
+			}.then { balance in
+				assetInfo.updateValue("\(balance)", forKey: AssetInfo.balance)
+				return try self.getInfo(address: contractAddress, info: .symbol).compactMap { symbolValue in
+					symbolValue[String.emptyString] as? String
+				}
+			}.done { symbol in
+				assetInfo.updateValue(symbol, forKey: AssetInfo.symbol)
+				seal.fulfill(assetInfo)
+			}
+		}
+
+		//        firstly {
+		//            try web3.eth.getCode(address: .init(hex: contractAddress, eip55: true), block: .latest)
+		//        }.then { conctractCode in
+		//            if conctractCode.hex() == "0x" {
+		//                // In this case the smart contract belongs to an EOA
+		//                throw Web3Error.invalidSmartContractAddress
+		//            }
+		//            return try self.getInfo(address: contractAddress, info: .decimal)
+		//        }.then { decimalValue in
+		//            if String(describing: decimalValue[.emptyString]) == "0" {
+		//                throw Web3Error.invalidSmartContractAddress
+		//            }
+		//            assetInfo[.decimal] = String(describing: decimalValue[.emptyString])
+		//            return try self.getInfo(address: contractAddress, info: .name)
+		//        }.done {
+		//            return Promise.value(assetInfo)
+		//        }
+//
+	}
+
+	func brokenPromise(method: String = #function) -> Promise<CustomAssetInfo> {
+		Promise<CustomAssetInfo>() { seal in
+			let err = NSError(
+				domain: "WeatherOrNot",
+				code: 0,
+				userInfo: [NSLocalizedDescriptionKey: "'\(method)' not yet implemented."]
+			)
+			seal.reject(err)
+		}
+	}
+
+	// MARK: - Private Methods
+
+	private func getInfo(address: String, info: AssetInfo) throws -> Promise<[String: Any]> {
+		let contractAddress = try! EthereumAddress(hex: address, eip55: true)
+		let contractJsonABI = Web3ABI.erc20AbiString.data(using: .utf8)!
+		let contract = try! web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
+
+		return try contract[info.rawValue]!(EthereumAddress(hex: address, eip55: true)).call()
+	}
 }
-

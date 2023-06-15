@@ -30,7 +30,7 @@ struct CustomAssetViewModel {
 		if let balanceOf = customAsset.balance {
 			let userBalanceOfCustomToken = BigNumber(
 				number: String(describing: balanceOf),
-				decimal: Int(customAsset.decimal)
+				decimal: Int(customAsset.decimal)!
 			)
 			return userBalanceOfCustomToken.formattedAmountOf(type: .hold)
 		} else {

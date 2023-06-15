@@ -8,7 +8,6 @@
 import BigInt
 import Foundation
 
-
 class AddCustomAssetViewModel {
 	// MARK: - Public Enums
 
@@ -139,15 +138,26 @@ class AddCustomAssetViewModel {
 				return
 			} else {
 				changeViewStatusClosure(.pending)
-				DispatchQueue.main.asyncAfter(deadline: .now() + delay.rawValue) { [weak self] in
-					Task {
-						self?
-							.changeViewStatusClosure(
-                                Web3Core().getCustomAssetInfo(contractAddress: textFieldText)
-                            
-//								await self?
-//									.getCustomAssetInfo(contractAddress: textFieldText) ?? .error(.unknownError)
-							)
+				DispatchQueue.main.asyncAfter(deadline: .now() + delay.rawValue) {
+					do {
+						let _ = try Web3Core.shared.getCustomAssetInfo(contractAddress: textFieldText)
+							.done { [weak self] assetInfo in
+								if let name = assetInfo[.name]?.description,
+								   let symbol = assetInfo[.symbol]?.description,
+								   let balance = assetInfo[.balance]?.description,
+								   let decimal = assetInfo[.decimal]?.description {
+									self?.customAssetVM = CustomAssetViewModel(customAsset: CustomAssetModel(
+										id: textFieldText.trimmingCharacters(in: .whitespaces),
+										name: name,
+										symbol: symbol,
+										balance: balance,
+										decimal: decimal
+									))
+									self?.changeViewStatusClosure(.success)
+								}
+							}
+					} catch {
+						self.changeViewStatusClosure(.error(.notValid))
 					}
 				}
 			}
