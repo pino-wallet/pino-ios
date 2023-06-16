@@ -223,17 +223,17 @@ class EnterSendAmountView: UIView {
 
 	private func updateAmount(enteredAmount: String) {
 		enterAmountVM.calculateAmount(enteredAmount)
-        enterAmountVM.checkIfBalanceIsEnough(amount: enteredAmount) { isBalanceEnough in
-            if isBalanceEnough {
-                maxAmountTitle.textColor = .Pino.label
-                maxAmountLabel.textColor = .Pino.label
-                continueButton.style = .active
-            } else {
-                maxAmountTitle.textColor = .Pino.orange
-                maxAmountLabel.textColor = .Pino.orange
-                continueButton.style = .deactive
-            }
-        }
+		enterAmountVM.checkIfBalanceIsEnough(amount: enteredAmount) { isBalanceEnough in
+			if isBalanceEnough {
+				maxAmountTitle.textColor = .Pino.label
+				maxAmountLabel.textColor = .Pino.label
+				continueButton.style = .active
+			} else {
+				maxAmountTitle.textColor = .Pino.orange
+				maxAmountLabel.textColor = .Pino.orange
+				continueButton.style = .deactive
+			}
+		}
 		amountLabel.text = enterAmountVM.formattedAmount
 	}
 
