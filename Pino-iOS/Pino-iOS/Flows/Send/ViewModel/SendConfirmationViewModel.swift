@@ -19,6 +19,10 @@ struct SendConfirmationViewModel {
 
 	public let recipientAddress: String
 
+	public var isTokenVerified: Bool {
+		selectedToken.isVerified
+	}
+
 	public var tokenImage: URL {
 		selectedToken.image
 	}
@@ -47,9 +51,10 @@ struct SendConfirmationViewModel {
 		"$0.3 / 0.00021 \(selectedToken.symbol)"
 	}
 
-	public var selectedWalletTitle = "From"
-	public var recipientAddressTitle = "To"
-	public var feeTitle = "Fee"
+	public let selectedWalletTitle = "From"
+	public let recipientAddressTitle = "To"
+	public let feeTitle = "Fee"
+	public let confirmButtonTitle = "Confirm"
 
 	init(
 		selectedToken: AssetViewModel,

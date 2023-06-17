@@ -32,6 +32,7 @@ class SendConfirmationView: UIView {
 	private let recipientAddressLabel = UILabel()
 	private let feeLabel = UILabel()
 
+	private let walletImageBackgroundView = UIView()
 	private let walletImageView = UIImageView()
 	private let walletNameLabel = UILabel()
 
@@ -75,8 +76,9 @@ class SendConfirmationView: UIView {
 		sendInfoStackView.addArrangedSubview(feeStrackView)
 		selectedWalletStackView.addArrangedSubview(selectedWalletTitleLabel)
 		selectedWalletStackView.addArrangedSubview(walletInfoStackView)
-		walletInfoStackView.addArrangedSubview(walletImageView)
+		walletInfoStackView.addArrangedSubview(walletImageBackgroundView)
 		walletInfoStackView.addArrangedSubview(walletNameLabel)
+		walletImageBackgroundView.addSubview(walletImageView)
 		recipientStrackView.addArrangedSubview(recipientTitleLabel)
 		recipientStrackView.addArrangedSubview(recipientAddressLabel)
 		feeStrackView.addArrangedSubview(feeTitleView)
@@ -88,18 +90,28 @@ class SendConfirmationView: UIView {
 	}
 
 	private func setupStyle() {
-		tokenNameLabel.text = "0"
-		sendAmountLabel.text = "0"
-		selectedWalletTitleLabel.text = "0"
-		walletNameLabel.text = "0"
-		recipientTitleLabel.text = "0"
-		recipientAddressLabel.text = "0"
-		feeLabel.text = "0"
-		feeTitleView.title = "0"
-		continueButton.title = "0"
+		tokenNameLabel.text = sendConfirmationVM.formattedSendAmount
+		sendAmountLabel.text = sendConfirmationVM.formattedSendAmountInDollar
+		selectedWalletTitleLabel.text = sendConfirmationVM.selectedWalletTitle
+		walletNameLabel.text = sendConfirmationVM.selectedWalletName
+		recipientTitleLabel.text = sendConfirmationVM.recipientAddressTitle
+		recipientAddressLabel.text = sendConfirmationVM.recipientAddress.shortenedString(
+			characterCountFromStart: 6,
+			characterCountFromEnd: 4
+		)
+		feeLabel.text = sendConfirmationVM.fee
+		feeTitleView.title = sendConfirmationVM.feeTitle
+		continueButton.title = sendConfirmationVM.confirmButtonTitle
 
-		walletImageView.image = UIImage(named: "")
-		tokenImageView.image = UIImage(named: "")
+		walletImageView.image = UIImage(named: sendConfirmationVM.selectedWalletImage)
+		walletImageBackgroundView.backgroundColor = UIColor(named: sendConfirmationVM.selectedWalletImage)
+
+		if sendConfirmationVM.isTokenVerified {
+			tokenImageView.kf.indicatorType = .activity
+			tokenImageView.kf.setImage(with: sendConfirmationVM.tokenImage)
+		} else {
+			tokenImageView.image = UIImage(named: sendConfirmationVM.customAssetImage)
+		}
 
 		tokenNameLabel.font = .PinoStyle.semiboldTitle2
 		sendAmountLabel.font = .PinoStyle.mediumBody
@@ -120,6 +132,7 @@ class SendConfirmationView: UIView {
 		backgroundColor = .Pino.background
 
 		feeLabel.textAlignment = .right
+		recipientAddressLabel.textAlignment = .right
 
 		tokenStackView.axis = .vertical
 		tokenAmountStackView.axis = .vertical
@@ -133,6 +146,9 @@ class SendConfirmationView: UIView {
 		tokenStackView.spacing = 16
 		tokenAmountStackView.spacing = 4
 		sendInfoStackView.spacing = 22
+		walletInfoStackView.spacing = 4
+
+		walletImageBackgroundView.layer.cornerRadius = 10
 	}
 
 	private func setupContstraint() {
@@ -155,12 +171,15 @@ class SendConfirmationView: UIView {
 			.fixedWidth(50),
 			.fixedHeight(50)
 		)
-		walletImageView.pin(
+		walletImageBackgroundView.pin(
 			.fixedWidth(20),
 			.fixedHeight(20)
 		)
 		feeTitleView.pin(
-			.fixedWidth(45)
+			.fixedWidth(48)
+		)
+		walletImageView.pin(
+			.allEdges(padding: 3)
 		)
 	}
 }
