@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 import UIKit
+import BigInt
 
 class AccountBalanceHeaderView: UICollectionReusableView {
 	// MARK: - Private Properties

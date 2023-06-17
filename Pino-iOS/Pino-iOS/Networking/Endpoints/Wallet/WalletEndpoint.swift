@@ -19,15 +19,6 @@ enum WalletEndpoint: EndpointType {
 		var request = URLRequest(url: url)
 		request.httpMethod = httpMethod.rawValue
 
-		if requiresAuthentication {
-			if let privateKey {
-				print(privateKey)
-				// Add privateKey as a token
-			} else {
-				throw APIError.unauthorized
-			}
-		}
-
 		try task.configParams(&request)
 
 		return request

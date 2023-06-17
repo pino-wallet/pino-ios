@@ -11,7 +11,8 @@ import Web3ContractABI
 import Web3PromiseKit
 
 enum Web3Error: Error {
-	case invalidSmartContractAddress
+    case invalidSmartContractAddress
+	case failedTransaction
 }
 
 class Web3Core {
@@ -21,7 +22,8 @@ class Web3Core {
 	private let web3 = Web3(rpcURL: "https://rpc.ankr.com/eth")
 	private let walletManager = PinoWalletManager()
 
-	typealias CustomAssetInfo = [AssetInfo: String]
+    typealias CustomAssetInfo = [AssetInfo: String]
+	typealias ERC20TransactionInfoType = [ERC20TransactionInfo: EthereumQuantity]
 
 	// MARK: - Public Properties
 
@@ -32,6 +34,12 @@ class Web3Core {
 		case name = "name"
 		case symbol = "symbol"
 	}
+    
+    public enum ERC20TransactionInfo: String {
+        case nonce
+        case gasPrice
+        case estimate
+    }
 
 	// MARK: - Public Methods
 
@@ -98,6 +106,78 @@ class Web3Core {
 			}
 		}
 	}
+    
+    public func sendERC20Token(address: String, amount: BigUInt, tokenContractAddress: String) throws -> Promise<String> {
+
+        Promise<String>() { seal in
+            
+            let contractAddress = try EthereumAddress(hex: tokenContractAddress, eip55: true) // USDC Smart Contract Address
+            let contractJsonABI = Web3ABI.erc20AbiString.data(using: .utf8)!
+            // You can optionally pass an abiKey param if the actual abi is nested and not the top level element of the json
+            let contract = try! web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
+            let to = try EthereumAddress(hex: address, eip55: true)
+            
+            // Send some tokens to another address (locally signing the transaction)
+            let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
+            
+            var transactionInfo: ERC20TransactionInfoType = [:]
+            
+            firstly {
+                web3.eth.gasPrice()
+            }.map { gasPrice in
+                transactionInfo.updateValue(gasPrice, forKey: .gasPrice)
+            }.then { [self] in
+                return web3.eth.getTransactionCount(address: myPrivateKey.address, block: .latest)
+            }.map { nonce in
+                transactionInfo.updateValue(nonce, forKey: .nonce)
+            }.then { [self] () -> Promise<EthereumQuantity> in
+                let transaction = contract["transfer"]?(to, amount).createTransaction(
+                    nonce: transactionInfo[.nonce],
+                    gasPrice: transactionInfo[.gasPrice],
+                    maxFeePerGas: nil,
+                    maxPriorityFeePerGas: nil,
+                    gasLimit: 150000,
+                    from: myPrivateKey.address,
+                    value: nil,
+                    accessList: [:],
+                    transactionType: .legacy
+                )
+                return web3.eth.estimateGas(call: .init(from: transaction?.from, to: to, gas: nil, gasPrice: transactionInfo[.gasPrice], value: transaction?.value, data: transaction!.data))
+            }.then { [self] estimate -> Promise<EthereumData> in
+
+                let gasLimit = try EthereumQuantity(estimate.quantity * BigUInt(110) / BigUInt(100))
+
+                guard let transaction = contract["transfer"]?(to, amount).createTransaction(
+                    nonce: transactionInfo[.nonce],
+                    gasPrice: transactionInfo[.gasPrice],
+                    maxFeePerGas: nil,
+                    maxPriorityFeePerGas: nil,
+                    gasLimit: gasLimit,
+                    from: myPrivateKey.address,
+                    value: 0,
+                    accessList: [:],
+                    transactionType: .legacy
+                ) else {
+                    seal.reject(Web3Error.failedTransaction)
+                    throw Web3Error.failedTransaction
+                }
+
+                let signedTx = try transaction.sign(with: myPrivateKey, chainId: 1)
+
+                return web3.eth.sendRawTransaction(transaction: signedTx)
+
+            }.done { txHash in
+                seal.fulfill(txHash.hex())
+            }.catch { error in
+                seal.reject(error)
+            }
+            
+        }
+        
+        
+        
+    }
+
 
 	// MARK: - Private Methods
 

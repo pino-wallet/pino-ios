@@ -31,7 +31,6 @@ class HomepageViewController: UIViewController {
 	override func loadView() {
 		homeVM = HomepageViewModel(completion: { error in
 			#warning("A toast should be sgown in case of error")
-			print(error)
 		})
 		profileVM = ProfileViewModel(walletInfo: homeVM.walletInfo)
 
