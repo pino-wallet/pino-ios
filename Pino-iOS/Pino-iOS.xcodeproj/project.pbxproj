@@ -355,6 +355,8 @@
 		DFB566292A192CD600F9D6A0 /* WalletManagementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB566282A192CD600F9D6A0 /* WalletManagementType.swift */; };
 		E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCBF9CC6A3C63CAA0DB0AA7 /* ActivityViewController.swift */; };
 		E25F4C14C3273F63F22E983C /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA3FFE35308EBEC961CD7BF /* UIView.swift */; };
+		E343836A2A3D912A0048BDA1 /* SendConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34383692A3D912A0048BDA1 /* SendConfirmationViewController.swift */; };
+		E343836C2A3D92C20048BDA1 /* SendConfimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E343836B2A3D92C20048BDA1 /* SendConfimationView.swift */; };
 		E34728E229E5360300AB8265 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34728E129E5360300AB8265 /* CoreDataStack.swift */; };
 		E34728E929E7DCCF00AB8265 /* HomepageViewModel+Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34728E829E7DCCF00AB8265 /* HomepageViewModel+Wallet.swift */; };
 		E34728EB29E7DD6B00AB8265 /* HomepageViewModel+Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34728EA29E7DD6B00AB8265 /* HomepageViewModel+Asset.swift */; };
@@ -763,6 +765,8 @@
 		E149E7B618CEFE5E909B2D78 /* AccountInfoNavigationItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoNavigationItems.swift; sourceTree = "<group>"; };
 		E1575DB9D22AE8EBFE86A7D9 /* SeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhrase.swift; sourceTree = "<group>"; };
 		E19FF7EA659493C72C4B0AD9 /* PinoTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoTextFieldView.swift; sourceTree = "<group>"; };
+		E34383692A3D912A0048BDA1 /* SendConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmationViewController.swift; sourceTree = "<group>"; };
+		E343836B2A3D92C20048BDA1 /* SendConfimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfimationView.swift; sourceTree = "<group>"; };
 		E34728E129E5360300AB8265 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		E34728E829E7DCCF00AB8265 /* HomepageViewModel+Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomepageViewModel+Wallet.swift"; sourceTree = "<group>"; };
 		E34728EA29E7DD6B00AB8265 /* HomepageViewModel+Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomepageViewModel+Asset.swift"; sourceTree = "<group>"; };
@@ -2233,6 +2237,7 @@
 				D9A328122A3462B6005A8393 /* SelectAssetToSendViewController.swift */,
 				E3F482EB2A3485A500EEC9CF /* EnterSendAmountViewController.swift */,
 				E3D204CB2A39B7E90027FEBC /* QRScannerViewController.swift */,
+				E34383692A3D912A0048BDA1 /* SendConfirmationViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2241,6 +2246,7 @@
 			isa = PBXGroup;
 			children = (
 				E3F482F62A35B2DB00EEC9CF /* EnterSendAmountView.swift */,
+				E343836B2A3D92C20048BDA1 /* SendConfimationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2630,6 +2636,7 @@
 				A6A306BA4B25BC475B98C8BD /* AboutCoinViewModel.swift in Sources */,
 				902BA90F4366DD5D18B06A90 /* AboutPinoView.swift in Sources */,
 				DD2E33C472905FA32AE84797 /* AboutPinoViewController.swift in Sources */,
+				E343836A2A3D912A0048BDA1 /* SendConfirmationViewController.swift in Sources */,
 				D91A39FF29E40F8900004CB2 /* NotificationSettingsViewModel.swift in Sources */,
 				E385F6162A220C6D00EE7EE1 /* CTSEndpoint.swift in Sources */,
 				12265EA20032CC8CF48199E7 /* AboutPinoViewModel.swift in Sources */,
@@ -2710,6 +2717,7 @@
 				4BCC037123752C19CB2B98D3 /* CoinHistoryViewModel.swift in Sources */,
 				DBE3307F29EF0E7E1926B2B4 /* CoinInfoChartView.swift in Sources */,
 				05BF3ACA571459B68B3451D6 /* CoinInfoChartViewController.swift in Sources */,
+				E343836C2A3D92C20048BDA1 /* SendConfimationView.swift in Sources */,
 				D93C41FB29F7CC67003F2297 /* EditAccountCell.swift in Sources */,
 				130F1B30243DA82379EB2BD4 /* CoinInfoChartViewModel.swift in Sources */,
 				A1CB57E01D2C66A314CD3BE4 /* CoinInfoCollectionView.swift in Sources */,

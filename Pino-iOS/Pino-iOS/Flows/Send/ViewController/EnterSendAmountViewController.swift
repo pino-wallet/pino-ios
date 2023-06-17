@@ -8,8 +8,6 @@
 import UIKit
 
 class EnterSendAmountViewController: UIViewController {
-	// MARK: - Public Properties
-
 	// MARK: Private Properties
 
 	private let enterAmountVM: EnterSendAmountViewModel
@@ -38,10 +36,6 @@ class EnterSendAmountViewController: UIViewController {
 		setupNavigationBar()
 	}
 
-	override func viewWillDisappear(_ animated: Bool) {
-		// Save selected assets locally
-	}
-
 	// MARK: - Private Methods
 
 	private func setupView() {
@@ -50,7 +44,10 @@ class EnterSendAmountViewController: UIViewController {
 			changeSelectedToken: {
 				self.openSelectAssetPage()
 			},
-			nextButtonTapped: {}
+			nextButtonTapped: {
+				let sendConfirmationVC = SendConfirmationViewController()
+				self.navigationController?.pushViewController(sendConfirmationVC, animated: true)
+			}
 		)
 	}
 
