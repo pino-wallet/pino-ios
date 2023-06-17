@@ -7,7 +7,7 @@
 
 import Foundation
 import WalletCore
-import Web3Core
+import Web3
 
 public class Account: Codable {
 	// MARK: - Public Property
@@ -18,7 +18,7 @@ public class Account: Codable {
 	public var accountSource: Wallet.WalletType
 
 	public var eip55Address: String {
-		address.address
+		address.hex(eip55: true)
 	}
 
 	public var privateKey: Data {
@@ -31,8 +31,7 @@ public class Account: Codable {
 			cipherData: encryptedPrivateKey,
 			withPublicKeyLabel: privateKeyFetchKey
 		)
-		let privateKey = PrivateKey(data: decryptedData)
-		return privateKey!.data
+		return decryptedData
 	}
 
 	// MARK: - Initializers
@@ -49,19 +48,17 @@ public class Account: Codable {
 		guard WalletValidator.isPublicKeyValid(key: publicKey) else {
 			throw WalletOperationError.validator(.publicKeyIsInvalid)
 		}
-		guard let address = Utilities.publicToAddress(publicKey) else {
-			throw WalletOperationError.validator(.addressIsInvalid)
-		}
+		let ethPublicKey = try EthereumPublicKey(hexPublicKey: publicKey.hexString)
 		self.derivationPath = nil
 		self.publicKey = publicKey
-		self.address = EthereumAddress(address.address)!
+		self.address = EthereumAddress(hexString: ethPublicKey.address.hex(eip55: true))!
 		self.accountSource = accountSource
 	}
 
 	init(account: WalletAccount) {
 		self.derivationPath = account.derivationPath
 		self.publicKey = account.publicKey
-		self.address = EthereumAddress(account.eip55Address)!
+		self.address = EthereumAddress(hexString: account.eip55Address)!
 		self.accountSource = account.wallet.walletType
 	}
 }
