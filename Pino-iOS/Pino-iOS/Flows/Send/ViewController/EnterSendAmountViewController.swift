@@ -45,7 +45,16 @@ class EnterSendAmountViewController: UIViewController {
 				self.openSelectAssetPage()
 			},
 			nextButtonTapped: {
-				let sendConfirmationVC = SendConfirmationViewController()
+				let coreDataManager = CoreDataManager()
+				let selectedWallet = coreDataManager.getAllWalletAccounts().first(where: { $0.isSelected })
+				let sendConfirmationVM = SendConfirmationViewModel(
+					selectedToken: self.enterAmountVM.selectedToken,
+					selectedWallet: AccountInfoViewModel(walletAccountInfoModel: selectedWallet),
+					recipientAddress: "0xa9868D22572843b3D2DdE4A5DfA32b2B17ED28F6",
+					sendAmount: "200",
+					sendAmountInDollar: "120"
+				)
+				let sendConfirmationVC = SendConfirmationViewController(sendConfirmationVM: sendConfirmationVM)
 				self.navigationController?.pushViewController(sendConfirmationVC, animated: true)
 			}
 		)

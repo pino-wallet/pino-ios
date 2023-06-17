@@ -10,15 +10,18 @@ import UIKit
 class SendConfirmationViewController: UIViewController {
 	// MARK: Private Properties
 
+	private let sendConfirmationVM: SendConfirmationViewModel
+
 	// MARK: Initializers
 
-	//    init(selectedAsset: AssetViewModel, enteredAmount: String, walletInfo: AccountInfoViewModel, recipientAddress: String) {
-	//        super.init(nibName: nil, bundle: nil)
-	//    }
-//
-	//    required init?(coder: NSCoder) {
-	//        fatalError("init(coder:) has not been implemented")
-	//    }
+	init(sendConfirmationVM: SendConfirmationViewModel) {
+		self.sendConfirmationVM = sendConfirmationVM
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	// MARK: - View Overrides
 
@@ -34,7 +37,7 @@ class SendConfirmationViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = SendConfirmationView(confirmButtonTapped: {})
+		view = SendConfirmationView(sendConfirmationVM: sendConfirmationVM, confirmButtonTapped: {})
 	}
 
 	private func setupNavigationBar() {

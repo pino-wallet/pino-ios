@@ -37,12 +37,15 @@ class SendConfirmationView: UIView {
 
 	private let continueButton = PinoButton(style: .active)
 	private var confirmButtonTapped: () -> Void
+	private let sendConfirmationVM: SendConfirmationViewModel
 
 	// MARK: - Initializers
 
 	init(
+		sendConfirmationVM: SendConfirmationViewModel,
 		confirmButtonTapped: @escaping (() -> Void)
 	) {
+		self.sendConfirmationVM = sendConfirmationVM
 		self.confirmButtonTapped = confirmButtonTapped
 		super.init(frame: .zero)
 		setupView()
