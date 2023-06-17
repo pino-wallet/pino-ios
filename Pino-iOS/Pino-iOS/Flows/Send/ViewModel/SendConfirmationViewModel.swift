@@ -17,6 +17,8 @@ struct SendConfirmationViewModel {
 
 	// MARK: - Public Properties
 
+	public var isAddressScam = false
+
 	public let recipientAddress: String
 
 	public var isTokenVerified: Bool {
@@ -55,6 +57,9 @@ struct SendConfirmationViewModel {
 	public let recipientAddressTitle = "To"
 	public let feeTitle = "Fee"
 	public let confirmButtonTitle = "Confirm"
+	public let scamConfirmButtonTitle = "Confirm Anyway"
+	public let scamErrorTitle =
+		"This address maybe be a scam! This address maybe be a scam! This address maybe be a scam!"
 
 	init(
 		selectedToken: AssetViewModel,
