@@ -37,7 +37,13 @@ class SendConfirmationViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = SendConfirmationView(sendConfirmationVM: sendConfirmationVM, confirmButtonTapped: {})
+		view = SendConfirmationView(
+			sendConfirmationVM: sendConfirmationVM,
+			confirmButtonTapped: {},
+			presentFeeInfo: { feeInfoActionSheet in
+				self.present(feeInfoActionSheet, animated: true)
+			}
+		)
 	}
 
 	private func setupNavigationBar() {

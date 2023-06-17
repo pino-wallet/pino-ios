@@ -25,7 +25,7 @@ class SendConfirmationView: UIView {
 	private let feeStrackView = UIStackView()
 	private let selectedWalletTitleLabel = UILabel()
 	private let recipientTitleLabel = UILabel()
-	private let feeTitleView = TitleWithInfo(actionSheetTitle: "", actionSheetDescription: "")
+	private var feeTitleView: TitleWithInfo!
 	private let walletInfoStackView = UIStackView()
 	private let recipientAddressLabel = UILabel()
 	private let feeLabel = UILabel()
@@ -37,16 +37,19 @@ class SendConfirmationView: UIView {
 
 	private let continueButton = PinoButton(style: .active)
 	private let confirmButtonTapped: () -> Void
+	private let presentFeeInfo: (InfoActionSheet) -> Void
 	private let sendConfirmationVM: SendConfirmationViewModel
 
 	// MARK: - Initializers
 
 	init(
 		sendConfirmationVM: SendConfirmationViewModel,
-		confirmButtonTapped: @escaping (() -> Void)
+		confirmButtonTapped: @escaping () -> Void,
+		presentFeeInfo: @escaping (InfoActionSheet) -> Void
 	) {
 		self.sendConfirmationVM = sendConfirmationVM
 		self.confirmButtonTapped = confirmButtonTapped
+		self.presentFeeInfo = presentFeeInfo
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -60,6 +63,11 @@ class SendConfirmationView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		feeTitleView = TitleWithInfo(
+			actionSheetTitle: sendConfirmationVM.feeInfoActionSheetTitle,
+			actionSheetDescription: sendConfirmationVM.feeInfoActionSheetDescription
+		)
+
 		addSubview(contentStackview)
 		addSubview(continueButton)
 		contentStackview.addArrangedSubview(cardsStackView)
@@ -89,6 +97,10 @@ class SendConfirmationView: UIView {
 		continueButton.addAction(UIAction(handler: { _ in
 			self.confirmButtonTapped()
 		}), for: .touchUpInside)
+
+		feeTitleView.presentActionSheet = { feeInfoActionSheet in
+			self.presentFeeInfo(feeInfoActionSheet)
+		}
 	}
 
 	private func setupStyle() {

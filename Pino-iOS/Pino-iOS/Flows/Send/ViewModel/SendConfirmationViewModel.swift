@@ -60,6 +60,8 @@ struct SendConfirmationViewModel {
 	public let scamConfirmButtonTitle = "Confirm Anyway"
 	public let scamErrorTitle =
 		"This address maybe be a scam! This address maybe be a scam! This address maybe be a scam!"
+	public let feeInfoActionSheetTitle = "Fee"
+	public let feeInfoActionSheetDescription = "Sample Text"
 
 	init(
 		selectedToken: AssetViewModel,
