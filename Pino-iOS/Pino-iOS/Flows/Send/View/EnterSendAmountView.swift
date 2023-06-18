@@ -162,6 +162,7 @@ class EnterSendAmountView: UIView {
 		dollarFormatButton.isHidden = !enterAmountVM.selectedToken.isVerified
 
 		amountLabel.numberOfLines = 0
+		amountLabel.lineBreakMode = .byCharWrapping
 
 		enterAmountVM.selectedTokenChanged = {
 			self.updateView()
