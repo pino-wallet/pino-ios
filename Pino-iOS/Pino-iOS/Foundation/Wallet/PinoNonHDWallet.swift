@@ -7,7 +7,6 @@
 
 import Foundation
 import WalletCore
-import Web3Core
 
 protocol PinoNonHDWalletType: PinoWallet {
 	mutating func importAccount(privateKey: String) -> Result<Account, WalletOperationError>

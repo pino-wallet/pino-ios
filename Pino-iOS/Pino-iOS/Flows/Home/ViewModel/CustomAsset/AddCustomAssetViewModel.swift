@@ -7,8 +7,6 @@
 
 import BigInt
 import Foundation
-import Web3Core
-import web3swift
 
 class AddCustomAssetViewModel {
 	// MARK: - Public Enums
@@ -17,7 +15,7 @@ class AddCustomAssetViewModel {
 		case clear
 		case pasteFromClipboard(String)
 		case pending
-		case error(FailedToValidateCustomAssetStatus)
+		case error(CustomAssetValidationError)
 		case success
 	}
 
@@ -27,7 +25,7 @@ class AddCustomAssetViewModel {
 		case none = 0.0
 	}
 
-	public enum FailedToValidateCustomAssetStatus: Error {
+	public enum CustomAssetValidationError: Error {
 		case notValid
 		case networkError
 		case notValidFromServer
@@ -80,11 +78,7 @@ class AddCustomAssetViewModel {
 
 	// MARK: - Private Properties
 
-	private let erc20AbiString = """
-	[{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]
-	"""
 	private var getCustomAssetInfoRequestWork: DispatchWorkItem!
-	private var web3: Web3!
 	private var readNodeContractKey = "0"
 	private var userAddressStaticCode = "0x"
 
@@ -141,13 +135,26 @@ class AddCustomAssetViewModel {
 				return
 			} else {
 				changeViewStatusClosure(.pending)
-				DispatchQueue.main.asyncAfter(deadline: .now() + delay.rawValue) { [weak self] in
-					Task {
-						self?
-							.changeViewStatusClosure(
-								await self?
-									.getCustomAssetInfo(contractAddress: textFieldText) ?? .error(.unknownError)
-							)
+				DispatchQueue.main.asyncAfter(deadline: .now() + delay.rawValue) {
+					do {
+						let _ = try Web3Core.shared.getCustomAssetInfo(contractAddress: textFieldText)
+							.done { [weak self] assetInfo in
+								if let name = assetInfo[.name]?.description,
+								   let symbol = assetInfo[.symbol]?.description,
+								   let balance = assetInfo[.balance]?.description,
+								   let decimal = assetInfo[.decimal]?.description {
+									self?.customAssetVM = CustomAssetViewModel(customAsset: CustomAssetModel(
+										id: textFieldText.trimmingCharacters(in: .whitespaces),
+										name: name,
+										symbol: symbol,
+										balance: balance,
+										decimal: decimal
+									))
+									self?.changeViewStatusClosure(.success)
+								}
+							}
+					} catch {
+						self.changeViewStatusClosure(.error(.notValid))
 					}
 				}
 			}
@@ -168,80 +175,6 @@ class AddCustomAssetViewModel {
 				decimal: customAssetVM.decimal
 			)
 			return customAssetModel
-		}
-	}
-
-	// MARK: - Private Methods
-
-	private func getCustomAssetInfo(contractAddress: String) async -> ContractValidationStatus {
-		do {
-			web3 =
-				try await Web3(provider: Web3HttpProvider(url: AssetsEndpoint.currentETHProvider!, network: .Mainnet))
-		} catch {
-			return .error(.unavailableNode)
-		}
-
-		let validateIsSmartContractStatus = await validateIsSmartContract(contractAddress: contractAddress)
-
-		if validateIsSmartContractStatus == .success {
-			return await validateIsERC20Token(contractAddress: contractAddress)
-		} else {
-			return validateIsSmartContractStatus
-		}
-	}
-
-	private func validateIsSmartContract(contractAddress: String) async -> ContractValidationStatus {
-		let nodeRequest: APIRequest = .getCode(contractAddress, .latest)
-		var nodeResponse: APIResponse<String>!
-		do {
-			nodeResponse = try await APIRequest.sendRequest(with: web3.provider, for: nodeRequest)
-		} catch {
-			return .error(.unavailableNode)
-		}
-		if nodeResponse.result == userAddressStaticCode {
-			return .error(.notValidSmartContractAddress)
-		} else {
-			return .success
-		}
-	}
-
-	private func validateIsERC20Token(contractAddress: String) async -> ContractValidationStatus {
-		let contract = web3.contract(erc20AbiString, at: EthereumAddress(from: contractAddress))
-
-		let readBalanceOfOpParameters = [userAddress]
-
-		let readTokenNameOp = contract?.createReadOperation("name")
-		let readTokenSymbolOp = contract?.createReadOperation("symbol")
-		let readTokenBalanceOfOp = contract?.createReadOperation("balanceOf", parameters: readBalanceOfOpParameters)
-		let readTokenDecimalsOp = contract?.createReadOperation("decimals")
-
-		do {
-			guard let tokenName = try await readTokenNameOp?.callContractMethod()[readNodeContractKey] as? String else {
-				return .error(.notValidFromServer)
-			}
-			guard let tokenSymbol = try await readTokenSymbolOp?.callContractMethod()[readNodeContractKey] as? String
-			else {
-				return .error(.notValidFromServer)
-			}
-			guard let tokenBalanceOf = try await readTokenBalanceOfOp?.callContractMethod()[readNodeContractKey] else {
-				return .error(.notValidFromServer)
-			}
-
-			guard let tokenDecimals = try await readTokenDecimalsOp?
-				.callContractMethod()[readNodeContractKey] as? BigUInt else {
-				return .error(.notValidFromServer)
-			}
-
-			customAssetVM = CustomAssetViewModel(customAsset: CustomAssetModel(
-				id: contractAddress,
-				name: tokenName,
-				symbol: tokenSymbol,
-				balance: tokenBalanceOf,
-				decimal: tokenDecimals
-			))
-			return .success
-		} catch {
-			return .error(.unknownError)
 		}
 	}
 }

@@ -12,5 +12,5 @@ struct CustomAssetModel {
 	public let name: String
 	public let symbol: String
 	public let balance: Any?
-	public let decimal: BigUInt
+	public let decimal: String
 }

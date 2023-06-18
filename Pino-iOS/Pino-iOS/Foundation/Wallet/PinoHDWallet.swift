@@ -7,7 +7,6 @@
 
 import Foundation
 import WalletCore
-import Web3Core
 
 protocol PinoHDWalletType: PinoWallet {
 	func createInitialHDWallet(mnemonics: String) -> Result<Account, WalletOperationError>

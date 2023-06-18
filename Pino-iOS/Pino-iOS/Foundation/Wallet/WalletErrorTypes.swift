@@ -7,7 +7,6 @@
 
 import Foundation
 import WalletCore
-import Web3Core
 
 public enum WalletError: LocalizedError {
 	case mnemonicGenerationFailed
