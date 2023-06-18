@@ -24,6 +24,8 @@ class EnterSendAmountView: UIView {
 	private let maxAmountLabel = UILabel()
 	private let changeTokenView = TokenView()
 	private let dollarFormatButton = UIButton()
+	private let amountSpacerView = UIView()
+	private let maxAmountSpacerView = UIView()
 	private let continueButton = PinoButton(style: .deactive)
 	private var changeSelectedToken: () -> Void
 	private var nextButtonTapped: () -> Void
@@ -63,8 +65,10 @@ class EnterSendAmountView: UIView {
 		contentStackView.addArrangedSubview(amountStackView)
 		contentStackView.addArrangedSubview(maximumStackView)
 		amountStackView.addArrangedSubview(amountTextFieldStackView)
+		amountStackView.addArrangedSubview(amountSpacerView)
 		amountStackView.addArrangedSubview(tokenStackView)
 		maximumStackView.addArrangedSubview(amountLabel)
+		maximumStackView.addArrangedSubview(maxAmountSpacerView)
 		maximumStackView.addArrangedSubview(maxAmountStackView)
 		tokenStackView.addArrangedSubview(dollarFormatButton)
 		tokenStackView.addArrangedSubview(changeTokenView)
@@ -150,9 +154,12 @@ class EnterSendAmountView: UIView {
 
 		amountTextfield.keyboardType = .decimalPad
 		amountTextfield.delegate = self
+        amountTextfield.
 
 		dollarSignLabel.isHidden = true
 		dollarFormatButton.isHidden = !enterAmountVM.selectedToken.isVerified
+        
+        amountLabel.numberOfLines = 0
 
 		enterAmountVM.selectedTokenChanged = {
 			self.updateView()
@@ -175,7 +182,6 @@ class EnterSendAmountView: UIView {
 			.fixedWidth(32),
 			.fixedHeight(32)
 		)
-
 		nextButtonBottomConstraint = NSLayoutConstraint(
 			item: continueButton,
 			attribute: .bottom,
