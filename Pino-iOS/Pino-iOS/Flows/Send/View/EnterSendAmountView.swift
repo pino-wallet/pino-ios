@@ -247,6 +247,9 @@ class EnterSendAmountView: UIView {
 			}
 		}
 		amountLabel.text = enterAmountVM.formattedAmount
+		if amountTextfield.text == "" {
+			continueButton.style = .deactive
+		}
 	}
 }
 
