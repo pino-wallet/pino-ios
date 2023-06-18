@@ -55,7 +55,7 @@ class CoreDataManager {
 	public func createWalletAccount(
 		address: String,
 		derivationPath: String? = nil,
-		publicKey: Data,
+		publicKey: String,
 		name: String,
 		avatarIcon: String,
 		avatarColor: String,

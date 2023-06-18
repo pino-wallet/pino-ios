@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import Web3
 
 class AccountsViewModel {
 	// MARK: - Public Properties
@@ -72,7 +73,7 @@ class AccountsViewModel {
 
 	public func activateNewAccountAddress(
 		_ address: String,
-		publicKey: Data,
+		publicKey: EthereumPublicKey,
 		derivationPath: String? = nil,
 		completion: @escaping (WalletOperationError?) -> Void
 	) {
@@ -91,7 +92,7 @@ class AccountsViewModel {
 			}.store(in: &cancellables)
 	}
 
-	private func addNewWalletAccountWithAddress(_ address: String, derivationPath: String? = nil, publicKey: Data) {
+	private func addNewWalletAccountWithAddress(_ address: String, derivationPath: String? = nil, publicKey: EthereumPublicKey) {
 		var walletType: Wallet.WalletType = .nonHDWallet
 		if derivationPath != nil {
 			walletType = .hdWallet
@@ -108,7 +109,7 @@ class AccountsViewModel {
 		coreDataManager.createWalletAccount(
 			address: address,
 			derivationPath: derivationPath,
-			publicKey: publicKey,
+            publicKey: publicKey.hex(),
 			name: newAvatar.name,
 			avatarIcon: newAvatar.rawValue,
 			avatarColor: newAvatar.rawValue,
