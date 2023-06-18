@@ -5,7 +5,6 @@
 //  Created by Mohi Raoufi on 6/11/23.
 //
 
-import Combine
 import UIKit
 
 class EnterSendAmountView: UIView {
@@ -25,12 +24,14 @@ class EnterSendAmountView: UIView {
 	private let maxAmountLabel = UILabel()
 	private let changeTokenView = TokenView()
 	private let dollarFormatButton = UIButton()
-	private let continueButton = PinoButton(style: .active)
+	private let continueButton = PinoButton(style: .deactive)
 	private var changeSelectedToken: () -> Void
 	private var nextButtonTapped: () -> Void
 	private var enterAmountVM: EnterSendAmountViewModel
 
-	private var cancellables = Set<AnyCancellable>()
+	private var keyboardHeight: CGFloat = 320 // Minimum height in rare case keyboard of height was not calculated
+	private var nextButtonBottomConstraint: NSLayoutConstraint!
+	private let nextButtonBottomConstant = CGFloat(12)
 
 	// MARK: - Initializers
 
@@ -46,6 +47,7 @@ class EnterSendAmountView: UIView {
 		setupView()
 		setupStyle()
 		setupContstraint()
+		setupNotifications()
 	}
 
 	required init?(coder: NSCoder) {
@@ -167,13 +169,23 @@ class EnterSendAmountView: UIView {
 			.horizontalEdges(padding: 14)
 		)
 		continueButton.pin(
-			.bottom(to: layoutMarginsGuide, padding: 8),
 			.horizontalEdges(padding: 16)
 		)
 		dollarFormatButton.pin(
 			.fixedWidth(32),
 			.fixedHeight(32)
 		)
+
+		nextButtonBottomConstraint = NSLayoutConstraint(
+			item: continueButton,
+			attribute: .bottom,
+			relatedBy: .equal,
+			toItem: layoutMarginsGuide,
+			attribute: .bottom,
+			multiplier: 1,
+			constant: -nextButtonBottomConstant
+		)
+		addConstraint(nextButtonBottomConstraint)
 	}
 
 	private func updateView() {
@@ -236,11 +248,6 @@ class EnterSendAmountView: UIView {
 		}
 		amountLabel.text = enterAmountVM.formattedAmount
 	}
-
-	@objc
-	private func dissmisskeyBoard() {
-		amountTextfield.endEditing(true)
-	}
 }
 
 extension EnterSendAmountView: UITextFieldDelegate {
@@ -268,5 +275,84 @@ extension EnterSendAmountView: UITextFieldDelegate {
 		let replacementStringCharacterSet = CharacterSet(charactersIn: string)
 
 		return allowedCharacters.isSuperset(of: replacementStringCharacterSet)
+	}
+}
+
+// MARK: - Keyboard Functions
+
+extension EnterSendAmountView {
+	@objc
+	private func dissmisskeyBoard() {
+		amountTextfield.endEditing(true)
+	}
+
+	private func setupNotifications() {
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(keyboardWillShow(_:)),
+			name: UIResponder.keyboardWillShowNotification,
+			object: nil
+		)
+
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(keyboardWillHide(_:)),
+			name: UIResponder.keyboardWillHideNotification,
+			object: nil
+		)
+	}
+
+	private func moveViewWithKeyboard(notification: NSNotification, keyboardWillShow: Bool) {
+		// Keyboard's animation duration
+		let keyboardDuration = notification
+			.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
+
+		// Keyboard's animation curve
+		let keyboardCurve = UIView
+			.AnimationCurve(
+				rawValue: notification
+					.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! Int
+			)!
+
+		// Change the constant
+		if keyboardWillShow {
+			let safeAreaExists = (window?.safeAreaInsets.bottom != 0) // Check if safe area exists
+			let keyboardOpenConstant = keyboardHeight - (safeAreaExists ? 20 : 0)
+			nextButtonBottomConstraint.constant = -keyboardOpenConstant
+		} else {
+			nextButtonBottomConstraint.constant = -nextButtonBottomConstant
+		}
+
+		// Animate the view the same way the keyboard animates
+		let animator = UIViewPropertyAnimator(duration: keyboardDuration, curve: keyboardCurve) { [weak self] in
+			// Update Constraints
+			self?.layoutIfNeeded()
+		}
+
+		// Perform the animation
+		animator.startAnimation()
+	}
+
+	@objc
+	internal func keyboardWillShow(_ notification: NSNotification) {
+		if let info = notification.userInfo {
+			let frameEndUserInfoKey = UIResponder.keyboardFrameEndUserInfoKey
+			//  Getting UIKeyboardSize.
+			if let kbFrame = info[frameEndUserInfoKey] as? CGRect {
+				let screenSize = UIScreen.main.bounds
+				let intersectRect = kbFrame.intersection(screenSize)
+				if intersectRect.isNull {
+					keyboardHeight = 0
+				} else {
+					keyboardHeight = intersectRect.size.height
+				}
+			}
+		}
+		moveViewWithKeyboard(notification: notification, keyboardWillShow: true)
+	}
+
+	@objc
+	internal func keyboardWillHide(_ notification: NSNotification) {
+		moveViewWithKeyboard(notification: notification, keyboardWillShow: false)
 	}
 }

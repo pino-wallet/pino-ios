@@ -20,7 +20,7 @@ class SelectAssetToSendViewModel: SelectAssetVMProtocol {
 	// MARK: - initializers
 
 	init(assetsList: [AssetViewModel?]) {
-		self.filteredAssetListByAmount = assetsList.filter { !$0!.holdAmount.isZero }
+		self.filteredAssetListByAmount = assetsList
 		self.filteredAssetList = filteredAssetListByAmount
 	}
 
