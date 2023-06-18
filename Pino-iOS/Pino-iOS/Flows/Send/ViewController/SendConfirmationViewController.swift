@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SendConfirmationViewController: UIViewController {
+class SendConfirmationViewController: AuthenticationLockViewController {
 	// MARK: Private Properties
 
 	private let sendConfirmationVM: SendConfirmationViewModel
@@ -39,9 +39,11 @@ class SendConfirmationViewController: UIViewController {
 	private func setupView() {
 		view = SendConfirmationView(
 			sendConfirmationVM: sendConfirmationVM,
-			confirmButtonTapped: {},
+			confirmButtonTapped: {
+				self.confirmSend()
+			},
 			presentFeeInfo: { feeInfoActionSheet in
-				self.present(feeInfoActionSheet, animated: true)
+				self.showFeeInfoActionSheet(feeInfoActionSheet)
 			}
 		)
 	}
@@ -51,5 +53,15 @@ class SendConfirmationViewController: UIViewController {
 		setupPrimaryColorNavigationBar()
 		// Setup title view
 		setNavigationTitle("Confirm transfer")
+	}
+
+	private func showFeeInfoActionSheet(_ feeInfoActionSheet: InfoActionSheet) {
+		present(feeInfoActionSheet, animated: true)
+	}
+
+	private func confirmSend() {
+		unlockApp {
+			// Show next page here
+		}
 	}
 }
