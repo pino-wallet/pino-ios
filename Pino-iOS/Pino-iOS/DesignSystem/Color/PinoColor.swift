@@ -13,7 +13,7 @@ extension UIColor {
 	public enum Pino {
 		// MARK: - Primary
 
-		static let primary = UIColor(named: "Primary Color") ?? UIColor.systemGreen
+		static public let primary = UIColor(named: "Primary Color") ?? UIColor.systemGreen
 
 		// MARK: - Background
 

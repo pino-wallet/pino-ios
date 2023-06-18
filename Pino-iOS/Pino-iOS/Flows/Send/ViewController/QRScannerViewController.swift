@@ -112,7 +112,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		if let metadataObject = metadataObjects.first {
 			guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
 			guard let stringValue = readableObject.stringValue else { return }
-			AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+			try! AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 			found(code: stringValue)
 		}
 		dismiss(animated: true)

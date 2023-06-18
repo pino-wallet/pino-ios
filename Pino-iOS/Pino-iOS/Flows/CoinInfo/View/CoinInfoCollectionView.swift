@@ -13,7 +13,6 @@ class CoinInfoCollectionView: UICollectionView {
 
 	private var cancellable = Set<AnyCancellable>()
 	private let historyRefreshContorl = UIRefreshControl()
-	private let refreshErrorTostView = PinoToastView(message: nil, style: .secondary, padding: 16)
 	private var coinInfoVM: CoinInfoViewModel!
 
 	// MARK: - Initializers
@@ -84,11 +83,10 @@ class CoinInfoCollectionView: UICollectionView {
 			if let error {
 				switch error {
 				case .unreachable:
-					self.refreshErrorTostView.message = self.coinInfoVM.connectionErrorToastMessage
+                    Toast.default(title: self.coinInfoVM.connectionErrorToastMessage, style: .error).show(haptic: .warning)
 				default:
-					self.refreshErrorTostView.message = self.coinInfoVM.requestFailedErrorToastMessage
+                    Toast.default(title: self.coinInfoVM.requestFailedErrorToastMessage, style: .error).show(haptic: .warning)
 				}
-				self.refreshErrorTostView.showToast()
 			}
 			self.hideSkeletonView()
 		}

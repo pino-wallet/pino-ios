@@ -11,7 +11,6 @@ import UIKit
 class AllDoneViewController: UIViewController {
 	// MARK: Private Properties
 
-	private let errorToastView = PinoToastView(message: nil, style: .error, padding: 95)
 	private var allDoneVM = AllDoneViewModel()
 	private var allDoneView: AllDoneView!
 
@@ -42,8 +41,7 @@ class AllDoneViewController: UIViewController {
 	private func getStarted() {
 		allDoneVM.createWallet(mnemonics: walletMnemonics) { error in
 			if let error {
-				self.errorToastView.message = error.description
-				self.errorToastView.showToast()
+                Toast.default(title: error.localizedDescription, style: .error).show(haptic: .warning)
 				self.allDoneView.activeGetStartedButton()
 			} else {
 				UserDefaults.standard.set(true, forKey: "isLogin")

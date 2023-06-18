@@ -26,7 +26,6 @@ class ReceiveAssetView: UIView {
 	private let addressLabel = PinoLabel(style: .description, text: "")
 	private let addressLabelContainer = UIView()
 	private let copyAddressButton = ReceiveActionButton()
-	private let copiedToastView = PinoToastView(message: nil, style: .primary)
 	private let addressQrCodeImageView = UIImageView()
 	private let paymentMethodOption = PaymentMethodOptionView()
 
@@ -87,8 +86,7 @@ class ReceiveAssetView: UIView {
 		copyAddressButton.titleText = receiveVM.copyAddressButtonText
 		copyAddressButton.onTap = { [weak self] in
 			UIPasteboard.general.string = self?.receiveVM.accountAddress
-			self?.copiedToastView.message = self?.receiveVM.copiedToastViewText
-			self?.copiedToastView.showToast()
+            Toast.default(title: self?.receiveVM.copiedToastViewText ?? "Copied!", style: .copy).show(haptic: .success)
 		}
 
 		addSubview(accountOwnerName)

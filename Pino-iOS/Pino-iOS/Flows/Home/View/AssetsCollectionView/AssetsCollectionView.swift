@@ -17,7 +17,6 @@ class AssetsCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
 	private let assetsRefreshControl = UIRefreshControl()
-	private let refreshErrorToastView = PinoToastView(message: nil, style: .secondary)
 
 	// MARK: - Public Properties
 
@@ -123,9 +122,7 @@ class AssetsCollectionView: UICollectionView {
 		homeVM.getHomeData { error in
 			self.refreshControl?.endRefreshing()
 			if let error {
-				#warning("Temporarily removing to add when toast library is added")
-//				self.refreshErrorToastView.message = error.message
-//				self.refreshErrorToastView.showToast()
+                Toast.default(title: error.message,subtitle: "Please try again!", style: .error).show(haptic: .warning)
 			} else {
 				self.hideSkeletonView()
 			}
