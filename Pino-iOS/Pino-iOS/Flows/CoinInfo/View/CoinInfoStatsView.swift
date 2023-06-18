@@ -201,7 +201,7 @@ class CoinInfoStatsView: UIStackView {
 		let pasteBoard = UIPasteboard.general
 		pasteBoard.string = coinInfoVM.coinPortfolio.website
 
-        Toast.default(title: coinInfoVM.copyWebsiteToastText, style: .copy).show(haptic: .success)
+		Toast.default(title: coinInfoVM.copyWebsiteToastText, style: .copy).show(haptic: .success)
 	}
 
 	@objc
@@ -210,8 +210,7 @@ class CoinInfoStatsView: UIStackView {
 			let pasteBoard = UIPasteboard.general
 			pasteBoard.string = coinInfoVM.coinPortfolio.contractAddress
 
-            Toast.default(title: coinInfoVM.copyContractAddressToastText, style: .copy).show(haptic: .success)
-
+			Toast.default(title: coinInfoVM.copyContractAddressToastText, style: .copy).show(haptic: .success)
 		}
 	}
 }

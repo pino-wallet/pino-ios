@@ -122,7 +122,7 @@ class AssetsCollectionView: UICollectionView {
 		homeVM.getHomeData { error in
 			self.refreshControl?.endRefreshing()
 			if let error {
-                Toast.default(title: error.message,subtitle: "Please try again!", style: .error).show(haptic: .warning)
+				Toast.default(title: error.message, subtitle: "Please try again!", style: .error).show(haptic: .warning)
 			} else {
 				self.hideSkeletonView()
 			}

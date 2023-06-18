@@ -83,9 +83,11 @@ class CoinInfoCollectionView: UICollectionView {
 			if let error {
 				switch error {
 				case .unreachable:
-                    Toast.default(title: self.coinInfoVM.connectionErrorToastMessage, style: .error).show(haptic: .warning)
+					Toast.default(title: self.coinInfoVM.connectionErrorToastMessage, style: .error)
+						.show(haptic: .warning)
 				default:
-                    Toast.default(title: self.coinInfoVM.requestFailedErrorToastMessage, style: .error).show(haptic: .warning)
+					Toast.default(title: self.coinInfoVM.requestFailedErrorToastMessage, style: .error)
+						.show(haptic: .warning)
 				}
 			}
 			self.hideSkeletonView()

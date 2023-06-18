@@ -63,7 +63,7 @@ class HomepageViewController: UIViewController {
 		view = UIView()
 		view.addSubview(assetsCollectionView)
 		assetsCollectionView.pin(.allEdges)
-    }
+	}
 
 	private func setupNavigationBar() {
 		homeVM.$walletInfo.sink { [weak self] accountInfo in
@@ -93,7 +93,7 @@ class HomepageViewController: UIViewController {
 		let pasteboard = UIPasteboard.general
 		pasteboard.string = homeVM.walletInfo.address
 
-        Toast.default(title: homeVM.copyToastMessage, style: .copy, direction: .top).show(haptic: .success)
+		Toast.default(title: homeVM.copyToastMessage, style: .copy, direction: .top).show(haptic: .success)
 	}
 
 	@objc

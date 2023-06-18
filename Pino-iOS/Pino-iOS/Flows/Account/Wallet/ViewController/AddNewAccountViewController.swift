@@ -66,7 +66,7 @@ class AddNewAccountViewController: UIViewController {
 			addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: true)
 			accountsVM.createNewAccount { [weak self] error in
 				if let error {
-                    Toast.default(title: error.localizedDescription, style: .error).show(haptic: .warning)
+					Toast.default(title: error.localizedDescription, style: .error).show(haptic: .warning)
 					self?.addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: false)
 					return
 				} else {
@@ -80,7 +80,7 @@ class AddNewAccountViewController: UIViewController {
 				self.importAccountWithKey(privateKey) { error in
 					if let error {
 						importWalletVC.importsecretPhraseView.activateButton()
-                        Toast.default(title: error.localizedDescription, style: .error).show(haptic: .warning)
+						Toast.default(title: error.localizedDescription, style: .error).show(haptic: .warning)
 					} else {
 						self.dismiss(animated: true)
 					}
@@ -101,5 +101,4 @@ class AddNewAccountViewController: UIViewController {
 			self?.addNewAccountCollectionView.reloadData()
 		}.store(in: &cancellables)
 	}
-        
 }

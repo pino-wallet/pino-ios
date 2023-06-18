@@ -41,7 +41,7 @@ class AllDoneViewController: UIViewController {
 	private func getStarted() {
 		allDoneVM.createWallet(mnemonics: walletMnemonics) { error in
 			if let error {
-                Toast.default(title: error.localizedDescription, style: .error).show(haptic: .warning)
+				Toast.default(title: error.localizedDescription, style: .error).show(haptic: .warning)
 				self.allDoneView.activeGetStartedButton()
 			} else {
 				UserDefaults.standard.set(true, forKey: "isLogin")
