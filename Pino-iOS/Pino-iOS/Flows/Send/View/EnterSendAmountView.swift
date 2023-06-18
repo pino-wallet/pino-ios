@@ -223,6 +223,17 @@ class EnterSendAmountView: UIView {
 
 	private func updateAmount(enteredAmount: String) {
 		enterAmountVM.calculateAmount(enteredAmount)
+		enterAmountVM.checkIfBalanceIsEnough(amount: enteredAmount) { isBalanceEnough in
+			if isBalanceEnough {
+				maxAmountTitle.textColor = .Pino.label
+				maxAmountLabel.textColor = .Pino.label
+				continueButton.style = .active
+			} else {
+				maxAmountTitle.textColor = .Pino.orange
+				maxAmountLabel.textColor = .Pino.orange
+				continueButton.style = .deactive
+			}
+		}
 		amountLabel.text = enterAmountVM.formattedAmount
 	}
 
@@ -246,7 +257,7 @@ extension EnterSendAmountView: UITextFieldDelegate {
 		// Check if the replacement string is a decimal point
 		if string == "." {
 			// Check if the existing text already contains a decimal point
-			if let text = textField.text, text.contains(".") {
+			if let text = textField.text, text.contains(".") || text.isEmpty {
 				// Disallow entering another decimal point
 				return false
 			}
