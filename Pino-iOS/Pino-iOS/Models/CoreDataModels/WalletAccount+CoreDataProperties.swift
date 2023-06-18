@@ -28,7 +28,7 @@ extension WalletAccount {
 	@NSManaged
 	public var name: String
 	@NSManaged
-	public var publicKey: Data
+	public var publicKey: String
 	@NSManaged
 	public var wallet: Wallet
 }
