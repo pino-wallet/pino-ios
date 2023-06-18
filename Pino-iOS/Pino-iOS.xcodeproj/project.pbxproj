@@ -278,6 +278,9 @@
 		D93C41FB29F7CC67003F2297 /* EditAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41FA29F7CC67003F2297 /* EditAccountCell.swift */; };
 		D93C41FD29F7D298003F2297 /* EditAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41FC29F7D298003F2297 /* EditAccountViewModel.swift */; };
 		D93C41FF29F7D3DF003F2297 /* EditAccountOptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41FE29F7D3DF003F2297 /* EditAccountOptionModel.swift */; };
+		D941CAC82A3F03C500910B70 /* SendStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D941CAC72A3F03C500910B70 /* SendStatusViewModel.swift */; };
+		D941CACA2A3F06E100910B70 /* SendStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D941CAC92A3F06E100910B70 /* SendStatusView.swift */; };
+		D941CACC2A3F082900910B70 /* SendStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D941CACB2A3F082900910B70 /* SendStatusViewController.swift */; };
 		D94A9A1D29FE4C6700DCA28D /* EditAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A1C29FE4C6700DCA28D /* EditAccountView.swift */; };
 		D94A9A2029FE6C4E00DCA28D /* EditAccountNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A1F29FE6C4E00DCA28D /* EditAccountNameViewController.swift */; };
 		D94A9A2229FE6CDA00DCA28D /* EditAccountNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A2129FE6CDA00DCA28D /* EditAccountNameView.swift */; };
@@ -713,6 +716,9 @@
 		D93C41FA29F7CC67003F2297 /* EditAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountCell.swift; sourceTree = "<group>"; };
 		D93C41FC29F7D298003F2297 /* EditAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountViewModel.swift; sourceTree = "<group>"; };
 		D93C41FE29F7D3DF003F2297 /* EditAccountOptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountOptionModel.swift; sourceTree = "<group>"; };
+		D941CAC72A3F03C500910B70 /* SendStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendStatusViewModel.swift; sourceTree = "<group>"; };
+		D941CAC92A3F06E100910B70 /* SendStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendStatusView.swift; sourceTree = "<group>"; };
+		D941CACB2A3F082900910B70 /* SendStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendStatusViewController.swift; sourceTree = "<group>"; };
 		D94A9A1C29FE4C6700DCA28D /* EditAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountView.swift; sourceTree = "<group>"; };
 		D94A9A1F29FE6C4E00DCA28D /* EditAccountNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameViewController.swift; sourceTree = "<group>"; };
 		D94A9A2129FE6CDA00DCA28D /* EditAccountNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameView.swift; sourceTree = "<group>"; };
@@ -2267,6 +2273,7 @@
 				E3F482EB2A3485A500EEC9CF /* EnterSendAmountViewController.swift */,
 				D99CAFC82A3AF0D400DBEF2B /* EnterSendAddressViewController.swift */,
 				E3D204CB2A39B7E90027FEBC /* QRScannerViewController.swift */,
+				D941CACB2A3F082900910B70 /* SendStatusViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2276,6 +2283,7 @@
 			children = (
 				E3F482F62A35B2DB00EEC9CF /* EnterSendAmountView.swift */,
 				D99CAFCC2A3AF2EE00DBEF2B /* EnterSendAddressView.swift */,
+				D941CAC92A3F06E100910B70 /* SendStatusView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2286,6 +2294,7 @@
 				D9A328142A3464B5005A8393 /* SelectAssetToSendViewModel.swift */,
 				E3F482F82A35B43400EEC9CF /* EnterSendAmountViewModel.swift */,
 				D99CAFCA2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift */,
+				D941CAC72A3F03C500910B70 /* SendStatusViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2792,6 +2801,7 @@
 				2919216FFA72DA25EADE5CF3 /* CustomSwitchOptionView.swift in Sources */,
 				4CF290BDB2B49F698A864B28 /* Date+Extension.swift in Sources */,
 				D99F4B1D29E2C25C009F7F55 /* PaymentMethodOptionView.swift in Sources */,
+				D941CAC82A3F03C500910B70 /* SendStatusViewModel.swift in Sources */,
 				33B1FBC74480BD66A74733E5 /* Decimal+Extension.swift in Sources */,
 				0F5854171F8774FEF94497FB /* EditAccountViewController.swift in Sources */,
 				3E5FFA532C0440149913FE32 /* Encodable+Extension.swift in Sources */,
@@ -2799,6 +2809,7 @@
 				D91A3A0729E41C1800004CB2 /* NotificationSettingsOptionViewModel.swift in Sources */,
 				A64D2DFF6C7D5354F2CA6D50 /* Environment.swift in Sources */,
 				E55DCCDCC37B827E5DBEEB82 /* FlowLayout+Extension.swift in Sources */,
+				D941CACC2A3F082900910B70 /* SendStatusViewController.swift in Sources */,
 				EFA259C9FE0473172660E5C7 /* FormatterTypes.swift in Sources */,
 				DF00179329F85727001164EA /* PinoNonHDWallet.swift in Sources */,
 				7CF95B0F99AE30C81601CFAA /* GradientLayer.swift in Sources */,
@@ -2906,6 +2917,7 @@
 				05B960E15A9EEF333D3A8296 /* ReceiveAssetView.swift in Sources */,
 				180F866A8ECFDBE0380BECDB /* ReceiveAssetViewController.swift in Sources */,
 				DF00179729F96D3D001164EA /* PinoWalletManager.swift in Sources */,
+				D941CACA2A3F06E100910B70 /* SendStatusView.swift in Sources */,
 				34974909379D77088510A2BB /* ReceiveViewModel.swift in Sources */,
 				C08B09A1A89A6859D79D25D7 /* RecoveryPhraseView.swift in Sources */,
 				9B356BB4D7AD512DAD0A05D2 /* RecoveryPhraseViewController.swift in Sources */,
