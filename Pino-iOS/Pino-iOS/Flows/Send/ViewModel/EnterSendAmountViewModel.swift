@@ -57,20 +57,6 @@ class EnterSendAmountViewModel {
 		}
 	}
 
-	private func convertEnteredAmountToDollar(amount: String) {
-		let enteredAmountNumber = BigNumber(decimalNumber: amount) * selectedToken.price
-		enteredAmount = enteredAmountNumber.formattedAmountOf(type: .price)
-	}
-
-	private func convertDollarAmountToTokenValue(amount: String) {
-		guard let decimalNumber = Decimal(string: amount),
-		      let price = Decimal(string: selectedToken.price.decimalString) else { return }
-		var enteredAmountNumber = decimalNumber / price
-		var roundedDecimal: Decimal = 0
-		NSDecimalRound(&roundedDecimal, &enteredAmountNumber, 12, .up)
-		enteredAmount = "≈ \(roundedDecimal.description)"
-	}
-
 	public func checkIfBalanceIsEnough(amount: String, isEnough: (Bool) -> Void) {
 		let maxAmmount = Decimal(string: maxAmount)!
 		let enteredAmmount = Decimal(string: amount)!
@@ -79,5 +65,26 @@ class EnterSendAmountViewModel {
 		} else {
 			isEnough(true)
 		}
+	}
+
+	// MARK: - Private Methods
+
+	private func convertEnteredAmountToDollar(amount: String) {
+		guard let decimalNumber = Decimal(string: amount),
+		      let price = Decimal(string: selectedToken.price.decimalString) else { return }
+		enteredAmount = formattedAmount(of: decimalNumber * price)
+	}
+
+	private func convertDollarAmountToTokenValue(amount: String) {
+		guard let decimalNumber = Decimal(string: amount),
+		      let price = Decimal(string: selectedToken.price.decimalString) else { return }
+		enteredAmount = formattedAmount(of: decimalNumber / price)
+	}
+
+	private func formattedAmount(of decimalNumber: Decimal) -> String {
+		var decimalNumber = decimalNumber
+		var roundedDecimal: Decimal = 0
+		NSDecimalRound(&roundedDecimal, &decimalNumber, 12, .up)
+		return "≈ \(roundedDecimal.description)"
 	}
 }
