@@ -16,7 +16,6 @@ class EnterSendAmountView: UIView {
 	private let maximumStackView = UIStackView()
 	private let tokenStackView = UIStackView()
 	private let amountTextFieldStackView = UIStackView()
-	private let amountTextfield = UITextField()
 	private let dollarSignLabel = UILabel()
 	private let amountLabel = UILabel()
 	private let maxAmountStackView = UIStackView()
@@ -34,6 +33,10 @@ class EnterSendAmountView: UIView {
 	private var keyboardHeight: CGFloat = 320 // Minimum height in rare case keyboard of height was not calculated
 	private var nextButtonBottomConstraint: NSLayoutConstraint!
 	private let nextButtonBottomConstant = CGFloat(12)
+
+	// MARK: - Public Properties
+
+	public let amountTextfield = UITextField()
 
 	// MARK: - Initializers
 
@@ -154,12 +157,11 @@ class EnterSendAmountView: UIView {
 
 		amountTextfield.keyboardType = .decimalPad
 		amountTextfield.delegate = self
-        amountTextfield.
 
 		dollarSignLabel.isHidden = true
 		dollarFormatButton.isHidden = !enterAmountVM.selectedToken.isVerified
-        
-        amountLabel.numberOfLines = 0
+
+		amountLabel.numberOfLines = 0
 
 		enterAmountVM.selectedTokenChanged = {
 			self.updateView()
