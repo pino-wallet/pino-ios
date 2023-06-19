@@ -11,7 +11,6 @@ class RecoveryPhraseViewController: AuthenticationLockViewController {
 	// MARK: - Private Properties
 
 	private let secretPhraseVM = RecoveryPhraseViewModel()
-	private let copyToastView = PinoToastView(message: nil, style: .secondary, padding: 24)
 	private var recoverPhraseView: RecoveryPhraseView!
 
 	// MARK: - View Overrides
@@ -68,8 +67,7 @@ class RecoveryPhraseViewController: AuthenticationLockViewController {
 	private func copySecretPhrase() {
 		let pasteboard = UIPasteboard.general
 		pasteboard.string = secretPhraseVM.secretPhraseList.joined(separator: " ")
-		copyToastView.message = "Secret phrase has been copied"
-		copyToastView.showToast()
+		Toast.default(title: secretPhraseVM.recoveryPhraseCopied, style: .copy).show(haptic: .success)
 	}
 
 	private func showFaceID() {

@@ -17,7 +17,6 @@ class AccountHeaderView: UICollectionReusableView {
 	private let accountAddress = UILabel()
 	private let accountSettingsTitle = UILabel()
 	private let accountHeaderVM = AccountHeaderViewModel()
-	private let copyToastView = PinoToastView(message: nil, style: .secondary, padding: 80)
 
 	// MARK: - Public Properties
 
@@ -100,7 +99,6 @@ class AccountHeaderView: UICollectionReusableView {
 		let pasteboard = UIPasteboard.general
 		pasteboard.string = accountInfoVM.address
 
-		copyToastView.message = accountHeaderVM.copyMessage
-		copyToastView.showToast()
+		Toast.default(title: accountHeaderVM.copyMessage, style: .copy).show(haptic: .success)
 	}
 }

@@ -36,8 +36,6 @@ class CoinInfoStatsView: UIStackView {
 	private let coinPriceStackViewSepratorLabel = PinoLabel(style: .title, text: "")
 	private let coinPriceChangeLabel = PinoLabel(style: .title, text: "")
 	private let coinPriceLabel = PinoLabel(style: .title, text: "")
-	private let copyWebsiteToastview = PinoToastView(message: nil, style: .secondary)
-	private let copyContractAddressToastview = PinoToastView(message: nil, style: .secondary)
 	private var websiteTapGesture: UITapGestureRecognizer!
 	private var contractAddressGesture: UITapGestureRecognizer!
 
@@ -203,8 +201,7 @@ class CoinInfoStatsView: UIStackView {
 		let pasteBoard = UIPasteboard.general
 		pasteBoard.string = coinInfoVM.coinPortfolio.website
 
-		copyWebsiteToastview.message = coinInfoVM.copyWebsiteToastText
-		copyWebsiteToastview.showToast()
+		Toast.default(title: coinInfoVM.copyWebsiteToastText, style: .copy).show(haptic: .success)
 	}
 
 	@objc
@@ -213,8 +210,7 @@ class CoinInfoStatsView: UIStackView {
 			let pasteBoard = UIPasteboard.general
 			pasteBoard.string = coinInfoVM.coinPortfolio.contractAddress
 
-			copyContractAddressToastview.message = coinInfoVM.copyContractAddressToastText
-			copyContractAddressToastview.showToast()
+			Toast.default(title: coinInfoVM.copyContractAddressToastText, style: .copy).show(haptic: .success)
 		}
 	}
 }
