@@ -92,7 +92,11 @@ class AccountsViewModel {
 			}.store(in: &cancellables)
 	}
 
-	private func addNewWalletAccountWithAddress(_ address: String, derivationPath: String? = nil, publicKey: EthereumPublicKey) {
+	private func addNewWalletAccountWithAddress(
+		_ address: String,
+		derivationPath: String? = nil,
+		publicKey: EthereumPublicKey
+	) {
 		var walletType: Wallet.WalletType = .nonHDWallet
 		if derivationPath != nil {
 			walletType = .hdWallet
@@ -109,7 +113,7 @@ class AccountsViewModel {
 		coreDataManager.createWalletAccount(
 			address: address,
 			derivationPath: derivationPath,
-            publicKey: publicKey.hex(),
+			publicKey: publicKey.hex(),
 			name: newAvatar.name,
 			avatarIcon: newAvatar.rawValue,
 			avatarColor: newAvatar.rawValue,
