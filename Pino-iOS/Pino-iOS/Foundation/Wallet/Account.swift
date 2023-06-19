@@ -41,20 +41,20 @@ public class Account {
 		else { throw WalletOperationError.validator(.privateKeyIsInvalid) }
 		let privateKey = try EthereumPrivateKey(privateKeyData)
 		let publicKey = privateKey.publicKey
-        try self.init(publicKey: publicKey, accountSource: accountSource)
+		try self.init(publicKey: publicKey, accountSource: accountSource)
 	}
 
 	init(publicKey: EthereumPublicKey, accountSource: Wallet.WalletType = .hdWallet) throws {
 		self.derivationPath = nil
 		self.publicKey = publicKey
-        self.address = publicKey.address
+		self.address = publicKey.address
 		self.accountSource = accountSource
 	}
 
 	init(account: WalletAccount) throws {
 		self.derivationPath = account.derivationPath
-        self.publicKey = try EthereumPublicKey(account.publicKey)
-        self.address = publicKey.address
+		self.publicKey = try EthereumPublicKey(account.publicKey)
+		self.address = publicKey.address
 		self.accountSource = account.wallet.walletType
 	}
 }
@@ -64,5 +64,3 @@ extension Account: Equatable {
 		lhs.address == rhs.address
 	}
 }
-
-

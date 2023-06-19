@@ -171,11 +171,11 @@ class RevealPrivateKeyView: UIView {
 
 	public func showPrivateKey() {
 		UIView.animate(withDuration: 0.5) {
-            do {
-                self.privateKeyLabel.text = try self.revealPrivateKeyVM.privateKey()
-            } catch {
-                #warning("throw a warning here with toast")
-            }
+			do {
+				self.privateKeyLabel.text = try self.revealPrivateKeyVM.privateKey()
+			} catch {
+				#warning("throw a warning here with toast")
+			}
 			self.privateKeyLabel.alpha = 0.9
 			self.revealBlurView.alpha = 0
 			self.revealStackView.alpha = 0
