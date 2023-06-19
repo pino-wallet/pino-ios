@@ -9,12 +9,12 @@ import Foundation
 import WalletCore
 import Web3
 
-public class Account: Codable {
+public class Account {
 	// MARK: - Public Property
 
 	public var address: EthereumAddress
 	public var derivationPath: String? /// For Accounts derived from HDWallet
-	public var publicKey: Data
+	public var publicKey: EthereumPublicKey
 	public var accountSource: Wallet.WalletType
 
 	public var eip55Address: String {
@@ -39,26 +39,22 @@ public class Account: Codable {
 	convenience init(privateKeyData: Data, accountSource: Wallet.WalletType = .hdWallet) throws {
 		guard WalletValidator.isPrivateKeyValid(key: privateKeyData)
 		else { throw WalletOperationError.validator(.privateKeyIsInvalid) }
-		let privateKey = PrivateKey(data: privateKeyData)!
-		let publicKey = privateKey.getPublicKeySecp256k1(compressed: true)
-		try self.init(publicKey: publicKey.data, accountSource: accountSource)
+		let privateKey = try EthereumPrivateKey(privateKeyData)
+		let publicKey = privateKey.publicKey
+		try self.init(publicKey: publicKey, accountSource: accountSource)
 	}
 
-	init(publicKey: Data, accountSource: Wallet.WalletType = .hdWallet) throws {
-		guard WalletValidator.isPublicKeyValid(key: publicKey) else {
-			throw WalletOperationError.validator(.publicKeyIsInvalid)
-		}
-		let ethPublicKey = try EthereumPublicKey(hexPublicKey: publicKey.hexString)
+	init(publicKey: EthereumPublicKey, accountSource: Wallet.WalletType = .hdWallet) throws {
 		self.derivationPath = nil
 		self.publicKey = publicKey
-		self.address = EthereumAddress(hexString: ethPublicKey.address.hex(eip55: true))!
+		self.address = publicKey.address
 		self.accountSource = accountSource
 	}
 
-	init(account: WalletAccount) {
+	init(account: WalletAccount) throws {
 		self.derivationPath = account.derivationPath
-		self.publicKey = account.publicKey
-		self.address = EthereumAddress(hexString: account.eip55Address)!
+		self.publicKey = try EthereumPublicKey(account.publicKey)
+		self.address = publicKey.address
 		self.accountSource = account.wallet.walletType
 	}
 }

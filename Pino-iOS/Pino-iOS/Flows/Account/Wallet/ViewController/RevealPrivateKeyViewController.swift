@@ -12,7 +12,6 @@ class RevealPrivateKeyViewController: AuthenticationLockViewController {
 
 	private var revealPrivateKeyView: RevealPrivateKeyView!
 	private let revealPrivateKeyVM = RevealPrivateKeyViewModel()
-	private let copyPrivateKeyToastView = PinoToastView(message: nil, style: .secondary, padding: 80)
 
 	// MARK: - View Overrides
 
@@ -71,9 +70,12 @@ class RevealPrivateKeyViewController: AuthenticationLockViewController {
 
 	private func copyPrivateKey() {
 		let pasteboard = UIPasteboard.general
-		pasteboard.string = revealPrivateKeyVM.privateKey
-		copyPrivateKeyToastView.message = "Private key has been copied"
-		copyPrivateKeyToastView.showToast()
+		do {
+			pasteboard.string = try revealPrivateKeyVM.privateKey()
+			Toast.default(title: revealPrivateKeyVM.privateKeyCopied, style: .copy).show(haptic: .success)
+		} catch {
+			Toast.default(title: "Failed to fetch private key", style: .error).show(haptic: .warning)
+		}
 	}
 
 	private func dismissPage() {

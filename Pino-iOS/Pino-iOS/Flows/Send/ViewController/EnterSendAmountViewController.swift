@@ -8,10 +8,9 @@
 import UIKit
 
 class EnterSendAmountViewController: UIViewController {
-	// MARK: - Public Properties
-
 	// MARK: Private Properties
 
+	private var enterAmountView: EnterSendAmountView!
 	private let enterAmountVM: EnterSendAmountViewModel
 	private let assets: [AssetViewModel]
 
@@ -38,20 +37,23 @@ class EnterSendAmountViewController: UIViewController {
 		setupNavigationBar()
 	}
 
-	override func viewWillDisappear(_ animated: Bool) {
-		// Save selected assets locally
+	override func viewDidAppear(_ animated: Bool) {
+		enterAmountView.amountTextfield.becomeFirstResponder()
 	}
 
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = EnterSendAmountView(
+		enterAmountView = EnterSendAmountView(
 			enterAmountVM: enterAmountVM,
 			changeSelectedToken: {
 				self.openSelectAssetPage()
 			},
-			nextButtonTapped: {}
+			nextButtonTapped: {
+				self.openEnterAddressPage()
+			}
 		)
+		view = enterAmountView
 	}
 
 	private func setupNavigationBar() {
@@ -68,5 +70,11 @@ class EnterSendAmountViewController: UIViewController {
 		}
 		let selectAssetNavigationController = UINavigationController(rootViewController: selectAssetVC)
 		present(selectAssetNavigationController, animated: true)
+	}
+
+	private func openEnterAddressPage() {
+		let enterSendAddressVM = EnterSendAddressViewModel(sendAmountVM: enterAmountVM)
+		let enterSendAddressVC = EnterSendAddressViewController(enterAddressVM: enterSendAddressVM)
+		navigationController?.pushViewController(enterSendAddressVC, animated: true)
 	}
 }

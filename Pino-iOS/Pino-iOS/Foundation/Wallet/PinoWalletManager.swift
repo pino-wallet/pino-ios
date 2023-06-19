@@ -70,8 +70,8 @@ class PinoWalletManager: WalletManagement {
 		accounts.contains(where: { $0 == account })
 	}
 
-	public func exportPrivateKeyFor(account: WalletAccount) -> (data: Data, string: String) {
-		let account = Account(account: account)
+	public func exportPrivateKeyFor(account: WalletAccount) throws -> (data: Data, string: String) {
+		let account = try Account(account: account)
 		return (account.privateKey, account.privateKey.hexString)
 	}
 

@@ -15,7 +15,6 @@ class HomepageViewController: UIViewController {
 	private var profileVM: ProfileViewModel!
 	private var cancellables = Set<AnyCancellable>()
 	private var assetsCollectionView: AssetsCollectionView!
-	private var addressCopiedToastView = CopyToastView(message: nil)
 
 	// MARK: - View Overrides
 
@@ -63,7 +62,6 @@ class HomepageViewController: UIViewController {
 		view = UIView()
 		view.addSubview(assetsCollectionView)
 		assetsCollectionView.pin(.allEdges)
-		addressCopiedToastView.message = homeVM.copyToastMessage
 	}
 
 	private func setupNavigationBar() {
@@ -94,7 +92,7 @@ class HomepageViewController: UIViewController {
 		let pasteboard = UIPasteboard.general
 		pasteboard.string = homeVM.walletInfo.address
 
-		addressCopiedToastView.showToast()
+		Toast.default(title: homeVM.copyToastMessage, style: .copy, direction: .top).show(haptic: .success)
 	}
 
 	@objc
