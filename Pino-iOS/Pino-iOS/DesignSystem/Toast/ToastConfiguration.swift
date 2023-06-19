@@ -40,7 +40,7 @@ public struct ToastConfiguration {
 		autoHide: Bool = true,
 		enablePanToClose: Bool = false,
 		displayTime: TimeInterval = 1.5,
-		animationTime: TimeInterval = 0.3,
+		animationTime: TimeInterval = 0.4,
 		enteringAnimation: Toast.AnimationType = .default,
 		exitingAnimation: Toast.AnimationType = .default,
 		attachTo view: UIView? = nil

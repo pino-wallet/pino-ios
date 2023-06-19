@@ -66,7 +66,7 @@ class AddNewAccountViewController: UIViewController {
 			addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: true)
 			accountsVM.createNewAccount { [weak self] error in
 				if let error {
-					Toast.default(title: error.localizedDescription, style: .error).show(haptic: .warning)
+					Toast.default(title: error.description, style: .error).show(haptic: .warning)
 					self?.addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: false)
 					return
 				} else {

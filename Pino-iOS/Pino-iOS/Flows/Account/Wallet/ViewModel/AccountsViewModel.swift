@@ -36,7 +36,7 @@ class AccountsViewModel {
 		accountsList = accounts.compactMap { AccountInfoViewModel(walletAccountInfoModel: $0) }
 	}
 
-	public func createNewAccount(completion: @escaping (Error?) -> Void) {
+	public func createNewAccount(completion: @escaping (WalletOperationError?) -> Void) {
 		let coreDataManager = CoreDataManager()
 		let currentWallet = coreDataManager.getSelectedWalletOf(type: .hdWallet)!
 		do {
@@ -50,7 +50,7 @@ class AccountsViewModel {
 				completion(error)
 			}
 		} catch {
-			completion(error)
+            completion(WalletOperationError.unknow(error))
 		}
 	}
 
