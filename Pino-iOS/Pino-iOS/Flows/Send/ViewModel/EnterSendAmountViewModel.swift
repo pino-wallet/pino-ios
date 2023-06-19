@@ -34,9 +34,9 @@ class EnterSendAmountViewModel {
 
 	public var formattedAmount: String {
 		if isDollarEnabled {
-			return "\(enteredAmount) \(selectedToken.symbol)"
+			return "≈ \(enteredAmount) \(selectedToken.symbol)"
 		} else {
-			return "$\(enteredAmount)"
+			return "≈ $\(enteredAmount)"
 		}
 	}
 
@@ -85,6 +85,6 @@ class EnterSendAmountViewModel {
 		var decimalNumber = decimalNumber
 		var roundedDecimal: Decimal = 0
 		NSDecimalRound(&roundedDecimal, &decimalNumber, 12, .up)
-		return "≈ \(roundedDecimal.description)"
+		return "\(roundedDecimal.description)"
 	}
 }
