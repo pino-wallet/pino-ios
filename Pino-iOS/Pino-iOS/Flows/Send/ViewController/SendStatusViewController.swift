@@ -11,6 +11,18 @@ class SendStatusViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private var sendStatusView: SendStatusView!
+	private var confirmationVM: SendConfirmationViewModel
+
+	// MARK: - Initializers
+
+	init(confirmationVM: SendConfirmationViewModel) {
+		self.confirmationVM = confirmationVM
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	// MARK: - View Overrides
 

@@ -41,7 +41,7 @@ class EnterSendAddressViewController: UIViewController {
 			self?.enterSendAddressView.validationStatus = validationStatus
 		}
 		enterSendAddressView.tapNextButton = {
-			#warning("go to confirm page")
+			self.openConfiramtionPage()
 		}
 		enterSendAddressView.scanAddressQRCode = {
 			let qrScanner = QRScannerViewController(foundAddress: { address in
@@ -57,6 +57,27 @@ class EnterSendAddressViewController: UIViewController {
 
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
-		setNavigationTitle("\(enterSendAddressVM.pageTitlePreFix) \(enterSendAddressVM.selectedAsset.symbol)")
+		setNavigationTitle(
+			"\(enterSendAddressVM.pageTitlePreFix) \(enterSendAddressVM.sendAmountVM.selectedToken.symbol)"
+		)
+	}
+
+	private func openConfiramtionPage() {
+		guard let address = enterSendAddressView.addressTextField.getText(),
+		      enterSendAddressView.validationStatus == .success else { return }
+
+		#warning("current wallet is temporary and must be changed based on user selection")
+		let currentWallet = CoreDataManager().getAllWalletAccounts().first(where: { $0.isSelected })
+		let walletInfo = AccountInfoViewModel(walletAccountInfoModel: currentWallet)
+
+		let confirmationVM = SendConfirmationViewModel(
+			selectedToken: enterSendAddressVM.sendAmountVM.selectedToken,
+			selectedWallet: walletInfo,
+			recipientAddress: address,
+			sendAmount: enterSendAddressVM.sendAmountVM.tokenAmount,
+			sendAmountInDollar: enterSendAddressVM.sendAmountVM.dollarAmount
+		)
+		let confirmationVC = SendConfirmationViewController(sendConfirmationVM: confirmationVM)
+		navigationController?.pushViewController(confirmationVC, animated: true)
 	}
 }

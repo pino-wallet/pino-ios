@@ -8,8 +8,6 @@
 import UIKit
 
 class EnterSendAmountViewController: UIViewController {
-	// MARK: - Public Properties
-
 	// MARK: Private Properties
 
 	private var enterAmountView: EnterSendAmountView!
@@ -52,13 +50,7 @@ class EnterSendAmountViewController: UIViewController {
 				self.openSelectAssetPage()
 			},
 			nextButtonTapped: {
-				#warning("we should verify this amount and then go to next page")
-				let enterSendAddressVM = EnterSendAddressViewModel(
-					selectedAsset: self.enterAmountVM.selectedToken,
-					enteredAmount: self.enterAmountVM.enteredAmount
-				)
-				let enterSendAddressVC = EnterSendAddressViewController(enterAddressVM: enterSendAddressVM)
-				self.navigationController?.pushViewController(enterSendAddressVC, animated: true)
+				self.openEnterAddressPage()
 			}
 		)
 		view = enterAmountView
@@ -78,5 +70,11 @@ class EnterSendAmountViewController: UIViewController {
 		}
 		let selectAssetNavigationController = UINavigationController(rootViewController: selectAssetVC)
 		present(selectAssetNavigationController, animated: true)
+	}
+
+	private func openEnterAddressPage() {
+		let enterSendAddressVM = EnterSendAddressViewModel(sendAmountVM: enterAmountVM)
+		let enterSendAddressVC = EnterSendAddressViewController(enterAddressVM: enterSendAddressVM)
+		navigationController?.pushViewController(enterSendAddressVC, animated: true)
 	}
 }

@@ -17,9 +17,8 @@ class EnterSendAddressViewModel {
 	public let pageTitlePreFix = "Send"
 	public let nextButtonTitle = "Next"
 	public let qrCodeIconName = "qr_code_scanner"
-	public var selectedAsset: AssetViewModel
-	public var enteredAmount: String
-	public enum ValidationStatus {
+	public var sendAmountVM: EnterSendAmountViewModel
+	public enum ValidationStatus: Equatable {
 		case error(ValidationError)
 		case success
 		case pending
@@ -39,9 +38,8 @@ class EnterSendAddressViewModel {
 
 	// MARK: - Initializers
 
-	init(selectedAsset: AssetViewModel, enteredAmount: String) {
-		self.selectedAsset = selectedAsset
-		self.enteredAmount = enteredAmount
+	init(sendAmountVM: EnterSendAmountViewModel) {
+		self.sendAmountVM = sendAmountVM
 	}
 
 	// MARK: - Public Methods
