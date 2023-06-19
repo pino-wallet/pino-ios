@@ -13,6 +13,7 @@ import Web3PromiseKit
 enum Web3Error: Error {
     case invalidSmartContractAddress
 	case failedTransaction
+    case insufficientBalance
 }
 
 class Web3Core {
@@ -80,8 +81,9 @@ class Web3Core {
 		}
 	}
 
-	public func sendEtherTo(address: String, amount: BigUInt) throws -> Promise<String> {
-		Promise<String>() { seal in
+	public func sendEtherTo(address: String, amount: String) throws -> Promise<String> {
+        let enteredAmount = EthereumQuantity(quantity: try BigUInt(amount))
+		return Promise<String>() { seal in
 			let privateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
 			firstly {
 				web3.eth.gasPrice()
@@ -92,7 +94,7 @@ class Web3Core {
 					nonce: nonce,
 					gasPrice: price,
 					to: EthereumAddress(hex: address, eip55: true),
-					value: EthereumQuantity(quantity: amount)
+					value: enteredAmount
 				)
 				tx.gasLimit = 21000
 				tx.transactionType = .legacy
