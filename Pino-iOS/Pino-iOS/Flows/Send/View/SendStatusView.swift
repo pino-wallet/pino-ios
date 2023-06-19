@@ -144,9 +144,9 @@ class SendStatusView: UIView {
 		loadingContainer.pin(.fixedWidth(48), .fixedHeight(48))
 		dissmissButton.pin(.fixedHeight(30), .fixedHeight(30), .top(padding: 22), .trailing(padding: 0))
 		clearNavigationBar.pin(.horizontalEdges(padding: 0), .top(padding: 0))
-		pendingStackView.pin(.centerX(), .relative(.top, 288, to: clearNavigationBar, .bottom))
+		pendingStackView.pin(.centerX(), .centerY(to: layoutMarginsGuide))
 		statusIconView.pin(.fixedWidth(56), .fixedHeight(56))
-		mainStackView.pin(.relative(.top, 151, to: clearNavigationBar, .bottom), .horizontalEdges(padding: 16))
+		mainStackView.pin(.centerY(to: layoutMarginsGuide), .horizontalEdges(padding: 16))
 		viewStatusButton.pin(.fixedHeight(56))
 		closeButton.pin(.bottom(padding: 32), .horizontalEdges(padding: 16))
 	}
