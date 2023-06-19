@@ -93,6 +93,7 @@ public enum WalletOperationError: LocalizedError {
 	case wallet(WalletError)
 	case validator(WalletValidatorError)
 	case keyManager(KeyManagementError)
+	case unknow(Error)
 
 	public var description: String {
 		switch self {
@@ -102,6 +103,8 @@ public enum WalletOperationError: LocalizedError {
 			return walletValidatorError.description
 		case let .keyManager(keyManagementError):
 			return keyManagementError.description
+		case let .unknow(error):
+			return "Uknown Error:\(error)"
 		}
 	}
 }

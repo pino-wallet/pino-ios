@@ -12,7 +12,6 @@ class AddNewAccountViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let accountsVM: AccountsViewModel
-	private let errorToastview = PinoToastView(message: nil, style: .error, padding: 16)
 	private var addNewAccountCollectionView: AddNewAccountCollectionView!
 	private var addNewAccountVM = AddNewAccountViewModel()
 	private var cancellables = Set<AnyCancellable>()
@@ -67,8 +66,7 @@ class AddNewAccountViewController: UIViewController {
 			addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: true)
 			accountsVM.createNewAccount { [weak self] error in
 				if let error {
-					self?.errorToastview.message = error.localizedDescription
-					self?.errorToastview.showToast()
+					Toast.default(title: error.description, style: .error).show(haptic: .warning)
 					self?.addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: false)
 					return
 				} else {
@@ -82,8 +80,7 @@ class AddNewAccountViewController: UIViewController {
 				self.importAccountWithKey(privateKey) { error in
 					if let error {
 						importWalletVC.importsecretPhraseView.activateButton()
-						self.errorToastview.message = error.description
-						self.errorToastview.showToast()
+						Toast.default(title: error.localizedDescription, style: .error).show(haptic: .warning)
 					} else {
 						self.dismiss(animated: true)
 					}

@@ -43,6 +43,14 @@ class EnterSendAddressViewController: UIViewController {
 		enterSendAddressView.tapNextButton = {
 			self.openConfiramtionPage()
 		}
+		enterSendAddressView.scanAddressQRCode = {
+			let qrScanner = QRScannerViewController(foundAddress: { address in
+				self.enterSendAddressView.addressTextField.text = address
+				self.enterSendAddressVM.validateSendAddress(address: address)
+
+			})
+			self.present(qrScanner, animated: true)
+		}
 
 		view = enterSendAddressView
 	}

@@ -11,6 +11,7 @@ class EnterSendAddressView: UIView {
 	// MARK: - Closures
 
 	public var tapNextButton: () -> Void = {}
+	public var scanAddressQRCode: () -> Void = {}
 
 	// MARK: - Private Propterties
 
@@ -57,7 +58,13 @@ class EnterSendAddressView: UIView {
 			self.enterSendAddressVM.validateSendAddress(address: self.addressTextField.getText() ?? "")
 		}
 
-		nextButton.addTarget(self, action: #selector(onTapNextButton), for: .touchUpInside)
+		nextButton.addAction(UIAction(handler: { _ in
+			self.tapNextButton()
+		}), for: .touchUpInside)
+
+		qrCodeScanButton.addAction(UIAction(handler: { _ in
+			self.scanAddressQRCode()
+		}), for: .touchUpInside)
 
 		addSubview(addressTextField)
 		addSubview(nextButton)
@@ -169,11 +176,6 @@ class EnterSendAddressView: UIView {
 	@objc
 	private func viewEndEditing() {
 		endEditing(true)
-	}
-
-	@objc
-	private func onTapNextButton() {
-		tapNextButton()
 	}
 }
 
