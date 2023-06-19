@@ -16,7 +16,7 @@ struct RecoveryPhraseViewModel {
 	public let warningDescription = "Pino support will NEVER reach out to ask for it!"
 	public let screenshotAlertTitle = "Warning"
 	public let screenshotAlertMessage = "It isn't safe to take a screenshot of a secret phrase!"
-    public var revealButtonTitle = "Tap to reveal"
+	public var revealButtonTitle = "Tap to reveal"
 	public var recoveryPhraseCopied = "Secret phrase has been copied"
 	public var secretPhraseList: [String] = []
 

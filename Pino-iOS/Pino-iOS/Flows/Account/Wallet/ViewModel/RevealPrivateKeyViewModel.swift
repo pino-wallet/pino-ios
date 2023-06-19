@@ -15,7 +15,7 @@ struct RevealPrivateKeyViewModel {
 	public let copyButtonTitle = "Copy to clipboard"
 	public let copyButtonImage = "square.on.square"
 	public let screenshotAlertTitle = "Warning"
-    public let screenshotAlertMessage = "It isn't safe to take a screenshot of your private key!"
+	public let screenshotAlertMessage = "It isn't safe to take a screenshot of your private key!"
 	public let privateKeyCopied = "Private key has been copied"
 
 	public var privateKey: String {

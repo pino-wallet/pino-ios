@@ -50,7 +50,7 @@ class AccountsViewModel {
 				completion(error)
 			}
 		} catch {
-            completion(WalletOperationError.unknow(error))
+			completion(WalletOperationError.unknow(error))
 		}
 	}
 
