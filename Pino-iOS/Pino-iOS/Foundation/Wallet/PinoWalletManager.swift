@@ -28,6 +28,10 @@ class PinoWalletManager: WalletManagement {
 		return foundAccount
 	}
 
+	public var currentAccountPrivateKey: (data: Data, string: String) {
+		try! exportPrivateKeyFor(account: currentAccount)
+	}
+
 	// MARK: - Public Methods
 
 	public func generateMnemonics() -> String {
