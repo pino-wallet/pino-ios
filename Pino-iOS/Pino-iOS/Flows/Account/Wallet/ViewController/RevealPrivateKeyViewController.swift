@@ -70,8 +70,14 @@ class RevealPrivateKeyViewController: AuthenticationLockViewController {
 
 	private func copyPrivateKey() {
 		let pasteboard = UIPasteboard.general
-		pasteboard.string = revealPrivateKeyVM.privateKey
-		Toast.default(title: revealPrivateKeyVM.privateKeyCopied, style: .copy).show(haptic: .success)
+		do {
+			pasteboard.string = try revealPrivateKeyVM.privateKey()
+            copyPrivateKeyToastView.message = "Private key has been copied"
+		    copyPrivateKeyToastView.showToast()
+		} catch {
+            Toast.default(title: revealPrivateKeyVM.privateKeyCopied, style: .copy).show(haptic: .success)
+		}
+		
 	}
 
 	private func dismissPage() {
