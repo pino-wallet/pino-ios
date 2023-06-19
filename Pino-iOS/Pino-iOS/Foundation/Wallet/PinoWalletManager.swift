@@ -29,7 +29,7 @@ class PinoWalletManager: WalletManagement {
 	}
 
 	public var currentAccountPrivateKey: (data: Data, string: String) {
-		exportPrivateKeyFor(account: currentAccount)
+		try! exportPrivateKeyFor(account: currentAccount)
 	}
 
 	// MARK: - Public Methods
