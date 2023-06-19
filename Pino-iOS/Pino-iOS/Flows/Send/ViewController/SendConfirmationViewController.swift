@@ -61,7 +61,8 @@ class SendConfirmationViewController: AuthenticationLockViewController {
 
 	private func confirmSend() {
 		unlockApp {
-			// Show next page here
+			let statusPageVC = SendStatusViewController(confirmationVM: self.sendConfirmationVM)
+			self.present(statusPageVC, animated: true)
 		}
 	}
 }
