@@ -7,7 +7,6 @@
 
 import BigInt
 import Foundation
-import Web3Core
 
 class NumberPercisionFormatter {
 	// MARK: - Private Properties

@@ -76,7 +76,7 @@ class AllDoneViewModel {
 
 		coreDataManager.createWalletAccount(
 			address: account.eip55Address,
-			publicKey: account.publicKey,
+			publicKey: account.publicKey.hex(),
 			name: newAvatar.name,
 			avatarIcon: newAvatar.rawValue,
 			avatarColor: newAvatar.rawValue,

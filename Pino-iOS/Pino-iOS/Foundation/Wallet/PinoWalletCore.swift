@@ -7,7 +7,6 @@
 
 import Foundation
 import WalletCore
-import Web3Core
 
 protocol PinoWallet {
 	func encryptPrivateKey(_ key: Data, forAccount account: Account) -> Data

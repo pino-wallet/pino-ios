@@ -45,17 +45,13 @@ class EnterSendAmountViewController: UIViewController {
 				self.openSelectAssetPage()
 			},
 			nextButtonTapped: {
-				let coreDataManager = CoreDataManager()
-				let selectedWallet = coreDataManager.getAllWalletAccounts().first(where: { $0.isSelected })
-				let sendConfirmationVM = SendConfirmationViewModel(
-					selectedToken: self.enterAmountVM.selectedToken,
-					selectedWallet: AccountInfoViewModel(walletAccountInfoModel: selectedWallet),
-					recipientAddress: "0xa9868D22572843b3D2DdE4A5DfA32b2B17ED28F6",
-					sendAmount: "200",
-					sendAmountInDollar: "120"
+				#warning("we should verify this amount and then go to next page")
+				let enterSendAddressVM = EnterSendAddressViewModel(
+					selectedAsset: self.enterAmountVM.selectedToken,
+					enteredAmount: self.enterAmountVM.enteredAmount
 				)
-				let sendConfirmationVC = SendConfirmationViewController(sendConfirmationVM: sendConfirmationVM)
-				self.navigationController?.pushViewController(sendConfirmationVC, animated: true)
+				let enterSendAddressVC = EnterSendAddressViewController(enterAddressVM: enterSendAddressVM)
+				self.navigationController?.pushViewController(enterSendAddressVC, animated: true)
 			}
 		)
 	}

@@ -7,7 +7,7 @@
 
 import BigInt
 import Foundation
-import Web3Core
+import Web3_Utility
 
 public protocol NumberFormatterProtocol {
 	var bigNumber: BigNumber { get }

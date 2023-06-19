@@ -20,6 +20,6 @@ protocol WalletManagement {
 	// Account
 	func deleteAccount(account: WalletAccount) -> Result<WalletAccount, WalletOperationError>
 	func importAccount(privateKey: String) -> Result<Account, WalletOperationError>
-	func exportPrivateKeyFor(account: WalletAccount) -> (data: Data, string: String)
+	func exportPrivateKeyFor(account: WalletAccount) throws -> (data: Data, string: String)
 	func accountExist(account: WalletAccount) -> Bool
 }

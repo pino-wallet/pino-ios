@@ -7,7 +7,6 @@
 
 import Foundation
 import WalletCore
-import Web3Core
 
 enum KeychainManager: String {
 	case mnemonics
