@@ -68,7 +68,7 @@ struct SendConfirmationViewModel {
 		selectedWallet: AccountInfoViewModel,
 		recipientAddress: String,
 		sendAmount: String,
-		sendAmountInDollar: String?
+		sendAmountInDollar: String
 	) {
 		self.selectedToken = selectedToken
 		self.selectedWallet = selectedWallet

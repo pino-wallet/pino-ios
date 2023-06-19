@@ -124,8 +124,10 @@ class SendConfirmationView: UIView {
 		if sendConfirmationVM.isTokenVerified {
 			tokenImageView.kf.indicatorType = .activity
 			tokenImageView.kf.setImage(with: sendConfirmationVM.tokenImage)
+			sendAmountLabel.isHidden = false
 		} else {
 			tokenImageView.image = UIImage(named: sendConfirmationVM.customAssetImage)
+			sendAmountLabel.isHidden = true
 		}
 
 		tokenNameLabel.font = .PinoStyle.semiboldTitle2
