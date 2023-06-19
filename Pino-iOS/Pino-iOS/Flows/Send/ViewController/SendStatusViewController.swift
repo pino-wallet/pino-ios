@@ -24,7 +24,6 @@ class SendStatusViewController: UIViewController {
 
 	private func setupView() {
 		sendStatusView = SendStatusView(toggleIsModalInPresentation: { isModelInPresentation in
-			print("\(isModelInPresentation) ehhhhh")
 			self.isModalInPresentation = isModelInPresentation
 		})
 		sendStatusView.onDissmiss = {

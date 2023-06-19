@@ -71,9 +71,7 @@ class SendStatusView: UIView {
 		clearNavigationBar.setRightSectionView(view: navigationBarRightView)
 
 		dissmissButton.addTarget(self, action: #selector(onDissmissTap), for: .touchUpInside)
-
 		closeButton.addTarget(self, action: #selector(onDissmissTap), for: .touchUpInside)
-
 		viewStatusButton.addTarget(self, action: #selector(openViewStatusURL), for: .touchUpInside)
 
 		loadingContainer.addSubview(loading)
@@ -157,53 +155,31 @@ class SendStatusView: UIView {
 		switch pageStatus {
 		case .pending:
 			pendingStackView.isHidden = false
-
 			mainStackView.isHidden = true
-
 			dissmissButton.isHidden = true
-
 			toggleIsModalInPresentation(true)
-
 			closeButton.isHidden = true
 		case .success:
 			statusIconView.image = UIImage(named: sendStatusVM.sentIconName)
-
 			statusTitleLabel.text = sendStatusVM.transactionSentText
-
 			statusDescriptionLabel.text = sendStatusVM.transactionSentInfoText
-
 			setupAdditionalSettingsForLabels()
-
 			pendingStackView.isHidden = true
-
 			viewStatusButton.isHidden = false
-
 			mainStackView.isHidden = false
-
 			dissmissButton.isHidden = false
-
 			toggleIsModalInPresentation(false)
-
 			closeButton.isHidden = false
 		case .failed:
 			statusIconView.image = UIImage(named: sendStatusVM.failedIconName)
-
 			statusTitleLabel.text = sendStatusVM.somethingWentWrongText
-
 			statusDescriptionLabel.text = sendStatusVM.tryAgainLaterText
-
 			setupAdditionalSettingsForLabels()
-
 			pendingStackView.isHidden = true
-
 			viewStatusButton.isHidden = true
-
 			mainStackView.isHidden = false
-
 			dissmissButton.isHidden = false
-
 			toggleIsModalInPresentation(false)
-
 			closeButton.isHidden = false
 		}
 	}
@@ -221,12 +197,12 @@ class SendStatusView: UIView {
 	}
 
 	@objc
-	func onDissmissTap() {
+	private func onDissmissTap() {
 		onDissmiss()
 	}
 
 	@objc
-	func openViewStatusURL() {
+	private func openViewStatusURL() {
 		#warning("this URL is for testing and should be updated from confirmSendVM")
 		let viewStatusUrl = URL(string: "http://www.google.com")
 		UIApplication.shared.open(viewStatusUrl!)
