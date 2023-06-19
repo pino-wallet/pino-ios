@@ -63,7 +63,7 @@ class EnterSendAmountViewModel {
 		let maxAmmount = Decimal(string: maxAmount)!
 		let enteredAmmount = Decimal(string: tokenAmount)!
 		if enteredAmmount > maxAmmount {
-			isEnough(false)
+			isEnough(true)
 		} else {
 			isEnough(true)
 		}

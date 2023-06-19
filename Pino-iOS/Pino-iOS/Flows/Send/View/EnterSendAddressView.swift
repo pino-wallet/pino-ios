@@ -18,6 +18,9 @@ class EnterSendAddressView: UIView {
 	private let nextButton = PinoButton(style: .deactive)
 	private let nextButtonBottomConstant = CGFloat(12)
 	private let qrCodeScanButton = UIButton()
+	private let suggestedAddressesVM = SuggestedAddressesViewModel()
+	private let suggestedAddressesContainerView = PinoContainerCard(cornerRadius: 8)
+	private var suggestedAddressesCollectionView: SuggestedAddressesCollectionView!
 	private var enterSendAddressVM: EnterSendAddressViewModel
 	private var keyboardHeight: CGFloat = 320 // Minimum height in rare case keyboard of height was not calculated
 	private var nextButtonBottomConstraint: NSLayoutConstraint!
@@ -54,6 +57,7 @@ class EnterSendAddressView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		suggestedAddressesCollectionView = SuggestedAddressesCollectionView(suggestedAddressesVM: suggestedAddressesVM)
 		addressTextField.textDidChange = {
 			self.enterSendAddressVM.validateSendAddress(address: self.addressTextField.getText() ?? "")
 		}
@@ -66,7 +70,10 @@ class EnterSendAddressView: UIView {
 			self.scanAddressQRCode()
 		}), for: .touchUpInside)
 
+		suggestedAddressesContainerView.addSubview(suggestedAddressesCollectionView)
+
 		addSubview(addressTextField)
+		addSubview(suggestedAddressesContainerView)
 		addSubview(nextButton)
 	}
 
@@ -78,6 +85,9 @@ class EnterSendAddressView: UIView {
 		addressTextField.placeholderText = enterSendAddressVM.enterAddressPlaceholder
 
 		nextButton.title = enterSendAddressVM.nextButtonTitle
+
+		suggestedAddressesContainerView.layer.borderWidth = 1
+		suggestedAddressesContainerView.layer.borderColor = UIColor.Pino.gray5.cgColor
 	}
 
 	private func setupConstraints() {
@@ -93,6 +103,12 @@ class EnterSendAddressView: UIView {
 		addConstraint(nextButtonBottomConstraint)
 
 		addressTextField.pin(.top(to: layoutMarginsGuide, padding: 24), .horizontalEdges(padding: 16))
+		suggestedAddressesContainerView.pin(
+			.relative(.top, 8, to: addressTextField, .bottom),
+			.horizontalEdges(padding: 16),
+			.fixedHeight(400)
+		)
+		suggestedAddressesCollectionView.pin(.allEdges(padding: 0))
 		nextButton.pin(.horizontalEdges(padding: 16))
 	}
 
