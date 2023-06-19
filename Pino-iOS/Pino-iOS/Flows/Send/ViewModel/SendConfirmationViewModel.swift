@@ -13,7 +13,7 @@ struct SendConfirmationViewModel {
 	private let selectedToken: AssetViewModel
 	private let selectedWallet: AccountInfoViewModel
 	private let sendAmount: String
-	private let sendAmountInDollar: String?
+	private let sendAmountInDollar: String
 
 	// MARK: - Public Properties
 
@@ -38,7 +38,7 @@ struct SendConfirmationViewModel {
 	}
 
 	public var formattedSendAmountInDollar: String? {
-		"$\(sendAmount)"
+		"$\(sendAmountInDollar)"
 	}
 
 	public var selectedWalletImage: String {

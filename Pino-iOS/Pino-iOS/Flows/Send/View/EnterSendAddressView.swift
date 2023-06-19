@@ -14,7 +14,6 @@ class EnterSendAddressView: UIView {
 
 	// MARK: - Private Propterties
 
-	private let addressTextField = PinoTextFieldView()
 	private let nextButton = PinoButton(style: .deactive)
 	private let nextButtonBottomConstant = CGFloat(12)
 	private let qrCodeScanButton = UIButton()
@@ -23,6 +22,8 @@ class EnterSendAddressView: UIView {
 	private var nextButtonBottomConstraint: NSLayoutConstraint!
 
 	// MARK: - Public Properties
+
+	public let addressTextField = PinoTextFieldView()
 
 	public var validationStatus: EnterSendAddressViewModel.ValidationStatus = .normal {
 		didSet {
