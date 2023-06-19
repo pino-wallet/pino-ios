@@ -138,7 +138,7 @@ class Web3Core {
                     gasPrice: transactionInfo[.gasPrice],
                     maxFeePerGas: nil,
                     maxPriorityFeePerGas: nil,
-                    gasLimit: 150000,
+                    gasLimit: nil,
                     from: myPrivateKey.address,
                     value: nil,
                     accessList: [:],
