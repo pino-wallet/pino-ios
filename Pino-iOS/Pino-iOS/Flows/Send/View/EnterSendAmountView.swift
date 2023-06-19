@@ -233,7 +233,7 @@ class EnterSendAmountView: UIView {
 
 	@objc
 	private func textFieldDidChange(_ textField: UITextField) {
-		if let amountText = textField.text, amountText != "" {
+		if let amountText = textField.text, amountText != .emptyString {
 			dollarSignLabel.textColor = .Pino.label
 			updateAmount(enteredAmount: amountText)
 		} else {
@@ -256,7 +256,7 @@ class EnterSendAmountView: UIView {
 			}
 		}
 		amountLabel.text = enterAmountVM.formattedAmount
-		if amountTextfield.text == "" {
+		if amountTextfield.text == .emptyString {
 			continueButton.style = .deactive
 		}
 	}
@@ -293,6 +293,8 @@ extension EnterSendAmountView: UITextFieldDelegate {
 // MARK: - Keyboard Functions
 
 extension EnterSendAmountView {
+	// MARK: - Private Methods
+
 	@objc
 	private func dissmisskeyBoard() {
 		amountTextfield.endEditing(true)
@@ -346,7 +348,7 @@ extension EnterSendAmountView {
 	}
 
 	@objc
-	internal func keyboardWillShow(_ notification: NSNotification) {
+	private func keyboardWillShow(_ notification: NSNotification) {
 		if let info = notification.userInfo {
 			let frameEndUserInfoKey = UIResponder.keyboardFrameEndUserInfoKey
 			//  Getting UIKeyboardSize.
@@ -364,7 +366,7 @@ extension EnterSendAmountView {
 	}
 
 	@objc
-	internal func keyboardWillHide(_ notification: NSNotification) {
+	private func keyboardWillHide(_ notification: NSNotification) {
 		moveViewWithKeyboard(notification: notification, keyboardWillShow: false)
 	}
 }
