@@ -51,7 +51,7 @@ class Web3Core {
 			let _ = firstly {
 				try web3.eth.getCode(address: .init(hex: contractAddress, eip55: true), block: .latest)
 			}.then { conctractCode in
-				if conctractCode.hex() == "0x" {
+                if conctractCode.hex() == Constants.eoaCode {
 					// In this case the smart contract belongs to an EOA
 					seal.reject(Web3Error.invalidSmartContractAddress)
 				}
@@ -80,6 +80,24 @@ class Web3Core {
 			}
 		}
 	}
+    
+    public func calculateEthGasFee(ethPrice: BigNumber) -> Promise<BigNumber> {
+        
+        return Promise<BigNumber>() { seal in
+            firstly {
+                web3.eth.gasPrice()
+            }.done { gasPrice in
+                print(gasPrice)
+                let gasLimit = BigNumber(number: Constants.ethGasLimit, decimal: 0)
+                let gasPriceBigNum = BigNumber(number: "\(gasPrice.quantity)", decimal: 0)
+                let fee = BigNumber(number: gasLimit * gasPriceBigNum, decimal: 16) * ethPrice
+                seal.fulfill(fee)
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
+        
+    }
 
 	public func sendEtherTo(address: String, amount: String) throws -> Promise<String> {
         let enteredAmount = EthereumQuantity(quantity: try BigUInt(amount))
@@ -96,7 +114,7 @@ class Web3Core {
 					to: EthereumAddress(hex: address, eip55: true),
 					value: enteredAmount
 				)
-				tx.gasLimit = 21000
+                tx.gasLimit = try EthereumQuantity(Constants.ethGasLimit)
 				tx.transactionType = .legacy
 				return try tx.sign(with: privateKey, chainId: 1).promise
 			}.then { [self] tx in
@@ -176,8 +194,6 @@ class Web3Core {
             
         }
         
-        
-        
     }
 
 
@@ -190,4 +206,13 @@ class Web3Core {
 
 		return try contract[info.rawValue]!(EthereumAddress(hex: address, eip55: true)).call()
 	}
+}
+
+extension Web3Core {
+    
+    struct Constants {
+        static let ethGasLimit = "21000"
+        static let eoaCode = "0x"
+    }
+    
 }

@@ -104,6 +104,11 @@ class HomepageViewController: UIViewController {
 			navigationVC.modalPresentationStyle = .formSheet
 			present(navigationVC, animated: true)
 		}
+        
+        let eth = homeVM.assetsList?.first(where: { asset in
+            asset.symbol == "ETH"
+        })
+        Web3Core.shared.calculateEthGasFee(ethPrice: eth!.price)
 	}
 
 	@objc

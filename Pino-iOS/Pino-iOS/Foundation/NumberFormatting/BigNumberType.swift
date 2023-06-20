@@ -38,6 +38,11 @@ public struct BigNumber {
 		self.number = number
 		self.decimal = decimal
 	}
+    
+    public init(number: BigNumber, decimal: Int) {
+        self.number = number.number
+        self.decimal = decimal
+    }
 
 	public var whole: BigInt {
 		number.quotientAndRemainder(dividingBy: BigInt(10).power(decimal)).quotient
