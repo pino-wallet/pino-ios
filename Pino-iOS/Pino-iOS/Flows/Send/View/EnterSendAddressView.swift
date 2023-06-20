@@ -106,7 +106,8 @@ class EnterSendAddressView: UIView {
 		suggestedAddressesContainerView.pin(
 			.relative(.top, 8, to: addressTextField, .bottom),
 			.horizontalEdges(padding: 16),
-			.fixedHeight(400)
+			.fixedHeight(400),
+			.bottom(to: nextButton, .top, padding: 21)
 		)
 		suggestedAddressesCollectionView.pin(.allEdges(padding: 0))
 		nextButton.pin(.horizontalEdges(padding: 16))

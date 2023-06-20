@@ -66,13 +66,9 @@ class EnterSendAddressViewController: UIViewController {
 		guard let address = enterSendAddressView.addressTextField.getText(),
 		      enterSendAddressView.validationStatus == .success else { return }
 
-		#warning("current wallet is temporary and must be changed based on user selection")
-		let currentWallet = CoreDataManager().getAllWalletAccounts().first(where: { $0.isSelected })
-		let walletInfo = AccountInfoViewModel(walletAccountInfoModel: currentWallet)
-
 		let confirmationVM = SendConfirmationViewModel(
 			selectedToken: enterSendAddressVM.sendAmountVM.selectedToken,
-			selectedWallet: walletInfo,
+			selectedWallet: enterSendAddressVM.selectedWallet,
 			recipientAddress: address,
 			sendAmount: enterSendAddressVM.sendAmountVM.tokenAmount,
 			sendAmountInDollar: enterSendAddressVM.sendAmountVM.dollarAmount

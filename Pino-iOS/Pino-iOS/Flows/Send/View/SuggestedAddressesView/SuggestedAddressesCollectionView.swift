@@ -43,6 +43,7 @@ class SuggestedAddressesCollectionView: UICollectionView {
 			withReuseIdentifier: SuggestedAddressHeaderView.viewReuseID
 		)
 		register(RecentAddressCell.self, forCellWithReuseIdentifier: RecentAddressCell.cellReuseID)
+		register(UserAddressCell.self, forCellWithReuseIdentifier: UserAddressCell.cellReuseID)
 	}
 }
 
@@ -58,7 +59,7 @@ extension SuggestedAddressesCollectionView: UICollectionViewDataSource {
 		case 0:
 			return suggestedAddressesVM.recentAddresses.count
 		case 1:
-			return 0
+			return suggestedAddressesVM.userWallets.count
 		default:
 			fatalError("Invalid section index in notificaition collection view")
 		}
@@ -70,22 +71,22 @@ extension SuggestedAddressesCollectionView: UICollectionViewDataSource {
 	) -> UICollectionViewCell {
 		switch indexPath.section {
 		case 0:
-			let cell = dequeueReusableCell(
+			let recentAddressCell = dequeueReusableCell(
 				withReuseIdentifier: RecentAddressCell.cellReuseID,
 				for: indexPath
 			) as! RecentAddressCell
-			cell
+			recentAddressCell
 				.recentAddressVM = RecentAddressViewModel(
-					recentAddressModel: suggestedAddressesVM
-						.recentAddresses[indexPath.item]!
+					recentAddressModel: suggestedAddressesVM.recentAddresses[indexPath.item]
 				)
-			return cell
+			return recentAddressCell
 		case 1:
-			let cell = dequeueReusableCell(
-				withReuseIdentifier: RecentAddressCell.cellReuseID,
+			let walletCell = dequeueReusableCell(
+				withReuseIdentifier: UserAddressCell.cellReuseID,
 				for: indexPath
-			) as! RecentAddressCell
-			return cell
+			) as! UserAddressCell
+			walletCell.walletVM = suggestedAddressesVM.userWallets[indexPath.row]
+			return walletCell
 		default:
 			fatalError("Invalid section index in notificaition collection view")
 		}

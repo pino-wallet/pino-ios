@@ -313,7 +313,7 @@
 		D9BFEC3E2A12236C007DFF40 /* ClearNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC3D2A12236C007DFF40 /* ClearNavigationBar.swift */; };
 		D9C4CEFF2A408C5E00475F01 /* SuggestedAddressesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CEFE2A408C5E00475F01 /* SuggestedAddressesCollectionView.swift */; };
 		D9C4CF012A408C8A00475F01 /* RecentAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF002A408C8A00475F01 /* RecentAddressCell.swift */; };
-		D9C4CF032A408CA500475F01 /* MyAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF022A408CA500475F01 /* MyAddressCell.swift */; };
+		D9C4CF032A408CA500475F01 /* UserAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF022A408CA500475F01 /* UserAddressCell.swift */; };
 		D9C4CF062A408CF000475F01 /* RecentAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF052A408CF000475F01 /* RecentAddressViewModel.swift */; };
 		D9C4CF082A408CFB00475F01 /* MyAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF072A408CFB00475F01 /* MyAddressViewModel.swift */; };
 		D9C4CF0A2A4090D000475F01 /* SuggestedAddressesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF092A4090D000475F01 /* SuggestedAddressesViewModel.swift */; };
@@ -763,7 +763,7 @@
 		D9BFEC3D2A12236C007DFF40 /* ClearNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearNavigationBar.swift; sourceTree = "<group>"; };
 		D9C4CEFE2A408C5E00475F01 /* SuggestedAddressesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedAddressesCollectionView.swift; sourceTree = "<group>"; };
 		D9C4CF002A408C8A00475F01 /* RecentAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentAddressCell.swift; sourceTree = "<group>"; };
-		D9C4CF022A408CA500475F01 /* MyAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddressCell.swift; sourceTree = "<group>"; };
+		D9C4CF022A408CA500475F01 /* UserAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAddressCell.swift; sourceTree = "<group>"; };
 		D9C4CF052A408CF000475F01 /* RecentAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentAddressViewModel.swift; sourceTree = "<group>"; };
 		D9C4CF072A408CFB00475F01 /* MyAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddressViewModel.swift; sourceTree = "<group>"; };
 		D9C4CF092A4090D000475F01 /* SuggestedAddressesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedAddressesViewModel.swift; sourceTree = "<group>"; };
@@ -2116,7 +2116,7 @@
 			children = (
 				D9C4CEFE2A408C5E00475F01 /* SuggestedAddressesCollectionView.swift */,
 				D9C4CF002A408C8A00475F01 /* RecentAddressCell.swift */,
-				D9C4CF022A408CA500475F01 /* MyAddressCell.swift */,
+				D9C4CF022A408CA500475F01 /* UserAddressCell.swift */,
 				D9C4CF0E2A409D4800475F01 /* SuggestedAddressHeaderView.swift */,
 			);
 			path = SuggestedAddressesView;
@@ -2999,7 +2999,7 @@
 				7B98A5C0E4D54CE1290B009B /* PrecisionSystem.swift in Sources */,
 				133389D38DF23CB5BE195DDC /* ProfileCollectionView.swift in Sources */,
 				7656A61006C2DB8A8F75F498 /* ProfileIcons.swift in Sources */,
-				D9C4CF032A408CA500475F01 /* MyAddressCell.swift in Sources */,
+				D9C4CF032A408CA500475F01 /* UserAddressCell.swift in Sources */,
 				DFB1E9D62A08F21C00041B26 /* SelectedAssetsDataSource.swift in Sources */,
 				0D3E98673CD274381A698BBA /* ProfileViewController.swift in Sources */,
 				0613EF4F55B5F6FA90BA65C0 /* ProfileViewModel.swift in Sources */,
