@@ -12,10 +12,15 @@ class SuggestedAddressesCollectionView: UICollectionView {
 
 	public var suggestedAddressesVM: SuggestedAddressesViewModel
 
+	// MARK: - Private Properties
+
+	private var suggestedAddressDidSelect: (String) -> Void
+
 	// MARK: - Initializers
 
-	init(suggestedAddressesVM: SuggestedAddressesViewModel) {
+	init(suggestedAddressesVM: SuggestedAddressesViewModel, suggestedAddressDidSelect: @escaping (String) -> Void) {
 		self.suggestedAddressesVM = suggestedAddressesVM
+		self.suggestedAddressDidSelect = suggestedAddressDidSelect
 
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical, minimumLineSpacing: 16)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
@@ -43,7 +48,18 @@ class SuggestedAddressesCollectionView: UICollectionView {
 	}
 }
 
-extension SuggestedAddressesCollectionView: UICollectionViewDelegate {}
+extension SuggestedAddressesCollectionView: UICollectionViewDelegate {
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		switch indexPath.section {
+		case 0:
+			suggestedAddressDidSelect(suggestedAddressesVM.recentAddresses[indexPath.item].address)
+		case 1:
+			return suggestedAddressDidSelect(suggestedAddressesVM.userWallets[indexPath.item].address)
+		default:
+			fatalError("Invalid section index in notificaition collection view")
+		}
+	}
+}
 
 extension SuggestedAddressesCollectionView: UICollectionViewDataSource {
 	func numberOfSections(in collectionView: UICollectionView) -> Int {

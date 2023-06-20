@@ -62,7 +62,7 @@ class UserAddressCell: UICollectionViewCell {
 	private func setupConstraints() {
 		mainStackView.pin(
 			.horizontalEdges(padding: 14),
-			.verticalEdges(padding: 0),
+			.verticalEdges,
 			.fixedWidth(contentView.frame.width - 28)
 		)
 		walletImageView.pin(
@@ -71,6 +71,12 @@ class UserAddressCell: UICollectionViewCell {
 		walletImageBackground.pin(
 			.fixedWidth(44),
 			.fixedHeight(44)
+		)
+		walletNameLabel.pin(
+			.fixedHeight(28)
+		)
+		walletAddressLabel.pin(
+			.fixedHeight(16)
 		)
 	}
 }

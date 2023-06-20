@@ -25,6 +25,7 @@ class EnterSendAddressView: UIView {
 	private var gradientView = UIView()
 	private var keyboardHeight: CGFloat = 320 // Minimum height in rare case keyboard of height was not calculated
 	private var nextButtonBottomConstraint: NSLayoutConstraint!
+	private var endEditingTapGesture: UITapGestureRecognizer!
 
 	// MARK: - Public Properties
 
@@ -68,7 +69,13 @@ class EnterSendAddressView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		suggestedAddressesCollectionView = SuggestedAddressesCollectionView(suggestedAddressesVM: suggestedAddressesVM)
+		suggestedAddressesCollectionView = SuggestedAddressesCollectionView(
+			suggestedAddressesVM: suggestedAddressesVM,
+			suggestedAddressDidSelect: { address in
+				self.addressTextField.text = address
+				self.enterSendAddressVM.validateSendAddress(address: address)
+			}
+		)
 		addressTextField.textDidChange = {
 			self.enterSendAddressVM.validateSendAddress(address: self.addressTextField.getText() ?? "")
 		}
@@ -197,7 +204,7 @@ class EnterSendAddressView: UIView {
 		addressTextField.textFieldKeyboardOnReturn = {
 			self.endEditing(true)
 		}
-		let endEditingTapGesture = UITapGestureRecognizer(target: self, action: #selector(viewEndEditing))
+		endEditingTapGesture = UITapGestureRecognizer(target: self, action: #selector(viewEndEditing))
 		addGestureRecognizer(endEditingTapGesture)
 	}
 
@@ -255,10 +262,12 @@ extension EnterSendAddressView {
 			}
 		}
 		moveViewWithKeyboard(notification: notification, keyboardWillShow: true)
+		endEditingTapGesture.isEnabled = true
 	}
 
 	@objc
 	internal func keyboardWillHide(_ notification: NSNotification) {
 		moveViewWithKeyboard(notification: notification, keyboardWillShow: false)
+		endEditingTapGesture.isEnabled = false
 	}
 }
