@@ -17,11 +17,7 @@ class SuggestedAddressesCollectionView: UICollectionView {
 	init(suggestedAddressesVM: SuggestedAddressesViewModel) {
 		self.suggestedAddressesVM = suggestedAddressesVM
 
-		let flowLayout = UICollectionViewFlowLayout(
-			scrollDirection: .vertical,
-			minimumLineSpacing: 16,
-			sectionInset: UIEdgeInsets(top: 0, left: 0, bottom: 32, right: 0)
-		)
+		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical, minimumLineSpacing: 16)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 
 		configureCollectionView()
@@ -135,5 +131,17 @@ extension SuggestedAddressesCollectionView: UICollectionViewDelegateFlowLayout {
 		referenceSizeForHeaderInSection section: Int
 	) -> CGSize {
 		CGSize(width: collectionView.frame.width, height: 54)
+	}
+
+	func collectionView(
+		_ collectionView: UICollectionView,
+		layout collectionViewLayout: UICollectionViewLayout,
+		insetForSectionAt section: Int
+	) -> UIEdgeInsets {
+		if section == 0 {
+			return UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
+		} else {
+			return UIEdgeInsets(top: 0, left: 0, bottom: 32, right: 0)
+		}
 	}
 }
