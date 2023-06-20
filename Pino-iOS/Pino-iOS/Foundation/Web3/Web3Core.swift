@@ -9,6 +9,7 @@ import Foundation
 import Web3
 import Web3ContractABI
 import Web3PromiseKit
+import BigInt
 
 enum Web3Error: Error {
     case invalidSmartContractAddress
@@ -94,6 +95,49 @@ class Web3Core {
             }.catch { error in
                 seal.reject(error)
             }
+        }
+        
+    }
+    
+    public func calculateERC20TokenFee(address: String, amount: String, tokenContractAddress: String) throws {
+        
+        let bamount = try! BigUInt(amount)
+        let contractAddress = try EthereumAddress(hex: tokenContractAddress, eip55: true) // USDC Smart Contract Address
+        let contractJsonABI = Web3ABI.erc20AbiString.data(using: .utf8)!
+        // You can optionally pass an abiKey param if the actual abi is nested and not the top level element of the json
+        let contract = try! web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
+        let to = try EthereumAddress(hex: address, eip55: true)
+        
+        // Send some tokens to another address (locally signing the transaction)
+        let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
+        
+        var transactionInfo: ERC20TransactionInfoType = [:]
+        
+        firstly {
+            web3.eth.gasPrice()
+        }.map { gasPrice in
+            transactionInfo.updateValue(gasPrice, forKey: .gasPrice)
+        }.then { [self] in
+            return web3.eth.getTransactionCount(address: myPrivateKey.address, block: .latest)
+        }.map { nonce in
+            transactionInfo.updateValue(nonce, forKey: .nonce)
+        }.then { [self] () -> Promise<EthereumQuantity> in
+            let transaction = contract["transfer"]?(to, bamount).createTransaction(
+                nonce: transactionInfo[.nonce],
+                gasPrice: transactionInfo[.gasPrice],
+                maxFeePerGas: nil,
+                maxPriorityFeePerGas: nil,
+                gasLimit: nil,
+                from: myPrivateKey.address,
+                value: nil,
+                accessList: [:],
+                transactionType: .legacy
+            )
+            return web3.eth.estimateGas(call: .init(from: transaction?.from, to: to, gas: nil, gasPrice: transactionInfo[.gasPrice], value: transaction?.value, data: transaction!.data))
+        }.done { estimate in
+            print(estimate)
+        }.catch { error in
+            print(error)
         }
         
     }
