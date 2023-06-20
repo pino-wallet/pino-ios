@@ -15,8 +15,8 @@ class EnterSendAddressViewController: UIViewController {
 
 	// MARK: - View Overrides
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
+	override func viewDidAppear(_ animated: Bool) {
+		enterSendAddressView.showSuggestedAddresses()
 	}
 
 	// MARK: - Initializers

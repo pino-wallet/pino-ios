@@ -54,6 +54,18 @@ class EnterSendAddressView: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - Public Methods
+
+	public func showSuggestedAddresses() {
+		let collectionViewHeight = suggestedAddressesCollectionView.contentSize.height
+		let maxHeight: CGFloat = layoutMarginsGuide.layoutFrame.height - 170
+		let newHeight = min(collectionViewHeight, maxHeight)
+		suggestedAddressesContainerView.pin(.fixedHeight(newHeight))
+		UIView.animate(withDuration: 0.3) {
+			self.suggestedAddressesContainerView.alpha = 1
+		}
+	}
+
 	// MARK: - Private Methods
 
 	private func setupView() {
@@ -78,16 +90,17 @@ class EnterSendAddressView: UIView {
 	}
 
 	private func setupStyles() {
-		backgroundColor = .Pino.background
-
+		addressTextField.placeholderText = enterSendAddressVM.enterAddressPlaceholder
+		nextButton.title = enterSendAddressVM.nextButtonTitle
 		qrCodeScanButton.setImage(UIImage(named: enterSendAddressVM.qrCodeIconName), for: .normal)
 
-		addressTextField.placeholderText = enterSendAddressVM.enterAddressPlaceholder
+		backgroundColor = .Pino.background
+		suggestedAddressesCollectionView.backgroundColor = .Pino.clear
 
-		nextButton.title = enterSendAddressVM.nextButtonTitle
-
+		suggestedAddressesContainerView.layer.masksToBounds = true
 		suggestedAddressesContainerView.layer.borderWidth = 1
 		suggestedAddressesContainerView.layer.borderColor = UIColor.Pino.gray5.cgColor
+		suggestedAddressesContainerView.alpha = 0
 	}
 
 	private func setupConstraints() {
@@ -102,15 +115,21 @@ class EnterSendAddressView: UIView {
 		)
 		addConstraint(nextButtonBottomConstraint)
 
-		addressTextField.pin(.top(to: layoutMarginsGuide, padding: 24), .horizontalEdges(padding: 16))
-		suggestedAddressesContainerView.pin(
-			.relative(.top, 8, to: addressTextField, .bottom),
+		addressTextField.pin(
+			.top(to: layoutMarginsGuide, padding: 24),
 			.horizontalEdges(padding: 16),
-			.fixedHeight(400),
-			.bottom(to: nextButton, .top, padding: 21)
+			.fixedHeight(48)
 		)
-		suggestedAddressesCollectionView.pin(.allEdges(padding: 0))
-		nextButton.pin(.horizontalEdges(padding: 16))
+		suggestedAddressesContainerView.pin(
+			.top(to: addressTextField, .bottom, padding: 8),
+			.horizontalEdges(padding: 16)
+		)
+		suggestedAddressesCollectionView.pin(
+			.allEdges
+		)
+		nextButton.pin(
+			.horizontalEdges(padding: 16)
+		)
 	}
 
 	private func changeViewStatus(validationStatus: EnterSendAddressViewModel.ValidationStatus) {

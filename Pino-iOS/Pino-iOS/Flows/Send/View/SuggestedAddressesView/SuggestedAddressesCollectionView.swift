@@ -17,12 +17,12 @@ class SuggestedAddressesCollectionView: UICollectionView {
 	init(suggestedAddressesVM: SuggestedAddressesViewModel) {
 		self.suggestedAddressesVM = suggestedAddressesVM
 
-		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
-
+		let flowLayout = UICollectionViewFlowLayout(
+			scrollDirection: .vertical,
+			minimumLineSpacing: 16,
+			sectionInset: UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
+		)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
-		flowLayout.collectionView?.backgroundColor = .Pino.secondaryBackground
-		flowLayout.collectionView?.layer.cornerRadius = 8
-		flowLayout.minimumLineSpacing = 16
 
 		configureCollectionView()
 	}
