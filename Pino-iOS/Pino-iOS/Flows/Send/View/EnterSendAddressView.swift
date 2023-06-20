@@ -263,11 +263,17 @@ extension EnterSendAddressView {
 		}
 		moveViewWithKeyboard(notification: notification, keyboardWillShow: true)
 		endEditingTapGesture.isEnabled = true
+		UIView.animate(withDuration: 0.3) {
+			self.suggestedAddressesContainerView.alpha = 0
+		}
 	}
 
 	@objc
 	internal func keyboardWillHide(_ notification: NSNotification) {
 		moveViewWithKeyboard(notification: notification, keyboardWillShow: false)
 		endEditingTapGesture.isEnabled = false
+		UIView.animate(withDuration: 0.3) {
+			self.suggestedAddressesContainerView.alpha = 1
+		}
 	}
 }
