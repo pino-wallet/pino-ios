@@ -22,6 +22,7 @@ class EnterSendAddressView: UIView {
 	private let suggestedAddressesContainerView = PinoContainerCard(cornerRadius: 8)
 	private var suggestedAddressesCollectionView: SuggestedAddressesCollectionView!
 	private var enterSendAddressVM: EnterSendAddressViewModel
+	private var gradientView = UIView()
 	private var keyboardHeight: CGFloat = 320 // Minimum height in rare case keyboard of height was not calculated
 	private var nextButtonBottomConstraint: NSLayoutConstraint!
 
@@ -57,10 +58,8 @@ class EnterSendAddressView: UIView {
 	// MARK: - Public Methods
 
 	public func showSuggestedAddresses() {
-		let collectionViewHeight = suggestedAddressesCollectionView.contentSize.height
-		let maxHeight: CGFloat = layoutMarginsGuide.layoutFrame.height - 170
-		let newHeight = min(collectionViewHeight, maxHeight)
-		suggestedAddressesContainerView.pin(.fixedHeight(newHeight))
+		updateSuggestedAddressesCardHeight()
+
 		UIView.animate(withDuration: 0.3) {
 			self.suggestedAddressesContainerView.alpha = 1
 		}
@@ -83,7 +82,7 @@ class EnterSendAddressView: UIView {
 		}), for: .touchUpInside)
 
 		suggestedAddressesContainerView.addSubview(suggestedAddressesCollectionView)
-
+		suggestedAddressesContainerView.addSubview(gradientView)
 		addSubview(addressTextField)
 		addSubview(suggestedAddressesContainerView)
 		addSubview(nextButton)
@@ -96,11 +95,14 @@ class EnterSendAddressView: UIView {
 
 		backgroundColor = .Pino.background
 		suggestedAddressesCollectionView.backgroundColor = .Pino.clear
+		gradientView.backgroundColor = .Pino.clear
 
 		suggestedAddressesContainerView.layer.masksToBounds = true
 		suggestedAddressesContainerView.layer.borderWidth = 1
 		suggestedAddressesContainerView.layer.borderColor = UIColor.Pino.gray5.cgColor
 		suggestedAddressesContainerView.alpha = 0
+
+		gradientView.isUserInteractionEnabled = false
 	}
 
 	private func setupConstraints() {
@@ -129,6 +131,11 @@ class EnterSendAddressView: UIView {
 		)
 		nextButton.pin(
 			.horizontalEdges(padding: 16)
+		)
+		gradientView.pin(
+			.horizontalEdges,
+			.bottom,
+			.fixedHeight(57)
 		)
 	}
 
@@ -168,6 +175,22 @@ class EnterSendAddressView: UIView {
 			name: UIResponder.keyboardWillHideNotification,
 			object: nil
 		)
+	}
+
+	private func updateSuggestedAddressesCardHeight() {
+		let collectionViewHeight = suggestedAddressesCollectionView.contentSize.height
+		let maxHeight: CGFloat = layoutMarginsGuide.layoutFrame.height - 170
+		if collectionViewHeight > maxHeight {
+			suggestedAddressesContainerView.pin(.fixedHeight(maxHeight))
+			addGradientToSuggestedAddresses()
+		} else {
+			suggestedAddressesContainerView.pin(.fixedHeight(collectionViewHeight))
+		}
+	}
+
+	private func addGradientToSuggestedAddresses() {
+		let gradientLayer = GradientLayer(frame: gradientView.bounds, style: .suggestedRecipientAddress)
+		gradientView.layer.addSublayer(gradientLayer)
 	}
 
 	private func configureKeyboard() {

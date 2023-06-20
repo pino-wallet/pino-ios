@@ -42,5 +42,10 @@ extension GradientLayer {
 			colors: [UIColor.Pino.clear.cgColor, UIColor.Pino.secondaryBackground.cgColor],
 			locations: [0, 0.4]
 		)
+
+		public static let suggestedRecipientAddress = GradientLayer.Style(
+			colors: [UIColor.Pino.clear.cgColor, UIColor.Pino.secondaryBackground.cgColor],
+			locations: [0, 1]
+		)
 	}
 }

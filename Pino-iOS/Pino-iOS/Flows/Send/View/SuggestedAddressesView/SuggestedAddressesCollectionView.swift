@@ -20,7 +20,7 @@ class SuggestedAddressesCollectionView: UICollectionView {
 		let flowLayout = UICollectionViewFlowLayout(
 			scrollDirection: .vertical,
 			minimumLineSpacing: 16,
-			sectionInset: UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
+			sectionInset: UIEdgeInsets(top: 0, left: 0, bottom: 32, right: 0)
 		)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 
@@ -134,13 +134,6 @@ extension SuggestedAddressesCollectionView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		referenceSizeForHeaderInSection section: Int
 	) -> CGSize {
-		switch section {
-		case 0:
-			return CGSize(width: collectionView.frame.width, height: 54)
-		case 1:
-			return CGSize(width: collectionView.frame.width, height: 62)
-		default:
-			fatalError("Invalid section index in notificaition collection view")
-		}
+		CGSize(width: collectionView.frame.width, height: 54)
 	}
 }
