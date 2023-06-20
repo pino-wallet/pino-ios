@@ -108,7 +108,9 @@ class HomepageViewController: UIViewController {
         let eth = homeVM.assetsList?.first(where: { asset in
             asset.symbol == "ETH"
         })
-        Web3Core.shared.calculateEthGasFee(ethPrice: eth!.price)
+        Web3Core.shared.calculateEthGasFee(ethPrice: eth!.price).done { number in
+            print(number.decimalString)
+        }
 	}
 
 	@objc

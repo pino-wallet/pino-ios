@@ -87,10 +87,9 @@ class Web3Core {
             firstly {
                 web3.eth.gasPrice()
             }.done { gasPrice in
-                print(gasPrice)
                 let gasLimit = BigNumber(number: Constants.ethGasLimit, decimal: 0)
                 let gasPriceBigNum = BigNumber(number: "\(gasPrice.quantity)", decimal: 0)
-                let fee = BigNumber(number: gasLimit * gasPriceBigNum, decimal: 16) * ethPrice
+                let fee = BigNumber(number: gasLimit * gasPriceBigNum, decimal: 18) * ethPrice
                 seal.fulfill(fee)
             }.catch { error in
                 seal.reject(error)
