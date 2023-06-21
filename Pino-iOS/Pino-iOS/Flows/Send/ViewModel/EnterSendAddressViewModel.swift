@@ -21,7 +21,6 @@ class EnterSendAddressViewModel {
 	public enum ValidationStatus: Equatable {
 		case error(ValidationError)
 		case success
-		case pending
 		case normal
 	}
 
@@ -51,10 +50,7 @@ class EnterSendAddressViewModel {
 		}
 		if address.validateETHContractAddress() {
 			#warning("add more validation here, this is just for test")
-			didValidateSendAddress(.pending)
-			DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-				self.didValidateSendAddress(.success)
-			}
+			didValidateSendAddress(.success)
 		} else {
 			didValidateSendAddress(.error(.addressNotValid))
 		}

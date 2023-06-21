@@ -107,10 +107,6 @@ class EnterSendAddressView: UIView {
 			addressTextField.style = .success
 
 			nextButton.style = .active
-		case .pending:
-			addressTextField.style = .pending
-
-			nextButton.style = .deactive
 		case .normal:
 			addressTextField.style = .customIcon(qrCodeScanButton)
 
