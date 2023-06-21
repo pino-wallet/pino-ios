@@ -40,7 +40,7 @@ public struct ToastConfiguration {
 		autoHide: Bool = true,
 		enablePanToClose: Bool = false,
 		displayTime: TimeInterval = 1.5,
-		animationTime: TimeInterval = 0.4,
+		animationTime: TimeInterval = 0.5,
 		enteringAnimation: Toast.AnimationType = .default,
 		exitingAnimation: Toast.AnimationType = .default,
 		attachTo view: UIView? = nil
@@ -65,11 +65,11 @@ extension ToastConfiguration {
 		switch direction {
 		case .top:
 			return .custom(
-				transformation: CGAffineTransform(scaleX: 0.9, y: 0.9).translatedBy(x: 0, y: -100)
+				transformation: CGAffineTransform(scaleX: 0.9, y: 0.9).translatedBy(x: 0, y: -125)
 			)
 		case .bottom:
 			return .custom(
-				transformation: CGAffineTransform(scaleX: 0.9, y: 0.9).translatedBy(x: 0, y: 100)
+				transformation: CGAffineTransform(scaleX: 0.9, y: 0.9).translatedBy(x: 0, y: 125)
 			)
 		}
 	}
