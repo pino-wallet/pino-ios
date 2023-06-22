@@ -38,6 +38,11 @@ public struct BigNumber {
 		self.number = number
 		self.decimal = decimal
 	}
+
+    public init(unSignedNumber: BigUInt, decimal: Int) {
+        self.number = BigInt(unSignedNumber)
+        self.decimal = decimal
+    }
     
     public init(number: BigNumber, decimal: Int) {
         self.number = number.number

@@ -35,13 +35,13 @@ class SendStatusView: UIView {
 	private let viewStatusButton = UIButton()
 	private var sendStatusVM = SendStatusViewModel()
 
-	private enum PageStatuses {
+	public enum PageStatuses {
 		case pending
 		case success
 		case failed
 	}
 
-	private var pageStatus: PageStatuses = .pending {
+	public var pageStatus: PageStatuses = .pending {
 		didSet {
 			updateViewWithPageStatus(pageStatus: pageStatus)
 		}

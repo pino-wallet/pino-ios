@@ -12,11 +12,13 @@ class SendStatusViewController: UIViewController {
 
 	private var sendStatusView: SendStatusView!
 	private var confirmationVM: SendConfirmationViewModel
+    private var fallback: ()->Void
 
 	// MARK: - Initializers
 
-	init(confirmationVM: SendConfirmationViewModel) {
+    init(confirmationVM: SendConfirmationViewModel, completion: @escaping ()->()) {
 		self.confirmationVM = confirmationVM
+        self.fallback = completion
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -30,6 +32,17 @@ class SendStatusViewController: UIViewController {
 		super.viewDidLoad()
 
 		setupView()
+        
+        do {
+            try confirmationVM.sendToken().done { [self] trxHash in
+                sendStatusView.pageStatus = .success
+            }.catch { [self] error in
+                sendStatusView.pageStatus = .failed
+            }
+        } catch {
+            sendStatusView.pageStatus = .failed
+        }
+        
 	}
 
 	// MARK: - Private Methods
@@ -40,6 +53,7 @@ class SendStatusViewController: UIViewController {
 		})
 		sendStatusView.onDissmiss = {
 			self.dismiss(animated: true)
+            self.fallback()
 		}
 		view = sendStatusView
 	}

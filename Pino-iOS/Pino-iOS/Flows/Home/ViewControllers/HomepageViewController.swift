@@ -105,17 +105,7 @@ class HomepageViewController: UIViewController {
 			navigationVC.modalPresentationStyle = .formSheet
 			present(navigationVC, animated: true)
 		}
-        
-        let eth = homeVM.assetsList?.first(where: { asset in
-            asset.symbol == "ETH"
-        })
-//        Web3Core.shared.calculateEthGasFee(ethPrice: eth!.price).done { number in
-//            print(number.decimalString)
-//        }
-        
-        try! Web3Core.shared.calculateERC20TokenFee(address: "0xF66efa2F537d8397e1b8ac55653434A8498c352D", amount: "1", tokenContractAddress: "0x514910771AF9Ca656af840dff83E8264EcF986CA")
-        
-//        try! Web3Core.shared.sendERC20Token(address: "0x938d52c887cE1352868793821D687f4d775a18a9", amount: try! BigUInt(1000), tokenContractAddress: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48")
+    
 	}
 
 	@objc
