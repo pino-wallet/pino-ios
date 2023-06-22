@@ -22,7 +22,7 @@ class EnterSendAddressView: UIView {
 	private let suggestedAddressesContainerView = PinoContainerCard(cornerRadius: 8)
 	private var suggestedAddressesCollectionView: SuggestedAddressesCollectionView!
 	private var enterSendAddressVM: EnterSendAddressViewModel
-	private var gradientView = UIView()
+	private var scrollOverlayGradientview = UIView()
 	private var keyboardHeight: CGFloat = 320 // Minimum height in rare case keyboard of height was not calculated
 	private var nextButtonBottomConstraint: NSLayoutConstraint!
 	private var endEditingTapGesture: UITapGestureRecognizer!
@@ -89,7 +89,7 @@ class EnterSendAddressView: UIView {
 		}), for: .touchUpInside)
 
 		suggestedAddressesContainerView.addSubview(suggestedAddressesCollectionView)
-		suggestedAddressesContainerView.addSubview(gradientView)
+		suggestedAddressesContainerView.addSubview(scrollOverlayGradientview)
 		addSubview(addressTextField)
 		addSubview(suggestedAddressesContainerView)
 		addSubview(nextButton)
@@ -102,14 +102,14 @@ class EnterSendAddressView: UIView {
 
 		backgroundColor = .Pino.background
 		suggestedAddressesCollectionView.backgroundColor = .Pino.clear
-		gradientView.backgroundColor = .Pino.clear
+		scrollOverlayGradientview.backgroundColor = .Pino.clear
 
 		suggestedAddressesContainerView.layer.masksToBounds = true
 		suggestedAddressesContainerView.layer.borderWidth = 1
 		suggestedAddressesContainerView.layer.borderColor = UIColor.Pino.gray5.cgColor
 		suggestedAddressesContainerView.alpha = 0
 
-		gradientView.isUserInteractionEnabled = false
+		scrollOverlayGradientview.isUserInteractionEnabled = false
 	}
 
 	private func setupConstraints() {
@@ -139,7 +139,7 @@ class EnterSendAddressView: UIView {
 		nextButton.pin(
 			.horizontalEdges(padding: 16)
 		)
-		gradientView.pin(
+		scrollOverlayGradientview.pin(
 			.horizontalEdges,
 			.bottom,
 			.fixedHeight(57)
@@ -196,8 +196,8 @@ class EnterSendAddressView: UIView {
 	}
 
 	private func addGradientToSuggestedAddresses() {
-		let gradientLayer = GradientLayer(frame: gradientView.bounds, style: .suggestedRecipientAddress)
-		gradientView.layer.addSublayer(gradientLayer)
+		let gradientLayer = GradientLayer(frame: scrollOverlayGradientview.bounds, style: .suggestedRecipientAddress)
+		scrollOverlayGradientview.layer.addSublayer(gradientLayer)
 	}
 
 	private func configureKeyboard() {

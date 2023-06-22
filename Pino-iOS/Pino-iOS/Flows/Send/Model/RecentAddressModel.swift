@@ -6,5 +6,8 @@
 //
 
 struct RecentAddressModel {
+    
+    // MARK: - Public Properties
+    
 	public var address: String
 }
