@@ -195,8 +195,8 @@ public class Toast {
 		UIView.animate(
 			withDuration: config.animationTime,
 			delay: delay,
-			usingSpringWithDamping: 0.8,
-			initialSpringVelocity: 0.5,
+			usingSpringWithDamping: 1,
+			initialSpringVelocity: 0.6,
 			options: [.curveEaseOut, .allowUserInteraction]
 		) {
 			self.config.enteringAnimation.undo(from: self.view)
@@ -219,8 +219,8 @@ public class Toast {
 		UIView.animate(
 			withDuration: config.animationTime,
 			delay: 0,
-			usingSpringWithDamping: 0.8,
-			initialSpringVelocity: 0.5,
+			usingSpringWithDamping: 1,
+			initialSpringVelocity: 0.6,
 			options: [.curveEaseIn, .allowUserInteraction],
 			animations: {
 				self.config.exitingAnimation.apply(to: self.view)

@@ -18,10 +18,11 @@ class EnterSendAddressViewModel {
 	public let nextButtonTitle = "Next"
 	public let qrCodeIconName = "qr_code_scanner"
 	public var sendAmountVM: EnterSendAmountViewModel
+	public var selectedWallet: AccountInfoViewModel!
+
 	public enum ValidationStatus: Equatable {
 		case error(ValidationError)
 		case success
-		case pending
 		case normal
 	}
 
@@ -40,6 +41,14 @@ class EnterSendAddressViewModel {
 
 	init(sendAmountVM: EnterSendAmountViewModel) {
 		self.sendAmountVM = sendAmountVM
+		getSelectedWallet()
+	}
+
+	// MARK: - Private Methods
+
+	private func getSelectedWallet() {
+		let currentWallet = CoreDataManager().getAllWalletAccounts().first(where: { $0.isSelected })
+		selectedWallet = AccountInfoViewModel(walletAccountInfoModel: currentWallet)
 	}
 
 	// MARK: - Public Methods
@@ -51,10 +60,7 @@ class EnterSendAddressViewModel {
 		}
 		if address.validateETHContractAddress() {
 			#warning("add more validation here, this is just for test")
-			didValidateSendAddress(.pending)
-			DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-				self.didValidateSendAddress(.success)
-			}
+			didValidateSendAddress(.success)
 		} else {
 			didValidateSendAddress(.error(.addressNotValid))
 		}

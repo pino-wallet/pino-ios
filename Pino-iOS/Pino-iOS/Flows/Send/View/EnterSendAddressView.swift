@@ -18,9 +18,14 @@ class EnterSendAddressView: UIView {
 	private let nextButton = PinoButton(style: .deactive)
 	private let nextButtonBottomConstant = CGFloat(12)
 	private let qrCodeScanButton = UIButton()
+	private let suggestedAddressesVM = SuggestedAddressesViewModel()
+	private let suggestedAddressesContainerView = PinoContainerCard(cornerRadius: 8)
+	private var suggestedAddressesCollectionView: SuggestedAddressesCollectionView!
 	private var enterSendAddressVM: EnterSendAddressViewModel
+	private var scrollOverlayGradientview = UIView()
 	private var keyboardHeight: CGFloat = 320 // Minimum height in rare case keyboard of height was not calculated
 	private var nextButtonBottomConstraint: NSLayoutConstraint!
+	private var endEditingTapGesture: UITapGestureRecognizer!
 
 	// MARK: - Public Properties
 
@@ -51,9 +56,26 @@ class EnterSendAddressView: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - Public Methods
+
+	public func showSuggestedAddresses() {
+		updateSuggestedAddressesCardHeight()
+
+		UIView.animate(withDuration: 0.3) {
+			self.suggestedAddressesContainerView.alpha = 1
+		}
+	}
+
 	// MARK: - Private Methods
 
 	private func setupView() {
+		suggestedAddressesCollectionView = SuggestedAddressesCollectionView(
+			suggestedAddressesVM: suggestedAddressesVM,
+			suggestedAddressDidSelect: { address in
+				self.addressTextField.text = address
+				self.enterSendAddressVM.validateSendAddress(address: address)
+			}
+		)
 		addressTextField.textDidChange = {
 			self.enterSendAddressVM.validateSendAddress(address: self.addressTextField.getText() ?? "")
 		}
@@ -66,18 +88,28 @@ class EnterSendAddressView: UIView {
 			self.scanAddressQRCode()
 		}), for: .touchUpInside)
 
+		suggestedAddressesContainerView.addSubview(suggestedAddressesCollectionView)
+		suggestedAddressesContainerView.addSubview(scrollOverlayGradientview)
 		addSubview(addressTextField)
+		addSubview(suggestedAddressesContainerView)
 		addSubview(nextButton)
 	}
 
 	private func setupStyles() {
-		backgroundColor = .Pino.background
-
+		addressTextField.placeholderText = enterSendAddressVM.enterAddressPlaceholder
+		nextButton.title = enterSendAddressVM.nextButtonTitle
 		qrCodeScanButton.setImage(UIImage(named: enterSendAddressVM.qrCodeIconName), for: .normal)
 
-		addressTextField.placeholderText = enterSendAddressVM.enterAddressPlaceholder
+		backgroundColor = .Pino.background
+		suggestedAddressesCollectionView.backgroundColor = .Pino.clear
+		scrollOverlayGradientview.backgroundColor = .Pino.clear
 
-		nextButton.title = enterSendAddressVM.nextButtonTitle
+		suggestedAddressesContainerView.layer.masksToBounds = true
+		suggestedAddressesContainerView.layer.borderWidth = 1
+		suggestedAddressesContainerView.layer.borderColor = UIColor.Pino.gray5.cgColor
+		suggestedAddressesContainerView.alpha = 0
+
+		scrollOverlayGradientview.isUserInteractionEnabled = false
 	}
 
 	private func setupConstraints() {
@@ -92,8 +124,26 @@ class EnterSendAddressView: UIView {
 		)
 		addConstraint(nextButtonBottomConstraint)
 
-		addressTextField.pin(.top(to: layoutMarginsGuide, padding: 24), .horizontalEdges(padding: 16))
-		nextButton.pin(.horizontalEdges(padding: 16))
+		addressTextField.pin(
+			.top(to: layoutMarginsGuide, padding: 24),
+			.horizontalEdges(padding: 16),
+			.fixedHeight(48)
+		)
+		suggestedAddressesContainerView.pin(
+			.top(to: addressTextField, .bottom, padding: 8),
+			.horizontalEdges(padding: 16)
+		)
+		suggestedAddressesCollectionView.pin(
+			.allEdges
+		)
+		nextButton.pin(
+			.horizontalEdges(padding: 16)
+		)
+		scrollOverlayGradientview.pin(
+			.horizontalEdges,
+			.bottom,
+			.fixedHeight(57)
+		)
 	}
 
 	private func changeViewStatus(validationStatus: EnterSendAddressViewModel.ValidationStatus) {
@@ -107,10 +157,6 @@ class EnterSendAddressView: UIView {
 			addressTextField.style = .success
 
 			nextButton.style = .active
-		case .pending:
-			addressTextField.style = .pending
-
-			nextButton.style = .deactive
 		case .normal:
 			addressTextField.style = .customIcon(qrCodeScanButton)
 
@@ -134,11 +180,27 @@ class EnterSendAddressView: UIView {
 		)
 	}
 
+	private func updateSuggestedAddressesCardHeight() {
+		let collectionViewHeight = suggestedAddressesCollectionView.contentSize.height
+		let maxHeight: CGFloat = layoutMarginsGuide.layoutFrame.height - 170
+		if collectionViewHeight > maxHeight {
+			suggestedAddressesContainerView.pin(.fixedHeight(maxHeight))
+			addGradientToSuggestedAddresses()
+		} else {
+			suggestedAddressesContainerView.pin(.fixedHeight(collectionViewHeight))
+		}
+	}
+
+	private func addGradientToSuggestedAddresses() {
+		let gradientLayer = GradientLayer(frame: scrollOverlayGradientview.bounds, style: .suggestedRecipientAddress)
+		scrollOverlayGradientview.layer.addSublayer(gradientLayer)
+	}
+
 	private func configureKeyboard() {
 		addressTextField.textFieldKeyboardOnReturn = {
 			self.endEditing(true)
 		}
-		let endEditingTapGesture = UITapGestureRecognizer(target: self, action: #selector(viewEndEditing))
+		endEditingTapGesture = UITapGestureRecognizer(target: self, action: #selector(viewEndEditing))
 		addGestureRecognizer(endEditingTapGesture)
 	}
 
@@ -196,10 +258,18 @@ extension EnterSendAddressView {
 			}
 		}
 		moveViewWithKeyboard(notification: notification, keyboardWillShow: true)
+		endEditingTapGesture.isEnabled = true
+		UIView.animate(withDuration: 0.3) {
+			self.suggestedAddressesContainerView.alpha = 0
+		}
 	}
 
 	@objc
 	internal func keyboardWillHide(_ notification: NSNotification) {
 		moveViewWithKeyboard(notification: notification, keyboardWillShow: false)
+		endEditingTapGesture.isEnabled = false
+		UIView.animate(withDuration: 0.3) {
+			self.suggestedAddressesContainerView.alpha = 1
+		}
 	}
 }
