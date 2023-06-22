@@ -18,6 +18,8 @@ class EnterSendAddressViewModel {
 	public let nextButtonTitle = "Next"
 	public let qrCodeIconName = "qr_code_scanner"
 	public var sendAmountVM: EnterSendAmountViewModel
+	public var selectedWallet: AccountInfoViewModel!
+
 	public enum ValidationStatus: Equatable {
 		case error(ValidationError)
 		case success
@@ -39,6 +41,14 @@ class EnterSendAddressViewModel {
 
 	init(sendAmountVM: EnterSendAmountViewModel) {
 		self.sendAmountVM = sendAmountVM
+		getSelectedWallet()
+	}
+
+	// MARK: - Private Methods
+
+	private func getSelectedWallet() {
+		let currentWallet = CoreDataManager().getAllWalletAccounts().first(where: { $0.isSelected })
+		selectedWallet = AccountInfoViewModel(walletAccountInfoModel: currentWallet)
 	}
 
 	// MARK: - Public Methods

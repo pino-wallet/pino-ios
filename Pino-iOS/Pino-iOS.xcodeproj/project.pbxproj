@@ -311,6 +311,14 @@
 		D9BFEC392A121719007DFF40 /* AllowNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC382A121719007DFF40 /* AllowNotificationsView.swift */; };
 		D9BFEC3B2A12177C007DFF40 /* AllowNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC3A2A12177C007DFF40 /* AllowNotificationsViewModel.swift */; };
 		D9BFEC3E2A12236C007DFF40 /* ClearNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC3D2A12236C007DFF40 /* ClearNavigationBar.swift */; };
+		D9C4CEFF2A408C5E00475F01 /* SuggestedAddressesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CEFE2A408C5E00475F01 /* SuggestedAddressesCollectionView.swift */; };
+		D9C4CF012A408C8A00475F01 /* RecentAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF002A408C8A00475F01 /* RecentAddressCell.swift */; };
+		D9C4CF032A408CA500475F01 /* UserAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF022A408CA500475F01 /* UserAddressCell.swift */; };
+		D9C4CF062A408CF000475F01 /* RecentAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF052A408CF000475F01 /* RecentAddressViewModel.swift */; };
+		D9C4CF082A408CFB00475F01 /* MyAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF072A408CFB00475F01 /* MyAddressViewModel.swift */; };
+		D9C4CF0A2A4090D000475F01 /* SuggestedAddressesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF092A4090D000475F01 /* SuggestedAddressesViewModel.swift */; };
+		D9C4CF0D2A4094C400475F01 /* RecentAddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF0C2A4094C400475F01 /* RecentAddressModel.swift */; };
+		D9C4CF0F2A409D4800475F01 /* SuggestedAddressHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF0E2A409D4800475F01 /* SuggestedAddressHeaderView.swift */; };
 		D9C7D76229EBDCAE006BC446 /* CoinInfoStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C7D76129EBDCAE006BC446 /* CoinInfoStatsView.swift */; };
 		D9DD538BAF953A18503AB3F0 /* RemoveAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887EDE19A8B81F1FB217E0FA /* RemoveAccountView.swift */; };
 		D9E34BC92C3AE69B3D5EC4F2 /* PortfolioPerformanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4FFBB4CC6D342FF946AB9 /* PortfolioPerformanceViewModel.swift */; };
@@ -753,6 +761,14 @@
 		D9BFEC382A121719007DFF40 /* AllowNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsView.swift; sourceTree = "<group>"; };
 		D9BFEC3A2A12177C007DFF40 /* AllowNotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsViewModel.swift; sourceTree = "<group>"; };
 		D9BFEC3D2A12236C007DFF40 /* ClearNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearNavigationBar.swift; sourceTree = "<group>"; };
+		D9C4CEFE2A408C5E00475F01 /* SuggestedAddressesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedAddressesCollectionView.swift; sourceTree = "<group>"; };
+		D9C4CF002A408C8A00475F01 /* RecentAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentAddressCell.swift; sourceTree = "<group>"; };
+		D9C4CF022A408CA500475F01 /* UserAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAddressCell.swift; sourceTree = "<group>"; };
+		D9C4CF052A408CF000475F01 /* RecentAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentAddressViewModel.swift; sourceTree = "<group>"; };
+		D9C4CF072A408CFB00475F01 /* MyAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddressViewModel.swift; sourceTree = "<group>"; };
+		D9C4CF092A4090D000475F01 /* SuggestedAddressesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedAddressesViewModel.swift; sourceTree = "<group>"; };
+		D9C4CF0C2A4094C400475F01 /* RecentAddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentAddressModel.swift; sourceTree = "<group>"; };
+		D9C4CF0E2A409D4800475F01 /* SuggestedAddressHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedAddressHeaderView.swift; sourceTree = "<group>"; };
 		D9C7D76129EBDCAE006BC446 /* CoinInfoStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoStatsView.swift; sourceTree = "<group>"; };
 		D9F2507F29E576FB00DE0410 /* NotificationSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsCell.swift; sourceTree = "<group>"; };
 		D9F2508129E5855500DE0410 /* SecurityOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityOptionCell.swift; sourceTree = "<group>"; };
@@ -2095,6 +2111,35 @@
 			path = ClearNavigationBar;
 			sourceTree = "<group>";
 		};
+		D9C4CEFD2A408BEA00475F01 /* SuggestedAddressesView */ = {
+			isa = PBXGroup;
+			children = (
+				D9C4CEFE2A408C5E00475F01 /* SuggestedAddressesCollectionView.swift */,
+				D9C4CF002A408C8A00475F01 /* RecentAddressCell.swift */,
+				D9C4CF022A408CA500475F01 /* UserAddressCell.swift */,
+				D9C4CF0E2A409D4800475F01 /* SuggestedAddressHeaderView.swift */,
+			);
+			path = SuggestedAddressesView;
+			sourceTree = "<group>";
+		};
+		D9C4CF042A408CB500475F01 /* SuggestedAddressesViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D9C4CF052A408CF000475F01 /* RecentAddressViewModel.swift */,
+				D9C4CF072A408CFB00475F01 /* MyAddressViewModel.swift */,
+				D9C4CF092A4090D000475F01 /* SuggestedAddressesViewModel.swift */,
+			);
+			path = SuggestedAddressesViewModel;
+			sourceTree = "<group>";
+		};
+		D9C4CF0B2A4094AF00475F01 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D9C4CF0C2A4094C400475F01 /* RecentAddressModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		D9FE90A22A1A2479001AD8E4 /* NavigationBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -2290,6 +2335,7 @@
 		E3F482F22A35B03200EEC9CF /* Send */ = {
 			isa = PBXGroup;
 			children = (
+				D9C4CF0B2A4094AF00475F01 /* Model */,
 				E3F482F52A35B05F00EEC9CF /* ViewModel */,
 				E3F482F42A35B05400EEC9CF /* View */,
 				E3F482F32A35B04700EEC9CF /* ViewController */,
@@ -2306,13 +2352,14 @@
 				E3D204CB2A39B7E90027FEBC /* QRScannerViewController.swift */,
 				E34383692A3D912A0048BDA1 /* SendConfirmationViewController.swift */,
 				D941CACB2A3F082900910B70 /* SendStatusViewController.swift */,
-            );
+			);
 			path = ViewController;
 			sourceTree = "<group>";
 		};
 		E3F482F42A35B05400EEC9CF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D9C4CEFD2A408BEA00475F01 /* SuggestedAddressesView */,
 				E3F482F62A35B2DB00EEC9CF /* EnterSendAmountView.swift */,
 				D99CAFCC2A3AF2EE00DBEF2B /* EnterSendAddressView.swift */,
 				D941CAC92A3F06E100910B70 /* SendStatusView.swift */,
@@ -2324,6 +2371,7 @@
 		E3F482F52A35B05F00EEC9CF /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				D9C4CF042A408CB500475F01 /* SuggestedAddressesViewModel */,
 				D9A328142A3464B5005A8393 /* SelectAssetToSendViewModel.swift */,
 				E3F482F82A35B43400EEC9CF /* EnterSendAmountViewModel.swift */,
 				D99CAFCA2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift */,
@@ -2770,6 +2818,7 @@
 				11B58980B34C46C54E1CA0B2 /* AvatarCell.swift in Sources */,
 				9DAA41E3693EB0D2B084C3F8 /* AvatarCollectionView.swift in Sources */,
 				D95D49822A386BC10042FC85 /* TitleWithInfo.swift in Sources */,
+				D9C4CF0D2A4094C400475F01 /* RecentAddressModel.swift in Sources */,
 				8EADE74E5260CF1542FF0EF0 /* AvatarViewModel.swift in Sources */,
 				1362C46CED869A0C712B9DA0 /* BalanceModel.swift in Sources */,
 				152CA78F967F16F922365095 /* BigInt+Extension.swift in Sources */,
@@ -2847,6 +2896,7 @@
 				E55DCCDCC37B827E5DBEEB82 /* FlowLayout+Extension.swift in Sources */,
 				D941CACC2A3F082900910B70 /* SendStatusViewController.swift in Sources */,
 				E343836E2A3DA0320048BDA1 /* SendConfirmationViewModel.swift in Sources */,
+				D9C4CF0F2A409D4800475F01 /* SuggestedAddressHeaderView.swift in Sources */,
 				EFA259C9FE0473172660E5C7 /* FormatterTypes.swift in Sources */,
 				DF00179329F85727001164EA /* PinoNonHDWallet.swift in Sources */,
 				7CF95B0F99AE30C81601CFAA /* GradientLayer.swift in Sources */,
@@ -2889,6 +2939,7 @@
 				DFB566292A192CD600F9D6A0 /* WalletManagementType.swift in Sources */,
 				E384CB1A29FFADE9009C74F5 /* OtherShareOfAssetsViewModel.swift in Sources */,
 				8BF8943C4316B64F59BC29DC /* SecurityOptionsFooter.swift in Sources */,
+				D9C4CF082A408CFB00475F01 /* MyAddressViewModel.swift in Sources */,
 				DFB1E9D22A08EC6100041B26 /* AccountDataSource.swift in Sources */,
 				066B803BA2A7039F8168FAB2 /* SecurityOptionsSection.swift in Sources */,
 				D9A3281E2A34C545005A8393 /* SelectAssetCellVMProtocol.swift in Sources */,
@@ -2902,6 +2953,7 @@
 				DF00179529F85774001164EA /* KeychainManager.swift in Sources */,
 				325E592A9AA1B24C522EA47F /* MediumStyle.swift in Sources */,
 				D93C41FF29F7D3DF003F2297 /* EditAccountOptionModel.swift in Sources */,
+				D9C4CF012A408C8A00475F01 /* RecentAddressCell.swift in Sources */,
 				807A3209FA3C30C37B860B91 /* NetworkManager.swift in Sources */,
 				5845D3E43E1C94CCA89A6104 /* NetworkManagerProtocol.swift in Sources */,
 				C72379E2E2BFAEFF3257EDCE /* Networking+Aliases.swift in Sources */,
@@ -2947,6 +2999,7 @@
 				7B98A5C0E4D54CE1290B009B /* PrecisionSystem.swift in Sources */,
 				133389D38DF23CB5BE195DDC /* ProfileCollectionView.swift in Sources */,
 				7656A61006C2DB8A8F75F498 /* ProfileIcons.swift in Sources */,
+				D9C4CF032A408CA500475F01 /* UserAddressCell.swift in Sources */,
 				DFB1E9D62A08F21C00041B26 /* SelectedAssetsDataSource.swift in Sources */,
 				0D3E98673CD274381A698BBA /* ProfileViewController.swift in Sources */,
 				0613EF4F55B5F6FA90BA65C0 /* ProfileViewModel.swift in Sources */,
@@ -2971,6 +3024,7 @@
 				7AD456E027211FE731B27DF8 /* RevealPrivateKeyViewModel.swift in Sources */,
 				643BAB8ABDEFDA509D258D94 /* SceneDelegate.swift in Sources */,
 				0C37EADB6BFAB0A340582184 /* SecretPhraseCell.swift in Sources */,
+				D9C4CF062A408CF000475F01 /* RecentAddressViewModel.swift in Sources */,
 				A9EB8A9CA5BE7BA334FBB816 /* SecretPhraseCenteredFlowLayout.swift in Sources */,
 				9A7CE65990DD193F0FAF3C75 /* SecretPhraseCollectionView.swift in Sources */,
 				36705A78402D3518B33881DD /* SecretPhraseTextView.swift in Sources */,
@@ -3016,6 +3070,7 @@
 				7788C1D86DF1F4B1E6B2DE54 /* URLRequest+Extension.swift in Sources */,
 				71ED4673E278D4F56B0CC895 /* UnlockAppViewController.swift in Sources */,
 				99B64004802220934AD0B60B /* UnlockAppViewModel.swift in Sources */,
+				D9C4CF0A2A4090D000475F01 /* SuggestedAddressesViewModel.swift in Sources */,
 				038A90F28F66ACC57B0A3CF5 /* UnlockPasscodePageManager.swift in Sources */,
 				DFB1E9D42A08F19C00041B26 /* CoreDataManager.swift in Sources */,
 				8BB89902879DDF1FE9C46EF4 /* UnlockPasscodeView.swift in Sources */,
@@ -3043,6 +3098,7 @@
 				7A69C254CF23590AE51260DC /* WalletEndpoint.swift in Sources */,
 				225160794A3F677530CF8181 /* WalletInfoModel.swift in Sources */,
 				2E5C040F84977824A977D541 /* AccountInfoNavigationItems.swift in Sources */,
+				D9C4CEFF2A408C5E00475F01 /* SuggestedAddressesCollectionView.swift in Sources */,
 				798A57BFA5D028A04B449F34 /* AccountInfoViewModel.swift in Sources */,
 				AD68BBE3C5E6C48C129C6BA7 /* AccountsCollectionView.swift in Sources */,
 				C3321EBB6DC83BCDC3CFC3B0 /* WalletsModel.swift in Sources */,
