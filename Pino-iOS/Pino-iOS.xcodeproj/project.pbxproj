@@ -315,7 +315,6 @@
 		D9C4CF012A408C8A00475F01 /* RecentAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF002A408C8A00475F01 /* RecentAddressCell.swift */; };
 		D9C4CF032A408CA500475F01 /* UserAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF022A408CA500475F01 /* UserAddressCell.swift */; };
 		D9C4CF062A408CF000475F01 /* RecentAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF052A408CF000475F01 /* RecentAddressViewModel.swift */; };
-		D9C4CF082A408CFB00475F01 /* MyAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF072A408CFB00475F01 /* MyAddressViewModel.swift */; };
 		D9C4CF0A2A4090D000475F01 /* SuggestedAddressesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF092A4090D000475F01 /* SuggestedAddressesViewModel.swift */; };
 		D9C4CF0D2A4094C400475F01 /* RecentAddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF0C2A4094C400475F01 /* RecentAddressModel.swift */; };
 		D9C4CF0F2A409D4800475F01 /* SuggestedAddressHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF0E2A409D4800475F01 /* SuggestedAddressHeaderView.swift */; };
@@ -765,7 +764,6 @@
 		D9C4CF002A408C8A00475F01 /* RecentAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentAddressCell.swift; sourceTree = "<group>"; };
 		D9C4CF022A408CA500475F01 /* UserAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAddressCell.swift; sourceTree = "<group>"; };
 		D9C4CF052A408CF000475F01 /* RecentAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentAddressViewModel.swift; sourceTree = "<group>"; };
-		D9C4CF072A408CFB00475F01 /* MyAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddressViewModel.swift; sourceTree = "<group>"; };
 		D9C4CF092A4090D000475F01 /* SuggestedAddressesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedAddressesViewModel.swift; sourceTree = "<group>"; };
 		D9C4CF0C2A4094C400475F01 /* RecentAddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentAddressModel.swift; sourceTree = "<group>"; };
 		D9C4CF0E2A409D4800475F01 /* SuggestedAddressHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedAddressHeaderView.swift; sourceTree = "<group>"; };
@@ -2126,7 +2124,6 @@
 			isa = PBXGroup;
 			children = (
 				D9C4CF052A408CF000475F01 /* RecentAddressViewModel.swift */,
-				D9C4CF072A408CFB00475F01 /* MyAddressViewModel.swift */,
 				D9C4CF092A4090D000475F01 /* SuggestedAddressesViewModel.swift */,
 			);
 			path = SuggestedAddressesViewModel;
@@ -2939,7 +2936,6 @@
 				DFB566292A192CD600F9D6A0 /* WalletManagementType.swift in Sources */,
 				E384CB1A29FFADE9009C74F5 /* OtherShareOfAssetsViewModel.swift in Sources */,
 				8BF8943C4316B64F59BC29DC /* SecurityOptionsFooter.swift in Sources */,
-				D9C4CF082A408CFB00475F01 /* MyAddressViewModel.swift in Sources */,
 				DFB1E9D22A08EC6100041B26 /* AccountDataSource.swift in Sources */,
 				066B803BA2A7039F8168FAB2 /* SecurityOptionsSection.swift in Sources */,
 				D9A3281E2A34C545005A8393 /* SelectAssetCellVMProtocol.swift in Sources */,
