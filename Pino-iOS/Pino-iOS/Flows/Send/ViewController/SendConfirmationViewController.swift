@@ -31,13 +31,9 @@ class SendConfirmationViewController: AuthenticationLockViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		do {
-			try sendConfirmationVM.getFee().catch { error in
-				Toast.default(title: "\(error)", subtitle: "Please try again!", style: .error).show(haptic: .warning)
-			}
-		} catch {
-			Toast.default(title: "\(error)", subtitle: "Please try again!", style: .error).show(haptic: .warning)
-		}
+        sendConfirmationVM.getFee().catch { error in
+            Toast.default(title: "\(error)", subtitle: "Please try again!", style: .error).show(haptic: .warning)
+        }
 	}
 
 	override func loadView() {

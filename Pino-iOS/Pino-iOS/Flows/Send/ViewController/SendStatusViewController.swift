@@ -33,15 +33,11 @@ class SendStatusViewController: UIViewController {
 
 		setupView()
 
-		do {
-			try confirmationVM.sendToken().done { [self] trxHash in
-				sendStatusView.pageStatus = .success
-			}.catch { [self] error in
-				sendStatusView.pageStatus = .failed
-			}
-		} catch {
-			sendStatusView.pageStatus = .failed
-		}
+        confirmationVM.sendToken().done { [self] trxHash in
+            sendStatusView.pageStatus = .success
+        }.catch { [self] error in
+            sendStatusView.pageStatus = .failed
+        }
 	}
 
 	// MARK: - Private Methods

@@ -86,7 +86,7 @@ class SendConfirmationViewModel {
 
 	// MARK: - Public Methods
 
-	public func getFee() throws -> Promise<String> {
+	public func getFee() -> Promise<String> {
 		if selectedToken.symbol == "ETH" {
 			let calculatedGas = calculateEthGasFee()
 			_ = calculatedGas.done { formattedFee in
@@ -94,7 +94,7 @@ class SendConfirmationViewModel {
 			}
 			return calculatedGas
 		} else {
-			let calculatedGas = try calculateTokenGasFee(ethPrice: ethPrice)
+			let calculatedGas = calculateTokenGasFee(ethPrice: ethPrice)
 			_ = calculatedGas.done { formattedFee in
 				self.formattedFee = formattedFee
 			}
@@ -102,13 +102,13 @@ class SendConfirmationViewModel {
 		}
 	}
 
-	public func sendToken() throws -> Promise<String> {
+	public func sendToken() -> Promise<String> {
 		if selectedToken.symbol == "ETH" {
 			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .ether)
-			return try Web3Core.shared.sendEtherTo(address: recipientAddress, amount: sendAmount!)
+			return Web3Core.shared.sendEtherTo(address: recipientAddress, amount: sendAmount!)
 		} else {
 			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))
-			return try Web3Core.shared.sendERC20TokenTo(
+			return Web3Core.shared.sendERC20TokenTo(
 				address: recipientAddress,
 				amount: sendAmount!,
 				tokenContractAddress: selectedToken.id
@@ -130,10 +130,10 @@ class SendConfirmationViewModel {
 		}
 	}
 
-	private func calculateTokenGasFee(ethPrice: BigNumber) throws -> Promise<String> {
+	private func calculateTokenGasFee(ethPrice: BigNumber) -> Promise<String> {
 		Promise<String> { seal in
 			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))
-			try Web3Core.shared.calculateERC20TokenFee(
+            Web3Core.shared.calculateERC20TokenFee(
 				address: recipientAddress,
 				amount: sendAmount!,
 				tokenContractAddress: selectedToken.id
