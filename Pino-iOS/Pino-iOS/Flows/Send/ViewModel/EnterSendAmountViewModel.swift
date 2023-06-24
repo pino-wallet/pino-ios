@@ -14,6 +14,7 @@ class EnterSendAmountViewModel {
 	public let maxTitle = "Max: "
 	public let dollarIcon = "dollar_icon"
 	public let continueButtonTitle = "Next"
+    public let insufficientAmountButtonTitle = "Insufficient amount"
 	public var selectedTokenChanged: (() -> Void)?
 
 	public var textFieldPlaceHolder = "0.0"
@@ -41,6 +42,12 @@ class EnterSendAmountViewModel {
 			return "≈ $\(dollarAmount)"
 		}
 	}
+    
+    public enum AmountStatus {
+        case isNotEnough
+        case isEnough
+        case isZero
+    }
 
 	// MARK: - Initializers
 
@@ -59,14 +66,19 @@ class EnterSendAmountViewModel {
 		}
 	}
 
-	public func checkIfBalanceIsEnough(amount: String, isEnough: (Bool) -> Void) {
-		let maxAmmount = Decimal(string: maxAmount)!
-		let enteredAmmount = Decimal(string: tokenAmount)!
-		if enteredAmmount > maxAmmount {
-			isEnough(false)
-		} else {
-			isEnough(true)
-		}
+	public func checkIfBalanceIsEnough(amount: String, amountStatus: (AmountStatus) -> Void) {
+		let decimalMaxAmount = Decimal(string: maxAmount)!
+        if Decimal(string: amount)?.isZero ?? false {
+            amountStatus(.isZero)
+        } else {
+            calculateAmount(amount)
+            let enteredAmmount = Decimal(string: tokenAmount)!
+            if enteredAmmount > decimalMaxAmount {
+                amountStatus(.isNotEnough)
+            } else {
+                amountStatus(.isEnough)
+            }
+        }
 	}
 
 	// MARK: - Private Methods
