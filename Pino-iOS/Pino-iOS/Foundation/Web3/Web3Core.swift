@@ -21,7 +21,13 @@ class Web3Core {
     // MARK: - Private Properties
 
     private init() {}
-    private let web3 = Web3(rpcURL: "https://rpc.ankr.com/eth")
+    private var web3: Web3 {
+        if let testURL = AboutPinoView.web3URL {
+            return Web3(rpcURL: testURL)
+        } else {
+           return Web3(rpcURL: "https://rpc.ankr.com/eth")
+        }
+    }
     private let walletManager = PinoWalletManager()
 
     typealias CustomAssetInfo = [AssetInfo: String]
@@ -30,6 +36,7 @@ class Web3Core {
 
     // MARK: - Public Properties
 
+    
     public static var shared = Web3Core()
     public enum AssetInfo: String {
         case decimal = "decimals"

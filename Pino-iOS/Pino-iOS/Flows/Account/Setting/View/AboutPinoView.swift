@@ -23,12 +23,16 @@ class AboutPinoView: UIView {
 	private let privacyPolicyStackView = UIStackView()
 	private let websiteStackView = UIStackView()
 	private let termsOfServiceTitle = UILabel()
-	private let privacyPolicyTitle = UILabel()
+    private let privacyPolicyTitle = UILabel()
+	private let web3TextField = UITextField()
 	private let websiteTitle = UILabel()
 	private let separatorLines = [UIView(), UIView()]
 	private let detailIcons = [UIImageView(), UIImageView(), UIImageView()]
 	private var aboutPinoVM: AboutPinoViewModel
 
+    // MARK: - Public Properties
+    public static var web3URL: String?
+    
 	// MARK: - Initializers
 
 	init(aboutPinoVM: AboutPinoViewModel) {
@@ -37,6 +41,7 @@ class AboutPinoView: UIView {
 		setupView()
 		setupStyle()
 		setupContstraint()
+        setupTapGestures()
 	}
 
 	required init?(coder: NSCoder) {
@@ -45,6 +50,15 @@ class AboutPinoView: UIView {
 
 	// MARK: - Private Methods
 
+    private func setupTapGestures() {
+        let holdGesture = UILongPressGestureRecognizer(target: self, action: #selector(showHiddenWeb3Provider))
+        holdGesture.minimumPressDuration = 3
+        termsOfServiceStackView.addGestureRecognizer(holdGesture)
+        termsOfServiceTitle.addGestureRecognizer(holdGesture)
+        termsOfServiceStackView.isUserInteractionEnabled = true
+        termsOfServiceTitle.isUserInteractionEnabled = true
+    }
+    
 	private func setupView() {
 		contentStackView.addArrangedSubview(logoStackView)
 		contentStackView.addArrangedSubview(pinoInfoCardView)
@@ -66,7 +80,8 @@ class AboutPinoView: UIView {
 		pinoInfoStackView.addArrangedSubview(separatorLines[1])
 		pinoInfoStackView.addArrangedSubview(websiteStackView)
 		addSubview(contentStackView)
-
+        addSubview(web3TextField)
+        
 		termsOfServiceStackView
 			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showTermsOfServices)))
 		privacyPolicyStackView
@@ -124,6 +139,12 @@ class AboutPinoView: UIView {
 	}
 
 	private func setupContstraint() {
+        web3TextField.pin(
+            .top(to: layoutMarginsGuide, padding: 0),
+            .leading(to: layoutMarginsGuide, padding: 0),
+            .fixedWidth(300),
+            .fixedHeight(50)
+        )
 		contentStackView.pin(
 			.top(to: layoutMarginsGuide, padding: 40),
 			.horizontalEdges(padding: 16)
@@ -154,6 +175,14 @@ class AboutPinoView: UIView {
 			)
 		}
 	}
+    
+    @objc
+    private func showHiddenWeb3Provider() {
+        web3TextField.delegate = self
+        web3TextField.autocorrectionType = .no
+        web3TextField.autocapitalizationType = .none
+        web3TextField.becomeFirstResponder()
+    }
 
 	@objc
 	private func showTermsOfServices() {
@@ -172,4 +201,14 @@ class AboutPinoView: UIView {
 		let url = URL(string: aboutPinoVM.websiteURL)
 		UIApplication.shared.open(url!)
 	}
+}
+
+extension AboutPinoView: UITextFieldDelegate {
+   
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print(textField.text)
+        AboutPinoView.web3URL = textField.text
+        return true
+    }
+    
 }
