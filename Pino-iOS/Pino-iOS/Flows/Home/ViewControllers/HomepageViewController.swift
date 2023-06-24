@@ -29,7 +29,7 @@ class HomepageViewController: UIViewController {
 
 	override func loadView() {
 		homeVM = HomepageViewModel(completion: { error in
-			#warning("A toast should be sgown in case of error")
+            Toast.default(title: "\(error?.localizedDescription)", subtitle: "Please try again!", style: .error).show(haptic: .warning)
 		})
 		profileVM = ProfileViewModel(walletInfo: homeVM.walletInfo)
 

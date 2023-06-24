@@ -71,7 +71,7 @@ class SendConfirmationViewController: AuthenticationLockViewController {
 			let statusPageVC = SendStatusViewController(confirmationVM: self.sendConfirmationVM) {
 				self.dismiss(animated: true)
 			}
-			//            self.present(statusPageVC, animated: true)
+			self.present(statusPageVC, animated: true)
 		}
 	}
 }
