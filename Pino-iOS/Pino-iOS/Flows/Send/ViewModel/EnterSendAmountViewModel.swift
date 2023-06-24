@@ -15,7 +15,6 @@ class EnterSendAmountViewModel {
 	public let dollarIcon = "dollar_icon"
 	public let continueButtonTitle = "Next"
 	public var selectedTokenChanged: (() -> Void)?
-
 	public var textFieldPlaceHolder = "0.0"
 
 	public var selectedToken: AssetViewModel {
@@ -31,9 +30,7 @@ class EnterSendAmountViewModel {
 	}
 
 	public var ethPrice: BigNumber!
-
 	public var tokenAmount = "0.0"
-
 	public var dollarAmount = "0.0"
 
 	public var formattedAmount: String {

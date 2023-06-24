@@ -21,11 +21,8 @@ class SendConfirmationViewModel {
 	// MARK: - Public Properties
 
 	public var gasFee: BigNumber?
-
 	public var ethPrice: BigNumber!
-
 	public var isAddressScam = false
-
 	public let recipientAddress: String
 
 	public var isTokenVerified: Bool {
@@ -69,6 +66,8 @@ class SendConfirmationViewModel {
 	public let feeInfoActionSheetTitle = "Fee"
 	public let feeInfoActionSheetDescription = "Sample Text"
 
+    // MARK: - Initializer
+
 	init(
 		selectedToken: AssetViewModel,
 		selectedWallet: AccountInfoViewModel,
@@ -84,6 +83,8 @@ class SendConfirmationViewModel {
 		self.recipientAddress = recipientAddress
 		self.ethPrice = ethPrice
 	}
+
+    // MARK: - Public Methods
 
 	public func getFee() throws -> Promise<String> {
 		if selectedToken.symbol == "ETH" {
@@ -114,6 +115,8 @@ class SendConfirmationViewModel {
 			)
 		}
 	}
+    
+    // MARK: - Private Methods
 
 	private func calculateEthGasFee() -> Promise<String> {
 		Promise<String> { seal in

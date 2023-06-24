@@ -10,8 +10,19 @@ import UIKit
 class SendStatusView: UIView {
 	// MARK: - Public Properties
 
-	#warning("i think we should pass confirmSendVM here to bind send response and update view status")
+    public enum PageStatus {
+        case pending
+        case success
+        case failed
+    }
 
+    public var pageStatus: PageStatus = .pending {
+        didSet {
+            updateViewWithPageStatus(pageStatus: pageStatus)
+        }
+    }
+
+    
 	// MARK: - Closures
 
 	public var onDissmiss: () -> Void = {}
@@ -35,18 +46,7 @@ class SendStatusView: UIView {
 	private let viewStatusButton = UIButton()
 	private var sendStatusVM = SendStatusViewModel()
 
-	public enum PageStatuses {
-		case pending
-		case success
-		case failed
-	}
-
-	public var pageStatus: PageStatuses = .pending {
-		didSet {
-			updateViewWithPageStatus(pageStatus: pageStatus)
-		}
-	}
-
+    
 	// MARK: - Initializers
 
 	init(toggleIsModalInPresentation: @escaping (_: Bool) -> Void) {
@@ -151,7 +151,7 @@ class SendStatusView: UIView {
 		closeButton.pin(.bottom(padding: 32), .horizontalEdges(padding: 16))
 	}
 
-	private func updateViewWithPageStatus(pageStatus: PageStatuses) {
+	private func updateViewWithPageStatus(pageStatus: PageStatus) {
 		switch pageStatus {
 		case .pending:
 			pendingStackView.isHidden = false

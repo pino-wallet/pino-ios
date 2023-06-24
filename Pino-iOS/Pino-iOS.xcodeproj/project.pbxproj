@@ -95,6 +95,7 @@
 		403691C12A3DFFB60013AB6D /* IconAppleToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403691BA2A3DFFB50013AB6D /* IconAppleToastView.swift */; };
 		403691C22A3DFFB60013AB6D /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403691BB2A3DFFB50013AB6D /* Toast.swift */; };
 		408463C02A3AEE010058FF16 /* Web3-Utility in Frameworks */ = {isa = PBXBuildFile; productRef = 408463BF2A3AEE010058FF16 /* Web3-Utility */; };
+		40BB42282A47157800E1A121 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB42272A47157800E1A121 /* UIDevice+Extension.swift */; };
 		40F704572A03AFFF004D74FE /* AccountActivationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F704562A03AFFF004D74FE /* AccountActivationModel.swift */; };
 		40F704592A03D5DC004D74FE /* PrivateKeyTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F704582A03D5DC004D74FE /* PrivateKeyTextView.swift */; };
 		41B9F1002F97DF04A075D75D /* PinoStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262D77EFE984EBA7A19D23DC /* PinoStepperView.swift */; };
@@ -523,6 +524,7 @@
 		403691BA2A3DFFB50013AB6D /* IconAppleToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconAppleToastView.swift; sourceTree = "<group>"; };
 		403691BB2A3DFFB50013AB6D /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		404287D5077C670FADEE9987 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		40BB42272A47157800E1A121 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		40F704562A03AFFF004D74FE /* AccountActivationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountActivationModel.swift; sourceTree = "<group>"; };
 		40F704582A03D5DC004D74FE /* PrivateKeyTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKeyTextView.swift; sourceTree = "<group>"; };
 		411833622E37F06E2DC49DFD /* AvatarCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCollectionView.swift; sourceTree = "<group>"; };
@@ -1413,6 +1415,7 @@
 				0C18443FFB775271061875D9 /* URLRequest+Extension.swift */,
 				B33656AE9BB6138666D2E679 /* ViewController+Extension.swift */,
 				E384CB1529FFABAB009C74F5 /* Double+Extension.swift */,
+				40BB42272A47157800E1A121 /* UIDevice+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2797,6 +2800,7 @@
 				72A3CB357D4BD765C3616F3E /* AssetProtocol.swift in Sources */,
 				D4FCAA07F82037BF6EF0B823 /* AssetViewModel.swift in Sources */,
 				E34728EB29E7DD6B00AB8265 /* HomepageViewModel+Asset.swift in Sources */,
+				40BB42282A47157800E1A121 /* UIDevice+Extension.swift in Sources */,
 				E385F6122A22029100EE7EE1 /* Wallet+CoreDataProperties.swift in Sources */,
 				03C069F70295746815C20F42 /* AssetVolatilityType.swift in Sources */,
 				23E2F4FB7A273DD99312DACA /* Assetmodel.swift in Sources */,

@@ -24,7 +24,7 @@ class AboutPinoView: UIView {
 	private let websiteStackView = UIStackView()
 	private let termsOfServiceTitle = UILabel()
 	private let privacyPolicyTitle = UILabel()
-	private let web3TextField = UITextField()
+	private let web3TextField = UITextField() // For debugging purposes
 	private let websiteTitle = UILabel()
 	private let separatorLines = [UIView(), UIView()]
 	private let detailIcons = [UIImageView(), UIImageView(), UIImageView()]
@@ -55,9 +55,7 @@ class AboutPinoView: UIView {
 		let holdGesture = UILongPressGestureRecognizer(target: self, action: #selector(showHiddenWeb3Provider))
 		holdGesture.minimumPressDuration = 3
 		termsOfServiceStackView.addGestureRecognizer(holdGesture)
-		termsOfServiceTitle.addGestureRecognizer(holdGesture)
 		termsOfServiceStackView.isUserInteractionEnabled = true
-		termsOfServiceTitle.isUserInteractionEnabled = true
 	}
 
 	private func setupView() {
@@ -140,6 +138,8 @@ class AboutPinoView: UIView {
 	}
 
 	private func setupContstraint() {
+        // web3TextField is for debugging purposes
+        // Is not visible in UI
 		web3TextField.pin(
 			.top(to: layoutMarginsGuide, padding: 0),
 			.leading(to: layoutMarginsGuide, padding: 0),
