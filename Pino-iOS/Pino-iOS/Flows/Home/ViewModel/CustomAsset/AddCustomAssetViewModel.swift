@@ -19,12 +19,6 @@ class AddCustomAssetViewModel {
 		case success
 	}
 
-	#warning("These values are for testing and should be changed")
-	public enum ValidateTextFieldDelay: Double {
-		case small = 0.2
-		case none = 0.0
-	}
-
 	public enum CustomAssetValidationError: Error {
 		case notValid
 		case networkError
@@ -121,7 +115,7 @@ class AddCustomAssetViewModel {
 		}
 	}
 
-	public func validateContractAddressBeforeRequest(textFieldText: String, delay: ValidateTextFieldDelay) {
+	public func validateContractAddressBeforeRequest(textFieldText: String) {
 		if textFieldText.isEmpty {
 			changeViewStatusClosure(.clear)
 			return
@@ -135,26 +129,24 @@ class AddCustomAssetViewModel {
 				return
 			} else {
 				changeViewStatusClosure(.pending)
-				DispatchQueue.main.asyncAfter(deadline: .now() + delay.rawValue) {
-                    Web3Core.shared.getCustomAssetInfo(contractAddress: textFieldText)
-                        .done { [weak self] assetInfo in
-                            if let name = assetInfo[.name]?.description,
-                               let symbol = assetInfo[.symbol]?.description,
-                               let balance = assetInfo[.balance]?.description,
-                               let decimal = assetInfo[.decimal]?.description {
-                                self?.customAssetVM = CustomAssetViewModel(customAsset: CustomAssetModel(
-                                    id: textFieldText.trimmingCharacters(in: .whitespaces),
-                                    name: name,
-                                    symbol: symbol,
-                                    balance: balance,
-                                    decimal: decimal
-                                ))
-                                self?.changeViewStatusClosure(.success)
-                            }
-                        }.catch { error in
-                            self.changeViewStatusClosure(.error(.networkError))
+                Web3Core.shared.getCustomAssetInfo(contractAddress: textFieldText)
+                    .done { [weak self] assetInfo in
+                        if let name = assetInfo[.name]?.description,
+                           let symbol = assetInfo[.symbol]?.description,
+                           let balance = assetInfo[.balance]?.description,
+                           let decimal = assetInfo[.decimal]?.description {
+                            self?.customAssetVM = CustomAssetViewModel(customAsset: CustomAssetModel(
+                                id: textFieldText.trimmingCharacters(in: .whitespaces),
+                                name: name,
+                                symbol: symbol,
+                                balance: balance,
+                                decimal: decimal
+                            ))
+                            self?.changeViewStatusClosure(.success)
                         }
-				}
+                    }.catch { error in
+                        self.changeViewStatusClosure(.error(.networkError))
+                    }
 			}
 		} else {
 			changeViewStatusClosure(.error(.notValid))

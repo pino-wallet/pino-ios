@@ -97,8 +97,7 @@ class AddCustomAssetView: UIView {
 		contractTextfieldView.textFieldKeyboardOnReturn = dissmissKeyboardClosure
 		contractTextfieldView.textDidChange = { [weak self] in
 			self?.addCustomAssetVM.validateContractAddressBeforeRequest(
-				textFieldText: self?.contractTextfieldView.getText() ?? "",
-				delay: .small
+				textFieldText: self?.contractTextfieldView.getText() ?? ""
 			)
 		}
 		scanQRCodeIconButton.setImage(UIImage(named: addCustomAssetVM.addCustomAssetTextfieldIcon), for: .normal)
@@ -145,8 +144,7 @@ class AddCustomAssetView: UIView {
 				self.pasteFromClipboardview.onPaste = {
 					self.contractTextfieldView.text = validatedContractAddress
 					self.addCustomAssetVM.validateContractAddressBeforeRequest(
-						textFieldText: self.contractTextfieldView.text ?? "",
-						delay: .none
+						textFieldText: self.contractTextfieldView.text ?? ""
 					)
 				}
 			case .pending:
