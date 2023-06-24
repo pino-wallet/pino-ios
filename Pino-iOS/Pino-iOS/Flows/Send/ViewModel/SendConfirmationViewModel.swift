@@ -5,141 +5,146 @@
 //  Created by Mohi Raoufi on 6/17/23.
 //
 
+import BigInt
 import Foundation
 import PromiseKit
-import BigInt
 import Web3_Utility
 
 class SendConfirmationViewModel {
-    // MARK: - Private Properties
+	// MARK: - Private Properties
 
-    private let selectedToken: AssetViewModel
-    private let selectedWallet: AccountInfoViewModel
-    private let sendAmount: String
-    private let sendAmountInDollar: String
+	private let selectedToken: AssetViewModel
+	private let selectedWallet: AccountInfoViewModel
+	private let sendAmount: String
+	private let sendAmountInDollar: String
 
-    // MARK: - Public Properties
+	// MARK: - Public Properties
 
-    public var gasFee: BigNumber?
-    
-    public var ethPrice: BigNumber!
+	public var gasFee: BigNumber?
 
-    public var isAddressScam = false
+	public var ethPrice: BigNumber!
 
-    public let recipientAddress: String
+	public var isAddressScam = false
 
-    public var isTokenVerified: Bool {
-        selectedToken.isVerified
-    }
+	public let recipientAddress: String
 
-    public var tokenImage: URL {
-        selectedToken.image
-    }
+	public var isTokenVerified: Bool {
+		selectedToken.isVerified
+	}
 
-    public var customAssetImage: String {
-        selectedToken.customAssetImage
-    }
+	public var tokenImage: URL {
+		selectedToken.image
+	}
 
-    public var formattedSendAmount: String {
-        "\(sendAmount) \(selectedToken.symbol)"
-    }
+	public var customAssetImage: String {
+		selectedToken.customAssetImage
+	}
 
-    public var formattedSendAmountInDollar: String? {
-        "$\(sendAmountInDollar)"
-    }
+	public var formattedSendAmount: String {
+		"\(sendAmount) \(selectedToken.symbol)"
+	}
 
-    public var selectedWalletImage: String {
-        selectedWallet.profileImage
-    }
+	public var formattedSendAmountInDollar: String? {
+		"$\(sendAmountInDollar)"
+	}
 
-    public var selectedWalletName: String {
-        selectedWallet.name
-    }
+	public var selectedWalletImage: String {
+		selectedWallet.profileImage
+	}
 
-    @Published
-    public var formattedFee: String?
+	public var selectedWalletName: String {
+		selectedWallet.name
+	}
 
-    public let selectedWalletTitle = "From"
-    public let recipientAddressTitle = "To"
-    public let feeTitle = "Fee"
-    public let confirmButtonTitle = "Confirm"
-    public let scamConfirmButtonTitle = "Confirm Anyway"
-    public let scamErrorTitle =
-        "This address maybe be a scam! This address maybe be a scam! This address maybe be a scam!"
-    public let feeInfoActionSheetTitle = "Fee"
-    public let feeInfoActionSheetDescription = "Sample Text"
+	@Published
+	public var formattedFee: String?
 
-    init(
-        selectedToken: AssetViewModel,
-        selectedWallet: AccountInfoViewModel,
-        recipientAddress: String,
-        sendAmount: String,
-        sendAmountInDollar: String,
-        ethPrice: BigNumber
-    ) {
-        self.selectedToken = selectedToken
-        self.selectedWallet = selectedWallet
-        self.sendAmount = sendAmount
-        self.sendAmountInDollar = sendAmountInDollar
-        self.recipientAddress = recipientAddress
-        self.ethPrice = ethPrice
-    }
+	public let selectedWalletTitle = "From"
+	public let recipientAddressTitle = "To"
+	public let feeTitle = "Fee"
+	public let confirmButtonTitle = "Confirm"
+	public let scamConfirmButtonTitle = "Confirm Anyway"
+	public let scamErrorTitle =
+		"This address maybe be a scam! This address maybe be a scam! This address maybe be a scam!"
+	public let feeInfoActionSheetTitle = "Fee"
+	public let feeInfoActionSheetDescription = "Sample Text"
 
-    public func getFee() throws -> Promise<String> {
-        if selectedToken.symbol == "ETH" {
-            let calculatedGas = calculateEthGasFee()
-            _ = calculatedGas.done { formattedFee in
-                self.formattedFee = formattedFee
-            }
-            return calculatedGas
-        } else {
-            
-            let calculatedGas = try calculateTokenGasFee(ethPrice: ethPrice)
-            _ = calculatedGas.done { formattedFee in
-                self.formattedFee = formattedFee
-            }
-            return calculatedGas
-        }
-    }
-    
-    public func sendToken() throws -> Promise<String> {
-        if selectedToken.symbol == "ETH" {
-            let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .ether)
-            return try Web3Core.shared.sendEtherTo(address: recipientAddress, amount: sendAmount!)
-        }else {
-            let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))
-            return try Web3Core.shared.sendERC20TokenTo(address: recipientAddress, amount: sendAmount!, tokenContractAddress: selectedToken.id)
-        }
-    }
+	init(
+		selectedToken: AssetViewModel,
+		selectedWallet: AccountInfoViewModel,
+		recipientAddress: String,
+		sendAmount: String,
+		sendAmountInDollar: String,
+		ethPrice: BigNumber
+	) {
+		self.selectedToken = selectedToken
+		self.selectedWallet = selectedWallet
+		self.sendAmount = sendAmount
+		self.sendAmountInDollar = sendAmountInDollar
+		self.recipientAddress = recipientAddress
+		self.ethPrice = ethPrice
+	}
 
-    private func calculateEthGasFee() -> Promise<String> {
-        return Promise<String> { seal in
-            _ = Web3Core.shared.calculateEthGasFee(ethPrice: selectedToken.price).done { fee,feeInDollar in
-                self.gasFee = fee
-                seal.fulfill("$\(feeInDollar.formattedAmountOf(type: .price)) / \(fee.formattedAmountOf(type: .hold)) ETH")
-            }.catch { error in
-                seal.reject(error)
-            }
-        }
-    }
+	public func getFee() throws -> Promise<String> {
+		if selectedToken.symbol == "ETH" {
+			let calculatedGas = calculateEthGasFee()
+			_ = calculatedGas.done { formattedFee in
+				self.formattedFee = formattedFee
+			}
+			return calculatedGas
+		} else {
+			let calculatedGas = try calculateTokenGasFee(ethPrice: ethPrice)
+			_ = calculatedGas.done { formattedFee in
+				self.formattedFee = formattedFee
+			}
+			return calculatedGas
+		}
+	}
 
-    private func calculateTokenGasFee(ethPrice: BigNumber) throws -> Promise<String> {
-        return Promise<String> { seal in
-            let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))
-            try Web3Core.shared.calculateERC20TokenFee(
-                address: recipientAddress,
-                amount: sendAmount!,
-                tokenContractAddress: selectedToken.id
-            ).done { [self] (estimate,transactionInfo) in
-                let fee = BigNumber(unSignedNumber: estimate.quantity, decimal: 18)
-                let feeInDollar = fee * ethPrice
-                
-                self.gasFee = fee
+	public func sendToken() throws -> Promise<String> {
+		if selectedToken.symbol == "ETH" {
+			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .ether)
+			return try Web3Core.shared.sendEtherTo(address: recipientAddress, amount: sendAmount!)
+		} else {
+			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))
+			return try Web3Core.shared.sendERC20TokenTo(
+				address: recipientAddress,
+				amount: sendAmount!,
+				tokenContractAddress: selectedToken.id
+			)
+		}
+	}
 
-                seal.fulfill("$\(feeInDollar.formattedAmountOf(type: .price)) / \(fee.formattedAmountOf(type: .hold)) ETH")
-            }.catch { error in
-                seal.reject(error)
-            }
-        }
-    }
+	private func calculateEthGasFee() -> Promise<String> {
+		Promise<String> { seal in
+			_ = Web3Core.shared.calculateEthGasFee(ethPrice: selectedToken.price).done { fee, feeInDollar in
+				self.gasFee = fee
+				seal
+					.fulfill("$\(feeInDollar.formattedAmountOf(type: .price)) / \(fee.formattedAmountOf(type: .hold)) ETH")
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	private func calculateTokenGasFee(ethPrice: BigNumber) throws -> Promise<String> {
+		Promise<String> { seal in
+			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))
+			try Web3Core.shared.calculateERC20TokenFee(
+				address: recipientAddress,
+				amount: sendAmount!,
+				tokenContractAddress: selectedToken.id
+			).done { [self] estimate, transactionInfo in
+				let fee = BigNumber(unSignedNumber: estimate.quantity, decimal: 18)
+				let feeInDollar = fee * ethPrice
+
+				self.gasFee = fee
+
+				seal
+					.fulfill("$\(feeInDollar.formattedAmountOf(type: .price)) / \(fee.formattedAmountOf(type: .hold)) ETH")
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
 }

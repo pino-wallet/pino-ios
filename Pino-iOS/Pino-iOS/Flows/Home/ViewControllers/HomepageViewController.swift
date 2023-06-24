@@ -5,9 +5,9 @@
 //  Created by Mohi Raoufi on 12/17/22.
 //
 
+import BigInt
 import Combine
 import UIKit
-import BigInt
 
 class HomepageViewController: UIViewController {
 	// MARK: - Private Properties
@@ -105,7 +105,6 @@ class HomepageViewController: UIViewController {
 			navigationVC.modalPresentationStyle = .formSheet
 			present(navigationVC, animated: true)
 		}
-    
 	}
 
 	@objc

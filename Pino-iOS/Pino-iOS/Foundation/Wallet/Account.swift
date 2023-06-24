@@ -53,7 +53,7 @@ public class Account {
 
 	init(account: WalletAccount) throws {
 		self.derivationPath = account.derivationPath
-        self.publicKey = try EthereumPublicKey(hexPublicKey: account.publicKey)
+		self.publicKey = try EthereumPublicKey(hexPublicKey: account.publicKey)
 		self.address = publicKey.address
 		self.accountSource = account.wallet.walletType
 	}

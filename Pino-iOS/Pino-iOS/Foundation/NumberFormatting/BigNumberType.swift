@@ -39,15 +39,15 @@ public struct BigNumber {
 		self.decimal = decimal
 	}
 
-    public init(unSignedNumber: BigUInt, decimal: Int) {
-        self.number = BigInt(unSignedNumber)
-        self.decimal = decimal
-    }
-    
-    public init(number: BigNumber, decimal: Int) {
-        self.number = number.number
-        self.decimal = decimal
-    }
+	public init(unSignedNumber: BigUInt, decimal: Int) {
+		self.number = BigInt(unSignedNumber)
+		self.decimal = decimal
+	}
+
+	public init(number: BigNumber, decimal: Int) {
+		self.number = number.number
+		self.decimal = decimal
+	}
 
 	public var whole: BigInt {
 		number.quotientAndRemainder(dividingBy: BigInt(10).power(decimal)).quotient
