@@ -87,7 +87,7 @@ class SendConfirmationViewModel {
 	// MARK: - Public Methods
 
 	public func getFee() -> Promise<String> {
-		if selectedToken.symbol == "ETH" {
+        if selectedToken.isEth {
 			let calculatedGas = calculateEthGasFee()
 			_ = calculatedGas.done { formattedFee in
 				self.formattedFee = formattedFee
@@ -103,7 +103,7 @@ class SendConfirmationViewModel {
 	}
 
 	public func sendToken() -> Promise<String> {
-		if selectedToken.symbol == "ETH" {
+		if selectedToken.isEth {
 			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .ether)
 			return Web3Core.shared.sendEtherTo(address: recipientAddress, amount: sendAmount!)
 		} else {
@@ -133,18 +133,15 @@ class SendConfirmationViewModel {
 	private func calculateTokenGasFee(ethPrice: BigNumber) -> Promise<String> {
 		Promise<String> { seal in
 			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))
-            Web3Core.shared.calculateERC20TokenFee(
+            Web3Core.shared.calculateERCGasFee(
 				address: recipientAddress,
 				amount: sendAmount!,
-				tokenContractAddress: selectedToken.id
-			).done { [self] estimate, transactionInfo in
-				let fee = BigNumber(unSignedNumber: estimate.quantity, decimal: 18)
-				let feeInDollar = fee * ethPrice
-
-				self.gasFee = fee
-
-				seal
-					.fulfill("$\(feeInDollar.formattedAmountOf(type: .price)) / \(fee.formattedAmountOf(type: .hold)) ETH")
+                tokenContractAddress: selectedToken.id,
+                ethPrice: ethPrice
+			).done { [self] fee, feeInDollar in
+                self.gasFee = fee
+                seal
+                    .fulfill("$\(feeInDollar.formattedAmountOf(type: .price)) / \(fee.formattedAmountOf(type: .hold)) ETH")
 			}.catch { error in
 				seal.reject(error)
 			}
