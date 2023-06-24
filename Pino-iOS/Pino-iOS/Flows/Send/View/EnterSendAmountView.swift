@@ -93,8 +93,8 @@ class EnterSendAmountView: UIView {
 		}
 
 		amountTextfield.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        let focusTextFieldTapGesture = UITapGestureRecognizer(target: self, action: #selector(focusOnAmountTextField))
-        contentCardView.addGestureRecognizer(focusTextFieldTapGesture)
+		let focusTextFieldTapGesture = UITapGestureRecognizer(target: self, action: #selector(focusOnAmountTextField))
+		contentCardView.addGestureRecognizer(focusTextFieldTapGesture)
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
 	}
 
@@ -262,10 +262,11 @@ class EnterSendAmountView: UIView {
 			continueButton.style = .deactive
 		}
 	}
-    
-    @objc private func focusOnAmountTextField() {
-        amountTextfield.becomeFirstResponder()
-    }
+
+	@objc
+	private func focusOnAmountTextField() {
+		amountTextfield.becomeFirstResponder()
+	}
 }
 
 extension EnterSendAmountView: UITextFieldDelegate {
