@@ -138,8 +138,8 @@ class AboutPinoView: UIView {
 	}
 
 	private func setupContstraint() {
-        // web3TextField is for debugging purposes
-        // Is not visible in UI
+		// web3TextField is for debugging purposes
+		// Is not visible in UI
 		web3TextField.pin(
 			.top(to: layoutMarginsGuide, padding: 0),
 			.leading(to: layoutMarginsGuide, padding: 0),

@@ -10,19 +10,18 @@ import UIKit
 class SendStatusView: UIView {
 	// MARK: - Public Properties
 
-    public enum PageStatus {
-        case pending
-        case success
-        case failed
-    }
+	public enum PageStatus {
+		case pending
+		case success
+		case failed
+	}
 
-    public var pageStatus: PageStatus = .pending {
-        didSet {
-            updateViewWithPageStatus(pageStatus: pageStatus)
-        }
-    }
+	public var pageStatus: PageStatus = .pending {
+		didSet {
+			updateViewWithPageStatus(pageStatus: pageStatus)
+		}
+	}
 
-    
 	// MARK: - Closures
 
 	public var onDissmiss: () -> Void = {}
@@ -46,7 +45,6 @@ class SendStatusView: UIView {
 	private let viewStatusButton = UIButton()
 	private var sendStatusVM = SendStatusViewModel()
 
-    
 	// MARK: - Initializers
 
 	init(toggleIsModalInPresentation: @escaping (_: Bool) -> Void) {

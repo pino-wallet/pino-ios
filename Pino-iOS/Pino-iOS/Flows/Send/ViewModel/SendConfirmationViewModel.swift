@@ -66,7 +66,7 @@ class SendConfirmationViewModel {
 	public let feeInfoActionSheetTitle = "Fee"
 	public let feeInfoActionSheetDescription = "Sample Text"
 
-    // MARK: - Initializer
+	// MARK: - Initializer
 
 	init(
 		selectedToken: AssetViewModel,
@@ -84,7 +84,7 @@ class SendConfirmationViewModel {
 		self.ethPrice = ethPrice
 	}
 
-    // MARK: - Public Methods
+	// MARK: - Public Methods
 
 	public func getFee() throws -> Promise<String> {
 		if selectedToken.symbol == "ETH" {
@@ -115,8 +115,8 @@ class SendConfirmationViewModel {
 			)
 		}
 	}
-    
-    // MARK: - Private Methods
+
+	// MARK: - Private Methods
 
 	private func calculateEthGasFee() -> Promise<String> {
 		Promise<String> { seal in

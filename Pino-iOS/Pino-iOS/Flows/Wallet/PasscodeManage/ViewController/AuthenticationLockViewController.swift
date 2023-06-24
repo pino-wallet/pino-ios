@@ -13,10 +13,10 @@ class AuthenticationLockViewController: UIViewController {
 	// MARK: - Public Methods
 
 	public func unlockApp(onSuccess: @escaping () -> Void) {
-        guard !UIDevice.current.isSimulator else {
-            onSuccess();
-            return
-        }
+		guard !UIDevice.current.isSimulator else {
+			onSuccess()
+			return
+		}
 		let lockMethod = getLockMethod()
 
 		switch lockMethod {
