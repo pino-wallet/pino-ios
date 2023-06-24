@@ -11,7 +11,7 @@ import Foundation
 final class WalletAPIClient: WalletAPIService {
 	// MARK: - Private Properties
 
-	private let networkManager = NetworkManager<WalletEndpoint>(keychainService: KeychainSwift())
+	private let networkManager = NetworkManager<WalletEndpoint>()
 
 	// MARK: - Public Methods
 

@@ -9,16 +9,12 @@ import Combine
 import Foundation
 
 struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
-	// MARK: Public Properties
-
-	#warning("Keychain here is temprary for when we want to request to eth network")
-	public let keychainService: KeychainWrapper!
 
 	// MARK: Public Methods
 
 	public func request<T: Codable>(_ endpoint: EndPoint) -> AnyPublisher<T, APIError> {
 		do {
-			let request = try endpoint.request(privateKey: keychainService.get("privateKey"))
+			let request = try endpoint.request()
 
 			let requestPublisher = URLSession.shared.dataTaskPublisher(for: request)
 				.tryMap { data, response -> T in
