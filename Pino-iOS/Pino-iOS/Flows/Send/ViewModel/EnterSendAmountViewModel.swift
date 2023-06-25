@@ -86,21 +86,16 @@ class EnterSendAmountViewModel {
 	private func convertEnteredAmountToDollar(amount: String) {
 		guard let decimalNumber = Decimal(string: amount),
 		      let price = Decimal(string: selectedToken.price.decimalString) else { return }
-		dollarAmount = formattedAmount(of: decimalNumber * price)
+		let amountInDollarDecimalValue = decimalNumber * price
+		dollarAmount = amountInDollarDecimalValue.formattedAmount(type: .dollarValue)
 		tokenAmount = amount
 	}
 
 	private func convertDollarAmountToTokenValue(amount: String) {
 		guard let decimalNumber = Decimal(string: amount),
 		      let price = Decimal(string: selectedToken.price.decimalString) else { return }
-		tokenAmount = formattedAmount(of: decimalNumber / price)
+		let tokenAmountDecimalValue = decimalNumber / price
+		tokenAmount = tokenAmountDecimalValue.formattedAmount(type: .tokenValue)
 		dollarAmount = amount
-	}
-
-	private func formattedAmount(of decimalNumber: Decimal) -> String {
-		var decimalNumber = decimalNumber
-		var roundedDecimal: Decimal = 0
-		NSDecimalRound(&roundedDecimal, &decimalNumber, 12, .up)
-		return roundedDecimal.description
 	}
 }
