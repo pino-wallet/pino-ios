@@ -16,7 +16,6 @@ class EnterSendAmountViewModel {
 	public let continueButtonTitle = "Next"
 	public let insufficientAmountButtonTitle = "Insufficient amount"
 	public var selectedTokenChanged: (() -> Void)?
-
 	public var textFieldPlaceHolder = "0.0"
 
 	public var selectedToken: AssetViewModel {
@@ -31,8 +30,8 @@ class EnterSendAmountViewModel {
 		selectedToken.amount
 	}
 
+	public var ethPrice: BigNumber!
 	public var tokenAmount = "0.0"
-
 	public var dollarAmount = "0.0"
 
 	public var formattedAmount: String {
@@ -51,9 +50,10 @@ class EnterSendAmountViewModel {
 
 	// MARK: - Initializers
 
-	init(selectedToken: AssetViewModel, isDollarEnabled: Bool = false) {
+	init(selectedToken: AssetViewModel, isDollarEnabled: Bool = false, ethPrice: BigNumber) {
 		self.selectedToken = selectedToken
 		self.isDollarEnabled = isDollarEnabled
+		self.ethPrice = ethPrice
 	}
 
 	// MARK: - Public Methods

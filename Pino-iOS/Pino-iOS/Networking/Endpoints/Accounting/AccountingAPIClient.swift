@@ -11,7 +11,7 @@ import Foundation
 final class AccountingAPIClient: AccountingAPIService {
 	// MARK: - Private Properties
 
-	private let networkManager = NetworkManager<AccountingEndpoint>(keychainService: KeychainSwift())
+	private let networkManager = NetworkManager<AccountingEndpoint>()
 	private let pinoWalletManager = PinoWalletManager()
 	private var currentAccountAdd: String {
 		pinoWalletManager.currentAccount.eip55Address

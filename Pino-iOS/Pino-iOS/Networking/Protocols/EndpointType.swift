@@ -10,7 +10,7 @@ import Foundation
 // <#Description#>
 // Every Endpoint we define in system should confirm to `EndpointType`
 protocol EndpointType {
-	func request(privateKey: String?) throws -> URLRequest
+	func request() throws -> URLRequest
 	var url: URL { get }
 	var baseURL: URL { get }
 	var path: String { get }
