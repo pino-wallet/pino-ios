@@ -25,5 +25,3 @@ extension NSSet {
 		return array
 	}
 }
-
-//

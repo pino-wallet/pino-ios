@@ -12,13 +12,11 @@ class SendStatusViewController: UIViewController {
 
 	private var sendStatusView: SendStatusView!
 	private var confirmationVM: SendConfirmationViewModel
-	private var fallback: () -> Void
 
 	// MARK: - Initializers
 
-	init(confirmationVM: SendConfirmationViewModel, completion: @escaping () -> Void) {
+	init(confirmationVM: SendConfirmationViewModel) {
 		self.confirmationVM = confirmationVM
-		self.fallback = completion
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -27,6 +25,11 @@ class SendStatusViewController: UIViewController {
 	}
 
 	// MARK: - View Overrides
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        clearNavbar()
+    }
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -48,7 +51,6 @@ class SendStatusViewController: UIViewController {
 		})
 		sendStatusView.onDissmiss = {
 			self.dismiss(animated: true)
-			self.fallback()
 		}
 		view = sendStatusView
 	}

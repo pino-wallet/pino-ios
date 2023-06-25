@@ -63,11 +63,11 @@ extension SuggestedAddressesCollectionView: UICollectionViewDelegate {
 
 extension SuggestedAddressesCollectionView: UICollectionViewDataSource {
 	func numberOfSections(in collectionView: UICollectionView) -> Int {
-		if suggestedAddressesVM.userWallets.count >= 1 {
-			return 2
-		} else {
-			return 1
-		}
+        if suggestedAddressesVM.recentAddresses.count == 0 || suggestedAddressesVM.userWallets.count == 0{
+            return 1
+        } else {
+            return 2
+        }
 	}
 
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
