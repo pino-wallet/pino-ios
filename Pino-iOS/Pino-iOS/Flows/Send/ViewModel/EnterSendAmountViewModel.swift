@@ -14,6 +14,8 @@ class EnterSendAmountViewModel {
 	public let maxTitle = "Max: "
 	public let dollarIcon = "dollar_icon"
 	public let continueButtonTitle = "Next"
+    public let dollarSign = "$"
+    public let avgSign = "≈"
 	public var selectedTokenChanged: (() -> Void)?
 
 	public var textFieldPlaceHolder = "0.0"
@@ -35,12 +37,12 @@ class EnterSendAmountViewModel {
 	public var dollarAmount = "0.0"
 
 	public var formattedAmount: String {
-		if isDollarEnabled {
-			return "≈ \(tokenAmount) \(selectedToken.symbol)"
-		} else {
-			return "≈ $\(dollarAmount)"
-		}
+			return " \(tokenAmount) \(selectedToken.symbol)"
 	}
+    
+    public var formattedAmountInDollar: String {
+        return " $\(dollarAmount)"
+    }
 
 	// MARK: - Initializers
 
