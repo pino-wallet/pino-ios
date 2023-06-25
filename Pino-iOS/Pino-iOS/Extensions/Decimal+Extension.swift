@@ -35,14 +35,14 @@ extension Decimal {
 		}
 	}
 
-	public func formattedAmount(type: FormatTypes) -> String {
+	public func formattedAmount(type: FormatType) -> String {
 		var decimalNumber = self
 		var roundedDecimal: Decimal = 0
 		NSDecimalRound(&roundedDecimal, &decimalNumber, type.formattingDecimal, .up)
 		return roundedDecimal.description
 	}
 
-	public enum FormatTypes {
+	public enum FormatType {
 		case dollarValue
 		case tokenValue
 		case custom(Int)
