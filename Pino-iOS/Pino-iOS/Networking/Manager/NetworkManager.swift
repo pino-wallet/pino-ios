@@ -9,7 +9,6 @@ import Combine
 import Foundation
 
 struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
-
 	// MARK: Public Methods
 
 	public func request<T: Codable>(_ endpoint: EndPoint) -> AnyPublisher<T, APIError> {

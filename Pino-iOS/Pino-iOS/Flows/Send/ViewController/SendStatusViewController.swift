@@ -25,22 +25,22 @@ class SendStatusViewController: UIViewController {
 	}
 
 	// MARK: - View Overrides
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        clearNavbar()
-    }
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		clearNavbar()
+	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
 		setupView()
 
-        confirmationVM.sendToken().done { [self] trxHash in
-            sendStatusView.pageStatus = .success
-        }.catch { [self] error in
-            sendStatusView.pageStatus = .failed
-        }
+		confirmationVM.sendToken().done { [self] trxHash in
+			sendStatusView.pageStatus = .success
+		}.catch { [self] error in
+			sendStatusView.pageStatus = .failed
+		}
 	}
 
 	// MARK: - Private Methods

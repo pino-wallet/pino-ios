@@ -21,10 +21,10 @@ public class AssetViewModel: SecurityModeProtocol {
 	public var id: String {
 		assetModel.id
 	}
-    
-    public var isEth: Bool {
-        id == "0x0000000000000000000000000000000000000000" && symbol == "ETH"
-    }
+
+	public var isEth: Bool {
+		id == "0x0000000000000000000000000000000000000000" && symbol == "ETH"
+	}
 
 	public var image: URL {
 		URL(string: assetModel.detail!.logo)!

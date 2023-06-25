@@ -82,18 +82,19 @@ extension UIViewController {
 
 		UIBarButtonItem.appearance().setTitleTextAttributes(textAttributes, for: .normal)
 	}
-    
-    public func clearNavbar() {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor.clear
-        appearance.shadowImage = nil
-        appearance.shadowColor = .clear
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.clear] // With a red background, make the title more readable.
-        navigationItem.standardAppearance = appearance
-        navigationItem.scrollEdgeAppearance = appearance
-        navigationItem.compactAppearance = appearance // For iPhone small navigation bar in landscape.
-        removeNavigationBackButton()
-    }
-    
+
+	public func clearNavbar() {
+		let appearance = UINavigationBarAppearance()
+		appearance.configureWithOpaqueBackground()
+		appearance.backgroundColor = UIColor.clear
+		appearance.shadowImage = nil
+		appearance.shadowColor = .clear
+		appearance
+			.titleTextAttributes =
+			[.foregroundColor: UIColor.clear] // With a red background, make the title more readable.
+		navigationItem.standardAppearance = appearance
+		navigationItem.scrollEdgeAppearance = appearance
+		navigationItem.compactAppearance = appearance // For iPhone small navigation bar in landscape.
+		removeNavigationBackButton()
+	}
 }

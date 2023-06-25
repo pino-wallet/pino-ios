@@ -31,9 +31,10 @@ class SendConfirmationViewController: AuthenticationLockViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-        sendConfirmationVM.getFee().catch { error in
-            Toast.default(title: "\(error.localizedDescription)", subtitle: "Please try again!", style: .error).show(haptic: .warning)
-        }
+		sendConfirmationVM.getFee().catch { error in
+			Toast.default(title: "\(error.localizedDescription)", subtitle: "Please try again!", style: .error)
+				.show(haptic: .warning)
+		}
 	}
 
 	override func loadView() {
@@ -69,7 +70,7 @@ class SendConfirmationViewController: AuthenticationLockViewController {
 	private func confirmSend() {
 		unlockApp {
 			let statusPageVC = SendStatusViewController(confirmationVM: self.sendConfirmationVM)
-            self.navigationController?.pushViewController(statusPageVC, animated: true)
+			self.navigationController?.pushViewController(statusPageVC, animated: true)
 		}
 	}
 }
