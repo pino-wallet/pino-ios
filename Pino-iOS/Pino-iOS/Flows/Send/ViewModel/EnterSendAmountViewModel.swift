@@ -67,10 +67,10 @@ class EnterSendAmountViewModel {
 	}
 
 	public func checkIfBalanceIsEnough(amount: String, amountStatus: (AmountStatus) -> Void) {
-        if let decimalAmount = Decimal(string: amount), decimalAmount.isZero {
+		if let decimalAmount = Decimal(string: amount), decimalAmount.isZero {
 			amountStatus(.isZero)
 		} else {
-        let decimalMaxAmount = Decimal(string: maxAmount)!
+			let decimalMaxAmount = Decimal(string: maxAmount)!
 			calculateAmount(amount)
 			let enteredAmmount = Decimal(string: tokenAmount)!
 			if enteredAmmount > decimalMaxAmount {
