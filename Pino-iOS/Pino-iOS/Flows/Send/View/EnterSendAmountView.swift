@@ -17,19 +17,19 @@ class EnterSendAmountView: UIView {
 	private let tokenStackView = UIStackView()
 	private let amountTextFieldStackView = UIStackView()
 	private let dollarSignLabel = UILabel()
-    private let avgAmountLabel = UILabel()
+	private let avgAmountLabel = UILabel()
 	private let amountLabel = UILabel()
-    private let amountInDollarLabel = UILabel()
+	private let amountInDollarLabel = UILabel()
 	private let maxAmountStackView = UIStackView()
 	private let maxAmountTitle = UILabel()
 	private let maxAmountLabel = UILabel()
-    private let maxAmountInDollarLabel = UILabel()
+	private let maxAmountInDollarLabel = UILabel()
 	private let changeTokenView = TokenView()
 	private let dollarFormatButton = UIButton()
 	private let amountSpacerView = UIView()
 	private let maxAmountSpacerView = UIView()
 	private let continueButton = PinoButton(style: .deactive)
-    private let maxAmountDollarSign = UILabel()
+	private let maxAmountDollarSign = UILabel()
 	private var changeSelectedToken: () -> Void
 	private var nextButtonTapped: () -> Void
 	private var enterAmountVM: EnterSendAmountViewModel
@@ -74,17 +74,17 @@ class EnterSendAmountView: UIView {
 		amountStackView.addArrangedSubview(amountTextFieldStackView)
 		amountStackView.addArrangedSubview(amountSpacerView)
 		amountStackView.addArrangedSubview(tokenStackView)
-        maximumStackView.addArrangedSubview(avgAmountLabel)
+		maximumStackView.addArrangedSubview(avgAmountLabel)
 		maximumStackView.addArrangedSubview(amountLabel)
-        maximumStackView.addArrangedSubview(amountInDollarLabel)
+		maximumStackView.addArrangedSubview(amountInDollarLabel)
 		maximumStackView.addArrangedSubview(maxAmountSpacerView)
 		maximumStackView.addArrangedSubview(maxAmountStackView)
 		tokenStackView.addArrangedSubview(dollarFormatButton)
 		tokenStackView.addArrangedSubview(changeTokenView)
 		maxAmountStackView.addArrangedSubview(maxAmountTitle)
-        maxAmountStackView.addArrangedSubview(maxAmountDollarSign)
+		maxAmountStackView.addArrangedSubview(maxAmountDollarSign)
 		maxAmountStackView.addArrangedSubview(maxAmountLabel)
-        maxAmountStackView.addArrangedSubview(maxAmountInDollarLabel)
+		maxAmountStackView.addArrangedSubview(maxAmountInDollarLabel)
 		amountTextFieldStackView.addArrangedSubview(dollarSignLabel)
 		amountTextFieldStackView.addArrangedSubview(amountTextfield)
 
@@ -103,35 +103,35 @@ class EnterSendAmountView: UIView {
 		amountTextfield.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 		let focusTextFieldTapGesture = UITapGestureRecognizer(target: self, action: #selector(focusOnAmountTextField))
 		amountSpacerView.addGestureRecognizer(focusTextFieldTapGesture)
-        let putMAxAmountTapgesture = UITapGestureRecognizer(target: self, action: #selector(putMaxAmountInTextField))
-        maxAmountStackView.addGestureRecognizer(putMAxAmountTapgesture)
+		let putMAxAmountTapgesture = UITapGestureRecognizer(target: self, action: #selector(putMaxAmountInTextField))
+		maxAmountStackView.addGestureRecognizer(putMAxAmountTapgesture)
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
 	}
 
 	private func setupStyle() {
 		maxAmountTitle.text = enterAmountVM.maxTitle
 		maxAmountLabel.text = enterAmountVM.maxAmount
-        maxAmountInDollarLabel.text = enterAmountVM.selectedToken.formattedHoldAmount
+		maxAmountInDollarLabel.text = enterAmountVM.selectedToken.formattedHoldAmount
 		continueButton.title = enterAmountVM.continueButtonTitle
-        dollarSignLabel.text = enterAmountVM.dollarSign
+		dollarSignLabel.text = enterAmountVM.dollarSign
 		changeTokenView.tokenName = enterAmountVM.selectedToken.symbol
-        maxAmountDollarSign.text = enterAmountVM.dollarSign
+		maxAmountDollarSign.text = enterAmountVM.dollarSign
 
 		if enterAmountVM.selectedToken.isVerified {
 			changeTokenView.tokenImageURL = enterAmountVM.selectedToken.image
-            avgAmountLabel.text = enterAmountVM.avgSign
+			avgAmountLabel.text = enterAmountVM.avgSign
 			amountLabel.text = enterAmountVM.formattedAmount
-            amountInDollarLabel.text = enterAmountVM.formattedAmountInDollar
+			amountInDollarLabel.text = enterAmountVM.formattedAmountInDollar
 			dollarFormatButton.isHidden = false
 			amountLabel.alpha = 1
-            amountInDollarLabel.alpha = 1
-            avgAmountLabel.alpha = 1
+			amountInDollarLabel.alpha = 1
+			avgAmountLabel.alpha = 1
 		} else {
 			changeTokenView.customTokenImage = enterAmountVM.selectedToken.customAssetImage
 			dollarFormatButton.isHidden = true
 			amountLabel.alpha = 0
-            amountInDollarLabel.alpha = 0
-            avgAmountLabel.alpha = 0
+			amountInDollarLabel.alpha = 0
+			avgAmountLabel.alpha = 0
 		}
 
 		if enterAmountVM.selectedToken.isVerified {
@@ -148,25 +148,25 @@ class EnterSendAmountView: UIView {
 		)
 
 		amountTextfield.font = .PinoStyle.semiboldTitle1
-        avgAmountLabel.font = .PinoStyle.regularSubheadline
+		avgAmountLabel.font = .PinoStyle.regularSubheadline
 		amountLabel.font = .PinoStyle.regularSubheadline
-        amountInDollarLabel.font = .PinoStyle.regularSubheadline
+		amountInDollarLabel.font = .PinoStyle.regularSubheadline
 		maxAmountTitle.font = .PinoStyle.regularSubheadline
 		maxAmountLabel.font = .PinoStyle.mediumSubheadline
-        maxAmountInDollarLabel.font = .PinoStyle.mediumSubheadline
-        maxAmountDollarSign.font = .PinoStyle.mediumSubheadline
+		maxAmountInDollarLabel.font = .PinoStyle.mediumSubheadline
+		maxAmountDollarSign.font = .PinoStyle.mediumSubheadline
 		dollarSignLabel.font = .PinoStyle.semiboldTitle1
 
 		dollarFormatButton.tintColor = .Pino.primary
-        avgAmountLabel.textColor = .Pino.secondaryLabel
+		avgAmountLabel.textColor = .Pino.secondaryLabel
 		amountLabel.textColor = .Pino.secondaryLabel
-        amountInDollarLabel.textColor = .Pino.secondaryLabel
+		amountInDollarLabel.textColor = .Pino.secondaryLabel
 		amountTextfield.textColor = .Pino.label
 		amountTextfield.tintColor = .Pino.primary
 		maxAmountTitle.textColor = .Pino.label
 		maxAmountLabel.textColor = .Pino.label
-        maxAmountInDollarLabel.textColor = .Pino.label
-        maxAmountDollarSign.textColor = .Pino.label
+		maxAmountInDollarLabel.textColor = .Pino.label
+		maxAmountDollarSign.textColor = .Pino.label
 		dollarSignLabel.textColor = .Pino.gray2
 
 		backgroundColor = .Pino.background
@@ -187,16 +187,16 @@ class EnterSendAmountView: UIView {
 		amountTextfield.delegate = self
 
 		dollarSignLabel.isHidden = true
-        maxAmountDollarSign.isHidden = true
-        maxAmountInDollarLabel.isHidden = true
-        amountLabel.isHidden = true
+		maxAmountDollarSign.isHidden = true
+		maxAmountInDollarLabel.isHidden = true
+		amountLabel.isHidden = true
 		dollarFormatButton.isHidden = !enterAmountVM.selectedToken.isVerified
 
 		amountLabel.numberOfLines = 0
 		amountLabel.lineBreakMode = .byCharWrapping
-        
-        amountInDollarLabel.numberOfLines = 0
-        amountInDollarLabel.lineBreakMode = .byCharWrapping
+
+		amountInDollarLabel.numberOfLines = 0
+		amountInDollarLabel.lineBreakMode = .byCharWrapping
 
 		enterAmountVM.selectedTokenChanged = {
 			self.updateView()
@@ -236,28 +236,28 @@ class EnterSendAmountView: UIView {
 			changeTokenView.tokenImageURL = enterAmountVM.selectedToken.image
 			enterAmountVM.calculateAmount(amountTextfield.text ?? "0")
 			amountLabel.text = enterAmountVM.formattedAmount
-            amountInDollarLabel.text = enterAmountVM.formattedAmountInDollar
+			amountInDollarLabel.text = enterAmountVM.formattedAmountInDollar
 			dollarSignLabel.isHidden = !enterAmountVM.isDollarEnabled
-            maxAmountDollarSign.isHidden = !enterAmountVM.isDollarEnabled
-            maxAmountLabel.isHidden = enterAmountVM.isDollarEnabled
-            maxAmountInDollarLabel.isHidden = !enterAmountVM.isDollarEnabled
-            amountInDollarLabel.isHidden = enterAmountVM.isDollarEnabled
-            amountLabel.isHidden = !enterAmountVM.isDollarEnabled
+			maxAmountDollarSign.isHidden = !enterAmountVM.isDollarEnabled
+			maxAmountLabel.isHidden = enterAmountVM.isDollarEnabled
+			maxAmountInDollarLabel.isHidden = !enterAmountVM.isDollarEnabled
+			amountInDollarLabel.isHidden = enterAmountVM.isDollarEnabled
+			amountLabel.isHidden = !enterAmountVM.isDollarEnabled
 			dollarFormatButton.isHidden = false
 			amountLabel.alpha = 1
-            amountInDollarLabel.alpha = 1
-            avgAmountLabel.alpha = 1
+			amountInDollarLabel.alpha = 1
+			avgAmountLabel.alpha = 1
 		} else {
 			changeTokenView.customTokenImage = enterAmountVM.selectedToken.customAssetImage
 			dollarFormatButton.isHidden = true
 			dollarSignLabel.isHidden = true
 			amountLabel.alpha = 0
-            amountInDollarLabel.alpha = 0
-            avgAmountLabel.alpha = 0
+			amountInDollarLabel.alpha = 0
+			avgAmountLabel.alpha = 0
 		}
 
-        maxAmountLabel.text = enterAmountVM.maxAmount
-        maxAmountInDollarLabel.text = enterAmountVM.selectedToken.formattedHoldAmount
+		maxAmountLabel.text = enterAmountVM.maxAmount
+		maxAmountInDollarLabel.text = enterAmountVM.selectedToken.formattedHoldAmount
 		changeTokenView.tokenName = enterAmountVM.selectedToken.symbol
 	}
 
@@ -293,36 +293,37 @@ class EnterSendAmountView: UIView {
 			if isBalanceEnough {
 				maxAmountTitle.textColor = .Pino.label
 				maxAmountLabel.textColor = .Pino.label
-                maxAmountInDollarLabel.textColor = .Pino.label
-                maxAmountDollarSign.textColor = .Pino.label
+				maxAmountInDollarLabel.textColor = .Pino.label
+				maxAmountDollarSign.textColor = .Pino.label
 				continueButton.style = .active
 			} else {
 				maxAmountTitle.textColor = .Pino.orange
 				maxAmountLabel.textColor = .Pino.orange
-                maxAmountInDollarLabel.textColor = .Pino.orange
-                maxAmountDollarSign.textColor = .Pino.orange
+				maxAmountInDollarLabel.textColor = .Pino.orange
+				maxAmountDollarSign.textColor = .Pino.orange
 				continueButton.style = .deactive
 			}
 		}
 		amountLabel.text = enterAmountVM.formattedAmount
-        amountInDollarLabel.text = enterAmountVM.formattedAmountInDollar
+		amountInDollarLabel.text = enterAmountVM.formattedAmountInDollar
 		if amountTextfield.text == .emptyString {
 			continueButton.style = .deactive
 		}
 	}
-    
-    @objc private func putMaxAmountInTextField() {
-        if enterAmountVM.selectedToken.id == AccountingEndpoint.ethID {
-            #warning("calculate fee and remove fee from amount and then put it")
-        } else {
-            if enterAmountVM.isDollarEnabled {
-                amountTextfield.text = enterAmountVM.selectedToken.formattedHoldAmount
-            } else {
-                amountTextfield.text = enterAmountVM.selectedToken.holdAmount.formattedAmountOf(type: .hold)
-            }
-        }
-        amountTextfield.sendActions(for: .editingChanged)
-    }
+
+	@objc
+	private func putMaxAmountInTextField() {
+		if enterAmountVM.selectedToken.id == AccountingEndpoint.ethID {
+			#warning("calculate fee and remove fee from amount and then put it")
+		} else {
+			if enterAmountVM.isDollarEnabled {
+				amountTextfield.text = enterAmountVM.selectedToken.formattedHoldAmount
+			} else {
+				amountTextfield.text = enterAmountVM.selectedToken.holdAmount.formattedAmountOf(type: .hold)
+			}
+		}
+		amountTextfield.sendActions(for: .editingChanged)
+	}
 
 	@objc
 	private func focusOnAmountTextField() {
