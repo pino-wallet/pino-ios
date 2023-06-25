@@ -16,6 +16,7 @@ class EnterSendAmountViewModel {
 	public let continueButtonTitle = "Next"
 	public let dollarSign = "$"
 	public let avgSign = "≈"
+	public let insufficientAmountButtonTitle = "Insufficient amount"
 	public var selectedTokenChanged: (() -> Void)?
 
 	public var textFieldPlaceHolder = "0.0"
@@ -44,6 +45,12 @@ class EnterSendAmountViewModel {
 		" $\(dollarAmount)"
 	}
 
+	public enum AmountStatus {
+		case isNotEnough
+		case isEnough
+		case isZero
+	}
+
 	// MARK: - Initializers
 
 	init(selectedToken: AssetViewModel, isDollarEnabled: Bool = false) {
@@ -61,13 +68,18 @@ class EnterSendAmountViewModel {
 		}
 	}
 
-	public func checkIfBalanceIsEnough(amount: String, isEnough: (Bool) -> Void) {
-		let maxAmmount = Decimal(string: maxAmount)!
-		let enteredAmmount = Decimal(string: tokenAmount)!
-		if enteredAmmount > maxAmmount {
-			isEnough(false)
+	public func checkIfBalanceIsEnough(amount: String, amountStatus: (AmountStatus) -> Void) {
+		if let decimalAmount = Decimal(string: amount), decimalAmount.isZero {
+			amountStatus(.isZero)
 		} else {
-			isEnough(true)
+			let decimalMaxAmount = Decimal(string: maxAmount)!
+			calculateAmount(amount)
+			let enteredAmmount = Decimal(string: tokenAmount)!
+			if enteredAmmount > decimalMaxAmount {
+				amountStatus(.isNotEnough)
+			} else {
+				amountStatus(.isEnough)
+			}
 		}
 	}
 
