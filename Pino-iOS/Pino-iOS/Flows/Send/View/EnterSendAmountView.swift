@@ -306,7 +306,7 @@ class EnterSendAmountView: UIView {
 				maxAmountLabel.textColor = .Pino.orange
 				maxAmountInDollarLabel.textColor = .Pino.orange
 				maxAmountDollarSign.textColor = .Pino.orange
-        
+
 				continueButton.setTitle(enterAmountVM.insufficientAmountButtonTitle, for: .normal)
 				continueButton.style = .deactive
 			}
@@ -317,7 +317,6 @@ class EnterSendAmountView: UIView {
 		if amountTextfield.text == .emptyString {
 			continueButton.style = .deactive
 		}
-
 	}
 
 	@objc
