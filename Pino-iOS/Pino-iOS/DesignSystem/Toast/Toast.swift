@@ -186,37 +186,39 @@ public class Toast {
 	/// Show the toast
 	/// - Parameter delay: Time after which the toast is shown
 	public func show(after delay: TimeInterval = 0) {
-        let buttomToastViewTag = 900
-        let topToastViewTag = 1000
-        var currentUsingTag: Int!
-        switch config.direction {
-        case .top:
-            currentUsingTag = topToastViewTag
-        case .bottom:
-            currentUsingTag = buttomToastViewTag
-        }
-        
-        let toastViewInViewHierarchy = config.view?.viewWithTag(currentUsingTag) ?? topController()?.view.viewWithTag(currentUsingTag)
-        view.tag = currentUsingTag
-        
-        if let toastViewInViewHierarchy {
-            close(completion: { [weak self] in
-                if self?.config.view?.viewWithTag(currentUsingTag) ?? self?.topController()?.view.viewWithTag(currentUsingTag) == nil {
-                self?.animateToast(delay: delay)
-                }
-            }, customView: toastViewInViewHierarchy)
-        } else {
-            animateToast(delay: delay)
-                }
+		let buttomToastViewTag = 900
+		let topToastViewTag = 1000
+		var currentUsingTag: Int!
+		switch config.direction {
+		case .top:
+			currentUsingTag = topToastViewTag
+		case .bottom:
+			currentUsingTag = buttomToastViewTag
+		}
+
+		let toastViewInViewHierarchy = config.view?.viewWithTag(currentUsingTag) ?? topController()?.view
+			.viewWithTag(currentUsingTag)
+		view.tag = currentUsingTag
+
+		if let toastViewInViewHierarchy {
+			close(completion: { [weak self] in
+				if self?.config.view?.viewWithTag(currentUsingTag) ?? self?.topController()?.view
+					.viewWithTag(currentUsingTag) == nil {
+					self?.animateToast(delay: delay)
+				}
+			}, customView: toastViewInViewHierarchy)
+		} else {
+			animateToast(delay: delay)
+		}
 	}
 
 	/// Close the toast
 	/// - Parameters:
 	///   - completion: A completion handler which is invoked after the toast is hidden
-    public func close(completion: (() -> Void)? = nil, customView: UIView? = nil) {
+	public func close(completion: (() -> Void)? = nil, customView: UIView? = nil) {
 		delegate?.willCloseToast(self)
-        
-        let selectedView = customView ?? self.view
+
+		let selectedView = customView ?? view
 
 		UIView.animate(
 			withDuration: config.animationTime,
@@ -228,37 +230,37 @@ public class Toast {
 				self.config.exitingAnimation.apply(to: selectedView)
 			},
 			completion: { _ in
-                selectedView.removeFromSuperview()
+				selectedView.removeFromSuperview()
 				completion?()
 				self.delegate?.didCloseToast(self)
 			}
 		)
 	}
-    
-    private func animateToast(delay: TimeInterval) {
-        config.view?.addSubview(view) ?? topController()?.view.addSubview(view)
-        view.createView(for: self)
-        
-        delegate?.willShowToast(self)
-        
-        config.enteringAnimation.apply(to: view)
-        UIView.animate(
-            withDuration: config.animationTime,
-            delay: delay,
-            usingSpringWithDamping: 1,
-            initialSpringVelocity: 0.6,
-            options: [.curveEaseOut, .allowUserInteraction]
-        ) {
-            self.config.enteringAnimation.undo(from: self.view)
-        } completion: { [self] _ in
-            delegate?.didShowToast(self)
-            closeTimer = Timer.scheduledTimer(withTimeInterval: .init(config.displayTime), repeats: false) { [self] _ in
-                if config.autoHide {
-                    close()
-                }
-            }
-        }
-    }
+
+	private func animateToast(delay: TimeInterval) {
+		config.view?.addSubview(view) ?? topController()?.view.addSubview(view)
+		view.createView(for: self)
+
+		delegate?.willShowToast(self)
+
+		config.enteringAnimation.apply(to: view)
+		UIView.animate(
+			withDuration: config.animationTime,
+			delay: delay,
+			usingSpringWithDamping: 1,
+			initialSpringVelocity: 0.6,
+			options: [.curveEaseOut, .allowUserInteraction]
+		) {
+			self.config.enteringAnimation.undo(from: self.view)
+		} completion: { [self] _ in
+			delegate?.didShowToast(self)
+			closeTimer = Timer.scheduledTimer(withTimeInterval: .init(config.displayTime), repeats: false) { [self] _ in
+				if config.autoHide {
+					close()
+				}
+			}
+		}
+	}
 
 	private func topController() -> UIViewController? {
 		if var topController = keyWindow()?.rootViewController {
