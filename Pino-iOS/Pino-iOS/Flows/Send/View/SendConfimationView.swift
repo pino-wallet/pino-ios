@@ -259,7 +259,7 @@ class SendConfirmationView: UIView {
 
 	@objc
 	private func toggleShowFee() {
-        showFeeInDollar.toggle()
-        updateFeeLabel()
+		showFeeInDollar.toggle()
+		updateFeeLabel()
 	}
 }
