@@ -289,14 +289,10 @@ class EnterSendAmountView: UIView {
 
 	@objc
 	private func putMaxAmountInTextField() {
-		if enterAmountVM.selectedToken.id == AccountingEndpoint.ethID {
-			#warning("calculate fee and remove fee from amount and then put it")
+		if enterAmountVM.isDollarEnabled {
+			amountTextfield.text = enterAmountVM.selectedToken.formattedHoldAmount
 		} else {
-			if enterAmountVM.isDollarEnabled {
-				amountTextfield.text = enterAmountVM.selectedToken.formattedHoldAmount
-			} else {
-				amountTextfield.text = enterAmountVM.selectedToken.holdAmount.formattedAmountOf(type: .hold)
-			}
+			amountTextfield.text = enterAmountVM.selectedToken.holdAmount.formattedAmountOf(type: .hold)
 		}
 		amountTextfield.sendActions(for: .editingChanged)
 	}
