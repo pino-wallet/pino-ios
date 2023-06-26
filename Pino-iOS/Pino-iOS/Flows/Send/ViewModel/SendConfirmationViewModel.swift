@@ -54,7 +54,10 @@ class SendConfirmationViewModel {
 	}
 
 	@Published
-	public var formattedFee: String?
+	public var formattedFeeInETH: String?
+    
+    @Published
+    public var formattedFeeInDollar: String?
 
 	public let selectedWalletTitle = "From"
 	public let recipientAddressTitle = "To"
@@ -89,15 +92,11 @@ class SendConfirmationViewModel {
 	public func getFee() -> Promise<String> {
 		if selectedToken.isEth {
 			let calculatedGas = calculateEthGasFee()
-			_ = calculatedGas.done { formattedFee in
-				self.formattedFee = formattedFee
-			}
+			_ = calculatedGas.done
 			return calculatedGas
 		} else {
 			let calculatedGas = calculateTokenGasFee(ethPrice: ethPrice)
-			_ = calculatedGas.done { formattedFee in
-				self.formattedFee = formattedFee
-			}
+			_ = calculatedGas.done 
 			return calculatedGas
 		}
 	}
@@ -121,9 +120,9 @@ class SendConfirmationViewModel {
 	private func calculateEthGasFee() -> Promise<String> {
 		Promise<String> { seal in
 			_ = Web3Core.shared.calculateEthGasFee(ethPrice: selectedToken.price).done { fee, feeInDollar in
-				self.gasFee = fee
-				seal
-					.fulfill("$\(feeInDollar.formattedAmountOf(type: .price)) / \(fee.formattedAmountOf(type: .hold)) ETH")
+                self.gasFee = fee
+                self.formattedFeeInDollar = "$\(feeInDollar.formattedAmountOf(type: .price))"
+                self.formattedFeeInETH = "\(fee.formattedAmountOf(type: .hold)) ETH"
 			}.catch { error in
 				seal.reject(error)
 			}
@@ -139,11 +138,9 @@ class SendConfirmationViewModel {
 				tokenContractAddress: selectedToken.id,
 				ethPrice: ethPrice
 			).done { [self] fee, feeInDollar in
-				gasFee = fee
-				seal
-					.fulfill(
-						"$\(feeInDollar.formattedAmountOf(type: .price)) / \(fee.formattedAmountOf(type: .hold)) ETH"
-					)
+                gasFee = fee
+                formattedFeeInDollar = "$\(feeInDollar.formattedAmountOf(type: .price))"
+                formattedFeeInETH = "\(fee.formattedAmountOf(type: .hold)) ETH"
 			}.catch { error in
 				seal.reject(error)
 			}
