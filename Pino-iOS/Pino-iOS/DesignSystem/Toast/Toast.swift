@@ -186,6 +186,58 @@ public class Toast {
 	/// Show the toast
 	/// - Parameter delay: Time after which the toast is shown
 	public func show(after delay: TimeInterval = 0) {
+		let buttomToastViewTag = 900
+		let topToastViewTag = 1000
+		var currentUsingTag: Int!
+		switch config.direction {
+		case .top:
+			currentUsingTag = topToastViewTag
+		case .bottom:
+			currentUsingTag = buttomToastViewTag
+		}
+
+		let toastViewInViewHierarchy = config.view?.viewWithTag(currentUsingTag) ?? topController()?.view
+			.viewWithTag(currentUsingTag)
+		view.tag = currentUsingTag
+
+		if let toastViewInViewHierarchy {
+			close(completion: { [weak self] in
+				if self?.config.view?.viewWithTag(currentUsingTag) ?? self?.topController()?.view
+					.viewWithTag(currentUsingTag) == nil {
+					self?.animateToast(delay: delay)
+				}
+			}, customView: toastViewInViewHierarchy)
+		} else {
+			animateToast(delay: delay)
+		}
+	}
+
+	/// Close the toast
+	/// - Parameters:
+	///   - completion: A completion handler which is invoked after the toast is hidden
+	public func close(completion: (() -> Void)? = nil, customView: UIView? = nil) {
+		delegate?.willCloseToast(self)
+
+		let selectedView = customView ?? view
+
+		UIView.animate(
+			withDuration: config.animationTime,
+			delay: 0,
+			usingSpringWithDamping: 1,
+			initialSpringVelocity: 0.6,
+			options: [.curveEaseIn, .allowUserInteraction],
+			animations: {
+				self.config.exitingAnimation.apply(to: selectedView)
+			},
+			completion: { _ in
+				selectedView.removeFromSuperview()
+				completion?()
+				self.delegate?.didCloseToast(self)
+			}
+		)
+	}
+
+	private func animateToast(delay: TimeInterval) {
 		config.view?.addSubview(view) ?? topController()?.view.addSubview(view)
 		view.createView(for: self)
 
@@ -208,29 +260,6 @@ public class Toast {
 				}
 			}
 		}
-	}
-
-	/// Close the toast
-	/// - Parameters:
-	///   - completion: A completion handler which is invoked after the toast is hidden
-	public func close(completion: (() -> Void)? = nil) {
-		delegate?.willCloseToast(self)
-
-		UIView.animate(
-			withDuration: config.animationTime,
-			delay: 0,
-			usingSpringWithDamping: 1,
-			initialSpringVelocity: 0.6,
-			options: [.curveEaseIn, .allowUserInteraction],
-			animations: {
-				self.config.exitingAnimation.apply(to: self.view)
-			},
-			completion: { _ in
-				self.view.removeFromSuperview()
-				completion?()
-				self.delegate?.didCloseToast(self)
-			}
-		)
 	}
 
 	private func topController() -> UIViewController? {
