@@ -289,14 +289,10 @@ class EnterSendAmountView: UIView {
 
 	@objc
 	private func putMaxAmountInTextField() {
-		if enterAmountVM.selectedToken.id == AccountingEndpoint.ethID {
-			#warning("calculate fee and remove fee from amount and then put it")
+		if enterAmountVM.isDollarEnabled {
+			amountTextfield.text = enterAmountVM.selectedToken.formattedHoldAmount
 		} else {
-			if enterAmountVM.isDollarEnabled {
-				amountTextfield.text = enterAmountVM.selectedToken.formattedHoldAmount
-			} else {
-				amountTextfield.text = enterAmountVM.selectedToken.holdAmount.formattedAmountOf(type: .hold)
-			}
+			amountTextfield.text = enterAmountVM.selectedToken.holdAmount.formattedAmountOf(type: .hold)
 		}
 		amountTextfield.sendActions(for: .editingChanged)
 	}
@@ -313,25 +309,17 @@ extension EnterSendAmountView: UITextFieldDelegate {
 		shouldChangeCharactersIn range: NSRange,
 		replacementString string: String
 	) -> Bool {
-		// Allow backspace
-		if string.isEmpty {
+		guard let currentText = textField.text as NSString? else {
 			return true
 		}
 
-		// Check if the replacement string is a decimal point
-		if string == "." {
-			// Check if the existing text already contains a decimal point
-			if let text = textField.text, text.contains(".") || text.isEmpty {
-				// Disallow entering another decimal point
-				return false
-			}
-		}
+		let updatedText = currentText.replacingCharacters(in: range, with: string)
+		let pattern = "^(?!\\.)(?!.*\\..*\\.)([0-9]*)\\.?([0-9]*)$"
+		let regex = try? NSRegularExpression(pattern: pattern, options: [])
+		let range = NSRange(location: 0, length: updatedText.count)
+		let isMatch = regex?.firstMatch(in: updatedText, options: [], range: range) != nil
 
-		// Allow decimal point and digits
-		let allowedCharacters = CharacterSet(charactersIn: "0123456789.")
-		let replacementStringCharacterSet = CharacterSet(charactersIn: string)
-
-		return allowedCharacters.isSuperset(of: replacementStringCharacterSet)
+		return isMatch
 	}
 }
 

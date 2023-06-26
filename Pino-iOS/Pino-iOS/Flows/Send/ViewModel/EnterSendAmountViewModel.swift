@@ -31,11 +31,11 @@ class EnterSendAmountViewModel {
 	public var maxHoldAmount: String {
 		selectedToken.amount
 	}
-  
+
 	public var maxAmountInDollar: String {
 		"$ \(selectedToken.formattedHoldAmount)"
 	}
-  
+
 	public var ethPrice: BigNumber!
 	public var tokenAmount = "0.0"
 	public var dollarAmount = "0.0"
