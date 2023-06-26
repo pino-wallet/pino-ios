@@ -11,7 +11,7 @@ import Foundation
 final class AssetsAPIClient: AssetsAPIService {
 	// MARK: - Private Properties
 
-	private let networkManager = NetworkManager<AssetsEndpoint>(keychainService: KeychainSwift())
+	private let networkManager = NetworkManager<AssetsEndpoint>()
 
 	// MARK: - Public Methods
 

@@ -22,7 +22,7 @@ enum AccountingEndpoint: EndpointType {
 
 	// MARK: - Internal Methods
 
-	internal func request(privateKey: String?) throws -> URLRequest {
+	internal func request() throws -> URLRequest {
 		var request = URLRequest(url: url)
 		request.httpMethod = httpMethod.rawValue
 

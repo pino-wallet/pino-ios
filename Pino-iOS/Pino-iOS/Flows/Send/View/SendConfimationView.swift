@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 6/17/23.
 //
 
+import Combine
 import UIKit
 
 class SendConfirmationView: UIView {
@@ -34,11 +35,15 @@ class SendConfirmationView: UIView {
 	private let walletNameLabel = UILabel()
 	private let scamErrorView = PinoContainerCard()
 	private let scamErrorLabel = PinoLabel(style: .description, text: nil)
+	private let selectedWalletSpacerView = UIView()
+	private let recipientSpacerView = UIView()
+	private let feeSpacerView = UIView()
 
 	private let continueButton = PinoButton(style: .active)
 	private let confirmButtonTapped: () -> Void
 	private let presentFeeInfo: (InfoActionSheet) -> Void
 	private let sendConfirmationVM: SendConfirmationViewModel
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -54,6 +59,9 @@ class SendConfirmationView: UIView {
 		setupView()
 		setupStyle()
 		setupContstraint()
+		setupBindings()
+
+		showSkeletonView()
 	}
 
 	required init?(coder: NSCoder) {
@@ -67,6 +75,8 @@ class SendConfirmationView: UIView {
 			actionSheetTitle: sendConfirmationVM.feeInfoActionSheetTitle,
 			actionSheetDescription: sendConfirmationVM.feeInfoActionSheetDescription
 		)
+
+		setSketonable()
 
 		addSubview(contentStackview)
 		addSubview(continueButton)
@@ -84,13 +94,16 @@ class SendConfirmationView: UIView {
 		sendInfoStackView.addArrangedSubview(recipientStrackView)
 		sendInfoStackView.addArrangedSubview(feeStrackView)
 		selectedWalletStackView.addArrangedSubview(selectedWalletTitleLabel)
+		selectedWalletStackView.addArrangedSubview(selectedWalletSpacerView)
 		selectedWalletStackView.addArrangedSubview(walletInfoStackView)
 		walletInfoStackView.addArrangedSubview(walletImageBackgroundView)
 		walletInfoStackView.addArrangedSubview(walletNameLabel)
 		walletImageBackgroundView.addSubview(walletImageView)
 		recipientStrackView.addArrangedSubview(recipientTitleLabel)
+		recipientStrackView.addArrangedSubview(recipientSpacerView)
 		recipientStrackView.addArrangedSubview(recipientAddressLabel)
 		feeStrackView.addArrangedSubview(feeTitleView)
+		feeStrackView.addArrangedSubview(feeSpacerView)
 		feeStrackView.addArrangedSubview(feeLabel)
 		scamErrorView.addSubview(scamErrorLabel)
 
@@ -109,7 +122,7 @@ class SendConfirmationView: UIView {
 		selectedWalletTitleLabel.text = sendConfirmationVM.selectedWalletTitle
 		walletNameLabel.text = sendConfirmationVM.selectedWalletName
 		recipientTitleLabel.text = sendConfirmationVM.recipientAddressTitle
-		feeLabel.text = sendConfirmationVM.fee
+		feeLabel.text = sendConfirmationVM.formattedFee
 		scamErrorLabel.text = sendConfirmationVM.scamErrorTitle
 		feeTitleView.title = sendConfirmationVM.feeTitle
 		continueButton.title = sendConfirmationVM.confirmButtonTitle
@@ -172,6 +185,8 @@ class SendConfirmationView: UIView {
 		walletInfoStackView.spacing = 4
 
 		walletImageBackgroundView.layer.cornerRadius = 10
+		tokenImageView.layer.cornerRadius = 25
+		tokenImageView.layer.masksToBounds = true
 
 		if sendConfirmationVM.isAddressScam {
 			scamErrorView.isHidden = false
@@ -180,6 +195,8 @@ class SendConfirmationView: UIView {
 			scamErrorView.isHidden = true
 			continueButton.title = sendConfirmationVM.confirmButtonTitle
 		}
+		showSkeletonView()
+		continueButton.style = .deactive
 	}
 
 	private func setupContstraint() {
@@ -206,9 +223,6 @@ class SendConfirmationView: UIView {
 			.fixedWidth(20),
 			.fixedHeight(20)
 		)
-		feeTitleView.pin(
-			.fixedWidth(48)
-		)
 		walletImageView.pin(
 			.allEdges(padding: 3)
 		)
@@ -216,5 +230,30 @@ class SendConfirmationView: UIView {
 			.verticalEdges(padding: 18),
 			.horizontalEdges(padding: 16)
 		)
+
+		NSLayoutConstraint.activate([
+			feeLabel.widthAnchor.constraint(greaterThanOrEqualTo: recipientAddressLabel.widthAnchor),
+		])
+	}
+
+	private func setupBindings() {
+		sendConfirmationVM.$formattedFee.sink { fee in
+			guard let fee else { return }
+			self.hideSkeletonView()
+			self.feeLabel.text = fee
+			self.continueButton.style = .active
+		}.store(in: &cancellables)
+	}
+
+	private func setSketonable() {
+		tokenImageView.isSkeletonable = true
+		tokenNameLabel.isSkeletonable = true
+		sendAmountLabel.isSkeletonable = true
+		selectedWalletTitleLabel.isSkeletonable = true
+		walletInfoStackView.isSkeletonable = true
+		recipientTitleLabel.isSkeletonable = true
+		recipientAddressLabel.isSkeletonable = true
+		feeTitleView.isSkeletonable = true
+		feeLabel.isSkeletonable = true
 	}
 }

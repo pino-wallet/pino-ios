@@ -18,7 +18,6 @@ class EnterSendAmountViewModel {
 	public let avgSign = "≈"
 	public let insufficientAmountButtonTitle = "Insufficient amount"
 	public var selectedTokenChanged: (() -> Void)?
-
 	public var textFieldPlaceHolder = "0.0"
 
 	public var selectedToken: AssetViewModel {
@@ -32,13 +31,13 @@ class EnterSendAmountViewModel {
 	public var maxHoldAmount: String {
 		selectedToken.amount
 	}
-
+  
 	public var maxAmountInDollar: String {
 		"$ \(selectedToken.formattedHoldAmount)"
 	}
-
+  
+	public var ethPrice: BigNumber!
 	public var tokenAmount = "0.0"
-
 	public var dollarAmount = "0.0"
 
 	public var formattedAmount: String {
@@ -57,9 +56,10 @@ class EnterSendAmountViewModel {
 
 	// MARK: - Initializers
 
-	init(selectedToken: AssetViewModel, isDollarEnabled: Bool = false) {
+	init(selectedToken: AssetViewModel, isDollarEnabled: Bool = false, ethPrice: BigNumber) {
 		self.selectedToken = selectedToken
 		self.isDollarEnabled = isDollarEnabled
+		self.ethPrice = ethPrice
 	}
 
 	// MARK: - Public Methods
@@ -101,21 +101,16 @@ class EnterSendAmountViewModel {
 	private func convertEnteredAmountToDollar(amount: String) {
 		guard let decimalNumber = Decimal(string: amount),
 		      let price = Decimal(string: selectedToken.price.decimalString) else { return }
-		dollarAmount = formattedAmount(of: decimalNumber * price)
+		let amountInDollarDecimalValue = decimalNumber * price
+		dollarAmount = amountInDollarDecimalValue.formattedAmount(type: .dollarValue)
 		tokenAmount = amount
 	}
 
 	private func convertDollarAmountToTokenValue(amount: String) {
 		guard let decimalNumber = Decimal(string: amount),
 		      let price = Decimal(string: selectedToken.price.decimalString) else { return }
-		tokenAmount = formattedAmount(of: decimalNumber / price)
+		let tokenAmountDecimalValue = decimalNumber / price
+		tokenAmount = tokenAmountDecimalValue.formattedAmount(type: .tokenValue)
 		dollarAmount = amount
-	}
-
-	private func formattedAmount(of decimalNumber: Decimal) -> String {
-		var decimalNumber = decimalNumber
-		var roundedDecimal: Decimal = 0
-		NSDecimalRound(&roundedDecimal, &decimalNumber, 12, .up)
-		return roundedDecimal.description
 	}
 }

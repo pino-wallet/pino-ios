@@ -11,7 +11,7 @@ import Foundation
 final class CTSAPIClient: CTSAPIService {
 	// MARK: - Private Properties
 
-	private let networkManager = NetworkManager<CTSEndpoint>(keychainService: KeychainSwift())
+	private let networkManager = NetworkManager<CTSEndpoint>()
 
 	// MARK: - Public Properties
 

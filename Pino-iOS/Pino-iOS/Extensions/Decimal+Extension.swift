@@ -34,4 +34,28 @@ extension Decimal {
 			return stringFromNumber
 		}
 	}
+
+	public func formattedAmount(type: FormatType) -> String {
+		var decimalNumber = self
+		var roundedDecimal: Decimal = 0
+		NSDecimalRound(&roundedDecimal, &decimalNumber, type.formattingDecimal, .up)
+		return roundedDecimal.description
+	}
+
+	public enum FormatType {
+		case dollarValue
+		case tokenValue
+		case custom(Int)
+
+		public var formattingDecimal: Int {
+			switch self {
+			case .dollarValue:
+				return 2
+			case .tokenValue:
+				return 12
+			case let .custom(number):
+				return number
+			}
+		}
+	}
 }

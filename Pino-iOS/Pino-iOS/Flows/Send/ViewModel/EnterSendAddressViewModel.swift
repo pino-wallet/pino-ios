@@ -59,7 +59,6 @@ class EnterSendAddressViewModel {
 			return
 		}
 		if address.validateETHContractAddress() {
-			#warning("add more validation here, this is just for test")
 			didValidateSendAddress(.success)
 		} else {
 			didValidateSendAddress(.error(.addressNotValid))
