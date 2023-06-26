@@ -221,8 +221,8 @@ class EnterSendAmountView: UIView {
 			dollarSignLabel.isHidden = true
 			amountLabel.isHidden = true
 		}
-		maxAmountLabel.text = enterAmountVM.maxAmount
-		maxAmountInDollarLabel.text = enterAmountVM.selectedToken.formattedHoldAmount
+		maxAmountLabel.text = enterAmountVM.maxHoldAmount
+		maxAmountInDollarLabel.text = enterAmountVM.maxAmountInDollar
 		changeTokenView.tokenName = enterAmountVM.selectedToken.symbol
 	}
 
@@ -233,7 +233,7 @@ class EnterSendAmountView: UIView {
 	}
 
 	private func toggleDollarFormat() {
-		UIView.animate(withDuration: 0.3, animations: {
+		UIView.animate(withDuration: 0.3) {
 			if self.enterAmountVM.isDollarEnabled {
 				self.enterAmountVM.isDollarEnabled = false
 				self.dollarFormatButton.backgroundColor = .Pino.background
@@ -243,13 +243,8 @@ class EnterSendAmountView: UIView {
 				self.dollarFormatButton.backgroundColor = .Pino.primary
 				self.dollarFormatButton.tintColor = .Pino.green1
 			}
+			self.updateAmount(enteredAmount: self.amountTextfield.text ?? "0")
 			self.applyDollarFormatChanges()
-			self.amountLabel.alpha = 0
-		}) { _ in
-			UIView.animate(withDuration: 0.3) {
-				self.updateAmount(enteredAmount: self.amountTextfield.text ?? "0")
-				self.amountLabel.alpha = 1
-			}
 		}
 	}
 
