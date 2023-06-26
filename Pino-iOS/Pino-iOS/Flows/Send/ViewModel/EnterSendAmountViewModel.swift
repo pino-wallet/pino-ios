@@ -29,14 +29,6 @@ class EnterSendAmountViewModel {
 		}
 	}
 
-	public var maxAmount: String {
-		if isDollarEnabled {
-			return maxHoldAmount
-		} else {
-			return maxAmountInDollar
-		}
-	}
-
 	public var maxHoldAmount: String {
 		selectedToken.amount
 	}
