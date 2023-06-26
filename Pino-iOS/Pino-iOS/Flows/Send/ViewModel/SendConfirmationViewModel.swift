@@ -91,13 +91,9 @@ class SendConfirmationViewModel {
 
 	public func getFee() -> Promise<String> {
 		if selectedToken.isEth {
-			let calculatedGas = calculateEthGasFee()
-			_ = calculatedGas.done
-			return calculatedGas
+			return calculateEthGasFee()
 		} else {
-			let calculatedGas = calculateTokenGasFee(ethPrice: ethPrice)
-			_ = calculatedGas.done
-			return calculatedGas
+			return calculateTokenGasFee(ethPrice: ethPrice)
 		}
 	}
 

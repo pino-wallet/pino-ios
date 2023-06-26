@@ -44,11 +44,7 @@ class SendConfirmationView: UIView {
 	private let presentFeeInfo: (InfoActionSheet) -> Void
 	private let sendConfirmationVM: SendConfirmationViewModel
 	private var cancellables = Set<AnyCancellable>()
-	private var showFeeInDollar = true {
-		didSet {
-			updateFeeLabel()
-		}
-	}
+	private var showFeeInDollar = true
 
 	// MARK: - Initializers
 
@@ -263,6 +259,7 @@ class SendConfirmationView: UIView {
 
 	@objc
 	private func toggleShowFee() {
-		showFeeInDollar = !showFeeInDollar
+        showFeeInDollar.toggle()
+        updateFeeLabel()
 	}
 }
