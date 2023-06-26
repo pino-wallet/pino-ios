@@ -44,6 +44,7 @@ class SendConfirmationView: UIView {
 	private let presentFeeInfo: (InfoActionSheet) -> Void
 	private let sendConfirmationVM: SendConfirmationViewModel
 	private var cancellables = Set<AnyCancellable>()
+	private var showFeeInDollar = true
 
 	// MARK: - Initializers
 
@@ -60,8 +61,6 @@ class SendConfirmationView: UIView {
 		setupStyle()
 		setupContstraint()
 		setupBindings()
-
-		showSkeletonView()
 	}
 
 	required init?(coder: NSCoder) {
@@ -107,6 +106,10 @@ class SendConfirmationView: UIView {
 		feeStrackView.addArrangedSubview(feeLabel)
 		scamErrorView.addSubview(scamErrorLabel)
 
+		let feeLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleShowFee))
+		feeLabel.addGestureRecognizer(feeLabelTapGesture)
+		feeLabel.isUserInteractionEnabled = true
+
 		continueButton.addAction(UIAction(handler: { _ in
 			self.confirmButtonTapped()
 		}), for: .touchUpInside)
@@ -122,7 +125,6 @@ class SendConfirmationView: UIView {
 		selectedWalletTitleLabel.text = sendConfirmationVM.selectedWalletTitle
 		walletNameLabel.text = sendConfirmationVM.selectedWalletName
 		recipientTitleLabel.text = sendConfirmationVM.recipientAddressTitle
-		feeLabel.text = sendConfirmationVM.formattedFee
 		scamErrorLabel.text = sendConfirmationVM.scamErrorTitle
 		feeTitleView.title = sendConfirmationVM.feeTitle
 		continueButton.title = sendConfirmationVM.confirmButtonTitle
@@ -231,29 +233,33 @@ class SendConfirmationView: UIView {
 			.horizontalEdges(padding: 16)
 		)
 
-		NSLayoutConstraint.activate([
-			feeLabel.widthAnchor.constraint(greaterThanOrEqualTo: recipientAddressLabel.widthAnchor),
-		])
+		feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 40).isActive = true
 	}
 
 	private func setupBindings() {
-		sendConfirmationVM.$formattedFee.sink { fee in
-			guard let fee else { return }
-			self.hideSkeletonView()
-			self.feeLabel.text = fee
-			self.continueButton.style = .active
-		}.store(in: &cancellables)
+		Publishers.Zip(sendConfirmationVM.$formattedFeeInDollar, sendConfirmationVM.$formattedFeeInETH)
+			.sink { [weak self] formattedFeeDollar, formattedFeeETH in
+				self?.hideSkeletonView()
+				self?.updateFeeLabel()
+				self!.continueButton.style = .active
+			}.store(in: &cancellables)
 	}
 
 	private func setSketonable() {
-		tokenImageView.isSkeletonable = true
-		tokenNameLabel.isSkeletonable = true
-		sendAmountLabel.isSkeletonable = true
-		selectedWalletTitleLabel.isSkeletonable = true
-		walletInfoStackView.isSkeletonable = true
-		recipientTitleLabel.isSkeletonable = true
-		recipientAddressLabel.isSkeletonable = true
-		feeTitleView.isSkeletonable = true
 		feeLabel.isSkeletonable = true
+	}
+
+	private func updateFeeLabel() {
+		if showFeeInDollar {
+			feeLabel.text = sendConfirmationVM.formattedFeeInDollar
+		} else {
+			feeLabel.text = sendConfirmationVM.formattedFeeInETH
+		}
+	}
+
+	@objc
+	private func toggleShowFee() {
+		showFeeInDollar.toggle()
+		updateFeeLabel()
 	}
 }

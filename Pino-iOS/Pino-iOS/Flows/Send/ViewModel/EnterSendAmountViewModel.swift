@@ -14,6 +14,8 @@ class EnterSendAmountViewModel {
 	public let maxTitle = "Max: "
 	public let dollarIcon = "dollar_icon"
 	public let continueButtonTitle = "Next"
+	public let dollarSign = "$"
+	public let avgSign = "≈"
 	public let insufficientAmountButtonTitle = "Insufficient amount"
 	public var selectedTokenChanged: (() -> Void)?
 	public var textFieldPlaceHolder = "0.0"
@@ -26,8 +28,12 @@ class EnterSendAmountViewModel {
 		}
 	}
 
-	public var maxAmount: String {
+	public var maxHoldAmount: String {
 		selectedToken.amount
+	}
+
+	public var maxAmountInDollar: String {
+		"$ \(selectedToken.formattedHoldAmount)"
 	}
 
 	public var ethPrice: BigNumber!
@@ -36,9 +42,9 @@ class EnterSendAmountViewModel {
 
 	public var formattedAmount: String {
 		if isDollarEnabled {
-			return "≈ \(tokenAmount) \(selectedToken.symbol)"
+			return "\(avgSign) \(tokenAmount) \(selectedToken.symbol)"
 		} else {
-			return "≈ $\(dollarAmount)"
+			return "\(avgSign) $\(dollarAmount)"
 		}
 	}
 
@@ -67,12 +73,21 @@ class EnterSendAmountViewModel {
 	}
 
 	public func checkIfBalanceIsEnough(amount: String, amountStatus: (AmountStatus) -> Void) {
-		if let decimalAmount = Decimal(string: amount), decimalAmount.isZero {
+		calculateAmount(amount)
+		if amount == .emptyString {
+			amountStatus(.isZero)
+		} else if let decimalAmount = Decimal(string: amount), decimalAmount.isZero {
 			amountStatus(.isZero)
 		} else {
-			let decimalMaxAmount = Decimal(string: maxAmount)!
-			calculateAmount(amount)
-			let enteredAmmount = Decimal(string: tokenAmount)!
+			var decimalMaxAmount: Decimal
+			var enteredAmmount: Decimal
+			if isDollarEnabled {
+				decimalMaxAmount = Decimal(string: selectedToken.formattedHoldAmount)!
+				enteredAmmount = Decimal(string: dollarAmount)!
+			} else {
+				decimalMaxAmount = Decimal(string: maxHoldAmount)!
+				enteredAmmount = Decimal(string: tokenAmount)!
+			}
 			if enteredAmmount > decimalMaxAmount {
 				amountStatus(.isNotEnough)
 			} else {
