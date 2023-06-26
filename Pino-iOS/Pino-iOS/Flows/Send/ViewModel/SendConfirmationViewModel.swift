@@ -55,9 +55,9 @@ class SendConfirmationViewModel {
 
 	@Published
 	public var formattedFeeInETH: String?
-    
-    @Published
-    public var formattedFeeInDollar: String?
+
+	@Published
+	public var formattedFeeInDollar: String?
 
 	public let selectedWalletTitle = "From"
 	public let recipientAddressTitle = "To"
@@ -96,7 +96,7 @@ class SendConfirmationViewModel {
 			return calculatedGas
 		} else {
 			let calculatedGas = calculateTokenGasFee(ethPrice: ethPrice)
-			_ = calculatedGas.done 
+			_ = calculatedGas.done
 			return calculatedGas
 		}
 	}
@@ -120,9 +120,9 @@ class SendConfirmationViewModel {
 	private func calculateEthGasFee() -> Promise<String> {
 		Promise<String> { seal in
 			_ = Web3Core.shared.calculateEthGasFee(ethPrice: selectedToken.price).done { fee, feeInDollar in
-                self.gasFee = fee
-                self.formattedFeeInDollar = "$\(feeInDollar.formattedAmountOf(type: .price))"
-                self.formattedFeeInETH = "\(fee.formattedAmountOf(type: .hold)) ETH"
+				self.gasFee = fee
+				self.formattedFeeInDollar = "$\(feeInDollar.formattedAmountOf(type: .price))"
+				self.formattedFeeInETH = "\(fee.formattedAmountOf(type: .hold)) ETH"
 			}.catch { error in
 				seal.reject(error)
 			}
@@ -138,9 +138,9 @@ class SendConfirmationViewModel {
 				tokenContractAddress: selectedToken.id,
 				ethPrice: ethPrice
 			).done { [self] fee, feeInDollar in
-                gasFee = fee
-                formattedFeeInDollar = "$\(feeInDollar.formattedAmountOf(type: .price))"
-                formattedFeeInETH = "\(fee.formattedAmountOf(type: .hold)) ETH"
+				gasFee = fee
+				formattedFeeInDollar = "$\(feeInDollar.formattedAmountOf(type: .price))"
+				formattedFeeInETH = "\(fee.formattedAmountOf(type: .hold)) ETH"
 			}.catch { error in
 				seal.reject(error)
 			}

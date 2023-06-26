@@ -44,11 +44,11 @@ class SendConfirmationView: UIView {
 	private let presentFeeInfo: (InfoActionSheet) -> Void
 	private let sendConfirmationVM: SendConfirmationViewModel
 	private var cancellables = Set<AnyCancellable>()
-    private var showFeeInDollar: Bool = true {
-        didSet {
-            updateFeeLabel()
-        }
-    }
+	private var showFeeInDollar = true {
+		didSet {
+			updateFeeLabel()
+		}
+	}
 
 	// MARK: - Initializers
 
@@ -109,10 +109,10 @@ class SendConfirmationView: UIView {
 		feeStrackView.addArrangedSubview(feeSpacerView)
 		feeStrackView.addArrangedSubview(feeLabel)
 		scamErrorView.addSubview(scamErrorLabel)
-        
-        let feeLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleShowFee))
-        feeLabel.addGestureRecognizer(feeLabelTapGesture)
-        feeLabel.isUserInteractionEnabled = true
+
+		let feeLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleShowFee))
+		feeLabel.addGestureRecognizer(feeLabelTapGesture)
+		feeLabel.isUserInteractionEnabled = true
 
 		continueButton.addAction(UIAction(handler: { _ in
 			self.confirmButtonTapped()
@@ -237,32 +237,32 @@ class SendConfirmationView: UIView {
 			.horizontalEdges(padding: 16)
 		)
 
-        feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 40).isActive = true
+		feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 40).isActive = true
 	}
 
 	private func setupBindings() {
-        Publishers.Zip(sendConfirmationVM.$formattedFeeInDollar, sendConfirmationVM.$formattedFeeInETH).sink { [weak self] formattedFeeDollar, formattedFeeETH in
-            self?.hideSkeletonView()
-            self?.updateFeeLabel()
-            self!.continueButton.style = .active
-        }.store(in: &cancellables)
+		Publishers.Zip(sendConfirmationVM.$formattedFeeInDollar, sendConfirmationVM.$formattedFeeInETH)
+			.sink { [weak self] formattedFeeDollar, formattedFeeETH in
+				self?.hideSkeletonView()
+				self?.updateFeeLabel()
+				self!.continueButton.style = .active
+			}.store(in: &cancellables)
 	}
-    
 
 	private func setSketonable() {
 		feeLabel.isSkeletonable = true
 	}
-    
-    private func updateFeeLabel() {
-        if showFeeInDollar {
-                    feeLabel.text = sendConfirmationVM.formattedFeeInDollar
-            } else {
-                    feeLabel.text = sendConfirmationVM.formattedFeeInETH
-            }
-    }
-    
-    
-    @objc private func toggleShowFee() {
-        showFeeInDollar = !showFeeInDollar
-     }
+
+	private func updateFeeLabel() {
+		if showFeeInDollar {
+			feeLabel.text = sendConfirmationVM.formattedFeeInDollar
+		} else {
+			feeLabel.text = sendConfirmationVM.formattedFeeInETH
+		}
+	}
+
+	@objc
+	private func toggleShowFee() {
+		showFeeInDollar = !showFeeInDollar
+	}
 }
