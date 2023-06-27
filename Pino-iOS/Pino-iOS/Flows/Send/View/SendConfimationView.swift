@@ -29,7 +29,6 @@ class SendConfirmationView: UIView {
 	private var feeTitleView: TitleWithInfo!
 	private let walletInfoStackView = UIStackView()
 	private let recipientAddressLabel = UILabel()
-	private let feeLabel = UILabel()
 	private let walletImageBackgroundView = UIView()
 	private let walletImageView = UIImageView()
 	private let walletNameLabel = UILabel()
@@ -38,6 +37,9 @@ class SendConfirmationView: UIView {
 	private let selectedWalletSpacerView = UIView()
 	private let recipientSpacerView = UIView()
 	private let feeSpacerView = UIView()
+	private let feeErrorIcon = UIImageView()
+	private let feeResultStackView = UIStackView()
+	private let feeLabel = UILabel()
 
 	private let continueButton = PinoButton(style: .active)
 	private let confirmButtonTapped: () -> Void
@@ -101,9 +103,13 @@ class SendConfirmationView: UIView {
 		recipientStrackView.addArrangedSubview(recipientTitleLabel)
 		recipientStrackView.addArrangedSubview(recipientSpacerView)
 		recipientStrackView.addArrangedSubview(recipientAddressLabel)
+
+		feeStrackView.distribution = .fillProportionally
 		feeStrackView.addArrangedSubview(feeTitleView)
 		feeStrackView.addArrangedSubview(feeSpacerView)
-		feeStrackView.addArrangedSubview(feeLabel)
+		feeStrackView.addArrangedSubview(feeResultStackView)
+		feeResultStackView.addSubview(feeErrorIcon)
+		feeResultStackView.addSubview(feeLabel)
 		scamErrorView.addSubview(scamErrorLabel)
 
 		let feeLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleShowFee))
@@ -167,6 +173,7 @@ class SendConfirmationView: UIView {
 		scamErrorView.backgroundColor = .Pino.lightRed
 
 		feeLabel.textAlignment = .right
+		feeErrorIcon.image = UIImage(named: "refresh")
 		recipientAddressLabel.textAlignment = .right
 		scamErrorLabel.numberOfLines = 0
 
@@ -232,8 +239,12 @@ class SendConfirmationView: UIView {
 			.verticalEdges(padding: 18),
 			.horizontalEdges(padding: 16)
 		)
+		feeErrorIcon.pin(
+			.fixedWidth(20),
+			.fixedHeight(20)
+		)
 
-		feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 40).isActive = true
+		feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60).isActive = true
 	}
 
 	private func setupBindings() {
