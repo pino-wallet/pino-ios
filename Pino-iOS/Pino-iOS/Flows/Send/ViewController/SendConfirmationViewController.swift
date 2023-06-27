@@ -11,6 +11,7 @@ class SendConfirmationViewController: AuthenticationLockViewController {
 	// MARK: Private Properties
 
 	private let sendConfirmationVM: SendConfirmationViewModel
+	private var sendConfirmationView: SendConfirmationView!
 
 	// MARK: Initializers
 
@@ -31,10 +32,9 @@ class SendConfirmationViewController: AuthenticationLockViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		view.showSkeletonView()
+		sendConfirmationView.showSkeletonView()
 		sendConfirmationVM.getFee().catch { error in
-			Toast.default(title: "\(error.localizedDescription)", subtitle: "Please try again!", style: .error)
-				.show(haptic: .warning)
+			self.showFeeError(error)
 		}
 	}
 
@@ -46,7 +46,7 @@ class SendConfirmationViewController: AuthenticationLockViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = SendConfirmationView(
+		sendConfirmationView = SendConfirmationView(
 			sendConfirmationVM: sendConfirmationVM,
 			confirmButtonTapped: {
 				self.confirmSend()
@@ -55,6 +55,7 @@ class SendConfirmationViewController: AuthenticationLockViewController {
 				self.showFeeInfoActionSheet(feeInfoActionSheet)
 			}
 		)
+		view = sendConfirmationView
 	}
 
 	private func setupNavigationBar() {
@@ -73,5 +74,11 @@ class SendConfirmationViewController: AuthenticationLockViewController {
 			let statusPageVC = SendStatusViewController(confirmationVM: self.sendConfirmationVM)
 			self.navigationController?.pushViewController(statusPageVC, animated: true)
 		}
+	}
+
+	private func showFeeError(_ error: Error) {
+		sendConfirmationView.showfeeCalculationError()
+		Toast.default(title: "\(error.localizedDescription)", subtitle: "Please try again!", style: .error)
+			.show(haptic: .warning)
 	}
 }

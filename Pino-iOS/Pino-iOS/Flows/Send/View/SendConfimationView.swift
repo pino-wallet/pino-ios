@@ -23,7 +23,7 @@ class SendConfirmationView: UIView {
 	private let sendInfoStackView = UIStackView()
 	private let selectedWalletStackView = UIStackView()
 	private let recipientStrackView = UIStackView()
-	private let feeStrackView = UIStackView()
+	private let feeStackView = UIStackView()
 	private let selectedWalletTitleLabel = UILabel()
 	private let recipientTitleLabel = UILabel()
 	private var feeTitleView: TitleWithInfo!
@@ -37,8 +37,10 @@ class SendConfirmationView: UIView {
 	private let selectedWalletSpacerView = UIView()
 	private let recipientSpacerView = UIView()
 	private let feeSpacerView = UIView()
+	private let feeResultView = UIView()
 	private let feeErrorIcon = UIImageView()
-	private let feeResultStackView = UIStackView()
+	private let feeErrorLabel = UILabel()
+	private let feeErrorStackView = UIStackView()
 	private let feeLabel = UILabel()
 
 	private let continueButton = PinoButton(style: .active)
@@ -93,7 +95,7 @@ class SendConfirmationView: UIView {
 		sendInfoCardView.addSubview(sendInfoStackView)
 		sendInfoStackView.addArrangedSubview(selectedWalletStackView)
 		sendInfoStackView.addArrangedSubview(recipientStrackView)
-		sendInfoStackView.addArrangedSubview(feeStrackView)
+		sendInfoStackView.addArrangedSubview(feeStackView)
 		selectedWalletStackView.addArrangedSubview(selectedWalletTitleLabel)
 		selectedWalletStackView.addArrangedSubview(selectedWalletSpacerView)
 		selectedWalletStackView.addArrangedSubview(walletInfoStackView)
@@ -104,12 +106,14 @@ class SendConfirmationView: UIView {
 		recipientStrackView.addArrangedSubview(recipientSpacerView)
 		recipientStrackView.addArrangedSubview(recipientAddressLabel)
 
-		feeStrackView.distribution = .fillProportionally
-		feeStrackView.addArrangedSubview(feeTitleView)
-		feeStrackView.addArrangedSubview(feeSpacerView)
-		feeStrackView.addArrangedSubview(feeResultStackView)
-		feeResultStackView.addSubview(feeErrorIcon)
-		feeResultStackView.addSubview(feeLabel)
+		feeStackView.addArrangedSubview(feeTitleView)
+		feeStackView.addArrangedSubview(feeSpacerView)
+		feeStackView.addArrangedSubview(feeResultView)
+		feeResultView.addSubview(feeErrorStackView)
+		feeResultView.addSubview(feeLabel)
+		feeErrorStackView.addArrangedSubview(feeErrorIcon)
+		feeErrorStackView.addArrangedSubview(feeErrorLabel)
+
 		scamErrorView.addSubview(scamErrorLabel)
 
 		let feeLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleShowFee))
@@ -138,6 +142,8 @@ class SendConfirmationView: UIView {
 			characterCountFromStart: 6,
 			characterCountFromEnd: 4
 		)
+		feeErrorLabel.text = sendConfirmationVM.feeErrorText
+		feeErrorIcon.image = UIImage(named: sendConfirmationVM.feeErrorIcon)
 
 		walletImageView.image = UIImage(named: sendConfirmationVM.selectedWalletImage)
 		walletImageBackgroundView.backgroundColor = UIColor(named: sendConfirmationVM.selectedWalletImage)
@@ -158,6 +164,7 @@ class SendConfirmationView: UIView {
 		recipientTitleLabel.font = .PinoStyle.mediumBody
 		recipientAddressLabel.font = .PinoStyle.mediumBody
 		feeLabel.font = .PinoStyle.mediumBody
+		feeErrorLabel.font = .PinoStyle.mediumBody
 		scamErrorLabel.font = .PinoStyle.mediumCallout
 
 		tokenNameLabel.textColor = .Pino.label
@@ -167,13 +174,14 @@ class SendConfirmationView: UIView {
 		recipientTitleLabel.textColor = .Pino.secondaryLabel
 		recipientAddressLabel.textColor = .Pino.label
 		feeLabel.textColor = .Pino.label
+		feeErrorLabel.textColor = .Pino.red
 		scamErrorLabel.textColor = .Pino.label
+		feeErrorIcon.tintColor = .Pino.red
 
 		backgroundColor = .Pino.background
 		scamErrorView.backgroundColor = .Pino.lightRed
 
 		feeLabel.textAlignment = .right
-		feeErrorIcon.image = UIImage(named: "refresh")
 		recipientAddressLabel.textAlignment = .right
 		scamErrorLabel.numberOfLines = 0
 
@@ -192,6 +200,7 @@ class SendConfirmationView: UIView {
 		tokenAmountStackView.spacing = 10
 		sendInfoStackView.spacing = 26
 		walletInfoStackView.spacing = 4
+		feeErrorStackView.spacing = 4
 
 		walletImageBackgroundView.layer.cornerRadius = 10
 		tokenImageView.layer.cornerRadius = 25
@@ -206,6 +215,7 @@ class SendConfirmationView: UIView {
 		}
 		showSkeletonView()
 		continueButton.style = .deactive
+		feeErrorStackView.isHidden = true
 	}
 
 	private func setupContstraint() {
@@ -243,8 +253,17 @@ class SendConfirmationView: UIView {
 			.fixedWidth(20),
 			.fixedHeight(20)
 		)
+		feeTitleView.pin(
+			.fixedWidth(48)
+		)
+		feeLabel.pin(
+			.allEdges
+		)
+		feeErrorStackView.pin(
+			.allEdges
+		)
 
-		feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60).isActive = true
+		feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
 	}
 
 	private func setupBindings() {
@@ -272,5 +291,17 @@ class SendConfirmationView: UIView {
 	private func toggleShowFee() {
 		showFeeInDollar.toggle()
 		updateFeeLabel()
+	}
+
+	// MARK: - Public Methods
+
+	public func showfeeCalculationError() {
+		feeLabel.isHidden = true
+		feeErrorStackView.isHidden = false
+	}
+
+	public func hideFeeCalculationError() {
+		feeErrorStackView.isHidden = true
+		feeLabel.isHidden = false
 	}
 }
