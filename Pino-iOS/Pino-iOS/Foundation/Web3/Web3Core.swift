@@ -303,7 +303,6 @@ extension Web3Core {
 		var attempts = 0
 		func attempt() -> Promise<T> {
 			attempts += 1
-			print("attempting:\(attempts)")
 			return body().recover { error -> Promise<T> in
 				guard attempts < maximumRetryCount else { throw error }
 				return after(delayBeforeRetry).then(attempt)
