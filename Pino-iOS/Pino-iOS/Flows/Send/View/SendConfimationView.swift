@@ -46,6 +46,7 @@ class SendConfirmationView: UIView {
 	private let continueButton = PinoButton(style: .active)
 	private let confirmButtonTapped: () -> Void
 	private let presentFeeInfo: (InfoActionSheet) -> Void
+	private let retryFeeCalculation: () -> Void
 	private let sendConfirmationVM: SendConfirmationViewModel
 	private var cancellables = Set<AnyCancellable>()
 	private var showFeeInDollar = true
@@ -55,11 +56,13 @@ class SendConfirmationView: UIView {
 	init(
 		sendConfirmationVM: SendConfirmationViewModel,
 		confirmButtonTapped: @escaping () -> Void,
-		presentFeeInfo: @escaping (InfoActionSheet) -> Void
+		presentFeeInfo: @escaping (InfoActionSheet) -> Void,
+		retryFeeCalculation: @escaping () -> Void
 	) {
 		self.sendConfirmationVM = sendConfirmationVM
 		self.confirmButtonTapped = confirmButtonTapped
 		self.presentFeeInfo = presentFeeInfo
+		self.retryFeeCalculation = retryFeeCalculation
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -127,6 +130,9 @@ class SendConfirmationView: UIView {
 		feeTitleView.presentActionSheet = { feeInfoActionSheet in
 			self.presentFeeInfo(feeInfoActionSheet)
 		}
+
+		let feeRetryTapGesture = UITapGestureRecognizer(target: self, action: #selector(getFee))
+		feeErrorStackView.addGestureRecognizer(feeRetryTapGesture)
 	}
 
 	private func setupStyle() {
@@ -291,6 +297,11 @@ class SendConfirmationView: UIView {
 	private func toggleShowFee() {
 		showFeeInDollar.toggle()
 		updateFeeLabel()
+	}
+
+	@objc
+	private func getFee() {
+		retryFeeCalculation()
 	}
 
 	// MARK: - Public Methods

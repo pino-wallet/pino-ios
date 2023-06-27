@@ -32,10 +32,7 @@ class SendConfirmationViewController: AuthenticationLockViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		sendConfirmationView.showSkeletonView()
-		sendConfirmationVM.getFee().catch { error in
-			self.showFeeError(error)
-		}
+		getFee()
 	}
 
 	override func loadView() {
@@ -53,6 +50,9 @@ class SendConfirmationViewController: AuthenticationLockViewController {
 			},
 			presentFeeInfo: { feeInfoActionSheet in
 				self.showFeeInfoActionSheet(feeInfoActionSheet)
+			},
+			retryFeeCalculation: {
+				self.getFee()
 			}
 		)
 		view = sendConfirmationView
@@ -73,6 +73,14 @@ class SendConfirmationViewController: AuthenticationLockViewController {
 		unlockApp {
 			let statusPageVC = SendStatusViewController(confirmationVM: self.sendConfirmationVM)
 			self.navigationController?.pushViewController(statusPageVC, animated: true)
+		}
+	}
+
+	private func getFee() {
+		sendConfirmationView.hideFeeCalculationError()
+		sendConfirmationView.showSkeletonView()
+		sendConfirmationVM.getFee().catch { error in
+			self.showFeeError(error)
 		}
 	}
 
