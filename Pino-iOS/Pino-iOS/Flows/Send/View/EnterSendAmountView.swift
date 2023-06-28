@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 6/11/23.
 //
 
+import Combine
 import UIKit
 
 class EnterSendAmountView: UIView {
@@ -34,6 +35,7 @@ class EnterSendAmountView: UIView {
 	private var keyboardHeight: CGFloat = 320 // Minimum height in rare case keyboard of height was not calculated
 	private var nextButtonBottomConstraint: NSLayoutConstraint!
 	private let nextButtonBottomConstant = CGFloat(12)
+	private var cancellable = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 
@@ -54,6 +56,7 @@ class EnterSendAmountView: UIView {
 		setupStyle()
 		setupContstraint()
 		setupNotifications()
+		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -104,8 +107,8 @@ class EnterSendAmountView: UIView {
 
 	private func setupStyle() {
 		maxAmountTitle.text = enterAmountVM.maxTitle
-		maxAmountLabel.text = enterAmountVM.maxHoldAmount
-		maxAmountInDollarLabel.text = enterAmountVM.maxAmountInDollar
+		maxAmountLabel.text = enterAmountVM.formattedMaxHoldAmount
+		maxAmountInDollarLabel.text = enterAmountVM.formattedMaxAmountInDollar
 		continueButton.title = enterAmountVM.continueButtonTitle
 		dollarSignLabel.text = enterAmountVM.dollarSign
 		changeTokenView.tokenName = enterAmountVM.selectedToken.symbol
@@ -207,11 +210,21 @@ class EnterSendAmountView: UIView {
 		addConstraint(nextButtonBottomConstraint)
 	}
 
+	private func setupBindings() {
+		GlobalVariables.shared.$ethGasFee.sink { fee, feeInDollar in
+			if self.enterAmountVM.selectedToken.isEth {
+				self.enterAmountVM.updateEthMaxAmount(gasFee: fee, gasFeeInDollar: feeInDollar)
+				self.updateAmount(enteredAmount: self.amountTextfield.text ?? "0")
+				self.maxAmountLabel.text = self.enterAmountVM.formattedMaxHoldAmount
+				self.maxAmountInDollarLabel.text = self.enterAmountVM.formattedMaxAmountInDollar
+			}
+		}.store(in: &cancellable)
+	}
+
 	private func updateView() {
 		if enterAmountVM.selectedToken.isVerified {
 			changeTokenView.tokenImageURL = enterAmountVM.selectedToken.image
-			enterAmountVM.calculateAmount(amountTextfield.text ?? "0")
-			amountLabel.text = enterAmountVM.formattedAmount
+			updateAmount(enteredAmount: amountTextfield.text ?? "0")
 			dollarFormatButton.isHidden = false
 			amountLabel.isHidden = false
 			applyDollarFormatChanges()
@@ -221,8 +234,8 @@ class EnterSendAmountView: UIView {
 			dollarSignLabel.isHidden = true
 			amountLabel.isHidden = true
 		}
-		maxAmountLabel.text = enterAmountVM.maxHoldAmount
-		maxAmountInDollarLabel.text = enterAmountVM.maxAmountInDollar
+		maxAmountLabel.text = enterAmountVM.formattedMaxHoldAmount
+		maxAmountInDollarLabel.text = enterAmountVM.formattedMaxAmountInDollar
 		changeTokenView.tokenName = enterAmountVM.selectedToken.symbol
 	}
 

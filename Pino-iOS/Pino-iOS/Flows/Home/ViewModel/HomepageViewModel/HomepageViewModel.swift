@@ -137,8 +137,7 @@ class HomepageViewModel {
 	private func calculateEthGasFee(ethPrice: BigNumber) -> Promise<String> {
 		Promise<String> { seal in
 			_ = Web3Core.shared.calculateEthGasFee(ethPrice: ethPrice).done { fee, feeInDollar in
-				GlobalVariables.shared.ethGasFee = fee
-				GlobalVariables.shared.ethGasFeeInDollar = feeInDollar
+				GlobalVariables.shared.ethGasFee = (fee, feeInDollar)
 			}.catch { error in
 				seal.reject(error)
 			}

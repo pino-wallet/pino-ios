@@ -11,9 +11,7 @@ class GlobalVariables {
 	static let shared = GlobalVariables()
 
 	@Published
-	var ethGasFee = BigNumber(number: "0", decimal: 0)
-	@Published
-	var ethGasFeeInDollar = BigNumber(number: "0", decimal: 0)
+	var ethGasFee = (fee: BigNumber(number: "0", decimal: 0), feeInDollar: BigNumber(number: "0", decimal: 0))
 
 	private init() {}
 }

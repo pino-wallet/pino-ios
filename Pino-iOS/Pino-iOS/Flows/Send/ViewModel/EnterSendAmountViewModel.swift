@@ -22,18 +22,22 @@ class EnterSendAmountViewModel {
 
 	public var selectedToken: AssetViewModel {
 		didSet {
+			updateTokenMaxAmount()
 			if let selectedTokenChanged {
 				selectedTokenChanged()
 			}
 		}
 	}
 
-	public var maxHoldAmount: String {
-		selectedToken.amount
+	public var maxHoldAmount = "0"
+	public var maxAmountInDollar = "0"
+
+	public var formattedMaxHoldAmount: String {
+		"\(maxHoldAmount) \(selectedToken.symbol)"
 	}
 
-	public var maxAmountInDollar: String {
-		"$ \(selectedToken.formattedHoldAmount)"
+	public var formattedMaxAmountInDollar: String {
+		"$ \(maxAmountInDollar)"
 	}
 
 	public var ethPrice: BigNumber!
@@ -60,6 +64,7 @@ class EnterSendAmountViewModel {
 		self.selectedToken = selectedToken
 		self.isDollarEnabled = isDollarEnabled
 		self.ethPrice = ethPrice
+		updateTokenMaxAmount()
 	}
 
 	// MARK: - Public Methods
@@ -82,7 +87,7 @@ class EnterSendAmountViewModel {
 			var decimalMaxAmount: Decimal
 			var enteredAmmount: Decimal
 			if isDollarEnabled {
-				decimalMaxAmount = Decimal(string: selectedToken.formattedHoldAmount)!
+				decimalMaxAmount = Decimal(string: maxAmountInDollar)!
 				enteredAmmount = Decimal(string: dollarAmount)!
 			} else {
 				decimalMaxAmount = Decimal(string: maxHoldAmount)!
@@ -96,7 +101,27 @@ class EnterSendAmountViewModel {
 		}
 	}
 
+	public func updateEthMaxAmount(
+		gasFee: BigNumber = GlobalVariables.shared.ethGasFee.fee,
+		gasFeeInDollar: BigNumber = GlobalVariables.shared.ethGasFee.feeInDollar
+	) {
+		let estimatedAmount = selectedToken.holdAmount - gasFee
+		maxHoldAmount = estimatedAmount.formattedAmountOf(type: .hold)
+
+		let estimatedAmountInDollar = selectedToken.holdAmountInDollor - gasFeeInDollar
+		maxAmountInDollar = estimatedAmountInDollar.formattedAmountOf(type: .price)
+	}
+
 	// MARK: - Private Methods
+
+	private func updateTokenMaxAmount() {
+		if selectedToken.isEth {
+			updateEthMaxAmount()
+		} else {
+			maxHoldAmount = selectedToken.amount
+			maxAmountInDollar = selectedToken.formattedHoldAmount
+		}
+	}
 
 	private func convertEnteredAmountToDollar(amount: String) {
 		guard let decimalNumber = Decimal(string: amount),
