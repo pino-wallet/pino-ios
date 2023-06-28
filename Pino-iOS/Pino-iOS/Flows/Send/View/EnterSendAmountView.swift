@@ -303,9 +303,9 @@ class EnterSendAmountView: UIView {
 	@objc
 	private func putMaxAmountInTextField() {
 		if enterAmountVM.isDollarEnabled {
-			amountTextfield.text = enterAmountVM.selectedToken.formattedHoldAmount
+			amountTextfield.text = enterAmountVM.maxAmountInDollar
 		} else {
-			amountTextfield.text = enterAmountVM.selectedToken.holdAmount.formattedAmountOf(type: .hold)
+			amountTextfield.text = enterAmountVM.maxHoldAmount
 		}
 		amountTextfield.sendActions(for: .editingChanged)
 	}
