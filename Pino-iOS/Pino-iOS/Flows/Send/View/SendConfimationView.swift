@@ -241,8 +241,18 @@ class SendConfirmationView: UIView {
 			.sink { [weak self] formattedFeeDollar, formattedFeeETH in
 				self?.hideSkeletonView()
 				self?.updateFeeLabel()
-				self!.continueButton.style = .active
+				self?.checkBalanceEnough()
 			}.store(in: &cancellables)
+	}
+
+	private func checkBalanceEnough() {
+		if sendConfirmationVM.checkEnoughBalance() {
+			continueButton.style = .active
+			continueButton.setTitle(sendConfirmationVM.confirmBtnText, for: .normal)
+		} else {
+			continueButton.style = .deactive
+			continueButton.setTitle(sendConfirmationVM.insuffientText, for: .normal)
+		}
 	}
 
 	private func setSketonable() {

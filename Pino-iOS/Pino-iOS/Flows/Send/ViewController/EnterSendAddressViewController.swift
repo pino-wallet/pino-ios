@@ -15,7 +15,7 @@ class EnterSendAddressViewController: UIViewController {
 
 	// MARK: - Public Properties
 
-	public var ethPrice: BigNumber!
+	public var ethToken: AssetViewModel!
 
 	// MARK: - View Overrides
 
@@ -27,9 +27,9 @@ class EnterSendAddressViewController: UIViewController {
 
 	// MARK: - Initializers
 
-	init(enterAddressVM: EnterSendAddressViewModel, ethPrice: BigNumber) {
+	init(enterAddressVM: EnterSendAddressViewModel, ethToken: AssetViewModel) {
 		self.enterSendAddressVM = enterAddressVM
-		self.ethPrice = ethPrice
+		self.ethToken = ethToken
 		super.init(nibName: nil, bundle: nil)
 		setupView()
 		setupNavigationBar()
@@ -78,7 +78,7 @@ class EnterSendAddressViewController: UIViewController {
 			recipientAddress: address,
 			sendAmount: enterSendAddressVM.sendAmountVM.tokenAmount,
 			sendAmountInDollar: enterSendAddressVM.sendAmountVM.dollarAmount,
-			ethPrice: ethPrice
+			ethToken: ethToken
 		)
 		let confirmationVC = SendConfirmationViewController(sendConfirmationVM: confirmationVM)
 		navigationController?.pushViewController(confirmationVC, animated: true)

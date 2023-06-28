@@ -40,7 +40,7 @@ class EnterSendAmountViewModel {
 		"$ \(maxAmountInDollar)"
 	}
 
-	public var ethPrice: BigNumber!
+	public var ethToken: AssetViewModel!
 	public var tokenAmount = "0.0"
 	public var dollarAmount = "0.0"
 
@@ -60,10 +60,10 @@ class EnterSendAmountViewModel {
 
 	// MARK: - Initializers
 
-	init(selectedToken: AssetViewModel, isDollarEnabled: Bool = false, ethPrice: BigNumber) {
+	init(selectedToken: AssetViewModel, isDollarEnabled: Bool = false, ethToken: AssetViewModel) {
 		self.selectedToken = selectedToken
 		self.isDollarEnabled = isDollarEnabled
-		self.ethPrice = ethPrice
+		self.ethToken = ethToken
 		updateTokenMaxAmount()
 	}
 
