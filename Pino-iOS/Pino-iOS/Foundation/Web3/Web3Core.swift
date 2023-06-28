@@ -95,7 +95,7 @@ class Web3Core {
 
 	public func calculateEthGasFee(ethPrice: BigNumber) -> Promise<GasInfo> {
 		Promise<GasInfo>() { seal in
-			firstly {
+			attempt(maximumRetryCount: 3) { [self] in
 				web3.eth.gasPrice()
 			}.done { gasPrice in
 				let gasLimit = BigNumber(number: Constants.ethGasLimit, decimal: 0)
@@ -224,27 +224,39 @@ class Web3Core {
 				web3.eth.getTransactionCount(address: myPrivateKey.address, block: .latest)
 			}.map { nonce in
 				transactionInfo.updateValue(nonce, forKey: .nonce)
-			}.then { [self] () -> Promise<EthereumQuantity> in
-				let contract = try getContractOfToken(address: tokenContractAddress)
-				let transaction = contract["transfer"]?(to, amount).createTransaction(
-					nonce: transactionInfo[.nonce],
-					gasPrice: transactionInfo[.gasPrice],
-					maxFeePerGas: nil,
-					maxPriorityFeePerGas: nil,
-					gasLimit: nil,
-					from: myPrivateKey.address,
-					value: nil,
-					accessList: [:],
-					transactionType: .legacy
-				)
-				return web3.eth.estimateGas(call: .init(
-					from: transaction?.from,
-					to: (transaction?.to)!,
-					gas: nil,
-					gasPrice: transactionInfo[.gasPrice],
-					value: nil,
-					data: transaction!.data
-				))
+			}.then { [self] () throws -> Promise<EthereumQuantity> in
+
+				attempt { [self] in
+					Promise<EthereumQuantity>() { seal in
+						firstly {
+							let contract = try getContractOfToken(address: tokenContractAddress)
+							let transaction = contract["transfer"]?(to, amount).createTransaction(
+								nonce: transactionInfo[.nonce],
+								gasPrice: transactionInfo[.gasPrice],
+								maxFeePerGas: nil,
+								maxPriorityFeePerGas: nil,
+								gasLimit: nil,
+								from: myPrivateKey.address,
+								value: nil,
+								accessList: [:],
+								transactionType: .legacy
+							)
+							return web3.eth.estimateGas(call: .init(
+								from: transaction?.from,
+								to: (transaction?.to)!,
+								gas: nil,
+								gasPrice: transactionInfo[.gasPrice],
+								value: nil,
+								data: transaction!.data
+							))
+						}.done { estimate in
+							seal.fulfill(estimate)
+						}.catch { error in
+							seal.reject(error)
+						}
+					}
+				}
+
 			}.done { gaslimit in
 				transactionInfo.updateValue(gaslimit, forKey: .gasLimit)
 				let estimate = try EthereumQuantity((gaslimit.quantity * BigUInt(110)) / BigUInt(100))
@@ -280,5 +292,22 @@ extension Web3Core {
 	enum Constants {
 		static let ethGasLimit = "21000"
 		static let eoaCode = "0x"
+	}
+
+	/// Utitlity function to attemp multiple times for a promise
+	func attempt<T>(
+		maximumRetryCount: Int = 3,
+		delayBeforeRetry: DispatchTimeInterval = .microseconds(500),
+		_ body: @escaping () -> Promise<T>
+	) -> Promise<T> {
+		var attempts = 0
+		func attempt() -> Promise<T> {
+			attempts += 1
+			return body().recover { error -> Promise<T> in
+				guard attempts < maximumRetryCount else { throw error }
+				return after(delayBeforeRetry).then(attempt)
+			}
+		}
+		return attempt()
 	}
 }

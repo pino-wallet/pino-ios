@@ -263,6 +263,10 @@ class EnterSendAmountView: UIView {
 		enterAmountVM.checkIfBalanceIsEnough(amount: enteredAmount) { amountStatus in
 			switch amountStatus {
 			case .isZero:
+				maxAmountTitle.textColor = .Pino.label
+				maxAmountLabel.textColor = .Pino.label
+				maxAmountInDollarLabel.textColor = .Pino.label
+
 				continueButton.setTitle(enterAmountVM.continueButtonTitle, for: .normal)
 				continueButton.style = .deactive
 			case .isEnough:
