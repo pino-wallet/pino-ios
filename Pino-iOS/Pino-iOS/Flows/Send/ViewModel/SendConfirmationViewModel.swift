@@ -72,6 +72,8 @@ class SendConfirmationViewModel {
 		"This address maybe be a scam! This address maybe be a scam! This address maybe be a scam!"
 	public let feeInfoActionSheetTitle = "Fee"
 	public let feeInfoActionSheetDescription = "Sample Text"
+	public let feeErrorText = "Error in calculation!"
+	public let feeErrorIcon = "refresh"
 
 	// MARK: - Initializer
 
