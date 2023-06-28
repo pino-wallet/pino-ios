@@ -118,7 +118,7 @@ class EnterSendAmountViewModel {
 		if selectedToken.isEth {
 			updateEthMaxAmount()
 		} else {
-			maxHoldAmount = selectedToken.amount
+			maxHoldAmount = selectedToken.holdAmount.formattedAmountOf(type: .hold)
 			maxAmountInDollar = selectedToken.formattedHoldAmount
 		}
 	}
