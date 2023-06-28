@@ -10,6 +10,7 @@ import CoreData
 import Foundation
 import Hyperconnectivity
 import Network
+import PromiseKit
 
 class HomepageViewModel {
 	// MARK: - Public Properties
@@ -81,7 +82,10 @@ class HomepageViewModel {
 			if isConnected {
 				self.getAssetsList { result in
 					switch result {
-					case .success:
+					case let .success(assets):
+						if let ethAsset = assets.first(where: { $0.isEth }) {
+							self.calculateEthGasFee(ethPrice: ethAsset.price).catch { _ in }
+						}
 						completion(nil)
 					case .failure:
 						completion(.requestFailed)
@@ -128,5 +132,16 @@ class HomepageViewModel {
 			guard let assets else { return }
 			self.getWalletBalance(assets: assets)
 		}.store(in: &cancellables)
+	}
+
+	private func calculateEthGasFee(ethPrice: BigNumber) -> Promise<String> {
+		Promise<String> { seal in
+			_ = Web3Core.shared.calculateEthGasFee(ethPrice: ethPrice).done { fee, feeInDollar in
+				GlobalVariables.shared.ethGasFee = fee
+				GlobalVariables.shared.ethGasFeeInDollar = feeInDollar
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
 	}
 }

@@ -10,7 +10,7 @@ import CoreData
 extension HomepageViewModel {
 	// MARK: Internal Methods
 
-	internal func getAssetsList(completion: @escaping (Result<[BalanceAssetModel], APIError>) -> Void) {
+	internal func getAssetsList(completion: @escaping (Result<[AssetViewModel], APIError>) -> Void) {
 		if let tokens {
 			accountingAPIClient.userBalance()
 				.sink { completed in
@@ -21,8 +21,8 @@ extension HomepageViewModel {
 						completion(.failure(error))
 					}
 				} receiveValue: { assets in
-					self.getManageAsset(tokens: tokens, userAssets: assets)
-					completion(.success(assets))
+					self.manageAssetsList = self.getManageAsset(tokens: tokens, userAssets: assets)
+					completion(.success(self.manageAssetsList!))
 				}.store(in: &cancellables)
 		} else {
 			getTokens { result in
@@ -36,7 +36,7 @@ extension HomepageViewModel {
 		}
 	}
 
-	internal func getManageAsset(tokens: [Detail], userAssets: [BalanceAssetModel]) {
+	internal func getManageAsset(tokens: [Detail], userAssets: [BalanceAssetModel]) -> [AssetViewModel] {
 		let tokensModel = tokens.compactMap {
 			let tokenID = $0.id
 			let userAsset = userAssets.first(where: { $0.id == tokenID })
@@ -48,7 +48,7 @@ extension HomepageViewModel {
 			)
 		}
 		assetsModelList = tokensModel
-		manageAssetsList = tokensModel.compactMap {
+		return tokensModel.compactMap {
 			AssetViewModel(assetModel: $0, isSelected: self.selectedAssets.map { $0.id }.contains($0.id))
 		}
 	}
