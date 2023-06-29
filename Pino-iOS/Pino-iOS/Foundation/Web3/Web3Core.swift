@@ -235,7 +235,7 @@ class Web3Core {
 								gasPrice: transactionInfo[.gasPrice],
 								maxFeePerGas: nil,
 								maxPriorityFeePerGas: nil,
-								gasLimit: nil,
+								gasLimit: EthereumQuantity(quantity: BigUInt(90000)),
 								from: myPrivateKey.address,
 								value: nil,
 								accessList: [:],
@@ -244,8 +244,8 @@ class Web3Core {
 							return web3.eth.estimateGas(call: .init(
 								from: transaction?.from,
 								to: (transaction?.to)!,
-								gas: nil,
-								gasPrice: transactionInfo[.gasPrice],
+								gas: transactionInfo[.gasPrice],
+								gasPrice: nil,
 								value: nil,
 								data: transaction!.data
 							))

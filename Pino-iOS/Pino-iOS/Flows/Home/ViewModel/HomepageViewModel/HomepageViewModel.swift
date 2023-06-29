@@ -84,7 +84,10 @@ class HomepageViewModel {
 					switch result {
 					case let .success(assets):
 						if let ethAsset = assets.first(where: { $0.isEth }) {
-							self.calculateEthGasFee(ethPrice: ethAsset.price).catch { _ in }
+							self.calculateEthGasFee(ethPrice: ethAsset.price).catch {
+								error in
+								print(error)
+							}
 						}
 						completion(nil)
 					case .failure:
