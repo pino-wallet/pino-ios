@@ -32,14 +32,10 @@ class SwapViewController: UIViewController {
 		view = SwapView(
 			swapVM: swapVM,
 			changePayToken: {
-				self.changeSelectedAsset { selectedAsset in
-					self.swapVM.payToken.selectedToken = selectedAsset
-				}
+				self.changePayToken()
 			},
 			changeGetToken: {
-				self.changeSelectedAsset { selectedAsset in
-					self.swapVM.getToken.selectedToken = selectedAsset
-				}
+				self.changeGetToken()
 			},
 			nextButtonTapped: {}
 		)
@@ -50,12 +46,30 @@ class SwapViewController: UIViewController {
 		setNavigationTitle(swapVM.pageTitle)
 	}
 
-	private func changeSelectedAsset(assetChanged: @escaping (AssetViewModel) -> Void) {
+	private func openSelectAssetPage(assets: [AssetViewModel], assetChanged: @escaping (AssetViewModel) -> Void) {
 		let selectAssetVC = SelectAssetToSendViewController(assets: assets)
 		selectAssetVC.changeAssetFromEnterAmountPage = { selectedAsset in
 			assetChanged(selectedAsset)
 		}
 		let selectAssetNavigationController = UINavigationController(rootViewController: selectAssetVC)
 		present(selectAssetNavigationController, animated: true)
+	}
+
+	private func changePayToken() {
+		var filteredAssets = assets!.filter { !$0.holdAmount.isZero }
+		// To prevent swapping same tokens
+		filteredAssets.removeAll(where: { $0.id == swapVM.getToken.selectedToken.id })
+		openSelectAssetPage(assets: filteredAssets) { selectedToken in
+			self.swapVM.payToken.selectedToken = selectedToken
+		}
+	}
+
+	private func changeGetToken() {
+		var filteredAssets = assets!
+		// To prevent swapping same tokens
+		filteredAssets.removeAll(where: { $0.id == swapVM.payToken.selectedToken.id })
+		openSelectAssetPage(assets: filteredAssets) { selectedToken in
+			self.swapVM.getToken.selectedToken = selectedToken
+		}
 	}
 }

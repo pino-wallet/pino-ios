@@ -85,7 +85,7 @@ class SwapView: UIView {
 		}), for: .touchUpInside)
 
 		switchTokenButton.addAction(UIAction(handler: { _ in
-			self.swapVM.switchTokens()
+			self.switchTokens()
 		}), for: .touchUpInside)
 
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
@@ -167,6 +167,19 @@ class SwapView: UIView {
 	private func dissmisskeyBoard() {
 		payTokenSectionView.dissmisskeyBoard()
 		getTokenSectionView.dissmisskeyBoard()
+	}
+
+	private func switchTokens() {
+		UIView.animate(withDuration: 0.2) {
+			self.payTokenSectionView.fadeOutTokenView()
+			self.getTokenSectionView.fadeOutTokenView()
+		} completion: { _ in
+			self.swapVM.switchTokens()
+			UIView.animate(withDuration: 0.2) {
+				self.payTokenSectionView.fadeInTokenView()
+				self.getTokenSectionView.fadeInTokenView()
+			}
+		}
 	}
 }
 
