@@ -21,8 +21,8 @@ class SwapViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		// It must be replaced with custom view
-		view = UIView()
-		view.backgroundColor = .Pino.background
+		let ethToken = HomepageViewModel.sharedAssets.first(where: { $0.isEth })
+		let enterAmountVM = EnterSendAmountViewModel(selectedToken: ethToken!, ethPrice: ethToken!.price)
+		view = SwapView(swapVM: enterAmountVM, changeSelectedToken: {}, nextButtonTapped: {})
 	}
 }

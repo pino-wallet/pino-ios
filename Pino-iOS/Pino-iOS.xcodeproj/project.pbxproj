@@ -398,6 +398,8 @@
 		E3D204CA2A3992EB0027FEBC /* TokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D204C92A3992EB0027FEBC /* TokenView.swift */; };
 		E3D204CC2A39B7E90027FEBC /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D204CB2A39B7E90027FEBC /* QRScannerViewController.swift */; };
 		E3D478B32A3064C90030A987 /* CustomAssetDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D478B22A3064C90030A987 /* CustomAssetDataSource.swift */; };
+		E3D915D72A500791008DB035 /* SwapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D915D62A500791008DB035 /* SwapView.swift */; };
+		E3D915D92A5013A5008DB035 /* SwapTokeSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D915D82A5013A5008DB035 /* SwapTokeSectionView.swift */; };
 		E3E009E02A0635C800234707 /* Hyperconnectivity in Frameworks */ = {isa = PBXBuildFile; productRef = E3E009DF2A0635C800234707 /* Hyperconnectivity */; };
 		E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E009E12A06377D00234707 /* InternetConnectivity.swift */; };
 		E3F482EC2A3485A500EEC9CF /* EnterSendAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482EB2A3485A500EEC9CF /* EnterSendAmountViewController.swift */; };
@@ -828,6 +830,8 @@
 		E3D204C92A3992EB0027FEBC /* TokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenView.swift; sourceTree = "<group>"; };
 		E3D204CB2A39B7E90027FEBC /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 		E3D478B22A3064C90030A987 /* CustomAssetDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetDataSource.swift; sourceTree = "<group>"; };
+		E3D915D62A500791008DB035 /* SwapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapView.swift; sourceTree = "<group>"; };
+		E3D915D82A5013A5008DB035 /* SwapTokeSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapTokeSectionView.swift; sourceTree = "<group>"; };
 		E3E009E12A06377D00234707 /* InternetConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectivity.swift; sourceTree = "<group>"; };
 		E3F482EB2A3485A500EEC9CF /* EnterSendAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAmountViewController.swift; sourceTree = "<group>"; };
 		E3F482ED2A35A6E900EEC9CF /* CustomAsset+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CustomAsset+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -2152,6 +2156,8 @@
 			isa = PBXGroup;
 			children = (
 				47A6676B929BBCE1E8B10CDF /* SwapViewController.swift */,
+				E3D915D62A500791008DB035 /* SwapView.swift */,
+				E3D915D82A5013A5008DB035 /* SwapTokeSectionView.swift */,
 			);
 			path = Swap;
 			sourceTree = "<group>";
@@ -2950,6 +2956,7 @@
 				66F6B5B9FA886D1F48A4F627 /* ManageAssetsViewController.swift in Sources */,
 				7B6CE232F6C074F30AFAF23D /* ManagePasscodeView.swift in Sources */,
 				403691BC2A3DFFB50013AB6D /* ToastConfiguration.swift in Sources */,
+				E3D915D72A500791008DB035 /* SwapView.swift in Sources */,
 				DF00179529F85774001164EA /* KeychainManager.swift in Sources */,
 				325E592A9AA1B24C522EA47F /* MediumStyle.swift in Sources */,
 				D93C41FF29F7D3DF003F2297 /* EditAccountOptionModel.swift in Sources */,
@@ -3030,6 +3037,7 @@
 				36705A78402D3518B33881DD /* SecretPhraseTextView.swift in Sources */,
 				D9AEA0A029F9818300DD61A8 /* EditAccountOptionViewModel.swift in Sources */,
 				B890491BC2BBD99CF83AFE9A /* SecurityViewController.swift in Sources */,
+				E3D915D92A5013A5008DB035 /* SwapTokeSectionView.swift in Sources */,
 				DC66DEF4A366F740111CA309 /* SecurityViewModel.swift in Sources */,
 				D93C41F929F7C5C6003F2297 /* EditAccountHeaderView.swift in Sources */,
 				13F430044A23AF2BA55BBDFB /* SecurityModeProtocol.swift in Sources */,
