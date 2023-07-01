@@ -11,15 +11,15 @@ class SwapTokenSectionView: UIView {
 	// MARK: - Private Properties
 
 	private let contentStackView = UIStackView()
-	private let payAmountStackView = UIStackView()
-	private let payEstimatedAmountStackView = UIStackView()
-	private let payAmountLabel = UILabel()
-	private let firstTokenMaxAmountStackView = UIStackView()
-	private let firstTokenMaxAmountTitle = UILabel()
-	private let firstTokenMaxAmountLabel = UILabel()
+	private let textFieldStackView = UIStackView()
+	private let estimatedAmountStackView = UIStackView()
+	private let estimatedAmountLabel = UILabel()
+	private let maxAmountStackView = UIStackView()
+	private let maxAmountTitle = UILabel()
+	private let maxAmountLabel = UILabel()
 	private let changeTokenView = TokenView()
-	private let amountSpacerView = UIView()
-	private let maxAmountSpacerView = UIView()
+	private let textFieldSpacerView = UIView()
+	private let estimatedAmountSpacerView = UIView()
 	private let changeSelectedToken: () -> Void
 	private let updateSwapAmount: (String) -> Void
 	private let swapVM: EnterSendAmountViewModel
@@ -55,16 +55,16 @@ class SwapTokenSectionView: UIView {
 
 	private func setupView() {
 		addSubview(contentStackView)
-		contentStackView.addArrangedSubview(payAmountStackView)
-		contentStackView.addArrangedSubview(payEstimatedAmountStackView)
-		payAmountStackView.addArrangedSubview(amountTextfield)
-		payAmountStackView.addArrangedSubview(amountSpacerView)
-		payAmountStackView.addArrangedSubview(changeTokenView)
-		payEstimatedAmountStackView.addArrangedSubview(payAmountLabel)
-		payEstimatedAmountStackView.addArrangedSubview(maxAmountSpacerView)
-		payEstimatedAmountStackView.addArrangedSubview(firstTokenMaxAmountStackView)
-		firstTokenMaxAmountStackView.addArrangedSubview(firstTokenMaxAmountTitle)
-		firstTokenMaxAmountStackView.addArrangedSubview(firstTokenMaxAmountLabel)
+		contentStackView.addArrangedSubview(textFieldStackView)
+		contentStackView.addArrangedSubview(estimatedAmountStackView)
+		textFieldStackView.addArrangedSubview(amountTextfield)
+		textFieldStackView.addArrangedSubview(textFieldSpacerView)
+		textFieldStackView.addArrangedSubview(changeTokenView)
+		estimatedAmountStackView.addArrangedSubview(estimatedAmountLabel)
+		estimatedAmountStackView.addArrangedSubview(estimatedAmountSpacerView)
+		estimatedAmountStackView.addArrangedSubview(maxAmountStackView)
+		maxAmountStackView.addArrangedSubview(maxAmountTitle)
+		maxAmountStackView.addArrangedSubview(maxAmountLabel)
 
 		changeTokenView.tokenTapped = {
 			self.changeSelectedToken()
@@ -72,26 +72,26 @@ class SwapTokenSectionView: UIView {
 
 		amountTextfield.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 		let focusTextFieldTapGesture = UITapGestureRecognizer(target: self, action: #selector(openKeyboard))
-		amountSpacerView.addGestureRecognizer(focusTextFieldTapGesture)
+		textFieldSpacerView.addGestureRecognizer(focusTextFieldTapGesture)
 		let enterMaxAmountGesture = UITapGestureRecognizer(target: self, action: #selector(enterMaxAmount))
-		firstTokenMaxAmountStackView.addGestureRecognizer(enterMaxAmountGesture)
+		maxAmountStackView.addGestureRecognizer(enterMaxAmountGesture)
 	}
 
 	private func setupStyle() {
-		firstTokenMaxAmountTitle.text = swapVM.maxTitle
-		firstTokenMaxAmountLabel.text = swapVM.maxHoldAmount
+		maxAmountTitle.text = swapVM.maxTitle
+		maxAmountLabel.text = swapVM.maxHoldAmount
 		changeTokenView.tokenName = swapVM.selectedToken.symbol
 
 		if swapVM.selectedToken.isVerified {
 			changeTokenView.tokenImageURL = swapVM.selectedToken.image
-			payAmountLabel.text = swapVM.formattedAmount
-			payAmountLabel.isHidden = false
+			estimatedAmountLabel.text = swapVM.formattedAmount
+			estimatedAmountLabel.isHidden = false
 		} else {
 			changeTokenView.customTokenImage = swapVM.selectedToken.customAssetImage
-			payAmountLabel.isHidden = true
+			estimatedAmountLabel.isHidden = true
 		}
 
-		firstTokenMaxAmountStackView.isHidden = !hasMaxAmount
+		maxAmountStackView.isHidden = !hasMaxAmount
 
 		amountTextfield.attributedPlaceholder = NSAttributedString(
 			string: swapVM.textFieldPlaceHolder,
@@ -99,25 +99,25 @@ class SwapTokenSectionView: UIView {
 		)
 
 		amountTextfield.font = .PinoStyle.semiboldTitle1
-		payAmountLabel.font = .PinoStyle.regularSubheadline
-		firstTokenMaxAmountTitle.font = .PinoStyle.regularSubheadline
-		firstTokenMaxAmountLabel.font = .PinoStyle.mediumSubheadline
+		estimatedAmountLabel.font = .PinoStyle.regularSubheadline
+		maxAmountTitle.font = .PinoStyle.regularSubheadline
+		maxAmountLabel.font = .PinoStyle.mediumSubheadline
 
-		payAmountLabel.textColor = .Pino.secondaryLabel
+		estimatedAmountLabel.textColor = .Pino.secondaryLabel
 		amountTextfield.textColor = .Pino.label
 		amountTextfield.tintColor = .Pino.primary
-		firstTokenMaxAmountTitle.textColor = .Pino.label
-		firstTokenMaxAmountLabel.textColor = .Pino.label
+		maxAmountTitle.textColor = .Pino.label
+		maxAmountLabel.textColor = .Pino.label
 
 		contentStackView.axis = .vertical
 
-		contentStackView.spacing = 22
+		contentStackView.spacing = 20
 
 		amountTextfield.keyboardType = .decimalPad
 		amountTextfield.delegate = self
 
-		payAmountLabel.numberOfLines = 0
-		payAmountLabel.lineBreakMode = .byCharWrapping
+		estimatedAmountLabel.numberOfLines = 0
+		estimatedAmountLabel.lineBreakMode = .byCharWrapping
 
 		swapVM.selectedTokenChanged = {
 			self.updateView()
@@ -126,7 +126,8 @@ class SwapTokenSectionView: UIView {
 
 	private func setupContstraint() {
 		contentStackView.pin(
-			.allEdges
+			.verticalEdges,
+			.horizontalEdges(padding: 14)
 		)
 	}
 
@@ -134,13 +135,13 @@ class SwapTokenSectionView: UIView {
 		if swapVM.selectedToken.isVerified {
 			changeTokenView.tokenImageURL = swapVM.selectedToken.image
 			swapVM.calculateAmount(amountTextfield.text ?? "0")
-			payAmountLabel.text = swapVM.formattedAmount
-			payAmountLabel.isHidden = false
+			estimatedAmountLabel.text = swapVM.formattedAmount
+			estimatedAmountLabel.isHidden = false
 		} else {
 			changeTokenView.customTokenImage = swapVM.selectedToken.customAssetImage
-			payAmountLabel.isHidden = true
+			estimatedAmountLabel.isHidden = true
 		}
-		firstTokenMaxAmountLabel.text = swapVM.maxHoldAmount
+		maxAmountLabel.text = swapVM.maxHoldAmount
 		changeTokenView.tokenName = swapVM.selectedToken.symbol
 	}
 
@@ -162,13 +163,13 @@ class SwapTokenSectionView: UIView {
 	// MARK: - Public Methods
 
 	public func updateEstimatedAmount(isAmountEnough: Bool) {
-		payAmountLabel.text = swapVM.formattedAmount
+		estimatedAmountLabel.text = swapVM.formattedAmount
 		if isAmountEnough {
-			firstTokenMaxAmountTitle.textColor = .Pino.label
-			firstTokenMaxAmountLabel.textColor = .Pino.label
+			maxAmountTitle.textColor = .Pino.label
+			maxAmountLabel.textColor = .Pino.label
 		} else {
-			firstTokenMaxAmountTitle.textColor = .Pino.orange
-			firstTokenMaxAmountLabel.textColor = .Pino.orange
+			maxAmountTitle.textColor = .Pino.orange
+			maxAmountLabel.textColor = .Pino.orange
 		}
 	}
 

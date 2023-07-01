@@ -12,9 +12,13 @@ class SwapView: UIView {
 
 	private let contentCardView = PinoContainerCard()
 	private let contentStackView = UIStackView()
-	private var payTokenSectionView: SwapTokenSectionView!
-
+	private let switchTokenView = UIView()
+	private let switchTokenLineView = UIView()
+	private let switchTokenButton = UIButton()
 	private let continueButton = PinoButton(style: .deactive)
+	private var payTokenSectionView: SwapTokenSectionView!
+	private var getTokenSectionView: SwapTokenSectionView!
+
 	private var changeSelectedToken: () -> Void
 	private var nextButtonTapped: () -> Void
 	private var swapVM: EnterSendAmountViewModel
@@ -55,11 +59,23 @@ class SwapView: UIView {
 			}
 		)
 
+		getTokenSectionView = SwapTokenSectionView(
+			swapVM: swapVM,
+			hasMaxAmount: false,
+			changeSelectedToken: changeSelectedToken,
+			updateSwapAmount: { enteredAmount in
+				self.updateAmount(enteredAmount: enteredAmount, tokenView: self.getTokenSectionView)
+			}
+		)
+
 		addSubview(contentCardView)
 		addSubview(continueButton)
 		contentCardView.addSubview(contentStackView)
 		contentStackView.addArrangedSubview(payTokenSectionView)
+		contentStackView.addArrangedSubview(switchTokenView)
 		contentStackView.addArrangedSubview(getTokenSectionView)
+		switchTokenView.addSubview(switchTokenLineView)
+		switchTokenView.addSubview(switchTokenButton)
 
 		continueButton.addAction(UIAction(handler: { _ in
 			self.nextButtonTapped()
@@ -70,25 +86,42 @@ class SwapView: UIView {
 
 	private func setupStyle() {
 		continueButton.title = swapVM.continueButtonTitle
+		switchTokenButton.setImage(UIImage(named: "switch_swap"), for: .normal)
+
+		switchTokenButton.setTitleColor(.Pino.primary, for: .normal)
 
 		backgroundColor = .Pino.background
 		contentCardView.backgroundColor = .Pino.secondaryBackground
+		switchTokenLineView.backgroundColor = .Pino.background
+		switchTokenButton.backgroundColor = .Pino.background
 
 		contentCardView.layer.cornerRadius = 12
+		switchTokenButton.layer.cornerRadius = 12
 
 		contentStackView.axis = .vertical
-
-		contentStackView.spacing = 22
+		contentStackView.spacing = 10
 	}
 
 	private func setupContstraint() {
 		contentCardView.pin(
 			.horizontalEdges(padding: 16),
-			.top(to: layoutMarginsGuide, padding: 24)
+			.top(to: layoutMarginsGuide, padding: 18)
 		)
 		contentStackView.pin(
-			.verticalEdges(padding: 23),
-			.horizontalEdges(padding: 14)
+			.top(padding: 24),
+			.bottom(padding: 28),
+			.horizontalEdges
+		)
+		switchTokenLineView.pin(
+			.horizontalEdges,
+			.centerY,
+			.fixedHeight(1)
+		)
+		switchTokenButton.pin(
+			.fixedWidth(40),
+			.fixedHeight(40),
+			.verticalEdges,
+			.centerX
 		)
 		continueButton.pin(
 			.horizontalEdges(padding: 16)
