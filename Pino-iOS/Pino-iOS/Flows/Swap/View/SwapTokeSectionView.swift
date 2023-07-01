@@ -21,8 +21,8 @@ class SwapTokenSectionView: UIView {
 	private let textFieldSpacerView = UIView()
 	private let estimatedAmountSpacerView = UIView()
 	private let changeSelectedToken: () -> Void
-	private let updateSwapAmount: (String) -> Void
-	private let swapVM: EnterSendAmountViewModel
+	private let updateBalanceStatus: (String) -> Void
+	private let swapVM: SwapTokenViewModel
 	private let hasMaxAmount: Bool
 
 	// MARK: - Public Properties
@@ -32,13 +32,13 @@ class SwapTokenSectionView: UIView {
 	// MARK: - Initializers
 
 	init(
-		swapVM: EnterSendAmountViewModel,
+		swapVM: SwapTokenViewModel,
 		hasMaxAmount: Bool = true,
 		changeSelectedToken: @escaping () -> Void,
-		updateSwapAmount: @escaping (String) -> Void
+		updateBalanceStatus: @escaping (String) -> Void
 	) {
 		self.changeSelectedToken = changeSelectedToken
-		self.updateSwapAmount = updateSwapAmount
+		self.updateBalanceStatus = updateBalanceStatus
 		self.swapVM = swapVM
 		self.hasMaxAmount = hasMaxAmount
 		super.init(frame: .zero)
@@ -148,10 +148,16 @@ class SwapTokenSectionView: UIView {
 	@objc
 	private func textFieldDidChange(_ textField: UITextField) {
 		if let amountText = textField.text, amountText != .emptyString {
-			updateSwapAmount(amountText)
+			updateEstimatedAmount(enteredAmount: amountText)
 		} else {
-			updateSwapAmount("0")
+			updateEstimatedAmount(enteredAmount: "0")
 		}
+	}
+
+	private func updateEstimatedAmount(enteredAmount: String) {
+		swapVM.calculateAmount(enteredAmount)
+		estimatedAmountLabel.text = swapVM.formattedAmount
+		updateBalanceStatus(enteredAmount)
 	}
 
 	@objc
@@ -162,8 +168,7 @@ class SwapTokenSectionView: UIView {
 
 	// MARK: - Public Methods
 
-	public func updateEstimatedAmount(isAmountEnough: Bool) {
-		estimatedAmountLabel.text = swapVM.formattedAmount
+	public func updateAmountStatus(isAmountEnough: Bool) {
 		if isAmountEnough {
 			maxAmountTitle.textColor = .Pino.label
 			maxAmountLabel.textColor = .Pino.label

@@ -19,9 +19,10 @@ class SwapView: UIView {
 	private var payTokenSectionView: SwapTokenSectionView!
 	private var getTokenSectionView: SwapTokenSectionView!
 
-	private var changeSelectedToken: () -> Void
+	private var changePayToken: () -> Void
+	private var changeGetToken: () -> Void
 	private var nextButtonTapped: () -> Void
-	private var swapVM: EnterSendAmountViewModel
+	private var swapVM: SwapViewModel
 
 	private var keyboardHeight: CGFloat = 320 // Minimum height in rare case keyboard of height was not calculated
 	private var nextButtonBottomConstraint: NSLayoutConstraint!
@@ -30,11 +31,13 @@ class SwapView: UIView {
 	// MARK: - Initializers
 
 	init(
-		swapVM: EnterSendAmountViewModel,
-		changeSelectedToken: @escaping (() -> Void),
+		swapVM: SwapViewModel,
+		changePayToken: @escaping (() -> Void),
+		changeGetToken: @escaping (() -> Void),
 		nextButtonTapped: @escaping (() -> Void)
 	) {
-		self.changeSelectedToken = changeSelectedToken
+		self.changePayToken = changePayToken
+		self.changeGetToken = changeGetToken
 		self.nextButtonTapped = nextButtonTapped
 		self.swapVM = swapVM
 		super.init(frame: .zero)
@@ -52,18 +55,18 @@ class SwapView: UIView {
 
 	private func setupView() {
 		payTokenSectionView = SwapTokenSectionView(
-			swapVM: swapVM,
-			changeSelectedToken: changeSelectedToken,
-			updateSwapAmount: { enteredAmount in
+			swapVM: swapVM.payToken,
+			changeSelectedToken: changePayToken,
+			updateBalanceStatus: { enteredAmount in
 				self.updateAmount(enteredAmount: enteredAmount, tokenView: self.payTokenSectionView)
 			}
 		)
 
 		getTokenSectionView = SwapTokenSectionView(
-			swapVM: swapVM,
+			swapVM: swapVM.getToken,
 			hasMaxAmount: false,
-			changeSelectedToken: changeSelectedToken,
-			updateSwapAmount: { enteredAmount in
+			changeSelectedToken: changeGetToken,
+			updateBalanceStatus: { enteredAmount in
 				self.updateAmount(enteredAmount: enteredAmount, tokenView: self.getTokenSectionView)
 			}
 		)
@@ -139,27 +142,27 @@ class SwapView: UIView {
 	}
 
 	private func updateAmount(enteredAmount: String, tokenView: SwapTokenSectionView) {
-		swapVM.checkIfBalanceIsEnough(amount: enteredAmount) { amountStatus in
-			switch amountStatus {
-			case .isZero:
-				tokenView.updateEstimatedAmount(isAmountEnough: true)
-				continueButton.setTitle(swapVM.continueButtonTitle, for: .normal)
-				continueButton.style = .deactive
-			case .isEnough:
-				tokenView.updateEstimatedAmount(isAmountEnough: true)
-				continueButton.setTitle(swapVM.continueButtonTitle, for: .normal)
-				continueButton.style = .active
-			case .isNotEnough:
-				tokenView.updateEstimatedAmount(isAmountEnough: false)
-				continueButton.setTitle(swapVM.insufficientAmountButtonTitle, for: .normal)
-				continueButton.style = .deactive
-			}
+		let amountStatus = swapVM.checkBalanceStatus(amount: enteredAmount)
+		switch amountStatus {
+		case .isZero:
+			tokenView.updateAmountStatus(isAmountEnough: true)
+			continueButton.setTitle(swapVM.continueButtonTitle, for: .normal)
+			continueButton.style = .deactive
+		case .isEnough:
+			tokenView.updateAmountStatus(isAmountEnough: true)
+			continueButton.setTitle(swapVM.continueButtonTitle, for: .normal)
+			continueButton.style = .active
+		case .isNotEnough:
+			tokenView.updateAmountStatus(isAmountEnough: false)
+			continueButton.setTitle(swapVM.insufficientAmountButtonTitle, for: .normal)
+			continueButton.style = .deactive
 		}
 	}
 
 	@objc
 	private func dissmisskeyBoard() {
 		payTokenSectionView.dissmisskeyBoard()
+		getTokenSectionView.dissmisskeyBoard()
 	}
 }
 

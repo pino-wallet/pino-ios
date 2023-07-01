@@ -401,6 +401,9 @@
 		E3D915D72A500791008DB035 /* SwapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D915D62A500791008DB035 /* SwapView.swift */; };
 		E3D915D92A5013A5008DB035 /* SwapTokeSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D915D82A5013A5008DB035 /* SwapTokeSectionView.swift */; };
 		E3D915DB2A502B49008DB035 /* SwapTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D915DA2A502B49008DB035 /* SwapTokenView.swift */; };
+		E3D915E02A504A31008DB035 /* SwapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D915DF2A504A31008DB035 /* SwapViewModel.swift */; };
+		E3D915E22A504B1C008DB035 /* AmountStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D915E12A504B1C008DB035 /* AmountStatus.swift */; };
+		E3D915E42A504C3D008DB035 /* SwapTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D915E32A504C3D008DB035 /* SwapTokenViewModel.swift */; };
 		E3E009E02A0635C800234707 /* Hyperconnectivity in Frameworks */ = {isa = PBXBuildFile; productRef = E3E009DF2A0635C800234707 /* Hyperconnectivity */; };
 		E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E009E12A06377D00234707 /* InternetConnectivity.swift */; };
 		E3F482EC2A3485A500EEC9CF /* EnterSendAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482EB2A3485A500EEC9CF /* EnterSendAmountViewController.swift */; };
@@ -834,6 +837,9 @@
 		E3D915D62A500791008DB035 /* SwapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapView.swift; sourceTree = "<group>"; };
 		E3D915D82A5013A5008DB035 /* SwapTokeSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapTokeSectionView.swift; sourceTree = "<group>"; };
 		E3D915DA2A502B49008DB035 /* SwapTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapTokenView.swift; sourceTree = "<group>"; };
+		E3D915DF2A504A31008DB035 /* SwapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapViewModel.swift; sourceTree = "<group>"; };
+		E3D915E12A504B1C008DB035 /* AmountStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountStatus.swift; sourceTree = "<group>"; };
+		E3D915E32A504C3D008DB035 /* SwapTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapTokenViewModel.swift; sourceTree = "<group>"; };
 		E3E009E12A06377D00234707 /* InternetConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectivity.swift; sourceTree = "<group>"; };
 		E3F482EB2A3485A500EEC9CF /* EnterSendAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAmountViewController.swift; sourceTree = "<group>"; };
 		E3F482ED2A35A6E900EEC9CF /* CustomAsset+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CustomAsset+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -2142,6 +2148,7 @@
 			isa = PBXGroup;
 			children = (
 				D9C4CF0C2A4094C400475F01 /* RecentAddressModel.swift */,
+				E3D915E12A504B1C008DB035 /* AmountStatus.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2157,9 +2164,9 @@
 		DA54BC6AF891B9433AFFD30F /* Swap */ = {
 			isa = PBXGroup;
 			children = (
-				47A6676B929BBCE1E8B10CDF /* SwapViewController.swift */,
-				E3D915D62A500791008DB035 /* SwapView.swift */,
-				E3D915D82A5013A5008DB035 /* SwapTokeSectionView.swift */,
+				E3D915DE2A504A15008DB035 /* ViewModel */,
+				E3D915DD2A5049FE008DB035 /* ViewController */,
+				E3D915DC2A5049F3008DB035 /* View */,
 			);
 			path = Swap;
 			sourceTree = "<group>";
@@ -2339,6 +2346,32 @@
 				E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */,
 			);
 			path = CustomAsset;
+			sourceTree = "<group>";
+		};
+		E3D915DC2A5049F3008DB035 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E3D915D62A500791008DB035 /* SwapView.swift */,
+				E3D915D82A5013A5008DB035 /* SwapTokeSectionView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E3D915DD2A5049FE008DB035 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				47A6676B929BBCE1E8B10CDF /* SwapViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E3D915DE2A504A15008DB035 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E3D915DF2A504A31008DB035 /* SwapViewModel.swift */,
+				E3D915E32A504C3D008DB035 /* SwapTokenViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		E3F482F22A35B03200EEC9CF /* Send */ = {
@@ -2969,6 +3002,7 @@
 				C72379E2E2BFAEFF3257EDCE /* Networking+Aliases.swift in Sources */,
 				E52C3E716C6ACBCE6C8BE230 /* NoInternetConnectionView.swift in Sources */,
 				44DBA60846C0B1DA8E26EAD8 /* NoInternetConnectionViewModel.swift in Sources */,
+				E3D915E22A504B1C008DB035 /* AmountStatus.swift in Sources */,
 				19347AB9E9EF1B9F26885949 /* NumberFormatterProtocol.swift in Sources */,
 				1F98DAC473200ACED0BA403B /* ParameterEncoderProtocol.swift in Sources */,
 				8EA8AEFE97CEC48A2C1DFCB7 /* ParameterEncoding.swift in Sources */,
@@ -2979,6 +3013,7 @@
 				B2555AA57E466EAE75423515 /* PasscodeManagerPages.swift in Sources */,
 				A9D7256A81B9271BA56435AE /* PasscodeManagerService.swift in Sources */,
 				C6B2D50A8E7A92DE60F957E2 /* PasteFromClipboardView.swift in Sources */,
+				E3D915E02A504A31008DB035 /* SwapViewModel.swift in Sources */,
 				D99F4B2129E2C48D009F7F55 /* PaymentMethodOptionViewModel.swift in Sources */,
 				7EF5AA653545082C4C0D04EF /* PinoButton.swift in Sources */,
 				3ACA10D15DD3199674C38954 /* PinoButtonStyle.swift in Sources */,
@@ -3031,6 +3066,7 @@
 				D9A328152A3464B5005A8393 /* SelectAssetToSendViewModel.swift in Sources */,
 				5699C13A59EF90BDE1758CF3 /* RevealPrivateKeyView.swift in Sources */,
 				221F423020A78CA891331436 /* RevealPrivateKeyViewController.swift in Sources */,
+				E3D915E42A504C3D008DB035 /* SwapTokenViewModel.swift in Sources */,
 				7AD456E027211FE731B27DF8 /* RevealPrivateKeyViewModel.swift in Sources */,
 				643BAB8ABDEFDA509D258D94 /* SceneDelegate.swift in Sources */,
 				0C37EADB6BFAB0A340582184 /* SecretPhraseCell.swift in Sources */,
