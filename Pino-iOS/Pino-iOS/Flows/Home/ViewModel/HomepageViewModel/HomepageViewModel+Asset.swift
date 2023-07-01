@@ -10,32 +10,6 @@ import CoreData
 extension HomepageViewModel {
 	// MARK: Internal Methods
 
-	internal func getAssetsList(completion: @escaping (Result<[AssetViewModel], APIError>) -> Void) {
-		if let tokens {
-			accountingAPIClient.userBalance()
-				.sink { completed in
-					switch completed {
-					case .finished:
-						print("Assets received successfully")
-					case let .failure(error):
-						completion(.failure(error))
-					}
-				} receiveValue: { assets in
-					self.manageAssetsList = self.getManageAsset(tokens: tokens, userAssets: assets)
-					completion(.success(self.manageAssetsList!))
-				}.store(in: &cancellables)
-		} else {
-			getTokens { result in
-				switch result {
-				case .success:
-					self.getAssetsList(completion: completion)
-				case let .failure(error):
-					completion(.failure(error))
-				}
-			}
-		}
-	}
-
 	internal func getManageAsset(tokens: [Detail], userAssets: [BalanceAssetModel]) -> [AssetViewModel] {
 		let tokensModel = tokens.compactMap {
 			let tokenID = $0.id
@@ -51,21 +25,6 @@ extension HomepageViewModel {
 		return tokensModel.compactMap {
 			AssetViewModel(assetModel: $0, isSelected: self.selectedAssets.map { $0.id }.contains($0.id))
 		}
-	}
-
-	internal func getTokens(completion: @escaping (Result<[Detail], APIError>) -> Void) {
-		ctsAPIclient.tokens().sink { completed in
-			switch completed {
-			case .finished:
-				print("tokens received successfully")
-			case let .failure(error):
-				completion(.failure(error))
-			}
-		} receiveValue: { tokens in
-			let customAssets = self.getCustomAssets()
-			self.tokens = tokens + customAssets
-			completion(.success(self.tokens!))
-		}.store(in: &cancellables)
 	}
 
 	#warning("This is temporary and must be replaced with API data")
