@@ -21,6 +21,7 @@ class SwapViewController: UIViewController {
 
 	override func loadView() {
 		setupView()
+		setupNavigationBar()
 	}
 
 	// MARK: - Private Methods
@@ -42,6 +43,11 @@ class SwapViewController: UIViewController {
 			},
 			nextButtonTapped: {}
 		)
+	}
+
+	private func setupNavigationBar() {
+		setupPrimaryColorNavigationBar()
+		setNavigationTitle(swapVM.pageTitle)
 	}
 
 	private func changeSelectedAsset(assetChanged: @escaping (AssetViewModel) -> Void) {
