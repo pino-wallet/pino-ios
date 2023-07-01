@@ -400,6 +400,7 @@
 		E3D478B32A3064C90030A987 /* CustomAssetDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D478B22A3064C90030A987 /* CustomAssetDataSource.swift */; };
 		E3D915D72A500791008DB035 /* SwapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D915D62A500791008DB035 /* SwapView.swift */; };
 		E3D915D92A5013A5008DB035 /* SwapTokeSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D915D82A5013A5008DB035 /* SwapTokeSectionView.swift */; };
+		E3D915DB2A502B49008DB035 /* SwapTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D915DA2A502B49008DB035 /* SwapTokenView.swift */; };
 		E3E009E02A0635C800234707 /* Hyperconnectivity in Frameworks */ = {isa = PBXBuildFile; productRef = E3E009DF2A0635C800234707 /* Hyperconnectivity */; };
 		E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E009E12A06377D00234707 /* InternetConnectivity.swift */; };
 		E3F482EC2A3485A500EEC9CF /* EnterSendAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482EB2A3485A500EEC9CF /* EnterSendAmountViewController.swift */; };
@@ -832,6 +833,7 @@
 		E3D478B22A3064C90030A987 /* CustomAssetDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetDataSource.swift; sourceTree = "<group>"; };
 		E3D915D62A500791008DB035 /* SwapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapView.swift; sourceTree = "<group>"; };
 		E3D915D82A5013A5008DB035 /* SwapTokeSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapTokeSectionView.swift; sourceTree = "<group>"; };
+		E3D915DA2A502B49008DB035 /* SwapTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapTokenView.swift; sourceTree = "<group>"; };
 		E3E009E12A06377D00234707 /* InternetConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectivity.swift; sourceTree = "<group>"; };
 		E3F482EB2A3485A500EEC9CF /* EnterSendAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAmountViewController.swift; sourceTree = "<group>"; };
 		E3F482ED2A35A6E900EEC9CF /* CustomAsset+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CustomAsset+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -2323,6 +2325,7 @@
 		E3D204C82A3992630027FEBC /* tokenView */ = {
 			isa = PBXGroup;
 			children = (
+				E3D915DA2A502B49008DB035 /* SwapTokenView.swift */,
 				E3D204C92A3992EB0027FEBC /* TokenView.swift */,
 			);
 			path = tokenView;
@@ -3102,6 +3105,7 @@
 				0F91AD673ECAFFCD63C38A33 /* WalletBalanceModel.swift in Sources */,
 				1EA05F6363FCD68B38A3B13B /* WalletBalanceViewModel.swift in Sources */,
 				403691C22A3DFFB60013AB6D /* Toast.swift in Sources */,
+				E3D915DB2A502B49008DB035 /* SwapTokenView.swift in Sources */,
 				9C3606E4114D73E964762BF1 /* AccountCell.swift in Sources */,
 				7A69C254CF23590AE51260DC /* WalletEndpoint.swift in Sources */,
 				225160794A3F677530CF8181 /* WalletInfoModel.swift in Sources */,

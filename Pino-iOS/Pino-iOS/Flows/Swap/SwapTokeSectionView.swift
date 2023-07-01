@@ -17,7 +17,7 @@ class SwapTokenSectionView: UIView {
 	private let maxAmountStackView = UIStackView()
 	private let maxAmountTitle = UILabel()
 	private let maxAmountLabel = UILabel()
-	private let changeTokenView = TokenView()
+	private let changeTokenView = SwapTokenView()
 	private let textFieldSpacerView = UIView()
 	private let estimatedAmountSpacerView = UIView()
 	private let changeSelectedToken: () -> Void
