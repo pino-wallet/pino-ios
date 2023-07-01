@@ -84,6 +84,10 @@ class SwapView: UIView {
 			self.nextButtonTapped()
 		}), for: .touchUpInside)
 
+		switchTokenButton.addAction(UIAction(handler: { _ in
+			self.swapVM.switchTokens()
+		}), for: .touchUpInside)
+
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
 	}
 

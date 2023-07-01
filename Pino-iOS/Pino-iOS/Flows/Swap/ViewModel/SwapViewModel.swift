@@ -40,4 +40,10 @@ class SwapViewModel {
 			}
 		}
 	}
+
+	public func switchTokens() {
+		let selectedPayToken = payToken.selectedToken
+		payToken.selectedToken = getToken.selectedToken
+		getToken.selectedToken = selectedPayToken
+	}
 }
