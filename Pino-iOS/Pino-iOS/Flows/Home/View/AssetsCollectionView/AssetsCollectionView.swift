@@ -26,7 +26,6 @@ class AssetsCollectionView: UICollectionView {
 	// MARK: - Internal Properties
 
     internal var homeVM: HomepageViewModel!
-	internal var assetsManager = AssetManager()
 	internal var cancellables = Set<AnyCancellable>()
 	internal var portfolioPerformanceTapped: () -> Void
 
@@ -120,14 +119,11 @@ class AssetsCollectionView: UICollectionView {
 	// MARK: - Public Methods
 
 	public func getHomeData() {
-//		homeVM.getHomeData { error in
-//			self.refreshControl?.endRefreshing()
-//			if let error {
-//				Toast.default(title: error.message, subtitle: "Please try again!", style: .error).show(haptic: .warning)
-//			} else {
-//				self.hideSkeletonView()
-//			}
-//		}
+        GlobalVariables.shared.fetchSharedInfo().done { _ in
+            self.hideSkeletonView()
+        }.catch { error in
+            Toast.default(title: "Error fetching info from server", subtitle: "Please try again!", style: .error).show(haptic: .warning)
+        }
 	}
 }
 

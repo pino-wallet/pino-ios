@@ -37,13 +37,12 @@ class HomepageViewModel {
 	internal var internetConnectivity = InternetConnectivity()
 	internal var cancellables = Set<AnyCancellable>()
 	var subscriptions = Set<AnyCancellable>()
-    private var assetManager = AssetManager()
 
 	// MARK: - Initializers
 
 	init() {
-        assetManager.checkDefaultAssetsAdded()
-        assetManager.getSelectedAssetsFromCoreData()
+        AssetManager.shared.checkDefaultAssetsAdded()
+        AssetManager.shared.getSelectedAssetsFromCoreData()
 		getWalletInfo()
 		setupBindings()
 	}

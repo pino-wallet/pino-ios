@@ -15,7 +15,6 @@ class ManageAssetsViewController: UIViewController {
 	// MARK: Private Properties
 
 	private var manageAssetCollectionview: ManageAssetsCollectionView
-    private var assetManager = AssetManager()
 
 	// MARK: Initializers
 
@@ -82,9 +81,9 @@ class ManageAssetsViewController: UIViewController {
 	private func addCustomAssets() {
 		let addCustomAssetVC = AddCustomAssetViewController(
 			userAddress: homeVM.walletInfo.address,
-			userTokens: assetManager.tokens
+            userTokens: AssetManager.shared.tokens
 		) { customAsset in
-			self.assetManager.addNewCustomAsset(customAsset)
+            AssetManager.shared.addNewCustomAsset(customAsset)
 			self.dismiss(animated: true)
 		}
 		let navigationVC = UINavigationController()

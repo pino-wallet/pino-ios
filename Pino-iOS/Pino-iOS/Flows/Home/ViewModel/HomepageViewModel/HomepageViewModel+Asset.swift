@@ -10,6 +10,11 @@ import CoreData
 import PromiseKit
 
 class AssetManager {
+    
+    public static let shared = AssetManager()
+    
+    private init() { }
+    
 	// MARK: - Public Properties
 
 	public var tokens: [Detail] = []
@@ -62,9 +67,10 @@ class AssetManager {
 			)
 		}
 		assetsModelList = tokensModel
-		return tokensModel.compactMap {
+		let tokens = tokensModel.compactMap {
 			AssetViewModel(assetModel: $0, isSelected: self.selectedAssets.map { $0.id }.contains($0.id))
 		}
+        return tokens
 	}
 
 	internal func getTokens() -> Promise<[Detail]> {
