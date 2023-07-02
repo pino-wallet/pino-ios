@@ -28,13 +28,12 @@ class HomepageViewController: UIViewController {
 	}
 
 	override func loadView() {
-        
-//        completion: { error in
-//            guard let error = error else { return }
-//            Toast.default(title: "\(error.message)", subtitle: "Please try again!", style: .error)
-//                .show(haptic: .warning)
-//        }
-        
+		//        completion: { error in
+		//            guard let error = error else { return }
+		//            Toast.default(title: "\(error.message)", subtitle: "Please try again!", style: .error)
+		//                .show(haptic: .warning)
+		//        }
+
 		homeVM = HomepageViewModel()
 		profileVM = ProfileViewModel(walletInfo: homeVM.walletInfo)
 

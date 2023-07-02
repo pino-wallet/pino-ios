@@ -25,7 +25,8 @@ class AssetsCollectionView: UICollectionView {
 
 	// MARK: - Internal Properties
 
-	internal var homeVM: HomepageViewModel!
+    internal var homeVM: HomepageViewModel!
+	internal var assetsManager = AssetManager()
 	internal var cancellables = Set<AnyCancellable>()
 	internal var portfolioPerformanceTapped: () -> Void
 
@@ -95,7 +96,7 @@ class AssetsCollectionView: UICollectionView {
 	}
 
 	private func setupBindings() {
-		homeVM.$assetsList.sink { [weak self] _ in
+        GlobalVariables.shared.$selectedManageAssetsList.sink { [weak self] _ in
 			self?.reloadData()
 		}.store(in: &cancellables)
 
@@ -147,7 +148,7 @@ extension AssetsCollectionView: UICollectionViewDelegate {
 		let homeSection = HomeSection(rawValue: indexPath.section)
 		switch homeSection {
 		case .asset:
-			guard let assetsList = homeVM.assetsList else { return }
+            let assetsList = GlobalVariables.shared.selectedManageAssetsList
 			assetTapped(assetsList[indexPath.item])
 		case .position:
 			assetTapped(homeVM.positionAssetsList![indexPath.item])

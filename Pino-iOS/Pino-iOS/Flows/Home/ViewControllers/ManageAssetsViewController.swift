@@ -15,6 +15,7 @@ class ManageAssetsViewController: UIViewController {
 	// MARK: Private Properties
 
 	private var manageAssetCollectionview: ManageAssetsCollectionView
+    private var assetManager = AssetManager()
 
 	// MARK: Initializers
 
@@ -81,9 +82,9 @@ class ManageAssetsViewController: UIViewController {
 	private func addCustomAssets() {
 		let addCustomAssetVC = AddCustomAssetViewController(
 			userAddress: homeVM.walletInfo.address,
-			userTokens: homeVM.tokens
+			userTokens: assetManager.tokens
 		) { customAsset in
-			self.homeVM.addNewCustomAsset(customAsset)
+			self.assetManager.addNewCustomAsset(customAsset)
 			self.dismiss(animated: true)
 		}
 		let navigationVC = UINavigationController()
@@ -94,7 +95,7 @@ class ManageAssetsViewController: UIViewController {
 
 extension ManageAssetsViewController: UISearchResultsUpdating {
 	func updateSearchResults(for searchController: UISearchController) {
-        guard let manageAssetsList = GlobalVariables.shared.manageAssetsList else { return }
+		guard let manageAssetsList = GlobalVariables.shared.manageAssetsList else { return }
 		if let searchTextLowerCased = searchController.searchBar.searchTextField.text?.lowercased(),
 		   searchTextLowerCased != "" {
 			manageAssetCollectionview.filteredAssets = manageAssetsList

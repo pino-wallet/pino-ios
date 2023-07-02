@@ -15,7 +15,8 @@ class ManageAssetsCollectionView: UICollectionView {
 
 	// MARK: - Public Properties
 
-	public var homeVM: HomepageViewModel
+    public var homeVM: HomepageViewModel
+	public var assetManager = AssetManager()
 	public var filteredAssets: [AssetViewModel] {
 		didSet {
 			reloadData()
@@ -82,7 +83,7 @@ extension ManageAssetsCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let manageAssetCell = cellForItem(at: indexPath) as! ManageAssetCell
 		manageAssetCell.toggleAssetSwitch()
-		homeVM.updateSelectedAssets(filteredAssets[indexPath.item], isSelected: manageAssetCell.isSwitchOn())
+        assetManager.updateSelectedAssets(filteredAssets[indexPath.item], isSelected: manageAssetCell.isSwitchOn())
 	}
 }
 

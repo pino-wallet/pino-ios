@@ -70,9 +70,9 @@ class CoinInfoViewModel {
 
 	public func refreshCoinInfoData(completion: @escaping (APIError?) -> Void) {
 		getHistoryList()
-        GlobalVariables.shared.fetchSharedInfo().catch { error in
-            completion(APIError.unreachable)
-        }
+		GlobalVariables.shared.fetchSharedInfo().catch { error in
+			completion(APIError.unreachable)
+		}
 	}
 
 	// MARK: - private Methods

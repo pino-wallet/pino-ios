@@ -20,12 +20,9 @@ class HomepageViewModel {
 	@Published
 	public var walletBalance: WalletBalanceViewModel?
 	@Published
-	public var assetsList: [AssetViewModel]?
-	@Published
 	public var positionAssetsList: [AssetViewModel]?
 	@Published
 	public var securityMode = false
-	
 
 	public let copyToastMessage = "Copied!"
 	public let sendButtonTitle = "Send"
@@ -38,23 +35,15 @@ class HomepageViewModel {
 	// MARK: Internal Properties
 
 	internal var internetConnectivity = InternetConnectivity()
-
 	internal var cancellables = Set<AnyCancellable>()
-
-	internal var walletAPIClient = WalletAPIMockClient()
-	internal var accountingAPIClient = AccountingAPIClient()
-	internal var ctsAPIclient = CTSAPIClient()
-
-	internal let coreDataManager = CoreDataManager()
-
 	var subscriptions = Set<AnyCancellable>()
-	let start = Date()
+    private var assetManager = AssetManager()
 
 	// MARK: - Initializers
 
 	init() {
-		checkDefaultAssetsAdded()
-		getSelectedAssetsFromCoreData()
+        assetManager.checkDefaultAssetsAdded()
+        assetManager.getSelectedAssetsFromCoreData()
 		getWalletInfo()
 		setupBindings()
 	}
@@ -65,17 +54,14 @@ class HomepageViewModel {
 		if let walletBalance {
 			walletBalance.switchSecurityMode(isOn)
 		}
-		if let assetsList {
-			for asset in assetsList {
-				asset.switchSecurityMode(isOn)
-			}
-		}
+        for asset in GlobalVariables.shared.selectedManageAssetsList {
+            asset.switchSecurityMode(isOn)
+        }
 		if let positionAssetsList {
 			for asset in positionAssetsList {
 				asset.switchSecurityMode(isOn)
 			}
 		}
-		assetsList = assetsList
 		positionAssetsList = positionAssetsList
 	}
 
@@ -85,14 +71,10 @@ class HomepageViewModel {
 			self.switchSecurityMode(securityMode)
 		}.store(in: &cancellables)
 
-        GlobalVariables.shared.$manageAssetsList.sink { assets in
+		GlobalVariables.shared.$manageAssetsList.sink { assets in
 			guard let assets else { return }
-			self.assetsList = assets.filter { $0.isSelected }
+            self.getWalletBalance(assets: assets)
 		}.store(in: &cancellables)
 
-		$assetsList.sink { assets in
-			guard let assets else { return }
-			self.getWalletBalance(assets: assets)
-		}.store(in: &cancellables)
 	}
 }
