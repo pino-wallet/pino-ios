@@ -12,23 +12,22 @@ class SwapTokenViewModel {
 
 	public let maxTitle = "Max: "
 	public let avgSign = "≈"
-	public var selectedTokenChanged: (() -> Void)?
+	public var selectedTokenChanged: (() -> Void)!
+	public var amountUpdated: ((String) -> Void)!
+	public var swapAmountCalculated: ((String) -> Void)!
 	public var textFieldPlaceHolder = "0.0"
+	public var isEditing = false
 
-	public var selectedToken: AssetViewModel {
-		didSet {
-			if let selectedTokenChanged {
-				selectedTokenChanged()
-			}
-		}
-	}
+	public var selectedToken: AssetViewModel
 
 	public var maxHoldAmount: String {
 		selectedToken.amount
 	}
 
-	public var tokenAmount = "0.0"
-	public var dollarAmount = "0.0"
+	@Published
+	public var tokenAmount = ""
+	public var dollarAmount = "0"
+	public var decimalDollarAmount: Decimal?
 
 	public var formattedAmount: String {
 		"\(avgSign) $\(dollarAmount)"
@@ -43,10 +42,13 @@ class SwapTokenViewModel {
 	// MARK: - Public Methods
 
 	public func calculateAmount(_ amount: String) {
-		guard let price = Decimal(string: selectedToken.price.decimalString) else { return }
-		let decimalNumber = Decimal(string: amount) ?? Decimal(0)
-		let amountInDollarDecimalValue = decimalNumber * price
-		dollarAmount = amountInDollarDecimalValue.formattedAmount(type: .dollarValue)
+		if let decimalNumber = Decimal(string: amount), let price = Decimal(string: selectedToken.price.decimalString) {
+			decimalDollarAmount = decimalNumber * price
+			dollarAmount = decimalDollarAmount!.formattedAmount(type: .dollarValue)
+		} else {
+			decimalDollarAmount = nil
+			dollarAmount = "0"
+		}
 		tokenAmount = amount
 	}
 }

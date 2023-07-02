@@ -174,7 +174,7 @@ class SwapView: UIView {
 			self.payTokenSectionView.fadeOutTokenView()
 			self.getTokenSectionView.fadeOutTokenView()
 		} completion: { _ in
-			self.switchTextFields()
+			self.switchTextFieldsFocus()
 			self.swapVM.switchTokens()
 			UIView.animate(withDuration: 0.2) {
 				self.payTokenSectionView.fadeInTokenView()
@@ -183,11 +183,7 @@ class SwapView: UIView {
 		}
 	}
 
-	private func switchTextFields() {
-		let payTokenAmount = payTokenSectionView.amountTextfield.text
-		payTokenSectionView.amountTextfield.text = getTokenSectionView.amountTextfield.text
-		getTokenSectionView.amountTextfield.text = payTokenAmount
-		// Switch text field focus
+	private func switchTextFieldsFocus() {
 		if payTokenSectionView.amountTextfield.isEditing {
 			getTokenSectionView.openKeyboard()
 		} else if getTokenSectionView.amountTextfield.isEditing {

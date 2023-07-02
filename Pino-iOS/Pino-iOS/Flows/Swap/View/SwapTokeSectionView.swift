@@ -124,6 +124,11 @@ class SwapTokenSectionView: UIView {
 		swapVM.selectedTokenChanged = {
 			self.updateView()
 		}
+
+		swapVM.swapAmountCalculated = { amount in
+			self.amountTextfield.text = amount
+			self.updateEstimatedAmount(enteredAmount: amount)
+		}
 	}
 
 	private func setupContstraint() {
@@ -136,7 +141,6 @@ class SwapTokenSectionView: UIView {
 	private func updateView() {
 		if swapVM.selectedToken.isVerified {
 			changeTokenView.tokenImageURL = swapVM.selectedToken.image
-			swapVM.calculateAmount(amountTextfield.text ?? "0")
 			estimatedAmountLabel.text = swapVM.formattedAmount
 			estimatedAmountLabel.isHidden = false
 		} else {
@@ -149,15 +153,12 @@ class SwapTokenSectionView: UIView {
 
 	@objc
 	private func textFieldDidChange(_ textField: UITextField) {
-		if let amountText = textField.text, amountText != .emptyString {
-			updateEstimatedAmount(enteredAmount: amountText)
-		} else {
-			updateEstimatedAmount(enteredAmount: "0")
-		}
+		let amountText = amountTextfield.text ?? ""
+		swapVM.amountUpdated(amountText)
+		updateEstimatedAmount(enteredAmount: amountText)
 	}
 
 	private func updateEstimatedAmount(enteredAmount: String) {
-		swapVM.calculateAmount(enteredAmount)
 		estimatedAmountLabel.text = swapVM.formattedAmount
 		updateBalanceStatus(enteredAmount)
 	}
@@ -216,5 +217,13 @@ extension SwapTokenSectionView: UITextFieldDelegate {
 		let isMatch = regex?.firstMatch(in: updatedText, options: [], range: range) != nil
 
 		return isMatch
+	}
+
+	func textFieldDidBeginEditing(_ textField: UITextField) {
+		swapVM.isEditing = true
+	}
+
+	func textFieldDidEndEditing(_ textField: UITextField) {
+		swapVM.isEditing = false
 	}
 }
