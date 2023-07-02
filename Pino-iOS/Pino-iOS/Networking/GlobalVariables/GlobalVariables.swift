@@ -44,45 +44,46 @@ class GlobalVariables {
         }
     }
     
-    private func getAssetsList(completion: @escaping (Result<[AssetViewModel], APIError>) -> Void) {
-        if let tokens {
-            accountingAPIClient.userBalance()
-                .sink { completed in
-                    switch completed {
-                    case .finished:
-                        print("Assets received successfully")
-                    case let .failure(error):
-                        completion(.failure(error))
-                    }
-                } receiveValue: { assets in
-                    self.manageAssetsList = self.getManageAsset(tokens: tokens, userAssets: assets)
-                    completion(.success(self.manageAssetsList!))
-                }.store(in: &cancellables)
-        } else {
-            getTokens { result in
-                switch result {
-                case .success:
-                    self.getAssetsList(completion: completion)
-                case let .failure(error):
-                    completion(.failure(error))
+    private func getAssetsList() -> Promise<[AssetViewModel]> {
+        Promise<[AssetViewModel]> { seal in
+            if let tokens {
+                accountingAPIClient.userBalance()
+                    .sink { completed in
+                        switch completed {
+                        case .finished:
+                            print("Assets received successfully")
+                        case let .failure(error):
+                            seal.reject(APIError.failedRequest)
+                        }
+                    } receiveValue: { assets in
+                        self.manageAssetsList = self.getManageAsset(tokens: tokens, userAssets: assets)
+                        completion(.success(self.manageAssetsList!))
+                    }.store(in: &cancellables)
+            } else {
+                getTokens().done { tokens in
+                    getAssetsList()
+                }.catch { error in
+                    seal.reject(error)
                 }
             }
         }
     }
     
-    private func getTokens(completion: @escaping (Result<[Detail], APIError>) -> Void) {
-        ctsAPIclient.tokens().sink { completed in
-            switch completed {
-            case .finished:
-                print("tokens received successfully")
-            case let .failure(error):
-                completion(.failure(error))
-            }
-        } receiveValue: { tokens in
-            let customAssets = self.getCustomAssets()
-            self.tokens = tokens + customAssets
-            completion(.success(self.tokens!))
-        }.store(in: &cancellables)
+    private func getTokens() -> Promise<[Detail]> {
+        Promise<[Detail]> { seal in
+            ctsAPIclient.tokens().sink { completed in
+                switch completed {
+                case .finished:
+                    print("tokens received successfully")
+                case let .failure(error):
+                    seal.reject(APIError.failedRequest)
+                }
+            } receiveValue: { tokens in
+                let customAssets = self.getCustomAssets()
+                self.tokens = tokens + customAssets
+                seal.fulfill(self.tokens)
+            }.store(in: &cancellables)
+        }
     }
     
 }
