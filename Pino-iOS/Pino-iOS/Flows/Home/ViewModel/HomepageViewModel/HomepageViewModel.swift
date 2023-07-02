@@ -25,10 +25,7 @@ class HomepageViewModel {
 	public var positionAssetsList: [AssetViewModel]?
 	@Published
 	public var securityMode = false
-	public var tokens: [Detail] = []
-	public var selectedAssets = [SelectedAsset]()
-	@Published
-	public var assetsModelList: [AssetProtocol]!
+	
 
 	public let copyToastMessage = "Copied!"
 	public let sendButtonTitle = "Send"
