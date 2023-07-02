@@ -6,84 +6,75 @@
 //
 
 import Foundation
-import PromiseKit
 import Combine
+import PromiseKit
 
 class GlobalVariables {
-    
-    // MARK: - Public Accessor
-
-	public static let shared = GlobalVariables()
+	
+    // MARK: - Public Shared Accessor
+    public static let shared = GlobalVariables()
 
     // MARK: - Public Properties
 
 	@Published
 	public var ethGasFee = (fee: BigNumber(number: "0", decimal: 0), feeInDollar: BigNumber(number: "0", decimal: 0))
     @Published
-    public var tokens: [Detail]?
+    public var manageAssetsList: [AssetViewModel]?
 
     // MARK: - Private Properties
-    private var accountingAPIClient = AccountingAPIClient()
-    private var ctsAPIclient = CTSAPIClient()
+
     private var cancellables = Set<AnyCancellable>()
-    
+    private var internetConnectivity = InternetConnectivity()
+
     // MARK: - Private Initializer
 
-	private init() {}
+	private init() {
+        fetchSharedInfo()
+        Timer.publish(every: 10, on: .main, in: .common)
+            .autoconnect()
+            .sink { [self] seconds in
+                print(seconds)
+                isNetConnected().sink { _ in
+                } receiveValue: { [self] isConnected in
+                    if isConnected {
+                        fetchSharedInfo()
+                    } else {
+                        
+                    }
+                }.store(in: &cancellables)
+            }
+            .store(in: &cancellables)
+    }
     
+    public func fetchSharedInfo() -> Promise<Void> {
+        print("SENDING REQUEST === ")
+        return firstly {
+            getManageAssetLists()
+        }.get({ assets in
+            self.manageAssetsList = assets
+        }).done { assets in
+            self.calculateEthGasFee(ethPrice: assets.first(where: { $0.isEth })!.price)
+        }
+        
+    }
     
     // MARK: - Private Methods
 
-    private func calculateEthGasFee(ethPrice: BigNumber) -> Promise<String> {
-        Promise<String> { seal in
-            _ = Web3Core.shared.calculateEthGasFee(ethPrice: ethPrice).done { fee, feeInDollar in
-                GlobalVariables.shared.ethGasFee = (fee, feeInDollar)
-            }.catch { error in
-                seal.reject(error)
-            }
+    private func isNetConnected() -> AnyPublisher<Bool, Error> {
+        internetConnectivity.$isConnected.tryCompactMap { $0 }.eraseToAnyPublisher()
+    }
+    
+    private func calculateEthGasFee(ethPrice: BigNumber){
+        _ = Web3Core.shared.calculateEthGasFee(ethPrice: ethPrice).done { fee, feeInDollar in
+            GlobalVariables.shared.ethGasFee = (fee, feeInDollar)
+        }.catch { error in
+            print("//////// ERROR FETCHING ETH PRICE //////////")
         }
     }
     
-    private func getAssetsList() -> Promise<[AssetViewModel]> {
-        Promise<[AssetViewModel]> { seal in
-            if let tokens {
-                accountingAPIClient.userBalance()
-                    .sink { completed in
-                        switch completed {
-                        case .finished:
-                            print("Assets received successfully")
-                        case let .failure(error):
-                            seal.reject(APIError.failedRequest)
-                        }
-                    } receiveValue: { assets in
-                        self.manageAssetsList = self.getManageAsset(tokens: tokens, userAssets: assets)
-                        completion(.success(self.manageAssetsList!))
-                    }.store(in: &cancellables)
-            } else {
-                getTokens().done { tokens in
-                    getAssetsList()
-                }.catch { error in
-                    seal.reject(error)
-                }
-            }
-        }
-    }
-    
-    private func getTokens() -> Promise<[Detail]> {
-        Promise<[Detail]> { seal in
-            ctsAPIclient.tokens().sink { completed in
-                switch completed {
-                case .finished:
-                    print("tokens received successfully")
-                case let .failure(error):
-                    seal.reject(APIError.failedRequest)
-                }
-            } receiveValue: { tokens in
-                let customAssets = self.getCustomAssets()
-                self.tokens = tokens + customAssets
-                seal.fulfill(self.tokens)
-            }.store(in: &cancellables)
-        }
+    private func getManageAssetLists() -> Promise<[AssetViewModel]>{
+        let homeVM = HomepageViewModel()
+        return homeVM.getAssetsList()
     }
     
 }

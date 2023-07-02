@@ -25,12 +25,7 @@ class HomepageViewModel {
 	public var positionAssetsList: [AssetViewModel]?
 	@Published
 	public var securityMode = false
-	public var tokens: [Detail]?
-	@Published
-	public var manageAssetsList: [AssetViewModel]?
-	public var selectedAssets = [SelectedAsset]()
-	@Published
-	public var assetsModelList: [AssetProtocol]!
+	
 
 	public let copyToastMessage = "Copied!"
 	public let sendButtonTitle = "Send"
@@ -57,47 +52,11 @@ class HomepageViewModel {
 
 	// MARK: - Initializers
 
-	init(completion: @escaping (HomeNetworkError?) -> Void) {
+	init() {
 		checkDefaultAssetsAdded()
 		getSelectedAssetsFromCoreData()
 		getWalletInfo()
 		setupBindings()
-		getHomeDataWithTimer(completion: completion)
-	}
-
-	// MARK: - Public Methods
-
-	func getHomeDataWithTimer(completion: @escaping (HomeNetworkError?) -> Void) {
-		Timer.publish(every: 12.0, on: .main, in: .common)
-			.autoconnect()
-			.sink { seconds in
-				self.getHomeData(completion: completion)
-			}
-			.store(in: &subscriptions)
-	}
-
-	public func getHomeData(completion: @escaping (HomeNetworkError?) -> Void) {
-		internetConnectivity.$isConnected.tryCompactMap { $0 }.sink { _ in
-		} receiveValue: { isConnected in
-			if isConnected {
-				self.getAssetsList { result in
-					switch result {
-					case let .success(assets):
-						if let ethAsset = assets.first(where: { $0.isEth }) {
-							self.calculateEthGasFee(ethPrice: ethAsset.price).catch {
-								error in
-								print(error)
-							}
-						}
-						completion(nil)
-					case .failure:
-						completion(.requestFailed)
-					}
-				}
-			} else {
-				completion(.networkConnection)
-			}
-		}.store(in: &cancellables)
 	}
 
 	// MARK: Private Methods
@@ -126,7 +85,7 @@ class HomepageViewModel {
 			self.switchSecurityMode(securityMode)
 		}.store(in: &cancellables)
 
-		$manageAssetsList.sink { assets in
+        GlobalVariables.shared.$manageAssetsList.sink { assets in
 			guard let assets else { return }
 			self.assetsList = assets.filter { $0.isSelected }
 		}.store(in: &cancellables)
@@ -136,5 +95,4 @@ class HomepageViewModel {
 			self.getWalletBalance(assets: assets)
 		}.store(in: &cancellables)
 	}
-
 }

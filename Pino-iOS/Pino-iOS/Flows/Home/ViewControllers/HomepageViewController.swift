@@ -28,11 +28,14 @@ class HomepageViewController: UIViewController {
 	}
 
 	override func loadView() {
-		homeVM = HomepageViewModel(completion: { error in
-			guard let error = error else { return }
-			Toast.default(title: "\(error.message)", subtitle: "Please try again!", style: .error)
-				.show(haptic: .warning)
-		})
+        
+//        completion: { error in
+//            guard let error = error else { return }
+//            Toast.default(title: "\(error.message)", subtitle: "Please try again!", style: .error)
+//                .show(haptic: .warning)
+//        }
+        
+		homeVM = HomepageViewModel()
 		profileVM = ProfileViewModel(walletInfo: homeVM.walletInfo)
 
 		setupView()
@@ -99,7 +102,7 @@ class HomepageViewController: UIViewController {
 
 	@objc
 	private func openManageAssetsPage() {
-		if homeVM.manageAssetsList != nil {
+		if GlobalVariables.shared.manageAssetsList != nil {
 			let manageAssetsVC = ManageAssetsViewController(homeVM: homeVM)
 			let navigationVC = UINavigationController()
 			navigationVC.viewControllers = [manageAssetsVC]
@@ -125,7 +128,7 @@ class HomepageViewController: UIViewController {
 	}
 
 	private func openPortfolioPage() {
-		guard let assets = homeVM.manageAssetsList?.filter({ $0.isVerified }) else { return }
+		guard let assets = GlobalVariables.shared.manageAssetsList?.filter({ $0.isVerified }) else { return }
 		let portfolioPerformanceVC = PortfolioPerformanceViewController(assets: assets)
 		portfolioPerformanceVC.modalPresentationStyle = .formSheet
 		let navigationVC = UINavigationController(rootViewController: portfolioPerformanceVC)
@@ -141,7 +144,7 @@ class HomepageViewController: UIViewController {
 	}
 
 	private func openSendAssetPage() {
-		if let assetsList = homeVM.manageAssetsList {
+		if let assetsList = GlobalVariables.shared.manageAssetsList {
 			let navigationVC = UINavigationController()
 			let selectAssetToSendVC = SelectAssetToSendViewController(assets: assetsList)
 			navigationVC.viewControllers = [selectAssetToSendVC]
