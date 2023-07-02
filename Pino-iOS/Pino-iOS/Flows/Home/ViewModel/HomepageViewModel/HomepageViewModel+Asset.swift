@@ -6,34 +6,36 @@
 //
 
 import CoreData
+import PromiseKit
+
+struct AssetManager {
+    
+}
 
 extension HomepageViewModel {
 	// MARK: Internal Methods
 
-	internal func getAssetsList(completion: @escaping (Result<[AssetViewModel], APIError>) -> Void) {
-		if let tokens {
-			accountingAPIClient.userBalance()
-				.sink { completed in
-					switch completed {
-					case .finished:
-						print("Assets received successfully")
-					case let .failure(error):
-						completion(.failure(error))
-					}
-				} receiveValue: { assets in
-					self.manageAssetsList = self.getManageAsset(tokens: tokens, userAssets: assets)
-					completion(.success(self.manageAssetsList!))
-				}.store(in: &cancellables)
-		} else {
-			getTokens { result in
-				switch result {
-				case .success:
-					self.getAssetsList(completion: completion)
-				case let .failure(error):
-					completion(.failure(error))
-				}
-			}
-		}
+	internal func getAssetsList() -> Promise<[AssetViewModel]> {
+        Promise<[AssetViewModel]> { seal in
+            firstly {
+                getTokens()
+            }.done { [self] tokens in
+                accountingAPIClient.userBalance()
+                    .sink { completed in
+                        switch completed {
+                        case .finished:
+                            print("Assets received successfully")
+                        case let .failure(error):
+                            seal.reject(APIError.failedRequest)
+                        }
+                    } receiveValue: { assets in
+                        let managedAssets = self.getManageAsset(tokens: tokens, userAssets: assets)
+                        seal.fulfill(managedAssets)
+                    }.store(in: &cancellables)
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
 	}
 
 	internal func getManageAsset(tokens: [Detail], userAssets: [BalanceAssetModel]) -> [AssetViewModel] {
@@ -53,19 +55,21 @@ extension HomepageViewModel {
 		}
 	}
 
-	internal func getTokens(completion: @escaping (Result<[Detail], APIError>) -> Void) {
-		ctsAPIclient.tokens().sink { completed in
-			switch completed {
-			case .finished:
-				print("tokens received successfully")
-			case let .failure(error):
-				completion(.failure(error))
-			}
-		} receiveValue: { tokens in
-			let customAssets = self.getCustomAssets()
-			self.tokens = tokens + customAssets
-			completion(.success(self.tokens!))
-		}.store(in: &cancellables)
+	internal func getTokens() -> Promise<[Detail]> {
+        Promise<[Detail]> { seal in
+            ctsAPIclient.tokens().sink { completed in
+                switch completed {
+                case .finished:
+                    print("tokens received successfully")
+                case let .failure(error):
+                    seal.reject(APIError.failedRequest)
+                }
+            } receiveValue: { tokens in
+                let customAssets = self.getCustomAssets()
+                self.tokens = tokens + customAssets
+                seal.fulfill(self.tokens)
+            }.store(in: &cancellables)
+        }
 	}
 
 	#warning("This is temporary and must be replaced with API data")
@@ -142,18 +146,18 @@ extension HomepageViewModel {
 			price: "0",
 			isVerified: false
 		)
-		tokens?.append(customAssetDetail)
-		getHomeData { _ in }
+        tokens.append(customAssetDetail)
+        GlobalVariables.shared.fetchSharedInfo()
 	}
 
 	public func updateSelectedAssets(_ selectedAsset: AssetViewModel, isSelected: Bool) {
-		guard let manageAssetsList else { return }
+		guard let manageAssetsList = GlobalVariables.shared.manageAssetsList else { return }
 		if let selectedAssetIndex = manageAssetsList.firstIndex(where: {
 			$0.id == selectedAsset.id
 		}) {
 			let updatedAssets = manageAssetsList
 			updatedAssets[selectedAssetIndex].toggleIsSelected()
-			self.manageAssetsList = updatedAssets
+            GlobalVariables.shared.manageAssetsList = updatedAssets
 			if isSelected {
 				addSelectedAssetToCoreData(manageAssetsList[selectedAssetIndex])
 			} else {
