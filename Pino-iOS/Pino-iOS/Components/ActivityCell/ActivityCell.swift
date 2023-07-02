@@ -17,7 +17,7 @@ class ActivityCell: UICollectionViewCell {
 	private let historyTitleLabel = PinoLabel(style: .title, text: nil)
 	private let historyTimeLabel = UILabel()
 	private let statusStackView = UIStackView()
-    private let statusLabelContainer = UIView()
+	private let statusLabelContainer = UIView()
 	private let statusLabel = UILabel()
 
 	// MARK: - public properties
@@ -37,7 +37,7 @@ class ActivityCell: UICollectionViewCell {
 
 	private func setupView() {
 		contentView.addSubview(historyCardView)
-        statusLabelContainer.addSubview(statusLabel)
+		statusLabelContainer.addSubview(statusLabel)
 		historyCardView.addSubview(contentStackView)
 		contentStackView.addArrangedSubview(historyIcon)
 		contentStackView.addArrangedSubview(historyTitleStackView)
@@ -79,19 +79,19 @@ class ActivityCell: UICollectionViewCell {
 
 		switch activityCellVM.status {
 		case .failed:
-            statusLabelContainer.backgroundColor = .Pino.lightRed
-            statusLabel.textColor = .Pino.red
-            statusLabel.text = activityCellVM.failedStatusText
+			statusLabelContainer.backgroundColor = .Pino.lightRed
+			statusLabel.textColor = .Pino.red
+			statusLabel.text = activityCellVM.failedStatusText
 			statusLabel.isHidden = false
-            statusLabelContainer.isHidden = false
+			statusLabelContainer.isHidden = false
 		case .pending:
-            statusLabelContainer.backgroundColor = .Pino.lightOrange
-            statusLabel.textColor = .Pino.pendingOrange
-            statusLabel.text = activityCellVM.pendingStatusText
+			statusLabelContainer.backgroundColor = .Pino.lightOrange
+			statusLabel.textColor = .Pino.pendingOrange
+			statusLabel.text = activityCellVM.pendingStatusText
 			statusLabel.isHidden = false
-            statusLabelContainer.isHidden = false
+			statusLabelContainer.isHidden = false
 		case .success:
-            statusLabelContainer.isHidden = true
+			statusLabelContainer.isHidden = true
 			statusLabel.isHidden = true
 		}
 
@@ -102,7 +102,7 @@ class ActivityCell: UICollectionViewCell {
 		super.layoutIfNeeded()
 		historyIcon.layer.cornerRadius = historyIcon.frame.height * 0.5
 		statusLabelContainer.layer.cornerRadius = 10
-        statusLabelContainer.layer.masksToBounds = true
+		statusLabelContainer.layer.masksToBounds = true
 	}
 
 	private func setupConstraint() {
@@ -118,11 +118,11 @@ class ActivityCell: UICollectionViewCell {
 			.fixedWidth(44),
 			.fixedHeight(44)
 		)
-        statusLabelContainer.pin(.fixedHeight(20))
+		statusLabelContainer.pin(.fixedHeight(20))
 		statusLabel.pin(
 			.fixedHeight(13),
-            .horizontalEdges(padding: 6),
-            .centerY()
+			.horizontalEdges(padding: 6),
+			.centerY()
 		)
 	}
 }

@@ -90,8 +90,11 @@ class CoinInfoViewModel {
 				print(error)
 			}
 		} receiveValue: { [weak self] coinHistoryModelList in
-            let walletManager = PinoWalletManager()
-            self?.coinHistoryList = coinHistoryModelList.compactMap { ActivityCellViewModel(activityModel: $0, currentAddress: walletManager.currentAccount.eip55Address) }
+			let walletManager = PinoWalletManager()
+			self?.coinHistoryList = coinHistoryModelList
+				.compactMap {
+					ActivityCellViewModel(activityModel: $0, currentAddress: walletManager.currentAccount.eip55Address)
+				}
 			#warning(
 				"this line is for testing because these two publishers were pinned to each other and their value should be changed together"
 			)
