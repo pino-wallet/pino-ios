@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 7/1/23.
 //
 
+import Combine
 import UIKit
 
 class SwapTokenSectionView: UIView {
@@ -24,6 +25,7 @@ class SwapTokenSectionView: UIView {
 	private let updateBalanceStatus: (String) -> Void
 	private let swapVM: SwapTokenViewModel
 	private let hasMaxAmount: Bool
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 

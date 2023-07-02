@@ -43,8 +43,8 @@ class SwapTokenViewModel {
 	// MARK: - Public Methods
 
 	public func calculateAmount(_ amount: String) {
-		guard let decimalNumber = Decimal(string: amount),
-		      let price = Decimal(string: selectedToken.price.decimalString) else { return }
+		guard let price = Decimal(string: selectedToken.price.decimalString) else { return }
+		let decimalNumber = Decimal(string: amount) ?? Decimal(0)
 		let amountInDollarDecimalValue = decimalNumber * price
 		dollarAmount = amountInDollarDecimalValue.formattedAmount(type: .dollarValue)
 		tokenAmount = amount
