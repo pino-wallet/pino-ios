@@ -18,7 +18,7 @@ class CoinInfoViewModel {
 	@Published
 	public var coinPortfolio: CoinPortfolioViewModel!
 	@Published
-	public var coinHistoryList: [CoinHistoryViewModel]!
+	public var coinHistoryList: [ActivityCellViewModel]!
 
 	public let requestFailedErrorToastMessage = "Couldn't refresh coin data"
 	public let connectionErrorToastMessage = "No internet connection"
@@ -90,7 +90,8 @@ class CoinInfoViewModel {
 				print(error)
 			}
 		} receiveValue: { [weak self] coinHistoryModelList in
-			self?.coinHistoryList = coinHistoryModelList.compactMap { CoinHistoryViewModel(coinHistoryModel: $0) }
+            let walletManager = PinoWalletManager()
+            self?.coinHistoryList = coinHistoryModelList.compactMap { ActivityCellViewModel(activityModel: $0, currentAddress: walletManager.currentAccount.eip55Address) }
 			#warning(
 				"this line is for testing because these two publishers were pinned to each other and their value should be changed together"
 			)

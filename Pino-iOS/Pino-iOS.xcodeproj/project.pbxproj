@@ -81,7 +81,7 @@
 		3836332BCEDEABE67456B3D1 /* StatusCode+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422ABB90CBB3565389FAB0E3 /* StatusCode+Helper.swift */; };
 		3ACA10D15DD3199674C38954 /* PinoButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E1101FD968CD52ACD11718 /* PinoButtonStyle.swift */; };
 		3B5C5C7C3020F2A2CDBE5CA5 /* ImportWalletError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC81FCD14624F47792B02A71 /* ImportWalletError.swift */; };
-		3C9F0B46C521474D32854C66 /* CoinHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80323CF07CAE3913B0E6D67C /* CoinHistoryCell.swift */; };
+		3C9F0B46C521474D32854C66 /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80323CF07CAE3913B0E6D67C /* ActivityCell.swift */; };
 		3D1C4A50429CB1A5CD624E44 /* wallet-balance-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 326B0DAFD947F590C331F13D /* wallet-balance-stub.json */; };
 		3D47F14ECA2A8CAE61061F57 /* PPPangramSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DEF9234B1A724D51BE836376 /* PPPangramSans-LightItalic.ttf */; };
 		3E5FFA532C0440149913FE32 /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA73CCD58C583E964396CF7 /* Encodable+Extension.swift */; };
@@ -104,7 +104,7 @@
 		44DBA60846C0B1DA8E26EAD8 /* NoInternetConnectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D8EDE345F75B3753795F37 /* NoInternetConnectionViewModel.swift */; };
 		4597042E1E2998370F506596 /* LaunchSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D846BDE4ED7AF8234497E621 /* LaunchSettings.swift */; };
 		4A19B10E59268C480A530395 /* AddCustomAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32921F6D59819745CA7E48EE /* AddCustomAssetViewController.swift */; };
-		4BCC037123752C19CB2B98D3 /* CoinHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EF5982289ED9E758D0777F /* CoinHistoryViewModel.swift */; };
+		4BCC037123752C19CB2B98D3 /* ActivityCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EF5982289ED9E758D0777F /* ActivityCellViewModel.swift */; };
 		4BD24A38B1C81FA80EB0B6E8 /* AllDoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151E5726229379FA18870AA2 /* AllDoneViewModel.swift */; };
 		4C5FCC355F7D7307B778F686 /* AllDoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C76CCF2D1DB532F1B1F544 /* AllDoneView.swift */; };
 		4C7FBB094D7EA8820D1F4D69 /* ViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33656AE9BB6138666D2E679 /* ViewController+Extension.swift */; };
@@ -246,7 +246,6 @@
 		BA45498BC5E24EE8ACDA819E /* PPPangramSans-SemiboldReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AACC44FE53317ADAF4E94A03 /* PPPangramSans-SemiboldReclined.ttf */; };
 		BA5A805884B41CA1F182245E /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E3F8B61B1FB024B075BDE9 /* TabBarViewController.swift */; };
 		BB737A7216F658EFFE43401C /* PPPangramSans-ExtraboldReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F052F464B4443A09B569492 /* PPPangramSans-ExtraboldReclined.ttf */; };
-		BBEFD9CD18FB5626C32FB5DE /* HistoryStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE0C2CA6B34603B490425D3 /* HistoryStatus.swift */; };
 		C08B09A1A89A6859D79D25D7 /* RecoveryPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCC6457265C54F56DE92A17 /* RecoveryPhraseView.swift */; };
 		C0BFA5D21284FA2DAEA8A6CE /* ImportWalletUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0D9155FD8F0605BFF14EB /* ImportWalletUITests.swift */; };
 		C18F61B7AEF94EEC4A102666 /* ChartDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635EFDC4F44BD212A8195289 /* ChartDataModel.swift */; };
@@ -307,6 +306,9 @@
 		D9A3281C2A34C444005A8393 /* SelectAssetVMProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A3281B2A34C444005A8393 /* SelectAssetVMProtocol.swift */; };
 		D9A3281E2A34C545005A8393 /* SelectAssetCellVMProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A3281D2A34C545005A8393 /* SelectAssetCellVMProtocol.swift */; };
 		D9AEA0A029F9818300DD61A8 /* EditAccountOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AEA09F29F9818300DD61A8 /* EditAccountOptionViewModel.swift */; };
+		D9AF29E22A500B03006BC53E /* ActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF29E12A500B03006BC53E /* ActivityModel.swift */; };
+		D9AF29E52A5010C4006BC53E /* ActivityCellViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF29E42A5010C4006BC53E /* ActivityCellViewModelProtocol.swift */; };
+		D9AF29E82A506F1A006BC53E /* ActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF29E72A506F1A006BC53E /* ActivityType.swift */; };
 		D9AF6DCC29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */; };
 		D9BFEC372A121706007DFF40 /* AllowNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC362A121706007DFF40 /* AllowNotificationsViewController.swift */; };
 		D9BFEC392A121719007DFF40 /* AllowNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC382A121719007DFF40 /* AllowNotificationsView.swift */; };
@@ -476,10 +478,9 @@
 		151E5726229379FA18870AA2 /* AllDoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDoneViewModel.swift; sourceTree = "<group>"; };
 		15BA9BA379C5D10107A5209E /* WalletEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletEndpoint.swift; sourceTree = "<group>"; };
 		175F2C022C8A660F5B11211F /* SecurityOptionsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityOptionsSection.swift; sourceTree = "<group>"; };
-		17EF5982289ED9E758D0777F /* CoinHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinHistoryViewModel.swift; sourceTree = "<group>"; };
+		17EF5982289ED9E758D0777F /* ActivityCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCellViewModel.swift; sourceTree = "<group>"; };
 		1999DA19B91CEBCAD9352C43 /* ChartDateFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDateFilter.swift; sourceTree = "<group>"; };
 		1ACC445FAA9626AB655BE5E6 /* SecurityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityViewModel.swift; sourceTree = "<group>"; };
-		1AE0C2CA6B34603B490425D3 /* HistoryStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStatus.swift; sourceTree = "<group>"; };
 		1AE59B4F8A912C260EBD9FD8 /* ImportSecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSecretPhraseView.swift; sourceTree = "<group>"; };
 		1B8B3471DBAE7B1EDD075DAF /* AuthenticationLockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationLockViewController.swift; sourceTree = "<group>"; };
 		1D79E6ABFF159E2B8FB5C0A2 /* ManagePasscodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagePasscodeView.swift; sourceTree = "<group>"; };
@@ -615,7 +616,7 @@
 		7F15207743692E4CE3445A4C /* coin-info-chart-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "coin-info-chart-stub.json"; sourceTree = "<group>"; };
 		7F3A2C1FAE1267AB6DCED6D4 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		7FD0D9155FD8F0605BFF14EB /* ImportWalletUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletUITests.swift; sourceTree = "<group>"; };
-		80323CF07CAE3913B0E6D67C /* CoinHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinHistoryCell.swift; sourceTree = "<group>"; };
+		80323CF07CAE3913B0E6D67C /* ActivityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCell.swift; sourceTree = "<group>"; };
 		80DC32E0E306CA37F6D60E38 /* NumberTypeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberTypeTest.swift; sourceTree = "<group>"; };
 		829CA4C0A06D84219F432590 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		82E58CA3A90543D8B4D5AE22 /* APISimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APISimulator.swift; sourceTree = "<group>"; };
@@ -757,6 +758,9 @@
 		D9A3281B2A34C444005A8393 /* SelectAssetVMProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetVMProtocol.swift; sourceTree = "<group>"; };
 		D9A3281D2A34C545005A8393 /* SelectAssetCellVMProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetCellVMProtocol.swift; sourceTree = "<group>"; };
 		D9AEA09F29F9818300DD61A8 /* EditAccountOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountOptionViewModel.swift; sourceTree = "<group>"; };
+		D9AF29E12A500B03006BC53E /* ActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityModel.swift; sourceTree = "<group>"; };
+		D9AF29E42A5010C4006BC53E /* ActivityCellViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCellViewModelProtocol.swift; sourceTree = "<group>"; };
+		D9AF29E72A506F1A006BC53E /* ActivityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityType.swift; sourceTree = "<group>"; };
 		D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralNotificationSettingsHeader.swift; sourceTree = "<group>"; };
 		D9BFEC362A121706007DFF40 /* AllowNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsViewController.swift; sourceTree = "<group>"; };
 		D9BFEC382A121719007DFF40 /* AllowNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsView.swift; sourceTree = "<group>"; };
@@ -1216,7 +1220,6 @@
 				EFABD75C54559DC6EC13C293 /* AssetChartModel.swift */,
 				635EFDC4F44BD212A8195289 /* ChartDataModel.swift */,
 				26427FD948787141E7AA599B /* CoinHistoryModel.swift */,
-				1AE0C2CA6B34603B490425D3 /* HistoryStatus.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1544,7 +1547,6 @@
 			children = (
 				7776DA7356BDD42193B0B925 /* AboutCoinViewModel.swift */,
 				412EA8786DF547325A94AE49 /* AssetChartViewModel.swift */,
-				17EF5982289ED9E758D0777F /* CoinHistoryViewModel.swift */,
 				99C20C9FE9BA8113C2A0BF18 /* CoinInfoChartViewModel.swift */,
 				B2D5774D76FC507F8B176185 /* CoinInfoViewModel.swift */,
 				9FF69CD04334D4EE4C9272B8 /* CoinPortfolioViewModel.swift */,
@@ -1935,6 +1937,7 @@
 		B306C5049CC723CBB7E23D2B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D9AF29E02A500AC0006BC53E /* Activity */,
 				DFB1E9D72A0AB7F900041B26 /* CoreDataModels */,
 				40F704552A03AFEF004D74FE /* AccountActivation */,
 				5397B46094F691BBC0A1882B /* Balance */,
@@ -2070,6 +2073,7 @@
 		D9A3280A2A3452DC005A8393 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				D9AF29DF2A5001CB006BC53E /* ActivityCell */,
 				E3D204C82A3992630027FEBC /* tokenView */,
 				D9A3280B2A3452EA005A8393 /* SelectAssetCollectionView */,
 			);
@@ -2100,6 +2104,33 @@
 			children = (
 				D9A3281B2A34C444005A8393 /* SelectAssetVMProtocol.swift */,
 				D9A3281D2A34C545005A8393 /* SelectAssetCellVMProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		D9AF29DF2A5001CB006BC53E /* ActivityCell */ = {
+			isa = PBXGroup;
+			children = (
+				D9AF29E32A50107C006BC53E /* Protocols */,
+				80323CF07CAE3913B0E6D67C /* ActivityCell.swift */,
+				17EF5982289ED9E758D0777F /* ActivityCellViewModel.swift */,
+			);
+			path = ActivityCell;
+			sourceTree = "<group>";
+		};
+		D9AF29E02A500AC0006BC53E /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				D9AF29E72A506F1A006BC53E /* ActivityType.swift */,
+				D9AF29E12A500B03006BC53E /* ActivityModel.swift */,
+			);
+			path = Activity;
+			sourceTree = "<group>";
+		};
+		D9AF29E32A50107C006BC53E /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				D9AF29E42A5010C4006BC53E /* ActivityCellViewModelProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -2160,7 +2191,6 @@
 			isa = PBXGroup;
 			children = (
 				DA8ADDD22F193963D587AE57 /* ChartInfoItem.swift */,
-				80323CF07CAE3913B0E6D67C /* CoinHistoryCell.swift */,
 				F05FB16B9B1B3CADA89C02F6 /* CoinInfoChartView.swift */,
 				9F680208960473A9C1B27BF0 /* CoinInfoCollectionView.swift */,
 				2F0B2CBC9118CD481635941C /* CoinInfoHeaderView.swift */,
@@ -2843,9 +2873,9 @@
 				B96CE8969DBE6398977B87D5 /* ChartMarker.swift in Sources */,
 				E385F61A2A220DCC00EE7EE1 /* CTSAPIService.swift in Sources */,
 				D9AF6DCC29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift in Sources */,
-				3C9F0B46C521474D32854C66 /* CoinHistoryCell.swift in Sources */,
+				3C9F0B46C521474D32854C66 /* ActivityCell.swift in Sources */,
 				D97CF62C25B975AD3C131881 /* CoinHistoryModel.swift in Sources */,
-				4BCC037123752C19CB2B98D3 /* CoinHistoryViewModel.swift in Sources */,
+				4BCC037123752C19CB2B98D3 /* ActivityCellViewModel.swift in Sources */,
 				DBE3307F29EF0E7E1926B2B4 /* CoinInfoChartView.swift in Sources */,
 				05BF3ACA571459B68B3451D6 /* CoinInfoChartViewController.swift in Sources */,
 				E343836C2A3D92C20048BDA1 /* SendConfimationView.swift in Sources */,
@@ -2885,6 +2915,7 @@
 				F606F78789DCF2CDED5E8BB0 /* CustomNavigationController.swift in Sources */,
 				F1655D3CC058F9A6ED4E8521 /* CustomSwitchOptionVM.swift in Sources */,
 				2919216FFA72DA25EADE5CF3 /* CustomSwitchOptionView.swift in Sources */,
+				D9AF29E22A500B03006BC53E /* ActivityModel.swift in Sources */,
 				4CF290BDB2B49F698A864B28 /* Date+Extension.swift in Sources */,
 				D99F4B1D29E2C25C009F7F55 /* PaymentMethodOptionView.swift in Sources */,
 				D941CAC82A3F03C500910B70 /* SendStatusViewModel.swift in Sources */,
@@ -2906,7 +2937,6 @@
 				FBEBDE533CAA644C5EF987A1 /* HDWallet+Extension.swift in Sources */,
 				FBA81FB09332C152D88C289E /* HTTPMethod.swift in Sources */,
 				7B93C0D0822EF34F9EB40FAA /* HTTPTask.swift in Sources */,
-				BBEFD9CD18FB5626C32FB5DE /* HistoryStatus.swift in Sources */,
 				B6CA82D12404F5406CFF9CFD /* HomeError.swift in Sources */,
 				DF0347B42A39FAFF00A6C265 /* Web3ABI.swift in Sources */,
 				5CE69653C9688E3C116CC0E6 /* HomepageViewController.swift in Sources */,
@@ -3029,6 +3059,7 @@
 				9A7CE65990DD193F0FAF3C75 /* SecretPhraseCollectionView.swift in Sources */,
 				36705A78402D3518B33881DD /* SecretPhraseTextView.swift in Sources */,
 				D9AEA0A029F9818300DD61A8 /* EditAccountOptionViewModel.swift in Sources */,
+				D9AF29E52A5010C4006BC53E /* ActivityCellViewModelProtocol.swift in Sources */,
 				B890491BC2BBD99CF83AFE9A /* SecurityViewController.swift in Sources */,
 				DC66DEF4A366F740111CA309 /* SecurityViewModel.swift in Sources */,
 				D93C41F929F7C5C6003F2297 /* EditAccountHeaderView.swift in Sources */,
@@ -3072,6 +3103,7 @@
 				99B64004802220934AD0B60B /* UnlockAppViewModel.swift in Sources */,
 				D9C4CF0A2A4090D000475F01 /* SuggestedAddressesViewModel.swift in Sources */,
 				038A90F28F66ACC57B0A3CF5 /* UnlockPasscodePageManager.swift in Sources */,
+				D9AF29E82A506F1A006BC53E /* ActivityType.swift in Sources */,
 				DFB1E9D42A08F19C00041B26 /* CoreDataManager.swift in Sources */,
 				8BB89902879DDF1FE9C46EF4 /* UnlockPasscodeView.swift in Sources */,
 				88F5D80113398502A2D2BE03 /* ImportAccountViewModel.swift in Sources */,
