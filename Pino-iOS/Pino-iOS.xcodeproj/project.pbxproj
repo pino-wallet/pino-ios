@@ -390,6 +390,7 @@
 		E3847B3A2A52CC19005ED78B /* SwapTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B392A52CC19005ED78B /* SwapTokenViewModel.swift */; };
 		E3847B3C2A52CDB2005ED78B /* SwapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B3B2A52CDB2005ED78B /* SwapView.swift */; };
 		E3847B3E2A52CE25005ED78B /* SwapTokenSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B3D2A52CE25005ED78B /* SwapTokenSectionView.swift */; };
+		E3847B412A5314FF005ED78B /* SwapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B402A5314FF005ED78B /* SwapDelegate.swift */; };
 		E384CB1229F6A931009C74F5 /* CoinPerformanceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E384CB1129F6A931009C74F5 /* CoinPerformanceInfoView.swift */; };
 		E384CB1629FFABAB009C74F5 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E384CB1529FFABAB009C74F5 /* Double+Extension.swift */; };
 		E384CB1829FFADA0009C74F5 /* ShareOfAssetProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E384CB1729FFADA0009C74F5 /* ShareOfAssetProtocol.swift */; };
@@ -825,6 +826,7 @@
 		E3847B392A52CC19005ED78B /* SwapTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapTokenViewModel.swift; sourceTree = "<group>"; };
 		E3847B3B2A52CDB2005ED78B /* SwapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapView.swift; sourceTree = "<group>"; };
 		E3847B3D2A52CE25005ED78B /* SwapTokenSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapTokenSectionView.swift; sourceTree = "<group>"; };
+		E3847B402A5314FF005ED78B /* SwapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapDelegate.swift; sourceTree = "<group>"; };
 		E384CB1129F6A931009C74F5 /* CoinPerformanceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceInfoView.swift; sourceTree = "<group>"; };
 		E384CB1529FFABAB009C74F5 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		E384CB1729FFADA0009C74F5 /* ShareOfAssetProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOfAssetProtocol.swift; sourceTree = "<group>"; };
@@ -2162,6 +2164,7 @@
 		DA54BC6AF891B9433AFFD30F /* Swap */ = {
 			isa = PBXGroup;
 			children = (
+				E3847B3F2A5314E2005ED78B /* Protocol */,
 				E3847B342A52CA3F005ED78B /* ViewModel */,
 				E3847B332A52CA2A005ED78B /* View */,
 				E3847B322A52CA15005ED78B /* ViewController */,
@@ -2329,6 +2332,14 @@
 				E3847B392A52CC19005ED78B /* SwapTokenViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E3847B3F2A5314E2005ED78B /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				E3847B402A5314FF005ED78B /* SwapDelegate.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		E384CB1429FF9346009C74F5 /* Portfolio */ = {
@@ -3087,6 +3098,7 @@
 				D9BFEC3E2A12236C007DFF40 /* ClearNavigationBar.swift in Sources */,
 				D91A39FD29E40EA400004CB2 /* NotificationSettingsViewController.swift in Sources */,
 				2412CFB01F9D91D18F01EACD /* SettingsHeaderView.swift in Sources */,
+				E3847B412A5314FF005ED78B /* SwapDelegate.swift in Sources */,
 				7D789F2B97B770D2B2B8DF05 /* SettingsViewModel.swift in Sources */,
 				D615530893452E25B58471EF /* ShareOfAssetsViewModel.swift in Sources */,
 				FDC9B8DDC75EF47C7D607182 /* ShowSecretPhraseView.swift in Sources */,

@@ -10,7 +10,7 @@ import Foundation
 class SwapTokenViewModel {
 	// MARK: - Public Properties
 
-	//    public var delegate: SwapDelegate!
+	public var delegate: SwapDelegate!
 
 	public let maxTitle = "Max: "
 	public let avgSign = "≈"
