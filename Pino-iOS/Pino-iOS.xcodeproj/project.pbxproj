@@ -2151,7 +2151,9 @@
 		DA54BC6AF891B9433AFFD30F /* Swap */ = {
 			isa = PBXGroup;
 			children = (
-				47A6676B929BBCE1E8B10CDF /* SwapViewController.swift */,
+				E3847B342A52CA3F005ED78B /* ViewModel */,
+				E3847B332A52CA2A005ED78B /* View */,
+				E3847B322A52CA15005ED78B /* ViewController */,
 			);
 			path = Swap;
 			sourceTree = "<group>";
@@ -2290,6 +2292,28 @@
 				98D7CE3AA42604B8F78EA87C /* GroupCollectionViewCell.swift */,
 			);
 			path = GroupCollectionView;
+			sourceTree = "<group>";
+		};
+		E3847B322A52CA15005ED78B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				47A6676B929BBCE1E8B10CDF /* SwapViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E3847B332A52CA2A005ED78B /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E3847B342A52CA3F005ED78B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		E384CB1429FF9346009C74F5 /* Portfolio */ = {
