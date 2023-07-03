@@ -91,7 +91,7 @@ class SwapView: UIView {
 
 	private func setupStyle() {
 		continueButton.title = swapVM.continueButtonTitle
-		switchTokenButton.setImage(UIImage(named: "switch_swap"), for: .normal)
+		switchTokenButton.setImage(UIImage(named: swapVM.switchIcon), for: .normal)
 
 		switchTokenButton.setTitleColor(.Pino.primary, for: .normal)
 

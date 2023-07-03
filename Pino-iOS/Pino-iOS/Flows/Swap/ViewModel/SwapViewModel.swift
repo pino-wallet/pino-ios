@@ -13,6 +13,7 @@ class SwapViewModel {
 	public let pageTitle = "Swap"
 	public let continueButtonTitle = "Swap"
 	public let insufficientAmountButtonTitle = "Insufficient amount"
+	public let switchIcon = "switch_swap"
 
 	public var payToken: SwapTokenViewModel
 	public var getToken: SwapTokenViewModel
