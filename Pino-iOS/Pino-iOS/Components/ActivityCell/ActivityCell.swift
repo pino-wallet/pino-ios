@@ -10,7 +10,7 @@ import UIKit
 class ActivityCell: UICollectionViewCell {
 	// MARK: - private Properties
 
-	private let historyCardView = UIView()
+	private let historyCardView = PinoContainerCard()
 	private let contentStackView = UIStackView()
 	private let historyIcon = UIImageView()
 	private let historyTitleStackView = UIStackView()
@@ -94,8 +94,6 @@ class ActivityCell: UICollectionViewCell {
 			statusLabelContainer.isHidden = true
 			statusLabel.isHidden = true
 		}
-
-		historyCardView.layer.cornerRadius = 12
 	}
 
 	override func layoutIfNeeded() {
