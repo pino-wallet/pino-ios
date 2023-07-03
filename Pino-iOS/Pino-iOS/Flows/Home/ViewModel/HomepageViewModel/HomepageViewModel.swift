@@ -131,6 +131,6 @@ class HomepageViewModel {
 		}.store(in: &cancellables)
 	}
 
-	// Temporary
+	#warning("Temporary shared list")
 	static var sharedAssets: [AssetViewModel]!
 }
