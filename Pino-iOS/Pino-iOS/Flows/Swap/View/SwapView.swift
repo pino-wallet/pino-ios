@@ -20,8 +20,8 @@ class SwapView: UIView {
 	private var fromTokenSectionView: SwapTokenSectionView!
 	private var toTokenSectionView: SwapTokenSectionView!
 
-	private var changePayToken: () -> Void
-	private var changeGetToken: () -> Void
+	private var fromTokenChange: () -> Void
+	private var toTokeChange: () -> Void
 	private var nextButtonTapped: () -> Void
 	private var swapVM: SwapViewModel
 
@@ -35,12 +35,12 @@ class SwapView: UIView {
 
 	init(
 		swapVM: SwapViewModel,
-		changePayToken: @escaping (() -> Void),
-		changeGetToken: @escaping (() -> Void),
+		fromTokenChange: @escaping (() -> Void),
+		toTokeChange: @escaping (() -> Void),
 		nextButtonTapped: @escaping (() -> Void)
 	) {
-		self.changePayToken = changePayToken
-		self.changeGetToken = changeGetToken
+		self.fromTokenChange = fromTokenChange
+		self.toTokeChange = toTokeChange
 		self.nextButtonTapped = nextButtonTapped
 		self.swapVM = swapVM
 		super.init(frame: .zero)
@@ -59,7 +59,7 @@ class SwapView: UIView {
 	private func setupView() {
 		fromTokenSectionView = SwapTokenSectionView(
 			swapVM: swapVM.fromToken,
-			changeSelectedToken: changePayToken,
+			changeSelectedToken: fromTokenChange,
 			balanceStatusDidChange: { balanceStatus in
 				self.updateSwapStatus(balanceStatus)
 			}
@@ -68,7 +68,7 @@ class SwapView: UIView {
 		toTokenSectionView = SwapTokenSectionView(
 			swapVM: swapVM.toToken,
 			hasMaxAmount: false,
-			changeSelectedToken: changeGetToken
+			changeSelectedToken: toTokeChange
 		)
 
 		addSubview(contentCardView)

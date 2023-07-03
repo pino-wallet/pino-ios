@@ -33,11 +33,11 @@ class SwapViewController: UIViewController {
 
 		view = SwapView(
 			swapVM: swapVM,
-			changePayToken: {
-				self.changePayToken()
+			fromTokenChange: {
+				self.selectAssetForFromToken()
 			},
-			changeGetToken: {
-				self.changeGetToken()
+			toTokeChange: {
+				self.selectAssetForToToken()
 			},
 			nextButtonTapped: {}
 		)
@@ -48,16 +48,7 @@ class SwapViewController: UIViewController {
 		setNavigationTitle(swapVM.pageTitle)
 	}
 
-	private func openSelectAssetPage(assets: [AssetViewModel], assetChanged: @escaping (AssetViewModel) -> Void) {
-		let selectAssetVC = SelectAssetToSendViewController(assets: assets)
-		selectAssetVC.changeAssetFromEnterAmountPage = { selectedAsset in
-			assetChanged(selectedAsset)
-		}
-		let selectAssetNavigationController = UINavigationController(rootViewController: selectAssetVC)
-		present(selectAssetNavigationController, animated: true)
-	}
-
-	private func changePayToken() {
+	private func selectAssetForFromToken() {
 		var filteredAssets = assets!.filter { !$0.holdAmount.isZero }
 		// To prevent swapping same tokens
 		filteredAssets.removeAll(where: { $0.id == swapVM.toToken.selectedToken.id })
@@ -66,12 +57,21 @@ class SwapViewController: UIViewController {
 		}
 	}
 
-	private func changeGetToken() {
+	private func selectAssetForToToken() {
 		var filteredAssets = assets!
 		// To prevent swapping same tokens
 		filteredAssets.removeAll(where: { $0.id == swapVM.fromToken.selectedToken.id })
 		openSelectAssetPage(assets: filteredAssets) { selectedToken in
 			self.swapVM.changeSelectedToken(self.swapVM.toToken, to: selectedToken)
 		}
+	}
+
+	private func openSelectAssetPage(assets: [AssetViewModel], assetChanged: @escaping (AssetViewModel) -> Void) {
+		let selectAssetVC = SelectAssetToSendViewController(assets: assets)
+		selectAssetVC.changeAssetFromEnterAmountPage = { selectedAsset in
+			assetChanged(selectedAsset)
+		}
+		let selectAssetNavigationController = UINavigationController(rootViewController: selectAssetVC)
+		present(selectAssetNavigationController, animated: true)
 	}
 }
