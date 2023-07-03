@@ -158,11 +158,35 @@ class SwapView: UIView {
 	}
 
 	@objc
-	private func dissmisskeyBoard() {}
+	private func dissmisskeyBoard() {
+		payTokenSectionView.dissmisskeyBoard()
+		getTokenSectionView.dissmisskeyBoard()
+	}
 
-	private func switchTokens() {}
+	private func switchTokens() {
+		UIView.animate(withDuration: 0.2) {
+			self.payTokenSectionView.fadeOutTokenView()
+			self.getTokenSectionView.fadeOutTokenView()
+		} completion: { _ in
+			self.switchTextFieldsFocus()
+			self.swapVM.switchTokens()
+			UIView.animate(withDuration: 0.2) {
+				self.payTokenSectionView.fadeInTokenView()
+				self.getTokenSectionView.fadeInTokenView()
+			}
+		}
+	}
 
-	private func switchTextFieldsFocus() {}
+	private func switchTextFieldsFocus() {
+		if swapVM.payToken.isEditing {
+			getTokenSectionView.openKeyboard()
+		} else if swapVM.getToken.isEditing {
+			payTokenSectionView.openKeyboard()
+		} else {
+			payTokenSectionView.dissmisskeyBoard()
+			getTokenSectionView.dissmisskeyBoard()
+		}
+	}
 }
 
 // MARK: - Keyboard Functions
