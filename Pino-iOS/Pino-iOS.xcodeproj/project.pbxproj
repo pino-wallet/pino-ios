@@ -391,6 +391,7 @@
 		E3847B3C2A52CDB2005ED78B /* SwapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B3B2A52CDB2005ED78B /* SwapView.swift */; };
 		E3847B3E2A52CE25005ED78B /* SwapTokenSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B3D2A52CE25005ED78B /* SwapTokenSectionView.swift */; };
 		E3847B412A5314FF005ED78B /* SwapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B402A5314FF005ED78B /* SwapDelegate.swift */; };
+		E3847B432A531686005ED78B /* SwapTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B422A531686005ED78B /* SwapTokenView.swift */; };
 		E384CB1229F6A931009C74F5 /* CoinPerformanceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E384CB1129F6A931009C74F5 /* CoinPerformanceInfoView.swift */; };
 		E384CB1629FFABAB009C74F5 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E384CB1529FFABAB009C74F5 /* Double+Extension.swift */; };
 		E384CB1829FFADA0009C74F5 /* ShareOfAssetProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E384CB1729FFADA0009C74F5 /* ShareOfAssetProtocol.swift */; };
@@ -827,6 +828,7 @@
 		E3847B3B2A52CDB2005ED78B /* SwapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapView.swift; sourceTree = "<group>"; };
 		E3847B3D2A52CE25005ED78B /* SwapTokenSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapTokenSectionView.swift; sourceTree = "<group>"; };
 		E3847B402A5314FF005ED78B /* SwapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapDelegate.swift; sourceTree = "<group>"; };
+		E3847B422A531686005ED78B /* SwapTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapTokenView.swift; sourceTree = "<group>"; };
 		E384CB1129F6A931009C74F5 /* CoinPerformanceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceInfoView.swift; sourceTree = "<group>"; };
 		E384CB1529FFABAB009C74F5 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		E384CB1729FFADA0009C74F5 /* ShareOfAssetProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOfAssetProtocol.swift; sourceTree = "<group>"; };
@@ -2368,6 +2370,7 @@
 			isa = PBXGroup;
 			children = (
 				E3D204C92A3992EB0027FEBC /* TokenView.swift */,
+				E3847B422A531686005ED78B /* SwapTokenView.swift */,
 			);
 			path = tokenView;
 			sourceTree = "<group>";
@@ -2870,6 +2873,7 @@
 				9DAA41E3693EB0D2B084C3F8 /* AvatarCollectionView.swift in Sources */,
 				D95D49822A386BC10042FC85 /* TitleWithInfo.swift in Sources */,
 				D9C4CF0D2A4094C400475F01 /* RecentAddressModel.swift in Sources */,
+				E3847B432A531686005ED78B /* SwapTokenView.swift in Sources */,
 				8EADE74E5260CF1542FF0EF0 /* AvatarViewModel.swift in Sources */,
 				1362C46CED869A0C712B9DA0 /* BalanceModel.swift in Sources */,
 				152CA78F967F16F922365095 /* BigInt+Extension.swift in Sources */,
