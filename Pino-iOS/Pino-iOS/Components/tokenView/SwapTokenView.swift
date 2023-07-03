@@ -37,7 +37,7 @@ class SwapTokenView: UIView {
 		}
 	}
 
-	public var tokenTapped: (() -> Void)?
+	public var tokenViewDidSelect: (() -> Void)!
 
 	// MARK: Initializers
 
@@ -95,7 +95,6 @@ class SwapTokenView: UIView {
 
 	@objc
 	private func tokenViewTapped() {
-		guard let tokenTapped else { return }
-		tokenTapped()
+		tokenViewDidSelect()
 	}
 }

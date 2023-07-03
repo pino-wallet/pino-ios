@@ -14,6 +14,7 @@ class SwapTokenSectionView: UIView {
 	private let contentStackView = UIStackView()
 	private let textFieldStackView = UIStackView()
 	private let estimatedAmountStackView = UIStackView()
+	private let amountTextfield = UITextField()
 	private let estimatedAmountLabel = UILabel()
 	private let maxAmountStackView = UIStackView()
 	private let maxAmountTitle = UILabel()
@@ -26,10 +27,6 @@ class SwapTokenSectionView: UIView {
 	private let swapVM: SwapTokenViewModel
 	private let hasMaxAmount: Bool
 	private var cancellables = Set<AnyCancellable>()
-
-	// MARK: - Public Properties
-
-	public let amountTextfield = UITextField()
 
 	// MARK: - Initializers
 
@@ -68,7 +65,7 @@ class SwapTokenSectionView: UIView {
 		maxAmountStackView.addArrangedSubview(maxAmountTitle)
 		maxAmountStackView.addArrangedSubview(maxAmountLabel)
 
-		changeTokenView.tokenTapped = {
+		changeTokenView.tokenViewDidSelect = {
 			self.changeSelectedToken()
 		}
 

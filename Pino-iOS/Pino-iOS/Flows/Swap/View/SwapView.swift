@@ -177,9 +177,9 @@ class SwapView: UIView {
 	}
 
 	private func switchTextFieldsFocus() {
-		if payTokenSectionView.amountTextfield.isEditing {
+		if swapVM.payToken.isEditing {
 			getTokenSectionView.openKeyboard()
-		} else if getTokenSectionView.amountTextfield.isEditing {
+		} else if swapVM.getToken.isEditing {
 			payTokenSectionView.openKeyboard()
 		} else {
 			payTokenSectionView.dissmisskeyBoard()
