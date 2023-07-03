@@ -15,19 +15,19 @@ class SwapViewModel {
 	public let insufficientAmountButtonTitle = "Insufficient amount"
 	public let switchIcon = "switch_swap"
 
-	public var payToken: SwapTokenViewModel
-	public var getToken: SwapTokenViewModel
+	public var fromToken: SwapTokenViewModel
+	public var toToken: SwapTokenViewModel
 
 	// MARK: - Initializers
 
-	init(payToken: AssetViewModel, getToken: AssetViewModel) {
-		self.payToken = SwapTokenViewModel(selectedToken: payToken)
-		self.getToken = SwapTokenViewModel(selectedToken: getToken)
+	init(fromToken: AssetViewModel, toToken: AssetViewModel) {
+		self.fromToken = SwapTokenViewModel(selectedToken: fromToken)
+		self.toToken = SwapTokenViewModel(selectedToken: toToken)
 
-		self.payToken.amountUpdated = { amount in
+		self.fromToken.amountUpdated = { amount in
 			self.recalculateTokensAmount(amount: amount)
 		}
-		self.getToken.amountUpdated = { amount in
+		self.toToken.amountUpdated = { amount in
 			self.recalculateTokensAmount(amount: amount)
 		}
 	}
@@ -35,14 +35,14 @@ class SwapViewModel {
 	// MARK: - Private Methods
 
 	private func recalculateTokensAmount(amount: String? = nil) {
-		if getToken.isEditing {
-			getToken.calculateDollarAmount(amount ?? getToken.tokenAmount)
-			payToken.calculateTokenAmount(decimalDollarAmount: getToken.decimalDollarAmount)
-			payToken.delegate.swapAmountDidCalculate()
+		if toToken.isEditing {
+			toToken.calculateDollarAmount(amount ?? toToken.tokenAmount)
+			fromToken.calculateTokenAmount(decimalDollarAmount: toToken.decimalDollarAmount)
+			fromToken.delegate.swapAmountDidCalculate()
 		} else {
-			payToken.calculateDollarAmount(amount ?? payToken.tokenAmount)
-			getToken.calculateTokenAmount(decimalDollarAmount: payToken.decimalDollarAmount)
-			getToken.delegate.swapAmountDidCalculate()
+			fromToken.calculateDollarAmount(amount ?? fromToken.tokenAmount)
+			toToken.calculateTokenAmount(decimalDollarAmount: fromToken.decimalDollarAmount)
+			toToken.delegate.swapAmountDidCalculate()
 		}
 	}
 
@@ -55,17 +55,17 @@ class SwapViewModel {
 	}
 
 	public func switchTokens() {
-		let selectedPayToken = payToken.selectedToken
-		payToken.selectedToken = getToken.selectedToken
-		getToken.selectedToken = selectedPayToken
+		let selectedFromToken = fromToken.selectedToken
+		fromToken.selectedToken = toToken.selectedToken
+		toToken.selectedToken = selectedFromToken
 
-		let payTokenAmount = payToken.tokenAmount
-		payToken.tokenAmount = getToken.tokenAmount
-		getToken.tokenAmount = payTokenAmount
+		let fromTokenAmount = fromToken.tokenAmount
+		fromToken.tokenAmount = toToken.tokenAmount
+		toToken.tokenAmount = fromTokenAmount
 
 		recalculateTokensAmount()
 
-		payToken.delegate.selectedTokenDidChange()
-		getToken.delegate.selectedTokenDidChange()
+		fromToken.delegate.selectedTokenDidChange()
+		toToken.delegate.selectedTokenDidChange()
 	}
 }

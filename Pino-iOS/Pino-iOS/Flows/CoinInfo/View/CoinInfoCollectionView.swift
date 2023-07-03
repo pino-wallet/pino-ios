@@ -40,8 +40,8 @@ class CoinInfoCollectionView: UICollectionView {
 			withReuseIdentifier: CoinInfoHeaderView.headerReuseID
 		)
 		register(
-			CoinHistoryCell.self,
-			forCellWithReuseIdentifier: CoinHistoryCell.cellID
+			ActivityCell.self,
+			forCellWithReuseIdentifier: ActivityCell.cellID
 		)
 		register(
 			CoinInfoFooterview.self,
@@ -192,10 +192,10 @@ extension CoinInfoCollectionView: UICollectionViewDataSource {
 		cellForItemAt indexPath: IndexPath
 	) -> UICollectionViewCell {
 		let coinHistoryCell = dequeueReusableCell(
-			withReuseIdentifier: CoinHistoryCell.cellID,
+			withReuseIdentifier: ActivityCell.cellID,
 			for: indexPath
-		) as! CoinHistoryCell
-		coinHistoryCell.coinHistoryVM = coinInfoVM.coinHistoryList[indexPath.row]
+		) as! ActivityCell
+		coinHistoryCell.activityCellVM = coinInfoVM.coinHistoryList[indexPath.row]
 		return coinHistoryCell
 	}
 }
