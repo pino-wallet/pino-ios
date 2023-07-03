@@ -17,8 +17,8 @@ class SwapView: UIView {
 	private let switchTokenLineView = UIView()
 	private let switchTokenButton = UIButton()
 	private let continueButton = PinoButton(style: .deactive)
-	private var payTokenSectionView: SwapTokenSectionView!
-	private var getTokenSectionView: SwapTokenSectionView!
+	private var fromTokenSectionView: SwapTokenSectionView!
+	private var toTokenSectionView: SwapTokenSectionView!
 
 	private var changePayToken: () -> Void
 	private var changeGetToken: () -> Void
@@ -55,16 +55,16 @@ class SwapView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		payTokenSectionView = SwapTokenSectionView(
-			swapVM: swapVM.payToken,
+		fromTokenSectionView = SwapTokenSectionView(
+			swapVM: swapVM.fromToken,
 			changeSelectedToken: changePayToken,
 			balanceStatusDidChange: { balanceStatus in
 				self.updateSwapStatus(balanceStatus)
 			}
 		)
 
-		getTokenSectionView = SwapTokenSectionView(
-			swapVM: swapVM.getToken,
+		toTokenSectionView = SwapTokenSectionView(
+			swapVM: swapVM.toToken,
 			hasMaxAmount: false,
 			changeSelectedToken: changeGetToken
 		)
@@ -72,9 +72,9 @@ class SwapView: UIView {
 		addSubview(contentCardView)
 		addSubview(continueButton)
 		contentCardView.addSubview(contentStackView)
-		contentStackView.addArrangedSubview(payTokenSectionView)
+		contentStackView.addArrangedSubview(fromTokenSectionView)
 		contentStackView.addArrangedSubview(switchTokenView)
-		contentStackView.addArrangedSubview(getTokenSectionView)
+		contentStackView.addArrangedSubview(toTokenSectionView)
 		switchTokenView.addSubview(switchTokenLineView)
 		switchTokenView.addSubview(switchTokenButton)
 

@@ -29,7 +29,7 @@ class SwapViewController: UIViewController {
 	private func setupView() {
 		#warning("Temporary list must be replaced with the correct list later")
 		assets = HomepageViewModel.sharedAssets
-		swapVM = SwapViewModel(payToken: assets[0], getToken: assets[1])
+		swapVM = SwapViewModel(fromToken: assets[0], toToken: assets[1])
 
 		view = SwapView(
 			swapVM: swapVM,
@@ -60,18 +60,18 @@ class SwapViewController: UIViewController {
 	private func changePayToken() {
 		var filteredAssets = assets!.filter { !$0.holdAmount.isZero }
 		// To prevent swapping same tokens
-		filteredAssets.removeAll(where: { $0.id == swapVM.getToken.selectedToken.id })
+		filteredAssets.removeAll(where: { $0.id == swapVM.toToken.selectedToken.id })
 		openSelectAssetPage(assets: filteredAssets) { selectedToken in
-			self.swapVM.changeSelectedToken(self.swapVM.payToken, to: selectedToken)
+			self.swapVM.changeSelectedToken(self.swapVM.fromToken, to: selectedToken)
 		}
 	}
 
 	private func changeGetToken() {
 		var filteredAssets = assets!
 		// To prevent swapping same tokens
-		filteredAssets.removeAll(where: { $0.id == swapVM.payToken.selectedToken.id })
+		filteredAssets.removeAll(where: { $0.id == swapVM.fromToken.selectedToken.id })
 		openSelectAssetPage(assets: filteredAssets) { selectedToken in
-			self.swapVM.changeSelectedToken(self.swapVM.getToken, to: selectedToken)
+			self.swapVM.changeSelectedToken(self.swapVM.toToken, to: selectedToken)
 		}
 	}
 }

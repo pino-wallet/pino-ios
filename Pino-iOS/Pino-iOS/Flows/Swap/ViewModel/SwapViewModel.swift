@@ -15,19 +15,19 @@ class SwapViewModel {
 	public let insufficientAmountButtonTitle = "Insufficient amount"
 	public let switchIcon = "switch_swap"
 
-	public var payToken: SwapTokenViewModel
-	public var getToken: SwapTokenViewModel
+	public var fromToken: SwapTokenViewModel
+	public var toToken: SwapTokenViewModel
 
 	// MARK: - Initializers
 
-	init(payToken: AssetViewModel, getToken: AssetViewModel) {
-		self.payToken = SwapTokenViewModel(selectedToken: payToken)
-		self.getToken = SwapTokenViewModel(selectedToken: getToken)
+	init(fromToken: AssetViewModel, toToken: AssetViewModel) {
+		self.fromToken = SwapTokenViewModel(selectedToken: fromToken)
+		self.toToken = SwapTokenViewModel(selectedToken: toToken)
 
-		self.payToken.amountUpdated = { amount in
+		self.fromToken.amountUpdated = { amount in
 			self.recalculateTokensAmount(amount: amount)
 		}
-		self.getToken.amountUpdated = { amount in
+		self.toToken.amountUpdated = { amount in
 			self.recalculateTokensAmount(amount: amount)
 		}
 	}
