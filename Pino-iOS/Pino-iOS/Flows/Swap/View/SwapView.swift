@@ -25,9 +25,11 @@ class SwapView: UIView {
 	private var nextButtonTapped: () -> Void
 	private var swapVM: SwapViewModel
 
-	private var keyboardHeight: CGFloat = 320 // Minimum height in rare case keyboard of height was not calculated
-	private var nextButtonBottomConstraint: NSLayoutConstraint!
-	private let nextButtonBottomConstant = CGFloat(12)
+	// MARK: - Internal Properties
+
+	internal var keyboardHeight: CGFloat = 320 // Minimum height in rare case keyboard of height was not calculated
+	internal var nextButtonBottomConstraint: NSLayoutConstraint!
+	internal let nextButtonBottomConstant = CGFloat(12)
 
 	// MARK: - Initializers
 
@@ -163,80 +165,4 @@ class SwapView: UIView {
 	private func switchTokens() {}
 
 	private func switchTextFieldsFocus() {}
-}
-
-// MARK: - Keyboard Functions
-
-extension SwapView {
-	// MARK: - Private Methods
-
-	private func setupNotifications() {
-		NotificationCenter.default.addObserver(
-			self,
-			selector: #selector(keyboardWillShow(_:)),
-			name: UIResponder.keyboardWillShowNotification,
-			object: nil
-		)
-
-		NotificationCenter.default.addObserver(
-			self,
-			selector: #selector(keyboardWillHide(_:)),
-			name: UIResponder.keyboardWillHideNotification,
-			object: nil
-		)
-	}
-
-	private func moveViewWithKeyboard(notification: NSNotification, keyboardWillShow: Bool) {
-		// Keyboard's animation duration
-		let keyboardDuration = notification
-			.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
-
-		// Keyboard's animation curve
-		let keyboardCurve = UIView
-			.AnimationCurve(
-				rawValue: notification
-					.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! Int
-			)!
-
-		// Change the constant
-		if keyboardWillShow {
-			let safeAreaExists = (window?.safeAreaInsets.bottom != 0) // Check if safe area exists
-			let keyboardOpenConstant = keyboardHeight - (safeAreaExists ? 70 : 0)
-			nextButtonBottomConstraint.constant = -keyboardOpenConstant
-		} else {
-			nextButtonBottomConstraint.constant = -nextButtonBottomConstant
-		}
-
-		// Animate the view the same way the keyboard animates
-		let animator = UIViewPropertyAnimator(duration: keyboardDuration, curve: keyboardCurve) { [weak self] in
-			// Update Constraints
-			self?.layoutIfNeeded()
-		}
-
-		// Perform the animation
-		animator.startAnimation()
-	}
-
-	@objc
-	private func keyboardWillShow(_ notification: NSNotification) {
-		if let info = notification.userInfo {
-			let frameEndUserInfoKey = UIResponder.keyboardFrameEndUserInfoKey
-			//  Getting UIKeyboardSize.
-			if let kbFrame = info[frameEndUserInfoKey] as? CGRect {
-				let screenSize = UIScreen.main.bounds
-				let intersectRect = kbFrame.intersection(screenSize)
-				if intersectRect.isNull {
-					keyboardHeight = 0
-				} else {
-					keyboardHeight = intersectRect.size.height
-				}
-			}
-		}
-		moveViewWithKeyboard(notification: notification, keyboardWillShow: true)
-	}
-
-	@objc
-	private func keyboardWillHide(_ notification: NSNotification) {
-		moveViewWithKeyboard(notification: notification, keyboardWillShow: false)
-	}
 }
