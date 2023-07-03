@@ -22,7 +22,7 @@ class SwapTokenSectionView: UIView {
 	private let textFieldSpacerView = UIView()
 	private let estimatedAmountSpacerView = UIView()
 	private let changeSelectedToken: () -> Void
-	private let updateBalanceStatus: (String) -> Void
+	private let balanceStatusDidChange: ((AmountStatus) -> Void)?
 	private let swapVM: SwapTokenViewModel
 	private let hasMaxAmount: Bool
 	private var cancellables = Set<AnyCancellable>()
@@ -37,10 +37,10 @@ class SwapTokenSectionView: UIView {
 		swapVM: SwapTokenViewModel,
 		hasMaxAmount: Bool = true,
 		changeSelectedToken: @escaping () -> Void,
-		updateBalanceStatus: @escaping (String) -> Void
+		balanceStatusDidChange: ((AmountStatus) -> Void)? = nil
 	) {
 		self.changeSelectedToken = changeSelectedToken
-		self.updateBalanceStatus = updateBalanceStatus
+		self.balanceStatusDidChange = balanceStatusDidChange
 		self.swapVM = swapVM
 		self.hasMaxAmount = hasMaxAmount
 		super.init(frame: .zero)
@@ -163,17 +163,29 @@ class SwapTokenSectionView: UIView {
 		amountTextfield.sendActions(for: .editingChanged)
 	}
 
-	// MARK: - Public Methods
-
-	public func updateAmountStatus(isAmountEnough: Bool) {
-		if isAmountEnough {
-			maxAmountTitle.textColor = .Pino.label
-			maxAmountLabel.textColor = .Pino.label
-		} else {
-			maxAmountTitle.textColor = .Pino.orange
-			maxAmountLabel.textColor = .Pino.orange
+	private func updateBalanceStatus(_ amount: String) {
+		guard let balanceStatusDidChange else { return }
+		let balanceStatus = swapVM.checkBalanceStatus(amount: amount)
+		balanceStatusDidChange(balanceStatus)
+		switch balanceStatus {
+		case .isEnough, .isZero:
+			hideBalanceError()
+		case .isNotEnough:
+			showBalanceError()
 		}
 	}
+
+	private func showBalanceError() {
+		maxAmountTitle.textColor = .Pino.orange
+		maxAmountLabel.textColor = .Pino.orange
+	}
+
+	private func hideBalanceError() {
+		maxAmountTitle.textColor = .Pino.label
+		maxAmountLabel.textColor = .Pino.label
+	}
+
+	// MARK: - Public Methods
 
 	@objc
 	public func dissmisskeyBoard() {

@@ -58,6 +58,22 @@ class SwapTokenViewModel {
 		tokenAmount = convertDollarAmountToTokenAmount(dollarAmount: decimalDollarAmount)
 	}
 
+	public func checkBalanceStatus(amount: String) -> AmountStatus {
+		if amount == .emptyString {
+			return .isZero
+		} else if let decimalAmount = Decimal(string: amount), decimalAmount.isZero {
+			return .isZero
+		} else {
+			let decimalMaxAmount = Decimal(string: selectedToken.holdAmount.formattedAmountOf(type: .hold))!
+			let enteredAmount = Decimal(string: amount) ?? 0
+			if enteredAmount > decimalMaxAmount {
+				return .isNotEnough
+			} else {
+				return .isEnough
+			}
+		}
+	}
+
 	// MARK: - Private Methods
 
 	private func convertDollarAmountToTokenAmount(dollarAmount: Decimal?) -> String {

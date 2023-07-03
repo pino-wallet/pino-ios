@@ -57,18 +57,15 @@ class SwapView: UIView {
 		payTokenSectionView = SwapTokenSectionView(
 			swapVM: swapVM.payToken,
 			changeSelectedToken: changePayToken,
-			updateBalanceStatus: { enteredAmount in
-				self.updateAmount(enteredAmount: enteredAmount, tokenView: self.payTokenSectionView)
+			balanceStatusDidChange: { balanceStatus in
+				self.updateSwapStatus(balanceStatus)
 			}
 		)
 
 		getTokenSectionView = SwapTokenSectionView(
 			swapVM: swapVM.getToken,
 			hasMaxAmount: false,
-			changeSelectedToken: changeGetToken,
-			updateBalanceStatus: { enteredAmount in
-				self.updateAmount(enteredAmount: enteredAmount, tokenView: self.getTokenSectionView)
-			}
+			changeSelectedToken: changeGetToken
 		)
 
 		addSubview(contentCardView)
@@ -145,19 +142,15 @@ class SwapView: UIView {
 		addConstraint(nextButtonBottomConstraint)
 	}
 
-	private func updateAmount(enteredAmount: String, tokenView: SwapTokenSectionView) {
-		let amountStatus = swapVM.checkBalanceStatus(amount: enteredAmount)
-		switch amountStatus {
+	private func updateSwapStatus(_ status: AmountStatus) {
+		switch status {
 		case .isZero:
-			tokenView.updateAmountStatus(isAmountEnough: true)
 			continueButton.setTitle(swapVM.continueButtonTitle, for: .normal)
 			continueButton.style = .deactive
 		case .isEnough:
-			tokenView.updateAmountStatus(isAmountEnough: true)
 			continueButton.setTitle(swapVM.continueButtonTitle, for: .normal)
 			continueButton.style = .active
 		case .isNotEnough:
-			tokenView.updateAmountStatus(isAmountEnough: false)
 			continueButton.setTitle(swapVM.insufficientAmountButtonTitle, for: .normal)
 			continueButton.style = .deactive
 		}
