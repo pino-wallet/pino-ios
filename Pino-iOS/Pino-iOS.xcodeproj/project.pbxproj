@@ -404,6 +404,7 @@
 		E3D915E02A504A31008DB035 /* SwapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D915DF2A504A31008DB035 /* SwapViewModel.swift */; };
 		E3D915E22A504B1C008DB035 /* AmountStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D915E12A504B1C008DB035 /* AmountStatus.swift */; };
 		E3D915E42A504C3D008DB035 /* SwapTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D915E32A504C3D008DB035 /* SwapTokenViewModel.swift */; };
+		E3D915E72A52B7FF008DB035 /* SwapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D915E62A52B7FF008DB035 /* SwapDelegate.swift */; };
 		E3E009E02A0635C800234707 /* Hyperconnectivity in Frameworks */ = {isa = PBXBuildFile; productRef = E3E009DF2A0635C800234707 /* Hyperconnectivity */; };
 		E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E009E12A06377D00234707 /* InternetConnectivity.swift */; };
 		E3F482EC2A3485A500EEC9CF /* EnterSendAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482EB2A3485A500EEC9CF /* EnterSendAmountViewController.swift */; };
@@ -840,6 +841,7 @@
 		E3D915DF2A504A31008DB035 /* SwapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapViewModel.swift; sourceTree = "<group>"; };
 		E3D915E12A504B1C008DB035 /* AmountStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountStatus.swift; sourceTree = "<group>"; };
 		E3D915E32A504C3D008DB035 /* SwapTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapTokenViewModel.swift; sourceTree = "<group>"; };
+		E3D915E62A52B7FF008DB035 /* SwapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapDelegate.swift; sourceTree = "<group>"; };
 		E3E009E12A06377D00234707 /* InternetConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectivity.swift; sourceTree = "<group>"; };
 		E3F482EB2A3485A500EEC9CF /* EnterSendAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAmountViewController.swift; sourceTree = "<group>"; };
 		E3F482ED2A35A6E900EEC9CF /* CustomAsset+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CustomAsset+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -2164,6 +2166,7 @@
 		DA54BC6AF891B9433AFFD30F /* Swap */ = {
 			isa = PBXGroup;
 			children = (
+				E3D915E52A52B7DA008DB035 /* Protocol */,
 				E3D915DE2A504A15008DB035 /* ViewModel */,
 				E3D915DD2A5049FE008DB035 /* ViewController */,
 				E3D915DC2A5049F3008DB035 /* View */,
@@ -2372,6 +2375,14 @@
 				E3D915E32A504C3D008DB035 /* SwapTokenViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E3D915E52A52B7DA008DB035 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				E3D915E62A52B7FF008DB035 /* SwapDelegate.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		E3F482F22A35B03200EEC9CF /* Send */ = {
@@ -2857,6 +2868,7 @@
 				D9BFEC372A121706007DFF40 /* AllowNotificationsViewController.swift in Sources */,
 				DFA9687C2A0FABB9007D4513 /* SelectedAsset+CoreDataProperties.swift in Sources */,
 				B25B61BF5F1999D414ACD42B /* AuthKeyProvider.swift in Sources */,
+				E3D915E72A52B7FF008DB035 /* SwapDelegate.swift in Sources */,
 				8DAEADFEFB2B89FAD4955536 /* AutolayoutHelper.swift in Sources */,
 				11B58980B34C46C54E1CA0B2 /* AvatarCell.swift in Sources */,
 				9DAA41E3693EB0D2B084C3F8 /* AvatarCollectionView.swift in Sources */,

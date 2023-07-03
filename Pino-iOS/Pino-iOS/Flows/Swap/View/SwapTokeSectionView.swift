@@ -121,14 +121,7 @@ class SwapTokenSectionView: UIView {
 		estimatedAmountLabel.numberOfLines = 0
 		estimatedAmountLabel.lineBreakMode = .byCharWrapping
 
-		swapVM.selectedTokenChanged = {
-			self.updateView()
-		}
-
-		swapVM.swapAmountCalculated = { amount in
-			self.amountTextfield.text = amount
-			self.updateEstimatedAmount(enteredAmount: amount)
-		}
+		swapVM.delegate = self
 	}
 
 	private func setupContstraint() {
@@ -141,30 +134,31 @@ class SwapTokenSectionView: UIView {
 	private func updateView() {
 		if swapVM.selectedToken.isVerified {
 			changeTokenView.tokenImageURL = swapVM.selectedToken.image
-			estimatedAmountLabel.text = swapVM.formattedAmount
 			estimatedAmountLabel.isHidden = false
 		} else {
 			changeTokenView.customTokenImage = swapVM.selectedToken.customAssetImage
 			estimatedAmountLabel.isHidden = true
 		}
-		maxAmountLabel.text = swapVM.maxHoldAmount
 		changeTokenView.tokenName = swapVM.selectedToken.symbol
+		updateAmountView()
 	}
 
-	@objc
-	private func textFieldDidChange(_ textField: UITextField) {
-		let amountText = amountTextfield.text ?? ""
-		swapVM.amountUpdated(amountText)
-		updateEstimatedAmount(enteredAmount: amountText)
+	private func updateAmountView() {
+		amountTextfield.text = swapVM.tokenAmount
+		estimatedAmountLabel.text = swapVM.formattedAmount
+		maxAmountLabel.text = swapVM.maxHoldAmount
+		updateBalanceStatus(swapVM.tokenAmount)
 	}
 
 	private func updateEstimatedAmount(enteredAmount: String) {
+		swapVM.amountUpdated(enteredAmount)
 		estimatedAmountLabel.text = swapVM.formattedAmount
 		updateBalanceStatus(enteredAmount)
 	}
 
 	@objc
 	private func enterMaxAmount() {
+		openKeyboard()
 		amountTextfield.text = swapVM.selectedToken.holdAmount.formattedAmountOf(type: .hold)
 		amountTextfield.sendActions(for: .editingChanged)
 	}
@@ -200,6 +194,16 @@ class SwapTokenSectionView: UIView {
 	}
 }
 
+extension SwapTokenSectionView: SwapDelegate {
+	func selectedTokenDidChange() {
+		updateView()
+	}
+
+	func swapAmountDidCalculate() {
+		updateAmountView()
+	}
+}
+
 extension SwapTokenSectionView: UITextFieldDelegate {
 	func textField(
 		_ textField: UITextField,
@@ -225,5 +229,10 @@ extension SwapTokenSectionView: UITextFieldDelegate {
 
 	func textFieldDidEndEditing(_ textField: UITextField) {
 		swapVM.isEditing = false
+	}
+
+	@objc
+	private func textFieldDidChange(_ textField: UITextField) {
+		updateEstimatedAmount(enteredAmount: amountTextfield.text ?? "")
 	}
 }

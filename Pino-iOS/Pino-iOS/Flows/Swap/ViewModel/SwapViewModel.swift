@@ -24,39 +24,25 @@ class SwapViewModel {
 		self.getToken = SwapTokenViewModel(selectedToken: getToken)
 
 		self.payToken.amountUpdated = { amount in
-			self.payToken.calculateAmount(amount)
-			self.calculateTokenAmount(token: self.getToken, amount: self.payToken.decimalDollarAmount)
+			self.recalculateTokensAmount(amount: amount)
 		}
 		self.getToken.amountUpdated = { amount in
-			self.getToken.calculateAmount(amount)
-			self.calculateTokenAmount(token: self.payToken, amount: self.getToken.decimalDollarAmount)
+			self.recalculateTokensAmount(amount: amount)
 		}
 	}
 
 	// MARK: - Private Methods
 
-	private func updatePayToken(amount: String) {
-		payToken.calculateAmount(amount)
-		if payToken.isEditing {
-			calculateTokenAmount(token: getToken, amount: payToken.decimalDollarAmount)
-		}
-	}
-
-	private func updateGetToken(amount: String) {
-		getToken.calculateAmount(amount)
+	private func recalculateTokensAmount(amount: String? = nil) {
 		if getToken.isEditing {
-			calculateTokenAmount(token: payToken, amount: getToken.decimalDollarAmount)
-		}
-	}
-
-	private func calculateTokenAmount(token: SwapTokenViewModel, amount: Decimal?) {
-		if let amount, let getTokenPrice = Decimal(string: token.selectedToken.price.decimalString) {
-			let tokenDecimalAmount = amount / getTokenPrice
-			token.calculateAmount(tokenDecimalAmount.formattedAmount(type: .tokenValue))
+			getToken.calculateDollarAmount(amount ?? getToken.tokenAmount)
+			payToken.calculateTokenAmount(decimalDollarAmount: getToken.decimalDollarAmount)
+			payToken.delegate.swapAmountDidCalculate()
 		} else {
-			token.calculateAmount("")
+			payToken.calculateDollarAmount(amount ?? payToken.tokenAmount)
+			getToken.calculateTokenAmount(decimalDollarAmount: payToken.decimalDollarAmount)
+			getToken.delegate.swapAmountDidCalculate()
 		}
-		token.swapAmountCalculated(token.tokenAmount)
 	}
 
 	// MARK: - Public Methods
@@ -77,24 +63,10 @@ class SwapViewModel {
 		}
 	}
 
-	public func changeSelectedPayToken(to newToken: AssetViewModel) {
-		payToken.selectedToken = newToken
-		if payToken.isEditing {
-			updatePayToken(amount: payToken.tokenAmount)
-		} else {
-			updateGetToken(amount: getToken.tokenAmount)
-		}
-		payToken.selectedTokenChanged()
-	}
-
-	public func changeSelectedGetToken(to newToken: AssetViewModel) {
-		getToken.selectedToken = newToken
-		if getToken.isEditing {
-			updateGetToken(amount: getToken.tokenAmount)
-		} else {
-			updatePayToken(amount: payToken.tokenAmount)
-		}
-		getToken.selectedTokenChanged()
+	public func changeSelectedToken(_ token: SwapTokenViewModel, to newToken: AssetViewModel) {
+		token.selectedToken = newToken
+		recalculateTokensAmount()
+		token.delegate.selectedTokenDidChange()
 	}
 
 	public func switchTokens() {
@@ -103,15 +75,12 @@ class SwapViewModel {
 		getToken.selectedToken = selectedPayToken
 
 		let payTokenAmount = payToken.tokenAmount
-		let getTokenAmount = getToken.tokenAmount
+		payToken.tokenAmount = getToken.tokenAmount
+		getToken.tokenAmount = payTokenAmount
 
-		payToken.calculateAmount(getTokenAmount)
-		getToken.calculateAmount(payTokenAmount)
+		recalculateTokensAmount()
 
-		payToken.swapAmountCalculated(payToken.tokenAmount)
-		getToken.swapAmountCalculated(getToken.tokenAmount)
-
-		payToken.selectedTokenChanged()
-		getToken.selectedTokenChanged()
+		payToken.delegate.selectedTokenDidChange()
+		getToken.delegate.selectedTokenDidChange()
 	}
 }
