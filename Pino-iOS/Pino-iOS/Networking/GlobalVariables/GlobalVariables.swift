@@ -31,28 +31,22 @@ class GlobalVariables {
 	// MARK: - Private Initializer
 
 	private init() {
-		Timer.publish(every: 11, on: .main, in: .common)
-			.autoconnect()
-			.sink { [self] seconds in
-				print(seconds)
-				isNetConnected().sink { _ in
-				} receiveValue: { [self] isConnected in
-					if isConnected {
-						fetchSharedInfo()
-					} else {}
-				}.store(in: &cancellables)
-			}
-			.store(in: &cancellables)
+        fetchSharedInfoPeriodically { [self] in
+            fetchSharedInfo().catch { error in
+                Toast.default(title: GlobalErrors.connectionFailed.message, subtitle: "Please try again!", style: .error)
+                    .show(haptic: .warning)
+            }
+        }
 	}
 
 	public func fetchSharedInfo() -> Promise<Void> {
-		print("SENDING REQUEST === ")
+		print("== SENDING REQUEST ==")
 		return firstly {
 			getManageAssetLists()
 		}.get { assets in
 			self.manageAssetsList = assets
 			self.selectedManageAssetsList = self.manageAssetsList!.filter { $0.isSelected }
-		}.done { assets in
+		}.then { assets in
 			self.calculateEthGasFee(ethPrice: assets.first(where: { $0.isEth })!.price)
 		}
 	}
@@ -62,16 +56,50 @@ class GlobalVariables {
 	private func isNetConnected() -> AnyPublisher<Bool, Error> {
 		internetConnectivity.$isConnected.tryCompactMap { $0 }.eraseToAnyPublisher()
 	}
+    
+    private func fetchSharedInfoPeriodically(completion: @escaping ()-> Void) {
+        Timer.publish(every: 11, on: .main, in: .common)
+            .autoconnect()
+            .sink { [self] seconds in
+                isNetConnected().sink { _ in
+                } receiveValue: { isConnected in
+                    if isConnected {
+                        completion()
+                    } else {
+                        Toast.default(title: GlobalErrors.connectionFailed.message, subtitle: "Please try again!", style: .error)
+                            .show(haptic: .warning)
+                    }
+                }.store(in: &cancellables)
+            }
+            .store(in: &cancellables)
+    }
 
-	private func calculateEthGasFee(ethPrice: BigNumber) {
-		_ = Web3Core.shared.calculateEthGasFee(ethPrice: ethPrice).done { fee, feeInDollar in
+	private func calculateEthGasFee(ethPrice: BigNumber) -> Promise<Void> {
+		return Web3Core.shared.calculateEthGasFee(ethPrice: ethPrice).done { fee, feeInDollar in
 			GlobalVariables.shared.ethGasFee = (fee, feeInDollar)
-		}.catch { error in
-			print("//////// ERROR FETCHING ETH PRICE //////////")
 		}
 	}
 
 	private func getManageAssetLists() -> Promise<[AssetViewModel]> {
 		AssetManager.shared.getAssetsList()
 	}
+}
+
+// MARK: - GlobalVariales + Error
+extension GlobalVariables {
+    
+    private enum GlobalErrors: LocalizedError {
+        case connectionFailed
+        case failedToFetchInfo
+        
+        var message: String {
+            switch self {
+            case .connectionFailed:
+                return "No Internet Connection!"
+            case .failedToFetchInfo:
+                return "Failed to fetch info!"
+            }
+        }
+    }
+    
 }
