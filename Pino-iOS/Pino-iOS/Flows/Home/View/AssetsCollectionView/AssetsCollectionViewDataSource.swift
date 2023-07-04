@@ -20,7 +20,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 
 	internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		let homeSection = HomeSection(rawValue: section)
-        if GlobalVariables.shared.selectedManageAssetsList.isEmpty { return 6 }
+		if GlobalVariables.shared.selectedManageAssetsList.isEmpty { return 6 }
 		switch homeSection {
 		case .asset:
 			return GlobalVariables.shared.selectedManageAssetsList.count
@@ -139,7 +139,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: AssetsCollectionViewCell.cellReuseID,
 			for: indexPath
 		) as! AssetsCollectionViewCell
-        if !GlobalVariables.shared.selectedManageAssetsList.isEmpty  {
+		if !GlobalVariables.shared.selectedManageAssetsList.isEmpty {
 			assetCell.hideSkeletonView()
 			let homeSection = HomeSection(rawValue: indexPath.section)
 			switch homeSection {

@@ -41,8 +41,8 @@ class HomepageViewModel {
 	// MARK: - Initializers
 
 	init() {
-        AssetManager.shared.checkDefaultAssetsAdded()
-        AssetManager.shared.getSelectedAssetsFromCoreData()
+		AssetManager.shared.checkDefaultAssetsAdded()
+		AssetManager.shared.getSelectedAssetsFromCoreData()
 		getWalletInfo()
 		setupBindings()
 	}
@@ -53,9 +53,9 @@ class HomepageViewModel {
 		if let walletBalance {
 			walletBalance.switchSecurityMode(isOn)
 		}
-        for asset in GlobalVariables.shared.selectedManageAssetsList {
-            asset.switchSecurityMode(isOn)
-        }
+		for asset in GlobalVariables.shared.selectedManageAssetsList {
+			asset.switchSecurityMode(isOn)
+		}
 		if let positionAssetsList {
 			for asset in positionAssetsList {
 				asset.switchSecurityMode(isOn)
@@ -72,8 +72,7 @@ class HomepageViewModel {
 
 		GlobalVariables.shared.$manageAssetsList.sink { assets in
 			guard let assets else { return }
-            self.getWalletBalance(assets: assets)
+			self.getWalletBalance(assets: assets)
 		}.store(in: &cancellables)
-
 	}
 }

@@ -20,8 +20,8 @@ class GlobalVariables {
 	public var ethGasFee = (fee: BigNumber(number: "0", decimal: 0), feeInDollar: BigNumber(number: "0", decimal: 0))
 	@Published
 	public var manageAssetsList: [AssetViewModel]?
-    @Published
-    public var selectedManageAssetsList: [AssetViewModel] = []
+	@Published
+	public var selectedManageAssetsList: [AssetViewModel] = []
 
 	// MARK: - Private Properties
 
@@ -51,7 +51,7 @@ class GlobalVariables {
 			getManageAssetLists()
 		}.get { assets in
 			self.manageAssetsList = assets
-            self.selectedManageAssetsList = self.manageAssetsList!.filter { $0.isSelected }
+			self.selectedManageAssetsList = self.manageAssetsList!.filter { $0.isSelected }
 		}.done { assets in
 			self.calculateEthGasFee(ethPrice: assets.first(where: { $0.isEth })!.price)
 		}
@@ -72,6 +72,6 @@ class GlobalVariables {
 	}
 
 	private func getManageAssetLists() -> Promise<[AssetViewModel]> {
-		return AssetManager.shared.getAssetsList()
+		AssetManager.shared.getAssetsList()
 	}
 }
