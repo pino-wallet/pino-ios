@@ -31,7 +31,7 @@ class GlobalVariables {
 	// MARK: - Private Initializer
 
 	private init() {
-		Timer.publish(every: 10, on: .main, in: .common)
+		Timer.publish(every: 11, on: .main, in: .common)
 			.autoconnect()
 			.sink { [self] seconds in
 				print(seconds)
