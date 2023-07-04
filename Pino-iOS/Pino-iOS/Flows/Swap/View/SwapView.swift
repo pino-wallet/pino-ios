@@ -11,14 +11,17 @@ import UIKit
 class SwapView: UIView {
 	// MARK: - Private Properties
 
-	private let contentCardView = PinoContainerCard()
 	private let contentStackView = UIStackView()
+	private let swapCardView = PinoContainerCard()
+	private let feeCardView = PinoContainerCard()
+	private let swapStackView = UIStackView()
 	private let switchTokenView = UIView()
 	private let switchTokenLineView = UIView()
 	private let switchTokenButton = UIButton()
 	private let continueButton = PinoButton(style: .deactive)
 	private var fromTokenSectionView: SwapTokenSectionView!
 	private var toTokenSectionView: SwapTokenSectionView!
+	private let swapFeeView = SwapFeeView()
 
 	private var fromTokenChange: () -> Void
 	private var toTokeChange: () -> Void
@@ -71,14 +74,17 @@ class SwapView: UIView {
 			changeSelectedToken: toTokeChange
 		)
 
-		addSubview(contentCardView)
+		addSubview(contentStackView)
 		addSubview(continueButton)
-		contentCardView.addSubview(contentStackView)
-		contentStackView.addArrangedSubview(fromTokenSectionView)
-		contentStackView.addArrangedSubview(switchTokenView)
-		contentStackView.addArrangedSubview(toTokenSectionView)
+		contentStackView.addArrangedSubview(swapCardView)
+		contentStackView.addArrangedSubview(feeCardView)
+		swapCardView.addSubview(swapStackView)
+		swapStackView.addArrangedSubview(fromTokenSectionView)
+		swapStackView.addArrangedSubview(switchTokenView)
+		swapStackView.addArrangedSubview(toTokenSectionView)
 		switchTokenView.addSubview(switchTokenLineView)
 		switchTokenView.addSubview(switchTokenButton)
+		feeCardView.addSubview(swapFeeView)
 
 		continueButton.addAction(UIAction(handler: { _ in
 			self.nextButtonTapped()
@@ -98,23 +104,26 @@ class SwapView: UIView {
 		switchTokenButton.setTitleColor(.Pino.primary, for: .normal)
 
 		backgroundColor = .Pino.background
-		contentCardView.backgroundColor = .Pino.secondaryBackground
+		swapCardView.backgroundColor = .Pino.secondaryBackground
 		switchTokenLineView.backgroundColor = .Pino.background
 		switchTokenButton.backgroundColor = .Pino.background
 
-		contentCardView.layer.cornerRadius = 12
+		swapCardView.layer.cornerRadius = 12
 		switchTokenButton.layer.cornerRadius = 12
 
 		contentStackView.axis = .vertical
-		contentStackView.spacing = 10
+		swapStackView.axis = .vertical
+
+		contentStackView.spacing = 12
+		swapStackView.spacing = 10
 	}
 
 	private func setupContstraint() {
-		contentCardView.pin(
+		contentStackView.pin(
 			.horizontalEdges(padding: 16),
 			.top(to: layoutMarginsGuide, padding: 18)
 		)
-		contentStackView.pin(
+		swapStackView.pin(
 			.top(padding: 24),
 			.bottom(padding: 28),
 			.horizontalEdges
@@ -129,6 +138,9 @@ class SwapView: UIView {
 			.fixedHeight(40),
 			.verticalEdges,
 			.centerX
+		)
+		swapFeeView.pin(
+			.allEdges
 		)
 		continueButton.pin(
 			.horizontalEdges(padding: 16)
