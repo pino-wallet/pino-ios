@@ -84,7 +84,7 @@ class GlobalVariables {
 	}
 
 	private func getManageAssetLists() -> Promise<[AssetViewModel]> {
-		AssetManager.shared.getAssetsList()
+		AssetManagerViewModel.shared.getAssetsList()
 	}
 }
 

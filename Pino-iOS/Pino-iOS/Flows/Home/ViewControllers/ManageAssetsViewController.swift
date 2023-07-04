@@ -81,9 +81,9 @@ class ManageAssetsViewController: UIViewController {
 	private func addCustomAssets() {
 		let addCustomAssetVC = AddCustomAssetViewController(
 			userAddress: homeVM.walletInfo.address,
-			userTokens: AssetManager.shared.tokens
+			userTokens: AssetManagerViewModel.shared.tokens
 		) { customAsset in
-			AssetManager.shared.addNewCustomAsset(customAsset)
+			AssetManagerViewModel.shared.addNewCustomAsset(customAsset)
 			self.dismiss(animated: true)
 		}
 		let navigationVC = UINavigationController()

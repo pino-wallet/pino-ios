@@ -146,7 +146,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 			case .asset:
 				assetCell.assetVM = GlobalVariables.shared.selectedManageAssetsList[indexPath.row]
 			case .position:
-				assetCell.assetVM = AssetManager.shared.positionAssetsList?[indexPath.row]
+				assetCell.assetVM = AssetManagerViewModel.shared.positionAssetsList?[indexPath.row]
 			case .none: break
 			}
 		} else {

@@ -82,7 +82,7 @@ extension ManageAssetsCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let manageAssetCell = cellForItem(at: indexPath) as! ManageAssetCell
 		manageAssetCell.toggleAssetSwitch()
-		AssetManager.shared.updateSelectedAssets(
+		AssetManagerViewModel.shared.updateSelectedAssets(
 			filteredAssets[indexPath.item],
 			isSelected: manageAssetCell.isSwitchOn()
 		)

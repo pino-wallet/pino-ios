@@ -31,17 +31,15 @@ class HomepageViewModel {
 	public let showBalanceButtonTitle = "Show balance"
 	public let showBalanceButtonImage = "eye"
 
-	// MARK: Internal Properties
+	// MARK: Private Properties
 
-	internal var internetConnectivity = InternetConnectivity()
-	internal var cancellables = Set<AnyCancellable>()
-	var subscriptions = Set<AnyCancellable>()
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
 	init() {
-		AssetManager.shared.checkDefaultAssetsAdded()
-		AssetManager.shared.getSelectedAssetsFromCoreData()
+		AssetManagerViewModel.shared.checkDefaultAssetsAdded()
+		AssetManagerViewModel.shared.getSelectedAssetsFromCoreData()
 		getWalletInfo()
 		setupBindings()
 	}
