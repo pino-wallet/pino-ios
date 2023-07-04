@@ -52,12 +52,6 @@ class EnterSendAmountViewModel {
 		}
 	}
 
-	public enum AmountStatus {
-		case isNotEnough
-		case isEnough
-		case isZero
-	}
-
 	// MARK: - Initializers
 
 	init(selectedToken: AssetViewModel, isDollarEnabled: Bool = false, ethToken: AssetViewModel) {

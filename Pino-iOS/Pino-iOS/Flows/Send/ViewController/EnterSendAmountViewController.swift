@@ -65,7 +65,8 @@ class EnterSendAmountViewController: UIViewController {
 	}
 
 	private func openSelectAssetPage() {
-		let selectAssetVC = SelectAssetToSendViewController(assets: assets)
+		let filteredAsset = assets.filter { !$0.holdAmount.isZero }
+		let selectAssetVC = SelectAssetToSendViewController(assets: filteredAsset)
 		selectAssetVC.changeAssetFromEnterAmountPage = { selectAsset in
 			self.enterAmountVM.selectedToken = selectAsset
 		}
