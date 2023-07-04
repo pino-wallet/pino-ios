@@ -18,11 +18,14 @@ class SwapViewModel {
 	public var fromToken: SwapTokenViewModel
 	public var toToken: SwapTokenViewModel
 
+	public var swapFeeVM: SwapFeeViewModel
+
 	// MARK: - Initializers
 
 	init(fromToken: AssetViewModel, toToken: AssetViewModel) {
 		self.fromToken = SwapTokenViewModel(selectedToken: fromToken)
 		self.toToken = SwapTokenViewModel(selectedToken: toToken)
+		self.swapFeeVM = SwapFeeViewModel(swapProvider: .oneInch)
 
 		self.fromToken.amountUpdated = { amount in
 			self.recalculateTokensAmount(amount: amount)
@@ -30,6 +33,10 @@ class SwapViewModel {
 		self.toToken.amountUpdated = { amount in
 			self.recalculateTokensAmount(amount: amount)
 		}
+
+		swapFeeVM.feeTag = .save("$1 🎉")
+		swapFeeVM.saveAmount = "1"
+		swapFeeVM.fee = "0.001"
 	}
 
 	// MARK: - Private Methods
@@ -43,6 +50,16 @@ class SwapViewModel {
 			fromToken.calculateDollarAmount(amount ?? fromToken.tokenAmount)
 			toToken.calculateTokenAmount(decimalDollarAmount: fromToken.decimalDollarAmount)
 			toToken.delegate.swapAmountDidCalculate()
+		}
+
+		updateCalculatedAmount()
+	}
+
+	private func updateCalculatedAmount() {
+		if let fromTokenAmount = fromToken.formattedTokenAmount, let toTokenAmount = toToken.formattedTokenAmount {
+			swapFeeVM.calculatedAmount = "\(fromTokenAmount) = \(toTokenAmount)"
+		} else {
+			swapFeeVM.calculatedAmount = nil
 		}
 	}
 

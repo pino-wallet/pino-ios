@@ -33,6 +33,14 @@ class SwapTokenViewModel {
 		"\(avgSign) $\(dollarAmount)"
 	}
 
+	public var formattedTokenAmount: String? {
+		if tokenAmount == .emptyString {
+			return nil
+		} else {
+			return "\(tokenAmount) \(selectedToken.symbol)"
+		}
+	}
+
 	// MARK: - Initializers
 
 	init(selectedToken: AssetViewModel) {

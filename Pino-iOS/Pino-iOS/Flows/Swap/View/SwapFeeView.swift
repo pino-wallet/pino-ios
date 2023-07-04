@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 7/4/23.
 //
 
+import Combine
 import UIKit
 
 class SwapFeeView: UIView {
@@ -36,18 +37,24 @@ class SwapFeeView: UIView {
 	private let feeTitleLabel = UILabel()
 	private let feeLabel = UILabel()
 
-	private let config: Config
+	private let openFeeInfoIcon = UIImage(named: "arrow_down2")
+	private let closeFeeInfoIcon = UIImage(named: "arrow_up2")
 
 	private var isCollapsed = false
 
+	private let swapFeeVM: SwapFeeViewModel
+
+	private var cancellables = Set<AnyCancellable>()
+
 	// MARK: - Initializers
 
-	init(config: Config) {
-		self.config = config
+	init(swapFeeVM: SwapFeeViewModel) {
+		self.swapFeeVM = swapFeeVM
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
 		setupConstraint()
+		setupBinding()
 	}
 
 	required init?(coder: NSCoder) {
@@ -89,18 +96,12 @@ class SwapFeeView: UIView {
 	}
 
 	private func setupStyle() {
-		amountLabel.text = "1 SNT = 1,450 DAI"
-		saveAmountTitleLabel.text = "You save"
-		saveAmountLabel.text = "$3 🎉"
-		providerTitle.text = "Provider"
-		providerNameLabel.text = "1inch"
-		priceImpactTitleLabel.text = "Price impact"
-		priceImpactLabel.text = "%2"
-		feeTitleLabel.text = "Fee"
-		feeLabel.text = "$20"
+		saveAmountTitleLabel.text = swapFeeVM.saveAmountTitle
+		providerTitle.text = swapFeeVM.providerTitle
+		priceImpactTitleLabel.text = swapFeeVM.priceImpactTitle
+		feeTitleLabel.text = swapFeeVM.feeTitle
 
-		collapsButton.setImage(UIImage(named: "arrow_down2"), for: .normal)
-		providerImageView.image = UIImage(named: "1inch")
+		collapsButton.setImage(openFeeInfoIcon, for: .normal)
 		providerChangeIcon.image = UIImage(named: "arrow_right2")
 
 		amountLabel.font = .PinoStyle.mediumBody
@@ -147,20 +148,7 @@ class SwapFeeView: UIView {
 
 		impactTagView.alpha = 1
 
-		switch config.tag {
-		case .highImpact:
-			impactTagView.isHidden = false
-			impactTagView.backgroundColor = .Pino.lightOrange
-			impactTagLabel.text = "High impact"
-			impactTagLabel.textColor = .Pino.orange
-		case let .save(amount):
-			impactTagView.isHidden = false
-			impactTagView.backgroundColor = .Pino.green1
-			impactTagLabel.text = amount
-			impactTagLabel.textColor = .Pino.label
-		case .none:
-			impactTagView.isHidden = true
-		}
+		feeLabel.isSkeletonable = true
 	}
 
 	private func setupConstraint() {
@@ -199,24 +187,94 @@ class SwapFeeView: UIView {
 			self.feeInfoStackView.isHidden.toggle()
 			self.isCollapsed.toggle()
 			if self.isCollapsed {
-				self.collapsButton.setImage(UIImage(named: "arrow_up2"), for: .normal)
+				self.collapsButton.setImage(self.closeFeeInfoIcon, for: .normal)
 				self.impactTagView.alpha = 0
 			} else {
-				self.collapsButton.setImage(UIImage(named: "arrow_down2"), for: .normal)
+				self.collapsButton.setImage(self.openFeeInfoIcon, for: .normal)
 				self.impactTagView.alpha = 1
 			}
 		}
 	}
-}
 
-extension SwapFeeView {
-	struct Config {
-		public let tag: Tag
+	private func setupBinding() {
+		swapFeeVM.$feeTag.sink { tag in
+			self.updateTagView(tag)
+		}.store(in: &cancellables)
+
+		swapFeeVM.$provider.sink { provider in
+			self.updateProviderView(provider)
+		}.store(in: &cancellables)
+
+		swapFeeVM.$saveAmount.sink { saveAmount in
+			self.updateSaveAmount(saveAmount)
+		}.store(in: &cancellables)
+
+		swapFeeVM.$priceImpact.sink { priceImpact in
+			self.updatePriceImpact(priceImpact)
+		}.store(in: &cancellables)
+
+		swapFeeVM.$fee.sink { fee in
+			self.updateFee(fee)
+		}.store(in: &cancellables)
 	}
 
-	enum Tag {
-		case highImpact
-		case save(String)
-		case none
+	private func updateTagView(_ tag: SwapFeeViewModel.FeeTag) {
+		switch tag {
+		case .highImpact:
+			impactTagView.isHidden = false
+			impactTagView.backgroundColor = .Pino.lightOrange
+			impactTagLabel.text = swapFeeVM.highImpactTagTitle
+			impactTagLabel.textColor = .Pino.orange
+		case let .save(amount):
+			impactTagView.isHidden = false
+			impactTagView.backgroundColor = .Pino.green1
+			impactTagLabel.text = amount
+			impactTagLabel.textColor = .Pino.label
+		case .none:
+			impactTagView.isHidden = true
+		}
+	}
+
+	private func updateProviderView(_ provider: SwapProvider?) {
+		if let provider {
+			providerStackView.isHidden = false
+			providerImageView.image = UIImage(named: provider.image)
+			providerNameLabel.text = provider.name
+		} else {
+			providerStackView.isHidden = true
+		}
+	}
+
+	private func updateSaveAmount(_ saveAmount: String?) {
+		if saveAmount != nil {
+			saveAmountStackView.isHidden = false
+			saveAmountLabel.text = swapFeeVM.formattedSaveAmount
+		} else {
+			saveAmountStackView.isHidden = true
+		}
+	}
+
+	private func updatePriceImpact(_ priceImpact: String?) {
+		if priceImpact != nil {
+			priceImpactStackView.isHidden = false
+			priceImpactLabel.text = swapFeeVM.formattedPriceImpact
+		} else {
+			priceImpactStackView.isHidden = true
+		}
+	}
+
+	private func updateFee(_ fee: String?) {
+		if fee != nil {
+			feeLabel.text = swapFeeVM.formattedFee
+			feeLabel.hideSkeletonView()
+		} else {
+			feeLabel.showSkeletonView()
+		}
+	}
+
+	// MARK: - Public Methods
+
+	public func updateCalculatedAmount(_ amount: String) {
+		amountLabel.text = amount
 	}
 }

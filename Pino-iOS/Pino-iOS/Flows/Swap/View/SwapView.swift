@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 7/3/23.
 //
 
+import Combine
 import Foundation
 import UIKit
 
@@ -28,6 +29,8 @@ class SwapView: UIView {
 	private var nextButtonTapped: () -> Void
 	private var swapVM: SwapViewModel
 
+	private var cancellables = Set<AnyCancellable>()
+
 	// MARK: - Internal Properties
 
 	internal var keyboardHeight: CGFloat = 320 // Minimum height in rare case keyboard of height was not calculated
@@ -46,11 +49,12 @@ class SwapView: UIView {
 		self.toTokeChange = toTokeChange
 		self.nextButtonTapped = nextButtonTapped
 		self.swapVM = swapVM
-		self.swapFeeView = SwapFeeView(config: SwapFeeView.Config(tag: .save("$1 🎉")))
+		self.swapFeeView = SwapFeeView(swapFeeVM: swapVM.swapFeeVM)
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
 		setupContstraint()
+		setupBinding()
 		setupNotifications()
 	}
 
@@ -117,6 +121,8 @@ class SwapView: UIView {
 
 		contentStackView.spacing = 12
 		swapStackView.spacing = 10
+
+		feeCardView.alpha = 0
 	}
 
 	private func setupContstraint() {
@@ -156,6 +162,19 @@ class SwapView: UIView {
 			constant: -nextButtonBottomConstant
 		)
 		addConstraint(nextButtonBottomConstraint)
+	}
+
+	private func setupBinding() {
+		swapVM.swapFeeVM.$calculatedAmount.sink { amount in
+			UIView.animate(withDuration: 0.3) {
+				if let amount {
+					self.swapFeeView.updateCalculatedAmount(amount)
+					self.feeCardView.alpha = 1
+				} else {
+					self.feeCardView.alpha = 0
+				}
+			}
+		}.store(in: &cancellables)
 	}
 
 	private func updateSwapStatus(_ status: AmountStatus) {
