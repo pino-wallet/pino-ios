@@ -11,6 +11,8 @@ class SwapFeeView: UIView {
 	// MARK: - Private Properties
 
 	private let contentStackView = UIStackView()
+	private let contentSpacerView = UIView()
+	private let feeInfoStackView = UIStackView()
 	private let amountStackView = UIStackView()
 	private let saveAmountStackView = UIStackView()
 	private let providerStackView = UIStackView()
@@ -34,9 +36,14 @@ class SwapFeeView: UIView {
 	private let feeTitleLabel = UILabel()
 	private let feeLabel = UILabel()
 
+	private let config: Config
+
+	private var isCollapsed = false
+
 	// MARK: - Initializers
 
-	init() {
+	init(config: Config) {
+		self.config = config
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -50,12 +57,14 @@ class SwapFeeView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		addSubview(amountStackView)
 		addSubview(contentStackView)
-		contentStackView.addArrangedSubview(amountStackView)
-		contentStackView.addArrangedSubview(saveAmountStackView)
-		contentStackView.addArrangedSubview(providerStackView)
-		contentStackView.addArrangedSubview(priceImpactStackView)
-		contentStackView.addArrangedSubview(feeStackView)
+		contentStackView.addArrangedSubview(contentSpacerView)
+		contentStackView.addArrangedSubview(feeInfoStackView)
+		feeInfoStackView.addArrangedSubview(saveAmountStackView)
+		feeInfoStackView.addArrangedSubview(providerStackView)
+		feeInfoStackView.addArrangedSubview(priceImpactStackView)
+		feeInfoStackView.addArrangedSubview(feeStackView)
 		amountStackView.addArrangedSubview(amountLabel)
 		amountStackView.addArrangedSubview(amountSpacerView)
 		amountStackView.addArrangedSubview(impactTagStackView)
@@ -73,11 +82,14 @@ class SwapFeeView: UIView {
 		priceImpactStackView.addArrangedSubview(priceImpactLabel)
 		feeStackView.addArrangedSubview(feeTitleLabel)
 		feeStackView.addArrangedSubview(feeLabel)
+
+		collapsButton.addAction(UIAction(handler: { _ in
+			self.collapsFeeCard()
+		}), for: .touchUpInside)
 	}
 
 	private func setupStyle() {
 		amountLabel.text = "1 SNT = 1,450 DAI"
-		impactTagLabel.text = "High impact"
 		saveAmountTitleLabel.text = "You save"
 		saveAmountLabel.text = "$3 🎉"
 		providerTitle.text = "Provider"
@@ -87,7 +99,7 @@ class SwapFeeView: UIView {
 		feeTitleLabel.text = "Fee"
 		feeLabel.text = "$20"
 
-		collapsButton.setImage(UIImage(named: "arrow_up2"), for: .normal)
+		collapsButton.setImage(UIImage(named: "arrow_down2"), for: .normal)
 		providerImageView.image = UIImage(named: "1inch")
 		providerChangeIcon.image = UIImage(named: "arrow_right2")
 
@@ -103,7 +115,6 @@ class SwapFeeView: UIView {
 		priceImpactLabel.font = .PinoStyle.mediumBody
 
 		amountLabel.textColor = .Pino.label
-		impactTagLabel.textColor = .Pino.orange
 		saveAmountTitleLabel.textColor = .Pino.secondaryLabel
 		saveAmountLabel.textColor = .Pino.green
 		providerTitle.textColor = .Pino.secondaryLabel
@@ -116,13 +127,13 @@ class SwapFeeView: UIView {
 		collapsButton.tintColor = .Pino.label
 		providerChangeIcon.tintColor = .Pino.secondaryLabel
 
-		impactTagView.backgroundColor = .Pino.lightOrange
-
 		saveAmountLabel.textAlignment = .right
 
 		contentStackView.axis = .vertical
+		feeInfoStackView.axis = .vertical
 
 		contentStackView.spacing = 20
+		feeInfoStackView.spacing = 20
 		impactTagStackView.spacing = 2
 		providerChangeStackView.spacing = 3
 
@@ -130,12 +141,37 @@ class SwapFeeView: UIView {
 		impactTagStackView.alignment = .center
 
 		impactTagView.layer.cornerRadius = 14
+
+		feeInfoStackView.isHidden = true
+		contentStackView.layer.masksToBounds = true
+
+		impactTagView.alpha = 1
+
+		switch config.tag {
+		case .highImpact:
+			impactTagView.isHidden = false
+			impactTagView.backgroundColor = .Pino.lightOrange
+			impactTagLabel.text = "High impact"
+			impactTagLabel.textColor = .Pino.orange
+		case let .save(amount):
+			impactTagView.isHidden = false
+			impactTagView.backgroundColor = .Pino.green1
+			impactTagLabel.text = amount
+			impactTagLabel.textColor = .Pino.label
+		case .none:
+			impactTagView.isHidden = true
+		}
 	}
 
 	private func setupConstraint() {
+		amountStackView.pin(
+			.horizontalEdges(padding: 14),
+			.top(padding: 15)
+		)
 		contentStackView.pin(
 			.horizontalEdges(padding: 14),
-			.verticalEdges(padding: 15)
+			.top(to: amountStackView, .bottom),
+			.bottom(padding: 15)
 		)
 		impactTagView.pin(
 			.fixedHeight(28)
@@ -156,5 +192,31 @@ class SwapFeeView: UIView {
 			.fixedWidth(16),
 			.fixedHeight(16)
 		)
+	}
+
+	private func collapsFeeCard() {
+		UIView.animate(withDuration: 0.3) {
+			self.feeInfoStackView.isHidden.toggle()
+			self.isCollapsed.toggle()
+			if self.isCollapsed {
+				self.collapsButton.setImage(UIImage(named: "arrow_up2"), for: .normal)
+				self.impactTagView.alpha = 0
+			} else {
+				self.collapsButton.setImage(UIImage(named: "arrow_down2"), for: .normal)
+				self.impactTagView.alpha = 1
+			}
+		}
+	}
+}
+
+extension SwapFeeView {
+	struct Config {
+		public let tag: Tag
+	}
+
+	enum Tag {
+		case highImpact
+		case save(String)
+		case none
 	}
 }

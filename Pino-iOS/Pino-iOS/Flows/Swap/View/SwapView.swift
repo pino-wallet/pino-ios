@@ -21,7 +21,7 @@ class SwapView: UIView {
 	private let continueButton = PinoButton(style: .deactive)
 	private var fromTokenSectionView: SwapTokenSectionView!
 	private var toTokenSectionView: SwapTokenSectionView!
-	private let swapFeeView = SwapFeeView()
+	private let swapFeeView: SwapFeeView
 
 	private var fromTokenChange: () -> Void
 	private var toTokeChange: () -> Void
@@ -46,6 +46,7 @@ class SwapView: UIView {
 		self.toTokeChange = toTokeChange
 		self.nextButtonTapped = nextButtonTapped
 		self.swapVM = swapVM
+		self.swapFeeView = SwapFeeView(config: SwapFeeView.Config(tag: .save("$1 🎉")))
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
