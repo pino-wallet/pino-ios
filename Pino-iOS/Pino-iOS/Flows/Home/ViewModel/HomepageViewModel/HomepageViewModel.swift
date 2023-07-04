@@ -10,7 +10,6 @@ import CoreData
 import Foundation
 import Hyperconnectivity
 import Network
-import PromiseKit
 
 class HomepageViewModel {
 	// MARK: - Public Properties

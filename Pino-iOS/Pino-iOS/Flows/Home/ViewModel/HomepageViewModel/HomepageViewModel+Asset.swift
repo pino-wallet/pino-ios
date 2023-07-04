@@ -42,6 +42,7 @@ class AssetManager {
 						case .finished:
 							print("Assets received successfully")
 						case let .failure(error):
+                            print("Error getting tokens:\(error)")
 							seal.reject(APIError.failedRequest)
 						}
 					} receiveValue: { assets in

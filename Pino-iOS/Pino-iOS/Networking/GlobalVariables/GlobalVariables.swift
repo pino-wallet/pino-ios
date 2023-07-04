@@ -37,6 +37,10 @@ class GlobalVariables {
                     .show(haptic: .warning)
             }
         }
+        $manageAssetsList.sink { assets in
+            guard let assets else { return }
+            self.selectedManageAssetsList = assets.filter( { $0.isSelected } )
+        }.store(in: &cancellables)
 	}
 
 	public func fetchSharedInfo() -> Promise<Void> {
@@ -45,7 +49,6 @@ class GlobalVariables {
 			getManageAssetLists()
 		}.get { assets in
 			self.manageAssetsList = assets
-			self.selectedManageAssetsList = self.manageAssetsList!.filter { $0.isSelected }
 		}.then { assets in
 			self.calculateEthGasFee(ethPrice: assets.first(where: { $0.isEth })!.price)
 		}
