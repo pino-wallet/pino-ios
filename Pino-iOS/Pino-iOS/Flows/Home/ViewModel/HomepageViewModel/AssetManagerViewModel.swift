@@ -5,38 +5,62 @@
 //  Created by Mohi Raoufi on 4/13/23.
 //
 
+import Combine
 import CoreData
+import PromiseKit
 
-extension HomepageViewModel {
-	// MARK: Internal Methods
+class AssetManagerViewModel {
+    
+    // MARK: - Public Accessor
 
-	internal func getAssetsList(completion: @escaping (Result<[BalanceAssetModel], APIError>) -> Void) {
-		if let tokens {
-			accountingAPIClient.userBalance()
-				.sink { completed in
-					switch completed {
-					case .finished:
-						print("Assets received successfully")
-					case let .failure(error):
-						completion(.failure(error))
-					}
-				} receiveValue: { assets in
-					self.getManageAsset(tokens: tokens, userAssets: assets)
-					completion(.success(assets))
-				}.store(in: &cancellables)
-		} else {
-			getTokens { result in
-				switch result {
-				case .success:
-					self.getAssetsList(completion: completion)
-				case let .failure(error):
-					completion(.failure(error))
-				}
+	public static let shared = AssetManagerViewModel()
+
+    // MARK: - Private Initiliazer
+
+	private init() {}
+
+	// MARK: - Public Properties
+
+	public var tokens: [Detail] = []
+	public var selectedAssets = [SelectedAsset]()
+
+	@Published
+	public var assetsModelList: [AssetProtocol]!
+	@Published
+	public var positionAssetsList: [AssetViewModel]?
+
+	// MARK: - Private Properties
+
+	private let accountingAPIClient = AccountingAPIClient()
+	private let ctsAPIclient = CTSAPIClient()
+	private let coreDataManager = CoreDataManager()
+	private var cancellables = Set<AnyCancellable>()
+
+	internal func getAssetsList() -> Promise<[AssetViewModel]> {
+		Promise<[AssetViewModel]> { seal in
+			firstly {
+				getTokens()
+			}.done { [self] tokens in
+				accountingAPIClient.userBalance()
+					.sink { completed in
+						switch completed {
+						case .finished:
+							print("Assets received successfully")
+						case let .failure(error):
+                            print("Error getting tokens:\(error)")
+							seal.reject(APIError.failedRequest)
+						}
+					} receiveValue: { assets in
+						let managedAssets = self.getManageAsset(tokens: tokens, userAssets: assets)
+						seal.fulfill(managedAssets)
+					}.store(in: &cancellables)
+			}.catch { error in
+				seal.reject(error)
 			}
 		}
 	}
 
-	internal func getManageAsset(tokens: [Detail], userAssets: [BalanceAssetModel]) {
+	internal func getManageAsset(tokens: [Detail], userAssets: [BalanceAssetModel]) -> [AssetViewModel] {
 		let tokensModel = tokens.compactMap {
 			let tokenID = $0.id
 			let userAsset = userAssets.first(where: { $0.id == tokenID })
@@ -48,29 +72,28 @@ extension HomepageViewModel {
 			)
 		}
 		assetsModelList = tokensModel
-		manageAssetsList = tokensModel.compactMap {
+		let tokens = tokensModel.compactMap {
 			AssetViewModel(assetModel: $0, isSelected: self.selectedAssets.map { $0.id }.contains($0.id))
 		}
+		return tokens
 	}
 
-	internal func getTokens(completion: @escaping (Result<[Detail], APIError>) -> Void) {
-		ctsAPIclient.tokens().sink { completed in
-			switch completed {
-			case .finished:
-				print("tokens received successfully")
-			case let .failure(error):
-				completion(.failure(error))
-			}
-		} receiveValue: { tokens in
-			let customAssets = self.getCustomAssets()
-			self.tokens = tokens + customAssets
-			completion(.success(self.tokens!))
-		}.store(in: &cancellables)
-	}
-
-	#warning("This is temporary and must be replaced with API data")
-	internal func getPositionAssetsList() {
-		positionAssetsList = []
+	internal func getTokens() -> Promise<[Detail]> {
+		Promise<[Detail]> { seal in
+			ctsAPIclient.tokens().sink { completed in
+				switch completed {
+				case .finished:
+					print("tokens received successfully")
+				case let .failure(error):
+                    print("Failed to fetch tokens:\(error)")
+					seal.reject(APIError.failedRequest)
+				}
+			} receiveValue: { tokens in
+				let customAssets = self.getCustomAssets()
+				self.tokens = tokens + customAssets
+				seal.fulfill(self.tokens)
+			}.store(in: &cancellables)
+		}
 	}
 
 	internal func getCustomAssets() -> [Detail] {
@@ -142,23 +165,28 @@ extension HomepageViewModel {
 			price: "0",
 			isVerified: false
 		)
-		tokens?.append(customAssetDetail)
-		getHomeData { _ in }
+		tokens.append(customAssetDetail)
+		GlobalVariables.shared.fetchSharedInfo()
 	}
 
 	public func updateSelectedAssets(_ selectedAsset: AssetViewModel, isSelected: Bool) {
-		guard let manageAssetsList else { return }
+		guard let manageAssetsList = GlobalVariables.shared.manageAssetsList else { return }
 		if let selectedAssetIndex = manageAssetsList.firstIndex(where: {
 			$0.id == selectedAsset.id
 		}) {
 			let updatedAssets = manageAssetsList
 			updatedAssets[selectedAssetIndex].toggleIsSelected()
-			self.manageAssetsList = updatedAssets
+			GlobalVariables.shared.manageAssetsList = updatedAssets
 			if isSelected {
 				addSelectedAssetToCoreData(manageAssetsList[selectedAssetIndex])
 			} else {
 				deleteSelectedAssetFromCoreData(manageAssetsList[selectedAssetIndex])
 			}
 		}
+	}
+
+	#warning("This is temporary and must be replaced with API data")
+	internal func getPositionAssetsList() {
+		positionAssetsList = []
 	}
 }

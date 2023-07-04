@@ -6,6 +6,7 @@
 //
 
 import BigInt
+import Combine
 import Foundation
 import PromiseKit
 import Web3_Utility
@@ -17,13 +18,16 @@ class SendConfirmationViewModel {
 	private let selectedWallet: AccountInfoViewModel
 	private let sendAmount: String
 	private let sendAmountInDollar: String
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 
-	public var gasFee: BigNumber?
-	public var ethPrice: BigNumber!
+	public var gasFee: BigNumber!
+	public var ethToken: AssetViewModel!
 	public var isAddressScam = false
 	public let recipientAddress: String
+	public let confirmBtnText = "Confirm"
+	public let insuffientText = "Insufficient ETH Amount"
 
 	public var isTokenVerified: Bool {
 		selectedToken.isVerified
@@ -79,23 +83,32 @@ class SendConfirmationViewModel {
 		recipientAddress: String,
 		sendAmount: String,
 		sendAmountInDollar: String,
-		ethPrice: BigNumber
+		ethToken: AssetViewModel
 	) {
 		self.selectedToken = selectedToken
 		self.selectedWallet = selectedWallet
 		self.sendAmount = sendAmount
 		self.sendAmountInDollar = sendAmountInDollar
 		self.recipientAddress = recipientAddress
-		self.ethPrice = ethPrice
+		self.ethToken = ethToken
+		setupBindings()
 	}
 
 	// MARK: - Public Methods
+
+	public func checkEnoughBalance() -> Bool {
+		if gasFee > ethToken.holdAmount {
+			return false
+		} else {
+			return true
+		}
+	}
 
 	public func getFee() -> Promise<String> {
 		if selectedToken.isEth {
 			return calculateEthGasFee()
 		} else {
-			return calculateTokenGasFee(ethPrice: ethPrice)
+			return calculateTokenGasFee(ethPrice: ethToken.price)
 		}
 	}
 
@@ -114,6 +127,14 @@ class SendConfirmationViewModel {
 	}
 
 	// MARK: - Private Methods
+
+	private func setupBindings() {
+		GlobalVariables.shared.$ethGasFee.sink { fee, feeInDollar in
+			self.gasFee = fee
+			self.formattedFeeInETH = fee.formattedAmountOf(type: .hold)
+			self.formattedFeeInDollar = feeInDollar.formattedAmountOf(type: .price)
+		}.store(in: &cancellables)
+	}
 
 	private func calculateEthGasFee() -> Promise<String> {
 		Promise<String> { seal in

@@ -22,21 +22,25 @@ class EnterSendAmountViewModel {
 
 	public var selectedToken: AssetViewModel {
 		didSet {
+			updateTokenMaxAmount()
 			if let selectedTokenChanged {
 				selectedTokenChanged()
 			}
 		}
 	}
 
-	public var maxHoldAmount: String {
-		selectedToken.amount
+	public var maxHoldAmount = "0"
+	public var maxAmountInDollar = "0"
+
+	public var formattedMaxHoldAmount: String {
+		"\(maxHoldAmount) \(selectedToken.symbol)"
 	}
 
-	public var maxAmountInDollar: String {
-		"$ \(selectedToken.formattedHoldAmount)"
+	public var formattedMaxAmountInDollar: String {
+		"$ \(maxAmountInDollar)"
 	}
 
-	public var ethPrice: BigNumber!
+	public var ethToken: AssetViewModel!
 	public var tokenAmount = "0.0"
 	public var dollarAmount = "0.0"
 
@@ -50,10 +54,11 @@ class EnterSendAmountViewModel {
 
 	// MARK: - Initializers
 
-	init(selectedToken: AssetViewModel, isDollarEnabled: Bool = false, ethPrice: BigNumber) {
+	init(selectedToken: AssetViewModel, isDollarEnabled: Bool = false, ethToken: AssetViewModel) {
 		self.selectedToken = selectedToken
 		self.isDollarEnabled = isDollarEnabled
-		self.ethPrice = ethPrice
+		self.ethToken = ethToken
+		updateTokenMaxAmount()
 	}
 
 	// MARK: - Public Methods
@@ -76,7 +81,7 @@ class EnterSendAmountViewModel {
 			var decimalMaxAmount: Decimal
 			var enteredAmmount: Decimal
 			if isDollarEnabled {
-				decimalMaxAmount = Decimal(string: selectedToken.formattedHoldAmount)!
+				decimalMaxAmount = Decimal(string: maxAmountInDollar)!
 				enteredAmmount = Decimal(string: dollarAmount)!
 			} else {
 				decimalMaxAmount = Decimal(string: maxHoldAmount)!
@@ -90,7 +95,27 @@ class EnterSendAmountViewModel {
 		}
 	}
 
+	public func updateEthMaxAmount(
+		gasFee: BigNumber = GlobalVariables.shared.ethGasFee.fee,
+		gasFeeInDollar: BigNumber = GlobalVariables.shared.ethGasFee.feeInDollar
+	) {
+		let estimatedAmount = selectedToken.holdAmount - gasFee
+		maxHoldAmount = estimatedAmount.formattedAmountOf(type: .hold)
+
+		let estimatedAmountInDollar = selectedToken.holdAmountInDollor - gasFeeInDollar
+		maxAmountInDollar = estimatedAmountInDollar.formattedAmountOf(type: .price)
+	}
+
 	// MARK: - Private Methods
+
+	private func updateTokenMaxAmount() {
+		if selectedToken.isEth {
+			updateEthMaxAmount()
+		} else {
+			maxHoldAmount = selectedToken.holdAmount.formattedAmountOf(type: .hold)
+			maxAmountInDollar = selectedToken.formattedHoldAmount
+		}
+	}
 
 	private func convertEnteredAmountToDollar(amount: String) {
 		guard let decimalNumber = Decimal(string: amount),

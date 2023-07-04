@@ -27,8 +27,7 @@ class SwapViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		#warning("Temporary list must be replaced with the correct list later")
-		assets = HomepageViewModel.sharedAssets
+        assets = GlobalVariables.shared.manageAssetsList
 		swapVM = SwapViewModel(fromToken: assets[0], toToken: assets[1])
 
 		view = SwapView(

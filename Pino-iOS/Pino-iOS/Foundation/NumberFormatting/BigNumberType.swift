@@ -107,7 +107,27 @@ public struct BigNumber {
 	}
 }
 
-extension BigNumber: Equatable {
+extension BigNumber: Equatable, Comparable {
+	public static func < (lhs: BigNumber, rhs: BigNumber) -> Bool {
+		let left = lhs.number.power(rhs.decimal)
+		let right = rhs.number.power(lhs.decimal)
+		if left < right {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	public static func > (lhs: BigNumber, rhs: BigNumber) -> Bool {
+		let left = lhs.number.power(rhs.decimal)
+		let right = rhs.number.power(lhs.decimal)
+		if left > right {
+			return true
+		} else {
+			return false
+		}
+	}
+
 	public static func == (lhs: BigNumber, rhs: BigNumber) -> Bool {
 		lhs.number == rhs.number && lhs.decimal == rhs.decimal
 	}
