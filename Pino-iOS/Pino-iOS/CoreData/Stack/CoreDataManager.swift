@@ -79,13 +79,13 @@ class CoreDataManager {
 		accountDataSource.save(account)
 		return account
 	}
-    
-    @discardableResult
-    public func editWalletAccount(_ account: WalletAccount, lastBalance: String) -> WalletAccount {
-        account.lastBalance = lastBalance
-        accountDataSource.save(account)
-        return account
-    }
+
+	@discardableResult
+	public func editWalletAccount(_ account: WalletAccount, lastBalance: String) -> WalletAccount {
+		account.lastBalance = lastBalance
+		accountDataSource.save(account)
+		return account
+	}
 
 	public func editWalletAccount(_ account: WalletAccount, newAvatar: String) -> WalletAccount {
 		account.avatarIcon = newAvatar
@@ -112,7 +112,7 @@ class CoreDataManager {
 		selectedAssetDataSource.save(newSelectedAsset)
 		return newSelectedAsset
 	}
-    
+
 	public func deleteSelectedAsset(_ selectedAsset: SelectedAsset) {
 		selectedAssetDataSource.delete(selectedAsset)
 	}

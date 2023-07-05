@@ -12,7 +12,7 @@ class AccountsCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
 	private var accountsVM: AccountsViewModel
-    private var homeVM = HomepageViewModel()
+	private var homeVM = HomepageViewModel()
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Closures
@@ -58,8 +58,8 @@ class AccountsCollectionView: UICollectionView {
 	private func setupStyle() {
 		backgroundColor = .Pino.background
 		showsVerticalScrollIndicator = false
-        
-        accountsVM.setAccountLastBalance(account: accountsVM.currentAccount, balance: homeVM.walletBalance!.balance)
+
+		accountsVM.setAccountLastBalance(account: accountsVM.currentAccount, balance: homeVM.walletBalance!.balance)
 	}
 
 	private func setupBindings() {

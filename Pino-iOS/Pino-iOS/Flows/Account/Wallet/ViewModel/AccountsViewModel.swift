@@ -14,9 +14,9 @@ class AccountsViewModel {
 
 	@Published
 	public var accountsList: [AccountInfoViewModel]!
-    public var currentAccount: AccountInfoViewModel {
-        return accountsList.first(where: { $0.isSelected })!
-    }
+	public var currentAccount: AccountInfoViewModel {
+		accountsList.first(where: { $0.isSelected })!
+	}
 
 	// MARK: - Private Properties
 
@@ -141,10 +141,10 @@ class AccountsViewModel {
 		coreDataManager.deleteWalletAccount(walletVM.walletAccountInfoModel)
 		getAccounts()
 	}
-    
-    public func setAccountLastBalance(account: AccountInfoViewModel, balance: String) {
-        coreDataManager.editWalletAccount(account.walletAccountInfoModel, lastBalance: balance)
-    }
+
+	public func setAccountLastBalance(account: AccountInfoViewModel, balance: String) {
+		coreDataManager.editWalletAccount(account.walletAccountInfoModel, lastBalance: balance)
+	}
 
 	public func updateSelectedAccount(with selectedAccount: AccountInfoViewModel) {
 		coreDataManager.updateSelectedWalletAccount(selectedAccount.walletAccountInfoModel)

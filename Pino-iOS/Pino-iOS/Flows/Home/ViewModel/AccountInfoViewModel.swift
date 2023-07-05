@@ -33,7 +33,7 @@ public struct AccountInfoViewModel: Equatable {
 	}
 
 	public var balance: String {
-        walletAccountInfoModel.lastBalance
+		walletAccountInfoModel.lastBalance
 	}
 
 	public var isSelected: Bool {
