@@ -14,6 +14,9 @@ class AccountsViewModel {
 
 	@Published
 	public var accountsList: [AccountInfoViewModel]!
+    public var currentAccount: AccountInfoViewModel {
+        return accountsList.first(where: { $0.isSelected })!
+    }
 
 	// MARK: - Private Properties
 
