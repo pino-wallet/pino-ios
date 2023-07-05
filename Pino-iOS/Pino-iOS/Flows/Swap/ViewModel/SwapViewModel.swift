@@ -34,11 +34,41 @@ class SwapViewModel {
 
 	// MARK: - Private Methods
 
-	private func recalculateTokensAmount(amount: String? = nil) {}
+	private func recalculateTokensAmount(amount: String? = nil) {
+		if toToken.isEditing {
+			toToken.calculateDollarAmount(amount ?? toToken.tokenAmount)
+			fromToken.calculateTokenAmount(decimalDollarAmount: toToken.decimalDollarAmount)
+			fromToken.swapDelegate.swapAmountDidCalculate()
+		} else if fromToken.isEditing {
+			fromToken.calculateDollarAmount(amount ?? fromToken.tokenAmount)
+			toToken.calculateTokenAmount(decimalDollarAmount: fromToken.decimalDollarAmount)
+			toToken.swapDelegate.swapAmountDidCalculate()
+		}
+	}
 
 	// MARK: - Public Methods
 
-	public func changeSelectedToken(_ token: SwapTokenViewModel, to newToken: AssetViewModel) {}
+	public func changeSelectedToken(_ token: SwapTokenViewModel, to newToken: AssetViewModel) {
+		if !fromToken.isEditing, !toToken.isEditing {
+			token.isEditing = true
+		}
+		token.selectedToken = newToken
+		recalculateTokensAmount()
+		token.swapDelegate.selectedTokenDidChange()
+	}
 
-	public func switchTokens() {}
+	public func switchTokens() {
+		let selectedFromToken = fromToken.selectedToken
+		fromToken.selectedToken = toToken.selectedToken
+		toToken.selectedToken = selectedFromToken
+
+		let fromTokenAmount = fromToken.tokenAmount
+		fromToken.tokenAmount = toToken.tokenAmount
+		toToken.tokenAmount = fromTokenAmount
+
+		recalculateTokensAmount()
+
+		fromToken.swapDelegate.selectedTokenDidChange()
+		toToken.swapDelegate.selectedTokenDidChange()
+	}
 }

@@ -160,9 +160,33 @@ class SwapView: UIView {
 	}
 
 	@objc
-	private func dissmisskeyBoard() {}
+	private func dissmisskeyBoard() {
+		fromTokenSectionView.dissmisskeyBoard()
+		toTokenSectionView.dissmisskeyBoard()
+	}
 
-	private func switchTokens() {}
+	private func switchTokens() {
+		UIView.animate(withDuration: 0.2) {
+			self.fromTokenSectionView.fadeOutTokenView()
+			self.toTokenSectionView.fadeOutTokenView()
+		} completion: { _ in
+			self.switchTextFieldsFocus()
+			self.swapVM.switchTokens()
+			UIView.animate(withDuration: 0.2) {
+				self.fromTokenSectionView.fadeInTokenView()
+				self.toTokenSectionView.fadeInTokenView()
+			}
+		}
+	}
 
-	private func switchTextFieldsFocus() {}
+	private func switchTextFieldsFocus() {
+		if swapVM.fromToken.isEditing {
+			toTokenSectionView.openKeyboard()
+		} else if swapVM.toToken.isEditing {
+			fromTokenSectionView.openKeyboard()
+		} else {
+			fromTokenSectionView.dissmisskeyBoard()
+			toTokenSectionView.dissmisskeyBoard()
+		}
+	}
 }
