@@ -119,7 +119,7 @@ class SwapTokenSectionView: UIView {
 		estimatedAmountLabel.numberOfLines = 0
 		estimatedAmountLabel.lineBreakMode = .byCharWrapping
 
-		swapVM.delegate = self
+		swapVM.swapDelegate = self
 	}
 
 	private func setupContstraint() {

@@ -10,7 +10,7 @@ import Foundation
 class SwapTokenViewModel {
 	// MARK: - Public Properties
 
-	public var delegate: SwapDelegate!
+	public var swapDelegate: SwapDelegate!
 
 	public let maxTitle = "Max: "
 	public let avgSign = "≈"
@@ -81,7 +81,7 @@ class SwapTokenViewModel {
 			let tokenAmount = dollarAmount / tokenPrice
 			return tokenAmount.formattedAmount(type: .tokenValue)
 		} else {
-			return ""
+			return .emptyString
 		}
 	}
 }

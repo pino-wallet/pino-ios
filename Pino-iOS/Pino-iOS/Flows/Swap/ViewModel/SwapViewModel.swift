@@ -38,20 +38,23 @@ class SwapViewModel {
 		if toToken.isEditing {
 			toToken.calculateDollarAmount(amount ?? toToken.tokenAmount)
 			fromToken.calculateTokenAmount(decimalDollarAmount: toToken.decimalDollarAmount)
-			fromToken.delegate.swapAmountDidCalculate()
-		} else {
+			fromToken.swapDelegate.swapAmountDidCalculate()
+		} else if fromToken.isEditing {
 			fromToken.calculateDollarAmount(amount ?? fromToken.tokenAmount)
 			toToken.calculateTokenAmount(decimalDollarAmount: fromToken.decimalDollarAmount)
-			toToken.delegate.swapAmountDidCalculate()
+			toToken.swapDelegate.swapAmountDidCalculate()
 		}
 	}
 
 	// MARK: - Public Methods
 
 	public func changeSelectedToken(_ token: SwapTokenViewModel, to newToken: AssetViewModel) {
+		if !fromToken.isEditing, !toToken.isEditing {
+			token.isEditing = true
+		}
 		token.selectedToken = newToken
 		recalculateTokensAmount()
-		token.delegate.selectedTokenDidChange()
+		token.swapDelegate.selectedTokenDidChange()
 	}
 
 	public func switchTokens() {
@@ -65,7 +68,7 @@ class SwapViewModel {
 
 		recalculateTokensAmount()
 
-		fromToken.delegate.selectedTokenDidChange()
-		toToken.delegate.selectedTokenDidChange()
+		fromToken.swapDelegate.selectedTokenDidChange()
+		toToken.swapDelegate.selectedTokenDidChange()
 	}
 }
