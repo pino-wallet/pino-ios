@@ -59,7 +59,7 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	public var formattedHoldAmount: String {
-		holdAmountInDollor.formattedAmountOf(type: .price)
+		holdAmountInDollor.formattedAmountOf(type: .summarizedPrice)
 	}
 
 	public var change24h: BigNumber {
@@ -67,7 +67,7 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	public var volatilityType: AssetVolatilityType {
-		AssetVolatilityType(change24h: change24h.description)
+		AssetVolatilityType(change24h: change24h)
 	}
 
 	public var symbol: String {
@@ -75,7 +75,7 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	public var previousDayNetworth: BigNumber {
-		BigNumber(number: assetModel.previousDayNetworth, decimal: 2)
+        BigNumber(number: assetModel.previousDayNetworth, decimal: 2)
 	}
 
 	// MARK: - Initializers
@@ -128,9 +128,9 @@ public class AssetViewModel: SecurityModeProtocol {
 		} else {
 			switch volatilityType {
 			case .loss:
-				return "-$\(change24h.formattedAmountOf(type: .price))"
+				return "-$\(change24h.formattedAmountOf(type: .summarizedPrice))"
 			case .profit, .none:
-				return "+$\(change24h.formattedAmountOf(type: .price))"
+				return "+$\(change24h.formattedAmountOf(type: .summarizedPrice))"
 			}
 		}
 	}
