@@ -60,31 +60,15 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	// MARK: - Public Properties
 
 	public var formattedTime: String {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-		let activityDate = dateFormatter.date(from: activityModel.blockTime)!
-		let currentDate = Date()
-		let intervalSince = currentDate.timeIntervalSince(activityDate)
-		let dateComponentsformatter = DateComponentsFormatter()
-		dateComponentsformatter.unitsStyle = .full
-		let betweenActivityAndCurrentTime = Calendar.current.dateComponents(
-			[.day, .hour, .minute],
-			from: activityDate,
-			to: currentDate
-		)
-		if betweenActivityAndCurrentTime.day! > 0 {
-			dateComponentsformatter.allowedUnits = [.day]
-		} else if betweenActivityAndCurrentTime.hour! > 0 {
-			dateComponentsformatter.allowedUnits = [.hour]
-		} else {
-			dateComponentsformatter.allowedUnits = [.minute]
-		}
-
-		return "\(dateComponentsformatter.string(from: intervalSince)!) ago"
+        let activityHelper = ActivityHelper()
+        let dateHelper = DateHelper()
+        let activityDate = activityHelper.getActivityDate(activityBlockTime: activityModel.blockTime)
+        
+        return dateHelper.calculateDistanceBetweenTwoDates(pastDate: activityDate)
 	}
 
-	public var originalTime: String {
-		activityModel.blockTime
+	public var blockTime: String {
+		return activityModel.blockTime
 	}
 
 	public var status: ActivityCellStatus {

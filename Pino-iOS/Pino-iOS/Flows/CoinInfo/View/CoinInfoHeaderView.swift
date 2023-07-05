@@ -25,7 +25,7 @@ class CoinInfoHeaderView: UICollectionReusableView {
 	private var volatilityRateStackView = UIStackView()
 	private var volatilityRateIcon = UIImageView()
 	private var volatilityRateLabel = UILabel()
-	private var recentHistoryTitle = UILabel()
+	private var activitiesTimeTitleLabel = UILabel()
 	private var coinInfoStatsView = CoinInfoStatsView()
 
 	// MARK: - public properties
@@ -39,6 +39,13 @@ class CoinInfoHeaderView: UICollectionReusableView {
 			setupConstraint()
 		}
 	}
+    
+    public var activitiesTimeTitle: String? {
+        didSet {
+            activitiesTimeTitleLabel.text = activitiesTimeTitle
+            activitiesTimeTitleLabel.isHidden = false
+        }
+    }
 
 	// MARK: - Private Methods
 
@@ -58,16 +65,15 @@ class CoinInfoHeaderView: UICollectionReusableView {
 		coinTitleStackView.addArrangedSubview(userAmountLabel)
 
 		addSubview(contentView)
-		addSubview(recentHistoryTitle)
+		addSubview(activitiesTimeTitleLabel)
 	}
 
 	private func setupStyle() {
-		recentHistoryTitle.text = coinInfoVM.recentHistoryTitle
 
 		contentView.backgroundColor = .Pino.secondaryBackground
 		separatorLineView.backgroundColor = .Pino.gray5
 
-		recentHistoryTitle.textColor = .Pino.label
+		activitiesTimeTitleLabel.textColor = .Pino.label
 		amountLabel.textColor = .Pino.secondaryLabel
 		userAmountLabel.textColor = .Pino.secondaryLabel
 		assetsTitleLabel.textColor = .Pino.label
@@ -80,7 +86,7 @@ class CoinInfoHeaderView: UICollectionReusableView {
 		contentView.layer.borderColor = UIColor.Pino.white.cgColor
 		contentView.isSkeletonBordered = true
 
-		recentHistoryTitle.font = .PinoStyle.mediumSubheadline
+		activitiesTimeTitleLabel.font = .PinoStyle.mediumSubheadline
 		amountLabel.font = .PinoStyle.mediumSubheadline
 		userAmountLabel.font = .PinoStyle.mediumCallout
 		volatilityRateLabel.font = .PinoStyle.mediumSubheadline
@@ -111,6 +117,8 @@ class CoinInfoHeaderView: UICollectionReusableView {
 		amountLabel.text = coinInfoVM.coinPortfolio.price
 		volatilityRateLabel.text = coinInfoVM.coinPortfolio.volatilityRatePercentage
 		assetsTitleLabel.text = coinInfoVM.coinPortfolio.userAmountAndCoinSymbol
+        
+        activitiesTimeTitleLabel.isHidden = true
 
 		switch coinInfoVM.coinPortfolio.type {
 		case .verified:
@@ -154,19 +162,19 @@ class CoinInfoHeaderView: UICollectionReusableView {
 		)
 		switch coinInfoVM.coinPortfolio.type {
 		case .verified:
-			recentHistoryTitle.pin(
+			activitiesTimeTitleLabel.pin(
 				.relative(.top, 16, to: contentView, .bottom),
 				.bottom(padding: 8),
 				.horizontalEdges(padding: 16)
 			)
 		case .unVerified:
-			recentHistoryTitle.pin(
+			activitiesTimeTitleLabel.pin(
 				.relative(.top, 24, to: contentView, .bottom),
 				.bottom(padding: 8),
 				.horizontalEdges(padding: 16)
 			)
 		case .position:
-			recentHistoryTitle.pin(
+			activitiesTimeTitleLabel.pin(
 				.relative(.top, 0, to: contentView, .bottom),
 				.bottom(padding: 0),
 				.horizontalEdges(padding: 16),
