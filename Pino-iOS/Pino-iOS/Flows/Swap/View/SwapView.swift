@@ -13,8 +13,14 @@ class SwapView: UIView {
 	// MARK: - Private Properties
 
 	private let contentStackView = UIStackView()
+	private let protocolCardView = PinoContainerCard()
 	private let swapCardView = PinoContainerCard()
 	private let feeCardView = PinoContainerCard()
+	private let protocolStackView = UIStackView()
+	private let protocolTitleStackView = UIStackView()
+	private let protocolImage = UIImageView()
+	private let protocolName = UILabel()
+	private let protocolChangeIcon = UIImageView()
 	private let swapStackView = UIStackView()
 	private let switchTokenView = UIView()
 	private let switchTokenLineView = UIView()
@@ -81,8 +87,14 @@ class SwapView: UIView {
 
 		addSubview(contentStackView)
 		addSubview(continueButton)
+		contentStackView.addArrangedSubview(protocolCardView)
 		contentStackView.addArrangedSubview(swapCardView)
 		contentStackView.addArrangedSubview(feeCardView)
+		protocolCardView.addSubview(protocolStackView)
+		protocolStackView.addArrangedSubview(protocolTitleStackView)
+		protocolStackView.addArrangedSubview(protocolChangeIcon)
+		protocolTitleStackView.addArrangedSubview(protocolImage)
+		protocolTitleStackView.addArrangedSubview(protocolName)
 		swapCardView.addSubview(swapStackView)
 		swapStackView.addArrangedSubview(fromTokenSectionView)
 		swapStackView.addArrangedSubview(switchTokenView)
@@ -103,10 +115,18 @@ class SwapView: UIView {
 	}
 
 	private func setupStyle() {
+		protocolName.text = "Best rate"
 		continueButton.title = swapVM.continueButtonTitle
+
+		protocolImage.image = UIImage(named: "best_rate_protocol")
+		protocolChangeIcon.image = UIImage(named: "chevron_down")
 		switchTokenButton.setImage(UIImage(named: swapVM.switchIcon), for: .normal)
 
+		protocolName.font = .PinoStyle.mediumBody
+
+		protocolName.textColor = .Pino.label
 		switchTokenButton.setTitleColor(.Pino.primary, for: .normal)
+		protocolChangeIcon.tintColor = .Pino.label
 
 		backgroundColor = .Pino.background
 		swapCardView.backgroundColor = .Pino.secondaryBackground
@@ -120,7 +140,10 @@ class SwapView: UIView {
 		swapStackView.axis = .vertical
 
 		contentStackView.spacing = 12
+		protocolTitleStackView.spacing = 8
 		swapStackView.spacing = 10
+
+		protocolStackView.alignment = .center
 
 		feeCardView.alpha = 0
 	}
@@ -129,6 +152,18 @@ class SwapView: UIView {
 		contentStackView.pin(
 			.horizontalEdges(padding: 16),
 			.top(to: layoutMarginsGuide, padding: 18)
+		)
+		protocolStackView.pin(
+			.horizontalEdges(padding: 14),
+			.verticalEdges(padding: 8)
+		)
+		protocolImage.pin(
+			.fixedHeight(40),
+			.fixedWidth(40)
+		)
+		protocolChangeIcon.pin(
+			.fixedWidth(28),
+			.fixedHeight(28)
 		)
 		swapStackView.pin(
 			.top(padding: 24),
