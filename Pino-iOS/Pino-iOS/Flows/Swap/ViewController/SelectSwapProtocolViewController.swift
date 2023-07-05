@@ -12,6 +12,18 @@ class SelectSwapProtocolViewController: UIViewController {
 
 	private var swapProtocolVM = SelectSwapProtocolViewModel()
 	private var swapProtocolCollectionView: SwapProtocolCollectionView!
+	private var swapProtocolDidSelect: (SwapProtocol) -> Void
+
+	// MARK: - Initializers
+
+	init(swapProtocolDidSelect: @escaping (SwapProtocol) -> Void) {
+		self.swapProtocolDidSelect = swapProtocolDidSelect
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	// MARK: - View Overrides
 
@@ -41,6 +53,7 @@ class SelectSwapProtocolViewController: UIViewController {
 		swapProtocolCollectionView = SwapProtocolCollectionView(
 			swapProtocols: swapProtocolVM.swapProtocols,
 			protocolDidSelect: { selectedProtocol in
+				self.swapProtocolDidSelect(selectedProtocol)
 				self.closePage()
 			}
 		)
