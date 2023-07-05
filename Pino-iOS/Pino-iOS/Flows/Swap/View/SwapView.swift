@@ -33,6 +33,7 @@ class SwapView: UIView {
 	private var fromTokenChange: () -> Void
 	private var toTokeChange: () -> Void
 	private var nextButtonTapped: () -> Void
+	private var swapProtocolChange: () -> Void
 	private var swapVM: SwapViewModel
 
 	private var cancellables = Set<AnyCancellable>()
@@ -49,10 +50,12 @@ class SwapView: UIView {
 		swapVM: SwapViewModel,
 		fromTokenChange: @escaping (() -> Void),
 		toTokeChange: @escaping (() -> Void),
+		swapProtocolChange: @escaping (() -> Void),
 		nextButtonTapped: @escaping (() -> Void)
 	) {
 		self.fromTokenChange = fromTokenChange
 		self.toTokeChange = toTokeChange
+		self.swapProtocolChange = swapProtocolChange
 		self.nextButtonTapped = nextButtonTapped
 		self.swapVM = swapVM
 		self.swapFeeView = SwapFeeView(swapFeeVM: swapVM.swapFeeVM)
@@ -112,13 +115,14 @@ class SwapView: UIView {
 		}), for: .touchUpInside)
 
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
+
+		let protocolChangeTapGesture = UITapGestureRecognizer(target: self, action: #selector(changeSwapProtocol))
+		protocolCardView.addGestureRecognizer(protocolChangeTapGesture)
 	}
 
 	private func setupStyle() {
-		protocolName.text = "Best rate"
 		continueButton.title = swapVM.continueButtonTitle
 
-		protocolImage.image = UIImage(named: "best_rate_protocol")
 		protocolChangeIcon.image = UIImage(named: "chevron_down")
 		switchTokenButton.setImage(UIImage(named: swapVM.switchIcon), for: .normal)
 
@@ -200,6 +204,10 @@ class SwapView: UIView {
 	}
 
 	private func setupBinding() {
+		swapVM.$selectedProtocol.sink { swapProtocol in
+			self.updateSwapProtocol(swapProtocol)
+		}.store(in: &cancellables)
+
 		swapVM.swapFeeVM.$calculatedAmount.sink { amount in
 			UIView.animate(withDuration: 0.3) {
 				if let amount {
@@ -210,6 +218,11 @@ class SwapView: UIView {
 				}
 			}
 		}.store(in: &cancellables)
+	}
+
+	private func updateSwapProtocol(_ swapProtocol: SwapProtocol) {
+		protocolName.text = swapProtocol.name
+		protocolImage.image = UIImage(named: swapProtocol.image)
 	}
 
 	private func updateSwapStatus(_ status: AmountStatus) {
@@ -255,5 +268,10 @@ class SwapView: UIView {
 			fromTokenSectionView.dissmisskeyBoard()
 			toTokenSectionView.dissmisskeyBoard()
 		}
+	}
+
+	@objc
+	private func changeSwapProtocol() {
+		swapProtocolChange()
 	}
 }

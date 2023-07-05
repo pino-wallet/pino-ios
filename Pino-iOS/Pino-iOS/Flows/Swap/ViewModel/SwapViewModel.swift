@@ -10,6 +10,9 @@ import Foundation
 class SwapViewModel {
 	// MARK: - Public Properties
 
+	@Published
+	public var selectedProtocol: SwapProtocol
+
 	public let pageTitle = "Swap"
 	public let continueButtonTitle = "Swap"
 	public let insufficientAmountButtonTitle = "Insufficient amount"
@@ -23,6 +26,7 @@ class SwapViewModel {
 	// MARK: - Initializers
 
 	init(fromToken: AssetViewModel, toToken: AssetViewModel) {
+		self.selectedProtocol = .bestRate
 		self.fromToken = SwapTokenViewModel(selectedToken: fromToken)
 		self.toToken = SwapTokenViewModel(selectedToken: toToken)
 		self.swapFeeVM = SwapFeeViewModel(swapProvider: .oneInch)
