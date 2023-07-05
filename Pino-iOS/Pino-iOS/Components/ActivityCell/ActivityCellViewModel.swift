@@ -60,15 +60,15 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	// MARK: - Public Properties
 
 	public var formattedTime: String {
-        let activityHelper = ActivityHelper()
-        let dateHelper = DateHelper()
-        let activityDate = activityHelper.getActivityDate(activityBlockTime: activityModel.blockTime)
-        
-        return dateHelper.calculateDistanceBetweenTwoDates(pastDate: activityDate)
+		let activityHelper = ActivityHelper()
+		let dateHelper = DateHelper()
+		let activityDate = activityHelper.getActivityDate(activityBlockTime: activityModel.blockTime)
+
+		return dateHelper.calculateDistanceBetweenTwoDates(pastDate: activityDate)
 	}
 
 	public var blockTime: String {
-		return activityModel.blockTime
+		activityModel.blockTime
 	}
 
 	public var status: ActivityCellStatus {

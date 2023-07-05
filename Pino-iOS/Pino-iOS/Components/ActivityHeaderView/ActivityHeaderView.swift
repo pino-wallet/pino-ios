@@ -8,35 +8,37 @@
 import UIKit
 
 class ActivityHeaderView: UICollectionReusableView {
-    // MARK: - Public Properties
-    public var titleText: String! {
-        didSet {
-            setupView()
-            setupStyles()
-            setupConstraints()
-        }
-    }
-    
-    public static let viewReuseID = "ActivityHeaderViewID"
-    
-    // MARK: - Private Properties
-    private let titleLabel = PinoLabel(style: .title, text: "")
-    
-    // MARK: - Private Methods
-    
-    private func setupView() {
-        addSubview(titleLabel)
-    }
-    
-    private func setupStyles() {
-        titleLabel.font = .PinoStyle.mediumSubheadline
-        titleLabel.text = titleText
-        titleLabel.numberOfLines = 0
-    }
-    
-    private func setupConstraints() {
-        titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 22).isActive = true
-        
-        titleLabel.pin(.top(padding: 8), .bottom(padding: 0), .horizontalEdges(padding: 16))
-    }
+	// MARK: - Public Properties
+
+	public var titleText: String! {
+		didSet {
+			setupView()
+			setupStyles()
+			setupConstraints()
+		}
+	}
+
+	public static let viewReuseID = "ActivityHeaderViewID"
+
+	// MARK: - Private Properties
+
+	private let titleLabel = PinoLabel(style: .title, text: "")
+
+	// MARK: - Private Methods
+
+	private func setupView() {
+		addSubview(titleLabel)
+	}
+
+	private func setupStyles() {
+		titleLabel.font = .PinoStyle.mediumSubheadline
+		titleLabel.text = titleText
+		titleLabel.numberOfLines = 0
+	}
+
+	private func setupConstraints() {
+		titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 22).isActive = true
+
+		titleLabel.pin(.top(padding: 8), .bottom(padding: 0), .horizontalEdges(padding: 16))
+	}
 }

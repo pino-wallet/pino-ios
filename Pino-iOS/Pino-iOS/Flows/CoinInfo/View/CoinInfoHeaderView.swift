@@ -39,13 +39,13 @@ class CoinInfoHeaderView: UICollectionReusableView {
 			setupConstraint()
 		}
 	}
-    
-    public var activitiesTimeTitle: String? {
-        didSet {
-            activitiesTimeTitleLabel.text = activitiesTimeTitle
-            activitiesTimeTitleLabel.isHidden = false
-        }
-    }
+
+	public var activitiesTimeTitle: String? {
+		didSet {
+			activitiesTimeTitleLabel.text = activitiesTimeTitle
+			activitiesTimeTitleLabel.isHidden = false
+		}
+	}
 
 	// MARK: - Private Methods
 
@@ -69,7 +69,6 @@ class CoinInfoHeaderView: UICollectionReusableView {
 	}
 
 	private func setupStyle() {
-
 		contentView.backgroundColor = .Pino.secondaryBackground
 		separatorLineView.backgroundColor = .Pino.gray5
 
@@ -117,8 +116,8 @@ class CoinInfoHeaderView: UICollectionReusableView {
 		amountLabel.text = coinInfoVM.coinPortfolio.price
 		volatilityRateLabel.text = coinInfoVM.coinPortfolio.volatilityRatePercentage
 		assetsTitleLabel.text = coinInfoVM.coinPortfolio.userAmountAndCoinSymbol
-        
-        activitiesTimeTitleLabel.isHidden = true
+
+		activitiesTimeTitleLabel.isHidden = true
 
 		switch coinInfoVM.coinPortfolio.type {
 		case .verified:
