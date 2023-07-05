@@ -37,8 +37,8 @@ class SwapFeeView: UIView {
 	private let feeTitleLabel = UILabel()
 	private let feeLabel = UILabel()
 
-	private let openFeeInfoIcon = UIImage(named: "arrow_down2")
-	private let closeFeeInfoIcon = UIImage(named: "arrow_up2")
+	private let openFeeInfoIcon = UIImage(named: "chevron_down")
+	private let closeFeeInfoIcon = UIImage(named: "chevron_up")
 
 	private var isCollapsed = false
 
@@ -102,7 +102,7 @@ class SwapFeeView: UIView {
 		feeTitleLabel.text = swapFeeVM.feeTitle
 
 		collapsButton.setImage(openFeeInfoIcon, for: .normal)
-		providerChangeIcon.image = UIImage(named: "arrow_right2")
+		providerChangeIcon.image = UIImage(named: "chevron_right")
 
 		amountLabel.font = .PinoStyle.mediumBody
 		impactTagLabel.font = .PinoStyle.semiboldFootnote

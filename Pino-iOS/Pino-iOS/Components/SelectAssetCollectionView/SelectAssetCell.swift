@@ -60,7 +60,7 @@ class SelectAssetCell: UICollectionViewCell {
 		assetNameLabel.numberOfLines = 0
 
 		assetAmountAndSymbolLabel.font = .PinoStyle.mediumFootnote
-		assetAmountAndSymbolLabel.text = "\(assetVM.amount) \(assetVM.symbol)"
+		assetAmountAndSymbolLabel.text = assetVM.amount
 		assetAmountAndSymbolLabel.numberOfLines = 0
 
 		if assetVM.isVerified {

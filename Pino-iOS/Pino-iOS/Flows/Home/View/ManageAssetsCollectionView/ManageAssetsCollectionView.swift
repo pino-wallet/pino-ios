@@ -26,7 +26,7 @@ class ManageAssetsCollectionView: UICollectionView {
 
 	init(homeVM: HomepageViewModel) {
 		self.homeVM = homeVM
-		self.filteredAssets = homeVM.manageAssetsList ?? []
+		self.filteredAssets = GlobalVariables.shared.manageAssetsList ?? []
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 
@@ -82,7 +82,10 @@ extension ManageAssetsCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let manageAssetCell = cellForItem(at: indexPath) as! ManageAssetCell
 		manageAssetCell.toggleAssetSwitch()
-		homeVM.updateSelectedAssets(filteredAssets[indexPath.item], isSelected: manageAssetCell.isSwitchOn())
+		AssetManagerViewModel.shared.updateSelectedAssets(
+			filteredAssets[indexPath.item],
+			isSelected: manageAssetCell.isSwitchOn()
+		)
 	}
 }
 

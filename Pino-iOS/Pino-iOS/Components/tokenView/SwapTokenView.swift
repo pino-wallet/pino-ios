@@ -66,7 +66,7 @@ class SwapTokenView: UIView {
 	}
 
 	private func setupStyle() {
-		changeTokenIcon.image = UIImage(named: "arrow_down_2")
+		changeTokenIcon.image = UIImage(named: "chevron_down")
 		tokenNameLabel.font = .PinoStyle.mediumCallout
 		tokenNameLabel.textColor = .Pino.label
 

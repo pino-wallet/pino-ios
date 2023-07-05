@@ -225,38 +225,34 @@ class Web3Core {
 			}.map { nonce in
 				transactionInfo.updateValue(nonce, forKey: .nonce)
 			}.then { [self] () throws -> Promise<EthereumQuantity> in
-
-				attempt { [self] in
-					Promise<EthereumQuantity>() { seal in
-						firstly {
-							let contract = try getContractOfToken(address: tokenContractAddress)
-							let transaction = contract["transfer"]?(to, amount).createTransaction(
-								nonce: transactionInfo[.nonce],
-								gasPrice: transactionInfo[.gasPrice],
-								maxFeePerGas: nil,
-								maxPriorityFeePerGas: nil,
-								gasLimit: nil,
-								from: myPrivateKey.address,
-								value: nil,
-								accessList: [:],
-								transactionType: .legacy
-							)
-							return web3.eth.estimateGas(call: .init(
-								from: transaction?.from,
-								to: (transaction?.to)!,
-								gas: nil,
-								gasPrice: transactionInfo[.gasPrice],
-								value: nil,
-								data: transaction!.data
-							))
-						}.done { estimate in
-							seal.fulfill(estimate)
-						}.catch { error in
-							seal.reject(error)
-						}
+				Promise<EthereumQuantity>() { seal in
+					firstly {
+						let contract = try getContractOfToken(address: tokenContractAddress)
+						let transaction = contract["transfer"]?(to, amount).createTransaction(
+							nonce: transactionInfo[.nonce],
+							gasPrice: transactionInfo[.gasPrice],
+							maxFeePerGas: nil,
+							maxPriorityFeePerGas: nil,
+							gasLimit: nil,
+							from: myPrivateKey.address,
+							value: nil,
+							accessList: [:],
+							transactionType: .legacy
+						)
+						return web3.eth.estimateGas(call: .init(
+							from: transaction?.from,
+							to: (transaction?.to)!,
+							gas: transactionInfo[.gasPrice],
+							gasPrice: nil,
+							value: nil,
+							data: transaction!.data
+						))
+					}.done { estimate in
+						seal.fulfill(estimate)
+					}.catch { error in
+						seal.reject(error)
 					}
 				}
-
 			}.done { gaslimit in
 				transactionInfo.updateValue(gaslimit, forKey: .gasLimit)
 				let estimate = try EthereumQuantity((gaslimit.quantity * BigUInt(110)) / BigUInt(100))

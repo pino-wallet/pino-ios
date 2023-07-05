@@ -119,7 +119,7 @@ class SwapTokenSectionView: UIView {
 		estimatedAmountLabel.numberOfLines = 0
 		estimatedAmountLabel.lineBreakMode = .byCharWrapping
 
-		swapVM.delegate = self
+		swapVM.swapDelegate = self
 	}
 
 	private func setupContstraint() {
@@ -157,6 +157,7 @@ class SwapTokenSectionView: UIView {
 	@objc
 	private func enterMaxAmount() {
 		openKeyboard()
+		#warning("number formatting should be editted")
 		amountTextfield.text = swapVM.selectedToken.holdAmount.formattedAmountOf(type: .hold)
 		amountTextfield.sendActions(for: .editingChanged)
 	}

@@ -95,7 +95,7 @@ class AssetsCollectionView: UICollectionView {
 	}
 
 	private func setupBindings() {
-		homeVM.$assetsList.sink { [weak self] _ in
+		GlobalVariables.shared.$selectedManageAssetsList.sink { [weak self] _ in
 			self?.reloadData()
 		}.store(in: &cancellables)
 
@@ -119,13 +119,13 @@ class AssetsCollectionView: UICollectionView {
 	// MARK: - Public Methods
 
 	public func getHomeData() {
-		homeVM.getHomeData { error in
+		GlobalVariables.shared.fetchSharedInfo().done { _ in
+			self.hideSkeletonView()
 			self.refreshControl?.endRefreshing()
-			if let error {
-				Toast.default(title: error.message, subtitle: "Please try again!", style: .error).show(haptic: .warning)
-			} else {
-				self.hideSkeletonView()
-			}
+		}.catch { error in
+			Toast.default(title: "Error fetching info from server", subtitle: "Please try again!", style: .error)
+				.show(haptic: .warning)
+			self.refreshControl?.endRefreshing()
 		}
 	}
 }
@@ -147,7 +147,7 @@ extension AssetsCollectionView: UICollectionViewDelegate {
 		let homeSection = HomeSection(rawValue: indexPath.section)
 		switch homeSection {
 		case .asset:
-			guard let assetsList = homeVM.assetsList else { return }
+			let assetsList = GlobalVariables.shared.selectedManageAssetsList
 			assetTapped(assetsList[indexPath.item])
 		case .position:
 			assetTapped(homeVM.positionAssetsList![indexPath.item])
