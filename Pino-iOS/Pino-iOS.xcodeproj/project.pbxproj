@@ -388,6 +388,10 @@
 		E34728F129EEA81000AB8265 /* AssetChartDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34728F029EEA81000AB8265 /* AssetChartDataViewModel.swift */; };
 		E351A72729F5247000635715 /* ChartDateBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E351A72629F5247000635715 /* ChartDateBuilder.swift */; };
 		E35BB6382A5585FA003987F5 /* SwapProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6372A5585FA003987F5 /* SwapProtocol.swift */; };
+		E35BB63A2A5589F3003987F5 /* SelectSwapProtocolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6392A5589F3003987F5 /* SelectSwapProtocolViewController.swift */; };
+		E35BB63C2A558B2E003987F5 /* SelectSwapProtocolViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB63B2A558B2E003987F5 /* SelectSwapProtocolViewModel.swift */; };
+		E35BB63E2A558D0E003987F5 /* SwapProtocolCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB63D2A558D0E003987F5 /* SwapProtocolCollectionView.swift */; };
+		E35BB6402A558F87003987F5 /* SwapProtocolCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB63F2A558F87003987F5 /* SwapProtocolCell.swift */; };
 		E3847B362A52CB32005ED78B /* SwapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B352A52CB32005ED78B /* SwapViewModel.swift */; };
 		E3847B382A52CBE6005ED78B /* AmountStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B372A52CBE6005ED78B /* AmountStatus.swift */; };
 		E3847B3A2A52CC19005ED78B /* SwapTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B392A52CC19005ED78B /* SwapTokenViewModel.swift */; };
@@ -833,6 +837,10 @@
 		E34728F029EEA81000AB8265 /* AssetChartDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetChartDataViewModel.swift; sourceTree = "<group>"; };
 		E351A72629F5247000635715 /* ChartDateBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDateBuilder.swift; sourceTree = "<group>"; };
 		E35BB6372A5585FA003987F5 /* SwapProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapProtocol.swift; sourceTree = "<group>"; };
+		E35BB6392A5589F3003987F5 /* SelectSwapProtocolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSwapProtocolViewController.swift; sourceTree = "<group>"; };
+		E35BB63B2A558B2E003987F5 /* SelectSwapProtocolViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSwapProtocolViewModel.swift; sourceTree = "<group>"; };
+		E35BB63D2A558D0E003987F5 /* SwapProtocolCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapProtocolCollectionView.swift; sourceTree = "<group>"; };
+		E35BB63F2A558F87003987F5 /* SwapProtocolCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapProtocolCell.swift; sourceTree = "<group>"; };
 		E3847B352A52CB32005ED78B /* SwapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapViewModel.swift; sourceTree = "<group>"; };
 		E3847B372A52CBE6005ED78B /* AmountStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountStatus.swift; sourceTree = "<group>"; };
 		E3847B392A52CC19005ED78B /* SwapTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapTokenViewModel.swift; sourceTree = "<group>"; };
@@ -2357,6 +2365,7 @@
 			isa = PBXGroup;
 			children = (
 				47A6676B929BBCE1E8B10CDF /* SwapViewController.swift */,
+				E35BB6392A5589F3003987F5 /* SelectSwapProtocolViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2368,6 +2377,8 @@
 				E3847B3D2A52CE25005ED78B /* SwapTokenSectionView.swift */,
 				E3847B442A531C3A005ED78B /* SwapView+Keyboard.swift */,
 				E3847B462A53F9A8005ED78B /* SwapFeeView.swift */,
+				E35BB63D2A558D0E003987F5 /* SwapProtocolCollectionView.swift */,
+				E35BB63F2A558F87003987F5 /* SwapProtocolCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2378,6 +2389,7 @@
 				E3847B352A52CB32005ED78B /* SwapViewModel.swift */,
 				E3847B392A52CC19005ED78B /* SwapTokenViewModel.swift */,
 				E3847B482A542A76005ED78B /* SwapFeeViewModel.swift */,
+				E35BB63B2A558B2E003987F5 /* SelectSwapProtocolViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2881,12 +2893,14 @@
 				DD2E33C472905FA32AE84797 /* AboutPinoViewController.swift in Sources */,
 				E343836A2A3D912A0048BDA1 /* SendConfirmationViewController.swift in Sources */,
 				D91A39FF29E40F8900004CB2 /* NotificationSettingsViewModel.swift in Sources */,
+				E35BB63A2A5589F3003987F5 /* SelectSwapProtocolViewController.swift in Sources */,
 				E385F6162A220C6D00EE7EE1 /* CTSEndpoint.swift in Sources */,
 				12265EA20032CC8CF48199E7 /* AboutPinoViewModel.swift in Sources */,
 				1AC53E3B2AB70C2C7F419A38 /* AccountHeaderView.swift in Sources */,
 				DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */,
 				AC39E74F527151DCAE1E9AAE /* AccountingAPIMockClient.swift in Sources */,
 				6FB08C15B02317A1FE3C012D /* AccountingAPIService.swift in Sources */,
+				E35BB63E2A558D0E003987F5 /* SwapProtocolCollectionView.swift in Sources */,
 				3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */,
 				E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */,
 				E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */,
@@ -3044,6 +3058,7 @@
 				403691BF2A3DFFB60013AB6D /* AppleToastView.swift in Sources */,
 				98D92FBB51CC774F95B06CB8 /* IntroCollectionView.swift in Sources */,
 				D94A9A2229FE6CDA00DCA28D /* EditAccountNameView.swift in Sources */,
+				E35BB6402A558F87003987F5 /* SwapProtocolCell.swift in Sources */,
 				0CDD5B1CF93FCD04F68CC1C9 /* IntroCollectionViewCell.swift in Sources */,
 				E384CB1629FFABAB009C74F5 /* Double+Extension.swift in Sources */,
 				FC0D80A069760DC032C1B9D6 /* IntroModel.swift in Sources */,
@@ -3123,6 +3138,7 @@
 				E3D204CC2A39B7E90027FEBC /* QRScannerViewController.swift in Sources */,
 				E3F482F02A35A6E900EEC9CF /* CustomAsset+CoreDataProperties.swift in Sources */,
 				7B98A5C0E4D54CE1290B009B /* PrecisionSystem.swift in Sources */,
+				E35BB63C2A558B2E003987F5 /* SelectSwapProtocolViewModel.swift in Sources */,
 				133389D38DF23CB5BE195DDC /* ProfileCollectionView.swift in Sources */,
 				7656A61006C2DB8A8F75F498 /* ProfileIcons.swift in Sources */,
 				D9C4CF032A408CA500475F01 /* UserAddressCell.swift in Sources */,
