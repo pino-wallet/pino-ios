@@ -138,6 +138,10 @@ class AccountsViewModel {
 		coreDataManager.deleteWalletAccount(walletVM.walletAccountInfoModel)
 		getAccounts()
 	}
+    
+    public func setAccountLastBalance(account: AccountInfoViewModel, balance: String) {
+        coreDataManager.editWalletAccount(account.walletAccountInfoModel, lastBalance: balance)
+    }
 
 	public func updateSelectedAccount(with selectedAccount: AccountInfoViewModel) {
 		coreDataManager.updateSelectedWalletAccount(selectedAccount.walletAccountInfoModel)

@@ -31,4 +31,6 @@ extension WalletAccount {
 	public var publicKey: String
 	@NSManaged
 	public var wallet: Wallet
+    @NSManaged
+    public var lastBalance: String
 }

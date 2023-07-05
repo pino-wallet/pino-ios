@@ -32,9 +32,8 @@ public struct AccountInfoViewModel: Equatable {
 		walletAccountInfoModel.avatarColor
 	}
 
-	#warning("It has to be refactored later")
 	public var balance: String {
-		"$0"
+        walletAccountInfoModel.lastBalance
 	}
 
 	public var isSelected: Bool {

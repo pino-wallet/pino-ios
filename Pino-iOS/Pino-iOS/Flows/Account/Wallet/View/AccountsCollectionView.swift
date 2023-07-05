@@ -82,6 +82,7 @@ extension AccountsCollectionView: UICollectionViewDelegateFlowLayout {
 
 extension AccountsCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        accountsVM.setAccountLastBalance(account: accountsVM., balance: <#T##String#>)
 		accountsVM.updateSelectedAccount(with: accountsVM.accountsList[indexPath.item])
 		dismissPage()
 	}
