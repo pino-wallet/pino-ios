@@ -15,6 +15,7 @@ class ProfileViewModel {
 	public var walletInfo: AccountInfoViewModel!
 	public var accountSettings: [SettingsViewModel]!
 	public var generalSettings: [SettingsViewModel]!
+	public var walletBalance: String?
 
 	// MARK: - Initializers
 

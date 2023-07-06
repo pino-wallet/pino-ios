@@ -63,6 +63,10 @@ class HomepageViewController: UIViewController {
 	}
 
 	private func setupNavigationBar() {
+		homeVM.$walletBalance.sink { walletBalance in
+			self.profileVM.walletBalance = walletBalance?.balance
+		}.store(in: &cancellables)
+
 		homeVM.$walletInfo.sink { [weak self] accountInfo in
 			guard let accountInfo = accountInfo else { return }
 			let accountInfoNavigationItems = AccountInfoNavigationItems(accountInfoVM: accountInfo)
