@@ -58,7 +58,7 @@ class SwapProtocolCell: UICollectionViewCell {
 		swapProtocolTitleStackView.axis = .vertical
 
 		mainStackView.spacing = 8
-		swapProtocolTitleStackView.spacing = 4
+		swapProtocolTitleStackView.spacing = 10
 
 		mainStackView.alignment = .center
 	}
@@ -68,8 +68,8 @@ class SwapProtocolCell: UICollectionViewCell {
 			.allEdges
 		)
 		mainStackView.pin(
-			.leading,
-			.verticalEdges(padding: 9)
+			.leading(padding: 14),
+			.verticalEdges(padding: 10)
 		)
 		swapProtocolImageView.pin(
 			.fixedHeight(44),
