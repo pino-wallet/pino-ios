@@ -28,8 +28,11 @@ class AccountsViewModel {
 
 	// MARK: - Initializers
 
-	init() {
+	init(currentWalletBalance: String?) {
 		getAccounts()
+		if let currentWalletBalance {
+			setAccountLastBalance(account: currentAccount, balance: currentWalletBalance)
+		}
 	}
 
 	// MARK: - Public Methods
