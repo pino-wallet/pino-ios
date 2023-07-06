@@ -27,7 +27,7 @@ class SwapViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-        assets = GlobalVariables.shared.manageAssetsList
+		assets = GlobalVariables.shared.manageAssetsList
 		swapVM = SwapViewModel(fromToken: assets[0], toToken: assets[1])
 
 		view = SwapView(
