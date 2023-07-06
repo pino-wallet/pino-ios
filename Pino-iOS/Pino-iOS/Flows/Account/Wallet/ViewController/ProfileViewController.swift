@@ -12,13 +12,14 @@ class ProfileViewController: UIViewController {
 	// MARK: Private Properties
 
 	private let profileVM: ProfileViewModel
-	private let accountsVM = AccountsViewModel()
+	private let accountsVM: AccountsViewModel
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
 
 	init(profileVM: ProfileViewModel) {
 		self.profileVM = profileVM
+		self.accountsVM = AccountsViewModel(currentWalletBalance: profileVM.walletBalance)
 		super.init(nibName: nil, bundle: nil)
 	}
 
