@@ -15,6 +15,7 @@ class SwapProvidersCollectionView: UICollectionView {
 	// MARK: - Public Properties
 
 	public var swapProviders = [SwapProviderViewModel]()
+	public var bestProvider: SwapProviderViewModel.SwapProvider?
 
 	// MARK: - Initializers
 
@@ -60,6 +61,11 @@ extension SwapProvidersCollectionView: UICollectionViewDataSource {
 			for: indexPath
 		) as! SwapProviderCell
 		cell.swapProviderVM = swapProviders[indexPath.item]
+		if let bestProvider, swapProviders[indexPath.item].provider == bestProvider {
+			cell.cellStyle = .bestRate
+		} else {
+			cell.cellStyle = .normal
+		}
 		return cell
 	}
 }

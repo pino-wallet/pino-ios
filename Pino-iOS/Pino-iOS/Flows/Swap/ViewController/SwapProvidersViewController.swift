@@ -62,7 +62,7 @@ class SwapProvidersViewcontroller: UIAlertController {
 		titleStackView.axis = .vertical
 
 		contentStackView.spacing = 30
-		titleStackView.spacing = 5
+		titleStackView.spacing = 12
 
 		closePageButton.addAction(UIAction(handler: { _ in
 			self.dismiss(animated: true)
@@ -84,11 +84,16 @@ class SwapProvidersViewcontroller: UIAlertController {
 	private func setupBindings() {
 		selectProviderVM.$providers.sink { providers in
 			if let providers {
-				self.providersCollectionView.swapProviders = providers
-				self.providersCollectionView.reloadData()
+				self.updateProviderCollectionView(providers: providers)
 			} else {
 				// Show loading
 			}
 		}.store(in: &cancellables)
+	}
+
+	private func updateProviderCollectionView(providers: [SwapProviderViewModel]) {
+		providersCollectionView.swapProviders = providers
+		providersCollectionView.bestProvider = selectProviderVM.getBestProvider(providers)
+		providersCollectionView.reloadData()
 	}
 }

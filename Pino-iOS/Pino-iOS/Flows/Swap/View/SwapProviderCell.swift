@@ -10,7 +10,7 @@ import UIKit
 class SwapProviderCell: UICollectionViewCell {
 	// MARK: - Private Properties
 
-	private let mainContainerView = PinoContainerCard()
+	private var mainContainerView = GradientBorderView()
 	private let mainStackView = UIStackView()
 	private let swapProviderImageView = UIImageView()
 	private let swapProviderTitleStackView = UIStackView()
@@ -24,6 +24,12 @@ class SwapProviderCell: UICollectionViewCell {
 			setupView()
 			setupStyles()
 			setupConstraints()
+		}
+	}
+
+	public var cellStyle: Style! {
+		didSet {
+			updateStyle(cellStyle)
 		}
 	}
 
@@ -55,12 +61,15 @@ class SwapProviderCell: UICollectionViewCell {
 		swapAmountLabel.textAlignment = .right
 
 		swapProviderImageView.backgroundColor = .Pino.background
-		swapProviderImageView.layer.cornerRadius = 22
+		mainContainerView.backgroundColor = .Pino.clear
 
 		swapProviderTitleStackView.spacing = 10
 
-		mainContainerView.layer.borderColor = UIColor.Pino.gray5.cgColor
-		mainContainerView.layer.borderWidth = 1
+		swapProviderImageView.layer.cornerRadius = 22
+		mainContainerView.layer.cornerRadius = 12
+		mainContainerView.layer.masksToBounds = true
+
+		mainContainerView.frame = bounds
 	}
 
 	private func setupConstraints() {
@@ -76,5 +85,21 @@ class SwapProviderCell: UICollectionViewCell {
 			.fixedHeight(44),
 			.fixedWidth(44)
 		)
+	}
+
+	private func updateStyle(_ style: Style) {
+		switch style {
+		case .normal:
+			mainContainerView.updateGradientColors([.Pino.gray5, .Pino.gray5])
+		case .bestRate:
+			mainContainerView.updateGradientColors([.Pino.green, .yellow, .Pino.orange, .purple])
+		}
+	}
+}
+
+extension SwapProviderCell {
+	public enum Style {
+		case normal
+		case bestRate
 	}
 }

@@ -25,10 +25,18 @@ class SelectSwapProvidersViewModel {
 	// MARK: - Private Methods
 
 	private func getProviders() {
+		// Temporary
 		providers = [
 			SwapProviderViewModel(provider: .oneInch, swapAmount: "1,430 USDC"),
 			SwapProviderViewModel(provider: .paraswap, swapAmount: "1,428 USDC"),
 			SwapProviderViewModel(provider: .zeroX, swapAmount: "1,427 USDC"),
 		]
+	}
+
+	// MARK: - Public Methods
+
+	public func getBestProvider(_ providers: [SwapProviderViewModel]) -> SwapProviderViewModel.SwapProvider? {
+		// Temporary
+		providers.first?.provider
 	}
 }
