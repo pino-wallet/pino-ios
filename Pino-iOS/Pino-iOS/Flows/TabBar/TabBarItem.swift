@@ -54,6 +54,9 @@ extension TabBarItem {
 		title: "Activity",
 		image: "activity_tab",
 		selectedImage: "activity_tab_fill",
-        viewController: CustomNavigationController(rootViewController: ActivityViewController(), statusBarStyle: .lightContent)
+		viewController: CustomNavigationController(
+			rootViewController: ActivityViewController(),
+			statusBarStyle: .lightContent
+		)
 	)
 }

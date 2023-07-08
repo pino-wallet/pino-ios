@@ -8,9 +8,11 @@
 import UIKit
 
 class ActivityViewController: UIViewController {
-    // MARK: - Private Properties
-    private let activityVM = ActivityViewModel()
-    private var activityColectionView: ActivityCollectionView!
+	// MARK: - Private Properties
+
+	private let activityVM = ActivityViewModel()
+	private var activityColectionView: ActivityCollectionView!
+
 	// MARK: - View Overrides
 
 	override func viewDidLoad() {
@@ -18,20 +20,19 @@ class ActivityViewController: UIViewController {
 	}
 
 	override func loadView() {
-        setupNavigationBar()
+		setupNavigationBar()
 		setupView()
 	}
 
 	// MARK: - Private Methods
-    
-    private func setupNavigationBar() {
-        setupPrimaryColorNavigationBar()
-        setNavigationTitle(activityVM.pageTitle)
-    }
+
+	private func setupNavigationBar() {
+		setupPrimaryColorNavigationBar()
+		setNavigationTitle(activityVM.pageTitle)
+	}
 
 	private func setupView() {
-        activityColectionView = ActivityCollectionView(activityVM: activityVM)
-        view = activityColectionView
+		activityColectionView = ActivityCollectionView(activityVM: activityVM)
+		view = activityColectionView
 	}
-    
 }
