@@ -50,6 +50,8 @@ class SwapFeeViewModel {
 		return "$\(fee)"
 	}
 
+	// MARK: - Initializers
+
 	init(swapProvider: SwapProvider? = nil) {
 		self.provider = swapProvider
 	}

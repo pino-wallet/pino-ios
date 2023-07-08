@@ -15,19 +15,17 @@ class SwapTokenViewModel {
 	public let maxTitle = "Max: "
 	public let avgSign = "≈"
 	public var amountUpdated: ((String) -> Void)!
-	public var textFieldPlaceHolder = "0.0"
+	public var textFieldPlaceHolder = "0"
 	public var isEditing = false
-
 	public var selectedToken: AssetViewModel
-
-	public var maxHoldAmount: String {
-		selectedToken.amount
-	}
-
 	@Published
 	public var tokenAmount = ""
 	public var dollarAmount = "0"
 	public var decimalDollarAmount: Decimal?
+
+	public var maxHoldAmount: String {
+		selectedToken.amount
+	}
 
 	public var formattedAmount: String {
 		"\(avgSign) $\(dollarAmount)"
