@@ -10,12 +10,11 @@ public enum AssetVolatilityType: String, Codable {
 	case loss
 	case none
 
-	init(change24h: String) {
-		let change24hInt = PriceNumberFormatter(value: change24h)
-		if change24hInt.bigNumber.isZero {
+	init(change24h: BigNumber) {
+		if change24h.number.isZero {
 			self = .none
 		} else {
-			switch change24hInt.bigNumber.number.sign {
+			switch change24h.number.sign {
 			case .minus:
 				self = .loss
 			case .plus:

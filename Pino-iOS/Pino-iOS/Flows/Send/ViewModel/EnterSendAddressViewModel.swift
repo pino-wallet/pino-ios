@@ -28,14 +28,21 @@ class EnterSendAddressViewModel {
 
 	public enum ValidationError: Error {
 		case addressNotValid
+		case sameAddress
 
 		public var description: String {
 			switch self {
 			case .addressNotValid:
 				return "Invalid address"
+			case .sameAddress:
+				return "Same address as current account"
 			}
 		}
 	}
+
+	// MARK: - Private Properties
+
+	private let pinoWalletManager = PinoWalletManager()
 
 	// MARK: - Initializers
 
@@ -56,6 +63,10 @@ class EnterSendAddressViewModel {
 	public func validateSendAddress(address: String) {
 		if address.isEmpty {
 			didValidateSendAddress(.normal)
+			return
+		}
+		if address == pinoWalletManager.currentAccount.eip55Address {
+			didValidateSendAddress(.error(.sameAddress))
 			return
 		}
 		if address.validateETHContractAddress() {

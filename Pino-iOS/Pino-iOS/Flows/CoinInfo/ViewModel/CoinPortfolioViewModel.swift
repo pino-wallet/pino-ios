@@ -23,7 +23,7 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var userAmountAndCoinSymbol: String {
-		"\(userAmount.formattedAmountOf(type: .hold)) \(coinPortfolioModel.detail!.symbol)"
+		"\(userAmount.formattedAmountOf(type: .sevenDigitsRule)) \(coinPortfolioModel.detail!.symbol)"
 	}
 
 	public var logo: URL? {
@@ -35,11 +35,11 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var volatilityType: AssetVolatilityType {
-		AssetVolatilityType(change24h: changePercentage)
+		AssetVolatilityType(change24h: BigNumber(number: changePercentage, decimal: 6))
 	}
 
 	public var volatilityRatePercentage: String {
-		let formattedChangePercentage = BigNumber(number: changePercentage, decimal: 2).formattedAmountOf(type: .price)
+		let formattedChangePercentage = BigNumber(number: changePercentage, decimal: 2).formattedAmountOf(type: .priceRule)
 		return "\(volatilityType.prependSign)\(formattedChangePercentage)%"
 	}
 
@@ -48,7 +48,7 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var price: String {
-		"$\(coinPrice.formattedAmountOf(type: .price))"
+		"$\(coinPrice.formattedAmountOf(type: .priceRule))"
 	}
 
 	public var type: CoinType {
@@ -67,7 +67,7 @@ struct CoinPortfolioViewModel {
 
 	public var userAmountInDollar: String {
 		let totalAmountInDollar = userAmount * coinPrice
-		return "$\(totalAmountInDollar.formattedAmountOf(type: .price))"
+		return "$\(totalAmountInDollar.formattedAmountOf(type: .priceRule))"
 	}
 
 	public var isEthCoin: Bool {

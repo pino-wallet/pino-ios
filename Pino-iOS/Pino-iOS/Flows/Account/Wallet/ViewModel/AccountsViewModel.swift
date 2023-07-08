@@ -21,7 +21,6 @@ class AccountsViewModel {
 	// MARK: - Private Properties
 
 	private var accountingAPIClient = AccountingAPIClient()
-	private var walletAPIClient = WalletAPIMockClient()
 	private var cancellables = Set<AnyCancellable>()
 	private let coreDataManager = CoreDataManager()
 	private let pinoWalletManager = PinoWalletManager()
