@@ -20,7 +20,7 @@ class SwapTokenViewModel {
 	public var selectedToken: AssetViewModel
 	@Published
 	public var tokenAmount = ""
-	public var dollarAmount = "0"
+	public var dollarAmount = ""
 	public var decimalDollarAmount: Decimal?
 
 	public var maxHoldAmount: String {
@@ -28,7 +28,11 @@ class SwapTokenViewModel {
 	}
 
 	public var formattedAmount: String {
-		"\(avgSign) $\(dollarAmount)"
+		if tokenAmount == "" {
+			return .emptyString
+		} else {
+			return "\(avgSign) $\(dollarAmount)"
+		}
 	}
 
 	public var formattedTokenAmount: String? {
