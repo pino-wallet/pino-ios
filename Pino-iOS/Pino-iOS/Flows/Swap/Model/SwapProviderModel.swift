@@ -24,5 +24,7 @@ struct SwapProviderModel {
 extension SwapProviderModel {
 	// MARK: - Public Properties
 
-	public static var oneInch = SwapProviderModel(name: "1inch", image: "1inch")
+	public static var oneInch = SwapProviderModel(name: "1inch", image: "1inch_provider")
+	public static var paraswap = SwapProviderModel(name: "Paraswap", image: "paraswap_provider")
+	public static var zeroX = SwapProviderModel(name: "0x", image: "0x_provider")
 }

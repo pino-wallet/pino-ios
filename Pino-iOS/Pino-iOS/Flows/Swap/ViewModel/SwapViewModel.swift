@@ -36,6 +36,7 @@ class SwapViewModel {
 		self.toToken.amountUpdated = { amount in
 			self.recalculateTokensAmount(amount: amount)
 		}
+		getFeeInfo()
 	}
 
 	// MARK: - Private Methods
