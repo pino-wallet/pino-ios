@@ -21,7 +21,6 @@ public enum AssetVolatilityType: String, Codable {
                 self = .profit
             }
         }
-        self = .profit
     }
 
 	public var prependSign: String {
