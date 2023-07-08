@@ -39,7 +39,8 @@ class SwapProvidersViewcontroller: UIAlertController {
 
 	private func setupView() {
 		providersCollectionView = SwapProvidersCollectionView(providerDidSelect: { provider in
-
+			self.providerDidSelect(provider)
+			self.dismiss(animated: true)
 		})
 		contentStackView.addArrangedSubview(titleStackView)
 		contentStackView.addArrangedSubview(providersCollectionView)
