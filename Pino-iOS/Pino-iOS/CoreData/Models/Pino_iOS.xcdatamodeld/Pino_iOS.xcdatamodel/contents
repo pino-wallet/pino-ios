@@ -21,6 +21,7 @@
         <attribute name="derivationPath" optional="YES" attributeType="String"/>
         <attribute name="eip55Address" attributeType="String"/>
         <attribute name="isSelected" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="lastBalance" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="publicKey" attributeType="String"/>
         <relationship name="wallet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wallet" inverseName="accounts" inverseEntity="Wallet"/>

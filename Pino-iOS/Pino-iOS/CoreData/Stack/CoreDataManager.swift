@@ -24,11 +24,6 @@ class CoreDataManager {
 		walletDataSource.get(byType: type)
 	}
 
-	//    public func increaseLastDrivedIndexOf(wallet: Wallet) {
-	//        wallet.lastDrivedIndex += 1
-	//        walletDataSource.save(wallet)
-	//    }
-
 	@discardableResult
 	public func createWallet(type: Wallet.WalletType, lastDrivedIndex: Int32 = 0) -> Wallet {
 		let newWallet = Wallet(context: walletDataSource.managedContext)
@@ -81,6 +76,13 @@ class CoreDataManager {
 
 	public func editWalletAccount(_ account: WalletAccount, newName: String) -> WalletAccount {
 		account.name = newName
+		accountDataSource.save(account)
+		return account
+	}
+
+	@discardableResult
+	public func editWalletAccount(_ account: WalletAccount, lastBalance: String) -> WalletAccount {
+		account.lastBalance = lastBalance
 		accountDataSource.save(account)
 		return account
 	}
