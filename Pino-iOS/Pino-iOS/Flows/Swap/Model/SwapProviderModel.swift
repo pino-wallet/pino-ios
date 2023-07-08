@@ -10,21 +10,43 @@ import Foundation
 struct SwapProviderModel {
 	// MARK: - Public Properties
 
-	public var name: String
-	public var image: String
+	public var provider: Provider
+	public var swapAmount: String
 
 	// MARK: - Initializers
 
-	private init(name: String, image: String) {
-		self.name = name
-		self.image = image
+	init(provider: Provider, swapAmount: String) {
+		self.provider = provider
+		self.swapAmount = swapAmount
 	}
 }
 
 extension SwapProviderModel {
-	// MARK: - Public Properties
+	enum Provider {
+		case oneInch
+		case paraswap
+		case zeroX
 
-	public static var oneInch = SwapProviderModel(name: "1inch", image: "1inch_provider")
-	public static var paraswap = SwapProviderModel(name: "Paraswap", image: "paraswap_provider")
-	public static var zeroX = SwapProviderModel(name: "0x", image: "0x_provider")
+		public var name: String {
+			switch self {
+			case .oneInch:
+				return "1inch"
+			case .paraswap:
+				return "Paraswap"
+			case .zeroX:
+				return "0x"
+			}
+		}
+
+		public var image: String {
+			switch self {
+			case .oneInch:
+				return "1inch_provider"
+			case .paraswap:
+				return "paraswap_provider"
+			case .zeroX:
+				return "0x_provider"
+			}
+		}
+	}
 }

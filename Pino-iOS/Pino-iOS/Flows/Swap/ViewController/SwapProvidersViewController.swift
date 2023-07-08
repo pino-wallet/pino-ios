@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProvidersViewcontroller: UIAlertController {
+class SwapProvidersViewcontroller: UIAlertController {
 	// MARK: - Private Properties
 
 	private let contentView = UIView()
@@ -16,6 +16,7 @@ class ProvidersViewcontroller: UIAlertController {
 	private let titleLabel = PinoLabel(style: .title, text: nil)
 	private let descriptionLabel = PinoLabel(style: .description, text: nil)
 	private let closePageButton = PinoButton(style: .active)
+	private var providersCollectionView: SwapProvidersCollectionView!
 
 	private var providerDidSelect: ((SwapProviderModel) -> Void)!
 
@@ -23,9 +24,7 @@ class ProvidersViewcontroller: UIAlertController {
 
 	convenience init(providerDidSelect: @escaping (SwapProviderModel) -> Void) {
 		self.init(title: "", message: nil, preferredStyle: .actionSheet)
-
 		self.providerDidSelect = providerDidSelect
-
 		setupView()
 		setupStyle()
 		setupConstraint()
@@ -34,7 +33,16 @@ class ProvidersViewcontroller: UIAlertController {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		providersCollectionView = SwapProvidersCollectionView(
+			swapProviders: [
+				SwapProviderModel(provider: .oneInch, swapAmount: "1,430 USDC"),
+				SwapProviderModel(provider: .paraswap, swapAmount: "1,430 USDC"),
+				SwapProviderModel(provider: .zeroX, swapAmount: "1,430 USDC"),
+			],
+			providerDidSelect: { provider in }
+		)
 		contentStackView.addArrangedSubview(titleStackView)
+		contentStackView.addArrangedSubview(providersCollectionView)
 		contentStackView.addArrangedSubview(closePageButton)
 		titleStackView.addArrangedSubview(titleLabel)
 		titleStackView.addArrangedSubview(descriptionLabel)
@@ -48,11 +56,12 @@ class ProvidersViewcontroller: UIAlertController {
 		closePageButton.title = "Got it"
 
 		contentView.backgroundColor = .Pino.secondaryBackground
+		providersCollectionView.backgroundColor = .Pino.clear
 		contentView.layer.cornerRadius = 12
 		contentStackView.axis = .vertical
 		titleStackView.axis = .vertical
 
-		contentStackView.spacing = 24
+		contentStackView.spacing = 30
 		titleStackView.spacing = 5
 
 		closePageButton.addAction(UIAction(handler: { _ in
@@ -66,6 +75,9 @@ class ProvidersViewcontroller: UIAlertController {
 		)
 		contentView.pin(
 			.allEdges
+		)
+		providersCollectionView.pin(
+			.fixedHeight(210)
 		)
 	}
 }

@@ -100,7 +100,7 @@ class SwapViewController: UIViewController {
 	}
 
 	private func openProvidersPage() {
-		let providersVC = ProvidersViewcontroller { provider in
+		let providersVC = SwapProvidersViewcontroller { provider in
 		}
 		present(providersVC, animated: true)
 	}
