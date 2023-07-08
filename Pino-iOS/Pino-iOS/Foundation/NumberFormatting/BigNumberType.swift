@@ -143,10 +143,12 @@ extension BigNumber: CustomStringConvertible {
 	}
 
 	public func formattedAmountOf(type: FormatTypes) -> String {
-		Utilities.formatToPrecision(
+		let numDigits = whole.description.count
+
+		return Utilities.formatToPrecision(
 			number.magnitude,
 			units: .custom(decimal),
-			formattingDecimals: type.formattingDecimal,
+			formattingDecimals: type.formattingDecimal(wholeNumDigits: numDigits),
 			decimalSeparator: ".",
 			fallbackToScientific: false
 		)
@@ -155,18 +157,19 @@ extension BigNumber: CustomStringConvertible {
 
 extension BigNumber {
 	public enum FormatTypes {
-		case price
-		case hold
-		case custom(Int)
+		case sevenDigitsRule
+		case priceRule
 
-		public var formattingDecimal: Int {
+		public func formattingDecimal(wholeNumDigits: Int) -> Int {
 			switch self {
-			case .price:
-				return 2
-			case .hold:
-				return 6
-			case let .custom(number):
-				return number
+			case .sevenDigitsRule:
+				return 7 - wholeNumDigits
+			case .priceRule:
+				if wholeNumDigits >= 2 {
+					return 0
+				} else {
+					return 2
+				}
 			}
 		}
 	}
