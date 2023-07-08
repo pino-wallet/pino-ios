@@ -59,7 +59,7 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	public var formattedHoldAmount: String {
-		holdAmountInDollor.formattedAmountOf(type: .sevenDigitsRule)
+		holdAmountInDollor.formattedAmountOf(type: .priceRule)
 	}
 
 	public var change24h: BigNumber {

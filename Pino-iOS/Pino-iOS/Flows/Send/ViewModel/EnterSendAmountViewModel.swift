@@ -65,7 +65,8 @@ class EnterSendAmountViewModel {
 
 	public func calculateAmount(_ amount: String) {
 		if isDollarEnabled {
-			convertDollarAmountToTokenValue(amount: amount)
+			tokenAmount = selectedToken.holdAmount.formattedAmountOf(type: .sevenDigitsRule)
+			dollarAmount = amount
 		} else {
 			convertEnteredAmountToDollar(amount: amount)
 		}
@@ -123,13 +124,5 @@ class EnterSendAmountViewModel {
 		let amountInDollarDecimalValue = decimalNumber * price
 		dollarAmount = amountInDollarDecimalValue.formattedAmount(type: .dollarValue)
 		tokenAmount = amount
-	}
-
-	private func convertDollarAmountToTokenValue(amount: String) {
-		guard let decimalNumber = Decimal(string: amount),
-		      let price = Decimal(string: selectedToken.price.decimalString) else { return }
-		let tokenAmountDecimalValue = decimalNumber / price
-		tokenAmount = selectedToken.holdAmount.formattedAmountOf(type: .sevenDigitsRule)
-		dollarAmount = amount
 	}
 }
