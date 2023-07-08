@@ -296,6 +296,9 @@
 		D99CAFC92A3AF0D400DBEF2B /* EnterSendAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99CAFC82A3AF0D400DBEF2B /* EnterSendAddressViewController.swift */; };
 		D99CAFCB2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99CAFCA2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift */; };
 		D99CAFCD2A3AF2EE00DBEF2B /* EnterSendAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99CAFCC2A3AF2EE00DBEF2B /* EnterSendAddressView.swift */; };
+		D99CBA312A594DD700581564 /* ActivityEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99CBA302A594DD700581564 /* ActivityEndpoint.swift */; };
+		D99CBA332A594ECB00581564 /* ActivityAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99CBA322A594ECB00581564 /* ActivityAPIService.swift */; };
+		D99CBA352A59509B00581564 /* ActivityAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99CBA342A59509B00581564 /* ActivityAPIClient.swift */; };
 		D99F4B1D29E2C25C009F7F55 /* PaymentMethodOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F4B1C29E2C25C009F7F55 /* PaymentMethodOptionView.swift */; };
 		D99F4B2129E2C48D009F7F55 /* PaymentMethodOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F4B2029E2C48D009F7F55 /* PaymentMethodOptionViewModel.swift */; };
 		D99F4B2329E2C619009F7F55 /* PaymentMethodOptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F4B2229E2C619009F7F55 /* PaymentMethodOptionModel.swift */; };
@@ -763,6 +766,9 @@
 		D99CAFC82A3AF0D400DBEF2B /* EnterSendAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAddressViewController.swift; sourceTree = "<group>"; };
 		D99CAFCA2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAddressViewModel.swift; sourceTree = "<group>"; };
 		D99CAFCC2A3AF2EE00DBEF2B /* EnterSendAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAddressView.swift; sourceTree = "<group>"; };
+		D99CBA302A594DD700581564 /* ActivityEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityEndpoint.swift; sourceTree = "<group>"; };
+		D99CBA322A594ECB00581564 /* ActivityAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAPIService.swift; sourceTree = "<group>"; };
+		D99CBA342A59509B00581564 /* ActivityAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAPIClient.swift; sourceTree = "<group>"; };
 		D99F4B1C29E2C25C009F7F55 /* PaymentMethodOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodOptionView.swift; sourceTree = "<group>"; };
 		D99F4B2029E2C48D009F7F55 /* PaymentMethodOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodOptionViewModel.swift; sourceTree = "<group>"; };
 		D99F4B2229E2C619009F7F55 /* PaymentMethodOptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodOptionModel.swift; sourceTree = "<group>"; };
@@ -1086,6 +1092,7 @@
 		1FE31AB67FFCB1A4C1E2B6C6 /* Endpoints */ = {
 			isa = PBXGroup;
 			children = (
+				D99CBA2F2A594D6600581564 /* Activity */,
 				E385F6142A220C2E00EE7EE1 /* CTS */,
 				9F15B228FACB0D269F8FA3CD /* Accounting */,
 				314B123451F6B40014C626FA /* Assets */,
@@ -2012,6 +2019,7 @@
 				97B410EE93ECE88B2097A2DF /* AssetsAPIService.swift */,
 				D33B3D945C5DD81488E117CB /* WalletAPIService.swift */,
 				E385F6192A220DCC00EE7EE1 /* CTSAPIService.swift */,
+				D99CBA322A594ECB00581564 /* ActivityAPIService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -2090,6 +2098,15 @@
 				D95D49812A386BC10042FC85 /* TitleWithInfo.swift */,
 			);
 			path = TitleWithInfo;
+			sourceTree = "<group>";
+		};
+		D99CBA2F2A594D6600581564 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				D99CBA342A59509B00581564 /* ActivityAPIClient.swift */,
+				D99CBA302A594DD700581564 /* ActivityEndpoint.swift */,
+			);
+			path = Activity;
 			sourceTree = "<group>";
 		};
 		D99F4B1F29E2C405009F7F55 /* ReceiveViewModels */ = {
@@ -2923,6 +2940,7 @@
 				D99CAFCB2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift in Sources */,
 				D9E134872A53013D00193FF0 /* ActivityHelper.swift in Sources */,
 				B0AB10C04E985064573878F8 /* AddCustomAssetView.swift in Sources */,
+				D99CBA332A594ECB00581564 /* ActivityAPIService.swift in Sources */,
 				4A19B10E59268C480A530395 /* AddCustomAssetViewController.swift in Sources */,
 				CFE2848389AB3D7A9AF12C6C /* AddCustomAssetViewModel.swift in Sources */,
 				5319850502764EDE67A09C49 /* AddNewAccountCollectionView.swift in Sources */,
@@ -3015,6 +3033,7 @@
 				1AD184E82488453998E5A2E5 /* CoinPerformanceInfoModel.swift in Sources */,
 				8A10D639170969ECFADE0FE4 /* CoinPerformanceInfoViewModel.swift in Sources */,
 				D91A3A0129E4109500004CB2 /* NotificationOptionModel.swift in Sources */,
+				D99CBA312A594DD700581564 /* ActivityEndpoint.swift in Sources */,
 				10CD67476F9AA1C6EE89AA6F /* CoinPerformanceView.swift in Sources */,
 				DFB1E9D02A08EC1800041B26 /* DataSourceProtocol.swift in Sources */,
 				D9A328192A34B650005A8393 /* SelectAssetCellViewModel.swift in Sources */,
@@ -3172,6 +3191,7 @@
 				C08B09A1A89A6859D79D25D7 /* RecoveryPhraseView.swift in Sources */,
 				403691C12A3DFFB60013AB6D /* IconAppleToastView.swift in Sources */,
 				9B356BB4D7AD512DAD0A05D2 /* RecoveryPhraseViewController.swift in Sources */,
+				D99CBA352A59509B00581564 /* ActivityAPIClient.swift in Sources */,
 				0DC7141183DFDC22EDA3C327 /* RecoveryPhraseViewModel.swift in Sources */,
 				A57E4F2D75D4BAAB0F29A83B /* RegularStyle.swift in Sources */,
 				D9DD538BAF953A18503AB3F0 /* RemoveAccountView.swift in Sources */,
