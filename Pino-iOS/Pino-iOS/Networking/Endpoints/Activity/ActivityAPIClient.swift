@@ -9,17 +9,17 @@ import Combine
 import Foundation
 
 final class ActivityAPIClient: ActivityAPIService {
-    // MARK: - Private Properties
-    private let networkManager = NetworkManager<ActivityEndpoint>()
-    
-    
-    // MARK: - Public Methods
-   public func tokenActivities(userAddress: String, tokenAddress: String) -> AnyPublisher<ActivitiesModel, APIError> {
-       return networkManager.request(.tokenActivities(userAddress: userAddress, tokenAddress: tokenAddress))
-    }
-    
-   public func allActivities(userAddress: String) -> AnyPublisher<ActivitiesModel, APIError> {
-       return networkManager.request(.allActivities(userAddress: userAddress))
-    }
-    
+	// MARK: - Private Properties
+
+	private let networkManager = NetworkManager<ActivityEndpoint>()
+
+	// MARK: - Public Methods
+
+	public func tokenActivities(userAddress: String, tokenAddress: String) -> AnyPublisher<ActivitiesModel, APIError> {
+		networkManager.request(.tokenActivities(userAddress: userAddress, tokenAddress: tokenAddress))
+	}
+
+	public func allActivities(userAddress: String) -> AnyPublisher<ActivitiesModel, APIError> {
+		networkManager.request(.allActivities(userAddress: userAddress))
+	}
 }

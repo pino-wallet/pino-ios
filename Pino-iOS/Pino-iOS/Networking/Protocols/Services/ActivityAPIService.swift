@@ -9,6 +9,6 @@ import Combine
 import Foundation
 
 protocol ActivityAPIService {
-    func tokenActivities(userAddress: String, tokenAddress: String) -> AnyPublisher<ActivitiesModel, APIError>
-    func allActivities(userAddress: String) -> AnyPublisher<ActivitiesModel, APIError>
+	func tokenActivities(userAddress: String, tokenAddress: String) -> AnyPublisher<ActivitiesModel, APIError>
+	func allActivities(userAddress: String) -> AnyPublisher<ActivitiesModel, APIError>
 }
