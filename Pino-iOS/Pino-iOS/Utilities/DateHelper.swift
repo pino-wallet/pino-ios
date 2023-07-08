@@ -8,7 +8,7 @@
 import Foundation
 
 class DateHelper {
-    public func calculateDistanceBetweenTwoDates(previousDate: Date, currentDate: Date = Date()) -> String {
+	public func calculateDistanceBetweenTwoDates(previousDate: Date, currentDate: Date = Date()) -> String {
 		let previousDateTimeInterval = currentDate.timeIntervalSince(previousDate)
 		let dateComponentsformatter = DateComponentsFormatter()
 		dateComponentsformatter.unitsStyle = .full
