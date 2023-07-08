@@ -64,7 +64,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		let dateHelper = DateHelper()
 		let activityDate = activityHelper.getActivityDate(activityBlockTime: activityModel.blockTime)
 
-		return dateHelper.calculateDistanceBetweenTwoDates(pastDate: activityDate)
+		return dateHelper.calculateDistanceBetweenTwoDates(previousDate: activityDate)
 	}
 
 	public var blockTime: String {

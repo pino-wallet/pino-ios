@@ -8,24 +8,23 @@
 import Foundation
 
 class DateHelper {
-	public func calculateDistanceBetweenTwoDates(pastDate: Date) -> String {
-		let currentDate = Date()
-		let intervalSince = currentDate.timeIntervalSince(pastDate)
+    public func calculateDistanceBetweenTwoDates(previousDate: Date, currentDate: Date = Date()) -> String {
+		let previousDateTimeInterval = currentDate.timeIntervalSince(previousDate)
 		let dateComponentsformatter = DateComponentsFormatter()
 		dateComponentsformatter.unitsStyle = .full
-		let betweenActivityAndCurrentTime = Calendar.current.dateComponents(
+		let timeBetweenTwoDates = Calendar.current.dateComponents(
 			[.day, .hour, .minute],
-			from: pastDate,
+			from: previousDate,
 			to: currentDate
 		)
-		if betweenActivityAndCurrentTime.day! > 0 {
+		if timeBetweenTwoDates.day! > 0 {
 			dateComponentsformatter.allowedUnits = [.day]
-		} else if betweenActivityAndCurrentTime.hour! > 0 {
+		} else if timeBetweenTwoDates.hour! > 0 {
 			dateComponentsformatter.allowedUnits = [.hour]
 		} else {
 			dateComponentsformatter.allowedUnits = [.minute]
 		}
 
-		return "\(dateComponentsformatter.string(from: intervalSince)!) ago"
+		return "\(dateComponentsformatter.string(from: previousDateTimeInterval)!) ago"
 	}
 }
