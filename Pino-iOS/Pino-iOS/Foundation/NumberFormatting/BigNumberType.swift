@@ -142,7 +142,7 @@ extension BigNumber: CustomStringConvertible {
 		"\(whole).\(fraction)"
 	}
 
-	public func formattedAmountOf(type: FormatTypes) -> String {
+	public func formattedAmountOf(type: NumberFormatTypes) -> String {
 		let numDigits = whole.description.count
 
 		return Utilities.formatToPrecision(
@@ -155,22 +155,4 @@ extension BigNumber: CustomStringConvertible {
 	}
 }
 
-extension BigNumber {
-	public enum FormatTypes {
-		case sevenDigitsRule
-		case priceRule
 
-		public func formattingDecimal(wholeNumDigits: Int) -> Int {
-			switch self {
-			case .sevenDigitsRule:
-				return 7 - wholeNumDigits
-			case .priceRule:
-				if wholeNumDigits >= 2 {
-					return 0
-				} else {
-					return 2
-				}
-			}
-		}
-	}
-}
