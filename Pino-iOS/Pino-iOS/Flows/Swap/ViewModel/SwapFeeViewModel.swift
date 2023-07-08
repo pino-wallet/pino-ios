@@ -15,7 +15,7 @@ class SwapFeeViewModel {
 	@Published
 	public var feeTag: FeeTag = .none
 	@Published
-	public var provider: SwapProvider?
+	public var provider: SwapProviderModel?
 	@Published
 	public var saveAmount: String?
 	@Published
@@ -50,7 +50,9 @@ class SwapFeeViewModel {
 		return "$\(fee)"
 	}
 
-	init(swapProvider: SwapProvider? = nil) {
+	// MARK: - Initializers
+
+	init(swapProvider: SwapProviderModel? = nil) {
 		self.provider = swapProvider
 	}
 }

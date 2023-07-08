@@ -5,13 +5,16 @@
 //  Created by Mohi Raoufi on 12/17/22.
 //
 
+import Combine
 import UIKit
 
 class SwapViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private var assets: [AssetViewModel]!
+	private var assets: [AssetViewModel]?
 	private var swapVM: SwapViewModel!
+
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - View Overrides
 
@@ -20,15 +23,15 @@ class SwapViewController: UIViewController {
 	}
 
 	override func loadView() {
-		setupView()
+		setupBinding()
 		setupNavigationBar()
 	}
 
 	// MARK: - Private Methods
 
-	private func setupView() {
-		assets = GlobalVariables.shared.manageAssetsList
-		swapVM = SwapViewModel(fromToken: assets[0], toToken: assets[1])
+	private func setupView(assetList: [AssetViewModel]) {
+		assets = assetList
+		swapVM = SwapViewModel(fromToken: assetList[0], toToken: assetList[1])
 
 		view = SwapView(
 			swapVM: swapVM,
@@ -45,9 +48,17 @@ class SwapViewController: UIViewController {
 		)
 	}
 
+	private func setupBinding() {
+		GlobalVariables.shared.$manageAssetsList.sink { assetList in
+			if let assetList, self.assets == nil {
+				self.setupView(assetList: assetList)
+			}
+		}.store(in: &cancellables)
+	}
+
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
-		setNavigationTitle(swapVM.pageTitle)
+		setNavigationTitle("Swap")
 	}
 
 	private func openSelectProtocolPage() {

@@ -133,11 +133,9 @@ class SwapView: UIView {
 		protocolChangeIcon.tintColor = .Pino.label
 
 		backgroundColor = .Pino.background
-		swapCardView.backgroundColor = .Pino.secondaryBackground
 		switchTokenLineView.backgroundColor = .Pino.background
 		switchTokenButton.backgroundColor = .Pino.background
 
-		swapCardView.layer.cornerRadius = 12
 		switchTokenButton.layer.cornerRadius = 12
 
 		contentStackView.axis = .vertical
@@ -220,7 +218,7 @@ class SwapView: UIView {
 		}.store(in: &cancellables)
 	}
 
-	private func updateSwapProtocol(_ swapProtocol: SwapProtocol) {
+	private func updateSwapProtocol(_ swapProtocol: SwapProtocolModel) {
 		protocolName.text = swapProtocol.name
 		protocolImage.image = UIImage(named: swapProtocol.image)
 	}

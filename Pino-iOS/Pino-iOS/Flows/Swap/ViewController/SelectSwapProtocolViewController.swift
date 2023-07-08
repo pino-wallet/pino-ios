@@ -12,11 +12,11 @@ class SelectSwapProtocolViewController: UIViewController {
 
 	private var swapProtocolVM = SelectSwapProtocolViewModel()
 	private var swapProtocolCollectionView: SwapProtocolCollectionView!
-	private var swapProtocolDidSelect: (SwapProtocol) -> Void
+	private var swapProtocolDidSelect: (SwapProtocolModel) -> Void
 
 	// MARK: - Initializers
 
-	init(swapProtocolDidSelect: @escaping (SwapProtocol) -> Void) {
+	init(swapProtocolDidSelect: @escaping (SwapProtocolModel) -> Void) {
 		self.swapProtocolDidSelect = swapProtocolDidSelect
 		super.init(nibName: nil, bundle: nil)
 	}

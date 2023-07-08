@@ -11,9 +11,8 @@ class SwapViewModel {
 	// MARK: - Public Properties
 
 	@Published
-	public var selectedProtocol: SwapProtocol
+	public var selectedProtocol: SwapProtocolModel
 
-	public let pageTitle = "Swap"
 	public let continueButtonTitle = "Swap"
 	public let insufficientAmountButtonTitle = "Insufficient amount"
 	public let switchIcon = "switch_swap"
@@ -37,10 +36,6 @@ class SwapViewModel {
 		self.toToken.amountUpdated = { amount in
 			self.recalculateTokensAmount(amount: amount)
 		}
-
-		swapFeeVM.feeTag = .save("$1 🎉")
-		swapFeeVM.saveAmount = "1"
-		swapFeeVM.fee = "0.001"
 	}
 
 	// MARK: - Private Methods
@@ -55,8 +50,8 @@ class SwapViewModel {
 			toToken.calculateTokenAmount(decimalDollarAmount: fromToken.decimalDollarAmount)
 			toToken.swapDelegate.swapAmountDidCalculate()
 		}
-
 		updateCalculatedAmount()
+		getFeeInfo()
 	}
 
 	private func updateCalculatedAmount() {
@@ -64,6 +59,20 @@ class SwapViewModel {
 			swapFeeVM.calculatedAmount = "\(fromTokenAmount) = \(toTokenAmount)"
 		} else {
 			swapFeeVM.calculatedAmount = nil
+		}
+	}
+
+	private func getFeeInfo() {
+		// This values are temporary and must be replaced with network data
+		let swapFee = "0.001"
+		let saveAmount = "1"
+
+		swapFeeVM.fee = swapFee
+		swapFeeVM.saveAmount = saveAmount
+		if let saveAmountDecimalNumber = Decimal(string: saveAmount), saveAmountDecimalNumber > 0 {
+			swapFeeVM.feeTag = .save("$\(saveAmount) \(swapFeeVM.celebrateEmoji)")
+		} else {
+			swapFeeVM.feeTag = .none
 		}
 	}
 

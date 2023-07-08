@@ -13,7 +13,7 @@ class SelectSwapProtocolViewModel {
 	public let pageTitle = "Select DEX"
 	public let dissmissIocn = "dissmiss"
 
-	var swapProtocols: [SwapProtocol]
+	var swapProtocols: [SwapProtocolModel]
 
 	// MARK: - initializers
 

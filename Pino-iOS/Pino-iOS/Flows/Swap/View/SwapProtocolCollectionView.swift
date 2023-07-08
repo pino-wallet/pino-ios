@@ -10,12 +10,12 @@ import UIKit
 class SwapProtocolCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
-	private let swapProtocols: [SwapProtocol]
-	private let protocolDidSelect: (SwapProtocol) -> Void
+	private let swapProtocols: [SwapProtocolModel]
+	private let protocolDidSelect: (SwapProtocolModel) -> Void
 
 	// MARK: - Initializers
 
-	init(swapProtocols: [SwapProtocol], protocolDidSelect: @escaping (SwapProtocol) -> Void) {
+	init(swapProtocols: [SwapProtocolModel], protocolDidSelect: @escaping (SwapProtocolModel) -> Void) {
 		self.swapProtocols = swapProtocols
 		self.protocolDidSelect = protocolDidSelect
 		let collecttionviewFlowLayout = UICollectionViewFlowLayout(

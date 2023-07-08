@@ -10,7 +10,7 @@ import UIKit
 class SwapProtocolCell: UICollectionViewCell {
 	// MARK: - Public Properties
 
-	public var swapProtocol: SwapProtocol! {
+	public var swapProtocol: SwapProtocolModel! {
 		didSet {
 			setupView()
 			setupStyles()

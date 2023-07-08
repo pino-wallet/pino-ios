@@ -180,6 +180,9 @@ class SwapFeeView: UIView {
 			.fixedWidth(16),
 			.fixedHeight(16)
 		)
+		NSLayoutConstraint.activate([
+			impactTagView.widthAnchor.constraint(greaterThanOrEqualToConstant: 28),
+		])
 	}
 
 	private func collapsFeeCard() {
@@ -235,7 +238,7 @@ class SwapFeeView: UIView {
 		}
 	}
 
-	private func updateProviderView(_ provider: SwapProvider?) {
+	private func updateProviderView(_ provider: SwapProviderModel?) {
 		if let provider {
 			providerStackView.isHidden = false
 			providerImageView.image = UIImage(named: provider.image)
