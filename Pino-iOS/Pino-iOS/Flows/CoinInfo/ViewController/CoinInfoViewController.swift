@@ -37,7 +37,7 @@ class CoinInfoViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = CoinInfoCollectionView(coinInfoVM: coinInfoVM)
+		view = ActivitiesCollectionView(coinInfoVM: coinInfoVM)
 	}
 
 	private func setupNavigationBar() {
