@@ -22,8 +22,8 @@ public class IconAppleToastView: UIStackView {
 		let imageView = UIImageView()
 		imageView.contentMode = .scaleAspectFit
 		NSLayoutConstraint.activate([
-			imageView.widthAnchor.constraint(equalToConstant: 28),
-			imageView.heightAnchor.constraint(equalToConstant: 28),
+			imageView.widthAnchor.constraint(equalToConstant: 20),
+			imageView.heightAnchor.constraint(equalToConstant: 20),
 		])
 
 		return imageView
@@ -77,13 +77,13 @@ public class IconAppleToastView: UIStackView {
 
 		titleLabel.text = title
 		titleLabel.textColor = imageTint
-		titleLabel.font = .systemFont(ofSize: 14, weight: .bold)
+        titleLabel.font = .PinoStyle.boldFootnote
 		vStack.addArrangedSubview(titleLabel)
 
 		if let subtitle = subtitle {
 			subtitleLabel.textColor = .systemGray
 			subtitleLabel.text = subtitle
-			subtitleLabel.font = .systemFont(ofSize: 12, weight: .medium)
+            subtitleLabel.font = .PinoStyle.semiboldFootnote
 			vStack.addArrangedSubview(subtitleLabel)
 		}
 
@@ -100,7 +100,7 @@ public class IconAppleToastView: UIStackView {
 
 	private func commonInit() {
 		axis = .horizontal
-		spacing = 15
+		spacing = 8
 		alignment = .center
 		distribution = .fill
 	}
