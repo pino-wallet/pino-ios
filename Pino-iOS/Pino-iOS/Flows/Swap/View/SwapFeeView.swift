@@ -180,6 +180,9 @@ class SwapFeeView: UIView {
 			.fixedWidth(16),
 			.fixedHeight(16)
 		)
+		NSLayoutConstraint.activate([
+			impactTagView.widthAnchor.constraint(greaterThanOrEqualToConstant: 28),
+		])
 	}
 
 	private func collapsFeeCard() {
