@@ -26,11 +26,11 @@ enum ActivityEndpoint: EndpointType {
 
 	// MARK: - Internal Properties
 
-	var url: URL {
+    internal var url: URL {
 		Environment.apiBaseURL.appendingPathComponent(path)
 	}
 
-	var path: String {
+    internal var path: String {
 		switch self {
 		case let .tokenActivities(userAddress: userAddress, tokenAddress: tokenAddress):
 			return "user/\(userAddress)/activities/\(tokenAddress)"
@@ -39,21 +39,21 @@ enum ActivityEndpoint: EndpointType {
 		}
 	}
 
-	var task: HTTPTask {
+    internal var task: HTTPTask {
 		switch self {
 		case .allActivities, .tokenActivities:
 			return .request
 		}
 	}
 
-	var httpMethod: HTTPMethod {
+    internal var httpMethod: HTTPMethod {
 		switch self {
 		case .allActivities, .tokenActivities:
 			return .get
 		}
 	}
 
-	var headers: HTTPHeaders {
+    internal var headers: HTTPHeaders {
 		[
 			"Content-Type": "application/json",
 			"X-API-TOKEN": "token",
