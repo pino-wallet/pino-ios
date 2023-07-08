@@ -109,11 +109,9 @@ class SwapView: UIView {
 		switchTokenButton.setTitleColor(.Pino.primary, for: .normal)
 
 		backgroundColor = .Pino.background
-		swapCardView.backgroundColor = .Pino.secondaryBackground
 		switchTokenLineView.backgroundColor = .Pino.background
 		switchTokenButton.backgroundColor = .Pino.background
 
-		swapCardView.layer.cornerRadius = 12
 		switchTokenButton.layer.cornerRadius = 12
 
 		contentStackView.axis = .vertical

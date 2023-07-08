@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SwapProvider {
+struct SwapProviderModel {
 	// MARK: - Public Properties
 
 	public var name: String
@@ -21,8 +21,8 @@ struct SwapProvider {
 	}
 }
 
-extension SwapProvider {
+extension SwapProviderModel {
 	// MARK: - Public Properties
 
-	public static var oneInch = SwapProvider(name: "1inch", image: "1inch")
+	public static var oneInch = SwapProviderModel(name: "1inch", image: "1inch")
 }

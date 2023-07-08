@@ -397,7 +397,7 @@
 		E3847B452A531C3A005ED78B /* SwapView+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B442A531C3A005ED78B /* SwapView+Keyboard.swift */; };
 		E3847B472A53F9A8005ED78B /* SwapFeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B462A53F9A8005ED78B /* SwapFeeView.swift */; };
 		E3847B492A542A76005ED78B /* SwapFeeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B482A542A76005ED78B /* SwapFeeViewModel.swift */; };
-		E3847B4C2A5430B4005ED78B /* SwapProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B4B2A5430B4005ED78B /* SwapProvider.swift */; };
+		E3847B4C2A5430B4005ED78B /* SwapProviderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B4B2A5430B4005ED78B /* SwapProviderModel.swift */; };
 		E384CB1229F6A931009C74F5 /* CoinPerformanceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E384CB1129F6A931009C74F5 /* CoinPerformanceInfoView.swift */; };
 		E384CB1629FFABAB009C74F5 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E384CB1529FFABAB009C74F5 /* Double+Extension.swift */; };
 		E384CB1829FFADA0009C74F5 /* ShareOfAssetProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E384CB1729FFADA0009C74F5 /* ShareOfAssetProtocol.swift */; };
@@ -841,7 +841,7 @@
 		E3847B442A531C3A005ED78B /* SwapView+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwapView+Keyboard.swift"; sourceTree = "<group>"; };
 		E3847B462A53F9A8005ED78B /* SwapFeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapFeeView.swift; sourceTree = "<group>"; };
 		E3847B482A542A76005ED78B /* SwapFeeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapFeeViewModel.swift; sourceTree = "<group>"; };
-		E3847B4B2A5430B4005ED78B /* SwapProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapProvider.swift; sourceTree = "<group>"; };
+		E3847B4B2A5430B4005ED78B /* SwapProviderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapProviderModel.swift; sourceTree = "<group>"; };
 		E384CB1129F6A931009C74F5 /* CoinPerformanceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceInfoView.swift; sourceTree = "<group>"; };
 		E384CB1529FFABAB009C74F5 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		E384CB1729FFADA0009C74F5 /* ShareOfAssetProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOfAssetProtocol.swift; sourceTree = "<group>"; };
@@ -2391,7 +2391,7 @@
 		E3847B4A2A5430A0005ED78B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E3847B4B2A5430B4005ED78B /* SwapProvider.swift */,
+				E3847B4B2A5430B4005ED78B /* SwapProviderModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3021,7 +3021,7 @@
 				D9C4CF0F2A409D4800475F01 /* SuggestedAddressHeaderView.swift in Sources */,
 				E3847B3E2A52CE25005ED78B /* SwapTokenSectionView.swift in Sources */,
 				EFA259C9FE0473172660E5C7 /* FormatterTypes.swift in Sources */,
-				E3847B4C2A5430B4005ED78B /* SwapProvider.swift in Sources */,
+				E3847B4C2A5430B4005ED78B /* SwapProviderModel.swift in Sources */,
 				DF00179329F85727001164EA /* PinoNonHDWallet.swift in Sources */,
 				7CF95B0F99AE30C81601CFAA /* GradientLayer.swift in Sources */,
 				D93C41FD29F7D298003F2297 /* EditAccountViewModel.swift in Sources */,

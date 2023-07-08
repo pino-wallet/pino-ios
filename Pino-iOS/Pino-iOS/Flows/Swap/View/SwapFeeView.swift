@@ -235,7 +235,7 @@ class SwapFeeView: UIView {
 		}
 	}
 
-	private func updateProviderView(_ provider: SwapProvider?) {
+	private func updateProviderView(_ provider: SwapProviderModel?) {
 		if let provider {
 			providerStackView.isHidden = false
 			providerImageView.image = UIImage(named: provider.image)
