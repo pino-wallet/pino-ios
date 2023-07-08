@@ -72,7 +72,9 @@ class SwapProvidersViewcontroller: UIAlertController {
 
 	private func setupConstraint() {
 		contentStackView.pin(
-			.allEdges(padding: 16)
+			.horizontalEdges(padding: 16),
+			.bottom(padding: 16),
+			.top(padding: 32)
 		)
 		contentView.pin(
 			.allEdges
