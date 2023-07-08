@@ -44,7 +44,7 @@ class EnterSendAddressViewController: UIViewController {
 	private func setupView() {
 		enterSendAddressView = EnterSendAddressView(enterSendAddressVM: enterSendAddressVM)
 		enterSendAddressVM.didValidateSendAddress = { [weak self] validationStatus in
-            self?.enterSendAddressView.validationStatus = validationStatus
+			self?.enterSendAddressView.validationStatus = validationStatus
 		}
 		enterSendAddressView.tapNextButton = {
 			self.openConfiramtionPage()

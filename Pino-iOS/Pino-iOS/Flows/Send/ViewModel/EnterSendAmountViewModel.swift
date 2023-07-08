@@ -112,7 +112,7 @@ class EnterSendAmountViewModel {
 		if selectedToken.isEth {
 			updateEthMaxAmount()
 		} else {
-            maxHoldAmount = selectedToken.holdAmount.formattedAmountOf(type: .sevenDigitsRule)
+			maxHoldAmount = selectedToken.holdAmount.formattedAmountOf(type: .sevenDigitsRule)
 			maxAmountInDollar = selectedToken.formattedHoldAmount
 		}
 	}
@@ -129,7 +129,7 @@ class EnterSendAmountViewModel {
 		guard let decimalNumber = Decimal(string: amount),
 		      let price = Decimal(string: selectedToken.price.decimalString) else { return }
 		let tokenAmountDecimalValue = decimalNumber / price
-        tokenAmount = selectedToken.holdAmount.formattedAmountOf(type: .sevenDigitsRule)
+		tokenAmount = selectedToken.holdAmount.formattedAmountOf(type: .sevenDigitsRule)
 		dollarAmount = amount
 	}
 }

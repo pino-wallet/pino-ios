@@ -17,7 +17,7 @@ extension Decimal {
 	}
 
 	public var roundedNumber: String {
-        let stringFromNumber = "\(self)"
+		let stringFromNumber = "\(self)"
 		if let dotIndex = stringFromNumber.range(of: ".")?.upperBound {
 			let charactersCount = stringFromNumber.count
 			let distancToDot = stringFromNumber.distance(from: stringFromNumber.startIndex, to: dotIndex)

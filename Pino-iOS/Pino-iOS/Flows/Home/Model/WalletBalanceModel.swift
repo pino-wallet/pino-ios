@@ -12,5 +12,4 @@ struct WalletBalanceModel {
 	public var volatilityNumber: BigNumber
 	public var volatilityPercentage: String
 	public var volatilityInDollor: String
-
 }

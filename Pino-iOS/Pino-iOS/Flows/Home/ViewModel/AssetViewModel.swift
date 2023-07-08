@@ -75,7 +75,7 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	public var previousDayNetworth: BigNumber {
-        BigNumber(number: assetModel.previousDayNetworth, decimal: 2)
+		BigNumber(number: assetModel.previousDayNetworth, decimal: 2)
 	}
 
 	// MARK: - Initializers

@@ -25,7 +25,6 @@ class WalletBalanceViewModel: SecurityModeProtocol {
 	public var volatilityType: AssetVolatilityType {
 		AssetVolatilityType(change24h: balanceModel.volatilityNumber)
 	}
-    
 
 	// MARK: - Initializers
 

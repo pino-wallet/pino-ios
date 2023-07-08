@@ -10,18 +10,18 @@ public enum AssetVolatilityType: String, Codable {
 	case loss
 	case none
 
-    init(change24h: BigNumber) {
-        if change24h.number.isZero {
-            self = .none
-        } else {
-            switch change24h.number.sign {
-            case .minus:
-                self = .loss
-            case .plus:
-                self = .profit
-            }
-        }
-    }
+	init(change24h: BigNumber) {
+		if change24h.number.isZero {
+			self = .none
+		} else {
+			switch change24h.number.sign {
+			case .minus:
+				self = .loss
+			case .plus:
+				self = .profit
+			}
+		}
+	}
 
 	public var prependSign: String {
 		switch self {
