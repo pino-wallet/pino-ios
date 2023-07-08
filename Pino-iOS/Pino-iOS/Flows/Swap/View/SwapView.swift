@@ -5,25 +5,31 @@
 //  Created by Mohi Raoufi on 7/3/23.
 //
 
+import Combine
 import Foundation
 import UIKit
 
 class SwapView: UIView {
 	// MARK: - Private Properties
 
-	private let contentCardView = PinoContainerCard()
 	private let contentStackView = UIStackView()
+	private let swapCardView = PinoContainerCard()
+	private let feeCardView = PinoContainerCard()
+	private let swapStackView = UIStackView()
 	private let switchTokenView = UIView()
 	private let switchTokenLineView = UIView()
 	private let switchTokenButton = UIButton()
 	private let continueButton = PinoButton(style: .deactive)
 	private var fromTokenSectionView: SwapTokenSectionView!
 	private var toTokenSectionView: SwapTokenSectionView!
+	private let swapFeeView: SwapFeeView
 
 	private var fromTokenChange: () -> Void
 	private var toTokeChange: () -> Void
 	private var nextButtonTapped: () -> Void
 	private var swapVM: SwapViewModel
+
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Internal Properties
 
@@ -43,10 +49,12 @@ class SwapView: UIView {
 		self.toTokeChange = toTokeChange
 		self.nextButtonTapped = nextButtonTapped
 		self.swapVM = swapVM
+		self.swapFeeView = SwapFeeView(swapFeeVM: swapVM.swapFeeVM)
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
 		setupContstraint()
+		setupBinding()
 		setupNotifications()
 	}
 
@@ -71,14 +79,17 @@ class SwapView: UIView {
 			changeSelectedToken: toTokeChange
 		)
 
-		addSubview(contentCardView)
+		addSubview(contentStackView)
 		addSubview(continueButton)
-		contentCardView.addSubview(contentStackView)
-		contentStackView.addArrangedSubview(fromTokenSectionView)
-		contentStackView.addArrangedSubview(switchTokenView)
-		contentStackView.addArrangedSubview(toTokenSectionView)
+		contentStackView.addArrangedSubview(swapCardView)
+		contentStackView.addArrangedSubview(feeCardView)
+		swapCardView.addSubview(swapStackView)
+		swapStackView.addArrangedSubview(fromTokenSectionView)
+		swapStackView.addArrangedSubview(switchTokenView)
+		swapStackView.addArrangedSubview(toTokenSectionView)
 		switchTokenView.addSubview(switchTokenLineView)
 		switchTokenView.addSubview(switchTokenButton)
+		feeCardView.addSubview(swapFeeView)
 
 		continueButton.addAction(UIAction(handler: { _ in
 			self.nextButtonTapped()
@@ -98,23 +109,26 @@ class SwapView: UIView {
 		switchTokenButton.setTitleColor(.Pino.primary, for: .normal)
 
 		backgroundColor = .Pino.background
-		contentCardView.backgroundColor = .Pino.secondaryBackground
 		switchTokenLineView.backgroundColor = .Pino.background
 		switchTokenButton.backgroundColor = .Pino.background
 
-		contentCardView.layer.cornerRadius = 12
 		switchTokenButton.layer.cornerRadius = 12
 
 		contentStackView.axis = .vertical
-		contentStackView.spacing = 10
+		swapStackView.axis = .vertical
+
+		contentStackView.spacing = 12
+		swapStackView.spacing = 10
+
+		feeCardView.alpha = 0
 	}
 
 	private func setupContstraint() {
-		contentCardView.pin(
+		contentStackView.pin(
 			.horizontalEdges(padding: 16),
 			.top(to: layoutMarginsGuide, padding: 18)
 		)
-		contentStackView.pin(
+		swapStackView.pin(
 			.top(padding: 24),
 			.bottom(padding: 28),
 			.horizontalEdges
@@ -130,6 +144,9 @@ class SwapView: UIView {
 			.verticalEdges,
 			.centerX
 		)
+		swapFeeView.pin(
+			.allEdges
+		)
 		continueButton.pin(
 			.horizontalEdges(padding: 16)
 		)
@@ -143,6 +160,19 @@ class SwapView: UIView {
 			constant: -nextButtonBottomConstant
 		)
 		addConstraint(nextButtonBottomConstraint)
+	}
+
+	private func setupBinding() {
+		swapVM.swapFeeVM.$calculatedAmount.sink { amount in
+			UIView.animate(withDuration: 0.3) {
+				if let amount {
+					self.swapFeeView.updateCalculatedAmount(amount)
+					self.feeCardView.alpha = 1
+				} else {
+					self.feeCardView.alpha = 0
+				}
+			}
+		}.store(in: &cancellables)
 	}
 
 	private func updateSwapStatus(_ status: AmountStatus) {
