@@ -28,7 +28,7 @@ class SwapViewModel {
 		self.selectedProtocol = .bestRate
 		self.fromToken = SwapTokenViewModel(selectedToken: fromToken)
 		self.toToken = SwapTokenViewModel(selectedToken: toToken)
-		self.swapFeeVM = SwapFeeViewModel(swapProvider: SwapProviderModel(provider: .oneInch, swapAmount: ""))
+		self.swapFeeVM = SwapFeeViewModel(swapProviderVM: SwapProviderViewModel(provider: .oneInch, swapAmount: ""))
 
 		self.fromToken.amountUpdated = { amount in
 			self.recalculateTokensAmount(amount: amount)

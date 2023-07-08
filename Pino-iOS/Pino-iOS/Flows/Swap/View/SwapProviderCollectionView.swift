@@ -10,13 +10,15 @@ import UIKit
 class SwapProvidersCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
-	private let swapProviders: [SwapProviderModel]
-	private let providerDidSelect: (SwapProviderModel) -> Void
+	private let providerDidSelect: (SwapProviderViewModel) -> Void
+
+	// MARK: - Public Properties
+
+	public var swapProviders = [SwapProviderViewModel]()
 
 	// MARK: - Initializers
 
-	init(swapProviders: [SwapProviderModel], providerDidSelect: @escaping (SwapProviderModel) -> Void) {
-		self.swapProviders = swapProviders
+	init(providerDidSelect: @escaping (SwapProviderViewModel) -> Void) {
 		self.providerDidSelect = providerDidSelect
 		let collecttionviewFlowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: collecttionviewFlowLayout)
@@ -57,7 +59,7 @@ extension SwapProvidersCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: SwapProviderCell.cellReuseID,
 			for: indexPath
 		) as! SwapProviderCell
-		cell.swapProvider = swapProviders[indexPath.item]
+		cell.swapProviderVM = swapProviders[indexPath.item]
 		return cell
 	}
 }

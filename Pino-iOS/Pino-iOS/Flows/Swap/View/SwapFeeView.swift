@@ -209,8 +209,8 @@ class SwapFeeView: UIView {
 			self.updateTagView(tag)
 		}.store(in: &cancellables)
 
-		swapFeeVM.$provider.sink { provider in
-			self.updateProviderView(provider)
+		swapFeeVM.$swapProviderVM.sink { swapProviderVM in
+			self.updateProviderView(swapProviderVM)
 		}.store(in: &cancellables)
 
 		swapFeeVM.$saveAmount.sink { saveAmount in
@@ -243,11 +243,11 @@ class SwapFeeView: UIView {
 		}
 	}
 
-	private func updateProviderView(_ swapProvider: SwapProviderModel?) {
-		if let swapProvider {
+	private func updateProviderView(_ swapProviderVM: SwapProviderViewModel?) {
+		if let swapProviderVM {
 			providerStackView.isHidden = false
-			providerImageView.image = UIImage(named: swapProvider.provider.image)
-			providerNameLabel.text = swapProvider.provider.name
+			providerImageView.image = UIImage(named: swapProviderVM.provider.image)
+			providerNameLabel.text = swapProviderVM.provider.name
 		} else {
 			providerStackView.isHidden = true
 		}

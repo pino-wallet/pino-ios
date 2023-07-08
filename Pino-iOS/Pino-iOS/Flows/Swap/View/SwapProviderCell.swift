@@ -19,7 +19,7 @@ class SwapProviderCell: UICollectionViewCell {
 
 	// MARK: - Public Properties
 
-	public var swapProvider: SwapProviderModel! {
+	public var swapProviderVM: SwapProviderViewModel! {
 		didSet {
 			setupView()
 			setupStyles()
@@ -41,10 +41,10 @@ class SwapProviderCell: UICollectionViewCell {
 	}
 
 	private func setupStyles() {
-		swapProviderNameLabel.text = swapProvider.provider.name
-		swapAmountLabel.text = swapProvider.swapAmount
+		swapProviderNameLabel.text = swapProviderVM.provider.name
+		swapAmountLabel.text = swapProviderVM.swapAmount
 
-		swapProviderImageView.image = UIImage(named: swapProvider.provider.image)
+		swapProviderImageView.image = UIImage(named: swapProviderVM.provider.image)
 
 		swapProviderNameLabel.font = .PinoStyle.mediumCallout
 		swapAmountLabel.font = .PinoStyle.mediumCallout
