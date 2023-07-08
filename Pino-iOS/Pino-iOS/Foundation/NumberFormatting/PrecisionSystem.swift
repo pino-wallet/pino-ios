@@ -69,3 +69,21 @@ class NumberPercisionFormatter {
 		}
 	}
 }
+
+public enum NumberFormatTypes {
+    case sevenDigitsRule
+    case priceRule
+
+    public func formattingDecimal(wholeNumDigits: Int) -> Int {
+        switch self {
+        case .sevenDigitsRule:
+            return 7 - wholeNumDigits
+        case .priceRule:
+            if wholeNumDigits >= 2 {
+                return 0
+            } else {
+                return 2
+            }
+        }
+    }
+}

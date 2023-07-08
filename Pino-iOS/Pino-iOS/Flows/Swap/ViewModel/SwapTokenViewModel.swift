@@ -55,7 +55,7 @@ class SwapTokenViewModel {
 		tokenAmount = amount
 		if let decimalNumber = Decimal(string: amount), let price = Decimal(string: selectedToken.price.decimalString) {
 			decimalDollarAmount = decimalNumber * price
-			dollarAmount = decimalDollarAmount!.formattedAmount(type: .dollarValue)
+			dollarAmount = decimalDollarAmount!.formattedAmount(type: .priceRule)
 		} else {
 			decimalDollarAmount = nil
 			dollarAmount = "0"
@@ -64,7 +64,7 @@ class SwapTokenViewModel {
 
 	public func calculateTokenAmount(decimalDollarAmount: Decimal?) {
 		self.decimalDollarAmount = decimalDollarAmount
-		dollarAmount = decimalDollarAmount?.formattedAmount(type: .dollarValue) ?? "0"
+		dollarAmount = decimalDollarAmount?.formattedAmount(type: .priceRule) ?? "0"
 		tokenAmount = convertDollarAmountToTokenAmount(dollarAmount: decimalDollarAmount)
 	}
 
@@ -89,7 +89,7 @@ class SwapTokenViewModel {
 	private func convertDollarAmountToTokenAmount(dollarAmount: Decimal?) -> String {
 		if let dollarAmount, let tokenPrice = Decimal(string: selectedToken.price.decimalString) {
 			let tokenAmount = dollarAmount / tokenPrice
-			return tokenAmount.formattedAmount(type: .tokenValue)
+			return tokenAmount.formattedAmount(type: .sevenDigitsRule)
 		} else {
 			return .emptyString
 		}

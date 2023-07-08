@@ -19,11 +19,13 @@ class SendConfirmationViewModel {
 	private let sendAmount: String
 	private let sendAmountInDollar: String
 	private var cancellables = Set<AnyCancellable>()
+    private var ethToken: AssetViewModel {
+        GlobalVariables.shared.manageAssetsList!.first(where: { $0.isEth })!
+    }
 
 	// MARK: - Public Properties
 
 	public var gasFee: BigNumber!
-	public var ethToken: AssetViewModel!
 	public var isAddressScam = false
 	public let recipientAddress: String
 	public let confirmBtnText = "Confirm"
@@ -82,15 +84,13 @@ class SendConfirmationViewModel {
 		selectedWallet: AccountInfoViewModel,
 		recipientAddress: String,
 		sendAmount: String,
-		sendAmountInDollar: String,
-		ethToken: AssetViewModel
+		sendAmountInDollar: String
 	) {
 		self.selectedToken = selectedToken
 		self.selectedWallet = selectedWallet
 		self.sendAmount = sendAmount
 		self.sendAmountInDollar = sendAmountInDollar
 		self.recipientAddress = recipientAddress
-		self.ethToken = ethToken
 		setupBindings()
 	}
 
