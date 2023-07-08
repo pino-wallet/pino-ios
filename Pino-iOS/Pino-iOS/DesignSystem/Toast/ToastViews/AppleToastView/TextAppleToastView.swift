@@ -37,13 +37,13 @@ public class TextToastView: UIStackView {
 		commonInit()
 
 		titleLabel.text = title
-        titleLabel.font = .PinoStyle.boldFootnote
+		titleLabel.font = .PinoStyle.boldFootnote
 		addArrangedSubview(titleLabel)
 
 		if let subtitle = subtitle {
 			subtitleLabel.textColor = .systemGray
 			subtitleLabel.text = subtitle
-            subtitleLabel.font = .PinoStyle.semiboldFootnote
+			subtitleLabel.font = .PinoStyle.semiboldFootnote
 			addArrangedSubview(subtitleLabel)
 		}
 	}

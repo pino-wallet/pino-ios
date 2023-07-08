@@ -77,13 +77,13 @@ public class IconAppleToastView: UIStackView {
 
 		titleLabel.text = title
 		titleLabel.textColor = imageTint
-        titleLabel.font = .PinoStyle.boldFootnote
+		titleLabel.font = .PinoStyle.boldFootnote
 		vStack.addArrangedSubview(titleLabel)
 
 		if let subtitle = subtitle {
 			subtitleLabel.textColor = .systemGray
 			subtitleLabel.text = subtitle
-            subtitleLabel.font = .PinoStyle.semiboldFootnote
+			subtitleLabel.font = .PinoStyle.semiboldFootnote
 			vStack.addArrangedSubview(subtitleLabel)
 		}
 
