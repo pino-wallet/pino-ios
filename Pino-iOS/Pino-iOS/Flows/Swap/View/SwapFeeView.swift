@@ -43,13 +43,15 @@ class SwapFeeView: UIView {
 	private var isCollapsed = false
 
 	private let swapFeeVM: SwapFeeViewModel
+	private var providerChange: () -> Void
 
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
-	init(swapFeeVM: SwapFeeViewModel) {
+	init(swapFeeVM: SwapFeeViewModel, providerChange: @escaping () -> Void) {
 		self.swapFeeVM = swapFeeVM
+		self.providerChange = providerChange
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -93,6 +95,9 @@ class SwapFeeView: UIView {
 		collapsButton.addAction(UIAction(handler: { _ in
 			self.collapsFeeCard()
 		}), for: .touchUpInside)
+
+		let providerChangeTapGesture = UITapGestureRecognizer(target: self, action: #selector(changeProvider))
+		providerChangeStackView.addGestureRecognizer(providerChangeTapGesture)
 	}
 
 	private func setupStyle() {
@@ -273,6 +278,11 @@ class SwapFeeView: UIView {
 		} else {
 			feeLabel.showSkeletonView()
 		}
+	}
+
+	@objc
+	private func changeProvider() {
+		providerChange()
 	}
 
 	// MARK: - Public Methods

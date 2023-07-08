@@ -51,6 +51,7 @@ class SwapView: UIView {
 		fromTokenChange: @escaping (() -> Void),
 		toTokeChange: @escaping (() -> Void),
 		swapProtocolChange: @escaping (() -> Void),
+		providerChange: @escaping (() -> Void),
 		nextButtonTapped: @escaping (() -> Void)
 	) {
 		self.fromTokenChange = fromTokenChange
@@ -58,7 +59,7 @@ class SwapView: UIView {
 		self.swapProtocolChange = swapProtocolChange
 		self.nextButtonTapped = nextButtonTapped
 		self.swapVM = swapVM
-		self.swapFeeView = SwapFeeView(swapFeeVM: swapVM.swapFeeVM)
+		self.swapFeeView = SwapFeeView(swapFeeVM: swapVM.swapFeeVM, providerChange: providerChange)
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
