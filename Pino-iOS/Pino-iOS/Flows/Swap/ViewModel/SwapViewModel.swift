@@ -10,7 +10,6 @@ import Foundation
 class SwapViewModel {
 	// MARK: - Public Properties
 
-	public let pageTitle = "Swap"
 	public let continueButtonTitle = "Swap"
 	public let insufficientAmountButtonTitle = "Insufficient amount"
 	public let switchIcon = "switch_swap"

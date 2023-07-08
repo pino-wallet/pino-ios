@@ -30,7 +30,10 @@ extension TabBarItem {
 		title: "Swap",
 		image: "swap_tab",
 		selectedImage: "swap_tab_fill",
-		viewController: CustomNavigationController(rootViewController: SwapViewController())
+		viewController: CustomNavigationController(
+			rootViewController: SwapViewController(),
+			statusBarStyle: .lightContent
+		)
 	)
 
 	public static let invest = TabBarItem(
