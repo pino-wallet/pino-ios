@@ -121,11 +121,11 @@ class AssetsCollectionView: UICollectionView {
 	public func getHomeData() {
 		GlobalVariables.shared.fetchSharedInfo().done { _ in
 			self.hideSkeletonView()
-            self.refreshControl?.endRefreshing()
+			self.refreshControl?.endRefreshing()
 		}.catch { error in
 			Toast.default(title: "Error fetching info from server", subtitle: "Please try again!", style: .error)
 				.show(haptic: .warning)
-            self.refreshControl?.endRefreshing()
+			self.refreshControl?.endRefreshing()
 		}
 	}
 }

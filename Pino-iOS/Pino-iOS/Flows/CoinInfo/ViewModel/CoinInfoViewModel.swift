@@ -31,7 +31,6 @@ class CoinInfoViewModel {
 	public let protocolTitle = "Protocol"
 	public let positionTitle = "Position"
 	public let assetTitle = "Asset"
-	public let recentHistoryTitle = "Recent history"
 	public let tooltipIconName = "info"
 	public let positionAssetTitle = "Position asset"
 	public let priceSepratorText = "|"
@@ -98,7 +97,6 @@ class CoinInfoViewModel {
 			#warning(
 				"this line is for testing because these two publishers were pinned to each other and their value should be changed together"
 			)
-			self?.coinHistoryList.removeLast()
 		}.store(in: &cancellables)
 	}
 }

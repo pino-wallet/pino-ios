@@ -10,12 +10,11 @@ import CoreData
 import PromiseKit
 
 class AssetManagerViewModel {
-    
-    // MARK: - Public Accessor
+	// MARK: - Public Accessor
 
 	public static let shared = AssetManagerViewModel()
 
-    // MARK: - Private Initiliazer
+	// MARK: - Private Initiliazer
 
 	private init() {}
 
@@ -47,7 +46,7 @@ class AssetManagerViewModel {
 						case .finished:
 							print("Assets received successfully")
 						case let .failure(error):
-                            print("Error getting tokens:\(error)")
+							print("Error getting tokens:\(error)")
 							seal.reject(APIError.failedRequest)
 						}
 					} receiveValue: { assets in
@@ -85,7 +84,7 @@ class AssetManagerViewModel {
 				case .finished:
 					print("tokens received successfully")
 				case let .failure(error):
-                    print("Failed to fetch tokens:\(error)")
+					print("Failed to fetch tokens:\(error)")
 					seal.reject(APIError.failedRequest)
 				}
 			} receiveValue: { tokens in

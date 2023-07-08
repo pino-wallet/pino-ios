@@ -9,6 +9,23 @@ import Foundation
 import UIKit
 
 class CustomNavigationController: UINavigationController {
+	// MARK: - Private Properties
+
+	private let statusBarStyle: UIStatusBarStyle
+
+	// MARK: - Initializers
+
+	init(rootViewController: UIViewController, statusBarStyle: UIStatusBarStyle = .darkContent) {
+		self.statusBarStyle = statusBarStyle
+		super.init(rootViewController: rootViewController)
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	// MARK: - View Overrides
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -21,6 +38,6 @@ class CustomNavigationController: UINavigationController {
 	}
 
 	override var preferredStatusBarStyle: UIStatusBarStyle {
-		.darkContent
+		statusBarStyle
 	}
 }
