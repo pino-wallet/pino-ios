@@ -158,23 +158,19 @@ extension BigNumber: CustomStringConvertible {
 
 extension BigNumber {
 	public enum FormatTypes {
-		case price
-        case summarizedPrice
-		case hold
-        case custome(Int)
+		case sevenDigitsRule
+        case priceRule
         
         public func formattingDecimal(wholeNumDigits: Int) -> Int {
             switch self {
-            case .price, .hold:
+            case .sevenDigitsRule:
                 return 7 - wholeNumDigits
-            case .summarizedPrice:
+            case .priceRule:
                 if wholeNumDigits >= 2 {
                     return 0
                 } else {
                     return 2
                 }
-            case .custome(let digits):
-                return digits
             }
         }
         

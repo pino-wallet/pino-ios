@@ -24,10 +24,10 @@ extension HomepageViewModel {
 		let volatilityPercentage = getVolatilityPercentage(balance: balance, previousBalance: previousBalance)
 
 		walletBalance = WalletBalanceViewModel(balanceModel: WalletBalanceModel(
-			balance: balance.formattedAmountOf(type: .summarizedPrice),
+			balance: balance.formattedAmountOf(type: .priceRule),
 			volatilityNumber: volatility,
 			volatilityPercentage: volatilityPercentage,
-			volatilityInDollor: volatility.formattedAmountOf(type: .summarizedPrice)
+			volatilityInDollor: volatility.formattedAmountOf(type: .priceRule)
 		))
 	}
 

@@ -44,7 +44,6 @@
 		15A1DA694D1E9C595492510B /* PinoCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FBD227A0D3DC2EF5DB6E84 /* PinoCheckBox.swift */; };
 		17551EDA11F4F1BE495D1823 /* PortfolioPerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DD8352DE65D9AE5199096D /* PortfolioPerformanceViewController.swift */; };
 		180F866A8ECFDBE0380BECDB /* ReceiveAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF1E21D81662F03636BF664 /* ReceiveAssetViewController.swift */; };
-		19347AB9E9EF1B9F26885949 /* NumberFormatterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08EF211DAB23688EF528FA0 /* NumberFormatterProtocol.swift */; };
 		1992F8B5148577FD7611E892 /* about-coin-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 0AE19B638118F9E2565134EF /* about-coin-stub.json */; };
 		1AC53E3B2AB70C2C7F419A38 /* AccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E81CD0ED79EC99EC4A1DD5 /* AccountHeaderView.swift */; };
 		1AD184E82488453998E5A2E5 /* CoinPerformanceInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CD4DA384F1F614C5064ACA /* CoinPerformanceInfoModel.swift */; };
@@ -427,7 +426,6 @@
 		E6A9D57DCF1C0D793FDBEDBF /* CoinPortfolioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF69CD04334D4EE4C9272B8 /* CoinPortfolioViewModel.swift */; };
 		E785EA31CC4E6721B72481DE /* RemoveAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494BDE684B29E6CA2138470D /* RemoveAccountViewController.swift */; };
 		EE23BD62B18C9118376A405C /* PPPangramSans-ThinReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7C48BF270C9A3E1CA6D9F33 /* PPPangramSans-ThinReclined.ttf */; };
-		EFA259C9FE0473172660E5C7 /* FormatterTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFB02FBC9148ACB2A85220F /* FormatterTypes.swift */; };
 		EFC5F586A70E988F98620A79 /* PPPangramSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CC36053D1265CD704BF7F722 /* PPPangramSans-Thin.ttf */; };
 		EFCE871CCDF8A29DA4F8950F /* ManageAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6232F5D274252F511DC03A52 /* ManageAssetCell.swift */; };
 		F1655D3CC058F9A6ED4E8521 /* CustomSwitchOptionVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0140F34FAFBD0BA844D704 /* CustomSwitchOptionVM.swift */; };
@@ -667,7 +665,6 @@
 		9F680208960473A9C1B27BF0 /* ActivitiesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesCollectionView.swift; sourceTree = "<group>"; };
 		9FF69CD04334D4EE4C9272B8 /* CoinPortfolioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPortfolioViewModel.swift; sourceTree = "<group>"; };
 		A016DB0AD44B6C2F7D74B730 /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
-		A08EF211DAB23688EF528FA0 /* NumberFormatterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatterProtocol.swift; sourceTree = "<group>"; };
 		A1094D274BD4EBC64C6CD721 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		A38B35BEB7646037614A159D /* RecoveryPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPhraseViewModel.swift; sourceTree = "<group>"; };
 		A63629240845E89034EB1956 /* CreateWalletUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWalletUITests.swift; sourceTree = "<group>"; };
@@ -880,7 +877,6 @@
 		EF5ED712FA2B8E57F30351AA /* PPPangramSans-ExtraboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtraboldItalic.ttf"; sourceTree = "<group>"; };
 		EFABD75C54559DC6EC13C293 /* AssetChartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetChartModel.swift; sourceTree = "<group>"; };
 		EFB3C819F5D78DC8AB98A263 /* PinoTextFieldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoTextFieldStyle.swift; sourceTree = "<group>"; };
-		EFFB02FBC9148ACB2A85220F /* FormatterTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatterTypes.swift; sourceTree = "<group>"; };
 		F05FB16B9B1B3CADA89C02F6 /* CoinInfoChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoChartView.swift; sourceTree = "<group>"; };
 		F12A95AE8F841F78F0112091 /* ManageAssetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAssetsViewController.swift; sourceTree = "<group>"; };
 		F1B4ADB676ED9AAC2196899E /* PPPangramSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -1675,8 +1671,6 @@
 			isa = PBXGroup;
 			children = (
 				750F7AA1FB4A8CB567F6FABE /* BigNumberType.swift */,
-				EFFB02FBC9148ACB2A85220F /* FormatterTypes.swift */,
-				A08EF211DAB23688EF528FA0 /* NumberFormatterProtocol.swift */,
 				C565DF0399D911E87AB92DEF /* PrecisionSystem.swift */,
 			);
 			path = NumberFormatting;
@@ -3038,7 +3032,6 @@
 				E343836E2A3DA0320048BDA1 /* SendConfirmationViewModel.swift in Sources */,
 				D9C4CF0F2A409D4800475F01 /* SuggestedAddressHeaderView.swift in Sources */,
 				E3847B3E2A52CE25005ED78B /* SwapTokenSectionView.swift in Sources */,
-				EFA259C9FE0473172660E5C7 /* FormatterTypes.swift in Sources */,
 				E3847B4C2A5430B4005ED78B /* SwapProviderModel.swift in Sources */,
 				DF00179329F85727001164EA /* PinoNonHDWallet.swift in Sources */,
 				7CF95B0F99AE30C81601CFAA /* GradientLayer.swift in Sources */,
@@ -3101,7 +3094,6 @@
 				C72379E2E2BFAEFF3257EDCE /* Networking+Aliases.swift in Sources */,
 				E52C3E716C6ACBCE6C8BE230 /* NoInternetConnectionView.swift in Sources */,
 				44DBA60846C0B1DA8E26EAD8 /* NoInternetConnectionViewModel.swift in Sources */,
-				19347AB9E9EF1B9F26885949 /* NumberFormatterProtocol.swift in Sources */,
 				1F98DAC473200ACED0BA403B /* ParameterEncoderProtocol.swift in Sources */,
 				8EA8AEFE97CEC48A2C1DFCB7 /* ParameterEncoding.swift in Sources */,
 				DFA9687E2A0FABB9007D4513 /* WalletAccount+CoreDataProperties.swift in Sources */,
