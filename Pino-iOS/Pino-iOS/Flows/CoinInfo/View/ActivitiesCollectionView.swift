@@ -22,9 +22,8 @@ class ActivitiesCollectionView: UICollectionView {
 		self.coinInfoVM = coinInfoVM
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
-        flowLayout.minimumLineSpacing = 8
-        
-        
+		flowLayout.minimumLineSpacing = 8
+
 		configCollectionView()
 		setupView()
 		setUpStyle()
@@ -74,11 +73,11 @@ class ActivitiesCollectionView: UICollectionView {
 	private func setupBinding() {
 		let activityHelper = ActivityHelper()
 		Publishers.Zip(coinInfoVM.$coinPortfolio, coinInfoVM.$coinHistoryList).sink { [weak self] _ in
-            guard let userActivitiesOnToken = self?.coinInfoVM.coinHistoryList else {
-                return
-            }
+			guard let userActivitiesOnToken = self?.coinInfoVM.coinHistoryList else {
+				return
+			}
 			self?.separatedActivities = activityHelper
-				.separateActivitiesByTime(activities: (userActivitiesOnToken))
+				.separateActivitiesByTime(activities: userActivitiesOnToken)
 			self?.reloadData()
 		}.store(in: &cancellable)
 	}

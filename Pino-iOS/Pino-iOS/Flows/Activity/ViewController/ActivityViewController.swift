@@ -10,7 +10,7 @@ import UIKit
 class ActivityViewController: UIViewController {
 	// MARK: - Private Properties
 
-    private let activityVM = ActivityViewModel()
+	private let activityVM = ActivityViewModel()
 	private var activityColectionView: ActivityCollectionView!
 
 	// MARK: - View Overrides
@@ -21,17 +21,16 @@ class ActivityViewController: UIViewController {
 
 	override func loadView() {
 		setupView()
-        setupNavigationBar()
+		setupNavigationBar()
 	}
-    
-    override func viewWillAppear(_ animated: Bool) {
-        activityVM.refreshUserActivities()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        activityVM.destroyTimer()
-    }
-    
+
+	override func viewWillAppear(_ animated: Bool) {
+		activityVM.refreshUserActivities()
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		activityVM.destroyTimer()
+	}
 
 	// MARK: - Private Methods
 

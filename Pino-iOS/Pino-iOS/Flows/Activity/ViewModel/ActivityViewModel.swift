@@ -13,61 +13,69 @@ class ActivityViewModel {
 
 	public let pageTitle = "Recent activity"
 
-    @Published
+	@Published
 	public var userActivities: [ActivityCellViewModel]? = nil
 
 	// MARK: - Private Properties
 
 	private let activityAPIClient = ActivityAPIClient()
 	private let walletManager = PinoWalletManager()
-    private var cancellables = Set<AnyCancellable>()
-    private var requestTimer: Timer? = nil
-    private var userAddress: String!
+	private var cancellables = Set<AnyCancellable>()
+	private var requestTimer: Timer?
+	private var userAddress: String!
+
 	// MARK: - Initializers
 
-    init() {
-        self.userAddress = walletManager.currentAccount.eip55Address
-        
-        setupRequestTimer()
+	init() {
+		self.userAddress = walletManager.currentAccount.eip55Address
+
+		setupRequestTimer()
 	}
-    
-    // MARK: - Public Properties
-    
-    public func refreshUserActivities() {
-        setupRequestTimer()
-        if userActivities == nil || userAddress != walletManager.currentAccount.eip55Address {
-            userAddress = walletManager.currentAccount.eip55Address
-            requestTimer?.fire()
-        }
-    }
-    
-    public func destroyTimer() {
-        requestTimer?.invalidate()
-        requestTimer = nil
-    }
+
+	// MARK: - Public Properties
+
+	public func refreshUserActivities() {
+		setupRequestTimer()
+		if userActivities == nil || userAddress != walletManager.currentAccount.eip55Address {
+			userAddress = walletManager.currentAccount.eip55Address
+			requestTimer?.fire()
+		}
+	}
+
+	public func destroyTimer() {
+		requestTimer?.invalidate()
+		requestTimer = nil
+	}
 
 	// MARK: - Private Methods
 
-    private func setupRequestTimer() {
-        destroyTimer()
-        requestTimer = Timer.scheduledTimer(timeInterval: 7, target: self, selector: #selector(getUserActivities), userInfo: nil, repeats: true)
-    }
-    
-    @objc private func getUserActivities() {
-        userActivities = nil
-        let userAddress = walletManager.currentAccount.eip55Address
-            self.activityAPIClient.allActivities(userAddress: userAddress).sink { completed in
-                switch completed {
-                case .finished:
-                    print("User activities received successfully")
-                case let .failure(error):
-                    print(error)
-                }
-            } receiveValue: { [weak self] activities in
-                print(activities)
-                self?.userActivities = activities.compactMap {
-                    ActivityCellViewModel(activityModel: $0, currentAddress: userAddress)
-                }
-            } .store(in: &self.cancellables)
+	private func setupRequestTimer() {
+		destroyTimer()
+		requestTimer = Timer.scheduledTimer(
+			timeInterval: 7,
+			target: self,
+			selector: #selector(getUserActivities),
+			userInfo: nil,
+			repeats: true
+		)
+	}
+
+	@objc
+	private func getUserActivities() {
+		userActivities = nil
+		let userAddress = walletManager.currentAccount.eip55Address
+		activityAPIClient.allActivities(userAddress: userAddress).sink { completed in
+			switch completed {
+			case .finished:
+				print("User activities received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { [weak self] activities in
+			print(activities)
+			self?.userActivities = activities.compactMap {
+				ActivityCellViewModel(activityModel: $0, currentAddress: userAddress)
+			}
+		}.store(in: &cancellables)
 	}
 }

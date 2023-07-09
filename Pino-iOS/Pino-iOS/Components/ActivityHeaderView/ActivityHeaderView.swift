@@ -17,7 +17,8 @@ class ActivityHeaderView: UICollectionReusableView {
 			setupConstraints()
 		}
 	}
-    public var topPadding = 16
+
+	public var topPadding = 16
 
 	public static let viewReuseID = "ActivityHeaderViewID"
 
