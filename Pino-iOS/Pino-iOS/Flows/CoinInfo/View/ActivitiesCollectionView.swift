@@ -8,12 +8,13 @@
 import Combine
 import UIKit
 
-class CoinInfoCollectionView: UICollectionView {
+class ActivitiesCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
 	private var cancellable = Set<AnyCancellable>()
 	private let historyRefreshContorl = UIRefreshControl()
 	private var coinInfoVM: CoinInfoViewModel!
+	private var separatedActivities: ActivityHelper.separatedActivitiesType!
 
 	// MARK: - Initializers
 
@@ -40,6 +41,11 @@ class CoinInfoCollectionView: UICollectionView {
 			withReuseIdentifier: CoinInfoHeaderView.headerReuseID
 		)
 		register(
+			ActivityHeaderView.self,
+			forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+			withReuseIdentifier: ActivityHeaderView.viewReuseID
+		)
+		register(
 			ActivityCell.self,
 			forCellWithReuseIdentifier: ActivityCell.cellID
 		)
@@ -63,7 +69,10 @@ class CoinInfoCollectionView: UICollectionView {
 	}
 
 	private func setupBinding() {
+		let activityHelper = ActivityHelper()
 		Publishers.Zip(coinInfoVM.$coinPortfolio, coinInfoVM.$coinHistoryList).sink { [weak self] _ in
+			self?.separatedActivities = activityHelper
+				.separateActivitiesByTime(activities: (self?.coinInfoVM.coinHistoryList)!)
 			self?.reloadData()
 		}.store(in: &cancellable)
 	}
@@ -97,7 +106,7 @@ class CoinInfoCollectionView: UICollectionView {
 
 // MARK: - CollectionView Flow Layout
 
-extension CoinInfoCollectionView: UICollectionViewDelegateFlowLayout {
+extension ActivitiesCollectionView: UICollectionViewDelegateFlowLayout {
 	func collectionView(
 		_ collectionView: UICollectionView,
 		layout collectionViewLayout: UICollectionViewLayout,
@@ -109,11 +118,24 @@ extension CoinInfoCollectionView: UICollectionViewDelegateFlowLayout {
 
 // MARK: - CollectionView DataSource
 
-extension CoinInfoCollectionView: UICollectionViewDataSource {
+extension ActivitiesCollectionView: UICollectionViewDataSource {
+	func numberOfSections(in collectionView: UICollectionView) -> Int {
+		let separatedActivitiesCount = separatedActivities.count
+		if separatedActivitiesCount == 0 {
+			return 1
+		} else {
+			return separatedActivitiesCount
+		}
+	}
+
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		switch coinInfoVM.coinPortfolio.type {
 		case .verified:
-			return coinInfoVM.coinHistoryList.count
+			if separatedActivities.indices.contains(section) {
+				return separatedActivities[section].activities.count
+			} else {
+				return 0
+			}
 		case .unVerified:
 			return 0
 		case .position:
@@ -128,18 +150,32 @@ extension CoinInfoCollectionView: UICollectionViewDataSource {
 	) -> UICollectionReusableView {
 		switch kind {
 		case UICollectionView.elementKindSectionHeader:
-			let coinInfoHeaderView = dequeueReusableSupplementaryView(
-				ofKind: kind,
-				withReuseIdentifier: CoinInfoHeaderView.headerReuseID,
-				for: indexPath
-			) as! CoinInfoHeaderView
-			coinInfoHeaderView.coinInfoVM = coinInfoVM
-			if coinInfoVM.coinPortfolio.showSkeletonLoading {
-				coinInfoHeaderView.showSkeletonView()
+			if indexPath.section == 0 {
+				let coinInfoHeaderView = dequeueReusableSupplementaryView(
+					ofKind: kind,
+					withReuseIdentifier: CoinInfoHeaderView.headerReuseID,
+					for: indexPath
+				) as! CoinInfoHeaderView
+				coinInfoHeaderView.coinInfoVM = coinInfoVM
+				if coinInfoVM.coinPortfolio.showSkeletonLoading {
+					coinInfoHeaderView.showSkeletonView()
+				} else {
+					coinInfoHeaderView.hideSkeletonView()
+				}
+				if separatedActivities.indices.contains(indexPath.section) {
+					coinInfoHeaderView.activitiesTimeTitle = separatedActivities[indexPath.section].title
+				}
+
+				return coinInfoHeaderView
 			} else {
-				coinInfoHeaderView.hideSkeletonView()
+				let activityHeaderView = dequeueReusableSupplementaryView(
+					ofKind: kind,
+					withReuseIdentifier: ActivityHeaderView.viewReuseID,
+					for: indexPath
+				) as! ActivityHeaderView
+				activityHeaderView.titleText = separatedActivities[indexPath.section].title
+				return activityHeaderView
 			}
-			return coinInfoHeaderView
 		case UICollectionView.elementKindSectionFooter:
 			let coinInfoFooterView = dequeueReusableSupplementaryView(
 				ofKind: UICollectionView.elementKindSectionFooter,
@@ -195,7 +231,7 @@ extension CoinInfoCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: ActivityCell.cellID,
 			for: indexPath
 		) as! ActivityCell
-		coinHistoryCell.activityCellVM = coinInfoVM.coinHistoryList[indexPath.row]
+		coinHistoryCell.activityCellVM = separatedActivities[indexPath.section].activities[indexPath.item]
 		return coinHistoryCell
 	}
 }

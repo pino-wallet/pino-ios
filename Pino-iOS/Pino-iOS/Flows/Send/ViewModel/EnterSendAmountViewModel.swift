@@ -18,7 +18,7 @@ class EnterSendAmountViewModel {
 	public let avgSign = "≈"
 	public let insufficientAmountButtonTitle = "Insufficient amount"
 	public var selectedTokenChanged: (() -> Void)?
-	public var textFieldPlaceHolder = "0.0"
+	public var textFieldPlaceHolder = "0"
 
 	public var selectedToken: AssetViewModel {
 		didSet {
@@ -65,7 +65,8 @@ class EnterSendAmountViewModel {
 
 	public func calculateAmount(_ amount: String) {
 		if isDollarEnabled {
-			convertDollarAmountToTokenValue(amount: amount)
+			tokenAmount = selectedToken.holdAmount.formattedAmountOf(type: .sevenDigitsRule)
+			dollarAmount = amount
 		} else {
 			convertEnteredAmountToDollar(amount: amount)
 		}
@@ -100,10 +101,10 @@ class EnterSendAmountViewModel {
 		gasFeeInDollar: BigNumber = GlobalVariables.shared.ethGasFee.feeInDollar
 	) {
 		let estimatedAmount = selectedToken.holdAmount - gasFee
-		maxHoldAmount = estimatedAmount.formattedAmountOf(type: .hold)
+		maxHoldAmount = estimatedAmount.formattedAmountOf(type: .sevenDigitsRule)
 
 		let estimatedAmountInDollar = selectedToken.holdAmountInDollor - gasFeeInDollar
-		maxAmountInDollar = estimatedAmountInDollar.formattedAmountOf(type: .price)
+		maxAmountInDollar = estimatedAmountInDollar.formattedAmountOf(type: .priceRule)
 	}
 
 	// MARK: - Private Methods
@@ -112,7 +113,7 @@ class EnterSendAmountViewModel {
 		if selectedToken.isEth {
 			updateEthMaxAmount()
 		} else {
-			maxHoldAmount = selectedToken.holdAmount.formattedAmountOf(type: .hold)
+			maxHoldAmount = selectedToken.holdAmount.formattedAmountOf(type: .sevenDigitsRule)
 			maxAmountInDollar = selectedToken.formattedHoldAmount
 		}
 	}
@@ -123,13 +124,5 @@ class EnterSendAmountViewModel {
 		let amountInDollarDecimalValue = decimalNumber * price
 		dollarAmount = amountInDollarDecimalValue.formattedAmount(type: .dollarValue)
 		tokenAmount = amount
-	}
-
-	private func convertDollarAmountToTokenValue(amount: String) {
-		guard let decimalNumber = Decimal(string: amount),
-		      let price = Decimal(string: selectedToken.price.decimalString) else { return }
-		let tokenAmountDecimalValue = decimalNumber / price
-		tokenAmount = tokenAmountDecimalValue.formattedAmount(type: .tokenValue)
-		dollarAmount = amount
 	}
 }

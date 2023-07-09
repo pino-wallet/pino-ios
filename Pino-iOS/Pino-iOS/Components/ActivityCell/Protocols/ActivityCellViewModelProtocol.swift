@@ -12,7 +12,7 @@ protocol ActivityCellViewModelProtocol {
 	var icon: String { get }
 	var title: String { get }
 	var formattedTime: String { get }
-	var originalTime: String { get }
+	var blockTime: String { get }
 	var status: ActivityCellStatus { get }
 	var uiType: ActivityCellUIType { get }
 	var activityType: ActivityType { get }

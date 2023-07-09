@@ -20,8 +20,8 @@ public class AppleToastView: UIView, ToastView {
 
 	public init(
 		child: UIView,
-		minHeight: CGFloat = 50,
-		minWidth: CGFloat = 140,
+		minHeight: CGFloat = 40,
+		minWidth: CGFloat = 110,
 		style: Toast.Style = .primary
 	) {
 		self.minHeight = minHeight
@@ -81,8 +81,8 @@ public class AppleToastView: UIView, ToastView {
 		NSLayoutConstraint.activate([
 			child.topAnchor.constraint(equalTo: topAnchor, constant: 10),
 			child.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-			child.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
-			child.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
+			child.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 14),
+			child.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -14),
 		])
 	}
 
