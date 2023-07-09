@@ -120,6 +120,9 @@ class SwapView: UIView {
 			self.switchTokens()
 		}), for: .touchUpInside)
 
+		let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(dissmisskeyBoard))
+		swipeGestureRecognizer.direction = .down
+		addGestureRecognizer(swipeGestureRecognizer)
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
 
 		let protocolChangeTapGesture = UITapGestureRecognizer(target: self, action: #selector(changeSwapProtocol))
@@ -282,10 +285,12 @@ class SwapView: UIView {
 	// MARK: - Public Methods
 
 	public func showProtocolView() {
+		protocolCardView.alpha = 1
 		protocolCardView.isHidden = false
 	}
 
 	public func hideProtocolView() {
+		protocolCardView.alpha = 0
 		protocolCardView.isHidden = true
 	}
 }
