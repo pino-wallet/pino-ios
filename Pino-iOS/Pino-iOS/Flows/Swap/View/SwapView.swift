@@ -44,6 +44,11 @@ class SwapView: UIView {
 	internal var nextButtonBottomConstraint: NSLayoutConstraint!
 	internal let nextButtonBottomConstant = CGFloat(12)
 
+	// MARK: - public Properties
+
+	@Published
+	public var keyboardIsOpen = false
+
 	// MARK: - Initializers
 
 	init(
@@ -272,5 +277,15 @@ class SwapView: UIView {
 	@objc
 	private func changeSwapProtocol() {
 		swapProtocolChange()
+	}
+
+	// MARK: - Public Methods
+
+	public func showProtocolView() {
+		protocolCardView.isHidden = false
+	}
+
+	public func hideProtocolView() {
+		protocolCardView.isHidden = true
 	}
 }

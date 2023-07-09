@@ -13,6 +13,7 @@ class SwapViewController: UIViewController {
 
 	private var assets: [AssetViewModel]?
 	private var swapVM: SwapViewModel!
+	private var swapView: SwapView!
 	private let protocolChangeButton = UIButton()
 	private let pageTitleLabel = UILabel()
 
@@ -36,7 +37,7 @@ class SwapViewController: UIViewController {
 		assets = assetList
 		swapVM = SwapViewModel(fromToken: assetList[0], toToken: assetList[1])
 
-		view = SwapView(
+		swapView = SwapView(
 			swapVM: swapVM,
 			fromTokenChange: {
 				self.selectAssetForFromToken()
@@ -52,6 +53,7 @@ class SwapViewController: UIViewController {
 			},
 			nextButtonTapped: {}
 		)
+		view = swapView
 	}
 
 	private func setupStyle() {
@@ -79,10 +81,28 @@ class SwapViewController: UIViewController {
 		swapVM.$selectedProtocol.sink { selectedProtocol in
 			self.protocolChangeButton.setTitle(selectedProtocol.name, for: .normal)
 		}.store(in: &cancellables)
+
+		swapView.$keyboardIsOpen.sink { keyboardIsOpen in
+			if keyboardIsOpen {
+				self.showProtocolButtonInNavbar()
+				self.swapView.hideProtocolView()
+			} else {
+				self.showPageTitleInNavbar()
+				self.swapView.showProtocolView()
+			}
+		}.store(in: &cancellables)
 	}
 
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
+		navigationItem.titleView = pageTitleLabel
+	}
+
+	private func showProtocolButtonInNavbar() {
+		navigationItem.titleView = protocolChangeButton
+	}
+
+	private func showPageTitleInNavbar() {
 		navigationItem.titleView = pageTitleLabel
 	}
 
