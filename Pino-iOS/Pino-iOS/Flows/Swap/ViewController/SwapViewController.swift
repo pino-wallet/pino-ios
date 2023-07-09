@@ -13,6 +13,8 @@ class SwapViewController: UIViewController {
 
 	private var assets: [AssetViewModel]?
 	private var swapVM: SwapViewModel!
+	private let protocolChangeButton = UIButton()
+	private let pageTitleLabel = UILabel()
 
 	private var cancellables = Set<AnyCancellable>()
 
@@ -23,6 +25,7 @@ class SwapViewController: UIViewController {
 	}
 
 	override func loadView() {
+		setupStyle()
 		setupBinding()
 		setupNavigationBar()
 	}
@@ -51,17 +54,36 @@ class SwapViewController: UIViewController {
 		)
 	}
 
+	private func setupStyle() {
+		pageTitleLabel.text = "Swap"
+		pageTitleLabel.textColor = .Pino.white
+		pageTitleLabel.font = .PinoStyle.semiboldBody
+
+		protocolChangeButton.setImage(UIImage(named: "chevron_down"), for: .normal)
+		protocolChangeButton.setTitleColor(.Pino.white, for: .normal)
+		protocolChangeButton.tintColor = .Pino.white
+		protocolChangeButton.setConfiguraton(font: .PinoStyle.semiboldBody!, imagePadding: 3, imagePlacement: .trailing)
+
+		protocolChangeButton.addAction(UIAction(handler: { _ in
+			self.openSelectProtocolPage()
+		}), for: .touchUpInside)
+	}
+
 	private func setupBinding() {
 		GlobalVariables.shared.$manageAssetsList.sink { assetList in
 			if let assetList, self.assets == nil {
 				self.setupView(assetList: assetList)
 			}
 		}.store(in: &cancellables)
+
+		swapVM.$selectedProtocol.sink { selectedProtocol in
+			self.protocolChangeButton.setTitle(selectedProtocol.name, for: .normal)
+		}.store(in: &cancellables)
 	}
 
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
-		setNavigationTitle("Swap")
+		navigationItem.titleView = pageTitleLabel
 	}
 
 	private func openSelectProtocolPage() {
