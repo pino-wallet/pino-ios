@@ -322,6 +322,8 @@
 		D9C4CF0D2A4094C400475F01 /* RecentAddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF0C2A4094C400475F01 /* RecentAddressModel.swift */; };
 		D9C4CF0F2A409D4800475F01 /* SuggestedAddressHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF0E2A409D4800475F01 /* SuggestedAddressHeaderView.swift */; };
 		D9C7D76229EBDCAE006BC446 /* CoinInfoStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C7D76129EBDCAE006BC446 /* CoinInfoStatsView.swift */; };
+		D9D11E922A5990B8003C4298 /* ActivityCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D11E912A5990B8003C4298 /* ActivityCollectionView.swift */; };
+		D9D11E942A5990F0003C4298 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D11E932A5990F0003C4298 /* ActivityViewModel.swift */; };
 		D9DD538BAF953A18503AB3F0 /* RemoveAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887EDE19A8B81F1FB217E0FA /* RemoveAccountView.swift */; };
 		D9E134852A52FB4A00193FF0 /* ActivityHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E134842A52FB4A00193FF0 /* ActivityHeaderView.swift */; };
 		D9E134872A53013D00193FF0 /* ActivityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E134862A53013D00193FF0 /* ActivityHelper.swift */; };
@@ -793,6 +795,8 @@
 		D9C4CF0C2A4094C400475F01 /* RecentAddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentAddressModel.swift; sourceTree = "<group>"; };
 		D9C4CF0E2A409D4800475F01 /* SuggestedAddressHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedAddressHeaderView.swift; sourceTree = "<group>"; };
 		D9C7D76129EBDCAE006BC446 /* CoinInfoStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoStatsView.swift; sourceTree = "<group>"; };
+		D9D11E912A5990B8003C4298 /* ActivityCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCollectionView.swift; sourceTree = "<group>"; };
+		D9D11E932A5990F0003C4298 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 		D9E134842A52FB4A00193FF0 /* ActivityHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHeaderView.swift; sourceTree = "<group>"; };
 		D9E134862A53013D00193FF0 /* ActivityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHelper.swift; sourceTree = "<group>"; };
 		D9F2507F29E576FB00DE0410 /* NotificationSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsCell.swift; sourceTree = "<group>"; };
@@ -1805,7 +1809,9 @@
 		8F87D654352C570B4F7592D9 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
-				CCCBF9CC6A3C63CAA0DB0AA7 /* ActivityViewController.swift */,
+				D9D11E902A59908F003C4298 /* View */,
+				D9D11E8F2A599089003C4298 /* ViewModel */,
+				D9D11E8E2A59907D003C4298 /* ViewController */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -2208,6 +2214,30 @@
 				E3847B372A52CBE6005ED78B /* AmountStatus.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D9D11E8E2A59907D003C4298 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CCCBF9CC6A3C63CAA0DB0AA7 /* ActivityViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		D9D11E8F2A599089003C4298 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D9D11E932A5990F0003C4298 /* ActivityViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D9D11E902A59908F003C4298 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D9D11E912A5990B8003C4298 /* ActivityCollectionView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		D9E134832A52FB3400193FF0 /* ActivityHeaderView */ = {
@@ -2952,6 +2982,7 @@
 				E34728E929E7DCCF00AB8265 /* HomepageViewModel+Wallet.swift in Sources */,
 				67CB57B83460DA7FDE4BFED3 /* AddNewAccountOptionModel.swift in Sources */,
 				DAB2FF91D5EAF0795A12201B /* AddNewAccountOptionViewModel.swift in Sources */,
+				D9D11E942A5990F0003C4298 /* ActivityViewModel.swift in Sources */,
 				C450B15464CE5EF43B603409 /* AddNewAccountViewController.swift in Sources */,
 				6515F0FDA57BFCE714EF6F71 /* AddNewAccountViewModel.swift in Sources */,
 				2BC73AE9759B87DCBF761327 /* AlertHelper.swift in Sources */,
@@ -3289,6 +3320,7 @@
 				AD68BBE3C5E6C48C129C6BA7 /* AccountsCollectionView.swift in Sources */,
 				C3321EBB6DC83BCDC3CFC3B0 /* WalletsModel.swift in Sources */,
 				316F0DDECBB3FA68BFFA1577 /* AccountsViewController.swift in Sources */,
+				D9D11E922A5990B8003C4298 /* ActivityCollectionView.swift in Sources */,
 				33647E7FA041A9CC0130F158 /* AccountsViewModel.swift in Sources */,
 				E3F482EF2A35A6E900EEC9CF /* CustomAsset+CoreDataClass.swift in Sources */,
 				DF00178529EC37AF001164EA /* PinoWalletCore.swift in Sources */,
