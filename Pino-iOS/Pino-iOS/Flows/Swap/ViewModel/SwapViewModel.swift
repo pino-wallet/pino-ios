@@ -105,6 +105,8 @@ class SwapViewModel {
 		}
 	}
 
+	// MARK: - Private Methods
+
 	private func showBestProvider() {
 		let saveAmount = getSaveAmount()
 		swapFeeVM.saveAmount = saveAmount
