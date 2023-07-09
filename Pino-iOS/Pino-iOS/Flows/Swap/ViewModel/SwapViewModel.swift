@@ -96,7 +96,30 @@ class SwapViewModel {
 		toToken.swapDelegate.selectedTokenDidChange()
 	}
 
-	public func changeSwapProtocol(to swapProtocol: SwapProtocolModel) {}
+	public func changeSwapProtocol(to swapProtocol: SwapProtocolModel) {
+		selectedProtocol = swapProtocol
+		if swapProtocol == .bestRate {
+			showBestProvider()
+		} else {
+			showPriceImpact()
+		}
+	}
+
+	private func showBestProvider() {
+		let saveAmount = getSaveAmount()
+		swapFeeVM.saveAmount = saveAmount
+		swapFeeVM.feeTag = getFeeTag(saveAmount: saveAmount)
+		swapFeeVM.swapProviderVM = getBestProvider()
+		swapFeeVM.priceImpact = nil
+	}
+
+	private func showPriceImpact() {
+		let priceImpact = getPriceImpact()
+		swapFeeVM.priceImpact = priceImpact
+		swapFeeVM.feeTag = getFeeTag(priceImpact: priceImpact)
+		swapFeeVM.swapProviderVM = nil
+		swapFeeVM.saveAmount = nil
+	}
 
 	#warning("These values are temporary and must be replaced with network data")
 
