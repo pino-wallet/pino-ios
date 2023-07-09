@@ -19,6 +19,7 @@ class ActivityViewModel {
 	// MARK: - Private Properties
 
 	private let mockAPIClient = AssetsAPIMockClient()
+    private let walletManager = PinoWalletManager()
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
@@ -39,9 +40,8 @@ class ActivityViewModel {
 				print(error)
 			}
 		} receiveValue: { [weak self] activities in
-			let walletManager = PinoWalletManager()
 			self?.userActivities = activities.compactMap {
-				ActivityCellViewModel(activityModel: $0, currentAddress: walletManager.currentAccount.eip55Address)
+                ActivityCellViewModel(activityModel: $0, currentAddress: self!.walletManager.currentAccount.eip55Address)
 			}
 		}.store(in: &cancellables)
 	}
