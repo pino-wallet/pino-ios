@@ -157,6 +157,10 @@ class SwapView: UIView {
 		protocolStackView.alignment = .center
 
 		feeCardView.alpha = 0
+
+		if UIScreen.main.bounds.height < 730 {
+			hideProtocolView()
+		}
 	}
 
 	private func setupContstraint() {

@@ -82,20 +82,26 @@ class SwapViewController: UIViewController {
 			self.protocolChangeButton.setTitle(selectedProtocol.name, for: .normal)
 		}.store(in: &cancellables)
 
-		swapView.$keyboardIsOpen.sink { keyboardIsOpen in
-			if keyboardIsOpen {
-				self.showProtocolButtonInNavbar()
-				self.swapView.hideProtocolView()
-			} else {
-				self.showPageTitleInNavbar()
-				self.swapView.showProtocolView()
-			}
-		}.store(in: &cancellables)
+		if UIScreen.main.bounds.height > 730 {
+			swapView.$keyboardIsOpen.sink { keyboardIsOpen in
+				if keyboardIsOpen {
+					self.showProtocolButtonInNavbar()
+					self.swapView.hideProtocolView()
+				} else {
+					self.showPageTitleInNavbar()
+					self.swapView.showProtocolView()
+				}
+			}.store(in: &cancellables)
+		}
 	}
 
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
-		navigationItem.titleView = pageTitleLabel
+		if UIScreen.main.bounds.height > 730 {
+			navigationItem.titleView = pageTitleLabel
+		} else {
+			navigationItem.titleView = protocolChangeButton
+		}
 	}
 
 	private func showProtocolButtonInNavbar() {
