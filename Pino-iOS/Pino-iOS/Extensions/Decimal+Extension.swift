@@ -45,7 +45,7 @@ extension Decimal {
 	public func formattedAmount(type: NumberFormatTypes) -> String {
 		var decimalNumber = self
 		var roundedDecimal: Decimal = 0
-        NSDecimalRound(&roundedDecimal, &decimalNumber, type.formattingDecimal(wholeNumDigits: String(decimalNumber.wholePart).count), .up)
+        NSDecimalRound(&roundedDecimal, &decimalNumber, type.formattingDecimal(wholeNumDigits: String(decimalNumber.wholePart).count), .down)
 		return roundedDecimal.description
 	}
 

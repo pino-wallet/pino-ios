@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import BigInt
 
 class EnterSendAmountViewModel {
     // MARK: - Public Properties
@@ -29,19 +30,28 @@ class EnterSendAmountViewModel {
         }
     }
     
-    public var maxHoldAmount = "0"
-    public var maxAmountInDollar = "0"
+    public var maxHoldAmount: (number: BigNumber, formattedAmount: String) {
+        set(newVal) {
+            _number = newVal.number
+            _formattedAmount = newVal.number.formattedAmountOf(type: .sevenDigitsRule)
+        }
+        get {
+            
+        }
+    }
+    public var maxAmountInDollar: (number: BigNumber, formattedAmount: String) {
+        
+    }
+    public var tokenAmount = "0"
+    public var dollarAmount = "0"
     
     public var formattedMaxHoldAmount: String {
-        "\(maxHoldAmount) \(selectedToken.symbol)"
+        "\(maxHoldAmount.formattedAmount) \(selectedToken.symbol)"
     }
     
     public var formattedMaxAmountInDollar: String {
-        "$ \(maxAmountInDollar)"
+        "$ \(maxAmountInDollar.formattedAmount)"
     }
-    
-    public var tokenAmount = "0.0"
-    public var dollarAmount = "0.0"
     
     public var formattedAmount: String {
         if isDollarEnabled {
@@ -70,20 +80,19 @@ class EnterSendAmountViewModel {
     }
     
     public func checkIfBalanceIsEnough(amount: String, amountStatus: (AmountStatus) -> Void) {
-        calculateAmount(amount)
         if amount == .emptyString {
             amountStatus(.isZero)
         } else if let decimalAmount = Decimal(string: amount), decimalAmount.isZero {
             amountStatus(.isZero)
         } else {
-            var decimalMaxAmount: Decimal
-            var enteredAmmount: Decimal
+            var decimalMaxAmount: BigNumber
+            var enteredAmmount: BigNumber
             if isDollarEnabled {
-                decimalMaxAmount = Decimal(string: maxAmountInDollar)!
-                enteredAmmount = Decimal(string: dollarAmount)!
+                decimalMaxAmount = maxAmountInDollar.number
+                enteredAmmount = BigNumber(numberWithDecimal: dollarAmount)
             } else {
-                decimalMaxAmount = Decimal(string: maxHoldAmount)!
-                enteredAmmount = Decimal(string: tokenAmount)!
+                decimalMaxAmount = maxHoldAmount.number
+                enteredAmmount = BigNumber(numberWithDecimal: tokenAmount)
             }
             if enteredAmmount > decimalMaxAmount {
                 amountStatus(.isNotEnough)
@@ -98,10 +107,10 @@ class EnterSendAmountViewModel {
         gasFeeInDollar: BigNumber = GlobalVariables.shared.ethGasFee.feeInDollar
     ) {
         let estimatedAmount = selectedToken.holdAmount - gasFee
-        maxHoldAmount = estimatedAmount.formattedAmountOf(type: .sevenDigitsRule)
+        maxHoldAmount = (estimatedAmount, estimatedAmount.formattedAmountOf(type: .sevenDigitsRule))
         
         let estimatedAmountInDollar = selectedToken.holdAmountInDollor - gasFeeInDollar
-        maxAmountInDollar = estimatedAmountInDollar.formattedAmountOf(type: .priceRule)
+        maxAmountInDollar = (estimatedAmountInDollar, estimatedAmountInDollar.formattedAmountOf(type: .priceRule))
     }
     
     // MARK: - Private Methods
@@ -110,24 +119,27 @@ class EnterSendAmountViewModel {
         if selectedToken.isEth {
             updateEthMaxAmount()
         } else {
-            maxHoldAmount = selectedToken.holdAmount.formattedAmountOf(type: .sevenDigitsRule)
-            maxAmountInDollar = selectedToken.formattedHoldAmount
+            maxHoldAmount = (selectedToken.holdAmount, selectedToken.holdAmount.formattedAmountOf(type: .sevenDigitsRule))
+            maxAmountInDollar = (selectedToken.holdAmountInDollor, selectedToken.holdAmountInDollor.formattedAmountOf(type: .priceRule))
         }
     }
     
     private func convertEnteredAmountToDollar(amount: String) {
-        guard let decimalNumber = Decimal(string: amount),
-              let price = Decimal(string: selectedToken.price.decimalString) else { return }
-        let amountInDollarDecimalValue = decimalNumber * price
-        dollarAmount = amountInDollarDecimalValue.formattedAmount(type: .priceRule)
+        
+        let decimalBigNum = BigNumber(numberWithDecimal: amount)
+        let price = selectedToken.price
+
+        let amountInDollarDecimalValue = BigNumber(number: decimalBigNum.number * price.number, decimal: decimalBigNum.decimal + 6)
+        dollarAmount = amountInDollarDecimalValue.formattedAmountOf(type: .priceRule)
         tokenAmount = amount
     }
     
     private func convertDollarAmountToTokenValue(amount: String) {
-        guard let decimalNumber = Decimal(string: amount),
-              let price = Decimal(string: selectedToken.price.decimalString) else { return }
-        let tokenAmountDecimalValue = decimalNumber / price
-        tokenAmount = tokenAmountDecimalValue.formattedAmount(type: .sevenDigitsRule)
+        let decimalBigNum = BigNumber(numberWithDecimal: amount).number * BigInt(10).power(6 + selectedToken.decimal)
+        let price = selectedToken.price
+       
+        let tokenAmountDecimalValue = decimalBigNum.quotientAndRemainder(dividingBy: price.number)
+        tokenAmount = BigNumber(number: tokenAmountDecimalValue.quotient, decimal: selectedToken.decimal).formattedAmountOf(type: .sevenDigitsRule)
         dollarAmount = amount
     }
 }

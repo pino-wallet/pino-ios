@@ -48,6 +48,20 @@ public struct BigNumber {
 		self.number = number.number
 		self.decimal = decimal
 	}
+    
+    public init(numberWithDecimal: String) {
+        var trimmingNumber = numberWithDecimal
+        guard let decimalSeperator = numberWithDecimal.first(where:  { $0 == "." || $0 == "," }) else {
+            // Passed string has no decimal and is passed to wrong initlizer
+            self.number = BigInt(trimmingNumber)!
+            self.decimal = 0
+            return
+        }
+        let wholeAndFraction = trimmingNumber.split(separator: decimalSeperator)
+        trimmingNumber.remove(at: trimmingNumber.firstIndex(of: decimalSeperator)!)
+        self.number = BigInt(trimmingNumber)!
+        self.decimal = wholeAndFraction.last!.count
+    }
 
 	public var whole: BigInt {
 		number.quotientAndRemainder(dividingBy: BigInt(10).power(decimal)).quotient
