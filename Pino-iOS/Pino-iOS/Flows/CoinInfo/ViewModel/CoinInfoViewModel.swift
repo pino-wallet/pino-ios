@@ -18,7 +18,7 @@ class CoinInfoViewModel {
 	@Published
 	public var coinPortfolio: CoinPortfolioViewModel!
 	@Published
-	public var coinHistoryList: [ActivityCellViewModel]!
+	public var coinHistoryList: [ActivityCellViewModel]? = nil
 
 	public let requestFailedErrorToastMessage = "Couldn't refresh coin data"
 	public let connectionErrorToastMessage = "No internet connection"
@@ -53,7 +53,8 @@ class CoinInfoViewModel {
 
 	// MARK: - Private Properties
 
-	private var assetsAPIClient = AssetsAPIMockClient()
+	private var activityAPIClient = ActivityAPIClient()
+    private var walletManager = PinoWalletManager()
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Inintializers
@@ -81,22 +82,16 @@ class CoinInfoViewModel {
 	}
 
 	private func getHistoryList() {
-		assetsAPIClient.coinHistory().sink { completed in
-			switch completed {
-			case .finished:
-				print("Coin history received successfully")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { [weak self] coinHistoryModelList in
-			let walletManager = PinoWalletManager()
-			self?.coinHistoryList = coinHistoryModelList
-				.compactMap {
-					ActivityCellViewModel(activityModel: $0, currentAddress: walletManager.currentAccount.eip55Address)
-				}
-			#warning(
-				"this line is for testing because these two publishers were pinned to each other and their value should be changed together"
-			)
-		}.store(in: &cancellables)
+        let userAddress = walletManager.currentAccount.eip55Address
+        activityAPIClient.tokenActivities(userAddress: userAddress, tokenAddress: selectedAsset.id).sink { completed in
+            switch completed {
+            case .finished:
+                print("Coin activities received successfully")
+            case let .failure(error):
+                print(error)
+            }
+        } receiveValue: { [weak self] activities in
+            self?.coinHistoryList = activities.compactMap { ActivityCellViewModel(activityModel: $0, currentAddress: userAddress)}
+        }.store(in: &cancellables)
 	}
 }
