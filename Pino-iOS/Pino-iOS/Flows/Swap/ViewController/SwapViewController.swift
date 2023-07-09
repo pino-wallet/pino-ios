@@ -41,6 +41,9 @@ class SwapViewController: UIViewController {
 			toTokeChange: {
 				self.selectAssetForToToken()
 			},
+			swapProtocolChange: {
+				self.openSelectProtocolPage()
+			},
 			nextButtonTapped: {}
 		)
 	}
@@ -56,6 +59,14 @@ class SwapViewController: UIViewController {
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
 		setNavigationTitle("Swap")
+	}
+
+	private func openSelectProtocolPage() {
+		let swapProtocolVC = SelectSwapProtocolViewController { selectedProtocol in
+			self.swapVM.selectedProtocol = selectedProtocol
+		}
+		let swapProtocolNavigationVC = UINavigationController(rootViewController: swapProtocolVC)
+		present(swapProtocolNavigationVC, animated: true)
 	}
 
 	private func selectAssetForFromToken() {
