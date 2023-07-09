@@ -30,30 +30,28 @@ class SwapFeeViewModel {
 	public let feeTitle = "Fee"
 	public let celebrateEmoji = "🎉"
 
-	public var formattedSaveAmount: String? {
-		guard let saveAmount else { return nil }
-		return "$\(saveAmount) \(celebrateEmoji)"
-	}
-
-	public var formattedPriceImpact: String? {
-		guard let priceImpact else { return nil }
-		return "%\(priceImpact)"
-	}
-
-	public var formattedFee: String? {
-		guard let fee else { return nil }
-		return "\(fee) ETH"
-	}
-
-	public var formattedFeeInDollar: String? {
-		guard let fee else { return nil }
-		return "$\(fee)"
-	}
-
 	// MARK: - Initializers
 
 	init(swapProviderVM: SwapProviderViewModel? = nil) {
 		self.swapProviderVM = swapProviderVM
+	}
+
+	// MARK: - Public Methods
+
+	public func formattedPriceImpact(_ priceImpact: String) -> String {
+		"%\(priceImpact)"
+	}
+
+	public func formattedSaveAmount(_ saveAmount: String) -> String {
+		"$\(saveAmount) \(celebrateEmoji)"
+	}
+
+	public func formattedFee(_ fee: String) -> String {
+		"\(fee) ETH"
+	}
+
+	public func formattedFeeInDollar(_ fee: String) -> String {
+		"$\(fee)"
 	}
 }
 

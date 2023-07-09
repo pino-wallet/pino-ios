@@ -66,7 +66,7 @@ class SwapViewController: UIViewController {
 
 	private func openSelectProtocolPage() {
 		let swapProtocolVC = SelectSwapProtocolViewController { selectedProtocol in
-			self.swapVM.selectedProtocol = selectedProtocol
+			self.swapVM.changeSwapProtocol(to: selectedProtocol)
 		}
 		let swapProtocolNavigationVC = UINavigationController(rootViewController: swapProtocolVC)
 		present(swapProtocolNavigationVC, animated: true)

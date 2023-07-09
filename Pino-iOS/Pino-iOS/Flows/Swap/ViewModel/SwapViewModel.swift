@@ -28,7 +28,7 @@ class SwapViewModel {
 		self.selectedProtocol = .bestRate
 		self.fromToken = SwapTokenViewModel(selectedToken: fromToken)
 		self.toToken = SwapTokenViewModel(selectedToken: toToken)
-		self.swapFeeVM = SwapFeeViewModel(swapProviderVM: SwapProviderViewModel(provider: .oneInch, swapAmount: ""))
+		self.swapFeeVM = SwapFeeViewModel()
 
 		self.fromToken.amountUpdated = { amount in
 			self.recalculateTokensAmount(amount: amount)
@@ -52,7 +52,6 @@ class SwapViewModel {
 			toToken.swapDelegate.swapAmountDidCalculate()
 		}
 		updateCalculatedAmount()
-		getFeeInfo()
 	}
 
 	private func updateCalculatedAmount() {
@@ -64,17 +63,11 @@ class SwapViewModel {
 	}
 
 	private func getFeeInfo() {
-		// This values are temporary and must be replaced with network data
-		let swapFee = "0.001"
-		let saveAmount = "1"
-
-		swapFeeVM.fee = swapFee
+		let saveAmount = getSaveAmount()
 		swapFeeVM.saveAmount = saveAmount
-		if let saveAmountDecimalNumber = Decimal(string: saveAmount), saveAmountDecimalNumber > 0 {
-			swapFeeVM.feeTag = .save("$\(saveAmount) \(swapFeeVM.celebrateEmoji)")
-		} else {
-			swapFeeVM.feeTag = .none
-		}
+		swapFeeVM.feeTag = getFeeTag(saveAmount: saveAmount)
+		swapFeeVM.swapProviderVM = getBestProvider()
+		swapFeeVM.fee = getfee()
 	}
 
 	// MARK: - Public Methods
@@ -101,5 +94,41 @@ class SwapViewModel {
 
 		fromToken.swapDelegate.selectedTokenDidChange()
 		toToken.swapDelegate.selectedTokenDidChange()
+	}
+
+	public func changeSwapProtocol(to swapProtocol: SwapProtocolModel) {}
+
+	#warning("These values are temporary and must be replaced with network data")
+
+	private func getBestProvider() -> SwapProviderViewModel {
+		SwapProviderViewModel(provider: .oneInch, swapAmount: "")
+	}
+
+	private func getfee() -> String {
+		"0.001"
+	}
+
+	private func getSaveAmount() -> String {
+		"1"
+	}
+
+	private func getPriceImpact() -> String {
+		"2"
+	}
+
+	private func getFeeTag(saveAmount: String) -> SwapFeeViewModel.FeeTag {
+		if let saveAmountDecimalNumber = Decimal(string: saveAmount), saveAmountDecimalNumber > 0 {
+			return .save("$\(saveAmount) \(swapFeeVM.celebrateEmoji)")
+		} else {
+			return .none
+		}
+	}
+
+	private func getFeeTag(priceImpact: String) -> SwapFeeViewModel.FeeTag {
+		if let priceImpactDecimalNumber = Decimal(string: priceImpact), priceImpactDecimalNumber > 1 {
+			return .highImpact
+		} else {
+			return .none
+		}
 	}
 }
