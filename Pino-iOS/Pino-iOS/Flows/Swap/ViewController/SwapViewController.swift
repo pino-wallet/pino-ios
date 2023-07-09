@@ -26,34 +26,42 @@ class SwapViewController: UIViewController {
 	}
 
 	override func loadView() {
+		setupView()
 		setupStyle()
-		setupBinding()
 		setupNavigationBar()
 	}
 
 	// MARK: - Private Methods
 
-	private func setupView(assetList: [AssetViewModel]) {
-		assets = assetList
-		swapVM = SwapViewModel(fromToken: assetList[0], toToken: assetList[1])
+	private func setupView() {
+		#warning("It is temporary and should handle in loading branch")
+		view = UIView()
+		view.backgroundColor = .Pino.background
+		GlobalVariables.shared.$manageAssetsList.sink { assetList in
+			if let assetList, self.assets == nil {
+				self.assets = assetList
+				self.swapVM = SwapViewModel(fromToken: assetList[0], toToken: assetList[1])
 
-		swapView = SwapView(
-			swapVM: swapVM,
-			fromTokenChange: {
-				self.selectAssetForFromToken()
-			},
-			toTokeChange: {
-				self.selectAssetForToToken()
-			},
-			swapProtocolChange: {
-				self.openSelectProtocolPage()
-			},
-			providerChange: {
-				self.openProvidersPage()
-			},
-			nextButtonTapped: {}
-		)
-		view = swapView
+				self.swapView = SwapView(
+					swapVM: self.swapVM,
+					fromTokenChange: {
+						self.selectAssetForFromToken()
+					},
+					toTokeChange: {
+						self.selectAssetForToToken()
+					},
+					swapProtocolChange: {
+						self.openSelectProtocolPage()
+					},
+					providerChange: {
+						self.openProvidersPage()
+					},
+					nextButtonTapped: {}
+				)
+				self.view = self.swapView
+				self.setupBinding()
+			}
+		}.store(in: &cancellables)
 	}
 
 	private func setupStyle() {
@@ -72,12 +80,6 @@ class SwapViewController: UIViewController {
 	}
 
 	private func setupBinding() {
-		GlobalVariables.shared.$manageAssetsList.sink { assetList in
-			if let assetList, self.assets == nil {
-				self.setupView(assetList: assetList)
-			}
-		}.store(in: &cancellables)
-
 		swapVM.$selectedProtocol.sink { selectedProtocol in
 			self.protocolChangeButton.setTitle(selectedProtocol.name, for: .normal)
 		}.store(in: &cancellables)
