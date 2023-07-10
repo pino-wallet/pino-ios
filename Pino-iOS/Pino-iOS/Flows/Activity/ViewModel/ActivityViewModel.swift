@@ -38,7 +38,7 @@ class ActivityViewModel {
 		setupRequestTimer()
 		if userActivities == nil || userAddress != walletManager.currentAccount.eip55Address {
 			userAddress = walletManager.currentAccount.eip55Address
-            userActivities = nil
+			userActivities = nil
 			requestTimer?.fire()
 		}
 	}
