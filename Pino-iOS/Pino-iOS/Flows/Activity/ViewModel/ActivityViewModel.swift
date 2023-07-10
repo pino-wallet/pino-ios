@@ -38,6 +38,7 @@ class ActivityViewModel {
 		setupRequestTimer()
 		if userActivities == nil || userAddress != walletManager.currentAccount.eip55Address {
 			userAddress = walletManager.currentAccount.eip55Address
+            userActivities = nil
 			requestTimer?.fire()
 		}
 	}
@@ -62,7 +63,6 @@ class ActivityViewModel {
 
 	@objc
 	private func getUserActivities() {
-		userActivities = nil
 		let userAddress = walletManager.currentAccount.eip55Address
 		activityAPIClient.allActivities(userAddress: userAddress).sink { completed in
 			switch completed {
