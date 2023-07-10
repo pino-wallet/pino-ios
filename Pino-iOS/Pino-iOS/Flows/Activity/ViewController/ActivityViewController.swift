@@ -20,8 +20,16 @@ class ActivityViewController: UIViewController {
 	}
 
 	override func loadView() {
-		setupNavigationBar()
 		setupView()
+		setupNavigationBar()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		activityVM.refreshUserActivities()
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		activityVM.destroyTimer()
 	}
 
 	// MARK: - Private Methods

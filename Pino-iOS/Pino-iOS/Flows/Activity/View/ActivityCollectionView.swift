@@ -14,6 +14,7 @@ class ActivityCollectionView: UICollectionView {
 	private var activityVM: ActivityViewModel
 	private var separatedActivities: ActivityHelper.separatedActivitiesType = []
 	private var cancellables = Set<AnyCancellable>()
+	private var showLoading = true
 
 	// MARK: - Initializers
 
@@ -23,7 +24,8 @@ class ActivityCollectionView: UICollectionView {
 		let flowLayoutView = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayoutView)
 		flowLayoutView.collectionView?.backgroundColor = .Pino.background
-		flowLayoutView.collectionView?.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
+		flowLayoutView.collectionView?.contentInset = UIEdgeInsets(top: 24, left: 0, bottom: 0, right: 0)
+		flowLayoutView.minimumLineSpacing = 8
 
 		configureCollectionView()
 		setupBindings()
@@ -48,9 +50,15 @@ class ActivityCollectionView: UICollectionView {
 	}
 
 	private func setupBindings() {
-		activityVM.$userActivities.sink { acitivities in
+		activityVM.$userActivities.sink { activities in
+			guard let userActivities = activities else {
+				self.showLoading = true
+				self.reloadData()
+				return
+			}
 			let activityHelper = ActivityHelper()
-			self.separatedActivities = activityHelper.separateActivitiesByTime(activities: acitivities)
+			self.separatedActivities = activityHelper.separateActivitiesByTime(activities: userActivities)
+			self.showLoading = false
 			self.reloadData()
 		}.store(in: &cancellables)
 	}
@@ -62,17 +70,25 @@ extension ActivityCollectionView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		sizeForItemAt indexPath: IndexPath
 	) -> CGSize {
-		CGSize(width: collectionView.frame.width, height: 72)
+		CGSize(width: collectionView.frame.width - 32, height: 0)
 	}
 }
 
 extension ActivityCollectionView: UICollectionViewDataSource {
 	func numberOfSections(in collectionView: UICollectionView) -> Int {
-		separatedActivities.count
+		if showLoading {
+			return 1
+		} else {
+			return separatedActivities.count
+		}
 	}
 
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		separatedActivities[section].activities.count
+		if showLoading {
+			return 7
+		} else {
+			return separatedActivities[section].activities.count
+		}
 	}
 
 	func collectionView(
@@ -83,7 +99,13 @@ extension ActivityCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: ActivityCell.cellID,
 			for: indexPath
 		) as! ActivityCell
-		activityCell.activityCellVM = separatedActivities[indexPath.section].activities[indexPath.item]
+		if showLoading {
+			activityCell.activityCellVM = nil
+			activityCell.showSkeletonView()
+		} else {
+			activityCell.activityCellVM = separatedActivities[indexPath.section].activities[indexPath.item]
+			activityCell.hideSkeletonView()
+		}
 		return activityCell
 	}
 
@@ -97,7 +119,13 @@ extension ActivityCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: ActivityHeaderView.viewReuseID,
 			for: indexPath
 		) as! ActivityHeaderView
-		activityHeader.titleText = separatedActivities[indexPath.section].title
+		if !showLoading {
+			if indexPath.section == 0 {
+				activityHeader.topPadding = 0
+			}
+			activityHeader.titleText = separatedActivities[indexPath.section].title
+		}
+
 		return activityHeader
 	}
 
@@ -112,10 +140,14 @@ extension ActivityCollectionView: UICollectionViewDataSource {
 			viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader,
 			at: indexPath
 		)
-		return headerView.systemLayoutSizeFitting(
-			CGSize(width: collectionView.frame.width, height: UIView.layoutFittingExpandedSize.height),
-			withHorizontalFittingPriority: .required,
-			verticalFittingPriority: .fittingSizeLevel
-		)
+		if !showLoading {
+			return headerView.systemLayoutSizeFitting(
+				CGSize(width: collectionView.frame.width, height: UIView.layoutFittingExpandedSize.height),
+				withHorizontalFittingPriority: .required,
+				verticalFittingPriority: .fittingSizeLevel
+			)
+		} else {
+			return CGSize(width: 0, height: 0)
+		}
 	}
 }
