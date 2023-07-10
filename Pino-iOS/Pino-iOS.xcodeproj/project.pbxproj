@@ -271,6 +271,7 @@
 		D91A3A0329E4124A00004CB2 /* NotificationSettingsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A3A0229E4124A00004CB2 /* NotificationSettingsCollectionView.swift */; };
 		D91A3A0529E412A200004CB2 /* NotificationSettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A3A0429E412A200004CB2 /* NotificationSettingsSection.swift */; };
 		D91A3A0729E41C1800004CB2 /* NotificationSettingsOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A3A0629E41C1800004CB2 /* NotificationSettingsOptionViewModel.swift */; };
+		D91C17CA2A5BE259000C448E /* ActivityEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C17C92A5BE259000C448E /* ActivityEmptyStateView.swift */; };
 		D92B913C2A30756C0055B277 /* PinoContainerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92B913B2A30756C0055B277 /* PinoContainerCard.swift */; };
 		D93C41F729F7C1F9003F2297 /* EditAccountCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41F629F7C1F9003F2297 /* EditAccountCollectionView.swift */; };
 		D93C41F929F7C5C6003F2297 /* EditAccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41F829F7C5C6003F2297 /* EditAccountHeaderView.swift */; };
@@ -746,6 +747,7 @@
 		D91A3A0429E412A200004CB2 /* NotificationSettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsSection.swift; sourceTree = "<group>"; };
 		D91A3A0629E41C1800004CB2 /* NotificationSettingsOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsOptionViewModel.swift; sourceTree = "<group>"; };
 		D91B98B8A47DBAE96AE7956F /* PPPangramSans-Extrabold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Extrabold.ttf"; sourceTree = "<group>"; };
+		D91C17C92A5BE259000C448E /* ActivityEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityEmptyStateView.swift; sourceTree = "<group>"; };
 		D92B913B2A30756C0055B277 /* PinoContainerCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoContainerCard.swift; sourceTree = "<group>"; };
 		D93C41F629F7C1F9003F2297 /* EditAccountCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountCollectionView.swift; sourceTree = "<group>"; };
 		D93C41F829F7C5C6003F2297 /* EditAccountHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountHeaderView.swift; sourceTree = "<group>"; };
@@ -2236,6 +2238,7 @@
 			isa = PBXGroup;
 			children = (
 				D9D11E912A5990B8003C4298 /* ActivityCollectionView.swift */,
+				D91C17C92A5BE259000C448E /* ActivityEmptyStateView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3019,6 +3022,7 @@
 				DFA9687C2A0FABB9007D4513 /* SelectedAsset+CoreDataProperties.swift in Sources */,
 				B25B61BF5F1999D414ACD42B /* AuthKeyProvider.swift in Sources */,
 				8DAEADFEFB2B89FAD4955536 /* AutolayoutHelper.swift in Sources */,
+				D91C17CA2A5BE259000C448E /* ActivityEmptyStateView.swift in Sources */,
 				11B58980B34C46C54E1CA0B2 /* AvatarCell.swift in Sources */,
 				9DAA41E3693EB0D2B084C3F8 /* AvatarCollectionView.swift in Sources */,
 				D95D49822A386BC10042FC85 /* TitleWithInfo.swift in Sources */,
