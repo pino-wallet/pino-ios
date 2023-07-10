@@ -12,6 +12,8 @@ class ActivityViewModel {
 	// MARK: - Public Properties
 
 	public let pageTitle = "Recent activity"
+    public let noActivityMessage = "There is no activity"
+    public let noActivityIconName = "empty_activity"
 
 	@Published
 	public var userActivities: [ActivityCellViewModel] = []
