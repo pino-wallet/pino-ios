@@ -54,7 +54,7 @@ class CoinInfoViewModel {
 	// MARK: - Private Properties
 
 	private var activityAPIClient = ActivityAPIClient()
-    private var walletManager = PinoWalletManager()
+	private var walletManager = PinoWalletManager()
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Inintializers
@@ -82,18 +82,18 @@ class CoinInfoViewModel {
 	}
 
 	private func getHistoryList() {
-        let userAddress = walletManager.currentAccount.eip55Address
-        activityAPIClient.tokenActivities(userAddress: userAddress, tokenAddress: selectedAsset.id).sink { completed in
-            switch completed {
-            case .finished:
-                print("Token activities received successfully")
-            case let .failure(error):
-                print(error)
-            }
-        } receiveValue: { [weak self] activities in
-            self?.coinHistoryList = activities.compactMap {
-                ActivityCellViewModel(activityModel: $0, currentAddress: userAddress)
-            }
-        }.store(in: &cancellables)
+		let userAddress = walletManager.currentAccount.eip55Address
+		activityAPIClient.tokenActivities(userAddress: userAddress, tokenAddress: selectedAsset.id).sink { completed in
+			switch completed {
+			case .finished:
+				print("Token activities received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { [weak self] activities in
+			self?.coinHistoryList = activities.compactMap {
+				ActivityCellViewModel(activityModel: $0, currentAddress: userAddress)
+			}
+		}.store(in: &cancellables)
 	}
 }

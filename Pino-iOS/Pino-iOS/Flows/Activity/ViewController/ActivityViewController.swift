@@ -12,9 +12,9 @@ class ActivityViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let activityVM = ActivityViewModel()
-    private var activityEmptyStateView: ActivityEmptyStateView!
+	private var activityEmptyStateView: ActivityEmptyStateView!
 	private var activityColectionView: ActivityCollectionView!
-    private var cancellables = Set<AnyCancellable>()
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - View Overrides
 
@@ -25,7 +25,7 @@ class ActivityViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
-        setupBindings()
+		setupBindings()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -44,22 +44,22 @@ class ActivityViewController: UIViewController {
 	}
 
 	private func setupView() {
-        activityEmptyStateView = ActivityEmptyStateView(activityVM: activityVM)
+		activityEmptyStateView = ActivityEmptyStateView(activityVM: activityVM)
 		activityColectionView = ActivityCollectionView(activityVM: activityVM)
 		view = activityColectionView
 	}
-    
-    private func setupBindings() {
-        activityVM.$userActivities.sink { [weak self] activities in
-            guard let isActvitiesEmpty = activities?.isEmpty else {
-                self?.view = self?.activityColectionView
-                return
-            }
-            if isActvitiesEmpty {
-                self?.view = self?.activityEmptyStateView
-            } else {
-                self?.view = self?.activityColectionView
-            }
-        }.store(in: &cancellables)
-    }
+
+	private func setupBindings() {
+		activityVM.$userActivities.sink { [weak self] activities in
+			guard let isActvitiesEmpty = activities?.isEmpty else {
+				self?.view = self?.activityColectionView
+				return
+			}
+			if isActvitiesEmpty {
+				self?.view = self?.activityEmptyStateView
+			} else {
+				self?.view = self?.activityColectionView
+			}
+		}.store(in: &cancellables)
+	}
 }
