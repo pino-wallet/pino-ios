@@ -43,13 +43,15 @@ class SwapFeeView: UIView {
 	private var isCollapsed = false
 
 	private let swapFeeVM: SwapFeeViewModel
+	private var providerChange: () -> Void
 
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
-	init(swapFeeVM: SwapFeeViewModel) {
+	init(swapFeeVM: SwapFeeViewModel, providerChange: @escaping () -> Void) {
 		self.swapFeeVM = swapFeeVM
+		self.providerChange = providerChange
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -93,6 +95,9 @@ class SwapFeeView: UIView {
 		collapsButton.addAction(UIAction(handler: { _ in
 			self.collapsFeeCard()
 		}), for: .touchUpInside)
+
+		let providerChangeTapGesture = UITapGestureRecognizer(target: self, action: #selector(changeProvider))
+		providerChangeStackView.addGestureRecognizer(providerChangeTapGesture)
 	}
 
 	private func setupStyle() {
@@ -204,8 +209,8 @@ class SwapFeeView: UIView {
 			self.updateTagView(tag)
 		}.store(in: &cancellables)
 
-		swapFeeVM.$provider.sink { provider in
-			self.updateProviderView(provider)
+		swapFeeVM.$swapProviderVM.sink { swapProviderVM in
+			self.updateProviderView(swapProviderVM)
 		}.store(in: &cancellables)
 
 		swapFeeVM.$saveAmount.sink { saveAmount in
@@ -238,11 +243,11 @@ class SwapFeeView: UIView {
 		}
 	}
 
-	private func updateProviderView(_ provider: SwapProviderModel?) {
-		if let provider {
+	private func updateProviderView(_ swapProviderVM: SwapProviderViewModel?) {
+		if let swapProviderVM {
 			providerStackView.isHidden = false
-			providerImageView.image = UIImage(named: provider.image)
-			providerNameLabel.text = provider.name
+			providerImageView.image = UIImage(named: swapProviderVM.provider.image)
+			providerNameLabel.text = swapProviderVM.provider.name
 		} else {
 			providerStackView.isHidden = true
 		}
@@ -273,6 +278,11 @@ class SwapFeeView: UIView {
 		} else {
 			feeLabel.showSkeletonView()
 		}
+	}
+
+	@objc
+	private func changeProvider() {
+		providerChange()
 	}
 
 	// MARK: - Public Methods
