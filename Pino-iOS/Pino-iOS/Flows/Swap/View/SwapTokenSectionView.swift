@@ -118,6 +118,7 @@ class SwapTokenSectionView: UIView {
 
 		estimatedAmountLabel.numberOfLines = 0
 		estimatedAmountLabel.lineBreakMode = .byCharWrapping
+		estimatedAmountLabel.isSkeletonable = true
 
 		swapVM.swapDelegate = self
 	}
@@ -127,6 +128,10 @@ class SwapTokenSectionView: UIView {
 			.verticalEdges,
 			.horizontalEdges(padding: 14)
 		)
+
+		NSLayoutConstraint.activate([
+			estimatedAmountLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60),
+		])
 	}
 
 	private func updateView() {
@@ -210,7 +215,14 @@ extension SwapTokenSectionView: SwapDelegate {
 	}
 
 	func swapAmountDidCalculate() {
+		hideSkeletonView()
+		amountTextfield.textColor = .Pino.label
 		updateAmountView()
+	}
+
+	func swapAmountCalculating() {
+		showSkeletonView()
+		amountTextfield.textColor = .Pino.gray3
 	}
 }
 

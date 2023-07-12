@@ -45,11 +45,17 @@ class SwapViewModel {
 		if toToken.isEditing {
 			toToken.calculateDollarAmount(amount ?? toToken.tokenAmount)
 			fromToken.calculateTokenAmount(decimalDollarAmount: toToken.decimalDollarAmount)
-			fromToken.swapDelegate.swapAmountDidCalculate()
+			fromToken.swapDelegate.swapAmountCalculating()
+			DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+				self.fromToken.swapDelegate.swapAmountDidCalculate()
+			}
 		} else if fromToken.isEditing {
 			fromToken.calculateDollarAmount(amount ?? fromToken.tokenAmount)
 			toToken.calculateTokenAmount(decimalDollarAmount: fromToken.decimalDollarAmount)
-			toToken.swapDelegate.swapAmountDidCalculate()
+			toToken.swapDelegate.swapAmountCalculating()
+			DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+				self.toToken.swapDelegate.swapAmountDidCalculate()
+			}
 		}
 		updateCalculatedAmount()
 	}
