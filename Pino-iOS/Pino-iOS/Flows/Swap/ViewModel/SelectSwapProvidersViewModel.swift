@@ -14,7 +14,7 @@ class SelectSwapProvidersViewModel {
 	public let pageDescription = "Select the provider (default is the best)"
 	public let confirmButtonTitle = "Got it"
 	@Published
-	public var providers: [SwapProviderViewModel]!
+	public var providers: [SwapProviderViewModel]?
 
 	// MARK: - Initializers
 
@@ -26,11 +26,13 @@ class SelectSwapProvidersViewModel {
 
 	private func getProviders() {
 		// Temporary
-		providers = [
-			SwapProviderViewModel(provider: .oneInch, swapAmount: "1,430 USDC"),
-			SwapProviderViewModel(provider: .paraswap, swapAmount: "1,428 USDC"),
-			SwapProviderViewModel(provider: .zeroX, swapAmount: "1,427 USDC"),
-		]
+		DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+			self.providers = [
+				SwapProviderViewModel(provider: .oneInch, swapAmount: "1,430 USDC"),
+				SwapProviderViewModel(provider: .paraswap, swapAmount: "1,428 USDC"),
+				SwapProviderViewModel(provider: .zeroX, swapAmount: "1,427 USDC"),
+			]
+		}
 	}
 
 	// MARK: - Public Methods
