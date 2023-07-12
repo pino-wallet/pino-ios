@@ -266,6 +266,7 @@ class EnterSendAmountView: UIView {
 
 	@objc
 	private func textFieldDidChange(_ textField: UITextField) {
+        if textField.text?.last == "." || textField.text?.last == "," { return }
 		if let amountText = textField.text, amountText != .emptyString {
 			dollarSignLabel.textColor = .Pino.label
             enterAmountVM.calculateAmount(amountText)
