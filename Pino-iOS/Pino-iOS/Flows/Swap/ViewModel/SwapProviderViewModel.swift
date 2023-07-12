@@ -12,13 +12,6 @@ struct SwapProviderViewModel {
 
 	public var provider: SwapProvider
 	public var swapAmount: String
-
-	// MARK: - Initializers
-
-	init(provider: SwapProvider, swapAmount: String) {
-		self.provider = provider
-		self.swapAmount = swapAmount
-	}
 }
 
 extension SwapProviderViewModel {
