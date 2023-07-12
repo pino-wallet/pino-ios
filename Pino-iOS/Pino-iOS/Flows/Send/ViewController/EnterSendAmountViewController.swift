@@ -17,8 +17,7 @@ class EnterSendAmountViewController: UIViewController {
 	// MARK: Initializers
 
 	init(selectedAsset: AssetViewModel, assets: [AssetViewModel]) {
-		let eth = assets.first(where: { $0.isEth })!
-		self.enterAmountVM = EnterSendAmountViewModel(selectedToken: selectedAsset, ethToken: eth)
+		self.enterAmountVM = EnterSendAmountViewModel(selectedToken: selectedAsset)
 		self.assets = assets
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -75,9 +74,8 @@ class EnterSendAmountViewController: UIViewController {
 	}
 
 	private func openEnterAddressPage() {
-		let eth = assets.first(where: { $0.isEth })!
 		let enterSendAddressVM = EnterSendAddressViewModel(sendAmountVM: enterAmountVM)
-		let enterSendAddressVC = EnterSendAddressViewController(enterAddressVM: enterSendAddressVM, ethToken: eth)
+		let enterSendAddressVC = EnterSendAddressViewController(enterAddressVM: enterSendAddressVM)
 		navigationController?.pushViewController(enterSendAddressVC, animated: true)
 	}
 }

@@ -157,7 +157,7 @@ class SwapTokenSectionView: UIView {
 	@objc
 	private func enterMaxAmount() {
 		openKeyboard()
-		amountTextfield.text = swapVM.selectedToken.holdAmount.formattedAmountOf(type: .sevenDigitsRule)
+		amountTextfield.text = swapVM.selectedToken.holdAmount.sevenDigitFormat
 		amountTextfield.sendActions(for: .editingChanged)
 	}
 
