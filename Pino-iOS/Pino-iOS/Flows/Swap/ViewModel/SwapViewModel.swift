@@ -42,12 +42,14 @@ class SwapViewModel {
 	// MARK: - Private Methods
 
 	private func recalculateTokensAmount(amount: String? = nil) {
+		swapFeeVM.fee = nil
 		if toToken.isEditing {
 			toToken.calculateDollarAmount(amount ?? toToken.tokenAmount)
 			fromToken.calculateTokenAmount(decimalDollarAmount: toToken.decimalDollarAmount)
 			fromToken.swapDelegate.swapAmountCalculating()
 			DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
 				self.fromToken.swapDelegate.swapAmountDidCalculate()
+				self.getFeeInfo()
 			}
 		} else if fromToken.isEditing {
 			fromToken.calculateDollarAmount(amount ?? fromToken.tokenAmount)
@@ -55,6 +57,7 @@ class SwapViewModel {
 			toToken.swapDelegate.swapAmountCalculating()
 			DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
 				self.toToken.swapDelegate.swapAmountDidCalculate()
+				self.getFeeInfo()
 			}
 		}
 		updateCalculatedAmount()
@@ -109,6 +112,10 @@ class SwapViewModel {
 		} else {
 			showPriceImpact()
 		}
+		if !fromToken.isEditing, !toToken.isEditing {
+			fromToken.isEditing = true
+		}
+		recalculateTokensAmount()
 	}
 
 	// MARK: - Private Methods

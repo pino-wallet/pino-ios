@@ -199,6 +199,7 @@ class SwapView: UIView {
 		swapFeeView.pin(
 			.allEdges
 		)
+
 		continueButton.pin(
 			.horizontalEdges(padding: 16)
 		)

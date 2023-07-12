@@ -29,6 +29,7 @@ class SwapFeeViewModel {
 	public let priceImpactTitle = "Price impact"
 	public let feeTitle = "Fee"
 	public let celebrateEmoji = "🎉"
+	public let loadingText = "Fetching the best price"
 
 	// MARK: - Initializers
 
