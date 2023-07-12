@@ -26,7 +26,7 @@ class SelectSwapProvidersViewModel {
 
 	private func getProviders() {
 		// Temporary
-		DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
 			self.providers = [
 				SwapProviderViewModel(provider: .oneInch, swapAmount: "1,430 USDC"),
 				SwapProviderViewModel(provider: .paraswap, swapAmount: "1,428 USDC"),

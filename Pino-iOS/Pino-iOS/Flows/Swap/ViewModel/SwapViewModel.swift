@@ -42,14 +42,12 @@ class SwapViewModel {
 	// MARK: - Private Methods
 
 	private func recalculateTokensAmount(amount: String? = nil) {
-		swapFeeVM.fee = nil
 		if toToken.isEditing {
 			toToken.calculateDollarAmount(amount ?? toToken.tokenAmount)
 			fromToken.calculateTokenAmount(decimalDollarAmount: toToken.decimalDollarAmount)
 			fromToken.swapDelegate.swapAmountCalculating()
 			DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
 				self.fromToken.swapDelegate.swapAmountDidCalculate()
-				self.getFeeInfo()
 			}
 		} else if fromToken.isEditing {
 			fromToken.calculateDollarAmount(amount ?? fromToken.tokenAmount)
@@ -57,10 +55,10 @@ class SwapViewModel {
 			toToken.swapDelegate.swapAmountCalculating()
 			DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
 				self.toToken.swapDelegate.swapAmountDidCalculate()
-				self.getFeeInfo()
 			}
 		}
 		updateCalculatedAmount()
+		getFeeInfo()
 	}
 
 	private func updateCalculatedAmount() {
@@ -72,11 +70,15 @@ class SwapViewModel {
 	}
 
 	private func getFeeInfo() {
-		let saveAmount = getSaveAmount()
-		swapFeeVM.saveAmount = saveAmount
-		swapFeeVM.feeTag = getFeeTag(saveAmount: saveAmount)
-		swapFeeVM.swapProviderVM = getBestProvider()
-		swapFeeVM.fee = getfee()
+		swapFeeVM.fee = nil
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+			if self.selectedProtocol == .bestRate {
+				self.showBestProviderFeeInfo()
+			} else {
+				self.showPriceImpactFeeInfo()
+			}
+			self.swapFeeVM.fee = self.getfee()
+		}
 	}
 
 	// MARK: - Public Methods
@@ -108,27 +110,29 @@ class SwapViewModel {
 	public func changeSwapProtocol(to swapProtocol: SwapProtocolModel) {
 		selectedProtocol = swapProtocol
 		if swapProtocol == .bestRate {
-			showBestProvider()
-		} else {
-			showPriceImpact()
+			swapFeeVM.swapProviderVM = getBestProvider()
 		}
-		if !fromToken.isEditing, !toToken.isEditing {
-			fromToken.isEditing = true
-		}
-		recalculateTokensAmount()
+		getFeeInfo()
+	}
+
+	public func changeSwapProvider(to swapProvider: SwapProviderViewModel) {
+		swapFeeVM.swapProviderVM = swapProvider
+		getFeeInfo()
 	}
 
 	// MARK: - Private Methods
 
-	private func showBestProvider() {
+	private func showBestProviderFeeInfo() {
 		let saveAmount = getSaveAmount()
 		swapFeeVM.saveAmount = saveAmount
 		swapFeeVM.feeTag = getFeeTag(saveAmount: saveAmount)
-		swapFeeVM.swapProviderVM = getBestProvider()
 		swapFeeVM.priceImpact = nil
+		if swapFeeVM.swapProviderVM == nil {
+			swapFeeVM.swapProviderVM = getBestProvider()
+		}
 	}
 
-	private func showPriceImpact() {
+	private func showPriceImpactFeeInfo() {
 		let priceImpact = getPriceImpact()
 		swapFeeVM.priceImpact = priceImpact
 		swapFeeVM.feeTag = getFeeTag(priceImpact: priceImpact)
