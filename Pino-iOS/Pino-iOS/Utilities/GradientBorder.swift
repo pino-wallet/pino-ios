@@ -8,8 +8,11 @@
 import UIKit
 
 class GradientBorderView: UIView {
+	// MARK: - Private Properties
+
 	private var gradientLayer: CAGradientLayer!
-	private var shape: CAShapeLayer!
+
+	// MARK: - Initializers
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -18,6 +21,8 @@ class GradientBorderView: UIView {
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
+
+	// MARK: - private Methods
 
 	private func createGradientBorder(colors: [UIColor]) {
 		gradientLayer?.removeFromSuperlayer()
@@ -28,7 +33,7 @@ class GradientBorderView: UIView {
 		gradientLayer.colors = colors.map { $0.cgColor }
 		layer.addSublayer(gradientLayer)
 
-		shape = CAShapeLayer()
+		let shape = CAShapeLayer()
 		shape.lineWidth = 2.5
 		shape.strokeColor = UIColor.black.cgColor
 		shape.fillColor = UIColor.clear.cgColor
@@ -39,7 +44,7 @@ class GradientBorderView: UIView {
 
 	// MARK: - Public Methods
 
-	func updateGradientColors(_ colors: [UIColor]) {
+	public func updateGradientColors(_ colors: [UIColor]) {
 		createGradientBorder(colors: colors)
 	}
 }
