@@ -42,7 +42,10 @@ class GlobalVariables {
 			}
 		}
 		$manageAssetsList.sink { assets in
-			guard let assets else { return }
+			guard var assets else { return }
+			assets.sort { asset1, asset2 in
+				asset1.holdAmount > asset2.holdAmount
+			}
 			self.selectedManageAssetsList = assets.filter { $0.isSelected }
 		}.store(in: &cancellables)
 	}

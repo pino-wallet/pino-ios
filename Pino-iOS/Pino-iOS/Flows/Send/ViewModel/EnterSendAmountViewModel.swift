@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 6/11/23.
 //
 
+import BigInt
 import Foundation
 
 class EnterSendAmountViewModel {
@@ -29,20 +30,18 @@ class EnterSendAmountViewModel {
 		}
 	}
 
-	public var maxHoldAmount = "0"
-	public var maxAmountInDollar = "0"
+	public var maxHoldAmount: BigNumber!
+	public var maxAmountInDollar: BigNumber!
+	public var tokenAmount = "0"
+	public var dollarAmount = "0"
 
 	public var formattedMaxHoldAmount: String {
-		"\(maxHoldAmount) \(selectedToken.symbol)"
+		"\(maxHoldAmount.sevenDigitFormat) \(selectedToken.symbol)"
 	}
 
 	public var formattedMaxAmountInDollar: String {
-		"$ \(maxAmountInDollar)"
+		"$ \(maxAmountInDollar.priceFormat)"
 	}
-
-	public var ethToken: AssetViewModel!
-	public var tokenAmount = "0.0"
-	public var dollarAmount = "0.0"
 
 	public var formattedAmount: String {
 		if isDollarEnabled {
@@ -54,10 +53,9 @@ class EnterSendAmountViewModel {
 
 	// MARK: - Initializers
 
-	init(selectedToken: AssetViewModel, isDollarEnabled: Bool = false, ethToken: AssetViewModel) {
+	init(selectedToken: AssetViewModel, isDollarEnabled: Bool = false) {
 		self.selectedToken = selectedToken
 		self.isDollarEnabled = isDollarEnabled
-		self.ethToken = ethToken
 		updateTokenMaxAmount()
 	}
 
@@ -65,28 +63,26 @@ class EnterSendAmountViewModel {
 
 	public func calculateAmount(_ amount: String) {
 		if isDollarEnabled {
-			tokenAmount = selectedToken.holdAmount.formattedAmountOf(type: .sevenDigitsRule)
-			dollarAmount = amount
+			convertDollarAmountToTokenValue(amount: amount)
 		} else {
 			convertEnteredAmountToDollar(amount: amount)
 		}
 	}
 
 	public func checkIfBalanceIsEnough(amount: String, amountStatus: (AmountStatus) -> Void) {
-		calculateAmount(amount)
 		if amount == .emptyString {
 			amountStatus(.isZero)
 		} else if let decimalAmount = Decimal(string: amount), decimalAmount.isZero {
 			amountStatus(.isZero)
 		} else {
-			var decimalMaxAmount: Decimal
-			var enteredAmmount: Decimal
+			var decimalMaxAmount: BigNumber
+			var enteredAmmount: BigNumber
 			if isDollarEnabled {
-				decimalMaxAmount = Decimal(string: maxAmountInDollar)!
-				enteredAmmount = Decimal(string: dollarAmount)!
+				decimalMaxAmount = maxAmountInDollar
+				enteredAmmount = BigNumber(numberWithDecimal: dollarAmount)
 			} else {
-				decimalMaxAmount = Decimal(string: maxHoldAmount)!
-				enteredAmmount = Decimal(string: tokenAmount)!
+				decimalMaxAmount = maxHoldAmount
+				enteredAmmount = BigNumber(numberWithDecimal: tokenAmount)
 			}
 			if enteredAmmount > decimalMaxAmount {
 				amountStatus(.isNotEnough)
@@ -101,10 +97,10 @@ class EnterSendAmountViewModel {
 		gasFeeInDollar: BigNumber = GlobalVariables.shared.ethGasFee.feeInDollar
 	) {
 		let estimatedAmount = selectedToken.holdAmount - gasFee
-		maxHoldAmount = estimatedAmount.formattedAmountOf(type: .sevenDigitsRule)
+		maxHoldAmount = estimatedAmount
 
 		let estimatedAmountInDollar = selectedToken.holdAmountInDollor - gasFeeInDollar
-		maxAmountInDollar = estimatedAmountInDollar.formattedAmountOf(type: .priceRule)
+		maxAmountInDollar = estimatedAmountInDollar
 	}
 
 	// MARK: - Private Methods
@@ -113,16 +109,31 @@ class EnterSendAmountViewModel {
 		if selectedToken.isEth {
 			updateEthMaxAmount()
 		} else {
-			maxHoldAmount = selectedToken.holdAmount.formattedAmountOf(type: .sevenDigitsRule)
-			maxAmountInDollar = selectedToken.formattedHoldAmount
+			maxHoldAmount = selectedToken.holdAmount
+			maxAmountInDollar = selectedToken.holdAmountInDollor
 		}
 	}
 
 	private func convertEnteredAmountToDollar(amount: String) {
-		guard let decimalNumber = Decimal(string: amount),
-		      let price = Decimal(string: selectedToken.price.decimalString) else { return }
-		let amountInDollarDecimalValue = decimalNumber * price
-		dollarAmount = amountInDollarDecimalValue.formattedAmount(type: .dollarValue)
+		let decimalBigNum = BigNumber(numberWithDecimal: amount)
+		let price = selectedToken.price
+
+		let amountInDollarDecimalValue = BigNumber(
+			number: decimalBigNum.number * price.number,
+			decimal: decimalBigNum.decimal + 6
+		)
+		dollarAmount = amountInDollarDecimalValue.priceFormat
 		tokenAmount = amount
+	}
+
+	private func convertDollarAmountToTokenValue(amount: String) {
+		let decimalBigNum = BigNumber(numberWithDecimal: amount)
+		let priceAmount = decimalBigNum.number * BigInt(10).power(6 + selectedToken.decimal - decimalBigNum.decimal)
+		let price = selectedToken.price
+
+		let tokenAmountDecimalValue = priceAmount.quotientAndRemainder(dividingBy: price.number)
+		tokenAmount = BigNumber(number: tokenAmountDecimalValue.quotient, decimal: selectedToken.decimal)
+			.sevenDigitFormat
+		dollarAmount = amount
 	}
 }

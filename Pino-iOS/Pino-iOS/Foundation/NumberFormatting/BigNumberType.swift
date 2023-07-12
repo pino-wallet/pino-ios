@@ -26,8 +26,12 @@ import Web3_Utility
  ```
  */
 public struct BigNumber {
-	var number: BigInt
-	var decimal: Int
+	// MARK: - Public Properties
+
+	public var number: BigInt
+	public var decimal: Int
+
+	// MARK: - Initializers
 
 	public init(number: String, decimal: Int) {
 		self.number = BigInt(number)!
@@ -48,6 +52,22 @@ public struct BigNumber {
 		self.number = number.number
 		self.decimal = decimal
 	}
+
+	public init(numberWithDecimal: String) {
+		var trimmingNumber = numberWithDecimal
+		guard let decimalSeperator = numberWithDecimal.first(where: { $0 == "." || $0 == "," }) else {
+			// Passed string has no decimal and is passed to wrong initlizer
+			self.number = BigInt(trimmingNumber)!
+			self.decimal = 0
+			return
+		}
+		let wholeAndFraction = trimmingNumber.split(separator: decimalSeperator)
+		trimmingNumber.remove(at: trimmingNumber.firstIndex(of: decimalSeperator)!)
+		self.number = BigInt(trimmingNumber)!
+		self.decimal = wholeAndFraction.last!.count
+	}
+
+	// MARK: - Public Properties
 
 	public var whole: BigInt {
 		number.quotientAndRemainder(dividingBy: BigInt(10).power(decimal)).quotient
@@ -70,7 +90,11 @@ public struct BigNumber {
 	public var isZero: Bool {
 		number.isZero
 	}
+}
 
+// MARK: - Operator Overloading
+
+extension BigNumber {
 	static func + (left: BigNumber, right: BigNumber) -> BigNumber {
 		let a = left.number * BigInt(10).power(right.decimal)
 		let b = right.number * BigInt(10).power(left.decimal)
@@ -109,27 +133,37 @@ public struct BigNumber {
 
 extension BigNumber: Equatable, Comparable {
 	public static func < (lhs: BigNumber, rhs: BigNumber) -> Bool {
-		let left = lhs.number.power(rhs.decimal)
-		let right = rhs.number.power(lhs.decimal)
-		if left < right {
-			return true
-		} else {
-			return false
-		}
+		let (lhsNorm, rhsNorm) = normalize(lhs: lhs, rhs: rhs)
+		return lhsNorm < rhsNorm
+	}
+
+	public static func <= (lhs: BigNumber, rhs: BigNumber) -> Bool {
+		lhs < rhs || lhs == rhs
 	}
 
 	public static func > (lhs: BigNumber, rhs: BigNumber) -> Bool {
-		let left = lhs.number.power(rhs.decimal)
-		let right = rhs.number.power(lhs.decimal)
-		if left > right {
-			return true
-		} else {
-			return false
-		}
+		!(lhs <= rhs)
+	}
+
+	public static func >= (lhs: BigNumber, rhs: BigNumber) -> Bool {
+		!(lhs < rhs)
 	}
 
 	public static func == (lhs: BigNumber, rhs: BigNumber) -> Bool {
 		lhs.number == rhs.number && lhs.decimal == rhs.decimal
+	}
+
+	// Normalize two BigNumbers to have the same decimal scale
+	private static func normalize(lhs: BigNumber, rhs: BigNumber) -> (BigInt, BigInt) {
+		if lhs.decimal == rhs.decimal {
+			return (lhs.number, rhs.number)
+		} else if lhs.decimal > rhs.decimal {
+			let scalingFactor = BigInt(10).power(lhs.decimal - rhs.decimal)
+			return (lhs.number, rhs.number * scalingFactor)
+		} else { // rhs.decimal > lhs.decimal
+			let scalingFactor = BigInt(10).power(rhs.decimal - lhs.decimal)
+			return (lhs.number * scalingFactor, rhs.number)
+		}
 	}
 }
 
@@ -142,7 +176,15 @@ extension BigNumber: CustomStringConvertible {
 		"\(whole).\(fraction)"
 	}
 
-	public func formattedAmountOf(type: FormatTypes) -> String {
+	public var sevenDigitFormat: String {
+		formattedAmountOf(type: .sevenDigitsRule)
+	}
+
+	public var priceFormat: String {
+		formattedAmountOf(type: .priceRule)
+	}
+
+	private func formattedAmountOf(type: NumberFormatTypes) -> String {
 		let numDigits = whole.description.count
 
 		return Utilities.formatToPrecision(
@@ -152,25 +194,5 @@ extension BigNumber: CustomStringConvertible {
 			decimalSeparator: ".",
 			fallbackToScientific: false
 		)
-	}
-}
-
-extension BigNumber {
-	public enum FormatTypes {
-		case sevenDigitsRule
-		case priceRule
-
-		public func formattingDecimal(wholeNumDigits: Int) -> Int {
-			switch self {
-			case .sevenDigitsRule:
-				return 7 - wholeNumDigits
-			case .priceRule:
-				if wholeNumDigits >= 2 {
-					return 0
-				} else {
-					return 2
-				}
-			}
-		}
 	}
 }
