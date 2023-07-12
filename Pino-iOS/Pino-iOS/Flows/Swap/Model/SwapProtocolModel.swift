@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SwapProtocolModel {
+struct SwapProtocolModel: Equatable {
 	// MARK: - Public Properties
 
 	public var name: String

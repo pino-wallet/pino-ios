@@ -254,26 +254,26 @@ class SwapFeeView: UIView {
 	}
 
 	private func updateSaveAmount(_ saveAmount: String?) {
-		if saveAmount != nil {
+		if let saveAmount {
 			saveAmountStackView.isHidden = false
-			saveAmountLabel.text = swapFeeVM.formattedSaveAmount
+			saveAmountLabel.text = swapFeeVM.formattedSaveAmount(saveAmount)
 		} else {
 			saveAmountStackView.isHidden = true
 		}
 	}
 
 	private func updatePriceImpact(_ priceImpact: String?) {
-		if priceImpact != nil {
+		if let priceImpact {
 			priceImpactStackView.isHidden = false
-			priceImpactLabel.text = swapFeeVM.formattedPriceImpact
+			priceImpactLabel.text = swapFeeVM.formattedPriceImpact(priceImpact)
 		} else {
 			priceImpactStackView.isHidden = true
 		}
 	}
 
 	private func updateFee(_ fee: String?) {
-		if fee != nil {
-			feeLabel.text = swapFeeVM.formattedFee
+		if let fee {
+			feeLabel.text = swapFeeVM.formattedFee(fee)
 			feeLabel.hideSkeletonView()
 		} else {
 			feeLabel.showSkeletonView()

@@ -33,7 +33,7 @@ class GradientBorderView: UIView {
 		gradientLayer.colors = colors.map { $0.cgColor }
 		layer.addSublayer(gradientLayer)
 
-		var shape = CAShapeLayer()
+		let shape = CAShapeLayer()
 		shape.lineWidth = 2.5
 		shape.strokeColor = UIColor.black.cgColor
 		shape.fillColor = UIColor.clear.cgColor
