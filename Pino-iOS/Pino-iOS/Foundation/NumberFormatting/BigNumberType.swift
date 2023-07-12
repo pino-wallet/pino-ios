@@ -26,8 +26,12 @@ import Web3_Utility
  ```
  */
 public struct BigNumber {
-	var number: BigInt
-	var decimal: Int
+	// MARK: - Public Properties
+
+	public var number: BigInt
+	public var decimal: Int
+
+	// MARK: - Initializers
 
 	public init(number: String, decimal: Int) {
 		self.number = BigInt(number)!
@@ -63,6 +67,8 @@ public struct BigNumber {
 		self.decimal = wholeAndFraction.last!.count
 	}
 
+	// MARK: - Public Properties
+
 	public var whole: BigInt {
 		number.quotientAndRemainder(dividingBy: BigInt(10).power(decimal)).quotient
 	}
@@ -84,7 +90,11 @@ public struct BigNumber {
 	public var isZero: Bool {
 		number.isZero
 	}
+}
 
+// MARK: - Operator Overloading
+
+extension BigNumber {
 	static func + (left: BigNumber, right: BigNumber) -> BigNumber {
 		let a = left.number * BigInt(10).power(right.decimal)
 		let b = right.number * BigInt(10).power(left.decimal)
