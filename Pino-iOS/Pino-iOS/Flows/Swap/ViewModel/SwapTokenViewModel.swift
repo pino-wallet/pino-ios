@@ -74,7 +74,7 @@ class SwapTokenViewModel {
 		} else if let decimalAmount = Decimal(string: amount), decimalAmount.isZero {
 			return .isZero
 		} else {
-			let decimalMaxAmount = Decimal(string: selectedToken.holdAmount.formattedAmountOf(type: .sevenDigitsRule))!
+			let decimalMaxAmount = Decimal(string: selectedToken.holdAmount.sevenDigitFormat)!
 			let enteredAmount = Decimal(string: amount) ?? 0
 			if enteredAmount > decimalMaxAmount {
 				return .isNotEnough

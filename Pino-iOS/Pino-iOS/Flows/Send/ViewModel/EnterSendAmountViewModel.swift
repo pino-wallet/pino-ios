@@ -30,27 +30,17 @@ class EnterSendAmountViewModel {
         }
     }
     
-    public var maxHoldAmount: (number: BigNumber, formattedAmount: String) {
-        set(newVal) {
-            _number = newVal.number
-            _formattedAmount = newVal.number.formattedAmountOf(type: .sevenDigitsRule)
-        }
-        get {
-            
-        }
-    }
-    public var maxAmountInDollar: (number: BigNumber, formattedAmount: String) {
-        
-    }
+    public var maxHoldAmount: BigNumber!
+    public var maxAmountInDollar: BigNumber!
     public var tokenAmount = "0"
     public var dollarAmount = "0"
     
     public var formattedMaxHoldAmount: String {
-        "\(maxHoldAmount.formattedAmount) \(selectedToken.symbol)"
+        "\(maxHoldAmount.sevenDigitFormat) \(selectedToken.symbol)"
     }
     
     public var formattedMaxAmountInDollar: String {
-        "$ \(maxAmountInDollar.formattedAmount)"
+        "$ \(maxAmountInDollar.priceFormat)"
     }
     
     public var formattedAmount: String {
@@ -88,10 +78,10 @@ class EnterSendAmountViewModel {
             var decimalMaxAmount: BigNumber
             var enteredAmmount: BigNumber
             if isDollarEnabled {
-                decimalMaxAmount = maxAmountInDollar.number
+                decimalMaxAmount = maxAmountInDollar
                 enteredAmmount = BigNumber(numberWithDecimal: dollarAmount)
             } else {
-                decimalMaxAmount = maxHoldAmount.number
+                decimalMaxAmount = maxHoldAmount
                 enteredAmmount = BigNumber(numberWithDecimal: tokenAmount)
             }
             if enteredAmmount > decimalMaxAmount {
@@ -107,10 +97,10 @@ class EnterSendAmountViewModel {
         gasFeeInDollar: BigNumber = GlobalVariables.shared.ethGasFee.feeInDollar
     ) {
         let estimatedAmount = selectedToken.holdAmount - gasFee
-        maxHoldAmount = (estimatedAmount, estimatedAmount.formattedAmountOf(type: .sevenDigitsRule))
+        maxHoldAmount = estimatedAmount
         
         let estimatedAmountInDollar = selectedToken.holdAmountInDollor - gasFeeInDollar
-        maxAmountInDollar = (estimatedAmountInDollar, estimatedAmountInDollar.formattedAmountOf(type: .priceRule))
+        maxAmountInDollar = estimatedAmountInDollar
     }
     
     // MARK: - Private Methods
@@ -119,8 +109,8 @@ class EnterSendAmountViewModel {
         if selectedToken.isEth {
             updateEthMaxAmount()
         } else {
-            maxHoldAmount = (selectedToken.holdAmount, selectedToken.holdAmount.formattedAmountOf(type: .sevenDigitsRule))
-            maxAmountInDollar = (selectedToken.holdAmountInDollor, selectedToken.holdAmountInDollor.formattedAmountOf(type: .priceRule))
+            maxHoldAmount = selectedToken.holdAmount
+            maxAmountInDollar = selectedToken.holdAmountInDollor
         }
     }
     
@@ -130,16 +120,17 @@ class EnterSendAmountViewModel {
         let price = selectedToken.price
 
         let amountInDollarDecimalValue = BigNumber(number: decimalBigNum.number * price.number, decimal: decimalBigNum.decimal + 6)
-        dollarAmount = amountInDollarDecimalValue.formattedAmountOf(type: .priceRule)
+        dollarAmount = amountInDollarDecimalValue.priceFormat
         tokenAmount = amount
     }
     
     private func convertDollarAmountToTokenValue(amount: String) {
-        let decimalBigNum = BigNumber(numberWithDecimal: amount).number * BigInt(10).power(6 + selectedToken.decimal)
+        let decimalBigNum = BigNumber(numberWithDecimal: amount)
+        let priceAmount =  decimalBigNum.number * BigInt(10).power(6 + selectedToken.decimal - decimalBigNum.decimal)
         let price = selectedToken.price
        
-        let tokenAmountDecimalValue = decimalBigNum.quotientAndRemainder(dividingBy: price.number)
-        tokenAmount = BigNumber(number: tokenAmountDecimalValue.quotient, decimal: selectedToken.decimal).formattedAmountOf(type: .sevenDigitsRule)
+        let tokenAmountDecimalValue = priceAmount.quotientAndRemainder(dividingBy: price.number)
+        tokenAmount = BigNumber(number: tokenAmountDecimalValue.quotient, decimal: selectedToken.decimal).sevenDigitFormat
         dollarAmount = amount
     }
 }

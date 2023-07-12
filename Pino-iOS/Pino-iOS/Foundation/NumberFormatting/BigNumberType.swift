@@ -122,29 +122,40 @@ public struct BigNumber {
 }
 
 extension BigNumber: Equatable, Comparable {
-	public static func < (lhs: BigNumber, rhs: BigNumber) -> Bool {
-		let left = lhs.number.power(rhs.decimal)
-		let right = rhs.number.power(lhs.decimal)
-		if left < right {
-			return true
-		} else {
-			return false
-		}
-	}
 
-	public static func > (lhs: BigNumber, rhs: BigNumber) -> Bool {
-		let left = lhs.number.power(rhs.decimal)
-		let right = rhs.number.power(lhs.decimal)
-		if left > right {
-			return true
-		} else {
-			return false
-		}
-	}
+    public static func <(lhs: BigNumber, rhs: BigNumber) -> Bool {
+        let (lhsNorm, rhsNorm) = normalize(lhs: lhs, rhs: rhs)
+        return lhsNorm < rhsNorm
+    }
+    
+    public static func <=(lhs: BigNumber, rhs: BigNumber) -> Bool {
+        return lhs < rhs || lhs == rhs
+    }
+    
+    public static func >(lhs: BigNumber, rhs: BigNumber) -> Bool {
+        return !(lhs <= rhs)
+    }
+    
+    public static func >=(lhs: BigNumber, rhs: BigNumber) -> Bool {
+        return !(lhs < rhs)
+    }
 
 	public static func == (lhs: BigNumber, rhs: BigNumber) -> Bool {
 		lhs.number == rhs.number && lhs.decimal == rhs.decimal
 	}
+    
+    // Normalize two BigNumbers to have the same decimal scale
+    private static func normalize(lhs: BigNumber, rhs: BigNumber) -> (BigInt, BigInt) {
+        if lhs.decimal == rhs.decimal {
+            return (lhs.number, rhs.number)
+        } else if lhs.decimal > rhs.decimal {
+            let scalingFactor = BigInt(10).power(lhs.decimal - rhs.decimal)
+            return (lhs.number, rhs.number * scalingFactor)
+        } else {  // rhs.decimal > lhs.decimal
+            let scalingFactor = BigInt(10).power(rhs.decimal - lhs.decimal)
+            return (lhs.number * scalingFactor, rhs.number)
+        }
+    }
 }
 
 extension BigNumber: CustomStringConvertible {
@@ -155,8 +166,16 @@ extension BigNumber: CustomStringConvertible {
 	public var decimalString: String {
 		"\(whole).\(fraction)"
 	}
+    
+    public var sevenDigitFormat: String {
+        return formattedAmountOf(type: .sevenDigitsRule)
+    }
+    
+    public var priceFormat: String {
+        return formattedAmountOf(type: .priceRule)
+    }
 
-	public func formattedAmountOf(type: NumberFormatTypes) -> String {
+	private func formattedAmountOf(type: NumberFormatTypes) -> String {
 		let numDigits = whole.description.count
 
 		return Utilities.formatToPrecision(

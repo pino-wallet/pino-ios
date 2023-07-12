@@ -79,8 +79,8 @@ public enum NumberFormatTypes {
         case .sevenDigitsRule:
             return 7 - wholeNumDigits
         case .priceRule:
-            if wholeNumDigits >= 2 {
-                return 0
+            if wholeNumDigits >= 3 {
+                return 1
             } else {
                 return 2
             }

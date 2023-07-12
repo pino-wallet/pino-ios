@@ -131,8 +131,8 @@ class SendConfirmationViewModel {
 	private func setupBindings() {
 		GlobalVariables.shared.$ethGasFee.sink { fee, feeInDollar in
 			self.gasFee = fee
-			self.formattedFeeInETH = fee.formattedAmountOf(type: .sevenDigitsRule)
-			self.formattedFeeInDollar = feeInDollar.formattedAmountOf(type: .priceRule)
+			self.formattedFeeInETH = fee.sevenDigitFormat
+			self.formattedFeeInDollar = feeInDollar.priceFormat
 		}.store(in: &cancellables)
 	}
 
@@ -140,8 +140,8 @@ class SendConfirmationViewModel {
 		Promise<String> { seal in
 			_ = Web3Core.shared.calculateEthGasFee(ethPrice: selectedToken.price).done { fee, feeInDollar in
 				self.gasFee = fee
-				self.formattedFeeInDollar = "$\(feeInDollar.formattedAmountOf(type: .priceRule))"
-				self.formattedFeeInETH = "\(fee.formattedAmountOf(type: .sevenDigitsRule)) ETH"
+				self.formattedFeeInDollar = "$\(feeInDollar.priceFormat)"
+				self.formattedFeeInETH = "\(fee.sevenDigitFormat) ETH"
 			}.catch { error in
 				seal.reject(error)
 			}
@@ -158,8 +158,8 @@ class SendConfirmationViewModel {
 				ethPrice: ethPrice
 			).done { [self] fee, feeInDollar in
 				gasFee = fee
-				formattedFeeInDollar = "$\(feeInDollar.formattedAmountOf(type: .priceRule))"
-				formattedFeeInETH = "\(fee.formattedAmountOf(type: .sevenDigitsRule)) ETH"
+				formattedFeeInDollar = "$\(feeInDollar.priceFormat)"
+				formattedFeeInETH = "\(fee.sevenDigitFormat) ETH"
 			}.catch { error in
 				seal.reject(error)
 			}
