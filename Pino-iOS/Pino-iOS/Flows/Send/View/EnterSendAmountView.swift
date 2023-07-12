@@ -214,7 +214,7 @@ class EnterSendAmountView: UIView {
 		GlobalVariables.shared.$ethGasFee.sink { fee, feeInDollar in
 			if self.enterAmountVM.selectedToken.isEth {
 				self.enterAmountVM.updateEthMaxAmount(gasFee: fee, gasFeeInDollar: feeInDollar)
-                self.enterAmountVM.calculateAmount(self.amountTextfield.text ?? "0")
+				self.enterAmountVM.calculateAmount(self.amountTextfield.text ?? "0")
 				self.updateAmount(enteredAmount: self.amountTextfield.text ?? "0")
 				self.maxAmountLabel.text = self.enterAmountVM.formattedMaxHoldAmount
 				self.maxAmountInDollarLabel.text = self.enterAmountVM.formattedMaxAmountInDollar
@@ -257,8 +257,8 @@ class EnterSendAmountView: UIView {
 				self.dollarFormatButton.backgroundColor = .Pino.primary
 				self.dollarFormatButton.tintColor = .Pino.green1
 			}
-            self.amountTextfield.text = ""
-            self.enterAmountVM.calculateAmount("0")
+			self.amountTextfield.text = ""
+			self.enterAmountVM.calculateAmount("0")
 			self.updateAmount(enteredAmount: self.amountTextfield.text ?? "0")
 			self.applyDollarFormatChanges()
 		}
@@ -266,14 +266,14 @@ class EnterSendAmountView: UIView {
 
 	@objc
 	private func textFieldDidChange(_ textField: UITextField) {
-        if textField.text?.last == "." || textField.text?.last == "," { return }
+		if textField.text?.last == "." || textField.text?.last == "," { return }
 		if let amountText = textField.text, amountText != .emptyString {
 			dollarSignLabel.textColor = .Pino.label
-            enterAmountVM.calculateAmount(amountText)
+			enterAmountVM.calculateAmount(amountText)
 			updateAmount(enteredAmount: amountText)
 		} else {
 			dollarSignLabel.textColor = .Pino.gray2
-            enterAmountVM.calculateAmount("0")
+			enterAmountVM.calculateAmount("0")
 			updateAmount(enteredAmount: "0")
 		}
 	}
@@ -299,7 +299,7 @@ class EnterSendAmountView: UIView {
 				maxAmountTitle.textColor = .Pino.orange
 				maxAmountLabel.textColor = .Pino.orange
 				maxAmountInDollarLabel.textColor = .Pino.orange
-  
+
 				continueButton.setTitle(enterAmountVM.insufficientAmountButtonTitle, for: .normal)
 				continueButton.style = .deactive
 			}
@@ -312,31 +312,29 @@ class EnterSendAmountView: UIView {
 
 	@objc
 	private func putMaxAmountInTextField() {
-        
-        if enterAmountVM.isDollarEnabled {
-            amountTextfield.text = enterAmountVM.maxAmountInDollar.priceFormat
-            amountLabel.text = enterAmountVM.formattedMaxHoldAmount
-        } else {
-            amountTextfield.text = enterAmountVM.maxHoldAmount.sevenDigitFormat
-            amountLabel.text = enterAmountVM.formattedMaxAmountInDollar
-        }
-        
-        if enterAmountVM.selectedToken.isEth {
-            enterAmountVM.calculateAmount(self.amountTextfield.text ?? "0")
-            updateAmount(enteredAmount: self.amountTextfield.text ?? "0")
-            maxAmountLabel.text = self.enterAmountVM.formattedMaxHoldAmount
-            maxAmountInDollarLabel.text = self.enterAmountVM.formattedMaxAmountInDollar
-        } else {
-            enterAmountVM.maxHoldAmount = enterAmountVM.selectedToken.holdAmount
-            enterAmountVM.maxAmountInDollar = enterAmountVM.selectedToken.holdAmountInDollor
-            enterAmountVM.tokenAmount = enterAmountVM.selectedToken.holdAmount.sevenDigitFormat
-            enterAmountVM.dollarAmount = enterAmountVM.selectedToken.holdAmountInDollor.priceFormat
-        }
-        
+		if enterAmountVM.isDollarEnabled {
+			amountTextfield.text = enterAmountVM.maxAmountInDollar.priceFormat
+			amountLabel.text = enterAmountVM.formattedMaxHoldAmount
+		} else {
+			amountTextfield.text = enterAmountVM.maxHoldAmount.sevenDigitFormat
+			amountLabel.text = enterAmountVM.formattedMaxAmountInDollar
+		}
 
-        maxAmountInDollarLabel.text = enterAmountVM.formattedMaxAmountInDollar
-        maxAmountLabel.text = enterAmountVM.formattedMaxHoldAmount
-        updateAmount(enteredAmount: amountTextfield.text!)
+		if enterAmountVM.selectedToken.isEth {
+			enterAmountVM.calculateAmount(amountTextfield.text ?? "0")
+			updateAmount(enteredAmount: amountTextfield.text ?? "0")
+			maxAmountLabel.text = enterAmountVM.formattedMaxHoldAmount
+			maxAmountInDollarLabel.text = enterAmountVM.formattedMaxAmountInDollar
+		} else {
+			enterAmountVM.maxHoldAmount = enterAmountVM.selectedToken.holdAmount
+			enterAmountVM.maxAmountInDollar = enterAmountVM.selectedToken.holdAmountInDollor
+			enterAmountVM.tokenAmount = enterAmountVM.selectedToken.holdAmount.sevenDigitFormat
+			enterAmountVM.dollarAmount = enterAmountVM.selectedToken.holdAmountInDollor.priceFormat
+		}
+
+		maxAmountInDollarLabel.text = enterAmountVM.formattedMaxAmountInDollar
+		maxAmountLabel.text = enterAmountVM.formattedMaxHoldAmount
+		updateAmount(enteredAmount: amountTextfield.text!)
 	}
 
 	@objc

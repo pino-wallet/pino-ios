@@ -19,9 +19,9 @@ class SendConfirmationViewModel {
 	private let sendAmount: String
 	private let sendAmountInDollar: String
 	private var cancellables = Set<AnyCancellable>()
-    private var ethToken: AssetViewModel {
-        GlobalVariables.shared.manageAssetsList!.first(where: { $0.isEth })!
-    }
+	private var ethToken: AssetViewModel {
+		GlobalVariables.shared.manageAssetsList!.first(where: { $0.isEth })!
+	}
 
 	// MARK: - Public Properties
 
