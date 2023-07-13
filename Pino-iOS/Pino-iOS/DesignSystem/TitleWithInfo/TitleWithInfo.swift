@@ -27,10 +27,20 @@ class TitleWithInfo: UIView {
 			titleLabel.numberOfLines = 0
 		}
 	}
+    
+    public var showInfoActionSheet: Bool = true {
+        didSet {
+            if showInfoActionSheet {
+                infoActionSheetIcon.isHidden = false
+            } else {
+                infoActionSheetIcon.isHidden = true
+            }
+        }
+    }
 
 	// MARK: - Initializers
 
-	init(actionSheetTitle: String, actionSheetDescription: String) {
+	init(actionSheetTitle: String = "", actionSheetDescription: String = "") {
 		self.infoActionSheet = InfoActionSheet(title: actionSheetTitle, description: actionSheetDescription)
 
 		super.init(frame: .zero)

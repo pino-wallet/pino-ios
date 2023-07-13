@@ -35,7 +35,7 @@ struct ActivityDetail: Codable {
 	let recipient, tokenID: String?
 	let token0, token1: Token?
 	let userID, from: String?
-	let to: String?
+    let to, `protocol`: String?
 
 	enum CodingKeys: String, CodingKey {
 		case amount
@@ -43,7 +43,7 @@ struct ActivityDetail: Codable {
 		case tokenID = "token_id"
 		case token0, token1
 		case userID = "user_id"
-		case from, to
+		case from, to, `protocol`
 	}
 }
 

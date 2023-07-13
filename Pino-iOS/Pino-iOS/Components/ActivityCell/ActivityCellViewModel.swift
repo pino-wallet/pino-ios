@@ -34,7 +34,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		}
 	}
 
-	internal var uiType: ActivityCellUIType {
+	internal var uiType: ActivityUIType {
 		switch activityType {
 		case .transfer:
 			if isSendTransaction() {
@@ -129,6 +129,10 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 
 	public let pendingStatusText = "Pending..."
 	public let failedStatusText = "Failed"
+    
+    public var originalActivityModel: ActivityModel {
+        return activityModel
+    }
 
 	// MARK: - Private Methods
 

@@ -14,11 +14,12 @@ protocol ActivityCellViewModelProtocol {
 	var formattedTime: String { get }
 	var blockTime: String { get }
 	var status: ActivityCellStatus { get }
-	var uiType: ActivityCellUIType { get }
+	var uiType: ActivityUIType { get }
 	var activityType: ActivityType { get }
 	var currentAddress: String { get }
 	var pendingStatusText: String { get }
 	var failedStatusText: String { get }
+    var originalActivityModel: ActivityModel { get }
 }
 
 enum ActivityCellStatus {
@@ -27,7 +28,7 @@ enum ActivityCellStatus {
 	case pending
 }
 
-enum ActivityCellUIType {
+enum ActivityUIType {
 	case swap
 	case borrow
 	case send
