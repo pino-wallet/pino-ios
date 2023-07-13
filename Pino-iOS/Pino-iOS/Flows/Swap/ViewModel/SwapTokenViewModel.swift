@@ -21,7 +21,7 @@ class SwapTokenViewModel {
 	@Published
 	public var tokenAmount = ""
 	public var dollarAmount = ""
-	public var decimalDollarAmount: Decimal?
+	public var decimalDollarAmount: BigNumber?
 
 	public var maxHoldAmount: String {
 		selectedToken.amount
@@ -52,19 +52,16 @@ class SwapTokenViewModel {
 	// MARK: - Public Methods
 
 	public func calculateDollarAmount(_ amount: String) {
-		tokenAmount = amount
-		if let decimalNumber = Decimal(string: amount), let price = Decimal(string: selectedToken.price.decimalString) {
-			decimalDollarAmount = decimalNumber * price
-			dollarAmount = decimalDollarAmount!.formattedAmount(type: .priceRule)
-		} else {
-			decimalDollarAmount = nil
-			dollarAmount = "0"
-		}
+        tokenAmount = amount
+        let price = selectedToken.price
+        decimalDollarAmount = BigNumber(numberWithDecimal: amount) * price
+        dollarAmount = decimalDollarAmount!.priceFormat
+        
 	}
 
-	public func calculateTokenAmount(decimalDollarAmount: Decimal?) {
+	public func calculateTokenAmount(decimalDollarAmount: BigNumber?) {
 		self.decimalDollarAmount = decimalDollarAmount
-		dollarAmount = decimalDollarAmount?.formattedAmount(type: .priceRule) ?? "0"
+		dollarAmount = decimalDollarAmount?.priceFormat ?? "0"
 		tokenAmount = convertDollarAmountToTokenAmount(dollarAmount: decimalDollarAmount)
 	}
 
@@ -86,10 +83,11 @@ class SwapTokenViewModel {
 
 	// MARK: - Private Methods
 
-	private func convertDollarAmountToTokenAmount(dollarAmount: Decimal?) -> String {
-		if let dollarAmount, let tokenPrice = Decimal(string: selectedToken.price.decimalString) {
+	private func convertDollarAmountToTokenAmount(dollarAmount: BigNumber?) -> String {
+		if let dollarAmount {
+            let tokenPrice =  selectedToken.price
 			let tokenAmount = dollarAmount / tokenPrice
-			return tokenAmount.formattedAmount(type: .sevenDigitsRule)
+            return tokenAmount!.sevenDigitFormat
 		} else {
 			return .emptyString
 		}
