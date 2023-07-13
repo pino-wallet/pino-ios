@@ -13,14 +13,14 @@ class ActivityEmptyStateView: UIView {
 	private let mainStackView = UIStackView()
 	private let titleImageView = UIImageView()
 	private let titleTextLabel = PinoLabel(style: .description, text: "")
-    private var titleText: String
-    private var titleImageName: String
+	private var titleText: String
+	private var titleImageName: String
 
 	// MARK: - Initializers
 
-    init(titleText: String, titleImageName: String) {
+	init(titleText: String, titleImageName: String) {
 		self.titleText = titleText
-        self.titleImageName = titleImageName
+		self.titleImageName = titleImageName
 		super.init(frame: .zero)
 
 		setupView()
