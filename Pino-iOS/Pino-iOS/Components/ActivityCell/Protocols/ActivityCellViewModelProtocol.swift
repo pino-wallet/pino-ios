@@ -19,7 +19,7 @@ protocol ActivityCellViewModelProtocol {
 	var currentAddress: String { get }
 	var pendingStatusText: String { get }
 	var failedStatusText: String { get }
-    var originalActivityModel: ActivityModel { get }
+	var originalActivityModel: ActivityModel { get }
 }
 
 enum ActivityCellStatus {

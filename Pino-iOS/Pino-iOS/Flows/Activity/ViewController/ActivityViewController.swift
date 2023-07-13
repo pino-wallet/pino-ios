@@ -40,16 +40,19 @@ class ActivityViewController: UIViewController {
 	}
 
 	private func setupView() {
-        activityColectionView = ActivityCollectionView(activityVM: activityVM, openActivityDetailsClosure: { [weak self] activityDetails in
-            self?.openActivityDetailsPage(activityDetails: activityDetails)
-        })
+		activityColectionView = ActivityCollectionView(
+			activityVM: activityVM,
+			openActivityDetailsClosure: { [weak self] activityDetails in
+				self?.openActivityDetailsPage(activityDetails: activityDetails)
+			}
+		)
 		view = activityColectionView
 	}
-    
-    private func openActivityDetailsPage(activityDetails: ActivityModel) {
-       let navigationVC = UINavigationController()
-        let activityDetailsVC = ActivityDetailsViewController(activityDetails: activityDetails)
-        navigationVC.viewControllers = [activityDetailsVC]
-        present(navigationVC, animated: true)
-    }
+
+	private func openActivityDetailsPage(activityDetails: ActivityModel) {
+		let navigationVC = UINavigationController()
+		let activityDetailsVC = ActivityDetailsViewController(activityDetails: activityDetails)
+		navigationVC.viewControllers = [activityDetailsVC]
+		present(navigationVC, animated: true)
+	}
 }

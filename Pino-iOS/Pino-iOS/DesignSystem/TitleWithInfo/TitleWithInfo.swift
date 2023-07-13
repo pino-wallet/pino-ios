@@ -27,16 +27,16 @@ class TitleWithInfo: UIView {
 			titleLabel.numberOfLines = 0
 		}
 	}
-    
-    public var showInfoActionSheet: Bool = true {
-        didSet {
-            if showInfoActionSheet {
-                infoActionSheetIcon.isHidden = false
-            } else {
-                infoActionSheetIcon.isHidden = true
-            }
-        }
-    }
+
+	public var showInfoActionSheet = true {
+		didSet {
+			if showInfoActionSheet {
+				infoActionSheetIcon.isHidden = false
+			} else {
+				infoActionSheetIcon.isHidden = true
+			}
+		}
+	}
 
 	// MARK: - Initializers
 

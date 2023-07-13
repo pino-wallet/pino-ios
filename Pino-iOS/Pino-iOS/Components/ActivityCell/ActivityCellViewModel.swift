@@ -129,10 +129,10 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 
 	public let pendingStatusText = "Pending..."
 	public let failedStatusText = "Failed"
-    
-    public var originalActivityModel: ActivityModel {
-        return activityModel
-    }
+
+	public var originalActivityModel: ActivityModel {
+		activityModel
+	}
 
 	// MARK: - Private Methods
 
