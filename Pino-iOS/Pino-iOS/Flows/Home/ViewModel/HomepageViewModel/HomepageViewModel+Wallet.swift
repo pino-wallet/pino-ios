@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import BigInt
 
 extension HomepageViewModel {
 	// MARK: Internal Methods
@@ -49,11 +50,9 @@ extension HomepageViewModel {
 		if previousBalance.doubleValue == .zero {
 			return "0.00"
 		} else {
-			let balanceDecimal = Decimal(balance.doubleValue)
-			let previousBalanceDecimal = Decimal(previousBalance.doubleValue)
-			let volatility = balanceDecimal - previousBalanceDecimal
-			let volatilityPercentage = (volatility / previousBalanceDecimal) * 100
-			return volatilityPercentage.roundedNumber
+			let volatility = balance - previousBalance
+			let volatilityPercentage = (volatility / previousBalance)! * BigNumber(number: 100, decimal: 0)
+			return volatilityPercentage.priceFormat
 		}
 	}
 }

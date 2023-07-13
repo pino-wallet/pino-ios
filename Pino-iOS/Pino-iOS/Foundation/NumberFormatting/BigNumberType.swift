@@ -95,40 +95,42 @@ public struct BigNumber {
 // MARK: - Operator Overloading
 
 extension BigNumber {
-	static func + (left: BigNumber, right: BigNumber) -> BigNumber {
-		let a = left.number * BigInt(10).power(right.decimal)
-		let b = right.number * BigInt(10).power(left.decimal)
-		let makhrej = left.decimal + right.decimal
-		return BigNumber(number: a + b, decimal: makhrej)
-	}
+    static func + (left: BigNumber, right: BigNumber) -> BigNumber {
+        let maxDecimal = max(left.decimal, right.decimal)
+        let a = left.number * BigInt(10).power(maxDecimal - left.decimal)
+        let b = right.number * BigInt(10).power(maxDecimal - right.decimal)
+        return BigNumber(number: a + b, decimal: maxDecimal)
+    }
 
 	static func - (left: BigNumber, right: BigNumber) -> BigNumber {
-		let a = left.number * BigInt(10).power(right.decimal)
-		let b = right.number * BigInt(10).power(left.decimal)
-		let makhrej = left.decimal + right.decimal
-		return BigNumber(number: a - b, decimal: makhrej)
+        let maxDecimal = max(left.decimal, right.decimal)
+        let a = left.number * BigInt(10).power(maxDecimal - left.decimal)
+        let b = right.number * BigInt(10).power(maxDecimal - right.decimal)
+		return BigNumber(number: a - b, decimal: maxDecimal)
 	}
 
 	static func * (left: BigNumber, right: BigNumber) -> BigNumber {
 		BigNumber(number: left.number * right.number, decimal: left.decimal + right.decimal)
 	}
 
-	static func / (left: BigNumber, right: BigNumber) -> BigNumber? {
-		// Handle divisor equal to zero
-		if right.number == 0 {
-			print("Error: Division by zero is undefined.")
-			return nil
-		}
-
-		// Scale the operands to have the same decimal places
-		let scaledLeft = left.number * BigInt(10).power(right.decimal)
-		let scaledRight = right.number * BigInt(10).power(left.decimal)
-
-		// Perform the division operation and adjust the result
-		let quotient = scaledLeft / scaledRight
-
-		return BigNumber(number: quotient, decimal: 0)
-	}
+    static func / (left: BigNumber, right: BigNumber) -> BigNumber? {
+        // Handle divisor equal to zero
+        if right.number == 0 {
+            print("Error: Division by zero is undefined.")
+            return nil
+        }
+        
+        // Decide on a suitable scaling factor. For example, 10^2 = 100 to keep 2 decimal places.
+        let scalingFactor = BigInt(10).power(2)
+        
+        let scaledLeft = left.number * scalingFactor
+        let quotient = scaledLeft / right.number
+        
+        // Adjust the decimal places of the result
+        let resultDecimal = left.decimal - right.decimal + 2 // add 2 because of the scalingFactor
+        
+        return BigNumber(number: quotient, decimal: resultDecimal)
+    }
 }
 
 extension BigNumber: Equatable, Comparable {

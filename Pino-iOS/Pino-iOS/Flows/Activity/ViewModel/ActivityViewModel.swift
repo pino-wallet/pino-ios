@@ -74,7 +74,6 @@ class ActivityViewModel {
 				print(error)
 			}
 		} receiveValue: { [weak self] activities in
-			print(activities)
 			self?.userActivities = activities.compactMap {
 				ActivityCellViewModel(activityModel: $0, currentAddress: userAddress)
 			}
