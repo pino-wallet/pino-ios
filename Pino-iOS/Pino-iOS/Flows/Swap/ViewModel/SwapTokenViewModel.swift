@@ -68,12 +68,12 @@ class SwapTokenViewModel {
 	public func checkBalanceStatus(amount: String) -> AmountStatus {
 		if amount == .emptyString {
 			return .isZero
-		} else if let decimalAmount = Decimal(string: amount), decimalAmount.isZero {
+        } else if BigNumber(numberWithDecimal: amount).isZero {
 			return .isZero
 		} else {
-			let decimalMaxAmount = Decimal(string: selectedToken.holdAmount.sevenDigitFormat)!
-			let enteredAmount = Decimal(string: amount) ?? 0
-			if enteredAmount > decimalMaxAmount {
+			let maxAmount = selectedToken.holdAmount
+			let enteredAmount = BigNumber(numberWithDecimal: amount)
+			if enteredAmount > maxAmount {
 				return .isNotEnough
 			} else {
 				return .isEnough
