@@ -44,7 +44,7 @@ class ActivityViewController: UIViewController {
 	}
 
 	private func setupView() {
-		activityEmptyStateView = ActivityEmptyStateView(activityVM: activityVM)
+        activityEmptyStateView = ActivityEmptyStateView(titleText: activityVM.noActivityMessage, titleImageName: activityVM.noActivityIconName)
 		activityColectionView = ActivityCollectionView(activityVM: activityVM)
 		view = activityColectionView
 	}
