@@ -143,14 +143,14 @@ class SwapViewModel {
 
 	private func getFeeTag(saveAmount: String) -> SwapFeeViewModel.FeeTag {
 		if BigNumber(numberWithDecimal: saveAmount) > BigNumber(number: 0, decimal: 0) {
-            return .save("\(saveAmount.currencyFormatting) \(swapFeeVM.celebrateEmoji)")
+			return .save("\(saveAmount.currencyFormatting) \(swapFeeVM.celebrateEmoji)")
 		} else {
 			return .none
 		}
 	}
 
 	private func getFeeTag(priceImpact: String) -> SwapFeeViewModel.FeeTag {
-        if BigNumber(numberWithDecimal: priceImpact) > BigNumber(number: 1, decimal: 0) {
+		if BigNumber(numberWithDecimal: priceImpact) > BigNumber(number: 1, decimal: 0) {
 			return .highImpact
 		} else {
 			return .none

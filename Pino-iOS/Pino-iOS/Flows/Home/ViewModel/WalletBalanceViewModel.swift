@@ -48,7 +48,7 @@ class WalletBalanceViewModel: SecurityModeProtocol {
 	// MARK: - Private Methods
 
 	private func getFormattedBalance() -> String {
-        balanceModel.balance.currencyFormatting
+		balanceModel.balance.currencyFormatting
 	}
 
 	private func getFormattedVolatilityPercentage() -> String {
@@ -67,7 +67,7 @@ class WalletBalanceViewModel: SecurityModeProtocol {
 		case .profit:
 			return "+\(balanceModel.volatilityInDollor.currencyFormatting)"
 		case .loss:
-            return "-\(balanceModel.volatilityInDollor.currencyFormatting)"
+			return "-\(balanceModel.volatilityInDollor.currencyFormatting)"
 		case .none:
 			return balanceModel.volatilityInDollor.currencyFormatting
 		}

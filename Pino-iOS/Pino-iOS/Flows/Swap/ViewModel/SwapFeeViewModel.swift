@@ -39,9 +39,8 @@ class SwapFeeViewModel {
 	// MARK: - Public Methods
 
 	public func formattedSaveAmount(_ saveAmount: String) -> String {
-        "\(saveAmount.currencyFormatting) \(celebrateEmoji)"
+		"\(saveAmount.currencyFormatting) \(celebrateEmoji)"
 	}
-
 }
 
 extension SwapFeeViewModel {

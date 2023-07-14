@@ -10,15 +10,15 @@ struct CoinPerformanceInfoViewModel {
 	public var coinPerformanceInfoModel: CoinPerformanceInfoModel
 
 	public var netProfit: String {
-        coinPerformanceInfoModel.netProfit.currencyFormatting
+		coinPerformanceInfoModel.netProfit.currencyFormatting
 	}
 
 	public var allTimeHigh: String {
-        coinPerformanceInfoModel.allTimeHigh.currencyFormatting
+		coinPerformanceInfoModel.allTimeHigh.currencyFormatting
 	}
 
 	public var allTimeLow: String {
-        coinPerformanceInfoModel.allTimeLow.currencyFormatting
+		coinPerformanceInfoModel.allTimeLow.currencyFormatting
 	}
 
 	// MARK: - Initializers

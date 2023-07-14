@@ -5,8 +5,8 @@
 //  Created by Mohi Raoufi on 4/13/23.
 //
 
-import Foundation
 import BigInt
+import Foundation
 
 extension HomepageViewModel {
 	// MARK: Internal Methods

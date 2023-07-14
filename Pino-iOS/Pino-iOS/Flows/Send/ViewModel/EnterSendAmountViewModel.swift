@@ -39,14 +39,14 @@ class EnterSendAmountViewModel {
 	}
 
 	public var formattedMaxAmountInDollar: String {
-        maxAmountInDollar.priceFormat.currencyFormatting
+		maxAmountInDollar.priceFormat.currencyFormatting
 	}
 
 	public var formattedAmount: String {
 		if isDollarEnabled {
-            return "\(tokenAmount.tokenFormatting(token: selectedToken.symbol))"
+			return "\(tokenAmount.tokenFormatting(token: selectedToken.symbol))"
 		} else {
-            return dollarAmount.currencyFormatting
+			return dollarAmount.currencyFormatting
 		}
 	}
 
@@ -71,7 +71,7 @@ class EnterSendAmountViewModel {
 	public func checkIfBalanceIsEnough(amount: String, amountStatus: (AmountStatus) -> Void) {
 		if amount == .emptyString {
 			amountStatus(.isZero)
-        } else if BigNumber(numberWithDecimal: amount).isZero {
+		} else if BigNumber(numberWithDecimal: amount).isZero {
 			amountStatus(.isZero)
 		} else {
 			var decimalMaxAmount: BigNumber

@@ -118,7 +118,7 @@ public class AssetViewModel: SecurityModeProtocol {
 		if holdAmountInDollor.isZero {
 			return "-"
 		} else {
-            return formattedHoldAmount.currencyFormatting
+			return formattedHoldAmount.currencyFormatting
 		}
 	}
 

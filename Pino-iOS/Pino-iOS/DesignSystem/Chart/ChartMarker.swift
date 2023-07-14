@@ -107,7 +107,7 @@ open class BalloonMarker: MarkerImage {
 
 	@objc
 	open func setLabel(_ newLabel: String) {
-        label = newLabel.currencyFormatting
+		label = newLabel.currencyFormatting
 
 		drawAttributes.removeAll()
 		drawAttributes[.font] = font

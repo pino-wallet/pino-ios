@@ -8,44 +8,40 @@
 import Foundation
 
 protocol TextFormattingSystem {
-    
-    var currencyFormatting: String { get }
-    var ethFormatting: String { get }
-    var percentFormatting: String { get }
-
+	var currencyFormatting: String { get }
+	var ethFormatting: String { get }
+	var percentFormatting: String { get }
 }
 
 extension TextFormattingSystem {
-    
-    // MARK: - Public Properties
+	// MARK: - Public Properties
 
-    public var currencyFormatting: String {
-        return preWordFormatting(char: currentCurrency)
-    }
-    
-    public var ethFormatting: String {
-        return tokenFormatting(token: "ETH")
-    }
-    
-    public var percentFormatting: String {
-        return preWordFormatting(char: "%")
-    }
-    
-    private var currentCurrency: String {
-        return "$"
-    }
-    
-    // MARK: - Private Methods
-    
-    private func preWordFormatting(char: String) -> String {
-        return "\(char)\(self)"
-    }
-    
-    public func tokenFormatting(token: String) -> String {
-        return "\(self) \(token)"
-    }
-    
+	public var currencyFormatting: String {
+		preWordFormatting(char: currentCurrency)
+	}
+
+	public var ethFormatting: String {
+		tokenFormatting(token: "ETH")
+	}
+
+	public var percentFormatting: String {
+		preWordFormatting(char: "%")
+	}
+
+	private var currentCurrency: String {
+		"$"
+	}
+
+	// MARK: - Private Methods
+
+	private func preWordFormatting(char: String) -> String {
+		"\(char)\(self)"
+	}
+
+	public func tokenFormatting(token: String) -> String {
+		"\(self) \(token)"
+	}
 }
 
-extension String: TextFormattingSystem { }
-extension Double: TextFormattingSystem { }
+extension String: TextFormattingSystem {}
+extension Double: TextFormattingSystem {}
