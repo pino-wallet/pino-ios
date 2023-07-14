@@ -15,7 +15,7 @@ struct AboutCoinViewModel {
 	}
 
 	public var marketCap: (key: String, value: String) {
-		(key: "Market Cap", value: "$\(aboutCoin.marketCap)")
+        (key: "Market Cap", value: aboutCoin.marketCap.currencyFormatting)
 	}
 
 	public var Valume: (key: String, value: String) {

@@ -38,21 +38,10 @@ class SwapFeeViewModel {
 
 	// MARK: - Public Methods
 
-	public func formattedPriceImpact(_ priceImpact: String) -> String {
-		"%\(priceImpact)"
-	}
-
 	public func formattedSaveAmount(_ saveAmount: String) -> String {
-		"$\(saveAmount) \(celebrateEmoji)"
+        "\(saveAmount.currencyFormatting) \(celebrateEmoji)"
 	}
 
-	public func formattedFee(_ fee: String) -> String {
-		"\(fee) ETH"
-	}
-
-	public func formattedFeeInDollar(_ fee: String) -> String {
-		"$\(fee)"
-	}
 }
 
 extension SwapFeeViewModel {

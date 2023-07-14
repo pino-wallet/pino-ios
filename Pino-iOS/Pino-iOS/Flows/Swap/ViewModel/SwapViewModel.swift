@@ -143,7 +143,7 @@ class SwapViewModel {
 
 	private func getFeeTag(saveAmount: String) -> SwapFeeViewModel.FeeTag {
 		if BigNumber(numberWithDecimal: saveAmount) > BigNumber(number: 0, decimal: 0) {
-			return .save("$\(saveAmount) \(swapFeeVM.celebrateEmoji)")
+            return .save("\(saveAmount.currencyFormatting) \(swapFeeVM.celebrateEmoji)")
 		} else {
 			return .none
 		}

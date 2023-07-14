@@ -20,7 +20,7 @@ protocol ShareOfAssetsProtocol {
 
 extension ShareOfAssetsProtocol {
 	var assetAmount: String {
-		"$\(holdAmount.roundToPlaces(2))"
+        (holdAmount.roundToPlaces(2)).currencyFormatting
 	}
 
 	var amountPercentage: String {

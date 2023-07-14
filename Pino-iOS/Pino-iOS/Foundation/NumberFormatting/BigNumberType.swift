@@ -192,7 +192,7 @@ extension BigNumber: CustomStringConvertible {
 		return Utilities.formatToPrecision(
 			number.magnitude,
 			units: .custom(decimal),
-			formattingDecimals: type.formattingDecimal(wholeNumDigits: numDigits),
+			formattingDecimals: type.formattingDecimal(wholeNumDigitsCount: numDigits),
 			decimalSeparator: ".",
 			fallbackToScientific: false
 		)
