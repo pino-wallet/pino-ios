@@ -55,7 +55,7 @@ class ActivityViewModel {
 	private func setupRequestTimer() {
 		destroyTimer()
 		requestTimer = Timer.scheduledTimer(
-			timeInterval: 7,
+			timeInterval: 12,
 			target: self,
 			selector: #selector(getUserActivities),
 			userInfo: nil,
@@ -74,7 +74,6 @@ class ActivityViewModel {
 				print(error)
 			}
 		} receiveValue: { [weak self] activities in
-			print(activities)
 			self?.userActivities = activities.compactMap {
 				ActivityCellViewModel(activityModel: $0, currentAddress: userAddress)
 			}
