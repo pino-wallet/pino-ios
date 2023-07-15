@@ -10,9 +10,12 @@ import UIKit
 class SwapConfirmationViewController: AuthenticationLockViewController {
 	// MARK: Private Properties
 
+	let swapConfirmationVM: SwapConfirmationViewModel
+
 	// MARK: Initializers
 
-	init() {
+	init(swapConfirmationVM: SwapConfirmationViewModel) {
+		self.swapConfirmationVM = swapConfirmationVM
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -38,9 +41,12 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = SwapConfirmationView(confirmButtonTapped: {}, presentFeeInfo: { infoActionSheet in
-
-		}, retryFeeCalculation: {})
+		view = SwapConfirmationView(
+			swapconfirmationVM: swapConfirmationVM,
+			confirmButtonTapped: {},
+			presentFeeInfo: { infoActionSheet in },
+			retryFeeCalculation: {}
+		)
 	}
 
 	private func setupNavigationBar() {

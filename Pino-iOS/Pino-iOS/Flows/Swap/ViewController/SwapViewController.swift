@@ -109,7 +109,12 @@ class SwapViewController: UIViewController {
 	}
 
 	private func openConfirmationPage() {
-		let confirmationVC = SwapConfirmationViewController()
+		let swapConfirmationVM = SwapConfirmationViewModel(
+			selectedProtocol: swapVM.selectedProtocol,
+			selectedProvider: swapVM.swapFeeVM.swapProviderVM,
+			swapRate: swapVM.swapFeeVM.calculatedAmount!
+		)
+		let confirmationVC = SwapConfirmationViewController(swapConfirmationVM: swapConfirmationVM)
 		let confirmationNavigationVC = UINavigationController(rootViewController: confirmationVC)
 		present(confirmationNavigationVC, animated: true)
 	}

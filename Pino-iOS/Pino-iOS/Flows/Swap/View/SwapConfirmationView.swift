@@ -39,8 +39,9 @@ class SwapConfirmationView: UIView {
 	private let feeErrorLabel = UILabel()
 	private let feeErrorStackView = UIStackView()
 	private let feeLabel = UILabel()
-
 	private let continueButton = PinoButton(style: .active)
+
+	private let swapConfirmationVM: SwapConfirmationViewModel
 	private let confirmButtonTapped: () -> Void
 	private let presentFeeInfo: (InfoActionSheet) -> Void
 	private let retryFeeCalculation: () -> Void
@@ -50,10 +51,12 @@ class SwapConfirmationView: UIView {
 	// MARK: - Initializers
 
 	init(
+		swapconfirmationVM: SwapConfirmationViewModel,
 		confirmButtonTapped: @escaping () -> Void,
 		presentFeeInfo: @escaping (InfoActionSheet) -> Void,
 		retryFeeCalculation: @escaping () -> Void
 	) {
+		self.swapConfirmationVM = swapconfirmationVM
 		self.confirmButtonTapped = confirmButtonTapped
 		self.presentFeeInfo = presentFeeInfo
 		self.retryFeeCalculation = retryFeeCalculation
@@ -72,8 +75,8 @@ class SwapConfirmationView: UIView {
 
 	private func setupView() {
 		feeTitleView = TitleWithInfo(
-			actionSheetTitle: "Title",
-			actionSheetDescription: "Description"
+			actionSheetTitle: swapConfirmationVM.feeInfoActionSheetTitle,
+			actionSheetDescription: swapConfirmationVM.feeInfoActionSheetDescription
 		)
 
 		setSketonable()
@@ -128,16 +131,16 @@ class SwapConfirmationView: UIView {
 	private func setupStyle() {
 		tokenNameLabel.text = "Amount"
 		sendAmountLabel.text = "AmountInDollar"
-		providerTitleLabel.text = "providerTitle"
-		providerNameLabel.text = "ProviderName"
-		rateTitleLabel.text = "RateTitle"
-		feeTitleView.title = "feeTitle"
-		continueButton.title = "confirmButtonTitle"
-		rateLabel.text = "Rate"
-		feeErrorLabel.text = "feeErrorText"
-		feeErrorIcon.image = UIImage(named: "feeErrorIcon")
+		providerTitleLabel.text = swapConfirmationVM.selectedProtocolTitle
+		providerNameLabel.text = swapConfirmationVM.selectedProtocolName
+		rateTitleLabel.text = swapConfirmationVM.swapRateTitle
+		feeTitleView.title = swapConfirmationVM.feeTitle
+		continueButton.title = swapConfirmationVM.confirmButtonTitle
+		rateLabel.text = swapConfirmationVM.swapRate
+		feeErrorLabel.text = swapConfirmationVM.feeErrorText
+		feeErrorIcon.image = UIImage(named: swapConfirmationVM.feeErrorIcon)
 
-		providerImageView.image = UIImage(named: "ProviderImage")
+		providerImageView.image = UIImage(named: swapConfirmationVM.selectedProtocolImage)
 
 		tokenNameLabel.font = .PinoStyle.semiboldTitle2
 		sendAmountLabel.font = .PinoStyle.mediumBody
@@ -212,9 +215,6 @@ class SwapConfirmationView: UIView {
 			.fixedWidth(20),
 			.fixedHeight(20)
 		)
-		providerImageView.pin(
-			.allEdges(padding: 3)
-		)
 		feeErrorIcon.pin(
 			.fixedWidth(20),
 			.fixedHeight(20)
@@ -233,40 +233,44 @@ class SwapConfirmationView: UIView {
 	}
 
 	private func setupBindings() {
-		//        Publishers.Zip(sendConfirmationVM.$formattedFeeInDollar, sendConfirmationVM.$formattedFeeInETH)
-		//            .sink { [weak self] formattedFeeDollar, formattedFeeETH in
-		//                self?.hideSkeletonView()
-		//                self?.updateFeeLabel()
-		//                self?.checkBalanceEnough()
-		//            }.store(in: &cancellables)
+		Publishers.Zip(swapConfirmationVM.$formattedFeeInDollar, swapConfirmationVM.$formattedFeeInETH)
+			.sink { [weak self] feeInDollar, feeInETH in
+				guard let self, let feeInETH, let feeInDollar else { return }
+				self.hideSkeletonView()
+				self.updateFeeLabel(feeInETH: feeInETH, feeInDollar: feeInDollar)
+				self.checkBalanceEnough()
+			}.store(in: &cancellables)
 	}
 
 	private func checkBalanceEnough() {
-		//        if sendConfirmationVM.checkEnoughBalance() {
-		//            continueButton.style = .active
-		//            continueButton.setTitle(sendConfirmationVM.confirmBtnText, for: .normal)
-		//        } else {
-		//            continueButton.style = .deactive
-		//            continueButton.setTitle(sendConfirmationVM.insuffientText, for: .normal)
-		//        }
+		if swapConfirmationVM.checkEnoughBalance() {
+			continueButton.style = .active
+			continueButton.setTitle(swapConfirmationVM.confirmButtonTitle, for: .normal)
+		} else {
+			continueButton.style = .deactive
+			continueButton.setTitle(swapConfirmationVM.insufficientTitle, for: .normal)
+		}
 	}
 
 	private func setSketonable() {
 		feeLabel.isSkeletonable = true
 	}
 
-	private func updateFeeLabel() {
+	private func updateFeeLabel(feeInETH: String, feeInDollar: String) {
 		if showFeeInDollar {
-			feeLabel.text = "FeeInDollar"
+			feeLabel.text = feeInDollar
 		} else {
-			feeLabel.text = "FeeInETH"
+			feeLabel.text = feeInETH
 		}
 	}
 
 	@objc
 	private func toggleShowFee() {
 		showFeeInDollar.toggle()
-		updateFeeLabel()
+		updateFeeLabel(
+			feeInETH: swapConfirmationVM.formattedFeeInETH!,
+			feeInDollar: swapConfirmationVM.formattedFeeInDollar!
+		)
 	}
 
 	@objc

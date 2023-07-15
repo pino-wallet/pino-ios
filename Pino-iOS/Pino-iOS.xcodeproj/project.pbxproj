@@ -404,6 +404,7 @@
 		E35BB64F2A598B80003987F5 /* GradientBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB64E2A598B80003987F5 /* GradientBorder.swift */; };
 		E35BB6512A62955D003987F5 /* SwapConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6502A62955D003987F5 /* SwapConfirmationViewController.swift */; };
 		E35BB6532A62979C003987F5 /* SwapConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6522A62979C003987F5 /* SwapConfirmationView.swift */; };
+		E35BB6552A62D4A5003987F5 /* SwapConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6542A62D4A5003987F5 /* SwapConfirmationViewModel.swift */; };
 		E3847B362A52CB32005ED78B /* SwapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B352A52CB32005ED78B /* SwapViewModel.swift */; };
 		E3847B382A52CBE6005ED78B /* AmountStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B372A52CBE6005ED78B /* AmountStatus.swift */; };
 		E3847B3A2A52CC19005ED78B /* SwapTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B392A52CC19005ED78B /* SwapTokenViewModel.swift */; };
@@ -866,6 +867,7 @@
 		E35BB64E2A598B80003987F5 /* GradientBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBorder.swift; sourceTree = "<group>"; };
 		E35BB6502A62955D003987F5 /* SwapConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapConfirmationViewController.swift; sourceTree = "<group>"; };
 		E35BB6522A62979C003987F5 /* SwapConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapConfirmationView.swift; sourceTree = "<group>"; };
+		E35BB6542A62D4A5003987F5 /* SwapConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapConfirmationViewModel.swift; sourceTree = "<group>"; };
 		E3847B352A52CB32005ED78B /* SwapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapViewModel.swift; sourceTree = "<group>"; };
 		E3847B372A52CBE6005ED78B /* AmountStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountStatus.swift; sourceTree = "<group>"; };
 		E3847B392A52CC19005ED78B /* SwapTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapTokenViewModel.swift; sourceTree = "<group>"; };
@@ -2482,6 +2484,7 @@
 				E3847B482A542A76005ED78B /* SwapFeeViewModel.swift */,
 				E35BB63B2A558B2E003987F5 /* SelectSwapProtocolViewModel.swift */,
 				E35BB64C2A596E90003987F5 /* SelectSwapProvidersViewModel.swift */,
+				E35BB6542A62D4A5003987F5 /* SwapConfirmationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3126,6 +3129,7 @@
 				D99F4B1D29E2C25C009F7F55 /* PaymentMethodOptionView.swift in Sources */,
 				D941CAC82A3F03C500910B70 /* SendStatusViewModel.swift in Sources */,
 				33B1FBC74480BD66A74733E5 /* Decimal+Extension.swift in Sources */,
+				E35BB6552A62D4A5003987F5 /* SwapConfirmationViewModel.swift in Sources */,
 				0F5854171F8774FEF94497FB /* EditAccountViewController.swift in Sources */,
 				3E5FFA532C0440149913FE32 /* Encodable+Extension.swift in Sources */,
 				E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */,
