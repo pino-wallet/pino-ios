@@ -273,7 +273,7 @@ class SwapFeeView: UIView {
 
 	private func updateFee(_ fee: String?) {
 		if let fee {
-			feeLabel.text = fee.currencyFormatting
+			feeLabel.text = fee.ethFormatting
 			feeLabel.hideSkeletonView()
 		} else {
 			feeLabel.showSkeletonView()

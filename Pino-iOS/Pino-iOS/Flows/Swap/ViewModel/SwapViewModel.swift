@@ -51,15 +51,7 @@ class SwapViewModel {
 			toToken.calculateTokenAmount(decimalDollarAmount: fromToken.decimalDollarAmount)
 			toToken.swapDelegate.swapAmountDidCalculate()
 		}
-		updateCalculatedAmount()
-	}
-
-	private func updateCalculatedAmount() {
-		if let fromTokenAmount = fromToken.formattedTokenAmount, let toTokenAmount = toToken.formattedTokenAmount {
-			swapFeeVM.calculatedAmount = "\(fromTokenAmount) = \(toTokenAmount)"
-		} else {
-			swapFeeVM.calculatedAmount = nil
-		}
+		swapFeeVM.updateAmount(fromToken: fromToken, toToken: toToken)
 	}
 
 	private func getFeeInfo() {

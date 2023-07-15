@@ -145,13 +145,13 @@ class SwapTokenSectionView: UIView {
 		amountTextfield.text = swapVM.tokenAmount
 		estimatedAmountLabel.text = swapVM.formattedAmount
 		maxAmountLabel.text = swapVM.maxHoldAmount
-		updateBalanceStatus(swapVM.tokenAmount)
+		updateBalanceStatus()
 	}
 
 	private func updateEstimatedAmount(enteredAmount: String) {
 		swapVM.amountUpdated(enteredAmount)
 		estimatedAmountLabel.text = swapVM.formattedAmount
-		updateBalanceStatus(enteredAmount)
+		updateBalanceStatus()
 	}
 
 	@objc
@@ -161,9 +161,9 @@ class SwapTokenSectionView: UIView {
 		amountTextfield.sendActions(for: .editingChanged)
 	}
 
-	private func updateBalanceStatus(_ amount: String) {
+	private func updateBalanceStatus() {
 		guard let balanceStatusDidChange else { return }
-		let balanceStatus = swapVM.checkBalanceStatus(amount: amount)
+		let balanceStatus = swapVM.checkBalanceStatus()
 		balanceStatusDidChange(balanceStatus)
 		switch balanceStatus {
 		case .isEnough, .isZero:

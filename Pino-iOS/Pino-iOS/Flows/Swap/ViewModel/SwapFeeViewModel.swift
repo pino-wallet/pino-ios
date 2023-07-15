@@ -41,6 +41,16 @@ class SwapFeeViewModel {
 	public func formattedSaveAmount(_ saveAmount: String) -> String {
 		"\(saveAmount.currencyFormatting) \(celebrateEmoji)"
 	}
+
+	public func updateAmount(fromToken: SwapTokenViewModel, toToken: SwapTokenViewModel) {
+		if let fromTokenAmount = fromToken.tokenAmount, let toTokenAmount = toToken.tokenAmount {
+			let formattedFromTokenAmount = fromTokenAmount.tokenFormatting(token: fromToken.selectedToken.symbol)
+			let formattedToTokenAmount = toTokenAmount.tokenFormatting(token: toToken.selectedToken.symbol)
+			calculatedAmount = "\(formattedFromTokenAmount) = \(formattedToTokenAmount)"
+		} else {
+			calculatedAmount = nil
+		}
+	}
 }
 
 extension SwapFeeViewModel {
