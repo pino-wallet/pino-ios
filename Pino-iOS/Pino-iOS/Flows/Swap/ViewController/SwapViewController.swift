@@ -47,7 +47,9 @@ class SwapViewController: UIViewController {
 			providerChange: {
 				self.openProvidersPage()
 			},
-			nextButtonTapped: {}
+			nextButtonTapped: {
+				self.openConfirmationPage()
+			}
 		)
 	}
 
@@ -104,5 +106,11 @@ class SwapViewController: UIViewController {
 			self.swapVM.swapFeeVM.swapProviderVM = provider
 		}
 		present(providersVC, animated: true)
+	}
+
+	private func openConfirmationPage() {
+		let confirmationVC = SwapConfirmationViewController()
+		let confirmationNavigationVC = UINavigationController(rootViewController: confirmationVC)
+		present(confirmationNavigationVC, animated: true)
 	}
 }
