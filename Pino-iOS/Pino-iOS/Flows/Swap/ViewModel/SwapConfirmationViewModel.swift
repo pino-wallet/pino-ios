@@ -23,6 +23,8 @@ class SwapConfirmationViewModel {
 
 	// MARK: - Public Properties
 
+	public let fromToken: SwapTokenViewModel
+	public let toToken: SwapTokenViewModel
 	public let swapRate: String
 	public var gasFee: BigNumber!
 	public let confirmButtonTitle = "Confirm"
@@ -48,10 +50,14 @@ class SwapConfirmationViewModel {
 	// MARK: - Initializer
 
 	init(
+		fromToken: SwapTokenViewModel,
+		toToken: SwapTokenViewModel,
 		selectedProtocol: SwapProtocolModel,
 		selectedProvider: SwapProviderViewModel?,
 		swapRate: String
 	) {
+		self.fromToken = fromToken
+		self.toToken = toToken
 		self.selectedProtocol = selectedProtocol
 		self.selectedProvider = selectedProvider
 		self.swapRate = swapRate

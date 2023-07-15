@@ -110,6 +110,8 @@ class SwapViewController: UIViewController {
 
 	private func openConfirmationPage() {
 		let swapConfirmationVM = SwapConfirmationViewModel(
+			fromToken: swapVM.fromToken,
+			toToken: swapVM.toToken,
 			selectedProtocol: swapVM.selectedProtocol,
 			selectedProvider: swapVM.swapFeeVM.swapProviderVM,
 			swapRate: swapVM.swapFeeVM.calculatedAmount!

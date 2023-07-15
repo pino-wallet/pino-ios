@@ -42,7 +42,7 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 
 	private func setupView() {
 		view = SwapConfirmationView(
-			swapconfirmationVM: swapConfirmationVM,
+			swapConfirmationVM: swapConfirmationVM,
 			confirmButtonTapped: {},
 			presentFeeInfo: { infoActionSheet in },
 			retryFeeCalculation: {}

@@ -14,31 +14,14 @@ class SwapConfirmationView: UIView {
 	private let contentStackview = UIStackView()
 	private let cardsStackView = UIStackView()
 	private let tokenCardView = PinoContainerCard()
-	private let sendInfoCardView = PinoContainerCard()
+	private let swapInfoCardView = PinoContainerCard()
 	private let tokenStackView = UIStackView()
-	private let tokenImageView = UIImageView()
-	private let tokenAmountStackView = UIStackView()
-	private let tokenNameLabel = UILabel()
-	private let sendAmountLabel = UILabel()
-	private let sendInfoStackView = UIStackView()
-	private let ProviderStackView = UIStackView()
-	private let rateStrackView = UIStackView()
-	private let feeStackView = UIStackView()
-	private let providerTitleLabel = UILabel()
-	private let rateTitleLabel = UILabel()
-	private var feeTitleView: TitleWithInfo!
-	private let providerInfoStackView = UIStackView()
-	private let rateLabel = UILabel()
-	private let providerImageView = UIImageView()
-	private let providerNameLabel = UILabel()
-	private let providerSpacerView = UIView()
-	private let rateSpacerView = UIView()
-	private let feeSpacerView = UIView()
-	private let feeResultView = UIView()
-	private let feeErrorIcon = UIImageView()
-	private let feeErrorLabel = UILabel()
-	private let feeErrorStackView = UIStackView()
-	private let feeLabel = UILabel()
+	private let fromTokenView: SwapConfirmationTokenView
+	private let toTokenView: SwapConfirmationTokenView
+	private let arrowImageView = UIImageView()
+	private let swapArrowStackView = UIStackView()
+	private let swapArrowSpacerView = UIView()
+	private let swapConfirmationInfoView: SwapConfirmationInfoView
 	private let continueButton = PinoButton(style: .active)
 
 	private let swapConfirmationVM: SwapConfirmationViewModel
@@ -51,15 +34,22 @@ class SwapConfirmationView: UIView {
 	// MARK: - Initializers
 
 	init(
-		swapconfirmationVM: SwapConfirmationViewModel,
+		swapConfirmationVM: SwapConfirmationViewModel,
 		confirmButtonTapped: @escaping () -> Void,
 		presentFeeInfo: @escaping (InfoActionSheet) -> Void,
 		retryFeeCalculation: @escaping () -> Void
 	) {
-		self.swapConfirmationVM = swapconfirmationVM
+		self.swapConfirmationVM = swapConfirmationVM
 		self.confirmButtonTapped = confirmButtonTapped
 		self.presentFeeInfo = presentFeeInfo
 		self.retryFeeCalculation = retryFeeCalculation
+		self.swapConfirmationInfoView = SwapConfirmationInfoView(
+			swapConfirmationVM: swapConfirmationVM,
+			presentFeeInfo: presentFeeInfo,
+			retryFeeCalculation: retryFeeCalculation
+		)
+		self.fromTokenView = SwapConfirmationTokenView(swapTokenVM: swapConfirmationVM.fromToken)
+		self.toTokenView = SwapConfirmationTokenView(swapTokenVM: swapConfirmationVM.toToken)
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -74,121 +64,39 @@ class SwapConfirmationView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		feeTitleView = TitleWithInfo(
-			actionSheetTitle: swapConfirmationVM.feeInfoActionSheetTitle,
-			actionSheetDescription: swapConfirmationVM.feeInfoActionSheetDescription
-		)
-
-		setSketonable()
-
 		addSubview(contentStackview)
 		addSubview(continueButton)
 		contentStackview.addArrangedSubview(cardsStackView)
 		cardsStackView.addArrangedSubview(tokenCardView)
-		cardsStackView.addArrangedSubview(sendInfoCardView)
+		cardsStackView.addArrangedSubview(swapInfoCardView)
 		tokenCardView.addSubview(tokenStackView)
-		tokenStackView.addArrangedSubview(tokenImageView)
-		tokenStackView.addArrangedSubview(tokenAmountStackView)
-		tokenAmountStackView.addArrangedSubview(tokenNameLabel)
-		tokenAmountStackView.addArrangedSubview(sendAmountLabel)
-		sendInfoCardView.addSubview(sendInfoStackView)
-		sendInfoStackView.addArrangedSubview(rateStrackView)
-		sendInfoStackView.addArrangedSubview(ProviderStackView)
-		sendInfoStackView.addArrangedSubview(feeStackView)
-		ProviderStackView.addArrangedSubview(providerTitleLabel)
-		ProviderStackView.addArrangedSubview(providerSpacerView)
-		ProviderStackView.addArrangedSubview(providerInfoStackView)
-		providerInfoStackView.addArrangedSubview(providerImageView)
-		providerInfoStackView.addArrangedSubview(providerNameLabel)
-		rateStrackView.addArrangedSubview(rateTitleLabel)
-		rateStrackView.addArrangedSubview(rateSpacerView)
-		rateStrackView.addArrangedSubview(rateLabel)
-
-		feeStackView.addArrangedSubview(feeTitleView)
-		feeStackView.addArrangedSubview(feeSpacerView)
-		feeStackView.addArrangedSubview(feeResultView)
-		feeResultView.addSubview(feeErrorStackView)
-		feeResultView.addSubview(feeLabel)
-		feeErrorStackView.addArrangedSubview(feeErrorIcon)
-		feeErrorStackView.addArrangedSubview(feeErrorLabel)
-
-		let feeLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleShowFee))
-		feeLabel.addGestureRecognizer(feeLabelTapGesture)
-		feeLabel.isUserInteractionEnabled = true
+		tokenStackView.addArrangedSubview(fromTokenView)
+		tokenStackView.addArrangedSubview(swapArrowStackView)
+		tokenStackView.addArrangedSubview(toTokenView)
+		swapArrowStackView.addArrangedSubview(arrowImageView)
+		swapArrowStackView.addArrangedSubview(swapArrowSpacerView)
+		swapInfoCardView.addSubview(swapConfirmationInfoView)
 
 		continueButton.addAction(UIAction(handler: { _ in
 			self.confirmButtonTapped()
 		}), for: .touchUpInside)
-
-		feeTitleView.presentActionSheet = { feeInfoActionSheet in
-			self.presentFeeInfo(feeInfoActionSheet)
-		}
-
-		let feeRetryTapGesture = UITapGestureRecognizer(target: self, action: #selector(getFee))
-		feeErrorStackView.addGestureRecognizer(feeRetryTapGesture)
 	}
 
 	private func setupStyle() {
-		tokenNameLabel.text = "Amount"
-		sendAmountLabel.text = "AmountInDollar"
-		providerTitleLabel.text = swapConfirmationVM.selectedProtocolTitle
-		providerNameLabel.text = swapConfirmationVM.selectedProtocolName
-		rateTitleLabel.text = swapConfirmationVM.swapRateTitle
-		feeTitleView.title = swapConfirmationVM.feeTitle
 		continueButton.title = swapConfirmationVM.confirmButtonTitle
-		rateLabel.text = swapConfirmationVM.swapRate
-		feeErrorLabel.text = swapConfirmationVM.feeErrorText
-		feeErrorIcon.image = UIImage(named: swapConfirmationVM.feeErrorIcon)
-
-		providerImageView.image = UIImage(named: swapConfirmationVM.selectedProtocolImage)
-
-		tokenNameLabel.font = .PinoStyle.semiboldTitle2
-		sendAmountLabel.font = .PinoStyle.mediumBody
-		providerTitleLabel.font = .PinoStyle.mediumBody
-		providerNameLabel.font = .PinoStyle.mediumBody
-		rateTitleLabel.font = .PinoStyle.mediumBody
-		rateLabel.font = .PinoStyle.mediumBody
-		feeLabel.font = .PinoStyle.mediumBody
-		feeErrorLabel.font = .PinoStyle.mediumBody
-
-		tokenNameLabel.textColor = .Pino.label
-		sendAmountLabel.textColor = .Pino.secondaryLabel
-		providerTitleLabel.textColor = .Pino.secondaryLabel
-		providerNameLabel.textColor = .Pino.label
-		rateTitleLabel.textColor = .Pino.secondaryLabel
-		rateLabel.textColor = .Pino.label
-		feeLabel.textColor = .Pino.label
-		feeErrorLabel.textColor = .Pino.red
-		feeErrorIcon.tintColor = .Pino.red
+		arrowImageView.image = UIImage(named: "arrow_down")
 
 		backgroundColor = .Pino.background
 
-		feeLabel.textAlignment = .right
-		rateLabel.textAlignment = .right
-
-		tokenStackView.axis = .vertical
-		tokenAmountStackView.axis = .vertical
 		cardsStackView.axis = .vertical
-		sendInfoStackView.axis = .vertical
+		tokenStackView.axis = .vertical
 		contentStackview.axis = .vertical
-
-		tokenStackView.alignment = .center
-		tokenAmountStackView.alignment = .center
 
 		contentStackview.spacing = 24
 		cardsStackView.spacing = 18
-		tokenStackView.spacing = 16
-		tokenAmountStackView.spacing = 10
-		sendInfoStackView.spacing = 26
-		providerInfoStackView.spacing = 4
-		feeErrorStackView.spacing = 4
-
-		tokenImageView.layer.cornerRadius = 25
-		tokenImageView.layer.masksToBounds = true
 
 		showSkeletonView()
 		continueButton.style = .deactive
-		feeErrorStackView.isHidden = true
 	}
 
 	private func setupContstraint() {
@@ -197,47 +105,28 @@ class SwapConfirmationView: UIView {
 			.top(to: layoutMarginsGuide, padding: 25)
 		)
 		tokenStackView.pin(
-			.allEdges(padding: 16)
-		)
-		sendInfoStackView.pin(
-			.horizontalEdges(padding: 14),
-			.verticalEdges(padding: 24)
+			.allEdges
 		)
 		continueButton.pin(
 			.bottom(to: layoutMarginsGuide, padding: 8),
 			.horizontalEdges(padding: 16)
 		)
-		tokenImageView.pin(
-			.fixedWidth(50),
-			.fixedHeight(50)
+		arrowImageView.pin(
+			.fixedWidth(24),
+			.fixedHeight(24),
+			.leading(padding: 20)
 		)
-		providerImageView.pin(
-			.fixedWidth(20),
-			.fixedHeight(20)
-		)
-		feeErrorIcon.pin(
-			.fixedWidth(20),
-			.fixedHeight(20)
-		)
-		feeTitleView.pin(
-			.fixedWidth(48)
-		)
-		feeLabel.pin(
+		swapConfirmationInfoView.pin(
 			.allEdges
 		)
-		feeErrorStackView.pin(
-			.allEdges
-		)
-
-		feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
 	}
 
 	private func setupBindings() {
 		Publishers.Zip(swapConfirmationVM.$formattedFeeInDollar, swapConfirmationVM.$formattedFeeInETH)
 			.sink { [weak self] feeInDollar, feeInETH in
 				guard let self, let feeInETH, let feeInDollar else { return }
-				self.hideSkeletonView()
-				self.updateFeeLabel(feeInETH: feeInETH, feeInDollar: feeInDollar)
+				self.swapConfirmationInfoView.hideSkeletonView()
+				self.swapConfirmationInfoView.updateFeeLabel(feeInETH: feeInETH, feeInDollar: feeInDollar)
 				self.checkBalanceEnough()
 			}.store(in: &cancellables)
 	}
@@ -250,43 +139,5 @@ class SwapConfirmationView: UIView {
 			continueButton.style = .deactive
 			continueButton.setTitle(swapConfirmationVM.insufficientTitle, for: .normal)
 		}
-	}
-
-	private func setSketonable() {
-		feeLabel.isSkeletonable = true
-	}
-
-	private func updateFeeLabel(feeInETH: String, feeInDollar: String) {
-		if showFeeInDollar {
-			feeLabel.text = feeInDollar
-		} else {
-			feeLabel.text = feeInETH
-		}
-	}
-
-	@objc
-	private func toggleShowFee() {
-		showFeeInDollar.toggle()
-		updateFeeLabel(
-			feeInETH: swapConfirmationVM.formattedFeeInETH!,
-			feeInDollar: swapConfirmationVM.formattedFeeInDollar!
-		)
-	}
-
-	@objc
-	private func getFee() {
-		retryFeeCalculation()
-	}
-
-	// MARK: - Public Methods
-
-	public func showfeeCalculationError() {
-		feeLabel.isHidden = true
-		feeErrorStackView.isHidden = false
-	}
-
-	public func hideFeeCalculationError() {
-		feeErrorStackView.isHidden = true
-		feeLabel.isHidden = false
 	}
 }

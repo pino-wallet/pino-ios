@@ -405,6 +405,8 @@
 		E35BB6512A62955D003987F5 /* SwapConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6502A62955D003987F5 /* SwapConfirmationViewController.swift */; };
 		E35BB6532A62979C003987F5 /* SwapConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6522A62979C003987F5 /* SwapConfirmationView.swift */; };
 		E35BB6552A62D4A5003987F5 /* SwapConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6542A62D4A5003987F5 /* SwapConfirmationViewModel.swift */; };
+		E35BB6572A62E650003987F5 /* SwapConfirmationTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6562A62E650003987F5 /* SwapConfirmationTokenView.swift */; };
+		E35BB6592A62F1A8003987F5 /* SwapConfirmationInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6582A62F1A8003987F5 /* SwapConfirmationInfoView.swift */; };
 		E3847B362A52CB32005ED78B /* SwapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B352A52CB32005ED78B /* SwapViewModel.swift */; };
 		E3847B382A52CBE6005ED78B /* AmountStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B372A52CBE6005ED78B /* AmountStatus.swift */; };
 		E3847B3A2A52CC19005ED78B /* SwapTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B392A52CC19005ED78B /* SwapTokenViewModel.swift */; };
@@ -868,6 +870,8 @@
 		E35BB6502A62955D003987F5 /* SwapConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapConfirmationViewController.swift; sourceTree = "<group>"; };
 		E35BB6522A62979C003987F5 /* SwapConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapConfirmationView.swift; sourceTree = "<group>"; };
 		E35BB6542A62D4A5003987F5 /* SwapConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapConfirmationViewModel.swift; sourceTree = "<group>"; };
+		E35BB6562A62E650003987F5 /* SwapConfirmationTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapConfirmationTokenView.swift; sourceTree = "<group>"; };
+		E35BB6582A62F1A8003987F5 /* SwapConfirmationInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapConfirmationInfoView.swift; sourceTree = "<group>"; };
 		E3847B352A52CB32005ED78B /* SwapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapViewModel.swift; sourceTree = "<group>"; };
 		E3847B372A52CBE6005ED78B /* AmountStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountStatus.swift; sourceTree = "<group>"; };
 		E3847B392A52CC19005ED78B /* SwapTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapTokenViewModel.swift; sourceTree = "<group>"; };
@@ -2471,6 +2475,8 @@
 				E35BB6462A595717003987F5 /* SwapProviderCollectionView.swift */,
 				E35BB6482A595725003987F5 /* SwapProviderCell.swift */,
 				E35BB6522A62979C003987F5 /* SwapConfirmationView.swift */,
+				E35BB6562A62E650003987F5 /* SwapConfirmationTokenView.swift */,
+				E35BB6582A62F1A8003987F5 /* SwapConfirmationInfoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3094,6 +3100,7 @@
 				9564A69D20BD22A50221D63B /* CoinPerformanceInfoItems.swift in Sources */,
 				D99CAFC92A3AF0D400DBEF2B /* EnterSendAddressViewController.swift in Sources */,
 				D9A3281C2A34C444005A8393 /* SelectAssetVMProtocol.swift in Sources */,
+				E35BB6572A62E650003987F5 /* SwapConfirmationTokenView.swift in Sources */,
 				E3847B382A52CBE6005ED78B /* AmountStatus.swift in Sources */,
 				1AD184E82488453998E5A2E5 /* CoinPerformanceInfoModel.swift in Sources */,
 				8A10D639170969ECFADE0FE4 /* CoinPerformanceInfoViewModel.swift in Sources */,
@@ -3342,6 +3349,7 @@
 				E351A72729F5247000635715 /* ChartDateBuilder.swift in Sources */,
 				E3F482EC2A3485A500EEC9CF /* EnterSendAmountViewController.swift in Sources */,
 				7FFA5D89CACB5BA3422D7376 /* WalletAPIService.swift in Sources */,
+				E35BB6592A62F1A8003987F5 /* SwapConfirmationInfoView.swift in Sources */,
 				96892E44DA2E5556E1679817 /* AccountBalanceHeaderView.swift in Sources */,
 				0F91AD673ECAFFCD63C38A33 /* WalletBalanceModel.swift in Sources */,
 				1EA05F6363FCD68B38A3B13B /* WalletBalanceViewModel.swift in Sources */,
