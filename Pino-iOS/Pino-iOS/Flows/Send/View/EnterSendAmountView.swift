@@ -111,6 +111,7 @@ class EnterSendAmountView: UIView {
 		maxAmountInDollarLabel.text = enterAmountVM.formattedMaxAmountInDollar
 		continueButton.title = enterAmountVM.continueButtonTitle
 		dollarSignLabel.text = enterAmountVM.dollarSign
+        changeTokenView.tokenName = enterAmountVM.selectedToken.symbol
 		changeTokenView.tokenName = enterAmountVM.selectedToken.symbol
 
 		if enterAmountVM.selectedToken.isVerified {

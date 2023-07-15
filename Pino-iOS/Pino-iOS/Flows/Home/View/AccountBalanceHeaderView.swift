@@ -183,7 +183,7 @@ class AccountBalanceHeaderView: UICollectionReusableView {
 				self.showBalanceButton.isHidden = true
 			}
 
-			if let balance = Double(walletBalance.balanceModel.balance), balance <= 0 {
+            if walletBalance.balanceModel.balance < 0.bigNumber{
 				self.volatilityDetailButton.isHidden = true
 				self.volatilityView.isUserInteractionEnabled = false
 			} else {

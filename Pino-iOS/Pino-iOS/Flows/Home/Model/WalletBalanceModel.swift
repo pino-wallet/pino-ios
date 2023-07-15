@@ -8,8 +8,8 @@
 struct WalletBalanceModel {
 	// MARK: - Public Properties
 
-	public var balance: String
+	public var balance: BigNumber
 	public var volatilityNumber: BigNumber
 	public var volatilityPercentage: String
-	public var volatilityInDollor: String
+	public var volatilityInDollor: BigNumber
 }

@@ -90,6 +90,12 @@ public struct BigNumber {
 	public var isZero: Bool {
 		number.isZero
 	}
+    
+    public var abs: BigNumber {
+        var absNumber = self
+        absNumber.number.sign = .plus
+        return absNumber
+    }
 }
 
 // MARK: - Operator Overloading
@@ -121,13 +127,13 @@ extension BigNumber {
 		}
 
 		// Decide on a suitable scaling factor. For example, 10^2 = 100 to keep 2 decimal places.
-		let scalingFactor = BigInt(10).power(2)
+		let scalingFactor = BigInt(10).power(7)
 
 		let scaledLeft = left.number * scalingFactor
 		let quotient = scaledLeft / right.number
 
 		// Adjust the decimal places of the result
-		let resultDecimal = left.decimal - right.decimal + 2 // add 2 because of the scalingFactor
+		let resultDecimal = left.decimal - right.decimal + 7 // add 2 because of the scalingFactor
 
 		return BigNumber(number: quotient, decimal: resultDecimal)
 	}
@@ -183,18 +189,35 @@ extension BigNumber: CustomStringConvertible {
 	}
 
 	public var priceFormat: String {
-		formattedAmountOf(type: .priceRule)
+		let formattedNumber = formattedAmountOf(type: .priceRule)
+        if self.isZero {
+            return "0"
+        } else if self.abs < BigNumber(number: 1, decimal: 2)  {
+            return "<"+"0.01".currencyFormatting
+        } else {
+            return formattedNumber.currencyFormatting
+        }
 	}
 
+    public var percentFormat: String {
+        var formattedPercent = formattedAmountOf(type: .percentRule)
+        if number.sign == .minus {
+            formattedPercent = "-\(formattedPercent)"
+        }
+        return formattedPercent
+    }
+
+    
 	private func formattedAmountOf(type: NumberFormatTypes) -> String {
 		let numDigits = whole.description.count
 
-		return Utilities.formatToPrecision(
+		let formattedNumber = Utilities.formatToPrecision(
 			number.magnitude,
 			units: .custom(decimal),
 			formattingDecimals: type.formattingDecimal(wholeNumDigitsCount: numDigits),
 			decimalSeparator: ".",
 			fallbackToScientific: false
 		)
+        return formattedNumber
 	}
 }

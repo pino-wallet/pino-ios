@@ -10,6 +10,7 @@ import Foundation
 public enum NumberFormatTypes {
 	case sevenDigitsRule
 	case priceRule
+    case percentRule
 
 	public func formattingDecimal(wholeNumDigitsCount: Int) -> Int {
 		switch self {
@@ -26,6 +27,8 @@ public enum NumberFormatTypes {
 			default:
 				return 2
 			}
-		}
+        case .percentRule:
+            return 2
+        }
 	}
 }

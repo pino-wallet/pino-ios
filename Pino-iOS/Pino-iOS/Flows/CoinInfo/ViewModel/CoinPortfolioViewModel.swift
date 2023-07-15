@@ -48,7 +48,7 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var price: String {
-		coinPrice.priceFormat.currencyFormatting
+		coinPrice.priceFormat
 	}
 
 	public var type: CoinType {
@@ -67,7 +67,7 @@ struct CoinPortfolioViewModel {
 
 	public var userAmountInDollar: String {
 		let totalAmountInDollar = userAmount * coinPrice
-		return totalAmountInDollar.priceFormat.currencyFormatting
+		return totalAmountInDollar.priceFormat
 	}
 
 	public var isEthCoin: Bool {

@@ -35,18 +35,18 @@ class EnterSendAmountViewModel {
 	public var dollarAmount = "0"
 
 	public var formattedMaxHoldAmount: String {
-		"\(maxHoldAmount.sevenDigitFormat) \(selectedToken.symbol)"
+        maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
 
 	public var formattedMaxAmountInDollar: String {
-		maxAmountInDollar.priceFormat.currencyFormatting
+		maxAmountInDollar.priceFormat
 	}
 
 	public var formattedAmount: String {
 		if isDollarEnabled {
 			return "\(tokenAmount.tokenFormatting(token: selectedToken.symbol))"
 		} else {
-			return dollarAmount.currencyFormatting
+			return dollarAmount
 		}
 	}
 
@@ -96,10 +96,18 @@ class EnterSendAmountViewModel {
 		gasFeeInDollar: BigNumber = GlobalVariables.shared.ethGasFee.feeInDollar
 	) {
 		let estimatedAmount = selectedToken.holdAmount - gasFee
-		maxHoldAmount = estimatedAmount
+        if estimatedAmount.number.sign == .minus {
+            maxHoldAmount = 0.bigNumber
+        } else {
+            maxHoldAmount = estimatedAmount
+        }
 
 		let estimatedAmountInDollar = selectedToken.holdAmountInDollor - gasFeeInDollar
-		maxAmountInDollar = estimatedAmountInDollar
+        if estimatedAmountInDollar.number.sign == .minus {
+            maxAmountInDollar = 0.bigNumber
+        } else {
+            maxAmountInDollar = estimatedAmountInDollar
+        }
 	}
 
 	// MARK: - Private Methods
@@ -133,6 +141,6 @@ class EnterSendAmountViewModel {
 		let tokenAmountDecimalValue = priceAmount.quotientAndRemainder(dividingBy: price.number)
 		tokenAmount = BigNumber(number: tokenAmountDecimalValue.quotient, decimal: selectedToken.decimal)
 			.sevenDigitFormat
-		dollarAmount = amount
+        dollarAmount = amount
 	}
 }
