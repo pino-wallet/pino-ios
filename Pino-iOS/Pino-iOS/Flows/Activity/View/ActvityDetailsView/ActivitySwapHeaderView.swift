@@ -8,105 +8,110 @@
 import UIKit
 
 class ActivitySwapHeaderView: UIStackView {
-    // MARK: - Private Properties
-    private let activityDetailsVM: ActivityDetailsViewModel
-    private let fromItemStackView = UIStackView()
-    private let toItemStackView = UIStackView()
-    private let fromTokenAmountStackView = UIStackView()
-    private let toTokenAmountStackView = UIStackView()
-    private let swapIconView = UIImageView()
-    private let swapIconViewContainer = UIView()
-    private let fromTokenImageView = UIImageView()
-    private let toTokenImageView = UIImageView()
-    private let fromTokenAmountLabel = PinoLabel(style: .title, text: "")
-    private let toTokenAmountLabel = PinoLabel(style: .title, text: "")
-    private let fromTokenSymbolLabel = PinoLabel(style: .title, text: "")
-    private let toTokenSymbolLabel = PinoLabel(style: .title, text: "")
-    
-    // MARK: - Initializers
-    init(activityDetailsVM: ActivityDetailsViewModel) {
-        self.activityDetailsVM = activityDetailsVM
-        
-        super.init(frame: .zero)
-        
-        setupView()
-        setupStyles()
-        setupConstraints()
-    }
-    
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Private Methods
-    
-    private func setupView() {
-        fromTokenAmountStackView.addArrangedSubview(fromTokenAmountLabel)
-        fromTokenAmountStackView.addArrangedSubview(fromTokenSymbolLabel)
+	// MARK: - Private Properties
 
-        toTokenAmountStackView.addArrangedSubview(toTokenAmountLabel)
-        toTokenAmountStackView.addArrangedSubview(toTokenSymbolLabel)
+	private let activityDetailsVM: ActivityDetailsViewModel
+	private let fromItemStackView = UIStackView()
+	private let toItemStackView = UIStackView()
+	private let fromTokenAmountStackView = UIStackView()
+	private let toTokenAmountStackView = UIStackView()
+	private let swapIconView = UIImageView()
+	private let swapIconViewContainer = UIView()
+	private let fromTokenImageView = UIImageView()
+	private let toTokenImageView = UIImageView()
+	private let fromTokenAmountLabel = PinoLabel(style: .title, text: "")
+	private let toTokenAmountLabel = PinoLabel(style: .title, text: "")
+	private let fromTokenSymbolLabel = PinoLabel(style: .title, text: "")
+	private let toTokenSymbolLabel = PinoLabel(style: .title, text: "")
 
-        fromItemStackView.addArrangedSubview(fromTokenImageView)
-        fromItemStackView.addArrangedSubview(fromTokenAmountStackView)
+	// MARK: - Initializers
 
-        toItemStackView.addArrangedSubview(toTokenImageView)
-        toItemStackView.addArrangedSubview(toTokenAmountStackView)
+	init(activityDetailsVM: ActivityDetailsViewModel) {
+		self.activityDetailsVM = activityDetailsVM
 
-        swapIconViewContainer.addSubview(swapIconView)
-        
-        addArrangedSubview(fromItemStackView)
-        addArrangedSubview(swapIconViewContainer)
-        addArrangedSubview(toItemStackView)
-    }
-    
-    private func setupStyles() {
-            axis = .vertical
-            alignment = .leading
-            spacing = 12
+		super.init(frame: .zero)
 
-            fromItemStackView.axis = .horizontal
-            fromItemStackView.alignment = .center
-            fromItemStackView.spacing = 8
+		setupView()
+		setupStyles()
+		setupConstraints()
+	}
 
-            toItemStackView.axis = .horizontal
-            toItemStackView.alignment = .center
-            toItemStackView.spacing = 8
+	required init(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
-            fromTokenAmountStackView.axis = .horizontal
-            fromTokenAmountStackView.alignment = .center
-            fromTokenAmountStackView.spacing = 4
+	// MARK: - Private Methods
 
-            toTokenAmountStackView.axis = .horizontal
-            toTokenAmountStackView.alignment = .center
-            toTokenAmountStackView.spacing = 4
+	private func setupView() {
+		fromTokenAmountStackView.addArrangedSubview(fromTokenAmountLabel)
+		fromTokenAmountStackView.addArrangedSubview(fromTokenSymbolLabel)
 
-            fromTokenImageView
-                .image = UIImage(named: activityDetailsVM.fromTokenImageName ?? activityDetailsVM.unVerifiedAssetIconName)
-            fromTokenAmountLabel.font = .PinoStyle.semiboldTitle2
-            fromTokenSymbolLabel.font = .PinoStyle.mediumCallout
-            fromTokenAmountLabel.text = activityDetailsVM.fromTokenAmount
-            fromTokenAmountLabel.numberOfLines = 0
-            fromTokenSymbolLabel.text = activityDetailsVM.fromTokenSymbol
+		toTokenAmountStackView.addArrangedSubview(toTokenAmountLabel)
+		toTokenAmountStackView.addArrangedSubview(toTokenSymbolLabel)
 
-            toTokenImageView
-                .image = UIImage(named: activityDetailsVM.toTokenImageName ?? activityDetailsVM.unVerifiedAssetIconName)
-            toTokenAmountLabel.font = .PinoStyle.semiboldTitle2
-            toTokenSymbolLabel.font = .PinoStyle.mediumCallout
-            toTokenAmountLabel.text = activityDetailsVM.toTokenAmount
-            toTokenAmountLabel.numberOfLines = 0
-            toTokenSymbolLabel.text = activityDetailsVM.toTokenSymbol
+		fromItemStackView.addArrangedSubview(fromTokenImageView)
+		fromItemStackView.addArrangedSubview(fromTokenAmountStackView)
 
-            swapIconView.image = UIImage(named: activityDetailsVM.swapDownArrow)
-    }
-    
-    private func setupConstraints() {
-        toTokenAmountLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 160).isActive = true
-        fromTokenAmountLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 160).isActive = true
+		toItemStackView.addArrangedSubview(toTokenImageView)
+		toItemStackView.addArrangedSubview(toTokenAmountStackView)
 
-        swapIconViewContainer.pin(.fixedWidth(32), .fixedHeight(32))
-        swapIconView.pin(.fixedWidth(24), .fixedHeight(24), .centerX, .centerY)
-        fromTokenImageView.pin(.fixedWidth(40), .fixedHeight(40))
-        toTokenImageView.pin(.fixedWidth(40), .fixedHeight(40))
-    }
+		swapIconViewContainer.addSubview(swapIconView)
+
+		addArrangedSubview(fromItemStackView)
+		addArrangedSubview(swapIconViewContainer)
+		addArrangedSubview(toItemStackView)
+	}
+
+	private func setupStyles() {
+		axis = .vertical
+		alignment = .leading
+		spacing = 12
+
+		fromItemStackView.axis = .horizontal
+		fromItemStackView.alignment = .center
+		fromItemStackView.spacing = 8
+
+		toItemStackView.axis = .horizontal
+		toItemStackView.alignment = .center
+		toItemStackView.spacing = 8
+
+		fromTokenAmountStackView.axis = .horizontal
+		fromTokenAmountStackView.alignment = .center
+		fromTokenAmountStackView.spacing = 4
+
+		toTokenAmountStackView.axis = .horizontal
+		toTokenAmountStackView.alignment = .center
+		toTokenAmountStackView.spacing = 4
+
+		fromTokenImageView
+			.image = UIImage(
+				named: activityDetailsVM.fromTokenImageName ?? activityDetailsVM
+					.unVerifiedAssetIconName
+			)
+		fromTokenAmountLabel.font = .PinoStyle.semiboldTitle2
+		fromTokenSymbolLabel.font = .PinoStyle.mediumCallout
+		fromTokenAmountLabel.text = activityDetailsVM.fromTokenAmount
+		fromTokenAmountLabel.numberOfLines = 0
+		fromTokenSymbolLabel.text = activityDetailsVM.fromTokenSymbol
+
+		toTokenImageView
+			.image = UIImage(named: activityDetailsVM.toTokenImageName ?? activityDetailsVM.unVerifiedAssetIconName)
+		toTokenAmountLabel.font = .PinoStyle.semiboldTitle2
+		toTokenSymbolLabel.font = .PinoStyle.mediumCallout
+		toTokenAmountLabel.text = activityDetailsVM.toTokenAmount
+		toTokenAmountLabel.numberOfLines = 0
+		toTokenSymbolLabel.text = activityDetailsVM.toTokenSymbol
+
+		swapIconView.image = UIImage(named: activityDetailsVM.swapDownArrow)
+	}
+
+	private func setupConstraints() {
+		toTokenAmountLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 160).isActive = true
+		fromTokenAmountLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 160).isActive = true
+
+		swapIconViewContainer.pin(.fixedWidth(32), .fixedHeight(32))
+		swapIconView.pin(.fixedWidth(24), .fixedHeight(24), .centerX, .centerY)
+		fromTokenImageView.pin(.fixedWidth(40), .fixedHeight(40))
+		toTokenImageView.pin(.fixedWidth(40), .fixedHeight(40))
+	}
 }

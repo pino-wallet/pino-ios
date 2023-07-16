@@ -15,7 +15,7 @@ class ActivityDetailsHeaderView: UIView {
 
 	// MARK: - Private Properties
 
-    private var activitySwapHeaderView: ActivitySwapHeaderView!
+	private var activitySwapHeaderView: ActivitySwapHeaderView!
 	private let cardView = PinoContainerCard()
 	private let defaultStackView = UIStackView()
 	private let defaultImageView = UIImageView()
@@ -42,7 +42,7 @@ class ActivityDetailsHeaderView: UIView {
 
 	private func setupViewWithSwapMode() {
 		if isSwapMode {
-            activitySwapHeaderView = ActivitySwapHeaderView(activityDetailsVM: activityDetailsVM)
+			activitySwapHeaderView = ActivitySwapHeaderView(activityDetailsVM: activityDetailsVM)
 			cardView.addSubview(activitySwapHeaderView)
 		} else {
 			defaultStackView.addArrangedSubview(defaultImageView)
@@ -72,7 +72,7 @@ class ActivityDetailsHeaderView: UIView {
 		cardView.pin(.allEdges(padding: 0))
 		if isSwapMode {
 			cardView.heightAnchor.constraint(greaterThanOrEqualToConstant: 164).isActive = true
-            activitySwapHeaderView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 14))
+			activitySwapHeaderView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 14))
 		} else {
 			cardView.heightAnchor.constraint(greaterThanOrEqualToConstant: 126).isActive = true
 

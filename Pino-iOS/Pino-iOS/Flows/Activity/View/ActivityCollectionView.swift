@@ -76,7 +76,7 @@ class ActivityCollectionView: UICollectionView {
 extension ActivityCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		openActivityDetailsClosure(
-            separatedActivities[indexPath.section].activities[indexPath.item]
+			separatedActivities[indexPath.section].activities[indexPath.item]
 		)
 	}
 }

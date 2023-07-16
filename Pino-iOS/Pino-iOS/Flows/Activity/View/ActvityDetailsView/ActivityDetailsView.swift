@@ -21,7 +21,7 @@ class ActivityDetailsView: UIView {
 	private var activityDetailsVM: ActivityDetailsViewModel
 	private var activityDetailsHeader: ActivityDetailsHeaderView!
 	private var activityDetailsInfoView: ActivityInfoView!
-    private let mainStackView = UIStackView()
+	private let mainStackView = UIStackView()
 	private let viewEthScanButton = UIButton()
 	private let footerContainerView = PinoContainerCard()
 	private let footerStackView = UIStackView()
@@ -70,12 +70,12 @@ class ActivityDetailsView: UIView {
 
 		footerContainerView.addSubview(footerStackView)
 
-        mainStackView.addArrangedSubview(activityDetailsHeader)
-        mainStackView.addArrangedSubview(activityDetailsInfoView)
-        mainStackView.addArrangedSubview(footerContainerView)
-        mainStackView.addArrangedSubview(viewEthScanButton)
-        
-        addSubview(mainStackView)
+		mainStackView.addArrangedSubview(activityDetailsHeader)
+		mainStackView.addArrangedSubview(activityDetailsInfoView)
+		mainStackView.addArrangedSubview(footerContainerView)
+		mainStackView.addArrangedSubview(viewEthScanButton)
+
+		addSubview(mainStackView)
 	}
 
 	private func setupStyles() {
@@ -93,9 +93,9 @@ class ActivityDetailsView: UIView {
 		attributedTitle.foregroundColor = .Pino.primary
 		viewStatusConfigurations.attributedTitle = attributedTitle
 		viewEthScanButton.configuration = viewStatusConfigurations
-        
-        mainStackView.axis = .vertical
-        mainStackView.spacing = 24
+
+		mainStackView.axis = .vertical
+		mainStackView.spacing = 24
 
 		footerStackView.axis = .horizontal
 		footerStackView.spacing = 4
@@ -112,23 +112,23 @@ class ActivityDetailsView: UIView {
 		if activityDetailsVM.uiType == .unknown {
 			activityDetailsHeader.isHidden = true
 			footerContainerView.isHidden = false
-        } else {
-            mainStackView.setCustomSpacing(16, after: activityDetailsHeader)
-        }
+		} else {
+			mainStackView.setCustomSpacing(16, after: activityDetailsHeader)
+		}
 	}
 
 	private func setupConstraintsWithUIType() {
 		footerStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 30).isActive = true
 
-        footerStackView.pin(.horizontalEdges(padding: 8), .verticalEdges(padding: 10))
-        footerTextLabel.pin(.top(padding: 4), .horizontalEdges(padding: 0), .bottom(padding: 0))
-        
-        viewEthScanButton.pin(
-            .fixedHeight(56)
-        )
-        footerIconView.pin(.fixedHeight(20), .fixedWidth(20))
-        
-        mainStackView.pin(.horizontalEdges(padding: 16), .top(to: layoutMarginsGuide, padding: 24))
+		footerStackView.pin(.horizontalEdges(padding: 8), .verticalEdges(padding: 10))
+		footerTextLabel.pin(.top(padding: 4), .horizontalEdges(padding: 0), .bottom(padding: 0))
+
+		viewEthScanButton.pin(
+			.fixedHeight(56)
+		)
+		footerIconView.pin(.fixedHeight(20), .fixedWidth(20))
+
+		mainStackView.pin(.horizontalEdges(padding: 16), .top(to: layoutMarginsGuide, padding: 24))
 	}
 
 	@objc
