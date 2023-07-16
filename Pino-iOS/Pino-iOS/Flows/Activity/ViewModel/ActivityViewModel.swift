@@ -24,26 +24,18 @@ class ActivityViewModel {
 	private let walletManager = PinoWalletManager()
 	private var cancellables = Set<AnyCancellable>()
 	private var requestTimer: Timer?
-	private var userAddress: String!
-
-	// MARK: - Initializers
-
-	init() {
-		self.userAddress = walletManager.currentAccount.eip55Address
-
-		setupRequestTimer()
-	}
 
 	// MARK: - Public Properties
 
-	public func refreshUserActivities() {
+	public func getUserActivitiesFromVC() {
 		setupRequestTimer()
-		if userActivities == nil || userAddress != walletManager.currentAccount.eip55Address {
-			userAddress = walletManager.currentAccount.eip55Address
-			userActivities = nil
-			requestTimer?.fire()
-		}
+        userActivities = nil
+        requestTimer?.fire()
 	}
+    
+    public func refreshUserActvities() {
+        requestTimer?.fire()
+    }
 
 	public func destroyTimer() {
 		requestTimer?.invalidate()

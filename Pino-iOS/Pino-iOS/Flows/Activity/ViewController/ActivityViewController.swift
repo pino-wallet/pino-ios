@@ -29,7 +29,7 @@ class ActivityViewController: UIViewController {
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
-		activityVM.refreshUserActivities()
+        activityVM.getUserActivitiesFromVC()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
