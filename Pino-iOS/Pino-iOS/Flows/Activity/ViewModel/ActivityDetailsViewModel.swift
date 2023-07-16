@@ -129,7 +129,7 @@ class ActivityDetailsViewModel {
 	}
 
 	public var uiType: ActivityUIType {
-		.send
+        .swap
 	}
 
 	// MARK: - Initializers

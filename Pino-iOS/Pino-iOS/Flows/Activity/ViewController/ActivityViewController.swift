@@ -49,9 +49,9 @@ class ActivityViewController: UIViewController {
 		view = activityColectionView
 	}
 
-	private func openActivityDetailsPage(activityDetails: ActivityModel) {
+	private func openActivityDetailsPage(activityDetails: ActivityCellViewModel) {
 		let navigationVC = UINavigationController()
-		let activityDetailsVC = ActivityDetailsViewController(activityDetails: activityDetails)
+        let activityDetailsVC = ActivityDetailsViewController(activityDetails: activityDetails.originalActivityModel)
 		navigationVC.viewControllers = [activityDetailsVC]
 		present(navigationVC, animated: true)
 	}

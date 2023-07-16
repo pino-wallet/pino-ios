@@ -21,6 +21,7 @@ class ActivityDetailsView: UIView {
 	private var activityDetailsVM: ActivityDetailsViewModel
 	private var activityDetailsHeader: ActivityDetailsHeaderView!
 	private var activityDetailsInfoView: ActivityInfoView!
+    private let mainStackView = UIStackView()
 	private let viewEthScanButton = UIButton()
 	private let footerContainerView = PinoContainerCard()
 	private let footerStackView = UIStackView()
@@ -69,10 +70,12 @@ class ActivityDetailsView: UIView {
 
 		footerContainerView.addSubview(footerStackView)
 
-		addSubview(activityDetailsHeader)
-		addSubview(activityDetailsInfoView)
-		addSubview(viewEthScanButton)
-		addSubview(footerContainerView)
+        mainStackView.addArrangedSubview(activityDetailsHeader)
+        mainStackView.addArrangedSubview(activityDetailsInfoView)
+        mainStackView.addArrangedSubview(footerContainerView)
+        mainStackView.addArrangedSubview(viewEthScanButton)
+        
+        addSubview(mainStackView)
 	}
 
 	private func setupStyles() {
@@ -90,6 +93,9 @@ class ActivityDetailsView: UIView {
 		attributedTitle.foregroundColor = .Pino.primary
 		viewStatusConfigurations.attributedTitle = attributedTitle
 		viewEthScanButton.configuration = viewStatusConfigurations
+        
+        mainStackView.axis = .vertical
+        mainStackView.spacing = 24
 
 		footerStackView.axis = .horizontal
 		footerStackView.spacing = 4
@@ -106,39 +112,23 @@ class ActivityDetailsView: UIView {
 		if activityDetailsVM.uiType == .unknown {
 			activityDetailsHeader.isHidden = true
 			footerContainerView.isHidden = false
-		}
+        } else {
+            mainStackView.setCustomSpacing(16, after: activityDetailsHeader)
+        }
 	}
 
 	private func setupConstraintsWithUIType() {
 		footerStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 30).isActive = true
 
-		activityDetailsHeader.pin(.horizontalEdges(padding: 16), .top(to: layoutMarginsGuide, padding: 24))
-		footerIconView.pin(.fixedHeight(20), .fixedWidth(20))
-		footerContainerView.pin(
-			.relative(.top, 24, to: activityDetailsInfoView, .bottom),
-			.horizontalEdges(padding: 16)
-		)
-		footerStackView.pin(.horizontalEdges(padding: 8), .verticalEdges(padding: 10))
-		footerTextLabel.pin(.top(padding: 4), .horizontalEdges(padding: 0), .bottom(padding: 0))
-
-		if activityDetailsVM.uiType == .unknown {
-			activityDetailsInfoView.pin(.top(to: layoutMarginsGuide, padding: 24), .horizontalEdges(padding: 16))
-			viewEthScanButton.pin(
-				.relative(.top, 24, to: footerContainerView, .bottom),
-				.fixedHeight(56),
-				.horizontalEdges(padding: 16)
-			)
-		} else {
-			activityDetailsInfoView.pin(
-				.relative(.top, 16, to: activityDetailsHeader, .bottom),
-				.horizontalEdges(padding: 16)
-			)
-			viewEthScanButton.pin(
-				.relative(.top, 24, to: activityDetailsInfoView, .bottom),
-				.fixedHeight(56),
-				.horizontalEdges(padding: 16)
-			)
-		}
+        footerStackView.pin(.horizontalEdges(padding: 8), .verticalEdges(padding: 10))
+        footerTextLabel.pin(.top(padding: 4), .horizontalEdges(padding: 0), .bottom(padding: 0))
+        
+        viewEthScanButton.pin(
+            .fixedHeight(56)
+        )
+        footerIconView.pin(.fixedHeight(20), .fixedWidth(20))
+        
+        mainStackView.pin(.horizontalEdges(padding: 16), .top(to: layoutMarginsGuide, padding: 24))
 	}
 
 	@objc

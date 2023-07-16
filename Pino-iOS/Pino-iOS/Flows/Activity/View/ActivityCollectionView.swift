@@ -11,7 +11,7 @@ import UIKit
 class ActivityCollectionView: UICollectionView {
 	// MARK: - TypeAliases
 
-	typealias openActivityDetailsClosureType = (_ activityDetails: ActivityModel) -> Void
+	typealias openActivityDetailsClosureType = (_ activityDetails: ActivityCellViewModel) -> Void
 
 	// MARK: - Closures
 
@@ -76,8 +76,7 @@ class ActivityCollectionView: UICollectionView {
 extension ActivityCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		openActivityDetailsClosure(
-			separatedActivities[indexPath.section].activities[indexPath.item]
-				.originalActivityModel
+            separatedActivities[indexPath.section].activities[indexPath.item]
 		)
 	}
 }
