@@ -11,7 +11,6 @@ class ActivityDetailsHeaderView: UIView {
 	// MARK: - Public Properties
 
 	public var activityDetailsVM: ActivityDetailsViewModel
-	public var isSwapMode: Bool
 
 	// MARK: - Private Properties
 
@@ -23,15 +22,14 @@ class ActivityDetailsHeaderView: UIView {
 
 	// MARK: - Initializers
 
-	init(activityDetailsVM: ActivityDetailsViewModel, isSwapMode: Bool = false) {
-		self.isSwapMode = isSwapMode
+	init(activityDetailsVM: ActivityDetailsViewModel) {
 		self.activityDetailsVM = activityDetailsVM
 
 		super.init(frame: .zero)
 
-		setupViewWithSwapMode()
-		setupStylesWithSwapMode()
-		setupConstraintsWithSwapMode()
+		setupView()
+		setupStyles()
+		setupConstraints()
 	}
 
 	required init?(coder: NSCoder) {
@@ -40,21 +38,16 @@ class ActivityDetailsHeaderView: UIView {
 
 	// MARK: - Private Methods
 
-	private func setupViewWithSwapMode() {
-		if isSwapMode {
-			activitySwapHeaderView = ActivitySwapHeaderView(activityDetailsVM: activityDetailsVM)
-			cardView.addSubview(activitySwapHeaderView)
-		} else {
+	private func setupView() {
+		
 			defaultStackView.addArrangedSubview(defaultImageView)
 			defaultStackView.addArrangedSubview(defaultTitleLabel)
 
 			cardView.addSubview(defaultStackView)
-		}
 		addSubview(cardView)
 	}
 
-	private func setupStylesWithSwapMode() {
-		if !isSwapMode {
+	private func setupStyles() {
 			defaultStackView.axis = .vertical
 			defaultStackView.alignment = .center
 			defaultStackView.spacing = 16
@@ -65,19 +58,13 @@ class ActivityDetailsHeaderView: UIView {
 
 			defaultImageView
 				.image = UIImage(named: activityDetailsVM.assetIconName ?? activityDetailsVM.unVerifiedAssetIconName)
-		}
 	}
 
-	private func setupConstraintsWithSwapMode() {
-		cardView.pin(.allEdges(padding: 0))
-		if isSwapMode {
-			cardView.heightAnchor.constraint(greaterThanOrEqualToConstant: 164).isActive = true
-			activitySwapHeaderView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 14))
-		} else {
+	private func setupConstraints() {
 			cardView.heightAnchor.constraint(greaterThanOrEqualToConstant: 126).isActive = true
 
+            cardView.pin(.allEdges(padding: 0))
 			defaultStackView.pin(.verticalEdges(padding: 16), .horizontalEdges(padding: 14))
 			defaultImageView.pin(.fixedWidth(50), .fixedHeight(50))
-		}
 	}
 }

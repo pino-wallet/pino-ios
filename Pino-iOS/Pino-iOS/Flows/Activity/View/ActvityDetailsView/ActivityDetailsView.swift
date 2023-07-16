@@ -19,7 +19,7 @@ class ActivityDetailsView: UIView {
 	// MARK: - Private Properties
 
 	private var activityDetailsVM: ActivityDetailsViewModel
-	private var activityDetailsHeader: ActivityDetailsHeaderView!
+	private var activityDetailsHeader: UIView
 	private var activityDetailsInfoView: ActivityInfoView!
 	private let mainStackView = UIStackView()
 	private let viewEthScanButton = UIButton()
@@ -31,9 +31,10 @@ class ActivityDetailsView: UIView {
 
 	// MARK: - Initializers
 
-	init(activityDetailsVM: ActivityDetailsViewModel, presentActionSheet: @escaping presentActionSheetType) {
+    init(activityDetailsVM: ActivityDetailsViewModel, presentActionSheet: @escaping presentActionSheetType, activityDetailsHeader: UIView) {
 		self.activityDetailsVM = activityDetailsVM
 		self.presentActionSheet = presentActionSheet
+        self.activityDetailsHeader = activityDetailsHeader
 
 		super.init(frame: .zero)
 
@@ -49,11 +50,6 @@ class ActivityDetailsView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		if activityDetailsVM.uiType == .swap {
-			activityDetailsHeader = ActivityDetailsHeaderView(activityDetailsVM: activityDetailsVM, isSwapMode: true)
-		} else {
-			activityDetailsHeader = ActivityDetailsHeaderView(activityDetailsVM: activityDetailsVM)
-		}
 		activityDetailsInfoView = ActivityInfoView(
 			activityDetailsVM: activityDetailsVM,
 			presentActionSheet: { [weak self] actionSheet in

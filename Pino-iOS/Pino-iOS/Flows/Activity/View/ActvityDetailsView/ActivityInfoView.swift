@@ -10,11 +10,11 @@ import UIKit
 class ActivityInfoView: UIView {
 	// MARK: - TypeAliases
 
-	typealias presentActionSheetType = (_ actionSheet: InfoActionSheet) -> Void
+	typealias PresentActionSheetType = (_ actionSheet: InfoActionSheet) -> Void
 
 	// MARK: - Closures
 
-	public var presentActionSheet: presentActionSheetType
+	public var presentActionSheet: PresentActionSheetType
 
 	// MARK: - Private Properties
 
@@ -35,7 +35,7 @@ class ActivityInfoView: UIView {
 
 	// MARK: - Initializers
 
-	init(activityDetailsVM: ActivityDetailsViewModel, presentActionSheet: @escaping presentActionSheetType) {
+	init(activityDetailsVM: ActivityDetailsViewModel, presentActionSheet: @escaping PresentActionSheetType) {
 		self.activityDetailsVM = activityDetailsVM
 		self.presentActionSheet = presentActionSheet
 
@@ -186,9 +186,7 @@ class ActivityInfoView: UIView {
 			hideFromAndToStackView()
 		case .borrow:
 			hideFromAndToStackView()
-		case .send:
-			hidePrtocolAndTypeStackView()
-		case .receive:
+        case .send, .receive:
 			hidePrtocolAndTypeStackView()
 		case .unknown:
 			protocolStackView.isHidden = true

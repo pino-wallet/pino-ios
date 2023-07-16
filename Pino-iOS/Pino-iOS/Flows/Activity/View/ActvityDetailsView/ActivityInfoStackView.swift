@@ -10,7 +10,7 @@ import UIKit
 class ActivityInfoStackView: UIStackView {
 	// MARK: - TypeAliases
 
-	typealias actionsheetInfoType = (title: String, description: String, show: Bool)
+	typealias ActionsheetInfoType = (title: String, description: String, show: Bool)
 
 	// MARK: - Closures
 
@@ -20,7 +20,7 @@ class ActivityInfoStackView: UIStackView {
 
 	public var title: String
 	public var info: String?
-	public var actionSheetInfo: actionsheetInfoType
+	public var actionSheetInfo: ActionsheetInfoType
 	public var infoCustomView: UIView?
 
 	// MARK: - Private Properties
@@ -34,7 +34,7 @@ class ActivityInfoStackView: UIStackView {
 	init(
 		title: String,
 		info: String? = nil,
-		actionSheetInfo: actionsheetInfoType = (title: "", description: "", show: false),
+		actionSheetInfo: ActionsheetInfoType = (title: "", description: "", show: false),
 		infoCustomView: UIView? = nil
 	) {
 		self.title = title

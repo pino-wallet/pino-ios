@@ -19,16 +19,16 @@ protocol ActivityCellViewModelProtocol {
 	var currentAddress: String { get }
 	var pendingStatusText: String { get }
 	var failedStatusText: String { get }
-	var originalActivityModel: ActivityModel { get }
+	var defaultActivityModel: ActivityModel { get }
 }
 
-enum ActivityCellStatus {
+public enum ActivityCellStatus {
 	case failed
 	case success
 	case pending
 }
 
-enum ActivityUIType {
+public enum ActivityUIType {
 	case swap
 	case borrow
 	case send

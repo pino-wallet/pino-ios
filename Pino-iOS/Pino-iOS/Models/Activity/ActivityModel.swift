@@ -33,17 +33,19 @@ struct ActivityModel: Codable {
 struct ActivityDetail: Codable {
 	let amount: ActivityAmount?
 	let recipient, tokenID: String?
-	let token0, token1: Token?
+	let fromToken, toToken: Token?
 	let userID, from: String?
-	let to, `protocol`: String?
+	let to, activityProtocol: String?
 
 	enum CodingKeys: String, CodingKey {
 		case amount
 		case recipient
 		case tokenID = "token_id"
-		case token0, token1
+		case fromToken = "token0"
+        case toToken = "token1"
 		case userID = "user_id"
-		case from, to, `protocol`
+        case activityProtocol = "protocol"
+		case from, to
 	}
 }
 

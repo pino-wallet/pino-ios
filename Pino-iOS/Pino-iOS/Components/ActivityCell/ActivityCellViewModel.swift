@@ -130,7 +130,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	public let pendingStatusText = "Pending..."
 	public let failedStatusText = "Failed"
 
-	public var originalActivityModel: ActivityModel {
+	public var defaultActivityModel: ActivityModel {
 		activityModel
 	}
 
