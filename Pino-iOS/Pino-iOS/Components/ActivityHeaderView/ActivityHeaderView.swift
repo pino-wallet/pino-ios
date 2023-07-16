@@ -18,7 +18,7 @@ class ActivityHeaderView: UICollectionReusableView {
 		}
 	}
 
-    public var topPadding: Int = 16
+	public var topPadding = 16
 
 	public static let viewReuseID = "ActivityHeaderViewID"
 

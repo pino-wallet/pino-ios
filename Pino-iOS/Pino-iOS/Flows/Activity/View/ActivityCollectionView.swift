@@ -11,7 +11,7 @@ import UIKit
 class ActivityCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
-    private let activityRefreshControll = UIRefreshControl()
+	private let activityRefreshControll = UIRefreshControl()
 	private var activityVM: ActivityViewModel
 	private var separatedActivities: ActivityHelper.separatedActivitiesType = []
 	private var cancellables = Set<AnyCancellable>()
@@ -30,7 +30,7 @@ class ActivityCollectionView: UICollectionView {
 
 		configureCollectionView()
 		setupBindings()
-        setupRefreshControl()
+		setupRefreshControl()
 	}
 
 	required init?(coder: NSCoder) {
@@ -56,29 +56,29 @@ class ActivityCollectionView: UICollectionView {
 			guard let userActivities = activities else {
 				self.showLoading = true
 				self.reloadData()
-                self.refreshControl?.endRefreshing()
+				self.refreshControl?.endRefreshing()
 				return
 			}
 			let activityHelper = ActivityHelper()
 			self.separatedActivities = activityHelper.separateActivitiesByTime(activities: userActivities)
 			self.showLoading = false
 			self.reloadData()
-            self.refreshControl?.endRefreshing()
+			self.refreshControl?.endRefreshing()
 		}.store(in: &cancellables)
 	}
-    
-    private func refreshData() {
-        activityVM.refreshUserActvities()
-    }
-    
-    private func setupRefreshControl() {
-        indicatorStyle = .white
-        activityRefreshControll.tintColor = .Pino.green2
-        activityRefreshControll.addAction(UIAction(handler: { _ in
-            self.refreshData()
-        }), for: .valueChanged)
-        refreshControl = activityRefreshControll
-    }
+
+	private func refreshData() {
+		activityVM.refreshUserActvities()
+	}
+
+	private func setupRefreshControl() {
+		indicatorStyle = .white
+		activityRefreshControll.tintColor = .Pino.green2
+		activityRefreshControll.addAction(UIAction(handler: { _ in
+			self.refreshData()
+		}), for: .valueChanged)
+		refreshControl = activityRefreshControll
+	}
 }
 
 extension ActivityCollectionView: UICollectionViewDelegateFlowLayout {
@@ -152,11 +152,11 @@ extension ActivityCollectionView: UICollectionViewDataSource {
 		referenceSizeForHeaderInSection section: Int
 	) -> CGSize {
 		if !showLoading {
-            if section == 0 {
-                return CGSize(width: collectionView.frame.width, height: 30)
-            } else {
-                return CGSize(width: collectionView.frame.width, height: 46)
-            }
+			if section == 0 {
+				return CGSize(width: collectionView.frame.width, height: 30)
+			} else {
+				return CGSize(width: collectionView.frame.width, height: 46)
+			}
 		} else {
 			return CGSize(width: 0, height: 0)
 		}

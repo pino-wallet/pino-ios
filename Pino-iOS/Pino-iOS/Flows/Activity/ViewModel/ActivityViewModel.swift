@@ -29,13 +29,13 @@ class ActivityViewModel {
 
 	public func getUserActivitiesFromVC() {
 		setupRequestTimer()
-        userActivities = nil
-        requestTimer?.fire()
+		userActivities = nil
+		requestTimer?.fire()
 	}
-    
-    public func refreshUserActvities() {
-        requestTimer?.fire()
-    }
+
+	public func refreshUserActvities() {
+		requestTimer?.fire()
+	}
 
 	public func destroyTimer() {
 		requestTimer?.invalidate()
