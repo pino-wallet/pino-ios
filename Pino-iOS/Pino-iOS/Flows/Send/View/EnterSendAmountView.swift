@@ -112,7 +112,6 @@ class EnterSendAmountView: UIView {
 		continueButton.title = enterAmountVM.continueButtonTitle
 		dollarSignLabel.text = enterAmountVM.dollarSign
 		changeTokenView.tokenName = enterAmountVM.selectedToken.symbol
-		changeTokenView.tokenName = enterAmountVM.selectedToken.symbol
 
 		if enterAmountVM.selectedToken.isVerified {
 			changeTokenView.tokenImageURL = enterAmountVM.selectedToken.image
