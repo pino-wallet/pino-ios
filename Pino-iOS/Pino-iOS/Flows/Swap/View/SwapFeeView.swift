@@ -265,7 +265,7 @@ class SwapFeeView: UIView {
 	private func updatePriceImpact(_ priceImpact: String?) {
 		if let priceImpact {
 			priceImpactStackView.isHidden = false
-			priceImpactLabel.text = swapFeeVM.formattedPriceImpact(priceImpact)
+			priceImpactLabel.text = priceImpact.percentFormatting
 		} else {
 			priceImpactStackView.isHidden = true
 		}
@@ -273,7 +273,7 @@ class SwapFeeView: UIView {
 
 	private func updateFee(_ fee: String?) {
 		if let fee {
-			feeLabel.text = swapFeeVM.formattedFee(fee)
+			feeLabel.text = fee.ethFormatting
 			feeLabel.hideSkeletonView()
 		} else {
 			feeLabel.showSkeletonView()

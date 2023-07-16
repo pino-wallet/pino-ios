@@ -13,12 +13,14 @@ class ActivityEmptyStateView: UIView {
 	private let mainStackView = UIStackView()
 	private let titleImageView = UIImageView()
 	private let titleTextLabel = PinoLabel(style: .description, text: "")
-	private var activityVM: ActivityViewModel!
+	private var titleText: String
+	private var titleImageName: String
 
 	// MARK: - Initializers
 
-	init(activityVM: ActivityViewModel) {
-		self.activityVM = activityVM
+	init(titleText: String, titleImageName: String) {
+		self.titleText = titleText
+		self.titleImageName = titleImageName
 		super.init(frame: .zero)
 
 		setupView()
@@ -47,9 +49,9 @@ class ActivityEmptyStateView: UIView {
 		mainStackView.alignment = .center
 
 		titleTextLabel.font = .PinoStyle.mediumBody
-		titleTextLabel.text = activityVM.noActivityMessage
+		titleTextLabel.text = titleText
 
-		titleImageView.image = UIImage(named: activityVM.noActivityIconName)
+		titleImageView.image = UIImage(named: titleImageName)
 	}
 
 	private func setupConstraints() {

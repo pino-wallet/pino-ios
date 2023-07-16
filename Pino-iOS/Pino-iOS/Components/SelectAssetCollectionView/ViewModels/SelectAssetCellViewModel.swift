@@ -21,7 +21,7 @@ struct SelectAssetCellViewModel: SelectAssetCellVMProtocol {
 	}
 
 	var assetAmount: String {
-		BigNumber(number: assetModel.amount, decimal: assetModel.detail!.decimals).formattedAmountOf(type: .sevenDigitsRule)
+		BigNumber(number: assetModel.amount, decimal: assetModel.detail!.decimals).sevenDigitFormat
 	}
 
 	var assetLogo: URL! {
