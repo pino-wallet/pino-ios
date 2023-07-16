@@ -51,15 +51,7 @@ class SwapViewModel {
 			toToken.calculateTokenAmount(decimalDollarAmount: fromToken.decimalDollarAmount)
 			toToken.swapDelegate.swapAmountDidCalculate()
 		}
-		updateCalculatedAmount()
-	}
-
-	private func updateCalculatedAmount() {
-		if let fromTokenAmount = fromToken.formattedTokenAmount, let toTokenAmount = toToken.formattedTokenAmount {
-			swapFeeVM.calculatedAmount = "\(fromTokenAmount) = \(toTokenAmount)"
-		} else {
-			swapFeeVM.calculatedAmount = nil
-		}
+		swapFeeVM.updateAmount(fromToken: fromToken, toToken: toToken)
 	}
 
 	private func getFeeInfo() {
@@ -142,15 +134,15 @@ class SwapViewModel {
 	}
 
 	private func getFeeTag(saveAmount: String) -> SwapFeeViewModel.FeeTag {
-		if let saveAmountDecimalNumber = Decimal(string: saveAmount), saveAmountDecimalNumber > 0 {
-			return .save("$\(saveAmount) \(swapFeeVM.celebrateEmoji)")
+		if BigNumber(numberWithDecimal: saveAmount) > BigNumber(number: 0, decimal: 0) {
+			return .save("\(saveAmount.currencyFormatting) \(swapFeeVM.celebrateEmoji)")
 		} else {
 			return .none
 		}
 	}
 
 	private func getFeeTag(priceImpact: String) -> SwapFeeViewModel.FeeTag {
-		if let priceImpactDecimalNumber = Decimal(string: priceImpact), priceImpactDecimalNumber > 1 {
+		if BigNumber(numberWithDecimal: priceImpact) > BigNumber(number: 1, decimal: 0) {
 			return .highImpact
 		} else {
 			return .none

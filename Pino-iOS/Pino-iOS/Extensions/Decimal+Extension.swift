@@ -48,7 +48,7 @@ extension Decimal {
 		NSDecimalRound(
 			&roundedDecimal,
 			&decimalNumber,
-			type.formattingDecimal(wholeNumDigits: String(decimalNumber.wholePart).count),
+			type.formattingDecimal(wholeNumDigitsCount: String(decimalNumber.wholePart).count),
 			.down
 		)
 		return roundedDecimal.description

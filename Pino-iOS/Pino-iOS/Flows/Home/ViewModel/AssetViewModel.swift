@@ -118,7 +118,7 @@ public class AssetViewModel: SecurityModeProtocol {
 		if holdAmountInDollor.isZero {
 			return "-"
 		} else {
-			return "$\(formattedHoldAmount)"
+			return formattedHoldAmount
 		}
 	}
 
@@ -128,9 +128,9 @@ public class AssetViewModel: SecurityModeProtocol {
 		} else {
 			switch volatilityType {
 			case .loss:
-				return "-$\(change24h.priceFormat)"
+				return "-\(change24h.priceFormat)"
 			case .profit, .none:
-				return "+$\(change24h.priceFormat)"
+				return "+\(change24h.priceFormat)"
 			}
 		}
 	}

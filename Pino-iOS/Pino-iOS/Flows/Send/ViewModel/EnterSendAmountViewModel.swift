@@ -16,7 +16,6 @@ class EnterSendAmountViewModel {
 	public let dollarIcon = "dollar_icon"
 	public let continueButtonTitle = "Next"
 	public let dollarSign = "$"
-	public let avgSign = "≈"
 	public let insufficientAmountButtonTitle = "Insufficient amount"
 	public var selectedTokenChanged: (() -> Void)?
 	public var textFieldPlaceHolder = "0"
@@ -36,18 +35,18 @@ class EnterSendAmountViewModel {
 	public var dollarAmount = "0"
 
 	public var formattedMaxHoldAmount: String {
-		"\(maxHoldAmount.sevenDigitFormat) \(selectedToken.symbol)"
+		maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
 
 	public var formattedMaxAmountInDollar: String {
-		"$ \(maxAmountInDollar.priceFormat)"
+		maxAmountInDollar.priceFormat
 	}
 
 	public var formattedAmount: String {
 		if isDollarEnabled {
-			return "\(avgSign) \(tokenAmount) \(selectedToken.symbol)"
+			return "\(tokenAmount.tokenFormatting(token: selectedToken.symbol))"
 		} else {
-			return "\(avgSign) $\(dollarAmount)"
+			return dollarAmount
 		}
 	}
 
@@ -72,7 +71,7 @@ class EnterSendAmountViewModel {
 	public func checkIfBalanceIsEnough(amount: String, amountStatus: (AmountStatus) -> Void) {
 		if amount == .emptyString {
 			amountStatus(.isZero)
-		} else if let decimalAmount = Decimal(string: amount), decimalAmount.isZero {
+		} else if BigNumber(numberWithDecimal: amount).isZero {
 			amountStatus(.isZero)
 		} else {
 			var decimalMaxAmount: BigNumber
@@ -97,10 +96,18 @@ class EnterSendAmountViewModel {
 		gasFeeInDollar: BigNumber = GlobalVariables.shared.ethGasFee.feeInDollar
 	) {
 		let estimatedAmount = selectedToken.holdAmount - gasFee
-		maxHoldAmount = estimatedAmount
+		if estimatedAmount.number.sign == .minus {
+			maxHoldAmount = 0.bigNumber
+		} else {
+			maxHoldAmount = estimatedAmount
+		}
 
 		let estimatedAmountInDollar = selectedToken.holdAmountInDollor - gasFeeInDollar
-		maxAmountInDollar = estimatedAmountInDollar
+		if estimatedAmountInDollar.number.sign == .minus {
+			maxAmountInDollar = 0.bigNumber
+		} else {
+			maxAmountInDollar = estimatedAmountInDollar
+		}
 	}
 
 	// MARK: - Private Methods

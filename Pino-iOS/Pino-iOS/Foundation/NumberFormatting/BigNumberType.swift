@@ -90,23 +90,29 @@ public struct BigNumber {
 	public var isZero: Bool {
 		number.isZero
 	}
+
+	public var abs: BigNumber {
+		var absNumber = self
+		absNumber.number.sign = .plus
+		return absNumber
+	}
 }
 
 // MARK: - Operator Overloading
 
 extension BigNumber {
 	static func + (left: BigNumber, right: BigNumber) -> BigNumber {
-		let a = left.number * BigInt(10).power(right.decimal)
-		let b = right.number * BigInt(10).power(left.decimal)
-		let makhrej = left.decimal + right.decimal
-		return BigNumber(number: a + b, decimal: makhrej)
+		let maxDecimal = max(left.decimal, right.decimal)
+		let a = left.number * BigInt(10).power(maxDecimal - left.decimal)
+		let b = right.number * BigInt(10).power(maxDecimal - right.decimal)
+		return BigNumber(number: a + b, decimal: maxDecimal)
 	}
 
 	static func - (left: BigNumber, right: BigNumber) -> BigNumber {
-		let a = left.number * BigInt(10).power(right.decimal)
-		let b = right.number * BigInt(10).power(left.decimal)
-		let makhrej = left.decimal + right.decimal
-		return BigNumber(number: a - b, decimal: makhrej)
+		let maxDecimal = max(left.decimal, right.decimal)
+		let a = left.number * BigInt(10).power(maxDecimal - left.decimal)
+		let b = right.number * BigInt(10).power(maxDecimal - right.decimal)
+		return BigNumber(number: a - b, decimal: maxDecimal)
 	}
 
 	static func * (left: BigNumber, right: BigNumber) -> BigNumber {
@@ -120,14 +126,16 @@ extension BigNumber {
 			return nil
 		}
 
-		// Scale the operands to have the same decimal places
-		let scaledLeft = left.number * BigInt(10).power(right.decimal)
-		let scaledRight = right.number * BigInt(10).power(left.decimal)
+		// Decide on a suitable scaling factor. For example, 10^2 = 100 to keep 2 decimal places.
+		let scalingFactor = BigInt(10).power(7)
 
-		// Perform the division operation and adjust the result
-		let quotient = scaledLeft / scaledRight
+		let scaledLeft = left.number * scalingFactor
+		let quotient = scaledLeft / right.number
 
-		return BigNumber(number: quotient, decimal: 0)
+		// Adjust the decimal places of the result
+		let resultDecimal = left.decimal - right.decimal + 7 // add 2 because of the scalingFactor
+
+		return BigNumber(number: quotient, decimal: resultDecimal)
 	}
 }
 
@@ -181,18 +189,34 @@ extension BigNumber: CustomStringConvertible {
 	}
 
 	public var priceFormat: String {
-		formattedAmountOf(type: .priceRule)
+		let formattedNumber = formattedAmountOf(type: .priceRule)
+		if isZero {
+			return "0"
+		} else if self.abs < BigNumber(number: 1, decimal: 2) {
+			return "<" + "0.01".currencyFormatting
+		} else {
+			return formattedNumber.currencyFormatting
+		}
+	}
+
+	public var percentFormat: String {
+		var formattedPercent = formattedAmountOf(type: .percentRule)
+		if number.sign == .minus {
+			formattedPercent = "-\(formattedPercent)"
+		}
+		return formattedPercent
 	}
 
 	private func formattedAmountOf(type: NumberFormatTypes) -> String {
 		let numDigits = whole.description.count
 
-		return Utilities.formatToPrecision(
+		let formattedNumber = Utilities.formatToPrecision(
 			number.magnitude,
 			units: .custom(decimal),
-			formattingDecimals: type.formattingDecimal(wholeNumDigits: numDigits),
+			formattingDecimals: type.formattingDecimal(wholeNumDigitsCount: numDigits),
 			decimalSeparator: ".",
 			fallbackToScientific: false
 		)
+		return formattedNumber
 	}
 }

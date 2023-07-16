@@ -44,11 +44,11 @@ class SendConfirmationViewModel {
 	}
 
 	public var formattedSendAmount: String {
-		"\(sendAmount) \(selectedToken.symbol)"
+		sendAmount.tokenFormatting(token: selectedToken.symbol)
 	}
 
 	public var formattedSendAmountInDollar: String? {
-		"$\(sendAmountInDollar)"
+		sendAmountInDollar.currencyFormatting
 	}
 
 	public var selectedWalletImage: String {
@@ -140,8 +140,8 @@ class SendConfirmationViewModel {
 		Promise<String> { seal in
 			_ = Web3Core.shared.calculateEthGasFee(ethPrice: selectedToken.price).done { fee, feeInDollar in
 				self.gasFee = fee
-				self.formattedFeeInDollar = "$\(feeInDollar.priceFormat)"
-				self.formattedFeeInETH = "\(fee.sevenDigitFormat) ETH"
+				self.formattedFeeInDollar = feeInDollar.priceFormat
+				self.formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
 			}.catch { error in
 				seal.reject(error)
 			}
@@ -158,8 +158,8 @@ class SendConfirmationViewModel {
 				ethPrice: ethPrice
 			).done { [self] fee, feeInDollar in
 				gasFee = fee
-				formattedFeeInDollar = "$\(feeInDollar.priceFormat)"
-				formattedFeeInETH = "\(fee.sevenDigitFormat) ETH"
+				formattedFeeInDollar = feeInDollar.priceFormat
+				formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
 			}.catch { error in
 				seal.reject(error)
 			}
