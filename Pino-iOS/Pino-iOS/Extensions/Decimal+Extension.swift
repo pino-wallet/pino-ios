@@ -35,27 +35,22 @@ extension Decimal {
 		}
 	}
 
-	public func formattedAmount(type: FormatType) -> String {
-		var decimalNumber = self
-		var roundedDecimal: Decimal = 0
-		NSDecimalRound(&roundedDecimal, &decimalNumber, type.formattingDecimal, .up)
-		return roundedDecimal.description
+	public var wholePart: Int {
+		var result = Decimal()
+		var mutableSelf = self
+		NSDecimalRound(&result, &mutableSelf, 0, self >= 0 ? .down : .up)
+		return Int(result.description)!
 	}
 
-	public enum FormatType {
-		case dollarValue
-		case tokenValue
-		case custom(Int)
-
-		public var formattingDecimal: Int {
-			switch self {
-			case .dollarValue:
-				return 2
-			case .tokenValue:
-				return 12
-			case let .custom(number):
-				return number
-			}
-		}
+	public func formattedAmount(type: NumberFormatTypes) -> String {
+		var decimalNumber = self
+		var roundedDecimal: Decimal = 0
+		NSDecimalRound(
+			&roundedDecimal,
+			&decimalNumber,
+			type.formattingDecimal(wholeNumDigits: String(decimalNumber.wholePart).count),
+			.down
+		)
+		return roundedDecimal.description
 	}
 }

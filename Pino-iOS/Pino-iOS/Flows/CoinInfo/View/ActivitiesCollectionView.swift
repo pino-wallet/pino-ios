@@ -14,7 +14,9 @@ class ActivitiesCollectionView: UICollectionView {
 	private var cancellable = Set<AnyCancellable>()
 	private let historyRefreshContorl = UIRefreshControl()
 	private var coinInfoVM: CoinInfoViewModel!
-	private var separatedActivities: ActivityHelper.separatedActivitiesType!
+	private var separatedActivities: ActivityHelper.separatedActivitiesType! = []
+	private var showLoading = true
+	private var isRefreshing = false
 
 	// MARK: - Initializers
 
@@ -72,12 +74,20 @@ class ActivitiesCollectionView: UICollectionView {
 
 	private func setupBinding() {
 		let activityHelper = ActivityHelper()
-		Publishers.Zip(coinInfoVM.$coinPortfolio, coinInfoVM.$coinHistoryList).sink { [weak self] _ in
-			guard let userActivitiesOnToken = self?.coinInfoVM.coinHistoryList else {
+		coinInfoVM.$coinHistoryList.sink { [weak self] activities in
+			guard let userActivitiesOnToken = activities else {
+				self?.showLoading = true
 				return
 			}
 			self?.separatedActivities = activityHelper
 				.separateActivitiesByTime(activities: userActivitiesOnToken)
+			guard let isRefreshingStatus = self?.isRefreshing else {
+				return
+			}
+			if isRefreshingStatus {
+				self?.refreshControl?.endRefreshing()
+			}
+			self?.showLoading = false
 			self?.reloadData()
 		}.store(in: &cancellable)
 	}
@@ -92,7 +102,9 @@ class ActivitiesCollectionView: UICollectionView {
 	}
 
 	private func refreshData() {
+		isRefreshing = true
 		coinInfoVM.refreshCoinInfoData { error in
+			self.isRefreshing = false
 			self.refreshControl?.endRefreshing()
 			if let error {
 				switch error {
@@ -104,7 +116,6 @@ class ActivitiesCollectionView: UICollectionView {
 						.show(haptic: .warning)
 				}
 			}
-			self.hideSkeletonView()
 		}
 	}
 }
@@ -136,10 +147,14 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		switch coinInfoVM.coinPortfolio.type {
 		case .verified:
-			if separatedActivities.indices.contains(section) {
-				return separatedActivities[section].activities.count
+			if showLoading {
+				return 5
 			} else {
-				return 0
+				if separatedActivities.indices.contains(section) {
+					return separatedActivities[section].activities.count
+				} else {
+					return 0
+				}
 			}
 		case .unVerified:
 			return 0
@@ -162,11 +177,6 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 					for: indexPath
 				) as! CoinInfoHeaderView
 				coinInfoHeaderView.coinInfoVM = coinInfoVM
-				if coinInfoVM.coinPortfolio.showSkeletonLoading {
-					coinInfoHeaderView.showSkeletonView()
-				} else {
-					coinInfoHeaderView.hideSkeletonView()
-				}
 				if separatedActivities.indices.contains(indexPath.section) {
 					coinInfoHeaderView.activitiesTimeTitle = separatedActivities[indexPath.section].title
 				}
@@ -178,7 +188,9 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 					withReuseIdentifier: ActivityHeaderView.viewReuseID,
 					for: indexPath
 				) as! ActivityHeaderView
-				activityHeaderView.titleText = separatedActivities[indexPath.section].title
+				if !showLoading {
+					activityHeaderView.titleText = separatedActivities[indexPath.section].title
+				}
 				return activityHeaderView
 			}
 		case UICollectionView.elementKindSectionFooter:
@@ -206,11 +218,20 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 			viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader,
 			at: indexPath
 		)
-		return headerView.systemLayoutSizeFitting(
+		let headerViewSize = headerView.systemLayoutSizeFitting(
 			CGSize(width: collectionView.frame.width, height: UIView.layoutFittingExpandedSize.height),
 			withHorizontalFittingPriority: .required,
 			verticalFittingPriority: .fittingSizeLevel
 		)
+		if section == 0 {
+			return headerViewSize
+		} else {
+			if showLoading {
+				return CGSize(width: 0, height: 0)
+			} else {
+				return headerViewSize
+			}
+		}
 	}
 
 	func collectionView(
@@ -236,7 +257,13 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: ActivityCell.cellID,
 			for: indexPath
 		) as! ActivityCell
-		coinHistoryCell.activityCellVM = separatedActivities[indexPath.section].activities[indexPath.item]
+		if showLoading {
+			coinHistoryCell.activityCellVM = nil
+			coinHistoryCell.showSkeletonView()
+		} else {
+			coinHistoryCell.activityCellVM = separatedActivities[indexPath.section].activities[indexPath.item]
+			coinHistoryCell.hideSkeletonView()
+		}
 		return coinHistoryCell
 	}
 }

@@ -44,6 +44,9 @@ class SwapViewController: UIViewController {
 			swapProtocolChange: {
 				self.openSelectProtocolPage()
 			},
+			providerChange: {
+				self.openProvidersPage()
+			},
 			nextButtonTapped: {}
 		)
 	}
@@ -63,7 +66,7 @@ class SwapViewController: UIViewController {
 
 	private func openSelectProtocolPage() {
 		let swapProtocolVC = SelectSwapProtocolViewController { selectedProtocol in
-			self.swapVM.selectedProtocol = selectedProtocol
+			self.swapVM.changeSwapProtocol(to: selectedProtocol)
 		}
 		let swapProtocolNavigationVC = UINavigationController(rootViewController: swapProtocolVC)
 		present(swapProtocolNavigationVC, animated: true)
@@ -94,5 +97,12 @@ class SwapViewController: UIViewController {
 		}
 		let selectAssetNavigationController = UINavigationController(rootViewController: selectAssetVC)
 		present(selectAssetNavigationController, animated: true)
+	}
+
+	private func openProvidersPage() {
+		let providersVC = SwapProvidersViewcontroller { provider in
+			self.swapVM.swapFeeVM.swapProviderVM = provider
+		}
+		present(providersVC, animated: true)
 	}
 }
