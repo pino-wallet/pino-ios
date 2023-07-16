@@ -14,7 +14,7 @@ public enum AssetVolatilityType: String, Codable {
 		if change24h.number.isZero {
 			self = .none
 		} else {
-            switch change24h.number.sign {
+			switch change24h.number.sign {
 			case .minus:
 				self = .loss
 			case .plus:

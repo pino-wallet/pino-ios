@@ -90,12 +90,12 @@ public struct BigNumber {
 	public var isZero: Bool {
 		number.isZero
 	}
-    
-    public var abs: BigNumber {
-        var absNumber = self
-        absNumber.number.sign = .plus
-        return absNumber
-    }
+
+	public var abs: BigNumber {
+		var absNumber = self
+		absNumber.number.sign = .plus
+		return absNumber
+	}
 }
 
 // MARK: - Operator Overloading
@@ -190,24 +190,23 @@ extension BigNumber: CustomStringConvertible {
 
 	public var priceFormat: String {
 		let formattedNumber = formattedAmountOf(type: .priceRule)
-        if self.isZero {
-            return "0"
-        } else if self.abs < BigNumber(number: 1, decimal: 2)  {
-            return "<"+"0.01".currencyFormatting
-        } else {
-            return formattedNumber.currencyFormatting
-        }
+		if isZero {
+			return "0"
+		} else if self.abs < BigNumber(number: 1, decimal: 2) {
+			return "<" + "0.01".currencyFormatting
+		} else {
+			return formattedNumber.currencyFormatting
+		}
 	}
 
-    public var percentFormat: String {
-        var formattedPercent = formattedAmountOf(type: .percentRule)
-        if number.sign == .minus {
-            formattedPercent = "-\(formattedPercent)"
-        }
-        return formattedPercent
-    }
+	public var percentFormat: String {
+		var formattedPercent = formattedAmountOf(type: .percentRule)
+		if number.sign == .minus {
+			formattedPercent = "-\(formattedPercent)"
+		}
+		return formattedPercent
+	}
 
-    
 	private func formattedAmountOf(type: NumberFormatTypes) -> String {
 		let numDigits = whole.description.count
 
@@ -218,6 +217,6 @@ extension BigNumber: CustomStringConvertible {
 			decimalSeparator: ".",
 			fallbackToScientific: false
 		)
-        return formattedNumber
+		return formattedNumber
 	}
 }

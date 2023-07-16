@@ -37,13 +37,13 @@ extension HomepageViewModel {
 	private func getAssetsHoldAmount(_ assets: [AssetViewModel]) -> BigNumber {
 		assets
 			.compactMap { $0.holdAmountInDollor }
-            .reduce(0.bigNumber, +)
+			.reduce(0.bigNumber, +)
 	}
 
 	private func getAssetsPreviousHoldAmount(_ assets: [AssetViewModel]) -> BigNumber {
 		assets
 			.compactMap { $0.previousDayNetworth }
-            .reduce(0.bigNumber, +)
+			.reduce(0.bigNumber, +)
 	}
 
 	private func getVolatilityPercentage(balance: BigNumber, previousBalance: BigNumber) -> String {
@@ -51,7 +51,7 @@ extension HomepageViewModel {
 			return "0.00"
 		} else {
 			let volatility = balance - previousBalance
-            let volatilityPercentage = (volatility / previousBalance)! * 100.bigNumber
+			let volatilityPercentage = (volatility / previousBalance)! * 100.bigNumber
 			return volatilityPercentage.percentFormat
 		}
 	}

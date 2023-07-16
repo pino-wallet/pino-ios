@@ -38,7 +38,7 @@ extension TextFormattingSystem {
 		"\(char)\(self)"
 	}
 
-    // MARK: - Public Methods
+	// MARK: - Public Methods
 
 	public func tokenFormatting(token: String) -> String {
 		"\(self) \(token)"

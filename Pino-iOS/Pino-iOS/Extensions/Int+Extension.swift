@@ -8,9 +8,7 @@
 import Foundation
 
 extension Int {
-    
-    public var bigNumber: BigNumber {
-        return BigNumber(number: self.description, decimal: 0)
-    }
-    
+	public var bigNumber: BigNumber {
+		BigNumber(number: description, decimal: 0)
+	}
 }

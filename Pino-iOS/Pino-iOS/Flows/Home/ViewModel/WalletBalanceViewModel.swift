@@ -65,11 +65,11 @@ class WalletBalanceViewModel: SecurityModeProtocol {
 	private func getFormattedVolatilityInDollor() -> String {
 		switch volatilityType {
 		case .profit:
-            return "+\(balanceModel.volatilityInDollor.priceFormat)"
+			return "+\(balanceModel.volatilityInDollor.priceFormat)"
 		case .loss:
-            return "-\(balanceModel.volatilityInDollor.priceFormat)"
+			return "-\(balanceModel.volatilityInDollor.priceFormat)"
 		case .none:
-            return balanceModel.volatilityInDollor.priceFormat
+			return balanceModel.volatilityInDollor.priceFormat
 		}
 	}
 }
