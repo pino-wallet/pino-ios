@@ -50,7 +50,7 @@ class ActivityViewController: UIViewController {
 				self?.openActivityDetailsPage(activityDetails: activityDetails)
 			}
 		)
-    activityEmptyStateView = ActivityEmptyStateView(
+		activityEmptyStateView = ActivityEmptyStateView(
 			titleText: activityVM.noActivityMessage,
 			titleImageName: activityVM.noActivityIconName
 		)
