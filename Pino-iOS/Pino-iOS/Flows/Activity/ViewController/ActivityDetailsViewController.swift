@@ -43,7 +43,10 @@ class ActivityDetailsViewController: UIViewController {
 			activityDetailsVM: activityDetailsVM,
 			presentActionSheet: { [weak self] actionSheet in
 				self?.present(actionSheet, animated: true)
-            }, activityDetailsHeader: activityDetailsVM.uiType == .swap ? ActivitySwapHeaderView(activityDetailsVM: activityDetailsVM) : ActivityDetailsHeaderView(activityDetailsVM: activityDetailsVM)
+			},
+			activityDetailsHeader: activityDetailsVM
+				.uiType == .swap ? ActivitySwapHeaderView(activityDetailsVM: activityDetailsVM) :
+				ActivityDetailsHeaderView(activityDetailsVM: activityDetailsVM)
 		)
 
 		view = activityDetailsView

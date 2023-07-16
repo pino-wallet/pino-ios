@@ -31,10 +31,14 @@ class ActivityDetailsView: UIView {
 
 	// MARK: - Initializers
 
-    init(activityDetailsVM: ActivityDetailsViewModel, presentActionSheet: @escaping presentActionSheetType, activityDetailsHeader: UIView) {
+	init(
+		activityDetailsVM: ActivityDetailsViewModel,
+		presentActionSheet: @escaping presentActionSheetType,
+		activityDetailsHeader: UIView
+	) {
 		self.activityDetailsVM = activityDetailsVM
 		self.presentActionSheet = presentActionSheet
-        self.activityDetailsHeader = activityDetailsHeader
+		self.activityDetailsHeader = activityDetailsHeader
 
 		super.init(frame: .zero)
 

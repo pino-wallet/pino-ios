@@ -10,8 +10,8 @@ import UIKit
 class ActivitySwapHeaderView: UIView {
 	// MARK: - Private Properties
 
-    private let cardView = PinoContainerCard()
-    private let mainStackView = UIStackView()
+	private let cardView = PinoContainerCard()
+	private let mainStackView = UIStackView()
 	private let activityDetailsVM: ActivityDetailsViewModel
 	private let fromItemStackView = UIStackView()
 	private let toItemStackView = UIStackView()
@@ -59,18 +59,18 @@ class ActivitySwapHeaderView: UIView {
 
 		swapIconViewContainer.addSubview(swapIconView)
 
-        mainStackView.addArrangedSubview(fromItemStackView)
-        mainStackView.addArrangedSubview(swapIconViewContainer)
-        mainStackView.addArrangedSubview(toItemStackView)
-        
-        addSubview(cardView)
-        cardView.addSubview(mainStackView)
+		mainStackView.addArrangedSubview(fromItemStackView)
+		mainStackView.addArrangedSubview(swapIconViewContainer)
+		mainStackView.addArrangedSubview(toItemStackView)
+
+		addSubview(cardView)
+		cardView.addSubview(mainStackView)
 	}
 
 	private func setupStyles() {
-        mainStackView.axis = .vertical
-        mainStackView.alignment = .leading
-        mainStackView.spacing = 12
+		mainStackView.axis = .vertical
+		mainStackView.alignment = .leading
+		mainStackView.spacing = 12
 
 		fromItemStackView.axis = .horizontal
 		fromItemStackView.alignment = .center
@@ -113,14 +113,14 @@ class ActivitySwapHeaderView: UIView {
 	private func setupConstraints() {
 		toTokenAmountLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 160).isActive = true
 		fromTokenAmountLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 160).isActive = true
-        cardView.heightAnchor.constraint(greaterThanOrEqualToConstant: 164).isActive = true
+		cardView.heightAnchor.constraint(greaterThanOrEqualToConstant: 164).isActive = true
 
 		swapIconViewContainer.pin(.fixedWidth(32), .fixedHeight(32))
 		swapIconView.pin(.fixedWidth(24), .fixedHeight(24), .centerX, .centerY)
 		fromTokenImageView.pin(.fixedWidth(40), .fixedHeight(40))
 		toTokenImageView.pin(.fixedWidth(40), .fixedHeight(40))
-        
-        cardView.pin(.allEdges(padding: 0))
-        mainStackView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 14))
+
+		cardView.pin(.allEdges(padding: 0))
+		mainStackView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 14))
 	}
 }

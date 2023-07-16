@@ -42,9 +42,9 @@ struct ActivityDetail: Codable {
 		case recipient
 		case tokenID = "token_id"
 		case fromToken = "token0"
-        case toToken = "token1"
+		case toToken = "token1"
 		case userID = "user_id"
-        case activityProtocol = "protocol"
+		case activityProtocol = "protocol"
 		case from, to
 	}
 }

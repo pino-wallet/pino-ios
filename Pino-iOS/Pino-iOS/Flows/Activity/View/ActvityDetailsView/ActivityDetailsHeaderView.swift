@@ -39,32 +39,31 @@ class ActivityDetailsHeaderView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		
-			defaultStackView.addArrangedSubview(defaultImageView)
-			defaultStackView.addArrangedSubview(defaultTitleLabel)
+		defaultStackView.addArrangedSubview(defaultImageView)
+		defaultStackView.addArrangedSubview(defaultTitleLabel)
 
-			cardView.addSubview(defaultStackView)
+		cardView.addSubview(defaultStackView)
 		addSubview(cardView)
 	}
 
 	private func setupStyles() {
-			defaultStackView.axis = .vertical
-			defaultStackView.alignment = .center
-			defaultStackView.spacing = 16
+		defaultStackView.axis = .vertical
+		defaultStackView.alignment = .center
+		defaultStackView.spacing = 16
 
-			defaultTitleLabel.font = .PinoStyle.semiboldTitle2
-			defaultTitleLabel.text = activityDetailsVM.assetAmountTitle ?? ""
-			defaultTitleLabel.numberOfLines = 0
+		defaultTitleLabel.font = .PinoStyle.semiboldTitle2
+		defaultTitleLabel.text = activityDetailsVM.assetAmountTitle ?? ""
+		defaultTitleLabel.numberOfLines = 0
 
-			defaultImageView
-				.image = UIImage(named: activityDetailsVM.assetIconName ?? activityDetailsVM.unVerifiedAssetIconName)
+		defaultImageView
+			.image = UIImage(named: activityDetailsVM.assetIconName ?? activityDetailsVM.unVerifiedAssetIconName)
 	}
 
 	private func setupConstraints() {
-			cardView.heightAnchor.constraint(greaterThanOrEqualToConstant: 126).isActive = true
+		cardView.heightAnchor.constraint(greaterThanOrEqualToConstant: 126).isActive = true
 
-            cardView.pin(.allEdges(padding: 0))
-			defaultStackView.pin(.verticalEdges(padding: 16), .horizontalEdges(padding: 14))
-			defaultImageView.pin(.fixedWidth(50), .fixedHeight(50))
+		cardView.pin(.allEdges(padding: 0))
+		defaultStackView.pin(.verticalEdges(padding: 16), .horizontalEdges(padding: 14))
+		defaultImageView.pin(.fixedWidth(50), .fixedHeight(50))
 	}
 }

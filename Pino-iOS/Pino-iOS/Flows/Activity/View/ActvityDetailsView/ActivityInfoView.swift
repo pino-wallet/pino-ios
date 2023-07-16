@@ -186,7 +186,7 @@ class ActivityInfoView: UIView {
 			hideFromAndToStackView()
 		case .borrow:
 			hideFromAndToStackView()
-        case .send, .receive:
+		case .send, .receive:
 			hidePrtocolAndTypeStackView()
 		case .unknown:
 			protocolStackView.isHidden = true

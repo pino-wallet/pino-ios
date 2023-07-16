@@ -39,10 +39,10 @@ class TitleWithInfo: UIView {
 	}
 
 	// MARK: - Initializers
-    
-    convenience init() {
-        self.init(actionSheetTitle: "", actionSheetDescription: "")
-    }
+
+	convenience init() {
+		self.init(actionSheetTitle: "", actionSheetDescription: "")
+	}
 
 	init(actionSheetTitle: String, actionSheetDescription: String) {
 		self.infoActionSheet = InfoActionSheet(title: actionSheetTitle, description: actionSheetDescription)
