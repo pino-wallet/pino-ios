@@ -93,6 +93,8 @@
 		403691C02A3DFFB60013AB6D /* TextAppleToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403691B92A3DFFB50013AB6D /* TextAppleToastView.swift */; };
 		403691C12A3DFFB60013AB6D /* IconAppleToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403691BA2A3DFFB50013AB6D /* IconAppleToastView.swift */; };
 		403691C22A3DFFB60013AB6D /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403691BB2A3DFFB50013AB6D /* Toast.swift */; };
+		404324062A5FF115006B1468 /* TextFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404324052A5FF115006B1468 /* TextFormatting.swift */; };
+		404324092A5FF12C006B1468 /* NumberFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404324082A5FF12C006B1468 /* NumberFormatting.swift */; };
 		408463C02A3AEE010058FF16 /* Web3-Utility in Frameworks */ = {isa = PBXBuildFile; productRef = 408463BF2A3AEE010058FF16 /* Web3-Utility */; };
 		40BB42282A47157800E1A121 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB42272A47157800E1A121 /* UIDevice+Extension.swift */; };
 		40F704572A03AFFF004D74FE /* AccountActivationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F704562A03AFFF004D74FE /* AccountActivationModel.swift */; };
@@ -289,6 +291,10 @@
 		D964AC6B0907B2432359A129 /* GroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D7CE3AA42604B8F78EA87C /* GroupCollectionViewCell.swift */; };
 		D9703F6A29ED547000D09277 /* CoinInfoFooterview.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9703F6929ED547000D09277 /* CoinInfoFooterview.swift */; };
 		D97CF62C25B975AD3C131881 /* CoinHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26427FD948787141E7AA599B /* CoinHistoryModel.swift */; };
+		D98207C42A5D5C7C0066A090 /* ActivityDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98207C32A5D5C7C0066A090 /* ActivityDetailsView.swift */; };
+		D98207C62A5D5D4D0066A090 /* ActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98207C52A5D5D4D0066A090 /* ActivityDetailsViewModel.swift */; };
+		D98207C82A5D5D630066A090 /* ActivityDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98207C72A5D5D630066A090 /* ActivityDetailsViewController.swift */; };
+		D98207CA2A5D6D8C0066A090 /* ActivityDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98207C92A5D6D8C0066A090 /* ActivityDetailsHeaderView.swift */; };
 		D99850472A55C66A00C2DF60 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99850462A55C66A00C2DF60 /* DateHelper.swift */; };
 		D99CAFC92A3AF0D400DBEF2B /* EnterSendAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99CAFC82A3AF0D400DBEF2B /* EnterSendAddressViewController.swift */; };
 		D99CAFCB2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99CAFCA2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift */; };
@@ -311,6 +317,7 @@
 		D9AF29E52A5010C4006BC53E /* ActivityCellViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF29E42A5010C4006BC53E /* ActivityCellViewModelProtocol.swift */; };
 		D9AF29E82A506F1A006BC53E /* ActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF29E72A506F1A006BC53E /* ActivityType.swift */; };
 		D9AF6DCC29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */; };
+		D9BCE5C72A63C519002A9B58 /* ActivitySwapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BCE5C62A63C519002A9B58 /* ActivitySwapHeaderView.swift */; };
 		D9BFEC372A121706007DFF40 /* AllowNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC362A121706007DFF40 /* AllowNotificationsViewController.swift */; };
 		D9BFEC392A121719007DFF40 /* AllowNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC382A121719007DFF40 /* AllowNotificationsView.swift */; };
 		D9BFEC3B2A12177C007DFF40 /* AllowNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC3A2A12177C007DFF40 /* AllowNotificationsViewModel.swift */; };
@@ -325,6 +332,9 @@
 		D9C7D76229EBDCAE006BC446 /* CoinInfoStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C7D76129EBDCAE006BC446 /* CoinInfoStatsView.swift */; };
 		D9D11E922A5990B8003C4298 /* ActivityCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D11E912A5990B8003C4298 /* ActivityCollectionView.swift */; };
 		D9D11E942A5990F0003C4298 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D11E932A5990F0003C4298 /* ActivityViewModel.swift */; };
+		D9D9A4082A5E8A4400CECA41 /* ActivityInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9A4072A5E8A4400CECA41 /* ActivityInfoView.swift */; };
+		D9D9A40A2A5E9CD200CECA41 /* ImageAndTitleStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9A4092A5E9CD200CECA41 /* ImageAndTitleStackView.swift */; };
+		D9D9A40C2A5ED76400CECA41 /* ActivityInfoStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9A40B2A5ED76400CECA41 /* ActivityInfoStackView.swift */; };
 		D9DD538BAF953A18503AB3F0 /* RemoveAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887EDE19A8B81F1FB217E0FA /* RemoveAccountView.swift */; };
 		D9E134852A52FB4A00193FF0 /* ActivityHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E134842A52FB4A00193FF0 /* ActivityHeaderView.swift */; };
 		D9E134872A53013D00193FF0 /* ActivityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E134862A53013D00193FF0 /* ActivityHelper.swift */; };
@@ -382,6 +392,7 @@
 		DFC4D0352A360C3B00F03DC4 /* Web3ContractABI in Frameworks */ = {isa = PBXBuildFile; productRef = DFC4D0342A360C3B00F03DC4 /* Web3ContractABI */; };
 		DFC4D0372A360C3B00F03DC4 /* Web3PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = DFC4D0362A360C3B00F03DC4 /* Web3PromiseKit */; };
 		DFC4D03A2A360D8300F03DC4 /* Web3Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC4D0392A360D8300F03DC4 /* Web3Core.swift */; };
+		DFCAAD3A2A62DA8000D8BB8D /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCAAD392A62DA8000D8BB8D /* Int+Extension.swift */; };
 		E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCBF9CC6A3C63CAA0DB0AA7 /* ActivityViewController.swift */; };
 		E25F4C14C3273F63F22E983C /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA3FFE35308EBEC961CD7BF /* UIView+Extension.swift */; };
 		E343836A2A3D912A0048BDA1 /* SendConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34383692A3D912A0048BDA1 /* SendConfirmationViewController.swift */; };
@@ -402,6 +413,12 @@
 		E35BB6492A595725003987F5 /* SwapProviderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6482A595725003987F5 /* SwapProviderCell.swift */; };
 		E35BB64D2A596E90003987F5 /* SelectSwapProvidersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB64C2A596E90003987F5 /* SelectSwapProvidersViewModel.swift */; };
 		E35BB64F2A598B80003987F5 /* GradientBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB64E2A598B80003987F5 /* GradientBorder.swift */; };
+		E35BB6512A62955D003987F5 /* SwapConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6502A62955D003987F5 /* SwapConfirmationViewController.swift */; };
+		E35BB6532A62979C003987F5 /* SwapConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6522A62979C003987F5 /* SwapConfirmationView.swift */; };
+		E35BB6552A62D4A5003987F5 /* SwapConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6542A62D4A5003987F5 /* SwapConfirmationViewModel.swift */; };
+		E35BB6572A62E650003987F5 /* SwapConfirmationTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6562A62E650003987F5 /* SwapConfirmationTokenView.swift */; };
+		E35BB6592A62F1A8003987F5 /* SwapConfirmationInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6582A62F1A8003987F5 /* SwapConfirmationInfoView.swift */; };
+		E35BB65B2A652B13003987F5 /* DeviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB65A2A652B13003987F5 /* DeviceHelper.swift */; };
 		E3847B362A52CB32005ED78B /* SwapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B352A52CB32005ED78B /* SwapViewModel.swift */; };
 		E3847B382A52CBE6005ED78B /* AmountStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B372A52CBE6005ED78B /* AmountStatus.swift */; };
 		E3847B3A2A52CC19005ED78B /* SwapTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B392A52CC19005ED78B /* SwapTokenViewModel.swift */; };
@@ -550,6 +567,8 @@
 		403691BA2A3DFFB50013AB6D /* IconAppleToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconAppleToastView.swift; sourceTree = "<group>"; };
 		403691BB2A3DFFB50013AB6D /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		404287D5077C670FADEE9987 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		404324052A5FF115006B1468 /* TextFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormatting.swift; sourceTree = "<group>"; };
+		404324082A5FF12C006B1468 /* NumberFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatting.swift; sourceTree = "<group>"; };
 		40BB42272A47157800E1A121 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		40F704562A03AFFF004D74FE /* AccountActivationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountActivationModel.swift; sourceTree = "<group>"; };
 		40F704582A03D5DC004D74FE /* PrivateKeyTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKeyTextView.swift; sourceTree = "<group>"; };
@@ -768,6 +787,10 @@
 		D94A9A2329FE75FC00DCA28D /* EditAccountNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameViewModel.swift; sourceTree = "<group>"; };
 		D95D49812A386BC10042FC85 /* TitleWithInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithInfo.swift; sourceTree = "<group>"; };
 		D9703F6929ED547000D09277 /* CoinInfoFooterview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoFooterview.swift; sourceTree = "<group>"; };
+		D98207C32A5D5C7C0066A090 /* ActivityDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailsView.swift; sourceTree = "<group>"; };
+		D98207C52A5D5D4D0066A090 /* ActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailsViewModel.swift; sourceTree = "<group>"; };
+		D98207C72A5D5D630066A090 /* ActivityDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailsViewController.swift; sourceTree = "<group>"; };
+		D98207C92A5D6D8C0066A090 /* ActivityDetailsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailsHeaderView.swift; sourceTree = "<group>"; };
 		D99850462A55C66A00C2DF60 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		D99CAFC82A3AF0D400DBEF2B /* EnterSendAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAddressViewController.swift; sourceTree = "<group>"; };
 		D99CAFCA2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAddressViewModel.swift; sourceTree = "<group>"; };
@@ -790,6 +813,7 @@
 		D9AF29E42A5010C4006BC53E /* ActivityCellViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCellViewModelProtocol.swift; sourceTree = "<group>"; };
 		D9AF29E72A506F1A006BC53E /* ActivityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityType.swift; sourceTree = "<group>"; };
 		D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralNotificationSettingsHeader.swift; sourceTree = "<group>"; };
+		D9BCE5C62A63C519002A9B58 /* ActivitySwapHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySwapHeaderView.swift; sourceTree = "<group>"; };
 		D9BFEC362A121706007DFF40 /* AllowNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsViewController.swift; sourceTree = "<group>"; };
 		D9BFEC382A121719007DFF40 /* AllowNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsView.swift; sourceTree = "<group>"; };
 		D9BFEC3A2A12177C007DFF40 /* AllowNotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsViewModel.swift; sourceTree = "<group>"; };
@@ -804,6 +828,9 @@
 		D9C7D76129EBDCAE006BC446 /* CoinInfoStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoStatsView.swift; sourceTree = "<group>"; };
 		D9D11E912A5990B8003C4298 /* ActivityCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCollectionView.swift; sourceTree = "<group>"; };
 		D9D11E932A5990F0003C4298 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
+		D9D9A4072A5E8A4400CECA41 /* ActivityInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityInfoView.swift; sourceTree = "<group>"; };
+		D9D9A4092A5E9CD200CECA41 /* ImageAndTitleStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAndTitleStackView.swift; sourceTree = "<group>"; };
+		D9D9A40B2A5ED76400CECA41 /* ActivityInfoStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityInfoStackView.swift; sourceTree = "<group>"; };
 		D9E134842A52FB4A00193FF0 /* ActivityHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHeaderView.swift; sourceTree = "<group>"; };
 		D9E134862A53013D00193FF0 /* ActivityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHelper.swift; sourceTree = "<group>"; };
 		D9F2507F29E576FB00DE0410 /* NotificationSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsCell.swift; sourceTree = "<group>"; };
@@ -840,6 +867,7 @@
 		DFB566262A1926C600F9D6A0 /* ImportTextViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTextViewType.swift; sourceTree = "<group>"; };
 		DFB566282A192CD600F9D6A0 /* WalletManagementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletManagementType.swift; sourceTree = "<group>"; };
 		DFC4D0392A360D8300F03DC4 /* Web3Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3Core.swift; sourceTree = "<group>"; };
+		DFCAAD392A62DA8000D8BB8D /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		E149E7B618CEFE5E909B2D78 /* AccountInfoNavigationItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoNavigationItems.swift; sourceTree = "<group>"; };
 		E1575DB9D22AE8EBFE86A7D9 /* SeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhrase.swift; sourceTree = "<group>"; };
 		E19FF7EA659493C72C4B0AD9 /* PinoTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoTextFieldView.swift; sourceTree = "<group>"; };
@@ -862,6 +890,12 @@
 		E35BB6482A595725003987F5 /* SwapProviderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapProviderCell.swift; sourceTree = "<group>"; };
 		E35BB64C2A596E90003987F5 /* SelectSwapProvidersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSwapProvidersViewModel.swift; sourceTree = "<group>"; };
 		E35BB64E2A598B80003987F5 /* GradientBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBorder.swift; sourceTree = "<group>"; };
+		E35BB6502A62955D003987F5 /* SwapConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapConfirmationViewController.swift; sourceTree = "<group>"; };
+		E35BB6522A62979C003987F5 /* SwapConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapConfirmationView.swift; sourceTree = "<group>"; };
+		E35BB6542A62D4A5003987F5 /* SwapConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapConfirmationViewModel.swift; sourceTree = "<group>"; };
+		E35BB6562A62E650003987F5 /* SwapConfirmationTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapConfirmationTokenView.swift; sourceTree = "<group>"; };
+		E35BB6582A62F1A8003987F5 /* SwapConfirmationInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapConfirmationInfoView.swift; sourceTree = "<group>"; };
+		E35BB65A2A652B13003987F5 /* DeviceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHelper.swift; sourceTree = "<group>"; };
 		E3847B352A52CB32005ED78B /* SwapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapViewModel.swift; sourceTree = "<group>"; };
 		E3847B372A52CBE6005ED78B /* AmountStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountStatus.swift; sourceTree = "<group>"; };
 		E3847B392A52CC19005ED78B /* SwapTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapTokenViewModel.swift; sourceTree = "<group>"; };
@@ -1326,6 +1360,15 @@
 			path = AppleToastView;
 			sourceTree = "<group>";
 		};
+		404324042A5FF102006B1468 /* FormattingSystem */ = {
+			isa = PBXGroup;
+			children = (
+				404324052A5FF115006B1468 /* TextFormatting.swift */,
+				404324082A5FF12C006B1468 /* NumberFormatting.swift */,
+			);
+			path = FormattingSystem;
+			sourceTree = "<group>";
+		};
 		40F704552A03AFEF004D74FE /* AccountActivation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1473,6 +1516,7 @@
 				B33656AE9BB6138666D2E679 /* ViewController+Extension.swift */,
 				E384CB1529FFABAB009C74F5 /* Double+Extension.swift */,
 				40BB42272A47157800E1A121 /* UIDevice+Extension.swift */,
+				DFCAAD392A62DA8000D8BB8D /* Int+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1576,6 +1620,7 @@
 				D9E134862A53013D00193FF0 /* ActivityHelper.swift */,
 				D99850462A55C66A00C2DF60 /* DateHelper.swift */,
 				E35BB64E2A598B80003987F5 /* GradientBorder.swift */,
+				E35BB65A2A652B13003987F5 /* DeviceHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1706,6 +1751,7 @@
 		7AF1DCDDC903DE2CE5A2B1A1 /* NumberFormatting */ = {
 			isa = PBXGroup;
 			children = (
+				404324042A5FF102006B1468 /* FormattingSystem */,
 				750F7AA1FB4A8CB567F6FABE /* BigNumberType.swift */,
 				C565DF0399D911E87AB92DEF /* PrecisionSystem.swift */,
 			);
@@ -2108,6 +2154,19 @@
 			path = TitleWithInfo;
 			sourceTree = "<group>";
 		};
+		D98207C22A5D5C5B0066A090 /* ActvityDetailsView */ = {
+			isa = PBXGroup;
+			children = (
+				D98207C32A5D5C7C0066A090 /* ActivityDetailsView.swift */,
+				D98207C92A5D6D8C0066A090 /* ActivityDetailsHeaderView.swift */,
+				D9D9A4072A5E8A4400CECA41 /* ActivityInfoView.swift */,
+				D9D9A4092A5E9CD200CECA41 /* ImageAndTitleStackView.swift */,
+				D9D9A40B2A5ED76400CECA41 /* ActivityInfoStackView.swift */,
+				D9BCE5C62A63C519002A9B58 /* ActivitySwapHeaderView.swift */,
+			);
+			path = ActvityDetailsView;
+			sourceTree = "<group>";
+		};
 		D99CBA2F2A594D6600581564 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
@@ -2233,6 +2292,7 @@
 			isa = PBXGroup;
 			children = (
 				CCCBF9CC6A3C63CAA0DB0AA7 /* ActivityViewController.swift */,
+				D98207C72A5D5D630066A090 /* ActivityDetailsViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2241,6 +2301,7 @@
 			isa = PBXGroup;
 			children = (
 				D9D11E932A5990F0003C4298 /* ActivityViewModel.swift */,
+				D98207C52A5D5D4D0066A090 /* ActivityDetailsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2248,6 +2309,7 @@
 		D9D11E902A59908F003C4298 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D98207C22A5D5C5B0066A090 /* ActvityDetailsView */,
 				D9D11E912A5990B8003C4298 /* ActivityCollectionView.swift */,
 				D91C17C92A5BE259000C448E /* ActivityEmptyStateView.swift */,
 			);
@@ -2448,6 +2510,7 @@
 				47A6676B929BBCE1E8B10CDF /* SwapViewController.swift */,
 				E35BB6392A5589F3003987F5 /* SelectSwapProtocolViewController.swift */,
 				E35BB6442A5944E8003987F5 /* SwapProvidersViewController.swift */,
+				E35BB6502A62955D003987F5 /* SwapConfirmationViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2463,6 +2526,9 @@
 				E35BB63F2A558F87003987F5 /* SwapProtocolCell.swift */,
 				E35BB6462A595717003987F5 /* SwapProviderCollectionView.swift */,
 				E35BB6482A595725003987F5 /* SwapProviderCell.swift */,
+				E35BB6522A62979C003987F5 /* SwapConfirmationView.swift */,
+				E35BB6562A62E650003987F5 /* SwapConfirmationTokenView.swift */,
+				E35BB6582A62F1A8003987F5 /* SwapConfirmationInfoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2476,6 +2542,7 @@
 				E3847B482A542A76005ED78B /* SwapFeeViewModel.swift */,
 				E35BB63B2A558B2E003987F5 /* SelectSwapProtocolViewModel.swift */,
 				E35BB64C2A596E90003987F5 /* SelectSwapProvidersViewModel.swift */,
+				E35BB6542A62D4A5003987F5 /* SwapConfirmationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2988,6 +3055,7 @@
 				6FB08C15B02317A1FE3C012D /* AccountingAPIService.swift in Sources */,
 				E35BB63E2A558D0E003987F5 /* SwapProtocolCollectionView.swift in Sources */,
 				3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */,
+				D9D9A40A2A5E9CD200CECA41 /* ImageAndTitleStackView.swift in Sources */,
 				E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */,
 				E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */,
 				D99CAFCB2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift in Sources */,
@@ -3004,10 +3072,12 @@
 				D9D11E942A5990F0003C4298 /* ActivityViewModel.swift in Sources */,
 				C450B15464CE5EF43B603409 /* AddNewAccountViewController.swift in Sources */,
 				6515F0FDA57BFCE714EF6F71 /* AddNewAccountViewModel.swift in Sources */,
+				404324062A5FF115006B1468 /* TextFormatting.swift in Sources */,
 				2BC73AE9759B87DCBF761327 /* AlertHelper.swift in Sources */,
 				4C5FCC355F7D7307B778F686 /* AllDoneView.swift in Sources */,
 				5172E07495C5EBFA21772580 /* AllDoneViewController.swift in Sources */,
 				E39954612A4C1358001248C3 /* GlobalVariables.swift in Sources */,
+				D98207C42A5D5C7C0066A090 /* ActivityDetailsView.swift in Sources */,
 				4BD24A38B1C81FA80EB0B6E8 /* AllDoneViewModel.swift in Sources */,
 				A56FBAD2E31C10F504631CD6 /* AppDelegate.swift in Sources */,
 				D9F2508229E5855500DE0410 /* SecurityOptionCell.swift in Sources */,
@@ -3021,6 +3091,7 @@
 				72A3CB357D4BD765C3616F3E /* AssetProtocol.swift in Sources */,
 				D4FCAA07F82037BF6EF0B823 /* AssetViewModel.swift in Sources */,
 				E34728EB29E7DD6B00AB8265 /* AssetManagerViewModel.swift in Sources */,
+				D98207CA2A5D6D8C0066A090 /* ActivityDetailsHeaderView.swift in Sources */,
 				40BB42282A47157800E1A121 /* UIDevice+Extension.swift in Sources */,
 				E385F6122A22029100EE7EE1 /* Wallet+CoreDataProperties.swift in Sources */,
 				03C069F70295746815C20F42 /* AssetVolatilityType.swift in Sources */,
@@ -3054,7 +3125,9 @@
 				F46E91AF149D34F200213B3F /* BlurEffectView.swift in Sources */,
 				8124946C56803F5336426CFA /* BodyParamsType.swift in Sources */,
 				1B7D25A69FB55D4EAC14A392 /* BoldStyle.swift in Sources */,
+				D9D9A4082A5E8A4400CECA41 /* ActivityInfoView.swift in Sources */,
 				8ECABB94DCBB30B784D22CFF /* BorrowViewController.swift in Sources */,
+				404324092A5FF12C006B1468 /* NumberFormatting.swift in Sources */,
 				E385F6182A220D8200EE7EE1 /* CTSAPIClient.swift in Sources */,
 				535DAC5A885056552EC3C09F /* Button+Extension.swift in Sources */,
 				D2D65A4730F14DFCD4BE1B32 /* ChangeAvatarViewController.swift in Sources */,
@@ -3083,8 +3156,10 @@
 				E4FF2E5E60CA74F3324945A8 /* CoinInfoViewModel.swift in Sources */,
 				D9E134852A52FB4A00193FF0 /* ActivityHeaderView.swift in Sources */,
 				9564A69D20BD22A50221D63B /* CoinPerformanceInfoItems.swift in Sources */,
+				DFCAAD3A2A62DA8000D8BB8D /* Int+Extension.swift in Sources */,
 				D99CAFC92A3AF0D400DBEF2B /* EnterSendAddressViewController.swift in Sources */,
 				D9A3281C2A34C444005A8393 /* SelectAssetVMProtocol.swift in Sources */,
+				E35BB6572A62E650003987F5 /* SwapConfirmationTokenView.swift in Sources */,
 				E3847B382A52CBE6005ED78B /* AmountStatus.swift in Sources */,
 				1AD184E82488453998E5A2E5 /* CoinPerformanceInfoModel.swift in Sources */,
 				8A10D639170969ECFADE0FE4 /* CoinPerformanceInfoViewModel.swift in Sources */,
@@ -3116,10 +3191,13 @@
 				F1655D3CC058F9A6ED4E8521 /* CustomSwitchOptionVM.swift in Sources */,
 				2919216FFA72DA25EADE5CF3 /* CustomSwitchOptionView.swift in Sources */,
 				D9AF29E22A500B03006BC53E /* ActivityModel.swift in Sources */,
+				E35BB65B2A652B13003987F5 /* DeviceHelper.swift in Sources */,
 				4CF290BDB2B49F698A864B28 /* Date+Extension.swift in Sources */,
 				D99F4B1D29E2C25C009F7F55 /* PaymentMethodOptionView.swift in Sources */,
+				D9BCE5C72A63C519002A9B58 /* ActivitySwapHeaderView.swift in Sources */,
 				D941CAC82A3F03C500910B70 /* SendStatusViewModel.swift in Sources */,
 				33B1FBC74480BD66A74733E5 /* Decimal+Extension.swift in Sources */,
+				E35BB6552A62D4A5003987F5 /* SwapConfirmationViewModel.swift in Sources */,
 				0F5854171F8774FEF94497FB /* EditAccountViewController.swift in Sources */,
 				3E5FFA532C0440149913FE32 /* Encodable+Extension.swift in Sources */,
 				E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */,
@@ -3132,7 +3210,6 @@
 				E343836E2A3DA0320048BDA1 /* SendConfirmationViewModel.swift in Sources */,
 				D9C4CF0F2A409D4800475F01 /* SuggestedAddressHeaderView.swift in Sources */,
 				E3847B3E2A52CE25005ED78B /* SwapTokenSectionView.swift in Sources */,
-				EFA259C9FE0473172660E5C7 /* FormatterTypes.swift in Sources */,
 				E3847B4C2A5430B4005ED78B /* SwapProviderViewModel.swift in Sources */,
 				DF00179329F85727001164EA /* PinoNonHDWallet.swift in Sources */,
 				7CF95B0F99AE30C81601CFAA /* GradientLayer.swift in Sources */,
@@ -3273,7 +3350,9 @@
 				D9AF29E52A5010C4006BC53E /* ActivityCellViewModelProtocol.swift in Sources */,
 				B890491BC2BBD99CF83AFE9A /* SecurityViewController.swift in Sources */,
 				DC66DEF4A366F740111CA309 /* SecurityViewModel.swift in Sources */,
+				D9D9A40C2A5ED76400CECA41 /* ActivityInfoStackView.swift in Sources */,
 				D93C41F929F7C5C6003F2297 /* EditAccountHeaderView.swift in Sources */,
+				D98207C62A5D5D4D0066A090 /* ActivityDetailsViewModel.swift in Sources */,
 				13F430044A23AF2BA55BBDFB /* SecurityModeProtocol.swift in Sources */,
 				D94A9A1D29FE4C6700DCA28D /* EditAccountView.swift in Sources */,
 				34F4A2DA1228B50AC3DFA8A2 /* SeedPhrase.swift in Sources */,
@@ -3284,6 +3363,7 @@
 				6FB3C66B1E98C7C2B7886069 /* SettingCell.swift in Sources */,
 				E3D478B32A3064C90030A987 /* CustomAssetDataSource.swift in Sources */,
 				D9BFEC3E2A12236C007DFF40 /* ClearNavigationBar.swift in Sources */,
+				E35BB6532A62979C003987F5 /* SwapConfirmationView.swift in Sources */,
 				D91A39FD29E40EA400004CB2 /* NotificationSettingsViewController.swift in Sources */,
 				2412CFB01F9D91D18F01EACD /* SettingsHeaderView.swift in Sources */,
 				E3847B412A5314FF005ED78B /* SwapDelegate.swift in Sources */,
@@ -3295,6 +3375,7 @@
 				DF00178F29F8567C001164EA /* Account.swift in Sources */,
 				D99CAFCD2A3AF2EE00DBEF2B /* EnterSendAddressView.swift in Sources */,
 				E3F482F92A35B43400EEC9CF /* EnterSendAmountViewModel.swift in Sources */,
+				D98207C82A5D5D630066A090 /* ActivityDetailsViewController.swift in Sources */,
 				3836332BCEDEABE67456B3D1 /* StatusCode+Helper.swift in Sources */,
 				F29B5E085D9D0D99354034C9 /* StringProtocol+Extension.swift in Sources */,
 				E384CB1829FFADA0009C74F5 /* ShareOfAssetProtocol.swift in Sources */,
@@ -3332,6 +3413,7 @@
 				E351A72729F5247000635715 /* ChartDateBuilder.swift in Sources */,
 				E3F482EC2A3485A500EEC9CF /* EnterSendAmountViewController.swift in Sources */,
 				7FFA5D89CACB5BA3422D7376 /* WalletAPIService.swift in Sources */,
+				E35BB6592A62F1A8003987F5 /* SwapConfirmationInfoView.swift in Sources */,
 				96892E44DA2E5556E1679817 /* AccountBalanceHeaderView.swift in Sources */,
 				0F91AD673ECAFFCD63C38A33 /* WalletBalanceModel.swift in Sources */,
 				1EA05F6363FCD68B38A3B13B /* WalletBalanceViewModel.swift in Sources */,
@@ -3345,6 +3427,7 @@
 				AD68BBE3C5E6C48C129C6BA7 /* AccountsCollectionView.swift in Sources */,
 				C3321EBB6DC83BCDC3CFC3B0 /* WalletsModel.swift in Sources */,
 				316F0DDECBB3FA68BFFA1577 /* AccountsViewController.swift in Sources */,
+				E35BB6512A62955D003987F5 /* SwapConfirmationViewController.swift in Sources */,
 				D9D11E922A5990B8003C4298 /* ActivityCollectionView.swift in Sources */,
 				33647E7FA041A9CC0130F158 /* AccountsViewModel.swift in Sources */,
 				E3F482EF2A35A6E900EEC9CF /* CustomAsset+CoreDataClass.swift in Sources */,

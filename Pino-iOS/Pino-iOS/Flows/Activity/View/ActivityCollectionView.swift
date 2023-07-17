@@ -9,8 +9,17 @@ import Combine
 import UIKit
 
 class ActivityCollectionView: UICollectionView {
+	// MARK: - TypeAliases
+
+	typealias openActivityDetailsClosureType = (_ activityDetails: ActivityCellViewModel) -> Void
+
+	// MARK: - Closures
+
+	public var openActivityDetailsClosure: openActivityDetailsClosureType
+
 	// MARK: - Private Properties
 
+	private let activityRefreshControll = UIRefreshControl()
 	private var activityVM: ActivityViewModel
 	private var separatedActivities: ActivityHelper.separatedActivitiesType = []
 	private var cancellables = Set<AnyCancellable>()
@@ -18,17 +27,19 @@ class ActivityCollectionView: UICollectionView {
 
 	// MARK: - Initializers
 
-	init(activityVM: ActivityViewModel) {
+	init(activityVM: ActivityViewModel, openActivityDetailsClosure: @escaping openActivityDetailsClosureType) {
 		self.activityVM = activityVM
+		self.openActivityDetailsClosure = openActivityDetailsClosure
 
 		let flowLayoutView = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayoutView)
 		flowLayoutView.collectionView?.backgroundColor = .Pino.background
-		flowLayoutView.collectionView?.contentInset = UIEdgeInsets(top: 24, left: 0, bottom: 0, right: 0)
+		flowLayoutView.collectionView?.contentInset = UIEdgeInsets(top: 24, left: 0, bottom: 24, right: 0)
 		flowLayoutView.minimumLineSpacing = 8
 
 		configureCollectionView()
 		setupBindings()
+		setupRefreshControl()
 	}
 
 	required init?(coder: NSCoder) {
@@ -54,13 +65,36 @@ class ActivityCollectionView: UICollectionView {
 			guard let userActivities = activities else {
 				self.showLoading = true
 				self.reloadData()
+				self.refreshControl?.endRefreshing()
 				return
 			}
 			let activityHelper = ActivityHelper()
 			self.separatedActivities = activityHelper.separateActivitiesByTime(activities: userActivities)
 			self.showLoading = false
 			self.reloadData()
+			self.refreshControl?.endRefreshing()
 		}.store(in: &cancellables)
+	}
+
+	private func refreshData() {
+		activityVM.refreshUserActvities()
+	}
+
+	private func setupRefreshControl() {
+		indicatorStyle = .white
+		activityRefreshControll.tintColor = .Pino.green2
+		activityRefreshControll.addAction(UIAction(handler: { _ in
+			self.refreshData()
+		}), for: .valueChanged)
+		refreshControl = activityRefreshControll
+	}
+}
+
+extension ActivityCollectionView: UICollectionViewDelegate {
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		openActivityDetailsClosure(
+			separatedActivities[indexPath.section].activities[indexPath.item]
+		)
 	}
 }
 
@@ -134,18 +168,12 @@ extension ActivityCollectionView: UICollectionViewDataSource {
 		layout collectionViewLayout: UICollectionViewLayout,
 		referenceSizeForHeaderInSection section: Int
 	) -> CGSize {
-		let indexPath = IndexPath(row: 0, section: section)
-		let headerView = self.collectionView(
-			collectionView,
-			viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader,
-			at: indexPath
-		)
 		if !showLoading {
-			return headerView.systemLayoutSizeFitting(
-				CGSize(width: collectionView.frame.width, height: UIView.layoutFittingExpandedSize.height),
-				withHorizontalFittingPriority: .required,
-				verticalFittingPriority: .fittingSizeLevel
-			)
+			if section == 0 {
+				return CGSize(width: collectionView.frame.width, height: 30)
+			} else {
+				return CGSize(width: collectionView.frame.width, height: 46)
+			}
 		} else {
 			return CGSize(width: 0, height: 0)
 		}

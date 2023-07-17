@@ -59,7 +59,7 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	public var formattedHoldAmount: String {
-		holdAmountInDollor.formattedAmountOf(type: .priceRule)
+		holdAmountInDollor.priceFormat
 	}
 
 	public var change24h: BigNumber {
@@ -111,14 +111,14 @@ public class AssetViewModel: SecurityModeProtocol {
 	// MARK: - Private Methods
 
 	private func getFormattedAmount() -> String {
-		"\(holdAmount.formattedAmountOf(type: .sevenDigitsRule)) \(symbol)"
+		"\(holdAmount.sevenDigitFormat) \(symbol)"
 	}
 
 	private func getFormattedAmountInDollor() -> String {
 		if holdAmountInDollor.isZero {
 			return "-"
 		} else {
-			return "$\(formattedHoldAmount)"
+			return formattedHoldAmount
 		}
 	}
 
@@ -128,9 +128,9 @@ public class AssetViewModel: SecurityModeProtocol {
 		} else {
 			switch volatilityType {
 			case .loss:
-				return "-$\(change24h.formattedAmountOf(type: .priceRule))"
+				return "-\(change24h.priceFormat)"
 			case .profit, .none:
-				return "+$\(change24h.formattedAmountOf(type: .priceRule))"
+				return "+\(change24h.priceFormat)"
 			}
 		}
 	}

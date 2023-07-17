@@ -37,8 +37,8 @@ class SwapViewController: UIViewController {
 		#warning("It is temporary and should handle in loading branch")
 		view = UIView()
 		view.backgroundColor = .Pino.background
-		GlobalVariables.shared.$manageAssetsList.sink { assetList in
-			if let assetList, self.assets == nil {
+		GlobalVariables.shared.$manageAssetsList.compactMap { $0 }.sink { assetList in
+			if self.assets == nil {
 				self.assets = assetList
 				self.swapVM = SwapViewModel(fromToken: assetList[0], toToken: assetList[1])
 
@@ -56,7 +56,9 @@ class SwapViewController: UIViewController {
 					providerChange: {
 						self.openProvidersPage()
 					},
-					nextButtonTapped: {}
+					nextButtonTapped: {
+						self.openConfirmationPage()
+					}
 				)
 				self.view = self.swapView
 				self.setupBinding()
@@ -83,8 +85,8 @@ class SwapViewController: UIViewController {
 		swapVM.$selectedProtocol.sink { selectedProtocol in
 			self.protocolChangeButton.setTitle(selectedProtocol.name, for: .normal)
 		}.store(in: &cancellables)
-
-		if UIScreen.main.bounds.height > 730 {
+		// show and hide protocol card in normal size devices
+		if DeviceHelper.shared.size == .normal {
 			swapView.$keyboardIsOpen.sink { keyboardIsOpen in
 				if keyboardIsOpen {
 					self.showProtocolButtonInNavbar()
@@ -99,7 +101,8 @@ class SwapViewController: UIViewController {
 
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
-		if UIScreen.main.bounds.height > 730 {
+		// show navbar protocol button in small devices
+		if DeviceHelper.shared.size == .normal {
 			navigationItem.titleView = pageTitleLabel
 		} else {
 			navigationItem.titleView = protocolChangeButton
@@ -154,5 +157,18 @@ class SwapViewController: UIViewController {
 			self.swapVM.changeSwapProvider(to: provider)
 		}
 		present(providersVC, animated: true)
+	}
+
+	private func openConfirmationPage() {
+		let swapConfirmationVM = SwapConfirmationViewModel(
+			fromToken: swapVM.fromToken,
+			toToken: swapVM.toToken,
+			selectedProtocol: swapVM.selectedProtocol,
+			selectedProvider: swapVM.swapFeeVM.swapProviderVM,
+			swapRate: swapVM.swapFeeVM.calculatedAmount!
+		)
+		let confirmationVC = SwapConfirmationViewController(swapConfirmationVM: swapConfirmationVM)
+		let confirmationNavigationVC = UINavigationController(rootViewController: confirmationVC)
+		present(confirmationNavigationVC, animated: true)
 	}
 }

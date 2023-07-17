@@ -32,7 +32,7 @@ struct CustomAssetViewModel {
 				number: String(describing: balanceOf),
 				decimal: Int(customAsset.decimal)!
 			)
-			return userBalanceOfCustomToken.formattedAmountOf(type: .sevenDigitsRule)
+			return userBalanceOfCustomToken.sevenDigitFormat
 		} else {
 			return "-"
 		}
