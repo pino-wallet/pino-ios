@@ -37,8 +37,8 @@ class SwapViewController: UIViewController {
 		#warning("It is temporary and should handle in loading branch")
 		view = UIView()
 		view.backgroundColor = .Pino.background
-		GlobalVariables.shared.$manageAssetsList.sink { assetList in
-			if let assetList, self.assets == nil {
+		GlobalVariables.shared.$manageAssetsList.compactMap { $0 }.sink { assetList in
+			if self.assets == nil {
 				self.assets = assetList
 				self.swapVM = SwapViewModel(fromToken: assetList[0], toToken: assetList[1])
 
