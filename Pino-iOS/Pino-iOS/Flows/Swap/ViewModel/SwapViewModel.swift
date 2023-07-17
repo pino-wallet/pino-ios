@@ -62,13 +62,15 @@ class SwapViewModel {
 
 	private func getFeeInfo() {
 		swapFeeVM.fee = nil
+		swapFeeVM.feeInDollar = nil
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
 			if self.selectedProtocol == .bestRate {
 				self.showBestProviderFeeInfo()
 			} else {
 				self.showPriceImpactFeeInfo()
 			}
-			self.swapFeeVM.fee = self.getfee()
+			self.swapFeeVM.fee = self.getfee().fee
+			self.swapFeeVM.feeInDollar = self.getfee().feeInDollar
 		}
 	}
 
@@ -135,8 +137,10 @@ class SwapViewModel {
 		SwapProviderViewModel(provider: .oneInch, swapAmount: "")
 	}
 
-	private func getfee() -> String {
-		"0.001"
+	private func getfee() -> (fee: String, feeInDollar: String) {
+		let fee = "0.001"
+		let feeInDollar = "1.12"
+		return (fee.ethFormatting, feeInDollar.currencyFormatting)
 	}
 
 	private func getSaveAmount() -> String {

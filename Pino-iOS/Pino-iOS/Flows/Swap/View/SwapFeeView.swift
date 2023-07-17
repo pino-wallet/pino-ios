@@ -44,6 +44,7 @@ class SwapFeeView: UIView {
 	private let closeFeeInfoIcon = UIImage(named: "chevron_up")
 
 	private var isCollapsed = false
+	private var showFeeInDollar = true
 
 	private let swapFeeVM: SwapFeeViewModel
 	private var providerChange: () -> Void
@@ -104,6 +105,10 @@ class SwapFeeView: UIView {
 
 		let providerChangeTapGesture = UITapGestureRecognizer(target: self, action: #selector(changeProvider))
 		providerChangeStackView.addGestureRecognizer(providerChangeTapGesture)
+
+		let feeLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleFeeValue))
+		feeLabel.addGestureRecognizer(feeLabelTapGesture)
+		feeLabel.isUserInteractionEnabled = true
 	}
 
 	private func setupStyle() {
@@ -236,9 +241,10 @@ class SwapFeeView: UIView {
 			self.updatePriceImpact(priceImpact)
 		}.store(in: &cancellables)
 
-		swapFeeVM.$fee.sink { fee in
-			self.updateFee(fee)
-		}.store(in: &cancellables)
+		Publishers.Zip(swapFeeVM.$fee, swapFeeVM.$feeInDollar)
+			.sink { feeInETH, feeInDollar in
+				self.updateFee(feeInETH: feeInETH, feeInDollar: feeInDollar)
+			}.store(in: &cancellables)
 	}
 
 	private func updateTagView(_ tag: SwapFeeViewModel.FeeTag) {
@@ -286,9 +292,13 @@ class SwapFeeView: UIView {
 		}
 	}
 
-	private func updateFee(_ fee: String?) {
-		if let fee {
-			feeLabel.text = fee.ethFormatting
+	private func updateFee(feeInETH: String?, feeInDollar: String?) {
+		if let feeInETH, let feeInDollar {
+			if showFeeInDollar {
+				feeLabel.text = feeInDollar
+			} else {
+				feeLabel.text = feeInETH
+			}
 			hideLoading()
 		} else {
 			showLoading()
@@ -318,6 +328,12 @@ class SwapFeeView: UIView {
 	@objc
 	private func changeProvider() {
 		providerChange()
+	}
+
+	@objc
+	private func toggleFeeValue() {
+		showFeeInDollar.toggle()
+		updateFee(feeInETH: swapFeeVM.fee, feeInDollar: swapFeeVM.feeInDollar)
 	}
 
 	// MARK: - Public Methods
