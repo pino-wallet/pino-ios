@@ -114,9 +114,7 @@ class SwapViewModel {
 	// MARK: - Private Methods
 
 	private func showBestProviderFeeInfo() {
-		let saveAmount = getSaveAmount()
-		swapFeeVM.saveAmount = saveAmount
-		swapFeeVM.feeTag = getFeeTag(saveAmount: saveAmount)
+		swapFeeVM.feeTag = .none
 		swapFeeVM.priceImpact = nil
 		if swapFeeVM.swapProviderVM == nil {
 			swapFeeVM.swapProviderVM = getBestProvider()

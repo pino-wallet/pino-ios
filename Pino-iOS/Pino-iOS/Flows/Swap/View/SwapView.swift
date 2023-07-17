@@ -259,17 +259,8 @@ class SwapView: UIView {
 	}
 
 	private func switchTokens() {
-		UIView.animate(withDuration: 0.2) {
-			self.fromTokenSectionView.fadeOutTokenView()
-			self.toTokenSectionView.fadeOutTokenView()
-		} completion: { _ in
-			self.switchTextFieldsFocus()
-			self.swapVM.switchTokens()
-			UIView.animate(withDuration: 0.2) {
-				self.fromTokenSectionView.fadeInTokenView()
-				self.toTokenSectionView.fadeInTokenView()
-			}
-		}
+		switchTextFieldsFocus()
+		swapVM.switchTokens()
 	}
 
 	private func switchTextFieldsFocus() {
