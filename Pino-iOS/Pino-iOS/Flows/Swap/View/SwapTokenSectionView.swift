@@ -199,14 +199,6 @@ class SwapTokenSectionView: UIView {
 	public func openKeyboard() {
 		amountTextfield.becomeFirstResponder()
 	}
-
-	public func fadeOutTokenView() {
-		changeTokenView.alpha = 0
-	}
-
-	public func fadeInTokenView() {
-		changeTokenView.alpha = 1
-	}
 }
 
 extension SwapTokenSectionView: SwapDelegate {
