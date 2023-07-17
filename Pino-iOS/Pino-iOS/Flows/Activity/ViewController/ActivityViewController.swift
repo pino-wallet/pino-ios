@@ -44,12 +44,24 @@ class ActivityViewController: UIViewController {
 	}
 
 	private func setupView() {
+		activityColectionView = ActivityCollectionView(
+			activityVM: activityVM,
+			openActivityDetailsClosure: { [weak self] activityDetails in
+				self?.openActivityDetailsPage(activityDetails: activityDetails)
+			}
+		)
 		activityEmptyStateView = ActivityEmptyStateView(
 			titleText: activityVM.noActivityMessage,
 			titleImageName: activityVM.noActivityIconName
 		)
-		activityColectionView = ActivityCollectionView(activityVM: activityVM)
 		view = activityColectionView
+	}
+
+	private func openActivityDetailsPage(activityDetails: ActivityCellViewModel) {
+		let navigationVC = UINavigationController()
+		let activityDetailsVC = ActivityDetailsViewController(activityDetails: activityDetails.defaultActivityModel)
+		navigationVC.viewControllers = [activityDetailsVC]
+		present(navigationVC, animated: true)
 	}
 
 	private func setupBindings() {

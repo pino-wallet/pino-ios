@@ -28,7 +28,21 @@ class TitleWithInfo: UIView {
 		}
 	}
 
+	public var showInfoActionSheet = true {
+		didSet {
+			if showInfoActionSheet {
+				infoActionSheetIcon.isHidden = false
+			} else {
+				infoActionSheetIcon.isHidden = true
+			}
+		}
+	}
+
 	// MARK: - Initializers
+
+	convenience init() {
+		self.init(actionSheetTitle: "", actionSheetDescription: "")
+	}
 
 	init(actionSheetTitle: String, actionSheetDescription: String) {
 		self.infoActionSheet = InfoActionSheet(title: actionSheetTitle, description: actionSheetDescription)

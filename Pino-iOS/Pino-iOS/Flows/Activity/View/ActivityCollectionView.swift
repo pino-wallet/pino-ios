@@ -9,6 +9,14 @@ import Combine
 import UIKit
 
 class ActivityCollectionView: UICollectionView {
+	// MARK: - TypeAliases
+
+	typealias openActivityDetailsClosureType = (_ activityDetails: ActivityCellViewModel) -> Void
+
+	// MARK: - Closures
+
+	public var openActivityDetailsClosure: openActivityDetailsClosureType
+
 	// MARK: - Private Properties
 
 	private var activityVM: ActivityViewModel
@@ -18,8 +26,9 @@ class ActivityCollectionView: UICollectionView {
 
 	// MARK: - Initializers
 
-	init(activityVM: ActivityViewModel) {
+	init(activityVM: ActivityViewModel, openActivityDetailsClosure: @escaping openActivityDetailsClosureType) {
 		self.activityVM = activityVM
+		self.openActivityDetailsClosure = openActivityDetailsClosure
 
 		let flowLayoutView = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayoutView)
@@ -61,6 +70,14 @@ class ActivityCollectionView: UICollectionView {
 			self.showLoading = false
 			self.reloadData()
 		}.store(in: &cancellables)
+	}
+}
+
+extension ActivityCollectionView: UICollectionViewDelegate {
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		openActivityDetailsClosure(
+			separatedActivities[indexPath.section].activities[indexPath.item]
+		)
 	}
 }
 
