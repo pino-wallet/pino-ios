@@ -84,7 +84,7 @@ class SwapTokenSectionView: UIView {
 
 		if swapVM.selectedToken.isVerified {
 			changeTokenView.tokenImageURL = swapVM.selectedToken.image
-			estimatedAmountLabel.text = swapVM.formattedAmount
+			estimatedAmountLabel.text = swapVM.dollarAmount
 			estimatedAmountLabel.isHidden = false
 		} else {
 			changeTokenView.customTokenImage = swapVM.selectedToken.customAssetImage
@@ -148,14 +148,14 @@ class SwapTokenSectionView: UIView {
 
 	private func updateAmountView() {
 		amountTextfield.text = swapVM.tokenAmount
-		estimatedAmountLabel.text = swapVM.formattedAmount
+		estimatedAmountLabel.text = swapVM.dollarAmount
 		maxAmountLabel.text = swapVM.maxHoldAmount
 		updateBalanceStatus()
 	}
 
 	private func updateEstimatedAmount(enteredAmount: String) {
 		swapVM.amountUpdated(enteredAmount)
-		estimatedAmountLabel.text = swapVM.formattedAmount
+		estimatedAmountLabel.text = swapVM.dollarAmount
 		updateBalanceStatus()
 	}
 

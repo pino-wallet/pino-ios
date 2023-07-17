@@ -92,8 +92,8 @@ class SwapConfirmationViewModel {
 	private func setupBindings() {
 		GlobalVariables.shared.$ethGasFee.sink { fee, feeInDollar in
 			self.gasFee = fee
-			self.formattedFeeInETH = "\(fee.sevenDigitFormat) ETH"
-			self.formattedFeeInDollar = "$\(feeInDollar.priceFormat)"
+			self.formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
+			self.formattedFeeInDollar = feeInDollar.priceFormat
 		}.store(in: &cancellables)
 	}
 }
