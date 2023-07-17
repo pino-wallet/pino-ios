@@ -54,6 +54,12 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 		setupPrimaryColorNavigationBar()
 		// Setup title view
 		setNavigationTitle("Confirm swap")
+		navigationItem.leftBarButtonItem = UIBarButtonItem(
+			image: UIImage(named: "dissmiss"),
+			style: .plain,
+			target: self,
+			action: #selector(dismissPage)
+		)
 	}
 
 	private func showFeeInfoActionSheet(_ feeInfoActionSheet: InfoActionSheet) {
@@ -62,5 +68,10 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 
 	private func confirmSwap() {
 		unlockApp {}
+	}
+
+	@objc
+	private func dismissPage() {
+		dismiss(animated: true)
 	}
 }

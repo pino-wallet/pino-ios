@@ -75,10 +75,12 @@ extension SwapView {
 			}
 		}
 		moveViewWithKeyboard(notification: notification, keyboardWillShow: true)
+		keyboardIsOpen = true
 	}
 
 	@objc
 	private func keyboardWillHide(_ notification: NSNotification) {
 		moveViewWithKeyboard(notification: notification, keyboardWillShow: false)
+		keyboardIsOpen = false
 	}
 }

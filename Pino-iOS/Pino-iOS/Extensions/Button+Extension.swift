@@ -12,13 +12,15 @@ extension UIButton {
 		font: UIFont,
 		imagePadding: CGFloat = 0,
 		titlePadding: CGFloat = 0,
-		contentInset: NSDirectionalEdgeInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+		contentInset: NSDirectionalEdgeInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0),
+		imagePlacement: NSDirectionalRectEdge = .leading
 	) {
 		var buttonConfiguration = UIButton.Configuration.plain()
 
 		buttonConfiguration.imagePadding = imagePadding
 		buttonConfiguration.titlePadding = titlePadding
 		buttonConfiguration.contentInsets = contentInset
+		buttonConfiguration.imagePlacement = imagePlacement
 
 		buttonConfiguration.titleTextAttributesTransformer =
 			UIConfigurationTextAttributesTransformer { config in

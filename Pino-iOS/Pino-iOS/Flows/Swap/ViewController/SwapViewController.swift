@@ -13,6 +13,9 @@ class SwapViewController: UIViewController {
 
 	private var assets: [AssetViewModel]?
 	private var swapVM: SwapViewModel!
+	private var swapView: SwapView!
+	private let protocolChangeButton = UIButton()
+	private let pageTitleLabel = UILabel()
 
 	private var cancellables = Set<AnyCancellable>()
 
@@ -23,47 +26,95 @@ class SwapViewController: UIViewController {
 	}
 
 	override func loadView() {
-		setupBinding()
+		setupView()
+		setupStyle()
 		setupNavigationBar()
 	}
 
 	// MARK: - Private Methods
 
-	private func setupView(assetList: [AssetViewModel]) {
-		assets = assetList
-		swapVM = SwapViewModel(fromToken: assetList[0], toToken: assetList[1])
+	private func setupView() {
+		#warning("It is temporary and should handle in loading branch")
+		view = UIView()
+		view.backgroundColor = .Pino.background
+		GlobalVariables.shared.$manageAssetsList.compactMap { $0 }.sink { assetList in
+			if self.assets == nil {
+				self.assets = assetList
+				self.swapVM = SwapViewModel(fromToken: assetList[0], toToken: assetList[1])
 
-		view = SwapView(
-			swapVM: swapVM,
-			fromTokenChange: {
-				self.selectAssetForFromToken()
-			},
-			toTokeChange: {
-				self.selectAssetForToToken()
-			},
-			swapProtocolChange: {
-				self.openSelectProtocolPage()
-			},
-			providerChange: {
-				self.openProvidersPage()
-			},
-			nextButtonTapped: {
-				self.openConfirmationPage()
-			}
-		)
-	}
-
-	private func setupBinding() {
-		GlobalVariables.shared.$manageAssetsList.sink { assetList in
-			if let assetList, self.assets == nil {
-				self.setupView(assetList: assetList)
+				self.swapView = SwapView(
+					swapVM: self.swapVM,
+					fromTokenChange: {
+						self.selectAssetForFromToken()
+					},
+					toTokeChange: {
+						self.selectAssetForToToken()
+					},
+					swapProtocolChange: {
+						self.openSelectProtocolPage()
+					},
+					providerChange: {
+						self.openProvidersPage()
+					},
+					nextButtonTapped: {
+						self.openConfirmationPage()
+					}
+				)
+				self.view = self.swapView
+				self.setupBinding()
 			}
 		}.store(in: &cancellables)
 	}
 
+	private func setupStyle() {
+		pageTitleLabel.text = "Swap"
+		pageTitleLabel.textColor = .Pino.white
+		pageTitleLabel.font = .PinoStyle.semiboldBody
+
+		protocolChangeButton.setImage(UIImage(named: "chevron_down"), for: .normal)
+		protocolChangeButton.setTitleColor(.Pino.white, for: .normal)
+		protocolChangeButton.tintColor = .Pino.white
+		protocolChangeButton.setConfiguraton(font: .PinoStyle.semiboldBody!, imagePadding: 3, imagePlacement: .trailing)
+
+		protocolChangeButton.addAction(UIAction(handler: { _ in
+			self.openSelectProtocolPage()
+		}), for: .touchUpInside)
+	}
+
+	private func setupBinding() {
+		swapVM.$selectedProtocol.sink { selectedProtocol in
+			self.protocolChangeButton.setTitle(selectedProtocol.name, for: .normal)
+		}.store(in: &cancellables)
+		// show and hide protocol card in normal size devices
+		if DeviceHelper.shared.size == .normal {
+			swapView.$keyboardIsOpen.sink { keyboardIsOpen in
+				if keyboardIsOpen {
+					self.showProtocolButtonInNavbar()
+					self.swapView.hideProtocolView()
+				} else {
+					self.showPageTitleInNavbar()
+					self.swapView.showProtocolView()
+				}
+			}.store(in: &cancellables)
+		}
+	}
+
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
-		setNavigationTitle("Swap")
+		// show navbar protocol button in small devices
+		if DeviceHelper.shared.size == .normal {
+			navigationItem.titleView = pageTitleLabel
+		} else {
+			navigationItem.titleView = protocolChangeButton
+		}
+	}
+
+	private func showProtocolButtonInNavbar() {
+		navigationItem.titleView = protocolChangeButton
+	}
+
+	private func showPageTitleInNavbar() {
+		navigationItem.titleView = pageTitleLabel
 	}
 
 	private func openSelectProtocolPage() {

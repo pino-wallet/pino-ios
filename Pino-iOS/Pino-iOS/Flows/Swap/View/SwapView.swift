@@ -44,6 +44,11 @@ class SwapView: UIView {
 	internal var nextButtonBottomConstraint: NSLayoutConstraint!
 	internal let nextButtonBottomConstant = CGFloat(12)
 
+	// MARK: - public Properties
+
+	@Published
+	public var keyboardIsOpen = false
+
 	// MARK: - Initializers
 
 	init(
@@ -115,6 +120,9 @@ class SwapView: UIView {
 			self.switchTokens()
 		}), for: .touchUpInside)
 
+		let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(dissmisskeyBoard))
+		swipeGestureRecognizer.direction = .down
+		addGestureRecognizer(swipeGestureRecognizer)
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
 
 		let protocolChangeTapGesture = UITapGestureRecognizer(target: self, action: #selector(changeSwapProtocol))
@@ -149,6 +157,11 @@ class SwapView: UIView {
 		protocolStackView.alignment = .center
 
 		feeCardView.alpha = 0
+
+		// Hide protocol card in small devices
+		if DeviceHelper.shared.size == .small {
+			hideProtocolView()
+		}
 	}
 
 	private func setupContstraint() {
@@ -272,5 +285,17 @@ class SwapView: UIView {
 	@objc
 	private func changeSwapProtocol() {
 		swapProtocolChange()
+	}
+
+	// MARK: - Public Methods
+
+	public func showProtocolView() {
+		protocolCardView.alpha = 1
+		protocolCardView.isHidden = false
+	}
+
+	public func hideProtocolView() {
+		protocolCardView.alpha = 0
+		protocolCardView.isHidden = true
 	}
 }
