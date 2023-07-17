@@ -410,6 +410,7 @@
 		E35BB6552A62D4A5003987F5 /* SwapConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6542A62D4A5003987F5 /* SwapConfirmationViewModel.swift */; };
 		E35BB6572A62E650003987F5 /* SwapConfirmationTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6562A62E650003987F5 /* SwapConfirmationTokenView.swift */; };
 		E35BB6592A62F1A8003987F5 /* SwapConfirmationInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6582A62F1A8003987F5 /* SwapConfirmationInfoView.swift */; };
+		E35BB65B2A652B13003987F5 /* DeviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB65A2A652B13003987F5 /* DeviceHelper.swift */; };
 		E3847B362A52CB32005ED78B /* SwapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B352A52CB32005ED78B /* SwapViewModel.swift */; };
 		E3847B382A52CBE6005ED78B /* AmountStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B372A52CBE6005ED78B /* AmountStatus.swift */; };
 		E3847B3A2A52CC19005ED78B /* SwapTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B392A52CC19005ED78B /* SwapTokenViewModel.swift */; };
@@ -878,6 +879,7 @@
 		E35BB6542A62D4A5003987F5 /* SwapConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapConfirmationViewModel.swift; sourceTree = "<group>"; };
 		E35BB6562A62E650003987F5 /* SwapConfirmationTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapConfirmationTokenView.swift; sourceTree = "<group>"; };
 		E35BB6582A62F1A8003987F5 /* SwapConfirmationInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapConfirmationInfoView.swift; sourceTree = "<group>"; };
+		E35BB65A2A652B13003987F5 /* DeviceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHelper.swift; sourceTree = "<group>"; };
 		E3847B352A52CB32005ED78B /* SwapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapViewModel.swift; sourceTree = "<group>"; };
 		E3847B372A52CBE6005ED78B /* AmountStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountStatus.swift; sourceTree = "<group>"; };
 		E3847B392A52CC19005ED78B /* SwapTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapTokenViewModel.swift; sourceTree = "<group>"; };
@@ -1602,6 +1604,7 @@
 				D9E134862A53013D00193FF0 /* ActivityHelper.swift */,
 				D99850462A55C66A00C2DF60 /* DateHelper.swift */,
 				E35BB64E2A598B80003987F5 /* GradientBorder.swift */,
+				E35BB65A2A652B13003987F5 /* DeviceHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -3152,6 +3155,7 @@
 				F1655D3CC058F9A6ED4E8521 /* CustomSwitchOptionVM.swift in Sources */,
 				2919216FFA72DA25EADE5CF3 /* CustomSwitchOptionView.swift in Sources */,
 				D9AF29E22A500B03006BC53E /* ActivityModel.swift in Sources */,
+				E35BB65B2A652B13003987F5 /* DeviceHelper.swift in Sources */,
 				4CF290BDB2B49F698A864B28 /* Date+Extension.swift in Sources */,
 				D99F4B1D29E2C25C009F7F55 /* PaymentMethodOptionView.swift in Sources */,
 				D941CAC82A3F03C500910B70 /* SendStatusViewModel.swift in Sources */,

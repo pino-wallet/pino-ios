@@ -85,8 +85,8 @@ class SwapViewController: UIViewController {
 		swapVM.$selectedProtocol.sink { selectedProtocol in
 			self.protocolChangeButton.setTitle(selectedProtocol.name, for: .normal)
 		}.store(in: &cancellables)
-
-		if UIScreen.main.bounds.height > 730 {
+		// show and hide protocol card in normal size devices
+		if DeviceHelper.shared.size == .normal {
 			swapView.$keyboardIsOpen.sink { keyboardIsOpen in
 				if keyboardIsOpen {
 					self.showProtocolButtonInNavbar()
@@ -101,7 +101,8 @@ class SwapViewController: UIViewController {
 
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
-		if UIScreen.main.bounds.height > 730 {
+		// show navbar protocol button in small devices
+		if DeviceHelper.shared.size == .normal {
 			navigationItem.titleView = pageTitleLabel
 		} else {
 			navigationItem.titleView = protocolChangeButton

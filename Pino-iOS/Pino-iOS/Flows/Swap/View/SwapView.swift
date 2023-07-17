@@ -158,7 +158,8 @@ class SwapView: UIView {
 
 		feeCardView.alpha = 0
 
-		if UIScreen.main.bounds.height < 730 {
+		// Hide protocol card in small devices
+		if DeviceHelper.shared.size == .small {
 			hideProtocolView()
 		}
 	}
