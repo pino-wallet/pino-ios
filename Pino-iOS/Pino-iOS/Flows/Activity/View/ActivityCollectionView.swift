@@ -61,42 +61,45 @@ class ActivityCollectionView: UICollectionView {
 	}
 
 	private func setupBindings() {
-            let activityHelper = ActivityHelper()
+		let activityHelper = ActivityHelper()
 		activityVM.$userActivities.sink { activities in
 			guard let userActivities = activities else {
 				self.showLoading = true
 				self.reloadData()
-                self.contentInset = UIEdgeInsets(top: 54, left: 0, bottom: 24, right: 0)
+				self.contentInset = UIEdgeInsets(top: 54, left: 0, bottom: 24, right: 0)
 				self.refreshControl?.endRefreshing()
 				return
 			}
 			self.separatedActivities = activityHelper.separateActivitiesByTime(activities: userActivities)
 			self.showLoading = false
 			self.refreshControl?.endRefreshing()
-            self.reloadData()
-            self.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 24, right: 0)
+			self.reloadData()
+			self.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 24, right: 0)
 		}.store(in: &cancellables)
-        
-        activityVM.$newUserActivities.sink { newActivities in
-            guard !newActivities.isEmpty else {
-                self.refreshControl?.endRefreshing()
-                return
-            }
-            let newSeparatedActivities = activityHelper.separateActivitiesByTime(activities: newActivities)
-            let newActivitiesInfo = activityHelper.getNewActivitiesInfo(separatedActivities: self.separatedActivities, newSeparatedActivities: newSeparatedActivities)
-            self.performBatchUpdates({
-                self.separatedActivities = newActivitiesInfo.finallSeparatedActivities
-                if !newActivitiesInfo.sections.isEmpty {
-                    for newActivitySection in newActivitiesInfo.sections {
-                        self.insertSections(newActivitySection)
-                        self.collectionViewLayout.invalidateLayout()
-                    }
-                }
-                self.insertItems(at: newActivitiesInfo.indexPaths)
-                self.collectionViewLayout.invalidateLayout()
-            } , completion: nil)
-            self.refreshControl?.endRefreshing()
-        }.store(in: &cancellables)
+
+		activityVM.$newUserActivities.sink { newActivities in
+			guard !newActivities.isEmpty else {
+				self.refreshControl?.endRefreshing()
+				return
+			}
+			let newSeparatedActivities = activityHelper.separateActivitiesByTime(activities: newActivities)
+			let newActivitiesInfo = activityHelper.getNewActivitiesInfo(
+				separatedActivities: self.separatedActivities,
+				newSeparatedActivities: newSeparatedActivities
+			)
+			self.performBatchUpdates({
+				self.separatedActivities = newActivitiesInfo.finallSeparatedActivities
+				if !newActivitiesInfo.sections.isEmpty {
+					for newActivitySection in newActivitiesInfo.sections {
+						self.insertSections(newActivitySection)
+						self.collectionViewLayout.invalidateLayout()
+					}
+				}
+				self.insertItems(at: newActivitiesInfo.indexPaths)
+				self.collectionViewLayout.invalidateLayout()
+			}, completion: nil)
+			self.refreshControl?.endRefreshing()
+		}.store(in: &cancellables)
 	}
 
 	private func refreshData() {
@@ -189,7 +192,7 @@ extension ActivityCollectionView: UICollectionViewDataSource {
 		referenceSizeForHeaderInSection section: Int
 	) -> CGSize {
 		if !showLoading {
-            return CGSize(width: collectionView.frame.width, height: 46)
+			return CGSize(width: collectionView.frame.width, height: 46)
 		} else {
 			return CGSize(width: 0, height: 0)
 		}

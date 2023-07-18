@@ -28,36 +28,61 @@ class ActivityHelper {
 
 		return sortSeparatedActivities(separatedActivitiesWithDay: separatedActivitiesWithDay)
 	}
-    
-    public func getNewActivitiesInfo(separatedActivities: SeparatedActivitiesType, newSeparatedActivities: SeparatedActivitiesType) -> (indexPaths: [IndexPath], sections: [IndexSet], finallSeparatedActivities: SeparatedActivitiesType) {
-        var indexPaths = [IndexPath]()
-        var indexSets: [IndexSet] = []
-        var finallSeparatedActivities: SeparatedActivitiesType = separatedActivities
-        
-        for newSeparatedActivity in newSeparatedActivities {
-            let foundSectionIndex = finallSeparatedActivities.firstIndex { $0.title == newSeparatedActivity.title }
-            if foundSectionIndex != nil {
-                finallSeparatedActivities[foundSectionIndex!].activities.append(contentsOf: newSeparatedActivity.activities)
-                finallSeparatedActivities[foundSectionIndex!].activities =  finallSeparatedActivities[foundSectionIndex!].activities.sorted(by: {getActivityDate(activityBlockTime: $0.blockTime).timeIntervalSince1970 > getActivityDate(activityBlockTime: $1.blockTime).timeIntervalSince1970 })
-                for (index, item) in finallSeparatedActivities[foundSectionIndex!].activities.enumerated() {
-                    if newSeparatedActivity.activities.contains(where: {item.defaultActivityModel.txHash == $0.defaultActivityModel.txHash}) {
-                        indexPaths.append(IndexPath(row: index, section: foundSectionIndex!))
-                    }
-                }
-            } else {
-                finallSeparatedActivities.append(newSeparatedActivity)
-                finallSeparatedActivities = finallSeparatedActivities.sorted(by: {getActivityDate(activityBlockTime: $0.activities[0].blockTime).timeIntervalSince1970 > getActivityDate(activityBlockTime: $1.activities[0].blockTime).timeIntervalSince1970})
-                let foundSectionIndex = finallSeparatedActivities.firstIndex(where: {$0.title == newSeparatedActivity.title})
-                finallSeparatedActivities[foundSectionIndex!].activities =  finallSeparatedActivities[foundSectionIndex!].activities.sorted(by: {getActivityDate(activityBlockTime: $0.blockTime).timeIntervalSince1970 > getActivityDate(activityBlockTime: $1.blockTime).timeIntervalSince1970 })
-                indexSets.append(IndexSet(integer: foundSectionIndex!))
-                for _ in finallSeparatedActivities[foundSectionIndex!].activities {
-                    indexPaths.append(IndexPath(row: finallSeparatedActivities[foundSectionIndex!].activities.count - 1, section: foundSectionIndex!))
-                }
-            }
-        }
-        
-        return (indexPaths: indexPaths, sections: indexSets, finallSeparatedActivities: finallSeparatedActivities)
-    }
+
+	public func getNewActivitiesInfo(
+		separatedActivities: SeparatedActivitiesType,
+		newSeparatedActivities: SeparatedActivitiesType
+	) -> (indexPaths: [IndexPath], sections: [IndexSet], finallSeparatedActivities: SeparatedActivitiesType) {
+		var indexPaths = [IndexPath]()
+		var indexSets: [IndexSet] = []
+		var finallSeparatedActivities: SeparatedActivitiesType = separatedActivities
+
+		for newSeparatedActivity in newSeparatedActivities {
+			let foundSectionIndex = finallSeparatedActivities.firstIndex { $0.title == newSeparatedActivity.title }
+			if foundSectionIndex != nil {
+				finallSeparatedActivities[foundSectionIndex!].activities
+					.append(contentsOf: newSeparatedActivity.activities)
+				finallSeparatedActivities[foundSectionIndex!].activities = finallSeparatedActivities[foundSectionIndex!]
+					.activities
+					.sorted(by: {
+						getActivityDate(activityBlockTime: $0.blockTime)
+							.timeIntervalSince1970 > getActivityDate(activityBlockTime: $1.blockTime).timeIntervalSince1970
+					})
+				for (index, item) in finallSeparatedActivities[foundSectionIndex!].activities.enumerated() {
+					if newSeparatedActivity.activities
+						.contains(where: { item.defaultActivityModel.txHash == $0.defaultActivityModel.txHash }) {
+						indexPaths.append(IndexPath(row: index, section: foundSectionIndex!))
+					}
+				}
+			} else {
+				finallSeparatedActivities.append(newSeparatedActivity)
+				finallSeparatedActivities = finallSeparatedActivities
+					.sorted(by: {
+						getActivityDate(activityBlockTime: $0.activities[0].blockTime)
+							.timeIntervalSince1970 > getActivityDate(activityBlockTime: $1.activities[0].blockTime)
+							.timeIntervalSince1970
+					})
+				let foundSectionIndex = finallSeparatedActivities
+					.firstIndex(where: { $0.title == newSeparatedActivity.title })
+				finallSeparatedActivities[foundSectionIndex!].activities = finallSeparatedActivities[foundSectionIndex!]
+					.activities
+					.sorted(by: {
+						getActivityDate(activityBlockTime: $0.blockTime)
+							.timeIntervalSince1970 > getActivityDate(activityBlockTime: $1.blockTime).timeIntervalSince1970
+					})
+				indexSets.append(IndexSet(integer: foundSectionIndex!))
+				for _ in finallSeparatedActivities[foundSectionIndex!].activities {
+					indexPaths
+						.append(IndexPath(
+							row: finallSeparatedActivities[foundSectionIndex!].activities.count - 1,
+							section: foundSectionIndex!
+						))
+				}
+			}
+		}
+
+		return (indexPaths: indexPaths, sections: indexSets, finallSeparatedActivities: finallSeparatedActivities)
+	}
 
 	// MARK: - Private Methods
 
