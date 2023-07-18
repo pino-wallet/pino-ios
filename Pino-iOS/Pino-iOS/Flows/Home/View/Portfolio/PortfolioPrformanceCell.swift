@@ -58,7 +58,8 @@ class PortfolioPerformanceCell: GroupCollectionViewCell {
 			assetImage.image = UIImage(named: assetVM.othersImage)
 		}
 
-		progressView.setProgress(assetVM.progressBarValue, animated: false)
+        let progressbarFloatValue = Float(assetVM.progressBarValue!.decimalString)!
+        progressView.setProgress(progressbarFloatValue, animated: true)
 		progressView.progressTintColor = .Pino.secondaryLabel
 		progressView.trackTintColor = .Pino.clear
 

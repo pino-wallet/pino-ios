@@ -8,11 +8,11 @@
 import Foundation
 
 protocol ShareOfAssetsProtocol {
-	var holdAmount: Double { get set }
-	var totalAmount: Double { get set }
+	var holdAmount: BigNumber { get set }
+	var totalAmount: BigNumber { get set }
 	var assetAmount: String { get }
 	var amountPercentage: String { get }
-	var progressBarValue: Float { get }
+	var progressBarValue: BigNumber? { get }
 	var assetName: String { get }
 	var assetImage: URL? { get }
 	var othersImage: String { get }
@@ -20,20 +20,20 @@ protocol ShareOfAssetsProtocol {
 
 extension ShareOfAssetsProtocol {
 	var assetAmount: String {
-		(holdAmount.roundToPlaces(2)).currencyFormatting
+        holdAmount.priceFormat
 	}
 
 	var amountPercentage: String {
-		let amountPercentage = (holdAmount / totalAmount) * 100
-		if amountPercentage > 1 {
-			return "\(amountPercentage.roundToPlaces(2))%"
+        let amountPercentage = ((holdAmount * 100.bigNumber) / totalAmount)!
+        if amountPercentage > 1.bigNumber {
+            return "\(amountPercentage.percentFormat)%"
 		} else {
 			return "Less than 1%"
 		}
 	}
 
-	var progressBarValue: Float {
-		Float(holdAmount / totalAmount)
+	var progressBarValue: BigNumber? {
+		holdAmount / totalAmount
 	}
 
 	var othersImage: String {
