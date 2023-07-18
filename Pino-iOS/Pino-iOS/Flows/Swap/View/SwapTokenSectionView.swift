@@ -91,8 +91,6 @@ class SwapTokenSectionView: UIView {
 			estimatedAmountLabel.isHidden = true
 		}
 
-		maxAmountStackView.isHidden = !hasMaxAmount
-
 		amountTextfield.attributedPlaceholder = NSAttributedString(
 			string: swapVM.textFieldPlaceHolder,
 			attributes: [.font: UIFont.PinoStyle.semiboldTitle1!, .foregroundColor: UIColor.Pino.gray2]
@@ -110,17 +108,17 @@ class SwapTokenSectionView: UIView {
 		maxAmountLabel.textColor = .Pino.label
 
 		contentStackView.axis = .vertical
-
 		contentStackView.spacing = 20
 
 		amountTextfield.keyboardType = .decimalPad
-		amountTextfield.delegate = self
-
 		estimatedAmountLabel.numberOfLines = 0
 		estimatedAmountLabel.lineBreakMode = .byCharWrapping
 		estimatedAmountLabel.isSkeletonable = true
 
+		amountTextfield.delegate = self
 		swapVM.swapDelegate = self
+
+		maxAmountStackView.isHidden = !hasMaxAmount
 	}
 
 	private func setupContstraint() {
@@ -128,7 +126,6 @@ class SwapTokenSectionView: UIView {
 			.verticalEdges,
 			.horizontalEdges(padding: 14)
 		)
-
 		NSLayoutConstraint.activate([
 			estimatedAmountLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60),
 		])
