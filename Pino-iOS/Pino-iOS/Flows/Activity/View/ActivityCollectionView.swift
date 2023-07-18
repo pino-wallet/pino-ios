@@ -24,7 +24,7 @@ class ActivityCollectionView: UICollectionView {
 	private var separatedActivities: ActivityHelper.separatedActivitiesType = []
 	private var cancellables = Set<AnyCancellable>()
 	private var showLoading = true
-    private var globalAssetsList: [AssetViewModel]? = nil
+	private var globalAssetsList: [AssetViewModel]?
 
 	// MARK: - Initializers
 
@@ -62,12 +62,12 @@ class ActivityCollectionView: UICollectionView {
 	}
 
 	private func setupBindings() {
-        GlobalVariables.shared.$manageAssetsList.sink { assetsList in
-            if self.globalAssetsList == nil {
-                self.globalAssetsList = assetsList
-                self.reloadData()
-            }
-        }.store(in: &cancellables)
+		GlobalVariables.shared.$manageAssetsList.sink { assetsList in
+			if self.globalAssetsList == nil {
+				self.globalAssetsList = assetsList
+				self.reloadData()
+			}
+		}.store(in: &cancellables)
 		activityVM.$userActivities.sink { activities in
 			guard let userActivities = activities else {
 				self.showLoading = true
@@ -145,7 +145,7 @@ extension ActivityCollectionView: UICollectionViewDataSource {
 			activityCell.showSkeletonView()
 		} else {
 			activityCell.activityCellVM = separatedActivities[indexPath.section].activities[indexPath.item]
-            activityCell.activityCellVM?.globalAssetsList = globalAssetsList
+			activityCell.activityCellVM?.globalAssetsList = globalAssetsList
 			activityCell.hideSkeletonView()
 		}
 		return activityCell

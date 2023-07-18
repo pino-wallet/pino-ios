@@ -89,7 +89,7 @@ class ActivityCell: UICollectionViewCell {
 		guard let activityStatus = activityCellVM?.status else {
 			return
 		}
-            statusLabel.text = activityStatus.rawValue
+		statusLabel.text = activityStatus.rawValue
 		switch activityStatus {
 		case .failed:
 			statusLabelContainer.backgroundColor = .Pino.lightRed
