@@ -14,7 +14,7 @@ class ActivitiesCollectionView: UICollectionView {
 	private var cancellable = Set<AnyCancellable>()
 	private let historyRefreshContorl = UIRefreshControl()
 	private var coinInfoVM: CoinInfoViewModel!
-	private var separatedActivities: ActivityHelper.separatedActivitiesType! = []
+	private var separatedActivities: ActivityHelper.SeparatedActivitiesType! = []
 	private var showLoading = true
 	private var isRefreshing = false
 

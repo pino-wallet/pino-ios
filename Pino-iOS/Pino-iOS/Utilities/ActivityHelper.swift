@@ -10,8 +10,8 @@ import Foundation
 class ActivityHelper {
 	// MARK: - TypeAliases
 
-	public typealias separatedActivitiesType = [(title: String, activities: [ActivityCellViewModel])]
-	public typealias separatedActivitiesWithDayType = [Int: [ActivityCellViewModel]]
+	public typealias SeparatedActivitiesType = [(title: String, activities: [ActivityCellViewModel])]
+	public typealias SeparatedActivitiesWithDayType = [Int: [ActivityCellViewModel]]
 
 	// MARK: - Public Methods
 
@@ -21,21 +21,51 @@ class ActivityHelper {
 		return dateFormatter.date(from: activityBlockTime)!
 	}
 
-	public func separateActivitiesByTime(activities: [ActivityCellViewModel]) -> separatedActivitiesType {
-		var separatedActivitiesWithDay: separatedActivitiesWithDayType
+	public func separateActivitiesByTime(activities: [ActivityCellViewModel]) -> SeparatedActivitiesType {
+		var separatedActivitiesWithDay: SeparatedActivitiesWithDayType
 
 		separatedActivitiesWithDay = separateActivitiesByDay(activities: activities)
 
 		return sortSeparatedActivities(separatedActivitiesWithDay: separatedActivitiesWithDay)
 	}
+    
+    public func getNewActivitiesInfo(separatedActivities: SeparatedActivitiesType, newSeparatedActivities: SeparatedActivitiesType) -> (indexPaths: [IndexPath], sections: [IndexSet], finallSeparatedActivities: SeparatedActivitiesType) {
+        var indexPaths = [IndexPath]()
+        var indexSets: [IndexSet] = []
+        var finallSeparatedActivities: SeparatedActivitiesType = separatedActivities
+        
+        for newSeparatedActivity in newSeparatedActivities {
+            let foundSectionIndex = finallSeparatedActivities.firstIndex { $0.title == newSeparatedActivity.title }
+            if foundSectionIndex != nil {
+                finallSeparatedActivities[foundSectionIndex!].activities.append(contentsOf: newSeparatedActivity.activities)
+                finallSeparatedActivities[foundSectionIndex!].activities =  finallSeparatedActivities[foundSectionIndex!].activities.sorted(by: {getActivityDate(activityBlockTime: $0.blockTime).timeIntervalSince1970 > getActivityDate(activityBlockTime: $1.blockTime).timeIntervalSince1970 })
+                for (index, item) in finallSeparatedActivities[foundSectionIndex!].activities.enumerated() {
+                    if newSeparatedActivity.activities.contains(where: {item.defaultActivityModel.txHash == $0.defaultActivityModel.txHash}) {
+                        indexPaths.append(IndexPath(row: index, section: foundSectionIndex!))
+                    }
+                }
+            } else {
+                finallSeparatedActivities.append(newSeparatedActivity)
+                finallSeparatedActivities = finallSeparatedActivities.sorted(by: {getActivityDate(activityBlockTime: $0.activities[0].blockTime).timeIntervalSince1970 > getActivityDate(activityBlockTime: $1.activities[0].blockTime).timeIntervalSince1970})
+                let foundSectionIndex = finallSeparatedActivities.firstIndex(where: {$0.title == newSeparatedActivity.title})
+                finallSeparatedActivities[foundSectionIndex!].activities =  finallSeparatedActivities[foundSectionIndex!].activities.sorted(by: {getActivityDate(activityBlockTime: $0.blockTime).timeIntervalSince1970 > getActivityDate(activityBlockTime: $1.blockTime).timeIntervalSince1970 })
+                indexSets.append(IndexSet(integer: foundSectionIndex!))
+                for _ in finallSeparatedActivities[foundSectionIndex!].activities {
+                    indexPaths.append(IndexPath(row: finallSeparatedActivities[foundSectionIndex!].activities.count - 1, section: foundSectionIndex!))
+                }
+            }
+        }
+        
+        return (indexPaths: indexPaths, sections: indexSets, finallSeparatedActivities: finallSeparatedActivities)
+    }
 
 	// MARK: - Private Methods
 
-	private func separateActivitiesByDay(activities: [ActivityCellViewModel]) -> separatedActivitiesWithDayType {
+	private func separateActivitiesByDay(activities: [ActivityCellViewModel]) -> SeparatedActivitiesWithDayType {
 		let currentDate = Date()
 		var activityDate: Date
 		var daysBetweenNowAndActivityTime: Int
-		var result: separatedActivitiesWithDayType = [:]
+		var result: SeparatedActivitiesWithDayType = [:]
 
 		for activity in activities {
 			activityDate = getActivityDate(activityBlockTime: activity.blockTime)
@@ -51,9 +81,9 @@ class ActivityHelper {
 		return result
 	}
 
-	private func sortSeparatedActivities(separatedActivitiesWithDay: separatedActivitiesWithDayType)
-		-> separatedActivitiesType {
-		var result: separatedActivitiesType = []
+	private func sortSeparatedActivities(separatedActivitiesWithDay: SeparatedActivitiesWithDayType)
+		-> SeparatedActivitiesType {
+		var result: SeparatedActivitiesType = []
 		var activityGroupTitle: String
 		var firstActivityInGroupDate: Date
 
