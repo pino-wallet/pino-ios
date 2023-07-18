@@ -137,7 +137,7 @@ class SendConfirmationView: UIView {
 
 	private func setupStyle() {
 		tokenNameLabel.text = sendConfirmationVM.formattedSendAmount
-		sendAmountLabel.text = sendConfirmationVM.formattedSendAmountInDollar
+		sendAmountLabel.text = sendConfirmationVM.sendAmountInDollar
 		selectedWalletTitleLabel.text = sendConfirmationVM.selectedWalletTitle
 		walletNameLabel.text = sendConfirmationVM.selectedWalletName
 		recipientTitleLabel.text = sendConfirmationVM.recipientAddressTitle
