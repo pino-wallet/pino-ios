@@ -34,9 +34,7 @@ class SwapViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		#warning("It is temporary and should handle in loading branch")
-		view = UIView()
-		view.backgroundColor = .Pino.background
+		view = SwapLoadingView()
 		GlobalVariables.shared.$manageAssetsList.compactMap { $0 }.sink { assetList in
 			if self.assets == nil {
 				self.assets = assetList
@@ -154,7 +152,7 @@ class SwapViewController: UIViewController {
 
 	private func openProvidersPage() {
 		let providersVC = SwapProvidersViewcontroller { provider in
-			self.swapVM.swapFeeVM.swapProviderVM = provider
+			self.swapVM.changeSwapProvider(to: provider)
 		}
 		present(providersVC, animated: true)
 	}

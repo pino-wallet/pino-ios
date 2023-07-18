@@ -84,14 +84,12 @@ class SwapTokenSectionView: UIView {
 
 		if swapVM.selectedToken.isVerified {
 			changeTokenView.tokenImageURL = swapVM.selectedToken.image
-			estimatedAmountLabel.text = swapVM.formattedAmount
+			estimatedAmountLabel.text = swapVM.dollarAmount
 			estimatedAmountLabel.isHidden = false
 		} else {
 			changeTokenView.customTokenImage = swapVM.selectedToken.customAssetImage
 			estimatedAmountLabel.isHidden = true
 		}
-
-		maxAmountStackView.isHidden = !hasMaxAmount
 
 		amountTextfield.attributedPlaceholder = NSAttributedString(
 			string: swapVM.textFieldPlaceHolder,
@@ -110,16 +108,17 @@ class SwapTokenSectionView: UIView {
 		maxAmountLabel.textColor = .Pino.label
 
 		contentStackView.axis = .vertical
-
 		contentStackView.spacing = 20
 
 		amountTextfield.keyboardType = .decimalPad
-		amountTextfield.delegate = self
-
 		estimatedAmountLabel.numberOfLines = 0
 		estimatedAmountLabel.lineBreakMode = .byCharWrapping
+		estimatedAmountLabel.isSkeletonable = true
 
+		amountTextfield.delegate = self
 		swapVM.swapDelegate = self
+
+		maxAmountStackView.isHidden = !hasMaxAmount
 	}
 
 	private func setupContstraint() {
@@ -127,6 +126,9 @@ class SwapTokenSectionView: UIView {
 			.verticalEdges,
 			.horizontalEdges(padding: 14)
 		)
+		NSLayoutConstraint.activate([
+			estimatedAmountLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60),
+		])
 	}
 
 	private func updateView() {
@@ -143,14 +145,14 @@ class SwapTokenSectionView: UIView {
 
 	private func updateAmountView() {
 		amountTextfield.text = swapVM.tokenAmount
-		estimatedAmountLabel.text = swapVM.formattedAmount
+		estimatedAmountLabel.text = swapVM.dollarAmount
 		maxAmountLabel.text = swapVM.maxHoldAmount
 		updateBalanceStatus()
 	}
 
 	private func updateEstimatedAmount(enteredAmount: String) {
 		swapVM.amountUpdated(enteredAmount)
-		estimatedAmountLabel.text = swapVM.formattedAmount
+		estimatedAmountLabel.text = swapVM.dollarAmount
 		updateBalanceStatus()
 	}
 
@@ -194,14 +196,6 @@ class SwapTokenSectionView: UIView {
 	public func openKeyboard() {
 		amountTextfield.becomeFirstResponder()
 	}
-
-	public func fadeOutTokenView() {
-		changeTokenView.alpha = 0
-	}
-
-	public func fadeInTokenView() {
-		changeTokenView.alpha = 1
-	}
 }
 
 extension SwapTokenSectionView: SwapDelegate {
@@ -210,7 +204,14 @@ extension SwapTokenSectionView: SwapDelegate {
 	}
 
 	func swapAmountDidCalculate() {
+		hideSkeletonView()
+		amountTextfield.textColor = .Pino.label
 		updateAmountView()
+	}
+
+	func swapAmountCalculating() {
+		showSkeletonView()
+		amountTextfield.textColor = .Pino.gray3
 	}
 }
 

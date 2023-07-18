@@ -36,11 +36,15 @@ class SwapFeeView: UIView {
 	private let priceImpactLabel = UILabel()
 	private let feeTitleLabel = UILabel()
 	private let feeLabel = UILabel()
+	private let feeLoadingStackView = UIStackView()
+	private let feeLoadingLabel = UILabel()
+	private let feeLoadingIndicator = UIActivityIndicatorView()
 
 	private let openFeeInfoIcon = UIImage(named: "chevron_down")
 	private let closeFeeInfoIcon = UIImage(named: "chevron_up")
 
 	private var isCollapsed = false
+	private var showFeeInDollar = true
 
 	private let swapFeeVM: SwapFeeViewModel
 	private var providerChange: () -> Void
@@ -66,6 +70,7 @@ class SwapFeeView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		addSubview(feeLoadingStackView)
 		addSubview(amountStackView)
 		addSubview(contentStackView)
 		contentStackView.addArrangedSubview(contentSpacerView)
@@ -91,6 +96,8 @@ class SwapFeeView: UIView {
 		priceImpactStackView.addArrangedSubview(priceImpactLabel)
 		feeStackView.addArrangedSubview(feeTitleLabel)
 		feeStackView.addArrangedSubview(feeLabel)
+		feeLoadingStackView.addArrangedSubview(feeLoadingIndicator)
+		feeLoadingStackView.addArrangedSubview(feeLoadingLabel)
 
 		collapsButton.addAction(UIAction(handler: { _ in
 			self.collapsFeeCard()
@@ -98,6 +105,10 @@ class SwapFeeView: UIView {
 
 		let providerChangeTapGesture = UITapGestureRecognizer(target: self, action: #selector(changeProvider))
 		providerChangeStackView.addGestureRecognizer(providerChangeTapGesture)
+
+		let feeLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleFeeValue))
+		feeLabel.addGestureRecognizer(feeLabelTapGesture)
+		feeLabel.isUserInteractionEnabled = true
 	}
 
 	private func setupStyle() {
@@ -105,6 +116,7 @@ class SwapFeeView: UIView {
 		providerTitle.text = swapFeeVM.providerTitle
 		priceImpactTitleLabel.text = swapFeeVM.priceImpactTitle
 		feeTitleLabel.text = swapFeeVM.feeTitle
+		feeLoadingLabel.text = swapFeeVM.loadingText
 
 		collapsButton.setImage(openFeeInfoIcon, for: .normal)
 		providerChangeIcon.image = UIImage(named: "chevron_right")
@@ -119,6 +131,7 @@ class SwapFeeView: UIView {
 		feeLabel.font = .PinoStyle.mediumBody
 		priceImpactTitleLabel.font = .PinoStyle.mediumBody
 		priceImpactLabel.font = .PinoStyle.mediumBody
+		feeLoadingLabel.font = .PinoStyle.mediumBody
 
 		amountLabel.textColor = .Pino.label
 		saveAmountTitleLabel.textColor = .Pino.secondaryLabel
@@ -129,6 +142,7 @@ class SwapFeeView: UIView {
 		feeLabel.textColor = .Pino.label
 		priceImpactTitleLabel.textColor = .Pino.secondaryLabel
 		priceImpactLabel.textColor = .Pino.orange
+		feeLoadingLabel.textColor = .Pino.label
 
 		collapsButton.tintColor = .Pino.label
 		providerChangeIcon.tintColor = .Pino.secondaryLabel
@@ -142,15 +156,18 @@ class SwapFeeView: UIView {
 		feeInfoStackView.spacing = 20
 		impactTagStackView.spacing = 2
 		providerChangeStackView.spacing = 3
+		feeLoadingStackView.spacing = 12
 
 		providerChangeStackView.alignment = .center
 		impactTagStackView.alignment = .center
 
 		impactTagView.layer.cornerRadius = 14
-
-		feeInfoStackView.isHidden = true
 		contentStackView.layer.masksToBounds = true
 
+		feeLoadingIndicator.style = .medium
+		feeLoadingIndicator.color = .Pino.primary
+
+		feeInfoStackView.isHidden = true
 		impactTagView.alpha = 1
 
 		feeLabel.isSkeletonable = true
@@ -184,6 +201,9 @@ class SwapFeeView: UIView {
 		providerChangeIcon.pin(
 			.fixedWidth(16),
 			.fixedHeight(16)
+		)
+		feeLoadingStackView.pin(
+			.allEdges(padding: 16)
 		)
 		NSLayoutConstraint.activate([
 			impactTagView.widthAnchor.constraint(greaterThanOrEqualToConstant: 28),
@@ -221,9 +241,10 @@ class SwapFeeView: UIView {
 			self.updatePriceImpact(priceImpact)
 		}.store(in: &cancellables)
 
-		swapFeeVM.$fee.sink { fee in
-			self.updateFee(fee)
-		}.store(in: &cancellables)
+		Publishers.Zip(swapFeeVM.$fee, swapFeeVM.$feeInDollar)
+			.sink { feeInETH, feeInDollar in
+				self.updateFee(feeInETH: feeInETH, feeInDollar: feeInDollar)
+			}.store(in: &cancellables)
 	}
 
 	private func updateTagView(_ tag: SwapFeeViewModel.FeeTag) {
@@ -271,18 +292,48 @@ class SwapFeeView: UIView {
 		}
 	}
 
-	private func updateFee(_ fee: String?) {
-		if let fee {
-			feeLabel.text = fee.ethFormatting
-			feeLabel.hideSkeletonView()
+	private func updateFee(feeInETH: String?, feeInDollar: String?) {
+		if let feeInETH, let feeInDollar {
+			if showFeeInDollar {
+				feeLabel.text = feeInDollar
+			} else {
+				feeLabel.text = feeInETH
+			}
+			hideLoading()
 		} else {
-			feeLabel.showSkeletonView()
+			showLoading()
 		}
+	}
+
+	private func showLoading() {
+		if isCollapsed {
+			feeInfoStackView.isHidden = true
+		}
+		amountStackView.isHidden = true
+		contentStackView.isHidden = true
+		feeLoadingStackView.isHidden = false
+		feeLoadingIndicator.startAnimating()
+	}
+
+	private func hideLoading() {
+		if isCollapsed {
+			feeInfoStackView.isHidden = false
+		}
+		amountStackView.isHidden = false
+		contentStackView.isHidden = false
+		feeLoadingStackView.isHidden = true
+		feeLoadingIndicator.stopAnimating()
 	}
 
 	@objc
 	private func changeProvider() {
 		providerChange()
+	}
+
+	@objc
+	private func toggleFeeValue() {
+		showFeeInDollar.toggle()
+		updateFee(feeInETH: swapFeeVM.fee, feeInDollar: swapFeeVM.feeInDollar)
 	}
 
 	// MARK: - Public Methods
