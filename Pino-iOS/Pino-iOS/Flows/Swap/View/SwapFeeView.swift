@@ -24,7 +24,7 @@ class SwapFeeView: UIView {
 	private let impactTagStackView = UIStackView()
 	private let impactTagView = UIView()
 	private let impactTagLabel = UILabel()
-	private let collapsButton = UIButton()
+	private let collapsButton = UIImageView()
 	private let saveAmountTitleLabel = UILabel()
 	private let saveAmountLabel = UILabel()
 	private let providerTitle = UILabel()
@@ -99,9 +99,7 @@ class SwapFeeView: UIView {
 		feeLoadingStackView.addArrangedSubview(feeLoadingIndicator)
 		feeLoadingStackView.addArrangedSubview(feeLoadingLabel)
 
-		collapsButton.addAction(UIAction(handler: { _ in
-			self.collapsFeeCard()
-		}), for: .touchUpInside)
+		amountStackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(collapsFeeCard)))
 
 		let providerChangeTapGesture = UITapGestureRecognizer(target: self, action: #selector(changeProvider))
 		providerChangeStackView.addGestureRecognizer(providerChangeTapGesture)
@@ -118,7 +116,7 @@ class SwapFeeView: UIView {
 		feeTitleLabel.text = swapFeeVM.feeTitle
 		feeLoadingLabel.text = swapFeeVM.loadingText
 
-		collapsButton.setImage(openFeeInfoIcon, for: .normal)
+		collapsButton.image = openFeeInfoIcon
 		providerChangeIcon.image = UIImage(named: "chevron_right")
 
 		amountLabel.font = .PinoStyle.mediumBody
@@ -216,15 +214,16 @@ class SwapFeeView: UIView {
 		])
 	}
 
+	@objc
 	private func collapsFeeCard() {
 		UIView.animate(withDuration: 0.3) {
 			self.feeInfoStackView.isHidden.toggle()
 			self.isCollapsed.toggle()
 			if self.isCollapsed {
-				self.collapsButton.setImage(self.closeFeeInfoIcon, for: .normal)
+				self.collapsButton.image = self.closeFeeInfoIcon
 				self.impactTagView.alpha = 0
 			} else {
-				self.collapsButton.setImage(self.openFeeInfoIcon, for: .normal)
+				self.collapsButton.image = self.openFeeInfoIcon
 				self.impactTagView.alpha = 1
 			}
 		}
