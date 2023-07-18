@@ -152,14 +152,15 @@ class SwapFeeView: UIView {
 		contentStackView.axis = .vertical
 		feeInfoStackView.axis = .vertical
 
-		contentStackView.spacing = 20
+		contentStackView.spacing = 16
 		feeInfoStackView.spacing = 20
 		impactTagStackView.spacing = 2
 		providerChangeStackView.spacing = 3
-		feeLoadingStackView.spacing = 12
+		feeLoadingStackView.spacing = 10
 
 		providerChangeStackView.alignment = .center
 		impactTagStackView.alignment = .center
+		amountStackView.alignment = .center
 
 		impactTagView.layer.cornerRadius = 14
 		contentStackView.layer.masksToBounds = true
@@ -175,13 +176,18 @@ class SwapFeeView: UIView {
 
 	private func setupConstraint() {
 		amountStackView.pin(
-			.horizontalEdges(padding: 14),
-			.top(padding: 15)
+			.leading(padding: 14),
+			.trailing(padding: 8),
+			.top(padding: 10),
+			.fixedHeight(28)
 		)
 		contentStackView.pin(
 			.horizontalEdges(padding: 14),
 			.top(to: amountStackView, .bottom),
-			.bottom(padding: 15)
+			.bottom(padding: 10)
+		)
+		feeInfoStackView.pin(
+			.bottom(padding: 5)
 		)
 		impactTagView.pin(
 			.fixedHeight(28)
@@ -203,7 +209,7 @@ class SwapFeeView: UIView {
 			.fixedHeight(16)
 		)
 		feeLoadingStackView.pin(
-			.allEdges(padding: 16)
+			.allEdges(padding: 10)
 		)
 		NSLayoutConstraint.activate([
 			impactTagView.widthAnchor.constraint(greaterThanOrEqualToConstant: 28),
