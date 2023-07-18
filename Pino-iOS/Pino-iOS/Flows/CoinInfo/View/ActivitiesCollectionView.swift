@@ -17,6 +17,7 @@ class ActivitiesCollectionView: UICollectionView {
 	private var separatedActivities: ActivityHelper.separatedActivitiesType! = []
 	private var showLoading = true
 	private var isRefreshing = false
+    private var globalAssetsList: [AssetViewModel]? = nil
 
 	// MARK: - Initializers
 
@@ -73,6 +74,12 @@ class ActivitiesCollectionView: UICollectionView {
 	}
 
 	private func setupBinding() {
+        GlobalVariables.shared.$manageAssetsList.sink { assetsList in
+            if self.globalAssetsList == nil {
+                self.globalAssetsList = assetsList
+                self.reloadData()
+            }
+        }.store(in: &cancellable)
 		let activityHelper = ActivityHelper()
 		coinInfoVM.$coinHistoryList.sink { [weak self] activities in
 			guard let userActivitiesOnToken = activities else {
@@ -262,6 +269,7 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 			coinHistoryCell.showSkeletonView()
 		} else {
 			coinHistoryCell.activityCellVM = separatedActivities[indexPath.section].activities[indexPath.item]
+            coinHistoryCell.activityCellVM?.globalAssetsList = globalAssetsList
 			coinHistoryCell.hideSkeletonView()
 		}
 		return coinHistoryCell

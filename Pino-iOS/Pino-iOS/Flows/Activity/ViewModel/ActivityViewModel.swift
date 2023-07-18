@@ -42,6 +42,7 @@ class ActivityViewModel {
 		requestTimer = nil
 	}
 
+
 	// MARK: - Private Methods
 
 	private func setupRequestTimer() {
@@ -54,6 +55,8 @@ class ActivityViewModel {
 			repeats: true
 		)
 	}
+    
+   
 
 	@objc
 	private func getUserActivities() {
@@ -66,7 +69,7 @@ class ActivityViewModel {
 				print(error)
 			}
 		} receiveValue: { [weak self] activities in
-			self?.userActivities = activities.compactMap {
+            self?.userActivities = activities.compactMap {
 				ActivityCellViewModel(activityModel: $0, currentAddress: userAddress)
 			}
 		}.store(in: &cancellables)
