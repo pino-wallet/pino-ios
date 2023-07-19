@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ActivityHelper {
+struct ActivityHelper {
 	// MARK: - TypeAliases
 
 	public typealias SeparatedActivitiesType = [(title: String, activities: [ActivityCellViewModel])]
@@ -32,56 +32,56 @@ class ActivityHelper {
 	public func getNewActivitiesInfo(
 		separatedActivities: SeparatedActivitiesType,
 		newSeparatedActivities: SeparatedActivitiesType
-	) -> (indexPaths: [IndexPath], sections: [IndexSet], finallSeparatedActivities: SeparatedActivitiesType) {
+	) -> (indexPaths: [IndexPath], sections: [IndexSet], finalSeparatedActivities: SeparatedActivitiesType) {
 		var indexPaths = [IndexPath]()
 		var indexSets: [IndexSet] = []
-		var finallSeparatedActivities: SeparatedActivitiesType = separatedActivities
+		var finalSeparatedActivities: SeparatedActivitiesType = separatedActivities
 
 		for newSeparatedActivity in newSeparatedActivities {
-			let foundSectionIndex = finallSeparatedActivities.firstIndex { $0.title == newSeparatedActivity.title }
+			let foundSectionIndex = finalSeparatedActivities.firstIndex { $0.title == newSeparatedActivity.title }
 			if foundSectionIndex != nil {
-				finallSeparatedActivities[foundSectionIndex!].activities
+				finalSeparatedActivities[foundSectionIndex!].activities
 					.append(contentsOf: newSeparatedActivity.activities)
-				finallSeparatedActivities[foundSectionIndex!].activities = finallSeparatedActivities[foundSectionIndex!]
+				finalSeparatedActivities[foundSectionIndex!].activities = finalSeparatedActivities[foundSectionIndex!]
 					.activities
 					.sorted(by: {
 						getActivityDate(activityBlockTime: $0.blockTime)
 							.timeIntervalSince1970 > getActivityDate(activityBlockTime: $1.blockTime).timeIntervalSince1970
 					})
-				for (index, item) in finallSeparatedActivities[foundSectionIndex!].activities.enumerated() {
+				for (index, item) in finalSeparatedActivities[foundSectionIndex!].activities.enumerated() {
 					if newSeparatedActivity.activities
 						.contains(where: { item.defaultActivityModel.txHash == $0.defaultActivityModel.txHash }) {
 						indexPaths.append(IndexPath(row: index, section: foundSectionIndex!))
 					}
 				}
 			} else {
-				finallSeparatedActivities.append(newSeparatedActivity)
-				finallSeparatedActivities = finallSeparatedActivities
+				finalSeparatedActivities.append(newSeparatedActivity)
+				finalSeparatedActivities = finalSeparatedActivities
 					.sorted(by: {
 						getActivityDate(activityBlockTime: $0.activities[0].blockTime)
 							.timeIntervalSince1970 > getActivityDate(activityBlockTime: $1.activities[0].blockTime)
 							.timeIntervalSince1970
 					})
-				let foundSectionIndex = finallSeparatedActivities
+				let foundSectionIndex = finalSeparatedActivities
 					.firstIndex(where: { $0.title == newSeparatedActivity.title })
-				finallSeparatedActivities[foundSectionIndex!].activities = finallSeparatedActivities[foundSectionIndex!]
+				finalSeparatedActivities[foundSectionIndex!].activities = finalSeparatedActivities[foundSectionIndex!]
 					.activities
 					.sorted(by: {
 						getActivityDate(activityBlockTime: $0.blockTime)
 							.timeIntervalSince1970 > getActivityDate(activityBlockTime: $1.blockTime).timeIntervalSince1970
 					})
 				indexSets.append(IndexSet(integer: foundSectionIndex!))
-				for _ in finallSeparatedActivities[foundSectionIndex!].activities {
+				for _ in finalSeparatedActivities[foundSectionIndex!].activities {
 					indexPaths
 						.append(IndexPath(
-							row: finallSeparatedActivities[foundSectionIndex!].activities.count - 1,
+							row: finalSeparatedActivities[foundSectionIndex!].activities.count - 1,
 							section: foundSectionIndex!
 						))
 				}
 			}
 		}
 
-		return (indexPaths: indexPaths, sections: indexSets, finallSeparatedActivities: finallSeparatedActivities)
+		return (indexPaths: indexPaths, sections: indexSets, finalSeparatedActivities: finalSeparatedActivities)
 	}
 
 	// MARK: - Private Methods

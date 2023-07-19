@@ -88,7 +88,7 @@ class ActivityCollectionView: UICollectionView {
 				newSeparatedActivities: newSeparatedActivities
 			)
 			self.performBatchUpdates({
-				self.separatedActivities = newActivitiesInfo.finallSeparatedActivities
+				self.separatedActivities = newActivitiesInfo.finalSeparatedActivities
 				if !newActivitiesInfo.sections.isEmpty {
 					for newActivitySection in newActivitiesInfo.sections {
 						self.insertSections(newActivitySection)
