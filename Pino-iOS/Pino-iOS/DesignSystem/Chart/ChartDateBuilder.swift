@@ -53,9 +53,9 @@ class ChartDateBuilder {
 		switch dateFilter {
 		case .day:
 			return buildTime(date: date)
-		case .week:
+		case .week, .month:
 			return buildDayMonthTime(date: date)
-		case .month, .year, .all:
+		case .year, .all:
 			return buildDayMonthYear(date: date)
 		}
 	}

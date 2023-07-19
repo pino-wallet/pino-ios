@@ -8,7 +8,6 @@
 import Foundation
 
 struct ShareOfAssetsViewModel: ShareOfAssetsProtocol {
-    
 	// MARK: - Public Properties
 
 	public var assetVM: AssetViewModel
@@ -26,7 +25,7 @@ struct ShareOfAssetsViewModel: ShareOfAssetsProtocol {
 		self.assetVM = assetVM
 		self.assetName = assetVM.name
 		self.assetImage = assetVM.image
-        self.holdAmount = assetVM.holdAmountInDollor
+		self.holdAmount = assetVM.holdAmountInDollor
 		self.totalAmount = totalAmount
 	}
 }

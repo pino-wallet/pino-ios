@@ -8,7 +8,6 @@
 import Foundation
 
 struct OtherShareOfAssetsViewModel: ShareOfAssetsProtocol {
-   
 	// MARK: - Public Properties
 
 	public var assetsVM: [AssetViewModel]
@@ -26,7 +25,7 @@ struct OtherShareOfAssetsViewModel: ShareOfAssetsProtocol {
 		self.assetsVM = assetsVM
 		self.assetName = "Others"
 		self.assetImage = nil
-        self.holdAmount = assetsVM.compactMap { $0.holdAmountInDollor }.reduce(0.bigNumber, +)
+		self.holdAmount = assetsVM.compactMap { $0.holdAmountInDollor }.reduce(0.bigNumber, +)
 		self.totalAmount = totalAmount
 	}
 }

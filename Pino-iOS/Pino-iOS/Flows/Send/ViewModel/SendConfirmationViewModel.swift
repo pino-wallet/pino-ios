@@ -29,7 +29,7 @@ class SendConfirmationViewModel {
 	public let recipientAddress: String
 	public let confirmBtnText = "Confirm"
 	public let insuffientText = "Insufficient ETH Amount"
-    public let sendAmountInDollar: String
+	public let sendAmountInDollar: String
 
 	public var isTokenVerified: Bool {
 		selectedToken.isVerified
