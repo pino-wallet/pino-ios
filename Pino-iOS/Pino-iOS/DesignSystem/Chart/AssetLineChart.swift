@@ -198,7 +198,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 
 	@objc
 	private func updateChart(sender: UISegmentedControl) {
-		guard let dateFilter = chartVM?.dateFilters[sender.selectedSegmentIndex] else { return }
+		let dateFilter = dateFilters[sender.selectedSegmentIndex]
 		chartVM = nil
 		dateFilterChanged(dateFilter)
 	}
