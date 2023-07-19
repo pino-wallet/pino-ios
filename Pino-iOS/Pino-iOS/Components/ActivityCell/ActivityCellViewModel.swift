@@ -21,9 +21,6 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private let investIcon = "invest"
 	private let withdrawIcon = "withdraw"
 	private let borrowIcon = "borrow_transaction"
-	private let notDataMessage = "-"
-	private let noDecimalValueInt = 0
-	private let noAmountValueString = "0"
 
 	// MARK: - Internal Properties
 
@@ -51,7 +48,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			}
 			return .receive
 		case .approve:
-			return .swap
+			return .unknown
 		case .other_token:
 			return .unknown
 		case .swap:
@@ -115,15 +112,16 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		case .swap:
 			let fromToken = globalAssetsList?.first(where: { $0.id == activityModel.detail?.fromToken?.tokenID })
 			let toToken = globalAssetsList?.first(where: { $0.id == activityModel.detail?.toToken?.tokenID })
-			return "Swap \(fromToken != nil ? BigNumber(number: activityModel.detail?.fromToken?.amount ?? noAmountValueString, decimal: fromToken?.decimal ?? noDecimalValueInt).percentFormat : notDataMessage) \(fromToken?.symbol ?? notDataMessage) -> \(BigNumber(number: activityModel.detail?.toToken?.amount ?? noAmountValueString, decimal: toToken?.decimal ?? noDecimalValueInt).percentFormat) \(toToken?.symbol ?? notDataMessage)"
+            
+			return "Swap \(BigNumber(number: activityModel.detail?.fromToken?.amount ?? "", decimal: fromToken?.decimal ?? 0).percentFormat) \(fromToken?.symbol ?? "") -> \(BigNumber(number: activityModel.detail?.toToken?.amount ?? "", decimal: toToken?.decimal ?? 0).percentFormat) \(toToken?.symbol ?? "")"
 		case .borrow:
 			return "Borrow"
 		case .send:
 			let sendToken = globalAssetsList?.first(where: { $0.id == activityModel.detail?.tokenID })
-			return "Send \(sendToken != nil ? BigNumber(number: activityModel.detail?.amount ?? noAmountValueString, decimal: sendToken?.decimal ?? noDecimalValueInt).percentFormat : notDataMessage) \(sendToken?.symbol ?? notDataMessage)"
+			return "Send \(BigNumber(number: activityModel.detail?.amount ?? "", decimal: sendToken?.decimal ?? 0).percentFormat) \(sendToken?.symbol ?? "")"
 		case .receive:
 			let receivedToken = globalAssetsList?.first(where: { $0.id == activityModel.detail?.tokenID })
-			return "Received \(receivedToken != nil ? BigNumber(number: activityModel.detail?.amount ?? noAmountValueString, decimal: receivedToken?.decimal ?? noDecimalValueInt).percentFormat : notDataMessage) \(receivedToken?.symbol ?? notDataMessage)"
+			return "Received \(BigNumber(number: activityModel.detail?.amount ?? "", decimal: receivedToken?.decimal ?? 0).percentFormat) \(receivedToken?.symbol ?? "")"
 		case .unknown:
 			return unknownTransactionText
 		case .collateral:

@@ -62,25 +62,24 @@ class ActivityCollectionView: UICollectionView {
 	}
 
 	private func setupBindings() {
-		GlobalVariables.shared.$manageAssetsList.sink { assetsList in
-			if self.globalAssetsList == nil {
-				self.globalAssetsList = assetsList
-				self.reloadData()
-			}
-		}.store(in: &cancellables)
-		activityVM.$userActivities.sink { activities in
-			guard let userActivities = activities else {
-				self.showLoading = true
-				self.reloadData()
-				self.refreshControl?.endRefreshing()
-				return
-			}
-			let activityHelper = ActivityHelper()
-			self.separatedActivities = activityHelper.separateActivitiesByTime(activities: userActivities)
-			self.showLoading = false
-			self.reloadData()
-			self.refreshControl?.endRefreshing()
-		}.store(in: &cancellables)
+        activityVM.$userActivities.combineLatest(GlobalVariables.shared.$manageAssetsList).sink { activities, assetsList in
+            if self.globalAssetsList == nil {
+                self.globalAssetsList = assetsList
+            }
+            guard let userActivities = activities else {
+                self.showLoading = true
+                self.reloadData()
+                self.refreshControl?.endRefreshing()
+                return
+            }
+            let activityHelper = ActivityHelper()
+            self.separatedActivities = activityHelper.separateActivitiesByTime(activities: userActivities)
+            if self.globalAssetsList != nil {
+                self.showLoading = false
+                self.reloadData()
+                self.refreshControl?.endRefreshing()
+            }
+        }.store(in: &cancellables)
 	}
 
 	private func refreshData() {

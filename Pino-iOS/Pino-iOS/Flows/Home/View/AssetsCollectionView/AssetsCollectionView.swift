@@ -17,6 +17,7 @@ class AssetsCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
 	private let assetsRefreshControl = UIRefreshControl()
+    private var isLoading: Bool = true
 
 	// MARK: - Public Properties
 
@@ -122,6 +123,7 @@ class AssetsCollectionView: UICollectionView {
 		GlobalVariables.shared.fetchSharedInfo().done { _ in
 			self.hideSkeletonView()
 			self.refreshControl?.endRefreshing()
+            self.isLoading = false
 		}.catch { error in
 			Toast.default(title: "Error fetching info from server", subtitle: "Please try again!", style: .error)
 				.show(haptic: .warning)
@@ -143,15 +145,17 @@ extension AssetsCollectionView: UICollectionViewDelegateFlowLayout {
 }
 
 extension AssetsCollectionView: UICollectionViewDelegate {
-	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		let homeSection = HomeSection(rawValue: indexPath.section)
-		switch homeSection {
-		case .asset:
-			let assetsList = GlobalVariables.shared.selectedManageAssetsList
-			assetTapped(assetsList[indexPath.item])
-		case .position:
-			assetTapped(homeVM.positionAssetsList![indexPath.item])
-		default: break
-		}
-	}
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if !isLoading {
+            let homeSection = HomeSection(rawValue: indexPath.section)
+            switch homeSection {
+            case .asset:
+                let assetsList = GlobalVariables.shared.selectedManageAssetsList
+                assetTapped(assetsList[indexPath.item])
+            case .position:
+                assetTapped(homeVM.positionAssetsList![indexPath.item])
+            default: break
+            }
+        }
+    }
 }
