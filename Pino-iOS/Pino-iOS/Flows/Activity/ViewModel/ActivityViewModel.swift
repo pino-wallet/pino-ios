@@ -14,9 +14,8 @@ class ActivityViewModel {
 	public let pageTitle = "Recent activity"
 	public let noActivityMessage = "There is no activity"
 	public let noActivityIconName = "empty_activity"
-    public let errorFetchingToastMessage = "Error fetching activities from server"
-    public let tryAgainToastMessage = "Please try again!"
-
+	public let errorFetchingToastMessage = "Error fetching activities from server"
+	public let tryAgainToastMessage = "Please try again!"
 
 	@Published
 	public var userActivities: [ActivityCellViewModel]? = nil
@@ -70,7 +69,8 @@ class ActivityViewModel {
 				print("User activities received successfully")
 			case let .failure(error):
 				print(error)
-                Toast.default(title: self.errorFetchingToastMessage, subtitle: self.tryAgainToastMessage, style: .error).show(haptic: .warning)
+				Toast.default(title: self.errorFetchingToastMessage, subtitle: self.tryAgainToastMessage, style: .error)
+					.show(haptic: .warning)
 			}
 		} receiveValue: { [weak self] activities in
 			if self?.userActivities == nil || (self?.userActivities!.isEmpty)! {
