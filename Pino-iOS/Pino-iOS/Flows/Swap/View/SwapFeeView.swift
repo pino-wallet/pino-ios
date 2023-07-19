@@ -24,7 +24,7 @@ class SwapFeeView: UIView {
 	private let impactTagStackView = UIStackView()
 	private let impactTagView = UIView()
 	private let impactTagLabel = UILabel()
-	private let collapsButton = UIButton()
+	private let collapsButton = UIImageView()
 	private let saveAmountTitleLabel = UILabel()
 	private let saveAmountLabel = UILabel()
 	private let providerTitle = UILabel()
@@ -99,9 +99,7 @@ class SwapFeeView: UIView {
 		feeLoadingStackView.addArrangedSubview(feeLoadingIndicator)
 		feeLoadingStackView.addArrangedSubview(feeLoadingLabel)
 
-		collapsButton.addAction(UIAction(handler: { _ in
-			self.collapsFeeCard()
-		}), for: .touchUpInside)
+		amountStackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(collapsFeeCard)))
 
 		let providerChangeTapGesture = UITapGestureRecognizer(target: self, action: #selector(changeProvider))
 		providerChangeStackView.addGestureRecognizer(providerChangeTapGesture)
@@ -118,7 +116,7 @@ class SwapFeeView: UIView {
 		feeTitleLabel.text = swapFeeVM.feeTitle
 		feeLoadingLabel.text = swapFeeVM.loadingText
 
-		collapsButton.setImage(openFeeInfoIcon, for: .normal)
+		collapsButton.image = openFeeInfoIcon
 		providerChangeIcon.image = UIImage(named: "chevron_right")
 
 		amountLabel.font = .PinoStyle.mediumBody
@@ -152,14 +150,15 @@ class SwapFeeView: UIView {
 		contentStackView.axis = .vertical
 		feeInfoStackView.axis = .vertical
 
-		contentStackView.spacing = 20
+		contentStackView.spacing = 16
 		feeInfoStackView.spacing = 20
 		impactTagStackView.spacing = 2
 		providerChangeStackView.spacing = 3
-		feeLoadingStackView.spacing = 12
+		feeLoadingStackView.spacing = 10
 
 		providerChangeStackView.alignment = .center
 		impactTagStackView.alignment = .center
+		amountStackView.alignment = .center
 
 		impactTagView.layer.cornerRadius = 14
 		contentStackView.layer.masksToBounds = true
@@ -175,13 +174,18 @@ class SwapFeeView: UIView {
 
 	private func setupConstraint() {
 		amountStackView.pin(
-			.horizontalEdges(padding: 14),
-			.top(padding: 15)
+			.leading(padding: 14),
+			.trailing(padding: 8),
+			.top(padding: 10),
+			.fixedHeight(28)
 		)
 		contentStackView.pin(
 			.horizontalEdges(padding: 14),
 			.top(to: amountStackView, .bottom),
-			.bottom(padding: 15)
+			.bottom(padding: 10)
+		)
+		feeInfoStackView.pin(
+			.bottom(padding: 5)
 		)
 		impactTagView.pin(
 			.fixedHeight(28)
@@ -203,22 +207,23 @@ class SwapFeeView: UIView {
 			.fixedHeight(16)
 		)
 		feeLoadingStackView.pin(
-			.allEdges(padding: 16)
+			.allEdges(padding: 10)
 		)
 		NSLayoutConstraint.activate([
 			impactTagView.widthAnchor.constraint(greaterThanOrEqualToConstant: 28),
 		])
 	}
 
+	@objc
 	private func collapsFeeCard() {
 		UIView.animate(withDuration: 0.3) {
 			self.feeInfoStackView.isHidden.toggle()
 			self.isCollapsed.toggle()
 			if self.isCollapsed {
-				self.collapsButton.setImage(self.closeFeeInfoIcon, for: .normal)
+				self.collapsButton.image = self.closeFeeInfoIcon
 				self.impactTagView.alpha = 0
 			} else {
-				self.collapsButton.setImage(self.openFeeInfoIcon, for: .normal)
+				self.collapsButton.image = self.openFeeInfoIcon
 				self.impactTagView.alpha = 1
 			}
 		}
