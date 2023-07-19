@@ -22,6 +22,8 @@ class AssetLineChart: UIView, LineChartDelegate {
 	private let coinVolatilityInDollor = UILabel()
 	private let dateLabel = UILabel()
 	private let chartPointer = UIImageView()
+	private let loadingGradientView = UIView()
+	private var loadingGradientLayer: GradientLayer!
 	private var chartDateFilter: UISegmentedControl!
 	private let dateFilters: [ChartDateFilter] = [.day, .week, .month, .year, .all]
 
@@ -56,21 +58,16 @@ class AssetLineChart: UIView, LineChartDelegate {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		volatilityStackView.addArrangedSubview(coinVolatilityPersentage)
 		balanceStackview.addArrangedSubview(coinBalanceLabel)
-		balanceStackview.addArrangedSubview(volatilityStackView)
+		balanceStackview.addArrangedSubview(coinVolatilityPersentage)
 		infoStackView.addArrangedSubview(balanceStackview)
 		infoStackView.addArrangedSubview(dateLabel)
 		chartStackView.addArrangedSubview(infoStackView)
 		chartStackView.addArrangedSubview(lineChartView)
 		chartStackView.addArrangedSubview(chartDateFilter)
 		addSubview(chartStackView)
+		addSubview(loadingGradientView)
 		addSubview(chartPointer)
-		coinBalanceLabel.isSkeletonable = true
-		dateLabel.isSkeletonable = true
-		coinVolatilityPersentage.isSkeletonable = true
-
-		lineChartView.chartDelegate = self
 	}
 
 	private func setupStyle() {
@@ -131,6 +128,15 @@ class AssetLineChart: UIView, LineChartDelegate {
 		chartDateFilter.addTarget(self, action: #selector(updateChart), for: .valueChanged)
 
 		chartPointer.isHidden = true
+
+		coinVolatilityPersentage.layer.cornerRadius = 6
+		coinVolatilityPersentage.layer.masksToBounds = true
+
+		coinBalanceLabel.isSkeletonable = true
+		dateLabel.isSkeletonable = true
+		coinVolatilityPersentage.isSkeletonable = true
+
+		lineChartView.chartDelegate = self
 	}
 
 	private func setupCostraints() {
@@ -157,10 +163,18 @@ class AssetLineChart: UIView, LineChartDelegate {
 			.fixedWidth(10),
 			.fixedHeight(10)
 		)
+		loadingGradientView.pin(
+			.horizontalEdges(to: lineChartView),
+			.top(to: lineChartView),
+			.bottom(to: lineChartView, padding: 40)
+		)
 		NSLayoutConstraint.activate([
 			coinBalanceLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
 			dateLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
 			coinVolatilityPersentage.widthAnchor.constraint(greaterThanOrEqualToConstant: 40),
+			coinBalanceLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24),
+			dateLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24),
+			coinVolatilityPersentage.heightAnchor.constraint(greaterThanOrEqualToConstant: 12),
 		])
 	}
 
@@ -173,10 +187,12 @@ class AssetLineChart: UIView, LineChartDelegate {
 				self.updateVolatilityColor(type: chart.volatilityType)
 				self.lineChartView.chartDataEntries = chart.chartDataEntry
 				self.hideSkeletonView()
+				self.loadingGradientView.alpha = 0
 			} else {
 				self.showSkeletonView()
+				self.lineChartView.showLoading()
+				self.loadingGradientView.alpha = 0.8
 			}
-
 		}.store(in: &cancellables)
 	}
 
@@ -205,9 +221,29 @@ class AssetLineChart: UIView, LineChartDelegate {
 		}
 	}
 
+	private func addLoadingGradient() {
+		loadingGradientLayer?.removeFromSuperlayer()
+		loadingGradientLayer = GradientLayer(
+			frame: loadingGradientView.bounds,
+			colors: [.Pino.clear, .Pino.secondaryBackground],
+			startPoint: CGPoint(x: 0, y: 0.5),
+			endPoint: CGPoint(x: 1, y: 0.5)
+		)
+		loadingGradientView.layer.addSublayer(loadingGradientLayer)
+	}
+
+	// MARK: - Public Methods
+
 	public func updateChartDate(date: Double) {
 		let formattedDate = chartVM?.selectedDate(timeStamp: date)
 		dateLabel.text = formattedDate
+	}
+
+	// MARK: - Internal Methods
+
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		addLoadingGradient()
 	}
 
 	internal func valueDidChange(pointValue: Double?, previousValue: Double?, date: Double?) {

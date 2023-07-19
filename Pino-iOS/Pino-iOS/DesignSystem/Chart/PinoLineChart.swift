@@ -14,6 +14,20 @@ class PinoLineChart: LineChartView {
 
 	private var chartDataSet: LineChartDataSet!
 	private var cancellables = Set<AnyCancellable>()
+	private var loadingChartData = [
+		ChartDataEntry(x: 0, y: 0),
+		ChartDataEntry(x: 1, y: 0.5),
+		ChartDataEntry(x: 2, y: 0.2),
+		ChartDataEntry(x: 3, y: 2),
+		ChartDataEntry(x: 4, y: 1),
+		ChartDataEntry(x: 5, y: 3),
+		ChartDataEntry(x: 6, y: 1.3),
+		ChartDataEntry(x: 7, y: 3),
+		ChartDataEntry(x: 8, y: 1.5),
+		ChartDataEntry(x: 9, y: 4),
+		ChartDataEntry(x: 10, y: 0.5),
+		ChartDataEntry(x: 11, y: 4),
+	]
 
 	// MARK: - Public Properties
 
@@ -106,6 +120,7 @@ class PinoLineChart: LineChartView {
 		chartDataSet.drawHorizontalHighlightIndicatorEnabled = false
 		chartDataSet.highlightLineDashLengths = [3, 3]
 		chartDataSet.highlightLineWidth = 1
+		isUserInteractionEnabled = true
 	}
 
 	@objc
@@ -149,5 +164,21 @@ class PinoLineChart: LineChartView {
 			let hapticFeedback = UIImpactFeedbackGenerator(style: .light)
 			hapticFeedback.impactOccurred()
 		}
+	}
+
+	// MARK: - Public Methods
+
+	public func showLoading() {
+		chartDataSet = LineChartDataSet(entries: loadingChartData)
+		chartDataSet.setColor(.Pino.gray5)
+		chartDataSet.drawCirclesEnabled = false
+		chartDataSet.lineWidth = 2
+		chartDataSet.mode = .cubicBezier
+		chartDataSet.drawFilledEnabled = false
+		chartDataSet.drawCircleHoleEnabled = false
+		data = LineChartData(dataSets: [chartDataSet])
+		data?.setDrawValues(false)
+		chartDataSet.drawHorizontalHighlightIndicatorEnabled = false
+		isUserInteractionEnabled = false
 	}
 }
