@@ -66,6 +66,9 @@ class AssetLineChart: UIView, LineChartDelegate {
 		chartStackView.addArrangedSubview(chartDateFilter)
 		addSubview(chartStackView)
 		addSubview(chartPointer)
+		coinBalanceLabel.isSkeletonable = true
+		dateLabel.isSkeletonable = true
+		coinVolatilityPersentage.isSkeletonable = true
 
 		lineChartView.chartDelegate = self
 	}
@@ -83,6 +86,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 		dateLabel.font = .PinoStyle.mediumSubheadline
 
 		coinBalanceLabel.adjustsFontSizeToFitWidth = true
+		dateLabel.textAlignment = .right
 
 		chartStackView.axis = .vertical
 		infoStackView.axis = .horizontal
@@ -149,28 +153,38 @@ class AssetLineChart: UIView, LineChartDelegate {
 			.horizontalEdges(padding: 16),
 			.fixedHeight(35)
 		)
-
 		chartPointer.pin(
 			.fixedWidth(10),
 			.fixedHeight(10)
 		)
+		NSLayoutConstraint.activate([
+			coinBalanceLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
+			dateLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
+			coinVolatilityPersentage.widthAnchor.constraint(greaterThanOrEqualToConstant: 40),
+		])
 	}
 
 	private func setupBindings() {
 		$chartVM.sink { chart in
-			guard let chart else { return }
-			self.coinBalanceLabel.text = chart.balance
-			self.coinVolatilityPersentage.text = chart.volatilityPercentage
-			self.dateLabel.text = chart.chartDate
-			self.updateVolatilityColor(type: chart.volatilityType)
-			self.lineChartView.chartDataEntries = chart.chartDataEntry
+			if let chart {
+				self.coinBalanceLabel.text = chart.balance
+				self.coinVolatilityPersentage.text = chart.volatilityPercentage
+				self.dateLabel.text = chart.chartDate
+				self.updateVolatilityColor(type: chart.volatilityType)
+				self.lineChartView.chartDataEntries = chart.chartDataEntry
+				self.hideSkeletonView()
+			} else {
+				self.showSkeletonView()
+			}
+
 		}.store(in: &cancellables)
 	}
 
 	@objc
 	private func updateChart(sender: UISegmentedControl) {
-		guard let chartVM else { return }
-		dateFilterChanged(chartVM.dateFilters[sender.selectedSegmentIndex])
+		guard let dateFilter = chartVM?.dateFilters[sender.selectedSegmentIndex] else { return }
+		chartVM = nil
+		dateFilterChanged(dateFilter)
 	}
 
 	private func updateVolatility(pointValue: Double, previousValue: Double?) {
