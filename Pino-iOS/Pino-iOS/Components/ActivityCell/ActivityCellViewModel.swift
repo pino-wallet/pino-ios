@@ -112,7 +112,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		case .swap:
 			let fromToken = globalAssetsList?.first(where: { $0.id == activityModel.detail?.fromToken?.tokenID })
 			let toToken = globalAssetsList?.first(where: { $0.id == activityModel.detail?.toToken?.tokenID })
-            
+
 			return "Swap \(BigNumber(number: activityModel.detail?.fromToken?.amount ?? "", decimal: fromToken?.decimal ?? 0).percentFormat) \(fromToken?.symbol ?? "") -> \(BigNumber(number: activityModel.detail?.toToken?.amount ?? "", decimal: toToken?.decimal ?? 0).percentFormat) \(toToken?.symbol ?? "")"
 		case .borrow:
 			return "Borrow"
