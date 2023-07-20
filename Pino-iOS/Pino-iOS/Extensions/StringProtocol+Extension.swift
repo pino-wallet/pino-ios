@@ -62,4 +62,14 @@ extension String {
 	public static var emptyString: Self {
 		""
 	}
+
+	public var trimmCurrency: Self {
+		if contains("$") {
+			var trimmedStr = self
+			trimmedStr.removeAll(where: { $0.description == self.currentCurrency })
+			return trimmedStr
+		} else {
+			return self
+		}
+	}
 }

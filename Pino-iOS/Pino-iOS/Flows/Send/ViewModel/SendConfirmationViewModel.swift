@@ -17,7 +17,6 @@ class SendConfirmationViewModel {
 	private let selectedToken: AssetViewModel
 	private let selectedWallet: AccountInfoViewModel
 	private let sendAmount: String
-	private let sendAmountInDollar: String
 	private var cancellables = Set<AnyCancellable>()
 	private var ethToken: AssetViewModel {
 		GlobalVariables.shared.manageAssetsList!.first(where: { $0.isEth })!
@@ -30,6 +29,7 @@ class SendConfirmationViewModel {
 	public let recipientAddress: String
 	public let confirmBtnText = "Confirm"
 	public let insuffientText = "Insufficient ETH Amount"
+	public let sendAmountInDollar: String
 
 	public var isTokenVerified: Bool {
 		selectedToken.isVerified
@@ -45,10 +45,6 @@ class SendConfirmationViewModel {
 
 	public var formattedSendAmount: String {
 		sendAmount.tokenFormatting(token: selectedToken.symbol)
-	}
-
-	public var formattedSendAmountInDollar: String? {
-		sendAmountInDollar.currencyFormatting
 	}
 
 	public var selectedWalletImage: String {

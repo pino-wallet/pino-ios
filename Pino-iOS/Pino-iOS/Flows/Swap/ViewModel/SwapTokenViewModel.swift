@@ -72,9 +72,14 @@ class SwapTokenViewModel {
 
 	private func convertDollarAmountToTokenAmount(dollarAmount: BigNumber?) -> String? {
 		if let dollarAmount {
-			let tokenPrice = selectedToken.price
-			let tokenAmount = dollarAmount / tokenPrice
-			return tokenAmount?.sevenDigitFormat
+			let priceAmount = dollarAmount.number * 10.bigNumber.number
+				.power(6 + selectedToken.decimal - dollarAmount.decimal)
+			let price = selectedToken.price
+
+			let tokenAmountDecimalValue = priceAmount.quotientAndRemainder(dividingBy: price.number)
+			let tokenAmount = BigNumber(number: tokenAmountDecimalValue.quotient, decimal: selectedToken.decimal)
+				.sevenDigitFormat
+			return tokenAmount
 		} else {
 			return nil
 		}

@@ -16,16 +16,16 @@ struct ShareOfAssetsViewModel: ShareOfAssetsProtocol {
 
 	// MARK: - Internal Properties
 
-	internal var holdAmount: Double
-	internal var totalAmount: Double
+	internal var holdAmount: BigNumber
+	internal var totalAmount: BigNumber
 
 	// MARK: - Initializers
 
-	init(assetVM: AssetViewModel, totalAmount: Double) {
+	init(assetVM: AssetViewModel, totalAmount: BigNumber) {
 		self.assetVM = assetVM
 		self.assetName = assetVM.name
 		self.assetImage = assetVM.image
-		self.holdAmount = Double(assetVM.formattedHoldAmount)!
+		self.holdAmount = assetVM.holdAmountInDollor
 		self.totalAmount = totalAmount
 	}
 }

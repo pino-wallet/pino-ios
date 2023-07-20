@@ -54,7 +54,7 @@ public struct BigNumber {
 	}
 
 	public init(numberWithDecimal: String) {
-		var trimmingNumber = numberWithDecimal
+		var trimmingNumber = numberWithDecimal.trimmCurrency
 		guard let decimalSeperator = numberWithDecimal.first(where: { $0 == "." || $0 == "," }) else {
 			// Passed string has no decimal and is passed to wrong initlizer
 			self.number = BigInt(trimmingNumber)!
@@ -127,13 +127,14 @@ extension BigNumber {
 		}
 
 		// Decide on a suitable scaling factor. For example, 10^2 = 100 to keep 2 decimal places.
-		let scalingFactor = BigInt(10).power(7)
+		let scalingFactor = BigInt(10).power(max(left.decimal, right.decimal))
 
 		let scaledLeft = left.number * scalingFactor
 		let quotient = scaledLeft / right.number
 
 		// Adjust the decimal places of the result
-		let resultDecimal = left.decimal - right.decimal + 7 // add 2 because of the scalingFactor
+		let resultDecimal = left.decimal - right
+			.decimal + max(left.decimal, right.decimal) // add 2 because of the scalingFactor
 
 		return BigNumber(number: quotient, decimal: resultDecimal)
 	}

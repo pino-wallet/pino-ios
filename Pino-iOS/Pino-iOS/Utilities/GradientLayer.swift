@@ -17,6 +17,14 @@ class GradientLayer: CAGradientLayer {
 		self.locations = style.locations
 	}
 
+	init(frame: CGRect, colors: [UIColor], startPoint: CGPoint, endPoint: CGPoint) {
+		super.init()
+		self.frame = frame
+		self.colors = colors.map { $0.cgColor }
+		self.startPoint = startPoint
+		self.endPoint = endPoint
+	}
+
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
