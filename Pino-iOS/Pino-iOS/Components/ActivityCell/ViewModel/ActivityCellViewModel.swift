@@ -8,7 +8,6 @@
 import Foundation
 
 struct ActivityCellViewModel: ActivityCellViewModelProtocol {
-    
 	// MARK: - Private Properties
 
 	private let unknownTransactionText = "Unknown transaction"
@@ -22,8 +21,8 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private let investIcon = "invest"
 	private let withdrawIcon = "withdraw"
 	private let borrowIcon = "borrow_transaction"
-    
-    private var activityModel: ActivityModel
+
+	private var activityModel: ActivityModel
 
 	// MARK: - Internal Properties
 
@@ -111,19 +110,25 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		#warning("this is mock and we should refactor this section")
 		switch uiType {
 		case .swap:
-            let swapActivityVM = SwapDetailsViewModel(activityModel: activityModel, globalAssetsList: globalAssetsList)
-            
-            return "Swap \(swapActivityVM.fromTokenAmount.percentFormat) \(swapActivityVM.fromTokenSymbol) -> \(swapActivityVM.toTokenAmount.percentFormat) \(swapActivityVM.toTokenSymbol)"
+			let swapActivityVM = SwapDetailsViewModel(activityModel: activityModel, globalAssetsList: globalAssetsList)
+
+			return "Swap \(swapActivityVM.fromTokenAmount.percentFormat) \(swapActivityVM.fromTokenSymbol) -> \(swapActivityVM.toTokenAmount.percentFormat) \(swapActivityVM.toTokenSymbol)"
 		case .borrow:
 			return "Borrow"
 		case .send:
-            let transfareAcitivityDetailsVM = TransfareDetailsViewModel(activityModel: activityModel, globalAssetsList: globalAssetsList)
-			
-            return "Send \(transfareAcitivityDetailsVM.transfareTokenAmount.percentFormat) \(transfareAcitivityDetailsVM.transfareTokenSymbol)"
+			let transfareAcitivityDetailsVM = TransfareDetailsViewModel(
+				activityModel: activityModel,
+				globalAssetsList: globalAssetsList
+			)
+
+			return "Send \(transfareAcitivityDetailsVM.transfareTokenAmount.percentFormat) \(transfareAcitivityDetailsVM.transfareTokenSymbol)"
 		case .receive:
-            let transfareAcitivityDetailsVM = TransfareDetailsViewModel(activityModel: activityModel, globalAssetsList: globalAssetsList)
-            
-            return "Received \(transfareAcitivityDetailsVM.transfareTokenAmount.percentFormat) \(transfareAcitivityDetailsVM.transfareTokenSymbol)"
+			let transfareAcitivityDetailsVM = TransfareDetailsViewModel(
+				activityModel: activityModel,
+				globalAssetsList: globalAssetsList
+			)
+
+			return "Received \(transfareAcitivityDetailsVM.transfareTokenAmount.percentFormat) \(transfareAcitivityDetailsVM.transfareTokenSymbol)"
 		case .unknown:
 			return unknownTransactionText
 		case .collateral:
@@ -138,21 +143,21 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			return "Withdraw"
 		}
 	}
-    
-    public var defaultActivityModel: ActivityModel {
-        return activityModel
-    }
-    
-    
-    // MARK: - Initializers
-    init(activityModel: ActivityModel) {
-        self.activityModel = activityModel
-    }
+
+	public var defaultActivityModel: ActivityModel {
+		activityModel
+	}
+
+	// MARK: - Initializers
+
+	init(activityModel: ActivityModel) {
+		self.activityModel = activityModel
+	}
 
 	// MARK: - Private Methods
 
 	private func isSendTransaction() -> Bool {
-        let currentAddress = PinoWalletManager().currentAccount.eip55Address
+		let currentAddress = PinoWalletManager().currentAccount.eip55Address
 		if currentAddress == activityModel.fromAddress {
 			return true
 		} else {
@@ -160,4 +165,3 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		}
 	}
 }
-

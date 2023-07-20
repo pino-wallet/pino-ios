@@ -175,9 +175,9 @@ extension ActivityCollectionView: UICollectionViewDataSource {
 			activityCell.showSkeletonView()
 		} else {
 			activityCell.activityCellVM = separatedActivities[indexPath.section].activities[indexPath.item]
-            if globalAssetsList != nil {
-                activityCell.activityCellVM?.globalAssetsList = globalAssetsList!
-            }
+			if globalAssetsList != nil {
+				activityCell.activityCellVM?.globalAssetsList = globalAssetsList!
+			}
 			activityCell.hideSkeletonView()
 		}
 		return activityCell
