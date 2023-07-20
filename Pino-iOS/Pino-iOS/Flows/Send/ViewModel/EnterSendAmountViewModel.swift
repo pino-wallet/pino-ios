@@ -31,8 +31,8 @@ class EnterSendAmountViewModel {
 
 	public var maxHoldAmount: BigNumber!
 	public var maxAmountInDollar: BigNumber!
-	public var tokenAmount = "0"
-	public var dollarAmount = "0"
+	public var tokenAmount = ""
+	public var dollarAmount = ""
 
 	public var formattedMaxHoldAmount: String {
 		maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
@@ -122,25 +122,33 @@ class EnterSendAmountViewModel {
 	}
 
 	private func convertEnteredAmountToDollar(amount: String) {
-		let decimalBigNum = BigNumber(numberWithDecimal: amount)
-		let price = selectedToken.price
+		if amount != .emptyString {
+			let decimalBigNum = BigNumber(numberWithDecimal: amount)
+			let price = selectedToken.price
 
-		let amountInDollarDecimalValue = BigNumber(
-			number: decimalBigNum.number * price.number,
-			decimal: decimalBigNum.decimal + 6
-		)
-		dollarAmount = amountInDollarDecimalValue.priceFormat
+			let amountInDollarDecimalValue = BigNumber(
+				number: decimalBigNum.number * price.number,
+				decimal: decimalBigNum.decimal + 6
+			)
+			dollarAmount = amountInDollarDecimalValue.priceFormat
+		} else {
+			dollarAmount = .emptyString
+		}
 		tokenAmount = amount
 	}
 
 	private func convertDollarAmountToTokenValue(amount: String) {
-		let decimalBigNum = BigNumber(numberWithDecimal: amount)
-		let priceAmount = decimalBigNum.number * BigInt(10).power(6 + selectedToken.decimal - decimalBigNum.decimal)
-		let price = selectedToken.price
+		if amount != .emptyString {
+			let decimalBigNum = BigNumber(numberWithDecimal: amount)
+			let priceAmount = decimalBigNum.number * BigInt(10).power(6 + selectedToken.decimal - decimalBigNum.decimal)
+			let price = selectedToken.price
 
-		let tokenAmountDecimalValue = priceAmount.quotientAndRemainder(dividingBy: price.number)
-		tokenAmount = BigNumber(number: tokenAmountDecimalValue.quotient, decimal: selectedToken.decimal)
-			.sevenDigitFormat
+			let tokenAmountDecimalValue = priceAmount.quotientAndRemainder(dividingBy: price.number)
+			tokenAmount = BigNumber(number: tokenAmountDecimalValue.quotient, decimal: selectedToken.decimal)
+				.sevenDigitFormat
+		} else {
+			tokenAmount = .emptyString
+		}
 		dollarAmount = amount
 	}
 }

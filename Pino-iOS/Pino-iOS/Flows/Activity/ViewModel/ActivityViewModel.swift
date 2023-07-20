@@ -14,9 +14,13 @@ class ActivityViewModel {
 	public let pageTitle = "Recent activity"
 	public let noActivityMessage = "There is no activity"
 	public let noActivityIconName = "empty_activity"
+	public let errorFetchingToastMessage = "Error fetching activities from server"
+	public let tryAgainToastMessage = "Please try again!"
 
 	@Published
 	public var userActivities: [ActivityCellViewModel]? = nil
+	@Published
+	public var newUserActivities: [ActivityCellViewModel] = []
 
 	// MARK: - Private Properties
 
@@ -24,6 +28,7 @@ class ActivityViewModel {
 	private let walletManager = PinoWalletManager()
 	private var cancellables = Set<AnyCancellable>()
 	private var requestTimer: Timer?
+	private var prevActivities: ActivitiesModel = []
 
 	// MARK: - Public Properties
 
@@ -64,11 +69,24 @@ class ActivityViewModel {
 				print("User activities received successfully")
 			case let .failure(error):
 				print(error)
+				Toast.default(title: self.errorFetchingToastMessage, subtitle: self.tryAgainToastMessage, style: .error)
+					.show(haptic: .warning)
 			}
 		} receiveValue: { [weak self] activities in
-			self?.userActivities = activities.compactMap {
-				ActivityCellViewModel(activityModel: $0, currentAddress: userAddress)
+			if self?.userActivities == nil || (self?.userActivities!.isEmpty)! {
+				self?.userActivities = activities.compactMap {
+					ActivityCellViewModel(activityModel: $0, currentAddress: userAddress)
+				}
+			} else {
+				var newActivities: ActivitiesModel = []
+				newActivities = activities.filter { activity in
+					!self!.prevActivities.contains { activity.txHash == $0.txHash }
+				}
+				self?.newUserActivities = newActivities.compactMap {
+					ActivityCellViewModel(activityModel: $0, currentAddress: userAddress)
+				}
 			}
+			self?.prevActivities = activities
 		}.store(in: &cancellables)
 	}
 }

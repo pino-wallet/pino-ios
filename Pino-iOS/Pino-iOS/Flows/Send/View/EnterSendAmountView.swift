@@ -93,10 +93,6 @@ class EnterSendAmountView: UIView {
 			self.toggleDollarFormat()
 		}), for: .touchUpInside)
 
-		changeTokenView.tokenTapped = {
-			self.changeSelectedToken()
-		}
-
 		amountTextfield.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 		let focusTextFieldTapGesture = UITapGestureRecognizer(target: self, action: #selector(focusOnAmountTextField))
 		amountSpacerView.addGestureRecognizer(focusTextFieldTapGesture)
@@ -214,8 +210,8 @@ class EnterSendAmountView: UIView {
 		GlobalVariables.shared.$ethGasFee.sink { fee, feeInDollar in
 			if self.enterAmountVM.selectedToken.isEth {
 				self.enterAmountVM.updateEthMaxAmount(gasFee: fee, gasFeeInDollar: feeInDollar)
-				self.enterAmountVM.calculateAmount(self.amountTextfield.text ?? "0")
-				self.updateAmount(enteredAmount: self.amountTextfield.text ?? "0")
+				self.enterAmountVM.calculateAmount(self.amountTextfield.text ?? .emptyString)
+				self.updateAmount(enteredAmount: self.amountTextfield.text ?? .emptyString)
 				self.maxAmountLabel.text = self.enterAmountVM.formattedMaxHoldAmount
 				self.maxAmountInDollarLabel.text = self.enterAmountVM.formattedMaxAmountInDollar
 			}
@@ -225,7 +221,7 @@ class EnterSendAmountView: UIView {
 	private func updateView() {
 		if enterAmountVM.selectedToken.isVerified {
 			changeTokenView.tokenImageURL = enterAmountVM.selectedToken.image
-			updateAmount(enteredAmount: amountTextfield.text ?? "0")
+			updateAmount(enteredAmount: amountTextfield.text ?? .emptyString)
 			dollarFormatButton.isHidden = false
 			amountLabel.isHidden = false
 			applyDollarFormatChanges()
@@ -244,6 +240,7 @@ class EnterSendAmountView: UIView {
 		dollarSignLabel.isHidden = !enterAmountVM.isDollarEnabled
 		maxAmountLabel.isHidden = enterAmountVM.isDollarEnabled
 		maxAmountInDollarLabel.isHidden = !enterAmountVM.isDollarEnabled
+		dollarSignLabel.textColor = .Pino.gray2
 	}
 
 	private func toggleDollarFormat() {
@@ -257,9 +254,9 @@ class EnterSendAmountView: UIView {
 				self.dollarFormatButton.backgroundColor = .Pino.primary
 				self.dollarFormatButton.tintColor = .Pino.green1
 			}
-			self.amountTextfield.text = ""
-			self.enterAmountVM.calculateAmount("0")
-			self.updateAmount(enteredAmount: self.amountTextfield.text ?? "0")
+			self.amountTextfield.text = .emptyString
+			self.enterAmountVM.calculateAmount(.emptyString)
+			self.updateAmount(enteredAmount: self.amountTextfield.text ?? .emptyString)
 			self.applyDollarFormatChanges()
 		}
 	}
@@ -273,8 +270,8 @@ class EnterSendAmountView: UIView {
 			updateAmount(enteredAmount: amountText)
 		} else {
 			dollarSignLabel.textColor = .Pino.gray2
-			enterAmountVM.calculateAmount("0")
-			updateAmount(enteredAmount: "0")
+			enterAmountVM.calculateAmount(.emptyString)
+			updateAmount(enteredAmount: .emptyString)
 		}
 	}
 
@@ -321,8 +318,8 @@ class EnterSendAmountView: UIView {
 		}
 
 		if enterAmountVM.selectedToken.isEth {
-			enterAmountVM.calculateAmount(amountTextfield.text ?? "0")
-			updateAmount(enteredAmount: amountTextfield.text ?? "0")
+			enterAmountVM.calculateAmount(amountTextfield.text ?? .emptyString)
+			updateAmount(enteredAmount: amountTextfield.text ?? .emptyString)
 			maxAmountLabel.text = enterAmountVM.formattedMaxHoldAmount
 			maxAmountInDollarLabel.text = enterAmountVM.formattedMaxAmountInDollar
 		} else {

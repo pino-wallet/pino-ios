@@ -18,8 +18,6 @@ class ActivityHeaderView: UICollectionReusableView {
 		}
 	}
 
-	public var topPadding = 16
-
 	public static let viewReuseID = "ActivityHeaderViewID"
 
 	// MARK: - Private Properties
@@ -41,6 +39,6 @@ class ActivityHeaderView: UICollectionReusableView {
 	private func setupConstraints() {
 		titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 22).isActive = true
 
-		titleLabel.pin(.top(padding: CGFloat(topPadding)), .bottom(padding: 8), .horizontalEdges(padding: 16))
+		titleLabel.pin(.top(padding: 16), .bottom(padding: 8), .horizontalEdges(padding: 16))
 	}
 }
