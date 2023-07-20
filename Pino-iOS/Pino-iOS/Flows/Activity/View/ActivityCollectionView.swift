@@ -21,7 +21,7 @@ class ActivityCollectionView: UICollectionView {
 
 	private let activityRefreshControll = UIRefreshControl()
 	private var activityVM: ActivityViewModel
-	private var separatedActivities: ActivityHelper.separatedActivitiesType = []
+	private var separatedActivities: ActivityHelper.SeparatedActivitiesType = []
 	private var cancellables = Set<AnyCancellable>()
 	private var showLoading = true
 	private var globalAssetsList: [AssetViewModel]?
@@ -35,7 +35,7 @@ class ActivityCollectionView: UICollectionView {
 		let flowLayoutView = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayoutView)
 		flowLayoutView.collectionView?.backgroundColor = .Pino.background
-		flowLayoutView.collectionView?.contentInset = UIEdgeInsets(top: 24, left: 0, bottom: 24, right: 0)
+		flowLayoutView.collectionView?.contentInset = UIEdgeInsets(top: 54, left: 0, bottom: 24, right: 0)
 		flowLayoutView.minimumLineSpacing = 8
 
 		configureCollectionView()
@@ -70,6 +70,7 @@ class ActivityCollectionView: UICollectionView {
 				guard let userActivities = activities else {
 					self.showLoading = true
 					self.reloadData()
+          self.contentInset = UIEdgeInsets(top: 54, left: 0, bottom: 24, right: 0)
 					self.refreshControl?.endRefreshing()
 					return
 				}
@@ -78,9 +79,34 @@ class ActivityCollectionView: UICollectionView {
 				if self.globalAssetsList != nil {
 					self.showLoading = false
 					self.reloadData()
+          self.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 24, right: 0)
 					self.refreshControl?.endRefreshing()
 				}
 			}.store(in: &cancellables)
+
+		activityVM.$newUserActivities.sink { newActivities in
+			guard !newActivities.isEmpty else {
+				self.refreshControl?.endRefreshing()
+				return
+			}
+			let newSeparatedActivities = activityHelper.separateActivitiesByTime(activities: newActivities)
+			let newActivitiesInfo = activityHelper.getNewActivitiesInfo(
+				separatedActivities: self.separatedActivities,
+				newSeparatedActivities: newSeparatedActivities
+			)
+			self.performBatchUpdates({
+				self.separatedActivities = newActivitiesInfo.finalSeparatedActivities
+				if !newActivitiesInfo.sections.isEmpty {
+					for newActivitySection in newActivitiesInfo.sections {
+						self.insertSections(newActivitySection)
+						self.collectionViewLayout.invalidateLayout()
+					}
+				}
+				self.insertItems(at: newActivitiesInfo.indexPaths)
+				self.collectionViewLayout.invalidateLayout()
+			}, completion: nil)
+			self.refreshControl?.endRefreshing()
+		}.store(in: &cancellables)
 	}
 
 	private func refreshData() {
@@ -162,9 +188,6 @@ extension ActivityCollectionView: UICollectionViewDataSource {
 			for: indexPath
 		) as! ActivityHeaderView
 		if !showLoading {
-			if indexPath.section == 0 {
-				activityHeader.topPadding = 0
-			}
 			activityHeader.titleText = separatedActivities[indexPath.section].title
 		}
 
@@ -177,11 +200,7 @@ extension ActivityCollectionView: UICollectionViewDataSource {
 		referenceSizeForHeaderInSection section: Int
 	) -> CGSize {
 		if !showLoading {
-			if section == 0 {
-				return CGSize(width: collectionView.frame.width, height: 30)
-			} else {
-				return CGSize(width: collectionView.frame.width, height: 46)
-			}
+			return CGSize(width: collectionView.frame.width, height: 46)
 		} else {
 			return CGSize(width: 0, height: 0)
 		}

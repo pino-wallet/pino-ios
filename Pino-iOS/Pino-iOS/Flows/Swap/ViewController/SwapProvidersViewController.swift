@@ -17,6 +17,8 @@ class SwapProvidersViewcontroller: UIAlertController {
 	private let titleLabel = PinoLabel(style: .title, text: nil)
 	private let descriptionLabel = PinoLabel(style: .description, text: nil)
 	private let closePageButton = PinoButton(style: .active)
+	private let providersContainerView = UIView()
+	private let loadingview = UIActivityIndicatorView()
 	private var providersCollectionView: SwapProvidersCollectionView!
 
 	private var providerDidSelect: ((SwapProviderViewModel) -> Void)!
@@ -43,10 +45,12 @@ class SwapProvidersViewcontroller: UIAlertController {
 			self.dismiss(animated: true)
 		})
 		contentStackView.addArrangedSubview(titleStackView)
-		contentStackView.addArrangedSubview(providersCollectionView)
+		contentStackView.addArrangedSubview(providersContainerView)
 		contentStackView.addArrangedSubview(closePageButton)
 		titleStackView.addArrangedSubview(titleLabel)
 		titleStackView.addArrangedSubview(descriptionLabel)
+		providersContainerView.addSubview(loadingview)
+		providersContainerView.addSubview(providersCollectionView)
 		contentView.addSubview(contentStackView)
 		view.addSubview(contentView)
 	}
@@ -65,6 +69,9 @@ class SwapProvidersViewcontroller: UIAlertController {
 		contentStackView.spacing = 30
 		titleStackView.spacing = 12
 
+		loadingview.style = .large
+		loadingview.color = .Pino.primary
+
 		closePageButton.addAction(UIAction(handler: { _ in
 			self.dismiss(animated: true)
 		}), for: .touchUpInside)
@@ -79,17 +86,25 @@ class SwapProvidersViewcontroller: UIAlertController {
 		contentView.pin(
 			.allEdges
 		)
-		providersCollectionView.pin(
+		providersContainerView.pin(
 			.fixedHeight(210)
+		)
+		providersCollectionView.pin(
+			.allEdges()
+		)
+		loadingview.pin(
+			.centerX,
+			.centerY
 		)
 	}
 
 	private func setupBindings() {
 		selectProviderVM.$providers.sink { providers in
 			if let providers {
+				self.loadingview.stopAnimating()
 				self.updateProviderCollectionView(providers: providers)
 			} else {
-				// Show loading
+				self.loadingview.startAnimating()
 			}
 		}.store(in: &cancellables)
 	}

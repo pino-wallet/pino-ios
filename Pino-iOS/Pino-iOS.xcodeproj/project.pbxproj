@@ -419,6 +419,7 @@
 		E35BB6572A62E650003987F5 /* SwapConfirmationTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6562A62E650003987F5 /* SwapConfirmationTokenView.swift */; };
 		E35BB6592A62F1A8003987F5 /* SwapConfirmationInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6582A62F1A8003987F5 /* SwapConfirmationInfoView.swift */; };
 		E35BB65B2A652B13003987F5 /* DeviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB65A2A652B13003987F5 /* DeviceHelper.swift */; };
+		E35BB65D2A656589003987F5 /* swapLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB65C2A656589003987F5 /* swapLoadingView.swift */; };
 		E3847B362A52CB32005ED78B /* SwapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B352A52CB32005ED78B /* SwapViewModel.swift */; };
 		E3847B382A52CBE6005ED78B /* AmountStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B372A52CBE6005ED78B /* AmountStatus.swift */; };
 		E3847B3A2A52CC19005ED78B /* SwapTokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3847B392A52CC19005ED78B /* SwapTokenViewModel.swift */; };
@@ -896,6 +897,7 @@
 		E35BB6562A62E650003987F5 /* SwapConfirmationTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapConfirmationTokenView.swift; sourceTree = "<group>"; };
 		E35BB6582A62F1A8003987F5 /* SwapConfirmationInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapConfirmationInfoView.swift; sourceTree = "<group>"; };
 		E35BB65A2A652B13003987F5 /* DeviceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHelper.swift; sourceTree = "<group>"; };
+		E35BB65C2A656589003987F5 /* swapLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swapLoadingView.swift; sourceTree = "<group>"; };
 		E3847B352A52CB32005ED78B /* SwapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapViewModel.swift; sourceTree = "<group>"; };
 		E3847B372A52CBE6005ED78B /* AmountStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountStatus.swift; sourceTree = "<group>"; };
 		E3847B392A52CC19005ED78B /* SwapTokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapTokenViewModel.swift; sourceTree = "<group>"; };
@@ -1617,7 +1619,6 @@
 				791209DFE36FC4B7F33E3198 /* GradientLayer.swift */,
 				360DDE55AF8AE72416D221FB /* ProfileIcons.swift */,
 				E3E009E12A06377D00234707 /* InternetConnectivity.swift */,
-				D9E134862A53013D00193FF0 /* ActivityHelper.swift */,
 				D99850462A55C66A00C2DF60 /* DateHelper.swift */,
 				E35BB64E2A598B80003987F5 /* GradientBorder.swift */,
 				E35BB65A2A652B13003987F5 /* DeviceHelper.swift */,
@@ -1868,6 +1869,7 @@
 		8F87D654352C570B4F7592D9 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
+				D9C477DF2A68415800734070 /* Helpers */,
 				D9D11E902A59908F003C4298 /* View */,
 				D9D11E8F2A599089003C4298 /* ViewModel */,
 				D9D11E8E2A59907D003C4298 /* ViewController */,
@@ -2259,6 +2261,14 @@
 			path = ClearNavigationBar;
 			sourceTree = "<group>";
 		};
+		D9C477DF2A68415800734070 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D9E134862A53013D00193FF0 /* ActivityHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		D9C4CEFD2A408BEA00475F01 /* SuggestedAddressesView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2529,6 +2539,7 @@
 				E35BB6522A62979C003987F5 /* SwapConfirmationView.swift */,
 				E35BB6562A62E650003987F5 /* SwapConfirmationTokenView.swift */,
 				E35BB6582A62F1A8003987F5 /* SwapConfirmationInfoView.swift */,
+				E35BB65C2A656589003987F5 /* swapLoadingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3254,6 +3265,7 @@
 				E384CB1A29FFADE9009C74F5 /* OtherShareOfAssetsViewModel.swift in Sources */,
 				8BF8943C4316B64F59BC29DC /* SecurityOptionsFooter.swift in Sources */,
 				DFB1E9D22A08EC6100041B26 /* AccountDataSource.swift in Sources */,
+				E35BB65D2A656589003987F5 /* swapLoadingView.swift in Sources */,
 				066B803BA2A7039F8168FAB2 /* SecurityOptionsSection.swift in Sources */,
 				D9A3281E2A34C545005A8393 /* SelectAssetCellVMProtocol.swift in Sources */,
 				EFCE871CCDF8A29DA4F8950F /* ManageAssetCell.swift in Sources */,

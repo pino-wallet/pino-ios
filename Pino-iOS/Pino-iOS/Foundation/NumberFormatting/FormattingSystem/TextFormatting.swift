@@ -41,7 +41,11 @@ extension TextFormattingSystem {
 	// MARK: - Public Methods
 
 	public func tokenFormatting(token: String) -> String {
-		"\(self) \(token)"
+		if self as? String == .emptyString {
+			return ""
+		} else {
+			return "\(self) \(token)"
+		}
 	}
 }
 

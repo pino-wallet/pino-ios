@@ -27,10 +27,6 @@ class SwapTokenViewModel {
 		selectedToken.amount
 	}
 
-	public var formattedAmount: String {
-		dollarAmount?.currencyFormatting ?? ""
-	}
-
 	// MARK: - Initializers
 
 	init(selectedToken: AssetViewModel) {

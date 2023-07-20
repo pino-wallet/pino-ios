@@ -22,6 +22,8 @@ class SwapFeeViewModel {
 	public var priceImpact: String?
 	@Published
 	public var fee: String?
+	@Published
+	public var feeInDollar: String?
 
 	public let highImpactTagTitle = "High impact"
 	public let saveAmountTitle = "You save"
@@ -29,6 +31,7 @@ class SwapFeeViewModel {
 	public let priceImpactTitle = "Price impact"
 	public let feeTitle = "Fee"
 	public let celebrateEmoji = "🎉"
+	public let loadingText = "Fetching the best price"
 
 	// MARK: - Initializers
 
