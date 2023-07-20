@@ -15,7 +15,7 @@ public enum NumberFormatTypes {
 	public func formattingDecimal(wholeNumDigitsCount: Int) -> Int {
 		switch self {
 		case .sevenDigitsRule:
-			if wholeNumDigitsCount > 0 {
+			if wholeNumDigitsCount > 7 {
 				return 0
 			}
 			return 7 - wholeNumDigitsCount

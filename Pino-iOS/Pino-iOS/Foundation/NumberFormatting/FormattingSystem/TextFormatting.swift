@@ -28,7 +28,7 @@ extension TextFormattingSystem {
 		preWordFormatting(char: "%")
 	}
 
-	private var currentCurrency: String {
+	public var currentCurrency: String {
 		"$"
 	}
 

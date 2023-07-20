@@ -310,7 +310,7 @@ class EnterSendAmountView: UIView {
 	@objc
 	private func putMaxAmountInTextField() {
 		if enterAmountVM.isDollarEnabled {
-			amountTextfield.text = enterAmountVM.maxAmountInDollar.priceFormat
+			amountTextfield.text = enterAmountVM.maxAmountInDollar.priceFormat.trimmCurrency
 			amountLabel.text = enterAmountVM.formattedMaxHoldAmount
 		} else {
 			amountTextfield.text = enterAmountVM.maxHoldAmount.sevenDigitFormat
@@ -319,7 +319,6 @@ class EnterSendAmountView: UIView {
 
 		if enterAmountVM.selectedToken.isEth {
 			enterAmountVM.calculateAmount(amountTextfield.text ?? .emptyString)
-			updateAmount(enteredAmount: amountTextfield.text ?? .emptyString)
 			maxAmountLabel.text = enterAmountVM.formattedMaxHoldAmount
 			maxAmountInDollarLabel.text = enterAmountVM.formattedMaxAmountInDollar
 		} else {
@@ -331,7 +330,8 @@ class EnterSendAmountView: UIView {
 
 		maxAmountInDollarLabel.text = enterAmountVM.formattedMaxAmountInDollar
 		maxAmountLabel.text = enterAmountVM.formattedMaxHoldAmount
-		updateAmount(enteredAmount: amountTextfield.text!)
+		updateAmount(enteredAmount: amountTextfield.text!.trimmCurrency)
+		dollarSignLabel.textColor = .Pino.label
 	}
 
 	@objc
