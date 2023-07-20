@@ -20,10 +20,6 @@ struct AssetChartViewModel {
 		}
 	}
 
-	public var dateFilters: [ChartDateFilter] {
-		[.day, .week, .month, .year, .all]
-	}
-
 	public var balance: String {
 		chartDataVM.last!.networth.decimalString.currencyFormatting
 	}
