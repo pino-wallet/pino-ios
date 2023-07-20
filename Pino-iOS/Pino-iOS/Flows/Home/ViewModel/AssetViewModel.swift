@@ -111,7 +111,7 @@ public class AssetViewModel: SecurityModeProtocol {
 	// MARK: - Private Methods
 
 	private func getFormattedAmount() -> String {
-        holdAmount.sevenDigitFormat.tokenFormatting(token: symbol)
+		holdAmount.sevenDigitFormat.tokenFormatting(token: symbol)
 	}
 
 	private func getFormattedAmountInDollor() -> String {
