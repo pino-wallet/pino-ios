@@ -1619,7 +1619,6 @@
 				791209DFE36FC4B7F33E3198 /* GradientLayer.swift */,
 				360DDE55AF8AE72416D221FB /* ProfileIcons.swift */,
 				E3E009E12A06377D00234707 /* InternetConnectivity.swift */,
-				D9E134862A53013D00193FF0 /* ActivityHelper.swift */,
 				D99850462A55C66A00C2DF60 /* DateHelper.swift */,
 				E35BB64E2A598B80003987F5 /* GradientBorder.swift */,
 				E35BB65A2A652B13003987F5 /* DeviceHelper.swift */,
@@ -1870,6 +1869,7 @@
 		8F87D654352C570B4F7592D9 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
+				D9C477DF2A68415800734070 /* Helpers */,
 				D9D11E902A59908F003C4298 /* View */,
 				D9D11E8F2A599089003C4298 /* ViewModel */,
 				D9D11E8E2A59907D003C4298 /* ViewController */,
@@ -2259,6 +2259,14 @@
 				D9BFEC3D2A12236C007DFF40 /* ClearNavigationBar.swift */,
 			);
 			path = ClearNavigationBar;
+			sourceTree = "<group>";
+		};
+		D9C477DF2A68415800734070 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D9E134862A53013D00193FF0 /* ActivityHelper.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		D9C4CEFD2A408BEA00475F01 /* SuggestedAddressesView */ = {
