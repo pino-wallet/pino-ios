@@ -8,8 +8,7 @@
 import Foundation
 
 protocol ActivityCellViewModelProtocol {
-	var activityModel: ActivityModel { get set }
-	var globalAssetsList: [AssetViewModel]? { get set }
+	var globalAssetsList: [AssetViewModel] { get set }
 	var icon: String { get }
 	var title: String { get }
 	var formattedTime: String { get }

@@ -21,11 +21,11 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private let investIcon = "invest"
 	private let withdrawIcon = "withdraw"
 	private let borrowIcon = "borrow_transaction"
+    private var activityModel: ActivityModel
 
 	// MARK: - Internal Properties
 
-	internal var activityModel: ActivityModel
-	internal var globalAssetsList: [AssetViewModel]?
+	internal var globalAssetsList: [AssetViewModel]
 	internal var currentAddress: String
 	internal var activityType: ActivityType {
 		if let type = ActivityType(rawValue: activityModel.type) {
@@ -110,10 +110,10 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		#warning("this is mock and we should refactor this section")
 		switch uiType {
 		case .swap:
-			let fromToken = globalAssetsList?.first(where: { $0.id == activityModel.detail?.fromToken?.tokenID })
-			let toToken = globalAssetsList?.first(where: { $0.id == activityModel.detail?.toToken?.tokenID })
-
-			return "Swap \(BigNumber(number: activityModel.detail?.fromToken?.amount ?? "", decimal: fromToken?.decimal ?? 0).percentFormat) \(fromToken?.symbol ?? "") -> \(BigNumber(number: activityModel.detail?.toToken?.amount ?? "", decimal: toToken?.decimal ?? 0).percentFormat) \(toToken?.symbol ?? "")"
+            
+            let swapActivityVM = SwapActivityCellViewModel(activityModel: activityModel, globalAssetsList: globalAssetsList)
+            
+            return "Swap \(swapActivityVM.fromTokenAmount.percentFormat) \(swapActivityVM.fromTokenSymbol) -> \(swapActivityVM.toTokenAmount.percentFormat) \(swapActivityVM.toTokenSymbol)"
 		case .borrow:
 			return "Borrow"
 		case .send:
@@ -136,10 +136,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			return "Withdraw"
 		}
 	}
-
-	public var defaultActivityModel: ActivityModel {
-		activityModel
-	}
+    
 
 	// MARK: - Private Methods
 
@@ -150,4 +147,48 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			return false
 		}
 	}
+}
+
+protocol ActivitiesProtocol {
+    var activityModel: ActivityModel { get set }
+    var globalAssetsList: [AssetViewModel] { get }
+}
+
+struct SwapActivityCellViewModel: ActivitiesProtocol {
+    
+    
+    var activityModel: ActivityModel
+    var globalAssetsList: [AssetViewModel]
+
+    private var fromToken: AssetViewModel? {
+        globalAssetsList.first(where: { $0.id == activityModel.detail?.fromToken?.tokenID })
+    }
+    private var toToken: AssetViewModel? {
+        globalAssetsList.first(where: { $0.id == activityModel.detail?.toToken?.tokenID })
+    }
+    
+    public var toTokenAmount: BigNumber {
+        BigNumber(number: toToken?.amount ?? "", decimal: toToken?.decimal ?? 0)
+    }
+    
+    public var fromTokenAmount: BigNumber {
+        BigNumber(number: fromToken?.amount ?? "", decimal: fromToken?.decimal ?? 0)
+    }
+    
+    public var toTokenDecimal: Int {
+        toToken?.decimal ?? 0
+    }
+    
+    public var fromTokenDecimal: Int {
+        fromToken?.decimal ?? 0
+    }
+    
+    var toTokenSymbol: String {
+        toToken?.symbol ?? ""
+    }
+    
+    var fromTokenSymbol: String {
+        fromToken?.symbol ?? ""
+    }
+    
 }
