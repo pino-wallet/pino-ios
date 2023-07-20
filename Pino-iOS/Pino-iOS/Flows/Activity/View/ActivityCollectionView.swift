@@ -23,7 +23,9 @@ class ActivityCollectionView: UICollectionView {
 	private var activityVM: ActivityViewModel
 	private var separatedActivities: ActivityHelper.SeparatedActivitiesType = []
 	private var cancellables = Set<AnyCancellable>()
+	private var userActivitiesCancellable = Set<AnyCancellable>()
 	private var showLoading = true
+	private var globalAssetsList: [AssetViewModel]?
 
 	// MARK: - Initializers
 
@@ -62,20 +64,27 @@ class ActivityCollectionView: UICollectionView {
 
 	private func setupBindings() {
 		let activityHelper = ActivityHelper()
-		activityVM.$userActivities.sink { activities in
-			guard let userActivities = activities else {
-				self.showLoading = true
-				self.reloadData()
-				self.contentInset = UIEdgeInsets(top: 54, left: 0, bottom: 24, right: 0)
-				self.refreshControl?.endRefreshing()
-				return
-			}
-			self.separatedActivities = activityHelper.separateActivitiesByTime(activities: userActivities)
-			self.showLoading = false
-			self.refreshControl?.endRefreshing()
-			self.reloadData()
-			self.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 24, right: 0)
-		}.store(in: &cancellables)
+		activityVM.$userActivities.combineLatest(GlobalVariables.shared.$manageAssetsList)
+			.sink { activities, assetsList in
+				if self.globalAssetsList == nil {
+					self.globalAssetsList = assetsList
+				}
+				guard let userActivities = activities else {
+					self.showLoading = true
+					self.reloadData()
+					self.contentInset = UIEdgeInsets(top: 54, left: 0, bottom: 24, right: 0)
+					self.refreshControl?.endRefreshing()
+					return
+				}
+				self.separatedActivities = activityHelper.separateActivitiesByTime(activities: userActivities)
+				if self.globalAssetsList != nil {
+					self.showLoading = false
+					self.reloadData()
+					self.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 24, right: 0)
+					self.refreshControl?.endRefreshing()
+					self.userActivitiesCancellable.removeAll()
+				}
+			}.store(in: &userActivitiesCancellable)
 
 		activityVM.$newUserActivities.sink { newActivities in
 			guard !newActivities.isEmpty else {
@@ -118,9 +127,11 @@ class ActivityCollectionView: UICollectionView {
 
 extension ActivityCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		openActivityDetailsClosure(
-			separatedActivities[indexPath.section].activities[indexPath.item]
-		)
+		if !showLoading {
+			openActivityDetailsClosure(
+				separatedActivities[indexPath.section].activities[indexPath.item]
+			)
+		}
 	}
 }
 
@@ -164,6 +175,9 @@ extension ActivityCollectionView: UICollectionViewDataSource {
 			activityCell.showSkeletonView()
 		} else {
 			activityCell.activityCellVM = separatedActivities[indexPath.section].activities[indexPath.item]
+			if globalAssetsList != nil {
+				activityCell.activityCellVM?.globalAssetsList = globalAssetsList!
+			}
 			activityCell.hideSkeletonView()
 		}
 		return activityCell

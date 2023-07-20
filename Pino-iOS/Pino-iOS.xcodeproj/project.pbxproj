@@ -318,6 +318,9 @@
 		D9AF29E82A506F1A006BC53E /* ActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF29E72A506F1A006BC53E /* ActivityType.swift */; };
 		D9AF6DCC29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */; };
 		D9BCE5C72A63C519002A9B58 /* ActivitySwapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BCE5C62A63C519002A9B58 /* ActivitySwapHeaderView.swift */; };
+		D9BE15AD2A693539005E4063 /* ActivityDetailsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE15AC2A693539005E4063 /* ActivityDetailsProtocol.swift */; };
+		D9BE15B02A693593005E4063 /* SwapDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE15AF2A693593005E4063 /* SwapDetailsViewModel.swift */; };
+		D9BE15B22A69360E005E4063 /* TransfareDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE15B12A69360E005E4063 /* TransfareDetailsViewModel.swift */; };
 		D9BFEC372A121706007DFF40 /* AllowNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC362A121706007DFF40 /* AllowNotificationsViewController.swift */; };
 		D9BFEC392A121719007DFF40 /* AllowNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC382A121719007DFF40 /* AllowNotificationsView.swift */; };
 		D9BFEC3B2A12177C007DFF40 /* AllowNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC3A2A12177C007DFF40 /* AllowNotificationsViewModel.swift */; };
@@ -815,6 +818,9 @@
 		D9AF29E72A506F1A006BC53E /* ActivityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityType.swift; sourceTree = "<group>"; };
 		D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralNotificationSettingsHeader.swift; sourceTree = "<group>"; };
 		D9BCE5C62A63C519002A9B58 /* ActivitySwapHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySwapHeaderView.swift; sourceTree = "<group>"; };
+		D9BE15AC2A693539005E4063 /* ActivityDetailsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailsProtocol.swift; sourceTree = "<group>"; };
+		D9BE15AF2A693593005E4063 /* SwapDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapDetailsViewModel.swift; sourceTree = "<group>"; };
+		D9BE15B12A69360E005E4063 /* TransfareDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransfareDetailsViewModel.swift; sourceTree = "<group>"; };
 		D9BFEC362A121706007DFF40 /* AllowNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsViewController.swift; sourceTree = "<group>"; };
 		D9BFEC382A121719007DFF40 /* AllowNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsView.swift; sourceTree = "<group>"; };
 		D9BFEC3A2A12177C007DFF40 /* AllowNotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsViewModel.swift; sourceTree = "<group>"; };
@@ -2229,9 +2235,9 @@
 		D9AF29DF2A5001CB006BC53E /* ActivityCell */ = {
 			isa = PBXGroup;
 			children = (
+				D9BE15AE2A69356D005E4063 /* ViewModel */,
 				D9AF29E32A50107C006BC53E /* Protocols */,
 				80323CF07CAE3913B0E6D67C /* ActivityCell.swift */,
-				17EF5982289ED9E758D0777F /* ActivityCellViewModel.swift */,
 			);
 			path = ActivityCell;
 			sourceTree = "<group>";
@@ -2249,8 +2255,19 @@
 			isa = PBXGroup;
 			children = (
 				D9AF29E42A5010C4006BC53E /* ActivityCellViewModelProtocol.swift */,
+				D9BE15AC2A693539005E4063 /* ActivityDetailsProtocol.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		D9BE15AE2A69356D005E4063 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				17EF5982289ED9E758D0777F /* ActivityCellViewModel.swift */,
+				D9BE15AF2A693593005E4063 /* SwapDetailsViewModel.swift */,
+				D9BE15B12A69360E005E4063 /* TransfareDetailsViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		D9BFEC3C2A1222FB007DFF40 /* ClearNavigationBar */ = {
@@ -3069,6 +3086,7 @@
 				D9D9A40A2A5E9CD200CECA41 /* ImageAndTitleStackView.swift in Sources */,
 				E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */,
 				E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */,
+				D9BE15B02A693593005E4063 /* SwapDetailsViewModel.swift in Sources */,
 				D99CAFCB2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift in Sources */,
 				D9E134872A53013D00193FF0 /* ActivityHelper.swift in Sources */,
 				B0AB10C04E985064573878F8 /* AddCustomAssetView.swift in Sources */,
@@ -3077,6 +3095,7 @@
 				CFE2848389AB3D7A9AF12C6C /* AddCustomAssetViewModel.swift in Sources */,
 				5319850502764EDE67A09C49 /* AddNewAccountCollectionView.swift in Sources */,
 				4CA4F662ECA5E7E45B96C281 /* AddNewAccountCollectionViewCell.swift in Sources */,
+				D9BE15AD2A693539005E4063 /* ActivityDetailsProtocol.swift in Sources */,
 				E34728E929E7DCCF00AB8265 /* HomepageViewModel+Wallet.swift in Sources */,
 				67CB57B83460DA7FDE4BFED3 /* AddNewAccountOptionModel.swift in Sources */,
 				DAB2FF91D5EAF0795A12201B /* AddNewAccountOptionViewModel.swift in Sources */,
@@ -3091,6 +3110,7 @@
 				D98207C42A5D5C7C0066A090 /* ActivityDetailsView.swift in Sources */,
 				4BD24A38B1C81FA80EB0B6E8 /* AllDoneViewModel.swift in Sources */,
 				A56FBAD2E31C10F504631CD6 /* AppDelegate.swift in Sources */,
+				D9BE15B22A69360E005E4063 /* TransfareDetailsViewModel.swift in Sources */,
 				D9F2508229E5855500DE0410 /* SecurityOptionCell.swift in Sources */,
 				D91A3A0529E412A200004CB2 /* NotificationSettingsSection.swift in Sources */,
 				917064233A24F0460102BC15 /* Array+Extension.swift in Sources */,

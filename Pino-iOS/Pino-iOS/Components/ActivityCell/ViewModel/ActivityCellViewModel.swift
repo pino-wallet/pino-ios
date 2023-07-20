@@ -22,10 +22,11 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private let withdrawIcon = "withdraw"
 	private let borrowIcon = "borrow_transaction"
 
+	private var activityModel: ActivityModel
+
 	// MARK: - Internal Properties
 
-	internal var activityModel: ActivityModel
-	internal var currentAddress: String
+	internal var globalAssetsList: [AssetViewModel] = []
 	internal var activityType: ActivityType {
 		if let type = ActivityType(rawValue: activityModel.type) {
 			return type
@@ -47,7 +48,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			}
 			return .receive
 		case .approve:
-			return .swap
+			return .unknown
 		case .other_token:
 			return .unknown
 		case .swap:
@@ -73,7 +74,11 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 
 	public var status: ActivityCellStatus {
 		#warning("this section is mock and we should refactor this section")
-		return .success
+		if activityModel.failed {
+			return .failed
+		} else {
+			return .success
+		}
 	}
 
 	public var icon: String {
@@ -105,13 +110,25 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		#warning("this is mock and we should refactor this section")
 		switch uiType {
 		case .swap:
-			return "Swap"
+			let swapActivityVM = SwapDetailsViewModel(activityModel: activityModel, globalAssetsList: globalAssetsList)
+
+			return "Swap \(swapActivityVM.fromTokenAmount.percentFormat) \(swapActivityVM.fromTokenSymbol) -> \(swapActivityVM.toTokenAmount.percentFormat) \(swapActivityVM.toTokenSymbol)"
 		case .borrow:
 			return "Borrow"
 		case .send:
-			return "Send"
+			let transfareAcitivityDetailsVM = TransfareDetailsViewModel(
+				activityModel: activityModel,
+				globalAssetsList: globalAssetsList
+			)
+
+			return "Send \(transfareAcitivityDetailsVM.transfareTokenAmount.percentFormat) \(transfareAcitivityDetailsVM.transfareTokenSymbol)"
 		case .receive:
-			return "Receive"
+			let transfareAcitivityDetailsVM = TransfareDetailsViewModel(
+				activityModel: activityModel,
+				globalAssetsList: globalAssetsList
+			)
+
+			return "Received \(transfareAcitivityDetailsVM.transfareTokenAmount.percentFormat) \(transfareAcitivityDetailsVM.transfareTokenSymbol)"
 		case .unknown:
 			return unknownTransactionText
 		case .collateral:
@@ -127,16 +144,20 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		}
 	}
 
-	public let pendingStatusText = "Pending..."
-	public let failedStatusText = "Failed"
-
 	public var defaultActivityModel: ActivityModel {
 		activityModel
+	}
+
+	// MARK: - Initializers
+
+	init(activityModel: ActivityModel) {
+		self.activityModel = activityModel
 	}
 
 	// MARK: - Private Methods
 
 	private func isSendTransaction() -> Bool {
+		let currentAddress = PinoWalletManager().currentAccount.eip55Address
 		if currentAddress == activityModel.fromAddress {
 			return true
 		} else {

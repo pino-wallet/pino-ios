@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ActivityCellViewModelProtocol {
-	var activityModel: ActivityModel { get set }
+	var globalAssetsList: [AssetViewModel] { get set }
 	var icon: String { get }
 	var title: String { get }
 	var formattedTime: String { get }
@@ -16,16 +16,13 @@ protocol ActivityCellViewModelProtocol {
 	var status: ActivityCellStatus { get }
 	var uiType: ActivityUIType { get }
 	var activityType: ActivityType { get }
-	var currentAddress: String { get }
-	var pendingStatusText: String { get }
-	var failedStatusText: String { get }
 	var defaultActivityModel: ActivityModel { get }
 }
 
-public enum ActivityCellStatus {
-	case failed
-	case success
-	case pending
+public enum ActivityCellStatus: String {
+	case failed = "Failed"
+	case success = "Success"
+	case pending = "Pending..."
 }
 
 public enum ActivityUIType {

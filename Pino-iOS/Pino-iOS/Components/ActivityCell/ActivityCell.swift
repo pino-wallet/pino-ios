@@ -89,17 +89,16 @@ class ActivityCell: UICollectionViewCell {
 		guard let activityStatus = activityCellVM?.status else {
 			return
 		}
+		statusLabel.text = activityStatus.rawValue
 		switch activityStatus {
 		case .failed:
 			statusLabelContainer.backgroundColor = .Pino.lightRed
 			statusLabel.textColor = .Pino.red
-			statusLabel.text = activityCellVM?.failedStatusText ?? ""
 			statusLabel.isHidden = false
 			statusLabelContainer.isHidden = false
 		case .pending:
 			statusLabelContainer.backgroundColor = .Pino.lightOrange
 			statusLabel.textColor = .Pino.pendingOrange
-			statusLabel.text = activityCellVM?.pendingStatusText ?? ""
 			statusLabel.isHidden = false
 			statusLabelContainer.isHidden = false
 		case .success:

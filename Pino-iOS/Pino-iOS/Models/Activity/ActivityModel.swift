@@ -31,7 +31,7 @@ struct ActivityModel: Codable {
 // MARK: - Detail
 
 struct ActivityDetail: Codable {
-	let amount: ActivityAmount?
+	let amount: String?
 	let recipient, tokenID: String?
 	let fromToken, toToken: Token?
 	let userID, from: String?
@@ -46,39 +46,6 @@ struct ActivityDetail: Codable {
 		case userID = "user_id"
 		case activityProtocol = "protocol"
 		case from, to
-	}
-}
-
-// MARK: - Amount
-
-enum ActivityAmount: Codable {
-	case integer(Int)
-	case string(String)
-
-	init(from decoder: Decoder) throws {
-		let container = try decoder.singleValueContainer()
-		if let x = try? container.decode(Int.self) {
-			self = .integer(x)
-			return
-		}
-		if let x = try? container.decode(String.self) {
-			self = .string(x)
-			return
-		}
-		throw DecodingError.typeMismatch(
-			ActivityAmount.self,
-			DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for Amount")
-		)
-	}
-
-	func encode(to encoder: Encoder) throws {
-		var container = encoder.singleValueContainer()
-		switch self {
-		case let .integer(x):
-			try container.encode(x)
-		case let .string(x):
-			try container.encode(x)
-		}
 	}
 }
 
