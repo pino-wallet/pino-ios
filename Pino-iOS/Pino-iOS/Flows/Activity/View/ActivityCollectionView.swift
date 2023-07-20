@@ -23,7 +23,7 @@ class ActivityCollectionView: UICollectionView {
 	private var activityVM: ActivityViewModel
 	private var separatedActivities: ActivityHelper.SeparatedActivitiesType = []
 	private var cancellables = Set<AnyCancellable>()
-    private var userActivitiesCancellable = Set<AnyCancellable>()
+	private var userActivitiesCancellable = Set<AnyCancellable>()
 	private var showLoading = true
 	private var globalAssetsList: [AssetViewModel]?
 
@@ -63,7 +63,7 @@ class ActivityCollectionView: UICollectionView {
 	}
 
 	private func setupBindings() {
-            let activityHelper = ActivityHelper()
+		let activityHelper = ActivityHelper()
 		activityVM.$userActivities.combineLatest(GlobalVariables.shared.$manageAssetsList)
 			.sink { activities, assetsList in
 				if self.globalAssetsList == nil {
@@ -72,7 +72,7 @@ class ActivityCollectionView: UICollectionView {
 				guard let userActivities = activities else {
 					self.showLoading = true
 					self.reloadData()
-                    self.contentInset = UIEdgeInsets(top: 54, left: 0, bottom: 24, right: 0)
+					self.contentInset = UIEdgeInsets(top: 54, left: 0, bottom: 24, right: 0)
 					self.refreshControl?.endRefreshing()
 					return
 				}
@@ -80,9 +80,9 @@ class ActivityCollectionView: UICollectionView {
 				if self.globalAssetsList != nil {
 					self.showLoading = false
 					self.reloadData()
-                    self.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 24, right: 0)
+					self.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 24, right: 0)
 					self.refreshControl?.endRefreshing()
-                    self.userActivitiesCancellable.removeAll()
+					self.userActivitiesCancellable.removeAll()
 				}
 			}.store(in: &userActivitiesCancellable)
 
@@ -127,11 +127,11 @@ class ActivityCollectionView: UICollectionView {
 
 extension ActivityCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if !showLoading {
-            openActivityDetailsClosure(
-                separatedActivities[indexPath.section].activities[indexPath.item]
-            )
-        }
+		if !showLoading {
+			openActivityDetailsClosure(
+				separatedActivities[indexPath.section].activities[indexPath.item]
+			)
+		}
 	}
 }
 
