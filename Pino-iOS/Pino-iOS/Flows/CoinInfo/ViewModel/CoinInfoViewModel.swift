@@ -92,7 +92,7 @@ class CoinInfoViewModel {
 			}
 		} receiveValue: { [weak self] activities in
 			self?.coinHistoryList = activities.compactMap {
-				ActivityCellViewModel(activityModel: $0, currentAddress: userAddress)
+				ActivityCellViewModel(activityModel: $0)
 			}
 		}.store(in: &cancellables)
 	}

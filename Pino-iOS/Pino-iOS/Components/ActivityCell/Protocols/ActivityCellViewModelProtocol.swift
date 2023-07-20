@@ -16,7 +16,6 @@ protocol ActivityCellViewModelProtocol {
 	var status: ActivityCellStatus { get }
 	var uiType: ActivityUIType { get }
 	var activityType: ActivityType { get }
-	var currentAddress: String { get }
 	var defaultActivityModel: ActivityModel { get }
 }
 

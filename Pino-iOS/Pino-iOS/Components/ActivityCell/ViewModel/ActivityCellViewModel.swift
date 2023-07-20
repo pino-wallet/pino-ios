@@ -8,6 +8,7 @@
 import Foundation
 
 struct ActivityCellViewModel: ActivityCellViewModelProtocol {
+    
 	// MARK: - Private Properties
 
 	private let unknownTransactionText = "Unknown transaction"
@@ -21,12 +22,12 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private let investIcon = "invest"
 	private let withdrawIcon = "withdraw"
 	private let borrowIcon = "borrow_transaction"
+    
     private var activityModel: ActivityModel
 
 	// MARK: - Internal Properties
 
-	internal var globalAssetsList: [AssetViewModel]
-	internal var currentAddress: String
+	internal var globalAssetsList: [AssetViewModel] = []
 	internal var activityType: ActivityType {
 		if let type = ActivityType(rawValue: activityModel.type) {
 			return type
@@ -110,18 +111,19 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		#warning("this is mock and we should refactor this section")
 		switch uiType {
 		case .swap:
-            
-            let swapActivityVM = SwapActivityCellViewModel(activityModel: activityModel, globalAssetsList: globalAssetsList)
+            let swapActivityVM = SwapDetailsViewModel(activityModel: activityModel, globalAssetsList: globalAssetsList)
             
             return "Swap \(swapActivityVM.fromTokenAmount.percentFormat) \(swapActivityVM.fromTokenSymbol) -> \(swapActivityVM.toTokenAmount.percentFormat) \(swapActivityVM.toTokenSymbol)"
 		case .borrow:
 			return "Borrow"
 		case .send:
-			let sendToken = globalAssetsList?.first(where: { $0.id == activityModel.detail?.tokenID })
-			return "Send \(BigNumber(number: activityModel.detail?.amount ?? "", decimal: sendToken?.decimal ?? 0).percentFormat) \(sendToken?.symbol ?? "")"
+            let transfareAcitivityDetailsVM = TransfareDetailsViewModel(activityModel: activityModel, globalAssetsList: globalAssetsList)
+			
+            return "Send \(transfareAcitivityDetailsVM.transfareTokenAmount.percentFormat) \(transfareAcitivityDetailsVM.transfareTokenSymbol)"
 		case .receive:
-			let receivedToken = globalAssetsList?.first(where: { $0.id == activityModel.detail?.tokenID })
-			return "Received \(BigNumber(number: activityModel.detail?.amount ?? "", decimal: receivedToken?.decimal ?? 0).percentFormat) \(receivedToken?.symbol ?? "")"
+            let transfareAcitivityDetailsVM = TransfareDetailsViewModel(activityModel: activityModel, globalAssetsList: globalAssetsList)
+            
+            return "Received \(transfareAcitivityDetailsVM.transfareTokenAmount.percentFormat) \(transfareAcitivityDetailsVM.transfareTokenSymbol)"
 		case .unknown:
 			return unknownTransactionText
 		case .collateral:
@@ -137,10 +139,20 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		}
 	}
     
+    public var defaultActivityModel: ActivityModel {
+        return activityModel
+    }
+    
+    
+    // MARK: - Initializers
+    init(activityModel: ActivityModel) {
+        self.activityModel = activityModel
+    }
 
 	// MARK: - Private Methods
 
 	private func isSendTransaction() -> Bool {
+        let currentAddress = PinoWalletManager().currentAccount.eip55Address
 		if currentAddress == activityModel.fromAddress {
 			return true
 		} else {
@@ -149,46 +161,3 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	}
 }
 
-protocol ActivitiesProtocol {
-    var activityModel: ActivityModel { get set }
-    var globalAssetsList: [AssetViewModel] { get }
-}
-
-struct SwapActivityCellViewModel: ActivitiesProtocol {
-    
-    
-    var activityModel: ActivityModel
-    var globalAssetsList: [AssetViewModel]
-
-    private var fromToken: AssetViewModel? {
-        globalAssetsList.first(where: { $0.id == activityModel.detail?.fromToken?.tokenID })
-    }
-    private var toToken: AssetViewModel? {
-        globalAssetsList.first(where: { $0.id == activityModel.detail?.toToken?.tokenID })
-    }
-    
-    public var toTokenAmount: BigNumber {
-        BigNumber(number: toToken?.amount ?? "", decimal: toToken?.decimal ?? 0)
-    }
-    
-    public var fromTokenAmount: BigNumber {
-        BigNumber(number: fromToken?.amount ?? "", decimal: fromToken?.decimal ?? 0)
-    }
-    
-    public var toTokenDecimal: Int {
-        toToken?.decimal ?? 0
-    }
-    
-    public var fromTokenDecimal: Int {
-        fromToken?.decimal ?? 0
-    }
-    
-    var toTokenSymbol: String {
-        toToken?.symbol ?? ""
-    }
-    
-    var fromTokenSymbol: String {
-        fromToken?.symbol ?? ""
-    }
-    
-}

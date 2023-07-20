@@ -75,7 +75,7 @@ class ActivityViewModel {
 		} receiveValue: { [weak self] activities in
 			if self?.userActivities == nil || (self?.userActivities!.isEmpty)! {
 				self?.userActivities = activities.compactMap {
-					ActivityCellViewModel(activityModel: $0, currentAddress: userAddress)
+					ActivityCellViewModel(activityModel: $0)
 				}
 			} else {
 				var newActivities: ActivitiesModel = []
@@ -83,7 +83,7 @@ class ActivityViewModel {
 					!self!.prevActivities.contains { activity.txHash == $0.txHash }
 				}
 				self?.newUserActivities = newActivities.compactMap {
-					ActivityCellViewModel(activityModel: $0, currentAddress: userAddress)
+					ActivityCellViewModel(activityModel: $0)
 				}
 			}
 			self?.prevActivities = activities
