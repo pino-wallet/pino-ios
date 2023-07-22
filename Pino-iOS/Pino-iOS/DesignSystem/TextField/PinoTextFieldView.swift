@@ -12,6 +12,8 @@ public class PinoTextFieldView: UIView {
 
 	public var textFieldKeyboardOnReturn: (() -> Void)?
 	public var textDidChange: (() -> Void)?
+	public var editingBegin: (() -> Void)?
+	public var editingEnd: (() -> Void)?
 
 	// MARK: - Private Properties
 
@@ -170,10 +172,16 @@ public class PinoTextFieldView: UIView {
 extension PinoTextFieldView: UITextFieldDelegate {
 	public func textFieldDidBeginEditing(_ textField: UITextField) {
 		textFieldCard.layer.borderColor = UIColor.Pino.green3.cgColor
+		if let editingBegin {
+			editingBegin()
+		}
 	}
 
 	public func textFieldDidEndEditing(_ textField: UITextField) {
 		textFieldCard.layer.borderColor = UIColor.Pino.gray5.cgColor
+		if let editingEnd {
+			editingEnd()
+		}
 	}
 
 	public func textFieldShouldReturn(_ textField: UITextField) -> Bool {

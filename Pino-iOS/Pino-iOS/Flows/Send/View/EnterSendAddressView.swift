@@ -88,6 +88,9 @@ class EnterSendAddressView: UIView {
 			self.scanAddressQRCode()
 		}), for: .touchUpInside)
 
+		endEditingTapGesture = UITapGestureRecognizer(target: self, action: #selector(viewEndEditing))
+		addGestureRecognizer(endEditingTapGesture)
+
 		suggestedAddressesContainerView.addSubview(suggestedAddressesCollectionView)
 		suggestedAddressesContainerView.addSubview(scrollOverlayGradientview)
 		addSubview(addressTextField)
@@ -110,6 +113,20 @@ class EnterSendAddressView: UIView {
 		suggestedAddressesContainerView.alpha = 0
 
 		scrollOverlayGradientview.isUserInteractionEnabled = false
+		endEditingTapGesture.isEnabled = false
+
+		addressTextField.editingBegin = {
+			self.endEditingTapGesture.isEnabled = true
+			UIView.animate(withDuration: 0.3) {
+				self.suggestedAddressesContainerView.alpha = 0
+			}
+		}
+		addressTextField.editingEnd = {
+			self.endEditingTapGesture.isEnabled = false
+			UIView.animate(withDuration: 0.3) {
+				self.suggestedAddressesContainerView.alpha = 1
+			}
+		}
 	}
 
 	private func setupConstraints() {
@@ -200,8 +217,6 @@ class EnterSendAddressView: UIView {
 		addressTextField.textFieldKeyboardOnReturn = {
 			self.endEditing(true)
 		}
-		endEditingTapGesture = UITapGestureRecognizer(target: self, action: #selector(viewEndEditing))
-		addGestureRecognizer(endEditingTapGesture)
 	}
 
 	private func moveViewWithKeyboard(notification: NSNotification, keyboardWillShow: Bool) {
@@ -258,18 +273,10 @@ extension EnterSendAddressView {
 			}
 		}
 		moveViewWithKeyboard(notification: notification, keyboardWillShow: true)
-		endEditingTapGesture.isEnabled = true
-		UIView.animate(withDuration: 0.3) {
-			self.suggestedAddressesContainerView.alpha = 0
-		}
 	}
 
 	@objc
 	internal func keyboardWillHide(_ notification: NSNotification) {
 		moveViewWithKeyboard(notification: notification, keyboardWillShow: false)
-		endEditingTapGesture.isEnabled = false
-		UIView.animate(withDuration: 0.3) {
-			self.suggestedAddressesContainerView.alpha = 1
-		}
 	}
 }
