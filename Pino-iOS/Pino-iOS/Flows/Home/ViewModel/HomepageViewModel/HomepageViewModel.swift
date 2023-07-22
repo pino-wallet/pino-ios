@@ -38,8 +38,6 @@ class HomepageViewModel {
 	// MARK: - Initializers
 
 	init() {
-		AssetManagerViewModel.shared.checkDefaultAssetsAdded()
-		AssetManagerViewModel.shared.getSelectedAssetsFromCoreData()
 		getWalletInfo()
 		setupBindings()
 	}
