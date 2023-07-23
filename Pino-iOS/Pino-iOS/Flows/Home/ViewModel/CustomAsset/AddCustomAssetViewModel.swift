@@ -68,7 +68,6 @@ class AddCustomAssetViewModel {
 	public var customAssetSymbolInfo: CustomAssetInfoViewModel
 	public var customAssetDecimalInfo: CustomAssetInfoViewModel
 	public var userAddress: String
-	public var userTokens: [Detail]
 
 	// MARK: - Private Properties
 
@@ -80,9 +79,8 @@ class AddCustomAssetViewModel {
 
 	// MARK: - Initializers
 
-	init(useraddress: String, userTokens: [Detail]) {
+	init(useraddress: String) {
 		self.userAddress = useraddress
-		self.userTokens = userTokens
 		#warning("this aletsTexts are for testing")
 		self
 			.customAssetNameInfo =
@@ -123,7 +121,7 @@ class AddCustomAssetViewModel {
 
 		if textFieldText.validateETHContractAddress() {
 			let lowercasedTextFieldText = textFieldText.lowercased()
-			let foundToken = userTokens.first(where: { $0.id.lowercased() == lowercasedTextFieldText })
+            let foundToken = GlobalVariables.shared.manageAssetsList!.first(where: { $0.id.lowercased() == lowercasedTextFieldText })
 			if foundToken != nil {
 				changeViewStatusClosure(.error(.alreadyAdded))
 				return
@@ -155,8 +153,9 @@ class AddCustomAssetViewModel {
 
 	public func saveCustomTokenToCoredata() -> CustomAsset? {
 		guard let customAssetVM else { return nil }
-		if coredataManager.getAllCustomAssets().contains(where: { $0.id == customAssetVM.contractAddress }) {
-			return nil
+        if coredataManager.getAllCustomAssets().contains(where: { $0.id == customAssetVM.contractAddress.lowercased() }) {
+            Toast.default(title: "Asset Exists", subtitle: nil, style: .error, direction: .bottom).show()
+            return nil
 		} else {
 			let customAssetModel = coredataManager.addNewCustomAsset(
 				id: customAssetVM.contractAddress,

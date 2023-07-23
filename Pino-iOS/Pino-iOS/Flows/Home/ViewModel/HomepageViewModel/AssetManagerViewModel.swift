@@ -16,11 +16,11 @@ class AssetManagerViewModel {
 
 	// MARK: - Private Initiliazer
 
+    private var tokens: [Detail] = []
 	private init() {}
 
 	// MARK: - Public Properties
 
-	public var tokens: [Detail] = []
 	public var selectedAssets = [SelectedAsset]()
 
 	@Published
@@ -129,7 +129,7 @@ class AssetManagerViewModel {
 	private func addSelectedAssetToCoreData(_ asset: AssetViewModel) {
 		let selectedAsset = coreDataManager.addNewSelectedAsset(id: asset.id)
 		selectedAssets.append(selectedAsset)
-	}
+    }
 
 	private func addSelectedAssetToCoreData(id: String) {
 		let selectedAsset = coreDataManager.addNewSelectedAsset(id: id)
