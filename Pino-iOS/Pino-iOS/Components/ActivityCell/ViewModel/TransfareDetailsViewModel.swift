@@ -32,16 +32,16 @@ struct TransfareDetailsViewModel: ActivityDetailsProtocol {
 	public var transfareTokenSymbol: String {
 		transfareToken?.symbol ?? ""
 	}
-    
-    public var transfareTokenImage: URL? {
-        transfareToken?.image
-    }
-    
-    public var transfareFromAddress: String {
-        activityModel.fromAddress.shortenedString(characterCountFromStart: 6, characterCountFromEnd: 4)
-    }
-    
-    public var transfareToAddress: String {
-        activityModel.toAddress.shortenedString(characterCountFromStart: 6, characterCountFromEnd: 4)
-    }
+
+	public var transfareTokenImage: URL? {
+		transfareToken?.image
+	}
+
+	public var transfareFromAddress: String {
+		activityModel.fromAddress.shortenedString(characterCountFromStart: 6, characterCountFromEnd: 4)
+	}
+
+	public var transfareToAddress: String {
+		activityModel.toAddress.shortenedString(characterCountFromStart: 6, characterCountFromEnd: 4)
+	}
 }

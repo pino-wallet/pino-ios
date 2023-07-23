@@ -48,12 +48,12 @@ struct SwapDetailsViewModel: ActivityDetailsProtocol {
 	public var fromTokenSymbol: String {
 		fromToken?.symbol ?? ""
 	}
-    
-    public var fromTokenImage: URL? {
-        fromToken?.image
-    }
-    
-    public var toTokenImage: URL? {
-        toToken?.image
-    }
+
+	public var fromTokenImage: URL? {
+		fromToken?.image
+	}
+
+	public var toTokenImage: URL? {
+		toToken?.image
+	}
 }

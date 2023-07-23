@@ -11,5 +11,5 @@ import Foundation
 protocol ActivityAPIService {
 	func tokenActivities(userAddress: String, tokenAddress: String) -> AnyPublisher<ActivitiesModel, APIError>
 	func allActivities(userAddress: String) -> AnyPublisher<ActivitiesModel, APIError>
-    func singleActivity(txHash: String) -> AnyPublisher<ActivityModel, APIError>
+	func singleActivity(txHash: String) -> AnyPublisher<ActivityModel, APIError>
 }

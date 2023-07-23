@@ -5,8 +5,8 @@
 //  Created by Amir hossein kazemi seresht on 7/11/23.
 //
 
-import UIKit
 import Combine
+import UIKit
 
 class ActivityDetailsView: UIScrollView {
 	// MARK: - TypeAliases
@@ -19,7 +19,7 @@ class ActivityDetailsView: UIScrollView {
 
 	// MARK: - Private Properties
 
-    private var activityDetailsVM: ActivityDetailsViewModel
+	private var activityDetailsVM: ActivityDetailsViewModel
 	private var activityDetailsHeader: UIView
 	private var activityDetailsInfoView: ActivityInfoView!
 	private let mainStackView = UIStackView()
@@ -29,8 +29,8 @@ class ActivityDetailsView: UIScrollView {
 	private let footerIconView = UIImageView()
 	private let footerTextLabel = PinoLabel(style: .title, text: "")
 	private let footerTextLabelContainer = UIView()
-    private let activityDetailRefreshControl = UIRefreshControl()
-    private var cancellables = Set<AnyCancellable>()
+	private let activityDetailRefreshControl = UIRefreshControl()
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -43,13 +43,13 @@ class ActivityDetailsView: UIScrollView {
 		self.presentActionSheet = presentActionSheet
 		self.activityDetailsHeader = activityDetailsHeader
 
-        super.init(frame: CGRect(x: 0, y: 0, width: 300, height: 700))
+		super.init(frame: CGRect(x: 0, y: 0, width: 300, height: 700))
 
 		setupView()
 		setupStyles()
 		setupConstraintsWithUIType()
-        setupRefreshControl()
-        setupBindings()
+		setupRefreshControl()
+		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -80,7 +80,7 @@ class ActivityDetailsView: UIScrollView {
 		mainStackView.addArrangedSubview(footerContainerView)
 		mainStackView.addArrangedSubview(viewEthScanButton)
 
-        addSubview(mainStackView)
+		addSubview(mainStackView)
 	}
 
 	private func setupStyles() {
@@ -135,25 +135,25 @@ class ActivityDetailsView: UIScrollView {
 
 		mainStackView.pin(.horizontalEdges(to: layoutMarginsGuide, padding: 0), .top(to: contentLayoutGuide, padding: 24))
 	}
-    
-    private func setupRefreshControl() {
-        indicatorStyle = .white
-        activityDetailRefreshControl.tintColor = .Pino.green2
-        activityDetailRefreshControl.addAction(UIAction(handler: { _ in
-            self.refreshData()
-        }), for: .valueChanged)
-        refreshControl = activityDetailRefreshControl
-    }
-    
-    private func refreshData() {
-        activityDetailsVM.refreshData()
-    }
-    
-    private func setupBindings() {
-        activityDetailsVM.$activityDetails.sink { _ in
-            self.refreshControl?.endRefreshing()
-        }.store(in: &cancellables)
-    }
+
+	private func setupRefreshControl() {
+		indicatorStyle = .white
+		activityDetailRefreshControl.tintColor = .Pino.green2
+		activityDetailRefreshControl.addAction(UIAction(handler: { _ in
+			self.refreshData()
+		}), for: .valueChanged)
+		refreshControl = activityDetailRefreshControl
+	}
+
+	private func refreshData() {
+		activityDetailsVM.refreshData()
+	}
+
+	private func setupBindings() {
+		activityDetailsVM.$activityDetails.sink { _ in
+			self.refreshControl?.endRefreshing()
+		}.store(in: &cancellables)
+	}
 
 	@objc
 	private func openEthScan() {
@@ -161,5 +161,4 @@ class ActivityDetailsView: UIScrollView {
 		let url = URL(string: "http://www.google.com")!
 		UIApplication.shared.open(url)
 	}
-    
 }

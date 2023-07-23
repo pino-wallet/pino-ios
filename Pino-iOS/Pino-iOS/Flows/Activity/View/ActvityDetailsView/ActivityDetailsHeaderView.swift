@@ -5,9 +5,9 @@
 //  Created by Amir hossein kazemi seresht on 7/11/23.
 //
 
-import UIKit
-import Kingfisher
 import Combine
+import Kingfisher
+import UIKit
 
 class ActivityDetailsHeaderView: UIView {
 	// MARK: - Public Properties
@@ -21,7 +21,7 @@ class ActivityDetailsHeaderView: UIView {
 	private let defaultStackView = UIStackView()
 	private let defaultImageView = UIImageView()
 	private let defaultTitleLabel = PinoLabel(style: .title, text: "")
-    private var cancellables = Set<AnyCancellable>()
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -33,7 +33,7 @@ class ActivityDetailsHeaderView: UIView {
 		setupView()
 		setupStyles()
 		setupConstraints()
-        setupBindings()
+		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -56,7 +56,7 @@ class ActivityDetailsHeaderView: UIView {
 		defaultStackView.spacing = 16
 
 		defaultTitleLabel.font = .PinoStyle.semiboldTitle2
-        setValues()
+		setValues()
 	}
 
 	private func setupConstraints() {
@@ -66,18 +66,18 @@ class ActivityDetailsHeaderView: UIView {
 		defaultStackView.pin(.verticalEdges(padding: 16), .horizontalEdges(padding: 14))
 		defaultImageView.pin(.fixedWidth(50), .fixedHeight(50))
 	}
-    
-    private func setValues() {
-        defaultTitleLabel.text = activityDetailsVM.assetAmountTitle ?? ""
-        defaultTitleLabel.numberOfLines = 0
 
-        defaultImageView.kf.indicatorType = .activity
-        defaultImageView.kf.setImage(with: activityDetailsVM.assetIcon)
-    }
-    
-    private func setupBindings() {
-        activityDetailsVM.$activityDetails.sink { _ in
-            self.setValues()
-        }.store(in: &cancellables)
-    }
+	private func setValues() {
+		defaultTitleLabel.text = activityDetailsVM.assetAmountTitle ?? ""
+		defaultTitleLabel.numberOfLines = 0
+
+		defaultImageView.kf.indicatorType = .activity
+		defaultImageView.kf.setImage(with: activityDetailsVM.assetIcon)
+	}
+
+	private func setupBindings() {
+		activityDetailsVM.$activityDetails.sink { _ in
+			self.setValues()
+		}.store(in: &cancellables)
+	}
 }

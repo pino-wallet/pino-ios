@@ -34,7 +34,7 @@ class ActivityViewController: UIViewController {
 
 	override func viewWillDisappear(_ animated: Bool) {
 		activityVM.destroyTimer()
-        activityVM.destroyPrevData()
+		activityVM.destroyPrevData()
 	}
 
 	// MARK: - Private Methods
