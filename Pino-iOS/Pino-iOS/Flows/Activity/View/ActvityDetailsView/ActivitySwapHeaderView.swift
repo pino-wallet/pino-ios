@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Kingfisher
+import Combine
 
 class ActivitySwapHeaderView: UIView {
 	// MARK: - Private Properties
@@ -25,6 +27,7 @@ class ActivitySwapHeaderView: UIView {
 	private let toTokenAmountLabel = PinoLabel(style: .title, text: "")
 	private let fromTokenSymbolLabel = PinoLabel(style: .title, text: "")
 	private let toTokenSymbolLabel = PinoLabel(style: .title, text: "")
+    private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -36,6 +39,7 @@ class ActivitySwapHeaderView: UIView {
 		setupView()
 		setupStyles()
 		setupConstraints()
+        setupBindings()
 	}
 
 	required init(coder: NSCoder) {
@@ -87,25 +91,8 @@ class ActivitySwapHeaderView: UIView {
 		toTokenAmountStackView.axis = .horizontal
 		toTokenAmountStackView.alignment = .center
 		toTokenAmountStackView.spacing = 4
-
-		fromTokenImageView
-			.image = UIImage(
-				named: activityDetailsVM.fromTokenImageName ?? activityDetailsVM
-					.unVerifiedAssetIconName
-			)
-		fromTokenAmountLabel.font = .PinoStyle.semiboldTitle2
-		fromTokenSymbolLabel.font = .PinoStyle.mediumCallout
-		fromTokenAmountLabel.text = activityDetailsVM.fromTokenAmount
-		fromTokenAmountLabel.numberOfLines = 0
-		fromTokenSymbolLabel.text = activityDetailsVM.fromTokenSymbol
-
-		toTokenImageView
-			.image = UIImage(named: activityDetailsVM.toTokenImageName ?? activityDetailsVM.unVerifiedAssetIconName)
-		toTokenAmountLabel.font = .PinoStyle.semiboldTitle2
-		toTokenSymbolLabel.font = .PinoStyle.mediumCallout
-		toTokenAmountLabel.text = activityDetailsVM.toTokenAmount
-		toTokenAmountLabel.numberOfLines = 0
-		toTokenSymbolLabel.text = activityDetailsVM.toTokenSymbol
+        
+        setValues()
 
 		swapIconView.image = UIImage(named: activityDetailsVM.swapDownArrow)
 	}
@@ -123,4 +110,28 @@ class ActivitySwapHeaderView: UIView {
 		cardView.pin(.allEdges(padding: 0))
 		mainStackView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 14))
 	}
+    
+    private func setValues() {
+        fromTokenImageView.kf.indicatorType = .activity
+        fromTokenImageView.kf.setImage(with: activityDetailsVM.fromTokenIcon)
+        fromTokenAmountLabel.font = .PinoStyle.semiboldTitle2
+        fromTokenSymbolLabel.font = .PinoStyle.mediumCallout
+        fromTokenAmountLabel.text = activityDetailsVM.fromTokenAmount
+        fromTokenAmountLabel.numberOfLines = 0
+        fromTokenSymbolLabel.text = activityDetailsVM.fromTokenSymbol
+
+        toTokenImageView.kf.indicatorType = .activity
+        toTokenImageView.kf.setImage(with: activityDetailsVM.toTokenIcon)
+        toTokenAmountLabel.font = .PinoStyle.semiboldTitle2
+        toTokenSymbolLabel.font = .PinoStyle.mediumCallout
+        toTokenAmountLabel.text = activityDetailsVM.toTokenAmount
+        toTokenAmountLabel.numberOfLines = 0
+        toTokenSymbolLabel.text = activityDetailsVM.toTokenSymbol
+    }
+    
+    private func setupBindings() {
+        activityDetailsVM.$activityDetails.sink { _ in
+            self.setValues()
+        }.store(in: &cancellables)
+    }
 }

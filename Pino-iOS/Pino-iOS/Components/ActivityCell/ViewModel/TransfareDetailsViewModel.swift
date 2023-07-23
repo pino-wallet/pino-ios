@@ -5,6 +5,8 @@
 //  Created by Amir hossein kazemi seresht on 7/20/23.
 //
 
+import Foundation
+
 struct TransfareDetailsViewModel: ActivityDetailsProtocol {
 	// MARK: - Internal Properties
 
@@ -30,4 +32,16 @@ struct TransfareDetailsViewModel: ActivityDetailsProtocol {
 	public var transfareTokenSymbol: String {
 		transfareToken?.symbol ?? ""
 	}
+    
+    public var transfareTokenImage: URL? {
+        transfareToken?.image
+    }
+    
+    public var transfareFromAddress: String {
+        activityModel.fromAddress.shortenedString(characterCountFromStart: 6, characterCountFromEnd: 4)
+    }
+    
+    public var transfareToAddress: String {
+        activityModel.toAddress.shortenedString(characterCountFromStart: 6, characterCountFromEnd: 4)
+    }
 }

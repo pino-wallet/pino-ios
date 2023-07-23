@@ -23,10 +23,18 @@ class ActivityDetailsViewController: UIViewController {
 		setupView()
 		setupNavigationBar()
 	}
+    
+    override func viewWillAppear(_ animated: Bool) {
+        activityDetailsVM.getActivityDetailsFromVC()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        activityDetailsVM.destroyTimer()
+    }
 
 	// MARK: - Initializers
 
-	init(activityDetails: ActivityModel) {
+	init(activityDetails: ActivityCellViewModel) {
 		self.activityDetailsVM = ActivityDetailsViewModel(activityDetails: activityDetails)
 
 		super.init(nibName: nil, bundle: nil)
@@ -49,7 +57,7 @@ class ActivityDetailsViewController: UIViewController {
 				ActivityDetailsHeaderView(activityDetailsVM: activityDetailsVM)
 		)
 
-		view = activityDetailsView
+        view = activityDetailsView
 	}
 
 	private func setupNavigationBar() {
@@ -62,7 +70,7 @@ class ActivityDetailsViewController: UIViewController {
 			action: #selector(dismissPage)
 		)
 	}
-
+    
 	@objc
 	private func dismissPage() {
 		dismiss(animated: true)

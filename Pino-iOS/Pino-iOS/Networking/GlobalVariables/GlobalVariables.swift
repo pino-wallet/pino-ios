@@ -55,7 +55,7 @@ class GlobalVariables {
 		return firstly {
 			getManageAssetLists()
 		}.get { assets in
-			self.manageAssetsList = assets
+            self.manageAssetsList = assets
 		}.then { assets in
 			self.calculateEthGasFee(ethPrice: assets.first(where: { $0.isEth })!.price)
 		}

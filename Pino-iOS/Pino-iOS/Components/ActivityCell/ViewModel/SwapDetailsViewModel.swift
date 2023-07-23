@@ -5,6 +5,8 @@
 //  Created by Amir hossein kazemi seresht on 7/20/23.
 //
 
+import Foundation
+
 struct SwapDetailsViewModel: ActivityDetailsProtocol {
 	// MARK: - Internal Properties
 
@@ -46,4 +48,12 @@ struct SwapDetailsViewModel: ActivityDetailsProtocol {
 	public var fromTokenSymbol: String {
 		fromToken?.symbol ?? ""
 	}
+    
+    public var fromTokenImage: URL? {
+        fromToken?.image
+    }
+    
+    public var toTokenImage: URL? {
+        toToken?.image
+    }
 }

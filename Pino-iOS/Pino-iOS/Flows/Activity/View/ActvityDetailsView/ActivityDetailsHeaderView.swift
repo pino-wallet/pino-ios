@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Kingfisher
+import Combine
 
 class ActivityDetailsHeaderView: UIView {
 	// MARK: - Public Properties
@@ -19,6 +21,7 @@ class ActivityDetailsHeaderView: UIView {
 	private let defaultStackView = UIStackView()
 	private let defaultImageView = UIImageView()
 	private let defaultTitleLabel = PinoLabel(style: .title, text: "")
+    private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -30,6 +33,7 @@ class ActivityDetailsHeaderView: UIView {
 		setupView()
 		setupStyles()
 		setupConstraints()
+        setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -52,11 +56,7 @@ class ActivityDetailsHeaderView: UIView {
 		defaultStackView.spacing = 16
 
 		defaultTitleLabel.font = .PinoStyle.semiboldTitle2
-		defaultTitleLabel.text = activityDetailsVM.assetAmountTitle ?? ""
-		defaultTitleLabel.numberOfLines = 0
-
-		defaultImageView
-			.image = UIImage(named: activityDetailsVM.assetIconName ?? activityDetailsVM.unVerifiedAssetIconName)
+        setValues()
 	}
 
 	private func setupConstraints() {
@@ -66,4 +66,18 @@ class ActivityDetailsHeaderView: UIView {
 		defaultStackView.pin(.verticalEdges(padding: 16), .horizontalEdges(padding: 14))
 		defaultImageView.pin(.fixedWidth(50), .fixedHeight(50))
 	}
+    
+    private func setValues() {
+        defaultTitleLabel.text = activityDetailsVM.assetAmountTitle ?? ""
+        defaultTitleLabel.numberOfLines = 0
+
+        defaultImageView.kf.indicatorType = .activity
+        defaultImageView.kf.setImage(with: activityDetailsVM.assetIcon)
+    }
+    
+    private func setupBindings() {
+        activityDetailsVM.$activityDetails.sink { _ in
+            self.setValues()
+        }.store(in: &cancellables)
+    }
 }

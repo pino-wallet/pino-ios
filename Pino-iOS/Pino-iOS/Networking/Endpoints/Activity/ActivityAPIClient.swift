@@ -9,6 +9,7 @@ import Combine
 import Foundation
 
 final class ActivityAPIClient: ActivityAPIService {
+    
 	// MARK: - Private Properties
 
 	private let networkManager = NetworkManager<ActivityEndpoint>()
@@ -22,4 +23,8 @@ final class ActivityAPIClient: ActivityAPIService {
 	public func allActivities(userAddress: String) -> AnyPublisher<ActivitiesModel, APIError> {
 		networkManager.request(.allActivities(userAddress: userAddress))
 	}
+    
+    public func singleActivity(txHash: String) -> AnyPublisher<ActivityModel, APIError> {
+        networkManager.request(.singleActivity(txHash: txHash))
+    }
 }
