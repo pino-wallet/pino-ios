@@ -37,9 +37,9 @@ class CoinInfoViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-        view = ActivitiesCollectionView(coinInfoVM: coinInfoVM, openActivityDetails: { [weak self] activityDetails in
-            self?.openActivityDetailsPage(activityDetails: activityDetails)
-        })
+		view = ActivitiesCollectionView(coinInfoVM: coinInfoVM, openActivityDetails: { [weak self] activityDetails in
+			self?.openActivityDetailsPage(activityDetails: activityDetails)
+		})
 	}
 
 	private func setupNavigationBar() {
@@ -64,13 +64,13 @@ class CoinInfoViewController: UIViewController {
 			)
 		}
 	}
-    
-    private func openActivityDetailsPage(activityDetails: ActivityCellViewModel) {
-        let navigationVC = UINavigationController()
-        let activityDetailsVC = ActivityDetailsViewController(activityDetails: activityDetails)
-        navigationVC.viewControllers = [activityDetailsVC]
-        present(navigationVC, animated: true)
-    }
+
+	private func openActivityDetailsPage(activityDetails: ActivityCellViewModel) {
+		let navigationVC = UINavigationController()
+		let activityDetailsVC = ActivityDetailsViewController(activityDetails: activityDetails)
+		navigationVC.viewControllers = [activityDetailsVC]
+		present(navigationVC, animated: true)
+	}
 
 	@objc
 	private func dismissCoinInfo() {
@@ -84,5 +84,4 @@ class CoinInfoViewController: UIViewController {
 		navigationVC.modalPresentationStyle = .formSheet
 		present(navigationVC, animated: true)
 	}
-    
 }
