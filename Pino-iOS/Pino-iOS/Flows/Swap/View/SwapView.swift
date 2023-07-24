@@ -82,10 +82,7 @@ class SwapView: UIView {
 	private func setupView() {
 		fromTokenSectionView = SwapTokenSectionView(
 			swapVM: swapVM.fromToken,
-			changeSelectedToken: fromTokenChange,
-			balanceStatusDidChange: { balanceStatus in
-				self.updateSwapStatus(balanceStatus)
-			}
+			changeSelectedToken: fromTokenChange
 		)
 
 		toTokenSectionView = SwapTokenSectionView(
@@ -127,6 +124,18 @@ class SwapView: UIView {
 
 		let protocolChangeTapGesture = UITapGestureRecognizer(target: self, action: #selector(changeSwapProtocol))
 		protocolCardView.addGestureRecognizer(protocolChangeTapGesture)
+
+		fromTokenSectionView.balanceStatusDidChange = { balanceStatus in
+			self.updateSwapStatus(balanceStatus)
+		}
+		fromTokenSectionView.editingBegin = {
+			self.swapVM.fromToken.isEditing = true
+			self.swapVM.toToken.isEditing = false
+		}
+		toTokenSectionView.editingBegin = {
+			self.swapVM.toToken.isEditing = true
+			self.swapVM.fromToken.isEditing = false
+		}
 	}
 
 	private func setupStyle() {

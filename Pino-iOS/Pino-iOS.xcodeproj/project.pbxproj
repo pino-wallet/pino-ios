@@ -406,6 +406,7 @@
 		E34728EB29E7DD6B00AB8265 /* AssetManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34728EA29E7DD6B00AB8265 /* AssetManagerViewModel.swift */; };
 		E34728F129EEA81000AB8265 /* AssetChartDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34728F029EEA81000AB8265 /* AssetChartDataViewModel.swift */; };
 		E351A72729F5247000635715 /* ChartDateBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E351A72629F5247000635715 /* ChartDateBuilder.swift */; };
+		E3596B1B2A6E51D60030B682 /* SwapSide.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3596B1A2A6E51D60030B682 /* SwapSide.swift */; };
 		E35BB63A2A5589F3003987F5 /* SelectSwapProtocolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6392A5589F3003987F5 /* SelectSwapProtocolViewController.swift */; };
 		E35BB63C2A558B2E003987F5 /* SelectSwapProtocolViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB63B2A558B2E003987F5 /* SelectSwapProtocolViewModel.swift */; };
 		E35BB63E2A558D0E003987F5 /* SwapProtocolCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB63D2A558D0E003987F5 /* SwapProtocolCollectionView.swift */; };
@@ -886,6 +887,7 @@
 		E34728EA29E7DD6B00AB8265 /* AssetManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetManagerViewModel.swift; sourceTree = "<group>"; };
 		E34728F029EEA81000AB8265 /* AssetChartDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetChartDataViewModel.swift; sourceTree = "<group>"; };
 		E351A72629F5247000635715 /* ChartDateBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDateBuilder.swift; sourceTree = "<group>"; };
+		E3596B1A2A6E51D60030B682 /* SwapSide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapSide.swift; sourceTree = "<group>"; };
 		E35BB6372A5585FA003987F5 /* SwapProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapProtocol.swift; sourceTree = "<group>"; };
 		E35BB6392A5589F3003987F5 /* SelectSwapProtocolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSwapProtocolViewController.swift; sourceTree = "<group>"; };
 		E35BB63B2A558B2E003987F5 /* SelectSwapProtocolViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSwapProtocolViewModel.swift; sourceTree = "<group>"; };
@@ -2587,6 +2589,7 @@
 			isa = PBXGroup;
 			children = (
 				E35BB6422A593BBB003987F5 /* SwapProtocolModel.swift */,
+				E3596B1A2A6E51D60030B682 /* SwapSide.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3123,6 +3126,7 @@
 				D4FCAA07F82037BF6EF0B823 /* AssetViewModel.swift in Sources */,
 				E34728EB29E7DD6B00AB8265 /* AssetManagerViewModel.swift in Sources */,
 				D98207CA2A5D6D8C0066A090 /* ActivityDetailsHeaderView.swift in Sources */,
+				E3596B1B2A6E51D60030B682 /* SwapSide.swift in Sources */,
 				40BB42282A47157800E1A121 /* UIDevice+Extension.swift in Sources */,
 				E385F6122A22029100EE7EE1 /* Wallet+CoreDataProperties.swift in Sources */,
 				03C069F70295746815C20F42 /* AssetVolatilityType.swift in Sources */,
