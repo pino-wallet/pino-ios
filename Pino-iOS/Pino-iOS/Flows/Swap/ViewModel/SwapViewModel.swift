@@ -117,12 +117,12 @@ class SwapViewModel {
 		if swapProtocol == .bestRate {
 			swapFeeVM.swapProviderVM = getBestProvider()
 		}
-		getFeeInfo()
+		recalculateTokensAmount()
 	}
 
 	public func changeSwapProvider(to swapProvider: SwapProviderViewModel) {
 		swapFeeVM.swapProviderVM = swapProvider
-		getFeeInfo()
+		recalculateTokensAmount()
 	}
 
 	// MARK: - Private Methods
