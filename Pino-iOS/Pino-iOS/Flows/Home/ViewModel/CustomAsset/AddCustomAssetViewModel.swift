@@ -121,7 +121,8 @@ class AddCustomAssetViewModel {
 
 		if textFieldText.validateETHContractAddress() {
 			let lowercasedTextFieldText = textFieldText.lowercased()
-            let foundToken = GlobalVariables.shared.manageAssetsList!.first(where: { $0.id.lowercased() == lowercasedTextFieldText })
+			let foundToken = GlobalVariables.shared.manageAssetsList!
+				.first(where: { $0.id.lowercased() == lowercasedTextFieldText })
 			if foundToken != nil {
 				changeViewStatusClosure(.error(.alreadyAdded))
 				return
@@ -153,9 +154,10 @@ class AddCustomAssetViewModel {
 
 	public func saveCustomTokenToCoredata() -> CustomAsset? {
 		guard let customAssetVM else { return nil }
-        if coredataManager.getAllCustomAssets().contains(where: { $0.id == customAssetVM.contractAddress.lowercased() }) {
-            Toast.default(title: "Asset Exists", subtitle: nil, style: .error, direction: .bottom).show()
-            return nil
+		if coredataManager.getAllCustomAssets()
+			.contains(where: { $0.id == customAssetVM.contractAddress.lowercased() }) {
+			Toast.default(title: "Asset Exists", subtitle: nil, style: .error, direction: .bottom).show()
+			return nil
 		} else {
 			let customAssetModel = coredataManager.addNewCustomAsset(
 				id: customAssetVM.contractAddress,

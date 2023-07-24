@@ -81,7 +81,7 @@ class ManageAssetsViewController: UIViewController {
 	private func addCustomAssets() {
 		let addCustomAssetVC = AddCustomAssetViewController(
 			userAddress: homeVM.walletInfo.address
-        ) { customAsset in
+		) { customAsset in
 			AssetManagerViewModel.shared.addNewCustomAsset(customAsset)
 			self.dismiss(animated: true)
 		}

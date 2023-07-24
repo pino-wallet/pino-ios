@@ -33,9 +33,9 @@ struct CustomAssetDataSource: DataSourceProtocol {
 
 	// MARK: - Public Methods
 
-    public mutating func getAll() -> [CustomAsset] {
+	public mutating func getAll() -> [CustomAsset] {
 		fetchEntities()
-        return customAssets
+		return customAssets
 	}
 
 	public func get(byId id: String) -> CustomAsset? {

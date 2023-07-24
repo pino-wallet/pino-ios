@@ -74,15 +74,16 @@ class Web3Core {
 				return try self.getInfo(address: contractAddress, info: .name).compactMap { nameValue in
 					nameValue[String.emptyString] as? String
 				}
-            }.then { [self] nameValue -> Promise<[String: Any]> in
+			}.then { [self] nameValue -> Promise<[String: Any]> in
 				assetInfo.updateValue(nameValue, forKey: AssetInfo.name)
-                let contractAddress = try EthereumAddress(hex: contractAddress, eip55: true)
-                let contract = web3.eth.Contract(type: GenericERC20Contract.self, address: contractAddress)
-                return try contract.balanceOf(address: EthereumAddress(hex: walletManager.currentAccount.eip55Address, eip55: true))
-                    .call()
-            }.map { balanceValue in
-                balanceValue["_balance"] as! BigUInt
-            }.then { balance in
+				let contractAddress = try EthereumAddress(hex: contractAddress, eip55: true)
+				let contract = web3.eth.Contract(type: GenericERC20Contract.self, address: contractAddress)
+				return try contract
+					.balanceOf(address: EthereumAddress(hex: walletManager.currentAccount.eip55Address, eip55: true))
+					.call()
+			}.map { balanceValue in
+				balanceValue["_balance"] as! BigUInt
+			}.then { balance in
 				assetInfo.updateValue("\(balance)", forKey: AssetInfo.balance)
 				return try self.getInfo(address: contractAddress, info: .symbol).compactMap { symbolValue in
 					symbolValue[String.emptyString] as? String
@@ -267,7 +268,6 @@ class Web3Core {
 		}
 	}
 
-    
 	private func getInfo(address: String, info: AssetInfo) throws -> Promise<[String: Any]> {
 		let contractAddress = try EthereumAddress(hex: address, eip55: true)
 		let contractJsonABI = Web3ABI.erc20AbiString.data(using: .utf8)!
