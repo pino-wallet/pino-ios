@@ -45,10 +45,17 @@ class SwapFeeViewModel {
 		"\(saveAmount.currencyFormatting) \(celebrateEmoji)"
 	}
 
+	#warning("Amount calculation based on price is temporary and must be replaced with api data")
 	public func updateAmount(fromToken: SwapTokenViewModel, toToken: SwapTokenViewModel) {
-		if let fromTokenAmount = fromToken.tokenAmount, let toTokenAmount = toToken.tokenAmount {
-			let formattedFromTokenAmount = fromTokenAmount.tokenFormatting(token: fromToken.selectedToken.symbol)
-			let formattedToTokenAmount = toTokenAmount.tokenFormatting(token: toToken.selectedToken.symbol)
+		if fromToken.tokenAmount != nil, toToken.tokenAmount != nil {
+			let formattedFromTokenAmount = "1 \(fromToken.selectedToken.symbol)"
+			let formattedToTokenAmount: String
+			if let toTokenAmount = fromToken.selectedToken.price / toToken.selectedToken.price {
+				formattedToTokenAmount = toTokenAmount.sevenDigitFormat
+					.tokenFormatting(token: toToken.selectedToken.symbol)
+			} else {
+				formattedToTokenAmount = "0 \(toToken.selectedToken.symbol)"
+			}
 			calculatedAmount = "\(formattedFromTokenAmount) = \(formattedToTokenAmount)"
 		} else {
 			calculatedAmount = nil
