@@ -164,6 +164,7 @@ class AssetManagerViewModel {
 			price: "0",
 			isVerified: false
 		)
+        
 		tokens.append(customAssetDetail)
 		GlobalVariables.shared.fetchSharedInfo()
 	}
