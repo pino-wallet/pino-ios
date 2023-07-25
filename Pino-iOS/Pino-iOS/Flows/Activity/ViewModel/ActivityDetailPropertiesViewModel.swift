@@ -71,8 +71,9 @@ struct ActivityDetailProperties {
 		activityDetails.defaultActivityModel.detail?.activityProtocol?.capitalized
 	}
 
+    #warning("this image is for test")
 	public var protocolImage: String? {
-		"1inch"
+		"uniswap_protocol"
 	}
 
 	public var formattedFeeInDollar: String {
@@ -129,9 +130,9 @@ struct ActivityDetailProperties {
 
 	// MARK: - Initializers
 
-	init(activityDetails: ActivityCellViewModel, globalAssetsList: [AssetViewModel]) {
+	init(activityDetails: ActivityCellViewModel) {
 		self.activityDetails = activityDetails
-		self.globalAssetsList = globalAssetsList
+        self.globalAssetsList = GlobalVariables.shared.manageAssetsList
 
 		setDetailsVM()
 		setTransferDetails()

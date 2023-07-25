@@ -56,7 +56,6 @@ class ActivityDetailsHeaderView: UIView {
 		defaultStackView.spacing = 16
 
 		defaultTitleLabel.font = .PinoStyle.semiboldTitle2
-		setValues()
 	}
 
 	private func setupConstraints() {
@@ -67,17 +66,17 @@ class ActivityDetailsHeaderView: UIView {
 		defaultImageView.pin(.fixedWidth(50), .fixedHeight(50))
 	}
 
-	private func setValues() {
-		defaultTitleLabel.text = activityDetailsVM.properties.assetAmountTitle ?? ""
+	private func setValues(activityProperties: ActivityDetailProperties) {
+		defaultTitleLabel.text = activityProperties.assetAmountTitle ?? ""
 		defaultTitleLabel.numberOfLines = 0
 
 		defaultImageView.kf.indicatorType = .activity
-		defaultImageView.kf.setImage(with: activityDetailsVM.properties.assetIcon)
+		defaultImageView.kf.setImage(with: activityProperties.assetIcon)
 	}
 
-	private func setupBindings() {
-		activityDetailsVM.$activityDetails.sink { _ in
-			self.setValues()
+    private func setupBindings() {
+        activityDetailsVM.$properties.sink { activityProperties in
+            self.setValues(activityProperties: activityProperties!)
 		}.store(in: &cancellables)
 	}
 }

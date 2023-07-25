@@ -35,6 +35,10 @@ class ActivityInfoView: UIView {
 	private var protocolStackView: ActivityInfoStackView!
 	private var typeStackView: ActivityInfoStackView!
 	private var feeStackView: ActivityInfoStackView!
+    private var activityProperties: ActivityDetailProperties!
+    private var sendInfoCustomView: ImageAndTitleStackView!
+    private var receiveInfoCustomView: ImageAndTitleStackView!
+    private var protocolInfoCustomView: ImageAndTitleStackView!
 	private var cancellables = Set<AnyCancellable>()
 
 	private var activityDetailsVM: ActivityDetailsViewModel
@@ -61,6 +65,20 @@ class ActivityInfoView: UIView {
 
 	private func setupView() {
 		statusLabelContainer.addSubview(statusInfoLabel)
+        
+        sendInfoCustomView = ImageAndTitleStackView(
+            image: nil,
+            title: nil
+        )
+        receiveInfoCustomView = ImageAndTitleStackView(
+            image: nil,
+            title: nil
+        )
+        
+        protocolInfoCustomView = ImageAndTitleStackView(
+            image: nil,
+            title: nil
+        )
 
 		let copyFromAddressGesture = UITapGestureRecognizer(target: self, action: #selector(copyFromAddress))
 		fromAddressLabel.addGestureRecognizer(copyFromAddressGesture)
@@ -90,11 +108,11 @@ class ActivityInfoView: UIView {
 		)
 		toStackView = ActivityInfoStackView(
 			title: activityDetailsVM.toTitle,
-			info: activityDetailsVM.properties.toAddress
+			info: nil
 		)
 		typeStackView = ActivityInfoStackView(
 			title: activityDetailsVM.typeTitle,
-			info: activityDetailsVM.properties.typeName,
+			info: nil,
 			actionSheetInfo: (
 				title: activityDetailsVM.typeTitle,
 				description: activityDetailsVM.typeActionSheetText,
@@ -113,20 +131,13 @@ class ActivityInfoView: UIView {
 		if activityDetailsVM.properties.uiType == .send {
 			fromStackView = ActivityInfoStackView(
 				title: activityDetailsVM.fromTitle,
-				infoCustomView: ImageAndTitleStackView(
-					image: activityDetailsVM.properties.fromIcon,
-					title: activityDetailsVM.properties.fromName
-				)
+				infoCustomView: sendInfoCustomView
 			)
 			toStackView = ActivityInfoStackView(title: activityDetailsVM.toTitle, infoCustomView: toAddressLabel)
 		} else if activityDetailsVM.properties.uiType == .receive {
 			toStackView = ActivityInfoStackView(
 				title: activityDetailsVM.toTitle,
-				infoCustomView: ImageAndTitleStackView(
-					image: activityDetailsVM.properties.toIcon,
-					title: activityDetailsVM.properties.toName
-				)
-			)
+				infoCustomView: receiveInfoCustomView			)
 			fromStackView = ActivityInfoStackView(
 				title: activityDetailsVM.fromTitle,
 				infoCustomView: fromAddressLabel
@@ -142,18 +153,12 @@ class ActivityInfoView: UIView {
 		if activityDetailsVM.properties.uiType == .swap {
 			protocolStackView = ActivityInfoStackView(
 				title: activityDetailsVM.providerTitle,
-				infoCustomView: ImageAndTitleStackView(
-					image: activityDetailsVM.properties.protocolImage,
-					title: activityDetailsVM.properties.protocolName
-				)
+				infoCustomView: protocolInfoCustomView
 			)
 		} else {
 			protocolStackView = ActivityInfoStackView(
 				title: activityDetailsVM.protocolTitle,
-				infoCustomView: ImageAndTitleStackView(
-					image: activityDetailsVM.properties.protocolImage,
-					title: activityDetailsVM.properties.protocolName
-				)
+				infoCustomView: protocolInfoCustomView
 			)
 		}
 
@@ -192,8 +197,6 @@ class ActivityInfoView: UIView {
 		if activityDetailsVM.properties.protocolName == nil {
 			protocolStackView.isHidden = true
 		}
-
-		setValues()
 
 		switch activityDetailsVM.properties.uiType {
 		case .swap:
@@ -245,18 +248,18 @@ class ActivityInfoView: UIView {
 		Toast.default(title: toastTitle, style: .copy).show(haptic: .success)
 	}
 
-	private func setValues() {
-		fromAddressLabel.text = activityDetailsVM.properties.fromAddress
+    private func setValues() {
+		fromAddressLabel.text = activityProperties.fromAddress
 
-		toAddressLabel.text = activityDetailsVM.properties.toAddress
+		toAddressLabel.text = activityProperties.toAddress
 
-		feeLabel.text = activityDetailsVM.properties.formattedFeeInDollar
+		feeLabel.text = activityProperties.formattedFeeInDollar
 
-		dateLabel.text = activityDetailsVM.properties.formattedDate
+		dateLabel.text = activityProperties.formattedDate
 
-		typeStackView.info = activityDetailsVM.properties.typeName
+		typeStackView.info = activityProperties.typeName
 
-		switch activityDetailsVM.properties.status {
+		switch activityProperties.status {
 		case .complete:
 			statusInfoLabel.textColor = .Pino.green3
 			statusLabelContainer.backgroundColor = .Pino.green1
@@ -267,57 +270,55 @@ class ActivityInfoView: UIView {
 			statusInfoLabel.textColor = .Pino.pendingOrange
 			statusLabelContainer.backgroundColor = .Pino.lightOrange
 		}
-		statusInfoLabel.text = activityDetailsVM.properties.status.description
+		statusInfoLabel.text = activityProperties.status.description
 
-		if activityDetailsVM.properties.uiType == .send {
-			fromStackView.infoCustomView = ImageAndTitleStackView(
-				image: activityDetailsVM.properties.fromIcon,
-				title: activityDetailsVM.properties.fromName
-			)
-		} else if activityDetailsVM.properties.uiType == .receive {
-			toStackView.infoCustomView = ImageAndTitleStackView(
-				image: activityDetailsVM.properties.toIcon,
-				title: activityDetailsVM.properties.toName
-			)
+		if activityProperties.uiType == .send {
+            sendInfoCustomView.title = activityProperties.fromName
+            sendInfoCustomView.image = activityProperties.fromIcon
+		} else if activityProperties.uiType == .receive {
+            receiveInfoCustomView.title = activityProperties.toName
+            receiveInfoCustomView.image = activityProperties.toIcon
 		}
 
-		protocolStackView.info = activityDetailsVM.properties.protocolName
+        protocolInfoCustomView.title = activityProperties.protocolName
+        protocolInfoCustomView.image = activityProperties.protocolImage
 	}
 
 	private func setupBindings() {
-		activityDetailsVM.$activityDetails.sink { _ in
-			self.setValues()
+		activityDetailsVM.$properties.sink { activityProperties in
+            self.activityProperties = activityProperties
+            self.setValues()
 		}.store(in: &cancellables)
 	}
 
 	@objc
 	private func toggleDate() {
-		if dateLabel.text == activityDetailsVM.properties.formattedDate {
-			dateLabel.text = activityDetailsVM.properties.fullFormattedDate
+		if dateLabel.text == activityProperties.formattedDate {
+			dateLabel.text = activityProperties.fullFormattedDate
 		} else {
-			dateLabel.text = activityDetailsVM.properties.formattedDate
+			dateLabel.text = activityProperties.formattedDate
 		}
 	}
 
 	@objc
 	private func toggleFee() {
-		if feeLabel.text == activityDetailsVM.properties.formattedFeeInDollar {
-			feeLabel.text = activityDetailsVM.properties.formattedFeeInETH
+		if feeLabel.text == activityProperties.formattedFeeInDollar {
+			feeLabel.text = activityProperties.formattedFeeInETH
 		} else {
-			feeLabel.text = activityDetailsVM.properties.formattedFeeInDollar
+			feeLabel.text = activityProperties.formattedFeeInDollar
 		}
 	}
 
 	@objc
 	private func copyFromAddress() {
 		copyString(
-			string: activityDetailsVM.properties.fullFromAddress!,
+			string: activityProperties.fullFromAddress!,
 			toastTitle: activityDetailsVM.copyFromAddressText
 		)
 	}
 
 	@objc
 	private func copyToAddress() {
-		copyString(string: activityDetailsVM.properties.fullToAddress!, toastTitle: activityDetailsVM.copyToAddressText)
+		copyString(string: activityProperties.fullToAddress!, toastTitle: activityDetailsVM.copyToAddressText)
 	}
 }

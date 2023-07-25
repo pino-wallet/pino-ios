@@ -19,9 +19,13 @@ class ActivityInfoStackView: UIStackView {
 	// MARK: - Public Properties
 
 	public var title: String
-	public var info: String?
+    public var info: String? {
+        didSet {
+            infoLabel.text = info
+        }
+    }
 	public var actionSheetInfo: ActionsheetInfoType
-	public var infoCustomView: UIView?
+    public var infoCustomView: UIView?
 
 	// MARK: - Private Properties
 
@@ -70,11 +74,10 @@ class ActivityInfoStackView: UIStackView {
 
 		addArrangedSubview(titleLabel)
 		addArrangedSubview(betweenView)
-		if infoCustomView != nil {
-			addArrangedSubview(infoCustomView!)
-		} else {
-			addArrangedSubview(infoLabel)
-		}
+        addArrangedSubview(infoLabel)
+        if infoCustomView != nil {
+            addArrangedSubview(infoCustomView!)
+        }
 	}
 
 	private func setupStyles() {
@@ -86,6 +89,10 @@ class ActivityInfoStackView: UIStackView {
 		} else {
 			titleLabel.showInfoActionSheet = false
 		}
+        
+        if infoCustomView != nil {
+            infoLabel.isHidden = true
+        }
 
 		titleLabel.title = title
 

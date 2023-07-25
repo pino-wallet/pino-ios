@@ -150,7 +150,7 @@ class ActivityDetailsView: UIScrollView {
 	}
 
 	private func setupBindings() {
-		activityDetailsVM.$activityDetails.sink { _ in
+		activityDetailsVM.$properties.sink { _ in
 			self.refreshControl?.endRefreshing()
 		}.store(in: &cancellables)
 	}

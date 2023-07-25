@@ -20,7 +20,6 @@ class ActivityDetailsViewModel {
 
 	// MARK: - Public Properties
 
-	@Published
 	public var activityDetails: ActivityCellViewModel
 	#warning("this is for test")
 	public let unVerifiedAssetIconName = "unverified_asset"
@@ -46,15 +45,14 @@ class ActivityDetailsViewModel {
 	public let copyFromAddressText = "From wallet address has been copied"
 	public let copyToAddressText = "To wallet address has been copied"
 
-	public var properties: ActivityDetailProperties!
+	@Published public var properties: ActivityDetailProperties!
 
 	// MARK: - Initializers
 
 	init(activityDetails: ActivityCellViewModel) {
 		self.activityDetails = activityDetails
 		self.properties = ActivityDetailProperties(
-			activityDetails: activityDetails,
-			globalAssetsList: globalAssetsList!
+			activityDetails: activityDetails
 		)
 	}
 
@@ -76,7 +74,7 @@ class ActivityDetailsViewModel {
 		if activityDetails.status == .pending {
 			requestTimer?.fire()
 		} else {
-			activityDetails = activityDetails
+			properties = properties
 		}
 	}
 
@@ -109,11 +107,12 @@ class ActivityDetailsViewModel {
 			}
 		} receiveValue: { activityDetails in
 			let newActivityDetails = ActivityCellViewModel(activityModel: activityDetails)
+            if newActivityDetails.status != .pending {
+                self.destroyTimer()
+            }
 			self.properties = ActivityDetailProperties(
-				activityDetails: newActivityDetails,
-				globalAssetsList: self.globalAssetsList!
+				activityDetails: newActivityDetails
 			)
-			self.activityDetails = newActivityDetails
 		}.store(in: &cancellables)
 	}
 }

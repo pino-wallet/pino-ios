@@ -98,8 +98,6 @@ class ActivitySwapHeaderView: UIView {
 		toTokenAmountLabel.font = .PinoStyle.semiboldTitle2
 		toTokenSymbolLabel.font = .PinoStyle.mediumCallout
 
-		setValues()
-
 		swapIconView.image = UIImage(named: activityDetailsVM.swapDownArrow)
 	}
 
@@ -117,23 +115,23 @@ class ActivitySwapHeaderView: UIView {
 		mainStackView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 14))
 	}
 
-	private func setValues() {
+    private func setValues(activityProperties: ActivityDetailProperties) {
 		fromTokenImageView.kf.indicatorType = .activity
-		fromTokenImageView.kf.setImage(with: activityDetailsVM.properties.fromTokenIcon)
-		fromTokenAmountLabel.text = activityDetailsVM.properties.fromTokenAmount
+		fromTokenImageView.kf.setImage(with: activityProperties.fromTokenIcon)
+		fromTokenAmountLabel.text = activityProperties.fromTokenAmount
 		fromTokenAmountLabel.numberOfLines = 0
-		fromTokenSymbolLabel.text = activityDetailsVM.properties.fromTokenSymbol
+		fromTokenSymbolLabel.text = activityProperties.fromTokenSymbol
 
 		toTokenImageView.kf.indicatorType = .activity
-		toTokenImageView.kf.setImage(with: activityDetailsVM.properties.toTokenIcon)
-		toTokenAmountLabel.text = activityDetailsVM.properties.toTokenAmount
+		toTokenImageView.kf.setImage(with: activityProperties.toTokenIcon)
+		toTokenAmountLabel.text = activityProperties.toTokenAmount
 		toTokenAmountLabel.numberOfLines = 0
-		toTokenSymbolLabel.text = activityDetailsVM.properties.toTokenSymbol
+		toTokenSymbolLabel.text = activityProperties.toTokenSymbol
 	}
 
 	private func setupBindings() {
-		activityDetailsVM.$activityDetails.sink { _ in
-			self.setValues()
+		activityDetailsVM.$properties.sink { activityProperties in
+            self.setValues(activityProperties: activityProperties!)
 		}.store(in: &cancellables)
 	}
 }
