@@ -10,17 +10,18 @@ import UIKit
 class ImageAndTitleStackView: UIStackView {
 	// MARK: - Public Properties
 
-    public var image: String? {
-        didSet {
-        imageView.image = UIImage(named: image ?? "")
-        }
-    }
-    public var title: String? {
-        didSet {
-        titleLabel.text = title
-        titleLabel.numberOfLines = 0
-        }
-    }
+	public var image: String? {
+		didSet {
+			imageView.image = UIImage(named: image ?? "")
+		}
+	}
+
+	public var title: String? {
+		didSet {
+			titleLabel.text = title
+			titleLabel.numberOfLines = 0
+		}
+	}
 
 	// MARK: - Private Properties
 

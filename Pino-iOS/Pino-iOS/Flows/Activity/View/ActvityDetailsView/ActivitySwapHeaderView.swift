@@ -115,7 +115,7 @@ class ActivitySwapHeaderView: UIView {
 		mainStackView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 14))
 	}
 
-    private func setValues(activityProperties: ActivityDetailProperties) {
+	private func setValues(activityProperties: ActivityDetailProperties) {
 		fromTokenImageView.kf.indicatorType = .activity
 		fromTokenImageView.kf.setImage(with: activityProperties.fromTokenIcon)
 		fromTokenAmountLabel.text = activityProperties.fromTokenAmount
@@ -131,7 +131,7 @@ class ActivitySwapHeaderView: UIView {
 
 	private func setupBindings() {
 		activityDetailsVM.$properties.sink { activityProperties in
-            self.setValues(activityProperties: activityProperties!)
+			self.setValues(activityProperties: activityProperties!)
 		}.store(in: &cancellables)
 	}
 }

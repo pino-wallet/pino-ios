@@ -35,10 +35,10 @@ class ActivityInfoView: UIView {
 	private var protocolStackView: ActivityInfoStackView!
 	private var typeStackView: ActivityInfoStackView!
 	private var feeStackView: ActivityInfoStackView!
-    private var activityProperties: ActivityDetailProperties!
-    private var sendInfoCustomView: ImageAndTitleStackView!
-    private var receiveInfoCustomView: ImageAndTitleStackView!
-    private var protocolInfoCustomView: ImageAndTitleStackView!
+	private var activityProperties: ActivityDetailProperties!
+	private var sendInfoCustomView: ImageAndTitleStackView!
+	private var receiveInfoCustomView: ImageAndTitleStackView!
+	private var protocolInfoCustomView: ImageAndTitleStackView!
 	private var cancellables = Set<AnyCancellable>()
 
 	private var activityDetailsVM: ActivityDetailsViewModel
@@ -65,20 +65,20 @@ class ActivityInfoView: UIView {
 
 	private func setupView() {
 		statusLabelContainer.addSubview(statusInfoLabel)
-        
-        sendInfoCustomView = ImageAndTitleStackView(
-            image: nil,
-            title: nil
-        )
-        receiveInfoCustomView = ImageAndTitleStackView(
-            image: nil,
-            title: nil
-        )
-        
-        protocolInfoCustomView = ImageAndTitleStackView(
-            image: nil,
-            title: nil
-        )
+
+		sendInfoCustomView = ImageAndTitleStackView(
+			image: nil,
+			title: nil
+		)
+		receiveInfoCustomView = ImageAndTitleStackView(
+			image: nil,
+			title: nil
+		)
+
+		protocolInfoCustomView = ImageAndTitleStackView(
+			image: nil,
+			title: nil
+		)
 
 		let copyFromAddressGesture = UITapGestureRecognizer(target: self, action: #selector(copyFromAddress))
 		fromAddressLabel.addGestureRecognizer(copyFromAddressGesture)
@@ -137,7 +137,8 @@ class ActivityInfoView: UIView {
 		} else if activityDetailsVM.properties.uiType == .receive {
 			toStackView = ActivityInfoStackView(
 				title: activityDetailsVM.toTitle,
-				infoCustomView: receiveInfoCustomView			)
+				infoCustomView: receiveInfoCustomView
+			)
 			fromStackView = ActivityInfoStackView(
 				title: activityDetailsVM.fromTitle,
 				infoCustomView: fromAddressLabel
@@ -248,7 +249,7 @@ class ActivityInfoView: UIView {
 		Toast.default(title: toastTitle, style: .copy).show(haptic: .success)
 	}
 
-    private func setValues() {
+	private func setValues() {
 		fromAddressLabel.text = activityProperties.fromAddress
 
 		toAddressLabel.text = activityProperties.toAddress
@@ -273,21 +274,21 @@ class ActivityInfoView: UIView {
 		statusInfoLabel.text = activityProperties.status.description
 
 		if activityProperties.uiType == .send {
-            sendInfoCustomView.title = activityProperties.fromName
-            sendInfoCustomView.image = activityProperties.fromIcon
+			sendInfoCustomView.title = activityProperties.fromName
+			sendInfoCustomView.image = activityProperties.fromIcon
 		} else if activityProperties.uiType == .receive {
-            receiveInfoCustomView.title = activityProperties.toName
-            receiveInfoCustomView.image = activityProperties.toIcon
+			receiveInfoCustomView.title = activityProperties.toName
+			receiveInfoCustomView.image = activityProperties.toIcon
 		}
 
-        protocolInfoCustomView.title = activityProperties.protocolName
-        protocolInfoCustomView.image = activityProperties.protocolImage
+		protocolInfoCustomView.title = activityProperties.protocolName
+		protocolInfoCustomView.image = activityProperties.protocolImage
 	}
 
 	private func setupBindings() {
 		activityDetailsVM.$properties.sink { activityProperties in
-            self.activityProperties = activityProperties
-            self.setValues()
+			self.activityProperties = activityProperties
+			self.setValues()
 		}.store(in: &cancellables)
 	}
 

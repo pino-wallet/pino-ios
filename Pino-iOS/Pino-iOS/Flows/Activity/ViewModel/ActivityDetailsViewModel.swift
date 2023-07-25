@@ -45,7 +45,8 @@ class ActivityDetailsViewModel {
 	public let copyFromAddressText = "From wallet address has been copied"
 	public let copyToAddressText = "To wallet address has been copied"
 
-	@Published public var properties: ActivityDetailProperties!
+	@Published
+	public var properties: ActivityDetailProperties!
 
 	// MARK: - Initializers
 
@@ -107,9 +108,9 @@ class ActivityDetailsViewModel {
 			}
 		} receiveValue: { activityDetails in
 			let newActivityDetails = ActivityCellViewModel(activityModel: activityDetails)
-            if newActivityDetails.status != .pending {
-                self.destroyTimer()
-            }
+			if newActivityDetails.status != .pending {
+				self.destroyTimer()
+			}
 			self.properties = ActivityDetailProperties(
 				activityDetails: newActivityDetails
 			)

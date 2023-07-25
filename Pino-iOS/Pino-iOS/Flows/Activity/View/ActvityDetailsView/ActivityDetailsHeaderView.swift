@@ -74,9 +74,9 @@ class ActivityDetailsHeaderView: UIView {
 		defaultImageView.kf.setImage(with: activityProperties.assetIcon)
 	}
 
-    private func setupBindings() {
-        activityDetailsVM.$properties.sink { activityProperties in
-            self.setValues(activityProperties: activityProperties!)
+	private func setupBindings() {
+		activityDetailsVM.$properties.sink { activityProperties in
+			self.setValues(activityProperties: activityProperties!)
 		}.store(in: &cancellables)
 	}
 }
