@@ -61,7 +61,7 @@ class ActivityDetailsViewModel {
 	// MARK: - Public Methods
 
 	public func getActivityDetailsFromVC() {
-		if activityDetails.status == .success {
+		if activityDetails.status == .pending {
 			setupRequestTimer()
 			requestTimer.fire()
 		}
