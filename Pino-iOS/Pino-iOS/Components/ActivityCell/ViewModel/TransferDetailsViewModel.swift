@@ -1,5 +1,5 @@
 //
-//  TransfareDetailsViewModel.swift
+//  TransferDetailsViewModel.swift
 //  Pino-iOS
 //
 //  Created by Amir hossein kazemi seresht on 7/20/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TransfareDetailsViewModel: ActivityDetailsProtocol {
+struct TransferDetailsViewModel: ActivityDetailsProtocol {
 	// MARK: - Internal Properties
 
 	internal var activityModel: ActivityModel
@@ -15,33 +15,33 @@ struct TransfareDetailsViewModel: ActivityDetailsProtocol {
 
 	// MARK: - Private Properties
 
-	private var transfareToken: AssetViewModel? {
+	private var transferToken: AssetViewModel? {
 		globalAssetsList.first(where: { $0.id == activityModel.detail?.tokenID })
 	}
 
-	private var transfareTokenDecimal: Int {
-		transfareToken?.decimal ?? 0
+	private var transferTokenDecimal: Int {
+		transferToken?.decimal ?? 0
 	}
 
 	// MARK: - Public Properties
 
-	public var transfareTokenAmount: BigNumber {
-		BigNumber(number: activityModel.detail?.amount ?? "", decimal: transfareTokenDecimal)
+	public var transferTokenAmount: BigNumber {
+		BigNumber(number: activityModel.detail?.amount ?? "", decimal: transferTokenDecimal)
 	}
 
-	public var transfareTokenSymbol: String {
-		transfareToken?.symbol ?? ""
+	public var transferTokenSymbol: String {
+		transferToken?.symbol ?? ""
 	}
 
-	public var transfareTokenImage: URL? {
-		transfareToken?.image
+	public var transferTokenImage: URL? {
+		transferToken?.image
 	}
 
-	public var transfareFromAddress: String {
+	public var transferFromAddress: String {
 		activityModel.fromAddress.shortenedString(characterCountFromStart: 6, characterCountFromEnd: 4)
 	}
 
-	public var transfareToAddress: String {
+	public var transferToAddress: String {
 		activityModel.toAddress.shortenedString(characterCountFromStart: 6, characterCountFromEnd: 4)
 	}
 }

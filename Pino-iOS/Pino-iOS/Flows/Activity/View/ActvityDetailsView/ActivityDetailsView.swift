@@ -114,7 +114,7 @@ class ActivityDetailsView: UIScrollView {
 
 		footerContainerView.isHidden = true
 
-		if activityDetailsVM.uiType == .unknown {
+        if activityDetailsVM.properties.uiType == .unknown {
 			activityDetailsHeader.isHidden = true
 			footerContainerView.isHidden = false
 		} else {

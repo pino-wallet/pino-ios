@@ -116,19 +116,19 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		case .borrow:
 			return "Borrow"
 		case .send:
-			let transfareAcitivityDetailsVM = TransfareDetailsViewModel(
+			let transferAcitivityDetailsVM = TransferDetailsViewModel(
 				activityModel: activityModel,
 				globalAssetsList: globalAssetsList
 			)
 
-			return "Send \(transfareAcitivityDetailsVM.transfareTokenAmount.sevenDigitFormat) \(transfareAcitivityDetailsVM.transfareTokenSymbol)"
+			return "Send \(transferAcitivityDetailsVM.transferTokenAmount.sevenDigitFormat) \(transferAcitivityDetailsVM.transferTokenSymbol)"
 		case .receive:
-			let transfareAcitivityDetailsVM = TransfareDetailsViewModel(
+			let transferAcitivityDetailsVM = TransferDetailsViewModel(
 				activityModel: activityModel,
 				globalAssetsList: globalAssetsList
 			)
 
-			return "Received \(transfareAcitivityDetailsVM.transfareTokenAmount.sevenDigitFormat) \(transfareAcitivityDetailsVM.transfareTokenSymbol)"
+			return "Received \(transferAcitivityDetailsVM.transferTokenAmount.sevenDigitFormat) \(transferAcitivityDetailsVM.transferTokenSymbol)"
 		case .unknown:
 			return unknownTransactionText
 		case .collateral:
