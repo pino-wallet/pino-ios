@@ -45,7 +45,7 @@ class AccountHeaderView: UICollectionReusableView {
 
 	private func setupStyle() {
 		accountName.text = accountInfoVM.name
-		accountAddress.text = accountInfoVM.address.shortenedString(characterCountFromStart: 6, characterCountFromEnd: 4)
+		accountAddress.text = accountInfoVM.address.mediumAddressFormating()
 		accountSettingsTitle.text = accountHeaderVM.accountsTitleText
 		accountIcon.image = UIImage(named: accountInfoVM.profileImage)
 		accountIconBackgroundView.backgroundColor = UIColor(named: accountInfoVM.profileColor)

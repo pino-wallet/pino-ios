@@ -144,10 +144,7 @@ class SendConfirmationView: UIView {
 		scamErrorLabel.text = sendConfirmationVM.scamErrorTitle
 		feeTitleView.title = sendConfirmationVM.feeTitle
 		continueButton.title = sendConfirmationVM.confirmButtonTitle
-		recipientAddressLabel.text = sendConfirmationVM.recipientAddress.shortenedString(
-			characterCountFromStart: 6,
-			characterCountFromEnd: 4
-		)
+		recipientAddressLabel.text = sendConfirmationVM.recipientAddress.mediumAddressFormating()
 		feeErrorLabel.text = sendConfirmationVM.feeErrorText
 		feeErrorIcon.image = UIImage(named: sendConfirmationVM.feeErrorIcon)
 

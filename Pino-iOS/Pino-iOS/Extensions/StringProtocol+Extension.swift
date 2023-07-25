@@ -23,9 +23,17 @@ extension String {
 		Double(self)
 	}
 
-	public func shortenedString(characterCountFromStart: Int, characterCountFromEnd: Int) -> String {
+	public func shortEndString(characterCountFromStart: Int, characterCountFromEnd: Int) -> String {
 		"\(prefix(characterCountFromStart))...\(suffix(characterCountFromEnd))"
 	}
+    
+    public func shortAddressFormating() -> String {
+        self.shortEndString(characterCountFromStart: 4, characterCountFromEnd: 4)
+    }
+    
+    public func mediumAddressFormating() -> String {
+        self.shortEndString(characterCountFromStart: 6, characterCountFromEnd: 4)
+    }
 
 	public func validateETHContractAddress() -> Bool {
 		let ethAddressRegex = "^0x[0-9a-fA-F]{40}$"
