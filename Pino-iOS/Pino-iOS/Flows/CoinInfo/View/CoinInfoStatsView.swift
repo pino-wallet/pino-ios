@@ -188,7 +188,6 @@ class CoinInfoStatsView: UIStackView {
 		}
 	}
 
-
 	@objc
 	private func copyWebsite() {
 		let pasteBoard = UIPasteboard.general

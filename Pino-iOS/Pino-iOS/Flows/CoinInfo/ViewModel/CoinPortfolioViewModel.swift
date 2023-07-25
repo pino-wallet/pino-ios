@@ -81,17 +81,17 @@ struct CoinPortfolioViewModel {
 		if isEthCoin {
 			return "-"
 		} else {
-            return coinPortfolioModel.detail!.id
+			return coinPortfolioModel.detail!.id
 		}
 	}
-    
-    public var formattedContractAddress: String {
-        if isEthCoin {
-            return "-"
-        } else {
-            return coinPortfolioModel.detail!.id.shortenedString(characterCountFromStart: 6, characterCountFromEnd: 4)
-        }
-    }
+
+	public var formattedContractAddress: String {
+		if isEthCoin {
+			return "-"
+		} else {
+			return coinPortfolioModel.detail!.id.shortenedString(characterCountFromStart: 6, characterCountFromEnd: 4)
+		}
+	}
 }
 
 extension CoinPortfolioViewModel {
