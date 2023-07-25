@@ -24,21 +24,23 @@ class SwapTokenSectionView: UIView {
 	private let textFieldSpacerView = UIView()
 	private let estimatedAmountSpacerView = UIView()
 	private let changeSelectedToken: () -> Void
-	private let balanceStatusDidChange: ((AmountStatus) -> Void)?
 	private let swapVM: SwapTokenViewModel
 	private let hasMaxAmount: Bool
 	private var cancellables = Set<AnyCancellable>()
+
+	// MARK: - Public Properties
+
+	public var balanceStatusDidChange: ((AmountStatus) -> Void)?
+	public var editingBegin: (() -> Void)?
 
 	// MARK: - Initializers
 
 	init(
 		swapVM: SwapTokenViewModel,
 		hasMaxAmount: Bool = true,
-		changeSelectedToken: @escaping () -> Void,
-		balanceStatusDidChange: ((AmountStatus) -> Void)? = nil
+		changeSelectedToken: @escaping () -> Void
 	) {
 		self.changeSelectedToken = changeSelectedToken
-		self.balanceStatusDidChange = balanceStatusDidChange
 		self.swapVM = swapVM
 		self.hasMaxAmount = hasMaxAmount
 		super.init(frame: .zero)
@@ -235,7 +237,8 @@ extension SwapTokenSectionView: UITextFieldDelegate {
 	}
 
 	func textFieldDidBeginEditing(_ textField: UITextField) {
-		swapVM.isEditing = true
+		guard let editingBegin else { return }
+		editingBegin()
 	}
 
 	func textFieldDidEndEditing(_ textField: UITextField) {

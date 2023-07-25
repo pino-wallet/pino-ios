@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 7/3/23.
 //
 
+import Combine
 import Foundation
 
 class SwapViewModel {
@@ -21,6 +22,12 @@ class SwapViewModel {
 	public var toToken: SwapTokenViewModel
 
 	public var swapFeeVM: SwapFeeViewModel
+
+	public var swapSide: SwapSide = .sell
+
+	// MARK: - Private Properties
+
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -41,23 +48,35 @@ class SwapViewModel {
 	// MARK: - Private Methods
 
 	private func recalculateTokensAmount(amount: String? = nil) {
-		if toToken.isEditing {
-			toToken.calculateDollarAmount(amount ?? toToken.tokenAmount)
-			fromToken.calculateTokenAmount(decimalDollarAmount: toToken.decimalDollarAmount)
-			fromToken.swapDelegate.swapAmountCalculating()
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-				self.fromToken.swapDelegate.swapAmountDidCalculate()
-			}
+		if !fromToken.isEditing && !toToken.isEditing {
+			getSellAmount(amount: amount)
 		} else if fromToken.isEditing {
-			fromToken.calculateDollarAmount(amount ?? fromToken.tokenAmount)
-			toToken.calculateTokenAmount(decimalDollarAmount: fromToken.decimalDollarAmount)
-			toToken.swapDelegate.swapAmountCalculating()
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-				self.toToken.swapDelegate.swapAmountDidCalculate()
-			}
+			getSellAmount(amount: amount)
+		} else if toToken.isEditing {
+			getBuyAmount(amount: amount)
 		}
 		swapFeeVM.updateAmount(fromToken: fromToken, toToken: toToken)
 		getFeeInfo()
+	}
+
+	private func getSellAmount(amount: String?) {
+		swapSide = .sell
+		fromToken.calculateDollarAmount(amount)
+		toToken.calculateTokenAmount(decimalDollarAmount: fromToken.decimalDollarAmount)
+		toToken.swapDelegate.swapAmountCalculating()
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+			self.toToken.swapDelegate.swapAmountDidCalculate()
+		}
+	}
+
+	private func getBuyAmount(amount: String?) {
+		swapSide = .buy
+		toToken.calculateDollarAmount(amount)
+		fromToken.calculateTokenAmount(decimalDollarAmount: toToken.decimalDollarAmount)
+		fromToken.swapDelegate.swapAmountCalculating()
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+			self.fromToken.swapDelegate.swapAmountDidCalculate()
+		}
 	}
 
 	private func getFeeInfo() {
@@ -77,9 +96,6 @@ class SwapViewModel {
 	// MARK: - Public Methods
 
 	public func changeSelectedToken(_ token: SwapTokenViewModel, to newToken: AssetViewModel) {
-		if !fromToken.isEditing, !toToken.isEditing {
-			token.isEditing = true
-		}
 		token.selectedToken = newToken
 		recalculateTokensAmount()
 		token.swapDelegate.selectedTokenDidChange()
@@ -105,12 +121,12 @@ class SwapViewModel {
 		if swapProtocol == .bestRate {
 			swapFeeVM.swapProviderVM = getBestProvider()
 		}
-		getFeeInfo()
+		recalculateTokensAmount()
 	}
 
 	public func changeSwapProvider(to swapProvider: SwapProviderViewModel) {
 		swapFeeVM.swapProviderVM = swapProvider
-		getFeeInfo()
+		recalculateTokensAmount()
 	}
 
 	// MARK: - Private Methods
