@@ -91,12 +91,12 @@ class ActivitySwapHeaderView: UIView {
 		toTokenAmountStackView.axis = .horizontal
 		toTokenAmountStackView.alignment = .center
 		toTokenAmountStackView.spacing = 4
-        
-        fromTokenAmountLabel.font = .PinoStyle.semiboldTitle2
-        fromTokenSymbolLabel.font = .PinoStyle.mediumCallout
-        
-        toTokenAmountLabel.font = .PinoStyle.semiboldTitle2
-        toTokenSymbolLabel.font = .PinoStyle.mediumCallout
+
+		fromTokenAmountLabel.font = .PinoStyle.semiboldTitle2
+		fromTokenSymbolLabel.font = .PinoStyle.mediumCallout
+
+		toTokenAmountLabel.font = .PinoStyle.semiboldTitle2
+		toTokenSymbolLabel.font = .PinoStyle.mediumCallout
 
 		setValues()
 
@@ -119,16 +119,16 @@ class ActivitySwapHeaderView: UIView {
 
 	private func setValues() {
 		fromTokenImageView.kf.indicatorType = .activity
-        fromTokenImageView.kf.setImage(with: activityDetailsVM.properties.fromTokenIcon)
-        fromTokenAmountLabel.text = activityDetailsVM.properties.fromTokenAmount
+		fromTokenImageView.kf.setImage(with: activityDetailsVM.properties.fromTokenIcon)
+		fromTokenAmountLabel.text = activityDetailsVM.properties.fromTokenAmount
 		fromTokenAmountLabel.numberOfLines = 0
-        fromTokenSymbolLabel.text = activityDetailsVM.properties.fromTokenSymbol
+		fromTokenSymbolLabel.text = activityDetailsVM.properties.fromTokenSymbol
 
 		toTokenImageView.kf.indicatorType = .activity
-        toTokenImageView.kf.setImage(with: activityDetailsVM.properties.toTokenIcon)
-        toTokenAmountLabel.text = activityDetailsVM.properties.toTokenAmount
+		toTokenImageView.kf.setImage(with: activityDetailsVM.properties.toTokenIcon)
+		toTokenAmountLabel.text = activityDetailsVM.properties.toTokenAmount
 		toTokenAmountLabel.numberOfLines = 0
-        toTokenSymbolLabel.text = activityDetailsVM.properties.toTokenSymbol
+		toTokenSymbolLabel.text = activityDetailsVM.properties.toTokenSymbol
 	}
 
 	private func setupBindings() {

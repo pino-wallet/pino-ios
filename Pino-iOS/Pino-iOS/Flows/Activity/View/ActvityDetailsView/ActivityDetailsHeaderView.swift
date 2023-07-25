@@ -68,11 +68,11 @@ class ActivityDetailsHeaderView: UIView {
 	}
 
 	private func setValues() {
-        defaultTitleLabel.text = activityDetailsVM.properties.assetAmountTitle ?? ""
+		defaultTitleLabel.text = activityDetailsVM.properties.assetAmountTitle ?? ""
 		defaultTitleLabel.numberOfLines = 0
 
 		defaultImageView.kf.indicatorType = .activity
-        defaultImageView.kf.setImage(with: activityDetailsVM.properties.assetIcon)
+		defaultImageView.kf.setImage(with: activityDetailsVM.properties.assetIcon)
 	}
 
 	private func setupBindings() {

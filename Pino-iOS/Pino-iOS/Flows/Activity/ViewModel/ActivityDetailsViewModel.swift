@@ -45,16 +45,17 @@ class ActivityDetailsViewModel {
 	public let typeActionSheetText = "this is type"
 	public let copyFromAddressText = "From wallet address has been copied"
 	public let copyToAddressText = "To wallet address has been copied"
-    
-    public var properties: ActivityDetailProperties!
 
-	
-    
+	public var properties: ActivityDetailProperties!
+
 	// MARK: - Initializers
 
 	init(activityDetails: ActivityCellViewModel) {
 		self.activityDetails = activityDetails
-        self.properties = ActivityDetailProperties(activityDetails: activityDetails, globalAssetsList: globalAssetsList!)
+		self.properties = ActivityDetailProperties(
+			activityDetails: activityDetails,
+			globalAssetsList: globalAssetsList!
+		)
 	}
 
 	// MARK: - Public Methods
@@ -107,11 +108,12 @@ class ActivityDetailsViewModel {
 				.show(haptic: .warning)
 			}
 		} receiveValue: { activityDetails in
-            let newActivityDetails = ActivityCellViewModel(activityModel: activityDetails)
-            self.properties = ActivityDetailProperties(activityDetails: newActivityDetails, globalAssetsList: self.globalAssetsList!)
-            self.activityDetails = newActivityDetails
+			let newActivityDetails = ActivityCellViewModel(activityModel: activityDetails)
+			self.properties = ActivityDetailProperties(
+				activityDetails: newActivityDetails,
+				globalAssetsList: self.globalAssetsList!
+			)
+			self.activityDetails = newActivityDetails
 		}.store(in: &cancellables)
 	}
 }
-
-

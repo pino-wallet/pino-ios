@@ -52,7 +52,7 @@ class ActivityDetailsViewController: UIViewController {
 			presentActionSheet: { [weak self] actionSheet in
 				self?.present(actionSheet, animated: true)
 			},
-            activityDetailsHeader: activityDetailsVM.properties
+			activityDetailsHeader: activityDetailsVM.properties
 				.uiType == .swap ? ActivitySwapHeaderView(activityDetailsVM: activityDetailsVM) :
 				ActivityDetailsHeaderView(activityDetailsVM: activityDetailsVM)
 		)
@@ -62,7 +62,7 @@ class ActivityDetailsViewController: UIViewController {
 
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
-        setNavigationTitle(activityDetailsVM.properties.pageTitle)
+		setNavigationTitle(activityDetailsVM.properties.pageTitle)
 		navigationItem.leftBarButtonItem = UIBarButtonItem(
 			image: UIImage(named: activityDetailsVM.dismissNavigationIconName),
 			style: .plain,
