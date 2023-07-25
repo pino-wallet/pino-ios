@@ -71,6 +71,8 @@ class AssetManagerViewModel {
 			)
 		}
 		assetsModelList = tokensModel
+		checkDefaultAssetsAdded(assets: tokensModel)
+		getSelectedAssetsFromCoreData()
 		let tokens = tokensModel.compactMap {
 			AssetViewModel(assetModel: $0, isSelected: self.selectedAssets.map { $0.id }.contains($0.id))
 		}
@@ -116,10 +118,10 @@ class AssetManagerViewModel {
 		selectedAssets = coreDataManager.getAllSelectedAssets()
 	}
 
-	internal func checkDefaultAssetsAdded() {
+	internal func checkDefaultAssetsAdded(assets: [BalanceAssetModel]) {
 		let defaultAssetUserDefaultsKey = "isDefaultAssetsAdded"
 		if !UserDefaults.standard.bool(forKey: defaultAssetUserDefaultsKey) {
-			addDefaultAssetsToCoreData()
+			addDefaultAssetsToCoreData(assets: assets)
 			UserDefaults.standard.setValue(true, forKey: defaultAssetUserDefaultsKey)
 		}
 	}
@@ -142,10 +144,16 @@ class AssetManagerViewModel {
 		selectedAssets.removeAll(where: { $0 == selectedAsset })
 	}
 
-	private func addDefaultAssetsToCoreData() {
-		for tokenID in ctsAPIclient.defaultTokensID {
-			let selectedAsset = coreDataManager.addNewSelectedAsset(id: tokenID)
-			selectedAssets.append(selectedAsset)
+	private func addDefaultAssetsToCoreData(assets: [BalanceAssetModel]) {
+		let userAssets = assets.filter { $0.amount != "0" }
+		if userAssets.isEmpty {
+			let defaultToken = coreDataManager.addNewSelectedAsset(id: ctsAPIclient.defaultTokenID)
+			selectedAssets = [defaultToken]
+		} else {
+			for token in userAssets {
+				let selectedAsset = coreDataManager.addNewSelectedAsset(id: token.id)
+				selectedAssets.append(selectedAsset)
+			}
 		}
 	}
 
