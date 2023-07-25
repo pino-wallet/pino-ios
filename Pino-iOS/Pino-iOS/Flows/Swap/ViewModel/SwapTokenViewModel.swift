@@ -34,14 +34,14 @@ class SwapTokenViewModel {
 	}
 
 	// MARK: - Public Methods
-    
-    public func calculateDollarAmount(_ amount: String?) {
-        if let amount {
-            calculateDollarAmount(enteredAmount: amount)
-        } else {
-            calculateDollarAmount(enteredAmount: tokenAmount)
-        }
-    }
+
+	public func calculateDollarAmount(_ amount: String?) {
+		if let amount {
+			calculateDollarAmount(enteredAmount: amount)
+		} else {
+			calculateDollarAmount(enteredAmount: tokenAmount)
+		}
+	}
 
 	public func calculateTokenAmount(decimalDollarAmount: BigNumber?) {
 		self.decimalDollarAmount = decimalDollarAmount
@@ -64,18 +64,18 @@ class SwapTokenViewModel {
 	}
 
 	// MARK: - Private Methods
-    
-    private func calculateDollarAmount(enteredAmount: String?) {
-        if let enteredAmount, enteredAmount != .emptyString {
-            tokenAmount = enteredAmount
-            decimalDollarAmount = BigNumber(numberWithDecimal: enteredAmount) * selectedToken.price
-            dollarAmount = decimalDollarAmount?.priceFormat
-        } else {
-            tokenAmount = nil
-            decimalDollarAmount = nil
-            dollarAmount = nil
-        }
-    }
+
+	private func calculateDollarAmount(enteredAmount: String?) {
+		if let enteredAmount, enteredAmount != .emptyString {
+			tokenAmount = enteredAmount
+			decimalDollarAmount = BigNumber(numberWithDecimal: enteredAmount) * selectedToken.price
+			dollarAmount = decimalDollarAmount?.priceFormat
+		} else {
+			tokenAmount = nil
+			decimalDollarAmount = nil
+			dollarAmount = nil
+		}
+	}
 
 	private func convertDollarAmountToTokenAmount(dollarAmount: BigNumber?) -> String? {
 		if let dollarAmount {
