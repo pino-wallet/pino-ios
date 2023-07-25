@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SwapSide {
+public enum SwapSide {
 	case sell
 	case buy
 }

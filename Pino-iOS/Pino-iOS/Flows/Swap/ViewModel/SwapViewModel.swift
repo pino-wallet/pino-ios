@@ -24,6 +24,8 @@ class SwapViewModel {
 	public var swapFeeVM: SwapFeeViewModel
 
 	public var swapSide: SwapSide = .sell
+    
+    // MARK: - Private Properties
 
 	private var cancellables = Set<AnyCancellable>()
 
@@ -47,33 +49,35 @@ class SwapViewModel {
 
 	private func recalculateTokensAmount(amount: String? = nil) {
 		if !fromToken.isEditing && !toToken.isEditing {
-			swapSide = .sell
-			fromToken.calculateDollarAmount(amount ?? fromToken.tokenAmount)
-			toToken.calculateTokenAmount(decimalDollarAmount: fromToken.decimalDollarAmount)
-			toToken.swapDelegate.swapAmountCalculating()
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-				self.toToken.swapDelegate.swapAmountDidCalculate()
-			}
+            getSellAmount(amount: amount)
 		} else if fromToken.isEditing {
-			swapSide = .sell
-			fromToken.calculateDollarAmount(amount ?? fromToken.tokenAmount)
-			toToken.calculateTokenAmount(decimalDollarAmount: fromToken.decimalDollarAmount)
-			toToken.swapDelegate.swapAmountCalculating()
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-				self.toToken.swapDelegate.swapAmountDidCalculate()
-			}
+			getSellAmount(amount: amount)
 		} else if toToken.isEditing {
-			swapSide = .buy
-			toToken.calculateDollarAmount(amount ?? toToken.tokenAmount)
-			fromToken.calculateTokenAmount(decimalDollarAmount: toToken.decimalDollarAmount)
-			fromToken.swapDelegate.swapAmountCalculating()
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-				self.fromToken.swapDelegate.swapAmountDidCalculate()
-			}
+			getBuyAmount(amount: amount)
 		}
 		swapFeeVM.updateAmount(fromToken: fromToken, toToken: toToken)
 		getFeeInfo()
 	}
+    
+    private func getSellAmount(amount: String?) {
+        swapSide = .sell
+        fromToken.calculateDollarAmount(amount)
+        toToken.calculateTokenAmount(decimalDollarAmount: fromToken.decimalDollarAmount)
+        toToken.swapDelegate.swapAmountCalculating()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            self.toToken.swapDelegate.swapAmountDidCalculate()
+        }
+    }
+    
+    private func getBuyAmount(amount: String?) {
+        swapSide = .buy
+        toToken.calculateDollarAmount(amount)
+        fromToken.calculateTokenAmount(decimalDollarAmount: toToken.decimalDollarAmount)
+        fromToken.swapDelegate.swapAmountCalculating()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            self.fromToken.swapDelegate.swapAmountDidCalculate()
+        }
+    }
 
 	private func getFeeInfo() {
 		swapFeeVM.fee = nil
