@@ -110,7 +110,6 @@ struct ActivityHelper {
 		-> SeparatedActivitiesType {
 		var result: SeparatedActivitiesType = []
 		var activityGroupTitle: String
-		var firstActivityInGroupDate: Date
 
 		let sortedSeparatedActivitiesKeys = separatedActivitiesWithDay.keys.sorted()
 
@@ -119,16 +118,26 @@ struct ActivityHelper {
 				fatalError("there is no activity in separated activities")
 			}
 
-			if activityGroupKey == 0 {
-				activityGroupTitle = "Today"
-			} else if activityGroupKey == 1 {
-				activityGroupTitle = "Yesterday"
-			} else {
-				firstActivityInGroupDate = getActivityDate(activityBlockTime: activityGroup[0].blockTime)
-				let dateHelper = DateHelper()
-				activityGroupTitle = dateHelper.calculateDistanceBetweenTwoDates(previousDate: firstActivityInGroupDate)
-			}
-			result.append((title: activityGroupTitle, activities: activityGroup))
+            if activityGroupKey >= 29 && activityGroupKey < 364 {
+                activityGroupTitle = "Last year"
+            } else if activityGroupKey > 6 && activityGroupKey < 29 {
+                activityGroupTitle = "Last month"
+            } else if activityGroupKey <= 6 && activityGroupKey > 1 {
+                activityGroupTitle = "Last week"
+            } else if activityGroupKey == 1 {
+                activityGroupTitle = "Yesterday"
+            } else if activityGroupKey == 0 {
+                activityGroupTitle = "Today"
+            } else {
+                activityGroupTitle = "Long time ago"
+            }
+
+            let foundActivityGroupIndex = result.firstIndex(where: { $0.title == activityGroupTitle })
+            if foundActivityGroupIndex != nil {
+                result[foundActivityGroupIndex!].activities.append(contentsOf: activityGroup)
+            } else {
+                result.append((title: activityGroupTitle, activities: activityGroup))
+            }
 		}
 		return result
 	}
