@@ -118,26 +118,19 @@ struct ActivityHelper {
 				fatalError("there is no activity in separated activities")
 			}
 
-			if activityGroupKey >= 29 && activityGroupKey < 364 {
-				activityGroupTitle = "Last year"
-			} else if activityGroupKey > 6 && activityGroupKey < 29 {
-				activityGroupTitle = "Last month"
-			} else if activityGroupKey <= 6 && activityGroupKey > 1 {
-				activityGroupTitle = "Last week"
-			} else if activityGroupKey == 1 {
-				activityGroupTitle = "Yesterday"
-			} else if activityGroupKey == 0 {
-				activityGroupTitle = "Today"
-			} else {
-				activityGroupTitle = "Long time ago"
-			}
+			
+            if activityGroupKey == 0 {
+                activityGroupTitle = "Today"
+            } else if activityGroupKey == 1 {
+                activityGroupTitle = "Yesterday"
+            } else {
+                let firstactivityInGroupDate = getActivityDate(activityBlockTime: activityGroup[0].blockTime)
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MMM d yyyy"
+                activityGroupTitle = dateFormatter.string(from: firstactivityInGroupDate)
+            }
 
-			let foundActivityGroupIndex = result.firstIndex(where: { $0.title == activityGroupTitle })
-			if foundActivityGroupIndex != nil {
-				result[foundActivityGroupIndex!].activities.append(contentsOf: activityGroup)
-			} else {
 				result.append((title: activityGroupTitle, activities: activityGroup))
-			}
 		}
 		return result
 	}

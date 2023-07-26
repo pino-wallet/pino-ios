@@ -24,7 +24,6 @@ class ActivityInfoView: UIView {
 	private let mainStackView = UIStackView()
 	private let statusLabelContainer = UIView()
 	private let statusInfoLabel = UILabel()
-	private let dateLabel = PinoLabel(style: .info, text: "")
 	private let feeLabel = PinoLabel(style: .info, text: "")
 	private let fromAddressLabel = PinoLabel(style: .info, text: "")
 	private let toAddressLabel = PinoLabel(style: .info, text: "")
@@ -33,7 +32,6 @@ class ActivityInfoView: UIView {
 	private var fromStackView: ActivityInfoStackView!
 	private var toStackView: ActivityInfoStackView!
 	private var protocolStackView: ActivityInfoStackView!
-	private var typeStackView: ActivityInfoStackView!
 	private var feeStackView: ActivityInfoStackView!
 	private var activityProperties: ActivityDetailProperties!
 	private var sendInfoCustomView: ImageAndTitleStackView!
@@ -92,11 +90,7 @@ class ActivityInfoView: UIView {
 		feeLabel.addGestureRecognizer(toggleFeeGesture)
 		feeLabel.isUserInteractionEnabled = true
 
-		let toggleDateGesture = UITapGestureRecognizer(target: self, action: #selector(toggleDate))
-		dateLabel.addGestureRecognizer(toggleDateGesture)
-		dateLabel.isUserInteractionEnabled = true
-
-		dateStackView = ActivityInfoStackView(title: activityDetailsVM.dateTitle, infoCustomView: dateLabel)
+		dateStackView = ActivityInfoStackView(title: activityDetailsVM.dateTitle)
 		statusStackView = ActivityInfoStackView(
 			title: activityDetailsVM.statusTitle,
 			actionSheetInfo: (
@@ -107,18 +101,8 @@ class ActivityInfoView: UIView {
 			infoCustomView: statusLabelContainer
 		)
 		toStackView = ActivityInfoStackView(
-			title: activityDetailsVM.toTitle,
-			info: nil
-		)
-		typeStackView = ActivityInfoStackView(
-			title: activityDetailsVM.typeTitle,
-			info: nil,
-			actionSheetInfo: (
-				title: activityDetailsVM.typeTitle,
-				description: activityDetailsVM.typeActionSheetText,
-				show: true
-			)
-		)
+			title: activityDetailsVM.toTitle
+        )
 		feeStackView = ActivityInfoStackView(
 			title: activityDetailsVM.feeTitle,
 			actionSheetInfo: (
@@ -166,9 +150,6 @@ class ActivityInfoView: UIView {
 		statusStackView.presentActionSheet = { [weak self] actionSheet in
 			self?.presentActionSheet(actionSheet)
 		}
-		typeStackView.presentActionSheet = { [weak self] actionSheet in
-			self?.presentActionSheet(actionSheet)
-		}
 		feeStackView.presentActionSheet = { [weak self] actionSheet in
 			self?.presentActionSheet(actionSheet)
 		}
@@ -176,7 +157,6 @@ class ActivityInfoView: UIView {
 		mainStackView.addArrangedSubview(dateStackView)
 		mainStackView.addArrangedSubview(statusStackView)
 		mainStackView.addArrangedSubview(protocolStackView)
-		mainStackView.addArrangedSubview(typeStackView)
 		mainStackView.addArrangedSubview(fromStackView)
 		mainStackView.addArrangedSubview(toStackView)
 		mainStackView.addArrangedSubview(feeStackView)
@@ -240,7 +220,6 @@ class ActivityInfoView: UIView {
 
 	private func hidePrtocolAndTypeStackView() {
 		protocolStackView.isHidden = true
-		typeStackView.isHidden = true
 	}
 
 	private func copyString(string: String, toastTitle: String) {
@@ -256,9 +235,7 @@ class ActivityInfoView: UIView {
 
 		feeLabel.text = activityProperties.formattedFeeInDollar
 
-		dateLabel.text = activityProperties.formattedDate
-
-		typeStackView.info = activityProperties.typeName
+        dateStackView.info = activityProperties.formattedDate
 
 		switch activityProperties.status {
 		case .complete:
@@ -292,14 +269,6 @@ class ActivityInfoView: UIView {
 		}.store(in: &cancellables)
 	}
 
-	@objc
-	private func toggleDate() {
-		if dateLabel.text == activityProperties.formattedDate {
-			dateLabel.text = activityProperties.fullFormattedDate
-		} else {
-			dateLabel.text = activityProperties.formattedDate
-		}
-	}
 
 	@objc
 	private func toggleFee() {

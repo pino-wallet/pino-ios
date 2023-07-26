@@ -60,7 +60,7 @@ struct Token: Codable {
 
 	enum CodingKeys: String, CodingKey {
 		case amount
-		case tokenID = "token_id"
+		case tokenID = "id"
 	}
 }
 

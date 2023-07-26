@@ -16,7 +16,7 @@ class ActivityCell: UICollectionViewCell {
 	private let historyTitleStackView = UIStackView()
 	private let historyTitleContainer = UIView()
 	private let historyTitleLabel = PinoLabel(style: .title, text: nil)
-	private let historyTimeLabel = UILabel()
+	private let historyMoreInfoLabel = UILabel()
 	private let statusStackView = UIStackView()
 	private let statusLabelContainer = UIView()
 	private let statusLabel = UILabel()
@@ -46,15 +46,15 @@ class ActivityCell: UICollectionViewCell {
 		contentStackView.addArrangedSubview(historyTitleContainer)
 		historyTitleStackView.addArrangedSubview(historyTitleLabel)
 		historyTitleStackView.addArrangedSubview(statusStackView)
-		statusStackView.addArrangedSubview(historyTimeLabel)
+		statusStackView.addArrangedSubview(historyMoreInfoLabel)
 		statusStackView.addArrangedSubview(statusLabelContainer)
 	}
 
 	private func setupStyle() {
 		historyTitleLabel.text = activityCellVM?.title ?? ""
 		historyTitleLabel.numberOfLines = 0
-		historyTimeLabel.text = activityCellVM?.formattedTime ?? ""
-		historyTimeLabel.numberOfLines = 0
+		historyMoreInfoLabel.text = activityCellVM?.activityMoreInfo ?? ""
+		historyMoreInfoLabel.numberOfLines = 0
 
 		historyIcon.image = UIImage(named: activityCellVM?.icon ?? "unverified_asset")
 
@@ -63,10 +63,10 @@ class ActivityCell: UICollectionViewCell {
 		historyIcon.backgroundColor = .Pino.background
 
 		historyTitleLabel.textColor = .Pino.label
-		historyTimeLabel.textColor = .Pino.secondaryLabel
+		historyMoreInfoLabel.textColor = .Pino.secondaryLabel
 
 		historyTitleLabel.font = .PinoStyle.mediumCallout
-		historyTimeLabel.font = .PinoStyle.mediumFootnote
+		historyMoreInfoLabel.font = .PinoStyle.mediumFootnote
 		statusLabel.font = .PinoStyle.SemiboldCaption2
 
 		contentStackView.axis = .horizontal
@@ -116,12 +116,12 @@ class ActivityCell: UICollectionViewCell {
 
 	private func setupConstraint() {
 		historyTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 180).isActive = true
-		historyTimeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60).isActive = true
+		historyMoreInfoLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60).isActive = true
 		historyTitleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 220).isActive = true
-		historyTimeLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 120).isActive = true
+		historyMoreInfoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 120).isActive = true
 
 		historyTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 17).isActive = true
-		historyTimeLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14).isActive = true
+		historyMoreInfoLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14).isActive = true
 
 		historyCardView.heightAnchor.constraint(greaterThanOrEqualToConstant: 64).isActive = true
 		contentStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 46).isActive = true
@@ -149,7 +149,7 @@ class ActivityCell: UICollectionViewCell {
 
 	private func setupSkeletonView() {
 		historyIcon.isSkeletonable = true
-		historyTimeLabel.isSkeletonable = true
+		historyMoreInfoLabel.isSkeletonable = true
 		historyTitleLabel.isSkeletonable = true
 	}
 }
