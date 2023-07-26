@@ -44,7 +44,7 @@ struct ActivityDetail: Codable {
 	enum CodingKeys: String, CodingKey {
 		case amount
 		case recipient
-		case tokenID = "token_id"
+		case tokenID = "id"
 		case fromToken = "token0"
 		case toToken = "token1"
 		case userID = "user_id"
@@ -60,7 +60,7 @@ struct Token: Codable {
 
 	enum CodingKeys: String, CodingKey {
 		case amount
-		case tokenID = "token_id"
+		case tokenID = "id"
 	}
 }
 
