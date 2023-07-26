@@ -115,7 +115,9 @@ class AssetManagerViewModel {
 	}
 
 	internal func getSelectedAssetsFromCoreData() {
-		selectedAssets = coreDataManager.getAllSelectedAssets()
+		let walletManager = PinoWalletManager()
+		let currentAccount = walletManager.currentAccount
+		selectedAssets = currentAccount.selectedAssets.allObjects as! [SelectedAsset]
 	}
 
 	internal func checkDefaultAssetsAdded(assets: [BalanceAssetModel]) {
