@@ -16,11 +16,11 @@ class AssetManagerViewModel {
 
 	// MARK: - Private Initiliazer
 
+	private var tokens: [Detail] = []
 	private init() {}
 
 	// MARK: - Public Properties
 
-	public var tokens: [Detail] = []
 	public var selectedAssets = [SelectedAsset]()
 
 	@Published
