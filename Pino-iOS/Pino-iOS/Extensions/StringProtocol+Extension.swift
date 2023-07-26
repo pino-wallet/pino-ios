@@ -24,19 +24,19 @@ extension String {
 	}
 
 	public func shortenedString(characterCountFromStart: Int, characterCountFromEnd: Int?) -> String {
-        if characterCountFromEnd != nil {
-           return "\(prefix(characterCountFromStart))...\(suffix(characterCountFromEnd!))"
-        }
-        return "\(prefix(characterCountFromStart))..."
+		if characterCountFromEnd != nil {
+			return "\(prefix(characterCountFromStart))...\(suffix(characterCountFromEnd!))"
+		}
+		return "\(prefix(characterCountFromStart))..."
 	}
 
 	public func addressFormating() -> String {
 		shortenedString(characterCountFromStart: 6, characterCountFromEnd: 4)
 	}
-    
-    public func addressFromStartFormatting() -> String {
-        shortenedString(characterCountFromStart: 6, characterCountFromEnd: nil)
-    }
+
+	public func addressFromStartFormatting() -> String {
+		shortenedString(characterCountFromStart: 6, characterCountFromEnd: nil)
+	}
 
 	public func validateETHContractAddress() -> Bool {
 		let ethAddressRegex = "^0x[0-9a-fA-F]{40}$"

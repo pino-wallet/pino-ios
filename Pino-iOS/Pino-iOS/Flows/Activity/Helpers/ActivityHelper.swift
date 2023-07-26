@@ -118,19 +118,18 @@ struct ActivityHelper {
 				fatalError("there is no activity in separated activities")
 			}
 
-			
-            if activityGroupKey == 0 {
-                activityGroupTitle = "Today"
-            } else if activityGroupKey == 1 {
-                activityGroupTitle = "Yesterday"
-            } else {
-                let firstactivityInGroupDate = getActivityDate(activityBlockTime: activityGroup[0].blockTime)
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MMM d yyyy"
-                activityGroupTitle = dateFormatter.string(from: firstactivityInGroupDate)
-            }
+			if activityGroupKey == 0 {
+				activityGroupTitle = "Today"
+			} else if activityGroupKey == 1 {
+				activityGroupTitle = "Yesterday"
+			} else {
+				let firstactivityInGroupDate = getActivityDate(activityBlockTime: activityGroup[0].blockTime)
+				let dateFormatter = DateFormatter()
+				dateFormatter.dateFormat = "MMM d yyyy"
+				activityGroupTitle = dateFormatter.string(from: firstactivityInGroupDate)
+			}
 
-				result.append((title: activityGroupTitle, activities: activityGroup))
+			result.append((title: activityGroupTitle, activities: activityGroup))
 		}
 		return result
 	}

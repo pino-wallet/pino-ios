@@ -58,11 +58,12 @@ struct ActivityDetailProperties {
 
 	// information properties
 	public var formattedDate: String {
-        let activityHelper = ActivityHelper()
-        let activityDate = activityHelper.getActivityDate(activityBlockTime: activityDetails.defaultActivityModel.blockTime)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM d yyyy, HH:mm"
-        return dateFormatter.string(from: activityDate)
+		let activityHelper = ActivityHelper()
+		let activityDate = activityHelper
+			.getActivityDate(activityBlockTime: activityDetails.defaultActivityModel.blockTime)
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "MMM d yyyy, HH:mm"
+		return dateFormatter.string(from: activityDate)
 	}
 
 	public var protocolName: String? {
@@ -93,7 +94,6 @@ struct ActivityDetailProperties {
 			return ActivityStatus.pending
 		}
 	}
-
 
 	public var fromAddress: String?
 

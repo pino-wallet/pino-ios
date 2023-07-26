@@ -102,7 +102,7 @@ class ActivityInfoView: UIView {
 		)
 		toStackView = ActivityInfoStackView(
 			title: activityDetailsVM.toTitle
-        )
+		)
 		feeStackView = ActivityInfoStackView(
 			title: activityDetailsVM.feeTitle,
 			actionSheetInfo: (
@@ -235,7 +235,7 @@ class ActivityInfoView: UIView {
 
 		feeLabel.text = activityProperties.formattedFeeInDollar
 
-        dateStackView.info = activityProperties.formattedDate
+		dateStackView.info = activityProperties.formattedDate
 
 		switch activityProperties.status {
 		case .complete:
@@ -268,7 +268,6 @@ class ActivityInfoView: UIView {
 			self.setValues()
 		}.store(in: &cancellables)
 	}
-
 
 	@objc
 	private func toggleFee() {

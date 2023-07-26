@@ -8,7 +8,6 @@
 import Foundation
 
 struct ActivityCellViewModel: ActivityCellViewModelProtocol {
-    
 	// MARK: - Private Properties
 
 	private let unknownTransactionText = "Unknown"
@@ -61,15 +60,15 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 
 	// MARK: - Public Properties
 
-    var activityMoreInfo: String {
-        if uiType == .send {
-            return "To: \(activityModel.detail?.to?.addressFromStartFormatting() ?? "")"
-        } else if uiType == .receive {
-            return "From: \(activityModel.detail?.from?.addressFromStartFormatting() ?? "")"
-        } else {
-            return activityModel.detail?.activityProtocol?.capitalized ?? "-"
-        }
-    }
+	var activityMoreInfo: String {
+		if uiType == .send {
+			return "To: \(activityModel.detail?.to?.addressFromStartFormatting() ?? "")"
+		} else if uiType == .receive {
+			return "From: \(activityModel.detail?.from?.addressFromStartFormatting() ?? "")"
+		} else {
+			return activityModel.detail?.activityProtocol?.capitalized ?? "-"
+		}
+	}
 
 	public var blockTime: String {
 		activityModel.blockTime
