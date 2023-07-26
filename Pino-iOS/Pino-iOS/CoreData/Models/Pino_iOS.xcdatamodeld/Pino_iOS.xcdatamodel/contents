@@ -19,6 +19,7 @@
     <entity name="WalletAccount" representedClassName="WalletAccount" syncable="YES">
         <attribute name="avatarColor" optional="YES" attributeType="String"/>
         <attribute name="avatarIcon" optional="YES" attributeType="String"/>
+        <attribute name="defaultAssetsAdded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="derivationPath" optional="YES" attributeType="String"/>
         <attribute name="eip55Address" attributeType="String"/>
         <attribute name="isSelected" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>

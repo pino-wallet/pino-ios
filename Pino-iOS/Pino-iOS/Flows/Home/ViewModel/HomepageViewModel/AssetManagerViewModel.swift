@@ -115,16 +115,15 @@ class AssetManagerViewModel {
 	}
 
 	internal func getSelectedAssetsFromCoreData() {
-		let walletManager = PinoWalletManager()
-		let currentAccount = walletManager.currentAccount
+		let currentAccount = PinoWalletManager().currentAccount
 		selectedAssets = currentAccount.selectedAssets.allObjects as! [SelectedAsset]
 	}
 
 	internal func checkDefaultAssetsAdded(assets: [BalanceAssetModel]) {
-		let defaultAssetUserDefaultsKey = "isDefaultAssetsAdded"
-		if !UserDefaults.standard.bool(forKey: defaultAssetUserDefaultsKey) {
+		let currentAccount = PinoWalletManager().currentAccount
+		if currentAccount.defaultAssetsAdded == false {
+			currentAccount.defaultAssetsAdded = true
 			addDefaultAssetsToCoreData(assets: assets)
-			UserDefaults.standard.setValue(true, forKey: defaultAssetUserDefaultsKey)
 		}
 	}
 
