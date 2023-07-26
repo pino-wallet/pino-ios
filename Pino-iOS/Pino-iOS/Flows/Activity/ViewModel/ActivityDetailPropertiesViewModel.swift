@@ -11,7 +11,9 @@ struct ActivityDetailProperties {
 	// MARK: - Private Properties
 
 	private var activityDetails: ActivityCellViewModel!
-	private var globalAssetsList: [AssetViewModel]!
+    private var globalAssetsList: [AssetViewModel] {
+        GlobalVariables.shared.manageAssetsList!
+    }
 	private var ethToken: AssetViewModel!
 	private var feeInETH: BigNumber!
 	private var swapDetailsVM: SwapDetailsViewModel?
@@ -132,7 +134,6 @@ struct ActivityDetailProperties {
 
 	init(activityDetails: ActivityCellViewModel) {
 		self.activityDetails = activityDetails
-		self.globalAssetsList = GlobalVariables.shared.manageAssetsList
 
 		setDetailsVM()
 		setTransferDetails()
@@ -147,7 +148,7 @@ struct ActivityDetailProperties {
 		case .swap:
 			swapDetailsVM = SwapDetailsViewModel(
 				activityModel: activityDetails.defaultActivityModel,
-				globalAssetsList: globalAssetsList!
+				globalAssetsList: globalAssetsList
 			)
 
 		case .borrow:
@@ -155,13 +156,13 @@ struct ActivityDetailProperties {
 		case .send:
 			transferDetailsVM = TransferDetailsViewModel(
 				activityModel: activityDetails.defaultActivityModel,
-				globalAssetsList: globalAssetsList!
+				globalAssetsList: globalAssetsList
 			)
 
 		case .receive:
 			transferDetailsVM = TransferDetailsViewModel(
 				activityModel: activityDetails.defaultActivityModel,
-				globalAssetsList: globalAssetsList!
+				globalAssetsList: globalAssetsList
 			)
 
 		case .unknown:
@@ -197,7 +198,7 @@ struct ActivityDetailProperties {
 	}
 
 	private mutating func setEthToken() {
-		ethToken = globalAssetsList?.first(where: { $0.isEth })
+		ethToken = globalAssetsList.first(where: { $0.isEth })
 	}
 
 	private mutating func setFeeInETH() {
