@@ -9,6 +9,14 @@ import Combine
 import UIKit
 
 class ActivitiesCollectionView: UICollectionView {
+	// MARK: - TypeAliases
+
+	typealias OpenActivityDetailsType = (_ activityDetails: ActivityCellViewModel) -> Void
+
+	// MARK: - Closures
+
+	public var openActivityDetails: OpenActivityDetailsType
+
 	// MARK: - Private Properties
 
 	private var cancellable = Set<AnyCancellable>()
@@ -20,8 +28,9 @@ class ActivitiesCollectionView: UICollectionView {
 
 	// MARK: - Initializers
 
-	init(coinInfoVM: CoinInfoViewModel) {
+	init(coinInfoVM: CoinInfoViewModel, openActivityDetails: @escaping OpenActivityDetailsType) {
 		self.coinInfoVM = coinInfoVM
+		self.openActivityDetails = openActivityDetails
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 		flowLayout.minimumLineSpacing = 8
@@ -117,6 +126,14 @@ class ActivitiesCollectionView: UICollectionView {
 				}
 			}
 		}
+	}
+}
+
+// MARK: - CollectionView Delegate
+
+extension ActivitiesCollectionView: UICollectionViewDelegate {
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		openActivityDetails(separatedActivities[indexPath.section].activities[indexPath.item])
 	}
 }
 

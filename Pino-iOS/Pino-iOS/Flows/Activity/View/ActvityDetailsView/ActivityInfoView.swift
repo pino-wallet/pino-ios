@@ -5,6 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 7/12/23.
 //
 
+import Combine
 import UIKit
 
 class ActivityInfoView: UIView {
@@ -23,6 +24,10 @@ class ActivityInfoView: UIView {
 	private let mainStackView = UIStackView()
 	private let statusLabelContainer = UIView()
 	private let statusInfoLabel = UILabel()
+	private let dateLabel = PinoLabel(style: .info, text: "")
+	private let feeLabel = PinoLabel(style: .info, text: "")
+	private let fromAddressLabel = PinoLabel(style: .info, text: "")
+	private let toAddressLabel = PinoLabel(style: .info, text: "")
 	private var dateStackView: ActivityInfoStackView!
 	private var statusStackView: ActivityInfoStackView!
 	private var fromStackView: ActivityInfoStackView!
@@ -30,6 +35,11 @@ class ActivityInfoView: UIView {
 	private var protocolStackView: ActivityInfoStackView!
 	private var typeStackView: ActivityInfoStackView!
 	private var feeStackView: ActivityInfoStackView!
+	private var activityProperties: ActivityDetailProperties!
+	private var sendInfoCustomView: ImageAndTitleStackView!
+	private var receiveInfoCustomView: ImageAndTitleStackView!
+	private var protocolInfoCustomView: ImageAndTitleStackView!
+	private var cancellables = Set<AnyCancellable>()
 
 	private var activityDetailsVM: ActivityDetailsViewModel
 
@@ -44,6 +54,7 @@ class ActivityInfoView: UIView {
 		setupView()
 		setupStyles()
 		setupConstraints()
+		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -55,7 +66,37 @@ class ActivityInfoView: UIView {
 	private func setupView() {
 		statusLabelContainer.addSubview(statusInfoLabel)
 
-		dateStackView = ActivityInfoStackView(title: activityDetailsVM.dateTitle, info: activityDetailsVM.formattedDate)
+		sendInfoCustomView = ImageAndTitleStackView(
+			image: nil,
+			title: nil
+		)
+		receiveInfoCustomView = ImageAndTitleStackView(
+			image: nil,
+			title: nil
+		)
+
+		protocolInfoCustomView = ImageAndTitleStackView(
+			image: nil,
+			title: nil
+		)
+
+		let copyFromAddressGesture = UITapGestureRecognizer(target: self, action: #selector(copyFromAddress))
+		fromAddressLabel.addGestureRecognizer(copyFromAddressGesture)
+		fromAddressLabel.isUserInteractionEnabled = true
+
+		let copyToAddressGesture = UITapGestureRecognizer(target: self, action: #selector(copyToAddress))
+		toAddressLabel.addGestureRecognizer(copyToAddressGesture)
+		toAddressLabel.isUserInteractionEnabled = true
+
+		let toggleFeeGesture = UITapGestureRecognizer(target: self, action: #selector(toggleFee))
+		feeLabel.addGestureRecognizer(toggleFeeGesture)
+		feeLabel.isUserInteractionEnabled = true
+
+		let toggleDateGesture = UITapGestureRecognizer(target: self, action: #selector(toggleDate))
+		dateLabel.addGestureRecognizer(toggleDateGesture)
+		dateLabel.isUserInteractionEnabled = true
+
+		dateStackView = ActivityInfoStackView(title: activityDetailsVM.dateTitle, infoCustomView: dateLabel)
 		statusStackView = ActivityInfoStackView(
 			title: activityDetailsVM.statusTitle,
 			actionSheetInfo: (
@@ -65,10 +106,13 @@ class ActivityInfoView: UIView {
 			),
 			infoCustomView: statusLabelContainer
 		)
-		toStackView = ActivityInfoStackView(title: activityDetailsVM.toTitle, info: activityDetailsVM.toAddress)
+		toStackView = ActivityInfoStackView(
+			title: activityDetailsVM.toTitle,
+			info: nil
+		)
 		typeStackView = ActivityInfoStackView(
 			title: activityDetailsVM.typeTitle,
-			info: activityDetailsVM.typeName,
+			info: nil,
 			actionSheetInfo: (
 				title: activityDetailsVM.typeTitle,
 				description: activityDetailsVM.typeActionSheetText,
@@ -77,58 +121,45 @@ class ActivityInfoView: UIView {
 		)
 		feeStackView = ActivityInfoStackView(
 			title: activityDetailsVM.feeTitle,
-			info: activityDetailsVM.feeInDollar,
 			actionSheetInfo: (
 				title: activityDetailsVM.feeTitle,
 				description: activityDetailsVM.feeActionSheetText,
 				show: true
-			)
+			), infoCustomView: feeLabel
 		)
 
-		if activityDetailsVM.uiType == .send {
+		if activityDetailsVM.properties.uiType == .send {
 			fromStackView = ActivityInfoStackView(
 				title: activityDetailsVM.fromTitle,
-				infoCustomView: ImageAndTitleStackView(
-					image: activityDetailsVM.fromIcon ?? "",
-					title: activityDetailsVM.fromName ?? ""
-				)
+				infoCustomView: sendInfoCustomView
 			)
-			toStackView = ActivityInfoStackView(title: activityDetailsVM.toTitle, info: activityDetailsVM.toAddress)
-		} else if activityDetailsVM.uiType == .receive {
+			toStackView = ActivityInfoStackView(title: activityDetailsVM.toTitle, infoCustomView: toAddressLabel)
+		} else if activityDetailsVM.properties.uiType == .receive {
 			toStackView = ActivityInfoStackView(
 				title: activityDetailsVM.toTitle,
-				infoCustomView: ImageAndTitleStackView(
-					image: activityDetailsVM.toIcon ?? "",
-					title: activityDetailsVM.toName ?? ""
-				)
+				infoCustomView: receiveInfoCustomView
 			)
 			fromStackView = ActivityInfoStackView(
 				title: activityDetailsVM.fromTitle,
-				info: activityDetailsVM.fromAddress
+				infoCustomView: fromAddressLabel
 			)
 		} else {
 			fromStackView = ActivityInfoStackView(
 				title: activityDetailsVM.fromTitle,
-				info: activityDetailsVM.fromAddress
+				infoCustomView: fromAddressLabel
 			)
-			toStackView = ActivityInfoStackView(title: activityDetailsVM.toTitle, info: activityDetailsVM.toAddress)
+			toStackView = ActivityInfoStackView(title: activityDetailsVM.toTitle, infoCustomView: toAddressLabel)
 		}
 
-		if activityDetailsVM.uiType == .swap {
+		if activityDetailsVM.properties.uiType == .swap {
 			protocolStackView = ActivityInfoStackView(
 				title: activityDetailsVM.providerTitle,
-				infoCustomView: ImageAndTitleStackView(
-					image: activityDetailsVM.protocolImage ?? "",
-					title: activityDetailsVM.protocolName ?? ""
-				)
+				infoCustomView: protocolInfoCustomView
 			)
 		} else {
 			protocolStackView = ActivityInfoStackView(
 				title: activityDetailsVM.protocolTitle,
-				infoCustomView: ImageAndTitleStackView(
-					image: activityDetailsVM.protocolImage ?? "",
-					title: activityDetailsVM.protocolName ?? ""
-				)
+				infoCustomView: protocolInfoCustomView
 			)
 		}
 
@@ -164,24 +195,11 @@ class ActivityInfoView: UIView {
 		statusLabelContainer.layer.cornerRadius = 14
 		statusLabelContainer.layer.masksToBounds = true
 
-		switch activityDetailsVM.status {
-		case .complete:
-			statusInfoLabel.textColor = .Pino.green3
-			statusLabelContainer.backgroundColor = .Pino.green1
-		case .failed:
-			statusInfoLabel.textColor = .Pino.red
-			statusLabelContainer.backgroundColor = .Pino.lightRed
-		case .pending:
-			statusInfoLabel.textColor = .Pino.pendingOrange
-			statusLabelContainer.backgroundColor = .Pino.lightOrange
-		}
-		statusInfoLabel.text = activityDetailsVM.status.description
-
-		if activityDetailsVM.protocolName == nil {
+		if activityDetailsVM.properties.protocolName == nil {
 			protocolStackView.isHidden = true
 		}
 
-		switch activityDetailsVM.uiType {
+		switch activityDetailsVM.properties.uiType {
 		case .swap:
 			hideFromAndToStackView()
 		case .borrow:
@@ -223,5 +241,85 @@ class ActivityInfoView: UIView {
 	private func hidePrtocolAndTypeStackView() {
 		protocolStackView.isHidden = true
 		typeStackView.isHidden = true
+	}
+
+	private func copyString(string: String, toastTitle: String) {
+		let pasteboard = UIPasteboard.general
+		pasteboard.string = string
+		Toast.default(title: toastTitle, style: .copy).show(haptic: .success)
+	}
+
+	private func setValues() {
+		fromAddressLabel.text = activityProperties.fromAddress
+
+		toAddressLabel.text = activityProperties.toAddress
+
+		feeLabel.text = activityProperties.formattedFeeInDollar
+
+		dateLabel.text = activityProperties.formattedDate
+
+		typeStackView.info = activityProperties.typeName
+
+		switch activityProperties.status {
+		case .complete:
+			statusInfoLabel.textColor = .Pino.green3
+			statusLabelContainer.backgroundColor = .Pino.green1
+		case .failed:
+			statusInfoLabel.textColor = .Pino.red
+			statusLabelContainer.backgroundColor = .Pino.lightRed
+		case .pending:
+			statusInfoLabel.textColor = .Pino.pendingOrange
+			statusLabelContainer.backgroundColor = .Pino.lightOrange
+		}
+		statusInfoLabel.text = activityProperties.status.description
+
+		if activityProperties.uiType == .send {
+			sendInfoCustomView.title = activityProperties.fromName
+			sendInfoCustomView.image = activityProperties.fromIcon
+		} else if activityProperties.uiType == .receive {
+			receiveInfoCustomView.title = activityProperties.toName
+			receiveInfoCustomView.image = activityProperties.toIcon
+		}
+
+		protocolInfoCustomView.title = activityProperties.protocolName
+		protocolInfoCustomView.image = activityProperties.protocolImage
+	}
+
+	private func setupBindings() {
+		activityDetailsVM.$properties.sink { activityProperties in
+			self.activityProperties = activityProperties
+			self.setValues()
+		}.store(in: &cancellables)
+	}
+
+	@objc
+	private func toggleDate() {
+		if dateLabel.text == activityProperties.formattedDate {
+			dateLabel.text = activityProperties.fullFormattedDate
+		} else {
+			dateLabel.text = activityProperties.formattedDate
+		}
+	}
+
+	@objc
+	private func toggleFee() {
+		if feeLabel.text == activityProperties.formattedFeeInDollar {
+			feeLabel.text = activityProperties.formattedFeeInETH
+		} else {
+			feeLabel.text = activityProperties.formattedFeeInDollar
+		}
+	}
+
+	@objc
+	private func copyFromAddress() {
+		copyString(
+			string: activityProperties.fullFromAddress!,
+			toastTitle: activityDetailsVM.copyFromAddressText
+		)
+	}
+
+	@objc
+	private func copyToAddress() {
+		copyString(string: activityProperties.fullToAddress!, toastTitle: activityDetailsVM.copyToAddressText)
 	}
 }

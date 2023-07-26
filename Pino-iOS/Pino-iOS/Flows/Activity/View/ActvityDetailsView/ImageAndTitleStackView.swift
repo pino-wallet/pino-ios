@@ -10,8 +10,18 @@ import UIKit
 class ImageAndTitleStackView: UIStackView {
 	// MARK: - Public Properties
 
-	public var image: String
-	public var title: String
+	public var image: String? {
+		didSet {
+			imageView.image = UIImage(named: image ?? "")
+		}
+	}
+
+	public var title: String? {
+		didSet {
+			titleLabel.text = title
+			titleLabel.numberOfLines = 0
+		}
+	}
 
 	// MARK: - Private Properties
 
@@ -20,7 +30,7 @@ class ImageAndTitleStackView: UIStackView {
 
 	// MARK: - Initializers
 
-	init(image: String, title: String) {
+	init(image: String?, title: String?) {
 		self.image = image
 		self.title = title
 
@@ -51,7 +61,7 @@ class ImageAndTitleStackView: UIStackView {
 		titleLabel.text = title
 		titleLabel.numberOfLines = 0
 
-		imageView.image = UIImage(named: image)
+		imageView.image = UIImage(named: image ?? "")
 	}
 
 	private func setupConstraints() {

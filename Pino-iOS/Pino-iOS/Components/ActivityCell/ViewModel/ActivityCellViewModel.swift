@@ -112,23 +112,23 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		case .swap:
 			let swapActivityVM = SwapDetailsViewModel(activityModel: activityModel, globalAssetsList: globalAssetsList)
 
-			return "Swap \(swapActivityVM.fromTokenAmount.percentFormat) \(swapActivityVM.fromTokenSymbol) -> \(swapActivityVM.toTokenAmount.percentFormat) \(swapActivityVM.toTokenSymbol)"
+			return "Swap \(swapActivityVM.fromTokenAmount.sevenDigitFormat) \(swapActivityVM.fromTokenSymbol) -> \(swapActivityVM.toTokenAmount.sevenDigitFormat) \(swapActivityVM.toTokenSymbol)"
 		case .borrow:
 			return "Borrow"
 		case .send:
-			let transfareAcitivityDetailsVM = TransfareDetailsViewModel(
+			let transferAcitivityDetailsVM = TransferDetailsViewModel(
 				activityModel: activityModel,
 				globalAssetsList: globalAssetsList
 			)
 
-			return "Send \(transfareAcitivityDetailsVM.transfareTokenAmount.percentFormat) \(transfareAcitivityDetailsVM.transfareTokenSymbol)"
+			return "Send \(transferAcitivityDetailsVM.transferTokenAmount.sevenDigitFormat) \(transferAcitivityDetailsVM.transferTokenSymbol)"
 		case .receive:
-			let transfareAcitivityDetailsVM = TransfareDetailsViewModel(
+			let transferAcitivityDetailsVM = TransferDetailsViewModel(
 				activityModel: activityModel,
 				globalAssetsList: globalAssetsList
 			)
 
-			return "Received \(transfareAcitivityDetailsVM.transfareTokenAmount.percentFormat) \(transfareAcitivityDetailsVM.transfareTokenSymbol)"
+			return "Received \(transferAcitivityDetailsVM.transferTokenAmount.sevenDigitFormat) \(transferAcitivityDetailsVM.transferTokenSymbol)"
 		case .unknown:
 			return unknownTransactionText
 		case .collateral:
@@ -158,7 +158,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 
 	private func isSendTransaction() -> Bool {
 		let currentAddress = PinoWalletManager().currentAccount.eip55Address
-		if currentAddress == activityModel.fromAddress {
+		if currentAddress.lowercased() == activityModel.detail?.from?.lowercased() {
 			return true
 		} else {
 			return false

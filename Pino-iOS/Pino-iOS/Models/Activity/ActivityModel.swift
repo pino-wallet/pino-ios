@@ -16,6 +16,8 @@ struct ActivityModel: Codable {
 	let failed: Bool
 	let blockNumber: Int
 	let blockTime: String
+	let gasUsed: String
+	let gasPrice: String
 
 	enum CodingKeys: String, CodingKey {
 		case txHash = "tx_hash"
@@ -25,6 +27,8 @@ struct ActivityModel: Codable {
 		case failed
 		case blockNumber = "block_number"
 		case blockTime = "block_time"
+		case gasUsed = "gas_used"
+		case gasPrice = "gas_price"
 	}
 }
 

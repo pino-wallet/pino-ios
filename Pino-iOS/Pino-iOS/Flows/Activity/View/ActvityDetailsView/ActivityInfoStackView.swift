@@ -19,7 +19,12 @@ class ActivityInfoStackView: UIStackView {
 	// MARK: - Public Properties
 
 	public var title: String
-	public var info: String?
+	public var info: String? {
+		didSet {
+			infoLabel.text = info
+		}
+	}
+
 	public var actionSheetInfo: ActionsheetInfoType
 	public var infoCustomView: UIView?
 
@@ -70,10 +75,9 @@ class ActivityInfoStackView: UIStackView {
 
 		addArrangedSubview(titleLabel)
 		addArrangedSubview(betweenView)
+		addArrangedSubview(infoLabel)
 		if infoCustomView != nil {
 			addArrangedSubview(infoCustomView!)
-		} else {
-			addArrangedSubview(infoLabel)
 		}
 	}
 
@@ -85,6 +89,10 @@ class ActivityInfoStackView: UIStackView {
 			titleLabel.showInfoActionSheet = true
 		} else {
 			titleLabel.showInfoActionSheet = false
+		}
+
+		if infoCustomView != nil {
+			infoLabel.isHidden = true
 		}
 
 		titleLabel.title = title

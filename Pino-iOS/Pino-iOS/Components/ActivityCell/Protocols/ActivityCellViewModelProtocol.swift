@@ -25,15 +25,15 @@ public enum ActivityCellStatus: String {
 	case pending = "Pending..."
 }
 
-public enum ActivityUIType {
-	case swap
-	case borrow
-	case send
-	case receive
-	case unknown
-	case collateral
-	case un_collateral
-	case invest
-	case repay
-	case withdraw
+public enum ActivityUIType: String {
+	case swap = "Swap"
+	case borrow = "Borrow"
+	case send = "Send"
+	case receive = "Receive"
+	case unknown = "Unknown transaction"
+	case collateral = "Collateral"
+	case un_collateral = "Uncollateral"
+	case invest = "Investment"
+	case repay = "Repay"
+	case withdraw = "Withdraw"
 }
