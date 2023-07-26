@@ -41,8 +41,8 @@ class CoinInfoViewModel {
 	public let unavailableRecentHistoryIconName = "gray_error_alert"
 	public let copyWebsiteToastText = "Coin website has been copied"
 	public let copyContractAddressToastText = "Coin contract address has been copied"
-    public let emptyActivityIconName = "empty_activity"
-    public let emptyActivityTitleText = "There is no transaction history"
+	public let emptyActivityIconName = "empty_activity"
+	public let emptyActivityTitleText = "There is no transaction history"
 
 	#warning("this text is for testing and should be removed")
 	public let positionAssetInfoText = """

@@ -67,7 +67,11 @@ class ActivitiesCollectionView: UICollectionView {
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
 			withReuseIdentifier: CoinInfoFooterview.footerReuseID
 		)
-        register(CoinInfoEmptyStateFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CoinInfoEmptyStateFooterView.emptyStateFooterID)
+		register(
+			CoinInfoEmptyStateFooterView.self,
+			forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+			withReuseIdentifier: CoinInfoEmptyStateFooterView.emptyStateFooterID
+		)
 
 		dataSource = self
 		delegate = self
@@ -212,35 +216,41 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 				return activityHeaderView
 			}
 		case UICollectionView.elementKindSectionFooter:
-            switch coinInfoVM.coinPortfolio.type {
-            case .verified:
-                let coinInfoFooterView = dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CoinInfoEmptyStateFooterView.emptyStateFooterID, for: indexPath) as! CoinInfoEmptyStateFooterView
+			switch coinInfoVM.coinPortfolio.type {
+			case .verified:
+				let coinInfoFooterView = dequeueReusableSupplementaryView(
+					ofKind: UICollectionView.elementKindSectionFooter,
+					withReuseIdentifier: CoinInfoEmptyStateFooterView.emptyStateFooterID,
+					for: indexPath
+				) as! CoinInfoEmptyStateFooterView
 
-                coinInfoFooterView.emptyFooterVM = CoinInfoEmptyStateFooterViewModel(titleText: coinInfoVM.emptyActivityTitleText, iconName: coinInfoVM.emptyActivityIconName)
-                return coinInfoFooterView
-            case .unVerified:
-                let coinInfoFooterView = dequeueReusableSupplementaryView(
-                    ofKind: UICollectionView.elementKindSectionFooter,
-                    withReuseIdentifier: CoinInfoFooterview.footerReuseID,
-                    for: indexPath
-                ) as! CoinInfoFooterview
-        
-                coinInfoFooterView.coinInfoVM = coinInfoVM
+				coinInfoFooterView.emptyFooterVM = CoinInfoEmptyStateFooterViewModel(
+					titleText: coinInfoVM.emptyActivityTitleText,
+					iconName: coinInfoVM.emptyActivityIconName
+				)
+				return coinInfoFooterView
+			case .unVerified:
+				let coinInfoFooterView = dequeueReusableSupplementaryView(
+					ofKind: UICollectionView.elementKindSectionFooter,
+					withReuseIdentifier: CoinInfoFooterview.footerReuseID,
+					for: indexPath
+				) as! CoinInfoFooterview
 
-                return coinInfoFooterView
-            case .position:
-                let coinInfoFooterView = dequeueReusableSupplementaryView(
-                    ofKind: UICollectionView.elementKindSectionFooter,
-                    withReuseIdentifier: CoinInfoFooterview.footerReuseID,
-                    for: indexPath
-                ) as! CoinInfoFooterview
-        
-                coinInfoFooterView.coinInfoVM = coinInfoVM
+				coinInfoFooterView.coinInfoVM = coinInfoVM
 
-                return coinInfoFooterView
-            }
-            
-			
+				return coinInfoFooterView
+			case .position:
+				let coinInfoFooterView = dequeueReusableSupplementaryView(
+					ofKind: UICollectionView.elementKindSectionFooter,
+					withReuseIdentifier: CoinInfoFooterview.footerReuseID,
+					for: indexPath
+				) as! CoinInfoFooterview
+
+				coinInfoFooterView.coinInfoVM = coinInfoVM
+
+				return coinInfoFooterView
+			}
+
 		default:
 			fatalError("Unknown kind of coin info reusable view")
 		}
@@ -280,12 +290,12 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 	) -> CGSize {
 		switch coinInfoVM.coinPortfolio.type {
 		case .verified:
-            guard let userAcitivites = coinInfoVM.coinHistoryList else {
-                return CGSize(width: 0, height: 0)
-            }
-            if userAcitivites.isEmpty {
-                return CGSize(width: collectionView.frame.width, height: 157)
-            }
+			guard let userAcitivites = coinInfoVM.coinHistoryList else {
+				return CGSize(width: 0, height: 0)
+			}
+			if userAcitivites.isEmpty {
+				return CGSize(width: collectionView.frame.width, height: 157)
+			}
 			return CGSize(width: 0, height: 0)
 		case .unVerified:
 			return CGSize(width: collectionView.frame.width, height: 200)

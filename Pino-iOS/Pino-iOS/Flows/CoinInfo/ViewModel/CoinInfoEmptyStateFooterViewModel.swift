@@ -6,12 +6,15 @@
 //
 
 struct CoinInfoEmptyStateFooterViewModel {
-    // MARK: - Public Properties
-    public var titleText: String
-    public var iconName: String
-    // MARK: - Initializers
-    init(titleText: String, iconName: String) {
-        self.titleText = titleText
-        self.iconName = iconName
-    }
+	// MARK: - Public Properties
+
+	public var titleText: String
+	public var iconName: String
+
+	// MARK: - Initializers
+
+	init(titleText: String, iconName: String) {
+		self.titleText = titleText
+		self.iconName = iconName
+	}
 }
