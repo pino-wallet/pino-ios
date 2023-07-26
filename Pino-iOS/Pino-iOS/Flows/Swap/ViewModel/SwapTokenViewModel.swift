@@ -17,20 +17,19 @@ class SwapTokenViewModel {
 	public var amountUpdated: ((String) -> Void)!
 	public var textFieldPlaceHolder = "0"
 	public var isEditing = false
+	@Published
 	public var selectedToken: AssetViewModel
 	@Published
 	public var tokenAmount: String?
 	public var dollarAmount: String?
 	public var decimalDollarAmount: BigNumber?
-
-	public var maxHoldAmount: String {
-		selectedToken.amount
-	}
+	public var maxHoldAmount: String
 
 	// MARK: - Initializers
 
 	init(selectedToken: AssetViewModel) {
 		self.selectedToken = selectedToken
+		self.maxHoldAmount = selectedToken.amount
 	}
 
 	// MARK: - Public Methods
@@ -49,9 +48,9 @@ class SwapTokenViewModel {
 		tokenAmount = convertDollarAmountToTokenAmount(dollarAmount: decimalDollarAmount)
 	}
 
-	public func checkBalanceStatus() -> AmountStatus {
+	public func checkBalanceStatus(token: AssetViewModel) -> AmountStatus {
 		if let amount = tokenAmount, !BigNumber(numberWithDecimal: amount).isZero {
-			let maxAmount = selectedToken.holdAmount
+			let maxAmount = token.holdAmount
 			let enteredAmount = BigNumber(numberWithDecimal: amount)
 			if enteredAmount > maxAmount {
 				return .isNotEnough
@@ -61,6 +60,10 @@ class SwapTokenViewModel {
 		} else {
 			return .isZero
 		}
+	}
+
+	public func checkBalanceStatus() -> AmountStatus {
+		checkBalanceStatus(token: selectedToken)
 	}
 
 	// MARK: - Private Methods

@@ -47,6 +47,7 @@ class SwapTokenSectionView: UIView {
 		setupView()
 		setupStyle()
 		setupContstraint()
+		setupBinding()
 	}
 
 	required init?(coder: NSCoder) {
@@ -133,6 +134,12 @@ class SwapTokenSectionView: UIView {
 		])
 	}
 
+	private func setupBinding() {
+		swapVM.$selectedToken.sink { selectedToken in
+			self.updateMaxAmount(token: selectedToken)
+		}.store(in: &cancellables)
+	}
+
 	private func updateView() {
 		if swapVM.selectedToken.isVerified {
 			changeTokenView.tokenImageURL = swapVM.selectedToken.image
@@ -185,6 +192,20 @@ class SwapTokenSectionView: UIView {
 	private func hideBalanceError() {
 		maxAmountTitle.textColor = .Pino.label
 		maxAmountLabel.textColor = .Pino.label
+	}
+
+	private func updateMaxAmount(token: AssetViewModel) {
+		guard let balanceStatusDidChange else { return }
+		swapVM.maxHoldAmount = token.amount
+		maxAmountLabel.text = swapVM.maxHoldAmount
+		let balanceStatus = swapVM.checkBalanceStatus(token: token)
+		balanceStatusDidChange(balanceStatus)
+		switch balanceStatus {
+		case .isEnough, .isZero:
+			hideBalanceError()
+		case .isNotEnough:
+			showBalanceError()
+		}
 	}
 
 	// MARK: - Public Methods

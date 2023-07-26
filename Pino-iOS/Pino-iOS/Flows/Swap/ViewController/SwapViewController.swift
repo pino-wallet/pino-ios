@@ -37,9 +37,7 @@ class SwapViewController: UIViewController {
 		view = SwapLoadingView()
 		GlobalVariables.shared.$manageAssetsList.compactMap { $0 }.sink { assetList in
 			if self.assets == nil {
-				self.assets = assetList
 				self.swapVM = SwapViewModel(fromToken: assetList[0], toToken: assetList[1])
-
 				self.swapView = SwapView(
 					swapVM: self.swapVM,
 					fromTokenChange: {
@@ -60,7 +58,12 @@ class SwapViewController: UIViewController {
 				)
 				self.view = self.swapView
 				self.setupBinding()
+			} else {
+				guard let selectedToken = assetList.first(where: { $0.id == self.swapVM.fromToken.selectedToken.id })
+				else { return }
+				self.swapVM.fromToken.selectedToken = selectedToken
 			}
+			self.assets = assetList
 		}.store(in: &cancellables)
 	}
 
