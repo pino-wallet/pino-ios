@@ -42,7 +42,7 @@ class UserAddressCell: UICollectionViewCell {
 
 	private func setupStyles() {
 		walletNameLabel.text = walletVM.name
-		walletAddressLabel.text = walletVM.address.shortenedString(characterCountFromStart: 4, characterCountFromEnd: 4)
+		walletAddressLabel.text = walletVM.address.addressFormating()
 		walletImageView.image = UIImage(named: walletVM.profileImage)
 		walletImageBackground.backgroundColor = UIColor(named: walletVM.profileColor)
 

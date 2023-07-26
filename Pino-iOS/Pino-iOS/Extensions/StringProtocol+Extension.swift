@@ -27,6 +27,10 @@ extension String {
 		"\(prefix(characterCountFromStart))...\(suffix(characterCountFromEnd))"
 	}
 
+	public func addressFormating() -> String {
+		shortenedString(characterCountFromStart: 6, characterCountFromEnd: 4)
+	}
+
 	public func validateETHContractAddress() -> Bool {
 		let ethAddressRegex = "^0x[0-9a-fA-F]{40}$"
 		if range(of: ethAddressRegex, options: .regularExpression, range: nil, locale: nil) != nil {
