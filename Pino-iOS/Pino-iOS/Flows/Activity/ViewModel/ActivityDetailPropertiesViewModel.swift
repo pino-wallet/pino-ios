@@ -11,9 +11,10 @@ struct ActivityDetailProperties {
 	// MARK: - Private Properties
 
 	private var activityDetails: ActivityCellViewModel!
-    private var globalAssetsList: [AssetViewModel] {
-        GlobalVariables.shared.manageAssetsList!
-    }
+	private var globalAssetsList: [AssetViewModel] {
+		GlobalVariables.shared.manageAssetsList!
+	}
+
 	private var ethToken: AssetViewModel!
 	private var feeInETH: BigNumber!
 	private var swapDetailsVM: SwapDetailsViewModel?
