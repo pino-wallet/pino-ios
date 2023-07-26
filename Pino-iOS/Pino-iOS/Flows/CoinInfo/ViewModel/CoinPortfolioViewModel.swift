@@ -89,7 +89,7 @@ struct CoinPortfolioViewModel {
 		if isEthCoin {
 			return "-"
 		} else {
-			return coinPortfolioModel.detail!.id.mediumAddressFormating()
+			return coinPortfolioModel.detail!.id.addressFormating()
 		}
 	}
 }
