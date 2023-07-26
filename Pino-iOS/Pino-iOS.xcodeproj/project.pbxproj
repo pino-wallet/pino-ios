@@ -343,6 +343,8 @@
 		D9E134852A52FB4A00193FF0 /* ActivityHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E134842A52FB4A00193FF0 /* ActivityHeaderView.swift */; };
 		D9E134872A53013D00193FF0 /* ActivityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E134862A53013D00193FF0 /* ActivityHelper.swift */; };
 		D9E34BC92C3AE69B3D5EC4F2 /* PortfolioPerformanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4FFBB4CC6D342FF946AB9 /* PortfolioPerformanceViewModel.swift */; };
+		D9F1BD022A7111FE00F5303F /* CoinInfoEmptyStateFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F1BD012A7111FE00F5303F /* CoinInfoEmptyStateFooterView.swift */; };
+		D9F1BD042A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F1BD032A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift */; };
 		D9F2508029E576FB00DE0410 /* NotificationSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F2507F29E576FB00DE0410 /* NotificationSettingsCell.swift */; };
 		D9F2508229E5855500DE0410 /* SecurityOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F2508129E5855500DE0410 /* SecurityOptionCell.swift */; };
 		DAB2FF91D5EAF0795A12201B /* AddNewAccountOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D375B5D2DBB3E66A081076C /* AddNewAccountOptionViewModel.swift */; };
@@ -843,6 +845,8 @@
 		D9DC773E2A6FAB2B00AA0987 /* ActivityDetailPropertiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailPropertiesViewModel.swift; sourceTree = "<group>"; };
 		D9E134842A52FB4A00193FF0 /* ActivityHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHeaderView.swift; sourceTree = "<group>"; };
 		D9E134862A53013D00193FF0 /* ActivityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHelper.swift; sourceTree = "<group>"; };
+		D9F1BD012A7111FE00F5303F /* CoinInfoEmptyStateFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoEmptyStateFooterView.swift; sourceTree = "<group>"; };
+		D9F1BD032A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoEmptyStateFooterViewModel.swift; sourceTree = "<group>"; };
 		D9F2507F29E576FB00DE0410 /* NotificationSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsCell.swift; sourceTree = "<group>"; };
 		D9F2508129E5855500DE0410 /* SecurityOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityOptionCell.swift; sourceTree = "<group>"; };
 		DA8ADDD22F193963D587AE57 /* ChartInfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartInfoItem.swift; sourceTree = "<group>"; };
@@ -1655,6 +1659,7 @@
 				B2D5774D76FC507F8B176185 /* CoinInfoViewModel.swift */,
 				9FF69CD04334D4EE4C9272B8 /* CoinPortfolioViewModel.swift */,
 				E34728F029EEA81000AB8265 /* AssetChartDataViewModel.swift */,
+				D9F1BD032A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2385,6 +2390,7 @@
 				2F0B2CBC9118CD481635941C /* CoinInfoHeaderView.swift */,
 				D9C7D76129EBDCAE006BC446 /* CoinInfoStatsView.swift */,
 				D9703F6929ED547000D09277 /* CoinInfoFooterview.swift */,
+				D9F1BD012A7111FE00F5303F /* CoinInfoEmptyStateFooterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3316,6 +3322,7 @@
 				1F98DAC473200ACED0BA403B /* ParameterEncoderProtocol.swift in Sources */,
 				8EA8AEFE97CEC48A2C1DFCB7 /* ParameterEncoding.swift in Sources */,
 				DFA9687E2A0FABB9007D4513 /* WalletAccount+CoreDataProperties.swift in Sources */,
+				D9F1BD022A7111FE00F5303F /* CoinInfoEmptyStateFooterView.swift in Sources */,
 				B6C747AA398D7E37B1B727AC /* PassDotsView.swift in Sources */,
 				DF00178229E82084001164EA /* SecureEnclaveHelper.swift in Sources */,
 				078E15176613CB329D507580 /* PassManagmentError.swift in Sources */,
@@ -3344,6 +3351,7 @@
 				0BB077D3A362E14524196936 /* PortfolioPerformanceCollectionView.swift in Sources */,
 				A1664AE26C5D333D2213330F /* PortfolioPerformanceHeaderView.swift in Sources */,
 				17551EDA11F4F1BE495D1823 /* PortfolioPerformanceViewController.swift in Sources */,
+				D9F1BD042A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift in Sources */,
 				D9E34BC92C3AE69B3D5EC4F2 /* PortfolioPerformanceViewModel.swift in Sources */,
 				122DC5E683E6405E0B3FCE54 /* PortfolioPrformanceCell.swift in Sources */,
 				0AF4C45B72B37F11F656A4B0 /* PositionHeaderView.swift in Sources */,
