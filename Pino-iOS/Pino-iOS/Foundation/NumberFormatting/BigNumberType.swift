@@ -159,7 +159,7 @@ extension BigNumber: Equatable, Comparable {
 	}
 
 	public static func == (lhs: BigNumber, rhs: BigNumber) -> Bool {
-        let (lhsNorm, rhsNorm) = normalize(lhs: lhs, rhs: rhs)
+		let (lhsNorm, rhsNorm) = normalize(lhs: lhs, rhs: rhs)
 		return lhsNorm == rhsNorm
 	}
 

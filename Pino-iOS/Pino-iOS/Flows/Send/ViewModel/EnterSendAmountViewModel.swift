@@ -90,7 +90,7 @@ class EnterSendAmountViewModel {
 			}
 		}
 	}
-    
+
 	public func updateEthMaxAmount(
 		gasFee: BigNumber = GlobalVariables.shared.ethGasFee.fee,
 		gasFeeInDollar: BigNumber = GlobalVariables.shared.ethGasFee.feeInDollar
