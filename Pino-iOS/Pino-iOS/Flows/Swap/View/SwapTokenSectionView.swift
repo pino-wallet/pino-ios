@@ -47,6 +47,7 @@ class SwapTokenSectionView: UIView {
 		setupView()
 		setupStyle()
 		setupContstraint()
+		setupBinding()
 	}
 
 	required init?(coder: NSCoder) {
@@ -133,6 +134,13 @@ class SwapTokenSectionView: UIView {
 		])
 	}
 
+	private func setupBinding() {
+		swapVM.$selectedToken.sink { selectedToken in
+			self.updateMaxAmount(token: selectedToken)
+			self.updateBalanceStatus()
+		}.store(in: &cancellables)
+	}
+
 	private func updateView() {
 		if swapVM.selectedToken.isVerified {
 			changeTokenView.tokenImageURL = swapVM.selectedToken.image
@@ -165,16 +173,21 @@ class SwapTokenSectionView: UIView {
 		amountTextfield.sendActions(for: .editingChanged)
 	}
 
-	private func updateBalanceStatus() {
-		guard let balanceStatusDidChange else { return }
-		let balanceStatus = swapVM.checkBalanceStatus()
-		balanceStatusDidChange(balanceStatus)
+	fileprivate func extractedFunc(_ balanceStatus: AmountStatus) {
 		switch balanceStatus {
 		case .isEnough, .isZero:
 			hideBalanceError()
 		case .isNotEnough:
 			showBalanceError()
 		}
+	}
+
+	private func updateBalanceStatus(token: AssetViewModel? = nil) {
+		guard let balanceStatusDidChange else { return }
+		let selectedToken = token ?? swapVM.selectedToken
+		let balanceStatus = swapVM.checkBalanceStatus(token: selectedToken)
+		balanceStatusDidChange(balanceStatus)
+		extractedFunc(balanceStatus)
 	}
 
 	private func showBalanceError() {
@@ -185,6 +198,11 @@ class SwapTokenSectionView: UIView {
 	private func hideBalanceError() {
 		maxAmountTitle.textColor = .Pino.label
 		maxAmountLabel.textColor = .Pino.label
+	}
+
+	private func updateMaxAmount(token: AssetViewModel) {
+		swapVM.maxHoldAmount = token.amount
+		maxAmountLabel.text = swapVM.maxHoldAmount
 	}
 
 	// MARK: - Public Methods
