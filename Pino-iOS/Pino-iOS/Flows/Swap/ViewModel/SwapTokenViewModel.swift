@@ -62,10 +62,6 @@ class SwapTokenViewModel {
 		}
 	}
 
-	public func checkBalanceStatus() -> AmountStatus {
-		checkBalanceStatus(token: selectedToken)
-	}
-
 	// MARK: - Private Methods
 
 	private func calculateDollarAmount(enteredAmount: String?) {
