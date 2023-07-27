@@ -116,7 +116,6 @@ class ActivityCell: UICollectionViewCell {
 
 	private func setupConstraint() {
 		historyTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 180).isActive = true
-		historyMoreInfoLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60).isActive = true
 		historyTitleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 220).isActive = true
 		historyMoreInfoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 120).isActive = true
 
