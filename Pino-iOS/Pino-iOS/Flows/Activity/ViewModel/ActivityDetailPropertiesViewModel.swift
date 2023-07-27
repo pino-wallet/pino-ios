@@ -58,15 +58,11 @@ struct ActivityDetailProperties {
 
 	// information properties
 	public var formattedDate: String {
-		activityDetails.formattedTime
-	}
-
-	public var fullFormattedDate: String {
 		let activityHelper = ActivityHelper()
 		let activityDate = activityHelper
 			.getActivityDate(activityBlockTime: activityDetails.defaultActivityModel.blockTime)
 		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "MMM-d-yyyy HH:mm:ss Z"
+		dateFormatter.dateFormat = "MMM d yyyy, HH:mm"
 		return dateFormatter.string(from: activityDate)
 	}
 
@@ -97,10 +93,6 @@ struct ActivityDetailProperties {
 		case .pending:
 			return ActivityStatus.pending
 		}
-	}
-
-	public var typeName: String {
-		activityDetails.uiType.rawValue
 	}
 
 	public var fromAddress: String?
@@ -233,25 +225,25 @@ extension ActivityUIType {
 	fileprivate var pageTitleText: String {
 		switch self {
 		case .swap:
-			return "Swap details"
+			return "Swap"
 		case .borrow:
-			return "Borrow details"
+			return "Borrow"
 		case .send:
-			return "Send details"
+			return "Send"
 		case .receive:
-			return "Receive details"
+			return "Receive"
 		case .unknown:
-			return "Unknown transaction"
+			return "Unknown"
 		case .collateral:
-			return "Collateral details"
+			return "Add collateral"
 		case .un_collateral:
-			return "Uncollateral details"
+			return "Withdraw collateral"
 		case .invest:
-			return "Investment details"
+			return "Invest"
 		case .repay:
-			return "Repay details"
+			return "Repay"
 		case .withdraw:
-			return "Withdraw details"
+			return "Withdraw investment"
 		}
 	}
 }
