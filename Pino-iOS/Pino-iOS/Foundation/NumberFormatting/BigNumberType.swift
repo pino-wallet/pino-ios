@@ -96,6 +96,35 @@ public struct BigNumber {
 		absNumber.number.sign = .plus
 		return absNumber
 	}
+    
+    private var isBiggerThanMillion: Bool {
+        let million = BigInt(10).power(6 + decimal)
+        if number >= million {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    public var abbreviatedFormat: String {
+        let million = BigInt(10).power(6 + decimal)
+        let billion = BigInt(10).power(9 + decimal)
+        
+        if number >= billion {
+            let formattedNumber = number / billion
+            let decimalPart = formattedNumber % BigInt(10)
+            let decimalString = decimalPart > 0 ? ".\(decimalPart)" : ""
+            return "\(formattedNumber)\(decimalString)B"
+        } else if number >= million {
+            let formattedNumber = number / million
+            let decimalPart = formattedNumber % BigInt(10)
+            let decimalString = decimalPart > 0 ? ".\(decimalPart)" : ""
+            return "\(formattedNumber)\(decimalString)M"
+        } else {
+            return number.description
+        }
+    }
+    
 }
 
 // MARK: - Operator Overloading
@@ -186,11 +215,20 @@ extension BigNumber: CustomStringConvertible {
 	}
 
 	public var sevenDigitFormat: String {
-		formattedAmountOf(type: .sevenDigitsRule)
+        if isBiggerThanMillion {
+            return abbreviatedFormat
+        } else {
+            return formattedAmountOf(type: .sevenDigitsRule)
+        }
 	}
 
 	public var priceFormat: String {
-		let formattedNumber = formattedAmountOf(type: .priceRule)
+        let formattedNumber: String!
+        if isBiggerThanMillion {
+            formattedNumber = abbreviatedFormat
+        } else {
+            formattedNumber = formattedAmountOf(type: .priceRule)
+        }
 		if isZero {
 			return "0"
 		} else if self.abs < BigNumber(number: 1, decimal: 2) {
