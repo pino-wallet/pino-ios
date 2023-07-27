@@ -137,7 +137,7 @@ class SwapTokenSectionView: UIView {
 	private func setupBinding() {
 		swapVM.$selectedToken.sink { selectedToken in
 			self.updateMaxAmount(token: selectedToken)
-            self.updateBalanceStatus()
+			self.updateBalanceStatus()
 		}.store(in: &cancellables)
 	}
 
@@ -173,21 +173,21 @@ class SwapTokenSectionView: UIView {
 		amountTextfield.sendActions(for: .editingChanged)
 	}
 
-    fileprivate func extractedFunc(_ balanceStatus: AmountStatus) {
-        switch balanceStatus {
-        case .isEnough, .isZero:
-            hideBalanceError()
-        case .isNotEnough:
-            showBalanceError()
-        }
-}
+	fileprivate func extractedFunc(_ balanceStatus: AmountStatus) {
+		switch balanceStatus {
+		case .isEnough, .isZero:
+			hideBalanceError()
+		case .isNotEnough:
+			showBalanceError()
+		}
+	}
 
-private func updateBalanceStatus(token: AssetViewModel? = nil) {
+	private func updateBalanceStatus(token: AssetViewModel? = nil) {
 		guard let balanceStatusDidChange else { return }
-        let selectedToken = token ?? swapVM.selectedToken
+		let selectedToken = token ?? swapVM.selectedToken
 		let balanceStatus = swapVM.checkBalanceStatus(token: selectedToken)
 		balanceStatusDidChange(balanceStatus)
-    extractedFunc(balanceStatus)
+		extractedFunc(balanceStatus)
 	}
 
 	private func showBalanceError() {
