@@ -159,7 +159,8 @@ extension BigNumber: Equatable, Comparable {
 	}
 
 	public static func == (lhs: BigNumber, rhs: BigNumber) -> Bool {
-		lhs.number == rhs.number && lhs.decimal == rhs.decimal
+		let (lhsNorm, rhsNorm) = normalize(lhs: lhs, rhs: rhs)
+		return lhsNorm == rhsNorm
 	}
 
 	// Normalize two BigNumbers to have the same decimal scale
