@@ -225,7 +225,7 @@ class ActivityInfoView: UIView {
 	private func copyString(string: String) {
 		let pasteboard = UIPasteboard.general
 		pasteboard.string = string
-        Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)
+		Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)
 	}
 
 	private func setValues() {

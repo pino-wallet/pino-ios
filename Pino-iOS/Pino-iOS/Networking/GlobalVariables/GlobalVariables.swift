@@ -35,7 +35,7 @@ class GlobalVariables {
 			fetchSharedInfo().catch { error in
 				Toast.default(
 					title: GlobalErrors.connectionFailed.message,
-                    subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
 					style: .error
 				)
 				.show(haptic: .warning)
@@ -78,7 +78,7 @@ class GlobalVariables {
 					} else {
 						Toast.default(
 							title: GlobalErrors.connectionFailed.message,
-                            subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+							subtitle: GlobalToastTitles.tryAgainToastTitle.message,
 							style: .error
 						)
 						.show(haptic: .warning)

@@ -86,7 +86,7 @@ class ReceiveAssetView: UIView {
 		copyAddressButton.titleText = receiveVM.copyAddressButtonText
 		copyAddressButton.onTap = { [self] in
 			UIPasteboard.general.string = receiveVM.accountAddress
-            Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)
+			Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)
 		}
 
 		addSubview(accountOwnerName)

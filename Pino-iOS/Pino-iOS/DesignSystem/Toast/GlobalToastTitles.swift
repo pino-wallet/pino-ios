@@ -6,16 +6,15 @@
 //
 
 enum GlobalToastTitles {
-    
-    case copy
-    case tryAgainToastTitle
-    
-    public var message: String {
-        switch self {
-        case .copy:
-            return "Copied!"
-        case .tryAgainToastTitle:
-            return "Please try again!"
-        }
-    }
+	case copy
+	case tryAgainToastTitle
+
+	public var message: String {
+		switch self {
+		case .copy:
+			return "Copied!"
+		case .tryAgainToastTitle:
+			return "Please try again!"
+		}
+	}
 }

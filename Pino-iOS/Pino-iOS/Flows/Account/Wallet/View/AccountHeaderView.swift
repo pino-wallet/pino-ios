@@ -99,6 +99,6 @@ class AccountHeaderView: UICollectionReusableView {
 		let pasteboard = UIPasteboard.general
 		pasteboard.string = accountInfoVM.address
 
-        Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)
+		Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)
 	}
 }

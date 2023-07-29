@@ -75,7 +75,7 @@ class ActivityViewModel {
 				print(error)
 				Toast.default(
 					title: self.errorFetchingToastMessage,
-                    subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
 					style: .error
 				)
 				.show(haptic: .warning)
