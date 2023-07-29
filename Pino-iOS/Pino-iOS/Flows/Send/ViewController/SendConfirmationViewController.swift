@@ -86,7 +86,7 @@ class SendConfirmationViewController: AuthenticationLockViewController {
 
 	private func showFeeError(_ error: Error) {
 		sendConfirmationView.showfeeCalculationError()
-		Toast.default(title: "\(error.localizedDescription)", subtitle: "Please try again!", style: .error)
+        Toast.default(title: "\(error.localizedDescription)", subtitle: GlobalToastTitles.tryAgainToastTitle.message, style: .error)
 			.show(haptic: .warning)
 	}
 }

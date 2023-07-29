@@ -67,7 +67,7 @@ class RecoveryPhraseViewController: AuthenticationLockViewController {
 	private func copySecretPhrase() {
 		let pasteboard = UIPasteboard.general
 		pasteboard.string = secretPhraseVM.secretPhraseList.joined(separator: " ")
-		Toast.default(title: secretPhraseVM.recoveryPhraseCopied, style: .copy).show(haptic: .success)
+        Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)
 	}
 
 	private func showFaceID() {

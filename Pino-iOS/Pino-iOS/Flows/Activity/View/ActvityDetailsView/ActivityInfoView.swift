@@ -222,10 +222,10 @@ class ActivityInfoView: UIView {
 		protocolStackView.isHidden = true
 	}
 
-	private func copyString(string: String, toastTitle: String) {
+	private func copyString(string: String) {
 		let pasteboard = UIPasteboard.general
 		pasteboard.string = string
-		Toast.default(title: toastTitle, style: .copy).show(haptic: .success)
+        Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)
 	}
 
 	private func setValues() {
@@ -281,13 +281,12 @@ class ActivityInfoView: UIView {
 	@objc
 	private func copyFromAddress() {
 		copyString(
-			string: activityProperties.fullFromAddress!,
-			toastTitle: activityDetailsVM.copyFromAddressText
+			string: activityProperties.fullFromAddress!
 		)
 	}
 
 	@objc
 	private func copyToAddress() {
-		copyString(string: activityProperties.fullToAddress!, toastTitle: activityDetailsVM.copyToAddressText)
+		copyString(string: activityProperties.fullToAddress!)
 	}
 }
