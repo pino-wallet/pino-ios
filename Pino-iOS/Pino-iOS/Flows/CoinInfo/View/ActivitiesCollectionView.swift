@@ -138,9 +138,9 @@ class ActivitiesCollectionView: UICollectionView {
 
 extension ActivitiesCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if !showLoading {
-            openActivityDetails(separatedActivities[indexPath.section].activities[indexPath.item])
-        }
+		if !showLoading {
+			openActivityDetails(separatedActivities[indexPath.section].activities[indexPath.item])
+		}
 	}
 }
 
