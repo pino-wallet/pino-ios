@@ -52,10 +52,10 @@ class AddCustomAssetViewController: UIViewController {
 			validateClipboardText()
 		}
 	}
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self)
-    }
+
+	override func viewDidDisappear(_ animated: Bool) {
+		NotificationCenter.default.removeObserver(self)
+	}
 
 	// MARK: - Private Methods
 
