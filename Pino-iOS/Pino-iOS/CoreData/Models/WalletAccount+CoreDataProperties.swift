@@ -35,6 +35,4 @@ extension WalletAccount {
 	public var lastBalance: String
 	@NSManaged
 	public var selectedAssets: NSSet
-	@NSManaged
-	public var defaultAssetsAdded: Bool
 }
