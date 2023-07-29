@@ -45,10 +45,11 @@ class HomepageViewModel {
 	// MARK: Private Methods
 
 	private func switchSecurityMode(_ isOn: Bool) {
+		guard let selectedAssets = GlobalVariables.shared.selectedManageAssetsList else { return }
 		if let walletBalance {
 			walletBalance.switchSecurityMode(isOn)
 		}
-		for asset in GlobalVariables.shared.selectedManageAssetsList {
+		for asset in selectedAssets {
 			asset.switchSecurityMode(isOn)
 		}
 		if let positionAssetsList {
