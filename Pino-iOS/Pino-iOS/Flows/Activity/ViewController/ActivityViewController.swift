@@ -34,6 +34,7 @@ class ActivityViewController: UIViewController {
 
 	override func viewWillDisappear(_ animated: Bool) {
 		activityVM.destroyTimer()
+		activityVM.destroyPrevData()
 	}
 
 	// MARK: - Private Methods
@@ -59,7 +60,7 @@ class ActivityViewController: UIViewController {
 
 	private func openActivityDetailsPage(activityDetails: ActivityCellViewModel) {
 		let navigationVC = UINavigationController()
-		let activityDetailsVC = ActivityDetailsViewController(activityDetails: activityDetails.defaultActivityModel)
+		let activityDetailsVC = ActivityDetailsViewController(activityDetails: activityDetails)
 		navigationVC.viewControllers = [activityDetailsVC]
 		present(navigationVC, animated: true)
 	}

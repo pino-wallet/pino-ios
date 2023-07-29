@@ -12,6 +12,7 @@ enum ActivityEndpoint: EndpointType {
 
 	case tokenActivities(userAddress: String, tokenAddress: String)
 	case allActivities(userAddress: String)
+	case singleActivity(txHash: String)
 
 	// MARK: - Internal Methods
 
@@ -36,19 +37,21 @@ enum ActivityEndpoint: EndpointType {
 			return "user/\(userAddress)/activities/\(tokenAddress)"
 		case let .allActivities(userAddress: userAddress):
 			return "user/\(userAddress)/activities"
+		case let .singleActivity(txHash: txHash):
+			return "activity/\(txHash)"
 		}
 	}
 
 	internal var task: HTTPTask {
 		switch self {
-		case .allActivities, .tokenActivities:
+		case .allActivities, .tokenActivities, .singleActivity:
 			return .request
 		}
 	}
 
 	internal var httpMethod: HTTPMethod {
 		switch self {
-		case .allActivities, .tokenActivities:
+		case .allActivities, .tokenActivities, .singleActivity:
 			return .get
 		}
 	}

@@ -5,18 +5,24 @@
 //  Created by Amir hossein kazemi seresht on 7/11/23.
 //
 
+import Combine
 import Foundation
 
 class ActivityDetailsViewModel {
 	// MARK: - Private Properties
 
-	private let activityDetails: ActivityModel
+	private let globalAssetsList = GlobalVariables.shared.manageAssetsList
+	private let activityAPIClient = ActivityAPIClient()
+	private let errorFetchingToastMessage = "Error fetching activity from server"
+	private let tryAgainToastMessage = "Please try again!"
+	private var requestTimer: Timer!
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 
+	public var activityDetails: ActivityCellViewModel
 	#warning("this is for test")
 	public let unVerifiedAssetIconName = "unverified_asset"
-	public let pageTitle = "Activity Details"
 	public let dismissNavigationIconName = "dissmiss"
 	public let swapDownArrow = "swap_down_arrow"
 	public let dateTitle = "Date"
@@ -36,124 +42,78 @@ class ActivityDetailsViewModel {
 	public let feeActionSheetText = "this is fee"
 	public let statusActionSheetText = "this is status"
 	public let typeActionSheetText = "this is type"
+	public let copyFromAddressText = "From wallet address has been copied"
+	public let copyToAddressText = "To wallet address has been copied"
 
-	// header properties
-	#warning("this section is mock and for test")
-	public var assetIconName: String? {
-		"unverified_asset"
-	}
-
-	public var assetAmountTitle: String? {
-		"200 SDT"
-	}
-
-	public var fromTokenSymbol: String? {
-		"ETH"
-	}
-
-	public var toTokenSymbol: String? {
-		"USDC"
-	}
-
-	public var fromTokenImageName: String? {
-		"cETH"
-	}
-
-	public var toTokenImageName: String? {
-		"USDC"
-	}
-
-	public var fromTokenAmount: String? {
-		"0.5"
-	}
-
-	public var toTokenAmount: String? {
-		"1100"
-	}
-
-	// information properties
-	public var formattedDate: String {
-		"2 days ago"
-	}
-
-	public var fullFormattedDate: String {
-		"May-19-2023 08:41:11 AM +UTC"
-	}
-
-	public var protocolName: String? {
-		"Uniswap"
-	}
-
-	public var protocolImage: String? {
-		"1inch"
-	}
-
-	public var feeInDollar: String {
-		"$2"
-	}
-
-	public var feeInToken: String {
-		"1 UNI"
-	}
-
-	public var status: ActivityStatus {
-		ActivityStatus.complete
-	}
-
-	public var typeName: String {
-		"Borrow"
-	}
-
-	public var fromAddress: String? {
-		"0x7840fD13A8237C08A258DDd982D369acA81388A3"
-	}
-
-	public var toAddress: String? {
-		"0x7840fD13A8237C08A258DDd982D369acA81388A3"
-	}
-
-	public var fromIcon: String? {
-		"avocado"
-	}
-
-	public var toIcon: String? {
-		"avocado"
-	}
-
-	public var fromName: String? {
-		"Amir"
-	}
-
-	public var toName: String? {
-		"Amir"
-	}
-
-	public var uiType: ActivityUIType {
-		.swap
-	}
+	@Published
+	public var properties: ActivityDetailProperties!
 
 	// MARK: - Initializers
 
-	init(activityDetails: ActivityModel) {
+	init(activityDetails: ActivityCellViewModel) {
 		self.activityDetails = activityDetails
+		self.properties = ActivityDetailProperties(
+			activityDetails: activityDetails
+		)
 	}
-}
 
-extension ActivityDetailsViewModel {
-	enum ActivityStatus {
-		case complete
-		case failed
-		case pending
+	// MARK: - Public Methods
 
-		public var description: String {
-			switch self {
-			case .complete:
-				return "Complete"
-			case .failed:
-				return "Failed"
-			case .pending:
-				return "Pending"
-			}
+	public func getActivityDetailsFromVC() {
+		if activityDetails.status == .pending {
+			setupRequestTimer()
+			requestTimer.fire()
 		}
+	}
+
+	public func destroyTimer() {
+		requestTimer?.invalidate()
+		requestTimer = nil
+	}
+
+	public func refreshData() {
+		if activityDetails.status == .pending {
+			requestTimer?.fire()
+		} else {
+			properties = properties
+		}
+	}
+
+	// MARK: - Private Methods
+
+	private func setupRequestTimer() {
+		requestTimer = Timer.scheduledTimer(
+			timeInterval: 12,
+			target: self,
+			selector: #selector(getActivityDetails),
+			userInfo: nil,
+			repeats: true
+		)
+	}
+
+	@objc
+	private func getActivityDetails() {
+		activityAPIClient.singleActivity(txHash: activityDetails.defaultActivityModel.txHash).sink { completed in
+			switch completed {
+			case .finished:
+				print("Activity received successfully")
+			case let .failure(error):
+				print(error)
+				Toast.default(
+					title: self.errorFetchingToastMessage,
+					subtitle: self.tryAgainToastMessage,
+					style: .error
+				)
+				.show(haptic: .warning)
+			}
+		} receiveValue: { activityDetails in
+			let newActivityDetails = ActivityCellViewModel(activityModel: activityDetails)
+			if newActivityDetails.status != .pending {
+				self.destroyTimer()
+			}
+			self.properties = ActivityDetailProperties(
+				activityDetails: newActivityDetails
+			)
+		}.store(in: &cancellables)
 	}
 }

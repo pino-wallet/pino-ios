@@ -9,6 +9,14 @@ import Combine
 import UIKit
 
 class ActivitiesCollectionView: UICollectionView {
+	// MARK: - TypeAliases
+
+	typealias OpenActivityDetailsType = (_ activityDetails: ActivityCellViewModel) -> Void
+
+	// MARK: - Closures
+
+	public var openActivityDetails: OpenActivityDetailsType
+
 	// MARK: - Private Properties
 
 	private var cancellable = Set<AnyCancellable>()
@@ -20,8 +28,9 @@ class ActivitiesCollectionView: UICollectionView {
 
 	// MARK: - Initializers
 
-	init(coinInfoVM: CoinInfoViewModel) {
+	init(coinInfoVM: CoinInfoViewModel, openActivityDetails: @escaping OpenActivityDetailsType) {
 		self.coinInfoVM = coinInfoVM
+		self.openActivityDetails = openActivityDetails
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 		flowLayout.minimumLineSpacing = 8
@@ -57,6 +66,11 @@ class ActivitiesCollectionView: UICollectionView {
 			CoinInfoFooterview.self,
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
 			withReuseIdentifier: CoinInfoFooterview.footerReuseID
+		)
+		register(
+			CoinInfoEmptyStateFooterView.self,
+			forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+			withReuseIdentifier: CoinInfoEmptyStateFooterView.emptyStateFooterID
 		)
 
 		dataSource = self
@@ -117,6 +131,14 @@ class ActivitiesCollectionView: UICollectionView {
 				}
 			}
 		}
+	}
+}
+
+// MARK: - CollectionView Delegate
+
+extension ActivitiesCollectionView: UICollectionViewDelegate {
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		openActivityDetails(separatedActivities[indexPath.section].activities[indexPath.item])
 	}
 }
 
@@ -194,14 +216,41 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 				return activityHeaderView
 			}
 		case UICollectionView.elementKindSectionFooter:
-			let coinInfoFooterView = dequeueReusableSupplementaryView(
-				ofKind: UICollectionView.elementKindSectionFooter,
-				withReuseIdentifier: CoinInfoFooterview.footerReuseID,
-				for: indexPath
-			) as! CoinInfoFooterview
-			coinInfoFooterView.coinInfoVM = coinInfoVM
+			switch coinInfoVM.coinPortfolio.type {
+			case .verified:
+				let coinInfoFooterView = dequeueReusableSupplementaryView(
+					ofKind: UICollectionView.elementKindSectionFooter,
+					withReuseIdentifier: CoinInfoEmptyStateFooterView.emptyStateFooterID,
+					for: indexPath
+				) as! CoinInfoEmptyStateFooterView
 
-			return coinInfoFooterView
+				coinInfoFooterView.emptyFooterVM = CoinInfoEmptyStateFooterViewModel(
+					titleText: coinInfoVM.emptyActivityTitleText,
+					iconName: coinInfoVM.emptyActivityIconName
+				)
+				return coinInfoFooterView
+			case .unVerified:
+				let coinInfoFooterView = dequeueReusableSupplementaryView(
+					ofKind: UICollectionView.elementKindSectionFooter,
+					withReuseIdentifier: CoinInfoFooterview.footerReuseID,
+					for: indexPath
+				) as! CoinInfoFooterview
+
+				coinInfoFooterView.coinInfoVM = coinInfoVM
+
+				return coinInfoFooterView
+			case .position:
+				let coinInfoFooterView = dequeueReusableSupplementaryView(
+					ofKind: UICollectionView.elementKindSectionFooter,
+					withReuseIdentifier: CoinInfoFooterview.footerReuseID,
+					for: indexPath
+				) as! CoinInfoFooterview
+
+				coinInfoFooterView.coinInfoVM = coinInfoVM
+
+				return coinInfoFooterView
+			}
+
 		default:
 			fatalError("Unknown kind of coin info reusable view")
 		}
@@ -241,6 +290,12 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 	) -> CGSize {
 		switch coinInfoVM.coinPortfolio.type {
 		case .verified:
+			guard let userAcitivites = coinInfoVM.coinHistoryList else {
+				return CGSize(width: 0, height: 0)
+			}
+			if userAcitivites.isEmpty {
+				return CGSize(width: collectionView.frame.width, height: 157)
+			}
 			return CGSize(width: 0, height: 0)
 		case .unVerified:
 			return CGSize(width: collectionView.frame.width, height: 200)

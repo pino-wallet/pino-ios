@@ -5,6 +5,8 @@
 //  Created by Amir hossein kazemi seresht on 7/11/23.
 //
 
+import Combine
+import Kingfisher
 import UIKit
 
 class ActivityDetailsHeaderView: UIView {
@@ -19,6 +21,7 @@ class ActivityDetailsHeaderView: UIView {
 	private let defaultStackView = UIStackView()
 	private let defaultImageView = UIImageView()
 	private let defaultTitleLabel = PinoLabel(style: .title, text: "")
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -30,6 +33,7 @@ class ActivityDetailsHeaderView: UIView {
 		setupView()
 		setupStyles()
 		setupConstraints()
+		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -52,11 +56,6 @@ class ActivityDetailsHeaderView: UIView {
 		defaultStackView.spacing = 16
 
 		defaultTitleLabel.font = .PinoStyle.semiboldTitle2
-		defaultTitleLabel.text = activityDetailsVM.assetAmountTitle ?? ""
-		defaultTitleLabel.numberOfLines = 0
-
-		defaultImageView
-			.image = UIImage(named: activityDetailsVM.assetIconName ?? activityDetailsVM.unVerifiedAssetIconName)
 	}
 
 	private func setupConstraints() {
@@ -65,5 +64,19 @@ class ActivityDetailsHeaderView: UIView {
 		cardView.pin(.allEdges(padding: 0))
 		defaultStackView.pin(.verticalEdges(padding: 16), .horizontalEdges(padding: 14))
 		defaultImageView.pin(.fixedWidth(50), .fixedHeight(50))
+	}
+
+	private func setValues(activityProperties: ActivityDetailProperties) {
+		defaultTitleLabel.text = activityProperties.assetAmountTitle ?? ""
+		defaultTitleLabel.numberOfLines = 0
+
+		defaultImageView.kf.indicatorType = .activity
+		defaultImageView.kf.setImage(with: activityProperties.assetIcon)
+	}
+
+	private func setupBindings() {
+		activityDetailsVM.$properties.sink { activityProperties in
+			self.setValues(activityProperties: activityProperties!)
+		}.store(in: &cancellables)
 	}
 }

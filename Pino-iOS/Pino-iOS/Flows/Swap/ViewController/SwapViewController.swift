@@ -58,6 +58,8 @@ class SwapViewController: UIViewController {
 				)
 				self.view = self.swapView
 				self.setupBinding()
+			} else {
+				self.updateSelectedToken(assetList: assetList)
 			}
 			self.assets = assetList
 		}.store(in: &cancellables)
@@ -67,6 +69,12 @@ class SwapViewController: UIViewController {
 		let ethToken = assetList.first(where: { $0.isEth })!
 		let usdcToken = assetList.first(where: { $0.symbol == "USDC" })!
 		swapVM = SwapViewModel(fromToken: ethToken, toToken: usdcToken)
+	}
+
+	private func updateSelectedToken(assetList: [AssetViewModel]) {
+		guard let selectedToken = assetList.first(where: { $0.id == self.swapVM.fromToken.selectedToken.id })
+		else { return }
+		swapVM.fromToken.selectedToken = selectedToken
 	}
 
 	private func setupStyle() {
@@ -129,7 +137,7 @@ class SwapViewController: UIViewController {
 	}
 
 	private func selectAssetForFromToken() {
-		var filteredAssets = assets!.filter { $0.isSelected && !$0.holdAmount.isZero }
+		var filteredAssets = assets!.filter { $0.isSelected && !$0.holdAmount.isZero && $0.isVerified }
 		// To prevent swapping same tokens
 		filteredAssets.removeAll(where: { $0.id == swapVM.toToken.selectedToken.id })
 		openSelectAssetPage(assets: filteredAssets) { selectedToken in
@@ -138,7 +146,7 @@ class SwapViewController: UIViewController {
 	}
 
 	private func selectAssetForToToken() {
-		var filteredAssets = assets!
+		var filteredAssets = assets!.filter { $0.isVerified }
 		// To prevent swapping same tokens
 		filteredAssets.removeAll(where: { $0.id == swapVM.fromToken.selectedToken.id })
 		openSelectAssetPage(assets: filteredAssets) { selectedToken in

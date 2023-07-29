@@ -152,9 +152,7 @@ class CoinInfoStatsView: UIStackView {
 
 			firstStatLabel.text = coinInfoVM.coinPortfolio.website
 
-			secondStatLabel.text = coinInfoVM.coinPortfolio.contractAddress
-			secondStatLabel.lineBreakMode = .byTruncatingMiddle
-			setupSecondStatLabelConstraint()
+			secondStatLabel.text = coinInfoVM.coinPortfolio.formattedContractAddress
 
 			coinPriceLabel.text = coinInfoVM.coinPortfolio.price
 
@@ -177,9 +175,7 @@ class CoinInfoStatsView: UIStackView {
 
 			firstStatLabel.text = coinInfoVM.coinPortfolio.website
 
-			secondStatLabel.text = coinInfoVM.coinPortfolio.contractAddress
-			secondStatLabel.lineBreakMode = .byTruncatingMiddle
-			setupSecondStatLabelConstraint()
+			secondStatLabel.text = coinInfoVM.coinPortfolio.formattedContractAddress
 
 		case .position:
 			firstTitleLabel.text = coinInfoVM.protocolTitle
@@ -190,10 +186,6 @@ class CoinInfoStatsView: UIStackView {
 			thirdStatLabel.isHidden = false
 			#warning("this section should be updated after connect app to position assets")
 		}
-	}
-
-	private func setupSecondStatLabelConstraint() {
-		secondStatLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 100).isActive = true
 	}
 
 	@objc

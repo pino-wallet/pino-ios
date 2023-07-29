@@ -320,7 +320,7 @@
 		D9BCE5C72A63C519002A9B58 /* ActivitySwapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BCE5C62A63C519002A9B58 /* ActivitySwapHeaderView.swift */; };
 		D9BE15AD2A693539005E4063 /* ActivityDetailsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE15AC2A693539005E4063 /* ActivityDetailsProtocol.swift */; };
 		D9BE15B02A693593005E4063 /* SwapDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE15AF2A693593005E4063 /* SwapDetailsViewModel.swift */; };
-		D9BE15B22A69360E005E4063 /* TransfareDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE15B12A69360E005E4063 /* TransfareDetailsViewModel.swift */; };
+		D9BE15B22A69360E005E4063 /* TransferDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE15B12A69360E005E4063 /* TransferDetailsViewModel.swift */; };
 		D9BFEC372A121706007DFF40 /* AllowNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC362A121706007DFF40 /* AllowNotificationsViewController.swift */; };
 		D9BFEC392A121719007DFF40 /* AllowNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC382A121719007DFF40 /* AllowNotificationsView.swift */; };
 		D9BFEC3B2A12177C007DFF40 /* AllowNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC3A2A12177C007DFF40 /* AllowNotificationsViewModel.swift */; };
@@ -338,10 +338,13 @@
 		D9D9A4082A5E8A4400CECA41 /* ActivityInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9A4072A5E8A4400CECA41 /* ActivityInfoView.swift */; };
 		D9D9A40A2A5E9CD200CECA41 /* ImageAndTitleStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9A4092A5E9CD200CECA41 /* ImageAndTitleStackView.swift */; };
 		D9D9A40C2A5ED76400CECA41 /* ActivityInfoStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9A40B2A5ED76400CECA41 /* ActivityInfoStackView.swift */; };
+		D9DC773F2A6FAB2B00AA0987 /* ActivityDetailPropertiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC773E2A6FAB2B00AA0987 /* ActivityDetailPropertiesViewModel.swift */; };
 		D9DD538BAF953A18503AB3F0 /* RemoveAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887EDE19A8B81F1FB217E0FA /* RemoveAccountView.swift */; };
 		D9E134852A52FB4A00193FF0 /* ActivityHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E134842A52FB4A00193FF0 /* ActivityHeaderView.swift */; };
 		D9E134872A53013D00193FF0 /* ActivityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E134862A53013D00193FF0 /* ActivityHelper.swift */; };
 		D9E34BC92C3AE69B3D5EC4F2 /* PortfolioPerformanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4FFBB4CC6D342FF946AB9 /* PortfolioPerformanceViewModel.swift */; };
+		D9F1BD022A7111FE00F5303F /* CoinInfoEmptyStateFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F1BD012A7111FE00F5303F /* CoinInfoEmptyStateFooterView.swift */; };
+		D9F1BD042A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F1BD032A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift */; };
 		D9F2508029E576FB00DE0410 /* NotificationSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F2507F29E576FB00DE0410 /* NotificationSettingsCell.swift */; };
 		D9F2508229E5855500DE0410 /* SecurityOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F2508129E5855500DE0410 /* SecurityOptionCell.swift */; };
 		DAB2FF91D5EAF0795A12201B /* AddNewAccountOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D375B5D2DBB3E66A081076C /* AddNewAccountOptionViewModel.swift */; };
@@ -821,7 +824,7 @@
 		D9BCE5C62A63C519002A9B58 /* ActivitySwapHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySwapHeaderView.swift; sourceTree = "<group>"; };
 		D9BE15AC2A693539005E4063 /* ActivityDetailsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailsProtocol.swift; sourceTree = "<group>"; };
 		D9BE15AF2A693593005E4063 /* SwapDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapDetailsViewModel.swift; sourceTree = "<group>"; };
-		D9BE15B12A69360E005E4063 /* TransfareDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransfareDetailsViewModel.swift; sourceTree = "<group>"; };
+		D9BE15B12A69360E005E4063 /* TransferDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDetailsViewModel.swift; sourceTree = "<group>"; };
 		D9BFEC362A121706007DFF40 /* AllowNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsViewController.swift; sourceTree = "<group>"; };
 		D9BFEC382A121719007DFF40 /* AllowNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsView.swift; sourceTree = "<group>"; };
 		D9BFEC3A2A12177C007DFF40 /* AllowNotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsViewModel.swift; sourceTree = "<group>"; };
@@ -839,8 +842,11 @@
 		D9D9A4072A5E8A4400CECA41 /* ActivityInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityInfoView.swift; sourceTree = "<group>"; };
 		D9D9A4092A5E9CD200CECA41 /* ImageAndTitleStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAndTitleStackView.swift; sourceTree = "<group>"; };
 		D9D9A40B2A5ED76400CECA41 /* ActivityInfoStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityInfoStackView.swift; sourceTree = "<group>"; };
+		D9DC773E2A6FAB2B00AA0987 /* ActivityDetailPropertiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailPropertiesViewModel.swift; sourceTree = "<group>"; };
 		D9E134842A52FB4A00193FF0 /* ActivityHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHeaderView.swift; sourceTree = "<group>"; };
 		D9E134862A53013D00193FF0 /* ActivityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHelper.swift; sourceTree = "<group>"; };
+		D9F1BD012A7111FE00F5303F /* CoinInfoEmptyStateFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoEmptyStateFooterView.swift; sourceTree = "<group>"; };
+		D9F1BD032A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoEmptyStateFooterViewModel.swift; sourceTree = "<group>"; };
 		D9F2507F29E576FB00DE0410 /* NotificationSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsCell.swift; sourceTree = "<group>"; };
 		D9F2508129E5855500DE0410 /* SecurityOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityOptionCell.swift; sourceTree = "<group>"; };
 		DA8ADDD22F193963D587AE57 /* ChartInfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartInfoItem.swift; sourceTree = "<group>"; };
@@ -1653,6 +1659,7 @@
 				B2D5774D76FC507F8B176185 /* CoinInfoViewModel.swift */,
 				9FF69CD04334D4EE4C9272B8 /* CoinPortfolioViewModel.swift */,
 				E34728F029EEA81000AB8265 /* AssetChartDataViewModel.swift */,
+				D9F1BD032A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2267,7 +2274,7 @@
 			children = (
 				17EF5982289ED9E758D0777F /* ActivityCellViewModel.swift */,
 				D9BE15AF2A693593005E4063 /* SwapDetailsViewModel.swift */,
-				D9BE15B12A69360E005E4063 /* TransfareDetailsViewModel.swift */,
+				D9BE15B12A69360E005E4063 /* TransferDetailsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2331,6 +2338,7 @@
 			children = (
 				D9D11E932A5990F0003C4298 /* ActivityViewModel.swift */,
 				D98207C52A5D5D4D0066A090 /* ActivityDetailsViewModel.swift */,
+				D9DC773E2A6FAB2B00AA0987 /* ActivityDetailPropertiesViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2382,6 +2390,7 @@
 				2F0B2CBC9118CD481635941C /* CoinInfoHeaderView.swift */,
 				D9C7D76129EBDCAE006BC446 /* CoinInfoStatsView.swift */,
 				D9703F6929ED547000D09277 /* CoinInfoFooterview.swift */,
+				D9F1BD012A7111FE00F5303F /* CoinInfoEmptyStateFooterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3113,7 +3122,7 @@
 				D98207C42A5D5C7C0066A090 /* ActivityDetailsView.swift in Sources */,
 				4BD24A38B1C81FA80EB0B6E8 /* AllDoneViewModel.swift in Sources */,
 				A56FBAD2E31C10F504631CD6 /* AppDelegate.swift in Sources */,
-				D9BE15B22A69360E005E4063 /* TransfareDetailsViewModel.swift in Sources */,
+				D9BE15B22A69360E005E4063 /* TransferDetailsViewModel.swift in Sources */,
 				D9F2508229E5855500DE0410 /* SecurityOptionCell.swift in Sources */,
 				D91A3A0529E412A200004CB2 /* NotificationSettingsSection.swift in Sources */,
 				917064233A24F0460102BC15 /* Array+Extension.swift in Sources */,
@@ -3313,6 +3322,7 @@
 				1F98DAC473200ACED0BA403B /* ParameterEncoderProtocol.swift in Sources */,
 				8EA8AEFE97CEC48A2C1DFCB7 /* ParameterEncoding.swift in Sources */,
 				DFA9687E2A0FABB9007D4513 /* WalletAccount+CoreDataProperties.swift in Sources */,
+				D9F1BD022A7111FE00F5303F /* CoinInfoEmptyStateFooterView.swift in Sources */,
 				B6C747AA398D7E37B1B727AC /* PassDotsView.swift in Sources */,
 				DF00178229E82084001164EA /* SecureEnclaveHelper.swift in Sources */,
 				078E15176613CB329D507580 /* PassManagmentError.swift in Sources */,
@@ -3341,6 +3351,7 @@
 				0BB077D3A362E14524196936 /* PortfolioPerformanceCollectionView.swift in Sources */,
 				A1664AE26C5D333D2213330F /* PortfolioPerformanceHeaderView.swift in Sources */,
 				17551EDA11F4F1BE495D1823 /* PortfolioPerformanceViewController.swift in Sources */,
+				D9F1BD042A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift in Sources */,
 				D9E34BC92C3AE69B3D5EC4F2 /* PortfolioPerformanceViewModel.swift in Sources */,
 				122DC5E683E6405E0B3FCE54 /* PortfolioPrformanceCell.swift in Sources */,
 				0AF4C45B72B37F11F656A4B0 /* PositionHeaderView.swift in Sources */,
@@ -3465,6 +3476,7 @@
 				316F0DDECBB3FA68BFFA1577 /* AccountsViewController.swift in Sources */,
 				E35BB6512A62955D003987F5 /* SwapConfirmationViewController.swift in Sources */,
 				D9D11E922A5990B8003C4298 /* ActivityCollectionView.swift in Sources */,
+				D9DC773F2A6FAB2B00AA0987 /* ActivityDetailPropertiesViewModel.swift in Sources */,
 				33647E7FA041A9CC0130F158 /* AccountsViewModel.swift in Sources */,
 				E3F482EF2A35A6E900EEC9CF /* CustomAsset+CoreDataClass.swift in Sources */,
 				DF00178529EC37AF001164EA /* PinoWalletCore.swift in Sources */,

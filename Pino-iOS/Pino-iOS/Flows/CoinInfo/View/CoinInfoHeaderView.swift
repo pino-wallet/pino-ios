@@ -168,8 +168,8 @@ class CoinInfoHeaderView: UICollectionReusableView {
 			)
 		case .unVerified:
 			activitiesTimeTitleLabel.pin(
-				.relative(.top, 24, to: contentView, .bottom),
-				.bottom(padding: 8),
+				.relative(.top, 16, to: contentView, .bottom),
+				.bottom(padding: 0),
 				.horizontalEdges(padding: 16)
 			)
 		case .position:

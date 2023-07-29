@@ -34,8 +34,13 @@ class ActivityViewModel {
 
 	public func getUserActivitiesFromVC() {
 		setupRequestTimer()
-		userActivities = nil
 		requestTimer?.fire()
+	}
+
+	public func destroyPrevData() {
+		userActivities = nil
+		prevActivities = []
+		newUserActivities = []
 	}
 
 	public func refreshUserActvities() {
@@ -69,14 +74,19 @@ class ActivityViewModel {
 				print("User activities received successfully")
 			case let .failure(error):
 				print(error)
-				Toast.default(title: self.errorFetchingToastMessage, subtitle: self.tryAgainToastMessage, style: .error)
-					.show(haptic: .warning)
+				Toast.default(
+					title: self.errorFetchingToastMessage,
+					subtitle: self.tryAgainToastMessage,
+					style: .error
+				)
+				.show(haptic: .warning)
 			}
 		} receiveValue: { [weak self] activities in
 			if self?.userActivities == nil || (self?.userActivities!.isEmpty)! {
 				self?.userActivities = activities.compactMap {
 					ActivityCellViewModel(activityModel: $0)
 				}
+				self?.prevActivities = activities
 			} else {
 				var newActivities: ActivitiesModel = []
 				newActivities = activities.filter { activity in
@@ -85,8 +95,8 @@ class ActivityViewModel {
 				self?.newUserActivities = newActivities.compactMap {
 					ActivityCellViewModel(activityModel: $0)
 				}
+				self?.prevActivities.append(contentsOf: newActivities)
 			}
-			self?.prevActivities = activities
 		}.store(in: &cancellables)
 	}
 }
