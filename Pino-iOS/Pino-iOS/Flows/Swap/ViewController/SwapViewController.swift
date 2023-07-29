@@ -37,9 +37,7 @@ class SwapViewController: UIViewController {
 		view = SwapLoadingView()
 		GlobalVariables.shared.$manageAssetsList.compactMap { $0 }.sink { assetList in
 			if self.assets == nil {
-				self.assets = assetList
-				self.swapVM = SwapViewModel(fromToken: assetList[0], toToken: assetList[1])
-
+				self.setupViewModel(assetList: assetList)
 				self.swapView = SwapView(
 					swapVM: self.swapVM,
 					fromTokenChange: {
@@ -61,7 +59,14 @@ class SwapViewController: UIViewController {
 				self.view = self.swapView
 				self.setupBinding()
 			}
+			self.assets = assetList
 		}.store(in: &cancellables)
+	}
+
+	private func setupViewModel(assetList: [AssetViewModel]) {
+		let ethToken = assetList.first(where: { $0.isEth })!
+		let usdcToken = assetList.first(where: { $0.symbol == "USDC" })!
+		swapVM = SwapViewModel(fromToken: ethToken, toToken: usdcToken)
 	}
 
 	private func setupStyle() {
@@ -124,7 +129,7 @@ class SwapViewController: UIViewController {
 	}
 
 	private func selectAssetForFromToken() {
-		var filteredAssets = assets!.filter { !$0.holdAmount.isZero }
+		var filteredAssets = assets!.filter { $0.isSelected && !$0.holdAmount.isZero }
 		// To prevent swapping same tokens
 		filteredAssets.removeAll(where: { $0.id == swapVM.toToken.selectedToken.id })
 		openSelectAssetPage(assets: filteredAssets) { selectedToken in
