@@ -27,13 +27,12 @@ public enum ActivityCellStatus: String {
 
 public enum ActivityUIType {
 	case swap
-	case borrow
+//	case borrow
 	case send
 	case receive
-	case unknown
-	case collateral
-	case un_collateral
-	case invest
-	case repay
-	case withdraw
+//	case collateral
+//	case un_collateral
+//	case invest
+//	case repay
+//	case withdraw
 }

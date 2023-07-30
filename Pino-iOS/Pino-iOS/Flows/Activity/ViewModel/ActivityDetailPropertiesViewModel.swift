@@ -95,17 +95,21 @@ struct ActivityDetailProperties {
 		}
 	}
 
-	public var fromAddress: String?
+    public var fromAddress: String? {
+        transferDetailsVM?.transferFromAddress
+    }
 
-	public var toAddress: String?
-
-	public var fromIcon: String?
-
-	public var toIcon: String?
-
-	public var fromName: String?
-
-	public var toName: String?
+    public var toAddress: String? {
+        transferDetailsVM?.transferToAddress
+    }
+    
+    public var userFromAccountInfo: TransferDetailsViewModel.UserAccountInfoType? {
+        return transferDetailsVM?.userFromAccountInfo
+    }
+    
+    public var userToAccountInfo: TransferDetailsViewModel.UserAccountInfoType? {
+        return transferDetailsVM?.userToAccountInfo
+    }
 
 	public var fullFromAddress: String? {
 		activityDetails.defaultActivityModel.fromAddress
@@ -122,6 +126,10 @@ struct ActivityDetailProperties {
 	public var pageTitle: String {
 		activityDetails.uiType.pageTitleText
 	}
+    
+    public var exploreURL: URL {
+        return URL(string: "http://www.etherscan.io/tx/\(activityDetails.defaultActivityModel.txHash)")!
+    }
 
 	// MARK: - Initializers
 
@@ -129,7 +137,6 @@ struct ActivityDetailProperties {
 		self.activityDetails = activityDetails
 
 		setDetailsVM()
-		setTransferDetails()
 		setEthToken()
 		setFeeInETH()
 	}
@@ -144,8 +151,8 @@ struct ActivityDetailProperties {
 				globalAssetsList: globalAssetsList
 			)
 
-		case .borrow:
-			return
+//		case .borrow:
+//			return
 		case .send:
 			transferDetailsVM = TransferDetailsViewModel(
 				activityModel: activityDetails.defaultActivityModel,
@@ -157,36 +164,16 @@ struct ActivityDetailProperties {
 				activityModel: activityDetails.defaultActivityModel,
 				globalAssetsList: globalAssetsList
 			)
-
-		case .unknown:
-			return
-		case .collateral:
-			return
-		case .un_collateral:
-			return
-		case .invest:
-			return
-		case .repay:
-			return
-		case .withdraw:
-			return
-		}
-	}
-
-	private mutating func setTransferDetails() {
-		switch activityDetails.uiType {
-		case .send:
-			let currentAccount = PinoWalletManager().currentAccount
-			fromName = currentAccount.name
-			fromIcon = currentAccount.avatarIcon
-			toAddress = transferDetailsVM?.transferToAddress
-		case .receive:
-			let currentAccount = PinoWalletManager().currentAccount
-			toName = currentAccount.name
-			toIcon = currentAccount.avatarIcon
-			fromAddress = transferDetailsVM?.transferFromAddress
-		default:
-			return
+//		case .collateral:
+//			return
+//		case .un_collateral:
+//			return
+//		case .invest:
+//			return
+//		case .repay:
+//			return
+//		case .withdraw:
+//			return
 		}
 	}
 
@@ -226,24 +213,22 @@ extension ActivityUIType {
 		switch self {
 		case .swap:
 			return "Swap"
-		case .borrow:
-			return "Borrow"
+//		case .borrow:
+//			return "Borrow"
 		case .send:
 			return "Send"
 		case .receive:
 			return "Receive"
-		case .unknown:
-			return "Unknown"
-		case .collateral:
-			return "Add collateral"
-		case .un_collateral:
-			return "Withdraw collateral"
-		case .invest:
-			return "Invest"
-		case .repay:
-			return "Repay"
-		case .withdraw:
-			return "Withdraw investment"
+//		case .collateral:
+//			return "Add collateral"
+//		case .un_collateral:
+//			return "Withdraw collateral"
+//		case .invest:
+//			return "Invest"
+//		case .repay:
+//			return "Repay"
+//		case .withdraw:
+//			return "Withdraw investment"
 		}
 	}
 }

@@ -31,6 +31,8 @@ class ActivityHeaderView: UICollectionReusableView {
 	}
 
 	private func setupStyles() {
+        backgroundColor = .Pino.background
+        
 		titleLabel.font = .PinoStyle.mediumSubheadline
 		titleLabel.text = titleText
 		titleLabel.numberOfLines = 0

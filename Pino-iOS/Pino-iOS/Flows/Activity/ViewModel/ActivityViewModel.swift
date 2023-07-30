@@ -81,14 +81,15 @@ class ActivityViewModel {
 				.show(haptic: .warning)
 			}
 		} receiveValue: { [weak self] activities in
+            let filteredActivities = activities.filter({ActivityType(rawValue: $0.type) != nil})
 			if self?.userActivities == nil || (self?.userActivities!.isEmpty)! {
-				self?.userActivities = activities.compactMap {
+				self?.userActivities = filteredActivities.compactMap {
 					ActivityCellViewModel(activityModel: $0)
 				}
-				self?.prevActivities = activities
+				self?.prevActivities = filteredActivities
 			} else {
 				var newActivities: ActivitiesModel = []
-				newActivities = activities.filter { activity in
+				newActivities = filteredActivities.filter { activity in
 					!self!.prevActivities.contains { activity.txHash == $0.txHash }
 				}
 				self?.newUserActivities = newActivities.compactMap {

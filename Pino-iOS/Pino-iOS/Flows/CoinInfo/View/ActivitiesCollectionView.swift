@@ -152,7 +152,7 @@ extension ActivitiesCollectionView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		sizeForItemAt indexPath: IndexPath
 	) -> CGSize {
-		CGSize(width: collectionView.frame.width - 32, height: 0)
+		CGSize(width: collectionView.frame.width - 32, height: 64)
 	}
 }
 
@@ -160,11 +160,10 @@ extension ActivitiesCollectionView: UICollectionViewDelegateFlowLayout {
 
 extension ActivitiesCollectionView: UICollectionViewDataSource {
 	func numberOfSections(in collectionView: UICollectionView) -> Int {
-		let separatedActivitiesCount = separatedActivities.count
-		if separatedActivitiesCount == 0 {
+        if separatedActivities.isEmpty {
 			return 1
 		} else {
-			return separatedActivitiesCount
+            return separatedActivities.count
 		}
 	}
 
@@ -275,12 +274,12 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 			verticalFittingPriority: .fittingSizeLevel
 		)
 		if section == 0 {
-			return headerViewSize
+            return headerViewSize
 		} else {
 			if showLoading {
 				return CGSize(width: 0, height: 0)
 			} else {
-				return headerViewSize
+				return CGSize(width: collectionView.frame.width, height: 46)
 			}
 		}
 	}

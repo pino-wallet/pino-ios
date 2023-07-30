@@ -10,8 +10,6 @@ import Foundation
 struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	// MARK: - Private Properties
 
-	private let unknownTransactionText = "Unknown"
-	private let unknownIcon = "unknown_transaction"
 	private let swapIcon = "swap"
 	private let sendIcon = "send"
 	private let receiveIcon = "receive"
@@ -28,46 +26,39 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 
 	internal var globalAssetsList: [AssetViewModel] = []
 	internal var activityType: ActivityType {
-		if let type = ActivityType(rawValue: activityModel.type) {
-			return type
-		} else {
-			return .other
-		}
+        ActivityType(rawValue: activityModel.type)!
 	}
 
-	internal var uiType: ActivityUIType {
-		switch activityType {
-		case .transfer:
-			if isSendTransaction() {
-				return .send
-			}
-			return .receive
-		case .transfer_from:
-			if isSendTransaction() {
-				return .send
-			}
-			return .receive
-		case .approve:
-			return .unknown
-		case .other_token:
-			return .unknown
-		case .swap:
-			return .swap
-		case .other:
-			return .unknown
-		}
-	}
+    internal var uiType: ActivityUIType {
+        switch activityType {
+        case .transfer:
+            if isSendTransaction() {
+                return .send
+            }
+            return .receive
+        case .transfer_from:
+            if isSendTransaction() {
+                return .send
+            }
+            return .receive
+        case .swap:
+            return .swap
+        }
+    }
 
 	// MARK: - Public Properties
 
 	var activityMoreInfo: String {
-		if uiType == .send {
-			return "To: \(activityModel.detail?.to?.addressFromStartFormatting() ?? "")"
-		} else if uiType == .receive {
-			return "From: \(activityModel.detail?.from?.addressFromStartFormatting() ?? "")"
-		} else {
-			return activityModel.detail?.activityProtocol?.capitalized ?? "-"
-		}
+        switch uiType {
+        case .send:
+            let transactionDetailsVM = TransferDetailsViewModel(activityModel: activityModel, globalAssetsList: globalAssetsList)
+            return "To: \(transactionDetailsVM.userToAccountInfo?.name ?? activityModel.detail?.to?.addressFromStartFormatting() ?? "")"
+        case .receive:
+            let transactionDetailsVM = TransferDetailsViewModel(activityModel: activityModel, globalAssetsList: globalAssetsList)
+            return "From: \(transactionDetailsVM.userFromAccountInfo?.name ?? activityModel.detail?.from?.addressFromStartFormatting() ?? "")"
+        default:
+            return activityModel.detail?.activityProtocol?.capitalized ?? "-"
+        }
 	}
 
 	public var blockTime: String {
@@ -87,24 +78,22 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		switch uiType {
 		case .swap:
 			return swapIcon
-		case .borrow:
-			return borrowIcon
+//		case .borrow:
+//			return borrowIcon
 		case .send:
 			return sendIcon
 		case .receive:
 			return receiveIcon
-		case .unknown:
-			return unknownIcon
-		case .collateral:
-			return collateralIcon
-		case .un_collateral:
-			return UnCollateralIcon
-		case .invest:
-			return investIcon
-		case .repay:
-			return repaidIcon
-		case .withdraw:
-			return withdrawIcon
+//		case .collateral:
+//			return collateralIcon
+//		case .un_collateral:
+//			return UnCollateralIcon
+//		case .invest:
+//			return investIcon
+//		case .repay:
+//			return repaidIcon
+//		case .withdraw:
+//			return withdrawIcon
 		}
 	}
 
@@ -114,9 +103,9 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		case .swap:
 			let swapActivityVM = SwapDetailsViewModel(activityModel: activityModel, globalAssetsList: globalAssetsList)
 
-			return "Swap \(swapActivityVM.fromTokenAmount.sevenDigitFormat) \(swapActivityVM.fromTokenSymbol) to \(swapActivityVM.toTokenAmount.sevenDigitFormat) \(swapActivityVM.toTokenSymbol)"
-		case .borrow:
-			return "Borrow"
+			return "Swap \(swapActivityVM.fromTokenSymbol) -> \(swapActivityVM.toTokenSymbol)"
+//		case .borrow:
+//			return "Borrow"
 		case .send:
 			let transferAcitivityDetailsVM = TransferDetailsViewModel(
 				activityModel: activityModel,
@@ -131,18 +120,16 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			)
 
 			return "Receive \(transferAcitivityDetailsVM.transferTokenAmount.sevenDigitFormat) \(transferAcitivityDetailsVM.transferTokenSymbol)"
-		case .unknown:
-			return unknownTransactionText
-		case .collateral:
-			return "Collateralized"
-		case .un_collateral:
-			return "Uncollateralized"
-		case .invest:
-			return "Invest"
-		case .repay:
-			return "Repaid"
-		case .withdraw:
-			return "Withdraw"
+//		case .collateral:
+//			return "Collateralized"
+//		case .un_collateral:
+//			return "Uncollateralized"
+//		case .invest:
+//			return "Invest"
+//		case .repay:
+//			return "Repaid"
+//		case .withdraw:
+//			return "Withdraw"
 		}
 	}
 
