@@ -398,6 +398,10 @@
 		DFC4D0372A360C3B00F03DC4 /* Web3PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = DFC4D0362A360C3B00F03DC4 /* Web3PromiseKit */; };
 		DFC4D03A2A360D8300F03DC4 /* Web3Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC4D0392A360D8300F03DC4 /* Web3Core.swift */; };
 		DFCAAD3A2A62DA8000D8BB8D /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCAAD392A62DA8000D8BB8D /* Int+Extension.swift */; };
+		DFFDEDA32A75658700D710D7 /* ParaSwapAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6AD2A756123003DB68A /* ParaSwapAPIClient.swift */; };
+		DFFDEDA42A75659E00D710D7 /* ParaSwapEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6AE2A75615D003DB68A /* ParaSwapEndpoint.swift */; };
+		DFFDEDA72A76AD3100D710D7 /* Activity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDA62A76AD3100D710D7 /* Activity+CoreDataClass.swift */; };
+		DFFDEDA82A76AD3100D710D7 /* Activity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDA52A76AD3100D710D7 /* Activity+CoreDataProperties.swift */; };
 		E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCBF9CC6A3C63CAA0DB0AA7 /* ActivityViewController.swift */; };
 		E25F4C14C3273F63F22E983C /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA3FFE35308EBEC961CD7BF /* UIView+Extension.swift */; };
 		E343836A2A3D912A0048BDA1 /* SendConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34383692A3D912A0048BDA1 /* SendConfirmationViewController.swift */; };
@@ -877,8 +881,12 @@
 		DFC1F6A02A75561F003DB68A /* SwapProvidersAPIServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapProvidersAPIServices.swift; sourceTree = "<group>"; };
 		DFC1F6A62A755F55003DB68A /* ParaSwapPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParaSwapPriceResponseModel.swift; sourceTree = "<group>"; };
 		DFC1F6A82A755F7B003DB68A /* SwapPriceRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapPriceRequestModel.swift; sourceTree = "<group>"; };
+		DFC1F6AD2A756123003DB68A /* ParaSwapAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParaSwapAPIClient.swift; sourceTree = "<group>"; };
+		DFC1F6AE2A75615D003DB68A /* ParaSwapEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParaSwapEndpoint.swift; sourceTree = "<group>"; };
 		DFC4D0392A360D8300F03DC4 /* Web3Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3Core.swift; sourceTree = "<group>"; };
 		DFCAAD392A62DA8000D8BB8D /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		DFFDEDA52A76AD3100D710D7 /* Activity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Activity+CoreDataProperties.swift"; path = "/Users/sobhanes/Developer/iOS/pino-ios/Pino-iOS/Pino-iOS/CoreData/Models/Activity+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		DFFDEDA62A76AD3100D710D7 /* Activity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Activity+CoreDataClass.swift"; path = "/Users/sobhanes/Developer/iOS/pino-ios/Pino-iOS/Pino-iOS/CoreData/Models/Activity+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		E149E7B618CEFE5E909B2D78 /* AccountInfoNavigationItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoNavigationItems.swift; sourceTree = "<group>"; };
 		E1575DB9D22AE8EBFE86A7D9 /* SeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhrase.swift; sourceTree = "<group>"; };
 		E19FF7EA659493C72C4B0AD9 /* PinoTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoTextFieldView.swift; sourceTree = "<group>"; };
@@ -2436,6 +2444,8 @@
 			isa = PBXGroup;
 			children = (
 				281840026D1004B10CE8DAFD /* Pino_iOS.xcdatamodeld */,
+				DFFDEDA62A76AD3100D710D7 /* Activity+CoreDataClass.swift */,
+				DFFDEDA52A76AD3100D710D7 /* Activity+CoreDataProperties.swift */,
 				DFA968752A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift */,
 				DFA968782A0FABB9007D4513 /* WalletAccount+CoreDataProperties.swift */,
 				E385F6112A22029100EE7EE1 /* Wallet+CoreDataClass.swift */,
@@ -2482,6 +2492,9 @@
 		DFC1F69F2A7555B0003DB68A /* SwapProviders */ = {
 			isa = PBXGroup;
 			children = (
+				DFC1F6AA2A7560FB003DB68A /* ParaSwap */,
+				DFC1F6AC2A756107003DB68A /* 1inch */,
+				DFC1F6AB2A756103003DB68A /* 0x */,
 			);
 			path = SwapProviders;
 			sourceTree = "<group>";
@@ -2513,6 +2526,29 @@
 			sourceTree = "<group>";
 		};
 		DFC1F6A52A755EF4003DB68A /* 1inch */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = 1inch;
+			sourceTree = "<group>";
+		};
+		DFC1F6AA2A7560FB003DB68A /* ParaSwap */ = {
+			isa = PBXGroup;
+			children = (
+				DFC1F6AD2A756123003DB68A /* ParaSwapAPIClient.swift */,
+				DFC1F6AE2A75615D003DB68A /* ParaSwapEndpoint.swift */,
+			);
+			path = ParaSwap;
+			sourceTree = "<group>";
+		};
+		DFC1F6AB2A756103003DB68A /* 0x */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = 0x;
+			sourceTree = "<group>";
+		};
+		DFC1F6AC2A756107003DB68A /* 1inch */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -3112,6 +3148,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFFDEDA42A75659E00D710D7 /* ParaSwapEndpoint.swift in Sources */,
+				DFFDEDA32A75658700D710D7 /* ParaSwapAPIClient.swift in Sources */,
 				F1C2F0DA68898BE55C08D853 /* APIError.swift in Sources */,
 				E35BB64F2A598B80003987F5 /* GradientBorder.swift in Sources */,
 				C450E796AAC076DD8C15D8F9 /* AboutCoinModel.swift in Sources */,
@@ -3217,6 +3255,7 @@
 				E34728E229E5360300AB8265 /* CoreDataStack.swift in Sources */,
 				DF00178029E80696001164EA /* SecureEnclave.swift in Sources */,
 				B96CE8969DBE6398977B87D5 /* ChartMarker.swift in Sources */,
+				DFFDEDA82A76AD3100D710D7 /* Activity+CoreDataProperties.swift in Sources */,
 				E385F61A2A220DCC00EE7EE1 /* CTSAPIService.swift in Sources */,
 				D9AF6DCC29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift in Sources */,
 				3C9F0B46C521474D32854C66 /* ActivityCell.swift in Sources */,
@@ -3250,6 +3289,7 @@
 				20CB5C205624F431E278A914 /* CoinPerformanceViewModel.swift in Sources */,
 				D9BFEC3B2A12177C007DFF40 /* AllowNotificationsViewModel.swift in Sources */,
 				DFB566272A1926C600F9D6A0 /* ImportTextViewType.swift in Sources */,
+				DFFDEDA72A76AD3100D710D7 /* Activity+CoreDataClass.swift in Sources */,
 				D9C7D76229EBDCAE006BC446 /* CoinInfoStatsView.swift in Sources */,
 				E6A9D57DCF1C0D793FDBEDBF /* CoinPortfolioViewModel.swift in Sources */,
 				D91A3A0329E4124A00004CB2 /* NotificationSettingsCollectionView.swift in Sources */,

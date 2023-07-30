@@ -12,5 +12,4 @@ protocol SwapProvidersAPIServices {
     
     // ParaSwap Provider
     func swapPrice(swapInfo: SwapPriceRequestModel) -> AnyPublisher<ParaSwapPriceResponseModel, APIError>
-    
 }

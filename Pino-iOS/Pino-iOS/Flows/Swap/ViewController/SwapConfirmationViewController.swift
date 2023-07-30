@@ -6,12 +6,16 @@
 //
 
 import UIKit
+import Combine
 
 class SwapConfirmationViewController: AuthenticationLockViewController {
 	// MARK: Private Properties
 
 	let swapConfirmationVM: SwapConfirmationViewModel
+    let swapAPIClient = ParaSwapAPIClient()
+    private var cancellables = Set<AnyCancellable>()
 
+    
 	// MARK: Initializers
 
 	init(swapConfirmationVM: SwapConfirmationViewModel) {
@@ -31,6 +35,7 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+        confirmSwap()
 	}
 
 	override func loadView() {
@@ -67,6 +72,24 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 	}
 
 	private func confirmSwap() {
+        let swapInfo = SwapPriceRequestModel(
+            srcToken: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+            srcDecimals: 18,
+            destToken: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            destDecimals: 6,
+            amount: "1000000000000000000",
+            side: .sell)
+        swapAPIClient.swapPrice(swapInfo: swapInfo).sink { completed in
+            switch completed {
+            case .finished:
+                print("Token activities received successfully")
+            case let .failure(error):
+                print(error)
+            }
+        } receiveValue: { responseReq in
+            print(responseReq)
+        }.store(in: &cancellables)
+
 		unlockApp {}
 	}
 
