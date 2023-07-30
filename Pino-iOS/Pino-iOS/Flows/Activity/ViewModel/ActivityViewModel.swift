@@ -15,7 +15,6 @@ class ActivityViewModel {
 	public let noActivityMessage = "There is no activity"
 	public let noActivityIconName = "empty_activity"
 	public let errorFetchingToastMessage = "Error fetching activities from server"
-	public let tryAgainToastMessage = "Please try again!"
 
 	@Published
 	public var userActivities: [ActivityCellViewModel]? = nil
@@ -76,7 +75,7 @@ class ActivityViewModel {
 				print(error)
 				Toast.default(
 					title: self.errorFetchingToastMessage,
-					subtitle: self.tryAgainToastMessage,
+					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
 					style: .error
 				)
 				.show(haptic: .warning)

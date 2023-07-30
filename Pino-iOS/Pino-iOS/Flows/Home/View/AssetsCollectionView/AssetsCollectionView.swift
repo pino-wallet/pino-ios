@@ -125,8 +125,12 @@ class AssetsCollectionView: UICollectionView {
 			self.refreshControl?.endRefreshing()
 			self.isLoading = false
 		}.catch { error in
-			Toast.default(title: "Error fetching info from server", subtitle: "Please try again!", style: .error)
-				.show(haptic: .warning)
+			Toast.default(
+				title: "Error fetching info from server",
+				subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+				style: .error
+			)
+			.show(haptic: .warning)
 			self.refreshControl?.endRefreshing()
 		}
 	}

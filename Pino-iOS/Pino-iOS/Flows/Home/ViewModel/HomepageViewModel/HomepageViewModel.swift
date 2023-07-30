@@ -23,7 +23,6 @@ class HomepageViewModel {
 	@Published
 	public var securityMode = false
 
-	public let copyToastMessage = "Copied!"
 	public let sendButtonTitle = "Send"
 	public let receiveButtonTitle = "Receive"
 	public let sendButtonImage = "arrow_up"

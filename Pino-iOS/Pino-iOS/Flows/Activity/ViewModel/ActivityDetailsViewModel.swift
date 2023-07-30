@@ -14,7 +14,6 @@ class ActivityDetailsViewModel {
 	private let globalAssetsList = GlobalVariables.shared.manageAssetsList
 	private let activityAPIClient = ActivityAPIClient()
 	private let errorFetchingToastMessage = "Error fetching activity from server"
-	private let tryAgainToastMessage = "Please try again!"
 	private var requestTimer: Timer!
 	private var cancellables = Set<AnyCancellable>()
 
@@ -42,8 +41,6 @@ class ActivityDetailsViewModel {
 	public let feeActionSheetText = "this is fee"
 	public let statusActionSheetText = "this is status"
 	public let typeActionSheetText = "this is type"
-	public let copyFromAddressText = "From wallet address has been copied"
-	public let copyToAddressText = "To wallet address has been copied"
 
 	@Published
 	public var properties: ActivityDetailProperties!
@@ -101,7 +98,7 @@ class ActivityDetailsViewModel {
 				print(error)
 				Toast.default(
 					title: self.errorFetchingToastMessage,
-					subtitle: self.tryAgainToastMessage,
+					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
 					style: .error
 				)
 				.show(haptic: .warning)
