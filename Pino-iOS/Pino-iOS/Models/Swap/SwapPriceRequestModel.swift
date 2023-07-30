@@ -42,6 +42,16 @@ struct SwapPriceRequestModel {
         self.networkID = nil
     }
     
+    init(srcToken: String, destToken: String, amount: String, side: SwapSide) {
+        self.srcToken = srcToken
+        self.srcDecimals = nil
+        self.destToken = destToken
+        self.destDecimals = nil
+        self.amount = amount
+        self.side = side
+        self.networkID = nil
+    }
+    
     public var paraSwapURLParams: HTTPParameters {
         [
             "srcToken": srcToken,
@@ -61,5 +71,18 @@ struct SwapPriceRequestModel {
             "amount": destToken
         ]
     }
-   
+    
+    public var ZeroXSwapURLParams: HTTPParameters {
+        var params = [
+            "sellToken": srcToken,
+            "buyToken": srcDecimals!,
+            "amount": destToken
+        ] as HTTPParameters
+        if side == .sell {
+            params["sellAmount"] = amount
+        } else {
+            params["buyAmount"] = amount
+        }
+        return params
+    }
 }
