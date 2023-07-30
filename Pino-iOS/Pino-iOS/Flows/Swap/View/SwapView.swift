@@ -167,6 +167,10 @@ class SwapView: UIView {
 
 		feeCardView.alpha = 0
 
+		swapFeeView.feeCardOpened = {
+			self.dissmisskeyBoard()
+		}
+
 		// Hide protocol card in small devices
 		if DeviceHelper.shared.size == .small {
 			hideProtocolView()
@@ -298,5 +302,13 @@ class SwapView: UIView {
 	public func hideProtocolView() {
 		protocolCardView.alpha = 0
 		protocolCardView.isHidden = true
+	}
+
+	public func openFeeCard() {
+		swapFeeView.showFeeInfo()
+	}
+
+	public func closeFeeCard() {
+		swapFeeView.hideFeeInfo()
 	}
 }
