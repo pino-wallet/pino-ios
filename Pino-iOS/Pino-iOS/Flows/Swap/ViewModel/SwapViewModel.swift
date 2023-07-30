@@ -55,17 +55,24 @@ class SwapViewModel {
 		} else if toToken.isEditing {
 			getBuyAmount(amount: amount)
 		}
+
 		swapFeeVM.updateAmount(fromToken: fromToken, toToken: toToken)
-		getFeeInfo()
+		if amount != "" {
+			getFeeInfo()
+		}
 	}
 
 	private func getSellAmount(amount: String?) {
 		swapSide = .sell
 		fromToken.calculateDollarAmount(amount)
 		toToken.calculateTokenAmount(decimalDollarAmount: fromToken.decimalDollarAmount)
-		toToken.swapDelegate.swapAmountCalculating()
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-			self.toToken.swapDelegate.swapAmountDidCalculate()
+		if fromToken.tokenAmount == nil {
+			toToken.swapDelegate.swapAmountDidCalculate()
+		} else {
+			toToken.swapDelegate.swapAmountCalculating()
+			DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+				self.toToken.swapDelegate.swapAmountDidCalculate()
+			}
 		}
 	}
 
@@ -73,9 +80,13 @@ class SwapViewModel {
 		swapSide = .buy
 		toToken.calculateDollarAmount(amount)
 		fromToken.calculateTokenAmount(decimalDollarAmount: toToken.decimalDollarAmount)
-		fromToken.swapDelegate.swapAmountCalculating()
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-			self.fromToken.swapDelegate.swapAmountDidCalculate()
+		if toToken.tokenAmount == nil {
+			fromToken.swapDelegate.swapAmountDidCalculate()
+		} else {
+			fromToken.swapDelegate.swapAmountCalculating()
+			DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+				self.fromToken.swapDelegate.swapAmountDidCalculate()
+			}
 		}
 	}
 
