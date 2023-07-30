@@ -26,39 +26,45 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 
 	internal var globalAssetsList: [AssetViewModel] = []
 	internal var activityType: ActivityType {
-        ActivityType(rawValue: activityModel.type)!
+		ActivityType(rawValue: activityModel.type)!
 	}
 
-    internal var uiType: ActivityUIType {
-        switch activityType {
-        case .transfer:
-            if isSendTransaction() {
-                return .send
-            }
-            return .receive
-        case .transfer_from:
-            if isSendTransaction() {
-                return .send
-            }
-            return .receive
-        case .swap:
-            return .swap
-        }
-    }
+	internal var uiType: ActivityUIType {
+		switch activityType {
+		case .transfer:
+			if isSendTransaction() {
+				return .send
+			}
+			return .receive
+		case .transfer_from:
+			if isSendTransaction() {
+				return .send
+			}
+			return .receive
+		case .swap:
+			return .swap
+		}
+	}
 
 	// MARK: - Public Properties
 
 	var activityMoreInfo: String {
-        switch uiType {
-        case .send:
-            let transactionDetailsVM = TransferDetailsViewModel(activityModel: activityModel, globalAssetsList: globalAssetsList)
-            return "To: \(transactionDetailsVM.userToAccountInfo?.name ?? activityModel.detail?.to?.addressFromStartFormatting() ?? "")"
-        case .receive:
-            let transactionDetailsVM = TransferDetailsViewModel(activityModel: activityModel, globalAssetsList: globalAssetsList)
-            return "From: \(transactionDetailsVM.userFromAccountInfo?.name ?? activityModel.detail?.from?.addressFromStartFormatting() ?? "")"
-        default:
-            return activityModel.detail?.activityProtocol?.capitalized ?? "-"
-        }
+		switch uiType {
+		case .send:
+			let transactionDetailsVM = TransferDetailsViewModel(
+				activityModel: activityModel,
+				globalAssetsList: globalAssetsList
+			)
+			return "To: \(transactionDetailsVM.userToAccountInfo?.name ?? activityModel.detail?.to?.addressFromStartFormatting() ?? "")"
+		case .receive:
+			let transactionDetailsVM = TransferDetailsViewModel(
+				activityModel: activityModel,
+				globalAssetsList: globalAssetsList
+			)
+			return "From: \(transactionDetailsVM.userFromAccountInfo?.name ?? activityModel.detail?.from?.addressFromStartFormatting() ?? "")"
+		default:
+			return activityModel.detail?.activityProtocol?.capitalized ?? "-"
+		}
 	}
 
 	public var blockTime: String {

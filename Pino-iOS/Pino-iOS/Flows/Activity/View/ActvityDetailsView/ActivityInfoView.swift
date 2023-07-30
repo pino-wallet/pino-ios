@@ -79,22 +79,21 @@ class ActivityInfoView: UIView {
 		)
 
 		let copyFromAddressGesture = UITapGestureRecognizer(target: self, action: #selector(copyFromAddress))
-        let copyToAddressGesture = UITapGestureRecognizer(target: self, action: #selector(copyToAddress))
-        let copyCustomFromAddressGesture = UITapGestureRecognizer(target: self, action: #selector(copyFromAddress))
-        let copyCustomToAddressGesture = UITapGestureRecognizer(target: self, action: #selector(copyToAddress))
-        
-        
+		let copyToAddressGesture = UITapGestureRecognizer(target: self, action: #selector(copyToAddress))
+		let copyCustomFromAddressGesture = UITapGestureRecognizer(target: self, action: #selector(copyFromAddress))
+		let copyCustomToAddressGesture = UITapGestureRecognizer(target: self, action: #selector(copyToAddress))
+
 		fromAddressLabel.addGestureRecognizer(copyFromAddressGesture)
 		fromAddressLabel.isUserInteractionEnabled = true
-        
-        fromInfoCustomView.addGestureRecognizer(copyCustomFromAddressGesture)
-        fromInfoCustomView.isUserInteractionEnabled = true
+
+		fromInfoCustomView.addGestureRecognizer(copyCustomFromAddressGesture)
+		fromInfoCustomView.isUserInteractionEnabled = true
 
 		toAddressLabel.addGestureRecognizer(copyToAddressGesture)
 		toAddressLabel.isUserInteractionEnabled = true
-        
-        toInfoCustomView.addGestureRecognizer(copyCustomToAddressGesture)
-        toInfoCustomView.isUserInteractionEnabled = true
+
+		toInfoCustomView.addGestureRecognizer(copyCustomToAddressGesture)
+		toInfoCustomView.isUserInteractionEnabled = true
 
 		let toggleFeeGesture = UITapGestureRecognizer(target: self, action: #selector(toggleFee))
 		feeLabel.addGestureRecognizer(toggleFeeGesture)
@@ -121,27 +120,27 @@ class ActivityInfoView: UIView {
 				show: true
 			), infoCustomView: feeLabel
 		)
-        
-        if activityDetailsVM.properties.userFromAccountInfo != nil {
-            fromStackView = ActivityInfoStackView(
-                title: activityDetailsVM.fromTitle,
-                infoCustomView: fromInfoCustomView
-            )
-        } else {
-            fromStackView = ActivityInfoStackView(
-                title: activityDetailsVM.fromTitle,
-                infoCustomView: fromAddressLabel
-            )
-        }
-        
-        if activityDetailsVM.properties.userToAccountInfo != nil {
-            toStackView = ActivityInfoStackView(
-                title: activityDetailsVM.toTitle,
-                infoCustomView: toInfoCustomView
-            )
-        } else {
-            toStackView = ActivityInfoStackView(title: activityDetailsVM.toTitle, infoCustomView: toAddressLabel)
-        }
+
+		if activityDetailsVM.properties.userFromAccountInfo != nil {
+			fromStackView = ActivityInfoStackView(
+				title: activityDetailsVM.fromTitle,
+				infoCustomView: fromInfoCustomView
+			)
+		} else {
+			fromStackView = ActivityInfoStackView(
+				title: activityDetailsVM.fromTitle,
+				infoCustomView: fromAddressLabel
+			)
+		}
+
+		if activityDetailsVM.properties.userToAccountInfo != nil {
+			toStackView = ActivityInfoStackView(
+				title: activityDetailsVM.toTitle,
+				infoCustomView: toInfoCustomView
+			)
+		} else {
+			toStackView = ActivityInfoStackView(title: activityDetailsVM.toTitle, infoCustomView: toAddressLabel)
+		}
 
 		if activityDetailsVM.properties.uiType == .swap {
 			protocolStackView = ActivityInfoStackView(
@@ -255,13 +254,13 @@ class ActivityInfoView: UIView {
 		}
 		statusInfoLabel.text = activityProperties.status.description
 
-        if activityDetailsVM.properties.userFromAccountInfo != nil {
-            fromInfoCustomView.image = activityDetailsVM.properties.userFromAccountInfo?.image
-            fromInfoCustomView.title = activityDetailsVM.properties.userFromAccountInfo?.name
+		if activityDetailsVM.properties.userFromAccountInfo != nil {
+			fromInfoCustomView.image = activityDetailsVM.properties.userFromAccountInfo?.image
+			fromInfoCustomView.title = activityDetailsVM.properties.userFromAccountInfo?.name
 		}
-        if activityDetailsVM.properties.userToAccountInfo != nil {
-            toInfoCustomView.image = activityDetailsVM.properties.userToAccountInfo?.image
-            toInfoCustomView.title = activityDetailsVM.properties.userToAccountInfo?.name
+		if activityDetailsVM.properties.userToAccountInfo != nil {
+			toInfoCustomView.image = activityDetailsVM.properties.userToAccountInfo?.image
+			toInfoCustomView.title = activityDetailsVM.properties.userToAccountInfo?.name
 		}
 
 		protocolInfoCustomView.title = activityProperties.protocolName

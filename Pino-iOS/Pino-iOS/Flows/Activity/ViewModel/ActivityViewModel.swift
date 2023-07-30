@@ -81,7 +81,7 @@ class ActivityViewModel {
 				.show(haptic: .warning)
 			}
 		} receiveValue: { [weak self] activities in
-            let filteredActivities = activities.filter({ActivityType(rawValue: $0.type) != nil})
+			let filteredActivities = activities.filter { ActivityType(rawValue: $0.type) != nil }
 			if self?.userActivities == nil || (self?.userActivities!.isEmpty)! {
 				self?.userActivities = filteredActivities.compactMap {
 					ActivityCellViewModel(activityModel: $0)

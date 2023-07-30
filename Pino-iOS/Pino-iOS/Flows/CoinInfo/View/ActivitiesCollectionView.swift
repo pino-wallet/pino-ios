@@ -160,10 +160,10 @@ extension ActivitiesCollectionView: UICollectionViewDelegateFlowLayout {
 
 extension ActivitiesCollectionView: UICollectionViewDataSource {
 	func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if separatedActivities.isEmpty {
+		if separatedActivities.isEmpty {
 			return 1
 		} else {
-            return separatedActivities.count
+			return separatedActivities.count
 		}
 	}
 
@@ -274,7 +274,7 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 			verticalFittingPriority: .fittingSizeLevel
 		)
 		if section == 0 {
-            return headerViewSize
+			return headerViewSize
 		} else {
 			if showLoading {
 				return CGSize(width: 0, height: 0)

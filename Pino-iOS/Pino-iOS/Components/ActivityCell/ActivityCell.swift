@@ -113,7 +113,6 @@ class ActivityCell: UICollectionViewCell {
 		statusLabelContainer.layer.cornerRadius = 10
 		statusLabelContainer.layer.masksToBounds = true
 	}
-    
 
 	private func setupConstraint() {
 		historyTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 180).isActive = true

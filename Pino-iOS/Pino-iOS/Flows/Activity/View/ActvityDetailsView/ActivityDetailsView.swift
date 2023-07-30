@@ -113,9 +113,9 @@ class ActivityDetailsView: UIScrollView {
 		footerIconView.image = UIImage(named: activityDetailsVM.otherTokenTransactionIconName)
 
 		footerContainerView.isHidden = true
-        #warning("later we should show footer container view for other tokens transaction")
+		#warning("later we should show footer container view for other tokens transaction")
 
-        mainStackView.setCustomSpacing(16, after: activityDetailsHeader)
+		mainStackView.setCustomSpacing(16, after: activityDetailsHeader)
 	}
 
 	private func setupConstraintsWithUIType() {
@@ -153,6 +153,6 @@ class ActivityDetailsView: UIScrollView {
 
 	@objc
 	private func openEthScan() {
-        UIApplication.shared.open(activityDetailsVM.properties.exploreURL)
+		UIApplication.shared.open(activityDetailsVM.properties.exploreURL)
 	}
 }

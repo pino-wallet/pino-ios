@@ -91,7 +91,7 @@ class CoinInfoViewModel {
 				print(error)
 			}
 		} receiveValue: { [weak self] activities in
-            let filteredActivities = activities.filter({ActivityType(rawValue: $0.type) != nil})
+			let filteredActivities = activities.filter { ActivityType(rawValue: $0.type) != nil }
 			self?.coinHistoryList = filteredActivities.compactMap {
 				ActivityCellViewModel(activityModel: $0)
 			}

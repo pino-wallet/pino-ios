@@ -95,21 +95,21 @@ struct ActivityDetailProperties {
 		}
 	}
 
-    public var fromAddress: String? {
-        transferDetailsVM?.transferFromAddress
-    }
+	public var fromAddress: String? {
+		transferDetailsVM?.transferFromAddress
+	}
 
-    public var toAddress: String? {
-        transferDetailsVM?.transferToAddress
-    }
-    
-    public var userFromAccountInfo: TransferDetailsViewModel.UserAccountInfoType? {
-        return transferDetailsVM?.userFromAccountInfo
-    }
-    
-    public var userToAccountInfo: TransferDetailsViewModel.UserAccountInfoType? {
-        return transferDetailsVM?.userToAccountInfo
-    }
+	public var toAddress: String? {
+		transferDetailsVM?.transferToAddress
+	}
+
+	public var userFromAccountInfo: TransferDetailsViewModel.UserAccountInfoType? {
+		transferDetailsVM?.userFromAccountInfo
+	}
+
+	public var userToAccountInfo: TransferDetailsViewModel.UserAccountInfoType? {
+		transferDetailsVM?.userToAccountInfo
+	}
 
 	public var fullFromAddress: String? {
 		activityDetails.defaultActivityModel.fromAddress
@@ -126,10 +126,10 @@ struct ActivityDetailProperties {
 	public var pageTitle: String {
 		activityDetails.uiType.pageTitleText
 	}
-    
-    public var exploreURL: URL {
-        return URL(string: "http://www.etherscan.io/tx/\(activityDetails.defaultActivityModel.txHash)")!
-    }
+
+	public var exploreURL: URL {
+		URL(string: "http://www.etherscan.io/tx/\(activityDetails.defaultActivityModel.txHash)")!
+	}
 
 	// MARK: - Initializers
 
