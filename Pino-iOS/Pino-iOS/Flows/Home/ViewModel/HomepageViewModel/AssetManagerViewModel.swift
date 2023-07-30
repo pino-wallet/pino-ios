@@ -145,9 +145,9 @@ class AssetManagerViewModel {
 	}
 
 	private func addDefaultAssetsToCoreData(assets: [BalanceAssetModel]) {
-		let defaultToken = coreDataManager.addNewSelectedAsset(id: ctsAPIclient.defaultTokenID)
-		selectedAssets = [defaultToken]
-		let userAssets = assets.filter { $0.amount != "0" }
+		let ethToken = coreDataManager.addNewSelectedAsset(id: ctsAPIclient.defaultTokenID)
+		selectedAssets = [ethToken]
+		let userAssets = assets.filter { !BigNumber(number: $0.amount, decimal: $0.detail!.decimals).isZero }
 		for token in userAssets {
 			let selectedAsset = coreDataManager.addNewSelectedAsset(id: token.id)
 			selectedAssets.append(selectedAsset)
