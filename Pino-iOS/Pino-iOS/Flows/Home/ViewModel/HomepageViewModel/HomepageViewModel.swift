@@ -66,8 +66,7 @@ class HomepageViewModel {
 			self.switchSecurityMode(securityMode)
 		}.store(in: &cancellables)
 
-		GlobalVariables.shared.$selectedManageAssetsList.sink { assets in
-			guard let assets else { return }
+		GlobalVariables.shared.$selectedManageAssetsList.compactMap { $0 }.sink { assets in
 			self.getWalletBalance(assets: assets)
 		}.store(in: &cancellables)
 	}
