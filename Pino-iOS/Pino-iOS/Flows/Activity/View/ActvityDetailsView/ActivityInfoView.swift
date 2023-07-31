@@ -34,8 +34,8 @@ class ActivityInfoView: UIView {
 	private var protocolStackView: ActivityInfoStackView!
 	private var feeStackView: ActivityInfoStackView!
 	private var activityProperties: ActivityDetailProperties!
-	private var sendInfoCustomView: ImageAndTitleStackView!
-	private var receiveInfoCustomView: ImageAndTitleStackView!
+	private var fromInfoCustomView: ImageAndTitleStackView!
+	private var toInfoCustomView: ImageAndTitleStackView!
 	private var protocolInfoCustomView: ImageAndTitleStackView!
 	private var cancellables = Set<AnyCancellable>()
 
@@ -64,11 +64,11 @@ class ActivityInfoView: UIView {
 	private func setupView() {
 		statusLabelContainer.addSubview(statusInfoLabel)
 
-		sendInfoCustomView = ImageAndTitleStackView(
+		fromInfoCustomView = ImageAndTitleStackView(
 			image: nil,
 			title: nil
 		)
-		receiveInfoCustomView = ImageAndTitleStackView(
+		toInfoCustomView = ImageAndTitleStackView(
 			image: nil,
 			title: nil
 		)
@@ -79,12 +79,21 @@ class ActivityInfoView: UIView {
 		)
 
 		let copyFromAddressGesture = UITapGestureRecognizer(target: self, action: #selector(copyFromAddress))
+		let copyToAddressGesture = UITapGestureRecognizer(target: self, action: #selector(copyToAddress))
+		let copyCustomFromAddressGesture = UITapGestureRecognizer(target: self, action: #selector(copyFromAddress))
+		let copyCustomToAddressGesture = UITapGestureRecognizer(target: self, action: #selector(copyToAddress))
+
 		fromAddressLabel.addGestureRecognizer(copyFromAddressGesture)
 		fromAddressLabel.isUserInteractionEnabled = true
 
-		let copyToAddressGesture = UITapGestureRecognizer(target: self, action: #selector(copyToAddress))
+		fromInfoCustomView.addGestureRecognizer(copyCustomFromAddressGesture)
+		fromInfoCustomView.isUserInteractionEnabled = true
+
 		toAddressLabel.addGestureRecognizer(copyToAddressGesture)
 		toAddressLabel.isUserInteractionEnabled = true
+
+		toInfoCustomView.addGestureRecognizer(copyCustomToAddressGesture)
+		toInfoCustomView.isUserInteractionEnabled = true
 
 		let toggleFeeGesture = UITapGestureRecognizer(target: self, action: #selector(toggleFee))
 		feeLabel.addGestureRecognizer(toggleFeeGesture)
@@ -112,26 +121,24 @@ class ActivityInfoView: UIView {
 			), infoCustomView: feeLabel
 		)
 
-		if activityDetailsVM.properties.uiType == .send {
+		if activityDetailsVM.properties.userFromAccountInfo != nil {
 			fromStackView = ActivityInfoStackView(
 				title: activityDetailsVM.fromTitle,
-				infoCustomView: sendInfoCustomView
-			)
-			toStackView = ActivityInfoStackView(title: activityDetailsVM.toTitle, infoCustomView: toAddressLabel)
-		} else if activityDetailsVM.properties.uiType == .receive {
-			toStackView = ActivityInfoStackView(
-				title: activityDetailsVM.toTitle,
-				infoCustomView: receiveInfoCustomView
-			)
-			fromStackView = ActivityInfoStackView(
-				title: activityDetailsVM.fromTitle,
-				infoCustomView: fromAddressLabel
+				infoCustomView: fromInfoCustomView
 			)
 		} else {
 			fromStackView = ActivityInfoStackView(
 				title: activityDetailsVM.fromTitle,
 				infoCustomView: fromAddressLabel
 			)
+		}
+
+		if activityDetailsVM.properties.userToAccountInfo != nil {
+			toStackView = ActivityInfoStackView(
+				title: activityDetailsVM.toTitle,
+				infoCustomView: toInfoCustomView
+			)
+		} else {
 			toStackView = ActivityInfoStackView(title: activityDetailsVM.toTitle, infoCustomView: toAddressLabel)
 		}
 
@@ -182,23 +189,20 @@ class ActivityInfoView: UIView {
 		switch activityDetailsVM.properties.uiType {
 		case .swap:
 			hideFromAndToStackView()
-		case .borrow:
-			hideFromAndToStackView()
+//		case .borrow:
+//			hideFromAndToStackView()
 		case .send, .receive:
 			hidePrtocolAndTypeStackView()
-		case .unknown:
-			protocolStackView.isHidden = true
-			hideFromAndToStackView()
-		case .collateral:
-			hideFromAndToStackView()
-		case .un_collateral:
-			hideFromAndToStackView()
-		case .invest:
-			hideFromAndToStackView()
-		case .repay:
-			hideFromAndToStackView()
-		case .withdraw:
-			hideFromAndToStackView()
+//		case .collateral:
+//			hideFromAndToStackView()
+//		case .un_collateral:
+//			hideFromAndToStackView()
+//		case .invest:
+//			hideFromAndToStackView()
+//		case .repay:
+//			hideFromAndToStackView()
+//		case .withdraw:
+//			hideFromAndToStackView()
 		}
 	}
 
@@ -250,12 +254,13 @@ class ActivityInfoView: UIView {
 		}
 		statusInfoLabel.text = activityProperties.status.description
 
-		if activityProperties.uiType == .send {
-			sendInfoCustomView.title = activityProperties.fromName
-			sendInfoCustomView.image = activityProperties.fromIcon
-		} else if activityProperties.uiType == .receive {
-			receiveInfoCustomView.title = activityProperties.toName
-			receiveInfoCustomView.image = activityProperties.toIcon
+		if activityDetailsVM.properties.userFromAccountInfo != nil {
+			fromInfoCustomView.image = activityDetailsVM.properties.userFromAccountInfo?.image
+			fromInfoCustomView.title = activityDetailsVM.properties.userFromAccountInfo?.name
+		}
+		if activityDetailsVM.properties.userToAccountInfo != nil {
+			toInfoCustomView.image = activityDetailsVM.properties.userToAccountInfo?.image
+			toInfoCustomView.title = activityDetailsVM.properties.userToAccountInfo?.name
 		}
 
 		protocolInfoCustomView.title = activityProperties.protocolName

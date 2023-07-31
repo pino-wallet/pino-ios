@@ -44,6 +44,7 @@ class CoinInfoStatsView: UIStackView {
 	init() {
 		super.init(frame: .zero)
 		setupView()
+		setupConstraints()
 	}
 
 	required init(coder: NSCoder) {
@@ -185,6 +186,17 @@ class CoinInfoStatsView: UIStackView {
 			coinPriceStackView.isHidden = true
 			thirdStatLabel.isHidden = false
 			#warning("this section should be updated after connect app to position assets")
+		}
+
+		[firstStatLabel, secondStatLabel, thirdStatLabel].forEach {
+			$0.numberOfLines = 1
+			$0.lineBreakMode = .byTruncatingTail
+		}
+	}
+
+	private func setupConstraints() {
+		[firstStatLabel, secondStatLabel, thirdStatLabel].forEach {
+			$0.widthAnchor.constraint(lessThanOrEqualToConstant: 165).isActive = true
 		}
 	}
 

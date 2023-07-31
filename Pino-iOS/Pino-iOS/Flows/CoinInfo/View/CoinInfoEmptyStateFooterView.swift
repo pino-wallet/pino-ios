@@ -49,6 +49,6 @@ class CoinInfoEmptyStateFooterView: UICollectionReusableView {
 
 	private func setupConstraints() {
 		iconView.pin(.fixedWidth(53), .fixedHeight(53))
-		mainStackView.pin(.horizontalEdges(padding: 16), .bottom(padding: 0), .top(padding: 64))
+		mainStackView.pin(.horizontalEdges(padding: 16), .bottom(padding: 0), .top(padding: 80))
 	}
 }

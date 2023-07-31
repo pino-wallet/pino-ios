@@ -8,6 +8,10 @@
 import Foundation
 
 struct TransferDetailsViewModel: ActivityDetailsProtocol {
+	// MARK: - TypeAliases
+
+	typealias UserAccountInfoType = (image: String, name: String)
+
 	// MARK: - Internal Properties
 
 	internal var activityModel: ActivityModel
@@ -43,5 +47,26 @@ struct TransferDetailsViewModel: ActivityDetailsProtocol {
 
 	public var transferToAddress: String {
 		activityModel.toAddress.shortenedString(characterCountFromStart: 6, characterCountFromEnd: 4)
+	}
+
+	public var userFromAccountInfo: UserAccountInfoType? {
+		getUserAccountInfoBy(address: activityModel.detail?.from ?? "")
+	}
+
+	public var userToAccountInfo: UserAccountInfoType? {
+		getUserAccountInfoBy(address: activityModel.detail?.to ?? "")
+	}
+
+	// MARK: - Private Methods
+
+	private func getUserAccountInfoBy(address: String) -> UserAccountInfoType? {
+		let walletManager = PinoWalletManager()
+		let foundUserAccount = walletManager.accounts
+			.first(where: { $0.eip55Address.lowercased() == address.lowercased() })
+
+		if foundUserAccount != nil {
+			return (image: foundUserAccount!.avatarIcon, name: foundUserAccount!.name)
+		}
+		return nil
 	}
 }

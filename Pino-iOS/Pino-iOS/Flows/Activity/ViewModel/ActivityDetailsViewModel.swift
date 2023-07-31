@@ -34,9 +34,9 @@ class ActivityDetailsViewModel {
 	public let feeTitle = "Fee"
 	public let viewEthScanTitle = "View on etherscan"
 	public let viewEthScanIconName = "primary_right_arrow"
-	public let unknownTransactionMessage =
-		"We do not show more details about unknown transactions. If you want, go to the Etherscan."
-	public let unknownTransactionIconName = "gray_error_alert"
+	public let otherTokenTransactionMessage =
+		"The history are only available for verified assets!"
+	public let otherTokenTransactionIconName = "gray_error_alert"
 	#warning("tooltips are for test")
 	public let feeActionSheetText = "this is fee"
 	public let statusActionSheetText = "this is status"

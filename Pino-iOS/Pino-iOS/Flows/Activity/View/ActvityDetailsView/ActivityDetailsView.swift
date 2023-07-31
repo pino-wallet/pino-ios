@@ -107,19 +107,15 @@ class ActivityDetailsView: UIScrollView {
 		footerStackView.alignment = .top
 
 		footerTextLabel.font = .PinoStyle.mediumCallout
-		footerTextLabel.text = activityDetailsVM.unknownTransactionMessage
+		footerTextLabel.text = activityDetailsVM.otherTokenTransactionMessage
 		footerTextLabel.numberOfLines = 0
 
-		footerIconView.image = UIImage(named: activityDetailsVM.unknownTransactionIconName)
+		footerIconView.image = UIImage(named: activityDetailsVM.otherTokenTransactionIconName)
 
 		footerContainerView.isHidden = true
+		#warning("later we should show footer container view for other tokens transaction")
 
-		if activityDetailsVM.properties.uiType == .unknown {
-			activityDetailsHeader.isHidden = true
-			footerContainerView.isHidden = false
-		} else {
-			mainStackView.setCustomSpacing(16, after: activityDetailsHeader)
-		}
+		mainStackView.setCustomSpacing(16, after: activityDetailsHeader)
 	}
 
 	private func setupConstraintsWithUIType() {
@@ -157,8 +153,6 @@ class ActivityDetailsView: UIScrollView {
 
 	@objc
 	private func openEthScan() {
-		#warning("this is for test")
-		let url = URL(string: "http://www.google.com")!
-		UIApplication.shared.open(url)
+		UIApplication.shared.open(activityDetailsVM.properties.exploreURL)
 	}
 }

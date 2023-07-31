@@ -34,10 +34,12 @@ class ActivityCollectionView: UICollectionView {
 		self.openActivityDetailsClosure = openActivityDetailsClosure
 
 		let flowLayoutView = UICollectionViewFlowLayout(scrollDirection: .vertical)
+
 		super.init(frame: .zero, collectionViewLayout: flowLayoutView)
 		flowLayoutView.collectionView?.backgroundColor = .Pino.background
-		flowLayoutView.collectionView?.contentInset = UIEdgeInsets(top: 54, left: 0, bottom: 24, right: 0)
+		flowLayoutView.collectionView?.contentInset = UIEdgeInsets(top: 46, left: 0, bottom: 24, right: 0)
 		flowLayoutView.minimumLineSpacing = 8
+		flowLayoutView.sectionHeadersPinToVisibleBounds = true
 
 		configureCollectionView()
 		setupBindings()
@@ -132,12 +134,12 @@ class ActivityCollectionView: UICollectionView {
 		if isLoading {
 			showLoading = true
 			reloadData()
-			contentInset = UIEdgeInsets(top: 54, left: 0, bottom: 24, right: 0)
+			contentInset = UIEdgeInsets(top: 46, left: 0, bottom: 24, right: 0)
 			refreshControl?.endRefreshing()
 		} else {
 			showLoading = false
 			reloadData()
-			contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 24, right: 0)
+			contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
 			refreshControl?.endRefreshing()
 		}
 	}
@@ -159,7 +161,7 @@ extension ActivityCollectionView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		sizeForItemAt indexPath: IndexPath
 	) -> CGSize {
-		CGSize(width: collectionView.frame.width - 32, height: 0)
+		CGSize(width: collectionView.frame.width - 32, height: 64)
 	}
 }
 
