@@ -9,19 +9,20 @@ import Foundation
 
 struct SwapPriceRequestModel {
     
-    let srcToken: String
+    var srcToken: String
     let srcDecimals: Int?
     let destToken: String
     let destDecimals: Int?
     let amount: String
-    let side: SwapSide?
+    let side: SwapSide
     let networkID: Int?
     
-    enum SwapSide: Encodable {
-        case buy
-        case sell
-    }
+    public static let paraSwapETHID: String = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
+    public static let oneInchETHID: String = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
+    public static let zeroXETHID: String = "ETH"
+    public static let pinoETHID: String = "0x0000000000000000000000000000000000000000"
     
+    // Initializer for ParaSwap
     init(srcToken: String, srcDecimals: Int, destToken: String, destDecimals: Int, amount: String, side: SwapSide) {
         self.srcToken = srcToken
         self.srcDecimals = srcDecimals
@@ -32,16 +33,7 @@ struct SwapPriceRequestModel {
         self.networkID = 1
     }
     
-    init(srcToken: String, destToken: String, amount: String) {
-        self.srcToken = srcToken
-        self.srcDecimals = nil
-        self.destToken = destToken
-        self.destDecimals = nil
-        self.amount = amount
-        self.side = nil
-        self.networkID = nil
-    }
-    
+    // Initliazer for 1Inch and 0x
     init(srcToken: String, destToken: String, amount: String, side: SwapSide) {
         self.srcToken = srcToken
         self.srcDecimals = nil
@@ -59,7 +51,7 @@ struct SwapPriceRequestModel {
             "destToken": destToken,
             "destDecimals": destDecimals!,
             "amount": amount,
-            "side": "SELL",
+            "side": side.rawValue,
             "network": networkID!,
         ]
     }

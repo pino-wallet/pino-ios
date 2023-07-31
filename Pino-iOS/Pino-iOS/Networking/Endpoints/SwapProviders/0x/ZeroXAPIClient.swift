@@ -15,6 +15,10 @@ final class ZeroXAPIClient: SwapProvidersAPIServices {
     private let networkManager = NetworkManager<ZeroXEndpoint>()
 
     func swapPrice(swapInfo: SwapPriceRequestModel) -> AnyPublisher<ZeroXPriceResponseModel, APIError> {
-        networkManager.request(.quote(swapInfo: swapInfo))
+        var editedSwapInfo: SwapPriceRequestModel = swapInfo
+        if swapInfo.srcToken == SwapPriceRequestModel.pinoETHID {
+            editedSwapInfo.srcToken = SwapPriceRequestModel.zeroXETHID
+        }
+        return networkManager.request(.quote(swapInfo: editedSwapInfo))
     }
 }

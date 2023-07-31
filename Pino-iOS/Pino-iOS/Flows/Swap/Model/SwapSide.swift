@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum SwapSide {
-	case sell
-	case buy
+public enum SwapSide: String, Codable {
+	case sell = "SELL"
+	case buy = "BUY"
 }
