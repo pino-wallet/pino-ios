@@ -80,8 +80,8 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 	private func confirmSwap() {
         
 //        getSwapPrice(swapProviderAPIClient: paraSwapAPIClient)
-        getSwapPrice(swapProviderAPIClient: oneInchAPIClient)
-//        getSwapPrice(swapProviderAPIClient: zeroXAPIClient)
+//        getSwapPrice(swapProviderAPIClient: oneInchAPIClient)
+        getSwapPrice(swapProviderAPIClient: zeroXAPIClient)
 
 //		unlockApp {}
 	}

@@ -17,7 +17,7 @@ enum ZeroXEndpoint: EndpointType {
     internal func request() throws -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod.rawValue
-
+        request.addHeaders(headers)
         try task.configParams(&request)
 
         return request
@@ -32,7 +32,7 @@ enum ZeroXEndpoint: EndpointType {
     internal var path: String {
         switch self {
         case .quote:
-            return "/quote"
+            return "/price"
         }
     }
 
@@ -53,7 +53,7 @@ enum ZeroXEndpoint: EndpointType {
     internal var headers: HTTPHeaders {
         [
             "Content-Type": "application/json",
-            "X-API-TOKEN": "token",
+            "0x-api-key": "7cf84073-95c9-4203-8e85-d3b0fc4cddf0",
         ]
     }
 }

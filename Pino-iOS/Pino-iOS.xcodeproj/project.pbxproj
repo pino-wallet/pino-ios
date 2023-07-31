@@ -2564,8 +2564,8 @@
 		DFC1F6AC2A756107003DB68A /* 1inch */ = {
 			isa = PBXGroup;
 			children = (
-				DFFDEDAD2A7792D800D710D7 /* OneInchEndpoint.swift */,
 				DFFDEDB32A7793A900D710D7 /* OneInchAPIClient.swift */,
+				DFFDEDAD2A7792D800D710D7 /* OneInchEndpoint.swift */,
 			);
 			path = 1inch;
 			sourceTree = "<group>";

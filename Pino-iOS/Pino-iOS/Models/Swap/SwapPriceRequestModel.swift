@@ -78,8 +78,7 @@ struct SwapPriceRequestModel {
     public var ZeroXSwapURLParams: HTTPParameters {
         var params = [
             "sellToken": srcToken,
-            "buyToken": srcDecimals!,
-            "amount": destToken
+            "buyToken": destToken,
         ] as HTTPParameters
         if side == .sell {
             params["sellAmount"] = amount
