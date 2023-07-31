@@ -60,8 +60,8 @@ class CoinInfoHeaderView: UICollectionReusableView {
 	}
 
 	private func setupStyle() {
-        backgroundColor = .Pino.background
-        
+		backgroundColor = .Pino.background
+
 		contentView.backgroundColor = .Pino.secondaryBackground
 		separatorLineView.backgroundColor = .Pino.gray5
 

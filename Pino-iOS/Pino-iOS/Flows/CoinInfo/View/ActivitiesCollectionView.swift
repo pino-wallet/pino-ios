@@ -34,7 +34,7 @@ class ActivitiesCollectionView: UICollectionView {
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 		flowLayout.minimumLineSpacing = 8
-        flowLayout.sectionHeadersPinToVisibleBounds = true
+		flowLayout.sectionHeadersPinToVisibleBounds = true
 
 		configCollectionView()
 		setupView()
@@ -96,7 +96,7 @@ class ActivitiesCollectionView: UICollectionView {
 			}
 			self?.separatedActivities = activityHelper
 				.separateActivitiesByTime(activities: userActivitiesOnToken)
-            self?.separatedActivities.insert((title: "", activities: []), at: 0)
+			self?.separatedActivities.insert((title: "", activities: []), at: 0)
 			guard let isRefreshingStatus = self?.isRefreshing else {
 				return
 			}
@@ -262,7 +262,7 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 		referenceSizeForHeaderInSection section: Int
 	) -> CGSize {
 		if section == 0 {
-                return CGSize(width: collectionView.frame.width, height: 336)
+			return CGSize(width: collectionView.frame.width, height: 336)
 		} else {
 			if showLoading {
 				return CGSize(width: 0, height: 0)
