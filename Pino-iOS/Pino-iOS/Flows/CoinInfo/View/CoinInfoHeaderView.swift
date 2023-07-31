@@ -25,7 +25,6 @@ class CoinInfoHeaderView: UICollectionReusableView {
 	private var volatilityRateStackView = UIStackView()
 	private var volatilityRateIcon = UIImageView()
 	private var volatilityRateLabel = UILabel()
-	private var activitiesTimeTitleLabel = UILabel()
 	private var coinInfoStatsView = CoinInfoStatsView()
 
 	// MARK: - public properties
@@ -37,13 +36,6 @@ class CoinInfoHeaderView: UICollectionReusableView {
 			setupView()
 			setupStyle()
 			setupConstraint()
-		}
-	}
-
-	public var activitiesTimeTitle: String? {
-		didSet {
-			activitiesTimeTitleLabel.text = activitiesTimeTitle
-			activitiesTimeTitleLabel.isHidden = false
 		}
 	}
 
@@ -65,14 +57,14 @@ class CoinInfoHeaderView: UICollectionReusableView {
 		coinTitleStackView.addArrangedSubview(userAmountLabel)
 
 		addSubview(contentView)
-		addSubview(activitiesTimeTitleLabel)
 	}
 
 	private func setupStyle() {
+		backgroundColor = .Pino.background
+
 		contentView.backgroundColor = .Pino.secondaryBackground
 		separatorLineView.backgroundColor = .Pino.gray5
 
-		activitiesTimeTitleLabel.textColor = .Pino.label
 		amountLabel.textColor = .Pino.secondaryLabel
 		userAmountLabel.textColor = .Pino.secondaryLabel
 		assetsTitleLabel.textColor = .Pino.label
@@ -85,7 +77,6 @@ class CoinInfoHeaderView: UICollectionReusableView {
 		contentView.layer.borderColor = UIColor.Pino.white.cgColor
 		contentView.isSkeletonBordered = true
 
-		activitiesTimeTitleLabel.font = .PinoStyle.mediumSubheadline
 		amountLabel.font = .PinoStyle.mediumSubheadline
 		userAmountLabel.font = .PinoStyle.mediumCallout
 		volatilityRateLabel.font = .PinoStyle.mediumSubheadline
@@ -116,8 +107,6 @@ class CoinInfoHeaderView: UICollectionReusableView {
 		amountLabel.text = coinInfoVM.coinPortfolio.price
 		volatilityRateLabel.text = coinInfoVM.coinPortfolio.volatilityRatePercentage
 		assetsTitleLabel.text = coinInfoVM.coinPortfolio.userAmountAndCoinSymbol
-
-		activitiesTimeTitleLabel.isHidden = true
 
 		switch coinInfoVM.coinPortfolio.type {
 		case .verified:
@@ -159,26 +148,5 @@ class CoinInfoHeaderView: UICollectionReusableView {
 			.fixedWidth(12),
 			.fixedHeight(12)
 		)
-		switch coinInfoVM.coinPortfolio.type {
-		case .verified:
-			activitiesTimeTitleLabel.pin(
-				.relative(.top, 16, to: contentView, .bottom),
-				.bottom(padding: 8),
-				.horizontalEdges(padding: 16)
-			)
-		case .unVerified:
-			activitiesTimeTitleLabel.pin(
-				.relative(.top, 24, to: contentView, .bottom),
-				.bottom(padding: 8),
-				.horizontalEdges(padding: 16)
-			)
-		case .position:
-			activitiesTimeTitleLabel.pin(
-				.relative(.top, 0, to: contentView, .bottom),
-				.bottom(padding: 0),
-				.horizontalEdges(padding: 16),
-				.fixedHeight(0)
-			)
-		}
 	}
 }

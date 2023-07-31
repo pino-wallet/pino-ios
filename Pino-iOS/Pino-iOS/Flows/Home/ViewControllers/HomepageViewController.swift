@@ -94,7 +94,7 @@ class HomepageViewController: UIViewController {
 		let pasteboard = UIPasteboard.general
 		pasteboard.string = homeVM.walletInfo.address
 
-		Toast.default(title: homeVM.copyToastMessage, style: .copy, direction: .top).show(haptic: .success)
+		Toast.default(title: GlobalToastTitles.copy.message, style: .copy, direction: .top).show(haptic: .success)
 	}
 
 	@objc
@@ -125,7 +125,7 @@ class HomepageViewController: UIViewController {
 	}
 
 	private func openPortfolioPage() {
-		guard let assets = GlobalVariables.shared.manageAssetsList?.filter({ $0.isVerified }) else { return }
+		guard let assets = GlobalVariables.shared.selectedManageAssetsList?.filter({ $0.isVerified }) else { return }
 		let portfolioPerformanceVC = PortfolioPerformanceViewController(assets: assets)
 		portfolioPerformanceVC.modalPresentationStyle = .formSheet
 		let navigationVC = UINavigationController(rootViewController: portfolioPerformanceVC)
@@ -141,7 +141,7 @@ class HomepageViewController: UIViewController {
 	}
 
 	private func openSendAssetPage() {
-		if let assetsList = GlobalVariables.shared.manageAssetsList {
+		if let assetsList = GlobalVariables.shared.selectedManageAssetsList {
 			let navigationVC = UINavigationController()
 			let filteredAssetsList = assetsList.filter { !$0.holdAmount.isZero }
 			let selectAssetToSendVC = SelectAssetToSendViewController(assets: filteredAssetsList)

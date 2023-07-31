@@ -8,8 +8,7 @@
 enum ActivityType: String, Codable {
 	case transfer
 	case transfer_from
-	case approve
-	case other_token
+//	case approve
+//	case other_token
 	case swap
-	case other
 }

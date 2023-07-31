@@ -129,14 +129,21 @@ class AssetLineChart: UIView, LineChartDelegate {
 
 		chartPointer.isHidden = true
 
-		coinVolatilityPersentage.layer.cornerRadius = 6
+		coinVolatilityPersentage.layer.cornerRadius = 8
+		coinBalanceLabel.layer.cornerRadius = 14
+		dateLabel.layer.cornerRadius = 14
+
 		coinVolatilityPersentage.layer.masksToBounds = true
+		coinBalanceLabel.layer.masksToBounds = true
+		dateLabel.layer.masksToBounds = true
 
 		coinBalanceLabel.isSkeletonable = true
 		dateLabel.isSkeletonable = true
 		coinVolatilityPersentage.isSkeletonable = true
 
 		lineChartView.chartDelegate = self
+
+		showLoading()
 	}
 
 	private func setupCostraints() {
@@ -172,34 +179,42 @@ class AssetLineChart: UIView, LineChartDelegate {
 			coinBalanceLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
 			dateLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
 			coinVolatilityPersentage.widthAnchor.constraint(greaterThanOrEqualToConstant: 40),
-			coinBalanceLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24),
-			dateLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24),
-			coinVolatilityPersentage.heightAnchor.constraint(greaterThanOrEqualToConstant: 12),
+			coinBalanceLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 28),
+			dateLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 28),
+			coinVolatilityPersentage.heightAnchor.constraint(greaterThanOrEqualToConstant: 16),
 		])
 	}
 
 	private func setupBindings() {
 		$chartVM.sink { chart in
 			if let chart {
-				self.coinBalanceLabel.text = chart.balance
-				self.coinVolatilityPersentage.text = chart.volatilityPercentage
-				self.dateLabel.text = chart.chartDate
-				self.updateVolatilityColor(type: chart.volatilityType)
-				self.lineChartView.chartDataEntries = chart.chartDataEntry
-				self.hideSkeletonView()
-				self.loadingGradientView.alpha = 0
-			} else {
-				self.showSkeletonView()
-				self.lineChartView.showLoading()
-				self.loadingGradientView.alpha = 0.8
+				self.reloadChartData(chart)
 			}
 		}.store(in: &cancellables)
 	}
 
+	private func showLoading() {
+		showSkeletonView()
+		lineChartView.showLoading()
+		loadingGradientView.alpha = 0.8
+		chartDateFilter.isEnabled = false
+	}
+
+	private func reloadChartData(_ chart: AssetChartViewModel) {
+		coinBalanceLabel.text = chart.balance
+		coinVolatilityPersentage.text = chart.volatilityPercentage
+		dateLabel.text = chart.chartDate
+		updateVolatilityColor(type: chart.volatilityType)
+		lineChartView.chartDataEntries = chart.chartDataEntry
+		hideSkeletonView()
+		loadingGradientView.alpha = 0
+		chartDateFilter.isEnabled = true
+	}
+
 	@objc
 	private func updateChart(sender: UISegmentedControl) {
+		showLoading()
 		let dateFilter = dateFilters[sender.selectedSegmentIndex]
-		chartVM = nil
 		dateFilterChanged(dateFilter)
 	}
 

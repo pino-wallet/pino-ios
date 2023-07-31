@@ -44,6 +44,7 @@ class CoinInfoStatsView: UIStackView {
 	init() {
 		super.init(frame: .zero)
 		setupView()
+		setupConstraints()
 	}
 
 	required init(coder: NSCoder) {
@@ -152,9 +153,7 @@ class CoinInfoStatsView: UIStackView {
 
 			firstStatLabel.text = coinInfoVM.coinPortfolio.website
 
-			secondStatLabel.text = coinInfoVM.coinPortfolio.contractAddress
-			secondStatLabel.lineBreakMode = .byTruncatingMiddle
-			setupSecondStatLabelConstraint()
+			secondStatLabel.text = coinInfoVM.coinPortfolio.formattedContractAddress
 
 			coinPriceLabel.text = coinInfoVM.coinPortfolio.price
 
@@ -177,9 +176,7 @@ class CoinInfoStatsView: UIStackView {
 
 			firstStatLabel.text = coinInfoVM.coinPortfolio.website
 
-			secondStatLabel.text = coinInfoVM.coinPortfolio.contractAddress
-			secondStatLabel.lineBreakMode = .byTruncatingMiddle
-			setupSecondStatLabelConstraint()
+			secondStatLabel.text = coinInfoVM.coinPortfolio.formattedContractAddress
 
 		case .position:
 			firstTitleLabel.text = coinInfoVM.protocolTitle
@@ -190,10 +187,17 @@ class CoinInfoStatsView: UIStackView {
 			thirdStatLabel.isHidden = false
 			#warning("this section should be updated after connect app to position assets")
 		}
+
+		[firstStatLabel, secondStatLabel, thirdStatLabel].forEach {
+			$0.numberOfLines = 1
+			$0.lineBreakMode = .byTruncatingTail
+		}
 	}
 
-	private func setupSecondStatLabelConstraint() {
-		secondStatLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 100).isActive = true
+	private func setupConstraints() {
+		[firstStatLabel, secondStatLabel, thirdStatLabel].forEach {
+			$0.widthAnchor.constraint(lessThanOrEqualToConstant: 165).isActive = true
+		}
 	}
 
 	@objc
@@ -201,7 +205,7 @@ class CoinInfoStatsView: UIStackView {
 		let pasteBoard = UIPasteboard.general
 		pasteBoard.string = coinInfoVM.coinPortfolio.website
 
-		Toast.default(title: coinInfoVM.copyWebsiteToastText, style: .copy).show(haptic: .success)
+		Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)
 	}
 
 	@objc
@@ -210,7 +214,7 @@ class CoinInfoStatsView: UIStackView {
 			let pasteBoard = UIPasteboard.general
 			pasteBoard.string = coinInfoVM.coinPortfolio.contractAddress
 
-			Toast.default(title: coinInfoVM.copyContractAddressToastText, style: .copy).show(haptic: .success)
+			Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)
 		}
 	}
 }

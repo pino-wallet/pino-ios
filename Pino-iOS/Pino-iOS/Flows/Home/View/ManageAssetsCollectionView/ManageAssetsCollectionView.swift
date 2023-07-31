@@ -26,7 +26,7 @@ class ManageAssetsCollectionView: UICollectionView {
 
 	init(homeVM: HomepageViewModel) {
 		self.homeVM = homeVM
-		self.filteredAssets = GlobalVariables.shared.manageAssetsList ?? []
+		self.filteredAssets = GlobalVariables.shared.manageAssetsList?.filter { $0.isEth == false } ?? []
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 

@@ -84,6 +84,14 @@ struct CoinPortfolioViewModel {
 			return coinPortfolioModel.detail!.id
 		}
 	}
+
+	public var formattedContractAddress: String {
+		if isEthCoin {
+			return "-"
+		} else {
+			return coinPortfolioModel.detail!.id.addressFormating()
+		}
+	}
 }
 
 extension CoinPortfolioViewModel {

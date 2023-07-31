@@ -16,11 +16,11 @@ class AssetManagerViewModel {
 
 	// MARK: - Private Initiliazer
 
+	private var tokens: [Detail] = []
 	private init() {}
 
 	// MARK: - Public Properties
 
-	public var tokens: [Detail] = []
 	public var selectedAssets = [SelectedAsset]()
 
 	@Published
@@ -71,6 +71,8 @@ class AssetManagerViewModel {
 			)
 		}
 		assetsModelList = tokensModel
+		checkDefaultAssetsAdded(assets: tokensModel)
+		getSelectedAssetsFromCoreData()
 		let tokens = tokensModel.compactMap {
 			AssetViewModel(assetModel: $0, isSelected: self.selectedAssets.map { $0.id }.contains($0.id))
 		}
@@ -113,14 +115,14 @@ class AssetManagerViewModel {
 	}
 
 	internal func getSelectedAssetsFromCoreData() {
-		selectedAssets = coreDataManager.getAllSelectedAssets()
+		let currentAccount = PinoWalletManager().currentAccount
+		selectedAssets = currentAccount.selectedAssets.allObjects as! [SelectedAsset]
 	}
 
-	internal func checkDefaultAssetsAdded() {
-		let defaultAssetUserDefaultsKey = "isDefaultAssetsAdded"
-		if !UserDefaults.standard.bool(forKey: defaultAssetUserDefaultsKey) {
-			addDefaultAssetsToCoreData()
-			UserDefaults.standard.setValue(true, forKey: defaultAssetUserDefaultsKey)
+	internal func checkDefaultAssetsAdded(assets: [BalanceAssetModel]) {
+		let currentAccount = PinoWalletManager().currentAccount
+		if currentAccount.selectedAssets.allObjects.isEmpty {
+			addDefaultAssetsToCoreData(assets: assets)
 		}
 	}
 
@@ -142,9 +144,12 @@ class AssetManagerViewModel {
 		selectedAssets.removeAll(where: { $0 == selectedAsset })
 	}
 
-	private func addDefaultAssetsToCoreData() {
-		for tokenID in ctsAPIclient.defaultTokensID {
-			let selectedAsset = coreDataManager.addNewSelectedAsset(id: tokenID)
+	private func addDefaultAssetsToCoreData(assets: [BalanceAssetModel]) {
+		let ethToken = coreDataManager.addNewSelectedAsset(id: ctsAPIclient.defaultTokenID)
+		selectedAssets = [ethToken]
+		let userAssets = assets.filter { !BigNumber(number: $0.amount, decimal: $0.detail!.decimals).isZero }
+		for token in userAssets {
+			let selectedAsset = coreDataManager.addNewSelectedAsset(id: token.id)
 			selectedAssets.append(selectedAsset)
 		}
 	}
@@ -164,6 +169,7 @@ class AssetManagerViewModel {
 			price: "0",
 			isVerified: false
 		)
+
 		tokens.append(customAssetDetail)
 		GlobalVariables.shared.fetchSharedInfo()
 	}

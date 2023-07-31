@@ -5,9 +5,10 @@
 //  Created by Amir hossein kazemi seresht on 7/11/23.
 //
 
+import Combine
 import UIKit
 
-class ActivityDetailsView: UIView {
+class ActivityDetailsView: UIScrollView {
 	// MARK: - TypeAliases
 
 	typealias presentActionSheetType = (_ actionSheet: InfoActionSheet) -> Void
@@ -28,6 +29,8 @@ class ActivityDetailsView: UIView {
 	private let footerIconView = UIImageView()
 	private let footerTextLabel = PinoLabel(style: .title, text: "")
 	private let footerTextLabelContainer = UIView()
+	private let activityDetailRefreshControl = UIRefreshControl()
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -40,11 +43,13 @@ class ActivityDetailsView: UIView {
 		self.presentActionSheet = presentActionSheet
 		self.activityDetailsHeader = activityDetailsHeader
 
-		super.init(frame: .zero)
+		super.init(frame: CGRect(x: 0, y: 0, width: 300, height: 700))
 
 		setupView()
 		setupStyles()
 		setupConstraintsWithUIType()
+		setupRefreshControl()
+		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -102,19 +107,15 @@ class ActivityDetailsView: UIView {
 		footerStackView.alignment = .top
 
 		footerTextLabel.font = .PinoStyle.mediumCallout
-		footerTextLabel.text = activityDetailsVM.unknownTransactionMessage
+		footerTextLabel.text = activityDetailsVM.otherTokenTransactionMessage
 		footerTextLabel.numberOfLines = 0
 
-		footerIconView.image = UIImage(named: activityDetailsVM.unknownTransactionIconName)
+		footerIconView.image = UIImage(named: activityDetailsVM.otherTokenTransactionIconName)
 
 		footerContainerView.isHidden = true
+		#warning("later we should show footer container view for other tokens transaction")
 
-		if activityDetailsVM.uiType == .unknown {
-			activityDetailsHeader.isHidden = true
-			footerContainerView.isHidden = false
-		} else {
-			mainStackView.setCustomSpacing(16, after: activityDetailsHeader)
-		}
+		mainStackView.setCustomSpacing(16, after: activityDetailsHeader)
 	}
 
 	private func setupConstraintsWithUIType() {
@@ -128,13 +129,30 @@ class ActivityDetailsView: UIView {
 		)
 		footerIconView.pin(.fixedHeight(20), .fixedWidth(20))
 
-		mainStackView.pin(.horizontalEdges(padding: 16), .top(to: layoutMarginsGuide, padding: 24))
+		mainStackView.pin(.horizontalEdges(to: layoutMarginsGuide, padding: 0), .top(to: contentLayoutGuide, padding: 24))
+	}
+
+	private func setupRefreshControl() {
+		indicatorStyle = .white
+		activityDetailRefreshControl.tintColor = .Pino.green2
+		activityDetailRefreshControl.addAction(UIAction(handler: { _ in
+			self.refreshData()
+		}), for: .valueChanged)
+		refreshControl = activityDetailRefreshControl
+	}
+
+	private func refreshData() {
+		activityDetailsVM.refreshData()
+	}
+
+	private func setupBindings() {
+		activityDetailsVM.$properties.sink { _ in
+			self.refreshControl?.endRefreshing()
+		}.store(in: &cancellables)
 	}
 
 	@objc
 	private func openEthScan() {
-		#warning("this is for test")
-		let url = URL(string: "http://www.google.com")!
-		UIApplication.shared.open(url)
+		UIApplication.shared.open(activityDetailsVM.properties.exploreURL)
 	}
 }

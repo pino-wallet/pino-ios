@@ -23,8 +23,19 @@ extension String {
 		Double(self)
 	}
 
-	public func shortenedString(characterCountFromStart: Int, characterCountFromEnd: Int) -> String {
-		"\(prefix(characterCountFromStart))...\(suffix(characterCountFromEnd))"
+	public func shortenedString(characterCountFromStart: Int, characterCountFromEnd: Int?) -> String {
+		if characterCountFromEnd != nil {
+			return "\(prefix(characterCountFromStart))...\(suffix(characterCountFromEnd!))"
+		}
+		return "\(prefix(characterCountFromStart))..."
+	}
+
+	public func addressFormating() -> String {
+		shortenedString(characterCountFromStart: 6, characterCountFromEnd: 4)
+	}
+
+	public func addressFromStartFormatting() -> String {
+		shortenedString(characterCountFromStart: 6, characterCountFromEnd: nil)
 	}
 
 	public func validateETHContractAddress() -> Bool {

@@ -45,7 +45,7 @@ class AccountHeaderView: UICollectionReusableView {
 
 	private func setupStyle() {
 		accountName.text = accountInfoVM.name
-		accountAddress.text = accountInfoVM.address.shortenedString(characterCountFromStart: 6, characterCountFromEnd: 4)
+		accountAddress.text = accountInfoVM.address.addressFormating()
 		accountSettingsTitle.text = accountHeaderVM.accountsTitleText
 		accountIcon.image = UIImage(named: accountInfoVM.profileImage)
 		accountIconBackgroundView.backgroundColor = UIColor(named: accountInfoVM.profileColor)
@@ -99,6 +99,6 @@ class AccountHeaderView: UICollectionReusableView {
 		let pasteboard = UIPasteboard.general
 		pasteboard.string = accountInfoVM.address
 
-		Toast.default(title: accountHeaderVM.copyMessage, style: .copy).show(haptic: .success)
+		Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)
 	}
 }

@@ -66,6 +66,7 @@ class CoreDataManager {
 		newAccount.avatarColor = avatarColor
 		newAccount.isSelected = isSelected
 		newAccount.wallet = wallet
+		newAccount.selectedAssets = []
 		if newAccount.wallet.walletType == .hdWallet {
 			newAccount.wallet.lastDrivedIndex += 1
 		}
@@ -109,6 +110,7 @@ class CoreDataManager {
 	public func addNewSelectedAsset(id: String) -> SelectedAsset {
 		let newSelectedAsset = SelectedAsset(context: selectedAssetDataSource.managedContext)
 		newSelectedAsset.id = id
+		newSelectedAsset.account = PinoWalletManager().currentAccount
 		selectedAssetDataSource.save(newSelectedAsset)
 		return newSelectedAsset
 	}

@@ -24,27 +24,30 @@ class SwapTokenSectionView: UIView {
 	private let textFieldSpacerView = UIView()
 	private let estimatedAmountSpacerView = UIView()
 	private let changeSelectedToken: () -> Void
-	private let balanceStatusDidChange: ((AmountStatus) -> Void)?
 	private let swapVM: SwapTokenViewModel
 	private let hasMaxAmount: Bool
 	private var cancellables = Set<AnyCancellable>()
+
+	// MARK: - Public Properties
+
+	public var balanceStatusDidChange: ((AmountStatus) -> Void)?
+	public var editingBegin: (() -> Void)?
 
 	// MARK: - Initializers
 
 	init(
 		swapVM: SwapTokenViewModel,
 		hasMaxAmount: Bool = true,
-		changeSelectedToken: @escaping () -> Void,
-		balanceStatusDidChange: ((AmountStatus) -> Void)? = nil
+		changeSelectedToken: @escaping () -> Void
 	) {
 		self.changeSelectedToken = changeSelectedToken
-		self.balanceStatusDidChange = balanceStatusDidChange
 		self.swapVM = swapVM
 		self.hasMaxAmount = hasMaxAmount
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
 		setupContstraint()
+		setupBinding()
 	}
 
 	required init?(coder: NSCoder) {
@@ -131,6 +134,13 @@ class SwapTokenSectionView: UIView {
 		])
 	}
 
+	private func setupBinding() {
+		swapVM.$selectedToken.sink { selectedToken in
+			self.updateMaxAmount(token: selectedToken)
+			self.updateBalanceStatus()
+		}.store(in: &cancellables)
+	}
+
 	private func updateView() {
 		if swapVM.selectedToken.isVerified {
 			changeTokenView.tokenImageURL = swapVM.selectedToken.image
@@ -163,16 +173,21 @@ class SwapTokenSectionView: UIView {
 		amountTextfield.sendActions(for: .editingChanged)
 	}
 
-	private func updateBalanceStatus() {
-		guard let balanceStatusDidChange else { return }
-		let balanceStatus = swapVM.checkBalanceStatus()
-		balanceStatusDidChange(balanceStatus)
+	fileprivate func extractedFunc(_ balanceStatus: AmountStatus) {
 		switch balanceStatus {
 		case .isEnough, .isZero:
 			hideBalanceError()
 		case .isNotEnough:
 			showBalanceError()
 		}
+	}
+
+	private func updateBalanceStatus(token: AssetViewModel? = nil) {
+		guard let balanceStatusDidChange else { return }
+		let selectedToken = token ?? swapVM.selectedToken
+		let balanceStatus = swapVM.checkBalanceStatus(token: selectedToken)
+		balanceStatusDidChange(balanceStatus)
+		extractedFunc(balanceStatus)
 	}
 
 	private func showBalanceError() {
@@ -183,6 +198,11 @@ class SwapTokenSectionView: UIView {
 	private func hideBalanceError() {
 		maxAmountTitle.textColor = .Pino.label
 		maxAmountLabel.textColor = .Pino.label
+	}
+
+	private func updateMaxAmount(token: AssetViewModel) {
+		swapVM.maxHoldAmount = token.amount
+		maxAmountLabel.text = swapVM.maxHoldAmount
 	}
 
 	// MARK: - Public Methods
@@ -235,7 +255,8 @@ extension SwapTokenSectionView: UITextFieldDelegate {
 	}
 
 	func textFieldDidBeginEditing(_ textField: UITextField) {
-		swapVM.isEditing = true
+		guard let editingBegin else { return }
+		editingBegin()
 	}
 
 	func textFieldDidEndEditing(_ textField: UITextField) {

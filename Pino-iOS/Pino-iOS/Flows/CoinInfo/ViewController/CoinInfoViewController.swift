@@ -37,7 +37,9 @@ class CoinInfoViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = ActivitiesCollectionView(coinInfoVM: coinInfoVM)
+		view = ActivitiesCollectionView(coinInfoVM: coinInfoVM, openActivityDetails: { [weak self] activityDetails in
+			self?.openActivityDetailsPage(activityDetails: activityDetails)
+		})
 	}
 
 	private func setupNavigationBar() {
@@ -61,6 +63,13 @@ class CoinInfoViewController: UIViewController {
 				action: #selector(openCoinInfoChartPage)
 			)
 		}
+	}
+
+	private func openActivityDetailsPage(activityDetails: ActivityCellViewModel) {
+		let navigationVC = UINavigationController()
+		let activityDetailsVC = ActivityDetailsViewController(activityDetails: activityDetails)
+		navigationVC.viewControllers = [activityDetailsVC]
+		present(navigationVC, animated: true)
 	}
 
 	@objc

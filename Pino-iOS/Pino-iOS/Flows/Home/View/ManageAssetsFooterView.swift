@@ -30,7 +30,7 @@ class ManageAssetsFooterView: UICollectionReusableView {
 		manageAssetButton.setConfiguraton(font: .PinoStyle.mediumCallout!, imagePadding: 6)
 
 		manageAssetButton.pin(
-			.top(padding: 16),
+			.top(padding: 32),
 			.centerX
 		)
 	}

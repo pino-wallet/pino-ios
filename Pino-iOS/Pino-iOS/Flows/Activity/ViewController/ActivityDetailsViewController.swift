@@ -24,9 +24,17 @@ class ActivityDetailsViewController: UIViewController {
 		setupNavigationBar()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		activityDetailsVM.getActivityDetailsFromVC()
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		activityDetailsVM.destroyTimer()
+	}
+
 	// MARK: - Initializers
 
-	init(activityDetails: ActivityModel) {
+	init(activityDetails: ActivityCellViewModel) {
 		self.activityDetailsVM = ActivityDetailsViewModel(activityDetails: activityDetails)
 
 		super.init(nibName: nil, bundle: nil)
@@ -44,7 +52,7 @@ class ActivityDetailsViewController: UIViewController {
 			presentActionSheet: { [weak self] actionSheet in
 				self?.present(actionSheet, animated: true)
 			},
-			activityDetailsHeader: activityDetailsVM
+			activityDetailsHeader: activityDetailsVM.properties
 				.uiType == .swap ? ActivitySwapHeaderView(activityDetailsVM: activityDetailsVM) :
 				ActivityDetailsHeaderView(activityDetailsVM: activityDetailsVM)
 		)
@@ -54,7 +62,7 @@ class ActivityDetailsViewController: UIViewController {
 
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
-		setNavigationTitle(activityDetailsVM.pageTitle)
+		setNavigationTitle(activityDetailsVM.properties.pageTitle)
 		navigationItem.leftBarButtonItem = UIBarButtonItem(
 			image: UIImage(named: activityDetailsVM.dismissNavigationIconName),
 			style: .plain,

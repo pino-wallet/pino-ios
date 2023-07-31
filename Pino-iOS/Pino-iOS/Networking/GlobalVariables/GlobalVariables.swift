@@ -21,7 +21,7 @@ class GlobalVariables {
 	@Published
 	public var manageAssetsList: [AssetViewModel]?
 	@Published
-	public var selectedManageAssetsList: [AssetViewModel] = []
+	public var selectedManageAssetsList: [AssetViewModel]?
 
 	// MARK: - Private Properties
 
@@ -35,7 +35,7 @@ class GlobalVariables {
 			fetchSharedInfo().catch { error in
 				Toast.default(
 					title: GlobalErrors.connectionFailed.message,
-					subtitle: "Please try again!",
+					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
 					style: .error
 				)
 				.show(haptic: .warning)
@@ -78,7 +78,7 @@ class GlobalVariables {
 					} else {
 						Toast.default(
 							title: GlobalErrors.connectionFailed.message,
-							subtitle: "Please try again!",
+							subtitle: GlobalToastTitles.tryAgainToastTitle.message,
 							style: .error
 						)
 						.show(haptic: .warning)

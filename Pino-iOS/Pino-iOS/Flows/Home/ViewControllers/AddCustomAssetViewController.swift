@@ -12,7 +12,6 @@ class AddCustomAssetViewController: UIViewController {
 	// MARK: - Public Properties
 
 	public var userAddress: String
-	public var userTokens: [Detail]
 
 	// MARK: - Private Properties
 
@@ -21,9 +20,8 @@ class AddCustomAssetViewController: UIViewController {
 
 	// MARK: - Initializers
 
-	init(userAddress: String, userTokens: [Detail], customAssetAdded: @escaping (CustomAsset) -> Void) {
+	init(userAddress: String, customAssetAdded: @escaping (CustomAsset) -> Void) {
 		self.userAddress = userAddress
-		self.userTokens = userTokens
 		self.customAssetAdded = customAssetAdded
 		super.init(nibName: nil, bundle: nil)
 		NotificationCenter.default.addObserver(
@@ -55,16 +53,14 @@ class AddCustomAssetViewController: UIViewController {
 		}
 	}
 
-	// MARK: - Deinit
-
-	deinit {
+	override func viewDidDisappear(_ animated: Bool) {
 		NotificationCenter.default.removeObserver(self)
 	}
 
 	// MARK: - Private Methods
 
 	private func setupView() {
-		addCustomAssetVM = AddCustomAssetViewModel(useraddress: userAddress, userTokens: userTokens)
+		addCustomAssetVM = AddCustomAssetViewModel(useraddress: userAddress)
 		let addCustomAssetView =
 			AddCustomAssetView(
 				presentAlertClosure: { [weak self] alertTitle, alertDescription in

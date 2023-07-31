@@ -110,7 +110,6 @@ struct ActivityHelper {
 		-> SeparatedActivitiesType {
 		var result: SeparatedActivitiesType = []
 		var activityGroupTitle: String
-		var firstActivityInGroupDate: Date
 
 		let sortedSeparatedActivitiesKeys = separatedActivitiesWithDay.keys.sorted()
 
@@ -124,10 +123,12 @@ struct ActivityHelper {
 			} else if activityGroupKey == 1 {
 				activityGroupTitle = "Yesterday"
 			} else {
-				firstActivityInGroupDate = getActivityDate(activityBlockTime: activityGroup[0].blockTime)
-				let dateHelper = DateHelper()
-				activityGroupTitle = dateHelper.calculateDistanceBetweenTwoDates(previousDate: firstActivityInGroupDate)
+				let firstactivityInGroupDate = getActivityDate(activityBlockTime: activityGroup[0].blockTime)
+				let dateFormatter = DateFormatter()
+				dateFormatter.dateFormat = "MMM d yyyy"
+				activityGroupTitle = dateFormatter.string(from: firstactivityInGroupDate)
 			}
+
 			result.append((title: activityGroupTitle, activities: activityGroup))
 		}
 		return result
