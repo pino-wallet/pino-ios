@@ -21,7 +21,7 @@ class GlobalVariables {
 	@Published
 	public var manageAssetsList: [AssetViewModel]?
 	@Published
-	public var selectedManageAssetsList: [AssetViewModel] = []
+	public var selectedManageAssetsList: [AssetViewModel]?
 
 	// MARK: - Private Properties
 

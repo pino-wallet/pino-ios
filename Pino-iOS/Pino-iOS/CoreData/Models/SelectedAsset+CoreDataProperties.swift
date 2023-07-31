@@ -17,4 +17,6 @@ extension SelectedAsset {
 
 	@NSManaged
 	public var id: String
+	@NSManaged
+	public var account: WalletAccount
 }

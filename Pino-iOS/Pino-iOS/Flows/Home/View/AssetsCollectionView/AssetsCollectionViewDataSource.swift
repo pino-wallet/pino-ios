@@ -11,23 +11,26 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 	// MARK: - CollectionView DataSource Methods
 
 	internal func numberOfSections(in collectionView: UICollectionView) -> Int {
-		if homeVM.positionAssetsList?.isEmpty ?? true {
-			return 1
-		} else {
+		if let positionsList = homeVM.positionAssetsList, !positionsList.isEmpty {
 			return 2
+		} else {
+			return 1
 		}
 	}
 
 	internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		let homeSection = HomeSection(rawValue: section)
-		if GlobalVariables.shared.selectedManageAssetsList.isEmpty { return 6 }
-		switch homeSection {
-		case .asset:
-			return GlobalVariables.shared.selectedManageAssetsList.count
-		case .position:
-			return homeVM.positionAssetsList?.count ?? .zero
-		case .none:
-			return .zero
+		if let selectedAssets = GlobalVariables.shared.selectedManageAssetsList {
+			switch homeSection {
+			case .asset:
+				return selectedAssets.count
+			case .position:
+				return homeVM.positionAssetsList?.count ?? .zero
+			case .none:
+				return .zero
+			}
+		} else {
+			return 6
 		}
 	}
 
@@ -76,10 +79,18 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 	) -> CGSize {
 		let homeSection = HomeSection(rawValue: section)
 		switch homeSection {
-		case .asset, .none:
-			return .zero
+		case .asset:
+			if GlobalVariables.shared.selectedManageAssetsList == nil {
+				return .zero
+			} else if let positionsList = homeVM.positionAssetsList, !positionsList.isEmpty {
+				return .zero
+			} else {
+				return CGSize(width: collectionView.frame.width, height: 120)
+			}
 		case .position:
-			return CGSize(width: collectionView.frame.width, height: 100)
+			return CGSize(width: collectionView.frame.width, height: 120)
+		case .none:
+			return .zero
 		}
 	}
 
@@ -139,12 +150,12 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: AssetsCollectionViewCell.cellReuseID,
 			for: indexPath
 		) as! AssetsCollectionViewCell
-		if !GlobalVariables.shared.selectedManageAssetsList.isEmpty {
+		if let selectedAssets = GlobalVariables.shared.selectedManageAssetsList {
 			assetCell.hideSkeletonView()
 			let homeSection = HomeSection(rawValue: indexPath.section)
 			switch homeSection {
 			case .asset:
-				assetCell.assetVM = GlobalVariables.shared.selectedManageAssetsList[indexPath.row]
+				assetCell.assetVM = selectedAssets[indexPath.row]
 			case .position:
 				assetCell.assetVM = AssetManagerViewModel.shared.positionAssetsList?[indexPath.row]
 			case .none: break

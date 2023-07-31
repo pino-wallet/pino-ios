@@ -115,14 +115,14 @@ class AssetManagerViewModel {
 	}
 
 	internal func getSelectedAssetsFromCoreData() {
-		selectedAssets = coreDataManager.getAllSelectedAssets()
+		let currentAccount = PinoWalletManager().currentAccount
+		selectedAssets = currentAccount.selectedAssets.allObjects as! [SelectedAsset]
 	}
 
 	internal func checkDefaultAssetsAdded(assets: [BalanceAssetModel]) {
-		let defaultAssetUserDefaultsKey = "isDefaultAssetsAdded"
-		if !UserDefaults.standard.bool(forKey: defaultAssetUserDefaultsKey) {
+		let currentAccount = PinoWalletManager().currentAccount
+		if currentAccount.selectedAssets.allObjects.isEmpty {
 			addDefaultAssetsToCoreData(assets: assets)
-			UserDefaults.standard.setValue(true, forKey: defaultAssetUserDefaultsKey)
 		}
 	}
 
@@ -145,15 +145,12 @@ class AssetManagerViewModel {
 	}
 
 	private func addDefaultAssetsToCoreData(assets: [BalanceAssetModel]) {
-		let userAssets = assets.filter { $0.amount != "0" }
-		if userAssets.isEmpty {
-			let defaultToken = coreDataManager.addNewSelectedAsset(id: ctsAPIclient.defaultTokenID)
-			selectedAssets = [defaultToken]
-		} else {
-			for token in userAssets {
-				let selectedAsset = coreDataManager.addNewSelectedAsset(id: token.id)
-				selectedAssets.append(selectedAsset)
-			}
+		let ethToken = coreDataManager.addNewSelectedAsset(id: ctsAPIclient.defaultTokenID)
+		selectedAssets = [ethToken]
+		let userAssets = assets.filter { !BigNumber(number: $0.amount, decimal: $0.detail!.decimals).isZero }
+		for token in userAssets {
+			let selectedAsset = coreDataManager.addNewSelectedAsset(id: token.id)
+			selectedAssets.append(selectedAsset)
 		}
 	}
 
