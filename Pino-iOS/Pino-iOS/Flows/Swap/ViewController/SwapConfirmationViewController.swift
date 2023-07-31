@@ -12,7 +12,10 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 	// MARK: Private Properties
 
 	let swapConfirmationVM: SwapConfirmationViewModel
-    let swapAPIClient = ParaSwapAPIClient()
+    let paraSwapAPIClient = ParaSwapAPIClient()
+    let oneInchAPIClient = OneInchAPIClient()
+    let zeroXAPIClient = ZeroXAPIClient()
+
     private var cancellables = Set<AnyCancellable>()
 
     
@@ -35,6 +38,7 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+        
         confirmSwap()
 	}
 
@@ -48,7 +52,9 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 	private func setupView() {
 		view = SwapConfirmationView(
 			swapConfirmationVM: swapConfirmationVM,
-			confirmButtonTapped: {},
+			confirmButtonTapped: {
+                self.confirmSwap()
+            },
 			presentFeeInfo: { infoActionSheet in },
 			retryFeeCalculation: {}
 		)
@@ -72,29 +78,39 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 	}
 
 	private func confirmSwap() {
-        let swapInfo = SwapPriceRequestModel(
-            srcToken: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-            srcDecimals: 18,
-            destToken: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-            destDecimals: 6,
-            amount: "1000000000000000000",
-            side: .sell)
-        swapAPIClient.swapPrice(swapInfo: swapInfo).sink { completed in
-            switch completed {
-            case .finished:
-                print("Token activities received successfully")
-            case let .failure(error):
-                print(error)
-            }
-        } receiveValue: { responseReq in
-            print(responseReq)
-        }.store(in: &cancellables)
+        
+//        getSwapPrice(swapProviderAPIClient: paraSwapAPIClient)
+        getSwapPrice(swapProviderAPIClient: oneInchAPIClient)
+//        getSwapPrice(swapProviderAPIClient: zeroXAPIClient)
 
-		unlockApp {}
+//		unlockApp {}
 	}
 
 	@objc
 	private func dismissPage() {
 		dismiss(animated: true)
 	}
+    
+    
+    
+    private func getSwapPrice(swapProviderAPIClient: some SwapProvidersAPIServices) {
+        let swapInfo = SwapPriceRequestModel(
+            srcToken: "0x514910771af9ca656af840dff83e8264ecf986ca",
+            srcDecimals: 18,
+            destToken: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            destDecimals: 6,
+            amount: "1000000000000000000",
+            side: .sell)
+        
+        swapProviderAPIClient.swapPrice(swapInfo: swapInfo).sink { completed in
+            switch completed {
+            case .finished:
+                print("Swap price received successfully")
+            case let .failure(error):
+                print(error)
+            }
+        } receiveValue: { responseReq in
+            print(responseReq)
+        }.store(in: &cancellables)
+    }
 }

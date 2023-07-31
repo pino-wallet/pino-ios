@@ -22,7 +22,7 @@ struct SwapPriceRequestModel {
         case sell
     }
     
-    init(srcToken: String, srcDecimals: Int, destToken: String, destDecimals: Int, amount: String, side: SwapPriceRequestModel.SwapSide) {
+    init(srcToken: String, srcDecimals: Int, destToken: String, destDecimals: Int, amount: String, side: SwapSide) {
         self.srcToken = srcToken
         self.srcDecimals = srcDecimals
         self.destToken = destToken
@@ -67,8 +67,11 @@ struct SwapPriceRequestModel {
     public var OneInchSwapURLParams: HTTPParameters {
         [
             "src": srcToken,
-            "dst": srcDecimals!,
-            "amount": destToken
+            "dst": destToken,
+            "amount": amount,
+            "includeProtocols": "false",
+            "includeTokensInfo": "false",
+            "includeGas": "true",
         ]
     }
     

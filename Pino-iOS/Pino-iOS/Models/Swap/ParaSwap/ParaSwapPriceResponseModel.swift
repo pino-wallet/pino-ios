@@ -6,7 +6,7 @@
 import Foundation
 
 // MARK: - ParaSwapPriceResponseModel
-struct ParaSwapPriceResponseModel: Codable {
+struct ParaSwapPriceResponseModel: SwapPriceResponseProtocol {
     let priceRoute: PriceRoute
 }
 

@@ -402,6 +402,11 @@
 		DFFDEDA42A75659E00D710D7 /* ParaSwapEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6AE2A75615D003DB68A /* ParaSwapEndpoint.swift */; };
 		DFFDEDAA2A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDA92A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift */; };
 		DFFDEDAC2A76C65800D710D7 /* ZeroXSwapPriceResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDAB2A76C65800D710D7 /* ZeroXSwapPriceResponseModel.swift */; };
+		DFFDEDAE2A7792D800D710D7 /* OneInchEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDAD2A7792D800D710D7 /* OneInchEndpoint.swift */; };
+		DFFDEDB02A77931200D710D7 /* ZeroXEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDAF2A77931200D710D7 /* ZeroXEndpoint.swift */; };
+		DFFDEDB22A77934600D710D7 /* ZeroXAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDB12A77934600D710D7 /* ZeroXAPIClient.swift */; };
+		DFFDEDB42A7793A900D710D7 /* OneInchAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDB32A7793A900D710D7 /* OneInchAPIClient.swift */; };
+		DFFDEDB62A7795F200D710D7 /* SwapPriceResponseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDB52A7795F200D710D7 /* SwapPriceResponseProtocol.swift */; };
 		E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCBF9CC6A3C63CAA0DB0AA7 /* ActivityViewController.swift */; };
 		E25F4C14C3273F63F22E983C /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA3FFE35308EBEC961CD7BF /* UIView+Extension.swift */; };
 		E343836A2A3D912A0048BDA1 /* SendConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34383692A3D912A0048BDA1 /* SendConfirmationViewController.swift */; };
@@ -887,6 +892,11 @@
 		DFCAAD392A62DA8000D8BB8D /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		DFFDEDA92A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneInchSwapPriceResponseModel.swift; sourceTree = "<group>"; };
 		DFFDEDAB2A76C65800D710D7 /* ZeroXSwapPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroXSwapPriceResponseModel.swift; sourceTree = "<group>"; };
+		DFFDEDAD2A7792D800D710D7 /* OneInchEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneInchEndpoint.swift; sourceTree = "<group>"; };
+		DFFDEDAF2A77931200D710D7 /* ZeroXEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroXEndpoint.swift; sourceTree = "<group>"; };
+		DFFDEDB12A77934600D710D7 /* ZeroXAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroXAPIClient.swift; sourceTree = "<group>"; };
+		DFFDEDB32A7793A900D710D7 /* OneInchAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneInchAPIClient.swift; sourceTree = "<group>"; };
+		DFFDEDB52A7795F200D710D7 /* SwapPriceResponseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapPriceResponseProtocol.swift; sourceTree = "<group>"; };
 		E149E7B618CEFE5E909B2D78 /* AccountInfoNavigationItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoNavigationItems.swift; sourceTree = "<group>"; };
 		E1575DB9D22AE8EBFE86A7D9 /* SeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhrase.swift; sourceTree = "<group>"; };
 		E19FF7EA659493C72C4B0AD9 /* PinoTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoTextFieldView.swift; sourceTree = "<group>"; };
@@ -2504,6 +2514,7 @@
 				DFC1F6A52A755EF4003DB68A /* 1inch */,
 				DFC1F6A42A755EF0003DB68A /* 0x */,
 				DFC1F6A82A755F7B003DB68A /* SwapPriceRequestModel.swift */,
+				DFFDEDB52A7795F200D710D7 /* SwapPriceResponseProtocol.swift */,
 			);
 			path = Swap;
 			sourceTree = "<group>";
@@ -2544,6 +2555,8 @@
 		DFC1F6AB2A756103003DB68A /* 0x */ = {
 			isa = PBXGroup;
 			children = (
+				DFFDEDB12A77934600D710D7 /* ZeroXAPIClient.swift */,
+				DFFDEDAF2A77931200D710D7 /* ZeroXEndpoint.swift */,
 			);
 			path = 0x;
 			sourceTree = "<group>";
@@ -2551,6 +2564,8 @@
 		DFC1F6AC2A756107003DB68A /* 1inch */ = {
 			isa = PBXGroup;
 			children = (
+				DFFDEDAD2A7792D800D710D7 /* OneInchEndpoint.swift */,
+				DFFDEDB32A7793A900D710D7 /* OneInchAPIClient.swift */,
 			);
 			path = 1inch;
 			sourceTree = "<group>";
@@ -3196,6 +3211,7 @@
 				A56FBAD2E31C10F504631CD6 /* AppDelegate.swift in Sources */,
 				D9BE15B22A69360E005E4063 /* TransfareDetailsViewModel.swift in Sources */,
 				D9F2508229E5855500DE0410 /* SecurityOptionCell.swift in Sources */,
+				DFFDEDAE2A7792D800D710D7 /* OneInchEndpoint.swift in Sources */,
 				D91A3A0529E412A200004CB2 /* NotificationSettingsSection.swift in Sources */,
 				917064233A24F0460102BC15 /* Array+Extension.swift in Sources */,
 				403691C02A3DFFB60013AB6D /* TextAppleToastView.swift in Sources */,
@@ -3246,6 +3262,7 @@
 				E385F6182A220D8200EE7EE1 /* CTSAPIClient.swift in Sources */,
 				535DAC5A885056552EC3C09F /* Button+Extension.swift in Sources */,
 				D2D65A4730F14DFCD4BE1B32 /* ChangeAvatarViewController.swift in Sources */,
+				DFFDEDB62A7795F200D710D7 /* SwapPriceResponseProtocol.swift in Sources */,
 				D9F2508029E576FB00DE0410 /* NotificationSettingsCell.swift in Sources */,
 				D93C41F729F7C1F9003F2297 /* EditAccountCollectionView.swift in Sources */,
 				C18F61B7AEF94EEC4A102666 /* ChartDataModel.swift in Sources */,
@@ -3379,6 +3396,7 @@
 				6D6ECC6BF79139F030C8039A /* ManageAssetsFooterView.swift in Sources */,
 				D99850472A55C66A00C2DF60 /* DateHelper.swift in Sources */,
 				E3D204CA2A3992EB0027FEBC /* TokenView.swift in Sources */,
+				DFFDEDB22A77934600D710D7 /* ZeroXAPIClient.swift in Sources */,
 				66F6B5B9FA886D1F48A4F627 /* ManageAssetsViewController.swift in Sources */,
 				7B6CE232F6C074F30AFAF23D /* ManagePasscodeView.swift in Sources */,
 				403691BC2A3DFFB50013AB6D /* ToastConfiguration.swift in Sources */,
@@ -3417,6 +3435,7 @@
 				9CC2D1EE167451483C8E7F4F /* PinoLineChart.swift in Sources */,
 				D09AAD1A88DD6C97185FD51B /* PinoLoading.swift in Sources */,
 				41B9F1002F97DF04A075D75D /* PinoStepperView.swift in Sources */,
+				DFFDEDB42A7793A900D710D7 /* OneInchAPIClient.swift in Sources */,
 				823831E3B3F7F3BA8B633D09 /* PinoTextFieldStyle.swift in Sources */,
 				5D31EA0F77D4268D45A4B438 /* PinoTextFieldView.swift in Sources */,
 				A6BFD6F684AF4BA205C23CE7 /* Pino_iOS.xcdatamodeld in Sources */,
@@ -3424,6 +3443,7 @@
 				A1664AE26C5D333D2213330F /* PortfolioPerformanceHeaderView.swift in Sources */,
 				17551EDA11F4F1BE495D1823 /* PortfolioPerformanceViewController.swift in Sources */,
 				D9E34BC92C3AE69B3D5EC4F2 /* PortfolioPerformanceViewModel.swift in Sources */,
+				DFFDEDB02A77931200D710D7 /* ZeroXEndpoint.swift in Sources */,
 				122DC5E683E6405E0B3FCE54 /* PortfolioPrformanceCell.swift in Sources */,
 				0AF4C45B72B37F11F656A4B0 /* PositionHeaderView.swift in Sources */,
 				E3D204CC2A39B7E90027FEBC /* QRScannerViewController.swift in Sources */,

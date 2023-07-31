@@ -6,7 +6,7 @@
 import Foundation
 
 // MARK: - OneInchPriceResponseModel
-struct OneInchPriceResponseModel: Codable {
+struct OneInchPriceResponseModel: SwapPriceResponseProtocol {
     let toAmount: String
     let gas: Int
 }

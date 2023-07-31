@@ -10,6 +10,7 @@ import Combine
 
 protocol SwapProvidersAPIServices {
     
-    // ParaSwap Provider
-    func swapPrice(swapInfo: SwapPriceRequestModel) -> AnyPublisher<ParaSwapPriceResponseModel, APIError>
+    associatedtype ResponseModel: SwapPriceResponseProtocol
+
+    func swapPrice(swapInfo: SwapPriceRequestModel) -> AnyPublisher<ResponseModel, APIError>
 }

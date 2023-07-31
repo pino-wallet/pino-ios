@@ -6,7 +6,7 @@
 import Foundation
 
 // MARK: - ZeroXPriceResponseModel
-struct ZeroXPriceResponseModel: Codable {
+struct ZeroXPriceResponseModel: SwapPriceResponseProtocol {
     let price, value, gasPrice, gas: String
     let estimatedGas, protocolFee, minimumProtocolFee, buyTokenAddress: String
     let buyAmount, sellTokenAddress, sellAmount: String
