@@ -57,7 +57,7 @@ class SwapViewModel {
 		}
 
 		swapFeeVM.updateAmount(fromToken: fromToken, toToken: toToken)
-		if amount != "" {
+		if amount != .emptyString {
 			getFeeInfo()
 		}
 	}
