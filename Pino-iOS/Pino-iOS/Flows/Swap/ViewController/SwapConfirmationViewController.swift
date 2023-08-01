@@ -5,20 +5,19 @@
 //  Created by Mohi Raoufi on 7/15/23.
 //
 
-import UIKit
 import Combine
+import UIKit
 
 class SwapConfirmationViewController: AuthenticationLockViewController {
 	// MARK: Private Properties
 
 	let swapConfirmationVM: SwapConfirmationViewModel
-    let paraSwapAPIClient = ParaSwapAPIClient()
-    let oneInchAPIClient = OneInchAPIClient()
-    let zeroXAPIClient = ZeroXAPIClient()
+	let paraSwapAPIClient = ParaSwapAPIClient()
+	let oneInchAPIClient = OneInchAPIClient()
+	let zeroXAPIClient = ZeroXAPIClient()
 
-    private var cancellables = Set<AnyCancellable>()
+	private var cancellables = Set<AnyCancellable>()
 
-    
 	// MARK: Initializers
 
 	init(swapConfirmationVM: SwapConfirmationViewModel) {
@@ -38,8 +37,8 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-        
-        confirmSwap()
+
+		confirmSwap()
 	}
 
 	override func loadView() {
@@ -53,8 +52,8 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 		view = SwapConfirmationView(
 			swapConfirmationVM: swapConfirmationVM,
 			confirmButtonTapped: {
-                self.confirmSwap()
-            },
+				self.confirmSwap()
+			},
 			presentFeeInfo: { infoActionSheet in },
 			retryFeeCalculation: {}
 		)
@@ -78,10 +77,9 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 	}
 
 	private func confirmSwap() {
-        
-//        getSwapPrice(swapProviderAPIClient: paraSwapAPIClient)
-//        getSwapPrice(swapProviderAPIClient: oneInchAPIClient)
-        getSwapPrice(swapProviderAPIClient: zeroXAPIClient)
+		//        getSwapPrice(swapProviderAPIClient: paraSwapAPIClient)
+		//        getSwapPrice(swapProviderAPIClient: oneInchAPIClient)
+		getSwapPrice(swapProviderAPIClient: zeroXAPIClient)
 
 //		unlockApp {}
 	}
@@ -90,27 +88,26 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 	private func dismissPage() {
 		dismiss(animated: true)
 	}
-    
-    
-    
-    private func getSwapPrice(swapProviderAPIClient: some SwapProvidersAPIServices) {
-        let swapInfo = SwapPriceRequestModel(
-            srcToken: "0x514910771af9ca656af840dff83e8264ecf986ca",
-            srcDecimals: 18,
-            destToken: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-            destDecimals: 6,
-            amount: "1000000000000000000",
-            side: .sell)
-        
-        swapProviderAPIClient.swapPrice(swapInfo: swapInfo).sink { completed in
-            switch completed {
-            case .finished:
-                print("Swap price received successfully")
-            case let .failure(error):
-                print(error)
-            }
-        } receiveValue: { responseReq in
-            print(responseReq)
-        }.store(in: &cancellables)
-    }
+
+	private func getSwapPrice(swapProviderAPIClient: some SwapProvidersAPIServices) {
+		let swapInfo = SwapPriceRequestModel(
+			srcToken: "0x514910771af9ca656af840dff83e8264ecf986ca",
+			srcDecimals: 18,
+			destToken: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+			destDecimals: 6,
+			amount: "1000000000000000000",
+			side: .sell
+		)
+
+		swapProviderAPIClient.swapPrice(swapInfo: swapInfo).sink { completed in
+			switch completed {
+			case .finished:
+				print("Swap price received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { responseReq in
+			print(responseReq)
+		}.store(in: &cancellables)
+	}
 }

@@ -6,22 +6,24 @@
 import Foundation
 
 // MARK: - ZeroXPriceResponseModel
+
 struct ZeroXPriceResponseModel: SwapPriceResponseProtocol {
-    let chainId: Int
-    let price, grossPrice, estimatedPriceImpact, value: String
-    let gasPrice, gas, estimatedGas, protocolFee: String
-    let minimumProtocolFee, buyTokenAddress, buyAmount, grossBuyAmount: String
-    let sellTokenAddress, sellAmount, grossSellAmount: String
-    let sources: [Source]
-    let allowanceTarget, sellTokenToEthRate, buyTokenToEthRate: String
-    let auxiliaryChainData: AuxiliaryChainData
+	let chainId: Int
+	let price, grossPrice, estimatedPriceImpact, value: String
+	let gasPrice, gas, estimatedGas, protocolFee: String
+	let minimumProtocolFee, buyTokenAddress, buyAmount, grossBuyAmount: String
+	let sellTokenAddress, sellAmount, grossSellAmount: String
+	let sources: [Source]
+	let allowanceTarget, sellTokenToEthRate, buyTokenToEthRate: String
+	let auxiliaryChainData: AuxiliaryChainData
 }
 
 // MARK: - AuxiliaryChainData
-struct AuxiliaryChainData: Codable {
-}
+
+struct AuxiliaryChainData: Codable {}
 
 // MARK: - Source
+
 struct Source: Codable {
-    let name, proportion: String
+	let name, proportion: String
 }
