@@ -27,6 +27,9 @@ class SwapViewModel {
 
 	// MARK: - Private Properties
 
+    private let paraSwapAPIClient = ParaSwapAPIClient()
+    private let oneInchAPIClient = OneInchAPIClient()
+    private let zeroXAPIClient = ZeroXAPIClient()
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
@@ -42,65 +45,6 @@ class SwapViewModel {
 		}
 		self.toToken.amountUpdated = { amount in
 			self.recalculateTokensAmount(amount: amount)
-		}
-	}
-
-	// MARK: - Private Methods
-
-	private func recalculateTokensAmount(amount: String? = nil) {
-		if !fromToken.isEditing && !toToken.isEditing {
-			getSellAmount(amount: amount)
-		} else if fromToken.isEditing {
-			getSellAmount(amount: amount)
-		} else if toToken.isEditing {
-			getBuyAmount(amount: amount)
-		}
-
-		swapFeeVM.updateAmount(fromToken: fromToken, toToken: toToken)
-		if amount != .emptyString {
-			getFeeInfo()
-		}
-	}
-
-	private func getSellAmount(amount: String?) {
-		swapSide = .sell
-		fromToken.calculateDollarAmount(amount)
-		toToken.calculateTokenAmount(decimalDollarAmount: fromToken.decimalDollarAmount)
-		if fromToken.tokenAmount == nil {
-			toToken.swapDelegate.swapAmountDidCalculate()
-		} else {
-			toToken.swapDelegate.swapAmountCalculating()
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-				self.toToken.swapDelegate.swapAmountDidCalculate()
-			}
-		}
-	}
-
-	private func getBuyAmount(amount: String?) {
-		swapSide = .buy
-		toToken.calculateDollarAmount(amount)
-		fromToken.calculateTokenAmount(decimalDollarAmount: toToken.decimalDollarAmount)
-		if toToken.tokenAmount == nil {
-			fromToken.swapDelegate.swapAmountDidCalculate()
-		} else {
-			fromToken.swapDelegate.swapAmountCalculating()
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-				self.fromToken.swapDelegate.swapAmountDidCalculate()
-			}
-		}
-	}
-
-	private func getFeeInfo() {
-		swapFeeVM.fee = nil
-		swapFeeVM.feeInDollar = nil
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-			if self.selectedProtocol == .bestRate {
-				self.showBestProviderFeeInfo()
-			} else {
-				self.showPriceImpactFeeInfo()
-			}
-			self.swapFeeVM.fee = self.getfee().fee
-			self.swapFeeVM.feeInDollar = self.getfee().feeInDollar
 		}
 	}
 
@@ -141,6 +85,89 @@ class SwapViewModel {
 	}
 
 	// MARK: - Private Methods
+    
+    private func recalculateTokensAmount(amount: String? = nil) {
+        if !fromToken.isEditing && !toToken.isEditing {
+            getSellAmount(amount: amount)
+        } else if fromToken.isEditing {
+            getSellAmount(amount: amount)
+        } else if toToken.isEditing {
+            getBuyAmount(amount: amount)
+        }
+        
+        swapFeeVM.updateAmount(fromToken: fromToken, toToken: toToken)
+        if amount != .emptyString {
+            getFeeInfo()
+        }
+    }
+    
+    private func getSellAmount(amount: String?) {
+        swapSide = .sell
+        fromToken.calculateDollarAmount(amount)
+        if fromToken.tokenAmount == nil {
+            toToken.setAmount(tokenAmount: nil, dollarAmount: nil)
+            toToken.swapDelegate.swapAmountDidCalculate()
+        } else {
+            toToken.swapDelegate.swapAmountCalculating()
+            getSwapPrice(swapProviderAPIClient: paraSwapAPIClient) { destinationAmount in
+                self.toToken.setAmount(tokenAmount: destinationAmount, dollarAmount: self.fromToken.dollarAmount)
+                self.toToken.swapDelegate.swapAmountDidCalculate()
+            }
+        }
+    }
+    
+    private func getBuyAmount(amount: String?) {
+        swapSide = .buy
+        toToken.calculateDollarAmount(amount)
+        fromToken.calculateTokenAmount(decimalDollarAmount: toToken.decimalDollarAmount)
+        if toToken.tokenAmount == nil {
+            fromToken.swapDelegate.swapAmountDidCalculate()
+        } else {
+            fromToken.swapDelegate.swapAmountCalculating()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                self.fromToken.swapDelegate.swapAmountDidCalculate()
+            }
+        }
+    }
+    
+    private func getFeeInfo() {
+        swapFeeVM.fee = nil
+        swapFeeVM.feeInDollar = nil
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            if self.selectedProtocol == .bestRate {
+                self.showBestProviderFeeInfo()
+            } else {
+                self.showPriceImpactFeeInfo()
+            }
+            self.swapFeeVM.fee = self.getfee().fee
+            self.swapFeeVM.feeInDollar = self.getfee().feeInDollar
+        }
+    }
+    
+    private func getSwapPrice(swapProviderAPIClient: some SwapProvidersAPIServices, completion: @escaping (String) -> ()) {
+        let swapInfo = SwapPriceRequestModel(
+            srcToken: fromToken.selectedToken.id,
+            srcDecimals: fromToken.selectedToken.decimal,
+            destToken: toToken.selectedToken.id,
+            destDecimals: toToken.selectedToken.decimal,
+            amount: "1000000000000000000",
+            side: .sell
+        )
+        
+        swapProviderAPIClient.swapPrice(swapInfo: swapInfo).sink { completed in
+            switch completed {
+            case .finished:
+                print("Swap price received successfully")
+            case let .failure(error):
+                print(error)
+            }
+        } receiveValue: { response in
+            print(response)
+            if let paraswapResponse = response as? ParaSwapPriceResponseModel {
+                completion(paraswapResponse.priceRoute.destAmount)
+            }
+        }.store(in: &cancellables)
+    }
 
 	private func showBestProviderFeeInfo() {
 		swapFeeVM.feeTag = .none

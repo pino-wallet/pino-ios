@@ -10,7 +10,7 @@ import Foundation
 struct SwapPriceRequestModel {
 	var srcToken: String
 	let srcDecimals: Int?
-	let destToken: String
+	var destToken: String
 	let destDecimals: Int?
 	let amount: String
 	let side: SwapSide

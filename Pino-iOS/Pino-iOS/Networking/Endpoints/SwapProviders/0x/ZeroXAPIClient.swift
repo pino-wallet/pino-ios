@@ -18,6 +18,9 @@ final class ZeroXAPIClient: SwapProvidersAPIServices {
 		if swapInfo.srcToken == SwapPriceRequestModel.pinoETHID {
 			editedSwapInfo.srcToken = SwapPriceRequestModel.zeroXETHID
 		}
+        if swapInfo.destToken == SwapPriceRequestModel.pinoETHID {
+            editedSwapInfo.destToken = SwapPriceRequestModel.zeroXETHID
+        }
 		return networkManager.request(.quote(swapInfo: editedSwapInfo))
 	}
 }
