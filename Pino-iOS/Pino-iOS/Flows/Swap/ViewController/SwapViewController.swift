@@ -96,18 +96,16 @@ class SwapViewController: UIViewController {
 		swapVM.$selectedProtocol.sink { selectedProtocol in
 			self.protocolChangeButton.setTitle(selectedProtocol.name, for: .normal)
 		}.store(in: &cancellables)
-		// show and hide protocol card in normal size devices
-		if DeviceHelper.shared.size == .normal {
-			swapView.$keyboardIsOpen.sink { keyboardIsOpen in
-				if keyboardIsOpen {
-					self.showProtocolButtonInNavbar()
-					self.swapView.hideProtocolView()
-				} else {
-					self.showPageTitleInNavbar()
-					self.swapView.showProtocolView()
-				}
-			}.store(in: &cancellables)
-		}
+
+		swapView.$keyboardIsOpen.sink { keyboardIsOpen in
+			if keyboardIsOpen {
+				self.hideProtocolCard()
+				self.swapView.closeFeeCard()
+			} else {
+				self.showProtocolCard()
+				self.swapView.openFeeCard()
+			}
+		}.store(in: &cancellables)
 	}
 
 	private func setupNavigationBar() {
@@ -117,6 +115,22 @@ class SwapViewController: UIViewController {
 			navigationItem.titleView = pageTitleLabel
 		} else {
 			navigationItem.titleView = protocolChangeButton
+		}
+	}
+
+	private func showProtocolCard() {
+		// show and hide protocol card in normal size devices
+		if DeviceHelper.shared.size == .normal {
+			showPageTitleInNavbar()
+			swapView.showProtocolView()
+		}
+	}
+
+	private func hideProtocolCard() {
+		// show and hide protocol card in normal size devices
+		if DeviceHelper.shared.size == .normal {
+			showProtocolButtonInNavbar()
+			swapView.hideProtocolView()
 		}
 	}
 

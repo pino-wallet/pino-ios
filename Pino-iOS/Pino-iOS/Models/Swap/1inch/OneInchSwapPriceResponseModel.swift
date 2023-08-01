@@ -6,7 +6,8 @@
 import Foundation
 
 // MARK: - OneInchPriceResponseModel
+
 struct OneInchPriceResponseModel: SwapPriceResponseProtocol {
-    let toAmount: String
-    let gas: Int
+	let toAmount: String
+	let gas: Int
 }

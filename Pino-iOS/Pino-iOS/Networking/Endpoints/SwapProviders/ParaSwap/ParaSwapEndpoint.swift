@@ -31,21 +31,25 @@ enum ParaSwapEndpoint: EndpointType {
 
 	internal var path: String {
 		switch self {
-        case .swapPrice:
-            return "/prices"
-        }
+		case .swapPrice:
+			return "/prices"
+		}
 	}
 
 	internal var task: HTTPTask {
 		switch self {
-        case .swapPrice(let swapInfo):
-            return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: swapInfo.paraSwapURLParams)
+		case let .swapPrice(swapInfo):
+			return .requestParameters(
+				bodyParameters: nil,
+				bodyEncoding: .urlEncoding,
+				urlParameters: swapInfo.paraSwapURLParams
+			)
 		}
 	}
 
 	internal var httpMethod: HTTPMethod {
 		switch self {
-        case .swapPrice:
+		case .swapPrice:
 			return .get
 		}
 	}

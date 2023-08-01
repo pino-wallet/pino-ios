@@ -43,13 +43,17 @@ class SwapFeeView: UIView {
 	private let openFeeInfoIcon = UIImage(named: "chevron_down")
 	private let closeFeeInfoIcon = UIImage(named: "chevron_up")
 
-	private var isCollapsed = false
+	private var isCollapsed = true
 	private var showFeeInDollar = true
 
 	private let swapFeeVM: SwapFeeViewModel
 	private var providerChange: () -> Void
 
 	private var cancellables = Set<AnyCancellable>()
+
+	// MARK: - Public Properties
+
+	public var feeCardOpened: (() -> Void)!
 
 	// MARK: - Initializers
 
@@ -217,14 +221,11 @@ class SwapFeeView: UIView {
 	@objc
 	private func collapsFeeCard() {
 		UIView.animate(withDuration: 0.3) {
-			self.feeInfoStackView.isHidden.toggle()
-			self.isCollapsed.toggle()
 			if self.isCollapsed {
-				self.collapsButton.image = self.closeFeeInfoIcon
-				self.impactTagView.alpha = 0
+				self.showFeeInfo()
+				self.feeCardOpened()
 			} else {
-				self.collapsButton.image = self.openFeeInfoIcon
-				self.impactTagView.alpha = 1
+				self.hideFeeInfo()
 			}
 		}
 	}
@@ -311,8 +312,8 @@ class SwapFeeView: UIView {
 	}
 
 	private func showLoading() {
-		if isCollapsed {
-			feeInfoStackView.isHidden = true
+		if !isCollapsed {
+			feeInfoStackView.isHiddenInStackView = true
 		}
 		amountStackView.isHidden = true
 		contentStackView.isHidden = true
@@ -321,8 +322,8 @@ class SwapFeeView: UIView {
 	}
 
 	private func hideLoading() {
-		if isCollapsed {
-			feeInfoStackView.isHidden = false
+		if !isCollapsed {
+			feeInfoStackView.isHiddenInStackView = false
 		}
 		amountStackView.isHidden = false
 		contentStackView.isHidden = false
@@ -345,5 +346,19 @@ class SwapFeeView: UIView {
 
 	public func updateCalculatedAmount(_ amount: String) {
 		amountLabel.text = amount
+	}
+
+	public func hideFeeInfo() {
+		isCollapsed = true
+		feeInfoStackView.isHiddenInStackView = true
+		collapsButton.image = openFeeInfoIcon
+		impactTagView.alpha = 0
+	}
+
+	public func showFeeInfo() {
+		isCollapsed = false
+		feeInfoStackView.isHiddenInStackView = false
+		collapsButton.image = closeFeeInfoIcon
+		impactTagView.alpha = 1
 	}
 }

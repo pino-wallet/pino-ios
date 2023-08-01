@@ -7,6 +7,4 @@
 
 import Foundation
 
-protocol SwapPriceResponseProtocol: Codable {
-    
-}
+protocol SwapPriceResponseProtocol: Codable {}

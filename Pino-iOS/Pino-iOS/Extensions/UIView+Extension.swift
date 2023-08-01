@@ -48,6 +48,17 @@ extension UIView {
 		"skeletonBordered"
 	}
 
+	public var isHiddenInStackView: Bool {
+		get {
+			isHidden
+		}
+		set {
+			if isHidden != newValue {
+				isHidden = newValue
+			}
+		}
+	}
+
 	private func getAllSkeletonViews(view: UIView) -> [UIView] {
 		var skeletonViews = [UIView]()
 		for subview in view.subviews {
