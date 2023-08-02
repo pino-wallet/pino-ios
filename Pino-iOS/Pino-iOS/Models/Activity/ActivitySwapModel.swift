@@ -42,4 +42,3 @@ struct SwapActivityDetails: Codable {
 		case activityProtocol = "protocol"
 	}
 }
-

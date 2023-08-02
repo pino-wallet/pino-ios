@@ -44,4 +44,3 @@ struct TransferActivityDetail: Codable {
 		case from, to
 	}
 }
-
