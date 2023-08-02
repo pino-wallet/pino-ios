@@ -55,7 +55,7 @@ class CoinInfoViewModel {
 
 	private let activityAPIClient = ActivityAPIClient()
 	private let walletManager = PinoWalletManager()
-    private let activityHelper = ActivityHelper()
+	private let activityHelper = ActivityHelper()
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Inintializers
@@ -92,9 +92,10 @@ class CoinInfoViewModel {
 				print(error)
 			}
 		} receiveValue: { [weak self] activities in
-            let iteratedActivities: [ActivityModelProtocol] = self?.activityHelper.iterateActivitiesFromResponse(activities: activities) ?? []
+			let iteratedActivities: [ActivityModelProtocol] = self?.activityHelper
+				.iterateActivitiesFromResponse(activities: activities) ?? []
 			self?.coinHistoryList = iteratedActivities.compactMap {
-                ActivityCellViewModel(activityModel: $0)
+				ActivityCellViewModel(activityModel: $0)
 			}
 		}.store(in: &cancellables)
 	}

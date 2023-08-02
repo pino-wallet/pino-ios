@@ -67,7 +67,7 @@ struct ActivityDetailProperties {
 	}
 
 	public var protocolName: String? {
-        swapDetailsVM?.activityProtocol.capitalized
+		swapDetailsVM?.activityProtocol.capitalized
 	}
 
 	#warning("this image is for test")

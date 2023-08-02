@@ -4,11 +4,10 @@
 //   let welcome = try? JSONDecoder().decode(Welcome.self, from: jsonData)
 
 struct ActivityTokenModel: Codable {
-    let amount, tokenID: String
+	let amount, tokenID: String
 
-    enum CodingKeys: String, CodingKey {
-        case amount
-        case tokenID = "id"
-    }
+	enum CodingKeys: String, CodingKey {
+		case amount
+		case tokenID = "id"
+	}
 }
-

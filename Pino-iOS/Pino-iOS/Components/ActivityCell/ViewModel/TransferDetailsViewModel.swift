@@ -56,15 +56,17 @@ struct TransferDetailsViewModel: ActivityDetailsProtocol {
 	public var userToAccountInfo: UserAccountInfoType? {
 		getUserAccountInfoBy(address: activityModel.detail?.to ?? "")
 	}
-    
-    // MARK: - Public Methods
-    public func isSendTransaction() -> Bool {
-        let currentAddress = PinoWalletManager().currentAccount.eip55Address
-            if currentAddress.lowercased() == activityModel.detail?.from?.lowercased() {
-                return true
-            } else {
-                return false
-            }}
+
+	// MARK: - Public Methods
+
+	public func isSendTransaction() -> Bool {
+		let currentAddress = PinoWalletManager().currentAccount.eip55Address
+		if currentAddress.lowercased() == activityModel.detail?.from?.lowercased() {
+			return true
+		} else {
+			return false
+		}
+	}
 
 	// MARK: - Private Methods
 

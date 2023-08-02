@@ -16,11 +16,11 @@ struct SwapDetailsViewModel: ActivityDetailsProtocol {
 	// MARK: - Private Properties
 
 	private var fromToken: AssetViewModel? {
-        globalAssetsList.first(where: { $0.id.lowercased() == activityModel.detail?.fromToken?.tokenID.lowercased() })
+		globalAssetsList.first(where: { $0.id.lowercased() == activityModel.detail?.fromToken?.tokenID.lowercased() })
 	}
 
 	private var toToken: AssetViewModel? {
-        globalAssetsList.first(where: { $0.id.lowercased() == activityModel.detail?.toToken?.tokenID.lowercased() })
+		globalAssetsList.first(where: { $0.id.lowercased() == activityModel.detail?.toToken?.tokenID.lowercased() })
 	}
 
 	private var toTokenDecimal: Int {
@@ -56,8 +56,8 @@ struct SwapDetailsViewModel: ActivityDetailsProtocol {
 	public var toTokenImage: URL? {
 		toToken?.image
 	}
-    
-    public var activityProtocol: String {
-        activityModel.detail?.activityProtocol ?? "Unknown protocol"
-    }
+
+	public var activityProtocol: String {
+		activityModel.detail?.activityProtocol ?? "Unknown protocol"
+	}
 }
