@@ -8,6 +8,7 @@
 import Foundation
 
 struct ActivityCellViewModel: ActivityCellViewModelProtocol {
+    
 	// MARK: - Private Properties
 
 	private let swapIcon = "swap"
@@ -20,11 +21,18 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private let withdrawIcon = "withdraw"
 	private let borrowIcon = "borrow_transaction"
 
-	private var activityModel: ActivityModel
+	private var activityModel: ActivityModelProtocol
+    private var swapDetailsVM: SwapDetailsViewModel? = nil
+    private var transferDetailsVM: TransferDetailsViewModel? = nil
 
 	// MARK: - Internal Properties
 
-	internal var globalAssetsList: [AssetViewModel] = []
+    internal var globalAssetsList: [AssetViewModel] = [] {
+        didSet {
+            setupDetailsWithType()
+            setValues()
+        }
+    }
 	internal var activityType: ActivityType {
 		ActivityType(rawValue: activityModel.type)!
 	}
@@ -48,24 +56,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 
 	// MARK: - Public Properties
 
-	var activityMoreInfo: String {
-		switch uiType {
-		case .send:
-			let transactionDetailsVM = TransferDetailsViewModel(
-				activityModel: activityModel,
-				globalAssetsList: globalAssetsList
-			)
-			return "To: \(transactionDetailsVM.userToAccountInfo?.name ?? activityModel.detail?.to?.addressFromStartFormatting() ?? "")"
-		case .receive:
-			let transactionDetailsVM = TransferDetailsViewModel(
-				activityModel: activityModel,
-				globalAssetsList: globalAssetsList
-			)
-			return "From: \(transactionDetailsVM.userFromAccountInfo?.name ?? activityModel.detail?.from?.addressFromStartFormatting() ?? "")"
-		default:
-			return activityModel.detail?.activityProtocol?.capitalized ?? "-"
-		}
-	}
+	var activityMoreInfo: String!
 
 	public var blockTime: String {
 		activityModel.blockTime
@@ -80,72 +71,17 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		}
 	}
 
-	public var icon: String {
-		switch uiType {
-		case .swap:
-			return swapIcon
-//		case .borrow:
-//			return borrowIcon
-		case .send:
-			return sendIcon
-		case .receive:
-			return receiveIcon
-//		case .collateral:
-//			return collateralIcon
-//		case .un_collateral:
-//			return UnCollateralIcon
-//		case .invest:
-//			return investIcon
-//		case .repay:
-//			return repaidIcon
-//		case .withdraw:
-//			return withdrawIcon
-		}
-	}
+	public var icon: String!
 
-	public var title: String {
-		#warning("this is mock and we should refactor this section")
-		switch uiType {
-		case .swap:
-			let swapActivityVM = SwapDetailsViewModel(activityModel: activityModel, globalAssetsList: globalAssetsList)
+	public var title: String!
 
-			return "Swap \(swapActivityVM.fromTokenSymbol) -> \(swapActivityVM.toTokenSymbol)"
-//		case .borrow:
-//			return "Borrow"
-		case .send:
-			let transferAcitivityDetailsVM = TransferDetailsViewModel(
-				activityModel: activityModel,
-				globalAssetsList: globalAssetsList
-			)
-
-			return "Send \(transferAcitivityDetailsVM.transferTokenAmount.sevenDigitFormat) \(transferAcitivityDetailsVM.transferTokenSymbol)"
-		case .receive:
-			let transferAcitivityDetailsVM = TransferDetailsViewModel(
-				activityModel: activityModel,
-				globalAssetsList: globalAssetsList
-			)
-
-			return "Receive \(transferAcitivityDetailsVM.transferTokenAmount.sevenDigitFormat) \(transferAcitivityDetailsVM.transferTokenSymbol)"
-//		case .collateral:
-//			return "Collateralized"
-//		case .un_collateral:
-//			return "Uncollateralized"
-//		case .invest:
-//			return "Invest"
-//		case .repay:
-//			return "Repaid"
-//		case .withdraw:
-//			return "Withdraw"
-		}
-	}
-
-	public var defaultActivityModel: ActivityModel {
+	public var defaultActivityModel: ActivityModelProtocol {
 		activityModel
 	}
 
 	// MARK: - Initializers
 
-	init(activityModel: ActivityModel) {
+	init(activityModel: ActivityModelProtocol) {
 		self.activityModel = activityModel
 	}
 
@@ -153,10 +89,65 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 
 	private func isSendTransaction() -> Bool {
 		let currentAddress = PinoWalletManager().currentAccount.eip55Address
-		if currentAddress.lowercased() == activityModel.detail?.from?.lowercased() {
-			return true
-		} else {
-			return false
-		}
-	}
+        if let transferActivity = activityModel as? ActivityTransferModel {
+            if currentAddress.lowercased() == transferActivity.detail?.from?.lowercased() {
+                return true
+            } else {
+                return false
+            }}
+        else {
+           return false
+       }
+    }
+    
+    private mutating func setupDetailsWithType() {
+        switch activityType {
+        case .transfer:
+            transferDetailsVM = TransferDetailsViewModel(activityModel: activityModel as! ActivityTransferModel, globalAssetsList: globalAssetsList)
+        case .transfer_from:
+            transferDetailsVM = TransferDetailsViewModel(activityModel: activityModel as! ActivityTransferModel, globalAssetsList: globalAssetsList)
+        case .swap:
+            swapDetailsVM = SwapDetailsViewModel(activityModel: activityModel as! ActivitySwapModel, globalAssetsList: globalAssetsList)
+        }
+    }
+    
+    private mutating func setValues() {
+            #warning("this is mock and we should refactor this section")
+            switch uiType {
+            case .swap:
+                // set cell title
+                title = "Swap \(swapDetailsVM!.fromTokenSymbol) -> \(swapDetailsVM!.toTokenSymbol)"
+                // set cell moreInfo
+                activityMoreInfo = swapDetailsVM!.activityProtocol.capitalized
+                // set cell icon
+                icon = swapIcon
+    //        case .borrow:
+    //            return "Borrow"
+            case .send:
+                // set cell title
+                title = "Send \(transferDetailsVM!.transferTokenAmount.sevenDigitFormat) \(transferDetailsVM!.transferTokenSymbol)"
+                // set cell moreInfo
+                activityMoreInfo = "To: \(transferDetailsVM!.userToAccountInfo?.name ?? activityModel.toAddress.addressFromStartFormatting())"
+                // set cell icon
+                icon = sendIcon
+            case .receive:
+                // set cell title
+                title = "Receive \(transferDetailsVM!.transferTokenAmount.sevenDigitFormat) \(transferDetailsVM!.transferTokenSymbol)"
+                // set cell moreInfo
+                activityMoreInfo = "From: \(transferDetailsVM!.userFromAccountInfo?.name ?? activityModel.fromAddress.addressFromStartFormatting())"
+                // set cell icon
+                icon = receiveIcon
+    //        case .collateral:
+    //            return "Collateralized"
+    //        case .un_collateral:
+    //            return "Uncollateralized"
+    //        case .invest:
+    //            return "Invest"
+    //        case .repay:
+    //            return "Repaid"
+    //        case .withdraw:
+    //            return "Withdraw"
+            }
+    }
+    
 }

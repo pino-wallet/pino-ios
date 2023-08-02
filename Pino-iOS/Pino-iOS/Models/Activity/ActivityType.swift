@@ -5,7 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 7/1/23.
 //
 
-enum ActivityType: String, Codable {
+enum ActivityType: String {
 	case transfer
 	case transfer_from
 //	case approve

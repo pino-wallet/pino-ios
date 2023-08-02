@@ -15,15 +15,15 @@ final class ActivityAPIClient: ActivityAPIService {
 
 	// MARK: - Public Methods
 
-	public func tokenActivities(userAddress: String, tokenAddress: String) -> AnyPublisher<ActivitiesModel, APIError> {
-		networkManager.request(.tokenActivities(userAddress: userAddress, tokenAddress: tokenAddress))
+    public func tokenActivities(userAddress: String, tokenAddress: String) -> AnyPublisher<ActivitiesModel, APIError> {
+        networkManager.request(.tokenActivities(userAddress: userAddress, tokenAddress: tokenAddress))
 	}
 
 	public func allActivities(userAddress: String) -> AnyPublisher<ActivitiesModel, APIError> {
 		networkManager.request(.allActivities(userAddress: userAddress))
 	}
 
-	public func singleActivity(txHash: String) -> AnyPublisher<ActivityModel, APIError> {
+	public func singleActivity(txHash: String) -> AnyPublisher<ResultActivityModel, APIError> {
 		networkManager.request(.singleActivity(txHash: txHash))
 	}
 }

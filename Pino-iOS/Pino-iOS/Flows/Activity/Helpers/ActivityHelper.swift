@@ -14,6 +14,30 @@ struct ActivityHelper {
 	public typealias SeparatedActivitiesWithDayType = [Int: [ActivityCellViewModel]]
 
 	// MARK: - Public Methods
+    
+    public func iterateActivityModel(activity: ResultActivityModel) -> ActivityModelProtocol? {
+        switch activity {
+        case .swap(let swapActivity):
+            return swapActivity
+        case .transfer(let transferActivity):
+            return transferActivity
+        case .transfer_from(let transferActivity):
+            return transferActivity
+        case .unknown(_):
+            return nil
+        }
+    }
+    
+    public func iterateActivitiesFromResponse(activities: ActivitiesModel) -> [ActivityModelProtocol] {
+        var iteratedActivities: [ActivityModelProtocol] = []
+        for activity in activities {
+            if let iteratedActivity = iterateActivityModel(activity: activity) {
+                iteratedActivities.append(iteratedActivity)
+            }
+            
+        }
+        return iteratedActivities
+    }
 
 	public func getActivityDate(activityBlockTime: String) -> Date {
 		let dateFormatter = DateFormatter()

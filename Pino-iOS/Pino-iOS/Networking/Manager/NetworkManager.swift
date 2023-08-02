@@ -35,7 +35,7 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 					}
 
 					do {
-						return try JSONDecoder().decode(T.self, from: data)
+                        return try JSONDecoder().decode(T.self, from: data)
 					} catch {
 						print("Unable to handle request:\(error)")
 						throw APIError.invalidRequest

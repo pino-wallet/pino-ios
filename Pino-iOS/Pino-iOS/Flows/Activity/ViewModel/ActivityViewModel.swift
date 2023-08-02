@@ -25,9 +25,10 @@ class ActivityViewModel {
 
 	private let activityAPIClient = ActivityAPIClient()
 	private let walletManager = PinoWalletManager()
+    private let activityHelper = ActivityHelper()
 	private var cancellables = Set<AnyCancellable>()
 	private var requestTimer: Timer?
-	private var prevActivities: ActivitiesModel = []
+	private var prevActivities: [ActivityModelProtocol] = []
 
 	// MARK: - Public Properties
 
@@ -81,15 +82,15 @@ class ActivityViewModel {
 				.show(haptic: .warning)
 			}
 		} receiveValue: { [weak self] activities in
-			let filteredActivities = activities.filter { ActivityType(rawValue: $0.type) != nil }
+            let iteratedActivities = self?.activityHelper.iterateActivitiesFromResponse(activities: activities) ?? []
 			if self?.userActivities == nil || (self?.userActivities!.isEmpty)! {
-				self?.userActivities = filteredActivities.compactMap {
+                self?.userActivities = iteratedActivities.compactMap {
 					ActivityCellViewModel(activityModel: $0)
 				}
-				self?.prevActivities = filteredActivities
+				self?.prevActivities = iteratedActivities
 			} else {
-				var newActivities: ActivitiesModel = []
-				newActivities = filteredActivities.filter { activity in
+				var newActivities: [ActivityModelProtocol] = []
+				newActivities = iteratedActivities.filter { activity in
 					!self!.prevActivities.contains { activity.txHash == $0.txHash }
 				}
 				self?.newUserActivities = newActivities.compactMap {
