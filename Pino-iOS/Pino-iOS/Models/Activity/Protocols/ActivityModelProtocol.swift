@@ -5,7 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 8/1/23.
 //
 
-protocol ActivityModelProtocol: Codable, Encodable, Decodable {
+protocol ActivityModelProtocol: Codable {
 	var txHash: String { get }
 	var type: String { get }
 	var fromAddress: String { get }

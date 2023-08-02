@@ -45,4 +45,3 @@ struct TransferActivityDetail: Codable {
 	}
 }
 
-typealias TransferActivitiesModel = [ActivityTransferModel]

@@ -43,4 +43,3 @@ struct SwapActivityDetails: Codable {
 	}
 }
 
-typealias SwapActivitiesModel = [ActivitySwapModel]
