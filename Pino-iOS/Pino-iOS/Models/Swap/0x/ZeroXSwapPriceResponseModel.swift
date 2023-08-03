@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - ZeroXPriceResponseModel
 
-struct ZeroXPriceResponseModel: SwapPriceResponseProtocol {
+public struct ZeroXPriceResponseModel: SwapPriceResponseProtocol {
 	let chainId: Int
 	let price, grossPrice, estimatedPriceImpact, value: String
 	let gasPrice, gas, estimatedGas, protocolFee: String

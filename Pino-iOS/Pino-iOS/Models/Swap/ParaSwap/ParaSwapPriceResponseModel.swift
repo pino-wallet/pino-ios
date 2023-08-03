@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - ParaSwapPriceResponseModel
 
-struct ParaSwapPriceResponseModel: SwapPriceResponseProtocol {
+public struct ParaSwapPriceResponseModel: SwapPriceResponseProtocol {
 	let priceRoute: PriceRoute
 }
 

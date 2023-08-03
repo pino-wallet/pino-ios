@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - OneInchPriceResponseModel
 
-struct OneInchPriceResponseModel: SwapPriceResponseProtocol {
+public struct OneInchPriceResponseModel: SwapPriceResponseProtocol {
 	let toAmount: String
 	let gas: Int
 }
