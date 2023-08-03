@@ -63,7 +63,7 @@ class Web3Core {
 			}.then { conctractCode in
 				if conctractCode.hex() == Constants.eoaCode {
 					// In this case the smart contract belongs to an EOA
-                    throw Web3Error.invalidSmartContractAddress
+					throw Web3Error.invalidSmartContractAddress
 				}
 				return try self.getInfo(address: contractAddress, info: .decimal)
 			}.then { decimalValue in
