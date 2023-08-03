@@ -5,12 +5,14 @@
 //  Created by Mohi Raoufi on 7/15/23.
 //
 
+import Combine
 import UIKit
 
 class SwapConfirmationViewController: AuthenticationLockViewController {
 	// MARK: Private Properties
 
-	let swapConfirmationVM: SwapConfirmationViewModel
+	private let swapConfirmationVM: SwapConfirmationViewModel
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
 
@@ -31,6 +33,8 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+
+		confirmSwap()
 	}
 
 	override func loadView() {
@@ -43,7 +47,9 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 	private func setupView() {
 		view = SwapConfirmationView(
 			swapConfirmationVM: swapConfirmationVM,
-			confirmButtonTapped: {},
+			confirmButtonTapped: {
+				self.confirmSwap()
+			},
 			presentFeeInfo: { infoActionSheet in },
 			retryFeeCalculation: {}
 		)
