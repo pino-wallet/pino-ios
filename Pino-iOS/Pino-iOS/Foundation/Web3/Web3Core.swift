@@ -63,12 +63,12 @@ class Web3Core {
 			}.then { conctractCode in
 				if conctractCode.hex() == Constants.eoaCode {
 					// In this case the smart contract belongs to an EOA
-					seal.reject(Web3Error.invalidSmartContractAddress)
+                    throw Web3Error.invalidSmartContractAddress
 				}
 				return try self.getInfo(address: contractAddress, info: .decimal)
 			}.then { decimalValue in
 				if String(describing: decimalValue[.emptyString]) == "0" {
-					seal.reject(Web3Error.invalidSmartContractAddress)
+					throw Web3Error.invalidSmartContractAddress
 				}
 				assetInfo[AssetInfo.decimal] = "\(decimalValue[String.emptyString]!)"
 				return try self.getInfo(address: contractAddress, info: .name).compactMap { nameValue in
@@ -91,7 +91,7 @@ class Web3Core {
 			}.done { symbol in
 				assetInfo.updateValue(symbol, forKey: AssetInfo.symbol)
 				seal.fulfill(assetInfo)
-			}.catch { error in
+			}.catch(policy: .allErrors) { error in
 				seal.reject(error)
 			}
 		}
@@ -190,7 +190,6 @@ class Web3Core {
 						accessList: [:],
 						transactionType: .legacy
 					) else {
-						seal.reject(Web3Error.failedTransaction)
 						throw Web3Error.failedTransaction
 					}
 
