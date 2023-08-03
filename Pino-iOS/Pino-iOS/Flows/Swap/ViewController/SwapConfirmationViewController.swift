@@ -9,10 +9,9 @@ import Combine
 import UIKit
 
 class SwapConfirmationViewController: AuthenticationLockViewController {
-	
-    // MARK: Private Properties
+	// MARK: Private Properties
 
-    private let swapConfirmationVM: SwapConfirmationViewModel
+	private let swapConfirmationVM: SwapConfirmationViewModel
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
@@ -81,5 +80,4 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 	private func dismissPage() {
 		dismiss(animated: true)
 	}
-
 }

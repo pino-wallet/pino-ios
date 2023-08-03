@@ -16,50 +16,50 @@ public struct SwapPriceRequestModel {
 	let side: SwapSide
 	let networkID: Int?
 
-    // MARK: - Public Properties
+	// MARK: - Public Properties
 
 	public static let paraSwapETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 	public static let oneInchETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 	public static let zeroXETHID = "ETH"
 	public static let pinoETHID = "0x0000000000000000000000000000000000000000"
-    
-    public var paraSwapURLParams: HTTPParameters {
-        [
-            "srcToken": srcToken,
-            "srcDecimals": srcDecimals!,
-            "destToken": destToken,
-            "destDecimals": destDecimals!,
-            "amount": amount,
-            "side": side.rawValue,
-            "network": networkID!,
-        ]
-    }
 
-    public var OneInchSwapURLParams: HTTPParameters {
-        [
-            "src": srcToken,
-            "dst": destToken,
-            "amount": amount,
-            "includeProtocols": "false",
-            "includeTokensInfo": "false",
-            "includeGas": "true",
-        ]
-    }
+	public var paraSwapURLParams: HTTPParameters {
+		[
+			"srcToken": srcToken,
+			"srcDecimals": srcDecimals!,
+			"destToken": destToken,
+			"destDecimals": destDecimals!,
+			"amount": amount,
+			"side": side.rawValue,
+			"network": networkID!,
+		]
+	}
 
-    public var ZeroXSwapURLParams: HTTPParameters {
-        var params = [
-            "sellToken": srcToken,
-            "buyToken": destToken,
-        ] as HTTPParameters
-        if side == .sell {
-            params["sellAmount"] = amount
-        } else {
-            params["buyAmount"] = amount
-        }
-        return params
-    }
+	public var OneInchSwapURLParams: HTTPParameters {
+		[
+			"src": srcToken,
+			"dst": destToken,
+			"amount": amount,
+			"includeProtocols": "false",
+			"includeTokensInfo": "false",
+			"includeGas": "true",
+		]
+	}
 
-    // MARK: - Initializers
+	public var ZeroXSwapURLParams: HTTPParameters {
+		var params = [
+			"sellToken": srcToken,
+			"buyToken": destToken,
+		] as HTTPParameters
+		if side == .sell {
+			params["sellAmount"] = amount
+		} else {
+			params["buyAmount"] = amount
+		}
+		return params
+	}
+
+	// MARK: - Initializers
 
 	// Initializer for ParaSwap
 	init(srcToken: String, srcDecimals: Int, destToken: String, destDecimals: Int, amount: String, side: SwapSide) {
@@ -82,6 +82,4 @@ public struct SwapPriceRequestModel {
 		self.side = side
 		self.networkID = nil
 	}
-
-	
 }
