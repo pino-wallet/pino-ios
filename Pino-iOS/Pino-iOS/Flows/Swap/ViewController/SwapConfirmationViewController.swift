@@ -9,13 +9,10 @@ import Combine
 import UIKit
 
 class SwapConfirmationViewController: AuthenticationLockViewController {
-	// MARK: Private Properties
+	
+    // MARK: Private Properties
 
-	let swapConfirmationVM: SwapConfirmationViewModel
-	let paraSwapAPIClient = ParaSwapAPIClient()
-	let oneInchAPIClient = OneInchAPIClient()
-	let zeroXAPIClient = ZeroXAPIClient()
-
+    private let swapConfirmationVM: SwapConfirmationViewModel
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
@@ -77,11 +74,7 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 	}
 
 	private func confirmSwap() {
-		//        getSwapPrice(swapProviderAPIClient: paraSwapAPIClient)
-		//        getSwapPrice(swapProviderAPIClient: oneInchAPIClient)
-		getSwapPrice(swapProviderAPIClient: zeroXAPIClient)
-
-//		unlockApp {}
+		unlockApp {}
 	}
 
 	@objc
@@ -89,25 +82,4 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 		dismiss(animated: true)
 	}
 
-	private func getSwapPrice(swapProviderAPIClient: some SwapProvidersAPIServices) {
-		let swapInfo = SwapPriceRequestModel(
-			srcToken: "0x514910771af9ca656af840dff83e8264ecf986ca",
-			srcDecimals: 18,
-			destToken: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-			destDecimals: 6,
-			amount: "1000000000000000000",
-			side: .sell
-		)
-
-		swapProviderAPIClient.swapPrice(swapInfo: swapInfo).sink { completed in
-			switch completed {
-			case .finished:
-				print("Swap price received successfully")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { responseReq in
-			print(responseReq)
-		}.store(in: &cancellables)
-	}
 }
