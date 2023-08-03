@@ -14,6 +14,7 @@ class ActivityDetailsViewModel {
 	private let globalAssetsList = GlobalVariables.shared.manageAssetsList
 	private let activityAPIClient = ActivityAPIClient()
 	private let errorFetchingToastMessage = "Error fetching activity from server"
+	private let activityHelper = ActivityHelper()
 	private var requestTimer: Timer!
 	private var cancellables = Set<AnyCancellable>()
 
@@ -104,7 +105,8 @@ class ActivityDetailsViewModel {
 				.show(haptic: .warning)
 			}
 		} receiveValue: { activityDetails in
-			let newActivityDetails = ActivityCellViewModel(activityModel: activityDetails)
+			let iteratedActivity = self.activityHelper.iterateActivityModel(activity: activityDetails)
+			let newActivityDetails = ActivityCellViewModel(activityModel: iteratedActivity!)
 			if newActivityDetails.status != .pending {
 				self.destroyTimer()
 			}

@@ -14,7 +14,7 @@ struct TransferDetailsViewModel: ActivityDetailsProtocol {
 
 	// MARK: - Internal Properties
 
-	internal var activityModel: ActivityModel
+	internal var activityModel: ActivityTransferModel
 	internal var globalAssetsList: [AssetViewModel]
 
 	// MARK: - Private Properties

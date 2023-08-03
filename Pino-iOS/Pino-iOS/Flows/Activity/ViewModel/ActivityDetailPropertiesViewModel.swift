@@ -67,7 +67,7 @@ struct ActivityDetailProperties {
 	}
 
 	public var protocolName: String? {
-		activityDetails.defaultActivityModel.detail?.activityProtocol?.capitalized
+		swapDetailsVM?.activityProtocol.capitalized
 	}
 
 	#warning("this image is for test")
@@ -147,7 +147,7 @@ struct ActivityDetailProperties {
 		switch activityDetails.uiType {
 		case .swap:
 			swapDetailsVM = SwapDetailsViewModel(
-				activityModel: activityDetails.defaultActivityModel,
+				activityModel: activityDetails.defaultActivityModel as! ActivitySwapModel,
 				globalAssetsList: globalAssetsList
 			)
 
@@ -155,13 +155,13 @@ struct ActivityDetailProperties {
 //			return
 		case .send:
 			transferDetailsVM = TransferDetailsViewModel(
-				activityModel: activityDetails.defaultActivityModel,
+				activityModel: activityDetails.defaultActivityModel as! ActivityTransferModel,
 				globalAssetsList: globalAssetsList
 			)
 
 		case .receive:
 			transferDetailsVM = TransferDetailsViewModel(
-				activityModel: activityDetails.defaultActivityModel,
+				activityModel: activityDetails.defaultActivityModel as! ActivityTransferModel,
 				globalAssetsList: globalAssetsList
 			)
 //		case .collateral:
