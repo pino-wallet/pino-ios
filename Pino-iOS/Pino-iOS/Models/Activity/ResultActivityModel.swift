@@ -8,20 +8,20 @@ import Foundation
 // MARK: - WelcomeElement
 
 enum ResultActivityModel: Decodable, Encodable {
-    
-    // MARK: - Cases
-    
+	// MARK: - Cases
+
 	case swap(ActivityModelProtocol)
 	case transfer(ActivityModelProtocol)
 	case transfer_from(ActivityModelProtocol)
 	case unknown(UnknownActivityModel?)
 
-    // MARK: - Coding keys
+	// MARK: - Coding keys
+
 	enum CodingKeys: String, CodingKey {
 		case type
 	}
-    
-    // MARK: - Initializers
+
+	// MARK: - Initializers
 
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -41,8 +41,8 @@ enum ResultActivityModel: Decodable, Encodable {
 			self = .unknown(nil)
 		}
 	}
-    
-    // MARK: - Methods
+
+	// MARK: - Methods
 
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
