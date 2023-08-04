@@ -13,6 +13,7 @@ class CoreDataManager {
 	private var accountDataSource = AccountDataSource()
 	private var selectedAssetDataSource = SelectedAssetsDataSource()
 	private var customAssetsDataSource = CustomAssetDataSource()
+    private var activityDataSource = ActivityDataSource()
 
 	// MARK: - Public Methods
 
@@ -132,4 +133,77 @@ class CoreDataManager {
 		customAssetsDataSource.save(newCustomAsset)
 		return newCustomAsset
 	}
+    
+    @discardableResult
+    public func addNewSwapActivity(activityModel: ActivitySwapModel) -> CoreDataSwapActivity {
+        let newActivity = CoreDataSwapActivity(context: activityDataSource.managedContext)
+        
+        newActivity.txHash = activityModel.txHash
+        newActivity.type = activityModel.type
+        newActivity.fromAddress = activityModel.fromAddress
+        newActivity.toAddress = activityModel.toAddress
+        newActivity.failed = activityModel.failed
+        newActivity.blockTime = activityModel.blockTime
+        newActivity.gasUsed = activityModel.gasUsed
+        newActivity.gasPrice = activityModel.gasPrice
+        
+        
+        let newActivityDetails = CoreDataSwapActivityDetails(context: activityDataSource.managedContext)
+        
+        newActivityDetails.userID = activityModel.detail?.userID
+        newActivityDetails.activityProtool = activityModel.detail?.activityProtocol
+        
+        let newActivityDetailsFromToken = CoreDataSwapActivityDetailsFromToken(context: activityDataSource.managedContext)
+        
+        newActivityDetailsFromToken.amount = activityModel.detail?.fromToken?.amount
+        newActivityDetailsFromToken.tokenId = activityModel.detail?.fromToken?.tokenID
+        newActivityDetails.from_token = newActivityDetailsFromToken
+        
+        let newActivityDetailsToToken = CoreDataSwapActivityDetailsToToken(context: activityDataSource.managedContext)
+        
+        newActivityDetailsToToken.amount = activityModel.detail?.toToken?.amount
+        newActivityDetailsToToken.tokenId = activityModel.detail?.toToken?.tokenID
+        newActivityDetails.to_token = newActivityDetailsToToken
+        
+        
+        newActivity.details = newActivityDetails
+        
+        activityDataSource.save(newActivity)
+        return newActivity
+    }
+    
+    @discardableResult
+    public func addNewTransferActivity(activityModel: ActivityTransferModel) -> CoreDataTransferActivity {
+        let newActivity = CoreDataTransferActivity(context: activityDataSource.managedContext)
+        
+        newActivity.txHash = activityModel.txHash
+        newActivity.type = activityModel.type
+        newActivity.fromAddress = activityModel.fromAddress
+        newActivity.toAddress = activityModel.toAddress
+        newActivity.failed = activityModel.failed
+        newActivity.blockTime = activityModel.blockTime
+        newActivity.gasUsed = activityModel.gasUsed
+        newActivity.gasPrice = activityModel.gasPrice
+        
+        let newActivityDetails = CoreDataTransferActivityDetails(context: activityDataSource.managedContext)
+        
+        newActivityDetails.amount = activityModel.detail?.amount
+        newActivityDetails.tokenID = activityModel.detail?.tokenID
+        newActivityDetails.from = activityModel.detail?.from
+        newActivityDetails.to = activityModel.detail?.to
+        
+        newActivity.details = newActivityDetails
+        
+        activityDataSource.save(newActivity)
+        return newActivity
+    }
+    
+    public func getAllActivities() -> [CoreDataActivityParent] {
+        activityDataSource.getAll()
+    }
+    
+    public func deleteActivityByID(_ id: String) {
+        activityDataSource.deleteByID(id)
+    }
+    
 }

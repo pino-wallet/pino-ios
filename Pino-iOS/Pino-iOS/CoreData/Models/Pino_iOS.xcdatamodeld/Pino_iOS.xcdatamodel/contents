@@ -1,5 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22A400" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22A380" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CoreDataActivityDetailsToken" representedClassName="CoreDataActivityDetailsToken" syncable="YES">
+        <attribute name="amount" attributeType="String"/>
+        <attribute name="tokenId" attributeType="String"/>
+    </entity>
+    <entity name="CoreDataActivityParent" representedClassName="CoreDataActivityParent" syncable="YES">
+        <attribute name="blockTime" attributeType="String"/>
+        <attribute name="failed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="fromAddress" attributeType="String"/>
+        <attribute name="gasPrice" attributeType="String"/>
+        <attribute name="gasUsed" attributeType="String"/>
+        <attribute name="toAddress" attributeType="String"/>
+        <attribute name="txHash" attributeType="String"/>
+        <attribute name="type" attributeType="String"/>
+    </entity>
+    <entity name="CoreDataSwapActivity" representedClassName="CoreDataSwapActivity" parentEntity="CoreDataActivityParent" syncable="YES">
+        <relationship name="details" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoreDataSwapActivityDetails" inverseName="activity" inverseEntity="CoreDataSwapActivityDetails"/>
+    </entity>
+    <entity name="CoreDataSwapActivityDetails" representedClassName="CoreDataSwapActivityDetails" syncable="YES">
+        <attribute name="activityProtool" attributeType="String"/>
+        <attribute name="userID" attributeType="String"/>
+        <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoreDataSwapActivity" inverseName="details" inverseEntity="CoreDataSwapActivity"/>
+        <relationship name="from_token" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoreDataSwapActivityDetailsFromToken" inverseName="details" inverseEntity="CoreDataSwapActivityDetailsFromToken"/>
+        <relationship name="to_token" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoreDataSwapActivityDetailsToToken" inverseName="details" inverseEntity="CoreDataSwapActivityDetailsToToken"/>
+    </entity>
+    <entity name="CoreDataSwapActivityDetailsFromToken" representedClassName="CoreDataSwapActivityDetailsFromToken" parentEntity="CoreDataActivityDetailsToken" syncable="YES">
+        <relationship name="details" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoreDataSwapActivityDetails" inverseName="from_token" inverseEntity="CoreDataSwapActivityDetails"/>
+    </entity>
+    <entity name="CoreDataSwapActivityDetailsToToken" representedClassName="CoreDataSwapActivityDetailsToToken" parentEntity="CoreDataActivityDetailsToken" syncable="YES">
+        <relationship name="details" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoreDataSwapActivityDetails" inverseName="to_token" inverseEntity="CoreDataSwapActivityDetails"/>
+    </entity>
+    <entity name="CoreDataTransferActivity" representedClassName="CoreDataTransferActivity" parentEntity="CoreDataActivityParent" syncable="YES">
+        <relationship name="details" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoreDataTransferActivityDetails" inverseName="activity" inverseEntity="CoreDataTransferActivityDetails"/>
+    </entity>
+    <entity name="CoreDataTransferActivityDetails" representedClassName="CoreDataTransferActivityDetails" syncable="YES">
+        <attribute name="amount" attributeType="String"/>
+        <attribute name="from" attributeType="String"/>
+        <attribute name="to" attributeType="String"/>
+        <attribute name="tokenID" attributeType="String"/>
+        <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoreDataTransferActivity" inverseName="details" inverseEntity="CoreDataTransferActivity"/>
+    </entity>
     <entity name="CustomAsset" representedClassName="CustomAsset" syncable="YES">
         <attribute name="decimal" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
