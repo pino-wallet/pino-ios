@@ -6,10 +6,8 @@
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(CoreDataSwapActivity)
-public class CoreDataSwapActivity: CoreDataActivityParent {
-
-}
+public class CoreDataSwapActivity: CoreDataActivityParent {}

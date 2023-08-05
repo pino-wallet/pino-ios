@@ -6,21 +6,19 @@
 //
 //
 
-import Foundation
 import CoreData
-
+import Foundation
 
 extension CoreDataActivityDetailsToken {
+	@nonobjc
+	public class func fetchRequest() -> NSFetchRequest<CoreDataActivityDetailsToken> {
+		NSFetchRequest<CoreDataActivityDetailsToken>(entityName: "CoreDataActivityDetailsToken")
+	}
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<CoreDataActivityDetailsToken> {
-        return NSFetchRequest<CoreDataActivityDetailsToken>(entityName: "CoreDataActivityDetailsToken")
-    }
-
-    @NSManaged public var amount: String?
-    @NSManaged public var tokenId: String?
-
+	@NSManaged
+	public var amount: String?
+	@NSManaged
+	public var tokenId: String?
 }
 
-extension CoreDataActivityDetailsToken : Identifiable {
-
-}
+extension CoreDataActivityDetailsToken: Identifiable {}

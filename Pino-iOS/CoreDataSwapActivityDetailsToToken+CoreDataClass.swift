@@ -6,10 +6,8 @@
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(CoreDataSwapActivityDetailsToToken)
-public class CoreDataSwapActivityDetailsToToken: CoreDataActivityDetailsToken {
-
-}
+public class CoreDataSwapActivityDetailsToToken: CoreDataActivityDetailsToken {}

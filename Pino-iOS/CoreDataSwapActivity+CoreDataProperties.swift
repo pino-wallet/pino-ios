@@ -6,16 +6,15 @@
 //
 //
 
-import Foundation
 import CoreData
-
+import Foundation
 
 extension CoreDataSwapActivity {
+	@nonobjc
+	public class func fetchRequest() -> NSFetchRequest<CoreDataSwapActivity> {
+		NSFetchRequest<CoreDataSwapActivity>(entityName: "CoreDataSwapActivity")
+	}
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<CoreDataSwapActivity> {
-        return NSFetchRequest<CoreDataSwapActivity>(entityName: "CoreDataSwapActivity")
-    }
-
-    @NSManaged public var details: CoreDataSwapActivityDetails?
-
+	@NSManaged
+	public var details: CoreDataSwapActivityDetails?
 }

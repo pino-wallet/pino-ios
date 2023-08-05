@@ -6,10 +6,8 @@
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(CoreDataActivityParent)
-public class CoreDataActivityParent: NSManagedObject {
-
-}
+public class CoreDataActivityParent: NSManagedObject {}

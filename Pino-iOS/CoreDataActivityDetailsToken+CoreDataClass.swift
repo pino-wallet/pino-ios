@@ -6,10 +6,8 @@
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(CoreDataActivityDetailsToken)
-public class CoreDataActivityDetailsToken: NSManagedObject {
-
-}
+public class CoreDataActivityDetailsToken: NSManagedObject {}
