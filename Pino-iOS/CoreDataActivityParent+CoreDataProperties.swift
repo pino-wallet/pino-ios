@@ -2,7 +2,7 @@
 //  CoreDataActivityParent+CoreDataProperties.swift
 //  Pino-iOS
 //
-//  Created by Amir hossein kazemi seresht on 8/4/23.
+//  Created by Amir hossein kazemi seresht on 8/5/23.
 //
 //
 
@@ -17,7 +17,6 @@ extension CoreDataActivityParent {
     }
 
     @NSManaged public var blockTime: String?
-    @NSManaged public var failed: Bool
     @NSManaged public var fromAddress: String?
     @NSManaged public var gasPrice: String?
     @NSManaged public var gasUsed: String?

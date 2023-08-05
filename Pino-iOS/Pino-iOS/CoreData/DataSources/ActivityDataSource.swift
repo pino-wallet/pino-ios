@@ -33,8 +33,9 @@ struct ActivityDataSource: DataSourceProtocol {
     
     // MARK: - Public Properties
     
-    public func getAll() -> [CoreDataActivityParent] {
-        coreDataActivities
+    public mutating func getAll() -> [CoreDataActivityParent] {
+        fetchEntities()
+        return coreDataActivities
     }
     
     public func get(byId id: String) -> CoreDataActivityParent? {

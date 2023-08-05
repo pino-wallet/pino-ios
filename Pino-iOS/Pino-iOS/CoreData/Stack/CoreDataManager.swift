@@ -142,7 +142,6 @@ class CoreDataManager {
         newActivity.type = activityModel.type
         newActivity.fromAddress = activityModel.fromAddress
         newActivity.toAddress = activityModel.toAddress
-        newActivity.failed = activityModel.failed
         newActivity.blockTime = activityModel.blockTime
         newActivity.gasUsed = activityModel.gasUsed
         newActivity.gasPrice = activityModel.gasPrice
@@ -180,7 +179,6 @@ class CoreDataManager {
         newActivity.type = activityModel.type
         newActivity.fromAddress = activityModel.fromAddress
         newActivity.toAddress = activityModel.toAddress
-        newActivity.failed = activityModel.failed
         newActivity.blockTime = activityModel.blockTime
         newActivity.gasUsed = activityModel.gasUsed
         newActivity.gasPrice = activityModel.gasPrice

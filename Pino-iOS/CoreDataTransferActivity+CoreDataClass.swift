@@ -2,7 +2,7 @@
 //  CoreDataTransferActivity+CoreDataClass.swift
 //  Pino-iOS
 //
-//  Created by Amir hossein kazemi seresht on 8/4/23.
+//  Created by Amir hossein kazemi seresht on 8/5/23.
 //
 //
 

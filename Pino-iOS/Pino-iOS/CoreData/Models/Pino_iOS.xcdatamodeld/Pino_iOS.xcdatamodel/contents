@@ -6,7 +6,6 @@
     </entity>
     <entity name="CoreDataActivityParent" representedClassName="CoreDataActivityParent" syncable="YES">
         <attribute name="blockTime" attributeType="String"/>
-        <attribute name="failed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="fromAddress" attributeType="String"/>
         <attribute name="gasPrice" attributeType="String"/>
         <attribute name="gasUsed" attributeType="String"/>

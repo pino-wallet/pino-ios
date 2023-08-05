@@ -31,16 +31,10 @@ class ActivityViewModel {
 	private var prevActivities: [ActivityModelProtocol] = []
 
 	// MARK: - Public Properties
-let test = CoreDataManager()
+
 	public func getUserActivitiesFromVC() {
 		setupRequestTimer()
 		requestTimer?.fire()
-        
-        test.addNewSwapActivity(activityModel: ActivitySwapModel(txHash: "eh", type: "ho", detail: SwapActivityDetails(fromToken: ActivityTokenModel(amount: "24142", tokenID: "4151"), toToken: ActivityTokenModel(amount: "41515", tokenID: "135151"), userID: "mamad", activityProtocol: "eh"), fromAddress: "eheee", toAddress: "omm", failed: true, blockNumber: 1313, blockTime: "14", gasUsed: "15151", gasPrice: "41414214"))
-//        print("heh", test.addNewSwapActivity(activityModel: ActivitySwapModel(txHash: "eh", type: "ho", detail: SwapActivityDetails(fromToken: nil, toToken: nil, userID: "mamad", activityProtocol: "eh"), fromAddress: "eheee", toAddress: "omm", failed: true, blockNumber: 1313, blockTime: "14", gasUsed: "15151", gasPrice: "41414214")).details?.userID)
-        let eh = test.getAllActivities()[0] as! CoreDataSwapActivity
-//        test.deleteActivityByID("eh")
-        print("heh", eh.details?.userID, test.getAllActivities().count)
 	}
 
 	public func destroyPrevData() {
