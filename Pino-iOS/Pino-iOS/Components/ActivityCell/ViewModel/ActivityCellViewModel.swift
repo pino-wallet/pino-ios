@@ -64,7 +64,10 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 
 	public var status: ActivityCellStatus {
 		#warning("this section is mock and we should refactor this section")
-		if activityModel.failed {
+        guard activityModel.failed != nil else {
+            return .pending
+        }
+        if activityModel.failed! {
 			return .failed
 		} else {
 			return .success

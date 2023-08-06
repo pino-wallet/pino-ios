@@ -148,22 +148,22 @@ class CoreDataManager {
 
 		let newActivityDetails = CoreDataSwapActivityDetails(context: activityDataSource.managedContext)
 
-		newActivityDetails.userID = activityModel.detail?.userID
-		newActivityDetails.activityProtool = activityModel.detail?.activityProtocol
+		newActivityDetails.userID = activityModel.detail?.userID ?? ""
+		newActivityDetails.activityProtool = activityModel.detail?.activityProtocol ?? ""
 
 		let newActivityDetailsFromToken = CoreDataSwapActivityDetailsFromToken(
 			context: activityDataSource
 				.managedContext
 		)
 
-		newActivityDetailsFromToken.amount = activityModel.detail?.fromToken?.amount
-		newActivityDetailsFromToken.tokenId = activityModel.detail?.fromToken?.tokenID
+        newActivityDetailsFromToken.amount = activityModel.detail?.fromToken?.amount ?? ""
+        newActivityDetailsFromToken.tokenId = activityModel.detail?.fromToken?.tokenID ?? ""
 		newActivityDetails.from_token = newActivityDetailsFromToken
 
 		let newActivityDetailsToToken = CoreDataSwapActivityDetailsToToken(context: activityDataSource.managedContext)
 
-		newActivityDetailsToToken.amount = activityModel.detail?.toToken?.amount
-		newActivityDetailsToToken.tokenId = activityModel.detail?.toToken?.tokenID
+		newActivityDetailsToToken.amount = activityModel.detail?.toToken?.amount ?? ""
+		newActivityDetailsToToken.tokenId = activityModel.detail?.toToken?.tokenID ?? ""
 		newActivityDetails.to_token = newActivityDetailsToToken
 
 		newActivity.details = newActivityDetails
@@ -186,10 +186,10 @@ class CoreDataManager {
 
 		let newActivityDetails = CoreDataTransferActivityDetails(context: activityDataSource.managedContext)
 
-		newActivityDetails.amount = activityModel.detail?.amount
-		newActivityDetails.tokenID = activityModel.detail?.tokenID
-		newActivityDetails.from = activityModel.detail?.from
-		newActivityDetails.to = activityModel.detail?.to
+		newActivityDetails.amount = activityModel.detail?.amount ?? ""
+		newActivityDetails.tokenID = activityModel.detail?.tokenID ?? ""
+		newActivityDetails.from = activityModel.detail?.from ?? ""
+		newActivityDetails.to = activityModel.detail?.to ?? ""
 
 		newActivity.details = newActivityDetails
 

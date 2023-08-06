@@ -16,9 +16,9 @@ extension CoreDataActivityDetailsToken {
 	}
 
 	@NSManaged
-	public var amount: String?
+	public var amount: String
 	@NSManaged
-	public var tokenId: String?
+	public var tokenId: String
 }
 
 extension CoreDataActivityDetailsToken: Identifiable {}

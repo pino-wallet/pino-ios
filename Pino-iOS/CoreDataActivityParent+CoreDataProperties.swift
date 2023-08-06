@@ -16,19 +16,19 @@ extension CoreDataActivityParent {
 	}
 
 	@NSManaged
-	public var blockTime: String?
+	public var blockTime: String
 	@NSManaged
-	public var fromAddress: String?
+	public var fromAddress: String
 	@NSManaged
-	public var gasPrice: String?
+	public var gasPrice: String
 	@NSManaged
-	public var gasUsed: String?
+	public var gasUsed: String
 	@NSManaged
-	public var toAddress: String?
+	public var toAddress: String
 	@NSManaged
-	public var txHash: String?
+	public var txHash: String
 	@NSManaged
-	public var type: String?
+	public var type: String
 }
 
 extension CoreDataActivityParent: Identifiable {}

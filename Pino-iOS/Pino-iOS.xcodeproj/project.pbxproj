@@ -292,6 +292,7 @@
 		D94A9A2429FE75FC00DCA28D /* EditAccountNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A2329FE75FC00DCA28D /* EditAccountNameViewModel.swift */; };
 		D95D49822A386BC10042FC85 /* TitleWithInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95D49812A386BC10042FC85 /* TitleWithInfo.swift */; };
 		D964AC6B0907B2432359A129 /* GroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D7CE3AA42604B8F78EA87C /* GroupCollectionViewCell.swift */; };
+		D96A40D62A7E83A200C020BC /* PendingActivitiesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96A40D52A7E83A200C020BC /* PendingActivitiesManager.swift */; };
 		D9703F6A29ED547000D09277 /* CoinInfoFooterview.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9703F6929ED547000D09277 /* CoinInfoFooterview.swift */; };
 		D970C0E02A74EA80005A7FAC /* GlobalToastTitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D970C0DF2A74EA80005A7FAC /* GlobalToastTitles.swift */; };
 		D97CF62C25B975AD3C131881 /* CoinHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26427FD948787141E7AA599B /* CoinHistoryModel.swift */; };
@@ -830,6 +831,7 @@
 		D94A9A2129FE6CDA00DCA28D /* EditAccountNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameView.swift; sourceTree = "<group>"; };
 		D94A9A2329FE75FC00DCA28D /* EditAccountNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameViewModel.swift; sourceTree = "<group>"; };
 		D95D49812A386BC10042FC85 /* TitleWithInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithInfo.swift; sourceTree = "<group>"; };
+		D96A40D52A7E83A200C020BC /* PendingActivitiesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingActivitiesManager.swift; sourceTree = "<group>"; };
 		D9703F6929ED547000D09277 /* CoinInfoFooterview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoFooterview.swift; sourceTree = "<group>"; };
 		D970C0DF2A74EA80005A7FAC /* GlobalToastTitles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalToastTitles.swift; sourceTree = "<group>"; };
 		D98207C32A5D5C7C0066A090 /* ActivityDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailsView.swift; sourceTree = "<group>"; };
@@ -2256,6 +2258,14 @@
 			path = TitleWithInfo;
 			sourceTree = "<group>";
 		};
+		D96A40D42A7E837300C020BC /* PendingActivitiesManager */ = {
+			isa = PBXGroup;
+			children = (
+				D96A40D52A7E83A200C020BC /* PendingActivitiesManager.swift */,
+			);
+			path = PendingActivitiesManager;
+			sourceTree = "<group>";
+		};
 		D98207C22A5D5C5B0066A090 /* ActvityDetailsView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2537,6 +2547,7 @@
 		DF8DA53F2A556EBA0018EB0A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				281840026D1004B10CE8DAFD /* Pino_iOS.xcdatamodeld */,
 				D9BD5F292A7E3A73007DE722 /* CoreDataSwapActivityDetailsFromToken+CoreDataClass.swift */,
 				D9BD5F2A2A7E3A73007DE722 /* CoreDataSwapActivityDetailsFromToken+CoreDataProperties.swift */,
 				D9BD5F2B2A7E3A73007DE722 /* CoreDataSwapActivityDetails+CoreDataClass.swift */,
@@ -2553,7 +2564,6 @@
 				D9BD5F362A7E3A73007DE722 /* CoreDataTransferActivityDetails+CoreDataProperties.swift */,
 				D9BD5F372A7E3A73007DE722 /* CoreDataActivityParent+CoreDataClass.swift */,
 				D9BD5F382A7E3A73007DE722 /* CoreDataActivityParent+CoreDataProperties.swift */,
-				281840026D1004B10CE8DAFD /* Pino_iOS.xcdatamodeld */,
 				DFA968752A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift */,
 				DFA968782A0FABB9007D4513 /* WalletAccount+CoreDataProperties.swift */,
 				E385F6112A22029100EE7EE1 /* Wallet+CoreDataClass.swift */,
@@ -2938,6 +2948,7 @@
 		F6AF84C9EF2084ED1C953918 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				D96A40D42A7E837300C020BC /* PendingActivitiesManager */,
 				E399545F2A4C131D001248C3 /* GlobalVariables */,
 				55B9C1AE2714A61D1779EEBF /* Encoding */,
 				1FE31AB67FFCB1A4C1E2B6C6 /* Endpoints */,
@@ -3513,6 +3524,7 @@
 				E3D204CA2A3992EB0027FEBC /* TokenView.swift in Sources */,
 				DFFDEDB22A77934600D710D7 /* ZeroXAPIClient.swift in Sources */,
 				66F6B5B9FA886D1F48A4F627 /* ManageAssetsViewController.swift in Sources */,
+				D96A40D62A7E83A200C020BC /* PendingActivitiesManager.swift in Sources */,
 				7B6CE232F6C074F30AFAF23D /* ManagePasscodeView.swift in Sources */,
 				403691BC2A3DFFB50013AB6D /* ToastConfiguration.swift in Sources */,
 				DF00179529F85774001164EA /* KeychainManager.swift in Sources */,

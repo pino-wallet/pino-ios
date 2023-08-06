@@ -66,6 +66,10 @@ class ActivityViewController: UIViewController {
 	}
 
 	private func setupBindings() {
+        PendingActivitiesManager.shared.$pendingActivitiesList.sink { pendingActivities in
+            print("heh", pendingActivities)
+        }.store(in: &cancellables
+        )
 		activityVM.$userActivities.sink { [weak self] activities in
 			guard let isActvitiesEmpty = activities?.isEmpty else {
 				self?.view = self?.activityColectionView

@@ -11,8 +11,8 @@ struct ActivityTransferModel: ActivityModelProtocol {
 	var detail: TransferActivityDetail?
 	var fromAddress: String
 	var toAddress: String
-	var failed: Bool
-	var blockNumber: Int
+	var failed: Bool?
+	var blockNumber: Int?
 	var blockTime: String
 	var gasUsed: String
 	var gasPrice: String
