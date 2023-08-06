@@ -156,8 +156,8 @@ class CoreDataManager {
 				.managedContext
 		)
 
-        newActivityDetailsFromToken.amount = activityModel.detail?.fromToken?.amount ?? ""
-        newActivityDetailsFromToken.tokenId = activityModel.detail?.fromToken?.tokenID ?? ""
+		newActivityDetailsFromToken.amount = activityModel.detail?.fromToken?.amount ?? ""
+		newActivityDetailsFromToken.tokenId = activityModel.detail?.fromToken?.tokenID ?? ""
 		newActivityDetails.from_token = newActivityDetailsFromToken
 
 		let newActivityDetailsToToken = CoreDataSwapActivityDetailsToToken(context: activityDataSource.managedContext)

@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		setupNavigationBarCustomBackButton()
 		setupLightKeyboardForTextFields()
 		setCacheLimitForKingFisherImages()
-        setupNotifications()
+		setupNotifications()
 		return true
 	}
 
@@ -63,21 +63,33 @@ extension AppDelegate {
 	private func setCacheLimitForKingFisherImages() {
 		ImageCache.default.diskStorage.config.expiration = .seconds(259_200)
 	}
-    
-    private func setupNotifications() {
-        let notificationsCenter = NotificationCenter.default
-        notificationsCenter.addObserver(self, selector: #selector(didMoveToBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
-        notificationsCenter.addObserver(self, selector: #selector(didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
-    }
-    
-    @objc private func didMoveToBackground() {
-        PendingActivitiesManager.shared.stopActivityPendingRequests()
-    }
-    
-    @objc private func didBecomeActive() {
-        let coreDataManager = CoreDataManager()
-        if !coreDataManager.getAllActivities().isEmpty {
-            PendingActivitiesManager.shared.startActivityPendingRequests()
-        }
-    }
+
+	private func setupNotifications() {
+		let notificationsCenter = NotificationCenter.default
+		notificationsCenter.addObserver(
+			self,
+			selector: #selector(didMoveToBackground),
+			name: UIApplication.didEnterBackgroundNotification,
+			object: nil
+		)
+		notificationsCenter.addObserver(
+			self,
+			selector: #selector(didBecomeActive),
+			name: UIApplication.didBecomeActiveNotification,
+			object: nil
+		)
+	}
+
+	@objc
+	private func didMoveToBackground() {
+		PendingActivitiesManager.shared.stopActivityPendingRequests()
+	}
+
+	@objc
+	private func didBecomeActive() {
+		let coreDataManager = CoreDataManager()
+		if !coreDataManager.getAllActivities().isEmpty {
+			PendingActivitiesManager.shared.startActivityPendingRequests()
+		}
+	}
 }
