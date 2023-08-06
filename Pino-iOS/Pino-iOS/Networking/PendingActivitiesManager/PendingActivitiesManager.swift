@@ -104,6 +104,7 @@ class PendingActivitiesManager {
 				if activity != nil {
 					let iteratedActivity = self.activityHelper.iterateActivityModel(activity: activity!)
 					self.pendingActivitiesList.removeAll(where: { $0.txHash == iteratedActivity!.txHash })
+                    self.coreDataManager.deleteActivityByID(iteratedActivity!.txHash)
 					if self.pendingActivitiesList.isEmpty {
 						self.stopActivityPendingRequests()
 					}
