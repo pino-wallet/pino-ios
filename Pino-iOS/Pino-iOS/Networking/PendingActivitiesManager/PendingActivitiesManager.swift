@@ -91,7 +91,6 @@ class PendingActivitiesManager {
 	}
 
 	private func getActivityPendings() {
-		print("heh", "eh")
 		for pendingActivity in pendingActivitiesList {
 			requestsDispatchGroup.enter()
 			activityAPIClient.singleActivity(txHash: pendingActivity.txHash).sink { completed in
