@@ -18,9 +18,9 @@ final class ParaSwapAPIClient: SwapProvidersAPIServices {
 		if swapInfo.srcToken == SwapPriceRequestModel.pinoETHID {
 			editedSwapInfo.srcToken = SwapPriceRequestModel.paraSwapETHID
 		}
-        if swapInfo.destToken == SwapPriceRequestModel.pinoETHID {
-            editedSwapInfo.destToken = SwapPriceRequestModel.paraSwapETHID
-        }
+		if swapInfo.destToken == SwapPriceRequestModel.pinoETHID {
+			editedSwapInfo.destToken = SwapPriceRequestModel.paraSwapETHID
+		}
 		return networkManager.request(.swapPrice(swapInfo: editedSwapInfo))
 	}
 }

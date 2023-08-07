@@ -8,6 +8,26 @@ import Foundation
 // MARK: - OneInchPriceResponseModel
 
 struct OneInchPriceResponseModel: SwapPriceResponseProtocol {
-	let toAmount: String
-	let gas: Int
+	// MARK: - Private Properties
+
+	private let toAmount: String
+	private let gas: Int
+
+	// MARK: - Public Properties
+
+	public var provider: SwapProviderViewModel.SwapProvider {
+		.oneInch
+	}
+
+	public var tokenAmount: String {
+		toAmount
+	}
+
+	public var gasFee: String {
+		"\(gas)"
+	}
+
+	public var gasFeeInDollar: String {
+		"\(gas)"
+	}
 }

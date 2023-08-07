@@ -8,14 +8,34 @@ import Foundation
 // MARK: - ZeroXPriceResponseModel
 
 struct ZeroXPriceResponseModel: SwapPriceResponseProtocol {
-	let chainId: Int
-	let price, grossPrice, estimatedPriceImpact, value: String
-	let gasPrice, gas, estimatedGas, protocolFee: String
-	let minimumProtocolFee, buyTokenAddress, buyAmount, grossBuyAmount: String
-	let sellTokenAddress, sellAmount, grossSellAmount: String
-	let sources: [Source]
-	let allowanceTarget, sellTokenToEthRate, buyTokenToEthRate: String
-	let auxiliaryChainData: AuxiliaryChainData
+	// MARK: - Private Properties
+
+	private let chainId: Int
+	private let price, grossPrice, estimatedPriceImpact, value: String
+	private let gasPrice, gas, estimatedGas, protocolFee: String
+	private let minimumProtocolFee, buyTokenAddress, buyAmount, grossBuyAmount: String
+	private let sellTokenAddress, sellAmount, grossSellAmount: String
+	private let sources: [Source]
+	private let allowanceTarget, sellTokenToEthRate, buyTokenToEthRate: String
+	private let auxiliaryChainData: AuxiliaryChainData
+
+	// MARK: - Public Properties
+
+	public var provider: SwapProviderViewModel.SwapProvider {
+		.zeroX
+	}
+
+	public var tokenAmount: String {
+		buyAmount
+	}
+
+	public var gasFee: String {
+		protocolFee
+	}
+
+	public var gasFeeInDollar: String {
+		protocolFee
+	}
 }
 
 // MARK: - AuxiliaryChainData

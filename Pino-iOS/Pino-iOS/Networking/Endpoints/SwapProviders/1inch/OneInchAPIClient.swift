@@ -18,9 +18,9 @@ final class OneInchAPIClient: SwapProvidersAPIServices {
 		if swapInfo.srcToken == SwapPriceRequestModel.pinoETHID {
 			editedSwapInfo.srcToken = SwapPriceRequestModel.oneInchETHID
 		}
-        if swapInfo.destToken == SwapPriceRequestModel.pinoETHID {
-            editedSwapInfo.destToken = SwapPriceRequestModel.oneInchETHID
-        }
+		if swapInfo.destToken == SwapPriceRequestModel.pinoETHID {
+			editedSwapInfo.destToken = SwapPriceRequestModel.oneInchETHID
+		}
 		return networkManager.request(.quote(swapInfo: editedSwapInfo))
 	}
 }

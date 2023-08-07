@@ -8,7 +8,27 @@ import Foundation
 // MARK: - ParaSwapPriceResponseModel
 
 struct ParaSwapPriceResponseModel: SwapPriceResponseProtocol {
-	public let priceRoute: PriceRoute
+	// MARK: - Private Properties
+
+	private let priceRoute: PriceRoute
+
+	// MARK: - Public Properties
+
+	public var provider: SwapProviderViewModel.SwapProvider {
+		.paraswap
+	}
+
+	public var tokenAmount: String {
+		priceRoute.destAmount
+	}
+
+	public var gasFee: String {
+		"\(priceRoute.partnerFee)"
+	}
+
+	public var gasFeeInDollar: String {
+		"\(priceRoute.partnerFee)"
+	}
 }
 
 // MARK: - PriceRoute
