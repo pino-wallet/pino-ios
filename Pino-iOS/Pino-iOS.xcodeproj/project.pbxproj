@@ -316,12 +316,29 @@
 		D9A328192A34B650005A8393 /* SelectAssetCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A328182A34B650005A8393 /* SelectAssetCellViewModel.swift */; };
 		D9A3281C2A34C444005A8393 /* SelectAssetVMProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A3281B2A34C444005A8393 /* SelectAssetVMProtocol.swift */; };
 		D9A3281E2A34C545005A8393 /* SelectAssetCellVMProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A3281D2A34C545005A8393 /* SelectAssetCellVMProtocol.swift */; };
+		D9AABE112A7D6B410025463E /* ActivityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AABE102A7D6B410025463E /* ActivityDataSource.swift */; };
 		D9AEA0A029F9818300DD61A8 /* EditAccountOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AEA09F29F9818300DD61A8 /* EditAccountOptionViewModel.swift */; };
 		D9AF29E22A500B03006BC53E /* ResultActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF29E12A500B03006BC53E /* ResultActivityModel.swift */; };
 		D9AF29E52A5010C4006BC53E /* ActivityCellViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF29E42A5010C4006BC53E /* ActivityCellViewModelProtocol.swift */; };
 		D9AF29E82A506F1A006BC53E /* ActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF29E72A506F1A006BC53E /* ActivityType.swift */; };
 		D9AF6DCC29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */; };
 		D9BCE5C72A63C519002A9B58 /* ActivitySwapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BCE5C62A63C519002A9B58 /* ActivitySwapHeaderView.swift */; };
+		D9BD5F392A7E3A73007DE722 /* CoreDataSwapActivityDetailsFromToken+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD5F292A7E3A73007DE722 /* CoreDataSwapActivityDetailsFromToken+CoreDataClass.swift */; };
+		D9BD5F3A2A7E3A73007DE722 /* CoreDataSwapActivityDetailsFromToken+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD5F2A2A7E3A73007DE722 /* CoreDataSwapActivityDetailsFromToken+CoreDataProperties.swift */; };
+		D9BD5F3B2A7E3A73007DE722 /* CoreDataSwapActivityDetails+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD5F2B2A7E3A73007DE722 /* CoreDataSwapActivityDetails+CoreDataClass.swift */; };
+		D9BD5F3C2A7E3A73007DE722 /* CoreDataSwapActivityDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD5F2C2A7E3A73007DE722 /* CoreDataSwapActivityDetails+CoreDataProperties.swift */; };
+		D9BD5F3D2A7E3A73007DE722 /* CoreDataSwapActivity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD5F2D2A7E3A73007DE722 /* CoreDataSwapActivity+CoreDataClass.swift */; };
+		D9BD5F3E2A7E3A73007DE722 /* CoreDataSwapActivity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD5F2E2A7E3A73007DE722 /* CoreDataSwapActivity+CoreDataProperties.swift */; };
+		D9BD5F3F2A7E3A73007DE722 /* CoreDataActivityDetailsToken+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD5F2F2A7E3A73007DE722 /* CoreDataActivityDetailsToken+CoreDataClass.swift */; };
+		D9BD5F402A7E3A73007DE722 /* CoreDataActivityDetailsToken+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD5F302A7E3A73007DE722 /* CoreDataActivityDetailsToken+CoreDataProperties.swift */; };
+		D9BD5F412A7E3A73007DE722 /* CoreDataTransferActivity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD5F312A7E3A73007DE722 /* CoreDataTransferActivity+CoreDataClass.swift */; };
+		D9BD5F422A7E3A73007DE722 /* CoreDataTransferActivity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD5F322A7E3A73007DE722 /* CoreDataTransferActivity+CoreDataProperties.swift */; };
+		D9BD5F432A7E3A73007DE722 /* CoreDataSwapActivityDetailsToToken+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD5F332A7E3A73007DE722 /* CoreDataSwapActivityDetailsToToken+CoreDataClass.swift */; };
+		D9BD5F442A7E3A73007DE722 /* CoreDataSwapActivityDetailsToToken+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD5F342A7E3A73007DE722 /* CoreDataSwapActivityDetailsToToken+CoreDataProperties.swift */; };
+		D9BD5F452A7E3A73007DE722 /* CoreDataTransferActivityDetails+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD5F352A7E3A73007DE722 /* CoreDataTransferActivityDetails+CoreDataClass.swift */; };
+		D9BD5F462A7E3A73007DE722 /* CoreDataTransferActivityDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD5F362A7E3A73007DE722 /* CoreDataTransferActivityDetails+CoreDataProperties.swift */; };
+		D9BD5F472A7E3A73007DE722 /* CoreDataActivityParent+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD5F372A7E3A73007DE722 /* CoreDataActivityParent+CoreDataClass.swift */; };
+		D9BD5F482A7E3A73007DE722 /* CoreDataActivityParent+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD5F382A7E3A73007DE722 /* CoreDataActivityParent+CoreDataProperties.swift */; };
 		D9BE15AD2A693539005E4063 /* ActivityDetailsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE15AC2A693539005E4063 /* ActivityDetailsProtocol.swift */; };
 		D9BE15B02A693593005E4063 /* SwapDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE15AF2A693593005E4063 /* SwapDetailsViewModel.swift */; };
 		D9BE15B22A69360E005E4063 /* TransferDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE15B12A69360E005E4063 /* TransferDetailsViewModel.swift */; };
@@ -836,12 +853,29 @@
 		D9A328182A34B650005A8393 /* SelectAssetCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetCellViewModel.swift; sourceTree = "<group>"; };
 		D9A3281B2A34C444005A8393 /* SelectAssetVMProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetVMProtocol.swift; sourceTree = "<group>"; };
 		D9A3281D2A34C545005A8393 /* SelectAssetCellVMProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetCellVMProtocol.swift; sourceTree = "<group>"; };
+		D9AABE102A7D6B410025463E /* ActivityDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDataSource.swift; sourceTree = "<group>"; };
 		D9AEA09F29F9818300DD61A8 /* EditAccountOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountOptionViewModel.swift; sourceTree = "<group>"; };
 		D9AF29E12A500B03006BC53E /* ResultActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultActivityModel.swift; sourceTree = "<group>"; };
 		D9AF29E42A5010C4006BC53E /* ActivityCellViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCellViewModelProtocol.swift; sourceTree = "<group>"; };
 		D9AF29E72A506F1A006BC53E /* ActivityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityType.swift; sourceTree = "<group>"; };
 		D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralNotificationSettingsHeader.swift; sourceTree = "<group>"; };
 		D9BCE5C62A63C519002A9B58 /* ActivitySwapHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySwapHeaderView.swift; sourceTree = "<group>"; };
+		D9BD5F292A7E3A73007DE722 /* CoreDataSwapActivityDetailsFromToken+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataSwapActivityDetailsFromToken+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		D9BD5F2A2A7E3A73007DE722 /* CoreDataSwapActivityDetailsFromToken+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataSwapActivityDetailsFromToken+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		D9BD5F2B2A7E3A73007DE722 /* CoreDataSwapActivityDetails+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataSwapActivityDetails+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		D9BD5F2C2A7E3A73007DE722 /* CoreDataSwapActivityDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataSwapActivityDetails+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		D9BD5F2D2A7E3A73007DE722 /* CoreDataSwapActivity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataSwapActivity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		D9BD5F2E2A7E3A73007DE722 /* CoreDataSwapActivity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataSwapActivity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		D9BD5F2F2A7E3A73007DE722 /* CoreDataActivityDetailsToken+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataActivityDetailsToken+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		D9BD5F302A7E3A73007DE722 /* CoreDataActivityDetailsToken+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataActivityDetailsToken+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		D9BD5F312A7E3A73007DE722 /* CoreDataTransferActivity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataTransferActivity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		D9BD5F322A7E3A73007DE722 /* CoreDataTransferActivity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataTransferActivity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		D9BD5F332A7E3A73007DE722 /* CoreDataSwapActivityDetailsToToken+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataSwapActivityDetailsToToken+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		D9BD5F342A7E3A73007DE722 /* CoreDataSwapActivityDetailsToToken+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataSwapActivityDetailsToToken+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		D9BD5F352A7E3A73007DE722 /* CoreDataTransferActivityDetails+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataTransferActivityDetails+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		D9BD5F362A7E3A73007DE722 /* CoreDataTransferActivityDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataTransferActivityDetails+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		D9BD5F372A7E3A73007DE722 /* CoreDataActivityParent+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataActivityParent+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		D9BD5F382A7E3A73007DE722 /* CoreDataActivityParent+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataActivityParent+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		D9BE15AC2A693539005E4063 /* ActivityDetailsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailsProtocol.swift; sourceTree = "<group>"; };
 		D9BE15AF2A693593005E4063 /* SwapDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapDetailsViewModel.swift; sourceTree = "<group>"; };
 		D9BE15B12A69360E005E4063 /* TransferDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDetailsViewModel.swift; sourceTree = "<group>"; };
@@ -2292,6 +2326,14 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		D9AABE0F2A7D6A4C0025463E /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				DFB1E9CF2A08EC1800041B26 /* DataSourceProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		D9AF29DF2A5001CB006BC53E /* ActivityCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -2495,6 +2537,22 @@
 		DF8DA53F2A556EBA0018EB0A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D9BD5F292A7E3A73007DE722 /* CoreDataSwapActivityDetailsFromToken+CoreDataClass.swift */,
+				D9BD5F2A2A7E3A73007DE722 /* CoreDataSwapActivityDetailsFromToken+CoreDataProperties.swift */,
+				D9BD5F2B2A7E3A73007DE722 /* CoreDataSwapActivityDetails+CoreDataClass.swift */,
+				D9BD5F2C2A7E3A73007DE722 /* CoreDataSwapActivityDetails+CoreDataProperties.swift */,
+				D9BD5F2D2A7E3A73007DE722 /* CoreDataSwapActivity+CoreDataClass.swift */,
+				D9BD5F2E2A7E3A73007DE722 /* CoreDataSwapActivity+CoreDataProperties.swift */,
+				D9BD5F2F2A7E3A73007DE722 /* CoreDataActivityDetailsToken+CoreDataClass.swift */,
+				D9BD5F302A7E3A73007DE722 /* CoreDataActivityDetailsToken+CoreDataProperties.swift */,
+				D9BD5F312A7E3A73007DE722 /* CoreDataTransferActivity+CoreDataClass.swift */,
+				D9BD5F322A7E3A73007DE722 /* CoreDataTransferActivity+CoreDataProperties.swift */,
+				D9BD5F332A7E3A73007DE722 /* CoreDataSwapActivityDetailsToToken+CoreDataClass.swift */,
+				D9BD5F342A7E3A73007DE722 /* CoreDataSwapActivityDetailsToToken+CoreDataProperties.swift */,
+				D9BD5F352A7E3A73007DE722 /* CoreDataTransferActivityDetails+CoreDataClass.swift */,
+				D9BD5F362A7E3A73007DE722 /* CoreDataTransferActivityDetails+CoreDataProperties.swift */,
+				D9BD5F372A7E3A73007DE722 /* CoreDataActivityParent+CoreDataClass.swift */,
+				D9BD5F382A7E3A73007DE722 /* CoreDataActivityParent+CoreDataProperties.swift */,
 				281840026D1004B10CE8DAFD /* Pino_iOS.xcdatamodeld */,
 				DFA968752A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift */,
 				DFA968782A0FABB9007D4513 /* WalletAccount+CoreDataProperties.swift */,
@@ -2511,11 +2569,12 @@
 		DF8DA5402A556EBF0018EB0A /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
-				DFB1E9CF2A08EC1800041B26 /* DataSourceProtocol.swift */,
+				D9AABE0F2A7D6A4C0025463E /* Protocols */,
 				DFB1E9D52A08F21C00041B26 /* SelectedAssetsDataSource.swift */,
 				DFA968722A0F8A77007D4513 /* WalletDataSource.swift */,
 				DFB1E9D12A08EC6100041B26 /* AccountDataSource.swift */,
 				E3D478B22A3064C90030A987 /* CustomAssetDataSource.swift */,
+				D9AABE102A7D6B410025463E /* ActivityDataSource.swift */,
 			);
 			path = DataSources;
 			sourceTree = "<group>";
@@ -3224,6 +3283,7 @@
 				AC39E74F527151DCAE1E9AAE /* AccountingAPIMockClient.swift in Sources */,
 				6FB08C15B02317A1FE3C012D /* AccountingAPIService.swift in Sources */,
 				E35BB63E2A558D0E003987F5 /* SwapProtocolCollectionView.swift in Sources */,
+				D9BD5F422A7E3A73007DE722 /* CoreDataTransferActivity+CoreDataProperties.swift in Sources */,
 				3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */,
 				D9D9A40A2A5E9CD200CECA41 /* ImageAndTitleStackView.swift in Sources */,
 				E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */,
@@ -3246,6 +3306,7 @@
 				6515F0FDA57BFCE714EF6F71 /* AddNewAccountViewModel.swift in Sources */,
 				404324062A5FF115006B1468 /* TextFormatting.swift in Sources */,
 				2BC73AE9759B87DCBF761327 /* AlertHelper.swift in Sources */,
+				D9BD5F452A7E3A73007DE722 /* CoreDataTransferActivityDetails+CoreDataClass.swift in Sources */,
 				4C5FCC355F7D7307B778F686 /* AllDoneView.swift in Sources */,
 				5172E07495C5EBFA21772580 /* AllDoneViewController.swift in Sources */,
 				E39954612A4C1358001248C3 /* GlobalVariables.swift in Sources */,
@@ -3282,6 +3343,7 @@
 				C95E4117EE56405E9C6A00CB /* AssetsCollectionViewDataSource.swift in Sources */,
 				54E9764329CE5F067EFE92D1 /* AssetsEndpoint.swift in Sources */,
 				D9BFEC372A121706007DFF40 /* AllowNotificationsViewController.swift in Sources */,
+				D9BD5F412A7E3A73007DE722 /* CoreDataTransferActivity+CoreDataClass.swift in Sources */,
 				DFA9687C2A0FABB9007D4513 /* SelectedAsset+CoreDataProperties.swift in Sources */,
 				B25B61BF5F1999D414ACD42B /* AuthKeyProvider.swift in Sources */,
 				8DAEADFEFB2B89FAD4955536 /* AutolayoutHelper.swift in Sources */,
@@ -3290,6 +3352,7 @@
 				9DAA41E3693EB0D2B084C3F8 /* AvatarCollectionView.swift in Sources */,
 				D95D49822A386BC10042FC85 /* TitleWithInfo.swift in Sources */,
 				D9C4CF0D2A4094C400475F01 /* RecentAddressModel.swift in Sources */,
+				D9BD5F442A7E3A73007DE722 /* CoreDataSwapActivityDetailsToToken+CoreDataProperties.swift in Sources */,
 				E3847B432A531686005ED78B /* SwapTokenView.swift in Sources */,
 				E3847B472A53F9A8005ED78B /* SwapFeeView.swift in Sources */,
 				8EADE74E5260CF1542FF0EF0 /* AvatarViewModel.swift in Sources */,
@@ -3359,6 +3422,7 @@
 				FAF0C3C48227F773D772FF6E /* CreatePasscodeViewController.swift in Sources */,
 				9D1B6611143AB2A88028763C /* CustomAssetInfoContainerView.swift in Sources */,
 				D94A9A2029FE6C4E00DCA28D /* EditAccountNameViewController.swift in Sources */,
+				D9BD5F462A7E3A73007DE722 /* CoreDataTransferActivityDetails+CoreDataProperties.swift in Sources */,
 				B8DEA2647A8204A5771748D2 /* CustomAssetInfoModel.swift in Sources */,
 				E3F482F72A35B2DB00EEC9CF /* EnterSendAmountView.swift in Sources */,
 				0CE266292D956CA5666233BB /* CustomAssetInfoView.swift in Sources */,
@@ -3384,6 +3448,7 @@
 				D91A3A0729E41C1800004CB2 /* NotificationSettingsOptionViewModel.swift in Sources */,
 				A64D2DFF6C7D5354F2CA6D50 /* Environment.swift in Sources */,
 				E55DCCDCC37B827E5DBEEB82 /* FlowLayout+Extension.swift in Sources */,
+				D9AABE112A7D6B410025463E /* ActivityDataSource.swift in Sources */,
 				D941CACC2A3F082900910B70 /* SendStatusViewController.swift in Sources */,
 				E35BB6472A595717003987F5 /* SwapProviderCollectionView.swift in Sources */,
 				E3847B3A2A52CC19005ED78B /* SwapTokenViewModel.swift in Sources */,
@@ -3414,6 +3479,7 @@
 				E35BB6402A558F87003987F5 /* SwapProtocolCell.swift in Sources */,
 				0CDD5B1CF93FCD04F68CC1C9 /* IntroCollectionViewCell.swift in Sources */,
 				E384CB1629FFABAB009C74F5 /* Double+Extension.swift in Sources */,
+				D9BD5F392A7E3A73007DE722 /* CoreDataSwapActivityDetailsFromToken+CoreDataClass.swift in Sources */,
 				FC0D80A069760DC032C1B9D6 /* IntroModel.swift in Sources */,
 				FDEF1CFCCEFF7401C0A664FD /* IntroView.swift in Sources */,
 				CC788E5AD6EC8CE9488DA049 /* IntroViewController.swift in Sources */,
@@ -3439,6 +3505,7 @@
 				E35BB65D2A656589003987F5 /* swapLoadingView.swift in Sources */,
 				066B803BA2A7039F8168FAB2 /* SecurityOptionsSection.swift in Sources */,
 				D9A3281E2A34C545005A8393 /* SelectAssetCellVMProtocol.swift in Sources */,
+				D9BD5F3A2A7E3A73007DE722 /* CoreDataSwapActivityDetailsFromToken+CoreDataProperties.swift in Sources */,
 				EFCE871CCDF8A29DA4F8950F /* ManageAssetCell.swift in Sources */,
 				5CDFF4C90BE60A5FF26C2596 /* ManageAssetsCollectionView.swift in Sources */,
 				6D6ECC6BF79139F030C8039A /* ManageAssetsFooterView.swift in Sources */,
@@ -3455,6 +3522,7 @@
 				D9C4CF012A408C8A00475F01 /* RecentAddressCell.swift in Sources */,
 				807A3209FA3C30C37B860B91 /* NetworkManager.swift in Sources */,
 				5845D3E43E1C94CCA89A6104 /* NetworkManagerProtocol.swift in Sources */,
+				D9BD5F3D2A7E3A73007DE722 /* CoreDataSwapActivity+CoreDataClass.swift in Sources */,
 				C72379E2E2BFAEFF3257EDCE /* Networking+Aliases.swift in Sources */,
 				D970C0E02A74EA80005A7FAC /* GlobalToastTitles.swift in Sources */,
 				E52C3E716C6ACBCE6C8BE230 /* NoInternetConnectionView.swift in Sources */,
@@ -3492,6 +3560,7 @@
 				0BB077D3A362E14524196936 /* PortfolioPerformanceCollectionView.swift in Sources */,
 				A1664AE26C5D333D2213330F /* PortfolioPerformanceHeaderView.swift in Sources */,
 				17551EDA11F4F1BE495D1823 /* PortfolioPerformanceViewController.swift in Sources */,
+				D9BD5F472A7E3A73007DE722 /* CoreDataActivityParent+CoreDataClass.swift in Sources */,
 				D9F1BD042A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift in Sources */,
 				D9E34BC92C3AE69B3D5EC4F2 /* PortfolioPerformanceViewModel.swift in Sources */,
 				DFFDEDB02A77931200D710D7 /* ZeroXEndpoint.swift in Sources */,
@@ -3504,6 +3573,7 @@
 				133389D38DF23CB5BE195DDC /* ProfileCollectionView.swift in Sources */,
 				7656A61006C2DB8A8F75F498 /* ProfileIcons.swift in Sources */,
 				D9C4CF032A408CA500475F01 /* UserAddressCell.swift in Sources */,
+				D9BD5F3B2A7E3A73007DE722 /* CoreDataSwapActivityDetails+CoreDataClass.swift in Sources */,
 				DFB1E9D62A08F21C00041B26 /* SelectedAssetsDataSource.swift in Sources */,
 				0D3E98673CD274381A698BBA /* ProfileViewController.swift in Sources */,
 				0613EF4F55B5F6FA90BA65C0 /* ProfileViewModel.swift in Sources */,
@@ -3523,6 +3593,7 @@
 				D9DD538BAF953A18503AB3F0 /* RemoveAccountView.swift in Sources */,
 				E785EA31CC4E6721B72481DE /* RemoveAccountViewController.swift in Sources */,
 				E35BB6492A595725003987F5 /* SwapProviderCell.swift in Sources */,
+				D9BD5F3E2A7E3A73007DE722 /* CoreDataSwapActivity+CoreDataProperties.swift in Sources */,
 				8311422EA67D10D257FDD530 /* RemoveAccountViewModel.swift in Sources */,
 				D9A328152A3464B5005A8393 /* SelectAssetToSendViewModel.swift in Sources */,
 				5699C13A59EF90BDE1758CF3 /* RevealPrivateKeyView.swift in Sources */,
@@ -3530,6 +3601,7 @@
 				E3847B362A52CB32005ED78B /* SwapViewModel.swift in Sources */,
 				7AD456E027211FE731B27DF8 /* RevealPrivateKeyViewModel.swift in Sources */,
 				643BAB8ABDEFDA509D258D94 /* SceneDelegate.swift in Sources */,
+				D9BD5F432A7E3A73007DE722 /* CoreDataSwapActivityDetailsToToken+CoreDataClass.swift in Sources */,
 				0C37EADB6BFAB0A340582184 /* SecretPhraseCell.swift in Sources */,
 				D9C4CF062A408CF000475F01 /* RecentAddressViewModel.swift in Sources */,
 				A9EB8A9CA5BE7BA334FBB816 /* SecretPhraseCenteredFlowLayout.swift in Sources */,
@@ -3568,8 +3640,10 @@
 				D99CAFCD2A3AF2EE00DBEF2B /* EnterSendAddressView.swift in Sources */,
 				E3F482F92A35B43400EEC9CF /* EnterSendAmountViewModel.swift in Sources */,
 				D98207C82A5D5D630066A090 /* ActivityDetailsViewController.swift in Sources */,
+				D9BD5F482A7E3A73007DE722 /* CoreDataActivityParent+CoreDataProperties.swift in Sources */,
 				3836332BCEDEABE67456B3D1 /* StatusCode+Helper.swift in Sources */,
 				F29B5E085D9D0D99354034C9 /* StringProtocol+Extension.swift in Sources */,
+				D9BD5F402A7E3A73007DE722 /* CoreDataActivityDetailsToken+CoreDataProperties.swift in Sources */,
 				E384CB1829FFADA0009C74F5 /* ShareOfAssetProtocol.swift in Sources */,
 				138F82B48C2B07891AF13F38 /* StubManager.swift in Sources */,
 				7DD0703DDA2759A33DB4F582 /* SuggestedSeedPhraseCell.swift in Sources */,
@@ -3599,6 +3673,7 @@
 				7568B477DFF82F1069E4F911 /* VerifySecretPhraseView.swift in Sources */,
 				79B36BD7606F060231E076F1 /* VerifySecretPhraseViewController.swift in Sources */,
 				D9A328132A3462B6005A8393 /* SelectAssetToSendViewController.swift in Sources */,
+				D9BD5F3F2A7E3A73007DE722 /* CoreDataActivityDetailsToken+CoreDataClass.swift in Sources */,
 				5A0A4A23ED01BFB3E5315791 /* VerifySecretPhraseViewModel.swift in Sources */,
 				4C7FBB094D7EA8820D1F4D69 /* ViewController+Extension.swift in Sources */,
 				D9A3280D2A345313005A8393 /* SelectAssetCollectionView.swift in Sources */,
@@ -3621,6 +3696,7 @@
 				E35BB6512A62955D003987F5 /* SwapConfirmationViewController.swift in Sources */,
 				D9D11E922A5990B8003C4298 /* ActivityCollectionView.swift in Sources */,
 				D9DC773F2A6FAB2B00AA0987 /* ActivityDetailPropertiesViewModel.swift in Sources */,
+				D9BD5F3C2A7E3A73007DE722 /* CoreDataSwapActivityDetails+CoreDataProperties.swift in Sources */,
 				33647E7FA041A9CC0130F158 /* AccountsViewModel.swift in Sources */,
 				E3F482EF2A35A6E900EEC9CF /* CustomAsset+CoreDataClass.swift in Sources */,
 				DF00178529EC37AF001164EA /* PinoWalletCore.swift in Sources */,
