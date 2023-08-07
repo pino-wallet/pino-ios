@@ -16,15 +16,15 @@ extension CoreDataSwapActivityDetails {
 	}
 
 	@NSManaged
-	public var activityProtool: String?
+	public var activityProtool: String
 	@NSManaged
-	public var userID: String?
+	public var userID: String
 	@NSManaged
-	public var activity: CoreDataSwapActivity?
+	public var activity: CoreDataSwapActivity
 	@NSManaged
-	public var from_token: CoreDataSwapActivityDetailsFromToken?
+	public var from_token: CoreDataSwapActivityDetailsFromToken
 	@NSManaged
-	public var to_token: CoreDataSwapActivityDetailsToToken?
+	public var to_token: CoreDataSwapActivityDetailsToToken
 }
 
 extension CoreDataSwapActivityDetails: Identifiable {}

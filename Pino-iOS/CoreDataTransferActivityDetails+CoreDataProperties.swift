@@ -16,15 +16,15 @@ extension CoreDataTransferActivityDetails {
 	}
 
 	@NSManaged
-	public var amount: String?
+	public var amount: String
 	@NSManaged
-	public var from: String?
+	public var from: String
 	@NSManaged
-	public var to: String?
+	public var to: String
 	@NSManaged
-	public var tokenID: String?
+	public var tokenID: String
 	@NSManaged
-	public var activity: CoreDataTransferActivity?
+	public var activity: CoreDataTransferActivity
 }
 
 extension CoreDataTransferActivityDetails: Identifiable {}
