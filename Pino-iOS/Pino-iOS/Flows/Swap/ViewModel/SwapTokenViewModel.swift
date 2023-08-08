@@ -51,7 +51,7 @@ class SwapTokenViewModel {
 	public func setAmount(tokenAmount: String?, dollarAmount: String?) {
 		self.dollarAmount = dollarAmount
 		if let tokenAmount {
-			self.tokenAmount = BigNumber(number: tokenAmount, decimal: selectedToken.decimal).decimalString
+			self.tokenAmount = tokenAmount
 		} else {
 			self.tokenAmount = nil
 		}

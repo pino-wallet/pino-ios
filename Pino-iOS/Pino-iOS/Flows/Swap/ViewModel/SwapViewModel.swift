@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import Web3_Utility
 
 class SwapViewModel {
 	// MARK: - Public Properties
@@ -100,7 +101,12 @@ class SwapViewModel {
 		srcToken.calculateDollarAmount(amount)
 		if let tokenAmount = srcToken.tokenAmount {
 			destToken.swapDelegate.swapAmountCalculating()
-			getSwapProviderInfo(amount: "1000000000", swapSide: swapSide) { swapAmount in
+            let swapAmount = Utilities.parseToBigUInt(tokenAmount, units: .custom(srcToken.selectedToken.decimal))
+            getSwapProviderInfo(
+                destToken: destToken.selectedToken,
+                amount: swapAmount!.description,
+                swapSide: swapSide
+            ) { swapAmount in
 				self.updateDestinationToken(
 					destToken: destToken,
 					tokenAmount: swapAmount,
@@ -113,7 +119,7 @@ class SwapViewModel {
 		}
 	}
 
-	private func getSwapProviderInfo(amount: String, swapSide: SwapSide, completion: @escaping (String) -> Void) {
+    private func getSwapProviderInfo(destToken: AssetViewModel, amount: String, swapSide: SwapSide, completion: @escaping (String) -> Void) {
 		if selectedProtocol == .bestRate {
 			priceManager.getBestPrice(
 				srcToken: fromToken,
@@ -122,10 +128,10 @@ class SwapViewModel {
 				amount: amount
 			) { providersInfo in
 				self.providers = providersInfo.compactMap {
-					SwapProviderViewModel(providerResponseInfo: $0, side: swapSide)
+					SwapProviderViewModel(providerResponseInfo: $0, side: swapSide, destToken: destToken)
 				}.sorted { $0.swapAmount < $1.swapAmount }
 				let bestProvider = self.providers.first!
-				completion(bestProvider.swapAmount)
+				completion(bestProvider.formattedSwapAmount)
 				self.getFeeInfo(swapProvider: bestProvider)
 			}
 		} else {

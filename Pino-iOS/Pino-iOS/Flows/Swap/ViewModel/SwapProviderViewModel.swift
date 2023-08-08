@@ -12,6 +12,7 @@ struct SwapProviderViewModel {
 
 	private var providerResponseInfo: SwapPriceResponseProtocol
 	private var side: SwapSide
+    private var destToken: AssetViewModel
 
 	// MARK: - Public Properties
 
@@ -19,14 +20,22 @@ struct SwapProviderViewModel {
 		providerResponseInfo.provider
 	}
 
-	public var swapAmount: String {
+	public var swapAmount: BigNumber {
 		switch side {
 		case .sell:
-			return providerResponseInfo.destAmount
+            return BigNumber(number: providerResponseInfo.destAmount, decimal: destToken.decimal)
 		case .buy:
-			return providerResponseInfo.srcAmount
+            return BigNumber(number: providerResponseInfo.srcAmount, decimal: destToken.decimal)
 		}
 	}
+    
+    public var formattedSwapAmount: String {
+        return swapAmount.sevenDigitFormat
+    }
+    
+    public var formattedSwapAmountWithSymbol: String {
+        return formattedSwapAmount.tokenFormatting(token: destToken.symbol)
+    }
 
 	public var fee: String {
 		providerResponseInfo.gasFee
@@ -38,8 +47,9 @@ struct SwapProviderViewModel {
 
 	// MARK: - Initializers
 
-	init(providerResponseInfo: SwapPriceResponseProtocol, side: SwapSide) {
+    init(providerResponseInfo: SwapPriceResponseProtocol, side: SwapSide, destToken: AssetViewModel) {
 		self.providerResponseInfo = providerResponseInfo
 		self.side = side
+        self.destToken = destToken
 	}
 }

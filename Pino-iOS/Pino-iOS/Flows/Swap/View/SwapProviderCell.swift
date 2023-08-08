@@ -48,8 +48,8 @@ class SwapProviderCell: UICollectionViewCell {
 
 	private func setupStyles() {
 		swapProviderNameLabel.text = swapProviderVM.provider.name
-		swapAmountLabel.text = swapProviderVM.swapAmount
-
+        swapAmountLabel.text = swapProviderVM.formattedSwapAmountWithSymbol
+        
 		swapProviderImageView.image = UIImage(named: swapProviderVM.provider.image)
 
 		swapProviderNameLabel.font = .PinoStyle.mediumCallout

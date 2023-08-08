@@ -51,9 +51,10 @@ class SwapPriceManager {
 		swapInfo: SwapPriceRequestModel,
 		completion: @escaping ([SwapPriceResponseProtocol]) -> Void
 	) {
-		Publishers.Zip(
+		Publishers.Zip3(
 			paraSwapAPIClient.swapPrice(swapInfo: swapInfo),
-			zeroXAPIClient.swapPrice(swapInfo: swapInfo)
+			zeroXAPIClient.swapPrice(swapInfo: swapInfo),
+            oneInchAPIClient.swapPrice(swapInfo: swapInfo)
 		).sink { completed in
 			switch completed {
 			case .finished:
@@ -61,8 +62,8 @@ class SwapPriceManager {
 			case let .failure(error):
 				print(error)
 			}
-		} receiveValue: { paraswapResponse, zeroXResponse in
-			completion([paraswapResponse, zeroXResponse])
+		} receiveValue: { paraswapResponse, zeroXResponse, oneInchResponse in
+			completion([paraswapResponse, zeroXResponse, oneInchResponse])
 		}.store(in: &cancellables)
 	}
 
