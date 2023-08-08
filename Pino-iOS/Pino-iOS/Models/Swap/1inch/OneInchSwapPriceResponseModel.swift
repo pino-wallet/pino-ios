@@ -15,19 +15,19 @@ struct OneInchPriceResponseModel: SwapPriceResponseProtocol {
 
 	// MARK: - Public Properties
 
-	public var provider: SwapProviderViewModel.SwapProvider {
+	public var provider: SwapProvider {
 		.oneInch
 	}
 
-	public var tokenAmount: String {
+	public var srcAmount: String {
+		.emptyString
+	}
+
+	public var destAmount: String {
 		toAmount
 	}
 
 	public var gasFee: String {
-		"\(gas)"
-	}
-
-	public var gasFeeInDollar: String {
 		"\(gas)"
 	}
 }

@@ -14,19 +14,19 @@ struct ParaSwapPriceResponseModel: SwapPriceResponseProtocol {
 
 	// MARK: - Public Properties
 
-	public var provider: SwapProviderViewModel.SwapProvider {
+	public var provider: SwapProvider {
 		.paraswap
 	}
 
-	public var tokenAmount: String {
+	public var srcAmount: String {
+		priceRoute.srcAmount
+	}
+
+	public var destAmount: String {
 		priceRoute.destAmount
 	}
 
 	public var gasFee: String {
-		"\(priceRoute.partnerFee)"
-	}
-
-	public var gasFeeInDollar: String {
 		"\(priceRoute.partnerFee)"
 	}
 }

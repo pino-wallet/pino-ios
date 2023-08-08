@@ -22,26 +22,25 @@ class SwapPriceManager {
 		srcToken: SwapTokenViewModel,
 		destToken: SwapTokenViewModel,
 		swapSide: SwapSide,
-		completion: @escaping (SwapPriceResponseProtocol) -> Void
+		amount: String,
+		completion: @escaping (_ responses: [SwapPriceResponseProtocol]) -> Void
 	) {
 		let swapInfo = SwapPriceRequestModel(
 			srcToken: srcToken.selectedToken.id,
 			srcDecimals: srcToken.selectedToken.decimal,
 			destToken: destToken.selectedToken.id,
 			destDecimals: destToken.selectedToken.decimal,
-			amount: "100000000000",
+			amount: amount,
 			side: swapSide
 		)
 		switch swapSide {
 		case .sell:
 			getSellPrices(swapInfo: swapInfo) { responses in
-				let bestProvider = self.getBsetResponse(swapResponses: responses)
-				completion(bestProvider)
+				completion(responses)
 			}
 		case .buy:
 			getBuyPrices(swapInfo: swapInfo) { responses in
-				let bestProvider = self.getBsetResponse(swapResponses: responses)
-				completion(bestProvider)
+				completion(responses)
 			}
 		}
 	}
@@ -52,10 +51,9 @@ class SwapPriceManager {
 		swapInfo: SwapPriceRequestModel,
 		completion: @escaping ([SwapPriceResponseProtocol]) -> Void
 	) {
-		Publishers.Zip3(
+		Publishers.Zip(
 			paraSwapAPIClient.swapPrice(swapInfo: swapInfo),
-			zeroXAPIClient.swapPrice(swapInfo: swapInfo),
-			oneInchAPIClient.swapPrice(swapInfo: swapInfo)
+			zeroXAPIClient.swapPrice(swapInfo: swapInfo)
 		).sink { completed in
 			switch completed {
 			case .finished:
@@ -63,8 +61,8 @@ class SwapPriceManager {
 			case let .failure(error):
 				print(error)
 			}
-		} receiveValue: { paraswapResponse, zeroXResponse, oneInchResponse in
-			completion([paraswapResponse, zeroXResponse, oneInchResponse])
+		} receiveValue: { paraswapResponse, zeroXResponse in
+			completion([paraswapResponse, zeroXResponse])
 		}.store(in: &cancellables)
 	}
 
@@ -85,9 +83,5 @@ class SwapPriceManager {
 		} receiveValue: { paraswapResponse, zeroXResponse in
 			completion([paraswapResponse, zeroXResponse])
 		}.store(in: &cancellables)
-	}
-
-	private func getBsetResponse(swapResponses: [SwapPriceResponseProtocol]) -> SwapPriceResponseProtocol {
-		swapResponses.first!
 	}
 }

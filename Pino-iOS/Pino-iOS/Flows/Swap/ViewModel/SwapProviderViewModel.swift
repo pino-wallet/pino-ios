@@ -8,38 +8,38 @@
 import Foundation
 
 struct SwapProviderViewModel {
+	// MARK: - Private Properties
+
+	private var providerResponseInfo: SwapPriceResponseProtocol
+	private var side: SwapSide
+
 	// MARK: - Public Properties
 
-	public var provider: SwapProvider
-	public var swapAmount: String
-}
+	public var provider: SwapProvider {
+		providerResponseInfo.provider
+	}
 
-extension SwapProviderViewModel {
-	enum SwapProvider {
-		case oneInch
-		case paraswap
-		case zeroX
-
-		public var name: String {
-			switch self {
-			case .oneInch:
-				return "1inch"
-			case .paraswap:
-				return "Paraswap"
-			case .zeroX:
-				return "0x"
-			}
+	public var swapAmount: String {
+		switch side {
+		case .sell:
+			return providerResponseInfo.destAmount
+		case .buy:
+			return providerResponseInfo.srcAmount
 		}
+	}
 
-		public var image: String {
-			switch self {
-			case .oneInch:
-				return "1inch_provider"
-			case .paraswap:
-				return "paraswap_provider"
-			case .zeroX:
-				return "0x_provider"
-			}
-		}
+	public var fee: String {
+		providerResponseInfo.gasFee
+	}
+
+	public var feeInDollar: String {
+		providerResponseInfo.gasFee
+	}
+
+	// MARK: - Initializers
+
+	init(providerResponseInfo: SwapPriceResponseProtocol, side: SwapSide) {
+		self.providerResponseInfo = providerResponseInfo
+		self.side = side
 	}
 }

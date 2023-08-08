@@ -21,19 +21,19 @@ struct ZeroXPriceResponseModel: SwapPriceResponseProtocol {
 
 	// MARK: - Public Properties
 
-	public var provider: SwapProviderViewModel.SwapProvider {
+	public var provider: SwapProvider {
 		.zeroX
 	}
 
-	public var tokenAmount: String {
+	public var srcAmount: String {
+		sellAmount
+	}
+
+	public var destAmount: String {
 		buyAmount
 	}
 
 	public var gasFee: String {
-		protocolFee
-	}
-
-	public var gasFeeInDollar: String {
 		protocolFee
 	}
 }

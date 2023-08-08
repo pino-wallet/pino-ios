@@ -178,7 +178,11 @@ class SwapViewController: UIViewController {
 	}
 
 	private func openProvidersPage() {
-		let providersVC = SwapProvidersViewcontroller { provider in
+		guard let bestProvider = swapVM.swapFeeVM.swapProviderVM else { return }
+		let providersVC = SwapProvidersViewcontroller(
+			providers: swapVM.providers,
+			bestProvider: bestProvider
+		) { provider in
 			self.swapVM.changeSwapProvider(to: provider)
 		}
 		present(providersVC, animated: true)
