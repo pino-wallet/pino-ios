@@ -77,11 +77,12 @@ class SwapPriceManager {
 				print(error)
 			}
 		} receiveValue: { paraswapResponse, zeroXResponse, oneInchResponse in
-			let responses: [SwapPriceResponseProtocol?] = [paraswapResponse, zeroXResponse, oneInchResponse]
-			if responses.isEmpty {
+			let allResponses: [SwapPriceResponseProtocol?] = [paraswapResponse, zeroXResponse, oneInchResponse]
+			let valuableResponses = allResponses.compactMap { $0 }
+			if valuableResponses.isEmpty {
 				self.getSellPrices(swapInfo: swapInfo, completion: completion)
 			} else {
-				completion(responses.compactMap { $0 })
+				completion(valuableResponses)
 			}
 		}.store(in: &cancellables)
 	}
@@ -108,11 +109,12 @@ class SwapPriceManager {
 				print(error)
 			}
 		} receiveValue: { paraswapResponse, zeroXResponse in
-			let responses: [SwapPriceResponseProtocol?] = [paraswapResponse, zeroXResponse]
-			if responses.isEmpty {
+			let allResponses: [SwapPriceResponseProtocol?] = [paraswapResponse, zeroXResponse]
+			let valuableResponses = allResponses.compactMap { $0 }
+			if valuableResponses.isEmpty {
 				self.getBuyPrices(swapInfo: swapInfo, completion: completion)
 			} else {
-				completion(responses.compactMap { $0 })
+				completion(valuableResponses)
 			}
 		}.store(in: &cancellables)
 	}
