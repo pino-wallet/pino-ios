@@ -35,12 +35,6 @@ class ActivityCell: UICollectionViewCell {
 		}
 	}
 
-	public var showLoading = true {
-		didSet {
-			manageStylesWithLoading()
-		}
-	}
-
 	// MARK: - private UI method
 
 	private func setupView() {
@@ -159,11 +153,4 @@ class ActivityCell: UICollectionViewCell {
 		historyTitleLabel.isSkeletonable = true
 	}
 
-	private func manageStylesWithLoading() {
-		if showLoading {
-			statusLabelContainer.isHidden = true
-		} else {
-			statusLabelContainer.isHidden = false
-		}
-	}
 }
