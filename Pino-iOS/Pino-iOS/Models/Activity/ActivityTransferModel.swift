@@ -8,7 +8,7 @@
 struct ActivityTransferModel: ActivityModelProtocol {
 	var txHash: String
 	var type: String
-	var detail: TransferActivityDetail?
+	var detail: TransferActivityDetail
 	var fromAddress: String
 	var toAddress: String
 	var failed: Bool?
@@ -33,10 +33,10 @@ struct ActivityTransferModel: ActivityModelProtocol {
 // MARK: - Detail
 
 struct TransferActivityDetail: Codable {
-	var amount: String?
-	var tokenID: String?
-	var from: String?
-	var to: String?
+	var amount: String
+	var tokenID: String
+	var from: String
+	var to: String
 
 	enum CodingKeys: String, CodingKey {
 		case amount

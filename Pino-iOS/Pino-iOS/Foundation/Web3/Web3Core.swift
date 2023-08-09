@@ -33,7 +33,7 @@ class Web3Core {
 
 	typealias CustomAssetInfo = [AssetInfo: String]
 	typealias ERC20TransactionInfoType = [ERC20TransactionInfo: EthereumQuantity]
-	typealias GasInfo = (fee: BigNumber, feeInDollar: BigNumber)
+    typealias GasInfo = (fee: BigNumber, feeInDollar: BigNumber, gasPrice: String, gasLimit: String)
 
 	// MARK: - Public Properties
 
@@ -106,7 +106,7 @@ class Web3Core {
 				let gasPriceBigNum = BigNumber(number: "\(gasPrice.quantity)", decimal: 0)
 				let fee = BigNumber(number: gasLimit * gasPriceBigNum, decimal: 18)
 				let feeInDollar = fee * ethPrice
-				seal.fulfill((fee, feeInDollar))
+                seal.fulfill((fee, feeInDollar, gasPrice: gasPrice.quantity.description, gasLimit: Constants.ethGasLimit))
 			}.catch { error in
 				seal.reject(error)
 			}
@@ -126,8 +126,8 @@ class Web3Core {
 
 				let fee = BigNumber(unSignedNumber: estimate.quantity, decimal: 18)
 				let feeInDollar = fee * ethPrice
-
-				seal.fulfill((fee, feeInDollar))
+                
+                seal.fulfill((fee, feeInDollar, gasPrice: transactionInfo[.gasPrice]?.quantity.description ?? "0", gasLimit: transactionInfo[.gasLimit]?.quantity.description ?? "0"))
 			}.catch { error in
 				seal.reject(error)
 			}

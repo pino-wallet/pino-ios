@@ -97,19 +97,13 @@ class ActivityDetailsViewModel {
 				print("Activity received successfully")
 			case let .failure(error):
 				print(error)
-				Toast.default(
-					title: self.errorFetchingToastMessage,
-					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-					style: .error
-				)
-				.show(haptic: .warning)
 			}
 		} receiveValue: { activityDetails in
-			guard activityDetails != nil else {
-				return
-			}
-			let iteratedActivity = self.activityHelper.iterateActivityModel(activity: activityDetails!)
-			let newActivityDetails = ActivityCellViewModel(activityModel: iteratedActivity!)
+            guard let iteratedActivity = self.activityHelper.iterateActivityModel(activity: activityDetails) else {
+                self.properties = self.properties
+                return
+            }
+			let newActivityDetails = ActivityCellViewModel(activityModel: iteratedActivity)
 			if newActivityDetails.status != .pending {
 				self.destroyTimer()
 			}
