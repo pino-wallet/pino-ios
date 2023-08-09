@@ -81,7 +81,7 @@ class ActivityDetailsViewModel {
 
 	private func setupRequestTimer() {
 		requestTimer = Timer.scheduledTimer(
-			timeInterval: 12,
+			timeInterval: 5,
 			target: self,
 			selector: #selector(getActivityDetails),
 			userInfo: nil,
@@ -96,11 +96,15 @@ class ActivityDetailsViewModel {
 			case .finished:
 				print("Activity received successfully")
 			case let .failure(error):
-				print(error)
+                switch error {
+                case .notFound:
+                    self.properties = self.properties
+                default:
+                    print("failed request")
+                }
 			}
 		} receiveValue: { activityDetails in
             guard let iteratedActivity = self.activityHelper.iterateActivityModel(activity: activityDetails) else {
-                self.properties = self.properties
                 return
             }
 			let newActivityDetails = ActivityCellViewModel(activityModel: iteratedActivity)

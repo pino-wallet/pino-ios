@@ -17,7 +17,7 @@ extension CDSwapActivityDetails {
     }
 
     @NSManaged public var activityProtool: String
-    @NSManaged public var activity: CDSwapActivity
+    @NSManaged public var activity: CDSwapActivity?
     @NSManaged public var from_token: CDActivityDetailsToken
     @NSManaged public var to_token: CDActivityDetailsToken
 

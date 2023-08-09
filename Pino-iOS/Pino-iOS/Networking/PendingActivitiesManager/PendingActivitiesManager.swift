@@ -33,7 +33,7 @@ class PendingActivitiesManager {
 	public func startActivityPendingRequests() {
 		getPendingActivitiesFromCoreData()
 		stopActivityPendingRequests()
-//		getActivityPendings()
+		getActivityPendings()
 		requestsTimer = Timer.publish(every: 15, on: .main, in: .common).autoconnect().sink { _ in
 			self.getActivityPendings()
 		}
@@ -114,7 +114,7 @@ class PendingActivitiesManager {
 					let iteratedActivity = self.activityHelper.iterateActivityModel(activity: activity)
                 if iteratedActivity != nil {
                     self.pendingActivitiesList.removeAll(where: { $0.txHash == iteratedActivity!.txHash })
-                    //self.coreDataManager.deleteActivityByID(iteratedActivity!.txHash)
+                    self.coreDataManager.deleteActivityByID(iteratedActivity!.txHash)
                     if self.pendingActivitiesList.isEmpty {
                         self.stopActivityPendingRequests()
                     }

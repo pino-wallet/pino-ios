@@ -33,7 +33,7 @@
         <attribute name="from" attributeType="String"/>
         <attribute name="to" attributeType="String"/>
         <attribute name="tokenID" attributeType="String"/>
-        <relationship name="activity" maxCount="1" deletionRule="Nullify" destinationEntity="CDTransferActivity" inverseName="details" inverseEntity="CDTransferActivity"/>
+        <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDTransferActivity" inverseName="details" inverseEntity="CDTransferActivity"/>
     </entity>
     <entity name="CustomAsset" representedClassName="CustomAsset" syncable="YES">
         <attribute name="decimal" optional="YES" attributeType="String"/>

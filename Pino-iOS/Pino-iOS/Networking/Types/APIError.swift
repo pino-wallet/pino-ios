@@ -16,6 +16,7 @@ public enum APIError: Error {
 	case parametersNil
 	case encodingFailed
 	case missingURL
+    case notFound
 
 	// MARK: Public Properties
 
@@ -37,6 +38,8 @@ public enum APIError: Error {
 			return "Parameter encoding failed."
 		case .missingURL:
 			return "URL is nil."
+        case .notFound:
+            return "Not found"
 		}
 	}
 }
