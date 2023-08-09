@@ -111,6 +111,7 @@ class ActivityViewModel {
 		userActivities = nil
 		prevActivities = []
 		newUserActivities = []
+        currentDeletedActivities = []
 		isFirstTime = true
 	}
 
