@@ -8,7 +8,6 @@ import Foundation
 // MARK: - ParaSwapPriceResponseModel
 
 struct ParaSwapPriceResponseModel: SwapPriceResponseProtocol {
-    
 	// MARK: - Private Properties
 
 	private let priceRoute: PriceRoute
@@ -33,16 +32,17 @@ struct ParaSwapPriceResponseModel: SwapPriceResponseProtocol {
 }
 
 // MARK: - PriceRoute
+
 struct PriceRoute: Codable {
-    let blockNumber, network: Int
-    let srcToken: String
-    let srcDecimals: Int
-    let srcAmount, destToken: String
-    let destDecimals: Int
-    let destAmount, gasCostUSD, gasCost, side: String
-    let tokenTransferProxy, contractAddress, contractMethod: String
-    let partnerFee: Int
-    let srcUSD, destUSD, partner: String
-    let maxImpactReached: Bool
-    let hmac: String
+	let blockNumber, network: Int
+	let srcToken: String
+	let srcDecimals: Int
+	let srcAmount, destToken: String
+	let destDecimals: Int
+	let destAmount, gasCostUSD, gasCost, side: String
+	let tokenTransferProxy, contractAddress, contractMethod: String
+	let partnerFee: Int
+	let srcUSD, destUSD, partner: String
+	let maxImpactReached: Bool
+	let hmac: String
 }

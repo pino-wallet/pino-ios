@@ -101,12 +101,12 @@ class SwapViewModel {
 		srcToken.calculateDollarAmount(amount)
 		if let tokenAmount = srcToken.tokenAmount {
 			destToken.swapDelegate.swapAmountCalculating()
-            let swapAmount = Utilities.parseToBigUInt(tokenAmount, units: .custom(srcToken.selectedToken.decimal))
-            getSwapProviderInfo(
-                destToken: destToken.selectedToken,
-                amount: swapAmount!.description,
-                swapSide: swapSide
-            ) { swapAmount in
+			let swapAmount = Utilities.parseToBigUInt(tokenAmount, units: .custom(srcToken.selectedToken.decimal))
+			getSwapProviderInfo(
+				destToken: destToken.selectedToken,
+				amount: swapAmount!.description,
+				swapSide: swapSide
+			) { swapAmount in
 				self.updateDestinationToken(
 					destToken: destToken,
 					tokenAmount: swapAmount,
@@ -119,7 +119,12 @@ class SwapViewModel {
 		}
 	}
 
-    private func getSwapProviderInfo(destToken: AssetViewModel, amount: String, swapSide: SwapSide, completion: @escaping (String) -> Void) {
+	private func getSwapProviderInfo(
+		destToken: AssetViewModel,
+		amount: String,
+		swapSide: SwapSide,
+		completion: @escaping (String) -> Void
+	) {
 		if selectedProtocol == .bestRate {
 			priceManager.getBestPrice(
 				srcToken: fromToken,

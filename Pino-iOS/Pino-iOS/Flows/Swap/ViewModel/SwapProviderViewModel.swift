@@ -12,7 +12,7 @@ struct SwapProviderViewModel {
 
 	private var providerResponseInfo: SwapPriceResponseProtocol
 	private var side: SwapSide
-    private var destToken: AssetViewModel
+	private var destToken: AssetViewModel
 
 	// MARK: - Public Properties
 
@@ -23,19 +23,19 @@ struct SwapProviderViewModel {
 	public var swapAmount: BigNumber {
 		switch side {
 		case .sell:
-            return BigNumber(number: providerResponseInfo.destAmount, decimal: destToken.decimal)
+			return BigNumber(number: providerResponseInfo.destAmount, decimal: destToken.decimal)
 		case .buy:
-            return BigNumber(number: providerResponseInfo.srcAmount, decimal: destToken.decimal)
+			return BigNumber(number: providerResponseInfo.srcAmount, decimal: destToken.decimal)
 		}
 	}
-    
-    public var formattedSwapAmount: String {
-        return swapAmount.sevenDigitFormat
-    }
-    
-    public var formattedSwapAmountWithSymbol: String {
-        return formattedSwapAmount.tokenFormatting(token: destToken.symbol)
-    }
+
+	public var formattedSwapAmount: String {
+		swapAmount.sevenDigitFormat
+	}
+
+	public var formattedSwapAmountWithSymbol: String {
+		formattedSwapAmount.tokenFormatting(token: destToken.symbol)
+	}
 
 	public var fee: String {
 		providerResponseInfo.gasFee
@@ -47,9 +47,9 @@ struct SwapProviderViewModel {
 
 	// MARK: - Initializers
 
-    init(providerResponseInfo: SwapPriceResponseProtocol, side: SwapSide, destToken: AssetViewModel) {
+	init(providerResponseInfo: SwapPriceResponseProtocol, side: SwapSide, destToken: AssetViewModel) {
 		self.providerResponseInfo = providerResponseInfo
 		self.side = side
-        self.destToken = destToken
+		self.destToken = destToken
 	}
 }

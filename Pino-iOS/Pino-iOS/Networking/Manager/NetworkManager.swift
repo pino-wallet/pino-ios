@@ -17,7 +17,7 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 
 			let requestPublisher = URLSession.shared.dataTaskPublisher(for: request)
 				.tryMap { data, response -> T in
-                    print(response)
+					print(response)
 					guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
 						throw APIError.failedRequest
 					}

@@ -51,10 +51,19 @@ class SwapPriceManager {
 		swapInfo: SwapPriceRequestModel,
 		completion: @escaping ([SwapPriceResponseProtocol]) -> Void
 	) {
+		let paraswapPublisher = paraSwapAPIClient.swapPrice(swapInfo: swapInfo)
+			.catch { _ in Just(nil) }
+
+		let zeroXPublisher = zeroXAPIClient.swapPrice(swapInfo: swapInfo)
+			.catch { _ in Just(nil) }
+
+		let oneInchPublisher = oneInchAPIClient.swapPrice(swapInfo: swapInfo)
+			.catch { _ in Just(nil) }
+
 		Publishers.Zip3(
-			paraSwapAPIClient.swapPrice(swapInfo: swapInfo),
-			zeroXAPIClient.swapPrice(swapInfo: swapInfo),
-            oneInchAPIClient.swapPrice(swapInfo: swapInfo)
+			paraswapPublisher,
+			zeroXPublisher,
+			oneInchPublisher
 		).sink { completed in
 			switch completed {
 			case .finished:
@@ -63,7 +72,12 @@ class SwapPriceManager {
 				print(error)
 			}
 		} receiveValue: { paraswapResponse, zeroXResponse, oneInchResponse in
-			completion([paraswapResponse, zeroXResponse, oneInchResponse])
+			let responses: [SwapPriceResponseProtocol?] = [paraswapResponse, zeroXResponse, oneInchResponse]
+			if responses.isEmpty {
+				self.getSellPrices(swapInfo: swapInfo, completion: completion)
+			} else {
+				completion(responses.compactMap { $0 })
+			}
 		}.store(in: &cancellables)
 	}
 
@@ -71,10 +85,17 @@ class SwapPriceManager {
 		swapInfo: SwapPriceRequestModel,
 		completion: @escaping ([SwapPriceResponseProtocol]) -> Void
 	) {
+		let paraswapPublisher = paraSwapAPIClient.swapPrice(swapInfo: swapInfo)
+			.catch { _ in Just(nil) }
+
+		let zeroXPublisher = zeroXAPIClient.swapPrice(swapInfo: swapInfo)
+			.catch { _ in Just(nil) }
+
 		Publishers.Zip(
-			paraSwapAPIClient.swapPrice(swapInfo: swapInfo),
-			zeroXAPIClient.swapPrice(swapInfo: swapInfo)
-		).sink { completed in
+			paraswapPublisher,
+			zeroXPublisher
+		)
+		.sink { completed in
 			switch completed {
 			case .finished:
 				print("Swap price received successfully")
@@ -82,7 +103,12 @@ class SwapPriceManager {
 				print(error)
 			}
 		} receiveValue: { paraswapResponse, zeroXResponse in
-			completion([paraswapResponse, zeroXResponse])
+			let responses: [SwapPriceResponseProtocol?] = [paraswapResponse, zeroXResponse]
+			if responses.isEmpty {
+				self.getBuyPrices(swapInfo: swapInfo, completion: completion)
+			} else {
+				completion(responses.compactMap { $0 })
+			}
 		}.store(in: &cancellables)
 	}
 }
