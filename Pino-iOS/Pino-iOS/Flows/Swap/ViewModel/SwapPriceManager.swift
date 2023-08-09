@@ -33,6 +33,7 @@ class SwapPriceManager {
 			amount: amount,
 			side: swapSide
 		)
+		cancelPreviousRequests()
 		switch swapSide {
 		case .sell:
 			getSellPrices(swapInfo: swapInfo) { responses in
@@ -43,6 +44,10 @@ class SwapPriceManager {
 				completion(responses)
 			}
 		}
+	}
+
+	public func cancelPreviousRequests() {
+		cancellables.removeAll()
 	}
 
 	// MARK: - Private Methods

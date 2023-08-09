@@ -114,6 +114,7 @@ class SwapViewModel {
 				)
 			}
 		} else {
+			priceManager.cancelPreviousRequests()
 			updateDestinationToken(destToken: destToken, tokenAmount: nil, dollarAmount: nil)
 			getFeeInfo(swapProvider: nil)
 		}
