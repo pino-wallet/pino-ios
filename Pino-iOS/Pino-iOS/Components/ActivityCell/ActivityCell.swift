@@ -152,5 +152,4 @@ class ActivityCell: UICollectionViewCell {
 		historyMoreInfoLabel.isSkeletonable = true
 		historyTitleLabel.isSkeletonable = true
 	}
-
 }
