@@ -139,7 +139,12 @@ class ActivityViewModel {
 				.iterateActivitiesFromResponse(activities: activities) ?? []
 			if (self?.isFirstTime) != nil {
 				iteratedActivities.append(contentsOf: PendingActivitiesManager.shared.pendingActivitiesList)
-                iteratedActivities = iteratedActivities.sorted(by: { self?.activityHelper.getActivityDate(activityBlockTime: $0.blockTime).timeIntervalSince1970 ?? 1 > self?.activityHelper.getActivityDate(activityBlockTime: $1.blockTime).timeIntervalSince1970 ?? 0 })
+				iteratedActivities = iteratedActivities
+					.sorted(by: {
+						self?.activityHelper.getActivityDate(activityBlockTime: $0.blockTime)
+							.timeIntervalSince1970 ?? 1 > self?.activityHelper.getActivityDate(activityBlockTime: $1.blockTime)
+							.timeIntervalSince1970 ?? 0
+					})
 				self?.isFirstTime = false
 			}
 			if self?.userActivities == nil || (self?.userActivities!.isEmpty)! {
@@ -148,32 +153,31 @@ class ActivityViewModel {
 				}
 				self?.prevActivities = iteratedActivities
 			} else {
-                if !(self?.currentDeletedActivities.isEmpty)! {
-                    for deletedActivity in self?.currentDeletedActivities ?? [] {
-                        self?.prevActivities.removeAll(where: { $0.txHash == deletedActivity.txHash })
-                    }
+				if !(self?.currentDeletedActivities.isEmpty)! {
+					for deletedActivity in self?.currentDeletedActivities ?? [] {
+						self?.prevActivities.removeAll(where: { $0.txHash == deletedActivity.txHash })
+					}
 
-                    self?.deletedUserActivities = self?.currentDeletedActivities.compactMap {
-                        ActivityCellViewModel(activityModel: $0)
-                    } ?? []
-                    
-                    for deletedActivity in self?.currentDeletedActivities ?? [] {
-                        self?.prevActivities.removeAll(where: { $0.txHash == deletedActivity.txHash})
-                    }
+					self?.deletedUserActivities = self?.currentDeletedActivities.compactMap {
+						ActivityCellViewModel(activityModel: $0)
+					} ?? []
 
-                    self?.currentDeletedActivities = []
-                }
-                
+					for deletedActivity in self?.currentDeletedActivities ?? [] {
+						self?.prevActivities.removeAll(where: { $0.txHash == deletedActivity.txHash })
+					}
+
+					self?.currentDeletedActivities = []
+				}
+
 				var newActivities: [ActivityModelProtocol] = []
 				newActivities = iteratedActivities.filter { activity in
 					!self!.prevActivities.contains { activity.txHash == $0.txHash }
 				}
-                
+
 				self?.newUserActivities = newActivities.compactMap {
 					ActivityCellViewModel(activityModel: $0)
 				}
 				self?.prevActivities.append(contentsOf: newActivities)
-
 			}
 		}.store(in: &cancellables)
 	}
