@@ -96,17 +96,17 @@ class ActivityDetailsViewModel {
 			case .finished:
 				print("Activity received successfully")
 			case let .failure(error):
-                switch error {
-                case .notFound:
-                    self.properties = self.properties
-                default:
-                    print("failed request")
-                }
+				switch error {
+				case .notFound:
+					self.properties = self.properties
+				default:
+					print("failed request")
+				}
 			}
 		} receiveValue: { activityDetails in
-            guard let iteratedActivity = self.activityHelper.iterateActivityModel(activity: activityDetails) else {
-                return
-            }
+			guard let iteratedActivity = self.activityHelper.iterateActivityModel(activity: activityDetails) else {
+				return
+			}
 			let newActivityDetails = ActivityCellViewModel(activityModel: iteratedActivity)
 			if newActivityDetails.status != .pending {
 				self.destroyTimer()

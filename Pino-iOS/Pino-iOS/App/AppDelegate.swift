@@ -20,16 +20,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		setupLightKeyboardForTextFields()
 		setCacheLimitForKingFisherImages()
 		setupNotifications()
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 20, execute: {
-//            CoreDataManager().addNewSwapActivity(activityModel: ActivitySwapModel(txHash: "0x6ecf5d19f98411b6039cbb0380f149a017e3cde810541c39965ecfa6744e0348", type: "swap", detail: SwapActivityDetails(fromToken: ActivityTokenModel(amount: "151515", tokenID: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"), toToken: ActivityTokenModel(amount: "41451", tokenID: "0x0000000000000000000000000000000000000000"), activityProtocol: "Uniswap"), fromAddress: "0x938d52c887cE1352868793821D687f4d775a18a9", toAddress: "0x938d52c887cE1352868793821D687f4d775a18a9", blockTime: ActivityHelper().getServerFormattedStringDate(date: Date()), gasUsed: "11515", gasPrice: "511616"), accountAddress: "0x938d52c887cE1352868793821D687f4d775a18a9")
-//            PendingActivitiesManager.shared.startActivityPendingRequests()
-//        })
-        
-//        print("heh", PendingActivitiesManager.shared.pendingActivitiesList)
-//        let ts = CoreDataManager().getAllActivities()[0] as! CDSwapActivity
-//        print("hehe", ts.details.from_token.tokenId)
-//        let ts = CoreDataManager().getAllActivities()[0] as! CDTransferActivity
-//        print("heh", ts.gasPrice, ts.gasUsed, ts.details.amount )
+		//        DispatchQueue.main.asyncAfter(deadline: .now() + 20, execute: {
+		//            CoreDataManager().addNewSwapActivity(activityModel: ActivitySwapModel(txHash: "0x6ecf5d19f98411b6039cbb0380f149a017e3cde810541c39965ecfa6744e0348", type: "swap", detail: SwapActivityDetails(fromToken: ActivityTokenModel(amount: "151515", tokenID: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"), toToken: ActivityTokenModel(amount: "41451", tokenID: "0x0000000000000000000000000000000000000000"), activityProtocol: "Uniswap"), fromAddress: "0x938d52c887cE1352868793821D687f4d775a18a9", toAddress: "0x938d52c887cE1352868793821D687f4d775a18a9", blockTime: ActivityHelper().getServerFormattedStringDate(date: Date()), gasUsed: "11515", gasPrice: "511616"), accountAddress: "0x938d52c887cE1352868793821D687f4d775a18a9")
+		//            PendingActivitiesManager.shared.startActivityPendingRequests()
+		//        })
+
+		//        print("heh", PendingActivitiesManager.shared.pendingActivitiesList)
+		//        let ts = CoreDataManager().getAllActivities()[0] as! CDSwapActivity
+		//        print("hehe", ts.details.from_token.tokenId)
+		//        let ts = CoreDataManager().getAllActivities()[0] as! CDTransferActivity
+		//        print("heh", ts.gasPrice, ts.gasUsed, ts.details.amount )
 		return true
 	}
 

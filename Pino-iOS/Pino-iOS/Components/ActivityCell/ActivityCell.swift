@@ -34,12 +34,12 @@ class ActivityCell: UICollectionViewCell {
 			setupSkeletonView()
 		}
 	}
-    
-    public var showLoading: Bool = true {
-        didSet {
-            manageStylesWithLoading()
-        }
-    }
+
+	public var showLoading = true {
+		didSet {
+			manageStylesWithLoading()
+		}
+	}
 
 	// MARK: - private UI method
 
@@ -91,9 +91,9 @@ class ActivityCell: UICollectionViewCell {
 
 		historyIcon.layer.cornerRadius = 22
 		historyIcon.layer.masksToBounds = true
-        
-        statusLabel.text = activityCellVM?.status.rawValue
-        switch activityCellVM?.status {
+
+		statusLabel.text = activityCellVM?.status.rawValue
+		switch activityCellVM?.status {
 		case .failed:
 			statusLabelContainer.backgroundColor = .Pino.lightRed
 			statusLabel.textColor = .Pino.red
@@ -107,10 +107,10 @@ class ActivityCell: UICollectionViewCell {
 		case .success:
 			statusLabelContainer.isHidden = true
 			statusLabel.isHidden = true
-        default:
-            statusLabelContainer.isHidden = true
-            statusLabel.isHidden = true
-        }
+		default:
+			statusLabelContainer.isHidden = true
+			statusLabel.isHidden = true
+		}
 	}
 
 	override func layoutIfNeeded() {
@@ -123,8 +123,8 @@ class ActivityCell: UICollectionViewCell {
 	private func setupConstraint() {
 		historyTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 180).isActive = true
 		historyTitleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 220).isActive = true
-        historyMoreInfoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 120).isActive = true
-        historyMoreInfoLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 56).isActive = true
+		historyMoreInfoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 120).isActive = true
+		historyMoreInfoLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 56).isActive = true
 
 		historyTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 17).isActive = true
 		historyMoreInfoLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14).isActive = true
@@ -158,12 +158,12 @@ class ActivityCell: UICollectionViewCell {
 		historyMoreInfoLabel.isSkeletonable = true
 		historyTitleLabel.isSkeletonable = true
 	}
-    
-    private func manageStylesWithLoading() {
-        if showLoading {
-            statusLabelContainer.isHidden = true
-        } else {
-            statusLabelContainer.isHidden = false
-        }
-    }
+
+	private func manageStylesWithLoading() {
+		if showLoading {
+			statusLabelContainer.isHidden = true
+		} else {
+			statusLabelContainer.isHidden = false
+		}
+	}
 }

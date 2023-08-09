@@ -22,16 +22,16 @@ class SendConfirmationViewModel {
 
 	// MARK: - Public Properties
 
-    public let selectedToken: AssetViewModel
+	public let selectedToken: AssetViewModel
 	public var gasFee: BigNumber!
 	public var isAddressScam = false
 	public let recipientAddress: String
-    public let sendAmount: String
+	public let sendAmount: String
 	public let confirmBtnText = "Confirm"
 	public let insuffientText = "Insufficient ETH Amount"
 	public let sendAmountInDollar: String
-    public var gasPrice: String = "0"
-    public var gasLimit: String = "0"
+	public var gasPrice = "0"
+	public var gasLimit = "0"
 
 	public var isTokenVerified: Bool {
 		selectedToken.isVerified
@@ -140,8 +140,8 @@ class SendConfirmationViewModel {
 				self.gasFee = fee
 				self.formattedFeeInDollar = feeInDollar.priceFormat
 				self.formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
-                self.gasPrice = gasPrice
-                self.gasLimit = gasLimit
+				self.gasPrice = gasPrice
+				self.gasLimit = gasLimit
 			}.catch { error in
 				seal.reject(error)
 			}
@@ -160,8 +160,8 @@ class SendConfirmationViewModel {
 				gasFee = fee
 				formattedFeeInDollar = feeInDollar.priceFormat
 				formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
-                self.gasPrice = gasPrice
-                self.gasLimit = gasLimit
+				self.gasPrice = gasPrice
+				self.gasLimit = gasLimit
 			}.catch { error in
 				seal.reject(error)
 			}

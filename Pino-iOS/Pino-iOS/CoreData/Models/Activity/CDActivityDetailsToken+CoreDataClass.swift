@@ -6,10 +6,8 @@
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(CDActivityDetailsToken)
-public class CDActivityDetailsToken: NSManagedObject {
-
-}
+public class CDActivityDetailsToken: NSManagedObject {}

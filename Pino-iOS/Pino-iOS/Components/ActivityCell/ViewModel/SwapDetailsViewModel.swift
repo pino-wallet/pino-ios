@@ -34,7 +34,7 @@ struct SwapDetailsViewModel: ActivityDetailsProtocol {
 	// MARK: - Public Properties
 
 	public var fromTokenAmount: BigNumber {
-        BigNumber(number: activityModel.detail.fromToken.amount, decimal: fromToken?.decimal ?? 0)
+		BigNumber(number: activityModel.detail.fromToken.amount, decimal: fromToken?.decimal ?? 0)
 	}
 
 	public var toTokenAmount: BigNumber {

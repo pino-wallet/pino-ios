@@ -6,10 +6,8 @@
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(CDTransferActivity)
-public class CDTransferActivity: CDActivityParent {
-
-}
+public class CDTransferActivity: CDActivityParent {}

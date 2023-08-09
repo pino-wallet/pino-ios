@@ -151,8 +151,8 @@ class AccountsViewModel {
 	public func updateSelectedAccount(with selectedAccount: AccountInfoViewModel) {
 		coreDataManager.updateSelectedWalletAccount(selectedAccount.walletAccountInfoModel)
 		getAccounts()
-        if !coreDataManager.getAllActivities().isEmpty {
-            PendingActivitiesManager.shared.startActivityPendingRequests()
-        }
+		if !coreDataManager.getAllActivities().isEmpty {
+			PendingActivitiesManager.shared.startActivityPendingRequests()
+		}
 	}
 }

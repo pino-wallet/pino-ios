@@ -11,9 +11,9 @@ import Web3_Utility
 class SendStatusViewController: UIViewController {
 	// MARK: - Private Properties
 
-    private let coreDataManager = CoreDataManager()
-    private let walletManager = PinoWalletManager()
-    private let activityHelper = ActivityHelper()
+	private let coreDataManager = CoreDataManager()
+	private let walletManager = PinoWalletManager()
+	private let activityHelper = ActivityHelper()
 	private var sendStatusView: SendStatusView!
 	private var confirmationVM: SendConfirmationViewModel
 
@@ -42,9 +42,28 @@ class SendStatusViewController: UIViewController {
 
 		confirmationVM.sendToken().done { [self] trxHash in
 			sendStatusView.pageStatus = .success
-            let userAddress = walletManager.currentAccount.eip55Address
-            coreDataManager.addNewTransferActivity(activityModel: ActivityTransferModel(txHash: trxHash, type: "transfer", detail: TransferActivityDetail(amount: Utilities.parseToBigUInt(confirmationVM.sendAmount, units: .custom(confirmationVM.selectedToken.decimal))!.description, tokenID: confirmationVM.selectedToken.id, from: userAddress, to: confirmationVM.recipientAddress), fromAddress: userAddress, toAddress: confirmationVM.recipientAddress, blockTime: activityHelper.getServerFormattedStringDate(date: Date()), gasUsed: confirmationVM.gasLimit, gasPrice: confirmationVM.gasPrice), accountAddress: userAddress)
-                PendingActivitiesManager.shared.startActivityPendingRequests()
+			let userAddress = walletManager.currentAccount.eip55Address
+			coreDataManager.addNewTransferActivity(
+				activityModel: ActivityTransferModel(
+					txHash: trxHash,
+					type: "transfer",
+					detail: TransferActivityDetail(
+						amount: Utilities
+							.parseToBigUInt(confirmationVM.sendAmount, units: .custom(confirmationVM.selectedToken.decimal))!
+							.description,
+						tokenID: confirmationVM.selectedToken.id,
+						from: userAddress,
+						to: confirmationVM.recipientAddress
+					),
+					fromAddress: userAddress,
+					toAddress: confirmationVM.recipientAddress,
+					blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
+					gasUsed: confirmationVM.gasLimit,
+					gasPrice: confirmationVM.gasPrice
+				),
+				accountAddress: userAddress
+			)
+			PendingActivitiesManager.shared.startActivityPendingRequests()
 		}.catch { [self] error in
 			sendStatusView.pageStatus = .failed
 		}

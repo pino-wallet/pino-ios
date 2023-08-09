@@ -135,7 +135,7 @@ class CoreDataManager {
 	}
 
 	@discardableResult
-    public func addNewSwapActivity(activityModel: ActivitySwapModel, accountAddress: String) -> CDSwapActivity {
+	public func addNewSwapActivity(activityModel: ActivitySwapModel, accountAddress: String) -> CDSwapActivity {
 		let newActivity = CDSwapActivity(context: activityDataSource.managedContext)
 
 		newActivity.txHash = activityModel.txHash
@@ -145,7 +145,7 @@ class CoreDataManager {
 		newActivity.blockTime = activityModel.blockTime
 		newActivity.gasUsed = activityModel.gasUsed
 		newActivity.gasPrice = activityModel.gasPrice
-        newActivity.accountAddress = accountAddress
+		newActivity.accountAddress = accountAddress
 
 		let newActivityDetails = CDSwapActivityDetails(context: activityDataSource.managedContext)
 
@@ -173,7 +173,10 @@ class CoreDataManager {
 	}
 
 	@discardableResult
-    public func addNewTransferActivity(activityModel: ActivityTransferModel, accountAddress: String) -> CDTransferActivity {
+	public func addNewTransferActivity(
+		activityModel: ActivityTransferModel,
+		accountAddress: String
+	) -> CDTransferActivity {
 		let newActivity = CDTransferActivity(context: activityDataSource.managedContext)
 
 		newActivity.txHash = activityModel.txHash
@@ -183,7 +186,7 @@ class CoreDataManager {
 		newActivity.blockTime = activityModel.blockTime
 		newActivity.gasUsed = activityModel.gasUsed
 		newActivity.gasPrice = activityModel.gasPrice
-        newActivity.accountAddress = accountAddress
+		newActivity.accountAddress = accountAddress
 
 		let newActivityDetails = CDTransferActivityDetails(context: activityDataSource.managedContext)
 

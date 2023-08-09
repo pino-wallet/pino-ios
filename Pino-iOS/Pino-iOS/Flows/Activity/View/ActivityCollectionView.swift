@@ -115,23 +115,26 @@ class ActivityCollectionView: UICollectionView {
 			}, completion: nil)
 			self.refreshControl?.endRefreshing()
 		}.store(in: &cancellables)
-        
-        activityVM.$deletedUserActivities.sink { deletedUserActivities in
-            let deletedUserSeparatedActivities = activityHelper.separateActivitiesByTime(activities: deletedUserActivities)
-            let deletedActivitiesInfo = activityHelper.getDeletedActivitiesInfo(separatedActivities: self.separatedActivities, deletedSeparatedActivities: deletedUserSeparatedActivities)
-            self.performBatchUpdates({
-                self.separatedActivities = deletedActivitiesInfo.finalSeparatedActivities
-                self.deleteItems(at: deletedActivitiesInfo.indexPaths)
-                self.collectionViewLayout.invalidateLayout()
-                if !deletedActivitiesInfo.sections.isEmpty {
-                    for deletedSectionInset in deletedActivitiesInfo.sections {
-                        self.deleteSections(deletedSectionInset)
-                        self.collectionViewLayout.invalidateLayout()
-                    }
-                }
-            }, completion: nil)
-        }.store(in: &cancellables)
-        
+
+		activityVM.$deletedUserActivities.sink { deletedUserActivities in
+			let deletedUserSeparatedActivities = activityHelper
+				.separateActivitiesByTime(activities: deletedUserActivities)
+			let deletedActivitiesInfo = activityHelper.getDeletedActivitiesInfo(
+				separatedActivities: self.separatedActivities,
+				deletedSeparatedActivities: deletedUserSeparatedActivities
+			)
+			self.performBatchUpdates({
+				self.separatedActivities = deletedActivitiesInfo.finalSeparatedActivities
+				self.deleteItems(at: deletedActivitiesInfo.indexPaths)
+				self.collectionViewLayout.invalidateLayout()
+				if !deletedActivitiesInfo.sections.isEmpty {
+					for deletedSectionInset in deletedActivitiesInfo.sections {
+						self.deleteSections(deletedSectionInset)
+						self.collectionViewLayout.invalidateLayout()
+					}
+				}
+			}, completion: nil)
+		}.store(in: &cancellables)
 	}
 
 	private func refreshData() {

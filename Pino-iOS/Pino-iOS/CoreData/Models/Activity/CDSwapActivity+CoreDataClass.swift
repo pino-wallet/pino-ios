@@ -6,10 +6,8 @@
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(CDSwapActivity)
-public class CDSwapActivity: CDActivityParent {
-
-}
+public class CDSwapActivity: CDActivityParent {}

@@ -6,16 +6,16 @@
 //
 // swiftlint: disable trailing_comma
 
-import UIKit
 import Combine
+import UIKit
 
 class TabBarViewController: UITabBarController {
 	// MARK: - Private Properties
 
 	private let tabBarItems: [TabBarItem] = [.home, .swap, .invest, .borrow, .activity]
-    private let activityPendingBadgeView = UIView(frame: CGRect(x: 38, y: 8, width: 8, height: 8))
+	private let activityPendingBadgeView = UIView(frame: CGRect(x: 38, y: 8, width: 8, height: 8))
 	private var tabBarItemViewControllers = [UIViewController]()
-    private var cancellables = Set<AnyCancellable>()
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - View Overrides
 
@@ -28,8 +28,8 @@ class TabBarViewController: UITabBarController {
 		setupView()
 		setupTabBarItems()
 		presentAllowNotifications()
-        setupCustomBadgeStyles()
-        setupBindings()
+		setupCustomBadgeStyles()
+		setupBindings()
 	}
 
 	// MARK: - Private Functions
@@ -66,13 +66,13 @@ class TabBarViewController: UITabBarController {
 				image: UIImage(named: tabItem.image),
 				selectedImage: UIImage(named: tabItem.selectedImage)
 			)
-//            tabBarItemViewController.tabBarItem.badgeValue = ""
+			//            tabBarItemViewController.tabBarItem.badgeValue = ""
 			tabBarItemViewControllers.append(tabBarItemViewController)
 		}
 
 		viewControllers = tabBarItemViewControllers
-        
-        addCustomTabBarBadgeFor(index: 4, customView: self.activityPendingBadgeView)
+
+		addCustomTabBarBadgeFor(index: 4, customView: activityPendingBadgeView)
 	}
 
 	private func presentAllowNotifications() {
@@ -82,19 +82,19 @@ class TabBarViewController: UITabBarController {
 			present(allowNotificationsVC, animated: true)
 		}
 	}
-    
-    private func setupCustomBadgeStyles() {
-        activityPendingBadgeView.backgroundColor = .Pino.orange
-        activityPendingBadgeView.layer.cornerRadius = 4
-    }
-    
-    private func setupBindings() {
-        PendingActivitiesManager.shared.$pendingActivitiesList.sink { pendingActivities in
-            if pendingActivities.isEmpty {
-                self.activityPendingBadgeView.isHidden = true
-            } else {
-                self.activityPendingBadgeView.isHidden = false
-            }
-        }.store(in: &cancellables)
-    }
+
+	private func setupCustomBadgeStyles() {
+		activityPendingBadgeView.backgroundColor = .Pino.orange
+		activityPendingBadgeView.layer.cornerRadius = 4
+	}
+
+	private func setupBindings() {
+		PendingActivitiesManager.shared.$pendingActivitiesList.sink { pendingActivities in
+			if pendingActivities.isEmpty {
+				self.activityPendingBadgeView.isHidden = true
+			} else {
+				self.activityPendingBadgeView.isHidden = false
+			}
+		}.store(in: &cancellables)
+	}
 }

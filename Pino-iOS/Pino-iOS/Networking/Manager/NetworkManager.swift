@@ -25,10 +25,10 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 						if statusCode == 401 {
 							throw APIError.unauthorized
 						} else if statusCode == 404 {
-                            throw APIError.notFound
-                        } else {
-                            throw APIError.failedRequest
-                        }
+							throw APIError.notFound
+						} else {
+							throw APIError.failedRequest
+						}
 					}
 
 					// For cases when response body is empty
