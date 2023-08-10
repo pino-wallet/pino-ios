@@ -118,34 +118,6 @@ struct ActivityHelper {
 		return (indexPaths: indexPaths, sections: indexSets, finalSeparatedActivities: finalSeparatedActivities)
 	}
 
-	public func getDeletedActivitiesInfo(
-		separatedActivities: SeparatedActivitiesType,
-		deletedSeparatedActivities: SeparatedActivitiesType
-	) -> ActivitiesInfoType {
-		var indexPaths = [IndexPath]()
-		var indexSets = [IndexSet]()
-		var finalSeparatedActivities = separatedActivities
-
-		for section in deletedSeparatedActivities {
-			let foundSectionIndex = finalSeparatedActivities.firstIndex(where: { $0.title == section.title })
-			if foundSectionIndex != nil {
-				for activity in section.activities {
-					let foundDeletedActivityIndex = finalSeparatedActivities[foundSectionIndex!].activities
-						.firstIndex(where: { $0.defaultActivityModel.txHash == activity.defaultActivityModel.txHash })
-					if foundDeletedActivityIndex != nil {
-						indexPaths.append(IndexPath(row: foundDeletedActivityIndex!, section: foundSectionIndex!))
-						finalSeparatedActivities[foundSectionIndex!].activities.remove(at: foundDeletedActivityIndex!)
-					}
-				}
-				if finalSeparatedActivities[foundSectionIndex!].activities.isEmpty {
-					finalSeparatedActivities.remove(at: foundSectionIndex!)
-					indexSets.append(IndexSet(integer: foundSectionIndex!))
-				}
-			}
-		}
-		return (indexPaths: indexPaths, sections: indexSets, finalSeparatedActivities: finalSeparatedActivities)
-	}
-
 	// MARK: - Private Methods
 
 	private func separateActivitiesByDay(activities: [ActivityCellViewModel]) -> SeparatedActivitiesWithDayType {

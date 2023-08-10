@@ -20,8 +20,6 @@ class ActivityViewModel {
 	public var userActivities: [ActivityCellViewModel]? = nil
 	@Published
 	public var newUserActivities: [ActivityCellViewModel] = []
-	@Published
-	public var deletedUserActivities: [ActivityCellViewModel] = []
 
 	// MARK: - Private Properties
 
@@ -33,8 +31,8 @@ class ActivityViewModel {
 	private var requestTimer: Timer?
 	private var prevActivities: [ActivityModelProtocol] = []
 	private var prevAccountAddress: String!
-	private var currentDeletedActivities: [ActivityModelProtocol] = []
 	private var isFirstTime = true
+    private var coreDataManager = CoreDataManager()
 
 	// MARK: - Public Properties
 
@@ -98,10 +96,6 @@ class ActivityViewModel {
 				activity.failed == nil
 			}
 			if prevPendingActivities.count > pendingActivities.count {
-				let deletedActivities = prevPendingActivities.filter { activity in
-					!pendingActivities.contains(where: { $0.txHash == activity.txHash })
-				}
-				self.currentDeletedActivities = deletedActivities
 				self.requestTimer?.fire()
 			}
 		}.store(in: &pendingActivitiesCancellable)
@@ -111,7 +105,6 @@ class ActivityViewModel {
 		userActivities = nil
 		prevActivities = []
 		newUserActivities = []
-		currentDeletedActivities = []
 		isFirstTime = true
 	}
 
@@ -154,22 +147,6 @@ class ActivityViewModel {
 				}
 				self?.prevActivities = iteratedActivities
 			} else {
-				if !(self?.currentDeletedActivities.isEmpty)! {
-					for deletedActivity in self?.currentDeletedActivities ?? [] {
-						self?.prevActivities.removeAll(where: { $0.txHash == deletedActivity.txHash })
-					}
-
-					self?.deletedUserActivities = self?.currentDeletedActivities.compactMap {
-						ActivityCellViewModel(activityModel: $0)
-					} ?? []
-
-					for deletedActivity in self?.currentDeletedActivities ?? [] {
-						self?.prevActivities.removeAll(where: { $0.txHash == deletedActivity.txHash })
-					}
-
-					self?.currentDeletedActivities = []
-				}
-
 				var newActivities: [ActivityModelProtocol] = []
 				newActivities = iteratedActivities.filter { activity in
 					!self!.prevActivities.contains { activity.txHash == $0.txHash }
@@ -179,6 +156,23 @@ class ActivityViewModel {
 					ActivityCellViewModel(activityModel: $0)
 				}
 				self?.prevActivities.append(contentsOf: newActivities)
+                
+                for activity in iteratedActivities {
+                    let foundActivityIndex = self?.userActivities?.firstIndex(where: { $0.defaultActivityModel.txHash == activity.txHash })
+                    guard foundActivityIndex != nil else {
+                        return
+                    }
+                    if self?.userActivities?[foundActivityIndex!].defaultActivityModel.failed == nil && activity.failed != nil {
+                        guard let coreDataActivites = self?.coreDataManager.getAllActivities() else {
+                            return
+                        }
+                        if !coreDataActivites.isEmpty {
+                            PendingActivitiesManager.shared.startActivityPendingRequests()
+                        }
+                        self?.userActivities?[foundActivityIndex!] = ActivityCellViewModel(activityModel: activity)
+                        self?.prevActivities[foundActivityIndex!] = activity
+                    }
+                }
 			}
 		}.store(in: &cancellables)
 	}
