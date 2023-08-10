@@ -33,14 +33,13 @@ class ActivityViewModel {
 	private var prevAccountAddress: String!
 	private var isFirstTime = true
 	private var coreDataManager = CoreDataManager()
-    
-    
-    // MARK: - Initializers
 
-    init() {
-        setPrevAccountAddress()
-    }
-    
+	// MARK: - Initializers
+
+	init() {
+		setPrevAccountAddress()
+	}
+
 	// MARK: - Public Properties
 
 	public func getUserActivitiesFromVC() {
@@ -48,7 +47,7 @@ class ActivityViewModel {
 			refreshPrevData()
 			setPrevAccountAddress()
 		}
-        setupRequestTimer()
+		setupRequestTimer()
 		setupBindings()
 		requestTimer?.fire()
 	}
@@ -65,7 +64,6 @@ class ActivityViewModel {
 	public func cancellPendingActivitiesBinding() {
 		pendingActivitiesCancellable.removeAll()
 	}
-
 
 	// MARK: - Private Methods
 
