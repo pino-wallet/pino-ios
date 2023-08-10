@@ -69,7 +69,9 @@ class SwapPriceManager {
 			paraswapPublisher,
 			zeroXPublisher,
 			oneInchPublisher
-		).sink { completed in
+		)
+		.delay(for: 0.8, scheduler: RunLoop.main)
+		.sink { completed in
 			switch completed {
 			case .finished:
 				print("Swap price received successfully")
@@ -79,9 +81,7 @@ class SwapPriceManager {
 		} receiveValue: { paraswapResponse, zeroXResponse, oneInchResponse in
 			let allResponses: [SwapPriceResponseProtocol?] = [paraswapResponse, zeroXResponse, oneInchResponse]
 			let valuableResponses = allResponses.compactMap { $0 }
-			if valuableResponses.isEmpty {
-				self.getSellPrices(swapInfo: swapInfo, completion: completion)
-			} else {
+			if !valuableResponses.isEmpty {
 				completion(valuableResponses)
 			}
 		}.store(in: &cancellables)
@@ -101,6 +101,7 @@ class SwapPriceManager {
 			paraswapPublisher,
 			zeroXPublisher
 		)
+		.delay(for: 0.8, scheduler: RunLoop.main)
 		.sink { completed in
 			switch completed {
 			case .finished:
@@ -111,9 +112,7 @@ class SwapPriceManager {
 		} receiveValue: { paraswapResponse, zeroXResponse in
 			let allResponses: [SwapPriceResponseProtocol?] = [paraswapResponse, zeroXResponse]
 			let valuableResponses = allResponses.compactMap { $0 }
-			if valuableResponses.isEmpty {
-				self.getBuyPrices(swapInfo: swapInfo, completion: completion)
-			} else {
+			if !valuableResponses.isEmpty {
 				completion(valuableResponses)
 			}
 		}.store(in: &cancellables)

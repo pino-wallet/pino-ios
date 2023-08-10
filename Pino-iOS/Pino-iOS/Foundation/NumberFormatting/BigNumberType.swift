@@ -222,6 +222,10 @@ extension BigNumber: CustomStringConvertible {
 		}
 	}
 
+	public var plainSevenDigitFormat: String {
+		formattedAmountOf(type: .sevenDigitsRule)
+	}
+
 	public var priceFormat: String {
 		let formattedNumber: String!
 		if isBiggerThanMillion {

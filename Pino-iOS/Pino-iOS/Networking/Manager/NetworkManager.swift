@@ -14,7 +14,9 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 	public func request<T: Codable>(_ endpoint: EndPoint) -> AnyPublisher<T, APIError> {
 		do {
 			let request = try endpoint.request()
-
+			print("SENDING REQUEST ===")
+			print("URL: \(request.url?.absoluteString)")
+			print("===================")
 			let requestPublisher = URLSession.shared.dataTaskPublisher(for: request)
 				.tryMap { data, response -> T in
 					print(response)
