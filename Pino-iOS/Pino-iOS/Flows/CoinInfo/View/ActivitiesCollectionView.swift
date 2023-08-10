@@ -19,7 +19,7 @@ class ActivitiesCollectionView: UICollectionView {
 
 	// MARK: - Private Properties
 
-	private var cancellable = Set<AnyCancellable>()
+	private var cancellables = Set<AnyCancellable>()
 	private let historyRefreshContorl = UIRefreshControl()
 	private var coinInfoVM: CoinInfoViewModel!
 	private var separatedActivities: ActivityHelper.SeparatedActivitiesType! = []
@@ -89,7 +89,7 @@ class ActivitiesCollectionView: UICollectionView {
 
 	private func setupBinding() {
 		let activityHelper = ActivityHelper()
-		coinInfoVM.$coinHistoryList.sink { [weak self] activities in
+		coinInfoVM.$coinHistoryActivitiesList.sink { [weak self] activities in
 			guard let userActivitiesOnToken = activities else {
 				self?.showLoading = true
 				return
@@ -105,7 +105,32 @@ class ActivitiesCollectionView: UICollectionView {
 			}
 			self?.showLoading = false
 			self?.reloadData()
-		}.store(in: &cancellable)
+		}.store(in: &cancellables)
+        
+        
+        coinInfoVM.$coinHistoryNewActivitiesList.sink { newActivities in
+            guard !newActivities.isEmpty else {
+                self.refreshControl?.endRefreshing()
+                return
+            }
+            let newSeparatedActivities = activityHelper.separateActivitiesByTime(activities: newActivities)
+            let newActivitiesInfo = activityHelper.getNewActivitiesInfo(
+                separatedActivities: self.separatedActivities,
+                newSeparatedActivities: newSeparatedActivities
+            )
+            self.performBatchUpdates({
+                self.separatedActivities = newActivitiesInfo.finalSeparatedActivities
+                if !newActivitiesInfo.sections.isEmpty {
+                    for newActivitySection in newActivitiesInfo.sections {
+                        self.insertSections(newActivitySection)
+                        self.collectionViewLayout.invalidateLayout()
+                    }
+                }
+                self.insertItems(at: newActivitiesInfo.indexPaths)
+                self.collectionViewLayout.invalidateLayout()
+            }, completion: nil)
+            self.refreshControl?.endRefreshing()
+        }.store(in: &cancellables)
 	}
 
 	private func setupRefreshControl() {
@@ -156,6 +181,13 @@ extension ActivitiesCollectionView: UICollectionViewDelegateFlowLayout {
 	) -> CGSize {
 		CGSize(width: collectionView.frame.width - 32, height: 64)
 	}
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if section == 0 && showLoading {
+            return UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
+        }
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
 }
 
 // MARK: - CollectionView DataSource
@@ -279,7 +311,7 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 	) -> CGSize {
 		switch coinInfoVM.coinPortfolio.type {
 		case .verified:
-			guard let userAcitivites = coinInfoVM.coinHistoryList else {
+			guard let userAcitivites = coinInfoVM.coinHistoryActivitiesList else {
 				return CGSize(width: 0, height: 0)
 			}
 			if userAcitivites.isEmpty {
