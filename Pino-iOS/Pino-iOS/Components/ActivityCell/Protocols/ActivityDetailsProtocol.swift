@@ -6,6 +6,5 @@
 //
 
 protocol ActivityDetailsProtocol {
-	var activityModel: ActivityModel { get set }
 	var globalAssetsList: [AssetViewModel] { get }
 }
