@@ -32,7 +32,7 @@ class ActivityViewModel {
 	private var prevActivities: [ActivityModelProtocol] = []
 	private var prevAccountAddress: String!
 	private var isFirstTime = true
-    private var coreDataManager = CoreDataManager()
+	private var coreDataManager = CoreDataManager()
 
 	// MARK: - Public Properties
 
@@ -156,23 +156,25 @@ class ActivityViewModel {
 					ActivityCellViewModel(activityModel: $0)
 				}
 				self?.prevActivities.append(contentsOf: newActivities)
-                
-                for activity in iteratedActivities {
-                    let foundActivityIndex = self?.userActivities?.firstIndex(where: { $0.defaultActivityModel.txHash == activity.txHash })
-                    guard foundActivityIndex != nil else {
-                        return
-                    }
-                    if self?.userActivities?[foundActivityIndex!].defaultActivityModel.failed == nil && activity.failed != nil {
-                        guard let coreDataActivites = self?.coreDataManager.getAllActivities() else {
-                            return
-                        }
-                        if !coreDataActivites.isEmpty {
-                            PendingActivitiesManager.shared.startActivityPendingRequests()
-                        }
-                        self?.userActivities?[foundActivityIndex!] = ActivityCellViewModel(activityModel: activity)
-                        self?.prevActivities[foundActivityIndex!] = activity
-                    }
-                }
+
+				for activity in iteratedActivities {
+					let foundActivityIndex = self?.userActivities?
+						.firstIndex(where: { $0.defaultActivityModel.txHash == activity.txHash })
+					guard foundActivityIndex != nil else {
+						return
+					}
+					if self?.userActivities?[foundActivityIndex!].defaultActivityModel.failed == nil && activity
+						.failed != nil {
+						guard let coreDataActivites = self?.coreDataManager.getAllActivities() else {
+							return
+						}
+						if !coreDataActivites.isEmpty {
+							PendingActivitiesManager.shared.startActivityPendingRequests()
+						}
+						self?.userActivities?[foundActivityIndex!] = ActivityCellViewModel(activityModel: activity)
+						self?.prevActivities[foundActivityIndex!] = activity
+					}
+				}
 			}
 		}.store(in: &cancellables)
 	}
