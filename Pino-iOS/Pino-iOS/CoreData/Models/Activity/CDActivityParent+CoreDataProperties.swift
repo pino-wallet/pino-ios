@@ -1,18 +1,18 @@
 //
-//  CoreDataActivityParent+CoreDataProperties.swift
+//  CDActivityParent+CoreDataProperties.swift
 //  Pino-iOS
 //
-//  Created by Amir hossein kazemi seresht on 8/5/23.
+//  Created by Amir hossein kazemi seresht on 8/8/23.
 //
 //
 
 import CoreData
 import Foundation
 
-extension CoreDataActivityParent {
+extension CDActivityParent {
 	@nonobjc
-	public class func fetchRequest() -> NSFetchRequest<CoreDataActivityParent> {
-		NSFetchRequest<CoreDataActivityParent>(entityName: "CoreDataActivityParent")
+	public class func fetchRequest() -> NSFetchRequest<CDActivityParent> {
+		NSFetchRequest<CDActivityParent>(entityName: "CDActivityParent")
 	}
 
 	@NSManaged
@@ -29,6 +29,8 @@ extension CoreDataActivityParent {
 	public var txHash: String
 	@NSManaged
 	public var type: String
+	@NSManaged
+	public var accountAddress: String
 }
 
-extension CoreDataActivityParent: Identifiable {}
+extension CDActivityParent: Identifiable {}

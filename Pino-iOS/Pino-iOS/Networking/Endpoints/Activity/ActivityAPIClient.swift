@@ -23,7 +23,7 @@ final class ActivityAPIClient: ActivityAPIService {
 		networkManager.request(.allActivities(userAddress: userAddress))
 	}
 
-	public func singleActivity(txHash: String) -> AnyPublisher<ResultActivityModel?, APIError> {
+	public func singleActivity(txHash: String) -> AnyPublisher<ResultActivityModel, APIError> {
 		networkManager.request(.singleActivity(txHash: txHash))
 	}
 }

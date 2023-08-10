@@ -14,9 +14,7 @@ import Web3_Utility
 class SendConfirmationViewModel {
 	// MARK: - Private Properties
 
-	private let selectedToken: AssetViewModel
 	private let selectedWallet: AccountInfoViewModel
-	private let sendAmount: String
 	private var cancellables = Set<AnyCancellable>()
 	private var ethToken: AssetViewModel {
 		GlobalVariables.shared.manageAssetsList!.first(where: { $0.isEth })!
@@ -24,12 +22,16 @@ class SendConfirmationViewModel {
 
 	// MARK: - Public Properties
 
+	public let selectedToken: AssetViewModel
 	public var gasFee: BigNumber!
 	public var isAddressScam = false
 	public let recipientAddress: String
+	public let sendAmount: String
 	public let confirmBtnText = "Confirm"
 	public let insuffientText = "Insufficient ETH Amount"
 	public let sendAmountInDollar: String
+	public var gasPrice = "0"
+	public var gasLimit = "0"
 
 	public var isTokenVerified: Bool {
 		selectedToken.isVerified
@@ -134,10 +136,12 @@ class SendConfirmationViewModel {
 
 	private func calculateEthGasFee() -> Promise<String> {
 		Promise<String> { seal in
-			_ = Web3Core.shared.calculateEthGasFee(ethPrice: selectedToken.price).done { fee, feeInDollar in
+			_ = Web3Core.shared.calculateEthGasFee(ethPrice: selectedToken.price).done { fee, feeInDollar, gasPrice, gasLimit in
 				self.gasFee = fee
 				self.formattedFeeInDollar = feeInDollar.priceFormat
 				self.formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
+				self.gasPrice = gasPrice
+				self.gasLimit = gasLimit
 			}.catch { error in
 				seal.reject(error)
 			}
@@ -152,10 +156,12 @@ class SendConfirmationViewModel {
 				amount: sendAmount!,
 				tokenContractAddress: selectedToken.id,
 				ethPrice: ethPrice
-			).done { [self] fee, feeInDollar in
+			).done { [self] fee, feeInDollar, gasPrice, gasLimit in
 				gasFee = fee
 				formattedFeeInDollar = feeInDollar.priceFormat
 				formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
+				self.gasPrice = gasPrice
+				self.gasLimit = gasLimit
 			}.catch { error in
 				seal.reject(error)
 			}

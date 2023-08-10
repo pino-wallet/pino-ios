@@ -135,8 +135,8 @@ class CoreDataManager {
 	}
 
 	@discardableResult
-	public func addNewSwapActivity(activityModel: ActivitySwapModel) -> CoreDataSwapActivity {
-		let newActivity = CoreDataSwapActivity(context: activityDataSource.managedContext)
+	public func addNewSwapActivity(activityModel: ActivitySwapModel, accountAddress: String) -> CDSwapActivity {
+		let newActivity = CDSwapActivity(context: activityDataSource.managedContext)
 
 		newActivity.txHash = activityModel.txHash
 		newActivity.type = activityModel.type
@@ -145,25 +145,25 @@ class CoreDataManager {
 		newActivity.blockTime = activityModel.blockTime
 		newActivity.gasUsed = activityModel.gasUsed
 		newActivity.gasPrice = activityModel.gasPrice
+		newActivity.accountAddress = accountAddress
 
-		let newActivityDetails = CoreDataSwapActivityDetails(context: activityDataSource.managedContext)
+		let newActivityDetails = CDSwapActivityDetails(context: activityDataSource.managedContext)
 
-		newActivityDetails.userID = activityModel.detail?.userID ?? ""
-		newActivityDetails.activityProtool = activityModel.detail?.activityProtocol ?? ""
+		newActivityDetails.activityProtool = activityModel.detail.activityProtocol
 
-		let newActivityDetailsFromToken = CoreDataSwapActivityDetailsFromToken(
+		let newActivityDetailsFromToken = CDActivityDetailsToken(
 			context: activityDataSource
 				.managedContext
 		)
 
-		newActivityDetailsFromToken.amount = activityModel.detail?.fromToken?.amount ?? ""
-		newActivityDetailsFromToken.tokenId = activityModel.detail?.fromToken?.tokenID ?? ""
+		newActivityDetailsFromToken.amount = activityModel.detail.fromToken.amount
+		newActivityDetailsFromToken.tokenId = activityModel.detail.fromToken.tokenID
 		newActivityDetails.from_token = newActivityDetailsFromToken
 
-		let newActivityDetailsToToken = CoreDataSwapActivityDetailsToToken(context: activityDataSource.managedContext)
+		let newActivityDetailsToToken = CDActivityDetailsToken(context: activityDataSource.managedContext)
 
-		newActivityDetailsToToken.amount = activityModel.detail?.toToken?.amount ?? ""
-		newActivityDetailsToToken.tokenId = activityModel.detail?.toToken?.tokenID ?? ""
+		newActivityDetailsToToken.amount = activityModel.detail.toToken.amount
+		newActivityDetailsToToken.tokenId = activityModel.detail.toToken.tokenID
 		newActivityDetails.to_token = newActivityDetailsToToken
 
 		newActivity.details = newActivityDetails
@@ -173,8 +173,11 @@ class CoreDataManager {
 	}
 
 	@discardableResult
-	public func addNewTransferActivity(activityModel: ActivityTransferModel) -> CoreDataTransferActivity {
-		let newActivity = CoreDataTransferActivity(context: activityDataSource.managedContext)
+	public func addNewTransferActivity(
+		activityModel: ActivityTransferModel,
+		accountAddress: String
+	) -> CDTransferActivity {
+		let newActivity = CDTransferActivity(context: activityDataSource.managedContext)
 
 		newActivity.txHash = activityModel.txHash
 		newActivity.type = activityModel.type
@@ -183,13 +186,14 @@ class CoreDataManager {
 		newActivity.blockTime = activityModel.blockTime
 		newActivity.gasUsed = activityModel.gasUsed
 		newActivity.gasPrice = activityModel.gasPrice
+		newActivity.accountAddress = accountAddress
 
-		let newActivityDetails = CoreDataTransferActivityDetails(context: activityDataSource.managedContext)
+		let newActivityDetails = CDTransferActivityDetails(context: activityDataSource.managedContext)
 
-		newActivityDetails.amount = activityModel.detail?.amount ?? ""
-		newActivityDetails.tokenID = activityModel.detail?.tokenID ?? ""
-		newActivityDetails.from = activityModel.detail?.from ?? ""
-		newActivityDetails.to = activityModel.detail?.to ?? ""
+		newActivityDetails.amount = activityModel.detail.amount
+		newActivityDetails.tokenID = activityModel.detail.tokenID
+		newActivityDetails.from = activityModel.detail.from
+		newActivityDetails.to = activityModel.detail.to
 
 		newActivity.details = newActivityDetails
 
@@ -197,7 +201,7 @@ class CoreDataManager {
 		return newActivity
 	}
 
-	public func getAllActivities() -> [CoreDataActivityParent] {
+	public func getAllActivities() -> [CDActivityParent] {
 		activityDataSource.getAll()
 	}
 

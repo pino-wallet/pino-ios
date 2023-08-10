@@ -8,7 +8,7 @@
 struct ActivitySwapModel: ActivityModelProtocol {
 	var txHash: String
 	var type: String
-	var detail: SwapActivityDetails?
+	var detail: SwapActivityDetails
 	var fromAddress: String
 	var toAddress: String
 	var failed: Bool?
@@ -31,14 +31,12 @@ struct ActivitySwapModel: ActivityModelProtocol {
 }
 
 struct SwapActivityDetails: Codable {
-	let fromToken, toToken: ActivityTokenModel?
-	let userID: String?
+	let fromToken, toToken: ActivityTokenModel
 	var activityProtocol: String
 
 	enum CodingKeys: String, CodingKey {
 		case fromToken = "token0"
 		case toToken = "token1"
-		case userID = "user_id"
 		case activityProtocol = "protocol"
 	}
 }

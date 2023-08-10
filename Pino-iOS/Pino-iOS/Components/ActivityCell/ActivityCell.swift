@@ -86,11 +86,8 @@ class ActivityCell: UICollectionViewCell {
 		historyIcon.layer.cornerRadius = 22
 		historyIcon.layer.masksToBounds = true
 
-		guard let activityStatus = activityCellVM?.status else {
-			return
-		}
-		statusLabel.text = activityStatus.rawValue
-		switch activityStatus {
+		statusLabel.text = activityCellVM?.status.rawValue
+		switch activityCellVM?.status {
 		case .failed:
 			statusLabelContainer.backgroundColor = .Pino.lightRed
 			statusLabel.textColor = .Pino.red
@@ -102,6 +99,9 @@ class ActivityCell: UICollectionViewCell {
 			statusLabel.isHidden = false
 			statusLabelContainer.isHidden = false
 		case .success:
+			statusLabelContainer.isHidden = true
+			statusLabel.isHidden = true
+		default:
 			statusLabelContainer.isHidden = true
 			statusLabel.isHidden = true
 		}
@@ -118,6 +118,7 @@ class ActivityCell: UICollectionViewCell {
 		historyTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 180).isActive = true
 		historyTitleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 220).isActive = true
 		historyMoreInfoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 120).isActive = true
+		historyMoreInfoLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 56).isActive = true
 
 		historyTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 17).isActive = true
 		historyMoreInfoLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14).isActive = true

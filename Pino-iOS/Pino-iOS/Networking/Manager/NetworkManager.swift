@@ -27,6 +27,8 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 					guard (200 ..< 300).contains(statusCode) else {
 						if statusCode == 401 {
 							throw APIError.unauthorized
+						} else if statusCode == 404 {
+							throw APIError.notFound
 						} else {
 							throw APIError.failedRequest
 						}

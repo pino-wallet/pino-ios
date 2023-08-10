@@ -93,7 +93,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private func isSendTransaction() -> Bool {
 		let currentAddress = PinoWalletManager().currentAccount.eip55Address
 		if let transferActivity = activityModel as? ActivityTransferModel {
-			if currentAddress.lowercased() == transferActivity.detail?.from?.lowercased() {
+			if currentAddress.lowercased() == transferActivity.detail.from.lowercased() {
 				return true
 			} else {
 				return false

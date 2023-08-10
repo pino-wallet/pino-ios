@@ -20,12 +20,13 @@ class PendingActivitiesManager {
 
 	// MARK: - Private Properties
 
+	private let activityAPIClient = ActivityAPIClient()
+	private let activityHelper = ActivityHelper()
+	private let coreDataManager = CoreDataManager()
+	private let requestsDispatchGroup = DispatchGroup()
+	private let walletManager = PinoWalletManager()
 	private var requestsTimer: Cancellable?
-	private var activityAPIClient = ActivityAPIClient()
-	private var activityHelper = ActivityHelper()
 	private var cancellables = Set<AnyCancellable>()
-	private var coreDataManager = CoreDataManager()
-	private var requestsDispatchGroup = DispatchGroup()
 
 	// MARK: - Public Methods
 
@@ -33,7 +34,7 @@ class PendingActivitiesManager {
 		getPendingActivitiesFromCoreData()
 		stopActivityPendingRequests()
 		getActivityPendings()
-		requestsTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect().sink { _ in
+		requestsTimer = Timer.publish(every: 15, on: .main, in: .common).autoconnect().sink { _ in
 			self.getActivityPendings()
 		}
 	}
@@ -46,46 +47,75 @@ class PendingActivitiesManager {
 	// MARK: - Private Methods
 
 	private func getPendingActivitiesFromCoreData() {
+		pendingActivitiesList = []
 		for activity in coreDataManager.getAllActivities() {
-			switch ActivityType(rawValue: activity.type) {
-			case .swap:
-				pendingActivitiesList.append(ActivitySwapModel(
-					txHash: activity.txHash,
-					type: activity.type,
-					fromAddress: activity.fromAddress,
-					toAddress: activity.toAddress,
-					failed: nil,
-					blockNumber: nil,
-					blockTime: activity.blockTime,
-					gasUsed: activity.gasUsed,
-					gasPrice: activity.gasPrice
-				))
-			case .transfer:
-				pendingActivitiesList.append(ActivityTransferModel(
-					txHash: activity.txHash,
-					type: activity.type,
-					fromAddress: activity.fromAddress,
-					toAddress: activity.toAddress,
-					failed: nil,
-					blockNumber: nil,
-					blockTime: activity.blockTime,
-					gasUsed: activity.gasUsed,
-					gasPrice: activity.gasPrice
-				))
-			case .transfer_from:
-				pendingActivitiesList.append(ActivityTransferModel(
-					txHash: activity.txHash,
-					type: activity.type,
-					fromAddress: activity.fromAddress,
-					toAddress: activity.toAddress,
-					failed: nil,
-					blockNumber: nil,
-					blockTime: activity.blockTime,
-					gasUsed: activity.gasUsed,
-					gasPrice: activity.gasPrice
-				))
-			default:
-				print("unknown activity type")
+			if activity.accountAddress == walletManager.currentAccount.eip55Address {
+				switch ActivityType(rawValue: activity.type) {
+				case .swap:
+					let cdSwapActivity = activity as! CDSwapActivity
+					pendingActivitiesList.append(ActivitySwapModel(
+						txHash: cdSwapActivity.txHash,
+						type: cdSwapActivity.type,
+						detail: SwapActivityDetails(
+							fromToken: ActivityTokenModel(
+								amount: cdSwapActivity.details.from_token.amount,
+								tokenID: cdSwapActivity.details.from_token.tokenId
+							),
+							toToken: ActivityTokenModel(
+								amount: cdSwapActivity.details.to_token.amount,
+								tokenID: cdSwapActivity.details.to_token.tokenId
+							),
+							activityProtocol: cdSwapActivity.details.activityProtool
+						),
+						fromAddress: cdSwapActivity.fromAddress,
+						toAddress: cdSwapActivity.toAddress,
+						failed: nil,
+						blockNumber: nil,
+						blockTime: cdSwapActivity.blockTime,
+						gasUsed: cdSwapActivity.gasUsed,
+						gasPrice: cdSwapActivity.gasPrice
+					))
+				case .transfer:
+					let cdTransferActivity = activity as! CDTransferActivity
+					pendingActivitiesList.append(ActivityTransferModel(
+						txHash: cdTransferActivity.txHash,
+						type: cdTransferActivity.type,
+						detail: TransferActivityDetail(
+							amount: cdTransferActivity.details.amount,
+							tokenID: cdTransferActivity.details.tokenID,
+							from: cdTransferActivity.details.from,
+							to: cdTransferActivity.details.to
+						),
+						fromAddress: cdTransferActivity.fromAddress,
+						toAddress: cdTransferActivity.toAddress,
+						failed: nil,
+						blockNumber: nil,
+						blockTime: cdTransferActivity.blockTime,
+						gasUsed: cdTransferActivity.gasUsed,
+						gasPrice: cdTransferActivity.gasPrice
+					))
+				case .transfer_from:
+					let cdTransferActivity = activity as! CDTransferActivity
+					pendingActivitiesList.append(ActivityTransferModel(
+						txHash: cdTransferActivity.txHash,
+						type: cdTransferActivity.type,
+						detail: TransferActivityDetail(
+							amount: cdTransferActivity.details.amount,
+							tokenID: cdTransferActivity.details.tokenID,
+							from: cdTransferActivity.details.from,
+							to: cdTransferActivity.details.to
+						),
+						fromAddress: cdTransferActivity.fromAddress,
+						toAddress: cdTransferActivity.toAddress,
+						failed: nil,
+						blockNumber: nil,
+						blockTime: cdTransferActivity.blockTime,
+						gasUsed: cdTransferActivity.gasUsed,
+						gasPrice: cdTransferActivity.gasPrice
+					))
+				default:
+					print("unknown activity type")
+				}
 			}
 		}
 	}
@@ -101,8 +131,8 @@ class PendingActivitiesManager {
 					print(error)
 				}
 			} receiveValue: { activity in
-				if activity != nil {
-					let iteratedActivity = self.activityHelper.iterateActivityModel(activity: activity!)
+				let iteratedActivity = self.activityHelper.iterateActivityModel(activity: activity)
+				if iteratedActivity != nil {
 					self.pendingActivitiesList.removeAll(where: { $0.txHash == iteratedActivity!.txHash })
 					self.coreDataManager.deleteActivityByID(iteratedActivity!.txHash)
 					if self.pendingActivitiesList.isEmpty {
