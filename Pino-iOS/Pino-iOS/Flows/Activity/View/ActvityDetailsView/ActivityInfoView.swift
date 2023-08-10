@@ -121,7 +121,7 @@ class ActivityInfoView: UIView {
 			), infoCustomView: feeLabel
 		)
 
-		if activityDetailsVM.properties.userFromAccountInfo != nil {
+        if activityDetailsVM.properties.userFromAccountInfo != nil && activityDetailsVM.properties.uiType == .receive {
 			fromStackView = ActivityInfoStackView(
 				title: activityDetailsVM.fromTitle,
 				infoCustomView: fromInfoCustomView
@@ -133,7 +133,7 @@ class ActivityInfoView: UIView {
 			)
 		}
 
-		if activityDetailsVM.properties.userToAccountInfo != nil {
+        if activityDetailsVM.properties.userToAccountInfo != nil && activityDetailsVM.properties.uiType == .send {
 			toStackView = ActivityInfoStackView(
 				title: activityDetailsVM.toTitle,
 				infoCustomView: toInfoCustomView
@@ -191,8 +191,12 @@ class ActivityInfoView: UIView {
 			hideFromAndToStackView()
 //		case .borrow:
 //			hideFromAndToStackView()
-		case .send, .receive:
+        case .send:
+            hidePrtocolAndTypeStackView()
+            fromStackView.isHidden = true
+        case .receive:
 			hidePrtocolAndTypeStackView()
+            toStackView.isHidden = true
 //		case .collateral:
 //			hideFromAndToStackView()
 //		case .un_collateral:
