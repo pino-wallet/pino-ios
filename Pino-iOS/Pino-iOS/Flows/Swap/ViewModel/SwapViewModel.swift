@@ -76,17 +76,32 @@ class SwapViewModel {
 
 	public func changeSwapProvider(to swapProvider: SwapProviderViewModel) {
 		swapFeeVM.swapProviderVM = swapProvider
-		recalculateTokensAmount()
+		guard let swapSide = getSwapSide() else { return }
+		switch swapSide {
+		case .sell:
+			updateDestinationToken(
+				destToken: toToken,
+				tokenAmount: swapProvider.formattedSwapAmount,
+				dollarAmount: fromToken.dollarAmount
+			)
+		case .buy:
+			updateDestinationToken(
+				destToken: fromToken,
+				tokenAmount: swapProvider.formattedSwapAmount,
+				dollarAmount: toToken.dollarAmount
+			)
+		}
+		getFeeInfo(swapProvider: swapProvider)
 	}
 
 	// MARK: - Private Methods
 
 	private func recalculateTokensAmount(amount: String? = nil) {
-		if !fromToken.isEditing && !toToken.isEditing {
+		guard let swapSide = getSwapSide() else { return }
+		switch swapSide {
+		case .sell:
 			getSwapAmount(srcToken: fromToken, destToken: toToken, amount: amount, swapSide: .sell)
-		} else if fromToken.isEditing {
-			getSwapAmount(srcToken: fromToken, destToken: toToken, amount: amount, swapSide: .sell)
-		} else if toToken.isEditing {
+		case .buy:
 			getSwapAmount(srcToken: toToken, destToken: fromToken, amount: amount, swapSide: .buy)
 		}
 	}
@@ -148,6 +163,18 @@ class SwapViewModel {
 	private func updateDestinationToken(destToken: SwapTokenViewModel, tokenAmount: String?, dollarAmount: String?) {
 		destToken.setAmount(tokenAmount: tokenAmount, dollarAmount: dollarAmount)
 		destToken.swapDelegate.swapAmountDidCalculate()
+	}
+
+	private func getSwapSide() -> SwapSide? {
+		if !fromToken.isEditing && !toToken.isEditing {
+			return .sell
+		} else if fromToken.isEditing {
+			return .sell
+		} else if toToken.isEditing {
+			return .buy
+		} else {
+			return nil
+		}
 	}
 
 	private func getFeeInfo(swapProvider: SwapProviderViewModel?) {
