@@ -114,23 +114,27 @@ class SwapViewModel {
 		amount: String?,
 		swapSide: SwapSide
 	) {
-		removePreviousFeeInfo()
 		srcToken.calculateDollarAmount(amount)
 		if let tokenAmount = srcToken.tokenAmount {
-			destToken.swapDelegate.swapAmountCalculating()
 			let swapAmount = Utilities.parseToBigUInt(tokenAmount, units: .custom(srcToken.selectedToken.decimal))
-			getSwapProviderInfo(
-				destToken: destToken.selectedToken,
-				amount: swapAmount!.description,
-				swapSide: swapSide
-			) { swapAmount in
-				self.updateDestinationToken(destToken: destToken, tokenAmount: swapAmount)
-			}
+			getDestinationAmount(destToken, swapAmount: swapAmount!.description, swapSide: swapSide)
 		} else {
-			priceManager.cancelPreviousRequests()
-			updateDestinationToken(destToken: destToken, tokenAmount: nil)
-			getFeeInfo(swapProvider: nil)
+			removeDestinationAmount(destToken)
 		}
+	}
+
+	private func getDestinationAmount(_ destToken: SwapTokenViewModel, swapAmount: String, swapSide: SwapSide) {
+		removePreviousFeeInfo()
+		destToken.swapDelegate.swapAmountCalculating()
+		getSwapProviderInfo(destToken: destToken.selectedToken, amount: swapAmount, swapSide: swapSide) { swapAmount in
+			self.updateDestinationToken(destToken: destToken, tokenAmount: swapAmount)
+		}
+	}
+
+	private func removeDestinationAmount(_ destToken: SwapTokenViewModel) {
+		priceManager.cancelPreviousRequests()
+		updateDestinationToken(destToken: destToken, tokenAmount: nil)
+		getFeeInfo(swapProvider: nil)
 	}
 
 	private func getSwapProviderInfo(
