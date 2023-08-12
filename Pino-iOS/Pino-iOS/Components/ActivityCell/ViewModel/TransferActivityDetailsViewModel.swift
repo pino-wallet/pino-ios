@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TransferDetailsViewModel: ActivityDetailsProtocol {
+struct TransferActivityDetailsViewModel: ActivityDetailsProtocol {
 	// MARK: - TypeAliases
 
 	typealias UserAccountInfoType = (image: String, name: String)

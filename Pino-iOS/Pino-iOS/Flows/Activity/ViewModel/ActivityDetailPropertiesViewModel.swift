@@ -17,8 +17,8 @@ struct ActivityDetailProperties {
 
 	private var ethToken: AssetViewModel!
 	private var feeInETH: BigNumber!
-	private var swapDetailsVM: SwapDetailsViewModel?
-	private var transferDetailsVM: TransferDetailsViewModel?
+	private var swapDetailsVM: SwapActivityDetailsViewModel?
+	private var transferDetailsVM: TransferActivityDetailsViewModel?
 
 	// MARK: - Public Properties
 
@@ -77,11 +77,19 @@ struct ActivityDetailProperties {
 
 	public var formattedFeeInDollar: String {
 		let feeInDollar = ethToken.price * feeInETH
-		return feeInDollar.priceFormat
+        if feeInDollar.isZero {
+            return "-"
+        } else {
+            return feeInDollar.priceFormat
+        }
 	}
 
 	public var formattedFeeInETH: String {
-		feeInETH.sevenDigitFormat.ethFormatting
+        if feeInETH.isZero {
+            return "-"
+        } else {
+            return feeInETH.sevenDigitFormat.ethFormatting
+        }
 	}
 
 	public var status: ActivityStatus {
@@ -103,11 +111,11 @@ struct ActivityDetailProperties {
 		transferDetailsVM?.transferToAddress
 	}
 
-	public var userFromAccountInfo: TransferDetailsViewModel.UserAccountInfoType? {
+	public var userFromAccountInfo: TransferActivityDetailsViewModel.UserAccountInfoType? {
 		transferDetailsVM?.userFromAccountInfo
 	}
 
-	public var userToAccountInfo: TransferDetailsViewModel.UserAccountInfoType? {
+	public var userToAccountInfo: TransferActivityDetailsViewModel.UserAccountInfoType? {
 		transferDetailsVM?.userToAccountInfo
 	}
 
@@ -146,7 +154,7 @@ struct ActivityDetailProperties {
 	private mutating func setDetailsVM() {
 		switch activityDetails.uiType {
 		case .swap:
-			swapDetailsVM = SwapDetailsViewModel(
+			swapDetailsVM = SwapActivityDetailsViewModel(
 				activityModel: activityDetails.defaultActivityModel as! ActivitySwapModel,
 				globalAssetsList: globalAssetsList
 			)
@@ -154,13 +162,13 @@ struct ActivityDetailProperties {
 //		case .borrow:
 //			return
 		case .send:
-			transferDetailsVM = TransferDetailsViewModel(
+			transferDetailsVM = TransferActivityDetailsViewModel(
 				activityModel: activityDetails.defaultActivityModel as! ActivityTransferModel,
 				globalAssetsList: globalAssetsList
 			)
 
 		case .receive:
-			transferDetailsVM = TransferDetailsViewModel(
+			transferDetailsVM = TransferActivityDetailsViewModel(
 				activityModel: activityDetails.defaultActivityModel as! ActivityTransferModel,
 				globalAssetsList: globalAssetsList
 			)
@@ -187,6 +195,7 @@ struct ActivityDetailProperties {
 
 		feeInETH = BigNumber(number: bigNumberGasUsed * bigNumberGasPrice, decimal: ethToken?.decimal ?? 0)
 	}
+        
 }
 
 extension ActivityDetailProperties {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SwapDetailsViewModel: ActivityDetailsProtocol {
+struct SwapActivityDetailsViewModel: ActivityDetailsProtocol {
 	// MARK: - Internal Properties
 
 	internal var activityModel: ActivitySwapModel
@@ -24,29 +24,29 @@ struct SwapDetailsViewModel: ActivityDetailsProtocol {
 	}
 
 	private var toTokenDecimal: Int {
-		toToken?.decimal ?? 0
+		toToken!.decimal
 	}
 
 	private var fromTokenDecimal: Int {
-		fromToken?.decimal ?? 0
+		fromToken!.decimal
 	}
 
 	// MARK: - Public Properties
 
 	public var fromTokenAmount: BigNumber {
-		BigNumber(number: activityModel.detail.fromToken.amount, decimal: fromToken?.decimal ?? 0)
+		BigNumber(number: activityModel.detail.fromToken.amount, decimal: fromTokenDecimal)
 	}
 
 	public var toTokenAmount: BigNumber {
-		BigNumber(number: activityModel.detail.toToken.amount, decimal: toToken?.decimal ?? 0)
+		BigNumber(number: activityModel.detail.toToken.amount, decimal: toTokenDecimal)
 	}
 
 	public var toTokenSymbol: String {
-		toToken?.symbol ?? ""
+		toToken!.symbol
 	}
 
 	public var fromTokenSymbol: String {
-		fromToken?.symbol ?? ""
+		fromToken!.symbol
 	}
 
 	public var fromTokenImage: URL? {
