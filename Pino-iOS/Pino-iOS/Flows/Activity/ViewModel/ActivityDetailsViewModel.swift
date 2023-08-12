@@ -81,7 +81,7 @@ class ActivityDetailsViewModel {
 
 	private func setupRequestTimer() {
 		requestTimer = Timer.scheduledTimer(
-			timeInterval: 5,
+			timeInterval: 1,
 			target: self,
 			selector: #selector(getActivityDetails),
 			userInfo: nil,

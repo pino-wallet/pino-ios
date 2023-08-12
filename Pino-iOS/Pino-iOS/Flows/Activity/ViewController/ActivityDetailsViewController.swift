@@ -25,10 +25,12 @@ class ActivityDetailsViewController: UIViewController {
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
-		activityDetailsVM.getActivityDetailsFromVC()
+		if isBeingPresented || isMovingToParent {
+			activityDetailsVM.getActivityDetailsFromVC()
+		}
 	}
 
-	override func viewWillDisappear(_ animated: Bool) {
+	override func viewDidDisappear(_ animated: Bool) {
 		activityDetailsVM.destroyTimer()
 	}
 
