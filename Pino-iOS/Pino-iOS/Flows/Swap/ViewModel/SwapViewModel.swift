@@ -30,6 +30,18 @@ class SwapViewModel {
 
 	private let priceManager = SwapPriceManager()
 
+	private var swapSide: SwapSide? {
+		if !fromToken.isEditing && !toToken.isEditing {
+			return .sell
+		} else if fromToken.isEditing {
+			return .sell
+		} else if toToken.isEditing {
+			return .buy
+		} else {
+			return nil
+		}
+	}
+
 	// MARK: - Initializers
 
 	init(fromToken: AssetViewModel, toToken: AssetViewModel) {
@@ -75,34 +87,24 @@ class SwapViewModel {
 	}
 
 	public func changeSwapProvider(to swapProvider: SwapProviderViewModel) {
-		swapFeeVM.swapProviderVM = swapProvider
-		guard let swapSide = getSwapSide() else { return }
-		switch swapSide {
-		case .sell:
-			updateDestinationToken(
-				destToken: toToken,
-				tokenAmount: swapProvider.formattedSwapAmount,
-				dollarAmount: fromToken.dollarAmount
-			)
-		case .buy:
-			updateDestinationToken(
-				destToken: fromToken,
-				tokenAmount: swapProvider.formattedSwapAmount,
-				dollarAmount: toToken.dollarAmount
-			)
+		getSwapSide { side, srcToken, destToken in
+			swapFeeVM.swapProviderVM = swapProvider
+			updateDestinationToken(destToken: destToken, tokenAmount: swapProvider.formattedSwapAmount)
+			getFeeInfo(swapProvider: swapProvider)
 		}
-		getFeeInfo(swapProvider: swapProvider)
 	}
 
 	// MARK: - Private Methods
 
-	private func recalculateTokensAmount(amount: String? = nil) {
-		guard let swapSide = getSwapSide() else { return }
-		switch swapSide {
-		case .sell:
-			getSwapAmount(srcToken: fromToken, destToken: toToken, amount: amount, swapSide: .sell)
-		case .buy:
-			getSwapAmount(srcToken: toToken, destToken: fromToken, amount: amount, swapSide: .buy)
+	private func recalculateTokensAmount(amount: String?) {
+		getSwapSide { side, srcToken, destToken in
+			getSwapAmount(srcToken: srcToken, destToken: destToken, amount: amount, swapSide: side)
+		}
+	}
+
+	private func recalculateTokensAmount() {
+		getSwapSide { side, srcToken, destToken in
+			getSwapAmount(srcToken: srcToken, destToken: destToken, amount: srcToken.tokenAmount, swapSide: side)
 		}
 	}
 
@@ -122,15 +124,11 @@ class SwapViewModel {
 				amount: swapAmount!.description,
 				swapSide: swapSide
 			) { swapAmount in
-				self.updateDestinationToken(
-					destToken: destToken,
-					tokenAmount: swapAmount,
-					dollarAmount: srcToken.dollarAmount
-				)
+				self.updateDestinationToken(destToken: destToken, tokenAmount: swapAmount)
 			}
 		} else {
 			priceManager.cancelPreviousRequests()
-			updateDestinationToken(destToken: destToken, tokenAmount: nil, dollarAmount: nil)
+			updateDestinationToken(destToken: destToken, tokenAmount: nil)
 			getFeeInfo(swapProvider: nil)
 		}
 	}
@@ -150,7 +148,7 @@ class SwapViewModel {
 			) { providersInfo in
 				self.providers = providersInfo.compactMap {
 					SwapProviderViewModel(providerResponseInfo: $0, side: swapSide, destToken: destToken)
-				}.sorted { $0.swapAmount < $1.swapAmount }
+				}.sorted { $0.swapAmount > $1.swapAmount }
 				let bestProvider = self.providers.first!
 				completion(bestProvider.formattedSwapAmount)
 				self.getFeeInfo(swapProvider: bestProvider)
@@ -160,20 +158,20 @@ class SwapViewModel {
 		}
 	}
 
-	private func updateDestinationToken(destToken: SwapTokenViewModel, tokenAmount: String?, dollarAmount: String?) {
-		destToken.setAmount(tokenAmount: tokenAmount, dollarAmount: dollarAmount)
+	private func updateDestinationToken(destToken: SwapTokenViewModel, tokenAmount: String?) {
+		destToken.calculateDollarAmount(tokenAmount)
 		destToken.swapDelegate.swapAmountDidCalculate()
 	}
 
-	private func getSwapSide() -> SwapSide? {
-		if !fromToken.isEditing && !toToken.isEditing {
-			return .sell
-		} else if fromToken.isEditing {
-			return .sell
-		} else if toToken.isEditing {
-			return .buy
-		} else {
-			return nil
+	private func getSwapSide(
+		completion: (_ side: SwapSide, _ srcToken: SwapTokenViewModel, _ destToken: SwapTokenViewModel) -> Void
+	) {
+		guard let swapSide else { return }
+		switch swapSide {
+		case .sell:
+			completion(.sell, fromToken, toToken)
+		case .buy:
+			completion(.buy, toToken, fromToken)
 		}
 	}
 
