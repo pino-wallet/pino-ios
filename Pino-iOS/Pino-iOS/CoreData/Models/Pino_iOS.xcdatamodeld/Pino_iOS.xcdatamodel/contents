@@ -21,7 +21,7 @@
     </entity>
     <entity name="CDSwapActivityDetails" representedClassName="CDSwapActivityDetails" syncable="YES">
         <attribute name="activityProtool" attributeType="String"/>
-        <relationship name="activity" maxCount="1" deletionRule="Nullify" destinationEntity="CDSwapActivity" inverseName="details" inverseEntity="CDSwapActivity"/>
+        <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSwapActivity" inverseName="details" inverseEntity="CDSwapActivity"/>
         <relationship name="from_token" maxCount="1" deletionRule="Nullify" destinationEntity="CDActivityDetailsToken" inverseName="details_from" inverseEntity="CDActivityDetailsToken"/>
         <relationship name="to_token" maxCount="1" deletionRule="Nullify" destinationEntity="CDActivityDetailsToken" inverseName="details_to" inverseEntity="CDActivityDetailsToken"/>
     </entity>

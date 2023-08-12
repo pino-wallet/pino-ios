@@ -34,6 +34,17 @@ class CoinInfoViewController: UIViewController {
 		setupNavigationBar()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		if isBeingPresented || isMovingToParent {
+			coinInfoVM.getUserActivitiesFromVC()
+		}
+	}
+
+	override func viewDidDisappear(_ animated: Bool) {
+		coinInfoVM.destroyTimer()
+		coinInfoVM.cancellPendingActivitiesBinding()
+	}
+
 	// MARK: - Private Methods
 
 	private func setupView() {

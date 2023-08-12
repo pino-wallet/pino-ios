@@ -24,7 +24,7 @@ extension CDTransferActivityDetails {
 	@NSManaged
 	public var tokenID: String
 	@NSManaged
-	public var activity: CDTransferActivity
+	public var activity: CDTransferActivity?
 }
 
 extension CDTransferActivityDetails: Identifiable {}
