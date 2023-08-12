@@ -171,6 +171,7 @@ class CoinInfoViewModel {
 		}
 	}
 
+	#warning("Needs to be refactored")
 	@objc
 	private func getHistoryList() {
 		let userAddress = walletManager.currentAccount.eip55Address
