@@ -77,19 +77,19 @@ struct ActivityDetailProperties {
 
 	public var formattedFeeInDollar: String {
 		let feeInDollar = ethToken.price * feeInETH
-        if feeInDollar.isZero {
-            return "-"
-        } else {
-            return feeInDollar.priceFormat
-        }
+		if feeInDollar.isZero {
+			return "-"
+		} else {
+			return feeInDollar.priceFormat
+		}
 	}
 
 	public var formattedFeeInETH: String {
-        if feeInETH.isZero {
-            return "-"
-        } else {
-            return feeInETH.sevenDigitFormat.ethFormatting
-        }
+		if feeInETH.isZero {
+			return "-"
+		} else {
+			return feeInETH.sevenDigitFormat.ethFormatting
+		}
 	}
 
 	public var status: ActivityStatus {
@@ -195,7 +195,6 @@ struct ActivityDetailProperties {
 
 		feeInETH = BigNumber(number: bigNumberGasUsed * bigNumberGasPrice, decimal: ethToken?.decimal ?? 0)
 	}
-        
 }
 
 extension ActivityDetailProperties {

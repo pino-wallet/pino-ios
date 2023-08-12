@@ -10,7 +10,7 @@ import Web3_Utility
 
 class SendStatusViewController: UIViewController {
 	// MARK: - Private Properties
-    
+
 	private var sendStatusView: SendStatusView!
 	private var confirmationVM: SendConfirmationViewModel
 
@@ -39,7 +39,7 @@ class SendStatusViewController: UIViewController {
 
 		confirmationVM.sendToken().done { [self] trxHash in
 			sendStatusView.pageStatus = .success
-            confirmationVM.addPendingTransferActivity(trxHash: trxHash)
+			confirmationVM.addPendingTransferActivity(trxHash: trxHash)
 		}.catch { [self] error in
 			sendStatusView.pageStatus = .failed
 		}
