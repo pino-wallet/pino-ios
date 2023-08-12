@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Web3_Utility
 
 class SendStatusViewController: UIViewController {
 	// MARK: - Private Properties
@@ -38,6 +39,7 @@ class SendStatusViewController: UIViewController {
 
 		confirmationVM.sendToken().done { [self] trxHash in
 			sendStatusView.pageStatus = .success
+			confirmationVM.addPendingTransferActivity(trxHash: trxHash)
 		}.catch { [self] error in
 			sendStatusView.pageStatus = .failed
 		}

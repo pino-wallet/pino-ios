@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TransferDetailsViewModel: ActivityDetailsProtocol {
+struct TransferActivityDetailsViewModel: ActivityDetailsProtocol {
 	// MARK: - TypeAliases
 
 	typealias UserAccountInfoType = (image: String, name: String)
@@ -20,7 +20,7 @@ struct TransferDetailsViewModel: ActivityDetailsProtocol {
 	// MARK: - Private Properties
 
 	private var transferToken: AssetViewModel? {
-		globalAssetsList.first(where: { $0.id == activityModel.detail?.tokenID })
+		globalAssetsList.first(where: { $0.id == activityModel.detail.tokenID })
 	}
 
 	private var transferTokenDecimal: Int {
@@ -30,7 +30,7 @@ struct TransferDetailsViewModel: ActivityDetailsProtocol {
 	// MARK: - Public Properties
 
 	public var transferTokenAmount: BigNumber {
-		BigNumber(number: activityModel.detail?.amount ?? "", decimal: transferTokenDecimal)
+		BigNumber(number: activityModel.detail.amount, decimal: transferTokenDecimal)
 	}
 
 	public var transferTokenSymbol: String {
@@ -50,11 +50,11 @@ struct TransferDetailsViewModel: ActivityDetailsProtocol {
 	}
 
 	public var userFromAccountInfo: UserAccountInfoType? {
-		getUserAccountInfoBy(address: activityModel.detail?.from ?? "")
+		getUserAccountInfoBy(address: activityModel.detail.from)
 	}
 
 	public var userToAccountInfo: UserAccountInfoType? {
-		getUserAccountInfoBy(address: activityModel.detail?.to ?? "")
+		getUserAccountInfoBy(address: activityModel.detail.to)
 	}
 
 	// MARK: - Private Methods

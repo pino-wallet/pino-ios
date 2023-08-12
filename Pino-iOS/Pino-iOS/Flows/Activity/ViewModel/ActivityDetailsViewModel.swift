@@ -81,7 +81,7 @@ class ActivityDetailsViewModel {
 
 	private func setupRequestTimer() {
 		requestTimer = Timer.scheduledTimer(
-			timeInterval: 12,
+			timeInterval: 1,
 			target: self,
 			selector: #selector(getActivityDetails),
 			userInfo: nil,
@@ -96,20 +96,18 @@ class ActivityDetailsViewModel {
 			case .finished:
 				print("Activity received successfully")
 			case let .failure(error):
-				print(error)
-				Toast.default(
-					title: self.errorFetchingToastMessage,
-					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-					style: .error
-				)
-				.show(haptic: .warning)
+				switch error {
+				case .notFound:
+					self.properties = self.properties
+				default:
+					print("failed request")
+				}
 			}
 		} receiveValue: { activityDetails in
-			guard activityDetails != nil else {
+			guard let iteratedActivity = self.activityHelper.iterateActivityModel(activity: activityDetails) else {
 				return
 			}
-			let iteratedActivity = self.activityHelper.iterateActivityModel(activity: activityDetails!)
-			let newActivityDetails = ActivityCellViewModel(activityModel: iteratedActivity!)
+			let newActivityDetails = ActivityCellViewModel(activityModel: iteratedActivity)
 			if newActivityDetails.status != .pending {
 				self.destroyTimer()
 			}

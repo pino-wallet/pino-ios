@@ -11,7 +11,7 @@ import Foundation
 struct ActivityDataSource: DataSourceProtocol {
 	// MARK: - Private Properties
 
-	private var coreDataActivities = [CoreDataActivityParent]()
+	private var activities = [CDActivityParent]()
 
 	// MARK: - Initializers
 
@@ -22,10 +22,10 @@ struct ActivityDataSource: DataSourceProtocol {
 	// MARK: - Internal Properties
 
 	internal mutating func fetchEntities() {
-		let activitiesFetch: NSFetchRequest<CoreDataActivityParent> = CoreDataActivityParent.fetchRequest()
+		let activitiesFetch: NSFetchRequest<CDActivityParent> = CDActivityParent.fetchRequest()
 		do {
 			let result = try managedContext.fetch(activitiesFetch)
-			coreDataActivities = result
+			activities = result
 		} catch let error as NSError {
 			fatalError("Fetch error: \(error) description: \(error.userInfo)")
 		}
@@ -33,43 +33,43 @@ struct ActivityDataSource: DataSourceProtocol {
 
 	// MARK: - Public Properties
 
-	public mutating func getAll() -> [CoreDataActivityParent] {
+	public mutating func getAll() -> [CDActivityParent] {
 		fetchEntities()
-		return coreDataActivities
+		return activities
 	}
 
-	public func get(byId id: String) -> CoreDataActivityParent? {
-		coreDataActivities.first(where: { $0.txHash == id })
+	public func get(byId id: String) -> CDActivityParent? {
+		activities.first(where: { $0.txHash == id })
 	}
 
-	public mutating func save(_ activity: CoreDataActivityParent) {
-		if let index = coreDataActivities.firstIndex(where: { $0.txHash == activity.txHash }) {
-			coreDataActivities[index] = activity
+	public mutating func save(_ activity: CDActivityParent) {
+		if let index = activities.firstIndex(where: { $0.txHash == activity.txHash }) {
+			activities[index] = activity
 		} else {
-			coreDataActivities.append(activity)
+			activities.append(activity)
 		}
 		coreDataStack.saveContext()
 	}
 
-	public mutating func delete(_ activity: CoreDataActivityParent) {
-		coreDataActivities.removeAll(where: { $0.txHash == activity.txHash })
+	public mutating func delete(_ activity: CDActivityParent) {
+		activities.removeAll(where: { $0.txHash == activity.txHash })
 		managedContext.delete(activity)
 		coreDataStack.saveContext()
 	}
 
 	public mutating func deleteByID(_ id: String) {
-		if let deletingActivity = coreDataActivities.first(where: { $0.txHash == id }) {
-			coreDataActivities.removeAll(where: { $0.txHash == id })
+		if let deletingActivity = activities.first(where: { $0.txHash == id }) {
+			activities.removeAll(where: { $0.txHash == id })
 			managedContext.delete(deletingActivity)
 			coreDataStack.saveContext()
 		}
 	}
 
-	public func filter(_ predicate: (CoreDataActivityParent) -> Bool) -> [CoreDataActivityParent] {
-		coreDataActivities.filter(predicate)
+	public func filter(_ predicate: (CDActivityParent) -> Bool) -> [CDActivityParent] {
+		activities.filter(predicate)
 	}
 
-	public func sort(by sorter: (CoreDataActivityParent, CoreDataActivityParent) -> Bool) -> [CoreDataActivityParent] {
-		coreDataActivities.sorted(by: sorter)
+	public func sort(by sorter: (CDActivityParent, CDActivityParent) -> Bool) -> [CDActivityParent] {
+		activities.sorted(by: sorter)
 	}
 }

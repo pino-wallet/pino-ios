@@ -12,6 +12,11 @@ struct ActivityHelper {
 
 	public typealias SeparatedActivitiesType = [(title: String, activities: [ActivityCellViewModel])]
 	public typealias SeparatedActivitiesWithDayType = [Int: [ActivityCellViewModel]]
+	public typealias ActivitiesInfoType = (
+		indexPaths: [IndexPath],
+		sections: [IndexSet],
+		finalSeparatedActivities: SeparatedActivitiesType
+	)
 
 	// MARK: - Public Methods
 
@@ -44,6 +49,12 @@ struct ActivityHelper {
 		return dateFormatter.date(from: activityBlockTime)!
 	}
 
+	public func getServerFormattedStringDate(date: Date) -> String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+		return dateFormatter.string(from: date)
+	}
+
 	public func separateActivitiesByTime(activities: [ActivityCellViewModel]) -> SeparatedActivitiesType {
 		var separatedActivitiesWithDay: SeparatedActivitiesWithDayType
 
@@ -55,7 +66,7 @@ struct ActivityHelper {
 	public func getNewActivitiesInfo(
 		separatedActivities: SeparatedActivitiesType,
 		newSeparatedActivities: SeparatedActivitiesType
-	) -> (indexPaths: [IndexPath], sections: [IndexSet], finalSeparatedActivities: SeparatedActivitiesType) {
+	) -> ActivitiesInfoType {
 		var indexPaths = [IndexPath]()
 		var indexSets: [IndexSet] = []
 		var finalSeparatedActivities: SeparatedActivitiesType = separatedActivities
