@@ -21,8 +21,8 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private let borrowIcon = "borrow_transaction"
 
 	private var activityModel: ActivityModelProtocol
-	private var swapDetailsVM: SwapDetailsViewModel?
-	private var transferDetailsVM: TransferDetailsViewModel?
+	private var swapDetailsVM: SwapActivityDetailsViewModel?
+	private var transferDetailsVM: TransferActivityDetailsViewModel?
 
 	// MARK: - Internal Properties
 
@@ -106,17 +106,17 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private mutating func setupDetailsWithType() {
 		switch activityType {
 		case .transfer:
-			transferDetailsVM = TransferDetailsViewModel(
+			transferDetailsVM = TransferActivityDetailsViewModel(
 				activityModel: activityModel as! ActivityTransferModel,
 				globalAssetsList: globalAssetsList
 			)
 		case .transfer_from:
-			transferDetailsVM = TransferDetailsViewModel(
+			transferDetailsVM = TransferActivityDetailsViewModel(
 				activityModel: activityModel as! ActivityTransferModel,
 				globalAssetsList: globalAssetsList
 			)
 		case .swap:
-			swapDetailsVM = SwapDetailsViewModel(
+			swapDetailsVM = SwapActivityDetailsViewModel(
 				activityModel: activityModel as! ActivitySwapModel,
 				globalAssetsList: globalAssetsList
 			)

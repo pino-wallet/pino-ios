@@ -66,7 +66,6 @@ class TabBarViewController: UITabBarController {
 				image: UIImage(named: tabItem.image),
 				selectedImage: UIImage(named: tabItem.selectedImage)
 			)
-			//            tabBarItemViewController.tabBarItem.badgeValue = ""
 			tabBarItemViewControllers.append(tabBarItemViewController)
 		}
 

@@ -14,8 +14,13 @@ import Web3_Utility
 class SendConfirmationViewModel {
 	// MARK: - Private Properties
 
+	private let coreDataManager = CoreDataManager()
+	private let walletManager = PinoWalletManager()
+	private let activityHelper = ActivityHelper()
 	private let selectedWallet: AccountInfoViewModel
 	private var cancellables = Set<AnyCancellable>()
+	private var gasPrice = "0"
+	private var gasLimit = "0"
 	private var ethToken: AssetViewModel {
 		GlobalVariables.shared.manageAssetsList!.first(where: { $0.isEth })!
 	}
@@ -30,8 +35,6 @@ class SendConfirmationViewModel {
 	public let confirmBtnText = "Confirm"
 	public let insuffientText = "Insufficient ETH Amount"
 	public let sendAmountInDollar: String
-	public var gasPrice = "0"
-	public var gasLimit = "0"
 
 	public var isTokenVerified: Bool {
 		selectedToken.isVerified
@@ -122,6 +125,31 @@ class SendConfirmationViewModel {
 				tokenContractAddress: selectedToken.id
 			)
 		}
+	}
+
+	public func addPendingTransferActivity(trxHash: String) {
+		let userAddress = walletManager.currentAccount.eip55Address
+		coreDataManager.addNewTransferActivity(
+			activityModel: ActivityTransferModel(
+				txHash: trxHash,
+				type: "transfer",
+				detail: TransferActivityDetail(
+					amount: Utilities
+						.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))!
+						.description,
+					tokenID: selectedToken.id,
+					from: userAddress,
+					to: recipientAddress
+				),
+				fromAddress: userAddress,
+				toAddress: recipientAddress,
+				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
+				gasUsed: gasLimit,
+				gasPrice: gasPrice
+			),
+			accountAddress: userAddress
+		)
+		PendingActivitiesManager.shared.startActivityPendingRequests()
 	}
 
 	// MARK: - Private Methods
