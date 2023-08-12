@@ -144,12 +144,20 @@ class SwapViewModel {
 		completion: @escaping (String) -> Void
 	) {
 		if selectedProtocol == .bestRate {
-			priceManager.getBestPrice(
-				srcToken: fromToken,
-				destToken: toToken,
-				swapSide: swapSide,
-				amount: amount
-			) { providersInfo in
+			getBestRate(destToken: destToken, amount: amount, swapSide: swapSide, completion: completion)
+		} else {
+			// Implement later
+		}
+	}
+
+	private func getBestRate(
+		destToken: AssetViewModel,
+		amount: String,
+		swapSide: SwapSide,
+		completion: @escaping (String) -> Void
+	) {
+		priceManager.getBestPrice(srcToken: fromToken, destToken: toToken, swapSide: swapSide, amount: amount)
+			{ providersInfo in
 				self.providers = providersInfo.compactMap {
 					SwapProviderViewModel(providerResponseInfo: $0, side: swapSide, destToken: destToken)
 				}.sorted { $0.swapAmount > $1.swapAmount }
@@ -157,9 +165,6 @@ class SwapViewModel {
 				completion(bestProvider.formattedSwapAmount)
 				self.getFeeInfo(swapProvider: bestProvider)
 			}
-		} else {
-			// Implement later
-		}
 	}
 
 	private func updateDestinationToken(destToken: SwapTokenViewModel, tokenAmount: String?) {

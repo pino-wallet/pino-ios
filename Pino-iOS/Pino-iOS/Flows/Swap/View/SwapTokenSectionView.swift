@@ -32,6 +32,7 @@ class SwapTokenSectionView: UIView {
 
 	public var balanceStatusDidChange: ((AmountStatus) -> Void)?
 	public var editingBegin: (() -> Void)?
+	public var isCalculating = false
 
 	// MARK: - Initializers
 
@@ -227,11 +228,15 @@ extension SwapTokenSectionView: SwapDelegate {
 		hideSkeletonView()
 		amountTextfield.textColor = .Pino.label
 		updateAmountView()
+		isCalculating = false
+		amountTextfield.isUserInteractionEnabled = true
 	}
 
 	func swapAmountCalculating() {
 		showSkeletonView()
 		amountTextfield.textColor = .Pino.gray3
+		isCalculating = true
+		amountTextfield.isUserInteractionEnabled = false
 	}
 }
 
