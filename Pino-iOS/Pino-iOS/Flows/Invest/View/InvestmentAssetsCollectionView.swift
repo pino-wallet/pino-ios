@@ -1,0 +1,66 @@
+//
+//  InvestmentAssetsCollectionView.swift
+//  Pino-iOS
+//
+//  Created by Mohi Raoufi on 8/13/23.
+//
+
+import UIKit
+
+class InvestmentAssetsCollectionView: UICollectionView {
+	// MARK: Public Properties
+
+	// MARK: Initializers
+
+	convenience init() {
+		// Set flow layout for collection view
+		let flowLayout = UICollectionViewFlowLayout()
+		flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+		flowLayout.scrollDirection = .horizontal
+		flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+		self.init(frame: CGRect(x: 0, y: 0, width: 300, height: 48), collectionViewLayout: flowLayout)
+
+		configCollectionView()
+		setupStyle()
+	}
+
+	override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+		super.init(frame: frame, collectionViewLayout: layout)
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+		fatalError()
+	}
+
+	// MARK: Private Methods
+
+	private func configCollectionView() {
+		register(InvestmentAssetCell.self, forCellWithReuseIdentifier: InvestmentAssetCell.cellReuseID)
+		dataSource = self
+		showsHorizontalScrollIndicator = false
+	}
+
+	private func setupStyle() {
+		backgroundColor = .Pino.clear
+	}
+}
+
+// MARK: Collection View DataSource
+
+extension InvestmentAssetsCollectionView: UICollectionViewDataSource {
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		10
+	}
+
+	func collectionView(
+		_ collectionView: UICollectionView,
+		cellForItemAt indexPath: IndexPath
+	) -> UICollectionViewCell {
+		let assetCell = collectionView.dequeueReusableCell(
+			withReuseIdentifier: InvestmentAssetCell.cellReuseID,
+			for: indexPath
+		) as! InvestmentAssetCell
+		assetCell.asset = ""
+		return assetCell
+	}
+}

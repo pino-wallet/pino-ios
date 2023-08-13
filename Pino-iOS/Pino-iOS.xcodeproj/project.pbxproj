@@ -491,6 +491,8 @@
 		E3F482F72A35B2DB00EEC9CF /* EnterSendAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482F62A35B2DB00EEC9CF /* EnterSendAmountView.swift */; };
 		E3F482F92A35B43400EEC9CF /* EnterSendAmountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482F82A35B43400EEC9CF /* EnterSendAmountViewModel.swift */; };
 		E3FC69922A88B0EB009B3341 /* InvestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69912A88B0EB009B3341 /* InvestView.swift */; };
+		E3FC69942A88C4B2009B3341 /* InvestmentAssetsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69932A88C4B2009B3341 /* InvestmentAssetsCollectionView.swift */; };
+		E3FC69962A88C7A1009B3341 /* InvestmentAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69952A88C7A1009B3341 /* InvestmentAssetCell.swift */; };
 		E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D680E48001C060BADD248 /* EndpointType.swift */; };
 		E4BC1D70FBAF66825B9358E7 /* LockMethodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386676E7E643B6AB252A5653 /* LockMethodModel.swift */; };
 		E4FF2E5E60CA74F3324945A8 /* CoinInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D5774D76FC507F8B176185 /* CoinInfoViewModel.swift */; };
@@ -1007,6 +1009,8 @@
 		E3F482F62A35B2DB00EEC9CF /* EnterSendAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAmountView.swift; sourceTree = "<group>"; };
 		E3F482F82A35B43400EEC9CF /* EnterSendAmountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAmountViewModel.swift; sourceTree = "<group>"; };
 		E3FC69912A88B0EB009B3341 /* InvestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestView.swift; sourceTree = "<group>"; };
+		E3FC69932A88C4B2009B3341 /* InvestmentAssetsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentAssetsCollectionView.swift; sourceTree = "<group>"; };
+		E3FC69952A88C7A1009B3341 /* InvestmentAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentAssetCell.swift; sourceTree = "<group>"; };
 		E40D0AB7515630563347CBDA /* CoinPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceViewController.swift; sourceTree = "<group>"; };
 		E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetViewModel.swift; sourceTree = "<group>"; };
 		E5039C2C00BEB653F3B0D399 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -2928,6 +2932,8 @@
 			isa = PBXGroup;
 			children = (
 				E3FC69912A88B0EB009B3341 /* InvestView.swift */,
+				E3FC69932A88C4B2009B3341 /* InvestmentAssetsCollectionView.swift */,
+				E3FC69952A88C7A1009B3341 /* InvestmentAssetCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3592,6 +3598,7 @@
 				E385F6132A22029100EE7EE1 /* Wallet+CoreDataClass.swift in Sources */,
 				4CEF60EEF4EB1F6FFF04D23D /* PinoColor.swift in Sources */,
 				858596F6A073F29FF9BB7033 /* PinoFont.swift in Sources */,
+				E3FC69942A88C4B2009B3341 /* InvestmentAssetsCollectionView.swift in Sources */,
 				55CBB37768826DE00CDAF5FB /* PinoLabel.swift in Sources */,
 				D92B913C2A30756C0055B277 /* PinoContainerCard.swift in Sources */,
 				6C3ACBB9EEE454EC433A907D /* PinoLabelStyle.swift in Sources */,
@@ -3638,6 +3645,7 @@
 				E785EA31CC4E6721B72481DE /* RemoveAccountViewController.swift in Sources */,
 				E35BB6492A595725003987F5 /* SwapProviderCell.swift in Sources */,
 				8311422EA67D10D257FDD530 /* RemoveAccountViewModel.swift in Sources */,
+				E3FC69962A88C7A1009B3341 /* InvestmentAssetCell.swift in Sources */,
 				D9A328152A3464B5005A8393 /* SelectAssetToSendViewModel.swift in Sources */,
 				5699C13A59EF90BDE1758CF3 /* RevealPrivateKeyView.swift in Sources */,
 				221F423020A78CA891331436 /* RevealPrivateKeyViewController.swift in Sources */,

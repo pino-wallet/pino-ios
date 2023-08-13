@@ -8,10 +8,19 @@
 import UIKit
 
 class InvestViewController: UIViewController {
+	// MARK: - Private Properties
+
+	private let investView = InvestView()
+
 	// MARK: - View Overrides
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+	}
+
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		investView.addAssetsGradient()
 	}
 
 	override func loadView() {
@@ -23,7 +32,7 @@ class InvestViewController: UIViewController {
 
 	private func setupView() {
 		// It must be replaced with custom view
-		view = InvestView()
+		view = investView
 	}
 
 	private func setupNavigationBar() {

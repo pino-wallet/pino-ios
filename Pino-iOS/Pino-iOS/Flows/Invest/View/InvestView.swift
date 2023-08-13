@@ -22,6 +22,10 @@ class InvestView: UIView {
 	private let chartStackView = UIStackView()
 	private var lineChart = UIView()
 	private let investmentPerformanceButton = UIButton()
+	private let assetsView = UIView()
+	private let investmentAssets = InvestmentAssetsCollectionView()
+	private let assetsGradientView = UIView()
+	private var assetsGradientLayer: GradientLayer!
 
 	// MARK: Initializers
 
@@ -44,6 +48,7 @@ class InvestView: UIView {
 		addSubview(scrollView)
 		chartCardView.addSubview(contentStackView)
 		contentStackView.addArrangedSubview(totalInvestmentView)
+		contentStackView.addArrangedSubview(assetsView)
 		contentStackView.addArrangedSubview(chartStackView)
 		chartStackView.addArrangedSubview(lineChart)
 		chartStackView.addArrangedSubview(investmentPerformanceButton)
@@ -51,6 +56,8 @@ class InvestView: UIView {
 		totalInvestmentView.addSubview(totalInvestmentDetailIcon)
 		totalInvestmentStackView.addArrangedSubview(totalInvestmentTitleLabel)
 		totalInvestmentStackView.addArrangedSubview(totalInvestmentLabel)
+		assetsView.addSubview(investmentAssets)
+		assetsView.addSubview(assetsGradientView)
 	}
 
 	private func setupStyle() {
@@ -85,6 +92,7 @@ class InvestView: UIView {
 		totalInvestmentStackView.spacing = 22
 
 		chartCardView.layer.masksToBounds = true
+		assetsGradientView.isUserInteractionEnabled = false
 	}
 
 	private func setupContstraint() {
@@ -96,7 +104,7 @@ class InvestView: UIView {
 			.relative(.width, 0, to: self, .width)
 		)
 		chartCardView.pin(
-			.fixedHeight(425),
+			.fixedHeight(540),
 			.horizontalEdges(padding: 16),
 			.top(padding: 24),
 			.bottom
@@ -116,8 +124,32 @@ class InvestView: UIView {
 			.verticalEdges(padding: 20),
 			.horizontalEdges(padding: 10)
 		)
+		assetsView.pin(
+			.fixedHeight(80)
+		)
 		lineChart.pin(
 			.horizontalEdges
 		)
+		investmentAssets.pin(
+			.allEdges
+		)
+		assetsGradientView.pin(
+			.verticalEdges,
+			.trailing,
+			.fixedWidth(100)
+		)
+	}
+
+	// MARK: - Public Methods
+
+	public func addAssetsGradient() {
+		assetsGradientLayer?.removeFromSuperlayer()
+		assetsGradientLayer = GradientLayer(
+			frame: assetsGradientView.bounds,
+			colors: [.Pino.clear, .Pino.secondaryBackground],
+			startPoint: CGPoint(x: 0, y: 0.5),
+			endPoint: CGPoint(x: 1, y: 0.5)
+		)
+		assetsGradientView.layer.addSublayer(assetsGradientLayer)
 	}
 }
