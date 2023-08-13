@@ -27,11 +27,19 @@ class InvestView: UIView {
 	private let assetsGradientView = UIView()
 	private var assetsGradientLayer: GradientLayer!
 	private var investVM: InvestViewModel
+	private var totalInvestmentTapped: () -> Void
+	private var investmentPerformanceTapped: () -> Void
 
 	// MARK: Initializers
 
-	init(investVM: InvestViewModel) {
+	init(
+		investVM: InvestViewModel,
+		totalInvestmentTapped: @escaping () -> Void,
+		investmentPerformanceTapped: @escaping () -> Void
+	) {
 		self.investVM = investVM
+		self.totalInvestmentTapped = totalInvestmentTapped
+		self.investmentPerformanceTapped = investmentPerformanceTapped
 		self.investmentAssets = InvestmentAssetsCollectionView(assets: investVM.assets)
 		super.init(frame: .zero)
 		setupView()
@@ -61,6 +69,12 @@ class InvestView: UIView {
 		totalInvestmentStackView.addArrangedSubview(totalInvestmentLabel)
 		assetsView.addSubview(investmentAssets)
 		assetsView.addSubview(assetsGradientView)
+
+		let totalInvestmentGesture = UITapGestureRecognizer(target: self, action: #selector(showTotalInvestmentDetail))
+		totalInvestmentView.addGestureRecognizer(totalInvestmentGesture)
+		investmentPerformanceButton.addAction(UIAction(handler: { _ in
+			self.investmentPerformanceTapped()
+		}), for: .touchUpInside)
 	}
 
 	private func setupStyle() {
@@ -141,6 +155,11 @@ class InvestView: UIView {
 			.trailing,
 			.fixedWidth(100)
 		)
+	}
+
+	@objc
+	private func showTotalInvestmentDetail() {
+		totalInvestmentTapped()
 	}
 
 	// MARK: - Public Methods

@@ -32,7 +32,15 @@ class InvestViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		investView = InvestView(investVM: investVM)
+		investView = InvestView(
+			investVM: investVM,
+			totalInvestmentTapped: {
+				self.openInvestmentBoard()
+			},
+			investmentPerformanceTapped: {
+				self.openInvestmentPerformance()
+			}
+		)
 		view = investView
 	}
 
@@ -40,4 +48,8 @@ class InvestViewController: UIViewController {
 		setupPrimaryColorNavigationBar()
 		setNavigationTitle("Invest")
 	}
+
+	private func openInvestmentBoard() {}
+
+	private func openInvestmentPerformance() {}
 }
