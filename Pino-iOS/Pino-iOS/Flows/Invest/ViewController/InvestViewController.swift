@@ -10,7 +10,8 @@ import UIKit
 class InvestViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let investView = InvestView()
+	private var investView: InvestView!
+	private let investVM = InvestViewModel()
 
 	// MARK: - View Overrides
 
@@ -31,7 +32,7 @@ class InvestViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		// It must be replaced with custom view
+		investView = InvestView(investVM: investVM)
 		view = investView
 	}
 

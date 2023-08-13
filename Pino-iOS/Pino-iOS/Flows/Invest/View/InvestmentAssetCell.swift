@@ -20,7 +20,7 @@ public class InvestmentAssetCell: UICollectionViewCell {
 	// MARK: Public Properties
 
 	public static let cellReuseID = "investmentAssetCell"
-	public var asset: String! {
+	public var asset: InvestAssetViewModel! {
 		didSet {
 			setupView()
 			setupStyle()
@@ -40,15 +40,26 @@ public class InvestmentAssetCell: UICollectionViewCell {
 	}
 
 	private func setupStyle() {
-		assetNameLabel.text = "USDT"
-		assetAmountLabel.text = "$1,100"
-		assetVolatilityLabel.text = "$40"
-		assetVolatilityIcon.image = UIImage(named: "arrow_up")
+		assetNameLabel.text = asset.assetName
+		assetAmountLabel.text = asset.formattedAssetAmount
+		assetVolatilityLabel.text = asset.formattedAssetVolatility
 
 		assetNameLabel.textColor = .Pino.secondaryLabel
 		assetAmountLabel.textColor = .Pino.label
-		assetVolatilityLabel.textColor = .Pino.green
-		assetVolatilityIcon.tintColor = .Pino.green
+
+		switch asset.volatilityType {
+		case .profit:
+			assetVolatilityLabel.textColor = .Pino.green
+			assetVolatilityIcon.tintColor = .Pino.green
+			assetVolatilityIcon.image = UIImage(named: "arrow_up")
+		case .loss:
+			assetVolatilityLabel.textColor = .Pino.red
+			assetVolatilityIcon.tintColor = .Pino.red
+			assetVolatilityIcon.image = UIImage(named: "arrow_down")
+		case .none:
+			assetVolatilityLabel.textColor = .Pino.secondaryLabel
+			assetVolatilityIcon.isHidden = true
+		}
 
 		assetNameLabel.font = .PinoStyle.mediumCallout
 		assetAmountLabel.font = .PinoStyle.semiboldBody

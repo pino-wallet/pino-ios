@@ -23,13 +23,16 @@ class InvestView: UIView {
 	private var lineChart = UIView()
 	private let investmentPerformanceButton = UIButton()
 	private let assetsView = UIView()
-	private let investmentAssets = InvestmentAssetsCollectionView()
+	private let investmentAssets: InvestmentAssetsCollectionView
 	private let assetsGradientView = UIView()
 	private var assetsGradientLayer: GradientLayer!
+	private var investVM: InvestViewModel
 
 	// MARK: Initializers
 
-	init() {
+	init(investVM: InvestViewModel) {
+		self.investVM = investVM
+		self.investmentAssets = InvestmentAssetsCollectionView(assets: investVM.assets)
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -61,10 +64,10 @@ class InvestView: UIView {
 	}
 
 	private func setupStyle() {
-		totalInvestmentTitleLabel.text = "Total investment value"
-		totalInvestmentLabel.text = "$25,091"
-		investmentPerformanceButton.setTitle("Investment performance", for: .normal)
-		investmentPerformanceButton.setImage(UIImage(named: "Invest"), for: .normal)
+		totalInvestmentTitleLabel.text = investVM.totalInvestmentTitle
+		totalInvestmentLabel.text = investVM.totalInvestments
+		investmentPerformanceButton.setTitle(investVM.investmentPerformamceTitle, for: .normal)
+		investmentPerformanceButton.setImage(UIImage(named: investVM.investmentPerformanceIcon), for: .normal)
 		totalInvestmentDetailIcon.image = UIImage(named: "arrow_right")
 
 		backgroundColor = .Pino.background
