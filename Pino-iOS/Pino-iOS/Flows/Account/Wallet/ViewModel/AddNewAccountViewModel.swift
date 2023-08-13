@@ -15,14 +15,14 @@ class AddNewAccountViewModel {
 		AddNewAccountOptionModel(
 			title: "Create a new account",
 			descrption: "Generate a new account",
-			iconName: "arrow_right",
+			iconName: "chevron_right",
 			type: .Create,
 			isLoading: false
 		),
 		AddNewAccountOptionModel(
 			title: "Import wallet",
 			descrption: "Import an existing wallet",
-			iconName: "arrow_right",
+			iconName: "chevron_right",
 			type: .Import,
 			isLoading: false
 		),

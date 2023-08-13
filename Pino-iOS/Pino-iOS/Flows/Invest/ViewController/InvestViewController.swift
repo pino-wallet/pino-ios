@@ -15,6 +15,7 @@ class InvestViewController: UIViewController {
 	}
 
 	override func loadView() {
+		setupNavigationBar()
 		setupView()
 	}
 
@@ -22,7 +23,11 @@ class InvestViewController: UIViewController {
 
 	private func setupView() {
 		// It must be replaced with custom view
-		view = UIView()
-		view.backgroundColor = .Pino.background
+		view = InvestView()
+	}
+
+	private func setupNavigationBar() {
+		setupPrimaryColorNavigationBar()
+		setNavigationTitle("Invest")
 	}
 }

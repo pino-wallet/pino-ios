@@ -490,6 +490,7 @@
 		E3F482F02A35A6E900EEC9CF /* CustomAsset+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482EE2A35A6E900EEC9CF /* CustomAsset+CoreDataProperties.swift */; };
 		E3F482F72A35B2DB00EEC9CF /* EnterSendAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482F62A35B2DB00EEC9CF /* EnterSendAmountView.swift */; };
 		E3F482F92A35B43400EEC9CF /* EnterSendAmountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482F82A35B43400EEC9CF /* EnterSendAmountViewModel.swift */; };
+		E3FC69922A88B0EB009B3341 /* InvestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69912A88B0EB009B3341 /* InvestView.swift */; };
 		E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D680E48001C060BADD248 /* EndpointType.swift */; };
 		E4BC1D70FBAF66825B9358E7 /* LockMethodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386676E7E643B6AB252A5653 /* LockMethodModel.swift */; };
 		E4FF2E5E60CA74F3324945A8 /* CoinInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D5774D76FC507F8B176185 /* CoinInfoViewModel.swift */; };
@@ -1005,6 +1006,7 @@
 		E3F482EE2A35A6E900EEC9CF /* CustomAsset+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CustomAsset+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E3F482F62A35B2DB00EEC9CF /* EnterSendAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAmountView.swift; sourceTree = "<group>"; };
 		E3F482F82A35B43400EEC9CF /* EnterSendAmountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAmountViewModel.swift; sourceTree = "<group>"; };
+		E3FC69912A88B0EB009B3341 /* InvestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestView.swift; sourceTree = "<group>"; };
 		E40D0AB7515630563347CBDA /* CoinPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceViewController.swift; sourceTree = "<group>"; };
 		E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetViewModel.swift; sourceTree = "<group>"; };
 		E5039C2C00BEB653F3B0D399 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -1335,7 +1337,8 @@
 		2EDECC5AD232916A0492E930 /* Invest */ = {
 			isa = PBXGroup;
 			children = (
-				CEC2A05AC28F553BF890D172 /* InvestViewController.swift */,
+				E3FC69902A88B0D3009B3341 /* View */,
+				E3FC698F2A88B0C0009B3341 /* ViewController */,
 			);
 			path = Invest;
 			sourceTree = "<group>";
@@ -2913,6 +2916,22 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		E3FC698F2A88B0C0009B3341 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CEC2A05AC28F553BF890D172 /* InvestViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E3FC69902A88B0D3009B3341 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E3FC69912A88B0EB009B3341 /* InvestView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		E592A8E4290E95A67BA5D5CF /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -3682,6 +3701,7 @@
 				8F2B1AD252EE32B2F328105B /* URLParameterEncoding.swift in Sources */,
 				7788C1D86DF1F4B1E6B2DE54 /* URLRequest+Extension.swift in Sources */,
 				71ED4673E278D4F56B0CC895 /* UnlockAppViewController.swift in Sources */,
+				E3FC69922A88B0EB009B3341 /* InvestView.swift in Sources */,
 				99B64004802220934AD0B60B /* UnlockAppViewModel.swift in Sources */,
 				D9C4CF0A2A4090D000475F01 /* SuggestedAddressesViewModel.swift in Sources */,
 				038A90F28F66ACC57B0A3CF5 /* UnlockPasscodePageManager.swift in Sources */,
