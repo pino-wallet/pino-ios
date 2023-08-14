@@ -18,8 +18,8 @@ public struct InvestAssetViewModel {
 		assetModel.assetName
 	}
 
-	public var assetImage: String {
-		assetModel.assetImage
+	public var assetImage: URL {
+		URL(string: assetModel.assetImage)!
 	}
 
 	public var assetAmount: BigNumber {

@@ -28,12 +28,42 @@ struct InvestViewModel {
 
 	private mutating func getAssets() {
 		let assetsModel = [
-			InvestAssetModel(assetName: "ETH", assetImage: "", assetAmount: "1100", assetVolatility: "40"),
-			InvestAssetModel(assetName: "DAI", assetImage: "", assetAmount: "420", assetVolatility: "-23"),
-			InvestAssetModel(assetName: "USDT", assetImage: "", assetAmount: "370", assetVolatility: "14"),
-			InvestAssetModel(assetName: "SNT", assetImage: "", assetAmount: "240", assetVolatility: "18"),
-			InvestAssetModel(assetName: "BNB", assetImage: "", assetAmount: "215", assetVolatility: "-31"),
-			InvestAssetModel(assetName: "ENS", assetImage: "", assetAmount: "118", assetVolatility: "8"),
+			InvestAssetModel(
+				assetName: "ETH",
+				assetImage: "https://demo-cdn.pino.xyz/tokens/eth.png",
+				assetAmount: "1100",
+				assetVolatility: "40"
+			),
+			InvestAssetModel(
+				assetName: "LINK",
+				assetImage: "https://demo-cdn.pino.xyz/tokens/chainlink.png",
+				assetAmount: "420",
+				assetVolatility: "-23"
+			),
+			InvestAssetModel(
+				assetName: "AAVE",
+				assetImage: "https://demo-cdn.pino.xyz/tokens/aave.png",
+				assetAmount: "370",
+				assetVolatility: "14"
+			),
+			InvestAssetModel(
+				assetName: "DAI",
+				assetImage: "https://demo-cdn.pino.xyz/tokens/dai.png",
+				assetAmount: "240",
+				assetVolatility: "18"
+			),
+			InvestAssetModel(
+				assetName: "USDT",
+				assetImage: "https://demo-cdn.pino.xyz/tokens/tether.png",
+				assetAmount: "215",
+				assetVolatility: "-31"
+			),
+			InvestAssetModel(
+				assetName: "UNI",
+				assetImage: "https://demo-cdn.pino.xyz/tokens/uniswap.png",
+				assetAmount: "118",
+				assetVolatility: "8"
+			),
 		]
 		assets = assetsModel.compactMap { InvestAssetViewModel(assetModel: $0) }
 	}

@@ -24,7 +24,7 @@ class InvestmentPerformanceHeaderView: UICollectionReusableView {
 
 	public static let headerReuseID = "investmentPerformanceHeader"
 
-	public var investmentPerformanceVM: PortfolioPerformanceViewModel! {
+	public var investmentPerformanceVM: InvestmentPerformanceViewModel! {
 		didSet {
 			setupView()
 			setupStyle()

@@ -10,11 +10,11 @@ import UIKit
 class InvestmentPerformanceViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let assets: [AssetViewModel]
+	private let assets: [InvestAssetViewModel]
 
 	// MARK: Initializers
 
-	init(assets: [AssetViewModel]) {
+	init(assets: [InvestAssetViewModel]) {
 		self.assets = assets
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -37,7 +37,7 @@ class InvestmentPerformanceViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		let investmentPerformaneVM = PortfolioPerformanceViewModel(assets: assets)
+		let investmentPerformaneVM = InvestmentPerformanceViewModel(assets: assets)
 		view = InvestmentPerformanceCollectionView(
 			investmentPerformanceVM: investmentPerformaneVM,
 			assetSelected: { shareOfAsset in

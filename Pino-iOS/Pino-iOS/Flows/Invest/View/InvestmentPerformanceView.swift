@@ -11,7 +11,7 @@ import UIKit
 class InvestmentPerformanceCollectionView: UICollectionView {
 	// MARK: Private Properties
 
-	private let investmentPerformanceVM: PortfolioPerformanceViewModel
+	private let investmentPerformanceVM: InvestmentPerformanceViewModel
 
 	// MARK: Public Properties
 
@@ -20,7 +20,7 @@ class InvestmentPerformanceCollectionView: UICollectionView {
 	// MARK: Initializers
 
 	init(
-		investmentPerformanceVM: PortfolioPerformanceViewModel,
+		investmentPerformanceVM: InvestmentPerformanceViewModel,
 		assetSelected: @escaping (ShareOfAssetsProtocol) -> Void
 	) {
 		self.investmentPerformanceVM = investmentPerformanceVM
