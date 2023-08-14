@@ -44,7 +44,7 @@ public class SettingCell: GroupCollectionViewCell {
 		titleLabel.text = settingVM.title
 		descriptionLabel.text = settingVM.description
 		settingImage.image = UIImage(named: settingVM.image)
-		detailIcon.image = UIImage(named: "arrow_right")
+		detailIcon.image = UIImage(named: "chevron_right")
 
 		detailIcon.tintColor = .Pino.gray3
 

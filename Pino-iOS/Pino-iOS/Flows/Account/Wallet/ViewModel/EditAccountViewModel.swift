@@ -23,8 +23,8 @@ class EditAccountViewModel {
 	public let removeAccountButtonTitle = "Remove account"
 
 	public let editAccountOptions = [
-		EditAccountOptionModel(title: "Wallet name", type: .name, rightIconName: "arrow_right"),
-		EditAccountOptionModel(title: "Show private key", type: .private_key, rightIconName: "arrow_right"),
+		EditAccountOptionModel(title: "Wallet name", type: .name, rightIconName: "chevron_right"),
+		EditAccountOptionModel(title: "Show private key", type: .private_key, rightIconName: "chevron_right"),
 	]
 
 	init(selectedAccount: AccountInfoViewModel) {
