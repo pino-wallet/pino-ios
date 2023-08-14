@@ -5,7 +5,7 @@
 //  Created by Mohi Raoufi on 2/27/23.
 //
 
-import Charts
+import DGCharts
 import Combine
 import UIKit
 
