@@ -26,15 +26,18 @@ class InvestCoinPerformanceView: UIView {
 	private var lineChart: AssetLineChart!
 	private var coinImage: InvestAssetImageView
 
-	private let coinPerformanceVM: CoinPerformanceViewModel
+	private let coinPerformanceVM: InvestCoinPerformanceViewModel
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
 
-	init(coinPerformanceVM: CoinPerformanceViewModel) {
+	init(coinPerformanceVM: InvestCoinPerformanceViewModel) {
 		self.coinPerformanceVM = coinPerformanceVM
-		self.coinInfoView = CoinPerformanceInfoView(coinPerformanceVM: coinPerformanceVM)
-		self.coinImage = InvestAssetImageView(assetImage: coinPerformanceVM.assetImage, protocolImage: "")
+		self.coinInfoView = CoinPerformanceInfoView(coinPerformanceVM: coinPerformanceVM.coinInfoVM)
+		self.coinImage = InvestAssetImageView(
+			assetImage: coinPerformanceVM.assetImage,
+			protocolImage: coinPerformanceVM.protocolImage
+		)
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()

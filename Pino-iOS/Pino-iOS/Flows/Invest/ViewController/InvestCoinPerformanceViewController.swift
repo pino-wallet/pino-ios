@@ -11,12 +11,12 @@ import UIKit
 class InvestCoinPerformanceViewController: UIViewController {
 	// MARK: Private Properties
 
-	private var coinPerformanceVM: CoinPerformanceViewModel!
+	private var coinPerformanceVM: InvestCoinPerformanceViewModel
 
 	// MARK: Initializers
 
 	init(selectedAsset: InvestAssetViewModel) {
-		//        coinPerformanceVM = CoinPerformanceViewModel(selectedAsset: selectedAsset)
+		self.coinPerformanceVM = InvestCoinPerformanceViewModel(selectedAsset: selectedAsset)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -38,7 +38,7 @@ class InvestCoinPerformanceViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = CoinPerformanceView(coinPerformanceVM: coinPerformanceVM)
+		view = InvestCoinPerformanceView(coinPerformanceVM: coinPerformanceVM)
 	}
 
 	private func setupNavigationBar() {

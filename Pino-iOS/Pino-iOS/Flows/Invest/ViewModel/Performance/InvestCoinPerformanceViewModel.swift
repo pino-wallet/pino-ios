@@ -1,34 +1,37 @@
 //
-//  CoinPerformanceViewModel.swift
+//  InvestCoinPerformanceViewModel.swift
 //  Pino-iOS
 //
-//  Created by Mohi Raoufi on 3/5/23.
+//  Created by Mohi Raoufi on 8/14/23.
 //
+
 import Charts
 import Combine
 import Foundation
 
-class CoinPerformanceViewModel {
+class InvestCoinPerformanceViewModel {
 	// MARK: - Private Properties
 
 	private var accountingAPIClient = AccountingAPIClient()
 	private var cancellables = Set<AnyCancellable>()
-	private let selectedAsset: AssetViewModel
+	private let selectedAsset: InvestAssetViewModel
 
 	// MARK: - Public Properties
 
 	public let assetName: String
 	public let assetImage: URL
+	public let protocolImage: String
 	@Published
 	public var chartVM: AssetChartViewModel?
 	public var coinInfoVM = CoinPerformanceInfoViewModel()
 
 	// MARK: - Initializers
 
-	init(selectedAsset: AssetViewModel) {
+	init(selectedAsset: InvestAssetViewModel) {
 		self.selectedAsset = selectedAsset
-		self.assetName = selectedAsset.name
-		self.assetImage = selectedAsset.image
+		self.assetName = selectedAsset.assetName
+		self.assetImage = selectedAsset.assetImage
+		self.protocolImage = selectedAsset.assetProtocol.protocolInfo.image
 		getChartData()
 		setupBindings()
 	}
@@ -36,11 +39,12 @@ class CoinPerformanceViewModel {
 	// MARK: - Private Methods
 
 	public func getChartData(dateFilter: ChartDateFilter = .day) {
-		accountingAPIClient.coinPerformance(timeFrame: dateFilter.timeFrame, tokenID: selectedAsset.id)
+		#warning("The investmnet data is currently empty, ETH performance is used temporarily for test")
+		accountingAPIClient.coinPerformance(timeFrame: dateFilter.timeFrame, tokenID: AccountingEndpoint.ethID)
 			.sink { completed in
 				switch completed {
 				case .finished:
-					print("Portfolio received successfully")
+					print("Coin performance received successfully")
 				case let .failure(error):
 					print(error)
 				}

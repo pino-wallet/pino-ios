@@ -33,7 +33,7 @@ class CoinPerformanceView: UIView {
 
 	init(coinPerformanceVM: CoinPerformanceViewModel) {
 		self.coinPerformanceVM = coinPerformanceVM
-		self.coinInfoView = CoinPerformanceInfoView(coinPerformanceVM: coinPerformanceVM)
+		self.coinInfoView = CoinPerformanceInfoView(coinPerformanceVM: coinPerformanceVM.coinInfoVM)
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
