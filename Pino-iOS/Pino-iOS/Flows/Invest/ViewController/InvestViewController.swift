@@ -51,5 +51,9 @@ class InvestViewController: UIViewController {
 
 	private func openInvestmentBoard() {}
 
-	private func openInvestmentPerformance() {}
+	private func openInvestmentPerformance() {
+		let investmentPerformanceVC = InvestmentPerformanceViewController(assets: [])
+		let investmentPerformanceNavigationVC = UINavigationController(rootViewController: investmentPerformanceVC)
+		present(investmentPerformanceNavigationVC, animated: true)
+	}
 }

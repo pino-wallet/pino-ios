@@ -37,9 +37,9 @@ class InvestmentPerformanceViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		let portfolioPerformaneVM = PortfolioPerformanceViewModel(assets: assets)
-		view = PortfolioPerformanceCollectionView(
-			portfolioPerformanceVM: portfolioPerformaneVM,
+		let investmentPerformaneVM = PortfolioPerformanceViewModel(assets: assets)
+		view = InvestmentPerformanceCollectionView(
+			investmentPerformanceVM: investmentPerformaneVM,
 			assetSelected: { shareOfAsset in
 				if let shareOfAsset = shareOfAsset as? ShareOfAssetsViewModel {
 					self.openCoinPerformancePage(selectedAsset: shareOfAsset.assetVM)

@@ -500,6 +500,8 @@
 		E3FC69A02A8A0731009B3341 /* InvestmentPerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC699F2A8A0731009B3341 /* InvestmentPerformanceViewController.swift */; };
 		E3FC69A22A8A0759009B3341 /* InvestmentPerformanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69A12A8A0759009B3341 /* InvestmentPerformanceView.swift */; };
 		E3FC69A42A8A0771009B3341 /* InvestmentPerformanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69A32A8A0771009B3341 /* InvestmentPerformanceViewModel.swift */; };
+		E3FC69A62A8A0952009B3341 /* InvestmentPerformanceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69A52A8A0952009B3341 /* InvestmentPerformanceHeaderView.swift */; };
+		E3FC69A82A8A0991009B3341 /* InvestmentPerformanceAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69A72A8A0991009B3341 /* InvestmentPerformanceAssetCell.swift */; };
 		E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D680E48001C060BADD248 /* EndpointType.swift */; };
 		E4BC1D70FBAF66825B9358E7 /* LockMethodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386676E7E643B6AB252A5653 /* LockMethodModel.swift */; };
 		E4FF2E5E60CA74F3324945A8 /* CoinInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D5774D76FC507F8B176185 /* CoinInfoViewModel.swift */; };
@@ -1025,6 +1027,8 @@
 		E3FC699F2A8A0731009B3341 /* InvestmentPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentPerformanceViewController.swift; sourceTree = "<group>"; };
 		E3FC69A12A8A0759009B3341 /* InvestmentPerformanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentPerformanceView.swift; sourceTree = "<group>"; };
 		E3FC69A32A8A0771009B3341 /* InvestmentPerformanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentPerformanceViewModel.swift; sourceTree = "<group>"; };
+		E3FC69A52A8A0952009B3341 /* InvestmentPerformanceHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentPerformanceHeaderView.swift; sourceTree = "<group>"; };
+		E3FC69A72A8A0991009B3341 /* InvestmentPerformanceAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentPerformanceAssetCell.swift; sourceTree = "<group>"; };
 		E40D0AB7515630563347CBDA /* CoinPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceViewController.swift; sourceTree = "<group>"; };
 		E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetViewModel.swift; sourceTree = "<group>"; };
 		E5039C2C00BEB653F3B0D399 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -2953,6 +2957,8 @@
 				E3FC69932A88C4B2009B3341 /* InvestmentAssetsCollectionView.swift */,
 				E3FC69952A88C7A1009B3341 /* InvestmentAssetCell.swift */,
 				E3FC69A12A8A0759009B3341 /* InvestmentPerformanceView.swift */,
+				E3FC69A52A8A0952009B3341 /* InvestmentPerformanceHeaderView.swift */,
+				E3FC69A72A8A0991009B3341 /* InvestmentPerformanceAssetCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3412,6 +3418,7 @@
 				8FEE7479372B430975CF245D /* AssetChartViewModel.swift in Sources */,
 				DFC4D03A2A360D8300F03DC4 /* Web3Core.swift in Sources */,
 				58725E16FF09C251760EF717 /* AssetLineChart.swift in Sources */,
+				E3FC69A62A8A0952009B3341 /* InvestmentPerformanceHeaderView.swift in Sources */,
 				72A3CB357D4BD765C3616F3E /* AssetProtocol.swift in Sources */,
 				D4FCAA07F82037BF6EF0B823 /* AssetViewModel.swift in Sources */,
 				E34728EB29E7DD6B00AB8265 /* AssetManagerViewModel.swift in Sources */,
@@ -3534,6 +3541,7 @@
 				E35BB6552A62D4A5003987F5 /* SwapConfirmationViewModel.swift in Sources */,
 				0F5854171F8774FEF94497FB /* EditAccountViewController.swift in Sources */,
 				3E5FFA532C0440149913FE32 /* Encodable+Extension.swift in Sources */,
+				E3FC69A82A8A0991009B3341 /* InvestmentPerformanceAssetCell.swift in Sources */,
 				E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */,
 				D91A3A0729E41C1800004CB2 /* NotificationSettingsOptionViewModel.swift in Sources */,
 				A64D2DFF6C7D5354F2CA6D50 /* Environment.swift in Sources */,
