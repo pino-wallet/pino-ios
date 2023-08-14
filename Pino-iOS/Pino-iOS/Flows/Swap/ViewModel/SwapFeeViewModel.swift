@@ -45,7 +45,8 @@ class SwapFeeViewModel {
 		"\(saveAmount.currencyFormatting) \(celebrateEmoji)"
 	}
 
-	public func updateQout(srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
+	#warning("There is a bug here in high amounts calculation that becomes 0. (1 ETH = 0 USDT)")
+	public func updateQuote(srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
 		if let srcAmount = srcToken.tokenAmount, let destAmount = destToken.tokenAmount {
 			let formattedFromTokenAmount = "1 \(srcToken.selectedToken.symbol)"
 			let formattedToTokenAmount: String

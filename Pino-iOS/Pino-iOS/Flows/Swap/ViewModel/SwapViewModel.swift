@@ -146,7 +146,7 @@ class SwapViewModel {
 		if selectedProtocol == .bestRate {
 			getBestRate(destToken: destToken, amount: amount, swapSide: swapSide, completion: completion)
 		} else {
-			// Implement later
+			#warning("The price of other protocols must be taken here")
 		}
 	}
 

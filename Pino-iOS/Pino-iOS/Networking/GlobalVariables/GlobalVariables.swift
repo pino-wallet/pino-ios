@@ -33,6 +33,7 @@ class GlobalVariables {
 	private init() {
 		fetchSharedInfoPeriodically { [self] in
 			fetchSharedInfo().catch { error in
+				#warning("Toast view is temporarily removed")
 //				Toast.default(
 //					title: GlobalErrors.connectionFailed.message,
 //					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
@@ -76,6 +77,7 @@ class GlobalVariables {
 					if isConnected {
 						completion()
 					} else {
+						#warning("Toast view is temporarily removed")
 //						Toast.default(
 //							title: GlobalErrors.connectionFailed.message,
 //							subtitle: GlobalToastTitles.tryAgainToastTitle.message,
