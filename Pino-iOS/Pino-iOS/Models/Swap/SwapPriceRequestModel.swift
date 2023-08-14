@@ -32,17 +32,6 @@ struct SwapPriceRequestModel {
 		self.networkID = 1
 	}
 
-	// Initliazer for 1Inch and 0x
-	init(srcToken: String, destToken: String, amount: String, side: SwapSide) {
-		self.srcToken = srcToken
-		self.srcDecimals = nil
-		self.destToken = destToken
-		self.destDecimals = nil
-		self.amount = amount
-		self.side = side
-		self.networkID = nil
-	}
-
 	public var paraSwapURLParams: HTTPParameters {
 		[
 			"srcToken": srcToken,
