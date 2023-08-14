@@ -497,6 +497,9 @@
 		E3FC69992A89066D009B3341 /* InvestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69982A89066D009B3341 /* InvestViewModel.swift */; };
 		E3FC699C2A89068A009B3341 /* InvestAssetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC699B2A89068A009B3341 /* InvestAssetModel.swift */; };
 		E3FC699E2A89069A009B3341 /* InvestAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC699D2A89069A009B3341 /* InvestAssetViewModel.swift */; };
+		E3FC69A02A8A0731009B3341 /* InvestmentPerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC699F2A8A0731009B3341 /* InvestmentPerformanceViewController.swift */; };
+		E3FC69A22A8A0759009B3341 /* InvestmentPerformanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69A12A8A0759009B3341 /* InvestmentPerformanceView.swift */; };
+		E3FC69A42A8A0771009B3341 /* InvestmentPerformanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69A32A8A0771009B3341 /* InvestmentPerformanceViewModel.swift */; };
 		E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D680E48001C060BADD248 /* EndpointType.swift */; };
 		E4BC1D70FBAF66825B9358E7 /* LockMethodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386676E7E643B6AB252A5653 /* LockMethodModel.swift */; };
 		E4FF2E5E60CA74F3324945A8 /* CoinInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D5774D76FC507F8B176185 /* CoinInfoViewModel.swift */; };
@@ -1019,6 +1022,9 @@
 		E3FC69982A89066D009B3341 /* InvestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestViewModel.swift; sourceTree = "<group>"; };
 		E3FC699B2A89068A009B3341 /* InvestAssetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestAssetModel.swift; sourceTree = "<group>"; };
 		E3FC699D2A89069A009B3341 /* InvestAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestAssetViewModel.swift; sourceTree = "<group>"; };
+		E3FC699F2A8A0731009B3341 /* InvestmentPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentPerformanceViewController.swift; sourceTree = "<group>"; };
+		E3FC69A12A8A0759009B3341 /* InvestmentPerformanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentPerformanceView.swift; sourceTree = "<group>"; };
+		E3FC69A32A8A0771009B3341 /* InvestmentPerformanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentPerformanceViewModel.swift; sourceTree = "<group>"; };
 		E40D0AB7515630563347CBDA /* CoinPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceViewController.swift; sourceTree = "<group>"; };
 		E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetViewModel.swift; sourceTree = "<group>"; };
 		E5039C2C00BEB653F3B0D399 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -2935,6 +2941,7 @@
 			isa = PBXGroup;
 			children = (
 				CEC2A05AC28F553BF890D172 /* InvestViewController.swift */,
+				E3FC699F2A8A0731009B3341 /* InvestmentPerformanceViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2945,6 +2952,7 @@
 				E3FC69912A88B0EB009B3341 /* InvestView.swift */,
 				E3FC69932A88C4B2009B3341 /* InvestmentAssetsCollectionView.swift */,
 				E3FC69952A88C7A1009B3341 /* InvestmentAssetCell.swift */,
+				E3FC69A12A8A0759009B3341 /* InvestmentPerformanceView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2954,6 +2962,7 @@
 			children = (
 				E3FC69982A89066D009B3341 /* InvestViewModel.swift */,
 				E3FC699D2A89069A009B3341 /* InvestAssetViewModel.swift */,
+				E3FC69A32A8A0771009B3341 /* InvestmentPerformanceViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3375,6 +3384,7 @@
 				CFE2848389AB3D7A9AF12C6C /* AddCustomAssetViewModel.swift in Sources */,
 				5319850502764EDE67A09C49 /* AddNewAccountCollectionView.swift in Sources */,
 				4CA4F662ECA5E7E45B96C281 /* AddNewAccountCollectionViewCell.swift in Sources */,
+				E3FC69A02A8A0731009B3341 /* InvestmentPerformanceViewController.swift in Sources */,
 				D9BE15AD2A693539005E4063 /* ActivityDetailsProtocol.swift in Sources */,
 				E34728E929E7DCCF00AB8265 /* HomepageViewModel+Wallet.swift in Sources */,
 				67CB57B83460DA7FDE4BFED3 /* AddNewAccountOptionModel.swift in Sources */,
@@ -3417,6 +3427,7 @@
 				D16E6EA70136FF5D5C83ED88 /* AssetsAPIMockClient.swift in Sources */,
 				A19CFCA76D9396A5A2612F7E /* AssetsAPIService.swift in Sources */,
 				1B60F4A0467FB90C104F4521 /* AssetsCollectionView.swift in Sources */,
+				E3FC69A42A8A0771009B3341 /* InvestmentPerformanceViewModel.swift in Sources */,
 				4249EFC00F914608B9BE7171 /* AssetsCollectionViewCell.swift in Sources */,
 				E35BB6452A5944E8003987F5 /* SwapProvidersViewController.swift in Sources */,
 				C95E4117EE56405E9C6A00CB /* AssetsCollectionViewDataSource.swift in Sources */,
@@ -3746,6 +3757,7 @@
 				038A90F28F66ACC57B0A3CF5 /* UnlockPasscodePageManager.swift in Sources */,
 				D9AF29E82A506F1A006BC53E /* ActivityType.swift in Sources */,
 				DFB1E9D42A08F19C00041B26 /* CoreDataManager.swift in Sources */,
+				E3FC69A22A8A0759009B3341 /* InvestmentPerformanceView.swift in Sources */,
 				8BB89902879DDF1FE9C46EF4 /* UnlockPasscodeView.swift in Sources */,
 				88F5D80113398502A2D2BE03 /* ImportAccountViewModel.swift in Sources */,
 				F8BA0B9925700FFF405AB76D /* VerifyPassViewModel.swift in Sources */,
