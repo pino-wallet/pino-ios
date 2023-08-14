@@ -96,7 +96,7 @@ class AboutPinoView: UIView {
 		websiteTitle.text = "Visit website"
 		pinoLogo.image = UIImage(named: aboutPinoVM.logo)
 		for detailIcon in detailIcons {
-			detailIcon.image = UIImage(named: "arrow_right")
+			detailIcon.image = UIImage(named: "chevron_right")
 			detailIcon.contentMode = .left
 		}
 

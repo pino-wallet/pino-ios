@@ -12,7 +12,7 @@ class SecurityViewModel {
 
 	public let pageTitle = "Security"
 	public let changeLockMethodTitle = "Lock method"
-	public let changeLockMethodDetailIcon = "arrow_right"
+	public let changeLockMethodDetailIcon = "chevron_right"
 	public let changeLockMethodAlertTitle = "Select the security method"
 	public let lockSettingsHeaderTitle = "Required authentication"
 	public let lockSettingsFooterTitle = "At least one option should be selected."

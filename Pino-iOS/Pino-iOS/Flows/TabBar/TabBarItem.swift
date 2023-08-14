@@ -40,7 +40,10 @@ extension TabBarItem {
 		title: "Invest",
 		image: "invest_tab",
 		selectedImage: "invest_tab_fill",
-		viewController: CustomNavigationController(rootViewController: InvestViewController())
+		viewController: CustomNavigationController(
+			rootViewController: InvestViewController(),
+			statusBarStyle: .lightContent
+		)
 	)
 
 	public static let borrow = TabBarItem(
