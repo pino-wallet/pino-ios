@@ -10,6 +10,7 @@ import Foundation
 struct InvestmentShareOfAssetsViewModel: ShareOfAssetsProtocol {
 	// MARK: - Public Properties
 
+	public var assetVM: InvestAssetViewModel
 	public var assetName: String
 	public var assetImage: URL?
 	public var protocolImage: String?
@@ -22,6 +23,7 @@ struct InvestmentShareOfAssetsViewModel: ShareOfAssetsProtocol {
 	// MARK: - Initializers
 
 	init(assetVM: InvestAssetViewModel, totalAmount: BigNumber) {
+		self.assetVM = assetVM
 		self.assetName = assetVM.assetName
 		self.assetImage = assetVM.assetImage
 		self.protocolImage = assetVM.assetProtocol.protocolInfo.image

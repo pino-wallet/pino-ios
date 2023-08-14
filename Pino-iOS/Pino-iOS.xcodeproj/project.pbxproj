@@ -507,6 +507,8 @@
 		E3FC69B32A8A2C96009B3341 /* InvestAssetImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69B22A8A2C96009B3341 /* InvestAssetImageView.swift */; };
 		E3FC69B52A8A31F6009B3341 /* InvestProtocolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69B42A8A31F6009B3341 /* InvestProtocolModel.swift */; };
 		E3FC69B72A8A3605009B3341 /* InvestProtocolViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69B62A8A3605009B3341 /* InvestProtocolViewModel.swift */; };
+		E3FC69B92A8A6C89009B3341 /* InvestCoinPerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69B82A8A6C89009B3341 /* InvestCoinPerformanceViewController.swift */; };
+		E3FC69BB2A8A6CDE009B3341 /* InvestCoinPerformanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69BA2A8A6CDE009B3341 /* InvestCoinPerformanceView.swift */; };
 		E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D680E48001C060BADD248 /* EndpointType.swift */; };
 		E4BC1D70FBAF66825B9358E7 /* LockMethodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386676E7E643B6AB252A5653 /* LockMethodModel.swift */; };
 		E4FF2E5E60CA74F3324945A8 /* CoinInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D5774D76FC507F8B176185 /* CoinInfoViewModel.swift */; };
@@ -1039,6 +1041,8 @@
 		E3FC69B22A8A2C96009B3341 /* InvestAssetImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestAssetImageView.swift; sourceTree = "<group>"; };
 		E3FC69B42A8A31F6009B3341 /* InvestProtocolModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestProtocolModel.swift; sourceTree = "<group>"; };
 		E3FC69B62A8A3605009B3341 /* InvestProtocolViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestProtocolViewModel.swift; sourceTree = "<group>"; };
+		E3FC69B82A8A6C89009B3341 /* InvestCoinPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestCoinPerformanceViewController.swift; sourceTree = "<group>"; };
+		E3FC69BA2A8A6CDE009B3341 /* InvestCoinPerformanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestCoinPerformanceView.swift; sourceTree = "<group>"; };
 		E40D0AB7515630563347CBDA /* CoinPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceViewController.swift; sourceTree = "<group>"; };
 		E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetViewModel.swift; sourceTree = "<group>"; };
 		E5039C2C00BEB653F3B0D399 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -2956,6 +2960,7 @@
 			children = (
 				CEC2A05AC28F553BF890D172 /* InvestViewController.swift */,
 				E3FC699F2A8A0731009B3341 /* InvestmentPerformanceViewController.swift */,
+				E3FC69B82A8A6C89009B3341 /* InvestCoinPerformanceViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -3024,6 +3029,7 @@
 				E3FC69A72A8A0991009B3341 /* InvestmentPerformanceAssetCell.swift */,
 				E3FC69A52A8A0952009B3341 /* InvestmentPerformanceHeaderView.swift */,
 				E3FC69B22A8A2C96009B3341 /* InvestAssetImageView.swift */,
+				E3FC69BA2A8A6CDE009B3341 /* InvestCoinPerformanceView.swift */,
 			);
 			path = Performance;
 			sourceTree = "<group>";
@@ -3446,6 +3452,7 @@
 				C450B15464CE5EF43B603409 /* AddNewAccountViewController.swift in Sources */,
 				6515F0FDA57BFCE714EF6F71 /* AddNewAccountViewModel.swift in Sources */,
 				404324062A5FF115006B1468 /* TextFormatting.swift in Sources */,
+				E3FC69B92A8A6C89009B3341 /* InvestCoinPerformanceViewController.swift in Sources */,
 				2BC73AE9759B87DCBF761327 /* AlertHelper.swift in Sources */,
 				4C5FCC355F7D7307B778F686 /* AllDoneView.swift in Sources */,
 				5172E07495C5EBFA21772580 /* AllDoneViewController.swift in Sources */,
@@ -3485,6 +3492,7 @@
 				4249EFC00F914608B9BE7171 /* AssetsCollectionViewCell.swift in Sources */,
 				E35BB6452A5944E8003987F5 /* SwapProvidersViewController.swift in Sources */,
 				C95E4117EE56405E9C6A00CB /* AssetsCollectionViewDataSource.swift in Sources */,
+				E3FC69BB2A8A6CDE009B3341 /* InvestCoinPerformanceView.swift in Sources */,
 				54E9764329CE5F067EFE92D1 /* AssetsEndpoint.swift in Sources */,
 				D9BFEC372A121706007DFF40 /* AllowNotificationsViewController.swift in Sources */,
 				DFA9687C2A0FABB9007D4513 /* SelectedAsset+CoreDataProperties.swift in Sources */,
