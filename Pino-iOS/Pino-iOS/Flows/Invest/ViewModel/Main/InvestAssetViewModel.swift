@@ -22,6 +22,10 @@ public struct InvestAssetViewModel {
 		URL(string: assetModel.assetImage)!
 	}
 
+	public var assetProtocol: InvestProtocolViewModel {
+		InvestProtocolViewModel(name: assetModel.protocolName)
+	}
+
 	public var assetAmount: BigNumber {
 		// Temporary
 		BigNumber(number: assetModel.assetAmount, decimal: assetModel.decimal)

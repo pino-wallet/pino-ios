@@ -12,6 +12,7 @@ struct InvestmentShareOfAssetsViewModel: ShareOfAssetsProtocol {
 
 	public var assetName: String
 	public var assetImage: URL?
+	public var protocolImage: String?
 
 	// MARK: - Internal Properties
 
@@ -23,6 +24,7 @@ struct InvestmentShareOfAssetsViewModel: ShareOfAssetsProtocol {
 	init(assetVM: InvestAssetViewModel, totalAmount: BigNumber) {
 		self.assetName = assetVM.assetName
 		self.assetImage = assetVM.assetImage
+		self.protocolImage = assetVM.assetProtocol.protocolInfo.image
 		self.holdAmount = assetVM.assetAmount
 		self.totalAmount = totalAmount
 	}
