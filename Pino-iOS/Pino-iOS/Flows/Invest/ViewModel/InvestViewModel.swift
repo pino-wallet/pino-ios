@@ -31,38 +31,38 @@ struct InvestViewModel {
 			InvestAssetModel(
 				assetName: "ETH",
 				assetImage: "https://demo-cdn.pino.xyz/tokens/eth.png",
-				assetAmount: "1100",
-				assetVolatility: "40"
+				assetAmount: "31000000000000",
+				assetVolatility: "400000000000"
 			),
 			InvestAssetModel(
 				assetName: "LINK",
 				assetImage: "https://demo-cdn.pino.xyz/tokens/chainlink.png",
-				assetAmount: "420",
-				assetVolatility: "-23"
+				assetAmount: "14200000000000",
+				assetVolatility: "-230000000000"
 			),
 			InvestAssetModel(
 				assetName: "AAVE",
 				assetImage: "https://demo-cdn.pino.xyz/tokens/aave.png",
-				assetAmount: "370",
-				assetVolatility: "14"
+				assetAmount: "6700000000000",
+				assetVolatility: "140000000000"
 			),
 			InvestAssetModel(
 				assetName: "DAI",
 				assetImage: "https://demo-cdn.pino.xyz/tokens/dai.png",
-				assetAmount: "240",
-				assetVolatility: "18"
+				assetAmount: "1330000000000",
+				assetVolatility: "180000000000"
 			),
 			InvestAssetModel(
 				assetName: "USDT",
 				assetImage: "https://demo-cdn.pino.xyz/tokens/tether.png",
-				assetAmount: "215",
-				assetVolatility: "-31"
+				assetAmount: "456000000000",
+				assetVolatility: "-310000000000"
 			),
 			InvestAssetModel(
 				assetName: "UNI",
 				assetImage: "https://demo-cdn.pino.xyz/tokens/uniswap.png",
-				assetAmount: "118",
-				assetVolatility: "8"
+				assetAmount: "180000000000",
+				assetVolatility: "80000000000"
 			),
 		]
 		assets = assetsModel.compactMap { InvestAssetViewModel(assetModel: $0) }
