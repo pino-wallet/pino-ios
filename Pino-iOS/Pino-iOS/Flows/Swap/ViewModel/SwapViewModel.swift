@@ -25,6 +25,7 @@ class SwapViewModel {
 	public var swapFeeVM: SwapFeeViewModel
 
 	public var providers: [SwapProviderViewModel] = []
+	public var bestProvider: SwapProviderViewModel?
 
 	// MARK: - Private Properties
 
@@ -162,6 +163,7 @@ class SwapViewModel {
 					SwapProviderViewModel(providerResponseInfo: $0, side: swapSide, destToken: destToken)
 				}.sorted { $0.swapAmount > $1.swapAmount }
 				let bestProvider = self.providers.first!
+				self.bestProvider = bestProvider
 				completion(bestProvider.formattedSwapAmount)
 				self.getFeeInfo(swapProvider: bestProvider)
 			}
@@ -185,7 +187,7 @@ class SwapViewModel {
 	}
 
 	private func getFeeInfo(swapProvider: SwapProviderViewModel?) {
-		swapFeeVM.updateQout(srcToken: fromToken, destToken: toToken)
+		swapFeeVM.updateQuote(srcToken: fromToken, destToken: toToken)
 		guard let swapProvider else { return }
 		swapFeeVM.swapProviderVM = swapProvider
 		swapFeeVM.fee = swapProvider.fee
