@@ -70,7 +70,7 @@ class SwapPriceManager {
 			zeroXPublisher,
 			oneInchPublisher
 		)
-		.delay(for: 0.8, scheduler: RunLoop.main)
+		.delay(for: 0.5, scheduler: RunLoop.main)
 		.sink { completed in
 			switch completed {
 			case .finished:
@@ -101,7 +101,7 @@ class SwapPriceManager {
 			paraswapPublisher,
 			zeroXPublisher
 		)
-		.delay(for: 0.8, scheduler: RunLoop.main)
+		.delay(for: 0.5, scheduler: RunLoop.main)
 		.sink { completed in
 			switch completed {
 			case .finished:
