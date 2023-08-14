@@ -33,12 +33,13 @@ class GlobalVariables {
 	private init() {
 		fetchSharedInfoPeriodically { [self] in
 			fetchSharedInfo().catch { error in
-				Toast.default(
-					title: GlobalErrors.connectionFailed.message,
-					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-					style: .error
-				)
-				.show(haptic: .warning)
+				#warning("Toast view is temporarily removed")
+//				Toast.default(
+//					title: GlobalErrors.connectionFailed.message,
+//					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+//					style: .error
+//				)
+//				.show(haptic: .warning)
 			}
 		}
 		$manageAssetsList.sink { assets in
@@ -76,12 +77,13 @@ class GlobalVariables {
 					if isConnected {
 						completion()
 					} else {
-						Toast.default(
-							title: GlobalErrors.connectionFailed.message,
-							subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-							style: .error
-						)
-						.show(haptic: .warning)
+						#warning("Toast view is temporarily removed")
+//						Toast.default(
+//							title: GlobalErrors.connectionFailed.message,
+//							subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+//							style: .error
+//						)
+//						.show(haptic: .warning)
 					}
 				}.store(in: &cancellables)
 			}

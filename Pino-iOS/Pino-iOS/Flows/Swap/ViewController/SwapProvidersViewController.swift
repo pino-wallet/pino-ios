@@ -28,9 +28,15 @@ class SwapProvidersViewcontroller: UIAlertController {
 
 	// MARK: - Initializers
 
-	convenience init(providerDidSelect: @escaping (SwapProviderViewModel) -> Void) {
+	convenience init(
+		providers: [SwapProviderViewModel],
+		bestProvider: SwapProviderViewModel,
+		providerDidSelect: @escaping (SwapProviderViewModel) -> Void
+	) {
 		self.init(title: "", message: nil, preferredStyle: .actionSheet)
 		self.providerDidSelect = providerDidSelect
+		selectProviderVM.providers = providers
+		selectProviderVM.bestProvider = bestProvider
 		setupView()
 		setupStyle()
 		setupConstraint()
@@ -111,7 +117,7 @@ class SwapProvidersViewcontroller: UIAlertController {
 
 	private func updateProviderCollectionView(providers: [SwapProviderViewModel]) {
 		providersCollectionView.swapProviders = providers
-		providersCollectionView.bestProvider = selectProviderVM.getBestProvider(providers)
+		providersCollectionView.bestProvider = selectProviderVM.bestProvider
 		providersCollectionView.reloadData()
 	}
 }

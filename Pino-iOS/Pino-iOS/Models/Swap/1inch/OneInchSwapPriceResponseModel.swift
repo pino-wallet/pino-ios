@@ -7,7 +7,27 @@ import Foundation
 
 // MARK: - OneInchPriceResponseModel
 
-public struct OneInchPriceResponseModel: SwapPriceResponseProtocol {
-	let toAmount: String
-	let gas: Int
+struct OneInchPriceResponseModel: SwapPriceResponseProtocol {
+	// MARK: - Private Properties
+
+	private let toAmount: String
+	private let gas: Int
+
+	// MARK: - Public Properties
+
+	public var provider: SwapProvider {
+		.oneInch
+	}
+
+	public var srcAmount: String {
+		.emptyString
+	}
+
+	public var destAmount: String {
+		toAmount
+	}
+
+	public var gasFee: String {
+		"\(gas)"
+	}
 }

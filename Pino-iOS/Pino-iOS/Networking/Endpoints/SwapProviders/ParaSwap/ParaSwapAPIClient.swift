@@ -13,10 +13,13 @@ final class ParaSwapAPIClient: SwapProvidersAPIServices {
 
 	private let networkManager = NetworkManager<ParaSwapEndpoint>()
 
-	func swapPrice(swapInfo: SwapPriceRequestModel) -> AnyPublisher<ParaSwapPriceResponseModel, APIError> {
+	func swapPrice(swapInfo: SwapPriceRequestModel) -> AnyPublisher<ParaSwapPriceResponseModel?, APIError> {
 		var editedSwapInfo: SwapPriceRequestModel = swapInfo
 		if swapInfo.srcToken == SwapPriceRequestModel.pinoETHID {
 			editedSwapInfo.srcToken = SwapPriceRequestModel.paraSwapETHID
+		}
+		if swapInfo.destToken == SwapPriceRequestModel.pinoETHID {
+			editedSwapInfo.destToken = SwapPriceRequestModel.paraSwapETHID
 		}
 		return networkManager.request(.swapPrice(swapInfo: editedSwapInfo))
 	}

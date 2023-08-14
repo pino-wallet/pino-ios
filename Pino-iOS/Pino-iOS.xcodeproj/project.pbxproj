@@ -490,6 +490,7 @@
 		E3F482F02A35A6E900EEC9CF /* CustomAsset+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482EE2A35A6E900EEC9CF /* CustomAsset+CoreDataProperties.swift */; };
 		E3F482F72A35B2DB00EEC9CF /* EnterSendAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482F62A35B2DB00EEC9CF /* EnterSendAmountView.swift */; };
 		E3F482F92A35B43400EEC9CF /* EnterSendAmountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482F82A35B43400EEC9CF /* EnterSendAmountViewModel.swift */; };
+		E3FC698E2A80DD2F009B3341 /* SwapPriceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC698D2A80DD2F009B3341 /* SwapPriceManager.swift */; };
 		E3FC69922A88B0EB009B3341 /* InvestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69912A88B0EB009B3341 /* InvestView.swift */; };
 		E3FC69942A88C4B2009B3341 /* InvestmentAssetsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69932A88C4B2009B3341 /* InvestmentAssetsCollectionView.swift */; };
 		E3FC69962A88C7A1009B3341 /* InvestmentAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69952A88C7A1009B3341 /* InvestmentAssetCell.swift */; };
@@ -1011,6 +1012,7 @@
 		E3F482EE2A35A6E900EEC9CF /* CustomAsset+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CustomAsset+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E3F482F62A35B2DB00EEC9CF /* EnterSendAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAmountView.swift; sourceTree = "<group>"; };
 		E3F482F82A35B43400EEC9CF /* EnterSendAmountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAmountViewModel.swift; sourceTree = "<group>"; };
+		E3FC698D2A80DD2F009B3341 /* SwapPriceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapPriceManager.swift; sourceTree = "<group>"; };
 		E3FC69912A88B0EB009B3341 /* InvestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestView.swift; sourceTree = "<group>"; };
 		E3FC69932A88C4B2009B3341 /* InvestmentAssetsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentAssetsCollectionView.swift; sourceTree = "<group>"; };
 		E3FC69952A88C7A1009B3341 /* InvestmentAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentAssetCell.swift; sourceTree = "<group>"; };
@@ -2809,6 +2811,7 @@
 				E35BB63B2A558B2E003987F5 /* SelectSwapProtocolViewModel.swift */,
 				E35BB64C2A596E90003987F5 /* SelectSwapProvidersViewModel.swift */,
 				E35BB6542A62D4A5003987F5 /* SwapConfirmationViewModel.swift */,
+				E3FC698D2A80DD2F009B3341 /* SwapPriceManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3605,6 +3608,7 @@
 				D970C0E02A74EA80005A7FAC /* GlobalToastTitles.swift in Sources */,
 				E52C3E716C6ACBCE6C8BE230 /* NoInternetConnectionView.swift in Sources */,
 				44DBA60846C0B1DA8E26EAD8 /* NoInternetConnectionViewModel.swift in Sources */,
+				E3FC698E2A80DD2F009B3341 /* SwapPriceManager.swift in Sources */,
 				1F98DAC473200ACED0BA403B /* ParameterEncoderProtocol.swift in Sources */,
 				8EA8AEFE97CEC48A2C1DFCB7 /* ParameterEncoding.swift in Sources */,
 				DFA9687E2A0FABB9007D4513 /* WalletAccount+CoreDataProperties.swift in Sources */,

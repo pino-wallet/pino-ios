@@ -357,8 +357,10 @@ class SwapFeeView: UIView {
 
 	public func showFeeInfo() {
 		isCollapsed = false
-		feeInfoStackView.isHiddenInStackView = false
 		collapsButton.image = closeFeeInfoIcon
 		impactTagView.alpha = 1
+		if !feeLoadingIndicator.isAnimating {
+			feeInfoStackView.isHiddenInStackView = false
+		}
 	}
 }

@@ -272,8 +272,10 @@ class SwapView: UIView {
 	}
 
 	private func switchTokens() {
-		switchTextFieldsFocus()
-		swapVM.switchTokens()
+		if !fromTokenSectionView.isCalculating, !toTokenSectionView.isCalculating {
+			switchTextFieldsFocus()
+			swapVM.switchTokens()
+		}
 	}
 
 	private func switchTextFieldsFocus() {

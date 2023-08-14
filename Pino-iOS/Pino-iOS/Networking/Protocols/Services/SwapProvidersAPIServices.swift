@@ -11,5 +11,5 @@ import Foundation
 protocol SwapProvidersAPIServices {
 	associatedtype ResponseModel: SwapPriceResponseProtocol
 
-	func swapPrice(swapInfo: SwapPriceRequestModel) -> AnyPublisher<ResponseModel, APIError>
+	func swapPrice(swapInfo: SwapPriceRequestModel) -> AnyPublisher<ResponseModel?, APIError>
 }
