@@ -28,7 +28,7 @@ public struct InvestAssetViewModel {
 	}
 
 	public var formattedAssetAmount: String {
-		"$\(assetAmount.sevenDigitFormat)"
+		assetAmount.sevenDigitFormat.currencyFormatting
 	}
 
 	public var assetVolatility: BigNumber {
@@ -37,7 +37,7 @@ public struct InvestAssetViewModel {
 	}
 
 	public var formattedAssetVolatility: String {
-		"$\(assetVolatility.sevenDigitFormat)"
+		assetVolatility.sevenDigitFormat.currencyFormatting
 	}
 
 	public var volatilityType: AssetVolatilityType {
