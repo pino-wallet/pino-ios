@@ -7,6 +7,7 @@
 
 import Combine
 import UIKit
+import PromiseKit
 
 class SwapConfirmationViewController: AuthenticationLockViewController {
 	// MARK: Private Properties
@@ -67,6 +68,21 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 	}
 
 	private func confirmSwap() {
+        let web3 = Web3Core.shared
+        let trxAmount = 234567
+        firstly {
+            try web3.getAllowanceOf(contractAddress: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", spenderAddress: "0x000000000022D473030F116dDEE9F6B43aC78BA3")
+        }.done { allowanceAmount in
+            if allowanceAmount == 0 || allowanceAmount < trxAmount {
+                // NOT ALLOWED -> SHOW APPROVE PAGE
+                
+            } else {
+                // ALLOWED -> SHOW CONFIRM PAGE
+            }
+        }.catch { error in
+            print(error)
+        }
+        
 		unlockApp {}
 	}
 

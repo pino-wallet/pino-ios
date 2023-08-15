@@ -18,7 +18,8 @@ enum Web3Error: Error {
 }
 
 class Web3Core {
-	// MARK: - Private Properties
+    
+    // MARK: - Private Properties
 
 	private init() {}
 	private var web3: Web3 {
@@ -31,18 +32,22 @@ class Web3Core {
 
 	private let walletManager = PinoWalletManager()
 
-	typealias CustomAssetInfo = [AssetInfo: String]
+    // MARK: - Yypealias
+
+	typealias CustomAssetInfo = [ABIMethodCall: String]
 	typealias ERC20TransactionInfoType = [ERC20TransactionInfo: EthereumQuantity]
 	typealias GasInfo = (fee: BigNumber, feeInDollar: BigNumber, gasPrice: String, gasLimit: String)
 
 	// MARK: - Public Properties
 
 	public static var shared = Web3Core()
-	public enum AssetInfo: String {
+	public enum ABIMethodCall: String {
 		case decimal = "decimals"
 		case balance = "balanceOf"
-		case name = "name"
-		case symbol = "symbol"
+		case name
+		case symbol
+        case allowance
+        case approve
 	}
 
 	public enum ERC20TransactionInfo: String {
@@ -54,6 +59,21 @@ class Web3Core {
 
 	// MARK: - Public Methods
 
+    public func getAllowanceOf(contractAddress: String, spenderAddress: String) throws -> Promise<BigUInt> {
+        
+        let contractAddress = try EthereumAddress(hex: contractAddress, eip55: true)
+        let ownerAddress = try EthereumAddress(hex: walletManager.currentAccount.eip55Address, eip55: true)
+        let spenderAddress = try EthereumAddress(hex: spenderAddress, eip55: true)
+
+        return try callABIMethod(method: .allowance, contractAddress: contractAddress, params: ownerAddress,spenderAddress)
+    }
+    
+    public func approveTransfer(contractAddress: String, spenderAddress: String, value: String) throws -> Promise<Bool> {
+        let contractAddress = try EthereumAddress(hex: contractAddress, eip55: true)
+
+        return try callABIMethod(method: .approve, contractAddress: contractAddress, params: spenderAddress, value)
+    }
+    
 	public func getCustomAssetInfo(contractAddress: String) -> Promise<CustomAssetInfo> {
 		var assetInfo: CustomAssetInfo = [:]
 
@@ -70,12 +90,12 @@ class Web3Core {
 				if String(describing: decimalValue[.emptyString]) == "0" {
 					throw Web3Error.invalidSmartContractAddress
 				}
-				assetInfo[AssetInfo.decimal] = "\(decimalValue[String.emptyString]!)"
+				assetInfo[ABIMethodCall.decimal] = "\(decimalValue[String.emptyString]!)"
 				return try self.getInfo(address: contractAddress, info: .name).compactMap { nameValue in
 					nameValue[String.emptyString] as? String
 				}
 			}.then { [self] nameValue -> Promise<[String: Any]> in
-				assetInfo.updateValue(nameValue, forKey: AssetInfo.name)
+				assetInfo.updateValue(nameValue, forKey: ABIMethodCall.name)
 				let contractAddress = try EthereumAddress(hex: contractAddress, eip55: true)
 				let contract = web3.eth.Contract(type: GenericERC20Contract.self, address: contractAddress)
 				return try contract
@@ -84,12 +104,12 @@ class Web3Core {
 			}.map { balanceValue in
 				balanceValue["_balance"] as! BigUInt
 			}.then { balance in
-				assetInfo.updateValue("\(balance)", forKey: AssetInfo.balance)
+				assetInfo.updateValue("\(balance)", forKey: ABIMethodCall.balance)
 				return try self.getInfo(address: contractAddress, info: .symbol).compactMap { symbolValue in
 					symbolValue[String.emptyString] as? String
 				}
 			}.done { symbol in
-				assetInfo.updateValue(symbol, forKey: AssetInfo.symbol)
+				assetInfo.updateValue(symbol, forKey: ABIMethodCall.symbol)
 				seal.fulfill(assetInfo)
 			}.catch(policy: .allErrors) { error in
 				seal.reject(error)
@@ -273,13 +293,33 @@ class Web3Core {
 		}
 	}
 
-	private func getInfo(address: String, info: AssetInfo) throws -> Promise<[String: Any]> {
+	private func getInfo(address: String, info: ABIMethodCall) throws -> Promise<[String: Any]> {
 		let contractAddress = try EthereumAddress(hex: address, eip55: true)
 		let contractJsonABI = Web3ABI.erc20AbiString.data(using: .utf8)!
 		let contract = try web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
 
-		return try contract[info.rawValue]!(EthereumAddress(hex: address, eip55: true)).call()
+		return contract[info.rawValue]!(contractAddress).call()
 	}
+    
+    private func callABIMethod<T, ABIParams: ABIEncodable>(method: ABIMethodCall, contractAddress: EthereumAddress, params:ABIParams...) throws -> Promise<T> {
+        let contractJsonABI = Web3ABI.erc20AbiString.data(using: .utf8)!
+        // You can optionally pass an abiKey param if the actual abi is nested and not the top level element of the json
+        let contract = try web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
+        // Get balance of some address
+        
+        return Promise<T>() { seal in
+            firstly {
+                contract[method.rawValue]!(params).call()
+            }.map { response in
+                response[.emptyString] as! T
+            }.done({ allowance in
+                seal.fulfill(allowance)
+            }).catch(policy: .allErrors) { error in
+                print(error)
+                seal.reject(error)
+            }
+        }
+    }
 
 	private func getContractOfToken(address tokenContractAddress: String) throws -> DynamicContract {
 		let contractAddress = try EthereumAddress(
@@ -291,13 +331,17 @@ class Web3Core {
 		let contract = try web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
 		return contract
 	}
+    
 }
 
 extension Web3Core {
-	enum Constants {
-		static let ethGasLimit = "21000"
-		static let eoaCode = "0x"
-	}
+	
+    public enum Constants {
+        static let ethGasLimit = "21000"
+        static let eoaCode = "0x"
+        static let permitAddress = "0x000000000022D473030F116dDEE9F6B43aC78BA3"
+        static let pinoProxyAddress = "0x118E662de0C4cdc2f8AD0fb1c6Ef4a85222baCF0"
+    }
 
 	/// Utitlity function to attemp multiple times for a promise
 	func attempt<T>(
