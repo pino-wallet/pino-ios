@@ -1,15 +1,15 @@
 //
-//  PortfolioPerformanceHeaderView.swift
+//  InvestmentPerformanceHeaderView.swift
 //  Pino-iOS
 //
-//  Created by Mohi Raoufi on 2/27/23.
+//  Created by Mohi Raoufi on 8/14/23.
 //
 
+import Charts
 import Combine
-import DGCharts
 import UIKit
 
-class PortfolioPerformanceHeaderView: UICollectionReusableView {
+class InvestmentPerformanceHeaderView: UICollectionReusableView {
 	// MARK: Private Properties
 
 	private let contentStackview = UIStackView()
@@ -22,9 +22,9 @@ class PortfolioPerformanceHeaderView: UICollectionReusableView {
 
 	// MARK: Public Properties
 
-	public static let headerReuseID = "portfolioPerformanceHeader"
+	public static let headerReuseID = "investmentPerformanceHeader"
 
-	public var portfolioPerformanceVM: PortfolioPerformanceViewModel! {
+	public var investmentPerformanceVM: InvestmentPerformanceViewModel! {
 		didSet {
 			setupView()
 			setupStyle()
@@ -36,8 +36,8 @@ class PortfolioPerformanceHeaderView: UICollectionReusableView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		lineChart = AssetLineChart(chartVM: portfolioPerformanceVM.chartVM, dateFilterChanged: { dateFilter in
-			self.portfolioPerformanceVM.getChartData(dateFilter: dateFilter)
+		lineChart = AssetLineChart(chartVM: investmentPerformanceVM.chartVM, dateFilterChanged: { dateFilter in
+			self.investmentPerformanceVM.getChartData(dateFilter: dateFilter)
 		})
 		chartStackView.addArrangedSubview(chartTitle)
 		chartStackView.addArrangedSubview(chartCardView)
@@ -83,7 +83,7 @@ class PortfolioPerformanceHeaderView: UICollectionReusableView {
 	}
 
 	private func setupBindings() {
-		portfolioPerformanceVM.$chartVM.sink { chart in
+		investmentPerformanceVM.$chartVM.sink { chart in
 			guard let chart else { return }
 			self.lineChart.chartVM = chart
 		}.store(in: &cancellables)

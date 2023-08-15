@@ -13,7 +13,8 @@ struct InvestAssetModel {
 
 	public let assetName: String
 	public let assetImage: String
+	public let protocolName: String
 	public let assetAmount: String
 	public let assetVolatility: String
-	public let decimal = 0
+	public let decimal = 10
 }
