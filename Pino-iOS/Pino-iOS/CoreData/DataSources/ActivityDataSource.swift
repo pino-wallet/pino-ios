@@ -72,12 +72,12 @@ struct ActivityDataSource: DataSourceProtocol {
 	public func sort(by sorter: (CDActivityParent, CDActivityParent) -> Bool) -> [CDActivityParent] {
 		activities.sorted(by: sorter)
 	}
-    
-    public func performSpeedUpChanges(id: String, newID: String, newGasPrice: String) {
-        let updatingIndex = activities.firstIndex(where: {$0.txHash == id})
-        activities[updatingIndex!].gasPrice = newGasPrice
-        activities[updatingIndex!].txHash = newID
-        activities[updatingIndex!].prev_txHash = id
-        coreDataStack.saveContext()
-    }
+
+	public func performSpeedUpChanges(id: String, newID: String, newGasPrice: String) {
+		let updatingIndex = activities.firstIndex(where: { $0.txHash == id })
+		activities[updatingIndex!].gasPrice = newGasPrice
+		activities[updatingIndex!].txHash = newID
+		activities[updatingIndex!].prev_txHash = id
+		coreDataStack.saveContext()
+	}
 }

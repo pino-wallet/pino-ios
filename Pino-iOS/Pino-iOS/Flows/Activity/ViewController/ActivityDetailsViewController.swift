@@ -56,7 +56,7 @@ class ActivityDetailsViewController: UIViewController {
 			},
 			activityDetailsHeader: activityDetailsVM.properties
 				.uiType == .swap ? ActivitySwapHeaderView(activityDetailsVM: activityDetailsVM) :
-                ActivityDetailsHeaderView(activityDetailsVM: activityDetailsVM)
+				ActivityDetailsHeaderView(activityDetailsVM: activityDetailsVM)
 		)
 
 		view = activityDetailsView

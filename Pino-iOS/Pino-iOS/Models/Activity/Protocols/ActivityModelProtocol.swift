@@ -15,5 +15,5 @@ protocol ActivityModelProtocol: Codable {
 	var blockTime: String { get }
 	var gasUsed: String { get }
 	var gasPrice: String { get set }
-    var prev_txHash: String? { get set }
+	var prev_txHash: String? { get set }
 }

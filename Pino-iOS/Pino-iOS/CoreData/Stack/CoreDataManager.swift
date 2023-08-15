@@ -208,8 +208,8 @@ class CoreDataManager {
 	public func deleteActivityByID(_ id: String) {
 		activityDataSource.deleteByID(id)
 	}
-    
-    public func performSpeedUpChanges(id: String, newID: String, newGasPrice: String) {
-        activityDataSource.performSpeedUpChanges(id: id, newID: newID, newGasPrice: newGasPrice)
-    }
+
+	public func performSpeedUpChanges(id: String, newID: String, newGasPrice: String) {
+		activityDataSource.performSpeedUpChanges(id: id, newID: newID, newGasPrice: newGasPrice)
+	}
 }

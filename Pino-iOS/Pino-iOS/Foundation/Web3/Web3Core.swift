@@ -210,54 +210,52 @@ class Web3Core {
 				}
 		}
 	}
-    
-    public func getTransactionByHash(txHash: String) -> Promise<EthereumTransactionObject?> {
-        Promise<EthereumTransactionObject?>() { seal in
-            firstly {
-                guard let txHashBytes = Data.fromHex(txHash) else {
-                    fatalError("cant get bytes from txHash string")
-                    }
-               return web3.eth.getTransactionByHash(blockHash: try EthereumData(txHashBytes))
-            }.done { transactionObject in
-                seal.fulfill(transactionObject)
-            }.catch { error in
-                seal.reject(error)
-            }
-        }
-    }
-    
-    public func speedUpTransaction(tx: EthereumTransactionObject, newGasPrice: EthereumQuantity) -> Promise<String> {
-        Promise<String>() { seal in
-            let privateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
-            firstly {
-                var newTx = EthereumTransaction(nonce: tx.nonce, gasPrice: newGasPrice, to: tx.to, value: tx.value)
-                newTx.gasLimit = tx.gas
-                newTx.transactionType = .legacy
-                
-                return try newTx.sign(with: privateKey, chainId: 1).promise
-            }.then { newTx in
-                self.web3.eth.sendRawTransaction(transaction: newTx)
-            }.done { txHash in
-                seal.fulfill(txHash.hex())
-            }.catch { error in
-                seal.reject(error)
-            }
-        }
-    }
-    
-    public func getGasPrice() -> Promise<EthereumQuantity> {
-        Promise<EthereumQuantity>() { seal in
-            firstly {
-                web3.eth.gasPrice()
-            }.done { gasPrice in
-                seal.fulfill(gasPrice)
-            }.catch { error in
-                seal.reject(error)
-            }
-        }
-    }
-    
-    
+
+	public func getTransactionByHash(txHash: String) -> Promise<EthereumTransactionObject?> {
+		Promise<EthereumTransactionObject?>() { seal in
+			firstly {
+				guard let txHashBytes = Data.fromHex(txHash) else {
+					fatalError("cant get bytes from txHash string")
+				}
+				return web3.eth.getTransactionByHash(blockHash: try EthereumData(txHashBytes))
+			}.done { transactionObject in
+				seal.fulfill(transactionObject)
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	public func speedUpTransaction(tx: EthereumTransactionObject, newGasPrice: EthereumQuantity) -> Promise<String> {
+		Promise<String>() { seal in
+			let privateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
+			firstly {
+				var newTx = EthereumTransaction(nonce: tx.nonce, gasPrice: newGasPrice, to: tx.to, value: tx.value)
+				newTx.gasLimit = tx.gas
+				newTx.transactionType = .legacy
+
+				return try newTx.sign(with: privateKey, chainId: 1).promise
+			}.then { newTx in
+				self.web3.eth.sendRawTransaction(transaction: newTx)
+			}.done { txHash in
+				seal.fulfill(txHash.hex())
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	public func getGasPrice() -> Promise<EthereumQuantity> {
+		Promise<EthereumQuantity>() { seal in
+			firstly {
+				web3.eth.gasPrice()
+			}.done { gasPrice in
+				seal.fulfill(gasPrice)
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
 
 	// MARK: - Private Methods
 
@@ -339,7 +337,6 @@ class Web3Core {
 		let contract = try web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
 		return contract
 	}
-    
 }
 
 extension Web3Core {

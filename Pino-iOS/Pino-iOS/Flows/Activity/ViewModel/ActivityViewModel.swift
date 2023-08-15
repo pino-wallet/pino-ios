@@ -83,16 +83,20 @@ class ActivityViewModel {
 			guard self.userActivities != nil else {
 				return
 			}
-            
-            for pendingActivity in pendingActivities {
-                let foundPendingActivityIndex = self.userActivities?.firstIndex(where: {$0.defaultActivityModel.txHash == pendingActivity.prev_txHash})
-                if foundPendingActivityIndex != nil {
-                   if self.userActivities![foundPendingActivityIndex!].defaultActivityModel.txHash != pendingActivity.txHash {
-                       self.userActivities![foundPendingActivityIndex!] = ActivityCellViewModel(activityModel: pendingActivity)
-                       self.prevActivities[foundPendingActivityIndex!] = pendingActivity
-                    }
-                }
-            }
+
+			for pendingActivity in pendingActivities {
+				let foundPendingActivityIndex = self.userActivities?
+					.firstIndex(where: { $0.defaultActivityModel.txHash == pendingActivity.prev_txHash })
+				if foundPendingActivityIndex != nil {
+					if self.userActivities![foundPendingActivityIndex!].defaultActivityModel.txHash != pendingActivity
+						.txHash {
+						self
+							.userActivities![foundPendingActivityIndex!] =
+							ActivityCellViewModel(activityModel: pendingActivity)
+						self.prevActivities[foundPendingActivityIndex!] = pendingActivity
+					}
+				}
+			}
 
 			let newPendingActivities = pendingActivities.filter { activity in
 				!self.prevActivities.contains(where: { $0.txHash == activity.txHash })

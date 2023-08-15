@@ -31,8 +31,8 @@ extension CDActivityParent {
 	public var type: String
 	@NSManaged
 	public var accountAddress: String
-    @NSManaged
-    public var prev_txHash: String?
+	@NSManaged
+	public var prev_txHash: String?
 }
 
 extension CDActivityParent: Identifiable {}
