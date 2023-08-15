@@ -97,6 +97,7 @@ struct ActivityDetailProperties {
 		case .failed:
 			return ActivityStatus.failed
 		case .success:
+            #warning("testing....")
 			return ActivityStatus.complete
 		case .pending:
 			return ActivityStatus.pending

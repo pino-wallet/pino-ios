@@ -107,6 +107,16 @@ class CoinInfoViewModel {
 				return
 			}
 
+            for pendingActivity in pendingActivities {
+                let foundPendingActivityIndex = self.coinHistoryActivitiesList?.firstIndex(where: {$0.defaultActivityModel.txHash == pendingActivity.prev_txHash})
+                if foundPendingActivityIndex != nil {
+                   if self.coinHistoryActivitiesList![foundPendingActivityIndex!].defaultActivityModel.txHash != pendingActivity.txHash {
+                       self.coinHistoryActivitiesList![foundPendingActivityIndex!] = ActivityCellViewModel(activityModel: pendingActivity)
+                       self.prevActivities[foundPendingActivityIndex!] = pendingActivity
+                    }
+                }
+            }
+            
 			let newPendingActivities = pendingActivities.filter { activity in
 				!self.prevActivities.contains(where: { $0.txHash == activity.txHash })
 			}
@@ -122,6 +132,7 @@ class CoinInfoViewModel {
 			if prevPendingActivities.count > pendingActivities.count {
 				self.requestTimer?.fire()
 			}
+            
 		}.store(in: &pendingActivitiesCancellable)
 	}
 

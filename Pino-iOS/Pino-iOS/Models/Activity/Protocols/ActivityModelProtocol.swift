@@ -6,7 +6,7 @@
 //
 
 protocol ActivityModelProtocol: Codable {
-	var txHash: String { get }
+	var txHash: String { get set }
 	var type: String { get }
 	var fromAddress: String { get }
 	var toAddress: String { get }
@@ -14,5 +14,6 @@ protocol ActivityModelProtocol: Codable {
 	var blockNumber: Int? { get }
 	var blockTime: String { get }
 	var gasUsed: String { get }
-	var gasPrice: String { get }
+	var gasPrice: String { get set }
+    var prev_txHash: String? { get set }
 }

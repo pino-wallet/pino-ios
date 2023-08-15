@@ -42,6 +42,8 @@ class ActivityDetailsViewModel {
 	public let feeActionSheetText = "this is fee"
 	public let statusActionSheetText = "this is status"
 	public let typeActionSheetText = "this is type"
+    public let speedUpText = "Speed up"
+    public let speedUpIconName = "speed_up"
 
 	@Published
 	public var properties: ActivityDetailProperties!
@@ -76,6 +78,14 @@ class ActivityDetailsViewModel {
 			properties = properties
 		}
 	}
+    
+    public func performSpeedUpChanges(newTxHash: String, newGasPrice: String) {
+        var editedActivity = activityDetails.defaultActivityModel
+        editedActivity.gasPrice = newGasPrice
+        editedActivity.txHash = newTxHash
+        
+        self.properties = ActivityDetailProperties(activityDetails: ActivityCellViewModel(activityModel: editedActivity))
+    }
 
 	// MARK: - Private Methods
 

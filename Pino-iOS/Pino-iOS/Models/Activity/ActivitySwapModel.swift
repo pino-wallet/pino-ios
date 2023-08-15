@@ -16,6 +16,7 @@ struct ActivitySwapModel: ActivityModelProtocol {
 	var blockTime: String
 	var gasUsed: String
 	var gasPrice: String
+    var prev_txHash: String?
 
 	enum CodingKeys: String, CodingKey {
 		case txHash = "tx_hash"
