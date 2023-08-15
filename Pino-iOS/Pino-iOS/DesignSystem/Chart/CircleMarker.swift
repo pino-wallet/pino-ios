@@ -5,8 +5,8 @@
 //  Created by Mohi Raoufi on 6/6/23.
 //
 
-import Charts
 import CoreGraphics
+import DGCharts
 import Foundation
 import UIKit
 

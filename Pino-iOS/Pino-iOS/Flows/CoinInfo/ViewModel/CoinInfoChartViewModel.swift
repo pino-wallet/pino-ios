@@ -5,8 +5,8 @@
 //  Created by Mohi Raoufi on 2/19/23.
 //
 
-import Charts
 import Combine
+import DGCharts
 
 class CoinInfoChartViewModel {
 	// MARK: - Private Properties
