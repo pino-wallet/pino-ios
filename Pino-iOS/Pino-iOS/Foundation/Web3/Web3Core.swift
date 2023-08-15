@@ -68,12 +68,6 @@ class Web3Core {
         return try callABIMethod(method: .allowance, contractAddress: contractAddress, params: ownerAddress,spenderAddress)
     }
     
-    public func approveTransfer(contractAddress: String, spenderAddress: String, value: String) throws -> Promise<Bool> {
-        let contractAddress = try EthereumAddress(hex: contractAddress, eip55: true)
-
-        return try callABIMethod(method: .approve, contractAddress: contractAddress, params: spenderAddress, value)
-    }
-    
 	public func getCustomAssetInfo(contractAddress: String) -> Promise<CustomAssetInfo> {
 		var assetInfo: CustomAssetInfo = [:]
 
