@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		setupLightKeyboardForTextFields()
 		setCacheLimitForKingFisherImages()
 		setupNotifications()
-		//        CoreDataManager().addNewTransferActivity(activityModel: ActivityTransferModel(txHash: "0xd0d55cbb774afc61e61df5feca715ba5139955cf1e2c0e2804e457b8b4257169", type: "transfer", detail: TransferActivityDetail(amount: "315151", tokenID: "aagagwa", from: "0x316110a635d150e2D6a1CC8148268bb482146a05", to: "0x7840fD13A8237C08A258DDd982D369acA81388A3"), fromAddress: "0x316110a635d150e2D6a1CC8148268bb482146a05", toAddress: "0x7840fD13A8237C08A258DDd982D369acA81388A3", blockTime: ActivityHelper().getServerFormattedStringDate(date: Date()), gasUsed: "44444", gasPrice: "1"), accountAddress: "0x316110a635d150e2D6a1CC8148268bb482146a05")
 		return true
 	}
 
