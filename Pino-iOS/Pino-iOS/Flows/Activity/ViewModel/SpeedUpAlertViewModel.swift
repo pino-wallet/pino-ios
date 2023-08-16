@@ -119,7 +119,7 @@ class SpeedUpAlertViewModel {
 			}
 	}
 
-	// MARK: - Private Properties
+	// MARK: - Private Methods
 
 	private func calculateIncreasedGasPrice(gasPrice: EthereumQuantity) -> BigNumber {
 		let bigNumberOneHoundered = BigNumber(number: "100", decimal: 0)
