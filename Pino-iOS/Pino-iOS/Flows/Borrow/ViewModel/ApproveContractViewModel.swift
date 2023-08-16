@@ -16,7 +16,7 @@ struct ApproveContractViewModel {
    
     // MARK: - Public Methods
     public func allowPinoProxyContract() throws {
-        
+        let trxAmount = 0
         firstly {
             try web3.getAllowanceOf(contractAddress: "Uni Contract Address", spenderAddress: "Para Swap", ownerAddress: Web3Core.Constants.pinoProxyAddress)
         }.done { allowanceAmount in

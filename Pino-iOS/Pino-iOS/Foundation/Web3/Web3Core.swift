@@ -68,6 +68,25 @@ class Web3Core {
         return try callABIMethod(method: .allowance, contractAddress: contractAddress, params: ownerAddress,spenderAddress)
     }
     
+    public func approve() {
+        // Proccess is like Send
+//        guard let transaction = contract["transfer"]?(to, amount).createTransaction(
+//            nonce: transactionInfo[.nonce],
+//            gasPrice: transactionInfo[.gasPrice],
+//            maxFeePerGas: nil,
+//            maxPriorityFeePerGas: nil,
+//            gasLimit: try .init(transactionInfo[.gasLimit]!.quantity * BigUInt(110) / BigUInt(100)),
+//            from: myPrivateKey.address,
+//            value: 0,
+//            accessList: [:],
+//            transactionType: .legacy
+//        ) else {
+//            throw Web3Error.failedTransaction
+//        }
+//
+//        let signedTx = try transaction.sign(with: myPrivateKey, chainId: 1)
+    }
+    
 	public func getCustomAssetInfo(contractAddress: String) -> Promise<CustomAssetInfo> {
 		var assetInfo: CustomAssetInfo = [:]
 
