@@ -20,6 +20,8 @@ class ActivityViewModel {
 	public var userActivities: [ActivityCellViewModel]? = nil
 	@Published
 	public var newUserActivities: [ActivityCellViewModel] = []
+    @Published
+    public var shouldReplacedActivites: [ActivityCellViewModel] = []
 
 	// MARK: - Private Properties
 
@@ -85,18 +87,20 @@ class ActivityViewModel {
 			}
 
 			for pendingActivity in pendingActivities {
-				let foundPendingActivityIndex = self.userActivities?
-					.firstIndex(where: { $0.defaultActivityModel.txHash == pendingActivity.prev_txHash })
+				let foundPendingActivityIndex = self.prevActivities
+					.firstIndex(where: { $0.txHash == pendingActivity.prev_txHash })
 				if foundPendingActivityIndex != nil {
-					if self.userActivities![foundPendingActivityIndex!].defaultActivityModel.txHash != pendingActivity
+					if self.prevActivities[foundPendingActivityIndex!].txHash != pendingActivity
 						.txHash {
 						self
-							.userActivities![foundPendingActivityIndex!] =
+                            .shouldReplacedActivites.append(
 							ActivityCellViewModel(activityModel: pendingActivity)
+                            )
 						self.prevActivities[foundPendingActivityIndex!] = pendingActivity
 					}
 				}
 			}
+            self.shouldReplacedActivites = []
 
 			let newPendingActivities = pendingActivities.filter { activity in
 				!self.prevActivities.contains(where: { $0.txHash == activity.txHash })
@@ -125,6 +129,7 @@ class ActivityViewModel {
 	private func setPrevAccountAddress() {
 		prevAccountAddress = walletManager.currentAccount.eip55Address
 	}
+    
 
 	@objc
 	private func getUserActivities() {
@@ -172,12 +177,12 @@ class ActivityViewModel {
 				self?.prevActivities.append(contentsOf: newActivities)
 
 				for activity in iteratedActivities {
-					let foundActivityIndex = self?.userActivities?
-						.firstIndex(where: { $0.defaultActivityModel.txHash == activity.txHash })
+					let foundActivityIndex = self?.prevActivities
+						.firstIndex(where: { $0.txHash == activity.txHash })
 					guard foundActivityIndex != nil else {
 						return
 					}
-					if self?.userActivities?[foundActivityIndex!].defaultActivityModel.failed == nil && activity
+                    if self?.prevActivities[foundActivityIndex!].failed == nil && activity
 						.failed != nil {
 						guard let coreDataActivites = self?.coreDataManager.getAllActivities() else {
 							return
@@ -185,10 +190,11 @@ class ActivityViewModel {
 						if !coreDataActivites.isEmpty {
 							PendingActivitiesManager.shared.startActivityPendingRequests()
 						}
-						self?.userActivities?[foundActivityIndex!] = ActivityCellViewModel(activityModel: activity)
+                        self?.shouldReplacedActivites.append(ActivityCellViewModel(activityModel: activity))
 						self?.prevActivities[foundActivityIndex!] = activity
 					}
 				}
+                self?.shouldReplacedActivites = []
 			}
 		}.store(in: &cancellables)
 	}

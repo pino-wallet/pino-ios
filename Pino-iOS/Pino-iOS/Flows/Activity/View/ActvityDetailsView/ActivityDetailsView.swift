@@ -11,7 +11,7 @@ import UIKit
 class ActivityDetailsView: UIScrollView {
 	// MARK: - TypeAliases
 
-	typealias presentActionSheetType = (_ actionSheet: UIAlertController) -> Void
+    typealias presentActionSheetType = (_ actionSheet: UIAlertController,_ completion: (() -> Void)?) -> Void
 
 	// MARK: - Closures
 
@@ -31,6 +31,7 @@ class ActivityDetailsView: UIScrollView {
 	private let footerTextLabelContainer = UIView()
 	private let activityDetailRefreshControl = UIRefreshControl()
 	private let speedUpButton = UIButton()
+    private var speedUpActionSheet: SpeedUpAlertViewController!
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
@@ -63,7 +64,7 @@ class ActivityDetailsView: UIScrollView {
 		activityDetailsInfoView = ActivityInfoView(
 			activityDetailsVM: activityDetailsVM,
 			presentActionSheet: { [weak self] actionSheet in
-				self?.presentActionSheet(actionSheet)
+				self?.presentActionSheet(actionSheet, nil)
 			}
 		)
 
@@ -184,7 +185,18 @@ class ActivityDetailsView: UIScrollView {
 
 	@objc
 	private func openSpeedUpActionSheet() {
-		let speedUpActionSheet = SpeedUpAlertViewController(activityDetailsVM: activityDetailsVM)
-		presentActionSheet(speedUpActionSheet)
+        speedUpActionSheet = SpeedUpAlertViewController(activityDetailsVM: activityDetailsVM)
+            presentActionSheet(speedUpActionSheet, {
+            let speedUpAlertBackgroundTappedGesture = UITapGestureRecognizer(target: self, action: #selector(self.speedUpAlertBackgroundTapped))
+                self.speedUpActionSheet.view.superview?.subviews[0].addGestureRecognizer(speedUpAlertBackgroundTappedGesture)
+                self.speedUpActionSheet.view.superview?.subviews[0].isUserInteractionEnabled = true
+        })
 	}
+    
+    @objc
+    private func speedUpAlertBackgroundTapped() {
+        if speedUpActionSheet.isDismissable {
+            speedUpActionSheet.dismiss(animated: true)
+        }
+    }
 }

@@ -9,6 +9,8 @@ import Combine
 import UIKit
 
 class SpeedUpAlertViewController: UIAlertController {
+    // MARK: - Public Properties
+    public var isDismissable = true
 	// MARK: - Private Properties
 
 	private let contentView = UIView()
@@ -44,7 +46,7 @@ class SpeedUpAlertViewController: UIAlertController {
 
 	// MARK: - Initializers
 
-	convenience init(activityDetailsVM: ActivityDetailsViewModel) {
+    convenience init(activityDetailsVM: ActivityDetailsViewModel) {
 		self.init(title: "", message: nil, preferredStyle: .actionSheet)
 
 		self.activityDetailsVM = activityDetailsVM
@@ -52,18 +54,19 @@ class SpeedUpAlertViewController: UIAlertController {
 		setupView()
 		setupStyles()
 		setupConstraints()
-		setupAlertAction()
 		setupBindings()
 	}
+    
+    // MARK: - View Overrides
 
 	override func viewWillAppear(_ animated: Bool) {
-		if isBeingPresented || isMovingToParent {
 			speedUpFeeView.updateGradientColors([.Pino.green, .yellow, .Pino.orange, .purple])
 			currentFeeView.updateGradientColors([.Pino.gray5, .Pino.gray5])
 			pageStatus = .feeLoading
-		}
+            speedUpAlertVM.getSpeedUpDetails()
 	}
-
+    
+    
 	// MARK: - Private Methods
 
 	private func setupView() {
@@ -126,8 +129,6 @@ class SpeedUpAlertViewController: UIAlertController {
 
 		mainStackView.axis = .vertical
 		mainStackView.spacing = 5
-		mainStackView.setCustomSpacing(24, after: descriptionLabel)
-		mainStackView.setCustomSpacing(40, after: feeStackView)
 
 		titleStackView.axis = .horizontal
 		titleStackView.spacing = 4
@@ -135,10 +136,6 @@ class SpeedUpAlertViewController: UIAlertController {
 
 		titleWarningImageView.image = UIImage(named: speedUpAlertVM.errorImageName)
 		titleWarningImageView.tintColor = .Pino.primary
-
-		titleLabel.text = speedUpAlertVM.title
-
-		descriptionLabel.text = speedUpAlertVM.description
 
 		loadingIndicator.transform = CGAffineTransform(scaleX: 2.4, y: 2.4)
 	}
@@ -153,10 +150,6 @@ class SpeedUpAlertViewController: UIAlertController {
 		titleWarningImageView.pin(.fixedWidth(24), .fixedHeight(24))
 	}
 
-	private func setupAlertAction() {
-		let cancellAction = UIAlertAction(title: "", style: .cancel, handler: { _ in })
-		addAction(cancellAction)
-	}
 
 	private func setupBindings() {
 		speedUpAlertVM.$speedUpFeeInDollars.sink { speedUpFeeInDollars in
@@ -171,13 +164,21 @@ class SpeedUpAlertViewController: UIAlertController {
 			speedUpFeeView.showSkeletonView()
 			actionButton.style = .deactive
 			actionButton.title = speedUpAlertVM.waitTitle
+            titleLabel.text = speedUpAlertVM.title
+            descriptionLabel.text = speedUpAlertVM.description
+            mainStackView.setCustomSpacing(24, after: descriptionLabel)
+            mainStackView.setCustomSpacing(40, after: feeStackView)
+            mainStackView.setCustomSpacing(5, after: titleStackView)
+            feeStackView.isHidden = false
 			mainStackView.isHidden = false
 			loadingIndicator.isHidden = true
 			titleWarningImageView.isHidden = true
+            isDismissable = true
 		case .speedUpLoading:
 			mainStackView.isHidden = true
 			loadingIndicator.isHidden = false
 			titleWarningImageView.isHidden = true
+            isDismissable = false
 		case .normal:
 			speedUpFeeView.hideSkeletonView()
 			actionButton.style = .active
@@ -185,12 +186,14 @@ class SpeedUpAlertViewController: UIAlertController {
 			mainStackView.isHidden = false
 			loadingIndicator.isHidden = true
 			titleWarningImageView.isHidden = true
+            isDismissable = true
 		case .insufficientBalance:
 			actionButton.style = .deactive
 			actionButton.title = speedUpAlertVM.insufficientBalanceTitle
 			mainStackView.isHidden = false
 			loadingIndicator.isHidden = true
 			titleWarningImageView.isHidden = true
+            isDismissable = true
 		case .somethingWrong:
 			mainStackView.isHidden = false
 			loadingIndicator.isHidden = true
@@ -202,6 +205,7 @@ class SpeedUpAlertViewController: UIAlertController {
 			descriptionLabel.text = speedUpAlertVM.errorSomethingWentWrong
 			actionButton.style = .active
 			actionButton.title = speedUpAlertVM.gotItTitle
+            isDismissable = true
 		case .transactionExist:
 			mainStackView.isHidden = false
 			loadingIndicator.isHidden = true
@@ -213,6 +217,7 @@ class SpeedUpAlertViewController: UIAlertController {
 			descriptionLabel.text = speedUpAlertVM.errorTransactionExist
 			actionButton.style = .active
 			actionButton.title = speedUpAlertVM.gotItTitle
+            isDismissable = true
 		}
 	}
 
@@ -229,10 +234,5 @@ class SpeedUpAlertViewController: UIAlertController {
 		default:
 			return
 		}
-	}
-
-	@objc
-	private func dismissSelf() {
-		dismiss(animated: true)
 	}
 }
