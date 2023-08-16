@@ -130,19 +130,22 @@ class ActivitiesCollectionView: UICollectionView {
 			}, completion: nil)
 			self.refreshControl?.endRefreshing()
 		}.store(in: &cancellables)
-        
-        coinInfoVM.$shouldReplacedActivites.sink { shouldReplacedActivities in
-            guard !shouldReplacedActivities.isEmpty else {
-                return
-            }
-            let replacedActivitiesInfo = activityHelper.getReplacedActivitiesInfo(replacedActivities: shouldReplacedActivities, separatedActivities: self.separatedActivities)
-            self.performBatchUpdates({
-            self.separatedActivities = replacedActivitiesInfo.finalSeparatedActivities
-                self.reloadItems(at: replacedActivitiesInfo.indexPaths)
-                self.collectionViewLayout.invalidateLayout()
-            }, completion: nil)
-            
-        }.store(in: &cancellables)
+
+		coinInfoVM.$shouldReplacedActivites.sink { shouldReplacedActivities in
+			guard !shouldReplacedActivities.isEmpty else {
+				return
+			}
+			let replacedActivitiesInfo = activityHelper.getReplacedActivitiesInfo(
+				replacedActivities: shouldReplacedActivities,
+				separatedActivities: self.separatedActivities
+			)
+			self.performBatchUpdates({
+				self.separatedActivities = replacedActivitiesInfo.finalSeparatedActivities
+				self.reloadItems(at: replacedActivitiesInfo.indexPaths)
+				self.collectionViewLayout.invalidateLayout()
+			}, completion: nil)
+
+		}.store(in: &cancellables)
 	}
 
 	private func setupRefreshControl() {

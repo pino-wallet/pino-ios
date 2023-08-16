@@ -117,28 +117,35 @@ struct ActivityHelper {
 
 		return (indexPaths: indexPaths, sections: indexSets, finalSeparatedActivities: finalSeparatedActivities)
 	}
-    
-    public func getReplacedActivitiesInfo(replacedActivities: [ActivityCellViewModel], separatedActivities: SeparatedActivitiesType) -> (indexPaths: [IndexPath], finalSeparatedActivities: SeparatedActivitiesType) {
-        var indexPaths: [IndexPath] = []
-        var finalSeparatedActivities = separatedActivities
-        
-        for (index, separatedActivity) in finalSeparatedActivities.enumerated() {
-            for replacedActivity in replacedActivities {
-                let foundReplacingIndex = separatedActivity.activities.firstIndex(where: { $0.defaultActivityModel.txHash == replacedActivity.defaultActivityModel.txHash })
-                let foundReplactingIndexWithPrevTxHash = separatedActivity.activities.firstIndex(where: { $0.defaultActivityModel.txHash == replacedActivity.defaultActivityModel.prev_txHash })
-                if foundReplacingIndex != nil {
-                    finalSeparatedActivities[index].activities[foundReplacingIndex!] = replacedActivity
-                    indexPaths.append(IndexPath(item: foundReplacingIndex!, section: index))
-                } else if foundReplactingIndexWithPrevTxHash != nil {
-                    finalSeparatedActivities[index].activities[foundReplactingIndexWithPrevTxHash!] = replacedActivity
-                    indexPaths.append(IndexPath(item: foundReplactingIndexWithPrevTxHash!, section: index))
-                } else {
-                    print("no replacing activities there")
-                }
-            }
-        }
-            return (indexPaths: indexPaths, finalSeparatedActivities: finalSeparatedActivities)
-    }
+
+	public func getReplacedActivitiesInfo(
+		replacedActivities: [ActivityCellViewModel],
+		separatedActivities: SeparatedActivitiesType
+	) -> (indexPaths: [IndexPath], finalSeparatedActivities: SeparatedActivitiesType) {
+		var indexPaths: [IndexPath] = []
+		var finalSeparatedActivities = separatedActivities
+
+		for (index, separatedActivity) in finalSeparatedActivities.enumerated() {
+			for replacedActivity in replacedActivities {
+				let foundReplacingIndex = separatedActivity.activities
+					.firstIndex(where: { $0.defaultActivityModel.txHash == replacedActivity.defaultActivityModel.txHash })
+				let foundReplactingIndexWithPrevTxHash = separatedActivity.activities
+					.firstIndex(where: {
+						$0.defaultActivityModel.txHash == replacedActivity.defaultActivityModel.prev_txHash
+					})
+				if foundReplacingIndex != nil {
+					finalSeparatedActivities[index].activities[foundReplacingIndex!] = replacedActivity
+					indexPaths.append(IndexPath(item: foundReplacingIndex!, section: index))
+				} else if foundReplactingIndexWithPrevTxHash != nil {
+					finalSeparatedActivities[index].activities[foundReplactingIndexWithPrevTxHash!] = replacedActivity
+					indexPaths.append(IndexPath(item: foundReplactingIndexWithPrevTxHash!, section: index))
+				} else {
+					print("no replacing activities there")
+				}
+			}
+		}
+		return (indexPaths: indexPaths, finalSeparatedActivities: finalSeparatedActivities)
+	}
 
 	// MARK: - Private Methods
 

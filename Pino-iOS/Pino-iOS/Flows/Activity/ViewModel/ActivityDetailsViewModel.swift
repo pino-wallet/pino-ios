@@ -84,7 +84,7 @@ class ActivityDetailsViewModel {
 		editedActivity.gasPrice = newGasPrice
 		editedActivity.txHash = newTxHash
 
-        activityDetails = ActivityCellViewModel(activityModel: editedActivity)
+		activityDetails = ActivityCellViewModel(activityModel: editedActivity)
 		properties = ActivityDetailProperties(activityDetails: activityDetails)
 	}
 

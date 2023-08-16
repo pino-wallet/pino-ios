@@ -20,8 +20,8 @@ class ActivityViewModel {
 	public var userActivities: [ActivityCellViewModel]? = nil
 	@Published
 	public var newUserActivities: [ActivityCellViewModel] = []
-    @Published
-    public var shouldReplacedActivites: [ActivityCellViewModel] = []
+	@Published
+	public var shouldReplacedActivites: [ActivityCellViewModel] = []
 
 	// MARK: - Private Properties
 
@@ -93,14 +93,14 @@ class ActivityViewModel {
 					if self.prevActivities[foundPendingActivityIndex!].txHash != pendingActivity
 						.txHash {
 						self
-                            .shouldReplacedActivites.append(
-							ActivityCellViewModel(activityModel: pendingActivity)
-                            )
+							.shouldReplacedActivites.append(
+								ActivityCellViewModel(activityModel: pendingActivity)
+							)
 						self.prevActivities[foundPendingActivityIndex!] = pendingActivity
 					}
 				}
 			}
-            self.shouldReplacedActivites = []
+			self.shouldReplacedActivites = []
 
 			let newPendingActivities = pendingActivities.filter { activity in
 				!self.prevActivities.contains(where: { $0.txHash == activity.txHash })
@@ -129,7 +129,6 @@ class ActivityViewModel {
 	private func setPrevAccountAddress() {
 		prevAccountAddress = walletManager.currentAccount.eip55Address
 	}
-    
 
 	@objc
 	private func getUserActivities() {
@@ -182,7 +181,7 @@ class ActivityViewModel {
 					guard foundActivityIndex != nil else {
 						return
 					}
-                    if self?.prevActivities[foundActivityIndex!].failed == nil && activity
+					if self?.prevActivities[foundActivityIndex!].failed == nil && activity
 						.failed != nil {
 						guard let coreDataActivites = self?.coreDataManager.getAllActivities() else {
 							return
@@ -190,11 +189,11 @@ class ActivityViewModel {
 						if !coreDataActivites.isEmpty {
 							PendingActivitiesManager.shared.startActivityPendingRequests()
 						}
-                        self?.shouldReplacedActivites.append(ActivityCellViewModel(activityModel: activity))
+						self?.shouldReplacedActivites.append(ActivityCellViewModel(activityModel: activity))
 						self?.prevActivities[foundActivityIndex!] = activity
 					}
 				}
-                self?.shouldReplacedActivites = []
+				self?.shouldReplacedActivites = []
 			}
 		}.store(in: &cancellables)
 	}

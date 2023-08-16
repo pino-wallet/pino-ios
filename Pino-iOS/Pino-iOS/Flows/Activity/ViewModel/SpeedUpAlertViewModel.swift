@@ -78,10 +78,10 @@ class SpeedUpAlertViewModel {
 				newID: txHash,
 				newGasPrice: self.newBigNumberGasPrice.description
 			)
-            self.activityDetailsVM.performSpeedUpChanges(
-                newTxHash: txHash,
-                newGasPrice: self.newBigNumberGasPrice.description
-            )
+			self.activityDetailsVM.performSpeedUpChanges(
+				newTxHash: txHash,
+				newGasPrice: self.newBigNumberGasPrice.description
+			)
 			PendingActivitiesManager.shared.startActivityPendingRequests()
 			self.didSpeedUpTransaction(nil)
 		}.catch { error in
@@ -92,32 +92,32 @@ class SpeedUpAlertViewModel {
 			}
 		}
 	}
-    
-    public func getSpeedUpDetails() {
-        Web3Core.shared.getTransactionByHash(txHash: activityDetailsVM.activityDetails.defaultActivityModel.txHash)
-            .done { txObject in
-                self.transactionObject = txObject
-                Web3Core.shared.getGasPrice().done { gasPrice in
-                    let increasedBigNumberGasPrice = self.calculateIncreasedGasPrice(gasPrice: gasPrice)
-                    self.newBigNumberGasPrice = increasedBigNumberGasPrice
-                    let speedUpFee = self.calculateSpeedUpFee(
-                        increasedBigNumberGasPrice: increasedBigNumberGasPrice,
-                        gasUsed: txObject!.gas
-                    )
-                    self.speedUpFeeInDollars = self.calculateSpeedUpFeeInDollars(speedUpFee: speedUpFee).priceFormat
 
-                    if self.ethToken!.holdAmount.isZero || self.ethToken!.holdAmount < speedUpFee {
-                        self.didSpeedUpTransaction(.insufficientBalanceError)
-                    }
-                }.catch { error in
-                    Toast.default(title: self.networkErrorToastMessage, style: .error)
-                        .show(haptic: .warning)
-                }
-            }.catch { error in
-                Toast.default(title: self.networkErrorToastMessage, style: .error)
-                    .show(haptic: .warning)
-            }
-    }
+	public func getSpeedUpDetails() {
+		Web3Core.shared.getTransactionByHash(txHash: activityDetailsVM.activityDetails.defaultActivityModel.txHash)
+			.done { txObject in
+				self.transactionObject = txObject
+				Web3Core.shared.getGasPrice().done { gasPrice in
+					let increasedBigNumberGasPrice = self.calculateIncreasedGasPrice(gasPrice: gasPrice)
+					self.newBigNumberGasPrice = increasedBigNumberGasPrice
+					let speedUpFee = self.calculateSpeedUpFee(
+						increasedBigNumberGasPrice: increasedBigNumberGasPrice,
+						gasUsed: txObject!.gas
+					)
+					self.speedUpFeeInDollars = self.calculateSpeedUpFeeInDollars(speedUpFee: speedUpFee).priceFormat
+
+					if self.ethToken!.holdAmount.isZero || self.ethToken!.holdAmount < speedUpFee {
+						self.didSpeedUpTransaction(.insufficientBalanceError)
+					}
+				}.catch { error in
+					Toast.default(title: self.networkErrorToastMessage, style: .error)
+						.show(haptic: .warning)
+				}
+			}.catch { error in
+				Toast.default(title: self.networkErrorToastMessage, style: .error)
+					.show(haptic: .warning)
+			}
+	}
 
 	// MARK: - Private Properties
 
