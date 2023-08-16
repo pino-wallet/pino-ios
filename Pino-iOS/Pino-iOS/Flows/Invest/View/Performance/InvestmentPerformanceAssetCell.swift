@@ -89,8 +89,11 @@ class InvestmentPerformanceAssetCell: GroupCollectionViewCell {
 			.fixedHeight(3)
 		)
 		assetImageView.pin(
-			.fixedWidth(40),
-			.fixedHeight(40)
+			.fixedWidth(46),
+			.fixedHeight(46)
+		)
+		titleStackView.pin(
+			.top(padding: 6)
 		)
 	}
 }

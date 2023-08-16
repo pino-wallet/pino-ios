@@ -13,8 +13,13 @@ class InvestmentBoardCell: GroupCollectionViewCell {
 
 	private let mainContainerView = UIView()
 	private let mainStackView = UIStackView()
-	private let assetNameLabel = PinoLabel(style: .title, text: "")
+	private let titleStackView = UIStackView()
+	private let amountInfoStackView = UIStackView()
 	private let assetImageView = InvestAssetImageView()
+	private let assetNameLabel = UILabel()
+	private let assetAmountLabel = UILabel()
+	private let assetAmountDescriptionLabel = UILabel()
+	private let spacerView = UIView()
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
@@ -33,27 +38,52 @@ class InvestmentBoardCell: GroupCollectionViewCell {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		mainStackView.addArrangedSubview(assetImageView)
-		mainStackView.addArrangedSubview(assetNameLabel)
-		mainContainerView.addSubview(mainStackView)
 		cardView.addSubview(mainContainerView)
+		mainContainerView.addSubview(mainStackView)
+		mainStackView.addArrangedSubview(titleStackView)
+		mainStackView.addArrangedSubview(spacerView)
+		mainStackView.addArrangedSubview(amountInfoStackView)
+		titleStackView.addArrangedSubview(assetImageView)
+		titleStackView.addArrangedSubview(assetNameLabel)
+		amountInfoStackView.addArrangedSubview(assetAmountLabel)
+		amountInfoStackView.addArrangedSubview(assetAmountDescriptionLabel)
 	}
 
 	private func setupStyles() {
 		assetNameLabel.text = asset.assetName
+		assetAmountLabel.text = asset.formattedAssetAmount
 		assetImageView.assetImage = asset.assetImage
 		assetImageView.protocolImage = asset.protocolImage
 
+		switch asset.volatilityType {
+		case .profit:
+			assetAmountDescriptionLabel.text = "+\(asset.formattedAssetVolatility)"
+			assetAmountDescriptionLabel.textColor = .Pino.green
+		case .loss:
+			assetAmountDescriptionLabel.text = "-\(asset.formattedAssetVolatility)"
+			assetAmountDescriptionLabel.textColor = .Pino.red
+		case .none:
+			assetAmountDescriptionLabel.text = asset.formattedAssetVolatility
+			assetAmountDescriptionLabel.textColor = .Pino.secondaryLabel
+		}
+
+		assetNameLabel.textColor = .Pino.label
+		assetAmountLabel.textColor = .Pino.label
+
 		assetNameLabel.font = .PinoStyle.mediumCallout
-		assetNameLabel.numberOfLines = 0
+		assetAmountLabel.font = .PinoStyle.mediumCallout
+		assetAmountDescriptionLabel.font = .PinoStyle.mediumFootnote
+
+		assetAmountLabel.textAlignment = .right
+		assetAmountDescriptionLabel.textAlignment = .right
 
 		mainContainerView.backgroundColor = .Pino.background
 
-		mainStackView.axis = .horizontal
-		mainStackView.spacing = 8
-		mainStackView.alignment = .center
+		amountInfoStackView.axis = .vertical
+		titleStackView.spacing = 8
 
-		mainContainerView.layer.cornerRadius = 8
+		mainContainerView.layer.cornerRadius = 12
+		cardView.layer.cornerRadius = 12
 
 		separatorLineIsHiden = true
 	}
@@ -67,7 +97,7 @@ class InvestmentBoardCell: GroupCollectionViewCell {
 			.fixedWidth(50)
 		)
 		mainStackView.pin(
-			.leading(padding: 12),
+			.horizontalEdges(padding: 12),
 			.verticalEdges(padding: 8)
 		)
 	}
