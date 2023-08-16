@@ -59,10 +59,10 @@ class Web3Core {
 
 	// MARK: - Public Methods
 
-    public func getAllowanceOf(contractAddress: String, spenderAddress: String) throws -> Promise<BigUInt> {
+    public func getAllowanceOf(contractAddress: String, spenderAddress: String, ownerAddress:String) throws -> Promise<BigUInt> {
         
         let contractAddress = try EthereumAddress(hex: contractAddress, eip55: true)
-        let ownerAddress = try EthereumAddress(hex: walletManager.currentAccount.eip55Address, eip55: true)
+        let ownerAddress = try EthereumAddress(hex: ownerAddress, eip55: true)
         let spenderAddress = try EthereumAddress(hex: spenderAddress, eip55: true)
 
         return try callABIMethod(method: .allowance, contractAddress: contractAddress, params: ownerAddress,spenderAddress)
