@@ -36,9 +36,9 @@ class InvestmentBoardCollectionView: UICollectionView {
 		dataSource = self
 
 		register(
-			SuggestedAddressHeaderView.self,
+			InvestmentBoardHeaderView.self,
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-			withReuseIdentifier: SuggestedAddressHeaderView.viewReuseID
+			withReuseIdentifier: InvestmentBoardHeaderView.viewReuseID
 		)
 		register(InvestmentBoardCell.self, forCellWithReuseIdentifier: InvestmentBoardCell.cellReuseID)
 	}
@@ -107,26 +107,21 @@ extension InvestmentBoardCollectionView: UICollectionViewDataSource {
 		viewForSupplementaryElementOfKind kind: String,
 		at indexPath: IndexPath
 	) -> UICollectionReusableView {
+		let headerView = dequeueReusableSupplementaryView(
+			ofKind: UICollectionView.elementKindSectionHeader,
+			withReuseIdentifier: InvestmentBoardHeaderView.viewReuseID,
+			for: indexPath
+		) as! InvestmentBoardHeaderView
 		switch indexPath.section {
 		case 0:
-			let headerView = dequeueReusableSupplementaryView(
-				ofKind: UICollectionView.elementKindSectionHeader,
-				withReuseIdentifier: SuggestedAddressHeaderView.viewReuseID,
-				for: indexPath
-			) as! SuggestedAddressHeaderView
 			headerView.title = "My investments"
-			return headerView
 		case 1:
-			let headerView = dequeueReusableSupplementaryView(
-				ofKind: UICollectionView.elementKindSectionHeader,
-				withReuseIdentifier: SuggestedAddressHeaderView.viewReuseID,
-				for: indexPath
-			) as! SuggestedAddressHeaderView
 			headerView.title = "Investable assets"
-			return headerView
+			headerView.hasFilter = true
 		default:
 			fatalError("Invalid section index in notificaition collection view")
 		}
+		return headerView
 	}
 }
 
@@ -145,5 +140,13 @@ extension InvestmentBoardCollectionView: UICollectionViewDelegateFlowLayout {
 		referenceSizeForHeaderInSection section: Int
 	) -> CGSize {
 		CGSize(width: collectionView.frame.width, height: 54)
+	}
+
+	func collectionView(
+		_ collectionView: UICollectionView,
+		layout collectionViewLayout: UICollectionViewLayout,
+		insetForSectionAt section: Int
+	) -> UIEdgeInsets {
+		UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
 	}
 }

@@ -9,7 +9,17 @@ import Combine
 import UIKit
 
 class InvestmentBoardCell: GroupCollectionViewCell {
+	// MARK: - Private Propeties
+
+	private let mainContainerView = UIView()
+	private let mainStackView = UIStackView()
+	private let assetNameLabel = PinoLabel(style: .title, text: "")
+	private let assetImageView = InvestAssetImageView()
+	private var cancellables = Set<AnyCancellable>()
+
 	// MARK: - Public Properties
+
+	public static let cellReuseID = "investmentBoardCellID"
 
 	public var asset: InvestAssetViewModel! {
 		didSet {
@@ -19,16 +29,6 @@ class InvestmentBoardCell: GroupCollectionViewCell {
 			setupBindings()
 		}
 	}
-
-	public static let cellReuseID = "investmentBoardCellID"
-
-	// MARK: - Private Propeties
-
-	private let mainContainerView = UIView()
-	private let mainStackView = UIStackView()
-	private let assetNameLabel = PinoLabel(style: .title, text: "")
-	private let assetImageView = InvestAssetImageView()
-	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Private Methods
 
@@ -44,7 +44,7 @@ class InvestmentBoardCell: GroupCollectionViewCell {
 		assetImageView.assetImage = asset.assetImage
 		assetImageView.protocolImage = asset.protocolImage
 
-		assetNameLabel.font = .PinoStyle.semiboldSubheadline
+		assetNameLabel.font = .PinoStyle.mediumCallout
 		assetNameLabel.numberOfLines = 0
 
 		mainContainerView.backgroundColor = .Pino.background
@@ -53,7 +53,7 @@ class InvestmentBoardCell: GroupCollectionViewCell {
 		mainStackView.spacing = 8
 		mainStackView.alignment = .center
 
-		mainContainerView.layer.cornerRadius = 12
+		mainContainerView.layer.cornerRadius = 8
 
 		separatorLineIsHiden = true
 	}
