@@ -18,7 +18,7 @@ class InvestmentBoardCollectionView: UICollectionView {
 	init(assets: [InvestAssetViewModel], assetDidSelect: @escaping (InvestAssetViewModel) -> Void) {
 		self.assets = assets
 		self.assetDidSelect = assetDidSelect
-		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical, minimumLineSpacing: 16)
+		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 
 		configureCollectionView()
@@ -73,7 +73,7 @@ extension InvestmentBoardCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		switch section {
 		case 0:
-			return assets.count
+			return 2
 		case 1:
 			return assets.count
 		default:
@@ -92,8 +92,10 @@ extension InvestmentBoardCollectionView: UICollectionViewDataSource {
 		switch indexPath.section {
 		case 0:
 			investmentBoardCell.asset = assets[indexPath.item]
+			investmentBoardCell.setCellStyle(currentItem: indexPath.item, itemsCount: 2)
 		case 1:
 			investmentBoardCell.asset = assets[indexPath.item]
+			investmentBoardCell.setCellStyle(currentItem: indexPath.item, itemsCount: assets.count)
 		default:
 			fatalError("Invalid section index in notificaition collection view")
 		}
@@ -134,7 +136,7 @@ extension InvestmentBoardCollectionView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		sizeForItemAt indexPath: IndexPath
 	) -> CGSize {
-		CGSize(width: collectionView.frame.width, height: 44)
+		CGSize(width: collectionView.frame.width, height: 64)
 	}
 
 	func collectionView(

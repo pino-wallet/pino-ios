@@ -18,7 +18,7 @@ class InvestmentPerformanceAssetCell: GroupCollectionViewCell {
 	private let assetAmount = UILabel()
 	private let assetAmountPercentage = UILabel()
 	private let progressView = UIProgressView()
-	private var assetImage: InvestAssetImageView!
+	private let assetImageView = InvestAssetImageView()
 
 	// MARK: Public Properties
 
@@ -35,10 +35,8 @@ class InvestmentPerformanceAssetCell: GroupCollectionViewCell {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		assetImage = InvestAssetImageView(assetImage: assetVM.assetImage, protocolImage: assetVM.protocolImage)
-
 		cardView.addSubview(contentStackView)
-		contentStackView.addArrangedSubview(assetImage)
+		contentStackView.addArrangedSubview(assetImageView)
 		contentStackView.addArrangedSubview(amountStackView)
 		amountStackView.addArrangedSubview(titleStackView)
 		amountStackView.addArrangedSubview(progressStackView)
@@ -52,6 +50,8 @@ class InvestmentPerformanceAssetCell: GroupCollectionViewCell {
 		assetName.text = assetVM.assetName
 		assetAmount.text = assetVM.assetAmount
 		assetAmountPercentage.text = assetVM.amountPercentage
+		assetImageView.assetImage = assetVM.assetImage
+		assetImageView.protocolImage = assetVM.protocolImage
 
 		let progressbarFloatValue = Float(assetVM.progressBarValue!.decimalString)!
 		progressView.setProgress(progressbarFloatValue, animated: true)
@@ -88,7 +88,7 @@ class InvestmentPerformanceAssetCell: GroupCollectionViewCell {
 		progressView.pin(
 			.fixedHeight(3)
 		)
-		assetImage.pin(
+		assetImageView.pin(
 			.fixedWidth(40),
 			.fixedHeight(40)
 		)

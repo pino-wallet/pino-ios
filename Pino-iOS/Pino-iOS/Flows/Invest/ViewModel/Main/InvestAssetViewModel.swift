@@ -26,6 +26,10 @@ public struct InvestAssetViewModel {
 		InvestProtocolViewModel(name: assetModel.protocolName)
 	}
 
+	public var protocolImage: String {
+		assetProtocol.protocolInfo.image
+	}
+
 	public var assetAmount: BigNumber {
 		// Temporary
 		BigNumber(number: assetModel.assetAmount, decimal: assetModel.decimal)

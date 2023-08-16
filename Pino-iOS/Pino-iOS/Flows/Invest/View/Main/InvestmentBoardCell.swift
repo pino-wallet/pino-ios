@@ -5,9 +5,10 @@
 //  Created by Mohi Raoufi on 8/16/23.
 //
 
+import Combine
 import UIKit
 
-class InvestmentBoardCell: UICollectionViewCell {
+class InvestmentBoardCell: GroupCollectionViewCell {
 	// MARK: - Public Properties
 
 	public var asset: InvestAssetViewModel! {
@@ -15,6 +16,7 @@ class InvestmentBoardCell: UICollectionViewCell {
 			setupView()
 			setupStyles()
 			setupConstraints()
+			setupBindings()
 		}
 	}
 
@@ -24,51 +26,81 @@ class InvestmentBoardCell: UICollectionViewCell {
 
 	private let mainContainerView = UIView()
 	private let mainStackView = UIStackView()
-	private let logoContainer = UIView()
-	private let logoTextLabel = PinoLabel(style: .title, text: "")
-	private let shortEndAddressLabelContainer = UIView()
-	private let shortEndAddressLabel = PinoLabel(style: .title, text: "")
+	private let assetNameLabel = PinoLabel(style: .title, text: "")
+	private let assetImageView = InvestAssetImageView()
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Private Methods
 
 	private func setupView() {
-		logoContainer.addSubview(logoTextLabel)
-
-		shortEndAddressLabelContainer.addSubview(shortEndAddressLabel)
-
-		mainStackView.addArrangedSubview(logoContainer)
-		mainStackView.addArrangedSubview(shortEndAddressLabelContainer)
-
+		mainStackView.addArrangedSubview(assetImageView)
+		mainStackView.addArrangedSubview(assetNameLabel)
 		mainContainerView.addSubview(mainStackView)
-
-		addSubview(mainContainerView)
+		cardView.addSubview(mainContainerView)
 	}
 
 	private func setupStyles() {
+		assetNameLabel.text = asset.assetName
+		assetImageView.assetImage = asset.assetImage
+		assetImageView.protocolImage = asset.protocolImage
+
+		assetNameLabel.font = .PinoStyle.semiboldSubheadline
+		assetNameLabel.numberOfLines = 0
+
+		mainContainerView.backgroundColor = .Pino.background
+
 		mainStackView.axis = .horizontal
 		mainStackView.spacing = 8
 		mainStackView.alignment = .center
 
-		logoContainer.layer.cornerRadius = 22
-		logoContainer.backgroundColor = .Pino.green1
+		mainContainerView.layer.cornerRadius = 12
 
-		logoTextLabel.font = .PinoStyle.semiboldSubheadline
-		logoTextLabel.textColor = .Pino.primary
-		logoTextLabel.text = asset.assetName
-
-		shortEndAddressLabel.font = .PinoStyle.semiboldSubheadline
-		shortEndAddressLabel.text = asset.assetName
-		shortEndAddressLabel.numberOfLines = 0
+		separatorLineIsHiden = true
 	}
 
 	private func setupConstraints() {
-		mainStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).isActive = true
-		shortEndAddressLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 150).isActive = true
+		mainContainerView.pin(
+			.horizontalEdges(padding: 14)
+		)
+		assetImageView.pin(
+			.fixedHeight(50),
+			.fixedWidth(50)
+		)
+		mainStackView.pin(
+			.leading(padding: 12),
+			.verticalEdges(padding: 8)
+		)
+	}
 
-		mainContainerView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 0))
-		shortEndAddressLabel.pin(.allEdges(padding: 0))
-		logoContainer.pin(.fixedHeight(44), .fixedWidth(44))
-		logoTextLabel.pin(.centerY(), .centerX())
-		mainStackView.pin(.leading(padding: 0), .verticalEdges(padding: 0))
+	private func setupBindings() {
+		$style.sink { style in
+			guard let style else { return }
+			self.updateConstraint(style: style)
+		}.store(in: &cancellables)
+	}
+
+	private func updateConstraint(style: GroupCollectionViewStyle) {
+		var topPadding: CGFloat
+		var bottomPadding: CGFloat
+
+		switch style {
+		case .firstCell:
+			topPadding = 14
+			bottomPadding = 4
+		case .lastCell:
+			topPadding = 4
+			bottomPadding = 14
+		case .regular:
+			topPadding = 4
+			bottomPadding = 4
+		case .singleCell:
+			topPadding = 14
+			bottomPadding = 14
+		}
+
+		mainContainerView.pin(
+			.top(padding: topPadding),
+			.bottom(padding: bottomPadding)
+		)
 	}
 }
