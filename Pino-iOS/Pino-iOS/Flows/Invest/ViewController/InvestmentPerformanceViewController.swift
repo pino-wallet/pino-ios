@@ -41,7 +41,7 @@ class InvestmentPerformanceViewController: UIViewController {
 		view = InvestmentPerformanceCollectionView(
 			investmentPerformanceVM: investmentPerformaneVM,
 			assetSelected: { shareOfAsset in
-				if let shareOfAsset = shareOfAsset as? ShareOfAssetsViewModel {
+				if let shareOfAsset = shareOfAsset as? InvestmentShareOfAssetsViewModel {
 					self.openCoinPerformancePage(selectedAsset: shareOfAsset.assetVM)
 				} else {
 					// Incase we decided to add a special page for assets which contain
@@ -71,5 +71,9 @@ class InvestmentPerformanceViewController: UIViewController {
 		dismiss(animated: true)
 	}
 
-	private func openCoinPerformancePage(selectedAsset: AssetViewModel) {}
+	private func openCoinPerformancePage(selectedAsset: InvestAssetViewModel) {
+		let coinPerformanceVC = InvestCoinPerformanceViewController(selectedAsset: selectedAsset)
+		let coinPerformanceNavigationVC = UINavigationController(rootViewController: coinPerformanceVC)
+		present(coinPerformanceNavigationVC, animated: true)
+	}
 }

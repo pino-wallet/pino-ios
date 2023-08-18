@@ -19,9 +19,9 @@ class CoinPerformanceInfoView: UIView {
 
 	// MARK: - Public Properties
 
-	public var coinPerformanceVM: CoinPerformanceViewModel!
+	public var coinPerformanceVM: CoinPerformanceInfoViewModel!
 
-	init(coinPerformanceVM: CoinPerformanceViewModel) {
+	init(coinPerformanceVM: CoinPerformanceInfoViewModel) {
 		self.coinPerformanceVM = coinPerformanceVM
 		super.init(frame: .zero)
 		setupView()
@@ -60,14 +60,14 @@ class CoinPerformanceInfoView: UIView {
 		)
 	}
 
-	private func updateItems(_ coinInfoVM: CoinPerformanceInfoViewModel) {
+	private func updateItems(_ coinInfoVM: CoinPerformanceInfoValues) {
 		netProfitItem.value = coinInfoVM.netProfit
 		allTimeHighItem.value = coinInfoVM.allTimeHigh
 		allTimeLowItem.value = coinInfoVM.allTimeLow
 	}
 
 	private func setupBindings() {
-		coinPerformanceVM.$coinInfoVM.sink { coinInfo in
+		coinPerformanceVM.$coinPerformanceInfo.sink { coinInfo in
 			guard let coinInfo else { return }
 			self.updateItems(coinInfo)
 		}.store(in: &cancellables)

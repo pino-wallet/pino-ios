@@ -4,7 +4,20 @@
 //
 //  Created by Mohi Raoufi on 3/5/23.
 //
-struct CoinPerformanceInfoViewModel {
+
+import Foundation
+
+class CoinPerformanceInfoViewModel {
+	// MARK: - Public Properties
+
+	@Published
+	public var coinPerformanceInfo: CoinPerformanceInfoValues?
+	public let netProfitTitle = "Net profit"
+	public let allTimeHighTitle = "ATH"
+	public let allTimeLowTitle = "ATL"
+}
+
+struct CoinPerformanceInfoValues {
 	// MARK: - Public Properties
 
 	public var coinPerformanceInfoModel: CoinPerformanceInfoModel
