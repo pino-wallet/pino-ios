@@ -1,15 +1,14 @@
 //
-//  CoinPerformanceView.swift
+//  InvestCoinPerformanceView.swift
 //  Pino-iOS
 //
-//  Created by Mohi Raoufi on 3/5/23.
+//  Created by Mohi Raoufi on 8/14/23.
 //
 
 import Combine
-import DGCharts
 import UIKit
 
-class CoinPerformanceView: UIView {
+class InvestCoinPerformanceView: UIView {
 	// MARK: Private Properties
 
 	private let scrollView = UIScrollView()
@@ -19,19 +18,19 @@ class CoinPerformanceView: UIView {
 	private let chartCardView = UIView()
 	private let titleStackView = UIStackView()
 	private let chartStackView = UIStackView()
-	private let coinImage = UIImageView()
 	private let coinName = UILabel()
 	private let separatorLine = UIView()
 	private let moreInfoTitle = UILabel()
+	private let coinImage = InvestAssetImageView()
 	private let coinInfoView: CoinPerformanceInfoView
 	private var lineChart: AssetLineChart!
 
-	private let coinPerformanceVM: CoinPerformanceViewModel
+	private let coinPerformanceVM: InvestCoinPerformanceViewModel
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
 
-	init(coinPerformanceVM: CoinPerformanceViewModel) {
+	init(coinPerformanceVM: InvestCoinPerformanceViewModel) {
 		self.coinPerformanceVM = coinPerformanceVM
 		self.coinInfoView = CoinPerformanceInfoView(coinPerformanceVM: coinPerformanceVM.coinInfoVM)
 		super.init(frame: .zero)
@@ -70,9 +69,8 @@ class CoinPerformanceView: UIView {
 	private func setupStyle() {
 		moreInfoTitle.text = "More info"
 		coinName.text = coinPerformanceVM.assetName
-
-		coinImage.kf.indicatorType = .activity
-		coinImage.kf.setImage(with: coinPerformanceVM.assetImage)
+		coinImage.assetImage = coinPerformanceVM.assetImage
+		coinImage.protocolImage = coinPerformanceVM.protocolImage
 
 		backgroundColor = .Pino.background
 		chartCardView.backgroundColor = .Pino.secondaryBackground
@@ -123,8 +121,8 @@ class CoinPerformanceView: UIView {
 			.bottom()
 		)
 		coinImage.pin(
-			.fixedWidth(48),
-			.fixedHeight(48)
+			.fixedWidth(52),
+			.fixedHeight(52)
 		)
 		separatorLine.pin(
 			.fixedHeight(1),
