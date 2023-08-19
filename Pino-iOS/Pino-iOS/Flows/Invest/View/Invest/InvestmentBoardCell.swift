@@ -17,16 +17,14 @@ class InvestmentBoardCell: GroupCollectionViewCell {
 	private let amountInfoStackView = UIStackView()
 	private let assetImageView = InvestAssetImageView()
 	private let assetNameLabel = UILabel()
-	private let assetAmountLabel = UILabel()
-	private let assetAmountDescriptionLabel = UILabel()
 	private let spacerView = UIView()
 	private var cancellables = Set<AnyCancellable>()
 
-	// MARK: - Public Properties
+	// MARK: - Internal Properties
 
-	public static let cellReuseID = "investmentBoardCellID"
-
-	public var asset: InvestAssetViewModel! {
+	internal let assetAmountLabel = UILabel()
+	internal let assetAmountDescriptionLabel = UILabel()
+	internal var asset: InvestmentBoardProtocol! {
 		didSet {
 			setupView()
 			setupStyles()
@@ -51,24 +49,10 @@ class InvestmentBoardCell: GroupCollectionViewCell {
 
 	private func setupStyles() {
 		assetNameLabel.text = asset.assetName
-		assetAmountLabel.text = asset.formattedAssetAmount
 		assetImageView.assetImage = asset.assetImage
 		assetImageView.protocolImage = asset.protocolImage
 
-		switch asset.volatilityType {
-		case .profit:
-			assetAmountDescriptionLabel.text = "+\(asset.formattedAssetVolatility)"
-			assetAmountDescriptionLabel.textColor = .Pino.green
-		case .loss:
-			assetAmountDescriptionLabel.text = "-\(asset.formattedAssetVolatility)"
-			assetAmountDescriptionLabel.textColor = .Pino.red
-		case .none:
-			assetAmountDescriptionLabel.text = asset.formattedAssetVolatility
-			assetAmountDescriptionLabel.textColor = .Pino.secondaryLabel
-		}
-
 		assetNameLabel.textColor = .Pino.label
-		assetAmountLabel.textColor = .Pino.label
 
 		assetNameLabel.font = .PinoStyle.mediumCallout
 		assetAmountLabel.font = .PinoStyle.mediumCallout

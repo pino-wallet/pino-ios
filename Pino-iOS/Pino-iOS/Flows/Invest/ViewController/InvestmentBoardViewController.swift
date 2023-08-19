@@ -12,11 +12,13 @@ class InvestmentBoardViewController: UIViewController {
 
 	private let assets: [InvestAssetViewModel]
 	private var investmentBoardView: InvestmentBoardCollectionView!
+	private var investmentBoardVM: InvestmentBoardViewModel
 
 	// MARK: Initializers
 
 	init(assets: [InvestAssetViewModel]) {
 		self.assets = assets
+		self.investmentBoardVM = InvestmentBoardViewModel(userInvestments: assets)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -38,7 +40,7 @@ class InvestmentBoardViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = InvestmentBoardCollectionView(assets: assets, assetDidSelect: { selectedAsset in
+		view = InvestmentBoardCollectionView(investmentBoardVM: investmentBoardVM, assetDidSelect: { selectedAsset in
 			self.openInvestPage()
 		})
 	}
