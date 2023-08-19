@@ -209,7 +209,7 @@ class CoreDataManager {
 		activityDataSource.deleteByID(id)
 	}
 
-	public func performSpeedUpChanges(id: String, newID: String, newGasPrice: String) {
-		activityDataSource.performSpeedUpChanges(id: id, newID: newID, newGasPrice: newGasPrice)
+	public func performSpeedUpChanges(txHash: String, newTxHash: String, newGasPrice: String) {
+		activityDataSource.performSpeedUpChanges(txHash: txHash, newTxHash: newTxHash, newGasPrice: newGasPrice)
 	}
 }

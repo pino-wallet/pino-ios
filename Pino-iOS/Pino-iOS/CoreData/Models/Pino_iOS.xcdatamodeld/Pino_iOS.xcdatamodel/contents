@@ -12,7 +12,7 @@
         <attribute name="fromAddress" attributeType="String"/>
         <attribute name="gasPrice" attributeType="String"/>
         <attribute name="gasUsed" attributeType="String"/>
-        <attribute name="prev_txHash" optional="YES" attributeType="String"/>
+        <attribute name="prevTxHash" optional="YES" attributeType="String"/>
         <attribute name="toAddress" attributeType="String"/>
         <attribute name="txHash" attributeType="String"/>
         <attribute name="type" attributeType="String"/>

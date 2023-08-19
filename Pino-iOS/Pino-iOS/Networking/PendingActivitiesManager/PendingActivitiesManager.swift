@@ -74,7 +74,7 @@ class PendingActivitiesManager {
 						blockTime: cdSwapActivity.blockTime,
 						gasUsed: cdSwapActivity.gasUsed,
 						gasPrice: cdSwapActivity.gasPrice,
-						prev_txHash: cdSwapActivity.prev_txHash
+						prev_txHash: cdSwapActivity.prevTxHash
 					))
 				case .transfer:
 					let cdTransferActivity = activity as! CDTransferActivity
@@ -94,7 +94,7 @@ class PendingActivitiesManager {
 						blockTime: cdTransferActivity.blockTime,
 						gasUsed: cdTransferActivity.gasUsed,
 						gasPrice: cdTransferActivity.gasPrice,
-						prev_txHash: cdTransferActivity.prev_txHash
+						prev_txHash: cdTransferActivity.prevTxHash
 					))
 				case .transfer_from:
 					let cdTransferActivity = activity as! CDTransferActivity
@@ -114,7 +114,7 @@ class PendingActivitiesManager {
 						blockTime: cdTransferActivity.blockTime,
 						gasUsed: cdTransferActivity.gasUsed,
 						gasPrice: cdTransferActivity.gasPrice,
-						prev_txHash: cdTransferActivity.prev_txHash
+						prev_txHash: cdTransferActivity.prevTxHash
 					))
 				default:
 					print("unknown activity type")

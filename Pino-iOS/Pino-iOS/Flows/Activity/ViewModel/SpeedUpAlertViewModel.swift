@@ -74,8 +74,8 @@ class SpeedUpAlertViewModel {
 			)
 		).done { txHash in
 			self.coreDataManager.performSpeedUpChanges(
-				id: self.activityDetailsVM.activityDetails.defaultActivityModel.txHash,
-				newID: txHash,
+				txHash: self.activityDetailsVM.activityDetails.defaultActivityModel.txHash,
+				newTxHash: txHash,
 				newGasPrice: self.newBigNumberGasPrice.description
 			)
 			self.activityDetailsVM.performSpeedUpChanges(
@@ -93,6 +93,7 @@ class SpeedUpAlertViewModel {
 		}
 	}
 
+    #warning("maybe we raftor this section later")
 	public func getSpeedUpDetails() {
 		Web3Core.shared.getTransactionByHash(txHash: activityDetailsVM.activityDetails.defaultActivityModel.txHash)
 			.done { txObject in
@@ -121,9 +122,10 @@ class SpeedUpAlertViewModel {
 
 	// MARK: - Private Methods
 
+    #warning("maybe we raftor this section later")
 	private func calculateIncreasedGasPrice(gasPrice: EthereumQuantity) -> BigNumber {
-		let bigNumberOneHoundered = BigNumber(number: "100", decimal: 0)
-		let bigNumberTen = BigNumber(number: "10", decimal: 0)
+        let bigNumberOneHoundered = 100.bigNumber
+        let bigNumberTen = 10.bigNumber
 		let bigNumberGasPrice = BigNumber(number: "\(gasPrice.quantity)", decimal: 0)
 		let bigNumberOnePercentOfGasPrice = BigNumber(
 			number: (bigNumberGasPrice / bigNumberOneHoundered)!,

@@ -118,7 +118,6 @@ class ActivityDetailsView: UIScrollView {
 		footerIconView.image = UIImage(named: activityDetailsVM.otherTokenTransactionIconName)
 
 		footerContainerView.isHidden = true
-		#warning("later we should show footer container view for other tokens transaction")
 
 		mainStackView.setCustomSpacing(16, after: activityDetailsHeader)
 
