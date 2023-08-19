@@ -24,10 +24,7 @@ class AssetsBoardCollectionView: UICollectionView {
 		self.assets = assets
 		self.userAssets = userAssets
 		self.assetDidSelect = assetDidSelect
-		let flowLayout = UICollectionViewFlowLayout(
-			scrollDirection: .vertical,
-			sectionInset: UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
-		)
+		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 
 		configureCollectionView()
