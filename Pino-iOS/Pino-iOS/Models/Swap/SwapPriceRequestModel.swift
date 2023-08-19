@@ -7,21 +7,30 @@
 
 import Foundation
 
-public struct SwapPriceRequestModel {
+struct SwapPriceRequestModel {
 	var srcToken: String
 	let srcDecimals: Int?
-	let destToken: String
+	var destToken: String
 	let destDecimals: Int?
 	let amount: String
 	let side: SwapSide
 	let networkID: Int?
 
-	// MARK: - Public Properties
-
 	public static let paraSwapETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 	public static let oneInchETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 	public static let zeroXETHID = "ETH"
 	public static let pinoETHID = "0x0000000000000000000000000000000000000000"
+
+	// Initializer for ParaSwap
+	init(srcToken: String, srcDecimals: Int, destToken: String, destDecimals: Int, amount: String, side: SwapSide) {
+		self.srcToken = srcToken
+		self.srcDecimals = srcDecimals
+		self.destToken = destToken
+		self.destDecimals = destDecimals
+		self.amount = amount
+		self.side = side
+		self.networkID = 1
+	}
 
 	public var paraSwapURLParams: HTTPParameters {
 		[
@@ -57,29 +66,5 @@ public struct SwapPriceRequestModel {
 			params["buyAmount"] = amount
 		}
 		return params
-	}
-
-	// MARK: - Initializers
-
-	// Initializer for ParaSwap
-	init(srcToken: String, srcDecimals: Int, destToken: String, destDecimals: Int, amount: String, side: SwapSide) {
-		self.srcToken = srcToken
-		self.srcDecimals = srcDecimals
-		self.destToken = destToken
-		self.destDecimals = destDecimals
-		self.amount = amount
-		self.side = side
-		self.networkID = 1
-	}
-
-	// Initliazer for 1Inch and 0x
-	init(srcToken: String, destToken: String, amount: String, side: SwapSide) {
-		self.srcToken = srcToken
-		self.srcDecimals = nil
-		self.destToken = destToken
-		self.destDecimals = nil
-		self.amount = amount
-		self.side = side
-		self.networkID = nil
 	}
 }

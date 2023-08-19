@@ -127,6 +127,15 @@
       }
     },
     {
+      "identity" : "wallet-core",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/trustwallet/wallet-core",
+      "state" : {
+        "revision" : "aa7475536e8c5b0383b1553073139b3498a9e35f",
+        "version" : "3.2.11"
+      }
+    },
+    {
       "identity" : "web3-utility",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/nitolabs/Web3-Utility",

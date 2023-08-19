@@ -31,12 +31,6 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 		super.viewDidLoad()
 	}
 
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-
-		confirmSwap()
-	}
-
 	override func loadView() {
 		setupView()
 		setupNavigationBar()

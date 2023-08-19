@@ -5,8 +5,8 @@
 //  Created by Mohi Raoufi on 3/5/23.
 //
 
-import Charts
 import Combine
+import DGCharts
 import UIKit
 
 class CoinPerformanceView: UIView {
@@ -33,7 +33,7 @@ class CoinPerformanceView: UIView {
 
 	init(coinPerformanceVM: CoinPerformanceViewModel) {
 		self.coinPerformanceVM = coinPerformanceVM
-		self.coinInfoView = CoinPerformanceInfoView(coinPerformanceVM: coinPerformanceVM)
+		self.coinInfoView = CoinPerformanceInfoView(coinPerformanceVM: coinPerformanceVM.coinInfoVM)
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()

@@ -4,7 +4,7 @@
 //
 //  Created by Mohi Raoufi on 2/25/23.
 //
-import Charts
+import DGCharts
 import Foundation
 
 struct AssetChartViewModel {

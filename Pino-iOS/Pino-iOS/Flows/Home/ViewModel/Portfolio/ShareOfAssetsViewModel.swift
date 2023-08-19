@@ -18,6 +18,7 @@ struct ShareOfAssetsViewModel: ShareOfAssetsProtocol {
 
 	internal var holdAmount: BigNumber
 	internal var totalAmount: BigNumber
+	internal var protocolImage: String?
 
 	// MARK: - Initializers
 

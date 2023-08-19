@@ -85,6 +85,7 @@ class SwapConfirmationView: UIView {
 	private func setupStyle() {
 		continueButton.title = swapConfirmationVM.confirmButtonTitle
 		arrowImageView.image = UIImage(named: "arrow_down")
+		arrowImageView.tintColor = .Pino.label
 
 		backgroundColor = .Pino.background
 

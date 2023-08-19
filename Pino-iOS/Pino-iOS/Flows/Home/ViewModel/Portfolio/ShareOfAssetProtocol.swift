@@ -15,6 +15,7 @@ protocol ShareOfAssetsProtocol {
 	var progressBarValue: BigNumber? { get }
 	var assetName: String { get }
 	var assetImage: URL? { get }
+	var protocolImage: String? { get }
 	var othersImage: String { get }
 }
 

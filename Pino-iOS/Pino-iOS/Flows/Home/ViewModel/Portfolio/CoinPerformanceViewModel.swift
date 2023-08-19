@@ -4,8 +4,8 @@
 //
 //  Created by Mohi Raoufi on 3/5/23.
 //
-import Charts
 import Combine
+import DGCharts
 import Foundation
 
 class CoinPerformanceViewModel {
@@ -19,13 +19,9 @@ class CoinPerformanceViewModel {
 
 	public let assetName: String
 	public let assetImage: URL
-	public let netProfitTitle = "Net profit"
-	public let allTimeHighTitle = "ATH"
-	public let allTimeLowTitle = "ATL"
 	@Published
 	public var chartVM: AssetChartViewModel?
-	@Published
-	public var coinInfoVM: CoinPerformanceInfoViewModel?
+	public var coinInfoVM = CoinPerformanceInfoViewModel()
 
 	// MARK: - Initializers
 
@@ -62,7 +58,7 @@ class CoinPerformanceViewModel {
 	}
 
 	private func updateCoinPerformanceInfo(chart: AssetChartViewModel) {
-		coinInfoVM = CoinPerformanceInfoViewModel(
+		coinInfoVM.coinPerformanceInfo = CoinPerformanceInfoValues(
 			netProfit: "0",
 			ATH: allTimeHigh(chart: chart),
 			ATL: allTimeLow(chart: chart)
