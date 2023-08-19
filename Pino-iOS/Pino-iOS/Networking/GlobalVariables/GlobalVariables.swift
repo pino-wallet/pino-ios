@@ -91,8 +91,9 @@ class GlobalVariables {
 	}
 
 	private func calculateEthGasFee(ethPrice: BigNumber) -> Promise<Void> {
-		Web3Core.shared.calculateEthGasFee(ethPrice: ethPrice).done { fee, feeInDollar, gasPrice, gasLimit in
-			GlobalVariables.shared.ethGasFee = (fee, feeInDollar)
+		Web3Core.shared.calculateEthGasFee(ethPrice: ethPrice).done { gasInfo in
+            let fee = BigNumber(unSignedNumber: gasInfo.fee, decimal: 18)
+            GlobalVariables.shared.ethGasFee = (fee, gasInfo.feeInDollar)
 		}
 	}
 

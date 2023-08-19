@@ -17,12 +17,25 @@ enum Web3Error: Error {
 	case insufficientBalance
 }
 
-public struct ERC20TrxGasInfo {
-    let nonce: BigUInt
+public struct GasInfo {
+    
     let gasPrice: BigUInt
-    let estimate: BigUInt
     let gasLimit: BigUInt
-    let trxGas: BigUInt
+    
+    var increasedGasLimit: BigUInt {
+        try! EthereumQuantity((gasLimit * BigUInt(110)) / BigUInt(100)).quantity
+    }
+    
+    var fee: BigUInt {
+        increasedGasLimit * gasPrice
+    }
+    
+    var feeInDollar: BigNumber{
+        let eth = GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth })
+        let fee = BigNumber(unSignedNumber: fee, decimal: 18)
+        return fee * eth!.price
+    }
+    
 }
 
 class Web3Core {
@@ -30,25 +43,23 @@ class Web3Core {
     // MARK: - Private Properties
 
 	private init() {}
-	private var web3: Web3 {
-		if let testURL = AboutPinoView.web3URL {
-			return Web3(rpcURL: testURL)
-		} else {
-			return Web3(rpcURL: "https://rpc.ankr.com/eth")
-		}
-	}
 
 	private let walletManager = PinoWalletManager()
 
     // MARK: - Yypealias
 
 	typealias CustomAssetInfo = [ABIMethodCall: String]
-	typealias GasInfo = (fee: BigNumber, feeInDollar: BigNumber, gasPrice: String, gasLimit: String)
-    typealias ERC20GasPromise = Promise<(ERC20TrxGasInfo)>
 
 	// MARK: - Public Properties
 
 	public static var shared = Web3Core()
+    public var web3: Web3 {
+        if let testURL = AboutPinoView.web3URL {
+            return Web3(rpcURL: testURL)
+        } else {
+            return Web3(rpcURL: "https://rpc.ankr.com/eth")
+        }
+    }
 	
     public enum ABIMethodCall: String {
 		case decimal = "decimals"
@@ -138,50 +149,46 @@ class Web3Core {
 		}
 	}
 
-	public func calculateEthGasFee(ethPrice: BigNumber) -> Promise<GasInfo> {
+    // MARK: - Gas Calculators
+    
+    public func calculateEthGasFee(ethPrice: BigNumber) -> Promise<GasInfo> {
 		Promise<GasInfo>() { seal in
 			attempt(maximumRetryCount: 3) { [self] in
 				web3.eth.gasPrice()
 			}.done { gasPrice in
-				let gasLimit = BigNumber(number: Constants.ethGasLimit, decimal: 0)
+				let gasLimit = try BigUInt(Constants.ethGasLimit)
 				let gasPriceBigNum = BigNumber(number: "\(gasPrice.quantity)", decimal: 0)
-				let fee = BigNumber(number: gasLimit * gasPriceBigNum, decimal: 18)
-				let feeInDollar = fee * ethPrice
-				seal
-					.fulfill((fee, feeInDollar, gasPrice: gasPrice.quantity.description, gasLimit: Constants.ethGasLimit))
+                let gasInfo = GasInfo(gasPrice: gasPrice.quantity, gasLimit: gasLimit)
 			}.catch { error in
 				seal.reject(error)
 			}
 		}
 	}
 
-	public func calculateERCGasFee(
+    public func calculateSendERCGasFee(
 		address: String,
 		amount: BigUInt,
-		tokenContractAddress: String,
-		ethPrice: BigNumber
+		tokenContractAddress: String
 	) -> Promise<GasInfo> {
-		Promise<GasInfo>() { seal in
-			firstly {
-				calculateERC20TokenFee(transaction: transaction)
+        let eth = GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth })
+		return Promise<GasInfo>() { seal in
+            firstly {
+                let to: EthereumAddress = try! EthereumAddress(hex: address, eip55: true)
+                let trxManager = TransactionManager()
+                let contract = try! getContractOfToken(address: tokenContractAddress)
+                let solInvocation = contract["transfer"]!(to, amount)
+                return trxManager.calculateGasOf(method: .transfer, contract: solInvocation)
 			}.done { trxGasInfo in
-
-                let fee = BigNumber(unSignedNumber: trxGasInfo.trxGas, decimal: 18)
-				let feeInDollar = fee * ethPrice
-
-				seal.fulfill((
-					fee,
-					feeInDollar,
-                    gasPrice: trxGasInfo.gasPrice,
-                    gasLimit: trxGasInfo.gasLimit
-				))
+                let gasInfo = GasInfo(gasPrice: trxGasInfo.gasPrice, gasLimit: trxGasInfo.gasLimit)
+                seal.fulfill(gasInfo)
 			}.catch { error in
 				seal.reject(error)
 			}
 		}
 	}
     
-
+    // MARK: - End Of Gas Calculators
+    
 	public func sendEtherTo(address: String, amount: BigUInt) -> Promise<String> {
 		let enteredAmount = EthereumQuantity(quantity: amount)
 		return Promise<String>() { seal in
@@ -215,137 +222,43 @@ class Web3Core {
 		amount: BigUInt,
 		tokenContractAddress: String
 	) -> Promise<String> {
-		Promise<String>() { [self] seal in
+        
 
-			calculateERC20TokenFee(address: address, amount: amount, tokenContractAddress: tokenContractAddress)
-				.then { [self] estimate, transactionInfo -> Promise<EthereumData> in
+		return Promise<String>() { [self] seal in
 
-					let myPrivateKey = try EthereumPrivateKey(
-						hexPrivateKey: walletManager.currentAccountPrivateKey
-							.string
-					)
-					let contract = try getContractOfToken(address: tokenContractAddress)
-					let to = try EthereumAddress(hex: address, eip55: true)
+            calculateSendERCGasFee(address: address, amount: amount, tokenContractAddress: tokenContractAddress)
+                .then { [self] gasInfo in
+                    let privateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
+                    return web3.eth.getTransactionCount(address: privateKey.address, block: .latest).map { ($0, gasInfo) }
+                }
+                .then { [self] nonce, gasInfo in
+                let myPrivateKey = try EthereumPrivateKey(
+                    hexPrivateKey: walletManager.currentAccountPrivateKey
+                        .string
+                )
+                let contract = try getContractOfToken(address: tokenContractAddress)
+                let to = try EthereumAddress(hex: address, eip55: true)
+                let solInvocation = contract["transfer"]?(to, amount)
+                let trx = try TransactionManager().createTransactionFor(method: .transfer, contract: solInvocation!, nonce: nonce, gasPrice: gasInfo.gasPrice.etherumQuantity, gasLimit: gasInfo.gasLimit.etherumQuantity)
 
-					guard let transaction = contract["transfer"]?(to, amount).createTransaction(
-						nonce: transactionInfo[.nonce],
-						gasPrice: transactionInfo[.gasPrice],
-						maxFeePerGas: nil,
-						maxPriorityFeePerGas: nil,
-						gasLimit: try .init(transactionInfo[.gasLimit]!.quantity * BigUInt(110) / BigUInt(100)),
-						from: myPrivateKey.address,
-						value: 0,
-						accessList: [:],
-						transactionType: .legacy
-					) else {
-						throw Web3Error.failedTransaction
-					}
-
-					let signedTx = try transaction.sign(with: myPrivateKey, chainId: 1)
-
-					return web3.eth.sendRawTransaction(transaction: signedTx)
-
-				}.done { txHash in
-					seal.fulfill(txHash.hex())
-				}.catch { error in
-					seal.reject(error)
-				}
+                let signedTx = try trx.sign(with: myPrivateKey, chainId: 1)
+                return web3.eth.sendRawTransaction(transaction: signedTx)
+            }.done { txHash in
+                seal.fulfill(txHash.hex())
+            }.catch { error in
+                seal.reject(error)
+            }
+            
 		}
 	}
 
 	// MARK: - Private Methods
 
-//	private func calculateERC20TokenFee(
-//		address: String,
-//		amount: BigUInt,
-//		tokenContractAddress: String
-//	) -> ERC20GasPromise {
-//        ERC20GasPromise() { [self] seal in
-//
-//			let to = try EthereumAddress(hex: address, eip55: true)
-//			let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
-//			var transactionInfo: ERC20TransactionInfoType = [:]
-//			// Send some tokens to another address (locally signing the transaction)
-//
-//			firstly {
-//				web3.eth.gasPrice()
-//			}.map { gasPrice in
-//				transactionInfo.updateValue(gasPrice, forKey: .gasPrice)
-//			}.then { [self] in
-//				web3.eth.getTransactionCount(address: myPrivateKey.address, block: .latest)
-//			}.map { nonce in
-//				transactionInfo.updateValue(nonce, forKey: .nonce)
-//			}.then { [self] () throws -> Promise<EthereumQuantity> in
-//				Promise<EthereumQuantity>() { seal in
-//					firstly {
-//						let contract = try getContractOfToken(address: tokenContractAddress)
-//						let transaction = contract["transfer"]?(to, amount).createTransaction(
-//							nonce: transactionInfo[.nonce],
-//							gasPrice: transactionInfo[.gasPrice],
-//							maxFeePerGas: nil,
-//							maxPriorityFeePerGas: nil,
-//							gasLimit: nil,
-//							from: myPrivateKey.address,
-//							value: nil,
-//							accessList: [:],
-//							transactionType: .legacy
-//						)
-//						return web3.eth.estimateGas(call: .init(
-//							from: transaction?.from,
-//							to: (transaction?.to)!,
-//							gas: transactionInfo[.gasPrice],
-//							gasPrice: nil,
-//							value: nil,
-//							data: transaction!.data
-//						))
-//					}.done { estimate in
-//						seal.fulfill(estimate)
-//					}.catch { error in
-//						seal.reject(error)
-//					}
-//				}
-//			}.done { gaslimit in
-//				transactionInfo.updateValue(gaslimit, forKey: .gasLimit)
-//				let estimate = try EthereumQuantity((gaslimit.quantity * BigUInt(110)) / BigUInt(100))
-//				let caclulatedFee = estimate.quantity * transactionInfo[.gasPrice]!.quantity
-//				seal.fulfill((EthereumQuantity(quantity: caclulatedFee), transactionInfo))
-//			}.catch { error in
-//				seal.reject(error)
-//			}
-//		}
-//	}
-    
-    private func calculateERC20TokenFee<ABIParams: ABIEncodable>(contractAddress:String, method: ABIMethodWrite, params: ABIParams...) -> Promise<(ERC20TrxGasInfo)> {
-        Promise<(ERC20TrxGasInfo)>() { seal in
-            let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: self.walletManager.currentAccountPrivateKey.string)
-            // Send some tokens to another address (locally signing the transaction)
-            let trxManager = TransactionManager(contractAddress: contractAddress)
-
-            firstly {
-                web3.eth.gasPrice()
-            }.then { gasPrice in
-                self.web3.eth.getTransactionCount(address: myPrivateKey.address, block: .latest).map{ ($0, gasPrice) }
-            }.then { nonce, gasPrice in
-                trxManager.createTemporaryTransactionFor(method: method, params: params, nonce: nonce, gasPrice: gasPrice).promise.map{ ($0, nonce, gasPrice) }
-            }.then { transaction, nonce, gasPrice in
-                self.web3.eth.estimateGas(call: .init(to: transaction.to!)).map{ ($0,nonce,gasPrice) }
-            }.map { gaslimit, nonce, gasPrice in
-                let estimate = try EthereumQuantity((gaslimit.quantity * BigUInt(110)) / BigUInt(100))
-                let caclulatedFee = estimate.quantity * gasPrice.quantity
-                return (caclulatedFee, gaslimit, nonce, gasPrice, estimate)
-            }.done { caclulatedFee, gaslimit, nonce, gasPrice, estimate in
-                seal.fulfill(ERC20TrxGasInfo(nonce: nonce.quantity, gasPrice: gasPrice.quantity, estimate: estimate.quantity, gasLimit: gaslimit.quantity, trxGas: caclulatedFee))
-            }.catch { error in
-                seal.reject(error)
-            }
-        }
-    }
 
 	private func getInfo(address: String, info: ABIMethodCall) throws -> Promise<[String: Any]> {
 		let contractAddress = try EthereumAddress(hex: address, eip55: true)
 		let contractJsonABI = Web3ABI.erc20AbiString.data(using: .utf8)!
 		let contract = try web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
-
 		return contract[info.rawValue]!(contractAddress).call()
 	}
     
@@ -354,7 +267,7 @@ class Web3Core {
         // You can optionally pass an abiKey param if the actual abi is nested and not the top level element of the json
         let contract = try web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
         // Get balance of some address
-        
+            
         return Promise<T>() { seal in
             firstly {
                 contract[method.rawValue]!(params).call()
