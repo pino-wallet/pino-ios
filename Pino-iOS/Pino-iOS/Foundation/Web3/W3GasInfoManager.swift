@@ -32,7 +32,7 @@ public struct W3GasInfoManager {
     // MARK: - Private Properties
     private var walletManager = PinoWalletManager()
     
-    public func calculateGasOf(method: ABIMethodWrite, contract: SolidityInvocation) -> Promise<(GasInfo)> {
+    public func calculateGasOf(method: ABIMethodWrite, contract: SolidityInvocation, contractAddress: EthereumAddress) -> Promise<(GasInfo)> {
         Promise<(GasInfo)>() { seal in
             let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: self.walletManager.currentAccountPrivateKey.string)
 
@@ -43,7 +43,16 @@ public struct W3GasInfoManager {
             }.then { nonce, gasPrice in
                 try transactionManager.createTransactionFor(method: method, contract: contract, nonce: nonce, gasPrice: gasPrice, gasLimit: nil).promise.map { ($0, nonce, gasPrice) }
             }.then { transaction, nonce, gasPrice in
-                web3.eth.estimateGas(call: .init(to: transaction.to!)).map{ ($0,nonce,gasPrice) }
+                
+                web3.eth.estimateGas(call: .init(
+                    from: transaction.from,
+                    to: contractAddress,
+                    gas: gasPrice,
+                    gasPrice: nil,
+                    value: nil,
+                    data: transaction.data
+                )).map{ ($0,nonce,gasPrice) }
+                
             }.done { gasLimit, nonce, gasPrice in
                 let gasInfo = GasInfo(gasPrice: gasPrice.quantity, gasLimit: gasLimit.quantity)
                 seal.fulfill(gasInfo)
@@ -78,7 +87,28 @@ public struct W3GasInfoManager {
                 let to: EthereumAddress = try! EthereumAddress(hex: address, eip55: true)
                 let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, web3: web3)
                 let solInvocation = contract[ABIMethodWrite.transfer.rawValue]!(to, amount)
-                return gasInfoManager.calculateGasOf(method: .transfer, contract: solInvocation)
+                return gasInfoManager.calculateGasOf(method: .transfer, contract: solInvocation, contractAddress: to)
+            }.done { trxGasInfo in
+                let gasInfo = GasInfo(gasPrice: trxGasInfo.gasPrice, gasLimit: trxGasInfo.gasLimit)
+                seal.fulfill(gasInfo)
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
+    }
+    
+    public func calculateApproveFee(
+        spender: String,
+        amount: BigUInt,
+        tokenContractAddress: String
+    ) -> Promise<GasInfo> {
+        return Promise<GasInfo>() { seal in
+            firstly {
+                let spender: EthereumAddress = try! EthereumAddress(hex: spender, eip55: true)
+                let contractAddress: EthereumAddress = try! EthereumAddress(hex: tokenContractAddress, eip55: true)
+                let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, web3: web3)
+                let solInvocation = contract[ABIMethodWrite.approve.rawValue]!(spender, amount)
+                return gasInfoManager.calculateGasOf(method: .approve, contract: solInvocation, contractAddress: contractAddress)
             }.done { trxGasInfo in
                 let gasInfo = GasInfo(gasPrice: trxGasInfo.gasPrice, gasLimit: trxGasInfo.gasLimit)
                 seal.fulfill(gasInfo)

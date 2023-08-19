@@ -17,41 +17,6 @@ enum Web3Error: Error {
 	case insufficientBalance
 }
 
-public struct GasInfo {
-    
-    let gasPrice: BigUInt
-    let gasLimit: BigUInt
-    
-    var increasedGasLimit: BigUInt {
-        try! EthereumQuantity((gasLimit * BigUInt(110)) / BigUInt(100)).quantity
-    }
-    
-    var fee: BigUInt {
-        increasedGasLimit * gasPrice
-    }
-    
-    var feeInDollar: BigNumber{
-        let eth = GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth })
-        let fee = BigNumber(unSignedNumber: fee, decimal: 18)
-        return fee * eth!.price
-    }
-    
-}
-
-public enum ABIMethodCall: String {
-    case decimal = "decimals"
-    case balance = "balanceOf"
-    case name
-    case symbol
-    case allowance
-    case approve
-}
-
-public enum ABIMethodWrite: String {
-    case approve
-    case transfer
-}
-
 public class Web3Core {
     
     // MARK: - Private Properties
@@ -96,23 +61,9 @@ public class Web3Core {
         return try callABIMethod(method: .allowance, contractAddress: contractAddress, params: ownerAddress,spenderAddress)
     }
     
-    public func approve() {
+    public func calculateApproveFeeOf(contractAddress: String, amount: BigUInt, spender: String) -> Promise<GasInfo> {
         // Proccess is like Send
-//        guard let transaction = contract["transfer"]?(to, amount).createTransaction(
-//            nonce: transactionInfo[.nonce],
-//            gasPrice: transactionInfo[.gasPrice],
-//            maxFeePerGas: nil,
-//            maxPriorityFeePerGas: nil,
-//            gasLimit: try .init(transactionInfo[.gasLimit]!.quantity * BigUInt(110) / BigUInt(100)),
-//            from: myPrivateKey.address,
-//            value: 0,
-//            accessList: [:],
-//            transactionType: .legacy
-//        ) else {
-//            throw Web3Error.failedTransaction
-//        }
-//
-//        let signedTx = try transaction.sign(with: myPrivateKey, chainId: 1)
+        gasInfoManager.calculateApproveFee(spender: spender, amount: amount, tokenContractAddress: contractAddress)
     }
     
 	public func getCustomAssetInfo(contractAddress: String) -> Promise<CustomAssetInfo> {
