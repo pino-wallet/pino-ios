@@ -10,8 +10,10 @@ import Foundation
 struct InvestmentBoardViewModel {
 	// MARK: - Public Properties
 
-	public let userInvestments: [InvestAssetViewModel]
-	public var investableAssets: [InvestableAssetViewModel]!
+	public let userInvestmentsTitle = "My investments"
+	public let investableAssetsTitle = "Investable assets"
+	public var investableAssets = [InvestableAssetViewModel]()
+	public var userInvestments = [InvestAssetViewModel]()
 
 	// MARK: - Initializers
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct InvestableAssetViewModel: InvestmentBoardProtocol {
+public struct InvestableAssetViewModel: AssetsBoardProtocol {
 	// MARK: - Private Properties
 
 	private let assetModel: InvestableAssetModel

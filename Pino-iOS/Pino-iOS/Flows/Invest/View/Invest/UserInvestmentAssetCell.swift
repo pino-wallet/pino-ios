@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UserInvestmentAssetCell: InvestmentBoardCell {
+class UserInvestmentAssetCell: AssetsBoardCell {
 	// MARK: - Public Properties
 
 	public static let cellReuseID = "UserInvestmentCellID"

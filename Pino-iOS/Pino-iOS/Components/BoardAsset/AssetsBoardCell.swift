@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-class InvestmentBoardCell: GroupCollectionViewCell {
+class AssetsBoardCell: GroupCollectionViewCell {
 	// MARK: - Private Propeties
 
 	private let mainContainerView = UIView()
@@ -24,7 +24,7 @@ class InvestmentBoardCell: GroupCollectionViewCell {
 
 	internal let assetAmountLabel = UILabel()
 	internal let assetAmountDescriptionLabel = UILabel()
-	internal var asset: InvestmentBoardProtocol! {
+	internal var asset: AssetsBoardProtocol! {
 		didSet {
 			setupView()
 			setupStyles()

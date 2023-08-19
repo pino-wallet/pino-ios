@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InvestmentBoardHeaderView: UICollectionReusableView {
+class AssetsBoardHeaderView: UICollectionReusableView {
 	// MARK: - Private Properties
 
 	private let contentStackview = UIStackView()

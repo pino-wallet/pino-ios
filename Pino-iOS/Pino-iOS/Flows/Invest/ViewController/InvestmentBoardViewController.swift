@@ -11,7 +11,7 @@ class InvestmentBoardViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let assets: [InvestAssetViewModel]
-	private var investmentBoardView: InvestmentBoardCollectionView!
+	private var investmentBoardView: InvestmentBoardView!
 	private var investmentBoardVM: InvestmentBoardViewModel
 
 	// MARK: Initializers
@@ -40,7 +40,7 @@ class InvestmentBoardViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = InvestmentBoardCollectionView(investmentBoardVM: investmentBoardVM, assetDidSelect: { selectedAsset in
+		view = InvestmentBoardView(investmentBoardVM: investmentBoardVM, assetDidSelect: { selectedAsset in
 			self.openInvestPage()
 		})
 	}

@@ -7,8 +7,14 @@
 
 import Foundation
 
-protocol InvestmentBoardProtocol {
+protocol AssetsBoardProtocol {
 	var assetName: String { get }
 	var assetImage: URL { get }
 	var protocolImage: String { get }
+}
+
+extension AssetsBoardProtocol {
+	var protocolImage: String {
+		.emptyString
+	}
 }
