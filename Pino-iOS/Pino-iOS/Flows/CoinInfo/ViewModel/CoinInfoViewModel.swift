@@ -21,6 +21,8 @@ class CoinInfoViewModel {
 	public var coinHistoryActivitiesList: [ActivityCellViewModel]!
 	@Published
 	public var coinHistoryNewActivitiesList: [ActivityCellViewModel] = []
+	@Published
+	public var shouldReplacedActivites: [ActivityCellViewModel] = []
 
 	public let requestFailedErrorToastMessage = "Couldn't refresh coin data"
 	public let connectionErrorToastMessage = "No internet connection"
@@ -107,6 +109,22 @@ class CoinInfoViewModel {
 				return
 			}
 
+			for pendingActivity in pendingActivities {
+				let foundPendingActivityIndex = self.prevActivities
+					.firstIndex(where: { $0.txHash == pendingActivity.prev_txHash })
+				if foundPendingActivityIndex != nil {
+					if self.prevActivities[foundPendingActivityIndex!].txHash != pendingActivity
+						.txHash {
+						self
+							.shouldReplacedActivites.append(
+								ActivityCellViewModel(activityModel: pendingActivity)
+							)
+						self.prevActivities[foundPendingActivityIndex!] = pendingActivity
+					}
+				}
+			}
+			self.shouldReplacedActivites = []
+
 			let newPendingActivities = pendingActivities.filter { activity in
 				!self.prevActivities.contains(where: { $0.txHash == activity.txHash })
 			}
@@ -122,6 +140,7 @@ class CoinInfoViewModel {
 			if prevPendingActivities.count > pendingActivities.count {
 				self.requestTimer?.fire()
 			}
+
 		}.store(in: &pendingActivitiesCancellable)
 	}
 
@@ -215,13 +234,12 @@ class CoinInfoViewModel {
 				self?.prevActivities.append(contentsOf: newActivities)
 
 				for activity in iteratedActivities {
-					let foundActivityIndex = self?.coinHistoryActivitiesList?
-						.firstIndex(where: { $0.defaultActivityModel.txHash == activity.txHash })
+					let foundActivityIndex = self?.prevActivities
+						.firstIndex(where: { $0.txHash == activity.txHash })
 					guard foundActivityIndex != nil else {
 						return
 					}
-					if self?.coinHistoryActivitiesList?[foundActivityIndex!].defaultActivityModel
-						.failed == nil && activity
+					if self?.prevActivities[foundActivityIndex!].failed == nil && activity
 						.failed != nil {
 						guard let coreDataActivites = self?.coreDataManager.getAllActivities() else {
 							return
@@ -229,12 +247,11 @@ class CoinInfoViewModel {
 						if !coreDataActivites.isEmpty {
 							PendingActivitiesManager.shared.startActivityPendingRequests()
 						}
-						self?
-							.coinHistoryActivitiesList?[foundActivityIndex!] =
-							ActivityCellViewModel(activityModel: activity)
+						self?.shouldReplacedActivites.append(ActivityCellViewModel(activityModel: activity))
 						self?.prevActivities[foundActivityIndex!] = activity
 					}
 				}
+				self?.shouldReplacedActivites = []
 			}
 		}.store(in: &cancellables)
 	}

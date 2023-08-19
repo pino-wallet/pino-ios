@@ -11,7 +11,7 @@ import UIKit
 class ActivityDetailsView: UIScrollView {
 	// MARK: - TypeAliases
 
-	typealias presentActionSheetType = (_ actionSheet: InfoActionSheet) -> Void
+	typealias presentActionSheetType = (_ actionSheet: UIAlertController, _ completion: (() -> Void)?) -> Void
 
 	// MARK: - Closures
 
@@ -30,6 +30,8 @@ class ActivityDetailsView: UIScrollView {
 	private let footerTextLabel = PinoLabel(style: .title, text: "")
 	private let footerTextLabelContainer = UIView()
 	private let activityDetailRefreshControl = UIRefreshControl()
+	private let speedUpButton = UIButton()
+	private var speedUpActionSheet: SpeedUpAlertViewController!
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
@@ -62,11 +64,13 @@ class ActivityDetailsView: UIScrollView {
 		activityDetailsInfoView = ActivityInfoView(
 			activityDetailsVM: activityDetailsVM,
 			presentActionSheet: { [weak self] actionSheet in
-				self?.presentActionSheet(actionSheet)
+				self?.presentActionSheet(actionSheet, nil)
 			}
 		)
 
 		viewEthScanButton.addTarget(self, action: #selector(openEthScan), for: .touchUpInside)
+
+		speedUpButton.addTarget(self, action: #selector(openSpeedUpActionSheet), for: .touchUpInside)
 
 		footerTextLabelContainer.addSubview(footerTextLabel)
 
@@ -81,23 +85,24 @@ class ActivityDetailsView: UIScrollView {
 		mainStackView.addArrangedSubview(viewEthScanButton)
 
 		addSubview(mainStackView)
+		addSubview(speedUpButton)
 	}
 
 	private func setupStyles() {
 		backgroundColor = .Pino.background
 
-		var viewStatusConfigurations = PinoButton.Configuration.plain()
-		viewStatusConfigurations.image = UIImage(named: activityDetailsVM.viewEthScanIconName)
-		viewStatusConfigurations.imagePadding = 4
-		viewStatusConfigurations.imagePlacement = .trailing
-		viewStatusConfigurations.background.backgroundColor = .Pino.clear
-		viewStatusConfigurations.background.customView?.layer.borderWidth = 1.2
-		viewStatusConfigurations.background.customView?.layer.borderColor = UIColor.Pino.primary.cgColor
-		var attributedTitle = AttributedString(activityDetailsVM.viewEthScanTitle)
-		attributedTitle.font = .PinoStyle.semiboldBody
-		attributedTitle.foregroundColor = .Pino.primary
-		viewStatusConfigurations.attributedTitle = attributedTitle
-		viewEthScanButton.configuration = viewStatusConfigurations
+		var viewStatusButtonConfigurations = PinoButton.Configuration.plain()
+		viewStatusButtonConfigurations.image = UIImage(named: activityDetailsVM.viewEthScanIconName)
+		viewStatusButtonConfigurations.imagePadding = 4
+		viewStatusButtonConfigurations.imagePlacement = .trailing
+		viewStatusButtonConfigurations.background.backgroundColor = .Pino.clear
+		viewStatusButtonConfigurations.background.customView?.layer.borderWidth = 1.2
+		viewStatusButtonConfigurations.background.customView?.layer.borderColor = UIColor.Pino.primary.cgColor
+		var viewStatusButtonAttributedTitle = AttributedString(activityDetailsVM.viewEthScanTitle)
+		viewStatusButtonAttributedTitle.font = .PinoStyle.semiboldBody
+		viewStatusButtonAttributedTitle.foregroundColor = .Pino.primary
+		viewStatusButtonConfigurations.attributedTitle = viewStatusButtonAttributedTitle
+		viewEthScanButton.configuration = viewStatusButtonConfigurations
 
 		mainStackView.axis = .vertical
 		mainStackView.spacing = 24
@@ -113,9 +118,20 @@ class ActivityDetailsView: UIScrollView {
 		footerIconView.image = UIImage(named: activityDetailsVM.otherTokenTransactionIconName)
 
 		footerContainerView.isHidden = true
-		#warning("later we should show footer container view for other tokens transaction")
 
 		mainStackView.setCustomSpacing(16, after: activityDetailsHeader)
+
+		var speedButtonUpConfigurations = PinoButton.Configuration.filled()
+		speedButtonUpConfigurations.image = UIImage(named: activityDetailsVM.speedUpIconName)
+		speedButtonUpConfigurations.imagePadding = 10
+		speedButtonUpConfigurations.imagePlacement = .trailing
+		speedButtonUpConfigurations.background.backgroundColor = .Pino.primary
+		speedButtonUpConfigurations.background.cornerRadius = 12
+		var speedUpButtonAttributedTitle = AttributedString(activityDetailsVM.speedUpText)
+		speedUpButtonAttributedTitle.font = .PinoStyle.semiboldCallout
+		speedUpButtonAttributedTitle.foregroundColor = .Pino.white
+		speedButtonUpConfigurations.attributedTitle = speedUpButtonAttributedTitle
+		speedUpButton.configuration = speedButtonUpConfigurations
 	}
 
 	private func setupConstraintsWithUIType() {
@@ -129,7 +145,14 @@ class ActivityDetailsView: UIScrollView {
 		)
 		footerIconView.pin(.fixedHeight(20), .fixedWidth(20))
 
+		let safeAreaExists = (window?.safeAreaInsets.bottom != 0) // Check if safe area exists
+		let speedUpActivityButtomPadding: CGFloat = safeAreaExists ? 12 : 32
 		mainStackView.pin(.horizontalEdges(to: layoutMarginsGuide, padding: 0), .top(to: contentLayoutGuide, padding: 24))
+		speedUpButton.pin(
+			.horizontalEdges(to: layoutMarginsGuide, padding: 0),
+			.bottom(to: safeAreaLayoutGuide, padding: speedUpActivityButtomPadding),
+			.fixedHeight(56)
+		)
 	}
 
 	private func setupRefreshControl() {
@@ -146,13 +169,37 @@ class ActivityDetailsView: UIScrollView {
 	}
 
 	private func setupBindings() {
-		activityDetailsVM.$properties.sink { _ in
+		activityDetailsVM.$properties.sink { properties in
 			self.refreshControl?.endRefreshing()
+			if properties!.status != .pending {
+				self.speedUpButton.isHidden = true
+			}
 		}.store(in: &cancellables)
 	}
 
 	@objc
 	private func openEthScan() {
 		UIApplication.shared.open(activityDetailsVM.properties.exploreURL)
+	}
+
+	@objc
+	private func openSpeedUpActionSheet() {
+		speedUpActionSheet = SpeedUpAlertViewController(activityDetailsVM: activityDetailsVM)
+		presentActionSheet(speedUpActionSheet) {
+			let speedUpAlertBackgroundTappedGesture = UITapGestureRecognizer(
+				target: self,
+				action: #selector(self.speedUpAlertBackgroundTapped)
+			)
+			self.speedUpActionSheet.view.superview?.subviews[0]
+				.addGestureRecognizer(speedUpAlertBackgroundTappedGesture)
+			self.speedUpActionSheet.view.superview?.subviews[0].isUserInteractionEnabled = true
+		}
+	}
+
+	@objc
+	private func speedUpAlertBackgroundTapped() {
+		if speedUpActionSheet.isDismissable {
+			speedUpActionSheet.dismiss(animated: true)
+		}
 	}
 }

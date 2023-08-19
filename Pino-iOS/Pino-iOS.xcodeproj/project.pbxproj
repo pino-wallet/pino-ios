@@ -342,6 +342,9 @@
 		D9BFEC392A121719007DFF40 /* AllowNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC382A121719007DFF40 /* AllowNotificationsView.swift */; };
 		D9BFEC3B2A12177C007DFF40 /* AllowNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC3A2A12177C007DFF40 /* AllowNotificationsViewModel.swift */; };
 		D9BFEC3E2A12236C007DFF40 /* ClearNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC3D2A12236C007DFF40 /* ClearNavigationBar.swift */; };
+		D9C1807B2A88DAA60066C2A7 /* SpeedUpAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C1807A2A88DAA60066C2A7 /* SpeedUpAlertViewController.swift */; };
+		D9C1807D2A88EB950066C2A7 /* SpeedUpAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C1807C2A88EB950066C2A7 /* SpeedUpAlertViewModel.swift */; };
+		D9C1807F2A88FAF80066C2A7 /* GradientShowFeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C1807E2A88FAF80066C2A7 /* GradientShowFeeView.swift */; };
 		D9C4CEFF2A408C5E00475F01 /* SuggestedAddressesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CEFE2A408C5E00475F01 /* SuggestedAddressesCollectionView.swift */; };
 		D9C4CF012A408C8A00475F01 /* RecentAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF002A408C8A00475F01 /* RecentAddressCell.swift */; };
 		D9C4CF032A408CA500475F01 /* UserAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF022A408CA500475F01 /* UserAddressCell.swift */; };
@@ -893,6 +896,9 @@
 		D9BFEC382A121719007DFF40 /* AllowNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsView.swift; sourceTree = "<group>"; };
 		D9BFEC3A2A12177C007DFF40 /* AllowNotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsViewModel.swift; sourceTree = "<group>"; };
 		D9BFEC3D2A12236C007DFF40 /* ClearNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearNavigationBar.swift; sourceTree = "<group>"; };
+		D9C1807A2A88DAA60066C2A7 /* SpeedUpAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedUpAlertViewController.swift; sourceTree = "<group>"; };
+		D9C1807C2A88EB950066C2A7 /* SpeedUpAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedUpAlertViewModel.swift; sourceTree = "<group>"; };
+		D9C1807E2A88FAF80066C2A7 /* GradientShowFeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientShowFeeView.swift; sourceTree = "<group>"; };
 		D9C4CEFE2A408C5E00475F01 /* SuggestedAddressesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedAddressesCollectionView.swift; sourceTree = "<group>"; };
 		D9C4CF002A408C8A00475F01 /* RecentAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentAddressCell.swift; sourceTree = "<group>"; };
 		D9C4CF022A408CA500475F01 /* UserAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAddressCell.swift; sourceTree = "<group>"; };
@@ -2291,6 +2297,7 @@
 				D9D9A4092A5E9CD200CECA41 /* ImageAndTitleStackView.swift */,
 				D9D9A40B2A5ED76400CECA41 /* ActivityInfoStackView.swift */,
 				D9BCE5C62A63C519002A9B58 /* ActivitySwapHeaderView.swift */,
+				D9C1807E2A88FAF80066C2A7 /* GradientShowFeeView.swift */,
 			);
 			path = ActvityDetailsView;
 			sourceTree = "<group>";
@@ -2492,6 +2499,7 @@
 			isa = PBXGroup;
 			children = (
 				CCCBF9CC6A3C63CAA0DB0AA7 /* ActivityViewController.swift */,
+				D9C1807A2A88DAA60066C2A7 /* SpeedUpAlertViewController.swift */,
 				D98207C72A5D5D630066A090 /* ActivityDetailsViewController.swift */,
 			);
 			path = ViewController;
@@ -2503,6 +2511,7 @@
 				D9D11E932A5990F0003C4298 /* ActivityViewModel.swift */,
 				D98207C52A5D5D4D0066A090 /* ActivityDetailsViewModel.swift */,
 				D9DC773E2A6FAB2B00AA0987 /* ActivityDetailPropertiesViewModel.swift */,
+				D9C1807C2A88EB950066C2A7 /* SpeedUpAlertViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3452,6 +3461,7 @@
 				324CF2EFF8A4FE86E6609254 /* CustomAssetInfoViewModel.swift in Sources */,
 				E3CFC07A2A2F241500E165A4 /* CircleMarker.swift in Sources */,
 				87F08F9B76154826B35A43F3 /* CustomAssetModel.swift in Sources */,
+				D9C1807D2A88EB950066C2A7 /* SpeedUpAlertViewModel.swift in Sources */,
 				58FE43283099B1D4516B33B1 /* CustomAssetViewModel.swift in Sources */,
 				F606F78789DCF2CDED5E8BB0 /* CustomNavigationController.swift in Sources */,
 				F1655D3CC058F9A6ED4E8521 /* CustomSwitchOptionVM.swift in Sources */,
@@ -3562,6 +3572,7 @@
 				D9F1BD022A7111FE00F5303F /* CoinInfoEmptyStateFooterView.swift in Sources */,
 				B6C747AA398D7E37B1B727AC /* PassDotsView.swift in Sources */,
 				DF00178229E82084001164EA /* SecureEnclaveHelper.swift in Sources */,
+				D9C1807F2A88FAF80066C2A7 /* GradientShowFeeView.swift in Sources */,
 				078E15176613CB329D507580 /* PassManagmentError.swift in Sources */,
 				B2555AA57E466EAE75423515 /* PasscodeManagerPages.swift in Sources */,
 				A9D7256A81B9271BA56435AE /* PasscodeManagerService.swift in Sources */,
@@ -3728,6 +3739,7 @@
 				D9BE051B2A8221C8008670F9 /* CDSwapActivity+CoreDataProperties.swift in Sources */,
 				C3321EBB6DC83BCDC3CFC3B0 /* WalletsModel.swift in Sources */,
 				316F0DDECBB3FA68BFFA1577 /* AccountsViewController.swift in Sources */,
+				D9C1807B2A88DAA60066C2A7 /* SpeedUpAlertViewController.swift in Sources */,
 				E35BB6512A62955D003987F5 /* SwapConfirmationViewController.swift in Sources */,
 				D9BE051D2A8221C8008670F9 /* CDSwapActivityDetails+CoreDataProperties.swift in Sources */,
 				D9D11E922A5990B8003C4298 /* ActivityCollectionView.swift in Sources */,
