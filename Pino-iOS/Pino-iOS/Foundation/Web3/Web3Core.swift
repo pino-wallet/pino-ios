@@ -38,42 +38,51 @@ public struct GasInfo {
     
 }
 
-class Web3Core {
+public enum ABIMethodCall: String {
+    case decimal = "decimals"
+    case balance = "balanceOf"
+    case name
+    case symbol
+    case allowance
+    case approve
+}
+
+public enum ABIMethodWrite: String {
+    case approve
+    case transfer
+}
+
+public class Web3Core {
     
     // MARK: - Private Properties
 
 	private init() {}
-
-	private let walletManager = PinoWalletManager()
-
-    // MARK: - Yypealias
-
-	typealias CustomAssetInfo = [ABIMethodCall: String]
-
-	// MARK: - Public Properties
-
-	public static var shared = Web3Core()
-    public var web3: Web3 {
+    private var web3: Web3 {
         if let testURL = AboutPinoView.web3URL {
             return Web3(rpcURL: testURL)
         } else {
             return Web3(rpcURL: "https://rpc.ankr.com/eth")
         }
     }
-	
-    public enum ABIMethodCall: String {
-		case decimal = "decimals"
-		case balance = "balanceOf"
-		case name
-		case symbol
-        case allowance
-        case approve
-	}
-    
-    public enum ABIMethodWrite: String {
-        case approve
-        case transfer
+    private var trxManager: W3TransferManager {
+        .init(web3: web3)
     }
+    private var gasInfoManager: W3GasInfoManager {
+        .init(web3: web3)
+    }
+    private var transferManager: W3TransferManager {
+        .init(web3: web3)
+    }
+    
+    private let walletManager = PinoWalletManager()
+
+    // MARK: - Yypealias
+
+	public typealias CustomAssetInfo = [ABIMethodCall: String]
+
+	// MARK: - Public Properties
+
+	public static var shared = Web3Core()
 
 
 	// MARK: - Public Methods
@@ -148,21 +157,9 @@ class Web3Core {
 			}
 		}
 	}
-
-    // MARK: - Gas Calculators
     
-    public func calculateEthGasFee(ethPrice: BigNumber) -> Promise<GasInfo> {
-		Promise<GasInfo>() { seal in
-			attempt(maximumRetryCount: 3) { [self] in
-				web3.eth.gasPrice()
-			}.done { gasPrice in
-				let gasLimit = try BigUInt(Constants.ethGasLimit)
-				let gasPriceBigNum = BigNumber(number: "\(gasPrice.quantity)", decimal: 0)
-                let gasInfo = GasInfo(gasPrice: gasPrice.quantity, gasLimit: gasLimit)
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
+    public func calculateEthGasFee() -> Promise<GasInfo> {
+        gasInfoManager.calculateEthGasFee()
 	}
 
     public func calculateSendERCGasFee(
@@ -170,86 +167,19 @@ class Web3Core {
 		amount: BigUInt,
 		tokenContractAddress: String
 	) -> Promise<GasInfo> {
-        let eth = GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth })
-		return Promise<GasInfo>() { seal in
-            firstly {
-                let to: EthereumAddress = try! EthereumAddress(hex: address, eip55: true)
-                let trxManager = TransactionManager()
-                let contract = try! getContractOfToken(address: tokenContractAddress)
-                let solInvocation = contract["transfer"]!(to, amount)
-                return trxManager.calculateGasOf(method: .transfer, contract: solInvocation)
-			}.done { trxGasInfo in
-                let gasInfo = GasInfo(gasPrice: trxGasInfo.gasPrice, gasLimit: trxGasInfo.gasLimit)
-                seal.fulfill(gasInfo)
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
+        gasInfoManager.calculateSendERCGasFee(recipient: address, amount: amount, tokenContractAddress: tokenContractAddress)
 	}
-    
-    // MARK: - End Of Gas Calculators
-    
+        
 	public func sendEtherTo(address: String, amount: BigUInt) -> Promise<String> {
-		let enteredAmount = EthereumQuantity(quantity: amount)
-		return Promise<String>() { seal in
-			let privateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
-			firstly {
-				web3.eth.gasPrice()
-			}.then { [self] price in
-				web3.eth.getTransactionCount(address: privateKey.address, block: .latest).map { ($0, price) }
-			}.then { nonce, price in
-				var tx = try EthereumTransaction(
-					nonce: nonce,
-					gasPrice: price,
-					to: EthereumAddress(hex: address, eip55: true),
-					value: enteredAmount
-				)
-				tx.gasLimit = 21000
-				tx.transactionType = .legacy
-				return try tx.sign(with: privateKey, chainId: 1).promise
-			}.then { [self] tx in
-				web3.eth.sendRawTransaction(transaction: tx)
-			}.done { hash in
-				seal.fulfill(hash.hex())
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
+        transferManager.sendEtherTo(recipient: address, amount: amount)
 	}
 
 	public func sendERC20TokenTo(
-		address: String,
+        recipient: String,
 		amount: BigUInt,
 		tokenContractAddress: String
 	) -> Promise<String> {
-        
-
-		return Promise<String>() { [self] seal in
-
-            calculateSendERCGasFee(address: address, amount: amount, tokenContractAddress: tokenContractAddress)
-                .then { [self] gasInfo in
-                    let privateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
-                    return web3.eth.getTransactionCount(address: privateKey.address, block: .latest).map { ($0, gasInfo) }
-                }
-                .then { [self] nonce, gasInfo in
-                let myPrivateKey = try EthereumPrivateKey(
-                    hexPrivateKey: walletManager.currentAccountPrivateKey
-                        .string
-                )
-                let contract = try getContractOfToken(address: tokenContractAddress)
-                let to = try EthereumAddress(hex: address, eip55: true)
-                let solInvocation = contract["transfer"]?(to, amount)
-                let trx = try TransactionManager().createTransactionFor(method: .transfer, contract: solInvocation!, nonce: nonce, gasPrice: gasInfo.gasPrice.etherumQuantity, gasLimit: gasInfo.gasLimit.etherumQuantity)
-
-                let signedTx = try trx.sign(with: myPrivateKey, chainId: 1)
-                return web3.eth.sendRawTransaction(transaction: signedTx)
-            }.done { txHash in
-                seal.fulfill(txHash.hex())
-            }.catch { error in
-                seal.reject(error)
-            }
-            
-		}
+        transferManager.sendERC20TokenTo(recipientAddress: recipient, amount: amount, tokenContractAddress: tokenContractAddress)
 	}
 
 	// MARK: - Private Methods
@@ -282,7 +212,7 @@ class Web3Core {
         }
     }
 
-	public func getContractOfToken(address tokenContractAddress: String) throws -> DynamicContract {
+    public static func getContractOfToken(address tokenContractAddress: String, web3: Web3) throws -> DynamicContract {
 		let contractAddress = try EthereumAddress(
 			hex: tokenContractAddress,
 			eip55: false
@@ -304,20 +234,4 @@ extension Web3Core {
         static let pinoProxyAddress = "0x118E662de0C4cdc2f8AD0fb1c6Ef4a85222baCF0"
     }
 
-	/// Utitlity function to attemp multiple times for a promise
-	func attempt<T>(
-		maximumRetryCount: Int = 3,
-		delayBeforeRetry: DispatchTimeInterval = .microseconds(500),
-		_ body: @escaping () -> Promise<T>
-	) -> Promise<T> {
-		var attempts = 0
-		func attempt() -> Promise<T> {
-			attempts += 1
-			return body().recover { error -> Promise<T> in
-				guard attempts < maximumRetryCount else { throw error }
-				return after(delayBeforeRetry).then(attempt)
-			}
-		}
-		return attempt()
-	}
 }

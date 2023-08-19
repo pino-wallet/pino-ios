@@ -120,7 +120,7 @@ class SendConfirmationViewModel {
 		} else {
 			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))
 			return Web3Core.shared.sendERC20TokenTo(
-				address: recipientAddress,
+                recipient: recipientAddress,
 				amount: sendAmount!,
 				tokenContractAddress: selectedToken.id
 			)
@@ -164,7 +164,7 @@ class SendConfirmationViewModel {
 
 	private func calculateEthGasFee() -> Promise<String> {
 		Promise<String> { seal in
-			_ = Web3Core.shared.calculateEthGasFee(ethPrice: selectedToken.price).done { gasInfo in
+			_ = Web3Core.shared.calculateEthGasFee().done { gasInfo in
                 let fee = BigNumber(unSignedNumber: gasInfo.fee, decimal: 18)
 				self.gasFee = fee
                 self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat

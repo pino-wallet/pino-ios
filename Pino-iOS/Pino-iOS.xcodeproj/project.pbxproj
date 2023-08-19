@@ -400,7 +400,10 @@
 		DF0F65F929E1B29C00DB7290 /* wallet-balance-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 326B0DAFD947F590C331F13D /* wallet-balance-stub.json */; };
 		DF0F65FA29E1B29C00DB7290 /* assets-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B2220BAE0D7613EB95414ED /* assets-stub.json */; };
 		DF0F65FB29E1B29C00DB7290 /* wallets-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = DE9E95DAD0FE359D802524FC /* wallets-stub.json */; };
-		DF14FC9D2A8E108D005221A8 /* TransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FC9C2A8E108D005221A8 /* TransactionManager.swift */; };
+		DF14FC9D2A8E108D005221A8 /* W3TransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FC9C2A8E108D005221A8 /* W3TransactionManager.swift */; };
+		DF14FC9F2A9105CF005221A8 /* W3GasInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FC9E2A9105CF005221A8 /* W3GasInfoManager.swift */; };
+		DF14FCA12A9105F3005221A8 /* W3TransferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FCA02A9105F3005221A8 /* W3TransferManager.swift */; };
+		DF14FCA32A910B78005221A8 /* PromiseKit+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FCA22A910B78005221A8 /* PromiseKit+Extension.swift */; };
 		DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF705C69E87F6C936F8261B /* AccountingAPIClient.swift */; };
 		DF954B522A8A6861000A9D45 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = DF954B512A8A6861000A9D45 /* SwiftProtobuf */; };
 		DF954B542A8A6861000A9D45 /* WalletCore in Frameworks */ = {isa = PBXBuildFile; productRef = DF954B532A8A6861000A9D45 /* WalletCore */; };
@@ -925,7 +928,10 @@
 		DF00179429F85774001164EA /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		DF00179629F96D3D001164EA /* PinoWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoWalletManager.swift; sourceTree = "<group>"; };
 		DF0347B32A39FAFF00A6C265 /* Web3ABI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3ABI.swift; sourceTree = "<group>"; };
-		DF14FC9C2A8E108D005221A8 /* TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionManager.swift; sourceTree = "<group>"; };
+		DF14FC9C2A8E108D005221A8 /* W3TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3TransactionManager.swift; sourceTree = "<group>"; };
+		DF14FC9E2A9105CF005221A8 /* W3GasInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3GasInfoManager.swift; sourceTree = "<group>"; };
+		DF14FCA02A9105F3005221A8 /* W3TransferManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3TransferManager.swift; sourceTree = "<group>"; };
+		DF14FCA22A910B78005221A8 /* PromiseKit+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PromiseKit+Extension.swift"; sourceTree = "<group>"; };
 		DFA968722A0F8A77007D4513 /* WalletDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDataSource.swift; sourceTree = "<group>"; };
 		DFA968752A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WalletAccount+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DFA968762A0FABB9007D4513 /* SelectedAsset+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SelectedAsset+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -1638,6 +1644,7 @@
 				40BB42272A47157800E1A121 /* UIDevice+Extension.swift */,
 				DFCAAD392A62DA8000D8BB8D /* Int+Extension.swift */,
 				D9771DE22A80DE380047605E /* UITabBarController+Extension.swift */,
+				DF14FCA22A910B78005221A8 /* PromiseKit+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2736,9 +2743,11 @@
 		DFC4D0382A360D7300F03DC4 /* Web3 */ = {
 			isa = PBXGroup;
 			children = (
-				DFC4D0392A360D8300F03DC4 /* Web3Core.swift */,
 				DF0347B32A39FAFF00A6C265 /* Web3ABI.swift */,
-				DF14FC9C2A8E108D005221A8 /* TransactionManager.swift */,
+				DFC4D0392A360D8300F03DC4 /* Web3Core.swift */,
+				DF14FC9C2A8E108D005221A8 /* W3TransactionManager.swift */,
+				DF14FC9E2A9105CF005221A8 /* W3GasInfoManager.swift */,
+				DF14FCA02A9105F3005221A8 /* W3TransferManager.swift */,
 			);
 			path = Web3;
 			sourceTree = "<group>";
@@ -3411,6 +3420,7 @@
 				E3F482F72A35B2DB00EEC9CF /* EnterSendAmountView.swift in Sources */,
 				0CE266292D956CA5666233BB /* CustomAssetInfoView.swift in Sources */,
 				DFA968732A0F8A77007D4513 /* WalletDataSource.swift in Sources */,
+				DF14FCA32A910B78005221A8 /* PromiseKit+Extension.swift in Sources */,
 				D9BE05152A8221C8008670F9 /* CDActivityParent+CoreDataProperties.swift in Sources */,
 				324CF2EFF8A4FE86E6609254 /* CustomAssetInfoViewModel.swift in Sources */,
 				E3CFC07A2A2F241500E165A4 /* CircleMarker.swift in Sources */,
@@ -3442,7 +3452,7 @@
 				D9C4CF0F2A409D4800475F01 /* SuggestedAddressHeaderView.swift in Sources */,
 				E3847B3E2A52CE25005ED78B /* SwapTokenSectionView.swift in Sources */,
 				E3847B4C2A5430B4005ED78B /* SwapProviderViewModel.swift in Sources */,
-				DF14FC9D2A8E108D005221A8 /* TransactionManager.swift in Sources */,
+				DF14FC9D2A8E108D005221A8 /* W3TransactionManager.swift in Sources */,
 				DF00179329F85727001164EA /* PinoNonHDWallet.swift in Sources */,
 				7CF95B0F99AE30C81601CFAA /* GradientLayer.swift in Sources */,
 				D93C41FD29F7D298003F2297 /* EditAccountViewModel.swift in Sources */,
@@ -3586,6 +3596,7 @@
 				E3FC69962A88C7A1009B3341 /* InvestmentAssetCell.swift in Sources */,
 				D9A328152A3464B5005A8393 /* SelectAssetToSendViewModel.swift in Sources */,
 				5699C13A59EF90BDE1758CF3 /* RevealPrivateKeyView.swift in Sources */,
+				DF14FCA12A9105F3005221A8 /* W3TransferManager.swift in Sources */,
 				221F423020A78CA891331436 /* RevealPrivateKeyViewController.swift in Sources */,
 				E3847B362A52CB32005ED78B /* SwapViewModel.swift in Sources */,
 				7AD456E027211FE731B27DF8 /* RevealPrivateKeyViewModel.swift in Sources */,
@@ -3668,6 +3679,7 @@
 				E351A72729F5247000635715 /* ChartDateBuilder.swift in Sources */,
 				E3F482EC2A3485A500EEC9CF /* EnterSendAmountViewController.swift in Sources */,
 				E35BB6592A62F1A8003987F5 /* SwapConfirmationInfoView.swift in Sources */,
+				DF14FC9F2A9105CF005221A8 /* W3GasInfoManager.swift in Sources */,
 				96892E44DA2E5556E1679817 /* AccountBalanceHeaderView.swift in Sources */,
 				0F91AD673ECAFFCD63C38A33 /* WalletBalanceModel.swift in Sources */,
 				1EA05F6363FCD68B38A3B13B /* WalletBalanceViewModel.swift in Sources */,

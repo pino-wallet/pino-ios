@@ -18,29 +18,31 @@ protocol TransactionManagerProtocol {
     
     /// Functions
     func createTemporaryTransactionFor<Params: ABIEncodable>(
-        method: Web3Core.ABIMethodWrite,
+        method: ABIMethodWrite,
         params: Params...,
         nonce: EthereumQuantity,
         gasPrice: EthereumQuantity) throws -> Transaction
 }
 
-public struct TransactionManager {
+public struct W3TransactionManager {
     
     // MARK: - Type Aliases
     
     typealias Transaction = EthereumTransaction
     
     // MARK: - Internal Properties
-    
+    public init(web3: Web3) {
+        self.web3 = web3
+    }
     
     // MARK: - Initilizer
-    
+    private let web3: Web3!
    
     // MARK: - Private Properties
     private var walletManager = PinoWalletManager()
     
     internal func createTransactionFor(
-        method: Web3Core.ABIMethodWrite,
+        method: ABIMethodWrite,
         contract: SolidityInvocation,
         nonce: EthereumQuantity,
         gasPrice: EthereumQuantity,
@@ -65,27 +67,5 @@ public struct TransactionManager {
             return transaction!
     }
     
-    
-    internal func calculateGasOf(method: Web3Core.ABIMethodWrite, contract: SolidityInvocation) -> Promise<(GasInfo)> {
-        Promise<(GasInfo)>() { seal in
-            let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: self.walletManager.currentAccountPrivateKey.string)
-
-            firstly {
-                Web3Core.shared.web3.eth.gasPrice()
-            }.then { gasPrice in
-                Web3Core.shared.web3.eth.getTransactionCount(address: myPrivateKey.address, block: .latest).map{ ($0, gasPrice) }
-            }.then { nonce, gasPrice in
-                try createTransactionFor(method: method, contract: contract, nonce: nonce, gasPrice: gasPrice, gasLimit: nil).promise.map { ($0, nonce, gasPrice) }
-            }.then { transaction, nonce, gasPrice in
-                Web3Core.shared.web3.eth.estimateGas(call: .init(to: transaction.to!)).map{ ($0,nonce,gasPrice) }
-            }.done { gasLimit, nonce, gasPrice in
-                let gasInfo = GasInfo(gasPrice: gasPrice.quantity, gasLimit: gasLimit.quantity)
-                seal.fulfill(gasInfo)
-            }.catch { error in
-                seal.reject(error)
-            }
-        }
-        
-    }
     
 }
