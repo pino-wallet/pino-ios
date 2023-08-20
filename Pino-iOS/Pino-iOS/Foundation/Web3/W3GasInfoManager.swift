@@ -11,15 +11,13 @@ import Web3
 import Web3ContractABI
 
 public struct W3GasInfoManager {
-	// MARK: - Type Aliases
-
-	// MARK: - Internal Properties
+	// MARK: - Initilizer
 
 	public init(web3: Web3) {
 		self.web3 = web3
 	}
 
-	// MARK: - Initilizer
+	// MARK: - Private Properties
 
 	private let web3: Web3!
 	private var transactionManager: W3TransactionManager {
@@ -30,9 +28,9 @@ public struct W3GasInfoManager {
 		.init(web3: web3)
 	}
 
-	// MARK: - Private Properties
-
 	private var walletManager = PinoWalletManager()
+
+	// MARK: - Public Methods
 
 	public func calculateGasOf(
 		method: ABIMethodWrite,

@@ -10,18 +10,20 @@ import Foundation
 import Web3
 
 public struct GasInfo {
-	let gasPrice: BigUInt
-	let gasLimit: BigUInt
+	// MARK: - Public Properties
 
-	var increasedGasLimit: BigUInt {
+	public let gasPrice: BigUInt
+	public let gasLimit: BigUInt
+
+	public var increasedGasLimit: BigUInt {
 		try! EthereumQuantity((gasLimit * BigUInt(110)) / BigUInt(100)).quantity
 	}
 
-	var fee: BigUInt {
+	public var fee: BigUInt {
 		increasedGasLimit * gasPrice
 	}
 
-	var feeInDollar: BigNumber {
+	public var feeInDollar: BigNumber {
 		let eth = GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth })
 		let fee = BigNumber(unSignedNumber: fee, decimal: 18)
 		return fee * eth!.price

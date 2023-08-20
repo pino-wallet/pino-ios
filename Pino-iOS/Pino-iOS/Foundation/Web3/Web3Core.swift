@@ -43,7 +43,7 @@ public class Web3Core {
 
 	private let walletManager = PinoWalletManager()
 
-	// MARK: - Yypealias
+	// MARK: - Typealias
 
 	public typealias CustomAssetInfo = [ABIMethodCall: String]
 

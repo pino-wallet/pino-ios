@@ -10,41 +10,25 @@ import PromiseKit
 import Web3
 import Web3ContractABI
 
-protocol TransactionManagerProtocol {
-	/// Associated Type
-	associatedtype Transaction: Codable
-
-	/// Properties
-
-	/// Functions
-	func createTemporaryTransactionFor<Params: ABIEncodable>(
-		method: ABIMethodWrite,
-		params: Params...,
-		nonce: EthereumQuantity,
-		gasPrice: EthereumQuantity
-	) throws -> Transaction
-}
-
 public struct W3TransactionManager {
 	// MARK: - Type Aliases
 
 	typealias Transaction = EthereumTransaction
 
-	// MARK: - Internal Properties
+	// MARK: - Initilizer
 
 	public init(web3: Web3) {
 		self.web3 = web3
 	}
 
-	// MARK: - Initilizer
-
-	private let web3: Web3!
-
 	// MARK: - Private Properties
 
+	private let web3: Web3!
 	private var walletManager = PinoWalletManager()
 
-	internal func createTransactionFor(
+	// MARK: - Public Methods
+
+	public func createTransactionFor(
 		method: ABIMethodWrite,
 		contract: SolidityInvocation,
 		nonce: EthereumQuantity,

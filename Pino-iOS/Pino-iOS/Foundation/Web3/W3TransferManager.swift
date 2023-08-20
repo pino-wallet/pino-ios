@@ -11,20 +11,15 @@ import Web3
 import Web3ContractABI
 
 public struct W3TransferManager {
-	// MARK: - Type Aliases
-
-	// MARK: - Internal Properties
+	// MARK: - Initilizer
 
 	public init(web3: Web3) {
 		self.web3 = web3
 	}
 
-	// MARK: - Initilizer
-
-	private let web3: Web3!
-
 	// MARK: - Private Properties
 
+	private let web3: Web3!
 	private var walletManager = PinoWalletManager()
 	private var gasInfoManager: W3GasInfoManager {
 		.init(web3: web3)
