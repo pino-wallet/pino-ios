@@ -7,17 +7,13 @@
 
 import Foundation
 
-class SelectSwapProtocolViewModel {
+class SelectSwapProtocolViewModel: SelectDexProtocolVMProtocol {
+    
 	// MARK: - Public Properties
 
 	public let pageTitle = "Select DEX"
 	public let dissmissIocn = "dissmiss"
 
-	public var swapProtocols: [SwapProtocolModel]
-
-	// MARK: - initializers
-
-	init() {
-		self.swapProtocols = [.bestRate, .uniswap, .curve, .balancer]
-	}
+    public var dexProtocolsList: [dexProtocolModel] = [.bestRate, .balancer, .uniswap, .curve]
+    
 }

@@ -7,10 +7,10 @@
 
 import UIKit
 
-class SwapProtocolCell: UICollectionViewCell {
+class DexProtocolCell: UICollectionViewCell {
 	// MARK: - Public Properties
 
-	public var swapProtocol: SwapProtocolModel! {
+	public var dexProtocolVM: SelectDexProtocolCellVMProtocol! {
 		didSet {
 			setupView()
 			setupStyles()
@@ -41,10 +41,10 @@ class SwapProtocolCell: UICollectionViewCell {
 	}
 
 	private func setupStyles() {
-		swapProtocolNameLabel.text = swapProtocol.name
-		swapProtocolDescriptionLabel.text = swapProtocol.description
+		swapProtocolNameLabel.text = dexProtocolVM.name
+		swapProtocolDescriptionLabel.text = dexProtocolVM.description
 
-		swapProtocolImageView.image = UIImage(named: swapProtocol.image)
+		swapProtocolImageView.image = UIImage(named: dexProtocolVM.image)
 
 		swapProtocolNameLabel.font = .PinoStyle.mediumCallout
 		swapProtocolDescriptionLabel.font = .PinoStyle.mediumFootnote

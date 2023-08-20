@@ -13,14 +13,8 @@ class SwapView: UIView {
 	// MARK: - Private Properties
 
 	private let contentStackView = UIStackView()
-	private let protocolCardView = PinoContainerCard()
 	private let swapCardView = PinoContainerCard()
 	private let feeCardView = PinoContainerCard()
-	private let protocolStackView = UIStackView()
-	private let protocolTitleStackView = UIStackView()
-	private let protocolImage = UIImageView()
-	private let protocolName = UILabel()
-	private let protocolChangeIcon = UIImageView()
 	private let swapStackView = UIStackView()
 	private let switchTokenView = UIView()
 	private let switchTokenLineView = UIView()
@@ -35,6 +29,7 @@ class SwapView: UIView {
 	private var nextButtonTapped: () -> Void
 	private var swapProtocolChange: () -> Void
 	private var swapVM: SwapViewModel
+    private var selectDexProtocolView: SelectDexProtocolView!
 
 	private var cancellables = Set<AnyCancellable>()
 
@@ -90,17 +85,16 @@ class SwapView: UIView {
 			hasMaxAmount: false,
 			changeSelectedToken: toTokeChange
 		)
+        
+        selectDexProtocolView = SelectDexProtocolView(title: swapVM.selectedProtocol.name, image: swapVM.selectedProtocol.image, onDexProtocolTapClosure: {
+            self.swapProtocolChange()
+        })
 
 		addSubview(contentStackView)
 		addSubview(continueButton)
-		contentStackView.addArrangedSubview(protocolCardView)
+		contentStackView.addArrangedSubview(selectDexProtocolView)
 		contentStackView.addArrangedSubview(swapCardView)
 		contentStackView.addArrangedSubview(feeCardView)
-		protocolCardView.addSubview(protocolStackView)
-		protocolStackView.addArrangedSubview(protocolTitleStackView)
-		protocolStackView.addArrangedSubview(protocolChangeIcon)
-		protocolTitleStackView.addArrangedSubview(protocolImage)
-		protocolTitleStackView.addArrangedSubview(protocolName)
 		swapCardView.addSubview(swapStackView)
 		swapStackView.addArrangedSubview(fromTokenSectionView)
 		swapStackView.addArrangedSubview(switchTokenView)
@@ -122,9 +116,6 @@ class SwapView: UIView {
 		addGestureRecognizer(swipeGestureRecognizer)
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
 
-		let protocolChangeTapGesture = UITapGestureRecognizer(target: self, action: #selector(changeSwapProtocol))
-		protocolCardView.addGestureRecognizer(protocolChangeTapGesture)
-
 		fromTokenSectionView.balanceStatusDidChange = { balanceStatus in
 			self.updateSwapStatus(balanceStatus)
 		}
@@ -141,14 +132,10 @@ class SwapView: UIView {
 	private func setupStyle() {
 		continueButton.title = swapVM.continueButtonTitle
 
-		protocolChangeIcon.image = UIImage(named: "chevron_down")
 		switchTokenButton.setImage(UIImage(named: swapVM.switchIcon), for: .normal)
 
-		protocolName.font = .PinoStyle.mediumBody
-
-		protocolName.textColor = .Pino.label
+		
 		switchTokenButton.setTitleColor(.Pino.primary, for: .normal)
-		protocolChangeIcon.tintColor = .Pino.label
 
 		backgroundColor = .Pino.background
 		switchTokenLineView.backgroundColor = .Pino.background
@@ -160,10 +147,7 @@ class SwapView: UIView {
 		swapStackView.axis = .vertical
 
 		contentStackView.spacing = 12
-		protocolTitleStackView.spacing = 8
 		swapStackView.spacing = 10
-
-		protocolStackView.alignment = .center
 
 		feeCardView.alpha = 0
 
@@ -182,18 +166,7 @@ class SwapView: UIView {
 			.horizontalEdges(padding: 16),
 			.top(to: layoutMarginsGuide, padding: 18)
 		)
-		protocolStackView.pin(
-			.horizontalEdges(padding: 14),
-			.verticalEdges(padding: 8)
-		)
-		protocolImage.pin(
-			.fixedHeight(40),
-			.fixedWidth(40)
-		)
-		protocolChangeIcon.pin(
-			.fixedWidth(28),
-			.fixedHeight(28)
-		)
+		
 		swapStackView.pin(
 			.top(padding: 24),
 			.bottom(padding: 28),
@@ -246,9 +219,9 @@ class SwapView: UIView {
 		}.store(in: &cancellables)
 	}
 
-	private func updateSwapProtocol(_ swapProtocol: SwapProtocolModel) {
-		protocolName.text = swapProtocol.name
-		protocolImage.image = UIImage(named: swapProtocol.image)
+	private func updateSwapProtocol(_ swapProtocol: dexProtocolModel) {
+		selectDexProtocolView.titleText = swapProtocol.name
+		selectDexProtocolView.imageName = swapProtocol.image
 	}
 
 	private func updateSwapStatus(_ status: AmountStatus) {
@@ -291,19 +264,18 @@ class SwapView: UIView {
 
 	@objc
 	private func changeSwapProtocol() {
-		swapProtocolChange()
 	}
 
 	// MARK: - Public Methods
 
 	public func showProtocolView() {
-		protocolCardView.alpha = 1
-		protocolCardView.isHidden = false
+		selectDexProtocolView.alpha = 1
+        selectDexProtocolView.isHidden = false
 	}
 
 	public func hideProtocolView() {
-		protocolCardView.alpha = 0
-		protocolCardView.isHidden = true
+        selectDexProtocolView.alpha = 0
+        selectDexProtocolView.isHidden = true
 	}
 
 	public func openFeeCard() {

@@ -14,7 +14,7 @@ import Web3_Utility
 class SwapConfirmationViewModel {
 	// MARK: - Private Properties
 
-	private let selectedProtocol: SwapProtocolModel
+	private let selectedProtocol: dexProtocolModel
 	private let selectedProvider: SwapProviderViewModel?
 	private var cancellables = Set<AnyCancellable>()
 	private var ethToken: AssetViewModel {
@@ -52,7 +52,7 @@ class SwapConfirmationViewModel {
 	init(
 		fromToken: SwapTokenViewModel,
 		toToken: SwapTokenViewModel,
-		selectedProtocol: SwapProtocolModel,
+		selectedProtocol: dexProtocolModel,
 		selectedProvider: SwapProviderViewModel?,
 		swapRate: String
 	) {

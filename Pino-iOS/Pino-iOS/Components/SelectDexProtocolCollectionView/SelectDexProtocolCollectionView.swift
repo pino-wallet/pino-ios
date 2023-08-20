@@ -7,17 +7,17 @@
 
 import UIKit
 
-class SwapProtocolCollectionView: UICollectionView {
+class SelectDexProtocolCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
-	private let swapProtocols: [SwapProtocolModel]
-	private let protocolDidSelect: (SwapProtocolModel) -> Void
+    private let selectDexProtocolVM: SelectDexProtocolVMProtocol
+	private let dexProtocolDidSelect: (dexProtocolModel) -> Void
 
 	// MARK: - Initializers
 
-	init(swapProtocols: [SwapProtocolModel], protocolDidSelect: @escaping (SwapProtocolModel) -> Void) {
-		self.swapProtocols = swapProtocols
-		self.protocolDidSelect = protocolDidSelect
+	init(selectDexProtocolVM: SelectDexProtocolVMProtocol, dexProtocolDidSelect: @escaping (dexProtocolModel) -> Void) {
+		self.selectDexProtocolVM = selectDexProtocolVM
+		self.dexProtocolDidSelect = dexProtocolDidSelect
 		let collecttionviewFlowLayout = UICollectionViewFlowLayout(
 			scrollDirection: .vertical,
 			sectionInset: UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
@@ -38,19 +38,19 @@ class SwapProtocolCollectionView: UICollectionView {
 		delegate = self
 		dataSource = self
 
-		register(SwapProtocolCell.self, forCellWithReuseIdentifier: SwapProtocolCell.cellReuseID)
+		register(DexProtocolCell.self, forCellWithReuseIdentifier: DexProtocolCell.cellReuseID)
 	}
 }
 
-extension SwapProtocolCollectionView: UICollectionViewDelegate {
+extension SelectDexProtocolCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		protocolDidSelect(swapProtocols[indexPath.item])
+        dexProtocolDidSelect(selectDexProtocolVM.dexProtocolsList[indexPath.item])
 	}
 }
 
-extension SwapProtocolCollectionView: UICollectionViewDataSource {
+extension SelectDexProtocolCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		swapProtocols.count
+        selectDexProtocolVM.dexProtocolsList.count
 	}
 
 	func collectionView(
@@ -58,15 +58,15 @@ extension SwapProtocolCollectionView: UICollectionViewDataSource {
 		cellForItemAt indexPath: IndexPath
 	) -> UICollectionViewCell {
 		let cell = dequeueReusableCell(
-			withReuseIdentifier: SwapProtocolCell.cellReuseID,
+			withReuseIdentifier: DexProtocolCell.cellReuseID,
 			for: indexPath
-		) as! SwapProtocolCell
-		cell.swapProtocol = swapProtocols[indexPath.item]
+		) as! DexProtocolCell
+        cell.dexProtocolVM = SelectDexCellViewModel(dexModel: selectDexProtocolVM.dexProtocolsList[indexPath.item])
 		return cell
 	}
 }
 
-extension SwapProtocolCollectionView: UICollectionViewDelegateFlowLayout {
+extension SelectDexProtocolCollectionView: UICollectionViewDelegateFlowLayout {
 	func collectionView(
 		_ collectionView: UICollectionView,
 		layout collectionViewLayout: UICollectionViewLayout,

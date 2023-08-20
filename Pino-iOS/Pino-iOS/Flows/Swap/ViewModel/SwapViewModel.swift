@@ -13,7 +13,7 @@ class SwapViewModel {
 	// MARK: - Public Properties
 
 	@Published
-	public var selectedProtocol: SwapProtocolModel
+	public var selectedProtocol: dexProtocolModel
 
 	public let continueButtonTitle = "Swap"
 	public let insufficientAmountButtonTitle = "Insufficient amount"
@@ -46,7 +46,7 @@ class SwapViewModel {
 	// MARK: - Initializers
 
 	init(fromToken: AssetViewModel, toToken: AssetViewModel) {
-		self.selectedProtocol = .bestRate
+        self.selectedProtocol = .bestRate
 		self.fromToken = SwapTokenViewModel(selectedToken: fromToken)
 		self.toToken = SwapTokenViewModel(selectedToken: toToken)
 		self.swapFeeVM = SwapFeeViewModel()
@@ -82,7 +82,7 @@ class SwapViewModel {
 		toToken.swapDelegate.selectedTokenDidChange()
 	}
 
-	public func changeSwapProtocol(to swapProtocol: SwapProtocolModel) {
+	public func changeSwapProtocol(to swapProtocol: dexProtocolModel) {
 		selectedProtocol = swapProtocol
 		recalculateTokensAmount()
 	}
@@ -144,7 +144,7 @@ class SwapViewModel {
 		swapSide: SwapSide,
 		completion: @escaping (String) -> Void
 	) {
-		if selectedProtocol == .bestRate {
+        if selectedProtocol == .bestRate {
 			getBestRate(destToken: destToken, amount: amount, swapSide: swapSide, completion: completion)
 		} else {
 			#warning("The price of other protocols must be taken here")

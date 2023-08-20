@@ -1,0 +1,8 @@
+{
+    "borrow_tokens": [],
+    "collateral_tokens": [],
+    "dex": "aave",
+    "health_score": 0,
+    "user_id": "string"
+}
+

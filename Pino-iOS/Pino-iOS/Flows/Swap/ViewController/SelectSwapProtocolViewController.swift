@@ -11,12 +11,12 @@ class SelectSwapProtocolViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private var swapProtocolVM = SelectSwapProtocolViewModel()
-	private var swapProtocolCollectionView: SwapProtocolCollectionView!
-	private var swapProtocolDidSelect: (SwapProtocolModel) -> Void
+	private var swapProtocolCollectionView: SelectDexProtocolCollectionView!
+	private var swapProtocolDidSelect: (dexProtocolModel) -> Void
 
 	// MARK: - Initializers
 
-	init(swapProtocolDidSelect: @escaping (SwapProtocolModel) -> Void) {
+	init(swapProtocolDidSelect: @escaping (dexProtocolModel) -> Void) {
 		self.swapProtocolDidSelect = swapProtocolDidSelect
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -50,9 +50,9 @@ class SelectSwapProtocolViewController: UIViewController {
 	}
 
 	private func setupView() {
-		swapProtocolCollectionView = SwapProtocolCollectionView(
-			swapProtocols: swapProtocolVM.swapProtocols,
-			protocolDidSelect: { selectedProtocol in
+		swapProtocolCollectionView = SelectDexProtocolCollectionView(
+            selectDexProtocolVM: swapProtocolVM,
+            dexProtocolDidSelect: { selectedProtocol in
 				self.swapProtocolDidSelect(selectedProtocol)
 				self.closePage()
 			}
