@@ -93,6 +93,9 @@
 		403691C02A3DFFB60013AB6D /* TextAppleToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403691B92A3DFFB50013AB6D /* TextAppleToastView.swift */; };
 		403691C12A3DFFB60013AB6D /* IconAppleToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403691BA2A3DFFB50013AB6D /* IconAppleToastView.swift */; };
 		403691C22A3DFFB60013AB6D /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403691BB2A3DFFB50013AB6D /* Toast.swift */; };
+		4037DCC72A8BD50100FCA96B /* ApproveContractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4037DCC62A8BD50100FCA96B /* ApproveContractViewController.swift */; };
+		4037DCCC2A8BD65600FCA96B /* ApproveContractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4037DCCB2A8BD65600FCA96B /* ApproveContractView.swift */; };
+		4037DCCE2A8BD93200FCA96B /* ApproveContractViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4037DCCD2A8BD93200FCA96B /* ApproveContractViewModel.swift */; };
 		404324062A5FF115006B1468 /* TextFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404324052A5FF115006B1468 /* TextFormatting.swift */; };
 		404324092A5FF12C006B1468 /* NumberFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404324082A5FF12C006B1468 /* NumberFormatting.swift */; };
 		408463C02A3AEE010058FF16 /* Web3-Utility in Frameworks */ = {isa = PBXBuildFile; productRef = 408463BF2A3AEE010058FF16 /* Web3-Utility */; };
@@ -400,6 +403,11 @@
 		DF0F65F929E1B29C00DB7290 /* wallet-balance-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 326B0DAFD947F590C331F13D /* wallet-balance-stub.json */; };
 		DF0F65FA29E1B29C00DB7290 /* assets-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B2220BAE0D7613EB95414ED /* assets-stub.json */; };
 		DF0F65FB29E1B29C00DB7290 /* wallets-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = DE9E95DAD0FE359D802524FC /* wallets-stub.json */; };
+		DF14FC9D2A8E108D005221A8 /* W3TransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FC9C2A8E108D005221A8 /* W3TransactionManager.swift */; };
+		DF14FC9F2A9105CF005221A8 /* W3GasInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FC9E2A9105CF005221A8 /* W3GasInfoManager.swift */; };
+		DF14FCA12A9105F3005221A8 /* W3TransferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FCA02A9105F3005221A8 /* W3TransferManager.swift */; };
+		DF14FCA32A910B78005221A8 /* PromiseKit+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FCA22A910B78005221A8 /* PromiseKit+Extension.swift */; };
+		DF14FCA52A910F74005221A8 /* W3GasInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FCA42A910F74005221A8 /* W3GasInfo.swift */; };
 		DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF705C69E87F6C936F8261B /* AccountingAPIClient.swift */; };
 		DF954B522A8A6861000A9D45 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = DF954B512A8A6861000A9D45 /* SwiftProtobuf */; };
 		DF954B542A8A6861000A9D45 /* WalletCore in Frameworks */ = {isa = PBXBuildFile; productRef = DF954B532A8A6861000A9D45 /* WalletCore */; };
@@ -639,6 +647,9 @@
 		403691B92A3DFFB50013AB6D /* TextAppleToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextAppleToastView.swift; sourceTree = "<group>"; };
 		403691BA2A3DFFB50013AB6D /* IconAppleToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconAppleToastView.swift; sourceTree = "<group>"; };
 		403691BB2A3DFFB50013AB6D /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		4037DCC62A8BD50100FCA96B /* ApproveContractViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproveContractViewController.swift; sourceTree = "<group>"; };
+		4037DCCB2A8BD65600FCA96B /* ApproveContractView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproveContractView.swift; sourceTree = "<group>"; };
+		4037DCCD2A8BD93200FCA96B /* ApproveContractViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproveContractViewModel.swift; sourceTree = "<group>"; };
 		404287D5077C670FADEE9987 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		404324052A5FF115006B1468 /* TextFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormatting.swift; sourceTree = "<group>"; };
 		404324082A5FF12C006B1468 /* NumberFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatting.swift; sourceTree = "<group>"; };
@@ -949,6 +960,11 @@
 		DF00179429F85774001164EA /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		DF00179629F96D3D001164EA /* PinoWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoWalletManager.swift; sourceTree = "<group>"; };
 		DF0347B32A39FAFF00A6C265 /* Web3ABI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3ABI.swift; sourceTree = "<group>"; };
+		DF14FC9C2A8E108D005221A8 /* W3TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3TransactionManager.swift; sourceTree = "<group>"; };
+		DF14FC9E2A9105CF005221A8 /* W3GasInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3GasInfoManager.swift; sourceTree = "<group>"; };
+		DF14FCA02A9105F3005221A8 /* W3TransferManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3TransferManager.swift; sourceTree = "<group>"; };
+		DF14FCA22A910B78005221A8 /* PromiseKit+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PromiseKit+Extension.swift"; sourceTree = "<group>"; };
+		DF14FCA42A910F74005221A8 /* W3GasInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3GasInfo.swift; sourceTree = "<group>"; };
 		DFA968722A0F8A77007D4513 /* WalletDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDataSource.swift; sourceTree = "<group>"; };
 		DFA968752A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WalletAccount+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DFA968762A0FABB9007D4513 /* SelectedAsset+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SelectedAsset+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -1222,7 +1238,11 @@
 		08F6C5346D722CF16AB89790 /* Borrow */ = {
 			isa = PBXGroup;
 			children = (
+				4037DCCA2A8BD58A00FCA96B /* ViewModel */,
+				4037DCC92A8BD57F00FCA96B /* ViewController */,
+				4037DCC82A8BD57B00FCA96B /* View */,
 				0EDB7798DEE2598C367E87BE /* BorrowViewController.swift */,
+				4037DCC62A8BD50100FCA96B /* ApproveContractViewController.swift */,
 			);
 			path = Borrow;
 			sourceTree = "<group>";
@@ -1501,6 +1521,29 @@
 			path = AppleToastView;
 			sourceTree = "<group>";
 		};
+		4037DCC82A8BD57B00FCA96B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4037DCCB2A8BD65600FCA96B /* ApproveContractView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4037DCC92A8BD57F00FCA96B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		4037DCCA2A8BD58A00FCA96B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4037DCCD2A8BD93200FCA96B /* ApproveContractViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		404324042A5FF102006B1468 /* FormattingSystem */ = {
 			isa = PBXGroup;
 			children = (
@@ -1659,6 +1702,7 @@
 				40BB42272A47157800E1A121 /* UIDevice+Extension.swift */,
 				DFCAAD392A62DA8000D8BB8D /* Int+Extension.swift */,
 				D9771DE22A80DE380047605E /* UITabBarController+Extension.swift */,
+				DF14FCA22A910B78005221A8 /* PromiseKit+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2761,8 +2805,12 @@
 		DFC4D0382A360D7300F03DC4 /* Web3 */ = {
 			isa = PBXGroup;
 			children = (
-				DFC4D0392A360D8300F03DC4 /* Web3Core.swift */,
 				DF0347B32A39FAFF00A6C265 /* Web3ABI.swift */,
+				DFC4D0392A360D8300F03DC4 /* Web3Core.swift */,
+				DF14FCA42A910F74005221A8 /* W3GasInfo.swift */,
+				DF14FC9C2A8E108D005221A8 /* W3TransactionManager.swift */,
+				DF14FC9E2A9105CF005221A8 /* W3GasInfoManager.swift */,
+				DF14FCA02A9105F3005221A8 /* W3TransferManager.swift */,
 			);
 			path = Web3;
 			sourceTree = "<group>";
@@ -3372,6 +3420,7 @@
 				E35BB63E2A558D0E003987F5 /* SwapProtocolCollectionView.swift in Sources */,
 				3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */,
 				D9D9A40A2A5E9CD200CECA41 /* ImageAndTitleStackView.swift in Sources */,
+				4037DCCE2A8BD93200FCA96B /* ApproveContractViewModel.swift in Sources */,
 				E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */,
 				E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */,
 				D9BE15B02A693593005E4063 /* SwapActivityDetailsViewModel.swift in Sources */,
@@ -3411,6 +3460,7 @@
 				403691C02A3DFFB60013AB6D /* TextAppleToastView.swift in Sources */,
 				FADF64026A19F019F554FEA5 /* AssetChartModel.swift in Sources */,
 				8FEE7479372B430975CF245D /* AssetChartViewModel.swift in Sources */,
+				4037DCC72A8BD50100FCA96B /* ApproveContractViewController.swift in Sources */,
 				DFC4D03A2A360D8300F03DC4 /* Web3Core.swift in Sources */,
 				58725E16FF09C251760EF717 /* AssetLineChart.swift in Sources */,
 				E3FC69A62A8A0952009B3341 /* InvestmentPerformanceHeaderView.swift in Sources */,
@@ -3478,6 +3528,7 @@
 				D9AF6DCC29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift in Sources */,
 				3C9F0B46C521474D32854C66 /* ActivityCell.swift in Sources */,
 				D9BE05172A8221C8008670F9 /* CDTransferActivityDetails+CoreDataProperties.swift in Sources */,
+				4037DCCC2A8BD65600FCA96B /* ApproveContractView.swift in Sources */,
 				D97CF62C25B975AD3C131881 /* CoinHistoryModel.swift in Sources */,
 				4BCC037123752C19CB2B98D3 /* ActivityCellViewModel.swift in Sources */,
 				DBE3307F29EF0E7E1926B2B4 /* CoinInfoChartView.swift in Sources */,
@@ -3522,6 +3573,7 @@
 				E3F482F72A35B2DB00EEC9CF /* EnterSendAmountView.swift in Sources */,
 				0CE266292D956CA5666233BB /* CustomAssetInfoView.swift in Sources */,
 				DFA968732A0F8A77007D4513 /* WalletDataSource.swift in Sources */,
+				DF14FCA32A910B78005221A8 /* PromiseKit+Extension.swift in Sources */,
 				D9BE05152A8221C8008670F9 /* CDActivityParent+CoreDataProperties.swift in Sources */,
 				324CF2EFF8A4FE86E6609254 /* CustomAssetInfoViewModel.swift in Sources */,
 				E3CFC07A2A2F241500E165A4 /* CircleMarker.swift in Sources */,
@@ -3556,6 +3608,7 @@
 				D9C4CF0F2A409D4800475F01 /* SuggestedAddressHeaderView.swift in Sources */,
 				E3847B3E2A52CE25005ED78B /* SwapTokenSectionView.swift in Sources */,
 				E3847B4C2A5430B4005ED78B /* SwapProviderViewModel.swift in Sources */,
+				DF14FC9D2A8E108D005221A8 /* W3TransactionManager.swift in Sources */,
 				DF00179329F85727001164EA /* PinoNonHDWallet.swift in Sources */,
 				E3FC69B72A8A3605009B3341 /* InvestProtocolViewModel.swift in Sources */,
 				7CF95B0F99AE30C81601CFAA /* GradientLayer.swift in Sources */,
@@ -3707,6 +3760,7 @@
 				E3FC69D42A90B280009B3341 /* InvestmentBoardViewModel.swift in Sources */,
 				D9A328152A3464B5005A8393 /* SelectAssetToSendViewModel.swift in Sources */,
 				5699C13A59EF90BDE1758CF3 /* RevealPrivateKeyView.swift in Sources */,
+				DF14FCA12A9105F3005221A8 /* W3TransferManager.swift in Sources */,
 				221F423020A78CA891331436 /* RevealPrivateKeyViewController.swift in Sources */,
 				E3847B362A52CB32005ED78B /* SwapViewModel.swift in Sources */,
 				7AD456E027211FE731B27DF8 /* RevealPrivateKeyViewModel.swift in Sources */,
@@ -3735,6 +3789,7 @@
 				DE33FFB7D492FA770FF9FB5C /* SemiboldStyle.swift in Sources */,
 				D99F4B2329E2C619009F7F55 /* PaymentMethodOptionModel.swift in Sources */,
 				6FB3C66B1E98C7C2B7886069 /* SettingCell.swift in Sources */,
+				DF14FCA52A910F74005221A8 /* W3GasInfo.swift in Sources */,
 				E3D478B32A3064C90030A987 /* CustomAssetDataSource.swift in Sources */,
 				D9BFEC3E2A12236C007DFF40 /* ClearNavigationBar.swift in Sources */,
 				E35BB6532A62979C003987F5 /* SwapConfirmationView.swift in Sources */,
@@ -3793,6 +3848,7 @@
 				E351A72729F5247000635715 /* ChartDateBuilder.swift in Sources */,
 				E3F482EC2A3485A500EEC9CF /* EnterSendAmountViewController.swift in Sources */,
 				E35BB6592A62F1A8003987F5 /* SwapConfirmationInfoView.swift in Sources */,
+				DF14FC9F2A9105CF005221A8 /* W3GasInfoManager.swift in Sources */,
 				96892E44DA2E5556E1679817 /* AccountBalanceHeaderView.swift in Sources */,
 				0F91AD673ECAFFCD63C38A33 /* WalletBalanceModel.swift in Sources */,
 				1EA05F6363FCD68B38A3B13B /* WalletBalanceViewModel.swift in Sources */,

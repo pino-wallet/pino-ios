@@ -7,6 +7,7 @@
 
 import BigInt
 import Foundation
+import Web3
 
 extension BigInt {
 	/// This function is suitable for testing big numbers
@@ -17,5 +18,11 @@ extension BigInt {
 		let trimmedString = stringValue.replacingOccurrences(of: "\\.?0+$", with: "", options: .regularExpression)
 		let trimmedBigInt = BigInt(trimmedString) ?? 0
 		return trimmedBigInt
+	}
+}
+
+extension BigUInt {
+	public var etherumQuantity: EthereumQuantity {
+		.init(quantity: self)
 	}
 }

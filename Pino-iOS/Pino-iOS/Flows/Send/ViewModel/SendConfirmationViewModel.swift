@@ -120,7 +120,7 @@ class SendConfirmationViewModel {
 		} else {
 			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))
 			return Web3Core.shared.sendERC20TokenTo(
-				address: recipientAddress,
+				recipient: recipientAddress,
 				amount: sendAmount!,
 				tokenContractAddress: selectedToken.id
 			)
@@ -164,12 +164,13 @@ class SendConfirmationViewModel {
 
 	private func calculateEthGasFee() -> Promise<String> {
 		Promise<String> { seal in
-			_ = Web3Core.shared.calculateEthGasFee(ethPrice: selectedToken.price).done { fee, feeInDollar, gasPrice, gasLimit in
+			_ = Web3Core.shared.calculateEthGasFee().done { gasInfo in
+				let fee = BigNumber(unSignedNumber: gasInfo.fee, decimal: 18)
 				self.gasFee = fee
-				self.formattedFeeInDollar = feeInDollar.priceFormat
+				self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
 				self.formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
-				self.gasPrice = gasPrice
-				self.gasLimit = gasLimit
+				self.gasPrice = gasInfo.gasPrice.description
+				self.gasLimit = gasInfo.gasLimit.description
 			}.catch { error in
 				seal.reject(error)
 			}
@@ -179,17 +180,17 @@ class SendConfirmationViewModel {
 	private func calculateTokenGasFee(ethPrice: BigNumber) -> Promise<String> {
 		Promise<String> { seal in
 			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))
-			Web3Core.shared.calculateERCGasFee(
+			Web3Core.shared.calculateSendERCGasFee(
 				address: recipientAddress,
 				amount: sendAmount!,
-				tokenContractAddress: selectedToken.id,
-				ethPrice: ethPrice
-			).done { [self] fee, feeInDollar, gasPrice, gasLimit in
+				tokenContractAddress: selectedToken.id
+			).done { [self] gasInfo in
+				let fee = BigNumber(unSignedNumber: gasInfo.fee, decimal: 18)
 				gasFee = fee
-				formattedFeeInDollar = feeInDollar.priceFormat
+				formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
 				formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
-				self.gasPrice = gasPrice
-				self.gasLimit = gasLimit
+				gasPrice = gasInfo.gasPrice.description
+				gasLimit = gasInfo.gasLimit.description
 			}.catch { error in
 				seal.reject(error)
 			}
