@@ -19,11 +19,10 @@ extension BigInt {
 		let trimmedBigInt = BigInt(trimmedString) ?? 0
 		return trimmedBigInt
 	}
-    
 }
 
 extension BigUInt {
-    public var etherumQuantity: EthereumQuantity {
-        .init(quantity: self)
-    }
+	public var etherumQuantity: EthereumQuantity {
+		.init(quantity: self)
+	}
 }

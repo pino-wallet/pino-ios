@@ -120,7 +120,7 @@ class SendConfirmationViewModel {
 		} else {
 			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))
 			return Web3Core.shared.sendERC20TokenTo(
-                recipient: recipientAddress,
+				recipient: recipientAddress,
 				amount: sendAmount!,
 				tokenContractAddress: selectedToken.id
 			)
@@ -165,12 +165,12 @@ class SendConfirmationViewModel {
 	private func calculateEthGasFee() -> Promise<String> {
 		Promise<String> { seal in
 			_ = Web3Core.shared.calculateEthGasFee().done { gasInfo in
-                let fee = BigNumber(unSignedNumber: gasInfo.fee, decimal: 18)
+				let fee = BigNumber(unSignedNumber: gasInfo.fee, decimal: 18)
 				self.gasFee = fee
-                self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
+				self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
 				self.formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
-                self.gasPrice = gasInfo.gasPrice.description
-                self.gasLimit = gasInfo.gasLimit.description
+				self.gasPrice = gasInfo.gasPrice.description
+				self.gasLimit = gasInfo.gasLimit.description
 			}.catch { error in
 				seal.reject(error)
 			}
@@ -185,12 +185,12 @@ class SendConfirmationViewModel {
 				amount: sendAmount!,
 				tokenContractAddress: selectedToken.id
 			).done { [self] gasInfo in
-                let fee = BigNumber(unSignedNumber: gasInfo.fee, decimal: 18)
-                self.gasFee = fee
-                self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
-                self.formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
-                self.gasPrice = gasInfo.gasPrice.description
-                self.gasLimit = gasInfo.gasLimit.description
+				let fee = BigNumber(unSignedNumber: gasInfo.fee, decimal: 18)
+				gasFee = fee
+				formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
+				formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
+				gasPrice = gasInfo.gasPrice.description
+				gasLimit = gasInfo.gasLimit.description
 			}.catch { error in
 				seal.reject(error)
 			}

@@ -9,21 +9,21 @@ import Foundation
 import UIKit
 
 class ApproveContractViewController: UIViewController {
-    // MARK: - View Overrides
+	// MARK: - View Overrides
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+	override func viewDidLoad() {
+		super.viewDidLoad()
+	}
 
-    override func loadView() {
-        setupView()
-    }
+	override func loadView() {
+		setupView()
+	}
 
-    // MARK: - Private Methods
+	// MARK: - Private Methods
 
-    private func setupView() {
-        // It must be replaced with custom view
-        view = UIView()
-        view.backgroundColor = .Pino.background
-    }
+	private func setupView() {
+		// It must be replaced with custom view
+		view = UIView()
+		view.backgroundColor = .Pino.background
+	}
 }

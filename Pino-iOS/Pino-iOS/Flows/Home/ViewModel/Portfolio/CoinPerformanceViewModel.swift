@@ -4,8 +4,8 @@
 //
 //  Created by Mohi Raoufi on 3/5/23.
 //
-import DGCharts
 import Combine
+import DGCharts
 import Foundation
 
 class CoinPerformanceViewModel {
