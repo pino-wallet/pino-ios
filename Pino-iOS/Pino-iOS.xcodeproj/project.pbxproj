@@ -524,6 +524,10 @@
 		E3FC69D42A90B280009B3341 /* InvestmentBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69D32A90B280009B3341 /* InvestmentBoardViewModel.swift */; };
 		E3FC69DB2A91032D009B3341 /* AssetsBoardCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69DA2A91032D009B3341 /* AssetsBoardCollectionView.swift */; };
 		E3FC69DD2A910F0F009B3341 /* InvestmentBoardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69DC2A910F0F009B3341 /* InvestmentBoardDataSource.swift */; };
+		E3FC69DF2A9207E8009B3341 /* InvestmentBoardFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69DE2A9207E8009B3341 /* InvestmentBoardFilterViewController.swift */; };
+		E3FC69E12A9209AD009B3341 /* InvestmentBoardFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69E02A9209AD009B3341 /* InvestmentBoardFilterView.swift */; };
+		E3FC69E32A920BE0009B3341 /* InvestmentBoardFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69E22A920BE0009B3341 /* InvestmentBoardFilterViewModel.swift */; };
+		E3FC69E52A9210FC009B3341 /* InvestmentBoardFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69E42A9210FC009B3341 /* InvestmentBoardFilterCell.swift */; };
 		E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D680E48001C060BADD248 /* EndpointType.swift */; };
 		E4BC1D70FBAF66825B9358E7 /* LockMethodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386676E7E643B6AB252A5653 /* LockMethodModel.swift */; };
 		E4FF2E5E60CA74F3324945A8 /* CoinInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D5774D76FC507F8B176185 /* CoinInfoViewModel.swift */; };
@@ -1068,6 +1072,10 @@
 		E3FC69D32A90B280009B3341 /* InvestmentBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentBoardViewModel.swift; sourceTree = "<group>"; };
 		E3FC69DA2A91032D009B3341 /* AssetsBoardCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsBoardCollectionView.swift; sourceTree = "<group>"; };
 		E3FC69DC2A910F0F009B3341 /* InvestmentBoardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentBoardDataSource.swift; sourceTree = "<group>"; };
+		E3FC69DE2A9207E8009B3341 /* InvestmentBoardFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentBoardFilterViewController.swift; sourceTree = "<group>"; };
+		E3FC69E02A9209AD009B3341 /* InvestmentBoardFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentBoardFilterView.swift; sourceTree = "<group>"; };
+		E3FC69E22A920BE0009B3341 /* InvestmentBoardFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentBoardFilterViewModel.swift; sourceTree = "<group>"; };
+		E3FC69E42A9210FC009B3341 /* InvestmentBoardFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentBoardFilterCell.swift; sourceTree = "<group>"; };
 		E40D0AB7515630563347CBDA /* CoinPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceViewController.swift; sourceTree = "<group>"; };
 		E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetViewModel.swift; sourceTree = "<group>"; };
 		E5039C2C00BEB653F3B0D399 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -2983,6 +2991,7 @@
 				E3FC699F2A8A0731009B3341 /* InvestmentPerformanceViewController.swift */,
 				E3FC69B82A8A6C89009B3341 /* InvestCoinPerformanceViewController.swift */,
 				E3FC69BE2A8C9B3E009B3341 /* InvestmentBoardViewController.swift */,
+				E3FC69DE2A9207E8009B3341 /* InvestmentBoardFilterViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2990,7 +2999,7 @@
 		E3FC69902A88B0D3009B3341 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E3FC69C62A90A7EF009B3341 /* Invest */,
+				E3FC69C62A90A7EF009B3341 /* InvestmentBoard */,
 				E3FC69B02A8A2BF5009B3341 /* Main */,
 				E3FC69B12A8A2C43009B3341 /* Performance */,
 			);
@@ -3059,15 +3068,17 @@
 			path = Performance;
 			sourceTree = "<group>";
 		};
-		E3FC69C62A90A7EF009B3341 /* Invest */ = {
+		E3FC69C62A90A7EF009B3341 /* InvestmentBoard */ = {
 			isa = PBXGroup;
 			children = (
 				E3FC69C02A8C9CBC009B3341 /* InvestmentBoardView.swift */,
 				E3FC69DC2A910F0F009B3341 /* InvestmentBoardDataSource.swift */,
 				E3FC69C72A90A836009B3341 /* UserInvestmentAssetCell.swift */,
 				E3FC69C92A90A852009B3341 /* InvastableAssetCell.swift */,
+				E3FC69E02A9209AD009B3341 /* InvestmentBoardFilterView.swift */,
+				E3FC69E42A9210FC009B3341 /* InvestmentBoardFilterCell.swift */,
 			);
-			path = Invest;
+			path = InvestmentBoard;
 			sourceTree = "<group>";
 		};
 		E3FC69CB2A90AF37009B3341 /* Invest */ = {
@@ -3076,6 +3087,7 @@
 				E3FC699D2A89069A009B3341 /* InvestAssetViewModel.swift */,
 				E3FC69CF2A90B052009B3341 /* InvestableAssetViewModel.swift */,
 				E3FC69D32A90B280009B3341 /* InvestmentBoardViewModel.swift */,
+				E3FC69E22A920BE0009B3341 /* InvestmentBoardFilterViewModel.swift */,
 			);
 			path = Invest;
 			sourceTree = "<group>";
@@ -3413,6 +3425,7 @@
 				8FEE7479372B430975CF245D /* AssetChartViewModel.swift in Sources */,
 				DFC4D03A2A360D8300F03DC4 /* Web3Core.swift in Sources */,
 				58725E16FF09C251760EF717 /* AssetLineChart.swift in Sources */,
+				E3FC69E32A920BE0009B3341 /* InvestmentBoardFilterViewModel.swift in Sources */,
 				E3FC69A62A8A0952009B3341 /* InvestmentPerformanceHeaderView.swift in Sources */,
 				72A3CB357D4BD765C3616F3E /* AssetProtocol.swift in Sources */,
 				D4FCAA07F82037BF6EF0B823 /* AssetViewModel.swift in Sources */,
@@ -3633,6 +3646,7 @@
 				D970C0E02A74EA80005A7FAC /* GlobalToastTitles.swift in Sources */,
 				E52C3E716C6ACBCE6C8BE230 /* NoInternetConnectionView.swift in Sources */,
 				44DBA60846C0B1DA8E26EAD8 /* NoInternetConnectionViewModel.swift in Sources */,
+				E3FC69E52A9210FC009B3341 /* InvestmentBoardFilterCell.swift in Sources */,
 				E3FC698E2A80DD2F009B3341 /* SwapPriceManager.swift in Sources */,
 				1F98DAC473200ACED0BA403B /* ParameterEncoderProtocol.swift in Sources */,
 				8EA8AEFE97CEC48A2C1DFCB7 /* ParameterEncoding.swift in Sources */,
@@ -3698,6 +3712,7 @@
 				9B356BB4D7AD512DAD0A05D2 /* RecoveryPhraseViewController.swift in Sources */,
 				D99CBA352A59509B00581564 /* ActivityAPIClient.swift in Sources */,
 				0DC7141183DFDC22EDA3C327 /* RecoveryPhraseViewModel.swift in Sources */,
+				E3FC69E12A9209AD009B3341 /* InvestmentBoardFilterView.swift in Sources */,
 				A57E4F2D75D4BAAB0F29A83B /* RegularStyle.swift in Sources */,
 				D9DD538BAF953A18503AB3F0 /* RemoveAccountView.swift in Sources */,
 				E785EA31CC4E6721B72481DE /* RemoveAccountViewController.swift in Sources */,
@@ -3725,6 +3740,7 @@
 				D9D9A40C2A5ED76400CECA41 /* ActivityInfoStackView.swift in Sources */,
 				D93C41F929F7C5C6003F2297 /* EditAccountHeaderView.swift in Sources */,
 				D98207C62A5D5D4D0066A090 /* ActivityDetailsViewModel.swift in Sources */,
+				E3FC69DF2A9207E8009B3341 /* InvestmentBoardFilterViewController.swift in Sources */,
 				13F430044A23AF2BA55BBDFB /* SecurityModeProtocol.swift in Sources */,
 				DFC1F6A92A755F7B003DB68A /* SwapPriceRequestModel.swift in Sources */,
 				D94A9A1D29FE4C6700DCA28D /* EditAccountView.swift in Sources */,
