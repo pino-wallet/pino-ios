@@ -9,7 +9,7 @@ import Foundation
 
 #warning("This model is temporary")
 struct InvestableAssetModel {
-	// MARK: - Public Methods
+	// MARK: - Public Properties
 
 	public let assetName: String
 	public let assetImage: String

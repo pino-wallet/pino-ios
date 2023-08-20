@@ -51,8 +51,8 @@ class ActivityDetailsViewController: UIViewController {
 	private func setupView() {
 		activityDetailsView = ActivityDetailsView(
 			activityDetailsVM: activityDetailsVM,
-			presentActionSheet: { [weak self] actionSheet in
-				self?.present(actionSheet, animated: true)
+			presentActionSheet: { [weak self] actionSheet, completion in
+				self?.present(actionSheet, animated: true, completion: completion)
 			},
 			activityDetailsHeader: activityDetailsVM.properties
 				.uiType == .swap ? ActivitySwapHeaderView(activityDetailsVM: activityDetailsVM) :
