@@ -6,9 +6,9 @@
 //
 
 protocol SelectDexProtocolCellVMProtocol {
-    var dexModel: DexProtocolModelProtocol { get set }
-    var name: String { get }
-    var image: String { get }
-    var description: String { get }
-    var type: String { get }
+	var dexModel: DexProtocolModelProtocol { get set }
+	var name: String { get }
+	var image: String { get }
+	var description: String { get }
+	var type: String { get }
 }

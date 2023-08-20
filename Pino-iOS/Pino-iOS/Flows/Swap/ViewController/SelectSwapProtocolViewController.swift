@@ -51,8 +51,8 @@ class SelectSwapProtocolViewController: UIViewController {
 
 	private func setupView() {
 		swapProtocolCollectionView = SelectDexProtocolCollectionView(
-            selectDexProtocolVM: swapProtocolVM,
-            dexProtocolDidSelect: { selectedProtocol in
+			selectDexProtocolVM: swapProtocolVM,
+			dexProtocolDidSelect: { selectedProtocol in
 				self.swapProtocolDidSelect(selectedProtocol)
 				self.closePage()
 			}

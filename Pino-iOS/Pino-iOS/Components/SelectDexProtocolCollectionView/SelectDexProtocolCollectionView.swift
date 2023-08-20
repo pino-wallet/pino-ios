@@ -10,7 +10,7 @@ import UIKit
 class SelectDexProtocolCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
-    private let selectDexProtocolVM: SelectDexProtocolVMProtocol
+	private let selectDexProtocolVM: SelectDexProtocolVMProtocol
 	private let dexProtocolDidSelect: (dexProtocolModel) -> Void
 
 	// MARK: - Initializers
@@ -44,13 +44,13 @@ class SelectDexProtocolCollectionView: UICollectionView {
 
 extension SelectDexProtocolCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        dexProtocolDidSelect(selectDexProtocolVM.dexProtocolsList[indexPath.item])
+		dexProtocolDidSelect(selectDexProtocolVM.dexProtocolsList[indexPath.item])
 	}
 }
 
 extension SelectDexProtocolCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        selectDexProtocolVM.dexProtocolsList.count
+		selectDexProtocolVM.dexProtocolsList.count
 	}
 
 	func collectionView(
@@ -61,7 +61,7 @@ extension SelectDexProtocolCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: DexProtocolCell.cellReuseID,
 			for: indexPath
 		) as! DexProtocolCell
-        cell.dexProtocolVM = SelectDexCellViewModel(dexModel: selectDexProtocolVM.dexProtocolsList[indexPath.item])
+		cell.dexProtocolVM = SelectDexCellViewModel(dexModel: selectDexProtocolVM.dexProtocolsList[indexPath.item])
 		return cell
 	}
 }

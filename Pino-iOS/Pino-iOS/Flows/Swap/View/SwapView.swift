@@ -29,7 +29,7 @@ class SwapView: UIView {
 	private var nextButtonTapped: () -> Void
 	private var swapProtocolChange: () -> Void
 	private var swapVM: SwapViewModel
-    private var selectDexProtocolView: SelectDexProtocolView!
+	private var selectDexProtocolView: SelectDexProtocolView!
 
 	private var cancellables = Set<AnyCancellable>()
 
@@ -85,10 +85,14 @@ class SwapView: UIView {
 			hasMaxAmount: false,
 			changeSelectedToken: toTokeChange
 		)
-        
-        selectDexProtocolView = SelectDexProtocolView(title: swapVM.selectedProtocol.name, image: swapVM.selectedProtocol.image, onDexProtocolTapClosure: {
-            self.swapProtocolChange()
-        })
+
+		selectDexProtocolView = SelectDexProtocolView(
+			title: swapVM.selectedProtocol.name,
+			image: swapVM.selectedProtocol.image,
+			onDexProtocolTapClosure: {
+				self.swapProtocolChange()
+			}
+		)
 
 		addSubview(contentStackView)
 		addSubview(continueButton)
@@ -134,7 +138,6 @@ class SwapView: UIView {
 
 		switchTokenButton.setImage(UIImage(named: swapVM.switchIcon), for: .normal)
 
-		
 		switchTokenButton.setTitleColor(.Pino.primary, for: .normal)
 
 		backgroundColor = .Pino.background
@@ -166,7 +169,7 @@ class SwapView: UIView {
 			.horizontalEdges(padding: 16),
 			.top(to: layoutMarginsGuide, padding: 18)
 		)
-		
+
 		swapStackView.pin(
 			.top(padding: 24),
 			.bottom(padding: 28),
@@ -263,19 +266,18 @@ class SwapView: UIView {
 	}
 
 	@objc
-	private func changeSwapProtocol() {
-	}
+	private func changeSwapProtocol() {}
 
 	// MARK: - Public Methods
 
 	public func showProtocolView() {
 		selectDexProtocolView.alpha = 1
-        selectDexProtocolView.isHidden = false
+		selectDexProtocolView.isHidden = false
 	}
 
 	public func hideProtocolView() {
-        selectDexProtocolView.alpha = 0
-        selectDexProtocolView.isHidden = true
+		selectDexProtocolView.alpha = 0
+		selectDexProtocolView.isHidden = true
 	}
 
 	public func openFeeCard() {

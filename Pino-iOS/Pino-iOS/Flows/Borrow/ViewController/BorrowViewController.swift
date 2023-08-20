@@ -8,9 +8,11 @@
 import UIKit
 
 class BorrowViewController: UIViewController {
-    // MARK: - Private Properties
-    private let borrowVM = BorrowViewModel()
-    private var borrowView: BorrowView!
+	// MARK: - Private Properties
+
+	private let borrowVM = BorrowViewModel()
+	private var borrowView: BorrowView!
+
 	// MARK: - View Overrides
 
 	override func viewDidLoad() {
@@ -18,28 +20,28 @@ class BorrowViewController: UIViewController {
 	}
 
 	override func loadView() {
-        setupNavigationBar()
+		setupNavigationBar()
 		setupView()
 	}
-    
-    override func viewWillAppear(_ animated: Bool) {
-        if isBeingPresented || isMovingToParent {
-            borrowVM.getBorrowingDetailsFromVC()
-        }
-    }
+
+	override func viewWillAppear(_ animated: Bool) {
+		if isBeingPresented || isMovingToParent {
+			borrowVM.getBorrowingDetailsFromVC()
+		}
+	}
 
 	// MARK: - Private Methods
-    
-    private func setupNavigationBar() {
-        setupPrimaryColorNavigationBar()
-        setNavigationTitle(borrowVM.pageTitle)
-    }
+
+	private func setupNavigationBar() {
+		setupPrimaryColorNavigationBar()
+		setNavigationTitle(borrowVM.pageTitle)
+	}
 
 	private func setupView() {
-        borrowView = BorrowView(borrowVM: borrowVM, presentActionsheet: { actionSheet in
-            self.present(actionSheet, animated: true)
-        })
-        
+		borrowView = BorrowView(borrowVM: borrowVM, presentActionsheet: { actionSheet in
+			self.present(actionSheet, animated: true)
+		})
+
 		view = borrowView
 	}
 }

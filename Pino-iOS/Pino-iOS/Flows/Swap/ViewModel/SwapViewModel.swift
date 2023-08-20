@@ -46,7 +46,7 @@ class SwapViewModel {
 	// MARK: - Initializers
 
 	init(fromToken: AssetViewModel, toToken: AssetViewModel) {
-        self.selectedProtocol = .bestRate
+		self.selectedProtocol = .bestRate
 		self.fromToken = SwapTokenViewModel(selectedToken: fromToken)
 		self.toToken = SwapTokenViewModel(selectedToken: toToken)
 		self.swapFeeVM = SwapFeeViewModel()
@@ -144,7 +144,7 @@ class SwapViewModel {
 		swapSide: SwapSide,
 		completion: @escaping (String) -> Void
 	) {
-        if selectedProtocol == .bestRate {
+		if selectedProtocol == .bestRate {
 			getBestRate(destToken: destToken, amount: amount, swapSide: swapSide, completion: completion)
 		} else {
 			#warning("The price of other protocols must be taken here")

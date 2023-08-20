@@ -8,12 +8,10 @@
 import Foundation
 
 class SelectSwapProtocolViewModel: SelectDexProtocolVMProtocol {
-    
 	// MARK: - Public Properties
 
 	public let pageTitle = "Select DEX"
 	public let dissmissIocn = "dissmiss"
 
-    public var dexProtocolsList: [dexProtocolModel] = [.bestRate, .balancer, .uniswap, .curve]
-    
+	public var dexProtocolsList: [dexProtocolModel] = [.bestRate, .balancer, .uniswap, .curve]
 }
