@@ -528,6 +528,8 @@
 		E3FC69E12A9209AD009B3341 /* InvestmentBoardFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69E02A9209AD009B3341 /* InvestmentBoardFilterView.swift */; };
 		E3FC69E32A920BE0009B3341 /* InvestmentBoardFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69E22A920BE0009B3341 /* InvestmentBoardFilterViewModel.swift */; };
 		E3FC69E52A9210FC009B3341 /* InvestmentBoardFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69E42A9210FC009B3341 /* InvestmentBoardFilterCell.swift */; };
+		E3FC69E72A9213FE009B3341 /* InvestmentBoardFilterHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69E62A9213FE009B3341 /* InvestmentBoardFilterHeader.swift */; };
+		E3FC69E92A922045009B3341 /* InvestmentFilterItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69E82A922045009B3341 /* InvestmentFilterItemViewModel.swift */; };
 		E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D680E48001C060BADD248 /* EndpointType.swift */; };
 		E4BC1D70FBAF66825B9358E7 /* LockMethodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386676E7E643B6AB252A5653 /* LockMethodModel.swift */; };
 		E4FF2E5E60CA74F3324945A8 /* CoinInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D5774D76FC507F8B176185 /* CoinInfoViewModel.swift */; };
@@ -1076,6 +1078,8 @@
 		E3FC69E02A9209AD009B3341 /* InvestmentBoardFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentBoardFilterView.swift; sourceTree = "<group>"; };
 		E3FC69E22A920BE0009B3341 /* InvestmentBoardFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentBoardFilterViewModel.swift; sourceTree = "<group>"; };
 		E3FC69E42A9210FC009B3341 /* InvestmentBoardFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentBoardFilterCell.swift; sourceTree = "<group>"; };
+		E3FC69E62A9213FE009B3341 /* InvestmentBoardFilterHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentBoardFilterHeader.swift; sourceTree = "<group>"; };
+		E3FC69E82A922045009B3341 /* InvestmentFilterItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentFilterItemViewModel.swift; sourceTree = "<group>"; };
 		E40D0AB7515630563347CBDA /* CoinPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceViewController.swift; sourceTree = "<group>"; };
 		E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetViewModel.swift; sourceTree = "<group>"; };
 		E5039C2C00BEB653F3B0D399 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -3077,6 +3081,7 @@
 				E3FC69C92A90A852009B3341 /* InvastableAssetCell.swift */,
 				E3FC69E02A9209AD009B3341 /* InvestmentBoardFilterView.swift */,
 				E3FC69E42A9210FC009B3341 /* InvestmentBoardFilterCell.swift */,
+				E3FC69E62A9213FE009B3341 /* InvestmentBoardFilterHeader.swift */,
 			);
 			path = InvestmentBoard;
 			sourceTree = "<group>";
@@ -3088,6 +3093,7 @@
 				E3FC69CF2A90B052009B3341 /* InvestableAssetViewModel.swift */,
 				E3FC69D32A90B280009B3341 /* InvestmentBoardViewModel.swift */,
 				E3FC69E22A920BE0009B3341 /* InvestmentBoardFilterViewModel.swift */,
+				E3FC69E82A922045009B3341 /* InvestmentFilterItemViewModel.swift */,
 			);
 			path = Invest;
 			sourceTree = "<group>";
@@ -3363,6 +3369,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3FC69E92A922045009B3341 /* InvestmentFilterItemViewModel.swift in Sources */,
 				DFFDEDA42A75659E00D710D7 /* ParaSwapEndpoint.swift in Sources */,
 				DFFDEDA32A75658700D710D7 /* ParaSwapAPIClient.swift in Sources */,
 				F1C2F0DA68898BE55C08D853 /* APIError.swift in Sources */,
@@ -3697,6 +3704,7 @@
 				133389D38DF23CB5BE195DDC /* ProfileCollectionView.swift in Sources */,
 				7656A61006C2DB8A8F75F498 /* ProfileIcons.swift in Sources */,
 				D9C4CF032A408CA500475F01 /* UserAddressCell.swift in Sources */,
+				E3FC69E72A9213FE009B3341 /* InvestmentBoardFilterHeader.swift in Sources */,
 				DFB1E9D62A08F21C00041B26 /* SelectedAssetsDataSource.swift in Sources */,
 				0D3E98673CD274381A698BBA /* ProfileViewController.swift in Sources */,
 				0613EF4F55B5F6FA90BA65C0 /* ProfileViewModel.swift in Sources */,

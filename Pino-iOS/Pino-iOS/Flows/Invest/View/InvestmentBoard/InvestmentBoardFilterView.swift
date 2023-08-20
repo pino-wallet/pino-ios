@@ -15,15 +15,18 @@ class InvestmentBoardFilterView: UICollectionView {
 	// MARK: - Closures
 
 	public var filterItemSelected: (InvestmentFilterItemViewModel) -> Void
+	public var clearFiltersDidTap: () -> Void
 
 	// MARK: - Initializers
 
 	init(
 		filterVM: InvestmentBoardFilterViewModel,
-		filterItemSelected: @escaping (InvestmentFilterItemViewModel) -> Void
+		filterItemSelected: @escaping (InvestmentFilterItemViewModel) -> Void,
+		clearFiltersDidTap: @escaping () -> Void
 	) {
 		self.filterVM = filterVM
 		self.filterItemSelected = filterItemSelected
+		self.clearFiltersDidTap = clearFiltersDidTap
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 
@@ -43,9 +46,9 @@ class InvestmentBoardFilterView: UICollectionView {
 			forCellWithReuseIdentifier: InvestmentBoardFilterCell.cellReuseID
 		)
 		register(
-			SettingsHeaderView.self,
+			InvestmentBoardFilterHeaderView.self,
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-			withReuseIdentifier: SettingsHeaderView.headerReuseID
+			withReuseIdentifier: InvestmentBoardFilterHeaderView.viewReuseID
 		)
 
 		dataSource = self
@@ -109,13 +112,14 @@ extension InvestmentBoardFilterView: UICollectionViewDataSource {
 	) -> UICollectionReusableView {
 		switch kind {
 		case UICollectionView.elementKindSectionHeader:
-			let settingsHeaderView = dequeueReusableSupplementaryView(
+			let filterHeaderView = dequeueReusableSupplementaryView(
 				ofKind: kind,
-				withReuseIdentifier: SettingsHeaderView.headerReuseID,
+				withReuseIdentifier: InvestmentBoardFilterHeaderView.viewReuseID,
 				for: indexPath
-			) as! SettingsHeaderView
-			settingsHeaderView.title = "Filter by"
-			return settingsHeaderView
+			) as! InvestmentBoardFilterHeaderView
+			filterHeaderView.title = "Filter by"
+			filterHeaderView.clearFiltersDidTap = clearFiltersDidTap
+			return filterHeaderView
 		default:
 			fatalError("Invalid element type")
 		}

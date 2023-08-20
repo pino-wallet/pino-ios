@@ -10,49 +10,23 @@ import Foundation
 struct InvestmentBoardFilterViewModel {
 	// MARK: - Public Properties
 
-	public var filters: [InvestmentFilterItemViewModel] = [.assets, .investProtocol, .risk]
+	public var filters: [InvestmentFilterItemViewModel]
+
+	public var selectedAsset: AssetViewModel?
+	public var selectedProtocol: InvestProtocolViewModel?
+	public var selectedRisk: String?
 
 	// MARK: - Initializers
 
-	init() {}
-}
-
-public struct InvestmentFilterItemViewModel {
-	// MARK: - Private Properties
-
-	private var filterItem: FilterItem
-
-	// MARK: - Public Properties
-
-	public var title: String {
-		switch filterItem {
-		case .assets:
-			return "Asset"
-		case .investProtocol:
-			return "Protocol"
-		case .risk:
-			return "Risk"
-		}
+	init(
+		selectedAsset: AssetViewModel? = nil,
+		selectedProtocol: InvestProtocolViewModel? = nil,
+		selectedRisk: String? = nil
+	) {
+		self.filters = [
+			InvestmentFilterItemViewModel(item: .assets, description: selectedAsset?.name),
+			InvestmentFilterItemViewModel(item: .investProtocol, description: selectedProtocol?.protocolInfo.name),
+			InvestmentFilterItemViewModel(item: .risk, description: selectedRisk),
+		]
 	}
-
-	public var description: String
-
-	// MARK: - Initializers
-
-	init(item: FilterItem, description: String) {
-		self.filterItem = item
-		self.description = description
-	}
-
-	public enum FilterItem {
-		case assets
-		case investProtocol
-		case risk
-	}
-}
-
-extension InvestmentFilterItemViewModel {
-	public static let assets = InvestmentFilterItemViewModel(item: .assets, description: "All")
-	public static let investProtocol = InvestmentFilterItemViewModel(item: .investProtocol, description: "Uniswap")
-	public static let risk = InvestmentFilterItemViewModel(item: .risk, description: "High risk")
 }

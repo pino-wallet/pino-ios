@@ -34,9 +34,15 @@ class InvestmentBoardFilterViewController: UIViewController {
 
 	private func setupView() {
 		let filterVM = InvestmentBoardFilterViewModel()
-		view = InvestmentBoardFilterView(filterVM: filterVM, filterItemSelected: { filterItem in
-
-		})
+		view = InvestmentBoardFilterView(
+			filterVM: filterVM,
+			filterItemSelected: { filterItem in
+				self.openFilterItem(filterItem)
+			},
+			clearFiltersDidTap: {
+				self.clearFilters()
+			}
+		)
 	}
 
 	private func setupNavigationBar() {
@@ -58,4 +64,8 @@ class InvestmentBoardFilterViewController: UIViewController {
 	private func closePage() {
 		dismiss(animated: true)
 	}
+
+	private func openFilterItem(_ filterItem: InvestmentFilterItemViewModel) {}
+
+	private func clearFilters() {}
 }
