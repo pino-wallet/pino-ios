@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InvestmentBoardFilterView: UICollectionView {
+class InvestmentBoardFilterCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
 	private let filterVM: InvestmentBoardFilterViewModel
@@ -63,7 +63,7 @@ class InvestmentBoardFilterView: UICollectionView {
 
 // MARK: - Collection View Flow Layout
 
-extension InvestmentBoardFilterView: UICollectionViewDelegateFlowLayout {
+extension InvestmentBoardFilterCollectionView: UICollectionViewDelegateFlowLayout {
 	func collectionView(
 		_ collectionView: UICollectionView,
 		layout collectionViewLayout: UICollectionViewLayout,
@@ -75,7 +75,7 @@ extension InvestmentBoardFilterView: UICollectionViewDelegateFlowLayout {
 
 // MARK: - CollectionView Delegate
 
-extension InvestmentBoardFilterView: UICollectionViewDelegate {
+extension InvestmentBoardFilterCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		filterItemSelected(filterVM.filters[indexPath.item])
 	}
@@ -83,7 +83,7 @@ extension InvestmentBoardFilterView: UICollectionViewDelegate {
 
 // MARK: - CollectionView DataSource
 
-extension InvestmentBoardFilterView: UICollectionViewDataSource {
+extension InvestmentBoardFilterCollectionView: UICollectionViewDataSource {
 	internal func numberOfSections(in collectionView: UICollectionView) -> Int {
 		1
 	}
