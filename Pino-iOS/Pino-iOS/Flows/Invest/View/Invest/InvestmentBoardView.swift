@@ -10,12 +10,19 @@ import UIKit
 class InvestmentBoardView: AssetsBoardCollectionView {
 	// MARK: - Private Properties
 
-	private let collectionViewDataSource: InvestmentBoardDataSource
+	private let investmentDataSource: InvestmentBoardDataSource
 
 	// MARK: - Initializers
 
-	init(investmentBoardVM: InvestmentBoardViewModel, assetDidSelect: @escaping (AssetsBoardProtocol) -> Void) {
-		self.collectionViewDataSource = InvestmentBoardDataSource(investmentVM: investmentBoardVM)
+	init(
+		investmentBoardVM: InvestmentBoardViewModel,
+		assetDidSelect: @escaping (AssetsBoardProtocol) -> Void,
+		filterDidTap: @escaping () -> Void
+	) {
+		self.investmentDataSource = InvestmentBoardDataSource(
+			investmentVM: investmentBoardVM,
+			filterDidTap: filterDidTap
+		)
 		super.init(
 			assets: investmentBoardVM.investableAssets,
 			userAssets: investmentBoardVM.userInvestments,
@@ -33,6 +40,6 @@ class InvestmentBoardView: AssetsBoardCollectionView {
 	private func setupCollectionView() {
 		register(UserInvestmentAssetCell.self, forCellWithReuseIdentifier: UserInvestmentAssetCell.cellReuseID)
 		register(InvestableAssetCell.self, forCellWithReuseIdentifier: InvestableAssetCell.cellReuseID)
-		dataSource = collectionViewDataSource
+		dataSource = investmentDataSource
 	}
 }

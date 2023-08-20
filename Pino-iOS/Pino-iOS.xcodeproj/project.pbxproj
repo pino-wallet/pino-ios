@@ -2347,7 +2347,7 @@
 		D9A3280A2A3452DC005A8393 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				E3FC69D52A90C1D0009B3341 /* BoardAsset */,
+				E3FC69D52A90C1D0009B3341 /* AssetsBoard */,
 				D9E134832A52FB3400193FF0 /* ActivityHeaderView */,
 				D9AF29DF2A5001CB006BC53E /* ActivityCell */,
 				E3D204C82A3992630027FEBC /* tokenView */,
@@ -3080,7 +3080,7 @@
 			path = Invest;
 			sourceTree = "<group>";
 		};
-		E3FC69D52A90C1D0009B3341 /* BoardAsset */ = {
+		E3FC69D52A90C1D0009B3341 /* AssetsBoard */ = {
 			isa = PBXGroup;
 			children = (
 				E3FC69DA2A91032D009B3341 /* AssetsBoardCollectionView.swift */,
@@ -3088,7 +3088,7 @@
 				E3FC69C42A8CBB1E009B3341 /* AssetsBoardHeaderView.swift */,
 				E3FC69CD2A90AF90009B3341 /* AssetsBoardProtocol.swift */,
 			);
-			path = BoardAsset;
+			path = AssetsBoard;
 			sourceTree = "<group>";
 		};
 		E592A8E4290E95A67BA5D5CF /* Home */ = {

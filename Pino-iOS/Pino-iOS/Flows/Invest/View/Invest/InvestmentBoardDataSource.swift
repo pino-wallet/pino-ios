@@ -8,11 +8,19 @@
 import UIKit
 
 class InvestmentBoardDataSource: NSObject, UICollectionViewDataSource {
-	private let investmentBoardVM: InvestmentBoardViewModel
+	// MARK: - private Properties
 
-	init(investmentVM: InvestmentBoardViewModel) {
+	private let investmentBoardVM: InvestmentBoardViewModel
+	private let investmentFilterDidTap: () -> Void
+
+	// MARK: - Initializers
+
+	init(investmentVM: InvestmentBoardViewModel, filterDidTap: @escaping () -> Void) {
 		self.investmentBoardVM = investmentVM
+		self.investmentFilterDidTap = filterDidTap
 	}
+
+	// MARK: - Internal Methods
 
 	func numberOfSections(in collectionView: UICollectionView) -> Int {
 		if investmentBoardVM.userInvestments.isEmpty {
@@ -75,6 +83,7 @@ class InvestmentBoardDataSource: NSObject, UICollectionViewDataSource {
 		case 1:
 			headerView.title = investmentBoardVM.investableAssetsTitle
 			headerView.hasFilter = true
+			headerView.filterDidTap = investmentFilterDidTap
 		default:
 			fatalError("Invalid section index in notificaition collection view")
 		}

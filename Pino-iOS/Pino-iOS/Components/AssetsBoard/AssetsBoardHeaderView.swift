@@ -34,12 +34,20 @@ class AssetsBoardHeaderView: UICollectionReusableView {
 		}
 	}
 
+	public var filterDidTap: (() -> Void)?
+
 	// MARK: - Private Methods
 
 	private func setupView() {
 		addSubview(contentStackview)
 		contentStackview.addArrangedSubview(titleLabel)
 		contentStackview.addArrangedSubview(filterButton)
+
+		filterButton.addAction(UIAction(handler: { _ in
+			if let filterDidTap = self.filterDidTap {
+				filterDidTap()
+			}
+		}), for: .touchUpInside)
 	}
 
 	private func setupStyles() {
