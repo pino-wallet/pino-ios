@@ -40,4 +40,26 @@ enum SwapProvider {
 			return "0x_provider"
 		}
 	}
+    
+    public var contractAddress: String {
+        switch self {
+            case .oneInch:
+                return "0x1111111254EEB25477B68fb85Ed929f73A960582"
+            case .paraswap:
+                return "0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57"
+            case .zeroX:
+                return "0xDef1C0ded9bec7F1a1670819833240f027b25EfF"
+        }
+    }
+    
+    public var providerService: any SwapProvidersAPIServices {
+        switch self {
+            case .oneInch:
+                return OneInchAPIClient()
+            case .paraswap:
+                return ParaSwapAPIClient()
+            case .zeroX:
+                return ZeroXAPIClient()
+        }
+    }
 }

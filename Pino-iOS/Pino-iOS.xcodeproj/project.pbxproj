@@ -1241,8 +1241,6 @@
 				4037DCCA2A8BD58A00FCA96B /* ViewModel */,
 				4037DCC92A8BD57F00FCA96B /* ViewController */,
 				4037DCC82A8BD57B00FCA96B /* View */,
-				0EDB7798DEE2598C367E87BE /* BorrowViewController.swift */,
-				4037DCC62A8BD50100FCA96B /* ApproveContractViewController.swift */,
 			);
 			path = Borrow;
 			sourceTree = "<group>";
@@ -1532,6 +1530,8 @@
 		4037DCC92A8BD57F00FCA96B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				0EDB7798DEE2598C367E87BE /* BorrowViewController.swift */,
+				4037DCC62A8BD50100FCA96B /* ApproveContractViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
