@@ -14,19 +14,27 @@ class InvestAssetImageView: UIView {
 	private let contentView = UIView()
 	private let assetImageView = UIImageView()
 	private let protocolImageView = UIImageView()
-
-	private let assetImage: URL?
-	private let protocolImage: String?
 	private let unverifiedAssetImage = "unverified_asset"
+
+	// MARK: - Public Properties
+
+	public var assetImage: URL? {
+		didSet {
+			setupAssetImage(assetImage)
+		}
+	}
+
+	public var protocolImage: String? {
+		didSet {
+			setupProtocolImage(protocolImage)
+		}
+	}
 
 	// MARK: - Initializers
 
-	init(assetImage: URL?, protocolImage: String?) {
-		self.assetImage = assetImage
-		self.protocolImage = protocolImage
+	init() {
 		super.init(frame: .zero)
 		setupView()
-		setupStyle()
 		setupConstraint()
 	}
 
@@ -42,25 +50,13 @@ class InvestAssetImageView: UIView {
 		contentView.addSubview(protocolImageView)
 	}
 
-	private func setupStyle() {
-		if let assetImage {
-			assetImageView.kf.indicatorType = .activity
-			assetImageView.kf.setImage(with: assetImage)
-		} else {
-			assetImageView.image = UIImage(named: unverifiedAssetImage)
-		}
-
-		if let protocolImage {
-			protocolImageView.image = UIImage(named: protocolImage)
-		}
-	}
-
 	private func setupConstraint() {
 		contentView.pin(
 			.allEdges
 		)
 		assetImageView.pin(
-			.allEdges
+			.horizontalEdges(padding: 2),
+			.verticalEdges(padding: 2)
 		)
 		protocolImageView.pin(
 			.trailing,
@@ -68,8 +64,22 @@ class InvestAssetImageView: UIView {
 		)
 
 		NSLayoutConstraint.activate([
-			protocolImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.4),
+			protocolImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.42),
 			protocolImageView.widthAnchor.constraint(equalTo: protocolImageView.heightAnchor),
 		])
+	}
+
+	private func setupAssetImage(_ assetImage: URL?) {
+		if let assetImage {
+			assetImageView.kf.indicatorType = .activity
+			assetImageView.kf.setImage(with: assetImage)
+		} else {
+			assetImageView.image = UIImage(named: unverifiedAssetImage)
+		}
+	}
+
+	private func setupProtocolImage(_ protocolImage: String?) {
+		guard let protocolImage else { return }
+		protocolImageView.image = UIImage(named: protocolImage)
 	}
 }

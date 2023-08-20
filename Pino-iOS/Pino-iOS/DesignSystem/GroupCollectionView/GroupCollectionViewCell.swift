@@ -15,6 +15,7 @@ public class GroupCollectionViewCell: UICollectionViewCell {
 	internal let separatorLine = UIView()
 	internal var separatorLeadingConstraint: NSLayoutConstraint!
 	internal var separatorTrailingConstraint: NSLayoutConstraint!
+	internal var separatorLineIsHiden: Bool?
 
 	// MARK: - Private Properties
 
@@ -69,8 +70,12 @@ public class GroupCollectionViewCell: UICollectionViewCell {
 	}
 
 	private func updateStyle(_ style: GroupCollectionViewStyle) {
-		separatorLine.isHidden = style.separatorLineIsHidden
 		cardView.layer.maskedCorners = style.maskedCorners
+		if let separatorLineIsHiden {
+			separatorLine.isHidden = separatorLineIsHiden
+		} else {
+			separatorLine.isHidden = style.separatorLineIsHidden
+		}
 	}
 
 	// MARK: - Internal Properties

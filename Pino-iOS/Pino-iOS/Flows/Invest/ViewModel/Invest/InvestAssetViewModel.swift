@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct InvestAssetViewModel {
+public struct InvestAssetViewModel: AssetsBoardProtocol {
 	// MARK: - Private Properties
 
 	private let assetModel: InvestAssetModel
@@ -26,22 +26,24 @@ public struct InvestAssetViewModel {
 		InvestProtocolViewModel(name: assetModel.protocolName)
 	}
 
+	public var protocolImage: String {
+		assetProtocol.protocolInfo.image
+	}
+
 	public var assetAmount: BigNumber {
-		// Temporary
 		BigNumber(number: assetModel.assetAmount, decimal: assetModel.decimal)
 	}
 
 	public var formattedAssetAmount: String {
-		assetAmount.sevenDigitFormat.currencyFormatting
+		assetAmount.priceFormat
 	}
 
 	public var assetVolatility: BigNumber {
-		// Temporary
 		BigNumber(number: assetModel.assetVolatility, decimal: assetModel.decimal)
 	}
 
 	public var formattedAssetVolatility: String {
-		assetVolatility.sevenDigitFormat.currencyFormatting
+		assetVolatility.priceFormat
 	}
 
 	public var volatilityType: AssetVolatilityType {
