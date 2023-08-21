@@ -10,7 +10,7 @@ import UIKit
 class LoanDetailsInfoStackView: UIStackView {
 	// MARK: - Private Properties
 
-	private let betWeenView = UIView()
+	private let spacerView = UIView()
 	private var titleText: String
 	private var infoText: String
 
@@ -40,7 +40,7 @@ class LoanDetailsInfoStackView: UIStackView {
 
 	private func setupView() {
 		addArrangedSubview(titleLabel)
-		addArrangedSubview(betWeenView)
+		addArrangedSubview(spacerView)
 		addArrangedSubview(infoLabel)
 	}
 
