@@ -12,7 +12,7 @@ protocol InvestFilterDelegate {
 	var protocolFilter: InvestProtocolViewModel? { get }
 	var riskFilter: String? { get }
 
-	mutating func filterUpdated(
+	func filterUpdated(
 		assetFilter: AssetViewModel?,
 		protocolFilter: InvestProtocolViewModel?,
 		riskFilter: String?
