@@ -9,6 +9,7 @@ import Combine
 import Foundation
 
 final class ZeroXAPIClient: SwapProvidersAPIServices {
+    
 	// MARK: - Private Properties
 
 	private let networkManager = NetworkManager<ZeroXEndpoint>()
@@ -23,4 +24,10 @@ final class ZeroXAPIClient: SwapProvidersAPIServices {
 		}
 		return networkManager.request(.quote(swapInfo: editedSwapInfo))
 	}
+    
+    func swap(swapInfo: SwapRequestModel) -> AnyPublisher<ZeroXPriceResponseModel?, APIError> {
+        Just(nil)
+            .setFailureType(to: APIError.self)
+            .eraseToAnyPublisher()
+    }
 }

@@ -18,3 +18,23 @@ struct OneInchSwapResponseModel: Codable {
         let gasPrice: String
     }
 }
+
+extension OneInchSwapResponseModel: SwapPriceResponseProtocol {
+    var provider: SwapProvider {
+        .oneInch
+    }
+    
+    var srcAmount: String {
+        toAmount
+    }
+    
+    var destAmount: String {
+        ""
+    }
+    
+    var gasFee: String {
+        tx.gasPrice
+    }
+    
+    
+}

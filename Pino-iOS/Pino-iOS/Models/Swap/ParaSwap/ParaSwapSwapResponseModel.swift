@@ -16,3 +16,23 @@ struct ParaSwapSwapResponseModel: Codable {
         case chainID = "chainId"
     }
 }
+
+extension ParaSwapSwapResponseModel: SwapPriceResponseProtocol {
+    var provider: SwapProvider {
+        .paraswap
+    }
+    
+    var srcAmount: String {
+        value
+    }
+    
+    var destAmount: String {
+        ""
+    }
+    
+    var gasFee: String {
+        gas
+    }
+    
+    
+}

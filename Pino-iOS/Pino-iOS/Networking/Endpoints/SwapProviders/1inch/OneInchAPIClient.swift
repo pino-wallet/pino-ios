@@ -9,6 +9,7 @@ import Combine
 import Foundation
 
 final class OneInchAPIClient: SwapProvidersAPIServices {
+    
 	// MARK: - Private Properties
 
 	private let networkManager = NetworkManager<OneInchEndpoint>()
@@ -23,4 +24,9 @@ final class OneInchAPIClient: SwapProvidersAPIServices {
 		}
 		return networkManager.request(.quote(swapInfo: editedSwapInfo))
 	}
+    
+    func swap(swapInfo: SwapRequestModel) -> AnyPublisher<OneInchPriceResponseModel?, APIError> {
+        return networkManager.request(.swap(swapInfo: swapInfo))
+    }
+    
 }
