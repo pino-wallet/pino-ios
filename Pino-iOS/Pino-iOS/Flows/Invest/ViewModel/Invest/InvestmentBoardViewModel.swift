@@ -7,13 +7,18 @@
 
 import Foundation
 
-struct InvestmentBoardViewModel {
+class InvestmentBoardViewModel: InvestFilterDelegate {
 	// MARK: - Public Properties
 
 	public let userInvestmentsTitle = "My investments"
 	public let investableAssetsTitle = "Investable assets"
-	public var investableAssets = [InvestableAssetViewModel]()
 	public var userInvestments = [InvestAssetViewModel]()
+	@Published
+	public var investableAssets = [InvestableAssetViewModel]()
+
+	public var assetFilter: AssetViewModel?
+	public var protocolFilter: InvestProtocolViewModel?
+	public var riskFilter: String?
 
 	// MARK: - Initializers
 
@@ -24,7 +29,7 @@ struct InvestmentBoardViewModel {
 
 	// MARK: - Private Methods
 
-	private mutating func getInvestableAssets() {
+	private func getInvestableAssets() {
 		let investableAssetsModel = [
 			InvestableAssetModel(
 				assetName: "LINK",
@@ -53,5 +58,30 @@ struct InvestmentBoardViewModel {
 		]
 
 		investableAssets = investableAssetsModel.compactMap { InvestableAssetViewModel(assetModel: $0) }
+	}
+
+	// MARK: - Internal Methods
+
+	internal func filterUpdated(
+		assetFilter: AssetViewModel?,
+		protocolFilter: InvestProtocolViewModel?,
+		riskFilter: String?
+	) {
+		self.assetFilter = assetFilter
+		self.protocolFilter = protocolFilter
+		self.riskFilter = riskFilter
+
+		var filteredAsset = investableAssets
+		if let assetFilter {
+			filteredAsset = filteredAsset.filter { $0.assetName == assetFilter.symbol }
+		}
+		if let protocolFilter {
+			filteredAsset = filteredAsset.filter { $0.assetProtocol.type == protocolFilter.type }
+		}
+		if let riskFilter {
+			filteredAsset = filteredAsset.filter { $0.assetName == riskFilter }
+		}
+
+		investableAssets = filteredAsset
 	}
 }

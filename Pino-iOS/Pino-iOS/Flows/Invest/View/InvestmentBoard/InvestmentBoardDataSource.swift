@@ -10,20 +10,29 @@ import UIKit
 class InvestmentBoardDataSource: NSObject, UICollectionViewDataSource {
 	// MARK: - private Properties
 
-	private let investmentBoardVM: InvestmentBoardViewModel
 	private let investmentFilterDidTap: () -> Void
+
+	// MARK: - Public Properties
+
+	public var investableAssets: [InvestableAssetViewModel]
+	public var userInvestments: [InvestAssetViewModel]
 
 	// MARK: - Initializers
 
-	init(investmentVM: InvestmentBoardViewModel, filterDidTap: @escaping () -> Void) {
-		self.investmentBoardVM = investmentVM
+	init(
+		userInvestments: [InvestAssetViewModel],
+		investableAssets: [InvestableAssetViewModel],
+		filterDidTap: @escaping () -> Void
+	) {
+		self.userInvestments = userInvestments
+		self.investableAssets = investableAssets
 		self.investmentFilterDidTap = filterDidTap
 	}
 
 	// MARK: - Internal Methods
 
 	func numberOfSections(in collectionView: UICollectionView) -> Int {
-		if investmentBoardVM.userInvestments.isEmpty {
+		if userInvestments.isEmpty {
 			return 1
 		} else {
 			return 2
@@ -33,9 +42,9 @@ class InvestmentBoardDataSource: NSObject, UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		switch section {
 		case 0:
-			return investmentBoardVM.userInvestments.count
+			return userInvestments.count
 		case 1:
-			return investmentBoardVM.investableAssets.count
+			return investableAssets.count
 		default:
 			fatalError("Invalid section index in notificaition collection view")
 		}
@@ -51,16 +60,16 @@ class InvestmentBoardDataSource: NSObject, UICollectionViewDataSource {
 				withReuseIdentifier: UserInvestmentAssetCell.cellReuseID,
 				for: indexPath
 			) as! UserInvestmentAssetCell
-			AssetCell.investmentAsset = investmentBoardVM.userInvestments[indexPath.item]
-			AssetCell.setCellStyle(currentItem: indexPath.item, itemsCount: investmentBoardVM.userInvestments.count)
+			AssetCell.investmentAsset = userInvestments[indexPath.item]
+			AssetCell.setCellStyle(currentItem: indexPath.item, itemsCount: userInvestments.count)
 			return AssetCell
 		case 1:
 			let AssetCell = collectionView.dequeueReusableCell(
 				withReuseIdentifier: InvestableAssetCell.cellReuseID,
 				for: indexPath
 			) as! InvestableAssetCell
-			AssetCell.investableAsset = investmentBoardVM.investableAssets[indexPath.item]
-			AssetCell.setCellStyle(currentItem: indexPath.item, itemsCount: investmentBoardVM.investableAssets.count)
+			AssetCell.investableAsset = investableAssets[indexPath.item]
+			AssetCell.setCellStyle(currentItem: indexPath.item, itemsCount: investableAssets.count)
 			return AssetCell
 		default:
 			fatalError("Invalid section index in notificaition collection view")
@@ -79,9 +88,10 @@ class InvestmentBoardDataSource: NSObject, UICollectionViewDataSource {
 		) as! AssetsBoardHeaderView
 		switch indexPath.section {
 		case 0:
-			headerView.title = investmentBoardVM.userInvestmentsTitle
+			headerView.title = "My investments"
+			headerView.hasFilter = false
 		case 1:
-			headerView.title = investmentBoardVM.investableAssetsTitle
+			headerView.title = "Investable assets"
 			headerView.hasFilter = true
 			headerView.filterDidTap = investmentFilterDidTap
 		default:

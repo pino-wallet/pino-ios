@@ -9,9 +9,14 @@ import Foundation
 import UIKit
 
 class InvestmentBoardFilterViewController: UIViewController {
+	// MARK: Private Properties
+
+	private var filterVM: InvestmentBoardFilterViewModel
+
 	// MARK: Initializers
 
-	init() {
+	init(filterVM: InvestmentBoardFilterViewModel) {
+		self.filterVM = filterVM
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -33,7 +38,6 @@ class InvestmentBoardFilterViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		let filterVM = InvestmentBoardFilterViewModel()
 		view = InvestmentBoardFilterView(
 			filterVM: filterVM,
 			filterItemSelected: { filterItem in
@@ -41,6 +45,10 @@ class InvestmentBoardFilterViewController: UIViewController {
 			},
 			clearFiltersDidTap: {
 				self.clearFilters()
+			},
+			applyFilters: {
+				self.filterVM.applyFilters()
+				self.closePage()
 			}
 		)
 	}

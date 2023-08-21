@@ -74,7 +74,13 @@ class InvestmentBoardViewController: UIViewController {
 	private func openInvestPage() {}
 
 	private func openFilterPage() {
-		let investmentBoardFilterVC = InvestmentBoardFilterViewController()
+		let investmentFilterVM = InvestmentBoardFilterViewModel(
+			selectedAsset: investmentBoardVM.assetFilter,
+			selectedProtocol: investmentBoardVM.protocolFilter,
+			selectedRisk: investmentBoardVM.riskFilter,
+			filterDelegate: investmentBoardVM
+		)
+		let investmentBoardFilterVC = InvestmentBoardFilterViewController(filterVM: investmentFilterVM)
 		let investmentBoardFilterNavigationVC = UINavigationController(rootViewController: investmentBoardFilterVC)
 		present(investmentBoardFilterNavigationVC, animated: true)
 	}
