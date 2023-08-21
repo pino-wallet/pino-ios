@@ -7,9 +7,10 @@
 
 import Foundation
 
-struct InvestmentBoardFilterViewModel {
+class InvestmentBoardFilterViewModel {
 	// MARK: - Public Properties
 
+	@Published
 	public var filters: [InvestmentFilterItemViewModel]!
 
 	public var selectedAsset: AssetViewModel?
@@ -35,7 +36,7 @@ struct InvestmentBoardFilterViewModel {
 
 	// MARK: - Private Methods
 
-	private mutating func setupFilterItems() {
+	private func setupFilterItems() {
 		filters = [
 			InvestmentFilterItemViewModel(item: .assets, description: selectedAsset?.name),
 			InvestmentFilterItemViewModel(item: .investProtocol, description: selectedProtocol?.protocolInfo.name),
@@ -45,11 +46,29 @@ struct InvestmentBoardFilterViewModel {
 
 	// MARK: - Public Methods
 
-	public mutating func applyFilters() {
+	public func applyFilters() {
 		filterDelegate.filterUpdated(
 			assetFilter: selectedAsset,
 			protocolFilter: selectedProtocol,
 			riskFilter: selectedRisk
 		)
+	}
+
+	public func updateFilter(selectedAsset: AssetViewModel) {
+		self.selectedAsset = selectedAsset
+		let assetFilterIndex = filters.firstIndex(where: { $0.filterItem == .assets })!
+		filters[assetFilterIndex].updateDescription(selectedAsset.name)
+	}
+
+	public func updateFilter(selectedProtocol: InvestProtocolViewModel) {
+		self.selectedProtocol = selectedProtocol
+		let protocolFilterIndex = filters.firstIndex(where: { $0.filterItem == .investProtocol })!
+		filters[protocolFilterIndex].updateDescription(selectedProtocol.protocolInfo.name)
+	}
+
+	public func updateFilter(selectedRisk: String) {
+		self.selectedRisk = selectedRisk
+		let riskFilterIndex = filters.firstIndex(where: { $0.filterItem == .risk })!
+		filters[riskFilterIndex].updateDescription(selectedRisk)
 	}
 }
