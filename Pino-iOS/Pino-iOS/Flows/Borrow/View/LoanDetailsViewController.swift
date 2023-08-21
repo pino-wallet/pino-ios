@@ -8,32 +8,32 @@
 import UIKit
 
 class LoanDetailsViewController: UIViewController {
-    // MARK: - Private Properties
-    private let loanDetailsVM = LoanDetailsViewModel()
-    private var loanDetailsView: LoanDetailsView!
-    // MARK: - View Overrides
+	// MARK: - Private Properties
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    override func loadView() {
-        setupNavigationBar()
-        setupView()
-    }
-    
-    // MARK: - Private Methods
-    
-    private func setupNavigationBar() {
-        setupPrimaryColorNavigationBar()
-        setNavigationTitle(loanDetailsVM.pageTitle)
-    }
-    
-    private func setupView() {
-        loanDetailsView = LoanDetailsView(loanDetailsVM: loanDetailsVM)
-        
-        view = loanDetailsView
-    }
-    
+	private let loanDetailsVM = LoanDetailsViewModel()
+	private var loanDetailsView: LoanDetailsView!
 
+	// MARK: - View Overrides
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+	}
+
+	override func loadView() {
+		setupNavigationBar()
+		setupView()
+	}
+
+	// MARK: - Private Methods
+
+	private func setupNavigationBar() {
+		setupPrimaryColorNavigationBar()
+		setNavigationTitle(loanDetailsVM.pageTitle)
+	}
+
+	private func setupView() {
+		loanDetailsView = LoanDetailsView(loanDetailsVM: loanDetailsVM)
+
+		view = loanDetailsView
+	}
 }
