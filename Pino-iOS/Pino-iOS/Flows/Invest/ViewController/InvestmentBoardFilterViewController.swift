@@ -103,5 +103,7 @@ class InvestmentBoardFilterViewController: UIViewController {
 		present(InvestmentRiskNavigationVC, animated: true)
 	}
 
-	private func clearFilters() {}
+	private func clearFilters() {
+		filterVM.clearFilters()
+	}
 }
