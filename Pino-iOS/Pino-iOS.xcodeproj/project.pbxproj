@@ -302,6 +302,10 @@
 		D98207C62A5D5D4D0066A090 /* ActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98207C52A5D5D4D0066A090 /* ActivityDetailsViewModel.swift */; };
 		D98207C82A5D5D630066A090 /* ActivityDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98207C72A5D5D630066A090 /* ActivityDetailsViewController.swift */; };
 		D98207CA2A5D6D8C0066A090 /* ActivityDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98207C92A5D6D8C0066A090 /* ActivityDetailsHeaderView.swift */; };
+		D99019762A9350DD008CF9EC /* LoanDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99019752A9350DD008CF9EC /* LoanDetailsViewModel.swift */; };
+		D990197A2A93514D008CF9EC /* LoanDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99019792A93514D008CF9EC /* LoanDetailsView.swift */; };
+		D990197E2A935383008CF9EC /* LoanDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D990197D2A935383008CF9EC /* LoanDetailsViewController.swift */; };
+		D99019802A93660B008CF9EC /* LoanDetailsInfoStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D990197F2A93660B008CF9EC /* LoanDetailsInfoStackView.swift */; };
 		D99850472A55C66A00C2DF60 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99850462A55C66A00C2DF60 /* DateHelper.swift */; };
 		D99CAFC92A3AF0D400DBEF2B /* EnterSendAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99CAFC82A3AF0D400DBEF2B /* EnterSendAddressViewController.swift */; };
 		D99CAFCB2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99CAFCA2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift */; };
@@ -876,6 +880,10 @@
 		D98207C52A5D5D4D0066A090 /* ActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailsViewModel.swift; sourceTree = "<group>"; };
 		D98207C72A5D5D630066A090 /* ActivityDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailsViewController.swift; sourceTree = "<group>"; };
 		D98207C92A5D6D8C0066A090 /* ActivityDetailsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailsHeaderView.swift; sourceTree = "<group>"; };
+		D99019752A9350DD008CF9EC /* LoanDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanDetailsViewModel.swift; sourceTree = "<group>"; };
+		D99019792A93514D008CF9EC /* LoanDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanDetailsView.swift; sourceTree = "<group>"; };
+		D990197D2A935383008CF9EC /* LoanDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoanDetailsViewController.swift; path = "Pino-iOS/Flows/Borrow/View/LoanDetailsViewController.swift"; sourceTree = SOURCE_ROOT; };
+		D990197F2A93660B008CF9EC /* LoanDetailsInfoStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanDetailsInfoStackView.swift; sourceTree = "<group>"; };
 		D99850462A55C66A00C2DF60 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		D99CAFC82A3AF0D400DBEF2B /* EnterSendAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAddressViewController.swift; sourceTree = "<group>"; };
 		D99CAFCA2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAddressViewModel.swift; sourceTree = "<group>"; };
@@ -1525,6 +1533,8 @@
 			isa = PBXGroup;
 			children = (
 				4037DCCB2A8BD65600FCA96B /* ApproveContractView.swift */,
+				D99019792A93514D008CF9EC /* LoanDetailsView.swift */,
+				D990197F2A93660B008CF9EC /* LoanDetailsInfoStackView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1532,6 +1542,7 @@
 		4037DCC92A8BD57F00FCA96B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				D990197D2A935383008CF9EC /* LoanDetailsViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1540,6 +1551,7 @@
 			isa = PBXGroup;
 			children = (
 				4037DCCD2A8BD93200FCA96B /* ApproveContractViewModel.swift */,
+				D99019752A9350DD008CF9EC /* LoanDetailsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3644,6 +3656,7 @@
 				E3FC69DD2A910F0F009B3341 /* InvestmentBoardDataSource.swift in Sources */,
 				DFA9687D2A0FABB9007D4513 /* SelectedAsset+CoreDataClass.swift in Sources */,
 				01B0212D90D700DB5C1126FB /* InvestViewController.swift in Sources */,
+				D99019762A9350DD008CF9EC /* LoanDetailsViewModel.swift in Sources */,
 				06E5204105CFC5FFF4B310EE /* JSONParameterEncoder.swift in Sources */,
 				403691BE2A3DFFB60013AB6D /* ToastView.swift in Sources */,
 				763F91967E4347D64BD561C4 /* KeychainHelper.swift in Sources */,
@@ -3727,6 +3740,7 @@
 				D9F1BD042A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift in Sources */,
 				D9E34BC92C3AE69B3D5EC4F2 /* PortfolioPerformanceViewModel.swift in Sources */,
 				DFFDEDB02A77931200D710D7 /* ZeroXEndpoint.swift in Sources */,
+				D990197E2A935383008CF9EC /* LoanDetailsViewController.swift in Sources */,
 				122DC5E683E6405E0B3FCE54 /* PortfolioPrformanceCell.swift in Sources */,
 				0AF4C45B72B37F11F656A4B0 /* PositionHeaderView.swift in Sources */,
 				E3D204CC2A39B7E90027FEBC /* QRScannerViewController.swift in Sources */,
@@ -3764,6 +3778,7 @@
 				221F423020A78CA891331436 /* RevealPrivateKeyViewController.swift in Sources */,
 				E3847B362A52CB32005ED78B /* SwapViewModel.swift in Sources */,
 				7AD456E027211FE731B27DF8 /* RevealPrivateKeyViewModel.swift in Sources */,
+				D99019802A93660B008CF9EC /* LoanDetailsInfoStackView.swift in Sources */,
 				643BAB8ABDEFDA509D258D94 /* SceneDelegate.swift in Sources */,
 				0C37EADB6BFAB0A340582184 /* SecretPhraseCell.swift in Sources */,
 				D9C4CF062A408CF000475F01 /* RecentAddressViewModel.swift in Sources */,
@@ -3864,6 +3879,7 @@
 				D9C4CEFF2A408C5E00475F01 /* SuggestedAddressesCollectionView.swift in Sources */,
 				798A57BFA5D028A04B449F34 /* AccountInfoViewModel.swift in Sources */,
 				AD68BBE3C5E6C48C129C6BA7 /* AccountsCollectionView.swift in Sources */,
+				D990197A2A93514D008CF9EC /* LoanDetailsView.swift in Sources */,
 				D9BE051B2A8221C8008670F9 /* CDSwapActivity+CoreDataProperties.swift in Sources */,
 				C3321EBB6DC83BCDC3CFC3B0 /* WalletsModel.swift in Sources */,
 				316F0DDECBB3FA68BFFA1577 /* AccountsViewController.swift in Sources */,
