@@ -13,3 +13,17 @@ struct Web3ABI {
 
 	"""
 }
+
+public enum ABIMethodCall: String {
+	case decimal = "decimals"
+	case balance = "balanceOf"
+	case name
+	case symbol
+	case allowance
+	case approve
+}
+
+public enum ABIMethodWrite: String {
+	case approve
+	case transfer
+}

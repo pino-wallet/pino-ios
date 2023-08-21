@@ -58,7 +58,7 @@ class GlobalVariables {
 		}.get { assets in
 			self.manageAssetsList = assets
 		}.then { assets in
-			self.calculateEthGasFee(ethPrice: assets.first(where: { $0.isEth })!.price)
+			self.calculateEthGasFee()
 		}
 	}
 
@@ -90,9 +90,10 @@ class GlobalVariables {
 			.store(in: &cancellables)
 	}
 
-	private func calculateEthGasFee(ethPrice: BigNumber) -> Promise<Void> {
-		Web3Core.shared.calculateEthGasFee(ethPrice: ethPrice).done { fee, feeInDollar, gasPrice, gasLimit in
-			GlobalVariables.shared.ethGasFee = (fee, feeInDollar)
+	private func calculateEthGasFee() -> Promise<Void> {
+		Web3Core.shared.calculateEthGasFee().done { gasInfo in
+			let fee = BigNumber(unSignedNumber: gasInfo.fee, decimal: 18)
+			GlobalVariables.shared.ethGasFee = (fee, gasInfo.feeInDollar)
 		}
 	}
 

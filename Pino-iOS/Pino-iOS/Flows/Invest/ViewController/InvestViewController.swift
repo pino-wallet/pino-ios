@@ -49,7 +49,11 @@ class InvestViewController: UIViewController {
 		setNavigationTitle("Invest")
 	}
 
-	private func openInvestmentBoard() {}
+	private func openInvestmentBoard() {
+		let investmentBoardVC = InvestmentBoardViewController(assets: investVM.assets)
+		let investmentBoardNavigationVC = UINavigationController(rootViewController: investmentBoardVC)
+		present(investmentBoardNavigationVC, animated: true)
+	}
 
 	private func openInvestmentPerformance() {
 		let investmentPerformanceVC = InvestmentPerformanceViewController(assets: investVM.assets)

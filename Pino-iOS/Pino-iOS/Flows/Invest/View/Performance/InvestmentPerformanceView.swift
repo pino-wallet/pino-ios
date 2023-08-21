@@ -30,7 +30,6 @@ class InvestmentPerformanceCollectionView: UICollectionView {
 
 		configCollectionView()
 		setupStyle()
-		setupBindings()
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -58,8 +57,6 @@ class InvestmentPerformanceCollectionView: UICollectionView {
 		backgroundColor = .Pino.background
 		showsVerticalScrollIndicator = false
 	}
-
-	private func setupBindings() {}
 }
 
 // MARK: - Collection View Flow Layout

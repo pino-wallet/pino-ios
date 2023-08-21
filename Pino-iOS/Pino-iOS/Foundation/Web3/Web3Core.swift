@@ -17,7 +17,7 @@ enum Web3Error: Error {
 	case insufficientBalance
 }
 
-class Web3Core {
+public class Web3Core {
 	// MARK: - Private Properties
 
 	private init() {}
@@ -29,30 +29,51 @@ class Web3Core {
 		}
 	}
 
+	private var trxManager: W3TransferManager {
+		.init(web3: web3)
+	}
+
+	private var gasInfoManager: W3GasInfoManager {
+		.init(web3: web3)
+	}
+
+	private var transferManager: W3TransferManager {
+		.init(web3: web3)
+	}
+
 	private let walletManager = PinoWalletManager()
 
-	typealias CustomAssetInfo = [AssetInfo: String]
-	typealias ERC20TransactionInfoType = [ERC20TransactionInfo: EthereumQuantity]
-	typealias GasInfo = (fee: BigNumber, feeInDollar: BigNumber, gasPrice: String, gasLimit: String)
+	// MARK: - Typealias
+
+	public typealias CustomAssetInfo = [ABIMethodCall: String]
 
 	// MARK: - Public Properties
 
 	public static var shared = Web3Core()
-	public enum AssetInfo: String {
-		case decimal = "decimals"
-		case balance = "balanceOf"
-		case name = "name"
-		case symbol = "symbol"
-	}
-
-	public enum ERC20TransactionInfo: String {
-		case nonce
-		case gasPrice
-		case estimate
-		case gasLimit
-	}
 
 	// MARK: - Public Methods
+
+	public func getAllowanceOf(
+		contractAddress: String,
+		spenderAddress: String,
+		ownerAddress: String
+	) throws -> Promise<BigUInt> {
+		let contractAddress = try EthereumAddress(hex: contractAddress, eip55: true)
+		let ownerAddress = try EthereumAddress(hex: ownerAddress, eip55: true)
+		let spenderAddress = try EthereumAddress(hex: spenderAddress, eip55: true)
+
+		return try callABIMethod(
+			method: .allowance,
+			contractAddress: contractAddress,
+			params: ownerAddress,
+			spenderAddress
+		)
+	}
+
+	public func calculateApproveFeeOf(contractAddress: String, amount: BigUInt, spender: String) -> Promise<GasInfo> {
+		// Proccess is like Send
+		gasInfoManager.calculateApproveFee(spender: spender, amount: amount, tokenContractAddress: contractAddress)
+	}
 
 	public func getCustomAssetInfo(contractAddress: String) -> Promise<CustomAssetInfo> {
 		var assetInfo: CustomAssetInfo = [:]
@@ -70,12 +91,12 @@ class Web3Core {
 				if String(describing: decimalValue[.emptyString]) == "0" {
 					throw Web3Error.invalidSmartContractAddress
 				}
-				assetInfo[AssetInfo.decimal] = "\(decimalValue[String.emptyString]!)"
+				assetInfo[ABIMethodCall.decimal] = "\(decimalValue[String.emptyString]!)"
 				return try self.getInfo(address: contractAddress, info: .name).compactMap { nameValue in
 					nameValue[String.emptyString] as? String
 				}
 			}.then { [self] nameValue -> Promise<[String: Any]> in
-				assetInfo.updateValue(nameValue, forKey: AssetInfo.name)
+				assetInfo.updateValue(nameValue, forKey: ABIMethodCall.name)
 				let contractAddress = try EthereumAddress(hex: contractAddress, eip55: true)
 				let contract = web3.eth.Contract(type: GenericERC20Contract.self, address: contractAddress)
 				return try contract
@@ -84,12 +105,12 @@ class Web3Core {
 			}.map { balanceValue in
 				balanceValue["_balance"] as! BigUInt
 			}.then { balance in
-				assetInfo.updateValue("\(balance)", forKey: AssetInfo.balance)
+				assetInfo.updateValue("\(balance)", forKey: ABIMethodCall.balance)
 				return try self.getInfo(address: contractAddress, info: .symbol).compactMap { symbolValue in
 					symbolValue[String.emptyString] as? String
 				}
 			}.done { symbol in
-				assetInfo.updateValue(symbol, forKey: AssetInfo.symbol)
+				assetInfo.updateValue(symbol, forKey: ABIMethodCall.symbol)
 				seal.fulfill(assetInfo)
 			}.catch(policy: .allErrors) { error in
 				seal.reject(error)
@@ -97,191 +118,118 @@ class Web3Core {
 		}
 	}
 
-	public func calculateEthGasFee(ethPrice: BigNumber) -> Promise<GasInfo> {
-		Promise<GasInfo>() { seal in
-			attempt(maximumRetryCount: 3) { [self] in
-				web3.eth.gasPrice()
-			}.done { gasPrice in
-				let gasLimit = BigNumber(number: Constants.ethGasLimit, decimal: 0)
-				let gasPriceBigNum = BigNumber(number: "\(gasPrice.quantity)", decimal: 0)
-				let fee = BigNumber(number: gasLimit * gasPriceBigNum, decimal: 18)
-				let feeInDollar = fee * ethPrice
-				seal
-					.fulfill((fee, feeInDollar, gasPrice: gasPrice.quantity.description, gasLimit: Constants.ethGasLimit))
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
+	public func calculateEthGasFee() -> Promise<GasInfo> {
+		gasInfoManager.calculateEthGasFee()
 	}
 
-	public func calculateERCGasFee(
-		address: String,
-		amount: BigUInt,
-		tokenContractAddress: String,
-		ethPrice: BigNumber
-	) -> Promise<GasInfo> {
-		Promise<GasInfo>() { seal in
-			firstly {
-				calculateERC20TokenFee(address: address, amount: amount, tokenContractAddress: tokenContractAddress)
-			}.done { estimate, transactionInfo in
-
-				let fee = BigNumber(unSignedNumber: estimate.quantity, decimal: 18)
-				let feeInDollar = fee * ethPrice
-
-				seal.fulfill((
-					fee,
-					feeInDollar,
-					gasPrice: transactionInfo[.gasPrice]?.quantity.description ?? "0",
-					gasLimit: transactionInfo[.gasLimit]?.quantity.description ?? "0"
-				))
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
-	}
-
-	public func sendEtherTo(address: String, amount: BigUInt) -> Promise<String> {
-		let enteredAmount = EthereumQuantity(quantity: amount)
-		return Promise<String>() { seal in
-			let privateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
-			firstly {
-				web3.eth.gasPrice()
-			}.then { [self] price in
-				web3.eth.getTransactionCount(address: privateKey.address, block: .latest).map { ($0, price) }
-			}.then { nonce, price in
-				var tx = try EthereumTransaction(
-					nonce: nonce,
-					gasPrice: price,
-					to: EthereumAddress(hex: address, eip55: true),
-					value: enteredAmount
-				)
-				tx.gasLimit = 21000
-				tx.transactionType = .legacy
-				return try tx.sign(with: privateKey, chainId: 1).promise
-			}.then { [self] tx in
-				web3.eth.sendRawTransaction(transaction: tx)
-			}.done { hash in
-				seal.fulfill(hash.hex())
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
-	}
-
-	public func sendERC20TokenTo(
+	public func calculateSendERCGasFee(
 		address: String,
 		amount: BigUInt,
 		tokenContractAddress: String
+	) -> Promise<GasInfo> {
+		gasInfoManager.calculateSendERCGasFee(
+			recipient: address,
+			amount: amount,
+			tokenContractAddress: tokenContractAddress
+		)
+	}
+
+	public func sendEtherTo(address: String, amount: BigUInt) -> Promise<String> {
+		transferManager.sendEtherTo(recipient: address, amount: amount)
+	}
+
+	public func sendERC20TokenTo(
+		recipient: String,
+		amount: BigUInt,
+		tokenContractAddress: String
 	) -> Promise<String> {
-		Promise<String>() { [self] seal in
+		transferManager.sendERC20TokenTo(
+			recipientAddress: recipient,
+			amount: amount,
+			tokenContractAddress: tokenContractAddress
+		)
+	}
 
-			calculateERC20TokenFee(address: address, amount: amount, tokenContractAddress: tokenContractAddress)
-				.then { [self] estimate, transactionInfo -> Promise<EthereumData> in
-
-					let myPrivateKey = try EthereumPrivateKey(
-						hexPrivateKey: walletManager.currentAccountPrivateKey
-							.string
-					)
-					let contract = try getContractOfToken(address: tokenContractAddress)
-					let to = try EthereumAddress(hex: address, eip55: true)
-
-					guard let transaction = contract["transfer"]?(to, amount).createTransaction(
-						nonce: transactionInfo[.nonce],
-						gasPrice: transactionInfo[.gasPrice],
-						maxFeePerGas: nil,
-						maxPriorityFeePerGas: nil,
-						gasLimit: try .init(transactionInfo[.gasLimit]!.quantity * BigUInt(110) / BigUInt(100)),
-						from: myPrivateKey.address,
-						value: 0,
-						accessList: [:],
-						transactionType: .legacy
-					) else {
-						throw Web3Error.failedTransaction
-					}
-
-					let signedTx = try transaction.sign(with: myPrivateKey, chainId: 1)
-
-					return web3.eth.sendRawTransaction(transaction: signedTx)
-
-				}.done { txHash in
-					seal.fulfill(txHash.hex())
-				}.catch { error in
-					seal.reject(error)
+	public func getTransactionByHash(txHash: String) -> Promise<EthereumTransactionObject?> {
+		Promise<EthereumTransactionObject?>() { seal in
+			firstly {
+				guard let txHashBytes = Data.fromHex(txHash) else {
+					fatalError("cant get bytes from txHash string")
 				}
+				return web3.eth.getTransactionByHash(blockHash: try EthereumData(txHashBytes))
+			}.done { transactionObject in
+				seal.fulfill(transactionObject)
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	public func speedUpTransaction(tx: EthereumTransactionObject, newGasPrice: EthereumQuantity) -> Promise<String> {
+		Promise<String>() { seal in
+			let privateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
+			firstly {
+				var newTx = EthereumTransaction(nonce: tx.nonce, gasPrice: newGasPrice, to: tx.to, value: tx.value)
+				newTx.gasLimit = tx.gas
+				newTx.transactionType = .legacy
+
+				return try newTx.sign(with: privateKey, chainId: 1).promise
+			}.then { newTx in
+				self.web3.eth.sendRawTransaction(transaction: newTx)
+			}.done { txHash in
+				seal.fulfill(txHash.hex())
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	public func getGasPrice() -> Promise<EthereumQuantity> {
+		Promise<EthereumQuantity>() { seal in
+			firstly {
+				web3.eth.gasPrice()
+			}.done { gasPrice in
+				seal.fulfill(gasPrice)
+			}.catch { error in
+				seal.reject(error)
+			}
 		}
 	}
 
 	// MARK: - Private Methods
 
-	private func calculateERC20TokenFee(
-		address: String,
-		amount: BigUInt,
-		tokenContractAddress: String
-	) -> Promise<(EthereumQuantity, ERC20TransactionInfoType)> {
-		Promise<(EthereumQuantity, ERC20TransactionInfoType)>() { [self] seal in
+	private func getInfo(address: String, info: ABIMethodCall) throws -> Promise<[String: Any]> {
+		let contractAddress = try EthereumAddress(hex: address, eip55: true)
+		let contractJsonABI = Web3ABI.erc20AbiString.data(using: .utf8)!
+		let contract = try web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
+		return contract[info.rawValue]!(contractAddress).call()
+	}
 
-			let to = try EthereumAddress(hex: address, eip55: true)
-			let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
-			var transactionInfo: ERC20TransactionInfoType = [:]
-			// Send some tokens to another address (locally signing the transaction)
+	private func callABIMethod<T, ABIParams: ABIEncodable>(
+		method: ABIMethodCall,
+		contractAddress: EthereumAddress,
+		params: ABIParams...
+	) throws -> Promise<T> {
+		let contractJsonABI = Web3ABI.erc20AbiString.data(using: .utf8)!
+		// You can optionally pass an abiKey param if the actual abi is nested and not the top level element of the json
+		let contract = try web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
+		// Get balance of some address
 
+		return Promise<T>() { seal in
 			firstly {
-				web3.eth.gasPrice()
-			}.map { gasPrice in
-				transactionInfo.updateValue(gasPrice, forKey: .gasPrice)
-			}.then { [self] in
-				web3.eth.getTransactionCount(address: myPrivateKey.address, block: .latest)
-			}.map { nonce in
-				transactionInfo.updateValue(nonce, forKey: .nonce)
-			}.then { [self] () throws -> Promise<EthereumQuantity> in
-				Promise<EthereumQuantity>() { seal in
-					firstly {
-						let contract = try getContractOfToken(address: tokenContractAddress)
-						let transaction = contract["transfer"]?(to, amount).createTransaction(
-							nonce: transactionInfo[.nonce],
-							gasPrice: transactionInfo[.gasPrice],
-							maxFeePerGas: nil,
-							maxPriorityFeePerGas: nil,
-							gasLimit: nil,
-							from: myPrivateKey.address,
-							value: nil,
-							accessList: [:],
-							transactionType: .legacy
-						)
-						return web3.eth.estimateGas(call: .init(
-							from: transaction?.from,
-							to: (transaction?.to)!,
-							gas: transactionInfo[.gasPrice],
-							gasPrice: nil,
-							value: nil,
-							data: transaction!.data
-						))
-					}.done { estimate in
-						seal.fulfill(estimate)
-					}.catch { error in
-						seal.reject(error)
-					}
-				}
-			}.done { gaslimit in
-				transactionInfo.updateValue(gaslimit, forKey: .gasLimit)
-				let estimate = try EthereumQuantity((gaslimit.quantity * BigUInt(110)) / BigUInt(100))
-				let caclulatedFee = estimate.quantity * transactionInfo[.gasPrice]!.quantity
-				seal.fulfill((EthereumQuantity(quantity: caclulatedFee), transactionInfo))
-			}.catch { error in
+				contract[method.rawValue]!(params).call()
+			}.map { response in
+				response[.emptyString] as! T
+			}.done { allowance in
+				seal.fulfill(allowance)
+			}.catch(policy: .allErrors) { error in
+				print(error)
 				seal.reject(error)
 			}
 		}
 	}
 
-	private func getInfo(address: String, info: AssetInfo) throws -> Promise<[String: Any]> {
-		let contractAddress = try EthereumAddress(hex: address, eip55: true)
-		let contractJsonABI = Web3ABI.erc20AbiString.data(using: .utf8)!
-		let contract = try web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
-
-		return try contract[info.rawValue]!(EthereumAddress(hex: address, eip55: true)).call()
-	}
-
-	private func getContractOfToken(address tokenContractAddress: String) throws -> DynamicContract {
+	public static func getContractOfToken(address tokenContractAddress: String, web3: Web3) throws -> DynamicContract {
 		let contractAddress = try EthereumAddress(
 			hex: tokenContractAddress,
 			eip55: false
@@ -294,25 +242,10 @@ class Web3Core {
 }
 
 extension Web3Core {
-	enum Constants {
+	public enum Constants {
 		static let ethGasLimit = "21000"
 		static let eoaCode = "0x"
-	}
-
-	/// Utitlity function to attemp multiple times for a promise
-	func attempt<T>(
-		maximumRetryCount: Int = 3,
-		delayBeforeRetry: DispatchTimeInterval = .microseconds(500),
-		_ body: @escaping () -> Promise<T>
-	) -> Promise<T> {
-		var attempts = 0
-		func attempt() -> Promise<T> {
-			attempts += 1
-			return body().recover { error -> Promise<T> in
-				guard attempts < maximumRetryCount else { throw error }
-				return after(delayBeforeRetry).then(attempt)
-			}
-		}
-		return attempt()
+		static let permitAddress = "0x000000000022D473030F116dDEE9F6B43aC78BA3"
+		static let pinoProxyAddress = "0x118E662de0C4cdc2f8AD0fb1c6Ef4a85222baCF0"
 	}
 }

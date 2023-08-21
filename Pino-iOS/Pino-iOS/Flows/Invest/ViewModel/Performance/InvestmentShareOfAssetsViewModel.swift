@@ -26,7 +26,7 @@ struct InvestmentShareOfAssetsViewModel: ShareOfAssetsProtocol {
 		self.assetVM = assetVM
 		self.assetName = assetVM.assetName
 		self.assetImage = assetVM.assetImage
-		self.protocolImage = assetVM.assetProtocol.protocolInfo.image
+		self.protocolImage = assetVM.protocolImage
 		self.holdAmount = assetVM.assetAmount
 		self.totalAmount = totalAmount
 	}

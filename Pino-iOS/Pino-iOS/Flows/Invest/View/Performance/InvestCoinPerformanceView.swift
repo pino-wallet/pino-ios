@@ -21,9 +21,9 @@ class InvestCoinPerformanceView: UIView {
 	private let coinName = UILabel()
 	private let separatorLine = UIView()
 	private let moreInfoTitle = UILabel()
+	private let coinImage = InvestAssetImageView()
 	private let coinInfoView: CoinPerformanceInfoView
 	private var lineChart: AssetLineChart!
-	private var coinImage: InvestAssetImageView
 
 	private let coinPerformanceVM: InvestCoinPerformanceViewModel
 	private var cancellables = Set<AnyCancellable>()
@@ -33,10 +33,6 @@ class InvestCoinPerformanceView: UIView {
 	init(coinPerformanceVM: InvestCoinPerformanceViewModel) {
 		self.coinPerformanceVM = coinPerformanceVM
 		self.coinInfoView = CoinPerformanceInfoView(coinPerformanceVM: coinPerformanceVM.coinInfoVM)
-		self.coinImage = InvestAssetImageView(
-			assetImage: coinPerformanceVM.assetImage,
-			protocolImage: coinPerformanceVM.protocolImage
-		)
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -73,6 +69,8 @@ class InvestCoinPerformanceView: UIView {
 	private func setupStyle() {
 		moreInfoTitle.text = "More info"
 		coinName.text = coinPerformanceVM.assetName
+		coinImage.assetImage = coinPerformanceVM.assetImage
+		coinImage.protocolImage = coinPerformanceVM.protocolImage
 
 		backgroundColor = .Pino.background
 		chartCardView.backgroundColor = .Pino.secondaryBackground
@@ -123,8 +121,8 @@ class InvestCoinPerformanceView: UIView {
 			.bottom()
 		)
 		coinImage.pin(
-			.fixedWidth(48),
-			.fixedHeight(48)
+			.fixedWidth(52),
+			.fixedHeight(52)
 		)
 		separatorLine.pin(
 			.fixedHeight(1),
