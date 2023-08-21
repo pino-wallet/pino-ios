@@ -77,8 +77,10 @@ class InvestmentBoardFilterViewController: UIViewController {
 		switch investFilter.filterItem {
 		case .assets:
 			openSelectAssetPage()
-		case .investProtocol: break
-		case .risk: break
+		case .investProtocol:
+			openSelectProtocolPage()
+		case .risk:
+			openSelectInvestmentRisk()
 		}
 	}
 
@@ -89,6 +91,16 @@ class InvestmentBoardFilterViewController: UIViewController {
 		}
 		let selectAssetNavigationController = UINavigationController(rootViewController: selectAssetVC)
 		present(selectAssetNavigationController, animated: true)
+	}
+
+	private func openSelectProtocolPage() {}
+
+	private func openSelectInvestmentRisk() {
+		let investmentRiskVC = InvestmentRiskViewController { selectedRisk in
+			self.filterVM.updateFilter(selectedRisk: selectedRisk)
+		}
+		let InvestmentRiskNavigationVC = UINavigationController(rootViewController: investmentRiskVC)
+		present(InvestmentRiskNavigationVC, animated: true)
 	}
 
 	private func clearFilters() {}

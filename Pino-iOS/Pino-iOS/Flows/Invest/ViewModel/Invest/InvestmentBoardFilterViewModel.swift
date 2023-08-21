@@ -15,7 +15,7 @@ class InvestmentBoardFilterViewModel {
 
 	public var selectedAsset: AssetViewModel?
 	public var selectedProtocol: InvestProtocolViewModel?
-	public var selectedRisk: String?
+	public var selectedRisk: InvestmentRisk?
 
 	public var filterDelegate: InvestFilterDelegate
 
@@ -24,7 +24,7 @@ class InvestmentBoardFilterViewModel {
 	init(
 		selectedAsset: AssetViewModel?,
 		selectedProtocol: InvestProtocolViewModel?,
-		selectedRisk: String?,
+		selectedRisk: InvestmentRisk?,
 		filterDelegate: InvestFilterDelegate
 	) {
 		self.selectedAsset = selectedAsset
@@ -40,7 +40,7 @@ class InvestmentBoardFilterViewModel {
 		filters = [
 			InvestmentFilterItemViewModel(item: .assets, description: selectedAsset?.name),
 			InvestmentFilterItemViewModel(item: .investProtocol, description: selectedProtocol?.protocolInfo.name),
-			InvestmentFilterItemViewModel(item: .risk, description: selectedRisk),
+			InvestmentFilterItemViewModel(item: .risk, description: selectedRisk?.title),
 		]
 	}
 
@@ -66,9 +66,9 @@ class InvestmentBoardFilterViewModel {
 		filters[protocolFilterIndex].updateDescription(selectedProtocol.protocolInfo.name)
 	}
 
-	public func updateFilter(selectedRisk: String) {
+	public func updateFilter(selectedRisk: InvestmentRisk) {
 		self.selectedRisk = selectedRisk
 		let riskFilterIndex = filters.firstIndex(where: { $0.filterItem == .risk })!
-		filters[riskFilterIndex].updateDescription(selectedRisk)
+		filters[riskFilterIndex].updateDescription(selectedRisk.title)
 	}
 }

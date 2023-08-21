@@ -42,6 +42,10 @@ public struct InvestableAssetViewModel: AssetsBoardProtocol {
 		AssetVolatilityType(change24h: APYAmount)
 	}
 
+	public var investmentRisk: InvestmentRisk {
+		InvestmentRisk(rawValue: assetModel.investmentRisk)!
+	}
+
 	// MARK: - Initializers
 
 	init(assetModel: InvestableAssetModel) {
