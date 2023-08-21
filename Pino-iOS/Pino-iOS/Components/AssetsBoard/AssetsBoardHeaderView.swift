@@ -29,10 +29,14 @@ class AssetsBoardHeaderView: UICollectionReusableView {
 	public var hasFilter = false {
 		didSet {
 			if hasFilter {
-				setupFilterButton()
+				showFilterButton()
+			} else {
+				hideFilterButton()
 			}
 		}
 	}
+
+	public var filterDidTap: (() -> Void)?
 
 	// MARK: - Private Methods
 
@@ -40,6 +44,12 @@ class AssetsBoardHeaderView: UICollectionReusableView {
 		addSubview(contentStackview)
 		contentStackview.addArrangedSubview(titleLabel)
 		contentStackview.addArrangedSubview(filterButton)
+
+		filterButton.addAction(UIAction(handler: { _ in
+			if let filterDidTap = self.filterDidTap {
+				filterDidTap()
+			}
+		}), for: .touchUpInside)
 	}
 
 	private func setupStyles() {
@@ -47,6 +57,16 @@ class AssetsBoardHeaderView: UICollectionReusableView {
 		titleLabel.font = .PinoStyle.mediumSubheadline
 		titleLabel.textColor = .Pino.label
 		titleLabel.numberOfLines = 0
+
+		filterButton.setTitle("Filter", for: .normal)
+		filterButton.setImage(UIImage(named: "board_filter"), for: .normal)
+		filterButton.setTitleColor(.Pino.secondaryLabel, for: .normal)
+		filterButton.setConfiguraton(
+			font: .PinoStyle.mediumSubheadline!,
+			imagePadding: 2,
+			contentInset: NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5),
+			imagePlacement: .trailing
+		)
 	}
 
 	private func setupConstraints() {
@@ -60,15 +80,11 @@ class AssetsBoardHeaderView: UICollectionReusableView {
 		)
 	}
 
-	private func setupFilterButton() {
-		filterButton.setTitle("Filter", for: .normal)
-		filterButton.setImage(UIImage(named: "board_filter"), for: .normal)
-		filterButton.setTitleColor(.Pino.secondaryLabel, for: .normal)
-		filterButton.setConfiguraton(
-			font: .PinoStyle.mediumSubheadline!,
-			imagePadding: 2,
-			contentInset: NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5),
-			imagePlacement: .trailing
-		)
+	private func showFilterButton() {
+		filterButton.isHiddenInStackView = false
+	}
+
+	private func hideFilterButton() {
+		filterButton.isHiddenInStackView = true
 	}
 }

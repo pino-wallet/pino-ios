@@ -40,9 +40,15 @@ class InvestmentBoardViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = InvestmentBoardView(investmentBoardVM: investmentBoardVM, assetDidSelect: { selectedAsset in
-			self.openInvestPage()
-		})
+		view = InvestmentBoardView(
+			investmentBoardVM: investmentBoardVM,
+			assetDidSelect: { selectedAsset in
+				self.openInvestPage()
+			},
+			filterDidTap: {
+				self.openFilterPage()
+			}
+		)
 	}
 
 	private func setupNavigationBar() {
@@ -66,4 +72,16 @@ class InvestmentBoardViewController: UIViewController {
 	}
 
 	private func openInvestPage() {}
+
+	private func openFilterPage() {
+		let investmentFilterVM = InvestmentBoardFilterViewModel(
+			selectedAsset: investmentBoardVM.assetFilter,
+			selectedProtocol: investmentBoardVM.protocolFilter,
+			selectedRisk: investmentBoardVM.riskFilter,
+			filterDelegate: investmentBoardVM
+		)
+		let investmentBoardFilterVC = InvestmentBoardFilterViewController(filterVM: investmentFilterVM)
+		let investmentBoardFilterNavigationVC = UINavigationController(rootViewController: investmentBoardFilterVC)
+		present(investmentBoardFilterNavigationVC, animated: true)
+	}
 }
