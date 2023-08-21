@@ -62,4 +62,16 @@ enum SwapProvider {
 			return ZeroXAPIClient()
 		}
 	}
+    
+    public var slippage: String {
+        switch self {
+            case .oneInch:
+                return "1"
+            case .paraswap:
+                return "1"
+            case .zeroX:
+                return "1"
+        }
+    }
+    
 }

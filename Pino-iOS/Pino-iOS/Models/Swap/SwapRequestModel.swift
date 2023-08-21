@@ -15,8 +15,11 @@ struct SwapRequestModel {
     let sender: String
     let slippage: String
     let networkID: Int?
+    let srcDecimal: String?
+    let destDecimal: String?
+    let priceRoute: PriceRoute?
     
-    init(srcToken: String, destToken: String, amount: String, receiver: String, sender: String, slippage: String, networkID: Int?) {
+    init(srcToken: String, destToken: String, amount: String, receiver: String, sender: String, slippage: String, networkID: Int?, srcDecimal: String?, destDecimal: String?, priceRoute: PriceRoute?) {
         self.srcToken = srcToken
         self.destToken = destToken
         self.amount = amount
@@ -24,10 +27,11 @@ struct SwapRequestModel {
         self.sender = sender
         self.slippage = slippage
         self.networkID = networkID
+        self.srcDecimal = srcDecimal
+        self.destDecimal = destDecimal
+        self.priceRoute = priceRoute
     }
-    
-    
-    
+
     public var oneInchSwapURLParams: HTTPParameters {
         [
             "src": srcToken,
@@ -43,42 +47,23 @@ struct SwapRequestModel {
     }
     
     public var paraswapReqBody: BodyParamsType {
+        
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try! jsonEncoder.encode(priceRoute)
+        let priceRouteJSON = String(data: jsonData, encoding: String.Encoding.utf8)!
+        
         let params: HTTPParameters = [
             "srcToken": srcToken,
             "destToken": destToken,
             "srcAmount": amount,
-            "destAmount": "29504841",
-            "priceRoute": "",
-            "userAddress": "",
-            "partner": "",
-            "srcDecimals": 18,
-            "destDecimals": 6
+            "priceRoute": priceRouteJSON,
+            "slippage": slippage, // in percent
+            "userAddress": receiver,
+            "srcDecimals": srcDecimal!,
+            "destDecimals": destDecimal!
         ]
         return BodyParamsType.json(params)
     }
     
-//    public var paraSwapURLParams: HTTPParameters {
-//        [
-//            "srcToken": srcToken,
-//            "srcDecimals": srcDecimals!,
-//            "destToken": destToken,
-//            "destDecimals": destDecimals!,
-//            "amount": amount,
-//            "side": side.rawValue,
-//            "network": networkID!,
-//        ]
-//    }
-//
-//    public var ZeroXSwapURLParams: HTTPParameters {
-//        var params = [
-//            "sellToken": srcToken,
-//            "buyToken": destToken,
-//        ] as HTTPParameters
-//        if side == .sell {
-//            params["sellAmount"] = amount
-//        } else {
-//            params["buyAmount"] = amount
-//        }
-//        return params
-//    }
 }
+
