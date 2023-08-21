@@ -17,6 +17,7 @@ struct ApproveContractViewModel {
 	// MARK: - Public Properties
     public var selectedProvider: SwapProvider!
     public var swapAmount: BigNumber!
+    public var paraswapResponse: ParaSwapPriceResponseModel!
 	// MARK: - Private Properties
 
 	private var web3 = Web3Core.shared
@@ -69,19 +70,25 @@ struct ApproveContractViewModel {
     }
     
     private func getSwapInfoFrom(provider: any SwapProvidersAPIServices) -> Promise<String> {
-        
+        Promise<String> { seal in
+            seal.fulfill("hi")
+        }
     }
     
     private func getProxyPermitTransferData() -> Promise<String> {
-        
+        Promise<String> { seal in
+            seal.fulfill("hi")
+        }
     }
     
     private func callProxyMultiCall(data: [String]) -> Promise<String> {
-        
+        Promise<String> { seal in
+            seal.fulfill("hi")
+        }
     }
     
     private func approveProvider() -> String {
-        
+        "hi"
     }
 
     

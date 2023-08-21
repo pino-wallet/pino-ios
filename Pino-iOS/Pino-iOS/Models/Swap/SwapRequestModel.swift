@@ -26,7 +26,9 @@ struct SwapRequestModel {
         self.networkID = networkID
     }
     
-    public var OneInchSwapURLParams: HTTPParameters {
+    
+    
+    public var oneInchSwapURLParams: HTTPParameters {
         [
             "src": srcToken,
             "dst": destToken,
@@ -40,28 +42,43 @@ struct SwapRequestModel {
         ]
     }
     
-    public var paraSwapURLParams: HTTPParameters {
-        [
+    public var paraswapReqBody: BodyParamsType {
+        let params: HTTPParameters = [
             "srcToken": srcToken,
-            "srcDecimals": srcDecimals!,
             "destToken": destToken,
-            "destDecimals": destDecimals!,
-            "amount": amount,
-            "side": side.rawValue,
-            "network": networkID!,
+            "srcAmount": amount,
+            "destAmount": "29504841",
+            "priceRoute": "",
+            "userAddress": "",
+            "partner": "",
+            "srcDecimals": 18,
+            "destDecimals": 6
         ]
+        return BodyParamsType.json(params)
     }
     
-    public var ZeroXSwapURLParams: HTTPParameters {
-        var params = [
-            "sellToken": srcToken,
-            "buyToken": destToken,
-        ] as HTTPParameters
-        if side == .sell {
-            params["sellAmount"] = amount
-        } else {
-            params["buyAmount"] = amount
-        }
-        return params
-    }
+//    public var paraSwapURLParams: HTTPParameters {
+//        [
+//            "srcToken": srcToken,
+//            "srcDecimals": srcDecimals!,
+//            "destToken": destToken,
+//            "destDecimals": destDecimals!,
+//            "amount": amount,
+//            "side": side.rawValue,
+//            "network": networkID!,
+//        ]
+//    }
+//
+//    public var ZeroXSwapURLParams: HTTPParameters {
+//        var params = [
+//            "sellToken": srcToken,
+//            "buyToken": destToken,
+//        ] as HTTPParameters
+//        if side == .sell {
+//            params["sellAmount"] = amount
+//        } else {
+//            params["buyAmount"] = amount
+//        }
+//        return params
+//    }
 }
