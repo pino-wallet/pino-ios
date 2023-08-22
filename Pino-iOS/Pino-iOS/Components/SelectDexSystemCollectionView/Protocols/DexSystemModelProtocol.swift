@@ -1,12 +1,11 @@
 //
-//  SelectDexCellVMProtocol.swift
+//  DexModelProtocol.swift
 //  Pino-iOS
 //
 //  Created by Amir hossein kazemi seresht on 8/19/23.
 //
 
-protocol SelectDexProtocolCellVMProtocol {
-	var dexModel: DexProtocolModelProtocol { get set }
+protocol DexSystemModelProtocol {
 	var name: String { get }
 	var image: String { get }
 	var description: String { get }

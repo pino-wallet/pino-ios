@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SelectDexProtocolView: UIView {
+class SelectDexSystemView: UIView {
 	// MARK: - Closures
 
 	public var onDexProtocolTapClosure: () -> Void

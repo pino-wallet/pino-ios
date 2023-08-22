@@ -7,10 +7,10 @@
 
 import UIKit
 
-class DexProtocolCell: UICollectionViewCell {
+class DexSystemCell: UICollectionViewCell {
 	// MARK: - Public Properties
 
-	public var dexProtocolVM: SelectDexProtocolCellVMProtocol! {
+	public var dexProtocolVM: SelectDexSystemCellVMProtocol! {
 		didSet {
 			setupView()
 			setupStyles()

@@ -7,15 +7,15 @@
 
 import UIKit
 
-class SelectDexProtocolCollectionView: UICollectionView {
+class SelectDexSystemCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
-	private let selectDexProtocolVM: SelectDexProtocolVMProtocol
-	private let dexProtocolDidSelect: (dexProtocolModel) -> Void
+	private let selectDexProtocolVM: SelectDexSystemVMProtocol
+	private let dexProtocolDidSelect: (DexSystemModel) -> Void
 
 	// MARK: - Initializers
 
-	init(selectDexProtocolVM: SelectDexProtocolVMProtocol, dexProtocolDidSelect: @escaping (dexProtocolModel) -> Void) {
+	init(selectDexProtocolVM: SelectDexSystemVMProtocol, dexProtocolDidSelect: @escaping (DexSystemModel) -> Void) {
 		self.selectDexProtocolVM = selectDexProtocolVM
 		self.dexProtocolDidSelect = dexProtocolDidSelect
 		let collecttionviewFlowLayout = UICollectionViewFlowLayout(
@@ -38,17 +38,17 @@ class SelectDexProtocolCollectionView: UICollectionView {
 		delegate = self
 		dataSource = self
 
-		register(DexProtocolCell.self, forCellWithReuseIdentifier: DexProtocolCell.cellReuseID)
+		register(DexSystemCell.self, forCellWithReuseIdentifier: DexSystemCell.cellReuseID)
 	}
 }
 
-extension SelectDexProtocolCollectionView: UICollectionViewDelegate {
+extension SelectDexSystemCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		dexProtocolDidSelect(selectDexProtocolVM.dexProtocolsList[indexPath.item])
 	}
 }
 
-extension SelectDexProtocolCollectionView: UICollectionViewDataSource {
+extension SelectDexSystemCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		selectDexProtocolVM.dexProtocolsList.count
 	}
@@ -58,15 +58,15 @@ extension SelectDexProtocolCollectionView: UICollectionViewDataSource {
 		cellForItemAt indexPath: IndexPath
 	) -> UICollectionViewCell {
 		let cell = dequeueReusableCell(
-			withReuseIdentifier: DexProtocolCell.cellReuseID,
+			withReuseIdentifier: DexSystemCell.cellReuseID,
 			for: indexPath
-		) as! DexProtocolCell
+		) as! DexSystemCell
 		cell.dexProtocolVM = SelectDexCellViewModel(dexModel: selectDexProtocolVM.dexProtocolsList[indexPath.item])
 		return cell
 	}
 }
 
-extension SelectDexProtocolCollectionView: UICollectionViewDelegateFlowLayout {
+extension SelectDexSystemCollectionView: UICollectionViewDelegateFlowLayout {
 	func collectionView(
 		_ collectionView: UICollectionView,
 		layout collectionViewLayout: UICollectionViewLayout,
