@@ -7,35 +7,38 @@
 import UIKit
 
 class BorrowViewController: UIViewController {
-    // MARK: - Private Properties
-    private let borrowVM = BorrowViewModel()
-    private var borrowView: BorrowView!
-    // MARK: - View Overrides
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+	// MARK: - Private Properties
 
-    override func loadView() {
-        setupNavigationBar()
-        setupView()
-    }
+	private let borrowVM = BorrowViewModel()
+	private var borrowView: BorrowView!
 
-    override func viewWillAppear(_ animated: Bool) {
-            borrowVM.getBorrowingDetailsFromVC()
-    }
+	// MARK: - View Overrides
 
-    // MARK: - Private Methods
-    
-    private func setupNavigationBar() {
-        setupPrimaryColorNavigationBar()
-        setNavigationTitle(borrowVM.pageTitle)
-    }
+	override func viewDidLoad() {
+		super.viewDidLoad()
+	}
 
-    private func setupView() {
-        borrowView = BorrowView(borrowVM: borrowVM, presentHealthScoreActionsheet: { actionSheet in
-            self.present(actionSheet, animated: true)
-        })
+	override func loadView() {
+		setupNavigationBar()
+		setupView()
+	}
 
-        view = borrowView
-    }
+	override func viewWillAppear(_ animated: Bool) {
+		borrowVM.getBorrowingDetailsFromVC()
+	}
+
+	// MARK: - Private Methods
+
+	private func setupNavigationBar() {
+		setupPrimaryColorNavigationBar()
+		setNavigationTitle(borrowVM.pageTitle)
+	}
+
+	private func setupView() {
+		borrowView = BorrowView(borrowVM: borrowVM, presentHealthScoreActionsheet: { actionSheet in
+			self.present(actionSheet, animated: true)
+		})
+
+		view = borrowView
+	}
 }

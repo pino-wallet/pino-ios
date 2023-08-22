@@ -6,24 +6,22 @@
 //
 
 struct BorrowingPropertiesViewModel {
-   // MARK: - Public Properties
-//    public var globalAssetsList: [AssetViewModel]
-    public var borrowingAssetsList: [UserBorrowingToken]
+	// MARK: - Public Properties
 
-    public var borrowingAmount: String {
-        if borrowingAssetsList.isEmpty {
-            return "0"
-        } else {
-            #warning("this is mock")
-            return "$88"
-        }
-    }
+	//    public var globalAssetsList: [AssetViewModel]
+	public var borrowingAssetsList: [UserBorrowingToken]
 
-    #warning("this is mock and we should return a complete assetDetails with percentageOfTotalShare and asset icon")
-    public var borrowingAssetsDetailList: [UserBorrowingToken] {
-        return borrowingAssetsList
-    }
+	public var borrowingAmount: String {
+		if borrowingAssetsList.isEmpty {
+			return "0"
+		} else {
+			#warning("this is mock")
+			return "$88"
+		}
+	}
 
+	#warning("this is mock and we should return a complete assetDetails with percentageOfTotalShare and asset icon")
+	public var borrowingAssetsDetailList: [UserBorrowingToken] {
+		borrowingAssetsList
+	}
 }
-
-

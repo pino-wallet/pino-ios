@@ -4,12 +4,11 @@
 //
 //  Created by Amir hossein kazemi seresht on 8/20/23.
 //
-import Foundation
 import Combine
-
+import Foundation
 
 class BorrowAPIMockClient: BorrowAPIService {
-    func getUserBorrowings(address: String, dex: String) -> AnyPublisher<UserBorrowingModel, APIError> {
-        StubManager.publisher(for: "user-borrowing-stub")
-    }
+	func getUserBorrowings(address: String, dex: String) -> AnyPublisher<UserBorrowingModel, APIError> {
+		StubManager.publisher(for: "user-borrowing-stub")
+	}
 }

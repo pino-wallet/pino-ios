@@ -7,85 +7,95 @@
 import UIKit
 
 class StartBorrowingView: UIView {
-    // MARK: - Closures
-    public var didTapActionButtonClosure: () -> Void
-    // MARK: - Private Properties
-    private let containerView = PinoContainerCard()
-    private let mainStackView = UIStackView()
-    private let titleLabel = PinoLabel(style: .title, text: "")
-    private let descriptionLabel = PinoLabel(style: .description, text: "")
-    private let actionButton = UIButton()
-    private var titleText: String
-    private var descriptionText: String
-    private var buttonTitleText: String
+	// MARK: - Closures
 
-    // MARK: - Initializers
-    
-    init(titleText: String, descriptionText: String, buttonTitleText: String, didTapActionButtonClosure: @escaping () -> Void) {
-        self.titleText = titleText
-        self.descriptionText = descriptionText
-        self.buttonTitleText = buttonTitleText
-        self.didTapActionButtonClosure = didTapActionButtonClosure
+	public var didTapActionButtonClosure: () -> Void
 
-        super.init(frame: .zero)
+	// MARK: - Private Properties
 
-        setupView()
-        setupStyles()
-        setupConstraints()
-    }
+	private let containerView = PinoContainerCard()
+	private let mainStackView = UIStackView()
+	private let titleLabel = PinoLabel(style: .title, text: "")
+	private let descriptionLabel = PinoLabel(style: .description, text: "")
+	private let actionButton = UIButton()
+	private var titleText: String
+	private var descriptionText: String
+	private var buttonTitleText: String
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+	// MARK: - Initializers
 
-    // MARK: - Private Methods
-    private func setupView() {
-        mainStackView.addArrangedSubview(titleLabel)
-        mainStackView.addArrangedSubview(descriptionLabel)
-        mainStackView.addArrangedSubview(actionButton)
+	init(
+		titleText: String,
+		descriptionText: String,
+		buttonTitleText: String,
+		didTapActionButtonClosure: @escaping () -> Void
+	) {
+		self.titleText = titleText
+		self.descriptionText = descriptionText
+		self.buttonTitleText = buttonTitleText
+		self.didTapActionButtonClosure = didTapActionButtonClosure
 
-        containerView.addSubview(mainStackView)
-       addSubview(containerView)
-    }
+		super.init(frame: .zero)
 
-    private func setupStyles() {
-        mainStackView.axis = .vertical
-        mainStackView.spacing = 4
-        mainStackView.alignment = .leading
-        mainStackView.setCustomSpacing(18, after: descriptionLabel)
+		setupView()
+		setupStyles()
+		setupConstraints()
+	}
 
-        titleLabel.text = titleText
-        titleLabel.numberOfLines = 0
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
-        descriptionLabel.text = descriptionText
-        descriptionLabel.numberOfLines = 0
+	// MARK: - Private Methods
 
-        actionButton.addTarget(self, action: #selector(didTapactionbutton), for: .touchUpInside)
+	private func setupView() {
+		mainStackView.addArrangedSubview(titleLabel)
+		mainStackView.addArrangedSubview(descriptionLabel)
+		mainStackView.addArrangedSubview(actionButton)
 
-        var actionButtonConfigurations = PinoButton.Configuration.filled()
-        let actionButtonImage = UIImage(named: "primary_right_arrow")?.withTintColor(.Pino.secondaryBackground)
-        actionButtonConfigurations.image = actionButtonImage
-        actionButtonConfigurations.imagePadding = 4
-        actionButtonConfigurations.imagePlacement = .trailing
-        actionButtonConfigurations.background.backgroundColor = .Pino.primary
-        var attributedTitle = AttributedString(buttonTitleText)
-        attributedTitle.font = .PinoStyle.semiboldCallout
-        attributedTitle.foregroundColor = .Pino.secondaryBackground
-        actionButtonConfigurations.attributedTitle = attributedTitle
-        actionButton.configuration = actionButtonConfigurations
-    }
+		containerView.addSubview(mainStackView)
+		addSubview(containerView)
+	}
 
-    private func setupConstraints() {
-        titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 25).isActive = true
-        descriptionLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
+	private func setupStyles() {
+		mainStackView.axis = .vertical
+		mainStackView.spacing = 4
+		mainStackView.alignment = .leading
+		mainStackView.setCustomSpacing(18, after: descriptionLabel)
 
-        actionButton.pin(.fixedHeight(40))
+		titleLabel.text = titleText
+		titleLabel.numberOfLines = 0
 
-        containerView.pin(.allEdges(padding: 0))
-        mainStackView.pin(.horizontalEdges(padding: 10), .verticalEdges(padding: 16))
-    }
+		descriptionLabel.text = descriptionText
+		descriptionLabel.numberOfLines = 0
 
-    @objc private func didTapactionbutton() {
-        didTapActionButtonClosure()
-    }
+		actionButton.addTarget(self, action: #selector(didTapactionbutton), for: .touchUpInside)
+
+		var actionButtonConfigurations = PinoButton.Configuration.filled()
+		let actionButtonImage = UIImage(named: "primary_right_arrow")?.withTintColor(.Pino.secondaryBackground)
+		actionButtonConfigurations.image = actionButtonImage
+		actionButtonConfigurations.imagePadding = 4
+		actionButtonConfigurations.imagePlacement = .trailing
+		actionButtonConfigurations.background.backgroundColor = .Pino.primary
+		var attributedTitle = AttributedString(buttonTitleText)
+		attributedTitle.font = .PinoStyle.semiboldCallout
+		attributedTitle.foregroundColor = .Pino.secondaryBackground
+		actionButtonConfigurations.attributedTitle = attributedTitle
+		actionButton.configuration = actionButtonConfigurations
+	}
+
+	private func setupConstraints() {
+		titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 25).isActive = true
+		descriptionLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
+
+		actionButton.pin(.fixedHeight(40))
+
+		containerView.pin(.allEdges(padding: 0))
+		mainStackView.pin(.horizontalEdges(padding: 10), .verticalEdges(padding: 16))
+	}
+
+	@objc
+	private func didTapactionbutton() {
+		didTapActionButtonClosure()
+	}
 }

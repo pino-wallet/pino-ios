@@ -4,93 +4,97 @@
 //
 //  Created by Amir hossein kazemi seresht on 8/20/23.
 //
-import UIKit
 import Combine
+import UIKit
 
 class BorrowingDetailsView: UIView {
-    // MARK: - Private Properties
-    private let containerView = PinoContainerCard()
-    private let mainStackView = UIStackView()
-    private let titleStackView = UIStackView()
-    private let titleLabel = PinoLabel(style: .description, text: "")
-    private let titleBetweenView = UIView()
-    private let titleArrowImageView = UIImageView()
-    private let amountLabel = PinoLabel(style: .title, text: "")
-    private var borrowingDetailsVM: BorrowingDetailsViewModel
-    private var cancellables = Set<AnyCancellable>()
+	// MARK: - Private Properties
 
-    // MARK: - Initializers
-    init(borrowingDetailsVM: BorrowingDetailsViewModel) {
-        self.borrowingDetailsVM = borrowingDetailsVM
+	private let containerView = PinoContainerCard()
+	private let mainStackView = UIStackView()
+	private let titleStackView = UIStackView()
+	private let titleLabel = PinoLabel(style: .description, text: "")
+	private let titleBetweenView = UIView()
+	private let titleArrowImageView = UIImageView()
+	private let amountLabel = PinoLabel(style: .title, text: "")
+	private var borrowingDetailsVM: BorrowingDetailsViewModel
+	private var cancellables = Set<AnyCancellable>()
 
-        super.init(frame: .zero)
+	// MARK: - Initializers
 
-        setupView()
-        setupStyles()
-        setupConstraints()
-        setupBindings()
-    }
+	init(borrowingDetailsVM: BorrowingDetailsViewModel) {
+		self.borrowingDetailsVM = borrowingDetailsVM
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    // MARK: - Private Methods
-    private func setupView() {
-        titleStackView.addArrangedSubview(titleLabel)
-        titleStackView.addArrangedSubview(titleBetweenView)
-        titleStackView.addArrangedSubview(titleArrowImageView)
+		super.init(frame: .zero)
 
-        mainStackView.addArrangedSubview(titleStackView)
-        mainStackView.addArrangedSubview(amountLabel)
-        #warning("we should add assets progress bar collection view here")
+		setupView()
+		setupStyles()
+		setupConstraints()
+		setupBindings()
+	}
 
-        containerView.addSubview(mainStackView)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
-        addSubview(containerView)
-    }
+	// MARK: - Private Methods
 
-    private func setupStyles() {
-        mainStackView.axis = .vertical
-        mainStackView.spacing = 16
+	private func setupView() {
+		titleStackView.addArrangedSubview(titleLabel)
+		titleStackView.addArrangedSubview(titleBetweenView)
+		titleStackView.addArrangedSubview(titleArrowImageView)
 
-        titleStackView.axis = .horizontal
-        titleStackView.alignment = .center
+		mainStackView.addArrangedSubview(titleStackView)
+		mainStackView.addArrangedSubview(amountLabel)
+		#warning("we should add assets progress bar collection view here")
 
-        titleLabel.text = borrowingDetailsVM.titleText
+		containerView.addSubview(mainStackView)
 
-        titleArrowImageView.image = UIImage(named: borrowingDetailsVM.titleImage)?.withRenderingMode(.alwaysTemplate)
+		addSubview(containerView)
+	}
 
-        amountLabel.font = .PinoStyle.mediumTitle1
-    }
+	private func setupStyles() {
+		mainStackView.axis = .vertical
+		mainStackView.spacing = 16
 
-    private func setupConstraints() {
-        containerView.pin(.allEdges(padding: 0))
-        mainStackView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 24))
-    }
+		titleStackView.axis = .horizontal
+		titleStackView.alignment = .center
 
-    private func setupBindings() {
-        borrowingDetailsVM.$properties.sink { borrowingDetailsProperties in
-            guard let newBorrowingDetailsProperties = borrowingDetailsProperties else {
-                return
-            }
-            self.updateAmountLabel(newAmount: newBorrowingDetailsProperties.borrowingAmount)
-            self.updateViewColors(borrowingDetailsProperties: newBorrowingDetailsProperties)
-        }.store(in: &cancellables)
-    }
+		titleLabel.text = borrowingDetailsVM.titleText
 
-    private func updateAmountLabel(newAmount: String) {
-            amountLabel.text = newAmount
-    }
+		titleArrowImageView.image = UIImage(named: borrowingDetailsVM.titleImage)?.withRenderingMode(.alwaysTemplate)
 
-    private func updateViewColors(borrowingDetailsProperties: BorrowingPropertiesViewModel) {
-        if borrowingDetailsProperties.borrowingAssetsDetailList.isEmpty {
-            amountLabel.textColor = .Pino.gray3
-            titleArrowImageView.tintColor = .Pino.gray3
-            titleLabel.textColor = .Pino.gray3
-        } else {
-            amountLabel.textColor = .Pino.label
-            titleArrowImageView.tintColor = .Pino.primary
-            titleLabel.textColor = .Pino.secondaryLabel
-        }
-    }
+		amountLabel.font = .PinoStyle.mediumTitle1
+	}
+
+	private func setupConstraints() {
+		containerView.pin(.allEdges(padding: 0))
+		mainStackView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 24))
+	}
+
+	private func setupBindings() {
+		borrowingDetailsVM.$properties.sink { borrowingDetailsProperties in
+			guard let newBorrowingDetailsProperties = borrowingDetailsProperties else {
+				return
+			}
+			self.updateAmountLabel(newAmount: newBorrowingDetailsProperties.borrowingAmount)
+			self.updateViewColors(borrowingDetailsProperties: newBorrowingDetailsProperties)
+		}.store(in: &cancellables)
+	}
+
+	private func updateAmountLabel(newAmount: String) {
+		amountLabel.text = newAmount
+	}
+
+	private func updateViewColors(borrowingDetailsProperties: BorrowingPropertiesViewModel) {
+		if borrowingDetailsProperties.borrowingAssetsDetailList.isEmpty {
+			amountLabel.textColor = .Pino.gray3
+			titleArrowImageView.tintColor = .Pino.gray3
+			titleLabel.textColor = .Pino.gray3
+		} else {
+			amountLabel.textColor = .Pino.label
+			titleArrowImageView.tintColor = .Pino.primary
+			titleLabel.textColor = .Pino.secondaryLabel
+		}
+	}
 }

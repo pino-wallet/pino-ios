@@ -38,18 +38,18 @@ class TitleWithInfo: UIView {
 		}
 	}
 
-    public var customTextFont: UIFont! {
-           didSet {
-               titleLabel.font = customTextFont
-           }
-       }
+	public var customTextFont: UIFont! {
+		didSet {
+			titleLabel.font = customTextFont
+		}
+	}
 
-       public var customTextColor: UIColor! {
-           didSet {
-               titleLabel.textColor = customTextColor
-           }
-       }
-    
+	public var customTextColor: UIColor! {
+		didSet {
+			titleLabel.textColor = customTextColor
+		}
+	}
+
 	// MARK: - Initializers
 
 	convenience init() {
