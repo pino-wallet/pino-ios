@@ -11,7 +11,9 @@ class InvestmentRiskPerformanceView: UIView {
 	// MARK: - Private Properties
 
 	private let contentStackView = UIStackView()
+	private let assetInfoStackView = UIStackView()
 	private let tokenStackView = UIStackView()
+	private let tokenTitleStackView = UIStackView()
 	private let tokenImageView = UIImageView()
 	private let tokenNameLabel = UILabel()
 	private let riskView = UIView()
@@ -28,13 +30,17 @@ class InvestmentRiskPerformanceView: UIView {
 	private let risksStackview = UIStackView()
 	private let risksInfoCardView = UIView()
 	private let risksInfoStackView = UIStackView()
+	private let confirmButton = PinoButton(style: .active)
+	private let closeButton = UIButton()
 
 	private let assetVM: InvestableAssetViewModel
+	private let viewDidDismiss: () -> Void
 
 	// MARK: - Initializers
 
-	init(assetVM: InvestableAssetViewModel, viewDidDissmiss: @escaping () -> Void) {
+	init(assetVM: InvestableAssetViewModel, viewDidDismiss: @escaping () -> Void) {
 		self.assetVM = assetVM
+		self.viewDidDismiss = viewDidDismiss
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -49,13 +55,19 @@ class InvestmentRiskPerformanceView: UIView {
 
 	private func setupView() {
 		addSubview(contentStackView)
-		contentStackView.addArrangedSubview(tokenStackView)
-		contentStackView.addArrangedSubview(protocolCardView)
+		addSubview(confirmButton)
+		addSubview(closeButton)
+		contentStackView.addArrangedSubview(assetInfoStackView)
 		contentStackView.addArrangedSubview(risksStackview)
 
-		tokenStackView.addArrangedSubview(tokenImageView)
-		tokenStackView.addArrangedSubview(tokenNameLabel)
+		assetInfoStackView.addArrangedSubview(tokenStackView)
+		assetInfoStackView.addArrangedSubview(protocolCardView)
+
+		tokenStackView.addArrangedSubview(tokenTitleStackView)
 		tokenStackView.addArrangedSubview(riskView)
+		tokenTitleStackView.addArrangedSubview(tokenImageView)
+		tokenTitleStackView.addArrangedSubview(tokenNameLabel)
+		riskView.addSubview(riskTitleLabel)
 
 		protocolCardView.addSubview(protocolStackView)
 		protocolStackView.addArrangedSubview(protocolImageStackView)
@@ -69,24 +81,119 @@ class InvestmentRiskPerformanceView: UIView {
 		risksStackview.addArrangedSubview(risksInfoCardView)
 		risksInfoCardView.addSubview(risksInfoStackView)
 		setupRiskInfoView()
+
+		closeButton.addAction(UIAction(handler: { _ in
+			self.viewDidDismiss()
+		}), for: .touchUpInside)
+
+		confirmButton.addAction(UIAction(handler: { _ in
+			self.viewDidDismiss()
+		}), for: .touchUpInside)
 	}
 
 	private func setupStyle() {
 		tokenNameLabel.text = assetVM.assetName
 		riskTitleLabel.text = "High risk"
+		protocolTitleLabel.text = "Protocol"
 		protocolNameLabel.text = assetVM.assetProtocol.protocolInfo.name
-		protocolDescriptionLabel
-			.text =
+		protocolDescriptionLabel.text =
 			"\(assetVM.assetProtocol.protocolInfo.name) is a DEX enabling users to supply liquidity and earn trade fees in return."
-
+		risksTitleLabel.text = "Benefits and risks"
+		confirmButton.title = "Git it"
 		protocolImageView.image = UIImage(named: assetVM.protocolImage)
 		tokenImageView.kf.indicatorType = .activity
 		tokenImageView.kf.setImage(with: assetVM.assetImage)
+		closeButton.setImage(UIImage(systemName: "multiply"), for: .normal)
+
+		tokenNameLabel.font = .PinoStyle.semiboldTitle2
+		riskTitleLabel.font = .PinoStyle.mediumSubheadline
+		protocolTitleLabel.font = .PinoStyle.mediumFootnote
+		protocolNameLabel.font = .PinoStyle.semiboldTitle3
+		protocolDescriptionLabel.font = .PinoStyle.mediumCallout
+		risksTitleLabel.font = .PinoStyle.semiboldBody
+
+		tokenNameLabel.textColor = .Pino.label
+		riskTitleLabel.textColor = .Pino.label
+		protocolTitleLabel.textColor = .Pino.secondaryLabel
+		protocolNameLabel.textColor = .Pino.label
+		protocolDescriptionLabel.textColor = .Pino.secondaryLabel
+		risksTitleLabel.textColor = .Pino.label
+		closeButton.tintColor = .Pino.secondaryLabel
 
 		backgroundColor = .Pino.secondaryBackground
+		protocolCardView.backgroundColor = .Pino.background
+		riskView.backgroundColor = .Pino.lightRed
+		closeButton.backgroundColor = .Pino.background
+
+		contentStackView.axis = .vertical
+		assetInfoStackView.axis = .vertical
+		tokenStackView.axis = .vertical
+		tokenTitleStackView.axis = .vertical
+		protocolStackView.axis = .vertical
+		protocolTitleStackView.axis = .vertical
+		risksStackview.axis = .vertical
+		risksInfoStackView.axis = .vertical
+
+		tokenStackView.alignment = .center
+		tokenTitleStackView.alignment = .center
+
+		contentStackView.spacing = 48
+		assetInfoStackView.spacing = 24
+		tokenStackView.spacing = 6
+		tokenTitleStackView.spacing = 16
+		protocolStackView.spacing = 12
+		protocolImageStackView.spacing = 6
+		risksStackview.spacing = 8
+		risksInfoStackView.spacing = 12
+
+		protocolDescriptionLabel.numberOfLines = 0
+
+		riskView.layer.cornerRadius = 14
+		protocolCardView.layer.cornerRadius = 8
+		risksInfoCardView.layer.cornerRadius = 8
+		risksInfoCardView.layer.borderColor = UIColor.Pino.background.cgColor
+		risksInfoCardView.layer.borderWidth = 1
+		closeButton.layer.cornerRadius = 15
 	}
 
-	private func setupContstraint() {}
+	private func setupContstraint() {
+		contentStackView.pin(
+			.horizontalEdges(padding: 16),
+			.top(padding: 66)
+		)
+		protocolStackView.pin(
+			.verticalEdges(padding: 14),
+			.horizontalEdges(padding: 12)
+		)
+		risksInfoStackView.pin(
+			.allEdges(padding: 12)
+		)
+		tokenImageView.pin(
+			.fixedWidth(72),
+			.fixedHeight(72)
+		)
+		protocolImageView.pin(
+			.fixedWidth(40),
+			.fixedHeight(40)
+		)
+		riskTitleLabel.pin(
+			.horizontalEdges(padding: 12),
+			.centerY
+		)
+		riskView.pin(
+			.fixedHeight(28)
+		)
+		confirmButton.pin(
+			.bottom(to: layoutMarginsGuide, padding: 8),
+			.horizontalEdges(padding: 16)
+		)
+		closeButton.pin(
+			.fixedWidth(30),
+			.fixedHeight(30),
+			.trailing(padding: 16),
+			.top(padding: 24)
+		)
+	}
 
 	private func setupRiskInfoView() {
 		let risksInfo = ["Higher fee collection", "Principal value volatility", "Impermanent loss"]
@@ -96,60 +203,5 @@ class InvestmentRiskPerformanceView: UIView {
 			riskInfoView.riskColor = .Pino.orange
 			risksInfoStackView.addArrangedSubview(riskInfoView)
 		}
-	}
-}
-
-class riskInfoItemView: UIStackView {
-	// MARK: - Private Properties
-
-	private let riskColorView = UIView()
-	private let riskInfoLabel = UILabel()
-
-	// MARK: - Public Properties
-
-	public var riskInfo: String! {
-		didSet {
-			riskInfoLabel.text = riskInfo
-		}
-	}
-
-	public var riskColor: UIColor! {
-		didSet {
-			riskColorView.backgroundColor = riskColor
-		}
-	}
-
-	// MARK: - Initializers
-
-	init() {
-		super.init(frame: .zero)
-		setupView()
-		setupStyle()
-		setupConstraint()
-	}
-
-	required init(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-
-	// MARK: - Private Methods
-
-	private func setupView() {
-		addArrangedSubview(riskColorView)
-		addArrangedSubview(riskInfoLabel)
-	}
-
-	private func setupStyle() {
-		riskInfoLabel.font = .PinoStyle.mediumCallout
-		riskInfoLabel.textColor = .Pino.label
-
-		spacing = 6
-	}
-
-	private func setupConstraint() {
-		riskColorView.pin(
-			.fixedWidth(8),
-			.fixedHeight(8)
-		)
 	}
 }

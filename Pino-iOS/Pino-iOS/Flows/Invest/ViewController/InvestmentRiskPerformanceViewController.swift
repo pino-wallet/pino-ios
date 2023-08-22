@@ -10,9 +10,12 @@ import UIKit
 class InvestmentRiskPerformanceViewController: UIViewController {
 	// MARK: - Private Properties
 
+	private let investableAsset: InvestableAssetViewModel
+
 	// MARK: - Initializers
 
 	init(investableAsset: InvestableAssetViewModel) {
+		self.investableAsset = investableAsset
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -29,9 +32,12 @@ class InvestmentRiskPerformanceViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = InvestmentRiskPerformanceView(viewDidDissmiss: {
-			self.closePage()
-		})
+		view = InvestmentRiskPerformanceView(
+			assetVM: investableAsset,
+			viewDidDismiss: {
+				self.closePage()
+			}
+		)
 	}
 
 	private func closePage() {
