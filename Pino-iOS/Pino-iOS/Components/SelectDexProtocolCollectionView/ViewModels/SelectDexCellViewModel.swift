@@ -6,23 +6,23 @@
 //
 
 struct SelectDexCellViewModel: SelectDexProtocolCellVMProtocol {
-    // MARK: - Public Properties
+	// MARK: - Public Properties
 
-    public var dexModel: DexProtocolModelProtocol
+	public var dexModel: DexProtocolModelProtocol
 
-    public var name: String {
-        dexModel.name
-    }
+	public var name: String {
+		dexModel.name
+	}
 
-    public var image: String {
-        dexModel.image
-    }
+	public var image: String {
+		dexModel.image
+	}
 
-    public var description: String {
-        dexModel.description
-    }
+	public var description: String {
+		dexModel.description
+	}
 
-    public var type: String {
-        dexModel.type
-    }
+	public var type: String {
+		dexModel.type
+	}
 }

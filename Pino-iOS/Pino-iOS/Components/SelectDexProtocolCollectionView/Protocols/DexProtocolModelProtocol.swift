@@ -6,8 +6,8 @@
 //
 
 protocol DexProtocolModelProtocol {
-    var name: String { get }
-    var image: String { get }
-    var description: String { get }
-    var type: String { get }
+	var name: String { get }
+	var image: String { get }
+	var description: String { get }
+	var type: String { get }
 }
