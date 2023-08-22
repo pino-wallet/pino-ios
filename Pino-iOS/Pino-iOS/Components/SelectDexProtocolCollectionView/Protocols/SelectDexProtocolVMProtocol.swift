@@ -6,5 +6,5 @@
 //
 
 protocol SelectDexProtocolVMProtocol {
-	var dexProtocolsList: [dexProtocolModel] { get }
+	var dexProtocolsList: [DexProtocolModel] { get }
 }

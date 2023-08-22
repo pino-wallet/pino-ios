@@ -10,11 +10,11 @@ class BorrowViewModel {
 	// MARK: - Public Properties
 
 	@Published
-	public var selectedDexProtocol: dexProtocolModel = .aave
+	public var selectedDexProtocol: DexProtocolModel = .aave
 	@Published
 	public var userBorrowingDetails: UserBorrowingModel? = nil
 
-	public let dexProtocolsList: [dexProtocolModel] = [.aave, .compound]
+	public let dexProtocolsList: [DexProtocolModel] = [.aave, .compound]
 
 	public let pageTitle = "Borrow"
 	public let collateralTitle = "Collateral"

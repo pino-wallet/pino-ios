@@ -11,11 +11,11 @@ class SelectDexProtocolCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
 	private let selectDexProtocolVM: SelectDexProtocolVMProtocol
-	private let dexProtocolDidSelect: (dexProtocolModel) -> Void
+	private let dexProtocolDidSelect: (DexProtocolModel) -> Void
 
 	// MARK: - Initializers
 
-	init(selectDexProtocolVM: SelectDexProtocolVMProtocol, dexProtocolDidSelect: @escaping (dexProtocolModel) -> Void) {
+	init(selectDexProtocolVM: SelectDexProtocolVMProtocol, dexProtocolDidSelect: @escaping (DexProtocolModel) -> Void) {
 		self.selectDexProtocolVM = selectDexProtocolVM
 		self.dexProtocolDidSelect = dexProtocolDidSelect
 		let collecttionviewFlowLayout = UICollectionViewFlowLayout(
