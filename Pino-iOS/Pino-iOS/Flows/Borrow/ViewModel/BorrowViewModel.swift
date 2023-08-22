@@ -10,11 +10,11 @@ class BorrowViewModel {
 	// MARK: - Public Properties
 
 	@Published
-	public var selectedDexProtocol: DexProtocolModel = .aave
+	public var selectedDexSystem: DexSystemModel = .aave
 	@Published
 	public var userBorrowingDetails: UserBorrowingModel? = nil
 
-	public let dexProtocolsList: [DexProtocolModel] = [.aave, .compound]
+	public let dexProtocolsList: [DexSystemModel] = [.aave, .compound]
 
 	public let pageTitle = "Borrow"
 	public let collateralTitle = "Collateral"
@@ -46,7 +46,7 @@ class BorrowViewModel {
 	private func getUserBorrowingDetails() {
 		borrowAPIClient.getUserBorrowings(
 			address: walletManager.currentAccount.eip55Address,
-			dex: selectedDexProtocol.type
+			dex: selectedDexSystem.type
 		).sink { completed in
 			switch completed {
 			case .finished:

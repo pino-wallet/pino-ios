@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct DexProtocolModel: DexProtocolModelProtocol, Equatable {
+
+struct DexSystemModel: DexSystemModelProtocol, Equatable {
 	// MARK: - Public Properties
 
 	public var name: String
@@ -25,14 +26,14 @@ struct DexProtocolModel: DexProtocolModelProtocol, Equatable {
 	}
 }
 
-extension DexProtocolModel {
-	public static var aave = DexProtocolModel(
+extension DexSystemModel {
+	public static var aave = DexSystemModel(
 		name: "Aave",
 		image: "aave",
 		description: "aave.com",
 		type: "aave"
 	)
-	public static var compound = DexProtocolModel(
+	public static var compound = DexSystemModel(
 		name: "Compound",
 		image: "compound",
 		description: "compound.finance",

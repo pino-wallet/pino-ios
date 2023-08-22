@@ -5,10 +5,10 @@
 //  Created by Amir hossein kazemi seresht on 8/19/23.
 //
 
-struct SelectDexCellViewModel: SelectDexProtocolCellVMProtocol {
+struct SelectDexCellViewModel: SelectDexSystemCellVMProtocol {
 	// MARK: - Public Properties
 
-	public var dexModel: DexProtocolModelProtocol
+	public var dexModel: DexSystemModelProtocol
 
 	public var name: String {
 		dexModel.name

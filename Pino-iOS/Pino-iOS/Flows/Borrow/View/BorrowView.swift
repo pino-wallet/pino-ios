@@ -23,7 +23,7 @@ class BorrowView: UIView {
 	private let healthScoreNumberLabel = UILabel()
 	private var startBorrowView: StartBorrowingView!
 	private var startCollateralView: StartBorrowingView!
-	private var selectDexProtocolView: SelectDexProtocolView!
+	private var selectDexProtocolView: SelectDexSystemView!
 	private var healthScoreTitleAndInfoView: TitleWithInfo!
 	private var collateralDetailsView: BorrowingDetailsView!
 	private var borrowDetailsView: BorrowingDetailsView!
@@ -52,9 +52,9 @@ class BorrowView: UIView {
 
 	private func setupView() {
 		#warning("this should open selectDexProtocolVC")
-		selectDexProtocolView = SelectDexProtocolView(
-			title: borrowVM.selectedDexProtocol.name,
-			image: borrowVM.selectedDexProtocol.description,
+		selectDexProtocolView = SelectDexSystemView(
+			title: borrowVM.selectedDexSystem.name,
+            image: borrowVM.selectedDexSystem.image,
 			onDexProtocolTapClosure: {}
 		)
 
