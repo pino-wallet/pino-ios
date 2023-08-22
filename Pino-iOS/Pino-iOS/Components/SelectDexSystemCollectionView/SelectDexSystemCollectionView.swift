@@ -10,13 +10,13 @@ import UIKit
 class SelectDexSystemCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
-	private let selectDexProtocolVM: SelectDexSystemVMProtocol
+	private let selectDexSystemVM: SelectDexSystemVMProtocol
 	private let dexProtocolDidSelect: (DexSystemModel) -> Void
 
 	// MARK: - Initializers
 
 	init(selectDexProtocolVM: SelectDexSystemVMProtocol, dexProtocolDidSelect: @escaping (DexSystemModel) -> Void) {
-		self.selectDexProtocolVM = selectDexProtocolVM
+		self.selectDexSystemVM = selectDexProtocolVM
 		self.dexProtocolDidSelect = dexProtocolDidSelect
 		let collecttionviewFlowLayout = UICollectionViewFlowLayout(
 			scrollDirection: .vertical,
@@ -44,13 +44,13 @@ class SelectDexSystemCollectionView: UICollectionView {
 
 extension SelectDexSystemCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		dexProtocolDidSelect(selectDexProtocolVM.dexProtocolsList[indexPath.item])
+		dexProtocolDidSelect(selectDexSystemVM.dexSystemList[indexPath.item])
 	}
 }
 
 extension SelectDexSystemCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		selectDexProtocolVM.dexProtocolsList.count
+		selectDexSystemVM.dexSystemList.count
 	}
 
 	func collectionView(
@@ -61,7 +61,7 @@ extension SelectDexSystemCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: DexSystemCell.cellReuseID,
 			for: indexPath
 		) as! DexSystemCell
-		cell.dexProtocolVM = SelectDexCellViewModel(dexModel: selectDexProtocolVM.dexProtocolsList[indexPath.item])
+		cell.dexSystemVM = SelectDexCellViewModel(dexModel: selectDexSystemVM.dexSystemList[indexPath.item])
 		return cell
 	}
 }
