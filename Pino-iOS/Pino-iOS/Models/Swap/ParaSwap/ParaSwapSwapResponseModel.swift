@@ -6,7 +6,7 @@
 import Foundation
 
 // MARK: - Welcome
-struct ParaSwapSwapResponseModel: Codable {
+struct ParaswapSwapResponseModel: SwapPriceResponseProtocol {
     let from, to, value, data: String
     let gasPrice, gas: String
     let chainID: Int
@@ -17,7 +17,7 @@ struct ParaSwapSwapResponseModel: Codable {
     }
 }
 
-extension ParaSwapSwapResponseModel: SwapPriceResponseProtocol {
+extension ParaswapSwapResponseModel {
     var provider: SwapProvider {
         .paraswap
     }

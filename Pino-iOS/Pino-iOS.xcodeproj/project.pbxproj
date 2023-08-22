@@ -410,7 +410,7 @@
 		DF14FCA52A910F74005221A8 /* W3GasInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FCA42A910F74005221A8 /* W3GasInfo.swift */; };
 		DF14FCA72A92694C005221A8 /* SwapRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FCA62A92694C005221A8 /* SwapRequestModel.swift */; };
 		DF14FCA92A93B396005221A8 /* OneInchSwapResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FCA82A93B396005221A8 /* OneInchSwapResponseModel.swift */; };
-		DF14FCAB2A93B4AC005221A8 /* ParaSwapSwapResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FCAA2A93B4AC005221A8 /* ParaSwapSwapResponseModel.swift */; };
+		DF14FCAB2A93B4AC005221A8 /* ParaswapSwapResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FCAA2A93B4AC005221A8 /* ParaswapSwapResponseModel.swift */; };
 		DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF705C69E87F6C936F8261B /* AccountingAPIClient.swift */; };
 		DF954B522A8A6861000A9D45 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = DF954B512A8A6861000A9D45 /* SwiftProtobuf */; };
 		DF954B542A8A6861000A9D45 /* WalletCore in Frameworks */ = {isa = PBXBuildFile; productRef = DF954B532A8A6861000A9D45 /* WalletCore */; };
@@ -970,7 +970,7 @@
 		DF14FCA42A910F74005221A8 /* W3GasInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3GasInfo.swift; sourceTree = "<group>"; };
 		DF14FCA62A92694C005221A8 /* SwapRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapRequestModel.swift; sourceTree = "<group>"; };
 		DF14FCA82A93B396005221A8 /* OneInchSwapResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneInchSwapResponseModel.swift; sourceTree = "<group>"; };
-		DF14FCAA2A93B4AC005221A8 /* ParaSwapSwapResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParaSwapSwapResponseModel.swift; sourceTree = "<group>"; };
+		DF14FCAA2A93B4AC005221A8 /* ParaswapSwapResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParaswapSwapResponseModel.swift; sourceTree = "<group>"; };
 		DFA968722A0F8A77007D4513 /* WalletDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDataSource.swift; sourceTree = "<group>"; };
 		DFA968752A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WalletAccount+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DFA968762A0FABB9007D4513 /* SelectedAsset+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SelectedAsset+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -2762,7 +2762,7 @@
 			isa = PBXGroup;
 			children = (
 				DFC1F6A62A755F55003DB68A /* ParaSwapPriceResponseModel.swift */,
-				DF14FCAA2A93B4AC005221A8 /* ParaSwapSwapResponseModel.swift */,
+				DF14FCAA2A93B4AC005221A8 /* ParaswapSwapResponseModel.swift */,
 			);
 			path = ParaSwap;
 			sourceTree = "<group>";
@@ -3684,7 +3684,7 @@
 				66F6B5B9FA886D1F48A4F627 /* ManageAssetsViewController.swift in Sources */,
 				D96A40D62A7E83A200C020BC /* PendingActivitiesManager.swift in Sources */,
 				7B6CE232F6C074F30AFAF23D /* ManagePasscodeView.swift in Sources */,
-				DF14FCAB2A93B4AC005221A8 /* ParaSwapSwapResponseModel.swift in Sources */,
+				DF14FCAB2A93B4AC005221A8 /* ParaswapSwapResponseModel.swift in Sources */,
 				403691BC2A3DFFB50013AB6D /* ToastConfiguration.swift in Sources */,
 				DF00179529F85774001164EA /* KeychainManager.swift in Sources */,
 				E35BB64D2A596E90003987F5 /* SelectSwapProvidersViewModel.swift in Sources */,

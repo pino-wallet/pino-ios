@@ -14,7 +14,7 @@ public enum SwapProviders {
 	case oneInch
 }
 
-struct ApproveContractViewModel {
+class ApproveContractViewModel {
 	// MARK: - Public Properties
     public var selectedProvider: SwapProvider!
     public var swapAmount: BigNumber!
@@ -30,21 +30,34 @@ struct ApproveContractViewModel {
 
 	// MARK: - Public Methods
 
-    public mutating func confirmSwap() {
+    public func confirmSwap() {
         firstly {
             checkProtocolAllowanceOf(contractAddress: selectedProvider.contractAddress)
         }.compactMap({ allowanceData in
             return allowanceData
         }).then { allowanceData in
-            getSwapInfoFrom(provider: selectedProvider.providerService).map{ ($0, allowanceData) }
+            self.getSwapInfoFrom(provider: self.selectedProvService).map{ ($0, allowanceData) }
         }.then { swapData, allowanceData in
-            getProxyPermitTransferData().map { ($0, swapData, allowanceData) }
+            self.getProxyPermitTransferData().map { ($0, swapData, allowanceData) }
         }.then { transferData, swapData, approveData in
-            callProxyMultiCall(data: [approveData, swapData, transferData])
+            self.callProxyMultiCall(data: [approveData, swapData, transferData])
         }.done { hash in
             print(hash)
         }.catch { error in
             print(error)
+        }
+    }
+    
+    private var selectedProvService: any SwapProvidersAPIServices {
+        switch selectedProvider {
+        case .oneInch:
+            return oneInchAPIClient
+        case .paraswap:
+            return paraSwapAPIClient
+        case .zeroX:
+            return zeroXAPIClient
+        case .none:
+            fatalError()
         }
     }
     
@@ -56,7 +69,7 @@ struct ApproveContractViewModel {
                     spenderAddress: selectedProvider.contractAddress,
                     ownerAddress: Web3Core.Constants.pinoProxyAddress
                 )
-            }.done { allowanceAmount in
+            }.done { [self] allowanceAmount in
                 if allowanceAmount == 0 || allowanceAmount < swapAmount.number {
                     // NOT ALLOWED
                     let approveData = approveProvider()
@@ -71,7 +84,7 @@ struct ApproveContractViewModel {
         }
     }
     
-    private mutating func getSwapInfoFrom<SwapProvider: SwapProvidersAPIServices>(provider: SwapProvider) -> Promise<String> {
+    private func getSwapInfoFrom<SwapProvider: SwapProvidersAPIServices>(provider: SwapProvider) -> Promise<String> {
         let swapReq =
         SwapRequestModel(
             srcToken: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",

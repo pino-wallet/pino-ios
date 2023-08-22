@@ -25,7 +25,7 @@ final class OneInchAPIClient: SwapProvidersAPIServices {
 		return networkManager.request(.quote(swapInfo: editedSwapInfo))
 	}
     
-    func swap(swapInfo: SwapRequestModel) -> AnyPublisher<OneInchPriceResponseModel?, APIError> {
+    func swap(swapInfo: SwapRequestModel) -> AnyPublisher<OneInchSwapResponseModel?, APIError> {
         return networkManager.request(.swap(swapInfo: swapInfo))
     }
     

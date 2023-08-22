@@ -9,8 +9,9 @@ import Combine
 import Foundation
 
 protocol SwapProvidersAPIServices {
-    associatedtype ResponseModel: SwapPriceResponseProtocol
+    associatedtype PriceResponseModel: SwapPriceResponseProtocol
+    associatedtype SwapResponseModel: SwapPriceResponseProtocol
 
-    func swapPrice(swapInfo: SwapPriceRequestModel) -> AnyPublisher<ResponseModel?, APIError>
-	func swap(swapInfo: SwapRequestModel) -> AnyPublisher<ResponseModel?, APIError>
+    func swapPrice(swapInfo: SwapPriceRequestModel) -> AnyPublisher<PriceResponseModel?, APIError>
+	func swap(swapInfo: SwapRequestModel) -> AnyPublisher<SwapResponseModel?, APIError>
 }
