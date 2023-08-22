@@ -54,7 +54,7 @@ class BorrowView: UIView {
 		#warning("this should open selectDexProtocolVC")
 		selectDexProtocolView = SelectDexSystemView(
 			title: borrowVM.selectedDexSystem.name,
-            image: borrowVM.selectedDexSystem.image,
+			image: borrowVM.selectedDexSystem.image,
 			onDexProtocolTapClosure: {}
 		)
 

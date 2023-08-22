@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct DexSystemModel: DexSystemModelProtocol, Equatable {
 	// MARK: - Public Properties
 
