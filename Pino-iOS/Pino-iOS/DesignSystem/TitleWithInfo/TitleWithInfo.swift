@@ -38,6 +38,18 @@ class TitleWithInfo: UIView {
 		}
 	}
 
+    public var customTextFont: UIFont! {
+           didSet {
+               titleLabel.font = customTextFont
+           }
+       }
+
+       public var customTextColor: UIColor! {
+           didSet {
+               titleLabel.textColor = customTextColor
+           }
+       }
+    
 	// MARK: - Initializers
 
 	convenience init() {
@@ -85,7 +97,7 @@ class TitleWithInfo: UIView {
 		heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 		widthAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
 
-		titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 90).isActive = true
+		titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 108).isActive = true
 
 		mainStackView.pin(.allEdges(padding: 0))
 

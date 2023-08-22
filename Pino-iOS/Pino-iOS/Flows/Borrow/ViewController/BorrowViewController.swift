@@ -4,25 +4,38 @@
 //
 //  Created by Mohi Raoufi on 12/17/22.
 //
-
 import UIKit
 
 class BorrowViewController: UIViewController {
-	// MARK: - View Overrides
+    // MARK: - Private Properties
+    private let borrowVM = BorrowViewModel()
+    private var borrowView: BorrowView!
+    // MARK: - View Overrides
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
-	}
+    override func loadView() {
+        setupNavigationBar()
+        setupView()
+    }
 
-	override func loadView() {
-		setupView()
-	}
+    override func viewWillAppear(_ animated: Bool) {
+            borrowVM.getBorrowingDetailsFromVC()
+    }
 
-	// MARK: - Private Methods
+    // MARK: - Private Methods
+    
+    private func setupNavigationBar() {
+        setupPrimaryColorNavigationBar()
+        setNavigationTitle(borrowVM.pageTitle)
+    }
 
-	private func setupView() {
-		// It must be replaced with custom view
-		view = UIView()
-		view.backgroundColor = .Pino.background
-	}
+    private func setupView() {
+        borrowView = BorrowView(borrowVM: borrowVM, presentHealthScoreActionsheet: { actionSheet in
+            self.present(actionSheet, animated: true)
+        })
+
+        view = borrowView
+    }
 }
