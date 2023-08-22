@@ -493,6 +493,8 @@
 		E385F6182A220D8200EE7EE1 /* CTSAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E385F6172A220D8200EE7EE1 /* CTSAPIClient.swift */; };
 		E385F61A2A220DCC00EE7EE1 /* CTSAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E385F6192A220DCC00EE7EE1 /* CTSAPIService.swift */; };
 		E39954612A4C1358001248C3 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39954602A4C1358001248C3 /* GlobalVariables.swift */; };
+		E3C802792A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C802782A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift */; };
+		E3C8027B2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C8027A2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift */; };
 		E3CFC07A2A2F241500E165A4 /* CircleMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CFC0792A2F241500E165A4 /* CircleMarker.swift */; };
 		E3D204CA2A3992EB0027FEBC /* TokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D204C92A3992EB0027FEBC /* TokenView.swift */; };
 		E3D204CC2A39B7E90027FEBC /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D204CB2A39B7E90027FEBC /* QRScannerViewController.swift */; };
@@ -1058,6 +1060,8 @@
 		E385F6172A220D8200EE7EE1 /* CTSAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTSAPIClient.swift; sourceTree = "<group>"; };
 		E385F6192A220DCC00EE7EE1 /* CTSAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTSAPIService.swift; sourceTree = "<group>"; };
 		E39954602A4C1358001248C3 /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
+		E3C802782A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskPerformanceViewController.swift; sourceTree = "<group>"; };
+		E3C8027A2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskPerformanceView.swift; sourceTree = "<group>"; };
 		E3CFC0792A2F241500E165A4 /* CircleMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleMarker.swift; sourceTree = "<group>"; };
 		E3D204C92A3992EB0027FEBC /* TokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenView.swift; sourceTree = "<group>"; };
 		E3D204CB2A39B7E90027FEBC /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
@@ -3060,6 +3064,7 @@
 				E3FC69B82A8A6C89009B3341 /* InvestCoinPerformanceViewController.swift */,
 				E3FC69BE2A8C9B3E009B3341 /* InvestmentBoardViewController.swift */,
 				E3FC69DE2A9207E8009B3341 /* InvestmentBoardFilterViewController.swift */,
+				E3C802782A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -3121,6 +3126,7 @@
 				E3FC69912A88B0EB009B3341 /* InvestView.swift */,
 				E3FC69932A88C4B2009B3341 /* InvestmentAssetsCollectionView.swift */,
 				E3FC69952A88C7A1009B3341 /* InvestmentAssetCell.swift */,
+				E3C8027A2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -3551,6 +3557,7 @@
 				E3FC69992A89066D009B3341 /* InvestViewModel.swift in Sources */,
 				7060BC04A8267A9B50B8BF09 /* AuthenticationLockViewController.swift in Sources */,
 				F46E91AF149D34F200213B3F /* BlurEffectView.swift in Sources */,
+				E3C8027B2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift in Sources */,
 				8124946C56803F5336426CFA /* BodyParamsType.swift in Sources */,
 				1B7D25A69FB55D4EAC14A392 /* BoldStyle.swift in Sources */,
 				D9D9A4082A5E8A4400CECA41 /* ActivityInfoView.swift in Sources */,
@@ -3682,6 +3689,7 @@
 				0CDD5B1CF93FCD04F68CC1C9 /* IntroCollectionViewCell.swift in Sources */,
 				E384CB1629FFABAB009C74F5 /* Double+Extension.swift in Sources */,
 				FC0D80A069760DC032C1B9D6 /* IntroModel.swift in Sources */,
+				E3C802792A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift in Sources */,
 				FDEF1CFCCEFF7401C0A664FD /* IntroView.swift in Sources */,
 				CC788E5AD6EC8CE9488DA049 /* IntroViewController.swift in Sources */,
 				2551C3796076DA146C40F1AC /* IntroViewModel.swift in Sources */,

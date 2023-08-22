@@ -43,7 +43,7 @@ class InvestmentBoardViewController: UIViewController {
 		view = InvestmentBoardView(
 			investmentBoardVM: investmentBoardVM,
 			assetDidSelect: { selectedAsset in
-				self.openInvestPage()
+				self.openInvestPage(selectedAsset: selectedAsset)
 			},
 			filterDidTap: {
 				self.openFilterPage()
@@ -71,7 +71,12 @@ class InvestmentBoardViewController: UIViewController {
 		dismiss(animated: true)
 	}
 
-	private func openInvestPage() {}
+	private func openInvestPage(selectedAsset: AssetsBoardProtocol) {
+		if let investableAsset = selectedAsset as? InvestableAssetViewModel {
+			let riskPerformanceVC = InvestmentRiskPerformanceViewController(investableAsset: investableAsset)
+			present(riskPerformanceVC, animated: true)
+		}
+	}
 
 	private func openFilterPage() {
 		let investmentFilterVM = InvestmentBoardFilterViewModel(
