@@ -51,8 +51,8 @@ enum SwapProvider {
 			return "0xDef1C0ded9bec7F1a1670819833240f027b25EfF"
 		}
 	}
-
-	public var providerService: any SwapProvidersAPIServices {
+    
+    public var providerService: any SwapProvidersAPIServices {
 		switch self {
 		case .oneInch:
 			return OneInchAPIClient()
