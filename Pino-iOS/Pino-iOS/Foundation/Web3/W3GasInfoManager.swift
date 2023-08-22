@@ -46,7 +46,6 @@ public struct W3GasInfoManager {
 				web3.eth.getTransactionCount(address: myPrivateKey.address, block: .latest).map { ($0, gasPrice) }
 			}.then { nonce, gasPrice in
 				try transactionManager.createTransactionFor(
-					method: method,
 					contract: contract,
 					nonce: nonce,
 					gasPrice: gasPrice,
@@ -123,8 +122,7 @@ public struct W3GasInfoManager {
 					contractAddress: contractAddress
 				)
 			}.done { trxGasInfo in
-				let gasInfo = GasInfo(gasPrice: trxGasInfo.gasPrice, gasLimit: trxGasInfo.gasLimit)
-				seal.fulfill(gasInfo)
+                seal.fulfill(trxGasInfo)
 			}.catch { error in
 				seal.reject(error)
 			}

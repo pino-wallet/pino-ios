@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PromiseKit
 import UIKit
 
 extension String {
@@ -83,4 +84,11 @@ extension String {
 			return self
 		}
 	}
+    
+    public var promise: Promise<Self> {
+        return Promise<Self> { seal in
+            seal.fulfill(self)
+        }
+    }
+    
 }
