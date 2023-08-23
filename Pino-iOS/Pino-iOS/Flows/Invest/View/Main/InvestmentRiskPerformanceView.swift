@@ -10,8 +10,8 @@ import UIKit
 class InvestmentRiskPerformanceView: UIView {
 	// MARK: - Private Properties
 
-    private let scrollView = UIScrollView()
-    private let contentView = UIView()
+	private let scrollView = UIScrollView()
+	private let contentView = UIView()
 	private let contentStackView = UIStackView()
 	private let assetInfoStackView = UIStackView()
 	private let tokenStackView = UIStackView()
@@ -27,7 +27,7 @@ class InvestmentRiskPerformanceView: UIView {
 	private let protocolTitleStackView = UIStackView()
 	private let protocolNameLabel = UILabel()
 	private let protocolTitleLabel = UILabel()
-    private let protocolDescriptionLabel = PinoLabel(style: .description, text: nil)
+	private let protocolDescriptionLabel = PinoLabel(style: .description, text: nil)
 	private let risksTitleLabel = UILabel()
 	private let risksStackview = UIStackView()
 	private let risksInfoCardView = UIView()
@@ -58,9 +58,9 @@ class InvestmentRiskPerformanceView: UIView {
 	private func setupView() {
 		addSubview(confirmButton)
 		addSubview(closeButton)
-        addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        contentView.addSubview(contentStackView)
+		addSubview(scrollView)
+		scrollView.addSubview(contentView)
+		contentView.addSubview(contentStackView)
 		contentStackView.addArrangedSubview(assetInfoStackView)
 		contentStackView.addArrangedSubview(risksStackview)
 
@@ -97,12 +97,12 @@ class InvestmentRiskPerformanceView: UIView {
 
 	private func setupStyle() {
 		tokenNameLabel.text = investmentRiskVM.assetName
-        riskTitleLabel.text = investmentRiskVM.investmentRiskName
-        protocolTitleLabel.text = investmentRiskVM.protocolTitle
-        protocolNameLabel.text = investmentRiskVM.protocolName
-        protocolDescriptionLabel.text = investmentRiskVM.protocolDescription
-        risksTitleLabel.text = investmentRiskVM.investmentRiskTitle
-        confirmButton.title = investmentRiskVM.confirmButtonTitle
+		riskTitleLabel.text = investmentRiskVM.investmentRiskName
+		protocolTitleLabel.text = investmentRiskVM.protocolTitle
+		protocolNameLabel.text = investmentRiskVM.protocolName
+		protocolDescriptionLabel.text = investmentRiskVM.protocolDescription
+		risksTitleLabel.text = investmentRiskVM.investmentRiskTitle
+		confirmButton.title = investmentRiskVM.confirmButtonTitle
 		protocolImageView.image = UIImage(named: investmentRiskVM.protocolImage)
 		tokenImageView.kf.indicatorType = .activity
 		tokenImageView.kf.setImage(with: investmentRiskVM.assetImage)
@@ -124,15 +124,15 @@ class InvestmentRiskPerformanceView: UIView {
 		backgroundColor = .Pino.secondaryBackground
 		protocolCardView.backgroundColor = .Pino.background
 		closeButton.backgroundColor = .Pino.background
-        
-        switch investmentRiskVM.investmentRisk {
-        case .high:
-            riskView.backgroundColor = .Pino.lightRed
-        case .medium:
-            riskView.backgroundColor = .Pino.lightOrange
-        case .low:
-            riskView.backgroundColor = .Pino.green1
-        }
+
+		switch investmentRiskVM.investmentRisk {
+		case .high:
+			riskView.backgroundColor = .Pino.lightRed
+		case .medium:
+			riskView.backgroundColor = .Pino.lightOrange
+		case .low:
+			riskView.backgroundColor = .Pino.green1
+		}
 
 		contentStackView.axis = .vertical
 		assetInfoStackView.axis = .vertical
@@ -166,15 +166,15 @@ class InvestmentRiskPerformanceView: UIView {
 	}
 
 	private func setupContstraint() {
-        scrollView.pin(
-            .horizontalEdges,
-            .relative(.top, 0, to: closeButton, .bottom),
-            .relative(.bottom, 0, to: confirmButton, .top)
-        )
-        contentView.pin(
-            .allEdges,
-            .relative(.width, 0, to: self, .width)
-        )
+		scrollView.pin(
+			.horizontalEdges,
+			.relative(.top, 0, to: closeButton, .bottom),
+			.relative(.bottom, 0, to: confirmButton, .top)
+		)
+		contentView.pin(
+			.allEdges,
+			.relative(.width, 0, to: self, .width)
+		)
 		contentStackView.pin(
 			.allEdges(padding: 16)
 		)
@@ -213,10 +213,10 @@ class InvestmentRiskPerformanceView: UIView {
 	}
 
 	private func setupRiskInfoView() {
-        for riskInfo in investmentRiskVM.risksInfo {
+		for riskInfo in investmentRiskVM.risksInfo {
 			let riskInfoView = riskInfoItemView()
-            riskInfoView.riskInfo = riskInfo.titel
-            riskInfoView.riskColor = riskInfo.color
+			riskInfoView.riskInfo = riskInfo.titel
+			riskInfoView.riskColor = riskInfo.color
 			risksInfoStackView.addArrangedSubview(riskInfoView)
 		}
 	}

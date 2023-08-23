@@ -11,13 +11,13 @@ class InvestmentRiskPerformanceViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let investableAsset: InvestableAssetViewModel
-    private let viewDidDismiss: () -> Void
+	private let viewDidDismiss: () -> Void
 
 	// MARK: - Initializers
 
-    init(investableAsset: InvestableAssetViewModel, viewDidDismiss: @escaping () -> Void) {
+	init(investableAsset: InvestableAssetViewModel, viewDidDismiss: @escaping () -> Void) {
 		self.investableAsset = investableAsset
-        self.viewDidDismiss = viewDidDismiss
+		self.viewDidDismiss = viewDidDismiss
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -34,12 +34,12 @@ class InvestmentRiskPerformanceViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-        let investmentRiskVM = InvestmentRiskPerformanceViewModel(selectedAsset: investableAsset)
+		let investmentRiskVM = InvestmentRiskPerformanceViewModel(selectedAsset: investableAsset)
 		view = InvestmentRiskPerformanceView(
 			investmentRiskVM: investmentRiskVM,
 			viewDidDismiss: {
-                self.closePage()
-                self.viewDidDismiss()
+				self.closePage()
+				self.viewDidDismiss()
 			}
 		)
 	}
