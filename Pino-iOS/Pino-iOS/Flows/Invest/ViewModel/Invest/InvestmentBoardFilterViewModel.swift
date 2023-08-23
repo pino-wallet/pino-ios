@@ -7,14 +7,15 @@
 
 import Foundation
 
-struct InvestmentBoardFilterViewModel {
+class InvestmentBoardFilterViewModel {
 	// MARK: - Public Properties
 
+	@Published
 	public var filters: [InvestmentFilterItemViewModel]!
 
 	public var selectedAsset: AssetViewModel?
 	public var selectedProtocol: InvestProtocolViewModel?
-	public var selectedRisk: String?
+	public var selectedRisk: InvestmentRisk?
 
 	public var filterDelegate: InvestFilterDelegate
 
@@ -23,7 +24,7 @@ struct InvestmentBoardFilterViewModel {
 	init(
 		selectedAsset: AssetViewModel?,
 		selectedProtocol: InvestProtocolViewModel?,
-		selectedRisk: String?,
+		selectedRisk: InvestmentRisk?,
 		filterDelegate: InvestFilterDelegate
 	) {
 		self.selectedAsset = selectedAsset
@@ -35,21 +36,57 @@ struct InvestmentBoardFilterViewModel {
 
 	// MARK: - Private Methods
 
-	private mutating func setupFilterItems() {
+	private func setupFilterItems() {
 		filters = [
 			InvestmentFilterItemViewModel(item: .assets, description: selectedAsset?.name),
 			InvestmentFilterItemViewModel(item: .investProtocol, description: selectedProtocol?.protocolInfo.name),
-			InvestmentFilterItemViewModel(item: .risk, description: selectedRisk),
+			InvestmentFilterItemViewModel(item: .risk, description: selectedRisk?.title),
 		]
 	}
 
 	// MARK: - Public Methods
 
-	public mutating func applyFilters() {
+	public func applyFilters() {
 		filterDelegate.filterUpdated(
 			assetFilter: selectedAsset,
 			protocolFilter: selectedProtocol,
 			riskFilter: selectedRisk
 		)
+	}
+
+	public func updateFilter(selectedAsset: AssetViewModel?) {
+		self.selectedAsset = selectedAsset
+		let assetFilterIndex = filters.firstIndex(where: { $0.filterItem == .assets })!
+		if let selectedAsset {
+			filters[assetFilterIndex].updateDescription(selectedAsset.name)
+		} else {
+			filters[assetFilterIndex].updateDescription("All")
+		}
+	}
+
+	public func updateFilter(selectedProtocol: InvestProtocolViewModel?) {
+		self.selectedProtocol = selectedProtocol
+		let protocolFilterIndex = filters.firstIndex(where: { $0.filterItem == .investProtocol })!
+		if let selectedProtocol {
+			filters[protocolFilterIndex].updateDescription(selectedProtocol.protocolInfo.name)
+		} else {
+			filters[protocolFilterIndex].updateDescription("All")
+		}
+	}
+
+	public func updateFilter(selectedRisk: InvestmentRisk?) {
+		self.selectedRisk = selectedRisk
+		let riskFilterIndex = filters.firstIndex(where: { $0.filterItem == .risk })!
+		if let selectedRisk {
+			filters[riskFilterIndex].updateDescription(selectedRisk.title)
+		} else {
+			filters[riskFilterIndex].updateDescription("All")
+		}
+	}
+
+	public func clearFilters() {
+		updateFilter(selectedAsset: nil)
+		updateFilter(selectedProtocol: nil)
+		updateFilter(selectedRisk: nil)
 	}
 }

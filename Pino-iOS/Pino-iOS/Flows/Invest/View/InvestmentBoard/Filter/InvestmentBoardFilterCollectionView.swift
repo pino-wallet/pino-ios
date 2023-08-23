@@ -8,11 +8,9 @@
 import UIKit
 
 class InvestmentBoardFilterCollectionView: UICollectionView {
-	// MARK: - Private Properties
+	// MARK: - Public Properties
 
-	private let filterVM: InvestmentBoardFilterViewModel
-
-	// MARK: - Closures
+	public var filters: [InvestmentFilterItemViewModel]
 
 	public var filterItemSelected: (InvestmentFilterItemViewModel) -> Void
 	public var clearFiltersDidTap: () -> Void
@@ -20,11 +18,11 @@ class InvestmentBoardFilterCollectionView: UICollectionView {
 	// MARK: - Initializers
 
 	init(
-		filterVM: InvestmentBoardFilterViewModel,
+		filters: [InvestmentFilterItemViewModel],
 		filterItemSelected: @escaping (InvestmentFilterItemViewModel) -> Void,
 		clearFiltersDidTap: @escaping () -> Void
 	) {
-		self.filterVM = filterVM
+		self.filters = filters
 		self.filterItemSelected = filterItemSelected
 		self.clearFiltersDidTap = clearFiltersDidTap
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
@@ -77,7 +75,7 @@ extension InvestmentBoardFilterCollectionView: UICollectionViewDelegateFlowLayou
 
 extension InvestmentBoardFilterCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		filterItemSelected(filterVM.filters[indexPath.item])
+		filterItemSelected(filters[indexPath.item])
 	}
 }
 
@@ -89,7 +87,7 @@ extension InvestmentBoardFilterCollectionView: UICollectionViewDataSource {
 	}
 
 	internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		filterVM.filters.count
+		filters.count
 	}
 
 	internal func collectionView(
@@ -100,8 +98,8 @@ extension InvestmentBoardFilterCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: InvestmentBoardFilterCell.cellReuseID,
 			for: indexPath
 		) as! InvestmentBoardFilterCell
-		filterCell.filterItemVM = filterVM.filters[indexPath.item]
-		filterCell.setCellStyle(currentItem: indexPath.item, itemsCount: filterVM.filters.count)
+		filterCell.filterItemVM = filters[indexPath.item]
+		filterCell.setCellStyle(currentItem: indexPath.item, itemsCount: filters.count)
 		return filterCell
 	}
 

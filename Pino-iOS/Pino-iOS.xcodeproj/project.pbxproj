@@ -563,6 +563,10 @@
 		E3FC69E92A922045009B3341 /* InvestmentFilterItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69E82A922045009B3341 /* InvestmentFilterItemViewModel.swift */; };
 		E3FC69EC2A9247BD009B3341 /* InvestmentBoardFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69EB2A9247BD009B3341 /* InvestmentBoardFilterView.swift */; };
 		E3FC69EE2A924FDA009B3341 /* InvestFilterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69ED2A924FDA009B3341 /* InvestFilterDelegate.swift */; };
+		E3FC69F22A936C3B009B3341 /* InvestmentRiskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69F12A936C3B009B3341 /* InvestmentRiskViewController.swift */; };
+		E3FC69F42A936CE1009B3341 /* InvestmentRiskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69F32A936CE1009B3341 /* InvestmentRiskView.swift */; };
+		E3FC69F62A936D6B009B3341 /* InvestmentRiskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69F52A936D6B009B3341 /* InvestmentRiskCell.swift */; };
+		E3FC69F82A937135009B3341 /* InvestmentRiskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69F72A937135009B3341 /* InvestmentRiskViewModel.swift */; };
 		E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D680E48001C060BADD248 /* EndpointType.swift */; };
 		E4BC1D70FBAF66825B9358E7 /* LockMethodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386676E7E643B6AB252A5653 /* LockMethodModel.swift */; };
 		E4FF2E5E60CA74F3324945A8 /* CoinInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D5774D76FC507F8B176185 /* CoinInfoViewModel.swift */; };
@@ -1145,6 +1149,10 @@
 		E3FC69E82A922045009B3341 /* InvestmentFilterItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentFilterItemViewModel.swift; sourceTree = "<group>"; };
 		E3FC69EB2A9247BD009B3341 /* InvestmentBoardFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentBoardFilterView.swift; sourceTree = "<group>"; };
 		E3FC69ED2A924FDA009B3341 /* InvestFilterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestFilterDelegate.swift; sourceTree = "<group>"; };
+		E3FC69F12A936C3B009B3341 /* InvestmentRiskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskViewController.swift; sourceTree = "<group>"; };
+		E3FC69F32A936CE1009B3341 /* InvestmentRiskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskView.swift; sourceTree = "<group>"; };
+		E3FC69F52A936D6B009B3341 /* InvestmentRiskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskCell.swift; sourceTree = "<group>"; };
+		E3FC69F72A937135009B3341 /* InvestmentRiskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskViewModel.swift; sourceTree = "<group>"; };
 		E40D0AB7515630563347CBDA /* CoinPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceViewController.swift; sourceTree = "<group>"; };
 		E488020B63A8565B74B017A1 /* CustomAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetViewModel.swift; sourceTree = "<group>"; };
 		E5039C2C00BEB653F3B0D399 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -3163,6 +3171,7 @@
 				E3FC69B82A8A6C89009B3341 /* InvestCoinPerformanceViewController.swift */,
 				E3FC69BE2A8C9B3E009B3341 /* InvestmentBoardViewController.swift */,
 				E3FC69DE2A9207E8009B3341 /* InvestmentBoardFilterViewController.swift */,
+				E3FC69F12A936C3B009B3341 /* InvestmentRiskViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -3260,6 +3269,7 @@
 				E3FC69D32A90B280009B3341 /* InvestmentBoardViewModel.swift */,
 				E3FC69E22A920BE0009B3341 /* InvestmentBoardFilterViewModel.swift */,
 				E3FC69E82A922045009B3341 /* InvestmentFilterItemViewModel.swift */,
+				E3FC69F72A937135009B3341 /* InvestmentRiskViewModel.swift */,
 			);
 			path = Invest;
 			sourceTree = "<group>";
@@ -3282,6 +3292,8 @@
 				E3FC69E02A9209AD009B3341 /* InvestmentBoardFilterCollectionView.swift */,
 				E3FC69E42A9210FC009B3341 /* InvestmentBoardFilterCell.swift */,
 				E3FC69E62A9213FE009B3341 /* InvestmentBoardFilterHeader.swift */,
+				E3FC69F32A936CE1009B3341 /* InvestmentRiskView.swift */,
+				E3FC69F52A936D6B009B3341 /* InvestmentRiskCell.swift */,
 			);
 			path = Filter;
 			sourceTree = "<group>";
@@ -3562,6 +3574,7 @@
 				E35BB63A2A5589F3003987F5 /* SelectSwapProtocolViewController.swift in Sources */,
 				E3FC69C32A8C9F53009B3341 /* AssetsBoardCell.swift in Sources */,
 				E385F6162A220C6D00EE7EE1 /* CTSEndpoint.swift in Sources */,
+				E3FC69F42A936CE1009B3341 /* InvestmentRiskView.swift in Sources */,
 				12265EA20032CC8CF48199E7 /* AboutPinoViewModel.swift in Sources */,
 				1AC53E3B2AB70C2C7F419A38 /* AccountHeaderView.swift in Sources */,
 				DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */,
@@ -3796,6 +3809,7 @@
 				E35BB6402A558F87003987F5 /* SwapProtocolCell.swift in Sources */,
 				0CDD5B1CF93FCD04F68CC1C9 /* IntroCollectionViewCell.swift in Sources */,
 				E384CB1629FFABAB009C74F5 /* Double+Extension.swift in Sources */,
+				E3FC69F82A937135009B3341 /* InvestmentRiskViewModel.swift in Sources */,
 				FC0D80A069760DC032C1B9D6 /* IntroModel.swift in Sources */,
 				FDEF1CFCCEFF7401C0A664FD /* IntroView.swift in Sources */,
 				CC788E5AD6EC8CE9488DA049 /* IntroViewController.swift in Sources */,
@@ -3812,6 +3826,7 @@
 				763F91967E4347D64BD561C4 /* KeychainHelper.swift in Sources */,
 				7F79C44B5BF6EB8B1D1674A0 /* KeychainWrapperProtocol.swift in Sources */,
 				A9DD712BF1A1511733B479FA /* LaunchSettings.swift in Sources */,
+				E3FC69F62A936D6B009B3341 /* InvestmentRiskCell.swift in Sources */,
 				F768EA67E795D2C08C4CDF5B /* LineChartDelegate.swift in Sources */,
 				DFFDEDAC2A76C65800D710D7 /* ZeroXSwapPriceResponseModel.swift in Sources */,
 				E4BC1D70FBAF66825B9358E7 /* LockMethodModel.swift in Sources */,
@@ -3988,6 +4003,7 @@
 				E3FC69C52A8CBB1E009B3341 /* AssetsBoardHeaderView.swift in Sources */,
 				7DD0703DDA2759A33DB4F582 /* SuggestedSeedPhraseCell.swift in Sources */,
 				DF00178D29F855DF001164EA /* WalletValidator.swift in Sources */,
+				E3FC69F22A936C3B009B3341 /* InvestmentRiskViewController.swift in Sources */,
 				87D5D64B10D301DA28F383FE /* SuggestedSeedPhraseCollectionView.swift in Sources */,
 				59F0D2F9CA8BEA2BB4728B8E /* SwapViewController.swift in Sources */,
 				58B890F4377EE8853C655AFA /* TabBarItem.swift in Sources */,

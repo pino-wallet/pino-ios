@@ -16,4 +16,5 @@ struct InvestableAssetModel {
 	public let protocolName: String
 	public let APYAmount: String
 	public let decimal = 10
+	public let investmentRisk: String
 }
