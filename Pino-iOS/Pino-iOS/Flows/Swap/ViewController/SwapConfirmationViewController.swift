@@ -30,9 +30,6 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		let ap = ApproveContractViewModel()
-		ap.approveProvider()
 	}
 
 	override func loadView() {

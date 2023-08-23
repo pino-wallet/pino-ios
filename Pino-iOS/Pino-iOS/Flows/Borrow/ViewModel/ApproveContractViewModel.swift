@@ -8,12 +8,6 @@ import Combine
 import PromiseKit
 import Web3
 
-public enum SwapProviders {
-	case paraSwap
-	case zeroX
-	case oneInch
-}
-
 class ApproveContractViewModel {
 	// MARK: - Public Properties
 
@@ -49,6 +43,8 @@ class ApproveContractViewModel {
 			print(error)
 		}
 	}
+    
+    // MARK: - Private Methods
 
 	private var selectedProvService: any SwapProvidersAPIServices {
 		switch selectedProvider {

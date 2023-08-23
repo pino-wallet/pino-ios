@@ -5,12 +5,10 @@
 
 import Foundation
 
-// MARK: - Welcome
-
-struct ParaswapSwapResponseModel: SwapPriceResponseProtocol {
-	let from, to, value, data: String
-	let gasPrice, gas: String
-	let chainID: Int
+struct ParaswapSwapResponseModel: Codable {
+	public let from, to, value, data: String
+    public let gasPrice, gas: String
+    public let chainID: Int
 
 	enum CodingKeys: String, CodingKey {
 		case from
@@ -20,23 +18,5 @@ struct ParaswapSwapResponseModel: SwapPriceResponseProtocol {
 		case gasPrice
 		case gas
 		case chainID = "chainId"
-	}
-}
-
-extension ParaswapSwapResponseModel {
-	var provider: SwapProvider {
-		.paraswap
-	}
-
-	var srcAmount: String {
-		value
-	}
-
-	var destAmount: String {
-		""
-	}
-
-	var gasFee: String {
-		gas
 	}
 }
