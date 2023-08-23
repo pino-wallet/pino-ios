@@ -43,10 +43,15 @@ class BorrowingDetailsViewModel {
 		self.borrowingType = borrowingType
 		updateBorrowingProperties(userBorrowingDetails: borrowVM.userBorrowingDetails)
 
+        setupEmptyProperties()
 		setupBindigns()
 	}
 
 	// MARK: - Private Methods
+    
+    private func setupEmptyProperties() {
+        properties = BorrowingPropertiesViewModel(progressBarColor: .white)
+    }
 
 	private func setupBindigns() {
 		borrowVM.$userBorrowingDetails.sink { userBorrowingDetails in
@@ -55,11 +60,19 @@ class BorrowingDetailsViewModel {
 	}
 
 	private func updateBorrowingProperties(userBorrowingDetails: UserBorrowingModel?) {
+        guard let userBorrowingDetails = userBorrowingDetails else {
+            return
+        }
 		switch borrowingType {
 		case .borrow:
-			properties = BorrowingPropertiesViewModel(borrowingAssetsList: userBorrowingDetails?.borrowTokens ?? [])
+            if properties.borrowingAssetsList != userBorrowingDetails.borrowTokens {
+                properties = BorrowingPropertiesViewModel(borrowingAssetsList: userBorrowingDetails.borrowTokens, prevBorrowingAssetsList: borrowVM.userBorrowingDetails?.borrowTokens ?? [] , progressBarColor: borrowVM.borrowProgressBarColor)
+            }
 		case .collateral:
-			properties = BorrowingPropertiesViewModel(borrowingAssetsList: userBorrowingDetails?.collateralTokens ?? [])
+            if properties.borrowingAssetsList != userBorrowingDetails.collateralTokens {
+                properties = BorrowingPropertiesViewModel(borrowingAssetsList: userBorrowingDetails.collateralTokens, prevBorrowingAssetsList: borrowVM.userBorrowingDetails?.collateralTokens ?? [] , progressBarColor: borrowVM.collateralProgressBarColor)
+            }
 		}
 	}
+    
 }

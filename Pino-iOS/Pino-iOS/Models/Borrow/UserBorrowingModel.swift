@@ -23,7 +23,7 @@ struct UserBorrowingModel: Codable {
 
 // MARK: - Token
 
-struct UserBorrowingToken: Codable {
+struct UserBorrowingToken: Codable, Equatable {
 	let amount, dex, id: String
 	let totalDebt: String?
 	let userID: String
