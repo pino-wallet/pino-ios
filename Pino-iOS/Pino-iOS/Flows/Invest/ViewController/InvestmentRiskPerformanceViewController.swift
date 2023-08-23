@@ -32,7 +32,7 @@ class InvestmentRiskPerformanceViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-        let investmentRiskVM = InvestmentRiskPerformanceViewModel(selectedAsset: investableAsset)
+		let investmentRiskVM = InvestmentRiskPerformanceViewModel(selectedAsset: investableAsset)
 		view = InvestmentRiskPerformanceView(
 			investmentRiskVM: investmentRiskVM,
 			viewDidDismiss: {
