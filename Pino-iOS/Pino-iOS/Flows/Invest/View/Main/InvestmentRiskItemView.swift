@@ -21,9 +21,9 @@ class riskInfoItemView: UIStackView {
 		}
 	}
 
-	public var riskColor: UIColor! {
+	public var riskColor: String! {
 		didSet {
-			riskColorView.backgroundColor = riskColor
+			riskColorView.backgroundColor = UIColor(named: riskColor)
 		}
 	}
 

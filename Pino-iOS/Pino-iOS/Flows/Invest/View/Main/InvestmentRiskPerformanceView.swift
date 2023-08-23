@@ -33,13 +33,13 @@ class InvestmentRiskPerformanceView: UIView {
 	private let confirmButton = PinoButton(style: .active)
 	private let closeButton = UIButton()
 
-	private let assetVM: InvestableAssetViewModel
+	private let investmentRiskVM: InvestmentRiskPerformanceViewModel
 	private let viewDidDismiss: () -> Void
 
 	// MARK: - Initializers
 
-	init(assetVM: InvestableAssetViewModel, viewDidDismiss: @escaping () -> Void) {
-		self.assetVM = assetVM
+	init(investmentRiskVM: InvestmentRiskPerformanceViewModel, viewDidDismiss: @escaping () -> Void) {
+		self.investmentRiskVM = investmentRiskVM
 		self.viewDidDismiss = viewDidDismiss
 		super.init(frame: .zero)
 		setupView()
@@ -92,17 +92,16 @@ class InvestmentRiskPerformanceView: UIView {
 	}
 
 	private func setupStyle() {
-		tokenNameLabel.text = assetVM.assetName
-		riskTitleLabel.text = "High risk"
-		protocolTitleLabel.text = "Protocol"
-		protocolNameLabel.text = assetVM.assetProtocol.protocolInfo.name
-		protocolDescriptionLabel.text =
-			"\(assetVM.assetProtocol.protocolInfo.name) is a DEX enabling users to supply liquidity and earn trade fees in return."
-		risksTitleLabel.text = "Benefits and risks"
-		confirmButton.title = "Git it"
-		protocolImageView.image = UIImage(named: assetVM.protocolImage)
+		tokenNameLabel.text = investmentRiskVM.assetName
+        riskTitleLabel.text = investmentRiskVM.investmentRiskName
+        protocolTitleLabel.text = investmentRiskVM.protocolTitle
+        protocolNameLabel.text = investmentRiskVM.protocolName
+        protocolDescriptionLabel.text = investmentRiskVM.protocolDescription
+        risksTitleLabel.text = investmentRiskVM.investmentRiskTitle
+        confirmButton.title = investmentRiskVM.confirmButtonTitle
+		protocolImageView.image = UIImage(named: investmentRiskVM.protocolImage)
 		tokenImageView.kf.indicatorType = .activity
-		tokenImageView.kf.setImage(with: assetVM.assetImage)
+		tokenImageView.kf.setImage(with: investmentRiskVM.assetImage)
 		closeButton.setImage(UIImage(systemName: "multiply"), for: .normal)
 
 		tokenNameLabel.font = .PinoStyle.semiboldTitle2
@@ -196,11 +195,10 @@ class InvestmentRiskPerformanceView: UIView {
 	}
 
 	private func setupRiskInfoView() {
-		let risksInfo = ["Higher fee collection", "Principal value volatility", "Impermanent loss"]
-		for riskInfo in risksInfo {
+        for riskInfo in investmentRiskVM.risksInfo {
 			let riskInfoView = riskInfoItemView()
-			riskInfoView.riskInfo = riskInfo
-			riskInfoView.riskColor = .Pino.orange
+            riskInfoView.riskInfo = riskInfo.titel
+            riskInfoView.riskColor = riskInfo.color
 			risksInfoStackView.addArrangedSubview(riskInfoView)
 		}
 	}
