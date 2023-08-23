@@ -29,7 +29,6 @@ public struct W3TransactionManager {
 	// MARK: - Public Methods
 
 	public func createTransactionFor(
-		method: ABIMethodWrite,
 		contract: SolidityInvocation,
 		nonce: EthereumQuantity,
 		gasPrice: EthereumQuantity,
@@ -46,7 +45,7 @@ public struct W3TransactionManager {
 			maxPriorityFeePerGas: nil,
 			gasLimit: gasLimit,
 			from: accountPrivateKey.address,
-			value: nil,
+			value: 0,
 			accessList: [:],
 			transactionType: .legacy
 		)

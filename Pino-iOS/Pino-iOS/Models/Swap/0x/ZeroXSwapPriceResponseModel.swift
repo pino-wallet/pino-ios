@@ -10,14 +10,13 @@ import Foundation
 struct ZeroXPriceResponseModel: SwapPriceResponseProtocol {
 	// MARK: - Private Properties
 
-	private let chainId: Int
-	private let price, grossPrice, estimatedPriceImpact, value: String
-	private let gasPrice, gas, estimatedGas, protocolFee: String
-	private let minimumProtocolFee, buyTokenAddress, buyAmount, grossBuyAmount: String
-	private let sellTokenAddress, sellAmount, grossSellAmount: String
-	private let sources: [Source]
-	private let allowanceTarget, sellTokenToEthRate, buyTokenToEthRate: String
-	private let auxiliaryChainData: AuxiliaryChainData
+	let chainID: Int
+	let price, guaranteedPrice, estimatedPriceImpact, to: String
+	let data, value, gas, estimatedGas: String
+	let gasPrice, protocolFee, minimumProtocolFee, buyTokenAddress: String
+	let sellTokenAddress, buyAmount, sellAmount: String
+	let allowanceTarget, sellTokenToEthRate, buyTokenToEthRate: String
+	let grossPrice, grossBuyAmount, grossSellAmount: String
 
 	// MARK: - Public Properties
 
@@ -36,14 +35,4 @@ struct ZeroXPriceResponseModel: SwapPriceResponseProtocol {
 	public var gasFee: String {
 		protocolFee
 	}
-}
-
-// MARK: - AuxiliaryChainData
-
-struct AuxiliaryChainData: Codable {}
-
-// MARK: - Source
-
-struct Source: Codable {
-	let name, proportion: String
 }

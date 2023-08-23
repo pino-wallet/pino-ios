@@ -32,7 +32,7 @@ enum ZeroXEndpoint: EndpointType {
 	internal var path: String {
 		switch self {
 		case .quote:
-			return "/price"
+			return "/quote"
 		}
 	}
 
