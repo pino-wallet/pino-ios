@@ -16,7 +16,6 @@ class BorrowingTokensCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
 	private var borrowingDetailsProperties: BorrowingPropertiesViewModel!
-	private var prevBorrowingDetailsProperties: BorrowingPropertiesViewModel!
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
