@@ -10,11 +10,11 @@ import Foundation
 protocol InvestFilterDelegate {
 	var assetFilter: AssetViewModel? { get }
 	var protocolFilter: InvestProtocolViewModel? { get }
-	var riskFilter: String? { get }
+	var riskFilter: InvestmentRisk? { get }
 
 	func filterUpdated(
 		assetFilter: AssetViewModel?,
 		protocolFilter: InvestProtocolViewModel?,
-		riskFilter: String?
+		riskFilter: InvestmentRisk?
 	)
 }

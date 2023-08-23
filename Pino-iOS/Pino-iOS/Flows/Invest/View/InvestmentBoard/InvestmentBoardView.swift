@@ -53,7 +53,7 @@ class InvestmentBoardView: AssetsBoardCollectionView {
 	}
 
 	private func setupBinding() {
-		investmentBoardVM.$investableAssets.sink { filteredAssets in
+		investmentBoardVM.$filteresAssets.compactMap { $0 }.sink { filteredAssets in
 			self.investmentDataSource.investableAssets = filteredAssets
 			self.reloadData()
 		}.store(in: &cancellables)

@@ -40,8 +40,8 @@ class InvestmentBoardFilterViewController: UIViewController {
 	private func setupView() {
 		view = InvestmentBoardFilterView(
 			filterVM: filterVM,
-			filterItemSelected: { filterItem in
-				self.openFilterItem(filterItem)
+			filterItemSelected: { investFilter in
+				self.openFilterItem(investFilter)
 			},
 			clearFiltersDidTap: {
 				self.clearFilters()
@@ -73,7 +73,37 @@ class InvestmentBoardFilterViewController: UIViewController {
 		dismiss(animated: true)
 	}
 
-	private func openFilterItem(_ filterItem: InvestmentFilterItemViewModel) {}
+	private func openFilterItem(_ investFilter: InvestmentFilterItemViewModel) {
+		switch investFilter.filterItem {
+		case .assets:
+			openSelectAssetPage()
+		case .investProtocol:
+			openSelectProtocolPage()
+		case .risk:
+			openSelectInvestmentRisk()
+		}
+	}
 
-	private func clearFilters() {}
+	private func openSelectAssetPage() {
+		let selectAssetVC = SelectAssetToSendViewController(assets: GlobalVariables.shared.manageAssetsList!)
+		selectAssetVC.changeAssetFromEnterAmountPage = { selectedAsset in
+			self.filterVM.updateFilter(selectedAsset: selectedAsset)
+		}
+		let selectAssetNavigationController = UINavigationController(rootViewController: selectAssetVC)
+		present(selectAssetNavigationController, animated: true)
+	}
+
+	private func openSelectProtocolPage() {}
+
+	private func openSelectInvestmentRisk() {
+		let investmentRiskVC = InvestmentRiskViewController { selectedRisk in
+			self.filterVM.updateFilter(selectedRisk: selectedRisk)
+		}
+		let InvestmentRiskNavigationVC = UINavigationController(rootViewController: investmentRiskVC)
+		present(InvestmentRiskNavigationVC, animated: true)
+	}
+
+	private func clearFilters() {
+		filterVM.clearFilters()
+	}
 }

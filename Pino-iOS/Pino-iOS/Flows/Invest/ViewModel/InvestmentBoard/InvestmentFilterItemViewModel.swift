@@ -8,11 +8,9 @@
 import Foundation
 
 public struct InvestmentFilterItemViewModel {
-	// MARK: - Private Properties
-
-	private var filterItem: FilterItem
-
 	// MARK: - Public Properties
+
+	public var filterItem: FilterItem
 
 	public var title: String {
 		switch filterItem {
@@ -36,6 +34,12 @@ public struct InvestmentFilterItemViewModel {
 		} else {
 			self.description = "All"
 		}
+	}
+
+	// MARK: - Public Methods
+
+	public mutating func updateDescription(_ description: String) {
+		self.description = description
 	}
 
 	public enum FilterItem {

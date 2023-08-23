@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 8/20/23.
 //
 
+import Combine
 import Foundation
 import UIKit
 
@@ -15,6 +16,8 @@ class InvestmentBoardFilterView: UIView {
 	private let filtersCollectionView: InvestmentBoardFilterCollectionView
 	private let filterButton = PinoButton(style: .active)
 	private let applyFilters: () -> Void
+	private let filterVM: InvestmentBoardFilterViewModel
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -25,15 +28,17 @@ class InvestmentBoardFilterView: UIView {
 		applyFilters: @escaping () -> Void
 	) {
 		self.filtersCollectionView = InvestmentBoardFilterCollectionView(
-			filterVM: filterVM,
+			filters: filterVM.filters,
 			filterItemSelected: filterItemSelected,
 			clearFiltersDidTap: clearFiltersDidTap
 		)
+		self.filterVM = filterVM
 		self.applyFilters = applyFilters
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
 		setupContstraint()
+		setupBinding()
 	}
 
 	required init?(coder: NSCoder) {
@@ -65,5 +70,12 @@ class InvestmentBoardFilterView: UIView {
 			.bottom(to: layoutMarginsGuide, padding: 8),
 			.horizontalEdges(padding: 16)
 		)
+	}
+
+	private func setupBinding() {
+		filterVM.$filters.compactMap { $0 }.sink { filters in
+			self.filtersCollectionView.filters = filters
+			self.filtersCollectionView.reloadData()
+		}.store(in: &cancellables)
 	}
 }
