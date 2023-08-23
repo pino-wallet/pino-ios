@@ -45,9 +45,9 @@ class InvestmentRiskView: UIView {
 
 	private func setupStyle() {
 		backgroundColor = .Pino.background
-		highRiskCell.risk = .high
-		mediumRiskCell.risk = .medium
-		lowRiskCell.risk = .low
+		highRiskCell.investmentRisk = .high
+		mediumRiskCell.investmentRisk = .medium
+		lowRiskCell.investmentRisk = .low
 
 		contentStackview.axis = .vertical
 		contentStackview.spacing = 10

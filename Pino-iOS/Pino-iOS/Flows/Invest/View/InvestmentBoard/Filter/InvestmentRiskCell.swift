@@ -20,9 +20,9 @@ class InvestmentRiskCell: UIView {
 
 	// MARK: - Public Properties
 
-	public var risk: InvestmentRisk! {
+	public var investmentRisk: InvestmentRisk! {
 		didSet {
-			updateRiskInfo(risk)
+			updateRiskInfo(investmentRisk)
 		}
 	}
 
@@ -83,10 +83,10 @@ class InvestmentRiskCell: UIView {
 		)
 	}
 
-	private func updateRiskInfo(_ risk: InvestmentRisk) {
-		titleLabel.text = risk.title
-		descriptionLabel.text = risk.description
-		switch risk {
+	private func updateRiskInfo(_ investmentRisk: InvestmentRisk) {
+		titleLabel.text = investmentRisk.title
+		descriptionLabel.text = investmentRisk.description
+		switch investmentRisk {
 		case .high:
 			riskColorView.backgroundColor = .Pino.red
 		case .medium:
@@ -98,6 +98,6 @@ class InvestmentRiskCell: UIView {
 
 	@objc
 	private func riskItemDidTap() {
-		riskDidSelect(risk)
+		riskDidSelect(investmentRisk)
 	}
 }

@@ -8,9 +8,13 @@
 import Foundation
 
 public enum InvestmentRisk: String {
+	// MARK: - Types
+
 	case high = "High"
 	case medium = "Medium"
 	case low = "Low"
+
+	// MARK: - Public Properties
 
 	public var title: String {
 		switch self {
