@@ -25,7 +25,7 @@ class InvestmentRiskPerformanceView: UIView {
 	private let protocolTitleStackView = UIStackView()
 	private let protocolNameLabel = UILabel()
 	private let protocolTitleLabel = UILabel()
-	private let protocolDescriptionLabel = UILabel()
+    private let protocolDescriptionLabel = PinoLabel(style: .description, text: nil)
 	private let risksTitleLabel = UILabel()
 	private let risksStackview = UIStackView()
 	private let risksInfoCardView = UIView()
@@ -108,21 +108,27 @@ class InvestmentRiskPerformanceView: UIView {
 		riskTitleLabel.font = .PinoStyle.mediumSubheadline
 		protocolTitleLabel.font = .PinoStyle.mediumFootnote
 		protocolNameLabel.font = .PinoStyle.semiboldTitle3
-		protocolDescriptionLabel.font = .PinoStyle.mediumCallout
 		risksTitleLabel.font = .PinoStyle.semiboldBody
 
 		tokenNameLabel.textColor = .Pino.label
 		riskTitleLabel.textColor = .Pino.label
 		protocolTitleLabel.textColor = .Pino.secondaryLabel
 		protocolNameLabel.textColor = .Pino.label
-		protocolDescriptionLabel.textColor = .Pino.secondaryLabel
 		risksTitleLabel.textColor = .Pino.label
 		closeButton.tintColor = .Pino.secondaryLabel
 
 		backgroundColor = .Pino.secondaryBackground
 		protocolCardView.backgroundColor = .Pino.background
-		riskView.backgroundColor = .Pino.lightRed
 		closeButton.backgroundColor = .Pino.background
+        
+        switch investmentRiskVM.investmentRisk {
+        case .high:
+            riskView.backgroundColor = .Pino.lightRed
+        case .medium:
+            riskView.backgroundColor = .Pino.lightOrange
+        case .low:
+            riskView.backgroundColor = .Pino.green1
+        }
 
 		contentStackView.axis = .vertical
 		assetInfoStackView.axis = .vertical

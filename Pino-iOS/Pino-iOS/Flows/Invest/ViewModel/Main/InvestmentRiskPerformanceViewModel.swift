@@ -38,8 +38,11 @@ struct InvestmentRiskPerformanceViewModel {
     public var protocolDescription: String {
         "\(protocolName) is a DEX enabling users to supply liquidity and earn trade fees in return."
     }
+    public var investmentRisk: InvestmentRisk {
+        selectedAsset.investmentRisk
+    }
     public var investmentRiskName: String {
-        "High risk"
+        investmentRisk.title
     }
     
     // MARK: - Initializers
