@@ -122,7 +122,7 @@ public struct W3GasInfoManager {
 					contractAddress: contractAddress
 				)
 			}.done { trxGasInfo in
-                seal.fulfill(trxGasInfo)
+				seal.fulfill(trxGasInfo)
 			}.catch { error in
 				seal.reject(error)
 			}

@@ -6,33 +6,37 @@
 import Foundation
 
 // MARK: - Welcome
+
 struct ParaswapSwapResponseModel: SwapPriceResponseProtocol {
-    let from, to, value, data: String
-    let gasPrice, gas: String
-    let chainID: Int
-    
-    enum CodingKeys: String, CodingKey {
-        case from, to, value, data, gasPrice, gas
-        case chainID = "chainId"
-    }
+	let from, to, value, data: String
+	let gasPrice, gas: String
+	let chainID: Int
+
+	enum CodingKeys: String, CodingKey {
+		case from
+		case to
+		case value
+		case data
+		case gasPrice
+		case gas
+		case chainID = "chainId"
+	}
 }
 
 extension ParaswapSwapResponseModel {
-    var provider: SwapProvider {
-        .paraswap
-    }
-    
-    var srcAmount: String {
-        value
-    }
-    
-    var destAmount: String {
-        ""
-    }
-    
-    var gasFee: String {
-        gas
-    }
-    
-    
+	var provider: SwapProvider {
+		.paraswap
+	}
+
+	var srcAmount: String {
+		value
+	}
+
+	var destAmount: String {
+		""
+	}
+
+	var gasFee: String {
+		gas
+	}
 }

@@ -30,9 +30,9 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-        
-        let ap = ApproveContractViewModel()
-        ap.approveProvider()
+
+		let ap = ApproveContractViewModel()
+		ap.approveProvider()
 	}
 
 	override func loadView() {
@@ -90,7 +90,6 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 		}.catch { error in
 			print(error)
 		}
-        
 
 		unlockApp {}
 	}

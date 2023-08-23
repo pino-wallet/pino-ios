@@ -74,15 +74,15 @@ public class Web3Core {
 		// Proccess is like Send
 		gasInfoManager.calculateApproveFee(spender: spender, amount: amount, tokenContractAddress: contractAddress)
 	}
-    
-    public func approveContract(address: String, amount: BigUInt, spender: String) {
-        transferManager.approveContract(address: address, amount: amount, spender: spender, sendTrx: false)
-            .done { trx in
-            print(trx)
-        }.catch { err in
-            print(err)
-        }
-    }
+
+	public func approveContract(address: String, amount: BigUInt, spender: String) {
+		transferManager.approveContract(address: address, amount: amount, spender: spender, sendTrx: false)
+			.done { trx in
+				print(trx)
+			}.catch { err in
+				print(err)
+			}
+	}
 
 	public func getCustomAssetInfo(contractAddress: String) -> Promise<CustomAssetInfo> {
 		var assetInfo: CustomAssetInfo = [:]

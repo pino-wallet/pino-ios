@@ -84,11 +84,10 @@ extension String {
 			return self
 		}
 	}
-    
-    public var promise: Promise<Self> {
-        return Promise<Self> { seal in
-            seal.fulfill(self)
-        }
-    }
-    
+
+	public var promise: Promise<Self> {
+		Promise<Self> { seal in
+			seal.fulfill(self)
+		}
+	}
 }

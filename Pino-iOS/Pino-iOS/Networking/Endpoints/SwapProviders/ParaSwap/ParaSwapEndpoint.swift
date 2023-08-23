@@ -10,7 +10,7 @@ import Foundation
 enum ParaSwapEndpoint: EndpointType {
 	// MARK: - Cases
 
-    case swapPrice(swapInfo: SwapPriceRequestModel)
+	case swapPrice(swapInfo: SwapPriceRequestModel)
 	case swapCoin(swapInfo: SwapRequestModel)
 
 	// MARK: - Internal Methods
@@ -34,8 +34,8 @@ enum ParaSwapEndpoint: EndpointType {
 		switch self {
 		case .swapPrice:
 			return "/prices"
-        case .swapCoin:
-            return "/transactions/1"
+		case .swapCoin:
+			return "/transactions/1"
 		}
 	}
 
@@ -47,18 +47,22 @@ enum ParaSwapEndpoint: EndpointType {
 				bodyEncoding: .urlEncoding,
 				urlParameters: swapInfo.paraSwapURLParams
 			)
-        case .swapCoin(swapInfo: let swapInfo):
-            return .requestParameters(bodyParameters: swapInfo.paraswapReqBody, bodyEncoding: .jsonEncoding, urlParameters: nil)
-        }
+		case let .swapCoin(swapInfo: swapInfo):
+			return .requestParameters(
+				bodyParameters: swapInfo.paraswapReqBody,
+				bodyEncoding: .jsonEncoding,
+				urlParameters: nil
+			)
+		}
 	}
 
 	internal var httpMethod: HTTPMethod {
 		switch self {
 		case .swapPrice:
 			return .get
-        case .swapCoin:
-            return .post
-        }
+		case .swapCoin:
+			return .post
+		}
 	}
 
 	internal var headers: HTTPHeaders {

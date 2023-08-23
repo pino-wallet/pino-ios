@@ -10,7 +10,7 @@ import Foundation
 enum OneInchEndpoint: EndpointType {
 	// MARK: - Cases
 
-    case quote(swapInfo: SwapPriceRequestModel)
+	case quote(swapInfo: SwapPriceRequestModel)
 	case swap(swapInfo: SwapRequestModel)
 
 	// MARK: - Internal Methods
@@ -34,33 +34,33 @@ enum OneInchEndpoint: EndpointType {
 		switch self {
 		case .quote:
 			return "/quote"
-        case .swap:
-                return "/swap"
-        }
+		case .swap:
+			return "/swap"
+		}
 	}
 
-    internal var task: HTTPTask {
-        switch self {
-            case let .quote(swapInfo):
-                return .requestParameters(
-                    bodyParameters: nil,
-                    bodyEncoding: .urlEncoding,
-                    urlParameters: swapInfo.OneInchSwapURLParams
-                )
-            case .swap(swapInfo: let swapInfo):
-                return .requestParameters(
-                    bodyParameters: nil,
-                    bodyEncoding: .urlEncoding,
-                    urlParameters: swapInfo.oneInchSwapURLParams
-                )
-        }
-    }
+	internal var task: HTTPTask {
+		switch self {
+		case let .quote(swapInfo):
+			return .requestParameters(
+				bodyParameters: nil,
+				bodyEncoding: .urlEncoding,
+				urlParameters: swapInfo.OneInchSwapURLParams
+			)
+		case let .swap(swapInfo: swapInfo):
+			return .requestParameters(
+				bodyParameters: nil,
+				bodyEncoding: .urlEncoding,
+				urlParameters: swapInfo.oneInchSwapURLParams
+			)
+		}
+	}
 
 	internal var httpMethod: HTTPMethod {
 		switch self {
-            case .quote,.swap:
+		case .quote, .swap:
 			return .get
-        }
+		}
 	}
 
 	internal var headers: HTTPHeaders {

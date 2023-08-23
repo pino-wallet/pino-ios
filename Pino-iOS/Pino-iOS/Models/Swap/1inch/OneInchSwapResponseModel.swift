@@ -6,35 +6,34 @@
 import Foundation
 
 // MARK: - Welcome
+
 struct OneInchSwapResponseModel: Codable {
-    let toAmount: String
-    let tx: OneInchResponseTrx
-    
-    
-    // MARK: - Tx
-    struct OneInchResponseTrx: Codable {
-        let from, to, data, value: String
-        let gas: Int
-        let gasPrice: String
-    }
+	let toAmount: String
+	let tx: OneInchResponseTrx
+
+	// MARK: - Tx
+
+	struct OneInchResponseTrx: Codable {
+		let from, to, data, value: String
+		let gas: Int
+		let gasPrice: String
+	}
 }
 
 extension OneInchSwapResponseModel: SwapPriceResponseProtocol {
-    var provider: SwapProvider {
-        .oneInch
-    }
-    
-    var srcAmount: String {
-        toAmount
-    }
-    
-    var destAmount: String {
-        ""
-    }
-    
-    var gasFee: String {
-        tx.gasPrice
-    }
-    
-    
+	var provider: SwapProvider {
+		.oneInch
+	}
+
+	var srcAmount: String {
+		toAmount
+	}
+
+	var destAmount: String {
+		""
+	}
+
+	var gasFee: String {
+		tx.gasPrice
+	}
 }

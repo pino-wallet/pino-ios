@@ -9,7 +9,6 @@ import Combine
 import Foundation
 
 final class ParaSwapAPIClient: SwapProvidersAPIServices {
-    
 	// MARK: - Private Properties
 
 	private let networkManager = NetworkManager<ParaSwapEndpoint>()
@@ -24,8 +23,8 @@ final class ParaSwapAPIClient: SwapProvidersAPIServices {
 		}
 		return networkManager.request(.swapPrice(swapInfo: editedSwapInfo))
 	}
-    
-    func swap(swapInfo: SwapRequestModel) -> AnyPublisher<ParaswapSwapResponseModel?, APIError> {
-        return networkManager.request(.swapCoin(swapInfo: swapInfo))
-    }
+
+	func swap(swapInfo: SwapRequestModel) -> AnyPublisher<ParaswapSwapResponseModel?, APIError> {
+		networkManager.request(.swapCoin(swapInfo: swapInfo))
+	}
 }

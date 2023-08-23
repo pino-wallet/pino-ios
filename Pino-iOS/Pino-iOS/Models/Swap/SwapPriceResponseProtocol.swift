@@ -51,8 +51,8 @@ enum SwapProvider {
 			return "0xDef1C0ded9bec7F1a1670819833240f027b25EfF"
 		}
 	}
-    
-    public var providerService: any SwapProvidersAPIServices {
+
+	public var providerService: any SwapProvidersAPIServices {
 		switch self {
 		case .oneInch:
 			return OneInchAPIClient()
@@ -62,16 +62,15 @@ enum SwapProvider {
 			return ZeroXAPIClient()
 		}
 	}
-    
-    public var slippage: String {
-        switch self {
-            case .oneInch:
-                return "1"
-            case .paraswap:
-                return "1"
-            case .zeroX:
-                return "1"
-        }
-    }
-    
+
+	public var slippage: String {
+		switch self {
+		case .oneInch:
+			return "1"
+		case .paraswap:
+			return "1"
+		case .zeroX:
+			return "1"
+		}
+	}
 }
