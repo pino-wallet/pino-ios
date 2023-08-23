@@ -11,11 +11,13 @@ class InvestmentRiskPerformanceViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let investableAsset: InvestableAssetViewModel
+    private let viewDidDismiss: () -> Void
 
 	// MARK: - Initializers
 
-	init(investableAsset: InvestableAssetViewModel) {
+    init(investableAsset: InvestableAssetViewModel, viewDidDismiss: @escaping () -> Void) {
 		self.investableAsset = investableAsset
+        self.viewDidDismiss = viewDidDismiss
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -36,7 +38,8 @@ class InvestmentRiskPerformanceViewController: UIViewController {
 		view = InvestmentRiskPerformanceView(
 			investmentRiskVM: investmentRiskVM,
 			viewDidDismiss: {
-				self.closePage()
+                self.closePage()
+                self.viewDidDismiss()
 			}
 		)
 	}
