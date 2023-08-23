@@ -268,6 +268,7 @@
 		D5E4DDC92A95D9F9000AA235 /* InvestmentRiskPerformanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E4DDC82A95D9F9000AA235 /* InvestmentRiskPerformanceViewModel.swift */; };
 		D5E4DDCB2A95FD78000AA235 /* InvestDepositViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E4DDCA2A95FD78000AA235 /* InvestDepositViewController.swift */; };
 		D5E4DDCD2A960259000AA235 /* InvestDepositView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E4DDCC2A960259000AA235 /* InvestDepositView.swift */; };
+		D5E4DDCF2A960367000AA235 /* InvestDepositViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E4DDCE2A960367000AA235 /* InvestDepositViewModel.swift */; };
 		D615530893452E25B58471EF /* ShareOfAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6721806A1540B888590AFF4C /* ShareOfAssetsViewModel.swift */; };
 		D919E7542A18FE31003C73D7 /* AccountHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D919E7532A18FE31003C73D7 /* AccountHeaderViewModel.swift */; };
 		D91A39FD29E40EA400004CB2 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A39FC29E40EA400004CB2 /* NotificationSettingsViewController.swift */; };
@@ -877,6 +878,7 @@
 		D5E4DDC82A95D9F9000AA235 /* InvestmentRiskPerformanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskPerformanceViewModel.swift; sourceTree = "<group>"; };
 		D5E4DDCA2A95FD78000AA235 /* InvestDepositViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestDepositViewController.swift; sourceTree = "<group>"; };
 		D5E4DDCC2A960259000AA235 /* InvestDepositView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestDepositView.swift; sourceTree = "<group>"; };
+		D5E4DDCE2A960367000AA235 /* InvestDepositViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestDepositViewModel.swift; sourceTree = "<group>"; };
 		D5E6080DB808B61057155B93 /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		D5E7642C1C0BE45725F5B549 /* IntroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroModel.swift; sourceTree = "<group>"; };
 		D67A3C8D0587A7C0B53C0EC4 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
@@ -3227,6 +3229,7 @@
 				E3FC69982A89066D009B3341 /* InvestViewModel.swift */,
 				E3FC69B62A8A3605009B3341 /* InvestProtocolViewModel.swift */,
 				D5E4DDC82A95D9F9000AA235 /* InvestmentRiskPerformanceViewModel.swift */,
+				D5E4DDCE2A960367000AA235 /* InvestDepositViewModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -3932,6 +3935,7 @@
 				D9F1BD042A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift in Sources */,
 				D924C33F2A9495C9007299A4 /* BorrowingDetailsViewModel.swift in Sources */,
 				D9E34BC92C3AE69B3D5EC4F2 /* PortfolioPerformanceViewModel.swift in Sources */,
+				D5E4DDCF2A960367000AA235 /* InvestDepositViewModel.swift in Sources */,
 				DFFDEDB02A77931200D710D7 /* ZeroXEndpoint.swift in Sources */,
 				D990197E2A935383008CF9EC /* LoanDetailsViewController.swift in Sources */,
 				122DC5E683E6405E0B3FCE54 /* PortfolioPrformanceCell.swift in Sources */,

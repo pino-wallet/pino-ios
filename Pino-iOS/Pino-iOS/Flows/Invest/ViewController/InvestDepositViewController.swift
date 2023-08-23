@@ -10,13 +10,13 @@ import UIKit
 class InvestDepositViewController: UIViewController {
     // MARK: Private Properties
 
-    private var investVM: InvestableAssetViewModel!
-    private var investView: UIView!
+    private var investVM: InvestDepositViewModel!
+    private var investView: InvestDepositView!
 
     // MARK: Initializers
 
     init(selectedAsset: InvestableAssetViewModel) {
-        self.investVM = selectedAsset
+        self.investVM = InvestDepositViewModel(selectedAsset: selectedAsset)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -36,19 +36,18 @@ class InvestDepositViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-//        investView.amountTextfield.becomeFirstResponder()
+        investView.amountTextfield.becomeFirstResponder()
     }
 
     // MARK: - Private Methods
 
     private func setupView() {
-        investView = UIView()
-//        investView = EnterSendAmountView(
-//            investVM: investVM,
-//            nextButtonTapped: {
-//                self.openConfirmationPage()
-//            }
-//        )
+        investView = InvestDepositView(
+            investVM: investVM,
+            nextButtonTapped: {
+                self.openConfirmationPage()
+            }
+        )
         view = investView
     }
 
@@ -56,7 +55,20 @@ class InvestDepositViewController: UIViewController {
         // Setup appreance for navigation bar
         setupPrimaryColorNavigationBar()
         // Setup title view
-        setNavigationTitle("Invest in \(investVM.assetName)")
+        setNavigationTitle(investVM.pageTitle)
+        // Setup close button
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "multiply"),
+            style: .plain,
+            target: self,
+            action: #selector(closePage)
+        )
+        navigationController?.navigationBar.tintColor = .Pino.white
+    }
+    
+    @objc
+    private func closePage() {
+        self.dismiss(animated: true)
     }
     
     private func openConfirmationPage() {
