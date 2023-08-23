@@ -12,8 +12,8 @@ struct BorrowingPropertiesViewModel {
 
 	//    public var globalAssetsList: [AssetViewModel]
 	public var borrowingAssetsList: [UserBorrowingToken] = []
-    public var prevBorrowingAssetsList: [UserBorrowingToken] = []
-    public var progressBarColor: UIColor
+	public var prevBorrowingAssetsList: [UserBorrowingToken] = []
+	public var progressBarColor: UIColor
 
 	public var borrowingAmount: String {
 		if borrowingAssetsList.isEmpty {
@@ -26,13 +26,21 @@ struct BorrowingPropertiesViewModel {
 
 	#warning("this is mock and we should return a complete assetDetails with percentageOfTotalShare and asset icon")
 	public var borrowingAssetsDetailList: [BorrowingTokenModel] {
-        borrowingAssetsList.compactMap { newToken in
-            let foundTokenInPrevBorrowingTokens = prevBorrowingAssetsList.first(where: { $0.id == newToken.id })
-            if foundTokenInPrevBorrowingTokens != nil {
-                return BorrowingTokenModel(tokenImage: "USDC", tokenSharedBorrowingPercentage: 31.1, prevTokenSharedBorrowingPercentage: 73.4)
-            } else {
-                return BorrowingTokenModel(tokenImage: "USDC", tokenSharedBorrowingPercentage: 73.4, prevTokenSharedBorrowingPercentage: 0)
-            }
-        }
+		borrowingAssetsList.compactMap { newToken in
+			let foundTokenInPrevBorrowingTokens = prevBorrowingAssetsList.first(where: { $0.id == newToken.id })
+			if foundTokenInPrevBorrowingTokens != nil {
+				return BorrowingTokenModel(
+					tokenImage: "USDC",
+					tokenSharedBorrowingPercentage: 31.1,
+					prevTokenSharedBorrowingPercentage: 73.4
+				)
+			} else {
+				return BorrowingTokenModel(
+					tokenImage: "USDC",
+					tokenSharedBorrowingPercentage: 73.4,
+					prevTokenSharedBorrowingPercentage: 0
+				)
+			}
+		}
 	}
 }

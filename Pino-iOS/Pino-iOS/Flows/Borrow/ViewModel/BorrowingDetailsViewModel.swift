@@ -43,15 +43,15 @@ class BorrowingDetailsViewModel {
 		self.borrowingType = borrowingType
 		updateBorrowingProperties(userBorrowingDetails: borrowVM.userBorrowingDetails)
 
-        setupEmptyProperties()
+		setupEmptyProperties()
 		setupBindigns()
 	}
 
 	// MARK: - Private Methods
-    
-    private func setupEmptyProperties() {
-        properties = BorrowingPropertiesViewModel(progressBarColor: .white)
-    }
+
+	private func setupEmptyProperties() {
+		properties = BorrowingPropertiesViewModel(progressBarColor: .white)
+	}
 
 	private func setupBindigns() {
 		borrowVM.$userBorrowingDetails.sink { userBorrowingDetails in
@@ -60,19 +60,26 @@ class BorrowingDetailsViewModel {
 	}
 
 	private func updateBorrowingProperties(userBorrowingDetails: UserBorrowingModel?) {
-        guard let userBorrowingDetails = userBorrowingDetails else {
-            return
-        }
+		guard let userBorrowingDetails = userBorrowingDetails else {
+			return
+		}
 		switch borrowingType {
 		case .borrow:
-            if properties.borrowingAssetsList != userBorrowingDetails.borrowTokens {
-                properties = BorrowingPropertiesViewModel(borrowingAssetsList: userBorrowingDetails.borrowTokens, prevBorrowingAssetsList: borrowVM.userBorrowingDetails?.borrowTokens ?? [] , progressBarColor: borrowVM.borrowProgressBarColor)
-            }
+			if properties.borrowingAssetsList != userBorrowingDetails.borrowTokens {
+				properties = BorrowingPropertiesViewModel(
+					borrowingAssetsList: userBorrowingDetails.borrowTokens,
+					prevBorrowingAssetsList: borrowVM.userBorrowingDetails?.borrowTokens ?? [],
+					progressBarColor: borrowVM.borrowProgressBarColor
+				)
+			}
 		case .collateral:
-            if properties.borrowingAssetsList != userBorrowingDetails.collateralTokens {
-                properties = BorrowingPropertiesViewModel(borrowingAssetsList: userBorrowingDetails.collateralTokens, prevBorrowingAssetsList: borrowVM.userBorrowingDetails?.collateralTokens ?? [] , progressBarColor: borrowVM.collateralProgressBarColor)
-            }
+			if properties.borrowingAssetsList != userBorrowingDetails.collateralTokens {
+				properties = BorrowingPropertiesViewModel(
+					borrowingAssetsList: userBorrowingDetails.collateralTokens,
+					prevBorrowingAssetsList: borrowVM.userBorrowingDetails?.collateralTokens ?? [],
+					progressBarColor: borrowVM.collateralProgressBarColor
+				)
+			}
 		}
 	}
-    
 }

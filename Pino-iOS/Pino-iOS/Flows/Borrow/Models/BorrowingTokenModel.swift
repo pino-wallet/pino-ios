@@ -6,8 +6,9 @@
 //
 
 struct BorrowingTokenModel {
-   // MARK: - Public Properties
-    public var tokenImage: String
-    public var tokenSharedBorrowingPercentage: Double
-    public var prevTokenSharedBorrowingPercentage: Double
+	// MARK: - Public Properties
+
+	public var tokenImage: String
+	public var tokenSharedBorrowingPercentage: Double
+	public var prevTokenSharedBorrowingPercentage: Double
 }

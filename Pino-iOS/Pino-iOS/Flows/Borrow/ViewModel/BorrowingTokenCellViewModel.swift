@@ -6,19 +6,19 @@
 //
 
 struct BorrowingTokenCellViewModel {
-   // MARK: - Public Properties
-    public var borrowinTokenModel: BorrowingTokenModel
-    
-    public var totalSharedBorrowingDivedPercentage: Double {
-        return borrowinTokenModel.tokenSharedBorrowingPercentage / 100
-    }
-    
-    public var prevTotalSharedBorrowingDivedPercentage: Double {
-        return borrowinTokenModel.prevTokenSharedBorrowingPercentage / 100
-    }
-    
-    public var tokenImage: String {
-        return borrowinTokenModel.tokenImage
-    }
-    
+	// MARK: - Public Properties
+
+	public var borrowinTokenModel: BorrowingTokenModel
+
+	public var totalSharedBorrowingDivedPercentage: Double {
+		borrowinTokenModel.tokenSharedBorrowingPercentage / 100
+	}
+
+	public var prevTotalSharedBorrowingDivedPercentage: Double {
+		borrowinTokenModel.prevTokenSharedBorrowingPercentage / 100
+	}
+
+	public var tokenImage: String {
+		borrowinTokenModel.tokenImage
+	}
 }
