@@ -10,6 +10,8 @@ import UIKit
 class InvestmentRiskPerformanceView: UIView {
 	// MARK: - Private Properties
 
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
 	private let contentStackView = UIStackView()
 	private let assetInfoStackView = UIStackView()
 	private let tokenStackView = UIStackView()
@@ -54,9 +56,11 @@ class InvestmentRiskPerformanceView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		addSubview(contentStackView)
 		addSubview(confirmButton)
 		addSubview(closeButton)
+        addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(contentStackView)
 		contentStackView.addArrangedSubview(assetInfoStackView)
 		contentStackView.addArrangedSubview(risksStackview)
 
@@ -162,9 +166,17 @@ class InvestmentRiskPerformanceView: UIView {
 	}
 
 	private func setupContstraint() {
+        scrollView.pin(
+            .horizontalEdges,
+            .relative(.top, 0, to: closeButton, .bottom),
+            .relative(.bottom, 0, to: confirmButton, .top)
+        )
+        contentView.pin(
+            .allEdges,
+            .relative(.width, 0, to: self, .width)
+        )
 		contentStackView.pin(
-			.horizontalEdges(padding: 16),
-			.top(padding: 66)
+			.allEdges(padding: 16)
 		)
 		protocolStackView.pin(
 			.verticalEdges(padding: 14),
