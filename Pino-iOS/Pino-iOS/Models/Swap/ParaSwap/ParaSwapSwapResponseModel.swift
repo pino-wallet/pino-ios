@@ -7,8 +7,8 @@ import Foundation
 
 struct ParaswapSwapResponseModel: Codable {
 	public let from, to, value, data: String
-    public let gasPrice, gas: String
-    public let chainID: Int
+	public let gasPrice, gas: String
+	public let chainID: Int
 
 	enum CodingKeys: String, CodingKey {
 		case from

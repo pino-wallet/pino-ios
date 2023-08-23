@@ -7,7 +7,7 @@ import Foundation
 
 struct OneInchSwapResponseModel: Codable {
 	public let toAmount: String
-    public let tx: OneInchResponseTrx
+	public let tx: OneInchResponseTrx
 
 	// MARK: - Tx
 
@@ -17,4 +17,3 @@ struct OneInchSwapResponseModel: Codable {
 		let gasPrice: String
 	}
 }
-

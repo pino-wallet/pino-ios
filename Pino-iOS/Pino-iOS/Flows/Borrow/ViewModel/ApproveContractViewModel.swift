@@ -43,8 +43,8 @@ class ApproveContractViewModel {
 			print(error)
 		}
 	}
-    
-    // MARK: - Private Methods
+
+	// MARK: - Private Methods
 
 	private var selectedProvService: any SwapProvidersAPIServices {
 		switch selectedProvider {
