@@ -31,25 +31,27 @@ public struct W3TransferManager {
 
 	// MARK: - Public Methods
 
-	public func approveContract(address: String, amount: BigUInt, spender: String, sendTrx: Bool) -> Promise<String> {
-		Promise<String> { seal in
-			if sendTrx {
-				getApproveTransaction(address: address, amount: amount, spender: spender).then { signedTrx in
-					web3.eth.sendRawTransaction(transaction: signedTrx)
-				}.done { trxHash in
-					seal.fulfill(trxHash.hex())
-				}.catch { error in
-					print(error)
-				}
-			} else {
-				getApproveTransaction(address: address, amount: amount, spender: spender).done { signedTrx in
-					seal.fulfill(signedTrx.data.hex())
-				}.catch { error in
-					print(error)
-				}
-			}
-		}
+	public func approveContract(address: String, amount: BigUInt, spender: String) -> Promise<String> {
+        Promise<String> { seal in
+            getApproveTransaction(address: address, amount: amount, spender: spender).then { signedTrx in
+                web3.eth.sendRawTransaction(transaction: signedTrx)
+            }.done { trxHash in
+                seal.fulfill(trxHash.hex())
+            }.catch { error in
+                print(error)
+            }
+        }
 	}
+    
+    public func getApproveCallData(contractAdd: String, amount: BigUInt, spender: String) -> Promise<String> {
+        Promise<String> { seal in
+            getApproveTransaction(address: contractAdd, amount: amount, spender: spender).done { signedTrx in
+                seal.fulfill(signedTrx.data.hex())
+            }.catch { error in
+                print(error)
+            }
+        }
+    }
 
 	private func getApproveTransaction(
 		address: String,

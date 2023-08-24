@@ -40,6 +40,10 @@ public class Web3Core {
 	private var transferManager: W3TransferManager {
 		.init(web3: web3)
 	}
+    
+    private var approveManager: W3TransferManager {
+        .init(web3: web3)
+    }
 
 	private let walletManager = PinoWalletManager()
 
@@ -76,13 +80,17 @@ public class Web3Core {
 	}
 
 	public func approveContract(address: String, amount: BigUInt, spender: String) {
-		transferManager.approveContract(address: address, amount: amount, spender: spender, sendTrx: false)
+        approveManager.approveContract(address: address, amount: amount, spender: spender)
 			.done { trx in
 				print(trx)
 			}.catch { err in
 				print(err)
 			}
 	}
+    
+    public func getApproveCallData(contractAdd: String, amount: BigUInt, spender: String) -> Promise<String> {
+        approveManager.getApproveCallData(contractAdd: contractAdd, amount: amount, spender: spender)
+    }
 
 	public func getCustomAssetInfo(contractAddress: String) -> Promise<CustomAssetInfo> {
 		var assetInfo: CustomAssetInfo = [:]
