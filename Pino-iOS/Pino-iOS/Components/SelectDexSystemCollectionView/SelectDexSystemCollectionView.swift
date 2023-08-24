@@ -11,13 +11,13 @@ class SelectDexSystemCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
 	private let selectDexSystemVM: SelectDexSystemVMProtocol
-	private let dexProtocolDidSelect: (DexSystemModel) -> Void
+	private let dexSystemDidSelect: (DexSystemModel) -> Void
 
 	// MARK: - Initializers
 
-	init(selectDexProtocolVM: SelectDexSystemVMProtocol, dexProtocolDidSelect: @escaping (DexSystemModel) -> Void) {
-		self.selectDexSystemVM = selectDexProtocolVM
-		self.dexProtocolDidSelect = dexProtocolDidSelect
+	init(selectDexSystemVM: SelectDexSystemVMProtocol, dexProtocolDidSelect: @escaping (DexSystemModel) -> Void) {
+		self.selectDexSystemVM = selectDexSystemVM
+		self.dexSystemDidSelect = dexProtocolDidSelect
 		let collecttionviewFlowLayout = UICollectionViewFlowLayout(
 			scrollDirection: .vertical,
 			sectionInset: UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
@@ -44,7 +44,7 @@ class SelectDexSystemCollectionView: UICollectionView {
 
 extension SelectDexSystemCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		dexProtocolDidSelect(selectDexSystemVM.dexSystemList[indexPath.item])
+		dexSystemDidSelect(selectDexSystemVM.dexSystemList[indexPath.item])
 	}
 }
 
