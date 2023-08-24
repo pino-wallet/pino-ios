@@ -12,11 +12,16 @@ import UIKit
 class ApproveContractView: UIView {
 	// MARK: Private Properties
 
-	private var cancellables = Set<AnyCancellable>()
+    private var approveContractVM: ApproveContractViewModel!
+    private var approveBtn = PinoButton(style: .active)
+    private let approveBtnTappedHandler: () -> Void
+    private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
 
-	init(approveContractVM: ApproveContractViewModel) {
+	init(approveContractVM: ApproveContractViewModel, approveBtnTapped: @escaping () -> Void) {
+        self.approveContractVM = approveContractVM
+        self.approveBtnTappedHandler = approveBtnTapped
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -30,11 +35,30 @@ class ApproveContractView: UIView {
 
 	// MARK: - Private Methods
 
-	private func setupView() {}
+	private func setupView() {
+        addSubview(approveBtn)
+        
+        let approveTappedGesture = UITapGestureRecognizer(target: self, action: #selector(approveBtnTapped))
+        approveBtn.addGestureRecognizer(approveTappedGesture)
+    }
 
-	private func setupStyle() {}
+	private func setupStyle() {
+        backgroundColor = .Pino.background
+        
+        approveBtn.title = "Approve"
+    }
 
-	private func setupContstraint() {}
+	private func setupContstraint() {
+        approveBtn.pin(
+            .horizontalEdges(padding: 16),
+            .bottom(padding: 32)
+        )
+    }
 
 	private func setupBindings() {}
+    
+    @objc
+    private func approveBtnTapped() {
+        approveBtnTappedHandler()
+    }
 }

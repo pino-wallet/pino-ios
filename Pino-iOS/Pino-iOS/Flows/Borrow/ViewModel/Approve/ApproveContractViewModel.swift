@@ -71,7 +71,7 @@ class ApproveContractViewModel {
 				if allowanceAmount == 0 || allowanceAmount < swapAmount.number {
 					// NOT ALLOWED
 					let approveData = approveProvider()
-					seal.fulfill(approveData)
+                    seal.fulfill("approveData")
 				} else {
 					// ALLOWED
 					seal.fulfill(nil)

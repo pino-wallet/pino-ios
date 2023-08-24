@@ -37,7 +37,7 @@ class ApprovingLoadingView: UIView {
     // MARK: - Private Methods
     
     private func setupView() {
-        
+        backgroundColor = .Pino.background
         
         loadingStackView.addSubview(loading)
         
