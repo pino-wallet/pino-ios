@@ -7,6 +7,8 @@
 
 import Combine
 import UIKit
+import PromiseKit
+import Web3_Utility
 
 class SwapViewController: UIViewController {
 	// MARK: - Private Properties
@@ -14,9 +16,11 @@ class SwapViewController: UIViewController {
 	private var assets: [AssetViewModel]?
 	private var swapVM: SwapViewModel!
 	private var swapView: SwapView!
+    private var web3 = Web3Core.shared
 	private let protocolChangeButton = UIButton()
 	private let pageTitleLabel = UILabel()
-
+    private let walletManager = PinoWalletManager()
+    
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - View Overrides
@@ -53,7 +57,7 @@ class SwapViewController: UIViewController {
 						self.openProvidersPage()
 					},
 					nextButtonTapped: {
-						self.openTokenApprovePage()
+						self.proceedSwapFlow()
 					}
 				)
 				self.view = self.swapView
@@ -187,6 +191,30 @@ class SwapViewController: UIViewController {
 		}
 		present(providersVC, animated: true)
 	}
+    
+    private func proceedSwapFlow() {
+        // First Step of Swap
+        // Check If Permit has access to Token
+        firstly {
+            try web3.getAllowanceOf(
+                contractAddress: swapVM.toToken.selectedToken.id.lowercased(),
+                spenderAddress: Web3Core.Constants.pinoProxyAddress,
+                ownerAddress: walletManager.currentAccount.eip55Address
+            )
+        }.done { [self] allowanceAmount in
+            let destTokenDecimal = swapVM.toToken.selectedToken.decimal
+            let destTokenAmount = Utilities.parseToBigUInt(swapVM.toToken.tokenAmount!, decimals: destTokenDecimal)
+            if allowanceAmount == 0 || allowanceAmount < destTokenAmount! {
+                // NOT ALLOWED
+                self.openTokenApprovePage()
+            } else {
+                // ALLOWED
+                self.openConfirmationPage()
+            }
+        }.catch { error in
+            print(error)
+        }
+    }
 
     private func openTokenApprovePage() {
         let swapConfirmationVM = SwapConfirmationViewModel(

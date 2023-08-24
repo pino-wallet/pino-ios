@@ -62,7 +62,7 @@ public class Web3Core {
 		spenderAddress: String,
 		ownerAddress: String
 	) throws -> Promise<BigUInt> {
-		let contractAddress = try EthereumAddress(hex: contractAddress, eip55: true)
+		let contractAddress = try EthereumAddress(hex: contractAddress, eip55: false)
 		let ownerAddress = try EthereumAddress(hex: ownerAddress, eip55: true)
 		let spenderAddress = try EthereumAddress(hex: spenderAddress, eip55: true)
 
