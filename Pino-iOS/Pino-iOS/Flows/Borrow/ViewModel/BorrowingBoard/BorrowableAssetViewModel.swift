@@ -8,31 +8,35 @@
 import Foundation
 
 struct BorrowableAssetViewModel: AssetsBoardProtocol {
-    // MARK: - Private Properties
-    private var borrowableAssetModel: BorrowableAssetModel
-    
-    // MARK: - Public Properties
-    public var assetName: String {
-        return borrowableAssetModel.tokenSymbol
-    }
-    public var assetImage: URL {
-        return URL(string: borrowableAssetModel.tokenImage)!
-    }
-    
-    public var APYAmount: BigNumber {
-        BigNumber(number: borrowableAssetModel.tokenAPY, decimal: borrowableAssetModel.decimal)
-    }
+	// MARK: - Private Properties
 
-    public var formattedAPYAmount: String {
-        "%\(APYAmount.percentFormat)"
-    }
+	private var borrowableAssetModel: BorrowableAssetModel
 
-    public var volatilityType: AssetVolatilityType {
-        AssetVolatilityType(change24h: APYAmount)
-    }
-    
-    // MARK: - Initializers
-    init(borrowableAssetModel: BorrowableAssetModel) {
-        self.borrowableAssetModel = borrowableAssetModel
-    }
+	// MARK: - Public Properties
+
+	public var assetName: String {
+		borrowableAssetModel.tokenSymbol
+	}
+
+	public var assetImage: URL {
+		URL(string: borrowableAssetModel.tokenImage)!
+	}
+
+	public var APYAmount: BigNumber {
+		BigNumber(number: borrowableAssetModel.tokenAPY, decimal: borrowableAssetModel.decimal)
+	}
+
+	public var formattedAPYAmount: String {
+		"%\(APYAmount.percentFormat)"
+	}
+
+	public var volatilityType: AssetVolatilityType {
+		AssetVolatilityType(change24h: APYAmount)
+	}
+
+	// MARK: - Initializers
+
+	init(borrowableAssetModel: BorrowableAssetModel) {
+		self.borrowableAssetModel = borrowableAssetModel
+	}
 }

@@ -12,7 +12,7 @@ class BorrowView: UIView {
 
 	public var presentHealthScoreActionsheet: (_ actionSheet: InfoActionSheet) -> Void
 	public var presentSelectDexSystem: () -> Void
-    public var presentBorrowingBoardVC: () -> Void
+	public var presentBorrowingBoardVC: () -> Void
 
 	// MARK: - Private Properties
 
@@ -38,12 +38,12 @@ class BorrowView: UIView {
 		borrowVM: BorrowViewModel,
 		presentHealthScoreActionsheet: @escaping (_ actionSheet: InfoActionSheet) -> Void,
 		presentSelectDexSystem: @escaping () -> Void,
-        presentBorrowingBoardVC: @escaping () -> Void
+		presentBorrowingBoardVC: @escaping () -> Void
 	) {
 		self.borrowVM = borrowVM
 		self.presentHealthScoreActionsheet = presentHealthScoreActionsheet
 		self.presentSelectDexSystem = presentSelectDexSystem
-        self.presentBorrowingBoardVC = presentBorrowingBoardVC
+		self.presentBorrowingBoardVC = presentBorrowingBoardVC
 
 		super.init(frame: .zero)
 
@@ -93,14 +93,17 @@ class BorrowView: UIView {
 
 		#warning("global assets list in mock")
 		borrowDetailsView =
-        BorrowingDetailsView(borrowingDetailsVM: BorrowingDetailsViewModel(borrowVM: borrowVM, borrowingType: .borrow), onTapped: {
-            self.presentBorrowingBoardVC()
-        })
+			BorrowingDetailsView(
+				borrowingDetailsVM: BorrowingDetailsViewModel(borrowVM: borrowVM, borrowingType: .borrow),
+				onTapped: {
+					self.presentBorrowingBoardVC()
+				}
+			)
 		collateralDetailsView =
 			BorrowingDetailsView(borrowingDetailsVM: BorrowingDetailsViewModel(
 				borrowVM: borrowVM,
 				borrowingType: .collateral
-            ), onTapped: {})
+			), onTapped: {})
 
 		healthScoreTitleStackView.addArrangedSubview(healthScoreStatusDotView)
 		healthScoreTitleStackView.addArrangedSubview(healthScoreTitleAndInfoView)

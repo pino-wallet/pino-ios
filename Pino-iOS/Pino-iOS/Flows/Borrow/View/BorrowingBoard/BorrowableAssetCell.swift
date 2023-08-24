@@ -7,32 +7,33 @@
 
 import Foundation
 
-
 class BorrowableAssetCell: AssetsBoardCell {
-    // MARK: - Public Properties
-     public static let cellReuseID = "borrowableCellReuseID"
-     
-     public var borrowableAssetVM: BorrowableAssetViewModel! {
-         didSet {
-             asset = borrowableAssetVM
-             setCellValues()
-         }
-     }
-     
-     // MARK: - Private Methods
-     private func setCellValues() {
-         assetAmountLabel.text = borrowableAssetVM.formattedAPYAmount
-         
-         assetAmountDescriptionLabel.text = "APY"
-         assetAmountDescriptionLabel.textColor = .Pino.secondaryLabel
-         
-         switch borrowableAssetVM.volatilityType {
-         case .profit:
-            assetAmountLabel.textColor = .Pino.green
-         case .loss:
-            assetAmountLabel.textColor = .Pino.red
-         case .none:
-            assetAmountLabel.textColor = .Pino.secondaryLabel
-         }
-     }
+	// MARK: - Public Properties
+
+	public static let cellReuseID = "borrowableCellReuseID"
+
+	public var borrowableAssetVM: BorrowableAssetViewModel! {
+		didSet {
+			asset = borrowableAssetVM
+			setCellValues()
+		}
+	}
+
+	// MARK: - Private Methods
+
+	private func setCellValues() {
+		assetAmountLabel.text = borrowableAssetVM.formattedAPYAmount
+
+		assetAmountDescriptionLabel.text = "APY"
+		assetAmountDescriptionLabel.textColor = .Pino.secondaryLabel
+
+		switch borrowableAssetVM.volatilityType {
+		case .profit:
+			assetAmountLabel.textColor = .Pino.green
+		case .loss:
+			assetAmountLabel.textColor = .Pino.red
+		case .none:
+			assetAmountLabel.textColor = .Pino.secondaryLabel
+		}
+	}
 }

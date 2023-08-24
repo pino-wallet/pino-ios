@@ -8,93 +8,91 @@
 import Foundation
 import UIKit
 
-
 class BorrowingBoardDataSource: NSObject, UICollectionViewDataSource {
-    // MARK: - private Properties
+	// MARK: - private Properties
 
+	// MARK: - Public Properties
 
-    // MARK: - Public Properties
+	public var userBorrowingAssets: [UserBorrowingAssetViewModel]
+	public var borrowableAssets: [BorrowableAssetViewModel]
 
-    public var userBorrowingAssets: [UserBorrowingAssetViewModel]
-    public var borrowableAssets: [BorrowableAssetViewModel]
+	// MARK: - Initializers
 
-    // MARK: - Initializers
+	init(
+		userBorrowingAssets: [UserBorrowingAssetViewModel],
+		borrowableAssets: [BorrowableAssetViewModel]
+	) {
+		self.userBorrowingAssets = userBorrowingAssets
+		self.borrowableAssets = borrowableAssets
+	}
 
-    init(
-        userBorrowingAssets: [UserBorrowingAssetViewModel],
-        borrowableAssets: [BorrowableAssetViewModel]
-    ) {
-        self.userBorrowingAssets = userBorrowingAssets
-        self.borrowableAssets = borrowableAssets
-    }
+	// MARK: - Internal Methods
 
-    // MARK: - Internal Methods
+	func numberOfSections(in collectionView: UICollectionView) -> Int {
+		if userBorrowingAssets.isEmpty {
+			return 1
+		} else {
+			return 2
+		}
+	}
 
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if userBorrowingAssets.isEmpty {
-            return 1
-        } else {
-            return 2
-        }
-    }
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		switch section {
+		case 0:
+			return userBorrowingAssets.count
+		case 1:
+			return borrowableAssets.count
+		default:
+			fatalError("Invalid section index in notificaition collection view")
+		}
+	}
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return userBorrowingAssets.count
-        case 1:
-            return borrowableAssets.count
-        default:
-            fatalError("Invalid section index in notificaition collection view")
-        }
-    }
+	func collectionView(
+		_ collectionView: UICollectionView,
+		cellForItemAt indexPath: IndexPath
+	) -> UICollectionViewCell {
+		switch indexPath.section {
+		case 0:
+			let AssetCell = collectionView.dequeueReusableCell(
+				withReuseIdentifier: UserBorrowingAssetCell.cellReuseID,
+				for: indexPath
+			) as! UserBorrowingAssetCell
+			AssetCell.userBorrowingAssetVM = userBorrowingAssets[indexPath.item]
+			AssetCell.setCellStyle(currentItem: indexPath.item, itemsCount: userBorrowingAssets.count)
+			return AssetCell
+		case 1:
+			let AssetCell = collectionView.dequeueReusableCell(
+				withReuseIdentifier: BorrowableAssetCell.cellReuseID,
+				for: indexPath
+			) as! BorrowableAssetCell
+			AssetCell.borrowableAssetVM = borrowableAssets[indexPath.item]
+			AssetCell.setCellStyle(currentItem: indexPath.item, itemsCount: borrowableAssets.count)
+			return AssetCell
+		default:
+			fatalError("Invalid section index in notificaition collection view")
+		}
+	}
 
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        switch indexPath.section {
-        case 0:
-            let AssetCell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: UserBorrowingAssetCell.cellReuseID,
-                for: indexPath
-            ) as! UserBorrowingAssetCell
-            AssetCell.userBorrowingAssetVM = userBorrowingAssets[indexPath.item]
-            AssetCell.setCellStyle(currentItem: indexPath.item, itemsCount: userBorrowingAssets.count)
-            return AssetCell
-        case 1:
-            let AssetCell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: BorrowableAssetCell.cellReuseID,
-                for: indexPath
-            ) as! BorrowableAssetCell
-            AssetCell.borrowableAssetVM = borrowableAssets[indexPath.item]
-            AssetCell.setCellStyle(currentItem: indexPath.item, itemsCount: borrowableAssets.count)
-            return AssetCell
-        default:
-            fatalError("Invalid section index in notificaition collection view")
-        }
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        viewForSupplementaryElementOfKind kind: String,
-        at indexPath: IndexPath
-    ) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryView(
-            ofKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: AssetsBoardHeaderView.viewReuseID,
-            for: indexPath
-        ) as! AssetsBoardHeaderView
-        switch indexPath.section {
-        case 0:
-            headerView.title = "Your borrowed assets"
-            headerView.hasFilter = false
-        case 1:
-            headerView.title = "Borrowable assets"
-            headerView.hasFilter = false
-        default:
-            fatalError("Invalid section index in notificaition collection view")
-        }
-        return headerView
-    }
+	func collectionView(
+		_ collectionView: UICollectionView,
+		viewForSupplementaryElementOfKind kind: String,
+		at indexPath: IndexPath
+	) -> UICollectionReusableView {
+		let headerView = collectionView.dequeueReusableSupplementaryView(
+			ofKind: UICollectionView.elementKindSectionHeader,
+			withReuseIdentifier: AssetsBoardHeaderView.viewReuseID,
+			for: indexPath
+		) as! AssetsBoardHeaderView
+		switch indexPath.section {
+		case 0:
+			headerView.title = "Your borrowed assets"
+			headerView.hasFilter = false
+		case 1:
+			headerView.title = "Borrowable assets"
+			headerView.hasFilter = false
+		default:
+			fatalError("Invalid section index in notificaition collection view")
+		}
+		return headerView
+	}
 }

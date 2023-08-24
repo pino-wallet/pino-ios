@@ -9,10 +9,10 @@ import Foundation
 
 #warning("this values are temporary and maybe should change")
 struct UserBorrowingAssetModel {
-    // MARK: - Public Properties
-     
-     public let tokenImage: String
-     public let tokenSymbol: String
-     public let userBorrowingAmountInToken: String
-     public let decimal = 10
+	// MARK: - Public Properties
+
+	public let tokenImage: String
+	public let tokenSymbol: String
+	public let userBorrowingAmountInToken: String
+	public let decimal = 10
 }

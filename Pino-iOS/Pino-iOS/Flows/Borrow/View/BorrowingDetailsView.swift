@@ -8,8 +8,10 @@ import Combine
 import UIKit
 
 class BorrowingDetailsView: UIView {
-    // MARK: - Closures
-    public var onTapped: () -> Void
+	// MARK: - Closures
+
+	public var onTapped: () -> Void
+
 	// MARK: - Private Properties
 
 	private let containerView = PinoContainerCard()
@@ -24,9 +26,9 @@ class BorrowingDetailsView: UIView {
 
 	// MARK: - Initializers
 
-    init(borrowingDetailsVM: BorrowingDetailsViewModel, onTapped: @escaping () -> Void) {
+	init(borrowingDetailsVM: BorrowingDetailsViewModel, onTapped: @escaping () -> Void) {
 		self.borrowingDetailsVM = borrowingDetailsVM
-        self.onTapped = onTapped
+		self.onTapped = onTapped
 
 		super.init(frame: .zero)
 
@@ -43,9 +45,9 @@ class BorrowingDetailsView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-        let onTappedGesture = UITapGestureRecognizer(target: self, action: #selector(onTappedSelf))
-        containerView.addGestureRecognizer(onTappedGesture)
-        
+		let onTappedGesture = UITapGestureRecognizer(target: self, action: #selector(onTappedSelf))
+		containerView.addGestureRecognizer(onTappedGesture)
+
 		titleStackView.addArrangedSubview(titleLabel)
 		titleStackView.addArrangedSubview(titleBetweenView)
 		titleStackView.addArrangedSubview(titleArrowImageView)
@@ -103,10 +105,11 @@ class BorrowingDetailsView: UIView {
 			titleLabel.textColor = .Pino.secondaryLabel
 		}
 	}
-    
-    @objc private func onTappedSelf() {
-        if !borrowingDetailsVM.properties.borrowingAssetsDetailList.isEmpty {
-            onTapped()
-        }
-    }
+
+	@objc
+	private func onTappedSelf() {
+		if !borrowingDetailsVM.properties.borrowingAssetsDetailList.isEmpty {
+			onTapped()
+		}
+	}
 }
