@@ -11,7 +11,7 @@ class BorrowView: UIView {
 	// MARK: - Closures
 
 	public var presentHealthScoreActionsheet: (_ actionSheet: InfoActionSheet) -> Void
-    public var presentSelectDexSystem: () -> Void
+	public var presentSelectDexSystem: () -> Void
 
 	// MARK: - Private Properties
 
@@ -33,10 +33,14 @@ class BorrowView: UIView {
 
 	// MARK: - Initializers
 
-    init(borrowVM: BorrowViewModel, presentHealthScoreActionsheet: @escaping (_ actionSheet: InfoActionSheet) -> Void, presentSelectDexSystem: @escaping () -> Void) {
+	init(
+		borrowVM: BorrowViewModel,
+		presentHealthScoreActionsheet: @escaping (_ actionSheet: InfoActionSheet) -> Void,
+		presentSelectDexSystem: @escaping () -> Void
+	) {
 		self.borrowVM = borrowVM
 		self.presentHealthScoreActionsheet = presentHealthScoreActionsheet
-        self.presentSelectDexSystem = presentSelectDexSystem
+		self.presentSelectDexSystem = presentSelectDexSystem
 
 		super.init(frame: .zero)
 
@@ -58,8 +62,8 @@ class BorrowView: UIView {
 			title: borrowVM.selectedDexSystem.name,
 			image: borrowVM.selectedDexSystem.image,
 			onDexProtocolTapClosure: {
-                self.presentSelectDexSystem()
-            }
+				self.presentSelectDexSystem()
+			}
 		)
 
 		healthScoreTitleAndInfoView = TitleWithInfo(
@@ -159,11 +163,11 @@ class BorrowView: UIView {
 			self.updateHealthScoreColors(healthScore: newUserBorrowingDetails.healthScore)
 			self.updatePageStatus(userBorrowingDetails: newUserBorrowingDetails)
 		}.store(in: &cancellables)
-        
-        borrowVM.$selectedDexSystem.sink { selectedDexSystem in
-            self.selectDexSystemView.titleText = selectedDexSystem.name
-            self.selectDexSystemView.imageName = selectedDexSystem.image
-        }.store(in: &cancellables)
+
+		borrowVM.$selectedDexSystem.sink { selectedDexSystem in
+			self.selectDexSystemView.titleText = selectedDexSystem.name
+			self.selectDexSystemView.imageName = selectedDexSystem.image
+		}.store(in: &cancellables)
 	}
 
 	private func updatePageStatus(userBorrowingDetails: UserBorrowingModel) {

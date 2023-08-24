@@ -38,10 +38,10 @@ class BorrowViewModel {
 		#warning("we should consider user address to prevent show some user details to all accounts")
 		getUserBorrowingDetails()
 	}
-    
-    public func changeSelectedDexSystem(newSelectedDexSystem: DexSystemModel) {
-        selectedDexSystem = newSelectedDexSystem
-    }
+
+	public func changeSelectedDexSystem(newSelectedDexSystem: DexSystemModel) {
+		selectedDexSystem = newSelectedDexSystem
+	}
 
 	// MARK: - Private Methods
 
