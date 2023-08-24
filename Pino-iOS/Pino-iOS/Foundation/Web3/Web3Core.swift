@@ -79,13 +79,8 @@ public class Web3Core {
 		gasInfoManager.calculateApproveFee(spender: spender, amount: amount, tokenContractAddress: contractAddress)
 	}
 
-	public func approveContract(address: String, amount: BigUInt, spender: String) {
+	public func approveContract(address: String, amount: BigUInt, spender: String) -> Promise<String> {
         approveManager.approveContract(address: address, amount: amount, spender: spender)
-			.done { trx in
-				print(trx)
-			}.catch { err in
-				print(err)
-			}
 	}
     
     public func getApproveCallData(contractAdd: String, amount: BigUInt, spender: String) -> Promise<String> {

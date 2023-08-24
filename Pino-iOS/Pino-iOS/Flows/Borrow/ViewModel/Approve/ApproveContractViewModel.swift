@@ -122,12 +122,11 @@ class ApproveContractViewModel {
 		}
 	}
 
-	public func approveProvider() -> String {
+	public func approveProvider() -> Promise<String> {
 		web3.approveContract(
 			address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
 			amount: 1_000_000,
 			spender: "0x81Ad046aE9a7Ad56092fa7A7F09A04C82064e16C"
 		)
-		return "hi"
 	}
 }
