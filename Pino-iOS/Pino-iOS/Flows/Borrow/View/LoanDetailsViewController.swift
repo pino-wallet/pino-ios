@@ -29,6 +29,7 @@ class LoanDetailsViewController: UIViewController {
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
 		setNavigationTitle(loanDetailsVM.pageTitle)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: loanDetailsVM.dismissIconName), style: .plain, target: self, action: #selector(dismissSelf))
 	}
 
 	private func setupView() {
@@ -36,4 +37,8 @@ class LoanDetailsViewController: UIViewController {
 
 		view = loanDetailsView
 	}
+    
+    @objc private func dismissSelf() {
+        dismiss(animated: true)
+    }
 }

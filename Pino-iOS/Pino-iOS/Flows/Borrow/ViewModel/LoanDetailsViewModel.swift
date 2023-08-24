@@ -8,6 +8,7 @@
 class LoanDetailsViewModel {
 	// MARK: - Public Properties
 
+    public let dismissIconName = "dissmiss"
 	#warning("this is mock title")
 	public let pageTitle = "LINK loan details"
 
