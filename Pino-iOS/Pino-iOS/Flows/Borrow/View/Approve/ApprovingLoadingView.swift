@@ -49,8 +49,8 @@ class ApprovingLoadingView: UIView {
     
     private func setupStyle() {
         
-        loadingTextLabel.font = .PinoStyle.mediumBody
-        loadingTextLabel.text = "Approving"
+        loadingTextLabel.font = .PinoStyle.mediumTitle2
+        loadingTextLabel.text = "Approving..."
         loadingTextLabel.numberOfLines = 0
         loadingTextLabel.textAlignment = .center
         
@@ -58,7 +58,7 @@ class ApprovingLoadingView: UIView {
         loading.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         
         loadingStackView.axis = .vertical
-        loadingStackView.spacing = 16
+        loadingStackView.spacing = 24
         loadingStackView.alignment = .center
         
     }

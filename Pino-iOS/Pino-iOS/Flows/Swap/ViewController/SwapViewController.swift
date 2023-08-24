@@ -53,7 +53,7 @@ class SwapViewController: UIViewController {
 						self.openProvidersPage()
 					},
 					nextButtonTapped: {
-						self.openConfirmationPage()
+						self.openTokenApprovePage()
 					}
 				)
 				self.view = self.swapView
@@ -188,6 +188,19 @@ class SwapViewController: UIViewController {
 		present(providersVC, animated: true)
 	}
 
+    private func openTokenApprovePage() {
+        let swapConfirmationVM = SwapConfirmationViewModel(
+            fromToken: swapVM.fromToken,
+            toToken: swapVM.toToken,
+            selectedProtocol: swapVM.selectedProtocol,
+            selectedProvider: swapVM.swapFeeVM.swapProviderVM,
+            swapRate: swapVM.swapFeeVM.calculatedAmount!
+        )
+        let approveVC = ApproveContractViewController(swapConfirmationVM: swapConfirmationVM)
+        let confirmationNavigationVC = UINavigationController(rootViewController: approveVC)
+        present(confirmationNavigationVC, animated: true)
+    }
+    
 	private func openConfirmationPage() {
 		let swapConfirmationVM = SwapConfirmationViewModel(
 			fromToken: swapVM.fromToken,

@@ -13,11 +13,27 @@ class ApprovingLoadingViewController: UIViewController {
     
     private let approveLoadingVM = ApprovingLoadingViewModel()
     private var approveLoadingView: ApprovingLoadingView!
+    private var swapConfirmationVM: SwapConfirmationViewModel!
+    
+    // MARK: - Initilizers
+    
+    init(swapConfirmationVM: SwapConfirmationViewModel) {
+        self.swapConfirmationVM = swapConfirmationVM
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - View Overrides
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.openConfirmationPage()
+        }
     }
     
     override func loadView() {
@@ -33,12 +49,16 @@ class ApprovingLoadingViewController: UIViewController {
     
     private func setupNavigationBar() {
         setupPrimaryColorNavigationBar()
-//        setNavigationTitle(borrowVM.pageTitle)
     }
     
     private func setupView() {
         approveLoadingView = ApprovingLoadingView(approvingLoadingVM: approveLoadingVM)
-        
         view = approveLoadingView
+    }
+    
+    private func openConfirmationPage() {
+        let confirmationVC = SwapConfirmationViewController(swapConfirmationVM: swapConfirmationVM)
+        let confirmationNavigationVC = UINavigationController(rootViewController: confirmationVC)
+        present(confirmationNavigationVC, animated: true)
     }
 }
