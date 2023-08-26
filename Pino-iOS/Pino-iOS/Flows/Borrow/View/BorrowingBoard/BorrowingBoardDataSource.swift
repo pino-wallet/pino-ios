@@ -53,21 +53,21 @@ class BorrowingBoardDataSource: NSObject, UICollectionViewDataSource {
 	) -> UICollectionViewCell {
 		switch indexPath.section {
 		case 0:
-			let AssetCell = collectionView.dequeueReusableCell(
+			let assetCell = collectionView.dequeueReusableCell(
 				withReuseIdentifier: UserBorrowingAssetCell.cellReuseID,
 				for: indexPath
 			) as! UserBorrowingAssetCell
-			AssetCell.userBorrowingAssetVM = userBorrowingAssets[indexPath.item]
-			AssetCell.setCellStyle(currentItem: indexPath.item, itemsCount: userBorrowingAssets.count)
-			return AssetCell
+			assetCell.userBorrowingAssetVM = userBorrowingAssets[indexPath.item]
+			assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: userBorrowingAssets.count)
+			return assetCell
 		case 1:
-			let AssetCell = collectionView.dequeueReusableCell(
+			let assetCell = collectionView.dequeueReusableCell(
 				withReuseIdentifier: BorrowableAssetCell.cellReuseID,
 				for: indexPath
 			) as! BorrowableAssetCell
-			AssetCell.borrowableAssetVM = borrowableAssets[indexPath.item]
-			AssetCell.setCellStyle(currentItem: indexPath.item, itemsCount: borrowableAssets.count)
-			return AssetCell
+			assetCell.borrowableAssetVM = borrowableAssets[indexPath.item]
+			assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: borrowableAssets.count)
+			return assetCell
 		default:
 			fatalError("Invalid section index in notificaition collection view")
 		}
