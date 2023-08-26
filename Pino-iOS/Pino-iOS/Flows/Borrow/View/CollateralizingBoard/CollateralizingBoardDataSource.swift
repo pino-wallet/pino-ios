@@ -53,21 +53,21 @@ class CollateralizingBoardDataSource: NSObject, UICollectionViewDataSource {
 	) -> UICollectionViewCell {
 		switch indexPath.section {
 		case 0:
-			let AssetCell = collectionView.dequeueReusableCell(
+			let assetCell = collectionView.dequeueReusableCell(
 				withReuseIdentifier: UserCollateralizingAssetCell.cellReuseID,
 				for: indexPath
 			) as! UserCollateralizingAssetCell
-			AssetCell.userCollateralizingAssetVM = userCollateralizingAssets[indexPath.item]
-			AssetCell.setCellStyle(currentItem: indexPath.item, itemsCount: userCollateralizingAssets.count)
-			return AssetCell
+			assetCell.userCollateralizingAssetVM = userCollateralizingAssets[indexPath.item]
+			assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: userCollateralizingAssets.count)
+			return assetCell
 		case 1:
-			let AssetCell = collectionView.dequeueReusableCell(
+			let assetCell = collectionView.dequeueReusableCell(
 				withReuseIdentifier: CollateralizableAssetCell.cellReuseID,
 				for: indexPath
 			) as! CollateralizableAssetCell
-			AssetCell.collateralizableAssetVM = collateralizableAssets[indexPath.item]
-			AssetCell.setCellStyle(currentItem: indexPath.item, itemsCount: collateralizableAssets.count)
-			return AssetCell
+			assetCell.collateralizableAssetVM = collateralizableAssets[indexPath.item]
+			assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: collateralizableAssets.count)
+			return assetCell
 		default:
 			fatalError("Invalid section index in notificaition collection view")
 		}
