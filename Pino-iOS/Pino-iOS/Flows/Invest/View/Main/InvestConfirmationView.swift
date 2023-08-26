@@ -170,6 +170,7 @@ class InvestConfirmationView: UIView {
 
 		tokenStackView.alignment = .center
 		tokenAmountStackView.alignment = .center
+		protocolInfoStackView.alignment = .center
 
 		contentStackview.spacing = 16
 		tokenStackView.spacing = 16
@@ -210,9 +211,6 @@ class InvestConfirmationView: UIView {
 		protocolImageView.pin(
 			.fixedWidth(20),
 			.fixedHeight(20)
-		)
-		protocolImageView.pin(
-			.allEdges(padding: 3)
 		)
 		feeErrorIcon.pin(
 			.fixedWidth(20),

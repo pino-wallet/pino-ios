@@ -77,7 +77,7 @@ class InvestDepositViewModel {
 
 	private func getToken(investableAsset: InvestableAssetViewModel) {
 		let tokensList = GlobalVariables.shared.manageAssetsList!
-		selectedToken = tokensList.first(where: { $0.symbol == "ETH" })!
+		selectedToken = tokensList.first(where: { $0.symbol == investableAsset.assetName })!
 		maxHoldAmount = selectedToken.holdAmount
 	}
 
