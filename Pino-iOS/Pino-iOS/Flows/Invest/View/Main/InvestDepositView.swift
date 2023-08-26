@@ -11,8 +11,9 @@ import UIKit
 class InvestDepositView: UIView {
 	// MARK: - Private Properties
 
-	private let contentCardView = PinoContainerCard()
 	private let contentStackView = UIStackView()
+	private let investCardView = PinoContainerCard()
+	private let investStackView = UIStackView()
 	private let amountStackView = UIStackView()
 	private let maximumStackView = UIStackView()
 	private let tokenStackView = UIStackView()
@@ -23,6 +24,12 @@ class InvestDepositView: UIView {
 	private let tokenView = TokenView()
 	private let amountSpacerView = UIView()
 	private let maxAmountSpacerView = UIView()
+	private let estimateSectionStackView = UIStackView()
+	private let estimatedReturnCardView = PinoContainerCard()
+	private let estimatedReturnStackView = UIStackView()
+	private let estimatedReturnTitleLabel = UILabel()
+	private let estimatedReturnLabel = UILabel()
+	private let estimateSectionSpacerView = UIView()
 	private let continueButton = PinoButton(style: .deactive)
 	private var nextButtonTapped: () -> Void
 	private var investVM: InvestDepositViewModel
@@ -48,6 +55,7 @@ class InvestDepositView: UIView {
 		setupView()
 		setupStyle()
 		setupContstraint()
+		setupBinding()
 		setupNotifications()
 	}
 
@@ -58,11 +66,13 @@ class InvestDepositView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		addSubview(contentCardView)
+		addSubview(contentStackView)
 		addSubview(continueButton)
-		contentCardView.addSubview(contentStackView)
-		contentStackView.addArrangedSubview(amountStackView)
-		contentStackView.addArrangedSubview(maximumStackView)
+		contentStackView.addArrangedSubview(investCardView)
+		contentStackView.addArrangedSubview(estimateSectionStackView)
+		investCardView.addSubview(investStackView)
+		investStackView.addArrangedSubview(amountStackView)
+		investStackView.addArrangedSubview(maximumStackView)
 		amountStackView.addArrangedSubview(amountTextfield)
 		amountStackView.addArrangedSubview(amountSpacerView)
 		amountStackView.addArrangedSubview(tokenView)
@@ -71,6 +81,11 @@ class InvestDepositView: UIView {
 		maximumStackView.addArrangedSubview(maxAmountStackView)
 		maxAmountStackView.addArrangedSubview(maxAmountTitle)
 		maxAmountStackView.addArrangedSubview(maxAmountLabel)
+		estimateSectionStackView.addArrangedSubview(estimateSectionSpacerView)
+		estimateSectionStackView.addArrangedSubview(estimatedReturnCardView)
+		estimatedReturnCardView.addSubview(estimatedReturnStackView)
+		estimatedReturnStackView.addArrangedSubview(estimatedReturnTitleLabel)
+		estimatedReturnStackView.addArrangedSubview(estimatedReturnLabel)
 
 		continueButton.addAction(UIAction(handler: { _ in
 			self.nextButtonTapped()
@@ -89,6 +104,7 @@ class InvestDepositView: UIView {
 		maxAmountLabel.text = investVM.formattedMaxHoldAmount
 		continueButton.title = investVM.continueButtonTitle
 		tokenView.tokenName = investVM.selectedToken.symbol
+		estimatedReturnTitleLabel.text = investVM.estimatedReturnTitle
 
 		if investVM.selectedToken.isVerified {
 			tokenView.tokenImageURL = investVM.selectedToken.image
@@ -114,24 +130,31 @@ class InvestDepositView: UIView {
 		amountLabel.font = .PinoStyle.regularSubheadline
 		maxAmountTitle.font = .PinoStyle.regularSubheadline
 		maxAmountLabel.font = .PinoStyle.mediumSubheadline
+		estimatedReturnTitleLabel.font = .PinoStyle.mediumBody
+		estimatedReturnLabel.font = .PinoStyle.mediumBody
 
 		amountLabel.textColor = .Pino.secondaryLabel
 		amountTextfield.textColor = .Pino.label
 		amountTextfield.tintColor = .Pino.primary
 		maxAmountTitle.textColor = .Pino.label
 		maxAmountLabel.textColor = .Pino.label
+		estimatedReturnTitleLabel.textColor = .Pino.label
+		estimatedReturnLabel.textColor = .Pino.label
 
 		backgroundColor = .Pino.background
-		contentCardView.backgroundColor = .Pino.secondaryBackground
+		investCardView.backgroundColor = .Pino.secondaryBackground
 
-		contentCardView.layer.cornerRadius = 12
+		investCardView.layer.cornerRadius = 12
 
+		investStackView.axis = .vertical
 		contentStackView.axis = .vertical
+		estimateSectionStackView.axis = .vertical
 
 		tokenStackView.alignment = .center
 
+		estimateSectionStackView.spacing = 24
 		tokenStackView.spacing = 6
-		contentStackView.spacing = 22
+		investStackView.spacing = 22
 
 		amountTextfield.keyboardType = .decimalPad
 		amountTextfield.delegate = self
@@ -141,12 +164,16 @@ class InvestDepositView: UIView {
 	}
 
 	private func setupContstraint() {
-		contentCardView.pin(
+		contentStackView.pin(
 			.horizontalEdges(padding: 16),
 			.top(to: layoutMarginsGuide, padding: 24)
 		)
-		contentStackView.pin(
+		investStackView.pin(
 			.verticalEdges(padding: 23),
+			.horizontalEdges(padding: 14)
+		)
+		estimatedReturnStackView.pin(
+			.verticalEdges(padding: 10),
 			.horizontalEdges(padding: 14)
 		)
 		continueButton.pin(
@@ -162,6 +189,12 @@ class InvestDepositView: UIView {
 			constant: -nextButtonBottomConstant
 		)
 		addConstraint(nextButtonBottomConstraint)
+	}
+
+	private func setupBinding() {
+		investVM.$yearlyEstimatedReturn.sink { estimatedReturn in
+			self.updateEstimatedReturn(estimatedReturn)
+		}.store(in: &cancellable)
 	}
 
 	private func updateView() {
@@ -211,6 +244,17 @@ class InvestDepositView: UIView {
 		amountLabel.text = investVM.dollarAmount
 		if amountTextfield.text == .emptyString {
 			continueButton.style = .deactive
+		}
+	}
+
+	private func updateEstimatedReturn(_ estimatedReturn: String?) {
+		UIView.animate(withDuration: 0.2) {
+			if let estimatedReturn {
+				self.estimatedReturnLabel.text = estimatedReturn
+				self.estimatedReturnCardView.isHiddenInStackView = false
+			} else {
+				self.estimatedReturnCardView.isHiddenInStackView = true
+			}
 		}
 	}
 

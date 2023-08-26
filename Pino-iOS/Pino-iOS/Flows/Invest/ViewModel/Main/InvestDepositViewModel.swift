@@ -15,6 +15,7 @@ class InvestDepositViewModel {
 	public let continueButtonTitle = "Deposit"
 	public let insufficientAmountButtonTitle = "Insufficient amount"
 	public var textFieldPlaceHolder = "0"
+	public var estimatedReturnTitle = "Yearly estimated return"
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
 	public var maxHoldAmount: BigNumber!
@@ -27,6 +28,9 @@ class InvestDepositViewModel {
 	public var pageTitle: String {
 		"Invest in \(selectedToken.symbol)"
 	}
+
+	@Published
+	public var yearlyEstimatedReturn: String?
 
 	// MARK: - Initializers
 
@@ -50,6 +54,7 @@ class InvestDepositViewModel {
 			dollarAmount = .emptyString
 		}
 		tokenAmount = amount
+		getYearlyEstimatedReturn(amount: amount)
 	}
 
 	public func checkBalanceStatus(amount: String) -> AmountStatus {
@@ -72,5 +77,13 @@ class InvestDepositViewModel {
 		let tokensList = GlobalVariables.shared.manageAssetsList!
 		selectedToken = tokensList.first(where: { $0.symbol == investableAsset.assetName })!
 		maxHoldAmount = selectedToken.holdAmount
+	}
+
+	private func getYearlyEstimatedReturn(amount: String) {
+		if amount == .emptyString {
+			yearlyEstimatedReturn = nil
+		} else {
+			yearlyEstimatedReturn = amount.tokenFormatting(token: selectedToken.symbol)
+		}
 	}
 }
