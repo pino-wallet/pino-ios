@@ -288,17 +288,7 @@ extension InvestDepositView: UITextFieldDelegate {
 		shouldChangeCharactersIn range: NSRange,
 		replacementString string: String
 	) -> Bool {
-		guard let currentText = textField.text as NSString? else {
-			return true
-		}
-
-		let updatedText = currentText.replacingCharacters(in: range, with: string)
-		let pattern = "^(?!\\.)(?!.*\\..*\\.)([0-9]*)\\.?([0-9]*)$"
-		let regex = try? NSRegularExpression(pattern: pattern, options: [])
-		let range = NSRange(location: 0, length: updatedText.count)
-		let isMatch = regex?.firstMatch(in: updatedText, options: [], range: range) != nil
-
-		return isMatch
+		textField.enteredNumberPatternIsValid(charactersRange: range, replacementString: string)
 	}
 }
 
