@@ -15,6 +15,7 @@ class BorrowViewModel {
 	@Published
 	public var userBorrowingDetails: UserBorrowingModel? = nil
 
+	public let dismissIconName = "dissmiss"
 	public let pageTitle = "Borrow"
 	public let collateralTitle = "Collateral"
 	public let collateralDescription = "Deposit assets as collateral to get started"

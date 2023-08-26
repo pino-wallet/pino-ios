@@ -39,6 +39,8 @@ class BorrowViewController: UIViewController {
 			self.present(actionSheet, animated: true)
 		}, presentSelectDexSystem: {
 			self.presentSelectDexSystemVC()
+		}, presentBorrowingBoardVC: {
+			self.presentBorrowingBoard()
 		})
 
 		view = borrowView
@@ -51,6 +53,13 @@ class BorrowViewController: UIViewController {
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [selectDexSystemVC]
 
+		present(navigationVC, animated: true)
+	}
+
+	private func presentBorrowingBoard() {
+		let borrowingBoardVC = BorrowingBoardViewController(borrowVM: borrowVM)
+		let navigationVC = UINavigationController()
+		navigationVC.viewControllers = [borrowingBoardVC]
 		present(navigationVC, animated: true)
 	}
 }

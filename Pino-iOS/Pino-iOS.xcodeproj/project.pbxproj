@@ -294,6 +294,7 @@
 		D924C34A2A949712007299A4 /* user-borrowing-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = D924C3492A9496F6007299A4 /* user-borrowing-stub.json */; };
 		D924C34B2A949712007299A4 /* user-borrowing-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = D924C3492A9496F6007299A4 /* user-borrowing-stub.json */; };
 		D92B913C2A30756C0055B277 /* PinoContainerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92B913B2A30756C0055B277 /* PinoContainerCard.swift */; };
+		D93572A82A99E85300A0DE20 /* BorrowingTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93572A72A99E85300A0DE20 /* BorrowingTokenModel.swift */; };
 		D93C41F729F7C1F9003F2297 /* EditAccountCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41F629F7C1F9003F2297 /* EditAccountCollectionView.swift */; };
 		D93C41F929F7C5C6003F2297 /* EditAccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41F829F7C5C6003F2297 /* EditAccountHeaderView.swift */; };
 		D93C41FB29F7CC67003F2297 /* EditAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41FA29F7CC67003F2297 /* EditAccountCell.swift */; };
@@ -341,6 +342,16 @@
 		D99F4B1D29E2C25C009F7F55 /* PaymentMethodOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F4B1C29E2C25C009F7F55 /* PaymentMethodOptionView.swift */; };
 		D99F4B2129E2C48D009F7F55 /* PaymentMethodOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F4B2029E2C48D009F7F55 /* PaymentMethodOptionViewModel.swift */; };
 		D99F4B2329E2C619009F7F55 /* PaymentMethodOptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F4B2229E2C619009F7F55 /* PaymentMethodOptionModel.swift */; };
+		D9A0BDA82A974AD900AE132F /* BorrowingBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A0BDA72A974AD900AE132F /* BorrowingBoardView.swift */; };
+		D9A0BDAA2A974B9800AE132F /* BorrowingBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A0BDA92A974B9800AE132F /* BorrowingBoardViewController.swift */; };
+		D9A0BDAC2A974FE900AE132F /* BorrowingBoardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A0BDAB2A974FE900AE132F /* BorrowingBoardDataSource.swift */; };
+		D9A0BDAF2A9752C000AE132F /* UserBorrowerAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A0BDAE2A9752C000AE132F /* UserBorrowerAssetViewModel.swift */; };
+		D9A0BDB12A97533500AE132F /* BorrowableAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A0BDB02A97533500AE132F /* BorrowableAssetViewModel.swift */; };
+		D9A0BDB42A9754D900AE132F /* UserBorrowingAssetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A0BDB32A9754D900AE132F /* UserBorrowingAssetModel.swift */; };
+		D9A0BDB62A9754E500AE132F /* BorrowableAssetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A0BDB52A9754E500AE132F /* BorrowableAssetModel.swift */; };
+		D9A0BDB82A975E1200AE132F /* UserBorrowingAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A0BDB72A975E1200AE132F /* UserBorrowingAssetCell.swift */; };
+		D9A0BDBA2A975E2200AE132F /* BorrowableAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A0BDB92A975E2200AE132F /* BorrowableAssetCell.swift */; };
+		D9A0BDBC2A97709400AE132F /* BorrowingBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A0BDBB2A97709400AE132F /* BorrowingBoardViewModel.swift */; };
 		D9A3280D2A345313005A8393 /* SelectAssetCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A3280C2A345313005A8393 /* SelectAssetCollectionView.swift */; };
 		D9A328132A3462B6005A8393 /* SelectAssetToSendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A328122A3462B6005A8393 /* SelectAssetToSendViewController.swift */; };
 		D9A328152A3464B5005A8393 /* SelectAssetToSendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A328142A3464B5005A8393 /* SelectAssetToSendViewModel.swift */; };
@@ -356,7 +367,6 @@
 		D9AF6DCC29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */; };
 		D9BCE5C72A63C519002A9B58 /* ActivitySwapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BCE5C62A63C519002A9B58 /* ActivitySwapHeaderView.swift */; };
 		D9BD90472A95DE2000B28B74 /* BorrowingTokenCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD90462A95DE2000B28B74 /* BorrowingTokenCellViewModel.swift */; };
-		D9BD904A2A95DE7C00B28B74 /* BorrowingTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD90492A95DE7C00B28B74 /* BorrowingTokenModel.swift */; };
 		D9BE05142A8221C8008670F9 /* CDActivityParent+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE05082A8221C8008670F9 /* CDActivityParent+CoreDataClass.swift */; };
 		D9BE05152A8221C8008670F9 /* CDActivityParent+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE05092A8221C8008670F9 /* CDActivityParent+CoreDataProperties.swift */; };
 		D9BE05162A8221C8008670F9 /* CDTransferActivityDetails+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE050A2A8221C8008670F9 /* CDTransferActivityDetails+CoreDataClass.swift */; };
@@ -924,6 +934,7 @@
 		D924C3472A94969F007299A4 /* BorrowAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowAPIService.swift; sourceTree = "<group>"; };
 		D924C3492A9496F6007299A4 /* user-borrowing-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "user-borrowing-stub.json"; sourceTree = "<group>"; };
 		D92B913B2A30756C0055B277 /* PinoContainerCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoContainerCard.swift; sourceTree = "<group>"; };
+		D93572A72A99E85300A0DE20 /* BorrowingTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingTokenModel.swift; sourceTree = "<group>"; };
 		D93C41F629F7C1F9003F2297 /* EditAccountCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountCollectionView.swift; sourceTree = "<group>"; };
 		D93C41F829F7C5C6003F2297 /* EditAccountHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountHeaderView.swift; sourceTree = "<group>"; };
 		D93C41FA29F7CC67003F2297 /* EditAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountCell.swift; sourceTree = "<group>"; };
@@ -969,6 +980,16 @@
 		D99F4B1C29E2C25C009F7F55 /* PaymentMethodOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodOptionView.swift; sourceTree = "<group>"; };
 		D99F4B2029E2C48D009F7F55 /* PaymentMethodOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodOptionViewModel.swift; sourceTree = "<group>"; };
 		D99F4B2229E2C619009F7F55 /* PaymentMethodOptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodOptionModel.swift; sourceTree = "<group>"; };
+		D9A0BDA72A974AD900AE132F /* BorrowingBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingBoardView.swift; sourceTree = "<group>"; };
+		D9A0BDA92A974B9800AE132F /* BorrowingBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingBoardViewController.swift; sourceTree = "<group>"; };
+		D9A0BDAB2A974FE900AE132F /* BorrowingBoardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingBoardDataSource.swift; sourceTree = "<group>"; };
+		D9A0BDAE2A9752C000AE132F /* UserBorrowerAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBorrowerAssetViewModel.swift; sourceTree = "<group>"; };
+		D9A0BDB02A97533500AE132F /* BorrowableAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowableAssetViewModel.swift; sourceTree = "<group>"; };
+		D9A0BDB32A9754D900AE132F /* UserBorrowingAssetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBorrowingAssetModel.swift; sourceTree = "<group>"; };
+		D9A0BDB52A9754E500AE132F /* BorrowableAssetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowableAssetModel.swift; sourceTree = "<group>"; };
+		D9A0BDB72A975E1200AE132F /* UserBorrowingAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBorrowingAssetCell.swift; sourceTree = "<group>"; };
+		D9A0BDB92A975E2200AE132F /* BorrowableAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowableAssetCell.swift; sourceTree = "<group>"; };
+		D9A0BDBB2A97709400AE132F /* BorrowingBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingBoardViewModel.swift; sourceTree = "<group>"; };
 		D9A3280C2A345313005A8393 /* SelectAssetCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetCollectionView.swift; sourceTree = "<group>"; };
 		D9A328122A3462B6005A8393 /* SelectAssetToSendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetToSendViewController.swift; sourceTree = "<group>"; };
 		D9A328142A3464B5005A8393 /* SelectAssetToSendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetToSendViewModel.swift; sourceTree = "<group>"; };
@@ -1347,7 +1368,7 @@
 		08F6C5346D722CF16AB89790 /* Borrow */ = {
 			isa = PBXGroup;
 			children = (
-				D9BD90482A95DE6700B28B74 /* Models */,
+				D9A0BDB22A9753CA00AE132F /* Model */,
 				4037DCCA2A8BD58A00FCA96B /* ViewModel */,
 				4037DCC92A8BD57F00FCA96B /* ViewController */,
 				4037DCC82A8BD57B00FCA96B /* View */,
@@ -1632,6 +1653,7 @@
 		4037DCC82A8BD57B00FCA96B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D9A0BDA62A974A4A00AE132F /* BorrowingBoard */,
 				4037DCCB2A8BD65600FCA96B /* ApproveContractView.swift */,
 				D99019792A93514D008CF9EC /* LoanDetailsView.swift */,
 				D990197F2A93660B008CF9EC /* LoanDetailsInfoStackView.swift */,
@@ -1651,6 +1673,7 @@
 				0EDB7798DEE2598C367E87BE /* BorrowViewController.swift */,
 				D990197D2A935383008CF9EC /* LoanDetailsViewController.swift */,
 				D96FD3B02A9734870008977A /* BorrowSelectDexViewController.swift */,
+				D9A0BDA92A974B9800AE132F /* BorrowingBoardViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1658,6 +1681,7 @@
 		4037DCCA2A8BD58A00FCA96B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				D9A0BDAD2A97529F00AE132F /* BorrowingBoard */,
 				4037DCCD2A8BD93200FCA96B /* ApproveContractViewModel.swift */,
 				D99019752A9350DD008CF9EC /* LoanDetailsViewModel.swift */,
 				D924C33C2A9495AB007299A4 /* BorrowViewModel.swift */,
@@ -2572,6 +2596,37 @@
 			path = ReceiveViewModels;
 			sourceTree = "<group>";
 		};
+		D9A0BDA62A974A4A00AE132F /* BorrowingBoard */ = {
+			isa = PBXGroup;
+			children = (
+				D9A0BDA72A974AD900AE132F /* BorrowingBoardView.swift */,
+				D9A0BDAB2A974FE900AE132F /* BorrowingBoardDataSource.swift */,
+				D9A0BDB72A975E1200AE132F /* UserBorrowingAssetCell.swift */,
+				D9A0BDB92A975E2200AE132F /* BorrowableAssetCell.swift */,
+			);
+			path = BorrowingBoard;
+			sourceTree = "<group>";
+		};
+		D9A0BDAD2A97529F00AE132F /* BorrowingBoard */ = {
+			isa = PBXGroup;
+			children = (
+				D9A0BDAE2A9752C000AE132F /* UserBorrowerAssetViewModel.swift */,
+				D9A0BDB02A97533500AE132F /* BorrowableAssetViewModel.swift */,
+				D9A0BDBB2A97709400AE132F /* BorrowingBoardViewModel.swift */,
+			);
+			path = BorrowingBoard;
+			sourceTree = "<group>";
+		};
+		D9A0BDB22A9753CA00AE132F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D9A0BDB32A9754D900AE132F /* UserBorrowingAssetModel.swift */,
+				D9A0BDB52A9754E500AE132F /* BorrowableAssetModel.swift */,
+				D93572A72A99E85300A0DE20 /* BorrowingTokenModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		D9A3280A2A3452DC005A8393 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -2652,14 +2707,6 @@
 				D9BE15AC2A693539005E4063 /* ActivityDetailsProtocol.swift */,
 			);
 			path = Protocols;
-			sourceTree = "<group>";
-		};
-		D9BD90482A95DE6700B28B74 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				D9BD90492A95DE7C00B28B74 /* BorrowingTokenModel.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		D9BE05202A822340008670F9 /* Activity */ = {
@@ -3057,6 +3104,7 @@
 			isa = PBXGroup;
 			children = (
 				E35BB6372A5585FA003987F5 /* SwapProtocol.swift */,
+				D9BD90492A95DE7C00B28B74 /* BorrowingTokenModel.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -3637,6 +3685,7 @@
 				A6A306BA4B25BC475B98C8BD /* AboutCoinViewModel.swift in Sources */,
 				902BA90F4366DD5D18B06A90 /* AboutPinoView.swift in Sources */,
 				DD2E33C472905FA32AE84797 /* AboutPinoViewController.swift in Sources */,
+				D9A0BDBC2A97709400AE132F /* BorrowingBoardViewModel.swift in Sources */,
 				E343836A2A3D912A0048BDA1 /* SendConfirmationViewController.swift in Sources */,
 				D91A39FF29E40F8900004CB2 /* NotificationSettingsViewModel.swift in Sources */,
 				E35BB63A2A5589F3003987F5 /* SelectSwapProtocolViewController.swift in Sources */,
@@ -3647,6 +3696,7 @@
 				1AC53E3B2AB70C2C7F419A38 /* AccountHeaderView.swift in Sources */,
 				DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */,
 				AC39E74F527151DCAE1E9AAE /* AccountingAPIMockClient.swift in Sources */,
+				D9A0BDB82A975E1200AE132F /* UserBorrowingAssetCell.swift in Sources */,
 				6FB08C15B02317A1FE3C012D /* AccountingAPIService.swift in Sources */,
 				E35BB63E2A558D0E003987F5 /* SwapProtocolCollectionView.swift in Sources */,
 				3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */,
@@ -3675,6 +3725,7 @@
 				6515F0FDA57BFCE714EF6F71 /* AddNewAccountViewModel.swift in Sources */,
 				404324062A5FF115006B1468 /* TextFormatting.swift in Sources */,
 				D924C33D2A9495AB007299A4 /* BorrowViewModel.swift in Sources */,
+				D9A0BDA82A974AD900AE132F /* BorrowingBoardView.swift in Sources */,
 				E3FC69B92A8A6C89009B3341 /* InvestCoinPerformanceViewController.swift in Sources */,
 				2BC73AE9759B87DCBF761327 /* AlertHelper.swift in Sources */,
 				4C5FCC355F7D7307B778F686 /* AllDoneView.swift in Sources */,
@@ -3698,6 +3749,7 @@
 				DFC4D03A2A360D8300F03DC4 /* Web3Core.swift in Sources */,
 				58725E16FF09C251760EF717 /* AssetLineChart.swift in Sources */,
 				E3FC69E32A920BE0009B3341 /* InvestmentBoardFilterViewModel.swift in Sources */,
+				D9A0BDAC2A974FE900AE132F /* BorrowingBoardDataSource.swift in Sources */,
 				E3FC69A62A8A0952009B3341 /* InvestmentPerformanceHeaderView.swift in Sources */,
 				72A3CB357D4BD765C3616F3E /* AssetProtocol.swift in Sources */,
 				D4FCAA07F82037BF6EF0B823 /* AssetViewModel.swift in Sources */,
@@ -3743,6 +3795,7 @@
 				7060BC04A8267A9B50B8BF09 /* AuthenticationLockViewController.swift in Sources */,
 				F46E91AF149D34F200213B3F /* BlurEffectView.swift in Sources */,
 				E3C8027B2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift in Sources */,
+				D93572A82A99E85300A0DE20 /* BorrowingTokenModel.swift in Sources */,
 				8124946C56803F5336426CFA /* BodyParamsType.swift in Sources */,
 				1B7D25A69FB55D4EAC14A392 /* BoldStyle.swift in Sources */,
 				E39F594E2A99E92B00023292 /* InvestConfirmationView.swift in Sources */,
@@ -3767,6 +3820,7 @@
 				DFFDEDAA2A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift in Sources */,
 				D9AF6DCC29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift in Sources */,
 				3C9F0B46C521474D32854C66 /* ActivityCell.swift in Sources */,
+				D9A0BDB62A9754E500AE132F /* BorrowableAssetModel.swift in Sources */,
 				D9BE05172A8221C8008670F9 /* CDTransferActivityDetails+CoreDataProperties.swift in Sources */,
 				4037DCCC2A8BD65600FCA96B /* ApproveContractView.swift in Sources */,
 				D97CF62C25B975AD3C131881 /* CoinHistoryModel.swift in Sources */,
@@ -3816,6 +3870,7 @@
 				9D1B6611143AB2A88028763C /* CustomAssetInfoContainerView.swift in Sources */,
 				D94A9A2029FE6C4E00DCA28D /* EditAccountNameViewController.swift in Sources */,
 				B8DEA2647A8204A5771748D2 /* CustomAssetInfoModel.swift in Sources */,
+				D9A0BDAF2A9752C000AE132F /* UserBorrowerAssetViewModel.swift in Sources */,
 				E3F482F72A35B2DB00EEC9CF /* EnterSendAmountView.swift in Sources */,
 				0CE266292D956CA5666233BB /* CustomAssetInfoView.swift in Sources */,
 				D5E4DDC92A95D9F9000AA235 /* InvestmentRiskPerformanceViewModel.swift in Sources */,
@@ -3845,7 +3900,6 @@
 				3E5FFA532C0440149913FE32 /* Encodable+Extension.swift in Sources */,
 				E3FC69A82A8A0991009B3341 /* InvestmentPerformanceAssetCell.swift in Sources */,
 				E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */,
-				D9BD904A2A95DE7C00B28B74 /* BorrowingTokenModel.swift in Sources */,
 				D91A3A0729E41C1800004CB2 /* NotificationSettingsOptionViewModel.swift in Sources */,
 				A64D2DFF6C7D5354F2CA6D50 /* Environment.swift in Sources */,
 				E55DCCDCC37B827E5DBEEB82 /* FlowLayout+Extension.swift in Sources */,
@@ -3905,6 +3959,7 @@
 				403691BE2A3DFFB60013AB6D /* ToastView.swift in Sources */,
 				763F91967E4347D64BD561C4 /* KeychainHelper.swift in Sources */,
 				7F79C44B5BF6EB8B1D1674A0 /* KeychainWrapperProtocol.swift in Sources */,
+				D9A0BDBA2A975E2200AE132F /* BorrowableAssetCell.swift in Sources */,
 				A9DD712BF1A1511733B479FA /* LaunchSettings.swift in Sources */,
 				E3FC69F62A936D6B009B3341 /* InvestmentRiskCell.swift in Sources */,
 				F768EA67E795D2C08C4CDF5B /* LineChartDelegate.swift in Sources */,
@@ -3924,6 +3979,7 @@
 				D9A3281E2A34C545005A8393 /* SelectAssetCellVMProtocol.swift in Sources */,
 				EFCE871CCDF8A29DA4F8950F /* ManageAssetCell.swift in Sources */,
 				5CDFF4C90BE60A5FF26C2596 /* ManageAssetsCollectionView.swift in Sources */,
+				D9A0BDB12A97533500AE132F /* BorrowableAssetViewModel.swift in Sources */,
 				6D6ECC6BF79139F030C8039A /* ManageAssetsFooterView.swift in Sources */,
 				D99850472A55C66A00C2DF60 /* DateHelper.swift in Sources */,
 				D9BE05162A8221C8008670F9 /* CDTransferActivityDetails+CoreDataClass.swift in Sources */,
@@ -3934,6 +3990,7 @@
 				7B6CE232F6C074F30AFAF23D /* ManagePasscodeView.swift in Sources */,
 				DF14FCAB2A93B4AC005221A8 /* ParaswapSwapResponseModel.swift in Sources */,
 				403691BC2A3DFFB50013AB6D /* ToastConfiguration.swift in Sources */,
+				D9A0BDAA2A974B9800AE132F /* BorrowingBoardViewController.swift in Sources */,
 				DF00179529F85774001164EA /* KeychainManager.swift in Sources */,
 				E35BB64D2A596E90003987F5 /* SelectSwapProvidersViewModel.swift in Sources */,
 				325E592A9AA1B24C522EA47F /* MediumStyle.swift in Sources */,
@@ -3952,6 +4009,7 @@
 				DFA9687E2A0FABB9007D4513 /* WalletAccount+CoreDataProperties.swift in Sources */,
 				D9F1BD022A7111FE00F5303F /* CoinInfoEmptyStateFooterView.swift in Sources */,
 				B6C747AA398D7E37B1B727AC /* PassDotsView.swift in Sources */,
+				D9A0BDB42A9754D900AE132F /* UserBorrowingAssetModel.swift in Sources */,
 				D97F0B8C2A948F760083DA81 /* DexSystemModelProtocol.swift in Sources */,
 				DF00178229E82084001164EA /* SecureEnclaveHelper.swift in Sources */,
 				D9C1807F2A88FAF80066C2A7 /* GradientShowFeeView.swift in Sources */,
