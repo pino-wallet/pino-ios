@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CollateralizingBoardViewModel {
+struct CollateralizingBoardViewModel {
 	// MARK: - Public Properties
 
 	public let collateralsTitleText = "collaterals"
