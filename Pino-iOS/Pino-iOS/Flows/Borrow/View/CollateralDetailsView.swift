@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoanDetailsView: UIView {
+class CollateralDetailsView: UIView {
 	// MARK: - Private Properties
 
 	private let mainStackView = UIStackView()
@@ -15,23 +15,23 @@ class LoanDetailsView: UIView {
 	private let headerStackView = UIStackView()
 	private let headerTitleImage = UIImageView()
 	private let headerTitleLabel = PinoLabel(style: .title, text: "")
+    private let headerTotalAmountInDollarsLabel = PinoLabel(style: .info, text: "")
 	private let contentContainerView = PinoContainerCard()
 	private let contentStackView = UIStackView()
 	private let borderView = UIView()
 	private let buttonsStackView = UIStackView()
 	private let increaseButton = PinoButton(style: .active)
 	private let withdrawButton = PinoButton(style: .secondary)
-	private var apyStackView: LoanDetailsInfoStackView!
-	private var borrowedAmountStackView: LoanDetailsInfoStackView!
-	private var accruedFeeStackView: LoanDetailsInfoStackView!
-	private var totalDebtStackView: LoanDetailsInfoStackView!
+	private var involvedAmountStackView: LoanDetailsInfoStackView!
+	private var freeAmountStackView: LoanDetailsInfoStackView!
+	private var totalCollateralStackView: LoanDetailsInfoStackView!
 
-	private var loanDetailsVM: LoanDetailsViewModel
+	private var collateralDetailsVM: CollateralDetailsViewModel
 
 	// MARK: - Initializers
 
-	init(loanDetailsVM: LoanDetailsViewModel) {
-		self.loanDetailsVM = loanDetailsVM
+	init(collateralDetailsVM: CollateralDetailsViewModel) {
+		self.collateralDetailsVM = collateralDetailsVM
 
 		super.init(frame: .zero)
 
@@ -47,30 +47,26 @@ class LoanDetailsView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		apyStackView = LoanDetailsInfoStackView(titleText: loanDetailsVM.apyTitle, infoText: loanDetailsVM.apy)
-		borrowedAmountStackView = LoanDetailsInfoStackView(
-			titleText: loanDetailsVM.borrowedAmountTitle,
-			infoText: loanDetailsVM.borrowedAmount
+		involvedAmountStackView = LoanDetailsInfoStackView(titleText: collateralDetailsVM.involvedTitle, infoText: collateralDetailsVM.involvedAmountInToken)
+		freeAmountStackView = LoanDetailsInfoStackView(
+			titleText: collateralDetailsVM.freeTitle,
+			infoText: collateralDetailsVM.freeAmountInToken
 		)
-		accruedFeeStackView = LoanDetailsInfoStackView(
-			titleText: loanDetailsVM.accruedFeeTitle,
-			infoText: loanDetailsVM.accruedFee
-		)
-		totalDebtStackView = LoanDetailsInfoStackView(
-			titleText: loanDetailsVM.totalDebtTitle,
-			infoText: loanDetailsVM.totalDebt
+		totalCollateralStackView = LoanDetailsInfoStackView(
+			titleText: collateralDetailsVM.totalCollateralTitle,
+			infoText: collateralDetailsVM.totalCollateral
 		)
 
 		contentContainerView.addSubview(contentStackView)
 
-		contentStackView.addArrangedSubview(apyStackView)
-		contentStackView.addArrangedSubview(borrowedAmountStackView)
-		contentStackView.addArrangedSubview(accruedFeeStackView)
+		contentStackView.addArrangedSubview(involvedAmountStackView)
+		contentStackView.addArrangedSubview(freeAmountStackView)
 		contentStackView.addArrangedSubview(borderView)
-		contentStackView.addArrangedSubview(totalDebtStackView)
+		contentStackView.addArrangedSubview(totalCollateralStackView)
 
 		headerStackView.addArrangedSubview(headerTitleImage)
 		headerStackView.addArrangedSubview(headerTitleLabel)
+        headerStackView.addArrangedSubview(headerTotalAmountInDollarsLabel)
 
 		headerContainerView.addSubview(headerStackView)
 
@@ -87,11 +83,9 @@ class LoanDetailsView: UIView {
 	private func setupStyles() {
 		backgroundColor = .Pino.background
 
-		apyStackView.infoLabel.textColor = .Pino.green
+		totalCollateralStackView.titleLabel.textColor = .Pino.label
 
-		totalDebtStackView.titleLabel.textColor = .Pino.label
-
-		totalDebtStackView.infoLabel.font = .PinoStyle.semiboldBody
+		totalCollateralStackView.infoLabel.font = .PinoStyle.semiboldBody
 
 		mainStackView.axis = .vertical
 		mainStackView.spacing = 16
@@ -99,27 +93,32 @@ class LoanDetailsView: UIView {
 		headerStackView.axis = .vertical
 		headerStackView.spacing = 16
 		headerStackView.alignment = .center
+        headerStackView.setCustomSpacing(4, after: headerTitleLabel)
 
-		headerTitleImage.image = UIImage(named: loanDetailsVM.tokenIcon)
+		headerTitleImage.image = UIImage(named: collateralDetailsVM.tokenIcon)
 
 		headerTitleLabel.font = .PinoStyle.semiboldTitle2
-		headerTitleLabel.text = loanDetailsVM.tokenBorrowAmountAndSymbol
+		headerTitleLabel.text = collateralDetailsVM.tokenCollateralAmountAndSymbol
 		headerTitleLabel.numberOfLines = 0
 
 		contentStackView.axis = .vertical
 		contentStackView.spacing = 16
 
-		increaseButton.title = loanDetailsVM.increaseLoanTitle
+		increaseButton.title = collateralDetailsVM.increaseLoanTitle
 
-		withdrawButton.title = loanDetailsVM.withdrawTitle
+		withdrawButton.title = collateralDetailsVM.withdrawTitle
 
 		borderView.backgroundColor = .Pino.gray5
 
 		buttonsStackView.axis = .vertical
 		buttonsStackView.spacing = 24
+        
+        headerTotalAmountInDollarsLabel.textColor = .Pino.secondaryLabel
+        headerTotalAmountInDollarsLabel.text = collateralDetailsVM.totalTokenAmountInDollar
 	}
 
 	private func setupConstraints() {
+        headerTotalAmountInDollarsLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 		headerTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 28).isActive = true
 
 		mainStackView.pin(

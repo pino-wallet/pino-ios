@@ -7,11 +7,11 @@
 
 import UIKit
 
-class LoanDetailsViewController: UIViewController {
+class CollateralDetailsViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let loanDetailsVM = LoanDetailsViewModel()
-	private var loanDetailsView: LoanDetailsView!
+	private let collateralDetailsVM = CollateralDetailsViewModel()
+	private var collateralDetailsView: CollateralDetailsView!
 
 	// MARK: - View Overrides
 
@@ -28,9 +28,9 @@ class LoanDetailsViewController: UIViewController {
 
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
-		setNavigationTitle(loanDetailsVM.pageTitle)
+		setNavigationTitle(collateralDetailsVM.pageTitle)
 		navigationItem.leftBarButtonItem = UIBarButtonItem(
-			image: UIImage(named: loanDetailsVM.dismissIconName),
+			image: UIImage(named: collateralDetailsVM.dismissIconName),
 			style: .plain,
 			target: self,
 			action: #selector(dismissSelf)
@@ -38,9 +38,9 @@ class LoanDetailsViewController: UIViewController {
 	}
 
 	private func setupView() {
-		loanDetailsView = LoanDetailsView(loanDetailsVM: loanDetailsVM)
+		collateralDetailsView = CollateralDetailsView(collateralDetailsVM: collateralDetailsVM)
 
-		view = loanDetailsView
+		view = collateralDetailsView
 	}
 
 	@objc

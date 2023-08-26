@@ -59,7 +59,7 @@ class BorrowingBoardViewController: UIViewController {
 		)
 
 		borrowingBoardView = BorrowingBoradView(borrowingBoardVM: borrowingBoardVM, assetDidSelect: { _ in
-			self.presentToLoanDetailsVC()
+			self.presentBorrowLoanDetailsVC()
 		})
 
 		view = borrowingBoardView
@@ -76,10 +76,10 @@ class BorrowingBoardViewController: UIViewController {
 		)
 	}
 
-	private func presentToLoanDetailsVC() {
-		let loanDetailsVC = LoanDetailsViewController()
+	private func presentBorrowLoanDetailsVC() {
+		let borrowLoanDetailsVC = BorrowLoanDetailsViewController()
 		let navigationVC = UINavigationController()
-		navigationVC.viewControllers = [loanDetailsVC]
+		navigationVC.viewControllers = [borrowLoanDetailsVC]
 		present(navigationVC, animated: true)
 	}
 
