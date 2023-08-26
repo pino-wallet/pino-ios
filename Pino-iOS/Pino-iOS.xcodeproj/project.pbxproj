@@ -291,6 +291,7 @@
 		D924C34A2A949712007299A4 /* user-borrowing-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = D924C3492A9496F6007299A4 /* user-borrowing-stub.json */; };
 		D924C34B2A949712007299A4 /* user-borrowing-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = D924C3492A9496F6007299A4 /* user-borrowing-stub.json */; };
 		D92B913C2A30756C0055B277 /* PinoContainerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92B913B2A30756C0055B277 /* PinoContainerCard.swift */; };
+		D93572A82A99E85300A0DE20 /* BorrowingTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93572A72A99E85300A0DE20 /* BorrowingTokenModel.swift */; };
 		D93C41F729F7C1F9003F2297 /* EditAccountCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41F629F7C1F9003F2297 /* EditAccountCollectionView.swift */; };
 		D93C41F929F7C5C6003F2297 /* EditAccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41F829F7C5C6003F2297 /* EditAccountHeaderView.swift */; };
 		D93C41FB29F7CC67003F2297 /* EditAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41FA29F7CC67003F2297 /* EditAccountCell.swift */; };
@@ -363,7 +364,6 @@
 		D9AF6DCC29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */; };
 		D9BCE5C72A63C519002A9B58 /* ActivitySwapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BCE5C62A63C519002A9B58 /* ActivitySwapHeaderView.swift */; };
 		D9BD90472A95DE2000B28B74 /* BorrowingTokenCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD90462A95DE2000B28B74 /* BorrowingTokenCellViewModel.swift */; };
-		D9BD904A2A95DE7C00B28B74 /* BorrowingTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD90492A95DE7C00B28B74 /* BorrowingTokenModel.swift */; };
 		D9BE05142A8221C8008670F9 /* CDActivityParent+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE05082A8221C8008670F9 /* CDActivityParent+CoreDataClass.swift */; };
 		D9BE05152A8221C8008670F9 /* CDActivityParent+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE05092A8221C8008670F9 /* CDActivityParent+CoreDataProperties.swift */; };
 		D9BE05162A8221C8008670F9 /* CDTransferActivityDetails+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE050A2A8221C8008670F9 /* CDTransferActivityDetails+CoreDataClass.swift */; };
@@ -924,6 +924,7 @@
 		D924C3472A94969F007299A4 /* BorrowAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowAPIService.swift; sourceTree = "<group>"; };
 		D924C3492A9496F6007299A4 /* user-borrowing-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "user-borrowing-stub.json"; sourceTree = "<group>"; };
 		D92B913B2A30756C0055B277 /* PinoContainerCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoContainerCard.swift; sourceTree = "<group>"; };
+		D93572A72A99E85300A0DE20 /* BorrowingTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingTokenModel.swift; sourceTree = "<group>"; };
 		D93C41F629F7C1F9003F2297 /* EditAccountCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountCollectionView.swift; sourceTree = "<group>"; };
 		D93C41F829F7C5C6003F2297 /* EditAccountHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountHeaderView.swift; sourceTree = "<group>"; };
 		D93C41FA29F7CC67003F2297 /* EditAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountCell.swift; sourceTree = "<group>"; };
@@ -2606,6 +2607,7 @@
 			children = (
 				D9A0BDB32A9754D900AE132F /* UserBorrowingAssetModel.swift */,
 				D9A0BDB52A9754E500AE132F /* BorrowableAssetModel.swift */,
+				D93572A72A99E85300A0DE20 /* BorrowingTokenModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2690,14 +2692,6 @@
 				D9BE15AC2A693539005E4063 /* ActivityDetailsProtocol.swift */,
 			);
 			path = Protocols;
-			sourceTree = "<group>";
-		};
-		D9BD90482A95DE6700B28B74 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				D9BD90492A95DE7C00B28B74 /* BorrowingTokenModel.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		D9BE05202A822340008670F9 /* Activity */ = {
@@ -3095,6 +3089,7 @@
 			isa = PBXGroup;
 			children = (
 				E35BB6372A5585FA003987F5 /* SwapProtocol.swift */,
+				D9BD90492A95DE7C00B28B74 /* BorrowingTokenModel.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -3779,6 +3774,7 @@
 				7060BC04A8267A9B50B8BF09 /* AuthenticationLockViewController.swift in Sources */,
 				F46E91AF149D34F200213B3F /* BlurEffectView.swift in Sources */,
 				E3C8027B2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift in Sources */,
+				D93572A82A99E85300A0DE20 /* BorrowingTokenModel.swift in Sources */,
 				8124946C56803F5336426CFA /* BodyParamsType.swift in Sources */,
 				1B7D25A69FB55D4EAC14A392 /* BoldStyle.swift in Sources */,
 				D9D9A4082A5E8A4400CECA41 /* ActivityInfoView.swift in Sources */,
@@ -3879,7 +3875,6 @@
 				3E5FFA532C0440149913FE32 /* Encodable+Extension.swift in Sources */,
 				E3FC69A82A8A0991009B3341 /* InvestmentPerformanceAssetCell.swift in Sources */,
 				E4126493FEBA2E4690C993D2 /* EndpointType.swift in Sources */,
-				D9BD904A2A95DE7C00B28B74 /* BorrowingTokenModel.swift in Sources */,
 				D91A3A0729E41C1800004CB2 /* NotificationSettingsOptionViewModel.swift in Sources */,
 				A64D2DFF6C7D5354F2CA6D50 /* Environment.swift in Sources */,
 				E55DCCDCC37B827E5DBEEB82 /* FlowLayout+Extension.swift in Sources */,
