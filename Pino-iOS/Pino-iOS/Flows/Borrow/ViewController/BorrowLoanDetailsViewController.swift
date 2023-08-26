@@ -8,43 +8,43 @@
 import UIKit
 
 class BorrowLoanDetailsViewController: UIViewController {
-    // MARK: - Private Properties
+	// MARK: - Private Properties
 
-    private let borrowLoanDetailsVM = BorrowLoanDetailsViewModel()
-    private var borrowLoanDetailsView: BorrowLoanDetailsView!
+	private let borrowLoanDetailsVM = BorrowLoanDetailsViewModel()
+	private var borrowLoanDetailsView: BorrowLoanDetailsView!
 
-    // MARK: - View Overrides
+	// MARK: - View Overrides
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+	override func viewDidLoad() {
+		super.viewDidLoad()
+	}
 
-    override func loadView() {
-        setupNavigationBar()
-        setupView()
-    }
+	override func loadView() {
+		setupNavigationBar()
+		setupView()
+	}
 
-    // MARK: - Private Methods
+	// MARK: - Private Methods
 
-    private func setupNavigationBar() {
-        setupPrimaryColorNavigationBar()
-        setNavigationTitle(borrowLoanDetailsVM.pageTitle)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: borrowLoanDetailsVM.dismissIconName),
-            style: .plain,
-            target: self,
-            action: #selector(dismissSelf)
-        )
-    }
+	private func setupNavigationBar() {
+		setupPrimaryColorNavigationBar()
+		setNavigationTitle(borrowLoanDetailsVM.pageTitle)
+		navigationItem.leftBarButtonItem = UIBarButtonItem(
+			image: UIImage(named: borrowLoanDetailsVM.dismissIconName),
+			style: .plain,
+			target: self,
+			action: #selector(dismissSelf)
+		)
+	}
 
-    private func setupView() {
-        borrowLoanDetailsView = BorrowLoanDetailsView(borrowLoanDetailsVM: borrowLoanDetailsVM)
+	private func setupView() {
+		borrowLoanDetailsView = BorrowLoanDetailsView(borrowLoanDetailsVM: borrowLoanDetailsVM)
 
-        view = borrowLoanDetailsView
-    }
+		view = borrowLoanDetailsView
+	}
 
-    @objc
-    private func dismissSelf() {
-        dismiss(animated: true)
-    }
+	@objc
+	private func dismissSelf() {
+		dismiss(animated: true)
+	}
 }

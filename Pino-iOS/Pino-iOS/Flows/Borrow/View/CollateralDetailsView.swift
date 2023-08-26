@@ -15,7 +15,7 @@ class CollateralDetailsView: UIView {
 	private let headerStackView = UIStackView()
 	private let headerTitleImage = UIImageView()
 	private let headerTitleLabel = PinoLabel(style: .title, text: "")
-    private let headerTotalAmountInDollarsLabel = PinoLabel(style: .info, text: "")
+	private let headerTotalAmountInDollarsLabel = PinoLabel(style: .info, text: "")
 	private let contentContainerView = PinoContainerCard()
 	private let contentStackView = UIStackView()
 	private let borderView = UIView()
@@ -47,7 +47,10 @@ class CollateralDetailsView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		involvedAmountStackView = LoanDetailsInfoStackView(titleText: collateralDetailsVM.involvedTitle, infoText: collateralDetailsVM.involvedAmountInToken)
+		involvedAmountStackView = LoanDetailsInfoStackView(
+			titleText: collateralDetailsVM.involvedTitle,
+			infoText: collateralDetailsVM.involvedAmountInToken
+		)
 		freeAmountStackView = LoanDetailsInfoStackView(
 			titleText: collateralDetailsVM.freeTitle,
 			infoText: collateralDetailsVM.freeAmountInToken
@@ -66,7 +69,7 @@ class CollateralDetailsView: UIView {
 
 		headerStackView.addArrangedSubview(headerTitleImage)
 		headerStackView.addArrangedSubview(headerTitleLabel)
-        headerStackView.addArrangedSubview(headerTotalAmountInDollarsLabel)
+		headerStackView.addArrangedSubview(headerTotalAmountInDollarsLabel)
 
 		headerContainerView.addSubview(headerStackView)
 
@@ -93,7 +96,7 @@ class CollateralDetailsView: UIView {
 		headerStackView.axis = .vertical
 		headerStackView.spacing = 16
 		headerStackView.alignment = .center
-        headerStackView.setCustomSpacing(4, after: headerTitleLabel)
+		headerStackView.setCustomSpacing(4, after: headerTitleLabel)
 
 		headerTitleImage.image = UIImage(named: collateralDetailsVM.tokenIcon)
 
@@ -112,13 +115,13 @@ class CollateralDetailsView: UIView {
 
 		buttonsStackView.axis = .vertical
 		buttonsStackView.spacing = 24
-        
-        headerTotalAmountInDollarsLabel.textColor = .Pino.secondaryLabel
-        headerTotalAmountInDollarsLabel.text = collateralDetailsVM.totalTokenAmountInDollar
+
+		headerTotalAmountInDollarsLabel.textColor = .Pino.secondaryLabel
+		headerTotalAmountInDollarsLabel.text = collateralDetailsVM.totalTokenAmountInDollar
 	}
 
 	private func setupConstraints() {
-        headerTotalAmountInDollarsLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
+		headerTotalAmountInDollarsLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 		headerTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 28).isActive = true
 
 		mainStackView.pin(

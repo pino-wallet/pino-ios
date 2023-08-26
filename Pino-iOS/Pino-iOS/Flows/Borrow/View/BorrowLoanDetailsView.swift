@@ -8,131 +8,134 @@
 import UIKit
 
 class BorrowLoanDetailsView: UIView {
-    // MARK: - Private Properties
+	// MARK: - Private Properties
 
-    private let mainStackView = UIStackView()
-    private let headerContainerView = PinoContainerCard()
-    private let headerStackView = UIStackView()
-    private let headerTitleImage = UIImageView()
-    private let headerTitleLabel = PinoLabel(style: .title, text: "")
-    private let contentContainerView = PinoContainerCard()
-    private let contentStackView = UIStackView()
-    private let borderView = UIView()
-    private let buttonsStackView = UIStackView()
-    private let increaseButton = PinoButton(style: .active)
-    private let repayButton = PinoButton(style: .secondary)
-    private var apyStackView: LoanDetailsInfoStackView!
-    private var borrowedAmountStackView: LoanDetailsInfoStackView!
-    private var accruedFeeStackView: LoanDetailsInfoStackView!
-    private var totalDebtStackView: LoanDetailsInfoStackView!
+	private let mainStackView = UIStackView()
+	private let headerContainerView = PinoContainerCard()
+	private let headerStackView = UIStackView()
+	private let headerTitleImage = UIImageView()
+	private let headerTitleLabel = PinoLabel(style: .title, text: "")
+	private let contentContainerView = PinoContainerCard()
+	private let contentStackView = UIStackView()
+	private let borderView = UIView()
+	private let buttonsStackView = UIStackView()
+	private let increaseButton = PinoButton(style: .active)
+	private let repayButton = PinoButton(style: .secondary)
+	private var apyStackView: LoanDetailsInfoStackView!
+	private var borrowedAmountStackView: LoanDetailsInfoStackView!
+	private var accruedFeeStackView: LoanDetailsInfoStackView!
+	private var totalDebtStackView: LoanDetailsInfoStackView!
 
-    private var borrowLoanDetailsVM: BorrowLoanDetailsViewModel
+	private var borrowLoanDetailsVM: BorrowLoanDetailsViewModel
 
-    // MARK: - Initializers
+	// MARK: - Initializers
 
-    init(borrowLoanDetailsVM: BorrowLoanDetailsViewModel) {
-        self.borrowLoanDetailsVM = borrowLoanDetailsVM
+	init(borrowLoanDetailsVM: BorrowLoanDetailsViewModel) {
+		self.borrowLoanDetailsVM = borrowLoanDetailsVM
 
-        super.init(frame: .zero)
+		super.init(frame: .zero)
 
-        setupView()
-        setupStyles()
-        setupConstraints()
-    }
+		setupView()
+		setupStyles()
+		setupConstraints()
+	}
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
-    // MARK: - Private Methods
+	// MARK: - Private Methods
 
-    private func setupView() {
-        apyStackView = LoanDetailsInfoStackView(titleText: borrowLoanDetailsVM.apyTitle, infoText: borrowLoanDetailsVM.apy)
-        borrowedAmountStackView = LoanDetailsInfoStackView(
-            titleText: borrowLoanDetailsVM.borrowedAmountTitle,
-            infoText: borrowLoanDetailsVM.borrowedAmount
-        )
-        accruedFeeStackView = LoanDetailsInfoStackView(
-            titleText: borrowLoanDetailsVM.accruedFeeTitle,
-            infoText: borrowLoanDetailsVM.accruedFee
-        )
-        totalDebtStackView = LoanDetailsInfoStackView(
-            titleText: borrowLoanDetailsVM.totalDebtTitle,
-            infoText: borrowLoanDetailsVM.totalDebt
-        )
+	private func setupView() {
+		apyStackView = LoanDetailsInfoStackView(
+			titleText: borrowLoanDetailsVM.apyTitle,
+			infoText: borrowLoanDetailsVM.apy
+		)
+		borrowedAmountStackView = LoanDetailsInfoStackView(
+			titleText: borrowLoanDetailsVM.borrowedAmountTitle,
+			infoText: borrowLoanDetailsVM.borrowedAmount
+		)
+		accruedFeeStackView = LoanDetailsInfoStackView(
+			titleText: borrowLoanDetailsVM.accruedFeeTitle,
+			infoText: borrowLoanDetailsVM.accruedFee
+		)
+		totalDebtStackView = LoanDetailsInfoStackView(
+			titleText: borrowLoanDetailsVM.totalDebtTitle,
+			infoText: borrowLoanDetailsVM.totalDebt
+		)
 
-        contentContainerView.addSubview(contentStackView)
+		contentContainerView.addSubview(contentStackView)
 
-        contentStackView.addArrangedSubview(apyStackView)
-        contentStackView.addArrangedSubview(borrowedAmountStackView)
-        contentStackView.addArrangedSubview(accruedFeeStackView)
-        contentStackView.addArrangedSubview(borderView)
-        contentStackView.addArrangedSubview(totalDebtStackView)
+		contentStackView.addArrangedSubview(apyStackView)
+		contentStackView.addArrangedSubview(borrowedAmountStackView)
+		contentStackView.addArrangedSubview(accruedFeeStackView)
+		contentStackView.addArrangedSubview(borderView)
+		contentStackView.addArrangedSubview(totalDebtStackView)
 
-        headerStackView.addArrangedSubview(headerTitleImage)
-        headerStackView.addArrangedSubview(headerTitleLabel)
+		headerStackView.addArrangedSubview(headerTitleImage)
+		headerStackView.addArrangedSubview(headerTitleLabel)
 
-        headerContainerView.addSubview(headerStackView)
+		headerContainerView.addSubview(headerStackView)
 
-        mainStackView.addArrangedSubview(headerContainerView)
-        mainStackView.addArrangedSubview(contentContainerView)
+		mainStackView.addArrangedSubview(headerContainerView)
+		mainStackView.addArrangedSubview(contentContainerView)
 
-        buttonsStackView.addArrangedSubview(increaseButton)
-        buttonsStackView.addArrangedSubview(repayButton)
+		buttonsStackView.addArrangedSubview(increaseButton)
+		buttonsStackView.addArrangedSubview(repayButton)
 
-        addSubview(mainStackView)
-        addSubview(buttonsStackView)
-    }
+		addSubview(mainStackView)
+		addSubview(buttonsStackView)
+	}
 
-    private func setupStyles() {
-        backgroundColor = .Pino.background
+	private func setupStyles() {
+		backgroundColor = .Pino.background
 
-        apyStackView.infoLabel.textColor = .Pino.green
+		apyStackView.infoLabel.textColor = .Pino.green
 
-        totalDebtStackView.titleLabel.textColor = .Pino.label
+		totalDebtStackView.titleLabel.textColor = .Pino.label
 
-        totalDebtStackView.infoLabel.font = .PinoStyle.semiboldBody
+		totalDebtStackView.infoLabel.font = .PinoStyle.semiboldBody
 
-        mainStackView.axis = .vertical
-        mainStackView.spacing = 16
+		mainStackView.axis = .vertical
+		mainStackView.spacing = 16
 
-        headerStackView.axis = .vertical
-        headerStackView.spacing = 16
-        headerStackView.alignment = .center
+		headerStackView.axis = .vertical
+		headerStackView.spacing = 16
+		headerStackView.alignment = .center
 
-        headerTitleImage.image = UIImage(named: borrowLoanDetailsVM.tokenIcon)
+		headerTitleImage.image = UIImage(named: borrowLoanDetailsVM.tokenIcon)
 
-        headerTitleLabel.font = .PinoStyle.semiboldTitle2
-        headerTitleLabel.text = borrowLoanDetailsVM.tokenBorrowAmountAndSymbol
-        headerTitleLabel.numberOfLines = 0
+		headerTitleLabel.font = .PinoStyle.semiboldTitle2
+		headerTitleLabel.text = borrowLoanDetailsVM.tokenBorrowAmountAndSymbol
+		headerTitleLabel.numberOfLines = 0
 
-        contentStackView.axis = .vertical
-        contentStackView.spacing = 16
+		contentStackView.axis = .vertical
+		contentStackView.spacing = 16
 
-        increaseButton.title = borrowLoanDetailsVM.increaseLoanTitle
+		increaseButton.title = borrowLoanDetailsVM.increaseLoanTitle
 
-        repayButton.title = borrowLoanDetailsVM.repayTitle
+		repayButton.title = borrowLoanDetailsVM.repayTitle
 
-        borderView.backgroundColor = .Pino.gray5
+		borderView.backgroundColor = .Pino.gray5
 
-        buttonsStackView.axis = .vertical
-        buttonsStackView.spacing = 24
-    }
+		buttonsStackView.axis = .vertical
+		buttonsStackView.spacing = 24
+	}
 
-    private func setupConstraints() {
-        headerTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 28).isActive = true
+	private func setupConstraints() {
+		headerTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 28).isActive = true
 
-        mainStackView.pin(
-            .top(to: layoutMarginsGuide, padding: 24),
-            .horizontalEdges(to: layoutMarginsGuide, padding: 0)
-        )
-        headerStackView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 16))
-        headerTitleImage.pin(.fixedWidth(50), .fixedHeight(50))
-        borderView.pin(.fixedHeight(1))
-        contentStackView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 18))
-        buttonsStackView.pin(
-            .horizontalEdges(to: layoutMarginsGuide, padding: 0),
-            .bottom(to: layoutMarginsGuide, padding: 20)
-        )
-    }
+		mainStackView.pin(
+			.top(to: layoutMarginsGuide, padding: 24),
+			.horizontalEdges(to: layoutMarginsGuide, padding: 0)
+		)
+		headerStackView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 16))
+		headerTitleImage.pin(.fixedWidth(50), .fixedHeight(50))
+		borderView.pin(.fixedHeight(1))
+		contentStackView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 18))
+		buttonsStackView.pin(
+			.horizontalEdges(to: layoutMarginsGuide, padding: 0),
+			.bottom(to: layoutMarginsGuide, padding: 20)
+		)
+	}
 }

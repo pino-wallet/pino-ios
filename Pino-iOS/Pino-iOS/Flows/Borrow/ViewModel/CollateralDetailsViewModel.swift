@@ -19,8 +19,8 @@ class CollateralDetailsViewModel {
 	public let withdrawTitle = "Withdraw"
 
 	#warning("this values are mock")
-    public let tokenCollateralAmountAndSymbol = "400 LINK"
-    public let totalTokenAmountInDollar = "$530"
+	public let tokenCollateralAmountAndSymbol = "400 LINK"
+	public let totalTokenAmountInDollar = "$530"
 	public let tokenIcon = "USDC"
 	public let involvedAmountInToken = "15 LINK"
 	public let freeAmountInToken = "340 LINK"
