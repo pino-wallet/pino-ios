@@ -103,4 +103,12 @@ class InvestConfirmationViewModel {
 			self.formattedFeeInDollar = feeInDollar.priceFormat
 		}.store(in: &cancellables)
 	}
+
+	// MARK: - Public Methods
+
+	public func getFee() -> Promise<String> {
+		Promise<String> { seal in
+			#warning("Implement later")
+		}
+	}
 }

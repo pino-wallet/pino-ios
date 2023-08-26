@@ -22,7 +22,7 @@ class InvestConfirmationView: UIView {
 	private let investInfoStackView = UIStackView()
 	private let selectedProtocolStackView = UIStackView()
 	private let feeStackView = UIStackView()
-	private let selectedProtocolTitleLabel = UILabel()
+	private var selectedProtocolTitleView: TitleWithInfo!
 	private var feeTitleView: TitleWithInfo!
 	private let protocolInfoStackView = UIStackView()
 	private let protocolImageView = UIImageView()
@@ -74,6 +74,11 @@ class InvestConfirmationView: UIView {
 			actionSheetDescription: investConfirmationVM.feeInfoActionSheetDescription
 		)
 
+		selectedProtocolTitleView = TitleWithInfo(
+			actionSheetTitle: investConfirmationVM.protocolInfoActionSheetTitle,
+			actionSheetDescription: investConfirmationVM.protocolInfoActionSheetDescription
+		)
+
 		addSubview(contentStackview)
 		addSubview(continueButton)
 		contentStackview.addArrangedSubview(tokenCardView)
@@ -86,7 +91,7 @@ class InvestConfirmationView: UIView {
 		investInfoCardView.addSubview(investInfoStackView)
 		investInfoStackView.addArrangedSubview(selectedProtocolStackView)
 		investInfoStackView.addArrangedSubview(feeStackView)
-		selectedProtocolStackView.addArrangedSubview(selectedProtocolTitleLabel)
+		selectedProtocolStackView.addArrangedSubview(selectedProtocolTitleView)
 		selectedProtocolStackView.addArrangedSubview(selectedProtocolSpacerView)
 		selectedProtocolStackView.addArrangedSubview(protocolInfoStackView)
 		protocolInfoStackView.addArrangedSubview(protocolImageView)
@@ -112,6 +117,10 @@ class InvestConfirmationView: UIView {
 			self.infoActionSheetDidTap(feeInfoActionSheet)
 		}
 
+		selectedProtocolTitleView.presentActionSheet = { feeInfoActionSheet in
+			self.infoActionSheetDidTap(feeInfoActionSheet)
+		}
+
 		let feeRetryTapGesture = UITapGestureRecognizer(target: self, action: #selector(getFee))
 		feeErrorStackView.addGestureRecognizer(feeRetryTapGesture)
 	}
@@ -119,7 +128,7 @@ class InvestConfirmationView: UIView {
 	private func setupStyle() {
 		investAmountLabel.text = investConfirmationVM.formattedInvestAmount
 		investAmountInDollarLabel.text = investConfirmationVM.formattedInvestAmountInDollar
-		selectedProtocolTitleLabel.text = investConfirmationVM.selectedProtocolTitle
+		selectedProtocolTitleView.title = investConfirmationVM.selectedProtocolTitle
 		protoclNameLabel.text = investConfirmationVM.selectedProtocolName
 		feeTitleView.title = investConfirmationVM.feeTitle
 		continueButton.title = investConfirmationVM.confirmButtonTitle
@@ -139,14 +148,12 @@ class InvestConfirmationView: UIView {
 
 		investAmountLabel.font = .PinoStyle.semiboldTitle2
 		investAmountInDollarLabel.font = .PinoStyle.mediumBody
-		selectedProtocolTitleLabel.font = .PinoStyle.mediumBody
 		protoclNameLabel.font = .PinoStyle.mediumBody
 		feeLabel.font = .PinoStyle.mediumBody
 		feeErrorLabel.font = .PinoStyle.mediumBody
 
 		investAmountLabel.textColor = .Pino.label
 		investAmountInDollarLabel.textColor = .Pino.secondaryLabel
-		selectedProtocolTitleLabel.textColor = .Pino.secondaryLabel
 		protoclNameLabel.textColor = .Pino.label
 		feeLabel.textColor = .Pino.label
 		feeErrorLabel.textColor = .Pino.red

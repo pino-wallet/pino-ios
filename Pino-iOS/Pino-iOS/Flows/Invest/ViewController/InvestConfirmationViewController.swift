@@ -7,15 +7,16 @@
 
 import UIKit
 
-class InvestConfirmationViewController: UIViewController {
+class InvestConfirmationViewController: AuthenticationLockViewController {
 	// MARK: - Private Properties
 
-	private let confirmationVM: InvestConfirmationViewModel
+	private let investConfirmationVM: InvestConfirmationViewModel
+	private var investConfirmationView: InvestConfirmationView!
 
 	// MARK: - Initializers
 
 	init(confirmationVM: InvestConfirmationViewModel) {
-		self.confirmationVM = confirmationVM
+		self.investConfirmationVM = confirmationVM
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -41,18 +42,50 @@ class InvestConfirmationViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = InvestConfirmationView(
-			investConfirmationVM: confirmationVM,
-			confirmButtonDidTap: {},
-			infoActionSheetDidTap: { infoActionSheet in
-
+		investConfirmationView = InvestConfirmationView(
+			investConfirmationVM: investConfirmationVM,
+			confirmButtonDidTap: {
+				self.confirmInvestment()
 			},
-			feeCalculationRetry: {}
+			infoActionSheetDidTap: { infoActionSheet in
+				self.showInfoActionSheet(infoActionSheet)
+			},
+			feeCalculationRetry: {
+				self.getFee()
+			}
 		)
+
+		view = investConfirmationView
 	}
 
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
 		setNavigationTitle("Confirm investment")
+	}
+
+	private func showInfoActionSheet(_ feeInfoActionSheet: InfoActionSheet) {
+		present(feeInfoActionSheet, animated: true)
+	}
+
+	private func confirmInvestment() {
+		unlockApp {}
+	}
+
+	private func getFee() {
+		investConfirmationView.hideFeeCalculationError()
+		investConfirmationView.showSkeletonView()
+		investConfirmationVM.getFee().catch { error in
+			self.showFeeError(error)
+		}
+	}
+
+	private func showFeeError(_ error: Error) {
+		investConfirmationView.showfeeCalculationError()
+		Toast.default(
+			title: "\(error.localizedDescription)",
+			subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+			style: .error
+		)
+		.show(haptic: .warning)
 	}
 }
