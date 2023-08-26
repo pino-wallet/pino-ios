@@ -214,7 +214,7 @@ class InvestmentRiskPerformanceView: UIView {
 
 	private func setupRiskInfoView() {
 		for riskInfo in investmentRiskVM.risksInfo {
-			let riskInfoView = riskInfoItemView()
+			let riskInfoView = RiskInfoItemView()
 			riskInfoView.riskInfo = riskInfo.titel
 			riskInfoView.riskColor = riskInfo.color
 			risksInfoStackView.addArrangedSubview(riskInfoView)
