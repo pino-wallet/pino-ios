@@ -7,7 +7,7 @@
 
 import Foundation
 
-class BorrowingBoardViewModel {
+struct BorrowingBoardViewModel {
 	// MARK: - Public Properties
 
 	public let loansTitleText = "loans"
