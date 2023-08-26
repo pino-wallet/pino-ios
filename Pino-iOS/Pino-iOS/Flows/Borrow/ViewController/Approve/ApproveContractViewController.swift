@@ -11,7 +11,7 @@ import UIKit
 class ApproveContractViewController: UIViewController {
     // MARK: - Private Properties
     
-    private let approveContractVM = ApproveContractViewModel()
+    private let approveContractVM: ApproveContractViewModel!
     private var approveContractView: ApproveContractView!
     private var swapConfirmationVM: SwapConfirmationViewModel!
     
@@ -20,6 +20,7 @@ class ApproveContractViewController: UIViewController {
 
     init(swapConfirmationVM: SwapConfirmationViewModel) {
         self.swapConfirmationVM = swapConfirmationVM
+        self.approveContractVM = ApproveContractViewModel(swapConfirmVM: swapConfirmationVM)
         super.init(nibName: nil, bundle: nil)
     }
     

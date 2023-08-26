@@ -198,7 +198,7 @@ class SwapViewController: UIViewController {
         firstly {
             try web3.getAllowanceOf(
                 contractAddress: swapVM.toToken.selectedToken.id.lowercased(),
-                spenderAddress: Web3Core.Constants.pinoProxyAddress,
+                spenderAddress: Web3Core.Constants.permitAddress,
                 ownerAddress: walletManager.currentAccount.eip55Address
             )
         }.done { [self] allowanceAmount in

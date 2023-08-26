@@ -59,6 +59,9 @@ class ApproveContractView: UIView {
     
     @objc
     private func approveBtnTapped() {
-        approveBtnTappedHandler()
+        approveContractVM.approveTokenUsageToPermit {
+            // Approve req sent to network successfully 
+            self.approveBtnTappedHandler()
+        }
     }
 }

@@ -16,7 +16,7 @@ public struct GasInfo {
 	public let gasLimit: BigUInt
 
 	public var increasedGasLimit: BigUInt {
-		try! EthereumQuantity((gasLimit * BigUInt(110)) / BigUInt(100)).quantity
+		try! EthereumQuantity((gasLimit * BigUInt(120)) / BigUInt(100)).quantity
 	}
 
 	public var fee: BigUInt {

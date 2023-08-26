@@ -58,28 +58,24 @@ public struct W3TransferManager {
 		amount: BigUInt,
 		spender: String
 	) -> Promise<EthereumSignedTransaction> {
-		Promise<EthereumSignedTransaction> { seal in
+        let myPrivateKey = try! EthereumPrivateKey(
+            hexPrivateKey: walletManager.currentAccountPrivateKey
+                .string
+        )
+		return Promise<EthereumSignedTransaction> { seal in
 			gasInfoManager.calculateApproveFee(spender: spender, amount: amount, tokenContractAddress: address)
 				.then { [self] gasInfo in
-					let privateKey = try EthereumPrivateKey(
-						hexPrivateKey: walletManager.currentAccountPrivateKey
-							.string
-					)
-					return web3.eth.getTransactionCount(address: privateKey.address, block: .latest)
+					return web3.eth.getTransactionCount(address: myPrivateKey.address, block: .latest)
 						.map { ($0, gasInfo) }
 				}
 				.done { [self] nonce, gasInfo in
-					let myPrivateKey = try EthereumPrivateKey(
-						hexPrivateKey: walletManager.currentAccountPrivateKey
-							.string
-					)
-					let contract = try Web3Core.getContractOfToken(address: address, web3: web3)
-					let solInvocation = contract[ABIMethodWrite.approve.rawValue]?(spender, amount)
+                    let contract = try Web3Core.getContractOfToken(address: address, web3: web3)
+                    let solInvocation = contract[ABIMethodWrite.approve.rawValue]?(spender, amount)
 					let trx = try trxManager.createTransactionFor(
 						contract: solInvocation!,
 						nonce: nonce,
 						gasPrice: gasInfo.gasPrice.etherumQuantity,
-						gasLimit: gasInfo.gasLimit.etherumQuantity
+						gasLimit: gasInfo.increasedGasLimit.etherumQuantity
 					)
 
 					let signedTx = try trx.sign(with: myPrivateKey, chainId: 1)
