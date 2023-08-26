@@ -20,6 +20,7 @@ class InvestDepositViewModel {
 	public var dollarAmount: String = .emptyString
 	public var maxHoldAmount: BigNumber!
 	public var selectedToken: AssetViewModel!
+	public var selectedProtocol: InvestProtocolViewModel
 
 	public var formattedMaxHoldAmount: String {
 		maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
@@ -35,6 +36,7 @@ class InvestDepositViewModel {
 	// MARK: - Initializers
 
 	init(selectedAsset: InvestableAssetViewModel) {
+		self.selectedProtocol = selectedAsset.assetProtocol
 		getToken(investableAsset: selectedAsset)
 	}
 
