@@ -9,6 +9,7 @@ struct BorrowingTokenModel {
 	// MARK: - Public Properties
 
 	public var tokenImage: String
+    #warning("this values should be BigNumber")
 	public var tokenSharedBorrowingPercentage: Double
 	public var prevTokenSharedBorrowingPercentage: Double
 }

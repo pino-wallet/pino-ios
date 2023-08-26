@@ -10,11 +10,11 @@ struct BorrowingTokenCellViewModel {
 
 	public var borrowinTokenModel: BorrowingTokenModel
 
-	public var totalSharedBorrowingDivedPercentage: Double {
+	public var totalSharedBorrowingDividedPercentage: Double {
 		borrowinTokenModel.tokenSharedBorrowingPercentage / 100
 	}
 
-	public var prevTotalSharedBorrowingDivedPercentage: Double {
+	public var prevTotalSharedBorrowingDividedPercentage: Double {
 		borrowinTokenModel.prevTokenSharedBorrowingPercentage / 100
 	}
 

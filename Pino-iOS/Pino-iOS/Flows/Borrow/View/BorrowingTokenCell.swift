@@ -83,13 +83,13 @@ class BorrowingTokenCell: UICollectionViewCell {
 	}
 
 	private func animatePercentageProgressbar() {
-		let newTotalSharedBorrowingDivedPercentage = borrowingTokenVM.totalSharedBorrowingDivedPercentage
+		let newTotalSharedBorrowingDividedPercentage = borrowingTokenVM.totalSharedBorrowingDividedPercentage
 		let progressAnimation = CABasicAnimation(keyPath: "strokeEnd")
-		if !borrowingTokenVM.prevTotalSharedBorrowingDivedPercentage.isZero {
-			progressAnimation.fromValue = borrowingTokenVM.prevTotalSharedBorrowingDivedPercentage
+		if !borrowingTokenVM.prevTotalSharedBorrowingDividedPercentage.isZero {
+			progressAnimation.fromValue = borrowingTokenVM.prevTotalSharedBorrowingDividedPercentage
 		}
-		progressAnimation.duration = 0.5
-		progressAnimation.toValue = newTotalSharedBorrowingDivedPercentage
+        progressAnimation.duration = 0.5
+		progressAnimation.toValue = newTotalSharedBorrowingDividedPercentage
 		progressAnimation.fillMode = .forwards
 		progressAnimation.isRemovedOnCompletion = false
 

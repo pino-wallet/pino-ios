@@ -31,7 +31,7 @@ struct BorrowingPropertiesViewModel {
 			if foundTokenInPrevBorrowingTokens != nil {
 				return BorrowingTokenModel(
 					tokenImage: "USDC",
-					tokenSharedBorrowingPercentage: 31.1,
+                    tokenSharedBorrowingPercentage: 31.1,
 					prevTokenSharedBorrowingPercentage: 73.4
 				)
 			} else {

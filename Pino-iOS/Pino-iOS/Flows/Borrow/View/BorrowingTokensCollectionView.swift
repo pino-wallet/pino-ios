@@ -45,7 +45,6 @@ class BorrowingTokensCollectionView: UICollectionView {
 	// MARK: - Private Methods
 
 	private func configureCollectionView() {
-		borrowingDetailsProperties = borrowingDetailsVM.properties
 
 		register(BorrowingTokenCell.self, forCellWithReuseIdentifier: BorrowingTokenCell.cellReuseId)
 
