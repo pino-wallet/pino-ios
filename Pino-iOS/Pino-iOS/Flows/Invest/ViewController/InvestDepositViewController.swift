@@ -71,5 +71,8 @@ class InvestDepositViewController: UIViewController {
 		dismiss(animated: true)
 	}
 
-	private func openConfirmationPage() {}
+	private func openConfirmationPage() {
+		let investConfirmationVC = InvestConfirmationViewController()
+		navigationController?.pushViewController(investConfirmationVC, animated: true)
+	}
 }
