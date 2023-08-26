@@ -13,6 +13,7 @@ class BorrowView: UIView {
 	public var presentHealthScoreActionsheet: (_ actionSheet: InfoActionSheet) -> Void
 	public var presentSelectDexSystem: () -> Void
 	public var presentBorrowingBoardVC: () -> Void
+    public var presentCollateralizingBoardVC: () -> Void
 
 	// MARK: - Private Properties
 
@@ -38,12 +39,14 @@ class BorrowView: UIView {
 		borrowVM: BorrowViewModel,
 		presentHealthScoreActionsheet: @escaping (_ actionSheet: InfoActionSheet) -> Void,
 		presentSelectDexSystem: @escaping () -> Void,
-		presentBorrowingBoardVC: @escaping () -> Void
+		presentBorrowingBoardVC: @escaping () -> Void,
+        presentCollateralizingBoardVC: @escaping () -> Void
 	) {
 		self.borrowVM = borrowVM
 		self.presentHealthScoreActionsheet = presentHealthScoreActionsheet
 		self.presentSelectDexSystem = presentSelectDexSystem
 		self.presentBorrowingBoardVC = presentBorrowingBoardVC
+        self.presentCollateralizingBoardVC = presentCollateralizingBoardVC
 
 		super.init(frame: .zero)
 
@@ -103,7 +106,9 @@ class BorrowView: UIView {
 			BorrowingDetailsView(borrowingDetailsVM: BorrowingDetailsViewModel(
 				borrowVM: borrowVM,
 				borrowingType: .collateral
-			), onTapped: {})
+			), onTapped: {
+                    self.presentCollateralizingBoardVC()
+            })
 
 		healthScoreTitleStackView.addArrangedSubview(healthScoreStatusDotView)
 		healthScoreTitleStackView.addArrangedSubview(healthScoreTitleAndInfoView)
