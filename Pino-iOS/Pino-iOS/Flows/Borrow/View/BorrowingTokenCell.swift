@@ -88,7 +88,7 @@ class BorrowingTokenCell: UICollectionViewCell {
 		if !borrowingTokenVM.prevTotalSharedBorrowingDividedPercentage.isZero {
 			progressAnimation.fromValue = borrowingTokenVM.prevTotalSharedBorrowingDividedPercentage
 		}
-        progressAnimation.duration = 0.5
+		progressAnimation.duration = 0.5
 		progressAnimation.toValue = newTotalSharedBorrowingDividedPercentage
 		progressAnimation.fillMode = .forwards
 		progressAnimation.isRemovedOnCompletion = false
