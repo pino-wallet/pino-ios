@@ -10,7 +10,18 @@ import UIKit
 class InvestConfirmationViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private var confirmView: InvestConfirmationView!
+	private let confirmationVM: InvestConfirmationViewModel
+
+	// MARK: - Initializers
+
+	init(confirmationVM: InvestConfirmationViewModel) {
+		self.confirmationVM = confirmationVM
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	// MARK: - View Overrides
 
@@ -30,14 +41,14 @@ class InvestConfirmationViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		confirmView = InvestConfirmationView(
+		view = InvestConfirmationView(
+			investConfirmationVM: confirmationVM,
 			confirmButtonDidTap: {},
 			infoActionSheetDidTap: { infoActionSheet in
 
 			},
 			feeCalculationRetry: {}
 		)
-		view = confirmView
 	}
 
 	private func setupNavigationBar() {

@@ -72,7 +72,13 @@ class InvestDepositViewController: UIViewController {
 	}
 
 	private func openConfirmationPage() {
-		let investConfirmationVC = InvestConfirmationViewController()
+		let investConfirmationVM = InvestConfirmationViewModel(
+			selectedToken: investVM.selectedToken,
+			selectedProtocol: investVM.selectedProtocol,
+			investAmount: investVM.tokenAmount,
+			investAmountInDollar: investVM.dollarAmount
+		)
+		let investConfirmationVC = InvestConfirmationViewController(confirmationVM: investConfirmationVM)
 		navigationController?.pushViewController(investConfirmationVC, animated: true)
 	}
 }

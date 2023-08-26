@@ -39,17 +39,19 @@ class InvestConfirmationView: UIView {
 	private let confirmButtonDidTap: () -> Void
 	private let infoActionSheetDidTap: (InfoActionSheet) -> Void
 	private let feeCalculationRetry: () -> Void
-	private var investConfirmationVM: String!
+	private var investConfirmationVM: InvestConfirmationViewModel!
 	private var cancellables = Set<AnyCancellable>()
 	private var showFeeInDollar = true
 
 	// MARK: - Initializers
 
 	init(
+		investConfirmationVM: InvestConfirmationViewModel,
 		confirmButtonDidTap: @escaping () -> Void,
 		infoActionSheetDidTap: @escaping (InfoActionSheet) -> Void,
 		feeCalculationRetry: @escaping () -> Void
 	) {
+		self.investConfirmationVM = investConfirmationVM
 		self.confirmButtonDidTap = confirmButtonDidTap
 		self.infoActionSheetDidTap = infoActionSheetDidTap
 		self.feeCalculationRetry = feeCalculationRetry
@@ -68,8 +70,8 @@ class InvestConfirmationView: UIView {
 
 	private func setupView() {
 		feeTitleView = TitleWithInfo(
-			actionSheetTitle: "investConfirmationVM.feeInfoActionSheetTitle",
-			actionSheetDescription: "investConfirmationVM.feeInfoActionSheetDescription"
+			actionSheetTitle: investConfirmationVM.feeInfoActionSheetTitle,
+			actionSheetDescription: investConfirmationVM.feeInfoActionSheetDescription
 		)
 
 		addSubview(contentStackview)
@@ -115,25 +117,25 @@ class InvestConfirmationView: UIView {
 	}
 
 	private func setupStyle() {
-		investAmountLabel.text = "50000 LINK"
-		investAmountInDollarLabel.text = "$120"
-		selectedProtocolTitleLabel.text = "Protocol"
-		protoclNameLabel.text = "Uniswap"
-		feeTitleView.title = "Fee"
-		continueButton.title = "Confirm"
-		feeErrorLabel.text = "Error"
-		feeErrorIcon.image = UIImage(named: "")
+		investAmountLabel.text = investConfirmationVM.formattedInvestAmount
+		investAmountInDollarLabel.text = investConfirmationVM.formattedInvestAmountInDollar
+		selectedProtocolTitleLabel.text = investConfirmationVM.selectedProtocolTitle
+		protoclNameLabel.text = investConfirmationVM.selectedProtocolName
+		feeTitleView.title = investConfirmationVM.feeTitle
+		continueButton.title = investConfirmationVM.confirmButtonTitle
+		feeErrorLabel.text = investConfirmationVM.feeErrorText
+		feeErrorIcon.image = UIImage(named: investConfirmationVM.feeErrorIcon)
 
-		protocolImageView.image = UIImage(named: "Uniswap")
+		protocolImageView.image = UIImage(named: investConfirmationVM.selectedProtocolImage)
 
-		//        if investConfirmationVM.isTokenVerified {
-		//            tokenImageView.kf.indicatorType = .activity
-		//            tokenImageView.kf.setImage(with: URL(string: "https://demo-cdn.pino.xyz/tokens/chainlink.png"))
-		//            investAmountInDollarLabel.isHidden = false
-		//        } else {
-		//            tokenImageView.image = UIImage(named: "")
-		//            investAmountInDollarLabel.isHidden = true
-		//        }
+		if investConfirmationVM.isTokenVerified {
+			tokenImageView.kf.indicatorType = .activity
+			tokenImageView.kf.setImage(with: investConfirmationVM.tokenImage)
+			investAmountInDollarLabel.isHidden = false
+		} else {
+			tokenImageView.image = UIImage(named: investConfirmationVM.customAssetImage)
+			investAmountInDollarLabel.isHidden = true
+		}
 
 		investAmountLabel.font = .PinoStyle.semiboldTitle2
 		investAmountInDollarLabel.font = .PinoStyle.mediumBody
@@ -223,30 +225,30 @@ class InvestConfirmationView: UIView {
 	}
 
 	private func setupBindings() {
-		//        Publishers.Zip(investConfirmationVM.$formattedFeeInDollar, investConfirmationVM.$formattedFeeInETH)
-		//            .sink { [weak self] formattedFeeDollar, formattedFeeETH in
-		//                self?.hideSkeletonView()
-		//                self?.updateFeeLabel()
-		//                self?.checkBalanceEnough()
-		//            }.store(in: &cancellables)
+		Publishers.Zip(investConfirmationVM.$formattedFeeInDollar, investConfirmationVM.$formattedFeeInETH)
+			.sink { [weak self] formattedFeeDollar, formattedFeeETH in
+				self?.hideSkeletonView()
+				self?.updateFeeLabel()
+				self?.checkBalanceEnough()
+			}.store(in: &cancellables)
 	}
 
 	private func checkBalanceEnough() {
-		//        if investConfirmationVM.checkEnoughBalance() {
-		//            continueButton.style = .active
-		//            continueButton.setTitle(investConfirmationVM.confirmBtnText, for: .normal)
-		//        } else {
-		//            continueButton.style = .deactive
-		//            continueButton.setTitle(investConfirmationVM.insuffientText, for: .normal)
-		//        }
+		if investConfirmationVM.userBalanceIsEnough {
+			continueButton.style = .active
+			continueButton.setTitle(investConfirmationVM.confirmButtonTitle, for: .normal)
+		} else {
+			continueButton.style = .deactive
+			continueButton.setTitle(investConfirmationVM.insuffientButtonTitle, for: .normal)
+		}
 	}
 
 	private func updateFeeLabel() {
-		//        if showFeeInDollar {
-		//            feeLabel.text = investConfirmationVM.formattedFeeInDollar
-		//        } else {
-		//            feeLabel.text = investConfirmationVM.formattedFeeInETH
-		//        }
+		if showFeeInDollar {
+			feeLabel.text = investConfirmationVM.formattedFeeInDollar
+		} else {
+			feeLabel.text = investConfirmationVM.formattedFeeInETH
+		}
 	}
 
 	@objc

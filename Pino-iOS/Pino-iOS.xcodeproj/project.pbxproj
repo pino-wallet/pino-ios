@@ -519,6 +519,7 @@
 		E39F594A2A99DF9B00023292 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39F59492A99DF9B00023292 /* UITextField+Extension.swift */; };
 		E39F594C2A99E90B00023292 /* InvestConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39F594B2A99E90B00023292 /* InvestConfirmationViewController.swift */; };
 		E39F594E2A99E92B00023292 /* InvestConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39F594D2A99E92B00023292 /* InvestConfirmationView.swift */; };
+		E39F59502A99F20B00023292 /* InvestConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39F594F2A99F20B00023292 /* InvestConfirmationViewModel.swift */; };
 		E3C802792A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C802782A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift */; };
 		E3C8027B2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C8027A2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift */; };
 		E3C8027D2A95427800A13792 /* InvestmentRiskItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C8027C2A95427800A13792 /* InvestmentRiskItemView.swift */; };
@@ -1116,6 +1117,7 @@
 		E39F59492A99DF9B00023292 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		E39F594B2A99E90B00023292 /* InvestConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestConfirmationViewController.swift; sourceTree = "<group>"; };
 		E39F594D2A99E92B00023292 /* InvestConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestConfirmationView.swift; sourceTree = "<group>"; };
+		E39F594F2A99F20B00023292 /* InvestConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestConfirmationViewModel.swift; sourceTree = "<group>"; };
 		E3C802782A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskPerformanceViewController.swift; sourceTree = "<group>"; };
 		E3C8027A2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskPerformanceView.swift; sourceTree = "<group>"; };
 		E3C8027C2A95427800A13792 /* InvestmentRiskItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskItemView.swift; sourceTree = "<group>"; };
@@ -3238,6 +3240,7 @@
 				E3FC69B62A8A3605009B3341 /* InvestProtocolViewModel.swift */,
 				D5E4DDC82A95D9F9000AA235 /* InvestmentRiskPerformanceViewModel.swift */,
 				D5E4DDCE2A960367000AA235 /* InvestDepositViewModel.swift */,
+				E39F594F2A99F20B00023292 /* InvestConfirmationViewModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -3749,6 +3752,7 @@
 				D9A3281C2A34C444005A8393 /* SelectAssetVMProtocol.swift in Sources */,
 				E35BB6572A62E650003987F5 /* SwapConfirmationTokenView.swift in Sources */,
 				E3847B382A52CBE6005ED78B /* AmountStatus.swift in Sources */,
+				E39F59502A99F20B00023292 /* InvestConfirmationViewModel.swift in Sources */,
 				1AD184E82488453998E5A2E5 /* CoinPerformanceInfoModel.swift in Sources */,
 				8A10D639170969ECFADE0FE4 /* CoinPerformanceInfoViewModel.swift in Sources */,
 				D91A3A0129E4109500004CB2 /* NotificationOptionModel.swift in Sources */,
