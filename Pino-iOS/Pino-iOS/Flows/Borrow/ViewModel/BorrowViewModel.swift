@@ -5,6 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 8/19/23.
 //
 import Combine
+import UIKit
 
 class BorrowViewModel {
 	// MARK: - Public Properties
@@ -23,6 +24,8 @@ class BorrowViewModel {
 	public let healthScoreTitle = "Health Score"
 	#warning("this tooltip is for testing and should be replaced")
 	public let healthScoreTooltip = "this is health score"
+	public let borrowProgressBarColor = UIColor.Pino.primary
+	public let collateralProgressBarColor = UIColor.Pino.succesGreen2
 
 	// MARK: - Private Properties
 
