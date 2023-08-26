@@ -294,6 +294,16 @@
 		D924C34A2A949712007299A4 /* user-borrowing-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = D924C3492A9496F6007299A4 /* user-borrowing-stub.json */; };
 		D924C34B2A949712007299A4 /* user-borrowing-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = D924C3492A9496F6007299A4 /* user-borrowing-stub.json */; };
 		D92B913C2A30756C0055B277 /* PinoContainerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92B913B2A30756C0055B277 /* PinoContainerCard.swift */; };
+		D933C3232A99F07600C2BD5A /* CollateralizingBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C3222A99F07600C2BD5A /* CollateralizingBoardViewController.swift */; };
+		D933C3272A99F15A00C2BD5A /* UserCollateralizingAssetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C3262A99F15A00C2BD5A /* UserCollateralizingAssetModel.swift */; };
+		D933C3292A99F18800C2BD5A /* CollateralizableAssetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C3282A99F18800C2BD5A /* CollateralizableAssetModel.swift */; };
+		D933C32D2A99F53300C2BD5A /* UserCollateralizingAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C32C2A99F53300C2BD5A /* UserCollateralizingAssetViewModel.swift */; };
+		D933C32F2A99F54A00C2BD5A /* CollateralizableAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C32E2A99F54A00C2BD5A /* CollateralizableAssetViewModel.swift */; };
+		D933C3312A99F57800C2BD5A /* CollateralizingBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C3302A99F57800C2BD5A /* CollateralizingBoardViewModel.swift */; };
+		D933C3332A99F5ED00C2BD5A /* CollateralizingBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C3322A99F5ED00C2BD5A /* CollateralizingBoardView.swift */; };
+		D933C3352A99F60C00C2BD5A /* CollateralizingBoardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C3342A99F60C00C2BD5A /* CollateralizingBoardDataSource.swift */; };
+		D933C3372A99F66100C2BD5A /* UserCollateralizingAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C3362A99F66100C2BD5A /* UserCollateralizingAssetCell.swift */; };
+		D933C3392A99F6A600C2BD5A /* CollateralizableAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C3382A99F6A600C2BD5A /* CollateralizableAssetCell.swift */; };
 		D93572A82A99E85300A0DE20 /* BorrowingTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93572A72A99E85300A0DE20 /* BorrowingTokenModel.swift */; };
 		D93C41F729F7C1F9003F2297 /* EditAccountCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41F629F7C1F9003F2297 /* EditAccountCollectionView.swift */; };
 		D93C41F929F7C5C6003F2297 /* EditAccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41F829F7C5C6003F2297 /* EditAccountHeaderView.swift */; };
@@ -934,6 +944,16 @@
 		D924C3472A94969F007299A4 /* BorrowAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowAPIService.swift; sourceTree = "<group>"; };
 		D924C3492A9496F6007299A4 /* user-borrowing-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "user-borrowing-stub.json"; sourceTree = "<group>"; };
 		D92B913B2A30756C0055B277 /* PinoContainerCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoContainerCard.swift; sourceTree = "<group>"; };
+		D933C3222A99F07600C2BD5A /* CollateralizingBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralizingBoardViewController.swift; sourceTree = "<group>"; };
+		D933C3262A99F15A00C2BD5A /* UserCollateralizingAssetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollateralizingAssetModel.swift; sourceTree = "<group>"; };
+		D933C3282A99F18800C2BD5A /* CollateralizableAssetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralizableAssetModel.swift; sourceTree = "<group>"; };
+		D933C32C2A99F53300C2BD5A /* UserCollateralizingAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollateralizingAssetViewModel.swift; sourceTree = "<group>"; };
+		D933C32E2A99F54A00C2BD5A /* CollateralizableAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralizableAssetViewModel.swift; sourceTree = "<group>"; };
+		D933C3302A99F57800C2BD5A /* CollateralizingBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralizingBoardViewModel.swift; sourceTree = "<group>"; };
+		D933C3322A99F5ED00C2BD5A /* CollateralizingBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralizingBoardView.swift; sourceTree = "<group>"; };
+		D933C3342A99F60C00C2BD5A /* CollateralizingBoardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralizingBoardDataSource.swift; sourceTree = "<group>"; };
+		D933C3362A99F66100C2BD5A /* UserCollateralizingAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollateralizingAssetCell.swift; sourceTree = "<group>"; };
+		D933C3382A99F6A600C2BD5A /* CollateralizableAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralizableAssetCell.swift; sourceTree = "<group>"; };
 		D93572A72A99E85300A0DE20 /* BorrowingTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingTokenModel.swift; sourceTree = "<group>"; };
 		D93C41F629F7C1F9003F2297 /* EditAccountCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountCollectionView.swift; sourceTree = "<group>"; };
 		D93C41F829F7C5C6003F2297 /* EditAccountHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountHeaderView.swift; sourceTree = "<group>"; };
@@ -1653,6 +1673,7 @@
 		4037DCC82A8BD57B00FCA96B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D933C32B2A99F36600C2BD5A /* CollateralizingBoard */,
 				D9A0BDA62A974A4A00AE132F /* BorrowingBoard */,
 				4037DCCB2A8BD65600FCA96B /* ApproveContractView.swift */,
 				D99019792A93514D008CF9EC /* LoanDetailsView.swift */,
@@ -1674,6 +1695,7 @@
 				D990197D2A935383008CF9EC /* LoanDetailsViewController.swift */,
 				D96FD3B02A9734870008977A /* BorrowSelectDexViewController.swift */,
 				D9A0BDA92A974B9800AE132F /* BorrowingBoardViewController.swift */,
+				D933C3222A99F07600C2BD5A /* CollateralizingBoardViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1681,6 +1703,7 @@
 		4037DCCA2A8BD58A00FCA96B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				D933C32A2A99F35C00C2BD5A /* CollateralizingBoard */,
 				D9A0BDAD2A97529F00AE132F /* BorrowingBoard */,
 				4037DCCD2A8BD93200FCA96B /* ApproveContractViewModel.swift */,
 				D99019752A9350DD008CF9EC /* LoanDetailsViewModel.swift */,
@@ -2502,6 +2525,45 @@
 			path = PinoContainerCard;
 			sourceTree = "<group>";
 		};
+		D933C3242A99F09900C2BD5A /* BorrowingAssets */ = {
+			isa = PBXGroup;
+			children = (
+				D9A0BDB52A9754E500AE132F /* BorrowableAssetModel.swift */,
+				D9A0BDB32A9754D900AE132F /* UserBorrowingAssetModel.swift */,
+			);
+			path = BorrowingAssets;
+			sourceTree = "<group>";
+		};
+		D933C3252A99F0B100C2BD5A /* CollateralizingAssets */ = {
+			isa = PBXGroup;
+			children = (
+				D933C3262A99F15A00C2BD5A /* UserCollateralizingAssetModel.swift */,
+				D933C3282A99F18800C2BD5A /* CollateralizableAssetModel.swift */,
+			);
+			path = CollateralizingAssets;
+			sourceTree = "<group>";
+		};
+		D933C32A2A99F35C00C2BD5A /* CollateralizingBoard */ = {
+			isa = PBXGroup;
+			children = (
+				D933C32C2A99F53300C2BD5A /* UserCollateralizingAssetViewModel.swift */,
+				D933C32E2A99F54A00C2BD5A /* CollateralizableAssetViewModel.swift */,
+				D933C3302A99F57800C2BD5A /* CollateralizingBoardViewModel.swift */,
+			);
+			path = CollateralizingBoard;
+			sourceTree = "<group>";
+		};
+		D933C32B2A99F36600C2BD5A /* CollateralizingBoard */ = {
+			isa = PBXGroup;
+			children = (
+				D933C3322A99F5ED00C2BD5A /* CollateralizingBoardView.swift */,
+				D933C3342A99F60C00C2BD5A /* CollateralizingBoardDataSource.swift */,
+				D933C3362A99F66100C2BD5A /* UserCollateralizingAssetCell.swift */,
+				D933C3382A99F6A600C2BD5A /* CollateralizableAssetCell.swift */,
+			);
+			path = CollateralizingBoard;
+			sourceTree = "<group>";
+		};
 		D95D49802A386BB00042FC85 /* TitleWithInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -2620,8 +2682,8 @@
 		D9A0BDB22A9753CA00AE132F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D9A0BDB32A9754D900AE132F /* UserBorrowingAssetModel.swift */,
-				D9A0BDB52A9754E500AE132F /* BorrowableAssetModel.swift */,
+				D933C3252A99F0B100C2BD5A /* CollateralizingAssets */,
+				D933C3242A99F09900C2BD5A /* BorrowingAssets */,
 				D93572A72A99E85300A0DE20 /* BorrowingTokenModel.swift */,
 			);
 			path = Model;
@@ -3804,6 +3866,7 @@
 				8ECABB94DCBB30B784D22CFF /* BorrowViewController.swift in Sources */,
 				404324092A5FF12C006B1468 /* NumberFormatting.swift in Sources */,
 				E385F6182A220D8200EE7EE1 /* CTSAPIClient.swift in Sources */,
+				D933C3392A99F6A600C2BD5A /* CollateralizableAssetCell.swift in Sources */,
 				535DAC5A885056552EC3C09F /* Button+Extension.swift in Sources */,
 				D2D65A4730F14DFCD4BE1B32 /* ChangeAvatarViewController.swift in Sources */,
 				DFFDEDB62A7795F200D710D7 /* SwapPriceResponseProtocol.swift in Sources */,
@@ -3822,6 +3885,7 @@
 				3C9F0B46C521474D32854C66 /* ActivityCell.swift in Sources */,
 				D9A0BDB62A9754E500AE132F /* BorrowableAssetModel.swift in Sources */,
 				D9BE05172A8221C8008670F9 /* CDTransferActivityDetails+CoreDataProperties.swift in Sources */,
+				D933C3232A99F07600C2BD5A /* CollateralizingBoardViewController.swift in Sources */,
 				4037DCCC2A8BD65600FCA96B /* ApproveContractView.swift in Sources */,
 				D97CF62C25B975AD3C131881 /* CoinHistoryModel.swift in Sources */,
 				4BCC037123752C19CB2B98D3 /* ActivityCellViewModel.swift in Sources */,
@@ -3831,6 +3895,7 @@
 				D5E4DDCB2A95FD78000AA235 /* InvestDepositViewController.swift in Sources */,
 				D93C41FB29F7CC67003F2297 /* EditAccountCell.swift in Sources */,
 				130F1B30243DA82379EB2BD4 /* CoinInfoChartViewModel.swift in Sources */,
+				D933C3372A99F66100C2BD5A /* UserCollateralizingAssetCell.swift in Sources */,
 				A1CB57E01D2C66A314CD3BE4 /* ActivitiesCollectionView.swift in Sources */,
 				C6F911527FDF8516478B4961 /* CoinInfoHeaderView.swift in Sources */,
 				0682CFAA6E20C8AEA43A55AC /* CoinInfoViewController.swift in Sources */,
@@ -3886,6 +3951,8 @@
 				F606F78789DCF2CDED5E8BB0 /* CustomNavigationController.swift in Sources */,
 				F1655D3CC058F9A6ED4E8521 /* CustomSwitchOptionVM.swift in Sources */,
 				2919216FFA72DA25EADE5CF3 /* CustomSwitchOptionView.swift in Sources */,
+				D933C3332A99F5ED00C2BD5A /* CollateralizingBoardView.swift in Sources */,
+				D933C32D2A99F53300C2BD5A /* UserCollateralizingAssetViewModel.swift in Sources */,
 				D9AF29E22A500B03006BC53E /* ResultActivityModel.swift in Sources */,
 				E3FC69DB2A91032D009B3341 /* AssetsBoardCollectionView.swift in Sources */,
 				E35BB65B2A652B13003987F5 /* DeviceHelper.swift in Sources */,
@@ -3978,6 +4045,7 @@
 				066B803BA2A7039F8168FAB2 /* SecurityOptionsSection.swift in Sources */,
 				D9A3281E2A34C545005A8393 /* SelectAssetCellVMProtocol.swift in Sources */,
 				EFCE871CCDF8A29DA4F8950F /* ManageAssetCell.swift in Sources */,
+				D933C3352A99F60C00C2BD5A /* CollateralizingBoardDataSource.swift in Sources */,
 				5CDFF4C90BE60A5FF26C2596 /* ManageAssetsCollectionView.swift in Sources */,
 				D9A0BDB12A97533500AE132F /* BorrowableAssetViewModel.swift in Sources */,
 				6D6ECC6BF79139F030C8039A /* ManageAssetsFooterView.swift in Sources */,
@@ -4103,6 +4171,7 @@
 				36705A78402D3518B33881DD /* SecretPhraseTextView.swift in Sources */,
 				D9AEA0A029F9818300DD61A8 /* EditAccountOptionViewModel.swift in Sources */,
 				DFC1F6A12A755620003DB68A /* SwapProvidersAPIServices.swift in Sources */,
+				D933C32F2A99F54A00C2BD5A /* CollateralizableAssetViewModel.swift in Sources */,
 				DFC1F6A72A755F55003DB68A /* ParaSwapPriceResponseModel.swift in Sources */,
 				D9AF29E52A5010C4006BC53E /* ActivityCellViewModelProtocol.swift in Sources */,
 				B890491BC2BBD99CF83AFE9A /* SecurityViewController.swift in Sources */,
@@ -4110,6 +4179,7 @@
 				D9D9A40C2A5ED76400CECA41 /* ActivityInfoStackView.swift in Sources */,
 				D93C41F929F7C5C6003F2297 /* EditAccountHeaderView.swift in Sources */,
 				D98207C62A5D5D4D0066A090 /* ActivityDetailsViewModel.swift in Sources */,
+				D933C3312A99F57800C2BD5A /* CollateralizingBoardViewModel.swift in Sources */,
 				E3C8027D2A95427800A13792 /* InvestmentRiskItemView.swift in Sources */,
 				E3FC69DF2A9207E8009B3341 /* InvestmentBoardFilterViewController.swift in Sources */,
 				13F430044A23AF2BA55BBDFB /* SecurityModeProtocol.swift in Sources */,
@@ -4142,6 +4212,7 @@
 				D98207C82A5D5D630066A090 /* ActivityDetailsViewController.swift in Sources */,
 				3836332BCEDEABE67456B3D1 /* StatusCode+Helper.swift in Sources */,
 				F29B5E085D9D0D99354034C9 /* StringProtocol+Extension.swift in Sources */,
+				D933C3272A99F15A00C2BD5A /* UserCollateralizingAssetModel.swift in Sources */,
 				E384CB1829FFADA0009C74F5 /* ShareOfAssetProtocol.swift in Sources */,
 				138F82B48C2B07891AF13F38 /* StubManager.swift in Sources */,
 				DF14FCA92A93B396005221A8 /* OneInchSwapResponseModel.swift in Sources */,
@@ -4173,6 +4244,7 @@
 				F8BA0B9925700FFF405AB76D /* VerifyPassViewModel.swift in Sources */,
 				1171EA77FBBB99743B192CFF /* VerifyPasscodeViewController.swift in Sources */,
 				40F704572A03AFFF004D74FE /* AccountActivationModel.swift in Sources */,
+				D933C3292A99F18800C2BD5A /* CollateralizableAssetModel.swift in Sources */,
 				E34728F129EEA81000AB8265 /* AssetChartDataViewModel.swift in Sources */,
 				E3FC69B52A8A31F6009B3341 /* InvestProtocolModel.swift in Sources */,
 				E3FC69D02A90B052009B3341 /* InvestableAssetViewModel.swift in Sources */,
