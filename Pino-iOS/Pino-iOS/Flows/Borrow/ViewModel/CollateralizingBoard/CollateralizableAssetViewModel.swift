@@ -8,27 +8,27 @@
 import Foundation
 
 struct CollateralizableAssetViewModel: AssetsBoardProtocol {
-    // MARK: - Private Properties
+	// MARK: - Private Properties
 
-    private var collateralizableAssetModel: CollateralizableAssetModel
+	private var collateralizableAssetModel: CollateralizableAssetModel
 
-    // MARK: - Public Properties
+	// MARK: - Public Properties
 
-    public var assetName: String {
-        collateralizableAssetModel.tokenSymbol
-    }
+	public var assetName: String {
+		collateralizableAssetModel.tokenSymbol
+	}
 
-    public var assetImage: URL {
-        URL(string: collateralizableAssetModel.tokenImage)!
-    }
+	public var assetImage: URL {
+		URL(string: collateralizableAssetModel.tokenImage)!
+	}
 
-    public var usrAmountInToken: String {
-        return "\(collateralizableAssetModel.userAmountInToken) \(collateralizableAssetModel.tokenSymbol)"
-    }
+	public var usrAmountInToken: String {
+		"\(collateralizableAssetModel.userAmountInToken) \(collateralizableAssetModel.tokenSymbol)"
+	}
 
-    // MARK: - Initializers
+	// MARK: - Initializers
 
-    init(collateralizableAssetModel: CollateralizableAssetModel) {
-        self.collateralizableAssetModel = collateralizableAssetModel
-    }
+	init(collateralizableAssetModel: CollateralizableAssetModel) {
+		self.collateralizableAssetModel = collateralizableAssetModel
+	}
 }

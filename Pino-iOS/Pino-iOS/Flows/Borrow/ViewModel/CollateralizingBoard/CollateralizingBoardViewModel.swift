@@ -8,20 +8,23 @@
 import Foundation
 
 class CollateralizingBoardViewModel {
-    // MARK: - Public Properties
+	// MARK: - Public Properties
 
-    public let collateralsTitleText = "collaterals"
-    public var userCollateralizingTokens: [UserCollateralizingAssetViewModel]
-    public var collateralizableTokens: [CollateralizableAssetViewModel]
+	public let collateralsTitleText = "collaterals"
+	public var userCollateralizingTokens: [UserCollateralizingAssetViewModel]
+	public var collateralizableTokens: [CollateralizableAssetViewModel]
 
-    // MARK: - Initializers
+	// MARK: - Initializers
 
-    init(userCollateralizingTokens: [UserCollateralizingAssetModel], collateralizableTokens: [CollateralizableAssetModel]) {
-        self.userCollateralizingTokens = userCollateralizingTokens.compactMap {
-            UserCollateralizingAssetViewModel(userCollateralizingAssetModel: $0)
-        }
-        self.collateralizableTokens = collateralizableTokens.compactMap {
-            CollateralizableAssetViewModel(collateralizableAssetModel: $0)
-        }
-    }
+	init(
+		userCollateralizingTokens: [UserCollateralizingAssetModel],
+		collateralizableTokens: [CollateralizableAssetModel]
+	) {
+		self.userCollateralizingTokens = userCollateralizingTokens.compactMap {
+			UserCollateralizingAssetViewModel(userCollateralizingAssetModel: $0)
+		}
+		self.collateralizableTokens = collateralizableTokens.compactMap {
+			CollateralizableAssetViewModel(collateralizableAssetModel: $0)
+		}
+	}
 }

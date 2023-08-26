@@ -9,10 +9,10 @@ import Foundation
 
 #warning("this values are temporary and maybe should change")
 struct CollateralizableAssetModel {
-    // MARK: - Public Properties
+	// MARK: - Public Properties
 
-    public let tokenImage: String
-    public let tokenSymbol: String
-    public let userAmountInToken: String
-    public let decimal = 10
+	public let tokenImage: String
+	public let tokenSymbol: String
+	public let userAmountInToken: String
+	public let decimal = 10
 }

@@ -9,31 +9,31 @@ import Foundation
 
 #warning("this values are temporary")
 struct UserCollateralizingAssetViewModel: AssetsBoardProtocol {
-    // MARK: - Private Properties
+	// MARK: - Private Properties
 
-    private var userCollateralizingAssetModel: UserCollateralizingAssetModel
+	private var userCollateralizingAssetModel: UserCollateralizingAssetModel
 
-    // MARK: - Public Properties
+	// MARK: - Public Properties
 
-    public var assetName: String {
-        userCollateralizingAssetModel.tokenSymbol
-    }
+	public var assetName: String {
+		userCollateralizingAssetModel.tokenSymbol
+	}
 
-    public var assetImage: URL {
-        URL(string: userCollateralizingAssetModel.tokenImage)!
-    }
+	public var assetImage: URL {
+		URL(string: userCollateralizingAssetModel.tokenImage)!
+	}
 
-    public var userCollateralizingInToken: String {
-        "\(userCollateralizingAssetModel.userCollateralizedAmountInToken) \(userCollateralizingAssetModel.tokenSymbol)"
-    }
+	public var userCollateralizingInToken: String {
+		"\(userCollateralizingAssetModel.userCollateralizedAmountInToken) \(userCollateralizingAssetModel.tokenSymbol)"
+	}
 
-    public var userCollateralizingInDollars: String {
-        "$5000"
-    }
+	public var userCollateralizingInDollars: String {
+		"$5000"
+	}
 
-    // MARK: - Initializers
+	// MARK: - Initializers
 
-    init(userCollateralizingAssetModel: UserCollateralizingAssetModel) {
-        self.userCollateralizingAssetModel = userCollateralizingAssetModel
-    }
+	init(userCollateralizingAssetModel: UserCollateralizingAssetModel) {
+		self.userCollateralizingAssetModel = userCollateralizingAssetModel
+	}
 }

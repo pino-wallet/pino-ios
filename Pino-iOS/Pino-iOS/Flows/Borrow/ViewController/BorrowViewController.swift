@@ -41,9 +41,9 @@ class BorrowViewController: UIViewController {
 			self.presentSelectDexSystemVC()
 		}, presentBorrowingBoardVC: {
 			self.presentBorrowingBoard()
-        }, presentCollateralizingBoardVC: {
-            self.presentCollateralizingBoard()
-        })
+		}, presentCollateralizingBoardVC: {
+			self.presentCollateralizingBoard()
+		})
 
 		view = borrowView
 	}
@@ -64,11 +64,11 @@ class BorrowViewController: UIViewController {
 		navigationVC.viewControllers = [borrowingBoardVC]
 		present(navigationVC, animated: true)
 	}
-    
-    private func presentCollateralizingBoard() {
-        let collateralizingBoardVC = CollateralizingBoardViewController(borrowVM: borrowVM)
-        let navigationVC = UINavigationController()
-        navigationVC.viewControllers = [collateralizingBoardVC]
-        present(navigationVC, animated: true)
-    }
+
+	private func presentCollateralizingBoard() {
+		let collateralizingBoardVC = CollateralizingBoardViewController(borrowVM: borrowVM)
+		let navigationVC = UINavigationController()
+		navigationVC.viewControllers = [collateralizingBoardVC]
+		present(navigationVC, animated: true)
+	}
 }

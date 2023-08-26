@@ -8,24 +8,24 @@
 import Foundation
 
 class UserCollateralizingAssetCell: AssetsBoardCell {
-    // MARK: - Public Properties
+	// MARK: - Public Properties
 
-    public static let cellReuseID = "userCollateralizingCellReuseID"
+	public static let cellReuseID = "userCollateralizingCellReuseID"
 
-    public var userCollateralizingAssetVM: UserCollateralizingAssetViewModel! {
-        didSet {
-            asset = userCollateralizingAssetVM
-            setCellValues()
-        }
-    }
+	public var userCollateralizingAssetVM: UserCollateralizingAssetViewModel! {
+		didSet {
+			asset = userCollateralizingAssetVM
+			setCellValues()
+		}
+	}
 
-    // MARK: - Private Methods
+	// MARK: - Private Methods
 
-    private func setCellValues() {
-        assetAmountLabel.text = userCollateralizingAssetVM.userCollateralizingInToken
-        assetAmountLabel.textColor = .Pino.label
+	private func setCellValues() {
+		assetAmountLabel.text = userCollateralizingAssetVM.userCollateralizingInToken
+		assetAmountLabel.textColor = .Pino.label
 
-        assetAmountDescriptionLabel.text = userCollateralizingAssetVM.userCollateralizingInDollars
-        assetAmountDescriptionLabel.textColor = .Pino.secondaryLabel
-    }
+		assetAmountDescriptionLabel.text = userCollateralizingAssetVM.userCollateralizingInDollars
+		assetAmountDescriptionLabel.textColor = .Pino.secondaryLabel
+	}
 }
