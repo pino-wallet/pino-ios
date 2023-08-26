@@ -108,12 +108,17 @@ extension SwapConfirmationViewModel {
     
     public func confirmSwap() {
         firstly {
+            // First we check if Pino-Proxy has access to Selected Swap Provider
+            // 1: True -> We Skip to next part
+            // 2: False -> We get CallData and pass to next part
             checkProtocolAllowanceOf(contractAddress: selectedProvider!.provider.contractAddress)
         }.compactMap { allowanceData in
             allowanceData
         }.then { allowanceData in
+            // Get Swap Call Data from Provider
             self.getSwapInfoFrom(provider: self.selectedProvService).map { ($0, allowanceData) }
         }.then { swapData, allowanceData in
+            // TODO: Needs to be handled after meeting with Ali
             self.getProxyPermitTransferData().map { ($0, swapData, allowanceData) }
         }.then { transferData, swapData, approveData in
             self.callProxyMultiCall(data: [approveData, swapData, transferData])
@@ -139,6 +144,7 @@ extension SwapConfirmationViewModel {
         }
     }
     
+   
     private func checkProtocolAllowanceOf(contractAddress: String) -> Promise<String?> {
         Promise<String?> { seal in
             firstly {
@@ -151,9 +157,14 @@ extension SwapConfirmationViewModel {
                 let destTokenDecimal = toToken.selectedToken.decimal
                 let destTokenAmount = Utilities.parseToBigUInt(toToken.tokenAmount!, decimals: destTokenDecimal)!
                 if allowanceAmount == 0 || allowanceAmount < destTokenAmount {
-                    // NOT ALLOWED
-                    let approveData = approveProvider()
-                    seal.fulfill("approveData")
+                    web3.getApproveCallData(
+                        contractAdd: selectedProvider!.provider.contractAddress,
+                        amount: try! BigUInt(UInt64.max),
+                        spender: Web3Core.Constants.pinoProxyAddress).done { approveCallData in
+                            seal.fulfill(approveCallData)
+                        }.catch { error in
+                            seal.reject(error)
+                        }
                 } else {
                     // ALLOWED
                     seal.fulfill(nil)
@@ -202,14 +213,6 @@ extension SwapConfirmationViewModel {
         Promise<String> { seal in
             seal.fulfill("hi")
         }
-    }
-    
-    public func approveProvider() -> Promise<String> {
-        web3.approveContract(
-            address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-            amount: 1_000_000,
-            spender: "0x81Ad046aE9a7Ad56092fa7A7F09A04C82064e16C"
-        )
     }
     
 }

@@ -15,12 +15,7 @@ class ApproveContractViewModel {
 	// MARK: - Private Properties
 
 	private var web3 = Web3Core.shared
-	private var pinoWalletManager = PinoWalletManager()
-	private let paraSwapAPIClient = ParaSwapAPIClient()
-	private let oneInchAPIClient = OneInchAPIClient()
-	private let zeroXAPIClient = ZeroXAPIClient()
     private var swapConfirmVM: SwapConfirmationViewModel!
-	private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Initializers
     public init(swapConfirmVM: SwapConfirmationViewModel) {

@@ -86,6 +86,10 @@ public class Web3Core {
     public func getApproveCallData(contractAdd: String, amount: BigUInt, spender: String) -> Promise<String> {
         approveManager.getApproveCallData(contractAdd: contractAdd, amount: amount, spender: spender)
     }
+    
+    public func callProxyMulticall() {
+        
+    }
 
 	public func getCustomAssetInfo(contractAddress: String) -> Promise<CustomAssetInfo> {
 		var assetInfo: CustomAssetInfo = [:]
