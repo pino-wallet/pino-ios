@@ -17,6 +17,7 @@ class BorrowingDetailsView: UIView {
 	private let titleBetweenView = UIView()
 	private let titleArrowImageView = UIImageView()
 	private let amountLabel = PinoLabel(style: .title, text: "")
+	private var borrowingTokensCollectionView: BorrowingTokensCollectionView!
 	private var borrowingDetailsVM: BorrowingDetailsViewModel
 	private var cancellables = Set<AnyCancellable>()
 
@@ -40,12 +41,15 @@ class BorrowingDetailsView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		borrowingTokensCollectionView = BorrowingTokensCollectionView(borrowingDetailsVM: borrowingDetailsVM)
+
 		titleStackView.addArrangedSubview(titleLabel)
 		titleStackView.addArrangedSubview(titleBetweenView)
 		titleStackView.addArrangedSubview(titleArrowImageView)
 
 		mainStackView.addArrangedSubview(titleStackView)
 		mainStackView.addArrangedSubview(amountLabel)
+		mainStackView.addArrangedSubview(borrowingTokensCollectionView)
 		#warning("we should add assets progress bar collection view here")
 
 		containerView.addSubview(mainStackView)
@@ -64,12 +68,15 @@ class BorrowingDetailsView: UIView {
 
 		titleArrowImageView.image = UIImage(named: borrowingDetailsVM.titleImage)?.withRenderingMode(.alwaysTemplate)
 
-		amountLabel.font = .PinoStyle.mediumTitle1
+		amountLabel.font = .PinoStyle.mediumLargeTitle
 	}
 
 	private func setupConstraints() {
+		amountLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 41).isActive = true
+
 		containerView.pin(.allEdges(padding: 0))
 		mainStackView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 24))
+		borrowingTokensCollectionView.pin(.fixedHeight(32))
 	}
 
 	private func setupBindings() {
@@ -91,10 +98,12 @@ class BorrowingDetailsView: UIView {
 			amountLabel.textColor = .Pino.gray3
 			titleArrowImageView.tintColor = .Pino.gray3
 			titleLabel.textColor = .Pino.gray3
+			borrowingTokensCollectionView.isHidden = true
 		} else {
 			amountLabel.textColor = .Pino.label
 			titleArrowImageView.tintColor = .Pino.primary
 			titleLabel.textColor = .Pino.secondaryLabel
+			borrowingTokensCollectionView.isHidden = false
 		}
 	}
 }

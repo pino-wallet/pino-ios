@@ -11,6 +11,7 @@ enum OneInchEndpoint: EndpointType {
 	// MARK: - Cases
 
 	case quote(swapInfo: SwapPriceRequestModel)
+	case swap(swapInfo: SwapRequestModel)
 
 	// MARK: - Internal Methods
 
@@ -33,6 +34,8 @@ enum OneInchEndpoint: EndpointType {
 		switch self {
 		case .quote:
 			return "/quote"
+		case .swap:
+			return "/swap"
 		}
 	}
 
@@ -44,12 +47,18 @@ enum OneInchEndpoint: EndpointType {
 				bodyEncoding: .urlEncoding,
 				urlParameters: swapInfo.OneInchSwapURLParams
 			)
+		case let .swap(swapInfo: swapInfo):
+			return .requestParameters(
+				bodyParameters: nil,
+				bodyEncoding: .urlEncoding,
+				urlParameters: swapInfo.oneInchSwapURLParams
+			)
 		}
 	}
 
 	internal var httpMethod: HTTPMethod {
 		switch self {
-		case .quote:
+		case .quote, .swap:
 			return .get
 		}
 	}

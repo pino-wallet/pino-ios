@@ -23,4 +23,10 @@ final class ZeroXAPIClient: SwapProvidersAPIServices {
 		}
 		return networkManager.request(.quote(swapInfo: editedSwapInfo))
 	}
+
+	func swap(swapInfo: SwapRequestModel) -> AnyPublisher<ZeroXPriceResponseModel?, APIError> {
+		Just(nil)
+			.setFailureType(to: APIError.self)
+			.eraseToAnyPublisher()
+	}
 }
