@@ -11,6 +11,7 @@ class BorrowView: UIView {
 	// MARK: - Closures
 
 	public var presentHealthScoreActionsheet: (_ actionSheet: InfoActionSheet) -> Void
+	public var presentSelectDexSystem: () -> Void
 
 	// MARK: - Private Properties
 
@@ -23,7 +24,7 @@ class BorrowView: UIView {
 	private let healthScoreNumberLabel = UILabel()
 	private var startBorrowView: StartBorrowingView!
 	private var startCollateralView: StartBorrowingView!
-	private var selectDexProtocolView: SelectDexSystemView!
+	private var selectDexSystemView: SelectDexSystemView!
 	private var healthScoreTitleAndInfoView: TitleWithInfo!
 	private var collateralDetailsView: BorrowingDetailsView!
 	private var borrowDetailsView: BorrowingDetailsView!
@@ -32,9 +33,14 @@ class BorrowView: UIView {
 
 	// MARK: - Initializers
 
-	init(borrowVM: BorrowViewModel, presentHealthScoreActionsheet: @escaping (_ actionSheet: InfoActionSheet) -> Void) {
+	init(
+		borrowVM: BorrowViewModel,
+		presentHealthScoreActionsheet: @escaping (_ actionSheet: InfoActionSheet) -> Void,
+		presentSelectDexSystem: @escaping () -> Void
+	) {
 		self.borrowVM = borrowVM
 		self.presentHealthScoreActionsheet = presentHealthScoreActionsheet
+		self.presentSelectDexSystem = presentSelectDexSystem
 
 		super.init(frame: .zero)
 
@@ -52,10 +58,12 @@ class BorrowView: UIView {
 
 	private func setupView() {
 		#warning("this should open selectDexProtocolVC")
-		selectDexProtocolView = SelectDexSystemView(
+		selectDexSystemView = SelectDexSystemView(
 			title: borrowVM.selectedDexSystem.name,
 			image: borrowVM.selectedDexSystem.image,
-			onDexProtocolTapClosure: {}
+			onDexProtocolTapClosure: {
+				self.presentSelectDexSystem()
+			}
 		)
 
 		healthScoreTitleAndInfoView = TitleWithInfo(
@@ -98,7 +106,7 @@ class BorrowView: UIView {
 		healthScoreStackView.addArrangedSubview(healthScoreBetweenView)
 		healthScoreStackView.addArrangedSubview(healthScoreNumberLabel)
 
-		mainStackView.addArrangedSubview(selectDexProtocolView)
+		mainStackView.addArrangedSubview(selectDexSystemView)
 		mainStackView.addArrangedSubview(healthScoreContainerView)
 		mainStackView.addArrangedSubview(startCollateralView)
 		mainStackView.addArrangedSubview(collateralDetailsView)
@@ -154,6 +162,11 @@ class BorrowView: UIView {
 			self.updateHealthScoreValue(healthScore: newUserBorrowingDetails.healthScore)
 			self.updateHealthScoreColors(healthScore: newUserBorrowingDetails.healthScore)
 			self.updatePageStatus(userBorrowingDetails: newUserBorrowingDetails)
+		}.store(in: &cancellables)
+
+		borrowVM.$selectedDexSystem.sink { selectedDexSystem in
+			self.selectDexSystemView.titleText = selectedDexSystem.name
+			self.selectDexSystemView.imageName = selectedDexSystem.image
 		}.store(in: &cancellables)
 	}
 

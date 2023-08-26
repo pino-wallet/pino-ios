@@ -15,8 +15,6 @@ class BorrowViewModel {
 	@Published
 	public var userBorrowingDetails: UserBorrowingModel? = nil
 
-	public let dexProtocolsList: [DexSystemModel] = [.aave, .compound]
-
 	public let pageTitle = "Borrow"
 	public let collateralTitle = "Collateral"
 	public let collateralDescription = "Deposit assets as collateral to get started"
@@ -42,6 +40,10 @@ class BorrowViewModel {
 		#warning("we should add a timer to update borrowing data every 5 seconds")
 		#warning("we should consider user address to prevent show some user details to all accounts")
 		getUserBorrowingDetails()
+	}
+
+	public func changeSelectedDexSystem(newSelectedDexSystem: DexSystemModel) {
+		selectedDexSystem = newSelectedDexSystem
 	}
 
 	// MARK: - Private Methods

@@ -37,8 +37,20 @@ class BorrowViewController: UIViewController {
 	private func setupView() {
 		borrowView = BorrowView(borrowVM: borrowVM, presentHealthScoreActionsheet: { actionSheet in
 			self.present(actionSheet, animated: true)
+		}, presentSelectDexSystem: {
+			self.presentSelectDexSystemVC()
 		})
 
 		view = borrowView
+	}
+
+	private func presentSelectDexSystemVC() {
+		let selectDexSystemVC = BorrowSelectDexViewController(dexSystemDidSelectClosure: { selectedDexSystem in
+			self.borrowVM.changeSelectedDexSystem(newSelectedDexSystem: selectedDexSystem)
+		})
+		let navigationVC = UINavigationController()
+		navigationVC.viewControllers = [selectDexSystemVC]
+
+		present(navigationVC, animated: true)
 	}
 }
