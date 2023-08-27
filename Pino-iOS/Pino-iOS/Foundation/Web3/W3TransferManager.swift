@@ -69,8 +69,9 @@ public struct W3TransferManager {
 						.map { ($0, gasInfo) }
 				}
 				.done { [self] nonce, gasInfo in
+                    let spenderAdd: EthereumAddress = try! EthereumAddress(hex: spender, eip55: true)
                     let contract = try Web3Core.getContractOfToken(address: address, web3: web3)
-                    let solInvocation = contract[ABIMethodWrite.approve.rawValue]?(spender, amount)
+                    let solInvocation = contract[ABIMethodWrite.approve.rawValue]?(spenderAdd, amount)
 					let trx = try trxManager.createTransactionFor(
 						contract: solInvocation!,
 						nonce: nonce,

@@ -113,7 +113,7 @@ public struct W3GasInfoManager {
 		Promise<GasInfo>() { seal in
 			firstly {
 				let spender: EthereumAddress = try! EthereumAddress(hex: spender, eip55: true)
-				let contractAddress: EthereumAddress = try! EthereumAddress(hex: tokenContractAddress, eip55: true)
+				let contractAddress: EthereumAddress = try! EthereumAddress(hex: tokenContractAddress, eip55: false)
 				let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, web3: web3)
 				let solInvocation = contract[ABIMethodWrite.approve.rawValue]!(spender, amount)
 				return gasInfoManager.calculateGasOf(
