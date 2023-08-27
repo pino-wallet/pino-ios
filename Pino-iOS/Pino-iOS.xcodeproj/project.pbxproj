@@ -338,9 +338,12 @@
 		D98207C62A5D5D4D0066A090 /* ActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98207C52A5D5D4D0066A090 /* ActivityDetailsViewModel.swift */; };
 		D98207C82A5D5D630066A090 /* ActivityDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98207C72A5D5D630066A090 /* ActivityDetailsViewController.swift */; };
 		D98207CA2A5D6D8C0066A090 /* ActivityDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98207C92A5D6D8C0066A090 /* ActivityDetailsHeaderView.swift */; };
-		D99019762A9350DD008CF9EC /* LoanDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99019752A9350DD008CF9EC /* LoanDetailsViewModel.swift */; };
-		D990197A2A93514D008CF9EC /* LoanDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99019792A93514D008CF9EC /* LoanDetailsView.swift */; };
-		D990197E2A935383008CF9EC /* LoanDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D990197D2A935383008CF9EC /* LoanDetailsViewController.swift */; };
+		D98355D52A9A1BC800294DCF /* BorrowLoanDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98355D42A9A1BC800294DCF /* BorrowLoanDetailsViewModel.swift */; };
+		D98355D72A9A1D4000294DCF /* BorrowLoanDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98355D62A9A1D4000294DCF /* BorrowLoanDetailsView.swift */; };
+		D98355D92A9A1FD400294DCF /* BorrowLoanDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98355D82A9A1FD400294DCF /* BorrowLoanDetailsViewController.swift */; };
+		D99019762A9350DD008CF9EC /* CollateralDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99019752A9350DD008CF9EC /* CollateralDetailsViewModel.swift */; };
+		D990197A2A93514D008CF9EC /* CollateralDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99019792A93514D008CF9EC /* CollateralDetailsView.swift */; };
+		D990197E2A935383008CF9EC /* CollateralDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D990197D2A935383008CF9EC /* CollateralDetailsViewController.swift */; };
 		D99019802A93660B008CF9EC /* LoanDetailsInfoStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D990197F2A93660B008CF9EC /* LoanDetailsInfoStackView.swift */; };
 		D99850472A55C66A00C2DF60 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99850462A55C66A00C2DF60 /* DateHelper.swift */; };
 		D99CAFC92A3AF0D400DBEF2B /* EnterSendAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99CAFC82A3AF0D400DBEF2B /* EnterSendAddressViewController.swift */; };
@@ -986,9 +989,12 @@
 		D98207C52A5D5D4D0066A090 /* ActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailsViewModel.swift; sourceTree = "<group>"; };
 		D98207C72A5D5D630066A090 /* ActivityDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailsViewController.swift; sourceTree = "<group>"; };
 		D98207C92A5D6D8C0066A090 /* ActivityDetailsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailsHeaderView.swift; sourceTree = "<group>"; };
-		D99019752A9350DD008CF9EC /* LoanDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanDetailsViewModel.swift; sourceTree = "<group>"; };
-		D99019792A93514D008CF9EC /* LoanDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanDetailsView.swift; sourceTree = "<group>"; };
-		D990197D2A935383008CF9EC /* LoanDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoanDetailsViewController.swift; path = "Pino-iOS/Flows/Borrow/View/LoanDetailsViewController.swift"; sourceTree = SOURCE_ROOT; };
+		D98355D42A9A1BC800294DCF /* BorrowLoanDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowLoanDetailsViewModel.swift; sourceTree = "<group>"; };
+		D98355D62A9A1D4000294DCF /* BorrowLoanDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowLoanDetailsView.swift; sourceTree = "<group>"; };
+		D98355D82A9A1FD400294DCF /* BorrowLoanDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowLoanDetailsViewController.swift; sourceTree = "<group>"; };
+		D99019752A9350DD008CF9EC /* CollateralDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralDetailsViewModel.swift; sourceTree = "<group>"; };
+		D99019792A93514D008CF9EC /* CollateralDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralDetailsView.swift; sourceTree = "<group>"; };
+		D990197D2A935383008CF9EC /* CollateralDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollateralDetailsViewController.swift; path = "Pino-iOS/Flows/Borrow/View/CollateralDetailsViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D990197F2A93660B008CF9EC /* LoanDetailsInfoStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanDetailsInfoStackView.swift; sourceTree = "<group>"; };
 		D99850462A55C66A00C2DF60 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		D99CAFC82A3AF0D400DBEF2B /* EnterSendAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAddressViewController.swift; sourceTree = "<group>"; };
@@ -1676,13 +1682,14 @@
 				D933C32B2A99F36600C2BD5A /* CollateralizingBoard */,
 				D9A0BDA62A974A4A00AE132F /* BorrowingBoard */,
 				4037DCCB2A8BD65600FCA96B /* ApproveContractView.swift */,
-				D99019792A93514D008CF9EC /* LoanDetailsView.swift */,
+				D99019792A93514D008CF9EC /* CollateralDetailsView.swift */,
 				D990197F2A93660B008CF9EC /* LoanDetailsInfoStackView.swift */,
 				D924C3362A94950B007299A4 /* BorrowView.swift */,
 				D924C3382A94952D007299A4 /* BorrowingDetailsView.swift */,
 				D924C33A2A949553007299A4 /* StartBorrowingView.swift */,
 				D9F284752A94B703001204D4 /* BorrowingTokensCollectionView.swift */,
 				D9F284772A94B727001204D4 /* BorrowingTokenCell.swift */,
+				D98355D62A9A1D4000294DCF /* BorrowLoanDetailsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1692,10 +1699,11 @@
 			children = (
 				4037DCC62A8BD50100FCA96B /* ApproveContractViewController.swift */,
 				0EDB7798DEE2598C367E87BE /* BorrowViewController.swift */,
-				D990197D2A935383008CF9EC /* LoanDetailsViewController.swift */,
+				D990197D2A935383008CF9EC /* CollateralDetailsViewController.swift */,
 				D96FD3B02A9734870008977A /* BorrowSelectDexViewController.swift */,
 				D9A0BDA92A974B9800AE132F /* BorrowingBoardViewController.swift */,
 				D933C3222A99F07600C2BD5A /* CollateralizingBoardViewController.swift */,
+				D98355D82A9A1FD400294DCF /* BorrowLoanDetailsViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1706,12 +1714,13 @@
 				D933C32A2A99F35C00C2BD5A /* CollateralizingBoard */,
 				D9A0BDAD2A97529F00AE132F /* BorrowingBoard */,
 				4037DCCD2A8BD93200FCA96B /* ApproveContractViewModel.swift */,
-				D99019752A9350DD008CF9EC /* LoanDetailsViewModel.swift */,
+				D99019752A9350DD008CF9EC /* CollateralDetailsViewModel.swift */,
 				D924C33C2A9495AB007299A4 /* BorrowViewModel.swift */,
 				D924C33E2A9495C9007299A4 /* BorrowingDetailsViewModel.swift */,
 				D924C3402A9495ED007299A4 /* BorrowingPropertiesViewModel.swift */,
 				D96FD3B22A97373C0008977A /* BorrowSelectDexViewModel.swift */,
 				D9BD90462A95DE2000B28B74 /* BorrowingTokenCellViewModel.swift */,
+				D98355D42A9A1BC800294DCF /* BorrowLoanDetailsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3767,6 +3776,7 @@
 				E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */,
 				E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */,
 				D9BE15B02A693593005E4063 /* SwapActivityDetailsViewModel.swift in Sources */,
+				D98355D72A9A1D4000294DCF /* BorrowLoanDetailsView.swift in Sources */,
 				D99CAFCB2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift in Sources */,
 				D9E134872A53013D00193FF0 /* ActivityHelper.swift in Sources */,
 				B0AB10C04E985064573878F8 /* AddCustomAssetView.swift in Sources */,
@@ -3838,6 +3848,7 @@
 				E3FC69BB2A8A6CDE009B3341 /* InvestCoinPerformanceView.swift in Sources */,
 				54E9764329CE5F067EFE92D1 /* AssetsEndpoint.swift in Sources */,
 				D9BFEC372A121706007DFF40 /* AllowNotificationsViewController.swift in Sources */,
+				D98355D52A9A1BC800294DCF /* BorrowLoanDetailsViewModel.swift in Sources */,
 				DFA9687C2A0FABB9007D4513 /* SelectedAsset+CoreDataProperties.swift in Sources */,
 				B25B61BF5F1999D414ACD42B /* AuthKeyProvider.swift in Sources */,
 				8DAEADFEFB2B89FAD4955536 /* AutolayoutHelper.swift in Sources */,
@@ -3908,6 +3919,7 @@
 				D9A3281C2A34C444005A8393 /* SelectAssetVMProtocol.swift in Sources */,
 				E35BB6572A62E650003987F5 /* SwapConfirmationTokenView.swift in Sources */,
 				E3847B382A52CBE6005ED78B /* AmountStatus.swift in Sources */,
+				D98355D92A9A1FD400294DCF /* BorrowLoanDetailsViewController.swift in Sources */,
 				E39F59502A99F20B00023292 /* InvestConfirmationViewModel.swift in Sources */,
 				1AD184E82488453998E5A2E5 /* CoinPerformanceInfoModel.swift in Sources */,
 				8A10D639170969ECFADE0FE4 /* CoinPerformanceInfoViewModel.swift in Sources */,
@@ -4021,7 +4033,7 @@
 				E3FC69DD2A910F0F009B3341 /* InvestmentBoardDataSource.swift in Sources */,
 				DFA9687D2A0FABB9007D4513 /* SelectedAsset+CoreDataClass.swift in Sources */,
 				01B0212D90D700DB5C1126FB /* InvestViewController.swift in Sources */,
-				D99019762A9350DD008CF9EC /* LoanDetailsViewModel.swift in Sources */,
+				D99019762A9350DD008CF9EC /* CollateralDetailsViewModel.swift in Sources */,
 				06E5204105CFC5FFF4B310EE /* JSONParameterEncoder.swift in Sources */,
 				403691BE2A3DFFB60013AB6D /* ToastView.swift in Sources */,
 				763F91967E4347D64BD561C4 /* KeychainHelper.swift in Sources */,
@@ -4120,7 +4132,7 @@
 				D9E34BC92C3AE69B3D5EC4F2 /* PortfolioPerformanceViewModel.swift in Sources */,
 				D5E4DDCF2A960367000AA235 /* InvestDepositViewModel.swift in Sources */,
 				DFFDEDB02A77931200D710D7 /* ZeroXEndpoint.swift in Sources */,
-				D990197E2A935383008CF9EC /* LoanDetailsViewController.swift in Sources */,
+				D990197E2A935383008CF9EC /* CollateralDetailsViewController.swift in Sources */,
 				122DC5E683E6405E0B3FCE54 /* PortfolioPrformanceCell.swift in Sources */,
 				0AF4C45B72B37F11F656A4B0 /* PositionHeaderView.swift in Sources */,
 				E3D204CC2A39B7E90027FEBC /* QRScannerViewController.swift in Sources */,
@@ -4274,7 +4286,7 @@
 				D9C4CEFF2A408C5E00475F01 /* SuggestedAddressesCollectionView.swift in Sources */,
 				798A57BFA5D028A04B449F34 /* AccountInfoViewModel.swift in Sources */,
 				AD68BBE3C5E6C48C129C6BA7 /* AccountsCollectionView.swift in Sources */,
-				D990197A2A93514D008CF9EC /* LoanDetailsView.swift in Sources */,
+				D990197A2A93514D008CF9EC /* CollateralDetailsView.swift in Sources */,
 				D9BE051B2A8221C8008670F9 /* CDSwapActivity+CoreDataProperties.swift in Sources */,
 				C3321EBB6DC83BCDC3CFC3B0 /* WalletsModel.swift in Sources */,
 				316F0DDECBB3FA68BFFA1577 /* AccountsViewController.swift in Sources */,

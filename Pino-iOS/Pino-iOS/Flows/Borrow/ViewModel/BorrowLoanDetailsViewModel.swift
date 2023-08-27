@@ -1,11 +1,13 @@
 //
-//  LoanDetailsViewModel.swift
+//  BorrowDetailsViewModel.swift
 //  Pino-iOS
 //
-//  Created by Amir hossein kazemi seresht on 8/21/23.
+//  Created by Amir hossein kazemi seresht on 8/26/23.
 //
 
-class LoanDetailsViewModel {
+import Foundation
+
+struct BorrowLoanDetailsViewModel {
 	// MARK: - Public Properties
 
 	public let dismissIconName = "dissmiss"
@@ -14,10 +16,10 @@ class LoanDetailsViewModel {
 
 	public let apyTitle = "APY"
 	public let borrowedAmountTitle = "Borrowed amount"
-	public let accruedFeeTitle = "Accrued fee"
+	public let accuredFeeTitle = "Accured fee"
 	public let totalDebtTitle = "Total debt"
 	public let increaseLoanTitle = "Increase loan"
-	public let withdrawTitle = "Withdraw"
+	public let repayTitle = "Repay"
 
 	#warning("this values are mock")
 	public let tokenIcon = "USDC"

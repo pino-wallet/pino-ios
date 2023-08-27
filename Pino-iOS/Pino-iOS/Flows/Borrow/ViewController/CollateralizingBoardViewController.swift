@@ -61,7 +61,7 @@ class CollateralizingBoardViewController: UIViewController {
 		collateralizingBoardView = CollateralizingBoradView(
 			collateralizingBoardVM: collateralizingBoardVM,
 			assetDidSelect: { _ in
-				self.presentToLoanDetailsVC()
+				self.presentCollateralDetailsVC()
 			}
 		)
 
@@ -79,10 +79,10 @@ class CollateralizingBoardViewController: UIViewController {
 		)
 	}
 
-	private func presentToLoanDetailsVC() {
-		let loanDetailsVC = LoanDetailsViewController()
+	private func presentCollateralDetailsVC() {
+		let collateralDetailsVC = CollateralDetailsViewController()
 		let navigationVC = UINavigationController()
-		navigationVC.viewControllers = [loanDetailsVC]
+		navigationVC.viewControllers = [collateralDetailsVC]
 		present(navigationVC, animated: true)
 	}
 

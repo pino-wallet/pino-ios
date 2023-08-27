@@ -1,17 +1,17 @@
 //
-//  LoanDetailsViewController.swift
+//  BorrowLoanDetailsViewController.swift
 //  Pino-iOS
 //
-//  Created by Amir hossein kazemi seresht on 8/21/23.
+//  Created by Amir hossein kazemi seresht on 8/26/23.
 //
 
 import UIKit
 
-class LoanDetailsViewController: UIViewController {
+class BorrowLoanDetailsViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let loanDetailsVM = LoanDetailsViewModel()
-	private var loanDetailsView: LoanDetailsView!
+	private let borrowLoanDetailsVM = BorrowLoanDetailsViewModel()
+	private var borrowLoanDetailsView: BorrowLoanDetailsView!
 
 	// MARK: - View Overrides
 
@@ -28,9 +28,9 @@ class LoanDetailsViewController: UIViewController {
 
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
-		setNavigationTitle(loanDetailsVM.pageTitle)
+		setNavigationTitle(borrowLoanDetailsVM.pageTitle)
 		navigationItem.leftBarButtonItem = UIBarButtonItem(
-			image: UIImage(named: loanDetailsVM.dismissIconName),
+			image: UIImage(named: borrowLoanDetailsVM.dismissIconName),
 			style: .plain,
 			target: self,
 			action: #selector(dismissSelf)
@@ -38,9 +38,9 @@ class LoanDetailsViewController: UIViewController {
 	}
 
 	private func setupView() {
-		loanDetailsView = LoanDetailsView(loanDetailsVM: loanDetailsVM)
+		borrowLoanDetailsView = BorrowLoanDetailsView(borrowLoanDetailsVM: borrowLoanDetailsVM)
 
-		view = loanDetailsView
+		view = borrowLoanDetailsView
 	}
 
 	@objc
