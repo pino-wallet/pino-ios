@@ -38,4 +38,16 @@ extension DexSystemModel {
 		description: "compound.finance",
 		type: "compound"
 	)
+	public static var uniswap = DexSystemModel(
+		name: "Uniswap",
+		image: "uniswap_protocol",
+		description: "uniswap.org",
+		type: "uniswap"
+	)
+	public static var balancer = DexSystemModel(
+		name: "Balancer",
+		image: "balancer_protocol",
+		description: "balancer.fi",
+		type: "balancer"
+	)
 }
