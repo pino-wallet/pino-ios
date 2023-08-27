@@ -7,7 +7,7 @@
 
 import Foundation
 
-class BorrowLoanDetailsViewModel {
+struct BorrowLoanDetailsViewModel {
 	// MARK: - Public Properties
 
 	public let dismissIconName = "dissmiss"
@@ -16,7 +16,7 @@ class BorrowLoanDetailsViewModel {
 
 	public let apyTitle = "APY"
 	public let borrowedAmountTitle = "Borrowed amount"
-	public let accruedFeeTitle = "Accrued fee"
+	public let accuredFeeTitle = "Accured fee"
 	public let totalDebtTitle = "Total debt"
 	public let increaseLoanTitle = "Increase loan"
 	public let repayTitle = "Repay"

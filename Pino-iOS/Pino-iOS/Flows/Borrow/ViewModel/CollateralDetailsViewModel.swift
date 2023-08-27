@@ -5,7 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 8/21/23.
 //
 
-class CollateralDetailsViewModel {
+struct CollateralDetailsViewModel {
 	// MARK: - Public Properties
 
 	public let dismissIconName = "dissmiss"

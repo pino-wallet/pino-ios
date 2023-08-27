@@ -23,7 +23,7 @@ class BorrowLoanDetailsView: UIView {
 	private let repayButton = PinoButton(style: .secondary)
 	private var apyStackView: LoanDetailsInfoStackView!
 	private var borrowedAmountStackView: LoanDetailsInfoStackView!
-	private var accruedFeeStackView: LoanDetailsInfoStackView!
+	private var accuredFeeStackView: LoanDetailsInfoStackView!
 	private var totalDebtStackView: LoanDetailsInfoStackView!
 
 	private var borrowLoanDetailsVM: BorrowLoanDetailsViewModel
@@ -55,8 +55,8 @@ class BorrowLoanDetailsView: UIView {
 			titleText: borrowLoanDetailsVM.borrowedAmountTitle,
 			infoText: borrowLoanDetailsVM.borrowedAmount
 		)
-		accruedFeeStackView = LoanDetailsInfoStackView(
-			titleText: borrowLoanDetailsVM.accruedFeeTitle,
+		accuredFeeStackView = LoanDetailsInfoStackView(
+			titleText: borrowLoanDetailsVM.accuredFeeTitle,
 			infoText: borrowLoanDetailsVM.accruedFee
 		)
 		totalDebtStackView = LoanDetailsInfoStackView(
@@ -68,7 +68,7 @@ class BorrowLoanDetailsView: UIView {
 
 		contentStackView.addArrangedSubview(apyStackView)
 		contentStackView.addArrangedSubview(borrowedAmountStackView)
-		contentStackView.addArrangedSubview(accruedFeeStackView)
+		contentStackView.addArrangedSubview(accuredFeeStackView)
 		contentStackView.addArrangedSubview(borderView)
 		contentStackView.addArrangedSubview(totalDebtStackView)
 
