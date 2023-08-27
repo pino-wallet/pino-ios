@@ -58,7 +58,7 @@ class SelectInvestProtocolViewController: UIViewController {
 		setupPrimaryColorNavigationBar()
 		setNavigationTitle(selectInvestProtocolVM.pageTitle)
 		navigationItem.leftBarButtonItem = UIBarButtonItem(
-			image: UIImage(named: "dismiss"),
+			image: UIImage(named: "dissmiss"),
 			style: .plain,
 			target: self,
 			action: #selector(dismissSelf)
