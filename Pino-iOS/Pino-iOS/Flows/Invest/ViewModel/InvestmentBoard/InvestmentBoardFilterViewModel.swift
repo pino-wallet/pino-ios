@@ -39,7 +39,7 @@ class InvestmentBoardFilterViewModel {
 	private func setupFilterItems() {
 		filters = [
 			InvestmentFilterItemViewModel(item: .assets, description: selectedAsset?.name),
-			InvestmentFilterItemViewModel(item: .investProtocol, description: selectedProtocol?.protocolInfo.name),
+			InvestmentFilterItemViewModel(item: .investProtocol, description: selectedProtocol?.name),
 			InvestmentFilterItemViewModel(item: .risk, description: selectedRisk?.title),
 		]
 	}
@@ -68,7 +68,7 @@ class InvestmentBoardFilterViewModel {
 		self.selectedProtocol = selectedProtocol
 		let protocolFilterIndex = filters.firstIndex(where: { $0.filterItem == .investProtocol })!
 		if let selectedProtocol {
-			filters[protocolFilterIndex].updateDescription(selectedProtocol.protocolInfo.name)
+			filters[protocolFilterIndex].updateDescription(selectedProtocol.name)
 		} else {
 			filters[protocolFilterIndex].updateDescription("All")
 		}

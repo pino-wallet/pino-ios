@@ -580,7 +580,6 @@
 		E3FC69AA2A8A107E009B3341 /* InvestmentShareOfAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69A92A8A107E009B3341 /* InvestmentShareOfAssetsViewModel.swift */; };
 		E3FC69AD2A8A174A009B3341 /* InvestmentOtherShareOfAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69AC2A8A174A009B3341 /* InvestmentOtherShareOfAssetsViewModel.swift */; };
 		E3FC69B32A8A2C96009B3341 /* InvestAssetImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69B22A8A2C96009B3341 /* InvestAssetImageView.swift */; };
-		E3FC69B52A8A31F6009B3341 /* InvestProtocolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69B42A8A31F6009B3341 /* InvestProtocolModel.swift */; };
 		E3FC69B72A8A3605009B3341 /* InvestProtocolViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69B62A8A3605009B3341 /* InvestProtocolViewModel.swift */; };
 		E3FC69B92A8A6C89009B3341 /* InvestCoinPerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69B82A8A6C89009B3341 /* InvestCoinPerformanceViewController.swift */; };
 		E3FC69BB2A8A6CDE009B3341 /* InvestCoinPerformanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FC69BA2A8A6CDE009B3341 /* InvestCoinPerformanceView.swift */; };
@@ -1209,7 +1208,6 @@
 		E3FC69A92A8A107E009B3341 /* InvestmentShareOfAssetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentShareOfAssetsViewModel.swift; sourceTree = "<group>"; };
 		E3FC69AC2A8A174A009B3341 /* InvestmentOtherShareOfAssetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentOtherShareOfAssetsViewModel.swift; sourceTree = "<group>"; };
 		E3FC69B22A8A2C96009B3341 /* InvestAssetImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestAssetImageView.swift; sourceTree = "<group>"; };
-		E3FC69B42A8A31F6009B3341 /* InvestProtocolModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestProtocolModel.swift; sourceTree = "<group>"; };
 		E3FC69B62A8A3605009B3341 /* InvestProtocolViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestProtocolViewModel.swift; sourceTree = "<group>"; };
 		E3FC69B82A8A6C89009B3341 /* InvestCoinPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestCoinPerformanceViewController.swift; sourceTree = "<group>"; };
 		E3FC69BA2A8A6CDE009B3341 /* InvestCoinPerformanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestCoinPerformanceView.swift; sourceTree = "<group>"; };
@@ -3375,7 +3373,6 @@
 		E3FC699A2A890672009B3341 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E3FC69B42A8A31F6009B3341 /* InvestProtocolModel.swift */,
 				E3FC699B2A89068A009B3341 /* InvestAssetModel.swift */,
 				E3FC69D12A90B1AC009B3341 /* InvestableAssetModel.swift */,
 				E3FC69ED2A924FDA009B3341 /* InvestFilterDelegate.swift */,
@@ -4254,7 +4251,6 @@
 				40F704572A03AFFF004D74FE /* AccountActivationModel.swift in Sources */,
 				D933C3292A99F18800C2BD5A /* CollateralizableAssetModel.swift in Sources */,
 				E34728F129EEA81000AB8265 /* AssetChartDataViewModel.swift in Sources */,
-				E3FC69B52A8A31F6009B3341 /* InvestProtocolModel.swift in Sources */,
 				E3FC69D02A90B052009B3341 /* InvestableAssetViewModel.swift in Sources */,
 				7568B477DFF82F1069E4F911 /* VerifySecretPhraseView.swift in Sources */,
 				79B36BD7606F060231E076F1 /* VerifySecretPhraseViewController.swift in Sources */,

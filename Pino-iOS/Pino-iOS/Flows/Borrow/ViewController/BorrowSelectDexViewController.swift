@@ -46,7 +46,7 @@ class BorrowSelectDexViewController: UIViewController {
 		selectDexSystemCollectionView = SelectDexSystemCollectionView(
 			selectDexSystemVM: borrowSelectDexVM,
 			dexProtocolDidSelect: { selectedDexSystem in
-				self.dexSystemDidSelectClosure(selectedDexSystem)
+				self.dexSystemDidSelectClosure(selectedDexSystem as! DexSystemModel)
 				self.dismiss(animated: true)
 			}
 		)

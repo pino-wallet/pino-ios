@@ -10,7 +10,7 @@ import UIKit
 class SelectInvestProtocolViewController: UIViewController {
 	// MARK: - Closures
 
-	public var protocolDidChange: (DexSystemModel) -> Void
+	public var protocolDidChange: (InvestProtocolViewModel) -> Void
 
 	// MARK: - Private Properties
 
@@ -30,7 +30,7 @@ class SelectInvestProtocolViewController: UIViewController {
 
 	// MARK: - Initializers
 
-	init(protocolDidChange: @escaping (DexSystemModel) -> Void) {
+	init(protocolDidChange: @escaping (InvestProtocolViewModel) -> Void) {
 		self.protocolDidChange = protocolDidChange
 
 		super.init(nibName: nil, bundle: nil)
@@ -46,7 +46,7 @@ class SelectInvestProtocolViewController: UIViewController {
 		selectDexSystemCollectionView = SelectDexSystemCollectionView(
 			selectDexSystemVM: selectInvestProtocolVM,
 			dexProtocolDidSelect: { selectedDexSystem in
-				self.protocolDidChange(selectedDexSystem)
+				self.protocolDidChange(selectedDexSystem as! InvestProtocolViewModel)
 				self.dismiss(animated: true)
 			}
 		)

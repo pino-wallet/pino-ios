@@ -10,12 +10,15 @@ import UIKit
 class SelectDexSystemCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
-	private let selectDexSystemVM: SelectDexSystemVMProtocol
-	private let dexSystemDidSelect: (DexSystemModel) -> Void
+	private let selectDexSystemVM: any SelectDexSystemVMProtocol
+	private let dexSystemDidSelect: (DexSystemModelProtocol) -> Void
 
 	// MARK: - Initializers
 
-	init(selectDexSystemVM: SelectDexSystemVMProtocol, dexProtocolDidSelect: @escaping (DexSystemModel) -> Void) {
+	init(
+		selectDexSystemVM: any SelectDexSystemVMProtocol,
+		dexProtocolDidSelect: @escaping (DexSystemModelProtocol) -> Void
+	) {
 		self.selectDexSystemVM = selectDexSystemVM
 		self.dexSystemDidSelect = dexProtocolDidSelect
 		let collecttionviewFlowLayout = UICollectionViewFlowLayout(
