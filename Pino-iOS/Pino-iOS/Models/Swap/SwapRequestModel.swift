@@ -11,7 +11,6 @@ struct SwapRequestModel {
 	var srcToken: String
 	var destToken: String
 	let amount: String
-	let receiver: String
 	let sender: String
 	let slippage: String
 	let networkID: Int?
@@ -23,7 +22,6 @@ struct SwapRequestModel {
 		srcToken: String,
 		destToken: String,
 		amount: String,
-		receiver: String,
 		sender: String,
 		slippage: String,
 		networkID: Int?,
@@ -34,7 +32,6 @@ struct SwapRequestModel {
 		self.srcToken = srcToken
 		self.destToken = destToken
 		self.amount = amount
-		self.receiver = receiver
 		self.sender = sender
 		self.slippage = slippage
 		self.networkID = networkID
@@ -65,10 +62,10 @@ struct SwapRequestModel {
 		let params: HTTPParameters = [
 			"srcToken": srcToken,
 			"destToken": destToken,
-			"srcAmount": amount,
+            "srcAmount": amount,
 			"priceRoute": priceRouteJSON,
 			"slippage": slippage, // in percent
-			"userAddress": receiver,
+			"userAddress": sender,
 			"srcDecimals": srcDecimal!,
 			"destDecimals": destDecimal!,
 		]

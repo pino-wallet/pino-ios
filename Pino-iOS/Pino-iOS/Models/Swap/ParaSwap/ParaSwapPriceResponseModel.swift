@@ -10,7 +10,7 @@ import Foundation
 struct ParaSwapPriceResponseModel: SwapPriceResponseProtocol {
 	// MARK: - Private Properties
 
-	private let priceRoute: PriceRoute
+	public let priceRoute: PriceRoute
 
 	// MARK: - Public Properties
 

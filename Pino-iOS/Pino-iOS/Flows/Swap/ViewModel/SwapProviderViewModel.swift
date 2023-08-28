@@ -10,7 +10,7 @@ import Foundation
 struct SwapProviderViewModel {
 	// MARK: - Private Properties
 
-	private var providerResponseInfo: SwapPriceResponseProtocol
+	public var providerResponseInfo: SwapPriceResponseProtocol
 	private var side: SwapSide
 	private var destToken: AssetViewModel
 
@@ -19,7 +19,7 @@ struct SwapProviderViewModel {
 	public var provider: SwapProvider {
 		providerResponseInfo.provider
 	}
-
+    
 	public var swapAmount: BigNumber {
 		switch side {
 		case .sell:
