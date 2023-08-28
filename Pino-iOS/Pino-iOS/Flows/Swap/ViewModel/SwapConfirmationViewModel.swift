@@ -107,26 +107,31 @@ class SwapConfirmationViewModel {
 extension SwapConfirmationViewModel {
     
     public func confirmSwap() {
-        firstly {
-            // First we check if Pino-Proxy has access to Selected Swap Provider
-            // 1: True -> We Skip to next part
-            // 2: False -> We get CallData and pass to next part
-            checkProtocolAllowanceOf(contractAddress: selectedProvider!.provider.contractAddress)
-        }.compactMap { allowanceData in
-            allowanceData
-        }.then { allowanceData in
-            // Get Swap Call Data from Provider
-            self.getSwapInfoFrom(provider: self.selectedProvService).map { ($0, allowanceData) }
-        }.then { swapData, allowanceData in
-            // TODO: Needs to be handled after meeting with Ali
-            self.getProxyPermitTransferData().map { ($0, swapData, allowanceData) }
-        }.then { transferData, swapData, approveData in
-            self.callProxyMultiCall(data: [approveData, swapData, transferData])
-        }.done { hash in
-            print(hash)
-        }.catch { error in
-            print(error)
+        
+        self.getSwapInfoFrom(provider: self.selectedProvService).done { response in
+            print("RECEIVEDDDDDDDD")
         }
+        
+//        firstly {
+//            // First we check if Pino-Proxy has access to Selected Swap Provider
+//            // 1: True -> We Skip to next part
+//            // 2: False -> We get CallData and pass to next part
+//            checkProtocolAllowanceOf(contractAddress: selectedProvider!.provider.contractAddress)
+//        }.compactMap { allowanceData in
+//            allowanceData
+//        }.then { allowanceData in
+//            // Get Swap Call Data from Provider
+//            self.getSwapInfoFrom(provider: self.selectedProvService).map { ($0, allowanceData) }
+//        }.then { swapData, allowanceData in
+//            // TODO: Needs to be handled after meeting with Ali
+//            self.getProxyPermitTransferData().map { ($0, swapData, allowanceData) }
+//        }.then { transferData, swapData, approveData in
+//            self.callProxyMultiCall(data: [approveData, swapData, transferData])
+//        }.done { hash in
+//            print(hash)
+//        }.catch { error in
+//            print(error)
+//        }
     }
     
     // MARK: - Private Methods
@@ -143,7 +148,6 @@ extension SwapConfirmationViewModel {
                 fatalError()
         }
     }
-    
    
     private func checkProtocolAllowanceOf(contractAddress: String) -> Promise<String?> {
         Promise<String?> { seal in
@@ -198,7 +202,7 @@ extension SwapConfirmationViewModel {
                         print(error)
                 }
             } receiveValue: { swapResponseInfo in
-                
+                print(swapResponseInfo)
             }.store(in: &cancellables)
         }
     }
