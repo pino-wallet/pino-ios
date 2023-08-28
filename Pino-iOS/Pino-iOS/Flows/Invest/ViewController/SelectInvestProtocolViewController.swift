@@ -1,20 +1,20 @@
 //
-//  BorrowSelectDexViewController.swift
+//  SelectInvestProtocolViewController.swift
 //  Pino-iOS
 //
-//  Created by Amir hossein kazemi seresht on 8/24/23.
+//  Created by Mohi Raoufi on 8/27/23.
 //
 
 import UIKit
 
-class BorrowSelectDexViewController: UIViewController {
+class SelectInvestProtocolViewController: UIViewController {
 	// MARK: - Closures
 
-	public var dexSystemDidSelectClosure: (DexSystemModel) -> Void
+	public var protocolDidChange: (InvestProtocolViewModel) -> Void
 
 	// MARK: - Private Properties
 
-	private let borrowSelectDexVM = BorrowSelectDexViewModel()
+	private let selectInvestProtocolVM = SelectInvestProtocolViewModel()
 	private var selectDexSystemCollectionView: SelectDexSystemCollectionView!
 
 	// MARK: - View Overrides
@@ -30,8 +30,8 @@ class BorrowSelectDexViewController: UIViewController {
 
 	// MARK: - Initializers
 
-	init(dexSystemDidSelectClosure: @escaping (DexSystemModel) -> Void) {
-		self.dexSystemDidSelectClosure = dexSystemDidSelectClosure
+	init(protocolDidChange: @escaping (InvestProtocolViewModel) -> Void) {
+		self.protocolDidChange = protocolDidChange
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -44,9 +44,9 @@ class BorrowSelectDexViewController: UIViewController {
 
 	private func setupView() {
 		selectDexSystemCollectionView = SelectDexSystemCollectionView(
-			selectDexSystemVM: borrowSelectDexVM,
+			selectDexSystemVM: selectInvestProtocolVM,
 			dexProtocolDidSelect: { selectedDexSystem in
-				self.dexSystemDidSelectClosure(selectedDexSystem as! DexSystemModel)
+				self.protocolDidChange(selectedDexSystem as! InvestProtocolViewModel)
 				self.dismiss(animated: true)
 			}
 		)
@@ -56,9 +56,9 @@ class BorrowSelectDexViewController: UIViewController {
 
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
-		setNavigationTitle(borrowSelectDexVM.pageTitle)
+		setNavigationTitle(selectInvestProtocolVM.pageTitle)
 		navigationItem.leftBarButtonItem = UIBarButtonItem(
-			image: UIImage(named: borrowSelectDexVM.dissmissButtonImageName),
+			image: UIImage(named: "dissmiss"),
 			style: .plain,
 			target: self,
 			action: #selector(dismissSelf)

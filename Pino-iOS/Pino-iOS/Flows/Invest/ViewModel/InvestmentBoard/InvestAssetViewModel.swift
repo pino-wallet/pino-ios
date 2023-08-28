@@ -23,11 +23,11 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 	}
 
 	public var assetProtocol: InvestProtocolViewModel {
-		InvestProtocolViewModel(name: assetModel.protocolName)
+		InvestProtocolViewModel(type: assetModel.protocolName)
 	}
 
 	public var protocolImage: String {
-		assetProtocol.protocolInfo.image
+		assetProtocol.image
 	}
 
 	public var assetAmount: BigNumber {

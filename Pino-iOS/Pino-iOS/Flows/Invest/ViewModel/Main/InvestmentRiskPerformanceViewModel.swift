@@ -32,11 +32,11 @@ struct InvestmentRiskPerformanceViewModel {
 	}
 
 	public var protocolImage: String {
-		selectedAsset.assetProtocol.protocolInfo.image
+		selectedAsset.assetProtocol.image
 	}
 
 	public var protocolName: String {
-		selectedAsset.assetProtocol.protocolInfo.name
+		selectedAsset.assetProtocol.name
 	}
 
 	public var protocolDescription: String {

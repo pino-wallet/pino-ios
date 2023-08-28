@@ -58,11 +58,11 @@ class InvestConfirmationViewModel {
 	}
 
 	public var selectedProtocolImage: String {
-		selectedProtocol.protocolInfo.image
+		selectedProtocol.image
 	}
 
 	public var selectedProtocolName: String {
-		selectedProtocol.protocolInfo.name
+		selectedProtocol.name
 	}
 
 	@Published

@@ -31,7 +31,7 @@ class InvestCoinPerformanceViewModel {
 		self.selectedAsset = selectedAsset
 		self.assetName = selectedAsset.assetName
 		self.assetImage = selectedAsset.assetImage
-		self.protocolImage = selectedAsset.assetProtocol.protocolInfo.image
+		self.protocolImage = selectedAsset.assetProtocol.image
 		getChartData()
 		setupBindings()
 	}

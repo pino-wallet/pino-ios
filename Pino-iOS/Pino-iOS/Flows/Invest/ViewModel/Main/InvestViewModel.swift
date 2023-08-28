@@ -31,28 +31,28 @@ struct InvestViewModel {
 			InvestAssetModel(
 				assetName: "LINK",
 				assetImage: "https://demo-cdn.pino.xyz/tokens/chainlink.png",
-				protocolName: "Balancer",
+				protocolName: "balancer",
 				assetAmount: "31000000000000",
 				assetVolatility: "-230000000000"
 			),
 			InvestAssetModel(
 				assetName: "AAVE",
 				assetImage: "https://demo-cdn.pino.xyz/tokens/aave.png",
-				protocolName: "Balancer",
+				protocolName: "balancer",
 				assetAmount: "16700000000000",
 				assetVolatility: "140000000000"
 			),
 			InvestAssetModel(
 				assetName: "DAI",
 				assetImage: "https://demo-cdn.pino.xyz/tokens/dai.png",
-				protocolName: "Uniswap",
+				protocolName: "uniswap",
 				assetAmount: "1330000000000",
 				assetVolatility: "180000000000"
 			),
 			InvestAssetModel(
 				assetName: "USDT",
 				assetImage: "https://demo-cdn.pino.xyz/tokens/tether.png",
-				protocolName: "Uniswap",
+				protocolName: "uniswap",
 				assetAmount: "456000000000",
 				assetVolatility: "-310000000000"
 			),
