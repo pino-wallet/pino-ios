@@ -6,6 +6,6 @@
 //
 
 protocol SelectDexSystemVMProtocol {
-	associatedtype dexModel: DexSystemModelProtocol
-	var dexSystemList: [dexModel] { get }
+	associatedtype dexModelType: DexSystemModelProtocol
+	var dexSystemList: [dexModelType] { get }
 }
