@@ -59,9 +59,9 @@ class BorrowingBoardViewController: UIViewController {
 		)
 
 		borrowingBoardView = BorrowingBoradView(borrowingBoardVM: borrowingBoardVM, assetDidSelect: { selectedAssetVM in
-            if (selectedAssetVM as? UserBorrowingAssetViewModel) != nil {
-                self.presentBorrowLoanDetailsVC()
-            }
+			if (selectedAssetVM as? UserBorrowingAssetViewModel) != nil {
+				self.presentBorrowLoanDetailsVC()
+			}
 		})
 
 		view = borrowingBoardView
