@@ -43,7 +43,7 @@ class ChangeAvatarViewController: UIViewController {
 			avatarVM: avatarVM,
 			avatarSelected: { selectedAvatar in
 				self.avatarVM.selectedAvatar = selectedAvatar
-                self.saveChanges()
+				self.saveChanges()
 			}
 		)
 	}
