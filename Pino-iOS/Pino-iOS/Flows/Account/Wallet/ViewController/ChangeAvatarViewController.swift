@@ -43,6 +43,7 @@ class ChangeAvatarViewController: UIViewController {
 			avatarVM: avatarVM,
 			avatarSelected: { selectedAvatar in
 				self.avatarVM.selectedAvatar = selectedAvatar
+                self.saveChanges()
 			}
 		)
 	}
@@ -51,13 +52,6 @@ class ChangeAvatarViewController: UIViewController {
 		setupPrimaryColorNavigationBar()
 		// Setup title view
 		setNavigationTitle("Change avatar")
-		// Setup add asset button
-		navigationItem.rightBarButtonItem = UIBarButtonItem(
-			title: "Done",
-			style: .plain,
-			target: self,
-			action: #selector(saveChanges)
-		)
 	}
 
 	@objc
