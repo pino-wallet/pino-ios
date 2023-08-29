@@ -128,15 +128,15 @@ class AddCustomAssetViewModel {
 				return
 			} else {
 				changeViewStatusClosure(.pending)
-                let contractChecksumAddress = Web3Core.shared.getChecksumOfEip55Address(eip55Address: textFieldText)
-                Web3Core.shared.getCustomAssetInfo(contractAddress: contractChecksumAddress)
+				let contractChecksumAddress = Web3Core.shared.getChecksumOfEip55Address(eip55Address: textFieldText)
+				Web3Core.shared.getCustomAssetInfo(contractAddress: contractChecksumAddress)
 					.done { [weak self] assetInfo in
 						if let name = assetInfo[.name]?.description,
 						   let symbol = assetInfo[.symbol]?.description,
 						   let balance = assetInfo[.balance]?.description,
 						   let decimal = assetInfo[.decimal]?.description {
 							self?.customAssetVM = CustomAssetViewModel(customAsset: CustomAssetModel(
-                                id: contractChecksumAddress.trimmingCharacters(in: .whitespaces),
+								id: contractChecksumAddress.trimmingCharacters(in: .whitespaces),
 								name: name,
 								symbol: symbol,
 								balance: balance,
