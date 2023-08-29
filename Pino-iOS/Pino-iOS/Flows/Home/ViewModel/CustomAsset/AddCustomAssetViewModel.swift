@@ -25,25 +25,22 @@ class AddCustomAssetViewModel {
 		case notValidFromServer
 		case unavailableNode
 		case unknownError
-		case notValidSmartContractAddress
 		case alreadyAdded
 
 		public var description: String {
 			switch self {
 			case .notValid:
-				return "Address is not an ETH valid address"
+				return "Invalid address"
 			case .networkError:
-				return "No internet connection, try again later"
+				return "No connection"
 			case .notValidFromServer:
-				return "Custom asset is not valid"
+				return "Invalid asset"
 			case .unavailableNode:
-				return "Cant access to the network, try again later"
+				return "Unavailable node"
 			case .unknownError:
-				return "Unknown error happend, try again later"
-			case .notValidSmartContractAddress:
-				return "Address is not a valid smart contract address"
+				return "Unknown error"
 			case .alreadyAdded:
-				return "Token is already added"
+				return "Already added"
 			}
 		}
 	}
@@ -57,6 +54,7 @@ class AddCustomAssetViewModel {
 	public var customAssetVM: CustomAssetViewModel?
 
 	public let addCustomAssetButtonTitle = "Add"
+    public let addCustomAssetLoadingButtonTitle = "Please wait"
 	public let addcustomAssetPageTitle = "Add custom asset"
 	public let addCustomAssetPageBackButtonIcon = "dissmiss"
 	public let addCustomAssetTextfieldPlaceholder = "Enter contract address"

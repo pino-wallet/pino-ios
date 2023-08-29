@@ -43,11 +43,11 @@ public class PinoTextFieldView: UIView {
 		}
 	}
 
-	public var errorText: String {
-		didSet {
-			updateErrorText(errorText)
-		}
-	}
+//	public var errorText: String {
+//		didSet {
+//			updateErrorText(errorText)
+//		}
+//	}
 
 	public var text: String? {
 		didSet {
@@ -60,12 +60,12 @@ public class PinoTextFieldView: UIView {
 	init(
 		style: Style = .normal,
 		placeholder: String = "",
-		errorText: String = "",
+//		errorText: String = "",
 		returnKeyType: UIReturnKeyType = .default
 	) {
 		self.style = style
 		self.placeholderText = placeholder
-		self.errorText = errorText
+//		self.errorText = errorText
 		self.returnKeyType = returnKeyType
 		super.init(frame: .zero)
 		setupView()
@@ -141,9 +141,9 @@ public class PinoTextFieldView: UIView {
 		}
 	}
 
-	private func updateErrorText(_ errorText: String) {
-		errorLabel.text = errorText
-	}
+//	private func updateErrorText(_ errorText: String) {
+//		errorLabel.text = errorText
+//	}
 
 	private func updatePlaceholder(_ placeholder: String) {
 		textField.attributedPlaceholder = NSAttributedString(
