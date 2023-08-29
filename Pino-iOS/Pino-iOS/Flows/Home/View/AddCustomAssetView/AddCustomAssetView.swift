@@ -149,7 +149,7 @@ class AddCustomAssetView: UIView {
 			case .pending:
 				self.viewStatus = .pendingView
 			case let .error(error):
-                self.viewStatus = .errorView(error.description)
+				self.viewStatus = .errorView(error.description)
 			case .success:
 				self.customAssetInfoView?.addCustomAssetVM = self.addCustomAssetVM
 				self.viewStatus = .successView
@@ -165,25 +165,25 @@ class AddCustomAssetView: UIView {
 			pasteFromClipboardview.isHidden = true
 			customAssetInfoView?.isHidden = true
 			contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
-            addButton.title = addCustomAssetVM.addCustomAssetButtonTitle
+			addButton.title = addCustomAssetVM.addCustomAssetButtonTitle
 
 		case let .errorView(errorText):
 			pasteFromClipboardview.isHidden = true
 			customAssetInfoView?.isHidden = true
 			contractTextfieldView.style = .error
-            addButton.title = errorText
+			addButton.title = errorText
 
 		case .pendingView:
 			pasteFromClipboardview.isHidden = true
 			customAssetInfoView?.isHidden = true
 			contractTextfieldView.style = .pending
-            addButton.title = addCustomAssetVM.addCustomAssetLoadingButtonTitle
+			addButton.title = addCustomAssetVM.addCustomAssetLoadingButtonTitle
 
 		case .pasteFromClipboardView:
 			customAssetInfoView?.isHidden = true
 			pasteFromClipboardview.isHidden = false
 			contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
-            addButton.title = addCustomAssetVM.addCustomAssetButtonTitle
+			addButton.title = addCustomAssetVM.addCustomAssetButtonTitle
 
 		case .successView:
 			pasteFromClipboardview.isHidden = true
@@ -191,7 +191,7 @@ class AddCustomAssetView: UIView {
 			contractTextfieldView.style = .success
 			addButton.style = .active
 			toggleNavigationRightButtonEnabledClosure(true)
-            addButton.title = addCustomAssetVM.addCustomAssetButtonTitle
+			addButton.title = addCustomAssetVM.addCustomAssetButtonTitle
 		}
 	}
 

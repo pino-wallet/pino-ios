@@ -99,17 +99,17 @@ class EditAccountNameViewController: UIViewController {
 		case .isEmpty:
 			navigationItem.rightBarButtonItem?.isEnabled = false
 			editAccountNameView.doneButton.style = .deactive
-            editAccountNameView.doneButton.title = editAccountNameVM.accountNameIsEmptyError
+			editAccountNameView.doneButton.title = editAccountNameVM.accountNameIsEmptyError
 			editAccountNameView.walletNameTextFieldView.style = .error
 		case .repeatedName:
 			navigationItem.rightBarButtonItem?.isEnabled = false
 			editAccountNameView.doneButton.style = .deactive
-            editAccountNameView.doneButton.title = editAccountNameVM.accountNameIsRepeatedError
+			editAccountNameView.doneButton.title = editAccountNameVM.accountNameIsRepeatedError
 			editAccountNameView.walletNameTextFieldView.style = .error
 		case .clear:
 			navigationItem.rightBarButtonItem?.isEnabled = true
 			editAccountNameView.doneButton.style = .active
-            editAccountNameView.doneButton.title = editAccountNameVM.doneButtonName
+			editAccountNameView.doneButton.title = editAccountNameVM.doneButtonName
 			editAccountNameView.walletNameTextFieldView.style = .normal
 		}
 	}

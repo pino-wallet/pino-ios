@@ -54,7 +54,7 @@ class AddCustomAssetViewModel {
 	public var customAssetVM: CustomAssetViewModel?
 
 	public let addCustomAssetButtonTitle = "Add"
-    public let addCustomAssetLoadingButtonTitle = "Please wait"
+	public let addCustomAssetLoadingButtonTitle = "Please wait"
 	public let addcustomAssetPageTitle = "Add custom asset"
 	public let addCustomAssetPageBackButtonIcon = "dissmiss"
 	public let addCustomAssetTextfieldPlaceholder = "Enter contract address"
