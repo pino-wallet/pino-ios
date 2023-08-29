@@ -12,8 +12,10 @@ import PromiseKit
 import Web3_Utility
 
 class SendConfirmationViewModel {
-    // MARK: - TypeAliases
-    typealias UserRecipientAccountInfoType = (image: String, name: String)
+	// MARK: - TypeAliases
+
+	typealias UserRecipientAccountInfoType = (image: String, name: String)
+
 	// MARK: - Private Properties
 
 	private let coreDataManager = CoreDataManager()
@@ -33,7 +35,7 @@ class SendConfirmationViewModel {
 	public var gasFee: BigNumber!
 	public var isAddressScam = false
 	public let recipientAddress: String
-    public var userRecipientAccountInfo: UserRecipientAccountInfoType?
+	public var userRecipientAccountInfo: UserRecipientAccountInfoType?
 	public let sendAmount: String
 	public let confirmBtnText = "Confirm"
 	public let insuffientText = "Insufficient ETH Amount"
@@ -96,7 +98,7 @@ class SendConfirmationViewModel {
 		self.sendAmountInDollar = sendAmountInDollar
 		self.recipientAddress = recipientAddress
 		setupBindings()
-        setUserRecipientAccountInfo()
+		setUserRecipientAccountInfo()
 	}
 
 	// MARK: - Public Methods
@@ -200,14 +202,14 @@ class SendConfirmationViewModel {
 			}
 		}
 	}
-    
-    private func setUserRecipientAccountInfo() {
-        let accountsList = walletManager.accounts
-        let foundAccount = accountsList.first(where: { $0.eip55Address == recipientAddress })
-        if foundAccount != nil {
-            userRecipientAccountInfo = (image: foundAccount?.avatarIcon ?? "", name: foundAccount?.name ?? "")
-        } else {
-            userRecipientAccountInfo = nil
-        }
-    }
+
+	private func setUserRecipientAccountInfo() {
+		let accountsList = walletManager.accounts
+		let foundAccount = accountsList.first(where: { $0.eip55Address == recipientAddress })
+		if foundAccount != nil {
+			userRecipientAccountInfo = (image: foundAccount?.avatarIcon ?? "", name: foundAccount?.name ?? "")
+		} else {
+			userRecipientAccountInfo = nil
+		}
+	}
 }

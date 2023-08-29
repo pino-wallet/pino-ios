@@ -42,7 +42,7 @@ class SendConfirmationView: UIView {
 	private let feeErrorLabel = UILabel()
 	private let feeErrorStackView = UIStackView()
 	private let feeLabel = UILabel()
-    private var userAccountInfoView: UserAccountInfoView!
+	private var userAccountInfoView: UserAccountInfoView!
 
 	private let continueButton = PinoButton(style: .active)
 	private let confirmButtonTapped: () -> Void
@@ -78,7 +78,7 @@ class SendConfirmationView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-        userAccountInfoView = UserAccountInfoView(image: nil, title: nil)
+		userAccountInfoView = UserAccountInfoView(image: nil, title: nil)
 		feeTitleView = TitleWithInfo(
 			actionSheetTitle: sendConfirmationVM.feeInfoActionSheetTitle,
 			actionSheetDescription: sendConfirmationVM.feeInfoActionSheetDescription
@@ -110,7 +110,7 @@ class SendConfirmationView: UIView {
 		recipientStrackView.addArrangedSubview(recipientTitleLabel)
 		recipientStrackView.addArrangedSubview(recipientSpacerView)
 		recipientStrackView.addArrangedSubview(recipientAddressLabel)
-        recipientStrackView.addArrangedSubview(userAccountInfoView)
+		recipientStrackView.addArrangedSubview(userAccountInfoView)
 
 		feeStackView.addArrangedSubview(feeTitleView)
 		feeStackView.addArrangedSubview(feeSpacerView)
@@ -121,15 +121,14 @@ class SendConfirmationView: UIView {
 		feeErrorStackView.addArrangedSubview(feeErrorLabel)
 
 		scamErrorView.addSubview(scamErrorLabel)
-        
-        let recipientAddressLabelGesture = UITapGestureRecognizer(target: self, action: #selector(copyRecipientAddress))
-        recipientAddressLabel.addGestureRecognizer(recipientAddressLabelGesture)
-        recipientAddressLabel.isUserInteractionEnabled = true
-        
-        
-        let userAccountInfoViewGesture = UITapGestureRecognizer(target: self, action: #selector(copyRecipientAddress))
-        userAccountInfoView.addGestureRecognizer(userAccountInfoViewGesture)
-        userAccountInfoView.isUserInteractionEnabled = true
+
+		let recipientAddressLabelGesture = UITapGestureRecognizer(target: self, action: #selector(copyRecipientAddress))
+		recipientAddressLabel.addGestureRecognizer(recipientAddressLabelGesture)
+		recipientAddressLabel.isUserInteractionEnabled = true
+
+		let userAccountInfoViewGesture = UITapGestureRecognizer(target: self, action: #selector(copyRecipientAddress))
+		userAccountInfoView.addGestureRecognizer(userAccountInfoViewGesture)
+		userAccountInfoView.isUserInteractionEnabled = true
 
 		let feeLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleShowFee))
 		feeLabel.addGestureRecognizer(feeLabelTapGesture)
@@ -171,16 +170,16 @@ class SendConfirmationView: UIView {
 			tokenImageView.image = UIImage(named: sendConfirmationVM.customAssetImage)
 			sendAmountLabel.isHidden = true
 		}
-        
-        if sendConfirmationVM.userRecipientAccountInfo != nil {
-            userAccountInfoView.title = sendConfirmationVM.userRecipientAccountInfo?.name
-            userAccountInfoView.image = sendConfirmationVM.userRecipientAccountInfo?.image
-            userAccountInfoView.isHidden = false
-            recipientAddressLabel.isHidden = true
-        } else {
-            recipientAddressLabel.isHidden = false
-            userAccountInfoView.isHidden = true
-        }
+
+		if sendConfirmationVM.userRecipientAccountInfo != nil {
+			userAccountInfoView.title = sendConfirmationVM.userRecipientAccountInfo?.name
+			userAccountInfoView.image = sendConfirmationVM.userRecipientAccountInfo?.image
+			userAccountInfoView.isHidden = false
+			recipientAddressLabel.isHidden = true
+		} else {
+			recipientAddressLabel.isHidden = false
+			userAccountInfoView.isHidden = true
+		}
 
 		tokenNameLabel.font = .PinoStyle.semiboldTitle2
 		sendAmountLabel.font = .PinoStyle.mediumBody
@@ -288,7 +287,6 @@ class SendConfirmationView: UIView {
 			.allEdges
 		)
 
-        
 		feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
 	}
 
@@ -345,11 +343,12 @@ class SendConfirmationView: UIView {
 		feeErrorStackView.isHidden = true
 		feeLabel.isHidden = false
 	}
-    
-    @objc public func copyRecipientAddress() {
-        let pasteBoard = UIPasteboard.general
-        pasteBoard.string = sendConfirmationVM.recipientAddress
-        
-        Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)
-    }
+
+	@objc
+	public func copyRecipientAddress() {
+		let pasteBoard = UIPasteboard.general
+		pasteBoard.string = sendConfirmationVM.recipientAddress
+
+		Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)
+	}
 }
