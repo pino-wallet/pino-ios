@@ -17,7 +17,7 @@ class StartBorrowingView: UIView {
 	private let mainStackView = UIStackView()
 	private let titleLabel = PinoLabel(style: .title, text: "")
 	private let descriptionLabel = PinoLabel(style: .description, text: "")
-    private var actionButton: PinoRightSideImageButton!
+	private var actionButton: PinoRightSideImageButton!
 	private var titleText: String
 	private var descriptionText: String
 	private var buttonTitleText: String
@@ -49,8 +49,8 @@ class StartBorrowingView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-        actionButton = PinoRightSideImageButton(imageName: "primary_right_arrow", style: .primary)
-        
+		actionButton = PinoRightSideImageButton(imageName: "primary_right_arrow", style: .primary)
+
 		mainStackView.addArrangedSubview(titleLabel)
 		mainStackView.addArrangedSubview(descriptionLabel)
 		mainStackView.addArrangedSubview(actionButton)
@@ -72,8 +72,8 @@ class StartBorrowingView: UIView {
 		descriptionLabel.numberOfLines = 0
 
 		actionButton.addTarget(self, action: #selector(didTapactionbutton), for: .touchUpInside)
-        
-        actionButton.title = buttonTitleText
+
+		actionButton.title = buttonTitleText
 	}
 
 	private func setupConstraints() {
