@@ -42,9 +42,9 @@ class CollateralDetailsViewController: UIViewController {
 			collateralDetailsVM: collateralDetailsVM,
 			pushToBorrowIncreaseAmountPageClosure: {
 				self.pushToCollateralIncreaseAmountPage()
-            }, pushToWithdrawAmountPageClosure: {
-                self.pushToWithdrawAmountPage()
-            }
+			}, pushToWithdrawAmountPageClosure: {
+				self.pushToWithdrawAmountPage()
+			}
 		)
 
 		view = collateralDetailsView
@@ -55,12 +55,12 @@ class CollateralDetailsViewController: UIViewController {
 		let collateralIncreaseAmountVC = CollateralIncreaseAmountViewController()
 		navigationController?.pushViewController(collateralIncreaseAmountVC, animated: true)
 	}
-    
-#warning("this is for test")
-private func pushToWithdrawAmountPage() {
-    let withdrawAmountVC = WithdrawAmountViewController()
-    navigationController?.pushViewController(withdrawAmountVC, animated: true)
-}
+
+	#warning("this is for test")
+	private func pushToWithdrawAmountPage() {
+		let withdrawAmountVC = WithdrawAmountViewController()
+		navigationController?.pushViewController(withdrawAmountVC, animated: true)
+	}
 
 	@objc
 	private func dismissSelf() {

@@ -8,34 +8,34 @@
 import UIKit
 
 class WithdrawAmountViewController: UIViewController {
-    // MARK: - Private Properties
+	// MARK: - Private Properties
 
-    private let withdrawAmountVM = WithdrawAmountViewModel()
-    private var withdrawAmountView: WithdrawAmountView!
+	private let withdrawAmountVM = WithdrawAmountViewModel()
+	private var withdrawAmountView: WithdrawAmountView!
 
-    // MARK: - View Overrides
+	// MARK: - View Overrides
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+	override func viewDidLoad() {
+		super.viewDidLoad()
+	}
 
-    override func loadView() {
-        setupView()
-        setupNavigationBar()
-    }
+	override func loadView() {
+		setupView()
+		setupNavigationBar()
+	}
 
-    // MARK: - Private Methods
+	// MARK: - Private Methods
 
-    private func setupView() {
-        #warning("this should be changed")
-        withdrawAmountView = WithdrawAmountView(withdrawAmountVM: withdrawAmountVM, nextButtonTapped: {})
+	private func setupView() {
+		#warning("this should be changed")
+		withdrawAmountView = WithdrawAmountView(withdrawAmountVM: withdrawAmountVM, nextButtonTapped: {})
 
-        view = withdrawAmountView
-    }
+		view = withdrawAmountView
+	}
 
-    private func setupNavigationBar() {
-        setNavigationTitle(
-            "\(withdrawAmountVM.pageTitleWithdrawText) \(withdrawAmountVM.tokenSymbol)"
-        )
-    }
+	private func setupNavigationBar() {
+		setNavigationTitle(
+			"\(withdrawAmountVM.pageTitleWithdrawText) \(withdrawAmountVM.tokenSymbol)"
+		)
+	}
 }

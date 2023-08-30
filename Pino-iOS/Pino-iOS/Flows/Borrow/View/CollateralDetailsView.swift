@@ -11,7 +11,7 @@ class CollateralDetailsView: UIView {
 	// MARK: - Closures
 
 	public var pushToBorrowIncreaseAmountPageClosure: () -> Void
-    public var pushToWithdrawAmountPageClosure: () -> Void
+	public var pushToWithdrawAmountPageClosure: () -> Void
 
 	// MARK: - Private Properties
 
@@ -35,10 +35,14 @@ class CollateralDetailsView: UIView {
 
 	// MARK: - Initializers
 
-    init(collateralDetailsVM: CollateralDetailsViewModel, pushToBorrowIncreaseAmountPageClosure: @escaping () -> Void, pushToWithdrawAmountPageClosure: @escaping () -> Void) {
+	init(
+		collateralDetailsVM: CollateralDetailsViewModel,
+		pushToBorrowIncreaseAmountPageClosure: @escaping () -> Void,
+		pushToWithdrawAmountPageClosure: @escaping () -> Void
+	) {
 		self.collateralDetailsVM = collateralDetailsVM
 		self.pushToBorrowIncreaseAmountPageClosure = pushToBorrowIncreaseAmountPageClosure
-        self.pushToWithdrawAmountPageClosure = pushToWithdrawAmountPageClosure
+		self.pushToWithdrawAmountPageClosure = pushToWithdrawAmountPageClosure
 
 		super.init(frame: .zero)
 
@@ -55,8 +59,8 @@ class CollateralDetailsView: UIView {
 
 	private func setupView() {
 		increaseButton.addTarget(self, action: #selector(onIncreaseButtonTap), for: .touchUpInside)
-        
-        withdrawButton.addTarget(self, action: #selector(onWithdrawButtonTap), for: .touchUpInside)
+
+		withdrawButton.addTarget(self, action: #selector(onWithdrawButtonTap), for: .touchUpInside)
 
 		involvedAmountStackView = LoanDetailsInfoStackView(
 			titleText: collateralDetailsVM.involvedTitle,
@@ -153,9 +157,9 @@ class CollateralDetailsView: UIView {
 	private func onIncreaseButtonTap() {
 		pushToBorrowIncreaseAmountPageClosure()
 	}
-    
-    @objc
-    private func onWithdrawButtonTap() {
-        pushToWithdrawAmountPageClosure()
-    }
+
+	@objc
+	private func onWithdrawButtonTap() {
+		pushToWithdrawAmountPageClosure()
+	}
 }
