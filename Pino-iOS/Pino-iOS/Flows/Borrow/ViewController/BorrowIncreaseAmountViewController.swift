@@ -8,32 +8,35 @@
 import UIKit
 
 class BorrowIncreaseAmountViewController: UIViewController {
-    
-    // MARK: - Private Properties
-    private let borrowIncreaseAmountVM = BorrowIncreaseAmountViewModel()
-    private var borrowIncreaseAmountView: BorrowIncreaseAmountView!
+	// MARK: - Private Properties
 
-    // MARK: - View Overrides
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    override func loadView() {
-        setupView()
-        setupNavigationBar()
-    }
-    
-    // MARK: - Private Methods
+	private let borrowIncreaseAmountVM = BorrowIncreaseAmountViewModel()
+	private var borrowIncreaseAmountView: BorrowIncreaseAmountView!
 
-    private func setupView() {
-        #warning("this should be changed")
-        borrowIncreaseAmountView = BorrowIncreaseAmountView(borrowIncreaseAmountVM: borrowIncreaseAmountVM, nextButtonTapped: {})
-        
-        view = borrowIncreaseAmountView
-        
-    }
-    
-    private func setupNavigationBar() {
-        setNavigationTitle("\(borrowIncreaseAmountVM.pageTitleBorrowText) \(borrowIncreaseAmountVM.tokenSymbol)")
-    }
+	// MARK: - View Overrides
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+	}
+
+	override func loadView() {
+		setupView()
+		setupNavigationBar()
+	}
+
+	// MARK: - Private Methods
+
+	private func setupView() {
+		#warning("this should be changed")
+		borrowIncreaseAmountView = BorrowIncreaseAmountView(
+			borrowIncreaseAmountVM: borrowIncreaseAmountVM,
+			nextButtonTapped: {}
+		)
+
+		view = borrowIncreaseAmountView
+	}
+
+	private func setupNavigationBar() {
+		setNavigationTitle("\(borrowIncreaseAmountVM.pageTitleBorrowText) \(borrowIncreaseAmountVM.tokenSymbol)")
+	}
 }
