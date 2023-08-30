@@ -38,10 +38,19 @@ class CollateralDetailsViewController: UIViewController {
 	}
 
 	private func setupView() {
-		collateralDetailsView = CollateralDetailsView(collateralDetailsVM: collateralDetailsVM)
+        collateralDetailsView = CollateralDetailsView(collateralDetailsVM: collateralDetailsVM, pushToBorrowIncreaseAmountPageClosure: {
+            self.pushToCollateralIncreaseAmountPage()
+        })
 
 		view = collateralDetailsView
 	}
+    
+#warning("this is for test")
+private func pushToCollateralIncreaseAmountPage() {
+    let collateralIncreaseAmountVC = CollateralIncreaseAmountViewController()
+    navigationController?.pushViewController(collateralIncreaseAmountVC, animated: true)
+}
+
 
 	@objc
 	private func dismissSelf() {

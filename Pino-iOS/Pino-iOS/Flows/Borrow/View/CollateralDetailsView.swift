@@ -8,6 +8,8 @@
 import UIKit
 
 class CollateralDetailsView: UIView {
+    // MARK: - Closures
+    public var pushToBorrowIncreaseAmountPageClosure: () -> Void
 	// MARK: - Private Properties
 
 	private let mainStackView = UIStackView()
@@ -30,8 +32,9 @@ class CollateralDetailsView: UIView {
 
 	// MARK: - Initializers
 
-	init(collateralDetailsVM: CollateralDetailsViewModel) {
+    init(collateralDetailsVM: CollateralDetailsViewModel, pushToBorrowIncreaseAmountPageClosure: @escaping () -> Void) {
 		self.collateralDetailsVM = collateralDetailsVM
+        self.pushToBorrowIncreaseAmountPageClosure = pushToBorrowIncreaseAmountPageClosure
 
 		super.init(frame: .zero)
 
@@ -47,6 +50,8 @@ class CollateralDetailsView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
+        increaseButton.addTarget(self, action: #selector(onIncreaseButtonTap), for: .touchUpInside)
+        
 		involvedAmountStackView = LoanDetailsInfoStackView(
 			titleText: collateralDetailsVM.involvedTitle,
 			infoText: collateralDetailsVM.involvedAmountInToken
@@ -137,4 +142,8 @@ class CollateralDetailsView: UIView {
 			.bottom(to: layoutMarginsGuide, padding: 20)
 		)
 	}
+    
+    @objc private func onIncreaseButtonTap() {
+        pushToBorrowIncreaseAmountPageClosure()
+    }
 }
