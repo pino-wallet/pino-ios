@@ -21,8 +21,8 @@ class CollateralizingBoradView: AssetsBoardCollectionView {
 	) {
 		self.collateralizingBoardVM = collateralizingBoardVM
 		super.init(
-			assets: collateralizingBoardVM.userCollateralizingTokens,
-			userAssets: collateralizingBoardVM.collateralizableTokens,
+			assets: collateralizingBoardVM.collateralizableTokens,
+			userAssets: collateralizingBoardVM.userCollateralizingTokens,
 			assetDidSelect: assetDidSelect
 		)
 		setupCollectionView()

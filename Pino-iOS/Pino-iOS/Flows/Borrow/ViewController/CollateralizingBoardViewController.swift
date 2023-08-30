@@ -60,8 +60,10 @@ class CollateralizingBoardViewController: UIViewController {
 
 		collateralizingBoardView = CollateralizingBoradView(
 			collateralizingBoardVM: collateralizingBoardVM,
-			assetDidSelect: { _ in
-				self.presentCollateralDetailsVC()
+			assetDidSelect: { selectedAssetVM in
+				if (selectedAssetVM as? UserCollateralizingAssetViewModel) != nil {
+					self.presentCollateralDetailsVC()
+				}
 			}
 		)
 
