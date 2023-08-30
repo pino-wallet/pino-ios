@@ -17,7 +17,7 @@ class StartBorrowingView: UIView {
 	private let mainStackView = UIStackView()
 	private let titleLabel = PinoLabel(style: .title, text: "")
 	private let descriptionLabel = PinoLabel(style: .description, text: "")
-	private let actionButton = UIButton()
+    private var actionButton: PinoRightSideImageButton!
 	private var titleText: String
 	private var descriptionText: String
 	private var buttonTitleText: String
@@ -49,6 +49,8 @@ class StartBorrowingView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
+        actionButton = PinoRightSideImageButton(imageName: "primary_right_arrow", style: .primary)
+        
 		mainStackView.addArrangedSubview(titleLabel)
 		mainStackView.addArrangedSubview(descriptionLabel)
 		mainStackView.addArrangedSubview(actionButton)
@@ -71,17 +73,8 @@ class StartBorrowingView: UIView {
 
 		actionButton.addTarget(self, action: #selector(didTapactionbutton), for: .touchUpInside)
 
-		var actionButtonConfigurations = PinoButton.Configuration.filled()
-		let actionButtonImage = UIImage(named: "primary_right_arrow")?.withTintColor(.Pino.secondaryBackground)
-		actionButtonConfigurations.image = actionButtonImage
-		actionButtonConfigurations.imagePadding = 4
-		actionButtonConfigurations.imagePlacement = .trailing
-		actionButtonConfigurations.background.backgroundColor = .Pino.primary
-		var attributedTitle = AttributedString(buttonTitleText)
-		attributedTitle.font = .PinoStyle.semiboldCallout
-		attributedTitle.foregroundColor = .Pino.secondaryBackground
-		actionButtonConfigurations.attributedTitle = attributedTitle
-		actionButton.configuration = actionButtonConfigurations
+        actionButton.corderRadius = 8
+        actionButton.title = buttonTitleText
 	}
 
 	private func setupConstraints() {

@@ -19,19 +19,19 @@ class ActivityDetailsView: UIScrollView {
 
 	// MARK: - Private Properties
 
-	private var activityDetailsVM: ActivityDetailsViewModel
-	private var activityDetailsHeader: UIView
-	private var activityDetailsInfoView: ActivityInfoView!
 	private let mainStackView = UIStackView()
-	private let viewEthScanButton = UIButton()
 	private let footerContainerView = PinoContainerCard()
 	private let footerStackView = UIStackView()
 	private let footerIconView = UIImageView()
 	private let footerTextLabel = PinoLabel(style: .title, text: "")
 	private let footerTextLabelContainer = UIView()
 	private let activityDetailRefreshControl = UIRefreshControl()
-	private let speedUpButton = UIButton()
+    private let speedUpButton = PinoButton(style: .active, title: "")
 	private var speedUpActionSheet: SpeedUpAlertViewController!
+    private var viewEthScanButton: PinoRightSideImageButton!
+    private var activityDetailsVM: ActivityDetailsViewModel
+    private var activityDetailsHeader: UIView
+    private var activityDetailsInfoView: ActivityInfoView!
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
@@ -67,6 +67,8 @@ class ActivityDetailsView: UIScrollView {
 				self?.presentActionSheet(actionSheet, nil)
 			}
 		)
+        
+        viewEthScanButton = PinoRightSideImageButton(imageName: activityDetailsVM.viewEthScanIconName, style: .clear)
 
 		viewEthScanButton.addTarget(self, action: #selector(openEthScan), for: .touchUpInside)
 
@@ -91,18 +93,7 @@ class ActivityDetailsView: UIScrollView {
 	private func setupStyles() {
 		backgroundColor = .Pino.background
 
-		var viewStatusButtonConfigurations = PinoButton.Configuration.plain()
-		viewStatusButtonConfigurations.image = UIImage(named: activityDetailsVM.viewEthScanIconName)
-		viewStatusButtonConfigurations.imagePadding = 4
-		viewStatusButtonConfigurations.imagePlacement = .trailing
-		viewStatusButtonConfigurations.background.backgroundColor = .Pino.clear
-		viewStatusButtonConfigurations.background.customView?.layer.borderWidth = 1.2
-		viewStatusButtonConfigurations.background.customView?.layer.borderColor = UIColor.Pino.primary.cgColor
-		var viewStatusButtonAttributedTitle = AttributedString(activityDetailsVM.viewEthScanTitle)
-		viewStatusButtonAttributedTitle.font = .PinoStyle.semiboldBody
-		viewStatusButtonAttributedTitle.foregroundColor = .Pino.primary
-		viewStatusButtonConfigurations.attributedTitle = viewStatusButtonAttributedTitle
-		viewEthScanButton.configuration = viewStatusButtonConfigurations
+        viewEthScanButton.title = activityDetailsVM.viewEthScanTitle
 
 		mainStackView.axis = .vertical
 		mainStackView.spacing = 24
@@ -120,18 +111,10 @@ class ActivityDetailsView: UIScrollView {
 		footerContainerView.isHidden = true
 
 		mainStackView.setCustomSpacing(16, after: activityDetailsHeader)
-
-		var speedButtonUpConfigurations = PinoButton.Configuration.filled()
-		speedButtonUpConfigurations.image = UIImage(named: activityDetailsVM.speedUpIconName)
-		speedButtonUpConfigurations.imagePadding = 10
-		speedButtonUpConfigurations.imagePlacement = .trailing
-		speedButtonUpConfigurations.background.backgroundColor = .Pino.primary
-		speedButtonUpConfigurations.background.cornerRadius = 12
-		var speedUpButtonAttributedTitle = AttributedString(activityDetailsVM.speedUpText)
-		speedUpButtonAttributedTitle.font = .PinoStyle.semiboldCallout
-		speedUpButtonAttributedTitle.foregroundColor = .Pino.white
-		speedButtonUpConfigurations.attributedTitle = speedUpButtonAttributedTitle
-		speedUpButton.configuration = speedButtonUpConfigurations
+        
+        speedUpButton.title = activityDetailsVM.speedUpText
+        speedUpButton.setImage(UIImage(named: activityDetailsVM.speedUpIconName), for: .normal)
+        speedUpButton.setConfiguraton(font: .PinoStyle.semiboldCallout!, imagePadding: 7)
 	}
 
 	private func setupConstraintsWithUIType() {
@@ -150,8 +133,7 @@ class ActivityDetailsView: UIScrollView {
 		mainStackView.pin(.horizontalEdges(to: layoutMarginsGuide, padding: 0), .top(to: contentLayoutGuide, padding: 24))
 		speedUpButton.pin(
 			.horizontalEdges(to: layoutMarginsGuide, padding: 0),
-			.bottom(to: safeAreaLayoutGuide, padding: speedUpActivityButtomPadding),
-			.fixedHeight(56)
+			.bottom(to: safeAreaLayoutGuide, padding: speedUpActivityButtomPadding)
 		)
 	}
 
