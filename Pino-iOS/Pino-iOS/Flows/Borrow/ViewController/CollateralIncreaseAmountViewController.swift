@@ -8,32 +8,37 @@
 import UIKit
 
 class CollateralIncreaseAmountViewController: UIViewController {
-    // MARK: - Private Properties
+	// MARK: - Private Properties
 
-    private let collateralIncreaseAmountVM = CollateralIncreaseAmountViewModel()
-    private var collateralIncreaseAmountView: CollateralIncreaseAmountView!
+	private let collateralIncreaseAmountVM = CollateralIncreaseAmountViewModel()
+	private var collateralIncreaseAmountView: CollateralIncreaseAmountView!
 
-    // MARK: - View Overrides
+	// MARK: - View Overrides
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+	override func viewDidLoad() {
+		super.viewDidLoad()
+	}
 
-    override func loadView() {
-        setupView()
-        setupNavigationBar()
-    }
+	override func loadView() {
+		setupView()
+		setupNavigationBar()
+	}
 
-    // MARK: - Private Methods
+	// MARK: - Private Methods
 
-    private func setupView() {
-        #warning("this should be changed")
-        collateralIncreaseAmountView = CollateralIncreaseAmountView(collateralIncreaseAmountVM: collateralIncreaseAmountVM, nextButtonTapped: {})
+	private func setupView() {
+		#warning("this should be changed")
+		collateralIncreaseAmountView = CollateralIncreaseAmountView(
+			collateralIncreaseAmountVM: collateralIncreaseAmountVM,
+			nextButtonTapped: {}
+		)
 
-        view = collateralIncreaseAmountView
-    }
+		view = collateralIncreaseAmountView
+	}
 
-    private func setupNavigationBar() {
-        setNavigationTitle("\(collateralIncreaseAmountVM.pageTitleCollateralText) \(collateralIncreaseAmountVM.tokenSymbol)")
-    }
+	private func setupNavigationBar() {
+		setNavigationTitle(
+			"\(collateralIncreaseAmountVM.pageTitleCollateralText) \(collateralIncreaseAmountVM.tokenSymbol)"
+		)
+	}
 }
