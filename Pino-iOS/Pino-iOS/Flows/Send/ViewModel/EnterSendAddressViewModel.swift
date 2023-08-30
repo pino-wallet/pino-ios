@@ -35,7 +35,7 @@ class EnterSendAddressViewModel {
 			case .addressNotValid:
 				return "Invalid address"
 			case .sameAddress:
-				return "Same address as current account"
+				return "It's your account!"
 			}
 		}
 	}

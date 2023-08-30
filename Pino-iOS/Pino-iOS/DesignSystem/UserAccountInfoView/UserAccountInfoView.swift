@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ImageAndTitleStackView: UIStackView {
+class UserAccountInfoView: UIStackView {
 	// MARK: - Public Properties
 
 	public var image: String? {

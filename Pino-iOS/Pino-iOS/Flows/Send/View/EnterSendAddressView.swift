@@ -166,18 +166,20 @@ class EnterSendAddressView: UIView {
 	private func changeViewStatus(validationStatus: EnterSendAddressViewModel.ValidationStatus) {
 		switch validationStatus {
 		case let .error(error):
-			addressTextField.errorText = error.description
 			addressTextField.style = .error
 
 			nextButton.style = .deactive
+			nextButton.title = error.description
 		case .success:
 			addressTextField.style = .success
 
 			nextButton.style = .active
+			nextButton.title = enterSendAddressVM.nextButtonTitle
 		case .normal:
 			addressTextField.style = .customIcon(qrCodeScanButton)
 
 			nextButton.style = .deactive
+			nextButton.title = enterSendAddressVM.nextButtonTitle
 		}
 	}
 

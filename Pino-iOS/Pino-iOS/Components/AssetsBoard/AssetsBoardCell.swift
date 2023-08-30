@@ -11,6 +11,7 @@ import UIKit
 class AssetsBoardCell: GroupCollectionViewCell {
 	// MARK: - Private Propeties
 
+	private let contentStackView = UIStackView()
 	private let mainContainerView = UIView()
 	private let mainStackView = UIStackView()
 	private let titleStackView = UIStackView()
@@ -18,6 +19,8 @@ class AssetsBoardCell: GroupCollectionViewCell {
 	private let assetImageView = InvestAssetImageView()
 	private let assetNameLabel = UILabel()
 	private let spacerView = UIView()
+	private let sectionTopInsetView = UIView()
+	private let sectionBottomInsetView = UIView()
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Internal Properties
@@ -36,7 +39,10 @@ class AssetsBoardCell: GroupCollectionViewCell {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		cardView.addSubview(mainContainerView)
+		cardView.addSubview(contentStackView)
+		contentStackView.addArrangedSubview(sectionTopInsetView)
+		contentStackView.addArrangedSubview(mainContainerView)
+		contentStackView.addArrangedSubview(sectionBottomInsetView)
 		mainContainerView.addSubview(mainStackView)
 		mainStackView.addArrangedSubview(titleStackView)
 		mainStackView.addArrangedSubview(spacerView)
@@ -64,6 +70,7 @@ class AssetsBoardCell: GroupCollectionViewCell {
 		mainContainerView.backgroundColor = .Pino.background
 
 		amountInfoStackView.axis = .vertical
+		contentStackView.axis = .vertical
 		titleStackView.spacing = 8
 
 		mainContainerView.layer.cornerRadius = 12
@@ -73,8 +80,9 @@ class AssetsBoardCell: GroupCollectionViewCell {
 	}
 
 	private func setupConstraints() {
-		mainContainerView.pin(
-			.horizontalEdges(padding: 14)
+		contentStackView.pin(
+			.horizontalEdges(padding: 14),
+			.verticalEdges(padding: 4)
 		)
 		assetImageView.pin(
 			.fixedHeight(50),
@@ -83,6 +91,12 @@ class AssetsBoardCell: GroupCollectionViewCell {
 		mainStackView.pin(
 			.horizontalEdges(padding: 12),
 			.verticalEdges(padding: 8)
+		)
+		sectionTopInsetView.pin(
+			.fixedHeight(10)
+		)
+		sectionBottomInsetView.pin(
+			.fixedHeight(10)
 		)
 	}
 
@@ -94,27 +108,19 @@ class AssetsBoardCell: GroupCollectionViewCell {
 	}
 
 	private func updateConstraint(style: GroupCollectionViewStyle) {
-		var topPadding: CGFloat
-		var bottomPadding: CGFloat
-
 		switch style {
 		case .firstCell:
-			topPadding = 14
-			bottomPadding = 4
+			sectionTopInsetView.isHiddenInStackView = false
+			sectionBottomInsetView.isHiddenInStackView = true
 		case .lastCell:
-			topPadding = 4
-			bottomPadding = 14
+			sectionTopInsetView.isHiddenInStackView = true
+			sectionBottomInsetView.isHiddenInStackView = false
 		case .regular:
-			topPadding = 4
-			bottomPadding = 4
+			sectionTopInsetView.isHiddenInStackView = true
+			sectionBottomInsetView.isHiddenInStackView = true
 		case .singleCell:
-			topPadding = 14
-			bottomPadding = 14
+			sectionTopInsetView.isHiddenInStackView = false
+			sectionBottomInsetView.isHiddenInStackView = false
 		}
-
-		mainContainerView.pin(
-			.top(padding: topPadding),
-			.bottom(padding: bottomPadding)
-		)
 	}
 }
