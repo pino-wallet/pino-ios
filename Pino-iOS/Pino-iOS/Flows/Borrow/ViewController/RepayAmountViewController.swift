@@ -8,32 +8,32 @@
 import UIKit
 
 class RepayAmountViewController: UIViewController {
-    // MARK: - Private Properties
+	// MARK: - Private Properties
 
-    private let repayAmountVM = RepayAmountViewModel()
-    private var repayAmountView: RepayAmountView!
+	private let repayAmountVM = RepayAmountViewModel()
+	private var repayAmountView: RepayAmountView!
 
-    // MARK: - View Overrides
+	// MARK: - View Overrides
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+	override func viewDidLoad() {
+		super.viewDidLoad()
+	}
 
-    override func loadView() {
-        setupView()
-        setupNavigationBar()
-    }
+	override func loadView() {
+		setupView()
+		setupNavigationBar()
+	}
 
-    // MARK: - Private Methods
+	// MARK: - Private Methods
 
-    private func setupView() {
-        #warning("this should be changed")
-        repayAmountView = RepayAmountView(repayAmountVM: repayAmountVM, nextButtonTapped: {})
+	private func setupView() {
+		#warning("this should be changed")
+		repayAmountView = RepayAmountView(repayAmountVM: repayAmountVM, nextButtonTapped: {})
 
-        view = repayAmountView
-    }
+		view = repayAmountView
+	}
 
-    private func setupNavigationBar() {
-        setNavigationTitle("\(repayAmountVM.pageTitleRepayText) \(repayAmountVM.tokenSymbol)")
-    }
+	private func setupNavigationBar() {
+		setNavigationTitle("\(repayAmountVM.pageTitleRepayText) \(repayAmountVM.tokenSymbol)")
+	}
 }

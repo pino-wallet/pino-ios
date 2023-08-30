@@ -11,7 +11,7 @@ class BorrowLoanDetailsView: UIView {
 	// MARK: - Closures
 
 	public var pushToBorrowIncreaseAmountPageClosure: () -> Void
-    public var pushToRepayAmountPageClosure: () -> Void
+	public var pushToRepayAmountPageClosure: () -> Void
 
 	// MARK: - Private Properties
 
@@ -35,10 +35,14 @@ class BorrowLoanDetailsView: UIView {
 
 	// MARK: - Initializers
 
-    init(borrowLoanDetailsVM: BorrowLoanDetailsViewModel, pushToBorrowIncreaseAmountPageClosure: @escaping () -> Void, pushToRepayAmountPageClosure: @escaping () -> Void) {
+	init(
+		borrowLoanDetailsVM: BorrowLoanDetailsViewModel,
+		pushToBorrowIncreaseAmountPageClosure: @escaping () -> Void,
+		pushToRepayAmountPageClosure: @escaping () -> Void
+	) {
 		self.borrowLoanDetailsVM = borrowLoanDetailsVM
 		self.pushToBorrowIncreaseAmountPageClosure = pushToBorrowIncreaseAmountPageClosure
-        self.pushToRepayAmountPageClosure = pushToRepayAmountPageClosure
+		self.pushToRepayAmountPageClosure = pushToRepayAmountPageClosure
 
 		super.init(frame: .zero)
 
@@ -55,8 +59,8 @@ class BorrowLoanDetailsView: UIView {
 
 	private func setupView() {
 		increaseButton.addTarget(self, action: #selector(onIncreaseBorrowButtonTap), for: .touchUpInside)
-        
-        repayButton.addTarget(self, action: #selector(onRepayButtonTap), for: .touchUpInside)
+
+		repayButton.addTarget(self, action: #selector(onRepayButtonTap), for: .touchUpInside)
 
 		apyStackView = LoanDetailsInfoStackView(
 			titleText: borrowLoanDetailsVM.apyTitle,
@@ -154,9 +158,9 @@ class BorrowLoanDetailsView: UIView {
 	private func onIncreaseBorrowButtonTap() {
 		pushToBorrowIncreaseAmountPageClosure()
 	}
-    
-    @objc
-    private func onRepayButtonTap() {
-        pushToRepayAmountPageClosure()
-    }
+
+	@objc
+	private func onRepayButtonTap() {
+		pushToRepayAmountPageClosure()
+	}
 }
