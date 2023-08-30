@@ -53,6 +53,15 @@ public class Web3Core {
 
 	// MARK: - Public Methods
 
+	public func getChecksumOfEip55Address(eip55Address: String) -> String {
+		do {
+			let ethAddress = try EthereumAddress(hex: eip55Address, eip55: false)
+			return ethAddress.hex(eip55: true)
+		} catch {
+			fatalError("Cannot get checksum of wrong eip55 address")
+		}
+	}
+
 	public func getAllowanceOf(
 		contractAddress: String,
 		spenderAddress: String,
