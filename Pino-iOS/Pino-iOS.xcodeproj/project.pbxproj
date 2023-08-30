@@ -413,7 +413,7 @@
 		D9D11E922A5990B8003C4298 /* ActivityCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D11E912A5990B8003C4298 /* ActivityCollectionView.swift */; };
 		D9D11E942A5990F0003C4298 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D11E932A5990F0003C4298 /* ActivityViewModel.swift */; };
 		D9D9A4082A5E8A4400CECA41 /* ActivityInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9A4072A5E8A4400CECA41 /* ActivityInfoView.swift */; };
-		D9D9A40A2A5E9CD200CECA41 /* ImageAndTitleStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9A4092A5E9CD200CECA41 /* ImageAndTitleStackView.swift */; };
+		D9D9A40A2A5E9CD200CECA41 /* UserAccountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9A4092A5E9CD200CECA41 /* UserAccountInfoView.swift */; };
 		D9D9A40C2A5ED76400CECA41 /* ActivityInfoStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9A40B2A5ED76400CECA41 /* ActivityInfoStackView.swift */; };
 		D9DC773F2A6FAB2B00AA0987 /* ActivityDetailPropertiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC773E2A6FAB2B00AA0987 /* ActivityDetailPropertiesViewModel.swift */; };
 		D9DD538BAF953A18503AB3F0 /* RemoveAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887EDE19A8B81F1FB217E0FA /* RemoveAccountView.swift */; };
@@ -1066,7 +1066,7 @@
 		D9D11E912A5990B8003C4298 /* ActivityCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCollectionView.swift; sourceTree = "<group>"; };
 		D9D11E932A5990F0003C4298 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 		D9D9A4072A5E8A4400CECA41 /* ActivityInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityInfoView.swift; sourceTree = "<group>"; };
-		D9D9A4092A5E9CD200CECA41 /* ImageAndTitleStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAndTitleStackView.swift; sourceTree = "<group>"; };
+		D9D9A4092A5E9CD200CECA41 /* UserAccountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountInfoView.swift; sourceTree = "<group>"; };
 		D9D9A40B2A5ED76400CECA41 /* ActivityInfoStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityInfoStackView.swift; sourceTree = "<group>"; };
 		D9DC773E2A6FAB2B00AA0987 /* ActivityDetailPropertiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailPropertiesViewModel.swift; sourceTree = "<group>"; };
 		D9E134842A52FB4A00193FF0 /* ActivityHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHeaderView.swift; sourceTree = "<group>"; };
@@ -1339,6 +1339,7 @@
 		02F7EC4A2D81621079530268 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				D920B0072A9E073B00A1DBD6 /* UserAccountInfoView */,
 				D95D49802A386BB00042FC85 /* TitleWithInfo */,
 				D92B913A2A30754F0055B277 /* PinoContainerCard */,
 				D9FE90A22A1A2479001AD8E4 /* NavigationBar */,
@@ -2504,6 +2505,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		D920B0072A9E073B00A1DBD6 /* UserAccountInfoView */ = {
+			isa = PBXGroup;
+			children = (
+				D9D9A4092A5E9CD200CECA41 /* UserAccountInfoView.swift */,
+			);
+			path = UserAccountInfoView;
+			sourceTree = "<group>";
+		};
 		D92278B52A78DEF20098A36A /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -2643,7 +2652,6 @@
 				D98207C32A5D5C7C0066A090 /* ActivityDetailsView.swift */,
 				D98207C92A5D6D8C0066A090 /* ActivityDetailsHeaderView.swift */,
 				D9D9A4072A5E8A4400CECA41 /* ActivityInfoView.swift */,
-				D9D9A4092A5E9CD200CECA41 /* ImageAndTitleStackView.swift */,
 				D9D9A40B2A5ED76400CECA41 /* ActivityInfoStackView.swift */,
 				D9BCE5C62A63C519002A9B58 /* ActivitySwapHeaderView.swift */,
 				D9C1807E2A88FAF80066C2A7 /* GradientShowFeeView.swift */,
@@ -3774,7 +3782,7 @@
 				6FB08C15B02317A1FE3C012D /* AccountingAPIService.swift in Sources */,
 				E35BB63E2A558D0E003987F5 /* SwapProtocolCollectionView.swift in Sources */,
 				3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */,
-				D9D9A40A2A5E9CD200CECA41 /* ImageAndTitleStackView.swift in Sources */,
+				D9D9A40A2A5E9CD200CECA41 /* UserAccountInfoView.swift in Sources */,
 				4037DCCE2A8BD93200FCA96B /* ApproveContractViewModel.swift in Sources */,
 				E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */,
 				E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */,

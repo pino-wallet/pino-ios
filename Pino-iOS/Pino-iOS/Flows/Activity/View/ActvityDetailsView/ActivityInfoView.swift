@@ -34,9 +34,9 @@ class ActivityInfoView: UIView {
 	private var protocolStackView: ActivityInfoStackView!
 	private var feeStackView: ActivityInfoStackView!
 	private var activityProperties: ActivityDetailProperties!
-	private var fromInfoCustomView: ImageAndTitleStackView!
-	private var toInfoCustomView: ImageAndTitleStackView!
-	private var protocolInfoCustomView: ImageAndTitleStackView!
+	private var fromInfoCustomView: UserAccountInfoView!
+	private var toInfoCustomView: UserAccountInfoView!
+	private var protocolInfoCustomView: UserAccountInfoView!
 	private var cancellables = Set<AnyCancellable>()
 
 	private var activityDetailsVM: ActivityDetailsViewModel
@@ -64,16 +64,16 @@ class ActivityInfoView: UIView {
 	private func setupView() {
 		statusLabelContainer.addSubview(statusInfoLabel)
 
-		fromInfoCustomView = ImageAndTitleStackView(
+		fromInfoCustomView = UserAccountInfoView(
 			image: nil,
 			title: nil
 		)
-		toInfoCustomView = ImageAndTitleStackView(
+		toInfoCustomView = UserAccountInfoView(
 			image: nil,
 			title: nil
 		)
 
-		protocolInfoCustomView = ImageAndTitleStackView(
+		protocolInfoCustomView = UserAccountInfoView(
 			image: nil,
 			title: nil
 		)
