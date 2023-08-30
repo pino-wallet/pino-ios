@@ -273,6 +273,9 @@
 		D916A8BA2A9F445F00F391B5 /* BorrowIncreaseAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8B92A9F445F00F391B5 /* BorrowIncreaseAmountViewController.swift */; };
 		D916A8BC2A9F447100F391B5 /* BorrowIncreaseAmountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8BB2A9F447100F391B5 /* BorrowIncreaseAmountViewModel.swift */; };
 		D916A8BE2A9F44DD00F391B5 /* BorrowIncreaseAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8BD2A9F44DD00F391B5 /* BorrowIncreaseAmountView.swift */; };
+		D916A8C02A9F5F0200F391B5 /* RepayAmountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8BF2A9F5F0200F391B5 /* RepayAmountViewModel.swift */; };
+		D916A8C22A9F5F9900F391B5 /* RepayAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8C12A9F5F9900F391B5 /* RepayAmountViewController.swift */; };
+		D916A8C42A9F5FEB00F391B5 /* RepayAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8C32A9F5FEB00F391B5 /* RepayAmountView.swift */; };
 		D919E7542A18FE31003C73D7 /* AccountHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D919E7532A18FE31003C73D7 /* AccountHeaderViewModel.swift */; };
 		D91A39FD29E40EA400004CB2 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A39FC29E40EA400004CB2 /* NotificationSettingsViewController.swift */; };
 		D91A39FF29E40F8900004CB2 /* NotificationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A39FE29E40F8900004CB2 /* NotificationSettingsViewModel.swift */; };
@@ -932,6 +935,9 @@
 		D916A8B92A9F445F00F391B5 /* BorrowIncreaseAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowIncreaseAmountViewController.swift; sourceTree = "<group>"; };
 		D916A8BB2A9F447100F391B5 /* BorrowIncreaseAmountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowIncreaseAmountViewModel.swift; sourceTree = "<group>"; };
 		D916A8BD2A9F44DD00F391B5 /* BorrowIncreaseAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowIncreaseAmountView.swift; sourceTree = "<group>"; };
+		D916A8BF2A9F5F0200F391B5 /* RepayAmountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepayAmountViewModel.swift; sourceTree = "<group>"; };
+		D916A8C12A9F5F9900F391B5 /* RepayAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepayAmountViewController.swift; sourceTree = "<group>"; };
+		D916A8C32A9F5FEB00F391B5 /* RepayAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepayAmountView.swift; sourceTree = "<group>"; };
 		D919E7532A18FE31003C73D7 /* AccountHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHeaderViewModel.swift; sourceTree = "<group>"; };
 		D91A39FC29E40EA400004CB2 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		D91A39FE29E40F8900004CB2 /* NotificationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewModel.swift; sourceTree = "<group>"; };
@@ -1704,6 +1710,7 @@
 				D9F284772A94B727001204D4 /* BorrowingTokenCell.swift */,
 				D98355D62A9A1D4000294DCF /* BorrowLoanDetailsView.swift */,
 				D916A8BD2A9F44DD00F391B5 /* BorrowIncreaseAmountView.swift */,
+				D916A8C32A9F5FEB00F391B5 /* RepayAmountView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1719,6 +1726,7 @@
 				D933C3222A99F07600C2BD5A /* CollateralizingBoardViewController.swift */,
 				D98355D82A9A1FD400294DCF /* BorrowLoanDetailsViewController.swift */,
 				D916A8B92A9F445F00F391B5 /* BorrowIncreaseAmountViewController.swift */,
+				D916A8C12A9F5F9900F391B5 /* RepayAmountViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1737,6 +1745,7 @@
 				D9BD90462A95DE2000B28B74 /* BorrowingTokenCellViewModel.swift */,
 				D98355D42A9A1BC800294DCF /* BorrowLoanDetailsViewModel.swift */,
 				D916A8BB2A9F447100F391B5 /* BorrowIncreaseAmountViewModel.swift */,
+				D916A8BF2A9F5F0200F391B5 /* RepayAmountViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3931,6 +3940,7 @@
 				B4E756CF19F769668E2A4FB5 /* ChartInfoItem.swift in Sources */,
 				E34728E229E5360300AB8265 /* CoreDataStack.swift in Sources */,
 				DF00178029E80696001164EA /* SecureEnclave.swift in Sources */,
+				D916A8C22A9F5F9900F391B5 /* RepayAmountViewController.swift in Sources */,
 				B96CE8969DBE6398977B87D5 /* ChartMarker.swift in Sources */,
 				E385F61A2A220DCC00EE7EE1 /* CTSAPIService.swift in Sources */,
 				DFFDEDAA2A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift in Sources */,
@@ -3980,6 +3990,7 @@
 				DFB566272A1926C600F9D6A0 /* ImportTextViewType.swift in Sources */,
 				D92278BB2A79043C0098A36A /* ActivityTransferModel.swift in Sources */,
 				D97F0B9A2A94912B0083DA81 /* SelectDexSystemView.swift in Sources */,
+				D916A8C42A9F5FEB00F391B5 /* RepayAmountView.swift in Sources */,
 				E3FC69BF2A8C9B3E009B3341 /* InvestmentBoardViewController.swift in Sources */,
 				D97F0B952A9490450083DA81 /* DexSystemCell.swift in Sources */,
 				D916A8BE2A9F44DD00F391B5 /* BorrowIncreaseAmountView.swift in Sources */,
@@ -4083,6 +4094,7 @@
 				06E5204105CFC5FFF4B310EE /* JSONParameterEncoder.swift in Sources */,
 				403691BE2A3DFFB60013AB6D /* ToastView.swift in Sources */,
 				763F91967E4347D64BD561C4 /* KeychainHelper.swift in Sources */,
+				D916A8C02A9F5F0200F391B5 /* RepayAmountViewModel.swift in Sources */,
 				7F79C44B5BF6EB8B1D1674A0 /* KeychainWrapperProtocol.swift in Sources */,
 				D9A0BDBA2A975E2200AE132F /* BorrowableAssetCell.swift in Sources */,
 				A9DD712BF1A1511733B479FA /* LaunchSettings.swift in Sources */,
