@@ -38,10 +38,17 @@ class BorrowLoanDetailsViewController: UIViewController {
 	}
 
 	private func setupView() {
-		borrowLoanDetailsView = BorrowLoanDetailsView(borrowLoanDetailsVM: borrowLoanDetailsVM)
+        borrowLoanDetailsView = BorrowLoanDetailsView(borrowLoanDetailsVM: borrowLoanDetailsVM, pushToBorrowIncreaseAmountPageClosure: {
+            self.pushToBorrowIncreaseAmountPage()
+        })
 
 		view = borrowLoanDetailsView
 	}
+    
+    private func pushToBorrowIncreaseAmountPage() {
+        let borrowIncreaseAmountVC = BorrowIncreaseAmountViewController()
+        navigationController?.pushViewController(borrowIncreaseAmountVC, animated: true)
+    }
 
 	@objc
 	private func dismissSelf() {
