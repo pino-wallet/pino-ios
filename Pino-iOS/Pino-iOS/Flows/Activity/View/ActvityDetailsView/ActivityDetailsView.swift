@@ -26,12 +26,12 @@ class ActivityDetailsView: UIScrollView {
 	private let footerTextLabel = PinoLabel(style: .title, text: "")
 	private let footerTextLabelContainer = UIView()
 	private let activityDetailRefreshControl = UIRefreshControl()
-    private let speedUpButton = PinoButton(style: .active, title: "")
+	private let speedUpButton = PinoButton(style: .active, title: "")
 	private var speedUpActionSheet: SpeedUpAlertViewController!
-    private var viewEthScanButton: PinoRightSideImageButton!
-    private var activityDetailsVM: ActivityDetailsViewModel
-    private var activityDetailsHeader: UIView
-    private var activityDetailsInfoView: ActivityInfoView!
+	private var viewEthScanButton: PinoRightSideImageButton!
+	private var activityDetailsVM: ActivityDetailsViewModel
+	private var activityDetailsHeader: UIView
+	private var activityDetailsInfoView: ActivityInfoView!
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
@@ -67,8 +67,8 @@ class ActivityDetailsView: UIScrollView {
 				self?.presentActionSheet(actionSheet, nil)
 			}
 		)
-        
-        viewEthScanButton = PinoRightSideImageButton(imageName: activityDetailsVM.viewEthScanIconName, style: .clear)
+
+		viewEthScanButton = PinoRightSideImageButton(imageName: activityDetailsVM.viewEthScanIconName, style: .clear)
 
 		viewEthScanButton.addTarget(self, action: #selector(openEthScan), for: .touchUpInside)
 
@@ -93,7 +93,7 @@ class ActivityDetailsView: UIScrollView {
 	private func setupStyles() {
 		backgroundColor = .Pino.background
 
-        viewEthScanButton.title = activityDetailsVM.viewEthScanTitle
+		viewEthScanButton.title = activityDetailsVM.viewEthScanTitle
 
 		mainStackView.axis = .vertical
 		mainStackView.spacing = 24
@@ -111,10 +111,10 @@ class ActivityDetailsView: UIScrollView {
 		footerContainerView.isHidden = true
 
 		mainStackView.setCustomSpacing(16, after: activityDetailsHeader)
-        
-        speedUpButton.title = activityDetailsVM.speedUpText
-        speedUpButton.setImage(UIImage(named: activityDetailsVM.speedUpIconName), for: .normal)
-        speedUpButton.setConfiguraton(font: .PinoStyle.semiboldCallout!, imagePadding: 7)
+
+		speedUpButton.title = activityDetailsVM.speedUpText
+		speedUpButton.setImage(UIImage(named: activityDetailsVM.speedUpIconName), for: .normal)
+		speedUpButton.setConfiguraton(font: .PinoStyle.semiboldCallout!, imagePadding: 7)
 	}
 
 	private func setupConstraintsWithUIType() {

@@ -7,23 +7,23 @@
 import UIKit
 
 extension PinoRightSideImageButton {
-    // Specifies a visual theme of the button
-    public struct Style {
-        public let titleColor: UIColor
-        public let backgroundColor: UIColor
-        public let borderColor: UIColor?
-    }
+	// Specifies a visual theme of the button
+	public struct Style {
+		public let titleColor: UIColor
+		public let backgroundColor: UIColor
+		public let borderColor: UIColor?
+	}
 }
 
 extension PinoRightSideImageButton.Style {
-    public static let primary = PinoRightSideImageButton.Style(
-        titleColor: .Pino.white,
-        backgroundColor: .Pino.primary,
-        borderColor: .clear
-    )
-    public static let clear = PinoRightSideImageButton.Style(
-        titleColor: .Pino.primary,
-        backgroundColor: .Pino.clear,
-        borderColor: .clear
-    )
+	public static let primary = PinoRightSideImageButton.Style(
+		titleColor: .Pino.white,
+		backgroundColor: .Pino.primary,
+		borderColor: .clear
+	)
+	public static let clear = PinoRightSideImageButton.Style(
+		titleColor: .Pino.primary,
+		backgroundColor: .Pino.clear,
+		borderColor: .clear
+	)
 }
