@@ -92,10 +92,11 @@ public struct W3GasInfoManager {
 	) -> Promise<GasInfo> {
 		Promise<GasInfo>() { seal in
 			firstly {
-				let to: EthereumAddress = try! EthereumAddress(hex: address, eip55: true)
+				let to: EthereumAddress = try! EthereumAddress(hex: address, eip55: false)
+                let checksumTo = try! EthereumAddress(hex: to.hex(eip55: true), eip55: true) 
 				let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, web3: web3)
-				let solInvocation = contract[ABIMethodWrite.transfer.rawValue]!(to, amount)
-				return gasInfoManager.calculateGasOf(method: .transfer, contract: solInvocation, contractAddress: to)
+				let solInvocation = contract[ABIMethodWrite.transfer.rawValue]!(checksumTo, amount)
+				return gasInfoManager.calculateGasOf(method: .transfer, contract: solInvocation, contractAddress: checksumTo)
 			}.done { trxGasInfo in
 				let gasInfo = GasInfo(gasPrice: trxGasInfo.gasPrice, gasLimit: trxGasInfo.gasLimit)
 				seal.fulfill(gasInfo)
