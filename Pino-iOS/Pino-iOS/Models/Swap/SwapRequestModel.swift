@@ -11,61 +11,59 @@ struct SwapRequestModel {
 	var srcToken: String
 	var destToken: String
 	let amount: String
-	let sender: String
+    let destAmount: String
+    let receiver: String
+	let userAddress: String
 	let slippage: String
 	let networkID: Int?
 	let srcDecimal: String?
 	let destDecimal: String?
-	let priceRoute: PriceRoute?
+	let priceRoute: PriceRouteClass?
 
-	init(
-		srcToken: String,
-		destToken: String,
-		amount: String,
-		sender: String,
-		slippage: String,
-		networkID: Int?,
-		srcDecimal: String?,
-		destDecimal: String?,
-		priceRoute: PriceRoute?
-	) {
-		self.srcToken = srcToken
-		self.destToken = destToken
-		self.amount = amount
-		self.sender = sender
-		self.slippage = slippage
-		self.networkID = networkID
-		self.srcDecimal = srcDecimal
-		self.destDecimal = destDecimal
-		self.priceRoute = priceRoute
-	}
-
+    init(srcToken: String, destToken: String, amount: String, destAmount: String, receiver: String, userAddress: String, slippage: String, networkID: Int?, srcDecimal: String?, destDecimal: String?, priceRoute: PriceRouteClass?) {
+        self.srcToken = srcToken
+        self.destToken = destToken
+        self.amount = amount
+        self.destAmount = destAmount
+        self.receiver = receiver
+        self.userAddress = userAddress
+        self.slippage = slippage
+        self.networkID = networkID
+        self.srcDecimal = srcDecimal
+        self.destDecimal = destDecimal
+        self.priceRoute = priceRoute
+    }
+    
 	public var oneInchSwapURLParams: HTTPParameters {
 		[
 			"src": srcToken,
 			"dst": destToken,
 			"amount": amount,
-			"from": sender,
+			"from": receiver,
 			"slippage": slippage,
-			"includeProtocols": "false",
-			"includeTokensInfo": "false",
-			"disableEstimate": "false",
-			"allowPartialFill": "false",
+			"includeProtocols": false,
+			"includeTokensInfo": false,
+			"disableEstimate": false,
+			"allowPartialFill": false,
 		]
 	}
 
 	public var paraswapReqBody: BodyParamsType {
+        
+//        let data = try! JSONSerialization.data(withJSONObject: self.priceRoute, options: [])
+
 		let jsonEncoder = JSONEncoder()
 		let jsonData = try! jsonEncoder.encode(priceRoute)
-		let priceRouteJSON = String(data: jsonData, encoding: String.Encoding.utf8)!
-
+        let dictionary = try! JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
+        
 		let params: HTTPParameters = [
 			"srcToken": srcToken,
 			"destToken": destToken,
             "srcAmount": amount,
-			"priceRoute": priceRouteJSON,
-			"slippage": slippage, // in percent
-			"userAddress": sender,
+            "destAmount": destAmount,
+            "priceRoute": dictionary,
+			"userAddress": userAddress,
+            "receiver": receiver,
 			"srcDecimals": srcDecimal!,
 			"destDecimals": destDecimal!,
 		]
