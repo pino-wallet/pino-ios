@@ -9,7 +9,22 @@ import Foundation
 
 #warning("this values are static and mock")
 class CollateralIncreaseAmountViewModel {
+    // MARK: - TypeAliases
+    typealias didValidateCollateralClosureType = (_ error: collateralError?) -> Void
+    // MARK: - Closures
+    public var didValidateCollateralClosure: didValidateCollateralClosureType = {_ in}
 	// MARK: - Public Properties
+    
+    public enum collateralError: Error {
+        case investError
+        
+        public var errorDescribtion: String {
+            switch self {
+            case .investError:
+                return "You have an open USDT investment position in Compound, which you need to close before depositing USDT as collateral."
+            }
+        }
+    }
 
 	public let pageTitleCollateralText = "Collateral"
 	public let insufficientAmountButtonTitle = "Insufficient amount"
@@ -43,6 +58,7 @@ class CollateralIncreaseAmountViewModel {
 	public var formattedMaxHoldAmount: String {
 		maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
+    
 
 	// MARK: - Public Methods
 
