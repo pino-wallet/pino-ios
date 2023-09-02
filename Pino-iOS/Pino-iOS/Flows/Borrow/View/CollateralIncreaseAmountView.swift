@@ -24,27 +24,25 @@ class CollateralIncreaseAmountView: UIView {
 	private let amountSpacerView = UIView()
 	private let maxAmountSpacerView = UIView()
 	private let continueButton = PinoButton(style: .deactive)
-    private let errorTextContainerView = UIView()
-    private let errorTextLabel = PinoLabel(style: .title, text: "")
+	private let errorTextContainerView = UIView()
+	private let errorTextLabel = PinoLabel(style: .title, text: "")
 	private var nextButtonTapped: () -> Void
 	private var collateralIncreaseAmountVM: CollateralIncreaseAmountViewModel
-    
 
 	private var keyboardHeight: CGFloat = 320
 	private var nextButtonBottomConstraint: NSLayoutConstraint!
 	private let nextButtonBottomConstant = CGFloat(12)
-    
-    private var pageStatus: PageStatus = .normal {
-        didSet {
-            updateViewWithPageStatus()
-        }
-    }
-    
-    private enum PageStatus {
-        case normal
-        case collateralError(String)
-    }
-    
+
+	private var pageStatus: PageStatus = .normal {
+		didSet {
+			updateViewWithPageStatus()
+		}
+	}
+
+	private enum PageStatus {
+		case normal
+		case collateralError(String)
+	}
 
 	// MARK: - Public Properties
 
@@ -73,9 +71,9 @@ class CollateralIncreaseAmountView: UIView {
 	private func setupView() {
 		addSubview(contentStackView)
 		addSubview(continueButton)
-        errorTextContainerView.addSubview(errorTextLabel)
+		errorTextContainerView.addSubview(errorTextLabel)
 		contentStackView.addArrangedSubview(amountCardView)
-        contentStackView.addArrangedSubview(errorTextContainerView)
+		contentStackView.addArrangedSubview(errorTextContainerView)
 		amountCardView.addSubview(amountcontainerStackView)
 		amountcontainerStackView.addArrangedSubview(amountStackView)
 		amountcontainerStackView.addArrangedSubview(maximumStackView)
@@ -98,14 +96,14 @@ class CollateralIncreaseAmountView: UIView {
 		let putMAxAmountTapgesture = UITapGestureRecognizer(target: self, action: #selector(putMaxAmountInTextField))
 		maxAmountStackView.addGestureRecognizer(putMAxAmountTapgesture)
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
-        
-        collateralIncreaseAmountVM.didValidateCollateralClosure = { error in
-            if error != nil {
-                self.pageStatus = .collateralError(error?.errorDescribtion ?? "")
-            } else {
-                self.pageStatus = .normal
-            }
-        }
+
+		collateralIncreaseAmountVM.didValidateCollateralClosure = { error in
+			if error != nil {
+				self.pageStatus = .collateralError(error?.errorDescribtion ?? "")
+			} else {
+				self.pageStatus = .normal
+			}
+		}
 	}
 
 	private func setupStyles() {
@@ -152,7 +150,7 @@ class CollateralIncreaseAmountView: UIView {
 
 		amountcontainerStackView.axis = .vertical
 		contentStackView.axis = .vertical
-        contentStackView.spacing = 24
+		contentStackView.spacing = 24
 
 		tokenStackView.alignment = .center
 
@@ -164,13 +162,13 @@ class CollateralIncreaseAmountView: UIView {
 
 		amountLabel.numberOfLines = 0
 		amountLabel.lineBreakMode = .byCharWrapping
-        
-        errorTextContainerView.backgroundColor = .Pino.lightRed
-        errorTextContainerView.layer.cornerRadius = 12
-        errorTextContainerView.isHidden = true
-        
-        errorTextLabel.font = .PinoStyle.mediumCallout
-        errorTextLabel.numberOfLines = 0
+
+		errorTextContainerView.backgroundColor = .Pino.lightRed
+		errorTextContainerView.layer.cornerRadius = 12
+		errorTextContainerView.isHidden = true
+
+		errorTextLabel.font = .PinoStyle.mediumCallout
+		errorTextLabel.numberOfLines = 0
 	}
 
 	private func setupConstraints() {
@@ -182,7 +180,7 @@ class CollateralIncreaseAmountView: UIView {
 			.verticalEdges(padding: 23),
 			.horizontalEdges(padding: 14)
 		)
-        errorTextLabel.pin(.horizontalEdges(padding: 16), .verticalEdges(padding: 14))
+		errorTextLabel.pin(.horizontalEdges(padding: 16), .verticalEdges(padding: 14))
 		continueButton.pin(
 			.horizontalEdges(padding: 16)
 		)
@@ -247,18 +245,18 @@ class CollateralIncreaseAmountView: UIView {
 			continueButton.style = .deactive
 		}
 	}
-    
-    private func updateViewWithPageStatus() {
-        switch pageStatus {
-        case .normal:
-            errorTextContainerView.isHidden = true
-            #warning("we should validate for other things here to enable coninue button or not")
-        case let .collateralError(errorDescription):
-            errorTextContainerView.isHidden = false
-            errorTextLabel.text = errorDescription
-            continueButton.style = .deactive
-        }
-    }
+
+	private func updateViewWithPageStatus() {
+		switch pageStatus {
+		case .normal:
+			errorTextContainerView.isHidden = true
+			#warning("we should validate for other things here to enable coninue button or not")
+		case let .collateralError(errorDescription):
+			errorTextContainerView.isHidden = false
+			errorTextLabel.text = errorDescription
+			continueButton.style = .deactive
+		}
+	}
 
 	@objc
 	private func putMaxAmountInTextField() {
