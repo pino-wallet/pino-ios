@@ -289,6 +289,9 @@
 		D91A3A0329E4124A00004CB2 /* NotificationSettingsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A3A0229E4124A00004CB2 /* NotificationSettingsCollectionView.swift */; };
 		D91A3A0529E412A200004CB2 /* NotificationSettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A3A0429E412A200004CB2 /* NotificationSettingsSection.swift */; };
 		D91A3A0729E41C1800004CB2 /* NotificationSettingsOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A3A0629E41C1800004CB2 /* NotificationSettingsOptionViewModel.swift */; };
+		D91AAF592AA36CBA00A823E6 /* BorrowConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AAF582AA36CBA00A823E6 /* BorrowConfirmViewController.swift */; };
+		D91AAF5B2AA36CEA00A823E6 /* BorrowConfirmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AAF5A2AA36CEA00A823E6 /* BorrowConfirmViewModel.swift */; };
+		D91AAF5D2AA36CFC00A823E6 /* BorrowConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AAF5C2AA36CFC00A823E6 /* BorrowConfirmView.swift */; };
 		D91C17CA2A5BE259000C448E /* ActivityEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91C17C92A5BE259000C448E /* ActivityEmptyStateView.swift */; };
 		D92278B72A78DF680098A36A /* ActivityModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92278B62A78DF680098A36A /* ActivityModelProtocol.swift */; };
 		D92278BB2A79043C0098A36A /* ActivityTransferModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92278BA2A79043C0098A36A /* ActivityTransferModel.swift */; };
@@ -957,6 +960,9 @@
 		D91A3A0229E4124A00004CB2 /* NotificationSettingsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsCollectionView.swift; sourceTree = "<group>"; };
 		D91A3A0429E412A200004CB2 /* NotificationSettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsSection.swift; sourceTree = "<group>"; };
 		D91A3A0629E41C1800004CB2 /* NotificationSettingsOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsOptionViewModel.swift; sourceTree = "<group>"; };
+		D91AAF582AA36CBA00A823E6 /* BorrowConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowConfirmViewController.swift; sourceTree = "<group>"; };
+		D91AAF5A2AA36CEA00A823E6 /* BorrowConfirmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowConfirmViewModel.swift; sourceTree = "<group>"; };
+		D91AAF5C2AA36CFC00A823E6 /* BorrowConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowConfirmView.swift; sourceTree = "<group>"; };
 		D91B98B8A47DBAE96AE7956F /* PPPangramSans-Extrabold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-Extrabold.ttf"; sourceTree = "<group>"; };
 		D91C17C92A5BE259000C448E /* ActivityEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityEmptyStateView.swift; sourceTree = "<group>"; };
 		D92278B62A78DF680098A36A /* ActivityModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityModelProtocol.swift; sourceTree = "<group>"; };
@@ -1725,6 +1731,7 @@
 				D916A8C32A9F5FEB00F391B5 /* RepayAmountView.swift */,
 				D916A8C52A9F647700F391B5 /* CollateralIncreaseAmountView.swift */,
 				D916A8CF2A9F694000F391B5 /* WithdrawAmountView.swift */,
+				D91AAF5C2AA36CFC00A823E6 /* BorrowConfirmView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1743,6 +1750,7 @@
 				D916A8C12A9F5F9900F391B5 /* RepayAmountViewController.swift */,
 				D916A8C72A9F64B400F391B5 /* CollateralIncreaseAmountViewController.swift */,
 				D916A8CD2A9F690600F391B5 /* WithdrawAmountViewController.swift */,
+				D91AAF582AA36CBA00A823E6 /* BorrowConfirmViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1764,6 +1772,7 @@
 				D916A8BF2A9F5F0200F391B5 /* RepayAmountViewModel.swift */,
 				D916A8C92A9F653500F391B5 /* CollateralIncreaseAmountViewModel.swift */,
 				D916A8CB2A9F688600F391B5 /* WithdrawAmountViewModel.swift */,
+				D91AAF5A2AA36CEA00A823E6 /* BorrowConfirmViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3828,6 +3837,7 @@
 				D9A0BDBC2A97709400AE132F /* BorrowingBoardViewModel.swift in Sources */,
 				E343836A2A3D912A0048BDA1 /* SendConfirmationViewController.swift in Sources */,
 				D91A39FF29E40F8900004CB2 /* NotificationSettingsViewModel.swift in Sources */,
+				D91AAF5B2AA36CEA00A823E6 /* BorrowConfirmViewModel.swift in Sources */,
 				E35BB63A2A5589F3003987F5 /* SelectSwapProtocolViewController.swift in Sources */,
 				E3FC69C32A8C9F53009B3341 /* AssetsBoardCell.swift in Sources */,
 				E385F6162A220C6D00EE7EE1 /* CTSEndpoint.swift in Sources */,
@@ -4111,6 +4121,7 @@
 				DFA9687D2A0FABB9007D4513 /* SelectedAsset+CoreDataClass.swift in Sources */,
 				01B0212D90D700DB5C1126FB /* InvestViewController.swift in Sources */,
 				D99019762A9350DD008CF9EC /* CollateralDetailsViewModel.swift in Sources */,
+				D91AAF5D2AA36CFC00A823E6 /* BorrowConfirmView.swift in Sources */,
 				06E5204105CFC5FFF4B310EE /* JSONParameterEncoder.swift in Sources */,
 				403691BE2A3DFFB60013AB6D /* ToastView.swift in Sources */,
 				763F91967E4347D64BD561C4 /* KeychainHelper.swift in Sources */,
@@ -4203,6 +4214,7 @@
 				DFFDEDB42A7793A900D710D7 /* OneInchAPIClient.swift in Sources */,
 				823831E3B3F7F3BA8B633D09 /* PinoTextFieldStyle.swift in Sources */,
 				5D31EA0F77D4268D45A4B438 /* PinoTextFieldView.swift in Sources */,
+				D91AAF592AA36CBA00A823E6 /* BorrowConfirmViewController.swift in Sources */,
 				A6BFD6F684AF4BA205C23CE7 /* Pino_iOS.xcdatamodeld in Sources */,
 				0BB077D3A362E14524196936 /* PortfolioPerformanceCollectionView.swift in Sources */,
 				A1664AE26C5D333D2213330F /* PortfolioPerformanceHeaderView.swift in Sources */,

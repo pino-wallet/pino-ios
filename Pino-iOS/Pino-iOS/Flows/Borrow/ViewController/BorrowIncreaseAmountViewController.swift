@@ -30,7 +30,9 @@ class BorrowIncreaseAmountViewController: UIViewController {
 		#warning("this should be changed")
 		borrowIncreaseAmountView = BorrowIncreaseAmountView(
 			borrowIncreaseAmountVM: borrowIncreaseAmountVM,
-			nextButtonTapped: {}
+			nextButtonTapped: {
+                self.pushToBorrowConfirmVC()
+            }
 		)
 
 		view = borrowIncreaseAmountView
@@ -39,4 +41,10 @@ class BorrowIncreaseAmountViewController: UIViewController {
 	private func setupNavigationBar() {
 		setNavigationTitle("\(borrowIncreaseAmountVM.pageTitleBorrowText) \(borrowIncreaseAmountVM.tokenSymbol)")
 	}
+    
+    #warning("this should be changed")
+    private func pushToBorrowConfirmVC() {
+        let borrowConfirmVC = BorrowConfirmViewController()
+        navigationController?.pushViewController(borrowConfirmVC, animated: true)
+    }
 }
