@@ -279,6 +279,9 @@
 		D916A8C62A9F647700F391B5 /* CollateralIncreaseAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8C52A9F647700F391B5 /* CollateralIncreaseAmountView.swift */; };
 		D916A8C82A9F64B400F391B5 /* CollateralIncreaseAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8C72A9F64B400F391B5 /* CollateralIncreaseAmountViewController.swift */; };
 		D916A8CA2A9F653500F391B5 /* CollateralIncreaseAmountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8C92A9F653500F391B5 /* CollateralIncreaseAmountViewModel.swift */; };
+		D916A8CC2A9F688600F391B5 /* WithdrawAmountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8CB2A9F688600F391B5 /* WithdrawAmountViewModel.swift */; };
+		D916A8CE2A9F690600F391B5 /* WithdrawAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8CD2A9F690600F391B5 /* WithdrawAmountViewController.swift */; };
+		D916A8D02A9F694000F391B5 /* WithdrawAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8CF2A9F694000F391B5 /* WithdrawAmountView.swift */; };
 		D919E7542A18FE31003C73D7 /* AccountHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D919E7532A18FE31003C73D7 /* AccountHeaderViewModel.swift */; };
 		D91A39FD29E40EA400004CB2 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A39FC29E40EA400004CB2 /* NotificationSettingsViewController.swift */; };
 		D91A39FF29E40F8900004CB2 /* NotificationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A39FE29E40F8900004CB2 /* NotificationSettingsViewModel.swift */; };
@@ -944,6 +947,9 @@
 		D916A8C52A9F647700F391B5 /* CollateralIncreaseAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralIncreaseAmountView.swift; sourceTree = "<group>"; };
 		D916A8C72A9F64B400F391B5 /* CollateralIncreaseAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralIncreaseAmountViewController.swift; sourceTree = "<group>"; };
 		D916A8C92A9F653500F391B5 /* CollateralIncreaseAmountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralIncreaseAmountViewModel.swift; sourceTree = "<group>"; };
+		D916A8CB2A9F688600F391B5 /* WithdrawAmountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawAmountViewModel.swift; sourceTree = "<group>"; };
+		D916A8CD2A9F690600F391B5 /* WithdrawAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawAmountViewController.swift; sourceTree = "<group>"; };
+		D916A8CF2A9F694000F391B5 /* WithdrawAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawAmountView.swift; sourceTree = "<group>"; };
 		D919E7532A18FE31003C73D7 /* AccountHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHeaderViewModel.swift; sourceTree = "<group>"; };
 		D91A39FC29E40EA400004CB2 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		D91A39FE29E40F8900004CB2 /* NotificationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewModel.swift; sourceTree = "<group>"; };
@@ -1718,6 +1724,7 @@
 				D916A8BD2A9F44DD00F391B5 /* BorrowIncreaseAmountView.swift */,
 				D916A8C32A9F5FEB00F391B5 /* RepayAmountView.swift */,
 				D916A8C52A9F647700F391B5 /* CollateralIncreaseAmountView.swift */,
+				D916A8CF2A9F694000F391B5 /* WithdrawAmountView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1735,6 +1742,7 @@
 				D916A8B92A9F445F00F391B5 /* BorrowIncreaseAmountViewController.swift */,
 				D916A8C12A9F5F9900F391B5 /* RepayAmountViewController.swift */,
 				D916A8C72A9F64B400F391B5 /* CollateralIncreaseAmountViewController.swift */,
+				D916A8CD2A9F690600F391B5 /* WithdrawAmountViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1755,6 +1763,7 @@
 				D916A8BB2A9F447100F391B5 /* BorrowIncreaseAmountViewModel.swift */,
 				D916A8BF2A9F5F0200F391B5 /* RepayAmountViewModel.swift */,
 				D916A8C92A9F653500F391B5 /* CollateralIncreaseAmountViewModel.swift */,
+				D916A8CB2A9F688600F391B5 /* WithdrawAmountViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -4053,6 +4062,7 @@
 				E35BB6472A595717003987F5 /* SwapProviderCollectionView.swift in Sources */,
 				E3847B3A2A52CC19005ED78B /* SwapTokenViewModel.swift in Sources */,
 				D92278B72A78DF680098A36A /* ActivityModelProtocol.swift in Sources */,
+				D916A8CC2A9F688600F391B5 /* WithdrawAmountViewModel.swift in Sources */,
 				E343836E2A3DA0320048BDA1 /* SendConfirmationViewModel.swift in Sources */,
 				D9C4CF0F2A409D4800475F01 /* SuggestedAddressHeaderView.swift in Sources */,
 				E3847B3E2A52CE25005ED78B /* SwapTokenSectionView.swift in Sources */,
@@ -4242,6 +4252,7 @@
 				D9A328152A3464B5005A8393 /* SelectAssetToSendViewModel.swift in Sources */,
 				5699C13A59EF90BDE1758CF3 /* RevealPrivateKeyView.swift in Sources */,
 				DF14FCA12A9105F3005221A8 /* W3TransferManager.swift in Sources */,
+				D916A8D02A9F694000F391B5 /* WithdrawAmountView.swift in Sources */,
 				221F423020A78CA891331436 /* RevealPrivateKeyViewController.swift in Sources */,
 				E3847B362A52CB32005ED78B /* SwapViewModel.swift in Sources */,
 				7AD456E027211FE731B27DF8 /* RevealPrivateKeyViewModel.swift in Sources */,
@@ -4293,6 +4304,7 @@
 				DF00178F29F8567C001164EA /* Account.swift in Sources */,
 				D99CAFCD2A3AF2EE00DBEF2B /* EnterSendAddressView.swift in Sources */,
 				E3F482F92A35B43400EEC9CF /* EnterSendAmountViewModel.swift in Sources */,
+				D916A8CE2A9F690600F391B5 /* WithdrawAmountViewController.swift in Sources */,
 				D98207C82A5D5D630066A090 /* ActivityDetailsViewController.swift in Sources */,
 				3836332BCEDEABE67456B3D1 /* StatusCode+Helper.swift in Sources */,
 				F29B5E085D9D0D99354034C9 /* StringProtocol+Extension.swift in Sources */,
