@@ -8,38 +8,38 @@
 import UIKit
 
 class RepayConfirmViewController: UIViewController {
-    // MARK: - Private Properties
+	// MARK: - Private Properties
 
-    private let repayConfirmVM = RepayConfirmViewModel()
-    private var repayConfirmView: RepayConfirmView!
+	private let repayConfirmVM = RepayConfirmViewModel()
+	private var repayConfirmView: RepayConfirmView!
 
-    // MARK: - View Overrides
+	// MARK: - View Overrides
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+	override func viewDidLoad() {
+		super.viewDidLoad()
+	}
 
-    override func loadView() {
-        setupView()
-        setupNavigationBar()
-    }
+	override func loadView() {
+		setupView()
+		setupNavigationBar()
+	}
 
-    // MARK: - Private Methods
+	// MARK: - Private Methods
 
-    private func setupView() {
-        repayConfirmView = RepayConfirmView(repayConfrimVM: repayConfirmVM, presentActionSheetClosure: { actionSheet in
-            self.presentActionSheet(actionSheet: actionSheet)
-        })
+	private func setupView() {
+		repayConfirmView = RepayConfirmView(repayConfrimVM: repayConfirmVM, presentActionSheetClosure: { actionSheet in
+			self.presentActionSheet(actionSheet: actionSheet)
+		})
 
-        view = repayConfirmView
-    }
+		view = repayConfirmView
+	}
 
-    private func setupNavigationBar() {
-        setupPrimaryColorNavigationBar()
-        setNavigationTitle(repayConfirmVM.pageTitle)
-    }
+	private func setupNavigationBar() {
+		setupPrimaryColorNavigationBar()
+		setNavigationTitle(repayConfirmVM.pageTitle)
+	}
 
-    private func presentActionSheet(actionSheet: InfoActionSheet) {
-        present(actionSheet, animated: true)
-    }
+	private func presentActionSheet(actionSheet: InfoActionSheet) {
+		present(actionSheet, animated: true)
+	}
 }
