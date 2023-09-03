@@ -8,38 +8,41 @@
 import UIKit
 
 class CollateralConfirmViewController: UIViewController {
-    // MARK: - Private Properties
+	// MARK: - Private Properties
 
-    private let collateralConfirmVM = CollateralConfirmViewModel()
-    private var collateralConfirmView: CollateralConfirmView!
+	private let collateralConfirmVM = CollateralConfirmViewModel()
+	private var collateralConfirmView: CollateralConfirmView!
 
-    // MARK: - View Overrides
+	// MARK: - View Overrides
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+	override func viewDidLoad() {
+		super.viewDidLoad()
+	}
 
-    override func loadView() {
-        setupView()
-        setupNavigationBar()
-    }
+	override func loadView() {
+		setupView()
+		setupNavigationBar()
+	}
 
-    // MARK: - Private Methods
+	// MARK: - Private Methods
 
-    private func setupView() {
-        collateralConfirmView = CollateralConfirmView(collateralConfrimVM: collateralConfirmVM, presentActionSheetClosure: { actionSheet in
-            self.presentActionSheet(actionSheet: actionSheet)
-        })
+	private func setupView() {
+		collateralConfirmView = CollateralConfirmView(
+			collateralConfrimVM: collateralConfirmVM,
+			presentActionSheetClosure: { actionSheet in
+				self.presentActionSheet(actionSheet: actionSheet)
+			}
+		)
 
-        view = collateralConfirmView
-    }
+		view = collateralConfirmView
+	}
 
-    private func setupNavigationBar() {
-        setupPrimaryColorNavigationBar()
-        setNavigationTitle(collateralConfirmVM.pageTitle)
-    }
+	private func setupNavigationBar() {
+		setupPrimaryColorNavigationBar()
+		setNavigationTitle(collateralConfirmVM.pageTitle)
+	}
 
-    private func presentActionSheet(actionSheet: InfoActionSheet) {
-        present(actionSheet, animated: true)
-    }
+	private func presentActionSheet(actionSheet: InfoActionSheet) {
+		present(actionSheet, animated: true)
+	}
 }
