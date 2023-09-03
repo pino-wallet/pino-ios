@@ -8,6 +8,10 @@
 import UIKit
 
 class BorrowLoanDetailsView: UIView {
+	// MARK: - Closures
+
+	public var pushToBorrowIncreaseAmountPageClosure: () -> Void
+
 	// MARK: - Private Properties
 
 	private let mainStackView = UIStackView()
@@ -30,8 +34,9 @@ class BorrowLoanDetailsView: UIView {
 
 	// MARK: - Initializers
 
-	init(borrowLoanDetailsVM: BorrowLoanDetailsViewModel) {
+	init(borrowLoanDetailsVM: BorrowLoanDetailsViewModel, pushToBorrowIncreaseAmountPageClosure: @escaping () -> Void) {
 		self.borrowLoanDetailsVM = borrowLoanDetailsVM
+		self.pushToBorrowIncreaseAmountPageClosure = pushToBorrowIncreaseAmountPageClosure
 
 		super.init(frame: .zero)
 
@@ -47,6 +52,8 @@ class BorrowLoanDetailsView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		increaseButton.addTarget(self, action: #selector(onIncreaseBorrowButtonTap), for: .touchUpInside)
+
 		apyStackView = LoanDetailsInfoStackView(
 			titleText: borrowLoanDetailsVM.apyTitle,
 			infoText: borrowLoanDetailsVM.apy
@@ -137,5 +144,10 @@ class BorrowLoanDetailsView: UIView {
 			.horizontalEdges(to: layoutMarginsGuide, padding: 0),
 			.bottom(to: layoutMarginsGuide, padding: 20)
 		)
+	}
+
+	@objc
+	private func onIncreaseBorrowButtonTap() {
+		pushToBorrowIncreaseAmountPageClosure()
 	}
 }

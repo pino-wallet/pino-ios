@@ -270,6 +270,9 @@
 		D5E4DDCD2A960259000AA235 /* InvestDepositView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E4DDCC2A960259000AA235 /* InvestDepositView.swift */; };
 		D5E4DDCF2A960367000AA235 /* InvestDepositViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E4DDCE2A960367000AA235 /* InvestDepositViewModel.swift */; };
 		D615530893452E25B58471EF /* ShareOfAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6721806A1540B888590AFF4C /* ShareOfAssetsViewModel.swift */; };
+		D916A8BA2A9F445F00F391B5 /* BorrowIncreaseAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8B92A9F445F00F391B5 /* BorrowIncreaseAmountViewController.swift */; };
+		D916A8BC2A9F447100F391B5 /* BorrowIncreaseAmountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8BB2A9F447100F391B5 /* BorrowIncreaseAmountViewModel.swift */; };
+		D916A8BE2A9F44DD00F391B5 /* BorrowIncreaseAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8BD2A9F44DD00F391B5 /* BorrowIncreaseAmountView.swift */; };
 		D919E7542A18FE31003C73D7 /* AccountHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D919E7532A18FE31003C73D7 /* AccountHeaderViewModel.swift */; };
 		D91A39FD29E40EA400004CB2 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A39FC29E40EA400004CB2 /* NotificationSettingsViewController.swift */; };
 		D91A39FF29E40F8900004CB2 /* NotificationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A39FE29E40F8900004CB2 /* NotificationSettingsViewModel.swift */; };
@@ -926,6 +929,9 @@
 		D846BDE4ED7AF8234497E621 /* LaunchSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchSettings.swift; sourceTree = "<group>"; };
 		D859A59CF3F5322ACE7356E4 /* VerifySecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseView.swift; sourceTree = "<group>"; };
 		D872D11A91B4283F96C4999D /* ShowSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseViewController.swift; sourceTree = "<group>"; };
+		D916A8B92A9F445F00F391B5 /* BorrowIncreaseAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowIncreaseAmountViewController.swift; sourceTree = "<group>"; };
+		D916A8BB2A9F447100F391B5 /* BorrowIncreaseAmountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowIncreaseAmountViewModel.swift; sourceTree = "<group>"; };
+		D916A8BD2A9F44DD00F391B5 /* BorrowIncreaseAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowIncreaseAmountView.swift; sourceTree = "<group>"; };
 		D919E7532A18FE31003C73D7 /* AccountHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHeaderViewModel.swift; sourceTree = "<group>"; };
 		D91A39FC29E40EA400004CB2 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		D91A39FE29E40F8900004CB2 /* NotificationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewModel.swift; sourceTree = "<group>"; };
@@ -1697,6 +1703,7 @@
 				D9F284752A94B703001204D4 /* BorrowingTokensCollectionView.swift */,
 				D9F284772A94B727001204D4 /* BorrowingTokenCell.swift */,
 				D98355D62A9A1D4000294DCF /* BorrowLoanDetailsView.swift */,
+				D916A8BD2A9F44DD00F391B5 /* BorrowIncreaseAmountView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1711,6 +1718,7 @@
 				D9A0BDA92A974B9800AE132F /* BorrowingBoardViewController.swift */,
 				D933C3222A99F07600C2BD5A /* CollateralizingBoardViewController.swift */,
 				D98355D82A9A1FD400294DCF /* BorrowLoanDetailsViewController.swift */,
+				D916A8B92A9F445F00F391B5 /* BorrowIncreaseAmountViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1728,6 +1736,7 @@
 				D96FD3B22A97373C0008977A /* BorrowSelectDexViewModel.swift */,
 				D9BD90462A95DE2000B28B74 /* BorrowingTokenCellViewModel.swift */,
 				D98355D42A9A1BC800294DCF /* BorrowLoanDetailsViewModel.swift */,
+				D916A8BB2A9F447100F391B5 /* BorrowIncreaseAmountViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3973,6 +3982,7 @@
 				D97F0B9A2A94912B0083DA81 /* SelectDexSystemView.swift in Sources */,
 				E3FC69BF2A8C9B3E009B3341 /* InvestmentBoardViewController.swift in Sources */,
 				D97F0B952A9490450083DA81 /* DexSystemCell.swift in Sources */,
+				D916A8BE2A9F44DD00F391B5 /* BorrowIncreaseAmountView.swift in Sources */,
 				D9C7D76229EBDCAE006BC446 /* CoinInfoStatsView.swift in Sources */,
 				D97F0B8E2A948FA30083DA81 /* SelectDexSystemCellVMProtocol.swift in Sources */,
 				E6A9D57DCF1C0D793FDBEDBF /* CoinPortfolioViewModel.swift in Sources */,
@@ -4048,6 +4058,7 @@
 				975DCAC87FF17EA9C5CC5668 /* ImportSecretPhraseViewController.swift in Sources */,
 				3B5C5C7C3020F2A2CDBE5CA5 /* ImportWalletError.swift in Sources */,
 				8F54F4F399FE38DC1B1FDEED /* InfoActionSheet.swift in Sources */,
+				D916A8BA2A9F445F00F391B5 /* BorrowIncreaseAmountViewController.swift in Sources */,
 				403691BF2A3DFFB60013AB6D /* AppleToastView.swift in Sources */,
 				D96FD3B12A9734870008977A /* BorrowSelectDexViewController.swift in Sources */,
 				E39F59522A9B26AE00023292 /* SelectInvestProtocolViewController.swift in Sources */,
@@ -4288,6 +4299,7 @@
 				D9AF29E82A506F1A006BC53E /* ActivityType.swift in Sources */,
 				DFB1E9D42A08F19C00041B26 /* CoreDataManager.swift in Sources */,
 				E3FC69A22A8A0759009B3341 /* InvestmentPerformanceView.swift in Sources */,
+				D916A8BC2A9F447100F391B5 /* BorrowIncreaseAmountViewModel.swift in Sources */,
 				8BB89902879DDF1FE9C46EF4 /* UnlockPasscodeView.swift in Sources */,
 				88F5D80113398502A2D2BE03 /* ImportAccountViewModel.swift in Sources */,
 				F8BA0B9925700FFF405AB76D /* VerifyPassViewModel.swift in Sources */,
