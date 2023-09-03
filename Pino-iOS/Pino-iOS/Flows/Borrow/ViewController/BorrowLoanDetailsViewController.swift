@@ -42,15 +42,25 @@ class BorrowLoanDetailsViewController: UIViewController {
 			borrowLoanDetailsVM: borrowLoanDetailsVM,
 			pushToBorrowIncreaseAmountPageClosure: {
 				self.pushToBorrowIncreaseAmountPage()
+			},
+			pushToRepayAmountPageClosure: {
+				self.pushToRepayAmountPage()
 			}
 		)
 
 		view = borrowLoanDetailsView
 	}
 
+	#warning("this is for test")
 	private func pushToBorrowIncreaseAmountPage() {
 		let borrowIncreaseAmountVC = BorrowIncreaseAmountViewController()
 		navigationController?.pushViewController(borrowIncreaseAmountVC, animated: true)
+	}
+
+	#warning("this is for test")
+	private func pushToRepayAmountPage() {
+		let repayAmountVC = RepayAmountViewController()
+		navigationController?.pushViewController(repayAmountVC, animated: true)
 	}
 
 	@objc
