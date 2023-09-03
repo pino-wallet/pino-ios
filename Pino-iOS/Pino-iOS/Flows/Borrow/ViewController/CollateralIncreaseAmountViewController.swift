@@ -30,7 +30,9 @@ class CollateralIncreaseAmountViewController: UIViewController {
 		#warning("this should be changed")
 		collateralIncreaseAmountView = CollateralIncreaseAmountView(
 			collateralIncreaseAmountVM: collateralIncreaseAmountVM,
-			nextButtonTapped: {}
+			nextButtonTapped: {
+                self.pushToCollateralConfirmVC()
+            }
 		)
 
 		view = collateralIncreaseAmountView
@@ -41,4 +43,11 @@ class CollateralIncreaseAmountViewController: UIViewController {
 			"\(collateralIncreaseAmountVM.pageTitleCollateralText) \(collateralIncreaseAmountVM.tokenSymbol)"
 		)
 	}
+    
+    
+    #warning("this should be changed")
+    private func pushToCollateralConfirmVC() {
+        let collateralConfirmVC = CollateralConfirmViewController()
+        navigationController?.pushViewController(collateralConfirmVC, animated: true)
+    }
 }
