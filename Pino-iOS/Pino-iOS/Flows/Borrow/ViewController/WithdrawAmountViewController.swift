@@ -29,8 +29,8 @@ class WithdrawAmountViewController: UIViewController {
 	private func setupView() {
 		#warning("this should be changed")
 		withdrawAmountView = WithdrawAmountView(withdrawAmountVM: withdrawAmountVM, nextButtonTapped: {
-            self.pushToWithdrawConfirmVC()
-        })
+			self.pushToWithdrawConfirmVC()
+		})
 
 		view = withdrawAmountView
 	}
@@ -40,10 +40,10 @@ class WithdrawAmountViewController: UIViewController {
 			"\(withdrawAmountVM.pageTitleWithdrawText) \(withdrawAmountVM.tokenSymbol)"
 		)
 	}
-    
-    #warning("this should be changed")
-    private func pushToWithdrawConfirmVC() {
-        let withdrawConfirmVC = WithdrawConfirmViewController()
-        navigationController?.pushViewController(withdrawConfirmVC, animated: true)
-    }
+
+	#warning("this should be changed")
+	private func pushToWithdrawConfirmVC() {
+		let withdrawConfirmVC = WithdrawConfirmViewController()
+		navigationController?.pushViewController(withdrawConfirmVC, animated: true)
+	}
 }

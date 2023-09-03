@@ -8,38 +8,41 @@
 import UIKit
 
 class WithdrawConfirmViewController: UIViewController {
-    // MARK: - Private Properties
+	// MARK: - Private Properties
 
-    private let withdrawConfirmVM = WithdrawConfirmViewModel()
-    private var withdrawConfirmView: WithdrawConfirmView!
+	private let withdrawConfirmVM = WithdrawConfirmViewModel()
+	private var withdrawConfirmView: WithdrawConfirmView!
 
-    // MARK: - View Overrides
+	// MARK: - View Overrides
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+	override func viewDidLoad() {
+		super.viewDidLoad()
+	}
 
-    override func loadView() {
-        setupView()
-        setupNavigationBar()
-    }
+	override func loadView() {
+		setupView()
+		setupNavigationBar()
+	}
 
-    // MARK: - Private Methods
+	// MARK: - Private Methods
 
-    private func setupView() {
-        withdrawConfirmView = WithdrawConfirmView(withdrawConfrimVM: withdrawConfirmVM, presentActionSheetClosure: { actionSheet in
-            self.presentActionSheet(actionSheet: actionSheet)
-        })
+	private func setupView() {
+		withdrawConfirmView = WithdrawConfirmView(
+			withdrawConfrimVM: withdrawConfirmVM,
+			presentActionSheetClosure: { actionSheet in
+				self.presentActionSheet(actionSheet: actionSheet)
+			}
+		)
 
-        view = withdrawConfirmView
-    }
+		view = withdrawConfirmView
+	}
 
-    private func setupNavigationBar() {
-        setupPrimaryColorNavigationBar()
-        setNavigationTitle(withdrawConfirmVM.pageTitle)
-    }
+	private func setupNavigationBar() {
+		setupPrimaryColorNavigationBar()
+		setNavigationTitle(withdrawConfirmVM.pageTitle)
+	}
 
-    private func presentActionSheet(actionSheet: InfoActionSheet) {
-        present(actionSheet, animated: true)
-    }
+	private func presentActionSheet(actionSheet: InfoActionSheet) {
+		present(actionSheet, animated: true)
+	}
 }
