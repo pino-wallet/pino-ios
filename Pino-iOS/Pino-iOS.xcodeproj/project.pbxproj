@@ -429,6 +429,9 @@
 		D9C7D76229EBDCAE006BC446 /* CoinInfoStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C7D76129EBDCAE006BC446 /* CoinInfoStatsView.swift */; };
 		D9D11E922A5990B8003C4298 /* ActivityCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D11E912A5990B8003C4298 /* ActivityCollectionView.swift */; };
 		D9D11E942A5990F0003C4298 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D11E932A5990F0003C4298 /* ActivityViewModel.swift */; };
+		D9D462D52AA466990010ED76 /* RepayConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D462D42AA466990010ED76 /* RepayConfirmViewController.swift */; };
+		D9D462D72AA466A40010ED76 /* RepayConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D462D62AA466A40010ED76 /* RepayConfirmView.swift */; };
+		D9D462D92AA466B20010ED76 /* RepayConfirmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D462D82AA466B20010ED76 /* RepayConfirmViewModel.swift */; };
 		D9D9A4082A5E8A4400CECA41 /* ActivityInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9A4072A5E8A4400CECA41 /* ActivityInfoView.swift */; };
 		D9D9A40A2A5E9CD200CECA41 /* UserAccountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9A4092A5E9CD200CECA41 /* UserAccountInfoView.swift */; };
 		D9D9A40C2A5ED76400CECA41 /* ActivityInfoStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9A40B2A5ED76400CECA41 /* ActivityInfoStackView.swift */; };
@@ -1099,6 +1102,9 @@
 		D9C7D76129EBDCAE006BC446 /* CoinInfoStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoStatsView.swift; sourceTree = "<group>"; };
 		D9D11E912A5990B8003C4298 /* ActivityCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCollectionView.swift; sourceTree = "<group>"; };
 		D9D11E932A5990F0003C4298 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
+		D9D462D42AA466990010ED76 /* RepayConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepayConfirmViewController.swift; sourceTree = "<group>"; };
+		D9D462D62AA466A40010ED76 /* RepayConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepayConfirmView.swift; sourceTree = "<group>"; };
+		D9D462D82AA466B20010ED76 /* RepayConfirmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepayConfirmViewModel.swift; sourceTree = "<group>"; };
 		D9D9A4072A5E8A4400CECA41 /* ActivityInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityInfoView.swift; sourceTree = "<group>"; };
 		D9D9A4092A5E9CD200CECA41 /* UserAccountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountInfoView.swift; sourceTree = "<group>"; };
 		D9D9A40B2A5ED76400CECA41 /* ActivityInfoStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityInfoStackView.swift; sourceTree = "<group>"; };
@@ -1732,6 +1738,7 @@
 				D916A8C52A9F647700F391B5 /* CollateralIncreaseAmountView.swift */,
 				D916A8CF2A9F694000F391B5 /* WithdrawAmountView.swift */,
 				D91AAF5C2AA36CFC00A823E6 /* BorrowConfirmView.swift */,
+				D9D462D62AA466A40010ED76 /* RepayConfirmView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1751,6 +1758,7 @@
 				D916A8C72A9F64B400F391B5 /* CollateralIncreaseAmountViewController.swift */,
 				D916A8CD2A9F690600F391B5 /* WithdrawAmountViewController.swift */,
 				D91AAF582AA36CBA00A823E6 /* BorrowConfirmViewController.swift */,
+				D9D462D42AA466990010ED76 /* RepayConfirmViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1773,6 +1781,7 @@
 				D916A8C92A9F653500F391B5 /* CollateralIncreaseAmountViewModel.swift */,
 				D916A8CB2A9F688600F391B5 /* WithdrawAmountViewModel.swift */,
 				D91AAF5A2AA36CEA00A823E6 /* BorrowConfirmViewModel.swift */,
+				D9D462D82AA466B20010ED76 /* RepayConfirmViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3979,6 +3988,7 @@
 				D933C3232A99F07600C2BD5A /* CollateralizingBoardViewController.swift in Sources */,
 				4037DCCC2A8BD65600FCA96B /* ApproveContractView.swift in Sources */,
 				D97CF62C25B975AD3C131881 /* CoinHistoryModel.swift in Sources */,
+				D9D462D52AA466990010ED76 /* RepayConfirmViewController.swift in Sources */,
 				4BCC037123752C19CB2B98D3 /* ActivityCellViewModel.swift in Sources */,
 				DBE3307F29EF0E7E1926B2B4 /* CoinInfoChartView.swift in Sources */,
 				05BF3ACA571459B68B3451D6 /* CoinInfoChartViewController.swift in Sources */,
@@ -3987,6 +3997,7 @@
 				D93C41FB29F7CC67003F2297 /* EditAccountCell.swift in Sources */,
 				130F1B30243DA82379EB2BD4 /* CoinInfoChartViewModel.swift in Sources */,
 				D933C3372A99F66100C2BD5A /* UserCollateralizingAssetCell.swift in Sources */,
+				D9D462D72AA466A40010ED76 /* RepayConfirmView.swift in Sources */,
 				A1CB57E01D2C66A314CD3BE4 /* ActivitiesCollectionView.swift in Sources */,
 				C6F911527FDF8516478B4961 /* CoinInfoHeaderView.swift in Sources */,
 				0682CFAA6E20C8AEA43A55AC /* CoinInfoViewController.swift in Sources */,
@@ -4192,6 +4203,7 @@
 				D99F4B2129E2C48D009F7F55 /* PaymentMethodOptionViewModel.swift in Sources */,
 				7EF5AA653545082C4C0D04EF /* PinoButton.swift in Sources */,
 				3ACA10D15DD3199674C38954 /* PinoButtonStyle.swift in Sources */,
+				D9D462D92AA466B20010ED76 /* RepayConfirmViewModel.swift in Sources */,
 				15A1DA694D1E9C595492510B /* PinoCheckBox.swift in Sources */,
 				D97F0B972A9490840083DA81 /* SelectDexSystemCollectionView.swift in Sources */,
 				E3FC69AD2A8A174A009B3341 /* InvestmentOtherShareOfAssetsViewModel.swift in Sources */,
