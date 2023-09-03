@@ -24,11 +24,11 @@ class BorrowIncreaseAmountView: UIView {
 	private let amountSpacerView = UIView()
 	private let maxAmountSpacerView = UIView()
 	private let continueButton = PinoButton(style: .deactive)
-    private let healthScoreStackView = UIStackView()
-    private let healthScoreSpacerView = UIView()
+	private let healthScoreStackView = UIStackView()
+	private let healthScoreSpacerView = UIView()
 	private var nextButtonTapped: () -> Void
 	private var borrowIncreaseAmountVM: BorrowIncreaseAmountViewModel
-    private var borrowIncreaseAmountHealthScore = AmountHealthScoreView()
+	private var borrowIncreaseAmountHealthScore = AmountHealthScoreView()
 
 	private var keyboardHeight: CGFloat = 320
 	private var nextButtonBottomConstraint: NSLayoutConstraint!
@@ -62,7 +62,7 @@ class BorrowIncreaseAmountView: UIView {
 		addSubview(contentStackView)
 		addSubview(continueButton)
 		contentStackView.addArrangedSubview(amountCardView)
-        contentStackView.addArrangedSubview(healthScoreStackView)
+		contentStackView.addArrangedSubview(healthScoreStackView)
 		amountCardView.addSubview(amountcontainerStackView)
 		amountcontainerStackView.addArrangedSubview(amountStackView)
 		amountcontainerStackView.addArrangedSubview(maximumStackView)
@@ -74,8 +74,8 @@ class BorrowIncreaseAmountView: UIView {
 		maximumStackView.addArrangedSubview(maxAmountStackView)
 		maxAmountStackView.addArrangedSubview(maxAmountTitle)
 		maxAmountStackView.addArrangedSubview(maxAmountLabel)
-        healthScoreStackView.addArrangedSubview(healthScoreSpacerView)
-        healthScoreStackView.addArrangedSubview(borrowIncreaseAmountHealthScore)
+		healthScoreStackView.addArrangedSubview(healthScoreSpacerView)
+		healthScoreStackView.addArrangedSubview(borrowIncreaseAmountHealthScore)
 
 		continueButton.addAction(UIAction(handler: { _ in
 			self.nextButtonTapped()
@@ -133,9 +133,9 @@ class BorrowIncreaseAmountView: UIView {
 
 		amountcontainerStackView.axis = .vertical
 		contentStackView.axis = .vertical
-        
-        healthScoreStackView.axis = .vertical
-        healthScoreStackView.spacing = 16
+
+		healthScoreStackView.axis = .vertical
+		healthScoreStackView.spacing = 16
 
 		tokenStackView.alignment = .center
 
@@ -147,13 +147,13 @@ class BorrowIncreaseAmountView: UIView {
 
 		amountLabel.numberOfLines = 0
 		amountLabel.lineBreakMode = .byCharWrapping
-        
-        borrowIncreaseAmountHealthScore.isHiddenInStackView = true
-        borrowIncreaseAmountHealthScore.alpha = 0
-        
-        #warning("this values are temporary and should be deleted")
-        borrowIncreaseAmountHealthScore.prevHealthScore = borrowIncreaseAmountVM.prevHealthScore
-        borrowIncreaseAmountHealthScore.newHealthScore = borrowIncreaseAmountVM.newHealthScore
+
+		borrowIncreaseAmountHealthScore.isHiddenInStackView = true
+		borrowIncreaseAmountHealthScore.alpha = 0
+
+		#warning("this values are temporary and should be deleted")
+		borrowIncreaseAmountHealthScore.prevHealthScore = borrowIncreaseAmountVM.prevHealthScore
+		borrowIncreaseAmountHealthScore.newHealthScore = borrowIncreaseAmountVM.newHealthScore
 	}
 
 	private func setupConstraints() {
@@ -199,24 +199,24 @@ class BorrowIncreaseAmountView: UIView {
 		if let amountText = textField.text, amountText != .emptyString {
 			borrowIncreaseAmountVM.calculateDollarAmount(amountText)
 			updateAmount(enteredAmount: amountText)
-            animateAmountHealthScoreView(isHidden: false)
+			animateAmountHealthScoreView(isHidden: false)
 		} else {
 			borrowIncreaseAmountVM.calculateDollarAmount(.emptyString)
 			updateAmount(enteredAmount: .emptyString)
-            animateAmountHealthScoreView(isHidden: true)
+			animateAmountHealthScoreView(isHidden: true)
 		}
 	}
-    
-    private func animateAmountHealthScoreView(isHidden: Bool) {
-        UIView.animate(withDuration: 0.2, animations: {
-                self.borrowIncreaseAmountHealthScore.isHiddenInStackView = isHidden
-            if isHidden {
-                self.borrowIncreaseAmountHealthScore.alpha = 0
-            } else {
-                self.borrowIncreaseAmountHealthScore.alpha = 1
-            }
-        })
-    }
+
+	private func animateAmountHealthScoreView(isHidden: Bool) {
+		UIView.animate(withDuration: 0.2, animations: {
+			self.borrowIncreaseAmountHealthScore.isHiddenInStackView = isHidden
+			if isHidden {
+				self.borrowIncreaseAmountHealthScore.alpha = 0
+			} else {
+				self.borrowIncreaseAmountHealthScore.alpha = 1
+			}
+		})
+	}
 
 	private func updateAmount(enteredAmount: String) {
 		let amountStatus = borrowIncreaseAmountVM.checkBalanceStatus(amount: enteredAmount)
