@@ -276,6 +276,9 @@
 		D916A8C02A9F5F0200F391B5 /* RepayAmountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8BF2A9F5F0200F391B5 /* RepayAmountViewModel.swift */; };
 		D916A8C22A9F5F9900F391B5 /* RepayAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8C12A9F5F9900F391B5 /* RepayAmountViewController.swift */; };
 		D916A8C42A9F5FEB00F391B5 /* RepayAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8C32A9F5FEB00F391B5 /* RepayAmountView.swift */; };
+		D916A8C62A9F647700F391B5 /* CollateralIncreaseAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8C52A9F647700F391B5 /* CollateralIncreaseAmountView.swift */; };
+		D916A8C82A9F64B400F391B5 /* CollateralIncreaseAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8C72A9F64B400F391B5 /* CollateralIncreaseAmountViewController.swift */; };
+		D916A8CA2A9F653500F391B5 /* CollateralIncreaseAmountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8C92A9F653500F391B5 /* CollateralIncreaseAmountViewModel.swift */; };
 		D919E7542A18FE31003C73D7 /* AccountHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D919E7532A18FE31003C73D7 /* AccountHeaderViewModel.swift */; };
 		D91A39FD29E40EA400004CB2 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A39FC29E40EA400004CB2 /* NotificationSettingsViewController.swift */; };
 		D91A39FF29E40F8900004CB2 /* NotificationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A39FE29E40F8900004CB2 /* NotificationSettingsViewModel.swift */; };
@@ -938,6 +941,9 @@
 		D916A8BF2A9F5F0200F391B5 /* RepayAmountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepayAmountViewModel.swift; sourceTree = "<group>"; };
 		D916A8C12A9F5F9900F391B5 /* RepayAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepayAmountViewController.swift; sourceTree = "<group>"; };
 		D916A8C32A9F5FEB00F391B5 /* RepayAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepayAmountView.swift; sourceTree = "<group>"; };
+		D916A8C52A9F647700F391B5 /* CollateralIncreaseAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralIncreaseAmountView.swift; sourceTree = "<group>"; };
+		D916A8C72A9F64B400F391B5 /* CollateralIncreaseAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralIncreaseAmountViewController.swift; sourceTree = "<group>"; };
+		D916A8C92A9F653500F391B5 /* CollateralIncreaseAmountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralIncreaseAmountViewModel.swift; sourceTree = "<group>"; };
 		D919E7532A18FE31003C73D7 /* AccountHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHeaderViewModel.swift; sourceTree = "<group>"; };
 		D91A39FC29E40EA400004CB2 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		D91A39FE29E40F8900004CB2 /* NotificationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewModel.swift; sourceTree = "<group>"; };
@@ -1711,6 +1717,7 @@
 				D98355D62A9A1D4000294DCF /* BorrowLoanDetailsView.swift */,
 				D916A8BD2A9F44DD00F391B5 /* BorrowIncreaseAmountView.swift */,
 				D916A8C32A9F5FEB00F391B5 /* RepayAmountView.swift */,
+				D916A8C52A9F647700F391B5 /* CollateralIncreaseAmountView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1727,6 +1734,7 @@
 				D98355D82A9A1FD400294DCF /* BorrowLoanDetailsViewController.swift */,
 				D916A8B92A9F445F00F391B5 /* BorrowIncreaseAmountViewController.swift */,
 				D916A8C12A9F5F9900F391B5 /* RepayAmountViewController.swift */,
+				D916A8C72A9F64B400F391B5 /* CollateralIncreaseAmountViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1746,6 +1754,7 @@
 				D98355D42A9A1BC800294DCF /* BorrowLoanDetailsViewModel.swift */,
 				D916A8BB2A9F447100F391B5 /* BorrowIncreaseAmountViewModel.swift */,
 				D916A8BF2A9F5F0200F391B5 /* RepayAmountViewModel.swift */,
+				D916A8C92A9F653500F391B5 /* CollateralIncreaseAmountViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -4009,6 +4018,7 @@
 				DFA968732A0F8A77007D4513 /* WalletDataSource.swift in Sources */,
 				DF14FCA32A910B78005221A8 /* PromiseKit+Extension.swift in Sources */,
 				D9BE05152A8221C8008670F9 /* CDActivityParent+CoreDataProperties.swift in Sources */,
+				D916A8C82A9F64B400F391B5 /* CollateralIncreaseAmountViewController.swift in Sources */,
 				324CF2EFF8A4FE86E6609254 /* CustomAssetInfoViewModel.swift in Sources */,
 				D924C3482A94969F007299A4 /* BorrowAPIService.swift in Sources */,
 				E3CFC07A2A2F241500E165A4 /* CircleMarker.swift in Sources */,
@@ -4096,6 +4106,7 @@
 				763F91967E4347D64BD561C4 /* KeychainHelper.swift in Sources */,
 				D916A8C02A9F5F0200F391B5 /* RepayAmountViewModel.swift in Sources */,
 				7F79C44B5BF6EB8B1D1674A0 /* KeychainWrapperProtocol.swift in Sources */,
+				D916A8C62A9F647700F391B5 /* CollateralIncreaseAmountView.swift in Sources */,
 				D9A0BDBA2A975E2200AE132F /* BorrowableAssetCell.swift in Sources */,
 				A9DD712BF1A1511733B479FA /* LaunchSettings.swift in Sources */,
 				E3FC69F62A936D6B009B3341 /* InvestmentRiskCell.swift in Sources */,
@@ -4166,6 +4177,7 @@
 				D9BFEC392A121719007DFF40 /* AllowNotificationsView.swift in Sources */,
 				E39F594A2A99DF9B00023292 /* UITextField+Extension.swift in Sources */,
 				9131F7218905C2F4AFD3CDE7 /* PinoCheckBoxStyle.swift in Sources */,
+				D916A8CA2A9F653500F391B5 /* CollateralIncreaseAmountViewModel.swift in Sources */,
 				E385F6132A22029100EE7EE1 /* Wallet+CoreDataClass.swift in Sources */,
 				4CEF60EEF4EB1F6FFF04D23D /* PinoColor.swift in Sources */,
 				E3FC699E2A89069A009B3341 /* InvestAssetViewModel.swift in Sources */,
