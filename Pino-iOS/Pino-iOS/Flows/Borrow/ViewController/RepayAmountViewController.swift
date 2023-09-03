@@ -28,12 +28,20 @@ class RepayAmountViewController: UIViewController {
 
 	private func setupView() {
 		#warning("this should be changed")
-		repayAmountView = RepayAmountView(repayAmountVM: repayAmountVM, nextButtonTapped: {})
+		repayAmountView = RepayAmountView(repayAmountVM: repayAmountVM, nextButtonTapped: {
+			self.pushToRepayConfirmVC()
+		})
 
 		view = repayAmountView
 	}
 
 	private func setupNavigationBar() {
 		setNavigationTitle("\(repayAmountVM.pageTitleRepayText) \(repayAmountVM.tokenSymbol)")
+	}
+
+	#warning("this should be changed")
+	private func pushToRepayConfirmVC() {
+		let repayConfirmVC = RepayConfirmViewController()
+		navigationController?.pushViewController(repayConfirmVC, animated: true)
 	}
 }
