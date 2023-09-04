@@ -25,6 +25,9 @@ class RepayAmountView: UIView {
 	private let maxAmountSpacerView = UIView()
 	private let continueButton = PinoButton(style: .deactive)
 	private var nextButtonTapped: () -> Void
+	private let healthScoreStackView = UIStackView()
+	private let healthScoreSpacerView = UIView()
+	private var repayAmountHealthScore = AmountHealthScoreView()
 	private var repayAmountVM: RepayAmountViewModel
 
 	private var keyboardHeight: CGFloat = 320
@@ -59,6 +62,7 @@ class RepayAmountView: UIView {
 		addSubview(contentStackView)
 		addSubview(continueButton)
 		contentStackView.addArrangedSubview(amountCardView)
+		contentStackView.addArrangedSubview(healthScoreStackView)
 		amountCardView.addSubview(amountcontainerStackView)
 		amountcontainerStackView.addArrangedSubview(amountStackView)
 		amountcontainerStackView.addArrangedSubview(maximumStackView)
@@ -70,6 +74,8 @@ class RepayAmountView: UIView {
 		maximumStackView.addArrangedSubview(maxAmountStackView)
 		maxAmountStackView.addArrangedSubview(maxAmountTitle)
 		maxAmountStackView.addArrangedSubview(maxAmountLabel)
+		healthScoreStackView.addArrangedSubview(healthScoreSpacerView)
+		healthScoreStackView.addArrangedSubview(repayAmountHealthScore)
 
 		continueButton.addAction(UIAction(handler: { _ in
 			self.nextButtonTapped()
@@ -133,11 +139,20 @@ class RepayAmountView: UIView {
 		tokenStackView.spacing = 6
 		amountcontainerStackView.spacing = 22
 
+		healthScoreStackView.axis = .vertical
+		healthScoreStackView.spacing = 16
+
 		amountTextfield.keyboardType = .decimalPad
 		amountTextfield.delegate = self
 
 		amountLabel.numberOfLines = 0
 		amountLabel.lineBreakMode = .byCharWrapping
+
+		repayAmountHealthScore.isHiddenInStackView = true
+
+		#warning("this values are temporary and should be deleted")
+		repayAmountHealthScore.prevHealthScore = repayAmountVM.prevHealthScore
+		repayAmountHealthScore.newHealthScore = repayAmountVM.newHealthScore
 	}
 
 	private func setupConstraints() {
@@ -177,15 +192,28 @@ class RepayAmountView: UIView {
 		tokenView.tokenName = repayAmountVM.selectedToken.symbol
 	}
 
+	private func animateAmountHealthScoreView(isHidden: Bool) {
+		UIView.animate(withDuration: 0.2, animations: {
+			self.repayAmountHealthScore.isHiddenInStackView = isHidden
+			if isHidden {
+				self.repayAmountHealthScore.alpha = 0
+			} else {
+				self.repayAmountHealthScore.alpha = 1
+			}
+		})
+	}
+
 	@objc
 	private func textFieldDidChange(_ textField: UITextField) {
 		if textField.text?.last == "." || textField.text?.last == "," { return }
 		if let amountText = textField.text, amountText != .emptyString {
 			repayAmountVM.calculateDollarAmount(amountText)
 			updateAmount(enteredAmount: amountText)
+			animateAmountHealthScoreView(isHidden: false)
 		} else {
 			repayAmountVM.calculateDollarAmount(.emptyString)
 			updateAmount(enteredAmount: .emptyString)
+			animateAmountHealthScoreView(isHidden: true)
 		}
 	}
 
