@@ -26,6 +26,9 @@ class CollateralIncreaseAmountView: UIView {
 	private let continueButton = PinoButton(style: .deactive)
 	private let errorTextContainerView = UIView()
 	private let errorTextLabel = PinoLabel(style: .title, text: "")
+	private let healthScoreStackView = UIStackView()
+	private let healthScoreSpacerView = UIView()
+	private var collateralIncreaseAmountHealthScore = AmountHealthScoreView()
 	private var nextButtonTapped: () -> Void
 	private var collateralIncreaseAmountVM: CollateralIncreaseAmountViewModel
 
@@ -73,6 +76,7 @@ class CollateralIncreaseAmountView: UIView {
 		addSubview(continueButton)
 		errorTextContainerView.addSubview(errorTextLabel)
 		contentStackView.addArrangedSubview(amountCardView)
+		contentStackView.addArrangedSubview(healthScoreStackView)
 		contentStackView.addArrangedSubview(errorTextContainerView)
 		amountCardView.addSubview(amountcontainerStackView)
 		amountcontainerStackView.addArrangedSubview(amountStackView)
@@ -85,6 +89,8 @@ class CollateralIncreaseAmountView: UIView {
 		maximumStackView.addArrangedSubview(maxAmountStackView)
 		maxAmountStackView.addArrangedSubview(maxAmountTitle)
 		maxAmountStackView.addArrangedSubview(maxAmountLabel)
+		healthScoreStackView.addArrangedSubview(healthScoreSpacerView)
+		healthScoreStackView.addArrangedSubview(collateralIncreaseAmountHealthScore)
 
 		continueButton.addAction(UIAction(handler: { _ in
 			self.nextButtonTapped()
@@ -150,12 +156,14 @@ class CollateralIncreaseAmountView: UIView {
 
 		amountcontainerStackView.axis = .vertical
 		contentStackView.axis = .vertical
-		contentStackView.spacing = 24
 
 		tokenStackView.alignment = .center
 
 		tokenStackView.spacing = 6
 		amountcontainerStackView.spacing = 22
+
+		healthScoreStackView.axis = .vertical
+		healthScoreStackView.spacing = 16
 
 		amountTextfield.keyboardType = .decimalPad
 		amountTextfield.delegate = self
@@ -169,6 +177,12 @@ class CollateralIncreaseAmountView: UIView {
 
 		errorTextLabel.font = .PinoStyle.mediumCallout
 		errorTextLabel.numberOfLines = 0
+
+		collateralIncreaseAmountHealthScore.isHiddenInStackView = true
+
+		#warning("this values are temporary and should be deleted")
+		collateralIncreaseAmountHealthScore.prevHealthScore = collateralIncreaseAmountVM.prevHealthScore
+		collateralIncreaseAmountHealthScore.newHealthScore = collateralIncreaseAmountVM.newHealthScore
 	}
 
 	private func setupConstraints() {
@@ -196,6 +210,17 @@ class CollateralIncreaseAmountView: UIView {
 		addConstraint(nextButtonBottomConstraint)
 	}
 
+	private func animateAmountHealthScoreView(isHidden: Bool) {
+		UIView.animate(withDuration: 0.2, animations: {
+			self.collateralIncreaseAmountHealthScore.isHiddenInStackView = isHidden
+			if isHidden {
+				self.collateralIncreaseAmountHealthScore.alpha = 0
+			} else {
+				self.collateralIncreaseAmountHealthScore.alpha = 1
+			}
+		})
+	}
+
 	private func updateView() {
 		if collateralIncreaseAmountVM.selectedToken.isVerified {
 			tokenView.tokenImageURL = collateralIncreaseAmountVM.selectedToken.image
@@ -215,9 +240,11 @@ class CollateralIncreaseAmountView: UIView {
 		if let amountText = textField.text, amountText != .emptyString {
 			collateralIncreaseAmountVM.calculateDollarAmount(amountText)
 			updateAmount(enteredAmount: amountText)
+			animateAmountHealthScoreView(isHidden: false)
 		} else {
 			collateralIncreaseAmountVM.calculateDollarAmount(.emptyString)
 			updateAmount(enteredAmount: .emptyString)
+			animateAmountHealthScoreView(isHidden: true)
 		}
 	}
 
@@ -252,6 +279,7 @@ class CollateralIncreaseAmountView: UIView {
 			errorTextContainerView.isHidden = true
 			#warning("we should validate for other things here to enable coninue button or not")
 		case let .collateralError(errorDescription):
+			contentStackView.spacing = 24
 			errorTextContainerView.isHidden = false
 			errorTextLabel.text = errorDescription
 			continueButton.style = .deactive

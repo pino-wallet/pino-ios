@@ -36,6 +36,8 @@ class CollateralIncreaseAmountViewModel {
 	public let maxTitle = "Max: "
 	public var textFieldPlaceHolder = "0"
 
+	public var prevHealthScore: Double = 0
+	public var newHealthScore: Double = 24
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
 	public var maxHoldAmount: BigNumber = 100.bigNumber
