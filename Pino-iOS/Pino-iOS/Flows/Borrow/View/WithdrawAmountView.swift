@@ -23,9 +23,9 @@ class WithdrawAmountView: UIView {
 	private let tokenView = TokenView()
 	private let amountSpacerView = UIView()
 	private let maxAmountSpacerView = UIView()
-    private let healthScoreStackView = UIStackView()
-    private let healthScoreSpacerView = UIView()
-    private var withdrawAmountHealthScore = AmountHealthScoreView()
+	private let healthScoreStackView = UIStackView()
+	private let healthScoreSpacerView = UIView()
+	private var withdrawAmountHealthScore = AmountHealthScoreView()
 	private let continueButton = PinoButton(style: .deactive)
 	private var nextButtonTapped: () -> Void
 	private var withdrawAmountVM: WithdrawAmountViewModel
@@ -62,7 +62,7 @@ class WithdrawAmountView: UIView {
 		addSubview(contentStackView)
 		addSubview(continueButton)
 		contentStackView.addArrangedSubview(amountCardView)
-        contentStackView.addArrangedSubview(healthScoreStackView)
+		contentStackView.addArrangedSubview(healthScoreStackView)
 		amountCardView.addSubview(amountcontainerStackView)
 		amountcontainerStackView.addArrangedSubview(amountStackView)
 		amountcontainerStackView.addArrangedSubview(maximumStackView)
@@ -74,8 +74,8 @@ class WithdrawAmountView: UIView {
 		maximumStackView.addArrangedSubview(maxAmountStackView)
 		maxAmountStackView.addArrangedSubview(maxAmountTitle)
 		maxAmountStackView.addArrangedSubview(maxAmountLabel)
-        healthScoreStackView.addArrangedSubview(healthScoreSpacerView)
-        healthScoreStackView.addArrangedSubview(withdrawAmountHealthScore)
+		healthScoreStackView.addArrangedSubview(healthScoreSpacerView)
+		healthScoreStackView.addArrangedSubview(withdrawAmountHealthScore)
 
 		continueButton.addAction(UIAction(handler: { _ in
 			self.nextButtonTapped()
@@ -135,9 +135,9 @@ class WithdrawAmountView: UIView {
 		contentStackView.axis = .vertical
 
 		tokenStackView.alignment = .center
-        
-        healthScoreStackView.axis = .vertical
-        healthScoreStackView.spacing = 16
+
+		healthScoreStackView.axis = .vertical
+		healthScoreStackView.spacing = 16
 
 		tokenStackView.spacing = 6
 		amountcontainerStackView.spacing = 22
@@ -147,12 +147,12 @@ class WithdrawAmountView: UIView {
 
 		amountLabel.numberOfLines = 0
 		amountLabel.lineBreakMode = .byCharWrapping
-        
-        withdrawAmountHealthScore.isHiddenInStackView = true
-        
-        #warning("this values are temporary and should be deleted")
-        withdrawAmountHealthScore.prevHealthScore = withdrawAmountVM.prevHealthScore
-        withdrawAmountHealthScore.newHealthScore = withdrawAmountVM.newHealthScore
+
+		withdrawAmountHealthScore.isHiddenInStackView = true
+
+		#warning("this values are temporary and should be deleted")
+		withdrawAmountHealthScore.prevHealthScore = withdrawAmountVM.prevHealthScore
+		withdrawAmountHealthScore.newHealthScore = withdrawAmountVM.newHealthScore
 	}
 
 	private func setupConstraints() {
@@ -178,17 +178,17 @@ class WithdrawAmountView: UIView {
 		)
 		addConstraint(nextButtonBottomConstraint)
 	}
-    
-    private func animateAmountHealthScoreView(isHidden: Bool) {
-        UIView.animate(withDuration: 0.2, animations: {
-            self.withdrawAmountHealthScore.isHiddenInStackView = isHidden
-            if isHidden {
-                self.withdrawAmountHealthScore.alpha = 0
-            } else {
-                self.withdrawAmountHealthScore.alpha = 1
-            }
-        })
-    }
+
+	private func animateAmountHealthScoreView(isHidden: Bool) {
+		UIView.animate(withDuration: 0.2, animations: {
+			self.withdrawAmountHealthScore.isHiddenInStackView = isHidden
+			if isHidden {
+				self.withdrawAmountHealthScore.alpha = 0
+			} else {
+				self.withdrawAmountHealthScore.alpha = 1
+			}
+		})
+	}
 
 	private func updateView() {
 		if withdrawAmountVM.selectedToken.isVerified {
@@ -209,11 +209,11 @@ class WithdrawAmountView: UIView {
 		if let amountText = textField.text, amountText != .emptyString {
 			withdrawAmountVM.calculateDollarAmount(amountText)
 			updateAmount(enteredAmount: amountText)
-            animateAmountHealthScoreView(isHidden: false)
+			animateAmountHealthScoreView(isHidden: false)
 		} else {
 			withdrawAmountVM.calculateDollarAmount(.emptyString)
 			updateAmount(enteredAmount: .emptyString)
-            animateAmountHealthScoreView(isHidden: true)
+			animateAmountHealthScoreView(isHidden: true)
 		}
 	}
 
