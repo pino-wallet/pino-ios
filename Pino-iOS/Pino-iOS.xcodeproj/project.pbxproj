@@ -270,6 +270,7 @@
 		D5E4DDCD2A960259000AA235 /* InvestDepositView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E4DDCC2A960259000AA235 /* InvestDepositView.swift */; };
 		D5E4DDCF2A960367000AA235 /* InvestDepositViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E4DDCE2A960367000AA235 /* InvestDepositViewModel.swift */; };
 		D615530893452E25B58471EF /* ShareOfAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6721806A1540B888590AFF4C /* ShareOfAssetsViewModel.swift */; };
+		D903AC472AA47D6C0083727F /* AmountHealthScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903AC462AA47D6C0083727F /* AmountHealthScoreView.swift */; };
 		D916A8BA2A9F445F00F391B5 /* BorrowIncreaseAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8B92A9F445F00F391B5 /* BorrowIncreaseAmountViewController.swift */; };
 		D916A8BC2A9F447100F391B5 /* BorrowIncreaseAmountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8BB2A9F447100F391B5 /* BorrowIncreaseAmountViewModel.swift */; };
 		D916A8BE2A9F44DD00F391B5 /* BorrowIncreaseAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8BD2A9F44DD00F391B5 /* BorrowIncreaseAmountView.swift */; };
@@ -950,6 +951,7 @@
 		D846BDE4ED7AF8234497E621 /* LaunchSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchSettings.swift; sourceTree = "<group>"; };
 		D859A59CF3F5322ACE7356E4 /* VerifySecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseView.swift; sourceTree = "<group>"; };
 		D872D11A91B4283F96C4999D /* ShowSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseViewController.swift; sourceTree = "<group>"; };
+		D903AC462AA47D6C0083727F /* AmountHealthScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountHealthScoreView.swift; sourceTree = "<group>"; };
 		D916A8B92A9F445F00F391B5 /* BorrowIncreaseAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowIncreaseAmountViewController.swift; sourceTree = "<group>"; };
 		D916A8BB2A9F447100F391B5 /* BorrowIncreaseAmountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowIncreaseAmountViewModel.swift; sourceTree = "<group>"; };
 		D916A8BD2A9F44DD00F391B5 /* BorrowIncreaseAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowIncreaseAmountView.swift; sourceTree = "<group>"; };
@@ -1753,6 +1755,7 @@
 				D9D462D62AA466A40010ED76 /* RepayConfirmView.swift */,
 				D9CD890A2AA469D000D6520B /* WithdrawConfirmView.swift */,
 				D9176F142AA46E16007D4DBC /* CollateralConfirmView.swift */,
+				D903AC462AA47D6C0083727F /* AmountHealthScoreView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4081,6 +4084,7 @@
 				D933C3332A99F5ED00C2BD5A /* CollateralizingBoardView.swift in Sources */,
 				D933C32D2A99F53300C2BD5A /* UserCollateralizingAssetViewModel.swift in Sources */,
 				D9AF29E22A500B03006BC53E /* ResultActivityModel.swift in Sources */,
+				D903AC472AA47D6C0083727F /* AmountHealthScoreView.swift in Sources */,
 				E3FC69DB2A91032D009B3341 /* AssetsBoardCollectionView.swift in Sources */,
 				E35BB65B2A652B13003987F5 /* DeviceHelper.swift in Sources */,
 				D5E4DDCD2A960259000AA235 /* InvestDepositView.swift in Sources */,
