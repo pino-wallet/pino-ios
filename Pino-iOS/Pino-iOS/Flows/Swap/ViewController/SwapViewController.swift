@@ -99,10 +99,8 @@ class SwapViewController: UIViewController {
 
 		swapView.$keyboardIsOpen.sink { keyboardIsOpen in
 			if keyboardIsOpen {
-				self.hideProtocolCard()
 				self.swapView.closeFeeCard()
 			} else {
-				self.showProtocolCard()
 				self.swapView.openFeeCard()
 			}
 		}.store(in: &cancellables)
