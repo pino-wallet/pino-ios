@@ -5,12 +5,14 @@
 //  Created by Mohi Raoufi on 12/17/22.
 //
 import UIKit
+import Combine
 
 class BorrowViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let borrowVM = BorrowViewModel()
 	private var borrowView: BorrowView!
+    private var cancellable = Set<AnyCancellable>()
 
 	// MARK: - View Overrides
 
@@ -21,10 +23,14 @@ class BorrowViewController: UIViewController {
 	override func loadView() {
 		setupNavigationBar()
 		setupView()
+        setupBindings()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		borrowVM.getBorrowingDetailsFromVC()
+        if borrowVM.userBorrowingDetails == nil {
+        borrowView.showLoading()
+        }
 	}
 
 	// MARK: - Private Methods
@@ -71,4 +77,13 @@ class BorrowViewController: UIViewController {
 		navigationVC.viewControllers = [collateralizingBoardVC]
 		present(navigationVC, animated: true)
 	}
+    
+    private func setupBindings() {
+        borrowVM.$userBorrowingDetails.sink { userBorrowingDetails in
+            guard userBorrowingDetails != nil else {
+                return
+            }
+            self.borrowView.hideLoading()
+        }.store(in: &cancellable)
+    }
 }

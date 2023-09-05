@@ -17,6 +17,11 @@ class BorrowingTokensCollectionView: UICollectionView {
 
 	private var borrowingDetailsProperties: BorrowingPropertiesViewModel!
 	private var cancellables = Set<AnyCancellable>()
+    private var isLoading: Bool = true {
+        didSet {
+            reloadData()
+        }
+    }
 
 	// MARK: - Initializers
 
@@ -53,18 +58,23 @@ class BorrowingTokensCollectionView: UICollectionView {
 
 	private func setupBindings() {
 		borrowingDetailsVM.$properties.sink { newBorrowingDetailsProperties in
-			guard let newBorrowingDetailsProperties = newBorrowingDetailsProperties else {
+            guard let newBorrowingDetailsProperties = newBorrowingDetailsProperties, newBorrowingDetailsProperties.borrowingAssetsDetailList != nil else {
+                self.isLoading = true
 				return
 			}
 			self.borrowingDetailsProperties = newBorrowingDetailsProperties
-			self.reloadData()
+            self.isLoading = false
 		}.store(in: &cancellables)
 	}
 }
 
 extension BorrowingTokensCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		borrowingDetailsProperties.borrowingAssetsDetailList.count
+        if isLoading {
+            return 3
+        } else {
+            return borrowingDetailsProperties.borrowingAssetsDetailList?.count ?? 0
+        }
 	}
 
 	func collectionView(
@@ -75,14 +85,21 @@ extension BorrowingTokensCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: BorrowingTokenCell.cellReuseId,
 			for: indexPath
 		) as! BorrowingTokenCell
-
-		tokenCell
-			.borrowingTokenVM = BorrowingTokenCellViewModel(
-				borrowinTokenModel: borrowingDetailsProperties
-					.borrowingAssetsDetailList[indexPath.item]
-			)
-		tokenCell.progressBarColor = borrowingDetailsProperties.progressBarColor
-
+        
+        if isLoading {
+            tokenCell.borrowingTokenVM = nil
+            tokenCell.showSkeletonView()
+        } else {
+            tokenCell
+                .borrowingTokenVM = BorrowingTokenCellViewModel(
+                    borrowinTokenModel: borrowingDetailsProperties
+                        .borrowingAssetsDetailList?[indexPath.item]
+                )
+            tokenCell.hideSkeletonView()
+            tokenCell.progressBarColor = borrowingDetailsProperties.progressBarColor
+        }
+        
+        
 		return tokenCell
 	}
 }

@@ -31,6 +31,7 @@ class BorrowView: UIView {
 	private var collateralDetailsView: BorrowingDetailsView!
 	private var borrowDetailsView: BorrowingDetailsView!
 	private var borrowVM: BorrowViewModel
+    private var healthScoreTitleStackViewHeightConstraint: NSLayoutConstraint!
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
@@ -54,15 +55,35 @@ class BorrowView: UIView {
 		setupStyles()
 		setupConstraints()
 		setupBindings()
+        setupSkeletonViews()
 	}
 
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+    
+    // MARK: - Public Methods
+    public func showLoading() {
+        healthScoreTitleStackViewHeightConstraint.isActive = true
+        borrowDetailsView.showLoading()
+        collateralDetailsView.showLoading()
+        healthScoreContainerView.showSkeletonView()
+        selectDexSystemView.isLoading = true
+    }
+    
+    public func hideLoading() {
+        healthScoreTitleStackViewHeightConstraint.isActive = false
+        borrowDetailsView.hideLoading()
+        collateralDetailsView.hideLoading()
+        healthScoreContainerView.hideSkeletonView()
+        selectDexSystemView.isLoading = false
+    }
 
 	// MARK: - Private Methods
 
 	private func setupView() {
+        healthScoreTitleStackViewHeightConstraint = healthScoreTitleStackView.heightAnchor.constraint(equalToConstant: 13)
+        
 		#warning("this should open selectDexProtocolVC")
 		selectDexSystemView = SelectDexSystemView(
 			title: borrowVM.selectedDexSystem.name,
@@ -157,7 +178,6 @@ class BorrowView: UIView {
 	private func setupConstraints() {
 		healthScoreNumberLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 100).isActive = true
 		healthScoreStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 22).isActive = true
-		healthScoreTitleStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 16).isActive = true
 
 		mainStackView.pin(
 			.top(to: layoutMarginsGuide, padding: 24),
@@ -170,6 +190,7 @@ class BorrowView: UIView {
 	private func setupBindings() {
 		borrowVM.$userBorrowingDetails.sink { userBorrowingDetails in
 			guard let newUserBorrowingDetails = userBorrowingDetails else {
+                self.showCollateralAndBorrowDetails()
 				return
 			}
 			self.updateHealthScoreValue(healthScore: newUserBorrowingDetails.healthScore)
@@ -195,10 +216,7 @@ class BorrowView: UIView {
 			startCollateralView.isHidden = true
 			collateralDetailsView.isHidden = false
 		} else {
-			startBorrowView.isHidden = true
-			borrowDetailsView.isHidden = false
-			startCollateralView.isHidden = true
-			collateralDetailsView.isHidden = false
+			showCollateralAndBorrowDetails()
 		}
 	}
 
@@ -219,4 +237,15 @@ class BorrowView: UIView {
 			healthScoreNumberLabel.textColor = .Pino.green
 		}
 	}
+    
+    private func showCollateralAndBorrowDetails() {
+        startBorrowView.isHidden = true
+        borrowDetailsView.isHidden = false
+        startCollateralView.isHidden = true
+        collateralDetailsView.isHidden = false
+    }
+    
+    private func setupSkeletonViews() {
+        healthScoreTitleStackView.isSkeletonable = true
+    }
 }
