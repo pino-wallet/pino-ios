@@ -9,6 +9,9 @@ import Foundation
 import UIKit
 
 class ApproveContractViewController: UIViewController {
+    // MARK: - Private Properties
+    private var approveContractVM = ApproveContractViewModel()
+    private var approveContractView: ApproveContractView!
 	// MARK: - View Overrides
 
 	override func viewDidLoad() {
@@ -17,13 +20,21 @@ class ApproveContractViewController: UIViewController {
 
 	override func loadView() {
 		setupView()
+        setupNavigationBar()
 	}
 
 	// MARK: - Private Methods
 
 	private func setupView() {
-		// It must be replaced with custom view
-		view = UIView()
-		view.backgroundColor = .Pino.background
+        approveContractView = ApproveContractView(approveContractVM: approveContractVM, onApproveTap: {
+            #warning("do approve job here")
+        })
+        
+		view = approveContractView
 	}
+    
+    private func setupNavigationBar() {
+        setupPrimaryColorNavigationBar()
+        setNavigationTitle(approveContractVM.pageTitle)
+    }
 }
