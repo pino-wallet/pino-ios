@@ -93,7 +93,6 @@ class SwapView: UIView {
 
 		addSubview(contentStackView)
 		addSubview(continueButton)
-		contentStackView.addArrangedSubview(protocolCardView)
 		contentStackView.addArrangedSubview(swapCardView)
 		contentStackView.addArrangedSubview(feeCardView)
 		protocolCardView.addSubview(protocolStackView)
