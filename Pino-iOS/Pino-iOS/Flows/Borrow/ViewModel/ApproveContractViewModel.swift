@@ -14,35 +14,35 @@ class ApproveContractViewModel {
 	public var selectedProvider: SwapProvider!
 	public var swapAmount: BigNumber!
 	public var paraswapResponse: ParaSwapPriceResponseModel!
-    
-    public let pageTitle = "Asset approval"
-    public let titleImageName = "approve_warning"
-    public let learnMoreButtonTitle = "Learn more"
-    public let approveText = "Approve permit 2 to access your"
-    public let approveDescriptionText = "This will only happen one time."
-    public let approveButtonTitle = "Approve"
-    public let rightArrowImageName = "primary_right_arrow"
 
-    #warning("this section is mock")
-    public let learnMoreURL = "https://www.google.com"
-    public let selectedToken: AssetViewModel = AssetViewModel(assetModel:  BalanceAssetModel(
-        id: "1",
-        amount: "100000000000000000000",
-        detail: Detail(
-            id: "1",
-            symbol: "USDC",
-            name: "USDC",
-            logo: "https://demo-cdn.pino.xyz/tokens/usdc.png",
-            decimals: 18,
-            change24H: "230",
-            changePercentage: "23",
-            price: "6089213"
-        ),
-        previousDayNetworth: "100"
-    ), isSelected: true)
+	public let pageTitle = "Asset approval"
+	public let titleImageName = "approve_warning"
+	public let learnMoreButtonTitle = "Learn more"
+	public let approveText = "Approve permit 2 to access your"
+	public let approveDescriptionText = "This will only happen one time."
+	public let approveButtonTitle = "Approve"
+	public let rightArrowImageName = "primary_right_arrow"
+
+	#warning("this section is mock")
+	public let learnMoreURL = "https://www.google.com"
+	public let selectedToken = AssetViewModel(assetModel: BalanceAssetModel(
+		id: "1",
+		amount: "100000000000000000000",
+		detail: Detail(
+			id: "1",
+			symbol: "USDC",
+			name: "USDC",
+			logo: "https://demo-cdn.pino.xyz/tokens/usdc.png",
+			decimals: 18,
+			change24H: "230",
+			changePercentage: "23",
+			price: "6089213"
+		),
+		previousDayNetworth: "100"
+	), isSelected: true)
 
 	// MARK: - Private Properties
-    
+
 	private var web3 = Web3Core.shared
 	private var pinoWalletManager = PinoWalletManager()
 	private let paraSwapAPIClient = ParaSwapAPIClient()
