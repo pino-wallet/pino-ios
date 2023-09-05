@@ -26,7 +26,7 @@ class BorrowingTokenCell: UICollectionViewCell {
 			setupConstraints()
 			createCircularPath()
 			animatePercentageProgressbar()
-            setupSkeletonViews()
+			setupSkeletonViews()
 		}
 	}
 
@@ -86,7 +86,7 @@ class BorrowingTokenCell: UICollectionViewCell {
 	private func animatePercentageProgressbar() {
 		let newTotalSharedBorrowingDividedPercentage = borrowingTokenVM?.totalSharedBorrowingDividedPercentage
 		let progressAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        if !(borrowingTokenVM?.prevTotalSharedBorrowingDividedPercentage.isZero ?? false){
+		if !(borrowingTokenVM?.prevTotalSharedBorrowingDividedPercentage.isZero ?? false) {
 			progressAnimation.fromValue = borrowingTokenVM?.prevTotalSharedBorrowingDividedPercentage
 		}
 		progressAnimation.duration = 0.5
@@ -96,8 +96,8 @@ class BorrowingTokenCell: UICollectionViewCell {
 
 		progressLayer.add(progressAnimation, forKey: "progressAnimationKey")
 	}
-    
-    private func setupSkeletonViews() {
-        containerView.isSkeletonable = true
-    }
+
+	private func setupSkeletonViews() {
+		containerView.isSkeletonable = true
+	}
 }

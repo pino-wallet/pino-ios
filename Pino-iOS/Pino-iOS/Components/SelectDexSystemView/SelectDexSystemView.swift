@@ -25,16 +25,16 @@ class SelectDexSystemView: UIView {
 			dexProtocolImageview.image = UIImage(named: imageName)
 		}
 	}
-    
-    public var isLoading: Bool = false {
-        didSet {
-            if isLoading {
-                showLoading()
-            } else {
-                hideLoading()
-            }
-        }
-    }
+
+	public var isLoading = false {
+		didSet {
+			if isLoading {
+				showLoading()
+			} else {
+				hideLoading()
+			}
+		}
+	}
 
 	// MARK: - Private Properties
 
@@ -43,9 +43,9 @@ class SelectDexSystemView: UIView {
 	private let dexProtocolTitleStackView = UIStackView()
 	private let dexProtocolImageview = UIImageView()
 	private let dexProtocolTitleLabel = UILabel()
-    private let dexProtocolSpacerView = UIView()
+	private let dexProtocolSpacerView = UIView()
 	private let dexProtocolArrowImageView = UIImageView()
-    private var dexProtocolTitleLabelHeightConstraint: NSLayoutConstraint!
+	private var dexProtocolTitleLabelHeightConstraint: NSLayoutConstraint!
 
 	// MARK: - Initializers
 
@@ -59,7 +59,7 @@ class SelectDexSystemView: UIView {
 		setupView()
 		setupStyles()
 		setupConstraints()
-        setupSkeletonViews()
+		setupSkeletonViews()
 	}
 
 	required init?(coder: NSCoder) {
@@ -69,14 +69,14 @@ class SelectDexSystemView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-        dexProtocolTitleLabelHeightConstraint = dexProtocolTitleLabel.heightAnchor.constraint(equalToConstant: 15)
-        
+		dexProtocolTitleLabelHeightConstraint = dexProtocolTitleLabel.heightAnchor.constraint(equalToConstant: 15)
+
 		let dexProtocolTapGesture = UITapGestureRecognizer(target: self, action: #selector(onDexProtocolTap))
 		containerView.addGestureRecognizer(dexProtocolTapGesture)
 
 		containerView.addSubview(mainStackView)
 		mainStackView.addArrangedSubview(dexProtocolTitleStackView)
-        mainStackView.addArrangedSubview(dexProtocolSpacerView)
+		mainStackView.addArrangedSubview(dexProtocolSpacerView)
 		mainStackView.addArrangedSubview(dexProtocolArrowImageView)
 		dexProtocolTitleStackView.addArrangedSubview(dexProtocolImageview)
 		dexProtocolTitleStackView.addArrangedSubview(dexProtocolTitleLabel)
@@ -97,17 +97,17 @@ class SelectDexSystemView: UIView {
 
 		dexProtocolTitleLabel.text = titleText
 
-        dexProtocolTitleStackView.axis = .horizontal
+		dexProtocolTitleStackView.axis = .horizontal
 		dexProtocolTitleStackView.spacing = 8
-        dexProtocolTitleStackView.alignment = .center
+		dexProtocolTitleStackView.alignment = .center
 
-        mainStackView.axis = .horizontal
+		mainStackView.axis = .horizontal
 		mainStackView.alignment = .center
 	}
 
 	private func setupConstraints() {
-        dexProtocolTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
-        
+		dexProtocolTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
+
 		containerView.pin(.allEdges(padding: 0))
 		mainStackView.pin(
 			.horizontalEdges(padding: 14),
@@ -122,29 +122,28 @@ class SelectDexSystemView: UIView {
 			.fixedHeight(28)
 		)
 	}
-    
-    private func showLoading() {
-        dexProtocolTitleLabelHeightConstraint.isActive = true
-        showSkeletonView()
-        dexProtocolArrowImageView.alpha = 0
-    }
-    
-    private func hideLoading() {
-        dexProtocolTitleLabelHeightConstraint.isActive = false
-        hideSkeletonView()
-        dexProtocolArrowImageView.alpha = 1
-    }
 
-    
-    private func setupSkeletonViews() {
-        dexProtocolImageview.isSkeletonable = true
-        dexProtocolTitleLabel.isSkeletonable = true
-    }
-    
+	private func showLoading() {
+		dexProtocolTitleLabelHeightConstraint.isActive = true
+		showSkeletonView()
+		dexProtocolArrowImageView.alpha = 0
+	}
+
+	private func hideLoading() {
+		dexProtocolTitleLabelHeightConstraint.isActive = false
+		hideSkeletonView()
+		dexProtocolArrowImageView.alpha = 1
+	}
+
+	private func setupSkeletonViews() {
+		dexProtocolImageview.isSkeletonable = true
+		dexProtocolTitleLabel.isSkeletonable = true
+	}
+
 	@objc
 	private func onDexProtocolTap() {
-        if !isLoading {
-            onDexProtocolTapClosure()
-        }
+		if !isLoading {
+			onDexProtocolTapClosure()
+		}
 	}
 }

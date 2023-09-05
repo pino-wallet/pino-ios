@@ -17,11 +17,11 @@ class BorrowingTokensCollectionView: UICollectionView {
 
 	private var borrowingDetailsProperties: BorrowingPropertiesViewModel!
 	private var cancellables = Set<AnyCancellable>()
-    private var isLoading: Bool = true {
-        didSet {
-            reloadData()
-        }
-    }
+	private var isLoading = true {
+		didSet {
+			reloadData()
+		}
+	}
 
 	// MARK: - Initializers
 
@@ -58,23 +58,24 @@ class BorrowingTokensCollectionView: UICollectionView {
 
 	private func setupBindings() {
 		borrowingDetailsVM.$properties.sink { newBorrowingDetailsProperties in
-            guard let newBorrowingDetailsProperties = newBorrowingDetailsProperties, newBorrowingDetailsProperties.borrowingAssetsDetailList != nil else {
-                self.isLoading = true
+			guard let newBorrowingDetailsProperties = newBorrowingDetailsProperties,
+			      newBorrowingDetailsProperties.borrowingAssetsDetailList != nil else {
+				self.isLoading = true
 				return
 			}
 			self.borrowingDetailsProperties = newBorrowingDetailsProperties
-            self.isLoading = false
+			self.isLoading = false
 		}.store(in: &cancellables)
 	}
 }
 
 extension BorrowingTokensCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if isLoading {
-            return 3
-        } else {
-            return borrowingDetailsProperties.borrowingAssetsDetailList?.count ?? 0
-        }
+		if isLoading {
+			return 3
+		} else {
+			return borrowingDetailsProperties.borrowingAssetsDetailList?.count ?? 0
+		}
 	}
 
 	func collectionView(
@@ -85,21 +86,20 @@ extension BorrowingTokensCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: BorrowingTokenCell.cellReuseId,
 			for: indexPath
 		) as! BorrowingTokenCell
-        
-        if isLoading {
-            tokenCell.borrowingTokenVM = nil
-            tokenCell.showSkeletonView()
-        } else {
-            tokenCell
-                .borrowingTokenVM = BorrowingTokenCellViewModel(
-                    borrowinTokenModel: borrowingDetailsProperties
-                        .borrowingAssetsDetailList?[indexPath.item]
-                )
-            tokenCell.hideSkeletonView()
-            tokenCell.progressBarColor = borrowingDetailsProperties.progressBarColor
-        }
-        
-        
+
+		if isLoading {
+			tokenCell.borrowingTokenVM = nil
+			tokenCell.showSkeletonView()
+		} else {
+			tokenCell
+				.borrowingTokenVM = BorrowingTokenCellViewModel(
+					borrowinTokenModel: borrowingDetailsProperties
+						.borrowingAssetsDetailList?[indexPath.item]
+				)
+			tokenCell.hideSkeletonView()
+			tokenCell.progressBarColor = borrowingDetailsProperties.progressBarColor
+		}
+
 		return tokenCell
 	}
 }
