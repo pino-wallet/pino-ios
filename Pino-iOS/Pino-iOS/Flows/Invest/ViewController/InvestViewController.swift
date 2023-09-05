@@ -41,7 +41,7 @@ class InvestViewController: UIViewController {
 				self.openInvestmentPerformance()
 			}
 		)
-		view = investView
+		view = InvestEmptyPageView(startInvestingDidTap: {})
 	}
 
 	private func setupNavigationBar() {
