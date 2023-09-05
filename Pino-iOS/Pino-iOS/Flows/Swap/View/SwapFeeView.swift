@@ -27,7 +27,11 @@ class SwapFeeView: UIView {
 	private let collapsButton = UIImageView()
 	private let saveAmountTitleLabel = UILabel()
 	private let saveAmountLabel = UILabel()
+	private let providerTitleStackView = UIStackView()
 	private let providerTitle = UILabel()
+	private let bestRateTagView = UIView()
+	private let bestRateTagTitle = UILabel()
+	private let providerSpacerView = UIView()
 	private let providerChangeStackView = UIStackView()
 	private let providerImageView = UIImageView()
 	private let providerNameLabel = UILabel()
@@ -91,8 +95,12 @@ class SwapFeeView: UIView {
 		impactTagView.addSubview(impactTagLabel)
 		saveAmountStackView.addArrangedSubview(saveAmountTitleLabel)
 		saveAmountStackView.addArrangedSubview(saveAmountLabel)
-		providerStackView.addArrangedSubview(providerTitle)
+		providerStackView.addArrangedSubview(providerTitleStackView)
+		providerStackView.addArrangedSubview(providerSpacerView)
 		providerStackView.addArrangedSubview(providerChangeStackView)
+		providerTitleStackView.addArrangedSubview(providerTitle)
+		providerTitleStackView.addArrangedSubview(bestRateTagView)
+		bestRateTagView.addSubview(bestRateTagTitle)
 		providerChangeStackView.addArrangedSubview(providerImageView)
 		providerChangeStackView.addArrangedSubview(providerNameLabel)
 		providerChangeStackView.addArrangedSubview(providerChangeIcon)
@@ -119,6 +127,7 @@ class SwapFeeView: UIView {
 		priceImpactTitleLabel.text = swapFeeVM.priceImpactTitle
 		feeTitleLabel.text = swapFeeVM.feeTitle
 		feeLoadingLabel.text = swapFeeVM.loadingText
+		bestRateTagTitle.text = "Best rate"
 
 		collapsButton.image = openFeeInfoIcon
 		providerChangeIcon.image = UIImage(named: "chevron_right")
@@ -134,6 +143,7 @@ class SwapFeeView: UIView {
 		priceImpactTitleLabel.font = .PinoStyle.mediumBody
 		priceImpactLabel.font = .PinoStyle.mediumBody
 		feeLoadingLabel.font = .PinoStyle.mediumBody
+		bestRateTagTitle.font = .PinoStyle.SemiboldCaption2
 
 		amountLabel.textColor = .Pino.label
 		saveAmountTitleLabel.textColor = .Pino.secondaryLabel
@@ -145,9 +155,12 @@ class SwapFeeView: UIView {
 		priceImpactTitleLabel.textColor = .Pino.secondaryLabel
 		priceImpactLabel.textColor = .Pino.orange
 		feeLoadingLabel.textColor = .Pino.label
+		bestRateTagTitle.textColor = .Pino.white
 
 		collapsButton.tintColor = .Pino.label
 		providerChangeIcon.tintColor = .Pino.secondaryLabel
+
+		bestRateTagView.backgroundColor = .orange
 
 		saveAmountLabel.textAlignment = .right
 
@@ -159,6 +172,7 @@ class SwapFeeView: UIView {
 		impactTagStackView.spacing = 2
 		providerChangeStackView.spacing = 3
 		feeLoadingStackView.spacing = 10
+		providerTitleStackView.spacing = 5
 
 		providerChangeStackView.alignment = .center
 		impactTagStackView.alignment = .center
@@ -166,6 +180,8 @@ class SwapFeeView: UIView {
 
 		impactTagView.layer.cornerRadius = 14
 		contentStackView.layer.masksToBounds = true
+		bestRateTagView.layer.cornerRadius = 12
+		bestRateTagView.layer.masksToBounds = true
 
 		feeLoadingIndicator.style = .medium
 		feeLoadingIndicator.color = .Pino.primary
@@ -212,6 +228,14 @@ class SwapFeeView: UIView {
 		)
 		feeLoadingStackView.pin(
 			.allEdges(padding: 10)
+		)
+		bestRateTagView.pin(
+			.fixedWidth(60),
+			.fixedHeight(24)
+		)
+		bestRateTagTitle.pin(
+			.centerX,
+			.centerY
 		)
 		NSLayoutConstraint.activate([
 			impactTagView.widthAnchor.constraint(greaterThanOrEqualToConstant: 28),
@@ -342,6 +366,21 @@ class SwapFeeView: UIView {
 		updateFee(feeInETH: swapFeeVM.fee, feeInDollar: swapFeeVM.feeInDollar)
 	}
 
+	private func addBestRateGradient() {
+		let gradientLayer = CAGradientLayer()
+		gradientLayer.colors = [
+			CGColor(red: 0.73, green: 0.38, blue: 1, alpha: 1),
+			CGColor(red: 1, green: 0.43, blue: 0.43, alpha: 1),
+			CGColor(red: 0.74, green: 0.66, blue: 0, alpha: 1),
+			CGColor(red: 0.32, green: 0.8, blue: 0.09, alpha: 1),
+		]
+		gradientLayer.locations = [0.0, 0.33, 0.67, 1.0]
+		gradientLayer.startPoint = CGPoint(x: 1.0, y: 0.0)
+		gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
+		gradientLayer.frame = bestRateTagView.bounds
+		bestRateTagView.layer.insertSublayer(gradientLayer, at: 0)
+	}
+
 	// MARK: - Public Methods
 
 	public func updateCalculatedAmount(_ amount: String) {
@@ -362,5 +401,9 @@ class SwapFeeView: UIView {
 		if !feeLoadingIndicator.isAnimating {
 			feeInfoStackView.isHiddenInStackView = false
 		}
+	}
+
+	override func layoutSubviews() {
+		addBestRateGradient()
 	}
 }
