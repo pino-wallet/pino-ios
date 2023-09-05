@@ -16,12 +16,12 @@ class InvestEmptyPageView: UIView {
 	private let emptyPageTitleLabel = UILabel()
 	private let startInvestingButton = UIButton()
 	private var startInvestingDidTap: () -> Void
+	private let investEmptyPageVM: InvestEmptyPageViewModel
 
 	// MARK: Initializers
 
-	init(
-		startInvestingDidTap: @escaping () -> Void
-	) {
+	init(investEmptyPageVM: InvestEmptyPageViewModel, startInvestingDidTap: @escaping () -> Void) {
+		self.investEmptyPageVM = investEmptyPageVM
 		self.startInvestingDidTap = startInvestingDidTap
 		super.init(frame: .zero)
 		setupView()
@@ -44,10 +44,10 @@ class InvestEmptyPageView: UIView {
 	}
 
 	private func setupStyle() {
-		emptyPageTitleLabel.text = "Earn from yielding opportunities"
-		startInvestingButton.setTitle("Start investing", for: .normal)
-		startInvestingButton.setImage(UIImage(named: "arrow_right"), for: .normal)
-		chartImageView.image = UIImage(named: "invest_tab_fill")
+		emptyPageTitleLabel.text = investEmptyPageVM.pageTitle
+		startInvestingButton.setTitle(investEmptyPageVM.startInvestingTitle, for: .normal)
+		startInvestingButton.setImage(UIImage(named: investEmptyPageVM.startInvestingIcon), for: .normal)
+		chartImageView.image = UIImage(named: investEmptyPageVM.chartImageName)
 
 		emptyPageTitleLabel.font = .PinoStyle.mediumCallout
 		startInvestingButton.setConfiguraton(
@@ -80,7 +80,7 @@ class InvestEmptyPageView: UIView {
 			.centerY
 		)
 		chartImageView.pin(
-			.allEdges(padding: 20)
+			.allEdges(padding: 22)
 		)
 		chartIconBackgroundView.pin(
 			.fixedWidth(72),

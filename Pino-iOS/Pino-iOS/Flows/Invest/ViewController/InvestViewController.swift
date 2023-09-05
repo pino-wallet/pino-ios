@@ -12,6 +12,7 @@ class InvestViewController: UIViewController {
 
 	private var investView: InvestView!
 	private let investVM = InvestViewModel()
+	private let investEmptyPageVM = InvestEmptyPageViewModel()
 
 	// MARK: - View Overrides
 
@@ -41,7 +42,18 @@ class InvestViewController: UIViewController {
 				self.openInvestmentPerformance()
 			}
 		)
-		view = InvestEmptyPageView(startInvestingDidTap: {})
+		let investEmptyPageView = InvestEmptyPageView(
+			investEmptyPageVM: investEmptyPageVM,
+			startInvestingDidTap: {
+				self.startInvesting()
+			}
+		)
+
+		if investVM.assets.isEmpty {
+			view = investEmptyPageView
+		} else {
+			view = investView
+		}
 	}
 
 	private func setupNavigationBar() {
@@ -60,4 +72,6 @@ class InvestViewController: UIViewController {
 		let investmentPerformanceNavigationVC = UINavigationController(rootViewController: investmentPerformanceVC)
 		present(investmentPerformanceNavigationVC, animated: true)
 	}
+
+	private func startInvesting() {}
 }
