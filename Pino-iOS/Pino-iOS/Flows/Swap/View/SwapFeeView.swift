@@ -275,6 +275,9 @@ class SwapFeeView: UIView {
 			.sink { feeInETH, feeInDollar in
 				self.updateFee(feeInETH: feeInETH, feeInDollar: feeInDollar)
 			}.store(in: &cancellables)
+		swapFeeVM.$isBestRate.sink { isBestRate in
+			self.bestRateTagView.isHiddenInStackView = !isBestRate
+		}.store(in: &cancellables)
 	}
 
 	private func updateTagView(_ tag: SwapFeeViewModel.FeeTag) {
