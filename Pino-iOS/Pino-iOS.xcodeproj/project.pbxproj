@@ -465,7 +465,7 @@
 		DFFDEDA32A75658700D710D7 /* ParaSwapAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6AD2A756123003DB68A /* ParaSwapAPIClient.swift */; };
 		DFFDEDA42A75659E00D710D7 /* ParaSwapEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6AE2A75615D003DB68A /* ParaSwapEndpoint.swift */; };
 		DFFDEDAA2A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDA92A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift */; };
-		DFFDEDAC2A76C65800D710D7 /* ZeroXSwapPriceResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDAB2A76C65800D710D7 /* ZeroXSwapPriceResponseModel.swift */; };
+		DFFDEDAC2A76C65800D710D7 /* ZeroXPriceResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDAB2A76C65800D710D7 /* ZeroXPriceResponseModel.swift */; };
 		DFFDEDAE2A7792D800D710D7 /* OneInchEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDAD2A7792D800D710D7 /* OneInchEndpoint.swift */; };
 		DFFDEDB02A77931200D710D7 /* ZeroXEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDAF2A77931200D710D7 /* ZeroXEndpoint.swift */; };
 		DFFDEDB22A77934600D710D7 /* ZeroXAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDB12A77934600D710D7 /* ZeroXAPIClient.swift */; };
@@ -1061,7 +1061,7 @@
 		DFC4D0392A360D8300F03DC4 /* Web3Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3Core.swift; sourceTree = "<group>"; };
 		DFCAAD392A62DA8000D8BB8D /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		DFFDEDA92A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneInchSwapPriceResponseModel.swift; sourceTree = "<group>"; };
-		DFFDEDAB2A76C65800D710D7 /* ZeroXSwapPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroXSwapPriceResponseModel.swift; sourceTree = "<group>"; };
+		DFFDEDAB2A76C65800D710D7 /* ZeroXPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroXPriceResponseModel.swift; sourceTree = "<group>"; };
 		DFFDEDAD2A7792D800D710D7 /* OneInchEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneInchEndpoint.swift; sourceTree = "<group>"; };
 		DFFDEDAF2A77931200D710D7 /* ZeroXEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroXEndpoint.swift; sourceTree = "<group>"; };
 		DFFDEDB12A77934600D710D7 /* ZeroXAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroXAPIClient.swift; sourceTree = "<group>"; };
@@ -2952,7 +2952,7 @@
 		DFC1F6A42A755EF0003DB68A /* 0x */ = {
 			isa = PBXGroup;
 			children = (
-				DFFDEDAB2A76C65800D710D7 /* ZeroXSwapPriceResponseModel.swift */,
+				DFFDEDAB2A76C65800D710D7 /* ZeroXPriceResponseModel.swift */,
 			);
 			path = 0x;
 			sourceTree = "<group>";
@@ -3891,7 +3891,7 @@
 				A9DD712BF1A1511733B479FA /* LaunchSettings.swift in Sources */,
 				E3FC69F62A936D6B009B3341 /* InvestmentRiskCell.swift in Sources */,
 				F768EA67E795D2C08C4CDF5B /* LineChartDelegate.swift in Sources */,
-				DFFDEDAC2A76C65800D710D7 /* ZeroXSwapPriceResponseModel.swift in Sources */,
+				DFFDEDAC2A76C65800D710D7 /* ZeroXPriceResponseModel.swift in Sources */,
 				E4BC1D70FBAF66825B9358E7 /* LockMethodModel.swift in Sources */,
 				0A7A1624380B55CB1876A9B2 /* SecurityOptionModel.swift in Sources */,
 				1F88E4148A66AB6442600B4D /* SecurityOptionViewModel.swift in Sources */,

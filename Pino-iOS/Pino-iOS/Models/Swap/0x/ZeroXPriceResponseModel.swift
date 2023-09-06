@@ -10,7 +10,7 @@ import Foundation
 struct ZeroXPriceResponseModel: SwapPriceResponseProtocol {
 	// MARK: - Private Properties
 
-	let chainID: Int
+	let chainId: Int
 	let price, guaranteedPrice, estimatedPriceImpact, to: String
 	let data, value, gas, estimatedGas: String
 	let gasPrice, protocolFee, minimumProtocolFee, buyTokenAddress: String
