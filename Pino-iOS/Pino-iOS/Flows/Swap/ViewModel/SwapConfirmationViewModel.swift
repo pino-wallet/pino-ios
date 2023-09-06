@@ -185,12 +185,12 @@ extension SwapConfirmationViewModel {
             let paraResponse = selectedProvider?.providerResponseInfo as! ParaSwapPriceResponseModel
             priceRoute = paraResponse.priceRoute
         }
-        print(fromToken.tokenAmount)
+        
         let swapReq =
         SwapRequestModel(
             srcToken: fromToken.selectedToken.id,
             destToken: toToken.selectedToken.id,
-            amount: "1000000",
+            amount: fromToken.tokenBigAmount.description,
             destAmount: (selectedProvider?.providerResponseInfo.destAmount)!,
             receiver: pinoWalletManager.currentAccount.eip55Address,
             userAddress: pinoWalletManager.currentAccount.eip55Address,

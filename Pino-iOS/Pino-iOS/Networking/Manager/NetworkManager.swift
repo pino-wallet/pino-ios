@@ -20,6 +20,7 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 						throw APIError.failedRequest
 					}
                     print(response.url?.absoluteString)
+                    print(response)
                     log(request: request)
 					guard (200 ..< 300).contains(statusCode) else {
 						if statusCode == 401 {
