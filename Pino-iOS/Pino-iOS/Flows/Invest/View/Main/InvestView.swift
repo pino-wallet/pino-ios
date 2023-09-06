@@ -5,6 +5,8 @@
 //  Created by Mohi Raoufi on 8/13/23.
 //
 
+import Combine
+import DGCharts
 import UIKit
 
 class InvestView: UIView {
@@ -20,15 +22,21 @@ class InvestView: UIView {
 	private let totalInvestmentLabel = UILabel()
 	private let totalInvestmentDetailIcon = UIImageView()
 	private let chartStackView = UIStackView()
-	private var lineChart = UIView()
+	private let chartView = UIView()
+	private var lineChart = PinoLineChart(chartDataEntries: [])
+	private var chartDateStackView = UIStackView()
+	private var investmentPerformanceStackView = UIStackView()
 	private let investmentPerformanceButton = UIButton()
 	private let assetsView = UIView()
 	private let investmentAssets: InvestmentAssetsCollectionView
 	private let assetsGradientView = UIView()
 	private var assetsGradientLayer: GradientLayer!
+	private let loadingGradientView = UIView()
+	private var loadingGradientLayer: GradientLayer!
 	private var investVM: InvestViewModel
 	private var totalInvestmentTapped: () -> Void
 	private var investmentPerformanceTapped: () -> Void
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
 
@@ -45,6 +53,7 @@ class InvestView: UIView {
 		setupView()
 		setupStyle()
 		setupContstraint()
+		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -59,16 +68,22 @@ class InvestView: UIView {
 		addSubview(scrollView)
 		chartCardView.addSubview(contentStackView)
 		contentStackView.addArrangedSubview(totalInvestmentView)
-		contentStackView.addArrangedSubview(assetsView)
-		contentStackView.addArrangedSubview(chartStackView)
-		chartStackView.addArrangedSubview(lineChart)
-		chartStackView.addArrangedSubview(investmentPerformanceButton)
+		contentStackView.addArrangedSubview(investmentPerformanceStackView)
+		investmentPerformanceStackView.addArrangedSubview(chartStackView)
+		investmentPerformanceStackView.addArrangedSubview(investmentPerformanceButton)
+		chartStackView.addArrangedSubview(assetsView)
+		chartStackView.addArrangedSubview(chartView)
+		chartView.addSubview(lineChart)
+		chartView.addSubview(loadingGradientView)
+		chartStackView.addArrangedSubview(chartDateStackView)
 		totalInvestmentView.addSubview(totalInvestmentStackView)
 		totalInvestmentView.addSubview(totalInvestmentDetailIcon)
 		totalInvestmentStackView.addArrangedSubview(totalInvestmentTitleLabel)
 		totalInvestmentStackView.addArrangedSubview(totalInvestmentLabel)
 		assetsView.addSubview(investmentAssets)
 		assetsView.addSubview(assetsGradientView)
+
+		setupChartDateFilter()
 
 		let totalInvestmentGesture = UITapGestureRecognizer(target: self, action: #selector(showTotalInvestmentDetail))
 		totalInvestmentView.addGestureRecognizer(totalInvestmentGesture)
@@ -103,10 +118,13 @@ class InvestView: UIView {
 		chartStackView.axis = .vertical
 		contentStackView.axis = .vertical
 		totalInvestmentStackView.axis = .vertical
+		investmentPerformanceStackView.axis = .vertical
 
-		chartStackView.spacing = 5
 		contentStackView.spacing = 16
 		totalInvestmentStackView.spacing = 22
+		investmentPerformanceStackView.spacing = 36
+
+		chartDateStackView.distribution = .fillEqually
 
 		chartCardView.layer.masksToBounds = true
 		assetsGradientView.isUserInteractionEnabled = false
@@ -121,7 +139,6 @@ class InvestView: UIView {
 			.relative(.width, 0, to: self, .width)
 		)
 		chartCardView.pin(
-			.fixedHeight(540),
 			.horizontalEdges(padding: 16),
 			.top(padding: 24),
 			.bottom
@@ -145,7 +162,11 @@ class InvestView: UIView {
 			.fixedHeight(80)
 		)
 		lineChart.pin(
-			.horizontalEdges
+			.allEdges,
+			.fixedHeight(228)
+		)
+		loadingGradientView.pin(
+			.allEdges(to: lineChart)
 		)
 		investmentAssets.pin(
 			.allEdges
@@ -157,14 +178,55 @@ class InvestView: UIView {
 		)
 	}
 
+	private func setupBindings() {
+		investVM.$chartDataEntries.sink { chartEntries in
+			if let chartEntries, !chartEntries.isEmpty {
+				self.updateChart(chartEntries: chartEntries)
+			} else {
+				self.showLoading()
+			}
+		}.store(in: &cancellables)
+	}
+
 	@objc
 	private func showTotalInvestmentDetail() {
 		totalInvestmentTapped()
 	}
 
-	// MARK: - Public Methods
+	private func setupChartDateFilter() {
+		let weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+		for weekDay in weekDays {
+			let dateLabel = UILabel()
+			dateLabel.text = weekDay
+			dateLabel.font = .PinoStyle.regularCaption1
+			dateLabel.textColor = .Pino.secondaryLabel
+			dateLabel.textAlignment = .center
+			chartDateStackView.addArrangedSubview(dateLabel)
+		}
+	}
 
-	public func addAssetsGradient() {
+	private func showLoading() {
+		lineChart.showLoading()
+		loadingGradientView.alpha = 0.8
+	}
+
+	private func updateChart(chartEntries: [ChartDataEntry]) {
+		loadingGradientView.alpha = 0
+		lineChart.chartDataEntries = chartEntries
+	}
+
+	private func addLoadingGradient() {
+		loadingGradientLayer?.removeFromSuperlayer()
+		loadingGradientLayer = GradientLayer(
+			frame: lineChart.bounds,
+			colors: [.Pino.clear, .Pino.secondaryBackground],
+			startPoint: CGPoint(x: 0, y: 0.5),
+			endPoint: CGPoint(x: 1, y: 0.5)
+		)
+		loadingGradientView.layer.addSublayer(loadingGradientLayer)
+	}
+
+	private func addAssetsGradient() {
 		assetsGradientLayer?.removeFromSuperlayer()
 		assetsGradientLayer = GradientLayer(
 			frame: assetsGradientView.bounds,
@@ -173,5 +235,12 @@ class InvestView: UIView {
 			endPoint: CGPoint(x: 1, y: 0.5)
 		)
 		assetsGradientView.layer.addSublayer(assetsGradientLayer)
+	}
+
+	// MARK: - Public Methods
+
+	public func setupGradients() {
+		addLoadingGradient()
+		addAssetsGradient()
 	}
 }

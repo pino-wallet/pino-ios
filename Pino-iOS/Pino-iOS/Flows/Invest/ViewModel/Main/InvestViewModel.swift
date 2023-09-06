@@ -5,9 +5,10 @@
 //  Created by Mohi Raoufi on 8/13/23.
 //
 
+import DGCharts
 import Foundation
 
-struct InvestViewModel {
+class InvestViewModel {
 	// MARK: Public Properties
 
 	public var assets: [InvestAssetViewModel]!
@@ -18,15 +19,19 @@ struct InvestViewModel {
 		"$2463"
 	}
 
+	@Published
+	public var chartDataEntries: [ChartDataEntry]?
+
 	// MARK: Initializers
 
 	init() {
 		getAssets()
+		getChartData()
 	}
 
 	// MARK: - Private Methods
 
-	private mutating func getAssets() {
+	private func getAssets() {
 		let assetsModel = [
 			InvestAssetModel(
 				assetName: "LINK",
@@ -58,5 +63,22 @@ struct InvestViewModel {
 			),
 		]
 		assets = assetsModel.compactMap { InvestAssetViewModel(assetModel: $0) }
+	}
+
+	private func getChartData() {
+		chartDataEntries = [
+			ChartDataEntry(x: 0, y: 0),
+			ChartDataEntry(x: 1, y: 0.5),
+			ChartDataEntry(x: 2, y: 0.2),
+			ChartDataEntry(x: 3, y: 2),
+			ChartDataEntry(x: 4, y: 1),
+			ChartDataEntry(x: 5, y: 3),
+			ChartDataEntry(x: 6, y: 1.3),
+			ChartDataEntry(x: 7, y: 3),
+			ChartDataEntry(x: 8, y: 1.5),
+			ChartDataEntry(x: 9, y: 4),
+			ChartDataEntry(x: 10, y: 0.5),
+			ChartDataEntry(x: 11, y: 4),
+		]
 	}
 }
