@@ -23,7 +23,7 @@ class InvestView: UIView {
 	private let totalInvestmentDetailIcon = UIImageView()
 	private let chartStackView = UIStackView()
 	private let chartView = UIView()
-	private var lineChart = PinoLineChart(chartDataEntries: [])
+	private var investLineChart: PinoLineChart!
 	private var chartDateStackView = UIStackView()
 	private var investmentPerformanceStackView = UIStackView()
 	private let investmentPerformanceButton = UIButton()
@@ -63,6 +63,7 @@ class InvestView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		investLineChart = PinoLineChart(chartDataEntries: [], chartHasHighlight: false)
 		contentView.addSubview(chartCardView)
 		scrollView.addSubview(contentView)
 		addSubview(scrollView)
@@ -73,7 +74,7 @@ class InvestView: UIView {
 		investmentPerformanceStackView.addArrangedSubview(investmentPerformanceButton)
 		chartStackView.addArrangedSubview(assetsView)
 		chartStackView.addArrangedSubview(chartView)
-		chartView.addSubview(lineChart)
+		chartView.addSubview(investLineChart)
 		chartView.addSubview(loadingGradientView)
 		chartStackView.addArrangedSubview(chartDateStackView)
 		totalInvestmentView.addSubview(totalInvestmentStackView)
@@ -161,12 +162,12 @@ class InvestView: UIView {
 		assetsView.pin(
 			.fixedHeight(80)
 		)
-		lineChart.pin(
+		investLineChart.pin(
 			.allEdges,
 			.fixedHeight(228)
 		)
 		loadingGradientView.pin(
-			.allEdges(to: lineChart)
+			.allEdges(to: investLineChart)
 		)
 		investmentAssets.pin(
 			.allEdges
@@ -206,19 +207,19 @@ class InvestView: UIView {
 	}
 
 	private func showLoading() {
-		lineChart.showLoading()
+		investLineChart.showLoading()
 		loadingGradientView.alpha = 0.8
 	}
 
 	private func updateChart(chartEntries: [ChartDataEntry]) {
 		loadingGradientView.alpha = 0
-		lineChart.chartDataEntries = chartEntries
+		investLineChart.chartDataEntries = chartEntries
 	}
 
 	private func addLoadingGradient() {
 		loadingGradientLayer?.removeFromSuperlayer()
 		loadingGradientLayer = GradientLayer(
-			frame: lineChart.bounds,
+			frame: investLineChart.bounds,
 			colors: [.Pino.clear, .Pino.secondaryBackground],
 			startPoint: CGPoint(x: 0, y: 0.5),
 			endPoint: CGPoint(x: 1, y: 0.5)
