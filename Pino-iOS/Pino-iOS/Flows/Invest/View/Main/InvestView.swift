@@ -83,7 +83,7 @@ class InvestView: UIView {
 		assetsView.addSubview(investmentAssets)
 		assetsView.addSubview(assetsGradientView)
 
-		setupChartDateFilter()
+		setupChartDate()
 
 		let totalInvestmentGesture = UITapGestureRecognizer(target: self, action: #selector(showTotalInvestmentDetail))
 		totalInvestmentView.addGestureRecognizer(totalInvestmentGesture)
@@ -193,7 +193,7 @@ class InvestView: UIView {
 		totalInvestmentTapped()
 	}
 
-	private func setupChartDateFilter() {
+	private func setupChartDate() {
 		let weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 		for weekDay in weekDays {
 			let dateLabel = UILabel()
