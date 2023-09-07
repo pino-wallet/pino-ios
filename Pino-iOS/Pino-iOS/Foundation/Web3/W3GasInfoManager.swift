@@ -152,7 +152,7 @@ public struct W3GasInfoManager {
         }
     }
     
-    public func calculatetokenSweepFee(
+    public func calculateTokenSweepFee(
         tokenAdd: String,
         recipientAdd: String
     ) -> Promise<GasInfo> {
@@ -162,6 +162,48 @@ public struct W3GasInfoManager {
                 let solInvocation = contract[ABIMethodWrite.approve.rawValue]!(tokenAdd.eip55Address, recipientAdd.eip55Address)
                 return gasInfoManager.calculateGasOf(
                     method: .sweepToken,
+                    contract: solInvocation,
+                    contractAddress: pinoProxyAdd.eip55Address
+                )
+            }.done { trxGasInfo in
+                seal.fulfill(trxGasInfo)
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
+    }
+    
+    public func calculateWrapETHFee(
+        amount: BigUInt,
+        proxyFee: BigUInt
+    ) -> Promise<GasInfo> {
+        Promise<GasInfo>() { seal in
+            firstly {
+                let contract = try Web3Core.getContractOfToken(address: pinoProxyAdd, web3: web3)
+                let solInvocation = contract[ABIMethodWrite.approve.rawValue]!(amount, proxyFee)
+                return gasInfoManager.calculateGasOf(
+                    method: .wrapETH,
+                    contract: solInvocation,
+                    contractAddress: pinoProxyAdd.eip55Address
+                )
+            }.done { trxGasInfo in
+                seal.fulfill(trxGasInfo)
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
+    }
+    
+    public func calculateUnWrapETHFee(
+        amount: BigUInt,
+        recipient: String
+    ) -> Promise<GasInfo> {
+        Promise<GasInfo>() { seal in
+            firstly {
+                let contract = try Web3Core.getContractOfToken(address: pinoProxyAdd, web3: web3)
+                let solInvocation = contract[ABIMethodWrite.approve.rawValue]!(amount, recipient.eip55Address)
+                return gasInfoManager.calculateGasOf(
+                    method: .unwrapWETH9,
                     contract: solInvocation,
                     contractAddress: pinoProxyAdd.eip55Address
                 )
