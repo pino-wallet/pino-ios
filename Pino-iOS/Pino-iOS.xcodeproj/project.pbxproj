@@ -504,6 +504,7 @@
 		DF6DEDD02AA8C29D0080B47B /* EIP712HashRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDCF2AA8C29D0080B47B /* EIP712HashRequestModel.swift */; };
 		DF6DEDD22AA8C3D90080B47B /* EIP712PermitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDD12AA8C3D90080B47B /* EIP712PermitModel.swift */; };
 		DF6DEDD42AA8CD1F0080B47B /* EIP712HashResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDD32AA8CD1F0080B47B /* EIP712HashResponseModel.swift */; };
+		DF6DEDD82AAA30150080B47B /* W3SwapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDD72AAA30150080B47B /* W3SwapManager.swift */; };
 		DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF705C69E87F6C936F8261B /* AccountingAPIClient.swift */; };
 		DF954B522A8A6861000A9D45 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = DF954B512A8A6861000A9D45 /* SwiftProtobuf */; };
 		DF954B542A8A6861000A9D45 /* WalletCore in Frameworks */ = {isa = PBXBuildFile; productRef = DF954B532A8A6861000A9D45 /* WalletCore */; };
@@ -1179,6 +1180,7 @@
 		DF6DEDCF2AA8C29D0080B47B /* EIP712HashRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EIP712HashRequestModel.swift; sourceTree = "<group>"; };
 		DF6DEDD12AA8C3D90080B47B /* EIP712PermitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EIP712PermitModel.swift; sourceTree = "<group>"; };
 		DF6DEDD32AA8CD1F0080B47B /* EIP712HashResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EIP712HashResponseModel.swift; sourceTree = "<group>"; };
+		DF6DEDD72AAA30150080B47B /* W3SwapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3SwapManager.swift; sourceTree = "<group>"; };
 		DFA968722A0F8A77007D4513 /* WalletDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDataSource.swift; sourceTree = "<group>"; };
 		DFA968752A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WalletAccount+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DFA968762A0FABB9007D4513 /* SelectedAsset+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SelectedAsset+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -1762,7 +1764,6 @@
 			isa = PBXGroup;
 			children = (
 				DF1D90EC2A973FD800435D85 /* Approve */,
-				D99019792A93514D008CF9EC /* LoanDetailsView.swift */,
 				D933C32B2A99F36600C2BD5A /* CollateralizingBoard */,
 				D9A0BDA62A974A4A00AE132F /* BorrowingBoard */,
 				4037DCCB2A8BD65600FCA96B /* ApproveContractView.swift */,
@@ -1813,7 +1814,6 @@
 			isa = PBXGroup;
 			children = (
 				DF1D90EA2A973FBE00435D85 /* Approve */,
-				D99019752A9350DD008CF9EC /* LoanDetailsViewModel.swift */,
 				D933C32A2A99F35C00C2BD5A /* CollateralizingBoard */,
 				D9A0BDAD2A97529F00AE132F /* BorrowingBoard */,
 				4037DCCD2A8BD93200FCA96B /* ApproveContractViewModel.swift */,
@@ -3123,7 +3123,6 @@
 			isa = PBXGroup;
 			children = (
 				DF1D90E82A973BC900435D85 /* ApprvingContractLoadingViewModel.swift */,
-				4037DCCD2A8BD93200FCA96B /* ApproveContractViewModel.swift */,
 			);
 			path = Approve;
 			sourceTree = "<group>";
@@ -3141,7 +3140,6 @@
 			isa = PBXGroup;
 			children = (
 				DF1D90E62A973AFA00435D85 /* ApprovingLoadingView.swift */,
-				4037DCCB2A8BD65600FCA96B /* ApproveContractView.swift */,
 			);
 			path = Approve;
 			sourceTree = "<group>";
@@ -3311,6 +3309,7 @@
 				DF14FC9E2A9105CF005221A8 /* W3GasInfoManager.swift */,
 				DF14FCA02A9105F3005221A8 /* W3TransferManager.swift */,
 				DF1D90E22A9733E300435D85 /* W3ApproveManager.swift */,
+				DF6DEDD72AAA30150080B47B /* W3SwapManager.swift */,
 			);
 			path = Web3;
 			sourceTree = "<group>";
@@ -3960,7 +3959,7 @@
 				6FB08C15B02317A1FE3C012D /* AccountingAPIService.swift in Sources */,
 				E35BB63E2A558D0E003987F5 /* SwapProtocolCollectionView.swift in Sources */,
 				3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */,
-				D9D9A40A2A5E9CD200CECA41 /* ImageAndTitleStackView.swift in Sources */,
+				D9D9A40A2A5E9CD200CECA41 /* UserAccountInfoView.swift in Sources */,
 				DF6DEDD02AA8C29D0080B47B /* EIP712HashRequestModel.swift in Sources */,
 				D9D9A40A2A5E9CD200CECA41 /* UserAccountInfoView.swift in Sources */,
 				D9176F132AA46DD2007D4DBC /* CollateralConfirmViewModel.swift in Sources */,
@@ -4471,6 +4470,7 @@
 				8F2B1AD252EE32B2F328105B /* URLParameterEncoding.swift in Sources */,
 				7788C1D86DF1F4B1E6B2DE54 /* URLRequest+Extension.swift in Sources */,
 				71ED4673E278D4F56B0CC895 /* UnlockAppViewController.swift in Sources */,
+				DF6DEDD82AAA30150080B47B /* W3SwapManager.swift in Sources */,
 				E3FC69EC2A9247BD009B3341 /* InvestmentBoardFilterView.swift in Sources */,
 				E3FC69922A88B0EB009B3341 /* InvestView.swift in Sources */,
 				99B64004802220934AD0B60B /* UnlockAppViewModel.swift in Sources */,

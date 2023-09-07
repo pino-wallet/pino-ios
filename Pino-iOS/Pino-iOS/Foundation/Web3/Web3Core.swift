@@ -41,7 +41,7 @@ public class Web3Core {
 		.init(web3: web3)
 	}
     
-    private var approveManager: W3TransferManager {
+    private var approveManager: W3ApproveManager {
         .init(web3: web3)
     }
 
