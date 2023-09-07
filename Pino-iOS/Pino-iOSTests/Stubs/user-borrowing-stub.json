@@ -1,8 +1,7 @@
 {
-    "borrow_tokens": [],
-    "collateral_tokens": [],
+    "borrow_tokens": [{"amount": "100", "dex": "str", "id": "mine", "user_id": "hello", "total_debt": "1000" }],
+    "collateral_tokens": [{"amount": "100", "dex": "str", "id": "mine", "user_id": "hello", "total_debt": "1000" }],
     "dex": "aave",
     "health_score": 0,
     "user_id": "string"
 }
-

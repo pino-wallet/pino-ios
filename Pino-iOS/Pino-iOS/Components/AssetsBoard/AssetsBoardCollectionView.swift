@@ -79,7 +79,22 @@ extension AssetsBoardCollectionView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		referenceSizeForHeaderInSection section: Int
 	) -> CGSize {
-		CGSize(width: collectionView.frame.width, height: 54)
+		switch section {
+		case 0:
+			if userAssets.isEmpty {
+				return .zero
+			} else {
+				return CGSize(width: collectionView.frame.width, height: 54)
+			}
+		case 1:
+			if assets.isEmpty {
+				return .zero
+			} else {
+				return CGSize(width: collectionView.frame.width, height: 54)
+			}
+		default:
+			fatalError("Invalid section index in collection view")
+		}
 	}
 
 	func collectionView(

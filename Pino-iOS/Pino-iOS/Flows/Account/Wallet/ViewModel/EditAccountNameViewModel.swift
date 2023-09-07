@@ -15,8 +15,8 @@ class EditAccountNameViewModel {
 	public let pageTitle = "Wallet name"
 	public let doneButtonName = "Done"
 	public let accountNamePlaceHolder = "Enter name"
-	public let accountNameIsRepeatedError = "This wallet name is already taken!"
-	public let accountNameIsEmptyError = "Wallet name cant be empty"
+	public let accountNameIsRepeatedError = "Already taken!"
+	public let accountNameIsEmptyError = "Cant be empty"
 
 	public var selectedAccount: AccountInfoViewModel
 	public var accounts: [AccountInfoViewModel]

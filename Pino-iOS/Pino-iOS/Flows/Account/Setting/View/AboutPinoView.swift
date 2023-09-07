@@ -98,6 +98,7 @@ class AboutPinoView: UIView {
 		for detailIcon in detailIcons {
 			detailIcon.image = UIImage(named: "chevron_right")
 			detailIcon.contentMode = .left
+			detailIcon.tintColor = .Pino.gray3
 		}
 
 		backgroundColor = .Pino.background

@@ -11,7 +11,7 @@ class AddCustomAssetView: UIView {
 	// Private Enum
 	private enum viewStatuses {
 		case clearView
-		case errorView
+		case errorView(String)
 		case pendingView
 		case pasteFromClipboardView
 		case successView
@@ -102,7 +102,6 @@ class AddCustomAssetView: UIView {
 		}
 		scanQRCodeIconButton.setImage(UIImage(named: addCustomAssetVM.addCustomAssetTextfieldIcon), for: .normal)
 		contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
-		contractTextfieldView.errorText = addCustomAssetVM.addCustomAssetTextfieldError
 		// Setup pasteFromClipboardView
 		pasteFromClipboardview.isHidden = true
 
@@ -150,8 +149,7 @@ class AddCustomAssetView: UIView {
 			case .pending:
 				self.viewStatus = .pendingView
 			case let .error(error):
-				self.contractTextfieldView.errorText = error.description
-				self.viewStatus = .errorView
+				self.viewStatus = .errorView(error.description)
 			case .success:
 				self.customAssetInfoView?.addCustomAssetVM = self.addCustomAssetVM
 				self.viewStatus = .successView
@@ -167,21 +165,25 @@ class AddCustomAssetView: UIView {
 			pasteFromClipboardview.isHidden = true
 			customAssetInfoView?.isHidden = true
 			contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
+			addButton.title = addCustomAssetVM.addCustomAssetButtonTitle
 
-		case .errorView:
+		case let .errorView(errorText):
 			pasteFromClipboardview.isHidden = true
 			customAssetInfoView?.isHidden = true
 			contractTextfieldView.style = .error
+			addButton.title = errorText
 
 		case .pendingView:
 			pasteFromClipboardview.isHidden = true
 			customAssetInfoView?.isHidden = true
 			contractTextfieldView.style = .pending
+			addButton.title = addCustomAssetVM.addCustomAssetLoadingButtonTitle
 
 		case .pasteFromClipboardView:
 			customAssetInfoView?.isHidden = true
 			pasteFromClipboardview.isHidden = false
 			contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
+			addButton.title = addCustomAssetVM.addCustomAssetButtonTitle
 
 		case .successView:
 			pasteFromClipboardview.isHidden = true
@@ -189,6 +191,7 @@ class AddCustomAssetView: UIView {
 			contractTextfieldView.style = .success
 			addButton.style = .active
 			toggleNavigationRightButtonEnabledClosure(true)
+			addButton.title = addCustomAssetVM.addCustomAssetButtonTitle
 		}
 	}
 

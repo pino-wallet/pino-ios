@@ -7,30 +7,56 @@
 
 import Foundation
 
-public struct InvestProtocolViewModel {
-	public let type: InvestProtocol
+public enum InvestProtocolViewModel: String, DexSystemModelProtocol {
+	case uniswap = "uniswap"
+	case compound = "compound"
+	case aave = "aave"
+	case balancer = "balancer"
 
-	public var protocolInfo: InvestProtocolModel {
-		switch type {
+	public var name: String {
+		switch self {
 		case .uniswap:
-			return InvestProtocolModel.uniswap
+			return "Uniswap"
 		case .compound:
-			return InvestProtocolModel.compound
+			return "Compound"
 		case .aave:
-			return InvestProtocolModel.aave
+			return "Aave"
 		case .balancer:
-			return InvestProtocolModel.balancer
+			return "Balancer"
 		}
 	}
 
-	init(name: String) {
-		self.type = InvestProtocol(rawValue: name)!
+	public var image: String {
+		switch self {
+		case .uniswap:
+			return "uniswap_protocol"
+		case .compound:
+			return "compound"
+		case .aave:
+			return "aave"
+		case .balancer:
+			return "balancer_protocol"
+		}
 	}
 
-	public enum InvestProtocol: String {
-		case uniswap = "Uniswap"
-		case compound = "Compound"
-		case aave = "Aave"
-		case balancer = "Balancer"
+	public var description: String {
+		switch self {
+		case .uniswap:
+			return "uniswap.org"
+		case .compound:
+			return "compound.finance"
+		case .aave:
+			return "aave.com"
+		case .balancer:
+			return "balancer.fi"
+		}
+	}
+
+	public var type: String {
+		rawValue
+	}
+
+	public init(type: String) {
+		self.init(rawValue: type)!
 	}
 }

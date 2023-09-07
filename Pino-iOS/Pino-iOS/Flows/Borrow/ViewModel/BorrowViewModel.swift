@@ -5,6 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 8/19/23.
 //
 import Combine
+import UIKit
 
 class BorrowViewModel {
 	// MARK: - Public Properties
@@ -14,8 +15,7 @@ class BorrowViewModel {
 	@Published
 	public var userBorrowingDetails: UserBorrowingModel? = nil
 
-	public let dexProtocolsList: [DexSystemModel] = [.aave, .compound]
-
+	public let dismissIconName = "dissmiss"
 	public let pageTitle = "Borrow"
 	public let collateralTitle = "Collateral"
 	public let collateralDescription = "Deposit assets as collateral to get started"
@@ -25,6 +25,8 @@ class BorrowViewModel {
 	public let healthScoreTitle = "Health Score"
 	#warning("this tooltip is for testing and should be replaced")
 	public let healthScoreTooltip = "this is health score"
+	public let borrowProgressBarColor = UIColor.Pino.primary
+	public let collateralProgressBarColor = UIColor.Pino.succesGreen2
 
 	// MARK: - Private Properties
 
@@ -39,6 +41,10 @@ class BorrowViewModel {
 		#warning("we should add a timer to update borrowing data every 5 seconds")
 		#warning("we should consider user address to prevent show some user details to all accounts")
 		getUserBorrowingDetails()
+	}
+
+	public func changeSelectedDexSystem(newSelectedDexSystem: DexSystemModel) {
+		selectedDexSystem = newSelectedDexSystem
 	}
 
 	// MARK: - Private Methods

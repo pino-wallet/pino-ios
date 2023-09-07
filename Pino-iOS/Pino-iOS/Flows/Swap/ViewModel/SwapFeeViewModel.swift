@@ -24,6 +24,8 @@ class SwapFeeViewModel {
 	public var fee: String?
 	@Published
 	public var feeInDollar: String?
+	@Published
+	public var isBestRate = false
 
 	public let highImpactTagTitle = "High impact"
 	public let saveAmountTitle = "You save"

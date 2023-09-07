@@ -35,28 +35,28 @@ class InvestmentBoardViewModel: InvestFilterDelegate {
 			InvestableAssetModel(
 				assetName: "LINK",
 				assetImage: "https://demo-cdn.pino.xyz/tokens/chainlink.png",
-				protocolName: "Balancer",
+				protocolName: "balancer",
 				APYAmount: "30000000000",
 				investmentRisk: "High"
 			),
 			InvestableAssetModel(
 				assetName: "AAVE",
 				assetImage: "https://demo-cdn.pino.xyz/tokens/aave.png",
-				protocolName: "Balancer",
+				protocolName: "balancer",
 				APYAmount: "10000000000",
 				investmentRisk: "Medium"
 			),
 			InvestableAssetModel(
 				assetName: "DAI",
 				assetImage: "https://demo-cdn.pino.xyz/tokens/dai.png",
-				protocolName: "Uniswap",
+				protocolName: "uniswap",
 				APYAmount: "10000000000",
 				investmentRisk: "Low"
 			),
 			InvestableAssetModel(
 				assetName: "USDT",
 				assetImage: "https://demo-cdn.pino.xyz/tokens/tether.png",
-				protocolName: "Uniswap",
+				protocolName: "uniswap",
 				APYAmount: "40000000000",
 				investmentRisk: "High"
 			),

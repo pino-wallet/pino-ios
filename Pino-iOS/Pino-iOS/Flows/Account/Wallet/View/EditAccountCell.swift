@@ -55,6 +55,7 @@ class EditAccountCell: GroupCollectionViewCell {
 		titleLabel.lineBreakMode = .byWordWrapping
 
 		rightIconImageView.image = UIImage(named: editAccountOptionVM.rightIconName)
+		rightIconImageView.tintColor = .Pino.gray3
 
 		describtionLabel.font = .PinoStyle.mediumBody
 		describtionLabel.textColor = .Pino.gray2

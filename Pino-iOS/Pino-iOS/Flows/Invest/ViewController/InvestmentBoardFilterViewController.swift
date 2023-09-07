@@ -93,7 +93,13 @@ class InvestmentBoardFilterViewController: UIViewController {
 		present(selectAssetNavigationController, animated: true)
 	}
 
-	private func openSelectProtocolPage() {}
+	private func openSelectProtocolPage() {
+		let selectProtocolVC = SelectInvestProtocolViewController { selectedProtocol in
+			self.filterVM.updateFilter(selectedProtocol: selectedProtocol)
+		}
+		let selectProtocolNavigationVC = UINavigationController(rootViewController: selectProtocolVC)
+		present(selectProtocolNavigationVC, animated: true)
+	}
 
 	private func openSelectInvestmentRisk() {
 		let investmentRiskVC = InvestmentRiskViewController { selectedRisk in

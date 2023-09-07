@@ -65,7 +65,7 @@ class AddNewAccountCollectionViewCell: UICollectionViewCell {
 		descriptionLabel.font = .PinoStyle.mediumSubheadline
 
 		iconImageView.image = UIImage(named: addNewAccountOptionVM.iconName)?.withRenderingMode(.alwaysTemplate)
-		iconImageView.tintColor = .Pino.secondaryLabel
+		iconImageView.tintColor = .Pino.gray3
 
 		textStackView.axis = .vertical
 		textStackView.spacing = 4

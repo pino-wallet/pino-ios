@@ -7,7 +7,7 @@
 
 import UIKit
 
-class riskInfoItemView: UIStackView {
+class RiskInfoItemView: UIStackView {
 	// MARK: - Private Properties
 
 	private let riskColorView = UIView()
