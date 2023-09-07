@@ -14,7 +14,7 @@ class InvestEmptyPageView: UIView {
 	private let chartIconBackgroundView = UIView()
 	private let chartImageView = UIImageView()
 	private let emptyPageTitleLabel = UILabel()
-	private let startInvestingButton = UIButton()
+	private let startInvestingButton = PinoRightSideImageButton(imageName: "arrow_right", style: .primary)
 	private var startInvestingDidTap: () -> Void
 	private let investEmptyPageVM: InvestEmptyPageViewModel
 
@@ -45,25 +45,17 @@ class InvestEmptyPageView: UIView {
 
 	private func setupStyle() {
 		emptyPageTitleLabel.text = investEmptyPageVM.pageTitle
-		startInvestingButton.setTitle(investEmptyPageVM.startInvestingTitle, for: .normal)
+		startInvestingButton.title = investEmptyPageVM.startInvestingTitle
 		startInvestingButton.setImage(UIImage(named: investEmptyPageVM.startInvestingIcon), for: .normal)
 		chartImageView.image = UIImage(named: investEmptyPageVM.chartImageName)
 
 		emptyPageTitleLabel.font = .PinoStyle.mediumCallout
-		startInvestingButton.setConfiguraton(
-			font: .PinoStyle.semiboldCallout!,
-			imagePadding: 4,
-			imagePlacement: .trailing
-		)
 
 		emptyPageTitleLabel.textColor = .Pino.secondaryLabel
 		chartImageView.tintColor = .Pino.primary
-		startInvestingButton.setTitleColor(.Pino.white, for: .normal)
-		startInvestingButton.tintColor = .Pino.white
 
 		backgroundColor = .Pino.background
 		chartIconBackgroundView.backgroundColor = .Pino.green1
-		startInvestingButton.backgroundColor = .Pino.primary
 
 		contentStackView.axis = .vertical
 		contentStackView.alignment = .center
@@ -71,7 +63,7 @@ class InvestEmptyPageView: UIView {
 
 		chartImageView.contentMode = .scaleAspectFit
 		chartIconBackgroundView.layer.cornerRadius = 36
-		startInvestingButton.layer.cornerRadius = 8
+		startInvestingButton.corderRadius = 8
 	}
 
 	private func setupContstraint() {
@@ -87,7 +79,7 @@ class InvestEmptyPageView: UIView {
 			.fixedHeight(72)
 		)
 		startInvestingButton.pin(
-			.fixedWidth(160),
+			.fixedWidth(162),
 			.fixedHeight(40)
 		)
 	}
