@@ -115,7 +115,8 @@ class ApproveContractView: UIView {
 	}
 
 	private func generateApproveDescriptionLabelText() -> String {
-		"\(approveContractVM.approveText) \(approveContractVM.selectedToken.symbol). \(approveContractVM.approveDescriptionText)"
+        "Token Approve Info"
+//		"\(approveContractVM.approveText) \(approveContractVM.selectedToken.symbol). \(approveContractVM.approveDescriptionText)"
 	}
 
 	@objc

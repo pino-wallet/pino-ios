@@ -9,34 +9,57 @@ import Foundation
 import UIKit
 
 class ApproveContractViewController: UIViewController {
-	// MARK: - Private Properties
-
-	private var approveContractVM = ApproveContractViewModel()
-	private var approveContractView: ApproveContractView!
-
-	// MARK: - View Overrides
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-	}
-
-	override func loadView() {
-		setupView()
-		setupNavigationBar()
-	}
-
-	// MARK: - Private Methods
-
-	private func setupView() {
-		approveContractView = ApproveContractView(approveContractVM: approveContractVM, onApproveTap: {
-			#warning("do approve job here")
-		})
-
-		view = approveContractView
-	}
-
-	private func setupNavigationBar() {
-		setupPrimaryColorNavigationBar()
-		setNavigationTitle(approveContractVM.pageTitle)
-	}
+    // MARK: - Private Properties
+    
+    private let approveContractVM: ApproveContractViewModel!
+    private var approveContractView: ApproveContractView!
+    private var swapConfirmationVM: SwapConfirmationViewModel!
+    
+    
+    // MARK: - Initilizers
+    
+    init(swapConfirmationVM: SwapConfirmationViewModel) {
+        self.swapConfirmationVM = swapConfirmationVM
+        self.approveContractVM = ApproveContractViewModel(swapConfirmVM: swapConfirmationVM)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - View Overrides
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    override func loadView() {
+        setupNavigationBar()
+        setupView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
+    
+    // MARK: - Private Methods
+    
+    private func setupNavigationBar() {
+        setupPrimaryColorNavigationBar()
+        setNavigationTitle("Approve")
+    }
+    
+    private func setupView() {
+        approveContractView = ApproveContractView(approveContractVM: approveContractVM, onApproveTap: {
+            self.showApproveLoadingPage()
+        })
+        
+        view = approveContractView
+    }
+    
+    private func showApproveLoadingPage() {
+        let approveLoadingVC = ApprovingLoadingViewController(swapConfirmationVM: swapConfirmationVM)
+        present(approveLoadingVC, animated: true)
+    }
 }

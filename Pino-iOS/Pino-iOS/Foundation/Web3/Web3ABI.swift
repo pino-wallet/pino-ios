@@ -27,4 +27,7 @@ public enum ABIMethodWrite: String {
 	case approve
     case transfer
 	case permitTransferFrom
+    case sweepToken
+    case unwrapWETH9
+    case wrapETH
 }

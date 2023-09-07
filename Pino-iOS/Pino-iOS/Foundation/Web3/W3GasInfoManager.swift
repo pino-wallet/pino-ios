@@ -29,6 +29,7 @@ public struct W3GasInfoManager {
 	}
 
 	private var walletManager = PinoWalletManager()
+    private let pinoProxyAdd = Web3Core.Constants.pinoProxyAddress
 
 	// MARK: - Public Methods
 
@@ -113,14 +114,12 @@ public struct W3GasInfoManager {
 	) -> Promise<GasInfo> {
 		Promise<GasInfo>() { seal in
 			firstly {
-				let spender: EthereumAddress = try! EthereumAddress(hex: spender, eip55: true)
-				let contractAddress: EthereumAddress = try! EthereumAddress(hex: tokenContractAddress, eip55: false)
 				let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, web3: web3)
 				let solInvocation = contract[ABIMethodWrite.approve.rawValue]!(spender, amount)
 				return gasInfoManager.calculateGasOf(
 					method: .approve,
 					contract: solInvocation,
-					contractAddress: contractAddress
+                    contractAddress: tokenContractAddress.eip55Address
 				)
 			}.done { trxGasInfo in
 				seal.fulfill(trxGasInfo)
@@ -136,17 +135,14 @@ public struct W3GasInfoManager {
     ) -> Promise<GasInfo> {
         Promise<GasInfo>() { seal in
             firstly {
-                let pinoProxyAdd = Web3Core.Constants.pinoProxyAddress
-                let spender: EthereumAddress = try! EthereumAddress(hex: spender, eip55: true)
-                let contractAddress: EthereumAddress = try! EthereumAddress(hex: pinoProxyAdd, eip55: false)
                 let nonce: BigUInt = 34567890
                 let deadline: BigUInt = 34567890
                 let contract = try Web3Core.getContractOfToken(address: pinoProxyAdd, web3: web3)
-                let solInvocation = contract[ABIMethodWrite.approve.rawValue]!(nonce,spender,deadline, amount)
+                let solInvocation = contract[ABIMethodWrite.approve.rawValue]!(nonce,spender.eip55Address,deadline, amount)
                 return gasInfoManager.calculateGasOf(
                     method: .permitTransferFrom,
                     contract: solInvocation,
-                    contractAddress: contractAddress
+                    contractAddress: pinoProxyAdd.eip55Address
                 )
             }.done { trxGasInfo in
                 seal.fulfill(trxGasInfo)
@@ -156,7 +152,25 @@ public struct W3GasInfoManager {
         }
     }
     
-    struct HI {
-        
+    public func calculatetokenSweepFee(
+        tokenAdd: String,
+        recipientAdd: String
+    ) -> Promise<GasInfo> {
+        Promise<GasInfo>() { seal in
+            firstly {
+                let contract = try Web3Core.getContractOfToken(address: pinoProxyAdd, web3: web3)
+                let solInvocation = contract[ABIMethodWrite.approve.rawValue]!(tokenAdd.eip55Address, recipientAdd.eip55Address)
+                return gasInfoManager.calculateGasOf(
+                    method: .sweepToken,
+                    contract: solInvocation,
+                    contractAddress: pinoProxyAdd.eip55Address
+                )
+            }.done { trxGasInfo in
+                seal.fulfill(trxGasInfo)
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
     }
+    
 }
