@@ -190,6 +190,7 @@ class SwapViewModel {
 		swapFeeVM.updateQuote(srcToken: fromToken, destToken: toToken)
 		guard let swapProvider else { return }
 		swapFeeVM.swapProviderVM = swapProvider
+		updateBestRateTag()
 		swapFeeVM.fee = swapProvider.fee
 		swapFeeVM.feeInDollar = swapProvider.feeInDollar
 	}
@@ -213,6 +214,14 @@ class SwapViewModel {
 			return .highImpact
 		} else {
 			return .none
+		}
+	}
+
+	private func updateBestRateTag() {
+		if swapFeeVM.swapProviderVM?.provider == bestProvider?.provider {
+			swapFeeVM.isBestRate = true
+		} else {
+			swapFeeVM.isBestRate = false
 		}
 	}
 }
