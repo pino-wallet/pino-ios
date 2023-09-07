@@ -34,11 +34,13 @@ class PinoLineChart: LineChartView {
 	@Published
 	public var chartDataEntries: [ChartDataEntry]
 	public weak var chartDelegate: LineChartDelegate?
+	public let chartHasHighlight: Bool
 
 	// MARK: Initializers
 
-	init(chartDataEntries: [ChartDataEntry]) {
+	init(chartDataEntries: [ChartDataEntry], chartHasHighlight: Bool = true) {
 		self.chartDataEntries = chartDataEntries
+		self.chartHasHighlight = chartHasHighlight
 		super.init(frame: .zero)
 		setupBindings()
 		setupView()
@@ -90,12 +92,14 @@ class PinoLineChart: LineChartView {
 		highlightPerDragEnabled = false
 		highlightPerTapEnabled = false
 
-		marker = CircleMarker(color: .Pino.primary)
+		if chartHasHighlight {
+			marker = CircleMarker(color: .Pino.primary)
 
-		let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressDetected))
-		longPressGesture.minimumPressDuration = 0.05
-		longPressGesture.delegate = self
-		addGestureRecognizer(longPressGesture)
+			let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressDetected))
+			longPressGesture.minimumPressDuration = 0.05
+			longPressGesture.delegate = self
+			addGestureRecognizer(longPressGesture)
+		}
 	}
 
 	private func updateChartView() {

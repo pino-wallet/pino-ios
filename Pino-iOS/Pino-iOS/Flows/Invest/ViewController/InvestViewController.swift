@@ -21,7 +21,7 @@ class InvestViewController: UIViewController {
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		investView.addAssetsGradient()
+		investView.setupGradients()
 	}
 
 	override func loadView() {
