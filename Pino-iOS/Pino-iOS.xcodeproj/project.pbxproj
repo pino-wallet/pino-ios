@@ -439,6 +439,12 @@
 		DF1D90E52A973ACC00435D85 /* ApprovingLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1D90E42A973ACC00435D85 /* ApprovingLoadingViewController.swift */; };
 		DF1D90E72A973AFA00435D85 /* ApprovingLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1D90E62A973AFA00435D85 /* ApprovingLoadingView.swift */; };
 		DF1D90E92A973BC900435D85 /* ApprvingContractLoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1D90E82A973BC900435D85 /* ApprvingContractLoadingViewModel.swift */; };
+		DF6DEDC92AA8C1310080B47B /* Web3APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDC82AA8C1310080B47B /* Web3APIClient.swift */; };
+		DF6DEDCB2AA8C13F0080B47B /* Web3Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDCA2AA8C13F0080B47B /* Web3Endpoint.swift */; };
+		DF6DEDCD2AA8C1890080B47B /* Web3APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDCC2AA8C1890080B47B /* Web3APIService.swift */; };
+		DF6DEDD02AA8C29D0080B47B /* EIP712HashRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDCF2AA8C29D0080B47B /* EIP712HashRequestModel.swift */; };
+		DF6DEDD22AA8C3D90080B47B /* EIP712PermitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDD12AA8C3D90080B47B /* EIP712PermitModel.swift */; };
+		DF6DEDD42AA8CD1F0080B47B /* EIP712HashResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDD32AA8CD1F0080B47B /* EIP712HashResponseModel.swift */; };
 		DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF705C69E87F6C936F8261B /* AccountingAPIClient.swift */; };
 		DF954B522A8A6861000A9D45 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = DF954B512A8A6861000A9D45 /* SwiftProtobuf */; };
 		DF954B542A8A6861000A9D45 /* WalletCore in Frameworks */ = {isa = PBXBuildFile; productRef = DF954B532A8A6861000A9D45 /* WalletCore */; };
@@ -1041,6 +1047,12 @@
 		DF1D90E42A973ACC00435D85 /* ApprovingLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovingLoadingViewController.swift; sourceTree = "<group>"; };
 		DF1D90E62A973AFA00435D85 /* ApprovingLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovingLoadingView.swift; sourceTree = "<group>"; };
 		DF1D90E82A973BC900435D85 /* ApprvingContractLoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprvingContractLoadingViewModel.swift; sourceTree = "<group>"; };
+		DF6DEDC82AA8C1310080B47B /* Web3APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3APIClient.swift; sourceTree = "<group>"; };
+		DF6DEDCA2AA8C13F0080B47B /* Web3Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3Endpoint.swift; sourceTree = "<group>"; };
+		DF6DEDCC2AA8C1890080B47B /* Web3APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3APIService.swift; sourceTree = "<group>"; };
+		DF6DEDCF2AA8C29D0080B47B /* EIP712HashRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EIP712HashRequestModel.swift; sourceTree = "<group>"; };
+		DF6DEDD12AA8C3D90080B47B /* EIP712PermitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EIP712PermitModel.swift; sourceTree = "<group>"; };
+		DF6DEDD32AA8CD1F0080B47B /* EIP712HashResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EIP712HashResponseModel.swift; sourceTree = "<group>"; };
 		DFA968722A0F8A77007D4513 /* WalletDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDataSource.swift; sourceTree = "<group>"; };
 		DFA968752A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WalletAccount+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DFA968762A0FABB9007D4513 /* SelectedAsset+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SelectedAsset+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -1389,6 +1401,7 @@
 		1FE31AB67FFCB1A4C1E2B6C6 /* Endpoints */ = {
 			isa = PBXGroup;
 			children = (
+				DF6DEDC72AA8C1080080B47B /* Web3 */,
 				DFC1F69F2A7555B0003DB68A /* SwapProviders */,
 				D99CBA2F2A594D6600581564 /* Activity */,
 				E385F6142A220C2E00EE7EE1 /* CTS */,
@@ -2357,6 +2370,7 @@
 				D99CBA322A594ECB00581564 /* ActivityAPIService.swift */,
 				DFC1F6A02A75561F003DB68A /* SwapProvidersAPIServices.swift */,
 				D924C3472A94969F007299A4 /* BorrowAPIService.swift */,
+				DF6DEDCC2AA8C1890080B47B /* Web3APIService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -2867,6 +2881,25 @@
 			path = CustomSwitchCollectionCell;
 			sourceTree = "<group>";
 		};
+		DF6DEDC72AA8C1080080B47B /* Web3 */ = {
+			isa = PBXGroup;
+			children = (
+				DF6DEDC82AA8C1310080B47B /* Web3APIClient.swift */,
+				DF6DEDCA2AA8C13F0080B47B /* Web3Endpoint.swift */,
+			);
+			path = Web3;
+			sourceTree = "<group>";
+		};
+		DF6DEDCE2AA8C2830080B47B /* Web3 */ = {
+			isa = PBXGroup;
+			children = (
+				DF6DEDCF2AA8C29D0080B47B /* EIP712HashRequestModel.swift */,
+				DF6DEDD32AA8CD1F0080B47B /* EIP712HashResponseModel.swift */,
+				DF6DEDD12AA8C3D90080B47B /* EIP712PermitModel.swift */,
+			);
+			path = Web3;
+			sourceTree = "<group>";
+		};
 		DF8DA53F2A556EBA0018EB0A /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -2930,6 +2963,7 @@
 		DFC1F6A22A755ECE003DB68A /* Swap */ = {
 			isa = PBXGroup;
 			children = (
+				DF6DEDCE2AA8C2830080B47B /* Web3 */,
 				DFC1F6A32A755EE9003DB68A /* ParaSwap */,
 				DFC1F6A52A755EF4003DB68A /* 1inch */,
 				DFC1F6A42A755EF0003DB68A /* 0x */,
@@ -3640,6 +3674,7 @@
 				E35BB63E2A558D0E003987F5 /* SwapProtocolCollectionView.swift in Sources */,
 				3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */,
 				D9D9A40A2A5E9CD200CECA41 /* ImageAndTitleStackView.swift in Sources */,
+				DF6DEDD02AA8C29D0080B47B /* EIP712HashRequestModel.swift in Sources */,
 				4037DCCE2A8BD93200FCA96B /* ApproveContractViewModel.swift in Sources */,
 				E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */,
 				E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */,
@@ -3699,6 +3734,7 @@
 				E385F6122A22029100EE7EE1 /* Wallet+CoreDataProperties.swift in Sources */,
 				03C069F70295746815C20F42 /* AssetVolatilityType.swift in Sources */,
 				23E2F4FB7A273DD99312DACA /* Assetmodel.swift in Sources */,
+				DF6DEDC92AA8C1310080B47B /* Web3APIClient.swift in Sources */,
 				D9A328172A34B39C005A8393 /* SelectAssetCell.swift in Sources */,
 				E3847B452A531C3A005ED78B /* SwapView+Keyboard.swift in Sources */,
 				24D1C890843C5A3AE41A1442 /* AssetsAPIClient.swift in Sources */,
@@ -3766,6 +3802,7 @@
 				A1CB57E01D2C66A314CD3BE4 /* ActivitiesCollectionView.swift in Sources */,
 				C6F911527FDF8516478B4961 /* CoinInfoHeaderView.swift in Sources */,
 				0682CFAA6E20C8AEA43A55AC /* CoinInfoViewController.swift in Sources */,
+				DF6DEDD42AA8CD1F0080B47B /* EIP712HashResponseModel.swift in Sources */,
 				E4FF2E5E60CA74F3324945A8 /* CoinInfoViewModel.swift in Sources */,
 				D9E134852A52FB4A00193FF0 /* ActivityHeaderView.swift in Sources */,
 				9564A69D20BD22A50221D63B /* CoinPerformanceInfoItems.swift in Sources */,
@@ -3846,6 +3883,7 @@
 				DF14FC9D2A8E108D005221A8 /* W3TransactionManager.swift in Sources */,
 				DF00179329F85727001164EA /* PinoNonHDWallet.swift in Sources */,
 				E3FC69B72A8A3605009B3341 /* InvestProtocolViewModel.swift in Sources */,
+				DF6DEDCB2AA8C13F0080B47B /* Web3Endpoint.swift in Sources */,
 				7CF95B0F99AE30C81601CFAA /* GradientLayer.swift in Sources */,
 				D93C41FD29F7D298003F2297 /* EditAccountViewModel.swift in Sources */,
 				D964AC6B0907B2432359A129 /* GroupCollectionViewCell.swift in Sources */,
@@ -3882,6 +3920,7 @@
 				E3847B492A542A76005ED78B /* SwapFeeViewModel.swift in Sources */,
 				E3FC69DD2A910F0F009B3341 /* InvestmentBoardDataSource.swift in Sources */,
 				DFA9687D2A0FABB9007D4513 /* SelectedAsset+CoreDataClass.swift in Sources */,
+				DF6DEDCD2AA8C1890080B47B /* Web3APIService.swift in Sources */,
 				01B0212D90D700DB5C1126FB /* InvestViewController.swift in Sources */,
 				D99019762A9350DD008CF9EC /* LoanDetailsViewModel.swift in Sources */,
 				06E5204105CFC5FFF4B310EE /* JSONParameterEncoder.swift in Sources */,
@@ -4089,6 +4128,7 @@
 				D9C4CF0A2A4090D000475F01 /* SuggestedAddressesViewModel.swift in Sources */,
 				038A90F28F66ACC57B0A3CF5 /* UnlockPasscodePageManager.swift in Sources */,
 				D9AF29E82A506F1A006BC53E /* ActivityType.swift in Sources */,
+				DF6DEDD22AA8C3D90080B47B /* EIP712PermitModel.swift in Sources */,
 				DFB1E9D42A08F19C00041B26 /* CoreDataManager.swift in Sources */,
 				E3FC69A22A8A0759009B3341 /* InvestmentPerformanceView.swift in Sources */,
 				8BB89902879DDF1FE9C46EF4 /* UnlockPasscodeView.swift in Sources */,

@@ -108,10 +108,6 @@ extension SwapConfirmationViewModel {
     
     public func confirmSwap() {
         
-        self.getSwapInfoFrom(provider: self.selectedProvService).done { response in
-            print("RECEIVEDDDDDDDD")
-        }
-        
         firstly {
             // First we check if Pino-Proxy has access to Selected Swap Provider
             // 1: True -> We Skip to next part
@@ -184,6 +180,11 @@ extension SwapConfirmationViewModel {
         if selectedProvider?.provider == .paraswap {
             let paraResponse = selectedProvider?.providerResponseInfo as! ParaSwapPriceResponseModel
             priceRoute = paraResponse.priceRoute
+        }
+        if selectedProvider?.provider == .zeroX {
+            let zeroxResponse = selectedProvider?.providerResponseInfo as! ZeroXPriceResponseModel
+            print(zeroxResponse.data)
+            return zeroxResponse.data.promise
         }
         
         let swapReq =
