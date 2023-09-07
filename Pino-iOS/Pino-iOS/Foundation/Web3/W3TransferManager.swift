@@ -86,6 +86,42 @@ public struct W3TransferManager {
 				}
 		}
 	}
+    
+    public func getPermitTransferFromCallData(amount: String) -> Promise<String> {
+       
+        let amountNumber = try! BigUInt(amount)
+        let userPrivateKey = try! EthereumPrivateKey(
+            hexPrivateKey: walletManager.currentAccountPrivateKey
+                .string
+        )
+        
+        return Promise<String>() { [self] seal in
+            gasInfoManager.calculatePermitTransferFromFee(spender: Web3Core.Constants.pinoProxyAddress, amount: amountNumber)
+                .then { [self] gasInfo in
+                    return web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+                        .map { ($0, gasInfo) }
+                }
+                .done { [self] nonce, gasInfo in
+                    let contract = try Web3Core.getContractOfToken(address: Web3Core.Constants.pinoProxyAddress, web3: web3)
+                    let reqNonce: BigUInt = 3456789
+                    let deadline: BigUInt = 23456
+                    let spender = EthereumAddress(hexString: Web3Core.Constants.pinoProxyAddress)
+                    let solInvocation = contract[ABIMethodWrite.permitTransferFrom.rawValue]?(reqNonce,deadline,spender! , amount)
+                    let trx = try trxManager.createTransactionFor(
+                        contract: solInvocation!,
+                        nonce: nonce,
+                        gasPrice: gasInfo.gasPrice.etherumQuantity,
+                        gasLimit: gasInfo.gasLimit.etherumQuantity
+                    )
+                    
+                    let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
+                    seal.fulfill(signedTx.data.hex())
+                }.catch { error in
+                    seal.reject(error)
+                }
+        }
+        
+    }
 
 	public func sendERC20TokenTo(
 		recipientAddress address: String,

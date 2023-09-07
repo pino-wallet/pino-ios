@@ -26,6 +26,7 @@ class SwapConfirmationViewModel {
     private let paraSwapAPIClient = ParaSwapAPIClient()
     private let oneInchAPIClient = OneInchAPIClient()
     private let zeroXAPIClient = ZeroXAPIClient()
+    private let web3Client = Web3APIClient()
 
 	// MARK: - Public Properties
 
@@ -108,26 +109,38 @@ extension SwapConfirmationViewModel {
     
     public func confirmSwap() {
         
-        firstly {
-            // First we check if Pino-Proxy has access to Selected Swap Provider
-            // 1: True -> We Skip to next part
-            // 2: False -> We get CallData and pass to next part
-            checkProtocolAllowanceOf(contractAddress: selectedProvider!.provider.contractAddress)
-        }.compactMap { allowanceData in
-            allowanceData
-        }.then { allowanceData in
-            // Get Swap Call Data from Provider
-            self.getSwapInfoFrom(provider: self.selectedProvService).map { ($0, allowanceData) }
-        }.then { swapData, allowanceData in
-            // TODO: Needs to be handled after meeting with Ali
-            self.getProxyPermitTransferData().map { ($0, swapData, allowanceData) }
-        }.then { transferData, swapData, approveData in
-            self.callProxyMultiCall(data: [approveData, swapData, transferData])
-        }.done { hash in
-            print(hash)
-        }.catch { error in
-            print(error)
-        }
+        let hashREq = EIP712HashRequestModel(tokenAdd: fromToken.selectedToken.id, amount: fromToken.tokenBigAmount.description, spender: Web3Core.Constants.pinoProxyAddress)
+        web3Client.getHashTypedData(eip712HashReqInfo: hashREq).sink { completed in
+            switch completed {
+                case .finished:
+                    print("Info received successfully")
+                case let .failure(error):
+                    print(error)
+            }
+        } receiveValue: { hashResponse in
+            print(hashResponse)
+        }.store(in: &cancellables)
+            
+//        firstly {
+//            // First we check if Pino-Proxy has access to Selected Swap Provider
+//            // 1: True -> We Skip to next part
+//            // 2: False -> We get CallData and pass to next part
+//            checkProtocolAllowanceOf(contractAddress: selectedProvider!.provider.contractAddress)
+//        }.compactMap { allowanceData in
+//            allowanceData
+//        }.then { allowanceData in
+//            // Get Swap Call Data from Provider
+//            self.getSwapInfoFrom(provider: self.selectedProvService).map { ($0, allowanceData) }
+//        }.then { swapData, allowanceData in
+//            // TODO: Needs to be handled after meeting with Ali
+//            self.getProxyPermitTransferData().map { ($0, swapData, allowanceData) }
+//        }.then { transferData, swapData, approveData in
+//            self.callProxyMultiCall(data: [approveData, swapData, transferData])
+//        }.done { hash in
+//            print(hash)
+//        }.catch { error in
+//            print(error)
+//        }
     }
     
     // MARK: - Private Methods

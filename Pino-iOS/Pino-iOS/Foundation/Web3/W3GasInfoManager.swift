@@ -32,7 +32,7 @@ public struct W3GasInfoManager {
 
 	// MARK: - Public Methods
 
-	public func calculateGasOf(
+	private func calculateGasOf(
 		method: ABIMethodWrite,
 		contract: SolidityInvocation,
 		contractAddress: EthereumAddress
@@ -128,4 +128,34 @@ public struct W3GasInfoManager {
 			}
 		}
 	}
+    
+    public func calculatePermitTransferFromFee(
+        spender: String,
+        amount: BigUInt
+    ) -> Promise<GasInfo> {
+        Promise<GasInfo>() { seal in
+            firstly {
+                let pinoProxyAdd = Web3Core.Constants.pinoProxyAddress
+                let spender: EthereumAddress = try! EthereumAddress(hex: spender, eip55: true)
+                let contractAddress: EthereumAddress = try! EthereumAddress(hex: pinoProxyAdd, eip55: false)
+                let nonce: BigUInt = 34567890
+                let deadline: BigUInt = 34567890
+                let contract = try Web3Core.getContractOfToken(address: pinoProxyAdd, web3: web3)
+                let solInvocation = contract[ABIMethodWrite.approve.rawValue]!(nonce,spender,deadline, amount)
+                return gasInfoManager.calculateGasOf(
+                    method: .permitTransferFrom,
+                    contract: solInvocation,
+                    contractAddress: contractAddress
+                )
+            }.done { trxGasInfo in
+                seal.fulfill(trxGasInfo)
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
+    }
+    
+    struct HI {
+        
+    }
 }

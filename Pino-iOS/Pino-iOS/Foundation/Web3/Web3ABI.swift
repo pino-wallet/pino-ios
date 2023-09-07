@@ -25,5 +25,6 @@ public enum ABIMethodCall: String {
 
 public enum ABIMethodWrite: String {
 	case approve
-	case transfer
+    case transfer
+	case permitTransferFrom
 }
