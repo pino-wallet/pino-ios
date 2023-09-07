@@ -57,6 +57,6 @@ struct InvestViewModel {
 				assetVolatility: "-310000000000"
 			),
 		]
-		assets = [].compactMap { InvestAssetViewModel(assetModel: $0) }
+		assets = assetsModel.compactMap { InvestAssetViewModel(assetModel: $0) }
 	}
 }

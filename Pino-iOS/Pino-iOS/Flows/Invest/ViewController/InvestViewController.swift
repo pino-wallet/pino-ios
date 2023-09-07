@@ -73,5 +73,7 @@ class InvestViewController: UIViewController {
 		present(investmentPerformanceNavigationVC, animated: true)
 	}
 
-	private func startInvesting() {}
+	private func startInvesting() {
+		openInvestmentBoard()
+	}
 }

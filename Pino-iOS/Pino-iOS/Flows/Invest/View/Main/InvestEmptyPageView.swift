@@ -41,6 +41,10 @@ class InvestEmptyPageView: UIView {
 		contentStackView.addArrangedSubview(emptyPageTitleLabel)
 		contentStackView.addArrangedSubview(startInvestingButton)
 		chartIconBackgroundView.addSubview(chartImageView)
+
+		startInvestingButton.addAction(UIAction(handler: { _ in
+			self.startInvestingDidTap()
+		}), for: .touchUpInside)
 	}
 
 	private func setupStyle() {
