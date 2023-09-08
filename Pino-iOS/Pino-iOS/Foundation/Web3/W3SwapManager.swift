@@ -113,6 +113,33 @@ public struct W3SwapManager {
                 }
         }
     }
+    
+    public func callMultiCall(callData: [String]) -> Promise<String> {
+        return Promise<String>() { [self] seal in
+            gasInfoManager.calculateMultiCallFee(callData: callData)
+                .then { [self] gasInfo in
+                    return web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+                        .map { ($0, gasInfo) }
+                }
+                .then { [self] nonce, gasInfo in
+                    let contract = try Web3Core.getContractOfToken(address: Web3Core.Constants.pinoProxyAddress, web3: web3)
+                    let solInvocation = contract[ABIMethodWrite.unwrapWETH9.rawValue]?(callData)
+                    let trx = try trxManager.createTransactionFor(
+                        contract: solInvocation!,
+                        nonce: nonce,
+                        gasPrice: gasInfo.gasPrice.etherumQuantity,
+                        gasLimit: gasInfo.gasLimit.etherumQuantity
+                    )
+                    
+                    let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
+                    return web3.eth.sendRawTransaction(transaction: signedTx)
+                }.done { txHash in
+                    seal.fulfill(txHash.hex())
+                }.catch { error in
+                    seal.reject(error)
+                }
+        }
+    }
         
    
 }

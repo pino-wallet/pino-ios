@@ -30,4 +30,5 @@ public enum ABIMethodWrite: String {
     case sweepToken
     case unwrapWETH9
     case wrapETH
+    case multicall
 }

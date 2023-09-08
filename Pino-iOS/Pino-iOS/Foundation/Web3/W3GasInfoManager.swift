@@ -138,7 +138,7 @@ public struct W3GasInfoManager {
                 let nonce: BigUInt = 34567890
                 let deadline: BigUInt = 34567890
                 let contract = try Web3Core.getContractOfToken(address: pinoProxyAdd, web3: web3)
-                let solInvocation = contract[ABIMethodWrite.approve.rawValue]!(nonce,spender.eip55Address,deadline, amount)
+                let solInvocation = contract[ABIMethodWrite.permitTransferFrom.rawValue]!(nonce,spender.eip55Address,deadline, amount)
                 return gasInfoManager.calculateGasOf(
                     method: .permitTransferFrom,
                     contract: solInvocation,
@@ -159,7 +159,7 @@ public struct W3GasInfoManager {
         Promise<GasInfo>() { seal in
             firstly {
                 let contract = try Web3Core.getContractOfToken(address: pinoProxyAdd, web3: web3)
-                let solInvocation = contract[ABIMethodWrite.approve.rawValue]!(tokenAdd.eip55Address, recipientAdd.eip55Address)
+                let solInvocation = contract[ABIMethodWrite.sweepToken.rawValue]!(tokenAdd.eip55Address, recipientAdd.eip55Address)
                 return gasInfoManager.calculateGasOf(
                     method: .sweepToken,
                     contract: solInvocation,
@@ -180,7 +180,7 @@ public struct W3GasInfoManager {
         Promise<GasInfo>() { seal in
             firstly {
                 let contract = try Web3Core.getContractOfToken(address: pinoProxyAdd, web3: web3)
-                let solInvocation = contract[ABIMethodWrite.approve.rawValue]!(amount, proxyFee)
+                let solInvocation = contract[ABIMethodWrite.wrapETH.rawValue]!(amount, proxyFee)
                 return gasInfoManager.calculateGasOf(
                     method: .wrapETH,
                     contract: solInvocation,
@@ -201,9 +201,29 @@ public struct W3GasInfoManager {
         Promise<GasInfo>() { seal in
             firstly {
                 let contract = try Web3Core.getContractOfToken(address: pinoProxyAdd, web3: web3)
-                let solInvocation = contract[ABIMethodWrite.approve.rawValue]!(amount, recipient.eip55Address)
+                let solInvocation = contract[ABIMethodWrite.unwrapWETH9.rawValue]!(amount, recipient.eip55Address)
                 return gasInfoManager.calculateGasOf(
                     method: .unwrapWETH9,
+                    contract: solInvocation,
+                    contractAddress: pinoProxyAdd.eip55Address
+                )
+            }.done { trxGasInfo in
+                seal.fulfill(trxGasInfo)
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
+    }
+    
+    public func calculateMultiCallFee(
+        callData:[String]
+    ) -> Promise<GasInfo> {
+        Promise<GasInfo>() { seal in
+            firstly {
+                let contract = try Web3Core.getContractOfToken(address: pinoProxyAdd, web3: web3)
+                let solInvocation = contract[ABIMethodWrite.multicall.rawValue]!(callData)
+                return gasInfoManager.calculateGasOf(
+                    method: .multicall,
                     contract: solInvocation,
                     contractAddress: pinoProxyAdd.eip55Address
                 )
