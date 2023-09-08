@@ -69,8 +69,6 @@ class SelectDexSystemView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		dexProtocolTitleLabelHeightConstraint = dexProtocolTitleLabel.heightAnchor.constraint(equalToConstant: 15)
-
 		let dexProtocolTapGesture = UITapGestureRecognizer(target: self, action: #selector(onDexProtocolTap))
 		containerView.addGestureRecognizer(dexProtocolTapGesture)
 
@@ -106,6 +104,8 @@ class SelectDexSystemView: UIView {
 	}
 
 	private func setupConstraints() {
+        dexProtocolTitleLabelHeightConstraint = dexProtocolTitleLabel.heightAnchor.constraint(equalToConstant: 15)
+        
 		dexProtocolTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
 
 		containerView.pin(.allEdges(padding: 0))

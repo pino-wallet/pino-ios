@@ -18,7 +18,7 @@ struct BorrowingTokenCellViewModel {
 		(borrowinTokenModel?.prevTokenSharedBorrowingPercentage ?? 0) / 100
 	}
 
-	public var tokenImage: String {
-		borrowinTokenModel?.tokenImage ?? ""
+	public var tokenImage: String? {
+		borrowinTokenModel?.tokenImage
 	}
 }

@@ -23,7 +23,6 @@ class BorrowViewController: UIViewController {
 	override func loadView() {
 		setupNavigationBar()
 		setupView()
-		setupBindings()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -76,14 +75,5 @@ class BorrowViewController: UIViewController {
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [collateralizingBoardVC]
 		present(navigationVC, animated: true)
-	}
-
-	private func setupBindings() {
-		borrowVM.$userBorrowingDetails.sink { userBorrowingDetails in
-			guard userBorrowingDetails != nil else {
-				return
-			}
-			self.borrowView.hideLoading()
-		}.store(in: &cancellable)
 	}
 }

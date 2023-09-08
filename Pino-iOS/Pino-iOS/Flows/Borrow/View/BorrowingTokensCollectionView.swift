@@ -58,7 +58,7 @@ class BorrowingTokensCollectionView: UICollectionView {
 
 	private func setupBindings() {
 		borrowingDetailsVM.$properties.sink { newBorrowingDetailsProperties in
-			guard let newBorrowingDetailsProperties = newBorrowingDetailsProperties,
+			guard let newBorrowingDetailsProperties,
 			      newBorrowingDetailsProperties.borrowingAssetsDetailList != nil else {
 				self.isLoading = true
 				return
@@ -89,14 +89,12 @@ extension BorrowingTokensCollectionView: UICollectionViewDataSource {
 
 		if isLoading {
 			tokenCell.borrowingTokenVM = nil
-			tokenCell.showSkeletonView()
 		} else {
 			tokenCell
 				.borrowingTokenVM = BorrowingTokenCellViewModel(
 					borrowinTokenModel: borrowingDetailsProperties
 						.borrowingAssetsDetailList?[indexPath.item]
 				)
-			tokenCell.hideSkeletonView()
 			tokenCell.progressBarColor = borrowingDetailsProperties.progressBarColor
 		}
 
