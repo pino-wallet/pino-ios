@@ -14,6 +14,10 @@ protocol SwapPriceResponseProtocol: Codable {
 	var gasFee: String { get }
 }
 
+protocol SwapCoinResponseProtocol: Codable {
+    var data: String { get }
+}
+
 enum SwapProvider {
 	case oneInch
 	case paraswap

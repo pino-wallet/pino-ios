@@ -50,8 +50,6 @@ struct SwapRequestModel {
 
 	public var paraswapReqBody: BodyParamsType {
         
-//        let data = try! JSONSerialization.data(withJSONObject: self.priceRoute, options: [])
-
 		let jsonEncoder = JSONEncoder()
 		let jsonData = try! jsonEncoder.encode(priceRoute)
         let dictionary = try! JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
@@ -61,7 +59,7 @@ struct SwapRequestModel {
 			"destToken": destToken,
             "srcAmount": amount,
             "destAmount": destAmount,
-            "priceRoute": dictionary,
+            "priceRoute": dictionary!,
 			"userAddress": userAddress,
             "receiver": receiver,
 			"srcDecimals": srcDecimal!,

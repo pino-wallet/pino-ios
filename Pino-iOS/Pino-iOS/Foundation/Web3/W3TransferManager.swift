@@ -31,16 +31,15 @@ public struct W3TransferManager {
 
 	// MARK: - Public Methods
 
-    public func getPermitTransferFromCallData(amount: String) -> Promise<String> {
+    public func getPermitTransferFromCallData(amount: BigUInt) -> Promise<String> {
        
-        let amountNumber = try! BigUInt(amount)
         let userPrivateKey = try! EthereumPrivateKey(
             hexPrivateKey: walletManager.currentAccountPrivateKey
                 .string
         )
         
         return Promise<String>() { [self] seal in
-            gasInfoManager.calculatePermitTransferFromFee(spender: Web3Core.Constants.pinoProxyAddress, amount: amountNumber)
+            gasInfoManager.calculatePermitTransferFromFee(spender: Web3Core.Constants.pinoProxyAddress, amount: amount)
                 .then { [self] gasInfo in
                     return web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
                         .map { ($0, gasInfo) }

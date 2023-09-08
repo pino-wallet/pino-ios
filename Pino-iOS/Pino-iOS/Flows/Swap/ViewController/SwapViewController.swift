@@ -215,28 +215,32 @@ class SwapViewController: UIViewController {
     }
 
     private func openTokenApprovePage() {
-        let swapConfirmationVM = SwapConfirmationViewModel(
-            fromToken: swapVM.fromToken,
-            toToken: swapVM.toToken,
-            selectedProtocol: swapVM.selectedProtocol,
-            selectedProvider: swapVM.swapFeeVM.swapProviderVM,
-            swapRate: swapVM.swapFeeVM.calculatedAmount!
-        )
-        let approveVC = ApproveContractViewController(swapConfirmationVM: swapConfirmationVM)
-        let confirmationNavigationVC = UINavigationController(rootViewController: approveVC)
-        present(confirmationNavigationVC, animated: true)
+        swapVM.getSwapSide { _, srcToken, destToken in
+            let swapConfirmationVM = SwapConfirmationViewModel(
+                fromToken: srcToken,
+                toToken: destToken,
+                selectedProtocol: swapVM.selectedProtocol,
+                selectedProvider: swapVM.swapFeeVM.swapProviderVM,
+                swapRate: swapVM.swapFeeVM.calculatedAmount!
+            )
+            let approveVC = ApproveContractViewController(swapConfirmationVM: swapConfirmationVM)
+            let confirmationNavigationVC = UINavigationController(rootViewController: approveVC)
+            present(confirmationNavigationVC, animated: true)
+        }
     }
     
 	private func openConfirmationPage() {
-		let swapConfirmationVM = SwapConfirmationViewModel(
-			fromToken: swapVM.fromToken,
-			toToken: swapVM.toToken,
-			selectedProtocol: swapVM.selectedProtocol,
-			selectedProvider: swapVM.swapFeeVM.swapProviderVM,
-			swapRate: swapVM.swapFeeVM.calculatedAmount!
-		)
-		let confirmationVC = SwapConfirmationViewController(swapConfirmationVM: swapConfirmationVM)
-		let confirmationNavigationVC = UINavigationController(rootViewController: confirmationVC)
-		present(confirmationNavigationVC, animated: true)
+        swapVM.getSwapSide { _, srcToken, destToken in
+            let swapConfirmationVM = SwapConfirmationViewModel(
+                fromToken: srcToken,
+                toToken: destToken,
+                selectedProtocol: swapVM.selectedProtocol,
+                selectedProvider: swapVM.swapFeeVM.swapProviderVM,
+                swapRate: swapVM.swapFeeVM.calculatedAmount!
+            )
+            let confirmationVC = SwapConfirmationViewController(swapConfirmationVM: swapConfirmationVM)
+            let confirmationNavigationVC = UINavigationController(rootViewController: confirmationVC)
+            present(confirmationNavigationVC, animated: true)
+        }
 	}
 }

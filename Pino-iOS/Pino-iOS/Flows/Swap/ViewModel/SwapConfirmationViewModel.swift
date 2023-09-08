@@ -223,15 +223,13 @@ extension SwapConfirmationViewModel {
                         print(error)
                 }
             } receiveValue: { swapResponseInfo in
-                print(swapResponseInfo)
+                seal.fulfill(swapResponseInfo!.data)
             }.store(in: &cancellables)
         }
     }
     
     private func getProxyPermitTransferData() -> Promise<String> {
-        Promise<String> { seal in
-            seal.fulfill("hi")
-        }
+        web3.getPermitTransferCallData(amount: fromToken.tokenBigAmount.bigUInt)
     }
     
     private func callProxyMultiCall(data: [String]) -> Promise<String> {

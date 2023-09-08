@@ -36,3 +36,5 @@ struct ZeroXPriceResponseModel: SwapPriceResponseProtocol {
 		protocolFee
 	}
 }
+
+extension ZeroXPriceResponseModel: SwapCoinResponseProtocol {}
