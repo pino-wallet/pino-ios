@@ -15,7 +15,7 @@ protocol SwapPriceResponseProtocol: Codable {
 }
 
 protocol SwapCoinResponseProtocol: Codable {
-    var data: String { get }
+	var data: String { get }
 }
 
 enum SwapProvider {

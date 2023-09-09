@@ -8,8 +8,5 @@
 import Foundation
 
 struct ApprovingLoadingViewModel {
-    
-    // MARK: - Public Properties
-    
-    
+	// MARK: - Public Properties
 }

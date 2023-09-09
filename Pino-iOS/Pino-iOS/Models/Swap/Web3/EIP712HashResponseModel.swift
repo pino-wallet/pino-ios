@@ -8,5 +8,5 @@
 import Foundation
 
 struct EIP712HashResponseModel: Codable {
-    let hash: String
+	let hash: String
 }

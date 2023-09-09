@@ -19,7 +19,7 @@ struct SwapProviderViewModel {
 	public var provider: SwapProvider {
 		providerResponseInfo.provider
 	}
-    
+
 	public var swapAmount: BigNumber {
 		switch side {
 		case .sell:

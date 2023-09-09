@@ -9,49 +9,51 @@ import PromiseKit
 import Web3
 import Web3_Utility
 
-
 class ApproveContractViewModel {
-    
-    // MARK: - Public Properties
-    
-    public let pageTitle = "Asset approval"
-    public let titleImageName = "approve_warning"
-    public let learnMoreButtonTitle = "Learn more"
-    public let approveText = "Approve permit 2 to access your"
-    public let approveDescriptionText = "This will only happen one time."
-    public let approveButtonTitle = "Approve"
-    public let rightArrowImageName = "primary_right_arrow"
-    public let learnMoreURL = "https://www.google.com"
-    
-    // MARK: - Private Properties
-    
-    private var web3 = Web3Core.shared
-    private var swapConfirmVM: SwapConfirmationViewModel!
-    
-    // MARK: - Initializers
-    public init(swapConfirmVM: SwapConfirmationViewModel) {
-        self.swapConfirmVM = swapConfirmVM
-    }
-    
-    private var destTokenID: String {
-        swapConfirmVM.toToken.selectedToken.id
-    }
-    
-    private var destTokenAmount: BigUInt {
-        //        return try! BigUInt(UInt64.max.description)
-        Utilities.parseToBigUInt(swapConfirmVM.toToken.tokenAmount!, decimals: swapConfirmVM.toToken.selectedToken.decimal)!
-    }
-    
-    // MARK: - Public Methods
-    
-    public func approveTokenUsageToPermit(completion: @escaping () -> Void) {
-        web3.approveContract(address: destTokenID, amount: destTokenAmount, spender: Web3Core.Constants.permitAddress).done { trxHash in
-            print("APPROVE TRX HASH: \(trxHash)")
-            completion()
-        }.catch { error in
-            print("Failed to give permission")
-            Toast.default(title: "Failed to Approve", style: .error).show(haptic: .warning)
-        }
-    }
-    
+	// MARK: - Public Properties
+
+	public let pageTitle = "Asset approval"
+	public let titleImageName = "approve_warning"
+	public let learnMoreButtonTitle = "Learn more"
+	public let approveText = "Approve permit 2 to access your"
+	public let approveDescriptionText = "This will only happen one time."
+	public let approveButtonTitle = "Approve"
+	public let rightArrowImageName = "primary_right_arrow"
+	public let learnMoreURL = "https://www.google.com"
+
+	// MARK: - Private Properties
+
+	private var web3 = Web3Core.shared
+	private var swapConfirmVM: SwapConfirmationViewModel!
+
+	// MARK: - Initializers
+
+	public init(swapConfirmVM: SwapConfirmationViewModel) {
+		self.swapConfirmVM = swapConfirmVM
+	}
+
+	private var destTokenID: String {
+		swapConfirmVM.toToken.selectedToken.id
+	}
+
+	private var destTokenAmount: BigUInt {
+		//        return try! BigUInt(UInt64.max.description)
+		Utilities.parseToBigUInt(
+			swapConfirmVM.toToken.tokenAmount!,
+			decimals: swapConfirmVM.toToken.selectedToken.decimal
+		)!
+	}
+
+	// MARK: - Public Methods
+
+	public func approveTokenUsageToPermit(completion: @escaping () -> Void) {
+		web3.approveContract(address: destTokenID, amount: destTokenAmount, spender: Web3Core.Constants.permitAddress)
+			.done { trxHash in
+				print("APPROVE TRX HASH: \(trxHash)")
+				completion()
+			}.catch { error in
+				print("Failed to give permission")
+				Toast.default(title: "Failed to Approve", style: .error).show(haptic: .warning)
+			}
+	}
 }

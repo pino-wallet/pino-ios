@@ -18,7 +18,7 @@ enum OneInchEndpoint: EndpointType {
 	internal func request() throws -> URLRequest {
 		var request = URLRequest(url: url)
 		request.httpMethod = httpMethod.rawValue
-        request.addHeaders(headers)
+		request.addHeaders(headers)
 
 		try task.configParams(&request)
 

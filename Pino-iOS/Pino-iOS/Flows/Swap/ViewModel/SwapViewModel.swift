@@ -94,18 +94,18 @@ class SwapViewModel {
 			getFeeInfo(swapProvider: swapProvider)
 		}
 	}
-    
-    public func getSwapSide(
-        completion: (_ side: SwapSide, _ srcToken: SwapTokenViewModel, _ destToken: SwapTokenViewModel) -> Void
-    ) {
-        guard let swapSide else { return }
-        switch swapSide {
-            case .sell:
-                completion(.sell, fromToken, toToken)
-            case .buy:
-                completion(.buy, toToken, fromToken)
-        }
-    }
+
+	public func getSwapSide(
+		completion: (_ side: SwapSide, _ srcToken: SwapTokenViewModel, _ destToken: SwapTokenViewModel) -> Void
+	) {
+		guard let swapSide else { return }
+		switch swapSide {
+		case .sell:
+			completion(.sell, fromToken, toToken)
+		case .buy:
+			completion(.buy, toToken, fromToken)
+		}
+	}
 
 	// MARK: - Private Methods
 

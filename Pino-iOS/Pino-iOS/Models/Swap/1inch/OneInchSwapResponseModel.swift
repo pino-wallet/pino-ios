@@ -19,7 +19,7 @@ struct OneInchSwapResponseModel: Codable {
 }
 
 extension OneInchSwapResponseModel: SwapCoinResponseProtocol {
-    var data: String {
-        tx.data
-    }
+	var data: String {
+		tx.data
+	}
 }

@@ -50,7 +50,7 @@ enum ParaSwapEndpoint: EndpointType {
 		case let .swapCoin(swapInfo: swapInfo):
 			return .requestParameters(
 				bodyParameters: swapInfo.paraswapReqBody,
-                bodyEncoding: .jsonEncoding,
+				bodyEncoding: .jsonEncoding,
 				urlParameters: nil
 			)
 		}
@@ -72,5 +72,3 @@ enum ParaSwapEndpoint: EndpointType {
 		]
 	}
 }
-
-

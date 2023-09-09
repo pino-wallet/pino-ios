@@ -69,10 +69,10 @@ public struct BigNumber {
 
 	// MARK: - Public Properties
 
-    public var bigUInt: BigUInt {
-        BigUInt(number)
-    }
-    
+	public var bigUInt: BigUInt {
+		BigUInt(number)
+	}
+
 	public var whole: BigInt {
 		number.quotientAndRemainder(dividingBy: BigInt(10).power(decimal)).quotient
 	}

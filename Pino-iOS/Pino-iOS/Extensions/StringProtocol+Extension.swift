@@ -91,8 +91,8 @@ extension String {
 			seal.fulfill(self)
 		}
 	}
-    
-    public var eip55Address: EthereumAddress {
-        try! EthereumAddress(hex: Web3Core.shared.getChecksumOfEip55Address(eip55Address: self), eip55: true)
-    }
+
+	public var eip55Address: EthereumAddress {
+		try! EthereumAddress(hex: Web3Core.shared.getChecksumOfEip55Address(eip55Address: self), eip55: true)
+	}
 }

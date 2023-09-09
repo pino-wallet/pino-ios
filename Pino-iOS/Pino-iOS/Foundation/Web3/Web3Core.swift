@@ -25,7 +25,7 @@ public class Web3Core {
 		if let testURL = AboutPinoView.web3URL {
 			return Web3(rpcURL: testURL)
 		} else {
-			return Web3(rpcURL: "https://rpc.ankr.com/eth")
+			return Web3(rpcURL: "https://arb1.arbitrum.io/rpc")
 		}
 	}
 
@@ -40,14 +40,14 @@ public class Web3Core {
 	private var transferManager: W3TransferManager {
 		.init(web3: web3)
 	}
-    
-    private var approveManager: W3ApproveManager {
-        .init(web3: web3)
-    }
-    
-    private var swapManager: W3SwapManager {
-        .init(web3: web3)
-    }
+
+	private var approveManager: W3ApproveManager {
+		.init(web3: web3)
+	}
+
+	private var swapManager: W3SwapManager {
+		.init(web3: web3)
+	}
 
 	private let walletManager = PinoWalletManager()
 
@@ -93,32 +93,36 @@ public class Web3Core {
 	}
 
 	public func approveContract(address: String, amount: BigUInt, spender: String) -> Promise<String> {
-        approveManager.approveContract(address: address, amount: amount, spender: spender)
+		approveManager.approveContract(address: address, amount: amount, spender: spender)
 	}
-    
-    public func getApproveCallData(contractAdd: String, amount: BigUInt, spender: String) -> Promise<String> {
-        approveManager.getApproveCallData(contractAdd: contractAdd, amount: amount, spender: spender)
-    }
-    
-    public func getPermitTransferCallData(amount: BigUInt) -> Promise<String> {
-        transferManager.getPermitTransferFromCallData(amount: amount)
-    }
-    
-    public func getWrapETHCallData(amount: BigUInt, proxyFee: BigUInt) -> Promise<String> {
-        swapManager.getWrapETHCallData(amount: amount, proxyFee: proxyFee)
-    }
-    
-    public func getUnwrapETHCallData(amount: BigUInt, recipient: String) -> Promise<String> {
-        swapManager.getUnWrapETHCallData(amount: amount, recipient: recipient)
-    }
-    
-    public func getSweepTokenCallData(tokenAdd: String, recipientAdd: String) -> Promise<String> {
-        swapManager.getSweepTokenCallData(tokenAdd: tokenAdd, recipientAdd: recipientAdd)
-    }
-    
-    public func callProxyMulticall() {
-        
-    }
+
+	public func getApproveCallData(contractAdd: String, amount: BigUInt, spender: String) -> Promise<String> {
+		approveManager.getApproveCallData(contractAdd: contractAdd, amount: amount, spender: spender)
+	}
+
+	public func getPermitTransferCallData(amount: BigUInt) -> Promise<String> {
+		transferManager.getPermitTransferFromCallData(amount: amount)
+	}
+
+	public func getWrapETHCallData(amount: BigUInt, proxyFee: BigUInt) -> Promise<String> {
+		swapManager.getWrapETHCallData(amount: amount, proxyFee: proxyFee)
+	}
+
+	public func getUnwrapETHCallData(amount: BigUInt, recipient: String) -> Promise<String> {
+		swapManager.getUnWrapETHCallData(amount: amount, recipient: recipient)
+	}
+
+	public func getSweepTokenCallData(tokenAdd: String, recipientAdd: String) -> Promise<String> {
+		swapManager.getSweepTokenCallData(tokenAdd: tokenAdd, recipientAdd: recipientAdd)
+	}
+
+	public func callProxyMulticall() {}
+
+	public func testTuple() {
+		transferManager.sendTupleTest().done { hash in
+			print(hash)
+		}
+	}
 
 	public func getCustomAssetInfo(contractAddress: String) -> Promise<CustomAssetInfo> {
 		var assetInfo: CustomAssetInfo = [:]
@@ -279,7 +283,7 @@ public class Web3Core {
 			hex: tokenContractAddress,
 			eip55: false
 		)
-		let contractJsonABI = Web3ABI.erc20AbiString.data(using: .utf8)!
+		let contractJsonABI = Web3ABI.testABI.data(using: .utf8)!
 		// You can optionally pass an abiKey param if the actual abi is nested and not the top level element of the json
 		let contract = try web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
 		return contract

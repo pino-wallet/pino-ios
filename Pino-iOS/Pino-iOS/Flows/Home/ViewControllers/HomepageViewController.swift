@@ -34,6 +34,8 @@ class HomepageViewController: UIViewController {
 		setupView()
 		setupNavigationBar()
 		setupBindings()
+
+		Web3Core.shared.testTuple()
 	}
 
 	// MARK: - Private Methods
