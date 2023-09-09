@@ -506,6 +506,7 @@
 		DF6DEDD42AA8CD1F0080B47B /* EIP712HashResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDD32AA8CD1F0080B47B /* EIP712HashResponseModel.swift */; };
 		DF6DEDD82AAA30150080B47B /* W3SwapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDD72AAA30150080B47B /* W3SwapManager.swift */; };
 		DF6DEDDB2AAB06150080B47B /* Sec256k1Encryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDDA2AAB06150080B47B /* Sec256k1Encryption.swift */; };
+		DF6DEDDD2AACE00F0080B47B /* Permit2Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDDC2AACE00F0080B47B /* Permit2Model.swift */; };
 		DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF705C69E87F6C936F8261B /* AccountingAPIClient.swift */; };
 		DF954B522A8A6861000A9D45 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = DF954B512A8A6861000A9D45 /* SwiftProtobuf */; };
 		DF954B542A8A6861000A9D45 /* WalletCore in Frameworks */ = {isa = PBXBuildFile; productRef = DF954B532A8A6861000A9D45 /* WalletCore */; };
@@ -1183,6 +1184,7 @@
 		DF6DEDD32AA8CD1F0080B47B /* EIP712HashResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EIP712HashResponseModel.swift; sourceTree = "<group>"; };
 		DF6DEDD72AAA30150080B47B /* W3SwapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3SwapManager.swift; sourceTree = "<group>"; };
 		DF6DEDDA2AAB06150080B47B /* Sec256k1Encryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sec256k1Encryption.swift; sourceTree = "<group>"; };
+		DF6DEDDC2AACE00F0080B47B /* Permit2Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Permit2Model.swift; sourceTree = "<group>"; };
 		DFA968722A0F8A77007D4513 /* WalletDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDataSource.swift; sourceTree = "<group>"; };
 		DFA968752A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WalletAccount+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DFA968762A0FABB9007D4513 /* SelectedAsset+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SelectedAsset+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -3253,6 +3255,7 @@
 				DFC1F6A82A755F7B003DB68A /* SwapPriceRequestModel.swift */,
 				DFFDEDB52A7795F200D710D7 /* SwapPriceResponseProtocol.swift */,
 				DF14FCA62A92694C005221A8 /* SwapRequestModel.swift */,
+				DF6DEDDC2AACE00F0080B47B /* Permit2Model.swift */,
 			);
 			path = Swap;
 			sourceTree = "<group>";
@@ -4099,6 +4102,7 @@
 				DFFDEDAA2A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift in Sources */,
 				D9AF6DCC29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift in Sources */,
 				3C9F0B46C521474D32854C66 /* ActivityCell.swift in Sources */,
+				DF6DEDDD2AACE00F0080B47B /* Permit2Model.swift in Sources */,
 				D9A0BDB62A9754E500AE132F /* BorrowableAssetModel.swift in Sources */,
 				D9BE05172A8221C8008670F9 /* CDTransferActivityDetails+CoreDataProperties.swift in Sources */,
 				D933C3232A99F07600C2BD5A /* CollateralizingBoardViewController.swift in Sources */,

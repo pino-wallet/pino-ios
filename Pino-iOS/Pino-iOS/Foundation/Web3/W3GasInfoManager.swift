@@ -245,46 +245,5 @@ public struct W3GasInfoManager {
 	}
 }
 
-struct TupleData: ABIEncodable {
-	let a: Int8
-	let b: Int8
-	let c: Int8
-	let d: Int8
-	let e: Bool
 
-	struct TokenPermissions {
-		let token: EthereumAddress
-		let amount: Int
-	}
 
-	struct PermitTransferFrom {
-		let permitted: TokenPermissions
-		let nonce: Int
-		let deadline: Int
-	}
-
-	let f: PermitTransferFrom
-
-	func abiEncode(dynamic: Bool) -> String? {
-		// Encode the primitive types
-		let aEncoded = String(a, radix: 16).paddingLeft(toLength: 64, withPad: "0")
-		let bEncoded = String(b, radix: 16).paddingLeft(toLength: 64, withPad: "0")
-		let cEncoded = String(c, radix: 16).paddingLeft(toLength: 64, withPad: "0")
-		let dEncoded = String(d, radix: 16).paddingLeft(toLength: 64, withPad: "0")
-		let eEncoded = e.abiEncode(dynamic: false)
-
-		// Encoding TokenPermissions
-		let tokenEncoded = f.permitted.token.abiEncode(dynamic: false)
-		let amountEncoded = String(f.permitted.amount, radix: 16).paddingLeft(toLength: 64, withPad: "0")
-
-		// Encoding PermitTransferFrom
-		let nonceEncoded = String(f.nonce, radix: 16).paddingLeft(toLength: 64, withPad: "0")
-		let deadlineEncoded = String(f.deadline, radix: 16).paddingLeft(toLength: 64, withPad: "0")
-
-		// Concatenate all the encoded strings
-		let permitString = tokenEncoded! + amountEncoded + nonceEncoded + deadlineEncoded
-		var encodedString = aEncoded + bEncoded + cEncoded + dEncoded + eEncoded!
-
-		return "\(encodedString)\(permitString)"
-	}
-}
