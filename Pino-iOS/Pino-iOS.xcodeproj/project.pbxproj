@@ -507,6 +507,7 @@
 		DF6DEDD82AAA30150080B47B /* W3SwapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDD72AAA30150080B47B /* W3SwapManager.swift */; };
 		DF6DEDDB2AAB06150080B47B /* Sec256k1Encryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDDA2AAB06150080B47B /* Sec256k1Encryption.swift */; };
 		DF6DEDDD2AACE00F0080B47B /* Permit2Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDDC2AACE00F0080B47B /* Permit2Model.swift */; };
+		DF6DEDDF2AACE2F30080B47B /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDDE2AACE2F30080B47B /* NetworkLogger.swift */; };
 		DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF705C69E87F6C936F8261B /* AccountingAPIClient.swift */; };
 		DF954B522A8A6861000A9D45 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = DF954B512A8A6861000A9D45 /* SwiftProtobuf */; };
 		DF954B542A8A6861000A9D45 /* WalletCore in Frameworks */ = {isa = PBXBuildFile; productRef = DF954B532A8A6861000A9D45 /* WalletCore */; };
@@ -1185,6 +1186,7 @@
 		DF6DEDD72AAA30150080B47B /* W3SwapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3SwapManager.swift; sourceTree = "<group>"; };
 		DF6DEDDA2AAB06150080B47B /* Sec256k1Encryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sec256k1Encryption.swift; sourceTree = "<group>"; };
 		DF6DEDDC2AACE00F0080B47B /* Permit2Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Permit2Model.swift; sourceTree = "<group>"; };
+		DF6DEDDE2AACE2F30080B47B /* NetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
 		DFA968722A0F8A77007D4513 /* WalletDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDataSource.swift; sourceTree = "<group>"; };
 		DFA968752A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WalletAccount+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DFA968762A0FABB9007D4513 /* SelectedAsset+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SelectedAsset+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -2533,6 +2535,7 @@
 				BAC98E3A780E5E5D45D7E739 /* NetworkManager.swift */,
 				C55BFF5F48EC55A7D9EB418E /* NetworkManagerProtocol.swift */,
 				DFB2C343099A9B87E6C231F0 /* StubManager.swift */,
+				DF6DEDDE2AACE2F30080B47B /* NetworkLogger.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -4382,6 +4385,7 @@
 				DFB1E9D62A08F21C00041B26 /* SelectedAssetsDataSource.swift in Sources */,
 				0D3E98673CD274381A698BBA /* ProfileViewController.swift in Sources */,
 				0613EF4F55B5F6FA90BA65C0 /* ProfileViewModel.swift in Sources */,
+				DF6DEDDF2AACE2F30080B47B /* NetworkLogger.swift in Sources */,
 				1DACABBF0C73761FBAF64811 /* ReceiveActionButton.swift in Sources */,
 				D94A9A2429FE75FC00DCA28D /* EditAccountNameViewModel.swift in Sources */,
 				05B960E15A9EEF333D3A8296 /* ReceiveAssetView.swift in Sources */,

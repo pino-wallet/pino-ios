@@ -21,28 +21,29 @@ struct ApproveContractViewModel {
 	public let rightArrowImageName = "primary_right_arrow"
 	public let learnMoreURL = "https://www.google.com"
 
+
 	// MARK: - Private Properties
 
 	private var web3 = Web3Core.shared
 	private var swapConfirmVM: SwapConfirmationViewModel!
-
-	// MARK: - Initializers
-
-	public init(swapConfirmVM: SwapConfirmationViewModel) {
-		self.swapConfirmVM = swapConfirmVM
-	}
-
-	private var destTokenID: String {
-		swapConfirmVM.toToken.selectedToken.id
-	}
-
-	private var destTokenAmount: BigNumber {
-		let destAmount = Utilities.parseToBigUInt(
-			swapConfirmVM.toToken.tokenAmount!,
-			decimals: swapConfirmVM.toToken.selectedToken.decimal
-		)!
+    
+    private var destTokenID: String {
+        swapConfirmVM.toToken.selectedToken.id
+    }
+    
+    private var destTokenAmount: BigNumber {
+        let destAmount = Utilities.parseToBigUInt(
+            swapConfirmVM.toToken.tokenAmount!,
+            decimals: swapConfirmVM.toToken.selectedToken.decimal
+        )!
         return BigNumber(unSignedNumber: destAmount, decimal: swapConfirmVM.toToken.selectedToken.decimal)
-	}
+    }
+    
+    // MARK: - Initializers
+    
+    public init(swapConfirmVM: SwapConfirmationViewModel) {
+        self.swapConfirmVM = swapConfirmVM
+    }
 
 	// MARK: - Public Methods
 
