@@ -50,8 +50,10 @@ extension TabBarItem {
 		title: "Borrow",
 		image: "borrow_tab",
 		selectedImage: "borrow_tab_fill",
-        viewController: CustomNavigationController(rootViewController: BorrowViewController(),
-                                                   statusBarStyle: .lightContent)
+		viewController: CustomNavigationController(
+			rootViewController: BorrowViewController(),
+			statusBarStyle: .lightContent
+		)
 	)
 
 	public static let activity = TabBarItem(
