@@ -189,7 +189,7 @@ extension SwapConfirmationViewModel {
 	}
 
 	private func getSwapInfoFrom<SwapProvider: SwapProvidersAPIServices>(provider: SwapProvider) -> Promise<String> {
-		var priceRoute: PriceRouteClass? = nil
+		var priceRoute: PriceRouteClass?
 		if selectedProvider?.provider == .paraswap {
 			let paraResponse = selectedProvider?.providerResponseInfo as! ParaSwapPriceResponseModel
 			priceRoute = paraResponse.priceRoute
@@ -204,7 +204,7 @@ extension SwapConfirmationViewModel {
 			SwapRequestModel(
 				srcToken: fromToken.selectedToken.id,
 				destToken: toToken.selectedToken.id,
-				amount: fromToken.tokenBigAmount.description,
+				amount: fromToken.tokenAmountBigNum.description,
 				destAmount: (selectedProvider?.providerResponseInfo.destAmount)!,
 				receiver: pinoWalletManager.currentAccount.eip55Address,
 				userAddress: pinoWalletManager.currentAccount.eip55Address,
@@ -229,7 +229,7 @@ extension SwapConfirmationViewModel {
 	}
 
 	private func getProxyPermitTransferData() -> Promise<String> {
-		web3.getPermitTransferCallData(amount: fromToken.tokenBigAmount.bigUInt)
+		web3.getPermitTransferCallData(amount: fromToken.tokenAmountBigNum.bigUInt)
 	}
 
 	private func callProxyMultiCall(data: [String]) -> Promise<String> {

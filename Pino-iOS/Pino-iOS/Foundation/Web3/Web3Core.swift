@@ -25,7 +25,7 @@ public class Web3Core {
 		if let testURL = AboutPinoView.web3URL {
 			return Web3(rpcURL: testURL)
 		} else {
-			return Web3(rpcURL: "https://arb1.arbitrum.io/rpc")
+            return Web3(rpcURL: Web3Core.RPC.mainNet.rawValue)
 		}
 	}
 
@@ -117,12 +117,6 @@ public class Web3Core {
 	}
 
 	public func callProxyMulticall() {}
-
-	public func testTuple() {
-		transferManager.sendTupleTest().done { hash in
-			print(hash)
-		}
-	}
 
 	public func getCustomAssetInfo(contractAddress: String) -> Promise<CustomAssetInfo> {
 		var assetInfo: CustomAssetInfo = [:]
@@ -291,10 +285,17 @@ public class Web3Core {
 }
 
 extension Web3Core {
-	public enum Constants {
+	
+    public enum Constants {
 		static let ethGasLimit = "21000"
 		static let eoaCode = "0x"
 		static let permitAddress = "0x000000000022D473030F116dDEE9F6B43aC78BA3"
 		static let pinoProxyAddress = "0x118E662de0C4cdc2f8AD0fb1c6Ef4a85222baCF0"
 	}
+    
+    public enum RPC: String {
+        case mainNet = "https://rpc.ankr.com/eth"
+        case arb = "https://arb1.arbitrum.io/rpc"
+    }
+    
 }

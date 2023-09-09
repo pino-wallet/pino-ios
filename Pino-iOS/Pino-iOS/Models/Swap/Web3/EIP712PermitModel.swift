@@ -10,10 +10,15 @@ import Foundation
 // MARK: - Welcome
 
 struct EIP712PermitModel: Codable {
-	let types: Types
+	
+    //MARK: - Internal Properties
+    
+    let types: Types
 	let primaryType: String
 	let domain: Domain
 	let message: Message
+
+    //MARK: - Initializers
 
 	init(tokenAdd: String, amount: String, spender: String) {
 		let eip712Domain: [DomainType] = [

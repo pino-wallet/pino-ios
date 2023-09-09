@@ -8,7 +8,8 @@
 import Foundation
 
 struct SwapRequestModel {
-	var srcToken: String
+	
+    var srcToken: String
 	var destToken: String
 	let amount: String
 	let destAmount: String
@@ -20,6 +21,8 @@ struct SwapRequestModel {
 	let destDecimal: String?
 	let priceRoute: PriceRouteClass?
 
+    // MARK: - Initializers
+    
 	init(
 		srcToken: String,
 		destToken: String,
@@ -46,12 +49,15 @@ struct SwapRequestModel {
 		self.priceRoute = priceRoute
 	}
 
+    // MARK: - Public Properties
+
 	public var oneInchSwapURLParams: HTTPParameters {
 		[
 			"src": srcToken,
 			"dst": destToken,
 			"amount": amount,
-			"from": receiver,
+			"from": receiver, // this is pino proxy
+            "receiver": receiver, // this is user who receives token
 			"slippage": slippage,
 			"includeProtocols": false,
 			"includeTokensInfo": false,
@@ -63,7 +69,7 @@ struct SwapRequestModel {
 	public var paraswapReqBody: BodyParamsType {
 		let jsonEncoder = JSONEncoder()
 		let jsonData = try! jsonEncoder.encode(priceRoute)
-		let dictionary = try! JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
+		let dictionary = try! JSONSerialization.jsonObject(with: jsonData, options: []) as? HTTPParameters
 
 		let params: HTTPParameters = [
 			"srcToken": srcToken,
@@ -71,8 +77,8 @@ struct SwapRequestModel {
 			"srcAmount": amount,
 			"destAmount": destAmount,
 			"priceRoute": dictionary!,
-			"userAddress": userAddress,
-			"receiver": receiver,
+			"userAddress": userAddress, // this is pino proxy address
+			"receiver": receiver, // this is user who receieves token
 			"srcDecimals": srcDecimal!,
 			"destDecimals": destDecimal!,
 		]

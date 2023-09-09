@@ -37,8 +37,6 @@ class ApprovingLoadingView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		backgroundColor = .Pino.background
-
 		loadingStackView.addSubview(loading)
 
 		loadingStackView.addArrangedSubview(loading)
@@ -48,6 +46,8 @@ class ApprovingLoadingView: UIView {
 	}
 
 	private func setupStyle() {
+        backgroundColor = .Pino.background
+        
 		loadingTextLabel.font = .PinoStyle.mediumTitle2
 		loadingTextLabel.text = "Approving..."
 		loadingTextLabel.numberOfLines = 0

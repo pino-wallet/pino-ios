@@ -243,39 +243,6 @@ public struct W3GasInfoManager {
 			}
 		}
 	}
-
-	public func calculateTestTupleFee() -> Promise<GasInfo> {
-		Promise<GasInfo>() { seal in
-			firstly {
-				let test = TupleData(
-					a: 1,
-					b: 2,
-					c: 3,
-					d: 4,
-					e: false,
-					f: .init(
-						permitted: .init(token: "0x8C00ad160683dF72ef165592e019E02f8d9e3AcD".eip55Address, amount: 6),
-						nonce: 7,
-						deadline: 8
-					)
-				)
-				let contract = try Web3Core.getContractOfToken(
-					address: "0x8C00ad160683dF72ef165592e019E02f8d9e3AcD",
-					web3: web3
-				)
-				let solInvocation = contract["testTuple1"]!(test)
-				return gasInfoManager.calculateGasOf(
-					method: .testTuple1,
-					contract: solInvocation,
-					contractAddress: pinoProxyAdd.eip55Address
-				)
-			}.done { trxGasInfo in
-				seal.fulfill(trxGasInfo)
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
-	}
 }
 
 struct TupleData: ABIEncodable {
@@ -319,16 +286,5 @@ struct TupleData: ABIEncodable {
 		var encodedString = aEncoded + bEncoded + cEncoded + dEncoded + eEncoded!
 
 		return "\(encodedString)\(permitString)"
-	}
-}
-
-// Dummy implementation for 'paddingLeft' since it's not provided
-extension String {
-	func paddingLeft(toLength: Int, withPad: String) -> String {
-		let paddingCount = toLength - count
-		guard paddingCount > 0 else { return self }
-
-		let padding = String(repeating: withPad, count: paddingCount)
-		return padding + self
 	}
 }

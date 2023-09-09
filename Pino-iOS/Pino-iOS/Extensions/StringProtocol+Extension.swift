@@ -95,4 +95,12 @@ extension String {
 	public var eip55Address: EthereumAddress {
 		try! EthereumAddress(hex: Web3Core.shared.getChecksumOfEip55Address(eip55Address: self), eip55: true)
 	}
+    
+    public func paddingLeft(toLength: Int, withPad: String) -> String {
+        let paddingCount = toLength - count
+        guard paddingCount > 0 else { return self }
+        
+        let padding = String(repeating: withPad, count: paddingCount)
+        return padding + self
+    }
 }

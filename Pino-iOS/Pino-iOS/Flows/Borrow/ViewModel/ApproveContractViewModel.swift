@@ -9,7 +9,7 @@ import PromiseKit
 import Web3
 import Web3_Utility
 
-class ApproveContractViewModel {
+struct ApproveContractViewModel {
 	// MARK: - Public Properties
 
 	public let pageTitle = "Asset approval"
@@ -36,18 +36,18 @@ class ApproveContractViewModel {
 		swapConfirmVM.toToken.selectedToken.id
 	}
 
-	private var destTokenAmount: BigUInt {
-		//        return try! BigUInt(UInt64.max.description)
-		Utilities.parseToBigUInt(
+	private var destTokenAmount: BigNumber {
+		let destAmount = Utilities.parseToBigUInt(
 			swapConfirmVM.toToken.tokenAmount!,
 			decimals: swapConfirmVM.toToken.selectedToken.decimal
 		)!
+        return BigNumber(unSignedNumber: destAmount, decimal: swapConfirmVM.toToken.selectedToken.decimal)
 	}
 
 	// MARK: - Public Methods
 
 	public func approveTokenUsageToPermit(completion: @escaping () -> Void) {
-		web3.approveContract(address: destTokenID, amount: destTokenAmount, spender: Web3Core.Constants.permitAddress)
+        web3.approveContract(address: destTokenID, amount: destTokenAmount.bigUInt, spender: Web3Core.Constants.permitAddress)
 			.done { trxHash in
 				print("APPROVE TRX HASH: \(trxHash)")
 				completion()
