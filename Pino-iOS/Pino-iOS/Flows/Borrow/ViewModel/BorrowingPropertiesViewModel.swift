@@ -16,11 +16,11 @@ struct BorrowingPropertiesViewModel {
 	public var progressBarColor: UIColor
 
 	public var borrowingAmount: String {
-        guard let borrowingAssetsList, !borrowingAssetsList.isEmpty else {
+		guard let borrowingAssetsList, !borrowingAssetsList.isEmpty else {
 			return "0"
 		}
-			#warning("this is mock")
-			return "$88"
+		#warning("this is mock")
+		return "$88"
 	}
 
 	#warning("this is mock and we should return a complete assetDetails with percentageOfTotalShare and asset icon")
