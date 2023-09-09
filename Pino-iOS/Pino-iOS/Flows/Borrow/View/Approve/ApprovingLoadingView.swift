@@ -46,8 +46,8 @@ class ApprovingLoadingView: UIView {
 	}
 
 	private func setupStyle() {
-        backgroundColor = .Pino.background
-        
+		backgroundColor = .Pino.background
+
 		loadingTextLabel.font = .PinoStyle.mediumTitle2
 		loadingTextLabel.text = "Approving..."
 		loadingTextLabel.numberOfLines = 0

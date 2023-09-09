@@ -19,9 +19,9 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 					guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
 						throw APIError.failedRequest
 					}
-                    
-                    NetworkLogger.log(request: request)
-                    
+
+					NetworkLogger.log(request: request)
+
 					guard (200 ..< 300).contains(statusCode) else {
 						if statusCode == 401 {
 							throw APIError.unauthorized
@@ -64,5 +64,4 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 			fatalError(error.localizedDescription)
 		}
 	}
-
 }

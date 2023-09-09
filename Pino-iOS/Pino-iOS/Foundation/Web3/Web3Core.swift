@@ -25,7 +25,7 @@ public class Web3Core {
 		if let testURL = AboutPinoView.web3URL {
 			return Web3(rpcURL: testURL)
 		} else {
-            return Web3(rpcURL: Web3Core.RPC.mainNet.rawValue)
+			return Web3(rpcURL: Web3Core.RPC.mainNet.rawValue)
 		}
 	}
 
@@ -75,12 +75,11 @@ public class Web3Core {
 		spenderAddress: String,
 		ownerAddress: String
 	) throws -> Promise<BigUInt> {
-		
-		return try callABIMethod(
+		try callABIMethod(
 			method: .allowance,
-            contractAddress: contractAddress.eip55Address!,
-            params: ownerAddress.eip55Address!,
-            spenderAddress.eip55Address!
+			contractAddress: contractAddress.eip55Address!,
+			params: ownerAddress.eip55Address!,
+			spenderAddress.eip55Address!
 		)
 	}
 
@@ -269,12 +268,12 @@ public class Web3Core {
 		}
 	}
 
-	public static func getContractOfToken(address tokenContractAddress: String, web3: Web3) throws -> DynamicContract {
+    public static func getContractOfToken(address tokenContractAddress: String, abi: Web3ABI, web3: Web3) throws -> DynamicContract {
 		let contractAddress = try EthereumAddress(
 			hex: tokenContractAddress,
 			eip55: false
 		)
-		let contractJsonABI = Web3ABI.testABI.data(using: .utf8)!
+        let contractJsonABI = abi.abi
 		// You can optionally pass an abiKey param if the actual abi is nested and not the top level element of the json
 		let contract = try web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
 		return contract
@@ -282,17 +281,15 @@ public class Web3Core {
 }
 
 extension Web3Core {
-	
-    public enum Constants {
+	public enum Constants {
 		static let ethGasLimit = "21000"
 		static let eoaCode = "0x"
 		static let permitAddress = "0x000000000022D473030F116dDEE9F6B43aC78BA3"
 		static let pinoProxyAddress = "0x118E662de0C4cdc2f8AD0fb1c6Ef4a85222baCF0"
 	}
-    
-    public enum RPC: String {
-        case mainNet = "https://rpc.ankr.com/eth"
-        case arb = "https://arb1.arbitrum.io/rpc"
-    }
-    
+
+	public enum RPC: String {
+		case mainNet = "https://rpc.ankr.com/eth"
+		case arb = "https://arb1.arbitrum.io/rpc"
+	}
 }

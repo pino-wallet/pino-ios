@@ -15,7 +15,7 @@ struct SwapProviderViewModel {
 
 	// MARK: - Public Properties
 
-    public var providerResponseInfo: SwapPriceResponseProtocol
+	public var providerResponseInfo: SwapPriceResponseProtocol
 	public var provider: SwapProvider {
 		providerResponseInfo.provider
 	}

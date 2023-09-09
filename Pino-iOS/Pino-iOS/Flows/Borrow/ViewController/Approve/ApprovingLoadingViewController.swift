@@ -30,7 +30,7 @@ class ApprovingLoadingViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-        #warning("Fill when approve is done")
+		#warning("Fill when approve is done")
 		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
 			self.openConfirmationPage()
 		}

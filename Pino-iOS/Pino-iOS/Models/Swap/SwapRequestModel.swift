@@ -8,8 +8,7 @@
 import Foundation
 
 struct SwapRequestModel {
-	
-    var srcToken: String
+	var srcToken: String
 	var destToken: String
 	let amount: String
 	let destAmount: String
@@ -21,8 +20,8 @@ struct SwapRequestModel {
 	let destDecimal: String?
 	let priceRoute: PriceRouteClass?
 
-    // MARK: - Initializers
-    
+	// MARK: - Initializers
+
 	init(
 		srcToken: String,
 		destToken: String,
@@ -49,7 +48,7 @@ struct SwapRequestModel {
 		self.priceRoute = priceRoute
 	}
 
-    // MARK: - Public Properties
+	// MARK: - Public Properties
 
 	public var oneInchSwapURLParams: HTTPParameters {
 		[
@@ -57,7 +56,7 @@ struct SwapRequestModel {
 			"dst": destToken,
 			"amount": amount,
 			"from": receiver, // this is pino proxy
-            "receiver": receiver, // this is user who receives token
+			"receiver": receiver, // this is user who receives token
 			"slippage": slippage,
 			"includeProtocols": false,
 			"includeTokensInfo": false,
