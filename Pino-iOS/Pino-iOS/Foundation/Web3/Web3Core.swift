@@ -75,15 +75,12 @@ public class Web3Core {
 		spenderAddress: String,
 		ownerAddress: String
 	) throws -> Promise<BigUInt> {
-		let contractAddress = try EthereumAddress(hex: contractAddress, eip55: false)
-		let ownerAddress = try EthereumAddress(hex: ownerAddress, eip55: true)
-		let spenderAddress = try EthereumAddress(hex: spenderAddress, eip55: true)
-
+		
 		return try callABIMethod(
 			method: .allowance,
-			contractAddress: contractAddress,
-			params: ownerAddress,
-			spenderAddress
+            contractAddress: contractAddress.eip55Address!,
+            params: ownerAddress.eip55Address!,
+            spenderAddress.eip55Address!
 		)
 	}
 

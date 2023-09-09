@@ -51,8 +51,8 @@ public struct W3SwapManager {
 						web3: web3
 					)
 					let solInvocation = contract[ABIMethodWrite.sweepToken.rawValue]?(
-						tokenAdd.eip55Address,
-						recipientAdd.eip55Address
+						tokenAdd.eip55Address!,
+						recipientAdd.eip55Address!
 					)
 					let trx = try trxManager.createTransactionFor(
 						contract: solInvocation!,
@@ -109,7 +109,7 @@ public struct W3SwapManager {
 						address: Web3Core.Constants.pinoProxyAddress,
 						web3: web3
 					)
-					let solInvocation = contract[ABIMethodWrite.unwrapWETH9.rawValue]?(amount, recipient.eip55Address)
+					let solInvocation = contract[ABIMethodWrite.unwrapWETH9.rawValue]?(amount, recipient.eip55Address!)
 					let trx = try trxManager.createTransactionFor(
 						contract: solInvocation!,
 						nonce: nonce,
