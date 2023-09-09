@@ -4,6 +4,7 @@
 //
 //  Created by Mohi Raoufi on 12/17/22.
 //
+import Combine
 import UIKit
 
 class BorrowViewController: UIViewController {
@@ -11,6 +12,7 @@ class BorrowViewController: UIViewController {
 
 	private let borrowVM = BorrowViewModel()
 	private var borrowView: BorrowView!
+	private var cancellable = Set<AnyCancellable>()
 
 	// MARK: - View Overrides
 
@@ -25,6 +27,9 @@ class BorrowViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		borrowVM.getBorrowingDetailsFromVC()
+		if borrowVM.userBorrowingDetails == nil {
+			borrowView.showLoading()
+		}
 	}
 
 	// MARK: - Private Methods
