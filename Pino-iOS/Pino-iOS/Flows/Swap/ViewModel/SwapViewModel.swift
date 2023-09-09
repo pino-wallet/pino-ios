@@ -116,9 +116,12 @@ class SwapViewModel {
 		swapSide: SwapSide
 	) {
 		srcToken.calculateDollarAmount(amount)
-		if let tokenAmount = srcToken.tokenAmount {
-			let swapAmount = Utilities.parseToBigUInt(tokenAmount, units: .custom(srcToken.selectedToken.decimal))
-			getDestinationAmount(destToken, swapAmount: swapAmount!.description, swapSide: swapSide)
+		guard let tokenAmount = srcToken.tokenAmount else {
+			removeDestinationAmount(destToken)
+		}
+		let swapAmount = Utilities.parseToBigUInt(tokenAmount, units: .custom(srcToken.selectedToken.decimal))
+		if let swapAmount, !swapAmount.isZero {
+			getDestinationAmount(destToken, swapAmount: swapAmount.description, swapSide: swapSide)
 		} else {
 			removeDestinationAmount(destToken)
 		}
