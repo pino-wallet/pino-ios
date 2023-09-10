@@ -39,21 +39,26 @@ public struct W3SwapManager {
 	// MARK: - Public Methods
 
 	public func getSweepTokenCallData(tokenAdd: String, recipientAdd: String) -> Promise<String> {
-		Promise<String>() { [self] seal in
-			gasInfoManager.calculateTokenSweepFee(tokenAdd: tokenAdd, recipientAdd: recipientAdd)
+        
+        Promise<String>() { [self] seal in
+            
+            let contract = try Web3Core.getContractOfToken(
+                address: Web3Core.Constants.pinoProxyAddress,
+                abi: .swap,
+                web3: web3
+            )
+            let solInvocation = contract[ABIMethodWrite.sweepToken.rawValue]?(
+                tokenAdd.eip55Address!,
+                recipientAdd.eip55Address!
+            )
+            
+            gasInfoManager.calculateGasOf(method: .sweepToken, solInvoc: solInvocation!, contractAddress: contract.address!)
 				.then { [self] gasInfo in
 					web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 						.map { ($0, gasInfo) }
 				}
 				.done { [self] nonce, gasInfo in
-					let contract = try Web3Core.getContractOfToken(
-						address: Web3Core.Constants.pinoProxyAddress,
-						web3: web3
-					)
-					let solInvocation = contract[ABIMethodWrite.sweepToken.rawValue]?(
-						tokenAdd.eip55Address!,
-						recipientAdd.eip55Address!
-					)
+					
 					let trx = try trxManager.createTransactionFor(
 						contract: solInvocation!,
 						nonce: nonce,
@@ -70,18 +75,24 @@ public struct W3SwapManager {
 	}
 
 	public func getWrapETHCallData(amount: BigUInt, proxyFee: BigUInt) -> Promise<String> {
-		Promise<String>() { [self] seal in
-			gasInfoManager.calculateWrapETHFee(amount: amount, proxyFee: proxyFee)
+        
+		return Promise<String>() { [self] seal in
+            
+            let contract = try Web3Core.getContractOfToken(
+                address: Web3Core.Constants.pinoProxyAddress,
+                abi: .swap,
+                web3: web3
+            )
+            let solInvocation = contract[ABIMethodWrite.wrapETH.rawValue]?(amount, proxyFee)
+            
+            
+            gasInfoManager.calculateGasOf(method: .wrapETH, solInvoc: solInvocation!, contractAddress: contract.address!)
 				.then { [self] gasInfo in
 					web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 						.map { ($0, gasInfo) }
 				}
 				.done { [self] nonce, gasInfo in
-					let contract = try Web3Core.getContractOfToken(
-						address: Web3Core.Constants.pinoProxyAddress,
-						web3: web3
-					)
-					let solInvocation = contract[ABIMethodWrite.wrapETH.rawValue]?(amount, proxyFee)
+					
 					let trx = try trxManager.createTransactionFor(
 						contract: solInvocation!,
 						nonce: nonce,
@@ -98,18 +109,23 @@ public struct W3SwapManager {
 	}
 
 	public func getUnWrapETHCallData(amount: BigUInt, recipient: String) -> Promise<String> {
-		Promise<String>() { [self] seal in
-			gasInfoManager.calculateUnWrapETHFee(amount: amount, recipient: recipient)
+        
+		return Promise<String>() { [self] seal in
+            
+            let contract = try Web3Core.getContractOfToken(
+                address: Web3Core.Constants.pinoProxyAddress,
+                abi: .swap,
+                web3: web3
+            )
+            let solInvocation = contract[ABIMethodWrite.unwrapWETH9.rawValue]?(amount, recipient.eip55Address!)
+            
+            gasInfoManager.calculateGasOf(method: .unwrapWETH9, solInvoc: solInvocation!, contractAddress: contract.address!)
 				.then { [self] gasInfo in
 					web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 						.map { ($0, gasInfo) }
 				}
 				.done { [self] nonce, gasInfo in
-					let contract = try Web3Core.getContractOfToken(
-						address: Web3Core.Constants.pinoProxyAddress,
-						web3: web3
-					)
-					let solInvocation = contract[ABIMethodWrite.unwrapWETH9.rawValue]?(amount, recipient.eip55Address!)
+					
 					let trx = try trxManager.createTransactionFor(
 						contract: solInvocation!,
 						nonce: nonce,
@@ -126,18 +142,23 @@ public struct W3SwapManager {
 	}
 
 	public func callMultiCall(callData: [String]) -> Promise<String> {
-		Promise<String>() { [self] seal in
-			gasInfoManager.calculateMultiCallFee(callData: callData)
+        
+		return Promise<String>() { [self] seal in
+            
+            let contract = try Web3Core.getContractOfToken(
+                address: Web3Core.Constants.pinoProxyAddress,
+                abi: .swap,
+                web3: web3
+            )
+            let solInvocation = contract[ABIMethodWrite.unwrapWETH9.rawValue]?(callData)
+                
+            gasInfoManager.calculateGasOf(method: .multicall, solInvoc: solInvocation!, contractAddress: contract.address!)
 				.then { [self] gasInfo in
 					web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 						.map { ($0, gasInfo) }
 				}
 				.then { [self] nonce, gasInfo in
-					let contract = try Web3Core.getContractOfToken(
-						address: Web3Core.Constants.pinoProxyAddress,
-						web3: web3
-					)
-					let solInvocation = contract[ABIMethodWrite.unwrapWETH9.rawValue]?(callData)
+					
 					let trx = try trxManager.createTransactionFor(
 						contract: solInvocation!,
 						nonce: nonce,

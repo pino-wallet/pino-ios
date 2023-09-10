@@ -86,161 +86,23 @@ public struct W3GasInfoManager {
 			}
 		}
 	}
+    
+    public func calculateSendERCGasFee(
+        recipient: String,
+        amount: BigUInt,
+        tokenContractAddress: String
+    ) -> Promise<GasInfo> {
+        Promise<GasInfo>() { seal in
+            firstly {
+                let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, abi: .erc, web3: web3)
+                let solInvocation = contract[ABIMethodWrite.transfer.rawValue]!(recipient.eip55Address!, amount)
+                return gasInfoManager.calculateGasOf(method: .transfer, solInvoc: solInvocation, contractAddress: contract.address!)
+            }.done { trxGasInfo in
+                seal.fulfill(trxGasInfo)
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
+    }
 
-	public func calculateSendERCGasFee(
-		recipient address: String,
-		amount: BigUInt,
-		tokenContractAddress: String
-	) -> Promise<GasInfo> {
-		Promise<GasInfo>() { seal in
-			firstly {
-				let to: EthereumAddress = try! EthereumAddress(hex: address, eip55: false)
-				let checksumTo = try! EthereumAddress(hex: to.hex(eip55: true), eip55: true)
-				let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, web3: web3)
-				let solInvocation = contract[ABIMethodWrite.transfer.rawValue]!(checksumTo, amount)
-				return gasInfoManager.calculateGasOf(method: .transfer, solInvoc: solInvocation, contractAddress: checksumTo)
-			}.done { trxGasInfo in
-				let gasInfo = GasInfo(gasPrice: trxGasInfo.gasPrice, gasLimit: trxGasInfo.gasLimit)
-				seal.fulfill(gasInfo)
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
-	}
-
-	public func calculateApproveFee(
-		spender: String,
-		amount: BigUInt,
-		tokenContractAddress: String
-	) -> Promise<GasInfo> {
-		Promise<GasInfo>() { seal in
-			firstly {
-				let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, web3: web3)
-				let solInvocation = contract[ABIMethodWrite.approve.rawValue]!(spender, amount)
-				return gasInfoManager.calculateGasOf(
-					method: .approve,
-					solInvoc: solInvocation,
-					contractAddress: tokenContractAddress.eip55Address!
-				)
-			}.done { trxGasInfo in
-				seal.fulfill(trxGasInfo)
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
-	}
-
-//	public func calculatePermitTransferFromFee(
-//		spender: String,
-//		amount: BigUInt
-//	) -> Promise<GasInfo> {
-//		Promise<GasInfo>() { seal in
-//			firstly {
-//				let nonce: BigUInt = 34_567_890
-//				let deadline: BigUInt = 34_567_890
-//				let contract = try Web3Core.getContractOfToken(address: pinoProxyAdd, web3: web3)
-//				let solInvocation = contract[ABIMethodWrite.permitTransferFrom.rawValue]!(
-//					nonce,
-//					spender.eip55Address!,
-//					deadline,
-//					amount
-//				)
-//				return gasInfoManager.calculateGasOf(
-//					method: .permitTransferFrom,
-//					contract: solInvocation,
-//					contractAddress: pinoProxyAdd.eip55Address!
-//				)
-//			}.done { trxGasInfo in
-//				seal.fulfill(trxGasInfo)
-//			}.catch { error in
-//				seal.reject(error)
-//			}
-//		}
-//	}
-
-	public func calculateTokenSweepFee(
-		tokenAdd: String,
-		recipientAdd: String
-	) -> Promise<GasInfo> {
-		Promise<GasInfo>() { seal in
-			firstly {
-				let contract = try Web3Core.getContractOfToken(address: pinoProxyAdd, web3: web3)
-				let solInvocation = contract[ABIMethodWrite.sweepToken.rawValue]!(
-					tokenAdd.eip55Address!,
-					recipientAdd.eip55Address!
-				)
-				return gasInfoManager.calculateGasOf(
-					method: .sweepToken,
-					solInvoc: solInvocation,
-					contractAddress: pinoProxyAdd.eip55Address!
-				)
-			}.done { trxGasInfo in
-				seal.fulfill(trxGasInfo)
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
-	}
-
-	public func calculateWrapETHFee(
-		amount: BigUInt,
-		proxyFee: BigUInt
-	) -> Promise<GasInfo> {
-		Promise<GasInfo>() { seal in
-			firstly {
-				let contract = try Web3Core.getContractOfToken(address: pinoProxyAdd, web3: web3)
-				let solInvocation = contract[ABIMethodWrite.wrapETH.rawValue]!(amount, proxyFee)
-				return gasInfoManager.calculateGasOf(
-					method: .wrapETH,
-					solInvoc: solInvocation,
-					contractAddress: pinoProxyAdd.eip55Address!
-				)
-			}.done { trxGasInfo in
-				seal.fulfill(trxGasInfo)
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
-	}
-
-	public func calculateUnWrapETHFee(
-		amount: BigUInt,
-		recipient: String
-	) -> Promise<GasInfo> {
-		Promise<GasInfo>() { seal in
-			firstly {
-				let contract = try Web3Core.getContractOfToken(address: pinoProxyAdd, web3: web3)
-				let solInvocation = contract[ABIMethodWrite.unwrapWETH9.rawValue]!(amount, recipient.eip55Address!)
-				return gasInfoManager.calculateGasOf(
-					method: .unwrapWETH9,
-					solInvoc: solInvocation,
-					contractAddress: pinoProxyAdd.eip55Address!
-				)
-			}.done { trxGasInfo in
-				seal.fulfill(trxGasInfo)
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
-	}
-
-	public func calculateMultiCallFee(
-		callData: [String]
-	) -> Promise<GasInfo> {
-		Promise<GasInfo>() { seal in
-			firstly {
-				let contract = try Web3Core.getContractOfToken(address: pinoProxyAdd, web3: web3)
-				let solInvocation = contract[ABIMethodWrite.multicall.rawValue]!(callData)
-				return gasInfoManager.calculateGasOf(
-					method: .multicall,
-					solInvoc: solInvocation,
-					contractAddress: pinoProxyAdd.eip55Address!
-				)
-			}.done { trxGasInfo in
-				seal.fulfill(trxGasInfo)
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
-	}
 }

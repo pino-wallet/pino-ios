@@ -29,36 +29,38 @@ public struct W3TransferManager {
 		.init(web3: web3)
 	}
 
-    private var userPrivateKey:EthereumPrivateKey {
-        try! EthereumPrivateKey(
-            hexPrivateKey: walletManager.currentAccountPrivateKey
-                .string)
-    }
+	private var userPrivateKey: EthereumPrivateKey {
+		try! EthereumPrivateKey(
+			hexPrivateKey: walletManager.currentAccountPrivateKey
+				.string
+		)
+	}
 
 	// MARK: - Public Methods
 
-	public func getPermitTransferFromCallData(amount: BigUInt) throws -> Promise<String> {
+	public func getPermitTransferFromCallData(amount: BigUInt) -> Promise<String> {
 		
-        let contract = try Web3Core.getContractOfToken(
-            address: Web3Core.Constants.pinoProxyAddress,
-            abi: .swap,
-			web3: web3
-		)
-		let reqNonce: BigUInt = 3_456_789
-		let deadline: BigUInt = 23456
-		let spender = EthereumAddress(hexString: Web3Core.Constants.pinoProxyAddress)
-		let solInvocation = contract[ABIMethodWrite.permitTransferFrom.rawValue]?(
-			reqNonce,
-			deadline,
-			spender!,
-			amount
-		)
-
-		return Promise<String>() { [self] seal in
+        Promise<String>() { [self] seal in
+            
+            let contract = try Web3Core.getContractOfToken(
+                address: Web3Core.Constants.pinoProxyAddress,
+                abi: .swap,
+                web3: web3
+            )
+            let reqNonce: BigUInt = 3_456_789
+            let deadline: BigUInt = 23456
+            let spender = Web3Core.Constants.pinoProxyAddress.eip55Address!
+            let solInvocation = contract[ABIMethodWrite.permitTransferFrom.rawValue]?(
+                reqNonce,
+                deadline,
+                spender,
+                amount
+            )
+            
 			gasInfoManager.calculateGasOf(
 				method: .permitTransferFrom,
-                solInvoc: solInvocation!,
-                contractAddress: contract.address!
+				solInvoc: solInvocation!,
+				contractAddress: contract.address!
 			)
 			.then { [self] gasInfo in
 				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
@@ -86,29 +88,19 @@ public struct W3TransferManager {
 		amount: BigUInt,
 		tokenContractAddress: String
 	) -> Promise<String> {
-		Promise<String>() { [self] seal in
+		
+        Promise<String>() { [self] seal in
 
-			gasInfoManager.calculateSendERCGasFee(
-				recipient: address,
-				amount: amount,
-				tokenContractAddress: tokenContractAddress
-			)
+            let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, abi: .erc, web3: web3)
+            let to = try EthereumAddress(hex: address, eip55: true)
+            let solInvocation = contract[ABIMethodWrite.transfer.rawValue]?(to, amount)
+            
+            gasInfoManager.calculateGasOf(method: .transfer, solInvoc: solInvocation!, contractAddress: contract.address!)
 			.then { [self] gasInfo in
-				let privateKey = try EthereumPrivateKey(
-					hexPrivateKey: walletManager.currentAccountPrivateKey
-						.string
-				)
-				return web3.eth.getTransactionCount(address: privateKey.address, block: .latest)
+				return web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 					.map { ($0, gasInfo) }
 			}
 			.then { [self] nonce, gasInfo in
-				let myPrivateKey = try EthereumPrivateKey(
-					hexPrivateKey: walletManager.currentAccountPrivateKey
-						.string
-				)
-				let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, web3: web3)
-				let to = try EthereumAddress(hex: address, eip55: true)
-				let solInvocation = contract[ABIMethodWrite.transfer.rawValue]?(to, amount)
 				let trx = try trxManager.createTransactionFor(
 					contract: solInvocation!,
 					nonce: nonce,
@@ -116,7 +108,7 @@ public struct W3TransferManager {
 					gasLimit: gasInfo.gasLimit.etherumQuantity
 				)
 
-				let signedTx = try trx.sign(with: myPrivateKey, chainId: 1)
+				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
 				return web3.eth.sendRawTransaction(transaction: signedTx)
 			}.done { txHash in
 				seal.fulfill(txHash.hex())
@@ -124,6 +116,7 @@ public struct W3TransferManager {
 				seal.reject(error)
 			}
 		}
+        
 	}
 
 	public func sendEtherTo(recipient address: String, amount: BigUInt) -> Promise<String> {
