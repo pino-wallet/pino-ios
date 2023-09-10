@@ -11,31 +11,36 @@ struct SwapRequestModel {
 	var srcToken: String
 	var destToken: String
 	let amount: String
+	let destAmount: String
 	let receiver: String
-	let sender: String
+	let userAddress: String
 	let slippage: String
 	let networkID: Int?
 	let srcDecimal: String?
 	let destDecimal: String?
-	let priceRoute: PriceRoute?
+	let priceRoute: PriceRouteClass?
+
+	// MARK: - Initializers
 
 	init(
 		srcToken: String,
 		destToken: String,
 		amount: String,
+		destAmount: String,
 		receiver: String,
-		sender: String,
+		userAddress: String,
 		slippage: String,
 		networkID: Int?,
 		srcDecimal: String?,
 		destDecimal: String?,
-		priceRoute: PriceRoute?
+		priceRoute: PriceRouteClass?
 	) {
 		self.srcToken = srcToken
 		self.destToken = destToken
 		self.amount = amount
+		self.destAmount = destAmount
 		self.receiver = receiver
-		self.sender = sender
+		self.userAddress = userAddress
 		self.slippage = slippage
 		self.networkID = networkID
 		self.srcDecimal = srcDecimal
@@ -43,32 +48,36 @@ struct SwapRequestModel {
 		self.priceRoute = priceRoute
 	}
 
+	// MARK: - Public Properties
+
 	public var oneInchSwapURLParams: HTTPParameters {
 		[
 			"src": srcToken,
 			"dst": destToken,
 			"amount": amount,
-			"from": sender,
+			"from": receiver, // this is pino proxy
+			"receiver": receiver, // this is user who receives token
 			"slippage": slippage,
-			"includeProtocols": "false",
-			"includeTokensInfo": "false",
-			"disableEstimate": "false",
-			"allowPartialFill": "false",
+			"includeProtocols": false,
+			"includeTokensInfo": false,
+			"disableEstimate": false,
+			"allowPartialFill": false,
 		]
 	}
 
 	public var paraswapReqBody: BodyParamsType {
 		let jsonEncoder = JSONEncoder()
 		let jsonData = try! jsonEncoder.encode(priceRoute)
-		let priceRouteJSON = String(data: jsonData, encoding: String.Encoding.utf8)!
+		let dictionary = try! JSONSerialization.jsonObject(with: jsonData, options: []) as? HTTPParameters
 
 		let params: HTTPParameters = [
 			"srcToken": srcToken,
 			"destToken": destToken,
 			"srcAmount": amount,
-			"priceRoute": priceRouteJSON,
-			"slippage": slippage, // in percent
-			"userAddress": receiver,
+			"destAmount": destAmount,
+			"priceRoute": dictionary!,
+			"userAddress": userAddress, // this is pino proxy address
+			"receiver": receiver, // this is user who receieves token
 			"srcDecimals": srcDecimal!,
 			"destDecimals": destDecimal!,
 		]

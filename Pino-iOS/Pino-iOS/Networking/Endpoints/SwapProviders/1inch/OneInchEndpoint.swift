@@ -18,6 +18,7 @@ enum OneInchEndpoint: EndpointType {
 	internal func request() throws -> URLRequest {
 		var request = URLRequest(url: url)
 		request.httpMethod = httpMethod.rawValue
+		request.addHeaders(headers)
 
 		try task.configParams(&request)
 
@@ -27,7 +28,7 @@ enum OneInchEndpoint: EndpointType {
 	// MARK: - Internal Properties
 
 	internal var url: URL {
-		URL(string: "https://api.1inch.io/v5.2/1")!.appendingPathComponent(path)
+		URL(string: "https://api.1inch.dev/swap/v5.2/1")!.appendingPathComponent(path)
 	}
 
 	internal var path: String {
@@ -66,7 +67,7 @@ enum OneInchEndpoint: EndpointType {
 	internal var headers: HTTPHeaders {
 		[
 			"Content-Type": "application/json",
-			"X-API-TOKEN": "token",
+			"Authorization": "Bearer AxIefdGmS0lfJrpoDePmcClFZQxmR4ml",
 		]
 	}
 }

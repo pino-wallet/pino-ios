@@ -5,6 +5,7 @@
 //  Created by Sobhan Eskandari on 8/19/23.
 //
 
+import BigInt
 import Foundation
 import PromiseKit
 import Web3
@@ -29,12 +30,13 @@ public struct W3GasInfoManager {
 	}
 
 	private var walletManager = PinoWalletManager()
+	private let pinoProxyAdd = Web3Core.Constants.pinoProxyAddress
 
 	// MARK: - Public Methods
 
 	public func calculateGasOf(
 		method: ABIMethodWrite,
-		contract: SolidityInvocation,
+		solInvoc: SolidityInvocation,
 		contractAddress: EthereumAddress
 	) -> Promise<GasInfo> {
 		Promise<GasInfo>() { seal in
@@ -46,7 +48,7 @@ public struct W3GasInfoManager {
 				web3.eth.getTransactionCount(address: myPrivateKey.address, block: .latest).map { ($0, gasPrice) }
 			}.then { nonce, gasPrice in
 				try transactionManager.createTransactionFor(
-					contract: contract,
+					contract: solInvoc,
 					nonce: nonce,
 					gasPrice: gasPrice,
 					gasLimit: nil
@@ -86,41 +88,18 @@ public struct W3GasInfoManager {
 	}
 
 	public func calculateSendERCGasFee(
-		recipient address: String,
+		recipient: String,
 		amount: BigUInt,
 		tokenContractAddress: String
 	) -> Promise<GasInfo> {
 		Promise<GasInfo>() { seal in
 			firstly {
-				let to: EthereumAddress = try! EthereumAddress(hex: address, eip55: false)
-				let checksumTo = try! EthereumAddress(hex: to.hex(eip55: true), eip55: true)
-				let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, web3: web3)
-				let solInvocation = contract[ABIMethodWrite.transfer.rawValue]!(checksumTo, amount)
-				return gasInfoManager.calculateGasOf(method: .transfer, contract: solInvocation, contractAddress: checksumTo)
-			}.done { trxGasInfo in
-				let gasInfo = GasInfo(gasPrice: trxGasInfo.gasPrice, gasLimit: trxGasInfo.gasLimit)
-				seal.fulfill(gasInfo)
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
-	}
-
-	public func calculateApproveFee(
-		spender: String,
-		amount: BigUInt,
-		tokenContractAddress: String
-	) -> Promise<GasInfo> {
-		Promise<GasInfo>() { seal in
-			firstly {
-				let spender: EthereumAddress = try! EthereumAddress(hex: spender, eip55: true)
-				let contractAddress: EthereumAddress = try! EthereumAddress(hex: tokenContractAddress, eip55: true)
-				let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, web3: web3)
-				let solInvocation = contract[ABIMethodWrite.approve.rawValue]!(spender, amount)
+				let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, abi: .erc, web3: web3)
+				let solInvocation = contract[ABIMethodWrite.transfer.rawValue]!(recipient.eip55Address!, amount)
 				return gasInfoManager.calculateGasOf(
-					method: .approve,
-					contract: solInvocation,
-					contractAddress: contractAddress
+					method: .transfer,
+					solInvoc: solInvocation,
+					contractAddress: contract.address!
 				)
 			}.done { trxGasInfo in
 				seal.fulfill(trxGasInfo)

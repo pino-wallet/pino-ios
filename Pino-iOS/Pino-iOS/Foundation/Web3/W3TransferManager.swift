@@ -29,62 +29,56 @@ public struct W3TransferManager {
 		.init(web3: web3)
 	}
 
-	// MARK: - Public Methods
-
-	public func approveContract(address: String, amount: BigUInt, spender: String, sendTrx: Bool) -> Promise<String> {
-		Promise<String> { seal in
-			if sendTrx {
-				getApproveTransaction(address: address, amount: amount, spender: spender).then { signedTrx in
-					web3.eth.sendRawTransaction(transaction: signedTrx)
-				}.done { trxHash in
-					seal.fulfill(trxHash.hex())
-				}.catch { error in
-					print(error)
-				}
-			} else {
-				getApproveTransaction(address: address, amount: amount, spender: spender).done { signedTrx in
-					seal.fulfill(signedTrx.data.hex())
-				}.catch { error in
-					print(error)
-				}
-			}
-		}
+	private var userPrivateKey: EthereumPrivateKey {
+		try! EthereumPrivateKey(
+			hexPrivateKey: walletManager.currentAccountPrivateKey
+				.string
+		)
 	}
 
-	private func getApproveTransaction(
-		address: String,
-		amount: BigUInt,
-		spender: String
-	) -> Promise<EthereumSignedTransaction> {
-		Promise<EthereumSignedTransaction> { seal in
-			gasInfoManager.calculateApproveFee(spender: spender, amount: amount, tokenContractAddress: address)
-				.then { [self] gasInfo in
-					let privateKey = try EthereumPrivateKey(
-						hexPrivateKey: walletManager.currentAccountPrivateKey
-							.string
-					)
-					return web3.eth.getTransactionCount(address: privateKey.address, block: .latest)
-						.map { ($0, gasInfo) }
-				}
-				.done { [self] nonce, gasInfo in
-					let myPrivateKey = try EthereumPrivateKey(
-						hexPrivateKey: walletManager.currentAccountPrivateKey
-							.string
-					)
-					let contract = try Web3Core.getContractOfToken(address: address, web3: web3)
-					let solInvocation = contract[ABIMethodWrite.approve.rawValue]?(spender, amount)
-					let trx = try trxManager.createTransactionFor(
-						contract: solInvocation!,
-						nonce: nonce,
-						gasPrice: gasInfo.gasPrice.etherumQuantity,
-						gasLimit: gasInfo.gasLimit.etherumQuantity
-					)
+	// MARK: - Public Methods
 
-					let signedTx = try trx.sign(with: myPrivateKey, chainId: 1)
-					seal.fulfill(signedTx)
-				}.catch { error in
-					seal.reject(error)
-				}
+	public func getPermitTransferFromCallData(amount: BigUInt) -> Promise<String> {
+		Promise<String>() { [self] seal in
+
+			let contract = try Web3Core.getContractOfToken(
+				address: Web3Core.Constants.pinoProxyAddress,
+				abi: .swap,
+				web3: web3
+			)
+			let reqNonce: BigUInt = 3_456_789
+			let deadline: BigUInt = 23456
+			let spender = Web3Core.Constants.pinoProxyAddress.eip55Address!
+			let solInvocation = contract[ABIMethodWrite.permitTransferFrom.rawValue]?(
+				reqNonce,
+				deadline,
+				spender,
+				amount
+			)
+
+			gasInfoManager.calculateGasOf(
+				method: .permitTransferFrom,
+				solInvoc: solInvocation!,
+				contractAddress: contract.address!
+			)
+			.then { [self] gasInfo in
+				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+					.map { ($0, gasInfo) }
+			}
+			.done { [self] nonce, gasInfo in
+
+				let trx = try trxManager.createTransactionFor(
+					contract: solInvocation!,
+					nonce: nonce,
+					gasPrice: gasInfo.gasPrice.etherumQuantity,
+					gasLimit: gasInfo.gasLimit.etherumQuantity
+				)
+
+				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
+				seal.fulfill(signedTx.data.hex())
+			}.catch { error in
+				seal.reject(error)
+			}
 		}
 	}
 
@@ -95,27 +89,20 @@ public struct W3TransferManager {
 	) -> Promise<String> {
 		Promise<String>() { [self] seal in
 
-			gasInfoManager.calculateSendERCGasFee(
-				recipient: address,
-				amount: amount,
-				tokenContractAddress: tokenContractAddress
+			let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, abi: .erc, web3: web3)
+			let to = try EthereumAddress(hex: address, eip55: true)
+			let solInvocation = contract[ABIMethodWrite.transfer.rawValue]?(to, amount)
+
+			gasInfoManager.calculateGasOf(
+				method: .transfer,
+				solInvoc: solInvocation!,
+				contractAddress: contract.address!
 			)
 			.then { [self] gasInfo in
-				let privateKey = try EthereumPrivateKey(
-					hexPrivateKey: walletManager.currentAccountPrivateKey
-						.string
-				)
-				return web3.eth.getTransactionCount(address: privateKey.address, block: .latest)
+				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 					.map { ($0, gasInfo) }
 			}
 			.then { [self] nonce, gasInfo in
-				let myPrivateKey = try EthereumPrivateKey(
-					hexPrivateKey: walletManager.currentAccountPrivateKey
-						.string
-				)
-				let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, web3: web3)
-				let to = try EthereumAddress(hex: address, eip55: true)
-				let solInvocation = contract[ABIMethodWrite.transfer.rawValue]?(to, amount)
 				let trx = try trxManager.createTransactionFor(
 					contract: solInvocation!,
 					nonce: nonce,
@@ -123,7 +110,7 @@ public struct W3TransferManager {
 					gasLimit: gasInfo.gasLimit.etherumQuantity
 				)
 
-				let signedTx = try trx.sign(with: myPrivateKey, chainId: 1)
+				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
 				return web3.eth.sendRawTransaction(transaction: signedTx)
 			}.done { txHash in
 				seal.fulfill(txHash.hex())
