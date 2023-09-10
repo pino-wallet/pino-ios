@@ -73,13 +73,24 @@ class InvestmentBoardViewController: UIViewController {
 
 	private func openInvestPage(selectedAsset: AssetsBoardProtocol) {
 		if let investableAsset = selectedAsset as? InvestableAssetViewModel {
-			let riskPerformanceVC = InvestmentRiskPerformanceViewController(investableAsset: investableAsset) {
-				let investVC = InvestDepositViewController(selectedAsset: investableAsset)
-				let investNavigationVC = UINavigationController(rootViewController: investVC)
-				self.present(investNavigationVC, animated: true)
-			}
-			present(riskPerformanceVC, animated: true)
+			openInvestabelAssetPage(investableAsset)
+		} else if let userInvestment = selectedAsset as? InvestAssetViewModel {
+			openInvestmentDetailPage(userInvestment)
 		}
+	}
+
+	private func openInvestmentDetailPage(_ userInvestment: InvestAssetViewModel) {
+		let investmentDetailVC = InvestmentDetailViewController(selectedAsset: userInvestment)
+		navigationController?.pushViewController(investmentDetailVC, animated: true)
+	}
+
+	private func openInvestabelAssetPage(_ investableAsset: InvestableAssetViewModel) {
+		let riskPerformanceVC = InvestmentRiskPerformanceViewController(investableAsset: investableAsset) {
+			let investVC = InvestDepositViewController(selectedAsset: investableAsset)
+			let investNavigationVC = UINavigationController(rootViewController: investVC)
+			self.present(investNavigationVC, animated: true)
+		}
+		present(riskPerformanceVC, animated: true)
 	}
 
 	private func openFilterPage() {
