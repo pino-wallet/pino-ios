@@ -10,11 +10,13 @@ import UIKit
 class InvestmentDetailViewController: UIViewController {
 	// MARK: - Private Properties
 
+	private let selectedAsset: InvestAssetViewModel
 	private let investmentDetailsVM: InvestmentDetailViewModel
 
 	// MARK: - Initializers
 
 	init(selectedAsset: InvestAssetViewModel) {
+		self.selectedAsset = selectedAsset
 		self.investmentDetailsVM = InvestmentDetailViewModel(selectedAsset: selectedAsset)
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -50,6 +52,19 @@ class InvestmentDetailViewController: UIViewController {
 
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
-		setNavigationTitle("investment details")
+		setNavigationTitle(investmentDetailsVM.pageTitle)
+		navigationItem.rightBarButtonItem = UIBarButtonItem(
+			image: UIImage(named: "chart"),
+			style: .plain,
+			target: self,
+			action: #selector(openChartPage)
+		)
+	}
+
+	@objc
+	private func openChartPage() {
+		let coinPerformanceVC = InvestCoinPerformanceViewController(selectedAsset: selectedAsset)
+		let coinPerformanceNavigationVC = UINavigationController(rootViewController: coinPerformanceVC)
+		present(coinPerformanceNavigationVC, animated: true)
 	}
 }
