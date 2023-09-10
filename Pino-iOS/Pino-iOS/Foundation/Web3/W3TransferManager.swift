@@ -39,24 +39,23 @@ public struct W3TransferManager {
 	// MARK: - Public Methods
 
 	public func getPermitTransferFromCallData(amount: BigUInt) -> Promise<String> {
-		
-        Promise<String>() { [self] seal in
-            
-            let contract = try Web3Core.getContractOfToken(
-                address: Web3Core.Constants.pinoProxyAddress,
-                abi: .swap,
-                web3: web3
-            )
-            let reqNonce: BigUInt = 3_456_789
-            let deadline: BigUInt = 23456
-            let spender = Web3Core.Constants.pinoProxyAddress.eip55Address!
-            let solInvocation = contract[ABIMethodWrite.permitTransferFrom.rawValue]?(
-                reqNonce,
-                deadline,
-                spender,
-                amount
-            )
-            
+		Promise<String>() { [self] seal in
+
+			let contract = try Web3Core.getContractOfToken(
+				address: Web3Core.Constants.pinoProxyAddress,
+				abi: .swap,
+				web3: web3
+			)
+			let reqNonce: BigUInt = 3_456_789
+			let deadline: BigUInt = 23456
+			let spender = Web3Core.Constants.pinoProxyAddress.eip55Address!
+			let solInvocation = contract[ABIMethodWrite.permitTransferFrom.rawValue]?(
+				reqNonce,
+				deadline,
+				spender,
+				amount
+			)
+
 			gasInfoManager.calculateGasOf(
 				method: .permitTransferFrom,
 				solInvoc: solInvocation!,
@@ -88,16 +87,19 @@ public struct W3TransferManager {
 		amount: BigUInt,
 		tokenContractAddress: String
 	) -> Promise<String> {
-		
-        Promise<String>() { [self] seal in
+		Promise<String>() { [self] seal in
 
-            let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, abi: .erc, web3: web3)
-            let to = try EthereumAddress(hex: address, eip55: true)
-            let solInvocation = contract[ABIMethodWrite.transfer.rawValue]?(to, amount)
-            
-            gasInfoManager.calculateGasOf(method: .transfer, solInvoc: solInvocation!, contractAddress: contract.address!)
+			let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, abi: .erc, web3: web3)
+			let to = try EthereumAddress(hex: address, eip55: true)
+			let solInvocation = contract[ABIMethodWrite.transfer.rawValue]?(to, amount)
+
+			gasInfoManager.calculateGasOf(
+				method: .transfer,
+				solInvoc: solInvocation!,
+				contractAddress: contract.address!
+			)
 			.then { [self] gasInfo in
-				return web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 					.map { ($0, gasInfo) }
 			}
 			.then { [self] nonce, gasInfo in
@@ -116,7 +118,6 @@ public struct W3TransferManager {
 				seal.reject(error)
 			}
 		}
-        
 	}
 
 	public func sendEtherTo(recipient address: String, amount: BigUInt) -> Promise<String> {

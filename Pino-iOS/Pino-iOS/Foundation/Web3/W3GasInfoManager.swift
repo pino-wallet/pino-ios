@@ -86,23 +86,26 @@ public struct W3GasInfoManager {
 			}
 		}
 	}
-    
-    public func calculateSendERCGasFee(
-        recipient: String,
-        amount: BigUInt,
-        tokenContractAddress: String
-    ) -> Promise<GasInfo> {
-        Promise<GasInfo>() { seal in
-            firstly {
-                let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, abi: .erc, web3: web3)
-                let solInvocation = contract[ABIMethodWrite.transfer.rawValue]!(recipient.eip55Address!, amount)
-                return gasInfoManager.calculateGasOf(method: .transfer, solInvoc: solInvocation, contractAddress: contract.address!)
-            }.done { trxGasInfo in
-                seal.fulfill(trxGasInfo)
-            }.catch { error in
-                seal.reject(error)
-            }
-        }
-    }
 
+	public func calculateSendERCGasFee(
+		recipient: String,
+		amount: BigUInt,
+		tokenContractAddress: String
+	) -> Promise<GasInfo> {
+		Promise<GasInfo>() { seal in
+			firstly {
+				let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, abi: .erc, web3: web3)
+				let solInvocation = contract[ABIMethodWrite.transfer.rawValue]!(recipient.eip55Address!, amount)
+				return gasInfoManager.calculateGasOf(
+					method: .transfer,
+					solInvoc: solInvocation,
+					contractAddress: contract.address!
+				)
+			}.done { trxGasInfo in
+				seal.fulfill(trxGasInfo)
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
 }
