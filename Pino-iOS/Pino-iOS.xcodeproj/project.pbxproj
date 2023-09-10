@@ -336,6 +336,10 @@
 		D94A9A2029FE6C4E00DCA28D /* EditAccountNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A1F29FE6C4E00DCA28D /* EditAccountNameViewController.swift */; };
 		D94A9A2229FE6CDA00DCA28D /* EditAccountNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A2129FE6CDA00DCA28D /* EditAccountNameView.swift */; };
 		D94A9A2429FE75FC00DCA28D /* EditAccountNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A2329FE75FC00DCA28D /* EditAccountNameViewModel.swift */; };
+		D95D20342AAC9B2E00E0A885 /* HealthScoreSystemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95D20332AAC9B2E00E0A885 /* HealthScoreSystemViewController.swift */; };
+		D95D20362AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95D20352AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift */; };
+		D95D20392AAC9C0C00E0A885 /* HealthScoreZoneDotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95D20382AAC9C0B00E0A885 /* HealthScoreZoneDotView.swift */; };
+		D95D203B2AAC9C1700E0A885 /* HealthScoreZoneStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95D203A2AAC9C1700E0A885 /* HealthScoreZoneStackView.swift */; };
 		D95D49822A386BC10042FC85 /* TitleWithInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95D49812A386BC10042FC85 /* TitleWithInfo.swift */; };
 		D964AC6B0907B2432359A129 /* GroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D7CE3AA42604B8F78EA87C /* GroupCollectionViewCell.swift */; };
 		D966D5912A9F3912007E63A1 /* PinoRightSideImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D966D5902A9F3912007E63A1 /* PinoRightSideImageButton.swift */; };
@@ -1019,6 +1023,10 @@
 		D94A9A1F29FE6C4E00DCA28D /* EditAccountNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameViewController.swift; sourceTree = "<group>"; };
 		D94A9A2129FE6CDA00DCA28D /* EditAccountNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameView.swift; sourceTree = "<group>"; };
 		D94A9A2329FE75FC00DCA28D /* EditAccountNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameViewModel.swift; sourceTree = "<group>"; };
+		D95D20332AAC9B2E00E0A885 /* HealthScoreSystemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthScoreSystemViewController.swift; sourceTree = "<group>"; };
+		D95D20352AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthScoreSystemViewModel.swift; sourceTree = "<group>"; };
+		D95D20382AAC9C0B00E0A885 /* HealthScoreZoneDotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthScoreZoneDotView.swift; sourceTree = "<group>"; };
+		D95D203A2AAC9C1700E0A885 /* HealthScoreZoneStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthScoreZoneStackView.swift; sourceTree = "<group>"; };
 		D95D49812A386BC10042FC85 /* TitleWithInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithInfo.swift; sourceTree = "<group>"; };
 		D966D5902A9F3912007E63A1 /* PinoRightSideImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoRightSideImageButton.swift; sourceTree = "<group>"; };
 		D966D5922A9F3950007E63A1 /* PinoRightSideImageButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoRightSideImageButtonStyle.swift; sourceTree = "<group>"; };
@@ -1740,6 +1748,7 @@
 		4037DCC82A8BD57B00FCA96B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D95D20372AAC9BF100E0A885 /* HealthScoreSystem */,
 				D933C32B2A99F36600C2BD5A /* CollateralizingBoard */,
 				D9A0BDA62A974A4A00AE132F /* BorrowingBoard */,
 				4037DCCB2A8BD65600FCA96B /* ApproveContractView.swift */,
@@ -1782,6 +1791,7 @@
 				D9D462D42AA466990010ED76 /* RepayConfirmViewController.swift */,
 				D9CD890C2AA46A4F00D6520B /* WithdrawConfirmViewController.swift */,
 				D9176F162AA46E68007D4DBC /* CollateralConfirmViewController.swift */,
+				D95D20332AAC9B2E00E0A885 /* HealthScoreSystemViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1807,6 +1817,7 @@
 				D9D462D82AA466B20010ED76 /* RepayConfirmViewModel.swift */,
 				D9CD89082AA4699300D6520B /* WithdrawConfirmViewModel.swift */,
 				D9176F122AA46DD2007D4DBC /* CollateralConfirmViewModel.swift */,
+				D95D20352AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2665,6 +2676,15 @@
 				D933C3382A99F6A600C2BD5A /* CollateralizableAssetCell.swift */,
 			);
 			path = CollateralizingBoard;
+			sourceTree = "<group>";
+		};
+		D95D20372AAC9BF100E0A885 /* HealthScoreSystem */ = {
+			isa = PBXGroup;
+			children = (
+				D95D20382AAC9C0B00E0A885 /* HealthScoreZoneDotView.swift */,
+				D95D203A2AAC9C1700E0A885 /* HealthScoreZoneStackView.swift */,
+			);
+			path = HealthScoreSystem;
 			sourceTree = "<group>";
 		};
 		D95D49802A386BB00042FC85 /* TitleWithInfo */ = {
@@ -3891,6 +3911,7 @@
 				4037DCCE2A8BD93200FCA96B /* ApproveContractViewModel.swift in Sources */,
 				E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */,
 				E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */,
+				D95D20342AAC9B2E00E0A885 /* HealthScoreSystemViewController.swift in Sources */,
 				D9BE15B02A693593005E4063 /* SwapActivityDetailsViewModel.swift in Sources */,
 				D98355D72A9A1D4000294DCF /* BorrowLoanDetailsView.swift in Sources */,
 				D99CAFCB2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift in Sources */,
@@ -4123,6 +4144,7 @@
 				E3FC69B72A8A3605009B3341 /* InvestProtocolViewModel.swift in Sources */,
 				7CF95B0F99AE30C81601CFAA /* GradientLayer.swift in Sources */,
 				D93C41FD29F7D298003F2297 /* EditAccountViewModel.swift in Sources */,
+				D95D20392AAC9C0C00E0A885 /* HealthScoreZoneDotView.swift in Sources */,
 				D964AC6B0907B2432359A129 /* GroupCollectionViewCell.swift in Sources */,
 				FBEBDE533CAA644C5EF987A1 /* HDWallet+Extension.swift in Sources */,
 				E3FC69CE2A90AF90009B3341 /* AssetsBoardProtocol.swift in Sources */,
@@ -4167,6 +4189,7 @@
 				403691BE2A3DFFB60013AB6D /* ToastView.swift in Sources */,
 				763F91967E4347D64BD561C4 /* KeychainHelper.swift in Sources */,
 				D916A8C02A9F5F0200F391B5 /* RepayAmountViewModel.swift in Sources */,
+				D95D20362AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift in Sources */,
 				7F79C44B5BF6EB8B1D1674A0 /* KeychainWrapperProtocol.swift in Sources */,
 				D916A8C62A9F647700F391B5 /* CollateralIncreaseAmountView.swift in Sources */,
 				D9A0BDBA2A975E2200AE132F /* BorrowableAssetCell.swift in Sources */,
@@ -4382,6 +4405,7 @@
 				BA5A805884B41CA1F182245E /* TabBarViewController.swift in Sources */,
 				E384CB1229F6A931009C74F5 /* CoinPerformanceInfoView.swift in Sources */,
 				E25F4C14C3273F63F22E983C /* UIView+Extension.swift in Sources */,
+				D95D203B2AAC9C1700E0A885 /* HealthScoreZoneStackView.swift in Sources */,
 				403691BD2A3DFFB60013AB6D /* ToastDelegate.swift in Sources */,
 				40F704592A03D5DC004D74FE /* PrivateKeyTextView.swift in Sources */,
 				8F2B1AD252EE32B2F328105B /* URLParameterEncoding.swift in Sources */,

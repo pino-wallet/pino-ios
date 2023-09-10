@@ -15,6 +15,7 @@ class BorrowViewModel {
 	@Published
 	public var userBorrowingDetails: UserBorrowingModel? = nil
 
+    public let alertIconName = "alert"
 	public let dismissIconName = "dissmiss"
 	public let pageTitle = "Borrow"
 	public let collateralTitle = "Collateral"
@@ -62,7 +63,7 @@ class BorrowViewModel {
 			}
 		} receiveValue: { userBorrowingDetails in
 			#warning("this is for loading test")
-			DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+			DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
 				self.userBorrowingDetails = userBorrowingDetails
 			}
 		}.store(in: &cancellables)

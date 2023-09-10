@@ -10,7 +10,7 @@ import UIKit
 class BorrowView: UIView {
 	// MARK: - Closures
 
-	public var presentHealthScoreActionsheet: (_ actionSheet: InfoActionSheet) -> Void
+	public var presentHealthScoreActionsheet: (_ actionSheet: HealthScoreSystemViewController) -> Void
 	public var presentSelectDexSystem: () -> Void
 	public var presentBorrowingBoardVC: () -> Void
 	public var presentCollateralizingBoardVC: () -> Void
@@ -24,10 +24,12 @@ class BorrowView: UIView {
 	private let healthScoreBetweenView = UIView()
 	private let healthScoreStatusDotView = UIView()
 	private let healthScoreNumberLabel = UILabel()
+    private let healthScoreInfoStackView = UIStackView()
+    private let healthScoreTitleLabel = PinoLabel(style: .info, text: "")
+    private let healthScoreInfoImageView = UIImageView()
 	private var startBorrowView: StartBorrowingView!
 	private var startCollateralView: StartBorrowingView!
 	private var selectDexSystemView: SelectDexSystemView!
-	private var healthScoreTitleAndInfoView: TitleWithInfo!
 	private var collateralDetailsView: BorrowingDetailsView!
 	private var borrowDetailsView: BorrowingDetailsView!
 	private var borrowVM: BorrowViewModel
@@ -38,7 +40,7 @@ class BorrowView: UIView {
 
 	init(
 		borrowVM: BorrowViewModel,
-		presentHealthScoreActionsheet: @escaping (_ actionSheet: InfoActionSheet) -> Void,
+		presentHealthScoreActionsheet: @escaping (_ actionSheet: HealthScoreSystemViewController) -> Void,
 		presentSelectDexSystem: @escaping () -> Void,
 		presentBorrowingBoardVC: @escaping () -> Void,
 		presentCollateralizingBoardVC: @escaping () -> Void
@@ -83,6 +85,10 @@ class BorrowView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
+        let healthScoreTapGesture = UITapGestureRecognizer(target: self, action: #selector(presentBorrowHealthScoreSystem))
+        healthScoreInfoImageView.addGestureRecognizer(healthScoreTapGesture)
+        healthScoreInfoImageView.isUserInteractionEnabled = true
+        
 		#warning("this should open selectDexProtocolVC")
 		selectDexSystemView = SelectDexSystemView(
 			title: borrowVM.selectedDexSystem.name,
@@ -91,14 +97,6 @@ class BorrowView: UIView {
 				self.presentSelectDexSystem()
 			}
 		)
-
-		healthScoreTitleAndInfoView = TitleWithInfo(
-			actionSheetTitle: borrowVM.healthScoreTitle,
-			actionSheetDescription: borrowVM.healthScoreTooltip
-		)
-		healthScoreTitleAndInfoView.presentActionSheet = { actionSheet in
-			self.presentHealthScoreActionsheet(actionSheet)
-		}
 
 		#warning("didTapactionButton closure should open another page later")
 		startBorrowView = StartBorrowingView(
@@ -130,8 +128,11 @@ class BorrowView: UIView {
 				self.presentCollateralizingBoardVC()
 			})
 
+        healthScoreInfoStackView.addArrangedSubview(healthScoreTitleLabel)
+        healthScoreInfoStackView.addArrangedSubview(healthScoreInfoImageView)
+        
 		healthScoreTitleStackView.addArrangedSubview(healthScoreStatusDotView)
-		healthScoreTitleStackView.addArrangedSubview(healthScoreTitleAndInfoView)
+		healthScoreTitleStackView.addArrangedSubview(healthScoreInfoStackView)
 
 		healthScoreContainerView.addSubview(healthScoreStackView)
 
@@ -157,10 +158,15 @@ class BorrowView: UIView {
 		mainStackView.setCustomSpacing(8, after: healthScoreContainerView)
 		mainStackView.setCustomSpacing(16, after: startCollateralView)
 		mainStackView.setCustomSpacing(16, after: collateralDetailsView)
+        
+        
+        healthScoreInfoStackView.axis = .horizontal
+        healthScoreInfoStackView.spacing = 2
 
-		healthScoreTitleAndInfoView.title = borrowVM.healthScoreTitle
-		healthScoreTitleAndInfoView.customTextFont = .PinoStyle.mediumSubheadline
-		healthScoreTitleAndInfoView.customTextColor = .Pino.label
+        healthScoreTitleLabel.font = .PinoStyle.mediumSubheadline
+        healthScoreTitleLabel.text = borrowVM.healthScoreTitle
+
+        healthScoreInfoImageView.image = UIImage(named: borrowVM.alertIconName)
 
 		healthScoreStackView.axis = .horizontal
 		healthScoreStackView.alignment = .center
@@ -187,6 +193,7 @@ class BorrowView: UIView {
 		)
 		healthScoreStackView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 8))
 		healthScoreStatusDotView.pin(.fixedWidth(14), .fixedHeight(14))
+        healthScoreInfoImageView.pin(.fixedWidth(16), .fixedHeight(16))
 	}
 
 	private func setupBindings() {
@@ -252,4 +259,13 @@ class BorrowView: UIView {
 	private func setupSkeletonViews() {
 		healthScoreTitleStackView.isSkeletonable = true
 	}
+    
+    @objc private func presentBorrowHealthScoreSystem() {
+        guard let currentHealthScore = borrowVM.userBorrowingDetails?.healthScore else {
+            return
+        }
+        let healthScoreSystemVM = HealthScoreSystemViewModel(healthScoreNumber: currentHealthScore)
+        let healthScoreSystemVC = HealthScoreSystemViewController(healthScoreSystemInfoVM: healthScoreSystemVM)
+        presentHealthScoreActionsheet(healthScoreSystemVC)
+    }
 }
