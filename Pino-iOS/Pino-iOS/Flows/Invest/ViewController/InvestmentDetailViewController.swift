@@ -10,9 +10,12 @@ import UIKit
 class InvestmentDetailViewController: UIViewController {
 	// MARK: - Private Properties
 
+	private let investmentDetailsVM: InvestmentDetailViewModel
+
 	// MARK: - Initializers
 
 	init(selectedAsset: InvestAssetViewModel) {
+		self.investmentDetailsVM = InvestmentDetailViewModel(selectedAsset: selectedAsset)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -38,7 +41,11 @@ class InvestmentDetailViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = UIView()
+		view = InvestmentDeatilsView(
+			investmentDetailsVM: investmentDetailsVM,
+			increaseInvestmentDidTap: {},
+			withdrawDidTap: {}
+		)
 	}
 
 	private func setupNavigationBar() {
