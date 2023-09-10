@@ -12,7 +12,6 @@ class InvestDepositViewModel {
 	// MARK: - Public Properties
 
 	public let maxTitle = "Available: "
-	public let continueButtonTitle = "Deposit"
 	public let insufficientAmountButtonTitle = "Insufficient amount"
 	public var textFieldPlaceHolder = "0"
 	public var estimatedReturnTitle = "Yearly estimated return"
@@ -21,13 +20,26 @@ class InvestDepositViewModel {
 	public var maxHoldAmount: BigNumber!
 	public var selectedToken: AssetViewModel!
 	public var selectedProtocol: InvestProtocolViewModel
+	public let isWithraw: Bool
 
 	public var formattedMaxHoldAmount: String {
 		maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
 
 	public var pageTitle: String {
-		"Invest in \(selectedToken.symbol)"
+		if isWithraw {
+			return "Withdraw \(selectedToken.symbol)"
+		} else {
+			return "Invest in \(selectedToken.symbol)"
+		}
+	}
+
+	public var continueButtonTitle: String {
+		if isWithraw {
+			return "Withdraw"
+		} else {
+			return "Deposit"
+		}
 	}
 
 	@Published
@@ -35,8 +47,9 @@ class InvestDepositViewModel {
 
 	// MARK: - Initializers
 
-	init(selectedAsset: InvestableAssetViewModel) {
-		self.selectedProtocol = selectedAsset.assetProtocol
+	init(selectedAsset: AssetsBoardProtocol, selectedProtocol: InvestProtocolViewModel, isWithraw: Bool) {
+		self.selectedProtocol = selectedProtocol
+		self.isWithraw = isWithraw
 		getToken(investableAsset: selectedAsset)
 	}
 
@@ -75,7 +88,7 @@ class InvestDepositViewModel {
 
 	// MARK: - Private Methods
 
-	private func getToken(investableAsset: InvestableAssetViewModel) {
+	private func getToken(investableAsset: AssetsBoardProtocol) {
 		let tokensList = GlobalVariables.shared.manageAssetsList!
 		selectedToken = tokensList.first(where: { $0.symbol == investableAsset.assetName })!
 		maxHoldAmount = selectedToken.holdAmount
