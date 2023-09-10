@@ -175,9 +175,9 @@ class BorrowView: UIView {
 	}
 
 	private func setupConstraints() {
-        healthScoreTitleStackViewHeightConstraint = healthScoreTitleStackView.heightAnchor
-            .constraint(equalToConstant: 13)
-        
+		healthScoreTitleStackViewHeightConstraint = healthScoreTitleStackView.heightAnchor
+			.constraint(equalToConstant: 13)
+
 		healthScoreNumberLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 100).isActive = true
 		healthScoreStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 22).isActive = true
 
@@ -193,10 +193,10 @@ class BorrowView: UIView {
 		borrowVM.$userBorrowingDetails.sink { userBorrowingDetails in
 			guard let newUserBorrowingDetails = userBorrowingDetails else {
 				self.showCollateralAndBorrowDetails()
-                self.showLoading()
+				self.showLoading()
 				return
 			}
-            self.hideLoading()
+			self.hideLoading()
 			self.updateHealthScoreValue(healthScore: newUserBorrowingDetails.healthScore)
 			self.updateHealthScoreColors(healthScore: newUserBorrowingDetails.healthScore)
 			self.updatePageStatus(userBorrowingDetails: newUserBorrowingDetails)

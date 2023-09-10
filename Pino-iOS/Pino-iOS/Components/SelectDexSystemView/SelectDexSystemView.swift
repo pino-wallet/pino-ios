@@ -104,8 +104,8 @@ class SelectDexSystemView: UIView {
 	}
 
 	private func setupConstraints() {
-        dexProtocolTitleLabelHeightConstraint = dexProtocolTitleLabel.heightAnchor.constraint(equalToConstant: 15)
-        
+		dexProtocolTitleLabelHeightConstraint = dexProtocolTitleLabel.heightAnchor.constraint(equalToConstant: 15)
+
 		dexProtocolTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
 
 		containerView.pin(.allEdges(padding: 0))

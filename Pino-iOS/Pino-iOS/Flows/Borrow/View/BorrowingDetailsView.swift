@@ -102,10 +102,10 @@ class BorrowingDetailsView: UIView {
 	}
 
 	private func setupConstraints() {
-        titleLabelHeightConstraint = titleLabel.heightAnchor.constraint(equalToConstant: 14)
+		titleLabelHeightConstraint = titleLabel.heightAnchor.constraint(equalToConstant: 14)
 
-        amountLabelHeightConstraint = amountLabel.heightAnchor.constraint(equalToConstant: 30)
-        
+		amountLabelHeightConstraint = amountLabel.heightAnchor.constraint(equalToConstant: 30)
+
 		titleStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 
 		amountStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 41).isActive = true
