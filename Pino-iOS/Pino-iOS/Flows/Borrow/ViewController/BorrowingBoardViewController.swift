@@ -61,9 +61,9 @@ class BorrowingBoardViewController: UIViewController {
 		borrowingBoardView = BorrowingBoradView(borrowingBoardVM: borrowingBoardVM, assetDidSelect: { selectedAssetVM in
 			if (selectedAssetVM as? UserBorrowingAssetViewModel) != nil {
 				self.presentBorrowLoanDetailsVC()
-            } else {
-                self.pushToBorrowIncreaseAmountPage()
-            }
+			} else {
+				self.pushToBorrowIncreaseAmountPage()
+			}
 		})
 
 		view = borrowingBoardView
@@ -86,12 +86,12 @@ class BorrowingBoardViewController: UIViewController {
 		navigationVC.viewControllers = [borrowLoanDetailsVC]
 		present(navigationVC, animated: true)
 	}
-    
-    #warning("this is for test")
-    private func pushToBorrowIncreaseAmountPage() {
-        let borrowIncreaseAmountVC = BorrowIncreaseAmountViewController()
-        navigationController?.pushViewController(borrowIncreaseAmountVC, animated: true)
-    }
+
+	#warning("this is for test")
+	private func pushToBorrowIncreaseAmountPage() {
+		let borrowIncreaseAmountVC = BorrowIncreaseAmountViewController()
+		navigationController?.pushViewController(borrowIncreaseAmountVC, animated: true)
+	}
 
 	@objc
 	private func dismissSelf() {
