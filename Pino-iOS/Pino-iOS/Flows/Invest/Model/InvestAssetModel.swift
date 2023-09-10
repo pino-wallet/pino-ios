@@ -17,7 +17,6 @@ struct InvestAssetModel {
 	public let assetAmount: String
 	public let assetPrice: String
 	public let apyAmount: String
-	public let earnedFee: String
 	public let assetVolatility: String
 	public let decimal = 10
 }

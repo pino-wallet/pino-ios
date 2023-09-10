@@ -14,6 +14,14 @@ struct InvestmentDetailViewModel {
 
 	// MARK: - Public Properties
 
+	public let selectedProtocolTitle = "Protocol"
+	public let apyTitle = "APY"
+	public let investmentAmountTitle = "Investment"
+	public let feeTitle = "Earned fee"
+	public let totalAmountTitle = "Total amount"
+	public let increaseInvestmentButtonTitle = "Increase investment"
+	public let withdrawButtonTitle = "Withdraw"
+
 	public var pageTitle: String {
 		"\(assetName) investment details"
 	}
@@ -51,11 +59,16 @@ struct InvestmentDetailViewModel {
 	}
 
 	public var earnedFee: String {
-		selectedAsset.formattedEarnedFee
+		selectedAsset.formattedAssetVolatility
 	}
 
 	public var totalInvestmentAmount: String {
-		selectedAsset.formattedTotalInvestmentAmount
+		let totalAmount = selectedAsset.assetAmount + selectedAsset.assetVolatility
+		return totalAmount.priceFormat
+	}
+
+	public var investVolatilityType: AssetVolatilityType {
+		selectedAsset.volatilityType
 	}
 
 	// MARK: Initializers

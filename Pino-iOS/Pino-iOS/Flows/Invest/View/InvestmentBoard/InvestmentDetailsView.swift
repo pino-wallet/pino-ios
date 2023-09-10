@@ -120,13 +120,13 @@ class InvestmentDeatilsView: UIView {
 		feeLabel.text = investmentDetailsVM.earnedFee
 		totalAmountLabel.text = investmentDetailsVM.totalInvestmentAmount
 
-		selectedProtocolTitleLabel.text = "Protocol"
-		apyTitleLabel.text = "APY"
-		investmentAmountTitleLabel.text = "Investment"
-		feeTitleLabel.text = "Earned fee"
-		totalAmountTitleLabel.text = "Toatl amount"
-		increaseInvestmentButton.title = "Increase investment"
-		withdrawButton.title = "Withdraw"
+		selectedProtocolTitleLabel.text = investmentDetailsVM.selectedProtocolTitle
+		apyTitleLabel.text = investmentDetailsVM.apyTitle
+		investmentAmountTitleLabel.text = investmentDetailsVM.investmentAmountTitle
+		feeTitleLabel.text = investmentDetailsVM.feeTitle
+		totalAmountTitleLabel.text = investmentDetailsVM.totalAmountTitle
+		increaseInvestmentButton.title = investmentDetailsVM.increaseInvestmentButtonTitle
+		withdrawButton.title = investmentDetailsVM.withdrawButtonTitle
 
 		protocolImageView.image = UIImage(named: investmentDetailsVM.investProtocolImage)
 
@@ -154,10 +154,20 @@ class InvestmentDeatilsView: UIView {
 		feeTitleLabel.textColor = .Pino.secondaryLabel
 		totalAmountTitleLabel.textColor = .Pino.label
 		protoclNameLabel.textColor = .Pino.label
-		apyLabel.textColor = .Pino.green
 		investmentAmountLabel.textColor = .Pino.label
-		feeLabel.textColor = .Pino.green
 		totalAmountLabel.textColor = .Pino.label
+
+		switch investmentDetailsVM.investVolatilityType {
+		case .profit:
+			apyLabel.textColor = .Pino.green
+			feeLabel.textColor = .Pino.green
+		case .loss:
+			apyLabel.textColor = .Pino.red
+			feeLabel.textColor = .Pino.red
+		case .none:
+			apyLabel.textColor = .Pino.label
+			feeLabel.textColor = .Pino.label
+		}
 
 		backgroundColor = .Pino.background
 		totalAmountSeparatorLine.backgroundColor = .Pino.gray5

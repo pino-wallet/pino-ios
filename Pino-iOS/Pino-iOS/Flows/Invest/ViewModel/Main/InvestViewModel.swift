@@ -40,7 +40,6 @@ class InvestViewModel {
 				assetAmount: "5067000000000",
 				assetPrice: "61100000000",
 				apyAmount: "3",
-				earnedFee: "1000000000000",
 				assetVolatility: "-230000000000"
 			),
 			InvestAssetModel(
@@ -50,7 +49,6 @@ class InvestViewModel {
 				assetAmount: "302500000000",
 				assetPrice: "552000000000",
 				apyAmount: "1",
-				earnedFee: "800000000000",
 				assetVolatility: "140000000000"
 			),
 			InvestAssetModel(
@@ -60,7 +58,6 @@ class InvestViewModel {
 				assetAmount: "1330000000000",
 				assetPrice: "11000000000",
 				apyAmount: "1",
-				earnedFee: "200000000000",
 				assetVolatility: "180000000000"
 			),
 			InvestAssetModel(
@@ -70,7 +67,6 @@ class InvestViewModel {
 				assetAmount: "105800000000",
 				assetPrice: "42800000000",
 				apyAmount: "4",
-				earnedFee: "80000000000",
 				assetVolatility: "-310000000000"
 			),
 		]

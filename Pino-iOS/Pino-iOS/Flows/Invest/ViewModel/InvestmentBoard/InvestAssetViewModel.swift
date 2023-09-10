@@ -63,22 +63,6 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 		assetModel.apyAmount
 	}
 
-	public var earnedFee: BigNumber {
-		BigNumber(number: assetModel.earnedFee, decimal: assetModel.decimal)
-	}
-
-	public var formattedEarnedFee: String {
-		earnedFee.priceFormat
-	}
-
-	public var totalInvestmentAmount: BigNumber {
-		assetAmount + earnedFee
-	}
-
-	public var formattedTotalInvestmentAmount: String {
-		totalInvestmentAmount.priceFormat
-	}
-
 	// MARK: - Initializers
 
 	init(assetModel: InvestAssetModel) {
