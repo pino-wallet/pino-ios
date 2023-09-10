@@ -143,8 +143,7 @@ class HomepageViewController: UIViewController {
 	private func openSendAssetPage() {
 		if let assetsList = GlobalVariables.shared.selectedManageAssetsList {
 			let navigationVC = UINavigationController()
-			let filteredAssetsList = assetsList.filter { !$0.holdAmount.isZero }
-			let selectAssetToSendVC = SelectAssetToSendViewController(assets: filteredAssetsList)
+			let selectAssetToSendVC = SelectAssetToSendViewController(assets: assetsList)
 			navigationVC.viewControllers = [selectAssetToSendVC]
 			present(navigationVC, animated: true)
 		}

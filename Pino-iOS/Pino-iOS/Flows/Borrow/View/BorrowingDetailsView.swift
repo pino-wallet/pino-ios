@@ -18,11 +18,15 @@ class BorrowingDetailsView: UIView {
 	private let mainStackView = UIStackView()
 	private let titleStackView = UIStackView()
 	private let titleLabel = PinoLabel(style: .description, text: "")
-	private let titleBetweenView = UIView()
+	private let titleSpacerView = UIView()
 	private let titleArrowImageView = UIImageView()
+	private let amountStackView = UIStackView()
 	private let amountLabel = PinoLabel(style: .title, text: "")
+	private let amountSpacerView = UIView()
 	private var borrowingTokensCollectionView: BorrowingTokensCollectionView!
 	private var borrowingDetailsVM: BorrowingDetailsViewModel
+	private var titleLabelHeightConstraint: NSLayoutConstraint!
+	private var amountLabelHeightConstraint: NSLayoutConstraint!
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
@@ -37,10 +41,25 @@ class BorrowingDetailsView: UIView {
 		setupStyles()
 		setupConstraints()
 		setupBindings()
+		setupSkeletonViews()
 	}
 
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+
+	// MARK: - Public Methods
+
+	public func showLoading() {
+		titleLabelHeightConstraint.isActive = true
+		amountLabelHeightConstraint.isActive = true
+		showSkeletonView()
+	}
+
+	public func hideLoading() {
+		titleLabelHeightConstraint.isActive = false
+		amountLabelHeightConstraint.isActive = false
+		hideSkeletonView()
 	}
 
 	// MARK: - Private Methods
@@ -52,13 +71,15 @@ class BorrowingDetailsView: UIView {
 		borrowingTokensCollectionView = BorrowingTokensCollectionView(borrowingDetailsVM: borrowingDetailsVM)
 
 		titleStackView.addArrangedSubview(titleLabel)
-		titleStackView.addArrangedSubview(titleBetweenView)
+		titleStackView.addArrangedSubview(titleSpacerView)
 		titleStackView.addArrangedSubview(titleArrowImageView)
 
+		amountStackView.addArrangedSubview(amountLabel)
+		amountStackView.addArrangedSubview(amountSpacerView)
+
 		mainStackView.addArrangedSubview(titleStackView)
-		mainStackView.addArrangedSubview(amountLabel)
+		mainStackView.addArrangedSubview(amountStackView)
 		mainStackView.addArrangedSubview(borrowingTokensCollectionView)
-		#warning("we should add assets progress bar collection view here")
 
 		containerView.addSubview(mainStackView)
 
@@ -72,7 +93,8 @@ class BorrowingDetailsView: UIView {
 		titleStackView.axis = .horizontal
 		titleStackView.alignment = .center
 
-		titleLabel.text = borrowingDetailsVM.titleText
+		amountStackView.axis = .horizontal
+		amountStackView.alignment = .center
 
 		titleArrowImageView.image = UIImage(named: borrowingDetailsVM.titleImage)?.withRenderingMode(.alwaysTemplate)
 
@@ -80,7 +102,17 @@ class BorrowingDetailsView: UIView {
 	}
 
 	private func setupConstraints() {
-		amountLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 41).isActive = true
+		titleLabelHeightConstraint = titleLabel.heightAnchor.constraint(equalToConstant: 14)
+
+		amountLabelHeightConstraint = amountLabel.heightAnchor.constraint(equalToConstant: 30)
+
+		titleStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
+
+		amountStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 41).isActive = true
+
+		amountLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 171).isActive = true
+
+		titleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 55).isActive = true
 
 		containerView.pin(.allEdges(padding: 0))
 		mainStackView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 24))
@@ -94,6 +126,7 @@ class BorrowingDetailsView: UIView {
 			}
 			self.updateAmountLabel(newAmount: newBorrowingDetailsProperties.borrowingAmount)
 			self.updateViewColors(borrowingDetailsProperties: newBorrowingDetailsProperties)
+			self.updateView(borrowingDetailsProperties: newBorrowingDetailsProperties)
 		}.store(in: &cancellables)
 	}
 
@@ -102,7 +135,10 @@ class BorrowingDetailsView: UIView {
 	}
 
 	private func updateViewColors(borrowingDetailsProperties: BorrowingPropertiesViewModel) {
-		if borrowingDetailsProperties.borrowingAssetsDetailList.isEmpty {
+		guard let newBorrowingDetailsPropertiesAssetList = borrowingDetailsProperties.borrowingAssetsDetailList else {
+			return
+		}
+		if newBorrowingDetailsPropertiesAssetList.isEmpty {
 			amountLabel.textColor = .Pino.gray3
 			titleArrowImageView.tintColor = .Pino.gray3
 			titleLabel.textColor = .Pino.gray3
@@ -115,9 +151,27 @@ class BorrowingDetailsView: UIView {
 		}
 	}
 
+	private func updateView(borrowingDetailsProperties: BorrowingPropertiesViewModel) {
+		guard borrowingDetailsProperties.borrowingAssetsDetailList != nil else {
+			titleArrowImageView.alpha = 0
+			return
+		}
+		titleArrowImageView.alpha = 1
+		titleLabel.text = borrowingDetailsVM.titleText
+	}
+
+	private func setupSkeletonViews() {
+		titleLabel.isSkeletonable = true
+		amountLabel.isSkeletonable = true
+	}
+
 	@objc
 	private func onTappedSelf() {
-		if !borrowingDetailsVM.properties.borrowingAssetsDetailList.isEmpty {
+		guard let newBorrowingDetailsPropertiesAssetList = borrowingDetailsVM.properties.borrowingAssetsDetailList
+		else {
+			return
+		}
+		if !newBorrowingDetailsPropertiesAssetList.isEmpty {
 			onTapped()
 		}
 	}

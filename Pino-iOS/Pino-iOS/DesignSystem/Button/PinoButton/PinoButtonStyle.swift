@@ -47,7 +47,7 @@ extension PinoButton.Style {
 
 	public static let secondary = PinoButton.Style(
 		titleColor: .Pino.primary,
-		backgroundColor: .Pino.clear,
+		backgroundColor: .Pino.secondaryBackground,
 		borderColor: .Pino.primary
 	)
 

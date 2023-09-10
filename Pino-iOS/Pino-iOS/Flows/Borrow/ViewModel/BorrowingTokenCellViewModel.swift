@@ -8,17 +8,17 @@
 struct BorrowingTokenCellViewModel {
 	// MARK: - Public Properties
 
-	public var borrowinTokenModel: BorrowingTokenModel
+	public var borrowinTokenModel: BorrowingTokenModel?
 
 	public var totalSharedBorrowingDividedPercentage: Double {
-		borrowinTokenModel.tokenSharedBorrowingPercentage / 100
+		(borrowinTokenModel?.tokenSharedBorrowingPercentage ?? 0) / 100
 	}
 
 	public var prevTotalSharedBorrowingDividedPercentage: Double {
-		borrowinTokenModel.prevTokenSharedBorrowingPercentage / 100
+		(borrowinTokenModel?.prevTokenSharedBorrowingPercentage ?? 0) / 100
 	}
 
-	public var tokenImage: String {
-		borrowinTokenModel.tokenImage
+	public var tokenImage: String? {
+		borrowinTokenModel?.tokenImage
 	}
 }
