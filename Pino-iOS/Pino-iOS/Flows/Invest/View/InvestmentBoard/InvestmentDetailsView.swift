@@ -109,6 +109,10 @@ class InvestmentDeatilsView: UIView {
 		increaseInvestmentButton.addAction(UIAction(handler: { _ in
 			self.increaseInvestmentDidTap()
 		}), for: .touchUpInside)
+
+		withdrawButton.addAction(UIAction(handler: { _ in
+			self.withdrawDidTap()
+		}), for: .touchUpInside)
 	}
 
 	private func setupStyle() {

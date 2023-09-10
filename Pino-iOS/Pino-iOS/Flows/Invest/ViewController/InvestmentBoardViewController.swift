@@ -86,7 +86,10 @@ class InvestmentBoardViewController: UIViewController {
 
 	private func openInvestabelAssetPage(_ investableAsset: InvestableAssetViewModel) {
 		let riskPerformanceVC = InvestmentRiskPerformanceViewController(investableAsset: investableAsset) {
-			let investVC = InvestDepositViewController(selectedAsset: investableAsset)
+			let investVC = InvestDepositViewController(
+				selectedAsset: investableAsset,
+				selectedProtocol: investableAsset.assetProtocol
+			)
 			let investNavigationVC = UINavigationController(rootViewController: investVC)
 			self.present(investNavigationVC, animated: true)
 		}

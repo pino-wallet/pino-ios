@@ -45,8 +45,12 @@ class InvestmentDetailViewController: UIViewController {
 	private func setupView() {
 		view = InvestmentDeatilsView(
 			investmentDetailsVM: investmentDetailsVM,
-			increaseInvestmentDidTap: {},
-			withdrawDidTap: {}
+			increaseInvestmentDidTap: {
+				self.openInvestPage()
+			},
+			withdrawDidTap: {
+				self.openWithdrawPage()
+			}
 		)
 	}
 
@@ -66,5 +70,22 @@ class InvestmentDetailViewController: UIViewController {
 		let coinPerformanceVC = InvestCoinPerformanceViewController(selectedAsset: selectedAsset)
 		let coinPerformanceNavigationVC = UINavigationController(rootViewController: coinPerformanceVC)
 		present(coinPerformanceNavigationVC, animated: true)
+	}
+
+	private func openInvestPage() {
+		let investVC = InvestDepositViewController(
+			selectedAsset: selectedAsset,
+			selectedProtocol: selectedAsset.assetProtocol
+		)
+		navigationController?.pushViewController(investVC, animated: true)
+	}
+
+	private func openWithdrawPage() {
+		let investVC = InvestDepositViewController(
+			selectedAsset: selectedAsset,
+			selectedProtocol: selectedAsset.assetProtocol,
+			isWithraw: true
+		)
+		navigationController?.pushViewController(investVC, animated: true)
 	}
 }
