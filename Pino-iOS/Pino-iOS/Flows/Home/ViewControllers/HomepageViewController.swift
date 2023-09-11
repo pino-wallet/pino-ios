@@ -21,10 +21,10 @@ class HomepageViewController: UIViewController {
 	override func viewDidAppear(_ animated: Bool) {
 		assetsCollectionView.getHomeData()
 	}
-    
-    override func viewWillAppear(_ animated: Bool) {
-            assetsCollectionView.reloadData()
-    }
+
+	override func viewWillAppear(_ animated: Bool) {
+		assetsCollectionView.reloadData()
+	}
 
 	override func viewDidLayoutSubviews() {
 		let gradientLayer = GradientLayer(frame: view.bounds, style: .homeBackground)
