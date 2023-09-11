@@ -32,48 +32,54 @@ class BorrowViewModel {
 
 	private let borrowAPIClient = BorrowingAPIClient()
 	private let walletManager = PinoWalletManager()
-    private var requestTimer: Timer? = nil
-    private var currentUserAddress: String? = nil
+	private var requestTimer: Timer?
+	private var currentUserAddress: String?
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Methods
 
 	public func getBorrowingDetailsFromVC() {
-        if walletManager.currentAccount.eip55Address != currentUserAddress {
-            destroyData()
-        }
-        currentUserAddress = walletManager.currentAccount.eip55Address
-        setupRequestTimer()
-        requestTimer?.fire()
+		if walletManager.currentAccount.eip55Address != currentUserAddress {
+			destroyData()
+		}
+		currentUserAddress = walletManager.currentAccount.eip55Address
+		setupRequestTimer()
+		requestTimer?.fire()
 	}
 
 	public func changeSelectedDexSystem(newSelectedDexSystem: DexSystemModel) {
-        if selectedDexSystem != newSelectedDexSystem {
-            destroyData()
-            selectedDexSystem = newSelectedDexSystem
-            requestTimer?.fire()
-        } else {
-            selectedDexSystem = newSelectedDexSystem
-        }
+		if selectedDexSystem != newSelectedDexSystem {
+			destroyData()
+			selectedDexSystem = newSelectedDexSystem
+			requestTimer?.fire()
+		} else {
+			selectedDexSystem = newSelectedDexSystem
+		}
 	}
-    
-    public func destroyRequestTimer() {
-        requestTimer?.invalidate()
-        requestTimer = nil
-    }
-    
+
+	public func destroyRequestTimer() {
+		requestTimer?.invalidate()
+		requestTimer = nil
+	}
 
 	// MARK: - Private Methods
-    
-    private func destroyData() {
-        userBorrowingDetails = nil
-    }
-    
-    private func setupRequestTimer() {
-        requestTimer =  Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(getUserBorrowingDetails), userInfo: nil, repeats: true)
-    }
 
-	@objc private func getUserBorrowingDetails() {
+	private func destroyData() {
+		userBorrowingDetails = nil
+	}
+
+	private func setupRequestTimer() {
+		requestTimer = Timer.scheduledTimer(
+			timeInterval: 5,
+			target: self,
+			selector: #selector(getUserBorrowingDetails),
+			userInfo: nil,
+			repeats: true
+		)
+	}
+
+	@objc
+	private func getUserBorrowingDetails() {
 		borrowAPIClient.getUserBorrowings(
 			address: walletManager.currentAccount.eip55Address,
 			dex: selectedDexSystem.type
@@ -85,7 +91,7 @@ class BorrowViewModel {
 				print(error)
 			}
 		} receiveValue: { userBorrowingDetails in
-				self.userBorrowingDetails = userBorrowingDetails
+			self.userBorrowingDetails = userBorrowingDetails
 		}.store(in: &cancellables)
 	}
 }

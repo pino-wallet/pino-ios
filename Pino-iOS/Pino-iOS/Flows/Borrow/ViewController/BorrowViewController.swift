@@ -25,14 +25,14 @@ class BorrowViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		borrowVM.getBorrowingDetailsFromVC()
-        if borrowVM.userBorrowingDetails == nil {
-            borrowView.showLoading()
-        }
+		if borrowVM.userBorrowingDetails == nil {
+			borrowView.showLoading()
+		}
 	}
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        borrowVM.destroyRequestTimer()
-    }
+
+	override func viewDidDisappear(_ animated: Bool) {
+		borrowVM.destroyRequestTimer()
+	}
 
 	// MARK: - Private Methods
 
@@ -54,7 +54,7 @@ class BorrowViewController: UIViewController {
 
 		view = borrowView
 	}
-    
+
 	private func presentSelectDexSystemVC() {
 		let selectDexSystemVC = BorrowSelectDexViewController(dexSystemDidSelectClosure: { selectedDexSystem in
 			self.borrowVM.changeSelectedDexSystem(newSelectedDexSystem: selectedDexSystem)

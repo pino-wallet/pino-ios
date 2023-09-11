@@ -70,7 +70,7 @@ class BorrowView: UIView {
 		collateralDetailsView.showLoading()
 		healthScoreContainerView.showSkeletonView()
 		selectDexSystemView.isLoading = true
-        healthScoreNumberLabel.isHidden = true
+		healthScoreNumberLabel.isHidden = true
 	}
 
 	public func hideLoading() {
@@ -79,7 +79,7 @@ class BorrowView: UIView {
 		collateralDetailsView.hideLoading()
 		healthScoreContainerView.hideSkeletonView()
 		selectDexSystemView.isLoading = false
-        healthScoreNumberLabel.isHidden = false
+		healthScoreNumberLabel.isHidden = false
 	}
 
 	// MARK: - Private Methods

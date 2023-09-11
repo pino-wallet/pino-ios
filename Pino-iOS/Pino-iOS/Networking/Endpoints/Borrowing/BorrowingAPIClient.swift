@@ -8,12 +8,13 @@
 import Combine
 
 final class BorrowingAPIClient: BorrowAPIService {
-    // MARK: - Private Properties
-    private let networkManager = NetworkManager<BorrowingEndpoint>()
-    
-    // MARK: - Public Methods
-    public func getUserBorrowings(address: String, dex: String) -> AnyPublisher<UserBorrowingModel, APIError> {
-        networkManager.request(.getBorrowingDetails(address: address, dex: dex))
-    }
-    
+	// MARK: - Private Properties
+
+	private let networkManager = NetworkManager<BorrowingEndpoint>()
+
+	// MARK: - Public Methods
+
+	public func getUserBorrowings(address: String, dex: String) -> AnyPublisher<UserBorrowingModel, APIError> {
+		networkManager.request(.getBorrowingDetails(address: address, dex: dex))
+	}
 }
