@@ -16,7 +16,6 @@ class SwapProvidersViewcontroller: UIAlertController {
 	private let titleStackView = UIStackView()
 	private let titleLabel = PinoLabel(style: .title, text: nil)
 	private let descriptionLabel = PinoLabel(style: .description, text: nil)
-	private let closePageButton = PinoButton(style: .active)
 	private let providersContainerView = UIView()
 	private let loadingview = UIActivityIndicatorView()
 	private var providersCollectionView: SwapProvidersCollectionView!
@@ -45,6 +44,14 @@ class SwapProvidersViewcontroller: UIAlertController {
 		setupBindings()
 	}
 
+	// MARK: - View Override
+
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		let closePageGesture = UITapGestureRecognizer(target: self, action: #selector(closePage(_:)))
+		view.superview?.subviews.first?.addGestureRecognizer(closePageGesture)
+	}
+
 	// MARK: - Private Methods
 
 	private func setupView() {
@@ -54,7 +61,6 @@ class SwapProvidersViewcontroller: UIAlertController {
 		})
 		contentStackView.addArrangedSubview(titleStackView)
 		contentStackView.addArrangedSubview(providersContainerView)
-		contentStackView.addArrangedSubview(closePageButton)
 		titleStackView.addArrangedSubview(titleLabel)
 		titleStackView.addArrangedSubview(descriptionLabel)
 		providersContainerView.addSubview(loadingview)
@@ -66,7 +72,6 @@ class SwapProvidersViewcontroller: UIAlertController {
 	private func setupStyle() {
 		titleLabel.text = selectProviderVM.pageTitle
 		descriptionLabel.text = selectProviderVM.pageDescription
-		closePageButton.title = selectProviderVM.confirmButtonTitle
 
 		contentView.backgroundColor = .Pino.secondaryBackground
 		providersCollectionView.backgroundColor = .Pino.clear
@@ -79,10 +84,6 @@ class SwapProvidersViewcontroller: UIAlertController {
 
 		loadingview.style = .large
 		loadingview.color = .Pino.primary
-
-		closePageButton.addAction(UIAction(handler: { _ in
-			self.dismiss(animated: true)
-		}), for: .touchUpInside)
 	}
 
 	private func setupConstraint() {
@@ -122,5 +123,10 @@ class SwapProvidersViewcontroller: UIAlertController {
 		providersCollectionView.bestProvider = selectProviderVM.bestProvider
 		providersCollectionView.selectedProvider = selectProviderVM.selectedProvider
 		providersCollectionView.reloadData()
+	}
+
+	@objc
+	private func closePage(_ sender: UITapGestureRecognizer) {
+		dismiss(animated: true)
 	}
 }
