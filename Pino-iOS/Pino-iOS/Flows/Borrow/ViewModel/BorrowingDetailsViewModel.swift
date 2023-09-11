@@ -61,6 +61,7 @@ class BorrowingDetailsViewModel {
 
 	private func updateBorrowingProperties(userBorrowingDetails: UserBorrowingModel?) {
 		guard let userBorrowingDetails = userBorrowingDetails else {
+            setupEmptyProperties()
 			return
 		}
 		switch borrowingType {

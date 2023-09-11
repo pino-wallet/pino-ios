@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 struct BorrowingPropertiesViewModel {
 	// MARK: - Public Properties
 
