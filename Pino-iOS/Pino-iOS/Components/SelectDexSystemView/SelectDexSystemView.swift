@@ -125,14 +125,14 @@ class SelectDexSystemView: UIView {
 
 	private func showLoading() {
 		dexProtocolTitleLabelHeightConstraint.isActive = true
-        layoutIfNeeded()
+		layoutIfNeeded()
 		showSkeletonView()
 		dexProtocolArrowImageView.alpha = 0
 	}
 
 	private func hideLoading() {
 		dexProtocolTitleLabelHeightConstraint.isActive = false
-        layoutIfNeeded()
+		layoutIfNeeded()
 		hideSkeletonView()
 		dexProtocolArrowImageView.alpha = 1
 	}

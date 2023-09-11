@@ -54,7 +54,7 @@ class BorrowingDetailsView: UIView {
 		titleLabelHeightConstraint.isActive = true
 		amountLabelHeightConstraint.isActive = true
 		titleArrowImageView.isHidden = true
-        layoutIfNeeded()
+		layoutIfNeeded()
 		showSkeletonView()
 	}
 
@@ -62,7 +62,7 @@ class BorrowingDetailsView: UIView {
 		titleLabelHeightConstraint.isActive = false
 		amountLabelHeightConstraint.isActive = false
 		titleArrowImageView.isHidden = false
-        layoutIfNeeded()
+		layoutIfNeeded()
 		hideSkeletonView()
 	}
 
@@ -140,7 +140,7 @@ class BorrowingDetailsView: UIView {
 
 	private func updateViewColors(borrowingDetailsProperties: BorrowingPropertiesViewModel) {
 		guard let newBorrowingDetailsPropertiesAssetList = borrowingDetailsProperties.borrowingAssetsDetailList else {
-            borrowingTokensCollectionView.isHidden = false
+			borrowingTokensCollectionView.isHidden = false
 			return
 		}
 		if newBorrowingDetailsPropertiesAssetList.isEmpty {
