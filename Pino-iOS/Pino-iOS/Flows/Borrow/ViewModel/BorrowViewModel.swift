@@ -30,7 +30,6 @@ class BorrowViewModel {
 
 	// MARK: - Private Properties
 
-	#warning("this is mock")
 	private let borrowAPIClient = BorrowingAPIClient()
 	private let walletManager = PinoWalletManager()
     private var requestTimer: Timer? = nil
@@ -40,7 +39,6 @@ class BorrowViewModel {
 	// MARK: - Public Methods
 
 	public func getBorrowingDetailsFromVC() {
-		#warning("we should consider user address to prevent show some user details to all accounts")
         if walletManager.currentAccount.eip55Address != currentUserAddress {
             destroyData()
         }
@@ -76,7 +74,6 @@ class BorrowViewModel {
     }
 
 	@objc private func getUserBorrowingDetails() {
-        print("heh", selectedDexSystem.name)
 		borrowAPIClient.getUserBorrowings(
 			address: walletManager.currentAccount.eip55Address,
 			dex: selectedDexSystem.type
