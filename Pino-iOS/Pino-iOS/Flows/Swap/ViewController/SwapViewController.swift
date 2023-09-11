@@ -20,6 +20,7 @@ class SwapViewController: UIViewController {
 	private let protocolChangeButton = UIButton()
 	private let pageTitleLabel = UILabel()
 	private let walletManager = PinoWalletManager()
+    private let swapLoadingView = SwapLoadingView()
 
 	private var cancellables = Set<AnyCancellable>()
 
@@ -34,11 +35,17 @@ class SwapViewController: UIViewController {
 		setupStyle()
 		setupNavigationBar()
 	}
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if GlobalVariables.shared.manageAssetsList == nil {
+            swapLoadingView.showSkeletonView()
+        }
+    }
 
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = SwapLoadingView()
+		view = swapLoadingView
 		GlobalVariables.shared.$manageAssetsList.compactMap { $0 }.sink { assetList in
 			if self.assets == nil {
 				self.setupViewModel(assetList: assetList)
