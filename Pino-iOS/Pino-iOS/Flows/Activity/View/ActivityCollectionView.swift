@@ -49,6 +49,21 @@ class ActivityCollectionView: UICollectionView {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+    
+    // MARK: - Public Methods
+    public func toggleLoading(isLoading: Bool) {
+        if isLoading {
+            showLoading = true
+            reloadData()
+            contentInset = UIEdgeInsets(top: 46, left: 0, bottom: 24, right: 0)
+            refreshControl?.endRefreshing()
+        } else {
+            showLoading = false
+            reloadData()
+            contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
+            refreshControl?.endRefreshing()
+        }
+    }
 
 	// MARK: - Private Methods
 
@@ -82,7 +97,6 @@ class ActivityCollectionView: UICollectionView {
 
 		activityVM.$userActivities.sink { activities in
 			guard let userActivities = activities else {
-				self.toggleLoading(isLoading: true)
 				return
 			}
 
@@ -144,20 +158,6 @@ class ActivityCollectionView: UICollectionView {
 			self.refreshData()
 		}), for: .valueChanged)
 		refreshControl = activityRefreshControll
-	}
-
-	private func toggleLoading(isLoading: Bool) {
-		if isLoading {
-			showLoading = true
-			reloadData()
-			contentInset = UIEdgeInsets(top: 46, left: 0, bottom: 24, right: 0)
-			refreshControl?.endRefreshing()
-		} else {
-			showLoading = false
-			reloadData()
-			contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
-			refreshControl?.endRefreshing()
-		}
 	}
 }
 
