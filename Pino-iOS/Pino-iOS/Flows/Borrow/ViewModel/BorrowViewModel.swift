@@ -31,25 +31,52 @@ class BorrowViewModel {
 	// MARK: - Private Properties
 
 	#warning("this is mock")
-	private let borrowAPIClient = BorrowAPIMockClient()
+	private let borrowAPIClient = BorrowingAPIClient()
 	private let walletManager = PinoWalletManager()
+    private var requestTimer: Timer? = nil
+    private var currentUserAddress: String? = nil
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Methods
 
 	public func getBorrowingDetailsFromVC() {
-		#warning("we should add a timer to update borrowing data every 5 seconds")
 		#warning("we should consider user address to prevent show some user details to all accounts")
-		getUserBorrowingDetails()
+        if walletManager.currentAccount.eip55Address != currentUserAddress {
+            destroyData()
+        }
+        currentUserAddress = walletManager.currentAccount.eip55Address
+        setupRequestTimer()
+        requestTimer?.fire()
 	}
 
 	public func changeSelectedDexSystem(newSelectedDexSystem: DexSystemModel) {
-		selectedDexSystem = newSelectedDexSystem
+        if selectedDexSystem != newSelectedDexSystem {
+            destroyData()
+            selectedDexSystem = newSelectedDexSystem
+            requestTimer?.fire()
+        } else {
+            selectedDexSystem = newSelectedDexSystem
+        }
 	}
+    
+    public func destroyRequestTimer() {
+        requestTimer?.invalidate()
+        requestTimer = nil
+    }
+    
 
 	// MARK: - Private Methods
+    
+    private func destroyData() {
+        userBorrowingDetails = nil
+    }
+    
+    private func setupRequestTimer() {
+        requestTimer =  Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(getUserBorrowingDetails), userInfo: nil, repeats: true)
+    }
 
-	private func getUserBorrowingDetails() {
+	@objc private func getUserBorrowingDetails() {
+        print("heh", selectedDexSystem.name)
 		borrowAPIClient.getUserBorrowings(
 			address: walletManager.currentAccount.eip55Address,
 			dex: selectedDexSystem.type
@@ -61,10 +88,7 @@ class BorrowViewModel {
 				print(error)
 			}
 		} receiveValue: { userBorrowingDetails in
-			#warning("this is for loading test")
-			DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
 				self.userBorrowingDetails = userBorrowingDetails
-			}
 		}.store(in: &cancellables)
 	}
 }

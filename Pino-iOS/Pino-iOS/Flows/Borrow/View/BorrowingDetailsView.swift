@@ -53,12 +53,14 @@ class BorrowingDetailsView: UIView {
 	public func showLoading() {
 		titleLabelHeightConstraint.isActive = true
 		amountLabelHeightConstraint.isActive = true
+        titleArrowImageView.isHidden = true
 		showSkeletonView()
 	}
 
 	public func hideLoading() {
 		titleLabelHeightConstraint.isActive = false
 		amountLabelHeightConstraint.isActive = false
+        titleArrowImageView.isHidden = false
 		hideSkeletonView()
 	}
 

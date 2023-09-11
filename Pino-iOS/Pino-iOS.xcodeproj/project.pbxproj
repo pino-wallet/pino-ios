@@ -376,6 +376,8 @@
 		D99F4B1D29E2C25C009F7F55 /* PaymentMethodOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F4B1C29E2C25C009F7F55 /* PaymentMethodOptionView.swift */; };
 		D99F4B2129E2C48D009F7F55 /* PaymentMethodOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F4B2029E2C48D009F7F55 /* PaymentMethodOptionViewModel.swift */; };
 		D99F4B2329E2C619009F7F55 /* PaymentMethodOptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F4B2229E2C619009F7F55 /* PaymentMethodOptionModel.swift */; };
+		D99F746F2AAF01CB00802BCF /* BorrowingAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F746E2AAF01CB00802BCF /* BorrowingAPIClient.swift */; };
+		D99F74712AAF01EF00802BCF /* BorrowingEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F74702AAF01EF00802BCF /* BorrowingEndpoint.swift */; };
 		D9A0BDA82A974AD900AE132F /* BorrowingBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A0BDA72A974AD900AE132F /* BorrowingBoardView.swift */; };
 		D9A0BDAA2A974B9800AE132F /* BorrowingBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A0BDA92A974B9800AE132F /* BorrowingBoardViewController.swift */; };
 		D9A0BDAC2A974FE900AE132F /* BorrowingBoardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A0BDAB2A974FE900AE132F /* BorrowingBoardDataSource.swift */; };
@@ -1074,6 +1076,8 @@
 		D99F4B1C29E2C25C009F7F55 /* PaymentMethodOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodOptionView.swift; sourceTree = "<group>"; };
 		D99F4B2029E2C48D009F7F55 /* PaymentMethodOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodOptionViewModel.swift; sourceTree = "<group>"; };
 		D99F4B2229E2C619009F7F55 /* PaymentMethodOptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodOptionModel.swift; sourceTree = "<group>"; };
+		D99F746E2AAF01CB00802BCF /* BorrowingAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingAPIClient.swift; sourceTree = "<group>"; };
+		D99F74702AAF01EF00802BCF /* BorrowingEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingEndpoint.swift; sourceTree = "<group>"; };
 		D9A0BDA72A974AD900AE132F /* BorrowingBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingBoardView.swift; sourceTree = "<group>"; };
 		D9A0BDA92A974B9800AE132F /* BorrowingBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingBoardViewController.swift; sourceTree = "<group>"; };
 		D9A0BDAB2A974FE900AE132F /* BorrowingBoardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingBoardDataSource.swift; sourceTree = "<group>"; };
@@ -1550,6 +1554,7 @@
 		1FE31AB67FFCB1A4C1E2B6C6 /* Endpoints */ = {
 			isa = PBXGroup;
 			children = (
+				D99F746D2AAF01B400802BCF /* Borrowing */,
 				DF6DEDC72AA8C1080080B47B /* Web3 */,
 				DFC1F69F2A7555B0003DB68A /* SwapProviders */,
 				D99CBA2F2A594D6600581564 /* Activity */,
@@ -2816,6 +2821,15 @@
 				D99F4B2029E2C48D009F7F55 /* PaymentMethodOptionViewModel.swift */,
 			);
 			path = ReceiveViewModels;
+			sourceTree = "<group>";
+		};
+		D99F746D2AAF01B400802BCF /* Borrowing */ = {
+			isa = PBXGroup;
+			children = (
+				D99F746E2AAF01CB00802BCF /* BorrowingAPIClient.swift */,
+				D99F74702AAF01EF00802BCF /* BorrowingEndpoint.swift */,
+			);
+			path = Borrowing;
 			sourceTree = "<group>";
 		};
 		D9A0BDA62A974A4A00AE132F /* BorrowingBoard */ = {
@@ -4385,6 +4399,7 @@
 				0AF4C45B72B37F11F656A4B0 /* PositionHeaderView.swift in Sources */,
 				E3D204CC2A39B7E90027FEBC /* QRScannerViewController.swift in Sources */,
 				E3F482F02A35A6E900EEC9CF /* CustomAsset+CoreDataProperties.swift in Sources */,
+				D99F74712AAF01EF00802BCF /* BorrowingEndpoint.swift in Sources */,
 				7B98A5C0E4D54CE1290B009B /* PrecisionSystem.swift in Sources */,
 				E35BB63C2A558B2E003987F5 /* SelectSwapProtocolViewModel.swift in Sources */,
 				133389D38DF23CB5BE195DDC /* ProfileCollectionView.swift in Sources */,
@@ -4535,6 +4550,7 @@
 				1EA05F6363FCD68B38A3B13B /* WalletBalanceViewModel.swift in Sources */,
 				403691C22A3DFFB60013AB6D /* Toast.swift in Sources */,
 				E3FC69BD2A8A70BF009B3341 /* InvestCoinPerformanceViewModel.swift in Sources */,
+				D99F746F2AAF01CB00802BCF /* BorrowingAPIClient.swift in Sources */,
 				9C3606E4114D73E964762BF1 /* AccountCell.swift in Sources */,
 				D924C33B2A949553007299A4 /* StartBorrowingView.swift in Sources */,
 				E3FC69C82A90A837009B3341 /* UserInvestmentAssetCell.swift in Sources */,
