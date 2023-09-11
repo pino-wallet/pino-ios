@@ -93,6 +93,8 @@ class SwapProviderCell: UICollectionViewCell {
 			mainContainerView.updateGradientColors([.Pino.gray5, .Pino.gray5])
 		case .bestRate:
 			mainContainerView.updateGradientColors([.Pino.green, .yellow, .Pino.orange, .purple])
+		case .selected:
+			mainContainerView.updateGradientColors([.Pino.green, .Pino.green])
 		}
 	}
 }
@@ -101,5 +103,6 @@ extension SwapProviderCell {
 	public enum Style {
 		case normal
 		case bestRate
+		case selected
 	}
 }
