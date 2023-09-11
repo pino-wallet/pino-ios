@@ -8,6 +8,7 @@
 import Foundation
 import PromiseKit
 import UIKit
+import Web3
 
 extension String {
 	var toArray: [String] {
@@ -89,5 +90,21 @@ extension String {
 		Promise<Self> { seal in
 			seal.fulfill(self)
 		}
+	}
+
+	public var eip55Address: EthereumAddress? {
+		do {
+			return try EthereumAddress(hex: Web3Core.shared.getChecksumOfEip55Address(eip55Address: self), eip55: true)
+		} catch {
+			return nil
+		}
+	}
+
+	public func paddingLeft(toLength: Int, withPad: String) -> String {
+		let paddingCount = toLength - count
+		guard paddingCount > 0 else { return self }
+
+		let padding = String(repeating: withPad, count: paddingCount)
+		return padding + self
 	}
 }

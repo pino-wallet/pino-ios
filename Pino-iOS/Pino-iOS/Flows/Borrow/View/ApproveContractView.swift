@@ -114,8 +114,11 @@ class ApproveContractView: UIView {
 		rightArrowImageView.pin(.fixedWidth(22), .fixedHeight(22))
 	}
 
+	#warning("Fill later with approve Info")
 	private func generateApproveDescriptionLabelText() -> String {
-		"\(approveContractVM.approveText) \(approveContractVM.selectedToken.symbol). \(approveContractVM.approveDescriptionText)"
+		"Token Approve Info"
+//		"\(approveContractVM.approveText) \(approveContractVM.selectedToken.symbol).
+//		\(approveContractVM.approveDescriptionText)"
 	}
 
 	@objc

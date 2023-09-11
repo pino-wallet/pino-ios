@@ -95,6 +95,18 @@ class SwapViewModel {
 		}
 	}
 
+	public func getSwapSide(
+		completion: (_ side: SwapSide, _ srcToken: SwapTokenViewModel, _ destToken: SwapTokenViewModel) -> Void
+	) {
+		guard let swapSide else { return }
+		switch swapSide {
+		case .sell:
+			completion(.sell, fromToken, toToken)
+		case .buy:
+			completion(.buy, toToken, fromToken)
+		}
+	}
+
 	// MARK: - Private Methods
 
 	private func recalculateTokensAmount(amount: String?) {
@@ -116,9 +128,10 @@ class SwapViewModel {
 		swapSide: SwapSide
 	) {
 		srcToken.calculateDollarAmount(amount)
-		if let tokenAmount = srcToken.tokenAmount {
-			let swapAmount = Utilities.parseToBigUInt(tokenAmount, units: .custom(srcToken.selectedToken.decimal))
-			getDestinationAmount(destToken, swapAmount: swapAmount!.description, swapSide: swapSide)
+		if let tokenAmount = srcToken.tokenAmount,
+		   let swapAmount = Utilities.parseToBigUInt(tokenAmount, units: .custom(srcToken.selectedToken.decimal)),
+		   !swapAmount.isZero {
+			getDestinationAmount(destToken, swapAmount: swapAmount.description, swapSide: swapSide)
 		} else {
 			removeDestinationAmount(destToken)
 		}
@@ -172,18 +185,6 @@ class SwapViewModel {
 	private func updateDestinationToken(destToken: SwapTokenViewModel, tokenAmount: String?) {
 		destToken.calculateDollarAmount(tokenAmount)
 		destToken.swapDelegate.swapAmountDidCalculate()
-	}
-
-	private func getSwapSide(
-		completion: (_ side: SwapSide, _ srcToken: SwapTokenViewModel, _ destToken: SwapTokenViewModel) -> Void
-	) {
-		guard let swapSide else { return }
-		switch swapSide {
-		case .sell:
-			completion(.sell, fromToken, toToken)
-		case .buy:
-			completion(.buy, toToken, fromToken)
-		}
 	}
 
 	private func getFeeInfo(swapProvider: SwapProviderViewModel?) {

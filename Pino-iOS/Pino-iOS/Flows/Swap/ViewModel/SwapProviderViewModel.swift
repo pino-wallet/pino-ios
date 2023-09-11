@@ -10,12 +10,12 @@ import Foundation
 struct SwapProviderViewModel {
 	// MARK: - Private Properties
 
-	private var providerResponseInfo: SwapPriceResponseProtocol
 	private var side: SwapSide
 	private var destToken: AssetViewModel
 
 	// MARK: - Public Properties
 
+	public var providerResponseInfo: SwapPriceResponseProtocol
 	public var provider: SwapProvider {
 		providerResponseInfo.provider
 	}

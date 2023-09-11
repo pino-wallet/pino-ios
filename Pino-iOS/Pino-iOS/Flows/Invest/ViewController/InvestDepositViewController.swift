@@ -15,8 +15,12 @@ class InvestDepositViewController: UIViewController {
 
 	// MARK: Initializers
 
-	init(selectedAsset: InvestableAssetViewModel) {
-		self.investVM = InvestDepositViewModel(selectedAsset: selectedAsset)
+	init(selectedAsset: AssetsBoardProtocol, selectedProtocol: InvestProtocolViewModel, isWithraw: Bool = false) {
+		self.investVM = InvestDepositViewModel(
+			selectedAsset: selectedAsset,
+			selectedProtocol: selectedProtocol,
+			isWithraw: isWithraw
+		)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -57,12 +61,14 @@ class InvestDepositViewController: UIViewController {
 		// Setup title view
 		setNavigationTitle(investVM.pageTitle)
 		// Setup close button
-		navigationItem.leftBarButtonItem = UIBarButtonItem(
-			image: UIImage(systemName: "multiply"),
-			style: .plain,
-			target: self,
-			action: #selector(closePage)
-		)
+		if navigationController!.viewControllers.count <= 1 {
+			navigationItem.leftBarButtonItem = UIBarButtonItem(
+				image: UIImage(systemName: "multiply"),
+				style: .plain,
+				target: self,
+				action: #selector(closePage)
+			)
+		}
 		navigationController?.navigationBar.tintColor = .Pino.white
 	}
 

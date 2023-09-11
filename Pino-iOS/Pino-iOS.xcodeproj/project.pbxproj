@@ -498,6 +498,20 @@
 		DF14FCA72A92694C005221A8 /* SwapRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FCA62A92694C005221A8 /* SwapRequestModel.swift */; };
 		DF14FCA92A93B396005221A8 /* OneInchSwapResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FCA82A93B396005221A8 /* OneInchSwapResponseModel.swift */; };
 		DF14FCAB2A93B4AC005221A8 /* ParaswapSwapResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FCAA2A93B4AC005221A8 /* ParaswapSwapResponseModel.swift */; };
+		DF1D90E32A9733E300435D85 /* W3ApproveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1D90E22A9733E300435D85 /* W3ApproveManager.swift */; };
+		DF1D90E52A973ACC00435D85 /* ApprovingLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1D90E42A973ACC00435D85 /* ApprovingLoadingViewController.swift */; };
+		DF1D90E72A973AFA00435D85 /* ApprovingLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1D90E62A973AFA00435D85 /* ApprovingLoadingView.swift */; };
+		DF1D90E92A973BC900435D85 /* ApprvingContractLoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1D90E82A973BC900435D85 /* ApprvingContractLoadingViewModel.swift */; };
+		DF6DEDC92AA8C1310080B47B /* Web3APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDC82AA8C1310080B47B /* Web3APIClient.swift */; };
+		DF6DEDCB2AA8C13F0080B47B /* Web3Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDCA2AA8C13F0080B47B /* Web3Endpoint.swift */; };
+		DF6DEDCD2AA8C1890080B47B /* Web3APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDCC2AA8C1890080B47B /* Web3APIService.swift */; };
+		DF6DEDD02AA8C29D0080B47B /* EIP712HashRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDCF2AA8C29D0080B47B /* EIP712HashRequestModel.swift */; };
+		DF6DEDD22AA8C3D90080B47B /* EIP712PermitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDD12AA8C3D90080B47B /* EIP712PermitModel.swift */; };
+		DF6DEDD42AA8CD1F0080B47B /* EIP712HashResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDD32AA8CD1F0080B47B /* EIP712HashResponseModel.swift */; };
+		DF6DEDD82AAA30150080B47B /* W3SwapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDD72AAA30150080B47B /* W3SwapManager.swift */; };
+		DF6DEDDB2AAB06150080B47B /* Sec256k1Encryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDDA2AAB06150080B47B /* Sec256k1Encryption.swift */; };
+		DF6DEDDD2AACE00F0080B47B /* Permit2Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDDC2AACE00F0080B47B /* Permit2Model.swift */; };
+		DF6DEDDF2AACE2F30080B47B /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDDE2AACE2F30080B47B /* NetworkLogger.swift */; };
 		DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF705C69E87F6C936F8261B /* AccountingAPIClient.swift */; };
 		DF954B522A8A6861000A9D45 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = DF954B512A8A6861000A9D45 /* SwiftProtobuf */; };
 		DF954B542A8A6861000A9D45 /* WalletCore in Frameworks */ = {isa = PBXBuildFile; productRef = DF954B532A8A6861000A9D45 /* WalletCore */; };
@@ -524,7 +538,7 @@
 		DFFDEDA32A75658700D710D7 /* ParaSwapAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6AD2A756123003DB68A /* ParaSwapAPIClient.swift */; };
 		DFFDEDA42A75659E00D710D7 /* ParaSwapEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6AE2A75615D003DB68A /* ParaSwapEndpoint.swift */; };
 		DFFDEDAA2A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDA92A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift */; };
-		DFFDEDAC2A76C65800D710D7 /* ZeroXSwapPriceResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDAB2A76C65800D710D7 /* ZeroXSwapPriceResponseModel.swift */; };
+		DFFDEDAC2A76C65800D710D7 /* ZeroXPriceResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDAB2A76C65800D710D7 /* ZeroXPriceResponseModel.swift */; };
 		DFFDEDAE2A7792D800D710D7 /* OneInchEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDAD2A7792D800D710D7 /* OneInchEndpoint.swift */; };
 		DFFDEDB02A77931200D710D7 /* ZeroXEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDAF2A77931200D710D7 /* ZeroXEndpoint.swift */; };
 		DFFDEDB22A77934600D710D7 /* ZeroXAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDB12A77934600D710D7 /* ZeroXAPIClient.swift */; };
@@ -587,6 +601,9 @@
 		E39F59522A9B26AE00023292 /* SelectInvestProtocolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39F59512A9B26AE00023292 /* SelectInvestProtocolViewController.swift */; };
 		E39F59542A9B2B9400023292 /* SelectInvestProtocolViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39F59532A9B2B9400023292 /* SelectInvestProtocolViewModel.swift */; };
 		E3ABD1E02AA718B400947D37 /* InvestEmptyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1DF2AA718B400947D37 /* InvestEmptyPageViewModel.swift */; };
+		E3ABD1E22AADA0FB00947D37 /* InvestmentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1E12AADA0FB00947D37 /* InvestmentDetailViewController.swift */; };
+		E3ABD1E42AADA3CF00947D37 /* InvestmentDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1E32AADA3CF00947D37 /* InvestmentDetailViewModel.swift */; };
+		E3ABD1E62AADAFE700947D37 /* InvestmentDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1E52AADAFE700947D37 /* InvestmentDetailsView.swift */; };
 		E3C802792A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C802782A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift */; };
 		E3C8027B2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C8027A2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift */; };
 		E3C8027D2A95427800A13792 /* InvestmentRiskItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C8027C2A95427800A13792 /* InvestmentRiskItemView.swift */; };
@@ -1167,6 +1184,20 @@
 		DF14FCA62A92694C005221A8 /* SwapRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapRequestModel.swift; sourceTree = "<group>"; };
 		DF14FCA82A93B396005221A8 /* OneInchSwapResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneInchSwapResponseModel.swift; sourceTree = "<group>"; };
 		DF14FCAA2A93B4AC005221A8 /* ParaswapSwapResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParaswapSwapResponseModel.swift; sourceTree = "<group>"; };
+		DF1D90E22A9733E300435D85 /* W3ApproveManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3ApproveManager.swift; sourceTree = "<group>"; };
+		DF1D90E42A973ACC00435D85 /* ApprovingLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovingLoadingViewController.swift; sourceTree = "<group>"; };
+		DF1D90E62A973AFA00435D85 /* ApprovingLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovingLoadingView.swift; sourceTree = "<group>"; };
+		DF1D90E82A973BC900435D85 /* ApprvingContractLoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprvingContractLoadingViewModel.swift; sourceTree = "<group>"; };
+		DF6DEDC82AA8C1310080B47B /* Web3APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3APIClient.swift; sourceTree = "<group>"; };
+		DF6DEDCA2AA8C13F0080B47B /* Web3Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3Endpoint.swift; sourceTree = "<group>"; };
+		DF6DEDCC2AA8C1890080B47B /* Web3APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3APIService.swift; sourceTree = "<group>"; };
+		DF6DEDCF2AA8C29D0080B47B /* EIP712HashRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EIP712HashRequestModel.swift; sourceTree = "<group>"; };
+		DF6DEDD12AA8C3D90080B47B /* EIP712PermitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EIP712PermitModel.swift; sourceTree = "<group>"; };
+		DF6DEDD32AA8CD1F0080B47B /* EIP712HashResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EIP712HashResponseModel.swift; sourceTree = "<group>"; };
+		DF6DEDD72AAA30150080B47B /* W3SwapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3SwapManager.swift; sourceTree = "<group>"; };
+		DF6DEDDA2AAB06150080B47B /* Sec256k1Encryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sec256k1Encryption.swift; sourceTree = "<group>"; };
+		DF6DEDDC2AACE00F0080B47B /* Permit2Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Permit2Model.swift; sourceTree = "<group>"; };
+		DF6DEDDE2AACE2F30080B47B /* NetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
 		DFA968722A0F8A77007D4513 /* WalletDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDataSource.swift; sourceTree = "<group>"; };
 		DFA968752A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WalletAccount+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DFA968762A0FABB9007D4513 /* SelectedAsset+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SelectedAsset+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -1187,7 +1218,7 @@
 		DFC4D0392A360D8300F03DC4 /* Web3Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3Core.swift; sourceTree = "<group>"; };
 		DFCAAD392A62DA8000D8BB8D /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		DFFDEDA92A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneInchSwapPriceResponseModel.swift; sourceTree = "<group>"; };
-		DFFDEDAB2A76C65800D710D7 /* ZeroXSwapPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroXSwapPriceResponseModel.swift; sourceTree = "<group>"; };
+		DFFDEDAB2A76C65800D710D7 /* ZeroXPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroXPriceResponseModel.swift; sourceTree = "<group>"; };
 		DFFDEDAD2A7792D800D710D7 /* OneInchEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneInchEndpoint.swift; sourceTree = "<group>"; };
 		DFFDEDAF2A77931200D710D7 /* ZeroXEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroXEndpoint.swift; sourceTree = "<group>"; };
 		DFFDEDB12A77934600D710D7 /* ZeroXAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroXAPIClient.swift; sourceTree = "<group>"; };
@@ -1252,6 +1283,9 @@
 		E39F59512A9B26AE00023292 /* SelectInvestProtocolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInvestProtocolViewController.swift; sourceTree = "<group>"; };
 		E39F59532A9B2B9400023292 /* SelectInvestProtocolViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInvestProtocolViewModel.swift; sourceTree = "<group>"; };
 		E3ABD1DF2AA718B400947D37 /* InvestEmptyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestEmptyPageViewModel.swift; sourceTree = "<group>"; };
+		E3ABD1E12AADA0FB00947D37 /* InvestmentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentDetailViewController.swift; sourceTree = "<group>"; };
+		E3ABD1E32AADA3CF00947D37 /* InvestmentDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentDetailViewModel.swift; sourceTree = "<group>"; };
+		E3ABD1E52AADAFE700947D37 /* InvestmentDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentDetailsView.swift; sourceTree = "<group>"; };
 		E3C802782A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskPerformanceViewController.swift; sourceTree = "<group>"; };
 		E3C8027A2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskPerformanceView.swift; sourceTree = "<group>"; };
 		E3C8027C2A95427800A13792 /* InvestmentRiskItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskItemView.swift; sourceTree = "<group>"; };
@@ -1524,6 +1558,7 @@
 		1FE31AB67FFCB1A4C1E2B6C6 /* Endpoints */ = {
 			isa = PBXGroup;
 			children = (
+				DF6DEDC72AA8C1080080B47B /* Web3 */,
 				DFC1F69F2A7555B0003DB68A /* SwapProviders */,
 				D99CBA2F2A594D6600581564 /* Activity */,
 				E385F6142A220C2E00EE7EE1 /* CTS */,
@@ -1749,6 +1784,7 @@
 			isa = PBXGroup;
 			children = (
 				D95D20372AAC9BF100E0A885 /* HealthScoreSystem */,
+				DF1D90EC2A973FD800435D85 /* Approve */,
 				D933C32B2A99F36600C2BD5A /* CollateralizingBoard */,
 				D9A0BDA62A974A4A00AE132F /* BorrowingBoard */,
 				4037DCCB2A8BD65600FCA96B /* ApproveContractView.swift */,
@@ -1776,7 +1812,7 @@
 		4037DCC92A8BD57F00FCA96B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4037DCC62A8BD50100FCA96B /* ApproveContractViewController.swift */,
+				DF1D90EB2A973FCC00435D85 /* Approve */,
 				0EDB7798DEE2598C367E87BE /* BorrowViewController.swift */,
 				D990197D2A935383008CF9EC /* CollateralDetailsViewController.swift */,
 				D96FD3B02A9734870008977A /* BorrowSelectDexViewController.swift */,
@@ -1799,6 +1835,7 @@
 		4037DCCA2A8BD58A00FCA96B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				DF1D90EA2A973FBE00435D85 /* Approve */,
 				D933C32A2A99F35C00C2BD5A /* CollateralizingBoard */,
 				D9A0BDAD2A97529F00AE132F /* BorrowingBoard */,
 				4037DCCD2A8BD93200FCA96B /* ApproveContractViewModel.swift */,
@@ -2410,6 +2447,7 @@
 		9644A21ECD0A37919E016265 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				DF6DEDD92AAB05F90080B47B /* Encryption */,
 				DFC4D0382A360D7300F03DC4 /* Web3 */,
 				DF00178329EC37A0001164EA /* Wallet */,
 				DF00177E29E80683001164EA /* SecureEnclave */,
@@ -2514,6 +2552,7 @@
 				BAC98E3A780E5E5D45D7E739 /* NetworkManager.swift */,
 				C55BFF5F48EC55A7D9EB418E /* NetworkManagerProtocol.swift */,
 				DFB2C343099A9B87E6C231F0 /* StubManager.swift */,
+				DF6DEDDE2AACE2F30080B47B /* NetworkLogger.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -2535,6 +2574,7 @@
 				D99CBA322A594ECB00581564 /* ActivityAPIService.swift */,
 				DFC1F6A02A75561F003DB68A /* SwapProvidersAPIServices.swift */,
 				D924C3472A94969F007299A4 /* BorrowAPIService.swift */,
+				DF6DEDCC2AA8C1890080B47B /* Web3APIService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -3113,6 +3153,31 @@
 			path = Wallet;
 			sourceTree = "<group>";
 		};
+		DF1D90EA2A973FBE00435D85 /* Approve */ = {
+			isa = PBXGroup;
+			children = (
+				DF1D90E82A973BC900435D85 /* ApprvingContractLoadingViewModel.swift */,
+			);
+			path = Approve;
+			sourceTree = "<group>";
+		};
+		DF1D90EB2A973FCC00435D85 /* Approve */ = {
+			isa = PBXGroup;
+			children = (
+				DF1D90E42A973ACC00435D85 /* ApprovingLoadingViewController.swift */,
+				4037DCC62A8BD50100FCA96B /* ApproveContractViewController.swift */,
+			);
+			path = Approve;
+			sourceTree = "<group>";
+		};
+		DF1D90EC2A973FD800435D85 /* Approve */ = {
+			isa = PBXGroup;
+			children = (
+				DF1D90E62A973AFA00435D85 /* ApprovingLoadingView.swift */,
+			);
+			path = Approve;
+			sourceTree = "<group>";
+		};
 		DF6971184EDF0A9D6DD15E69 /* CustomSwitchCollectionCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -3120,6 +3185,33 @@
 				BAEFAEDB965ACA15068D97D4 /* Protocol */,
 			);
 			path = CustomSwitchCollectionCell;
+			sourceTree = "<group>";
+		};
+		DF6DEDC72AA8C1080080B47B /* Web3 */ = {
+			isa = PBXGroup;
+			children = (
+				DF6DEDC82AA8C1310080B47B /* Web3APIClient.swift */,
+				DF6DEDCA2AA8C13F0080B47B /* Web3Endpoint.swift */,
+			);
+			path = Web3;
+			sourceTree = "<group>";
+		};
+		DF6DEDCE2AA8C2830080B47B /* Web3 */ = {
+			isa = PBXGroup;
+			children = (
+				DF6DEDCF2AA8C29D0080B47B /* EIP712HashRequestModel.swift */,
+				DF6DEDD32AA8CD1F0080B47B /* EIP712HashResponseModel.swift */,
+				DF6DEDD12AA8C3D90080B47B /* EIP712PermitModel.swift */,
+			);
+			path = Web3;
+			sourceTree = "<group>";
+		};
+		DF6DEDD92AAB05F90080B47B /* Encryption */ = {
+			isa = PBXGroup;
+			children = (
+				DF6DEDDA2AAB06150080B47B /* Sec256k1Encryption.swift */,
+			);
+			path = Encryption;
 			sourceTree = "<group>";
 		};
 		DF8DA53F2A556EBA0018EB0A /* Models */ = {
@@ -3185,12 +3277,14 @@
 		DFC1F6A22A755ECE003DB68A /* Swap */ = {
 			isa = PBXGroup;
 			children = (
+				DF6DEDCE2AA8C2830080B47B /* Web3 */,
 				DFC1F6A32A755EE9003DB68A /* ParaSwap */,
 				DFC1F6A52A755EF4003DB68A /* 1inch */,
 				DFC1F6A42A755EF0003DB68A /* 0x */,
 				DFC1F6A82A755F7B003DB68A /* SwapPriceRequestModel.swift */,
 				DFFDEDB52A7795F200D710D7 /* SwapPriceResponseProtocol.swift */,
 				DF14FCA62A92694C005221A8 /* SwapRequestModel.swift */,
+				DF6DEDDC2AACE00F0080B47B /* Permit2Model.swift */,
 			);
 			path = Swap;
 			sourceTree = "<group>";
@@ -3207,7 +3301,7 @@
 		DFC1F6A42A755EF0003DB68A /* 0x */ = {
 			isa = PBXGroup;
 			children = (
-				DFFDEDAB2A76C65800D710D7 /* ZeroXSwapPriceResponseModel.swift */,
+				DFFDEDAB2A76C65800D710D7 /* ZeroXPriceResponseModel.swift */,
 			);
 			path = 0x;
 			sourceTree = "<group>";
@@ -3257,6 +3351,8 @@
 				DF14FC9C2A8E108D005221A8 /* W3TransactionManager.swift */,
 				DF14FC9E2A9105CF005221A8 /* W3GasInfoManager.swift */,
 				DF14FCA02A9105F3005221A8 /* W3TransferManager.swift */,
+				DF1D90E22A9733E300435D85 /* W3ApproveManager.swift */,
+				DF6DEDD72AAA30150080B47B /* W3SwapManager.swift */,
 			);
 			path = Web3;
 			sourceTree = "<group>";
@@ -3484,6 +3580,7 @@
 				D5E4DDCA2A95FD78000AA235 /* InvestDepositViewController.swift */,
 				E39F594B2A99E90B00023292 /* InvestConfirmationViewController.swift */,
 				E39F59512A9B26AE00023292 /* SelectInvestProtocolViewController.swift */,
+				E3ABD1E12AADA0FB00947D37 /* InvestmentDetailViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -3577,6 +3674,7 @@
 				E3FC69DC2A910F0F009B3341 /* InvestmentBoardDataSource.swift */,
 				E3FC69C72A90A836009B3341 /* UserInvestmentAssetCell.swift */,
 				E3FC69C92A90A852009B3341 /* InvastableAssetCell.swift */,
+				E3ABD1E52AADAFE700947D37 /* InvestmentDetailsView.swift */,
 			);
 			path = InvestmentBoard;
 			sourceTree = "<group>";
@@ -3591,6 +3689,7 @@
 				E3FC69E82A922045009B3341 /* InvestmentFilterItemViewModel.swift */,
 				E3FC69F72A937135009B3341 /* InvestmentRiskViewModel.swift */,
 				E39F59532A9B2B9400023292 /* SelectInvestProtocolViewModel.swift */,
+				E3ABD1E32AADA3CF00947D37 /* InvestmentDetailViewModel.swift */,
 			);
 			path = InvestmentBoard;
 			sourceTree = "<group>";
@@ -3907,6 +4006,8 @@
 				E35BB63E2A558D0E003987F5 /* SwapProtocolCollectionView.swift in Sources */,
 				3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */,
 				D9D9A40A2A5E9CD200CECA41 /* UserAccountInfoView.swift in Sources */,
+				DF6DEDD02AA8C29D0080B47B /* EIP712HashRequestModel.swift in Sources */,
+				D9D9A40A2A5E9CD200CECA41 /* UserAccountInfoView.swift in Sources */,
 				D9176F132AA46DD2007D4DBC /* CollateralConfirmViewModel.swift in Sources */,
 				4037DCCE2A8BD93200FCA96B /* ApproveContractViewModel.swift in Sources */,
 				E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */,
@@ -3971,6 +4072,7 @@
 				E385F6122A22029100EE7EE1 /* Wallet+CoreDataProperties.swift in Sources */,
 				03C069F70295746815C20F42 /* AssetVolatilityType.swift in Sources */,
 				23E2F4FB7A273DD99312DACA /* Assetmodel.swift in Sources */,
+				DF6DEDC92AA8C1310080B47B /* Web3APIClient.swift in Sources */,
 				D9A328172A34B39C005A8393 /* SelectAssetCell.swift in Sources */,
 				E3847B452A531C3A005ED78B /* SwapView+Keyboard.swift in Sources */,
 				24D1C890843C5A3AE41A1442 /* AssetsAPIClient.swift in Sources */,
@@ -4033,6 +4135,7 @@
 				DFFDEDAA2A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift in Sources */,
 				D9AF6DCC29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift in Sources */,
 				3C9F0B46C521474D32854C66 /* ActivityCell.swift in Sources */,
+				DF6DEDDD2AACE00F0080B47B /* Permit2Model.swift in Sources */,
 				D9A0BDB62A9754E500AE132F /* BorrowableAssetModel.swift in Sources */,
 				D9BE05172A8221C8008670F9 /* CDTransferActivityDetails+CoreDataProperties.swift in Sources */,
 				D933C3232A99F07600C2BD5A /* CollateralizingBoardViewController.swift in Sources */,
@@ -4041,6 +4144,7 @@
 				D9D462D52AA466990010ED76 /* RepayConfirmViewController.swift in Sources */,
 				4BCC037123752C19CB2B98D3 /* ActivityCellViewModel.swift in Sources */,
 				DBE3307F29EF0E7E1926B2B4 /* CoinInfoChartView.swift in Sources */,
+				DF6DEDDB2AAB06150080B47B /* Sec256k1Encryption.swift in Sources */,
 				05BF3ACA571459B68B3451D6 /* CoinInfoChartViewController.swift in Sources */,
 				E343836C2A3D92C20048BDA1 /* SendConfimationView.swift in Sources */,
 				D5E4DDCB2A95FD78000AA235 /* InvestDepositViewController.swift in Sources */,
@@ -4051,6 +4155,7 @@
 				A1CB57E01D2C66A314CD3BE4 /* ActivitiesCollectionView.swift in Sources */,
 				C6F911527FDF8516478B4961 /* CoinInfoHeaderView.swift in Sources */,
 				0682CFAA6E20C8AEA43A55AC /* CoinInfoViewController.swift in Sources */,
+				DF6DEDD42AA8CD1F0080B47B /* EIP712HashResponseModel.swift in Sources */,
 				E4FF2E5E60CA74F3324945A8 /* CoinInfoViewModel.swift in Sources */,
 				D9E134852A52FB4A00193FF0 /* ActivityHeaderView.swift in Sources */,
 				9564A69D20BD22A50221D63B /* CoinPerformanceInfoItems.swift in Sources */,
@@ -4068,6 +4173,7 @@
 				D91A3A0129E4109500004CB2 /* NotificationOptionModel.swift in Sources */,
 				D99CBA312A594DD700581564 /* ActivityEndpoint.swift in Sources */,
 				10CD67476F9AA1C6EE89AA6F /* CoinPerformanceView.swift in Sources */,
+				DF1D90E32A9733E300435D85 /* W3ApproveManager.swift in Sources */,
 				DFB1E9D02A08EC1800041B26 /* DataSourceProtocol.swift in Sources */,
 				D9A328192A34B650005A8393 /* SelectAssetCellViewModel.swift in Sources */,
 				E35BB6432A593BBB003987F5 /* SwapProtocolModel.swift in Sources */,
@@ -4078,6 +4184,7 @@
 				D97F0B902A948FD10083DA81 /* SelectDexSystemVMProtocol.swift in Sources */,
 				DFB566272A1926C600F9D6A0 /* ImportTextViewType.swift in Sources */,
 				D92278BB2A79043C0098A36A /* ActivityTransferModel.swift in Sources */,
+				E3ABD1E22AADA0FB00947D37 /* InvestmentDetailViewController.swift in Sources */,
 				D97F0B9A2A94912B0083DA81 /* SelectDexSystemView.swift in Sources */,
 				D916A8C42A9F5FEB00F391B5 /* RepayAmountView.swift in Sources */,
 				E3FC69BF2A8C9B3E009B3341 /* InvestmentBoardViewController.swift in Sources */,
@@ -4098,6 +4205,7 @@
 				DFA968732A0F8A77007D4513 /* WalletDataSource.swift in Sources */,
 				DF14FCA32A910B78005221A8 /* PromiseKit+Extension.swift in Sources */,
 				D9BE05152A8221C8008670F9 /* CDActivityParent+CoreDataProperties.swift in Sources */,
+				DF1D90E52A973ACC00435D85 /* ApprovingLoadingViewController.swift in Sources */,
 				D916A8C82A9F64B400F391B5 /* CollateralIncreaseAmountViewController.swift in Sources */,
 				324CF2EFF8A4FE86E6609254 /* CustomAssetInfoViewModel.swift in Sources */,
 				D924C3482A94969F007299A4 /* BorrowAPIService.swift in Sources */,
@@ -4142,6 +4250,7 @@
 				DF14FC9D2A8E108D005221A8 /* W3TransactionManager.swift in Sources */,
 				DF00179329F85727001164EA /* PinoNonHDWallet.swift in Sources */,
 				E3FC69B72A8A3605009B3341 /* InvestProtocolViewModel.swift in Sources */,
+				DF6DEDCB2AA8C13F0080B47B /* Web3Endpoint.swift in Sources */,
 				7CF95B0F99AE30C81601CFAA /* GradientLayer.swift in Sources */,
 				D93C41FD29F7D298003F2297 /* EditAccountViewModel.swift in Sources */,
 				D95D20392AAC9C0C00E0A885 /* HealthScoreZoneDotView.swift in Sources */,
@@ -4182,6 +4291,7 @@
 				E3847B492A542A76005ED78B /* SwapFeeViewModel.swift in Sources */,
 				E3FC69DD2A910F0F009B3341 /* InvestmentBoardDataSource.swift in Sources */,
 				DFA9687D2A0FABB9007D4513 /* SelectedAsset+CoreDataClass.swift in Sources */,
+				DF6DEDCD2AA8C1890080B47B /* Web3APIService.swift in Sources */,
 				01B0212D90D700DB5C1126FB /* InvestViewController.swift in Sources */,
 				D99019762A9350DD008CF9EC /* CollateralDetailsViewModel.swift in Sources */,
 				D91AAF5D2AA36CFC00A823E6 /* BorrowConfirmView.swift in Sources */,
@@ -4196,7 +4306,7 @@
 				A9DD712BF1A1511733B479FA /* LaunchSettings.swift in Sources */,
 				E3FC69F62A936D6B009B3341 /* InvestmentRiskCell.swift in Sources */,
 				F768EA67E795D2C08C4CDF5B /* LineChartDelegate.swift in Sources */,
-				DFFDEDAC2A76C65800D710D7 /* ZeroXSwapPriceResponseModel.swift in Sources */,
+				DFFDEDAC2A76C65800D710D7 /* ZeroXPriceResponseModel.swift in Sources */,
 				E4BC1D70FBAF66825B9358E7 /* LockMethodModel.swift in Sources */,
 				0A7A1624380B55CB1876A9B2 /* SecurityOptionModel.swift in Sources */,
 				1F88E4148A66AB6442600B4D /* SecurityOptionViewModel.swift in Sources */,
@@ -4308,6 +4418,7 @@
 				DFB1E9D62A08F21C00041B26 /* SelectedAssetsDataSource.swift in Sources */,
 				0D3E98673CD274381A698BBA /* ProfileViewController.swift in Sources */,
 				0613EF4F55B5F6FA90BA65C0 /* ProfileViewModel.swift in Sources */,
+				DF6DEDDF2AACE2F30080B47B /* NetworkLogger.swift in Sources */,
 				1DACABBF0C73761FBAF64811 /* ReceiveActionButton.swift in Sources */,
 				D94A9A2429FE75FC00DCA28D /* EditAccountNameViewModel.swift in Sources */,
 				05B960E15A9EEF333D3A8296 /* ReceiveAssetView.swift in Sources */,
@@ -4333,6 +4444,7 @@
 				D9A328152A3464B5005A8393 /* SelectAssetToSendViewModel.swift in Sources */,
 				5699C13A59EF90BDE1758CF3 /* RevealPrivateKeyView.swift in Sources */,
 				DF14FCA12A9105F3005221A8 /* W3TransferManager.swift in Sources */,
+				E3ABD1E62AADAFE700947D37 /* InvestmentDetailsView.swift in Sources */,
 				D916A8D02A9F694000F391B5 /* WithdrawAmountView.swift in Sources */,
 				221F423020A78CA891331436 /* RevealPrivateKeyViewController.swift in Sources */,
 				E3847B362A52CB32005ED78B /* SwapViewModel.swift in Sources */,
@@ -4361,6 +4473,7 @@
 				13F430044A23AF2BA55BBDFB /* SecurityModeProtocol.swift in Sources */,
 				DFC1F6A92A755F7B003DB68A /* SwapPriceRequestModel.swift in Sources */,
 				D94A9A1D29FE4C6700DCA28D /* EditAccountView.swift in Sources */,
+				DF1D90E92A973BC900435D85 /* ApprvingContractLoadingViewModel.swift in Sources */,
 				E39F594C2A99E90B00023292 /* InvestConfirmationViewController.swift in Sources */,
 				34F4A2DA1228B50AC3DFA8A2 /* SeedPhrase.swift in Sources */,
 				DF00179129F856D5001164EA /* PinoHDWallet.swift in Sources */,
@@ -4404,6 +4517,7 @@
 				58B890F4377EE8853C655AFA /* TabBarItem.swift in Sources */,
 				BA5A805884B41CA1F182245E /* TabBarViewController.swift in Sources */,
 				E384CB1229F6A931009C74F5 /* CoinPerformanceInfoView.swift in Sources */,
+				DF1D90E72A973AFA00435D85 /* ApprovingLoadingView.swift in Sources */,
 				E25F4C14C3273F63F22E983C /* UIView+Extension.swift in Sources */,
 				D95D203B2AAC9C1700E0A885 /* HealthScoreZoneStackView.swift in Sources */,
 				403691BD2A3DFFB60013AB6D /* ToastDelegate.swift in Sources */,
@@ -4411,12 +4525,14 @@
 				8F2B1AD252EE32B2F328105B /* URLParameterEncoding.swift in Sources */,
 				7788C1D86DF1F4B1E6B2DE54 /* URLRequest+Extension.swift in Sources */,
 				71ED4673E278D4F56B0CC895 /* UnlockAppViewController.swift in Sources */,
+				DF6DEDD82AAA30150080B47B /* W3SwapManager.swift in Sources */,
 				E3FC69EC2A9247BD009B3341 /* InvestmentBoardFilterView.swift in Sources */,
 				E3FC69922A88B0EB009B3341 /* InvestView.swift in Sources */,
 				99B64004802220934AD0B60B /* UnlockAppViewModel.swift in Sources */,
 				D9C4CF0A2A4090D000475F01 /* SuggestedAddressesViewModel.swift in Sources */,
 				038A90F28F66ACC57B0A3CF5 /* UnlockPasscodePageManager.swift in Sources */,
 				D9AF29E82A506F1A006BC53E /* ActivityType.swift in Sources */,
+				DF6DEDD22AA8C3D90080B47B /* EIP712PermitModel.swift in Sources */,
 				DFB1E9D42A08F19C00041B26 /* CoreDataManager.swift in Sources */,
 				E3FC69A22A8A0759009B3341 /* InvestmentPerformanceView.swift in Sources */,
 				D916A8BC2A9F447100F391B5 /* BorrowIncreaseAmountViewModel.swift in Sources */,
@@ -4450,6 +4566,7 @@
 				D9BE051C2A8221C8008670F9 /* CDSwapActivityDetails+CoreDataClass.swift in Sources */,
 				E3847B3C2A52CDB2005ED78B /* SwapView.swift in Sources */,
 				2E5C040F84977824A977D541 /* AccountInfoNavigationItems.swift in Sources */,
+				E3ABD1E42AADA3CF00947D37 /* InvestmentDetailViewModel.swift in Sources */,
 				E3FC699C2A89068A009B3341 /* InvestAssetModel.swift in Sources */,
 				D9C4CEFF2A408C5E00475F01 /* SuggestedAddressesCollectionView.swift in Sources */,
 				798A57BFA5D028A04B449F34 /* AccountInfoViewModel.swift in Sources */,

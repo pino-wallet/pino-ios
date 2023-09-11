@@ -20,3 +20,5 @@ struct ParaswapSwapResponseModel: Codable {
 		case chainID = "chainId"
 	}
 }
+
+extension ParaswapSwapResponseModel: SwapCoinResponseProtocol {}

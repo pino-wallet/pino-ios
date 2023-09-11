@@ -10,7 +10,7 @@ import Foundation
 
 protocol SwapProvidersAPIServices {
 	associatedtype PriceResponseModel: SwapPriceResponseProtocol
-	associatedtype SwapResponseModel: Codable
+	associatedtype SwapResponseModel: SwapCoinResponseProtocol
 
 	func swapPrice(swapInfo: SwapPriceRequestModel) -> AnyPublisher<PriceResponseModel?, APIError>
 	func swap(swapInfo: SwapRequestModel) -> AnyPublisher<SwapResponseModel?, APIError>
