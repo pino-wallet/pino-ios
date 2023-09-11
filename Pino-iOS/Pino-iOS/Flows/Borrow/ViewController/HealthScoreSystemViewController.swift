@@ -258,6 +258,7 @@ class HealthScoreSystemViewController: UIAlertController {
         let healthScoreGradientViewWidth = healthScoreGradientView.frame.width
         let endHealthScoreSafeArea = healthScoreGradientViewWidth - endtHealthScoreNumberLabelWidth
         
+        #warning("this section is for test")
         if currentHealthScorePixel < startHealthScoreNumberLabelWidth {
             startHealthScoreLabel.isHidden = true
         } else if currentHealthScorePixel > endHealthScoreSafeArea {

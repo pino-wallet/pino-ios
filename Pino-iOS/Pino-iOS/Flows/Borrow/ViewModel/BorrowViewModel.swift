@@ -63,7 +63,7 @@ class BorrowViewModel {
 			}
 		} receiveValue: { userBorrowingDetails in
 			#warning("this is for loading test")
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
+			DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
 				self.userBorrowingDetails = userBorrowingDetails
 			}
 		}.store(in: &cancellables)
