@@ -30,9 +30,9 @@ class ActivityViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		activityVM.getUserActivitiesFromVC()
-        if activityVM.userActivities == nil {
-            activityColectionView.toggleLoading(isLoading: true)
-        }
+		if activityVM.userActivities == nil {
+			activityColectionView.toggleLoading(isLoading: true)
+		}
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
