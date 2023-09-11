@@ -15,7 +15,7 @@ class BorrowViewModel {
 	@Published
 	public var userBorrowingDetails: UserBorrowingModel? = nil
 
-    public let alertIconName = "alert"
+	public let alertIconName = "alert"
 	public let dismissIconName = "dissmiss"
 	public let pageTitle = "Borrow"
 	public let collateralTitle = "Collateral"

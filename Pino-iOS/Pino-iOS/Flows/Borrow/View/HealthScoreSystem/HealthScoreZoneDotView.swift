@@ -7,33 +7,36 @@
 import UIKit
 
 class HealthScoreZoneDotView: UIView {
-    // MARK: - Public Properties
-    public var color: UIColor = .Pino.red {
-        didSet {
-            backgroundColor = color
-        }
-    }
+	// MARK: - Public Properties
 
-    // MARK: - Initializers
-    init() {
-        super.init(frame: .zero)
-        setupStyles()
-        setupConstraints()
-    }
+	public var color: UIColor = .Pino.red {
+		didSet {
+			backgroundColor = color
+		}
+	}
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+	// MARK: - Initializers
 
-    // MARK: - Private Methods
-    private func setupStyles() {
-        backgroundColor = color
+	init() {
+		super.init(frame: .zero)
+		setupStyles()
+		setupConstraints()
+	}
 
-        layer.cornerRadius = 6
-    }
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
-    private func setupConstraints() {
-        heightAnchor.constraint(equalToConstant: 12).isActive = true
-        widthAnchor.constraint(equalToConstant: 12).isActive = true
-    }
+	// MARK: - Private Methods
+
+	private func setupStyles() {
+		backgroundColor = color
+
+		layer.cornerRadius = 6
+	}
+
+	private func setupConstraints() {
+		heightAnchor.constraint(equalToConstant: 12).isActive = true
+		widthAnchor.constraint(equalToConstant: 12).isActive = true
+	}
 }

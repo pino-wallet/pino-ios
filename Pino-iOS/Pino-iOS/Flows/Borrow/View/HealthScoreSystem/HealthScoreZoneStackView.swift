@@ -7,20 +7,23 @@
 import UIKit
 
 class HealthScoreZoneStackView: UIStackView {
-    // MARK: - Initializers
-    init() {
-        super.init(frame: .zero)
+	// MARK: - Initializers
 
-        setupStyles()
-    }
+	init() {
+		super.init(frame: .zero)
 
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    // MARK: - Private Methods
-    private func setupStyles() {
-        axis = .horizontal
-        spacing = 4
-        alignment = .center
-    }
+		setupStyles()
+	}
+
+	required init(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	// MARK: - Private Methods
+
+	private func setupStyles() {
+		axis = .horizontal
+		spacing = 4
+		alignment = .center
+	}
 }

@@ -31,8 +31,8 @@ extension UIColor {
 		static let pendingOrange = UIColor(named: "Pending Orange Color") ?? UIColor.orange
 		static let successGreen = UIColor(named: "Success Green Color") ?? UIColor.green
 		static let succesGreen2 = UIColor(named: "Success Green 2 Color") ?? UIColor.green
-        static let successGreen3 = UIColor(named: "Success Green 3 Color") ?? UIColor.green
-        static let mediumGreen = UIColor(named: "Medium Green Color") ?? UIColor.green
+		static let successGreen3 = UIColor(named: "Success Green 3 Color") ?? UIColor.green
+		static let mediumGreen = UIColor(named: "Medium Green Color") ?? UIColor.green
 		static let errorRed = UIColor(named: "Error Red Color") ?? UIColor.red
 
 		// MARK: - Gray
