@@ -600,6 +600,7 @@
 		E3ABD1E22AADA0FB00947D37 /* InvestmentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1E12AADA0FB00947D37 /* InvestmentDetailViewController.swift */; };
 		E3ABD1E42AADA3CF00947D37 /* InvestmentDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1E32AADA3CF00947D37 /* InvestmentDetailViewModel.swift */; };
 		E3ABD1E62AADAFE700947D37 /* InvestmentDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1E52AADAFE700947D37 /* InvestmentDetailsView.swift */; };
+		E3ABD1E92AB0B27A00947D37 /* InvestmentEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1E82AB0B27A00947D37 /* InvestmentEndpoint.swift */; };
 		E3C802792A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C802782A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift */; };
 		E3C8027B2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C8027A2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift */; };
 		E3C8027D2A95427800A13792 /* InvestmentRiskItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C8027C2A95427800A13792 /* InvestmentRiskItemView.swift */; };
@@ -1278,6 +1279,7 @@
 		E3ABD1E12AADA0FB00947D37 /* InvestmentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentDetailViewController.swift; sourceTree = "<group>"; };
 		E3ABD1E32AADA3CF00947D37 /* InvestmentDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentDetailViewModel.swift; sourceTree = "<group>"; };
 		E3ABD1E52AADAFE700947D37 /* InvestmentDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentDetailsView.swift; sourceTree = "<group>"; };
+		E3ABD1E82AB0B27A00947D37 /* InvestmentEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentEndpoint.swift; sourceTree = "<group>"; };
 		E3C802782A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskPerformanceViewController.swift; sourceTree = "<group>"; };
 		E3C8027A2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskPerformanceView.swift; sourceTree = "<group>"; };
 		E3C8027C2A95427800A13792 /* InvestmentRiskItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskItemView.swift; sourceTree = "<group>"; };
@@ -1550,6 +1552,7 @@
 		1FE31AB67FFCB1A4C1E2B6C6 /* Endpoints */ = {
 			isa = PBXGroup;
 			children = (
+				E3ABD1E72AB0B24900947D37 /* Investment */,
 				DF6DEDC72AA8C1080080B47B /* Web3 */,
 				DFC1F69F2A7555B0003DB68A /* SwapProviders */,
 				D99CBA2F2A594D6600581564 /* Activity */,
@@ -3479,6 +3482,14 @@
 			path = GlobalVariables;
 			sourceTree = "<group>";
 		};
+		E3ABD1E72AB0B24900947D37 /* Investment */ = {
+			isa = PBXGroup;
+			children = (
+				E3ABD1E82AB0B27A00947D37 /* InvestmentEndpoint.swift */,
+			);
+			path = Investment;
+			sourceTree = "<group>";
+		};
 		E3D204C82A3992630027FEBC /* tokenView */ = {
 			isa = PBXGroup;
 			children = (
@@ -4201,6 +4212,7 @@
 				D903AC472AA47D6C0083727F /* AmountHealthScoreView.swift in Sources */,
 				E3FC69DB2A91032D009B3341 /* AssetsBoardCollectionView.swift in Sources */,
 				E35BB65B2A652B13003987F5 /* DeviceHelper.swift in Sources */,
+				E3ABD1E92AB0B27A00947D37 /* InvestmentEndpoint.swift in Sources */,
 				D5E4DDCD2A960259000AA235 /* InvestDepositView.swift in Sources */,
 				4CF290BDB2B49F698A864B28 /* Date+Extension.swift in Sources */,
 				D99F4B1D29E2C25C009F7F55 /* PaymentMethodOptionView.swift in Sources */,
