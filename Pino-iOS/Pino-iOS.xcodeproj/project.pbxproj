@@ -604,6 +604,7 @@
 		E3ABD1EB2AB0B6FF00947D37 /* InvestmentAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1EA2AB0B6FF00947D37 /* InvestmentAPIClient.swift */; };
 		E3ABD1ED2AB0B74F00947D37 /* InvestmentAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1EC2AB0B74F00947D37 /* InvestmentAPIService.swift */; };
 		E3ABD1F22AB0BAB700947D37 /* InvestmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1F12AB0BAB700947D37 /* InvestmentModel.swift */; };
+		E3ABD1F42AB0BF4800947D37 /* InvestmentDetaiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1F32AB0BF4800947D37 /* InvestmentDetaiModel.swift */; };
 		E3C802792A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C802782A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift */; };
 		E3C8027B2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C8027A2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift */; };
 		E3C8027D2A95427800A13792 /* InvestmentRiskItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C8027C2A95427800A13792 /* InvestmentRiskItemView.swift */; };
@@ -1286,6 +1287,7 @@
 		E3ABD1EA2AB0B6FF00947D37 /* InvestmentAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentAPIClient.swift; sourceTree = "<group>"; };
 		E3ABD1EC2AB0B74F00947D37 /* InvestmentAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentAPIService.swift; sourceTree = "<group>"; };
 		E3ABD1F12AB0BAB700947D37 /* InvestmentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentModel.swift; sourceTree = "<group>"; };
+		E3ABD1F32AB0BF4800947D37 /* InvestmentDetaiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentDetaiModel.swift; sourceTree = "<group>"; };
 		E3C802782A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskPerformanceViewController.swift; sourceTree = "<group>"; };
 		E3C8027A2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskPerformanceView.swift; sourceTree = "<group>"; };
 		E3C8027C2A95427800A13792 /* InvestmentRiskItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskItemView.swift; sourceTree = "<group>"; };
@@ -3503,6 +3505,7 @@
 			isa = PBXGroup;
 			children = (
 				E3ABD1F12AB0BAB700947D37 /* InvestmentModel.swift */,
+				E3ABD1F32AB0BF4800947D37 /* InvestmentDetaiModel.swift */,
 			);
 			path = Invest;
 			sourceTree = "<group>";
@@ -4028,6 +4031,7 @@
 				B0AB10C04E985064573878F8 /* AddCustomAssetView.swift in Sources */,
 				D99CBA332A594ECB00581564 /* ActivityAPIService.swift in Sources */,
 				4A19B10E59268C480A530395 /* AddCustomAssetViewController.swift in Sources */,
+				E3ABD1F42AB0BF4800947D37 /* InvestmentDetaiModel.swift in Sources */,
 				CFE2848389AB3D7A9AF12C6C /* AddCustomAssetViewModel.swift in Sources */,
 				5319850502764EDE67A09C49 /* AddNewAccountCollectionView.swift in Sources */,
 				4CA4F662ECA5E7E45B96C281 /* AddNewAccountCollectionViewCell.swift in Sources */,

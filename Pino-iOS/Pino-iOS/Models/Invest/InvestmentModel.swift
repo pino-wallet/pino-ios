@@ -23,7 +23,7 @@ struct InvestmentModel: Codable {
 		case currentWorth = "current_worth"
 		case id
 		case listingID = "listing_id"
-		case investProtocol = "invest_protocol"
+		case investProtocol = "protocol"
 		case userID = "user_id"
 		case tokens
 	}

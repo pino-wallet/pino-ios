@@ -8,7 +8,7 @@
 import Foundation
 
 #warning("This model is temporary")
-struct InvestAssetModel: Codable {
+struct InvestAssetModel {
 	// MARK: - Public Properties
 
 	public let assetName: String
