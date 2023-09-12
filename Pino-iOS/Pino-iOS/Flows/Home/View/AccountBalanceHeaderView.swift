@@ -74,8 +74,8 @@ class AccountBalanceHeaderView: UICollectionReusableView {
 			for: .normal
 		)
 
-		sendButton.setImage(UIImage(named: homeVM.sendButtonImage), for: .normal)
-		receiveButton.setImage(UIImage(named: homeVM.receiveButtonImage), for: .normal)
+		sendButton.setImage(UIImage(named: homeVM.sendButtonImage)?.withRenderingMode(.automatic), for: .normal)
+		receiveButton.setImage(UIImage(named: homeVM.receiveButtonImage)?.withRenderingMode(.automatic), for: .normal)
 		volatilityDetailButton.image = UIImage(systemName: "arrow.right")
 
 		let showBalanceImageConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .regular, scale: .small)
