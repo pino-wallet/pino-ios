@@ -100,6 +100,7 @@
 		404324092A5FF12C006B1468 /* NumberFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404324082A5FF12C006B1468 /* NumberFormatting.swift */; };
 		408463C02A3AEE010058FF16 /* Web3-Utility in Frameworks */ = {isa = PBXBuildFile; productRef = 408463BF2A3AEE010058FF16 /* Web3-Utility */; };
 		40BB42282A47157800E1A121 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB42272A47157800E1A121 /* UIDevice+Extension.swift */; };
+		40E7C1132AAF6C74006A61DD /* SwapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E7C1122AAF6C74006A61DD /* SwapManager.swift */; };
 		40F704572A03AFFF004D74FE /* AccountActivationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F704562A03AFFF004D74FE /* AccountActivationModel.swift */; };
 		40F704592A03D5DC004D74FE /* PrivateKeyTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F704582A03D5DC004D74FE /* PrivateKeyTextView.swift */; };
 		41B9F1002F97DF04A075D75D /* PinoStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262D77EFE984EBA7A19D23DC /* PinoStepperView.swift */; };
@@ -779,6 +780,7 @@
 		404324052A5FF115006B1468 /* TextFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormatting.swift; sourceTree = "<group>"; };
 		404324082A5FF12C006B1468 /* NumberFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatting.swift; sourceTree = "<group>"; };
 		40BB42272A47157800E1A121 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
+		40E7C1122AAF6C74006A61DD /* SwapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapManager.swift; sourceTree = "<group>"; };
 		40F704562A03AFFF004D74FE /* AccountActivationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountActivationModel.swift; sourceTree = "<group>"; };
 		40F704582A03D5DC004D74FE /* PrivateKeyTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKeyTextView.swift; sourceTree = "<group>"; };
 		411833622E37F06E2DC49DFD /* AvatarCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCollectionView.swift; sourceTree = "<group>"; };
@@ -3428,6 +3430,7 @@
 				E35BB64C2A596E90003987F5 /* SelectSwapProvidersViewModel.swift */,
 				E35BB6542A62D4A5003987F5 /* SwapConfirmationViewModel.swift */,
 				E3FC698D2A80DD2F009B3341 /* SwapPriceManager.swift */,
+				40E7C1122AAF6C74006A61DD /* SwapManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -4184,6 +4187,7 @@
 				DFA968732A0F8A77007D4513 /* WalletDataSource.swift in Sources */,
 				DF14FCA32A910B78005221A8 /* PromiseKit+Extension.swift in Sources */,
 				D9BE05152A8221C8008670F9 /* CDActivityParent+CoreDataProperties.swift in Sources */,
+				40E7C1132AAF6C74006A61DD /* SwapManager.swift in Sources */,
 				DF1D90E52A973ACC00435D85 /* ApprovingLoadingViewController.swift in Sources */,
 				D916A8C82A9F64B400F391B5 /* CollateralIncreaseAmountViewController.swift in Sources */,
 				324CF2EFF8A4FE86E6609254 /* CustomAssetInfoViewModel.swift in Sources */,
