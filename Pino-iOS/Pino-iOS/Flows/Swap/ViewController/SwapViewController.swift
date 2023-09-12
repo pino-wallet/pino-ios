@@ -190,7 +190,8 @@ class SwapViewController: UIViewController {
 		guard let bestProvider = swapVM.bestProvider else { return }
 		let providersVC = SwapProvidersViewcontroller(
 			providers: swapVM.providers,
-			bestProvider: bestProvider
+			bestProvider: bestProvider,
+			selectedProvider: swapVM.swapFeeVM.swapProviderVM
 		) { provider in
 			self.swapVM.changeSwapProvider(to: provider)
 		}
