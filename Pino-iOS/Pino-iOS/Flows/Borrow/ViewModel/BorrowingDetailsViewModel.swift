@@ -34,7 +34,6 @@ class BorrowingDetailsViewModel {
 
 	private var cancellables = Set<AnyCancellable>()
 	private var borrowingType: BorrowingDetailsType
-	private var globalAssetsList = GlobalVariables.shared.manageAssetsList
 
 	// MARK: - Initializers
 
@@ -50,7 +49,7 @@ class BorrowingDetailsViewModel {
 	// MARK: - Private Methods
 
 	private func setupEmptyProperties() {
-		properties = BorrowingPropertiesViewModel(progressBarColor: .white)
+		properties = BorrowingPropertiesViewModel()
 	}
 
 	private func setupBindigns() {
@@ -70,7 +69,8 @@ class BorrowingDetailsViewModel {
 				properties = BorrowingPropertiesViewModel(
 					borrowingAssetsList: userBorrowingDetails.borrowTokens,
 					prevBorrowingAssetsList: borrowVM.userBorrowingDetails?.borrowTokens ?? [],
-					progressBarColor: borrowVM.borrowProgressBarColor
+					progressBarColor: borrowVM.borrowProgressBarColor,
+                    globalAssetsList: borrowVM.globalAssetsList
 				)
 			}
 		case .collateral:
@@ -78,7 +78,8 @@ class BorrowingDetailsViewModel {
 				properties = BorrowingPropertiesViewModel(
 					borrowingAssetsList: userBorrowingDetails.collateralTokens,
 					prevBorrowingAssetsList: borrowVM.userBorrowingDetails?.collateralTokens ?? [],
-					progressBarColor: borrowVM.collateralProgressBarColor
+					progressBarColor: borrowVM.collateralProgressBarColor,
+                    globalAssetsList: borrowVM.globalAssetsList
 				)
 			}
 		}

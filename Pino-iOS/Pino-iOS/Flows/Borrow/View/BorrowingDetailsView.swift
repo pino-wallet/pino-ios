@@ -128,7 +128,7 @@ class BorrowingDetailsView: UIView {
 			guard let newBorrowingDetailsProperties = borrowingDetailsProperties else {
 				return
 			}
-			self.updateAmountLabel(newAmount: newBorrowingDetailsProperties.borrowingAmount)
+			self.updateAmountLabel(newAmount: newBorrowingDetailsProperties.formattedBorrowingAmountInDollars)
 			self.updateViewColors(borrowingDetailsProperties: newBorrowingDetailsProperties)
 			self.updateView(borrowingDetailsProperties: newBorrowingDetailsProperties)
 		}.store(in: &cancellables)

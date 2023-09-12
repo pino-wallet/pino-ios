@@ -14,6 +14,8 @@ class BorrowViewModel {
 	public var selectedDexSystem: DexSystemModel = .aave
 	@Published
 	public var userBorrowingDetails: UserBorrowingModel? = nil
+    
+    public var globalAssetsList: [AssetViewModel]?
 
 	public let dismissIconName = "dissmiss"
 	public let pageTitle = "Borrow"
@@ -25,6 +27,7 @@ class BorrowViewModel {
 	public let healthScoreTitle = "Health Score"
 	#warning("this tooltip is for testing and should be replaced")
 	public let healthScoreTooltip = "this is health score"
+    public let errorFetchingToastMessage = "Error fetching borrowing data from server"
 	public let borrowProgressBarColor = UIColor.Pino.primary
 	public let collateralProgressBarColor = UIColor.Pino.succesGreen2
 
@@ -34,7 +37,10 @@ class BorrowViewModel {
 	private let walletManager = PinoWalletManager()
 	private var requestTimer: Timer?
 	private var currentUserAddress: String?
+    private var userBorrowingDetailsCache: UserBorrowingModel? = nil
 	private var cancellables = Set<AnyCancellable>()
+    private var globalAssetsListCancellable = Set<AnyCancellable>()
+    
 
 	// MARK: - Public Methods
 
@@ -45,6 +51,9 @@ class BorrowViewModel {
 		currentUserAddress = walletManager.currentAccount.eip55Address
 		setupRequestTimer()
 		requestTimer?.fire()
+        if globalAssetsList == nil {
+            setupBindings()
+        }
 	}
 
 	public func changeSelectedDexSystem(newSelectedDexSystem: DexSystemModel) {
@@ -66,6 +75,7 @@ class BorrowViewModel {
 
 	private func destroyData() {
 		userBorrowingDetails = nil
+        userBorrowingDetailsCache = nil
 	}
 
 	private func setupRequestTimer() {
@@ -77,6 +87,16 @@ class BorrowViewModel {
 			repeats: true
 		)
 	}
+    
+    private func setupBindings() {
+        GlobalVariables.shared.$manageAssetsList.sink { manageAssetsList in
+            if self.userBorrowingDetailsCache != nil && manageAssetsList != nil {
+                self.globalAssetsList = manageAssetsList
+                self.userBorrowingDetails = self.userBorrowingDetailsCache
+            }
+            self.globalAssetsListCancellable.removeAll()
+        }.store(in: &globalAssetsListCancellable)
+    }
 
 	@objc
 	private func getUserBorrowingDetails() {
@@ -89,9 +109,20 @@ class BorrowViewModel {
 				print("User borrowing details received successfully")
 			case let .failure(error):
 				print(error)
+                Toast.default(
+                    title: self.errorFetchingToastMessage,
+                    subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+                    style: .error
+                )
+                .show(haptic: .warning)
 			}
 		} receiveValue: { userBorrowingDetails in
-			self.userBorrowingDetails = userBorrowingDetails
+            if GlobalVariables.shared.manageAssetsList == nil {
+                self.userBorrowingDetailsCache = userBorrowingDetails
+            } else {
+                self.globalAssetsList = GlobalVariables.shared.manageAssetsList
+                self.userBorrowingDetails = userBorrowingDetails
+            }
 		}.store(in: &cancellables)
 	}
 }

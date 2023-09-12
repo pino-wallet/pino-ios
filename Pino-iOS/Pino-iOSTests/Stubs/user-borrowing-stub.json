@@ -1,6 +1,6 @@
 {
-    "borrow_tokens": [{"amount": "100", "dex": "str", "id": "mine", "user_id": "hello", "total_debt": "1000" }],
-    "collateral_tokens": [{"amount": "100", "dex": "str", "id": "mine", "user_id": "hello", "total_debt": "1000" }],
+    "borrow_tokens": [],
+    "collateral_tokens": [{"amount": "1000000000000000000", "dex": "str", "id": "0x0000000000000000000000000000000000000000", "user_id": "hello", "total_debt": "1000" }, {"amount": "10000000000000000000", "dex": "str", "id": "0x514910771af9ca656af840dff83e8264ecf986ca", "user_id": "hello", "total_debt": "1000" }],
     "dex": "aave",
     "health_score": 0,
     "user_id": "string"
