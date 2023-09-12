@@ -19,7 +19,7 @@ final class InvestmentAPIClient: InvestmentAPIService {
 
 	// MARK: - Public Methods
 
-	func investments() -> AnyPublisher<[InvestAssetModel], APIError> {
+	func investments() -> AnyPublisher<[InvestmentModel], APIError> {
 		networkManager.request(.investment(accountAddress: currentAccountAddress))
 	}
 
