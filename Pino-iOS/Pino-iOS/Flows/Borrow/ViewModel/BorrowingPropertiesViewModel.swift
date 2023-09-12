@@ -8,23 +8,25 @@
 import UIKit
 
 struct BorrowingPropertiesViewModel {
-    // MARK: - Private Properties
-    private var globalAssetsList: [AssetViewModel]?
-    private var totalBorrowingAmountInDollars: BigNumber {
-        var totalAmount = 0.bigNumber
-        guard let borrowingAssetsList, !borrowingAssetsList.isEmpty else {
-            return totalAmount
-        }
-        for userBorrowingAsset in borrowingAssetsList {
-            guard let foundToken = globalAssetsList?.first(where: { $0.id == userBorrowingAsset.id }) else {
-                return totalAmount
-            }
-            let tokenAmount = BigNumber(number: userBorrowingAsset.amount, decimal: foundToken.decimal)
-            let tokenAmountInDollars = tokenAmount * foundToken.price
-            totalAmount = totalAmount + tokenAmountInDollars
-        }
-        return totalAmount
-    }
+	// MARK: - Private Properties
+
+	private var globalAssetsList: [AssetViewModel]?
+	private var totalBorrowingAmountInDollars: BigNumber {
+		var totalAmount = 0.bigNumber
+		guard let borrowingAssetsList, !borrowingAssetsList.isEmpty else {
+			return totalAmount
+		}
+		for userBorrowingAsset in borrowingAssetsList {
+			guard let foundToken = globalAssetsList?.first(where: { $0.id == userBorrowingAsset.id }) else {
+				return totalAmount
+			}
+			let tokenAmount = BigNumber(number: userBorrowingAsset.amount, decimal: foundToken.decimal)
+			let tokenAmountInDollars = tokenAmount * foundToken.price
+			totalAmount = totalAmount + tokenAmountInDollars
+		}
+		return totalAmount
+	}
+
 	// MARK: - Public Properties
 
 	public var borrowingAssetsList: [UserBorrowingToken]?
@@ -35,8 +37,8 @@ struct BorrowingPropertiesViewModel {
 		guard let borrowingAssetsList, !borrowingAssetsList.isEmpty else {
 			return "0"
 		}
-        
-        return totalBorrowingAmountInDollars.priceFormat
+
+		return totalBorrowingAmountInDollars.priceFormat
 	}
 
 	public var borrowingAssetsDetailList: [BorrowingTokenModel]? {
@@ -44,39 +46,58 @@ struct BorrowingPropertiesViewModel {
 			return nil
 		}
 		return borrowingAssetsList.compactMap { newToken in
-            guard let foundTokenInManageAssets = globalAssetsList?.first(where: { $0.id == newToken.id }) else {
-                return nil
-            }
+			guard let foundTokenInManageAssets = globalAssetsList?.first(where: { $0.id == newToken.id }) else {
+				return nil
+			}
 			let foundTokenInPrevBorrowingTokens = prevBorrowingAssetsList.first(where: { $0.id == newToken.id })
 			if foundTokenInPrevBorrowingTokens != nil {
 				return BorrowingTokenModel(
-                    tokenImage: foundTokenInManageAssets.image,
-					tokenSharedBorrowingPercentage: getTokenSharedBorrowingPercentage(token: newToken, foundTokenInManageAssets: foundTokenInManageAssets),
-					prevTokenSharedBorrowingPercentage: getTokenSharedBorrowingPercentage(token: foundTokenInPrevBorrowingTokens!, foundTokenInManageAssets: foundTokenInManageAssets)
+					tokenImage: foundTokenInManageAssets.image,
+					tokenSharedBorrowingPercentage: getTokenSharedBorrowingPercentage(
+						token: newToken,
+						foundTokenInManageAssets: foundTokenInManageAssets
+					),
+					prevTokenSharedBorrowingPercentage: getTokenSharedBorrowingPercentage(
+						token: foundTokenInPrevBorrowingTokens!,
+						foundTokenInManageAssets: foundTokenInManageAssets
+					)
 				)
 			} else {
 				return BorrowingTokenModel(
-                    tokenImage: foundTokenInManageAssets.image,
-					tokenSharedBorrowingPercentage: getTokenSharedBorrowingPercentage(token: newToken, foundTokenInManageAssets: foundTokenInManageAssets),
-                    prevTokenSharedBorrowingPercentage: 0.bigNumber
+					tokenImage: foundTokenInManageAssets.image,
+					tokenSharedBorrowingPercentage: getTokenSharedBorrowingPercentage(
+						token: newToken,
+						foundTokenInManageAssets: foundTokenInManageAssets
+					),
+					prevTokenSharedBorrowingPercentage: 0.bigNumber
 				)
 			}
 		}
 	}
-    
-    // MARK: - Initializers
-    init(borrowingAssetsList: [UserBorrowingToken]? = nil, prevBorrowingAssetsList: [UserBorrowingToken] = [], progressBarColor: UIColor = .Pino.white, globalAssetsList: [AssetViewModel]? = nil) {
-        self.borrowingAssetsList = borrowingAssetsList
-        self.prevBorrowingAssetsList = prevBorrowingAssetsList
-        self.progressBarColor = progressBarColor
-        self.globalAssetsList = globalAssetsList
-    }
-    
-    // MARK: - Private Methods
-    private func getTokenSharedBorrowingPercentage(token: UserBorrowingToken, foundTokenInManageAssets: AssetViewModel) -> BigNumber {
-        let amountPercentage = totalBorrowingAmountInDollars / 100.bigNumber
-        let tokenAmount = BigNumber(number: token.amount, decimal: foundTokenInManageAssets.decimal)
-        let tokenAmountInDollars = tokenAmount * foundTokenInManageAssets.price
-        return (tokenAmountInDollars / amountPercentage!)!
-    }
+
+	// MARK: - Initializers
+
+	init(
+		borrowingAssetsList: [UserBorrowingToken]? = nil,
+		prevBorrowingAssetsList: [UserBorrowingToken] = [],
+		progressBarColor: UIColor = .Pino.white,
+		globalAssetsList: [AssetViewModel]? = nil
+	) {
+		self.borrowingAssetsList = borrowingAssetsList
+		self.prevBorrowingAssetsList = prevBorrowingAssetsList
+		self.progressBarColor = progressBarColor
+		self.globalAssetsList = globalAssetsList
+	}
+
+	// MARK: - Private Methods
+
+	private func getTokenSharedBorrowingPercentage(
+		token: UserBorrowingToken,
+		foundTokenInManageAssets: AssetViewModel
+	) -> BigNumber {
+		let amountPercentage = totalBorrowingAmountInDollars / 100.bigNumber
+		let tokenAmount = BigNumber(number: token.amount, decimal: foundTokenInManageAssets.decimal)
+		let tokenAmountInDollars = tokenAmount * foundTokenInManageAssets.price
+		return (tokenAmountInDollars / amountPercentage!)!
+	}
 }

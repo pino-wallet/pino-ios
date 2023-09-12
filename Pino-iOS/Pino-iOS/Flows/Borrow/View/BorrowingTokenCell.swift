@@ -5,8 +5,8 @@
 //  Created by Amir hossein kazemi seresht on 8/22/23.
 //
 
-import UIKit
 import Kingfisher
+import UIKit
 
 class BorrowingTokenCell: UICollectionViewCell {
 	// MARK: - Private Properties
@@ -56,8 +56,8 @@ class BorrowingTokenCell: UICollectionViewCell {
 		guard let tokenImage = borrowingTokenVM?.tokenImage else {
 			return
 		}
-        tokenImageView.kf.indicatorType = .activity
-        tokenImageView.kf.setImage(with: tokenImage)
+		tokenImageView.kf.indicatorType = .activity
+		tokenImageView.kf.setImage(with: tokenImage)
 	}
 
 	private func setupConstraints() {
@@ -85,7 +85,7 @@ class BorrowingTokenCell: UICollectionViewCell {
 
 		progressLayer.path = circularPath.cgPath
 		progressLayer.fillColor = nil
-        progressLayer.lineCap = .round
+		progressLayer.lineCap = .round
 		progressLayer.lineWidth = 2.5
 		progressLayer.strokeColor = UIColor.Pino.primary.cgColor
 		progressLayer.strokeEnd = 0
@@ -94,11 +94,11 @@ class BorrowingTokenCell: UICollectionViewCell {
 	}
 
 	private func animatePercentageProgressbar() {
-        let newTotalSharedBorrowingDividedPercentage = borrowingTokenVM?.totalSharedBorrowingDividedPercentage
+		let newTotalSharedBorrowingDividedPercentage = borrowingTokenVM?.totalSharedBorrowingDividedPercentage
 		let progressAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        if let borrowingPercentage = borrowingTokenVM?.prevTotalSharedBorrowingDividedPercentage,
+		if let borrowingPercentage = borrowingTokenVM?.prevTotalSharedBorrowingDividedPercentage,
 		   !borrowingPercentage.isZero {
-            progressAnimation.fromValue = borrowingPercentage
+			progressAnimation.fromValue = borrowingPercentage
 		}
 		progressAnimation.duration = 0.5
 		progressAnimation.toValue = newTotalSharedBorrowingDividedPercentage

@@ -70,7 +70,7 @@ class BorrowingDetailsViewModel {
 					borrowingAssetsList: userBorrowingDetails.borrowTokens,
 					prevBorrowingAssetsList: borrowVM.userBorrowingDetails?.borrowTokens ?? [],
 					progressBarColor: borrowVM.borrowProgressBarColor,
-                    globalAssetsList: borrowVM.globalAssetsList
+					globalAssetsList: borrowVM.globalAssetsList
 				)
 			}
 		case .collateral:
@@ -79,7 +79,7 @@ class BorrowingDetailsViewModel {
 					borrowingAssetsList: userBorrowingDetails.collateralTokens,
 					prevBorrowingAssetsList: borrowVM.userBorrowingDetails?.collateralTokens ?? [],
 					progressBarColor: borrowVM.collateralProgressBarColor,
-                    globalAssetsList: borrowVM.globalAssetsList
+					globalAssetsList: borrowVM.globalAssetsList
 				)
 			}
 		}
