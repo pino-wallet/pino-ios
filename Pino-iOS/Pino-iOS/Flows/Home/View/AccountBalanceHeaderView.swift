@@ -170,7 +170,7 @@ class AccountBalanceHeaderView: UICollectionReusableView {
 				volatilityViewBackgroundColor = .Pino.gray5
 				volatilityViewTintColor = .Pino.gray2
 			}
-			volatilityDetailButton.image = UIImage(named: volatilityDetailIcon)
+			self.volatilityDetailButton.image = UIImage(named: volatilityDetailIcon)
 			self.volatilityView.backgroundColor = volatilityViewBackgroundColor
 			self.volatilitySeparatorLine.backgroundColor = volatilityViewTintColor
 			self.volatilityPercentageLabel.textColor = volatilityViewTintColor
