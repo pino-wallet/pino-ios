@@ -19,7 +19,7 @@ class ImportSecretPhraseView: UIView {
 	private let seedPhrasePasteButton = UIButton()
 	private let errorLabel = UILabel()
 	private let errorIcon = UIImageView()
-	private var importAccountVM: ImportAccountViewModel
+	private var importAccountVM: ImportSecretPhraseViewModel
 	private let importButton = PinoButton(style: .deactive)
 
 	// MARK: - Public Properties
@@ -35,7 +35,7 @@ class ImportSecretPhraseView: UIView {
 	// MARK: - Initializers
 
 	init(
-		validationPharaseVM: ImportAccountViewModel,
+		validationPharaseVM: ImportSecretPhraseViewModel,
 		textViewType: ImportTextViewType,
 		importBtnTapped: @escaping () -> Void
 	) {
