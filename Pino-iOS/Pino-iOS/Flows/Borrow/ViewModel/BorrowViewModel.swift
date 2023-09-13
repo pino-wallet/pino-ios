@@ -16,7 +16,7 @@ class BorrowViewModel {
 	public var userBorrowingDetails: UserBorrowingModel? = nil
 
 	public var globalAssetsList: [AssetViewModel]?
-
+	public let alertIconName = "alert"
 	public let dismissIconName = "dissmiss"
 	public let pageTitle = "Borrow"
 	public let collateralTitle = "Collateral"
