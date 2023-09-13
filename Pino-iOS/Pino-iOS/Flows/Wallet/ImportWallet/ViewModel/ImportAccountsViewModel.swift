@@ -10,6 +10,15 @@ import Foundation
 struct ImportAccountsViewModel {
 	// MARK: Public Properties
 
+	public let pageTitle = "Import account"
+	public var pageDescription: String {
+		if accounts.count > 1 {
+			return "We found \(accounts.count) accounts with activity"
+		} else {
+			return "We found an account with activity"
+		}
+	}
+
 	public var accounts: [ActiveAccountViewModel]!
 
 	// MARK: - Initializers

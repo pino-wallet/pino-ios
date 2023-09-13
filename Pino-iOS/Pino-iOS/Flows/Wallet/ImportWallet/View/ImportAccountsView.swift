@@ -21,7 +21,7 @@ class ImportAccountsView: UIView {
 	init(accountsVM: ImportAccountsViewModel, importButtonDidTap: @escaping () -> Void) {
 		self.accountsVM = accountsVM
 		self.importButtonDidTap = importButtonDidTap
-		self.accountsCollectionView = ImportAccountsCollectionView(accounts: accountsVM.accounts)
+		self.accountsCollectionView = ImportAccountsCollectionView(accountsVM: accountsVM)
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
