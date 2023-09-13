@@ -15,6 +15,7 @@ class BorrowViewModel {
 	@Published
 	public var userBorrowingDetails: UserBorrowingModel? = nil
 
+	public var globalAssetsList: [AssetViewModel]?
 	public let alertIconName = "alert"
 	public let dismissIconName = "dissmiss"
 	public let pageTitle = "Borrow"
@@ -26,30 +27,77 @@ class BorrowViewModel {
 	public let healthScoreTitle = "Health Score"
 	#warning("this tooltip is for testing and should be replaced")
 	public let healthScoreTooltip = "this is health score"
+	public let errorFetchingToastMessage = "Error fetching borrowing data from server"
 	public let borrowProgressBarColor = UIColor.Pino.primary
 	public let collateralProgressBarColor = UIColor.Pino.succesGreen2
 
 	// MARK: - Private Properties
 
-	#warning("this is mock")
-	private let borrowAPIClient = BorrowAPIMockClient()
+	private let borrowAPIClient = BorrowingAPIClient()
 	private let walletManager = PinoWalletManager()
+	private var requestTimer: Timer?
+	private var currentUserAddress: String?
+	private var userBorrowingDetailsCache: UserBorrowingModel?
 	private var cancellables = Set<AnyCancellable>()
+	private var globalAssetsListCancellable = Set<AnyCancellable>()
 
 	// MARK: - Public Methods
 
 	public func getBorrowingDetailsFromVC() {
-		#warning("we should add a timer to update borrowing data every 5 seconds")
-		#warning("we should consider user address to prevent show some user details to all accounts")
-		getUserBorrowingDetails()
+		if walletManager.currentAccount.eip55Address != currentUserAddress {
+			destroyData()
+		}
+		currentUserAddress = walletManager.currentAccount.eip55Address
+		setupRequestTimer()
+		requestTimer?.fire()
+		if globalAssetsList == nil {
+			setupBindings()
+		}
 	}
 
 	public func changeSelectedDexSystem(newSelectedDexSystem: DexSystemModel) {
-		selectedDexSystem = newSelectedDexSystem
+		if selectedDexSystem != newSelectedDexSystem {
+			destroyData()
+			selectedDexSystem = newSelectedDexSystem
+			requestTimer?.fire()
+		} else {
+			selectedDexSystem = newSelectedDexSystem
+		}
+	}
+
+	public func destroyRequestTimer() {
+		requestTimer?.invalidate()
+		requestTimer = nil
 	}
 
 	// MARK: - Private Methods
 
+	private func destroyData() {
+		userBorrowingDetails = nil
+		userBorrowingDetailsCache = nil
+	}
+
+	private func setupRequestTimer() {
+		requestTimer = Timer.scheduledTimer(
+			timeInterval: 5,
+			target: self,
+			selector: #selector(getUserBorrowingDetails),
+			userInfo: nil,
+			repeats: true
+		)
+	}
+
+	private func setupBindings() {
+		GlobalVariables.shared.$manageAssetsList.sink { manageAssetsList in
+			if self.userBorrowingDetailsCache != nil && manageAssetsList != nil {
+				self.globalAssetsList = manageAssetsList
+				self.userBorrowingDetails = self.userBorrowingDetailsCache
+			}
+			self.globalAssetsListCancellable.removeAll()
+		}.store(in: &globalAssetsListCancellable)
+	}
+
+	@objc
 	private func getUserBorrowingDetails() {
 		borrowAPIClient.getUserBorrowings(
 			address: walletManager.currentAccount.eip55Address,
@@ -60,10 +108,18 @@ class BorrowViewModel {
 				print("User borrowing details received successfully")
 			case let .failure(error):
 				print(error)
+				Toast.default(
+					title: self.errorFetchingToastMessage,
+					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+					style: .error
+				)
+				.show(haptic: .warning)
 			}
 		} receiveValue: { userBorrowingDetails in
-			#warning("this is for loading test")
-			DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+			if GlobalVariables.shared.manageAssetsList == nil {
+				self.userBorrowingDetailsCache = userBorrowingDetails
+			} else {
+				self.globalAssetsList = GlobalVariables.shared.manageAssetsList
 				self.userBorrowingDetails = userBorrowingDetails
 			}
 		}.store(in: &cancellables)
