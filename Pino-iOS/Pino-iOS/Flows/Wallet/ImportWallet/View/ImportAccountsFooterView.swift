@@ -25,24 +25,30 @@ class ImportAccountsFooterView: UICollectionReusableView {
 		}
 	}
 
+	public var findAccountDidTap: (() -> Void)!
+
 	// MARK: - Private Methods
 
 	private func setupView() {
 		addSubview(contentView)
 		contentView.addSubview(findAccountButton)
 		contentView.addSubview(loadingView)
+
+		findAccountButton.addAction(UIAction(handler: { _ in
+			self.findAccountDidTap()
+		}), for: .touchUpInside)
 	}
 
 	private func setupStyle() {
-		backgroundColor = .Pino.background
 		findAccountButton.setTitle(title, for: .normal)
 		findAccountButton.setTitleColor(.Pino.primary, for: .normal)
 		findAccountButton.titleLabel?.font = .PinoStyle.semiboldCallout
+		loadingView.color = .Pino.primary
 	}
 
 	private func setupConstraint() {
 		contentView.pin(
-			.top(padding: 32),
+			.top(padding: 12),
 			.centerX
 		)
 		findAccountButton.pin(
@@ -50,8 +56,22 @@ class ImportAccountsFooterView: UICollectionReusableView {
 			.horizontalEdges
 		)
 		loadingView.pin(
+			.fixedWidth(32),
+			.fixedHeight(32),
 			.centerX,
 			.verticalEdges
 		)
+	}
+
+	// MARK: - Public Methods
+
+	public func startLoading() {
+		loadingView.startAnimating()
+		findAccountButton.isHidden = true
+	}
+
+	public func stopLoading() {
+		loadingView.stopAnimating()
+		findAccountButton.isHidden = false
 	}
 }

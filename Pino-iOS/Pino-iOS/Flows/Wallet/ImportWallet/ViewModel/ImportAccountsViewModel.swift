@@ -19,6 +19,7 @@ struct ImportAccountsViewModel {
 		}
 	}
 
+	public var footerTitle = "Find more accounts"
 	public var accounts: [ActiveAccountViewModel]!
 
 	// MARK: - Initializers
@@ -50,5 +51,13 @@ struct ImportAccountsViewModel {
 				isSelected: false
 			),
 		]
+	}
+
+	// MARK: - Public Methods
+
+	public func findMoreAccounts(completion: @escaping () -> Void) {
+		DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+			completion()
+		}
 	}
 }

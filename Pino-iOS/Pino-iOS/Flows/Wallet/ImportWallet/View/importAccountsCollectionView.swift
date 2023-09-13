@@ -41,9 +41,9 @@ class ImportAccountsCollectionView: UICollectionView {
 			withReuseIdentifier: ImportAccountsHeaderView.viewReuseID
 		)
 		register(
-			ImportAccountsHeaderView.self,
+			ImportAccountsFooterView.self,
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
-			withReuseIdentifier: ImportAccountsHeaderView.viewReuseID
+			withReuseIdentifier: ImportAccountsFooterView.footerReuseID
 		)
 
 		dataSource = self
@@ -53,6 +53,10 @@ class ImportAccountsCollectionView: UICollectionView {
 	private func setupStyle() {
 		backgroundColor = .Pino.secondaryBackground
 		showsVerticalScrollIndicator = false
+	}
+
+	private func findMoreAccounts(completion: @escaping () -> Void) {
+		accountsVM.findMoreAccounts(completion: completion)
 	}
 }
 
@@ -73,6 +77,14 @@ extension ImportAccountsCollectionView: UICollectionViewDelegateFlowLayout {
 		referenceSizeForHeaderInSection section: Int
 	) -> CGSize {
 		CGSize(width: collectionView.frame.width, height: 56)
+	}
+
+	func collectionView(
+		_ collectionView: UICollectionView,
+		layout collectionViewLayout: UICollectionViewLayout,
+		referenceSizeForFooterInSection section: Int
+	) -> CGSize {
+		CGSize(width: collectionView.frame.width, height: 64)
 	}
 }
 
@@ -123,10 +135,16 @@ extension ImportAccountsCollectionView: UICollectionViewDataSource {
 		case UICollectionView.elementKindSectionFooter:
 			let footerView = dequeueReusableSupplementaryView(
 				ofKind: UICollectionView.elementKindSectionFooter,
-				withReuseIdentifier: ImportAccountsHeaderView.viewReuseID,
+				withReuseIdentifier: ImportAccountsFooterView.footerReuseID,
 				for: indexPath
-			) as! ImportAccountsHeaderView
-
+			) as! ImportAccountsFooterView
+			footerView.title = accountsVM.footerTitle
+			footerView.findAccountDidTap = {
+				footerView.startLoading()
+				self.findMoreAccounts {
+					footerView.stopLoading()
+				}
+			}
 			return footerView
 		default:
 			fatalError("cant dequeue reusable view")
