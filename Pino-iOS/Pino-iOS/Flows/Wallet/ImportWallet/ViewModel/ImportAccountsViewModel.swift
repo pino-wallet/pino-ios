@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ImportAccountsViewModel {
+class ImportAccountsViewModel {
 	// MARK: Public Properties
 
 	public let pageTitle = "Import account"
@@ -20,6 +20,8 @@ struct ImportAccountsViewModel {
 	}
 
 	public var footerTitle = "Find more accounts"
+
+	@Published
 	public var accounts: [ActiveAccountViewModel]!
 
 	// MARK: - Initializers
@@ -30,7 +32,7 @@ struct ImportAccountsViewModel {
 
 	// MARK: - Private Methods
 
-	private mutating func getAccounts() {
+	private func getAccounts() {
 		accounts = [
 			ActiveAccountViewModel(
 				id: "0",
@@ -58,6 +60,16 @@ struct ImportAccountsViewModel {
 	public func findMoreAccounts(completion: @escaping () -> Void) {
 		DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
 			completion()
+			let avatar = Avatar.randAvatar()
+			self.accounts.append(ActiveAccountViewModel(
+				id: "0",
+				name: avatar.name,
+				address: "2365627638742",
+				profileImage: avatar.rawValue,
+				profileColor: avatar.rawValue,
+				balance: "100",
+				isSelected: false
+			))
 		}
 	}
 }

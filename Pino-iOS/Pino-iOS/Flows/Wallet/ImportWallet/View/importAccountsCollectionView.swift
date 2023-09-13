@@ -5,12 +5,15 @@
 //  Created by Mohi Raoufi on 9/13/23.
 //
 
+import Combine
 import UIKit
 
 class ImportAccountsCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
 	private var accountsVM: ImportAccountsViewModel
+	private var accounts: [ActiveAccountViewModel]!
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -22,6 +25,7 @@ class ImportAccountsCollectionView: UICollectionView {
 
 		configCollectionView()
 		setupStyle()
+		setupBinding()
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -53,6 +57,13 @@ class ImportAccountsCollectionView: UICollectionView {
 	private func setupStyle() {
 		backgroundColor = .Pino.secondaryBackground
 		showsVerticalScrollIndicator = false
+	}
+
+	private func setupBinding() {
+		accountsVM.$accounts.sink { accounts in
+			self.accounts = accounts
+			self.reloadData()
+		}.store(in: &cancellables)
 	}
 
 	private func findMoreAccounts(completion: @escaping () -> Void) {
@@ -98,7 +109,7 @@ extension ImportAccountsCollectionView: UICollectionViewDelegate {
 
 extension ImportAccountsCollectionView: UICollectionViewDataSource {
 	internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		accountsVM.accounts.count
+		accounts.count
 	}
 
 	internal func collectionView(
@@ -109,8 +120,8 @@ extension ImportAccountsCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: ImportAccountCell.cellReuseID,
 			for: indexPath
 		) as! ImportAccountCell
-		accountCell.accountVM = accountsVM.accounts[indexPath.item]
-		if accountsVM.accounts[indexPath.item].isSelected {
+		accountCell.accountVM = accounts[indexPath.item]
+		if accounts[indexPath.item].isSelected {
 			accountCell.style = .selected
 		} else {
 			accountCell.style = .regular
