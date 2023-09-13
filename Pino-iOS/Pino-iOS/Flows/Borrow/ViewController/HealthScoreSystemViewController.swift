@@ -45,7 +45,7 @@ class HealthScoreSystemViewController: UIAlertController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		setupHealthScoreLayers()
-		let currentHealthScorePixel =  calculateCurrentHealthScorePixel()
+		let currentHealthScorePixel = calculateCurrentHealthScorePixel()
 		setupHealthScoreColors(currentHealthScorePixel: currentHealthScorePixel)
 		setupHealthScoreConstraints(currentHealthScorePixel: currentHealthScorePixel)
 		setupHealthScoreStyles(currentHealthScorePixel: currentHealthScorePixel)
@@ -115,18 +115,18 @@ class HealthScoreSystemViewController: UIAlertController {
 		mainStackView.setCustomSpacing(12, after: describtionLabel)
 		mainStackView.setCustomSpacing(24, after: healthScoreContainerView)
 		mainStackView.setCustomSpacing(40, after: zoneInformationStackView)
-        
-        liquidationZoneStackView.axis = .horizontal
-        liquidationZoneStackView.spacing = 4
-        liquidationZoneStackView.alignment = .center
-        
-        dangerZoneStackView.axis = .horizontal
-        dangerZoneStackView.spacing = 4
-        dangerZoneStackView.alignment = .center
-        
-        safetyZoneStackView.axis = .horizontal
-        safetyZoneStackView.spacing = 4
-        safetyZoneStackView.alignment = .center
+
+		liquidationZoneStackView.axis = .horizontal
+		liquidationZoneStackView.spacing = 4
+		liquidationZoneStackView.alignment = .center
+
+		dangerZoneStackView.axis = .horizontal
+		dangerZoneStackView.spacing = 4
+		dangerZoneStackView.alignment = .center
+
+		safetyZoneStackView.axis = .horizontal
+		safetyZoneStackView.spacing = 4
+		safetyZoneStackView.alignment = .center
 
 		titleLabel.text = healthScoreSystemInfoVM.healthScoreTitle
 
@@ -138,11 +138,11 @@ class HealthScoreSystemViewController: UIAlertController {
 		zoneInformationStackView.spacing = 16
 
 		liquidationZoneDotView.backgroundColor = .Pino.red
-        liquidationZoneDotView.layer.cornerRadius = 6
+		liquidationZoneDotView.layer.cornerRadius = 6
 		dangerZoneDotView.backgroundColor = .Pino.orange
-        dangerZoneDotView.layer.cornerRadius = 6
+		dangerZoneDotView.layer.cornerRadius = 6
 		safetyZoneDotView.backgroundColor = .Pino.green
-        safetyZoneDotView.layer.cornerRadius = 6
+		safetyZoneDotView.layer.cornerRadius = 6
 
 		liquidationZoneDescribtionLabel.font = .PinoStyle.mediumFootnote
 		liquidationZoneDescribtionLabel.text = healthScoreSystemInfoVM.liquidationZoneDescription
@@ -200,12 +200,12 @@ class HealthScoreSystemViewController: UIAlertController {
 
 	private func setupConstraints() {
 		containerView.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
-        liquidationZoneDotView.heightAnchor.constraint(equalToConstant: 12).isActive = true
-        liquidationZoneDotView.widthAnchor.constraint(equalToConstant: 12).isActive = true
-        dangerZoneDotView.heightAnchor.constraint(equalToConstant: 12).isActive = true
-        dangerZoneDotView.widthAnchor.constraint(equalToConstant: 12).isActive = true
-        safetyZoneDotView.heightAnchor.constraint(equalToConstant: 12).isActive = true
-        safetyZoneDotView.widthAnchor.constraint(equalToConstant: 12).isActive = true
+		liquidationZoneDotView.heightAnchor.constraint(equalToConstant: 12).isActive = true
+		liquidationZoneDotView.widthAnchor.constraint(equalToConstant: 12).isActive = true
+		dangerZoneDotView.heightAnchor.constraint(equalToConstant: 12).isActive = true
+		dangerZoneDotView.widthAnchor.constraint(equalToConstant: 12).isActive = true
+		safetyZoneDotView.heightAnchor.constraint(equalToConstant: 12).isActive = true
+		safetyZoneDotView.widthAnchor.constraint(equalToConstant: 12).isActive = true
 
 		containerView.pin(.allEdges(padding: 0))
 		mainStackView.pin(.verticalEdges(padding: 32), .horizontalEdges(padding: 16))
@@ -301,20 +301,20 @@ class HealthScoreSystemViewController: UIAlertController {
 			endHealthScoreLabel.isHidden = false
 		}
 	}
-    
-    private func calculateCurrentHealthScorePixel() -> Double {
-        let gradientViewSectionWidth = healthScoreGradientView.frame.width / 100
-            let healthScoreSafeAreaNumber = 0.3
-            if healthScoreSystemInfoVM.healthScoreNumber < 1 {
-                return (healthScoreSystemInfoVM.healthScoreNumber + healthScoreSafeAreaNumber) *
-                    gradientViewSectionWidth
-            } else if healthScoreSystemInfoVM.healthScoreNumber > 99 {
-                return (healthScoreSystemInfoVM.healthScoreNumber - healthScoreSafeAreaNumber) *
-                    gradientViewSectionWidth
-            } else {
-                return healthScoreSystemInfoVM.healthScoreNumber * gradientViewSectionWidth
-            }
-    }
+
+	private func calculateCurrentHealthScorePixel() -> Double {
+		let gradientViewSectionWidth = healthScoreGradientView.frame.width / 100
+		let healthScoreSafeAreaNumber = 0.3
+		if healthScoreSystemInfoVM.healthScoreNumber < 1 {
+			return (healthScoreSystemInfoVM.healthScoreNumber + healthScoreSafeAreaNumber) *
+				gradientViewSectionWidth
+		} else if healthScoreSystemInfoVM.healthScoreNumber > 99 {
+			return (healthScoreSystemInfoVM.healthScoreNumber - healthScoreSafeAreaNumber) *
+				gradientViewSectionWidth
+		} else {
+			return healthScoreSystemInfoVM.healthScoreNumber * gradientViewSectionWidth
+		}
+	}
 
 	@objc
 	private func dismissSelf() {

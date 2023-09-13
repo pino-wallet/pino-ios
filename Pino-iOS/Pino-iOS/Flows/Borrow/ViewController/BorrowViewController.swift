@@ -41,7 +41,7 @@ class BorrowViewController: UIViewController {
 
 	private func setupView() {
 		borrowView = BorrowView(borrowVM: borrowVM, presentHealthScoreActionsheet: { healthScoreSystemVM in
-            self.presentHealthScoreView(healthScoreSystemVM: healthScoreSystemVM)
+			self.presentHealthScoreView(healthScoreSystemVM: healthScoreSystemVM)
 		}, presentSelectDexSystem: {
 			self.presentSelectDexSystemVC()
 		}, presentBorrowingBoardVC: {
@@ -76,9 +76,9 @@ class BorrowViewController: UIViewController {
 		navigationVC.viewControllers = [collateralizingBoardVC]
 		present(navigationVC, animated: true)
 	}
-    
-    private func presentHealthScoreView(healthScoreSystemVM: HealthScoreSystemViewModel) {
-        let healthScoreSystemVC = HealthScoreSystemViewController(healthScoreSystemInfoVM: healthScoreSystemVM)
-        present(healthScoreSystemVC, animated: true)
-    }
+
+	private func presentHealthScoreView(healthScoreSystemVM: HealthScoreSystemViewModel) {
+		let healthScoreSystemVC = HealthScoreSystemViewController(healthScoreSystemInfoVM: healthScoreSystemVM)
+		present(healthScoreSystemVC, animated: true)
+	}
 }

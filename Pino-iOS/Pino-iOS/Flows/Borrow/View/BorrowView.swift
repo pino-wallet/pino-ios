@@ -153,8 +153,8 @@ class BorrowView: UIView {
 	}
 
 	private func setupStyles() {
-        healthScoreInfoImageView.isUserInteractionEnabled = true
-        
+		healthScoreInfoImageView.isUserInteractionEnabled = true
+
 		backgroundColor = .Pino.background
 
 		mainStackView.axis = .vertical
