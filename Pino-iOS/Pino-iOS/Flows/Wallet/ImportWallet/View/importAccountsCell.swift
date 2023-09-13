@@ -17,12 +17,11 @@ public class ImportAccountCell: UICollectionViewCell {
 	private let titleStackView = UIStackView()
 	private let accountName = UILabel()
 	private let accountBalance = UILabel()
-	private let editButton = UIButton()
+	private let accountAddress = UILabel()
 
 	// MARK: Public Properties
 
-	public static let cellReuseID = "walletCell"
-	public var editButtonTapped: (() -> Void)!
+	public static let cellReuseID = "importAccountCell"
 
 	public var accountVM: ActiveAccountViewModel! {
 		didSet {
@@ -45,52 +44,49 @@ public class ImportAccountCell: UICollectionViewCell {
 		accountCardView.addSubview(accountInfoStackView)
 		accountInfoStackView.addArrangedSubview(accountIconBackgroundView)
 		accountInfoStackView.addArrangedSubview(titleStackView)
-		accountInfoStackView.addArrangedSubview(editButton)
+		accountInfoStackView.addArrangedSubview(accountAddress)
 		titleStackView.addArrangedSubview(accountName)
 		titleStackView.addArrangedSubview(accountBalance)
 		accountIconBackgroundView.addSubview(accountIcon)
-
-		editButton.addAction(UIAction(handler: { _ in
-			self.editButtonTapped()
-		}), for: .touchUpInside)
 	}
 
 	private func setupStyle() {
 		accountName.text = accountVM.name
 		accountBalance.text = accountVM.balance
+		accountAddress.text = accountVM.address
 		accountIcon.image = UIImage(named: accountVM.profileImage)
-		editButton.setImage(UIImage(named: "dots-menu"), for: .normal)
 
 		accountIconBackgroundView.backgroundColor = UIColor(named: accountVM.profileColor)
 		accountCardView.backgroundColor = .Pino.secondaryBackground
-		accountCardView.layer.borderColor = UIColor.Pino.primary.cgColor
-		editButton.tintColor = .Pino.gray3
 
 		accountName.textColor = .Pino.label
 		accountBalance.textColor = .Pino.secondaryLabel
+		accountAddress.textColor = .Pino.label
 
+		accountName.font = .PinoStyle.mediumCallout
 		accountBalance.font = .PinoStyle.mediumFootnote
+		accountAddress.font = .PinoStyle.mediumCallout
 
 		titleStackView.axis = .vertical
 		accountInfoStackView.axis = .horizontal
 
-		accountInfoStackView.alignment = .center
+		accountInfoStackView.alignment = .top
 		titleStackView.alignment = .leading
 
 		titleStackView.spacing = 4
-		accountInfoStackView.spacing = 8
+		accountInfoStackView.spacing = 12
 
 		accountCardView.layer.cornerRadius = 12
 		accountIconBackgroundView.layer.cornerRadius = 22
-
+		accountCardView.layer.borderWidth = 1
 		updateStyle()
 	}
 
 	private func setupConstraint() {
 		accountCardView.pin(
 			.verticalEdges(padding: 4),
-			.horizontalEdges(padding: 16),
-			.fixedWidth(contentView.frame.width - 32)
+			.horizontalEdges,
+			.fixedWidth(contentView.frame.width)
 		)
 		accountInfoStackView.pin(
 			.horizontalEdges(padding: 14),
@@ -103,20 +99,20 @@ public class ImportAccountCell: UICollectionViewCell {
 		accountIcon.pin(
 			.allEdges(padding: 6)
 		)
-		editButton.pin(
-			.fixedWidth(28),
-			.fixedHeight(28)
+		accountAddress.pin(
+			.fixedHeight(24)
+		)
+		accountName.pin(
+			.fixedHeight(24)
 		)
 	}
 
 	private func updateStyle() {
 		switch style {
 		case .regular:
-			accountName.font = .PinoStyle.mediumCallout
-			accountCardView.layer.borderWidth = 0
+			accountCardView.layer.borderColor = UIColor.Pino.gray3.cgColor
 		case .selected:
-			accountName.font = .PinoStyle.semiboldCallout
-			accountCardView.layer.borderWidth = 1.2
+			accountCardView.layer.borderColor = UIColor.Pino.primary.cgColor
 		}
 	}
 }

@@ -54,7 +54,7 @@ extension ImportAccountsCollectionView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		sizeForItemAt indexPath: IndexPath
 	) -> CGSize {
-		CGSize(width: collectionView.frame.width, height: 68)
+		CGSize(width: collectionView.frame.width, height: 72)
 	}
 }
 

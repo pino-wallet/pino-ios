@@ -31,6 +31,15 @@ struct ImportAccountsViewModel {
 				balance: "24",
 				isSelected: true
 			),
+			ActiveAccountViewModel(
+				id: "1",
+				name: "Avocado",
+				address: "2365627638742",
+				profileImage: "avocado",
+				profileColor: "avocado",
+				balance: "28",
+				isSelected: false
+			),
 		]
 	}
 }
