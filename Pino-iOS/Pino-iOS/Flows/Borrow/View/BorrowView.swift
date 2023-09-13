@@ -10,7 +10,7 @@ import UIKit
 class BorrowView: UIView {
 	// MARK: - Closures
 
-	public var presentHealthScoreActionsheet: (_ actionSheet: HealthScoreSystemViewController) -> Void
+	public var presentHealthScoreActionsheet: (_ actionSheet: HealthScoreSystemViewModel) -> Void
 	public var presentSelectDexSystem: () -> Void
 	public var presentBorrowingBoardVC: () -> Void
 	public var presentCollateralizingBoardVC: () -> Void
@@ -40,7 +40,7 @@ class BorrowView: UIView {
 
 	init(
 		borrowVM: BorrowViewModel,
-		presentHealthScoreActionsheet: @escaping (_ actionSheet: HealthScoreSystemViewController) -> Void,
+		presentHealthScoreActionsheet: @escaping (_ actionSheet: HealthScoreSystemViewModel) -> Void,
 		presentSelectDexSystem: @escaping () -> Void,
 		presentBorrowingBoardVC: @escaping () -> Void,
 		presentCollateralizingBoardVC: @escaping () -> Void
@@ -90,7 +90,6 @@ class BorrowView: UIView {
 			action: #selector(presentBorrowHealthScoreSystem)
 		)
 		healthScoreInfoImageView.addGestureRecognizer(healthScoreTapGesture)
-		healthScoreInfoImageView.isUserInteractionEnabled = true
 
 		#warning("this should open selectDexProtocolVC")
 		selectDexSystemView = SelectDexSystemView(
@@ -154,6 +153,8 @@ class BorrowView: UIView {
 	}
 
 	private func setupStyles() {
+        healthScoreInfoImageView.isUserInteractionEnabled = true
+        
 		backgroundColor = .Pino.background
 
 		mainStackView.axis = .vertical
@@ -268,7 +269,6 @@ class BorrowView: UIView {
 			return
 		}
 		let healthScoreSystemVM = HealthScoreSystemViewModel(healthScoreNumber: currentHealthScore)
-		let healthScoreSystemVC = HealthScoreSystemViewController(healthScoreSystemInfoVM: healthScoreSystemVM)
-		presentHealthScoreActionsheet(healthScoreSystemVC)
+		presentHealthScoreActionsheet(healthScoreSystemVM)
 	}
 }
