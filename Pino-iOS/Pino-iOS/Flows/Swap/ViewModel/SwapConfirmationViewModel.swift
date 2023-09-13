@@ -99,37 +99,10 @@ class SwapConfirmationViewModel {
 }
 
 extension SwapConfirmationViewModel {
-	public func confirmSwap() {
-		//        
-
-		//        firstly {
-		//            // First we check if Pino-Proxy has access to Selected Swap Provider
-		//            // 1: True -> We Skip to next part
-		//            // 2: False -> We get CallData and pass to next part
-		//            checkProtocolAllowanceOf(contractAddress: selectedProvider!.provider.contractAddress)
-		//        }.compactMap { allowanceData in
-		//            allowanceData
-		//        }.then { allowanceData in
-		//            // Get Swap Call Data from Provider
-		//            self.getSwapInfoFrom(provider: self.selectedProvService).map { ($0, allowanceData) }
-		//        }.then { swapData, allowanceData in
-		//            // TODO: Needs to be handled after meeting with Ali
-		//            self.getProxyPermitTransferData().map { ($0, swapData, allowanceData) }
-		//        }.then { transferData, swapData, approveData in
-		//            self.callProxyMultiCall(data: [approveData, swapData, transferData])
-		//        }.done { hash in
-		//            print(hash)
-		//        }.catch { error in
-		//            print(error)
-		//        }
+	
+    public func confirmSwap() {
+        let swapManager = SwapManager(selectedProvider: selectedProvider!, srcToken: fromToken, destToken: toToken)
+        swapManager.swapToken()
 	}
-
-	// MARK: - Private Methods
-
-	
-
-	
-
-	
 	
 }

@@ -38,7 +38,7 @@ public struct W3TransferManager {
 
 	// MARK: - Public Methods
 
-	public func getPermitTransferFromCallData(amount: BigUInt) -> Promise<String> {
+    public func getPermitTransferFromCallData(amount: BigUInt, signiture: String) -> Promise<String> {
 		Promise<String>() { [self] seal in
 
 			let contract = try Web3Core.getContractOfToken(

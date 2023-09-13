@@ -11,7 +11,7 @@ import PromiseKit
 import Web3_Utility
 import BigInt
 
-struct SwapManager {
+class SwapManager {
     
     // MARK: - Private Properties
     
@@ -27,41 +27,48 @@ struct SwapManager {
     private let web3Client = Web3APIClient()
     private var cancellables = Set<AnyCancellable>()
 
+    init(selectedProvider: SwapProviderViewModel, srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
+        self.selectedProvider = selectedProvider
+        self.srcToken = srcToken
+        self.destToken = destToken
+    }
     
     // MARK: - Public Methods
 
-    public func swapToken(srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
-        
+    public func swapToken() {
+        swapERCtoERC(srcToken: srcToken, destToken: destToken)
     }
     
     // MARK: - Private Methods
     
-    private func swapERCtoEth(srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
+    private func swapERCtoERC(srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
         firstly {
             checkAllowanceOfProvider()
-        }.then { allowanceData in
-            fetchHash()
-        }.then { allowanceData in
+        }.compactMap({ allowanceData in
+            allowanceData
+        }).then { allowanceData in
+            self.signHash().map { ($0, allowanceData) }
+        }.then { signiture, allowanceData in
             // Permit Transform
-            getProxyPermitTransferData()
-        }.then {
+            self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
+        }.then { [self] permitData, allowanceData in
             // Fetch Call Data
-            if selectedProvider.provider == .zeroX {
-                
-            } else {
-                
-            }
-        }.then {
+            self.getSwapInfoFrom(provider: selectedProvService).map { ($0, permitData, allowanceData) }
+        }.then { swapData, permitData, allowanceData in
             // MultiCall
-            callProxyMultiCall(data: [""])
+            self.callProxyMultiCall(data: [allowanceData, swapData, permitData ])
+        }.done { trxHash in
+            
+        }.catch { error in
+            print(error.localizedDescription)
         }
     }
     
-    private mutating func signHash() -> Promise<String> {
+    private func signHash() -> Promise<String> {
         Promise<String> { seal in
             firstly {
                 fetchHash()
-            }.done { hash in
+            }.done { [self] hash in
                 let signiture = try Sec256k1Encryptor.sign(msg: hash.hexToBytes(), seckey: pinoWalletManager.currentAccountPrivateKey.string.hexToBytes())
                 seal.fulfill(signiture.toHexString())
             }.catch { error in
@@ -71,7 +78,7 @@ struct SwapManager {
         
     }
     
-    private mutating func fetchHash() -> Promise<String> {
+    private func fetchHash() -> Promise<String> {
         Promise<String> { seal in
             
             let hashREq = EIP712HashRequestModel(tokenAdd: srcToken.selectedToken.id, amount:
@@ -94,7 +101,7 @@ struct SwapManager {
         Promise<String?> { seal in
             firstly {
                 try web3.getAllowanceOf(
-                    contractAddress: selectedProvider.provider.contractAddress,
+                    contractAddress: destToken.selectedToken.id,
                     spenderAddress: selectedProvider.provider.contractAddress,
                     ownerAddress: Web3Core.Constants.pinoProxyAddress
                 )
@@ -102,10 +109,9 @@ struct SwapManager {
                 let destTokenDecimal = destToken.selectedToken.decimal
                 let destTokenAmount = Utilities.parseToBigUInt(destToken.tokenAmount!, decimals: destTokenDecimal)!
                 if allowanceAmount == 0 || allowanceAmount < destTokenAmount {
-                    web3.getApproveCallData(
-                        contractAdd: selectedProvider.provider.contractAddress,
-                        amount: try! BigUInt(UInt64.max),
-                        spender: Web3Core.Constants.pinoProxyAddress
+                    web3.getApproveProxyCallData(
+                        tokenAdd: destToken.selectedToken.id,
+                        spender: selectedProvider.provider.contractAddress
                     ).done { approveCallData in
                         seal.fulfill(approveCallData)
                     }.catch { error in
@@ -121,11 +127,11 @@ struct SwapManager {
         }
     }
     
-    private func getProxyPermitTransferData() -> Promise<String> {
-        web3.getPermitTransferCallData(amount: srcToken.tokenAmountBigNum.bigUInt)
+    private func getProxyPermitTransferData(signiture: String) -> Promise<String> {
+        web3.getPermitTransferCallData(amount: srcToken.tokenAmountBigNum.bigUInt, signiture: signiture)
     }
     
-    private mutating func getSwapInfoFrom<SwapProvider: SwapProvidersAPIServices>(provider: SwapProvider) -> Promise<String> {
+    private func getSwapInfoFrom<SwapProvider: SwapProvidersAPIServices>(provider: SwapProvider) -> Promise<String> {
         var priceRoute: PriceRouteClass?
         if selectedProvider.provider == .paraswap {
             let paraResponse = selectedProvider.providerResponseInfo as! ParaSwapPriceResponseModel

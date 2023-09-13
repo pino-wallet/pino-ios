@@ -267,3 +267,12 @@ extension BigNumber: CustomStringConvertible {
 		return formattedNumber
 	}
 }
+
+// MARK: - BigNumber Constants
+extension BigNumber {
+    
+    static var maxUInt256: Self {
+        .init(number: "115792089237316195423570985008687907853269984665640564039457584007913129639935", decimal: 0)
+    }
+    
+}

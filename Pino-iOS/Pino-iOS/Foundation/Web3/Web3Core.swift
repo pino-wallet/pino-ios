@@ -91,9 +91,13 @@ public class Web3Core {
 	public func getApproveCallData(contractAdd: String, amount: BigUInt, spender: String) -> Promise<String> {
 		approveManager.getApproveCallData(contractAdd: contractAdd, amount: amount, spender: spender)
 	}
+    
+    public func getApproveProxyCallData(tokenAdd: String, spender: String) -> Promise<String> {
+        approveManager.getApproveProxyCallData(tokenAdd: tokenAdd, spender: spender)
+    }
 
-	public func getPermitTransferCallData(amount: BigUInt) -> Promise<String> {
-		transferManager.getPermitTransferFromCallData(amount: amount)
+    public func getPermitTransferCallData(amount: BigUInt, signiture: String) -> Promise<String> {
+        transferManager.getPermitTransferFromCallData(amount: amount, signiture: signiture)
 	}
 
 	public func getWrapETHCallData(amount: BigUInt, proxyFee: BigUInt) -> Promise<String> {
@@ -269,10 +273,7 @@ public class Web3Core {
 		abi: Web3ABI,
 		web3: Web3
 	) throws -> DynamicContract {
-		let contractAddress = try EthereumAddress(
-			hex: tokenContractAddress,
-			eip55: false
-		)
+        let contractAddress = tokenContractAddress.eip55Address!
 		let contractJsonABI = abi.abi
 		// You can optionally pass an abiKey param if the actual abi is nested and not the top level element of the json
 		let contract = try web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)

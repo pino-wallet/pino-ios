@@ -59,6 +59,37 @@ public struct W3ApproveManager {
 			}
 		}
 	}
+    
+    public func getApproveProxyCallData(tokenAdd: String, spender: String) -> Promise<String> {
+        Promise<String> { seal in
+            let contract = try Web3Core.getContractOfToken(address: tokenAdd, abi: .swap, web3: web3)
+            let solInvocation = contract[ABIMethodWrite.approve.rawValue]?(tokenAdd.eip55Address!, [spender.eip55Address!])
+            
+            gasInfoManager.calculateGasOf(
+                method: .approveToken,
+                solInvoc: solInvocation!,
+                contractAddress: contract.address!
+            )
+            .then { [self] gasInfo in
+                web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+                    .map { ($0, gasInfo) }
+            }
+            .done { [self] nonce, gasInfo in
+                
+                let trx = try trxManager.createTransactionFor(
+                    contract: solInvocation!,
+                    nonce: nonce,
+                    gasPrice: gasInfo.gasPrice.etherumQuantity,
+                    gasLimit: gasInfo.gasLimit.etherumQuantity
+                )
+                
+                let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
+                seal.fulfill(signedTx.data.hex())
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
+    }
 
 	// MARK: - Private Methods
 
@@ -97,4 +128,5 @@ public struct W3ApproveManager {
 			}
 		}
 	}
+    
 }
