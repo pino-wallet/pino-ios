@@ -53,12 +53,16 @@ class BorrowingDetailsView: UIView {
 	public func showLoading() {
 		titleLabelHeightConstraint.isActive = true
 		amountLabelHeightConstraint.isActive = true
+		titleArrowImageView.isHidden = true
+		layoutIfNeeded()
 		showSkeletonView()
 	}
 
 	public func hideLoading() {
 		titleLabelHeightConstraint.isActive = false
 		amountLabelHeightConstraint.isActive = false
+		titleArrowImageView.isHidden = false
+		layoutIfNeeded()
 		hideSkeletonView()
 	}
 
@@ -124,7 +128,7 @@ class BorrowingDetailsView: UIView {
 			guard let newBorrowingDetailsProperties = borrowingDetailsProperties else {
 				return
 			}
-			self.updateAmountLabel(newAmount: newBorrowingDetailsProperties.borrowingAmount)
+			self.updateAmountLabel(newAmount: newBorrowingDetailsProperties.formattedBorrowingAmountInDollars)
 			self.updateViewColors(borrowingDetailsProperties: newBorrowingDetailsProperties)
 			self.updateView(borrowingDetailsProperties: newBorrowingDetailsProperties)
 		}.store(in: &cancellables)
@@ -136,6 +140,7 @@ class BorrowingDetailsView: UIView {
 
 	private func updateViewColors(borrowingDetailsProperties: BorrowingPropertiesViewModel) {
 		guard let newBorrowingDetailsPropertiesAssetList = borrowingDetailsProperties.borrowingAssetsDetailList else {
+			borrowingTokensCollectionView.isHidden = false
 			return
 		}
 		if newBorrowingDetailsPropertiesAssetList.isEmpty {
