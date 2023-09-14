@@ -69,6 +69,36 @@ class SwapManager {
         }
     }
     
+    // TODO: Set providers dest token in 0x as WETH since dest is ETH
+    private func swapERCtoETH(srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
+        firstly {
+            checkAllowanceOfProvider().compactMap { ($0) }
+        }.then { allowanceData in
+            self.signHash().map { ($0, allowanceData) }
+        }.then { signiture, allowanceData in
+            // Permit Transform
+//            self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
+            "data".promise.map { ($0, allowanceData) }
+        }.then { [self] permitData, allowanceData in
+            // Fetch Call Data
+            getSwapInfoFrom(provider: selectedProvService).map { ($0, permitData, allowanceData) }
+        }.then { providerSwapData, permitData, allowanceData in
+            self.getProvidersCallData(providerData: providerSwapData).map { ($0, permitData, allowanceData)  }
+        }.then { providersCallData, permitData, allowanceData -> Promise<(String?, String, String, String)> in
+            self.unwrapTokenCallData().map { ($0, providersCallData, permitData, allowanceData) }
+        }.then { unwrapData, providersCallData, permitData, allowanceData in
+            // MultiCall
+            var callDatas = [allowanceData, permitData, providersCallData]
+            if let unwrapData { callDatas.append(unwrapData) }
+            return self.callProxyMultiCall(data: callDatas)
+        }.done { trxHash in
+            print(trxHash)
+        }.catch { error in
+            print(error.localizedDescription)
+        }
+    }
+    
+    // TODO: Set providers src token as WETH since src is ETH
     private func swapETHtoERC(srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
         firstly {
             self.wrapTokenCallData()
@@ -219,6 +249,10 @@ class SwapManager {
     
     private func wrapTokenCallData() -> Promise<String> {
         web3.getWrapETHCallData(amount: srcToken.tokenAmountBigNum.bigUInt, proxyFee: 0)
+    }
+    
+    private func unwrapTokenCallData() -> Promise<String> {
+        web3.getUnwrapETHCallData(amount: destToken.tokenAmountBigNum.bigUInt, recipient: pinoWalletManager.currentAccount.eip55Address)
     }
     
     private func getProvidersCallData(providerData: String) -> Promise<String> {
