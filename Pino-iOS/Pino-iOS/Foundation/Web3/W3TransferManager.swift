@@ -38,7 +38,7 @@ public struct W3TransferManager {
 
 	// MARK: - Public Methods
 
-    public func getPermitTransferFromCallData(amount: BigUInt, signiture: String) -> Promise<String> {
+    public func getPermitTransferFromCallData(amount: BigUInt, tokenAdd: String, signiture: String) -> Promise<String> {
 		Promise<String>() { [self] seal in
 
 			let contract = try Web3Core.getContractOfToken(
@@ -46,16 +46,17 @@ public struct W3TransferManager {
 				abi: .swap,
 				web3: web3
 			)
-			let reqNonce: BigUInt = 3_456_789
-			let deadline: BigUInt = 23456
-			let spender = Web3Core.Constants.pinoProxyAddress.eip55Address!
+            let reqNonce = BigUInt(456789)
+            let deadline = EthereumQuantity(quantity: BigUInt(Date().timeIntervalSince1970) + 1800000)
+            
+            let permitModel = Permit2Model(permitted: .init(token: tokenAdd.eip55Address!, amount: amount.etherumQuantity), nonce: try! EthereumQuantity(reqNonce), deadline: deadline)
+            
+            let permitTransModel = PermitTransferModel(_permit: permitModel, _signature: signiture)
+            
 			let solInvocation = contract[ABIMethodWrite.permitTransferFrom.rawValue]?(
-				reqNonce,
-				deadline,
-				spender,
-				amount
+                permitTransModel
 			)
-
+            
 			gasInfoManager.calculateGasOf(
 				method: .permitTransferFrom,
 				solInvoc: solInvocation!,

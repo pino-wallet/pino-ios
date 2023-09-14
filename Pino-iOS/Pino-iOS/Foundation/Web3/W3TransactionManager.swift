@@ -45,7 +45,7 @@ public struct W3TransactionManager {
 			maxPriorityFeePerGas: nil,
 			gasLimit: gasLimit,
 			from: accountPrivateKey.address,
-			value: nil,
+			value: 0,
 			accessList: [:],
 			transactionType: .legacy
 		)

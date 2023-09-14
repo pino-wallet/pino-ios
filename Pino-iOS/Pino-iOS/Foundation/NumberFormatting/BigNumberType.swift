@@ -128,6 +128,11 @@ public struct BigNumber {
 			return number.description
 		}
 	}
+    
+    public static var bigRandomeNumber: BigUInt {
+        BigUInt.randomInteger(lessThan: maxUInt256.bigUInt)
+    }
+    
 }
 
 // MARK: - Operator Overloading

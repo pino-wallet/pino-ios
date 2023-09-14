@@ -96,8 +96,8 @@ public class Web3Core {
         approveManager.getApproveProxyCallData(tokenAdd: tokenAdd, spender: spender)
     }
 
-    public func getPermitTransferCallData(amount: BigUInt, signiture: String) -> Promise<String> {
-        transferManager.getPermitTransferFromCallData(amount: amount, signiture: signiture)
+    public func getPermitTransferCallData(amount: BigUInt, tokenAdd: String, signiture: String) -> Promise<String> {
+        transferManager.getPermitTransferFromCallData(amount: amount, tokenAdd: tokenAdd, signiture: signiture)
 	}
 
 	public func getWrapETHCallData(amount: BigUInt, proxyFee: BigUInt) -> Promise<String> {

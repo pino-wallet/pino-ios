@@ -128,7 +128,7 @@ class SwapManager {
     }
     
     private func getProxyPermitTransferData(signiture: String) -> Promise<String> {
-        web3.getPermitTransferCallData(amount: srcToken.tokenAmountBigNum.bigUInt, signiture: signiture)
+        web3.getPermitTransferCallData(amount: srcToken.tokenAmountBigNum.bigUInt, tokenAdd: srcToken.selectedToken.id, signiture: signiture)
     }
     
     private func getSwapInfoFrom<SwapProvider: SwapProvidersAPIServices>(provider: SwapProvider) -> Promise<String> {

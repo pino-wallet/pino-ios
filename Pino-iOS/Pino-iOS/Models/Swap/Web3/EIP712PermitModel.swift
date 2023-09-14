@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import BigInt
 
 // MARK: - Welcome
 
@@ -47,15 +48,16 @@ struct EIP712PermitModel: Codable {
 			verifyingContract: "0x000000000022d473030f116ddee9f6b43ac78ba3"
 		)
 		let initPermit = Permitted(token: tokenAdd, amount: amount)
+        let deadline = Date().timeIntervalSince1970 + 1800000
 		let initMessage = Message(
 			permitted: initPermit,
 			spender: spender,
-			nonce: 124_345_675,
-			deadline: "11579208923731619542357098"
+            nonce: BigNumber.bigRandomeNumber.description,
+            deadline: deadline.description
 		)
 
 		self.types = initTypes
-		self.primaryType = "primaryType"
+		self.primaryType = "PermitTransferFrom"
 		self.message = initMessage
 		self.domain = initDomain
 	}
@@ -81,7 +83,7 @@ extension EIP712PermitModel {
 	struct Message: Codable {
 		let permitted: Permitted
 		let spender: String
-		let nonce: Int
+		let nonce: String
 		let deadline: String
 	}
 
