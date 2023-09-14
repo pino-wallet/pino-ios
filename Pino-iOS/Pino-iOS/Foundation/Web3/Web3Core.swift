@@ -107,6 +107,18 @@ public class Web3Core {
 	public func getUnwrapETHCallData(amount: BigUInt, recipient: String) -> Promise<String> {
 		swapManager.getUnWrapETHCallData(amount: amount, recipient: recipient)
 	}
+    
+    public func getParaswapSwapCallData(data: String) -> Promise<String> {
+        swapManager.getSwapProviderData(callData: data, method: .swapParaswap)
+    }
+    
+    public func getOneInchSwapCallData(data: String) -> Promise<String> {
+        swapManager.getSwapProviderData(callData: data, method: .swap1Inch)
+    }
+    
+    public func getZeroXSwapCallData(data: String) -> Promise<String> {
+        swapManager.getSwapProviderData(callData: data, method: .swap0x)
+    }
 
 	public func getSweepTokenCallData(tokenAdd: String, recipientAdd: String) -> Promise<String> {
 		swapManager.getSweepTokenCallData(tokenAdd: tokenAdd, recipientAdd: recipientAdd)

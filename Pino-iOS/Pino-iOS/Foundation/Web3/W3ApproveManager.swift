@@ -63,7 +63,7 @@ public struct W3ApproveManager {
     public func getApproveProxyCallData(tokenAdd: String, spender: String) -> Promise<String> {
         Promise<String> { seal in
             let contract = try Web3Core.getContractOfToken(address: tokenAdd, abi: .swap, web3: web3)
-            let solInvocation = contract[ABIMethodWrite.approve.rawValue]?(tokenAdd.eip55Address!, [spender.eip55Address!])
+            let solInvocation = contract[ABIMethodWrite.approveToken.rawValue]?(tokenAdd, spender)
             
             gasInfoManager.calculateGasOf(
                 method: .approveToken,
