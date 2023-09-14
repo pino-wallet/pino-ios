@@ -43,22 +43,54 @@ class SwapManager {
     
     private func swapERCtoERC(srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
         firstly {
-            checkAllowanceOfProvider()
-        }.compactMap({ allowanceData in
-            allowanceData
-        }).then { allowanceData in
+            checkAllowanceOfProvider().compactMap { ($0) }
+        }.then { allowanceData in
             self.signHash().map { ($0, allowanceData) }
         }.then { signiture, allowanceData in
             // Permit Transform
-            self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
+//            self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
+            "data".promise.map { ($0, allowanceData) }
         }.then { [self] permitData, allowanceData in
             // Fetch Call Data
-            self.getSwapInfoFrom(provider: selectedProvService).map { ($0, permitData, allowanceData) }
-        }.then { swapData, permitData, allowanceData in
+            getSwapInfoFrom(provider: selectedProvService).map { ($0, permitData, allowanceData) }
+        }.then { providerSwapData, permitData, allowanceData in
+            self.getProvidersCallData(providerData: providerSwapData).map { ($0, permitData, allowanceData)  }
+        }.then { providersCallData, permitData, allowanceData -> Promise<(String?, String, String, String)> in
+            self.sweepTokenCallData().map { ($0, providersCallData, permitData, allowanceData) }
+        }.then { sweepData, providersCallData, permitData, allowanceData in
             // MultiCall
-            self.callProxyMultiCall(data: [allowanceData, swapData, permitData ])
+            var callDatas = [allowanceData, permitData, providersCallData]
+            if let sweepData { callDatas.append(sweepData) }
+            return self.callProxyMultiCall(data: callDatas)
         }.done { trxHash in
-            
+            print(trxHash)
+        }.catch { error in
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func swapETHtoERC(srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
+        firstly {
+        }.then { allowanceData in
+            self.signHash().map { ($0, allowanceData) }
+        }.then { signiture, allowanceData in
+            // Permit Transform
+//            self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
+            "data".promise.map { ($0, allowanceData) }
+        }.then { [self] permitData, allowanceData in
+            // Fetch Call Data
+            getSwapInfoFrom(provider: selectedProvService).map { ($0, permitData, allowanceData) }
+        }.then { providerSwapData, permitData, allowanceData in
+            self.getProvidersCallData(providerData: providerSwapData).map { ($0, permitData, allowanceData)  }
+        }.then { providersCallData, permitData, allowanceData -> Promise<(String?, String, String, String)> in
+            self.sweepTokenCallData().map { ($0, providersCallData, permitData, allowanceData) }
+        }.then { sweepData, providersCallData, permitData, allowanceData in
+            // MultiCall
+            var callDatas = [allowanceData, permitData, providersCallData]
+            if let sweepData { callDatas.append(sweepData) }
+            return self.callProxyMultiCall(data: callDatas)
+        }.done { trxHash in
+            print(trxHash)
         }.catch { error in
             print(error.localizedDescription)
         }
@@ -173,6 +205,31 @@ class SwapManager {
     private func callProxyMultiCall(data: [String]) -> Promise<String> {
         Promise<String> { seal in
             seal.fulfill("hi")
+        }
+    }
+    
+    private func sweepTokenCallData() -> Promise<String?> {
+        Promise<String?> { seal in
+            if selectedProvider.provider == .zeroX {
+                seal.fulfill(nil)
+            } else {
+                web3.getSweepTokenCallData(tokenAdd: srcToken.selectedToken.id, recipientAdd: pinoWalletManager.currentAccount.eip55Address).done { sweepData in
+                    seal.fulfill(sweepData)
+                }.catch { error in
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    private func getProvidersCallData(providerData: String) -> Promise<String> {
+        switch selectedProvider.provider {
+        case .zeroX:
+            return web3.getZeroXSwapCallData(data: providerData)
+        case .oneInch:
+            return web3.getOneInchSwapCallData(data: providerData)
+        case .paraswap:
+            return web3.getParaswapSwapCallData(data: providerData)
         }
     }
     
