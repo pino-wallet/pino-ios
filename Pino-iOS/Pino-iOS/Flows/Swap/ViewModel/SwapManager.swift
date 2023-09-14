@@ -139,6 +139,25 @@ class SwapManager {
         }
     }
     
+    private func swapWETHtoETH() {
+        firstly {
+            self.signHash().map { ($0) }
+        }.then { signiture in
+            // Permit Transform
+            self.getProxyPermitTransferData(signiture: signiture).map { ($0) }
+        }.then { permitData in
+            self.unwrapTokenCallData().map { ($0, permitData) }
+        }.then { unwrapData, permitData  in
+            // MultiCall
+            return self.callProxyMultiCall(data: [unwrapData, permitData])
+        }.done { trxHash in
+            print(trxHash)
+        }.catch { error in
+            print(error.localizedDescription)
+        }
+    }
+
+    
     private func signHash() -> Promise<String> {
         Promise<String> { seal in
             firstly {
