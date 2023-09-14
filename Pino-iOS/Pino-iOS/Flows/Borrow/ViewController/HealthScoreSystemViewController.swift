@@ -26,16 +26,21 @@ class HealthScoreSystemViewController: UIAlertController {
 	private let yourScoreLabel = UILabel()
 	private let startHealthScoreLabel = PinoLabel(style: .info, text: "")
 	private let endHealthScoreLabel = PinoLabel(style: .info, text: "")
+	private let currentHealthScoreView = UIView()
+	private let currentHealthScoreLabelContainer = UIView()
 	private let currentHealthScoreLabel = PinoLabel(style: .info, text: "")
 	private let healthScoreTriangleShape = CAShapeLayer()
 	private let zoneInformationStackView = UIStackView()
 	private let liquidationZoneStackView = UIStackView()
+	private let liquidationZoneDotContainerView = UIView()
 	private let liquidationZoneDotView = UIView()
 	private let liquidationZoneDescribtionLabel = PinoLabel(style: .title, text: "")
 	private let dangerZoneStackView = UIStackView()
+	private let dangerZoneDotContainerView = UIView()
 	private let dangerZoneDotView = UIView()
 	private let dangerZoneDescribtionLabel = PinoLabel(style: .title, text: "")
 	private let safetyZoneStackView = UIStackView()
+	private let safetyZoneDotContainerView = UIView()
 	private let safetyZoneDotView = UIView()
 	private let safetyZoneDescribtionLabel = PinoLabel(style: .title, text: "")
 	private let gotItButton = PinoButton(style: .active)
@@ -77,18 +82,27 @@ class HealthScoreSystemViewController: UIAlertController {
 
 		yourScoreView.addSubview(yourScoreLabel)
 
+		currentHealthScoreView.addSubview(currentHealthScoreLabelContainer)
+		currentHealthScoreLabelContainer.addSubview(currentHealthScoreLabel)
+
 		healthScoreContainerView.addSubview(healthScoreGradientStackView)
 		healthScoreContainerView.addSubview(healthScoreTriangleView)
 		healthScoreContainerView.addSubview(yourScoreView)
-		healthScoreContainerView.addSubview(currentHealthScoreLabel)
+		healthScoreContainerView.addSubview(currentHealthScoreView)
 
-		liquidationZoneStackView.addArrangedSubview(liquidationZoneDotView)
+		liquidationZoneDotContainerView.addSubview(liquidationZoneDotView)
+
+		liquidationZoneStackView.addArrangedSubview(liquidationZoneDotContainerView)
 		liquidationZoneStackView.addArrangedSubview(liquidationZoneDescribtionLabel)
 
-		dangerZoneStackView.addArrangedSubview(dangerZoneDotView)
+		dangerZoneDotContainerView.addSubview(dangerZoneDotView)
+
+		dangerZoneStackView.addArrangedSubview(dangerZoneDotContainerView)
 		dangerZoneStackView.addArrangedSubview(dangerZoneDescribtionLabel)
 
-		safetyZoneStackView.addArrangedSubview(safetyZoneDotView)
+		safetyZoneDotContainerView.addSubview(safetyZoneDotView)
+
+		safetyZoneStackView.addArrangedSubview(safetyZoneDotContainerView)
 		safetyZoneStackView.addArrangedSubview(safetyZoneDescribtionLabel)
 
 		zoneInformationStackView.addArrangedSubview(liquidationZoneStackView)
@@ -110,23 +124,27 @@ class HealthScoreSystemViewController: UIAlertController {
 		containerView.backgroundColor = .Pino.secondaryBackground
 		containerView.layer.cornerRadius = 16
 
+		currentHealthScoreLabelContainer.layer.cornerRadius = 16
+		currentHealthScoreView.layer.cornerRadius = 18
+		currentHealthScoreView.backgroundColor = .Pino.white
+
 		mainStackView.axis = .vertical
 		mainStackView.spacing = 8
-		mainStackView.setCustomSpacing(12, after: describtionLabel)
-		mainStackView.setCustomSpacing(24, after: healthScoreContainerView)
+		mainStackView.setCustomSpacing(15, after: describtionLabel)
+		mainStackView.setCustomSpacing(26, after: healthScoreContainerView)
 		mainStackView.setCustomSpacing(40, after: zoneInformationStackView)
 
 		liquidationZoneStackView.axis = .horizontal
 		liquidationZoneStackView.spacing = 4
-		liquidationZoneStackView.alignment = .center
+		liquidationZoneStackView.alignment = .top
 
 		dangerZoneStackView.axis = .horizontal
 		dangerZoneStackView.spacing = 4
-		dangerZoneStackView.alignment = .center
+		dangerZoneStackView.alignment = .top
 
 		safetyZoneStackView.axis = .horizontal
 		safetyZoneStackView.spacing = 4
-		safetyZoneStackView.alignment = .center
+		safetyZoneStackView.alignment = .top
 
 		titleLabel.text = healthScoreSystemInfoVM.healthScoreTitle
 
@@ -195,6 +213,7 @@ class HealthScoreSystemViewController: UIAlertController {
 		healthScoreTriangleView.layer.addSublayer(healthScoreTriangleShape)
 
 		currentHealthScoreLabel.font = .PinoStyle.semiboldCallout
+		currentHealthScoreLabel.textColor = .Pino.white
 		currentHealthScoreLabel.text = healthScoreSystemInfoVM.healthScoreNumber.description
 	}
 
@@ -209,15 +228,25 @@ class HealthScoreSystemViewController: UIAlertController {
 
 		containerView.pin(.allEdges(padding: 0))
 		mainStackView.pin(.verticalEdges(padding: 32), .horizontalEdges(padding: 16))
-		healthScoreContainerView.pin(.fixedHeight(65))
+		healthScoreContainerView.pin(.fixedHeight(75))
 		healthScoreGradientView.pin(.fixedHeight(8))
 		healthScoreGradientStackView.pin(.horizontalEdges(padding: 0), .bottom(padding: 0))
 		yourScoreView.pin(.fixedHeight(24), .relative(.bottom, 5, to: healthScoreTriangleView, .top))
 		yourScoreLabel.pin(.centerY(), .horizontalEdges(padding: 10))
-		currentHealthScoreLabel.pin(
-			.relative(.top, 4, to: healthScoreGradientView, .bottom),
-			.centerX(to: healthScoreTriangleView)
+		currentHealthScoreView.pin(
+			.centerY(to: healthScoreGradientView),
+			.centerX(to: healthScoreTriangleView),
+			.fixedHeight(36)
 		)
+		liquidationZoneDotContainerView.pin(.fixedWidth(12), .fixedHeight(18))
+		dangerZoneDotContainerView.pin(.fixedWidth(12), .fixedHeight(18))
+		safetyZoneDotContainerView.pin(.fixedWidth(12), .fixedHeight(18))
+		liquidationZoneDotView.pin(.horizontalEdges(padding: 0), .top(padding: 1))
+		dangerZoneDotView.pin(.horizontalEdges(padding: 0), .top(padding: 1))
+		safetyZoneDotView.pin(.horizontalEdges(padding: 0), .top(padding: 1))
+
+		currentHealthScoreLabel.pin(.centerY, .horizontalEdges(padding: 8))
+		currentHealthScoreLabelContainer.pin(.verticalEdges(padding: 2), .horizontalEdges(padding: 2))
 	}
 
 	private func setupHealthScoreLayers() {
@@ -257,18 +286,36 @@ class HealthScoreSystemViewController: UIAlertController {
 	private func setupHealthScoreConstraints(currentHealthScorePixel: Double) {
 		let halfYourScoreViewWidth = (yourScoreView.frame.width - healthScoreTriangleWidth) / 2
 		let healthScoreGradientViewWidth = healthScoreGradientView.frame.width
+		let halfCurrentHealthScoreLabelContainerWidth = currentHealthScoreView.frame.width / 2
 		let healthScoreGradientRemainingWidth = healthScoreGradientViewWidth - currentHealthScorePixel
 
-		healthScoreTriangleView.pin(
-			.relative(.bottom, -2, to: healthScoreGradientView, .top),
-			.leading(padding: currentHealthScorePixel - 9),
-			.fixedHeight(14),
-			.fixedWidth(18)
-		)
+		if halfCurrentHealthScoreLabelContainerWidth > currentHealthScorePixel {
+			healthScoreTriangleView.pin(
+				.relative(.bottom, -2, to: currentHealthScoreLabelContainer, .top),
+				.leading(padding: halfCurrentHealthScoreLabelContainerWidth - 9.4),
+				.fixedHeight(14),
+				.fixedWidth(18)
+			)
+		} else if healthScoreGradientRemainingWidth < halfCurrentHealthScoreLabelContainerWidth {
+			healthScoreTriangleView.pin(
+				.relative(.bottom, -2, to: currentHealthScoreLabelContainer, .top),
+				.trailing(padding: halfCurrentHealthScoreLabelContainerWidth - 9.4),
+				.fixedHeight(14),
+				.fixedWidth(18)
+			)
+		} else {
+			healthScoreTriangleView.pin(
+				.relative(.bottom, -2, to: currentHealthScoreLabelContainer, .top),
+				.leading(padding: currentHealthScorePixel - 9),
+				.fixedHeight(14),
+				.fixedWidth(18)
+			)
+		}
+
 		if halfYourScoreViewWidth > currentHealthScorePixel {
-			yourScoreView.pin(.leading(padding: -healthScoreTriangleWidth))
+			yourScoreView.pin(.leading(padding: 0))
 		} else if healthScoreGradientRemainingWidth < halfYourScoreViewWidth {
-			yourScoreView.pin(.trailing(padding: -healthScoreTriangleWidth))
+			yourScoreView.pin(.trailing(padding: 0))
 		} else {
 			yourScoreView.pin(.centerX(to: healthScoreTriangleView))
 		}
@@ -279,19 +326,19 @@ class HealthScoreSystemViewController: UIAlertController {
 			getColorOfHealthScoreGradientLayerPoint(point: CGPoint(x: currentHealthScorePixel, y: 0))
 		healthScoreTriangleShape.fillColor = currentHealthScoreColor.cgColor
 		yourScoreView.backgroundColor = currentHealthScoreColor
+		currentHealthScoreLabelContainer.backgroundColor = currentHealthScoreColor
 	}
 
 	private func setupHealthScoreStyles(currentHealthScorePixel: Double) {
 		let healthScoreNumberSafeAreaSize: CGFloat = 5
-		let currentHealthScoreLabelHalfWidth = currentHealthScoreLabel.frame.width / 2
+		let currentHealthScoreLabelContainerHalfWidth = currentHealthScoreView.frame.width / 2
 		let startHealthScoreNumberLabelWidth = startHealthScoreLabel.frame
-			.width + healthScoreNumberSafeAreaSize + currentHealthScoreLabelHalfWidth
+			.width + healthScoreNumberSafeAreaSize + currentHealthScoreLabelContainerHalfWidth
 		let endtHealthScoreNumberLabelWidth = endHealthScoreLabel.frame
-			.width + healthScoreNumberSafeAreaSize + currentHealthScoreLabelHalfWidth
+			.width + healthScoreNumberSafeAreaSize + currentHealthScoreLabelContainerHalfWidth
 		let healthScoreGradientViewWidth = healthScoreGradientView.frame.width
 		let endHealthScoreSafeArea = healthScoreGradientViewWidth - endtHealthScoreNumberLabelWidth
 
-		#warning("this section is for test")
 		if currentHealthScorePixel < startHealthScoreNumberLabelWidth {
 			startHealthScoreLabel.isHidden = true
 		} else if currentHealthScorePixel > endHealthScoreSafeArea {
