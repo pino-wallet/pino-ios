@@ -36,12 +36,12 @@ class SwapManager {
     // MARK: - Public Methods
 
     public func swapToken() {
-        swapERCtoERC(srcToken: srcToken, destToken: destToken)
+        swapERCtoERC()
     }
     
     // MARK: - Private Methods
     
-    private func swapERCtoERC(srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
+    private func swapERCtoERC() {
         firstly {
             checkAllowanceOfProvider().compactMap { ($0) }
         }.then { allowanceData in
@@ -70,7 +70,7 @@ class SwapManager {
     }
     
     // TODO: Set providers dest token in 0x as WETH since dest is ETH
-    private func swapERCtoETH(srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
+    private func swapERCtoETH() {
         firstly {
             checkAllowanceOfProvider().compactMap { ($0) }
         }.then { allowanceData in
@@ -99,7 +99,7 @@ class SwapManager {
     }
     
     // TODO: Set providers src token as WETH since src is ETH
-    private func swapETHtoERC(srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
+    private func swapETHtoERC() {
         firstly {
             self.wrapTokenCallData()
         }.then { wrapTokenData in
@@ -112,6 +112,24 @@ class SwapManager {
         }.then { sweepData, providersCallData, wrapTokenData in
             // MultiCall
             var callDatas = [providersCallData, wrapTokenData]
+            if let sweepData { callDatas.append(sweepData) }
+            return self.callProxyMultiCall(data: callDatas)
+        }.done { trxHash in
+            print(trxHash)
+        }.catch { error in
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func swapETHtoWETH() {
+        firstly {
+            self.wrapTokenCallData()
+        }.then { wrapTokenData -> Promise<(String?, String)> in
+            // Fetch Call Data
+            self.sweepTokenCallData().map { ($0, wrapTokenData) }
+        }.then { sweepData, wrapTokenData in
+            // MultiCall
+            var callDatas = [wrapTokenData]
             if let sweepData { callDatas.append(sweepData) }
             return self.callProxyMultiCall(data: callDatas)
         }.done { trxHash in
