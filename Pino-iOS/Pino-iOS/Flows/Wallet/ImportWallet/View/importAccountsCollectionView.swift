@@ -100,7 +100,9 @@ extension ImportAccountsCollectionView: UICollectionViewDelegateFlowLayout {
 // MARK: - CollectionView Delegate
 
 extension ImportAccountsCollectionView: UICollectionViewDelegate {
-	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {}
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		accountsVM.accounts[indexPath.item].toggleIsSelected()
+	}
 }
 
 // MARK: - CollectionView DataSource

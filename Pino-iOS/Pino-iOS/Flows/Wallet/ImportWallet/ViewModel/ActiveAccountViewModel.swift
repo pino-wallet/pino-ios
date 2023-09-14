@@ -13,4 +13,10 @@ public struct ActiveAccountViewModel: Equatable {
 	public var profileColor: String
 	public var balance: String
 	public var isSelected: Bool
+
+	// MARK: - Public Methods
+
+	public mutating func toggleIsSelected() {
+		isSelected.toggle()
+	}
 }
