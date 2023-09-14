@@ -34,9 +34,9 @@ class ImportAccountsFooterView: UICollectionReusableView {
 		contentView.addSubview(findAccountButton)
 		contentView.addSubview(loadingView)
 
-		findAccountButton.addAction(UIAction(handler: { _ in
-			self.findAccountDidTap()
-		}), for: .touchUpInside)
+		if findAccountButton.allTargets.isEmpty {
+			findAccountButton.addTarget(self, action: #selector(findMoreAccounts), for: .touchUpInside)
+		}
 	}
 
 	private func setupStyle() {
@@ -44,6 +44,7 @@ class ImportAccountsFooterView: UICollectionReusableView {
 		findAccountButton.setTitleColor(.Pino.primary, for: .normal)
 		findAccountButton.titleLabel?.font = .PinoStyle.semiboldCallout
 		loadingView.color = .Pino.primary
+		stopLoading()
 	}
 
 	private func setupConstraint() {
@@ -73,5 +74,11 @@ class ImportAccountsFooterView: UICollectionReusableView {
 	public func stopLoading() {
 		loadingView.stopAnimating()
 		findAccountButton.isHidden = false
+	}
+
+	@objc
+	private func findMoreAccounts() {
+		startLoading()
+		findAccountDidTap()
 	}
 }

@@ -11,11 +11,12 @@ class ImportAccountsViewController: UIViewController {
 	// MARK: - PublicProperties
 
 	public var importAccountsView: ImportAccountsView!
-	public var importAccountsVM = ImportAccountsViewModel()
+	public var importAccountsVM: ImportAccountsViewModel
 
 	// MARK: - Initializers
 
 	init(walletMnemonics: String) {
+		self.importAccountsVM = ImportAccountsViewModel(walletMnemonics: walletMnemonics)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -37,16 +38,22 @@ class ImportAccountsViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		importAccountsView = ImportAccountsView(accountsVM: importAccountsVM, importButtonDidTap: {
-			self.openPasscodePage()
-		})
+		importAccountsView = ImportAccountsView(
+			accountsVM: importAccountsVM,
+			importButtonDidTap: {
+				self.openPasscodePage()
+			},
+			findMoreAccountsDidTap: {
+				self.importAccountsVM.findMoreAccounts {}
+			}
+		)
 		view = importAccountsView
 	}
 
 	private func openPasscodePage() {
 		let createPasscodeViewController = CreatePasscodeViewController()
 		createPasscodeViewController.pageSteps = 3
-		createPasscodeViewController.walletMnemonics = ""
+		createPasscodeViewController.walletMnemonics = importAccountsVM.walletMnemonics
 		navigationController?.pushViewController(createPasscodeViewController, animated: true)
 	}
 }

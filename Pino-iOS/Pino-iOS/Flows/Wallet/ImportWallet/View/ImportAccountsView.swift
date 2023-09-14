@@ -12,16 +12,23 @@ class ImportAccountsView: UIView {
 
 	private let contentStackView = UIStackView()
 	private let accountsCollectionView: ImportAccountsCollectionView
-	private let importButton = PinoButton(style: .deactive)
+	private let importButton = PinoButton(style: .active)
 	private var accountsVM: ImportAccountsViewModel
 	private let importButtonDidTap: () -> Void
 
 	// MARK: - Initializers
 
-	init(accountsVM: ImportAccountsViewModel, importButtonDidTap: @escaping () -> Void) {
+	init(
+		accountsVM: ImportAccountsViewModel,
+		importButtonDidTap: @escaping () -> Void,
+		findMoreAccountsDidTap: @escaping () -> Void
+	) {
 		self.accountsVM = accountsVM
 		self.importButtonDidTap = importButtonDidTap
-		self.accountsCollectionView = ImportAccountsCollectionView(accountsVM: accountsVM)
+		self.accountsCollectionView = ImportAccountsCollectionView(
+			accountsVM: accountsVM,
+			findAccountsDidTap: findMoreAccountsDidTap
+		)
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -40,7 +47,6 @@ class ImportAccountsView: UIView {
 		addSubview(contentStackView)
 
 		importButton.addAction(UIAction(handler: { _ in
-			self.importButton.style = .loading
 			self.importButtonDidTap()
 		}), for: .touchUpInside)
 	}

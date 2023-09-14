@@ -20,13 +20,15 @@ class ImportAccountsViewModel {
 	}
 
 	public var footerTitle = "Find more accounts"
+	public var walletMnemonics: String
 
 	@Published
 	public var accounts: [ActiveAccountViewModel]!
 
 	// MARK: - Initializers
 
-	init() {
+	init(walletMnemonics: String) {
+		self.walletMnemonics = walletMnemonics
 		getAccounts()
 	}
 

@@ -13,12 +13,14 @@ class ImportAccountsCollectionView: UICollectionView {
 
 	private var accountsVM: ImportAccountsViewModel
 	private var accounts: [ActiveAccountViewModel]!
+	private var findAccountsDidTap: () -> Void
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
-	init(accountsVM: ImportAccountsViewModel) {
+	init(accountsVM: ImportAccountsViewModel, findAccountsDidTap: @escaping () -> Void) {
 		self.accountsVM = accountsVM
+		self.findAccountsDidTap = findAccountsDidTap
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		flowLayout.sectionInset = UIEdgeInsets(top: 24, left: 0, bottom: 24, right: 0)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
@@ -64,10 +66,6 @@ class ImportAccountsCollectionView: UICollectionView {
 			self.accounts = accounts
 			self.reloadData()
 		}.store(in: &cancellables)
-	}
-
-	private func findMoreAccounts(completion: @escaping () -> Void) {
-		accountsVM.findMoreAccounts(completion: completion)
 	}
 }
 
@@ -150,12 +148,7 @@ extension ImportAccountsCollectionView: UICollectionViewDataSource {
 				for: indexPath
 			) as! ImportAccountsFooterView
 			footerView.title = accountsVM.footerTitle
-			footerView.findAccountDidTap = {
-				footerView.startLoading()
-				self.findMoreAccounts {
-					footerView.stopLoading()
-				}
-			}
+			footerView.findAccountDidTap = findAccountsDidTap
 			return footerView
 		default:
 			fatalError("cant dequeue reusable view")
