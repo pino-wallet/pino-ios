@@ -71,22 +71,17 @@ class SwapManager {
     
     private func swapETHtoERC(srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
         firstly {
-        }.then { allowanceData in
-            self.signHash().map { ($0, allowanceData) }
-        }.then { signiture, allowanceData in
-            // Permit Transform
-//            self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
-            "data".promise.map { ($0, allowanceData) }
-        }.then { [self] permitData, allowanceData in
+            self.wrapTokenCallData()
+        }.then { wrapTokenData in
             // Fetch Call Data
-            getSwapInfoFrom(provider: selectedProvService).map { ($0, permitData, allowanceData) }
-        }.then { providerSwapData, permitData, allowanceData in
-            self.getProvidersCallData(providerData: providerSwapData).map { ($0, permitData, allowanceData)  }
-        }.then { providersCallData, permitData, allowanceData -> Promise<(String?, String, String, String)> in
-            self.sweepTokenCallData().map { ($0, providersCallData, permitData, allowanceData) }
-        }.then { sweepData, providersCallData, permitData, allowanceData in
+            self.getSwapInfoFrom(provider: self.selectedProvService).map { ($0, wrapTokenData) }
+        }.then { providerSwapData, wrapTokenData in
+            self.getProvidersCallData(providerData: providerSwapData).map { ($0, wrapTokenData)  }
+        }.then { providersCallData, wrapTokenData -> Promise<(String?, String, String)> in
+            self.sweepTokenCallData().map { ($0, providersCallData, wrapTokenData) }
+        }.then { sweepData, providersCallData, wrapTokenData in
             // MultiCall
-            var callDatas = [allowanceData, permitData, providersCallData]
+            var callDatas = [providersCallData, wrapTokenData]
             if let sweepData { callDatas.append(sweepData) }
             return self.callProxyMultiCall(data: callDatas)
         }.done { trxHash in
@@ -220,6 +215,10 @@ class SwapManager {
                 }
             }
         }
+    }
+    
+    private func wrapTokenCallData() -> Promise<String> {
+        web3.getWrapETHCallData(amount: srcToken.tokenAmountBigNum.bigUInt, proxyFee: 0)
     }
     
     private func getProvidersCallData(providerData: String) -> Promise<String> {
