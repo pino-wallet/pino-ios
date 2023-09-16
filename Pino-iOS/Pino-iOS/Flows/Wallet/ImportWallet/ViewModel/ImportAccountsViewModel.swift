@@ -5,9 +5,17 @@
 //  Created by Mohi Raoufi on 9/13/23.
 //
 
+import Combine
 import Foundation
 
 class ImportAccountsViewModel {
+	// MARK: - Private Properties
+
+	private let pinoWalletManager = PinoWalletManager()
+	private var accountingAPIClient = AccountingAPIClient()
+	private var cancellables = Set<AnyCancellable>()
+	private let internetConnectivity = InternetConnectivity()
+
 	// MARK: Public Properties
 
 	public let pageTitle = "Import account"
@@ -32,9 +40,39 @@ class ImportAccountsViewModel {
 		self.walletMnemonics = walletMnemonics
 	}
 
+	// MARK: Private Methods
+
+	private func createWallet(mnemonics: String, walletCreated: @escaping (WalletOperationError?) -> Void) {
+		internetConnectivity.$isConnected.tryCompactMap { $0 }.sink { _ in } receiveValue: { [self] isConnected in
+			if isConnected {
+				let initalAccount = pinoWalletManager.createHDWallet(mnemonics: mnemonics)
+				switch initalAccount {
+				case let .success(account):
+					walletCreated(nil)
+				case let .failure(failure):
+					walletCreated(failure)
+				}
+			} else {
+				walletCreated(.wallet(.netwrokError))
+			}
+		}.store(in: &cancellables)
+	}
+
 	// MARK: - Public Methods
 
 	public func getAccounts(completion: @escaping () -> Void) {
+		accountingAPIClient.activeAddresses(addresses: ["0x81Ad046aE9a7Ad56092fa7A7F09A04C82064e16C".lowercased()])
+			.sink { completed in
+				switch completed {
+				case .finished:
+					print("Accounts received successfully")
+				case let .failure(error):
+					print("Error getting accounts:\(error)")
+				}
+			} receiveValue: { accounts in
+				print("Active accounts: \(accounts)")
+			}.store(in: &cancellables)
+
 		DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
 			self.accounts = [
 				ActiveAccountViewModel(

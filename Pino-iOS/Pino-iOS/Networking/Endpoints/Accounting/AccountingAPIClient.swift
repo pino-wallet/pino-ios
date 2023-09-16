@@ -35,6 +35,10 @@ final class AccountingAPIClient: AccountingAPIService {
 	func activateAccountWith(address: String) -> AnyPublisher<AccountActivationModel, APIError> {
 		networkManager.request(.activateAccountWith(address: address))
 	}
+
+	func activeAddresses(addresses: [String]) -> AnyPublisher<ActiveAddressesModel, APIError> {
+		networkManager.request(.activeAddresses(addresses: addresses))
+	}
 }
 
 struct NoContent: Codable {}
