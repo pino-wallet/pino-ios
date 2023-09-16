@@ -16,4 +16,5 @@ class SelectSwapProvidersViewModel {
 	@Published
 	public var providers: [SwapProviderViewModel]?
 	public var bestProvider: SwapProviderViewModel?
+	public var selectedProvider: SwapProviderViewModel?
 }

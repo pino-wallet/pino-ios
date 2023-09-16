@@ -74,9 +74,8 @@ class AccountBalanceHeaderView: UICollectionReusableView {
 			for: .normal
 		)
 
-		sendButton.setImage(UIImage(named: homeVM.sendButtonImage), for: .normal)
-		receiveButton.setImage(UIImage(named: homeVM.receiveButtonImage), for: .normal)
-		volatilityDetailButton.image = UIImage(systemName: "arrow.right")
+		sendButton.setImage(UIImage(named: homeVM.sendButtonImage)?.withRenderingMode(.automatic), for: .normal)
+		receiveButton.setImage(UIImage(named: homeVM.receiveButtonImage)?.withRenderingMode(.automatic), for: .normal)
 
 		let showBalanceImageConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .regular, scale: .small)
 		showBalanceButton.setImage(
@@ -156,17 +155,22 @@ class AccountBalanceHeaderView: UICollectionReusableView {
 
 			var volatilityViewBackgroundColor: UIColor!
 			var volatilityViewTintColor: UIColor!
+			var volatilityDetailIcon: String
 			switch walletBalance.volatilityType {
 			case .profit:
+				volatilityDetailIcon = "arrow_right_green"
 				volatilityViewBackgroundColor = .Pino.green1
 				volatilityViewTintColor = .Pino.green3
 			case .loss:
+				volatilityDetailIcon = "arrow_right_red"
 				volatilityViewBackgroundColor = .Pino.lightRed
 				volatilityViewTintColor = .Pino.red
 			case .none:
+				volatilityDetailIcon = "arrow_right"
 				volatilityViewBackgroundColor = .Pino.gray5
 				volatilityViewTintColor = .Pino.gray2
 			}
+			self.volatilityDetailButton.image = UIImage(named: volatilityDetailIcon)
 			self.volatilityView.backgroundColor = volatilityViewBackgroundColor
 			self.volatilitySeparatorLine.backgroundColor = volatilityViewTintColor
 			self.volatilityPercentageLabel.textColor = volatilityViewTintColor
