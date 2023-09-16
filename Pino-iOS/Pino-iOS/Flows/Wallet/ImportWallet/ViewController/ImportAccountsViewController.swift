@@ -5,13 +5,15 @@
 //  Created by Mohi Raoufi on 9/13/23.
 //
 
+import Combine
 import UIKit
 
 class ImportAccountsViewController: UIViewController {
-	// MARK: - PublicProperties
+	// MARK: - Private Properties
 
-	public var importAccountsView: ImportAccountsView!
-	public var importAccountsVM: ImportAccountsViewModel
+	private var importAccountsVM: ImportAccountsViewModel
+	private var importAccountsView: ImportAccountsView!
+	private var importLoadingView = ImportAccountLoadingView()
 
 	// MARK: - Initializers
 
@@ -47,7 +49,10 @@ class ImportAccountsViewController: UIViewController {
 				self.importAccountsVM.findMoreAccounts {}
 			}
 		)
-		view = importAccountsView
+		view = importLoadingView
+		importAccountsVM.getAccounts {
+			self.view = self.importAccountsView
+		}
 	}
 
 	private func openPasscodePage() {

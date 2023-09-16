@@ -608,6 +608,7 @@
 		E3ABD2002AB1B26200947D37 /* importAccountsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1FF2AB1B26200947D37 /* importAccountsCell.swift */; };
 		E3ABD2022AB1BAAB00947D37 /* ImportAccountsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD2012AB1BAAB00947D37 /* ImportAccountsHeaderView.swift */; };
 		E3ABD2042AB1C22200947D37 /* ImportAccountsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD2032AB1C22200947D37 /* ImportAccountsFooterView.swift */; };
+		E3ABD2062AB594B900947D37 /* ImportAccountLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD2052AB594B900947D37 /* ImportAccountLoadingView.swift */; };
 		E3C802792A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C802782A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift */; };
 		E3C8027B2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C8027A2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift */; };
 		E3C8027D2A95427800A13792 /* InvestmentRiskItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C8027C2A95427800A13792 /* InvestmentRiskItemView.swift */; };
@@ -1294,6 +1295,7 @@
 		E3ABD1FF2AB1B26200947D37 /* importAccountsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = importAccountsCell.swift; sourceTree = "<group>"; };
 		E3ABD2012AB1BAAB00947D37 /* ImportAccountsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountsHeaderView.swift; sourceTree = "<group>"; };
 		E3ABD2032AB1C22200947D37 /* ImportAccountsFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountsFooterView.swift; sourceTree = "<group>"; };
+		E3ABD2052AB594B900947D37 /* ImportAccountLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountLoadingView.swift; sourceTree = "<group>"; };
 		E3C802782A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskPerformanceViewController.swift; sourceTree = "<group>"; };
 		E3C8027A2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskPerformanceView.swift; sourceTree = "<group>"; };
 		E3C8027C2A95427800A13792 /* InvestmentRiskItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskItemView.swift; sourceTree = "<group>"; };
@@ -2003,6 +2005,7 @@
 				E3ABD1FF2AB1B26200947D37 /* importAccountsCell.swift */,
 				E3ABD2012AB1BAAB00947D37 /* ImportAccountsHeaderView.swift */,
 				E3ABD2032AB1C22200947D37 /* ImportAccountsFooterView.swift */,
+				E3ABD2052AB594B900947D37 /* ImportAccountLoadingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4152,6 +4155,7 @@
 				E3ABD2042AB1C22200947D37 /* ImportAccountsFooterView.swift in Sources */,
 				DBE3307F29EF0E7E1926B2B4 /* CoinInfoChartView.swift in Sources */,
 				DF6DEDDB2AAB06150080B47B /* Sec256k1Encryption.swift in Sources */,
+				E3ABD2062AB594B900947D37 /* ImportAccountLoadingView.swift in Sources */,
 				05BF3ACA571459B68B3451D6 /* CoinInfoChartViewController.swift in Sources */,
 				E343836C2A3D92C20048BDA1 /* SendConfimationView.swift in Sources */,
 				D5E4DDCB2A95FD78000AA235 /* InvestDepositViewController.swift in Sources */,
