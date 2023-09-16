@@ -48,8 +48,7 @@ class SwapManager {
             self.signHash().map { ($0, allowanceData) }
         }.then { signiture, allowanceData in
             // Permit Transform
-//            self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
-            "data".promise.map { ($0, allowanceData) }
+            self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
         }.then { [self] permitData, allowanceData in
             // Fetch Call Data
             getSwapInfoFrom(provider: selectedProvService).map { ($0, permitData, allowanceData) }
@@ -77,8 +76,7 @@ class SwapManager {
             self.signHash().map { ($0, allowanceData) }
         }.then { signiture, allowanceData in
             // Permit Transform
-//            self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
-            "data".promise.map { ($0, allowanceData) }
+            self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
         }.then { [self] permitData, allowanceData in
             // Fetch Call Data
             getSwapInfoFrom(provider: selectedProvService).map { ($0, permitData, allowanceData) }
@@ -265,9 +263,7 @@ class SwapManager {
     }
 
     private func callProxyMultiCall(data: [String]) -> Promise<String> {
-        Promise<String> { seal in
-            seal.fulfill("hi")
-        }
+        web3.callProxyMulticall()
     }
     
     private func sweepTokenCallData() -> Promise<String?> {
