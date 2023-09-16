@@ -99,10 +99,8 @@ class SwapConfirmationViewModel {
 }
 
 extension SwapConfirmationViewModel {
-	
-    public func confirmSwap() {
-        let swapManager = SwapManager(selectedProvider: selectedProvider!, srcToken: fromToken, destToken: toToken)
-        swapManager.swapToken()
+	public func confirmSwap() {
+		let swapManager = SwapManager(selectedProvider: selectedProvider!, srcToken: fromToken, destToken: toToken)
+		swapManager.swapToken()
 	}
-	
 }

@@ -98,6 +98,6 @@ struct BorrowingPropertiesViewModel {
 		let amountPercentage = totalBorrowingAmountInDollars / 100.bigNumber ?? 0.bigNumber
 		let tokenAmount = BigNumber(number: token.amount, decimal: foundTokenInManageAssets.decimal)
 		let tokenAmountInDollars = tokenAmount * foundTokenInManageAssets.price
-		return (tokenAmountInDollars / amountPercentage ?? 0.bigNumber)
+		return tokenAmountInDollars / amountPercentage ?? 0.bigNumber
 	}
 }

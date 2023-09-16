@@ -21,7 +21,7 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 					}
 
 					NetworkLogger.log(request: request)
-                    print(response)
+					print(response)
 
 					guard (200 ..< 300).contains(statusCode) else {
 						if statusCode == 401 {

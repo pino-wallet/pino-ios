@@ -5,8 +5,8 @@
 //  Created by Sobhan Eskandari on 9/6/23.
 //
 
-import Foundation
 import BigInt
+import Foundation
 
 // MARK: - Welcome
 
@@ -48,12 +48,12 @@ struct EIP712PermitModel: Codable {
 			verifyingContract: "0x000000000022d473030f116ddee9f6b43ac78ba3"
 		)
 		let initPermit = Permitted(token: tokenAdd, amount: amount)
-        let deadline = Date().timeIntervalSince1970 + 1800000
+		let deadline = Date().timeIntervalSince1970 + 1_800_000
 		let initMessage = Message(
 			permitted: initPermit,
 			spender: spender,
-            nonce: BigNumber.bigRandomeNumber.description,
-            deadline: deadline.description
+			nonce: BigNumber.bigRandomeNumber.description,
+			deadline: deadline.description
 		)
 
 		self.types = initTypes

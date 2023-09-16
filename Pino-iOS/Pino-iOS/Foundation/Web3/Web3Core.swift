@@ -91,13 +91,13 @@ public class Web3Core {
 	public func getApproveCallData(contractAdd: String, amount: BigUInt, spender: String) -> Promise<String> {
 		approveManager.getApproveCallData(contractAdd: contractAdd, amount: amount, spender: spender)
 	}
-    
-    public func getApproveProxyCallData(tokenAdd: String, spender: String) -> Promise<String> {
-        approveManager.getApproveProxyCallData(tokenAdd: tokenAdd, spender: spender)
-    }
 
-    public func getPermitTransferCallData(amount: BigUInt, tokenAdd: String, signiture: String) -> Promise<String> {
-        transferManager.getPermitTransferFromCallData(amount: amount, tokenAdd: tokenAdd, signiture: signiture)
+	public func getApproveProxyCallData(tokenAdd: String, spender: String) -> Promise<String> {
+		approveManager.getApproveProxyCallData(tokenAdd: tokenAdd, spender: spender)
+	}
+
+	public func getPermitTransferCallData(amount: BigUInt, tokenAdd: String, signiture: String) -> Promise<String> {
+		transferManager.getPermitTransferFromCallData(amount: amount, tokenAdd: tokenAdd, signiture: signiture)
 	}
 
 	public func getWrapETHCallData(amount: BigUInt, proxyFee: BigUInt) -> Promise<String> {
@@ -107,26 +107,26 @@ public class Web3Core {
 	public func getUnwrapETHCallData(amount: BigUInt, recipient: String) -> Promise<String> {
 		swapManager.getUnWrapETHCallData(amount: amount, recipient: recipient)
 	}
-    
-    public func getParaswapSwapCallData(data: String) -> Promise<String> {
-        swapManager.getSwapProviderData(callData: data, method: .swapParaswap)
-    }
-    
-    public func getOneInchSwapCallData(data: String) -> Promise<String> {
-        swapManager.getSwapProviderData(callData: data, method: .swap1Inch)
-    }
-    
-    public func getZeroXSwapCallData(data: String) -> Promise<String> {
-        swapManager.getSwapProviderData(callData: data, method: .swap0x)
-    }
+
+	public func getParaswapSwapCallData(data: String) -> Promise<String> {
+		swapManager.getSwapProviderData(callData: data, method: .swapParaswap)
+	}
+
+	public func getOneInchSwapCallData(data: String) -> Promise<String> {
+		swapManager.getSwapProviderData(callData: data, method: .swap1Inch)
+	}
+
+	public func getZeroXSwapCallData(data: String) -> Promise<String> {
+		swapManager.getSwapProviderData(callData: data, method: .swap0x)
+	}
 
 	public func getSweepTokenCallData(tokenAdd: String, recipientAdd: String) -> Promise<String> {
 		swapManager.getSweepTokenCallData(tokenAdd: tokenAdd, recipientAdd: recipientAdd)
 	}
 
-    public func callProxyMulticall(data: [String]) {
-        swapManager.callMultiCall(callData: data)
-    }
+	public func callProxyMulticall(data: [String]) {
+		swapManager.callMultiCall(callData: data)
+	}
 
 	public func getCustomAssetInfo(contractAddress: String) -> Promise<CustomAssetInfo> {
 		var assetInfo: CustomAssetInfo = [:]
@@ -287,7 +287,7 @@ public class Web3Core {
 		abi: Web3ABI,
 		web3: Web3
 	) throws -> DynamicContract {
-        let contractAddress = tokenContractAddress.eip55Address!
+		let contractAddress = tokenContractAddress.eip55Address!
 		let contractJsonABI = abi.abi
 		// You can optionally pass an abiKey param if the actual abi is nested and not the top level element of the json
 		let contract = try web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)

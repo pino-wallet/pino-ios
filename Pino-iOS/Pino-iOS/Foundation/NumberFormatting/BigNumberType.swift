@@ -128,11 +128,10 @@ public struct BigNumber {
 			return number.description
 		}
 	}
-    
-    public static var bigRandomeNumber: BigUInt {
-        BigUInt.randomInteger(lessThan: maxUInt256.bigUInt)
-    }
-    
+
+	public static var bigRandomeNumber: BigUInt {
+		BigUInt.randomInteger(lessThan: maxUInt256.bigUInt)
+	}
 }
 
 // MARK: - Operator Overloading
@@ -274,10 +273,9 @@ extension BigNumber: CustomStringConvertible {
 }
 
 // MARK: - BigNumber Constants
+
 extension BigNumber {
-    
-    static var maxUInt256: Self {
-        .init(number: "115792089237316195423570985008687907853269984665640564039457584007913129639935", decimal: 0)
-    }
-    
+	static var maxUInt256: Self {
+		.init(number: "115792089237316195423570985008687907853269984665640564039457584007913129639935", decimal: 0)
+	}
 }
