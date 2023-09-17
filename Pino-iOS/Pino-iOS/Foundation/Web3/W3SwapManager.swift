@@ -77,7 +77,7 @@ public struct W3SwapManager {
 		}
 	}
 
-	public func getWrapETHCallData(amount: BigUInt, proxyFee: BigUInt) -> Promise<String> {
+	public func getWrapETHCallData(proxyFee: BigUInt) -> Promise<String> {
 		Promise<String>() { [self] seal in
 
 			let contract = try Web3Core.getContractOfToken(
@@ -85,7 +85,7 @@ public struct W3SwapManager {
 				abi: .swap,
 				web3: web3
 			)
-			let solInvocation = contract[ABIMethodWrite.wrapETH.rawValue]?(amount, proxyFee)
+			let solInvocation = contract[ABIMethodWrite.wrapETH.rawValue]?(proxyFee)
 
 			gasInfoManager.calculateGasOf(
 				method: .wrapETH,
@@ -113,7 +113,7 @@ public struct W3SwapManager {
 		}
 	}
 
-	public func getUnWrapETHCallData(amount: BigUInt, recipient: String) -> Promise<String> {
+	public func getUnWrapETHCallData(recipient: String) -> Promise<String> {
 		Promise<String>() { [self] seal in
 
 			let contract = try Web3Core.getContractOfToken(
@@ -121,7 +121,7 @@ public struct W3SwapManager {
 				abi: .swap,
 				web3: web3
 			)
-			let solInvocation = contract[ABIMethodWrite.unwrapWETH9.rawValue]?(amount, recipient.eip55Address!)
+			let solInvocation = contract[ABIMethodWrite.unwrapWETH9.rawValue]?(recipient.eip55Address!)
 
 			gasInfoManager.calculateGasOf(
 				method: .unwrapWETH9,
@@ -149,7 +149,7 @@ public struct W3SwapManager {
 		}
 	}
 
-	public func callMultiCall(callData: [String]) -> Promise<String> {
+    public func callMultiCall(callData: [String], value: BigUInt) -> Promise<String> {
 		Promise<String>() { [self] seal in
 
 			let contract = try Web3Core.getContractOfToken(
@@ -174,13 +174,14 @@ public struct W3SwapManager {
 					contract: solInvocation!,
 					nonce: nonce,
 					gasPrice: gasInfo.gasPrice.etherumQuantity,
-					gasLimit: gasInfo.gasLimit.etherumQuantity
-				)
+					gasLimit: gasInfo.gasLimit.etherumQuantity,
+                    value: value.etherumQuantity)
 
 				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-				return web3.eth.sendRawTransaction(transaction: signedTx)
+                return "hash".promise
+//				return web3.eth.sendRawTransaction(transaction: signedTx)
 			}.done { txHash in
-				seal.fulfill(txHash.hex())
+				seal.fulfill(txHash)
 			}.catch { error in
 				seal.reject(error)
 			}

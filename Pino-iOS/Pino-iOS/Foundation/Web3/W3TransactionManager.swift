@@ -32,7 +32,8 @@ public struct W3TransactionManager {
 		contract: SolidityInvocation,
 		nonce: EthereumQuantity,
 		gasPrice: EthereumQuantity,
-		gasLimit: EthereumQuantity?
+		gasLimit: EthereumQuantity?,
+        value: EthereumQuantity = 0
 	) throws -> EthereumTransaction {
 		let accountPrivateKey = try EthereumPrivateKey(
 			hexPrivateKey: walletManager.currentAccountPrivateKey.string
@@ -45,7 +46,7 @@ public struct W3TransactionManager {
 			maxPriorityFeePerGas: nil,
 			gasLimit: gasLimit,
 			from: accountPrivateKey.address,
-			value: 0,
+			value: value,
 			accessList: [:],
 			transactionType: .legacy
 		)

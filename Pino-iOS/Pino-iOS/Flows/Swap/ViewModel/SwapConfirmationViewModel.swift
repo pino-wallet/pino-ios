@@ -67,6 +67,11 @@ class SwapConfirmationViewModel {
 
 	// MARK: - Public Methods
 
+    public func confirmSwap() {
+        let swapManager = SwapManager(selectedProvider: selectedProvider!, srcToken: fromToken, destToken: toToken)
+        swapManager.swapToken()
+    }
+    
 	public func checkEnoughBalance() -> Bool {
 		if gasFee > ethToken.holdAmount {
 			return false
@@ -98,9 +103,3 @@ class SwapConfirmationViewModel {
 	}
 }
 
-extension SwapConfirmationViewModel {
-	public func confirmSwap() {
-		let swapManager = SwapManager(selectedProvider: selectedProvider!, srcToken: fromToken, destToken: toToken)
-		swapManager.swapToken()
-	}
-}

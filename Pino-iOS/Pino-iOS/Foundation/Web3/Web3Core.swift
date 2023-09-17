@@ -100,12 +100,12 @@ public class Web3Core {
 		transferManager.getPermitTransferFromCallData(amount: amount, tokenAdd: tokenAdd, signiture: signiture)
 	}
 
-	public func getWrapETHCallData(amount: BigUInt, proxyFee: BigUInt) -> Promise<String> {
-		swapManager.getWrapETHCallData(amount: amount, proxyFee: proxyFee)
+	public func getWrapETHCallData(proxyFee: BigUInt) -> Promise<String> {
+		swapManager.getWrapETHCallData(proxyFee: proxyFee)
 	}
 
-	public func getUnwrapETHCallData(amount: BigUInt, recipient: String) -> Promise<String> {
-		swapManager.getUnWrapETHCallData(amount: amount, recipient: recipient)
+	public func getUnwrapETHCallData(recipient: String) -> Promise<String> {
+		swapManager.getUnWrapETHCallData(recipient: recipient)
 	}
 
 	public func getParaswapSwapCallData(data: String) -> Promise<String> {
@@ -124,8 +124,8 @@ public class Web3Core {
 		swapManager.getSweepTokenCallData(tokenAdd: tokenAdd, recipientAdd: recipientAdd)
 	}
 
-	public func callProxyMulticall(data: [String]) {
-		swapManager.callMultiCall(callData: data)
+	public func callProxyMulticall(data: [String], value: BigUInt) -> Promise<String> {
+        swapManager.callMultiCall(callData: data, value: value)
 	}
 
 	public func getCustomAssetInfo(contractAddress: String) -> Promise<CustomAssetInfo> {
