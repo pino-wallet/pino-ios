@@ -15,35 +15,36 @@ struct UserBorrowingAssetViewModel: AssetsBoardProtocol {
 	// MARK: - Public Properties
 
 	public var assetName: String {
-        foundTokenInManageAssetTokens.symbol
+		foundTokenInManageAssetTokens.symbol
 	}
 
 	public var assetImage: URL {
-        foundTokenInManageAssetTokens.image
+		foundTokenInManageAssetTokens.image
 	}
 
 	public var userBorrowingInToken: String {
 		userAmountInToken.sevenDigitFormat
-            .tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+			.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
 	}
 
 	public var userBorrowingInDollars: String {
-        let borrowingAmountinDollars = foundTokenInManageAssetTokens.price * userAmountInToken
-        return borrowingAmountinDollars.priceFormat
+		let borrowingAmountinDollars = foundTokenInManageAssetTokens.price * userAmountInToken
+		return borrowingAmountinDollars.priceFormat
 	}
 
 	public var defaultUserBorrowingToken: UserBorrowingToken {
 		userBorrowingTokenModel
 	}
-    
-    // MARK: - Private Properties
-    private var foundTokenInManageAssetTokens: AssetViewModel {
-        (GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userBorrowingTokenModel.id }))!
-    }
-    
-    private var userAmountInToken: BigNumber {
-        BigNumber(number: userBorrowingTokenModel.amount, decimal: foundTokenInManageAssetTokens.decimal)
-    }
+
+	// MARK: - Private Properties
+
+	private var foundTokenInManageAssetTokens: AssetViewModel {
+		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userBorrowingTokenModel.id }))!
+	}
+
+	private var userAmountInToken: BigNumber {
+		BigNumber(number: userBorrowingTokenModel.amount, decimal: foundTokenInManageAssetTokens.decimal)
+	}
 
 	// MARK: - Initializers
 

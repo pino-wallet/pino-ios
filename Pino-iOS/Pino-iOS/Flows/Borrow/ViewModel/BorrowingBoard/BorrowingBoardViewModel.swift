@@ -18,7 +18,7 @@ struct BorrowingBoardViewModel {
 
 	init(userBorrowingTokens: [UserBorrowingToken], borrowableTokens: [BorrowableAssetModel]) {
 		self.userBorrowingTokens = userBorrowingTokens.compactMap {
-            UserBorrowingAssetViewModel(userBorrowingTokenModel: $0)
+			UserBorrowingAssetViewModel(userBorrowingTokenModel: $0)
 		}
 		self.borrowableTokens = borrowableTokens.compactMap {
 			BorrowableAssetViewModel(borrowableAssetModel: $0)
