@@ -99,6 +99,7 @@ class BorrowViewModel {
 
 	@objc
 	private func getUserBorrowingDetails() {
+        #warning("this address is for testing")
 		borrowAPIClient.getUserBorrowings(
 			address: "0xc029F24C043D9b44e0b4506485FfC61013f1B1F2",
 			dex: selectedDexSystem.type
