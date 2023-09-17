@@ -7,7 +7,6 @@
 
 import Foundation
 
-#warning("this values are temporary")
 struct UserBorrowingAssetViewModel: AssetsBoardProtocol {
 	// MARK: - Private Properties
 
@@ -20,16 +19,20 @@ struct UserBorrowingAssetViewModel: AssetsBoardProtocol {
 	}
 
 	public var assetImage: URL {
-		URL(string: userBorrowingAssetModel.tokenImage)!
+        userBorrowingAssetModel.tokenImage
 	}
 
 	public var userBorrowingInToken: String {
-		"\(userBorrowingAssetModel.userBorrowingAmountInToken) \(userBorrowingAssetModel.tokenSymbol)"
+        userBorrowingAssetModel.userBorrowingAmountInToken.sevenDigitFormat.tokenFormatting(token: userBorrowingAssetModel.tokenSymbol)
 	}
 
 	public var userBorrowingInDollars: String {
-		"$5000"
+        userBorrowingAssetModel.userBorrowingAmountInDollars
 	}
+    
+    public var defaultUserBorrowingToken: UserBorrowingToken {
+        userBorrowingAssetModel.defaultBorrowingTokenModel
+    }
 
 	// MARK: - Initializers
 

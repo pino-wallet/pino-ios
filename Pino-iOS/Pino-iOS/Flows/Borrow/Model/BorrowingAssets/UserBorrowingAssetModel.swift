@@ -10,9 +10,26 @@ import Foundation
 #warning("this values are temporary and maybe should change")
 struct UserBorrowingAssetModel {
 	// MARK: - Public Properties
+    public var userBorrowingModel: UserBorrowingToken
 
-	public let tokenImage: String
-	public let tokenSymbol: String
-	public let userBorrowingAmountInToken: String
-	public let decimal = 10
+    public var tokenImage: URL {
+        return foundBorrowingTokenInManageAssetTokens.image
+    }
+    public var tokenSymbol: String {
+        foundBorrowingTokenInManageAssetTokens.symbol
+    }
+    public var userBorrowingAmountInToken: BigNumber {
+        BigNumber(number: userBorrowingModel.amount, decimal: foundBorrowingTokenInManageAssetTokens.decimal)
+    }
+    public var userBorrowingAmountInDollars: String {
+        (foundBorrowingTokenInManageAssetTokens.price * userBorrowingAmountInToken).priceFormat
+    }
+    public var defaultBorrowingTokenModel: UserBorrowingToken {
+        userBorrowingModel
+    }
+    
+    // MARK: - Private Properties
+    private var foundBorrowingTokenInManageAssetTokens: AssetViewModel {
+        (GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userBorrowingModel.id }))!
+    }
 }

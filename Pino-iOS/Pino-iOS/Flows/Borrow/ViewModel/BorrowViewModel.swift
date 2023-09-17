@@ -100,7 +100,7 @@ class BorrowViewModel {
 	@objc
 	private func getUserBorrowingDetails() {
 		borrowAPIClient.getUserBorrowings(
-			address: walletManager.currentAccount.eip55Address,
+			address: "0xc029F24C043D9b44e0b4506485FfC61013f1B1F2",
 			dex: selectedDexSystem.type
 		).sink { completed in
 			switch completed {
