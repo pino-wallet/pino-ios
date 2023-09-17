@@ -19,20 +19,21 @@ struct UserBorrowingAssetViewModel: AssetsBoardProtocol {
 	}
 
 	public var assetImage: URL {
-        userBorrowingAssetModel.tokenImage
+		userBorrowingAssetModel.tokenImage
 	}
 
 	public var userBorrowingInToken: String {
-        userBorrowingAssetModel.userBorrowingAmountInToken.sevenDigitFormat.tokenFormatting(token: userBorrowingAssetModel.tokenSymbol)
+		userBorrowingAssetModel.userBorrowingAmountInToken.sevenDigitFormat
+			.tokenFormatting(token: userBorrowingAssetModel.tokenSymbol)
 	}
 
 	public var userBorrowingInDollars: String {
-        userBorrowingAssetModel.userBorrowingAmountInDollars
+		userBorrowingAssetModel.userBorrowingAmountInDollars
 	}
-    
-    public var defaultUserBorrowingToken: UserBorrowingToken {
-        userBorrowingAssetModel.defaultBorrowingTokenModel
-    }
+
+	public var defaultUserBorrowingToken: UserBorrowingToken {
+		userBorrowingAssetModel.defaultBorrowingTokenModel
+	}
 
 	// MARK: - Initializers
 
