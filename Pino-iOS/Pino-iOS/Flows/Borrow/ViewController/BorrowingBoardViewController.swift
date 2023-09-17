@@ -42,9 +42,7 @@ class BorrowingBoardViewController: UIViewController {
 	private func setupView() {
 		#warning("this values are temporary")
 		borrowingBoardVM = BorrowingBoardViewModel(
-			userBorrowingTokens: borrowVM.userBorrowingDetails?.borrowTokens.compactMap { borrowToken in
-				UserBorrowingAssetModel(userBorrowingModel: borrowToken)
-			} ?? [],
+			userBorrowingTokens: borrowVM.userBorrowingDetails?.borrowTokens ?? [],
 			borrowableTokens: [
 				BorrowableAssetModel(
 					tokenImage: "https://demo-cdn.pino.xyz/tokens/chainlink.png",
