@@ -56,9 +56,12 @@ class ImportAccountsViewController: UIViewController {
 	}
 
 	private func openPasscodePage() {
-		let createPasscodeViewController = CreatePasscodeViewController()
-		createPasscodeViewController.pageSteps = 3
-		createPasscodeViewController.walletMnemonics = importAccountsVM.walletMnemonics
-		navigationController?.pushViewController(createPasscodeViewController, animated: true)
+		guard let accounts = importAccountsVM.accounts else { return }
+		let selectedAccounts = accounts.filter { $0.isSelected }
+		if !selectedAccounts.isEmpty {
+			let createPasscodeViewController = CreatePasscodeViewController(selectedAccounts: selectedAccounts)
+			createPasscodeViewController.pageSteps = 3
+			navigationController?.pushViewController(createPasscodeViewController, animated: true)
+		}
 	}
 }

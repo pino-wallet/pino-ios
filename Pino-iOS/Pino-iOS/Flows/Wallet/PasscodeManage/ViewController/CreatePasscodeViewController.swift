@@ -8,12 +8,26 @@
 import UIKit
 
 class CreatePasscodeViewController: UIViewController {
+	// MARK: - Private Properties
+
+	private let selectedAccounts: [ActiveAccountViewModel]
+
 	// MARK: Public Properties
 
 	public var createPassView: ManagePasscodeView?
 	public var createPassVM: SelectPassViewModel!
 	public var pageSteps: Int!
-	public var walletMnemonics: String!
+
+	// MARK: - initializers
+
+	init(selectedAccounts: [ActiveAccountViewModel]) {
+		self.selectedAccounts = selectedAccounts
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	// MARK: View Overrides
 
@@ -44,9 +58,8 @@ class CreatePasscodeViewController: UIViewController {
 
 		createPassVM = SelectPassViewModel(finishPassCreation: { passcode in
 			// Passcode was chose -> Show verify passcode page
-			let verifyPassVC = VerifyPasscodeViewController()
+			let verifyPassVC = VerifyPasscodeViewController(selectedAccounts: self.selectedAccounts)
 			verifyPassVC.selectedPasscode = passcode
-			verifyPassVC.walletMnemonics = self.walletMnemonics
 			self.navigationController?.pushViewController(verifyPassVC, animated: true)
 		}, onErrorHandling: { error in
 			switch error {

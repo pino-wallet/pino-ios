@@ -28,10 +28,10 @@ class VerifySecretPhraseViewController: UIViewController {
 	private func createWallet(_ sortedPhrase: [String]) {
 		// Wallet should be created here
 		// Go to create passcode page
-		let createPasscodeViewController = CreatePasscodeViewController()
-		createPasscodeViewController.walletMnemonics = sortedPhrase.joined(separator: " ")
-		createPasscodeViewController.pageSteps = 3
-		navigationController?.pushViewController(createPasscodeViewController, animated: true)
+//		let createPasscodeViewController = CreatePasscodeViewController()
+//		createPasscodeViewController.walletMnemonics = sortedPhrase.joined(separator: " ")
+//		createPasscodeViewController.pageSteps = 3
+//		navigationController?.pushViewController(createPasscodeViewController, animated: true)
 	}
 }
 

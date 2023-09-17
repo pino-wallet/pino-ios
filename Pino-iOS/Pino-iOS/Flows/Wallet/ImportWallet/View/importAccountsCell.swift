@@ -53,7 +53,7 @@ public class ImportAccountCell: UICollectionViewCell {
 	private func setupStyle() {
 		accountName.text = accountVM.name
 		accountBalance.text = accountVM.balance
-		accountAddress.text = accountVM.address
+		accountAddress.text = accountVM.address.shortenedString(characterCountFromStart: 4, characterCountFromEnd: 4)
 		accountIcon.image = UIImage(named: accountVM.profileImage)
 
 		accountIconBackgroundView.backgroundColor = UIColor(named: accountVM.profileColor)

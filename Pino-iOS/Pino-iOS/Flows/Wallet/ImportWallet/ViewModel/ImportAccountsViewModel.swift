@@ -7,11 +7,12 @@
 
 import Combine
 import Foundation
+import WalletCore
 
 class ImportAccountsViewModel {
 	// MARK: - Private Properties
 
-	private let pinoWalletManager = PinoWalletManager()
+	private let pinoWalletManager = PinoHDWallet()
 	private var accountingAPIClient = AccountingAPIClient()
 	private var cancellables = Set<AnyCancellable>()
 	private let internetConnectivity = InternetConnectivity()
@@ -42,26 +43,32 @@ class ImportAccountsViewModel {
 
 	// MARK: Private Methods
 
-	private func createWallet(mnemonics: String, walletCreated: @escaping (WalletOperationError?) -> Void) {
+	private func createWallet(mnemonics: String, walletCreated: @escaping (HDWallet?, WalletOperationError?) -> Void) {
 		internetConnectivity.$isConnected.tryCompactMap { $0 }.sink { _ in } receiveValue: { [self] isConnected in
 			if isConnected {
-				let initalAccount = pinoWalletManager.createHDWallet(mnemonics: mnemonics)
-				switch initalAccount {
-				case let .success(account):
-					walletCreated(nil)
-				case let .failure(failure):
-					walletCreated(failure)
+				let hdWallet = pinoWalletManager.createHDWallet(mnemonics: mnemonics)
+				switch hdWallet {
+				case let .success(hdWallet):
+					walletCreated(hdWallet, nil)
+				case let .failure(error):
+					walletCreated(nil, error)
 				}
 			} else {
-				walletCreated(.wallet(.netwrokError))
+				walletCreated(nil, .wallet(.netwrokError))
 			}
 		}.store(in: &cancellables)
 	}
 
-	// MARK: - Public Methods
+	private func createAccount(wallet: HDWallet, accountIndex: Int) throws -> Account {
+		let derivationPath = "m/44'/60'/0'/0/\(accountIndex)"
+		let privateKey = wallet.getKey(coin: .ethereum, derivationPath: derivationPath)
+		let account = try Account(privateKeyData: privateKey.data)
+		account.derivationPath = derivationPath
+		return account
+	}
 
-	public func getAccounts(completion: @escaping () -> Void) {
-		accountingAPIClient.activeAddresses(addresses: ["0x81Ad046aE9a7Ad56092fa7A7F09A04C82064e16C".lowercased()])
+	private func getActiveAddresses(accountAddresses: [String], completion: @escaping ([String]) -> Void) {
+		accountingAPIClient.activeAddresses(addresses: accountAddresses)
 			.sink { completed in
 				switch completed {
 				case .finished:
@@ -71,46 +78,36 @@ class ImportAccountsViewModel {
 				}
 			} receiveValue: { accounts in
 				print("Active accounts: \(accounts)")
+				completion(accounts.addresses)
 			}.store(in: &cancellables)
+	}
 
-		DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-			self.accounts = [
-				ActiveAccountViewModel(
-					id: "0",
-					name: "Lemon",
-					address: "2365627638742",
-					profileImage: "lemon",
-					profileColor: "lemon",
-					balance: "24",
-					isSelected: true
-				),
-				ActiveAccountViewModel(
-					id: "1",
-					name: "Avocado",
-					address: "2365627638742",
-					profileImage: "avocado",
-					profileColor: "avocado",
-					balance: "28",
-					isSelected: false
-				),
-			]
-			completion()
+	// MARK: - Public Methods
+
+	public func getAccounts(completion: @escaping () -> Void) {
+		createWallet(mnemonics: walletMnemonics) { wallet, error in
+			guard let wallet else { return }
+			var createdAccounts: [Account] = []
+			for index in 0 ..< 10 {
+				do {
+					let account = try self.createAccount(wallet: wallet, accountIndex: index)
+					createdAccounts.append(account)
+				} catch {}
+			}
+			let accountAddresses = createdAccounts.map { $0.eip55Address.lowercased() }
+			self.getActiveAddresses(accountAddresses: accountAddresses) { activeAccountAddresses in
+				let activeAccounts = createdAccounts.filter {
+					activeAccountAddresses.contains($0.eip55Address.lowercased())
+				}
+				self.accounts = activeAccounts.compactMap { ActiveAccountViewModel(account: $0) }
+				completion()
+			}
 		}
 	}
 
 	public func findMoreAccounts(completion: @escaping () -> Void) {
 		DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
 			completion()
-			let avatar = Avatar.randAvatar()
-			self.accounts!.append(ActiveAccountViewModel(
-				id: "0",
-				name: avatar.name,
-				address: "2365627638742",
-				profileImage: avatar.rawValue,
-				profileColor: avatar.rawValue,
-				balance: "100",
-				isSelected: false
-			))
 		}
 	}
 }
