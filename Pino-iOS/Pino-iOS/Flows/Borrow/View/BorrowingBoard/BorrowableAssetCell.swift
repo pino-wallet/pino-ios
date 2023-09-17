@@ -12,7 +12,7 @@ class BorrowableAssetCell: AssetsBoardCell {
 
 	public static let cellReuseID = "borrowableCellReuseID"
 
-	public var borrowableAssetVM: BorrowableAssetViewModel! {
+	public var borrowableAssetVM: BorrowableAssetViewModel? {
 		didSet {
 			asset = borrowableAssetVM
 			setCellValues()
@@ -22,6 +22,9 @@ class BorrowableAssetCell: AssetsBoardCell {
 	// MARK: - Private Methods
 
 	private func setCellValues() {
+        guard let borrowableAssetVM else {
+            return
+        }
 		assetAmountLabel.text = borrowableAssetVM.formattedAPYAmount
 
 		assetAmountDescriptionLabel.text = "APY"

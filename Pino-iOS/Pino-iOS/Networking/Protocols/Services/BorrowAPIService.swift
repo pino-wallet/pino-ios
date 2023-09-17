@@ -9,4 +9,5 @@ import Foundation
 
 protocol BorrowAPIService {
 	func getUserBorrowings(address: String, dex: String) -> AnyPublisher<UserBorrowingModel, APIError>
+    func getBorrowableTokens(dex: String) -> AnyPublisher<BorrowableTokensModel, APIError>
 }
