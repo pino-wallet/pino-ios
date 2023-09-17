@@ -24,12 +24,12 @@ class BorrowingBoardViewController: UIViewController {
 		setupView()
 		setupNavigationBar()
 	}
-    
-    override func viewWillAppear(_ animated: Bool) {
-        if isBeingPresented || isMovingToParent {
-            borrowingBoardVM.getBorrowableTokens()
-        }
-    }
+
+	override func viewWillAppear(_ animated: Bool) {
+		if isBeingPresented || isMovingToParent {
+			borrowingBoardVM.getBorrowableTokens()
+		}
+	}
 
 	// MARK: - Initializers
 

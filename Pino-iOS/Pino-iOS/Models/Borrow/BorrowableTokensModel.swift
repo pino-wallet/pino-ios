@@ -6,21 +6,23 @@
 import Foundation
 
 // MARK: - WelcomeElement
-struct BorrowableTokenModel: Codable {
-    let tokenID: String
-    let tokenProtocol: ProtocolClass
-    let apy: Int
 
-    enum CodingKeys: String, CodingKey {
-        case tokenID = "token_id"
-        case tokenProtocol = "protocol"
-        case apy
-    }
+struct BorrowableTokenModel: Codable {
+	let tokenID: String
+	let tokenProtocol: ProtocolClass
+	let apy: Int
+
+	enum CodingKeys: String, CodingKey {
+		case tokenID = "token_id"
+		case tokenProtocol = "protocol"
+		case apy
+	}
 }
 
 // MARK: - ProtocolClass
+
 struct ProtocolClass: Codable {
-    let name, logo: String
+	let name, logo: String
 }
 
 typealias BorrowableTokensModel = [BorrowableTokenModel]
