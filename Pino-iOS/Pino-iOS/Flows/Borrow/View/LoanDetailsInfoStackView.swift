@@ -60,6 +60,6 @@ class LoanDetailsInfoStackView: UIStackView {
 	private func setupConstraints() {
 		heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 		titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 150).isActive = true
-		infoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 80).isActive = true
+		infoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 130).isActive = true
 	}
 }
