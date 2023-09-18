@@ -50,7 +50,7 @@ class ImportAccountsViewController: UIViewController {
 			}
 		)
 		view = importLoadingView
-		importAccountsVM.getAccounts {
+		importAccountsVM.getFirstAccounts {
 			self.view = self.importAccountsView
 		}
 	}

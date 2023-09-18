@@ -16,6 +16,7 @@ class ImportAccountsViewModel {
 	private var accountingAPIClient = AccountingAPIClient()
 	private var cancellables = Set<AnyCancellable>()
 	private let internetConnectivity = InternetConnectivity()
+	private var createdWallet: HDWallet?
 
 	// MARK: Public Properties
 
@@ -31,6 +32,7 @@ class ImportAccountsViewModel {
 
 	public var footerTitle = "Find more accounts"
 	public var walletMnemonics: String
+	public var lastAccountIndex: Int?
 
 	@Published
 	public var accounts: [ActiveAccountViewModel]?
@@ -84,11 +86,13 @@ class ImportAccountsViewModel {
 
 	// MARK: - Public Methods
 
-	public func getAccounts(completion: @escaping () -> Void) {
+	public func getFirstAccounts(completion: @escaping () -> Void) {
 		createWallet(mnemonics: walletMnemonics) { wallet, error in
 			guard let wallet else { return }
+			self.createdWallet = wallet
 			var createdAccounts: [Account] = []
 			for index in 0 ..< 10 {
+				self.lastAccountIndex = index
 				do {
 					let account = try self.createAccount(wallet: wallet, accountIndex: index)
 					createdAccounts.append(account)
@@ -106,8 +110,30 @@ class ImportAccountsViewModel {
 	}
 
 	public func findMoreAccounts(completion: @escaping () -> Void) {
-		DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-			completion()
+		guard let lastAccountIndex else { return }
+		if let createdWallet {
+			var createdAccounts: [Account] = []
+			for index in (lastAccountIndex + 1) ... (lastAccountIndex + 10) {
+				self.lastAccountIndex = index
+				do {
+					let account = try createAccount(wallet: createdWallet, accountIndex: index)
+					createdAccounts.append(account)
+				} catch {}
+			}
+			let accountAddresses = createdAccounts.map { $0.eip55Address.lowercased() }
+			getActiveAddresses(accountAddresses: accountAddresses) { activeAccountAddresses in
+				let activeAccounts = createdAccounts.filter {
+					activeAccountAddresses.contains($0.eip55Address.lowercased())
+				}
+				if !activeAccounts.compactMap({ $0.address }).contains(createdAccounts[lastAccountIndex].address) {
+					self.lastAccountIndex = nil
+				}
+				self.accounts = self.accounts! + activeAccounts.compactMap { ActiveAccountViewModel(account: $0) }
+				completion()
+			}
+		} else {
+			self.lastAccountIndex = 0
+			getFirstAccounts(completion: completion)
 		}
 	}
 }

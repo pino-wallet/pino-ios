@@ -144,6 +144,9 @@ extension ImportAccountsCollectionView: UICollectionViewDataSource {
 			) as! ImportAccountsFooterView
 			footerView.title = accountsVM.footerTitle
 			footerView.findAccountDidTap = findAccountsDidTap
+			if accountsVM.lastAccountIndex == nil {
+				footerView.hideFindAccountButton()
+			}
 			return footerView
 		default:
 			fatalError("cant dequeue reusable view")
