@@ -21,7 +21,7 @@ class BorrowingBoradView: AssetsBoardCollectionView {
 	) {
 		self.borrowingBoardVM = borrowingBoardVM
 		super.init(
-			assets: borrowingBoardVM.borrowableTokens,
+			assets: borrowingBoardVM.borrowableTokens ?? [],
 			userAssets: borrowingBoardVM.userBorrowingTokens,
 			assetDidSelect: assetDidSelect
 		)

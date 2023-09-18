@@ -25,6 +25,12 @@ class BorrowingBoardViewController: UIViewController {
 		setupNavigationBar()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		if isBeingPresented || isMovingToParent {
+			borrowingBoardVM.getBorrowableTokens()
+		}
+	}
+
 	// MARK: - Initializers
 
 	init(borrowVM: BorrowViewModel) {
@@ -40,17 +46,7 @@ class BorrowingBoardViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		#warning("this values are temporary")
-		borrowingBoardVM = BorrowingBoardViewModel(
-			userBorrowingTokens: borrowVM.userBorrowingDetails?.borrowTokens ?? [],
-			borrowableTokens: [
-				BorrowableAssetModel(
-					tokenImage: "https://demo-cdn.pino.xyz/tokens/chainlink.png",
-					tokenSymbol: "ETH",
-					tokenAPY: "30000000000"
-				),
-			]
-		)
+		borrowingBoardVM = BorrowingBoardViewModel(borrowVM: borrowVM)
 
 		borrowingBoardView = BorrowingBoradView(borrowingBoardVM: borrowingBoardVM, assetDidSelect: { selectedAssetVM in
 			if (selectedAssetVM as? UserBorrowingAssetViewModel) != nil {

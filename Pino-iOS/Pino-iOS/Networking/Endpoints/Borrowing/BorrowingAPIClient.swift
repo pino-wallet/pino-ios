@@ -17,4 +17,8 @@ final class BorrowingAPIClient: BorrowAPIService {
 	public func getUserBorrowings(address: String, dex: String) -> AnyPublisher<UserBorrowingModel, APIError> {
 		networkManager.request(.getBorrowingDetails(address: address, dex: dex))
 	}
+
+	func getBorrowableTokens(dex: String) -> AnyPublisher<BorrowableTokensModel, APIError> {
+		networkManager.request(.getBorrowableTokens(dex: dex))
+	}
 }
