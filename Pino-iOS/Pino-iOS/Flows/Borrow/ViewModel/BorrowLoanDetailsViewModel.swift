@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import Combine
 
-struct BorrowLoanDetailsViewModel {
+class BorrowLoanDetailsViewModel {
 	// MARK: - Public Properties
 
 	public let dismissIconName = "dissmiss"
@@ -18,6 +19,7 @@ struct BorrowLoanDetailsViewModel {
 	public let increaseLoanTitle = "Increase loan"
 	public let repayTitle = "Repay"
 	public let userBorrowedTokenModel: UserBorrowingToken
+    public let borrowVM: BorrowViewModel
 
 	public var pageTitle: String {
 		"\(foundTokenInManageAssetTokens.symbol) loan details"
@@ -31,8 +33,8 @@ struct BorrowLoanDetailsViewModel {
 		borrowedAmountBigNumber.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
 	}
 
-	#warning("this is mock")
-	public let apy = "%3"
+    @Published public var apy: String? = nil
+    public var apyVolatilityType: AssetVolatilityType? = nil
 	public var borrowedAmount: String {
 		borrowedAmountBigNumber.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
 	}
@@ -47,6 +49,10 @@ struct BorrowLoanDetailsViewModel {
 	}
 
 	// MARK: - Private Properties
+    
+    private let errorFetchingToastMessage = "Error fetching token APY from server"
+    private let borrowingAPIClient = BorrowingAPIClient()
+    private var cancellables = Set<AnyCancellable>()
 
 	private var totalDebtBigNumber: BigNumber {
 		BigNumber(number: userBorrowedTokenModel.totalDebt!, decimal: foundTokenInManageAssetTokens.decimal)
@@ -62,7 +68,37 @@ struct BorrowLoanDetailsViewModel {
 
 	// MARK: - Initializers
 
-	init(userBorrowedTokenModel: UserBorrowingToken) {
+    init(userBorrowedTokenModel: UserBorrowingToken, borrowVM: BorrowViewModel) {
 		self.userBorrowedTokenModel = userBorrowedTokenModel
+        self.borrowVM = borrowVM
 	}
+    
+    // MARK: - Public Methods
+    public func getBorrowableTokenProperties() {
+        borrowingAPIClient.getBorrowableToken(dex: borrowVM.selectedDexSystem.type, tokenID: userBorrowedTokenModel.id).sink { completed in
+            switch completed {
+            case .finished:
+                print("borrowable token received successfully")
+            case let .failure(error):
+                print(error)
+                Toast.default(
+                    title: self.errorFetchingToastMessage,
+                    subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+                    style: .error
+                )
+                .show(haptic: .warning)
+            }
+        } receiveValue: { borrowableToken in
+            self.setupApyInfo(borrowableToken: borrowableToken)
+        }.store(in: &cancellables)
+    }
+    
+    // MARK: - Private Methods
+    
+    private func setupApyInfo(borrowableToken: BorrowableTokenModel) {
+        let bigNumberAPY = borrowableToken.apy.bigNumber
+        apyVolatilityType = AssetVolatilityType(change24h: bigNumberAPY)
+        apy = "%\(bigNumberAPY.percentFormat)"
+    }
+    
 }

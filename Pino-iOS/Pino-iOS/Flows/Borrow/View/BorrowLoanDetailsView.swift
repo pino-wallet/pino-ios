@@ -7,6 +7,7 @@
 
 import Kingfisher
 import UIKit
+import Combine
 
 class BorrowLoanDetailsView: UIView {
 	// MARK: - Closures
@@ -31,6 +32,7 @@ class BorrowLoanDetailsView: UIView {
 	private var borrowedAmountStackView: LoanDetailsInfoStackView!
 	private var accuredFeeStackView: LoanDetailsInfoStackView!
 	private var totalDebtStackView: LoanDetailsInfoStackView!
+    private var cancellables = Set<AnyCancellable>()
 
 	private var borrowLoanDetailsVM: BorrowLoanDetailsViewModel
 
@@ -50,11 +52,14 @@ class BorrowLoanDetailsView: UIView {
 		setupView()
 		setupStyles()
 		setupConstraints()
+        setupBindings()
+        setupSkeletonView()
 	}
 
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+    
 
 	// MARK: - Private Methods
 
@@ -106,7 +111,6 @@ class BorrowLoanDetailsView: UIView {
 	private func setupStyles() {
 		backgroundColor = .Pino.background
 
-		apyStackView.infoLabel.textColor = .Pino.green
 
 		totalDebtStackView.titleLabel.textColor = .Pino.label
 
@@ -155,6 +159,35 @@ class BorrowLoanDetailsView: UIView {
 			.bottom(to: layoutMarginsGuide, padding: 20)
 		)
 	}
+    
+    private func setupBindings() {
+        borrowLoanDetailsVM.$apy.sink { apyAmount in
+            guard let apyAmount else {
+                return
+            }
+            self.updateAPY(apyAmount: apyAmount)
+        }.store(in: &cancellables)
+    }
+    
+    private func updateAPY(apyAmount: String) {
+        apyStackView.infoLabel.text = apyAmount
+        apyStackView.infoLabel.textAlignment = .right
+        hideSkeletonView()
+        switch borrowLoanDetailsVM.apyVolatilityType {
+        case .profit:
+            apyStackView.infoLabel.textColor = .Pino.green
+        case .loss:
+            apyStackView.infoLabel.textColor = .Pino.red
+        case nil:
+            return
+        case .some(.none):
+            apyStackView.infoLabel.textColor = .Pino.secondaryLabel
+        }
+    }
+    
+    private func setupSkeletonView() {
+        apyStackView.infoLabel.isSkeletonable = true
+    }
 
 	@objc
 	private func onIncreaseBorrowButtonTap() {

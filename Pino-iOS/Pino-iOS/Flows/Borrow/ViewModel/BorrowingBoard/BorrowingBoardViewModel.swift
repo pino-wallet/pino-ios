@@ -32,7 +32,7 @@ class BorrowingBoardViewModel {
 	// MARK: - Public Methods
 
 	public func getBorrowableTokens() {
-		borrowingAPIClient.getBorrowableTokens(dex: borrowVM.selectedDexSystem.name).sink { completed in
+		borrowingAPIClient.getBorrowableTokens(dex: borrowVM.selectedDexSystem.type).sink { completed in
 			switch completed {
 			case .finished:
 				print("Borrowable tokens received successfully")

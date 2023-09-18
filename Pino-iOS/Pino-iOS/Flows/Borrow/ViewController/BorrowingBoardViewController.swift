@@ -74,7 +74,7 @@ class BorrowingBoardViewController: UIViewController {
 	}
 
 	private func presentBorrowLoanDetailsVC(selectedToken: UserBorrowingToken) {
-		let borrowLoanDetailsVM = BorrowLoanDetailsViewModel(userBorrowedTokenModel: selectedToken)
+        let borrowLoanDetailsVM = BorrowLoanDetailsViewModel(userBorrowedTokenModel: selectedToken, borrowVM: borrowVM)
 		let borrowLoanDetailsVC = BorrowLoanDetailsViewController(borrowLoanDetailsVM: borrowLoanDetailsVM)
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [borrowLoanDetailsVC]

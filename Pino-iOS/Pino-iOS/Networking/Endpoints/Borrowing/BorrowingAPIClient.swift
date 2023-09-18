@@ -8,6 +8,7 @@
 import Combine
 
 final class BorrowingAPIClient: BorrowAPIService {
+    
 	// MARK: - Private Properties
 
 	private let networkManager = NetworkManager<BorrowingEndpoint>()
@@ -21,4 +22,8 @@ final class BorrowingAPIClient: BorrowAPIService {
 	func getBorrowableTokens(dex: String) -> AnyPublisher<BorrowableTokensModel, APIError> {
 		networkManager.request(.getBorrowableTokens(dex: dex))
 	}
+    
+    func getBorrowableToken(dex: String, tokenID: String) -> AnyPublisher<BorrowableTokenModel, APIError> {
+        networkManager.request(.getBorrowableToken(dex: dex, tokenID: tokenID))
+    }
 }
