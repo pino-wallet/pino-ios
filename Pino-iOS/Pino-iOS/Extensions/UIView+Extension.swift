@@ -75,7 +75,7 @@ extension UIView {
 		return skeletonViews
 	}
 
-    public func showSkeletonView(backgroundColor: UIColor? = nil) {
+	public func showSkeletonView(backgroundColor: UIColor? = nil) {
 		let skeletonViews = getAllSkeletonViews(view: self)
 
 		skeletonViews.forEach { skeletonView in
@@ -138,7 +138,7 @@ extension UIView {
 				backgroundView.layer.name = skeletonViewName
 				backgroundView.pin(.allEdges(padding: 0))
 				corneredView.pin(.allEdges(padding: 0))
-                backgroundView.backgroundColor = backgroundColor ?? .Pino.white
+				backgroundView.backgroundColor = backgroundColor ?? .Pino.white
 				corneredView.backgroundColor = UIColor(red: 0.859, green: 0.859, blue: 0.859, alpha: 1)
 
 				if skeletonView.layer.cornerRadius == 0 {

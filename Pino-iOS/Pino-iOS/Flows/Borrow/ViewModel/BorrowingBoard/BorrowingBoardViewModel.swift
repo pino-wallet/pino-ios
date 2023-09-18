@@ -46,9 +46,10 @@ class BorrowingBoardViewModel {
 				.show(haptic: .warning)
 			}
 		} receiveValue: { newBorrowableTokens in
-            let filteredBorrowableTokens = newBorrowableTokens.filter { newBorrowableToken in
-                self.borrowVM.userBorrowingDetails?.borrowTokens.first(where: { $0.id == newBorrowableToken.tokenID }) == nil
-            }
+			let filteredBorrowableTokens = newBorrowableTokens.filter { newBorrowableToken in
+				self.borrowVM.userBorrowingDetails?.borrowTokens
+					.first(where: { $0.id == newBorrowableToken.tokenID }) == nil
+			}
 			self.borrowableTokens = filteredBorrowableTokens.compactMap {
 				BorrowableAssetViewModel(borrowableTokenModel: $0)
 			}

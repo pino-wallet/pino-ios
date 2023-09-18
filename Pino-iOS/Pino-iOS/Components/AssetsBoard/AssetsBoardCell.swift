@@ -16,25 +16,25 @@ class AssetsBoardCell: GroupCollectionViewCell {
 	private let mainStackView = UIStackView()
 	private let titleStackView = UIStackView()
 	private let amountInfoStackView = UIStackView()
-    private let amountSpacerView = UIView()
+	private let amountSpacerView = UIView()
 	private let assetImageView = InvestAssetImageView()
 	private let assetNameLabel = UILabel()
 	private let spacerView = UIView()
 	private let sectionTopInsetView = UIView()
 	private let sectionBottomInsetView = UIView()
 	private var cancellables = Set<AnyCancellable>()
-    
-    
-    // MARK: - Public Properties
-    public var isLoading: Bool = false {
-        didSet {
-            if isLoading {
-                showLoading()
-            } else {
-                hideLoading()
-            }
-        }
-    }
+
+	// MARK: - Public Properties
+
+	public var isLoading = false {
+		didSet {
+			if isLoading {
+				showLoading()
+			} else {
+				hideLoading()
+			}
+		}
+	}
 
 	// MARK: - Internal Properties
 
@@ -46,11 +46,9 @@ class AssetsBoardCell: GroupCollectionViewCell {
 			setupStyles()
 			setupConstraints()
 			setupBindings()
-            setupSkeletonLoading()
+			setupSkeletonLoading()
 		}
 	}
-    
-   
 
 	// MARK: - Private Methods
 
@@ -67,7 +65,7 @@ class AssetsBoardCell: GroupCollectionViewCell {
 		titleStackView.addArrangedSubview(assetNameLabel)
 		amountInfoStackView.addArrangedSubview(assetAmountLabel)
 		amountInfoStackView.addArrangedSubview(assetAmountDescriptionLabel)
-        amountInfoStackView.addArrangedSubview(amountSpacerView)
+		amountInfoStackView.addArrangedSubview(amountSpacerView)
 	}
 
 	private func setupStyles() {
@@ -87,11 +85,11 @@ class AssetsBoardCell: GroupCollectionViewCell {
 		mainContainerView.backgroundColor = .Pino.background
 
 		amountInfoStackView.axis = .vertical
-        amountInfoStackView.alignment = .trailing
-        
+		amountInfoStackView.alignment = .trailing
+
 		contentStackView.axis = .vertical
 		titleStackView.spacing = 8
-        titleStackView.alignment = .center
+		titleStackView.alignment = .center
 
 		mainContainerView.layer.cornerRadius = 12
 		cardView.layer.cornerRadius = 12
@@ -100,21 +98,18 @@ class AssetsBoardCell: GroupCollectionViewCell {
 	}
 
 	private func setupConstraints() {
+		if !isLoading {
+			hideLoading()
+		}
 
-        if !isLoading {
-            hideLoading()
-        }
-        
-        assetAmountLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14).isActive = true
-        assetNameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14).isActive = true
-        assetAmountDescriptionLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 11).isActive = true
-        
-        assetNameLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 76).isActive = true
-        assetAmountLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 37).isActive = true
-        assetAmountDescriptionLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60).isActive = true
-        
-        
-        
+		assetAmountLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14).isActive = true
+		assetNameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14).isActive = true
+		assetAmountDescriptionLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 11).isActive = true
+
+		assetNameLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 76).isActive = true
+		assetAmountLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 37).isActive = true
+		assetAmountDescriptionLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60).isActive = true
+
 		contentStackView.pin(
 			.horizontalEdges(padding: 14),
 			.verticalEdges(padding: 4)
@@ -133,7 +128,6 @@ class AssetsBoardCell: GroupCollectionViewCell {
 		sectionBottomInsetView.pin(
 			.fixedHeight(10)
 		)
-        
 	}
 
 	private func setupBindings() {
@@ -159,28 +153,26 @@ class AssetsBoardCell: GroupCollectionViewCell {
 			sectionBottomInsetView.isHiddenInStackView = false
 		}
 	}
-    
-    private func setupSkeletonLoading() {
-        assetImageView.isSkeletonable = true
-        assetNameLabel.isSkeletonable = true
-        assetAmountLabel.isSkeletonable = true
-        assetAmountDescriptionLabel.isSkeletonable = true
-    }
-    
-     private func showLoading() {
-        amountInfoStackView.spacing = 14
-        amountInfoStackView.setCustomSpacing(5, after: assetAmountDescriptionLabel)
-        amountSpacerView.isHidden = false
-        layoutIfNeeded()
-        showSkeletonView(backgroundColor: .Pino.background)
-    }
-    
-    private func hideLoading() {
-        amountInfoStackView.spacing = 4
-        amountSpacerView.isHidden = true
-        layoutIfNeeded()
-        hideSkeletonView()
-    }
-    
-    
+
+	private func setupSkeletonLoading() {
+		assetImageView.isSkeletonable = true
+		assetNameLabel.isSkeletonable = true
+		assetAmountLabel.isSkeletonable = true
+		assetAmountDescriptionLabel.isSkeletonable = true
+	}
+
+	private func showLoading() {
+		amountInfoStackView.spacing = 14
+		amountInfoStackView.setCustomSpacing(5, after: assetAmountDescriptionLabel)
+		amountSpacerView.isHidden = false
+		layoutIfNeeded()
+		showSkeletonView(backgroundColor: .Pino.background)
+	}
+
+	private func hideLoading() {
+		amountInfoStackView.spacing = 4
+		amountSpacerView.isHidden = true
+		layoutIfNeeded()
+		hideSkeletonView()
+	}
 }

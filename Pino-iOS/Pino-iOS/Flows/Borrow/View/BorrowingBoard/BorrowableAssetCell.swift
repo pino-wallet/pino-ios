@@ -23,7 +23,7 @@ class BorrowableAssetCell: AssetsBoardCell {
 
 	private func setCellValues() {
 		guard let borrowableAssetVM else {
-            isLoading = true
+			isLoading = true
 			return
 		}
 		assetAmountLabel.text = borrowableAssetVM.formattedAPYAmount
@@ -39,7 +39,7 @@ class BorrowableAssetCell: AssetsBoardCell {
 		case .none:
 			assetAmountLabel.textColor = .Pino.secondaryLabel
 		}
-        
-        isLoading = false
+
+		isLoading = false
 	}
 }
