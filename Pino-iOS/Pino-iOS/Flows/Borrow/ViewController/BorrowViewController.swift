@@ -4,7 +4,6 @@
 //
 //  Created by Mohi Raoufi on 12/17/22.
 //
-import Combine
 import UIKit
 
 class BorrowViewController: UIViewController {
@@ -12,7 +11,6 @@ class BorrowViewController: UIViewController {
 
 	private let borrowVM = BorrowViewModel()
 	private var borrowView: BorrowView!
-	private var cancellable = Set<AnyCancellable>()
 
 	// MARK: - View Overrides
 
@@ -32,6 +30,10 @@ class BorrowViewController: UIViewController {
 		}
 	}
 
+	override func viewDidDisappear(_ animated: Bool) {
+		borrowVM.destroyRequestTimer()
+	}
+
 	// MARK: - Private Methods
 
 	private func setupNavigationBar() {
@@ -40,8 +42,8 @@ class BorrowViewController: UIViewController {
 	}
 
 	private func setupView() {
-		borrowView = BorrowView(borrowVM: borrowVM, presentHealthScoreActionsheet: { actionSheet in
-			self.present(actionSheet, animated: true)
+		borrowView = BorrowView(borrowVM: borrowVM, presentHealthScoreActionsheet: { healthScoreSystemVM in
+			self.presentHealthScoreView(healthScoreSystemVM: healthScoreSystemVM)
 		}, presentSelectDexSystem: {
 			self.presentSelectDexSystemVC()
 		}, presentBorrowingBoardVC: {
@@ -75,5 +77,10 @@ class BorrowViewController: UIViewController {
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [collateralizingBoardVC]
 		present(navigationVC, animated: true)
+	}
+
+	private func presentHealthScoreView(healthScoreSystemVM: HealthScoreSystemViewModel) {
+		let healthScoreSystemVC = HealthScoreSystemViewController(healthScoreSystemInfoVM: healthScoreSystemVM)
+		present(healthScoreSystemVC, animated: true)
 	}
 }

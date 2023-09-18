@@ -5,6 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 8/22/23.
 //
 
+import Kingfisher
 import UIKit
 
 class BorrowingTokenCell: UICollectionViewCell {
@@ -55,7 +56,8 @@ class BorrowingTokenCell: UICollectionViewCell {
 		guard let tokenImage = borrowingTokenVM?.tokenImage else {
 			return
 		}
-		tokenImageView.image = UIImage(named: tokenImage)
+		tokenImageView.kf.indicatorType = .activity
+		tokenImageView.kf.setImage(with: tokenImage)
 	}
 
 	private func setupConstraints() {
@@ -96,7 +98,7 @@ class BorrowingTokenCell: UICollectionViewCell {
 		let progressAnimation = CABasicAnimation(keyPath: "strokeEnd")
 		if let borrowingPercentage = borrowingTokenVM?.prevTotalSharedBorrowingDividedPercentage,
 		   !borrowingPercentage.isZero {
-			progressAnimation.fromValue = borrowingTokenVM?.prevTotalSharedBorrowingDividedPercentage
+			progressAnimation.fromValue = borrowingPercentage
 		}
 		progressAnimation.duration = 0.5
 		progressAnimation.toValue = newTotalSharedBorrowingDividedPercentage
