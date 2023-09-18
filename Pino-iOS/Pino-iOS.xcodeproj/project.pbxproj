@@ -385,7 +385,6 @@
 		D9A0BDAC2A974FE900AE132F /* BorrowingBoardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A0BDAB2A974FE900AE132F /* BorrowingBoardDataSource.swift */; };
 		D9A0BDAF2A9752C000AE132F /* UserBorrowerAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A0BDAE2A9752C000AE132F /* UserBorrowerAssetViewModel.swift */; };
 		D9A0BDB12A97533500AE132F /* BorrowableAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A0BDB02A97533500AE132F /* BorrowableAssetViewModel.swift */; };
-		D9A0BDB42A9754D900AE132F /* UserBorrowingAssetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A0BDB32A9754D900AE132F /* UserBorrowingAssetModel.swift */; };
 		D9A0BDB62A9754E500AE132F /* BorrowableAssetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A0BDB52A9754E500AE132F /* BorrowableAssetModel.swift */; };
 		D9A0BDB82A975E1200AE132F /* UserBorrowingAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A0BDB72A975E1200AE132F /* UserBorrowingAssetCell.swift */; };
 		D9A0BDBA2A975E2200AE132F /* BorrowableAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A0BDB92A975E2200AE132F /* BorrowableAssetCell.swift */; };
@@ -1101,7 +1100,6 @@
 		D9A0BDAB2A974FE900AE132F /* BorrowingBoardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingBoardDataSource.swift; sourceTree = "<group>"; };
 		D9A0BDAE2A9752C000AE132F /* UserBorrowerAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBorrowerAssetViewModel.swift; sourceTree = "<group>"; };
 		D9A0BDB02A97533500AE132F /* BorrowableAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowableAssetViewModel.swift; sourceTree = "<group>"; };
-		D9A0BDB32A9754D900AE132F /* UserBorrowingAssetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBorrowingAssetModel.swift; sourceTree = "<group>"; };
 		D9A0BDB52A9754E500AE132F /* BorrowableAssetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowableAssetModel.swift; sourceTree = "<group>"; };
 		D9A0BDB72A975E1200AE132F /* UserBorrowingAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBorrowingAssetCell.swift; sourceTree = "<group>"; };
 		D9A0BDB92A975E2200AE132F /* BorrowableAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowableAssetCell.swift; sourceTree = "<group>"; };
@@ -2722,7 +2720,6 @@
 			isa = PBXGroup;
 			children = (
 				D9A0BDB52A9754E500AE132F /* BorrowableAssetModel.swift */,
-				D9A0BDB32A9754D900AE132F /* UserBorrowingAssetModel.swift */,
 			);
 			path = BorrowingAssets;
 			sourceTree = "<group>";
@@ -4420,7 +4417,6 @@
 				DFA9687E2A0FABB9007D4513 /* WalletAccount+CoreDataProperties.swift in Sources */,
 				D9F1BD022A7111FE00F5303F /* CoinInfoEmptyStateFooterView.swift in Sources */,
 				B6C747AA398D7E37B1B727AC /* PassDotsView.swift in Sources */,
-				D9A0BDB42A9754D900AE132F /* UserBorrowingAssetModel.swift in Sources */,
 				D97F0B8C2A948F760083DA81 /* DexSystemModelProtocol.swift in Sources */,
 				DF00178229E82084001164EA /* SecureEnclaveHelper.swift in Sources */,
 				D966D5932A9F3950007E63A1 /* PinoRightSideImageButtonStyle.swift in Sources */,
