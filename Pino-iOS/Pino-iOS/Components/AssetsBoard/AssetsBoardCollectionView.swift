@@ -8,9 +8,12 @@
 import UIKit
 
 class AssetsBoardCollectionView: UICollectionView {
+    // MARK: - Public Properties
+    
+    public var assets: [AssetsBoardProtocol]
+    public var isLoading: Bool = false
 	// MARK: - Private Properties
 
-	private let assets: [AssetsBoardProtocol]
 	private let userAssets: [AssetsBoardProtocol]
 	private let assetDidSelect: (AssetsBoardProtocol) -> Void
 
@@ -71,7 +74,7 @@ extension AssetsBoardCollectionView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		sizeForItemAt indexPath: IndexPath
 	) -> CGSize {
-		CGSize(width: collectionView.frame.width, height: 64)
+		CGSize(width: collectionView.frame.width, height: 92)
 	}
 
 	func collectionView(
@@ -87,6 +90,9 @@ extension AssetsBoardCollectionView: UICollectionViewDelegateFlowLayout {
 				return CGSize(width: collectionView.frame.width, height: 54)
 			}
 		case 1:
+            guard !isLoading else {
+                return CGSize(width: collectionView.frame.width, height: 54)
+            }
 			if assets.isEmpty {
 				return .zero
 			} else {

@@ -55,8 +55,7 @@ class InvestAssetImageView: UIView {
 			.allEdges
 		)
 		assetImageView.pin(
-			.horizontalEdges(padding: 2),
-			.verticalEdges(padding: 2)
+			.allEdges
 		)
 		protocolImageView.pin(
 			.trailing,

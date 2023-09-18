@@ -37,8 +37,7 @@ class BorrowingBoardDataSource: NSObject, UICollectionViewDataSource {
 		case 0:
 			return userBorrowingAssets.count
 		case 1:
-			#warning("this should be change for skeleton loaidng")
-			return borrowableAssets?.count ?? 0
+			return borrowableAssets?.count ?? 4
 		default:
 			fatalError("Invalid section index in notificaition collection view")
 		}
@@ -63,7 +62,7 @@ class BorrowingBoardDataSource: NSObject, UICollectionViewDataSource {
 				for: indexPath
 			) as! BorrowableAssetCell
 			assetCell.borrowableAssetVM = borrowableAssets?[indexPath.item]
-			assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: borrowableAssets?.count ?? 0)
+			assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: borrowableAssets?.count ?? 4)
 			return assetCell
 		default:
 			fatalError("Invalid section index in notificaition collection view")
