@@ -50,13 +50,13 @@ class BorrowingBoardViewController: UIViewController {
 
 		borrowingBoardView = BorrowingBoradView(borrowingBoardVM: borrowingBoardVM, assetDidSelect: { selectedAssetVM in
 			if let selectedAssetVM = selectedAssetVM as? UserBorrowingAssetViewModel {
-                self.presentBorrowLoanDetailsVC(selectedToken: selectedAssetVM.defaultUserBorrowingToken)
+				self.presentBorrowLoanDetailsVC(selectedToken: selectedAssetVM.defaultUserBorrowingToken)
 			} else if let selectedAssetVM = selectedAssetVM as? BorrowableAssetViewModel {
-                #warning("i should use it later")
+				#warning("i should use it later")
 				self.pushToBorrowIncreaseAmountPage()
-            } else {
-                print("Unkwon type")
-            }
+			} else {
+				print("Unkwon type")
+			}
 		})
 
 		view = borrowingBoardView
@@ -73,9 +73,9 @@ class BorrowingBoardViewController: UIViewController {
 		)
 	}
 
-    private func presentBorrowLoanDetailsVC(selectedToken: UserBorrowingToken) {
-        let borrowLoanDetailsVM = BorrowLoanDetailsViewModel(userBorrowedTokenModel: selectedToken)
-        let borrowLoanDetailsVC = BorrowLoanDetailsViewController(borrowLoanDetailsVM: borrowLoanDetailsVM)
+	private func presentBorrowLoanDetailsVC(selectedToken: UserBorrowingToken) {
+		let borrowLoanDetailsVM = BorrowLoanDetailsViewModel(userBorrowedTokenModel: selectedToken)
+		let borrowLoanDetailsVC = BorrowLoanDetailsViewController(borrowLoanDetailsVM: borrowLoanDetailsVM)
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [borrowLoanDetailsVC]
 		present(navigationVC, animated: true)

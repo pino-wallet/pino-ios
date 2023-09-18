@@ -5,8 +5,8 @@
 //  Created by Amir hossein kazemi seresht on 8/26/23.
 //
 
-import UIKit
 import Kingfisher
+import UIKit
 
 class BorrowLoanDetailsView: UIView {
 	// MARK: - Closures
@@ -119,8 +119,8 @@ class BorrowLoanDetailsView: UIView {
 		headerStackView.spacing = 16
 		headerStackView.alignment = .center
 
-        headerTitleImage.kf.indicatorType = .activity
-        headerTitleImage.kf.setImage(with: borrowLoanDetailsVM.tokenIcon)
+		headerTitleImage.kf.indicatorType = .activity
+		headerTitleImage.kf.setImage(with: borrowLoanDetailsVM.tokenIcon)
 
 		headerTitleLabel.font = .PinoStyle.semiboldTitle2
 		headerTitleLabel.text = borrowLoanDetailsVM.tokenBorrowAmountAndSymbol
