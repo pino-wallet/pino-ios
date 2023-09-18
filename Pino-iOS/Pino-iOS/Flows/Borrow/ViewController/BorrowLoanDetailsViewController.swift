@@ -23,13 +23,13 @@ class BorrowLoanDetailsViewController: UIViewController {
 		setupNavigationBar()
 		setupView()
 	}
-    
-    override func viewWillAppear(_ animated: Bool) {
-        if isBeingPresented || isMovingToParent {
-            borrowLoanDetailsVM.getBorrowableTokenProperties()
-            borrowLoanDetailsView.showSkeletonView()
-        }
-    }
+
+	override func viewWillAppear(_ animated: Bool) {
+		if isBeingPresented || isMovingToParent {
+			borrowLoanDetailsVM.getBorrowableTokenProperties()
+			borrowLoanDetailsView.showSkeletonView()
+		}
+	}
 
 	// MARK: - Initializers
 

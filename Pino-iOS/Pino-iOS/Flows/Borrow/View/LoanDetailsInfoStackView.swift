@@ -51,7 +51,7 @@ class LoanDetailsInfoStackView: UIStackView {
 		infoLabel.font = .PinoStyle.mediumBody
 		infoLabel.text = infoText
 		infoLabel.numberOfLines = 0
-        infoLabel.textAlignment = .right
+		infoLabel.textAlignment = .right
 
 		titleLabel.text = titleText
 		titleLabel.textColor = .Pino.secondaryLabel
@@ -62,9 +62,8 @@ class LoanDetailsInfoStackView: UIStackView {
 		heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 		titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 150).isActive = true
 		infoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 130).isActive = true
-        infoLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 40).isActive = true
-        
-        infoLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 18).isActive = true
+		infoLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 40).isActive = true
+
+		infoLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 18).isActive = true
 	}
-    
 }
