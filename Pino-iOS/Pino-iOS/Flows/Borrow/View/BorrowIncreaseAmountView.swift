@@ -81,7 +81,7 @@ class BorrowIncreaseAmountView: UIView {
 			self.nextButtonTapped()
 		}), for: .touchUpInside)
 
-        amountTextfield.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+		amountTextfield.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 		let focusTextFieldTapGesture = UITapGestureRecognizer(target: self, action: #selector(focusOnAmountTextField))
 		amountSpacerView.addGestureRecognizer(focusTextFieldTapGesture)
 		let putMAxAmountTapgesture = UITapGestureRecognizer(target: self, action: #selector(putMaxAmountInTextField))
@@ -247,8 +247,8 @@ class BorrowIncreaseAmountView: UIView {
 	private func putMaxAmountInTextField() {
 		amountTextfield.text = borrowIncreaseAmountVM.maxHoldAmount.sevenDigitFormat
 		amountLabel.text = borrowIncreaseAmountVM.dollarAmount
-        animateAmountHealthScoreView(isHidden: false)
-        
+		animateAmountHealthScoreView(isHidden: false)
+
 		if borrowIncreaseAmountVM.selectedToken.isEth {
 			borrowIncreaseAmountVM.calculateDollarAmount(amountTextfield.text ?? .emptyString)
 			maxAmountLabel.text = borrowIncreaseAmountVM.formattedMaxHoldAmount

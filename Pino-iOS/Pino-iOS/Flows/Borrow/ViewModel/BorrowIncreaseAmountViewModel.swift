@@ -16,41 +16,43 @@ class BorrowIncreaseAmountViewModel {
 	public let maxTitle = "Max: "
 	public var textFieldPlaceHolder = "0"
 
-    
-    public let selectedToken: AssetViewModel
+	public let selectedToken: AssetViewModel
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
-    // here max amount is user max hold amount of selected token
-    public var maxHoldAmount: BigNumber {
-        selectedToken.holdAmount
-    }
-    public var tokenImage: URL {
-        selectedToken.image
-    }
-    public var tokenSymbol: String {
-        selectedToken.symbol
-    }
+	// here max amount is user max hold amount of selected token
+	public var maxHoldAmount: BigNumber {
+		selectedToken.holdAmount
+	}
+
+	public var tokenImage: URL {
+		selectedToken.image
+	}
+
+	public var tokenSymbol: String {
+		selectedToken.symbol
+	}
 
 	public var formattedMaxHoldAmount: String {
-        maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
+		maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
-    
-    public var sevenDigitMaxHoldAmount: String {
-        maxHoldAmount.sevenDigitFormat
-    }
-    
-    public var maxHoldAmountInDollars: String {
-        selectedToken.holdAmountInDollor.priceFormat
-    }
-    
-    #warning("this values are mock")
-    public var prevHealthScore: Double = 0
-    public var newHealthScore: Double = 24
-    
-    // MARK: - Initializers
-    init(selectedToken: AssetViewModel) {
-        self.selectedToken = selectedToken
-    }
+
+	public var sevenDigitMaxHoldAmount: String {
+		maxHoldAmount.sevenDigitFormat
+	}
+
+	public var maxHoldAmountInDollars: String {
+		selectedToken.holdAmountInDollor.priceFormat
+	}
+
+	#warning("this values are mock")
+	public var prevHealthScore: Double = 0
+	public var newHealthScore: Double = 24
+
+	// MARK: - Initializers
+
+	init(selectedToken: AssetViewModel) {
+		self.selectedToken = selectedToken
+	}
 
 	// MARK: - Public Methods
 
