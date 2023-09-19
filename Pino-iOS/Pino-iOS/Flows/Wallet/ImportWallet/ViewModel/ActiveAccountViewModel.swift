@@ -31,10 +31,6 @@ public struct ActiveAccountViewModel: Equatable {
 		avatar.rawValue
 	}
 
-	public var balance: String {
-		""
-	}
-
 	public var derivationPath: String {
 		account.derivationPath!
 	}
@@ -44,11 +40,13 @@ public struct ActiveAccountViewModel: Equatable {
 	}
 
 	public var isSelected = false
+	public var balance: String
 
 	// MARK: - Initializers
 
-	init(account: Account) {
+	init(account: Account, balance: String) {
 		self.account = account
+		self.balance = balance
 	}
 
 	// MARK: - Public Methods

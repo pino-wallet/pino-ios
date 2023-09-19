@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import PromiseKit
 import WalletCore
 
 class ImportAccountsViewModel {
@@ -84,6 +85,36 @@ class ImportAccountsViewModel {
 			}.store(in: &cancellables)
 	}
 
+	private func getETHBalance(of accountAddress: String, completion: @escaping (String?) -> Void) {
+		Web3Core.shared.getETHBalance(of: accountAddress)
+			.done { balance in
+				print("Account balance: \(balance)")
+				completion(balance)
+			}.catch { error in
+				print("error: \(error)")
+				completion(nil)
+			}
+	}
+
+	private func setupActiveAccounts(createdAccounts: [Account], completion: @escaping () -> Void) {
+		let accountAddresses = createdAccounts.map { $0.eip55Address.lowercased() }
+		getActiveAddresses(accountAddresses: accountAddresses) { activeAccountAddresses in
+			let activeAccounts = createdAccounts.filter {
+				activeAccountAddresses.contains($0.eip55Address.lowercased())
+			}
+			for account in activeAccounts {
+				self.getETHBalance(of: account.eip55Address) { balance in
+					guard let balance else { return }
+					self.accounts?.append(ActiveAccountViewModel(account: account, balance: balance))
+				}
+			}
+			if !activeAccounts.compactMap({ $0.eip55Address }).contains(createdAccounts.last!.eip55Address) {
+				self.lastAccountIndex = nil
+			}
+			completion()
+		}
+	}
+
 	// MARK: - Public Methods
 
 	public func getFirstAccounts(completion: @escaping () -> Void) {
@@ -98,14 +129,8 @@ class ImportAccountsViewModel {
 					createdAccounts.append(account)
 				} catch {}
 			}
-			let accountAddresses = createdAccounts.map { $0.eip55Address.lowercased() }
-			self.getActiveAddresses(accountAddresses: accountAddresses) { activeAccountAddresses in
-				let activeAccounts = createdAccounts.filter {
-					activeAccountAddresses.contains($0.eip55Address.lowercased())
-				}
-				self.accounts = activeAccounts.compactMap { ActiveAccountViewModel(account: $0) }
-				completion()
-			}
+			self.accounts = []
+			self.setupActiveAccounts(createdAccounts: createdAccounts, completion: completion)
 		}
 	}
 
@@ -120,17 +145,7 @@ class ImportAccountsViewModel {
 					createdAccounts.append(account)
 				} catch {}
 			}
-			let accountAddresses = createdAccounts.map { $0.eip55Address.lowercased() }
-			getActiveAddresses(accountAddresses: accountAddresses) { activeAccountAddresses in
-				let activeAccounts = createdAccounts.filter {
-					activeAccountAddresses.contains($0.eip55Address.lowercased())
-				}
-				if !activeAccounts.compactMap({ $0.eip55Address }).contains(createdAccounts.last!.eip55Address) {
-					self.lastAccountIndex = nil
-				}
-				self.accounts = self.accounts! + activeAccounts.compactMap { ActiveAccountViewModel(account: $0) }
-				completion()
-			}
+			setupActiveAccounts(createdAccounts: createdAccounts, completion: completion)
 		} else {
 			self.lastAccountIndex = 0
 			getFirstAccounts(completion: completion)
