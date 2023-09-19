@@ -181,7 +181,7 @@ class RepayAmountView: UIView {
 
 	private func updateView() {
 		if repayAmountVM.selectedToken.isVerified {
-			tokenView.tokenImageURL = repayAmountVM.selectedToken.image
+			tokenView.tokenImageURL = repayAmountVM.tokenImage
 			updateAmount(enteredAmount: amountTextfield.text ?? .emptyString)
 			amountLabel.isHidden = false
 		} else {
@@ -189,7 +189,7 @@ class RepayAmountView: UIView {
 			amountLabel.isHidden = true
 		}
 		maxAmountLabel.text = repayAmountVM.formattedMaxHoldAmount
-		tokenView.tokenName = repayAmountVM.selectedToken.symbol
+		tokenView.tokenName = repayAmountVM.tokenSymbol
 	}
 
 	private func animateAmountHealthScoreView(isHidden: Bool) {
@@ -235,7 +235,12 @@ class RepayAmountView: UIView {
 			maxAmountLabel.textColor = .Pino.orange
 			continueButton.setTitle(repayAmountVM.insufficientAmountButtonTitle, for: .normal)
 			continueButton.style = .deactive
-		}
+        case .amountExceedsDebt:
+            maxAmountTitle.textColor = .Pino.orange
+            maxAmountLabel.textColor = .Pino.orange
+            continueButton.setTitle(repayAmountVM.amountExceedsDebtButtonTitle, for: .normal)
+            continueButton.style = .deactive
+        }
 		amountLabel.text = repayAmountVM.dollarAmount
 		if amountTextfield.text == .emptyString {
 			continueButton.style = .deactive
@@ -246,14 +251,14 @@ class RepayAmountView: UIView {
 	private func putMaxAmountInTextField() {
 		amountTextfield.text = repayAmountVM.maxHoldAmount.sevenDigitFormat
 		amountLabel.text = repayAmountVM.dollarAmount
+        animateAmountHealthScoreView(isHidden: false)
 
 		if repayAmountVM.selectedToken.isEth {
 			repayAmountVM.calculateDollarAmount(amountTextfield.text ?? .emptyString)
 			maxAmountLabel.text = repayAmountVM.formattedMaxHoldAmount
 		} else {
-			repayAmountVM.maxHoldAmount = repayAmountVM.selectedToken.holdAmount
-			repayAmountVM.tokenAmount = repayAmountVM.selectedToken.holdAmount.sevenDigitFormat
-			repayAmountVM.dollarAmount = repayAmountVM.selectedToken.holdAmountInDollor.priceFormat
+			repayAmountVM.tokenAmount = repayAmountVM.sevenDigitMaxHoldAmount
+            repayAmountVM.dollarAmount = repayAmountVM.maxHoldAmountInDollars
 		}
 
 		maxAmountLabel.text = repayAmountVM.formattedMaxHoldAmount

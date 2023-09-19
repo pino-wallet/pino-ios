@@ -52,6 +52,10 @@ class BorrowLoanDetailsViewModel {
 	public var foundTokenInManageAssetTokens: AssetViewModel {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userBorrowedTokenModel.id }))!
 	}
+    
+    public var defaultUserBorrowedTokenModel: UserBorrowingToken {
+        userBorrowedTokenModel
+    }
 
 	// MARK: - Private Properties
 
@@ -66,6 +70,7 @@ class BorrowLoanDetailsViewModel {
 	private var borrowedAmountBigNumber: BigNumber {
 		BigNumber(number: userBorrowedTokenModel.amount, decimal: foundTokenInManageAssetTokens.decimal)
 	}
+    
 
 	// MARK: - Initializers
 
