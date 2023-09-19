@@ -10,7 +10,7 @@ import UIKit
 class BorrowLoanDetailsViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let borrowLoanDetailsVM = BorrowLoanDetailsViewModel()
+	private let borrowLoanDetailsVM: BorrowLoanDetailsViewModel
 	private var borrowLoanDetailsView: BorrowLoanDetailsView!
 
 	// MARK: - View Overrides
@@ -22,6 +22,18 @@ class BorrowLoanDetailsViewController: UIViewController {
 	override func loadView() {
 		setupNavigationBar()
 		setupView()
+	}
+
+	// MARK: - Initializers
+
+	init(borrowLoanDetailsVM: BorrowLoanDetailsViewModel) {
+		self.borrowLoanDetailsVM = borrowLoanDetailsVM
+
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 
 	// MARK: - Private Methods

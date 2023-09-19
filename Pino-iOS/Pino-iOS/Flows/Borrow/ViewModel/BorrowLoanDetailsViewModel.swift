@@ -11,21 +11,58 @@ struct BorrowLoanDetailsViewModel {
 	// MARK: - Public Properties
 
 	public let dismissIconName = "dissmiss"
-	#warning("this is mock title")
-	public let pageTitle = "LINK loan details"
-
 	public let apyTitle = "APY"
 	public let borrowedAmountTitle = "Borrowed amount"
 	public let accuredFeeTitle = "Accured fee"
 	public let totalDebtTitle = "Total debt"
 	public let increaseLoanTitle = "Increase loan"
 	public let repayTitle = "Repay"
+	public let userBorrowedTokenModel: UserBorrowingToken
 
-	#warning("this values are mock")
-	public let tokenIcon = "USDC"
-	public let tokenBorrowAmountAndSymbol = "15 LINK"
+	public var pageTitle: String {
+		"\(foundTokenInManageAssetTokens.symbol) loan details"
+	}
+
+	public var tokenIcon: URL {
+		foundTokenInManageAssetTokens.image
+	}
+
+	public var tokenBorrowAmountAndSymbol: String {
+		borrowedAmountBigNumber.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+	}
+
+	#warning("this is mock")
 	public let apy = "%3"
-	public let borrowedAmount = "340 LINK"
-	public let accruedFee = "60 LINK"
-	public let totalDebt = "400 LINK"
+	public var borrowedAmount: String {
+		borrowedAmountBigNumber.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+	}
+
+	public var accuredFee: String {
+		let accuredFee = totalDebtBigNumber - borrowedAmountBigNumber
+		return accuredFee.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+	}
+
+	public var totalDebt: String {
+		totalDebtBigNumber.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+	}
+
+	// MARK: - Private Properties
+
+	private var totalDebtBigNumber: BigNumber {
+		BigNumber(number: userBorrowedTokenModel.totalDebt!, decimal: foundTokenInManageAssetTokens.decimal)
+	}
+
+	private var borrowedAmountBigNumber: BigNumber {
+		BigNumber(number: userBorrowedTokenModel.amount, decimal: foundTokenInManageAssetTokens.decimal)
+	}
+
+	private var foundTokenInManageAssetTokens: AssetViewModel {
+		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userBorrowedTokenModel.id }))!
+	}
+
+	// MARK: - Initializers
+
+	init(userBorrowedTokenModel: UserBorrowingToken) {
+		self.userBorrowedTokenModel = userBorrowedTokenModel
+	}
 }

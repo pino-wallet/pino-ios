@@ -5,6 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 8/26/23.
 //
 
+import Kingfisher
 import UIKit
 
 class BorrowLoanDetailsView: UIView {
@@ -72,7 +73,7 @@ class BorrowLoanDetailsView: UIView {
 		)
 		accuredFeeStackView = LoanDetailsInfoStackView(
 			titleText: borrowLoanDetailsVM.accuredFeeTitle,
-			infoText: borrowLoanDetailsVM.accruedFee
+			infoText: borrowLoanDetailsVM.accuredFee
 		)
 		totalDebtStackView = LoanDetailsInfoStackView(
 			titleText: borrowLoanDetailsVM.totalDebtTitle,
@@ -118,7 +119,8 @@ class BorrowLoanDetailsView: UIView {
 		headerStackView.spacing = 16
 		headerStackView.alignment = .center
 
-		headerTitleImage.image = UIImage(named: borrowLoanDetailsVM.tokenIcon)
+		headerTitleImage.kf.indicatorType = .activity
+		headerTitleImage.kf.setImage(with: borrowLoanDetailsVM.tokenIcon)
 
 		headerTitleLabel.font = .PinoStyle.semiboldTitle2
 		headerTitleLabel.text = borrowLoanDetailsVM.tokenBorrowAmountAndSymbol
