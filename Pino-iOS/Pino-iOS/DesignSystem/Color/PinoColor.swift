@@ -65,6 +65,7 @@ extension UIColor {
 		static let lightRed = UIColor(named: "Light Red Color") ?? UIColor.red
 		static let lightOrange = UIColor(named: "Light Orange Color") ?? UIColor.orange
 		static let lightBlue = UIColor(named: "Light Blue Color") ?? UIColor.blue
+		static let lightGreen = UIColor(named: "Light Green Color") ?? UIColor.green
 		static let clear = UIColor(named: "Clear Color") ?? UIColor.clear
 	}
 }

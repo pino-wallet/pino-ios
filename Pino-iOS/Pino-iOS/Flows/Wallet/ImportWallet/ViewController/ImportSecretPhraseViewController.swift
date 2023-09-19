@@ -11,7 +11,7 @@ class ImportSecretPhraseViewController: UIViewController {
 	// MARK: - PublicProperties
 
 	public var importsecretPhraseView: ImportSecretPhraseView!
-	public var importAccountVM: ImportAccountViewModel!
+	public var importAccountVM: ImportSecretPhraseViewModel!
 	public var isNewWallet: Bool!
 	public var addedNewWalletWithPrivateKey: ((String) -> Void)!
 
@@ -24,7 +24,7 @@ class ImportSecretPhraseViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		if isNewWallet {
-			setSteperView(stepsCount: 2, curreuntStep: 1)
+			setSteperView(stepsCount: 3, curreuntStep: 1)
 		} else {
 			setupPrimaryColorNavigationBar()
 			setNavigationTitle(importAccountVM.pageTitle)
@@ -35,7 +35,7 @@ class ImportSecretPhraseViewController: UIViewController {
 
 	#warning("this code needs refactoring too much nested")
 	private func setupView() {
-		importAccountVM = ImportAccountViewModel(isNewWallet: isNewWallet)
+		importAccountVM = ImportSecretPhraseViewModel(isNewWallet: isNewWallet)
 		if isNewWallet {
 			importsecretPhraseView = ImportSecretPhraseView(
 				validationPharaseVM: importAccountVM,
@@ -83,10 +83,8 @@ class ImportSecretPhraseViewController: UIViewController {
 			addedNewWalletWithPrivateKey(importsecretPhraseView.textViewText)
 		} else {
 			// Go to create passcode page
-			let createPasscodeViewController = CreatePasscodeViewController()
-			createPasscodeViewController.pageSteps = 2
-			createPasscodeViewController.walletMnemonics = importsecretPhraseView.textViewText
-			navigationController?.pushViewController(createPasscodeViewController, animated: true)
+			let importAccountsVC = ImportAccountsViewController(walletMnemonics: importsecretPhraseView.textViewText)
+			navigationController?.pushViewController(importAccountsVC, animated: true)
 		}
 	}
 }
