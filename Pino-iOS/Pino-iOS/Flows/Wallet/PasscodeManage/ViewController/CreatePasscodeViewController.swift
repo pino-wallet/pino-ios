@@ -10,7 +10,8 @@ import UIKit
 class CreatePasscodeViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let selectedAccounts: [ActiveAccountViewModel]
+	private var selectedAccounts: [ActiveAccountViewModel]?
+	private var mnemonics: String?
 
 	// MARK: Public Properties
 
@@ -22,6 +23,11 @@ class CreatePasscodeViewController: UIViewController {
 
 	init(selectedAccounts: [ActiveAccountViewModel]) {
 		self.selectedAccounts = selectedAccounts
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	init(mnemonics: String) {
+		self.mnemonics = mnemonics
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -55,10 +61,12 @@ class CreatePasscodeViewController: UIViewController {
 
 	private func configCreatePassVM() {
 		// Custom view should be created
-
 		createPassVM = SelectPassViewModel(finishPassCreation: { passcode in
 			// Passcode was chose -> Show verify passcode page
-			let verifyPassVC = VerifyPasscodeViewController(selectedAccounts: self.selectedAccounts)
+			let verifyPassVC = VerifyPasscodeViewController(
+				selectedAccounts: self.selectedAccounts,
+				mnemonics: self.mnemonics
+			)
 			verifyPassVC.selectedPasscode = passcode
 			self.navigationController?.pushViewController(verifyPassVC, animated: true)
 		}, onErrorHandling: { error in

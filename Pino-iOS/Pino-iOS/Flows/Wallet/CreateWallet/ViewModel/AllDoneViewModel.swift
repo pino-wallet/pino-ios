@@ -54,9 +54,7 @@ class AllDoneViewModel {
 						wallet: wallet
 					)
 					try pinoWalletManager.createAccount(account: account)
-					activateNewAccount(address: account.address) { error in
-						completion(error)
-					}
+					completion(nil)
 				} catch {
 					completion(WalletOperationError.unknow(error))
 				}

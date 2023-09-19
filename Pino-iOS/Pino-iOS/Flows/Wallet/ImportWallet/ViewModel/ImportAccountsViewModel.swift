@@ -125,7 +125,7 @@ class ImportAccountsViewModel {
 				let activeAccounts = createdAccounts.filter {
 					activeAccountAddresses.contains($0.eip55Address.lowercased())
 				}
-				if !activeAccounts.compactMap({ $0.address }).contains(createdAccounts[lastAccountIndex].address) {
+				if !activeAccounts.compactMap({ $0.eip55Address }).contains(createdAccounts.last!.eip55Address) {
 					self.lastAccountIndex = nil
 				}
 				self.accounts = self.accounts! + activeAccounts.compactMap { ActiveAccountViewModel(account: $0) }

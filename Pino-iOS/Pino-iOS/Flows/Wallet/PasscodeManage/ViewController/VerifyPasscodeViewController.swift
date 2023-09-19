@@ -10,7 +10,8 @@ import UIKit
 class VerifyPasscodeViewController: UIViewController {
 	// MARK: Private Properties
 
-	private var selectedAccounts: [ActiveAccountViewModel]
+	private var selectedAccounts: [ActiveAccountViewModel]?
+	private var mnemonics: String?
 
 	// MARK: Public Properties
 
@@ -20,8 +21,9 @@ class VerifyPasscodeViewController: UIViewController {
 
 	// MARK: Initializers
 
-	init(selectedAccounts: [ActiveAccountViewModel]) {
+	init(selectedAccounts: [ActiveAccountViewModel]?, mnemonics: String?) {
 		self.selectedAccounts = selectedAccounts
+		self.mnemonics = mnemonics
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -58,7 +60,10 @@ class VerifyPasscodeViewController: UIViewController {
 		verifyPassVM = VerifyPassViewModel(
 			finishPassCreation: {
 				// Passcode was verified -> Show all done page
-				let allDoneVC = AllDoneViewController(selectedAccounts: self.selectedAccounts)
+				let allDoneVC = AllDoneViewController(
+					selectedAccounts: self.selectedAccounts,
+					mnemonics: self.mnemonics
+				)
 				self.navigationController?.pushViewController(allDoneVC, animated: true)
 			},
 			onErrorHandling: { error in

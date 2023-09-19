@@ -13,12 +13,14 @@ class AllDoneViewController: UIViewController {
 
 	private var allDoneVM = AllDoneViewModel()
 	private var allDoneView: AllDoneView!
-	private let selectedAccounts: [ActiveAccountViewModel]
+	private var selectedAccounts: [ActiveAccountViewModel]?
+	private var mnemonics: String?
 
 	// MARK: - Initializers
 
-	init(selectedAccounts: [ActiveAccountViewModel]) {
+	init(selectedAccounts: [ActiveAccountViewModel]?, mnemonics: String?) {
 		self.selectedAccounts = selectedAccounts
+		self.mnemonics = mnemonics
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -47,16 +49,34 @@ class AllDoneViewController: UIViewController {
 	}
 
 	private func getStarted() {
-		allDoneVM.importSelectedAccounts(selectedAccounts: selectedAccounts) { error in
-			if let error {
-				Toast.default(title: error.description, style: .error).show(haptic: .warning)
-				self.allDoneView.activeGetStartedButton()
-			} else {
-				UserDefaults.standard.set(true, forKey: "isLogin")
-				let tabBarVC = TabBarViewController()
-				tabBarVC.modalPresentationStyle = .fullScreen
-				self.present(tabBarVC, animated: true)
+		if let selectedAccounts {
+			allDoneVM.importSelectedAccounts(selectedAccounts: selectedAccounts) { error in
+				if let error {
+					self.showError(error)
+				} else {
+					self.openHomepage()
+				}
+			}
+		} else if let mnemonics {
+			allDoneVM.createWallet(mnemonics: mnemonics) { error in
+				if let error {
+					self.showError(error)
+				} else {
+					self.openHomepage()
+				}
 			}
 		}
+	}
+
+	private func showError(_ error: WalletOperationError) {
+		Toast.default(title: error.description, style: .error).show(haptic: .warning)
+		allDoneView.activeGetStartedButton()
+	}
+
+	private func openHomepage() {
+		UserDefaults.standard.set(true, forKey: "isLogin")
+		let tabBarVC = TabBarViewController()
+		tabBarVC.modalPresentationStyle = .fullScreen
+		present(tabBarVC, animated: true)
 	}
 }
