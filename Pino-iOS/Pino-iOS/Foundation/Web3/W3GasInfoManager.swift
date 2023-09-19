@@ -59,9 +59,6 @@ public struct W3GasInfoManager {
 				web3.eth.estimateGas(call: .init(
 					from: transaction.from,
 					to: contractAddress,
-					gas: gasPrice,
-					gasPrice: nil,
-					value: nil,
 					data: transaction.data
 				)).map { ($0, nonce, gasPrice) }
 

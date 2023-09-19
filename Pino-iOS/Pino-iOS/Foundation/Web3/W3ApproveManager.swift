@@ -52,11 +52,15 @@ public struct W3ApproveManager {
 
 	public func getApproveCallData(contractAdd: String, amount: BigUInt, spender: String) -> Promise<String> {
 		Promise<String> { seal in
-			getApproveTransaction(address: contractAdd, amount: amount, spender: spender).done { signedTrx in
-				seal.fulfill(signedTrx.data.hex())
-			}.catch { error in
-				print(error)
-			}
+           
+            let contract = try Web3Core.getContractOfToken(address: contractAdd, abi: .swap, web3: web3)
+            let solInvocation = contract[ABIMethodWrite.approve.rawValue]?(spender, amount)
+            
+            let trx = try trxManager.createTransactionFor(
+                contract: solInvocation!
+            )
+            
+            seal.fulfill(trx.data.hex())
 		}
 	}
 
@@ -71,30 +75,12 @@ public struct W3ApproveManager {
 				tokenAdd.eip55Address!,
 				[spender.eip55Address!]
 			)
+            
+            let trx = try trxManager.createTransactionFor(
+                contract: solInvocation!
+            )
 
-			gasInfoManager.calculateGasOf(
-				method: .approveToken,
-				solInvoc: solInvocation!,
-				contractAddress: contract.address!
-			)
-			.then { [self] gasInfo in
-				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
-					.map { ($0, gasInfo) }
-			}
-			.done { [self] nonce, gasInfo in
-
-				let trx = try trxManager.createTransactionFor(
-					contract: solInvocation!,
-					nonce: nonce,
-					gasPrice: gasInfo.gasPrice.etherumQuantity,
-					gasLimit: gasInfo.gasLimit.etherumQuantity
-				)
-
-				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-				seal.fulfill(signedTx.data.hex())
-			}.catch { error in
-				seal.reject(error)
-			}
+            seal.fulfill(trx.data.hex())
 		}
 	}
 

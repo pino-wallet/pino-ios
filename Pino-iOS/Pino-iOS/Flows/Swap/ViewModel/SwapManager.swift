@@ -38,8 +38,6 @@ class SwapManager {
 		swapERCtoERC()
 	}
     
-    public static var testBytes: [UInt8] = []
-
 	// MARK: - Private Methods
 
 	private func swapERCtoERC() {
@@ -79,7 +77,6 @@ class SwapManager {
 			self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
 		}.then { [self] permitData, allowanceData in
 			// Fetch Call Data
-
             // TODO: Set providers dest token in 0x as WETH since dest is ETH else it is ETH
 			getSwapInfoFrom(provider: selectedProvService).map { ($0, permitData, allowanceData) }
 		}.then { providerSwapData, permitData, allowanceData in
@@ -168,7 +165,6 @@ class SwapManager {
 					msg: hash.hexToBytes(),
 					seckey: pinoWalletManager.currentAccountPrivateKey.string.hexToBytes()
 				)
-                SwapManager.testBytes = signiture
 				seal.fulfill(signiture.toHexString())
 			}.catch { error in
 				fatalError(error.localizedDescription)

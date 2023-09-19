@@ -56,51 +56,17 @@ public struct W3TransferManager {
 			)
                
             let signitureData = Data(signiture.hexToBytes())
-            let sigData = Data(hexString: signiture, length: 130)
 
 			let solInvocation = contract[ABIMethodWrite.permitTransferFrom.rawValue]?(
                 permitModel,
-                sigData!
+                signitureData
 			)
-            
-            solInvocation!.estimateGas(from: contract.address!, gas: EthereumQuantity(quantity: 1234567), value: nil).done({ estimate in
-                print(estimate)
-            }).catch({ err in
-                print(err)
-            })
-                        
+           
             let trx = try trxManager.createTransactionFor(
-                contract: solInvocation!,
-                nonce: EthereumQuantity(reqNonce),
-                gasPrice: EthereumQuantity(1231),
-                gasLimit: EthereumQuantity(1231)
+                contract: solInvocation!
             )
                         
-                        print(trx.data.hex())
-            
-			gasInfoManager.calculateGasOf(
-				method: .permitTransferFrom,
-				solInvoc: solInvocation!,
-				contractAddress: contract.address!
-			)
-			.then { [self] gasInfo in
-				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
-					.map { ($0, gasInfo) }
-			}
-			.done { [self] nonce, gasInfo in
-
-				let trx = try trxManager.createTransactionFor(
-					contract: solInvocation!,
-					nonce: nonce,
-					gasPrice: gasInfo.gasPrice.etherumQuantity,
-					gasLimit: gasInfo.gasLimit.etherumQuantity
-				)
-
-				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-				seal.fulfill(signedTx.data.hex())
-			}.catch { error in
-				seal.reject(error)
-			}
+            seal.fulfill(trx.data.hex())
 		}
 	}
 

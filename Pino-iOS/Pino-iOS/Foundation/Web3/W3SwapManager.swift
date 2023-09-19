@@ -51,29 +51,11 @@ public struct W3SwapManager {
 				recipientAdd.eip55Address!
 			)
 
-			gasInfoManager.calculateGasOf(
-				method: .sweepToken,
-				solInvoc: solInvocation!,
-				contractAddress: contract.address!
-			)
-			.then { [self] gasInfo in
-				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
-					.map { ($0, gasInfo) }
-			}
-			.done { [self] nonce, gasInfo in
-
-				let trx = try trxManager.createTransactionFor(
-					contract: solInvocation!,
-					nonce: nonce,
-					gasPrice: gasInfo.gasPrice.etherumQuantity,
-					gasLimit: gasInfo.gasLimit.etherumQuantity
-				)
-
-				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-				seal.fulfill(signedTx.data.hex())
-			}.catch { error in
-				seal.reject(error)
-			}
+            let trx = try trxManager.createTransactionFor(
+                contract: solInvocation!
+            )
+            
+            seal.fulfill(trx.data.hex())
 		}
 	}
 
@@ -87,29 +69,11 @@ public struct W3SwapManager {
 			)
 			let solInvocation = contract[ABIMethodWrite.wrapETH.rawValue]?(proxyFee)
 
-			gasInfoManager.calculateGasOf(
-				method: .wrapETH,
-				solInvoc: solInvocation!,
-				contractAddress: contract.address!
-			)
-			.then { [self] gasInfo in
-				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
-					.map { ($0, gasInfo) }
-			}
-			.done { [self] nonce, gasInfo in
-
-				let trx = try trxManager.createTransactionFor(
-					contract: solInvocation!,
-					nonce: nonce,
-					gasPrice: gasInfo.gasPrice.etherumQuantity,
-					gasLimit: gasInfo.gasLimit.etherumQuantity
-				)
-
-				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-				seal.fulfill(signedTx.data.hex())
-			}.catch { error in
-				seal.reject(error)
-			}
+            let trx = try trxManager.createTransactionFor(
+                contract: solInvocation!
+            )
+            
+            seal.fulfill(trx.data.hex())
 		}
 	}
 
@@ -123,29 +87,11 @@ public struct W3SwapManager {
 			)
 			let solInvocation = contract[ABIMethodWrite.unwrapWETH9.rawValue]?(recipient.eip55Address!)
 
-			gasInfoManager.calculateGasOf(
-				method: .unwrapWETH9,
-				solInvoc: solInvocation!,
-				contractAddress: contract.address!
-			)
-			.then { [self] gasInfo in
-				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
-					.map { ($0, gasInfo) }
-			}
-			.done { [self] nonce, gasInfo in
-
-				let trx = try trxManager.createTransactionFor(
-					contract: solInvocation!,
-					nonce: nonce,
-					gasPrice: gasInfo.gasPrice.etherumQuantity,
-					gasLimit: gasInfo.gasLimit.etherumQuantity
-				)
-
-				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-				seal.fulfill(signedTx.data.hex())
-			}.catch { error in
-				seal.reject(error)
-			}
+            let trx = try trxManager.createTransactionFor(
+                contract: solInvocation!
+            )
+            
+            seal.fulfill(trx.data.hex())
 		}
 	}
 
@@ -157,7 +103,12 @@ public struct W3SwapManager {
 				abi: .swap,
 				web3: web3
 			)
-			let solInvocation = contract[ABIMethodWrite.multicall.rawValue]?(callData)
+            
+            let dataOfCallData = callData.map { callData in
+                return Data(callData.hexToBytes())
+            }
+            
+            let solInvocation = contract[ABIMethodWrite.multicall.rawValue]?(dataOfCallData)
 
 			gasInfoManager.calculateGasOf(
 				method: .multicall,
@@ -198,29 +149,11 @@ public struct W3SwapManager {
 			)
 			let solInvocation = contract[ABIMethodWrite.swapParaswap.rawValue]?(callData)
 
-			gasInfoManager.calculateGasOf(
-				method: method,
-				solInvoc: solInvocation!,
-				contractAddress: contract.address!
-			)
-			.then { [self] gasInfo in
-				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
-					.map { ($0, gasInfo) }
-			}
-			.done { [self] nonce, gasInfo in
-
-				let trx = try trxManager.createTransactionFor(
-					contract: solInvocation!,
-					nonce: nonce,
-					gasPrice: gasInfo.gasPrice.etherumQuantity,
-					gasLimit: gasInfo.gasLimit.etherumQuantity
-				)
-
-				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-				seal.fulfill(signedTx.data.hex())
-			}.catch { error in
-				seal.reject(error)
-			}
+            let trx = try trxManager.createTransactionFor(
+                contract: solInvocation!
+            )
+            
+            seal.fulfill(trx.data.hex())
 		}
 	}
 }

@@ -30,9 +30,9 @@ public struct W3TransactionManager {
 
 	public func createTransactionFor(
 		contract: SolidityInvocation,
-		nonce: EthereumQuantity,
-		gasPrice: EthereumQuantity,
-		gasLimit: EthereumQuantity?,
+		nonce: EthereumQuantity? = nil,
+        gasPrice: EthereumQuantity? = nil,
+		gasLimit: EthereumQuantity? = nil,
         value: EthereumQuantity = 0
 	) throws -> EthereumTransaction {
 		let accountPrivateKey = try EthereumPrivateKey(
