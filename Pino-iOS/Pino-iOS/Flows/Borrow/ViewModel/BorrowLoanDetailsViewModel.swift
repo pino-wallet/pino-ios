@@ -77,7 +77,7 @@ class BorrowLoanDetailsViewModel {
 	// MARK: - Public Methods
 
 	public func getBorrowableTokenProperties() {
-		borrowingAPIClient.getBorrowableToken(dex: borrowVM.selectedDexSystem.type, tokenID: userBorrowedTokenModel.id)
+		borrowingAPIClient.getBorrowableTokenDetails(dex: borrowVM.selectedDexSystem.type, tokenID: userBorrowedTokenModel.id)
 			.sink { completed in
 				switch completed {
 				case .finished:
