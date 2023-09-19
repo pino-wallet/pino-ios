@@ -46,55 +46,61 @@ public struct W3TransferManager {
 				abi: .swap,
 				web3: web3
 			)
-			let reqNonce = BigUInt(456_789)
+            let reqNonce = BigNumber.bigRandomeNumber
 			let deadline = EthereumQuantity(quantity: BigUInt(Date().timeIntervalSince1970) + 1_800_000)
 
 			let permitModel = Permit2Model(
 				permitted: .init(token: tokenAdd.eip55Address!, amount: amount.etherumQuantity),
-				nonce: try! EthereumQuantity(reqNonce),
+                nonce: reqNonce.etherumQuantity,
 				deadline: deadline
 			)
-
-			let permitTransModel = PermitTransferModel(_permit: permitModel, _signature: signiture)
+               
+            let signitureData = Data(signiture.hexToBytes())
+            let sigData = Data(hexString: signiture, length: 130)
 
 			let solInvocation = contract[ABIMethodWrite.permitTransferFrom.rawValue]?(
                 permitModel,
-                abiEncodeString(signiture)
+                sigData!
 			)
             
+            solInvocation!.estimateGas(from: contract.address!, gas: EthereumQuantity(quantity: 1234567), value: nil).done({ estimate in
+                print(estimate)
+            }).catch({ err in
+                print(err)
+            })
+                        
             let trx = try trxManager.createTransactionFor(
                 contract: solInvocation!,
-                nonce: reqNonce.etherumQuantity,
-                gasPrice: 200000.bigNumber.bigUInt.etherumQuantity,
-                gasLimit: 200000.bigNumber.bigUInt.etherumQuantity
+                nonce: EthereumQuantity(reqNonce),
+                gasPrice: EthereumQuantity(1231),
+                gasLimit: EthereumQuantity(1231)
             )
-            
-            let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-            seal.fulfill(signedTx.data.hex())
                         
-//			gasInfoManager.calculateGasOf(
-//				method: .permitTransferFrom,
-//				solInvoc: solInvocation!,
-//				contractAddress: contract.address!
-//			)
-//			.then { [self] gasInfo in
-//				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
-//					.map { ($0, gasInfo) }
-//			}
-//			.done { [self] nonce, gasInfo in
-//
-//				let trx = try trxManager.createTransactionFor(
-//					contract: solInvocation!,
-//					nonce: nonce,
-//					gasPrice: gasInfo.gasPrice.etherumQuantity,
-//					gasLimit: gasInfo.gasLimit.etherumQuantity
-//				)
-//
-//				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-//				seal.fulfill(signedTx.data.hex())
-//			}.catch { error in
-//				seal.reject(error)
-//			}
+                        print(trx.data.hex())
+            
+			gasInfoManager.calculateGasOf(
+				method: .permitTransferFrom,
+				solInvoc: solInvocation!,
+				contractAddress: contract.address!
+			)
+			.then { [self] gasInfo in
+				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+					.map { ($0, gasInfo) }
+			}
+			.done { [self] nonce, gasInfo in
+
+				let trx = try trxManager.createTransactionFor(
+					contract: solInvocation!,
+					nonce: nonce,
+					gasPrice: gasInfo.gasPrice.etherumQuantity,
+					gasLimit: gasInfo.gasLimit.etherumQuantity
+				)
+
+				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
+				seal.fulfill(signedTx.data.hex())
+			}.catch { error in
+				seal.reject(error)
+			}
 		}
 	}
 
@@ -165,26 +171,38 @@ public struct W3TransferManager {
 	}
 }
 
-func abiEncodeString(_ string: String) -> [UInt8] {
-    // Convert the string to a UTF-8 byte array
-    let strData = Array(string.utf8)
-    let strLength = strData.count
+func abiEncodeStringToBytes(_ input: String) -> [UInt8] {
+    // Convert the string to data
+    let inputData = input.data(using: .utf8)!
     
-    // Encoding the offset (position of the dynamic data). It's 32 bytes in this case because we're assuming only the string needs to be encoded.
-    // If there are more parameters, you'll need to adjust the offset accordingly.
-    let offset = Array(repeating: UInt8(0), count: 31) + [UInt8(32)]
+    // Calculate the length prefix as a 32-byte integer
+    var lengthData = Data(count: 32)
+    var count = inputData.count
+    lengthData.replaceSubrange((32 - MemoryLayout.size(ofValue: count))..<32, with: Data(bytes: &count, count: MemoryLayout.size(ofValue: count)))
     
-    // Encoding the length of the string
-    var lengthBytes = Array(repeating: UInt8(0), count: 32)
-    let lengthData = withUnsafeBytes(of: UInt32(strLength).bigEndian) { Array($0) }
-    lengthBytes.replaceSubrange(28..<32, with: lengthData)
+    // Right-pad the string data to a multiple of 32 bytes
+    let paddingLength = 32 - (inputData.count % 32)
+    let paddedData = inputData + Data(repeating: 0, count: paddingLength)
     
-    // Encoding the string data itself, padded to 32 bytes
-    var paddedStrData = strData
-    while paddedStrData.count % 32 != 0 {
-        paddedStrData.append(UInt8(0))
-    }
+    return Array(lengthData + paddedData)
+}
+
+func encodePermitTransferFrom(token: String, amount: UInt64, nonce: UInt64, deadline: UInt64, signature: String) -> String {
+    // Function signature
+    let functionSignature = "cd93f197"
     
-    // Concatenating all the byte arrays to form the final ABI encoded parameter
-    return offset + lengthBytes + paddedStrData
+    // Convert parameters to 32-byte hex strings
+    let tokenPadded = token.padding(toLength: 64, withPad: "0", startingAt: 0)
+    let amountPadded = String(format: "%064x", amount)
+    let noncePadded = String(format: "%064x", nonce)
+    let deadlinePadded = String(format: "%064x", deadline)
+    
+    // Signature encoding
+    let signatureOffset = "00000000000000000000000000000000000000000000000000000000000000a0"
+    let signatureLength = "0000000000000000000000000000000000000000000000000000000000000041"
+    
+    // Combine all parts
+    let callData = functionSignature + tokenPadded + amountPadded + noncePadded + deadlinePadded + signatureOffset + signatureLength + signature
+    
+    return callData
 }

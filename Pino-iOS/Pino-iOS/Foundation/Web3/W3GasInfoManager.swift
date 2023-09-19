@@ -41,7 +41,7 @@ public struct W3GasInfoManager {
 	) -> Promise<GasInfo> {
 		Promise<GasInfo>() { seal in
 			let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
-
+            
 			firstly {
 				web3.eth.gasPrice()
 			}.then { gasPrice in

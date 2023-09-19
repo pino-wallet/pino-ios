@@ -22,19 +22,6 @@ struct TokenPermissions: ABIEncodable {
 	}
 }
 
-struct PermitTransferModel: ABIEncodable {
-	let _permit: Permit2Model
-	let _signature: String
-
-	func abiEncode(dynamic: Bool) -> String? {
-		guard let encodedPermit = _permit.abiEncode(dynamic: false),
-		      let encodedSig = _signature.abiEncode(dynamic: false) else {
-			return nil
-		}
-		return encodedPermit + encodedSig
-	}
-}
-
 struct Permit2Model: ABIEncodable {
 	let permitted: TokenPermissions
 	let nonce: EthereumQuantity
