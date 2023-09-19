@@ -48,6 +48,10 @@ class BorrowLoanDetailsViewModel {
 	public var totalDebt: String {
 		totalDebtBigNumber.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
 	}
+    
+    public var foundTokenInManageAssetTokens: AssetViewModel {
+        (GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userBorrowedTokenModel.id }))!
+    }
 
 	// MARK: - Private Properties
 
@@ -62,10 +66,7 @@ class BorrowLoanDetailsViewModel {
 	private var borrowedAmountBigNumber: BigNumber {
 		BigNumber(number: userBorrowedTokenModel.amount, decimal: foundTokenInManageAssetTokens.decimal)
 	}
-
-	private var foundTokenInManageAssetTokens: AssetViewModel {
-		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userBorrowedTokenModel.id }))!
-	}
+	
 
 	// MARK: - Initializers
 

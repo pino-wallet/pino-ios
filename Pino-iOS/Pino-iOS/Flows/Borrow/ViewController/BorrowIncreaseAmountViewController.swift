@@ -10,7 +10,7 @@ import UIKit
 class BorrowIncreaseAmountViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let borrowIncreaseAmountVM = BorrowIncreaseAmountViewModel()
+    private let borrowIncreaseAmountVM: BorrowIncreaseAmountViewModel
 	private var borrowIncreaseAmountView: BorrowIncreaseAmountView!
 
 	// MARK: - View Overrides
@@ -23,7 +23,18 @@ class BorrowIncreaseAmountViewController: UIViewController {
 		setupView()
 		setupNavigationBar()
 	}
-
+    
+    // MARK: - Initializers
+    init(borrowIncreaseAmountVM: BorrowIncreaseAmountViewModel) {
+        self.borrowIncreaseAmountVM = borrowIncreaseAmountVM
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 	// MARK: - Private Methods
 
 	private func setupView() {

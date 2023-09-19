@@ -7,7 +7,6 @@
 
 import Foundation
 
-#warning("this values are static and mock")
 class BorrowIncreaseAmountViewModel {
 	// MARK: - Public Properties
 
@@ -17,34 +16,41 @@ class BorrowIncreaseAmountViewModel {
 	public let maxTitle = "Max: "
 	public var textFieldPlaceHolder = "0"
 
-	public var prevHealthScore: Double = 0
-	public var newHealthScore: Double = 24
+    
+    public let selectedToken: AssetViewModel
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
-	public var maxHoldAmount: BigNumber = 100.bigNumber
-	public var selectedToken = AssetViewModel(
-		assetModel: BalanceAssetModel(
-			id: "1",
-			amount: "100000000000000000000",
-			detail: Detail(
-				id: "1",
-				symbol: "LINK",
-				name: "LINK",
-				logo: "https://demo-cdn.pino.xyz/tokens/chainlink.png",
-				decimals: 18,
-				change24H: "230",
-				changePercentage: "23",
-				price: "6089213"
-			),
-			previousDayNetworth: "100"
-		),
-		isSelected: true
-	)
-	public let tokenSymbol = "LINK"
+    // here max amount is user max hold amount of selected token
+    public var maxHoldAmount: BigNumber {
+        selectedToken.holdAmount
+    }
+    public var tokenImage: URL {
+        selectedToken.image
+    }
+    public var tokenSymbol: String {
+        selectedToken.symbol
+    }
 
 	public var formattedMaxHoldAmount: String {
-		maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
+        maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
+    
+    public var sevenDigitMaxHoldAmount: String {
+        maxHoldAmount.sevenDigitFormat
+    }
+    
+    public var maxHoldAmountInDollars: String {
+        selectedToken.holdAmountInDollor.priceFormat
+    }
+    
+    #warning("this values are mock")
+    public var prevHealthScore: Double = 0
+    public var newHealthScore: Double = 24
+    
+    // MARK: - Initializers
+    init(selectedToken: AssetViewModel) {
+        self.selectedToken = selectedToken
+    }
 
 	// MARK: - Public Methods
 

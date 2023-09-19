@@ -33,12 +33,11 @@ struct BorrowableAssetViewModel: AssetsBoardProtocol {
 	public var volatilityType: AssetVolatilityType {
 		AssetVolatilityType(change24h: APYAmount)
 	}
+    
+    public var foundTokenInManageAssetTokens: AssetViewModel {
+        (GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == borrowableTokenModel.tokenID }))!
+    }
 
-	// MARK: - Private Properties
-
-	private var foundTokenInManageAssetTokens: AssetViewModel {
-		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == borrowableTokenModel.tokenID }))!
-	}
 
 	// MARK: - Initializers
 

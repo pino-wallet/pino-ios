@@ -52,8 +52,7 @@ class BorrowingBoardViewController: UIViewController {
 			if let selectedAssetVM = selectedAssetVM as? UserBorrowingAssetViewModel {
 				self.presentBorrowLoanDetailsVC(selectedToken: selectedAssetVM.defaultUserBorrowingToken)
 			} else if let selectedAssetVM = selectedAssetVM as? BorrowableAssetViewModel {
-				#warning("i should use it later")
-				self.pushToBorrowIncreaseAmountPage()
+                self.pushToBorrowIncreaseAmountPage(selectedToken: selectedAssetVM.foundTokenInManageAssetTokens)
 			} else {
 				print("Unkwon type")
 			}
@@ -81,9 +80,9 @@ class BorrowingBoardViewController: UIViewController {
 		present(navigationVC, animated: true)
 	}
 
-	#warning("this is for test")
-	private func pushToBorrowIncreaseAmountPage() {
-		let borrowIncreaseAmountVC = BorrowIncreaseAmountViewController()
+    private func pushToBorrowIncreaseAmountPage(selectedToken: AssetViewModel) {
+        let borrowIncreaseAmountVM = BorrowIncreaseAmountViewModel(selectedToken: selectedToken)
+        let borrowIncreaseAmountVC = BorrowIncreaseAmountViewController(borrowIncreaseAmountVM: borrowIncreaseAmountVM)
 		navigationController?.pushViewController(borrowIncreaseAmountVC, animated: true)
 	}
 
