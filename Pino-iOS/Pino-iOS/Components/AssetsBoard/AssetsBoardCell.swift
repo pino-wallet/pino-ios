@@ -16,6 +16,7 @@ class AssetsBoardCell: GroupCollectionViewCell {
 	private let mainStackView = UIStackView()
 	private let titleStackView = UIStackView()
 	private let amountInfoStackView = UIStackView()
+	private let amountSpacerView = UIView()
 	private let assetImageView = InvestAssetImageView()
 	private let assetNameLabel = UILabel()
 	private let spacerView = UIView()
@@ -23,16 +24,29 @@ class AssetsBoardCell: GroupCollectionViewCell {
 	private let sectionBottomInsetView = UIView()
 	private var cancellables = Set<AnyCancellable>()
 
+	// MARK: - Public Properties
+
+	public var isLoading = false {
+		didSet {
+			if isLoading {
+				showLoading()
+			} else {
+				hideLoading()
+			}
+		}
+	}
+
 	// MARK: - Internal Properties
 
 	internal let assetAmountLabel = UILabel()
 	internal let assetAmountDescriptionLabel = UILabel()
-	internal var asset: AssetsBoardProtocol! {
+	internal var asset: AssetsBoardProtocol? {
 		didSet {
 			setupView()
 			setupStyles()
 			setupConstraints()
 			setupBindings()
+			setupSkeletonLoading()
 		}
 	}
 
@@ -51,12 +65,13 @@ class AssetsBoardCell: GroupCollectionViewCell {
 		titleStackView.addArrangedSubview(assetNameLabel)
 		amountInfoStackView.addArrangedSubview(assetAmountLabel)
 		amountInfoStackView.addArrangedSubview(assetAmountDescriptionLabel)
+		amountInfoStackView.addArrangedSubview(amountSpacerView)
 	}
 
 	private func setupStyles() {
-		assetNameLabel.text = asset.assetName
-		assetImageView.assetImage = asset.assetImage
-		assetImageView.protocolImage = asset.protocolImage
+		assetNameLabel.text = asset?.assetName
+		assetImageView.assetImage = asset?.assetImage
+		assetImageView.protocolImage = asset?.protocolImage
 
 		assetNameLabel.textColor = .Pino.label
 
@@ -70,8 +85,11 @@ class AssetsBoardCell: GroupCollectionViewCell {
 		mainContainerView.backgroundColor = .Pino.background
 
 		amountInfoStackView.axis = .vertical
+		amountInfoStackView.alignment = .trailing
+
 		contentStackView.axis = .vertical
 		titleStackView.spacing = 8
+		titleStackView.alignment = .center
 
 		mainContainerView.layer.cornerRadius = 12
 		cardView.layer.cornerRadius = 12
@@ -80,17 +98,29 @@ class AssetsBoardCell: GroupCollectionViewCell {
 	}
 
 	private func setupConstraints() {
+		if !isLoading {
+			hideLoading()
+		}
+
+		assetAmountLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14).isActive = true
+		assetNameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14).isActive = true
+		assetAmountDescriptionLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 11).isActive = true
+
+		assetNameLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 76).isActive = true
+		assetAmountLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 37).isActive = true
+		assetAmountDescriptionLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60).isActive = true
+
 		contentStackView.pin(
 			.horizontalEdges(padding: 14),
 			.verticalEdges(padding: 4)
 		)
 		assetImageView.pin(
-			.fixedHeight(50),
-			.fixedWidth(50)
+			.fixedHeight(44),
+			.fixedWidth(44)
 		)
 		mainStackView.pin(
-			.horizontalEdges(padding: 12),
-			.verticalEdges(padding: 8)
+			.horizontalEdges(padding: 14),
+			.verticalEdges(padding: 10)
 		)
 		sectionTopInsetView.pin(
 			.fixedHeight(10)
@@ -122,5 +152,27 @@ class AssetsBoardCell: GroupCollectionViewCell {
 			sectionTopInsetView.isHiddenInStackView = false
 			sectionBottomInsetView.isHiddenInStackView = false
 		}
+	}
+
+	private func setupSkeletonLoading() {
+		assetImageView.isSkeletonable = true
+		assetNameLabel.isSkeletonable = true
+		assetAmountLabel.isSkeletonable = true
+		assetAmountDescriptionLabel.isSkeletonable = true
+	}
+
+	private func showLoading() {
+		amountInfoStackView.spacing = 14
+		amountInfoStackView.setCustomSpacing(5, after: assetAmountDescriptionLabel)
+		amountSpacerView.isHidden = false
+		layoutIfNeeded()
+		showSkeletonView(backgroundColor: .Pino.background)
+	}
+
+	private func hideLoading() {
+		amountInfoStackView.spacing = 4
+		amountSpacerView.isHidden = true
+		layoutIfNeeded()
+		hideSkeletonView()
 	}
 }
