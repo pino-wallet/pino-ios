@@ -34,7 +34,7 @@ class BorrowLoanDetailsViewModel {
 	}
 
 	@Published
-	public var apy: String? = nil
+	public var apy: String?
 	public var apyVolatilityType: AssetVolatilityType?
 	public var borrowedAmount: String {
 		borrowedAmountBigNumber.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
@@ -77,7 +77,7 @@ class BorrowLoanDetailsViewModel {
 	// MARK: - Public Methods
 
 	public func getBorrowableTokenProperties() {
-		borrowingAPIClient.getBorrowableToken(dex: borrowVM.selectedDexSystem.type, tokenID: userBorrowedTokenModel.id)
+		borrowingAPIClient.getBorrowableTokenDetails(dex: borrowVM.selectedDexSystem.type, tokenID: userBorrowedTokenModel.id)
 			.sink { completed in
 				switch completed {
 				case .finished:

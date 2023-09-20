@@ -22,7 +22,7 @@ final class BorrowingAPIClient: BorrowAPIService {
 		networkManager.request(.getBorrowableTokens(dex: dex))
 	}
 
-	func getBorrowableToken(dex: String, tokenID: String) -> AnyPublisher<BorrowableTokenModel, APIError> {
-		networkManager.request(.getBorrowableToken(dex: dex, tokenID: tokenID))
+	func getBorrowableTokenDetails(dex: String, tokenID: String) -> AnyPublisher<BorrowableTokenModel, APIError> {
+		networkManager.request(.getBorrowableTokenDetails(dex: dex, tokenID: tokenID))
 	}
 }
