@@ -53,6 +53,10 @@ class BorrowLoanDetailsViewModel {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userBorrowedTokenModel.id }))!
 	}
 
+	public var defaultUserBorrowedTokenModel: UserBorrowingToken {
+		userBorrowedTokenModel
+	}
+
 	// MARK: - Private Properties
 
 	private let errorFetchingToastMessage = "Error fetching token APY from server"

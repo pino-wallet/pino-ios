@@ -11,39 +11,72 @@ import Foundation
 class RepayAmountViewModel {
 	// MARK: - Public Properties
 
+	public enum RepayAmountStatus {
+		case isNotEnough
+		case isEnough
+		case isZero
+		case amountExceedsDebt
+	}
+
 	public let pageTitleRepayText = "Repay"
 	public let insufficientAmountButtonTitle = "Insufficient amount"
+	public let amountExceedsDebtButtonTitle = "Amount exceeds debt"
 	public let continueButtonTitle = "Repay"
 	public let maxTitle = "Max: "
 	public var textFieldPlaceHolder = "0"
 
-	public var prevHealthScore: Double = 0
-	public var newHealthScore: Double = 24
+	public var selectedUserBorrowingToken: UserBorrowingToken
+
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
-	public var maxHoldAmount: BigNumber = 100.bigNumber
-	public var selectedToken = AssetViewModel(
-		assetModel: BalanceAssetModel(
-			id: "1",
-			amount: "100000000000000000000",
-			detail: Detail(
-				id: "1",
-				symbol: "LINK",
-				name: "LINK",
-				logo: "https://demo-cdn.pino.xyz/tokens/chainlink.png",
-				decimals: 18,
-				change24H: "230",
-				changePercentage: "23",
-				price: "6089213"
-			),
-			previousDayNetworth: "100"
-		),
-		isSelected: true
-	)
-	public let tokenSymbol = "LINK"
+	// check if user have more than his debt, use his debt for max amount to repay, otherwise use user amount in token to
+	// repay the debt
+	public var maxHoldAmount: BigNumber {
+		if selectedToken.holdAmount >= selectedTokenTotalDebt {
+			return selectedTokenTotalDebt
+		} else {
+			return selectedToken.holdAmount
+		}
+	}
+
+	public var tokenSymbol: String {
+		selectedToken.symbol
+	}
+
+	public var selectedToken: AssetViewModel {
+		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == selectedUserBorrowingToken.id }))!
+	}
 
 	public var formattedMaxHoldAmount: String {
 		maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
+	}
+
+	public var maxHoldAmountInDollars: String {
+		maxHoldAmount.priceFormat
+	}
+
+	public var tokenImage: URL {
+		selectedToken.image
+	}
+
+	public var sevenDigitMaxHoldAmount: String {
+		maxHoldAmount.sevenDigitFormat
+	}
+
+	#warning("this is mock")
+	public var prevHealthScore: Double = 0
+	public var newHealthScore: Double = 24
+
+	// MARK: - Private Properties
+
+	private var selectedTokenTotalDebt: BigNumber {
+		BigNumber(number: selectedUserBorrowingToken.totalDebt!, decimal: selectedToken.decimal)
+	}
+
+	// MARK: - Initializers
+
+	init(selectedUserBorrowingToken: UserBorrowingToken) {
+		self.selectedUserBorrowingToken = selectedUserBorrowingToken
 	}
 
 	// MARK: - Public Methods
@@ -64,14 +97,17 @@ class RepayAmountViewModel {
 		tokenAmount = amount
 	}
 
-	public func checkBalanceStatus(amount: String) -> AmountStatus {
+	public func checkBalanceStatus(amount: String) -> RepayAmountStatus {
 		if amount == .emptyString {
 			return .isZero
 		} else if BigNumber(numberWithDecimal: amount).isZero {
 			return .isZero
 		} else {
-			if BigNumber(numberWithDecimal: tokenAmount) > maxHoldAmount {
+			let bignumberTokenAmount = BigNumber(numberWithDecimal: tokenAmount)
+			if bignumberTokenAmount > selectedToken.holdAmount {
 				return .isNotEnough
+			} else if bignumberTokenAmount > selectedTokenTotalDebt {
+				return .amountExceedsDebt
 			} else {
 				return .isEnough
 			}
