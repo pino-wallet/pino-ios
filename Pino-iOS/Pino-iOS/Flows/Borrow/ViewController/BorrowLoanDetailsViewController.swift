@@ -24,6 +24,13 @@ class BorrowLoanDetailsViewController: UIViewController {
 		setupView()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		if borrowLoanDetailsVM.apy == nil {
+			borrowLoanDetailsVM.getBorrowableTokenProperties()
+			borrowLoanDetailsView.showSkeletonView()
+		}
+	}
+
 	// MARK: - Initializers
 
 	init(borrowLoanDetailsVM: BorrowLoanDetailsViewModel) {

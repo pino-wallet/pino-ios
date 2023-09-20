@@ -15,4 +15,8 @@ class BorrowAPIMockClient: BorrowAPIService {
 	func getBorrowableTokens(dex: String) -> AnyPublisher<BorrowableTokensModel, APIError> {
 		StubManager.publisher(for: "borrowable-tokens-stub")
 	}
+
+	func getBorrowableTokenDetails(dex: String, tokenID: String) -> AnyPublisher<BorrowableTokenModel, APIError> {
+		StubManager.publisher(for: "borrowable-token-stub")
+	}
 }

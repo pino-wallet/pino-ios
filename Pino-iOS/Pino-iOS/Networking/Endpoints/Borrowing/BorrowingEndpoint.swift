@@ -12,6 +12,7 @@ enum BorrowingEndpoint: EndpointType {
 
 	case getBorrowingDetails(address: String, dex: String)
 	case getBorrowableTokens(dex: String)
+	case getBorrowableTokenDetails(dex: String, tokenID: String)
 
 	// MARK: - Internal Properties
 
@@ -34,19 +35,21 @@ enum BorrowingEndpoint: EndpointType {
 			return "user/\(address)/borrowings/\(dex)"
 		case let .getBorrowableTokens(dex: dex):
 			return "listing/borrowings/\(dex)"
+		case let .getBorrowableTokenDetails(dex: dex, tokenID: tokenID):
+			return "listing/borrowings/\(dex)/\(tokenID)"
 		}
 	}
 
 	internal var task: HTTPTask {
 		switch self {
-		case .getBorrowingDetails, .getBorrowableTokens:
+		case .getBorrowingDetails, .getBorrowableTokens, .getBorrowableTokenDetails:
 			return .request
 		}
 	}
 
 	internal var httpMethod: HTTPMethod {
 		switch self {
-		case .getBorrowingDetails, .getBorrowableTokens:
+		case .getBorrowingDetails, .getBorrowableTokens, .getBorrowableTokenDetails:
 			return .get
 		}
 	}
