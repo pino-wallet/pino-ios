@@ -93,10 +93,10 @@ class BorrowIncreaseAmountView: UIView {
 		maxAmountTitle.text = borrowIncreaseAmountVM.maxTitle
 		maxAmountLabel.text = borrowIncreaseAmountVM.formattedMaxHoldAmount
 		continueButton.title = borrowIncreaseAmountVM.continueButtonTitle
-		tokenView.tokenName = borrowIncreaseAmountVM.selectedToken.symbol
+		tokenView.tokenName = borrowIncreaseAmountVM.tokenSymbol
 
 		if borrowIncreaseAmountVM.selectedToken.isVerified {
-			tokenView.tokenImageURL = borrowIncreaseAmountVM.selectedToken.image
+			tokenView.tokenImageURL = borrowIncreaseAmountVM.tokenImage
 			amountLabel.text = borrowIncreaseAmountVM.dollarAmount
 			amountLabel.isHidden = false
 		} else {
@@ -247,14 +247,14 @@ class BorrowIncreaseAmountView: UIView {
 	private func putMaxAmountInTextField() {
 		amountTextfield.text = borrowIncreaseAmountVM.maxHoldAmount.sevenDigitFormat
 		amountLabel.text = borrowIncreaseAmountVM.dollarAmount
+		animateAmountHealthScoreView(isHidden: false)
 
 		if borrowIncreaseAmountVM.selectedToken.isEth {
 			borrowIncreaseAmountVM.calculateDollarAmount(amountTextfield.text ?? .emptyString)
 			maxAmountLabel.text = borrowIncreaseAmountVM.formattedMaxHoldAmount
 		} else {
-			borrowIncreaseAmountVM.maxHoldAmount = borrowIncreaseAmountVM.selectedToken.holdAmount
-			borrowIncreaseAmountVM.tokenAmount = borrowIncreaseAmountVM.selectedToken.holdAmount.sevenDigitFormat
-			borrowIncreaseAmountVM.dollarAmount = borrowIncreaseAmountVM.selectedToken.holdAmountInDollor.priceFormat
+			borrowIncreaseAmountVM.tokenAmount = borrowIncreaseAmountVM.sevenDigitMaxHoldAmount
+			borrowIncreaseAmountVM.dollarAmount = borrowIncreaseAmountVM.maxHoldAmountInDollars
 		}
 
 		maxAmountLabel.text = borrowIncreaseAmountVM.formattedMaxHoldAmount

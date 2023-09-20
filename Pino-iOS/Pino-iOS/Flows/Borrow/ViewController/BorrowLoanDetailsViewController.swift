@@ -60,7 +60,8 @@ class BorrowLoanDetailsViewController: UIViewController {
 		borrowLoanDetailsView = BorrowLoanDetailsView(
 			borrowLoanDetailsVM: borrowLoanDetailsVM,
 			pushToBorrowIncreaseAmountPageClosure: {
-				self.pushToBorrowIncreaseAmountPage()
+				self
+					.pushToBorrowIncreaseAmountPage(selectedToken: self.borrowLoanDetailsVM.foundTokenInManageAssetTokens)
 			},
 			pushToRepayAmountPageClosure: {
 				self.pushToRepayAmountPage()
@@ -70,9 +71,9 @@ class BorrowLoanDetailsViewController: UIViewController {
 		view = borrowLoanDetailsView
 	}
 
-	#warning("this is for test")
-	private func pushToBorrowIncreaseAmountPage() {
-		let borrowIncreaseAmountVC = BorrowIncreaseAmountViewController()
+	private func pushToBorrowIncreaseAmountPage(selectedToken: AssetViewModel) {
+		let borrowIncreaseAmountVM = BorrowIncreaseAmountViewModel(selectedToken: selectedToken)
+		let borrowIncreaseAmountVC = BorrowIncreaseAmountViewController(borrowIncreaseAmountVM: borrowIncreaseAmountVM)
 		navigationController?.pushViewController(borrowIncreaseAmountVC, animated: true)
 	}
 

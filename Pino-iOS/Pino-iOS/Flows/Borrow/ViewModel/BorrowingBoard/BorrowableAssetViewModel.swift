@@ -34,9 +34,7 @@ struct BorrowableAssetViewModel: AssetsBoardProtocol {
 		AssetVolatilityType(change24h: APYAmount)
 	}
 
-	// MARK: - Private Properties
-
-	private var foundTokenInManageAssetTokens: AssetViewModel {
+	public var foundTokenInManageAssetTokens: AssetViewModel {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == borrowableTokenModel.tokenID }))!
 	}
 
