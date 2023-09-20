@@ -159,7 +159,7 @@ class BorrowLoanDetailsView: UIView {
 	}
 
 	private func setupBindings() {
-        borrowLoanDetailsVM.$apy.compactMap{$0}.sink { apyAmount in
+		borrowLoanDetailsVM.$apy.compactMap { $0 }.sink { apyAmount in
 			self.updateAPY(apyAmount: apyAmount)
 		}.store(in: &cancellables)
 	}
