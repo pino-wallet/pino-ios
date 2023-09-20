@@ -34,7 +34,7 @@ class BorrowLoanDetailsViewModel {
 	}
 
 	@Published
-	public var apy: String? = nil
+	public var apy: String?
 	public var apyVolatilityType: AssetVolatilityType?
 	public var borrowedAmount: String {
 		borrowedAmountBigNumber.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
