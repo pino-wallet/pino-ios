@@ -152,9 +152,9 @@ extension BigNumber {
 	}
 
 	static func * (left: BigNumber, right: BigNumber) -> BigNumber {
-		return BigNumber(number: left.number * right.number, decimal: left.decimal + right.decimal)
+		BigNumber(number: left.number * right.number, decimal: left.decimal + right.decimal)
 	}
-    
+
 	static func / (left: BigNumber, right: BigNumber) -> BigNumber? {
 		// Handle divisor equal to zero
 		if right.number == 0 {

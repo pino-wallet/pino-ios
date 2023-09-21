@@ -63,8 +63,10 @@ public struct W3GasInfoManager {
 
 			}.done { gasLimit, nonce, gasPrice in
 				let gasInfo =
-                GasInfo(gasPrice: gasPrice.quantity,
-                        gasLimit: BigNumber(unSignedNumber: try! BigUInt(gasLimit), decimal: 0))
+					GasInfo(
+						gasPrice: gasPrice.quantity,
+						gasLimit: BigNumber(unSignedNumber: try! BigUInt(gasLimit), decimal: 0)
+					)
 				seal.fulfill(gasInfo)
 			}.catch { error in
 				seal.reject(error)
@@ -79,8 +81,8 @@ public struct W3GasInfoManager {
 			}.done { gasPrice in
 				let gasLimit = BigNumber(number: Web3Core.Constants.ethGasLimit, decimal: 0)
 				let gasInfo = GasInfo(gasPrice: gasPrice.quantity, gasLimit: gasLimit)
-                print(gasPrice)
-                print(gasLimit)
+				print(gasPrice)
+				print(gasLimit)
 				seal.fulfill(gasInfo)
 			}.catch { error in
 				seal.reject(error)
