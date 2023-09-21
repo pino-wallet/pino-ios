@@ -95,7 +95,7 @@ public struct W3TransferManager {
 					contract: solInvocation!,
 					nonce: nonce,
 					gasPrice: gasInfo.gasPrice.etherumQuantity,
-					gasLimit: gasInfo.gasLimit.etherumQuantity
+                    gasLimit: gasInfo.gasLimit.bigUInt.etherumQuantity
 				)
 
 				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)

@@ -125,7 +125,7 @@ public struct W3SwapManager {
 					contract: solInvocation!,
 					nonce: nonce,
 					gasPrice: gasInfo.gasPrice.etherumQuantity,
-					gasLimit: gasInfo.gasLimit.etherumQuantity,
+                    gasLimit: gasInfo.gasLimit.bigUInt.etherumQuantity,
 					value: value.etherumQuantity
 				)
 

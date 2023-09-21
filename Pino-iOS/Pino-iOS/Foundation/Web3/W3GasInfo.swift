@@ -13,17 +13,16 @@ public struct GasInfo {
 	// MARK: - Public Properties
 
 	public let gasPrice: BigUInt
-	public let gasLimit: BigUInt
+	public let gasLimit: BigNumber
 
 	public var increasedGasLimit: BigNumber {
-		let increased = try! EthereumQuantity((gasLimit * BigUInt(120)) / BigUInt(100)).quantity
-		return BigNumber(unSignedNumber: increased, decimal: 18)
+        let increased = try! EthereumQuantity((gasLimit.bigUInt * BigUInt(120)) / BigUInt(100)).quantity
+		return BigNumber(unSignedNumber: increased, decimal: 0)
 	}
 
 	public var fee: BigNumber {
-		let gasLimit = BigNumber(unSignedNumber: gasLimit, decimal: 18)
-		let gasPrice = BigNumber(unSignedNumber: gasPrice, decimal: 18)
-		return gasLimit * gasPrice
+		let gasPrice = BigNumber(unSignedNumber: gasPrice, decimal: 0)
+		return BigNumber(number: increasedGasLimit * gasPrice, decimal: 18)
 	}
 
 	public var feeInDollar: BigNumber {
