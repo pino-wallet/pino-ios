@@ -108,10 +108,10 @@ public struct W3SwapManager {
                 return Data(callData.hexToBytes())
             }
             
-            let solInvocation = contract[ABIMethodWrite.multicall.rawValue]?(dataOfCallData)
+            let solInvocation = contract[ABIMethodWrite.multicall.rawValue]?(contract.address!,contract.address!)
 
 			gasInfoManager.calculateGasOf(
-				method: .multicall,
+				method: .sweepToken,
 				solInvoc: solInvocation!,
 				contractAddress: contract.address!
 			)
@@ -147,11 +147,27 @@ public struct W3SwapManager {
 				abi: .swap,
 				web3: web3
 			)
-			let solInvocation = contract[ABIMethodWrite.swapParaswap.rawValue]?(callData)
+
+            // Remove the "0x" prefix if present
+            let cleanedHexString = callData.hasPrefix("0x") ? String(callData.dropFirst(2)) : callData
+
+            // Calculate the length in characters
+            let lengthInCharacters = cleanedHexString.count
+
+            // Calculate the length in bytes
+            let lengthInBytes = lengthInCharacters / 2
+            
+            let callD = Data(hexString: callData, length: UInt(lengthInBytes))
+//            let callD2 = Data(callData.hexToBytes())
+//            let str = String.init(data: callD!, encoding: .utf8)!
+            
+            let solInvocation = contract[method.rawValue]?(callD!)
 
             let trx = try trxManager.createTransactionFor(
                 contract: solInvocation!
             )
+            
+            
             
             seal.fulfill(trx.data.hex())
 		}

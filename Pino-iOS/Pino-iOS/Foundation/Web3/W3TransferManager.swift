@@ -136,39 +136,3 @@ public struct W3TransferManager {
 		}
 	}
 }
-
-func abiEncodeStringToBytes(_ input: String) -> [UInt8] {
-    // Convert the string to data
-    let inputData = input.data(using: .utf8)!
-    
-    // Calculate the length prefix as a 32-byte integer
-    var lengthData = Data(count: 32)
-    var count = inputData.count
-    lengthData.replaceSubrange((32 - MemoryLayout.size(ofValue: count))..<32, with: Data(bytes: &count, count: MemoryLayout.size(ofValue: count)))
-    
-    // Right-pad the string data to a multiple of 32 bytes
-    let paddingLength = 32 - (inputData.count % 32)
-    let paddedData = inputData + Data(repeating: 0, count: paddingLength)
-    
-    return Array(lengthData + paddedData)
-}
-
-func encodePermitTransferFrom(token: String, amount: UInt64, nonce: UInt64, deadline: UInt64, signature: String) -> String {
-    // Function signature
-    let functionSignature = "cd93f197"
-    
-    // Convert parameters to 32-byte hex strings
-    let tokenPadded = token.padding(toLength: 64, withPad: "0", startingAt: 0)
-    let amountPadded = String(format: "%064x", amount)
-    let noncePadded = String(format: "%064x", nonce)
-    let deadlinePadded = String(format: "%064x", deadline)
-    
-    // Signature encoding
-    let signatureOffset = "00000000000000000000000000000000000000000000000000000000000000a0"
-    let signatureLength = "0000000000000000000000000000000000000000000000000000000000000041"
-    
-    // Combine all parts
-    let callData = functionSignature + tokenPadded + amountPadded + noncePadded + deadlinePadded + signatureOffset + signatureLength + signature
-    
-    return callData
-}
