@@ -46,12 +46,20 @@ class ImportAccountsViewController: UIViewController {
 				self.openPasscodePage()
 			},
 			findMoreAccountsDidTap: {
-				self.importAccountsVM.findMoreAccounts {}
+				self.importAccountsVM.findMoreAccounts { error in
+					if let error {
+						Toast.default(title: "Failed to fetch accounts", style: .error).show(haptic: .success)
+					}
+				}
 			}
 		)
 		view = importLoadingView
-		importAccountsVM.getFirstAccounts {
-			self.view = self.importAccountsView
+		importAccountsVM.getFirstAccounts { error in
+			if let error {
+				Toast.default(title: "Failed to fetch accounts", style: .error).show(haptic: .success)
+			} else {
+				self.view = self.importAccountsView
+			}
 		}
 	}
 
