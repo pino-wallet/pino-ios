@@ -51,116 +51,67 @@ public struct W3SwapManager {
 				recipientAdd.eip55Address!
 			)
 
+			let trx = try trxManager.createTransactionFor(
+				contract: solInvocation!
+			)
+
+			seal.fulfill(trx.data.hex())
+		}
+	}
+
+	public func getWrapETHCallData(proxyFee: BigUInt) -> Promise<String> {
+		Promise<String>() { [self] seal in
+
+			let contract = try Web3Core.getContractOfToken(
+				address: Web3Core.Constants.pinoProxyAddress,
+				abi: .swap,
+				web3: web3
+			)
+			let solInvocation = contract[ABIMethodWrite.wrapETH.rawValue]?(proxyFee)
+
+			let trx = try trxManager.createTransactionFor(
+				contract: solInvocation!
+			)
+
+			seal.fulfill(trx.data.hex())
+		}
+	}
+
+	public func getUnWrapETHCallData(recipient: String) -> Promise<String> {
+		Promise<String>() { [self] seal in
+
+			let contract = try Web3Core.getContractOfToken(
+				address: Web3Core.Constants.pinoProxyAddress,
+				abi: .swap,
+				web3: web3
+			)
+			let solInvocation = contract[ABIMethodWrite.unwrapWETH9.rawValue]?(recipient.eip55Address!)
+
+			let trx = try trxManager.createTransactionFor(
+				contract: solInvocation!
+			)
+
+			seal.fulfill(trx.data.hex())
+		}
+	}
+
+	public func callMultiCall(callData: [String], value: BigUInt) -> Promise<String> {
+		Promise<String>() { [self] seal in
+
+			let contract = try Web3Core.getContractOfToken(
+				address: Web3Core.Constants.pinoProxyAddress,
+				abi: .swap,
+				web3: web3
+			)
+
+			let dataOfCallData = callData.map { callData in
+				Data(callData.hexToBytes())
+			}
+
+			let solInvocation = contract[ABIMethodWrite.multicall.rawValue]?(contract.address!)
+
 			gasInfoManager.calculateGasOf(
 				method: .sweepToken,
-				solInvoc: solInvocation!,
-				contractAddress: contract.address!
-			)
-			.then { [self] gasInfo in
-				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
-					.map { ($0, gasInfo) }
-			}
-			.done { [self] nonce, gasInfo in
-
-				let trx = try trxManager.createTransactionFor(
-					contract: solInvocation!,
-					nonce: nonce,
-					gasPrice: gasInfo.gasPrice.etherumQuantity,
-					gasLimit: gasInfo.gasLimit.etherumQuantity
-				)
-
-				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-				seal.fulfill(signedTx.data.hex())
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
-	}
-
-	public func getWrapETHCallData(amount: BigUInt, proxyFee: BigUInt) -> Promise<String> {
-		Promise<String>() { [self] seal in
-
-			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.pinoProxyAddress,
-				abi: .swap,
-				web3: web3
-			)
-			let solInvocation = contract[ABIMethodWrite.wrapETH.rawValue]?(amount, proxyFee)
-
-			gasInfoManager.calculateGasOf(
-				method: .wrapETH,
-				solInvoc: solInvocation!,
-				contractAddress: contract.address!
-			)
-			.then { [self] gasInfo in
-				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
-					.map { ($0, gasInfo) }
-			}
-			.done { [self] nonce, gasInfo in
-
-				let trx = try trxManager.createTransactionFor(
-					contract: solInvocation!,
-					nonce: nonce,
-					gasPrice: gasInfo.gasPrice.etherumQuantity,
-					gasLimit: gasInfo.gasLimit.etherumQuantity
-				)
-
-				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-				seal.fulfill(signedTx.data.hex())
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
-	}
-
-	public func getUnWrapETHCallData(amount: BigUInt, recipient: String) -> Promise<String> {
-		Promise<String>() { [self] seal in
-
-			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.pinoProxyAddress,
-				abi: .swap,
-				web3: web3
-			)
-			let solInvocation = contract[ABIMethodWrite.unwrapWETH9.rawValue]?(amount, recipient.eip55Address!)
-
-			gasInfoManager.calculateGasOf(
-				method: .unwrapWETH9,
-				solInvoc: solInvocation!,
-				contractAddress: contract.address!
-			)
-			.then { [self] gasInfo in
-				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
-					.map { ($0, gasInfo) }
-			}
-			.done { [self] nonce, gasInfo in
-
-				let trx = try trxManager.createTransactionFor(
-					contract: solInvocation!,
-					nonce: nonce,
-					gasPrice: gasInfo.gasPrice.etherumQuantity,
-					gasLimit: gasInfo.gasLimit.etherumQuantity
-				)
-
-				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-				seal.fulfill(signedTx.data.hex())
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
-	}
-
-	public func callMultiCall(callData: [String]) -> Promise<String> {
-		Promise<String>() { [self] seal in
-
-			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.pinoProxyAddress,
-				abi: .swap,
-				web3: web3
-			)
-			let solInvocation = contract[ABIMethodWrite.unwrapWETH9.rawValue]?(callData)
-
-			gasInfoManager.calculateGasOf(
-				method: .multicall,
 				solInvoc: solInvocation!,
 				contractAddress: contract.address!
 			)
@@ -174,16 +125,50 @@ public struct W3SwapManager {
 					contract: solInvocation!,
 					nonce: nonce,
 					gasPrice: gasInfo.gasPrice.etherumQuantity,
-					gasLimit: gasInfo.gasLimit.etherumQuantity
+					gasLimit: gasInfo.gasLimit.etherumQuantity,
+					value: value.etherumQuantity
 				)
 
 				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-				return web3.eth.sendRawTransaction(transaction: signedTx)
+				return "hash".promise
+//				return web3.eth.sendRawTransaction(transaction: signedTx)
 			}.done { txHash in
-				seal.fulfill(txHash.hex())
+				seal.fulfill(txHash)
 			}.catch { error in
 				seal.reject(error)
 			}
+		}
+	}
+
+	public func getSwapProviderData(callData: String, method: ABIMethodWrite) -> Promise<String> {
+		Promise<String>() { [self] seal in
+
+			let contract = try Web3Core.getContractOfToken(
+				address: Web3Core.Constants.pinoProxyAddress,
+				abi: .swap,
+				web3: web3
+			)
+
+			// Remove the "0x" prefix if present
+			let cleanedHexString = callData.hasPrefix("0x") ? String(callData.dropFirst(2)) : callData
+
+			// Calculate the length in characters
+			let lengthInCharacters = cleanedHexString.count
+
+			// Calculate the length in bytes
+			let lengthInBytes = lengthInCharacters / 2
+
+			let callD = Data(hexString: callData, length: UInt(lengthInBytes))
+			//            let callD2 = Data(callData.hexToBytes())
+			//            let str = String.init(data: callD!, encoding: .utf8)!
+
+			let solInvocation = contract[method.rawValue]?(callD!)
+
+			let trx = try trxManager.createTransactionFor(
+				contract: solInvocation!
+			)
+
+			seal.fulfill(trx.data.hex())
 		}
 	}
 }

@@ -38,7 +38,7 @@ public struct W3TransferManager {
 
 	// MARK: - Public Methods
 
-	public func getPermitTransferFromCallData(amount: BigUInt) -> Promise<String> {
+	public func getPermitTransferFromCallData(amount: BigUInt, tokenAdd: String, signiture: String) -> Promise<String> {
 		Promise<String>() { [self] seal in
 
 			let contract = try Web3Core.getContractOfToken(
@@ -46,39 +46,27 @@ public struct W3TransferManager {
 				abi: .swap,
 				web3: web3
 			)
-			let reqNonce: BigUInt = 3_456_789
-			let deadline: BigUInt = 23456
-			let spender = Web3Core.Constants.pinoProxyAddress.eip55Address!
+			let reqNonce = BigNumber.bigRandomeNumber
+			let deadline = EthereumQuantity(quantity: BigUInt(Date().timeIntervalSince1970) + 1_800_000)
+
+			let permitModel = Permit2Model(
+				permitted: .init(token: tokenAdd.eip55Address!, amount: amount.etherumQuantity),
+				nonce: reqNonce.etherumQuantity,
+				deadline: deadline
+			)
+
+			let signitureData = Data(signiture.hexToBytes())
+
 			let solInvocation = contract[ABIMethodWrite.permitTransferFrom.rawValue]?(
-				reqNonce,
-				deadline,
-				spender,
-				amount
+				permitModel,
+				signitureData
 			)
 
-			gasInfoManager.calculateGasOf(
-				method: .permitTransferFrom,
-				solInvoc: solInvocation!,
-				contractAddress: contract.address!
+			let trx = try trxManager.createTransactionFor(
+				contract: solInvocation!
 			)
-			.then { [self] gasInfo in
-				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
-					.map { ($0, gasInfo) }
-			}
-			.done { [self] nonce, gasInfo in
 
-				let trx = try trxManager.createTransactionFor(
-					contract: solInvocation!,
-					nonce: nonce,
-					gasPrice: gasInfo.gasPrice.etherumQuantity,
-					gasLimit: gasInfo.gasLimit.etherumQuantity
-				)
-
-				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-				seal.fulfill(signedTx.data.hex())
-			}.catch { error in
-				seal.reject(error)
-			}
+			seal.fulfill(trx.data.hex())
 		}
 	}
 

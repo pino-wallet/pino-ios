@@ -9,28 +9,30 @@ import Foundation
 import Web3
 import Web3ContractABI
 
-struct Permit2Model: ABIEncodable {
-	struct TokenPermissions {
-		let token: EthereumAddress
-		let amount: EthereumQuantity
-	}
+struct TokenPermissions: ABIEncodable {
+	let token: EthereumAddress
+	let amount: EthereumQuantity
 
+	func abiEncode(dynamic: Bool) -> String? {
+		guard let tokenEncoded = token.abiEncode(dynamic: false),
+		      let amountEncoded = amount.quantity.abiEncode(dynamic: false) else {
+			return nil
+		}
+		return tokenEncoded + amountEncoded
+	}
+}
+
+struct Permit2Model: ABIEncodable {
 	let permitted: TokenPermissions
 	let nonce: EthereumQuantity
 	let deadline: EthereumQuantity
 
 	func abiEncode(dynamic: Bool) -> String? {
-		// Encoding TokenPermissions
-		let tokenEncoded = permitted.token.abiEncode(dynamic: false)
-		let amountEncoded = permitted.amount.quantity.abiEncode(dynamic: false)
-
-		// Encoding PermitTransferFrom
-		let nonceEncoded = nonce.quantity.abiEncode(dynamic: false)
-		let deadlineEncoded = deadline.quantity.abiEncode(dynamic: false)
-
-		// Concatenate all the encoded strings
-		var encodedString = tokenEncoded! + amountEncoded! + nonceEncoded! + deadlineEncoded!
-
-		return encodedString
+		guard let tokenPermissionsEncoded = permitted.abiEncode(dynamic: false),
+		      let nonceEncoded = nonce.quantity.abiEncode(dynamic: false),
+		      let deadlineEncoded = deadline.quantity.abiEncode(dynamic: false) else {
+			return nil
+		}
+		return tokenPermissionsEncoded + nonceEncoded + deadlineEncoded
 	}
 }

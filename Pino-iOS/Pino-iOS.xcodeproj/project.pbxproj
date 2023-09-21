@@ -100,6 +100,7 @@
 		404324092A5FF12C006B1468 /* NumberFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404324082A5FF12C006B1468 /* NumberFormatting.swift */; };
 		408463C02A3AEE010058FF16 /* Web3-Utility in Frameworks */ = {isa = PBXBuildFile; productRef = 408463BF2A3AEE010058FF16 /* Web3-Utility */; };
 		40BB42282A47157800E1A121 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB42272A47157800E1A121 /* UIDevice+Extension.swift */; };
+		40E7C1132AAF6C74006A61DD /* SwapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E7C1122AAF6C74006A61DD /* SwapManager.swift */; };
 		40F704572A03AFFF004D74FE /* AccountActivationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F704562A03AFFF004D74FE /* AccountActivationModel.swift */; };
 		40F704592A03D5DC004D74FE /* PrivateKeyTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F704582A03D5DC004D74FE /* PrivateKeyTextView.swift */; };
 		41B9F1002F97DF04A075D75D /* PinoStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262D77EFE984EBA7A19D23DC /* PinoStepperView.swift */; };
@@ -530,6 +531,7 @@
 		DFB1E9D62A08F21C00041B26 /* SelectedAssetsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB1E9D52A08F21C00041B26 /* SelectedAssetsDataSource.swift */; };
 		DFB566272A1926C600F9D6A0 /* ImportTextViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB566262A1926C600F9D6A0 /* ImportTextViewType.swift */; };
 		DFB566292A192CD600F9D6A0 /* WalletManagementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB566282A192CD600F9D6A0 /* WalletManagementType.swift */; };
+		DFBDA00B2AB0CDA700ED42D6 /* SwapABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = DFBDA00A2AB0CDA700ED42D6 /* SwapABIJson.json */; };
 		DFC1F6A12A755620003DB68A /* SwapProvidersAPIServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6A02A75561F003DB68A /* SwapProvidersAPIServices.swift */; };
 		DFC1F6A72A755F55003DB68A /* ParaSwapPriceResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6A62A755F55003DB68A /* ParaSwapPriceResponseModel.swift */; };
 		DFC1F6A92A755F7B003DB68A /* SwapPriceRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6A82A755F7B003DB68A /* SwapPriceRequestModel.swift */; };
@@ -800,6 +802,7 @@
 		404324052A5FF115006B1468 /* TextFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormatting.swift; sourceTree = "<group>"; };
 		404324082A5FF12C006B1468 /* NumberFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatting.swift; sourceTree = "<group>"; };
 		40BB42272A47157800E1A121 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
+		40E7C1122AAF6C74006A61DD /* SwapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapManager.swift; sourceTree = "<group>"; };
 		40F704562A03AFFF004D74FE /* AccountActivationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountActivationModel.swift; sourceTree = "<group>"; };
 		40F704582A03D5DC004D74FE /* PrivateKeyTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKeyTextView.swift; sourceTree = "<group>"; };
 		411833622E37F06E2DC49DFD /* AvatarCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCollectionView.swift; sourceTree = "<group>"; };
@@ -1228,6 +1231,7 @@
 		DFB2C343099A9B87E6C231F0 /* StubManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubManager.swift; sourceTree = "<group>"; };
 		DFB566262A1926C600F9D6A0 /* ImportTextViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTextViewType.swift; sourceTree = "<group>"; };
 		DFB566282A192CD600F9D6A0 /* WalletManagementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletManagementType.swift; sourceTree = "<group>"; };
+		DFBDA00A2AB0CDA700ED42D6 /* SwapABIJson.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SwapABIJson.json; sourceTree = "<group>"; };
 		DFC1F6A02A75561F003DB68A /* SwapProvidersAPIServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapProvidersAPIServices.swift; sourceTree = "<group>"; };
 		DFC1F6A62A755F55003DB68A /* ParaSwapPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParaSwapPriceResponseModel.swift; sourceTree = "<group>"; };
 		DFC1F6A82A755F7B003DB68A /* SwapPriceRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapPriceRequestModel.swift; sourceTree = "<group>"; };
@@ -3301,6 +3305,14 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
+		DFBDA0092AB0CD7B00ED42D6 /* ABIs */ = {
+			isa = PBXGroup;
+			children = (
+				DFBDA00A2AB0CDA700ED42D6 /* SwapABIJson.json */,
+			);
+			path = ABIs;
+			sourceTree = "<group>";
+		};
 		DFC1F69F2A7555B0003DB68A /* SwapProviders */ = {
 			isa = PBXGroup;
 			children = (
@@ -3382,6 +3394,7 @@
 		DFC4D0382A360D7300F03DC4 /* Web3 */ = {
 			isa = PBXGroup;
 			children = (
+				DFBDA0092AB0CD7B00ED42D6 /* ABIs */,
 				DF0347B32A39FAFF00A6C265 /* Web3ABI.swift */,
 				DFC4D0392A360D8300F03DC4 /* Web3Core.swift */,
 				DF14FCA42A910F74005221A8 /* W3GasInfo.swift */,
@@ -3485,6 +3498,7 @@
 				E35BB64C2A596E90003987F5 /* SelectSwapProvidersViewModel.swift */,
 				E35BB6542A62D4A5003987F5 /* SwapConfirmationViewModel.swift */,
 				E3FC698D2A80DD2F009B3341 /* SwapPriceManager.swift */,
+				40E7C1122AAF6C74006A61DD /* SwapManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3990,6 +4004,7 @@
 				DF0F65F929E1B29C00DB7290 /* wallet-balance-stub.json in Resources */,
 				9AD896368BEA2DF5FD408FDF /* PPPangramSans-MediumItalic.ttf in Resources */,
 				C7947A17B0833FA7A202FA92 /* PPPangramSans-MediumReclined.ttf in Resources */,
+				DFBDA00B2AB0CDA700ED42D6 /* SwapABIJson.json in Resources */,
 				25BF49CF523EA1322C6FC4EB /* PPPangramSans-Regular.ttf in Resources */,
 				DF0F65F329E1B29C00DB7290 /* coin-performance-info-stub.json in Resources */,
 				DF0F65F129E1B29C00DB7290 /* about-coin-stub.json in Resources */,
@@ -4271,6 +4286,7 @@
 				DFA968732A0F8A77007D4513 /* WalletDataSource.swift in Sources */,
 				DF14FCA32A910B78005221A8 /* PromiseKit+Extension.swift in Sources */,
 				D9BE05152A8221C8008670F9 /* CDActivityParent+CoreDataProperties.swift in Sources */,
+				40E7C1132AAF6C74006A61DD /* SwapManager.swift in Sources */,
 				DF1D90E52A973ACC00435D85 /* ApprovingLoadingViewController.swift in Sources */,
 				D916A8C82A9F64B400F391B5 /* CollateralIncreaseAmountViewController.swift in Sources */,
 				324CF2EFF8A4FE86E6609254 /* CustomAssetInfoViewModel.swift in Sources */,
