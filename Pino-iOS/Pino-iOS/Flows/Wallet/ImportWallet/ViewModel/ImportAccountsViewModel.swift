@@ -9,6 +9,7 @@ import Combine
 import Foundation
 import PromiseKit
 import WalletCore
+import Web3
 
 class ImportAccountsViewModel {
 	// MARK: - Private Properties
@@ -85,15 +86,16 @@ class ImportAccountsViewModel {
 			}.store(in: &cancellables)
 	}
 
-	private func getETHBalance(of accountAddress: String, completion: @escaping (String?) -> Void) {
-		Web3Core.shared.getETHBalance(of: accountAddress)
-			.done { balance in
-				print("Account balance: \(balance)")
-				completion(balance)
-			}.catch { error in
-				print("error: \(error)")
-				completion(nil)
+	private func getAccountsBalance(of accounts: [Account], completion: @escaping ([ActiveAccountViewModel]) -> Void) {
+		let promises = accounts.compactMap { account in
+			Web3Core.shared.getETHBalance(of: account.eip55Address).map {
+				ActiveAccountViewModel(account: account, balance: $0)
 			}
+		}
+		when(fulfilled: promises).done { accountsVM in
+			completion(accountsVM)
+		}.catch { error in
+		}
 	}
 
 	private func setupActiveAccounts(createdAccounts: [Account], completion: @escaping () -> Void) {
@@ -102,16 +104,13 @@ class ImportAccountsViewModel {
 			let activeAccounts = createdAccounts.filter {
 				activeAccountAddresses.contains($0.eip55Address.lowercased())
 			}
-			for account in activeAccounts {
-				self.getETHBalance(of: account.eip55Address) { balance in
-					guard let balance else { return }
-					self.accounts?.append(ActiveAccountViewModel(account: account, balance: balance))
-				}
+			self.getAccountsBalance(of: activeAccounts) { accountsVM in
+				self.accounts = self.accounts! + accountsVM
+				completion()
 			}
 			if !activeAccounts.compactMap({ $0.eip55Address }).contains(createdAccounts.last!.eip55Address) {
 				self.lastAccountIndex = nil
 			}
-			completion()
 		}
 	}
 
@@ -130,7 +129,9 @@ class ImportAccountsViewModel {
 				} catch {}
 			}
 			self.accounts = []
-			self.setupActiveAccounts(createdAccounts: createdAccounts, completion: completion)
+			self.setupActiveAccounts(createdAccounts: createdAccounts) {
+				completion()
+			}
 		}
 	}
 
