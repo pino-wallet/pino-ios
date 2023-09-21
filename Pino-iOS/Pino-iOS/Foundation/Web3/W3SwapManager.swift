@@ -108,7 +108,7 @@ public struct W3SwapManager {
                 return Data(callData.hexToBytes())
             }
             
-            let solInvocation = contract[ABIMethodWrite.multicall.rawValue]?(contract.address!,contract.address!)
+            let solInvocation = contract[ABIMethodWrite.multicall.rawValue]?(contract.address!)
 
 			gasInfoManager.calculateGasOf(
 				method: .sweepToken,

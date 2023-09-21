@@ -25,15 +25,9 @@ public enum Web3ABI {
 	"""
 
 	private static var swapAbiString: String {
-		if let path = Bundle.main.path(forResource: "SwapABIJson", ofType: "json") {
-			do {
-				let abiJsonString = try String(contentsOfFile: path, encoding: .utf8)
-				return abiJsonString
-			} catch {
-				print("Failed reading from URL: \(path), Error: " + error.localizedDescription)
-			}
-		}
-		return ""
+        let path = Bundle.main.path(forResource: "SwapABIJson", ofType: "json")!
+        let abiJsonString = try! String(contentsOfFile: path, encoding: .utf8)
+        return abiJsonString
 	}
 }
 

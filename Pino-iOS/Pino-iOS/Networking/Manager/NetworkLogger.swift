@@ -8,7 +8,7 @@
 import Foundation
 
 struct NetworkLogger {
-	static func log(request: URLRequest) {
+    static func log(request: URLRequest, response: URLResponse) {
 		let urlString = request.url?.absoluteString ?? ""
 		let components = NSURLComponents(string: urlString)
 
@@ -33,5 +33,9 @@ struct NetworkLogger {
 
 		requestLog += "\n------------------------->\n"
 		print(requestLog)
+        
+        requestLog += "\n------------- ## Response ## ------------>\n"
+        print(response)
+
 	}
 }
