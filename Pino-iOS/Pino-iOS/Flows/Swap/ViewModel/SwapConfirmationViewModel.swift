@@ -95,16 +95,16 @@ class SwapConfirmationViewModel {
 	}
 
 	private func setupBindings() {
-		GlobalVariables.shared.$ethGasFee.sink { gasInfo in
-			guard let gasInfo = gasInfo else { return }
-			self.setGasInfo(gasInfo: gasInfo)
-		}.store(in: &cancellables)
+		GlobalVariables.shared.$ethGasFee
+			.compactMap { $0 }
+			.sink { gasInfo in
+				self.setGasInfo(gasInfo: gasInfo)
+			}.store(in: &cancellables)
 	}
 
 	private func setGasInfo(gasInfo: GasInfo) {
-		let fee = BigNumber(unSignedNumber: gasInfo.fee, decimal: 18)
-		gasFee = fee
+		gasFee = gasInfo.fee
 		formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
-		formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
+		formattedFeeInETH = gasInfo.fee.sevenDigitFormat.ethFormatting
 	}
 }

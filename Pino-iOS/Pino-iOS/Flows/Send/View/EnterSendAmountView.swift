@@ -207,15 +207,17 @@ class EnterSendAmountView: UIView {
 	}
 
 	private func setupBindings() {
-		GlobalVariables.shared.$ethGasFee.sink { gasInfo in
-			if self.enterAmountVM.selectedToken.isEth {
-				self.enterAmountVM.updateEthMaxAmount(gasInfo: gasInfo)
-				self.enterAmountVM.calculateAmount(self.amountTextfield.text ?? .emptyString)
-				self.updateAmount(enteredAmount: self.amountTextfield.text ?? .emptyString)
-				self.maxAmountLabel.text = self.enterAmountVM.formattedMaxHoldAmount
-				self.maxAmountInDollarLabel.text = self.enterAmountVM.formattedMaxAmountInDollar
-			}
-		}.store(in: &cancellable)
+		GlobalVariables.shared.$ethGasFee
+			.compactMap { $0 }
+			.sink { gasInfo in
+				if self.enterAmountVM.selectedToken.isEth {
+					self.enterAmountVM.updateEthMaxAmount(gasInfo: gasInfo)
+					self.enterAmountVM.calculateAmount(self.amountTextfield.text ?? .emptyString)
+					self.updateAmount(enteredAmount: self.amountTextfield.text ?? .emptyString)
+					self.maxAmountLabel.text = self.enterAmountVM.formattedMaxHoldAmount
+					self.maxAmountInDollarLabel.text = self.enterAmountVM.formattedMaxAmountInDollar
+				}
+			}.store(in: &cancellable)
 	}
 
 	private func updateView() {

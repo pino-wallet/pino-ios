@@ -111,11 +111,19 @@ class SendConfirmationViewModel {
 		}
 	}
 
-	public func getFee() -> Promise<String> {
+	public func getFee(completion: ((Error) -> Void)? = nil) {
 		if selectedToken.isEth {
-			return calculateEthGasFee()
+			Web3Core.shared.calculateEthGasFee().done { ethGasInfo in
+				self.setGasInfo(gasInfo: ethGasInfo)
+			}.catch { error in
+				completion?(error)
+			}
 		} else {
-			return calculateTokenGasFee(ethPrice: ethToken.price)
+			calculateTokenGasFee(ethPrice: ethToken.price).done { tokenGasInfo in
+				self.setGasInfo(gasInfo: tokenGasInfo)
+			}.catch { error in
+				completion?(error)
+			}
 		}
 	}
 
@@ -161,41 +169,26 @@ class SendConfirmationViewModel {
 	// MARK: - Private Methods
 
 	private func setupBindings() {
-		GlobalVariables.shared.$ethGasFee.sink { gasInfo in
-			self.getFee()
-		}.store(in: &cancellables)
+		GlobalVariables.shared.$ethGasFee
+			.compactMap { $0 }
+			.sink { gasInfo in
+				self.getFee()
+			}.store(in: &cancellables)
 	}
 
-	private func calculateEthGasFee() -> Promise<String> {
-		Promise<String> { seal in
-			_ = Web3Core.shared.calculateEthGasFee().done { gasInfo in
-				self.setGasInfo(gasInfo: gasInfo)
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
-	}
-
-	private func calculateTokenGasFee(ethPrice: BigNumber) -> Promise<String> {
-		Promise<String> { seal in
-			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))
-			Web3Core.shared.calculateSendERCGasFee(
-				address: recipientAddress,
-				amount: sendAmount!,
-				tokenContractAddress: selectedToken.id
-			).done { [self] gasInfo in
-				setGasInfo(gasInfo: gasInfo)
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
+	private func calculateTokenGasFee(ethPrice: BigNumber) -> Promise<GasInfo> {
+		let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))
+		return Web3Core.shared.calculateSendERCGasFee(
+			address: recipientAddress,
+			amount: sendAmount!,
+			tokenContractAddress: selectedToken.id
+		)
 	}
 
 	private func setGasInfo(gasInfo: GasInfo) {
-		let fee = BigNumber(unSignedNumber: gasInfo.fee, decimal: 18)
-		gasFee = fee
+		gasFee = gasInfo.fee
 		formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
-		formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
+		formattedFeeInETH = gasInfo.fee.sevenDigitFormat.ethFormatting
 		gasPrice = gasInfo.gasPrice.description
 		gasLimit = gasInfo.gasLimit.description
 	}

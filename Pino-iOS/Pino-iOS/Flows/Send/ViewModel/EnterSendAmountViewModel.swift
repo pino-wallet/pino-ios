@@ -93,13 +93,11 @@ class EnterSendAmountViewModel {
 
 	public func updateEthMaxAmount(gasInfo: GasInfo? = nil) {
 		var gasInfo: GasInfo? = gasInfo
-
 		if gasInfo == nil {
 			gasInfo = GlobalVariables.shared.ethGasFee!
 		}
 
-		let fee = BigNumber(unSignedNumber: gasInfo!.fee, decimal: 18)
-		let estimatedAmount = selectedToken.holdAmount - fee
+		let estimatedAmount = selectedToken.holdAmount - gasInfo!.fee
 		if estimatedAmount.number.sign == .minus {
 			maxHoldAmount = 0.bigNumber
 		} else {
