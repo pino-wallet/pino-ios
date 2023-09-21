@@ -37,7 +37,7 @@ class SwapManager {
 	public func swapToken() {
 		swapERCtoERC()
 	}
-    
+
 	// MARK: - Private Methods
 
 	private func swapERCtoERC() {
@@ -59,7 +59,7 @@ class SwapManager {
 			// MultiCall
 			var callDatas = [allowanceData, permitData, providersCallData]
 			if let sweepData { callDatas.append(sweepData) }
-            return self.callProxyMultiCall(data: callDatas, value: nil)
+			return self.callProxyMultiCall(data: callDatas, value: nil)
 		}.done { trxHash in
 			print(trxHash)
 		}.catch { error in
@@ -77,18 +77,18 @@ class SwapManager {
 			self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
 		}.then { [self] permitData, allowanceData in
 			// Fetch Call Data
-            // TODO: Set providers dest token in 0x as WETH since dest is ETH else it is ETH
+			// TODO: Set providers dest token in 0x as WETH since dest is ETH else it is ETH
 			getSwapInfoFrom(provider: selectedProvService).map { ($0, permitData, allowanceData) }
 		}.then { providerSwapData, permitData, allowanceData in
 			self.getProvidersCallData(providerData: providerSwapData).map { ($0, permitData, allowanceData) }
 		}.then { providersCallData, permitData, allowanceData -> Promise<(String?, String, String, String)> in
-            // TODO: Only when provider is 0x
+			// TODO: Only when provider is 0x
 			self.unwrapTokenCallData().map { ($0, providersCallData, permitData, allowanceData) }
 		}.then { unwrapData, providersCallData, permitData, allowanceData in
 			// MultiCall
 			var callDatas = [allowanceData, permitData, providersCallData]
 			if let unwrapData { callDatas.append(unwrapData) }
-            return self.callProxyMultiCall(data: callDatas, value: nil)
+			return self.callProxyMultiCall(data: callDatas, value: nil)
 		}.done { trxHash in
 			print(trxHash)
 		}.catch { error in
@@ -102,7 +102,7 @@ class SwapManager {
 			self.wrapTokenCallData()
 		}.then { wrapTokenData in
 			// Fetch Call Data
-            // TODO: No MATTER the CONTRACt -> SRC is WETH
+			// TODO: No MATTER the CONTRACt -> SRC is WETH
 			self.getSwapInfoFrom(provider: self.selectedProvService).map { ($0, wrapTokenData) }
 		}.then { providerSwapData, wrapTokenData in
 			self.getProvidersCallData(providerData: providerSwapData).map { ($0, wrapTokenData) }
@@ -112,7 +112,7 @@ class SwapManager {
 			// MultiCall
 			var callDatas = [wrapTokenData, providersCallData]
 			if let sweepData { callDatas.append(sweepData) }
-            return self.callProxyMultiCall(data: callDatas, value: self.srcToken.tokenAmountBigNum.bigUInt)
+			return self.callProxyMultiCall(data: callDatas, value: self.srcToken.tokenAmountBigNum.bigUInt)
 		}.done { trxHash in
 			print(trxHash)
 		}.catch { error in
@@ -125,7 +125,7 @@ class SwapManager {
 			self.wrapTokenCallData()
 		}.then { wrapTokenData -> Promise<(String?, String)> in
 			// Fetch Call Data
-            //TODO: EVEN IF ZEROX -> Sweep should happen
+			// TODO: EVEN IF ZEROX -> Sweep should happen
 			self.sweepTokenCallData().map { ($0, wrapTokenData) }
 		}.then { sweepData, wrapTokenData in
 			// MultiCall
@@ -148,7 +148,7 @@ class SwapManager {
 			self.unwrapTokenCallData().map { ($0, permitData) }
 		}.then { unwrapData, permitData in
 			// MultiCall
-            self.callProxyMultiCall(data: [permitData, unwrapData!], value: nil)
+			self.callProxyMultiCall(data: [permitData, unwrapData!], value: nil)
 		}.done { trxHash in
 			print(trxHash)
 		}.catch { error in
@@ -272,25 +272,25 @@ class SwapManager {
 		}
 	}
 
-    private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<String> {
-        web3.callProxyMulticall(data: data, value: value ?? 0.bigNumber.bigUInt)
+	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<String> {
+		web3.callProxyMulticall(data: data, value: value ?? 0.bigNumber.bigUInt)
 	}
 
-    #warning("should check if dest is WETH not ETH")
+	#warning("should check if dest is WETH not ETH")
 	private func sweepTokenCallData() -> Promise<String?> {
 		Promise<String?> { seal in
-            if selectedProvider.provider == .zeroX || destToken.selectedToken.isEth {
-                web3.getSweepTokenCallData(
-                    tokenAdd: destToken.selectedToken.id,
-                    recipientAdd: pinoWalletManager.currentAccount.eip55Address
-                ).done { sweepData in
-                    seal.fulfill(sweepData)
-                }.catch { error in
-                    print(error)
-                }
-            } else {
-                seal.fulfill(nil)
-            }
+			if selectedProvider.provider == .zeroX || destToken.selectedToken.isEth {
+				web3.getSweepTokenCallData(
+					tokenAdd: destToken.selectedToken.id,
+					recipientAdd: pinoWalletManager.currentAccount.eip55Address
+				).done { sweepData in
+					seal.fulfill(sweepData)
+				}.catch { error in
+					print(error)
+				}
+			} else {
+				seal.fulfill(nil)
+			}
 		}
 	}
 
@@ -298,20 +298,20 @@ class SwapManager {
 		web3.getWrapETHCallData(proxyFee: 0)
 	}
 
-    #warning("check should be if src token is weth")
+	#warning("check should be if src token is weth")
 	private func unwrapTokenCallData() -> Promise<String?> {
-        Promise<String?> { seal in
-            if selectedProvider.provider == .zeroX || srcToken.selectedToken.isEth {
-                web3.getUnwrapETHCallData(recipient: pinoWalletManager.currentAccount.eip55Address)
-                .done { wrapData in
-                    seal.fulfill(wrapData)
-                }.catch { error in
-                    print(error)
-                }
-            } else {
-                seal.fulfill(nil)
-            }
-        }
+		Promise<String?> { seal in
+			if selectedProvider.provider == .zeroX || srcToken.selectedToken.isEth {
+				web3.getUnwrapETHCallData(recipient: pinoWalletManager.currentAccount.eip55Address)
+					.done { wrapData in
+						seal.fulfill(wrapData)
+					}.catch { error in
+						print(error)
+					}
+			} else {
+				seal.fulfill(nil)
+			}
+		}
 	}
 
 	private func getProvidersCallData(providerData: String) -> Promise<String> {

@@ -51,11 +51,11 @@ public struct W3SwapManager {
 				recipientAdd.eip55Address!
 			)
 
-            let trx = try trxManager.createTransactionFor(
-                contract: solInvocation!
-            )
-            
-            seal.fulfill(trx.data.hex())
+			let trx = try trxManager.createTransactionFor(
+				contract: solInvocation!
+			)
+
+			seal.fulfill(trx.data.hex())
 		}
 	}
 
@@ -69,11 +69,11 @@ public struct W3SwapManager {
 			)
 			let solInvocation = contract[ABIMethodWrite.wrapETH.rawValue]?(proxyFee)
 
-            let trx = try trxManager.createTransactionFor(
-                contract: solInvocation!
-            )
-            
-            seal.fulfill(trx.data.hex())
+			let trx = try trxManager.createTransactionFor(
+				contract: solInvocation!
+			)
+
+			seal.fulfill(trx.data.hex())
 		}
 	}
 
@@ -87,15 +87,15 @@ public struct W3SwapManager {
 			)
 			let solInvocation = contract[ABIMethodWrite.unwrapWETH9.rawValue]?(recipient.eip55Address!)
 
-            let trx = try trxManager.createTransactionFor(
-                contract: solInvocation!
-            )
-            
-            seal.fulfill(trx.data.hex())
+			let trx = try trxManager.createTransactionFor(
+				contract: solInvocation!
+			)
+
+			seal.fulfill(trx.data.hex())
 		}
 	}
 
-    public func callMultiCall(callData: [String], value: BigUInt) -> Promise<String> {
+	public func callMultiCall(callData: [String], value: BigUInt) -> Promise<String> {
 		Promise<String>() { [self] seal in
 
 			let contract = try Web3Core.getContractOfToken(
@@ -103,12 +103,12 @@ public struct W3SwapManager {
 				abi: .swap,
 				web3: web3
 			)
-            
-            let dataOfCallData = callData.map { callData in
-                return Data(callData.hexToBytes())
-            }
-            
-            let solInvocation = contract[ABIMethodWrite.multicall.rawValue]?(contract.address!)
+
+			let dataOfCallData = callData.map { callData in
+				Data(callData.hexToBytes())
+			}
+
+			let solInvocation = contract[ABIMethodWrite.multicall.rawValue]?(contract.address!)
 
 			gasInfoManager.calculateGasOf(
 				method: .sweepToken,
@@ -126,10 +126,11 @@ public struct W3SwapManager {
 					nonce: nonce,
 					gasPrice: gasInfo.gasPrice.etherumQuantity,
 					gasLimit: gasInfo.gasLimit.etherumQuantity,
-                    value: value.etherumQuantity)
+					value: value.etherumQuantity
+				)
 
 				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-                return "hash".promise
+				return "hash".promise
 //				return web3.eth.sendRawTransaction(transaction: signedTx)
 			}.done { txHash in
 				seal.fulfill(txHash)
@@ -148,28 +149,26 @@ public struct W3SwapManager {
 				web3: web3
 			)
 
-            // Remove the "0x" prefix if present
-            let cleanedHexString = callData.hasPrefix("0x") ? String(callData.dropFirst(2)) : callData
+			// Remove the "0x" prefix if present
+			let cleanedHexString = callData.hasPrefix("0x") ? String(callData.dropFirst(2)) : callData
 
-            // Calculate the length in characters
-            let lengthInCharacters = cleanedHexString.count
+			// Calculate the length in characters
+			let lengthInCharacters = cleanedHexString.count
 
-            // Calculate the length in bytes
-            let lengthInBytes = lengthInCharacters / 2
-            
-            let callD = Data(hexString: callData, length: UInt(lengthInBytes))
-//            let callD2 = Data(callData.hexToBytes())
-//            let str = String.init(data: callD!, encoding: .utf8)!
-            
-            let solInvocation = contract[method.rawValue]?(callD!)
+			// Calculate the length in bytes
+			let lengthInBytes = lengthInCharacters / 2
 
-            let trx = try trxManager.createTransactionFor(
-                contract: solInvocation!
-            )
-            
-            
-            
-            seal.fulfill(trx.data.hex())
+			let callD = Data(hexString: callData, length: UInt(lengthInBytes))
+			//            let callD2 = Data(callData.hexToBytes())
+			//            let str = String.init(data: callD!, encoding: .utf8)!
+
+			let solInvocation = contract[method.rawValue]?(callD!)
+
+			let trx = try trxManager.createTransactionFor(
+				contract: solInvocation!
+			)
+
+			seal.fulfill(trx.data.hex())
 		}
 	}
 }

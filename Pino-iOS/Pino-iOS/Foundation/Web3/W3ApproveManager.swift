@@ -52,15 +52,15 @@ public struct W3ApproveManager {
 
 	public func getApproveCallData(contractAdd: String, amount: BigUInt, spender: String) -> Promise<String> {
 		Promise<String> { seal in
-           
-            let contract = try Web3Core.getContractOfToken(address: contractAdd, abi: .swap, web3: web3)
-            let solInvocation = contract[ABIMethodWrite.approve.rawValue]?(spender, amount)
-            
-            let trx = try trxManager.createTransactionFor(
-                contract: solInvocation!
-            )
-            
-            seal.fulfill(trx.data.hex())
+
+			let contract = try Web3Core.getContractOfToken(address: contractAdd, abi: .swap, web3: web3)
+			let solInvocation = contract[ABIMethodWrite.approve.rawValue]?(spender, amount)
+
+			let trx = try trxManager.createTransactionFor(
+				contract: solInvocation!
+			)
+
+			seal.fulfill(trx.data.hex())
 		}
 	}
 
@@ -75,12 +75,12 @@ public struct W3ApproveManager {
 				tokenAdd.eip55Address!,
 				[spender.eip55Address!]
 			)
-            
-            let trx = try trxManager.createTransactionFor(
-                contract: solInvocation!
-            )
 
-            seal.fulfill(trx.data.hex())
+			let trx = try trxManager.createTransactionFor(
+				contract: solInvocation!
+			)
+
+			seal.fulfill(trx.data.hex())
 		}
 	}
 

@@ -125,7 +125,7 @@ public class Web3Core {
 	}
 
 	public func callProxyMulticall(data: [String], value: BigUInt) -> Promise<String> {
-        swapManager.callMultiCall(callData: data, value: value)
+		swapManager.callMultiCall(callData: data, value: value)
 	}
 
 	public func getCustomAssetInfo(contractAddress: String) -> Promise<CustomAssetInfo> {

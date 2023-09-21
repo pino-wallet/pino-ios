@@ -39,10 +39,9 @@ public struct W3GasInfoManager {
 		solInvoc: SolidityInvocation,
 		contractAddress: EthereumAddress
 	) -> Promise<GasInfo> {
-        
-		return Promise<GasInfo>() { seal in
+		Promise<GasInfo>() { seal in
 			let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
-            
+
 			firstly {
 				web3.eth.gasPrice()
 			}.then { gasPrice in
@@ -55,13 +54,13 @@ public struct W3GasInfoManager {
 					gasLimit: nil
 				).promise.map { ($0, nonce, gasPrice) }
 			}.then { transaction, nonce, gasPrice in
-                
-                web3.eth.estimateGas(call: .init(
-                    from: transaction.from,
-                    to: transaction.to!,
-                    gas: gasPrice, value: nil, data: transaction.data
-                )).map { ($0, nonce, gasPrice) }
-                
+
+				web3.eth.estimateGas(call: .init(
+					from: transaction.from,
+					to: transaction.to!,
+					gas: gasPrice, value: nil, data: transaction.data
+				)).map { ($0, nonce, gasPrice) }
+
 			}.done { gasLimit, nonce, gasPrice in
 				let gasInfo = GasInfo(gasPrice: gasPrice.quantity, gasLimit: gasLimit.quantity)
 				seal.fulfill(gasInfo)

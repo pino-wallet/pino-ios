@@ -46,27 +46,27 @@ public struct W3TransferManager {
 				abi: .swap,
 				web3: web3
 			)
-            let reqNonce = BigNumber.bigRandomeNumber
+			let reqNonce = BigNumber.bigRandomeNumber
 			let deadline = EthereumQuantity(quantity: BigUInt(Date().timeIntervalSince1970) + 1_800_000)
 
 			let permitModel = Permit2Model(
 				permitted: .init(token: tokenAdd.eip55Address!, amount: amount.etherumQuantity),
-                nonce: reqNonce.etherumQuantity,
+				nonce: reqNonce.etherumQuantity,
 				deadline: deadline
 			)
-               
-            let signitureData = Data(signiture.hexToBytes())
+
+			let signitureData = Data(signiture.hexToBytes())
 
 			let solInvocation = contract[ABIMethodWrite.permitTransferFrom.rawValue]?(
-                permitModel,
-                signitureData
+				permitModel,
+				signitureData
 			)
-           
-            let trx = try trxManager.createTransactionFor(
-                contract: solInvocation!
-            )
-                        
-            seal.fulfill(trx.data.hex())
+
+			let trx = try trxManager.createTransactionFor(
+				contract: solInvocation!
+			)
+
+			seal.fulfill(trx.data.hex())
 		}
 	}
 
