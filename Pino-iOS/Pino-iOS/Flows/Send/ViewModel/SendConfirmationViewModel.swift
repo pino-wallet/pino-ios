@@ -161,22 +161,15 @@ class SendConfirmationViewModel {
 	// MARK: - Private Methods
 
 	private func setupBindings() {
-		GlobalVariables.shared.$ethGasFee.sink { fee, feeInDollar in
-			self.gasFee = fee
-			self.formattedFeeInETH = fee.sevenDigitFormat
-			self.formattedFeeInDollar = feeInDollar.priceFormat
+		GlobalVariables.shared.$ethGasFee.sink { gasInfo in
+            self.getFee()
 		}.store(in: &cancellables)
 	}
 
 	private func calculateEthGasFee() -> Promise<String> {
 		Promise<String> { seal in
 			_ = Web3Core.shared.calculateEthGasFee().done { gasInfo in
-				let fee = BigNumber(unSignedNumber: gasInfo.fee, decimal: 18)
-				self.gasFee = fee
-				self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
-				self.formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
-				self.gasPrice = gasInfo.gasPrice.description
-				self.gasLimit = gasInfo.gasLimit.description
+                self.setGasInfo(gasInfo: gasInfo)
 			}.catch { error in
 				seal.reject(error)
 			}
@@ -191,17 +184,21 @@ class SendConfirmationViewModel {
 				amount: sendAmount!,
 				tokenContractAddress: selectedToken.id
 			).done { [self] gasInfo in
-				let fee = BigNumber(unSignedNumber: gasInfo.fee, decimal: 18)
-				gasFee = fee
-				formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
-				formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
-				gasPrice = gasInfo.gasPrice.description
-				gasLimit = gasInfo.gasLimit.description
+				setGasInfo(gasInfo: gasInfo)
 			}.catch { error in
 				seal.reject(error)
 			}
 		}
 	}
+    
+    private func setGasInfo(gasInfo: GasInfo) {
+        let fee = BigNumber(unSignedNumber: gasInfo.fee, decimal: 18)
+        gasFee = fee
+        formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
+        formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
+        gasPrice = gasInfo.gasPrice.description
+        gasLimit = gasInfo.gasLimit.description
+    }
 
 	private func setUserRecipientAccountInfo() {
 		let accountsList = walletManager.accounts

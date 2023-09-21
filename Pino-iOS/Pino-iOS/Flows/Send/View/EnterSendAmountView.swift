@@ -207,9 +207,9 @@ class EnterSendAmountView: UIView {
 	}
 
 	private func setupBindings() {
-		GlobalVariables.shared.$ethGasFee.sink { fee, feeInDollar in
+		GlobalVariables.shared.$ethGasFee.sink { gasInfo in
 			if self.enterAmountVM.selectedToken.isEth {
-				self.enterAmountVM.updateEthMaxAmount(gasFee: fee, gasFeeInDollar: feeInDollar)
+				self.enterAmountVM.updateEthMaxAmount(gasInfo: gasInfo)
 				self.enterAmountVM.calculateAmount(self.amountTextfield.text ?? .emptyString)
 				self.updateAmount(enteredAmount: self.amountTextfield.text ?? .emptyString)
 				self.maxAmountLabel.text = self.enterAmountVM.formattedMaxHoldAmount

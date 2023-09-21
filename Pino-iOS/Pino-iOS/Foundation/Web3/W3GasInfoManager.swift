@@ -77,6 +77,7 @@ public struct W3GasInfoManager {
 			}.done { gasPrice in
 				let gasLimit = try BigUInt(Web3Core.Constants.ethGasLimit)
 				let gasInfo = GasInfo(gasPrice: gasPrice.quantity, gasLimit: gasLimit)
+                print("GPrice:\(gasPrice)")
 				seal.fulfill(gasInfo)
 			}.catch { error in
 				seal.reject(error)
