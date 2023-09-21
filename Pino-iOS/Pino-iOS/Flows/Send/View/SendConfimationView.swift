@@ -292,17 +292,17 @@ class SendConfirmationView: UIView {
 
 	private func setupBindings() {
 		Publishers.Zip(sendConfirmationVM.$formattedFeeInDollar, sendConfirmationVM.$formattedFeeInETH)
-            .compactMap { formattedFeeDollar, formattedFeeETH -> (String, String)? in
-                guard let formattedFeeDollar = formattedFeeDollar, let formattedFeeETH = formattedFeeETH else {
-                    return nil // This will prevent sending nil values downstream
-                }
-                return (formattedFeeDollar, formattedFeeETH)
-            }
-            .sink { [weak self] formattedFeeDollar, formattedFeeETH in
-                self?.hideSkeletonView()
-                self?.updateFeeLabel()
-                self?.checkBalanceEnough()
-            }.store(in: &cancellables)
+			.compactMap { formattedFeeDollar, formattedFeeETH -> (String, String)? in
+				guard let formattedFeeDollar = formattedFeeDollar, let formattedFeeETH = formattedFeeETH else {
+					return nil // This will prevent sending nil values downstream
+				}
+				return (formattedFeeDollar, formattedFeeETH)
+			}
+			.sink { [weak self] formattedFeeDollar, formattedFeeETH in
+				self?.hideSkeletonView()
+				self?.updateFeeLabel()
+				self?.checkBalanceEnough()
+			}.store(in: &cancellables)
 	}
 
 	private func checkBalanceEnough() {

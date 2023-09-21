@@ -98,17 +98,17 @@ class InvestConfirmationViewModel {
 
 	private func setupBindings() {
 		GlobalVariables.shared.$ethGasFee.sink { gasInfo in
-            guard let gasInfo = gasInfo else { return }
-            self.setGasInfo(gasInfo: gasInfo)
+			guard let gasInfo = gasInfo else { return }
+			self.setGasInfo(gasInfo: gasInfo)
 		}.store(in: &cancellables)
 	}
-    
-    private func setGasInfo(gasInfo: GasInfo) {
-        let fee = BigNumber(unSignedNumber: gasInfo.fee, decimal: 18)
-        gasFee = fee
-        formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
-        formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
-    }
+
+	private func setGasInfo(gasInfo: GasInfo) {
+		let fee = BigNumber(unSignedNumber: gasInfo.fee, decimal: 18)
+		gasFee = fee
+		formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
+		formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
+	}
 
 	// MARK: - Public Methods
 

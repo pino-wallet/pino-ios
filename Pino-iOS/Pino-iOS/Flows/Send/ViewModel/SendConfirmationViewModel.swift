@@ -162,14 +162,14 @@ class SendConfirmationViewModel {
 
 	private func setupBindings() {
 		GlobalVariables.shared.$ethGasFee.sink { gasInfo in
-            self.getFee()
+			self.getFee()
 		}.store(in: &cancellables)
 	}
 
 	private func calculateEthGasFee() -> Promise<String> {
 		Promise<String> { seal in
 			_ = Web3Core.shared.calculateEthGasFee().done { gasInfo in
-                self.setGasInfo(gasInfo: gasInfo)
+				self.setGasInfo(gasInfo: gasInfo)
 			}.catch { error in
 				seal.reject(error)
 			}
@@ -190,15 +190,15 @@ class SendConfirmationViewModel {
 			}
 		}
 	}
-    
-    private func setGasInfo(gasInfo: GasInfo) {
-        let fee = BigNumber(unSignedNumber: gasInfo.fee, decimal: 18)
-        gasFee = fee
-        formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
-        formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
-        gasPrice = gasInfo.gasPrice.description
-        gasLimit = gasInfo.gasLimit.description
-    }
+
+	private func setGasInfo(gasInfo: GasInfo) {
+		let fee = BigNumber(unSignedNumber: gasInfo.fee, decimal: 18)
+		gasFee = fee
+		formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
+		formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
+		gasPrice = gasInfo.gasPrice.description
+		gasLimit = gasInfo.gasLimit.description
+	}
 
 	private func setUserRecipientAccountInfo() {
 		let accountsList = walletManager.accounts

@@ -17,7 +17,7 @@ class GlobalVariables {
 	// MARK: - Public Properties
 
 	@Published
-    public var ethGasFee: GasInfo!
+	public var ethGasFee: GasInfo!
 	@Published
 	public var manageAssetsList: [AssetViewModel]?
 	@Published
