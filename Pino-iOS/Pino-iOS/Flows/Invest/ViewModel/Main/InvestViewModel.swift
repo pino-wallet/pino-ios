@@ -5,10 +5,16 @@
 //  Created by Mohi Raoufi on 8/13/23.
 //
 
+import Combine
 import DGCharts
 import Foundation
 
 class InvestViewModel {
+	// MARK: - Private Properties
+
+	private let investmentAPIClient = InvestmentAPIClient()
+	private var cancellables = Set<AnyCancellable>()
+
 	// MARK: Public Properties
 
 	public var assets: [InvestAssetViewModel]!
@@ -32,6 +38,17 @@ class InvestViewModel {
 	// MARK: - Private Methods
 
 	private func getAssets() {
+		investmentAPIClient.investments().sink { completed in
+			switch completed {
+			case .finished:
+				print("investments received successfully")
+			case let .failure(error):
+				print("Error getting investments:\(error)")
+			}
+		} receiveValue: { investments in
+			print("investments: \(investments)")
+		}.store(in: &cancellables)
+
 		let assetsModel = [
 			InvestAssetModel(
 				assetName: "LINK",

@@ -7,33 +7,48 @@
 
 import Foundation
 
-#warning("this values are temporary")
 struct UserBorrowingAssetViewModel: AssetsBoardProtocol {
 	// MARK: - Private Properties
 
-	private var userBorrowingAssetModel: UserBorrowingAssetModel
+	private var userBorrowingTokenModel: UserBorrowingToken
 
 	// MARK: - Public Properties
 
 	public var assetName: String {
-		userBorrowingAssetModel.tokenSymbol
+		foundTokenInManageAssetTokens.symbol
 	}
 
 	public var assetImage: URL {
-		URL(string: userBorrowingAssetModel.tokenImage)!
+		foundTokenInManageAssetTokens.image
 	}
 
 	public var userBorrowingInToken: String {
-		"\(userBorrowingAssetModel.userBorrowingAmountInToken) \(userBorrowingAssetModel.tokenSymbol)"
+		userAmountInToken.sevenDigitFormat
+			.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
 	}
 
 	public var userBorrowingInDollars: String {
-		"$5000"
+		let borrowingAmountinDollars = foundTokenInManageAssetTokens.price * userAmountInToken
+		return borrowingAmountinDollars.priceFormat
+	}
+
+	public var defaultUserBorrowingToken: UserBorrowingToken {
+		userBorrowingTokenModel
+	}
+
+	// MARK: - Private Properties
+
+	private var foundTokenInManageAssetTokens: AssetViewModel {
+		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userBorrowingTokenModel.id }))!
+	}
+
+	private var userAmountInToken: BigNumber {
+		BigNumber(number: userBorrowingTokenModel.amount, decimal: foundTokenInManageAssetTokens.decimal)
 	}
 
 	// MARK: - Initializers
 
-	init(userBorrowingAssetModel: UserBorrowingAssetModel) {
-		self.userBorrowingAssetModel = userBorrowingAssetModel
+	init(userBorrowingTokenModel: UserBorrowingToken) {
+		self.userBorrowingTokenModel = userBorrowingTokenModel
 	}
 }

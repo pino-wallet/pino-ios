@@ -10,7 +10,7 @@ import UIKit
 class RepayAmountViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let repayAmountVM = RepayAmountViewModel()
+	private var repayAmountVM: RepayAmountViewModel
 	private var repayAmountView: RepayAmountView!
 
 	// MARK: - View Overrides
@@ -22,6 +22,18 @@ class RepayAmountViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
+	}
+
+	// MARK: - Initializers
+
+	init(repayAmountVM: RepayAmountViewModel) {
+		self.repayAmountVM = repayAmountVM
+
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 
 	// MARK: - Private Methods

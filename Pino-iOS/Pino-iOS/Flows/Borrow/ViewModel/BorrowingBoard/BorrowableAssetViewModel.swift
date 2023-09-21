@@ -10,20 +10,20 @@ import Foundation
 struct BorrowableAssetViewModel: AssetsBoardProtocol {
 	// MARK: - Private Properties
 
-	private var borrowableAssetModel: BorrowableAssetModel
+	private var borrowableTokenModel: BorrowableTokenModel
 
 	// MARK: - Public Properties
 
 	public var assetName: String {
-		borrowableAssetModel.tokenSymbol
+		foundTokenInManageAssetTokens.symbol
 	}
 
 	public var assetImage: URL {
-		URL(string: borrowableAssetModel.tokenImage)!
+		foundTokenInManageAssetTokens.image
 	}
 
 	public var APYAmount: BigNumber {
-		BigNumber(number: borrowableAssetModel.tokenAPY, decimal: borrowableAssetModel.decimal)
+		borrowableTokenModel.apy.bigNumber
 	}
 
 	public var formattedAPYAmount: String {
@@ -34,9 +34,13 @@ struct BorrowableAssetViewModel: AssetsBoardProtocol {
 		AssetVolatilityType(change24h: APYAmount)
 	}
 
+	public var foundTokenInManageAssetTokens: AssetViewModel {
+		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == borrowableTokenModel.tokenID }))!
+	}
+
 	// MARK: - Initializers
 
-	init(borrowableAssetModel: BorrowableAssetModel) {
-		self.borrowableAssetModel = borrowableAssetModel
+	init(borrowableTokenModel: BorrowableTokenModel) {
+		self.borrowableTokenModel = borrowableTokenModel
 	}
 }

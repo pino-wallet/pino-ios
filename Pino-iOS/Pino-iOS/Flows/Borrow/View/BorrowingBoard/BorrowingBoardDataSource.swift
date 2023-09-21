@@ -14,13 +14,13 @@ class BorrowingBoardDataSource: NSObject, UICollectionViewDataSource {
 	// MARK: - Public Properties
 
 	public var userBorrowingAssets: [UserBorrowingAssetViewModel]
-	public var borrowableAssets: [BorrowableAssetViewModel]
+	public var borrowableAssets: [BorrowableAssetViewModel]?
 
 	// MARK: - Initializers
 
 	init(
 		userBorrowingAssets: [UserBorrowingAssetViewModel],
-		borrowableAssets: [BorrowableAssetViewModel]
+		borrowableAssets: [BorrowableAssetViewModel]?
 	) {
 		self.userBorrowingAssets = userBorrowingAssets
 		self.borrowableAssets = borrowableAssets
@@ -37,7 +37,7 @@ class BorrowingBoardDataSource: NSObject, UICollectionViewDataSource {
 		case 0:
 			return userBorrowingAssets.count
 		case 1:
-			return borrowableAssets.count
+			return borrowableAssets?.count ?? 4
 		default:
 			fatalError("Invalid section index in notificaition collection view")
 		}
@@ -61,8 +61,8 @@ class BorrowingBoardDataSource: NSObject, UICollectionViewDataSource {
 				withReuseIdentifier: BorrowableAssetCell.cellReuseID,
 				for: indexPath
 			) as! BorrowableAssetCell
-			assetCell.borrowableAssetVM = borrowableAssets[indexPath.item]
-			assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: borrowableAssets.count)
+			assetCell.borrowableAssetVM = borrowableAssets?[indexPath.item]
+			assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: borrowableAssets?.count ?? 4)
 			return assetCell
 		default:
 			fatalError("Invalid section index in notificaition collection view")

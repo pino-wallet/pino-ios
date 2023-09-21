@@ -5,7 +5,7 @@
 //  Created by MohammadHossein on 11/29/22.
 //
 
-struct ImportAccountViewModel {
+struct ImportSecretPhraseViewModel {
 	// MARK: - Public Properties
 
 	public var title: String {

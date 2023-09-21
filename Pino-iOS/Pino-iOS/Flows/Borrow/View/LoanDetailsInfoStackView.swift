@@ -12,7 +12,7 @@ class LoanDetailsInfoStackView: UIStackView {
 
 	private let spacerView = UIView()
 	private var titleText: String
-	private var infoText: String
+	private var infoText: String?
 
 	// MARK: - Public PRoperties
 
@@ -21,7 +21,7 @@ class LoanDetailsInfoStackView: UIStackView {
 
 	// MARK: - Initializers
 
-	init(titleText: String, infoText: String) {
+	init(titleText: String, infoText: String?) {
 		self.titleText = titleText
 		self.infoText = infoText
 
@@ -51,6 +51,7 @@ class LoanDetailsInfoStackView: UIStackView {
 		infoLabel.font = .PinoStyle.mediumBody
 		infoLabel.text = infoText
 		infoLabel.numberOfLines = 0
+		infoLabel.textAlignment = .right
 
 		titleLabel.text = titleText
 		titleLabel.textColor = .Pino.secondaryLabel
@@ -60,6 +61,9 @@ class LoanDetailsInfoStackView: UIStackView {
 	private func setupConstraints() {
 		heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 		titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 150).isActive = true
-		infoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 80).isActive = true
+		infoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 130).isActive = true
+		infoLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 40).isActive = true
+
+		infoLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 18).isActive = true
 	}
 }

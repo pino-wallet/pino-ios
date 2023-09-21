@@ -5,6 +5,8 @@
 //  Created by Amir hossein kazemi seresht on 8/26/23.
 //
 
+import Combine
+import Kingfisher
 import UIKit
 
 class BorrowLoanDetailsView: UIView {
@@ -30,6 +32,7 @@ class BorrowLoanDetailsView: UIView {
 	private var borrowedAmountStackView: LoanDetailsInfoStackView!
 	private var accuredFeeStackView: LoanDetailsInfoStackView!
 	private var totalDebtStackView: LoanDetailsInfoStackView!
+	private var cancellables = Set<AnyCancellable>()
 
 	private var borrowLoanDetailsVM: BorrowLoanDetailsViewModel
 
@@ -49,6 +52,8 @@ class BorrowLoanDetailsView: UIView {
 		setupView()
 		setupStyles()
 		setupConstraints()
+		setupBindings()
+		setupSkeletonView()
 	}
 
 	required init?(coder: NSCoder) {
@@ -72,7 +77,7 @@ class BorrowLoanDetailsView: UIView {
 		)
 		accuredFeeStackView = LoanDetailsInfoStackView(
 			titleText: borrowLoanDetailsVM.accuredFeeTitle,
-			infoText: borrowLoanDetailsVM.accruedFee
+			infoText: borrowLoanDetailsVM.accuredFee
 		)
 		totalDebtStackView = LoanDetailsInfoStackView(
 			titleText: borrowLoanDetailsVM.totalDebtTitle,
@@ -105,8 +110,6 @@ class BorrowLoanDetailsView: UIView {
 	private func setupStyles() {
 		backgroundColor = .Pino.background
 
-		apyStackView.infoLabel.textColor = .Pino.green
-
 		totalDebtStackView.titleLabel.textColor = .Pino.label
 
 		totalDebtStackView.infoLabel.font = .PinoStyle.semiboldBody
@@ -118,7 +121,8 @@ class BorrowLoanDetailsView: UIView {
 		headerStackView.spacing = 16
 		headerStackView.alignment = .center
 
-		headerTitleImage.image = UIImage(named: borrowLoanDetailsVM.tokenIcon)
+		headerTitleImage.kf.indicatorType = .activity
+		headerTitleImage.kf.setImage(with: borrowLoanDetailsVM.tokenIcon)
 
 		headerTitleLabel.font = .PinoStyle.semiboldTitle2
 		headerTitleLabel.text = borrowLoanDetailsVM.tokenBorrowAmountAndSymbol
@@ -152,6 +156,32 @@ class BorrowLoanDetailsView: UIView {
 			.horizontalEdges(to: layoutMarginsGuide, padding: 0),
 			.bottom(to: layoutMarginsGuide, padding: 20)
 		)
+	}
+
+	private func setupBindings() {
+		borrowLoanDetailsVM.$apy.compactMap { $0 }.sink { apyAmount in
+			self.updateAPY(apyAmount: apyAmount)
+		}.store(in: &cancellables)
+	}
+
+	private func updateAPY(apyAmount: String) {
+		apyStackView.infoLabel.text = apyAmount
+		apyStackView.infoLabel.textAlignment = .right
+		hideSkeletonView()
+		switch borrowLoanDetailsVM.apyVolatilityType {
+		case .profit:
+			apyStackView.infoLabel.textColor = .Pino.green
+		case .loss:
+			apyStackView.infoLabel.textColor = .Pino.red
+		case nil:
+			return
+		case .some(.none):
+			apyStackView.infoLabel.textColor = .Pino.secondaryLabel
+		}
+	}
+
+	private func setupSkeletonView() {
+		apyStackView.infoLabel.isSkeletonable = true
 	}
 
 	@objc

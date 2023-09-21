@@ -25,6 +25,12 @@ class BorrowingBoardViewController: UIViewController {
 		setupNavigationBar()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		if isBeingPresented || isMovingToParent {
+			borrowingBoardVM.getBorrowableTokens()
+		}
+	}
+
 	// MARK: - Initializers
 
 	init(borrowVM: BorrowViewModel) {
@@ -40,29 +46,15 @@ class BorrowingBoardViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		#warning("this values are temporary")
-		borrowingBoardVM = BorrowingBoardViewModel(
-			userBorrowingTokens: borrowVM.userBorrowingDetails?.borrowTokens.compactMap { _ in
-				UserBorrowingAssetModel(
-					tokenImage: "https://demo-cdn.pino.xyz/tokens/chainlink.png",
-					tokenSymbol: "USDC",
-					userBorrowingAmountInToken: "3000"
-				)
-			} ?? [],
-			borrowableTokens: [
-				BorrowableAssetModel(
-					tokenImage: "https://demo-cdn.pino.xyz/tokens/chainlink.png",
-					tokenSymbol: "ETH",
-					tokenAPY: "30000000000"
-				),
-			]
-		)
+		borrowingBoardVM = BorrowingBoardViewModel(borrowVM: borrowVM)
 
 		borrowingBoardView = BorrowingBoradView(borrowingBoardVM: borrowingBoardVM, assetDidSelect: { selectedAssetVM in
-			if (selectedAssetVM as? UserBorrowingAssetViewModel) != nil {
-				self.presentBorrowLoanDetailsVC()
+			if let selectedAssetVM = selectedAssetVM as? UserBorrowingAssetViewModel {
+				self.presentBorrowLoanDetailsVC(selectedToken: selectedAssetVM.defaultUserBorrowingToken)
+			} else if let selectedAssetVM = selectedAssetVM as? BorrowableAssetViewModel {
+				self.pushToBorrowIncreaseAmountPage(selectedToken: selectedAssetVM.foundTokenInManageAssetTokens)
 			} else {
-				self.pushToBorrowIncreaseAmountPage()
+				print("Unkwon type")
 			}
 		})
 
@@ -80,16 +72,17 @@ class BorrowingBoardViewController: UIViewController {
 		)
 	}
 
-	private func presentBorrowLoanDetailsVC() {
-		let borrowLoanDetailsVC = BorrowLoanDetailsViewController()
+	private func presentBorrowLoanDetailsVC(selectedToken: UserBorrowingToken) {
+		let borrowLoanDetailsVM = BorrowLoanDetailsViewModel(userBorrowedTokenModel: selectedToken, borrowVM: borrowVM)
+		let borrowLoanDetailsVC = BorrowLoanDetailsViewController(borrowLoanDetailsVM: borrowLoanDetailsVM)
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [borrowLoanDetailsVC]
 		present(navigationVC, animated: true)
 	}
 
-	#warning("this is for test")
-	private func pushToBorrowIncreaseAmountPage() {
-		let borrowIncreaseAmountVC = BorrowIncreaseAmountViewController()
+	private func pushToBorrowIncreaseAmountPage(selectedToken: AssetViewModel) {
+		let borrowIncreaseAmountVM = BorrowIncreaseAmountViewModel(selectedToken: selectedToken)
+		let borrowIncreaseAmountVC = BorrowIncreaseAmountViewController(borrowIncreaseAmountVM: borrowIncreaseAmountVM)
 		navigationController?.pushViewController(borrowIncreaseAmountVC, animated: true)
 	}
 
