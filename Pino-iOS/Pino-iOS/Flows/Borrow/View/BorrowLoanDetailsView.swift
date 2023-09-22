@@ -22,6 +22,7 @@ class BorrowLoanDetailsView: UIView {
 	private let headerStackView = UIStackView()
 	private let headerTitleImage = UIImageView()
 	private let headerTitleLabel = PinoLabel(style: .title, text: "")
+    private let headerAmountInDollarsLabel = PinoLabel(style: .description, text: "")
 	private let contentContainerView = PinoContainerCard()
 	private let contentStackView = UIStackView()
 	private let borderView = UIView()
@@ -94,6 +95,7 @@ class BorrowLoanDetailsView: UIView {
 
 		headerStackView.addArrangedSubview(headerTitleImage)
 		headerStackView.addArrangedSubview(headerTitleLabel)
+        headerStackView.addArrangedSubview(headerAmountInDollarsLabel)
 
 		headerContainerView.addSubview(headerStackView)
 
@@ -120,6 +122,7 @@ class BorrowLoanDetailsView: UIView {
 		headerStackView.axis = .vertical
 		headerStackView.spacing = 16
 		headerStackView.alignment = .center
+        headerStackView.setCustomSpacing(4, after: headerTitleLabel)
 
 		headerTitleImage.kf.indicatorType = .activity
 		headerTitleImage.kf.setImage(with: borrowLoanDetailsVM.tokenIcon)
@@ -139,10 +142,15 @@ class BorrowLoanDetailsView: UIView {
 
 		buttonsStackView.axis = .vertical
 		buttonsStackView.spacing = 24
+        
+        
+        headerAmountInDollarsLabel.font = .PinoStyle.mediumBody
+        headerAmountInDollarsLabel.text = borrowLoanDetailsVM.tokenBorrowAmountInDollars
 	}
 
 	private func setupConstraints() {
 		headerTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 28).isActive = true
+        headerAmountInDollarsLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 
 		mainStackView.pin(
 			.top(to: layoutMarginsGuide, padding: 24),
