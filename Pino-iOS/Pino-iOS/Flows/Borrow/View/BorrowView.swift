@@ -107,13 +107,17 @@ class BorrowView: UIView {
 			titleText: borrowVM.borrowTitle,
 			descriptionText: borrowVM.borrowDescription,
 			buttonTitleText: borrowVM.borrowTitle,
-			didTapActionButtonClosure: {}
+			didTapActionButtonClosure: {
+                self.presentBorrowingBoardVC()
+            }
 		)
 		startCollateralView = StartBorrowingView(
 			titleText: borrowVM.collateralTitle,
 			descriptionText: borrowVM.collateralDescription,
 			buttonTitleText: borrowVM.collateralTitle,
-			didTapActionButtonClosure: {}
+			didTapActionButtonClosure: {
+                self.presentCollateralizingBoardVC()
+            }
 		)
 
 		#warning("global assets list in mock")
@@ -209,8 +213,8 @@ class BorrowView: UIView {
 				return
 			}
 			self.hideLoading()
-			self.updateHealthScoreValue(healthScore: newUserBorrowingDetails.healthScore)
-			self.updateHealthScoreColors(healthScore: newUserBorrowingDetails.healthScore)
+            self.updateHealthScoreValue(healthScore: self.borrowVM.calculatedHealthScore)
+            self.updateHealthScoreColors(healthScore: self.borrowVM.calculatedHealthScore)
 			self.updatePageStatus(userBorrowingDetails: newUserBorrowingDetails)
 		}.store(in: &cancellables)
 
@@ -267,10 +271,10 @@ class BorrowView: UIView {
 
 	@objc
 	private func presentBorrowHealthScoreSystem() {
-		guard let currentHealthScore = borrowVM.userBorrowingDetails?.healthScore else {
+		guard borrowVM.userBorrowingDetails != nil else {
 			return
 		}
-		let healthScoreSystemVM = HealthScoreSystemViewModel(healthScoreNumber: currentHealthScore)
+        let healthScoreSystemVM = HealthScoreSystemViewModel(healthScoreNumber: borrowVM.calculatedHealthScore)
 		presentHealthScoreActionsheet(healthScoreSystemVM)
 	}
 }
