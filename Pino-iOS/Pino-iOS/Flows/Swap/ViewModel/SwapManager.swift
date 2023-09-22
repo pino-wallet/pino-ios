@@ -18,6 +18,9 @@ class SwapManager {
 	private var web3 = Web3Core.shared
 	private var srcToken: SwapTokenViewModel
 	private var destToken: SwapTokenViewModel
+    private var wethToken: AssetViewModel {
+        (GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
+    }
 
 	private var pinoWalletManager = PinoWalletManager()
 	private let paraSwapAPIClient = ParaSwapAPIClient()
@@ -78,7 +81,11 @@ class SwapManager {
 		}.then { [self] permitData, allowanceData in
 			// Fetch Call Data
 			// TODO: Set providers dest token in 0x as WETH since dest is ETH else it is ETH
-			getSwapInfoFrom(provider: selectedProvService).map { ($0, permitData, allowanceData) }
+            if selectedProvider.provider == .zeroX {
+                return getSwapInfoFrom(provider: selectedProvService, wethToken: wethToken).map { ($0, permitData, allowanceData) }
+            } else {
+                return getSwapInfoFrom(provider: selectedProvService).map { ($0, permitData, allowanceData) }
+            }
 		}.then { providerSwapData, permitData, allowanceData in
 			self.getProvidersCallData(providerData: providerSwapData).map { ($0, permitData, allowanceData) }
 		}.then { providersCallData, permitData, allowanceData -> Promise<(String?, String, String, String)> in
@@ -96,14 +103,12 @@ class SwapManager {
 		}
 	}
 
-	// TODO: Set providers src token as WETH since src is ETH
 	private func swapETHtoERC() {
 		firstly {
 			self.wrapTokenCallData()
-		}.then { wrapTokenData in
+        }.then { [self] wrapTokenData in
 			// Fetch Call Data
-			// TODO: No MATTER the CONTRACt -> SRC is WETH
-			self.getSwapInfoFrom(provider: self.selectedProvService).map { ($0, wrapTokenData) }
+            getSwapInfoFrom(provider: selectedProvService, wethToken: wethToken).map { ($0, wrapTokenData) }
 		}.then { providerSwapData, wrapTokenData in
 			self.getProvidersCallData(providerData: providerSwapData).map { ($0, wrapTokenData) }
 		}.then { providersCallData, wrapTokenData -> Promise<(String?, String, String)> in
@@ -233,7 +238,7 @@ class SwapManager {
 		)
 	}
 
-	private func getSwapInfoFrom<SwapProvider: SwapProvidersAPIServices>(provider: SwapProvider) -> Promise<String> {
+    private func getSwapInfoFrom<SwapProvider: SwapProvidersAPIServices>(provider: SwapProvider, wethToken: AssetViewModel? = nil) -> Promise<String> {
 		var priceRoute: PriceRouteClass?
 		if selectedProvider.provider == .paraswap {
 			let paraResponse = selectedProvider.providerResponseInfo as! ParaSwapPriceResponseModel
@@ -243,6 +248,9 @@ class SwapManager {
 			let zeroxResponse = selectedProvider.providerResponseInfo as! ZeroXPriceResponseModel
 			return zeroxResponse.data.promise
 		}
+        if let wethToken {
+            self.destToken.selectedToken = wethToken
+        }
 
 		let swapReq =
 			SwapRequestModel(
@@ -276,10 +284,9 @@ class SwapManager {
 		web3.callProxyMulticall(data: data, value: value ?? 0.bigNumber.bigUInt)
 	}
 
-	#warning("should check if dest is WETH not ETH")
 	private func sweepTokenCallData() -> Promise<String?> {
 		Promise<String?> { seal in
-			if selectedProvider.provider == .zeroX || destToken.selectedToken.isEth {
+			if selectedProvider.provider == .zeroX || destToken.selectedToken.isWEth {
 				web3.getSweepTokenCallData(
 					tokenAdd: destToken.selectedToken.id,
 					recipientAdd: pinoWalletManager.currentAccount.eip55Address
@@ -298,10 +305,9 @@ class SwapManager {
 		web3.getWrapETHCallData(proxyFee: 0)
 	}
 
-	#warning("check should be if src token is weth")
 	private func unwrapTokenCallData() -> Promise<String?> {
 		Promise<String?> { seal in
-			if selectedProvider.provider == .zeroX || srcToken.selectedToken.isEth {
+			if selectedProvider.provider == .zeroX || srcToken.selectedToken.isWEth {
 				web3.getUnwrapETHCallData(recipient: pinoWalletManager.currentAccount.eip55Address)
 					.done { wrapData in
 						seal.fulfill(wrapData)
