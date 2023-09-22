@@ -76,7 +76,7 @@ class BorrowingTokenCell: UICollectionViewCell {
 
 		circleLayer.path = circularPath.cgPath
 		circleLayer.fillColor = nil
-        circleLayer.lineCap = .butt
+		circleLayer.lineCap = .butt
 		circleLayer.lineWidth = 2.5
 		circleLayer.strokeColor = UIColor.Pino.gray5.cgColor
 		circleLayer.strokeEnd = 1

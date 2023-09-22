@@ -17,13 +17,12 @@ struct BorrowableTokenModel: Codable {
 		case tokenProtocol = "protocol"
 		case apy
 	}
-    
-    struct ProtocolClass: Codable {
-        let name, logo: String
-    }
+
+	struct ProtocolClass: Codable {
+		let name, logo: String
+	}
 }
 
 // MARK: - ProtocolClass
-
 
 typealias BorrowableTokensModel = [BorrowableTokenModel]

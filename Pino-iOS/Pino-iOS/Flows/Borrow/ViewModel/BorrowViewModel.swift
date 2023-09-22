@@ -13,10 +13,10 @@ class BorrowViewModel {
 	@Published
 	public var selectedDexSystem: DexSystemModel = .aave
 	@Published
-    public var userBorrowingDetails: UserBorrowingModel? = nil
+	public var userBorrowingDetails: UserBorrowingModel? = nil
 
 	public var globalAssetsList: [AssetViewModel]?
-    public var calculatedHealthScore: Double = 0
+	public var calculatedHealthScore: Double = 0
 	public let alertIconName = "alert"
 	public let dismissIconName = "dissmiss"
 	public let pageTitle = "Borrow"
@@ -92,16 +92,16 @@ class BorrowViewModel {
 		GlobalVariables.shared.$manageAssetsList.sink { manageAssetsList in
 			if self.userBorrowingDetailsCache != nil && manageAssetsList != nil {
 				self.globalAssetsList = manageAssetsList
-                self.calculateHealthScore(currentUserBorrowingDetails: self.userBorrowingDetailsCache!)
+				self.calculateHealthScore(currentUserBorrowingDetails: self.userBorrowingDetailsCache!)
 				self.userBorrowingDetails = self.userBorrowingDetailsCache
 			}
 			self.globalAssetsListCancellable.removeAll()
 		}.store(in: &globalAssetsListCancellable)
 	}
-    
-    private func calculateHealthScore(currentUserBorrowingDetails: UserBorrowingModel) {
-        calculatedHealthScore = currentUserBorrowingDetails.healthScore / 100
-    }
+
+	private func calculateHealthScore(currentUserBorrowingDetails: UserBorrowingModel) {
+		calculatedHealthScore = currentUserBorrowingDetails.healthScore / 100
+	}
 
 	@objc
 	private func getUserBorrowingDetails() {
@@ -127,7 +127,7 @@ class BorrowViewModel {
 				self.userBorrowingDetailsCache = userBorrowingDetails
 			} else {
 				self.globalAssetsList = GlobalVariables.shared.manageAssetsList
-                self.calculateHealthScore(currentUserBorrowingDetails: userBorrowingDetails)
+				self.calculateHealthScore(currentUserBorrowingDetails: userBorrowingDetails)
 				self.userBorrowingDetails = userBorrowingDetails
 			}
 		}.store(in: &cancellables)
