@@ -18,9 +18,9 @@ class SwapManager {
 	private var web3 = Web3Core.shared
 	private var srcToken: SwapTokenViewModel
 	private var destToken: SwapTokenViewModel
-    private var wethToken: AssetViewModel {
-        (GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
-    }
+	private var wethToken: AssetViewModel {
+		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
+	}
 
 	private var pinoWalletManager = PinoWalletManager()
 	private let paraSwapAPIClient = ParaSwapAPIClient()
@@ -81,11 +81,12 @@ class SwapManager {
 		}.then { [self] permitData, allowanceData in
 			// Fetch Call Data
 			// TODO: Set providers dest token in 0x as WETH since dest is ETH else it is ETH
-            if selectedProvider.provider == .zeroX {
-                return getSwapInfoFrom(provider: selectedProvService, wethToken: wethToken).map { ($0, permitData, allowanceData) }
-            } else {
-                return getSwapInfoFrom(provider: selectedProvService).map { ($0, permitData, allowanceData) }
-            }
+			if selectedProvider.provider == .zeroX {
+				return getSwapInfoFrom(provider: selectedProvService, wethToken: wethToken)
+					.map { ($0, permitData, allowanceData) }
+			} else {
+				return getSwapInfoFrom(provider: selectedProvService).map { ($0, permitData, allowanceData) }
+			}
 		}.then { providerSwapData, permitData, allowanceData in
 			self.getProvidersCallData(providerData: providerSwapData).map { ($0, permitData, allowanceData) }
 		}.then { providersCallData, permitData, allowanceData -> Promise<(String?, String, String, String)> in
@@ -106,9 +107,9 @@ class SwapManager {
 	private func swapETHtoERC() {
 		firstly {
 			self.wrapTokenCallData()
-        }.then { [self] wrapTokenData in
+		}.then { [self] wrapTokenData in
 			// Fetch Call Data
-            getSwapInfoFrom(provider: selectedProvService, wethToken: wethToken).map { ($0, wrapTokenData) }
+			getSwapInfoFrom(provider: selectedProvService, wethToken: wethToken).map { ($0, wrapTokenData) }
 		}.then { providerSwapData, wrapTokenData in
 			self.getProvidersCallData(providerData: providerSwapData).map { ($0, wrapTokenData) }
 		}.then { providersCallData, wrapTokenData -> Promise<(String?, String, String)> in
@@ -238,7 +239,10 @@ class SwapManager {
 		)
 	}
 
-    private func getSwapInfoFrom<SwapProvider: SwapProvidersAPIServices>(provider: SwapProvider, wethToken: AssetViewModel? = nil) -> Promise<String> {
+	private func getSwapInfoFrom<SwapProvider: SwapProvidersAPIServices>(
+		provider: SwapProvider,
+		wethToken: AssetViewModel? = nil
+	) -> Promise<String> {
 		var priceRoute: PriceRouteClass?
 		if selectedProvider.provider == .paraswap {
 			let paraResponse = selectedProvider.providerResponseInfo as! ParaSwapPriceResponseModel
@@ -248,9 +252,9 @@ class SwapManager {
 			let zeroxResponse = selectedProvider.providerResponseInfo as! ZeroXPriceResponseModel
 			return zeroxResponse.data.promise
 		}
-        if let wethToken {
-            self.destToken.selectedToken = wethToken
-        }
+		if let wethToken {
+			destToken.selectedToken = wethToken
+		}
 
 		let swapReq =
 			SwapRequestModel(
