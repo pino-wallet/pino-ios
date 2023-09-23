@@ -26,6 +26,10 @@ public class AssetViewModel: SecurityModeProtocol {
 		id == "0x0000000000000000000000000000000000000000" && symbol == "ETH"
 	}
 
+	public var isWEth: Bool {
+		id == "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2" && symbol == "WETH"
+	}
+
 	public var image: URL {
 		URL(string: assetModel.detail!.logo)!
 	}
