@@ -25,12 +25,12 @@ class CollateralizingBoardViewController: UIViewController {
 		setupNavigationBar()
 	}
 
-    override func viewWillAppear(_ animated: Bool) {
-        if isBeingPresented || isMovingToParent {
-            collateralizingBoardVM.getCollaterlizableTokens()
-        }
-    }
-    
+	override func viewWillAppear(_ animated: Bool) {
+		if isBeingPresented || isMovingToParent {
+			collateralizingBoardVM.getCollaterlizableTokens()
+		}
+	}
+
 	// MARK: - Initializers
 
 	init(borrowVM: BorrowViewModel) {

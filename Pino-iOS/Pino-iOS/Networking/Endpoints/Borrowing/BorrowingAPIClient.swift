@@ -8,7 +8,6 @@
 import Combine
 
 final class BorrowingAPIClient: BorrowAPIService {
-    
 	// MARK: - Private Properties
 
 	private let networkManager = NetworkManager<BorrowingEndpoint>()
@@ -26,8 +25,8 @@ final class BorrowingAPIClient: BorrowAPIService {
 	func getBorrowableTokenDetails(dex: String, tokenID: String) -> AnyPublisher<BorrowableTokenDetailsModel, APIError> {
 		networkManager.request(.getBorrowableTokenDetails(dex: dex, tokenID: tokenID))
 	}
-    
-    func getCollateralizableTokens(dex: String) -> AnyPublisher<CollateralizableTokensModel, APIError> {
-        networkManager.request(.getCollateralizableTokens(dex: dex))
-    }
+
+	func getCollateralizableTokens(dex: String) -> AnyPublisher<CollateralizableTokensModel, APIError> {
+		networkManager.request(.getCollateralizableTokens(dex: dex))
+	}
 }

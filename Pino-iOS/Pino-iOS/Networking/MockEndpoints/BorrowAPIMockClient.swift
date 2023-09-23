@@ -8,7 +8,6 @@ import Combine
 import Foundation
 
 class BorrowAPIMockClient: BorrowAPIService {
-    
 	func getUserBorrowings(address: String, dex: String) -> AnyPublisher<UserBorrowingModel, APIError> {
 		StubManager.publisher(for: "user-borrowing-stub")
 	}
@@ -20,8 +19,8 @@ class BorrowAPIMockClient: BorrowAPIService {
 	func getBorrowableTokenDetails(dex: String, tokenID: String) -> AnyPublisher<BorrowableTokenDetailsModel, APIError> {
 		StubManager.publisher(for: "borrowable-token-stub")
 	}
-    
-    func getCollateralizableTokens(dex: String) -> AnyPublisher<CollateralizableTokensModel, APIError> {
-        StubManager.publisher(for: "collaterilizable-tokens-stub")
-    }
+
+	func getCollateralizableTokens(dex: String) -> AnyPublisher<CollateralizableTokensModel, APIError> {
+		StubManager.publisher(for: "collaterilizable-tokens-stub")
+	}
 }

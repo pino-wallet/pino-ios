@@ -22,17 +22,17 @@ class CollateralizableAssetCell: AssetsBoardCell {
 	// MARK: - Private Methods
 
 	private func setCellValues() {
-        guard let collateralizableAssetVM else {
-            isLoading = true
-            return
-        }
-        
+		guard let collateralizableAssetVM else {
+			isLoading = true
+			return
+		}
+
 		assetAmountLabel.text = collateralizableAssetVM.usrAmountInToken
 		assetAmountLabel.textColor = .Pino.label
 
 		assetAmountDescriptionLabel.text = "Balance"
 		assetAmountDescriptionLabel.textColor = .Pino.secondaryLabel
-        
-        isLoading = false
+
+		isLoading = false
 	}
 }

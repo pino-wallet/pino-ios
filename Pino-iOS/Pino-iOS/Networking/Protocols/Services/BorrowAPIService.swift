@@ -11,5 +11,5 @@ protocol BorrowAPIService {
 	func getUserBorrowings(address: String, dex: String) -> AnyPublisher<UserBorrowingModel, APIError>
 	func getBorrowableTokens(dex: String) -> AnyPublisher<BorrowableTokensModel, APIError>
 	func getBorrowableTokenDetails(dex: String, tokenID: String) -> AnyPublisher<BorrowableTokenDetailsModel, APIError>
-    func getCollateralizableTokens(dex: String) -> AnyPublisher<CollateralizableTokensModel, APIError>
+	func getCollateralizableTokens(dex: String) -> AnyPublisher<CollateralizableTokensModel, APIError>
 }

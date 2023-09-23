@@ -5,15 +5,15 @@
 //  Created by Amir hossein kazemi seresht on 8/26/23.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 class CollateralizingBoradView: AssetsBoardCollectionView {
 	// MARK: - Private Properties
 
 	private let collateralizingBoardVM: CollateralizingBoardViewModel
-    private var collateralizingBoardDataSource: CollateralizingBoardDataSource!
-    private var cancellables = Set<AnyCancellable>()
+	private var collateralizingBoardDataSource: CollateralizingBoardDataSource!
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -23,12 +23,12 @@ class CollateralizingBoradView: AssetsBoardCollectionView {
 	) {
 		self.collateralizingBoardVM = collateralizingBoardVM
 		super.init(
-            assets: collateralizingBoardVM.collateralizableTokens ?? [],
+			assets: collateralizingBoardVM.collateralizableTokens ?? [],
 			userAssets: collateralizingBoardVM.userCollateralizingTokens,
 			assetDidSelect: assetDidSelect
 		)
 		setupCollectionView()
-        setupBindings()
+		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -38,8 +38,8 @@ class CollateralizingBoradView: AssetsBoardCollectionView {
 	// MARK: - Private Methods
 
 	private func setupCollectionView() {
-        isLoading = true
-        
+		isLoading = true
+
 		register(
 			UserCollateralizingAssetCell.self,
 			forCellWithReuseIdentifier: UserCollateralizingAssetCell.cellReuseID
@@ -48,17 +48,17 @@ class CollateralizingBoradView: AssetsBoardCollectionView {
 
 		collateralizingBoardDataSource = CollateralizingBoardDataSource(
 			userCollateralizingAssets: collateralizingBoardVM.userCollateralizingTokens,
-            collateralizableAssets: collateralizingBoardVM.collateralizableTokens
+			collateralizableAssets: collateralizingBoardVM.collateralizableTokens
 		)
 		dataSource = collateralizingBoardDataSource
 	}
-    
-    private func setupBindings() {
-        collateralizingBoardVM.$collateralizableTokens.compactMap{$0}.sink { collateralizableTokens in
-            self.collateralizingBoardDataSource.collateralizableAssets = collateralizableTokens
-            self.assets = collateralizableTokens
-            self.isLoading = false
-            self.reloadData()
-        }.store(in: &cancellables)
-    }
+
+	private func setupBindings() {
+		collateralizingBoardVM.$collateralizableTokens.compactMap { $0 }.sink { collateralizableTokens in
+			self.collateralizingBoardDataSource.collateralizableAssets = collateralizableTokens
+			self.assets = collateralizableTokens
+			self.isLoading = false
+			self.reloadData()
+		}.store(in: &cancellables)
+	}
 }

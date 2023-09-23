@@ -6,21 +6,19 @@
 import Foundation
 
 // MARK: - WelcomeElement
+
 struct CollateralizableTokenDetailsModel: Codable {
-    let tokenID: String
-    let welcomeProtocol: ProtocolClass
+	let tokenID: String
+	let welcomeProtocol: ProtocolClass
 
-    enum CodingKeys: String, CodingKey {
-        case tokenID = "token_id"
-        case welcomeProtocol = "protocol"
-    }
-    
-    struct ProtocolClass: Codable {
-    let name, logo: String
+	enum CodingKeys: String, CodingKey {
+		case tokenID = "token_id"
+		case welcomeProtocol = "protocol"
+	}
+
+	struct ProtocolClass: Codable {
+		let name, logo: String
+	}
 }
-    
-}
-
-
 
 typealias CollateralizableTokensModel = [CollateralizableTokenDetailsModel]

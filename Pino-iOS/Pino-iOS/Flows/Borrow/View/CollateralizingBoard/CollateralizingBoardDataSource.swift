@@ -41,7 +41,7 @@ class CollateralizingBoardDataSource: NSObject, UICollectionViewDataSource {
 		case 0:
 			return userCollateralizingAssets.count
 		case 1:
-            return collateralizableAssets?.count ?? 4
+			return collateralizableAssets?.count ?? 4
 		default:
 			fatalError("Invalid section index in notificaition collection view")
 		}
@@ -65,8 +65,8 @@ class CollateralizingBoardDataSource: NSObject, UICollectionViewDataSource {
 				withReuseIdentifier: CollateralizableAssetCell.cellReuseID,
 				for: indexPath
 			) as! CollateralizableAssetCell
-            assetCell.collateralizableAssetVM = collateralizableAssets?[indexPath.item]
-            assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: collateralizableAssets?.count ?? 4)
+			assetCell.collateralizableAssetVM = collateralizableAssets?[indexPath.item]
+			assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: collateralizableAssets?.count ?? 4)
 			return assetCell
 		default:
 			fatalError("Invalid section index in notificaition collection view")
