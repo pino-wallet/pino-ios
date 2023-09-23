@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class CollateralDetailsView: UIView {
 	// MARK: - Closures
@@ -113,7 +114,8 @@ class CollateralDetailsView: UIView {
 		headerStackView.alignment = .center
 		headerStackView.setCustomSpacing(4, after: headerTitleLabel)
 
-		headerTitleImage.image = UIImage(named: collateralDetailsVM.tokenIcon)
+        headerTitleImage.kf.indicatorType = .activity
+        headerTitleImage.kf.setImage(with: collateralDetailsVM.tokenIcon)
 
 		headerTitleLabel.font = .PinoStyle.semiboldTitle2
 		headerTitleLabel.text = collateralDetailsVM.tokenCollateralAmountAndSymbol
