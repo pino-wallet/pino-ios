@@ -15,30 +15,31 @@ struct UserCollateralizingAssetViewModel: AssetsBoardProtocol {
 	// MARK: - Public Properties
 
 	public var assetName: String {
-        foundTokenInManageAssetTokens.symbol
+		foundTokenInManageAssetTokens.symbol
 	}
 
 	public var assetImage: URL {
-        foundTokenInManageAssetTokens.image
+		foundTokenInManageAssetTokens.image
 	}
 
 	public var userCollateralizingInToken: String {
-        userAmountInToken.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+		userAmountInToken.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
 	}
 
 	public var userCollateralizingInDollars: String {
-        let userAmountInDollars = userAmountInToken * foundTokenInManageAssetTokens.price
-        return userAmountInDollars.priceFormat
+		let userAmountInDollars = userAmountInToken * foundTokenInManageAssetTokens.price
+		return userAmountInDollars.priceFormat
 	}
-    
-    // MARK: - Private Properties
-    private var foundTokenInManageAssetTokens: AssetViewModel {
-        (GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userCollateralizingAssetModel.id }))!
-    }
-    
-    private var userAmountInToken: BigNumber {
-        BigNumber(number: userCollateralizingAssetModel.amount, decimal: foundTokenInManageAssetTokens.decimal)
-    }
+
+	// MARK: - Private Properties
+
+	private var foundTokenInManageAssetTokens: AssetViewModel {
+		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userCollateralizingAssetModel.id }))!
+	}
+
+	private var userAmountInToken: BigNumber {
+		BigNumber(number: userCollateralizingAssetModel.amount, decimal: foundTokenInManageAssetTokens.decimal)
+	}
 
 	// MARK: - Initializers
 

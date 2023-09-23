@@ -11,25 +11,26 @@ class CollateralizingBoardViewModel {
 	// MARK: - Public Properties
 
 	public let collateralsTitleText = "collaterals"
-    public let borrowVM: BorrowViewModel
+	public let borrowVM: BorrowViewModel
 	public var userCollateralizingTokens: [UserCollateralizingAssetViewModel]!
-    #warning("this is mock")
+	#warning("this is mock")
 	public var collateralizableTokens: [CollateralizableAssetViewModel] = []
 
 	// MARK: - Initializers
 
 	init(
-        borrowVM: BorrowViewModel
+		borrowVM: BorrowViewModel
 	) {
-        self.borrowVM = borrowVM
-        
-        setUserCollateralizingTokens()
+		self.borrowVM = borrowVM
+
+		setUserCollateralizingTokens()
 	}
-    
-    // MARK: - Private Methods
-    private func setUserCollateralizingTokens() {
-        userCollateralizingTokens = borrowVM.userBorrowingDetails?.collateralTokens.compactMap {
-            UserCollateralizingAssetViewModel(userCollateralizingAssetModel: $0)
-        }
-    }
+
+	// MARK: - Private Methods
+
+	private func setUserCollateralizingTokens() {
+		userCollateralizingTokens = borrowVM.userBorrowingDetails?.collateralTokens.compactMap {
+			UserCollateralizingAssetViewModel(userCollateralizingAssetModel: $0)
+		}
+	}
 }
