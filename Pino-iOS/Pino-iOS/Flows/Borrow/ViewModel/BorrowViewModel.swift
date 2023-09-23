@@ -89,8 +89,8 @@ class BorrowViewModel {
 	}
 
 	private func setupBindings() {
-		GlobalVariables.shared.$manageAssetsList.sink { manageAssetsList in
-			if self.userBorrowingDetailsCache != nil && manageAssetsList != nil {
+        GlobalVariables.shared.$manageAssetsList.compactMap{$0}.sink { manageAssetsList in
+			if self.userBorrowingDetailsCache != nil {
 				self.globalAssetsList = manageAssetsList
 				self.calculateHealthScore(currentUserBorrowingDetails: self.userBorrowingDetailsCache!)
 				self.userBorrowingDetails = self.userBorrowingDetailsCache
