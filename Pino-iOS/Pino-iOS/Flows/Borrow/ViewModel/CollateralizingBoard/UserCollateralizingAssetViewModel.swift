@@ -30,10 +30,10 @@ struct UserCollateralizingAssetViewModel: AssetsBoardProtocol {
 		let userAmountInDollars = userAmountInToken * foundTokenInManageAssetTokens.price
 		return userAmountInDollars.priceFormat
 	}
-    
-    public var defaultCollateralizingAssetModel: UserBorrowingToken {
-        userCollateralizingAssetModel
-    }
+
+	public var defaultCollateralizingAssetModel: UserBorrowingToken {
+		userCollateralizingAssetModel
+	}
 
 	// MARK: - Private Properties
 

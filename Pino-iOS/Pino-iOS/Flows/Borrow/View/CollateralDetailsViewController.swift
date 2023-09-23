@@ -10,7 +10,7 @@ import UIKit
 class CollateralDetailsViewController: UIViewController {
 	// MARK: - Private Properties
 
-    private let collateralDetailsVM: CollateralDetailsViewModel
+	private let collateralDetailsVM: CollateralDetailsViewModel
 	private var collateralDetailsView: CollateralDetailsView!
 
 	// MARK: - View Overrides
@@ -23,18 +23,19 @@ class CollateralDetailsViewController: UIViewController {
 		setupNavigationBar()
 		setupView()
 	}
-    
-    // MARK: - Initializers
-    init(collateralDetailsVM: CollateralDetailsViewModel) {
-        self.collateralDetailsVM = collateralDetailsVM
-        
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
+	// MARK: - Initializers
+
+	init(collateralDetailsVM: CollateralDetailsViewModel) {
+		self.collateralDetailsVM = collateralDetailsVM
+
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
 	// MARK: - Private Methods
 
 	private func setupNavigationBar() {

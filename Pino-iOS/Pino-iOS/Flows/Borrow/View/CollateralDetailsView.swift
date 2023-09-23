@@ -5,8 +5,8 @@
 //  Created by Amir hossein kazemi seresht on 8/21/23.
 //
 
-import UIKit
 import Kingfisher
+import UIKit
 
 class CollateralDetailsView: UIView {
 	// MARK: - Closures
@@ -114,8 +114,8 @@ class CollateralDetailsView: UIView {
 		headerStackView.alignment = .center
 		headerStackView.setCustomSpacing(4, after: headerTitleLabel)
 
-        headerTitleImage.kf.indicatorType = .activity
-        headerTitleImage.kf.setImage(with: collateralDetailsVM.tokenIcon)
+		headerTitleImage.kf.indicatorType = .activity
+		headerTitleImage.kf.setImage(with: collateralDetailsVM.tokenIcon)
 
 		headerTitleLabel.font = .PinoStyle.semiboldTitle2
 		headerTitleLabel.text = collateralDetailsVM.tokenCollateralAmountAndSymbol
