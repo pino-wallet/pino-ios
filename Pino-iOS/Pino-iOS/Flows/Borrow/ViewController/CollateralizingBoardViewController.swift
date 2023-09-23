@@ -40,23 +40,7 @@ class CollateralizingBoardViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		#warning("this values are temporary")
-		collateralizingBoardVM = CollateralizingBoardViewModel(
-			userCollateralizingTokens: borrowVM.userBorrowingDetails?.collateralTokens.compactMap { _ in
-				UserCollateralizingAssetModel(
-					tokenImage: "https://demo-cdn.pino.xyz/tokens/chainlink.png",
-					tokenSymbol: "USDC",
-					userCollateralizedAmountInToken: "3000"
-				)
-			} ?? [],
-			collateralizableTokens: [
-				CollateralizableAssetModel(
-					tokenImage: "https://demo-cdn.pino.xyz/tokens/chainlink.png",
-					tokenSymbol: "ETH",
-					userAmountInToken: "87"
-				),
-			]
-		)
+		collateralizingBoardVM = CollateralizingBoardViewModel(borrowVM: borrowVM)
 
 		collateralizingBoardView = CollateralizingBoradView(
 			collateralizingBoardVM: collateralizingBoardVM,

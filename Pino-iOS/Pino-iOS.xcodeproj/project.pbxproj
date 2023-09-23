@@ -315,7 +315,6 @@
 		D924C34B2A949712007299A4 /* user-borrowing-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = D924C3492A9496F6007299A4 /* user-borrowing-stub.json */; };
 		D92B913C2A30756C0055B277 /* PinoContainerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92B913B2A30756C0055B277 /* PinoContainerCard.swift */; };
 		D933C3232A99F07600C2BD5A /* CollateralizingBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C3222A99F07600C2BD5A /* CollateralizingBoardViewController.swift */; };
-		D933C3272A99F15A00C2BD5A /* UserCollateralizingAssetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C3262A99F15A00C2BD5A /* UserCollateralizingAssetModel.swift */; };
 		D933C3292A99F18800C2BD5A /* CollateralizableAssetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C3282A99F18800C2BD5A /* CollateralizableAssetModel.swift */; };
 		D933C32D2A99F53300C2BD5A /* UserCollateralizingAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C32C2A99F53300C2BD5A /* UserCollateralizingAssetViewModel.swift */; };
 		D933C32F2A99F54A00C2BD5A /* CollateralizableAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C32E2A99F54A00C2BD5A /* CollateralizableAssetViewModel.swift */; };
@@ -609,6 +608,11 @@
 		E3ABD1E22AADA0FB00947D37 /* InvestmentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1E12AADA0FB00947D37 /* InvestmentDetailViewController.swift */; };
 		E3ABD1E42AADA3CF00947D37 /* InvestmentDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1E32AADA3CF00947D37 /* InvestmentDetailViewModel.swift */; };
 		E3ABD1E62AADAFE700947D37 /* InvestmentDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1E52AADAFE700947D37 /* InvestmentDetailsView.swift */; };
+		E3ABD1E92AB0B27A00947D37 /* InvestmentEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1E82AB0B27A00947D37 /* InvestmentEndpoint.swift */; };
+		E3ABD1EB2AB0B6FF00947D37 /* InvestmentAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1EA2AB0B6FF00947D37 /* InvestmentAPIClient.swift */; };
+		E3ABD1ED2AB0B74F00947D37 /* InvestmentAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1EC2AB0B74F00947D37 /* InvestmentAPIService.swift */; };
+		E3ABD1F22AB0BAB700947D37 /* InvestmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1F12AB0BAB700947D37 /* InvestmentModel.swift */; };
+		E3ABD1F42AB0BF4800947D37 /* InvestmentDetaiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1F32AB0BF4800947D37 /* InvestmentDetaiModel.swift */; };
 		E3ABD1F62AB191AB00947D37 /* ImportAccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1F52AB191AB00947D37 /* ImportAccountsViewController.swift */; };
 		E3ABD1F82AB1941500947D37 /* ImportAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1F72AB1941500947D37 /* ImportAccountsView.swift */; };
 		E3ABD1FA2AB19A9100947D37 /* importAccountsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1F92AB19A9100947D37 /* importAccountsCollectionView.swift */; };
@@ -618,11 +622,6 @@
 		E3ABD2022AB1BAAB00947D37 /* ImportAccountsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD2012AB1BAAB00947D37 /* ImportAccountsHeaderView.swift */; };
 		E3ABD2042AB1C22200947D37 /* ImportAccountsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD2032AB1C22200947D37 /* ImportAccountsFooterView.swift */; };
 		E3ABD2062AB594B900947D37 /* ImportAccountLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD2052AB594B900947D37 /* ImportAccountLoadingView.swift */; };
-		E3ABD1E92AB0B27A00947D37 /* InvestmentEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1E82AB0B27A00947D37 /* InvestmentEndpoint.swift */; };
-		E3ABD1EB2AB0B6FF00947D37 /* InvestmentAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1EA2AB0B6FF00947D37 /* InvestmentAPIClient.swift */; };
-		E3ABD1ED2AB0B74F00947D37 /* InvestmentAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1EC2AB0B74F00947D37 /* InvestmentAPIService.swift */; };
-		E3ABD1F22AB0BAB700947D37 /* InvestmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1F12AB0BAB700947D37 /* InvestmentModel.swift */; };
-		E3ABD1F42AB0BF4800947D37 /* InvestmentDetaiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1F32AB0BF4800947D37 /* InvestmentDetaiModel.swift */; };
 		E3C802792A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C802782A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift */; };
 		E3C8027B2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C8027A2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift */; };
 		E3C8027D2A95427800A13792 /* InvestmentRiskItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C8027C2A95427800A13792 /* InvestmentRiskItemView.swift */; };
@@ -1038,7 +1037,6 @@
 		D924C3492A9496F6007299A4 /* user-borrowing-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "user-borrowing-stub.json"; sourceTree = "<group>"; };
 		D92B913B2A30756C0055B277 /* PinoContainerCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoContainerCard.swift; sourceTree = "<group>"; };
 		D933C3222A99F07600C2BD5A /* CollateralizingBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralizingBoardViewController.swift; sourceTree = "<group>"; };
-		D933C3262A99F15A00C2BD5A /* UserCollateralizingAssetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollateralizingAssetModel.swift; sourceTree = "<group>"; };
 		D933C3282A99F18800C2BD5A /* CollateralizableAssetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralizableAssetModel.swift; sourceTree = "<group>"; };
 		D933C32C2A99F53300C2BD5A /* UserCollateralizingAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollateralizingAssetViewModel.swift; sourceTree = "<group>"; };
 		D933C32E2A99F54A00C2BD5A /* CollateralizableAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralizableAssetViewModel.swift; sourceTree = "<group>"; };
@@ -1308,6 +1306,11 @@
 		E3ABD1E12AADA0FB00947D37 /* InvestmentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentDetailViewController.swift; sourceTree = "<group>"; };
 		E3ABD1E32AADA3CF00947D37 /* InvestmentDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentDetailViewModel.swift; sourceTree = "<group>"; };
 		E3ABD1E52AADAFE700947D37 /* InvestmentDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentDetailsView.swift; sourceTree = "<group>"; };
+		E3ABD1E82AB0B27A00947D37 /* InvestmentEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentEndpoint.swift; sourceTree = "<group>"; };
+		E3ABD1EA2AB0B6FF00947D37 /* InvestmentAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentAPIClient.swift; sourceTree = "<group>"; };
+		E3ABD1EC2AB0B74F00947D37 /* InvestmentAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentAPIService.swift; sourceTree = "<group>"; };
+		E3ABD1F12AB0BAB700947D37 /* InvestmentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentModel.swift; sourceTree = "<group>"; };
+		E3ABD1F32AB0BF4800947D37 /* InvestmentDetaiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentDetaiModel.swift; sourceTree = "<group>"; };
 		E3ABD1F52AB191AB00947D37 /* ImportAccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountsViewController.swift; sourceTree = "<group>"; };
 		E3ABD1F72AB1941500947D37 /* ImportAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountsView.swift; sourceTree = "<group>"; };
 		E3ABD1F92AB19A9100947D37 /* importAccountsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = importAccountsCollectionView.swift; sourceTree = "<group>"; };
@@ -1317,11 +1320,6 @@
 		E3ABD2012AB1BAAB00947D37 /* ImportAccountsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountsHeaderView.swift; sourceTree = "<group>"; };
 		E3ABD2032AB1C22200947D37 /* ImportAccountsFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountsFooterView.swift; sourceTree = "<group>"; };
 		E3ABD2052AB594B900947D37 /* ImportAccountLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountLoadingView.swift; sourceTree = "<group>"; };
-		E3ABD1E82AB0B27A00947D37 /* InvestmentEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentEndpoint.swift; sourceTree = "<group>"; };
-		E3ABD1EA2AB0B6FF00947D37 /* InvestmentAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentAPIClient.swift; sourceTree = "<group>"; };
-		E3ABD1EC2AB0B74F00947D37 /* InvestmentAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentAPIService.swift; sourceTree = "<group>"; };
-		E3ABD1F12AB0BAB700947D37 /* InvestmentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentModel.swift; sourceTree = "<group>"; };
-		E3ABD1F32AB0BF4800947D37 /* InvestmentDetaiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentDetaiModel.swift; sourceTree = "<group>"; };
 		E3C802782A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskPerformanceViewController.swift; sourceTree = "<group>"; };
 		E3C8027A2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskPerformanceView.swift; sourceTree = "<group>"; };
 		E3C8027C2A95427800A13792 /* InvestmentRiskItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskItemView.swift; sourceTree = "<group>"; };
@@ -2732,7 +2730,6 @@
 		D933C3252A99F0B100C2BD5A /* CollateralizingAssets */ = {
 			isa = PBXGroup;
 			children = (
-				D933C3262A99F15A00C2BD5A /* UserCollateralizingAssetModel.swift */,
 				D933C3282A99F18800C2BD5A /* CollateralizableAssetModel.swift */,
 			);
 			path = CollateralizingAssets;
@@ -4590,7 +4587,6 @@
 				D98207C82A5D5D630066A090 /* ActivityDetailsViewController.swift in Sources */,
 				3836332BCEDEABE67456B3D1 /* StatusCode+Helper.swift in Sources */,
 				F29B5E085D9D0D99354034C9 /* StringProtocol+Extension.swift in Sources */,
-				D933C3272A99F15A00C2BD5A /* UserCollateralizingAssetModel.swift in Sources */,
 				D9CD890D2AA46A4F00D6520B /* WithdrawConfirmViewController.swift in Sources */,
 				E384CB1829FFADA0009C74F5 /* ShareOfAssetProtocol.swift in Sources */,
 				138F82B48C2B07891AF13F38 /* StubManager.swift in Sources */,

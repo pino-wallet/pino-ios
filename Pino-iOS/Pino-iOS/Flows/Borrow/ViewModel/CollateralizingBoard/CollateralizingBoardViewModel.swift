@@ -7,24 +7,29 @@
 
 import Foundation
 
-struct CollateralizingBoardViewModel {
+class CollateralizingBoardViewModel {
 	// MARK: - Public Properties
 
 	public let collateralsTitleText = "collaterals"
-	public var userCollateralizingTokens: [UserCollateralizingAssetViewModel]
-	public var collateralizableTokens: [CollateralizableAssetViewModel]
+    public let borrowVM: BorrowViewModel
+	public var userCollateralizingTokens: [UserCollateralizingAssetViewModel]!
+    #warning("this is mock")
+	public var collateralizableTokens: [CollateralizableAssetViewModel] = []
 
 	// MARK: - Initializers
 
 	init(
-		userCollateralizingTokens: [UserCollateralizingAssetModel],
-		collateralizableTokens: [CollateralizableAssetModel]
+        borrowVM: BorrowViewModel
 	) {
-		self.userCollateralizingTokens = userCollateralizingTokens.compactMap {
-			UserCollateralizingAssetViewModel(userCollateralizingAssetModel: $0)
-		}
-		self.collateralizableTokens = collateralizableTokens.compactMap {
-			CollateralizableAssetViewModel(collateralizableAssetModel: $0)
-		}
+        self.borrowVM = borrowVM
+        
+        setUserCollateralizingTokens()
 	}
+    
+    // MARK: - Private Methods
+    private func setUserCollateralizingTokens() {
+        userCollateralizingTokens = borrowVM.userBorrowingDetails?.collateralTokens.compactMap {
+            UserCollateralizingAssetViewModel(userCollateralizingAssetModel: $0)
+        }
+    }
 }
