@@ -76,7 +76,7 @@ class BorrowingTokenCell: UICollectionViewCell {
 
 		circleLayer.path = circularPath.cgPath
 		circleLayer.fillColor = nil
-		circleLayer.lineCap = .round
+		circleLayer.lineCap = .butt
 		circleLayer.lineWidth = 2.5
 		circleLayer.strokeColor = UIColor.Pino.gray5.cgColor
 		circleLayer.strokeEnd = 1
@@ -85,7 +85,7 @@ class BorrowingTokenCell: UICollectionViewCell {
 
 		progressLayer.path = circularPath.cgPath
 		progressLayer.fillColor = nil
-		progressLayer.lineCap = .round
+		progressLayer.lineCap = .butt
 		progressLayer.lineWidth = 2.5
 		progressLayer.strokeColor = UIColor.Pino.primary.cgColor
 		progressLayer.strokeEnd = 0
