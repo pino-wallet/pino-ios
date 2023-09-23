@@ -12,7 +12,7 @@ class CollateralizableAssetCell: AssetsBoardCell {
 
 	public static let cellReuseID = "collateralizableCellReuseID"
 
-	public var collateralizableAssetVM: CollateralizableAssetViewModel! {
+	public var collateralizableAssetVM: CollateralizableAssetViewModel? {
 		didSet {
 			asset = collateralizableAssetVM
 			setCellValues()
@@ -22,10 +22,17 @@ class CollateralizableAssetCell: AssetsBoardCell {
 	// MARK: - Private Methods
 
 	private func setCellValues() {
+        guard let collateralizableAssetVM else {
+            isLoading = true
+            return
+        }
+        
 		assetAmountLabel.text = collateralizableAssetVM.usrAmountInToken
 		assetAmountLabel.textColor = .Pino.label
 
 		assetAmountDescriptionLabel.text = "Balance"
 		assetAmountDescriptionLabel.textColor = .Pino.secondaryLabel
+        
+        isLoading = false
 	}
 }

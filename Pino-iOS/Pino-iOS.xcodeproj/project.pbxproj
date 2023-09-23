@@ -315,7 +315,6 @@
 		D924C34B2A949712007299A4 /* user-borrowing-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = D924C3492A9496F6007299A4 /* user-borrowing-stub.json */; };
 		D92B913C2A30756C0055B277 /* PinoContainerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92B913B2A30756C0055B277 /* PinoContainerCard.swift */; };
 		D933C3232A99F07600C2BD5A /* CollateralizingBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C3222A99F07600C2BD5A /* CollateralizingBoardViewController.swift */; };
-		D933C3292A99F18800C2BD5A /* CollateralizableAssetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C3282A99F18800C2BD5A /* CollateralizableAssetModel.swift */; };
 		D933C32D2A99F53300C2BD5A /* UserCollateralizingAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C32C2A99F53300C2BD5A /* UserCollateralizingAssetViewModel.swift */; };
 		D933C32F2A99F54A00C2BD5A /* CollateralizableAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C32E2A99F54A00C2BD5A /* CollateralizableAssetViewModel.swift */; };
 		D933C3312A99F57800C2BD5A /* CollateralizingBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C3302A99F57800C2BD5A /* CollateralizingBoardViewModel.swift */; };
@@ -458,6 +457,9 @@
 		D9F1BD042A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F1BD032A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift */; };
 		D9F2508029E576FB00DE0410 /* NotificationSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F2507F29E576FB00DE0410 /* NotificationSettingsCell.swift */; };
 		D9F2508229E5855500DE0410 /* SecurityOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F2508129E5855500DE0410 /* SecurityOptionCell.swift */; };
+		D9F252C82ABEE3DF00ECF293 /* CollateralizableTokensModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F252C72ABEE3DF00ECF293 /* CollateralizableTokensModel.swift */; };
+		D9F252CA2ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = D9F252C92ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json */; };
+		D9F252CB2ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = D9F252C92ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json */; };
 		D9F284762A94B703001204D4 /* BorrowingTokensCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F284752A94B703001204D4 /* BorrowingTokensCollectionView.swift */; };
 		D9F284782A94B727001204D4 /* BorrowingTokenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F284772A94B727001204D4 /* BorrowingTokenCell.swift */; };
 		DAB2FF91D5EAF0795A12201B /* AddNewAccountOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D375B5D2DBB3E66A081076C /* AddNewAccountOptionViewModel.swift */; };
@@ -1037,7 +1039,6 @@
 		D924C3492A9496F6007299A4 /* user-borrowing-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "user-borrowing-stub.json"; sourceTree = "<group>"; };
 		D92B913B2A30756C0055B277 /* PinoContainerCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoContainerCard.swift; sourceTree = "<group>"; };
 		D933C3222A99F07600C2BD5A /* CollateralizingBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralizingBoardViewController.swift; sourceTree = "<group>"; };
-		D933C3282A99F18800C2BD5A /* CollateralizableAssetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralizableAssetModel.swift; sourceTree = "<group>"; };
 		D933C32C2A99F53300C2BD5A /* UserCollateralizingAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollateralizingAssetViewModel.swift; sourceTree = "<group>"; };
 		D933C32E2A99F54A00C2BD5A /* CollateralizableAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralizableAssetViewModel.swift; sourceTree = "<group>"; };
 		D933C3302A99F57800C2BD5A /* CollateralizingBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralizingBoardViewModel.swift; sourceTree = "<group>"; };
@@ -1175,6 +1176,8 @@
 		D9F1BD032A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoEmptyStateFooterViewModel.swift; sourceTree = "<group>"; };
 		D9F2507F29E576FB00DE0410 /* NotificationSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsCell.swift; sourceTree = "<group>"; };
 		D9F2508129E5855500DE0410 /* SecurityOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityOptionCell.swift; sourceTree = "<group>"; };
+		D9F252C72ABEE3DF00ECF293 /* CollateralizableTokensModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralizableTokensModel.swift; sourceTree = "<group>"; };
+		D9F252C92ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "collaterilizable-tokens-stub.json"; sourceTree = "<group>"; };
 		D9F284752A94B703001204D4 /* BorrowingTokensCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingTokensCollectionView.swift; sourceTree = "<group>"; };
 		D9F284772A94B727001204D4 /* BorrowingTokenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingTokenCell.swift; sourceTree = "<group>"; };
 		DA8ADDD22F193963D587AE57 /* ChartInfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartInfoItem.swift; sourceTree = "<group>"; };
@@ -2381,6 +2384,7 @@
 				D924C3492A9496F6007299A4 /* user-borrowing-stub.json */,
 				D9D991AC2AB71CE100E943B0 /* borrowable-tokens-stub.json */,
 				D95D96F72AB87CD80082FCA5 /* borrowable-token-stub.json */,
+				D9F252C92ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json */,
 			);
 			path = Stubs;
 			sourceTree = "<group>";
@@ -2715,6 +2719,7 @@
 			children = (
 				D924C3432A94963B007299A4 /* UserBorrowingModel.swift */,
 				D9D991AA2AB70DA900E943B0 /* BorrowableTokensModel.swift */,
+				D9F252C72ABEE3DF00ECF293 /* CollateralizableTokensModel.swift */,
 			);
 			path = Borrow;
 			sourceTree = "<group>";
@@ -2725,14 +2730,6 @@
 				D92B913B2A30756C0055B277 /* PinoContainerCard.swift */,
 			);
 			path = PinoContainerCard;
-			sourceTree = "<group>";
-		};
-		D933C3252A99F0B100C2BD5A /* CollateralizingAssets */ = {
-			isa = PBXGroup;
-			children = (
-				D933C3282A99F18800C2BD5A /* CollateralizableAssetModel.swift */,
-			);
-			path = CollateralizingAssets;
 			sourceTree = "<group>";
 		};
 		D933C32A2A99F35C00C2BD5A /* CollateralizingBoard */ = {
@@ -2900,7 +2897,6 @@
 		D9A0BDB22A9753CA00AE132F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D933C3252A99F0B100C2BD5A /* CollateralizingAssets */,
 				D93572A72A99E85300A0DE20 /* BorrowingTokenModel.swift */,
 			);
 			path = Model;
@@ -3984,6 +3980,7 @@
 				1F73812756988538BC594057 /* LaunchScreen.storyboard in Resources */,
 				879CCE498D1A04C8EDE64430 /* PPPangramSans-Bold.ttf in Resources */,
 				A895518EB79CEB4B5CD8758A /* PPPangramSans-BoldItalic.ttf in Resources */,
+				D9F252CA2ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json in Resources */,
 				84D88149949C0D8A0E7C2BF5 /* PPPangramSans-BoldReclined.ttf in Resources */,
 				FF58849FC74FCDF3DB174C34 /* PPPangramSans-Extrabold.ttf in Resources */,
 				2191112109FDB1FDFC11BBEF /* PPPangramSans-ExtraboldItalic.ttf in Resources */,
@@ -4038,6 +4035,7 @@
 				D5AF586CED6D64131278865F /* coin-portfolio-stub.json in Resources */,
 				3539B17693A50D61A650070A /* positions-stub.json in Resources */,
 				3D1C4A50429CB1A5CD624E44 /* wallet-balance-stub.json in Resources */,
+				D9F252CB2ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json in Resources */,
 				DD1FECFBF7AD18C1E7832CAF /* wallet-info-stub.json in Resources */,
 				D95D96F92AB87CD80082FCA5 /* borrowable-token-stub.json in Resources */,
 				CBFE7BF98941FDC0A72FFD51 /* wallets-stub.json in Resources */,
@@ -4226,6 +4224,7 @@
 				E343836C2A3D92C20048BDA1 /* SendConfimationView.swift in Sources */,
 				D5E4DDCB2A95FD78000AA235 /* InvestDepositViewController.swift in Sources */,
 				D93C41FB29F7CC67003F2297 /* EditAccountCell.swift in Sources */,
+				D9F252C82ABEE3DF00ECF293 /* CollateralizableTokensModel.swift in Sources */,
 				130F1B30243DA82379EB2BD4 /* CoinInfoChartViewModel.swift in Sources */,
 				D933C3372A99F66100C2BD5A /* UserCollateralizingAssetCell.swift in Sources */,
 				D9D462D72AA466A40010ED76 /* RepayConfirmView.swift in Sources */,
@@ -4624,7 +4623,6 @@
 				F8BA0B9925700FFF405AB76D /* VerifyPassViewModel.swift in Sources */,
 				1171EA77FBBB99743B192CFF /* VerifyPasscodeViewController.swift in Sources */,
 				40F704572A03AFFF004D74FE /* AccountActivationModel.swift in Sources */,
-				D933C3292A99F18800C2BD5A /* CollateralizableAssetModel.swift in Sources */,
 				E34728F129EEA81000AB8265 /* AssetChartDataViewModel.swift in Sources */,
 				E3FC69D02A90B052009B3341 /* InvestableAssetViewModel.swift in Sources */,
 				7568B477DFF82F1069E4F911 /* VerifySecretPhraseView.swift in Sources */,

@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - WelcomeElement
 
-struct BorrowableTokenModel: Codable {
+struct BorrowableTokenDetailsModel: Codable {
 	let tokenID: String
 	let tokenProtocol: ProtocolClass
 	let apy: Int
@@ -23,6 +23,4 @@ struct BorrowableTokenModel: Codable {
 	}
 }
 
-// MARK: - ProtocolClass
-
-typealias BorrowableTokensModel = [BorrowableTokenModel]
+typealias BorrowableTokensModel = [BorrowableTokenDetailsModel]

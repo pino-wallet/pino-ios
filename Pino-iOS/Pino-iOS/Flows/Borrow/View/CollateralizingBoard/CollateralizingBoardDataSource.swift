@@ -14,13 +14,13 @@ class CollateralizingBoardDataSource: NSObject, UICollectionViewDataSource {
 	// MARK: - Public Properties
 
 	public var userCollateralizingAssets: [UserCollateralizingAssetViewModel]
-	public var collateralizableAssets: [CollateralizableAssetViewModel]
+	public var collateralizableAssets: [CollateralizableAssetViewModel]?
 
 	// MARK: - Initializers
 
 	init(
 		userCollateralizingAssets: [UserCollateralizingAssetViewModel],
-		collateralizableAssets: [CollateralizableAssetViewModel]
+		collateralizableAssets: [CollateralizableAssetViewModel]?
 	) {
 		self.userCollateralizingAssets = userCollateralizingAssets
 		self.collateralizableAssets = collateralizableAssets
@@ -41,7 +41,7 @@ class CollateralizingBoardDataSource: NSObject, UICollectionViewDataSource {
 		case 0:
 			return userCollateralizingAssets.count
 		case 1:
-			return collateralizableAssets.count
+            return collateralizableAssets?.count ?? 4
 		default:
 			fatalError("Invalid section index in notificaition collection view")
 		}
@@ -65,8 +65,8 @@ class CollateralizingBoardDataSource: NSObject, UICollectionViewDataSource {
 				withReuseIdentifier: CollateralizableAssetCell.cellReuseID,
 				for: indexPath
 			) as! CollateralizableAssetCell
-			assetCell.collateralizableAssetVM = collateralizableAssets[indexPath.item]
-			assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: collateralizableAssets.count)
+            assetCell.collateralizableAssetVM = collateralizableAssets?[indexPath.item]
+            assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: collateralizableAssets?.count ?? 4)
 			return assetCell
 		default:
 			fatalError("Invalid section index in notificaition collection view")

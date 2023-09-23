@@ -51,10 +51,7 @@ class BorrowingBoradView: AssetsBoardCollectionView {
 	}
 
 	private func setupBindings() {
-		borrowingBoardVM.$borrowableTokens.sink { borrowableTokens in
-			guard let borrowableTokens else {
-				return
-			}
+        borrowingBoardVM.$borrowableTokens.compactMap{$0}.sink { borrowableTokens in
 			self.borrowingBoardDataSource.borrowableAssets = borrowableTokens
 			self.assets = borrowableTokens
 			self.isLoading = false
