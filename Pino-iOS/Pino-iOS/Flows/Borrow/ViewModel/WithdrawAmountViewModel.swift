@@ -15,43 +15,45 @@ class WithdrawAmountViewModel {
 	public let continueButtonTitle = "Withdraw"
 	public let maxTitle = "Max: "
 	public var textFieldPlaceHolder = "0"
-    
-    public let userCollateralledTokenModel: UserBorrowingToken
-    
-    public var selectedToken: AssetViewModel {
-        (GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userCollateralledTokenModel.id }))!
-    }
+
+	public let userCollateralledTokenModel: UserBorrowingToken
+
+	public var selectedToken: AssetViewModel {
+		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userCollateralledTokenModel.id }))!
+	}
+
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
-    // This is max of user collateralled amount 
-    public var maxWithdrawAmount: BigNumber {
-        BigNumber(number: userCollateralledTokenModel.amount, decimal: selectedToken.decimal)
-    }
-	
-    public var tokenSymbol: String {
-        selectedToken.symbol
-    }
+	// This is max of user collateralled amount
+	public var maxWithdrawAmount: BigNumber {
+		BigNumber(number: userCollateralledTokenModel.amount, decimal: selectedToken.decimal)
+	}
+
+	public var tokenSymbol: String {
+		selectedToken.symbol
+	}
 
 	public var formattedMaxWithdrawAmount: String {
 		maxWithdrawAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
-    
-    public var tokenImage: URL {
-        selectedToken.image
-    }
-    
-    public var maxWithdrawAmountInDollars: String {
-        maxWithdrawAmount.priceFormat
-    }
-    
-    #warning("this is mock")
-    public var prevHealthScore: Double = 0
-    public var newHealthScore: Double = 24
-    
-    // MARK: - Initializers
-    init(userCollateralledTokenModel: UserBorrowingToken) {
-        self.userCollateralledTokenModel = userCollateralledTokenModel
-    }
+
+	public var tokenImage: URL {
+		selectedToken.image
+	}
+
+	public var maxWithdrawAmountInDollars: String {
+		maxWithdrawAmount.priceFormat
+	}
+
+	#warning("this is mock")
+	public var prevHealthScore: Double = 0
+	public var newHealthScore: Double = 24
+
+	// MARK: - Initializers
+
+	init(userCollateralledTokenModel: UserBorrowingToken) {
+		self.userCollateralledTokenModel = userCollateralledTokenModel
+	}
 
 	// MARK: - Public Methods
 
