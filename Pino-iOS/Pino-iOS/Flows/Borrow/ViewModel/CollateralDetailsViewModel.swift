@@ -38,10 +38,10 @@ struct CollateralDetailsViewModel {
 	public var totalCollateral: String {
 		userAmountInToken.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
 	}
-    
-    public var foundTokenInManageAssetTokens: AssetViewModel {
-        (GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == collateralledTokenModel.id }))!
-    }
+
+	public var foundTokenInManageAssetTokens: AssetViewModel {
+		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == collateralledTokenModel.id }))!
+	}
 
 	#warning("this is mock")
 	public let involvedAmountInToken = "15 LINK"

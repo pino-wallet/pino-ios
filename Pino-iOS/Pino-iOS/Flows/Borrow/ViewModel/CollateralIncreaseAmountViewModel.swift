@@ -15,40 +15,40 @@ class CollateralIncreaseAmountViewModel {
 	public let continueButtonTitle = "Deposit"
 	public let maxTitle = "Max: "
 	public var textFieldPlaceHolder = "0"
-    
-    public let selectedToken: AssetViewModel
 
-	
+	public let selectedToken: AssetViewModel
+
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
-    public var maxHoldAmount: BigNumber {
-        selectedToken.holdAmount
-    }
-	
-    public var tokenSymbol: String {
-        selectedToken.symbol
-    }
+	public var maxHoldAmount: BigNumber {
+		selectedToken.holdAmount
+	}
+
+	public var tokenSymbol: String {
+		selectedToken.symbol
+	}
 
 	public var formattedMaxHoldAmount: String {
 		maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
-    
-    public var maxAmountInDollars: String {
-        selectedToken.holdAmountInDollor.priceFormat
-    }
-    
-    public var tokenImage: URL {
-        selectedToken.image
-    }
-    
-    #warning("this is mock")
-    public var prevHealthScore: Double = 0
-    public var newHealthScore: Double = 24
-    
-    // MARK: - Initializers
-    init(selectedToken: AssetViewModel) {
-        self.selectedToken = selectedToken
-    }
+
+	public var maxAmountInDollars: String {
+		selectedToken.holdAmountInDollor.priceFormat
+	}
+
+	public var tokenImage: URL {
+		selectedToken.image
+	}
+
+	#warning("this is mock")
+	public var prevHealthScore: Double = 0
+	public var newHealthScore: Double = 24
+
+	// MARK: - Initializers
+
+	init(selectedToken: AssetViewModel) {
+		self.selectedToken = selectedToken
+	}
 
 	// MARK: - Public Methods
 

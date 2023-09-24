@@ -118,7 +118,7 @@ class CollateralIncreaseAmountView: UIView {
 			tokenView.customTokenImage = collateralIncreaseAmountVM.selectedToken.customAssetImage
 			amountLabel.isHidden = true
 		}
-        
+
 		amountTextfield.attributedPlaceholder = NSAttributedString(
 			string: collateralIncreaseAmountVM.textFieldPlaceHolder,
 			attributes: [.font: UIFont.PinoStyle.semiboldTitle1!, .foregroundColor: UIColor.Pino.gray2]
@@ -276,7 +276,7 @@ class CollateralIncreaseAmountView: UIView {
 	private func putMaxAmountInTextField() {
 		amountTextfield.text = collateralIncreaseAmountVM.maxHoldAmount.sevenDigitFormat
 		amountLabel.text = collateralIncreaseAmountVM.dollarAmount
-        animateAmountHealthScoreView(isHidden: false)
+		animateAmountHealthScoreView(isHidden: false)
 
 		if collateralIncreaseAmountVM.selectedToken.isEth {
 			collateralIncreaseAmountVM.calculateDollarAmount(amountTextfield.text ?? .emptyString)
