@@ -12,7 +12,7 @@ import Web3
 public struct GasInfo {
 	// MARK: - Public Properties
 
-	public let gasPrice: BigUInt
+	public let gasPrice: BigNumber
 	public let gasLimit: BigNumber
 
 	public var increasedGasLimit: BigNumber {
@@ -21,8 +21,7 @@ public struct GasInfo {
 	}
 
 	public var fee: BigNumber {
-		let gasPrice = BigNumber(unSignedNumber: gasPrice, decimal: 0)
-		return BigNumber(number: increasedGasLimit * gasPrice, decimal: 18)
+		BigNumber(number: increasedGasLimit * gasPrice, decimal: 18)
 	}
 
 	public var feeInDollar: BigNumber {
