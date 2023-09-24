@@ -7,33 +7,43 @@
 
 import Foundation
 
-#warning("this values are temporary")
 struct UserCollateralizingAssetViewModel: AssetsBoardProtocol {
 	// MARK: - Private Properties
 
-	private var userCollateralizingAssetModel: UserCollateralizingAssetModel
+	private var userCollateralizingAssetModel: UserBorrowingToken
 
 	// MARK: - Public Properties
 
 	public var assetName: String {
-		userCollateralizingAssetModel.tokenSymbol
+		foundTokenInManageAssetTokens.symbol
 	}
 
 	public var assetImage: URL {
-		URL(string: userCollateralizingAssetModel.tokenImage)!
+		foundTokenInManageAssetTokens.image
 	}
 
 	public var userCollateralizingInToken: String {
-		"\(userCollateralizingAssetModel.userCollateralizedAmountInToken) \(userCollateralizingAssetModel.tokenSymbol)"
+		userAmountInToken.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
 	}
 
 	public var userCollateralizingInDollars: String {
-		"$5000"
+		let userAmountInDollars = userAmountInToken * foundTokenInManageAssetTokens.price
+		return userAmountInDollars.priceFormat
+	}
+
+	// MARK: - Private Properties
+
+	private var foundTokenInManageAssetTokens: AssetViewModel {
+		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userCollateralizingAssetModel.id }))!
+	}
+
+	private var userAmountInToken: BigNumber {
+		BigNumber(number: userCollateralizingAssetModel.amount, decimal: foundTokenInManageAssetTokens.decimal)
 	}
 
 	// MARK: - Initializers
 
-	init(userCollateralizingAssetModel: UserCollateralizingAssetModel) {
+	init(userCollateralizingAssetModel: UserBorrowingToken) {
 		self.userCollateralizingAssetModel = userCollateralizingAssetModel
 	}
 }

@@ -33,6 +33,11 @@ class BorrowLoanDetailsViewModel {
 		borrowedAmountBigNumber.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
 	}
 
+	public var tokenBorrowAmountInDollars: String {
+		let totalAmountIndollars = borrowedAmountBigNumber * foundTokenInManageAssetTokens.price
+		return totalAmountIndollars.priceFormat
+	}
+
 	@Published
 	public var apy: String?
 	public var apyVolatilityType: AssetVolatilityType?
