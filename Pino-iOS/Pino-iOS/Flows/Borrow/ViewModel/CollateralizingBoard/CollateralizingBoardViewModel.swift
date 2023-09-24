@@ -49,10 +49,10 @@ class CollateralizingBoardViewModel {
 				).show(haptic: .warning)
 			}
 		} receiveValue: { newCollateralizableTokens in
-            let colateralTokensId = self.borrowVM.userBorrowingDetails?.collateralTokens.map{ $0.id } ?? []
-            let filteredCollateralizableTokens = newCollateralizableTokens.filter { newCollateralizableToken in
-                colateralTokensId.contains(newCollateralizableToken.tokenID) == false
-            }
+			let colateralTokensId = self.borrowVM.userBorrowingDetails?.collateralTokens.map { $0.id } ?? []
+			let filteredCollateralizableTokens = newCollateralizableTokens.filter { newCollateralizableToken in
+				colateralTokensId.contains(newCollateralizableToken.tokenID) == false
+			}
 			self.collateralizableTokens = filteredCollateralizableTokens.compactMap {
 				CollateralizableAssetViewModel(collateralizableAssetModel: $0)
 			}
