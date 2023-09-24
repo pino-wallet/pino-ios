@@ -7,63 +7,48 @@
 
 import Foundation
 
-#warning("this values are static and mock")
 class CollateralIncreaseAmountViewModel {
-	// MARK: - TypeAliases
-
-	typealias didValidateCollateralClosureType = (_ error: collateralError?) -> Void
-
-	// MARK: - Closures
-
-	public var didValidateCollateralClosure: didValidateCollateralClosureType = { _ in }
-
 	// MARK: - Public Properties
-
-	public enum collateralError: Error {
-		case investError
-
-		public var errorDescribtion: String {
-			switch self {
-			case .investError:
-				return "You have an open USDT investment position in Compound, which you need to close before depositing USDT as collateral."
-			}
-		}
-	}
 
 	public let pageTitleCollateralText = "Collateral"
 	public let insufficientAmountButtonTitle = "Insufficient amount"
 	public let continueButtonTitle = "Deposit"
 	public let maxTitle = "Max: "
 	public var textFieldPlaceHolder = "0"
+    
+    public let selectedToken: AssetViewModel
 
-	public var prevHealthScore: Double = 0
-	public var newHealthScore: Double = 24
+	
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
-	public var maxHoldAmount: BigNumber = 100.bigNumber
-	public var selectedToken = AssetViewModel(
-		assetModel: BalanceAssetModel(
-			id: "1",
-			amount: "100000000000000000000",
-			detail: Detail(
-				id: "1",
-				symbol: "LINK",
-				name: "LINK",
-				logo: "https://demo-cdn.pino.xyz/tokens/chainlink.png",
-				decimals: 18,
-				change24H: "230",
-				changePercentage: "23",
-				price: "6089213"
-			),
-			previousDayNetworth: "100"
-		),
-		isSelected: true
-	)
-	public let tokenSymbol = "LINK"
+    public var maxHoldAmount: BigNumber {
+        selectedToken.holdAmount
+    }
+	
+    public var tokenSymbol: String {
+        selectedToken.symbol
+    }
 
 	public var formattedMaxHoldAmount: String {
 		maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
+    
+    public var maxAmountInDollars: String {
+        selectedToken.holdAmountInDollor.priceFormat
+    }
+    
+    public var tokenImage: URL {
+        selectedToken.image
+    }
+    
+    #warning("this is mock")
+    public var prevHealthScore: Double = 0
+    public var newHealthScore: Double = 24
+    
+    // MARK: - Initializers
+    init(selectedToken: AssetViewModel) {
+        self.selectedToken = selectedToken
+    }
 
 	// MARK: - Public Methods
 

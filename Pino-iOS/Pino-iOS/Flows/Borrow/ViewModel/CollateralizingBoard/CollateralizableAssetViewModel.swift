@@ -27,9 +27,7 @@ struct CollateralizableAssetViewModel: AssetsBoardProtocol {
 			.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
 	}
 
-	// MARK: - Private Properties
-
-	private var foundTokenInManageAssetTokens: AssetViewModel {
+	public var foundTokenInManageAssetTokens: AssetViewModel {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == collateralizableAssetModel.tokenID }))!
 	}
 

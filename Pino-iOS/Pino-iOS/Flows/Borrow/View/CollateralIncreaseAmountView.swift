@@ -102,37 +102,23 @@ class CollateralIncreaseAmountView: UIView {
 		let putMAxAmountTapgesture = UITapGestureRecognizer(target: self, action: #selector(putMaxAmountInTextField))
 		maxAmountStackView.addGestureRecognizer(putMAxAmountTapgesture)
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
-
-		collateralIncreaseAmountVM.didValidateCollateralClosure = { error in
-			if error != nil {
-				self.pageStatus = .collateralError(error?.errorDescribtion ?? "")
-			} else {
-				self.pageStatus = .normal
-			}
-		}
 	}
 
 	private func setupStyles() {
 		maxAmountTitle.text = collateralIncreaseAmountVM.maxTitle
 		maxAmountLabel.text = collateralIncreaseAmountVM.formattedMaxHoldAmount
 		continueButton.title = collateralIncreaseAmountVM.continueButtonTitle
-		tokenView.tokenName = collateralIncreaseAmountVM.selectedToken.symbol
+		tokenView.tokenName = collateralIncreaseAmountVM.tokenSymbol
 
 		if collateralIncreaseAmountVM.selectedToken.isVerified {
-			tokenView.tokenImageURL = collateralIncreaseAmountVM.selectedToken.image
+			tokenView.tokenImageURL = collateralIncreaseAmountVM.tokenImage
 			amountLabel.text = collateralIncreaseAmountVM.dollarAmount
 			amountLabel.isHidden = false
 		} else {
 			tokenView.customTokenImage = collateralIncreaseAmountVM.selectedToken.customAssetImage
 			amountLabel.isHidden = true
 		}
-
-		if collateralIncreaseAmountVM.selectedToken.isVerified {
-			tokenView.tokenImageURL = collateralIncreaseAmountVM.selectedToken.image
-		} else {
-			tokenView.customTokenImage = collateralIncreaseAmountVM.selectedToken.customAssetImage
-		}
-
+        
 		amountTextfield.attributedPlaceholder = NSAttributedString(
 			string: collateralIncreaseAmountVM.textFieldPlaceHolder,
 			attributes: [.font: UIFont.PinoStyle.semiboldTitle1!, .foregroundColor: UIColor.Pino.gray2]
@@ -223,7 +209,7 @@ class CollateralIncreaseAmountView: UIView {
 
 	private func updateView() {
 		if collateralIncreaseAmountVM.selectedToken.isVerified {
-			tokenView.tokenImageURL = collateralIncreaseAmountVM.selectedToken.image
+			tokenView.tokenImageURL = collateralIncreaseAmountVM.tokenImage
 			updateAmount(enteredAmount: amountTextfield.text ?? .emptyString)
 			amountLabel.isHidden = false
 		} else {
@@ -231,7 +217,7 @@ class CollateralIncreaseAmountView: UIView {
 			amountLabel.isHidden = true
 		}
 		maxAmountLabel.text = collateralIncreaseAmountVM.formattedMaxHoldAmount
-		tokenView.tokenName = collateralIncreaseAmountVM.selectedToken.symbol
+		tokenView.tokenName = collateralIncreaseAmountVM.tokenSymbol
 	}
 
 	@objc
@@ -290,16 +276,15 @@ class CollateralIncreaseAmountView: UIView {
 	private func putMaxAmountInTextField() {
 		amountTextfield.text = collateralIncreaseAmountVM.maxHoldAmount.sevenDigitFormat
 		amountLabel.text = collateralIncreaseAmountVM.dollarAmount
+        animateAmountHealthScoreView(isHidden: false)
 
 		if collateralIncreaseAmountVM.selectedToken.isEth {
 			collateralIncreaseAmountVM.calculateDollarAmount(amountTextfield.text ?? .emptyString)
 			maxAmountLabel.text = collateralIncreaseAmountVM.formattedMaxHoldAmount
 		} else {
-			collateralIncreaseAmountVM.maxHoldAmount = collateralIncreaseAmountVM.selectedToken.holdAmount
-			collateralIncreaseAmountVM.tokenAmount = collateralIncreaseAmountVM.selectedToken.holdAmount
+			collateralIncreaseAmountVM.tokenAmount = collateralIncreaseAmountVM.maxHoldAmount
 				.sevenDigitFormat
-			collateralIncreaseAmountVM.dollarAmount = collateralIncreaseAmountVM.selectedToken.holdAmountInDollor
-				.priceFormat
+			collateralIncreaseAmountVM.dollarAmount = collateralIncreaseAmountVM.maxAmountInDollars
 		}
 
 		maxAmountLabel.text = collateralIncreaseAmountVM.formattedMaxHoldAmount
