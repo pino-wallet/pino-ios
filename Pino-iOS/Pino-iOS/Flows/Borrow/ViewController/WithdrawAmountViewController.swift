@@ -10,7 +10,7 @@ import UIKit
 class WithdrawAmountViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let withdrawAmountVM = WithdrawAmountViewModel()
+    private let withdrawAmountVM: WithdrawAmountViewModel
 	private var withdrawAmountView: WithdrawAmountView!
 
 	// MARK: - View Overrides
@@ -23,7 +23,18 @@ class WithdrawAmountViewController: UIViewController {
 		setupView()
 		setupNavigationBar()
 	}
-
+    
+    // MARK: - Initializers
+    init(withdrawAmountVM: WithdrawAmountViewModel) {
+        self.withdrawAmountVM = withdrawAmountVM
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 	// MARK: - Private Methods
 
 	private func setupView() {

@@ -42,6 +42,10 @@ struct CollateralDetailsViewModel {
 	public var foundTokenInManageAssetTokens: AssetViewModel {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == collateralledTokenModel.id }))!
 	}
+    
+    public var defaultCollateralledTokenModel: UserBorrowingToken {
+        collateralledTokenModel
+    }
 
 	#warning("this is mock")
 	public let involvedAmountInToken = "15 LINK"
