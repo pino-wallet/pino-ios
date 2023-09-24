@@ -57,7 +57,7 @@ class SwapManager {
 			self.sweepTokenCallData().map { ($0, providersCallData, permitData, allowanceData) }
 		}.then { sweepData, providersCallData, permitData, allowanceData in
 			// MultiCall
-			var callDatas = [allowanceData, permitData, providersCallData]
+			var callDatas = [allowanceData, permitData]
 			if let sweepData { callDatas.append(sweepData) }
 			return self.callProxyMultiCall(data: callDatas, value: nil)
 		}.done { trxHash in

@@ -55,17 +55,18 @@ public struct W3TransferManager {
 				deadline: deadline
 			)
 
-			let signitureData = Data(signiture.hexToBytes())
-
+            let permitTransffrom = PermitTransferFrom(permitted: permitModel, signature: signiture.hexToBytes())
+            
 			let solInvocation = contract[ABIMethodWrite.permitTransferFrom.rawValue]?(
-				permitModel,
-				signitureData
+				permitTransffrom
 			)
 
 			let trx = try trxManager.createTransactionFor(
 				contract: solInvocation!
 			)
 
+            print(trx.data.hex())
+            
 			seal.fulfill(trx.data.hex())
 		}
 	}
