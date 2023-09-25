@@ -7,7 +7,6 @@
 
 import Foundation
 
-#warning("this values are static and mock")
 class WithdrawAmountViewModel {
 	// MARK: - Public Properties
 
@@ -17,33 +16,43 @@ class WithdrawAmountViewModel {
 	public let maxTitle = "Max: "
 	public var textFieldPlaceHolder = "0"
 
-	public var prevHealthScore: Double = 0
-	public var newHealthScore: Double = 24
+	public let userCollateralledTokenModel: UserBorrowingToken
+
+	public var selectedToken: AssetViewModel {
+		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userCollateralledTokenModel.id }))!
+	}
+
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
-	public var maxHoldAmount: BigNumber = 100.bigNumber
-	public var selectedToken = AssetViewModel(
-		assetModel: BalanceAssetModel(
-			id: "1",
-			amount: "100000000000000000000",
-			detail: Detail(
-				id: "1",
-				symbol: "LINK",
-				name: "LINK",
-				logo: "https://demo-cdn.pino.xyz/tokens/chainlink.png",
-				decimals: 18,
-				change24H: "230",
-				changePercentage: "23",
-				price: "6089213"
-			),
-			previousDayNetworth: "100"
-		),
-		isSelected: true
-	)
-	public let tokenSymbol = "LINK"
+	// This is max of user collateralled amount
+	public var maxWithdrawAmount: BigNumber {
+		BigNumber(number: userCollateralledTokenModel.amount, decimal: selectedToken.decimal)
+	}
 
-	public var formattedMaxHoldAmount: String {
-		maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
+	public var tokenSymbol: String {
+		selectedToken.symbol
+	}
+
+	public var formattedMaxWithdrawAmount: String {
+		maxWithdrawAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
+	}
+
+	public var tokenImage: URL {
+		selectedToken.image
+	}
+
+	public var maxWithdrawAmountInDollars: String {
+		maxWithdrawAmount.priceFormat
+	}
+
+	#warning("this is mock")
+	public var prevHealthScore: Double = 0
+	public var newHealthScore: Double = 24
+
+	// MARK: - Initializers
+
+	init(userCollateralledTokenModel: UserBorrowingToken) {
+		self.userCollateralledTokenModel = userCollateralledTokenModel
 	}
 
 	// MARK: - Public Methods
@@ -70,7 +79,7 @@ class WithdrawAmountViewModel {
 		} else if BigNumber(numberWithDecimal: amount).isZero {
 			return .isZero
 		} else {
-			if BigNumber(numberWithDecimal: tokenAmount) > maxHoldAmount {
+			if BigNumber(numberWithDecimal: tokenAmount) > maxWithdrawAmount {
 				return .isNotEnough
 			} else {
 				return .isEnough

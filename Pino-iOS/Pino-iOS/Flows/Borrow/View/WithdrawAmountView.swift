@@ -91,23 +91,17 @@ class WithdrawAmountView: UIView {
 
 	private func setupStyles() {
 		maxAmountTitle.text = withdrawAmountVM.maxTitle
-		maxAmountLabel.text = withdrawAmountVM.formattedMaxHoldAmount
+		maxAmountLabel.text = withdrawAmountVM.formattedMaxWithdrawAmount
 		continueButton.title = withdrawAmountVM.continueButtonTitle
-		tokenView.tokenName = withdrawAmountVM.selectedToken.symbol
+		tokenView.tokenName = withdrawAmountVM.tokenSymbol
 
 		if withdrawAmountVM.selectedToken.isVerified {
-			tokenView.tokenImageURL = withdrawAmountVM.selectedToken.image
+			tokenView.tokenImageURL = withdrawAmountVM.tokenImage
 			amountLabel.text = withdrawAmountVM.dollarAmount
 			amountLabel.isHidden = false
 		} else {
 			tokenView.customTokenImage = withdrawAmountVM.selectedToken.customAssetImage
 			amountLabel.isHidden = true
-		}
-
-		if withdrawAmountVM.selectedToken.isVerified {
-			tokenView.tokenImageURL = withdrawAmountVM.selectedToken.image
-		} else {
-			tokenView.customTokenImage = withdrawAmountVM.selectedToken.customAssetImage
 		}
 
 		amountTextfield.attributedPlaceholder = NSAttributedString(
@@ -192,15 +186,15 @@ class WithdrawAmountView: UIView {
 
 	private func updateView() {
 		if withdrawAmountVM.selectedToken.isVerified {
-			tokenView.tokenImageURL = withdrawAmountVM.selectedToken.image
+			tokenView.tokenImageURL = withdrawAmountVM.tokenImage
 			updateAmount(enteredAmount: amountTextfield.text ?? .emptyString)
 			amountLabel.isHidden = false
 		} else {
 			tokenView.customTokenImage = withdrawAmountVM.selectedToken.customAssetImage
 			amountLabel.isHidden = true
 		}
-		maxAmountLabel.text = withdrawAmountVM.formattedMaxHoldAmount
-		tokenView.tokenName = withdrawAmountVM.selectedToken.symbol
+		maxAmountLabel.text = withdrawAmountVM.formattedMaxWithdrawAmount
+		tokenView.tokenName = withdrawAmountVM.tokenSymbol
 	}
 
 	@objc
@@ -244,21 +238,21 @@ class WithdrawAmountView: UIView {
 
 	@objc
 	private func putMaxAmountInTextField() {
-		amountTextfield.text = withdrawAmountVM.maxHoldAmount.sevenDigitFormat
+		amountTextfield.text = withdrawAmountVM.maxWithdrawAmount.sevenDigitFormat
 		amountLabel.text = withdrawAmountVM.dollarAmount
+
+		animateAmountHealthScoreView(isHidden: false)
 
 		if withdrawAmountVM.selectedToken.isEth {
 			withdrawAmountVM.calculateDollarAmount(amountTextfield.text ?? .emptyString)
-			maxAmountLabel.text = withdrawAmountVM.formattedMaxHoldAmount
+			maxAmountLabel.text = withdrawAmountVM.formattedMaxWithdrawAmount
 		} else {
-			withdrawAmountVM.maxHoldAmount = withdrawAmountVM.selectedToken.holdAmount
-			withdrawAmountVM.tokenAmount = withdrawAmountVM.selectedToken.holdAmount
+			withdrawAmountVM.tokenAmount = withdrawAmountVM.maxWithdrawAmount
 				.sevenDigitFormat
-			withdrawAmountVM.dollarAmount = withdrawAmountVM.selectedToken.holdAmountInDollor
-				.priceFormat
+			withdrawAmountVM.dollarAmount = withdrawAmountVM.maxWithdrawAmountInDollars
 		}
 
-		maxAmountLabel.text = withdrawAmountVM.formattedMaxHoldAmount
+		maxAmountLabel.text = withdrawAmountVM.formattedMaxWithdrawAmount
 		updateAmount(enteredAmount: amountTextfield.text!.trimmCurrency)
 	}
 
