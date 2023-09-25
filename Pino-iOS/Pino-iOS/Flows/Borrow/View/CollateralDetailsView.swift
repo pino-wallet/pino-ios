@@ -5,6 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 8/21/23.
 //
 
+import Kingfisher
 import UIKit
 
 class CollateralDetailsView: UIView {
@@ -113,7 +114,8 @@ class CollateralDetailsView: UIView {
 		headerStackView.alignment = .center
 		headerStackView.setCustomSpacing(4, after: headerTitleLabel)
 
-		headerTitleImage.image = UIImage(named: collateralDetailsVM.tokenIcon)
+		headerTitleImage.kf.indicatorType = .activity
+		headerTitleImage.kf.setImage(with: collateralDetailsVM.tokenIcon)
 
 		headerTitleLabel.font = .PinoStyle.semiboldTitle2
 		headerTitleLabel.text = collateralDetailsVM.tokenCollateralAmountAndSymbol
