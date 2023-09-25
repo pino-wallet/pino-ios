@@ -57,7 +57,7 @@ public class InvestmentAssetCell: UICollectionViewCell {
 			assetVolatilityIcon.tintColor = .Pino.red
 			assetVolatilityIcon.image = UIImage(named: "arrow_down")
 		case .none:
-			assetVolatilityLabel.textColor = .Pino.secondaryLabel
+			assetVolatilityLabel.isHidden = true
 			assetVolatilityIcon.isHidden = true
 		}
 

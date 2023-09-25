@@ -30,6 +30,7 @@ struct InvestableAssetsModel: Codable {
 		enum CodingKeys: String, CodingKey {
 			case investmentId = "investment_id"
 			case tokenId = "token_id"
+			case idx
 		}
 	}
 }

@@ -51,7 +51,7 @@ class InvestCoinPerformanceViewModel {
 				print(error)
 			}
 		} receiveValue: { portfolio in
-			let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0, networthDecimal: 4) }
+			let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0, networthDecimal: 2) }
 			self.chartVM = AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: dateFilter)
 		}.store(in: &cancellables)
 	}

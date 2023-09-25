@@ -50,6 +50,7 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 		assetAmount.sevenDigitFormat.tokenFormatting(token: assetName)
 	}
 
+	#warning("We don't have this data yet")
 	public var assetVolatility: BigNumber {
 		BigNumber(number: "0", decimal: 2)
 	}
@@ -63,12 +64,12 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 	}
 
 	public var apyAmount: String {
-		assetModel.apyAmount
+		""
 	}
 
 	// MARK: - Initializers
 
-	init(assetModel: InvestAssetModel) {
+	init(assetModel: InvestmentModel) {
 		self.assetModel = assetModel
 	}
 }
