@@ -15,6 +15,10 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 
 	// MARK: - Public Properties
 
+	public var investmentId: String {
+		assetModel.id
+	}
+
 	public var listId: String {
 		assetModel.listingID
 	}

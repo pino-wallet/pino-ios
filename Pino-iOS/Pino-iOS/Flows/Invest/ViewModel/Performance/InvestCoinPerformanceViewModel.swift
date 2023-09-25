@@ -41,7 +41,7 @@ class InvestCoinPerformanceViewModel {
 	public func getChartData(dateFilter: ChartDateFilter = .day) {
 		investmentAPIClient.investmentPerformance(
 			timeFrame: dateFilter.timeFrame,
-			investmentID: "0x0659860901f0ae79fcdbf5d032f7cb62bb7ac18788570d5887fb5db863279a30"
+			investmentID: selectedAsset.investmentId
 		)
 		.sink { completed in
 			switch completed {
