@@ -66,7 +66,7 @@ enum InvestmentEndpoint: EndpointType {
 		case let .investPortfolio(_, accountAddress):
 			return "user/\(accountAddress)/investment/portfolio"
 		case let .investmentPerformance(_, investmentID, accountAddress):
-			return "user/\(accountAddress)/investment//portfolio/\(investmentID)"
+			return "user/\(accountAddress)/investment/portfolio/\(investmentID)"
 		case let .investmentDetail(accountAddress, investmentID):
 			return "user/\(accountAddress)/investment/\(investmentID)"
 		}

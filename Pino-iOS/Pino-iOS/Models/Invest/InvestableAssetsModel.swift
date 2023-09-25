@@ -25,6 +25,7 @@ struct InvestableAssetsModel: Codable {
 	struct InvestableToken: Codable {
 		public let investmentId: String
 		public let tokenId: String
+		public let idx: Int?
 
 		enum CodingKeys: String, CodingKey {
 			case investmentId = "investment_id"

@@ -10,16 +10,20 @@ import Foundation
 public struct InvestAssetViewModel: AssetsBoardProtocol {
 	// MARK: - Private Properties
 
-	private let assetModel: InvestAssetModel
+	private let assetModel: InvestmentModel
 
 	// MARK: - Public Properties
 
+	public var investToken: AssetViewModel {
+		GlobalVariables.shared.manageAssetsList!.first(where: { $0.id == assetModel.tokens.first!.tokenID })!
+	}
+
 	public var assetName: String {
-		assetModel.assetName
+		investToken.symbol
 	}
 
 	public var assetImage: URL {
-		URL(string: assetModel.assetImage)!
+		investToken.image
 	}
 
 	public var assetProtocol: InvestProtocolViewModel {
@@ -31,8 +35,7 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 	}
 
 	public var assetAmount: BigNumber {
-		BigNumber(number: assetModel.assetAmount, decimal: assetModel.decimal)
-			* BigNumber(number: assetModel.assetPrice, decimal: assetModel.decimal)
+		BigNumber(number: assetModel.currentWorth, decimal: 2)
 	}
 
 	public var formattedAssetAmount: String {
@@ -40,7 +43,7 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 	}
 
 	public var tokenAmount: BigNumber {
-		BigNumber(number: assetModel.assetAmount, decimal: assetModel.decimal)
+		BigNumber(number: assetModel.tokens.first!.amount, decimal: 2)
 	}
 
 	public var formattedTokenAmount: String {
@@ -48,7 +51,7 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 	}
 
 	public var assetVolatility: BigNumber {
-		BigNumber(number: assetModel.assetVolatility, decimal: assetModel.decimal)
+		BigNumber(number: "0", decimal: 2)
 	}
 
 	public var formattedAssetVolatility: String {

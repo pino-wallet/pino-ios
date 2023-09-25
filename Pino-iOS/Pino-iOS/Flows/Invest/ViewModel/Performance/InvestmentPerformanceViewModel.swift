@@ -10,7 +10,7 @@ import Combine
 class InvestmentPerformanceViewModel {
 	// MARK: - Private Properties
 
-	private var accountingAPIClient = AccountingAPIClient()
+	private var investmentAPIClient = InvestmentAPIClient()
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
@@ -29,8 +29,7 @@ class InvestmentPerformanceViewModel {
 	// MARK: - Public Methods
 
 	public func getChartData(dateFilter: ChartDateFilter = .day) {
-		#warning("The investmnet data is currently empty, portfolio data is used temporarily for test")
-		accountingAPIClient.userPortfolio(timeFrame: dateFilter.timeFrame)
+		investmentAPIClient.investPortfolio(timeFrame: dateFilter.timeFrame)
 			.sink { completed in
 				switch completed {
 				case .finished:
@@ -39,7 +38,7 @@ class InvestmentPerformanceViewModel {
 					print(error)
 				}
 			} receiveValue: { portfolio in
-				let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0) }
+				let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0, networthDecimal: 4) }
 				self.chartVM = AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: dateFilter)
 			}.store(in: &cancellables)
 	}
