@@ -108,9 +108,12 @@ public struct W3SwapManager {
                 Data(hexString: callData, length: UInt(callData.count))!
 			}
             
+            let calls = "0x35471101000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb4800000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000001000000000000000000000000216b4b4ba9f3e719726886d34a177484278bfcae"
+            let multiArray: Array<Data> = Array(hexString: calls, length: 1)!
+            
             let multicall = Multicall(callData: callData)
             
-            let solInvocation = contract[ABIMethodWrite.multicall.rawValue]?(multicall)
+            let solInvocation = contract[ABIMethodWrite.multicall.rawValue]?(multiArray)
 
             let trx = try trxManager.createTransactionFor(
                 contract: solInvocation!,
@@ -235,22 +238,35 @@ struct Multicall: ABIEncodable {
     }
 }
 
-extension Data {
-    // Initializing Data object from a hex string
-    init?(hexString: String) {
-        let len = hexString.count / 2
-        var data = Data(capacity: len)
-        for i in 0..<len {
-            let j = hexString.index(hexString.startIndex, offsetBy: i*2)
-            let k = hexString.index(j, offsetBy: 2)
-            let bytes = hexString[j..<k]
-            if var num = UInt8(bytes, radix: 16) {
-                data.append(&num, count: 1)
-            } else {
-                return nil
-            }
-        }
-        self = data
+extension ABIDecodable {
+    init?(hexString: String, length: Int) {
+        
     }
 }
 
+
+extension Array: ABIDecodable where Element: ABIDecodable {
+    
+    public init?(hexString: String) {
+        let lengthString = hexString.substr(0, 64)
+        let valueString = String(hexString.dropFirst(64))
+        guard let string = lengthString, let length = Int(string, radix: 16), length > 0 else { return nil }
+        self.init(hexString: valueString, length: length)
+    }
+    
+    public init?(hexString: String, length: Int) {
+        let itemLength = hexString.count / length
+        let values = (0..<length).compactMap { i -> Element? in
+            if let elementString = hexString.substr(i * itemLength, itemLength) {
+                return Element.init(hexString: elementString, length: itemLength)
+            }
+            return nil
+        }
+        if values.count == length {
+            self = values
+        } else {
+            return nil
+        }
+    }
+    
+}

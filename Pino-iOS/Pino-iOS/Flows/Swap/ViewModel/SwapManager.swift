@@ -161,11 +161,14 @@ class SwapManager {
 			firstly {
 				fetchHash()
 			}.done { [self] hash in
-				let signiture = try Sec256k1Encryptor.sign(
-					msg: hash.hexToBytes(),
+				var signiture = try Sec256k1Encryptor.sign(
+                    msg: hash.hexToBytes(),
 					seckey: pinoWalletManager.currentAccountPrivateKey.string.hexToBytes()
 				)
-				seal.fulfill(signiture.toHexString())
+                signiture[signiture.count-1] += 27
+
+				seal.fulfill("0x\(signiture.toHexString())")
+                
 			}.catch { error in
 				fatalError(error.localizedDescription)
 			}
@@ -181,7 +184,7 @@ class SwapManager {
 				srcToken.tokenAmountBigNum.description,
 				spender: Web3Core.Constants.pinoProxyAddress
 			)
-
+            
 			web3Client.getHashTypedData(eip712HashReqInfo: hashREq).sink { completed in
 				switch completed {
 				case .finished:

@@ -42,19 +42,23 @@ struct Permit2Model: ABIEncodable {
 
 struct PermitTransferFrom: ABIEncodable {
     let permitted: Permit2Model
-    let signature: [UInt8]
+    let signature: Data
     
     func abiEncode(dynamic: Bool) -> String? {
-        guard let permittedEncoded = permitted.abiEncode(dynamic: false) else {
+        guard var permittedEncoded = permitted.abiEncode(dynamic: false), let sigEncoded = signature.abiEncode(dynamic: false) else {
             return nil
         }
         
-        // Convert signature bytes to hexadecimal string.
-        let signatureEncoded = signature.reduce("") { $0 + String(format: "%02x", $1) }
+        let sigLenght = signature.count
+        let sigOffset = 5*64/2
+
+        permittedEncoded += UInt64(sigOffset).abiEncode(dynamic: false) ?? ""
+        permittedEncoded += UInt64(sigLenght).abiEncode(dynamic: false) ?? ""
         
+
         // Assuming that both the permitted and the signature need to be concatenated.
         // Adjust this if your contract expects a different format.
-        return permittedEncoded + signatureEncoded
+        return permittedEncoded + sigEncoded
     }
 }
 
