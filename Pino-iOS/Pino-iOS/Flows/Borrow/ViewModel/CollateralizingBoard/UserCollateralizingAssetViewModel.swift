@@ -32,7 +32,7 @@ struct UserCollateralizingAssetViewModel: AssetsBoardProtocol {
 	}
 
 	public var userCollaterlizingID: String {
-        userCollateralizingAssetModel.id
+		userCollateralizingAssetModel.id
 	}
 
 	// MARK: - Private Properties

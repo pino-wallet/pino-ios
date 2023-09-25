@@ -50,7 +50,7 @@ class BorrowingBoardViewController: UIViewController {
 
 		borrowingBoardView = BorrowingBoradView(borrowingBoardVM: borrowingBoardVM, assetDidSelect: { selectedAssetVM in
 			if let selectedAssetVM = selectedAssetVM as? UserBorrowingAssetViewModel {
-                self.presentBorrowLoanDetailsVC(selectedTokenID: selectedAssetVM.userBorrowingTokenID)
+				self.presentBorrowLoanDetailsVC(selectedTokenID: selectedAssetVM.userBorrowingTokenID)
 			} else if let selectedAssetVM = selectedAssetVM as? BorrowableAssetViewModel {
 				self.pushToBorrowIncreaseAmountPage(selectedToken: selectedAssetVM.foundTokenInManageAssetTokens)
 			} else {
@@ -73,7 +73,7 @@ class BorrowingBoardViewController: UIViewController {
 	}
 
 	private func presentBorrowLoanDetailsVC(selectedTokenID: String) {
-        let borrowLoanDetailsVM = BorrowLoanDetailsViewModel(borrowVM: borrowVM, userBorrowedTokenID: selectedTokenID)
+		let borrowLoanDetailsVM = BorrowLoanDetailsViewModel(borrowVM: borrowVM, userBorrowedTokenID: selectedTokenID)
 		let borrowLoanDetailsVC = BorrowLoanDetailsViewController(borrowLoanDetailsVM: borrowLoanDetailsVM)
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [borrowLoanDetailsVC]

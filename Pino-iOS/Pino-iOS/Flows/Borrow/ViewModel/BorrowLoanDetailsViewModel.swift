@@ -18,9 +18,9 @@ class BorrowLoanDetailsViewModel {
 	public let totalDebtTitle = "Total debt"
 	public let increaseLoanTitle = "Increase loan"
 	public let repayTitle = "Repay"
-    public let userBorrowedTokenID: String
+	public let userBorrowedTokenID: String
 	public let borrowVM: BorrowViewModel
-    public var userBorrowedTokenModel: UserBorrowingToken!
+	public var userBorrowedTokenModel: UserBorrowingToken!
 
 	public var pageTitle: String {
 		"\(foundTokenInManageAssetTokens.symbol) loan details"
@@ -76,16 +76,18 @@ class BorrowLoanDetailsViewModel {
 	// MARK: - Initializers
 
 	init(borrowVM: BorrowViewModel, userBorrowedTokenID: String) {
-        self.borrowVM = borrowVM
+		self.borrowVM = borrowVM
 		self.userBorrowedTokenID = userBorrowedTokenID
-        
-        setUserBorrowedToken()
+
+		setUserBorrowedToken()
 	}
-    
-    // MARK: - Private Methods
-    private func setUserBorrowedToken() {
-        userBorrowedTokenModel = borrowVM.userBorrowingDetails?.borrowTokens.first(where: { $0.id == userBorrowedTokenID })
-    }
+
+	// MARK: - Private Methods
+
+	private func setUserBorrowedToken() {
+		userBorrowedTokenModel = borrowVM.userBorrowingDetails?.borrowTokens
+			.first(where: { $0.id == userBorrowedTokenID })
+	}
 
 	// MARK: - Public Methods
 

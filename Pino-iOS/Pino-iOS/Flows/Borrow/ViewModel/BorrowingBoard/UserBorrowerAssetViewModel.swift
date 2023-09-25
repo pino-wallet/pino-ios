@@ -33,7 +33,7 @@ struct UserBorrowingAssetViewModel: AssetsBoardProtocol {
 	}
 
 	public var userBorrowingTokenID: String {
-        userBorrowingTokenModel.id
+		userBorrowingTokenModel.id
 	}
 
 	// MARK: - Private Properties

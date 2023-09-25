@@ -16,9 +16,9 @@ struct CollateralDetailsViewModel {
 	public let increaseLoanTitle = "Increase collateral"
 	public let withdrawTitle = "Withdraw"
 	public let dismissIconName = "dissmiss"
-    public let collateralledTokenID: String
-    public let borrowVM: BorrowViewModel
-    public var collateralledTokenModel: UserBorrowingToken!
+	public let collateralledTokenID: String
+	public let borrowVM: BorrowViewModel
+	public var collateralledTokenModel: UserBorrowingToken!
 
 	public var pageTitle: String {
 		"\(foundTokenInManageAssetTokens.symbol) collateral details"
@@ -57,15 +57,17 @@ struct CollateralDetailsViewModel {
 
 	// MARK: - Initializers
 
-    init(borrowVM: BorrowViewModel, collateralledTokenID: String) {
+	init(borrowVM: BorrowViewModel, collateralledTokenID: String) {
 		self.collateralledTokenID = collateralledTokenID
-        self.borrowVM = borrowVM
-        
-        setCollateraledToken()
+		self.borrowVM = borrowVM
+
+		setCollateraledToken()
 	}
-    
-    // MARK: - Private Methods
-    private mutating func setCollateraledToken() {
-        collateralledTokenModel = borrowVM.userBorrowingDetails?.collateralTokens.first(where: { $0.id == collateralledTokenID })
-    }
+
+	// MARK: - Private Methods
+
+	private mutating func setCollateraledToken() {
+		collateralledTokenModel = borrowVM.userBorrowingDetails?.collateralTokens
+			.first(where: { $0.id == collateralledTokenID })
+	}
 }

@@ -74,7 +74,7 @@ class CollateralDetailsViewController: UIViewController {
 
 	private func pushToWithdrawAmountPage() {
 		let withdrawAmountVM = WithdrawAmountViewModel(
-            borrowVM: collateralDetailsVM.borrowVM, userCollateralledTokenID: collateralDetailsVM
+			borrowVM: collateralDetailsVM.borrowVM, userCollateralledTokenID: collateralDetailsVM
 				.collateralledTokenID
 		)
 		let withdrawAmountVC = WithdrawAmountViewController(withdrawAmountVM: withdrawAmountVM)

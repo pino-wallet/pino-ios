@@ -78,7 +78,10 @@ class BorrowLoanDetailsViewController: UIViewController {
 	}
 
 	private func pushToRepayAmountPage(selectedTokenID: String) {
-        let repayAmountVM = RepayAmountViewModel(borrowVM: borrowLoanDetailsVM.borrowVM, userBorrowedTokenID: selectedTokenID)
+		let repayAmountVM = RepayAmountViewModel(
+			borrowVM: borrowLoanDetailsVM.borrowVM,
+			userBorrowedTokenID: selectedTokenID
+		)
 		let repayAmountVC = RepayAmountViewController(repayAmountVM: repayAmountVM)
 		navigationController?.pushViewController(repayAmountVC, animated: true)
 	}
