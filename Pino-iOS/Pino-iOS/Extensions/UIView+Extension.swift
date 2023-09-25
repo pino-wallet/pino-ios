@@ -113,7 +113,7 @@ extension UIView {
 
 				gradientLayer.colors = [
 					UIColor(red: 0.859, green: 0.859, blue: 0.859, alpha: 1).cgColor,
-					UIColor.white.cgColor,
+					(backgroundColor ?? .white).cgColor,
 					UIColor(red: 0.859, green: 0.859, blue: 0.859, alpha: 1).cgColor,
 				]
 
@@ -139,7 +139,12 @@ extension UIView {
 				backgroundView.pin(.allEdges(padding: 0))
 				corneredView.pin(.allEdges(padding: 0))
 				backgroundView.backgroundColor = backgroundColor ?? .Pino.white
-				corneredView.backgroundColor = UIColor(red: 0.859, green: 0.859, blue: 0.859, alpha: 1)
+				corneredView.backgroundColor = backgroundColor ?? UIColor(
+					red: 0.859,
+					green: 0.859,
+					blue: 0.859,
+					alpha: 1
+				)
 
 				if skeletonView.layer.cornerRadius == 0 {
 					corneredView.layer.cornerRadius = skeletonView.frame.size.height / 2

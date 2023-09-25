@@ -20,7 +20,7 @@ public class InvestmentAssetCell: UICollectionViewCell {
 	// MARK: Public Properties
 
 	public static let cellReuseID = "investmentAssetCell"
-	public var asset: InvestAssetViewModel! {
+	public var asset: InvestAssetViewModel? {
 		didSet {
 			setupView()
 			setupStyle()
@@ -40,26 +40,31 @@ public class InvestmentAssetCell: UICollectionViewCell {
 	}
 
 	private func setupStyle() {
-		assetNameLabel.text = asset.assetName
-		assetAmountLabel.text = asset.formattedInvestmentAmount
-		assetVolatilityLabel.text = asset.formattedAssetVolatility
+		if let asset {
+			hideSkeletonView()
+			assetNameLabel.text = asset.assetName
+			assetAmountLabel.text = asset.formattedInvestmentAmount
+			assetVolatilityLabel.text = asset.formattedAssetVolatility
+
+			switch asset.volatilityType {
+			case .profit:
+				assetVolatilityLabel.textColor = .Pino.green
+				assetVolatilityIcon.tintColor = .Pino.green
+				assetVolatilityIcon.image = UIImage(named: "arrow_up")
+			case .loss:
+				assetVolatilityLabel.textColor = .Pino.red
+				assetVolatilityIcon.tintColor = .Pino.red
+				assetVolatilityIcon.image = UIImage(named: "arrow_down")
+			case .none:
+				assetVolatilityLabel.isHidden = true
+				assetVolatilityIcon.isHidden = true
+			}
+		} else {
+			showSkeletonView()
+		}
 
 		assetNameLabel.textColor = .Pino.secondaryLabel
 		assetAmountLabel.textColor = .Pino.label
-
-		switch asset.volatilityType {
-		case .profit:
-			assetVolatilityLabel.textColor = .Pino.green
-			assetVolatilityIcon.tintColor = .Pino.green
-			assetVolatilityIcon.image = UIImage(named: "arrow_up")
-		case .loss:
-			assetVolatilityLabel.textColor = .Pino.red
-			assetVolatilityIcon.tintColor = .Pino.red
-			assetVolatilityIcon.image = UIImage(named: "arrow_down")
-		case .none:
-			assetVolatilityLabel.isHidden = true
-			assetVolatilityIcon.isHidden = true
-		}
 
 		assetNameLabel.font = .PinoStyle.mediumCallout
 		assetAmountLabel.font = .PinoStyle.semiboldBody
@@ -68,6 +73,10 @@ public class InvestmentAssetCell: UICollectionViewCell {
 		assetStackView.axis = .vertical
 		assetStackView.spacing = 10
 		assetAmountStackView.spacing = 2
+
+		assetNameLabel.isSkeletonable = true
+		assetAmountLabel.isSkeletonable = true
+		assetVolatilityLabel.isSkeletonable = true
 	}
 
 	private func setupConstraint() {

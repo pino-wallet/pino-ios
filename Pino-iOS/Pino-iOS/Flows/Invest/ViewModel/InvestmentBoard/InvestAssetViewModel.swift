@@ -11,15 +11,12 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 	// MARK: - Private Properties
 
 	private let assetModel: InvestmentModel
+	private let investToken: AssetViewModel
 
 	// MARK: - Public Properties
 
 	public var listId: String {
 		assetModel.listingID
-	}
-
-	public var investToken: AssetViewModel {
-		GlobalVariables.shared.manageAssetsList!.first(where: { $0.id == assetModel.tokens.first!.tokenID })!
 	}
 
 	public var assetName: String {
@@ -77,7 +74,8 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 
 	// MARK: - Initializers
 
-	init(assetModel: InvestmentModel) {
+	init(assetModel: InvestmentModel, token: AssetViewModel) {
 		self.assetModel = assetModel
+		self.investToken = token
 	}
 }
