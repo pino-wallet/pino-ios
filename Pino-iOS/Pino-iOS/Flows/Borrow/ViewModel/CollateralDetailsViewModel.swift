@@ -39,15 +39,15 @@ struct CollateralDetailsViewModel {
 		userAmountInToken.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
 	}
 
+	public var foundTokenInManageAssetTokens: AssetViewModel {
+		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == collateralledTokenModel.id }))!
+	}
+
 	#warning("this is mock")
 	public let involvedAmountInToken = "15 LINK"
 	public let freeAmountInToken = "340 LINK"
 
 	// MARK: - Private Properties
-
-	private var foundTokenInManageAssetTokens: AssetViewModel {
-		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == collateralledTokenModel.id }))!
-	}
 
 	private var userAmountInToken: BigNumber {
 		BigNumber(number: collateralledTokenModel.amount, decimal: foundTokenInManageAssetTokens.decimal)

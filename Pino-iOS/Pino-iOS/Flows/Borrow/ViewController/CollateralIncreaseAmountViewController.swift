@@ -10,7 +10,7 @@ import UIKit
 class CollateralIncreaseAmountViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let collateralIncreaseAmountVM = CollateralIncreaseAmountViewModel()
+	private let collateralIncreaseAmountVM: CollateralIncreaseAmountViewModel
 	private var collateralIncreaseAmountView: CollateralIncreaseAmountView!
 
 	// MARK: - View Overrides
@@ -22,6 +22,18 @@ class CollateralIncreaseAmountViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
+	}
+
+	// MARK: Initializers
+
+	init(collateralIncreaseAmountVM: CollateralIncreaseAmountViewModel) {
+		self.collateralIncreaseAmountVM = collateralIncreaseAmountVM
+
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 
 	// MARK: - Private Methods

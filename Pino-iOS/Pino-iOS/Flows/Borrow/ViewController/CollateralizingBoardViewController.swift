@@ -53,9 +53,9 @@ class CollateralizingBoardViewController: UIViewController {
 			assetDidSelect: { selectedAssetVM in
 				if let selectedAssetVM = selectedAssetVM as? UserCollateralizingAssetViewModel {
 					self.presentCollateralDetailsVC(selectedAssetVM: selectedAssetVM.defaultCollateralizingAssetModel)
-					#warning("i should use it later")
 				} else if let selectedAssetVM = selectedAssetVM as? CollateralizableAssetViewModel {
-					self.pushToCollateralIncreaseAmountPage()
+					self
+						.pushToCollateralIncreaseAmountPage(selectedToken: selectedAssetVM.foundTokenInManageAssetTokens)
 				} else {
 					print("Unknown type")
 				}
@@ -84,9 +84,10 @@ class CollateralizingBoardViewController: UIViewController {
 		present(navigationVC, animated: true)
 	}
 
-	#warning("this is for test")
-	private func pushToCollateralIncreaseAmountPage() {
-		let collateralIncreaseAmountVC = CollateralIncreaseAmountViewController()
+	private func pushToCollateralIncreaseAmountPage(selectedToken: AssetViewModel) {
+		let collateralIncreaseAmountVM = CollateralIncreaseAmountViewModel(selectedToken: selectedToken)
+		let collateralIncreaseAmountVC =
+			CollateralIncreaseAmountViewController(collateralIncreaseAmountVM: collateralIncreaseAmountVM)
 		navigationController?.pushViewController(collateralIncreaseAmountVC, animated: true)
 	}
 
