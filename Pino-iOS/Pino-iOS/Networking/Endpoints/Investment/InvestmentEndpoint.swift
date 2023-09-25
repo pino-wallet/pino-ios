@@ -10,6 +10,7 @@ import Foundation
 enum InvestmentEndpoint: EndpointType {
 	// MARK: - Cases
 
+	case investableAssets
 	case investment(accountAddress: String)
 	case investPortfolio(timeFrame: String, accountAddress: String)
 	case investmentPerformance(timeFrame: String, investmentID: String, accountAddress: String)
@@ -34,7 +35,7 @@ enum InvestmentEndpoint: EndpointType {
 
 	internal var task: HTTPTask {
 		switch self {
-		case .investment:
+		case .investment, .investableAssets, .investmentDetail:
 			return .request
 		case let .investPortfolio(timeFrame, _):
 			let urlParameters: [String: Any] = ["timeframe": timeFrame]
@@ -42,8 +43,6 @@ enum InvestmentEndpoint: EndpointType {
 		case let .investmentPerformance(timeFrame: timeFrame, investmentID: _, accountAddress: _):
 			let urlParameters: [String: Any] = ["timeframe": timeFrame]
 			return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: urlParameters)
-		case .investmentDetail:
-			return .request
 		}
 	}
 
@@ -60,6 +59,8 @@ enum InvestmentEndpoint: EndpointType {
 
 	internal var path: String {
 		switch self {
+		case .investableAssets:
+			return "listing/investments"
 		case let .investment(accountAddress):
 			return "user/\(accountAddress)/investment"
 		case let .investPortfolio(_, accountAddress):
@@ -73,7 +74,7 @@ enum InvestmentEndpoint: EndpointType {
 
 	internal var httpMethod: HTTPMethod {
 		switch self {
-		case .investment, .investPortfolio, .investmentPerformance, .investmentDetail:
+		case .investment, .investPortfolio, .investmentPerformance, .investmentDetail, .investableAssets:
 			return .get
 		}
 	}

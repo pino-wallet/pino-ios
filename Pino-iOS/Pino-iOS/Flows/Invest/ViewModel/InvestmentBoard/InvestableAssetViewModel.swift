@@ -10,16 +10,20 @@ import Foundation
 public struct InvestableAssetViewModel: AssetsBoardProtocol {
 	// MARK: - Private Properties
 
-	private let assetModel: InvestableAssetModel
+	private let assetModel: InvestableAssetsModel
 
 	// MARK: - Public Properties
 
+	public var investToken: AssetViewModel {
+		GlobalVariables.shared.manageAssetsList!.first(where: { $0.id == assetModel.tokens.first!.tokenId })!
+	}
+
 	public var assetName: String {
-		assetModel.assetName
+		investToken.symbol
 	}
 
 	public var assetImage: URL {
-		URL(string: assetModel.assetImage)!
+		investToken.image
 	}
 
 	public var assetProtocol: InvestProtocolViewModel {
@@ -30,25 +34,25 @@ public struct InvestableAssetViewModel: AssetsBoardProtocol {
 		assetProtocol.image
 	}
 
-	public var APYAmount: BigNumber {
-		BigNumber(number: assetModel.APYAmount, decimal: assetModel.decimal)
+	public var APYAmount: Int {
+		assetModel.apy
 	}
 
 	public var formattedAPYAmount: String {
-		"%\(APYAmount.percentFormat)"
+		"%\(APYAmount)"
 	}
 
 	public var volatilityType: AssetVolatilityType {
-		AssetVolatilityType(change24h: APYAmount)
+		.profit
 	}
 
 	public var investmentRisk: InvestmentRisk {
-		InvestmentRisk(rawValue: assetModel.investmentRisk)!
+		InvestmentRisk(rawValue: assetModel.risk)!
 	}
 
 	// MARK: - Initializers
 
-	init(assetModel: InvestableAssetModel) {
+	init(assetModel: InvestableAssetsModel) {
 		self.assetModel = assetModel
 	}
 }
