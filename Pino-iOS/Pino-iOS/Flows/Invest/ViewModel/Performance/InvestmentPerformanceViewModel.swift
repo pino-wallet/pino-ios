@@ -47,9 +47,9 @@ class InvestmentPerformanceViewModel {
 
 	private func getShareOfAssets(assets: [InvestAssetViewModel]) {
 		let userAssets = assets
-			.filter { !$0.assetAmount.isZero }
-			.sorted { $0.assetAmount > $1.assetAmount }
-		let totalAmount = userAssets.compactMap { $0.assetAmount }.reduce(0.bigNumber, +)
+			.filter { !$0.investmentAmount.isZero }
+			.sorted { $0.investmentAmount > $1.investmentAmount }
+		let totalAmount = userAssets.compactMap { $0.investmentAmount }.reduce(0.bigNumber, +)
 		shareOfAssetsVM = userAssets.prefix(10).compactMap {
 			InvestmentShareOfAssetsViewModel(assetVM: $0, totalAmount: totalAmount)
 		}

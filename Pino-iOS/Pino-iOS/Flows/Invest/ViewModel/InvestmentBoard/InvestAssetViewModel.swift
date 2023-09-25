@@ -14,6 +14,10 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 
 	// MARK: - Public Properties
 
+	public var listId: String {
+		assetModel.listingID
+	}
+
 	public var investToken: AssetViewModel {
 		GlobalVariables.shared.manageAssetsList!.first(where: { $0.id == assetModel.tokens.first!.tokenID })!
 	}
@@ -34,20 +38,28 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 		assetProtocol.image
 	}
 
-	public var assetAmount: BigNumber {
+	public var investmentAmount: BigNumber {
 		BigNumber(number: assetModel.currentWorth, decimal: 2)
 	}
 
-	public var formattedAssetAmount: String {
-		assetAmount.priceFormat
+	public var formattedInvestmentAmount: String {
+		investmentAmount.priceFormat
 	}
 
 	public var tokenAmount: BigNumber {
-		BigNumber(number: assetModel.tokens.first!.amount, decimal: 2)
+		BigNumber(number: assetModel.tokens.first!.amount, decimal: investToken.decimal)
+	}
+
+	public var tokenAmountInDollor: BigNumber {
+		tokenAmount * investToken.price
 	}
 
 	public var formattedTokenAmount: String {
-		assetAmount.sevenDigitFormat.tokenFormatting(token: assetName)
+		tokenAmount.sevenDigitFormat.tokenFormatting(token: assetName)
+	}
+
+	public var formattedTokenAmountInDollor: String {
+		tokenAmountInDollor.priceFormat
 	}
 
 	#warning("We don't have this data yet")
@@ -61,10 +73,6 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 
 	public var volatilityType: AssetVolatilityType {
 		AssetVolatilityType(change24h: assetVolatility)
-	}
-
-	public var apyAmount: String {
-		""
 	}
 
 	// MARK: - Initializers

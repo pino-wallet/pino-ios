@@ -44,4 +44,8 @@ final class InvestmentAPIClient: InvestmentAPIService {
 	func investmentDetail(address: String, investmentID: String) -> AnyPublisher<InvestmentDetailModel, APIError> {
 		networkManager.request(.investmentDetail(accountAddress: currentAccountAddress, investmentID: investmentID))
 	}
+
+	func investmentListingInfo(listingId: String) -> AnyPublisher<[InvestableAssetsModel], APIError> {
+		networkManager.request(.investmentListingInfo(investmentId: listingId))
+	}
 }

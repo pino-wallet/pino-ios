@@ -41,7 +41,7 @@ public class InvestmentAssetCell: UICollectionViewCell {
 
 	private func setupStyle() {
 		assetNameLabel.text = asset.assetName
-		assetAmountLabel.text = asset.formattedAssetAmount
+		assetAmountLabel.text = asset.formattedInvestmentAmount
 		assetVolatilityLabel.text = asset.formattedAssetVolatility
 
 		assetNameLabel.textColor = .Pino.secondaryLabel

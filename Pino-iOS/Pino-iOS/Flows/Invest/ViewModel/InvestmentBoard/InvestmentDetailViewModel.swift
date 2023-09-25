@@ -5,12 +5,15 @@
 //  Created by Mohi Raoufi on 9/10/23.
 //
 
+import Combine
 import Foundation
 
-struct InvestmentDetailViewModel {
+class InvestmentDetailViewModel {
 	// MARK: - Private Properties
 
 	private let selectedAsset: InvestAssetViewModel
+	private let investmentAPIClient = InvestmentAPIClient()
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 
@@ -21,6 +24,8 @@ struct InvestmentDetailViewModel {
 	public let totalAmountTitle = "Total amount"
 	public let increaseInvestmentButtonTitle = "Increase investment"
 	public let withdrawButtonTitle = "Withdraw"
+	@Published
+	public var apy: String?
 
 	public var pageTitle: String {
 		"\(assetName) investment details"
@@ -39,7 +44,7 @@ struct InvestmentDetailViewModel {
 	}
 
 	public var assetAmountInDollar: String {
-		selectedAsset.formattedAssetAmount
+		selectedAsset.formattedTokenAmountInDollor
 	}
 
 	public var investProtocolName: String {
@@ -50,12 +55,8 @@ struct InvestmentDetailViewModel {
 		selectedAsset.protocolImage
 	}
 
-	public var apyAmount: String {
-		"%\(selectedAsset.apyAmount)"
-	}
-
 	public var investmentAmount: String {
-		selectedAsset.formattedAssetAmount
+		selectedAsset.formattedInvestmentAmount
 	}
 
 	public var earnedFee: String {
@@ -63,7 +64,7 @@ struct InvestmentDetailViewModel {
 	}
 
 	public var totalInvestmentAmount: String {
-		let totalAmount = selectedAsset.assetAmount + selectedAsset.assetVolatility
+		let totalAmount = selectedAsset.investmentAmount + selectedAsset.assetVolatility
 		return totalAmount.priceFormat
 	}
 
@@ -75,5 +76,19 @@ struct InvestmentDetailViewModel {
 
 	init(selectedAsset: InvestAssetViewModel) {
 		self.selectedAsset = selectedAsset
+		getAPY()
+	}
+
+	public func getAPY() {
+		investmentAPIClient.investmentListingInfo(listingId: selectedAsset.listId).sink { completed in
+			switch completed {
+			case .finished:
+				print("Investment info received successfully")
+			case let .failure(error):
+				print("Error getting investment info:\(error)")
+			}
+		} receiveValue: { investmentInfo in
+			self.apy = "%\(investmentInfo.first!.apy)"
+		}.store(in: &cancellables)
 	}
 }

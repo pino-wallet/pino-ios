@@ -15,6 +15,7 @@ enum InvestmentEndpoint: EndpointType {
 	case investPortfolio(timeFrame: String, accountAddress: String)
 	case investmentPerformance(timeFrame: String, investmentID: String, accountAddress: String)
 	case investmentDetail(accountAddress: String, investmentID: String)
+	case investmentListingInfo(investmentId: String)
 
 	// MARK: - Internal Methods
 
@@ -35,7 +36,7 @@ enum InvestmentEndpoint: EndpointType {
 
 	internal var task: HTTPTask {
 		switch self {
-		case .investment, .investableAssets, .investmentDetail:
+		case .investment, .investableAssets, .investmentDetail, .investmentListingInfo:
 			return .request
 		case let .investPortfolio(timeFrame, _):
 			let urlParameters: [String: Any] = ["timeframe": timeFrame]
@@ -69,12 +70,15 @@ enum InvestmentEndpoint: EndpointType {
 			return "user/\(accountAddress)/investment/portfolio/\(investmentID)"
 		case let .investmentDetail(accountAddress, investmentID):
 			return "user/\(accountAddress)/investment/\(investmentID)"
+		case let .investmentListingInfo(investmentId):
+			return "listing/investments"
 		}
 	}
 
 	internal var httpMethod: HTTPMethod {
 		switch self {
-		case .investment, .investPortfolio, .investmentPerformance, .investmentDetail, .investableAssets:
+		case .investment, .investPortfolio, .investmentPerformance, .investmentDetail, .investableAssets,
+		     .investmentListingInfo:
 			return .get
 		}
 	}
