@@ -31,8 +31,8 @@ struct UserCollateralizingAssetViewModel: AssetsBoardProtocol {
 		return userAmountInDollars.priceFormat
 	}
 
-	public var defaultCollateralizingAssetModel: UserBorrowingToken {
-		userCollateralizingAssetModel
+	public var userCollaterlizingID: String {
+        userCollateralizingAssetModel.id
 	}
 
 	// MARK: - Private Properties

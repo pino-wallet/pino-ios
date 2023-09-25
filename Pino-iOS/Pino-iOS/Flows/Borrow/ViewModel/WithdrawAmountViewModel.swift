@@ -16,7 +16,9 @@ class WithdrawAmountViewModel {
 	public let maxTitle = "Max: "
 	public var textFieldPlaceHolder = "0"
 
-	public let userCollateralledTokenModel: UserBorrowingToken
+    public let userCollateralledTokenID: String
+    public let borrowVM: BorrowViewModel
+    public var userCollateralledTokenModel: UserBorrowingToken!
 
 	public var selectedToken: AssetViewModel {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userCollateralledTokenModel.id }))!
@@ -51,9 +53,17 @@ class WithdrawAmountViewModel {
 
 	// MARK: - Initializers
 
-	init(userCollateralledTokenModel: UserBorrowingToken) {
-		self.userCollateralledTokenModel = userCollateralledTokenModel
+    init(borrowVM: BorrowViewModel, userCollateralledTokenID: String) {
+		self.userCollateralledTokenID = userCollateralledTokenID
+        self.borrowVM = borrowVM
+        
+        setUserCollateralledToken()
 	}
+    
+    // MARK: - Private Methods
+    private func setUserCollateralledToken() {
+        userCollateralledTokenModel = borrowVM.userBorrowingDetails?.collateralTokens.first(where: { $0.id == userCollateralledTokenID })
+    }
 
 	// MARK: - Public Methods
 

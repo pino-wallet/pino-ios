@@ -18,8 +18,9 @@ class BorrowLoanDetailsViewModel {
 	public let totalDebtTitle = "Total debt"
 	public let increaseLoanTitle = "Increase loan"
 	public let repayTitle = "Repay"
-	public let userBorrowedTokenModel: UserBorrowingToken
+    public let userBorrowedTokenID: String
 	public let borrowVM: BorrowViewModel
+    public var userBorrowedTokenModel: UserBorrowingToken!
 
 	public var pageTitle: String {
 		"\(foundTokenInManageAssetTokens.symbol) loan details"
@@ -58,10 +59,6 @@ class BorrowLoanDetailsViewModel {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userBorrowedTokenModel.id }))!
 	}
 
-	public var defaultUserBorrowedTokenModel: UserBorrowingToken {
-		userBorrowedTokenModel
-	}
-
 	// MARK: - Private Properties
 
 	private let errorFetchingToastMessage = "Error fetching token APY from server"
@@ -78,10 +75,17 @@ class BorrowLoanDetailsViewModel {
 
 	// MARK: - Initializers
 
-	init(userBorrowedTokenModel: UserBorrowingToken, borrowVM: BorrowViewModel) {
-		self.userBorrowedTokenModel = userBorrowedTokenModel
-		self.borrowVM = borrowVM
+	init(borrowVM: BorrowViewModel, userBorrowedTokenID: String) {
+        self.borrowVM = borrowVM
+		self.userBorrowedTokenID = userBorrowedTokenID
+        
+        setUserBorrowedToken()
 	}
+    
+    // MARK: - Private Methods
+    private func setUserBorrowedToken() {
+        userBorrowedTokenModel = borrowVM.userBorrowingDetails?.borrowTokens.first(where: { $0.id == userBorrowedTokenID })
+    }
 
 	// MARK: - Public Methods
 
