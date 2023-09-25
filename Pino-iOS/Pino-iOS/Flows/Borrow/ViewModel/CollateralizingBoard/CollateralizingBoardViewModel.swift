@@ -5,6 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 8/26/23.
 //
 
+import Combine
 import Foundation
 
 class CollateralizingBoardViewModel {
@@ -13,8 +14,14 @@ class CollateralizingBoardViewModel {
 	public let collateralsTitleText = "collaterals"
 	public let borrowVM: BorrowViewModel
 	public var userCollateralizingTokens: [UserCollateralizingAssetViewModel]!
-	#warning("this is mock")
-	public var collateralizableTokens: [CollateralizableAssetViewModel] = []
+	@Published
+	public var collateralizableTokens: [CollateralizableAssetViewModel]?
+
+	// MARK: - Private Properties
+
+	private let errorFetchingToastMessage = "Failed to get collateralizable tokens"
+	private let borrowingAPIClient = BorrowingAPIClient()
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -24,6 +31,32 @@ class CollateralizingBoardViewModel {
 		self.borrowVM = borrowVM
 
 		setUserCollateralizingTokens()
+	}
+
+	// MARK: - Public Methods
+
+	public func getCollaterlizableTokens() {
+		borrowingAPIClient.getCollateralizableTokens(dex: borrowVM.selectedDexSystem.type).sink { completed in
+			switch completed {
+			case .finished:
+				print("Collateralizable tokens received successfully")
+			case let .failure(error):
+				print(error)
+				Toast.default(
+					title: self.errorFetchingToastMessage,
+					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+					style: .error
+				).show(haptic: .warning)
+			}
+		} receiveValue: { newCollateralizableTokens in
+			let colateralTokensId = self.borrowVM.userBorrowingDetails?.collateralTokens.map { $0.id } ?? []
+			let filteredCollateralizableTokens = newCollateralizableTokens.filter { newCollateralizableToken in
+				colateralTokensId.contains(newCollateralizableToken.tokenID) == false
+			}
+			self.collateralizableTokens = filteredCollateralizableTokens.compactMap {
+				CollateralizableAssetViewModel(collateralizableAssetModel: $0)
+			}
+		}.store(in: &cancellables)
 	}
 
 	// MARK: - Private Methods

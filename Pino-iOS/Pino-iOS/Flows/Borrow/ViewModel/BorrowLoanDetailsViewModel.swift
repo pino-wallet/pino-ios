@@ -107,7 +107,7 @@ class BorrowLoanDetailsViewModel {
 
 	// MARK: - Private Methods
 
-	private func setupApyInfo(borrowableToken: BorrowableTokenModel) {
+	private func setupApyInfo(borrowableToken: BorrowableTokenDetailsModel) {
 		let bigNumberAPY = borrowableToken.apy.bigNumber
 		apyVolatilityType = AssetVolatilityType(change24h: bigNumberAPY)
 		apy = "%\(bigNumberAPY.percentFormat)"

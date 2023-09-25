@@ -10,25 +10,32 @@ import Foundation
 struct CollateralizableAssetViewModel: AssetsBoardProtocol {
 	// MARK: - Private Properties
 
-	private var collateralizableAssetModel: CollateralizableAssetModel
+	private var collateralizableAssetModel: CollateralizableTokenDetailsModel
 
 	// MARK: - Public Properties
 
 	public var assetName: String {
-		collateralizableAssetModel.tokenSymbol
+		foundTokenInManageAssetTokens.symbol
 	}
 
 	public var assetImage: URL {
-		URL(string: collateralizableAssetModel.tokenImage)!
+		foundTokenInManageAssetTokens.image
 	}
 
 	public var usrAmountInToken: String {
-		"\(collateralizableAssetModel.userAmountInToken) \(collateralizableAssetModel.tokenSymbol)"
+		foundTokenInManageAssetTokens.holdAmount.sevenDigitFormat
+			.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+	}
+
+	// MARK: - Private Properties
+
+	private var foundTokenInManageAssetTokens: AssetViewModel {
+		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == collateralizableAssetModel.tokenID }))!
 	}
 
 	// MARK: - Initializers
 
-	init(collateralizableAssetModel: CollateralizableAssetModel) {
+	init(collateralizableAssetModel: CollateralizableTokenDetailsModel) {
 		self.collateralizableAssetModel = collateralizableAssetModel
 	}
 }

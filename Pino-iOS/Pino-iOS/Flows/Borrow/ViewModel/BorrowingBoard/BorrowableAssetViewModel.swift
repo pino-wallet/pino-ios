@@ -10,7 +10,7 @@ import Foundation
 struct BorrowableAssetViewModel: AssetsBoardProtocol {
 	// MARK: - Private Properties
 
-	private var borrowableTokenModel: BorrowableTokenModel
+	private var borrowableTokenModel: BorrowableTokenDetailsModel
 
 	// MARK: - Public Properties
 
@@ -40,7 +40,7 @@ struct BorrowableAssetViewModel: AssetsBoardProtocol {
 
 	// MARK: - Initializers
 
-	init(borrowableTokenModel: BorrowableTokenModel) {
+	init(borrowableTokenModel: BorrowableTokenDetailsModel) {
 		self.borrowableTokenModel = borrowableTokenModel
 	}
 }

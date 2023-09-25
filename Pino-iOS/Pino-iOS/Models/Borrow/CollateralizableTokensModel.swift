@@ -7,15 +7,13 @@ import Foundation
 
 // MARK: - WelcomeElement
 
-struct BorrowableTokenDetailsModel: Codable {
+struct CollateralizableTokenDetailsModel: Codable {
 	let tokenID: String
-	let tokenProtocol: ProtocolClass
-	let apy: Int
+	let welcomeProtocol: ProtocolClass
 
 	enum CodingKeys: String, CodingKey {
 		case tokenID = "token_id"
-		case tokenProtocol = "protocol"
-		case apy
+		case welcomeProtocol = "protocol"
 	}
 
 	struct ProtocolClass: Codable {
@@ -23,4 +21,4 @@ struct BorrowableTokenDetailsModel: Codable {
 	}
 }
 
-typealias BorrowableTokensModel = [BorrowableTokenDetailsModel]
+typealias CollateralizableTokensModel = [CollateralizableTokenDetailsModel]
