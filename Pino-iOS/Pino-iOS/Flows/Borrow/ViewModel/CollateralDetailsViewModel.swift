@@ -45,11 +45,19 @@ struct CollateralDetailsViewModel {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == collateralledTokenModel.id }))!
 	}
 
-	#warning("this is mock")
-	public let involvedAmountInToken = "15 LINK"
-	public let freeAmountInToken = "340 LINK"
+    public var formattedInvolvedAmountInToken: String {
+        userInvolvedAmountInToken.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+    }
+    public var freeAmountInToken: String {
+        (userAmountInToken - userInvolvedAmountInToken).sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+    }
 
 	// MARK: - Private Properties
+    private var userInvolvedAmountInToken: BigNumber {
+        let bigNumberHealthScore = BigNumber(numberWithDecimal: borrowVM.calculatedHealthScore.description)
+        return (((userAmountInToken * bigNumberHealthScore) / 100.bigNumber)!)
+    }
+
 
 	private var userAmountInToken: BigNumber {
 		BigNumber(number: collateralledTokenModel.amount, decimal: foundTokenInManageAssetTokens.decimal)
