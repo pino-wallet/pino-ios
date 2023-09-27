@@ -21,31 +21,31 @@ struct AccountInfoNavigationItems {
 	// MARK: - Public Properties
 
 	public var accountTitle: UIStackView {
-        let navigationBarTitleStackView = UIStackView()
-        let accountNameLabel = PinoLabel(style: .info, text: "")
-        let accountImageViewContainer = UIView()
-        let accountImageView = UIImageView()
-        let arrowDownImageView = UIImageView()
-        
-        accountImageViewContainer.addSubview(accountImageView)
-        navigationBarTitleStackView.addArrangedSubview(accountImageViewContainer)
-        navigationBarTitleStackView.addArrangedSubview(accountNameLabel)
-        navigationBarTitleStackView.addArrangedSubview(arrowDownImageView)
-        
-        navigationBarTitleStackView.axis = .horizontal
-        navigationBarTitleStackView.spacing = 4
-        navigationBarTitleStackView.alignment = .center
-        accountNameLabel.font = .PinoStyle.semiboldCallout
-        accountNameLabel.text = accountInfoVM.name
-        accountImageViewContainer.layer.cornerRadius = 13
-        accountImageViewContainer.backgroundColor = UIColor(named: accountInfoVM.profileColor)
-        arrowDownImageView.image = UIImage(named: "arrow_down_home")
-        accountImageView.image = UIImage(named: accountInfoVM.profileImage)
-        
-        accountImageViewContainer.pin(.fixedWidth(26), .fixedHeight(26))
-        accountImageView.pin(.fixedWidth(18), .fixedHeight(18), .centerX, .centerY)
-        arrowDownImageView.pin(.fixedWidth(18), .fixedHeight(18))
-        
+		let navigationBarTitleStackView = UIStackView()
+		let accountNameLabel = PinoLabel(style: .info, text: "")
+		let accountImageViewContainer = UIView()
+		let accountImageView = UIImageView()
+		let arrowDownImageView = UIImageView()
+
+		accountImageViewContainer.addSubview(accountImageView)
+		navigationBarTitleStackView.addArrangedSubview(accountImageViewContainer)
+		navigationBarTitleStackView.addArrangedSubview(accountNameLabel)
+		navigationBarTitleStackView.addArrangedSubview(arrowDownImageView)
+
+		navigationBarTitleStackView.axis = .horizontal
+		navigationBarTitleStackView.spacing = 4
+		navigationBarTitleStackView.alignment = .center
+		accountNameLabel.font = .PinoStyle.semiboldCallout
+		accountNameLabel.text = accountInfoVM.name
+		accountImageViewContainer.layer.cornerRadius = 13
+		accountImageViewContainer.backgroundColor = UIColor(named: accountInfoVM.profileColor)
+		arrowDownImageView.image = UIImage(named: "arrow_down_home")
+		accountImageView.image = UIImage(named: accountInfoVM.profileImage)
+
+		accountImageViewContainer.pin(.fixedWidth(26), .fixedHeight(26))
+		accountImageView.pin(.fixedWidth(18), .fixedHeight(18), .centerX, .centerY)
+		arrowDownImageView.pin(.fixedWidth(18), .fixedHeight(18))
+
 		return navigationBarTitleStackView
 	}
 
