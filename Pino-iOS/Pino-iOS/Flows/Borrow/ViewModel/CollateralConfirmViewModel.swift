@@ -21,46 +21,47 @@ struct CollateralConfirmViewModel {
 	public let protocolActionsheetText = "this is protocol"
 	#warning("this fee is mock and it should be removed")
 	public let fee = "$10"
-    
-    public let collaterallIncreaseAmountVM: CollateralIncreaseAmountViewModel
+
+	public let collaterallIncreaseAmountVM: CollateralIncreaseAmountViewModel
 
 	public var protocolImageName: String {
-        selectedDexSystem.image
+		selectedDexSystem.image
 	}
 
 	public var protocolName: String {
-        selectedDexSystem.name
+		selectedDexSystem.name
 	}
 
 	public var tokenAmountAndSymbol: String {
-        collateralIncreaseAmountBigNumber.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
+		collateralIncreaseAmountBigNumber.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
 
 	public var tokenAmountInDollars: String {
-        let collateralIncreaseAmountInDollars = collateralIncreaseAmountBigNumber * selectedToken.price
-        return collateralIncreaseAmountInDollars.priceFormat
+		let collateralIncreaseAmountInDollars = collateralIncreaseAmountBigNumber * selectedToken.price
+		return collateralIncreaseAmountInDollars.priceFormat
 	}
 
 	public var tokenImage: URL {
-        selectedToken.image
+		selectedToken.image
 	}
-    
-    // MARK: - Private Properties
-    private var collateralIncreaseAmountBigNumber: BigNumber {
-        BigNumber(numberWithDecimal: collaterallIncreaseAmountVM.tokenAmount)
-    }
-    
-    private var selectedToken: AssetViewModel {
-        collaterallIncreaseAmountVM.selectedToken
-    }
-    
-    private var selectedDexSystem: DexSystemModel {
-        collaterallIncreaseAmountVM.borrowVM.selectedDexSystem
-    }
-    
-    
-    // MARK: - Initializers
-    init(collaterallIncreaseAmountVM: CollateralIncreaseAmountViewModel) {
-        self.collaterallIncreaseAmountVM = collaterallIncreaseAmountVM
-    }
+
+	// MARK: - Private Properties
+
+	private var collateralIncreaseAmountBigNumber: BigNumber {
+		BigNumber(numberWithDecimal: collaterallIncreaseAmountVM.tokenAmount)
+	}
+
+	private var selectedToken: AssetViewModel {
+		collaterallIncreaseAmountVM.selectedToken
+	}
+
+	private var selectedDexSystem: DexSystemModel {
+		collaterallIncreaseAmountVM.borrowVM.selectedDexSystem
+	}
+
+	// MARK: - Initializers
+
+	init(collaterallIncreaseAmountVM: CollateralIncreaseAmountViewModel) {
+		self.collaterallIncreaseAmountVM = collaterallIncreaseAmountVM
+	}
 }

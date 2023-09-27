@@ -5,8 +5,8 @@
 //  Created by Amir hossein kazemi seresht on 9/3/23.
 //
 
-import UIKit
 import Kingfisher
+import UIKit
 
 class CollateralConfirmView: UIView {
 	// MARK: - TypeAliases
@@ -135,8 +135,8 @@ class CollateralConfirmView: UIView {
 		feeInfoStackView.axis = .horizontal
 		feeInfoStackView.alignment = .center
 
-        headerImageView.kf.indicatorType = .activity
-        headerImageView.kf.setImage(with: collateralConfrimVM.tokenImage)
+		headerImageView.kf.indicatorType = .activity
+		headerImageView.kf.setImage(with: collateralConfrimVM.tokenImage)
 
 		headerTitleLabel.font = .PinoStyle.semiboldTitle2
 		headerTitleLabel.text = collateralConfrimVM.tokenAmountAndSymbol

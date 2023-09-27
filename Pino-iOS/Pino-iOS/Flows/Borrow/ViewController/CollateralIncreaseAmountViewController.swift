@@ -56,7 +56,7 @@ class CollateralIncreaseAmountViewController: UIViewController {
 	}
 
 	private func pushToCollateralConfirmVC() {
-        let collateralConfirmVM = CollateralConfirmViewModel(collaterallIncreaseAmountVM: collateralIncreaseAmountVM)
+		let collateralConfirmVM = CollateralConfirmViewModel(collaterallIncreaseAmountVM: collateralIncreaseAmountVM)
 		let collateralConfirmVC = CollateralConfirmViewController(collateralConfirmVM: collateralConfirmVM)
 		navigationController?.pushViewController(collateralConfirmVC, animated: true)
 	}

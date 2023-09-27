@@ -17,7 +17,7 @@ class CollateralIncreaseAmountViewModel {
 	public var textFieldPlaceHolder = "0"
 
 	public let selectedToken: AssetViewModel
-    public let borrowVM: BorrowViewModel
+	public let borrowVM: BorrowViewModel
 
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
@@ -47,9 +47,9 @@ class CollateralIncreaseAmountViewModel {
 
 	// MARK: - Initializers
 
-    init(selectedToken: AssetViewModel, borrowVM: BorrowViewModel) {
+	init(selectedToken: AssetViewModel, borrowVM: BorrowViewModel) {
 		self.selectedToken = selectedToken
-        self.borrowVM = borrowVM
+		self.borrowVM = borrowVM
 	}
 
 	// MARK: - Public Methods

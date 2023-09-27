@@ -53,7 +53,7 @@ class WithdrawAmountViewController: UIViewController {
 	}
 
 	private func pushToWithdrawConfirmVC() {
-        let withdrawConfirmVM = WithdrawConfirmViewModel(withdrawAmountVM: withdrawAmountVM)
+		let withdrawConfirmVM = WithdrawConfirmViewModel(withdrawAmountVM: withdrawAmountVM)
 		let withdrawConfirmVC = WithdrawConfirmViewController(withdrawConfirmVM: withdrawConfirmVM)
 		navigationController?.pushViewController(withdrawConfirmVC, animated: true)
 	}
