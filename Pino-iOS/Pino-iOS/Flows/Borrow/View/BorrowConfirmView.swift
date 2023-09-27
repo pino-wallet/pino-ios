@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class BorrowConfirmView: UIView {
 	// MARK: - TypeAliases
@@ -131,7 +132,8 @@ class BorrowConfirmView: UIView {
 		feeInfoStackView.axis = .horizontal
 		feeInfoStackView.alignment = .center
 
-		headerImageView.image = UIImage(named: borrowConfrimVM.tokenImage)
+        headerImageView.kf.indicatorType = .activity
+        headerImageView.kf.setImage(with: borrowConfrimVM.tokenImage)
 
 		headerTitleLabel.font = .PinoStyle.semiboldTitle2
 		headerTitleLabel.text = borrowConfrimVM.tokenAmountAndSymbol

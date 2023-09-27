@@ -21,24 +21,44 @@ struct BorrowConfirmViewModel {
 	public let protocolActionsheetText = "this is protocol"
 	#warning("this fee is mock and it should be removed")
 	public let fee = "$10"
+    
+    public let borrowIncreaseAmountVM: BorrowIncreaseAmountViewModel
 
 	public var protocolImageName: String {
-		"aave"
+        selectedDexSystem.image
 	}
 
 	public var protocolName: String {
-		"Aave"
+        selectedDexSystem.name
 	}
 
 	public var tokenAmountAndSymbol: String {
-		"120 USDC"
+        tokenAmountBigNumber.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
 
 	public var tokenAmountInDollars: String {
-		"$120"
+        let userTokenAmountInDollars = tokenAmountBigNumber * selectedToken.price
+        return userTokenAmountInDollars.priceFormat
 	}
 
-	public var tokenImage: String {
-		"USDC"
+	public var tokenImage: URL {
+        selectedToken.image
 	}
+    
+    // MARK: - Private Properties
+    private var tokenAmountBigNumber: BigNumber {
+        BigNumber(numberWithDecimal: borrowIncreaseAmountVM.tokenAmount)
+    }
+    private var selectedToken: AssetViewModel {
+        borrowIncreaseAmountVM.selectedToken
+    }
+    
+    private var selectedDexSystem: DexSystemModel {
+        borrowIncreaseAmountVM.borrowVM.selectedDexSystem
+    }
+    
+    // MARK: - Initializers
+    init(borrowIncreaseAmountVM: BorrowIncreaseAmountViewModel) {
+        self.borrowIncreaseAmountVM = borrowIncreaseAmountVM
+    }
 }

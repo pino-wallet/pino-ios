@@ -39,7 +39,6 @@ class RepayAmountViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		#warning("this should be changed")
 		repayAmountView = RepayAmountView(repayAmountVM: repayAmountVM, nextButtonTapped: {
 			self.pushToRepayConfirmVC()
 		})
@@ -51,9 +50,9 @@ class RepayAmountViewController: UIViewController {
 		setNavigationTitle("\(repayAmountVM.pageTitleRepayText) \(repayAmountVM.tokenSymbol)")
 	}
 
-	#warning("this should be changed")
 	private func pushToRepayConfirmVC() {
-		let repayConfirmVC = RepayConfirmViewController()
+        let repayConfirmVM = RepayConfirmViewModel(repayamountVM: repayAmountVM)
+		let repayConfirmVC = RepayConfirmViewController(repayConfirmVM: repayConfirmVM)
 		navigationController?.pushViewController(repayConfirmVC, animated: true)
 	}
 }

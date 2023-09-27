@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class RepayConfirmView: UIView {
 	// MARK: - TypeAliases
@@ -131,7 +132,8 @@ class RepayConfirmView: UIView {
 		feeInfoStackView.axis = .horizontal
 		feeInfoStackView.alignment = .center
 
-		headerImageView.image = UIImage(named: repayConfrimVM.tokenImage)
+        headerImageView.kf.indicatorType = .activity
+        headerImageView.kf.setImage(with: repayConfrimVM.tokenImage)
 
 		headerTitleLabel.font = .PinoStyle.semiboldTitle2
 		headerTitleLabel.text = repayConfrimVM.tokenAmountAndSymbol

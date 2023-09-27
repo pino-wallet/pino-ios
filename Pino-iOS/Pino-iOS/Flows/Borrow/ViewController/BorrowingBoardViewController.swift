@@ -81,7 +81,7 @@ class BorrowingBoardViewController: UIViewController {
 	}
 
 	private func pushToBorrowIncreaseAmountPage(selectedToken: AssetViewModel) {
-		let borrowIncreaseAmountVM = BorrowIncreaseAmountViewModel(selectedToken: selectedToken)
+        let borrowIncreaseAmountVM = BorrowIncreaseAmountViewModel(selectedToken: selectedToken, borrowVM: borrowVM)
 		let borrowIncreaseAmountVC = BorrowIncreaseAmountViewController(borrowIncreaseAmountVM: borrowIncreaseAmountVM)
 		navigationController?.pushViewController(borrowIncreaseAmountVC, animated: true)
 	}
