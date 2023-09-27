@@ -57,7 +57,7 @@ class SwapManager {
 			self.sweepTokenCallData().map { ($0, providersCallData, permitData, allowanceData) }
 		}.then { sweepData, providersCallData, permitData, allowanceData in
 			// MultiCall
-			var callDatas = [allowanceData, permitData]
+			var callDatas = [allowanceData, permitData, providersCallData]
 			if let sweepData { callDatas.append(sweepData) }
 			return self.callProxyMultiCall(data: callDatas, value: nil)
 		}.done { trxHash in
@@ -162,13 +162,13 @@ class SwapManager {
 				fetchHash()
 			}.done { [self] hash in
 				var signiture = try Sec256k1Encryptor.sign(
-                    msg: hash.hexToBytes(),
+					msg: hash.hexToBytes(),
 					seckey: pinoWalletManager.currentAccountPrivateKey.string.hexToBytes()
 				)
-                signiture[signiture.count-1] += 27
+				signiture[signiture.count - 1] += 27
 
 				seal.fulfill("0x\(signiture.toHexString())")
-                
+
 			}.catch { error in
 				fatalError(error.localizedDescription)
 			}
@@ -184,7 +184,7 @@ class SwapManager {
 				srcToken.tokenAmountBigNum.description,
 				spender: Web3Core.Constants.pinoProxyAddress
 			)
-            
+
 			web3Client.getHashTypedData(eip712HashReqInfo: hashREq).sink { completed in
 				switch completed {
 				case .finished:

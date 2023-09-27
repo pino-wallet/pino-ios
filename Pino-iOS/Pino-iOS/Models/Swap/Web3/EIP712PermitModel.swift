@@ -51,7 +51,7 @@ struct EIP712PermitModel: Codable {
 		let deadline = Date().timeIntervalSince1970 + 1_800_000 // This is the equal of 30 minutes in ms
 		let initMessage = Message(
 			permitted: initPermit,
-            spender: Web3Core.Constants.pinoProxyAddress,
+			spender: Web3Core.Constants.pinoProxyAddress,
 			nonce: "1245",
 			deadline: "11579208923731619542357098"
 		)

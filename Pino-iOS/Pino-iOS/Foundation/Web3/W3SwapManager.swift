@@ -104,30 +104,23 @@ public struct W3SwapManager {
 				web3: web3
 			)
 
-			let dataOfCallData = callData.map { callData in
-                Data(hexString: callData, length: UInt(callData.count))!
-			}
-            
-            let calls = "0x35471101000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb4800000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000001000000000000000000000000216b4b4ba9f3e719726886d34a177484278bfcae"
-            let multiArray: Array<Data> = Array(hexString: calls, length: 1)!
-            
-            let multicall = Multicall(callData: callData)
-            
-            let solInvocation = contract[ABIMethodWrite.multicall.rawValue]?(multiArray)
+			print(W3CallDataGenerator().generateMultiCallFrom(calls: callData))
 
-            let trx = try trxManager.createTransactionFor(
-                contract: solInvocation!,
-                nonce: BigUInt(123).etherumQuantity,
-                gasPrice: BigUInt(123).etherumQuantity,
-                gasLimit: BigUInt(123000).etherumQuantity,
-                value: BigUInt(0).etherumQuantity
-            )
-            
-            let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-            print(signedTx.data.hex())
-            print(callData.first!.hexToBytes())
-            print(Data(callData.first!.hexToBytes()))
-            
+			let solInvocation = contract[ABIMethodWrite.multicall.rawValue]?(["hi"])
+
+			let trx = try trxManager.createTransactionFor(
+				contract: solInvocation!,
+				nonce: BigUInt(123).etherumQuantity,
+				gasPrice: BigUInt(123).etherumQuantity,
+				gasLimit: BigUInt(123_000).etherumQuantity,
+				value: BigUInt(0).etherumQuantity
+			)
+
+			let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
+			print(signedTx.data.hex())
+			print(callData.first!.hexToBytes())
+			print(Data(callData.first!.hexToBytes()))
+
 			gasInfoManager.calculateGasOf(
 				method: .multicall,
 				solInvoc: solInvocation!,
@@ -189,84 +182,4 @@ public struct W3SwapManager {
 			seal.fulfill(trx.data.hex())
 		}
 	}
-}
-
-struct Multicall: ABIEncodable {
-    var callData: [String] // Array of hex strings
-    
-    func abiEncode(dynamic: Bool) -> String? {
-        var encoded = "" // Initial empty string to accumulate the encoding
-        
-        // Encode the length of the array
-        encoded += UInt64(callData.count).abiEncode(dynamic: false) ?? ""
-        
-        // Calculate the offset to the dynamic data
-        // For each element in the array, there is one word (32 bytes) offset
-        var offset = 32 * callData.count
-        
-        // Array to hold the encoded dynamic data
-        var dynamicDataEncoded = ""
-        
-        for dataHex in callData {
-            // Assuming dataHex is a valid hex string, e.g. "0x1234"
-//            guard let data = Data(hexString: dataHex) else {
-//                // Handle invalid hex string
-//                return nil
-//            }
-            
-            let data = Data(hex: dataHex)
-            
-            // Encode the offset
-            encoded += UInt64(offset).abiEncode(dynamic: false) ?? ""
-            
-            // Encode the length of the bytes
-            dynamicDataEncoded += UInt64(data.count).abiEncode(dynamic: false) ?? ""
-            
-            // Encode the actual bytes
-            dynamicDataEncoded += data.map { String(format: "%02x", $0) }.joined()
-            
-            // Update the offset for the next element
-            // Each word is 32 bytes. The length of the bytes takes one word.
-            // The data takes (length + 31) / 32 words.
-            offset += 32 * ((data.count + 31) / 32 + 1)
-        }
-        
-        // Combine the encoding of offsets and the encoding of dynamic data
-        encoded += dynamicDataEncoded
-        
-        return encoded
-    }
-}
-
-extension ABIDecodable {
-    init?(hexString: String, length: Int) {
-        
-    }
-}
-
-
-extension Array: ABIDecodable where Element: ABIDecodable {
-    
-    public init?(hexString: String) {
-        let lengthString = hexString.substr(0, 64)
-        let valueString = String(hexString.dropFirst(64))
-        guard let string = lengthString, let length = Int(string, radix: 16), length > 0 else { return nil }
-        self.init(hexString: valueString, length: length)
-    }
-    
-    public init?(hexString: String, length: Int) {
-        let itemLength = hexString.count / length
-        let values = (0..<length).compactMap { i -> Element? in
-            if let elementString = hexString.substr(i * itemLength, itemLength) {
-                return Element.init(hexString: elementString, length: itemLength)
-            }
-            return nil
-        }
-        if values.count == length {
-            self = values
-        } else {
-            return nil
-        }
-    }
-    
 }

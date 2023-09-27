@@ -107,4 +107,17 @@ extension String {
 		let padding = String(repeating: withPad, count: paddingCount)
 		return padding + self
 	}
+
+	public func paddingRight(toLength: Int, withPad: String) -> String {
+		let paddingCount = toLength - count
+		guard paddingCount > 0 else { return self }
+
+		let padding = String(repeating: withPad, count: paddingCount)
+		return self + padding
+	}
+
+	func paddingRight(count: Int, withPad: String) -> String {
+		let padding = String(repeating: withPad, count: count)
+		return self + padding
+	}
 }
