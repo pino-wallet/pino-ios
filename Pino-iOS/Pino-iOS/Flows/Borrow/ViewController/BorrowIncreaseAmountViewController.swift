@@ -54,7 +54,7 @@ class BorrowIncreaseAmountViewController: UIViewController {
 	}
 
 	private func pushToBorrowConfirmVC() {
-        let borrowConfirmVM = BorrowConfirmViewModel(borrowIncreaseAmountVM: borrowIncreaseAmountVM)
+		let borrowConfirmVM = BorrowConfirmViewModel(borrowIncreaseAmountVM: borrowIncreaseAmountVM)
 		let borrowConfirmVC = BorrowConfirmViewController(borrowConfirmVM: borrowConfirmVM)
 		navigationController?.pushViewController(borrowConfirmVC, animated: true)
 	}

@@ -10,7 +10,7 @@ import UIKit
 class RepayConfirmViewController: UIViewController {
 	// MARK: - Private Properties
 
-    private let repayConfirmVM: RepayConfirmViewModel
+	private let repayConfirmVM: RepayConfirmViewModel
 	private var repayConfirmView: RepayConfirmView!
 
 	// MARK: - View Overrides
@@ -23,18 +23,19 @@ class RepayConfirmViewController: UIViewController {
 		setupView()
 		setupNavigationBar()
 	}
-    
-    // MARK: - Initializers
-    init(repayConfirmVM: RepayConfirmViewModel) {
-        self.repayConfirmVM = repayConfirmVM
-        
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
+	// MARK: - Initializers
+
+	init(repayConfirmVM: RepayConfirmViewModel) {
+		self.repayConfirmVM = repayConfirmVM
+
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
 	// MARK: - Private Methods
 
 	private func setupView() {

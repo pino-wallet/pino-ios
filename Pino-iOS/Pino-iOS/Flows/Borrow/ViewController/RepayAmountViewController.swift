@@ -51,7 +51,7 @@ class RepayAmountViewController: UIViewController {
 	}
 
 	private func pushToRepayConfirmVC() {
-        let repayConfirmVM = RepayConfirmViewModel(repayamountVM: repayAmountVM)
+		let repayConfirmVM = RepayConfirmViewModel(repayamountVM: repayAmountVM)
 		let repayConfirmVC = RepayConfirmViewController(repayConfirmVM: repayConfirmVM)
 		navigationController?.pushViewController(repayConfirmVC, animated: true)
 	}
