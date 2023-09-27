@@ -85,7 +85,7 @@ class CollateralizingBoardViewController: UIViewController {
 	}
 
 	private func pushToCollateralIncreaseAmountPage(selectedToken: AssetViewModel) {
-		let collateralIncreaseAmountVM = CollateralIncreaseAmountViewModel(selectedToken: selectedToken)
+		let collateralIncreaseAmountVM = CollateralIncreaseAmountViewModel(selectedToken: selectedToken, borrowVM: borrowVM)
 		let collateralIncreaseAmountVC =
 			CollateralIncreaseAmountViewController(collateralIncreaseAmountVM: collateralIncreaseAmountVM)
 		navigationController?.pushViewController(collateralIncreaseAmountVC, animated: true)

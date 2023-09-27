@@ -10,7 +10,7 @@ import UIKit
 class CollateralConfirmViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let collateralConfirmVM = CollateralConfirmViewModel()
+    private let collateralConfirmVM: CollateralConfirmViewModel
 	private var collateralConfirmView: CollateralConfirmView!
 
 	// MARK: - View Overrides
@@ -23,7 +23,18 @@ class CollateralConfirmViewController: UIViewController {
 		setupView()
 		setupNavigationBar()
 	}
-
+    
+    // MARK: - Initializers
+    init(collateralConfirmVM: CollateralConfirmViewModel) {
+        self.collateralConfirmVM = collateralConfirmVM
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 	// MARK: - Private Methods
 
 	private func setupView() {

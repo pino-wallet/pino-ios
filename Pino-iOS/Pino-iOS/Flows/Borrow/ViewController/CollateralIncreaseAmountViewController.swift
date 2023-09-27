@@ -39,7 +39,6 @@ class CollateralIncreaseAmountViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		#warning("this should be changed")
 		collateralIncreaseAmountView = CollateralIncreaseAmountView(
 			collateralIncreaseAmountVM: collateralIncreaseAmountVM,
 			nextButtonTapped: {
@@ -56,9 +55,9 @@ class CollateralIncreaseAmountViewController: UIViewController {
 		)
 	}
 
-	#warning("this should be changed")
 	private func pushToCollateralConfirmVC() {
-		let collateralConfirmVC = CollateralConfirmViewController()
+        let collateralConfirmVM = CollateralConfirmViewModel(collaterallIncreaseAmountVM: collateralIncreaseAmountVM)
+		let collateralConfirmVC = CollateralConfirmViewController(collateralConfirmVM: collateralConfirmVM)
 		navigationController?.pushViewController(collateralConfirmVC, animated: true)
 	}
 }

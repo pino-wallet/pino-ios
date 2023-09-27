@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class WithdrawConfirmView: UIView {
 	// MARK: - TypeAliases
@@ -134,7 +135,8 @@ class WithdrawConfirmView: UIView {
 		feeInfoStackView.axis = .horizontal
 		feeInfoStackView.alignment = .center
 
-		headerImageView.image = UIImage(named: withdrawConfrimVM.tokenImage)
+        headerImageView.kf.indicatorType = .activity
+        headerImageView.kf.setImage(with: withdrawConfrimVM.tokenImage)
 
 		headerTitleLabel.font = .PinoStyle.semiboldTitle2
 		headerTitleLabel.text = withdrawConfrimVM.tokenAmountAndSymbol
