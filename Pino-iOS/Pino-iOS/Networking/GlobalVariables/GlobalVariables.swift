@@ -17,7 +17,7 @@ class GlobalVariables {
 	// MARK: - Public Properties
 
 	@Published
-	public var ethGasFee = (fee: BigNumber(number: "0", decimal: 0), feeInDollar: BigNumber(number: "0", decimal: 0))
+	public var ethGasFee: GasInfo!
 	@Published
 	public var manageAssetsList: [AssetViewModel]?
 	@Published
@@ -92,8 +92,7 @@ class GlobalVariables {
 
 	private func calculateEthGasFee() -> Promise<Void> {
 		Web3Core.shared.calculateEthGasFee().done { gasInfo in
-			let fee = BigNumber(unSignedNumber: gasInfo.fee, decimal: 18)
-			GlobalVariables.shared.ethGasFee = (fee, gasInfo.feeInDollar)
+			GlobalVariables.shared.ethGasFee = gasInfo
 		}
 	}
 

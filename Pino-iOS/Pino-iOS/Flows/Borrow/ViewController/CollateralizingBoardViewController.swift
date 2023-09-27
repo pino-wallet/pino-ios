@@ -25,6 +25,12 @@ class CollateralizingBoardViewController: UIViewController {
 		setupNavigationBar()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		if isBeingPresented || isMovingToParent {
+			collateralizingBoardVM.getCollaterlizableTokens()
+		}
+	}
+
 	// MARK: - Initializers
 
 	init(borrowVM: BorrowViewModel) {
@@ -40,31 +46,18 @@ class CollateralizingBoardViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		#warning("this values are temporary")
-		collateralizingBoardVM = CollateralizingBoardViewModel(
-			userCollateralizingTokens: borrowVM.userBorrowingDetails?.collateralTokens.compactMap { _ in
-				UserCollateralizingAssetModel(
-					tokenImage: "https://demo-cdn.pino.xyz/tokens/chainlink.png",
-					tokenSymbol: "USDC",
-					userCollateralizedAmountInToken: "3000"
-				)
-			} ?? [],
-			collateralizableTokens: [
-				CollateralizableAssetModel(
-					tokenImage: "https://demo-cdn.pino.xyz/tokens/chainlink.png",
-					tokenSymbol: "ETH",
-					userAmountInToken: "87"
-				),
-			]
-		)
+		collateralizingBoardVM = CollateralizingBoardViewModel(borrowVM: borrowVM)
 
 		collateralizingBoardView = CollateralizingBoradView(
 			collateralizingBoardVM: collateralizingBoardVM,
 			assetDidSelect: { selectedAssetVM in
-				if (selectedAssetVM as? UserCollateralizingAssetViewModel) != nil {
-					self.presentCollateralDetailsVC()
+				if let selectedAssetVM = selectedAssetVM as? UserCollateralizingAssetViewModel {
+					self.presentCollateralDetailsVC(selectedAssetVM: selectedAssetVM.defaultCollateralizingAssetModel)
+				} else if let selectedAssetVM = selectedAssetVM as? CollateralizableAssetViewModel {
+					self
+						.pushToCollateralIncreaseAmountPage(selectedToken: selectedAssetVM.foundTokenInManageAssetTokens)
 				} else {
-					self.pushToCollateralIncreaseAmountPage()
+					print("Unknown type")
 				}
 			}
 		)
@@ -83,16 +76,18 @@ class CollateralizingBoardViewController: UIViewController {
 		)
 	}
 
-	private func presentCollateralDetailsVC() {
-		let collateralDetailsVC = CollateralDetailsViewController()
+	private func presentCollateralDetailsVC(selectedAssetVM: UserBorrowingToken) {
+		let collateralDetailVM = CollateralDetailsViewModel(collateralledTokenModel: selectedAssetVM)
+		let collateralDetailsVC = CollateralDetailsViewController(collateralDetailsVM: collateralDetailVM)
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [collateralDetailsVC]
 		present(navigationVC, animated: true)
 	}
 
-	#warning("this is for test")
-	private func pushToCollateralIncreaseAmountPage() {
-		let collateralIncreaseAmountVC = CollateralIncreaseAmountViewController()
+	private func pushToCollateralIncreaseAmountPage(selectedToken: AssetViewModel) {
+		let collateralIncreaseAmountVM = CollateralIncreaseAmountViewModel(selectedToken: selectedToken)
+		let collateralIncreaseAmountVC =
+			CollateralIncreaseAmountViewController(collateralIncreaseAmountVM: collateralIncreaseAmountVM)
 		navigationController?.pushViewController(collateralIncreaseAmountVC, animated: true)
 	}
 

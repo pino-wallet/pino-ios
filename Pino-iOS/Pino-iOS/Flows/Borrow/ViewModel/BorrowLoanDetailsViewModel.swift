@@ -33,6 +33,11 @@ class BorrowLoanDetailsViewModel {
 		borrowedAmountBigNumber.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
 	}
 
+	public var tokenBorrowAmountInDollars: String {
+		let totalAmountIndollars = borrowedAmountBigNumber * foundTokenInManageAssetTokens.price
+		return totalAmountIndollars.priceFormat
+	}
+
 	@Published
 	public var apy: String?
 	public var apyVolatilityType: AssetVolatilityType?
@@ -102,7 +107,7 @@ class BorrowLoanDetailsViewModel {
 
 	// MARK: - Private Methods
 
-	private func setupApyInfo(borrowableToken: BorrowableTokenModel) {
+	private func setupApyInfo(borrowableToken: BorrowableTokenDetailsModel) {
 		let bigNumberAPY = borrowableToken.apy.bigNumber
 		apyVolatilityType = AssetVolatilityType(change24h: bigNumberAPY)
 		apy = "%\(bigNumberAPY.percentFormat)"

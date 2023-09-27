@@ -16,7 +16,11 @@ class BorrowAPIMockClient: BorrowAPIService {
 		StubManager.publisher(for: "borrowable-tokens-stub")
 	}
 
-	func getBorrowableTokenDetails(dex: String, tokenID: String) -> AnyPublisher<BorrowableTokenModel, APIError> {
+	func getBorrowableTokenDetails(dex: String, tokenID: String) -> AnyPublisher<BorrowableTokenDetailsModel, APIError> {
 		StubManager.publisher(for: "borrowable-token-stub")
+	}
+
+	func getCollateralizableTokens(dex: String) -> AnyPublisher<CollateralizableTokensModel, APIError> {
+		StubManager.publisher(for: "collaterilizable-tokens-stub")
 	}
 }

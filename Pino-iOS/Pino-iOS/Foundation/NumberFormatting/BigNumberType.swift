@@ -7,6 +7,7 @@
 
 import BigInt
 import Foundation
+import Web3
 import Web3_Utility
 
 /** The BigNumber struct is a custom numerical data type that allows for the representation and manipulation of large
@@ -71,6 +72,10 @@ public struct BigNumber {
 
 	public var bigUInt: BigUInt {
 		BigUInt(number)
+	}
+
+	public var etherumQuantity: EthereumQuantity {
+		.init(quantity: bigUInt)
 	}
 
 	public var whole: BigInt {

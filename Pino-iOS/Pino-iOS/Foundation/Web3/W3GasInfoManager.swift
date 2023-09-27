@@ -62,7 +62,11 @@ public struct W3GasInfoManager {
 				)).map { ($0, nonce, gasPrice) }
 
 			}.done { gasLimit, nonce, gasPrice in
-				let gasInfo = GasInfo(gasPrice: gasPrice.quantity, gasLimit: gasLimit.quantity)
+				let gasInfo =
+					GasInfo(
+						gasPrice: BigNumber(unSignedNumber: gasPrice.quantity, decimal: 0),
+						gasLimit: BigNumber(unSignedNumber: try! BigUInt(gasLimit), decimal: 0)
+					)
 				seal.fulfill(gasInfo)
 			}.catch { error in
 				seal.reject(error)
@@ -75,8 +79,9 @@ public struct W3GasInfoManager {
 			attempt(maximumRetryCount: 3) { [self] in
 				web3.eth.gasPrice()
 			}.done { gasPrice in
-				let gasLimit = try BigUInt(Web3Core.Constants.ethGasLimit)
-				let gasInfo = GasInfo(gasPrice: gasPrice.quantity, gasLimit: gasLimit)
+				let gasLimit = BigNumber(number: Web3Core.Constants.ethGasLimit, decimal: 0)
+				let gasPriceBigNum = BigNumber(unSignedNumber: gasPrice.quantity, decimal: 0)
+				let gasInfo = GasInfo(gasPrice: gasPriceBigNum, gasLimit: gasLimit)
 				seal.fulfill(gasInfo)
 			}.catch { error in
 				seal.reject(error)

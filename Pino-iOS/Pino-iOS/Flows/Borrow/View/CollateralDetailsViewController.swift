@@ -10,7 +10,7 @@ import UIKit
 class CollateralDetailsViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let collateralDetailsVM = CollateralDetailsViewModel()
+	private let collateralDetailsVM: CollateralDetailsViewModel
 	private var collateralDetailsView: CollateralDetailsView!
 
 	// MARK: - View Overrides
@@ -22,6 +22,18 @@ class CollateralDetailsViewController: UIViewController {
 	override func loadView() {
 		setupNavigationBar()
 		setupView()
+	}
+
+	// MARK: - Initializers
+
+	init(collateralDetailsVM: CollateralDetailsViewModel) {
+		self.collateralDetailsVM = collateralDetailsVM
+
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 
 	// MARK: - Private Methods
@@ -50,15 +62,22 @@ class CollateralDetailsViewController: UIViewController {
 		view = collateralDetailsView
 	}
 
-	#warning("this is for test")
 	private func pushToCollateralIncreaseAmountPage() {
-		let collateralIncreaseAmountVC = CollateralIncreaseAmountViewController()
+		let collateralIncreaseAmountVM = CollateralIncreaseAmountViewModel(
+			selectedToken: collateralDetailsVM
+				.foundTokenInManageAssetTokens
+		)
+		let collateralIncreaseAmountVC =
+			CollateralIncreaseAmountViewController(collateralIncreaseAmountVM: collateralIncreaseAmountVM)
 		navigationController?.pushViewController(collateralIncreaseAmountVC, animated: true)
 	}
 
-	#warning("this is for test")
 	private func pushToWithdrawAmountPage() {
-		let withdrawAmountVC = WithdrawAmountViewController()
+		let withdrawAmountVM = WithdrawAmountViewModel(
+			userCollateralledTokenModel: collateralDetailsVM
+				.defaultCollateralledTokenModel
+		)
+		let withdrawAmountVC = WithdrawAmountViewController(withdrawAmountVM: withdrawAmountVM)
 		navigationController?.pushViewController(withdrawAmountVC, animated: true)
 	}
 

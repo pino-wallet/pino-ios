@@ -97,11 +97,17 @@ class InvestConfirmationViewModel {
 	// MARK: - Private Methods
 
 	private func setupBindings() {
-		GlobalVariables.shared.$ethGasFee.sink { fee, feeInDollar in
-			self.gasFee = fee
-			self.formattedFeeInETH = fee.sevenDigitFormat.ethFormatting
-			self.formattedFeeInDollar = feeInDollar.priceFormat
-		}.store(in: &cancellables)
+		GlobalVariables.shared.$ethGasFee
+			.compactMap { $0 }
+			.sink { gasInfo in
+				self.setGasInfo(gasInfo: gasInfo)
+			}.store(in: &cancellables)
+	}
+
+	private func setGasInfo(gasInfo: GasInfo) {
+		gasFee = gasInfo.fee
+		formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
+		formattedFeeInETH = gasInfo.fee.sevenDigitFormat.ethFormatting
 	}
 
 	// MARK: - Public Methods

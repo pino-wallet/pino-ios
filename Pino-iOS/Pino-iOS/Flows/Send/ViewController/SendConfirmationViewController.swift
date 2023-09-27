@@ -79,7 +79,7 @@ class SendConfirmationViewController: AuthenticationLockViewController {
 	private func getFee() {
 		sendConfirmationView.hideFeeCalculationError()
 		sendConfirmationView.showSkeletonView()
-		sendConfirmationVM.getFee().catch { error in
+		sendConfirmationVM.getFee { error in
 			self.showFeeError(error)
 		}
 	}
