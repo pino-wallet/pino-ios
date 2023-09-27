@@ -20,36 +20,39 @@ struct AccountInfoNavigationItems {
 
 	// MARK: - Public Properties
 
-	public var accountTitle: UIButton {
-		let accountName = NSMutableAttributedString(
-			string: accountInfoVM.name,
-			attributes: [
-				NSAttributedString.Key.foregroundColor: UIColor.Pino.label,
-				NSAttributedString.Key.font: UIFont.PinoStyle.mediumCallout!,
-			]
-		)
-
-		let accountAddress = NSMutableAttributedString(
-			string: " (\(accountInfoVM.address.addressFormating()))",
-			attributes: [
-				NSAttributedString.Key.foregroundColor: UIColor.Pino.secondaryLabel,
-				NSAttributedString.Key.font: UIFont.PinoStyle.mediumCallout!,
-			]
-		)
-
-		accountName.append(accountAddress)
-
-		let navigationBarTitle = UIButton()
-		navigationBarTitle.setAttributedTitle(accountName, for: .normal)
-
-		return navigationBarTitle
+	public var accountTitle: UIStackView {
+        let navigationBarTitleStackView = UIStackView()
+        let accountNameLabel = PinoLabel(style: .info, text: "")
+        let accountImageViewContainer = UIView()
+        let accountImageView = UIImageView()
+        let arrowDownImageView = UIImageView()
+        
+        accountImageViewContainer.addSubview(accountImageView)
+        navigationBarTitleStackView.addArrangedSubview(accountImageViewContainer)
+        navigationBarTitleStackView.addArrangedSubview(accountNameLabel)
+        navigationBarTitleStackView.addArrangedSubview(arrowDownImageView)
+        
+        navigationBarTitleStackView.axis = .horizontal
+        navigationBarTitleStackView.spacing = 4
+        navigationBarTitleStackView.alignment = .center
+        accountNameLabel.font = .PinoStyle.semiboldCallout
+        accountNameLabel.text = accountInfoVM.name
+        accountImageViewContainer.layer.cornerRadius = 13
+        accountImageViewContainer.backgroundColor = UIColor(named: accountInfoVM.profileColor)
+        arrowDownImageView.image = UIImage(named: "arrow_down_home")
+        accountImageView.image = UIImage(named: accountInfoVM.profileImage)
+        
+        accountImageViewContainer.pin(.fixedWidth(26), .fixedHeight(26))
+        accountImageView.pin(.fixedWidth(18), .fixedHeight(18), .centerX, .centerY)
+        arrowDownImageView.pin(.fixedWidth(18), .fixedHeight(18))
+        
+		return navigationBarTitleStackView
 	}
 
 	public var profileButton: UIBarButtonItem {
 		let profileButton = UIButton()
-		profileButton.setImage(UIImage(named: accountInfoVM.profileImage), for: .normal)
-		profileButton.backgroundColor = UIColor(named: accountInfoVM.profileColor)
-		profileButton.pin(.fixedWidth(32), .fixedHeight(32))
+		profileButton.setImage(UIImage(named: "settings_home"), for: .normal)
+		profileButton.pin(.fixedWidth(24), .fixedHeight(24))
 		profileButton.layer.cornerRadius = 16
 
 		let navigationBarButton = UIBarButtonItem()

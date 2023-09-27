@@ -73,7 +73,8 @@ class HomepageViewController: UIViewController {
 			self?.navigationItem.titleView = accountInfoNavigationItems.accountTitle
 			self?.navigationItem.leftBarButtonItem = accountInfoNavigationItems.profileButton
 			self?.navigationItem.titleView?
-				.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self?.copyWalletAddress)))
+				.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self?.openAccountsPage)))
+            self?.navigationItem.titleView?.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self?.copyWalletAddress)))
 			self?.navigationItem.leftBarButtonItem?.customView?
 				.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self?.openProfilePage)))
 		}.store(in: &cancellables)
@@ -96,6 +97,11 @@ class HomepageViewController: UIViewController {
 
 		Toast.default(title: GlobalToastTitles.copy.message, style: .copy, direction: .top).show(haptic: .success)
 	}
+    
+    @objc
+    private func openAccountsPage() {
+        #warning("this should open accounts page in next pr")
+    }
 
 	@objc
 	private func openManageAssetsPage() {
