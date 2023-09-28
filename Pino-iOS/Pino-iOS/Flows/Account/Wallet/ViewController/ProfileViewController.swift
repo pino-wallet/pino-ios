@@ -68,7 +68,7 @@ class ProfileViewController: UIViewController {
 	private func openSettingDetail(settingVM: SettingsViewModel) {
 		switch settingVM {
 		case .wallets:
-            let walletsVC = AccountsViewController(accountsVM: accountsVM, profileVM: profileVM)
+			let walletsVC = AccountsViewController(accountsVM: accountsVM, profileVM: profileVM)
 			navigationController?.pushViewController(walletsVC, animated: true)
 		case .notification:
 			let notificationsVC = NotificationSettingsViewController()

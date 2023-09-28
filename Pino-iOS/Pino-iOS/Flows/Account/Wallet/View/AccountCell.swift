@@ -18,7 +18,7 @@ public class AccountCell: UICollectionViewCell {
 	private let accountName = UILabel()
 	private let accountBalance = UILabel()
 	private let editButtonContainerView = UIView()
-    private let editButtonImageView = UIImageView()
+	private let editButtonImageView = UIImageView()
 
 	// MARK: Public Properties
 
@@ -44,7 +44,7 @@ public class AccountCell: UICollectionViewCell {
 	private func setupView() {
 		contentView.addSubview(accountCardView)
 		accountCardView.addSubview(accountInfoStackView)
-        editButtonContainerView.addSubview(editButtonImageView)
+		editButtonContainerView.addSubview(editButtonImageView)
 		accountInfoStackView.addArrangedSubview(accountIconBackgroundView)
 		accountInfoStackView.addArrangedSubview(titleStackView)
 		accountInfoStackView.addArrangedSubview(editButtonContainerView)
@@ -52,18 +52,18 @@ public class AccountCell: UICollectionViewCell {
 		titleStackView.addArrangedSubview(accountBalance)
 		accountIconBackgroundView.addSubview(accountIcon)
 
-        let editButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(onEditButtonTap))
-        editButtonContainerView.addGestureRecognizer(editButtonTapGesture)
+		let editButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(onEditButtonTap))
+		editButtonContainerView.addGestureRecognizer(editButtonTapGesture)
 	}
 
 	private func setupStyle() {
 		accountName.text = accountVM.name
 		accountBalance.text = accountVM.balance
 		accountIcon.image = UIImage(named: accountVM.profileImage)
-        
-        editButtonContainerView.backgroundColor = .Pino.background
-        editButtonContainerView.layer.cornerRadius = 16
-        
+
+		editButtonContainerView.backgroundColor = .Pino.background
+		editButtonContainerView.layer.cornerRadius = 16
+
 		editButtonImageView.image = UIImage(named: "edit_accounts")
 
 		accountIconBackgroundView.backgroundColor = UIColor(named: accountVM.profileColor)
@@ -108,8 +108,8 @@ public class AccountCell: UICollectionViewCell {
 		accountIcon.pin(
 			.allEdges(padding: 6)
 		)
-        editButtonContainerView.pin(.fixedWidth(32), .fixedHeight(32))
-        editButtonImageView.pin(.fixedWidth(24), .fixedHeight(24), .centerY, .centerX)
+		editButtonContainerView.pin(.fixedWidth(32), .fixedHeight(32))
+		editButtonImageView.pin(.fixedWidth(24), .fixedHeight(24), .centerY, .centerX)
 	}
 
 	private func updateStyle() {
@@ -122,10 +122,11 @@ public class AccountCell: UICollectionViewCell {
 			accountCardView.layer.borderWidth = 1.2
 		}
 	}
-    
-    @objc private func onEditButtonTap() {
-            editButtonTapped()
-    }
+
+	@objc
+	private func onEditButtonTap() {
+		editButtonTapped()
+	}
 }
 
 extension AccountCell {

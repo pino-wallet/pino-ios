@@ -12,7 +12,7 @@ class AccountsCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
 	private var accountsVM: AccountsViewModel
-    private var profileVM: ProfileViewModel
+	private var profileVM: ProfileViewModel
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Closures
@@ -24,14 +24,14 @@ class AccountsCollectionView: UICollectionView {
 
 	init(
 		accountsVM: AccountsViewModel,
-        profileVM: ProfileViewModel,
+		profileVM: ProfileViewModel,
 		editAccountTapped: @escaping (AccountInfoViewModel) -> Void,
 		dismissPage: @escaping () -> Void
 	) {
 		self.accountsVM = accountsVM
 		self.editAccountTapped = editAccountTapped
 		self.dismissPage = dismissPage
-        self.profileVM = profileVM
+		self.profileVM = profileVM
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		flowLayout.sectionInset = UIEdgeInsets(top: 24, left: 0, bottom: 24, right: 0)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
@@ -65,8 +65,8 @@ class AccountsCollectionView: UICollectionView {
 	private func setupBindings() {
 		accountsVM.$accountsList.sink { [weak self] wallets in
 			self?.reloadData()
-            let selectedWallet = wallets?.first(where: { $0.isSelected })
-            self?.profileVM.walletInfo = selectedWallet
+			let selectedWallet = wallets?.first(where: { $0.isSelected })
+			self?.profileVM.walletInfo = selectedWallet
 		}.store(in: &cancellables)
 	}
 }
