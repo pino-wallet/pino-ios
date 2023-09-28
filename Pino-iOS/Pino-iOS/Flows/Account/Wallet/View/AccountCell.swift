@@ -17,7 +17,8 @@ public class AccountCell: UICollectionViewCell {
 	private let titleStackView = UIStackView()
 	private let accountName = UILabel()
 	private let accountBalance = UILabel()
-	private let editButton = UIButton()
+	private let editButtonContainerView = UIView()
+    private let editButtonImageView = UIImageView()
 
 	// MARK: Public Properties
 
@@ -43,28 +44,32 @@ public class AccountCell: UICollectionViewCell {
 	private func setupView() {
 		contentView.addSubview(accountCardView)
 		accountCardView.addSubview(accountInfoStackView)
+        editButtonContainerView.addSubview(editButtonImageView)
 		accountInfoStackView.addArrangedSubview(accountIconBackgroundView)
 		accountInfoStackView.addArrangedSubview(titleStackView)
-		accountInfoStackView.addArrangedSubview(editButton)
+		accountInfoStackView.addArrangedSubview(editButtonContainerView)
 		titleStackView.addArrangedSubview(accountName)
 		titleStackView.addArrangedSubview(accountBalance)
 		accountIconBackgroundView.addSubview(accountIcon)
 
-		editButton.addAction(UIAction(handler: { _ in
-			self.editButtonTapped()
-		}), for: .touchUpInside)
+        let editButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(onEditButtonTap))
+        editButtonContainerView.addGestureRecognizer(editButtonTapGesture)
 	}
 
 	private func setupStyle() {
 		accountName.text = accountVM.name
 		accountBalance.text = accountVM.balance
 		accountIcon.image = UIImage(named: accountVM.profileImage)
-		editButton.setImage(UIImage(named: "dots-menu"), for: .normal)
+        
+        editButtonContainerView.backgroundColor = .Pino.background
+        editButtonContainerView.layer.cornerRadius = 16
+        
+		editButtonImageView.image = UIImage(named: "edit_accounts")
 
 		accountIconBackgroundView.backgroundColor = UIColor(named: accountVM.profileColor)
 		accountCardView.backgroundColor = .Pino.secondaryBackground
 		accountCardView.layer.borderColor = UIColor.Pino.primary.cgColor
-		editButton.tintColor = .Pino.gray3
+		editButtonContainerView.tintColor = .Pino.gray3
 
 		accountName.textColor = .Pino.label
 		accountBalance.textColor = .Pino.secondaryLabel
@@ -103,10 +108,8 @@ public class AccountCell: UICollectionViewCell {
 		accountIcon.pin(
 			.allEdges(padding: 6)
 		)
-		editButton.pin(
-			.fixedWidth(28),
-			.fixedHeight(28)
-		)
+        editButtonContainerView.pin(.fixedWidth(32), .fixedHeight(32))
+        editButtonImageView.pin(.fixedWidth(24), .fixedHeight(24), .centerY, .centerX)
 	}
 
 	private func updateStyle() {
@@ -119,6 +122,10 @@ public class AccountCell: UICollectionViewCell {
 			accountCardView.layer.borderWidth = 1.2
 		}
 	}
+    
+    @objc private func onEditButtonTap() {
+            editButtonTapped()
+    }
 }
 
 extension AccountCell {

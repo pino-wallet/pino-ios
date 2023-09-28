@@ -36,7 +36,6 @@ class ProfileViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
-		setupBindings()
 	}
 
 	// MARK: - Private Methods
@@ -61,13 +60,6 @@ class ProfileViewController: UIViewController {
 		)
 	}
 
-	private func setupBindings() {
-		accountsVM.$accountsList.sink { wallets in
-			let selectedWallet = wallets?.first(where: { $0.isSelected })
-			self.profileVM.walletInfo = selectedWallet
-		}.store(in: &cancellables)
-	}
-
 	@objc
 	private func dismissProfile() {
 		dismiss(animated: true)
@@ -76,7 +68,7 @@ class ProfileViewController: UIViewController {
 	private func openSettingDetail(settingVM: SettingsViewModel) {
 		switch settingVM {
 		case .wallets:
-			let walletsVC = AccountsViewController(accountsVM: accountsVM)
+            let walletsVC = AccountsViewController(accountsVM: accountsVM, profileVM: profileVM)
 			navigationController?.pushViewController(walletsVC, animated: true)
 		case .notification:
 			let notificationsVC = NotificationSettingsViewController()
