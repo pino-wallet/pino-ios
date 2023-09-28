@@ -24,13 +24,13 @@ struct TokenPermissions: ABIEncodable {
 
 struct Permit2Model: ABIEncodable {
 	let permitted: TokenPermissions
-	let nonce: EthereumQuantity
-	let deadline: EthereumQuantity
+	let nonce: BigUInt
+	let deadline: BigUInt
 
 	func abiEncode(dynamic: Bool) -> String? {
 		guard let tokenPermissionsEncoded = permitted.abiEncode(dynamic: false),
-		      let nonceEncoded = nonce.quantity.abiEncode(dynamic: false),
-		      let deadlineEncoded = deadline.quantity.abiEncode(dynamic: false) else {
+		      let nonceEncoded = nonce.abiEncode(dynamic: false),
+		      let deadlineEncoded = deadline.abiEncode(dynamic: false) else {
 			return nil
 		}
 		return tokenPermissionsEncoded + nonceEncoded + deadlineEncoded

@@ -95,7 +95,7 @@ public struct W3SwapManager {
 		}
 	}
 
-    public func callMultiCall(callData: [String], value: BigUInt, contractAddress: EthereumAddress) -> Promise<String> {
+	public func callMultiCall(callData: [String], value: BigUInt, contractAddress: EthereumAddress) -> Promise<String> {
 		Promise<String>() { [self] seal in
 
 			let generatedMulticallData = W3CallDataGenerator.generateMultiCallFrom(calls: callData)

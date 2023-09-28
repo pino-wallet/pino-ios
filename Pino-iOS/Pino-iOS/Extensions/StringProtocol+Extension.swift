@@ -120,4 +120,13 @@ extension String {
 		let padding = String(repeating: withPad, count: count)
 		return self + padding
 	}
+
+	public var bigUInt: BigUInt? {
+		do {
+			let bigNum = try BigUInt(self)
+			return bigNum
+		} catch {
+			return nil
+		}
+	}
 }

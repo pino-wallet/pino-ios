@@ -38,7 +38,13 @@ public struct W3TransferManager {
 
 	// MARK: - Public Methods
 
-	public func getPermitTransferFromCallData(amount: BigUInt, tokenAdd: String, signiture: String) -> Promise<String> {
+	public func getPermitTransferFromCallData(
+		amount: BigUInt,
+		tokenAdd: String,
+		signiture: String,
+		nonce: BigUInt,
+		deadline: BigUInt
+	) -> Promise<String> {
 		Promise<String>() { [self] seal in
 
 			let contract = try Web3Core.getContractOfToken(
@@ -47,13 +53,9 @@ public struct W3TransferManager {
 				web3: web3
 			)
 
-			let reqNonce = BigUInt(1245)
-			//            let deadline = EthereumQuantity(quantity: BigUInt(Date().timeIntervalSince1970) + 1_800_000)
-			let deadline = BigUInt("11579208923731619542357098").etherumQuantity
-
 			let permitModel = Permit2Model(
 				permitted: .init(token: tokenAdd.eip55Address!, amount: amount.etherumQuantity),
-				nonce: reqNonce.etherumQuantity,
+				nonce: nonce,
 				deadline: deadline
 			)
 

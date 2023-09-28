@@ -11,9 +11,17 @@ struct EIP712HashRequestModel: Codable {
 	let tokenAdd: String
 	let amount: String
 	let spender: String
+	let nonce: String
+	let deadline: String
 
 	public var eip712HashReqBody: BodyParamsType {
-		let permitEIP712Model = EIP712PermitModel(tokenAdd: tokenAdd, amount: amount, spender: spender)
+		let permitEIP712Model = EIP712PermitModel(
+			tokenAdd: tokenAdd,
+			amount: amount,
+			spender: spender,
+			nonce: nonce,
+			deadline: deadline
+		)
 
 		let jsonEncoder = JSONEncoder()
 		let typesData = try! jsonEncoder.encode(permitEIP712Model.types)

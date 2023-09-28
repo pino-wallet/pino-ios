@@ -29,6 +29,9 @@ class SwapManager {
 	private let web3Client = Web3APIClient()
 	private var cancellables = Set<AnyCancellable>()
 
+	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes in ms
+	private let nonce = BigNumber.bigRandomeNumber
+
 	init(selectedProvider: SwapProviderViewModel, srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
 		self.selectedProvider = selectedProvider
 		self.srcToken = srcToken
@@ -188,7 +191,9 @@ class SwapManager {
 				tokenAdd: srcToken.selectedToken.id,
 				amount:
 				srcToken.tokenAmountBigNum.description,
-				spender: Web3Core.Constants.pinoProxyAddress
+				spender: Web3Core.Constants.pinoProxyAddress,
+				nonce: nonce.description,
+				deadline: deadline.description
 			)
 
 			web3Client.getHashTypedData(eip712HashReqInfo: hashREq).sink { completed in
@@ -238,7 +243,9 @@ class SwapManager {
 		web3.getPermitTransferCallData(
 			amount: srcToken.tokenAmountBigNum.bigUInt,
 			tokenAdd: srcToken.selectedToken.id,
-			signiture: signiture
+			signiture: signiture,
+			nonce: nonce,
+			deadline: deadline
 		)
 	}
 

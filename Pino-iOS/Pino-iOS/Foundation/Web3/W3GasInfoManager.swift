@@ -89,7 +89,7 @@ public struct W3GasInfoManager {
 					.estimateGas(call: .init(
 						from: myPrivateKey.address,
 						to: to,
-						gas: nil,
+						gas: gasPrice,
 						gasPrice: nil,
 						value: nil,
 						data: data
