@@ -53,4 +53,33 @@ public struct W3TransactionManager {
 
 		return transaction!
 	}
+
+	public func createTransactionFor(
+		nonce: EthereumQuantity? = nil,
+		gasPrice: EthereumQuantity? = nil,
+		gasLimit: EthereumQuantity? = nil,
+		value: EthereumQuantity = 0,
+		data: EthereumData,
+		to: EthereumAddress
+	) throws -> EthereumTransaction {
+		let accountPrivateKey = try EthereumPrivateKey(
+			hexPrivateKey: walletManager.currentAccountPrivateKey.string
+		)
+
+		let transaction = EthereumTransaction(
+			nonce: nonce,
+			gasPrice: gasPrice,
+			maxFeePerGas: nil,
+			maxPriorityFeePerGas: nil,
+			gasLimit: gasLimit,
+			from: accountPrivateKey.address,
+			to: to,
+			value: value,
+			data: data,
+			accessList: [:],
+			transactionType: .legacy
+		)
+
+		return transaction
+	}
 }

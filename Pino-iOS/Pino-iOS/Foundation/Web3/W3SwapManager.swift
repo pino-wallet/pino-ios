@@ -95,59 +95,36 @@ public struct W3SwapManager {
 		}
 	}
 
-	public func callMultiCall(callData: [String], value: BigUInt) -> Promise<String> {
+    public func callMultiCall(callData: [String], value: BigUInt, contractAddress: EthereumAddress) -> Promise<String> {
 		Promise<String>() { [self] seal in
 
-			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.pinoProxyAddress,
-				abi: .swap,
-				web3: web3
-			)
+			let generatedMulticallData = W3CallDataGenerator.generateMultiCallFrom(calls: callData)
+			let ethCallData = EthereumData(generatedMulticallData.hexToBytes())
 
-			print(W3CallDataGenerator().generateMultiCallFrom(calls: callData))
+			gasInfoManager.calculateGasOf(data: ethCallData, to: contractAddress)
+				.then { [self] gasInfo in
+					web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+						.map { ($0, gasInfo) }
+				}
+				.then { [self] nonce, gasInfo in
 
-			let solInvocation = contract[ABIMethodWrite.multicall.rawValue]?(["hi"])
+					let trx = try trxManager.createTransactionFor(
+						nonce: nonce,
+						gasPrice: gasInfo.gasPrice.etherumQuantity,
+						gasLimit: gasInfo.gasLimit.bigUInt.etherumQuantity,
+						value: value.etherumQuantity,
+						data: ethCallData,
+						to: contractAddress
+					)
 
-			let trx = try trxManager.createTransactionFor(
-				contract: solInvocation!,
-				nonce: BigUInt(123).etherumQuantity,
-				gasPrice: BigUInt(123).etherumQuantity,
-				gasLimit: BigUInt(123_000).etherumQuantity,
-				value: BigUInt(0).etherumQuantity
-			)
-
-			let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-			print(signedTx.data.hex())
-			print(callData.first!.hexToBytes())
-			print(Data(callData.first!.hexToBytes()))
-
-			gasInfoManager.calculateGasOf(
-				method: .multicall,
-				solInvoc: solInvocation!,
-				contractAddress: contract.address!
-			)
-			.then { [self] gasInfo in
-				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
-					.map { ($0, gasInfo) }
-			}
-			.then { [self] nonce, gasInfo in
-
-				let trx = try trxManager.createTransactionFor(
-					contract: solInvocation!,
-					nonce: nonce,
-					gasPrice: gasInfo.gasPrice.etherumQuantity,
-					gasLimit: gasInfo.gasLimit.bigUInt.etherumQuantity,
-					value: value.etherumQuantity
-				)
-
-				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-				return "hash".promise
+					let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
+					return "hash".promise
 //				return web3.eth.sendRawTransaction(transaction: signedTx)
-			}.done { txHash in
-				seal.fulfill(txHash)
-			}.catch { error in
-				seal.reject(error)
-			}
+				}.done { txHash in
+					seal.fulfill(txHash)
+				}.catch { error in
+					seal.reject(error)
+				}
 		}
 	}
 

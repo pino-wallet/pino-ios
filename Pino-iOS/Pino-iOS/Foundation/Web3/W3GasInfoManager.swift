@@ -74,6 +74,39 @@ public struct W3GasInfoManager {
 		}
 	}
 
+	public func calculateGasOf(
+		data: EthereumData,
+		to: EthereumAddress
+	) -> Promise<GasInfo> {
+		Promise<GasInfo> { seal in
+
+			let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
+
+			firstly {
+				web3.eth.gasPrice()
+			}.then { gasPrice in
+				web3.eth
+					.estimateGas(call: .init(
+						from: myPrivateKey.address,
+						to: to,
+						gas: nil,
+						gasPrice: nil,
+						value: nil,
+						data: data
+					)).map { ($0, gasPrice) }
+			}.done { estimateGas, gasPrice in
+				let gasInfo =
+					GasInfo(
+						gasPrice: BigNumber(unSignedNumber: gasPrice.quantity, decimal: 0),
+						gasLimit: BigNumber(unSignedNumber: try! BigUInt(estimateGas), decimal: 0)
+					)
+				seal.fulfill(gasInfo)
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
 	public func calculateEthGasFee() -> Promise<GasInfo> {
 		Promise<GasInfo>() { seal in
 			attempt(maximumRetryCount: 3) { [self] in
