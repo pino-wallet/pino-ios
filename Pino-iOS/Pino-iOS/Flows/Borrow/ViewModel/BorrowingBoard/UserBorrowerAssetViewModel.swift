@@ -32,8 +32,8 @@ struct UserBorrowingAssetViewModel: AssetsBoardProtocol {
 		return borrowingAmountinDollars.priceFormat
 	}
 
-	public var defaultUserBorrowingToken: UserBorrowingToken {
-		userBorrowingTokenModel
+	public var userBorrowingTokenID: String {
+		userBorrowingTokenModel.id
 	}
 
 	// MARK: - Private Properties
