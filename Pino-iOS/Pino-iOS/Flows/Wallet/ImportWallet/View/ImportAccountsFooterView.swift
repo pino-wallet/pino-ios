@@ -44,6 +44,8 @@ class ImportAccountsFooterView: UICollectionReusableView {
 		findAccountButton.setTitleColor(.Pino.primary, for: .normal)
 		findAccountButton.titleLabel?.font = .PinoStyle.semiboldCallout
 		loadingView.color = .Pino.primary
+		findAccountButton.isHidden = false
+		loadingView.isHidden = false
 		stopLoading()
 	}
 
@@ -64,6 +66,12 @@ class ImportAccountsFooterView: UICollectionReusableView {
 		)
 	}
 
+	@objc
+	private func findMoreAccounts() {
+		startLoading()
+		findAccountDidTap()
+	}
+
 	// MARK: - Public Methods
 
 	public func startLoading() {
@@ -76,9 +84,8 @@ class ImportAccountsFooterView: UICollectionReusableView {
 		findAccountButton.isHidden = false
 	}
 
-	@objc
-	private func findMoreAccounts() {
-		startLoading()
-		findAccountDidTap()
+	public func hideFindAccountButton() {
+		findAccountButton.isHidden = true
+		loadingView.isHidden = true
 	}
 }

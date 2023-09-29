@@ -51,6 +51,10 @@ class PinoWalletManager: WalletManagement {
 		return account
 	}
 
+	public func createAccount(account: ActiveAccountViewModel) throws {
+		try pinoHDWallet.createAccountIn(wallet: currentHDWallet!, account: account)
+	}
+
 	public func deleteAccount(account: WalletAccount) -> Result<WalletAccount, WalletOperationError> {
 		guard let deletingAccount = accounts.first(where: { $0 == account }) else {
 			return .failure(.wallet(.accountNotFound))
