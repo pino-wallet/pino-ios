@@ -22,6 +22,10 @@ class HomepageViewController: UIViewController {
 		assetsCollectionView.getHomeData()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		assetsCollectionView.reloadData()
+	}
+
 	override func viewDidLayoutSubviews() {
 		let gradientLayer = GradientLayer(frame: view.bounds, style: .homeBackground)
 		view.layer.insertSublayer(gradientLayer, at: 0)
