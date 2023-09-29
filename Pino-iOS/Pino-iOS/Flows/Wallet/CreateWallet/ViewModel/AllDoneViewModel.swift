@@ -38,6 +38,30 @@ class AllDoneViewModel {
 
 	// MARK: - Public Methods
 
+	public func importSelectedAccounts(
+		selectedAccounts: [ActiveAccountViewModel],
+		completion: @escaping (WalletOperationError?) -> Void
+	) {
+		createInitialWalletsInCoreData { wallet in
+			for account in selectedAccounts {
+				do {
+					coreDataManager.createWalletAccount(
+						address: account.address,
+						publicKey: account.publicKey,
+						name: account.name,
+						avatarIcon: account.profileImage,
+						avatarColor: account.profileColor,
+						wallet: wallet
+					)
+					try pinoWalletManager.createAccount(account: account)
+					completion(nil)
+				} catch {
+					completion(WalletOperationError.unknow(error))
+				}
+			}
+		}
+	}
+
 	public func createWallet(mnemonics: String, walletCreated: @escaping (WalletOperationError?) -> Void) {
 		internetConnectivity.$isConnected.tryCompactMap { $0 }.sink { _ in } receiveValue: { [self] isConnected in
 			if isConnected {
@@ -70,6 +94,21 @@ class AllDoneViewModel {
 	}
 
 	// MARK: - Private Methods
+
+	private func activateNewAccount(address: String, completion: @escaping (WalletOperationError?) -> Void) {
+		accountingAPIClient.activateAccountWith(address: address)
+			.retry(3)
+			.sink(receiveCompletion: { completed in
+				switch completed {
+				case .finished:
+					print("Wallet activated")
+				case let .failure(error):
+					completion(WalletOperationError.wallet(.accountActivationFailed(error)))
+				}
+			}) { activatedAccount in
+				completion(nil)
+			}.store(in: &cancellables)
+	}
 
 	private func createInitalAddressInCoreDataIn(wallet: Wallet, account: Account) {
 		let newAvatar = Avatar.randAvatar()

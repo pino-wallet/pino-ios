@@ -32,4 +32,10 @@ final class AccountingAPIMockClient: AccountingAPIService {
 			.setFailureType(to: APIError.self)
 			.eraseToAnyPublisher()
 	}
+
+	func activeAddresses(addresses: [String]) -> AnyPublisher<ActiveAddressesModel, APIError> {
+		Just(ActiveAddressesModel(addresses: ["0x71C7656EC7ab88b098defB751B7401B5f6d8976F"]))
+			.setFailureType(to: APIError.self)
+			.eraseToAnyPublisher()
+	}
 }

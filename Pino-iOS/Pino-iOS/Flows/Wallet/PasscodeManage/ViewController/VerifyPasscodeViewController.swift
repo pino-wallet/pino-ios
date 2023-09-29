@@ -10,12 +10,26 @@ import UIKit
 class VerifyPasscodeViewController: UIViewController {
 	// MARK: Private Properties
 
+	private var selectedAccounts: [ActiveAccountViewModel]?
+	private var mnemonics: String?
+
+	// MARK: Public Properties
+
 	public var verifyPassView: ManagePasscodeView?
 	public var verifyPassVM: VerifyPassViewModel!
 	public var selectedPasscode = ""
-	public var walletMnemonics: String!
 
-	// MARK: Public Properties
+	// MARK: Initializers
+
+	init(selectedAccounts: [ActiveAccountViewModel]?, mnemonics: String?) {
+		self.selectedAccounts = selectedAccounts
+		self.mnemonics = mnemonics
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	// MARK: View Overrides
 
@@ -46,8 +60,10 @@ class VerifyPasscodeViewController: UIViewController {
 		verifyPassVM = VerifyPassViewModel(
 			finishPassCreation: {
 				// Passcode was verified -> Show all done page
-				let allDoneVC = AllDoneViewController()
-				allDoneVC.walletMnemonics = self.walletMnemonics
+				let allDoneVC = AllDoneViewController(
+					selectedAccounts: self.selectedAccounts,
+					mnemonics: self.mnemonics
+				)
 				self.navigationController?.pushViewController(allDoneVC, animated: true)
 			},
 			onErrorHandling: { error in
