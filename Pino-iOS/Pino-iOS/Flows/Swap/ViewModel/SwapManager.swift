@@ -41,7 +41,17 @@ class SwapManager {
 	// MARK: - Public Methods
 
 	public func swapToken() {
-		swapERCtoERC()
+		if srcToken.selectedToken.isERC20 && destToken.selectedToken.isERC20 {
+			swapERCtoERC()
+		} else if srcToken.selectedToken.isERC20 && destToken.selectedToken.isEth {
+			swapERCtoETH()
+		} else if srcToken.selectedToken.isEth && destToken.selectedToken.isERC20 {
+			swapETHtoERC()
+		} else if srcToken.selectedToken.isEth && destToken.selectedToken.isWEth {
+			swapETHtoWETH()
+		} else if srcToken.selectedToken.isWEth && destToken.selectedToken.isEth {
+			swapWETHtoETH()
+		}
 	}
 
 	// MARK: - Private Methods
@@ -213,13 +223,13 @@ class SwapManager {
 		Promise<String?> { seal in
 			firstly {
 				try web3.getAllowanceOf(
-					contractAddress: destToken.selectedToken.id,
+					contractAddress: srcToken.selectedToken.id,
 					spenderAddress: selectedProvider.provider.contractAddress,
 					ownerAddress: Web3Core.Constants.pinoProxyAddress
 				)
 			}.done { [self] allowanceAmount in
-				let destTokenDecimal = destToken.selectedToken.decimal
-				let destTokenAmount = Utilities.parseToBigUInt(destToken.tokenAmount!, decimals: destTokenDecimal)!
+				let destTokenDecimal = srcToken.selectedToken.decimal
+				let destTokenAmount = Utilities.parseToBigUInt(srcToken.tokenAmount!, decimals: destTokenDecimal)!
 				if allowanceAmount == 0 || allowanceAmount < destTokenAmount {
 					web3.getApproveProxyCallData(
 						tokenAdd: srcToken.selectedToken.id,

@@ -56,7 +56,9 @@ class ApproveContractViewController: UIViewController {
 	}
 
 	private func showApproveLoadingPage() {
-		let approveLoadingVC = ApprovingLoadingViewController(swapConfirmationVM: swapConfirmationVM)
-		present(approveLoadingVC, animated: true)
+		approveContractVM.approveTokenUsageToPermit {
+			let approveLoadingVC = ApprovingLoadingViewController(swapConfirmationVM: self.swapConfirmationVM)
+			self.present(approveLoadingVC, animated: true)
+		}
 	}
 }

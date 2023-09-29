@@ -201,24 +201,30 @@ class SwapViewController: UIViewController {
 	private func proceedSwapFlow() {
 		// First Step of Swap
 		// Check If Permit has access to Token
-		firstly {
-			try web3.getAllowanceOf(
-				contractAddress: swapVM.toToken.selectedToken.id.lowercased(),
-				spenderAddress: Web3Core.Constants.permitAddress,
-				ownerAddress: walletManager.currentAccount.eip55Address
-			)
-		}.done { [self] allowanceAmount in
-			let destTokenDecimal = swapVM.toToken.selectedToken.decimal
-			let destTokenAmount = Utilities.parseToBigUInt(swapVM.toToken.tokenAmount!, decimals: destTokenDecimal)
-			if allowanceAmount == 0 || allowanceAmount < destTokenAmount! {
-				// NOT ALLOWED
-				openTokenApprovePage()
-			} else {
-				// ALLOWED
+		swapVM.getSwapSide { _, srcToken, destToken in
+			if srcToken.selectedToken.isEth {
 				openConfirmationPage()
+				return
 			}
-		}.catch { error in
-			print(error)
+			firstly {
+				try web3.getAllowanceOf(
+					contractAddress: srcToken.selectedToken.id.lowercased(),
+					spenderAddress: Web3Core.Constants.permitAddress,
+					ownerAddress: walletManager.currentAccount.eip55Address
+				)
+			}.done { [self] allowanceAmount in
+				let destTokenDecimal = srcToken.selectedToken.decimal
+				let destTokenAmount = Utilities.parseToBigUInt(srcToken.tokenAmount!, decimals: destTokenDecimal)
+				if allowanceAmount == 0 || allowanceAmount < destTokenAmount! {
+					// NOT ALLOWED
+					openTokenApprovePage()
+				} else {
+					// ALLOWED
+					openConfirmationPage()
+				}
+			}.catch { error in
+				print(error)
+			}
 		}
 	}
 

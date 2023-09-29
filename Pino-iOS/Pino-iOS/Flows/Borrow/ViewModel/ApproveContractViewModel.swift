@@ -26,8 +26,8 @@ struct ApproveContractViewModel {
 	private var web3 = Web3Core.shared
 	private var swapConfirmVM: SwapConfirmationViewModel!
 
-	private var destTokenID: String {
-		swapConfirmVM.toToken.selectedToken.id
+	private var srcTokenID: String {
+		swapConfirmVM.fromToken.selectedToken.id
 	}
 
 	private var destTokenAmount: BigNumber {
@@ -48,8 +48,8 @@ struct ApproveContractViewModel {
 
 	public func approveTokenUsageToPermit(completion: @escaping () -> Void) {
 		web3.approveContract(
-			address: destTokenID,
-			amount: destTokenAmount.bigUInt,
+			address: srcTokenID,
+			amount: BigNumber.maxUInt256.bigUInt,
 			spender: Web3Core.Constants.permitAddress
 		)
 		.done { trxHash in

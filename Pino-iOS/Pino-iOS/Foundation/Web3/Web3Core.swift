@@ -322,5 +322,8 @@ extension Web3Core {
 	public enum RPC: String {
 		case mainNet = "https://rpc.ankr.com/eth"
 		case arb = "https://arb1.arbitrum.io/rpc"
+		case ganashDev = "https://ganache.pino.xyz/"
 	}
+
+	struct Netowrk {}
 }

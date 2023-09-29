@@ -58,7 +58,8 @@ public struct W3GasInfoManager {
 				web3.eth.estimateGas(call: .init(
 					from: transaction.from,
 					to: transaction.to!,
-					gas: gasPrice, value: nil, data: transaction.data
+					gasPrice: gasPrice,
+					value: nil, data: transaction.data
 				)).map { ($0, nonce, gasPrice) }
 
 			}.done { gasLimit, nonce, gasPrice in
@@ -89,8 +90,7 @@ public struct W3GasInfoManager {
 					.estimateGas(call: .init(
 						from: myPrivateKey.address,
 						to: to,
-						gas: gasPrice,
-						gasPrice: nil,
+						gasPrice: gasPrice,
 						value: nil,
 						data: data
 					)).map { ($0, gasPrice) }
