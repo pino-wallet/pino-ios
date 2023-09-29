@@ -160,7 +160,7 @@ public class Web3Core {
 			}.map { balanceValue in
 				BigNumber(unSignedNumber: balanceValue.quantity, decimal: 18)
 			}.done { balance in
-				seal.fulfill(balance.sevenDigitFormat.tokenFormatting(token: "ETH"))
+				seal.fulfill(balance.sevenDigitFormat.ethFormatting)
 			}.catch(policy: .allErrors) { error in
 				seal.reject(error)
 			}

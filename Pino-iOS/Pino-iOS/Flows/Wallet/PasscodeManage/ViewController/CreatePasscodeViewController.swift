@@ -21,11 +21,12 @@ class CreatePasscodeViewController: UIViewController {
 
 	// MARK: - initializers
 
+    // Initializer for imported accounts
 	init(selectedAccounts: [ActiveAccountViewModel]) {
 		self.selectedAccounts = selectedAccounts
 		super.init(nibName: nil, bundle: nil)
 	}
-
+    // Initializer for created wallet
 	init(mnemonics: String) {
 		self.mnemonics = mnemonics
 		super.init(nibName: nil, bundle: nil)

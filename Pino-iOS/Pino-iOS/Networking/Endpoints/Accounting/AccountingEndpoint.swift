@@ -53,7 +53,6 @@ enum AccountingEndpoint: EndpointType {
 		case .activateAccountWith:
 			return .request
 		case let .activeAddresses(addresses):
-			//            let bodyParameters: [String: Any] = [addresses]
 			return .requestParameters(
 				bodyParameters: .object(addresses),
 				bodyEncoding: .jsonEncoding,
