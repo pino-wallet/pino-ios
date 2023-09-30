@@ -95,13 +95,13 @@ class HomepageViewController: UIViewController {
 	}
 
 	@objc
-    private func copyWalletAddress(gestureRecognizer: UILongPressGestureRecognizer) {
-        if gestureRecognizer.state == .began {
-            let pasteboard = UIPasteboard.general
-            pasteboard.string = homeVM.walletInfo.address
+	private func copyWalletAddress(gestureRecognizer: UILongPressGestureRecognizer) {
+		if gestureRecognizer.state == .began {
+			let pasteboard = UIPasteboard.general
+			pasteboard.string = homeVM.walletInfo.address
 
-            Toast.default(title: GlobalToastTitles.copy.message, style: .copy, direction: .top).show(haptic: .success)
-        }
+			Toast.default(title: GlobalToastTitles.copy.message, style: .copy, direction: .top).show(haptic: .success)
+		}
 	}
 
 	@objc
