@@ -46,19 +46,30 @@ class ImportAccountsViewController: UIViewController {
 				self.openPasscodePage()
 			},
 			findMoreAccountsDidTap: {
-				self.importAccountsVM.findMoreAccounts {}
+				self.importAccountsVM.findMoreAccounts { error in
+					if let error {
+						Toast.default(title: "Failed to fetch accounts", style: .error).show(haptic: .success)
+					}
+				}
 			}
 		)
 		view = importLoadingView
-		importAccountsVM.getAccounts {
-			self.view = self.importAccountsView
+		importAccountsVM.getFirstAccounts { error in
+			if let error {
+				Toast.default(title: "Failed to fetch accounts", style: .error).show(haptic: .success)
+			} else {
+				self.view = self.importAccountsView
+			}
 		}
 	}
 
 	private func openPasscodePage() {
-		let createPasscodeViewController = CreatePasscodeViewController()
-		createPasscodeViewController.pageSteps = 3
-		createPasscodeViewController.walletMnemonics = importAccountsVM.walletMnemonics
-		navigationController?.pushViewController(createPasscodeViewController, animated: true)
+		guard let accounts = importAccountsVM.accounts else { return }
+		let selectedAccounts = accounts.filter { $0.isSelected }
+		if !selectedAccounts.isEmpty {
+			let createPasscodeViewController = CreatePasscodeViewController(selectedAccounts: selectedAccounts)
+			createPasscodeViewController.pageSteps = 3
+			navigationController?.pushViewController(createPasscodeViewController, animated: true)
+		}
 	}
 }

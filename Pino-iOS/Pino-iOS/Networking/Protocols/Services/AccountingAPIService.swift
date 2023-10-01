@@ -13,4 +13,5 @@ protocol AccountingAPIService {
 	func userPortfolio(timeFrame: String) -> AnyPublisher<[ChartDataModel], APIError>
 	func coinPerformance(timeFrame: String, tokenID: String) -> AnyPublisher<[ChartDataModel], APIError>
 	func activateAccountWith(address: String) -> AnyPublisher<AccountActivationModel, APIError>
+	func activeAddresses(addresses: [String]) -> AnyPublisher<ActiveAddressesModel, APIError>
 }
