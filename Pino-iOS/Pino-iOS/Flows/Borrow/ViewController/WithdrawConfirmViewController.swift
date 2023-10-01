@@ -10,7 +10,7 @@ import UIKit
 class WithdrawConfirmViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let withdrawConfirmVM = WithdrawConfirmViewModel()
+	private let withdrawConfirmVM: WithdrawConfirmViewModel
 	private var withdrawConfirmView: WithdrawConfirmView!
 
 	// MARK: - View Overrides
@@ -22,6 +22,18 @@ class WithdrawConfirmViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
+	}
+
+	// MARK: - Initializers
+
+	init(withdrawConfirmVM: WithdrawConfirmViewModel) {
+		self.withdrawConfirmVM = withdrawConfirmVM
+
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 
 	// MARK: - Private Methods

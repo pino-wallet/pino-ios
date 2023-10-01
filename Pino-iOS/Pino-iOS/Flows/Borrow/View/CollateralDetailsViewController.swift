@@ -65,7 +65,8 @@ class CollateralDetailsViewController: UIViewController {
 	private func pushToCollateralIncreaseAmountPage() {
 		let collateralIncreaseAmountVM = CollateralIncreaseAmountViewModel(
 			selectedToken: collateralDetailsVM
-				.foundTokenInManageAssetTokens
+				.foundTokenInManageAssetTokens,
+			borrowVM: collateralDetailsVM.borrowVM
 		)
 		let collateralIncreaseAmountVC =
 			CollateralIncreaseAmountViewController(collateralIncreaseAmountVM: collateralIncreaseAmountVM)
