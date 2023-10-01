@@ -22,17 +22,28 @@ class BorrowIncreaseAmountViewModel {
 	public var dollarAmount: String = .emptyString
 	// here max amount is sum of user max free collateralled amount in tokens
 	public var maxHoldAmount: BigNumber {
-        var totalFreeCollateralledInDollars = BigNumber(number: "0", decimal: selectedToken.decimal)
-        for collateralledToken in borrowVM.userBorrowingDetails?.collateralTokens ?? [] {
-            guard let foundTokenInManageAssetsList = GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == collateralledToken.id }) else {
-                return totalFreeCollateralledInDollars
-            }
-            let userCollateralledAmountIntoken = BigNumber(number: collateralledToken.amount, decimal: foundTokenInManageAssetsList.decimal)
-            let freeCollateralledTokenAmount = (userCollateralledAmountIntoken * BigNumber(numberWithDecimal: borrowVM.calculatedHealthScore.description) / 100.bigNumber)!
-            let freeCollateralledTokenAmountInDollars = freeCollateralledTokenAmount * foundTokenInManageAssetsList.price
-            totalFreeCollateralledInDollars = totalFreeCollateralledInDollars + freeCollateralledTokenAmountInDollars
-        }
-        return (totalFreeCollateralledInDollars / selectedToken.price)!
+		var totalFreeCollateralledInDollars = BigNumber(number: "0", decimal: selectedToken.decimal)
+		for collateralledToken in borrowVM.userBorrowingDetails?.collateralTokens ?? [] {
+			guard let foundTokenInManageAssetsList = GlobalVariables.shared.manageAssetsList?
+				.first(where: { $0.id == collateralledToken.id }) else {
+				return totalFreeCollateralledInDollars
+			}
+			let userCollateralledAmountIntoken = BigNumber(
+				number: collateralledToken.amount,
+				decimal: foundTokenInManageAssetsList.decimal
+			)
+			let freeCollateralledTokenAmount =
+				(
+					userCollateralledAmountIntoken * BigNumber(
+						numberWithDecimal: borrowVM.calculatedHealthScore.description
+					) /
+						100.bigNumber
+				)!
+			let freeCollateralledTokenAmountInDollars = freeCollateralledTokenAmount * foundTokenInManageAssetsList
+				.price
+			totalFreeCollateralledInDollars = totalFreeCollateralledInDollars + freeCollateralledTokenAmountInDollars
+		}
+		return (totalFreeCollateralledInDollars / selectedToken.price)!
 	}
 
 	public var tokenImage: URL {
@@ -44,7 +55,7 @@ class BorrowIncreaseAmountViewModel {
 	}
 
 	public var formattedMaxHoldAmount: String {
-        maxHoldAmount.plainSevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
+		maxHoldAmount.plainSevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
 
 	public var plainSevenDigitMaxHoldAmount: String {
@@ -52,7 +63,7 @@ class BorrowIncreaseAmountViewModel {
 	}
 
 	public var maxHoldAmountInDollars: String {
-        (maxHoldAmount * selectedToken.price).priceFormat
+		(maxHoldAmount * selectedToken.price).priceFormat
 	}
 
 	#warning("this values are mock")
