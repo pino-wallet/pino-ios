@@ -88,7 +88,7 @@ class InvestmentDetailViewModel {
 				print("Error getting investment info:\(error)")
 			}
 		} receiveValue: { investmentInfo in
-			self.apy = "%\(investmentInfo.first!.apy)"
+			self.apy = investmentInfo.first!.apy.percentFormatting
 		}.store(in: &cancellables)
 	}
 }

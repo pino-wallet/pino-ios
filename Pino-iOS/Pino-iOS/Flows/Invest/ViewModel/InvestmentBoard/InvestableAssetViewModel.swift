@@ -34,8 +34,8 @@ public struct InvestableAssetViewModel: AssetsBoardProtocol {
 		assetProtocol.image
 	}
 
-	public var APYAmount: Int {
-		assetModel.apy
+	public var APYAmount: BigNumber {
+		BigNumber(numberWithDecimal: assetModel.apy.description)
 	}
 
 	public var formattedAPYAmount: String {
