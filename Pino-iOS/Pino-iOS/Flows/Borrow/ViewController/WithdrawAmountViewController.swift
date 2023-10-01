@@ -39,7 +39,6 @@ class WithdrawAmountViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		#warning("this should be changed")
 		withdrawAmountView = WithdrawAmountView(withdrawAmountVM: withdrawAmountVM, nextButtonTapped: {
 			self.pushToWithdrawConfirmVC()
 		})
@@ -53,9 +52,9 @@ class WithdrawAmountViewController: UIViewController {
 		)
 	}
 
-	#warning("this should be changed")
 	private func pushToWithdrawConfirmVC() {
-		let withdrawConfirmVC = WithdrawConfirmViewController()
+		let withdrawConfirmVM = WithdrawConfirmViewModel(withdrawAmountVM: withdrawAmountVM)
+		let withdrawConfirmVC = WithdrawConfirmViewController(withdrawConfirmVM: withdrawConfirmVM)
 		navigationController?.pushViewController(withdrawConfirmVC, animated: true)
 	}
 }

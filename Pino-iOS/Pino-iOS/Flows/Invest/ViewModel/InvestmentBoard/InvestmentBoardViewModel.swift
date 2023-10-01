@@ -5,9 +5,15 @@
 //  Created by Mohi Raoufi on 8/19/23.
 //
 
+import Combine
 import Foundation
 
 class InvestmentBoardViewModel: InvestFilterDelegate {
+	// MARK: - Private Properties
+
+	private let investmentAPIClient = InvestmentAPIClient()
+	private var cancellables = Set<AnyCancellable>()
+
 	// MARK: - Public Properties
 
 	public let userInvestmentsTitle = "My investments"
@@ -15,7 +21,7 @@ class InvestmentBoardViewModel: InvestFilterDelegate {
 	public var userInvestments = [InvestAssetViewModel]()
 	public var investableAssets = [InvestableAssetViewModel]()
 	@Published
-	public var filteresAssets: [InvestableAssetViewModel]?
+	public var filteredAssets: [InvestableAssetViewModel]?
 
 	public var assetFilter: AssetViewModel?
 	public var protocolFilter: InvestProtocolViewModel?
@@ -31,38 +37,17 @@ class InvestmentBoardViewModel: InvestFilterDelegate {
 	// MARK: - Private Methods
 
 	private func getInvestableAssets() {
-		let investableAssetsModel = [
-			InvestableAssetModel(
-				assetName: "LINK",
-				assetImage: "https://demo-cdn.pino.xyz/tokens/chainlink.png",
-				protocolName: "balancer",
-				APYAmount: "30000000000",
-				investmentRisk: "High"
-			),
-			InvestableAssetModel(
-				assetName: "AAVE",
-				assetImage: "https://demo-cdn.pino.xyz/tokens/aave.png",
-				protocolName: "balancer",
-				APYAmount: "10000000000",
-				investmentRisk: "Medium"
-			),
-			InvestableAssetModel(
-				assetName: "DAI",
-				assetImage: "https://demo-cdn.pino.xyz/tokens/dai.png",
-				protocolName: "uniswap",
-				APYAmount: "10000000000",
-				investmentRisk: "Low"
-			),
-			InvestableAssetModel(
-				assetName: "USDT",
-				assetImage: "https://demo-cdn.pino.xyz/tokens/tether.png",
-				protocolName: "uniswap",
-				APYAmount: "40000000000",
-				investmentRisk: "High"
-			),
-		]
-
-		investableAssets = investableAssetsModel.compactMap { InvestableAssetViewModel(assetModel: $0) }
+		investmentAPIClient.investableAssets().sink { completed in
+			switch completed {
+			case .finished:
+				print("Investable assets received successfully")
+			case let .failure(error):
+				print("Error getting investable assets:\(error)")
+			}
+		} receiveValue: { investableAssetsModel in
+			self.investableAssets = investableAssetsModel.compactMap { InvestableAssetViewModel(assetModel: $0) }
+			self.filteredAssets = self.investableAssets
+		}.store(in: &cancellables)
 	}
 
 	// MARK: - Internal Methods
@@ -87,6 +72,6 @@ class InvestmentBoardViewModel: InvestFilterDelegate {
 			filteringAssets = filteringAssets.filter { $0.investmentRisk == riskFilter }
 		}
 
-		filteresAssets = filteringAssets
+		filteredAssets = filteringAssets
 	}
 }

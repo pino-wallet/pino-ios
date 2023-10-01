@@ -19,6 +19,7 @@ enum AccountingEndpoint: EndpointType {
 	case portfolio(timeFrame: String, accountADD: String)
 	case coinPerformance(timeFrame: String, tokenID: String, accountADD: String)
 	case activateAccountWith(address: String)
+	case activeAddresses(addresses: [String])
 
 	// MARK: - Internal Methods
 
@@ -51,6 +52,12 @@ enum AccountingEndpoint: EndpointType {
 			return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: urlParameters)
 		case .activateAccountWith:
 			return .request
+		case let .activeAddresses(addresses):
+			return .requestParameters(
+				bodyParameters: .object(addresses),
+				bodyEncoding: .jsonEncoding,
+				urlParameters: nil
+			)
 		}
 	}
 
@@ -77,6 +84,8 @@ enum AccountingEndpoint: EndpointType {
 			return "user/\(accountADD)/portfolio/\(tokenID)"
 		case let .activateAccountWith(address: address):
 			return "\(endpointParent)/activate/\(address)"
+		case .activeAddresses:
+			return "\(endpointParent)/active-addresses"
 		}
 	}
 
@@ -84,7 +93,7 @@ enum AccountingEndpoint: EndpointType {
 		switch self {
 		case .cts, .balances, .portfolio, .coinPerformance:
 			return .get
-		case .activateAccountWith:
+		case .activateAccountWith, .activeAddresses:
 			return .post
 		}
 	}

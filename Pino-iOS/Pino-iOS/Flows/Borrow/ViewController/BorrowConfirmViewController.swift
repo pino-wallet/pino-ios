@@ -10,7 +10,7 @@ import UIKit
 class BorrowConfirmViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let borrowConfirmVM = BorrowConfirmViewModel()
+	private let borrowConfirmVM: BorrowConfirmViewModel
 	private var borrowConfirmView: BorrowConfirmView!
 
 	// MARK: - View Overrides
@@ -22,6 +22,18 @@ class BorrowConfirmViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
+	}
+
+	// MARK: - Initializers
+
+	init(borrowConfirmVM: BorrowConfirmViewModel) {
+		self.borrowConfirmVM = borrowConfirmVM
+
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 
 	// MARK: - Private Methods

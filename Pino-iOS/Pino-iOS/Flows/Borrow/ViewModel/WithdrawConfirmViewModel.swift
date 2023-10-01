@@ -22,23 +22,46 @@ struct WithdrawConfirmViewModel {
 	#warning("this fee is mock and it should be removed")
 	public let fee = "$10"
 
+	public let withdrawAmountVM: WithdrawAmountViewModel
+
 	public var protocolImageName: String {
-		"aave"
+		selectedDexSystem.image
 	}
 
 	public var protocolName: String {
-		"Aave"
+		selectedDexSystem.name
 	}
 
 	public var tokenAmountAndSymbol: String {
-		"120 USDC"
+		withdrawAmountBigNumber.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
 
 	public var tokenAmountInDollars: String {
-		"$120"
+		let withdrawAmountInDollars = withdrawAmountBigNumber * selectedToken.price
+		return withdrawAmountInDollars.priceFormat
 	}
 
-	public var tokenImage: String {
-		"USDC"
+	public var tokenImage: URL {
+		selectedToken.image
+	}
+
+	// MARK: - Private Properties
+
+	private var withdrawAmountBigNumber: BigNumber {
+		BigNumber(numberWithDecimal: withdrawAmountVM.tokenAmount)
+	}
+
+	private var selectedToken: AssetViewModel {
+		withdrawAmountVM.selectedToken
+	}
+
+	private var selectedDexSystem: DexSystemModel {
+		withdrawAmountVM.borrowVM.selectedDexSystem
+	}
+
+	// MARK: - Initializers
+
+	init(withdrawAmountVM: WithdrawAmountViewModel) {
+		self.withdrawAmountVM = withdrawAmountVM
 	}
 }

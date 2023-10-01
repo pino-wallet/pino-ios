@@ -65,7 +65,8 @@ class CollateralDetailsViewController: UIViewController {
 	private func pushToCollateralIncreaseAmountPage() {
 		let collateralIncreaseAmountVM = CollateralIncreaseAmountViewModel(
 			selectedToken: collateralDetailsVM
-				.foundTokenInManageAssetTokens
+				.foundTokenInManageAssetTokens,
+			borrowVM: collateralDetailsVM.borrowVM
 		)
 		let collateralIncreaseAmountVC =
 			CollateralIncreaseAmountViewController(collateralIncreaseAmountVM: collateralIncreaseAmountVM)
@@ -74,8 +75,8 @@ class CollateralDetailsViewController: UIViewController {
 
 	private func pushToWithdrawAmountPage() {
 		let withdrawAmountVM = WithdrawAmountViewModel(
-			userCollateralledTokenModel: collateralDetailsVM
-				.defaultCollateralledTokenModel
+			borrowVM: collateralDetailsVM.borrowVM, userCollateralledTokenID: collateralDetailsVM
+				.collateralledTokenID
 		)
 		let withdrawAmountVC = WithdrawAmountViewController(withdrawAmountVM: withdrawAmountVM)
 		navigationController?.pushViewController(withdrawAmountVC, animated: true)

@@ -64,7 +64,7 @@ class BorrowLoanDetailsViewController: UIViewController {
 					.pushToBorrowIncreaseAmountPage(selectedToken: self.borrowLoanDetailsVM.foundTokenInManageAssetTokens)
 			},
 			pushToRepayAmountPageClosure: {
-				self.pushToRepayAmountPage(selectedToken: self.borrowLoanDetailsVM.defaultUserBorrowedTokenModel)
+				self.pushToRepayAmountPage(selectedTokenID: self.borrowLoanDetailsVM.userBorrowedTokenID)
 			}
 		)
 
@@ -72,13 +72,19 @@ class BorrowLoanDetailsViewController: UIViewController {
 	}
 
 	private func pushToBorrowIncreaseAmountPage(selectedToken: AssetViewModel) {
-		let borrowIncreaseAmountVM = BorrowIncreaseAmountViewModel(selectedToken: selectedToken)
+		let borrowIncreaseAmountVM = BorrowIncreaseAmountViewModel(
+			selectedToken: selectedToken,
+			borrowVM: borrowLoanDetailsVM.borrowVM
+		)
 		let borrowIncreaseAmountVC = BorrowIncreaseAmountViewController(borrowIncreaseAmountVM: borrowIncreaseAmountVM)
 		navigationController?.pushViewController(borrowIncreaseAmountVC, animated: true)
 	}
 
-	private func pushToRepayAmountPage(selectedToken: UserBorrowingToken) {
-		let repayAmountVM = RepayAmountViewModel(selectedUserBorrowingToken: selectedToken)
+	private func pushToRepayAmountPage(selectedTokenID: String) {
+		let repayAmountVM = RepayAmountViewModel(
+			borrowVM: borrowLoanDetailsVM.borrowVM,
+			userBorrowedTokenID: selectedTokenID
+		)
 		let repayAmountVC = RepayAmountViewController(repayAmountVM: repayAmountVM)
 		navigationController?.pushViewController(repayAmountVC, animated: true)
 	}

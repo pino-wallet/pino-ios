@@ -17,27 +17,26 @@ class InvestViewModel {
 
 	// MARK: Public Properties
 
-	public var assets: [InvestAssetViewModel]!
 	public let investmentPerformamceTitle = "Investment performance"
 	public let investmentPerformanceIcon = "Invest"
 	public let totalInvestmentTitle = "Total investment value"
-	public var totalInvestments: String {
-		"$2463"
-	}
-
+	@Published
+	public var assets: [InvestAssetViewModel]?
+	@Published
+	public var totalInvestments: String?
 	@Published
 	public var chartDataEntries: [ChartDataEntry]?
 
 	// MARK: Initializers
 
 	init() {
-		getAssets()
+		setupBinding()
 		getChartData()
 	}
 
 	// MARK: - Private Methods
 
-	private func getAssets() {
+	private func getAssets(userTokens: [AssetViewModel]) {
 		investmentAPIClient.investments().sink { completed in
 			switch completed {
 			case .finished:
@@ -46,48 +45,13 @@ class InvestViewModel {
 				print("Error getting investments:\(error)")
 			}
 		} receiveValue: { investments in
-			print("investments: \(investments)")
+			self.assets = investments.compactMap { investment in
+				guard let userToken = userTokens.first(where: { $0.id == investment.tokens.first!.tokenID })
+				else { return nil }
+				return InvestAssetViewModel(assetModel: investment, token: userToken)
+			}
+			self.totalInvestments = self.assets?.compactMap { $0.investmentAmount }.reduce(0.bigNumber, +).priceFormat
 		}.store(in: &cancellables)
-
-		let assetsModel = [
-			InvestAssetModel(
-				assetName: "LINK",
-				assetImage: "https://demo-cdn.pino.xyz/tokens/chainlink.png",
-				protocolName: "balancer",
-				assetAmount: "5067000000000",
-				assetPrice: "61100000000",
-				apyAmount: "3",
-				assetVolatility: "-230000000000"
-			),
-			InvestAssetModel(
-				assetName: "AAVE",
-				assetImage: "https://demo-cdn.pino.xyz/tokens/aave.png",
-				protocolName: "balancer",
-				assetAmount: "302500000000",
-				assetPrice: "552000000000",
-				apyAmount: "1",
-				assetVolatility: "140000000000"
-			),
-			InvestAssetModel(
-				assetName: "DAI",
-				assetImage: "https://demo-cdn.pino.xyz/tokens/dai.png",
-				protocolName: "uniswap",
-				assetAmount: "1330000000000",
-				assetPrice: "11000000000",
-				apyAmount: "1",
-				assetVolatility: "180000000000"
-			),
-			InvestAssetModel(
-				assetName: "USDT",
-				assetImage: "https://demo-cdn.pino.xyz/tokens/tether.png",
-				protocolName: "uniswap",
-				assetAmount: "105800000000",
-				assetPrice: "42800000000",
-				apyAmount: "4",
-				assetVolatility: "-310000000000"
-			),
-		]
-		assets = assetsModel.compactMap { InvestAssetViewModel(assetModel: $0) }
 	}
 
 	private func getChartData() {
@@ -105,5 +69,17 @@ class InvestViewModel {
 			ChartDataEntry(x: 10, y: 0.5),
 			ChartDataEntry(x: 11, y: 4),
 		]
+	}
+
+	private func setupBinding() {
+		if let userTokens = GlobalVariables.shared.manageAssetsList {
+			getAssets(userTokens: userTokens)
+		} else {
+			GlobalVariables.shared.$manageAssetsList.compactMap { $0 }.sink { userTokens in
+				if self.assets == nil {
+					self.getAssets(userTokens: userTokens)
+				}
+			}.store(in: &cancellables)
+		}
 	}
 }

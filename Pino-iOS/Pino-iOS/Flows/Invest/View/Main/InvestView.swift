@@ -28,7 +28,7 @@ class InvestView: UIView {
 	private var investmentPerformanceStackView = UIStackView()
 	private let investmentPerformanceButton = UIButton()
 	private let assetsView = UIView()
-	private let investmentAssets: InvestmentAssetsCollectionView
+	private let investmentAssets = InvestmentAssetsCollectionView()
 	private let assetsGradientView = UIView()
 	private var assetsGradientLayer: GradientLayer!
 	private let loadingGradientView = UIView()
@@ -48,7 +48,6 @@ class InvestView: UIView {
 		self.investVM = investVM
 		self.totalInvestmentTapped = totalInvestmentTapped
 		self.investmentPerformanceTapped = investmentPerformanceTapped
-		self.investmentAssets = InvestmentAssetsCollectionView(assets: investVM.assets)
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -95,7 +94,6 @@ class InvestView: UIView {
 
 	private func setupStyle() {
 		totalInvestmentTitleLabel.text = investVM.totalInvestmentTitle
-		totalInvestmentLabel.text = investVM.totalInvestments
 		investmentPerformanceButton.setTitle(investVM.investmentPerformamceTitle, for: .normal)
 		investmentPerformanceButton.setImage(UIImage(named: investVM.investmentPerformanceIcon), for: .normal)
 		totalInvestmentDetailIcon.image = UIImage(named: "arrow_right")
@@ -126,9 +124,12 @@ class InvestView: UIView {
 		investmentPerformanceStackView.spacing = 36
 
 		chartDateStackView.distribution = .fillEqually
+		totalInvestmentStackView.alignment = .leading
 
 		chartCardView.layer.masksToBounds = true
 		assetsGradientView.isUserInteractionEnabled = false
+		totalInvestmentLabel.isSkeletonable = true
+		totalInvestmentLabel.layer.cornerRadius = 15
 	}
 
 	private func setupContstraint() {
@@ -177,6 +178,11 @@ class InvestView: UIView {
 			.trailing,
 			.fixedWidth(100)
 		)
+
+		NSLayoutConstraint.activate([
+			totalInvestmentLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 30),
+			totalInvestmentLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 120),
+		])
 	}
 
 	private func setupBindings() {
@@ -184,7 +190,20 @@ class InvestView: UIView {
 			if let chartEntries, !chartEntries.isEmpty {
 				self.updateChart(chartEntries: chartEntries)
 			} else {
-				self.showLoading()
+				self.showChartLoading()
+			}
+		}.store(in: &cancellables)
+
+		investVM.$assets.sink { assets in
+			self.investmentAssets.assets = assets
+			self.investmentAssets.reloadData()
+		}.store(in: &cancellables)
+
+		investVM.$totalInvestments.sink { totalInvestments in
+			if let totalInvestments {
+				self.updateTotalInvestment(totalInvestments)
+			} else {
+				self.showTotalInvestmentLoading()
 			}
 		}.store(in: &cancellables)
 	}
@@ -206,7 +225,18 @@ class InvestView: UIView {
 		}
 	}
 
-	private func showLoading() {
+	private func showTotalInvestmentLoading() {
+		totalInvestmentLabel.layer.masksToBounds = true
+		showSkeletonView(backgroundColor: .Pino.green3)
+	}
+
+	private func updateTotalInvestment(_ totalInvestments: String) {
+		hideSkeletonView()
+		totalInvestmentLabel.layer.masksToBounds = false
+		totalInvestmentLabel.text = totalInvestments
+	}
+
+	private func showChartLoading() {
 		investLineChart.showLoading()
 		loadingGradientView.alpha = 0.8
 	}

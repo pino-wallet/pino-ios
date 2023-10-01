@@ -29,7 +29,10 @@ public class PinoHDWallet: PinoHDWalletType {
 			switch createdAccount {
 			case let .success(account):
 
-				let encryptedMnemonicsData = encryptHdWalletMnemonics(createdWallet.mnemonic, forAccount: account)
+				let encryptedMnemonicsData = encryptHdWalletMnemonics(
+					createdWallet.mnemonic,
+					forAccount: account.eip55Address
+				)
 				if let error = KeychainManager.mnemonics.setValueWithKey(
 					value: encryptedMnemonicsData,
 					accountAddress: account.eip55Address
@@ -49,7 +52,7 @@ public class PinoHDWallet: PinoHDWalletType {
 		let firstAccountPrivateKey = getPrivateKeyOfFirstAccount(wallet: wallet)
 		do {
 			let account = try Account(privateKeyData: firstAccountPrivateKey)
-			let encryptedPrivateKeyData = encryptPrivateKey(firstAccountPrivateKey, forAccount: account)
+			let encryptedPrivateKeyData = encryptPrivateKey(firstAccountPrivateKey, forAccount: account.eip55Address)
 			if let error = KeychainManager.privateKey.setValueWithKey(
 				value: encryptedPrivateKeyData,
 				accountAddress: account.eip55Address
@@ -82,32 +85,49 @@ public class PinoHDWallet: PinoHDWalletType {
 		let publicKey = privateKey.getPublicKeySecp256k1(compressed: true)
 		let account = try Account(privateKeyData: privateKey.data)
 		account.derivationPath = derivationPath
-
-		// We save mnemonics with the prefix of account address in keychain
-		// but since accounts can be deleted so will the keys to mnemonics
-		// we need to save mnemonics with each created account address in case
-		// of account removal another duplicate of mnemonics would still exist in keychain
-		let encryptedMnemonicsData = encryptHdWalletMnemonics(wallet.mnemonic, forAccount: account)
-		let encryptedPrivateKeyData = encryptPrivateKey(privateKey.data, forAccount: account)
-
-		if let error = KeychainManager.mnemonics.setValueWithKey(
-			value: encryptedMnemonicsData,
+		try saveEncryptedKeys(
+			mnemonic: wallet.mnemonic,
+			privateKey: privateKey.data,
 			accountAddress: account.eip55Address
-		) {
-			throw error
-		}
-		if let error = KeychainManager.privateKey.setValueWithKey(
-			value: encryptedPrivateKeyData,
-			accountAddress: account.eip55Address
-		) {
-			throw error
-		}
+		)
 
 		print("Private Key: \(privateKey.data.hexString)")
 		print("Public Key: \(publicKey.data.hexString)")
 		print("EIP Key: \(account.eip55Address)")
 		print("Ethereum Address: \(account)")
 		return account
+	}
+
+	public func createAccountIn(wallet: HDWallet, account: ActiveAccountViewModel) throws {
+		let privateKey = wallet.getKey(coin: .ethereum, derivationPath: account.derivationPath)
+		try saveEncryptedKeys(
+			mnemonic: wallet.mnemonic,
+			privateKey: privateKey.data,
+			accountAddress: account.address
+		)
+	}
+
+	public func saveEncryptedKeys(mnemonic: String, privateKey: Data, accountAddress: String) throws {
+		// We save mnemonics with the prefix of account address in keychain
+		// but since accounts can be deleted so will the keys to mnemonics
+		// we need to save mnemonics with each created account address in case
+		// of account removal another duplicate of mnemonics would still exist in keychain
+
+		let encryptedMnemonicsData = encryptHdWalletMnemonics(mnemonic, forAccount: accountAddress)
+		let encryptedPrivateKeyData = encryptPrivateKey(privateKey, forAccount: accountAddress)
+
+		if let error = KeychainManager.mnemonics.setValueWithKey(
+			value: encryptedMnemonicsData,
+			accountAddress: accountAddress
+		) {
+			throw error
+		}
+		if let error = KeychainManager.privateKey.setValueWithKey(
+			value: encryptedPrivateKeyData,
+			accountAddress: accountAddress
+		) {
+			throw error
+		}
 	}
 
 	// MARK: - Private Methods
@@ -125,10 +145,10 @@ public class PinoHDWallet: PinoHDWalletType {
 		return privateKey.data
 	}
 
-	private func encryptHdWalletMnemonics(_ mnemonics: String, forAccount account: Account) -> Data {
+	private func encryptHdWalletMnemonics(_ mnemonics: String, forAccount address: String) -> Data {
 		secureEnclave.encrypt(
 			plainData: mnemonics.utf8Data,
-			withPublicKeyLabel: KeychainManager.mnemonics.getKey(account.eip55Address)
+			withPublicKeyLabel: KeychainManager.mnemonics.getKey(address)
 		)
 	}
 
