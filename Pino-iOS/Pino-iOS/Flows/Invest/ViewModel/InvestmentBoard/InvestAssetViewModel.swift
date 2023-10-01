@@ -10,16 +10,25 @@ import Foundation
 public struct InvestAssetViewModel: AssetsBoardProtocol {
 	// MARK: - Private Properties
 
-	private let assetModel: InvestAssetModel
+	private let assetModel: InvestmentModel
+	private let investToken: AssetViewModel
 
 	// MARK: - Public Properties
 
+	public var investmentId: String {
+		assetModel.id
+	}
+
+	public var listId: String {
+		assetModel.listingID
+	}
+
 	public var assetName: String {
-		assetModel.assetName
+		investToken.symbol
 	}
 
 	public var assetImage: URL {
-		URL(string: assetModel.assetImage)!
+		investToken.image
 	}
 
 	public var assetProtocol: InvestProtocolViewModel {
@@ -30,25 +39,33 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 		assetProtocol.image
 	}
 
-	public var assetAmount: BigNumber {
-		BigNumber(number: assetModel.assetAmount, decimal: assetModel.decimal)
-			* BigNumber(number: assetModel.assetPrice, decimal: assetModel.decimal)
+	public var investmentAmount: BigNumber {
+		BigNumber(number: assetModel.currentWorth, decimal: 2)
 	}
 
-	public var formattedAssetAmount: String {
-		assetAmount.priceFormat
+	public var formattedInvestmentAmount: String {
+		investmentAmount.priceFormat
 	}
 
 	public var tokenAmount: BigNumber {
-		BigNumber(number: assetModel.assetAmount, decimal: assetModel.decimal)
+		BigNumber(number: assetModel.tokens.first!.amount, decimal: investToken.decimal)
+	}
+
+	public var tokenAmountInDollor: BigNumber {
+		tokenAmount * investToken.price
 	}
 
 	public var formattedTokenAmount: String {
-		assetAmount.sevenDigitFormat.tokenFormatting(token: assetName)
+		tokenAmount.sevenDigitFormat.tokenFormatting(token: assetName)
 	}
 
+	public var formattedTokenAmountInDollor: String {
+		tokenAmountInDollor.priceFormat
+	}
+
+	#warning("We don't have this data yet")
 	public var assetVolatility: BigNumber {
-		BigNumber(number: assetModel.assetVolatility, decimal: assetModel.decimal)
+		BigNumber(number: "0", decimal: 2)
 	}
 
 	public var formattedAssetVolatility: String {
@@ -59,13 +76,10 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 		AssetVolatilityType(change24h: assetVolatility)
 	}
 
-	public var apyAmount: String {
-		assetModel.apyAmount
-	}
-
 	// MARK: - Initializers
 
-	init(assetModel: InvestAssetModel) {
+	init(assetModel: InvestmentModel, token: AssetViewModel) {
 		self.assetModel = assetModel
+		self.investToken = token
 	}
 }

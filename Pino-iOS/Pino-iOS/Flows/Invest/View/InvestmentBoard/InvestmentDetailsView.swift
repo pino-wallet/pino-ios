@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 9/10/23.
 //
 
+import Combine
 import UIKit
 
 class InvestmentDeatilsView: UIView {
@@ -47,6 +48,7 @@ class InvestmentDeatilsView: UIView {
 	private let increaseInvestmentDidTap: () -> Void
 	private let withdrawDidTap: () -> Void
 	private let investmentDetailsVM: InvestmentDetailViewModel!
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -62,6 +64,7 @@ class InvestmentDeatilsView: UIView {
 		setupView()
 		setupStyle()
 		setupContstraint()
+		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -119,7 +122,6 @@ class InvestmentDeatilsView: UIView {
 		assetAmountLabel.text = investmentDetailsVM.assetAmount
 		assetAmountInDollarLabel.text = investmentDetailsVM.assetAmountInDollar
 		protoclNameLabel.text = investmentDetailsVM.investProtocolName
-		apyLabel.text = investmentDetailsVM.apyAmount
 		investmentAmountLabel.text = investmentDetailsVM.investmentAmount
 		feeLabel.text = investmentDetailsVM.earnedFee
 		totalAmountLabel.text = investmentDetailsVM.totalInvestmentAmount
@@ -177,6 +179,7 @@ class InvestmentDeatilsView: UIView {
 		totalAmountSeparatorLine.backgroundColor = .Pino.gray5
 
 		feeLabel.textAlignment = .right
+		apyLabel.textAlignment = .right
 
 		tokenStackView.axis = .vertical
 		tokenAmountStackView.axis = .vertical
@@ -199,6 +202,8 @@ class InvestmentDeatilsView: UIView {
 
 		tokenImageView.layer.cornerRadius = 25
 		tokenImageView.layer.masksToBounds = true
+
+		apyLabel.isSkeletonable = true
 	}
 
 	private func setupContstraint() {
@@ -229,5 +234,20 @@ class InvestmentDeatilsView: UIView {
 		totalAmountSeparatorLine.pin(
 			.fixedHeight(1)
 		)
+
+		apyLabel.pin(
+			.fixedWidth(60)
+		)
+	}
+
+	private func setupBindings() {
+		investmentDetailsVM.$apy.sink { apy in
+			if let apy {
+				self.hideSkeletonView()
+				self.apyLabel.text = apy
+			} else {
+				self.showSkeletonView()
+			}
+		}.store(in: &cancellables)
 	}
 }
