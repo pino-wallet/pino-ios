@@ -99,16 +99,22 @@ class HomepageViewController: UIViewController {
 	}
 
 	@objc
-	private func copyWalletAddress() {
-		let pasteboard = UIPasteboard.general
-		pasteboard.string = homeVM.walletInfo.address
+	private func copyWalletAddress(gestureRecognizer: UILongPressGestureRecognizer) {
+		if gestureRecognizer.state == .began {
+			let pasteboard = UIPasteboard.general
+			pasteboard.string = homeVM.walletInfo.address
 
-		Toast.default(title: GlobalToastTitles.copy.message, style: .copy, direction: .top).show(haptic: .success)
+			Toast.default(title: GlobalToastTitles.copy.message, style: .copy, direction: .top).show(haptic: .success)
+		}
 	}
 
 	@objc
 	private func openAccountsPage() {
-		#warning("this should open accounts page in next pr")
+		let navigationVC = UINavigationController()
+		let accountsVM = AccountsViewModel(currentWalletBalance: nil)
+		let accountsVC = AccountsViewController(accountsVM: accountsVM, profileVM: profileVM, hasDismiss: true)
+		navigationVC.viewControllers = [accountsVC]
+		present(navigationVC, animated: true)
 	}
 
 	@objc
