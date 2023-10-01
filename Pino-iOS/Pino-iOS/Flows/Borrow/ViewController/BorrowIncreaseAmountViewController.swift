@@ -39,7 +39,6 @@ class BorrowIncreaseAmountViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		#warning("this should be changed")
 		borrowIncreaseAmountView = BorrowIncreaseAmountView(
 			borrowIncreaseAmountVM: borrowIncreaseAmountVM,
 			nextButtonTapped: {
@@ -54,9 +53,9 @@ class BorrowIncreaseAmountViewController: UIViewController {
 		setNavigationTitle("\(borrowIncreaseAmountVM.pageTitleBorrowText) \(borrowIncreaseAmountVM.tokenSymbol)")
 	}
 
-	#warning("this should be changed")
 	private func pushToBorrowConfirmVC() {
-		let borrowConfirmVC = BorrowConfirmViewController()
+		let borrowConfirmVM = BorrowConfirmViewModel(borrowIncreaseAmountVM: borrowIncreaseAmountVM)
+		let borrowConfirmVC = BorrowConfirmViewController(borrowConfirmVM: borrowConfirmVM)
 		navigationController?.pushViewController(borrowConfirmVC, animated: true)
 	}
 }
