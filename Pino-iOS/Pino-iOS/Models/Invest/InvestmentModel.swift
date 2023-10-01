@@ -14,16 +14,16 @@ struct InvestmentModel: Codable {
 	public let currentWorth: String
 	public let id: String
 	public let listingID: String
-	public let investProtocol: String
+	public let protocolName: String
 	public let userID: String
-	public let tokens: InvestToken
+	public let tokens: [InvestToken]
 
 	enum CodingKeys: String, CodingKey {
 		case capital
 		case currentWorth = "current_worth"
 		case id
 		case listingID = "listing_id"
-		case investProtocol = "protocol"
+		case protocolName = "protocol"
 		case userID = "user_id"
 		case tokens
 	}
@@ -32,7 +32,7 @@ struct InvestmentModel: Codable {
 		// MARK: - Public Properties
 
 		public let amount: String
-		public let idx: Int
+		public let idx: Int?
 		public let investmentID: String
 		public let tokenID: String
 
