@@ -49,7 +49,7 @@ class InvestViewController: UIViewController {
 			}
 		)
 
-		if investVM.assets.isEmpty {
+		if let assets = investVM.assets, assets.isEmpty {
 			view = investEmptyPageView
 		} else {
 			view = investView
@@ -62,13 +62,15 @@ class InvestViewController: UIViewController {
 	}
 
 	private func openInvestmentBoard() {
-		let investmentBoardVC = InvestmentBoardViewController(assets: investVM.assets)
+		guard let assets = investVM.assets else { return }
+		let investmentBoardVC = InvestmentBoardViewController(assets: assets)
 		let investmentBoardNavigationVC = UINavigationController(rootViewController: investmentBoardVC)
 		present(investmentBoardNavigationVC, animated: true)
 	}
 
 	private func openInvestmentPerformance() {
-		let investmentPerformanceVC = InvestmentPerformanceViewController(assets: investVM.assets)
+		guard let assets = investVM.assets else { return }
+		let investmentPerformanceVC = InvestmentPerformanceViewController(assets: assets)
 		let investmentPerformanceNavigationVC = UINavigationController(rootViewController: investmentPerformanceVC)
 		present(investmentPerformanceNavigationVC, animated: true)
 	}

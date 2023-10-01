@@ -187,6 +187,20 @@ public class Web3Core {
 		}
 	}
 
+	public func getETHBalance(of accountAddress: String) -> Promise<String> {
+		Promise<String>() { seal in
+			firstly {
+				web3.eth.getBalance(address: accountAddress.eip55Address!, block: .latest)
+			}.map { balanceValue in
+				BigNumber(unSignedNumber: balanceValue.quantity, decimal: 18)
+			}.done { balance in
+				seal.fulfill(balance.sevenDigitFormat.ethFormatting)
+			}.catch(policy: .allErrors) { error in
+				seal.reject(error)
+			}
+		}
+	}
+
 	public func calculateEthGasFee() -> Promise<GasInfo> {
 		gasInfoManager.calculateEthGasFee()
 	}

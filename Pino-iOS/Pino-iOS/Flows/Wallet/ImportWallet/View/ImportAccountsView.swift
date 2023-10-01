@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 9/13/23.
 //
 
+import Combine
 import UIKit
 
 class ImportAccountsView: UIView {
@@ -12,9 +13,10 @@ class ImportAccountsView: UIView {
 
 	private let contentStackView = UIStackView()
 	private let accountsCollectionView: ImportAccountsCollectionView
-	private let importButton = PinoButton(style: .active)
+	private let importButton = PinoButton(style: .deactive)
 	private var accountsVM: ImportAccountsViewModel
 	private let importButtonDidTap: () -> Void
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -33,6 +35,7 @@ class ImportAccountsView: UIView {
 		setupView()
 		setupStyle()
 		setupContstraint()
+		setupBinding()
 	}
 
 	required init?(coder: NSCoder) {
@@ -65,5 +68,17 @@ class ImportAccountsView: UIView {
 			.bottom(to: layoutMarginsGuide, padding: 8),
 			.horizontalEdges(padding: 16)
 		)
+	}
+
+	private func setupBinding() {
+		accountsVM.$accounts.compactMap { $0 }.sink { accounts in
+			self.accountsCollectionView.accounts = accounts
+			self.accountsCollectionView.reloadData()
+			if !accounts.filter({ $0.isSelected }).isEmpty {
+				self.importButton.style = .active
+			} else {
+				self.importButton.style = .deactive
+			}
+		}.store(in: &cancellables)
 	}
 }

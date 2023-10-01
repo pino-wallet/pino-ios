@@ -12,7 +12,7 @@ import Foundation
 class InvestCoinPerformanceViewModel {
 	// MARK: - Private Properties
 
-	private var accountingAPIClient = AccountingAPIClient()
+	private var investmentAPIClient = InvestmentAPIClient()
 	private var cancellables = Set<AnyCancellable>()
 	private let selectedAsset: InvestAssetViewModel
 
@@ -39,19 +39,21 @@ class InvestCoinPerformanceViewModel {
 	// MARK: - Private Methods
 
 	public func getChartData(dateFilter: ChartDateFilter = .day) {
-		#warning("The investmnet data is currently empty, ETH performance is used temporarily for test")
-		accountingAPIClient.coinPerformance(timeFrame: dateFilter.timeFrame, tokenID: AccountingEndpoint.ethID)
-			.sink { completed in
-				switch completed {
-				case .finished:
-					print("Coin performance received successfully")
-				case let .failure(error):
-					print(error)
-				}
-			} receiveValue: { portfolio in
-				let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0) }
-				self.chartVM = AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: dateFilter)
-			}.store(in: &cancellables)
+		investmentAPIClient.investmentPerformance(
+			timeFrame: dateFilter.timeFrame,
+			investmentID: selectedAsset.investmentId
+		)
+		.sink { completed in
+			switch completed {
+			case .finished:
+				print("Coin performance received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { portfolio in
+			let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0, networthDecimal: 2) }
+			self.chartVM = AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: dateFilter)
+		}.store(in: &cancellables)
 	}
 
 	private func setupBindings() {

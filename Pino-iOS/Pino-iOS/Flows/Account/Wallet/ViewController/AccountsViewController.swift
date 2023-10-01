@@ -11,11 +11,15 @@ class AccountsViewController: UIViewController {
 	// MARK: Private Properties
 
 	private let accountsVM: AccountsViewModel
+	private let profileVM: ProfileViewModel
+	private let hasDismiss: Bool
 
 	// MARK: Initializers
 
-	init(accountsVM: AccountsViewModel) {
+	init(accountsVM: AccountsViewModel, profileVM: ProfileViewModel, hasDismiss: Bool = false) {
 		self.accountsVM = accountsVM
+		self.profileVM = profileVM
+		self.hasDismiss = hasDismiss
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -37,14 +41,28 @@ class AccountsViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = AccountsCollectionView(accountsVM: accountsVM, editAccountTapped: { selectedAccount in
-			self.openEditAccountPage(selectedAccount: selectedAccount)
-		}, dismissPage: { [weak self] in
-			self?.dismiss(animated: true)
-		})
+		view = AccountsCollectionView(
+			accountsVM: accountsVM,
+			profileVM: profileVM,
+			editAccountTapped: { selectedAccount in
+				self.openEditAccountPage(selectedAccount: selectedAccount)
+			},
+			dismissPage: { [weak self] in
+				self?.dismiss(animated: true)
+			}
+		)
 	}
 
 	private func setupNavigationBar() {
+		if hasDismiss {
+			setupPrimaryColorNavigationBar()
+			navigationItem.leftBarButtonItem = UIBarButtonItem(
+				image: UIImage(named: "dissmiss"),
+				style: .plain,
+				target: self,
+				action: #selector(dismissSelf)
+			)
+		}
 		// Setup title view
 		setNavigationTitle("Wallets")
 		// Setup add asset button
@@ -68,5 +86,10 @@ class AccountsViewController: UIViewController {
 	private func openCreateImportWalletPage() {
 		let createImportWalletVC = AddNewAccountViewController(accountsVM: accountsVM)
 		navigationController?.pushViewController(createImportWalletVC, animated: true)
+	}
+
+	@objc
+	private func dismissSelf() {
+		dismiss(animated: true)
 	}
 }

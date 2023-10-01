@@ -22,7 +22,7 @@ class UserInvestmentAssetCell: AssetsBoardCell {
 	// MARK: - Private Methods
 
 	private func updateAssetAmount() {
-		assetAmountLabel.text = investmentAsset.formattedAssetAmount
+		assetAmountLabel.text = investmentAsset.formattedInvestmentAmount
 		switch investmentAsset.volatilityType {
 		case .profit:
 			assetAmountDescriptionLabel.text = "+\(investmentAsset.formattedAssetVolatility)"

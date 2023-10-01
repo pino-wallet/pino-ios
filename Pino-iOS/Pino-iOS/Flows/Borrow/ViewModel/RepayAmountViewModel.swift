@@ -25,7 +25,9 @@ class RepayAmountViewModel {
 	public let maxTitle = "Max: "
 	public var textFieldPlaceHolder = "0"
 
-	public var selectedUserBorrowingToken: UserBorrowingToken
+	public let userBorrowedTokenID: String
+	public let borrowVM: BorrowViewModel
+	public var selectedUserBorrowingToken: UserBorrowingToken!
 
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
@@ -75,8 +77,18 @@ class RepayAmountViewModel {
 
 	// MARK: - Initializers
 
-	init(selectedUserBorrowingToken: UserBorrowingToken) {
-		self.selectedUserBorrowingToken = selectedUserBorrowingToken
+	init(borrowVM: BorrowViewModel, userBorrowedTokenID: String) {
+		self.borrowVM = borrowVM
+		self.userBorrowedTokenID = userBorrowedTokenID
+
+		setUserBorrowedToken()
+	}
+
+	// MARK: - Private Methods
+
+	private func setUserBorrowedToken() {
+		selectedUserBorrowingToken = borrowVM.userBorrowingDetails?.borrowTokens
+			.first(where: { $0.id == userBorrowedTokenID })
 	}
 
 	// MARK: - Public Methods

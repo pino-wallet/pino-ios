@@ -17,6 +17,7 @@ class BorrowIncreaseAmountViewModel {
 	public var textFieldPlaceHolder = "0"
 
 	public let selectedToken: AssetViewModel
+	public let borrowVM: BorrowViewModel
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
 	// here max amount is user max hold amount of selected token
@@ -50,8 +51,9 @@ class BorrowIncreaseAmountViewModel {
 
 	// MARK: - Initializers
 
-	init(selectedToken: AssetViewModel) {
+	init(selectedToken: AssetViewModel, borrowVM: BorrowViewModel) {
 		self.selectedToken = selectedToken
+		self.borrowVM = borrowVM
 	}
 
 	// MARK: - Public Methods

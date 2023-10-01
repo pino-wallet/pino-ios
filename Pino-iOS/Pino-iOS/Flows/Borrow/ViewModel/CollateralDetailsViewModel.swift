@@ -16,7 +16,9 @@ struct CollateralDetailsViewModel {
 	public let increaseLoanTitle = "Increase collateral"
 	public let withdrawTitle = "Withdraw"
 	public let dismissIconName = "dissmiss"
-	public let collateralledTokenModel: UserBorrowingToken
+	public let collateralledTokenID: String
+	public let borrowVM: BorrowViewModel
+	public var collateralledTokenModel: UserBorrowingToken!
 
 	public var pageTitle: String {
 		"\(foundTokenInManageAssetTokens.symbol) collateral details"
@@ -43,15 +45,21 @@ struct CollateralDetailsViewModel {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == collateralledTokenModel.id }))!
 	}
 
-	public var defaultCollateralledTokenModel: UserBorrowingToken {
-		collateralledTokenModel
+	public var formattedInvolvedAmountInToken: String {
+		(userAmountInToken - userFreeAmountInToken).sevenDigitFormat
+			.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
 	}
 
-	#warning("this is mock")
-	public let involvedAmountInToken = "15 LINK"
-	public let freeAmountInToken = "340 LINK"
+	public var freeAmountInToken: String {
+		userFreeAmountInToken.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+	}
 
 	// MARK: - Private Properties
+
+	private var userFreeAmountInToken: BigNumber {
+		let bigNumberHealthScore = BigNumber(numberWithDecimal: borrowVM.calculatedHealthScore.description)
+		return (((userAmountInToken * bigNumberHealthScore) / 100.bigNumber)!)
+	}
 
 	private var userAmountInToken: BigNumber {
 		BigNumber(number: collateralledTokenModel.amount, decimal: foundTokenInManageAssetTokens.decimal)
@@ -59,7 +67,17 @@ struct CollateralDetailsViewModel {
 
 	// MARK: - Initializers
 
-	init(collateralledTokenModel: UserBorrowingToken) {
-		self.collateralledTokenModel = collateralledTokenModel
+	init(borrowVM: BorrowViewModel, collateralledTokenID: String) {
+		self.collateralledTokenID = collateralledTokenID
+		self.borrowVM = borrowVM
+
+		setCollateraledToken()
+	}
+
+	// MARK: - Private Methods
+
+	private mutating func setCollateraledToken() {
+		collateralledTokenModel = borrowVM.userBorrowingDetails?.collateralTokens
+			.first(where: { $0.id == collateralledTokenID })
 	}
 }

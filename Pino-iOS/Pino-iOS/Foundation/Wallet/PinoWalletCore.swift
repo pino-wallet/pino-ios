@@ -9,7 +9,7 @@ import Foundation
 import WalletCore
 
 protocol PinoWallet {
-	func encryptPrivateKey(_ key: Data, forAccount account: Account) -> Data
+	func encryptPrivateKey(_ key: Data, forAccount address: String) -> Data
 	func decryptPrivateKey(fromEncryptedData encryptedData: Data, forAccount account: Account) -> Data
 }
 
@@ -23,8 +23,8 @@ extension PinoWallet {
 	// MARK: - Internal Methods
 
 	@discardableResult
-	internal func encryptPrivateKey(_ key: Data, forAccount account: Account) -> Data {
-		secureEnclave.encrypt(plainData: key, withPublicKeyLabel: KeychainManager.privateKey.getKey(account.eip55Address))
+	internal func encryptPrivateKey(_ key: Data, forAccount address: String) -> Data {
+		secureEnclave.encrypt(plainData: key, withPublicKeyLabel: KeychainManager.privateKey.getKey(address))
 	}
 
 	internal func decryptPrivateKey(fromEncryptedData encryptedData: Data, forAccount account: Account) -> Data {

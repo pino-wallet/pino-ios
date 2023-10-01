@@ -65,7 +65,7 @@ class CollateralDetailsView: UIView {
 
 		involvedAmountStackView = LoanDetailsInfoStackView(
 			titleText: collateralDetailsVM.involvedTitle,
-			infoText: collateralDetailsVM.involvedAmountInToken
+			infoText: collateralDetailsVM.formattedInvolvedAmountInToken
 		)
 		freeAmountStackView = LoanDetailsInfoStackView(
 			titleText: collateralDetailsVM.freeTitle,
