@@ -22,6 +22,10 @@ class HomepageViewController: UIViewController {
 		assetsCollectionView.getHomeData()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		assetsCollectionView.reloadData()
+	}
+
 	override func viewDidLayoutSubviews() {
 		let gradientLayer = GradientLayer(frame: view.bounds, style: .homeBackground)
 		view.layer.insertSublayer(gradientLayer, at: 0)
@@ -73,7 +77,12 @@ class HomepageViewController: UIViewController {
 			self?.navigationItem.titleView = accountInfoNavigationItems.accountTitle
 			self?.navigationItem.leftBarButtonItem = accountInfoNavigationItems.profileButton
 			self?.navigationItem.titleView?
-				.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self?.copyWalletAddress)))
+				.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self?.openAccountsPage)))
+			self?.navigationItem.titleView?
+				.addGestureRecognizer(UILongPressGestureRecognizer(
+					target: self,
+					action: #selector(self?.copyWalletAddress)
+				))
 			self?.navigationItem.leftBarButtonItem?.customView?
 				.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self?.openProfilePage)))
 		}.store(in: &cancellables)
@@ -90,11 +99,22 @@ class HomepageViewController: UIViewController {
 	}
 
 	@objc
-	private func copyWalletAddress() {
-		let pasteboard = UIPasteboard.general
-		pasteboard.string = homeVM.walletInfo.address
+	private func copyWalletAddress(gestureRecognizer: UILongPressGestureRecognizer) {
+		if gestureRecognizer.state == .began {
+			let pasteboard = UIPasteboard.general
+			pasteboard.string = homeVM.walletInfo.address
 
-		Toast.default(title: GlobalToastTitles.copy.message, style: .copy, direction: .top).show(haptic: .success)
+			Toast.default(title: GlobalToastTitles.copy.message, style: .copy, direction: .top).show(haptic: .success)
+		}
+	}
+
+	@objc
+	private func openAccountsPage() {
+		let navigationVC = UINavigationController()
+		let accountsVM = AccountsViewModel(currentWalletBalance: nil)
+		let accountsVC = AccountsViewController(accountsVM: accountsVM, profileVM: profileVM, hasDismiss: true)
+		navigationVC.viewControllers = [accountsVC]
+		present(navigationVC, animated: true)
 	}
 
 	@objc

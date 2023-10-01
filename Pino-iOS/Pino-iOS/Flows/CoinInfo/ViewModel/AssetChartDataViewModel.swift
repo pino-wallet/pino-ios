@@ -8,16 +8,26 @@
 import Foundation
 
 struct AssetChartDataViewModel {
-	// MARK: - Public Properties
+	// MARK: - Private Properties
 
-	public var chartModel: ChartDataModel
+	private var chartModel: ChartDataModel
+	private let networthDecimal: Int
+
+	// MARK: - Public Properties
 
 	public var date: Date? {
 		getDate(from: chartModel.time)
 	}
 
 	public var networth: BigNumber {
-		BigNumber(number: chartModel.networth, decimal: 2)
+		BigNumber(number: chartModel.networth, decimal: networthDecimal)
+	}
+
+	// MARK: - Initializers
+
+	init(chartModel: ChartDataModel, networthDecimal: Int = 2) {
+		self.chartModel = chartModel
+		self.networthDecimal = networthDecimal
 	}
 
 	// MARK: - Private Methods

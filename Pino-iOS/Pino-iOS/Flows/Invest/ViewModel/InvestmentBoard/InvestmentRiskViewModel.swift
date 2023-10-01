@@ -10,9 +10,9 @@ import Foundation
 public enum InvestmentRisk: String {
 	// MARK: - Types
 
-	case high = "High"
-	case medium = "Medium"
-	case low = "Low"
+	case high
+	case medium
+	case low
 
 	// MARK: - Public Properties
 

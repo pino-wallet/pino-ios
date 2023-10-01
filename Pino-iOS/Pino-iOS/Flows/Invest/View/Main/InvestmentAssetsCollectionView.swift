@@ -8,20 +8,19 @@
 import UIKit
 
 class InvestmentAssetsCollectionView: UICollectionView {
-	// MARK: Private Properties
+	// MARK: Public Properties
 
-	private var assets: [InvestAssetViewModel]!
+	public var assets: [InvestAssetViewModel]?
 
 	// MARK: Initializers
 
-	convenience init(assets: [InvestAssetViewModel]) {
+	convenience init() {
 		// Set flow layout for collection view
 		let flowLayout = UICollectionViewFlowLayout()
 		flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
 		flowLayout.scrollDirection = .horizontal
 		flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 40)
 		self.init(frame: CGRect(x: 0, y: 0, width: 300, height: 48), collectionViewLayout: flowLayout)
-		self.assets = assets
 
 		configCollectionView()
 		setupStyle()
@@ -52,7 +51,7 @@ class InvestmentAssetsCollectionView: UICollectionView {
 
 extension InvestmentAssetsCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		assets.count
+		assets?.count ?? 4
 	}
 
 	func collectionView(
@@ -63,7 +62,7 @@ extension InvestmentAssetsCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: InvestmentAssetCell.cellReuseID,
 			for: indexPath
 		) as! InvestmentAssetCell
-		assetCell.asset = assets[indexPath.item]
+		assetCell.asset = assets?[indexPath.item] ?? nil
 		return assetCell
 	}
 }
