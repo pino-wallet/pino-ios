@@ -46,12 +46,12 @@ struct CollateralDetailsViewModel {
 	}
 
 	public var formattedInvolvedAmountInToken: String {
-        (userAmountInToken - userFreeAmountInToken).sevenDigitFormat
-            .tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+		(userAmountInToken - userFreeAmountInToken).sevenDigitFormat
+			.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
 	}
 
 	public var freeAmountInToken: String {
-        userFreeAmountInToken.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+		userFreeAmountInToken.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
 	}
 
 	// MARK: - Private Properties
