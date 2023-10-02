@@ -47,7 +47,7 @@ struct EIP712PermitModel: Codable {
 			chainID: 1,
 			verifyingContract: "0x000000000022d473030f116ddee9f6b43ac78ba3"
 		)
-		let initPermit = Permitted(token: tokenAdd, amount: "1000000")
+		let initPermit = Permitted(token: tokenAdd, amount: amount)
 		let initMessage = Message(
 			permitted: initPermit,
 			spender: Web3Core.Constants.pinoProxyAddress,

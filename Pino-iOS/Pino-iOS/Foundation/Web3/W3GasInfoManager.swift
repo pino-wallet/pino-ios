@@ -59,7 +59,7 @@ public struct W3GasInfoManager {
 					from: transaction.from,
 					to: transaction.to!,
 					gasPrice: gasPrice,
-					value: nil, data: transaction.data
+					data: transaction.data
 				)).map { ($0, nonce, gasPrice) }
 
 			}.done { gasLimit, nonce, gasPrice in
@@ -91,7 +91,6 @@ public struct W3GasInfoManager {
 						from: myPrivateKey.address,
 						to: to,
 						gasPrice: gasPrice,
-						value: nil,
 						data: data
 					)).map { ($0, gasPrice) }
 			}.done { estimateGas, gasPrice in
