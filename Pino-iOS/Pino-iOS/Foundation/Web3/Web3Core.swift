@@ -338,6 +338,4 @@ extension Web3Core {
 		case arb = "https://arb1.arbitrum.io/rpc"
 		case ganashDev = "https://ganache.pino.xyz/"
 	}
-
-	struct Netowrk {}
 }

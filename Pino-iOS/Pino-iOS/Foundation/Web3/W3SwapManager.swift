@@ -126,31 +126,6 @@ public struct W3SwapManager {
 		}
 	}
 
-	//    self.gasInfoManager
-	//        .calculateGasOf(data: ethCallData, to: contractAddress)
-	//        .then { [self] gasInfo in
-//
-	//        }
-	//        .then { [self] nonce, gasInfo in
-//
-	//            let trx = try trxManager.createTransactionFor(
-	//                nonce: nonce,
-	//                gasPrice: gasInfo.gasPrice.etherumQuantity,
-	//                gasLimit: gasInfo.gasLimit.bigUInt.etherumQuantity,
-	//                value: value.etherumQuantity,
-	//                data: ethCallData,
-	//                to: contractAddress
-	//            )
-//
-	//            let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-	//            return web3.eth.sendRawTransaction(transaction: signedTx)
-	//        }.done { txHash in
-	//            seal.fulfill(txHash)
-	//        }.catch { error in
-	//            seal.reject(error)
-	//        }
-//
-
 	public func getSwapProviderData(callData: String, method: ABIMethodWrite) -> Promise<String> {
 		Promise<String>() { [self] seal in
 
