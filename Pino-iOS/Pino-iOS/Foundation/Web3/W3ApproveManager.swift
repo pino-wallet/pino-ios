@@ -93,7 +93,7 @@ public struct W3ApproveManager {
 	) -> Promise<EthereumSignedTransaction> {
 		Promise<EthereumSignedTransaction> { seal in
 
-			let contract = try Web3Core.getContractOfToken(address: address, abi: .swap, web3: web3)
+			let contract = try Web3Core.getContractOfToken(address: address, abi: .erc, web3: web3)
 			let solInvocation = contract[ABIMethodWrite.approve.rawValue]?(spender, amount)
 
 			gasInfoManager.calculateGasOf(
@@ -111,7 +111,7 @@ public struct W3ApproveManager {
 					contract: solInvocation!,
 					nonce: nonce,
 					gasPrice: gasInfo.gasPrice.etherumQuantity,
-					gasLimit: gasInfo.gasLimit.etherumQuantity
+					gasLimit: gasInfo.increasedGasLimit.etherumQuantity
 				)
 
 				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)

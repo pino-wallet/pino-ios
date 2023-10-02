@@ -24,15 +24,37 @@ struct TokenPermissions: ABIEncodable {
 
 struct Permit2Model: ABIEncodable {
 	let permitted: TokenPermissions
-	let nonce: EthereumQuantity
-	let deadline: EthereumQuantity
+	let nonce: BigUInt
+	let deadline: BigUInt
 
 	func abiEncode(dynamic: Bool) -> String? {
 		guard let tokenPermissionsEncoded = permitted.abiEncode(dynamic: false),
-		      let nonceEncoded = nonce.quantity.abiEncode(dynamic: false),
-		      let deadlineEncoded = deadline.quantity.abiEncode(dynamic: false) else {
+		      let nonceEncoded = nonce.abiEncode(dynamic: false),
+		      let deadlineEncoded = deadline.abiEncode(dynamic: false) else {
 			return nil
 		}
 		return tokenPermissionsEncoded + nonceEncoded + deadlineEncoded
+	}
+}
+
+struct PermitTransferFrom: ABIEncodable {
+	let permitted: Permit2Model
+	let signature: Data
+
+	func abiEncode(dynamic: Bool) -> String? {
+		guard var permittedEncoded = permitted.abiEncode(dynamic: false),
+		      let sigEncoded = signature.abiEncode(dynamic: false) else {
+			return nil
+		}
+
+		let sigLenght = signature.count
+		let sigOffset = 5 * 64 / 2
+
+		permittedEncoded += UInt64(sigOffset).abiEncode(dynamic: false) ?? ""
+		permittedEncoded += UInt64(sigLenght).abiEncode(dynamic: false) ?? ""
+
+		// Assuming that both the permitted and the signature need to be concatenated.
+		// Adjust this if your contract expects a different format.
+		return permittedEncoded + sigEncoded
 	}
 }

@@ -29,6 +29,9 @@ class SwapManager {
 	private let web3Client = Web3APIClient()
 	private var cancellables = Set<AnyCancellable>()
 
+	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes in ms
+	private let nonce = BigNumber.bigRandomeNumber
+
 	init(selectedProvider: SwapProviderViewModel, srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
 		self.selectedProvider = selectedProvider
 		self.srcToken = srcToken
@@ -38,29 +41,40 @@ class SwapManager {
 	// MARK: - Public Methods
 
 	public func swapToken() {
-		swapERCtoERC()
+		if srcToken.selectedToken.isERC20 && destToken.selectedToken.isERC20 {
+			swapERCtoERC()
+		} else if srcToken.selectedToken.isERC20 && destToken.selectedToken.isEth {
+			swapERCtoETH()
+		} else if srcToken.selectedToken.isEth && destToken.selectedToken.isERC20 {
+			swapETHtoERC()
+		} else if srcToken.selectedToken.isEth && destToken.selectedToken.isWEth {
+			swapETHtoWETH()
+		} else if srcToken.selectedToken.isWEth && destToken.selectedToken.isEth {
+			swapWETHtoETH()
+		}
 	}
 
 	// MARK: - Private Methods
 
 	private func swapERCtoERC() {
 		firstly {
-			checkAllowanceOfProvider().compactMap { $0 }
-		}.then { allowanceData in
-			self.signHash().map { ($0, allowanceData) }
-		}.then { signiture, allowanceData in
+			self.signHash()
+		}.then { signiture -> Promise<(String, String?)> in
+			self.checkAllowanceOfProvider().map { (signiture, $0) }
+		}.then { signiture, allowanceData -> Promise<(String, String?)> in
 			// Permit Transform
 			self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
-		}.then { [self] permitData, allowanceData in
+		}.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
 			// Fetch Call Data
 			getSwapInfoFrom(provider: selectedProvService).map { ($0, permitData, allowanceData) }
-		}.then { providerSwapData, permitData, allowanceData in
+		}.then { providerSwapData, permitData, allowanceData -> Promise<(String, String, String?)> in
 			self.getProvidersCallData(providerData: providerSwapData).map { ($0, permitData, allowanceData) }
-		}.then { providersCallData, permitData, allowanceData -> Promise<(String?, String, String, String)> in
+		}.then { providersCallData, permitData, allowanceData -> Promise<(String?, String, String, String?)> in
 			self.sweepTokenCallData().map { ($0, providersCallData, permitData, allowanceData) }
 		}.then { sweepData, providersCallData, permitData, allowanceData in
 			// MultiCall
-			var callDatas = [allowanceData, permitData, providersCallData]
+			var callDatas = [permitData, providersCallData]
+			if let allowanceData { callDatas.insert(allowanceData, at: 0) }
 			if let sweepData { callDatas.append(sweepData) }
 			return self.callProxyMultiCall(data: callDatas, value: nil)
 		}.done { trxHash in
@@ -72,13 +86,13 @@ class SwapManager {
 
 	private func swapERCtoETH() {
 		firstly {
-			checkAllowanceOfProvider().compactMap { $0 }
-		}.then { allowanceData in
-			self.signHash().map { ($0, allowanceData) }
-		}.then { signiture, allowanceData in
+			self.signHash()
+		}.then { signiture -> Promise<(String, String?)> in
+			self.checkAllowanceOfProvider().map { (signiture, $0) }
+		}.then { signiture, allowanceData -> Promise<(String, String?)> in
 			// Permit Transform
 			self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
-		}.then { [self] permitData, allowanceData in
+		}.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
 			// Fetch Call Data
 			// TODO: Set providers dest token in 0x as WETH since dest is ETH else it is ETH
 			if selectedProvider.provider == .zeroX {
@@ -87,14 +101,15 @@ class SwapManager {
 			} else {
 				return getSwapInfoFrom(provider: selectedProvService).map { ($0, permitData, allowanceData) }
 			}
-		}.then { providerSwapData, permitData, allowanceData in
+		}.then { providerSwapData, permitData, allowanceData -> Promise<(String, String, String?)> in
 			self.getProvidersCallData(providerData: providerSwapData).map { ($0, permitData, allowanceData) }
-		}.then { providersCallData, permitData, allowanceData -> Promise<(String?, String, String, String)> in
+		}.then { providersCallData, permitData, allowanceData -> Promise<(String?, String, String, String?)> in
 			// TODO: Only when provider is 0x
 			self.unwrapTokenCallData().map { ($0, providersCallData, permitData, allowanceData) }
 		}.then { unwrapData, providersCallData, permitData, allowanceData in
 			// MultiCall
-			var callDatas = [allowanceData, permitData, providersCallData]
+			var callDatas = [permitData, providersCallData]
+			if let allowanceData { callDatas.insert(allowanceData, at: 0) }
 			if let unwrapData { callDatas.append(unwrapData) }
 			return self.callProxyMultiCall(data: callDatas, value: nil)
 		}.done { trxHash in
@@ -167,11 +182,14 @@ class SwapManager {
 			firstly {
 				fetchHash()
 			}.done { [self] hash in
-				let signiture = try Sec256k1Encryptor.sign(
+				var signiture = try Sec256k1Encryptor.sign(
 					msg: hash.hexToBytes(),
 					seckey: pinoWalletManager.currentAccountPrivateKey.string.hexToBytes()
 				)
-				seal.fulfill(signiture.toHexString())
+				signiture[signiture.count - 1] += 27
+
+				seal.fulfill("0x\(signiture.toHexString())")
+
 			}.catch { error in
 				fatalError(error.localizedDescription)
 			}
@@ -185,7 +203,9 @@ class SwapManager {
 				tokenAdd: srcToken.selectedToken.id,
 				amount:
 				srcToken.tokenAmountBigNum.description,
-				spender: Web3Core.Constants.pinoProxyAddress
+				spender: Web3Core.Constants.pinoProxyAddress,
+				nonce: nonce.description,
+				deadline: deadline.description
 			)
 
 			web3Client.getHashTypedData(eip712HashReqInfo: hashREq).sink { completed in
@@ -205,13 +225,13 @@ class SwapManager {
 		Promise<String?> { seal in
 			firstly {
 				try web3.getAllowanceOf(
-					contractAddress: destToken.selectedToken.id,
+					contractAddress: srcToken.selectedToken.id,
 					spenderAddress: selectedProvider.provider.contractAddress,
 					ownerAddress: Web3Core.Constants.pinoProxyAddress
 				)
 			}.done { [self] allowanceAmount in
-				let destTokenDecimal = destToken.selectedToken.decimal
-				let destTokenAmount = Utilities.parseToBigUInt(destToken.tokenAmount!, decimals: destTokenDecimal)!
+				let destTokenDecimal = srcToken.selectedToken.decimal
+				let destTokenAmount = Utilities.parseToBigUInt(srcToken.tokenAmount!, decimals: destTokenDecimal)!
 				if allowanceAmount == 0 || allowanceAmount < destTokenAmount {
 					web3.getApproveProxyCallData(
 						tokenAdd: srcToken.selectedToken.id,
@@ -235,7 +255,9 @@ class SwapManager {
 		web3.getPermitTransferCallData(
 			amount: srcToken.tokenAmountBigNum.bigUInt,
 			tokenAdd: srcToken.selectedToken.id,
-			signiture: signiture
+			signiture: signiture,
+			nonce: nonce,
+			deadline: deadline
 		)
 	}
 

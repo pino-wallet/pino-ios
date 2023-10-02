@@ -96,8 +96,20 @@ public class Web3Core {
 		approveManager.getApproveProxyCallData(tokenAdd: tokenAdd, spender: spender)
 	}
 
-	public func getPermitTransferCallData(amount: BigUInt, tokenAdd: String, signiture: String) -> Promise<String> {
-		transferManager.getPermitTransferFromCallData(amount: amount, tokenAdd: tokenAdd, signiture: signiture)
+	public func getPermitTransferCallData(
+		amount: BigUInt,
+		tokenAdd: String,
+		signiture: String,
+		nonce: BigUInt,
+		deadline: BigUInt
+	) -> Promise<String> {
+		transferManager.getPermitTransferFromCallData(
+			amount: amount,
+			tokenAdd: tokenAdd,
+			signiture: signiture,
+			nonce: nonce,
+			deadline: deadline
+		)
 	}
 
 	public func getWrapETHCallData(proxyFee: BigUInt) -> Promise<String> {
@@ -125,7 +137,11 @@ public class Web3Core {
 	}
 
 	public func callProxyMulticall(data: [String], value: BigUInt) -> Promise<String> {
-		swapManager.callMultiCall(callData: data, value: value)
+		swapManager.callMultiCall(
+			callData: data,
+			value: value,
+			contractAddress: Web3Core.Constants.pinoProxyAddress.eip55Address!
+		)
 	}
 
 	public func getCustomAssetInfo(contractAddress: String) -> Promise<CustomAssetInfo> {
@@ -320,5 +336,6 @@ extension Web3Core {
 	public enum RPC: String {
 		case mainNet = "https://rpc.ankr.com/eth"
 		case arb = "https://arb1.arbitrum.io/rpc"
+		case ganashDev = "https://ganache.pino.xyz/"
 	}
 }

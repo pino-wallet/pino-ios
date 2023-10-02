@@ -20,7 +20,7 @@ struct EIP712PermitModel: Codable {
 
 	// MARK: - Initializers
 
-	init(tokenAdd: String, amount: String, spender: String) {
+	init(tokenAdd: String, amount: String, spender: String, nonce: String, deadline: String) {
 		let eip712Domain: [DomainType] = [
 			.init(name: "name", type: "string"),
 			.init(name: "chainId", type: "uint256"),
@@ -47,13 +47,12 @@ struct EIP712PermitModel: Codable {
 			chainID: 1,
 			verifyingContract: "0x000000000022d473030f116ddee9f6b43ac78ba3"
 		)
-		let initPermit = Permitted(token: tokenAdd, amount: amount)
-		let deadline = Date().timeIntervalSince1970 + 1_800_000 // This is the equal of 30 minutes in ms
+		let initPermit = Permitted(token: tokenAdd, amount: "1000000")
 		let initMessage = Message(
 			permitted: initPermit,
-			spender: spender,
-			nonce: BigNumber.bigRandomeNumber.description,
-			deadline: deadline.description
+			spender: Web3Core.Constants.pinoProxyAddress,
+			nonce: nonce,
+			deadline: deadline
 		)
 
 		self.types = initTypes
