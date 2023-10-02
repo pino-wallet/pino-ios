@@ -11,6 +11,8 @@ import Foundation
 class ProfileViewModel {
 	// MARK: - Public Properties
 
+    public let pageTitle = "Settings"
+    public let dismissIconName = "dissmiss"
 	@Published
 	public var walletInfo: AccountInfoViewModel!
 	public var accountSettings: [SettingsViewModel]!
