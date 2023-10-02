@@ -50,10 +50,10 @@ class ProfileViewController: UIViewController {
 		// Setup appreance for navigation bar
 		setupPrimaryColorNavigationBar()
 		// Setup title view
-        setNavigationTitle(profileVM.pageTitle)
+		setNavigationTitle(profileVM.pageTitle)
 		// Setup add asset button
 		navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: profileVM.dismissIconName),
+			image: UIImage(named: profileVM.dismissIconName),
 			style: .plain,
 			target: self,
 			action: #selector(dismissProfile)

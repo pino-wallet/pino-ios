@@ -17,7 +17,7 @@ public class AccountCell: UICollectionViewCell {
 	private let titleStackView = UIStackView()
 	private let accountName = UILabel()
 	private let accountBalance = UILabel()
-    private let editButtonContainerView = UIView()
+	private let editButtonContainerView = UIView()
 	private let editButtonView = UIView()
 	private let editButtonImageView = UIImageView()
 
@@ -45,8 +45,8 @@ public class AccountCell: UICollectionViewCell {
 	private func setupView() {
 		contentView.addSubview(accountCardView)
 		accountCardView.addSubview(accountInfoStackView)
-        editButtonContainerView.addSubview(editButtonView)
-        editButtonView.addSubview(editButtonImageView)
+		editButtonContainerView.addSubview(editButtonView)
+		editButtonView.addSubview(editButtonImageView)
 		accountInfoStackView.addArrangedSubview(accountIconBackgroundView)
 		accountInfoStackView.addArrangedSubview(titleStackView)
 		accountInfoStackView.addArrangedSubview(editButtonContainerView)
@@ -63,8 +63,8 @@ public class AccountCell: UICollectionViewCell {
 		accountBalance.text = accountVM.balance
 		accountIcon.image = UIImage(named: accountVM.profileImage)
 
-        editButtonView.backgroundColor = .Pino.background
-        editButtonView.layer.cornerRadius = 16
+		editButtonView.backgroundColor = .Pino.background
+		editButtonView.layer.cornerRadius = 16
 
 		editButtonImageView.image = UIImage(named: "edit_accounts")
 
@@ -99,11 +99,11 @@ public class AccountCell: UICollectionViewCell {
 			.horizontalEdges(padding: 16),
 			.fixedWidth(contentView.frame.width - 32)
 		)
-        editButtonContainerView.pin(.fixedHeight(68), .fixedWidth(60))
-        editButtonView.pin(.centerY, .trailing(padding: 14))
+		editButtonContainerView.pin(.fixedHeight(68), .fixedWidth(60))
+		editButtonView.pin(.centerY, .trailing(padding: 14))
 		accountInfoStackView.pin(
 			.leading(padding: 14),
-            .trailing(padding: 0),
+			.trailing(padding: 0),
 			.centerY
 		)
 		accountIconBackgroundView.pin(
