@@ -95,9 +95,10 @@ public struct W3SwapManager {
 		}
 	}
 
-	public func callMultiCall(callData: [String], value: BigUInt, contractAddress: EthereumAddress) -> Promise<String> {
+	public func callMultiCall(callData: [String], value: BigUInt) -> Promise<String> {
 		let generatedMulticallData = W3CallDataGenerator.generateMultiCallFrom(calls: callData)
 		let ethCallData = EthereumData(generatedMulticallData.hexToBytes())
+		let contractAddress = Web3Core.Constants.pinoProxyAddress.eip55Address!
 
 		return Promise<String>() { [self] seal in
 
