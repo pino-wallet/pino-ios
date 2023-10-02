@@ -59,9 +59,9 @@ class SwapManager {
 	private func swapERCtoERC() {
 		firstly {
 			self.signHash()
-        }.then { signiture -> Promise<(String, String?)> in
-            self.checkAllowanceOfProvider().map { (signiture, $0) }
-        }.then { signiture, allowanceData -> Promise<(String, String?)> in
+		}.then { signiture -> Promise<(String, String?)> in
+			self.checkAllowanceOfProvider().map { (signiture, $0) }
+		}.then { signiture, allowanceData -> Promise<(String, String?)> in
 			// Permit Transform
 			self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
 		}.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
@@ -74,7 +74,7 @@ class SwapManager {
 		}.then { sweepData, providersCallData, permitData, allowanceData in
 			// MultiCall
 			var callDatas = [permitData, providersCallData]
-            if let allowanceData { callDatas.insert(allowanceData, at: 0) }
+			if let allowanceData { callDatas.insert(allowanceData, at: 0) }
 			if let sweepData { callDatas.append(sweepData) }
 			return self.callProxyMultiCall(data: callDatas, value: nil)
 		}.done { trxHash in
@@ -85,13 +85,13 @@ class SwapManager {
 	}
 
 	private func swapERCtoETH() {
-        firstly {
-            self.signHash()
-        }.then { signiture -> Promise<(String, String?)> in
-            self.checkAllowanceOfProvider().map { (signiture, $0) }
-        }.then { signiture, allowanceData -> Promise<(String, String?)> in
-            // Permit Transform
-            self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
+		firstly {
+			self.signHash()
+		}.then { signiture -> Promise<(String, String?)> in
+			self.checkAllowanceOfProvider().map { (signiture, $0) }
+		}.then { signiture, allowanceData -> Promise<(String, String?)> in
+			// Permit Transform
+			self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
 		}.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
 			// Fetch Call Data
 			// TODO: Set providers dest token in 0x as WETH since dest is ETH else it is ETH
@@ -109,7 +109,7 @@ class SwapManager {
 		}.then { unwrapData, providersCallData, permitData, allowanceData in
 			// MultiCall
 			var callDatas = [permitData, providersCallData]
-            if let allowanceData { callDatas.insert(allowanceData, at: 0) }
+			if let allowanceData { callDatas.insert(allowanceData, at: 0) }
 			if let unwrapData { callDatas.append(unwrapData) }
 			return self.callProxyMultiCall(data: callDatas, value: nil)
 		}.done { trxHash in
