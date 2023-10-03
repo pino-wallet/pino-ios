@@ -15,19 +15,19 @@ struct UserCollateralizingAssetViewModel: AssetsBoardProtocol {
 	// MARK: - Public Properties
 
 	public var assetName: String {
-		foundTokenInManageAssetTokens.symbol
+		foundCollateralledToken.symbol
 	}
 
 	public var assetImage: URL {
-		foundTokenInManageAssetTokens.image
+		foundCollateralledToken.image
 	}
 
 	public var userCollateralizingInToken: String {
-		userAmountInToken.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+		userAmountInToken.sevenDigitFormat.tokenFormatting(token: foundCollateralledToken.symbol)
 	}
 
 	public var userCollateralizingInDollars: String {
-		let userAmountInDollars = userAmountInToken * foundTokenInManageAssetTokens.price
+		let userAmountInDollars = userAmountInToken * foundCollateralledToken.price
 		return userAmountInDollars.priceFormat
 	}
 
@@ -37,12 +37,12 @@ struct UserCollateralizingAssetViewModel: AssetsBoardProtocol {
 
 	// MARK: - Private Properties
 
-	private var foundTokenInManageAssetTokens: AssetViewModel {
+	private var foundCollateralledToken: AssetViewModel {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userCollateralizingAssetModel.id }))!
 	}
 
 	private var userAmountInToken: BigNumber {
-		BigNumber(number: userCollateralizingAssetModel.amount, decimal: foundTokenInManageAssetTokens.decimal)
+		BigNumber(number: userCollateralizingAssetModel.amount, decimal: foundCollateralledToken.decimal)
 	}
 
 	// MARK: - Initializers

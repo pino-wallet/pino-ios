@@ -21,6 +21,7 @@ class BorrowIncreaseAmountViewModel {
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
 	// here max amount is sum of user max free collateralled amount in tokens
+    #warning("maybe we should refactor this section in future")
 	public var maxHoldAmount: BigNumber {
 		var totalFreeCollateralledInDollars = BigNumber(number: "0", decimal: selectedToken.decimal)
 		for collateralledToken in borrowVM.userBorrowingDetails?.collateralTokens ?? [] {

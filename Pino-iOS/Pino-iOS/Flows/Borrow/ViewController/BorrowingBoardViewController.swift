@@ -52,7 +52,7 @@ class BorrowingBoardViewController: UIViewController {
 			if let selectedAssetVM = selectedAssetVM as? UserBorrowingAssetViewModel {
 				self.presentBorrowLoanDetailsVC(selectedTokenID: selectedAssetVM.userBorrowingTokenID)
 			} else if let selectedAssetVM = selectedAssetVM as? BorrowableAssetViewModel {
-				self.pushToBorrowIncreaseAmountPage(selectedToken: selectedAssetVM.foundTokenInManageAssetTokens)
+				self.pushToBorrowIncreaseAmountPage(selectedToken: selectedAssetVM.foundBorrowedToken)
 			} else {
 				print("Unkwon type")
 			}
