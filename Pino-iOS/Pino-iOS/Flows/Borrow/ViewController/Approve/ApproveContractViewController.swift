@@ -19,7 +19,7 @@ class ApproveContractViewController: UIViewController {
 
 	init(swapConfirmationVM: SwapConfirmationViewModel) {
 		self.swapConfirmationVM = swapConfirmationVM
-		self.approveContractVM = ApproveContractViewModel(swapConfirmVM: swapConfirmationVM)
+        self.approveContractVM = ApproveContractViewModel(contractId: swapConfirmationVM.fromToken.selectedToken.id)
 		super.init(nibName: nil, bundle: nil)
 	}
 
