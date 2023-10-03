@@ -18,6 +18,7 @@ public class AccountCell: UICollectionViewCell {
 	private let accountName = UILabel()
 	private let accountBalance = UILabel()
 	private let editButtonContainerView = UIView()
+	private let editButtonView = UIView()
 	private let editButtonImageView = UIImageView()
 
 	// MARK: Public Properties
@@ -44,7 +45,8 @@ public class AccountCell: UICollectionViewCell {
 	private func setupView() {
 		contentView.addSubview(accountCardView)
 		accountCardView.addSubview(accountInfoStackView)
-		editButtonContainerView.addSubview(editButtonImageView)
+		editButtonContainerView.addSubview(editButtonView)
+		editButtonView.addSubview(editButtonImageView)
 		accountInfoStackView.addArrangedSubview(accountIconBackgroundView)
 		accountInfoStackView.addArrangedSubview(titleStackView)
 		accountInfoStackView.addArrangedSubview(editButtonContainerView)
@@ -61,15 +63,15 @@ public class AccountCell: UICollectionViewCell {
 		accountBalance.text = accountVM.balance
 		accountIcon.image = UIImage(named: accountVM.profileImage)
 
-		editButtonContainerView.backgroundColor = .Pino.background
-		editButtonContainerView.layer.cornerRadius = 16
+		editButtonView.backgroundColor = .Pino.background
+		editButtonView.layer.cornerRadius = 16
 
 		editButtonImageView.image = UIImage(named: "edit_accounts")
 
 		accountIconBackgroundView.backgroundColor = UIColor(named: accountVM.profileColor)
 		accountCardView.backgroundColor = .Pino.secondaryBackground
 		accountCardView.layer.borderColor = UIColor.Pino.primary.cgColor
-		editButtonContainerView.tintColor = .Pino.gray3
+		editButtonView.tintColor = .Pino.gray3
 
 		accountName.textColor = .Pino.label
 		accountBalance.textColor = .Pino.secondaryLabel
@@ -97,8 +99,11 @@ public class AccountCell: UICollectionViewCell {
 			.horizontalEdges(padding: 16),
 			.fixedWidth(contentView.frame.width - 32)
 		)
+		editButtonContainerView.pin(.fixedHeight(68), .fixedWidth(60))
+		editButtonView.pin(.centerY, .trailing(padding: 14))
 		accountInfoStackView.pin(
-			.horizontalEdges(padding: 14),
+			.leading(padding: 14),
+			.trailing(padding: 0),
 			.centerY
 		)
 		accountIconBackgroundView.pin(
@@ -108,7 +113,7 @@ public class AccountCell: UICollectionViewCell {
 		accountIcon.pin(
 			.allEdges(padding: 6)
 		)
-		editButtonContainerView.pin(.fixedWidth(32), .fixedHeight(32))
+		editButtonView.pin(.fixedWidth(32), .fixedHeight(32))
 		editButtonImageView.pin(.fixedWidth(24), .fixedHeight(24), .centerY, .centerX)
 	}
 
