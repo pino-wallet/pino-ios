@@ -15,20 +15,20 @@ struct UserBorrowingAssetViewModel: AssetsBoardProtocol {
 	// MARK: - Public Properties
 
 	public var assetName: String {
-		foundTokenInManageAssetTokens.symbol
+		foundBorrowedToken.symbol
 	}
 
 	public var assetImage: URL {
-		foundTokenInManageAssetTokens.image
+		foundBorrowedToken.image
 	}
 
 	public var userBorrowingInToken: String {
 		userAmountInToken.sevenDigitFormat
-			.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+			.tokenFormatting(token: foundBorrowedToken.symbol)
 	}
 
 	public var userBorrowingInDollars: String {
-		let borrowingAmountinDollars = foundTokenInManageAssetTokens.price * userAmountInToken
+		let borrowingAmountinDollars = foundBorrowedToken.price * userAmountInToken
 		return borrowingAmountinDollars.priceFormat
 	}
 
@@ -38,12 +38,12 @@ struct UserBorrowingAssetViewModel: AssetsBoardProtocol {
 
 	// MARK: - Private Properties
 
-	private var foundTokenInManageAssetTokens: AssetViewModel {
+	private var foundBorrowedToken: AssetViewModel {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userBorrowingTokenModel.id }))!
 	}
 
 	private var userAmountInToken: BigNumber {
-		BigNumber(number: userBorrowingTokenModel.amount, decimal: foundTokenInManageAssetTokens.decimal)
+		BigNumber(number: userBorrowingTokenModel.amount, decimal: foundBorrowedToken.decimal)
 	}
 
 	// MARK: - Initializers

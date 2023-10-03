@@ -21,48 +21,51 @@ struct CollateralDetailsViewModel {
 	public var collateralledTokenModel: UserBorrowingToken!
 
 	public var pageTitle: String {
-		"\(foundTokenInManageAssetTokens.symbol) collateral details"
+		"\(foundCollateralledToken.symbol) collateral details"
 	}
 
 	public var tokenCollateralAmountAndSymbol: String {
-		userAmountInToken.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+		userAmountInToken.sevenDigitFormat.tokenFormatting(token: foundCollateralledToken.symbol)
 	}
 
 	public var totalTokenAmountInDollar: String {
-		let userAmountInDollars = userAmountInToken * foundTokenInManageAssetTokens.price
+		let userAmountInDollars = userAmountInToken * foundCollateralledToken.price
 		return userAmountInDollars.priceFormat
 	}
 
 	public var tokenIcon: URL {
-		foundTokenInManageAssetTokens.image
+		foundCollateralledToken.image
 	}
 
 	public var totalCollateral: String {
-		userAmountInToken.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+		userAmountInToken.sevenDigitFormat.tokenFormatting(token: foundCollateralledToken.symbol)
 	}
 
-	public var foundTokenInManageAssetTokens: AssetViewModel {
+	public var foundCollateralledToken: AssetViewModel {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == collateralledTokenModel.id }))!
 	}
 
 	public var formattedInvolvedAmountInToken: String {
 		(userAmountInToken - userFreeAmountInToken).sevenDigitFormat
-			.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+			.tokenFormatting(token: foundCollateralledToken.symbol)
 	}
 
 	public var freeAmountInToken: String {
-		userFreeAmountInToken.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+		userFreeAmountInToken.sevenDigitFormat.tokenFormatting(token: foundCollateralledToken.symbol)
 	}
 
 	// MARK: - Private Properties
 
+	// to calculate free amount of total collateralled amount of user, we should use this pattern:
+	// (totalCollateralledAmount * healthScore) / 100
+	// make sure doing this with bignumbers
 	private var userFreeAmountInToken: BigNumber {
 		let bigNumberHealthScore = BigNumber(numberWithDecimal: borrowVM.calculatedHealthScore.description)
 		return (((userAmountInToken * bigNumberHealthScore) / 100.bigNumber)!)
 	}
 
 	private var userAmountInToken: BigNumber {
-		BigNumber(number: collateralledTokenModel.amount, decimal: foundTokenInManageAssetTokens.decimal)
+		BigNumber(number: collateralledTokenModel.amount, decimal: foundCollateralledToken.decimal)
 	}
 
 	// MARK: - Initializers

@@ -23,19 +23,19 @@ class BorrowLoanDetailsViewModel {
 	public var userBorrowedTokenModel: UserBorrowingToken!
 
 	public var pageTitle: String {
-		"\(foundTokenInManageAssetTokens.symbol) loan details"
+		"\(foundBorrowedToken.symbol) loan details"
 	}
 
 	public var tokenIcon: URL {
-		foundTokenInManageAssetTokens.image
+		foundBorrowedToken.image
 	}
 
 	public var tokenBorrowAmountAndSymbol: String {
-		borrowedAmountBigNumber.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+		borrowedAmountBigNumber.sevenDigitFormat.tokenFormatting(token: foundBorrowedToken.symbol)
 	}
 
 	public var tokenBorrowAmountInDollars: String {
-		let totalAmountIndollars = borrowedAmountBigNumber * foundTokenInManageAssetTokens.price
+		let totalAmountIndollars = borrowedAmountBigNumber * foundBorrowedToken.price
 		return totalAmountIndollars.priceFormat
 	}
 
@@ -43,19 +43,19 @@ class BorrowLoanDetailsViewModel {
 	public var apy: String?
 	public var apyVolatilityType: AssetVolatilityType?
 	public var borrowedAmount: String {
-		borrowedAmountBigNumber.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+		borrowedAmountBigNumber.sevenDigitFormat.tokenFormatting(token: foundBorrowedToken.symbol)
 	}
 
 	public var accuredFee: String {
 		let accuredFee = totalDebtBigNumber - borrowedAmountBigNumber
-		return accuredFee.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+		return accuredFee.sevenDigitFormat.tokenFormatting(token: foundBorrowedToken.symbol)
 	}
 
 	public var totalDebt: String {
-		totalDebtBigNumber.sevenDigitFormat.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+		totalDebtBigNumber.sevenDigitFormat.tokenFormatting(token: foundBorrowedToken.symbol)
 	}
 
-	public var foundTokenInManageAssetTokens: AssetViewModel {
+	public var foundBorrowedToken: AssetViewModel {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userBorrowedTokenModel.id }))!
 	}
 
@@ -66,11 +66,11 @@ class BorrowLoanDetailsViewModel {
 	private var cancellables = Set<AnyCancellable>()
 
 	private var totalDebtBigNumber: BigNumber {
-		BigNumber(number: userBorrowedTokenModel.totalDebt!, decimal: foundTokenInManageAssetTokens.decimal)
+		BigNumber(number: userBorrowedTokenModel.totalDebt!, decimal: foundBorrowedToken.decimal)
 	}
 
 	private var borrowedAmountBigNumber: BigNumber {
-		BigNumber(number: userBorrowedTokenModel.amount, decimal: foundTokenInManageAssetTokens.decimal)
+		BigNumber(number: userBorrowedTokenModel.amount, decimal: foundBorrowedToken.decimal)
 	}
 
 	// MARK: - Initializers

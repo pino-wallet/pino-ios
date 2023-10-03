@@ -21,16 +21,17 @@ class BorrowIncreaseAmountViewModel {
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
 	// here max amount is sum of user max free collateralled amount in tokens
+	#warning("maybe we should refactor this section in future")
 	public var maxHoldAmount: BigNumber {
 		var totalFreeCollateralledInDollars = BigNumber(number: "0", decimal: selectedToken.decimal)
 		for collateralledToken in borrowVM.userBorrowingDetails?.collateralTokens ?? [] {
-			guard let foundTokenInManageAssetsList = GlobalVariables.shared.manageAssetsList?
+			guard let foundCollateralledToken = GlobalVariables.shared.manageAssetsList?
 				.first(where: { $0.id == collateralledToken.id }) else {
 				return totalFreeCollateralledInDollars
 			}
 			let userCollateralledAmountIntoken = BigNumber(
 				number: collateralledToken.amount,
-				decimal: foundTokenInManageAssetsList.decimal
+				decimal: foundCollateralledToken.decimal
 			)
 			let freeCollateralledTokenAmount =
 				(
@@ -39,7 +40,7 @@ class BorrowIncreaseAmountViewModel {
 					) /
 						100.bigNumber
 				)!
-			let freeCollateralledTokenAmountInDollars = freeCollateralledTokenAmount * foundTokenInManageAssetsList
+			let freeCollateralledTokenAmountInDollars = freeCollateralledTokenAmount * foundCollateralledToken
 				.price
 			totalFreeCollateralledInDollars = totalFreeCollateralledInDollars + freeCollateralledTokenAmountInDollars
 		}
