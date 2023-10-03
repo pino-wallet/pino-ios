@@ -36,6 +36,8 @@ struct SwapPriceRequestModel {
 			"amount": amount,
 			"side": side.rawValue,
 			"network": networkID!,
+			"userAddress": Web3Core.Constants.pinoProxyAddress,
+			"receiver": "0x81Ad046aE9a7Ad56092fa7A7F09A04C82064e16C",
 		]
 	}
 

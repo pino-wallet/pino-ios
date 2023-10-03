@@ -285,13 +285,13 @@ class SwapManager {
 				amount: srcToken.tokenAmountBigNum.description,
 				destAmount: selectedProvider.providerResponseInfo.destAmount,
 				receiver: pinoWalletManager.currentAccount.eip55Address,
-				userAddress: pinoWalletManager.currentAccount.eip55Address,
+				userAddress: Web3Core.Constants.pinoProxyAddress,
 				slippage: selectedProvider.provider.slippage,
 				networkID: 1,
 				srcDecimal: srcToken.selectedToken.decimal.description,
 				destDecimal: destToken.selectedToken.decimal.description,
-                priceRoute: priceRoute,
-                provider: selectedProvider.provider
+				priceRoute: priceRoute,
+				provider: selectedProvider.provider
 			)
 		return Promise<String> { seal in
 			provider.swap(swapInfo: swapReq).sink { completed in

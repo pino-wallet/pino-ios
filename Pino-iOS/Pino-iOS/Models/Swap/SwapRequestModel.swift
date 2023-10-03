@@ -19,32 +19,33 @@ struct SwapRequestModel {
 	let srcDecimal: String?
 	let destDecimal: String?
 	let priceRoute: PriceRouteClass?
-    let provider: SwapProvider
-    
-    var editedSrcToken: String {
-        if srcToken == Web3Core.Constants.pinoETHID {
-            switch provider {
-            case .oneInch, .paraswap:
-                return Web3Core.Constants.paraSwapETHID
-            case .zeroX:
-                return Web3Core.Constants.zeroXETHID
-            }
-        } else {
-            return srcToken
-        }
-    }
-    var editedDestToken: String {
-        if destToken == Web3Core.Constants.pinoETHID {
-            switch provider {
-            case .oneInch, .paraswap:
-                return Web3Core.Constants.paraSwapETHID
-            case .zeroX:
-                return Web3Core.Constants.zeroXETHID
-            }
-        } else {
-            return srcToken
-        }
-    }
+	let provider: SwapProvider
+
+	var editedSrcToken: String {
+		if srcToken == Web3Core.Constants.pinoETHID {
+			switch provider {
+			case .oneInch, .paraswap:
+				return Web3Core.Constants.paraSwapETHID
+			case .zeroX:
+				return Web3Core.Constants.zeroXETHID
+			}
+		} else {
+			return srcToken
+		}
+	}
+
+	var editedDestToken: String {
+		if destToken == Web3Core.Constants.pinoETHID {
+			switch provider {
+			case .oneInch, .paraswap:
+				return Web3Core.Constants.paraSwapETHID
+			case .zeroX:
+				return Web3Core.Constants.zeroXETHID
+			}
+		} else {
+			return destToken
+		}
+	}
 
 	// MARK: - Initializers
 
@@ -60,7 +61,7 @@ struct SwapRequestModel {
 		srcDecimal: String?,
 		destDecimal: String?,
 		priceRoute: PriceRouteClass?,
-        provider: SwapProvider
+		provider: SwapProvider
 	) {
 		self.srcToken = srcToken
 		self.destToken = destToken
@@ -73,7 +74,7 @@ struct SwapRequestModel {
 		self.srcDecimal = srcDecimal
 		self.destDecimal = destDecimal
 		self.priceRoute = priceRoute
-        self.provider = provider
+		self.provider = provider
 	}
 
 	// MARK: - Public Properties
