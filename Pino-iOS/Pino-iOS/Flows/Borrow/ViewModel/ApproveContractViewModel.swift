@@ -30,7 +30,7 @@ struct ApproveContractViewModel {
 
 	// MARK: - Initializers
 
-    public init(contractId: String) {
+	public init(contractId: String) {
 		self.contractId = contractId
 	}
 
