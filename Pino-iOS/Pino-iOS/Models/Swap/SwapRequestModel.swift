@@ -19,6 +19,32 @@ struct SwapRequestModel {
 	let srcDecimal: String?
 	let destDecimal: String?
 	let priceRoute: PriceRouteClass?
+    let provider: SwapProvider
+    
+    var editedSrcToken: String {
+        if srcToken == Web3Core.Constants.pinoETHID {
+            switch provider {
+            case .oneInch, .paraswap:
+                return Web3Core.Constants.paraSwapETHID
+            case .zeroX:
+                return Web3Core.Constants.zeroXETHID
+            }
+        } else {
+            return srcToken
+        }
+    }
+    var editedDestToken: String {
+        if destToken == Web3Core.Constants.pinoETHID {
+            switch provider {
+            case .oneInch, .paraswap:
+                return Web3Core.Constants.paraSwapETHID
+            case .zeroX:
+                return Web3Core.Constants.zeroXETHID
+            }
+        } else {
+            return srcToken
+        }
+    }
 
 	// MARK: - Initializers
 
@@ -33,7 +59,8 @@ struct SwapRequestModel {
 		networkID: Int?,
 		srcDecimal: String?,
 		destDecimal: String?,
-		priceRoute: PriceRouteClass?
+		priceRoute: PriceRouteClass?,
+        provider: SwapProvider
 	) {
 		self.srcToken = srcToken
 		self.destToken = destToken
@@ -46,14 +73,15 @@ struct SwapRequestModel {
 		self.srcDecimal = srcDecimal
 		self.destDecimal = destDecimal
 		self.priceRoute = priceRoute
+        self.provider = provider
 	}
 
 	// MARK: - Public Properties
 
 	public var oneInchSwapURLParams: HTTPParameters {
 		[
-			"src": srcToken,
-			"dst": destToken,
+			"src": editedSrcToken,
+			"dst": editedDestToken,
 			"amount": amount,
 			"from": receiver, // this is pino proxy
 			"receiver": receiver, // this is user who receives token
@@ -71,8 +99,8 @@ struct SwapRequestModel {
 		let dictionary = try! JSONSerialization.jsonObject(with: jsonData, options: []) as? HTTPParameters
 
 		let params: HTTPParameters = [
-			"srcToken": srcToken,
-			"destToken": destToken,
+			"srcToken": editedSrcToken,
+			"destToken": editedDestToken,
 			"srcAmount": amount,
 			"destAmount": destAmount,
 			"priceRoute": dictionary!,

@@ -16,11 +16,6 @@ struct SwapPriceRequestModel {
 	let side: SwapSide
 	let networkID: Int?
 
-	public static let paraSwapETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
-	public static let oneInchETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
-	public static let zeroXETHID = "ETH"
-	public static let pinoETHID = "0x0000000000000000000000000000000000000000"
-
 	// Initializer for ParaSwap
 	init(srcToken: String, srcDecimals: Int, destToken: String, destDecimals: Int, amount: String, side: SwapSide) {
 		self.srcToken = srcToken

@@ -290,7 +290,8 @@ class SwapManager {
 				networkID: 1,
 				srcDecimal: srcToken.selectedToken.decimal.description,
 				destDecimal: destToken.selectedToken.decimal.description,
-				priceRoute: priceRoute
+                priceRoute: priceRoute,
+                provider: selectedProvider.provider
 			)
 		return Promise<String> { seal in
 			provider.swap(swapInfo: swapReq).sink { completed in

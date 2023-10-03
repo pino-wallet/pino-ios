@@ -67,7 +67,7 @@ class SwapConfirmationViewModel {
 
 	// MARK: - Public Methods
 
-	public func confirmSwap() {
+	public func confirmSwap() {        
 		let swapManager = SwapManager(selectedProvider: selectedProvider!, srcToken: fromToken, destToken: toToken)
 		swapManager.swapToken()
 	}
