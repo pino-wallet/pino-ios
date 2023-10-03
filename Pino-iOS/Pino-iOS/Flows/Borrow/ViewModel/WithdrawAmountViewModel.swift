@@ -26,9 +26,16 @@ class WithdrawAmountViewModel {
 
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
-	// This is max of user collateralled amount
+	// This is max of user collateralled free amount
 	public var maxWithdrawAmount: BigNumber {
-		BigNumber(number: userCollateralledTokenModel.amount, decimal: selectedToken.decimal)
+		let userCollateralledAmountInToken = BigNumber(
+			number: userCollateralledTokenModel.amount,
+			decimal: selectedToken.decimal
+		)
+		return ((
+			userCollateralledAmountInToken *
+				BigNumber(numberWithDecimal: borrowVM.calculatedHealthScore.description)
+		) / 100.bigNumber)!
 	}
 
 	public var tokenSymbol: String {
@@ -36,7 +43,7 @@ class WithdrawAmountViewModel {
 	}
 
 	public var formattedMaxWithdrawAmount: String {
-		maxWithdrawAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
+		maxWithdrawAmount.plainSevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
 
 	public var tokenImage: URL {
