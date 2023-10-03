@@ -23,6 +23,9 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 //					NetworkLogger.log(request: request, response: response)
 
 					guard (200 ..< 300).contains(statusCode) else {
+						print("Error:------------------")
+						print(String(data: data, encoding: String.Encoding.utf8)! as String)
+						print("------------------------")
 						if statusCode == 401 {
 							throw APIError.unauthorized
 						} else if statusCode == 404 {

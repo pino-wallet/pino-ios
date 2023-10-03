@@ -15,11 +15,11 @@ final class ParaSwapAPIClient: SwapProvidersAPIServices {
 
 	func swapPrice(swapInfo: SwapPriceRequestModel) -> AnyPublisher<ParaSwapPriceResponseModel?, APIError> {
 		var editedSwapInfo: SwapPriceRequestModel = swapInfo
-		if swapInfo.srcToken == SwapPriceRequestModel.pinoETHID {
-			editedSwapInfo.srcToken = SwapPriceRequestModel.paraSwapETHID
+		if swapInfo.srcToken == Web3Core.Constants.pinoETHID {
+			editedSwapInfo.srcToken = Web3Core.Constants.paraSwapETHID
 		}
-		if swapInfo.destToken == SwapPriceRequestModel.pinoETHID {
-			editedSwapInfo.destToken = SwapPriceRequestModel.paraSwapETHID
+		if swapInfo.destToken == Web3Core.Constants.pinoETHID {
+			editedSwapInfo.destToken = Web3Core.Constants.paraSwapETHID
 		}
 		return networkManager.request(.swapPrice(swapInfo: editedSwapInfo))
 	}

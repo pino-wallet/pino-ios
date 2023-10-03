@@ -15,14 +15,20 @@ struct SwapPriceRequestModel {
 	let amount: String
 	let side: SwapSide
 	let networkID: Int?
-
-	public static let paraSwapETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
-	public static let oneInchETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
-	public static let zeroXETHID = "ETH"
-	public static let pinoETHID = "0x0000000000000000000000000000000000000000"
+	let userAddress: String
+	let receiver: String
 
 	// Initializer for ParaSwap
-	init(srcToken: String, srcDecimals: Int, destToken: String, destDecimals: Int, amount: String, side: SwapSide) {
+	init(
+		srcToken: String,
+		srcDecimals: Int,
+		destToken: String,
+		destDecimals: Int,
+		amount: String,
+		side: SwapSide,
+		userAddress: String,
+		receiver: String
+	) {
 		self.srcToken = srcToken
 		self.srcDecimals = srcDecimals
 		self.destToken = destToken
@@ -30,6 +36,8 @@ struct SwapPriceRequestModel {
 		self.amount = amount
 		self.side = side
 		self.networkID = 1
+		self.userAddress = amount
+		self.receiver = amount
 	}
 
 	public var paraSwapURLParams: HTTPParameters {
@@ -41,6 +49,8 @@ struct SwapPriceRequestModel {
 			"amount": amount,
 			"side": side.rawValue,
 			"network": networkID!,
+			"userAddress": Web3Core.Constants.pinoProxyAddress,
+			"receiver": "0x81Ad046aE9a7Ad56092fa7A7F09A04C82064e16C",
 		]
 	}
 

@@ -15,6 +15,7 @@ class SwapPriceManager {
 	private let oneInchAPIClient = OneInchAPIClient()
 	private let zeroXAPIClient = ZeroXAPIClient()
 	private var cancellables = Set<AnyCancellable>()
+	private let pinoWalletManager = PinoWalletManager()
 
 	// MARK: - Public Methods
 
@@ -31,7 +32,9 @@ class SwapPriceManager {
 			destToken: destToken.selectedToken.id,
 			destDecimals: destToken.selectedToken.decimal,
 			amount: amount,
-			side: swapSide
+			side: swapSide,
+			userAddress: Web3Core.Constants.pinoProxyAddress,
+			receiver: pinoWalletManager.currentAccount.eip55Address
 		)
 		cancelPreviousRequests()
 		switch swapSide {

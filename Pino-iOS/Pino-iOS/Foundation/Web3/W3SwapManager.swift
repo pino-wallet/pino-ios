@@ -111,7 +111,7 @@ public struct W3SwapManager {
 					let trx = try trxManager.createTransactionFor(
 						nonce: nonce,
 						gasPrice: gasInfo.gasPrice.etherumQuantity,
-						gasLimit: gasInfo.gasLimit.bigUInt.etherumQuantity,
+						gasLimit: gasInfo.increasedGasLimit.bigUInt.etherumQuantity,
 						value: value.etherumQuantity,
 						data: ethCallData,
 						to: contractAddress

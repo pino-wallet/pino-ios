@@ -15,11 +15,11 @@ final class OneInchAPIClient: SwapProvidersAPIServices {
 
 	func swapPrice(swapInfo: SwapPriceRequestModel) -> AnyPublisher<OneInchPriceResponseModel?, APIError> {
 		var editedSwapInfo: SwapPriceRequestModel = swapInfo
-		if swapInfo.srcToken == SwapPriceRequestModel.pinoETHID {
-			editedSwapInfo.srcToken = SwapPriceRequestModel.oneInchETHID
+		if swapInfo.srcToken == Web3Core.Constants.pinoETHID {
+			editedSwapInfo.srcToken = Web3Core.Constants.oneInchETHID
 		}
-		if swapInfo.destToken == SwapPriceRequestModel.pinoETHID {
-			editedSwapInfo.destToken = SwapPriceRequestModel.oneInchETHID
+		if swapInfo.destToken == Web3Core.Constants.pinoETHID {
+			editedSwapInfo.destToken = Web3Core.Constants.oneInchETHID
 		}
 		return networkManager.request(.quote(swapInfo: editedSwapInfo))
 	}

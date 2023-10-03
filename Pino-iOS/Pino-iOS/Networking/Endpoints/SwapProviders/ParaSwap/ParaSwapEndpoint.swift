@@ -18,7 +18,7 @@ enum ParaSwapEndpoint: EndpointType {
 	internal func request() throws -> URLRequest {
 		var request = URLRequest(url: url)
 		request.httpMethod = httpMethod.rawValue
-
+		request.addHeaders(headers)
 		try task.configParams(&request)
 
 		return request
@@ -50,8 +50,8 @@ enum ParaSwapEndpoint: EndpointType {
 		case let .swapCoin(swapInfo: swapInfo):
 			return .requestParameters(
 				bodyParameters: swapInfo.paraswapReqBody,
-				bodyEncoding: .jsonEncoding,
-				urlParameters: nil
+				bodyEncoding: .urlAndJsonEncoding,
+				urlParameters: ["ignoreChecks": "true", "ignoreGasEstimate": "true"]
 			)
 		}
 	}
