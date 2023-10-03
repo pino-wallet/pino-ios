@@ -20,15 +20,17 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 						throw APIError.failedRequest
 					}
 
-					NetworkLogger.log(request: request, response: response)
+//					NetworkLogger.log(request: request, response: response)
 
 					guard (200 ..< 300).contains(statusCode) else {
+						print("Error:------------------")
+						print(String(data: data, encoding: String.Encoding.utf8)! as String)
+						print("------------------------")
 						if statusCode == 401 {
 							throw APIError.unauthorized
 						} else if statusCode == 404 {
 							throw APIError.notFound
 						} else {
-							print(response)
 							throw APIError.failedRequest
 						}
 					}
