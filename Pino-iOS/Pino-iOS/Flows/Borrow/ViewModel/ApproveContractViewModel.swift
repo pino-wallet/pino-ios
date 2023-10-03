@@ -26,29 +26,19 @@ struct ApproveContractViewModel {
 	private var web3 = Web3Core.shared
 	private var swapConfirmVM: SwapConfirmationViewModel!
 
-	private var srcTokenID: String {
-		swapConfirmVM.fromToken.selectedToken.id
-	}
-
-	private var destTokenAmount: BigNumber {
-		let destAmount = Utilities.parseToBigUInt(
-			swapConfirmVM.toToken.tokenAmount!,
-			decimals: swapConfirmVM.toToken.selectedToken.decimal
-		)!
-		return BigNumber(unSignedNumber: destAmount, decimal: swapConfirmVM.toToken.selectedToken.decimal)
-	}
+	private var contractId: String
 
 	// MARK: - Initializers
 
-	public init(swapConfirmVM: SwapConfirmationViewModel) {
-		self.swapConfirmVM = swapConfirmVM
+	public init(contractId: String) {
+		self.contractId = contractId
 	}
 
 	// MARK: - Public Methods
 
 	public func approveTokenUsageToPermit(completion: @escaping () -> Void) {
 		web3.approveContract(
-			address: srcTokenID,
+			address: contractId,
 			amount: BigNumber.maxUInt256.bigUInt,
 			spender: Web3Core.Constants.permitAddress
 		)

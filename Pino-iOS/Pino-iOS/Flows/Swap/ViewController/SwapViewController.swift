@@ -227,18 +227,16 @@ class SwapViewController: UIViewController {
 	}
 
 	private func openTokenApprovePage() {
-		swapVM.getSwapSide { _, srcToken, destToken in
-			let swapConfirmationVM = SwapConfirmationViewModel(
-				fromToken: srcToken,
-				toToken: destToken,
-				selectedProtocol: swapVM.selectedProtocol,
-				selectedProvider: swapVM.swapFeeVM.swapProviderVM,
-				swapRate: swapVM.swapFeeVM.calculatedAmount!
-			)
-			let approveVC = ApproveContractViewController(swapConfirmationVM: swapConfirmationVM)
-			let confirmationNavigationVC = UINavigationController(rootViewController: approveVC)
-			present(confirmationNavigationVC, animated: true)
-		}
+		let swapConfirmationVM = SwapConfirmationViewModel(
+			fromToken: swapVM.fromToken,
+			toToken: swapVM.toToken,
+			selectedProtocol: swapVM.selectedProtocol,
+			selectedProvider: swapVM.swapFeeVM.swapProviderVM,
+			swapRate: swapVM.swapFeeVM.calculatedAmount!
+		)
+		let approveVC = ApproveContractViewController(swapConfirmationVM: swapConfirmationVM)
+		let confirmationNavigationVC = UINavigationController(rootViewController: approveVC)
+		present(confirmationNavigationVC, animated: true)
 	}
 
 	private func openConfirmationPage() {
