@@ -56,8 +56,9 @@ struct CollateralDetailsViewModel {
 
 	// MARK: - Private Properties
 
-    // to calculate free amount of total collateralled amount of user, we should use this pattern: (totalCollateralledAmount * healthScore) / 100
-    // make sure doing this with bignumbers
+	// to calculate free amount of total collateralled amount of user, we should use this pattern:
+	// (totalCollateralledAmount * healthScore) / 100
+	// make sure doing this with bignumbers
 	private var userFreeAmountInToken: BigNumber {
 		let bigNumberHealthScore = BigNumber(numberWithDecimal: borrowVM.calculatedHealthScore.description)
 		return (((userAmountInToken * bigNumberHealthScore) / 100.bigNumber)!)
