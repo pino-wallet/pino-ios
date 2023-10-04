@@ -20,9 +20,31 @@ class BorrowIncreaseAmountViewModel {
 	public let borrowVM: BorrowViewModel
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
-	// here max amount is user max hold amount of selected token
+	// here max amount is sum of user max free collateralled amount in tokens
+	#warning("maybe we should refactor this section in future")
 	public var maxHoldAmount: BigNumber {
-		selectedToken.holdAmount
+		var totalFreeCollateralledInDollars = BigNumber(number: "0", decimal: selectedToken.decimal)
+		for collateralledToken in borrowVM.userBorrowingDetails?.collateralTokens ?? [] {
+			guard let foundCollateralledToken = GlobalVariables.shared.manageAssetsList?
+				.first(where: { $0.id == collateralledToken.id }) else {
+				return totalFreeCollateralledInDollars
+			}
+			let userCollateralledAmountIntoken = BigNumber(
+				number: collateralledToken.amount,
+				decimal: foundCollateralledToken.decimal
+			)
+			let freeCollateralledTokenAmount =
+				(
+					userCollateralledAmountIntoken * BigNumber(
+						numberWithDecimal: borrowVM.calculatedHealthScore.description
+					) /
+						100.bigNumber
+				)!
+			let freeCollateralledTokenAmountInDollars = freeCollateralledTokenAmount * foundCollateralledToken
+				.price
+			totalFreeCollateralledInDollars = totalFreeCollateralledInDollars + freeCollateralledTokenAmountInDollars
+		}
+		return (totalFreeCollateralledInDollars / selectedToken.price)!
 	}
 
 	public var tokenImage: URL {
@@ -34,15 +56,15 @@ class BorrowIncreaseAmountViewModel {
 	}
 
 	public var formattedMaxHoldAmount: String {
-		maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
+		maxHoldAmount.plainSevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
 
-	public var sevenDigitMaxHoldAmount: String {
-		maxHoldAmount.sevenDigitFormat
+	public var plainSevenDigitMaxHoldAmount: String {
+		maxHoldAmount.plainSevenDigitFormat
 	}
 
 	public var maxHoldAmountInDollars: String {
-		selectedToken.holdAmountInDollor.priceFormat
+		(maxHoldAmount * selectedToken.price).priceFormat
 	}
 
 	#warning("this values are mock")

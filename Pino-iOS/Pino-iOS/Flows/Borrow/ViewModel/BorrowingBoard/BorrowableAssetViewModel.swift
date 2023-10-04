@@ -15,11 +15,11 @@ struct BorrowableAssetViewModel: AssetsBoardProtocol {
 	// MARK: - Public Properties
 
 	public var assetName: String {
-		foundTokenInManageAssetTokens.symbol
+		foundBorrowedToken.symbol
 	}
 
 	public var assetImage: URL {
-		foundTokenInManageAssetTokens.image
+		foundBorrowedToken.image
 	}
 
 	public var APYAmount: BigNumber {
@@ -34,7 +34,7 @@ struct BorrowableAssetViewModel: AssetsBoardProtocol {
 		AssetVolatilityType(change24h: APYAmount)
 	}
 
-	public var foundTokenInManageAssetTokens: AssetViewModel {
+	public var foundBorrowedToken: AssetViewModel {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == borrowableTokenModel.tokenID }))!
 	}
 

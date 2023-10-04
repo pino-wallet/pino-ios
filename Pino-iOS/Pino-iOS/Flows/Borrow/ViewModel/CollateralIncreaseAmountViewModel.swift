@@ -30,7 +30,7 @@ class CollateralIncreaseAmountViewModel {
 	}
 
 	public var formattedMaxHoldAmount: String {
-		maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
+		maxHoldAmount.plainSevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
 
 	public var maxAmountInDollars: String {

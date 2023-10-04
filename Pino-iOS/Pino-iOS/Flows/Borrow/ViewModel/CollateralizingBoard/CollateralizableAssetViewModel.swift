@@ -15,19 +15,19 @@ struct CollateralizableAssetViewModel: AssetsBoardProtocol {
 	// MARK: - Public Properties
 
 	public var assetName: String {
-		foundTokenInManageAssetTokens.symbol
+		foundCollateralledToken.symbol
 	}
 
 	public var assetImage: URL {
-		foundTokenInManageAssetTokens.image
+		foundCollateralledToken.image
 	}
 
 	public var usrAmountInToken: String {
-		foundTokenInManageAssetTokens.holdAmount.sevenDigitFormat
-			.tokenFormatting(token: foundTokenInManageAssetTokens.symbol)
+		foundCollateralledToken.holdAmount.sevenDigitFormat
+			.tokenFormatting(token: foundCollateralledToken.symbol)
 	}
 
-	public var foundTokenInManageAssetTokens: AssetViewModel {
+	public var foundCollateralledToken: AssetViewModel {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == collateralizableAssetModel.tokenID }))!
 	}
 

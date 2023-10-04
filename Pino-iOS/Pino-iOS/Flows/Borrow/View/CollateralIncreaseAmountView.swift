@@ -274,7 +274,7 @@ class CollateralIncreaseAmountView: UIView {
 
 	@objc
 	private func putMaxAmountInTextField() {
-		amountTextfield.text = collateralIncreaseAmountVM.maxHoldAmount.sevenDigitFormat
+		amountTextfield.text = collateralIncreaseAmountVM.maxHoldAmount.plainSevenDigitFormat
 		amountLabel.text = collateralIncreaseAmountVM.dollarAmount
 		animateAmountHealthScoreView(isHidden: false)
 
@@ -283,7 +283,7 @@ class CollateralIncreaseAmountView: UIView {
 			maxAmountLabel.text = collateralIncreaseAmountVM.formattedMaxHoldAmount
 		} else {
 			collateralIncreaseAmountVM.tokenAmount = collateralIncreaseAmountVM.maxHoldAmount
-				.sevenDigitFormat
+				.plainSevenDigitFormat
 			collateralIncreaseAmountVM.dollarAmount = collateralIncreaseAmountVM.maxAmountInDollars
 		}
 

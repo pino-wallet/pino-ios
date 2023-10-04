@@ -50,7 +50,7 @@ class RepayAmountViewModel {
 	}
 
 	public var formattedMaxHoldAmount: String {
-		maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
+		maxHoldAmount.plainSevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
 
 	public var maxHoldAmountInDollars: String {
@@ -61,8 +61,8 @@ class RepayAmountViewModel {
 		selectedToken.image
 	}
 
-	public var sevenDigitMaxHoldAmount: String {
-		maxHoldAmount.sevenDigitFormat
+	public var plainSevenDigitMaxHoldAmount: String {
+		maxHoldAmount.plainSevenDigitFormat
 	}
 
 	#warning("this is mock")

@@ -61,7 +61,7 @@ class BorrowLoanDetailsViewController: UIViewController {
 			borrowLoanDetailsVM: borrowLoanDetailsVM,
 			pushToBorrowIncreaseAmountPageClosure: {
 				self
-					.pushToBorrowIncreaseAmountPage(selectedToken: self.borrowLoanDetailsVM.foundTokenInManageAssetTokens)
+					.pushToBorrowIncreaseAmountPage(selectedToken: self.borrowLoanDetailsVM.foundBorrowedToken)
 			},
 			pushToRepayAmountPageClosure: {
 				self.pushToRepayAmountPage(selectedTokenID: self.borrowLoanDetailsVM.userBorrowedTokenID)

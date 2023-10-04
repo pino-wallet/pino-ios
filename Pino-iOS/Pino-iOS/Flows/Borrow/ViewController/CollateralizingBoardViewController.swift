@@ -55,7 +55,7 @@ class CollateralizingBoardViewController: UIViewController {
 					self.presentCollateralDetailsVC(selectedAssetID: selectedAssetVM.userCollaterlizingID)
 				} else if let selectedAssetVM = selectedAssetVM as? CollateralizableAssetViewModel {
 					self
-						.pushToCollateralIncreaseAmountPage(selectedToken: selectedAssetVM.foundTokenInManageAssetTokens)
+						.pushToCollateralIncreaseAmountPage(selectedToken: selectedAssetVM.foundCollateralledToken)
 				} else {
 					print("Unknown type")
 				}
