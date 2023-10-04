@@ -10,6 +10,7 @@ import Combine
 import Foundation
 import PromiseKit
 import Web3_Utility
+import Web3
 
 class SwapManager {
 	// MARK: - Private Properties
@@ -28,6 +29,9 @@ class SwapManager {
 	private let zeroXAPIClient = ZeroXAPIClient()
 	private let web3Client = Web3APIClient()
 	private var cancellables = Set<AnyCancellable>()
+    
+    private var pendingSwapTrx: EthereumSignedTransaction?
+    private var pendingSwapGasInfo: GasInfo?
 
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes in ms
 	private let nonce = BigNumber.bigRandomeNumber
@@ -53,6 +57,15 @@ class SwapManager {
 			swapWETHtoETH()
 		}
 	}
+    
+    public func confirmSwap(completion: @escaping (Result<String>) -> Void) {
+        guard let pendingSwapTrx else { return }
+        Web3Core.shared.callTransaction(trx: pendingSwapTrx).done { trxHash in
+            completion(.fulfilled(trxHash))
+        }.catch { error in
+            completion(.rejected(error))
+        }
+    }
 
 	// MARK: - Private Methods
 
@@ -77,11 +90,12 @@ class SwapManager {
 			if let allowanceData { callDatas.insert(allowanceData, at: 0) }
 			if let sweepData { callDatas.append(sweepData) }
 			return self.callProxyMultiCall(data: callDatas, value: nil)
-		}.done { trxHash in
-			print(trxHash)
-		}.catch { error in
-			print(error.localizedDescription)
-		}
+        }.done { swapResult in
+            self.pendingSwapTrx = swapResult.0
+            self.pendingSwapGasInfo = swapResult.1
+        }.catch { error in
+            print(error.localizedDescription)
+        }
 	}
 
 	private func swapERCtoETH() {
@@ -112,8 +126,9 @@ class SwapManager {
 			if let allowanceData { callDatas.insert(allowanceData, at: 0) }
 			if let unwrapData { callDatas.append(unwrapData) }
 			return self.callProxyMultiCall(data: callDatas, value: nil)
-		}.done { trxHash in
-			print(trxHash)
+		}.done { swapResult in
+            self.pendingSwapTrx = swapResult.0
+            self.pendingSwapGasInfo = swapResult.1
 		}.catch { error in
 			print(error.localizedDescription)
 		}
@@ -134,11 +149,12 @@ class SwapManager {
 			var callDatas = [wrapTokenData, providersCallData]
 			if let sweepData { callDatas.append(sweepData) }
 			return self.callProxyMultiCall(data: callDatas, value: self.srcToken.tokenAmountBigNum.bigUInt)
-		}.done { trxHash in
-			print(trxHash)
-		}.catch { error in
-			print(error.localizedDescription)
-		}
+        }.done { swapResult in
+            self.pendingSwapTrx = swapResult.0
+            self.pendingSwapGasInfo = swapResult.1
+        }.catch { error in
+            print(error.localizedDescription)
+        }
 	}
 
 	private func swapETHtoWETH() {
@@ -152,11 +168,12 @@ class SwapManager {
 			// MultiCall
 			let callDatas = [wrapTokenData, sweepData!]
 			return self.callProxyMultiCall(data: callDatas, value: self.srcToken.tokenAmountBigNum.bigUInt)
-		}.done { trxHash in
-			print(trxHash)
-		}.catch { error in
-			print(error.localizedDescription)
-		}
+        }.done { swapResult in
+            self.pendingSwapTrx = swapResult.0
+            self.pendingSwapGasInfo = swapResult.1
+        }.catch { error in
+            print(error.localizedDescription)
+        }
 	}
 
 	private func swapWETHtoETH() {
@@ -170,11 +187,12 @@ class SwapManager {
 		}.then { unwrapData, permitData in
 			// MultiCall
 			self.callProxyMultiCall(data: [permitData, unwrapData!], value: nil)
-		}.done { trxHash in
-			print(trxHash)
-		}.catch { error in
-			print(error.localizedDescription)
-		}
+        }.done { swapResult in
+            self.pendingSwapTrx = swapResult.0
+            self.pendingSwapGasInfo = swapResult.1
+        }.catch { error in
+            print(error.localizedDescription)
+        }
 	}
 
 	private func signHash() -> Promise<String> {
@@ -307,7 +325,7 @@ class SwapManager {
 		}
 	}
 
-	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<String> {
+	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
 		web3.callProxyMulticall(data: data, value: value ?? 0.bigNumber.bigUInt)
 	}
 

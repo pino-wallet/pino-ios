@@ -54,6 +54,7 @@ public class Web3Core {
 	// MARK: - Typealias
 
 	public typealias CustomAssetInfo = [ABIMethodCall: String]
+    public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
 
 	// MARK: - Public Properties
 
@@ -136,13 +137,24 @@ public class Web3Core {
 		swapManager.getSweepTokenCallData(tokenAdd: tokenAdd, recipientAdd: recipientAdd)
 	}
 
-	public func callProxyMulticall(data: [String], value: BigUInt) -> Promise<String> {
+    public func callProxyMulticall(data: [String], value: BigUInt) -> TrxWithGasInfo {
 		swapManager.callMultiCall(
 			callData: data,
 			value: value
 		)
 	}
 
+    public func callTransaction(trx: EthereumSignedTransaction) -> Promise<String> {
+        Promise<String> { seal in
+            web3.eth.sendRawTransaction(transaction: trx).done { signedData in
+                seal.fulfill(signedData.hex())
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
+        
+    }
+    
 	public func getCustomAssetInfo(contractAddress: String) -> Promise<CustomAssetInfo> {
 		var assetInfo: CustomAssetInfo = [:]
 
