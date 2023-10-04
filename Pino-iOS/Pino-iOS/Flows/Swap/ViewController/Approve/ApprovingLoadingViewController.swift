@@ -8,16 +8,19 @@
 import UIKit
 
 class ApprovingLoadingViewController: UIViewController {
+	// MARK: - Closures
+
+	private var showConfirmVC: () -> Void
+
 	// MARK: - Private Properties
 
 	private let approveLoadingVM = ApprovingLoadingViewModel()
 	private var approveLoadingView: ApprovingLoadingView!
-	private var swapConfirmationVM: SwapConfirmationViewModel!
 
 	// MARK: - Initilizers
 
-	init(swapConfirmationVM: SwapConfirmationViewModel) {
-		self.swapConfirmationVM = swapConfirmationVM
+	init(showConfirmVC: @escaping () -> Void) {
+		self.showConfirmVC = showConfirmVC
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -50,13 +53,13 @@ class ApprovingLoadingViewController: UIViewController {
 	}
 
 	private func setupView() {
+		isModalInPresentation = true
 		approveLoadingView = ApprovingLoadingView(approvingLoadingVM: approveLoadingVM)
 		view = approveLoadingView
 	}
 
 	private func openConfirmationPage() {
-		let confirmationVC = SwapConfirmationViewController(swapConfirmationVM: swapConfirmationVM)
-		let confirmationNavigationVC = UINavigationController(rootViewController: confirmationVC)
-		present(confirmationNavigationVC, animated: true)
+		dismiss(animated: true)
+		showConfirmVC()
 	}
 }
