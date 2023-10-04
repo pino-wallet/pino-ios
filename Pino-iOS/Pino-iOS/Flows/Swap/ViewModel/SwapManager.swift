@@ -9,8 +9,8 @@ import BigInt
 import Combine
 import Foundation
 import PromiseKit
-import Web3_Utility
 import Web3
+import Web3_Utility
 
 class SwapManager {
 	// MARK: - Private Properties
@@ -23,15 +23,16 @@ class SwapManager {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
 	}
 
-	private var pinoWalletManager = PinoWalletManager()
+	private var walletManager = PinoWalletManager()
+	private let coreDataManager = CoreDataManager()
 	private let paraSwapAPIClient = ParaSwapAPIClient()
 	private let oneInchAPIClient = OneInchAPIClient()
 	private let zeroXAPIClient = ZeroXAPIClient()
 	private let web3Client = Web3APIClient()
 	private var cancellables = Set<AnyCancellable>()
-    
-    private var pendingSwapTrx: EthereumSignedTransaction?
-    private var pendingSwapGasInfo: GasInfo?
+
+	private var pendingSwapTrx: EthereumSignedTransaction?
+	private var pendingSwapGasInfo: GasInfo?
 
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes in ms
 	private let nonce = BigNumber.bigRandomeNumber
@@ -57,15 +58,40 @@ class SwapManager {
 			swapWETHtoETH()
 		}
 	}
-    
-    public func confirmSwap(completion: @escaping (Result<String>) -> Void) {
-        guard let pendingSwapTrx else { return }
-        Web3Core.shared.callTransaction(trx: pendingSwapTrx).done { trxHash in
-            completion(.fulfilled(trxHash))
-        }.catch { error in
-            completion(.rejected(error))
-        }
-    }
+
+	public func confirmSwap(completion: @escaping (Result<String>) -> Void) {
+		guard let pendingSwapTrx else { return }
+		Web3Core.shared.callTransaction(trx: pendingSwapTrx).done { trxHash in
+            self.addPendingTransferActivity(trxHash: trxHash)
+			completion(.fulfilled(trxHash))
+		}.catch { error in
+			completion(.rejected(error))
+		}
+	}
+
+	public func addPendingTransferActivity(trxHash: String) {
+        #warning("Ask Ali about info")
+        guard let pendingSwapGasInfo = pendingSwapGasInfo else { return }
+		let userAddress = walletManager.currentAccount.eip55Address
+		coreDataManager.addNewSwapActivity(
+			activityModel: .init(
+				txHash: trxHash,
+				type:"swap",
+				detail: .init(
+                    fromToken: .init(amount: srcToken.tokenAmount!, tokenID: srcToken.selectedToken.id),
+                    toToken: .init(amount: destToken.tokenAmount!, tokenID: destToken.selectedToken.id),
+                    activityProtocol: selectedProvider.provider.rawValue
+				),
+				fromAddress: walletManager.currentAccount.eip55Address,
+				toAddress: "",
+				blockTime: ActivityHelper().getServerFormattedStringDate(date: .now),
+                gasUsed: pendingSwapGasInfo.increasedGasLimit.decimalString,
+				gasPrice: pendingSwapGasInfo.gasPrice.decimalString
+			),
+            accountAddress: walletManager.currentAccount.eip55Address
+		)
+		PendingActivitiesManager.shared.startActivityPendingRequests()
+	}
 
 	// MARK: - Private Methods
 
@@ -90,12 +116,12 @@ class SwapManager {
 			if let allowanceData { callDatas.insert(allowanceData, at: 0) }
 			if let sweepData { callDatas.append(sweepData) }
 			return self.callProxyMultiCall(data: callDatas, value: nil)
-        }.done { swapResult in
-            self.pendingSwapTrx = swapResult.0
-            self.pendingSwapGasInfo = swapResult.1
-        }.catch { error in
-            print(error.localizedDescription)
-        }
+		}.done { swapResult in
+			self.pendingSwapTrx = swapResult.0
+			self.pendingSwapGasInfo = swapResult.1
+		}.catch { error in
+			print(error.localizedDescription)
+		}
 	}
 
 	private func swapERCtoETH() {
@@ -127,8 +153,8 @@ class SwapManager {
 			if let unwrapData { callDatas.append(unwrapData) }
 			return self.callProxyMultiCall(data: callDatas, value: nil)
 		}.done { swapResult in
-            self.pendingSwapTrx = swapResult.0
-            self.pendingSwapGasInfo = swapResult.1
+			self.pendingSwapTrx = swapResult.0
+			self.pendingSwapGasInfo = swapResult.1
 		}.catch { error in
 			print(error.localizedDescription)
 		}
@@ -149,12 +175,12 @@ class SwapManager {
 			var callDatas = [wrapTokenData, providersCallData]
 			if let sweepData { callDatas.append(sweepData) }
 			return self.callProxyMultiCall(data: callDatas, value: self.srcToken.tokenAmountBigNum.bigUInt)
-        }.done { swapResult in
-            self.pendingSwapTrx = swapResult.0
-            self.pendingSwapGasInfo = swapResult.1
-        }.catch { error in
-            print(error.localizedDescription)
-        }
+		}.done { swapResult in
+			self.pendingSwapTrx = swapResult.0
+			self.pendingSwapGasInfo = swapResult.1
+		}.catch { error in
+			print(error.localizedDescription)
+		}
 	}
 
 	private func swapETHtoWETH() {
@@ -168,12 +194,12 @@ class SwapManager {
 			// MultiCall
 			let callDatas = [wrapTokenData, sweepData!]
 			return self.callProxyMultiCall(data: callDatas, value: self.srcToken.tokenAmountBigNum.bigUInt)
-        }.done { swapResult in
-            self.pendingSwapTrx = swapResult.0
-            self.pendingSwapGasInfo = swapResult.1
-        }.catch { error in
-            print(error.localizedDescription)
-        }
+		}.done { swapResult in
+			self.pendingSwapTrx = swapResult.0
+			self.pendingSwapGasInfo = swapResult.1
+		}.catch { error in
+			print(error.localizedDescription)
+		}
 	}
 
 	private func swapWETHtoETH() {
@@ -187,12 +213,12 @@ class SwapManager {
 		}.then { unwrapData, permitData in
 			// MultiCall
 			self.callProxyMultiCall(data: [permitData, unwrapData!], value: nil)
-        }.done { swapResult in
-            self.pendingSwapTrx = swapResult.0
-            self.pendingSwapGasInfo = swapResult.1
-        }.catch { error in
-            print(error.localizedDescription)
-        }
+		}.done { swapResult in
+			self.pendingSwapTrx = swapResult.0
+			self.pendingSwapGasInfo = swapResult.1
+		}.catch { error in
+			print(error.localizedDescription)
+		}
 	}
 
 	private func signHash() -> Promise<String> {
@@ -202,7 +228,7 @@ class SwapManager {
 			}.done { [self] hash in
 				var signiture = try Sec256k1Encryptor.sign(
 					msg: hash.hexToBytes(),
-					seckey: pinoWalletManager.currentAccountPrivateKey.string.hexToBytes()
+					seckey: walletManager.currentAccountPrivateKey.string.hexToBytes()
 				)
 				signiture[signiture.count - 1] += 27
 
@@ -302,7 +328,7 @@ class SwapManager {
 				destToken: destToken.selectedToken.id,
 				amount: srcToken.tokenAmountBigNum.description,
 				destAmount: selectedProvider.providerResponseInfo.destAmount,
-				receiver: pinoWalletManager.currentAccount.eip55Address,
+				receiver: walletManager.currentAccount.eip55Address,
 				userAddress: Web3Core.Constants.pinoProxyAddress,
 				slippage: selectedProvider.provider.slippage,
 				networkID: 1,
@@ -334,7 +360,7 @@ class SwapManager {
 			if selectedProvider.provider == .zeroX || destToken.selectedToken.isWEth {
 				web3.getSweepTokenCallData(
 					tokenAdd: destToken.selectedToken.id,
-					recipientAdd: pinoWalletManager.currentAccount.eip55Address
+					recipientAdd: walletManager.currentAccount.eip55Address
 				).done { sweepData in
 					seal.fulfill(sweepData)
 				}.catch { error in
@@ -353,7 +379,7 @@ class SwapManager {
 	private func unwrapTokenCallData() -> Promise<String?> {
 		Promise<String?> { seal in
 			if selectedProvider.provider == .zeroX || srcToken.selectedToken.isWEth {
-				web3.getUnwrapETHCallData(recipient: pinoWalletManager.currentAccount.eip55Address)
+				web3.getUnwrapETHCallData(recipient: walletManager.currentAccount.eip55Address)
 					.done { wrapData in
 						seal.fulfill(wrapData)
 					}.catch { error in

@@ -11,11 +11,10 @@ import Web3
 import Web3ContractABI
 
 public struct W3SwapManager {
-    
-    // MARK: - Typealias
+	// MARK: - Typealias
 
-    public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
-    
+	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
+
 	// MARK: - Initilizer
 
 	public init(web3: Web3) {
@@ -100,31 +99,31 @@ public struct W3SwapManager {
 		}
 	}
 
-    public func callMultiCall(callData: [String], value: BigUInt) -> Web3Core.TrxWithGasInfo {
+	public func callMultiCall(callData: [String], value: BigUInt) -> Web3Core.TrxWithGasInfo {
 		let generatedMulticallData = W3CallDataGenerator.generateMultiCallFrom(calls: callData)
 		let ethCallData = EthereumData(generatedMulticallData.hexToBytes())
 		let contractAddress = Web3Core.Constants.pinoProxyAddress.eip55Address!
 
-		return TrxWithGasInfo() { [self] seal in
+		return TrxWithGasInfo { [self] seal in
 
 			self.gasInfoManager
 				.calculateGasOf(data: ethCallData, to: contractAddress)
 				.then { gasInfo in
 					web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 						.map { ($0, gasInfo) }
-                }.done { nonce, gasInfo in
-                    let trx = try trxManager.createTransactionFor(
-                        nonce: nonce,
-                        gasPrice: gasInfo.gasPrice.etherumQuantity,
-                        gasLimit: gasInfo.increasedGasLimit.bigUInt.etherumQuantity,
-                        value: value.etherumQuantity,
-                        data: ethCallData,
-                        to: contractAddress
-                    )
-                    
-                    let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-                    seal.fulfill((signedTx, gasInfo))
-                }.catch { error in
+				}.done { nonce, gasInfo in
+					let trx = try trxManager.createTransactionFor(
+						nonce: nonce,
+						gasPrice: gasInfo.gasPrice.etherumQuantity,
+						gasLimit: gasInfo.increasedGasLimit.bigUInt.etherumQuantity,
+						value: value.etherumQuantity,
+						data: ethCallData,
+						to: contractAddress
+					)
+
+					let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
+					seal.fulfill((signedTx, gasInfo))
+				}.catch { error in
 					seal.reject(error)
 				}
 		}

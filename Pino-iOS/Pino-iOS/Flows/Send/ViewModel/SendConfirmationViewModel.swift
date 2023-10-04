@@ -157,7 +157,7 @@ class SendConfirmationViewModel {
 				),
 				fromAddress: userAddress,
 				toAddress: recipientAddress,
-				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
+				blockTime: activityHelper.getServerFormattedStringDate(date: .now),
 				gasUsed: gasLimit,
 				gasPrice: gasPrice
 			),

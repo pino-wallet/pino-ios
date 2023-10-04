@@ -69,7 +69,10 @@ class SwapConfirmationViewModel {
 
 	public func confirmSwap() {
 		let swapManager = SwapManager(selectedProvider: selectedProvider!, srcToken: fromToken, destToken: toToken)
-		swapManager.swapToken()
+        swapManager.confirmSwap { trx in
+            print("SWAP TRX HASH: \(trx)")
+            
+        }
 	}
 
 	public func checkEnoughBalance() -> Bool {
