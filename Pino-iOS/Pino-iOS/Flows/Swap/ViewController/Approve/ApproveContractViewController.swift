@@ -9,17 +9,20 @@ import Foundation
 import UIKit
 
 class ApproveContractViewController: UIViewController {
+    // MARK: - Closures
+    private var showConfirmVC: () -> Void
 	// MARK: - Private Properties
 
 	private let approveContractVM: ApproveContractViewModel!
 	private var approveContractView: ApproveContractView!
-	private var swapConfirmationVM: SwapConfirmationViewModel!
+	private var approveContractID: String!
 
 	// MARK: - Initilizers
 
-	init(swapConfirmationVM: SwapConfirmationViewModel) {
-		self.swapConfirmationVM = swapConfirmationVM
-		self.approveContractVM = ApproveContractViewModel(contractId: swapConfirmationVM.fromToken.selectedToken.id)
+    init(approveContractID: String, showConfirmVC: @escaping () -> Void) {
+		self.approveContractID = approveContractID
+		self.approveContractVM = ApproveContractViewModel(contractId: approveContractID)
+        self.showConfirmVC = showConfirmVC
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -57,7 +60,12 @@ class ApproveContractViewController: UIViewController {
 
 	private func showApproveLoadingPage() {
 		approveContractVM.approveTokenUsageToPermit {
-			let approveLoadingVC = ApprovingLoadingViewController(swapConfirmationVM: self.swapConfirmationVM)
+        let approveLoadingVC = ApprovingLoadingViewController(showConfirmVC:  {
+            self.dismiss(animated: true) {
+                self.showConfirmVC()
+            }
+        }
+            )
 			self.present(approveLoadingVC, animated: true)
 		}
 	}
