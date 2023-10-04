@@ -6,10 +6,14 @@
 //
 
 import UIKit
+import Web3_Utility
+import PromiseKit
 
 class RepayAmountViewController: UIViewController {
 	// MARK: - Private Properties
 
+    private let walletManager = PinoWalletManager()
+    private let web3 = Web3Core.shared
 	private var repayAmountVM: RepayAmountViewModel
 	private var repayAmountView: RepayAmountView!
 
@@ -40,7 +44,7 @@ class RepayAmountViewController: UIViewController {
 
 	private func setupView() {
 		repayAmountView = RepayAmountView(repayAmountVM: repayAmountVM, nextButtonTapped: {
-			self.pushToRepayConfirmVC()
+			self.checkForAllowance()
 		})
 
 		view = repayAmountView
@@ -49,6 +53,48 @@ class RepayAmountViewController: UIViewController {
 	private func setupNavigationBar() {
 		setNavigationTitle("\(repayAmountVM.pageTitleRepayText) \(repayAmountVM.tokenSymbol)")
 	}
+    
+    private func checkForAllowance() {
+        // Check If Permit has access to Token
+        if repayAmountVM.selectedToken.isEth {
+            pushToRepayConfirmVC()
+            return
+        }
+        firstly {
+            try web3.getAllowanceOf(
+                contractAddress: repayAmountVM.selectedToken.id.lowercased(),
+                spenderAddress: Web3Core.Constants.permitAddress,
+                ownerAddress: walletManager.currentAccount.eip55Address
+            )
+        }.done { [self] allowanceAmount in
+            let destTokenDecimal = repayAmountVM.selectedToken.decimal
+            let destTokenAmount = Utilities.parseToBigUInt(
+                repayAmountVM.tokenAmount,
+                decimals: destTokenDecimal
+            )
+            if allowanceAmount == 0 || allowanceAmount < destTokenAmount! {
+                // NOT ALLOWED
+                presentApproveVC()
+            } else {
+                // ALLOWED
+                pushToRepayConfirmVC()
+            }
+        }.catch { error in
+            print(error)
+        }
+    }
+
+    private func presentApproveVC() {
+        let approveVC = ApproveContractViewController(
+            approveContractID: repayAmountVM.selectedToken.id,
+            showConfirmVC: {
+                self.pushToRepayConfirmVC()
+            }
+        )
+        let navigationVC = UINavigationController()
+        navigationVC.viewControllers = [approveVC]
+        present(navigationVC, animated: true)
+    }
 
 	private func pushToRepayConfirmVC() {
 		let repayConfirmVM = RepayConfirmViewModel(repayamountVM: repayAmountVM)
