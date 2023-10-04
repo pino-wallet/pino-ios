@@ -129,7 +129,7 @@ class ApproveContractView: UIView {
 
 	@objc
 	private func onApproveButtonTap() {
-        approveButton.style = .loading
+		approveButton.style = .loading
 		onApproveTap()
 	}
 }

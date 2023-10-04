@@ -13,8 +13,8 @@ class CollateralIncreaseAmountViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let collateralIncreaseAmountVM: CollateralIncreaseAmountViewModel
-    private let web3 = Web3Core.shared
-    private let walletManager = PinoWalletManager()
+	private let web3 = Web3Core.shared
+	private let walletManager = PinoWalletManager()
 	private var collateralIncreaseAmountView: CollateralIncreaseAmountView!
 
 	// MARK: - View Overrides
@@ -58,42 +58,48 @@ class CollateralIncreaseAmountViewController: UIViewController {
 			"\(collateralIncreaseAmountVM.pageTitleCollateralText) \(collateralIncreaseAmountVM.tokenSymbol)"
 		)
 	}
-    
-    private func checkForAllowance() {
-        // Check If Permit has access to Token
-        if collateralIncreaseAmountVM.selectedToken.isEth {
-            pushToCollateralConfirmVC()
-            return
-        }
-        firstly {
-            try web3.getAllowanceOf(
-                contractAddress: collateralIncreaseAmountVM.selectedToken.id.lowercased(),
-                spenderAddress: Web3Core.Constants.permitAddress,
-                ownerAddress: walletManager.currentAccount.eip55Address
-            )
-        }.done { [self] allowanceAmount in
-            let destTokenDecimal = collateralIncreaseAmountVM.selectedToken.decimal
-            let destTokenAmount = Utilities.parseToBigUInt(collateralIncreaseAmountVM.tokenAmount, decimals: destTokenDecimal)
-            if allowanceAmount == 0 || allowanceAmount < destTokenAmount! {
-                // NOT ALLOWED
-                presentApproveVC()
-            } else {
-                // ALLOWED
-                pushToCollateralConfirmVC()
-            }
-        }.catch { error in
-            print(error)
-        }
-    }
-    
-    private func presentApproveVC() {
-        let approveVC = ApproveContractViewController(approveContractID: collateralIncreaseAmountVM.selectedToken.id, showConfirmVC: {
-            self.pushToCollateralConfirmVC()
-        })
-        let navigationVC = UINavigationController()
-        navigationVC.viewControllers = [approveVC]
-        present(navigationVC, animated: true)
-    }
+
+	private func checkForAllowance() {
+		// Check If Permit has access to Token
+		if collateralIncreaseAmountVM.selectedToken.isEth {
+			pushToCollateralConfirmVC()
+			return
+		}
+		firstly {
+			try web3.getAllowanceOf(
+				contractAddress: collateralIncreaseAmountVM.selectedToken.id.lowercased(),
+				spenderAddress: Web3Core.Constants.permitAddress,
+				ownerAddress: walletManager.currentAccount.eip55Address
+			)
+		}.done { [self] allowanceAmount in
+			let destTokenDecimal = collateralIncreaseAmountVM.selectedToken.decimal
+			let destTokenAmount = Utilities.parseToBigUInt(
+				collateralIncreaseAmountVM.tokenAmount,
+				decimals: destTokenDecimal
+			)
+			if allowanceAmount == 0 || allowanceAmount < destTokenAmount! {
+				// NOT ALLOWED
+				presentApproveVC()
+			} else {
+				// ALLOWED
+				pushToCollateralConfirmVC()
+			}
+		}.catch { error in
+			print(error)
+		}
+	}
+
+	private func presentApproveVC() {
+		let approveVC = ApproveContractViewController(
+			approveContractID: collateralIncreaseAmountVM.selectedToken.id,
+			showConfirmVC: {
+				self.pushToCollateralConfirmVC()
+			}
+		)
+		let navigationVC = UINavigationController()
+		navigationVC.viewControllers = [approveVC]
+		present(navigationVC, animated: true)
+	}
 
 	private func pushToCollateralConfirmVC() {
 		let collateralConfirmVM = CollateralConfirmViewModel(collaterallIncreaseAmountVM: collateralIncreaseAmountVM)

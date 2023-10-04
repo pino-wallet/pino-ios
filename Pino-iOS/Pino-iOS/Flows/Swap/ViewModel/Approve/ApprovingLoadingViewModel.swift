@@ -8,5 +8,5 @@
 import Foundation
 
 struct ApprovingLoadingViewModel {
-    #warning("maybe we should use this later")
+	#warning("maybe we should use this later")
 }

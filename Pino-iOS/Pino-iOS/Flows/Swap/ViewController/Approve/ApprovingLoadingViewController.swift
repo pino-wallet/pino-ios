@@ -8,8 +8,10 @@
 import UIKit
 
 class ApprovingLoadingViewController: UIViewController {
-    // MARK: - Closures
-    private var showConfirmVC: () -> Void
+	// MARK: - Closures
+
+	private var showConfirmVC: () -> Void
+
 	// MARK: - Private Properties
 
 	private let approveLoadingVM = ApprovingLoadingViewModel()
@@ -17,8 +19,8 @@ class ApprovingLoadingViewController: UIViewController {
 
 	// MARK: - Initilizers
 
-    init(showConfirmVC: @escaping () -> Void) {
-        self.showConfirmVC = showConfirmVC
+	init(showConfirmVC: @escaping () -> Void) {
+		self.showConfirmVC = showConfirmVC
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -51,13 +53,13 @@ class ApprovingLoadingViewController: UIViewController {
 	}
 
 	private func setupView() {
-        isModalInPresentation = true
+		isModalInPresentation = true
 		approveLoadingView = ApprovingLoadingView(approvingLoadingVM: approveLoadingVM)
 		view = approveLoadingView
 	}
 
 	private func openConfirmationPage() {
-        self.dismiss(animated: true)
+		dismiss(animated: true)
 		showConfirmVC()
 	}
 }

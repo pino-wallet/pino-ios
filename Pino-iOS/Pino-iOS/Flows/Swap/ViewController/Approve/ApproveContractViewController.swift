@@ -9,8 +9,10 @@ import Foundation
 import UIKit
 
 class ApproveContractViewController: UIViewController {
-    // MARK: - Closures
-    private var showConfirmVC: () -> Void
+	// MARK: - Closures
+
+	private var showConfirmVC: () -> Void
+
 	// MARK: - Private Properties
 
 	private let approveContractVM: ApproveContractViewModel!
@@ -19,10 +21,10 @@ class ApproveContractViewController: UIViewController {
 
 	// MARK: - Initilizers
 
-    init(approveContractID: String, showConfirmVC: @escaping () -> Void) {
+	init(approveContractID: String, showConfirmVC: @escaping () -> Void) {
 		self.approveContractID = approveContractID
 		self.approveContractVM = ApproveContractViewModel(contractId: approveContractID)
-        self.showConfirmVC = showConfirmVC
+		self.showConfirmVC = showConfirmVC
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -60,12 +62,13 @@ class ApproveContractViewController: UIViewController {
 
 	private func showApproveLoadingPage() {
 		approveContractVM.approveTokenUsageToPermit {
-        let approveLoadingVC = ApprovingLoadingViewController(showConfirmVC:  {
-            self.dismiss(animated: true) {
-                self.showConfirmVC()
-            }
-        }
-            )
+			let approveLoadingVC = ApprovingLoadingViewController(
+				showConfirmVC: {
+					self.dismiss(animated: true) {
+						self.showConfirmVC()
+					}
+				}
+			)
 			self.present(approveLoadingVC, animated: true)
 		}
 	}
