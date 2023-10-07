@@ -10,8 +10,8 @@ import Foundation
 public enum Web3ABI {
 	case erc
 	case swap
-    case borrowAave
-    case borrowCompound
+	case borrowAave
+	case borrowCompound
 
 	public var abi: Data {
 		switch self {
@@ -19,28 +19,28 @@ public enum Web3ABI {
 			return Web3ABI.erc20AbiString.data(using: .utf8)!
 		case .swap:
 			return Web3ABI.swapAbiString.data(using: .utf8)!
-        case .borrowAave:
-            return Web3ABI.borrowAaveAbiString.data(using: .utf8)!
-        case .borrowCompound:
-            return Web3ABI.borrowCompoundAbiString.data(using: .utf8)!
-        }
+		case .borrowAave:
+			return Web3ABI.borrowAaveAbiString.data(using: .utf8)!
+		case .borrowCompound:
+			return Web3ABI.borrowCompoundAbiString.data(using: .utf8)!
+		}
 	}
 
-    private static var erc20AbiString: String {
-        ABIReader(fileName: "ERC20ABIJson")
-    }
+	private static var erc20AbiString: String {
+		ABIReader(fileName: "ERC20ABIJson")
+	}
 
 	private static var swapAbiString: String {
 		ABIReader(fileName: "SwapABIJson")
 	}
-    
-    private static var borrowAaveAbiString: String {
-        ABIReader(fileName: "BorrowCompoundABIJson")
-    }
-    
-    private static var borrowCompoundAbiString: String {
-        ABIReader(fileName: "BorrowCompoundABIJson")
-    }
+
+	private static var borrowAaveAbiString: String {
+		ABIReader(fileName: "BorrowCompoundABIJson")
+	}
+
+	private static var borrowCompoundAbiString: String {
+		ABIReader(fileName: "BorrowCompoundABIJson")
+	}
 }
 
 public enum ABIMethodCall: String {
@@ -67,7 +67,7 @@ public enum ABIMethodWrite: String {
 }
 
 fileprivate func ABIReader(fileName: String) -> String {
-    let path = Bundle.main.path(forResource: fileName, ofType: "json")!
-    let abiString = try! String(contentsOfFile: path, encoding: .utf8)
-    return abiString
+	let path = Bundle.main.path(forResource: fileName, ofType: "json")!
+	let abiString = try! String(contentsOfFile: path, encoding: .utf8)
+	return abiString
 }
