@@ -8,6 +8,6 @@
 import Web3ContractABI
 
 public struct ContractDetailsModel {
-    public let contract: DynamicContract
-    public let solInvocation: SolidityInvocation
+	public let contract: DynamicContract
+	public let solInvocation: SolidityInvocation
 }

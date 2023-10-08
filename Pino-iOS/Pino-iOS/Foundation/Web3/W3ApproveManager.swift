@@ -38,11 +38,11 @@ public struct W3ApproveManager {
 
 	// MARK: - Public Methods
 
-    public func approveContract(contractDetails: ContractDetailsModel) -> Promise<String> {
+	public func approveContract(contractDetails: ContractDetailsModel) -> Promise<String> {
 		Promise<String> { seal in
-            getApproveTransaction(contractDetails: contractDetails).then { signedTrx in
-                web3.eth.sendRawTransaction(transaction: signedTrx)
-            }
+			getApproveTransaction(contractDetails: contractDetails).then { signedTrx in
+				web3.eth.sendRawTransaction(transaction: signedTrx)
+			}
 			.done { trxHash in
 				seal.fulfill(trxHash.hex())
 			}.catch { error in
@@ -84,46 +84,46 @@ public struct W3ApproveManager {
 			seal.fulfill(trx.data.hex())
 		}
 	}
-    
-    public func getApproveContractDetails(
-        address: String,
-        amount: BigUInt,
-        spender: String
-    ) -> Promise<ContractDetailsModel> {
-        Promise<ContractDetailsModel> { seal in
-            let contract = try Web3Core.getContractOfToken(address: address, abi: .erc, web3: web3)
-            let solInvocation = contract[ABIMethodWrite.approve.rawValue]?(spender, amount)
-            seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvocation!))
-        }
-    }
-    
-    public func getApproveGasInfo(
-        contractDetails: ContractDetailsModel
-    ) -> Promise<GasInfo> {
-        Promise<GasInfo> { seal in
-            gasInfoManager.calculateGasOf(
-                method: .approve,
-                solInvoc: contractDetails.solInvocation,
-                contractAddress: contractDetails.contract.address!
-            ).done { gasInfo in
-                seal.fulfill(gasInfo)
-            }.catch { error in
-                seal.reject(error)
-            }
-        }
-    }
-    
 
-    // MARK: - Private Properties
+	public func getApproveContractDetails(
+		address: String,
+		amount: BigUInt,
+		spender: String
+	) -> Promise<ContractDetailsModel> {
+		Promise<ContractDetailsModel> { seal in
+			let contract = try Web3Core.getContractOfToken(address: address, abi: .erc, web3: web3)
+			let solInvocation = contract[ABIMethodWrite.approve.rawValue]?(spender, amount)
+			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvocation!))
+		}
+	}
+
+	public func getApproveGasInfo(
+		contractDetails: ContractDetailsModel
+	) -> Promise<GasInfo> {
+		Promise<GasInfo> { seal in
+			gasInfoManager.calculateGasOf(
+				method: .approve,
+				solInvoc: contractDetails.solInvocation,
+				contractAddress: contractDetails.contract.address!
+			).done { gasInfo in
+				seal.fulfill(gasInfo)
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	// MARK: - Private Properties
+
 	private func getApproveTransaction(
-        contractDetails: ContractDetailsModel
+		contractDetails: ContractDetailsModel
 	) -> Promise<EthereumSignedTransaction> {
 		Promise<EthereumSignedTransaction> { seal in
 
 			gasInfoManager.calculateGasOf(
 				method: .approve,
-                solInvoc: contractDetails.solInvocation,
-                contractAddress: contractDetails.contract.address!
+				solInvoc: contractDetails.solInvocation,
+				contractAddress: contractDetails.contract.address!
 			)
 			.then { [self] gasInfo in
 				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
@@ -132,14 +132,14 @@ public struct W3ApproveManager {
 			.done { [self] nonce, gasInfo in
 
 				let trx = try trxManager.createTransactionFor(
-                    contract: contractDetails.solInvocation,
+					contract: contractDetails.solInvocation,
 					nonce: nonce,
 					gasPrice: gasInfo.gasPrice.etherumQuantity,
 					gasLimit: gasInfo.increasedGasLimit.etherumQuantity
 				)
 
 				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-                seal.fulfill(signedTx)
+				seal.fulfill(signedTx)
 			}.catch { error in
 				seal.reject(error)
 			}
