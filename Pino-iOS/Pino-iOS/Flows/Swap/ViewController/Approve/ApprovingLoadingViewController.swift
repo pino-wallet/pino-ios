@@ -5,8 +5,8 @@
 //  Created by Sobhan Eskandari on 8/24/23.
 //
 
-import UIKit
 import Combine
+import UIKit
 
 class ApprovingLoadingViewController: UIViewController {
 	// MARK: - Closures
@@ -15,15 +15,15 @@ class ApprovingLoadingViewController: UIViewController {
 
 	// MARK: - Private Properties
 
-    private let approveLoadingVM: ApprovingLoadingViewModel
+	private let approveLoadingVM: ApprovingLoadingViewModel
 	private var approveLoadingView: ApprovingLoadingView!
-    private var cancellables = Set<AnyCancellable>()
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initilizers
 
-    init(showConfirmVC: @escaping () -> Void, approveLoadingVM: ApprovingLoadingViewModel) {
+	init(showConfirmVC: @escaping () -> Void, approveLoadingVM: ApprovingLoadingViewModel) {
 		self.showConfirmVC = showConfirmVC
-        self.approveLoadingVM = approveLoadingVM
+		self.approveLoadingVM = approveLoadingVM
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -40,7 +40,7 @@ class ApprovingLoadingViewController: UIViewController {
 	override func loadView() {
 		setupNavigationBar()
 		setupView()
-        setupBindings()
+		setupBindings()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {}
@@ -61,12 +61,12 @@ class ApprovingLoadingViewController: UIViewController {
 		dismiss(animated: true)
 		showConfirmVC()
 	}
-    
-    private func setupBindings() {
-        approveLoadingVM.$isApproved.sink { isApproved in
-            if isApproved {
-            self.openConfirmationPage()
-            }
-        }.store(in: &cancellables)
-    }
+
+	private func setupBindings() {
+		approveLoadingVM.$isApproved.sink { isApproved in
+			if isApproved {
+				self.openConfirmationPage()
+			}
+		}.store(in: &cancellables)
+	}
 }
