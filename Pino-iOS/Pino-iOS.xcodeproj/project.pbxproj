@@ -420,6 +420,7 @@
 		D9BE15AD2A693539005E4063 /* ActivityDetailsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE15AC2A693539005E4063 /* ActivityDetailsProtocol.swift */; };
 		D9BE15B02A693593005E4063 /* SwapActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE15AF2A693593005E4063 /* SwapActivityDetailsViewModel.swift */; };
 		D9BE15B22A69360E005E4063 /* TransferActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE15B12A69360E005E4063 /* TransferActivityDetailsViewModel.swift */; };
+		D9BFE9972AD28BE8005E4562 /* ContractDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFE9962AD28BE8005E4562 /* ContractDetails.swift */; };
 		D9BFEC372A121706007DFF40 /* AllowNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC362A121706007DFF40 /* AllowNotificationsViewController.swift */; };
 		D9BFEC392A121719007DFF40 /* AllowNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC382A121719007DFF40 /* AllowNotificationsView.swift */; };
 		D9BFEC3B2A12177C007DFF40 /* AllowNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC3A2A12177C007DFF40 /* AllowNotificationsViewModel.swift */; };
@@ -1143,6 +1144,7 @@
 		D9BE15AC2A693539005E4063 /* ActivityDetailsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailsProtocol.swift; sourceTree = "<group>"; };
 		D9BE15AF2A693593005E4063 /* SwapActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapActivityDetailsViewModel.swift; sourceTree = "<group>"; };
 		D9BE15B12A69360E005E4063 /* TransferActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferActivityDetailsViewModel.swift; sourceTree = "<group>"; };
+		D9BFE9962AD28BE8005E4562 /* ContractDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractDetails.swift; sourceTree = "<group>"; };
 		D9BFEC362A121706007DFF40 /* AllowNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsViewController.swift; sourceTree = "<group>"; };
 		D9BFEC382A121719007DFF40 /* AllowNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsView.swift; sourceTree = "<group>"; };
 		D9BFEC3A2A12177C007DFF40 /* AllowNotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsViewModel.swift; sourceTree = "<group>"; };
@@ -2573,6 +2575,7 @@
 		B306C5049CC723CBB7E23D2B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D9BFE9952AD28B5D005E4562 /* ContractDetails */,
 				E3ABD1F02AB0BAA400947D37 /* Invest */,
 				D924C3422A94962A007299A4 /* Borrow */,
 				DFC1F6A22A755ECE003DB68A /* Swap */,
@@ -3058,6 +3061,14 @@
 				D9BE15B12A69360E005E4063 /* TransferActivityDetailsViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D9BFE9952AD28B5D005E4562 /* ContractDetails */ = {
+			isa = PBXGroup;
+			children = (
+				D9BFE9962AD28BE8005E4562 /* ContractDetails.swift */,
+			);
+			path = ContractDetails;
 			sourceTree = "<group>";
 		};
 		D9BFEC3C2A1222FB007DFF40 /* ClearNavigationBar */ = {
@@ -4128,6 +4139,7 @@
 				D91A3A0529E412A200004CB2 /* NotificationSettingsSection.swift in Sources */,
 				917064233A24F0460102BC15 /* Array+Extension.swift in Sources */,
 				403691C02A3DFFB60013AB6D /* TextAppleToastView.swift in Sources */,
+				D9BFE9972AD28BE8005E4562 /* ContractDetails.swift in Sources */,
 				FADF64026A19F019F554FEA5 /* AssetChartModel.swift in Sources */,
 				8FEE7479372B430975CF245D /* AssetChartViewModel.swift in Sources */,
 				4037DCC72A8BD50100FCA96B /* ApproveContractViewController.swift in Sources */,

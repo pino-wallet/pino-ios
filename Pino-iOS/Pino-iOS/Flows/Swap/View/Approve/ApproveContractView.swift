@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Combine
 
 class ApproveContractView: UIView {
 	// MARK: - Closures
@@ -25,6 +26,7 @@ class ApproveContractView: UIView {
 	private let rightArrowImageView = UIImageView()
 	private let approveButton = PinoButton(style: .active)
 	private var approveContractVM: ApproveContractViewModel
+    private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -37,6 +39,8 @@ class ApproveContractView: UIView {
 		setupView()
 		setupStyle()
 		setupContstraint()
+        setupBindings()
+        updateUIWithApproveStatus(approveStatus: approveContractVM.approveStatus)
 	}
 
 	required init?(coder: NSCoder) {
@@ -92,8 +96,6 @@ class ApproveContractView: UIView {
 		learnMoreLabel.textColor = .Pino.primary
 		learnMoreLabel.text = approveContractVM.learnMoreButtonTitle
 		learnMoreLabel.numberOfLines = 0
-
-		approveButton.title = approveContractVM.approveButtonTitle
 	}
 
 	private func setupContstraint() {
@@ -120,6 +122,29 @@ class ApproveContractView: UIView {
 //		"\(approveContractVM.approveText) \(approveContractVM.selectedToken.symbol).
 //		\(approveContractVM.approveDescriptionText)"
 	}
+    
+    private func setupBindings() {
+        approveContractVM.$approveStatus.sink { approveStatus in
+            self.updateUIWithApproveStatus(approveStatus: approveStatus)
+        }.store(in: &cancellables)
+    }
+    
+    
+    private func updateUIWithApproveStatus(approveStatus: ApproveContractViewModel.ApproveStatuses) {
+        switch approveStatus {
+        case .calculatingFee:
+            approveButton.title = approveContractVM.pleaseWaitTitleText
+            approveButton.style = .deactive
+        case .insufficientEthBalance:
+            approveButton.title = approveContractVM.insufficientBalanceTitleText
+            approveButton.style = .deactive
+        case .normal:
+            approveButton.title = approveContractVM.approveButtonTitle
+            approveButton.style = .active
+        case .loading:
+            approveButton.style = .loading
+        }
+    }
 
 	@objc
 	private func openLearnMorePage() {
@@ -129,7 +154,6 @@ class ApproveContractView: UIView {
 
 	@objc
 	private func onApproveButtonTap() {
-		approveButton.style = .loading
 		onApproveTap()
 	}
 }
