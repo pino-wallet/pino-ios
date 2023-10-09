@@ -84,8 +84,20 @@ public class Web3Core {
 		)
 	}
 
-	public func approveContract(address: String, amount: BigUInt, spender: String) -> Promise<String> {
-		approveManager.approveContract(address: address, amount: amount, spender: spender)
+	public func approveContract(contractDetails: ContractDetailsModel) -> Promise<String> {
+		approveManager.approveContract(contractDetails: contractDetails)
+	}
+
+	public func getApproveContractDetails(
+		address: String,
+		amount: BigUInt,
+		spender: String
+	) -> Promise<ContractDetailsModel> {
+		approveManager.getApproveContractDetails(address: address, amount: amount, spender: spender)
+	}
+
+	public func getApproveGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
+		approveManager.getApproveGasInfo(contractDetails: contractDetails)
 	}
 
 	public func getApproveCallData(contractAdd: String, amount: BigUInt, spender: String) -> Promise<String> {
