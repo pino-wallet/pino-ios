@@ -10,6 +10,7 @@ import Foundation
 public enum Web3ABI {
 	case erc
 	case swap
+	case invest
 
 	public var abi: Data {
 		switch self {
@@ -17,6 +18,8 @@ public enum Web3ABI {
 			return Web3ABI.erc20AbiString.data(using: .utf8)!
 		case .swap:
 			return Web3ABI.swapAbiString.data(using: .utf8)!
+		case .invest:
+			return Web3ABI.investAbiString.data(using: .utf8)!
 		}
 	}
 
@@ -26,6 +29,12 @@ public enum Web3ABI {
 
 	private static var swapAbiString: String {
 		let path = Bundle.main.path(forResource: "SwapABIJson", ofType: "json")!
+		let abiJsonString = try! String(contentsOfFile: path, encoding: .utf8)
+		return abiJsonString
+	}
+
+	private static var investAbiString: String {
+		let path = Bundle.main.path(forResource: "InvestABIJson", ofType: "json")!
 		let abiJsonString = try! String(contentsOfFile: path, encoding: .utf8)
 		return abiJsonString
 	}
@@ -52,4 +61,6 @@ public enum ABIMethodWrite: String {
 	case swap0x
 	case swapParaswap
 	case swap1Inch
+	case daiToSDai
+	case sDaiToDai
 }
