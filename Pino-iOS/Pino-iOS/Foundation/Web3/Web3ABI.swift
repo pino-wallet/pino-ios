@@ -10,8 +10,9 @@ import Foundation
 public enum Web3ABI {
 	case erc
 	case swap
-	case borrowAave
-	case borrowCompound
+	case borrowERCAave
+    case borrowETHAave
+	case borrowCTokenCompound
 
 	public var abi: Data {
 		switch self {
@@ -19,11 +20,13 @@ public enum Web3ABI {
 			return Web3ABI.erc20AbiString.data(using: .utf8)!
 		case .swap:
 			return Web3ABI.swapAbiString.data(using: .utf8)!
-		case .borrowAave:
-			return Web3ABI.borrowAaveAbiString.data(using: .utf8)!
-		case .borrowCompound:
-			return Web3ABI.borrowCompoundAbiString.data(using: .utf8)!
-		}
+		case .borrowERCAave:
+			return Web3ABI.borrowERCAaveAbiString.data(using: .utf8)!
+        case .borrowETHAave:
+            return Web3ABI.borrowETHAaveAbiString.data(using: .utf8)!
+		case .borrowCTokenCompound:
+			return Web3ABI.borrowCompoundCTokenAbiString.data(using: .utf8)!
+        }
 	}
 
 	private static var erc20AbiString: String {
@@ -34,12 +37,16 @@ public enum Web3ABI {
 		ABIReader(fileName: "SwapABIJson")
 	}
 
-	private static var borrowAaveAbiString: String {
-		ABIReader(fileName: "BorrowCompoundABIJson")
+	private static var borrowERCAaveAbiString: String {
+		ABIReader(fileName: "BorrowERCAaveABIJson")
 	}
+    
+    private static var borrowETHAaveAbiString: String {
+        ABIReader(fileName: "BorrowETHAaveABIJson")
+    }
 
-	private static var borrowCompoundAbiString: String {
-		ABIReader(fileName: "BorrowCompoundABIJson")
+	private static var borrowCompoundCTokenAbiString: String {
+		ABIReader(fileName: "BorrowCompoundCTokenABIJson")
 	}
 }
 
