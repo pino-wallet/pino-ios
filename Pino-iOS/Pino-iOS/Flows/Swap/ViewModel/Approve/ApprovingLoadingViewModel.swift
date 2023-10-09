@@ -20,6 +20,14 @@ class ApprovingLoadingViewModel {
 
 	@Published
 	public var isApproved = false
+    
+    // MARK: - Initializers
+
+    init(approveTxHash: String) {
+        self.approveTxHash = approveTxHash
+
+        setupTimer()
+    }
 
 	// MARK: - Public Methods
 
@@ -65,11 +73,5 @@ class ApprovingLoadingViewModel {
 		}.store(in: &cancellables)
 	}
 
-	// MARK: - Initializers
-
-	init(approveTxHash: String) {
-		self.approveTxHash = approveTxHash
-
-		setupTimer()
-	}
+	
 }
