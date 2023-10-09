@@ -49,7 +49,8 @@ class ApproveContractViewController: UIViewController {
 
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
-		setNavigationTitle("Approve")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: approveContractVM.dismissButtonName), style: .plain, target: self, action: #selector(dismissSelf))
+        setNavigationTitle(approveContractVM.titlePageText)
 	}
 
 	private func setupView() {
@@ -73,4 +74,8 @@ class ApproveContractViewController: UIViewController {
 			self.present(approveLoadingVC, animated: true)
 		}
 	}
+    
+    @objc private func dismissSelf() {
+        dismiss(animated: true)
+    }
 }

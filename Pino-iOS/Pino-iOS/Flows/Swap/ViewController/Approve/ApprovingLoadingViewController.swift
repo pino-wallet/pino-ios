@@ -52,7 +52,6 @@ class ApprovingLoadingViewController: UIViewController {
 	}
 
 	private func setupView() {
-		isModalInPresentation = true
 		approveLoadingView = ApprovingLoadingView(approvingLoadingVM: approveLoadingVM)
 		view = approveLoadingView
 	}
