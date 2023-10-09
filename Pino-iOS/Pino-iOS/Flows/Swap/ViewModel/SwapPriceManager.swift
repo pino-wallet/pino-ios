@@ -17,6 +17,10 @@ class SwapPriceManager {
 	private var cancellables = Set<AnyCancellable>()
 	private let pinoWalletManager = PinoWalletManager()
 
+    private var wethToken: AssetViewModel {
+        (GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
+    }
+
 	// MARK: - Public Methods
 
 	public func getBestPrice(
@@ -26,10 +30,16 @@ class SwapPriceManager {
 		amount: String,
 		completion: @escaping (_ responses: [SwapPriceResponseProtocol]) -> Void
 	) {
+        var srcTokenID = srcToken.selectedToken.id
+        var dstTokenID = destToken.selectedToken.id
+        if srcToken.selectedToken.isEth {
+            srcTokenID = wethToken.id
+        }
+        // if provider is 0x destToken -> weth
 		let swapInfo = SwapPriceRequestModel(
-			srcToken: srcToken.selectedToken.id,
+			srcToken: srcTokenID,
 			srcDecimals: srcToken.selectedToken.decimal,
-			destToken: destToken.selectedToken.id,
+			destToken: dstTokenID,
 			destDecimals: destToken.selectedToken.decimal,
 			amount: amount,
 			side: swapSide,

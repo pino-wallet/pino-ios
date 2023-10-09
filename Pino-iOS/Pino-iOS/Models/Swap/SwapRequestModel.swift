@@ -89,8 +89,8 @@ struct SwapRequestModel {
 			"slippage": slippage,
 			"includeProtocols": false,
 			"includeTokensInfo": false,
-			"disableEstimate": false,
-			"allowPartialFill": false,
+			"disableEstimate": true,
+			"allowPartialFill": true,
 		]
 	}
 
