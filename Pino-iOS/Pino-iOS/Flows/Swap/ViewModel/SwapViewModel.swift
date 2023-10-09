@@ -178,20 +178,9 @@ class SwapViewModel {
 				let bestProvider = self.providers.first!
 				self.bestProvider = bestProvider
 				completion(bestProvider.formattedSwapAmount)
-                self.getSwapFee(swapProvider: bestProvider)
 				self.getFeeInfo(swapProvider: bestProvider)
 			}
 	}
-    
-    private func getSwapFee(swapProvider: SwapProviderViewModel?) {
-        let swapManager = SwapManager(selectedProvider: swapProvider!, srcToken: fromToken, destToken: toToken)
-        swapManager.swapToken().done { [self] swapTrx, swapGasInfo in
-            swapManager.pendingSwapTrx = swapTrx
-            swapManager.pendingSwapGasInfo = swapGasInfo
-            swapFeeVM.fee = swapGasInfo.increasedGasLimit.sevenDigitFormat
-            swapFeeVM.feeInDollar = swapGasInfo.feeInDollar.priceFormat
-        }
-    }
 
 	private func updateDestinationToken(destToken: SwapTokenViewModel, tokenAmount: String?) {
 		destToken.calculateDollarAmount(tokenAmount)
@@ -203,6 +192,8 @@ class SwapViewModel {
 		guard let swapProvider else { return }
 		swapFeeVM.swapProviderVM = swapProvider
 		updateBestRateTag()
+		swapFeeVM.fee = swapProvider.fee
+		swapFeeVM.feeInDollar = swapProvider.feeInDollar
 	}
 
 	private func removePreviousFeeInfo() {

@@ -27,7 +27,7 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	public var isERC20: Bool {
-		!isEth && !isWEth
+		!isEth
 	}
 
 	public var isWEth: Bool {
