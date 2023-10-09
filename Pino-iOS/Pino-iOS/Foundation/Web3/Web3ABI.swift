@@ -10,6 +10,9 @@ import Foundation
 public enum Web3ABI {
 	case erc
 	case swap
+	case borrowERCAave
+	case borrowETHAave
+	case borrowCTokenCompound
 
 	public var abi: Data {
 		switch self {
@@ -17,17 +20,33 @@ public enum Web3ABI {
 			return Web3ABI.erc20AbiString.data(using: .utf8)!
 		case .swap:
 			return Web3ABI.swapAbiString.data(using: .utf8)!
+		case .borrowERCAave:
+			return Web3ABI.borrowERCAaveAbiString.data(using: .utf8)!
+		case .borrowETHAave:
+			return Web3ABI.borrowETHAaveAbiString.data(using: .utf8)!
+		case .borrowCTokenCompound:
+			return Web3ABI.borrowCompoundCTokenAbiString.data(using: .utf8)!
 		}
 	}
 
-	private static var erc20AbiString = """
-	[{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]
-	"""
+	private static var erc20AbiString: String {
+		ABIReader(fileName: "ERC20ABIJson")
+	}
 
 	private static var swapAbiString: String {
-		let path = Bundle.main.path(forResource: "SwapABIJson", ofType: "json")!
-		let abiJsonString = try! String(contentsOfFile: path, encoding: .utf8)
-		return abiJsonString
+		ABIReader(fileName: "SwapABIJson")
+	}
+
+	private static var borrowERCAaveAbiString: String {
+		ABIReader(fileName: "BorrowERCAaveABIJson")
+	}
+
+	private static var borrowETHAaveAbiString: String {
+		ABIReader(fileName: "BorrowETHAaveABIJson")
+	}
+
+	private static var borrowCompoundCTokenAbiString: String {
+		ABIReader(fileName: "BorrowCompoundCTokenABIJson")
 	}
 }
 
@@ -52,4 +71,10 @@ public enum ABIMethodWrite: String {
 	case swap0x
 	case swapParaswap
 	case swap1Inch
+}
+
+fileprivate func ABIReader(fileName: String) -> String {
+	let path = Bundle.main.path(forResource: fileName, ofType: "json")!
+	let abiString = try! String(contentsOfFile: path, encoding: .utf8)
+	return abiString
 }
