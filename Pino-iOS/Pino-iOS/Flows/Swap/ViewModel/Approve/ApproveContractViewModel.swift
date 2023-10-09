@@ -57,7 +57,7 @@ class ApproveContractViewModel {
 
 	// MARK: - Public Methods
 
-	public func approveTokenUsageToPermit(completion: @escaping () -> Void) {
+	public func approveTokenUsageToPermit(completion: @escaping (_ approveTxHash: String) -> Void) {
 		guard let approveContractDetails else {
 			return
 		}
@@ -65,7 +65,7 @@ class ApproveContractViewModel {
 
 		web3.approveContract(contractDetails: approveContractDetails).done { trxHash in
 			print("APPROVE TRX HASH: \(trxHash)")
-			completion()
+			completion(trxHash)
 		}.catch { error in
 			print("Failed to give permission")
 			Toast.default(title: self.failedToApproveErrorText, style: .error).show(haptic: .warning)
