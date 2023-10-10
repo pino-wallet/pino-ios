@@ -61,13 +61,14 @@ class ApproveContractViewController: UIViewController {
 	}
 
 	private func showApproveLoadingPage() {
-		approveContractVM.approveTokenUsageToPermit {
+		approveContractVM.approveTokenUsageToPermit { approveTxHash in
+			let approveLoadingVM = ApprovingLoadingViewModel(approveTxHash: approveTxHash)
 			let approveLoadingVC = ApprovingLoadingViewController(
 				showConfirmVC: {
 					self.dismiss(animated: true) {
 						self.showConfirmVC()
 					}
-				}
+				}, approveLoadingVM: approveLoadingVM
 			)
 			self.present(approveLoadingVC, animated: true)
 		}
