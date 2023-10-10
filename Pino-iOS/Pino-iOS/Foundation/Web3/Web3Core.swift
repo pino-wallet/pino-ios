@@ -49,6 +49,10 @@ public class Web3Core {
 		.init(web3: web3)
 	}
 
+	private var investManager: W3InvestManager {
+		.init(web3: web3)
+	}
+
 	private let walletManager = PinoWalletManager()
 
 	// MARK: - Typealias
@@ -276,6 +280,14 @@ public class Web3Core {
 				seal.reject(error)
 			}
 		}
+	}
+
+	public func getDaiToSDaiCallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
+		investManager.getDaiToSDaiCallData(amount: amount, recipientAdd: recipientAdd)
+	}
+
+	public func getSDaiToDaiCallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
+		investManager.getSDaiToDaiCallData(amount: amount, recipientAdd: recipientAdd)
 	}
 
 	// MARK: - Private Methods

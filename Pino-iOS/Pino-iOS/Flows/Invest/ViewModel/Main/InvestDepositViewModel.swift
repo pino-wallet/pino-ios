@@ -18,6 +18,7 @@ class InvestDepositViewModel {
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
 	public var maxHoldAmount: BigNumber!
+	public var selectedInvestableAsset: InvestableAssetViewModel?
 	public var selectedToken: AssetViewModel!
 	public var selectedProtocol: InvestProtocolViewModel
 	public let isWithraw: Bool
@@ -48,6 +49,7 @@ class InvestDepositViewModel {
 	// MARK: - Initializers
 
 	init(selectedAsset: AssetsBoardProtocol, selectedProtocol: InvestProtocolViewModel, isWithraw: Bool) {
+		self.selectedInvestableAsset = selectedAsset as? InvestableAssetViewModel
 		self.selectedProtocol = selectedProtocol
 		self.isWithraw = isWithraw
 		getToken(investableAsset: selectedAsset)
@@ -57,13 +59,8 @@ class InvestDepositViewModel {
 
 	public func calculateDollarAmount(_ amount: String) {
 		if amount != .emptyString {
-			let decimalBigNum = BigNumber(numberWithDecimal: amount)
-			let price = selectedToken.price
-
-			let amountInDollarDecimalValue = BigNumber(
-				number: decimalBigNum.number * price.number,
-				decimal: decimalBigNum.decimal + 6
-			)
+			let amountBigNumber = BigNumber(numberWithDecimal: amount)
+			let amountInDollarDecimalValue = amountBigNumber * selectedToken.price
 			dollarAmount = amountInDollarDecimalValue.priceFormat
 		} else {
 			dollarAmount = .emptyString
@@ -95,10 +92,13 @@ class InvestDepositViewModel {
 	}
 
 	private func getYearlyEstimatedReturn(amount: String) {
-		if amount == .emptyString {
-			yearlyEstimatedReturn = nil
+		if let selectedInvestableAsset, amount != .emptyString, isWithraw == false {
+			let amountBigNumber = BigNumber(numberWithDecimal: amount)
+			let amountInDollarBigNumber = amountBigNumber * selectedToken.price
+			let yearlyReturnBigNumber = amountInDollarBigNumber * selectedInvestableAsset.APYAmount / 100.bigNumber
+			yearlyEstimatedReturn = yearlyReturnBigNumber?.priceFormat
 		} else {
-			yearlyEstimatedReturn = amount.tokenFormatting(token: selectedToken.symbol)
+			yearlyEstimatedReturn = nil
 		}
 	}
 }
