@@ -295,11 +295,11 @@ public class Web3Core {
 		}
 	}
     
-    public func getAaveERCBorrowContractDetails(tokenID: String, amount: BigInt, userAddress: String) -> Promise<ContractDetailsModel> {
+    public func getAaveERCBorrowContractDetails(tokenID: String, amount: BigUInt, userAddress: String) -> Promise<ContractDetailsModel> {
         aaveBorrowManager.getERCBorrowContractDetails(tokenID: tokenID, amount: amount, userAddress: userAddress)
     }
     
-    public func getAaveETHBorrowContractDetails(amount: BigInt) -> Promise<ContractDetailsModel> {
+    public func getAaveETHBorrowContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
         aaveBorrowManager.getETHBorrowContractDetails(amount: amount)
     }
     
