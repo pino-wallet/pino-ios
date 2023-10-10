@@ -5,6 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 9/9/23.
 //
 import UIKit
+import BigInt
 
 class HealthScoreSystemViewController: UIAlertController {
 	// MARK: - Private Properties
@@ -49,6 +50,13 @@ class HealthScoreSystemViewController: UIAlertController {
 	// MARK: - View Overrides
 
 	override func viewWillAppear(_ animated: Bool) {
+        Web3Core.shared.getCompoundBorrowCAaveContractDetails(amount: 100.bigNumber.bigUInt).done { contractDetails in
+            Web3Core.shared.getCompoundBorrowCTokenGasInfo(contractDetails: contractDetails).done { gasInfo in
+                print("heh", gasInfo)
+            }.catch { error in
+                print("heh", error)
+            }
+        }
 		setupHealthScoreLayers()
 		let currentHealthScorePixel = calculateCurrentHealthScorePixel()
 		setupHealthScoreColors(currentHealthScorePixel: currentHealthScorePixel)

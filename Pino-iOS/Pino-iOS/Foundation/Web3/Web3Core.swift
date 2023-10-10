@@ -48,6 +48,10 @@ public class Web3Core {
 	private var swapManager: W3SwapManager {
 		.init(web3: web3)
 	}
+    
+    private var compoundBorrowManager: W3CompoundBorrowManager {
+        .init(web3: web3)
+    }
 
 	private let walletManager = PinoWalletManager()
 
@@ -289,6 +293,50 @@ public class Web3Core {
 			}
 		}
 	}
+    
+    public func borrowCompoundCToken(contractDetails: ContractDetailsModel) -> Promise<String> {
+        compoundBorrowManager.borrowCToken(contractDetails: contractDetails)
+    }
+    
+    public func getCompoundBorrowCDaiContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
+        compoundBorrowManager.getCDaiContractDetails(amount: amount)
+    }
+    
+    public func getCompoundBorrowCEthContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
+        compoundBorrowManager.getCEthContractDetails(amount: amount)
+    }
+    
+    public func getCompoundBorrowCLinkContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
+        compoundBorrowManager.getCLinkContractDetails(amount: amount)
+    }
+    
+    public func getCompoundBorrowCUsdcContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
+        compoundBorrowManager.getCUsdcContractDetails(amount: amount)
+    }
+    
+    public func getCompoundBorrowCUsdtContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
+        compoundBorrowManager.getCUsdtContractDetails(amount: amount)
+    }
+    
+    public func getCompoundBorrowCAaveContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
+        compoundBorrowManager.getCAaveContractDetails(amount: amount)
+    }
+    
+    public func getCompoundBorrowCCompContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
+        compoundBorrowManager.getCCompContractDetails(amount: amount)
+    }
+    
+    public func getCompoundBorrowCUniContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
+        compoundBorrowManager.getCUniContractDetails(amount: amount)
+    }
+    
+    public func getCompoundBorrowCWbtcContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
+        compoundBorrowManager.getCWbtcContractDetails(amount: amount)
+    }
+    
+    public func getCompoundBorrowCTokenGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
+        compoundBorrowManager.getCTokenBorrowGasInfo(contractDetails: contractDetails)
+    }
 
 	// MARK: - Private Methods
 
