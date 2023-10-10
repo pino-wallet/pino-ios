@@ -25,8 +25,8 @@ public class Web3Core {
 		if let testURL = AboutPinoView.web3URL {
 			return Web3(rpcURL: testURL)
 		} else {
-//			return Web3(rpcURL: Web3Core.RPC.mainNet.rawValue)
-            return Web3(rpcURL: Web3Core.RPC.ganashDev.rawValue)
+			return Web3(rpcURL: Web3Core.RPC.mainNet.rawValue)
+//            return Web3(rpcURL: Web3Core.RPC.ganashDev.rawValue)
 		}
 	}
 

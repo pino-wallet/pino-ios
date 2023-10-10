@@ -50,22 +50,22 @@ class HealthScoreSystemViewController: UIAlertController {
 	// MARK: - View Overrides
 
 	override func viewWillAppear(_ animated: Bool) {
-//        Web3Core.shared.getAaveERCBorrowContractDetails(tokenID: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48", amount: BigInt(BigNumber(number: 20000000, decimal: 6).bigUInt), userAddress: PinoWalletManager().currentAccount.eip55Address).done { contractDetails in
-//            Web3Core.shared.getAaveERCBorrowGasInfo(contractDetails: contractDetails).done { gasinfo in
-//                print("heh", gasinfo)
-//            }.catch { error in
-//                print("heh", error)
-//            }
-//        }
-        Web3Core.shared.getAaveETHBorrowContractDetails(amount: BigInt(BigNumber(number: "200000000000000000000", decimal: 18).bigUInt)).done { contractDetails in
-            Web3Core.shared.getAaveETHBorrowGasInfo(contractDetails: contractDetails).done { gasinfo in
+        Web3Core.shared.getAaveERCBorrowContractDetails(tokenID: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48", amount: BigInt(BigNumber(number: 20000000, decimal: 6).bigUInt), userAddress: PinoWalletManager().currentAccount.eip55Address).done { contractDetails in
+            Web3Core.shared.getAaveERCBorrowGasInfo(contractDetails: contractDetails).done { gasinfo in
                 print("heh", gasinfo)
             }.catch { error in
                 print("heh", error)
             }
-        }.catch { error in
-            print("heh", error)
         }
+//        Web3Core.shared.getAaveETHBorrowContractDetails(amount: BigInt(BigNumber(number: "200000000000000000000", decimal: 18).bigUInt)).done { contractDetails in
+//            Web3Core.shared.getAaveETHBorrowGasInfo(contractDetails: contractDetails).done { gasinfo in
+//                print("heh", gasinfo)
+//            }.catch { error in
+//                print("heh", error)
+//            }
+//        }.catch { error in
+//            print("heh", error)
+//        }
 		setupHealthScoreLayers()
 		let currentHealthScorePixel = calculateCurrentHealthScorePixel()
 		setupHealthScoreColors(currentHealthScorePixel: currentHealthScorePixel)
