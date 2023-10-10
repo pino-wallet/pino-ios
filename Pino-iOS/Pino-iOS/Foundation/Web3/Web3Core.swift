@@ -346,6 +346,17 @@ extension Web3Core {
 		static let oneInchETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 		static let zeroXETHID = "ETH"
 		static let pinoETHID = "0x0000000000000000000000000000000000000000"
+		static let aaveERCContractAddress = "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2"
+		static let aaveETHContractAddress = "0xD322A49006FC828F9B5B37Ab215F99B4E5caB19C"
+		static let compoundCAaveContractAddress = "0xe65cdB6479BaC1e22340E4E755fAE7E509EcD06c"
+		static let compoundCCompContractAddress = "0x70e36f6BF80a52b3B46b3aF8e106CC0ed743E8e4"
+		static let compoundCDaiContractAddress = "0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643"
+		static let compoundCEthContractAddress = "0x4Ddc2D193948926D02f9B1fE9e1daa0718270ED5"
+		static let compoundCLinkContractAddress = "0xFAce851a4921ce59e912d19329929CE6da6EB0c7"
+		static let compoundCUniContractAddress = "0x35A18000230DA775CAc24873d00Ff85BccdeD550"
+		static let compoundCUsdcContractAddress = "0x39AA39c021dfbaE8faC545936693aC917d5E7563"
+		static let compoundCUsdtContractAddress = "0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9"
+		static let compoundCWbtcContractAddress = "0xC11b1268C1A384e55C48c2391d8d480264A3A7F4"
 	}
 
 	public enum RPC: String {

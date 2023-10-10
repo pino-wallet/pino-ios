@@ -21,6 +21,14 @@ class ApprovingLoadingViewModel {
 	@Published
 	public var isApproved = false
 
+	// MARK: - Initializers
+
+	init(approveTxHash: String) {
+		self.approveTxHash = approveTxHash
+
+		setupTimer()
+	}
+
 	// MARK: - Public Methods
 
 	public func getApproveTransactionFormVC() {
@@ -63,13 +71,5 @@ class ApprovingLoadingViewModel {
 			self.destroyTimer()
 			self.isApproved = true
 		}.store(in: &cancellables)
-	}
-
-	// MARK: - Initializers
-
-	init(approveTxHash: String) {
-		self.approveTxHash = approveTxHash
-
-		setupTimer()
 	}
 }
