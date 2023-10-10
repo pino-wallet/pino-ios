@@ -30,14 +30,14 @@ class ApprovingLoadingViewModel {
 	// MARK: - Public Methods
 
 	public func getApproveTransactionFormVC() {
-        setupTimer()
+		setupTimer()
 		requestTimer?.fire()
 	}
-    
-    public func destroyTimer() {
-        requestTimer?.invalidate()
-        requestTimer = nil
-    }
+
+	public func destroyTimer() {
+		requestTimer?.invalidate()
+		requestTimer = nil
+	}
 
 	// MARK: - Private Methods
 
@@ -67,7 +67,7 @@ class ApprovingLoadingViewModel {
 			}
 		} receiveValue: { _ in
 			self.isApproved = true
-            self.destroyTimer()
+			self.destroyTimer()
 		}.store(in: &cancellables)
 	}
 }

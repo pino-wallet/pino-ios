@@ -44,14 +44,14 @@ class ApprovingLoadingViewController: UIViewController {
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
-        if isBeingPresented || isMovingToParent {
-            approveLoadingVM.getApproveTransactionFormVC()
-        }
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        approveLoadingVM.destroyTimer()
-    }
+		if isBeingPresented || isMovingToParent {
+			approveLoadingVM.getApproveTransactionFormVC()
+		}
+	}
+
+	override func viewDidDisappear(_ animated: Bool) {
+		approveLoadingVM.destroyTimer()
+	}
 
 	// MARK: - Private Methods
 
@@ -65,9 +65,9 @@ class ApprovingLoadingViewController: UIViewController {
 	}
 
 	private func openConfirmationPage() {
-        dismiss(animated: true) {
-            self.showConfirmVC()
-        }
+		dismiss(animated: true) {
+			self.showConfirmVC()
+		}
 	}
 
 	private func setupBindings() {
