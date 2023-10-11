@@ -26,7 +26,6 @@ public class Web3Core {
 			return Web3(rpcURL: testURL)
 		} else {
 			return Web3(rpcURL: Web3Core.RPC.mainNet.rawValue)
-			//            return Web3(rpcURL: Web3Core.RPC.ganashDev.rawValue)
 		}
 	}
 
