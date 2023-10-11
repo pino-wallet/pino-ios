@@ -4,7 +4,6 @@
 //
 //  Created by Amir hossein kazemi seresht on 9/9/23.
 //
-import BigInt
 import UIKit
 
 class HealthScoreSystemViewController: UIAlertController {
