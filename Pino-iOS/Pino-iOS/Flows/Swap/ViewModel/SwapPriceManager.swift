@@ -34,7 +34,7 @@ class SwapPriceManager {
 			amount: amount,
 			side: swapSide,
 			userAddress: Web3Core.Constants.pinoProxyAddress,
-			receiver: pinoWalletManager.currentAccount.eip55Address
+            receiver: pinoWalletManager.currentAccount.eip55Address
 		)
 		cancelPreviousRequests()
 		switch swapSide {

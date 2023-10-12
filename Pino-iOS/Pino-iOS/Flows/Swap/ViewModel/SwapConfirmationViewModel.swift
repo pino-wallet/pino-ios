@@ -67,23 +67,23 @@ class SwapConfirmationViewModel {
 
 	// MARK: - Public Methods
 
-    public func fetchSwapInfo() {
-        let swapManager = SwapManager(selectedProvider: selectedProvider!, srcToken: fromToken, destToken: toToken)
-        swapManager.getSwapInfo().done { (swapTrx, gasInfo) in
-            self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
-            self.formattedFeeInETH = gasInfo.fee.sevenDigitFormat
-        }
-    }
-    
+	public func fetchSwapInfo() {
+		let swapManager = SwapManager(selectedProvider: selectedProvider!, srcToken: fromToken, destToken: toToken)
+		swapManager.getSwapInfo().done { swapTrx, gasInfo in
+			self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
+			self.formattedFeeInETH = gasInfo.fee.sevenDigitFormat
+		}
+	}
+
 	public func confirmSwap() {
 		let swapManager = SwapManager(selectedProvider: selectedProvider!, srcToken: fromToken, destToken: toToken)
-        swapManager.confirmSwap { trx in
-            print("SWAP TRX HASH: \(trx)")
-        }
+		swapManager.confirmSwap { trx in
+			print("SWAP TRX HASH: \(trx)")
+		}
 	}
 
 	public func checkEnoughBalance() -> Bool {
-        true
+		true
 //		if gasFee > ethToken.holdAmount {
 //			return false
 //		} else {
@@ -105,9 +105,5 @@ class SwapConfirmationViewModel {
 		}
 	}
 
-	private func setupBindings() {
-		
-	}
-
-	
+	private func setupBindings() {}
 }

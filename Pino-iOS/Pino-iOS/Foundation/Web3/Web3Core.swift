@@ -345,6 +345,7 @@ extension Web3Core {
 		static let oneInchETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 		static let zeroXETHID = "ETH"
 		static let pinoETHID = "0x0000000000000000000000000000000000000000"
+		static let wethTokenID = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
 	}
 
 	public enum RPC: String {

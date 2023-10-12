@@ -16,7 +16,7 @@ struct ZeroXPriceResponseModel: SwapPriceResponseProtocol {
 	let gasPrice, protocolFee, minimumProtocolFee, buyTokenAddress: String
 	let sellTokenAddress, buyAmount, sellAmount: String
 	let allowanceTarget, sellTokenToEthRate, buyTokenToEthRate: String
-	let grossPrice, grossBuyAmount, grossSellAmount: String
+	let grossPrice, grossBuyAmount, grossSellAmount: String?
 
 	// MARK: - Public Properties
 
@@ -38,3 +38,5 @@ struct ZeroXPriceResponseModel: SwapPriceResponseProtocol {
 }
 
 extension ZeroXPriceResponseModel: SwapCoinResponseProtocol {}
+
+

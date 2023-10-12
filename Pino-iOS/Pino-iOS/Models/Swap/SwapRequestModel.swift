@@ -23,12 +23,7 @@ struct SwapRequestModel {
 
 	var editedSrcToken: String {
 		if srcToken == Web3Core.Constants.pinoETHID {
-			switch provider {
-			case .oneInch, .paraswap:
-				return Web3Core.Constants.paraSwapETHID
-			case .zeroX:
-				return Web3Core.Constants.zeroXETHID
-			}
+			return Web3Core.Constants.wethTokenID
 		} else {
 			return srcToken
 		}
@@ -40,7 +35,7 @@ struct SwapRequestModel {
 			case .oneInch, .paraswap:
 				return Web3Core.Constants.paraSwapETHID
 			case .zeroX:
-				return Web3Core.Constants.zeroXETHID
+				return Web3Core.Constants.wethTokenID
 			}
 		} else {
 			return destToken

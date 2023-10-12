@@ -170,7 +170,7 @@ class SwapViewModel {
 		swapSide: SwapSide,
 		completion: @escaping (String) -> Void
 	) {
-		priceManager.getBestPrice(srcToken: fromToken, destToken: toToken, swapSide: swapSide, amount: amount)
+        priceManager.getBestPrice(srcToken: fromToken, destToken: toToken, swapSide: swapSide, amount: amount)
 			{ providersInfo in
 				self.providers = providersInfo.compactMap {
 					SwapProviderViewModel(providerResponseInfo: $0, side: swapSide, destToken: destToken)

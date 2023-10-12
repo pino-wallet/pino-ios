@@ -14,13 +14,8 @@ final class OneInchAPIClient: SwapProvidersAPIServices {
 	private let networkManager = NetworkManager<OneInchEndpoint>()
 
 	func swapPrice(swapInfo: SwapPriceRequestModel) -> AnyPublisher<OneInchPriceResponseModel?, APIError> {
-		var editedSwapInfo: SwapPriceRequestModel = swapInfo
-		if swapInfo.srcToken == Web3Core.Constants.pinoETHID {
-			editedSwapInfo.srcToken = Web3Core.Constants.oneInchETHID
-		}
-		if swapInfo.destToken == Web3Core.Constants.pinoETHID {
-			editedSwapInfo.destToken = Web3Core.Constants.oneInchETHID
-		}
+        var editedSwapInfo = swapInfo
+        editedSwapInfo.provider = .oneInch
 		return networkManager.request(.quote(swapInfo: editedSwapInfo))
 	}
 

@@ -13,16 +13,15 @@ import Web3
 import Web3_Utility
 
 class SwapManager {
-    
-    // MARK: - Typealias
+	// MARK: - Typealias
 
-    public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
-    
-    // MARK: - Public Properties
+	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
 
-    public var pendingSwapTrx: EthereumSignedTransaction?
-    public var pendingSwapGasInfo: GasInfo?
-    
+	// MARK: - Public Properties
+
+	public var pendingSwapTrx: EthereumSignedTransaction?
+	public var pendingSwapGasInfo: GasInfo?
+
 	// MARK: - Private Properties
 
 	private let selectedProvider: SwapProviderViewModel
@@ -44,7 +43,7 @@ class SwapManager {
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes in ms
 	private let nonce = BigNumber.bigRandomeNumber
 
-    init(selectedProvider: SwapProviderViewModel, srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
+	init(selectedProvider: SwapProviderViewModel, srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
 		self.selectedProvider = selectedProvider
 		self.srcToken = srcToken
 		self.destToken = destToken
@@ -53,7 +52,7 @@ class SwapManager {
 	// MARK: - Public Methods
 
 	public func getSwapInfo() -> TrxWithGasInfo {
-        swapERCtoERC()
+		swapWETHtoETH()
 //		if srcToken.selectedToken.isERC20 && destToken.selectedToken.isERC20 {
 //			swapERCtoERC()
 //		} else if srcToken.selectedToken.isERC20 && destToken.selectedToken.isEth {
@@ -70,7 +69,7 @@ class SwapManager {
 	public func confirmSwap(completion: @escaping (Result<String>) -> Void) {
 		guard let pendingSwapTrx else { return }
 		Web3Core.shared.callTransaction(trx: pendingSwapTrx).done { trxHash in
-            self.addPendingTransferActivity(trxHash: trxHash)
+			self.addPendingTransferActivity(trxHash: trxHash)
 			completion(.fulfilled(trxHash))
 		}.catch { error in
 			completion(.rejected(error))
@@ -80,27 +79,110 @@ class SwapManager {
 	// MARK: - Private Methods
 
 	private func swapERCtoERC() -> TrxWithGasInfo {
-        TrxWithGasInfo() { seal in
+		TrxWithGasInfo { seal in
+			firstly {
+				self.signHash()
+			}.then { signiture -> Promise<(String, String?)> in
+				self.checkAllowanceOfProvider().map { (signiture, $0) }
+			}.then { signiture, allowanceData -> Promise<(String, String?)> in
+				// Permit Transform
+				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
+			}.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
+				// Fetch Call Data
+				getSwapInfoFrom().map { ($0, permitData, allowanceData) }
+			}.then { providerSwapData, permitData, allowanceData -> Promise<(String, String, String?)> in
+				self.getProvidersCallData(providerData: providerSwapData).map { ($0, permitData, allowanceData) }
+			}.then { providersCallData, permitData, allowanceData -> Promise<(String?, String, String, String?)> in
+				self.sweepTokenCallData().map { ($0, providersCallData, permitData, allowanceData) }
+			}.then { sweepData, providersCallData, permitData, allowanceData in
+				// MultiCall
+				var callDatas = [permitData, providersCallData]
+				if let allowanceData { callDatas.insert(allowanceData, at: 0) }
+				if let sweepData { callDatas.append(sweepData) }
+				return self.callProxyMultiCall(data: callDatas, value: nil)
+			}.done { swapResult in
+				self.pendingSwapTrx = swapResult.0
+				self.pendingSwapGasInfo = swapResult.1
+				seal.fulfill(swapResult)
+			}.catch { error in
+				print(error.localizedDescription)
+			}
+		}
+	}
+
+	private func swapERCtoETH() -> TrxWithGasInfo {
+		TrxWithGasInfo { seal in
+			firstly {
+				self.signHash()
+			}.then { signiture -> Promise<(String, String?)> in
+				self.checkAllowanceOfProvider().map { (signiture, $0) }
+			}.then { signiture, allowanceData -> Promise<(String, String?)> in
+				// Permit Transform
+				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
+			}.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
+				// Fetch Call Data
+				// TODO: Set providers dest token in 0x as WETH since dest is ETH else it is ETH
+				getSwapInfoFrom().map { ($0, permitData, allowanceData) }
+			}.then { providerSwapData, permitData, allowanceData -> Promise<(String, String, String?)> in
+				self.getProvidersCallData(providerData: providerSwapData).map { ($0, permitData, allowanceData) }
+			}.then { providersCallData, permitData, allowanceData -> Promise<(String?, String, String, String?)> in
+				// TODO: Only when provider is 0x
+				self.unwrapTokenCallData().map { ($0, providersCallData, permitData, allowanceData) }
+			}.then { unwrapData, providersCallData, permitData, allowanceData in
+				// MultiCall
+				var callDatas = [permitData, providersCallData]
+				if let allowanceData { callDatas.insert(allowanceData, at: 0) }
+				if let unwrapData { callDatas.append(unwrapData) }
+				return self.callProxyMultiCall(data: callDatas, value: nil)
+			}.done { swapResult in
+				self.pendingSwapTrx = swapResult.0
+				self.pendingSwapGasInfo = swapResult.1
+				seal.fulfill(swapResult)
+			}.catch { error in
+				print(error.localizedDescription)
+			}
+		}
+	}
+
+    private func swapETHtoERC() -> TrxWithGasInfo {
+        TrxWithGasInfo { seal in
             firstly {
-                self.signHash()
-            }.then { signiture -> Promise<(String, String?)> in
-                self.checkAllowanceOfProvider().map { (signiture, $0) }
-            }.then { signiture, allowanceData -> Promise<(String, String?)> in
-                // Permit Transform
-                self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
-            }.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
+                self.wrapTokenCallData()
+            }.then { [self] wrapTokenData in
                 // Fetch Call Data
-                getSwapInfoFrom().map { ($0, permitData, allowanceData) }
-            }.then { providerSwapData, permitData, allowanceData -> Promise<(String, String, String?)> in
-                self.getProvidersCallData(providerData: providerSwapData).map { ($0, permitData, allowanceData) }
-            }.then { providersCallData, permitData, allowanceData -> Promise<(String?, String, String, String?)> in
-                self.sweepTokenCallData().map { ($0, providersCallData, permitData, allowanceData) }
-            }.then { sweepData, providersCallData, permitData, allowanceData in
+                getSwapInfoFrom().map { ($0, wrapTokenData) }
+            }.then { providerSwapData, wrapTokenData in
+                self.getProvidersCallData(providerData: providerSwapData).map { ($0, wrapTokenData) }
+            }.then { providersCallData, wrapTokenData -> Promise<(String?, String, String)> in
+                self.sweepTokenCallData().map { ($0, providersCallData, wrapTokenData) }
+            }.then { sweepData, providersCallData, wrapTokenData in
                 // MultiCall
-                var callDatas = [permitData, providersCallData]
-                if let allowanceData { callDatas.insert(allowanceData, at: 0) }
+                var callDatas = [wrapTokenData, providersCallData]
                 if let sweepData { callDatas.append(sweepData) }
-                return self.callProxyMultiCall(data: callDatas, value: nil)
+                return self.callProxyMultiCall(data: callDatas, value: self.srcToken.tokenAmountBigNum.bigUInt)
+            }.done { swapResult in
+                self.pendingSwapTrx = swapResult.0
+                self.pendingSwapGasInfo = swapResult.1
+                seal.fulfill(swapResult)
+            }.catch { error in
+                print(error.localizedDescription)
+            }
+        }
+		
+	}
+
+    private func swapETHtoWETH() -> TrxWithGasInfo {
+        TrxWithGasInfo { seal in
+            firstly {
+                self.wrapTokenCallData()
+            }.then { wrapTokenData -> Promise<(String?, String)> in
+                // Fetch Call Data
+                // TODO: EVEN IF ZEROX -> Sweep should happen
+                self.sweepTokenCallData().map { ($0, wrapTokenData) }
+            }.then { sweepData, wrapTokenData in
+                // MultiCall
+                let callDatas = [wrapTokenData, sweepData!]
+                return self.callProxyMultiCall(data: callDatas, value: self.srcToken.tokenAmountBigNum.bigUInt)
             }.done { swapResult in
                 self.pendingSwapTrx = swapResult.0
                 self.pendingSwapGasInfo = swapResult.1
@@ -111,101 +193,27 @@ class SwapManager {
         }
 	}
 
-	private func swapERCtoETH() {
-		firstly {
-			self.signHash()
-		}.then { signiture -> Promise<(String, String?)> in
-			self.checkAllowanceOfProvider().map { (signiture, $0) }
-		}.then { signiture, allowanceData -> Promise<(String, String?)> in
-			// Permit Transform
-			self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
-		}.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
-			// Fetch Call Data
-			// TODO: Set providers dest token in 0x as WETH since dest is ETH else it is ETH
-			if selectedProvider.provider == .zeroX {
-				return getSwapInfoFrom(wethToken: wethToken)
-					.map { ($0, permitData, allowanceData) }
-			} else {
-				return getSwapInfoFrom().map { ($0, permitData, allowanceData) }
-			}
-		}.then { providerSwapData, permitData, allowanceData -> Promise<(String, String, String?)> in
-			self.getProvidersCallData(providerData: providerSwapData).map { ($0, permitData, allowanceData) }
-		}.then { providersCallData, permitData, allowanceData -> Promise<(String?, String, String, String?)> in
-			// TODO: Only when provider is 0x
-			self.unwrapTokenCallData().map { ($0, providersCallData, permitData, allowanceData) }
-		}.then { unwrapData, providersCallData, permitData, allowanceData in
-			// MultiCall
-			var callDatas = [permitData, providersCallData]
-			if let allowanceData { callDatas.insert(allowanceData, at: 0) }
-			if let unwrapData { callDatas.append(unwrapData) }
-			return self.callProxyMultiCall(data: callDatas, value: nil)
-		}.done { swapResult in
-			self.pendingSwapTrx = swapResult.0
-			self.pendingSwapGasInfo = swapResult.1
-		}.catch { error in
-			print(error.localizedDescription)
-		}
-	}
-
-	private func swapETHtoERC() {
-		firstly {
-			self.wrapTokenCallData()
-		}.then { [self] wrapTokenData in
-			// Fetch Call Data
-			getSwapInfoFrom(wethToken: wethToken).map { ($0, wrapTokenData) }
-		}.then { providerSwapData, wrapTokenData in
-			self.getProvidersCallData(providerData: providerSwapData).map { ($0, wrapTokenData) }
-		}.then { providersCallData, wrapTokenData -> Promise<(String?, String, String)> in
-			self.sweepTokenCallData().map { ($0, providersCallData, wrapTokenData) }
-		}.then { sweepData, providersCallData, wrapTokenData in
-			// MultiCall
-			var callDatas = [wrapTokenData, providersCallData]
-			if let sweepData { callDatas.append(sweepData) }
-			return self.callProxyMultiCall(data: callDatas, value: self.srcToken.tokenAmountBigNum.bigUInt)
-		}.done { swapResult in
-			self.pendingSwapTrx = swapResult.0
-			self.pendingSwapGasInfo = swapResult.1
-		}.catch { error in
-			print(error.localizedDescription)
-		}
-	}
-
-	private func swapETHtoWETH() {
-		firstly {
-			self.wrapTokenCallData()
-		}.then { wrapTokenData -> Promise<(String?, String)> in
-			// Fetch Call Data
-			// TODO: EVEN IF ZEROX -> Sweep should happen
-			self.sweepTokenCallData().map { ($0, wrapTokenData) }
-		}.then { sweepData, wrapTokenData in
-			// MultiCall
-			let callDatas = [wrapTokenData, sweepData!]
-			return self.callProxyMultiCall(data: callDatas, value: self.srcToken.tokenAmountBigNum.bigUInt)
-		}.done { swapResult in
-			self.pendingSwapTrx = swapResult.0
-			self.pendingSwapGasInfo = swapResult.1
-		}.catch { error in
-			print(error.localizedDescription)
-		}
-	}
-
-	private func swapWETHtoETH() {
-		firstly {
-			self.signHash().map { $0 }
-		}.then { signiture in
-			// Permit Transform
-			self.getProxyPermitTransferData(signiture: signiture).map { $0 }
-		}.then { permitData -> Promise<(String?, String)> in
-			self.unwrapTokenCallData().map { ($0, permitData) }
-		}.then { unwrapData, permitData in
-			// MultiCall
-			self.callProxyMultiCall(data: [permitData, unwrapData!], value: nil)
-		}.done { swapResult in
-			self.pendingSwapTrx = swapResult.0
-			self.pendingSwapGasInfo = swapResult.1
-		}.catch { error in
-			print(error.localizedDescription)
-		}
+    private func swapWETHtoETH() -> TrxWithGasInfo {
+        TrxWithGasInfo { seal in
+            firstly {
+                self.signHash().map { $0 }
+            }.then { signiture in
+                // Permit Transform
+                self.getProxyPermitTransferData(signiture: signiture).map { $0 }
+            }.then { permitData -> Promise<(String?, String)> in
+                self.unwrapTokenCallData().map { ($0, permitData) }
+            }.then { unwrapData, permitData in
+                // MultiCall
+                self.callProxyMultiCall(data: [permitData, unwrapData!], value: nil)
+            }.done { swapResult in
+                self.pendingSwapTrx = swapResult.0
+                self.pendingSwapGasInfo = swapResult.1
+                seal.fulfill(swapResult)
+            }.catch { error in
+                print(error.localizedDescription)
+            }
+        }
+		
 	}
 
 	private func signHash() -> Promise<String> {
@@ -304,9 +312,6 @@ class SwapManager {
 			let zeroxResponse = selectedProvider.providerResponseInfo as! ZeroXPriceResponseModel
 			return zeroxResponse.data.promise
 		}
-		if let wethToken {
-			destToken.selectedToken = wethToken
-		}
 
 		let swapReq =
 			SwapRequestModel(
@@ -324,9 +329,9 @@ class SwapManager {
 				provider: selectedProvider.provider
 			)
 		return Promise<String> { seal in
-            callSwapFunction(swapReq: swapReq) { swapResponse in
-                seal.fulfill(swapResponse)
-            }
+			callSwapFunction(swapReq: swapReq) { swapResponse in
+				seal.fulfill(swapResponse)
+			}
 		}
 	}
 
@@ -381,44 +386,44 @@ class SwapManager {
 		}
 	}
 
-    private func callSwapFunction(swapReq: SwapRequestModel, completion: @escaping (String) -> Void){
-        switch selectedProvider.provider {
-            case .oneInch:
-                oneInchAPIClient.swap(swapInfo: swapReq).sink { completed in
-                    switch completed {
-                        case .finished:
-                            print("Swap info received successfully")
-                        case let .failure(error):
-                            print(error)
-                    }
-                } receiveValue: { swapResponseInfo in
-                    completion(swapResponseInfo!.data)
-                }.store(in: &cancellables)
-            case .paraswap:
-                paraSwapAPIClient.swap(swapInfo: swapReq).sink { completed in
-                    switch completed {
-                        case .finished:
-                            print("Swap info received successfully")
-                        case let .failure(error):
-                            print(error)
-                    }
-                } receiveValue: { swapResponseInfo in
-                    completion(swapResponseInfo!.data)
-                }.store(in: &cancellables)
-            case .zeroX:
-                zeroXAPIClient.swap(swapInfo: swapReq).sink { completed in
-                    switch completed {
-                        case .finished:
-                            print("Swap info received successfully")
-                        case let .failure(error):
-                            print(error)
-                    }
-                } receiveValue: { swapResponseInfo in
-                    completion(swapResponseInfo!.data)
-                }.store(in: &cancellables)
-        }
-    }
-    
+	private func callSwapFunction(swapReq: SwapRequestModel, completion: @escaping (String) -> Void) {
+		switch selectedProvider.provider {
+		case .oneInch:
+			oneInchAPIClient.swap(swapInfo: swapReq).sink { completed in
+				switch completed {
+				case .finished:
+					print("Swap info received successfully")
+				case let .failure(error):
+					print(error)
+				}
+			} receiveValue: { swapResponseInfo in
+				completion(swapResponseInfo!.data)
+			}.store(in: &cancellables)
+		case .paraswap:
+			paraSwapAPIClient.swap(swapInfo: swapReq).sink { completed in
+				switch completed {
+				case .finished:
+					print("Swap info received successfully")
+				case let .failure(error):
+					print(error)
+				}
+			} receiveValue: { swapResponseInfo in
+				completion(swapResponseInfo!.data)
+			}.store(in: &cancellables)
+		case .zeroX:
+			zeroXAPIClient.swap(swapInfo: swapReq).sink { completed in
+				switch completed {
+				case .finished:
+					print("Swap info received successfully")
+				case let .failure(error):
+					print(error)
+				}
+			} receiveValue: { swapResponseInfo in
+				completion(swapResponseInfo!.data)
+			}.store(in: &cancellables)
+		}
+	}
+
 //	private var selectedProvService: some SwapProvidersAPIServices {
 //		switch selectedProvider.provider {
 //		case .oneInch:
@@ -429,29 +434,28 @@ class SwapManager {
 //			return zeroXAPIClient
 //		}
 //	}
-    
-    public func addPendingTransferActivity(trxHash: String) {
-        #warning("Ask Ali about info")
-        guard let pendingSwapGasInfo = pendingSwapGasInfo else { return }
-        let userAddress = walletManager.currentAccount.eip55Address
-        coreDataManager.addNewSwapActivity(
-            activityModel: .init(
-                txHash: trxHash,
-                type:"swap",
-                detail: .init(
-                    fromToken: .init(amount: srcToken.tokenAmount!, tokenID: srcToken.selectedToken.id),
-                    toToken: .init(amount: destToken.tokenAmount!, tokenID: destToken.selectedToken.id),
-                    activityProtocol: selectedProvider.provider.rawValue
-                ),
-                fromAddress: walletManager.currentAccount.eip55Address,
-                toAddress: "",
-                blockTime: ActivityHelper().getServerFormattedStringDate(date: .now),
-                gasUsed: pendingSwapGasInfo.increasedGasLimit.decimalString,
-                gasPrice: pendingSwapGasInfo.gasPrice.decimalString
-            ),
-            accountAddress: walletManager.currentAccount.eip55Address
-        )
-        PendingActivitiesManager.shared.startActivityPendingRequests()
-    }
 
+	public func addPendingTransferActivity(trxHash: String) {
+		#warning("Ask Ali about info")
+		guard let pendingSwapGasInfo = pendingSwapGasInfo else { return }
+		let userAddress = walletManager.currentAccount.eip55Address
+		coreDataManager.addNewSwapActivity(
+			activityModel: .init(
+				txHash: trxHash,
+				type: "swap",
+				detail: .init(
+					fromToken: .init(amount: srcToken.tokenAmount!, tokenID: srcToken.selectedToken.id),
+					toToken: .init(amount: destToken.tokenAmount!, tokenID: destToken.selectedToken.id),
+					activityProtocol: selectedProvider.provider.rawValue
+				),
+				fromAddress: walletManager.currentAccount.eip55Address,
+				toAddress: "",
+				blockTime: ActivityHelper().getServerFormattedStringDate(date: .now),
+				gasUsed: pendingSwapGasInfo.increasedGasLimit.decimalString,
+				gasPrice: pendingSwapGasInfo.gasPrice.decimalString
+			),
+			accountAddress: walletManager.currentAccount.eip55Address
+		)
+		PendingActivitiesManager.shared.startActivityPendingRequests()
+	}
 }
