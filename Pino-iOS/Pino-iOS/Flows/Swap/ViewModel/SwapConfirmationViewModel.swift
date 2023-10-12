@@ -67,20 +67,28 @@ class SwapConfirmationViewModel {
 
 	// MARK: - Public Methods
 
+    public func fetchSwapInfo() {
+        let swapManager = SwapManager(selectedProvider: selectedProvider!, srcToken: fromToken, destToken: toToken)
+        swapManager.getSwapInfo().done { (swapTrx, gasInfo) in
+            self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
+            self.formattedFeeInETH = gasInfo.fee.sevenDigitFormat
+        }
+    }
+    
 	public func confirmSwap() {
 		let swapManager = SwapManager(selectedProvider: selectedProvider!, srcToken: fromToken, destToken: toToken)
         swapManager.confirmSwap { trx in
             print("SWAP TRX HASH: \(trx)")
-            
         }
 	}
 
 	public func checkEnoughBalance() -> Bool {
-		if gasFee > ethToken.holdAmount {
-			return false
-		} else {
-			return true
-		}
+        true
+//		if gasFee > ethToken.holdAmount {
+//			return false
+//		} else {
+//			return true
+//		}
 	}
 
 	// MARK: - Private Methods
@@ -98,16 +106,8 @@ class SwapConfirmationViewModel {
 	}
 
 	private func setupBindings() {
-		GlobalVariables.shared.$ethGasFee
-			.compactMap { $0 }
-			.sink { gasInfo in
-				self.setGasInfo(gasInfo: gasInfo)
-			}.store(in: &cancellables)
+		
 	}
 
-	private func setGasInfo(gasInfo: GasInfo) {
-		gasFee = gasInfo.fee
-		formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
-		formattedFeeInETH = gasInfo.fee.sevenDigitFormat.ethFormatting
-	}
+	
 }
