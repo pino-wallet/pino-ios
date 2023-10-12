@@ -44,7 +44,7 @@ class SwapManager {
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes in ms
 	private let nonce = BigNumber.bigRandomeNumber
 
-	init(selectedProvider: SwapProviderViewModel, srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
+    init(selectedProvider: SwapProviderViewModel, srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
 		self.selectedProvider = selectedProvider
 		self.srcToken = srcToken
 		self.destToken = destToken
@@ -90,7 +90,7 @@ class SwapManager {
                 self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
             }.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
                 // Fetch Call Data
-                getSwapInfoFrom(provider: selectedProvService).map { ($0, permitData, allowanceData) }
+                getSwapInfoFrom().map { ($0, permitData, allowanceData) }
             }.then { providerSwapData, permitData, allowanceData -> Promise<(String, String, String?)> in
                 self.getProvidersCallData(providerData: providerSwapData).map { ($0, permitData, allowanceData) }
             }.then { providersCallData, permitData, allowanceData -> Promise<(String?, String, String, String?)> in
@@ -123,10 +123,10 @@ class SwapManager {
 			// Fetch Call Data
 			// TODO: Set providers dest token in 0x as WETH since dest is ETH else it is ETH
 			if selectedProvider.provider == .zeroX {
-				return getSwapInfoFrom(provider: selectedProvService, wethToken: wethToken)
+				return getSwapInfoFrom(wethToken: wethToken)
 					.map { ($0, permitData, allowanceData) }
 			} else {
-				return getSwapInfoFrom(provider: selectedProvService).map { ($0, permitData, allowanceData) }
+				return getSwapInfoFrom().map { ($0, permitData, allowanceData) }
 			}
 		}.then { providerSwapData, permitData, allowanceData -> Promise<(String, String, String?)> in
 			self.getProvidersCallData(providerData: providerSwapData).map { ($0, permitData, allowanceData) }
@@ -152,7 +152,7 @@ class SwapManager {
 			self.wrapTokenCallData()
 		}.then { [self] wrapTokenData in
 			// Fetch Call Data
-			getSwapInfoFrom(provider: selectedProvService, wethToken: wethToken).map { ($0, wrapTokenData) }
+			getSwapInfoFrom(wethToken: wethToken).map { ($0, wrapTokenData) }
 		}.then { providerSwapData, wrapTokenData in
 			self.getProvidersCallData(providerData: providerSwapData).map { ($0, wrapTokenData) }
 		}.then { providersCallData, wrapTokenData -> Promise<(String?, String, String)> in
@@ -292,8 +292,7 @@ class SwapManager {
 		)
 	}
 
-	private func getSwapInfoFrom<SwapProvider: SwapProvidersAPIServices>(
-		provider: SwapProvider,
+	private func getSwapInfoFrom(
 		wethToken: AssetViewModel? = nil
 	) -> Promise<String> {
 		var priceRoute: PriceRouteClass?
@@ -325,16 +324,9 @@ class SwapManager {
 				provider: selectedProvider.provider
 			)
 		return Promise<String> { seal in
-			provider.swap(swapInfo: swapReq).sink { completed in
-				switch completed {
-				case .finished:
-					print("Swap info received successfully")
-				case let .failure(error):
-					print(error)
-				}
-			} receiveValue: { swapResponseInfo in
-				seal.fulfill(swapResponseInfo!.data)
-			}.store(in: &cancellables)
+            callSwapFunction(swapReq: swapReq) { swapResponse in
+                seal.fulfill(swapResponse)
+            }
 		}
 	}
 
@@ -389,16 +381,54 @@ class SwapManager {
 		}
 	}
 
-	private var selectedProvService: any SwapProvidersAPIServices {
-		switch selectedProvider.provider {
-		case .oneInch:
-			return oneInchAPIClient
-		case .paraswap:
-			return paraSwapAPIClient
-		case .zeroX:
-			return zeroXAPIClient
-		}
-	}
+    private func callSwapFunction(swapReq: SwapRequestModel, completion: @escaping (String) -> Void){
+        switch selectedProvider.provider {
+            case .oneInch:
+                oneInchAPIClient.swap(swapInfo: swapReq).sink { completed in
+                    switch completed {
+                        case .finished:
+                            print("Swap info received successfully")
+                        case let .failure(error):
+                            print(error)
+                    }
+                } receiveValue: { swapResponseInfo in
+                    completion(swapResponseInfo!.data)
+                }.store(in: &cancellables)
+            case .paraswap:
+                paraSwapAPIClient.swap(swapInfo: swapReq).sink { completed in
+                    switch completed {
+                        case .finished:
+                            print("Swap info received successfully")
+                        case let .failure(error):
+                            print(error)
+                    }
+                } receiveValue: { swapResponseInfo in
+                    completion(swapResponseInfo!.data)
+                }.store(in: &cancellables)
+            case .zeroX:
+                zeroXAPIClient.swap(swapInfo: swapReq).sink { completed in
+                    switch completed {
+                        case .finished:
+                            print("Swap info received successfully")
+                        case let .failure(error):
+                            print(error)
+                    }
+                } receiveValue: { swapResponseInfo in
+                    completion(swapResponseInfo!.data)
+                }.store(in: &cancellables)
+        }
+    }
+    
+//	private var selectedProvService: some SwapProvidersAPIServices {
+//		switch selectedProvider.provider {
+//		case .oneInch:
+//			return oneInchAPIClient
+//		case .paraswap:
+//			return paraSwapAPIClient
+//		case .zeroX:
+//			return zeroXAPIClient
+//		}
+//	}
     
     public func addPendingTransferActivity(trxHash: String) {
         #warning("Ask Ali about info")

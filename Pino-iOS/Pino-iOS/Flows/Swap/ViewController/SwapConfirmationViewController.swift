@@ -30,8 +30,12 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-        swapConfirmationVM.fetchSwapInfo()
 	}
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        swapConfirmationVM.fetchSwapInfo()
+    }
 
 	override func loadView() {
 		setupView()
