@@ -58,7 +58,8 @@ class InvestManager {
             self.signHash()
         }.then { signiture -> Promise<(String, String?)> in
             // Check allowance of protocol
-            self.checkAllowanceOfProtocol().map { (signiture, $0) }
+            let spenderAddress = Web3Core.Constants.sDaiContractAddress
+            return self.checkAllowanceOfProtocol(spenderAddress: spenderAddress).map { (signiture, $0) }
         }.then { signiture, allowanceData -> Promise<(String, String?)> in
             // Permit Transform
             self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
@@ -103,18 +104,29 @@ class InvestManager {
 	}
     
     private func investInCompound() {
+        if selectedToken.isEth {
+            compoundETHDeposit()
+        } else if selectedToken.isWEth{
+            compoundWETHDeposit()
+        } else {
+            compoundDeposit()
+        }
+    }
+    
+    private func compoundDeposit() {
+        let cTokenID = Web3Core.TokenID(id: self.selectedToken.id).cTokenID
         firstly {
             // Sign hash
             self.signHash()
         }.then { signiture -> Promise<(String, String?)> in
             // Check allowance of protocol
-            self.checkAllowanceOfProtocol().map { (signiture, $0) }
+            self.checkAllowanceOfProtocol(spenderAddress: cTokenID).map { (signiture, $0) }
         }.then { signiture, allowanceData -> Promise<(String, String?)> in
             // Permit Transform
             self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
         }.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
             self.web3.getDepositV2CallData(
-                tokenAdd: selectedToken.id,
+                tokenAdd: cTokenID,
                 amount: investAmount.bigUInt!,
                 recipientAdd: walletManager.currentAccount.eip55Address
             ).map { ($0, permitData, allowanceData) }
@@ -122,6 +134,46 @@ class InvestManager {
             // MultiCall
             var callDatas = [permitData, protocolCallData]
             if let allowanceData { callDatas.insert(allowanceData, at: 0) }
+            return self.callProxyMultiCall(data: callDatas, value: nil)
+        }.done { trxHash in
+            print(trxHash)
+        }.catch { error in
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func compoundETHDeposit() {
+        firstly {
+            self.web3.getDepositETHV2CallData(
+                recipientAdd: walletManager.currentAccount.eip55Address,
+                proxyFee: 0.bigNumber.bigUInt
+            )
+        }.then { protocolCallData in
+            // MultiCall
+            var callDatas = [protocolCallData]
+            return self.callProxyMultiCall(data: callDatas, value: nil)
+        }.done { trxHash in
+            print(trxHash)
+        }.catch { error in
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func compoundWETHDeposit() {
+        firstly {
+            // Sign hash
+            self.signHash()
+        }.then { signiture -> Promise<(String)> in
+            // Permit Transform
+            self.getProxyPermitTransferData(signiture: signiture)
+        }.then { [self] permitData -> Promise<(String, String)> in
+            self.web3.getDepositWETHV2CallData(
+                amount: investAmount.bigUInt!,
+                recipientAdd: walletManager.currentAccount.eip55Address
+            ).map { ($0, permitData) }
+        }.then { protocolCallData, permitData in
+            // MultiCall
+            var callDatas = [permitData, protocolCallData]
             return self.callProxyMultiCall(data: callDatas, value: nil)
         }.done { trxHash in
             print(trxHash)
@@ -173,12 +225,12 @@ class InvestManager {
         }
     }
 
-    private func checkAllowanceOfProtocol() -> Promise<String?> {
+    private func checkAllowanceOfProtocol(spenderAddress: String) -> Promise<String?> {
         return Promise<String?> { seal in
             firstly {
                 try web3.getAllowanceOf(
                     contractAddress: selectedToken.id,
-                    spenderAddress: investProtocol.contractAddress,
+                    spenderAddress: spenderAddress,
                     ownerAddress: Web3Core.Constants.pinoProxyAddress
                 )
             }.done { [self] allowanceAmount in
@@ -187,7 +239,7 @@ class InvestManager {
                 if allowanceAmount == 0 || allowanceAmount < tokenAmount {
                     web3.getApproveProxyCallData(
                         tokenAdd: selectedToken.id,
-                        spender: investProtocol.contractAddress
+                        spender: spenderAddress
                     ).done { approveCallData in
                         seal.fulfill(approveCallData)
                     }.catch { error in

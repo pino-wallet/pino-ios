@@ -61,7 +61,25 @@ public struct W3InvestManager {
     public func getDepositV2CallData(tokenAdd: String, amount: BigUInt, recipientAdd: String) -> Promise<String> {
         Promise<String>() { [self] seal in
             let contract = try Web3Core.getContractOfToken(address: contractAddress, abi: .investCompound, web3: web3)
-            let solInvocation = contract[ABIMethodWrite.depositV2.rawValue]?(tokenAdd, amount, recipientAdd.eip55Address!)
+            let solInvocation = contract[ABIMethodWrite.depositV2.rawValue]?(amount, tokenAdd, recipientAdd.eip55Address!)
+            let trx = try trxManager.createTransactionFor(contract: solInvocation!)
+            seal.fulfill(trx.data.hex())
+        }
+    }
+    
+    public func getDepositETHV2CallData(recipientAdd: String, proxyFee: BigUInt) -> Promise<String> {
+        Promise<String>() { [self] seal in
+            let contract = try Web3Core.getContractOfToken(address: contractAddress, abi: .investCompound, web3: web3)
+            let solInvocation = contract[ABIMethodWrite.depositETHV2.rawValue]?(recipientAdd.eip55Address!, proxyFee)
+            let trx = try trxManager.createTransactionFor(contract: solInvocation!)
+            seal.fulfill(trx.data.hex())
+        }
+    }
+    
+    public func getDepositWETHV2CallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
+        Promise<String>() { [self] seal in
+            let contract = try Web3Core.getContractOfToken(address: contractAddress, abi: .investCompound, web3: web3)
+            let solInvocation = contract[ABIMethodWrite.depositWETHV2.rawValue]?(amount, recipientAdd.eip55Address!)
             let trx = try trxManager.createTransactionFor(contract: solInvocation!)
             seal.fulfill(trx.data.hex())
         }

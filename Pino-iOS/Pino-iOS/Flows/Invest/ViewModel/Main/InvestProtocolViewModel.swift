@@ -58,21 +58,6 @@ public enum InvestProtocolViewModel: String, DexSystemModelProtocol {
 			return "balancer.fi"
 		}
 	}
-    
-    public var contractAddress: String {
-        switch self {
-        case .uniswap:
-            return ""
-        case .compound:
-            return ""
-        case .aave:
-            return ""
-        case .balancer:
-            return ""
-        case .maker:
-            return ""
-        }
-    }
 
 	public var type: String {
 		rawValue
