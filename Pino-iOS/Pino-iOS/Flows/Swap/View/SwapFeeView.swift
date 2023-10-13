@@ -327,13 +327,9 @@ class SwapFeeView: UIView {
 
 	private func updatePriceImpact(_ priceImpact: String?) {
 		if let priceImpact {
-			if BigNumber(numberWithDecimal: priceImpact) < 0.bigNumber {
-				amountWarningImage.isHiddenInStackView = false
-				amountLabel.textColor = .Pino.red
-			} else {
-				amountWarningImage.isHiddenInStackView = true
-				amountLabel.textColor = .Pino.label
-			}
+            amountWarningImage.isHiddenInStackView = true
+            amountLabel.textColor = .Pino.label
+            
 			priceImpactStackView.isHidden = false
 			priceImpactLabel.text = priceImpact.percentFormatting
 			hideLoading()

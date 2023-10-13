@@ -26,6 +26,26 @@ class SwapViewModel {
 
 	public var providers: [SwapProviderViewModel] = []
 	public var bestProvider: SwapProviderViewModel?
+    
+    public var srcToken: SwapTokenViewModel {
+        guard let swapSide else { return fromToken }
+        switch swapSide {
+        case .sell:
+            return fromToken
+        case .buy:
+            return toToken
+        }
+    }
+    
+    public var destToken: SwapTokenViewModel {
+        guard let swapSide else { return toToken }
+        switch swapSide {
+        case .sell:
+            return toToken
+        case .buy:
+            return fromToken
+        }
+    }
 
 	// MARK: - Private Properties
 
@@ -194,7 +214,7 @@ class SwapViewModel {
 		guard let swapProvider else { return }
 		swapFeeVM.swapProviderVM = swapProvider
 		updateBestRateTag()
-		swapFeeVM.priceImpact = "0"
+        swapFeeVM.priceImpact = calculatePriceImpact()
 	}
 
 	private func removePreviousFeeInfo() {
@@ -240,4 +260,15 @@ class SwapViewModel {
 	private func isWethToEth() -> Bool {
 		fromToken.selectedToken.isWEth && toToken.selectedToken.isEth
 	}
+    
+    private func calculatePriceImpact() -> String? {
+        guard let srcAmount = srcToken.decimalDollarAmount, let destAmount = destToken.decimalDollarAmount else { return nil }
+        let differenceOfTokensAmount = srcAmount - destAmount
+        let priceImpact = ((differenceOfTokensAmount / srcAmount)!) * 100.bigNumber
+        if priceImpact < 0.bigNumber {
+            return "0"
+        } else {
+            return priceImpact.percentFormat
+        }
+    }
 }
