@@ -26,6 +26,8 @@ class SwapFeeViewModel {
 	public var feeInDollar: String?
 	@Published
 	public var isBestRate = false
+    
+    public var priceImpactStatus: PriceImpactStatus = .normal
 
 	public let highImpactTagTitle = "High impact"
 	public let saveAmountTitle = "You save"
@@ -63,6 +65,30 @@ class SwapFeeViewModel {
 			calculatedAmount = nil
 		}
 	}
+    
+    public func calculatePriceImpact(srcTokenAmount: BigNumber?, destTokenAmount: BigNumber?) {
+        guard let srcTokenAmount, let destTokenAmount else { return }
+        let differenceOfTokensAmount = srcTokenAmount - destTokenAmount
+        let priceImpactBigNumber = ((differenceOfTokensAmount / srcTokenAmount)!) * 100.bigNumber
+        getPriceImpactStatus(priceImpactBigNumber)
+        if priceImpactBigNumber < 0.bigNumber {
+            priceImpact = "0"
+        } else {
+            priceImpact = priceImpactBigNumber.percentFormat
+        }
+    }
+    
+    public func getPriceImpactStatus(_ priceImpactNumber: BigNumber) {
+        switch priceImpactNumber {
+            case _ where priceImpactNumber > 1.bigNumber:
+                priceImpactStatus = .veryHigh
+            case _ where priceImpactNumber < BigNumber(numberWithDecimal: "0.1"):
+                priceImpactStatus = .low
+            case _ where priceImpactNumber < 1.bigNumber && priceImpactNumber > BigNumber(numberWithDecimal: "0.1"):
+                priceImpactStatus = .high
+            default: break
+        }
+    }
 }
 
 extension SwapFeeViewModel {
@@ -71,4 +97,11 @@ extension SwapFeeViewModel {
 		case save(String)
 		case none
 	}
+    
+    public enum PriceImpactStatus {
+        case normal
+        case low
+        case high
+        case veryHigh
+    }
 }
