@@ -98,6 +98,7 @@
 		4037DCCE2A8BD93200FCA96B /* ApproveContractViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4037DCCD2A8BD93200FCA96B /* ApproveContractViewModel.swift */; };
 		404324062A5FF115006B1468 /* TextFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404324052A5FF115006B1468 /* TextFormatting.swift */; };
 		404324092A5FF12C006B1468 /* NumberFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404324082A5FF12C006B1468 /* NumberFormatting.swift */; };
+		407E33282AE2A1D9001079B8 /* Web3ManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E33272AE2A1D9001079B8 /* Web3ManagerProtocol.swift */; };
 		408463C02A3AEE010058FF16 /* Web3-Utility in Frameworks */ = {isa = PBXBuildFile; productRef = 408463BF2A3AEE010058FF16 /* Web3-Utility */; };
 		40BB42282A47157800E1A121 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB42272A47157800E1A121 /* UIDevice+Extension.swift */; };
 		40E7C1132AAF6C74006A61DD /* SwapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E7C1122AAF6C74006A61DD /* SwapManager.swift */; };
@@ -817,6 +818,7 @@
 		404287D5077C670FADEE9987 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		404324052A5FF115006B1468 /* TextFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormatting.swift; sourceTree = "<group>"; };
 		404324082A5FF12C006B1468 /* NumberFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatting.swift; sourceTree = "<group>"; };
+		407E33272AE2A1D9001079B8 /* Web3ManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3ManagerProtocol.swift; sourceTree = "<group>"; };
 		40BB42272A47157800E1A121 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		40E7C1122AAF6C74006A61DD /* SwapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapManager.swift; sourceTree = "<group>"; };
 		40F704562A03AFFF004D74FE /* AccountActivationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountActivationModel.swift; sourceTree = "<group>"; };
@@ -3446,6 +3448,7 @@
 				E33F7CB92AD44199007FC04D /* W3InvestManager.swift */,
 				D9D509182AD577D800F40C33 /* W3CompoundBorrowManager.swift */,
 				D987B7412AD5420C00727FDD /* W3AaveBorrowManager.swift */,
+				407E33272AE2A1D9001079B8 /* Web3ManagerProtocol.swift */,
 			);
 			path = Web3;
 			sourceTree = "<group>";
@@ -4380,6 +4383,7 @@
 				D91A3A0729E41C1800004CB2 /* NotificationSettingsOptionViewModel.swift in Sources */,
 				A64D2DFF6C7D5354F2CA6D50 /* Environment.swift in Sources */,
 				E55DCCDCC37B827E5DBEEB82 /* FlowLayout+Extension.swift in Sources */,
+				407E33282AE2A1D9001079B8 /* Web3ManagerProtocol.swift in Sources */,
 				D9AABE112A7D6B410025463E /* ActivityDataSource.swift in Sources */,
 				D9F284782A94B727001204D4 /* BorrowingTokenCell.swift in Sources */,
 				D941CACC2A3F082900910B70 /* SendStatusViewController.swift in Sources */,

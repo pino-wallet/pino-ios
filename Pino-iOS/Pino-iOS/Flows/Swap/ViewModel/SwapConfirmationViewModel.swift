@@ -81,10 +81,11 @@ class SwapConfirmationViewModel {
 		}
 	}
 
-	public func confirmSwap() {
+	public func confirmSwap(completion: @escaping () -> Void) {
 		let swapManager = SwapManager(selectedProvider: selectedProvider!, srcToken: fromToken, destToken: toToken)
 		swapManager.confirmSwap { trx in
 			print("SWAP TRX HASH: \(trx)")
+			completion()
 		}
 	}
 

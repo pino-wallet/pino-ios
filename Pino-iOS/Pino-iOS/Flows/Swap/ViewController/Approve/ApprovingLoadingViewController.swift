@@ -63,6 +63,8 @@ class ApprovingLoadingViewController: UIViewController {
 		approveLoadingView = ApprovingLoadingView(approvingLoadingVM: approveLoadingVM, dismissPage: {
 			self.dismiss(animated: true)
 			self.onDismiss()
+		}, presentActionSheet: { [weak self] actionSheet, completion in
+			self?.present(actionSheet, animated: true, completion: completion)
 		})
 		view = approveLoadingView
 	}
