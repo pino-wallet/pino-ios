@@ -332,6 +332,19 @@ public class Web3Core {
     public func getDepositWETHV2CallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
         investManager.getDepositWETHV2CallData(amount: amount, recipientAdd: recipientAdd)
     }
+    
+    public func getWithdrawV2CallData(tokenAdd: String, amount: BigUInt, recipientAdd: String) -> Promise<String> {
+        investManager.getWithdrawV2CallData(tokenAdd: tokenAdd, amount: amount, recipientAdd: recipientAdd)
+    }
+    
+    public func getWithdrawETHV2CallData(recipientAdd: String, amount: BigUInt) -> Promise<String> {
+        investManager.getWithdrawETHV2CallData(recipientAdd: recipientAdd, amount: amount)
+    }
+    
+    public func getWithdrawWETHV2CallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
+        investManager.getWithdrawWETHV2CallData(amount: amount, recipientAdd: recipientAdd)
+    }
+
 
 	public func borrowCompoundCToken(contractDetails: ContractDetailsModel) -> Promise<String> {
 		compoundBorrowManager.borrowCToken(contractDetails: contractDetails)
@@ -453,6 +466,8 @@ extension Web3Core {
 		static let eoaCode = "0x"
 		static let permitAddress = "0x000000000022D473030F116dDEE9F6B43aC78BA3"
 		static let pinoProxyAddress = "0x118E662de0C4cdc2f8AD0fb1c6Ef4a85222baCF0"
+        static let compoundContractAddress = "0xb5E69cBF92E3ff6c11E2CC4A33C26573702Ab98B"
+        static let investContractAddress = "0x7dA89F62340Ad976e4E32a30c7f688aFCcE8a51C"
 		static let paraSwapETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 		static let oneInchETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 		static let zeroXETHID = "ETH"
@@ -491,11 +506,6 @@ extension Web3Core {
         case usdc = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
         case usdt = "0xdac17f958d2ee523a2206206994597c13d831ec7"
         case wbtc = "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"
-//        case busd = "0x4fabb145d64652a948d72533023f6e7a623c7c53"
-//        case bnb = "0xb8c77482e45f1f44de1745f52c74426c631bdd52"
-//        case wstETH = "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0"
-//        case weth = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
-//        case sDai = "0x83f20f44975d03b1b09e64809b757c47f942beea"
         
         // MARK: Public Properties
 

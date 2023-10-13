@@ -6,12 +6,16 @@
 //
 
 import UIKit
+import PromiseKit
+import Web3_Utility
 
 class InvestDepositViewController: UIViewController {
 	// MARK: Private Properties
 
 	private var investVM: InvestDepositViewModel!
 	private var investView: InvestDepositView!
+    private var web3 = Web3Core.shared
+    private let walletManager = PinoWalletManager()
 
 	// MARK: Initializers
 
@@ -76,6 +80,45 @@ class InvestDepositViewController: UIViewController {
 	private func closePage() {
 		dismiss(animated: true)
 	}
+    
+    private func proceedInvestFlow() {
+        // First Step of Swap
+        // Check If Permit has access to Token
+        if investVM.selectedToken.isEth {
+            openConfirmationPage()
+            return
+        }
+        firstly {
+            try web3.getAllowanceOf(
+                contractAddress: investVM.selectedToken.id.lowercased(),
+                spenderAddress: Web3Core.Constants.permitAddress,
+                ownerAddress: walletManager.currentAccount.eip55Address
+            )
+        }.done { [self] allowanceAmount in
+            let destTokenDecimal = investVM.selectedToken.decimal
+            let destTokenAmount = Utilities.parseToBigUInt(investVM.tokenAmount, decimals: destTokenDecimal)
+            if allowanceAmount == 0 || allowanceAmount < destTokenAmount! {
+                // NOT ALLOWED
+                openTokenApprovePage()
+            } else {
+                // ALLOWED
+                openConfirmationPage()
+            }
+        }.catch { error in
+            print(error)
+        }
+    }
+
+    private func openTokenApprovePage() {
+        let approveVC = ApproveContractViewController(
+            approveContractID: investVM.selectedToken.id,
+            showConfirmVC: {
+                self.openConfirmationPage()
+            }, approveType: .swap
+        )
+        let approveNavigationVC = UINavigationController(rootViewController: approveVC)
+        present(approveNavigationVC, animated: true)
+    }
 
 	private func openConfirmationPage() {
 		let investConfirmationVM = InvestConfirmationViewModel(

@@ -117,4 +117,17 @@ class InvestConfirmationViewModel {
 			#warning("Implement later")
 		}
 	}
+    
+    public func getDepositInfo() {
+        let investManager = InvestManager(
+            selectedToken: selectedToken,
+            investProtocol: .compound,
+            investAmount: investAmount
+        )
+        investManager.invest()
+    }
+    
+    public func isTokenApproved() {
+        
+    }
 }
