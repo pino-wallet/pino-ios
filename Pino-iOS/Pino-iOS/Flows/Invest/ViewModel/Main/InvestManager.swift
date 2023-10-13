@@ -7,6 +7,9 @@
 import BigInt
 import Foundation
 import PromiseKit
+import Combine
+import Web3_Utility
+import Web3
 
 class InvestManager {
 	// MARK: - Private Properties
@@ -14,12 +17,18 @@ class InvestManager {
 	private var web3 = Web3Core.shared
 	private var investProtocol: InvestProtocolViewModel
 	private var investAmount: String
-	private var pinoWalletManager = PinoWalletManager()
+	private var walletManager = PinoWalletManager()
+    private let selectedToken: AssetViewModel
+    private let nonce = BigNumber.bigRandomeNumber
+    private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes
+    private let web3Client = Web3APIClient()
+    private var cancellables = Set<AnyCancellable>()
 	private var wethToken: AssetViewModel {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
 	}
 
-	init(investProtocol: InvestProtocolViewModel, investAmount: String) {
+    init(selectedToken: AssetViewModel, investProtocol: InvestProtocolViewModel, investAmount: String) {
+        self.selectedToken = selectedToken
 		self.investProtocol = investProtocol
 		self.investAmount = investAmount
 	}
@@ -28,67 +37,184 @@ class InvestManager {
 
 	public func invest() {
 		switch investProtocol {
-		case .uniswap:
-			break
+        case .maker:
+            investInDai()
 		case .compound:
-			break
-		case .aave:
-			break
-		case .balancer:
-			break
-		case .maker:
-			investInDai()
+			investInCompound()
+        case .aave:
+            break
+        case .balancer:
+            break
+        case .uniswap:
+            break
 		}
 	}
 
 	// MARK: - Private Methods
 
 	private func investInDai() {
-//		        firstly {
-//		            // Sign hash
-//		        }.then { signiture -> Promise<(String, String?)> in
-//		            // Check allowance of protocol
-//		        }.then { signiture, allowanceData -> Promise<(String, String?)> in
-//		            // Permit Transform
-//		        }.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
-		//                    self.web3.getDaiToSDaiCallData(
-		//                        amount: investAmount.bigUInt!,
-		//                        recipientAdd: pinoWalletManager.currentAccount.eip55Address
-		//                    ).map { ($0, permitData, allowanceData) }
-//		        }.then { protocolCallData, permitData, allowanceData in
-//		            // MultiCall
-//		            var callDatas = [permitData, protocolCallData]
-//		            if let allowanceData { callDatas.insert(allowanceData, at: 0) }
-//		            return self.callProxyMultiCall(data: callDatas, value: nil)
-//		        }.done { trxHash in
-//		            print(trxHash)
-//		        }.catch { error in
-//		            print(error.localizedDescription)
-//		        }
+        firstly {
+            // Sign hash
+            self.signHash()
+        }.then { signiture -> Promise<(String, String?)> in
+            // Check allowance of protocol
+            self.checkAllowanceOfProtocol().map { (signiture, $0) }
+        }.then { signiture, allowanceData -> Promise<(String, String?)> in
+            // Permit Transform
+            self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
+        }.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
+            self.web3.getDaiToSDaiCallData(
+                amount: investAmount.bigUInt!,
+                recipientAdd: walletManager.currentAccount.eip55Address
+            ).map { ($0, permitData, allowanceData) }
+        }.then { protocolCallData, permitData, allowanceData in
+            // MultiCall
+            var callDatas = [permitData, protocolCallData]
+            if let allowanceData { callDatas.insert(allowanceData, at: 0) }
+            return self.callProxyMultiCall(data: callDatas, value: nil)
+        }.done { trxHash in
+            print(trxHash)
+        }.catch { error in
+            print(error.localizedDescription)
+        }
 	}
 
 	private func withdrawDai() {
-//		        firstly {
-//		            // Sign hash
-//		        }.then { signiture, allowanceData -> Promise<(String, String?)> in
-//		            // Permit Transform
-//		        }.then { [self] permitData -> Promise<(String, String)> in
-		//                    self.web3.getSDaiToDaiCallData(
-		//                        amount: investAmount.bigUInt!,
-		//                        recipientAdd: pinoWalletManager.currentAccount.eip55Address
-		//                    ).map { ($0, permitData, allowanceData) }
-//		        }.then { protocolCallData, permitData in
-//		            // MultiCall
-//		            var callDatas = [permitData, protocolCallData]
-//		            return self.callProxyMultiCall(data: callDatas, value: nil)
-//		        }.done { trxHash in
-//		            print(trxHash)
-//		        }.catch { error in
-//		            print(error.localizedDescription)
-//		        }
+        firstly {
+            // Sign hash
+            self.signHash()
+        }.then { signiture -> Promise<(String)> in
+            // Permit Transform
+            self.getProxyPermitTransferData(signiture: signiture)
+        }.then { [self] permitData -> Promise<(String, String)> in
+            self.web3.getSDaiToDaiCallData(
+                amount: investAmount.bigUInt!,
+                recipientAdd: walletManager.currentAccount.eip55Address
+            ).map { ($0, permitData) }
+        }.then { protocolCallData, permitData in
+            // MultiCall
+            var callDatas = [permitData, protocolCallData]
+            return self.callProxyMultiCall(data: callDatas, value: nil)
+        }.done { trxHash in
+            print(trxHash)
+        }.catch { error in
+            print(error.localizedDescription)
+        }
 	}
+    
+    private func investInCompound() {
+        firstly {
+            // Sign hash
+            self.signHash()
+        }.then { signiture -> Promise<(String, String?)> in
+            // Check allowance of protocol
+            self.checkAllowanceOfProtocol().map { (signiture, $0) }
+        }.then { signiture, allowanceData -> Promise<(String, String?)> in
+            // Permit Transform
+            self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
+        }.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
+            self.web3.getDepositV2CallData(
+                tokenAdd: selectedToken.id,
+                amount: investAmount.bigUInt!,
+                recipientAdd: walletManager.currentAccount.eip55Address
+            ).map { ($0, permitData, allowanceData) }
+        }.then { protocolCallData, permitData, allowanceData in
+            // MultiCall
+            var callDatas = [permitData, protocolCallData]
+            if let allowanceData { callDatas.insert(allowanceData, at: 0) }
+            return self.callProxyMultiCall(data: callDatas, value: nil)
+        }.done { trxHash in
+            print(trxHash)
+        }.catch { error in
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func signHash() -> Promise<String> {
+        Promise<String> { seal in
+            firstly {
+                fetchHash()
+            }.done { [self] hash in
+                var signiture = try Sec256k1Encryptor.sign(
+                    msg: hash.hexToBytes(),
+                    seckey: walletManager.currentAccountPrivateKey.string.hexToBytes()
+                )
+                signiture[signiture.count - 1] += 27
 
-//	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<String> {
-//		web3.callProxyMulticall(data: data, value: value ?? 0.bigNumber.bigUInt)
-//	}
+                seal.fulfill("0x\(signiture.toHexString())")
+
+            }.catch { error in
+                fatalError(error.localizedDescription)
+            }
+        }
+    }
+
+    private func fetchHash() -> Promise<String> {
+        Promise<String> { seal in
+
+            let hashREq = EIP712HashRequestModel(
+                tokenAdd: selectedToken.id,
+                amount: investAmount,
+                spender: Web3Core.Constants.pinoProxyAddress,
+                nonce: nonce.description,
+                deadline: deadline.description
+            )
+
+            web3Client.getHashTypedData(eip712HashReqInfo: hashREq).sink { completed in
+                switch completed {
+                case .finished:
+                    print("Info received successfully")
+                case let .failure(error):
+                    print(error)
+                }
+            } receiveValue: { hashResponse in
+                seal.fulfill(hashResponse.hash)
+            }.store(in: &cancellables)
+        }
+    }
+
+    private func checkAllowanceOfProtocol() -> Promise<String?> {
+        return Promise<String?> { seal in
+            firstly {
+                try web3.getAllowanceOf(
+                    contractAddress: selectedToken.id,
+                    spenderAddress: investProtocol.contractAddress,
+                    ownerAddress: Web3Core.Constants.pinoProxyAddress
+                )
+            }.done { [self] allowanceAmount in
+                let tokenDecimal = selectedToken.decimal
+                let tokenAmount = Utilities.parseToBigUInt(investAmount, decimals: tokenDecimal)!
+                if allowanceAmount == 0 || allowanceAmount < tokenAmount {
+                    web3.getApproveProxyCallData(
+                        tokenAdd: selectedToken.id,
+                        spender: investProtocol.contractAddress
+                    ).done { approveCallData in
+                        seal.fulfill(approveCallData)
+                    }.catch { error in
+                        seal.reject(error)
+                    }
+                } else {
+                    // ALLOWED
+                    seal.fulfill(nil)
+                }
+            }.catch { error in
+                print(error)
+            }
+        }
+    }
+
+    private func getProxyPermitTransferData(signiture: String) -> Promise<String> {
+        let tokenUIntNumber = Utilities.parseToBigUInt(investAmount, decimals: selectedToken.decimal)
+        return web3.getPermitTransferCallData(
+            amount: tokenUIntNumber!,
+            tokenAdd: selectedToken.id,
+            signiture: signiture,
+            nonce: nonce,
+            deadline: deadline
+        )
+    }
+    
+    private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
+        web3.callProxyMulticall(data: data, value: value ?? 0.bigNumber.bigUInt)
+    }
 }

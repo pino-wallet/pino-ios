@@ -320,6 +320,10 @@ public class Web3Core {
 	public func getSDaiToDaiCallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
 		investManager.getSDaiToDaiCallData(amount: amount, recipientAdd: recipientAdd)
 	}
+    
+    public func getDepositV2CallData(tokenAdd: String, amount: BigUInt, recipientAdd: String) -> Promise<String> {
+        investManager.getDepositV2CallData(tokenAdd: tokenAdd, amount: amount, recipientAdd: recipientAdd)
+    }
 
 	public func borrowCompoundCToken(contractDetails: ContractDetailsModel) -> Promise<String> {
 		compoundBorrowManager.borrowCToken(contractDetails: contractDetails)
