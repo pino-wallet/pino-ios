@@ -25,7 +25,7 @@ public class Web3Core {
 		if let testURL = AboutPinoView.web3URL {
 			return Web3(rpcURL: testURL)
 		} else {
-			return Web3(rpcURL: Web3Core.RPC.mainNet.rawValue)
+			return Web3Network.rpc
 		}
 	}
 
@@ -286,11 +286,17 @@ public class Web3Core {
 		Promise<String>() { seal in
 			let privateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
 			firstly {
-				var newTx = EthereumTransaction(nonce: tx.nonce, gasPrice: newGasPrice, to: tx.to, value: tx.value)
+				var newTx = EthereumTransaction(
+					nonce: tx.nonce,
+					gasPrice: newGasPrice,
+					to: tx.to,
+					value: tx.value,
+					data: tx.input
+				)
 				newTx.gasLimit = tx.gas
 				newTx.transactionType = .legacy
 
-				return try newTx.sign(with: privateKey, chainId: 1).promise
+				return try newTx.sign(with: privateKey, chainId: Web3Network.chainID).promise
 			}.then { newTx in
 				self.web3.eth.sendRawTransaction(transaction: newTx)
 			}.done { txHash in
@@ -487,12 +493,6 @@ extension Web3Core {
 		static let compoundCUsdtContractAddress = "0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9"
 		static let compoundCWbtcContractAddress = "0xC11b1268C1A384e55C48c2391d8d480264A3A7F4"
         static let sDaiContractAddress = "0x83f20f44975d03b1b09e64809b757c47f942beea"
-	}
-
-	public enum RPC: String {
-		case mainNet = "https://rpc.ankr.com/eth"
-		case arb = "https://arb1.arbitrum.io/rpc"
-		case ganashDev = "https://ganache.pino.xyz/"
 	}
 }
 

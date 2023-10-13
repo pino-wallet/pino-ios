@@ -86,6 +86,7 @@
 		3E5FFA532C0440149913FE32 /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA73CCD58C583E964396CF7 /* Encodable+Extension.swift */; };
 		3FB363922C364DE0175B075E /* SecurityOptionsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F220C035F946AABEE3C81 /* SecurityOptionsCollectionView.swift */; };
 		3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6922A1FD91EE9D2DAF8D928 /* AccountingEndpoint.swift */; };
+		401939BB2AE570CD00052928 /* Web3Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401939BA2AE570CD00052928 /* Web3Network.swift */; };
 		403691BC2A3DFFB50013AB6D /* ToastConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403691B32A3DFFB50013AB6D /* ToastConfiguration.swift */; };
 		403691BD2A3DFFB60013AB6D /* ToastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403691B42A3DFFB50013AB6D /* ToastDelegate.swift */; };
 		403691BE2A3DFFB60013AB6D /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403691B62A3DFFB50013AB6D /* ToastView.swift */; };
@@ -805,6 +806,7 @@
 		3CE50ED0CBE7191895D8D9F4 /* SecurityOptionsFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityOptionsFooter.swift; sourceTree = "<group>"; };
 		3DADC99C41136A35EF49EF9B /* SelectPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPassViewModel.swift; sourceTree = "<group>"; };
 		3F052F464B4443A09B569492 /* PPPangramSans-ExtraboldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtraboldReclined.ttf"; sourceTree = "<group>"; };
+		401939BA2AE570CD00052928 /* Web3Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3Network.swift; sourceTree = "<group>"; };
 		403691B32A3DFFB50013AB6D /* ToastConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastConfiguration.swift; sourceTree = "<group>"; };
 		403691B42A3DFFB50013AB6D /* ToastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastDelegate.swift; sourceTree = "<group>"; };
 		403691B62A3DFFB50013AB6D /* ToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
@@ -966,7 +968,7 @@
 		B2D5774D76FC507F8B176185 /* CoinInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoViewModel.swift; sourceTree = "<group>"; };
 		B33656AE9BB6138666D2E679 /* ViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Extension.swift"; sourceTree = "<group>"; };
 		B3BDF4D66564915FBD19B9A4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B40D6EF0262990FF33E91CCD /* Pino-iOSUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = "Pino-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B40D6EF0262990FF33E91CCD /* Pino-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pino-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B596DBDA65A59B498030E742 /* AddCustomAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomAssetViewModel.swift; sourceTree = "<group>"; };
 		B677CAE87B1A7D14774BE29D /* HTTPTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
 		B6922A1FD91EE9D2DAF8D928 /* AccountingEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountingEndpoint.swift; sourceTree = "<group>"; };
@@ -3449,6 +3451,7 @@
 				D9D509182AD577D800F40C33 /* W3CompoundBorrowManager.swift */,
 				D987B7412AD5420C00727FDD /* W3AaveBorrowManager.swift */,
 				407E33272AE2A1D9001079B8 /* Web3ManagerProtocol.swift */,
+				401939BA2AE570CD00052928 /* Web3Network.swift */,
 			);
 			path = Web3;
 			sourceTree = "<group>";
@@ -4426,6 +4429,7 @@
 				D94A9A2229FE6CDA00DCA28D /* EditAccountNameView.swift in Sources */,
 				E35BB6402A558F87003987F5 /* SwapProtocolCell.swift in Sources */,
 				0CDD5B1CF93FCD04F68CC1C9 /* IntroCollectionViewCell.swift in Sources */,
+				401939BB2AE570CD00052928 /* Web3Network.swift in Sources */,
 				E384CB1629FFABAB009C74F5 /* Double+Extension.swift in Sources */,
 				E3FC69F82A937135009B3341 /* InvestmentRiskViewModel.swift in Sources */,
 				FC0D80A069760DC032C1B9D6 /* IntroModel.swift in Sources */,

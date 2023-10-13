@@ -22,6 +22,8 @@ class SendStatusView: UIView {
 		}
 	}
 
+	public var txHash: String
+
 	// MARK: - Closures
 
 	public var onDissmiss: () -> Void = {}
@@ -46,8 +48,9 @@ class SendStatusView: UIView {
 
 	// MARK: - Initializers
 
-	init(toggleIsModalInPresentation: @escaping (_: Bool) -> Void) {
+	init(toggleIsModalInPresentation: @escaping (_: Bool) -> Void, txHash: String = "") {
 		self.toggleIsModalInPresentation = toggleIsModalInPresentation
+		self.txHash = txHash
 		super.init(frame: .zero)
 
 		setupView()
@@ -183,10 +186,6 @@ class SendStatusView: UIView {
 		statusTitleLabel.numberOfLines = 0
 	}
 
-	private func setupBindings() {
-		#warning("i think we should listen to confirmSendVM changes to change view status here")
-	}
-
 	@objc
 	private func onDissmissTap() {
 		onDissmiss()
@@ -194,8 +193,7 @@ class SendStatusView: UIView {
 
 	@objc
 	private func openViewStatusURL() {
-		#warning("this URL is for testing and should be updated from confirmSendVM")
-		let viewStatusUrl = URL(string: "http://www.google.com")
+		let viewStatusUrl = URL(string: txHash.ethScanTxURL)
 		UIApplication.shared.open(viewStatusUrl!)
 	}
 }
