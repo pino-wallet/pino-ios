@@ -228,7 +228,8 @@ class SwapViewModel {
     
     private func updateEthSwapInfo(destToken: SwapTokenViewModel, amount: String?) {
         updateDestinationToken(destToken: destToken, tokenAmount: amount)
-        removePreviousFeeInfo()
+        swapFeeVM.swapProviderVM = nil
+        swapFeeVM.updateQuote(srcToken: fromToken, destToken: toToken)
         swapFeeVM.priceImpact = "0"
     }
 

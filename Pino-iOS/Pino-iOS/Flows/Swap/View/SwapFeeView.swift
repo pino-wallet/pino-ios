@@ -313,11 +313,13 @@ class SwapFeeView: UIView {
 	private func updateProviderView(_ swapProviderVM: SwapProviderViewModel?) {
 		if let swapProviderVM {
 			providerStackView.isHidden = false
+            providerTagView.isHiddenInStackView = false
 			providerImageView.image = UIImage(named: swapProviderVM.provider.image)
             providerTagView.image = UIImage(named: swapProviderVM.provider.image)
 			providerNameLabel.text = swapProviderVM.provider.name
 		} else {
 			providerStackView.isHidden = true
+            providerTagView.isHiddenInStackView = true
 		}
 	}
 
