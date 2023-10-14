@@ -18,7 +18,7 @@ struct SwapPriceRequestModel {
 	let userAddress: String
 	let receiver: String
 	var provider: SwapProvider!
-    let walletManager = PinoWalletManager()
+	let walletManager = PinoWalletManager()
 
 	var editedSrcToken: String {
 		if srcToken == Web3Core.Constants.pinoETHID {
@@ -35,9 +35,9 @@ struct SwapPriceRequestModel {
 				return Web3Core.Constants.paraSwapETHID
 			case .zeroX:
 				return Web3Core.Constants.wethTokenID
-            case .none:
-                fatalError("Swpa Provider was not set")
-            }
+			case .none:
+				fatalError("Swpa Provider was not set")
+			}
 		} else {
 			return destToken
 		}
@@ -53,7 +53,7 @@ struct SwapPriceRequestModel {
 		side: SwapSide,
 		userAddress: String,
 		receiver: String
-    ) {
+	) {
 		self.srcToken = srcToken
 		self.srcDecimals = srcDecimals
 		self.destToken = destToken
@@ -75,7 +75,7 @@ struct SwapPriceRequestModel {
 			"side": side.rawValue,
 			"network": networkID!,
 			"userAddress": Web3Core.Constants.pinoProxyAddress,
-            "receiver": walletManager.currentAccount.eip55Address,
+			"receiver": walletManager.currentAccount.eip55Address,
 		]
 	}
 
@@ -93,7 +93,7 @@ struct SwapPriceRequestModel {
 	public var ZeroXSwapURLParams: HTTPParameters {
 		var params = [
 			"sellToken": editedSrcToken,
-            "buyToken": editedDestToken,
+			"buyToken": editedDestToken,
 		] as HTTPParameters
 		if side == .sell {
 			params["sellAmount"] = amount

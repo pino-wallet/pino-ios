@@ -128,9 +128,11 @@ class SwapViewModel {
 		swapSide: SwapSide
 	) {
 		srcToken.calculateDollarAmount(amount)
-		if let tokenAmount = srcToken.tokenAmount,
-		   let swapAmount = Utilities.parseToBigUInt(tokenAmount, units: .custom(srcToken.selectedToken.decimal)),
-		   !swapAmount.isZero {
+		if isEthToWeth() || isWethToEth() {
+			updateDestinationToken(destToken: destToken, tokenAmount: amount)
+		} else if let tokenAmount = srcToken.tokenAmount,
+		          let swapAmount = Utilities.parseToBigUInt(tokenAmount, units: .custom(srcToken.selectedToken.decimal)),
+		          !swapAmount.isZero {
 			getDestinationAmount(destToken, swapAmount: swapAmount.description, swapSide: swapSide)
 		} else {
 			removeDestinationAmount(destToken)
@@ -170,7 +172,7 @@ class SwapViewModel {
 		swapSide: SwapSide,
 		completion: @escaping (String) -> Void
 	) {
-        priceManager.getBestPrice(srcToken: fromToken, destToken: toToken, swapSide: swapSide, amount: amount)
+		priceManager.getBestPrice(srcToken: fromToken, destToken: toToken, swapSide: swapSide, amount: amount)
 			{ providersInfo in
 				self.providers = providersInfo.compactMap {
 					SwapProviderViewModel(providerResponseInfo: $0, side: swapSide, destToken: destToken)
@@ -224,5 +226,13 @@ class SwapViewModel {
 		} else {
 			swapFeeVM.isBestRate = false
 		}
+	}
+
+	private func isEthToWeth() -> Bool {
+		fromToken.selectedToken.isEth && toToken.selectedToken.isWEth
+	}
+
+	private func isWethToEth() -> Bool {
+		fromToken.selectedToken.isWEth && toToken.selectedToken.isEth
 	}
 }

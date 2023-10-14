@@ -93,8 +93,8 @@ public struct W3ApproveManager {
 	) -> Promise<EthereumSignedTransaction> {
 		Promise<EthereumSignedTransaction> { seal in
 
-            let contract = try Web3Core.getContractOfToken(address: address, abi: .erc, web3: web3)
-            let solInvocation = contract[ABIMethodWrite.approve.rawValue]?(spender.eip55Address!, amount)
+			let contract = try Web3Core.getContractOfToken(address: address, abi: .erc, web3: web3)
+			let solInvocation = contract[ABIMethodWrite.approve.rawValue]?(spender.eip55Address!, amount)
 
 			gasInfoManager.calculateGasOf(
 				method: .approve,
