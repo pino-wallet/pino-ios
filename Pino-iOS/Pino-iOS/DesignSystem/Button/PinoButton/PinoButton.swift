@@ -10,7 +10,7 @@ import UIKit
 public class PinoButton: UIButton {
 	// MARK: - Private properties
 
-	private var loadingView = UIActivityIndicatorView()
+    private var loadingView = PinoLoading(size: 22, imageType: .secondary)
 
 	// MARK: - Public properties
 
@@ -66,15 +66,15 @@ public class PinoButton: UIButton {
 		switch style {
 		case .loading:
 			isEnabled = false
-			loadingEnabled(true)
+            loadingView.isHidden = false
 			updateTitle(nil)
 		case .deactive:
 			isEnabled = false
-			loadingEnabled(false)
+            loadingView.isHidden = true
 		default:
 			isEnabled = true
 			updateTitle(title)
-			loadingEnabled(false)
+            loadingView.isHidden = true
 		}
 	}
 
@@ -83,16 +83,8 @@ public class PinoButton: UIButton {
 	}
 
 	private func setupLoading() {
-		loadingView.color = UIColor.white
 		addSubview(loadingView)
+        loadingView.isHidden = true
 		loadingView.pin(.centerX, .centerY)
-	}
-
-	private func loadingEnabled(_ isLoading: Bool) {
-		if isLoading {
-			loadingView.startAnimating()
-		} else {
-			loadingView.stopAnimating()
-		}
 	}
 }

@@ -42,7 +42,7 @@ class SwapFeeView: UIView {
 	private let feeLabel = UILabel()
 	private let feeLoadingStackView = UIStackView()
 	private let feeLoadingLabel = UILabel()
-	private let feeLoadingIndicator = UIActivityIndicatorView()
+	private let feeLoadingIndicator = PinoLoading(size: 22)
 
 	private let openFeeInfoIcon = UIImage(named: "chevron_down")
 	private let closeFeeInfoIcon = UIImage(named: "chevron_up")
@@ -172,6 +172,7 @@ class SwapFeeView: UIView {
 		impactTagStackView.spacing = 2
 		providerChangeStackView.spacing = 3
 		feeLoadingStackView.spacing = 10
+        feeLoadingStackView.alignment = .center
 		providerTitleStackView.spacing = 5
 
 		providerChangeStackView.alignment = .center
@@ -182,9 +183,6 @@ class SwapFeeView: UIView {
 		contentStackView.layer.masksToBounds = true
 		bestRateTagView.layer.cornerRadius = 12
 		bestRateTagView.layer.masksToBounds = true
-
-		feeLoadingIndicator.style = .medium
-		feeLoadingIndicator.color = .Pino.primary
 
 		feeInfoStackView.isHidden = true
 		impactTagView.alpha = 1
@@ -345,7 +343,7 @@ class SwapFeeView: UIView {
 		amountStackView.isHidden = true
 		contentStackView.isHidden = true
 		feeLoadingStackView.isHidden = false
-		feeLoadingIndicator.startAnimating()
+		feeLoadingIndicator.isHidden = false
 	}
 
 	private func hideLoading() {
@@ -355,7 +353,7 @@ class SwapFeeView: UIView {
 		amountStackView.isHidden = false
 		contentStackView.isHidden = false
 		feeLoadingStackView.isHidden = true
-		feeLoadingIndicator.stopAnimating()
+		feeLoadingIndicator.isHidden = true
 	}
 
 	@objc
@@ -401,7 +399,7 @@ class SwapFeeView: UIView {
 		isCollapsed = false
 		collapsButton.image = closeFeeInfoIcon
 		impactTagView.alpha = 1
-		if !feeLoadingIndicator.isAnimating {
+		if feeLoadingIndicator.isHidden {
 			feeInfoStackView.isHiddenInStackView = false
 		}
 	}

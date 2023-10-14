@@ -7,30 +7,40 @@
 
 import UIKit
 
-class PinoLoading: UIActivityIndicatorView {
+class PinoLoading: UIView {
 	// MARK: - Public Properties
 
-	public var size: Int {
+	public var size: CGFloat {
 		didSet {
-			setupFrame()
+            setupContraints()
 		}
 	}
-
-	public var indicatorColor: UIColor? {
-		didSet {
-			setupView()
-		}
-	}
-
+    public var loadingSpeed: SpeedType {
+        didSet {
+            removeAnimation()
+            startLoadingAnimation(duration: loadingSpeed.rawValue)
+        }
+    }
+    public var imageType: ImageType {
+        didSet {
+        loadingImageView.image = UIImage(named: imageType.rawValue)
+        }
+    }
+    
+    // MARK: - Private Properties
+    private let loadingImageView = UIImageView()
+    
 	// MARK: - Initializers
 
-	init(size: Int, indicatorColor: UIColor = UIColor.Pino.primary) {
+    init(size: CGFloat, imageType: ImageType = .primary, loadingSpeed: SpeedType = .normal) {
 		self.size = size
-		self.indicatorColor = indicatorColor
+        self.imageType = imageType
+        self.loadingSpeed = loadingSpeed
 		super.init(frame: .zero)
 		setupView()
-		setupFrame()
-		startAnimating()
+        setupStyles()
+        setupContraints()
+        startLoadingAnimation(duration: loadingSpeed.rawValue)
 	}
 
 	required init(coder: NSCoder) {
@@ -40,11 +50,30 @@ class PinoLoading: UIActivityIndicatorView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		color = indicatorColor
+        addSubview(loadingImageView)
 	}
+    
+    private func setupStyles() {
+        loadingImageView.image = UIImage(named: imageType.rawValue)
+    }
+    
+    private func removeAnimation() {
+        layer.removeAllAnimations()
+    }
+    
+    private func startLoadingAnimation(duration: Double) {
+        UIView.animate(withDuration: duration, delay: 0.0, options: .curveLinear, animations: { [weak self] in
+            guard let self else {
+                return
+            }
+            self.loadingImageView.transform = self.loadingImageView.transform.rotated(by: .pi )
+        }) { _ in
+            self.startLoadingAnimation(duration: duration)
+        }
+    }
 
-	private func setupFrame() {
-		let sizeCGFloat = CGFloat(size)
-		frame = CGRectMake(0, 0, sizeCGFloat, sizeCGFloat)
+	private func setupContraints() {
+        loadingImageView.pin(.allEdges(padding: 0), .fixedWidth(size), .fixedHeight(size))
+        layoutIfNeeded()
 	}
 }
