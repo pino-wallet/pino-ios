@@ -194,14 +194,12 @@ class SwapViewModel {
 		guard let swapProvider else { return }
 		swapFeeVM.swapProviderVM = swapProvider
 		updateBestRateTag()
-		swapFeeVM.fee = swapProvider.fee
-		swapFeeVM.feeInDollar = swapProvider.feeInDollar
+		swapFeeVM.priceImpact = "0"
 	}
 
 	private func removePreviousFeeInfo() {
-		swapFeeVM.fee = nil
-		swapFeeVM.feeInDollar = nil
 		swapFeeVM.calculatedAmount = .emptyString
+		swapFeeVM.priceImpact = nil
 	}
 
 	private func getFeeTag(saveAmount: String) -> SwapFeeViewModel.FeeTag {

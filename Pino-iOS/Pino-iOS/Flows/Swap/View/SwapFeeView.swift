@@ -320,8 +320,10 @@ class SwapFeeView: UIView {
 		if let priceImpact {
 			priceImpactStackView.isHidden = false
 			priceImpactLabel.text = priceImpact.percentFormatting
+			hideLoading()
 		} else {
 			priceImpactStackView.isHidden = true
+			showLoading()
 		}
 	}
 
@@ -332,9 +334,6 @@ class SwapFeeView: UIView {
 			} else {
 				feeLabel.text = feeInETH
 			}
-			hideLoading()
-		} else {
-			showLoading()
 		}
 	}
 
