@@ -8,13 +8,14 @@
 import Foundation
 
 extension PinoLoading {
-    public enum ImageType: String {
-        case primary = "loading"
-        case rainbow = "rainbow_loading"
-        case secondary = "secondary_loading"
-    }
-    public enum SpeedType: Double {
-        case normal = 0.7
-        case fast = 0.5
-    }
+	public enum ImageType: String {
+		case primary = "loading"
+		case rainbow = "rainbow_loading"
+		case secondary = "secondary_loading"
+	}
+
+	public enum SpeedType: Double {
+		case normal = 0.7
+		case fast = 0.5
+	}
 }

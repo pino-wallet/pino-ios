@@ -172,7 +172,7 @@ class SwapFeeView: UIView {
 		impactTagStackView.spacing = 2
 		providerChangeStackView.spacing = 3
 		feeLoadingStackView.spacing = 10
-        feeLoadingStackView.alignment = .center
+		feeLoadingStackView.alignment = .center
 		providerTitleStackView.spacing = 5
 
 		providerChangeStackView.alignment = .center

@@ -213,7 +213,7 @@ extension UITextField {
 			x: outerView.bounds.size.width - (rightViewContentSize / 2),
 			y: outerView.bounds.size.height / 2
 		)
-        view.pin(.verticalEdges(padding: 0), .trailing(padding: 0), .leading(padding: 10))
+		view.pin(.verticalEdges(padding: 0), .trailing(padding: 0), .leading(padding: 10))
 
 		rightView = outerView
 	}
