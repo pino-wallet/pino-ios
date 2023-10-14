@@ -68,7 +68,7 @@ class SwapConfirmationViewModel {
 	// MARK: - Public Methods
 
 	public func fetchSwapInfo() {
-		let swapManager = SwapManager(selectedProvider: selectedProvider!, srcToken: fromToken, destToken: toToken)
+		let swapManager = SwapManager(selectedProvider: selectedProvider, srcToken: fromToken, destToken: toToken)
 		swapManager.getSwapInfo().done { swapTrx, gasInfo in
 			self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
 			self.formattedFeeInETH = gasInfo.fee.sevenDigitFormat

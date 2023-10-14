@@ -24,7 +24,7 @@ class SwapManager {
 
 	// MARK: - Private Properties
 
-	private let selectedProvider: SwapProviderViewModel
+	private let selectedProvider: SwapProviderViewModel?
 	private var web3 = Web3Core.shared
 	private var srcToken: SwapTokenViewModel
 	private var destToken: SwapTokenViewModel
@@ -43,7 +43,7 @@ class SwapManager {
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes in ms
 	private let nonce = BigNumber.bigRandomeNumber
 
-	init(selectedProvider: SwapProviderViewModel, srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
+	init(selectedProvider: SwapProviderViewModel?, srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
 		self.selectedProvider = selectedProvider
 		self.srcToken = srcToken
 		self.destToken = destToken
@@ -260,7 +260,9 @@ class SwapManager {
 	}
 
 	private func checkAllowanceOfProvider() -> Promise<String?> {
-		Promise<String?> { seal in
+        guard let selectedProvider else { fatalError("provider errror") }
+
+		return Promise<String?> { seal in
 			firstly {
 				try web3.getAllowanceOf(
 					contractAddress: srcToken.selectedToken.id,
@@ -299,9 +301,9 @@ class SwapManager {
 		)
 	}
 
-	private func getSwapInfoFrom(
-		wethToken: AssetViewModel? = nil
-	) -> Promise<String> {
+	private func getSwapInfoFrom() -> Promise<String> {
+        guard let selectedProvider else { fatalError("provider errror") }
+
 		var priceRoute: PriceRouteClass?
 		if selectedProvider.provider == .paraswap {
 			let paraResponse = selectedProvider.providerResponseInfo as! ParaSwapPriceResponseModel
@@ -339,28 +341,45 @@ class SwapManager {
 	}
 
 	private func sweepTokenCallData() -> Promise<String?> {
-		Promise<String?> { seal in
-			if selectedProvider.provider == .zeroX || destToken.selectedToken.isWEth {
-				web3.getSweepTokenCallData(
-					tokenAdd: destToken.selectedToken.id,
-					recipientAdd: walletManager.currentAccount.eip55Address
-				).done { sweepData in
-					seal.fulfill(sweepData)
-				}.catch { error in
-					print(error)
-				}
-			} else {
-				seal.fulfill(nil)
-			}
-		}
+        if let selectedProvider {
+            
+            if selectedProvider.provider == .zeroX {
+                return sweepToken()
+            } else {
+                fatalError("wrong provider")
+            }
+            
+        } else {
+            if destToken.selectedToken.isWEth {
+                return sweepToken()
+            } else {
+                fatalError("wrong provider")
+            }
+        }
 	}
 
+    private func sweepToken() -> Promise<String?> {
+        Promise<String?>() { seal in
+            web3.getSweepTokenCallData(
+                tokenAdd: destToken.selectedToken.id,
+                recipientAdd: walletManager.currentAccount.eip55Address
+            ).done { sweepData in
+                seal.fulfill(sweepData)
+            }.catch { error in
+                seal.reject(error)
+                print(error)
+            }
+        }
+    }
+    
 	private func wrapTokenCallData() -> Promise<String> {
 		web3.getWrapETHCallData(proxyFee: 0)
 	}
 
 	private func unwrapTokenCallData() -> Promise<String?> {
-		Promise<String?> { seal in
+        guard let selectedProvider else { fatalError("provider errror") }
+
+		return Promise<String?> { seal in
 			if selectedProvider.provider == .zeroX || srcToken.selectedToken.isWEth {
 				web3.getUnwrapETHCallData(recipient: walletManager.currentAccount.eip55Address)
 					.done { wrapData in
@@ -375,6 +394,8 @@ class SwapManager {
 	}
 
 	private func getProvidersCallData(providerData: String) -> Promise<String> {
+        guard let selectedProvider else { fatalError("provider errror") }
+        
 		switch selectedProvider.provider {
 		case .zeroX:
 			return web3.getZeroXSwapCallData(data: providerData)
@@ -386,6 +407,7 @@ class SwapManager {
 	}
 
 	private func callSwapFunction(swapReq: SwapRequestModel, completion: @escaping (String) -> Void) {
+        guard let selectedProvider else { return }
 		switch selectedProvider.provider {
 		case .oneInch:
 			oneInchAPIClient.swap(swapInfo: swapReq).sink { completed in
@@ -423,19 +445,9 @@ class SwapManager {
 		}
 	}
 
-//	private var selectedProvService: some SwapProvidersAPIServices {
-//		switch selectedProvider.provider {
-//		case .oneInch:
-//			return oneInchAPIClient
-//		case .paraswap:
-//			return paraSwapAPIClient
-//		case .zeroX:
-//			return zeroXAPIClient
-//		}
-//	}
-
 	public func addPendingTransferActivity(trxHash: String) {
 		#warning("Ask Ali about info")
+        guard let selectedProvider else { return }
 		guard let pendingSwapGasInfo = pendingSwapGasInfo else { return }
 		let userAddress = walletManager.currentAccount.eip55Address
 		coreDataManager.addNewSwapActivity(
