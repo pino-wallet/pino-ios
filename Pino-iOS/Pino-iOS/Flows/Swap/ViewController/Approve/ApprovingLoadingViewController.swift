@@ -5,6 +5,7 @@
 //  Created by Sobhan Eskandari on 8/24/23.
 //
 
+import Combine
 import UIKit
 
 class ApprovingLoadingViewController: UIViewController {
@@ -14,13 +15,15 @@ class ApprovingLoadingViewController: UIViewController {
 
 	// MARK: - Private Properties
 
-	private let approveLoadingVM = ApprovingLoadingViewModel()
+	private let approveLoadingVM: ApprovingLoadingViewModel
 	private var approveLoadingView: ApprovingLoadingView!
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initilizers
 
-	init(showConfirmVC: @escaping () -> Void) {
+	init(showConfirmVC: @escaping () -> Void, approveLoadingVM: ApprovingLoadingViewModel) {
 		self.showConfirmVC = showConfirmVC
+		self.approveLoadingVM = approveLoadingVM
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -32,19 +35,23 @@ class ApprovingLoadingViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		#warning("Fill when approve is done")
-		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-			self.openConfirmationPage()
-		}
 	}
 
 	override func loadView() {
 		setupNavigationBar()
 		setupView()
+		setupBindings()
 	}
 
-	override func viewWillAppear(_ animated: Bool) {}
+	override func viewWillAppear(_ animated: Bool) {
+		if isBeingPresented || isMovingToParent {
+			approveLoadingVM.getApproveTransactionFormVC()
+		}
+	}
+
+	override func viewDidDisappear(_ animated: Bool) {
+		approveLoadingVM.destroyTimer()
+	}
 
 	// MARK: - Private Methods
 
@@ -53,13 +60,21 @@ class ApprovingLoadingViewController: UIViewController {
 	}
 
 	private func setupView() {
-		isModalInPresentation = true
 		approveLoadingView = ApprovingLoadingView(approvingLoadingVM: approveLoadingVM)
 		view = approveLoadingView
 	}
 
 	private func openConfirmationPage() {
-		dismiss(animated: true)
-		showConfirmVC()
+		dismiss(animated: true) {
+			self.showConfirmVC()
+		}
+	}
+
+	private func setupBindings() {
+		approveLoadingVM.$isApproved.sink { isApproved in
+			if isApproved {
+				self.openConfirmationPage()
+			}
+		}.store(in: &cancellables)
 	}
 }
