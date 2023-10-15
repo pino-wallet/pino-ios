@@ -20,7 +20,7 @@ extension UIColor {
 		static let background = UIColor(named: "Background Color") ?? UIColor.systemBackground
 		static let secondaryBackground = UIColor(named: "Secondary Background Color") ?? UIColor
 			.secondarySystemBackground
-        static let webBackground = UIColor(named: "Web Background Color") ?? UIColor.systemBackground
+		static let webBackground = UIColor(named: "Web Background Color") ?? UIColor.systemBackground
 
 		// MARK: - Label
 

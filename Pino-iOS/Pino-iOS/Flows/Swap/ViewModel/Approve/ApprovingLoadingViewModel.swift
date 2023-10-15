@@ -17,30 +17,31 @@ class ApprovingLoadingViewModel {
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
-    
-    public let takeFewSecondsText = "This may take a few seconds."
-    public let takeFewMinutesText = "This may take a few minutes."
-    public let warningImageName = "warning"
-    public let speedUpImageName = "speed_up"
-    public let speedUpButtonText = "Speed up"
-    public let approvingText = "Approving..."
-    public let tryAgainButtonText = "Try again"
-    public let tryAgainDescriptionText = "Please try again"
-    public let somethingWentWeongText = "Something went wrong!"
-    public let speedUpDescriptionText = "Your transaction is taking longer than usual, likely due to network congestion. For faster confirmation, try the 'Speed up' option."
-    public let grayErrorAlertImageName = "gray_error_alert"
-    public let dismissButtonImageName = "close"
+
+	public let takeFewSecondsText = "This may take a few seconds."
+	public let takeFewMinutesText = "This may take a few minutes."
+	public let warningImageName = "warning"
+	public let speedUpImageName = "speed_up"
+	public let speedUpButtonText = "Speed up"
+	public let approvingText = "Approving..."
+	public let tryAgainButtonText = "Try again"
+	public let tryAgainDescriptionText = "Please try again"
+	public let somethingWentWeongText = "Something went wrong!"
+	public let speedUpDescriptionText =
+		"Your transaction is taking longer than usual, likely due to network congestion. For faster confirmation, try the 'Speed up' option."
+	public let grayErrorAlertImageName = "gray_error_alert"
+	public let dismissButtonImageName = "close"
 
 	@Published
-    public var approveLoadingStatus: ApproveLoadingStatuses = .normalLoading
-    
-    public enum ApproveLoadingStatuses {
-        case normalLoading
-        case showSpeedUp
-        case fastLoading
-        case error
-        case done
-    }
+	public var approveLoadingStatus: ApproveLoadingStatuses = .normalLoading
+
+	public enum ApproveLoadingStatuses {
+		case normalLoading
+		case showSpeedUp
+		case fastLoading
+		case error
+		case done
+	}
 
 	// MARK: - Initializers
 
@@ -87,7 +88,7 @@ class ApprovingLoadingViewModel {
 				}
 			}
 		} receiveValue: { _ in
-            self.approveLoadingStatus = .done
+			self.approveLoadingStatus = .done
 			self.destroyTimer()
 		}.store(in: &cancellables)
 	}
