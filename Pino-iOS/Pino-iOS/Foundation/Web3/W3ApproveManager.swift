@@ -38,11 +38,12 @@ public struct W3ApproveManager {
 
 	// MARK: - Public Methods
 
-	public func approveContract(address: String, amount: BigUInt, spender: String) -> Promise<String> {
+	public func approveContract(contractDetails: ContractDetailsModel) -> Promise<String> {
 		Promise<String> { seal in
-			getApproveTransaction(address: address, amount: amount, spender: spender).then { signedTrx in
+			getApproveTransaction(contractDetails: contractDetails).then { signedTrx in
 				web3.eth.sendRawTransaction(transaction: signedTrx)
-			}.done { trxHash in
+			}
+			.done { trxHash in
 				seal.fulfill(trxHash.hex())
 			}.catch { error in
 				print(error)
@@ -84,22 +85,45 @@ public struct W3ApproveManager {
 		}
 	}
 
-	// MARK: - Private Methods
-
-	private func getApproveTransaction(
+	public func getApproveContractDetails(
 		address: String,
 		amount: BigUInt,
 		spender: String
+	) -> Promise<ContractDetailsModel> {
+		Promise<ContractDetailsModel> { seal in
+			let contract = try Web3Core.getContractOfToken(address: address, abi: .erc, web3: web3)
+			let solInvocation = contract[ABIMethodWrite.approve.rawValue]?(spender, amount)
+			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvocation!))
+		}
+	}
+
+	public func getApproveGasInfo(
+		contractDetails: ContractDetailsModel
+	) -> Promise<GasInfo> {
+		Promise<GasInfo> { seal in
+			gasInfoManager.calculateGasOf(
+				method: .approve,
+				solInvoc: contractDetails.solInvocation,
+				contractAddress: contractDetails.contract.address!
+			).done { gasInfo in
+				seal.fulfill(gasInfo)
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	// MARK: - Private Properties
+
+	private func getApproveTransaction(
+		contractDetails: ContractDetailsModel
 	) -> Promise<EthereumSignedTransaction> {
 		Promise<EthereumSignedTransaction> { seal in
 
-			let contract = try Web3Core.getContractOfToken(address: address, abi: .erc, web3: web3)
-			let solInvocation = contract[ABIMethodWrite.approve.rawValue]?(spender, amount)
-
 			gasInfoManager.calculateGasOf(
 				method: .approve,
-				solInvoc: solInvocation!,
-				contractAddress: contract.address!
+				solInvoc: contractDetails.solInvocation,
+				contractAddress: contractDetails.contract.address!
 			)
 			.then { [self] gasInfo in
 				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
@@ -108,7 +132,7 @@ public struct W3ApproveManager {
 			.done { [self] nonce, gasInfo in
 
 				let trx = try trxManager.createTransactionFor(
-					contract: solInvocation!,
+					contract: contractDetails.solInvocation,
 					nonce: nonce,
 					gasPrice: gasInfo.gasPrice.etherumQuantity,
 					gasLimit: gasInfo.increasedGasLimit.etherumQuantity
