@@ -7,8 +7,8 @@
 
 import Combine
 import Foundation
-import UIKit
 import Kingfisher
+import UIKit
 
 class ApproveContractView: UIView {
 	// MARK: - Closures
@@ -26,15 +26,19 @@ class ApproveContractView: UIView {
 	private let rightArrowImageView = UIImageView()
 	private let approveButton = PinoButton(style: .active)
 	private var approveContractVM: ApproveContractViewModel
-    private var approveType: ApproveContractViewController.ApproveType
+	private var approveType: ApproveContractViewController.ApproveType
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
-    init(approveContractVM: ApproveContractViewModel, onApproveTap: @escaping () -> Void, approveType: ApproveContractViewController.ApproveType) {
+	init(
+		approveContractVM: ApproveContractViewModel,
+		onApproveTap: @escaping () -> Void,
+		approveType: ApproveContractViewController.ApproveType
+	) {
 		self.approveContractVM = approveContractVM
 		self.onApproveTap = onApproveTap
-        self.approveType = approveType
+		self.approveType = approveType
 
 		super.init(frame: .zero)
 
@@ -54,10 +58,9 @@ class ApproveContractView: UIView {
 	private func setupView() {
 		let learnMoreTapGesture = UITapGestureRecognizer(target: self, action: #selector(openLearnMorePage))
 		learnMoreLabel.addGestureRecognizer(learnMoreTapGesture)
-        learnMoreLabel.isUserInteractionEnabled = true
+		learnMoreLabel.isUserInteractionEnabled = true
 
 		approveButton.addTarget(self, action: #selector(onApproveButtonTap), for: .touchUpInside)
-
 
 		contentStackView.addArrangedSubview(titleImageView)
 		contentStackView.addArrangedSubview(titleLabel)
@@ -66,7 +69,7 @@ class ApproveContractView: UIView {
 		containerView.addSubview(contentStackView)
 
 		addSubview(containerView)
-        addSubview(learnMoreLabel)
+		addSubview(learnMoreLabel)
 		addSubview(approveButton)
 	}
 
@@ -76,20 +79,20 @@ class ApproveContractView: UIView {
 		contentStackView.axis = .vertical
 		contentStackView.spacing = 16
 		contentStackView.alignment = .center
-        contentStackView.setCustomSpacing(8, after: titleLabel)
+		contentStackView.setCustomSpacing(8, after: titleLabel)
 
-        titleImageView.kf.indicatorType = .activity
-        titleImageView.kf.setImage(with: approveContractVM.tokenImage)
+		titleImageView.kf.indicatorType = .activity
+		titleImageView.kf.setImage(with: approveContractVM.tokenImage)
 
 		rightArrowImageView.image = UIImage(named: approveContractVM.rightArrowImageName)
 
 		titleLabel.font = .PinoStyle.semiboldTitle2
-        titleLabel.text = generateApproveTitleLabelText()
-        titleLabel.textAlignment = .center
+		titleLabel.text = generateApproveTitleLabelText()
+		titleLabel.textAlignment = .center
 		titleLabel.numberOfLines = 0
 
 		describtionLabel.textColor = .Pino.secondaryLabel
-        describtionLabel.text = approveContractVM.approveDescriptionText
+		describtionLabel.text = approveContractVM.approveDescriptionText
 		describtionLabel.textAlignment = .center
 		describtionLabel.numberOfLines = 0
 
@@ -115,11 +118,11 @@ class ApproveContractView: UIView {
 		)
 		titleImageView.pin(.fixedWidth(56), .fixedHeight(56))
 		rightArrowImageView.pin(.fixedWidth(22), .fixedHeight(22))
-        learnMoreLabel.pin(.relative(.top, 24, to: containerView, .bottom), .centerX)
+		learnMoreLabel.pin(.relative(.top, 24, to: containerView, .bottom), .centerX)
 	}
 
 	private func generateApproveTitleLabelText() -> String {
-        "\(approveContractVM.allowText) \(approveContractVM.tokenSymbol) \(approveContractVM.approveMidText) \(approveType.rawValue)"
+		"\(approveContractVM.allowText) \(approveContractVM.tokenSymbol) \(approveContractVM.approveMidText) \(approveType.rawValue)"
 	}
 
 	private func setupBindings() {

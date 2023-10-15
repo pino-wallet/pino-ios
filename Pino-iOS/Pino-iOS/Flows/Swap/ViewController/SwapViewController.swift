@@ -238,7 +238,7 @@ class SwapViewController: UIViewController {
 			approveContractID: swapConfirmationVM.fromToken.selectedToken.id,
 			showConfirmVC: {
 				self.openConfirmationPage()
-            }, approveType: .swap
+			}, approveType: .swap
 		)
 		let confirmationNavigationVC = UINavigationController(rootViewController: approveVC)
 		present(confirmationNavigationVC, animated: true)

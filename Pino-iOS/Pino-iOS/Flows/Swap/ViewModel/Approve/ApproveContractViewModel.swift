@@ -5,17 +5,17 @@
 //  Created by Mohi Raoufi on 2/25/23.
 //
 import Combine
+import Foundation
 import PromiseKit
 import Web3
 import Web3_Utility
-import Foundation
 
 class ApproveContractViewModel {
 	// MARK: - Public Properties
 
 	public let pageTitle = "Asset approval"
 	public let learnMoreButtonTitle = "Why is this required?"
-    public let allowText = "Allow"
+	public let allowText = "Allow"
 	public let approveMidText = "to be used for"
 	public let approveDescriptionText = "You will only do it once."
 	public let approveButtonTitle = "Approve"
@@ -38,22 +38,22 @@ class ApproveContractViewModel {
 
 	@Published
 	public var approveStatus: ApproveStatuses = .calculatingFee
-    
-    public var tokenSymbol: String {
-        approveAssetVM.symbol
-    }
-    
-    public var tokenImage: URL {
-        approveAssetVM.image
-    }
-    
+
+	public var tokenSymbol: String {
+		approveAssetVM.symbol
+	}
+
+	public var tokenImage: URL {
+		approveAssetVM.image
+	}
 
 	// MARK: - Private Properties
 
 	private let globalAssetsList = GlobalVariables.shared.manageAssetsList
-    private var approveAssetVM: AssetViewModel {
-        (globalAssetsList?.first(where: { $0.id == contractId }))!
-    }
+	private var approveAssetVM: AssetViewModel {
+		(globalAssetsList?.first(where: { $0.id == contractId }))!
+	}
+
 	private var web3 = Web3Core.shared
 	private var swapConfirmVM: SwapConfirmationViewModel!
 	private var approveContractDetails: ContractDetailsModel?
