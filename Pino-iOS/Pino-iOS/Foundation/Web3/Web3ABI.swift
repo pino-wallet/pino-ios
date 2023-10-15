@@ -82,6 +82,8 @@ public enum ABIMethodWrite: String {
 	case swap1Inch
 	case daiToSDai
 	case sDaiToDai
+	case borrow
+	case borrowETH
 }
 
 fileprivate func ABIReader(fileName: String) -> String {
