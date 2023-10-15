@@ -39,7 +39,7 @@ public struct InvestableAssetViewModel: AssetsBoardProtocol {
 	}
 
 	public var formattedAPYAmount: String {
-		"%\(APYAmount)"
+		"%\(APYAmount.percentFormat)"
 	}
 
 	public var volatilityType: AssetVolatilityType {

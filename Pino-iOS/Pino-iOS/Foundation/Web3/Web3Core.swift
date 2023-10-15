@@ -49,6 +49,10 @@ public class Web3Core {
 		.init(web3: web3)
 	}
 
+	private var investManager: W3InvestManager {
+    .init(web3: web3)
+  }
+
 	private var compoundBorrowManager: W3CompoundBorrowManager {
 		.init(web3: web3)
 	}
@@ -298,6 +302,14 @@ public class Web3Core {
 		}
 	}
 
+	public func getDaiToSDaiCallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
+		investManager.getDaiToSDaiCallData(amount: amount, recipientAdd: recipientAdd)
+	}
+
+	public func getSDaiToDaiCallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
+		investManager.getSDaiToDaiCallData(amount: amount, recipientAdd: recipientAdd)
+  }
+    
 	public func borrowCompoundCToken(contractDetails: ContractDetailsModel) -> Promise<String> {
 		compoundBorrowManager.borrowCToken(contractDetails: contractDetails)
 	}

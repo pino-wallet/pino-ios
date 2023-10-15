@@ -562,6 +562,9 @@
 		E25F4C14C3273F63F22E983C /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA3FFE35308EBEC961CD7BF /* UIView+Extension.swift */; };
 		E31106FE2AC17040005723EB /* InvestableAssetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31106FD2AC17040005723EB /* InvestableAssetsModel.swift */; };
 		E333E63A2AA708D3005C977E /* InvestEmptyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E333E6392AA708D3005C977E /* InvestEmptyPageView.swift */; };
+		E33F7CBA2AD44199007FC04D /* W3InvestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F7CB92AD44199007FC04D /* W3InvestManager.swift */; };
+		E33F7CBC2AD442AC007FC04D /* InvestABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = E33F7CBB2AD442AC007FC04D /* InvestABIJson.json */; };
+		E33F7CBE2AD44CA2007FC04D /* InvestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F7CBD2AD44CA2007FC04D /* InvestManager.swift */; };
 		E343836A2A3D912A0048BDA1 /* SendConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34383692A3D912A0048BDA1 /* SendConfirmationViewController.swift */; };
 		E343836C2A3D92C20048BDA1 /* SendConfimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E343836B2A3D92C20048BDA1 /* SendConfimationView.swift */; };
 		E343836E2A3DA0320048BDA1 /* SendConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E343836D2A3DA0320048BDA1 /* SendConfirmationViewModel.swift */; };
@@ -1268,6 +1271,9 @@
 		E19FF7EA659493C72C4B0AD9 /* PinoTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoTextFieldView.swift; sourceTree = "<group>"; };
 		E31106FD2AC17040005723EB /* InvestableAssetsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestableAssetsModel.swift; sourceTree = "<group>"; };
 		E333E6392AA708D3005C977E /* InvestEmptyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestEmptyPageView.swift; sourceTree = "<group>"; };
+		E33F7CB92AD44199007FC04D /* W3InvestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3InvestManager.swift; sourceTree = "<group>"; };
+		E33F7CBB2AD442AC007FC04D /* InvestABIJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvestABIJson.json; sourceTree = "<group>"; };
+		E33F7CBD2AD44CA2007FC04D /* InvestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestManager.swift; sourceTree = "<group>"; };
 		E34383692A3D912A0048BDA1 /* SendConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmationViewController.swift; sourceTree = "<group>"; };
 		E343836B2A3D92C20048BDA1 /* SendConfimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfimationView.swift; sourceTree = "<group>"; };
 		E343836D2A3DA0320048BDA1 /* SendConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmationViewModel.swift; sourceTree = "<group>"; };
@@ -3324,6 +3330,7 @@
 		DFBDA0092AB0CD7B00ED42D6 /* ABIs */ = {
 			isa = PBXGroup;
 			children = (
+				E33F7CBB2AD442AC007FC04D /* InvestABIJson.json */,
 				D92729422AD3EE500043D9B1 /* BorrowCompoundCTokenABIJson.json */,
 				D92729402AD3EDBC0043D9B1 /* BorrowETHAaveABIJson.json */,
 				D9D754252AD133C8001D4B94 /* ERC20ABIJson.json */,
@@ -3424,6 +3431,7 @@
 				DF1D90E22A9733E300435D85 /* W3ApproveManager.swift */,
 				DF6DEDD72AAA30150080B47B /* W3SwapManager.swift */,
 				DF4C23132AC33D000014DC89 /* W3CallDataGenerator.swift */,
+				E33F7CB92AD44199007FC04D /* W3InvestManager.swift */,
 				D9D509182AD577D800F40C33 /* W3CompoundBorrowManager.swift */,
 				D987B7412AD5420C00727FDD /* W3AaveBorrowManager.swift */,
 			);
@@ -3718,6 +3726,7 @@
 				D5E4DDCE2A960367000AA235 /* InvestDepositViewModel.swift */,
 				E39F594F2A99F20B00023292 /* InvestConfirmationViewModel.swift */,
 				E3ABD1DF2AA718B400947D37 /* InvestEmptyPageViewModel.swift */,
+				E33F7CBD2AD44CA2007FC04D /* InvestManager.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -4044,6 +4053,7 @@
 				D924C34A2A949712007299A4 /* user-borrowing-stub.json in Resources */,
 				AE47F248DD308C61B717B086 /* PPPangramSans-Semibold.ttf in Resources */,
 				6493F198BF5B402E4D922A79 /* PPPangramSans-SemiboldItalic.ttf in Resources */,
+				E33F7CBC2AD442AC007FC04D /* InvestABIJson.json in Resources */,
 				BA45498BC5E24EE8ACDA819E /* PPPangramSans-SemiboldReclined.ttf in Resources */,
 				EFC5F586A70E988F98620A79 /* PPPangramSans-Thin.ttf in Resources */,
 				D50E904CB4FBD07E10DE3E9B /* PPPangramSans-ThinItalic.ttf in Resources */,
@@ -4186,6 +4196,7 @@
 				E3847B452A531C3A005ED78B /* SwapView+Keyboard.swift in Sources */,
 				DF4C23142AC33D000014DC89 /* W3CallDataGenerator.swift in Sources */,
 				24D1C890843C5A3AE41A1442 /* AssetsAPIClient.swift in Sources */,
+				E33F7CBE2AD44CA2007FC04D /* InvestManager.swift in Sources */,
 				D16E6EA70136FF5D5C83ED88 /* AssetsAPIMockClient.swift in Sources */,
 				A19CFCA76D9396A5A2612F7E /* AssetsAPIService.swift in Sources */,
 				1B60F4A0467FB90C104F4521 /* AssetsCollectionView.swift in Sources */,
@@ -4478,6 +4489,7 @@
 				D9C1807F2A88FAF80066C2A7 /* GradientShowFeeView.swift in Sources */,
 				078E15176613CB329D507580 /* PassManagmentError.swift in Sources */,
 				B2555AA57E466EAE75423515 /* PasscodeManagerPages.swift in Sources */,
+				E33F7CBA2AD44199007FC04D /* W3InvestManager.swift in Sources */,
 				A9D7256A81B9271BA56435AE /* PasscodeManagerService.swift in Sources */,
 				D924C3412A9495ED007299A4 /* BorrowingPropertiesViewModel.swift in Sources */,
 				C6B2D50A8E7A92DE60F957E2 /* PasteFromClipboardView.swift in Sources */,
