@@ -49,6 +49,18 @@ public class Web3Core {
 		.init(web3: web3)
 	}
 
+	private var investManager: W3InvestManager {
+    .init(web3: web3)
+  }
+
+	private var compoundBorrowManager: W3CompoundBorrowManager {
+		.init(web3: web3)
+	}
+
+	private var aaveBorrowManager: W3AaveBorrowManager {
+		.init(web3: web3)
+	}
+
 	private let walletManager = PinoWalletManager()
 
 	// MARK: - Typealias
@@ -301,6 +313,82 @@ public class Web3Core {
 		}
 	}
 
+	public func getDaiToSDaiCallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
+		investManager.getDaiToSDaiCallData(amount: amount, recipientAdd: recipientAdd)
+	}
+
+	public func getSDaiToDaiCallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
+		investManager.getSDaiToDaiCallData(amount: amount, recipientAdd: recipientAdd)
+  }
+    
+	public func borrowCompoundCToken(contractDetails: ContractDetailsModel) -> Promise<String> {
+		compoundBorrowManager.borrowCToken(contractDetails: contractDetails)
+	}
+
+	public func getCompoundBorrowCDaiContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
+		compoundBorrowManager.getCDaiContractDetails(amount: amount)
+	}
+
+	public func getCompoundBorrowCEthContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
+		compoundBorrowManager.getCEthContractDetails(amount: amount)
+	}
+
+	public func getCompoundBorrowCLinkContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
+		compoundBorrowManager.getCLinkContractDetails(amount: amount)
+	}
+
+	public func getCompoundBorrowCUsdcContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
+		compoundBorrowManager.getCUsdcContractDetails(amount: amount)
+	}
+
+	public func getCompoundBorrowCUsdtContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
+		compoundBorrowManager.getCUsdtContractDetails(amount: amount)
+	}
+
+	public func getCompoundBorrowCAaveContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
+		compoundBorrowManager.getCAaveContractDetails(amount: amount)
+	}
+
+	public func getCompoundBorrowCCompContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
+		compoundBorrowManager.getCCompContractDetails(amount: amount)
+	}
+
+	public func getCompoundBorrowCUniContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
+		compoundBorrowManager.getCUniContractDetails(amount: amount)
+	}
+
+	public func getCompoundBorrowCWbtcContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
+		compoundBorrowManager.getCWbtcContractDetails(amount: amount)
+	}
+
+	public func getCompoundBorrowCTokenGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
+		compoundBorrowManager.getCTokenBorrowGasInfo(contractDetails: contractDetails)
+	}
+
+	public func getAaveERCBorrowContractDetails(
+		tokenID: String,
+		amount: BigUInt,
+		userAddress: String
+	) -> Promise<ContractDetailsModel> {
+		aaveBorrowManager.getERCBorrowContractDetails(tokenID: tokenID, amount: amount, userAddress: userAddress)
+	}
+
+	public func getAaveETHBorrowContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
+		aaveBorrowManager.getETHBorrowContractDetails(amount: amount)
+	}
+
+	public func getAaveERCBorrowGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
+		aaveBorrowManager.getERCBorrowGasInfo(contractDetails: contractDetails)
+	}
+
+	public func getAaveETHBorrowGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
+		aaveBorrowManager.getETHBorrowGasInfo(contractDetails: contractDetails)
+	}
+
+	public func aaveBorrowToken(contractDetails: ContractDetailsModel) -> Promise<String> {
+		aaveBorrowManager.borrowToken(contractDetails: contractDetails)
+	}
+
 	// MARK: - Private Methods
 
 	private func getInfo(address: String, info: ABIMethodCall, abi: Web3ABI) throws -> Promise<[String: Any]> {
@@ -358,6 +446,8 @@ extension Web3Core {
 		static let zeroXETHID = "ETH"
 		static let pinoETHID = "0x0000000000000000000000000000000000000000"
 		static let wethTokenID = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
+		static let aaveBorrowVariableInterestRate = 2
+		static let aaveBorrowReferralCode = 0
 		static let aaveERCContractAddress = "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2"
 		static let aaveETHContractAddress = "0xD322A49006FC828F9B5B37Ab215F99B4E5caB19C"
 		static let compoundCAaveContractAddress = "0xe65cdB6479BaC1e22340E4E755fAE7E509EcD06c"

@@ -12,7 +12,7 @@ class ApprovingLoadingView: UIView {
 	// MARK: Private Properties
 
 	private let approvngContractLoadingVM: ApprovingLoadingViewModel!
-	private let loading = PinoLoading(size: 48)
+	private let loading = PinoLoading(size: 50)
 	private let loadingTextLabel = PinoLabel(style: .description, text: "")
 	private let loadingStackView = UIStackView()
 
@@ -49,9 +49,6 @@ class ApprovingLoadingView: UIView {
 		loadingTextLabel.text = "Approving..."
 		loadingTextLabel.numberOfLines = 0
 		loadingTextLabel.textAlignment = .center
-
-		loading.style = .large
-		loading.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
 
 		loadingStackView.axis = .vertical
 		loadingStackView.spacing = 24
