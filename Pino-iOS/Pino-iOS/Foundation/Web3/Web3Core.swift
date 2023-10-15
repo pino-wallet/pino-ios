@@ -49,7 +49,13 @@ public class Web3Core {
 		.init(web3: web3)
 	}
 
+
 	private var compoundBorrowManager: W3CompoundBorrowManager {
+    .init(web3: web3)
+  }
+
+	private var aaveBorrowManager: W3AaveBorrowManager {
+
 		.init(web3: web3)
 	}
 
@@ -294,6 +300,7 @@ public class Web3Core {
 		}
 	}
 
+
 	public func borrowCompoundCToken(contractDetails: ContractDetailsModel) -> Promise<String> {
 		compoundBorrowManager.borrowCToken(contractDetails: contractDetails)
 	}
@@ -336,6 +343,30 @@ public class Web3Core {
 
 	public func getCompoundBorrowCTokenGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
 		compoundBorrowManager.getCTokenBorrowGasInfo(contractDetails: contractDetails)
+
+	public func getAaveERCBorrowContractDetails(
+		tokenID: String,
+		amount: BigUInt,
+		userAddress: String
+	) -> Promise<ContractDetailsModel> {
+		aaveBorrowManager.getERCBorrowContractDetails(tokenID: tokenID, amount: amount, userAddress: userAddress)
+	}
+
+	public func getAaveETHBorrowContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
+		aaveBorrowManager.getETHBorrowContractDetails(amount: amount)
+	}
+
+	public func getAaveERCBorrowGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
+		aaveBorrowManager.getERCBorrowGasInfo(contractDetails: contractDetails)
+	}
+
+	public func getAaveETHBorrowGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
+		aaveBorrowManager.getETHBorrowGasInfo(contractDetails: contractDetails)
+	}
+
+	public func aaveBorrowToken(contractDetails: ContractDetailsModel) -> Promise<String> {
+		aaveBorrowManager.borrowToken(contractDetails: contractDetails)
+
 	}
 
 	// MARK: - Private Methods
@@ -394,6 +425,8 @@ extension Web3Core {
 		static let oneInchETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 		static let zeroXETHID = "ETH"
 		static let pinoETHID = "0x0000000000000000000000000000000000000000"
+		static let aaveBorrowVariableInterestRate = 2
+		static let aaveBorrowReferralCode = 0
 		static let aaveERCContractAddress = "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2"
 		static let aaveETHContractAddress = "0xD322A49006FC828F9B5B37Ab215F99B4E5caB19C"
 		static let compoundCAaveContractAddress = "0xe65cdB6479BaC1e22340E4E755fAE7E509EcD06c"

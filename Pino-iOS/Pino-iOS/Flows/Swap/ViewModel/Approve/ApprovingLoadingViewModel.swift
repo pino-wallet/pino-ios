@@ -25,8 +25,6 @@ class ApprovingLoadingViewModel {
 
 	init(approveTxHash: String) {
 		self.approveTxHash = approveTxHash
-
-		setupTimer()
 	}
 
 	// MARK: - Public Methods
@@ -34,6 +32,11 @@ class ApprovingLoadingViewModel {
 	public func getApproveTransactionFormVC() {
 		setupTimer()
 		requestTimer?.fire()
+	}
+
+	public func destroyTimer() {
+		requestTimer?.invalidate()
+		requestTimer = nil
 	}
 
 	// MARK: - Private Methods
@@ -46,11 +49,6 @@ class ApprovingLoadingViewModel {
 			userInfo: nil,
 			repeats: true
 		)
-	}
-
-	private func destroyTimer() {
-		requestTimer?.invalidate()
-		requestTimer = nil
 	}
 
 	@objc
@@ -68,8 +66,8 @@ class ApprovingLoadingViewModel {
 				}
 			}
 		} receiveValue: { _ in
-			self.destroyTimer()
 			self.isApproved = true
+			self.destroyTimer()
 		}.store(in: &cancellables)
 	}
 }

@@ -5,7 +5,6 @@
 //  Created by Sobhan Eskandari on 8/24/23.
 //
 
-import Combine
 import Foundation
 import UIKit
 
@@ -16,7 +15,6 @@ class ApprovingLoadingView: UIView {
 	private let loading = PinoLoading(size: 48)
 	private let loadingTextLabel = PinoLabel(style: .description, text: "")
 	private let loadingStackView = UIStackView()
-	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
 
@@ -27,7 +25,6 @@ class ApprovingLoadingView: UIView {
 		setupView()
 		setupStyle()
 		setupContstraint()
-		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -67,6 +64,4 @@ class ApprovingLoadingView: UIView {
 			.centerY
 		)
 	}
-
-	private func setupBindings() {}
 }

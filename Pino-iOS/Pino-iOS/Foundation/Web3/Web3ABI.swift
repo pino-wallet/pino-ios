@@ -72,6 +72,7 @@ public enum ABIMethodWrite: String {
 	case swapParaswap
 	case swap1Inch
 	case borrow
+	case borrowETH
 }
 
 fileprivate func ABIReader(fileName: String) -> String {
