@@ -14,8 +14,7 @@ final class InvestmentAPIClient: InvestmentAPIService {
 	private let networkManager = NetworkManager<InvestmentEndpoint>()
 	private let pinoWalletManager = PinoWalletManager()
 	private var currentAccountAddress: String {
-//		pinoWalletManager.currentAccount.eip55Address
-		"0xe114011f16c21ed91b6ae3d3f6433f57bbd6a04f"
+		pinoWalletManager.currentAccount.eip55Address
 	}
 
 	// MARK: - Public Methods
