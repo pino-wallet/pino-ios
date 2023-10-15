@@ -89,7 +89,7 @@ class RepayAmountViewController: UIViewController {
 			approveContractID: repayAmountVM.selectedToken.id,
 			showConfirmVC: {
 				self.pushToRepayConfirmVC()
-			}
+            }, approveType: .repay
 		)
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [approveVC]

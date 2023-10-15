@@ -8,19 +8,19 @@ import Combine
 import PromiseKit
 import Web3
 import Web3_Utility
+import Foundation
 
 class ApproveContractViewModel {
 	// MARK: - Public Properties
 
 	public let pageTitle = "Asset approval"
-	public let titleImageName = "approve_warning"
-	public let learnMoreButtonTitle = "Learn more"
-	public let approveText = "Approve permit 2 to access your"
-	public let approveDescriptionText = "This will only happen one time."
+	public let learnMoreButtonTitle = "Why is this required?"
+    public let allowText = "Allow"
+	public let approveMidText = "to be used for"
+	public let approveDescriptionText = "You will only do it once."
 	public let approveButtonTitle = "Approve"
 	public let rightArrowImageName = "primary_right_arrow"
 	public let dismissButtonName = "dissmiss"
-	public let titlePageText = "Approve"
 	#warning("this is mock url")
 	public let learnMoreURL = "https://www.google.com"
 	public let pleaseWaitTitleText = "Please wait"
@@ -38,10 +38,22 @@ class ApproveContractViewModel {
 
 	@Published
 	public var approveStatus: ApproveStatuses = .calculatingFee
+    
+    public var tokenSymbol: String {
+        approveAssetVM.symbol
+    }
+    
+    public var tokenImage: URL {
+        approveAssetVM.image
+    }
+    
 
 	// MARK: - Private Properties
 
 	private let globalAssetsList = GlobalVariables.shared.manageAssetsList
+    private var approveAssetVM: AssetViewModel {
+        (globalAssetsList?.first(where: { $0.id == contractId }))!
+    }
 	private var web3 = Web3Core.shared
 	private var swapConfirmVM: SwapConfirmationViewModel!
 	private var approveContractDetails: ContractDetailsModel?

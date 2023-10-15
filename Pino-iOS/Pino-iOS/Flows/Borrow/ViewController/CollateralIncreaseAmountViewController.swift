@@ -94,7 +94,7 @@ class CollateralIncreaseAmountViewController: UIViewController {
 			approveContractID: collateralIncreaseAmountVM.selectedToken.id,
 			showConfirmVC: {
 				self.pushToCollateralConfirmVC()
-			}
+            }, approveType: .collateral
 		)
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [approveVC]
