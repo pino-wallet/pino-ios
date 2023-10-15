@@ -367,6 +367,7 @@
 		D98355D52A9A1BC800294DCF /* BorrowLoanDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98355D42A9A1BC800294DCF /* BorrowLoanDetailsViewModel.swift */; };
 		D98355D72A9A1D4000294DCF /* BorrowLoanDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98355D62A9A1D4000294DCF /* BorrowLoanDetailsView.swift */; };
 		D98355D92A9A1FD400294DCF /* BorrowLoanDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98355D82A9A1FD400294DCF /* BorrowLoanDetailsViewController.swift */; };
+		D987B7422AD5420C00727FDD /* W3AaveBorrowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D987B7412AD5420C00727FDD /* W3AaveBorrowManager.swift */; };
 		D99019762A9350DD008CF9EC /* CollateralDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99019752A9350DD008CF9EC /* CollateralDetailsViewModel.swift */; };
 		D990197A2A93514D008CF9EC /* CollateralDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99019792A93514D008CF9EC /* CollateralDetailsView.swift */; };
 		D990197E2A935383008CF9EC /* CollateralDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D990197D2A935383008CF9EC /* CollateralDetailsViewController.swift */; };
@@ -1094,6 +1095,7 @@
 		D98355D42A9A1BC800294DCF /* BorrowLoanDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowLoanDetailsViewModel.swift; sourceTree = "<group>"; };
 		D98355D62A9A1D4000294DCF /* BorrowLoanDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowLoanDetailsView.swift; sourceTree = "<group>"; };
 		D98355D82A9A1FD400294DCF /* BorrowLoanDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowLoanDetailsViewController.swift; sourceTree = "<group>"; };
+		D987B7412AD5420C00727FDD /* W3AaveBorrowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3AaveBorrowManager.swift; sourceTree = "<group>"; };
 		D99019752A9350DD008CF9EC /* CollateralDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralDetailsViewModel.swift; sourceTree = "<group>"; };
 		D99019792A93514D008CF9EC /* CollateralDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralDetailsView.swift; sourceTree = "<group>"; };
 		D990197D2A935383008CF9EC /* CollateralDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollateralDetailsViewController.swift; path = "Pino-iOS/Flows/Borrow/View/CollateralDetailsViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -3420,6 +3422,7 @@
 				DF1D90E22A9733E300435D85 /* W3ApproveManager.swift */,
 				DF6DEDD72AAA30150080B47B /* W3SwapManager.swift */,
 				DF4C23132AC33D000014DC89 /* W3CallDataGenerator.swift */,
+				D987B7412AD5420C00727FDD /* W3AaveBorrowManager.swift */,
 			);
 			path = Web3;
 			sourceTree = "<group>";
@@ -4593,6 +4596,7 @@
 				E3ABD1FC2AB19FA700947D37 /* ImportAccountsViewModel.swift in Sources */,
 				DF00179129F856D5001164EA /* PinoHDWallet.swift in Sources */,
 				44C3312B501D7A88C6ADB659 /* SelectPassViewModel.swift in Sources */,
+				D987B7422AD5420C00727FDD /* W3AaveBorrowManager.swift in Sources */,
 				D9BE051A2A8221C8008670F9 /* CDSwapActivity+CoreDataClass.swift in Sources */,
 				DE33FFB7D492FA770FF9FB5C /* SemiboldStyle.swift in Sources */,
 				D99F4B2329E2C619009F7F55 /* PaymentMethodOptionModel.swift in Sources */,
