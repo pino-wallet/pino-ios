@@ -30,7 +30,7 @@ class SpeedUpAlertViewController: UIAlertController {
 	private var activityDetailsVM: ActivityDetailsViewModel!
 	private var cancellables = Set<AnyCancellable>()
 	private var speedUpAlertVM: SpeedUpAlertViewModel!
-	private var loadingIndicator = PinoLoading(size: 48)
+	private var loadingIndicator = PinoLoading(size: 50)
 	private var pageStatus: pageStatuses = .feeLoading {
 		didSet {
 			updateUIWithPageStatus()
@@ -137,8 +137,6 @@ class SpeedUpAlertViewController: UIAlertController {
 
 		titleWarningImageView.image = UIImage(named: speedUpAlertVM.errorImageName)
 		titleWarningImageView.tintColor = .Pino.primary
-
-		loadingIndicator.transform = CGAffineTransform(scaleX: 2.4, y: 2.4)
 	}
 
 	private func setupConstraints() {

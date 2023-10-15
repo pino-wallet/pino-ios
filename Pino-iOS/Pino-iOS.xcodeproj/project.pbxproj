@@ -272,6 +272,7 @@
 		D5E4DDCF2A960367000AA235 /* InvestDepositViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E4DDCE2A960367000AA235 /* InvestDepositViewModel.swift */; };
 		D615530893452E25B58471EF /* ShareOfAssetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6721806A1540B888590AFF4C /* ShareOfAssetsViewModel.swift */; };
 		D903AC472AA47D6C0083727F /* AmountHealthScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903AC462AA47D6C0083727F /* AmountHealthScoreView.swift */; };
+		D90C3F0A2ADABAC500EF6739 /* PinoLoadingExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90C3F092ADABAC500EF6739 /* PinoLoadingExtension.swift */; };
 		D916A8BA2A9F445F00F391B5 /* BorrowIncreaseAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8B92A9F445F00F391B5 /* BorrowIncreaseAmountViewController.swift */; };
 		D916A8BC2A9F447100F391B5 /* BorrowIncreaseAmountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8BB2A9F447100F391B5 /* BorrowIncreaseAmountViewModel.swift */; };
 		D916A8BE2A9F44DD00F391B5 /* BorrowIncreaseAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916A8BD2A9F44DD00F391B5 /* BorrowIncreaseAmountView.swift */; };
@@ -1007,6 +1008,7 @@
 		D859A59CF3F5322ACE7356E4 /* VerifySecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySecretPhraseView.swift; sourceTree = "<group>"; };
 		D872D11A91B4283F96C4999D /* ShowSecretPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSecretPhraseViewController.swift; sourceTree = "<group>"; };
 		D903AC462AA47D6C0083727F /* AmountHealthScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountHealthScoreView.swift; sourceTree = "<group>"; };
+		D90C3F092ADABAC500EF6739 /* PinoLoadingExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoLoadingExtension.swift; sourceTree = "<group>"; };
 		D916A8B92A9F445F00F391B5 /* BorrowIncreaseAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowIncreaseAmountViewController.swift; sourceTree = "<group>"; };
 		D916A8BB2A9F447100F391B5 /* BorrowIncreaseAmountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowIncreaseAmountViewModel.swift; sourceTree = "<group>"; };
 		D916A8BD2A9F44DD00F391B5 /* BorrowIncreaseAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowIncreaseAmountView.swift; sourceTree = "<group>"; };
@@ -2004,6 +2006,7 @@
 			isa = PBXGroup;
 			children = (
 				F8912BBC7E97E01533DB6A76 /* PinoLoading.swift */,
+				D90C3F092ADABAC500EF6739 /* PinoLoadingExtension.swift */,
 			);
 			path = Loading;
 			sourceTree = "<group>";
@@ -4676,6 +4679,7 @@
 				F8BA0B9925700FFF405AB76D /* VerifyPassViewModel.swift in Sources */,
 				1171EA77FBBB99743B192CFF /* VerifyPasscodeViewController.swift in Sources */,
 				40F704572A03AFFF004D74FE /* AccountActivationModel.swift in Sources */,
+				D90C3F0A2ADABAC500EF6739 /* PinoLoadingExtension.swift in Sources */,
 				E34728F129EEA81000AB8265 /* AssetChartDataViewModel.swift in Sources */,
 				E3FC69D02A90B052009B3341 /* InvestableAssetViewModel.swift in Sources */,
 				7568B477DFF82F1069E4F911 /* VerifySecretPhraseView.swift in Sources */,

@@ -33,8 +33,7 @@ class SendStatusView: UIView {
 	private let clearNavigationBar = ClearNavigationBar()
 	private let navigationBarRightView = UIView()
 	private let pendingStackView = UIStackView()
-	private let loadingContainer = UIView()
-	private let loading = PinoLoading(size: 48)
+	private let loading = PinoLoading(size: 50)
 	private let loadingTextLabel = PinoLabel(style: .description, text: "")
 	private let statusIconView = UIImageView()
 	private let statusTitleLabel = PinoLabel(style: .title, text: "")
@@ -72,9 +71,7 @@ class SendStatusView: UIView {
 		closeButton.addTarget(self, action: #selector(onDissmissTap), for: .touchUpInside)
 		viewStatusButton.addTarget(self, action: #selector(openViewStatusURL), for: .touchUpInside)
 
-		loadingContainer.addSubview(loading)
-
-		pendingStackView.addArrangedSubview(loadingContainer)
+		pendingStackView.addArrangedSubview(loading)
 		pendingStackView.addArrangedSubview(loadingTextLabel)
 
 		statusInfoStackView.addArrangedSubview(statusIconView)
@@ -97,9 +94,6 @@ class SendStatusView: UIView {
 		loadingTextLabel.text = sendStatusVM.sendingToNetworkText
 		loadingTextLabel.numberOfLines = 0
 		loadingTextLabel.textAlignment = .center
-
-		loading.style = .large
-		loading.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
 
 		pendingStackView.axis = .vertical
 		pendingStackView.spacing = 16
@@ -139,7 +133,6 @@ class SendStatusView: UIView {
 		pendingStackView.widthAnchor.constraint(greaterThanOrEqualToConstant: 154).isActive = true
 		loadingTextLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 190).isActive = true
 
-		loadingContainer.pin(.fixedWidth(48), .fixedHeight(48))
 		dissmissButton.pin(.fixedHeight(30), .fixedHeight(30), .top(padding: 22), .trailing(padding: 0))
 		clearNavigationBar.pin(.horizontalEdges(padding: 0), .top(padding: 0))
 		pendingStackView.pin(.centerX(), .centerY(to: layoutMarginsGuide))

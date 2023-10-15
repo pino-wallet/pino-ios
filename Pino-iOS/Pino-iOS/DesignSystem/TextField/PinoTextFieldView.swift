@@ -196,7 +196,6 @@ extension UITextField {
 	fileprivate func setRightViewWithPadding(_ view: UIView, paddingLeft: CGFloat) {
 		let rightViewContentSize = CGFloat(24)
 		view.translatesAutoresizingMaskIntoConstraints = true
-		view.frame = CGRectMake(0, 0, rightViewContentSize, rightViewContentSize)
 
 		let outerView = UIView()
 		outerView.translatesAutoresizingMaskIntoConstraints = true
@@ -205,8 +204,8 @@ extension UITextField {
 		outerView.frame = CGRect(
 			origin: .zero,
 			size: CGSize(
-				width: view.frame.size.width + paddingLeft,
-				height: view.frame.size.height
+				width: rightViewContentSize,
+				height: rightViewContentSize
 			)
 		)
 
@@ -214,6 +213,7 @@ extension UITextField {
 			x: outerView.bounds.size.width - (rightViewContentSize / 2),
 			y: outerView.bounds.size.height / 2
 		)
+		view.pin(.verticalEdges(padding: 0), .trailing(padding: 0), .leading(padding: 10))
 
 		rightView = outerView
 	}
