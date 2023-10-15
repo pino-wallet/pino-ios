@@ -129,7 +129,7 @@ class SwapViewModel {
 	) {
 		srcToken.calculateDollarAmount(amount)
 		if isEthToWeth() || isWethToEth() {
-            updateEthSwapInfo(destToken: destToken, amount: amount)
+			updateEthSwapInfo(destToken: destToken, amount: amount)
 		} else if let tokenAmount = srcToken.tokenAmount,
 		          let swapAmount = Utilities.parseToBigUInt(tokenAmount, units: .custom(srcToken.selectedToken.decimal)),
 		          !swapAmount.isZero {
@@ -225,13 +225,13 @@ class SwapViewModel {
 			swapFeeVM.isBestRate = false
 		}
 	}
-    
-    private func updateEthSwapInfo(destToken: SwapTokenViewModel, amount: String?) {
-        updateDestinationToken(destToken: destToken, tokenAmount: amount)
-        swapFeeVM.swapProviderVM = nil
-        swapFeeVM.updateQuote(srcToken: fromToken, destToken: toToken)
-        swapFeeVM.priceImpact = "0"
-    }
+
+	private func updateEthSwapInfo(destToken: SwapTokenViewModel, amount: String?) {
+		updateDestinationToken(destToken: destToken, tokenAmount: amount)
+		swapFeeVM.swapProviderVM = nil
+		swapFeeVM.updateQuote(srcToken: fromToken, destToken: toToken)
+		swapFeeVM.priceImpact = "0"
+	}
 
 	private func isEthToWeth() -> Bool {
 		fromToken.selectedToken.isEth && toToken.selectedToken.isWEth

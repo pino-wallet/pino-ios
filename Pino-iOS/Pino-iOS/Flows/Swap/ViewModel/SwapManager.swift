@@ -260,7 +260,7 @@ class SwapManager {
 	}
 
 	private func checkAllowanceOfProvider() -> Promise<String?> {
-        guard let selectedProvider else { fatalError("provider errror") }
+		guard let selectedProvider else { fatalError("provider errror") }
 
 		return Promise<String?> { seal in
 			firstly {
@@ -302,7 +302,7 @@ class SwapManager {
 	}
 
 	private func getSwapInfoFrom() -> Promise<String> {
-        guard let selectedProvider else { fatalError("provider errror") }
+		guard let selectedProvider else { fatalError("provider errror") }
 
 		var priceRoute: PriceRouteClass?
 		if selectedProvider.provider == .paraswap {
@@ -341,61 +341,88 @@ class SwapManager {
 	}
 
 	private func sweepTokenCallData() -> Promise<String?> {
-        if let selectedProvider {
-            
-            if selectedProvider.provider == .zeroX {
-                return sweepToken()
-            } else {
-                fatalError("wrong provider")
-            }
-            
-        } else {
-            if destToken.selectedToken.isWEth {
-                return sweepToken()
-            } else {
-                fatalError("wrong provider")
-            }
-        }
+		if let selectedProvider {
+			if selectedProvider.provider == .zeroX {
+				return sweepToken()
+			} else {
+				return Promise<String?>() { seal in seal.fulfill(nil) }
+			}
+
+		} else {
+			if destToken.selectedToken.isWEth {
+				return sweepToken()
+			} else {
+				return Promise<String?>() { seal in seal.fulfill(nil) }
+			}
+		}
 	}
 
-    private func sweepToken() -> Promise<String?> {
-        Promise<String?>() { seal in
-            web3.getSweepTokenCallData(
-                tokenAdd: destToken.selectedToken.id,
-                recipientAdd: walletManager.currentAccount.eip55Address
-            ).done { sweepData in
-                seal.fulfill(sweepData)
-            }.catch { error in
-                seal.reject(error)
-                print(error)
-            }
-        }
-    }
-    
+	private func sweepToken() -> Promise<String?> {
+		Promise<String?>() { seal in
+			web3.getSweepTokenCallData(
+				tokenAdd: destToken.selectedToken.id,
+				recipientAdd: walletManager.currentAccount.eip55Address
+			).done { sweepData in
+				seal.fulfill(sweepData)
+			}.catch { error in
+				seal.reject(error)
+				print(error)
+			}
+		}
+	}
+
 	private func wrapTokenCallData() -> Promise<String> {
 		web3.getWrapETHCallData(proxyFee: 0)
 	}
 
 	private func unwrapTokenCallData() -> Promise<String?> {
-        guard let selectedProvider else { fatalError("provider errror") }
-
-		return Promise<String?> { seal in
-			if selectedProvider.provider == .zeroX || srcToken.selectedToken.isWEth {
-				web3.getUnwrapETHCallData(recipient: walletManager.currentAccount.eip55Address)
-					.done { wrapData in
-						seal.fulfill(wrapData)
-					}.catch { error in
-						print(error)
-					}
+		if let selectedProvider {
+			if selectedProvider.provider == .zeroX {
+				return unwrapToken()
 			} else {
-				seal.fulfill(nil)
+				return Promise<String?>() { seal in seal.fulfill(nil) }
+			}
+
+		} else {
+			if destToken.selectedToken.isWEth {
+				return unwrapToken()
+			} else {
+				return Promise<String?>() { seal in seal.fulfill(nil) }
 			}
 		}
 	}
 
+//	private func unwrapTokenCallData() -> Promise<String?> {
+	//        guard let selectedProvider else { fatalError("provider errror") }
+//
+//		return Promise<String?> { seal in
+//			if selectedProvider.provider == .zeroX || srcToken.selectedToken.isWEth {
+//				web3.getUnwrapETHCallData(recipient: walletManager.currentAccount.eip55Address)
+//					.done { wrapData in
+//						seal.fulfill(wrapData)
+//					}.catch { error in
+//						print(error)
+//					}
+//			} else {
+//				seal.fulfill(nil)
+//			}
+//		}
+//	}
+
+	private func unwrapToken() -> Promise<String?> {
+		Promise<String?>() { seal in
+			web3.getUnwrapETHCallData(recipient: walletManager.currentAccount.eip55Address)
+				.done { wrapData in
+					seal.fulfill(wrapData)
+				}.catch { error in
+					print(error)
+				}
+		}
+	}
+
 	private func getProvidersCallData(providerData: String) -> Promise<String> {
-        guard let selectedProvider else { fatalError("provider errror") }
-        
+		guard let selectedProvider else { fatalError("provider errror") }
+
 		switch selectedProvider.provider {
 		case .zeroX:
 			return web3.getZeroXSwapCallData(data: providerData)
@@ -407,7 +434,7 @@ class SwapManager {
 	}
 
 	private func callSwapFunction(swapReq: SwapRequestModel, completion: @escaping (String) -> Void) {
-        guard let selectedProvider else { return }
+		guard let selectedProvider else { return }
 		switch selectedProvider.provider {
 		case .oneInch:
 			oneInchAPIClient.swap(swapInfo: swapReq).sink { completed in
@@ -447,7 +474,7 @@ class SwapManager {
 
 	public func addPendingTransferActivity(trxHash: String) {
 		#warning("Ask Ali about info")
-        guard let selectedProvider else { return }
+		guard let selectedProvider else { return }
 		guard let pendingSwapGasInfo = pendingSwapGasInfo else { return }
 		let userAddress = walletManager.currentAccount.eip55Address
 		coreDataManager.addNewSwapActivity(
