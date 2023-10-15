@@ -18,13 +18,24 @@ class ApproveContractViewController: UIViewController {
 	private let approveContractVM: ApproveContractViewModel!
 	private var approveContractView: ApproveContractView!
 	private var approveContractID: String!
+	private var approveType: ApproveType
+
+	// MARK: - Public Properties
+
+	public enum ApproveType: String {
+		case collateral = "collateralizing"
+		case invest = "investing"
+		case swap = "swapping"
+		case repay = "repayment"
+	}
 
 	// MARK: - Initilizers
 
-	init(approveContractID: String, showConfirmVC: @escaping () -> Void) {
+	init(approveContractID: String, showConfirmVC: @escaping () -> Void, approveType: ApproveType) {
 		self.approveContractID = approveContractID
 		self.approveContractVM = ApproveContractViewModel(contractId: approveContractID)
 		self.showConfirmVC = showConfirmVC
+		self.approveType = approveType
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -55,13 +66,13 @@ class ApproveContractViewController: UIViewController {
 			target: self,
 			action: #selector(dismissSelf)
 		)
-		setNavigationTitle(approveContractVM.titlePageText)
+		setNavigationTitle(approveContractVM.pageTitle)
 	}
 
 	private func setupView() {
 		approveContractView = ApproveContractView(approveContractVM: approveContractVM, onApproveTap: {
 			self.showApproveLoadingPage()
-		})
+		}, approveType: approveType)
 
 		view = approveContractView
 	}
