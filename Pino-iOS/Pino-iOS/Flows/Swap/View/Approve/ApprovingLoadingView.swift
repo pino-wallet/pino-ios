@@ -58,6 +58,8 @@ class ApprovingLoadingView: UIView {
 
 		navigationBarDismissButton.addTarget(self, action: #selector(onDismissTap), for: .touchUpInside)
 
+		tryAgainButton.addTarget(self, action: #selector(onDismissTap), for: .touchUpInside)
+
 		loadingStackView.addSubview(loading)
 
 		loadingStackView.addArrangedSubview(warningTitleImageView)
@@ -159,6 +161,7 @@ class ApprovingLoadingView: UIView {
 			setLoadingTextLabel(text: approvngContractLoadingVM.approvingText)
 			setLoadingDescriptionLabelText(text: approvngContractLoadingVM.takeFewSecondsText)
 		case .error:
+			navigationBarDismissButton.isHidden = false
 			loading.isHidden = true
 			warningTitleImageView.isHidden = false
 			tryAgainButton.isHidden = false
