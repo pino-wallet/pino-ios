@@ -190,9 +190,8 @@ class SwapFeeView: UIView {
 		bestRateTagView.layer.masksToBounds = true
 
 		feeInfoStackView.isHidden = true
+		feeStackView.isHidden = true
 		impactTagView.alpha = 1
-
-		feeLabel.isSkeletonable = true
 	}
 
 	private func setupConstraint() {
@@ -282,10 +281,6 @@ class SwapFeeView: UIView {
 			self.updatePriceImpact(priceImpact)
 		}.store(in: &cancellables)
 
-		Publishers.Zip(swapFeeVM.$fee, swapFeeVM.$feeInDollar)
-			.sink { feeInETH, feeInDollar in
-				self.updateFee(feeInETH: feeInETH, feeInDollar: feeInDollar)
-			}.store(in: &cancellables)
 		swapFeeVM.$isBestRate.sink { isBestRate in
 			self.bestRateTagView.isHiddenInStackView = !isBestRate
 		}.store(in: &cancellables)
@@ -348,16 +343,6 @@ class SwapFeeView: UIView {
 		}
 	}
 
-	private func updateFee(feeInETH: String?, feeInDollar: String?) {
-		if let feeInETH, let feeInDollar {
-			if showFeeInDollar {
-				feeLabel.text = feeInDollar
-			} else {
-				feeLabel.text = feeInETH
-			}
-		}
-	}
-
 	private func showLoading() {
 		if !isCollapsed {
 			feeInfoStackView.isHiddenInStackView = true
@@ -386,7 +371,6 @@ class SwapFeeView: UIView {
 	@objc
 	private func toggleFeeValue() {
 		showFeeInDollar.toggle()
-		updateFee(feeInETH: swapFeeVM.fee, feeInDollar: swapFeeVM.feeInDollar)
 	}
 
 	private func addBestRateGradient() {
