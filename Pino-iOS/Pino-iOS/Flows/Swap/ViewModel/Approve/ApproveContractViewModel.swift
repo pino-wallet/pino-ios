@@ -46,7 +46,8 @@ class ApproveContractViewModel {
 	public var tokenImage: URL {
 		approveAssetVM.image
 	}
-    public var approveGasInfo: GasInfo?
+
+	public var approveGasInfo: GasInfo?
 
 	// MARK: - Private Properties
 

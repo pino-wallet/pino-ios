@@ -33,7 +33,7 @@ public struct W3GasInfoManager {
 	private let pinoProxyAdd = Web3Core.Constants.pinoProxyAddress
 
 	// MARK: - Public Methods
-    
+
 	public func calculateGasOf(
 		method: ABIMethodWrite,
 		solInvoc: SolidityInvocation,

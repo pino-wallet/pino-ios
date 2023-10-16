@@ -14,7 +14,7 @@ class ApprovingLoadingViewModel {
 	private let activityAPIClient = ActivityAPIClient()
 	private var requestTimer: Timer?
 	private let showSpeedUpTimeOut: Double = 10
-    private var approveGasInfo: GasInfo?
+	private var approveGasInfo: GasInfo?
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
@@ -33,15 +33,15 @@ class ApprovingLoadingViewModel {
 	public let grayErrorAlertImageName = "gray_error_alert"
 	public let dismissButtonImageName = "close"
 
-    public var approveTxHash: String
+	public var approveTxHash: String
 	@Published
 	public var approveLoadingStatus: ApproveLoadingStatuses = .normalLoading
-    public var formattedFeeInDollar: String {
-        guard let approveGasInfo else {
-            return "0"
-        }
-        return approveGasInfo.feeInDollar.priceFormat
-    }
+	public var formattedFeeInDollar: String {
+		guard let approveGasInfo else {
+			return "0"
+		}
+		return approveGasInfo.feeInDollar.priceFormat
+	}
 
 	public enum ApproveLoadingStatuses {
 		case normalLoading
@@ -53,9 +53,9 @@ class ApprovingLoadingViewModel {
 
 	// MARK: - Initializers
 
-    init(approveTxHash: String, approveGasInfo: GasInfo?) {
+	init(approveTxHash: String, approveGasInfo: GasInfo?) {
 		self.approveTxHash = approveTxHash
-        self.approveGasInfo = approveGasInfo
+		self.approveGasInfo = approveGasInfo
 
 		showSpeedUpAfterSomeTime()
 	}
@@ -71,10 +71,10 @@ class ApprovingLoadingViewModel {
 		requestTimer?.invalidate()
 		requestTimer = nil
 	}
-    
-    public func changeTXHash(newTXHash: String) {
-        approveTxHash = newTXHash
-    }
+
+	public func changeTXHash(newTXHash: String) {
+		approveTxHash = newTXHash
+	}
 
 	// MARK: - Private Methods
 

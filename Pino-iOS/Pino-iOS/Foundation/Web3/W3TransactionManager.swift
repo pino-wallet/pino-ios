@@ -27,7 +27,7 @@ public struct W3TransactionManager {
 	private var walletManager = PinoWalletManager()
 
 	// MARK: - Public Methods
-    
+
 	public func createTransactionFor(
 		contract: SolidityInvocation,
 		nonce: EthereumQuantity? = nil,
