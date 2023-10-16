@@ -70,9 +70,9 @@ class SwapConfirmationViewModel {
 	public func fetchSwapInfo() {
 		let swapManager = SwapManager(selectedProvider: selectedProvider, srcToken: fromToken, destToken: toToken)
 		swapManager.getSwapInfo().done { swapTrx, gasInfo in
+			self.gasFee = gasInfo.fee
 			self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
 			self.formattedFeeInETH = gasInfo.fee.sevenDigitFormat
-			self.gasFee = gasInfo.fee
 		}.catch { error in
 			Toast.default(
 				title: "Failed to fetch Swap Info",
@@ -90,12 +90,11 @@ class SwapConfirmationViewModel {
 	}
 
 	public func checkEnoughBalance() -> Bool {
-		true
-//		if gasFee > ethToken.holdAmount {
-//			return false
-//		} else {
-//			return true
-//		}
+		if gasFee > ethToken.holdAmount {
+			return false
+		} else {
+			return true
+		}
 	}
 
 	// MARK: - Private Methods
@@ -111,6 +110,4 @@ class SwapConfirmationViewModel {
 			selectedProtocolName = selectedProtocol.name
 		}
 	}
-
-	private func setupBindings() {}
 }
