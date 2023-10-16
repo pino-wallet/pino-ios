@@ -71,10 +71,26 @@ class ApprovingLoadingViewController: UIViewController {
 	}
 
 	private func setupBindings() {
-		approveLoadingVM.$isApproved.sink { isApproved in
-			if isApproved {
+		approveLoadingVM.$approveLoadingStatus.sink { approveLoadingStatus in
+			self.updateModalInPresentationWithLoadingStatus(status: approveLoadingStatus)
+			if approveLoadingStatus == .done {
 				self.openConfirmationPage()
 			}
 		}.store(in: &cancellables)
+	}
+
+	private func updateModalInPresentationWithLoadingStatus(status: ApprovingLoadingViewModel.ApproveLoadingStatuses) {
+		switch status {
+		case .normalLoading:
+			isModalInPresentation = true
+		case .showSpeedUp:
+			isModalInPresentation = false
+		case .fastLoading:
+			isModalInPresentation = true
+		case .error:
+			isModalInPresentation = false
+		case .done:
+			return
+		}
 	}
 }

@@ -18,7 +18,7 @@ class PinoLoading: UIView {
 
 	public var loadingSpeed: SpeedType {
 		didSet {
-			removeAnimation()
+			loadingAnimator.stopAnimation(true)
 			startLoadingAnimation(duration: loadingSpeed.rawValue)
 		}
 	}
@@ -32,6 +32,7 @@ class PinoLoading: UIView {
 	// MARK: - Private Properties
 
 	private let loadingImageView = UIImageView()
+	private var loadingAnimator: UIViewPropertyAnimator!
 
 	// MARK: - Initializers
 
@@ -60,19 +61,17 @@ class PinoLoading: UIView {
 		loadingImageView.image = UIImage(named: imageType.rawValue)
 	}
 
-	private func removeAnimation() {
-		layer.removeAllAnimations()
-	}
-
 	private func startLoadingAnimation(duration: Double) {
-		UIView.animate(withDuration: duration, delay: 0.0, options: .curveLinear, animations: { [weak self] in
+		loadingAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear, animations: { [weak self] in
 			guard let self else {
 				return
 			}
 			self.loadingImageView.transform = self.loadingImageView.transform.rotated(by: .pi)
-		}) { _ in
-			self.startLoadingAnimation(duration: duration)
+		})
+		loadingAnimator.addCompletion { [weak self] _ in
+			self?.startLoadingAnimation(duration: duration)
 		}
+		loadingAnimator.startAnimation()
 	}
 
 	private func setupContraints() {
