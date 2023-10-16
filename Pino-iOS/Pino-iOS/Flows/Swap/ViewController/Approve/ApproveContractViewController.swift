@@ -47,9 +47,6 @@ class ApproveContractViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-        Web3Core.shared.getTransactionByHash(txHash: "0xeb27bd51d6433a977c9a44c69986adfe335491f33bdc676874fdfeb3a06c35e2").done { txObject in
-            
-        }
 	}
 
 	override func loadView() {

@@ -34,40 +34,6 @@ public struct W3GasInfoManager {
 
 	// MARK: - Public Methods
     
-    public func calculateGasOf(
-        transactionObject: EthereumTransactionObject
-    ) -> Promise<GasInfo> {
-        Promise<GasInfo>() { seal in
-            let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
-
-            firstly {
-                web3.eth.gasPrice()
-            }.then { gasPrice in
-                web3.eth.getTransactionCount(address: myPrivateKey.address, block: .latest).map { ($0, gasPrice) }
-            }.then { nonce, gasPrice in
-                try transactionManager.createTransactionFor(txObject: transactionObject, gasPrice: gasPrice).promise.map { ($0, nonce, gasPrice) }
-            }.then { transaction, nonce, gasPrice in
-
-                web3.eth.estimateGas(call: .init(
-                    from: transaction.from,
-                    to: transaction.to!,
-                    gasPrice: gasPrice,
-                    data: transaction.data
-                )).map { ($0, nonce, gasPrice) }
-
-            }.done { gasLimit, nonce, gasPrice in
-                let gasInfo =
-                    GasInfo(
-                        gasPrice: BigNumber(unSignedNumber: gasPrice.quantity, decimal: 0),
-                        gasLimit: BigNumber(unSignedNumber: try! BigUInt(gasLimit), decimal: 0)
-                    )
-                seal.fulfill(gasInfo)
-            }.catch { error in
-                seal.reject(error)
-            }
-        }
-    }
-
 	public func calculateGasOf(
 		method: ABIMethodWrite,
 		solInvoc: SolidityInvocation,

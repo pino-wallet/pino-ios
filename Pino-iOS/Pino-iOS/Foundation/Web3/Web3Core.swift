@@ -270,7 +270,7 @@ public class Web3Core {
 			}
 		}
 	}
-
+    
 	public func speedUpTransaction(tx: EthereumTransactionObject, newGasPrice: EthereumQuantity) -> Promise<String> {
 		Promise<String>() { seal in
 			let privateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
