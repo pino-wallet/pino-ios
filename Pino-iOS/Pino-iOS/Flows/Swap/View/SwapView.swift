@@ -243,6 +243,14 @@ class SwapView: UIView {
 				}
 			}
 		}.store(in: &cancellables)
+
+		swapVM.swapFeeVM.$priceImpact.sink { priceImpact in
+			if priceImpact != nil, self.fromTokenSectionView.balanceStatus == .isEnough {
+				self.continueButton.style = .active
+			} else {
+				self.continueButton.style = .deactive
+			}
+		}.store(in: &cancellables)
 	}
 
 	private func updateSwapProtocol(_ swapProtocol: SwapProtocolModel) {
@@ -254,13 +262,10 @@ class SwapView: UIView {
 		switch status {
 		case .isZero:
 			continueButton.setTitle(swapVM.continueButtonTitle, for: .normal)
-			continueButton.style = .deactive
 		case .isEnough:
 			continueButton.setTitle(swapVM.continueButtonTitle, for: .normal)
-			continueButton.style = .active
 		case .isNotEnough:
 			continueButton.setTitle(swapVM.insufficientAmountButtonTitle, for: .normal)
-			continueButton.style = .deactive
 		}
 	}
 
