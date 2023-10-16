@@ -14,7 +14,7 @@ class ApprovingLoadingViewModel {
 	private let approveTxHash: String
 	private let activityAPIClient = ActivityAPIClient()
 	private var requestTimer: Timer?
-    private let showSpeedUpTimeOut: Double = 10
+	private let showSpeedUpTimeOut: Double = 10
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
@@ -48,8 +48,8 @@ class ApprovingLoadingViewModel {
 
 	init(approveTxHash: String) {
 		self.approveTxHash = approveTxHash
-        
-        showSpeedUpAfterSomeTime()
+
+		showSpeedUpAfterSomeTime()
 	}
 
 	// MARK: - Public Methods
@@ -75,12 +75,12 @@ class ApprovingLoadingViewModel {
 			repeats: true
 		)
 	}
-    
-    private func showSpeedUpAfterSomeTime() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + showSpeedUpTimeOut, execute: {
-            self.approveLoadingStatus = .showSpeedUp
-        })
-    }
+
+	private func showSpeedUpAfterSomeTime() {
+		DispatchQueue.main.asyncAfter(deadline: .now() + showSpeedUpTimeOut) {
+			self.approveLoadingStatus = .showSpeedUp
+		}
+	}
 
 	@objc
 	private func getApproveTransaction() {

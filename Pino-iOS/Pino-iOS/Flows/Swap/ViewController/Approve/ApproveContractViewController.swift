@@ -83,18 +83,18 @@ class ApproveContractViewController: UIViewController {
 					self.dismiss(animated: true) {
 						self.showConfirmVC()
 					}
-                }, approveLoadingVM: approveLoadingVM, onDismiss: {
-                    self.calculateApproveFee()
-                }
+				}, approveLoadingVM: approveLoadingVM, onDismiss: {
+					self.calculateApproveFee()
+				}
 			)
 			self.present(approveLoadingVC, animated: true)
 		}
 	}
-    
-    private func calculateApproveFee() {
-        approveContractVM.getApproveDetails()
-    }
-    
+
+	private func calculateApproveFee() {
+		approveContractVM.getApproveDetails()
+	}
+
 	@objc
 	private func dismissSelf() {
 		dismiss(animated: true)

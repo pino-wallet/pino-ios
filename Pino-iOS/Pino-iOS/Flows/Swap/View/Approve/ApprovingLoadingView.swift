@@ -10,8 +10,10 @@ import Foundation
 import UIKit
 
 class ApprovingLoadingView: UIView {
-    // MARK: - Closures
-    private var dismissPage: () -> Void
+	// MARK: - Closures
+
+	private var dismissPage: () -> Void
+
 	// MARK: - Private Properties
 
 	private let approvngContractLoadingVM: ApprovingLoadingViewModel!
@@ -33,9 +35,9 @@ class ApprovingLoadingView: UIView {
 
 	// MARK: - Initializers
 
-    init(approvingLoadingVM: ApprovingLoadingViewModel, dismissPage: @escaping () -> Void) {
+	init(approvingLoadingVM: ApprovingLoadingViewModel, dismissPage: @escaping () -> Void) {
 		self.approvngContractLoadingVM = approvingLoadingVM
-        self.dismissPage = dismissPage
+		self.dismissPage = dismissPage
 
 		super.init(frame: .zero)
 		setupView()
@@ -53,8 +55,8 @@ class ApprovingLoadingView: UIView {
 
 	private func setupView() {
 		speedUpButton = PinoRightSideImageButton(imageName: approvngContractLoadingVM.speedUpImageName, style: .primary)
-        
-        navigationBarDismissButton.addTarget(self, action: #selector(onDismissTap), for: .touchUpInside)
+
+		navigationBarDismissButton.addTarget(self, action: #selector(onDismissTap), for: .touchUpInside)
 
 		loadingStackView.addSubview(loading)
 
@@ -204,8 +206,9 @@ class ApprovingLoadingView: UIView {
 		speedUpDescriptionStackView.pin(.verticalEdges(padding: 10), .leading(padding: 8), .trailing(padding: 16))
 		speedUpDescriptionAlertImageView.pin(.fixedWidth(20), .fixedHeight(20))
 	}
-    
-    @objc private func onDismissTap() {
-        dismissPage()
-    }
+
+	@objc
+	private func onDismissTap() {
+		dismissPage()
+	}
 }

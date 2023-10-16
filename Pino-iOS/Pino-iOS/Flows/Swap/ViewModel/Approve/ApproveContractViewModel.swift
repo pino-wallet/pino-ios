@@ -77,7 +77,7 @@ class ApproveContractViewModel {
 		}
 		approveStatus = .loading
 
-        completion("eh")
+		completion("eh")
 //		web3.approveContract(contractDetails: approveContractDetails).done { trxHash in
 //			print("APPROVE TRX HASH: \(trxHash)")
 //			completion(trxHash)
@@ -88,7 +88,7 @@ class ApproveContractViewModel {
 	}
 
 	public func getApproveDetails() {
-        approveStatus = .calculatingFee
+		approveStatus = .calculatingFee
 		web3.getApproveContractDetails(
 			address: contractId,
 			amount: BigNumber.maxUInt256.bigUInt,

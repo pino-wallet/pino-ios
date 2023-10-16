@@ -75,9 +75,9 @@ struct ActivityDataSource: DataSourceProtocol {
 
 	public func performSpeedUpChanges(txHash: String, newTxHash: String, newGasPrice: String) {
 		let updatingIndex = activities.firstIndex(where: { $0.txHash == txHash })
-        guard let updatingIndex else {
-            return
-        }
+		guard let updatingIndex else {
+			return
+		}
 		activities[updatingIndex].gasPrice = newGasPrice
 		activities[updatingIndex].txHash = newTxHash
 		activities[updatingIndex].prevTxHash = txHash
