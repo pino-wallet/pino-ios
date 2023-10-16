@@ -62,7 +62,6 @@ class SwapConfirmationViewModel {
 		self.selectedProvider = selectedProvider
 		self.swapRate = swapRate
 		setSelectedProtocol()
-		setupBindings()
 	}
 
 	// MARK: - Public Methods
