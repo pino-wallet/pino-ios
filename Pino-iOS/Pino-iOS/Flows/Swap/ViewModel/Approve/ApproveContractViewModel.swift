@@ -86,9 +86,8 @@ class ApproveContractViewModel {
 		}
 	}
 
-	// MARK: - Private Methods
-
-	private func getApproveDetails() {
+	public func getApproveDetails() {
+		approveStatus = .calculatingFee
 		web3.getApproveContractDetails(
 			address: contractId,
 			amount: BigNumber.maxUInt256.bigUInt,
