@@ -37,14 +37,6 @@ struct SwapProviderViewModel {
 		formattedSwapAmount.tokenFormatting(token: destToken.symbol)
 	}
 
-//	public var fee: String {
-//		providerResponseInfo.gasFee
-//	}
-//
-//	public var feeInDollar: String {
-//		providerResponseInfo.gasFee
-//	}
-
 	// MARK: - Initializers
 
 	init(providerResponseInfo: SwapPriceResponseProtocol, side: SwapSide, destToken: AssetViewModel) {

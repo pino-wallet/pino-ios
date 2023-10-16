@@ -107,7 +107,7 @@ public struct W3SwapManager {
 		return TrxWithGasInfo { [self] seal in
 
 			gasInfoManager
-				.calculateGasOf(data: ethCallData, to: contractAddress)
+				.calculateGasOf(data: ethCallData, to: contractAddress, value: value.etherumQuantity)
 				.then { gasInfo in
 					web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 						.map { ($0, gasInfo) }

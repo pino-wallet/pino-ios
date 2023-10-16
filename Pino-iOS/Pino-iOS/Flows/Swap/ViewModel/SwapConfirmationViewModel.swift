@@ -72,6 +72,13 @@ class SwapConfirmationViewModel {
 		swapManager.getSwapInfo().done { swapTrx, gasInfo in
 			self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
 			self.formattedFeeInETH = gasInfo.fee.sevenDigitFormat
+			self.gasFee = gasInfo.fee
+		}.catch { error in
+			Toast.default(
+				title: "Failed to fetch Swap Info",
+				subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+				style: .error
+			).show()
 		}
 	}
 

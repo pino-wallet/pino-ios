@@ -88,7 +88,7 @@ class InvestManager {
 //		        }
 	}
 
-	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<String> {
-		web3.callProxyMulticall(data: data, value: value ?? 0.bigNumber.bigUInt)
-	}
+//	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<String> {
+//		web3.callProxyMulticall(data: data, value: value ?? 0.bigNumber.bigUInt)
+//	}
 }
