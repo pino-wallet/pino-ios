@@ -77,14 +77,13 @@ class ApproveContractViewModel {
 		}
 		approveStatus = .loading
 
-		completion("eh")
-//		web3.approveContract(contractDetails: approveContractDetails).done { trxHash in
-//			print("APPROVE TRX HASH: \(trxHash)")
-//			completion(trxHash)
-//		}.catch { error in
-//			print("Failed to give permission")
-//			Toast.default(title: self.failedToApproveErrorText, style: .error).show(haptic: .warning)
-//		}
+		web3.approveContract(contractDetails: approveContractDetails).done { trxHash in
+			print("APPROVE TRX HASH: \(trxHash)")
+			completion(trxHash)
+		}.catch { error in
+			print("Failed to give permission")
+			Toast.default(title: self.failedToApproveErrorText, style: .error).show(haptic: .warning)
+		}
 	}
 
 	public func getApproveDetails() {
