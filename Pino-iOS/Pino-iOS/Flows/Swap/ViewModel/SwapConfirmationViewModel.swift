@@ -62,14 +62,30 @@ class SwapConfirmationViewModel {
 		self.selectedProvider = selectedProvider
 		self.swapRate = swapRate
 		setSelectedProtocol()
-		setupBindings()
 	}
 
 	// MARK: - Public Methods
 
+	public func fetchSwapInfo() {
+		let swapManager = SwapManager(selectedProvider: selectedProvider, srcToken: fromToken, destToken: toToken)
+		swapManager.getSwapInfo().done { swapTrx, gasInfo in
+			self.gasFee = gasInfo.fee
+			self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
+			self.formattedFeeInETH = gasInfo.fee.sevenDigitFormat
+		}.catch { error in
+			Toast.default(
+				title: "Failed to fetch Swap Info",
+				subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+				style: .error
+			).show()
+		}
+	}
+
 	public func confirmSwap() {
 		let swapManager = SwapManager(selectedProvider: selectedProvider!, srcToken: fromToken, destToken: toToken)
-		swapManager.swapToken()
+		swapManager.confirmSwap { trx in
+			print("SWAP TRX HASH: \(trx)")
+		}
 	}
 
 	public func checkEnoughBalance() -> Bool {
@@ -92,19 +108,5 @@ class SwapConfirmationViewModel {
 			selectedProtocolImage = selectedProtocol.image
 			selectedProtocolName = selectedProtocol.name
 		}
-	}
-
-	private func setupBindings() {
-		GlobalVariables.shared.$ethGasFee
-			.compactMap { $0 }
-			.sink { gasInfo in
-				self.setGasInfo(gasInfo: gasInfo)
-			}.store(in: &cancellables)
-	}
-
-	private func setGasInfo(gasInfo: GasInfo) {
-		gasFee = gasInfo.fee
-		formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
-		formattedFeeInETH = gasInfo.fee.sevenDigitFormat.ethFormatting
 	}
 }

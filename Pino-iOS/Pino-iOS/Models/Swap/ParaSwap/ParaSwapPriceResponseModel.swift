@@ -81,11 +81,11 @@ struct PriceRouteClass: Codable {
 	// MARK: - DataClass
 
 	struct DataClass: Codable {
-		let router: String
-		let path: [String]
-		let factory, initCode: String
-		let feeFactor: Int
-		let pools: [Pool]
+		let router: String?
+		let path: [String]?
+		let factory, initCode: String?
+		let feeFactor: Int?
+		let pools: [Pool]?
 		let gasUSD: String
 	}
 
