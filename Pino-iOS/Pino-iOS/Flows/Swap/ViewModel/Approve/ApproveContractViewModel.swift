@@ -46,6 +46,7 @@ class ApproveContractViewModel {
 	public var tokenImage: URL {
 		approveAssetVM.image
 	}
+    public var approveGasInfo: GasInfo?
 
 	// MARK: - Private Properties
 
@@ -57,7 +58,6 @@ class ApproveContractViewModel {
 	private var web3 = Web3Core.shared
 	private var swapConfirmVM: SwapConfirmationViewModel!
 	private var approveContractDetails: ContractDetailsModel?
-	private var approveGasInfo: GasInfo?
 
 	private var contractId: String
 

@@ -27,6 +27,15 @@ public struct W3TransactionManager {
 	private var walletManager = PinoWalletManager()
 
 	// MARK: - Public Methods
+    
+    public func createTransactionFor(
+        txObject: EthereumTransactionObject,
+        gasPrice: EthereumQuantity
+    ) throws -> EthereumTransaction {
+        let transaction = EthereumTransaction(nonce: txObject.nonce, gasPrice: gasPrice, to: txObject.to, value: txObject.value)
+        
+        return transaction
+    }
 
 	public func createTransactionFor(
 		contract: SolidityInvocation,

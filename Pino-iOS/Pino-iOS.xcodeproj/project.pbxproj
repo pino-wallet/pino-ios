@@ -438,6 +438,8 @@
 		D9C4CF0A2A4090D000475F01 /* SuggestedAddressesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF092A4090D000475F01 /* SuggestedAddressesViewModel.swift */; };
 		D9C4CF0D2A4094C400475F01 /* RecentAddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF0C2A4094C400475F01 /* RecentAddressModel.swift */; };
 		D9C4CF0F2A409D4800475F01 /* SuggestedAddressHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C4CF0E2A409D4800475F01 /* SuggestedAddressHeaderView.swift */; };
+		D9C584852ADD3B5E00371B7A /* ApproveSpeedUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C584842ADD3B5E00371B7A /* ApproveSpeedUpViewController.swift */; };
+		D9C584872ADD3C3200371B7A /* ApproveSpeedUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C584862ADD3C3200371B7A /* ApproveSpeedUpViewModel.swift */; };
 		D9C7D76229EBDCAE006BC446 /* CoinInfoStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C7D76129EBDCAE006BC446 /* CoinInfoStatsView.swift */; };
 		D9CD89092AA4699300D6520B /* WithdrawConfirmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD89082AA4699300D6520B /* WithdrawConfirmViewModel.swift */; };
 		D9CD890B2AA469D000D6520B /* WithdrawConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD890A2AA469D000D6520B /* WithdrawConfirmView.swift */; };
@@ -1167,6 +1169,8 @@
 		D9C4CF092A4090D000475F01 /* SuggestedAddressesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedAddressesViewModel.swift; sourceTree = "<group>"; };
 		D9C4CF0C2A4094C400475F01 /* RecentAddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentAddressModel.swift; sourceTree = "<group>"; };
 		D9C4CF0E2A409D4800475F01 /* SuggestedAddressHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedAddressHeaderView.swift; sourceTree = "<group>"; };
+		D9C584842ADD3B5E00371B7A /* ApproveSpeedUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproveSpeedUpViewController.swift; sourceTree = "<group>"; };
+		D9C584862ADD3C3200371B7A /* ApproveSpeedUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproveSpeedUpViewModel.swift; sourceTree = "<group>"; };
 		D9C7D76129EBDCAE006BC446 /* CoinInfoStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoStatsView.swift; sourceTree = "<group>"; };
 		D9CD89082AA4699300D6520B /* WithdrawConfirmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawConfirmViewModel.swift; sourceTree = "<group>"; };
 		D9CD890A2AA469D000D6520B /* WithdrawConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawConfirmView.swift; sourceTree = "<group>"; };
@@ -2970,6 +2974,7 @@
 			children = (
 				4037DCC62A8BD50100FCA96B /* ApproveContractViewController.swift */,
 				DF1D90E42A973ACC00435D85 /* ApprovingLoadingViewController.swift */,
+				D9C584842ADD3B5E00371B7A /* ApproveSpeedUpViewController.swift */,
 			);
 			path = Approve;
 			sourceTree = "<group>";
@@ -2979,6 +2984,7 @@
 			children = (
 				4037DCCD2A8BD93200FCA96B /* ApproveContractViewModel.swift */,
 				D9A936C82ACD60CD00C3449E /* ApprovingLoadingViewModel.swift */,
+				D9C584862ADD3C3200371B7A /* ApproveSpeedUpViewModel.swift */,
 			);
 			path = Approve;
 			sourceTree = "<group>";
@@ -4171,6 +4177,7 @@
 				D4FCAA07F82037BF6EF0B823 /* AssetViewModel.swift in Sources */,
 				E34728EB29E7DD6B00AB8265 /* AssetManagerViewModel.swift in Sources */,
 				D98207CA2A5D6D8C0066A090 /* ActivityDetailsHeaderView.swift in Sources */,
+				D9C584872ADD3C3200371B7A /* ApproveSpeedUpViewModel.swift in Sources */,
 				E3596B1B2A6E51D60030B682 /* SwapSide.swift in Sources */,
 				40BB42282A47157800E1A121 /* UIDevice+Extension.swift in Sources */,
 				E3FC69C12A8C9CBC009B3341 /* InvestmentBoardView.swift in Sources */,
@@ -4571,6 +4578,7 @@
 				A9EB8A9CA5BE7BA334FBB816 /* SecretPhraseCenteredFlowLayout.swift in Sources */,
 				9A7CE65990DD193F0FAF3C75 /* SecretPhraseCollectionView.swift in Sources */,
 				36705A78402D3518B33881DD /* SecretPhraseTextView.swift in Sources */,
+				D9C584852ADD3B5E00371B7A /* ApproveSpeedUpViewController.swift in Sources */,
 				D9AEA0A029F9818300DD61A8 /* EditAccountOptionViewModel.swift in Sources */,
 				DFC1F6A12A755620003DB68A /* SwapProvidersAPIServices.swift in Sources */,
 				E3ABD1F62AB191AB00947D37 /* ImportAccountsViewController.swift in Sources */,
