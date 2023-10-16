@@ -54,8 +54,6 @@ class ApproveContractViewController: UIViewController {
 		setupView()
 	}
 
-	override func viewWillAppear(_ animated: Bool) {}
-
 	// MARK: - Private Methods
 
 	private func setupNavigationBar() {
@@ -85,12 +83,18 @@ class ApproveContractViewController: UIViewController {
 					self.dismiss(animated: true) {
 						self.showConfirmVC()
 					}
-				}, approveLoadingVM: approveLoadingVM
+                }, approveLoadingVM: approveLoadingVM, onDismiss: {
+                    self.calculateApproveFee()
+                }
 			)
 			self.present(approveLoadingVC, animated: true)
 		}
 	}
-
+    
+    private func calculateApproveFee() {
+        approveContractVM.getApproveDetails()
+    }
+    
 	@objc
 	private func dismissSelf() {
 		dismiss(animated: true)

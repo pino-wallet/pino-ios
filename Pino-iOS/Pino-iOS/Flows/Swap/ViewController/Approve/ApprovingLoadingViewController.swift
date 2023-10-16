@@ -12,6 +12,7 @@ class ApprovingLoadingViewController: UIViewController {
 	// MARK: - Closures
 
 	private var showConfirmVC: () -> Void
+    private var onDismiss: () -> Void
 
 	// MARK: - Private Properties
 
@@ -21,9 +22,10 @@ class ApprovingLoadingViewController: UIViewController {
 
 	// MARK: - Initilizers
 
-	init(showConfirmVC: @escaping () -> Void, approveLoadingVM: ApprovingLoadingViewModel) {
+    init(showConfirmVC: @escaping () -> Void, approveLoadingVM: ApprovingLoadingViewModel, onDismiss: @escaping () -> Void) {
 		self.showConfirmVC = showConfirmVC
 		self.approveLoadingVM = approveLoadingVM
+        self.onDismiss = onDismiss
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -60,7 +62,10 @@ class ApprovingLoadingViewController: UIViewController {
 	}
 
 	private func setupView() {
-		approveLoadingView = ApprovingLoadingView(approvingLoadingVM: approveLoadingVM)
+        approveLoadingView = ApprovingLoadingView(approvingLoadingVM: approveLoadingVM, dismissPage: {
+            self.dismiss(animated: true)
+            self.onDismiss()
+        })
 		view = approveLoadingView
 	}
 
