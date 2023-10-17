@@ -72,8 +72,11 @@ class ApproveSpeedUpViewModel {
 					.parseToBigUInt(newBigNumberGasPrice.description, units: .custom(0))!
 			)
 		).done { txHash in
+			guard let approveTxHash = self.approveLoadingVM.approveTxHash else {
+				return
+			}
 			self.coreDataManager.performSpeedUpChanges(
-				txHash: self.approveLoadingVM.approveTxHash,
+				txHash: approveTxHash,
 				newTxHash: txHash,
 				newGasPrice: self.newBigNumberGasPrice.description
 			)
@@ -91,7 +94,10 @@ class ApproveSpeedUpViewModel {
 
 	#warning("maybe we raftor this section later")
 	public func getSpeedUpDetails() {
-		Web3Core.shared.getTransactionByHash(txHash: approveLoadingVM.approveTxHash)
+		guard let approveTxHash = approveLoadingVM.approveTxHash else {
+			return
+		}
+		Web3Core.shared.getTransactionByHash(txHash: approveTxHash)
 			.done { txObject in
 				self.transactionObject = txObject
 				Web3Core.shared.getGasPrice().done { gasPrice in

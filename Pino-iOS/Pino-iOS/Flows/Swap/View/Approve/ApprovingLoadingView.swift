@@ -58,7 +58,7 @@ class ApprovingLoadingView: UIView {
 
 		navigationBarDismissButton.addTarget(self, action: #selector(onDismissTap), for: .touchUpInside)
 
-		tryAgainButton.addTarget(self, action: #selector(onDismissTap), for: .touchUpInside)
+		tryAgainButton.addTarget(self, action: #selector(onTryAgainTap), for: .touchUpInside)
 
 		loadingStackView.addSubview(loading)
 
@@ -213,5 +213,10 @@ class ApprovingLoadingView: UIView {
 	@objc
 	private func onDismissTap() {
 		dismissPage()
+	}
+
+	@objc
+	private func onTryAgainTap() {
+		approvngContractLoadingVM.approveToken()
 	}
 }

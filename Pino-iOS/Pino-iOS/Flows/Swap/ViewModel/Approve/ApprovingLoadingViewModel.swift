@@ -15,6 +15,7 @@ class ApprovingLoadingViewModel {
 	private var requestTimer: Timer?
 	private let showSpeedUpTimeOut: Double = 10
 	private var approveGasInfo: GasInfo?
+	private let web3 = Web3Core.shared
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
@@ -33,7 +34,8 @@ class ApprovingLoadingViewModel {
 	public let grayErrorAlertImageName = "gray_error_alert"
 	public let dismissButtonImageName = "close"
 
-	public var approveTxHash: String
+	public var approveTxHash: String?
+	public var approveContractDetails: ContractDetailsModel
 	@Published
 	public var approveLoadingStatus: ApproveLoadingStatuses = .normalLoading
 	public var formattedFeeInDollar: String {
@@ -53,19 +55,14 @@ class ApprovingLoadingViewModel {
 
 	// MARK: - Initializers
 
-	init(approveTxHash: String, approveGasInfo: GasInfo?) {
-		self.approveTxHash = approveTxHash
+	init(approveContractDetails: ContractDetailsModel, approveGasInfo: GasInfo?) {
+		self.approveContractDetails = approveContractDetails
 		self.approveGasInfo = approveGasInfo
 
-		showSpeedUpAfterSomeTime()
+		approveToken()
 	}
 
 	// MARK: - Public Methods
-
-	public func getApproveTransactionFormVC() {
-		setupTimer()
-		requestTimer?.fire()
-	}
 
 	public func destroyTimer() {
 		requestTimer?.invalidate()
@@ -76,7 +73,25 @@ class ApprovingLoadingViewModel {
 		approveTxHash = newTXHash
 	}
 
+	public func approveToken() {
+		approveLoadingStatus = .normalLoading
+		web3.approveContract(contractDetails: approveContractDetails).done { trxHash in
+			print("APPROVE TRX HASH: \(trxHash)")
+			self.approveTxHash = trxHash
+			self.startTimer()
+			self.showSpeedUpAfterSomeTime()
+		}.catch { error in
+			print("Failed to give permission")
+			self.approveLoadingStatus = .error
+		}
+	}
+
 	// MARK: - Private Methods
+
+	private func startTimer() {
+		setupTimer()
+		requestTimer?.fire()
+	}
 
 	private func setupTimer() {
 		requestTimer = Timer.scheduledTimer(
@@ -96,6 +111,9 @@ class ApprovingLoadingViewModel {
 
 	@objc
 	private func getApproveTransaction() {
+		guard let approveTxHash else {
+			return
+		}
 		activityAPIClient.singleActivity(txHash: approveTxHash).sink { completed in
 			switch completed {
 			case .finished:
