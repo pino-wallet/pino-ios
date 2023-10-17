@@ -66,6 +66,7 @@ public class Web3Core {
 	// MARK: - Typealias
 
 	public typealias CustomAssetInfo = [ABIMethodCall: String]
+	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
 
 	// MARK: - Public Properties
 
@@ -160,11 +161,21 @@ public class Web3Core {
 		swapManager.getSweepTokenCallData(tokenAdd: tokenAdd, recipientAdd: recipientAdd)
 	}
 
-	public func callProxyMulticall(data: [String], value: BigUInt) -> Promise<String> {
+	public func callProxyMulticall(data: [String], value: BigUInt) -> TrxWithGasInfo {
 		swapManager.callMultiCall(
 			callData: data,
 			value: value
 		)
+	}
+
+	public func callTransaction(trx: EthereumSignedTransaction) -> Promise<String> {
+		Promise<String> { seal in
+			web3.eth.sendRawTransaction(transaction: trx).done { signedData in
+				seal.fulfill(signedData.hex())
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
 	}
 
 	public func getCustomAssetInfo(contractAddress: String) -> Promise<CustomAssetInfo> {
@@ -434,6 +445,7 @@ extension Web3Core {
 		static let oneInchETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 		static let zeroXETHID = "ETH"
 		static let pinoETHID = "0x0000000000000000000000000000000000000000"
+		static let wethTokenID = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
 		static let aaveBorrowVariableInterestRate = 2
 		static let aaveBorrowReferralCode = 0
 		static let aaveERCContractAddress = "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2"

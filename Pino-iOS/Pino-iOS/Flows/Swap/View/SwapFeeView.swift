@@ -19,8 +19,10 @@ class SwapFeeView: UIView {
 	private let providerStackView = UIStackView()
 	private let priceImpactStackView = UIStackView()
 	private let feeStackView = UIStackView()
+	private let amountWarningImage = UIImageView()
 	private let amountLabel = UILabel()
 	private let amountSpacerView = UIView()
+	private let providerTagView = UIImageView()
 	private let impactTagStackView = UIStackView()
 	private let impactTagView = UIView()
 	private let impactTagLabel = UILabel()
@@ -87,8 +89,10 @@ class SwapFeeView: UIView {
 		feeInfoStackView.addArrangedSubview(providerStackView)
 		feeInfoStackView.addArrangedSubview(priceImpactStackView)
 		feeInfoStackView.addArrangedSubview(feeStackView)
+		amountStackView.addArrangedSubview(amountWarningImage)
 		amountStackView.addArrangedSubview(amountLabel)
 		amountStackView.addArrangedSubview(amountSpacerView)
+		amountStackView.addArrangedSubview(providerTagView)
 		amountStackView.addArrangedSubview(impactTagStackView)
 		impactTagStackView.addArrangedSubview(impactTagView)
 		impactTagStackView.addArrangedSubview(collapsButton)
@@ -131,6 +135,7 @@ class SwapFeeView: UIView {
 
 		collapsButton.image = openFeeInfoIcon
 		providerChangeIcon.image = UIImage(named: "chevron_right")
+		amountWarningImage.image = UIImage(named: "swap_warning")
 
 		amountLabel.font = .PinoStyle.mediumBody
 		impactTagLabel.font = .PinoStyle.semiboldFootnote
@@ -185,9 +190,8 @@ class SwapFeeView: UIView {
 		bestRateTagView.layer.masksToBounds = true
 
 		feeInfoStackView.isHidden = true
+		feeStackView.isHidden = true
 		impactTagView.alpha = 1
-
-		feeLabel.isSkeletonable = true
 	}
 
 	private func setupConstraint() {
@@ -235,6 +239,14 @@ class SwapFeeView: UIView {
 			.centerX,
 			.centerY
 		)
+		amountWarningImage.pin(
+			.fixedWidth(30),
+			.fixedHeight(30)
+		)
+		providerTagView.pin(
+			.fixedHeight(24),
+			.fixedWidth(24)
+		)
 		NSLayoutConstraint.activate([
 			impactTagView.widthAnchor.constraint(greaterThanOrEqualToConstant: 28),
 		])
@@ -269,10 +281,6 @@ class SwapFeeView: UIView {
 			self.updatePriceImpact(priceImpact)
 		}.store(in: &cancellables)
 
-		Publishers.Zip(swapFeeVM.$fee, swapFeeVM.$feeInDollar)
-			.sink { feeInETH, feeInDollar in
-				self.updateFee(feeInETH: feeInETH, feeInDollar: feeInDollar)
-			}.store(in: &cancellables)
 		swapFeeVM.$isBestRate.sink { isBestRate in
 			self.bestRateTagView.isHiddenInStackView = !isBestRate
 		}.store(in: &cancellables)
@@ -298,10 +306,13 @@ class SwapFeeView: UIView {
 	private func updateProviderView(_ swapProviderVM: SwapProviderViewModel?) {
 		if let swapProviderVM {
 			providerStackView.isHidden = false
+			providerTagView.isHiddenInStackView = false
 			providerImageView.image = UIImage(named: swapProviderVM.provider.image)
+			providerTagView.image = UIImage(named: swapProviderVM.provider.image)
 			providerNameLabel.text = swapProviderVM.provider.name
 		} else {
 			providerStackView.isHidden = true
+			providerTagView.isHiddenInStackView = true
 		}
 	}
 
@@ -316,22 +327,18 @@ class SwapFeeView: UIView {
 
 	private func updatePriceImpact(_ priceImpact: String?) {
 		if let priceImpact {
+			if BigNumber(numberWithDecimal: priceImpact) < 0.bigNumber {
+				amountWarningImage.isHiddenInStackView = false
+				amountLabel.textColor = .Pino.red
+			} else {
+				amountWarningImage.isHiddenInStackView = true
+				amountLabel.textColor = .Pino.label
+			}
 			priceImpactStackView.isHidden = false
 			priceImpactLabel.text = priceImpact.percentFormatting
-		} else {
-			priceImpactStackView.isHidden = true
-		}
-	}
-
-	private func updateFee(feeInETH: String?, feeInDollar: String?) {
-		if let feeInETH, let feeInDollar {
-			if showFeeInDollar {
-				feeLabel.text = feeInDollar
-			} else {
-				feeLabel.text = feeInETH
-			}
 			hideLoading()
 		} else {
+			priceImpactStackView.isHidden = true
 			showLoading()
 		}
 	}
@@ -364,7 +371,6 @@ class SwapFeeView: UIView {
 	@objc
 	private func toggleFeeValue() {
 		showFeeInDollar.toggle()
-		updateFee(feeInETH: swapFeeVM.fee, feeInDollar: swapFeeVM.feeInDollar)
 	}
 
 	private func addBestRateGradient() {
@@ -392,12 +398,14 @@ class SwapFeeView: UIView {
 		isCollapsed = true
 		feeInfoStackView.isHiddenInStackView = true
 		collapsButton.image = openFeeInfoIcon
+		providerTagView.alpha = 1
 		impactTagView.alpha = 0
 	}
 
 	public func showFeeInfo() {
 		isCollapsed = false
 		collapsButton.image = closeFeeInfoIcon
+		providerTagView.alpha = 0
 		impactTagView.alpha = 1
 		if feeLoadingIndicator.isHidden {
 			feeInfoStackView.isHiddenInStackView = false

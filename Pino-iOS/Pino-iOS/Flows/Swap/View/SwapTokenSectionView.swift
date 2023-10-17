@@ -30,6 +30,7 @@ class SwapTokenSectionView: UIView {
 
 	// MARK: - Public Properties
 
+	public var balanceStatus: AmountStatus = .isZero
 	public var balanceStatusDidChange: ((AmountStatus) -> Void)?
 	public var editingBegin: (() -> Void)?
 	public var isCalculating = false
@@ -186,7 +187,7 @@ class SwapTokenSectionView: UIView {
 	private func updateBalanceStatus(token: AssetViewModel? = nil) {
 		guard let balanceStatusDidChange else { return }
 		let selectedToken = token ?? swapVM.selectedToken
-		let balanceStatus = swapVM.checkBalanceStatus(token: selectedToken)
+		balanceStatus = swapVM.checkBalanceStatus(token: selectedToken)
 		balanceStatusDidChange(balanceStatus)
 		extractedFunc(balanceStatus)
 	}

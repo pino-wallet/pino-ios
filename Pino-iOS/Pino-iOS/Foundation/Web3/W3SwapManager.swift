@@ -11,6 +11,10 @@ import Web3
 import Web3ContractABI
 
 public struct W3SwapManager {
+	// MARK: - Typealias
+
+	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
+
 	// MARK: - Initilizer
 
 	public init(web3: Web3) {
@@ -95,19 +99,19 @@ public struct W3SwapManager {
 		}
 	}
 
-	public func callMultiCall(callData: [String], value: BigUInt) -> Promise<String> {
+	public func callMultiCall(callData: [String], value: BigUInt) -> Web3Core.TrxWithGasInfo {
 		let generatedMulticallData = W3CallDataGenerator.generateMultiCallFrom(calls: callData)
 		let ethCallData = EthereumData(generatedMulticallData.hexToBytes())
 		let contractAddress = Web3Core.Constants.pinoProxyAddress.eip55Address!
 
-		return Promise<String>() { [self] seal in
+		return TrxWithGasInfo { [self] seal in
 
-			self.gasInfoManager
-				.calculateGasOf(data: ethCallData, to: contractAddress)
+			gasInfoManager
+				.calculateGasOf(data: ethCallData, to: contractAddress, value: value.etherumQuantity)
 				.then { gasInfo in
 					web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 						.map { ($0, gasInfo) }
-				}.then { nonce, gasInfo in
+				}.done { nonce, gasInfo in
 					let trx = try trxManager.createTransactionFor(
 						nonce: nonce,
 						gasPrice: gasInfo.gasPrice.etherumQuantity,
@@ -118,9 +122,7 @@ public struct W3SwapManager {
 					)
 
 					let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-					return web3.eth.sendRawTransaction(transaction: signedTx)
-				}.done { trxHash in
-					seal.fulfill(trxHash.hex())
+					seal.fulfill((signedTx, gasInfo))
 				}.catch { error in
 					seal.reject(error)
 				}

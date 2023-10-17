@@ -77,7 +77,8 @@ public struct W3GasInfoManager {
 
 	public func calculateGasOf(
 		data: EthereumData,
-		to: EthereumAddress
+		to: EthereumAddress,
+		value: EthereumQuantity? = nil
 	) -> Promise<GasInfo> {
 		Promise<GasInfo> { seal in
 
@@ -91,6 +92,7 @@ public struct W3GasInfoManager {
 						from: myPrivateKey.address,
 						to: to,
 						gasPrice: gasPrice,
+						value: value,
 						data: data
 					)).map { ($0, gasPrice) }
 			}.done { estimateGas, gasPrice in

@@ -17,6 +17,31 @@ struct SwapPriceRequestModel {
 	let networkID: Int?
 	let userAddress: String
 	let receiver: String
+	var provider: SwapProvider!
+	let walletManager = PinoWalletManager()
+
+	var editedSrcToken: String {
+		if srcToken == Web3Core.Constants.pinoETHID {
+			return Web3Core.Constants.wethTokenID
+		} else {
+			return srcToken
+		}
+	}
+
+	var editedDestToken: String {
+		if destToken == Web3Core.Constants.pinoETHID {
+			switch provider {
+			case .oneInch, .paraswap:
+				return Web3Core.Constants.paraSwapETHID
+			case .zeroX:
+				return Web3Core.Constants.wethTokenID
+			case .none:
+				fatalError("Swpa Provider was not set")
+			}
+		} else {
+			return destToken
+		}
+	}
 
 	// Initializer for ParaSwap
 	init(
@@ -42,22 +67,22 @@ struct SwapPriceRequestModel {
 
 	public var paraSwapURLParams: HTTPParameters {
 		[
-			"srcToken": srcToken,
+			"srcToken": editedSrcToken,
 			"srcDecimals": srcDecimals!,
-			"destToken": destToken,
+			"destToken": editedDestToken,
 			"destDecimals": destDecimals!,
 			"amount": amount,
 			"side": side.rawValue,
 			"network": networkID!,
 			"userAddress": Web3Core.Constants.pinoProxyAddress,
-			"receiver": "0x81Ad046aE9a7Ad56092fa7A7F09A04C82064e16C",
+			"receiver": walletManager.currentAccount.eip55Address,
 		]
 	}
 
 	public var OneInchSwapURLParams: HTTPParameters {
 		[
-			"src": srcToken,
-			"dst": destToken,
+			"src": editedSrcToken,
+			"dst": editedDestToken,
 			"amount": amount,
 			"includeProtocols": "false",
 			"includeTokensInfo": "false",
@@ -67,8 +92,8 @@ struct SwapPriceRequestModel {
 
 	public var ZeroXSwapURLParams: HTTPParameters {
 		var params = [
-			"sellToken": srcToken,
-			"buyToken": destToken,
+			"sellToken": editedSrcToken,
+			"buyToken": editedDestToken,
 		] as HTTPParameters
 		if side == .sell {
 			params["sellAmount"] = amount

@@ -128,9 +128,11 @@ class SwapViewModel {
 		swapSide: SwapSide
 	) {
 		srcToken.calculateDollarAmount(amount)
-		if let tokenAmount = srcToken.tokenAmount,
-		   let swapAmount = Utilities.parseToBigUInt(tokenAmount, units: .custom(srcToken.selectedToken.decimal)),
-		   !swapAmount.isZero {
+		if isEthToWeth() || isWethToEth() {
+			updateEthSwapInfo(destToken: destToken, amount: amount)
+		} else if let tokenAmount = srcToken.tokenAmount,
+		          let swapAmount = Utilities.parseToBigUInt(tokenAmount, units: .custom(srcToken.selectedToken.decimal)),
+		          !swapAmount.isZero {
 			getDestinationAmount(destToken, swapAmount: swapAmount.description, swapSide: swapSide)
 		} else {
 			removeDestinationAmount(destToken)
@@ -192,14 +194,12 @@ class SwapViewModel {
 		guard let swapProvider else { return }
 		swapFeeVM.swapProviderVM = swapProvider
 		updateBestRateTag()
-		swapFeeVM.fee = swapProvider.fee
-		swapFeeVM.feeInDollar = swapProvider.feeInDollar
+		swapFeeVM.priceImpact = "0"
 	}
 
 	private func removePreviousFeeInfo() {
-		swapFeeVM.fee = nil
-		swapFeeVM.feeInDollar = nil
 		swapFeeVM.calculatedAmount = .emptyString
+		swapFeeVM.priceImpact = nil
 	}
 
 	private func getFeeTag(saveAmount: String) -> SwapFeeViewModel.FeeTag {
@@ -224,5 +224,20 @@ class SwapViewModel {
 		} else {
 			swapFeeVM.isBestRate = false
 		}
+	}
+
+	private func updateEthSwapInfo(destToken: SwapTokenViewModel, amount: String?) {
+		updateDestinationToken(destToken: destToken, tokenAmount: amount)
+		swapFeeVM.swapProviderVM = nil
+		swapFeeVM.updateQuote(srcToken: fromToken, destToken: toToken)
+		swapFeeVM.priceImpact = "0"
+	}
+
+	private func isEthToWeth() -> Bool {
+		fromToken.selectedToken.isEth && toToken.selectedToken.isWEth
+	}
+
+	private func isWethToEth() -> Bool {
+		fromToken.selectedToken.isWEth && toToken.selectedToken.isEth
 	}
 }

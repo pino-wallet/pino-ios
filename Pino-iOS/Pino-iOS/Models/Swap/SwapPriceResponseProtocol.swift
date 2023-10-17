@@ -18,7 +18,7 @@ protocol SwapCoinResponseProtocol: Codable {
 	var data: String { get }
 }
 
-enum SwapProvider {
+enum SwapProvider: String {
 	case oneInch
 	case paraswap
 	case zeroX

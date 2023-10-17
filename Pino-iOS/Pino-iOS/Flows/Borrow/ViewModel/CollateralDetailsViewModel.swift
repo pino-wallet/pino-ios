@@ -61,7 +61,7 @@ struct CollateralDetailsViewModel {
 	// make sure doing this with bignumbers
 	private var userFreeAmountInToken: BigNumber {
 		let bigNumberHealthScore = BigNumber(numberWithDecimal: borrowVM.calculatedHealthScore.description)
-		return (((userAmountInToken * bigNumberHealthScore) / 100.bigNumber)!)
+		return ((userAmountInToken * bigNumberHealthScore) / 100.bigNumber)!
 	}
 
 	private var userAmountInToken: BigNumber {
