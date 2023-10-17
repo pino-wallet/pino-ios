@@ -214,8 +214,9 @@ class ApprovingLoadingView: UIView {
 	private func onDismissTap() {
 		dismissPage()
 	}
-    
-    @objc private func onTryAgainTap() {
-        approvngContractLoadingVM.approveToken()
-    }
+
+	@objc
+	private func onTryAgainTap() {
+		approvngContractLoadingVM.approveToken()
+	}
 }

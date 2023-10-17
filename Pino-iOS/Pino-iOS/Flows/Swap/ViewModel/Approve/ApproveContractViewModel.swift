@@ -75,7 +75,7 @@ class ApproveContractViewModel {
 		guard let approveContractDetails else {
 			return
 		}
-        completion(approveContractDetails)
+		completion(approveContractDetails)
 	}
 
 	public func getApproveDetails() {
