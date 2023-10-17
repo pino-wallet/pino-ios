@@ -47,6 +47,8 @@ class ApproveContractViewModel {
 		approveAssetVM.image
 	}
 
+	public var approveGasInfo: GasInfo?
+
 	// MARK: - Private Properties
 
 	private let globalAssetsList = GlobalVariables.shared.manageAssetsList
@@ -57,7 +59,6 @@ class ApproveContractViewModel {
 	private var web3 = Web3Core.shared
 	private var swapConfirmVM: SwapConfirmationViewModel!
 	private var approveContractDetails: ContractDetailsModel?
-	private var approveGasInfo: GasInfo?
 
 	private var contractId: String
 

@@ -11,10 +11,10 @@ import Foundation
 class ApprovingLoadingViewModel {
 	// MARK: - Private Properties
 
-	private let approveTxHash: String
 	private let activityAPIClient = ActivityAPIClient()
 	private var requestTimer: Timer?
 	private let showSpeedUpTimeOut: Double = 10
+	private var approveGasInfo: GasInfo?
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
@@ -33,8 +33,15 @@ class ApprovingLoadingViewModel {
 	public let grayErrorAlertImageName = "gray_error_alert"
 	public let dismissButtonImageName = "close"
 
+	public var approveTxHash: String
 	@Published
 	public var approveLoadingStatus: ApproveLoadingStatuses = .normalLoading
+	public var formattedFeeInDollar: String {
+		guard let approveGasInfo else {
+			return "0"
+		}
+		return approveGasInfo.feeInDollar.priceFormat
+	}
 
 	public enum ApproveLoadingStatuses {
 		case normalLoading
@@ -46,8 +53,9 @@ class ApprovingLoadingViewModel {
 
 	// MARK: - Initializers
 
-	init(approveTxHash: String) {
+	init(approveTxHash: String, approveGasInfo: GasInfo?) {
 		self.approveTxHash = approveTxHash
+		self.approveGasInfo = approveGasInfo
 
 		showSpeedUpAfterSomeTime()
 	}
@@ -62,6 +70,10 @@ class ApprovingLoadingViewModel {
 	public func destroyTimer() {
 		requestTimer?.invalidate()
 		requestTimer = nil
+	}
+
+	public func changeTXHash(newTXHash: String) {
+		approveTxHash = newTXHash
 	}
 
 	// MARK: - Private Methods
