@@ -52,7 +52,7 @@ class SwapManager {
 	// MARK: - Public Methods
 
 	public func getSwapInfo() -> TrxWithGasInfo {
-		if srcToken.selectedToken.isERC20 && destToken.selectedToken.isERC20 {
+		if srcToken.selectedToken.isERC20 && (destToken.selectedToken.isERC20 || destToken.selectedToken.isWEth) {
 			return swapERCtoERC()
 		} else if srcToken.selectedToken.isERC20 && destToken.selectedToken.isEth {
 			return swapERCtoETH()
