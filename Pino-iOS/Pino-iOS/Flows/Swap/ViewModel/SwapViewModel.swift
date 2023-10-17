@@ -26,26 +26,26 @@ class SwapViewModel {
 
 	public var providers: [SwapProviderViewModel] = []
 	public var bestProvider: SwapProviderViewModel?
-    
-    public var srcToken: SwapTokenViewModel {
-        guard let swapSide else { return fromToken }
-        switch swapSide {
-        case .sell:
-            return fromToken
-        case .buy:
-            return toToken
-        }
-    }
-    
-    public var destToken: SwapTokenViewModel {
-        guard let swapSide else { return toToken }
-        switch swapSide {
-        case .sell:
-            return toToken
-        case .buy:
-            return fromToken
-        }
-    }
+
+	public var srcToken: SwapTokenViewModel {
+		guard let swapSide else { return fromToken }
+		switch swapSide {
+		case .sell:
+			return fromToken
+		case .buy:
+			return toToken
+		}
+	}
+
+	public var destToken: SwapTokenViewModel {
+		guard let swapSide else { return toToken }
+		switch swapSide {
+		case .sell:
+			return toToken
+		case .buy:
+			return fromToken
+		}
+	}
 
 	// MARK: - Private Properties
 
@@ -214,7 +214,10 @@ class SwapViewModel {
 		guard let swapProvider else { return }
 		swapFeeVM.swapProviderVM = swapProvider
 		updateBestRateTag()
-        swapFeeVM.calculatePriceImpact(srcTokenAmount: srcToken.decimalDollarAmount, destTokenAmount: destToken.decimalDollarAmount)
+		swapFeeVM.calculatePriceImpact(
+			srcTokenAmount: srcToken.decimalDollarAmount,
+			destTokenAmount: destToken.decimalDollarAmount
+		)
 	}
 
 	private func removePreviousFeeInfo() {
@@ -250,7 +253,10 @@ class SwapViewModel {
 		updateDestinationToken(destToken: destToken, tokenAmount: amount)
 		swapFeeVM.swapProviderVM = nil
 		swapFeeVM.updateQuote(srcToken: fromToken, destToken: toToken)
-        swapFeeVM.calculatePriceImpact(srcTokenAmount: srcToken.decimalDollarAmount, destTokenAmount: destToken.decimalDollarAmount)
+		swapFeeVM.calculatePriceImpact(
+			srcTokenAmount: srcToken.decimalDollarAmount,
+			destTokenAmount: destToken.decimalDollarAmount
+		)
 	}
 
 	private func isEthToWeth() -> Bool {
