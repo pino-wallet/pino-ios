@@ -142,8 +142,6 @@ class ApproveContractView: UIView {
 		case .normal:
 			approveButton.title = approveContractVM.approveButtonTitle
 			approveButton.style = .active
-		case .loading:
-			approveButton.style = .loading
 		}
 	}
 

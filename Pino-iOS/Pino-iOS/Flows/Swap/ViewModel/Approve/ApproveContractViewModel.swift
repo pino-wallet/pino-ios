@@ -33,7 +33,6 @@ class ApproveContractViewModel {
 		case calculatingFee
 		case insufficientEthBalance
 		case normal
-		case loading
 	}
 
 	@Published
@@ -72,19 +71,11 @@ class ApproveContractViewModel {
 
 	// MARK: - Public Methods
 
-	public func approveTokenUsageToPermit(completion: @escaping (_ approveTxHash: String) -> Void) {
+	public func goToApproveLoading(completion: @escaping (_ approveTxHash: ContractDetailsModel) -> Void) {
 		guard let approveContractDetails else {
 			return
 		}
-		approveStatus = .loading
-
-		web3.approveContract(contractDetails: approveContractDetails).done { trxHash in
-			print("APPROVE TRX HASH: \(trxHash)")
-			completion(trxHash)
-		}.catch { error in
-			print("Failed to give permission")
-			Toast.default(title: self.failedToApproveErrorText, style: .error).show(haptic: .warning)
-		}
+        completion(approveContractDetails)
 	}
 
 	public func getApproveDetails() {

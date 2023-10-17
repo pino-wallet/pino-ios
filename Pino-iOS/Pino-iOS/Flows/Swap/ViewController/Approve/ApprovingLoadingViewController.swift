@@ -49,12 +49,6 @@ class ApprovingLoadingViewController: UIViewController {
 		setupBindings()
 	}
 
-	override func viewWillAppear(_ animated: Bool) {
-		if isBeingPresented || isMovingToParent {
-			approveLoadingVM.getApproveTransactionFormVC()
-		}
-	}
-
 	override func viewDidDisappear(_ animated: Bool) {
 		approveLoadingVM.destroyTimer()
 	}

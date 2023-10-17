@@ -47,6 +47,7 @@ public struct W3ApproveManager {
 				seal.fulfill(trxHash.hex())
 			}.catch { error in
 				print(error)
+                seal.reject(error)
 			}
 		}
 	}

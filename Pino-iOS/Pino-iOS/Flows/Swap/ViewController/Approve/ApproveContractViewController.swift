@@ -76,9 +76,9 @@ class ApproveContractViewController: UIViewController {
 	}
 
 	private func showApproveLoadingPage() {
-		approveContractVM.approveTokenUsageToPermit { approveTxHash in
+		approveContractVM.goToApproveLoading { approveContractDetails in
 			let approveLoadingVM = ApprovingLoadingViewModel(
-				approveTxHash: approveTxHash,
+				approveContractDetails: approveContractDetails,
 				approveGasInfo: self.approveContractVM.approveGasInfo
 			)
 			let approveLoadingVC = ApprovingLoadingViewController(
