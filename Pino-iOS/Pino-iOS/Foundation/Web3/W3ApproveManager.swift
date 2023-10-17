@@ -93,7 +93,7 @@ public struct W3ApproveManager {
 	) -> Promise<ContractDetailsModel> {
 		Promise<ContractDetailsModel> { seal in
 			let contract = try Web3Core.getContractOfToken(address: address, abi: .erc, web3: web3)
-			let solInvocation = contract[ABIMethodWrite.approve.rawValue]?(spender, amount)
+			let solInvocation = contract[ABIMethodWrite.approve.rawValue]?(spender.eip55Address!, amount)
 			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvocation!))
 		}
 	}
