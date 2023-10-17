@@ -71,7 +71,7 @@ class ApprovingLoadingViewModel {
 
 	public func changeTXHash(newTXHash: String) {
 		approveTxHash = newTXHash
-        approveLoadingStatus = .fastLoading
+		approveLoadingStatus = .fastLoading
 	}
 
 	public func approveToken() {

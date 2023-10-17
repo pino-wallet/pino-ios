@@ -13,7 +13,7 @@ class ApprovingLoadingView: UIView {
 	// MARK: - Closures
 
 	private var dismissPage: () -> Void
-    private var presentActionSheet: (_ actionSheet: UIAlertController, _ completion: (() -> Void)?) -> Void
+	private var presentActionSheet: (_ actionSheet: UIAlertController, _ completion: (() -> Void)?) -> Void
 
 	// MARK: - Private Properties
 
@@ -31,16 +31,20 @@ class ApprovingLoadingView: UIView {
 	private let loadingTextLabel = PinoLabel(style: .title, text: "")
 	private let loadingDescriptionLabel = PinoLabel(style: .info, text: "")
 	private var speedUpButton: PinoRightSideImageButton!
-    private var speedUpActionSheet: ApproveSpeedUpViewController!
+	private var speedUpActionSheet: ApproveSpeedUpViewController!
 	private let loadingStackView = UIStackView()
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
-    init(approvingLoadingVM: ApprovingLoadingViewModel, dismissPage: @escaping () -> Void, presentActionSheet: @escaping (_ actionSheet: UIAlertController, _ completion: (() -> Void)?) -> Void) {
+	init(
+		approvingLoadingVM: ApprovingLoadingViewModel,
+		dismissPage: @escaping () -> Void,
+		presentActionSheet: @escaping (_ actionSheet: UIAlertController, _ completion: (() -> Void)?) -> Void
+	) {
 		self.approvngContractLoadingVM = approvingLoadingVM
 		self.dismissPage = dismissPage
-        self.presentActionSheet = presentActionSheet
+		self.presentActionSheet = presentActionSheet
 
 		super.init(frame: .zero)
 		setupView()
@@ -62,8 +66,8 @@ class ApprovingLoadingView: UIView {
 		navigationBarDismissButton.addTarget(self, action: #selector(onDismissTap), for: .touchUpInside)
 
 		tryAgainButton.addTarget(self, action: #selector(onTryAgainTap), for: .touchUpInside)
-        
-        speedUpButton.addTarget(self, action: #selector(openSpeedUpActionSheet), for: .touchUpInside)
+
+		speedUpButton.addTarget(self, action: #selector(openSpeedUpActionSheet), for: .touchUpInside)
 
 		loadingStackView.addSubview(loading)
 
@@ -224,25 +228,25 @@ class ApprovingLoadingView: UIView {
 	private func onTryAgainTap() {
 		approvngContractLoadingVM.approveToken()
 	}
-    
-    @objc
-    private func openSpeedUpActionSheet() {
-        speedUpActionSheet = ApproveSpeedUpViewController(approveLoadingVM: approvngContractLoadingVM)
-        presentActionSheet(speedUpActionSheet) {
-            let speedUpAlertBackgroundTappedGesture = UITapGestureRecognizer(
-                target: self,
-                action: #selector(self.speedUpAlertBackgroundTapped)
-            )
-            self.speedUpActionSheet.view.superview?.subviews[0]
-                .addGestureRecognizer(speedUpAlertBackgroundTappedGesture)
-            self.speedUpActionSheet.view.superview?.subviews[0].isUserInteractionEnabled = true
-        }
-    }
 
-    @objc
-    private func speedUpAlertBackgroundTapped() {
-        if speedUpActionSheet.isDismissable {
-            speedUpActionSheet.dismiss(animated: true)
-        }
-    }
+	@objc
+	private func openSpeedUpActionSheet() {
+		speedUpActionSheet = ApproveSpeedUpViewController(approveLoadingVM: approvngContractLoadingVM)
+		presentActionSheet(speedUpActionSheet) {
+			let speedUpAlertBackgroundTappedGesture = UITapGestureRecognizer(
+				target: self,
+				action: #selector(self.speedUpAlertBackgroundTapped)
+			)
+			self.speedUpActionSheet.view.superview?.subviews[0]
+				.addGestureRecognizer(speedUpAlertBackgroundTappedGesture)
+			self.speedUpActionSheet.view.superview?.subviews[0].isUserInteractionEnabled = true
+		}
+	}
+
+	@objc
+	private func speedUpAlertBackgroundTapped() {
+		if speedUpActionSheet.isDismissable {
+			speedUpActionSheet.dismiss(animated: true)
+		}
+	}
 }

@@ -135,7 +135,7 @@ public struct W3ApproveManager {
 				let trx = try trxManager.createTransactionFor(
 					contract: contractDetails.solInvocation,
 					nonce: nonce,
-                    gasPrice: gasInfo.gasPrice.etherumQuantity,
+					gasPrice: gasInfo.gasPrice.etherumQuantity,
 					gasLimit: gasInfo.increasedGasLimit.etherumQuantity
 				)
 
