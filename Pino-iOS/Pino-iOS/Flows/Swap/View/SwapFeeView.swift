@@ -158,7 +158,6 @@ class SwapFeeView: UIView {
 		feeTitleLabel.textColor = .Pino.secondaryLabel
 		feeLabel.textColor = .Pino.label
 		priceImpactTitleLabel.textColor = .Pino.secondaryLabel
-		priceImpactLabel.textColor = .Pino.orange
 		feeLoadingLabel.textColor = .Pino.label
 		bestRateTagTitle.textColor = .Pino.white
 
@@ -327,16 +326,27 @@ class SwapFeeView: UIView {
 
 	private func updatePriceImpact(_ priceImpact: String?) {
 		if let priceImpact {
-			if BigNumber(numberWithDecimal: priceImpact) < 0.bigNumber {
-				amountWarningImage.isHiddenInStackView = false
-				amountLabel.textColor = .Pino.red
-			} else {
-				amountWarningImage.isHiddenInStackView = true
-				amountLabel.textColor = .Pino.label
-			}
 			priceImpactStackView.isHidden = false
 			priceImpactLabel.text = priceImpact.percentFormatting
 			hideLoading()
+			switch swapFeeVM.priceImpactStatus {
+			case .low:
+				amountWarningImage.isHiddenInStackView = true
+				amountLabel.textColor = .Pino.label
+				priceImpactLabel.textColor = .Pino.green
+			case .high:
+				amountWarningImage.isHiddenInStackView = true
+				amountLabel.textColor = .Pino.label
+				priceImpactLabel.textColor = .Pino.orange
+			case .veryHigh:
+				amountWarningImage.isHiddenInStackView = false
+				amountLabel.textColor = .Pino.red
+				priceImpactLabel.textColor = .Pino.red
+			case .normal:
+				amountWarningImage.isHiddenInStackView = true
+				amountLabel.textColor = .Pino.label
+				priceImpactLabel.textColor = .Pino.label
+			}
 		} else {
 			priceImpactStackView.isHidden = true
 			showLoading()
