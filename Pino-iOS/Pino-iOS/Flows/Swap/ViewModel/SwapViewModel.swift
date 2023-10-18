@@ -27,26 +27,6 @@ class SwapViewModel {
 	public var providers: [SwapProviderViewModel] = []
 	public var bestProvider: SwapProviderViewModel?
 
-	public var srcToken: SwapTokenViewModel {
-		guard let swapSide else { return fromToken }
-		switch swapSide {
-		case .sell:
-			return fromToken
-		case .buy:
-			return toToken
-		}
-	}
-
-	public var destToken: SwapTokenViewModel {
-		guard let swapSide else { return toToken }
-		switch swapSide {
-		case .sell:
-			return toToken
-		case .buy:
-			return fromToken
-		}
-	}
-
 	// MARK: - Private Properties
 
 	private let priceManager = SwapPriceManager()
@@ -215,8 +195,8 @@ class SwapViewModel {
 		swapFeeVM.swapProviderVM = swapProvider
 		updateBestRateTag()
 		swapFeeVM.calculatePriceImpact(
-			srcTokenAmount: srcToken.decimalDollarAmount,
-			destTokenAmount: destToken.decimalDollarAmount
+			srcTokenAmount: fromToken.decimalDollarAmount,
+			destTokenAmount: toToken.decimalDollarAmount
 		)
 	}
 
@@ -254,8 +234,8 @@ class SwapViewModel {
 		swapFeeVM.swapProviderVM = nil
 		swapFeeVM.updateQuote(srcToken: fromToken, destToken: toToken)
 		swapFeeVM.calculatePriceImpact(
-			srcTokenAmount: srcToken.decimalDollarAmount,
-			destTokenAmount: destToken.decimalDollarAmount
+			srcTokenAmount: fromToken.decimalDollarAmount,
+			destTokenAmount: toToken.decimalDollarAmount
 		)
 	}
 
