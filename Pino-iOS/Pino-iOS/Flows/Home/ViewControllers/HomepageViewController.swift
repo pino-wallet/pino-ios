@@ -111,7 +111,7 @@ class HomepageViewController: UIViewController {
 	@objc
 	private func openAccountsPage() {
 		let navigationVC = UINavigationController()
-		let accountsVM = AccountsViewModel(currentWalletBalance: nil)
+        let accountsVM = AccountsViewModel(currentWalletBalance: profileVM.walletBalance)
 		let accountsVC = AccountsViewController(accountsVM: accountsVM, profileVM: profileVM, hasDismiss: true)
 		navigationVC.viewControllers = [accountsVC]
 		present(navigationVC, animated: true)
