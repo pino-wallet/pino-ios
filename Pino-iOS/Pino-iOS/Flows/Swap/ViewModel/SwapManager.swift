@@ -392,23 +392,6 @@ class SwapManager {
 		}
 	}
 
-//	private func unwrapTokenCallData() -> Promise<String?> {
-	//        guard let selectedProvider else { fatalError("provider errror") }
-//
-//		return Promise<String?> { seal in
-//			if selectedProvider.provider == .zeroX || srcToken.selectedToken.isWEth {
-//				web3.getUnwrapETHCallData(recipient: walletManager.currentAccount.eip55Address)
-//					.done { wrapData in
-//						seal.fulfill(wrapData)
-//					}.catch { error in
-//						print(error)
-//					}
-//			} else {
-//				seal.fulfill(nil)
-//			}
-//		}
-//	}
-
 	private func unwrapToken() -> Promise<String?> {
 		Promise<String?>() { seal in
 			web3.getUnwrapETHCallData(recipient: walletManager.currentAccount.eip55Address)
@@ -486,8 +469,8 @@ class SwapManager {
 					toToken: .init(amount: destToken.tokenAmount!, tokenID: destToken.selectedToken.id),
 					activityProtocol: selectedProvider.provider.rawValue
 				),
-				fromAddress: walletManager.currentAccount.eip55Address,
-				toAddress: "",
+				fromAddress: userAddress,
+				toAddress: selectedProvider.provider.contractAddress,
 				blockTime: ActivityHelper().getServerFormattedStringDate(date: .now),
 				gasUsed: pendingSwapGasInfo.increasedGasLimit.decimalString,
 				gasPrice: pendingSwapGasInfo.gasPrice.decimalString

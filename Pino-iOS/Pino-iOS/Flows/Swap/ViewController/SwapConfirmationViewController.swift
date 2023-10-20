@@ -73,8 +73,9 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 	}
 
 	private func confirmSwap() {
-		swapConfirmationVM.confirmSwap()
-//		unlockApp {}
+		swapConfirmationVM.confirmSwap {
+			self.dismissPage()
+		}
 	}
 
 	@objc
