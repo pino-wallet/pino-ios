@@ -12,61 +12,14 @@ import PromiseKit
 import Web3
 import Web3_Utility
 
-protocol Web3ManagerProtocol {
-    
-    typealias CallData = String
-    
-    var web3: Web3Core { get set }
-    var walletManager: PinoWalletManager { get set }
-    func wrapTokenCallData() -> Promise<CallData>
-    func unwrapToken() -> Promise<CallData?>
-    func getProxyPermitTransferData(signiture: String) -> Promise<CallData>
-    func checkAllowanceOfProvider() -> Promise<CallData?>
-    func sweepToken() -> Promise<CallData?>
-}
-
-extension Web3ManagerProtocol {
-    
-    func unwrapToken() -> Promise<String?> {
-        Promise<String?>() { seal in
-            web3.getUnwrapETHCallData(recipient: walletManager.currentAccount.eip55Address)
-                .done { wrapData in
-                    seal.fulfill(wrapData)
-                }.catch { error in
-                    print(error)
-                }
-        }
-    }
-    
-    private func sweepToken() -> Promise<String?> {
-        Promise<String?>() { seal in
-            web3.getSweepTokenCallData(
-                tokenAdd: destToken.selectedToken.id,
-                recipientAdd: walletManager.currentAccount.eip55Address
-            ).done { sweepData in
-                seal.fulfill(sweepData)
-            }.catch { error in
-                seal.reject(error)
-                print(error)
-            }
-        }
-    }
-    
-    private func wrapTokenCallData() -> Promise<String> {
-        web3.getWrapETHCallData(proxyFee: 0)
-    }
-    
-}
-
 class SwapManager: Web3ManagerProtocol {
 	// MARK: - Typealias
 
 	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
 
-    
-    internal var web3 = Web3Core.shared
-    internal var walletManager = PinoWalletManager()
-    
+	internal var web3 = Web3Core.shared
+	internal var walletManager = PinoWalletManager()
+
 	// MARK: - Public Properties
 
 	public var pendingSwapTrx: EthereumSignedTransaction?
@@ -125,14 +78,33 @@ class SwapManager: Web3ManagerProtocol {
 		}
 	}
 
+	// MARK: - Internal Methods
+
+	internal func getProxyPermitTransferData(signiture: String) -> Promise<String> {
+		web3.getPermitTransferCallData(
+			amount: srcToken.tokenAmountBigNum.bigUInt,
+			tokenAdd: srcToken.selectedToken.id,
+			signiture: signiture,
+			nonce: nonce,
+			deadline: deadline
+		)
+	}
+
 	// MARK: - Private Methods
 
 	private func swapERCtoERC() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			firstly {
-				self.signHash()
-			}.then { signiture -> Promise<(String, String?)> in
-				self.checkAllowanceOfProvider().map { (signiture, $0) }
+				fetchHash()
+			}.then { plainHash in
+				self.signHash(plainHash: plainHash)
+			}.then { [self] signiture -> Promise<(String, String?)> in
+				guard let selectedProvider else { fatalError("provider errror") }
+				return checkAllowanceOfProvider(
+					approvingToken: srcToken.selectedToken,
+					approvingAmount: srcToken.tokenAmount!,
+					spenderAddress: selectedProvider.provider.contractAddress
+				).map { (signiture, $0) }
 			}.then { signiture, allowanceData -> Promise<(String, String?)> in
 				// Permit Transform
 				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
@@ -162,9 +134,16 @@ class SwapManager: Web3ManagerProtocol {
 	private func swapERCtoETH() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			firstly {
-				self.signHash()
-			}.then { signiture -> Promise<(String, String?)> in
-				self.checkAllowanceOfProvider().map { (signiture, $0) }
+				fetchHash()
+			}.then { plainHash in
+				self.signHash(plainHash: plainHash)
+			}.then { [self] signiture -> Promise<(String, String?)> in
+				guard let selectedProvider else { fatalError("provider errror") }
+				return checkAllowanceOfProvider(
+					approvingToken: srcToken.selectedToken,
+					approvingAmount: srcToken.tokenAmount!,
+					spenderAddress: selectedProvider.provider.contractAddress
+				).map { (signiture, $0) }
 			}.then { signiture, allowanceData -> Promise<(String, String?)> in
 				// Permit Transform
 				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
@@ -244,7 +223,9 @@ class SwapManager: Web3ManagerProtocol {
 	private func swapWETHtoETH() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			firstly {
-				self.signHash().map { $0 }
+				fetchHash()
+			}.then { plainHash in
+				self.signHash(plainHash: plainHash)
 			}.then { signiture in
 				// Permit Transform
 				self.getProxyPermitTransferData(signiture: signiture).map { $0 }
@@ -259,25 +240,6 @@ class SwapManager: Web3ManagerProtocol {
 				seal.fulfill(swapResult)
 			}.catch { error in
 				print(error.localizedDescription)
-			}
-		}
-	}
-
-	private func signHash() -> Promise<String> {
-		Promise<String> { seal in
-			firstly {
-				fetchHash()
-			}.done { [self] hash in
-				var signiture = try Sec256k1Encryptor.sign(
-					msg: hash.hexToBytes(),
-					seckey: walletManager.currentAccountPrivateKey.string.hexToBytes()
-				)
-				signiture[signiture.count - 1] += 27
-
-				seal.fulfill("0x\(signiture.toHexString())")
-
-			}.catch { error in
-				fatalError(error.localizedDescription)
 			}
 		}
 	}
@@ -305,48 +267,6 @@ class SwapManager: Web3ManagerProtocol {
 				seal.fulfill(hashResponse.hash)
 			}.store(in: &cancellables)
 		}
-	}
-
-	private func checkAllowanceOfProvider() -> Promise<String?> {
-		guard let selectedProvider else { fatalError("provider errror") }
-
-		return Promise<String?> { seal in
-			firstly {
-				try web3.getAllowanceOf(
-					contractAddress: srcToken.selectedToken.id,
-					spenderAddress: selectedProvider.provider.contractAddress,
-					ownerAddress: Web3Core.Constants.pinoProxyAddress
-				)
-			}.done { [self] allowanceAmount in
-				let destTokenDecimal = srcToken.selectedToken.decimal
-				let destTokenAmount = Utilities.parseToBigUInt(srcToken.tokenAmount!, decimals: destTokenDecimal)!
-				if allowanceAmount == 0 || allowanceAmount < destTokenAmount {
-					web3.getApproveProxyCallData(
-						tokenAdd: srcToken.selectedToken.id,
-						spender: selectedProvider.provider.contractAddress
-					).done { approveCallData in
-						seal.fulfill(approveCallData)
-					}.catch { error in
-						seal.reject(error)
-					}
-				} else {
-					// ALLOWED
-					seal.fulfill(nil)
-				}
-			}.catch { error in
-				print(error)
-			}
-		}
-	}
-
-	private func getProxyPermitTransferData(signiture: String) -> Promise<String> {
-		web3.getPermitTransferCallData(
-			amount: srcToken.tokenAmountBigNum.bigUInt,
-			tokenAdd: srcToken.selectedToken.id,
-			signiture: signiture,
-			nonce: nonce,
-			deadline: deadline
-		)
 	}
 
 	private func getSwapInfoFrom() -> Promise<String> {
@@ -388,17 +308,16 @@ class SwapManager: Web3ManagerProtocol {
 		web3.callProxyMulticall(data: data, value: value ?? 0.bigNumber.bigUInt)
 	}
 
-	private func sweepTokenCallData() -> Promise<String?> {
+	private func sweepTokenCallData() -> Promise<CallData?> {
 		if let selectedProvider {
 			if selectedProvider.provider == .zeroX {
-				return sweepToken()
+				return sweepToken(tokenAddress: destToken.selectedToken.id)
 			} else {
 				return Promise<String?>() { seal in seal.fulfill(nil) }
 			}
-
 		} else {
 			if destToken.selectedToken.isWEth {
-				return sweepToken()
+				return sweepToken(tokenAddress: destToken.selectedToken.id)
 			} else {
 				return Promise<String?>() { seal in seal.fulfill(nil) }
 			}
