@@ -12,11 +12,61 @@ import PromiseKit
 import Web3
 import Web3_Utility
 
-class SwapManager {
+protocol Web3ManagerProtocol {
+    
+    typealias CallData = String
+    
+    var web3: Web3Core { get set }
+    var walletManager: PinoWalletManager { get set }
+    func wrapTokenCallData() -> Promise<CallData>
+    func unwrapToken() -> Promise<CallData?>
+    func getProxyPermitTransferData(signiture: String) -> Promise<CallData>
+    func checkAllowanceOfProvider() -> Promise<CallData?>
+    func sweepToken() -> Promise<CallData?>
+}
+
+extension Web3ManagerProtocol {
+    
+    func unwrapToken() -> Promise<String?> {
+        Promise<String?>() { seal in
+            web3.getUnwrapETHCallData(recipient: walletManager.currentAccount.eip55Address)
+                .done { wrapData in
+                    seal.fulfill(wrapData)
+                }.catch { error in
+                    print(error)
+                }
+        }
+    }
+    
+    private func sweepToken() -> Promise<String?> {
+        Promise<String?>() { seal in
+            web3.getSweepTokenCallData(
+                tokenAdd: destToken.selectedToken.id,
+                recipientAdd: walletManager.currentAccount.eip55Address
+            ).done { sweepData in
+                seal.fulfill(sweepData)
+            }.catch { error in
+                seal.reject(error)
+                print(error)
+            }
+        }
+    }
+    
+    private func wrapTokenCallData() -> Promise<String> {
+        web3.getWrapETHCallData(proxyFee: 0)
+    }
+    
+}
+
+class SwapManager: Web3ManagerProtocol {
 	// MARK: - Typealias
 
 	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
 
+    
+    internal var web3 = Web3Core.shared
+    internal var walletManager = PinoWalletManager()
+    
 	// MARK: - Public Properties
 
 	public var pendingSwapTrx: EthereumSignedTransaction?
@@ -25,14 +75,12 @@ class SwapManager {
 	// MARK: - Private Properties
 
 	private let selectedProvider: SwapProviderViewModel?
-	private var web3 = Web3Core.shared
 	private var srcToken: SwapTokenViewModel
 	private var destToken: SwapTokenViewModel
 	private var wethToken: AssetViewModel {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
 	}
 
-	private var walletManager = PinoWalletManager()
 	private let coreDataManager = CoreDataManager()
 	private let paraSwapAPIClient = ParaSwapAPIClient()
 	private let oneInchAPIClient = OneInchAPIClient()
@@ -357,24 +405,6 @@ class SwapManager {
 		}
 	}
 
-	private func sweepToken() -> Promise<String?> {
-		Promise<String?>() { seal in
-			web3.getSweepTokenCallData(
-				tokenAdd: destToken.selectedToken.id,
-				recipientAdd: walletManager.currentAccount.eip55Address
-			).done { sweepData in
-				seal.fulfill(sweepData)
-			}.catch { error in
-				seal.reject(error)
-				print(error)
-			}
-		}
-	}
-
-	private func wrapTokenCallData() -> Promise<String> {
-		web3.getWrapETHCallData(proxyFee: 0)
-	}
-
 	private func unwrapTokenCallData() -> Promise<String?> {
 		if let selectedProvider {
 			if selectedProvider.provider == .zeroX {
@@ -389,17 +419,6 @@ class SwapManager {
 			} else {
 				return Promise<String?>() { seal in seal.fulfill(nil) }
 			}
-		}
-	}
-
-	private func unwrapToken() -> Promise<String?> {
-		Promise<String?>() { seal in
-			web3.getUnwrapETHCallData(recipient: walletManager.currentAccount.eip55Address)
-				.done { wrapData in
-					seal.fulfill(wrapData)
-				}.catch { error in
-					print(error)
-				}
 		}
 	}
 
