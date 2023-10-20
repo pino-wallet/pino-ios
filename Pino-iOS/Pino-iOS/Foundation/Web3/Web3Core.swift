@@ -18,9 +18,8 @@ enum Web3Error: Error {
 }
 
 public class Web3Core {
-    
-    static var chainID = EthereumQuantity(quantity: BigUInt(1337))
-    
+	static var chainID = EthereumQuantity(quantity: BigUInt(1337))
+
 	// MARK: - Private Properties
 
 	private init() {}
@@ -293,7 +292,7 @@ public class Web3Core {
 				newTx.gasLimit = tx.gas
 				newTx.transactionType = .legacy
 
-                return try newTx.sign(with: privateKey, chainId: Web3Core.chainID).promise
+				return try newTx.sign(with: privateKey, chainId: Web3Core.chainID).promise
 			}.then { newTx in
 				self.web3.eth.sendRawTransaction(transaction: newTx)
 			}.done { txHash in
@@ -468,16 +467,16 @@ extension Web3Core {
 		case mainNet = "https://rpc.ankr.com/eth"
 		case arb = "https://arb1.arbitrum.io/rpc"
 		case ganashDev = "https://ganache.pino.xyz/"
-        
-        func getChainID() -> Int {
-            switch self {
-                case .mainNet:
-                    return 1
-                case .arb:
-                    return 42161
-                case .ganashDev:
-                    return 1337
-            }
-        }
+
+		func getChainID() -> Int {
+			switch self {
+			case .mainNet:
+				return 1
+			case .arb:
+				return 42161
+			case .ganashDev:
+				return 1337
+			}
+		}
 	}
 }
