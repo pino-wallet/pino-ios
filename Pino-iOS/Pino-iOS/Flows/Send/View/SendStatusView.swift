@@ -21,8 +21,8 @@ class SendStatusView: UIView {
 			updateViewWithPageStatus(pageStatus: pageStatus)
 		}
 	}
-    
-    public var txHash: String
+
+	public var txHash: String
 
 	// MARK: - Closures
 
@@ -48,9 +48,9 @@ class SendStatusView: UIView {
 
 	// MARK: - Initializers
 
-    init(toggleIsModalInPresentation: @escaping (_: Bool) -> Void, txHash: String = "") {
+	init(toggleIsModalInPresentation: @escaping (_: Bool) -> Void, txHash: String = "") {
 		self.toggleIsModalInPresentation = toggleIsModalInPresentation
-        self.txHash = txHash
+		self.txHash = txHash
 		super.init(frame: .zero)
 
 		setupView()
@@ -193,7 +193,7 @@ class SendStatusView: UIView {
 
 	@objc
 	private func openViewStatusURL() {
-        let viewStatusUrl = URL(string: txHash.ethScanTxURL)
+		let viewStatusUrl = URL(string: txHash.ethScanTxURL)
 		UIApplication.shared.open(viewStatusUrl!)
 	}
 }

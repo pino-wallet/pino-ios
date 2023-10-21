@@ -286,11 +286,17 @@ public class Web3Core {
 		Promise<String>() { seal in
 			let privateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
 			firstly {
-                var newTx = EthereumTransaction(nonce: tx.nonce, gasPrice: newGasPrice, to: tx.to, value: tx.value, data: tx.input)
+				var newTx = EthereumTransaction(
+					nonce: tx.nonce,
+					gasPrice: newGasPrice,
+					to: tx.to,
+					value: tx.value,
+					data: tx.input
+				)
 				newTx.gasLimit = tx.gas
 				newTx.transactionType = .legacy
 
-                return try newTx.sign(with: privateKey, chainId: Web3Core.Constants.mainNetChainID).promise
+				return try newTx.sign(with: privateKey, chainId: Web3Core.Constants.mainNetChainID).promise
 			}.then { newTx in
 				self.web3.eth.sendRawTransaction(transaction: newTx)
 			}.done { txHash in
@@ -459,8 +465,8 @@ extension Web3Core {
 		static let compoundCUsdcContractAddress = "0x39AA39c021dfbaE8faC545936693aC917d5E7563"
 		static let compoundCUsdtContractAddress = "0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9"
 		static let compoundCWbtcContractAddress = "0xC11b1268C1A384e55C48c2391d8d480264A3A7F4"
-        static let mainNetChainID = EthereumQuantity(1)
-        static let testNetChainID = EthereumQuantity(1337)
+		static let mainNetChainID = EthereumQuantity(1)
+		static let testNetChainID = EthereumQuantity(1337)
 	}
 
 	public enum RPC: String {

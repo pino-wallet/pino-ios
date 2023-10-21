@@ -136,7 +136,7 @@ struct ActivityDetailProperties {
 	}
 
 	public var exploreURL: URL {
-        URL(string: activityDetails.defaultActivityModel.txHash.ethScanTxURL)!
+		URL(string: activityDetails.defaultActivityModel.txHash.ethScanTxURL)!
 	}
 
 	// MARK: - Initializers

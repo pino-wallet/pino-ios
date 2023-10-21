@@ -129,8 +129,8 @@ extension String {
 			return nil
 		}
 	}
-    
-    public var ethScanTxURL: String {
-        "http://www.etherscan.io/tx/\(self)"
-    }
+
+	public var ethScanTxURL: String {
+		"http://www.etherscan.io/tx/\(self)"
+	}
 }
