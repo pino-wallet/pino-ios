@@ -18,10 +18,16 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>CONFIG</key>
+	<string>${CONFIG}</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.finance</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NETWORK_CHAIN_ID</key>
+	<string>${NETWORK_CHAIN_ID}</string>
+	<key>NETWORK_RPC_URL</key>
+	<string>${NETWORK_RPC_URL}</string>
 	<key>NSCameraUsageDescription</key>
 	<string>We need to access your camera for scanning QR code.</string>
 	<key>NSFaceIDUsageDescription</key>

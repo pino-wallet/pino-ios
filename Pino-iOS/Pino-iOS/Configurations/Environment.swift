@@ -15,16 +15,42 @@ enum NetworkEnvironment {
 }
 
 enum Environment {
-	// MARK: Public Properties
+    
+    case mainNet
+    case devNet
+    
+    // MARK: Public Properties
 
-	public static var networkEnvironment: NetworkEnvironment {
-		.staging
-	}
+    public static var networkEnvironment: NetworkEnvironment {
+        .staging
+    }
 
-	public static var apiBaseURL: URL {
-		switch networkEnvironment {
-		case .staging, .production, .qa:
-			return URL(string: "https://demo-api.pino.xyz/v1/")!
-		}
+    public static var apiBaseURL: URL {
+        switch networkEnvironment {
+        case .staging, .production, .qa:
+            return URL(string: "https://demo-api.pino.xyz/v1/")!
+        }
+    }
+
+    // MARK: - Environments
+    
+	public static var chainID: String {
+        try! Configuration.value(for: "NETWORK_CHAIN_ID")
 	}
+    
+    public static var rpcURL: String {
+        try! Configuration.value(for: "NETWORK_RPC_URL")
+    }
+    
+    public static var current: Environment {
+        let config: String = try! Configuration.value(for: "CONFIG")
+        if config == "MainNet" {
+            return .mainNet
+        } else if config == "DevNet" {
+            return .devNet
+        } else {
+            fatalError("Wrong ENV Config")
+        }
+    }
+    
 }
