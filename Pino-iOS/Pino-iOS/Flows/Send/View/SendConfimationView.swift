@@ -313,6 +313,12 @@ class SendConfirmationView: UIView {
 			continueButton.style = .deactive
 			continueButton.setTitle(sendConfirmationVM.insuffientText, for: .normal)
 		}
+        
+        // ACTIVATING continue button since in devnet we don't need validation
+        // to check if there is balance
+        if Environment.current == .devNet {
+            continueButton.style = .active
+        }
 	}
 
 	private func setSketonable() {

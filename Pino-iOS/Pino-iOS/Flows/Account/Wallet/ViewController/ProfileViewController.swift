@@ -37,6 +37,22 @@ class ProfileViewController: UIViewController {
 		setupView()
 		setupNavigationBar()
 	}
+    
+    override func becomeFirstResponder() -> Bool {
+        return true
+    }
+
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?){
+        if motion == .motionShake {
+            let devMode = UserDefaults.standard.bool(forKey: "isInDevMode")
+            UserDefaults.standard.set(!devMode, forKey: "isInDevMode")
+            if devMode {
+                Toast.default(title: "DevMode DeActivated", style: .error).show(haptic: .success)
+            } else {
+                Toast.default(title: "DevMode Activated", style: .error).show(haptic: .success)
+            }
+        }
+    }
 
 	// MARK: - Private Methods
 

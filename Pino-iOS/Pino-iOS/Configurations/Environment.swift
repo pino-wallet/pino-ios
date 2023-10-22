@@ -43,14 +43,22 @@ enum Environment {
     }
     
     public static var current: Environment {
-        let config: String = try! Configuration.value(for: "CONFIG")
-        if config == "MainNet" {
-            return .mainNet
-        } else if config == "DevNet" {
+        let devMode = UserDefaults.standard.bool(forKey: "isInDevMode")
+        
+        if devMode {
             return .devNet
         } else {
-            fatalError("Wrong ENV Config")
+            return .mainNet
         }
+        
+//        let config: String = try! Configuration.value(for: "CONFIG")
+//        if config == "MainNet" {
+//            return .mainNet
+//        } else if config == "DevNet" {
+//            return .devNet
+//        } else {
+//            fatalError("Wrong ENV Config")
+//        }
     }
     
 }
