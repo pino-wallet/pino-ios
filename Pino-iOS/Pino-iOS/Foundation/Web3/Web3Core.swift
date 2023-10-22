@@ -60,6 +60,10 @@ public class Web3Core {
 	private var aaveBorrowManager: W3AaveBorrowManager {
 		.init(web3: web3)
 	}
+    
+    private var aaveDepositManager: W3AaveDepositManager {
+        .init(web3: web3)
+    }
 
 	private let walletManager = PinoWalletManager()
 
@@ -388,6 +392,10 @@ public class Web3Core {
 	public func aaveBorrowToken(contractDetails: ContractDetailsModel) -> Promise<String> {
 		aaveBorrowManager.borrowToken(contractDetails: contractDetails)
 	}
+    
+    public func getAaveDespositV3ERCCallData(assetAddress: String, amount: BigUInt, userAddress: String) -> Promise<String> {
+        aaveDepositManager.getAaveDespositV3ERCCallData(assetAddress: assetAddress, amount: amount, userAddress: userAddress)
+    }
 
 	// MARK: - Private Methods
 
@@ -448,8 +456,8 @@ extension Web3Core {
 		static let wethTokenID = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
 		static let aaveBorrowVariableInterestRate = 2
 		static let aaveBorrowReferralCode = 0
-		static let aaveERCContractAddress = "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2"
-		static let aaveETHContractAddress = "0xD322A49006FC828F9B5B37Ab215F99B4E5caB19C"
+		static let aavePoolERCContractAddress = "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2"
+		static let aaveWrappedTokenETHContractAddress = "0xD322A49006FC828F9B5B37Ab215F99B4E5caB19C"
 		static let compoundCAaveContractAddress = "0xe65cdB6479BaC1e22340E4E755fAE7E509EcD06c"
 		static let compoundCCompContractAddress = "0x70e36f6BF80a52b3B46b3aF8e106CC0ed743E8e4"
 		static let compoundCDaiContractAddress = "0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643"
