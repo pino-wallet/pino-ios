@@ -14,7 +14,7 @@ public enum Web3ABI {
 	case borrowERCAave
 	case borrowETHAave
 	case borrowCTokenCompound
-    case aaveProxy
+	case aaveProxy
 
 	public var abi: Data {
 		switch self {
@@ -30,9 +30,9 @@ public enum Web3ABI {
 			return Web3ABI.borrowETHAaveAbiString.data(using: .utf8)!
 		case .borrowCTokenCompound:
 			return Web3ABI.borrowCompoundCTokenAbiString.data(using: .utf8)!
-        case .aaveProxy:
-            return Web3ABI.aaveProxyAbiString.data(using: .utf8)!
-        }
+		case .aaveProxy:
+			return Web3ABI.aaveProxyAbiString.data(using: .utf8)!
+		}
 	}
 
 	private static var erc20AbiString: String {
@@ -54,10 +54,10 @@ public enum Web3ABI {
 	private static var borrowCompoundCTokenAbiString: String {
 		ABIReader(fileName: "BorrowCompoundCTokenABIJson")
 	}
-    
-    private static var aaveProxyAbiString: String {
-        ABIReader(fileName: "AaveProxyABIJson")
-    }
+
+	private static var aaveProxyAbiString: String {
+		ABIReader(fileName: "AaveProxyABIJson")
+	}
 
 	private static var investAbiString: String {
 		let path = Bundle.main.path(forResource: "InvestABIJson", ofType: "json")!
@@ -91,7 +91,7 @@ public enum ABIMethodWrite: String {
 	case sDaiToDai
 	case borrow
 	case borrowETH
-    case depositV3
+	case depositV3
 }
 
 fileprivate func ABIReader(fileName: String) -> String {

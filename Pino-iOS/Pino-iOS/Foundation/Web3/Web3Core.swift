@@ -60,10 +60,10 @@ public class Web3Core {
 	private var aaveBorrowManager: W3AaveBorrowManager {
 		.init(web3: web3)
 	}
-    
-    private var aaveDepositManager: W3AaveDepositManager {
-        .init(web3: web3)
-    }
+
+	private var aaveDepositManager: W3AaveDepositManager {
+		.init(web3: web3)
+	}
 
 	private let walletManager = PinoWalletManager()
 
@@ -392,10 +392,18 @@ public class Web3Core {
 	public func aaveBorrowToken(contractDetails: ContractDetailsModel) -> Promise<String> {
 		aaveBorrowManager.borrowToken(contractDetails: contractDetails)
 	}
-    
-    public func getAaveDespositV3ERCCallData(assetAddress: String, amount: BigUInt, userAddress: String) -> Promise<String> {
-        aaveDepositManager.getAaveDespositV3ERCCallData(assetAddress: assetAddress, amount: amount, userAddress: userAddress)
-    }
+
+	public func getAaveDespositV3ERCCallData(
+		assetAddress: String,
+		amount: BigUInt,
+		userAddress: String
+	) -> Promise<String> {
+		aaveDepositManager.getAaveDespositV3ERCCallData(
+			assetAddress: assetAddress,
+			amount: amount,
+			userAddress: userAddress
+		)
+	}
 
 	// MARK: - Private Methods
 
