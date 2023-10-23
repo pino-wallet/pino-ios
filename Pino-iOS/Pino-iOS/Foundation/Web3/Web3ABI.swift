@@ -92,7 +92,7 @@ public enum ABIMethodWrite: String {
 	case borrow
 	case borrowETH
 	case depositV3
-    case setUserUseReserveAsCollateral
+	case setUserUseReserveAsCollateral
 }
 
 fileprivate func ABIReader(fileName: String) -> String {

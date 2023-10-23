@@ -404,18 +404,24 @@ public class Web3Core {
 			userAddress: userAddress
 		)
 	}
-    
-    public func getUserUseReserveAsCollateralContractDetails(assetAddress: String, useAsCollateral: Bool) -> Promise<ContractDetailsModel> {
-        aaveDepositManager.getUserUseReserveAsCollateralContractDetails(assetAddress: assetAddress, useAsCollateral: useAsCollateral)
-    }
-    
-    public func getUserUseReserveAsCollateralGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
-        aaveDepositManager.getUserUseReserveAsCollateralGasInfo(contractDetails: contractDetails)
-    }
-    
-    public func setUserUseReserveAsCollateral(contractDetails: ContractDetailsModel) -> Promise<String> {
-        aaveDepositManager.setUserUseReserveAsCollateral(contractDetails: contractDetails)
-    }
+
+	public func getUserUseReserveAsCollateralContractDetails(
+		assetAddress: String,
+		useAsCollateral: Bool
+	) -> Promise<ContractDetailsModel> {
+		aaveDepositManager.getUserUseReserveAsCollateralContractDetails(
+			assetAddress: assetAddress,
+			useAsCollateral: useAsCollateral
+		)
+	}
+
+	public func getUserUseReserveAsCollateralGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
+		aaveDepositManager.getUserUseReserveAsCollateralGasInfo(contractDetails: contractDetails)
+	}
+
+	public func setUserUseReserveAsCollateral(contractDetails: ContractDetailsModel) -> Promise<String> {
+		aaveDepositManager.setUserUseReserveAsCollateral(contractDetails: contractDetails)
+	}
 
 	// MARK: - Private Methods
 

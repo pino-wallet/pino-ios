@@ -37,40 +37,52 @@ public struct W3AaveDepositManager {
 	}
 
 	// MARK: - Public Methods
-    
-    public func getUserUseReserveAsCollateralContractDetails(assetAddress: String, useAsCollateral: Bool) -> Promise<ContractDetailsModel> {
-        Promise<ContractDetailsModel> { seal in
-            let contract = try Web3Core.getContractOfToken(address: Web3Core.Constants.aavePoolERCContractAddress, abi: .borrowERCAave, web3: web3)
-            let solInvocation = contract[ABIMethodWrite.setUserUseReserveAsCollateral.rawValue]?(assetAddress.eip55Address!, useAsCollateral)
-            seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvocation!))
-        }
-    }
-    
-    public func setUserUseReserveAsCollateral(contractDetails: ContractDetailsModel) -> Promise<String> {
-        Promise<String> { seal in
-            getUserUseReserveAsCollateralTransaction(contractDetails: contractDetails).then { ethereumSignedTransaction in
-                web3.eth.sendRawTransaction(transaction: ethereumSignedTransaction)
-            }.done { trxHash in
-                seal.fulfill(trxHash.hex())
-            }.catch { error in
-                seal.reject(error)
-            }
-        }
-    }
-    
-    public func getUserUseReserveAsCollateralGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
-        Promise<GasInfo> { seal in
-            gasInfoManager.calculateGasOf(
-                method: .borrow,
-                solInvoc: contractDetails.solInvocation,
-                contractAddress: contractDetails.contract.address!
-            ).done { gasInfo in
-                seal.fulfill(gasInfo)
-            }.catch { error in
-                seal.reject(error)
-            }
-        }
-    }
+
+	public func getUserUseReserveAsCollateralContractDetails(
+		assetAddress: String,
+		useAsCollateral: Bool
+	) -> Promise<ContractDetailsModel> {
+		Promise<ContractDetailsModel> { seal in
+			let contract = try Web3Core.getContractOfToken(
+				address: Web3Core.Constants.aavePoolERCContractAddress,
+				abi: .borrowERCAave,
+				web3: web3
+			)
+			let solInvocation = contract[ABIMethodWrite.setUserUseReserveAsCollateral.rawValue]?(
+				assetAddress
+					.eip55Address!,
+				useAsCollateral
+			)
+			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvocation!))
+		}
+	}
+
+	public func setUserUseReserveAsCollateral(contractDetails: ContractDetailsModel) -> Promise<String> {
+		Promise<String> { seal in
+			getUserUseReserveAsCollateralTransaction(contractDetails: contractDetails)
+				.then { ethereumSignedTransaction in
+					web3.eth.sendRawTransaction(transaction: ethereumSignedTransaction)
+				}.done { trxHash in
+					seal.fulfill(trxHash.hex())
+				}.catch { error in
+					seal.reject(error)
+				}
+		}
+	}
+
+	public func getUserUseReserveAsCollateralGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
+		Promise<GasInfo> { seal in
+			gasInfoManager.calculateGasOf(
+				method: .borrow,
+				solInvoc: contractDetails.solInvocation,
+				contractAddress: contractDetails.contract.address!
+			).done { gasInfo in
+				seal.fulfill(gasInfo)
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
 
 	public func getAaveDespositV3ERCCallData(
 		assetAddress: String,
@@ -92,34 +104,36 @@ public struct W3AaveDepositManager {
 			seal.fulfill(trx.data.hex())
 		}
 	}
-    // MARK: - Private Methods
-    private func getUserUseReserveAsCollateralTransaction(contractDetails: ContractDetailsModel) -> Promise<EthereumSignedTransaction> {
-            Promise<EthereumSignedTransaction> { seal in
 
-                gasInfoManager.calculateGasOf(
-                    method: .borrow,
-                    solInvoc: contractDetails.solInvocation,
-                    contractAddress: contractDetails.contract.address!
-                )
-                .then { [self] gasInfo in
-                    web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
-                        .map { ($0, gasInfo) }
-                }
-                .done { [self] nonce, gasInfo in
+	// MARK: - Private Methods
 
-                    let trx = try trxManager.createTransactionFor(
-                        contract: contractDetails.solInvocation,
-                        nonce: nonce,
-                        gasPrice: gasInfo.gasPrice.etherumQuantity,
-                        gasLimit: gasInfo.increasedGasLimit.etherumQuantity
-                    )
+	private func getUserUseReserveAsCollateralTransaction(contractDetails: ContractDetailsModel)
+		-> Promise<EthereumSignedTransaction> {
+		Promise<EthereumSignedTransaction> { seal in
 
-                    let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
-                    seal.fulfill(signedTx)
-                }.catch { error in
-                    seal.reject(error)
-            }
-        }
-    }
+			gasInfoManager.calculateGasOf(
+				method: .borrow,
+				solInvoc: contractDetails.solInvocation,
+				contractAddress: contractDetails.contract.address!
+			)
+			.then { [self] gasInfo in
+				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+					.map { ($0, gasInfo) }
+			}
+			.done { [self] nonce, gasInfo in
 
+				let trx = try trxManager.createTransactionFor(
+					contract: contractDetails.solInvocation,
+					nonce: nonce,
+					gasPrice: gasInfo.gasPrice.etherumQuantity,
+					gasLimit: gasInfo.increasedGasLimit.etherumQuantity
+				)
+
+				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
+				seal.fulfill(signedTx)
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
 }
