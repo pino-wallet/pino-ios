@@ -140,7 +140,7 @@ public struct W3AaveBorrowManager {
 					gasLimit: gasInfo.increasedGasLimit.etherumQuantity
 				)
 
-				let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Core.Constants.mainNetChainID)
+				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
 				seal.fulfill(signedTx)
 			}.catch { error in
 				seal.reject(error)

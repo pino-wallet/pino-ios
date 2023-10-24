@@ -121,7 +121,7 @@ public struct W3SwapManager {
 						to: contractAddress
 					)
 
-					let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Core.Constants.mainNetChainID)
+					let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
 					seal.fulfill((signedTx, gasInfo))
 				}.catch { error in
 					seal.reject(error)
