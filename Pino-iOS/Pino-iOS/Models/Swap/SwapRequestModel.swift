@@ -90,7 +90,7 @@ struct SwapRequestModel {
 	}
 
 	public var paraswapReqBody: BodyParamsType {
-        guard let priceRoute else { fatalError() }
+		guard let priceRoute else { fatalError() }
 		let dictionary = try! JSONSerialization.jsonObject(with: priceRoute, options: []) as? HTTPParameters
 
 		let params: HTTPParameters = [
@@ -98,7 +98,7 @@ struct SwapRequestModel {
 			"destToken": editedDestToken,
 			"srcAmount": amount,
 			"destAmount": destAmount,
-            "priceRoute": dictionary!["priceRoute"]!,
+			"priceRoute": dictionary!["priceRoute"]!,
 			"userAddress": userAddress, // this is pino proxy address
 			"receiver": receiver, // this is user who receieves token
 			"srcDecimals": srcDecimal!,

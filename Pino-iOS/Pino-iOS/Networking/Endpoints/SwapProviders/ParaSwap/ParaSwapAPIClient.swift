@@ -12,14 +12,14 @@ final class ParaSwapAPIClient: SwapProvidersAPIServices {
 	// MARK: - Private Properties
 
 	private let networkManager = NetworkManager<ParaSwapEndpoint>()
-    
+
 	func swapPrice(swapInfo: SwapPriceRequestModel) -> AnyPublisher<ParaSwapPriceResponseModel?, APIError> {
-        var editedSwapInfo = swapInfo
-        editedSwapInfo.provider = .oneInch
-        return networkManager.requestData(.swapPrice(swapInfo: editedSwapInfo))
-            .map { responseData in
-                ParaSwapPriceResponseModel(priceRoute: responseData)
-            }.eraseToAnyPublisher()
+		var editedSwapInfo = swapInfo
+		editedSwapInfo.provider = .oneInch
+		return networkManager.requestData(.swapPrice(swapInfo: editedSwapInfo))
+			.map { responseData in
+				ParaSwapPriceResponseModel(priceRoute: responseData)
+			}.eraseToAnyPublisher()
 	}
 
 	func swap(swapInfo: SwapRequestModel) -> AnyPublisher<ParaswapSwapResponseModel?, APIError> {

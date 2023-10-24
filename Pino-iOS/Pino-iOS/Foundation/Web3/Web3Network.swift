@@ -9,12 +9,11 @@ import Foundation
 import Web3
 
 public enum Web3Network: String {
-    
 	case mainNet
 	case arb
 	case ganashDev
 
-    // MARK: - Public Properties
+	// MARK: - Public Properties
 
 	public var current: Self {
 		if Environment.current == .mainNet {
@@ -31,6 +30,6 @@ public enum Web3Network: String {
 	}
 
 	public static var rpcUrl: String {
-        Environment.rpcURL
+		Environment.rpcURL
 	}
 }
