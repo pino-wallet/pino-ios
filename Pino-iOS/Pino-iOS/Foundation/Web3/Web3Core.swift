@@ -286,7 +286,13 @@ public class Web3Core {
 		Promise<String>() { seal in
 			let privateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
 			firstly {
-				var newTx = EthereumTransaction(nonce: tx.nonce, gasPrice: newGasPrice, to: tx.to, value: tx.value)
+				var newTx = EthereumTransaction(
+					nonce: tx.nonce,
+					gasPrice: newGasPrice,
+					to: tx.to,
+					value: tx.value,
+					data: tx.input
+				)
 				newTx.gasLimit = tx.gas
 				newTx.transactionType = .legacy
 
