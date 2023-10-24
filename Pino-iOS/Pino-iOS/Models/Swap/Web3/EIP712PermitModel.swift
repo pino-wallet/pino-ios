@@ -44,7 +44,7 @@ struct EIP712PermitModel: Codable {
 		)
 		let initDomain = Domain(
 			name: "Permit2",
-			chainID: Int(Web3Core.Constants.mainNetChainID.quantity),
+			chainID: 1,
 			verifyingContract: "0x000000000022d473030f116ddee9f6b43ac78ba3"
 		)
 		let initPermit = Permitted(token: tokenAdd, amount: amount)
