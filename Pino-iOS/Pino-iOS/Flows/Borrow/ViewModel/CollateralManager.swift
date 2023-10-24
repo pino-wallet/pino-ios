@@ -146,7 +146,7 @@ class CollateralManager: Web3ManagerProtocol {
 				self.depositGasInfo = depositResults.1
 				seal.fulfill(depositResults)
 			}.catch { error in
-				print(error.localizedDescription)
+				print(error.localizedDescription, "heh")
 			}
 		}
 	}

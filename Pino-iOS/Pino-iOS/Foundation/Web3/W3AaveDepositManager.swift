@@ -43,9 +43,9 @@ public struct W3AaveDepositManager {
 		amount: BigUInt,
 		userAddress: String
 	) -> Promise<String> {
-		Promise<String> { seal in
+        return Promise<String> { seal in
 			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.pinoProxyAddress,
+				address: Web3Core.Constants.pinoAaveProxyAddress,
 				abi: .aaveProxy,
 				web3: web3
 			)
@@ -56,6 +56,6 @@ public struct W3AaveDepositManager {
 			)
 			let trx = try trxManager.createTransactionFor(contract: solInvocation!)
 			seal.fulfill(trx.data.hex())
-		}
+        }
 	}
 }

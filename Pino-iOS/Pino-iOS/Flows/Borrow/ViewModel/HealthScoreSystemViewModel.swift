@@ -26,5 +26,13 @@ struct HealthScoreSystemViewModel {
 
 	init(healthScoreNumber: Double) {
 		self.healthScoreNumber = healthScoreNumber
+        let daiAsset = GlobalVariables.shared.manageAssetsList?.first(where: {
+            $0.id == "0x6b175474e89094c44da98b954eedeac495271d0f"
+        })
+        print("heh", daiAsset?.id)
+        let collateralManager = CollateralManager(asset: daiAsset!, assetAmountBigNumber: daiAsset!.holdAmount)
+        collateralManager.getERC20CollateralData().done { collateralResults in
+            print("heh", collateralManager)
+        }
 	}
 }
