@@ -9,25 +9,28 @@ import Foundation
 import Web3
 
 public enum Web3Network: String {
-    case mainNet
-    case arb
-    case ganashDev
     
-    public var current: Self {
-        if Environment.current == .mainNet {
-            return .mainNet
-        } else if Environment.current == .devNet {
-            return .ganashDev
-        } else {
-            return .arb
-        }
-    }
-    
-    public static var chainID: EthereumQuantity {
-        return try! .init(Environment.chainID)
-    }
-    
-    public static var rpcUrl: String {
-        return "https:\(Environment.rpcURL)"
-    }
+	case mainNet
+	case arb
+	case ganashDev
+
+    // MARK: - Public Properties
+
+	public var current: Self {
+		if Environment.current == .mainNet {
+			return .mainNet
+		} else if Environment.current == .devNet {
+			return .ganashDev
+		} else {
+			return .arb
+		}
+	}
+
+	public static var chainID: EthereumQuantity {
+		try! .init(Environment.chainID)
+	}
+
+	public static var rpcUrl: String {
+        Environment.rpcURL
+	}
 }

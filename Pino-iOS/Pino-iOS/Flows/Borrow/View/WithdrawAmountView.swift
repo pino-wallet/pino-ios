@@ -234,12 +234,12 @@ class WithdrawAmountView: UIView {
 		if amountTextfield.text == .emptyString {
 			continueButton.style = .deactive
 		}
-        
-        // ACTIVATING continue button since in devnet we don't need validation
-        // to check if there is balance
-        if Environment.current == .devNet {
-            continueButton.style = .active
-        }
+
+		// ACTIVATING continue button since in devnet we don't need validation
+		// to check if there is balance
+		if Environment.current == .devNet {
+			continueButton.style = .active
+		}
 	}
 
 	@objc

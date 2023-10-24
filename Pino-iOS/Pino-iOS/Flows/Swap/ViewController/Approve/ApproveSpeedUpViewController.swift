@@ -220,12 +220,12 @@ class ApproveSpeedUpViewController: UIAlertController {
 			actionButton.title = approveSpeedUpAlertVM.gotItTitle
 			isDismissable = true
 		}
-        
-        // ACTIVATING continue button since in devnet we don't need validation
-        // to check if there is balance
-        if Environment.current == .devNet {
-            actionButton.style = .active
-        }
+
+		// ACTIVATING continue button since in devnet we don't need validation
+		// to check if there is balance
+		if Environment.current == .devNet {
+			actionButton.style = .active
+		}
 	}
 
 	@objc

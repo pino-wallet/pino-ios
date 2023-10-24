@@ -15,50 +15,47 @@ enum NetworkEnvironment {
 }
 
 enum Environment {
-    
-    case mainNet
-    case devNet
-    
-    // MARK: Public Properties
+	case mainNet
+	case devNet
 
-    public static var networkEnvironment: NetworkEnvironment {
-        .staging
-    }
+	// MARK: Public Properties
 
-    public static var apiBaseURL: URL {
-        switch networkEnvironment {
-        case .staging, .production, .qa:
-            return URL(string: "https://demo-api.pino.xyz/v1/")!
-        }
-    }
-
-    // MARK: - Environments
-    
-	public static var chainID: String {
-        try! Configuration.value(for: "NETWORK_CHAIN_ID")
+	public static var networkEnvironment: NetworkEnvironment {
+		.staging
 	}
-    
-    public static var rpcURL: String {
-        try! Configuration.value(for: "NETWORK_RPC_URL")
-    }
-    
-    public static var current: Environment {
-        let devMode = UserDefaults.standard.bool(forKey: "isInDevMode")
-        
-        if devMode {
-            return .devNet
-        } else {
-            return .mainNet
-        }
-        
-//        let config: String = try! Configuration.value(for: "CONFIG")
-//        if config == "MainNet" {
-//            return .mainNet
-//        } else if config == "DevNet" {
-//            return .devNet
-//        } else {
-//            fatalError("Wrong ENV Config")
-//        }
-    }
-    
+
+	public static var apiBaseURL: URL {
+		switch networkEnvironment {
+		case .staging, .production, .qa:
+			return URL(string: "https://demo-api.pino.xyz/v1/")!
+		}
+	}
+
+	// MARK: - Environments
+
+	public static var chainID: String {
+		if current == .devNet {
+			return "1337"
+		} else {
+			return "1"
+		}
+	}
+
+	public static var rpcURL: String {
+		if current == .devNet {
+			return "https://ganache.pino.xyz"
+		} else {
+			return "https://rpc.ankr.com/eth"
+		}
+	}
+
+	public static var current: Environment {
+		let devMode = UserDefaults.standard.bool(forKey: "isInDevMode")
+
+		if devMode {
+			return .devNet
+		} else {
+			return .mainNet
+		}
+	}
 }

@@ -86,7 +86,6 @@
 		3E5FFA532C0440149913FE32 /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA73CCD58C583E964396CF7 /* Encodable+Extension.swift */; };
 		3FB363922C364DE0175B075E /* SecurityOptionsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F220C035F946AABEE3C81 /* SecurityOptionsCollectionView.swift */; };
 		3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6922A1FD91EE9D2DAF8D928 /* AccountingEndpoint.swift */; };
-		401939B92AE5670200052928 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401939B82AE5670200052928 /* Configuration.swift */; };
 		401939BB2AE570CD00052928 /* Web3Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401939BA2AE570CD00052928 /* Web3Network.swift */; };
 		403691BC2A3DFFB50013AB6D /* ToastConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403691B32A3DFFB50013AB6D /* ToastConfiguration.swift */; };
 		403691BD2A3DFFB60013AB6D /* ToastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403691B42A3DFFB50013AB6D /* ToastDelegate.swift */; };
@@ -806,9 +805,6 @@
 		3CE50ED0CBE7191895D8D9F4 /* SecurityOptionsFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityOptionsFooter.swift; sourceTree = "<group>"; };
 		3DADC99C41136A35EF49EF9B /* SelectPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPassViewModel.swift; sourceTree = "<group>"; };
 		3F052F464B4443A09B569492 /* PPPangramSans-ExtraboldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ExtraboldReclined.ttf"; sourceTree = "<group>"; };
-		401939B62AE55E5400052928 /* DevNet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DevNet.xcconfig; sourceTree = "<group>"; };
-		401939B72AE561D200052928 /* MainNet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MainNet.xcconfig; sourceTree = "<group>"; };
-		401939B82AE5670200052928 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		401939BA2AE570CD00052928 /* Web3Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3Network.swift; sourceTree = "<group>"; };
 		403691B32A3DFFB50013AB6D /* ToastConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastConfiguration.swift; sourceTree = "<group>"; };
 		403691B42A3DFFB50013AB6D /* ToastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastDelegate.swift; sourceTree = "<group>"; };
@@ -2475,10 +2471,7 @@
 		941BD4A2D76FCCBA3BE081DA /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
-				401939B62AE55E5400052928 /* DevNet.xcconfig */,
-				401939B72AE561D200052928 /* MainNet.xcconfig */,
 				1FCF004E3A9B86F7C31A3D66 /* Environment.swift */,
-				401939B82AE5670200052928 /* Configuration.swift */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -4434,7 +4427,6 @@
 				0CDD5B1CF93FCD04F68CC1C9 /* IntroCollectionViewCell.swift in Sources */,
 				401939BB2AE570CD00052928 /* Web3Network.swift in Sources */,
 				E384CB1629FFABAB009C74F5 /* Double+Extension.swift in Sources */,
-				401939B92AE5670200052928 /* Configuration.swift in Sources */,
 				E3FC69F82A937135009B3341 /* InvestmentRiskViewModel.swift in Sources */,
 				FC0D80A069760DC032C1B9D6 /* IntroModel.swift in Sources */,
 				E3C802792A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift in Sources */,
@@ -4808,7 +4800,6 @@
 /* Begin XCBuildConfiguration section */
 		18C0C7105E9F47F5CEC08BAB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 401939B72AE561D200052928 /* MainNet.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -4874,7 +4865,6 @@
 		};
 		224281A6BD8FC96C15842DC0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 401939B72AE561D200052928 /* MainNet.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -4912,134 +4902,8 @@
 			};
 			name = Release;
 		};
-		401939B22AE55CF500052928 /* DevNet */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 401939B62AE55E5400052928 /* DevNet.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"DEBUG=1",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG DEVNET CONFIG";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-			};
-			name = DevNet;
-		};
-		401939B32AE55CF500052928 /* DevNet */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 401939B62AE55E5400052928 /* DevNet.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
-				DEVELOPMENT_TEAM = 44E38FYW6J;
-				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aurora.pino.Pino-iOS";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = DevNet;
-		};
-		401939B42AE55CF500052928 /* DevNet */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 401939B62AE55E5400052928 /* DevNet.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				DEVELOPMENT_TEAM = 44E38FYW6J;
-				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aurora.pino.Pino-iOSTests";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pino-iOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Pino-iOS";
-			};
-			name = DevNet;
-		};
-		401939B52AE55CF500052928 /* DevNet */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 401939B62AE55E5400052928 /* DevNet.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aurora.pino.Pino-iOSUITests";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Pino-iOS";
-			};
-			name = DevNet;
-		};
 		7651F5C9499B813D4EF201EF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 401939B72AE561D200052928 /* MainNet.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
@@ -5096,7 +4960,6 @@
 		};
 		D6E9BFF79FB2B0241EF47EB3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 401939B72AE561D200052928 /* MainNet.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
@@ -5177,7 +5040,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				224281A6BD8FC96C15842DC0 /* Debug */,
-				401939B32AE55CF500052928 /* DevNet */,
 				7B083790ABEB8391B5A40C82 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -5187,7 +5049,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7651F5C9499B813D4EF201EF /* Debug */,
-				401939B42AE55CF500052928 /* DevNet */,
 				326094F11CFBB79B529B22C7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -5197,7 +5058,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				18C0C7105E9F47F5CEC08BAB /* Debug */,
-				401939B22AE55CF500052928 /* DevNet */,
 				F393FE673BB9F54B6A3CF074 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -5207,7 +5067,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D6E9BFF79FB2B0241EF47EB3 /* Debug */,
-				401939B52AE55CF500052928 /* DevNet */,
 				B7A1A216F88ED9C8ECF1C97A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

@@ -272,7 +272,7 @@ class SwapManager: Web3ManagerProtocol {
 	private func getSwapInfoFrom() -> Promise<String> {
 		guard let selectedProvider else { fatalError("provider errror") }
 
-		var priceRoute: PriceRouteClass?
+		var priceRoute: Data?
 		if selectedProvider.provider == .paraswap {
 			let paraResponse = selectedProvider.providerResponseInfo as! ParaSwapPriceResponseModel
 			priceRoute = paraResponse.priceRoute
