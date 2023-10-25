@@ -48,7 +48,7 @@ public struct W3TransactionManager {
 			from: accountPrivateKey.address,
 			value: value,
 			accessList: [:],
-			transactionType: .legacy
+            transactionType: .legacy
 		)
 
 		return transaction!

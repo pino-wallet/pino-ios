@@ -135,8 +135,8 @@ public struct W3ApproveManager {
 				let trx = try trxManager.createTransactionFor(
 					contract: contractDetails.solInvocation,
 					nonce: nonce,
-					gasPrice: gasInfo.gasPrice.etherumQuantity,
-					gasLimit: gasInfo.increasedGasLimit.etherumQuantity
+                    gasPrice: gasInfo.gasPrice.etherumQuantity,
+                    gasLimit: gasInfo.increasedGasLimit.bigUInt.etherumQuantity
 				)
 
 				let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Network.chainID)

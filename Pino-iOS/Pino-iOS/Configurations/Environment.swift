@@ -33,11 +33,11 @@ enum Environment {
 
 	// MARK: - Environments
 
-	public static var chainID: String {
+	public static var chainID: Int {
 		if current == .devNet {
-			return "1337"
+			return 1337
 		} else {
-			return "1"
+			return 1
 		}
 	}
 

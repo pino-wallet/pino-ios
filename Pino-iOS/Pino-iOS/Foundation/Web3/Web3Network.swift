@@ -26,7 +26,7 @@ public enum Web3Network: String {
 	}
 
 	public static var chainID: EthereumQuantity {
-		try! .init(Environment.chainID)
+        try! .init(quantity: BigUInt(Environment.chainID))
 	}
 
 	public static var rpcUrl: String {
