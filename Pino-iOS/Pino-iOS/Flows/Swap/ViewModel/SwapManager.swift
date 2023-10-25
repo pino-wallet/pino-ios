@@ -165,6 +165,9 @@ class SwapManager: Web3ManagerProtocol {
 			}.done { swapResult in
 				self.pendingSwapTrx = swapResult.0
 				self.pendingSwapGasInfo = swapResult.1
+				self.confirmSwap { hash in
+					print("TRXHASH: \(hash)")
+				}
 				seal.fulfill(swapResult)
 			}.catch { error in
 				print(error.localizedDescription)
@@ -191,6 +194,9 @@ class SwapManager: Web3ManagerProtocol {
 			}.done { swapResult in
 				self.pendingSwapTrx = swapResult.0
 				self.pendingSwapGasInfo = swapResult.1
+				self.confirmSwap { hash in
+					print("TRXHASH: \(hash)")
+				}
 				seal.fulfill(swapResult)
 			}.catch { error in
 				print(error.localizedDescription)

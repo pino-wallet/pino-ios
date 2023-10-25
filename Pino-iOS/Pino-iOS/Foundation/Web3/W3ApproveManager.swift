@@ -139,7 +139,7 @@ public struct W3ApproveManager {
                     gasLimit: gasInfo.increasedGasLimit.bigUInt.etherumQuantity
 				)
 
-				let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Network.chainID)
+				let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Core.chainID)
 				seal.fulfill(signedTx)
 			}.catch { error in
 				seal.reject(error)

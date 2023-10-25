@@ -18,6 +18,8 @@ enum Web3Error: Error {
 }
 
 public class Web3Core {
+	static var chainID = EthereumQuantity(quantity: BigUInt(1337))
+
 	// MARK: - Private Properties
 
 	private init() {}
