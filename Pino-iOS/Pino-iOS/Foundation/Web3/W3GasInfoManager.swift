@@ -85,7 +85,7 @@ public struct W3GasInfoManager {
 			let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
 
 			firstly {
-				web3.eth.gasPrice()
+                web3.eth.gasPrice()
 			}.then { gasPrice in
 				web3.eth
 					.estimateGas(call: .init(

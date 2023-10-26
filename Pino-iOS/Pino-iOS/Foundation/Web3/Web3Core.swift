@@ -92,13 +92,13 @@ public class Web3Core {
 		spenderAddress: String,
 		ownerAddress: String
 	) throws -> Promise<BigUInt> {
-		try callABIMethod(
-			method: .allowance,
-			abi: .erc,
-			contractAddress: contractAddress.eip55Address!,
-			params: ownerAddress.eip55Address!,
-			spenderAddress.eip55Address!
-		)
+            try callABIMethod(
+                method: .allowance,
+                abi: .erc,
+                contractAddress: contractAddress.eip55Address!,
+                params: ownerAddress.eip55Address!,
+                spenderAddress.eip55Address!
+            )
 	}
 
 	public func approveContract(contractDetails: ContractDetailsModel) -> Promise<String> {
@@ -294,7 +294,7 @@ public class Web3Core {
 				newTx.gasLimit = tx.gas
 				newTx.transactionType = .legacy
 
-				return try newTx.sign(with: privateKey, chainId: 1).promise
+				return try newTx.sign(with: privateKey, chainId: 1337).promise
 			}.then { newTx in
 				self.web3.eth.sendRawTransaction(transaction: newTx)
 			}.done { txHash in
@@ -432,7 +432,6 @@ public class Web3Core {
 			}.done { allowance in
 				seal.fulfill(allowance)
 			}.catch(policy: .allErrors) { error in
-				print(error)
 				seal.reject(error)
 			}
 		}

@@ -67,8 +67,8 @@ public struct W3SwapManager {
 		Promise<String>() { [self] seal in
 
 			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.pinoProxyAddress,
-				abi: .swap,
+				address: Web3Core.Constants.pinoAaveProxyAddress,
+				abi: .aaveProxy,
 				web3: web3
 			)
 			let solInvocation = contract[ABIMethodWrite.wrapETH.rawValue]?(proxyFee)
@@ -109,7 +109,7 @@ public struct W3SwapManager {
 			gasInfoManager
 				.calculateGasOf(data: ethCallData, to: contractAddress, value: value.etherumQuantity)
 				.then { gasInfo in
-					web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+					return web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 						.map { ($0, gasInfo) }
 				}.done { nonce, gasInfo in
 					let trx = try trxManager.createTransactionFor(
@@ -117,7 +117,7 @@ public struct W3SwapManager {
 						gasPrice: gasInfo.gasPrice.etherumQuantity,
 						gasLimit: gasInfo.increasedGasLimit.bigUInt.etherumQuantity,
 						value: value.etherumQuantity,
-						data: ethCallData,
+                        data: ethCallData,
 						to: contractAddress
 					)
 
