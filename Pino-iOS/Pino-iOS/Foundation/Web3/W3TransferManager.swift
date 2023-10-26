@@ -132,11 +132,7 @@ public struct W3TransferManager {
 				)
 				tx.gasLimit = 21000
 				tx.transactionType = .legacy
-<<<<<<< HEAD
-				return try tx.sign(with: privateKey, chainId: 1337).promise
-=======
 				return try tx.sign(with: privateKey, chainId: Web3Network.chainID).promise
->>>>>>> master
 			}.then { [self] tx in
 				web3.eth.sendRawTransaction(transaction: tx)
 			}.done { hash in
