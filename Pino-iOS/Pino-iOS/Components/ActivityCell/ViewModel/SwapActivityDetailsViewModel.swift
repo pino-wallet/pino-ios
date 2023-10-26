@@ -23,22 +23,14 @@ struct SwapActivityDetailsViewModel: ActivityDetailsProtocol {
 		globalAssetsList.first(where: { $0.id.lowercased() == activityModel.detail.toToken.tokenID.lowercased() })
 	}
 
-	private var toTokenDecimal: Int {
-		toToken!.decimal
-	}
-
-	private var fromTokenDecimal: Int {
-		fromToken!.decimal
-	}
-
 	// MARK: - Public Properties
 
 	public var fromTokenAmount: BigNumber {
-		BigNumber(number: activityModel.detail.fromToken.amount, decimal: fromTokenDecimal)
+		BigNumber(numberWithDecimal: activityModel.detail.fromToken.amount)
 	}
 
 	public var toTokenAmount: BigNumber {
-		BigNumber(number: activityModel.detail.toToken.amount, decimal: toTokenDecimal)
+		BigNumber(numberWithDecimal: activityModel.detail.toToken.amount)
 	}
 
 	public var toTokenSymbol: String {
