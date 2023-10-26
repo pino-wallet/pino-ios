@@ -250,6 +250,11 @@ class SwapView: UIView {
 			} else {
 				self.continueButton.style = .deactive
 			}
+			// ACTIVATING continue button since in devnet we don't need validation
+			// to check if there is balance
+			if Web3Network.current == .ganashDev {
+				self.continueButton.style = .active
+			}
 		}.store(in: &cancellables)
 	}
 

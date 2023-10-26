@@ -11,7 +11,6 @@ protocol SwapPriceResponseProtocol: Codable {
 	var provider: SwapProvider { get }
 	var srcAmount: String { get }
 	var destAmount: String { get }
-	var gasFee: String { get }
 }
 
 protocol SwapCoinResponseProtocol: Codable {

@@ -105,7 +105,7 @@ public struct W3TransferManager {
 					gasLimit: gasInfo.gasLimit.etherumQuantity
 				)
 
-				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1337)
+				let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Network.chainID)
 				return web3.eth.sendRawTransaction(transaction: signedTx)
 			}.done { txHash in
 				seal.fulfill(txHash.hex())
@@ -132,7 +132,11 @@ public struct W3TransferManager {
 				)
 				tx.gasLimit = 21000
 				tx.transactionType = .legacy
+<<<<<<< HEAD
 				return try tx.sign(with: privateKey, chainId: 1337).promise
+=======
+				return try tx.sign(with: privateKey, chainId: Web3Network.chainID).promise
+>>>>>>> master
 			}.then { [self] tx in
 				web3.eth.sendRawTransaction(transaction: tx)
 			}.done { hash in
