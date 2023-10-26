@@ -79,7 +79,7 @@ struct SwapRequestModel {
 			"src": editedSrcToken,
 			"dst": editedDestToken,
 			"amount": amount,
-			"from": receiver, // this is pino proxy
+			"from": userAddress, // this is pino proxy
 			"receiver": receiver, // this is user who receives token
 			"slippage": slippage,
 			"includeProtocols": false,

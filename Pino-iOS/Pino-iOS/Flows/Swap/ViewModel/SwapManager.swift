@@ -53,7 +53,8 @@ class SwapManager: Web3ManagerProtocol {
 	// MARK: - Public Methods
 
 	public func getSwapInfo() -> TrxWithGasInfo {
-		if (srcToken.selectedToken.isERC20 || srcToken.selectedToken.isWEth) && (destToken.selectedToken.isERC20 || destToken.selectedToken.isWEth) {
+		if (srcToken.selectedToken.isERC20 || srcToken.selectedToken.isWEth) &&
+			(destToken.selectedToken.isERC20 || destToken.selectedToken.isWEth) {
 			return swapERCtoERC()
 		} else if srcToken.selectedToken.isERC20 && destToken.selectedToken.isEth {
 			return swapERCtoETH()
@@ -165,9 +166,6 @@ class SwapManager: Web3ManagerProtocol {
 			}.done { swapResult in
 				self.pendingSwapTrx = swapResult.0
 				self.pendingSwapGasInfo = swapResult.1
-				self.confirmSwap { hash in
-					print("TRXHASH: \(hash)")
-				}
 				seal.fulfill(swapResult)
 			}.catch { error in
 				print(error.localizedDescription)
@@ -179,24 +177,29 @@ class SwapManager: Web3ManagerProtocol {
 		TrxWithGasInfo { seal in
 			firstly {
 				self.wrapTokenCallData()
-			}.then { [self] wrapTokenData in
+			}.then { [self] wrapTokenData -> Promise<(String?, String)> in
+				guard let selectedProvider else { fatalError("provider errror") }
+				return checkAllowanceOfProvider(
+					approvingToken: wethToken,
+					approvingAmount: srcToken.tokenAmount!,
+					spenderAddress: selectedProvider.provider.contractAddress
+				).map { ($0, wrapTokenData) }
+			}.then { [self] allowanceData, wrapTokenData -> Promise<(String, String?, String)> in
 				// Fetch Call Data
-				getSwapInfoFrom().map { ($0, wrapTokenData) }
-			}.then { providerSwapData, wrapTokenData in
-				self.getProvidersCallData(providerData: providerSwapData).map { ($0, wrapTokenData) }
-			}.then { providersCallData, wrapTokenData -> Promise<(String?, String, String)> in
-				self.sweepTokenCallData().map { ($0, providersCallData, wrapTokenData) }
-			}.then { sweepData, providersCallData, wrapTokenData in
+				getSwapInfoFrom().map { ($0, allowanceData, wrapTokenData) }
+			}.then { providerSwapData, allowanceData, wrapTokenData -> Promise<(String, String?, String)> in
+				self.getProvidersCallData(providerData: providerSwapData).map { ($0, allowanceData, wrapTokenData) }
+			}.then { providersCallData, allowanceData, wrapTokenData -> Promise<(String?, String, String?, String)> in
+				self.sweepTokenCallData().map { ($0, providersCallData, allowanceData, wrapTokenData) }
+			}.then { sweepData, providersCallData, allowanceData, wrapTokenData in
 				// MultiCall
 				var callDatas = [wrapTokenData, providersCallData]
 				if let sweepData { callDatas.append(sweepData) }
+				if let allowanceData { callDatas.insert(allowanceData, at: 0) }
 				return self.callProxyMultiCall(data: callDatas, value: self.srcToken.tokenAmountBigNum.bigUInt)
 			}.done { swapResult in
 				self.pendingSwapTrx = swapResult.0
 				self.pendingSwapGasInfo = swapResult.1
-				self.confirmSwap { hash in
-					print("TRXHASH: \(hash)")
-				}
 				seal.fulfill(swapResult)
 			}.catch { error in
 				print(error.localizedDescription)
@@ -339,7 +342,7 @@ class SwapManager: Web3ManagerProtocol {
 			}
 
 		} else {
-			if destToken.selectedToken.isWEth {
+			if destToken.selectedToken.isEth {
 				return unwrapToken()
 			} else {
 				return Promise<String?>() { seal in seal.fulfill(nil) }
