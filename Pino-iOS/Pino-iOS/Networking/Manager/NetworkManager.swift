@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
-	// MARK: Public Methods
+	// MARK: - Public Methods
 
 	public func request<T: Codable>(_ endpoint: EndPoint) -> AnyPublisher<T, APIError> {
 		do {
@@ -20,20 +20,9 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 						throw APIError.failedRequest
 					}
 
-					NetworkLogger.log(request: request, response: response)
+//					NetworkLogger.log(request: request, response: response)
 
-					guard (200 ..< 300).contains(statusCode) else {
-						print("Error:------------------")
-						print(String(data: data, encoding: String.Encoding.utf8)! as String)
-						print("------------------------")
-						if statusCode == 401 {
-							throw APIError.unauthorized
-						} else if statusCode == 404 {
-							throw APIError.notFound
-						} else {
-							throw APIError.failedRequest
-						}
-					}
+					try checkStatusCode(responseData: data, statusCode: statusCode)
 
 					// For cases when response body is empty
 					if statusCode == 204, let noContent = NoContent() as? T {
@@ -48,14 +37,7 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 					}
 				}
 				.mapError { error -> APIError in
-					switch error {
-					case let apiError as APIError:
-						return apiError
-					case URLError.notConnectedToInternet:
-						return .unreachable
-					default:
-						return .failedRequest
-					}
+					mapError(error)
 				}
 				.receive(on: DispatchQueue.main)
 				.eraseToAnyPublisher()
@@ -65,6 +47,68 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 			return Fail(error: error).eraseToAnyPublisher()
 		} catch {
 			fatalError(error.localizedDescription)
+		}
+	}
+
+	public func requestData(_ endpoint: EndPoint) -> AnyPublisher<Data, APIError> {
+		do {
+			let request = try endpoint.request()
+			let requestPublisher = URLSession.shared.dataTaskPublisher(for: request)
+				.tryMap { data, response -> Data in
+					guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
+						throw APIError.failedRequest
+					}
+
+//					NetworkLogger.log(request: request, response: response)
+
+					try checkStatusCode(responseData: data, statusCode: statusCode)
+
+					// For cases when response body is empty
+					if statusCode == 204 {
+						return .empty
+					}
+
+					return data
+				}
+				.mapError { error -> APIError in
+					mapError(error)
+				}
+				.receive(on: DispatchQueue.main)
+				.eraseToAnyPublisher()
+
+			return requestPublisher
+		} catch let error as APIError {
+			return Fail(error: error).eraseToAnyPublisher()
+		} catch {
+			fatalError(error.localizedDescription)
+		}
+	}
+
+	// MARK: - Private Methods
+
+	private func checkStatusCode(responseData: Data, statusCode: Int) throws {
+		guard (200 ..< 300).contains(statusCode) else {
+			print("Error:------------------")
+			print(String(data: responseData, encoding: String.Encoding.utf8)! as String)
+			print("------------------------")
+			if statusCode == 401 {
+				throw APIError.unauthorized
+			} else if statusCode == 404 {
+				throw APIError.notFound
+			} else {
+				throw APIError.failedRequest
+			}
+		}
+	}
+
+	private func mapError(_ error: Error) -> APIError {
+		switch error {
+		case let apiError as APIError:
+			return apiError
+		case URLError.notConnectedToInternet:
+			return .unreachable
+		default:
+			return .failedRequest
 		}
 	}
 }

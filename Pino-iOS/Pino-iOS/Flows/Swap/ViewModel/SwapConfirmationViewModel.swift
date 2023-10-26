@@ -21,6 +21,8 @@ class SwapConfirmationViewModel {
 		GlobalVariables.shared.manageAssetsList!.first(where: { $0.isEth })!
 	}
 
+	private var swapManager: SwapManager
+
 	// MARK: - Public Properties
 
 	public let fromToken: SwapTokenViewModel
@@ -61,13 +63,13 @@ class SwapConfirmationViewModel {
 		self.selectedProtocol = selectedProtocol
 		self.selectedProvider = selectedProvider
 		self.swapRate = swapRate
+		self.swapManager = SwapManager(selectedProvider: selectedProvider, srcToken: fromToken, destToken: toToken)
 		setSelectedProtocol()
 	}
 
 	// MARK: - Public Methods
 
 	public func fetchSwapInfo() {
-		let swapManager = SwapManager(selectedProvider: selectedProvider, srcToken: fromToken, destToken: toToken)
 		swapManager.getSwapInfo().done { swapTrx, gasInfo in
 			self.gasFee = gasInfo.fee
 			self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
@@ -82,7 +84,6 @@ class SwapConfirmationViewModel {
 	}
 
 	public func confirmSwap(completion: @escaping () -> Void) {
-		let swapManager = SwapManager(selectedProvider: selectedProvider!, srcToken: fromToken, destToken: toToken)
 		swapManager.confirmSwap { trx in
 			print("SWAP TRX HASH: \(trx)")
 			completion()

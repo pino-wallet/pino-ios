@@ -15,6 +15,9 @@ enum NetworkEnvironment {
 }
 
 enum Environment {
+	case mainNet
+	case devNet
+
 	// MARK: Public Properties
 
 	public static var networkEnvironment: NetworkEnvironment {
@@ -25,6 +28,36 @@ enum Environment {
 		switch networkEnvironment {
 		case .staging, .production, .qa:
 			return URL(string: "https://demo-api.pino.xyz/v1/")!
+		}
+	}
+
+	// MARK: - Environments
+
+	public static var chainID: Int {
+		switch current {
+		case .mainNet:
+			return 1
+		case .devNet:
+			return 1337
+		}
+	}
+
+	public static var rpcURL: String {
+		switch current {
+		case .mainNet:
+			return "https://rpc.ankr.com/eth"
+		case .devNet:
+			return "https://ganache.pino.xyz"
+		}
+	}
+
+	public static var current: Environment {
+		let devMode = UserDefaults.standard.bool(forKey: "isInDevMode")
+
+		if devMode {
+			return .devNet
+		} else {
+			return .mainNet
 		}
 	}
 }

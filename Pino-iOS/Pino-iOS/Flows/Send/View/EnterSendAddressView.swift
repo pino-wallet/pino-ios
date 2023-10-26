@@ -181,6 +181,12 @@ class EnterSendAddressView: UIView {
 			nextButton.style = .deactive
 			nextButton.title = enterSendAddressVM.nextButtonTitle
 		}
+
+		// ACTIVATING continue button since in devnet we don't need validation
+		// to check if there is balance
+		if Web3Network.current == .ganashDev {
+			nextButton.style = .active
+		}
 	}
 
 	private func setupNotifications() {

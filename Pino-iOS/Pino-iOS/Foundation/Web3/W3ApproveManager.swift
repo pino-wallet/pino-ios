@@ -136,10 +136,10 @@ public struct W3ApproveManager {
 					contract: contractDetails.solInvocation,
 					nonce: nonce,
 					gasPrice: gasInfo.gasPrice.etherumQuantity,
-					gasLimit: gasInfo.increasedGasLimit.etherumQuantity
+					gasLimit: gasInfo.increasedGasLimit.bigUInt.etherumQuantity
 				)
 
-				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
+				let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Core.chainID)
 				seal.fulfill(signedTx)
 			}.catch { error in
 				seal.reject(error)
