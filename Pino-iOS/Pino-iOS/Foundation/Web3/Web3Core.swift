@@ -18,8 +18,6 @@ enum Web3Error: Error {
 }
 
 public class Web3Core {
-	static var chainID = EthereumQuantity(quantity: BigUInt(1337))
-
 	// MARK: - Private Properties
 
 	private init() {}
@@ -27,7 +25,7 @@ public class Web3Core {
 		if let testURL = AboutPinoView.web3URL {
 			return Web3(rpcURL: testURL)
 		} else {
-			return Web3(rpcURL: Web3Network.rpcUrl)
+			return Web3Network.rpc
 		}
 	}
 

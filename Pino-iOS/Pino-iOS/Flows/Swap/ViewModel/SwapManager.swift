@@ -53,16 +53,18 @@ class SwapManager: Web3ManagerProtocol {
 	// MARK: - Public Methods
 
 	public func getSwapInfo() -> TrxWithGasInfo {
-		if (srcToken.selectedToken.isERC20 || srcToken.selectedToken.isWEth) &&
-			(destToken.selectedToken.isERC20 || destToken.selectedToken.isWEth) {
+		let selectedSrcToken = srcToken.selectedToken
+		let selectedDestToken = destToken.selectedToken
+		if (selectedSrcToken.isERC20 || selectedSrcToken.isWEth) &&
+			(selectedDestToken.isERC20 || selectedDestToken.isWEth) {
 			return swapERCtoERC()
-		} else if srcToken.selectedToken.isERC20 && destToken.selectedToken.isEth {
+		} else if selectedSrcToken.isERC20 && selectedDestToken.isEth {
 			return swapERCtoETH()
-		} else if srcToken.selectedToken.isEth && destToken.selectedToken.isERC20 {
+		} else if selectedSrcToken.isEth && selectedDestToken.isERC20 {
 			return swapETHtoERC()
-		} else if srcToken.selectedToken.isEth && destToken.selectedToken.isWEth {
+		} else if selectedSrcToken.isEth && selectedDestToken.isWEth {
 			return swapETHtoWETH()
-		} else if srcToken.selectedToken.isWEth && destToken.selectedToken.isEth {
+		} else if selectedSrcToken.isWEth && selectedDestToken.isEth {
 			return swapWETHtoETH()
 		} else {
 			fatalError()

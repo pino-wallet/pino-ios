@@ -38,6 +38,7 @@ class ProfileViewController: UIViewController {
 		setupNavigationBar()
 	}
 
+	#warning("This code is temporary and its for to switch between main net and devnet")
 	override func becomeFirstResponder() -> Bool {
 		true
 	}

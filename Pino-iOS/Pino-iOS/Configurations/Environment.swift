@@ -34,18 +34,20 @@ enum Environment {
 	// MARK: - Environments
 
 	public static var chainID: Int {
-		if current == .devNet {
-			return 1337
-		} else {
+		switch current {
+		case .mainNet:
 			return 1
+		case .devNet:
+			return 1337
 		}
 	}
 
 	public static var rpcURL: String {
-		if current == .devNet {
-			return "https://ganache.pino.xyz"
-		} else {
+		switch current {
+		case .mainNet:
 			return "https://rpc.ankr.com/eth"
+		case .devNet:
+			return "https://ganache.pino.xyz"
 		}
 	}
 

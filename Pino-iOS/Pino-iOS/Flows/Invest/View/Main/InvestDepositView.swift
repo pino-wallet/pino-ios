@@ -248,7 +248,7 @@ class InvestDepositView: UIView {
 
 		// ACTIVATING continue button since in devnet we don't need validation
 		// to check if there is balance
-		if Environment.current == .devNet {
+		if Web3Network.current == .ganashDev {
 			continueButton.style = .active
 		}
 	}

@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
-	// MARK: Public Methods
+	// MARK: - Public Methods
 
 	public func request<T: Codable>(_ endpoint: EndPoint) -> AnyPublisher<T, APIError> {
 		do {
@@ -37,14 +37,7 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 					}
 				}
 				.mapError { error -> APIError in
-					switch error {
-					case let apiError as APIError:
-						return apiError
-					case URLError.notConnectedToInternet:
-						return .unreachable
-					default:
-						return .failedRequest
-					}
+					mapError(error)
 				}
 				.receive(on: DispatchQueue.main)
 				.eraseToAnyPublisher()
@@ -66,7 +59,7 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 						throw APIError.failedRequest
 					}
 
-					NetworkLogger.log(request: request, response: response)
+//					NetworkLogger.log(request: request, response: response)
 
 					try checkStatusCode(responseData: data, statusCode: statusCode)
 
@@ -78,14 +71,7 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 					return data
 				}
 				.mapError { error -> APIError in
-					switch error {
-					case let apiError as APIError:
-						return apiError
-					case URLError.notConnectedToInternet:
-						return .unreachable
-					default:
-						return .failedRequest
-					}
+					mapError(error)
 				}
 				.receive(on: DispatchQueue.main)
 				.eraseToAnyPublisher()
@@ -97,6 +83,8 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 			fatalError(error.localizedDescription)
 		}
 	}
+
+	// MARK: - Private Methods
 
 	private func checkStatusCode(responseData: Data, statusCode: Int) throws {
 		guard (200 ..< 300).contains(statusCode) else {
@@ -110,6 +98,17 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 			} else {
 				throw APIError.failedRequest
 			}
+		}
+	}
+
+	private func mapError(_ error: Error) -> APIError {
+		switch error {
+		case let apiError as APIError:
+			return apiError
+		case URLError.notConnectedToInternet:
+			return .unreachable
+		default:
+			return .failedRequest
 		}
 	}
 }

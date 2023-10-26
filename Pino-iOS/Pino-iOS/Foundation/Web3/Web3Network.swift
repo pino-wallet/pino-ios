@@ -9,13 +9,15 @@ import Foundation
 import Web3
 
 public enum Web3Network: String {
+	// MARK: - Cases
+
 	case mainNet
 	case arb
 	case ganashDev
 
 	// MARK: - Public Properties
 
-	public var current: Self {
+	public static var current: Self {
 		if Environment.current == .mainNet {
 			return .mainNet
 		} else if Environment.current == .devNet {
@@ -29,7 +31,7 @@ public enum Web3Network: String {
 		.init(quantity: BigUInt(Environment.chainID))
 	}
 
-	public static var rpcUrl: String {
-		Environment.rpcURL
+	public static var rpc: Web3 {
+		Web3(rpcURL: Environment.rpcURL)
 	}
 }
