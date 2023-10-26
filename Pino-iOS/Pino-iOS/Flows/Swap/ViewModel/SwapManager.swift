@@ -421,8 +421,8 @@ class SwapManager: Web3ManagerProtocol {
 				fromAddress: userAddress,
 				toAddress: selectedProvider.provider.contractAddress,
 				blockTime: ActivityHelper().getServerFormattedStringDate(date: .now),
-				gasUsed: pendingSwapGasInfo.increasedGasLimit.decimalString,
-				gasPrice: pendingSwapGasInfo.gasPrice.decimalString
+				gasUsed: pendingSwapGasInfo.increasedGasLimit.description,
+				gasPrice: pendingSwapGasInfo.gasPrice.description
 			),
 			accountAddress: walletManager.currentAccount.eip55Address
 		)
