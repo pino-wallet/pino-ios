@@ -8,6 +8,7 @@
 import Foundation
 
 struct W3CallDataGenerator {
+    
 	public static func generateMultiCallFrom(calls: [String]) -> String {
 		let calls = calls.map { $0.replacingOccurrences(of: "0x", with: "") }
 		let filledCalls = calls.map { callData in
@@ -23,12 +24,12 @@ struct W3CallDataGenerator {
 
 		var multicall = [String]()
 
-		multicall.append("0xac9650d8") // signatrue
+		multicall.append("0x57aca4f1") // signatrue
 		multicall.append(
-			"0000000000000000000000000000000000000000000000000000000000000020"
+			"0000000000000000000000000000000000000000000000000000000000000040"
 		) // offset
 		multicall.append(
-			"000000000000000000000000000000000000000000000000000000000000000" +
+			"0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" +
 				"\(calls.count)"
 		) // len
 

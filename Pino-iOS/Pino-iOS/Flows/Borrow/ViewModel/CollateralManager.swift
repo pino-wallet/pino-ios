@@ -67,7 +67,7 @@ class CollateralManager: Web3ManagerProtocol {
 				tokenAdd: asset.id,
 				amount:
 				assetAmountBigNumber.description,
-				spender: Web3Core.Constants.pinoProxyAddress,
+				spender: Web3Core.Constants.pinoAaveProxyAddress,
 				nonce: nonce.description,
 				deadline: deadline.description
 			)
@@ -126,7 +126,8 @@ class CollateralManager: Web3ManagerProtocol {
 			firstly {
 				fetchHash()
 			}.then { plainHash in
-				self.signHash(plainHash: plainHash)
+                print("heh hashhhh", plainHash)
+				return self.signHash(plainHash: plainHash)
 			}.then { signiture -> Promise<(String, String?)> in
 				self.checkAllowanceOfProvider(
 					approvingToken: self.asset,
@@ -144,14 +145,18 @@ class CollateralManager: Web3ManagerProtocol {
 			}.then { depositData, permitData, allowanceData in
                 print("heh dep", depositData)
                 print("heh wrap", permitData)
-//                print("heh allow", allowanceData)
-                var multiCallData: [String] = [permitData]
+                print("heh allow", allowanceData)
+                
+                var multiCallData: [String] = [permitData, depositData]
                 if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
 				return self.callProxyMultiCall(data: multiCallData, value: nil)
 			}.done { depositResults in
                 print("heh response", depositResults)
 				self.depositTRX = depositResults.0
 				self.depositGasInfo = depositResults.1
+                self.confirmDeposit() { _ in
+                    
+                }
 				seal.fulfill(depositResults)
 			}.catch { error in
                 print(error, "heh")

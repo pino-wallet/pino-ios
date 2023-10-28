@@ -62,7 +62,7 @@ extension Web3ManagerProtocol {
 		approvingToken: AssetViewModel,
 		approvingAmount: String,
 		spenderAddress: String,
-		ownerAddress: String = Web3Core.Constants.pinoProxyAddress
+		ownerAddress: String = Web3Core.Constants.pinoAaveProxyAddress
 	) -> Promise<String?> {
 		Promise<String?> { seal in
 			firstly {

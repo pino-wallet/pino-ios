@@ -48,8 +48,8 @@ public struct W3TransferManager {
 		Promise<String>() { [self] seal in
 
 			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.pinoProxyAddress,
-				abi: .swap,
+				address: Web3Core.Constants.pinoAaveProxyAddress,
+				abi: .aaveProxy,
 				web3: web3
 			)
 

@@ -102,8 +102,9 @@ public struct W3SwapManager {
 	public func callMultiCall(callData: [String], value: BigUInt) -> Web3Core.TrxWithGasInfo {
 		let generatedMulticallData = W3CallDataGenerator.generateMultiCallFrom(calls: callData)
 		let ethCallData = EthereumData(generatedMulticallData.hexToBytes())
-		let contractAddress = Web3Core.Constants.pinoProxyAddress.eip55Address!
+		let contractAddress = Web3Core.Constants.pinoAaveProxyAddress.eip55Address!
 
+        print("heh generated multicalldata", generatedMulticallData)
 		return TrxWithGasInfo { [self] seal in
 
 			gasInfoManager
