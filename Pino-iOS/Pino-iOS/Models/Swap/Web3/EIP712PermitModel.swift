@@ -50,7 +50,7 @@ struct EIP712PermitModel: Codable {
 		let initPermit = Permitted(token: tokenAdd, amount: amount)
 		let initMessage = Message(
 			permitted: initPermit,
-            spender: spender,
+			spender: spender,
 			nonce: nonce,
 			deadline: deadline
 		)

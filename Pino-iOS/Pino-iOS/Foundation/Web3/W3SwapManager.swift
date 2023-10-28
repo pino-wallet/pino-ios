@@ -104,13 +104,13 @@ public struct W3SwapManager {
 		let ethCallData = EthereumData(generatedMulticallData.hexToBytes())
 		let contractAddress = Web3Core.Constants.pinoAaveProxyAddress.eip55Address!
 
-        print("heh generated multicalldata", generatedMulticallData)
+		print("heh generated multicalldata", generatedMulticallData)
 		return TrxWithGasInfo { [self] seal in
 
 			gasInfoManager
 				.calculateGasOf(data: ethCallData, to: contractAddress, value: value.etherumQuantity)
 				.then { gasInfo in
-					return web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+					web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 						.map { ($0, gasInfo) }
 				}.done { nonce, gasInfo in
 					let trx = try trxManager.createTransactionFor(
@@ -118,7 +118,7 @@ public struct W3SwapManager {
 						gasPrice: gasInfo.gasPrice.etherumQuantity,
 						gasLimit: gasInfo.increasedGasLimit.bigUInt.etherumQuantity,
 						value: value.etherumQuantity,
-                        data: ethCallData,
+						data: ethCallData,
 						to: contractAddress
 					)
 

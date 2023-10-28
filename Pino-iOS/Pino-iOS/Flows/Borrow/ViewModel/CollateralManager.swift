@@ -38,18 +38,18 @@ class CollateralManager: Web3ManagerProtocol {
 	// MARK: - Initializers
 
 	init(asset: AssetViewModel, assetAmountBigNumber: BigNumber) {
-        if asset.isEth {
-            self.asset = (GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
-        } else {
-            self.asset = asset
-        }
+		if asset.isEth {
+			self.asset = (GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
+		} else {
+			self.asset = asset
+		}
 		self.assetAmountBigNumber = assetAmountBigNumber
 	}
 
 	// MARK: - Internal Methods
 
 	func getProxyPermitTransferData(signiture: String) -> Promise<String> {
-		return web3.getPermitTransferCallData(
+		web3.getPermitTransferCallData(
 			amount: assetAmountBigNumber.bigUInt,
 			tokenAdd: asset.id,
 			signiture: signiture,
@@ -97,7 +97,7 @@ class CollateralManager: Web3ManagerProtocol {
 		}
 	}
 
-    private func getAaveDespositV3ERCCallData() -> Promise<String> {
+	private func getAaveDespositV3ERCCallData() -> Promise<String> {
 		web3.getAaveDespositV3ERCCallData(
 			assetAddress: asset.id,
 			amount: assetAmountBigNumber.bigUInt,
@@ -126,7 +126,7 @@ class CollateralManager: Web3ManagerProtocol {
 			firstly {
 				fetchHash()
 			}.then { plainHash in
-                print("heh hashhhh", plainHash)
+				print("heh hashhhh", plainHash)
 				return self.signHash(plainHash: plainHash)
 			}.then { signiture -> Promise<(String, String?)> in
 				self.checkAllowanceOfProvider(
@@ -143,52 +143,51 @@ class CollateralManager: Web3ManagerProtocol {
 					($0, permitData, allowanceData)
 				}
 			}.then { depositData, permitData, allowanceData in
-                print("heh dep", depositData)
-                print("heh wrap", permitData)
-                print("heh allow", allowanceData)
-                
-                var multiCallData: [String] = [permitData, depositData]
-                if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
+				print("heh dep", depositData)
+				print("heh wrap", permitData)
+				print("heh allow", allowanceData)
+
+				var multiCallData: [String] = [permitData, depositData]
+				if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
 				return self.callProxyMultiCall(data: multiCallData, value: nil)
 			}.done { depositResults in
-                print("heh response", depositResults)
+				print("heh response", depositResults)
 				self.depositTRX = depositResults.0
 				self.depositGasInfo = depositResults.1
-                self.confirmDeposit() { _ in
-                    
-                }
+				self.confirmDeposit { _ in
+				}
 				seal.fulfill(depositResults)
 			}.catch { error in
-                print(error, "heh")
+				print(error, "heh")
 			}
 		}
 	}
-    
-    public func getETHCollateralData() -> TrxWithGasInfo {
-        TrxWithGasInfo { seal in
-            firstly {
-                self.checkAllowanceOfProvider(
-                    approvingToken: self.asset,
-                    approvingAmount: self.assetAmountBigNumber.sevenDigitFormat,
-                    spenderAddress: Web3Core.Constants.aavePoolERCContractAddress
-                )
-            }.then { allowanceData -> Promise<(String, String?)> in
-                return self.wrapTokenCallData().map { ($0, allowanceData) }
-            }.then { wrapETHData, allowanceData -> Promise<(String, String, String?)> in
-                self.getAaveDespositV3ERCCallData().map { ($0, wrapETHData, allowanceData) }
-            }.then { depositData, wrapETHData, allowanceData in
-                print("heh dep", depositData)
-                print("heh wrap", wrapETHData)
-                var multiCallData: [String] = [wrapETHData]
-                if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
-                return self.callProxyMultiCall(data: multiCallData, value: nil)
-            }.done { depositResults in
-                self.depositTRX = depositResults.0
-                self.depositGasInfo = depositResults.1
-                seal.fulfill(depositResults)
-            }.catch { error in
-                print(error, "heh")
-            }
-        }
-    }
+
+	public func getETHCollateralData() -> TrxWithGasInfo {
+		TrxWithGasInfo { seal in
+			firstly {
+				self.checkAllowanceOfProvider(
+					approvingToken: self.asset,
+					approvingAmount: self.assetAmountBigNumber.sevenDigitFormat,
+					spenderAddress: Web3Core.Constants.aavePoolERCContractAddress
+				)
+			}.then { allowanceData -> Promise<(String, String?)> in
+				self.wrapTokenCallData().map { ($0, allowanceData) }
+			}.then { wrapETHData, allowanceData -> Promise<(String, String, String?)> in
+				self.getAaveDespositV3ERCCallData().map { ($0, wrapETHData, allowanceData) }
+			}.then { depositData, wrapETHData, allowanceData in
+				print("heh dep", depositData)
+				print("heh wrap", wrapETHData)
+				var multiCallData: [String] = [wrapETHData]
+				if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
+				return self.callProxyMultiCall(data: multiCallData, value: nil)
+			}.done { depositResults in
+				self.depositTRX = depositResults.0
+				self.depositGasInfo = depositResults.1
+				seal.fulfill(depositResults)
+			}.catch { error in
+				print(error, "heh")
+			}
+		}
+	}
 }

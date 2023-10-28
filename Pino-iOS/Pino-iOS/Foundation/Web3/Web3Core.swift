@@ -92,13 +92,13 @@ public class Web3Core {
 		spenderAddress: String,
 		ownerAddress: String
 	) throws -> Promise<BigUInt> {
-            try callABIMethod(
-                method: .allowance,
-                abi: .erc,
-                contractAddress: contractAddress.eip55Address!,
-                params: ownerAddress.eip55Address!,
-                spenderAddress.eip55Address!
-            )
+		try callABIMethod(
+			method: .allowance,
+			abi: .erc,
+			contractAddress: contractAddress.eip55Address!,
+			params: ownerAddress.eip55Address!,
+			spenderAddress.eip55Address!
+		)
 	}
 
 	public func approveContract(contractDetails: ContractDetailsModel) -> Promise<String> {

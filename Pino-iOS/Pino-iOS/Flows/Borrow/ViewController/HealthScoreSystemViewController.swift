@@ -54,8 +54,9 @@ class HealthScoreSystemViewController: UIAlertController {
 		setupHealthScoreColors(currentHealthScorePixel: currentHealthScorePixel)
 		setupHealthScoreConstraints(currentHealthScorePixel: currentHealthScorePixel)
 		setupHealthScoreStyles(currentHealthScorePixel: currentHealthScorePixel)
-//        let approveVC = ApproveContractViewController(approveContractID: "0x6b175474e89094c44da98b954eedeac495271d0f", showConfirmVC: {}, approveType: .collateral)
-//        present(approveVC, animated: true)
+		//        let approveVC = ApproveContractViewController(approveContractID:
+		//        "0x6b175474e89094c44da98b954eedeac495271d0f", showConfirmVC: {}, approveType: .collateral)
+		//        present(approveVC, animated: true)
 	}
 
 	// MARK: - Initializers
