@@ -18,7 +18,7 @@ class SwapManager: Web3ManagerProtocol {
 	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
 
 	internal var web3 = Web3Core.shared
-    internal var contractAddress: String = Web3Core.Constants.pinoSwapProxyAddress
+	internal var contractAddress: String = Web3Core.Constants.pinoSwapProxyAddress
 	internal var walletManager = PinoWalletManager()
 
 	// MARK: - Public Properties
@@ -86,7 +86,7 @@ class SwapManager: Web3ManagerProtocol {
 
 	internal func getProxyPermitTransferData(signiture: String) -> Promise<String> {
 		web3.getPermitTransferCallData(
-            contractAddress: contractAddress, amount: srcToken.tokenAmountBigNum.bigUInt,
+			contractAddress: contractAddress, amount: srcToken.tokenAmountBigNum.bigUInt,
 			tokenAdd: srcToken.selectedToken.id,
 			signiture: signiture,
 			nonce: nonce,
@@ -317,7 +317,7 @@ class SwapManager: Web3ManagerProtocol {
 	}
 
 	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
-        web3.callProxyMulticall(contractAddress: contractAddress, data: data, value: value ?? 0.bigNumber.bigUInt)
+		web3.callProxyMulticall(contractAddress: contractAddress, data: data, value: value ?? 0.bigNumber.bigUInt)
 	}
 
 	private func sweepTokenCallData() -> Promise<CallData?> {

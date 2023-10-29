@@ -66,7 +66,7 @@ public struct W3ApproveManager {
 		}
 	}
 
-    public func getApproveProxyCallData(contractAddress: String, tokenAdd: String, spender: String) -> Promise<String> {
+	public func getApproveProxyCallData(contractAddress: String, tokenAdd: String, spender: String) -> Promise<String> {
 		Promise<String> { seal in
 			let contract = try Web3Core.getContractOfToken(
 				address: contractAddress,

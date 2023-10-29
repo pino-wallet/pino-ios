@@ -28,7 +28,7 @@ class CollateralManager: Web3ManagerProtocol {
 	// MARK: - Internal Properties
 
 	internal var web3 = Web3Core.shared
-    internal var contractAddress: String = Web3Core.Constants.pinoAaveProxyAddress
+	internal var contractAddress: String = Web3Core.Constants.pinoAaveProxyAddress
 	internal var walletManager = PinoWalletManager()
 
 	// MARK: - Public Properties
@@ -51,7 +51,7 @@ class CollateralManager: Web3ManagerProtocol {
 
 	func getProxyPermitTransferData(signiture: String) -> Promise<String> {
 		web3.getPermitTransferCallData(
-            contractAddress: contractAddress, amount: assetAmountBigNumber.bigUInt,
+			contractAddress: contractAddress, amount: assetAmountBigNumber.bigUInt,
 			tokenAdd: asset.id,
 			signiture: signiture,
 			nonce: nonce,
@@ -107,7 +107,7 @@ class CollateralManager: Web3ManagerProtocol {
 	}
 
 	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
-        web3.callProxyMulticall(contractAddress: contractAddress, data: data, value: value ?? 0.bigNumber.bigUInt)
+		web3.callProxyMulticall(contractAddress: contractAddress, data: data, value: value ?? 0.bigNumber.bigUInt)
 	}
 
 	public func confirmDeposit(completion: @escaping (Result<String>) -> Void) {
@@ -130,7 +130,7 @@ class CollateralManager: Web3ManagerProtocol {
 				self.signHash(plainHash: plainHash)
 			}.then { signiture -> Promise<(String, String?)> in
 				self.checkAllowanceOfProvider(
-                    approvingToken: self.asset,
+					approvingToken: self.asset,
 					approvingAmount: self.assetAmountBigNumber.sevenDigitFormat,
 					spenderAddress: Web3Core.Constants.aavePoolERCContractAddress
 				).map {
@@ -160,12 +160,12 @@ class CollateralManager: Web3ManagerProtocol {
 		TrxWithGasInfo { seal in
 			firstly {
 				self.checkAllowanceOfProvider(
-                    approvingToken: self.asset,
+					approvingToken: self.asset,
 					approvingAmount: self.assetAmountBigNumber.sevenDigitFormat,
 					spenderAddress: Web3Core.Constants.aavePoolERCContractAddress
 				)
 			}.then { allowanceData -> Promise<(String, String?)> in
-                self.wrapTokenCallData().map { ($0, allowanceData) }
+				self.wrapTokenCallData().map { ($0, allowanceData) }
 			}.then { wrapETHData, allowanceData -> Promise<(String, String, String?)> in
 				self.getAaveDespositV3ERCCallData().map { ($0, wrapETHData, allowanceData) }
 			}.then { depositData, wrapETHData, allowanceData in

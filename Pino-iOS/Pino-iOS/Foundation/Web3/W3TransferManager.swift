@@ -39,7 +39,7 @@ public struct W3TransferManager {
 	// MARK: - Public Methods
 
 	public func getPermitTransferFromCallData(
-        contractAddress: String,
+		contractAddress: String,
 		amount: BigUInt,
 		tokenAdd: String,
 		signiture: String,
