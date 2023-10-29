@@ -170,7 +170,7 @@ class CollateralManager: Web3ManagerProtocol {
 			}.then { depositData, wrapETHData, allowanceData in
 				var multiCallData: [String] = [wrapETHData, depositData]
 				if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
-                return self.callProxyMultiCall(data: multiCallData, value: self.assetAmountBigNumber.bigUInt)
+				return self.callProxyMultiCall(data: multiCallData, value: self.assetAmountBigNumber.bigUInt)
 			}.done { depositResults in
 				self.depositTRX = depositResults.0
 				self.depositGasInfo = depositResults.1

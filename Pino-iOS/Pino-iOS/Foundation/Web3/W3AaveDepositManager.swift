@@ -52,7 +52,7 @@ public struct W3AaveDepositManager {
 			let solInvocation = contract[ABIMethodWrite.depositV3.rawValue]?(
 				assetAddress.eip55Address!,
 				amount,
-                userAddress.eip55Address!
+				userAddress.eip55Address!
 			)
 			let trx = try trxManager.createTransactionFor(contract: solInvocation!)
 			seal.fulfill(trx.data.hex())
