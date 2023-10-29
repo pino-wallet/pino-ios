@@ -126,8 +126,7 @@ class CollateralManager: Web3ManagerProtocol {
 			firstly {
 				fetchHash()
 			}.then { plainHash in
-				print("heh hashhhh", plainHash)
-				return self.signHash(plainHash: plainHash)
+				self.signHash(plainHash: plainHash)
 			}.then { signiture -> Promise<(String, String?)> in
 				self.checkAllowanceOfProvider(
 					approvingToken: self.asset,
@@ -143,22 +142,15 @@ class CollateralManager: Web3ManagerProtocol {
 					($0, permitData, allowanceData)
 				}
 			}.then { depositData, permitData, allowanceData in
-				print("heh dep", depositData)
-				print("heh wrap", permitData)
-				print("heh allow", allowanceData)
-
 				var multiCallData: [String] = [permitData, depositData]
 				if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
 				return self.callProxyMultiCall(data: multiCallData, value: nil)
 			}.done { depositResults in
-				print("heh response", depositResults)
 				self.depositTRX = depositResults.0
 				self.depositGasInfo = depositResults.1
-				self.confirmDeposit { _ in
-				}
 				seal.fulfill(depositResults)
 			}.catch { error in
-				print(error, "heh")
+				print(error)
 			}
 		}
 	}
@@ -176,17 +168,15 @@ class CollateralManager: Web3ManagerProtocol {
 			}.then { wrapETHData, allowanceData -> Promise<(String, String, String?)> in
 				self.getAaveDespositV3ERCCallData().map { ($0, wrapETHData, allowanceData) }
 			}.then { depositData, wrapETHData, allowanceData in
-				print("heh dep", depositData)
-				print("heh wrap", wrapETHData)
-				var multiCallData: [String] = [wrapETHData]
+				var multiCallData: [String] = [wrapETHData, depositData]
 				if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
-				return self.callProxyMultiCall(data: multiCallData, value: nil)
+                return self.callProxyMultiCall(data: multiCallData, value: self.assetAmountBigNumber.bigUInt)
 			}.done { depositResults in
 				self.depositTRX = depositResults.0
 				self.depositGasInfo = depositResults.1
 				seal.fulfill(depositResults)
 			}.catch { error in
-				print(error, "heh")
+				print(error)
 			}
 		}
 	}

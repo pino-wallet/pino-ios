@@ -104,7 +104,6 @@ public struct W3SwapManager {
 		let ethCallData = EthereumData(generatedMulticallData.hexToBytes())
 		let contractAddress = Web3Core.Constants.pinoAaveProxyAddress.eip55Address!
 
-		print("heh generated multicalldata", generatedMulticallData)
 		return TrxWithGasInfo { [self] seal in
 
 			gasInfoManager
