@@ -39,6 +39,7 @@ public struct W3TransferManager {
 	// MARK: - Public Methods
 
 	public func getPermitTransferFromCallData(
+        contractAddress: String,
 		amount: BigUInt,
 		tokenAdd: String,
 		signiture: String,
@@ -48,7 +49,7 @@ public struct W3TransferManager {
 		Promise<String>() { [self] seal in
 
 			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.pinoAaveProxyAddress,
+				address: contractAddress,
 				abi: .aaveProxy,
 				web3: web3
 			)

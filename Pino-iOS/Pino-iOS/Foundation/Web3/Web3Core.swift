@@ -121,11 +121,12 @@ public class Web3Core {
 		approveManager.getApproveCallData(contractAdd: contractAdd, amount: amount, spender: spender)
 	}
 
-	public func getApproveProxyCallData(tokenAdd: String, spender: String) -> Promise<String> {
-		approveManager.getApproveProxyCallData(tokenAdd: tokenAdd, spender: spender)
+    public func getApproveProxyCallData(contractAddress: String, tokenAdd: String, spender: String) -> Promise<String> {
+        approveManager.getApproveProxyCallData(contractAddress: contractAddress, tokenAdd: tokenAdd, spender: spender)
 	}
 
 	public func getPermitTransferCallData(
+        contractAddress: String,
 		amount: BigUInt,
 		tokenAdd: String,
 		signiture: String,
@@ -133,7 +134,7 @@ public class Web3Core {
 		deadline: BigUInt
 	) -> Promise<String> {
 		transferManager.getPermitTransferFromCallData(
-			amount: amount,
+            contractAddress: contractAddress, amount: amount,
 			tokenAdd: tokenAdd,
 			signiture: signiture,
 			nonce: nonce,
@@ -141,8 +142,8 @@ public class Web3Core {
 		)
 	}
 
-	public func getWrapETHCallData(proxyFee: BigUInt) -> Promise<String> {
-		swapManager.getWrapETHCallData(proxyFee: proxyFee)
+    public func getWrapETHCallData(contractAddress: String, proxyFee: BigUInt) -> Promise<String> {
+        swapManager.getWrapETHCallData(contractAddress: contractAddress, proxyFee: proxyFee)
 	}
 
 	public func getUnwrapETHCallData(recipient: String) -> Promise<String> {
@@ -165,8 +166,9 @@ public class Web3Core {
 		swapManager.getSweepTokenCallData(tokenAdd: tokenAdd, recipientAdd: recipientAdd)
 	}
 
-	public func callProxyMulticall(data: [String], value: BigUInt) -> TrxWithGasInfo {
+    public func callProxyMulticall(contractAddress: String, data: [String], value: BigUInt) -> TrxWithGasInfo {
 		swapManager.callMultiCall(
+            contractAddress: contractAddress,
 			callData: data,
 			value: value
 		)
@@ -463,6 +465,7 @@ extension Web3Core {
 		static let permitAddress = "0x000000000022D473030F116dDEE9F6B43aC78BA3"
 		static let pinoProxyAddress = "0x118E662de0C4cdc2f8AD0fb1c6Ef4a85222baCF0"
 		static let pinoAaveProxyAddress = "0xb5ea6BAdD330466D66345e154Db9834B1Fe8Dab6"
+        static let pinoSwapProxyAddress = "0xB51557272E09d41f649a04073dB780AC25998a1e"
 		static let paraSwapETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 		static let oneInchETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 		static let zeroXETHID = "ETH"

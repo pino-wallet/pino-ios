@@ -63,11 +63,11 @@ public struct W3SwapManager {
 		}
 	}
 
-	public func getWrapETHCallData(proxyFee: BigUInt) -> Promise<String> {
+    public func getWrapETHCallData(contractAddress: String, proxyFee: BigUInt) -> Promise<String> {
 		Promise<String>() { [self] seal in
 
 			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.pinoAaveProxyAddress,
+				address: contractAddress,
 				abi: .aaveProxy,
 				web3: web3
 			)
@@ -99,15 +99,15 @@ public struct W3SwapManager {
 		}
 	}
 
-	public func callMultiCall(callData: [String], value: BigUInt) -> Web3Core.TrxWithGasInfo {
+    public func callMultiCall(contractAddress: String, callData: [String], value: BigUInt) -> Web3Core.TrxWithGasInfo {
 		let generatedMulticallData = W3CallDataGenerator.generateMultiCallFrom(calls: callData)
 		let ethCallData = EthereumData(generatedMulticallData.hexToBytes())
-		let contractAddress = Web3Core.Constants.pinoAaveProxyAddress.eip55Address!
+		let eip55ContractAddress = contractAddress.eip55Address!
 
 		return TrxWithGasInfo { [self] seal in
 
 			gasInfoManager
-				.calculateGasOf(data: ethCallData, to: contractAddress, value: value.etherumQuantity)
+                .calculateGasOf(data: ethCallData, to: eip55ContractAddress, value: value.etherumQuantity)
 				.then { gasInfo in
 					web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 						.map { ($0, gasInfo) }
@@ -118,7 +118,7 @@ public struct W3SwapManager {
 						gasLimit: gasInfo.increasedGasLimit.bigUInt.etherumQuantity,
 						value: value.etherumQuantity,
 						data: ethCallData,
-						to: contractAddress
+						to: eip55ContractAddress
 					)
 
 					let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Network.chainID)
