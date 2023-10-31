@@ -16,7 +16,7 @@ class BorrowViewModel {
 	public var userBorrowingDetails: UserBorrowingModel? = nil
 
 	public var globalAssetsList: [AssetViewModel]?
-    public var borrowableTokens: BorrowableTokensModel?
+    public var collateralizableTokens: CollateralizableTokensModel?
 	public var calculatedHealthScore: Double = 0
 	public let alertIconName = "alert"
 	public let dismissIconName = "dissmiss"
@@ -75,7 +75,7 @@ class BorrowViewModel {
 	// MARK: - Private Methods
 
 	private func destroyData() {
-        borrowableTokens = nil
+        collateralizableTokens = nil
         userBorrowingDetailsCache = nil
 		userBorrowingDetails = nil
 	}
@@ -106,7 +106,7 @@ class BorrowViewModel {
 	}
     
     private func getCollateralizableTokens() {
-        borrowAPIClient.getBorrowableTokens(dex: selectedDexSystem.type).sink { completed in
+        borrowAPIClient.getCollateralizableTokens(dex: selectedDexSystem.type).sink { completed in
             switch completed {
             case .finished:
                 print("Collateralizable tokens received successfully")
@@ -119,15 +119,15 @@ class BorrowViewModel {
                 )
                 .show(haptic: .warning)
             }
-        } receiveValue: { borrowableTokens in
-            self.borrowableTokens = borrowableTokens
+        } receiveValue: { collateralizabletokens in
+            self.collateralizableTokens = collateralizabletokens
             self.requestTimer?.fire()
         }.store(in: &cancellables)
     }
 
 	@objc
 	private func getUserBorrowingDetails() {
-        if borrowableTokens != nil {
+        if collateralizableTokens != nil {
 #warning("this address is for testing")
             borrowAPIClient.getUserBorrowings(
                 address: "0xC6778747F3b685c2FD6Fa5d3883FaDdF37874959",
