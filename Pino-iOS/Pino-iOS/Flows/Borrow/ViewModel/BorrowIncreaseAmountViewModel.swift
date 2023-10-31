@@ -40,7 +40,13 @@ class BorrowIncreaseAmountViewModel {
 					) /
 						100.bigNumber
 				)!
-			let freeCollateralledTokenAmountInDollars = freeCollateralledTokenAmount * foundCollateralledToken
+            #warning("maybe we should change this section later")
+            guard let borrowableTokenLTV = borrowVM.borrowableTokens?.first(where: { $0.tokenID == collateralledToken.id })?.ltv else {
+                return totalFreeCollateralledInDollars
+            }
+            let onePercentOfFreeCollateralledAmount = freeCollateralledTokenAmount / 100.bigNumber
+            let borrowableTokenAmount = onePercentOfFreeCollateralledAmount! * (borrowableTokenLTV / 100).bigNumber
+			let freeCollateralledTokenAmountInDollars = borrowableTokenAmount * foundCollateralledToken
 				.price
 			totalFreeCollateralledInDollars = totalFreeCollateralledInDollars + freeCollateralledTokenAmountInDollars
 		}
