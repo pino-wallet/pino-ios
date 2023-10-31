@@ -10,12 +10,12 @@ import Foundation
 struct CollateralizableTokenDetailsModel: Codable {
 	let tokenID: String
 	let tokenProtocol: ProtocolClass
-    let liquidationThreshold: Int
+	let liquidationThreshold: Int
 
 	enum CodingKeys: String, CodingKey {
 		case tokenID = "token_id"
 		case tokenProtocol = "protocol"
-        case liquidationThreshold = "liquidation_threshold"
+		case liquidationThreshold = "liquidation_threshold"
 	}
 
 	struct ProtocolClass: Codable {

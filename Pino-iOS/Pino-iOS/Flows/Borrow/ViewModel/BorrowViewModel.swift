@@ -16,7 +16,7 @@ class BorrowViewModel {
 	public var userBorrowingDetails: UserBorrowingModel? = nil
 
 	public var globalAssetsList: [AssetViewModel]?
-    public var collateralizableTokens: CollateralizableTokensModel?
+	public var collateralizableTokens: CollateralizableTokensModel?
 	public var calculatedHealthScore: Double = 0
 	public let alertIconName = "alert"
 	public let dismissIconName = "dissmiss"
@@ -75,8 +75,8 @@ class BorrowViewModel {
 	// MARK: - Private Methods
 
 	private func destroyData() {
-        collateralizableTokens = nil
-        userBorrowingDetailsCache = nil
+		collateralizableTokens = nil
+		userBorrowingDetailsCache = nil
 		userBorrowingDetails = nil
 	}
 
@@ -104,58 +104,58 @@ class BorrowViewModel {
 	private func calculateHealthScore(currentUserBorrowingDetails: UserBorrowingModel) {
 		calculatedHealthScore = currentUserBorrowingDetails.healthScore / 100
 	}
-    
-    private func getCollateralizableTokens() {
-        borrowAPIClient.getCollateralizableTokens(dex: selectedDexSystem.type).sink { completed in
-            switch completed {
-            case .finished:
-                print("Collateralizable tokens received successfully")
-            case let .failure(error):
-                print(error)
-                Toast.default(
-                    title: self.errorFetchingToastMessage,
-                    subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-                    style: .error
-                )
-                .show(haptic: .warning)
-            }
-        } receiveValue: { collateralizabletokens in
-            self.collateralizableTokens = collateralizabletokens
-            self.requestTimer?.fire()
-        }.store(in: &cancellables)
-    }
+
+	private func getCollateralizableTokens() {
+		borrowAPIClient.getCollateralizableTokens(dex: selectedDexSystem.type).sink { completed in
+			switch completed {
+			case .finished:
+				print("Collateralizable tokens received successfully")
+			case let .failure(error):
+				print(error)
+				Toast.default(
+					title: self.errorFetchingToastMessage,
+					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+					style: .error
+				)
+				.show(haptic: .warning)
+			}
+		} receiveValue: { collateralizabletokens in
+			self.collateralizableTokens = collateralizabletokens
+			self.requestTimer?.fire()
+		}.store(in: &cancellables)
+	}
 
 	@objc
 	private func getUserBorrowingDetails() {
-        if collateralizableTokens != nil {
-#warning("this address is for testing")
-            borrowAPIClient.getUserBorrowings(
-                address: "0xC6778747F3b685c2FD6Fa5d3883FaDdF37874959",
-                dex: selectedDexSystem.type
-            ).sink { completed in
-                switch completed {
-                case .finished:
-                    print("User borrowing details received successfully")
-                case let .failure(error):
-                    print(error)
-                    Toast.default(
-                        title: self.errorFetchingToastMessage,
-                        subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-                        style: .error
-                    )
-                    .show(haptic: .warning)
-                }
-            } receiveValue: { userBorrowingDetails in
-                if GlobalVariables.shared.manageAssetsList == nil {
-                    self.userBorrowingDetailsCache = userBorrowingDetails
-                } else {
-                    self.globalAssetsList = GlobalVariables.shared.manageAssetsList
-                    self.calculateHealthScore(currentUserBorrowingDetails: userBorrowingDetails)
-                    self.userBorrowingDetails = userBorrowingDetails
-                }
-            }.store(in: &cancellables)
-        } else {
-            self.getCollateralizableTokens()
-        }
+		if collateralizableTokens != nil {
+			#warning("this address is for testing")
+			borrowAPIClient.getUserBorrowings(
+				address: "0xC6778747F3b685c2FD6Fa5d3883FaDdF37874959",
+				dex: selectedDexSystem.type
+			).sink { completed in
+				switch completed {
+				case .finished:
+					print("User borrowing details received successfully")
+				case let .failure(error):
+					print(error)
+					Toast.default(
+						title: self.errorFetchingToastMessage,
+						subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+						style: .error
+					)
+					.show(haptic: .warning)
+				}
+			} receiveValue: { userBorrowingDetails in
+				if GlobalVariables.shared.manageAssetsList == nil {
+					self.userBorrowingDetailsCache = userBorrowingDetails
+				} else {
+					self.globalAssetsList = GlobalVariables.shared.manageAssetsList
+					self.calculateHealthScore(currentUserBorrowingDetails: userBorrowingDetails)
+					self.userBorrowingDetails = userBorrowingDetails
+				}
+			}.store(in: &cancellables)
+		} else {
+			getCollateralizableTokens()
+		}
 	}
 }

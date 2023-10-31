@@ -11,13 +11,13 @@ struct BorrowableTokenDetailsModel: Codable {
 	let tokenID: String
 	let tokenProtocol: ProtocolClass
 	let apy: Int
-    let ltv: Int
+	let ltv: Int
 
 	enum CodingKeys: String, CodingKey {
 		case tokenID = "token_id"
 		case tokenProtocol = "protocol"
 		case apy
-        case ltv
+		case ltv
 	}
 
 	struct ProtocolClass: Codable {
