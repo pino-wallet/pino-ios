@@ -29,7 +29,14 @@ public class Web3Core {
 		}
 	}
 
-	private var trxManager: W3TransferManager {
+	private var userPrivateKey: EthereumPrivateKey {
+		try! EthereumPrivateKey(
+			hexPrivateKey: walletManager.currentAccountPrivateKey
+				.string
+		)
+	}
+
+	private var trxManager: W3TransactionManager {
 		.init(web3: web3)
 	}
 
@@ -58,6 +65,10 @@ public class Web3Core {
 	}
 
 	private var aaveBorrowManager: W3AaveBorrowManager {
+		.init(web3: web3)
+	}
+
+	private var aaveDepositManager: W3AaveDepositManager {
 		.init(web3: web3)
 	}
 
@@ -117,11 +128,12 @@ public class Web3Core {
 		approveManager.getApproveCallData(contractAdd: contractAdd, amount: amount, spender: spender)
 	}
 
-	public func getApproveProxyCallData(tokenAdd: String, spender: String) -> Promise<String> {
-		approveManager.getApproveProxyCallData(tokenAdd: tokenAdd, spender: spender)
+	public func getApproveProxyCallData(contract: DynamicContract, tokenAdd: String, spender: String) -> Promise<String> {
+		approveManager.getApproveProxyCallData(contract: contract, tokenAdd: tokenAdd, spender: spender)
 	}
 
 	public func getPermitTransferCallData(
+		contract: DynamicContract,
 		amount: BigUInt,
 		tokenAdd: String,
 		signiture: String,
@@ -129,7 +141,7 @@ public class Web3Core {
 		deadline: BigUInt
 	) -> Promise<String> {
 		transferManager.getPermitTransferFromCallData(
-			amount: amount,
+			contract: contract, amount: amount,
 			tokenAdd: tokenAdd,
 			signiture: signiture,
 			nonce: nonce,
@@ -137,8 +149,8 @@ public class Web3Core {
 		)
 	}
 
-	public func getWrapETHCallData(proxyFee: BigUInt) -> Promise<String> {
-		swapManager.getWrapETHCallData(proxyFee: proxyFee)
+	public func getWrapETHCallData(contract: DynamicContract, proxyFee: BigUInt) -> Promise<String> {
+		swapManager.getWrapETHCallData(contract: contract, proxyFee: proxyFee)
 	}
 
 	public func getUnwrapETHCallData(recipient: String) -> Promise<String> {
@@ -146,26 +158,57 @@ public class Web3Core {
 	}
 
 	public func getParaswapSwapCallData(data: String) -> Promise<String> {
-		swapManager.getSwapProviderData(callData: data, method: .swapParaswap)
+		swapManager.getSwapProviderData(callData: data, method: .swapParaSwap)
 	}
 
 	public func getOneInchSwapCallData(data: String) -> Promise<String> {
-		swapManager.getSwapProviderData(callData: data, method: .swap1Inch)
+		swapManager.getSwapProviderData(callData: data, method: .swapOneInch)
 	}
 
 	public func getZeroXSwapCallData(data: String) -> Promise<String> {
-		swapManager.getSwapProviderData(callData: data, method: .swap0x)
+		swapManager.getSwapProviderData(callData: data, method: .swapZeroX)
 	}
 
 	public func getSweepTokenCallData(tokenAdd: String, recipientAdd: String) -> Promise<String> {
 		swapManager.getSweepTokenCallData(tokenAdd: tokenAdd, recipientAdd: recipientAdd)
 	}
 
-	public func callProxyMulticall(data: [String], value: BigUInt) -> TrxWithGasInfo {
-		swapManager.callMultiCall(
-			callData: data,
-			value: value
-		)
+	public func getSwapProxyContract() throws -> DynamicContract {
+		try swapManager.getSwapProxyContract()
+	}
+
+	public func getPinoAaveProxyContract() throws -> DynamicContract {
+		try aaveDepositManager.getPinoAaveProxyContract()
+	}
+
+	public func callMultiCall(contractAddress: String, callData: [String], value: BigUInt) -> TrxWithGasInfo {
+		let generatedMulticallData = W3CallDataGenerator.generateMultiCallFrom(calls: callData)
+		let ethCallData = EthereumData(generatedMulticallData.hexToBytes())
+		let eip55ContractAddress = contractAddress.eip55Address!
+
+		return TrxWithGasInfo { [self] seal in
+
+			gasInfoManager
+				.calculateGasOf(data: ethCallData, to: eip55ContractAddress, value: value.etherumQuantity)
+				.then { [self] gasInfo in
+					web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+						.map { ($0, gasInfo) }
+				}.done { [self] nonce, gasInfo in
+					let trx = try trxManager.createTransactionFor(
+						nonce: nonce,
+						gasPrice: gasInfo.gasPrice.etherumQuantity,
+						gasLimit: gasInfo.increasedGasLimit.bigUInt.etherumQuantity,
+						value: value.etherumQuantity,
+						data: ethCallData,
+						to: eip55ContractAddress
+					)
+
+					let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Network.chainID)
+					seal.fulfill((signedTx, gasInfo))
+				}.catch { error in
+					seal.reject(error)
+				}
+		}
 	}
 
 	public func callTransaction(trx: EthereumSignedTransaction) -> Promise<String> {
@@ -395,6 +438,20 @@ public class Web3Core {
 		aaveBorrowManager.borrowToken(contractDetails: contractDetails)
 	}
 
+	public func getAaveDespositV3ERCCallData(
+		contract: DynamicContract,
+		assetAddress: String,
+		amount: BigUInt,
+		userAddress: String
+	) -> Promise<String> {
+		aaveDepositManager.getAaveDespositV3ERCCallData(
+			contract: contract,
+			assetAddress: assetAddress,
+			amount: amount,
+			userAddress: userAddress
+		)
+	}
+
 	// MARK: - Private Methods
 
 	private func getInfo(address: String, info: ABIMethodCall, abi: Web3ABI) throws -> Promise<[String: Any]> {
@@ -422,7 +479,6 @@ public class Web3Core {
 			}.done { allowance in
 				seal.fulfill(allowance)
 			}.catch(policy: .allErrors) { error in
-				print(error)
 				seal.reject(error)
 			}
 		}
@@ -446,7 +502,8 @@ extension Web3Core {
 		static let ethGasLimit = "21000"
 		static let eoaCode = "0x"
 		static let permitAddress = "0x000000000022D473030F116dDEE9F6B43aC78BA3"
-		static let pinoProxyAddress = "0x118E662de0C4cdc2f8AD0fb1c6Ef4a85222baCF0"
+		static let pinoAaveProxyAddress = "0xb5ea6BAdD330466D66345e154Db9834B1Fe8Dab6"
+		static let pinoSwapProxyAddress = "0xB51557272E09d41f649a04073dB780AC25998a1e"
 		static let paraSwapETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 		static let oneInchETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 		static let zeroXETHID = "ETH"
@@ -454,8 +511,8 @@ extension Web3Core {
 		static let wethTokenID = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
 		static let aaveBorrowVariableInterestRate = 2
 		static let aaveBorrowReferralCode = 0
-		static let aaveERCContractAddress = "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2"
-		static let aaveETHContractAddress = "0xD322A49006FC828F9B5B37Ab215F99B4E5caB19C"
+		static let aavePoolERCContractAddress = "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2"
+		static let aaveWrappedTokenETHContractAddress = "0xD322A49006FC828F9B5B37Ab215F99B4E5caB19C"
 		static let compoundCAaveContractAddress = "0xe65cdB6479BaC1e22340E4E755fAE7E509EcD06c"
 		static let compoundCCompContractAddress = "0x70e36f6BF80a52b3B46b3aF8e106CC0ed743E8e4"
 		static let compoundCDaiContractAddress = "0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643"

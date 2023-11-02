@@ -74,7 +74,7 @@ struct SwapPriceRequestModel {
 			"amount": amount,
 			"side": side.rawValue,
 			"network": networkID!,
-			"userAddress": Web3Core.Constants.pinoProxyAddress,
+			"userAddress": Web3Core.Constants.pinoSwapProxyAddress,
 			"receiver": walletManager.currentAccount.eip55Address,
 		]
 	}

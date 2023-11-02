@@ -33,7 +33,7 @@ class SwapPriceManager {
 			destDecimals: destToken.selectedToken.decimal,
 			amount: amount,
 			side: swapSide,
-			userAddress: Web3Core.Constants.pinoProxyAddress,
+			userAddress: Web3Core.Constants.pinoSwapProxyAddress,
 			receiver: pinoWalletManager.currentAccount.eip55Address
 		)
 		cancelPreviousRequests()

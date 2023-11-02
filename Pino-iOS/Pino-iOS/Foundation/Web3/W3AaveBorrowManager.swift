@@ -45,7 +45,7 @@ public struct W3AaveBorrowManager {
 	) -> Promise<ContractDetailsModel> {
 		Promise<ContractDetailsModel> { seal in
 			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.aaveERCContractAddress,
+				address: Web3Core.Constants.aavePoolERCContractAddress,
 				abi: .borrowERCAave,
 				web3: web3
 			)
@@ -63,12 +63,12 @@ public struct W3AaveBorrowManager {
 	public func getETHBorrowContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
 		Promise<ContractDetailsModel> { seal in
 			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.aaveETHContractAddress,
+				address: Web3Core.Constants.aaveWrappedTokenETHContractAddress,
 				abi: .borrowETHAave,
 				web3: web3
 			)
 			let solInvocation = contract[ABIMethodWrite.borrowETH.rawValue]?(
-				Web3Core.Constants.aaveERCContractAddress.eip55Address!,
+				Web3Core.Constants.aavePoolERCContractAddress.eip55Address!,
 				amount,
 				BigUInt(Web3Core.Constants.aaveBorrowVariableInterestRate),
 				UInt16(Web3Core.Constants.aaveBorrowReferralCode)

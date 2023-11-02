@@ -9,12 +9,14 @@ import Foundation
 import PromiseKit
 import Web3
 import Web3_Utility
+import Web3ContractABI
 
 protocol Web3ManagerProtocol {
 	typealias CallData = String
 
 	var web3: Web3Core { get set }
 	var walletManager: PinoWalletManager { get set }
+	var contract: DynamicContract { get set }
 	func wrapTokenCallData() -> Promise<CallData>
 	func unwrapToken() -> Promise<CallData?>
 	func getProxyPermitTransferData(signiture: String) -> Promise<CallData>
@@ -55,14 +57,14 @@ extension Web3ManagerProtocol {
 	}
 
 	func wrapTokenCallData() -> Promise<String> {
-		web3.getWrapETHCallData(proxyFee: 0)
+		web3.getWrapETHCallData(contract: contract, proxyFee: 0)
 	}
 
 	func checkAllowanceOfProvider(
 		approvingToken: AssetViewModel,
 		approvingAmount: String,
 		spenderAddress: String,
-		ownerAddress: String = Web3Core.Constants.pinoProxyAddress
+		ownerAddress: String = Web3Core.Constants.pinoAaveProxyAddress
 	) -> Promise<String?> {
 		Promise<String?> { seal in
 			firstly {
@@ -75,7 +77,7 @@ extension Web3ManagerProtocol {
 				let approvingTokenAmount = Utilities.parseToBigUInt(approvingAmount, decimals: approvingToken.decimal)!
 				if allowanceAmount == 0 || allowanceAmount < approvingTokenAmount {
 					web3.getApproveProxyCallData(
-						tokenAdd: approvingToken.id,
+						contract: contract, tokenAdd: approvingToken.id,
 						spender: spenderAddress
 					).done { approveCallData in
 						seal.fulfill(approveCallData)

@@ -11,6 +11,7 @@ import Foundation
 import PromiseKit
 import Web3
 import Web3_Utility
+import Web3ContractABI
 
 class SwapManager: Web3ManagerProtocol {
 	// MARK: - Typealias
@@ -18,6 +19,7 @@ class SwapManager: Web3ManagerProtocol {
 	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
 
 	internal var web3 = Web3Core.shared
+	internal var contract: DynamicContract
 	internal var walletManager = PinoWalletManager()
 
 	// MARK: - Public Properties
@@ -44,10 +46,16 @@ class SwapManager: Web3ManagerProtocol {
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes in ms
 	private let nonce = BigNumber.bigRandomeNumber
 
-	init(selectedProvider: SwapProviderViewModel?, srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
+	init(
+		contract: DynamicContract,
+		selectedProvider: SwapProviderViewModel?,
+		srcToken: SwapTokenViewModel,
+		destToken: SwapTokenViewModel
+	) {
 		self.selectedProvider = selectedProvider
 		self.srcToken = srcToken
 		self.destToken = destToken
+		self.contract = contract
 	}
 
 	// MARK: - Public Methods
@@ -85,7 +93,7 @@ class SwapManager: Web3ManagerProtocol {
 
 	internal func getProxyPermitTransferData(signiture: String) -> Promise<String> {
 		web3.getPermitTransferCallData(
-			amount: srcToken.tokenAmountBigNum.bigUInt,
+			contract: contract, amount: srcToken.tokenAmountBigNum.bigUInt,
 			tokenAdd: srcToken.selectedToken.id,
 			signiture: signiture,
 			nonce: nonce,
@@ -262,7 +270,7 @@ class SwapManager: Web3ManagerProtocol {
 				tokenAdd: srcToken.selectedToken.id,
 				amount:
 				srcToken.tokenAmountBigNum.description,
-				spender: Web3Core.Constants.pinoProxyAddress,
+				spender: Web3Core.Constants.pinoSwapProxyAddress,
 				nonce: nonce.description,
 				deadline: deadline.description
 			)
@@ -300,7 +308,7 @@ class SwapManager: Web3ManagerProtocol {
 				amount: srcToken.tokenAmountBigNum.description,
 				destAmount: selectedProvider.providerResponseInfo.destAmount,
 				receiver: walletManager.currentAccount.eip55Address,
-				userAddress: Web3Core.Constants.pinoProxyAddress,
+				userAddress: Web3Core.Constants.pinoSwapProxyAddress,
 				slippage: selectedProvider.provider.slippage,
 				networkID: 1,
 				srcDecimal: srcToken.selectedToken.decimal.description,
@@ -316,7 +324,11 @@ class SwapManager: Web3ManagerProtocol {
 	}
 
 	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
-		web3.callProxyMulticall(data: data, value: value ?? 0.bigNumber.bigUInt)
+		web3.callMultiCall(
+			contractAddress: contract.address!.hex(eip55: true),
+			callData: data,
+			value: value ?? 0.bigNumber.bigUInt
+		)
 	}
 
 	private func sweepTokenCallData() -> Promise<CallData?> {
@@ -405,7 +417,6 @@ class SwapManager: Web3ManagerProtocol {
 	}
 
 	public func addPendingTransferActivity(trxHash: String) {
-		#warning("Ask Ali about info")
 		guard let selectedProvider else { return }
 		guard let pendingSwapGasInfo = pendingSwapGasInfo else { return }
 		let userAddress = walletManager.currentAccount.eip55Address

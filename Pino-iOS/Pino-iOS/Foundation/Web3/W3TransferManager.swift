@@ -39,6 +39,7 @@ public struct W3TransferManager {
 	// MARK: - Public Methods
 
 	public func getPermitTransferFromCallData(
+		contract: DynamicContract,
 		amount: BigUInt,
 		tokenAdd: String,
 		signiture: String,
@@ -46,12 +47,6 @@ public struct W3TransferManager {
 		deadline: BigUInt
 	) -> Promise<String> {
 		Promise<String>() { [self] seal in
-
-			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.pinoProxyAddress,
-				abi: .swap,
-				web3: web3
-			)
 
 			let permitModel = Permit2Model(
 				permitted: .init(token: tokenAdd.eip55Address!, amount: amount.etherumQuantity),
