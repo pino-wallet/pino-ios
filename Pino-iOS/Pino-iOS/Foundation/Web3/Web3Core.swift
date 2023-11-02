@@ -158,7 +158,7 @@ public class Web3Core {
 	}
 
 	public func getParaswapSwapCallData(data: String) -> Promise<String> {
-		swapManager.getSwapProviderData(callData: data, method: .swapParaswap)
+		swapManager.getSwapProviderData(callData: data, method: .swapParaSwap)
 	}
 
 	public func getOneInchSwapCallData(data: String) -> Promise<String> {

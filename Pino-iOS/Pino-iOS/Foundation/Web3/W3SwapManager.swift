@@ -105,7 +105,7 @@ public struct W3SwapManager {
 			// Calculate the length in bytes
 			let lengthInBytes = lengthInCharacters / 2
 
-			let callD = Data(hexString: callData, length: UInt(lengthInBytes))
+			let callD = Data(hexString: cleanedHexString, length: UInt(lengthInBytes))
 			//            let callD2 = Data(callData.hexToBytes())
 			//            let str = String.init(data: callD!, encoding: .utf8)!
 

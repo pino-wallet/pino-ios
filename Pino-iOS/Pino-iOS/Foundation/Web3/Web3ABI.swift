@@ -85,7 +85,7 @@ public enum ABIMethodWrite: String {
 	case wrapETH
 	case multicall
 	case swapZeroX
-	case swapParaswap
+	case swapParaSwap
 	case swapOneInch
 	case daiToSDai
 	case sDaiToDai
