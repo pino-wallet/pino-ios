@@ -16,12 +16,14 @@ class SwapConfirmationViewModel {
 
 	private let selectedProtocol: SwapProtocolModel
 	private let selectedProvider: SwapProviderViewModel?
+    private let web3 = Web3Core.shared
+    private let retryTimeOut: TimeInterval = 2
 	private var cancellables = Set<AnyCancellable>()
 	private var ethToken: AssetViewModel {
 		GlobalVariables.shared.manageAssetsList!.first(where: { $0.isEth })!
 	}
 
-	private var swapManager: SwapManager
+	private var swapManager: SwapManager?
 
 	// MARK: - Public Properties
 
@@ -63,13 +65,19 @@ class SwapConfirmationViewModel {
 		self.selectedProtocol = selectedProtocol
 		self.selectedProvider = selectedProvider
 		self.swapRate = swapRate
-		self.swapManager = SwapManager(selectedProvider: selectedProvider, srcToken: fromToken, destToken: toToken)
+        setSwapManager()
 		setSelectedProtocol()
 	}
 
 	// MARK: - Public Methods
 
 	public func fetchSwapInfo() {
+        guard let swapManager else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + retryTimeOut, execute: { [weak self] in
+                self?.fetchSwapInfo()
+            })
+            return
+        }
 		swapManager.getSwapInfo().done { swapTrx, gasInfo in
 			self.gasFee = gasInfo.fee
 			self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
@@ -84,6 +92,9 @@ class SwapConfirmationViewModel {
 	}
 
 	public func confirmSwap(completion: @escaping () -> Void) {
+        guard let swapManager else {
+            return
+        }
 		swapManager.confirmSwap { trx in
 			print("SWAP TRX HASH: \(trx)")
 			completion()
@@ -99,6 +110,14 @@ class SwapConfirmationViewModel {
 	}
 
 	// MARK: - Private Methods
+    
+    private func setSwapManager() {
+        web3.getSwapProxyContract().done { swapProxyContract in
+            self.swapManager = SwapManager(contract: swapProxyContract, selectedProvider: self.selectedProvider, srcToken: self.fromToken, destToken: self.toToken)
+        }.catch { _ in
+            self.setSwapManager()
+        }
+    }
 
 	private func setSelectedProtocol() {
 		if let selectedProvider {

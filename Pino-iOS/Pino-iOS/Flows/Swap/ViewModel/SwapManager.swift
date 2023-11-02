@@ -11,6 +11,7 @@ import Foundation
 import PromiseKit
 import Web3
 import Web3_Utility
+import Web3ContractABI
 
 class SwapManager: Web3ManagerProtocol {
 	// MARK: - Typealias
@@ -18,7 +19,7 @@ class SwapManager: Web3ManagerProtocol {
 	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
 
 	internal var web3 = Web3Core.shared
-	internal var contractAddress: String = Web3Core.Constants.pinoSwapProxyAddress
+	internal var contract: DynamicContract
 	internal var walletManager = PinoWalletManager()
 
 	// MARK: - Public Properties
@@ -45,10 +46,11 @@ class SwapManager: Web3ManagerProtocol {
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes in ms
 	private let nonce = BigNumber.bigRandomeNumber
 
-	init(selectedProvider: SwapProviderViewModel?, srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
+    init(contract: DynamicContract, selectedProvider: SwapProviderViewModel?, srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
 		self.selectedProvider = selectedProvider
 		self.srcToken = srcToken
 		self.destToken = destToken
+        self.contract = contract
 	}
 
 	// MARK: - Public Methods
@@ -86,7 +88,7 @@ class SwapManager: Web3ManagerProtocol {
 
 	internal func getProxyPermitTransferData(signiture: String) -> Promise<String> {
 		web3.getPermitTransferCallData(
-			contractAddress: contractAddress, amount: srcToken.tokenAmountBigNum.bigUInt,
+			contract: contract, amount: srcToken.tokenAmountBigNum.bigUInt,
 			tokenAdd: srcToken.selectedToken.id,
 			signiture: signiture,
 			nonce: nonce,
@@ -317,7 +319,7 @@ class SwapManager: Web3ManagerProtocol {
 	}
 
 	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
-		web3.callProxyMulticall(contractAddress: contractAddress, data: data, value: value ?? 0.bigNumber.bigUInt)
+        web3.callProxyMulticall(contractAddress: contract.address!.hex(eip55: true), data: data, value: value ?? 0.bigNumber.bigUInt)
 	}
 
 	private func sweepTokenCallData() -> Promise<CallData?> {

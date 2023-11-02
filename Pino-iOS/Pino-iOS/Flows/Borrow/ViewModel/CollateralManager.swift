@@ -10,6 +10,7 @@ import Foundation
 import PromiseKit
 import Web3
 import Web3_Utility
+import Web3ContractABI
 
 class CollateralManager: Web3ManagerProtocol {
 	// MARK: - TypeAliases
@@ -28,7 +29,7 @@ class CollateralManager: Web3ManagerProtocol {
 	// MARK: - Internal Properties
 
 	internal var web3 = Web3Core.shared
-	internal var contractAddress: String = Web3Core.Constants.pinoAaveProxyAddress
+	internal var contract: DynamicContract
 	internal var walletManager = PinoWalletManager()
 
 	// MARK: - Public Properties
@@ -38,20 +39,21 @@ class CollateralManager: Web3ManagerProtocol {
 
 	// MARK: - Initializers
 
-	init(asset: AssetViewModel, assetAmountBigNumber: BigNumber) {
+    init(contract: DynamicContract, asset: AssetViewModel, assetAmountBigNumber: BigNumber) {
 		if asset.isEth {
 			self.asset = (GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
 		} else {
 			self.asset = asset
 		}
 		self.assetAmountBigNumber = assetAmountBigNumber
+        self.contract = contract
 	}
 
 	// MARK: - Internal Methods
 
 	func getProxyPermitTransferData(signiture: String) -> Promise<String> {
 		web3.getPermitTransferCallData(
-			contractAddress: contractAddress, amount: assetAmountBigNumber.bigUInt,
+			contract: contract, amount: assetAmountBigNumber.bigUInt,
 			tokenAdd: asset.id,
 			signiture: signiture,
 			nonce: nonce,
@@ -68,7 +70,7 @@ class CollateralManager: Web3ManagerProtocol {
 				tokenAdd: asset.id,
 				amount:
 				assetAmountBigNumber.description,
-				spender: contractAddress,
+                spender: contract.address!.hex(eip55: true),
 				nonce: nonce.description,
 				deadline: deadline.description
 			)
@@ -100,6 +102,7 @@ class CollateralManager: Web3ManagerProtocol {
 
 	private func getAaveDespositV3ERCCallData() -> Promise<String> {
 		web3.getAaveDespositV3ERCCallData(
+            contract: contract,
 			assetAddress: asset.id,
 			amount: assetAmountBigNumber.bigUInt,
 			userAddress: walletManager.currentAccount.eip55Address
@@ -107,7 +110,7 @@ class CollateralManager: Web3ManagerProtocol {
 	}
 
 	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
-		web3.callProxyMulticall(contractAddress: contractAddress, data: data, value: value ?? 0.bigNumber.bigUInt)
+        web3.callProxyMulticall(contractAddress: contract.address!.hex(eip55: true), data: data, value: value ?? 0.bigNumber.bigUInt)
 	}
 
 	public func confirmDeposit(completion: @escaping (Result<String>) -> Void) {

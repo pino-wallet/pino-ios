@@ -66,13 +66,9 @@ public struct W3ApproveManager {
 		}
 	}
 
-	public func getApproveProxyCallData(contractAddress: String, tokenAdd: String, spender: String) -> Promise<String> {
+	public func getApproveProxyCallData(contract: DynamicContract, tokenAdd: String, spender: String) -> Promise<String> {
 		Promise<String> { seal in
-			let contract = try Web3Core.getContractOfToken(
-				address: contractAddress,
-				abi: .aaveProxy,
-				web3: web3
-			)
+			
 			let solInvocation = contract[ABIMethodWrite.approveToken.rawValue]?(
 				tokenAdd.eip55Address!,
 				[spender.eip55Address!]

@@ -121,12 +121,12 @@ public class Web3Core {
 		approveManager.getApproveCallData(contractAdd: contractAdd, amount: amount, spender: spender)
 	}
 
-	public func getApproveProxyCallData(contractAddress: String, tokenAdd: String, spender: String) -> Promise<String> {
-		approveManager.getApproveProxyCallData(contractAddress: contractAddress, tokenAdd: tokenAdd, spender: spender)
+	public func getApproveProxyCallData(contract: DynamicContract, tokenAdd: String, spender: String) -> Promise<String> {
+		approveManager.getApproveProxyCallData(contract: contract, tokenAdd: tokenAdd, spender: spender)
 	}
 
 	public func getPermitTransferCallData(
-		contractAddress: String,
+		contract: DynamicContract,
 		amount: BigUInt,
 		tokenAdd: String,
 		signiture: String,
@@ -134,7 +134,7 @@ public class Web3Core {
 		deadline: BigUInt
 	) -> Promise<String> {
 		transferManager.getPermitTransferFromCallData(
-			contractAddress: contractAddress, amount: amount,
+			contract: contract, amount: amount,
 			tokenAdd: tokenAdd,
 			signiture: signiture,
 			nonce: nonce,
@@ -142,8 +142,8 @@ public class Web3Core {
 		)
 	}
 
-	public func getWrapETHCallData(contractAddress: String, proxyFee: BigUInt) -> Promise<String> {
-		swapManager.getWrapETHCallData(contractAddress: contractAddress, proxyFee: proxyFee)
+	public func getWrapETHCallData(contract: DynamicContract, proxyFee: BigUInt) -> Promise<String> {
+		swapManager.getWrapETHCallData(contract: contract, proxyFee: proxyFee)
 	}
 
 	public func getUnwrapETHCallData(recipient: String) -> Promise<String> {
@@ -165,6 +165,14 @@ public class Web3Core {
 	public func getSweepTokenCallData(tokenAdd: String, recipientAdd: String) -> Promise<String> {
 		swapManager.getSweepTokenCallData(tokenAdd: tokenAdd, recipientAdd: recipientAdd)
 	}
+    
+    public func getSwapProxyContract() -> Promise<DynamicContract> {
+        swapManager.getSwapProxyContract()
+    }
+    
+    public func getPinoAaveProxyContract() -> Promise<DynamicContract> {
+        aaveDepositManager.getPinoAaveProxyContract()
+    }
 
 	public func callProxyMulticall(contractAddress: String, data: [String], value: BigUInt) -> TrxWithGasInfo {
 		swapManager.callMultiCall(
@@ -402,11 +410,13 @@ public class Web3Core {
 	}
 
 	public func getAaveDespositV3ERCCallData(
+        contract: DynamicContract,
 		assetAddress: String,
 		amount: BigUInt,
 		userAddress: String
 	) -> Promise<String> {
 		aaveDepositManager.getAaveDespositV3ERCCallData(
+            contract: contract,
 			assetAddress: assetAddress,
 			amount: amount,
 			userAddress: userAddress

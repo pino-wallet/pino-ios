@@ -41,6 +41,18 @@ public struct W3SwapManager {
 	}
 
 	// MARK: - Public Methods
+    
+    public func getSwapProxyContract() -> Promise<DynamicContract> {
+        #warning("sobhan you should change contracs for swap")
+        return Promise<DynamicContract> { seal in
+            let contract = try Web3Core.getContractOfToken(
+                address: Web3Core.Constants.pinoProxyAddress,
+                abi: .swap,
+                web3: web3
+            )
+            seal.fulfill(contract)
+        }
+    }
 
 	public func getSweepTokenCallData(tokenAdd: String, recipientAdd: String) -> Promise<String> {
 		Promise<String>() { [self] seal in
@@ -63,14 +75,9 @@ public struct W3SwapManager {
 		}
 	}
 
-	public func getWrapETHCallData(contractAddress: String, proxyFee: BigUInt) -> Promise<String> {
+	public func getWrapETHCallData(contract: DynamicContract, proxyFee: BigUInt) -> Promise<String> {
 		Promise<String>() { [self] seal in
 
-			let contract = try Web3Core.getContractOfToken(
-				address: contractAddress,
-				abi: .aaveProxy,
-				web3: web3
-			)
 			let solInvocation = contract[ABIMethodWrite.wrapETH.rawValue]?(proxyFee)
 
 			let trx = try trxManager.createTransactionFor(
