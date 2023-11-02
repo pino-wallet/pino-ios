@@ -41,18 +41,18 @@ public struct W3SwapManager {
 	}
 
 	// MARK: - Public Methods
-    
-    public func getSwapProxyContract() -> Promise<DynamicContract> {
-        #warning("sobhan you should change contracs for swap")
-        return Promise<DynamicContract> { seal in
-            let contract = try Web3Core.getContractOfToken(
-                address: Web3Core.Constants.pinoProxyAddress,
-                abi: .swap,
-                web3: web3
-            )
-            seal.fulfill(contract)
-        }
-    }
+
+	public func getSwapProxyContract() -> Promise<DynamicContract> {
+		#warning("sobhan you should change contracs for swap")
+		return Promise<DynamicContract> { seal in
+			let contract = try Web3Core.getContractOfToken(
+				address: Web3Core.Constants.pinoProxyAddress,
+				abi: .swap,
+				web3: web3
+			)
+			seal.fulfill(contract)
+		}
+	}
 
 	public func getSweepTokenCallData(tokenAdd: String, recipientAdd: String) -> Promise<String> {
 		Promise<String>() { [self] seal in

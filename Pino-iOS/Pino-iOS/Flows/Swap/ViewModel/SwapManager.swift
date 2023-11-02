@@ -46,11 +46,16 @@ class SwapManager: Web3ManagerProtocol {
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes in ms
 	private let nonce = BigNumber.bigRandomeNumber
 
-    init(contract: DynamicContract, selectedProvider: SwapProviderViewModel?, srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
+	init(
+		contract: DynamicContract,
+		selectedProvider: SwapProviderViewModel?,
+		srcToken: SwapTokenViewModel,
+		destToken: SwapTokenViewModel
+	) {
 		self.selectedProvider = selectedProvider
 		self.srcToken = srcToken
 		self.destToken = destToken
-        self.contract = contract
+		self.contract = contract
 	}
 
 	// MARK: - Public Methods
@@ -319,7 +324,11 @@ class SwapManager: Web3ManagerProtocol {
 	}
 
 	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
-        web3.callProxyMulticall(contractAddress: contract.address!.hex(eip55: true), data: data, value: value ?? 0.bigNumber.bigUInt)
+		web3.callProxyMulticall(
+			contractAddress: contract.address!.hex(eip55: true),
+			data: data,
+			value: value ?? 0.bigNumber.bigUInt
+		)
 	}
 
 	private func sweepTokenCallData() -> Promise<CallData?> {

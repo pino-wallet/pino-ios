@@ -165,14 +165,14 @@ public class Web3Core {
 	public func getSweepTokenCallData(tokenAdd: String, recipientAdd: String) -> Promise<String> {
 		swapManager.getSweepTokenCallData(tokenAdd: tokenAdd, recipientAdd: recipientAdd)
 	}
-    
-    public func getSwapProxyContract() -> Promise<DynamicContract> {
-        swapManager.getSwapProxyContract()
-    }
-    
-    public func getPinoAaveProxyContract() -> Promise<DynamicContract> {
-        aaveDepositManager.getPinoAaveProxyContract()
-    }
+
+	public func getSwapProxyContract() -> Promise<DynamicContract> {
+		swapManager.getSwapProxyContract()
+	}
+
+	public func getPinoAaveProxyContract() -> Promise<DynamicContract> {
+		aaveDepositManager.getPinoAaveProxyContract()
+	}
 
 	public func callProxyMulticall(contractAddress: String, data: [String], value: BigUInt) -> TrxWithGasInfo {
 		swapManager.callMultiCall(
@@ -410,13 +410,13 @@ public class Web3Core {
 	}
 
 	public func getAaveDespositV3ERCCallData(
-        contract: DynamicContract,
+		contract: DynamicContract,
 		assetAddress: String,
 		amount: BigUInt,
 		userAddress: String
 	) -> Promise<String> {
 		aaveDepositManager.getAaveDespositV3ERCCallData(
-            contract: contract,
+			contract: contract,
 			assetAddress: assetAddress,
 			amount: amount,
 			userAddress: userAddress

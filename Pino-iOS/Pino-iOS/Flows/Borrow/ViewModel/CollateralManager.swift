@@ -39,14 +39,14 @@ class CollateralManager: Web3ManagerProtocol {
 
 	// MARK: - Initializers
 
-    init(contract: DynamicContract, asset: AssetViewModel, assetAmountBigNumber: BigNumber) {
+	init(contract: DynamicContract, asset: AssetViewModel, assetAmountBigNumber: BigNumber) {
 		if asset.isEth {
 			self.asset = (GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
 		} else {
 			self.asset = asset
 		}
 		self.assetAmountBigNumber = assetAmountBigNumber
-        self.contract = contract
+		self.contract = contract
 	}
 
 	// MARK: - Internal Methods
@@ -70,7 +70,7 @@ class CollateralManager: Web3ManagerProtocol {
 				tokenAdd: asset.id,
 				amount:
 				assetAmountBigNumber.description,
-                spender: contract.address!.hex(eip55: true),
+				spender: contract.address!.hex(eip55: true),
 				nonce: nonce.description,
 				deadline: deadline.description
 			)
@@ -102,7 +102,7 @@ class CollateralManager: Web3ManagerProtocol {
 
 	private func getAaveDespositV3ERCCallData() -> Promise<String> {
 		web3.getAaveDespositV3ERCCallData(
-            contract: contract,
+			contract: contract,
 			assetAddress: asset.id,
 			amount: assetAmountBigNumber.bigUInt,
 			userAddress: walletManager.currentAccount.eip55Address
@@ -110,7 +110,11 @@ class CollateralManager: Web3ManagerProtocol {
 	}
 
 	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
-        web3.callProxyMulticall(contractAddress: contract.address!.hex(eip55: true), data: data, value: value ?? 0.bigNumber.bigUInt)
+		web3.callProxyMulticall(
+			contractAddress: contract.address!.hex(eip55: true),
+			data: data,
+			value: value ?? 0.bigNumber.bigUInt
+		)
 	}
 
 	public func confirmDeposit(completion: @escaping (Result<String>) -> Void) {

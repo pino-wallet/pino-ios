@@ -68,7 +68,7 @@ public struct W3ApproveManager {
 
 	public func getApproveProxyCallData(contract: DynamicContract, tokenAdd: String, spender: String) -> Promise<String> {
 		Promise<String> { seal in
-			
+
 			let solInvocation = contract[ABIMethodWrite.approveToken.rawValue]?(
 				tokenAdd.eip55Address!,
 				[spender.eip55Address!]
