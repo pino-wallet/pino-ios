@@ -29,7 +29,14 @@ public class Web3Core {
 		}
 	}
 
-	private var trxManager: W3TransferManager {
+	private var userPrivateKey: EthereumPrivateKey {
+		try! EthereumPrivateKey(
+			hexPrivateKey: walletManager.currentAccountPrivateKey
+				.string
+		)
+	}
+
+	private var trxManager: W3TransactionManager {
 		.init(web3: web3)
 	}
 
@@ -155,31 +162,53 @@ public class Web3Core {
 	}
 
 	public func getOneInchSwapCallData(data: String) -> Promise<String> {
-		swapManager.getSwapProviderData(callData: data, method: .swap1Inch)
+		swapManager.getSwapProviderData(callData: data, method: .swapOneInch)
 	}
 
 	public func getZeroXSwapCallData(data: String) -> Promise<String> {
-		swapManager.getSwapProviderData(callData: data, method: .swap0x)
+		swapManager.getSwapProviderData(callData: data, method: .swapZeroX)
 	}
 
 	public func getSweepTokenCallData(tokenAdd: String, recipientAdd: String) -> Promise<String> {
 		swapManager.getSweepTokenCallData(tokenAdd: tokenAdd, recipientAdd: recipientAdd)
 	}
 
-	public func getSwapProxyContract() -> Promise<DynamicContract> {
-		swapManager.getSwapProxyContract()
+	public func getSwapProxyContract() throws -> DynamicContract {
+		try swapManager.getSwapProxyContract()
 	}
 
-	public func getPinoAaveProxyContract() -> Promise<DynamicContract> {
-		aaveDepositManager.getPinoAaveProxyContract()
+	public func getPinoAaveProxyContract() throws -> DynamicContract {
+		try aaveDepositManager.getPinoAaveProxyContract()
 	}
 
-	public func callProxyMulticall(contractAddress: String, data: [String], value: BigUInt) -> TrxWithGasInfo {
-		swapManager.callMultiCall(
-			contractAddress: contractAddress,
-			callData: data,
-			value: value
-		)
+	public func callMultiCall(contractAddress: String, callData: [String], value: BigUInt) -> TrxWithGasInfo {
+		let generatedMulticallData = W3CallDataGenerator.generateMultiCallFrom(calls: callData)
+		let ethCallData = EthereumData(generatedMulticallData.hexToBytes())
+		let eip55ContractAddress = contractAddress.eip55Address!
+
+		return TrxWithGasInfo { [self] seal in
+
+			gasInfoManager
+				.calculateGasOf(data: ethCallData, to: eip55ContractAddress, value: value.etherumQuantity)
+				.then { [self] gasInfo in
+					web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+						.map { ($0, gasInfo) }
+				}.done { [self] nonce, gasInfo in
+					let trx = try trxManager.createTransactionFor(
+						nonce: nonce,
+						gasPrice: gasInfo.gasPrice.etherumQuantity,
+						gasLimit: gasInfo.increasedGasLimit.bigUInt.etherumQuantity,
+						value: value.etherumQuantity,
+						data: ethCallData,
+						to: eip55ContractAddress
+					)
+
+					let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Network.chainID)
+					seal.fulfill((signedTx, gasInfo))
+				}.catch { error in
+					seal.reject(error)
+				}
+		}
 	}
 
 	public func callTransaction(trx: EthereumSignedTransaction) -> Promise<String> {
@@ -473,7 +502,6 @@ extension Web3Core {
 		static let ethGasLimit = "21000"
 		static let eoaCode = "0x"
 		static let permitAddress = "0x000000000022D473030F116dDEE9F6B43aC78BA3"
-		static let pinoProxyAddress = "0x118E662de0C4cdc2f8AD0fb1c6Ef4a85222baCF0"
 		static let pinoAaveProxyAddress = "0xb5ea6BAdD330466D66345e154Db9834B1Fe8Dab6"
 		static let pinoSwapProxyAddress = "0xB51557272E09d41f649a04073dB780AC25998a1e"
 		static let paraSwapETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"

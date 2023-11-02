@@ -270,7 +270,7 @@ class SwapManager: Web3ManagerProtocol {
 				tokenAdd: srcToken.selectedToken.id,
 				amount:
 				srcToken.tokenAmountBigNum.description,
-				spender: Web3Core.Constants.pinoProxyAddress,
+				spender: Web3Core.Constants.pinoSwapProxyAddress,
 				nonce: nonce.description,
 				deadline: deadline.description
 			)
@@ -308,7 +308,7 @@ class SwapManager: Web3ManagerProtocol {
 				amount: srcToken.tokenAmountBigNum.description,
 				destAmount: selectedProvider.providerResponseInfo.destAmount,
 				receiver: walletManager.currentAccount.eip55Address,
-				userAddress: Web3Core.Constants.pinoProxyAddress,
+				userAddress: Web3Core.Constants.pinoSwapProxyAddress,
 				slippage: selectedProvider.provider.slippage,
 				networkID: 1,
 				srcDecimal: srcToken.selectedToken.decimal.description,
@@ -324,9 +324,9 @@ class SwapManager: Web3ManagerProtocol {
 	}
 
 	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
-		web3.callProxyMulticall(
+		web3.callMultiCall(
 			contractAddress: contract.address!.hex(eip55: true),
-			data: data,
+			callData: data,
 			value: value ?? 0.bigNumber.bigUInt
 		)
 	}
@@ -417,7 +417,6 @@ class SwapManager: Web3ManagerProtocol {
 	}
 
 	public func addPendingTransferActivity(trxHash: String) {
-		#warning("Ask Ali about info")
 		guard let selectedProvider else { return }
 		guard let pendingSwapGasInfo = pendingSwapGasInfo else { return }
 		let userAddress = walletManager.currentAccount.eip55Address

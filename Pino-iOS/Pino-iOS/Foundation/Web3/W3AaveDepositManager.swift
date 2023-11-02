@@ -38,15 +38,12 @@ public struct W3AaveDepositManager {
 
 	// MARK: - Public Methods
 
-	public func getPinoAaveProxyContract() -> Promise<DynamicContract> {
-		Promise<DynamicContract> { seal in
-			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.pinoAaveProxyAddress,
-				abi: .aaveProxy,
-				web3: web3
-			)
-			seal.fulfill(contract)
-		}
+	public func getPinoAaveProxyContract() throws -> DynamicContract {
+		try Web3Core.getContractOfToken(
+			address: Web3Core.Constants.pinoAaveProxyAddress,
+			abi: .aaveProxy,
+			web3: web3
+		)
 	}
 
 	public func getAaveDespositV3ERCCallData(

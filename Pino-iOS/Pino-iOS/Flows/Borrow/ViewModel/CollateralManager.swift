@@ -110,9 +110,9 @@ class CollateralManager: Web3ManagerProtocol {
 	}
 
 	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
-		web3.callProxyMulticall(
+		web3.callMultiCall(
 			contractAddress: contract.address!.hex(eip55: true),
-			data: data,
+			callData: data,
 			value: value ?? 0.bigNumber.bigUInt
 		)
 	}
