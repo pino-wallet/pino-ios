@@ -15,8 +15,11 @@ final class ParaSwapAPIClient: SwapProvidersAPIServices {
 
 	func swapPrice(swapInfo: SwapPriceRequestModel) -> AnyPublisher<ParaSwapPriceResponseModel?, APIError> {
 		var editedSwapInfo = swapInfo
-		editedSwapInfo.provider = .oneInch
-		return networkManager.request(.swapPrice(swapInfo: editedSwapInfo))
+		editedSwapInfo.provider = .paraswap
+		return networkManager.requestData(.swapPrice(swapInfo: editedSwapInfo))
+			.map { responseData in
+				ParaSwapPriceResponseModel(priceRoute: responseData)
+			}.eraseToAnyPublisher()
 	}
 
 	func swap(swapInfo: SwapRequestModel) -> AnyPublisher<ParaswapSwapResponseModel?, APIError> {

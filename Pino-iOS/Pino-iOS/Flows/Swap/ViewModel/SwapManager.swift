@@ -11,6 +11,7 @@ import Foundation
 import PromiseKit
 import Web3
 import Web3_Utility
+import Web3ContractABI
 
 class SwapManager: Web3ManagerProtocol {
 	// MARK: - Typealias
@@ -18,6 +19,7 @@ class SwapManager: Web3ManagerProtocol {
 	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
 
 	internal var web3 = Web3Core.shared
+	internal var contract: DynamicContract
 	internal var walletManager = PinoWalletManager()
 
 	// MARK: - Public Properties
@@ -44,24 +46,33 @@ class SwapManager: Web3ManagerProtocol {
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes in ms
 	private let nonce = BigNumber.bigRandomeNumber
 
-	init(selectedProvider: SwapProviderViewModel?, srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
+	init(
+		contract: DynamicContract,
+		selectedProvider: SwapProviderViewModel?,
+		srcToken: SwapTokenViewModel,
+		destToken: SwapTokenViewModel
+	) {
 		self.selectedProvider = selectedProvider
 		self.srcToken = srcToken
 		self.destToken = destToken
+		self.contract = contract
 	}
 
 	// MARK: - Public Methods
 
 	public func getSwapInfo() -> TrxWithGasInfo {
-		if srcToken.selectedToken.isERC20 && (destToken.selectedToken.isERC20 || destToken.selectedToken.isWEth) {
+		let selectedSrcToken = srcToken.selectedToken
+		let selectedDestToken = destToken.selectedToken
+		if (selectedSrcToken.isERC20 || selectedSrcToken.isWEth) &&
+			(selectedDestToken.isERC20 || selectedDestToken.isWEth) {
 			return swapERCtoERC()
-		} else if srcToken.selectedToken.isERC20 && destToken.selectedToken.isEth {
+		} else if selectedSrcToken.isERC20 && selectedDestToken.isEth {
 			return swapERCtoETH()
-		} else if srcToken.selectedToken.isEth && destToken.selectedToken.isERC20 {
+		} else if selectedSrcToken.isEth && selectedDestToken.isERC20 {
 			return swapETHtoERC()
-		} else if srcToken.selectedToken.isEth && destToken.selectedToken.isWEth {
+		} else if selectedSrcToken.isEth && selectedDestToken.isWEth {
 			return swapETHtoWETH()
-		} else if srcToken.selectedToken.isWEth && destToken.selectedToken.isEth {
+		} else if selectedSrcToken.isWEth && selectedDestToken.isEth {
 			return swapWETHtoETH()
 		} else {
 			fatalError()
@@ -82,7 +93,7 @@ class SwapManager: Web3ManagerProtocol {
 
 	internal func getProxyPermitTransferData(signiture: String) -> Promise<String> {
 		web3.getPermitTransferCallData(
-			amount: srcToken.tokenAmountBigNum.bigUInt,
+			contract: contract, amount: srcToken.tokenAmountBigNum.bigUInt,
 			tokenAdd: srcToken.selectedToken.id,
 			signiture: signiture,
 			nonce: nonce,
@@ -176,17 +187,25 @@ class SwapManager: Web3ManagerProtocol {
 		TrxWithGasInfo { seal in
 			firstly {
 				self.wrapTokenCallData()
-			}.then { [self] wrapTokenData in
+			}.then { [self] wrapTokenData -> Promise<(String?, String)> in
+				guard let selectedProvider else { fatalError("provider errror") }
+				return checkAllowanceOfProvider(
+					approvingToken: wethToken,
+					approvingAmount: srcToken.tokenAmount!,
+					spenderAddress: selectedProvider.provider.contractAddress
+				).map { ($0, wrapTokenData) }
+			}.then { [self] allowanceData, wrapTokenData -> Promise<(String, String?, String)> in
 				// Fetch Call Data
-				getSwapInfoFrom().map { ($0, wrapTokenData) }
-			}.then { providerSwapData, wrapTokenData in
-				self.getProvidersCallData(providerData: providerSwapData).map { ($0, wrapTokenData) }
-			}.then { providersCallData, wrapTokenData -> Promise<(String?, String, String)> in
-				self.sweepTokenCallData().map { ($0, providersCallData, wrapTokenData) }
-			}.then { sweepData, providersCallData, wrapTokenData in
+				getSwapInfoFrom().map { ($0, allowanceData, wrapTokenData) }
+			}.then { providerSwapData, allowanceData, wrapTokenData -> Promise<(String, String?, String)> in
+				self.getProvidersCallData(providerData: providerSwapData).map { ($0, allowanceData, wrapTokenData) }
+			}.then { providersCallData, allowanceData, wrapTokenData -> Promise<(String?, String, String?, String)> in
+				self.sweepTokenCallData().map { ($0, providersCallData, allowanceData, wrapTokenData) }
+			}.then { sweepData, providersCallData, allowanceData, wrapTokenData in
 				// MultiCall
 				var callDatas = [wrapTokenData, providersCallData]
 				if let sweepData { callDatas.append(sweepData) }
+				if let allowanceData { callDatas.insert(allowanceData, at: 0) }
 				return self.callProxyMultiCall(data: callDatas, value: self.srcToken.tokenAmountBigNum.bigUInt)
 			}.done { swapResult in
 				self.pendingSwapTrx = swapResult.0
@@ -251,7 +270,7 @@ class SwapManager: Web3ManagerProtocol {
 				tokenAdd: srcToken.selectedToken.id,
 				amount:
 				srcToken.tokenAmountBigNum.description,
-				spender: Web3Core.Constants.pinoProxyAddress,
+				spender: Web3Core.Constants.pinoSwapProxyAddress,
 				nonce: nonce.description,
 				deadline: deadline.description
 			)
@@ -272,7 +291,7 @@ class SwapManager: Web3ManagerProtocol {
 	private func getSwapInfoFrom() -> Promise<String> {
 		guard let selectedProvider else { fatalError("provider errror") }
 
-		var priceRoute: PriceRouteClass?
+		var priceRoute: Data?
 		if selectedProvider.provider == .paraswap {
 			let paraResponse = selectedProvider.providerResponseInfo as! ParaSwapPriceResponseModel
 			priceRoute = paraResponse.priceRoute
@@ -289,7 +308,7 @@ class SwapManager: Web3ManagerProtocol {
 				amount: srcToken.tokenAmountBigNum.description,
 				destAmount: selectedProvider.providerResponseInfo.destAmount,
 				receiver: walletManager.currentAccount.eip55Address,
-				userAddress: Web3Core.Constants.pinoProxyAddress,
+				userAddress: Web3Core.Constants.pinoSwapProxyAddress,
 				slippage: selectedProvider.provider.slippage,
 				networkID: 1,
 				srcDecimal: srcToken.selectedToken.decimal.description,
@@ -305,7 +324,11 @@ class SwapManager: Web3ManagerProtocol {
 	}
 
 	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
-		web3.callProxyMulticall(data: data, value: value ?? 0.bigNumber.bigUInt)
+		web3.callMultiCall(
+			contractAddress: contract.address!.hex(eip55: true),
+			callData: data,
+			value: value ?? 0.bigNumber.bigUInt
+		)
 	}
 
 	private func sweepTokenCallData() -> Promise<CallData?> {
@@ -333,7 +356,7 @@ class SwapManager: Web3ManagerProtocol {
 			}
 
 		} else {
-			if destToken.selectedToken.isWEth {
+			if destToken.selectedToken.isEth {
 				return unwrapToken()
 			} else {
 				return Promise<String?>() { seal in seal.fulfill(nil) }
@@ -394,7 +417,6 @@ class SwapManager: Web3ManagerProtocol {
 	}
 
 	public func addPendingTransferActivity(trxHash: String) {
-		#warning("Ask Ali about info")
 		guard let selectedProvider else { return }
 		guard let pendingSwapGasInfo = pendingSwapGasInfo else { return }
 		let userAddress = walletManager.currentAccount.eip55Address
@@ -410,8 +432,8 @@ class SwapManager: Web3ManagerProtocol {
 				fromAddress: userAddress,
 				toAddress: selectedProvider.provider.contractAddress,
 				blockTime: ActivityHelper().getServerFormattedStringDate(date: .now),
-				gasUsed: pendingSwapGasInfo.increasedGasLimit.decimalString,
-				gasPrice: pendingSwapGasInfo.gasPrice.decimalString
+				gasUsed: pendingSwapGasInfo.increasedGasLimit.description,
+				gasPrice: pendingSwapGasInfo.gasPrice.description
 			),
 			accountAddress: walletManager.currentAccount.eip55Address
 		)

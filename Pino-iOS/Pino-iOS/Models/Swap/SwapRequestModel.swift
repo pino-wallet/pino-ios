@@ -18,7 +18,7 @@ struct SwapRequestModel {
 	let networkID: Int?
 	let srcDecimal: String?
 	let destDecimal: String?
-	let priceRoute: PriceRouteClass?
+	let priceRoute: Data?
 	let provider: SwapProvider
 
 	var editedSrcToken: String {
@@ -55,7 +55,7 @@ struct SwapRequestModel {
 		networkID: Int?,
 		srcDecimal: String?,
 		destDecimal: String?,
-		priceRoute: PriceRouteClass?,
+		priceRoute: Data?,
 		provider: SwapProvider
 	) {
 		self.srcToken = srcToken
@@ -79,7 +79,7 @@ struct SwapRequestModel {
 			"src": editedSrcToken,
 			"dst": editedDestToken,
 			"amount": amount,
-			"from": receiver, // this is pino proxy
+			"from": userAddress, // this is pino proxy
 			"receiver": receiver, // this is user who receives token
 			"slippage": slippage,
 			"includeProtocols": false,
@@ -90,16 +90,15 @@ struct SwapRequestModel {
 	}
 
 	public var paraswapReqBody: BodyParamsType {
-		let jsonEncoder = JSONEncoder()
-		let jsonData = try! jsonEncoder.encode(priceRoute)
-		let dictionary = try! JSONSerialization.jsonObject(with: jsonData, options: []) as? HTTPParameters
+		guard let priceRoute else { fatalError() }
+		let dictionary = try! JSONSerialization.jsonObject(with: priceRoute, options: []) as? HTTPParameters
 
 		let params: HTTPParameters = [
 			"srcToken": editedSrcToken,
 			"destToken": editedDestToken,
 			"srcAmount": amount,
 			"destAmount": destAmount,
-			"priceRoute": dictionary!,
+			"priceRoute": dictionary!["priceRoute"]!,
 			"userAddress": userAddress, // this is pino proxy address
 			"receiver": receiver, // this is user who receieves token
 			"srcDecimals": srcDecimal!,

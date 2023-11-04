@@ -30,7 +30,6 @@ public struct W3GasInfoManager {
 	}
 
 	private var walletManager = PinoWalletManager()
-	private let pinoProxyAdd = Web3Core.Constants.pinoProxyAddress
 
 	// MARK: - Public Methods
 

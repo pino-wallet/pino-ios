@@ -16,10 +16,21 @@ class SwapConfirmationViewModel {
 
 	private let selectedProtocol: SwapProtocolModel
 	private let selectedProvider: SwapProviderViewModel?
+	private let web3 = Web3Core.shared
 	private var cancellables = Set<AnyCancellable>()
 	private var ethToken: AssetViewModel {
 		GlobalVariables.shared.manageAssetsList!.first(where: { $0.isEth })!
 	}
+
+	private lazy var swapManager: SwapManager = {
+		let swapProxyContract = try! web3.getSwapProxyContract()
+		return SwapManager(
+			contract: swapProxyContract,
+			selectedProvider: self.selectedProvider,
+			srcToken: self.fromToken,
+			destToken: self.toToken
+		)
+	}()
 
 	// MARK: - Public Properties
 
@@ -67,7 +78,6 @@ class SwapConfirmationViewModel {
 	// MARK: - Public Methods
 
 	public func fetchSwapInfo() {
-		let swapManager = SwapManager(selectedProvider: selectedProvider, srcToken: fromToken, destToken: toToken)
 		swapManager.getSwapInfo().done { swapTrx, gasInfo in
 			self.gasFee = gasInfo.fee
 			self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
@@ -82,7 +92,6 @@ class SwapConfirmationViewModel {
 	}
 
 	public func confirmSwap(completion: @escaping () -> Void) {
-		let swapManager = SwapManager(selectedProvider: selectedProvider!, srcToken: fromToken, destToken: toToken)
 		swapManager.confirmSwap { trx in
 			print("SWAP TRX HASH: \(trx)")
 			completion()

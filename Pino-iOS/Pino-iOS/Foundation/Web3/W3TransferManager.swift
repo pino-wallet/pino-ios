@@ -39,6 +39,7 @@ public struct W3TransferManager {
 	// MARK: - Public Methods
 
 	public func getPermitTransferFromCallData(
+		contract: DynamicContract,
 		amount: BigUInt,
 		tokenAdd: String,
 		signiture: String,
@@ -46,12 +47,6 @@ public struct W3TransferManager {
 		deadline: BigUInt
 	) -> Promise<String> {
 		Promise<String>() { [self] seal in
-
-			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.pinoProxyAddress,
-				abi: .swap,
-				web3: web3
-			)
 
 			let permitModel = Permit2Model(
 				permitted: .init(token: tokenAdd.eip55Address!, amount: amount.etherumQuantity),
@@ -105,7 +100,7 @@ public struct W3TransferManager {
 					gasLimit: gasInfo.gasLimit.etherumQuantity
 				)
 
-				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
+				let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Network.chainID)
 				return web3.eth.sendRawTransaction(transaction: signedTx)
 			}.done { txHash in
 				seal.fulfill(txHash.hex())
@@ -132,7 +127,7 @@ public struct W3TransferManager {
 				)
 				tx.gasLimit = 21000
 				tx.transactionType = .legacy
-				return try tx.sign(with: privateKey, chainId: 1).promise
+				return try tx.sign(with: privateKey, chainId: Web3Network.chainID).promise
 			}.then { [self] tx in
 				web3.eth.sendRawTransaction(transaction: tx)
 			}.done { hash in

@@ -136,7 +136,7 @@ struct ActivityDetailProperties {
 	}
 
 	public var exploreURL: URL {
-		URL(string: "http://www.etherscan.io/tx/\(activityDetails.defaultActivityModel.txHash)")!
+		URL(string: activityDetails.defaultActivityModel.txHash.ethScanTxURL)!
 	}
 
 	// MARK: - Initializers

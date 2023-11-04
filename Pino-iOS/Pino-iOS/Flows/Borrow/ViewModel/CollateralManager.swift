@@ -10,6 +10,7 @@ import Foundation
 import PromiseKit
 import Web3
 import Web3_Utility
+import Web3ContractABI
 
 class CollateralManager: Web3ManagerProtocol {
 	// MARK: - TypeAliases
@@ -28,6 +29,7 @@ class CollateralManager: Web3ManagerProtocol {
 	// MARK: - Internal Properties
 
 	internal var web3 = Web3Core.shared
+	internal var contract: DynamicContract
 	internal var walletManager = PinoWalletManager()
 
 	// MARK: - Public Properties
@@ -37,16 +39,21 @@ class CollateralManager: Web3ManagerProtocol {
 
 	// MARK: - Initializers
 
-	init(asset: AssetViewModel, assetAmountBigNumber: BigNumber) {
-		self.asset = asset
+	init(contract: DynamicContract, asset: AssetViewModel, assetAmountBigNumber: BigNumber) {
+		if asset.isEth {
+			self.asset = (GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
+		} else {
+			self.asset = asset
+		}
 		self.assetAmountBigNumber = assetAmountBigNumber
+		self.contract = contract
 	}
 
 	// MARK: - Internal Methods
 
 	func getProxyPermitTransferData(signiture: String) -> Promise<String> {
 		web3.getPermitTransferCallData(
-			amount: assetAmountBigNumber.bigUInt,
+			contract: contract, amount: assetAmountBigNumber.bigUInt,
 			tokenAdd: asset.id,
 			signiture: signiture,
 			nonce: nonce,
@@ -63,7 +70,7 @@ class CollateralManager: Web3ManagerProtocol {
 				tokenAdd: asset.id,
 				amount:
 				assetAmountBigNumber.description,
-				spender: Web3Core.Constants.pinoProxyAddress,
+				spender: contract.address!.hex(eip55: true),
 				nonce: nonce.description,
 				deadline: deadline.description
 			)
@@ -95,6 +102,7 @@ class CollateralManager: Web3ManagerProtocol {
 
 	private func getAaveDespositV3ERCCallData() -> Promise<String> {
 		web3.getAaveDespositV3ERCCallData(
+			contract: contract,
 			assetAddress: asset.id,
 			amount: assetAmountBigNumber.bigUInt,
 			userAddress: walletManager.currentAccount.eip55Address
@@ -102,7 +110,11 @@ class CollateralManager: Web3ManagerProtocol {
 	}
 
 	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
-		web3.callProxyMulticall(data: data, value: value ?? 0.bigNumber.bigUInt)
+		web3.callMultiCall(
+			contractAddress: contract.address!.hex(eip55: true),
+			callData: data,
+			value: value ?? 0.bigNumber.bigUInt
+		)
 	}
 
 	public func confirmDeposit(completion: @escaping (Result<String>) -> Void) {
@@ -138,7 +150,7 @@ class CollateralManager: Web3ManagerProtocol {
 					($0, permitData, allowanceData)
 				}
 			}.then { depositData, permitData, allowanceData in
-				var multiCallData = [permitData, depositData]
+				var multiCallData: [String] = [permitData, depositData]
 				if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
 				return self.callProxyMultiCall(data: multiCallData, value: nil)
 			}.done { depositResults in
@@ -146,7 +158,33 @@ class CollateralManager: Web3ManagerProtocol {
 				self.depositGasInfo = depositResults.1
 				seal.fulfill(depositResults)
 			}.catch { error in
-				print(error.localizedDescription)
+				print(error)
+			}
+		}
+	}
+
+	public func getETHCollateralData() -> TrxWithGasInfo {
+		TrxWithGasInfo { seal in
+			firstly {
+				self.checkAllowanceOfProvider(
+					approvingToken: self.asset,
+					approvingAmount: self.assetAmountBigNumber.sevenDigitFormat,
+					spenderAddress: Web3Core.Constants.aavePoolERCContractAddress
+				)
+			}.then { allowanceData -> Promise<(String, String?)> in
+				self.wrapTokenCallData().map { ($0, allowanceData) }
+			}.then { wrapETHData, allowanceData -> Promise<(String, String, String?)> in
+				self.getAaveDespositV3ERCCallData().map { ($0, wrapETHData, allowanceData) }
+			}.then { depositData, wrapETHData, allowanceData in
+				var multiCallData: [String] = [wrapETHData, depositData]
+				if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
+				return self.callProxyMultiCall(data: multiCallData, value: self.assetAmountBigNumber.bigUInt)
+			}.done { depositResults in
+				self.depositTRX = depositResults.0
+				self.depositGasInfo = depositResults.1
+				seal.fulfill(depositResults)
+			}.catch { error in
+				print(error)
 			}
 		}
 	}

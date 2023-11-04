@@ -78,6 +78,7 @@ class SwapConfirmationView: UIView {
 		swapInfoCardView.addSubview(swapConfirmationInfoView)
 
 		continueButton.addAction(UIAction(handler: { _ in
+			self.continueButton.style = .loading
 			self.confirmButtonTapped()
 		}), for: .touchUpInside)
 	}
@@ -139,6 +140,12 @@ class SwapConfirmationView: UIView {
 		} else {
 			continueButton.style = .deactive
 			continueButton.setTitle(swapConfirmationVM.insufficientTitle, for: .normal)
+		}
+
+		// ACTIVATING continue button since in devnet we don't need validation
+		// to check if there is balance
+		if Web3Network.current == .ganashDev {
+			continueButton.style = .active
 		}
 	}
 }

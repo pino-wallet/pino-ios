@@ -40,6 +40,7 @@ class SendStatusViewController: UIViewController {
 		confirmationVM.sendToken().done { [self] trxHash in
 			sendStatusView.pageStatus = .success
 			confirmationVM.addPendingTransferActivity(trxHash: trxHash)
+			sendStatusView.txHash = trxHash
 		}.catch { [self] error in
 			sendStatusView.pageStatus = .failed
 		}
