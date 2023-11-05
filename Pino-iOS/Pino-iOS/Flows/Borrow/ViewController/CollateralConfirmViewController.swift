@@ -23,13 +23,13 @@ class CollateralConfirmViewController: UIViewController {
 		setupView()
 		setupNavigationBar()
 	}
-    
-    override func viewWillAppear(_ animated: Bool) {
-        if isBeingPresented || isMovingToParent {
-            collateralConfirmView.showSkeletonView()
-            collateralConfirmVM.getCollateralGasInfo()
-        }
-    }
+
+	override func viewWillAppear(_ animated: Bool) {
+		if isBeingPresented || isMovingToParent {
+			collateralConfirmView.showSkeletonView()
+			collateralConfirmVM.getCollateralGasInfo()
+		}
+	}
 
 	// MARK: - Initializers
 

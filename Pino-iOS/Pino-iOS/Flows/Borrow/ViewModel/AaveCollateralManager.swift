@@ -24,7 +24,7 @@ class AaveCollateralManager: Web3ManagerProtocol {
 	private let web3Client = Web3APIClient()
 	private var asset: AssetViewModel
 	private var assetAmountBigNumber: BigNumber
-    private var assetAmountBigUInt: BigUInt
+	private var assetAmountBigUInt: BigUInt
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Internal Properties
@@ -36,9 +36,9 @@ class AaveCollateralManager: Web3ManagerProtocol {
 	// MARK: - Public Properties
 
 	public var depositGasInfo: GasInfo?
-    public var depositTRX: EthereumSignedTransaction?
-    #warning("i should use this to create tx")
-    public var useUserReserveAsCollateralContractDetails: ContractDetailsModel?
+	public var depositTRX: EthereumSignedTransaction?
+	#warning("i should use this to create tx")
+	public var useUserReserveAsCollateralContractDetails: ContractDetailsModel?
 
 	// MARK: - Initializers
 
@@ -49,7 +49,7 @@ class AaveCollateralManager: Web3ManagerProtocol {
 			self.asset = asset
 		}
 		self.assetAmountBigNumber = BigNumber(numberWithDecimal: assetAmount)
-        self.assetAmountBigUInt = Utilities.parseToBigUInt(assetAmount, decimals: asset.decimal)!
+		self.assetAmountBigUInt = Utilities.parseToBigUInt(assetAmount, decimals: asset.decimal)!
 		self.contract = contract
 	}
 
@@ -120,35 +120,35 @@ class AaveCollateralManager: Web3ManagerProtocol {
 			value: value ?? 0.bigNumber.bigUInt
 		)
 	}
-	
 
 	// MARK: - Public Methods
-    
-    public func confirmDeposit(completion: @escaping (Result<String>) -> Void) {
-        guard let depositTRX else { return }
-        web3.callTransaction(trx: depositTRX).done { trxHash in
-            #warning("i should add pending activity here")
-            #warning("i should send useUserResrverAsCollateral tx here")
-            completion(.fulfilled(trxHash))
-        }.catch { error in
-            completion(.rejected(error))
-        }
-    }
-    
-    public func getUserUseReserveAsCollateralData() -> Promise<GasInfo> {
-        Promise<GasInfo> { seal in
-            web3.getUserUseReserveAsCollateralContractDetails(assetAddress: asset.id, useAsCollateral: true).done { contractDetails in
-                self.useUserReserveAsCollateralContractDetails = contractDetails
-                self.web3.getUserUseReserveAsCollateralGasInfo(contractDetails: contractDetails).done { gasInfo in
-                    seal.fulfill(gasInfo)
-                }.catch { error in
-                    seal.reject(error)
-                }
-            }.catch { error in
-                seal.reject(error)
-            }
-        }
-    }
+
+	public func confirmDeposit(completion: @escaping (Result<String>) -> Void) {
+		guard let depositTRX else { return }
+		web3.callTransaction(trx: depositTRX).done { trxHash in
+			#warning("i should add pending activity here")
+			#warning("i should send useUserResrverAsCollateral tx here")
+			completion(.fulfilled(trxHash))
+		}.catch { error in
+			completion(.rejected(error))
+		}
+	}
+
+	public func getUserUseReserveAsCollateralData() -> Promise<GasInfo> {
+		Promise<GasInfo> { seal in
+			web3.getUserUseReserveAsCollateralContractDetails(assetAddress: asset.id, useAsCollateral: true)
+				.done { contractDetails in
+					self.useUserReserveAsCollateralContractDetails = contractDetails
+					self.web3.getUserUseReserveAsCollateralGasInfo(contractDetails: contractDetails).done { gasInfo in
+						seal.fulfill(gasInfo)
+					}.catch { error in
+						seal.reject(error)
+					}
+				}.catch { error in
+					seal.reject(error)
+				}
+		}
+	}
 
 	public func getERC20CollateralData() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
@@ -199,7 +199,7 @@ class AaveCollateralManager: Web3ManagerProtocol {
 			}.then { depositData, wrapETHData, allowanceData in
 				var multiCallData: [String] = [wrapETHData, depositData]
 				if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
-                return self.callProxyMultiCall(data: multiCallData, value: self.assetAmountBigUInt)
+				return self.callProxyMultiCall(data: multiCallData, value: self.assetAmountBigUInt)
 			}.done { depositResults in
 				self.depositTRX = depositResults.0
 				self.depositGasInfo = depositResults.1

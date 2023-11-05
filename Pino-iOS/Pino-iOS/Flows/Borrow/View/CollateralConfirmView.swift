@@ -5,9 +5,9 @@
 //  Created by Amir hossein kazemi seresht on 9/3/23.
 //
 
+import Combine
 import Kingfisher
 import UIKit
-import Combine
 
 class CollateralConfirmView: UIView {
 	// MARK: - TypeAliases
@@ -36,12 +36,12 @@ class CollateralConfirmView: UIView {
 	private let feeLabel = PinoLabel(style: .info, text: "")
 	private let confirmButton = PinoButton(style: .active)
 	private var collateralConfrimVM: CollateralConfirmViewModel
-    private var feeInfo: CollateralConfirmViewModel.FeeInfoType?
+	private var feeInfo: CollateralConfirmViewModel.FeeInfoType?
 
 	private var protocolTitleWithInfo: TitleWithInfo!
 	private var feeTitleWithInfo: TitleWithInfo!
 	private var protocolInfoView: UserAccountInfoView!
-    private var cancellables = Set<AnyCancellable>()
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -57,8 +57,8 @@ class CollateralConfirmView: UIView {
 		setupView()
 		setupStyles()
 		setupConstraints()
-        setupBindings()
-        setupSkeletonLoading()
+		setupBindings()
+		setupSkeletonLoading()
 	}
 
 	required init?(coder: NSCoder) {
@@ -88,10 +88,10 @@ class CollateralConfirmView: UIView {
 			image: collateralConfrimVM.protocolImageName,
 			title: collateralConfrimVM.protocolName
 		)
-        
-        let toggleFeeGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleFeeText))
-        feeLabel.addGestureRecognizer(toggleFeeGestureRecognizer)
-        feeLabel.isUserInteractionEnabled = true
+
+		let toggleFeeGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleFeeText))
+		feeLabel.addGestureRecognizer(toggleFeeGestureRecognizer)
+		feeLabel.isUserInteractionEnabled = true
 
 		protocolInfoStackView.addArrangedSubview(protocolTitleWithInfo)
 		protocolInfoStackView.addArrangedSubview(protocolSpacerView)
@@ -167,8 +167,8 @@ class CollateralConfirmView: UIView {
 		headerDescriptionLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 		protocolInfoStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 		feeInfoStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
-        feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 45).isActive = true
-        feeLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
+		feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 45).isActive = true
+		feeLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 
 		mainStackView.pin(
 			.horizontalEdges(to: layoutMarginsGuide, padding: 0),
@@ -182,24 +182,25 @@ class CollateralConfirmView: UIView {
 			.bottom(to: layoutMarginsGuide, padding: 12)
 		)
 	}
-    
-    private func setupSkeletonLoading() {
-        feeLabel.isSkeletonable = true
-    }
-    
-    private func setupBindings() {
-        collateralConfrimVM.$feeInfo.sink { feeInfo in
-            self.feeInfo = feeInfo
-            self.feeLabel.text = feeInfo?.feeInDollars
-            self.hideSkeletonView()
-        }.store(in: &cancellables)
-    }
-    
-    @objc private func toggleFeeText() {
-        if feeLabel.text == feeInfo?.feeInDollars {
-            feeLabel.text = feeInfo?.feeInETH
-        } else {
-            feeLabel.text = feeInfo?.feeInDollars
-        }
-    }
+
+	private func setupSkeletonLoading() {
+		feeLabel.isSkeletonable = true
+	}
+
+	private func setupBindings() {
+		collateralConfrimVM.$feeInfo.sink { feeInfo in
+			self.feeInfo = feeInfo
+			self.feeLabel.text = feeInfo?.feeInDollars
+			self.hideSkeletonView()
+		}.store(in: &cancellables)
+	}
+
+	@objc
+	private func toggleFeeText() {
+		if feeLabel.text == feeInfo?.feeInDollars {
+			feeLabel.text = feeInfo?.feeInETH
+		} else {
+			feeLabel.text = feeInfo?.feeInDollars
+		}
+	}
 }
