@@ -61,25 +61,31 @@ class CollateralIncreaseAmountViewController: UIViewController {
 
 	private func checkForAllowance() {
 		// Check If Permit has access to Token
-		if collateralIncreaseAmountVM.selectedToken.isEth {
+        if collateralIncreaseAmountVM.selectedToken.isEth && collateralIncreaseAmountVM.borrowVM.selectedDexSystem == .compound {
 			pushToCollateralConfirmVC()
 			return
 		}
+        var selectedAllowenceToken: AssetViewModel {
+            if collateralIncreaseAmountVM.selectedToken.isEth {
+                return (GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
+            }
+            return collateralIncreaseAmountVM.selectedToken
+        }
 		firstly {
 			try web3.getAllowanceOf(
-				contractAddress: collateralIncreaseAmountVM.selectedToken.id.lowercased(),
+				contractAddress: selectedAllowenceToken.id.lowercased(),
 				spenderAddress: Web3Core.Constants.permitAddress,
 				ownerAddress: walletManager.currentAccount.eip55Address
 			)
 		}.done { [self] allowanceAmount in
-			let destTokenDecimal = collateralIncreaseAmountVM.selectedToken.decimal
+            let destTokenDecimal = selectedAllowenceToken.decimal
 			let destTokenAmount = Utilities.parseToBigUInt(
 				collateralIncreaseAmountVM.tokenAmount,
 				decimals: destTokenDecimal
 			)
 			if allowanceAmount == 0 || allowanceAmount < destTokenAmount! {
 				// NOT ALLOWED
-				presentApproveVC()
+                presentApproveVC(tokenContractAddress: selectedAllowenceToken.id)
 			} else {
 				// ALLOWED
 				pushToCollateralConfirmVC()
@@ -89,9 +95,9 @@ class CollateralIncreaseAmountViewController: UIViewController {
 		}
 	}
 
-	private func presentApproveVC() {
+    private func presentApproveVC(tokenContractAddress: String) {
 		let approveVC = ApproveContractViewController(
-			approveContractID: collateralIncreaseAmountVM.selectedToken.id,
+			approveContractID: tokenContractAddress,
 			showConfirmVC: {
 				self.pushToCollateralConfirmVC()
 			}, approveType: .collateral

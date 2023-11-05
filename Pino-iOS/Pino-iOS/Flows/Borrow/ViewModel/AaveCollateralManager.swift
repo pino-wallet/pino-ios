@@ -12,7 +12,7 @@ import Web3
 import Web3_Utility
 import Web3ContractABI
 
-class CollateralManager: Web3ManagerProtocol {
+class AaveCollateralManager: Web3ManagerProtocol {
 	// MARK: - TypeAliases
 
 	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
@@ -24,6 +24,7 @@ class CollateralManager: Web3ManagerProtocol {
 	private let web3Client = Web3APIClient()
 	private var asset: AssetViewModel
 	private var assetAmountBigNumber: BigNumber
+    private var assetAmountBigUInt: BigUInt
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Internal Properties
@@ -35,17 +36,20 @@ class CollateralManager: Web3ManagerProtocol {
 	// MARK: - Public Properties
 
 	public var depositGasInfo: GasInfo?
-	public var depositTRX: EthereumSignedTransaction?
+    public var depositTRX: EthereumSignedTransaction?
+    #warning("i should use this to create tx")
+    public var useUserReserveAsCollateralContractDetails: ContractDetailsModel?
 
 	// MARK: - Initializers
 
-	init(contract: DynamicContract, asset: AssetViewModel, assetAmountBigNumber: BigNumber) {
+	init(contract: DynamicContract, asset: AssetViewModel, assetAmount: String) {
 		if asset.isEth {
 			self.asset = (GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
 		} else {
 			self.asset = asset
 		}
-		self.assetAmountBigNumber = assetAmountBigNumber
+		self.assetAmountBigNumber = BigNumber(numberWithDecimal: assetAmount)
+        self.assetAmountBigUInt = Utilities.parseToBigUInt(assetAmount, decimals: asset.decimal)!
 		self.contract = contract
 	}
 
@@ -53,7 +57,7 @@ class CollateralManager: Web3ManagerProtocol {
 
 	func getProxyPermitTransferData(signiture: String) -> Promise<String> {
 		web3.getPermitTransferCallData(
-			contract: contract, amount: assetAmountBigNumber.bigUInt,
+			contract: contract, amount: assetAmountBigUInt,
 			tokenAdd: asset.id,
 			signiture: signiture,
 			nonce: nonce,
@@ -69,7 +73,7 @@ class CollateralManager: Web3ManagerProtocol {
 			let hashREq = EIP712HashRequestModel(
 				tokenAdd: asset.id,
 				amount:
-				assetAmountBigNumber.description,
+				assetAmountBigUInt.description,
 				spender: contract.address!.hex(eip55: true),
 				nonce: nonce.description,
 				deadline: deadline.description
@@ -104,7 +108,7 @@ class CollateralManager: Web3ManagerProtocol {
 		web3.getAaveDespositV3ERCCallData(
 			contract: contract,
 			assetAddress: asset.id,
-			amount: assetAmountBigNumber.bigUInt,
+			amount: assetAmountBigUInt,
 			userAddress: walletManager.currentAccount.eip55Address
 		)
 	}
@@ -116,18 +120,35 @@ class CollateralManager: Web3ManagerProtocol {
 			value: value ?? 0.bigNumber.bigUInt
 		)
 	}
-
-	public func confirmDeposit(completion: @escaping (Result<String>) -> Void) {
-		guard let depositTRX else { return }
-		web3.callTransaction(trx: depositTRX).done { trxHash in
-			#warning("i should add pending activity here")
-			completion(.fulfilled(trxHash))
-		}.catch { error in
-			completion(.rejected(error))
-		}
-	}
+	
 
 	// MARK: - Public Methods
+    
+    public func confirmDeposit(completion: @escaping (Result<String>) -> Void) {
+        guard let depositTRX else { return }
+        web3.callTransaction(trx: depositTRX).done { trxHash in
+            #warning("i should add pending activity here")
+            #warning("i should send useUserResrverAsCollateral tx here")
+            completion(.fulfilled(trxHash))
+        }.catch { error in
+            completion(.rejected(error))
+        }
+    }
+    
+    public func getUserUseReserveAsCollateralData() -> Promise<GasInfo> {
+        Promise<GasInfo> { seal in
+            web3.getUserUseReserveAsCollateralContractDetails(assetAddress: asset.id, useAsCollateral: true).done { contractDetails in
+                self.useUserReserveAsCollateralContractDetails = contractDetails
+                self.web3.getUserUseReserveAsCollateralGasInfo(contractDetails: contractDetails).done { gasInfo in
+                    seal.fulfill(gasInfo)
+                }.catch { error in
+                    seal.reject(error)
+                }
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
+    }
 
 	public func getERC20CollateralData() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
@@ -178,7 +199,7 @@ class CollateralManager: Web3ManagerProtocol {
 			}.then { depositData, wrapETHData, allowanceData in
 				var multiCallData: [String] = [wrapETHData, depositData]
 				if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
-				return self.callProxyMultiCall(data: multiCallData, value: self.assetAmountBigNumber.bigUInt)
+                return self.callProxyMultiCall(data: multiCallData, value: self.assetAmountBigUInt)
 			}.done { depositResults in
 				self.depositTRX = depositResults.0
 				self.depositGasInfo = depositResults.1

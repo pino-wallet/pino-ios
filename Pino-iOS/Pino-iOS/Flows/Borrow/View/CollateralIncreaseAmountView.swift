@@ -257,6 +257,12 @@ class CollateralIncreaseAmountView: UIView {
 		if amountTextfield.text == .emptyString {
 			continueButton.style = .deactive
 		}
+        
+        // ACTIVATING continue button since in devnet we don't need validation
+        // to check if there is balance
+        if Web3Network.current == .ganashDev {
+            continueButton.style = .active
+        }
 	}
 
 	private func updateViewWithPageStatus() {

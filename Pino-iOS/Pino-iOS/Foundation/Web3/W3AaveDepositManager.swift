@@ -44,14 +44,14 @@ public struct W3AaveDepositManager {
 	) -> Promise<ContractDetailsModel> {
 		Promise<ContractDetailsModel> { seal in
 			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.aavePoolERCContractAddress,
+                address: Web3Core.Constants.aavePoolERCContractAddress,
 				abi: .borrowERCAave,
 				web3: web3
 			)
 			let solInvocation = contract[ABIMethodWrite.setUserUseReserveAsCollateral.rawValue]?(
 				assetAddress
 					.eip55Address!,
-				useAsCollateral
+                useAsCollateral
 			)
 			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvocation!))
 		}
@@ -73,7 +73,7 @@ public struct W3AaveDepositManager {
 	public func getUserUseReserveAsCollateralGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
 		Promise<GasInfo> { seal in
 			gasInfoManager.calculateGasOf(
-				method: .borrow,
+                method: .setUserUseReserveAsCollateral,
 				solInvoc: contractDetails.solInvocation,
 				contractAddress: contractDetails.contract.address!
 			).done { gasInfo in
@@ -117,7 +117,7 @@ public struct W3AaveDepositManager {
 		Promise<EthereumSignedTransaction> { seal in
 
 			gasInfoManager.calculateGasOf(
-				method: .borrow,
+				method: .setUserUseReserveAsCollateral,
 				solInvoc: contractDetails.solInvocation,
 				contractAddress: contractDetails.contract.address!
 			)
