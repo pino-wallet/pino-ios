@@ -427,7 +427,7 @@ class SwapManager: Web3ManagerProtocol {
 				detail: .init(
 					fromToken: .init(amount: srcToken.tokenAmount!, tokenID: srcToken.selectedToken.id),
 					toToken: .init(amount: destToken.tokenAmount!, tokenID: destToken.selectedToken.id),
-					activityProtocol: selectedProvider.provider.rawValue
+                    activityProtocol: selectedProvider.provider.name
 				),
 				fromAddress: userAddress,
 				toAddress: selectedProvider.provider.contractAddress,
