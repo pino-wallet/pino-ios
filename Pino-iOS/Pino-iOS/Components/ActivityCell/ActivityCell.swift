@@ -17,7 +17,7 @@ class ActivityCell: UICollectionViewCell {
 	private let historyTitleContainer = UIView()
 	private let historyTitleLabel = PinoLabel(style: .title, text: nil)
 	private let historyMoreInfoLabel = UILabel()
-    private let historyMoreInfoLoadingContainer = UIView()
+	private let historyMoreInfoLoadingContainer = UIView()
 	private let statusStackView = UIStackView()
 	private let statusLabelContainer = UIView()
 	private let statusLabel = UILabel()
@@ -47,7 +47,7 @@ class ActivityCell: UICollectionViewCell {
 		contentStackView.addArrangedSubview(historyTitleContainer)
 		historyTitleStackView.addArrangedSubview(historyTitleLabel)
 		historyTitleStackView.addArrangedSubview(statusStackView)
-        statusStackView.addArrangedSubview(historyMoreInfoLoadingContainer)
+		statusStackView.addArrangedSubview(historyMoreInfoLoadingContainer)
 		statusStackView.addArrangedSubview(historyMoreInfoLabel)
 		statusStackView.addArrangedSubview(statusLabelContainer)
 	}
@@ -87,14 +87,14 @@ class ActivityCell: UICollectionViewCell {
 
 		historyIcon.layer.cornerRadius = 22
 		historyIcon.layer.masksToBounds = true
-        
-        if activityCellVM != nil {
-            historyMoreInfoLoadingContainer.isHidden = true
-            historyMoreInfoLabel.isHidden = false
-        } else {
-            historyMoreInfoLoadingContainer.isHidden = false
-            historyMoreInfoLabel.isHidden = true
-        }
+
+		if activityCellVM != nil {
+			historyMoreInfoLoadingContainer.isHidden = true
+			historyMoreInfoLabel.isHidden = false
+		} else {
+			historyMoreInfoLoadingContainer.isHidden = false
+			historyMoreInfoLabel.isHidden = true
+		}
 
 		statusLabel.text = activityCellVM?.status.rawValue
 		switch activityCellVM?.status {
@@ -128,8 +128,8 @@ class ActivityCell: UICollectionViewCell {
 		historyTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 180).isActive = true
 		historyTitleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 220).isActive = true
 		historyMoreInfoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 120).isActive = true
-        historyMoreInfoLoadingContainer.widthAnchor.constraint(equalToConstant: 56).isActive = true
-        historyMoreInfoLoadingContainer.heightAnchor.constraint(equalToConstant: 14).isActive = true
+		historyMoreInfoLoadingContainer.widthAnchor.constraint(equalToConstant: 56).isActive = true
+		historyMoreInfoLoadingContainer.heightAnchor.constraint(equalToConstant: 14).isActive = true
 
 		historyTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 17).isActive = true
 		historyMoreInfoLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14).isActive = true
