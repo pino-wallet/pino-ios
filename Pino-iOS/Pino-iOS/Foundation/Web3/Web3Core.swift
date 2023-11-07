@@ -437,6 +437,10 @@ public class Web3Core {
 	public func aaveBorrowToken(contractDetails: ContractDetailsModel) -> Promise<String> {
 		aaveBorrowManager.borrowToken(contractDetails: contractDetails)
 	}
+    
+    public func checkIfAssetUsedAsCollateral(assetAddress: String) -> Promise<Bool> {
+        aaveDepositManager.checkIfAssetUsedAsCollateral(assetAddress: assetAddress)
+    }
 
 	public func getAaveDespositV3ERCCallData(
 		contract: DynamicContract,

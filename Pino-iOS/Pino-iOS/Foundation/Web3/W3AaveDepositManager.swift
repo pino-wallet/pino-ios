@@ -37,6 +37,23 @@ public struct W3AaveDepositManager {
 	}
 
 	// MARK: - Public Methods
+    
+    public func checkIfAssetUsedAsCollateral(assetAddress: String) -> Promise<Bool> {
+        Promise<Bool> { seal in
+            let contract = try Web3Core.getContractOfToken(address: Web3Core.Constants.aavePoolERCContractAddress, abi: .borrowERCAave, web3: web3)
+            let solInvolcation = contract[ABIMethodCall.getReserveData.rawValue]?(assetAddress.eip55Address!)
+            solInvolcation?.call().done { result in
+                print("heh res", result.values)
+                if let reserveData = result.values.first as? BigInt {
+                    let reserveDataBigUInt = try BigUInt(reserveData.description)
+                    let isCollateral = (reserveDataBigUInt & BigUInt(1 << 1)) > 0
+                    seal.fulfill(isCollateral)
+                }
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
+    }
 
 	public func getUserUseReserveAsCollateralContractDetails(
 		assetAddress: String,

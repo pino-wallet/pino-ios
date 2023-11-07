@@ -94,6 +94,11 @@ class CollateralConfirmViewModel {
 		switch collaterallIncreaseAmountVM.borrowVM.selectedDexSystem {
 		case .aave:
 			if selectedToken.isEth {
+                aaveCollateralManager.checkIfAssetUsedAsCollateral().done { iss in
+                    print("heh", iss)
+                }.catch { error in
+                    print("heh", error)
+                }
 				aaveCollateralManager.getETHCollateralData().done { _, depositGasInfo in
 					self.aaveCollateralManager.getUserUseReserveAsCollateralData().done { userReserveGasInfo in
 						let totalFeeInDollars = depositGasInfo.feeInDollar + userReserveGasInfo.feeInDollar
