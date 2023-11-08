@@ -28,6 +28,8 @@ struct ActivityHelper {
 			return transferActivity
 		case let .transfer_from(transferActivity):
 			return transferActivity
+        case let .borrow(borrowActivity):
+            return borrowActivity
 		case .unknown:
 			return nil
 		}

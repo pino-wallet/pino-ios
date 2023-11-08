@@ -25,6 +25,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private var activityModel: ActivityModelProtocol
 	private var swapDetailsVM: SwapActivityDetailsViewModel?
 	private var transferDetailsVM: TransferActivityDetailsViewModel?
+    private var borrowDetailsVM: BorrowActivityDetailsViewModel?
 
 	// MARK: - Internal Properties
 
@@ -62,8 +63,8 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			//            return .invest
 			//        case .decrease_investment:
 			//            return .decrease_invest
-			//        case .borrow:
-			//            return .borrow
+			        case .borrow:
+			            return .borrow
 			//        case .repay, .repay_behalf:
 			//            return .repay
 			//        case .increase_collateral, .create_collateral:
@@ -152,6 +153,8 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 				activityModel: activityModel as! ActivitySwapModel,
 				globalAssetsList: globalAssetsList
 			)
+        case .borrow:
+            borrowDetailsVM = BorrowActivityDetailsViewModel(activityModel: activityModel as! ActivityBorrowModel, globalAssetsList: globalAssetsList)
 		}
 	}
 
@@ -185,6 +188,14 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 				"From: \(transferDetailsVM!.userFromAccountInfo?.name ?? activityModel.fromAddress.addressFromStartFormatting())"
 			// set cell icon
 			icon = receiveIcon
+        case .borrow:
+            // set cell title
+            title =
+            "Borrow \(borrowDetailsVM!.tokenAmount.sevenDigitFormat) \(borrowDetailsVM!.tokenSymbol)"
+            // set cell moreInfo
+            activityMoreInfo = borrowDetailsVM!.activityProtocol.capitalized
+            // set cell icon
+            icon = borrowIcon
 		}
 	}
 }
