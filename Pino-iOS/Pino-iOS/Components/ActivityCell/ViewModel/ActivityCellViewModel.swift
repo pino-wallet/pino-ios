@@ -25,7 +25,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private var activityModel: ActivityModelProtocol
 	private var swapDetailsVM: SwapActivityDetailsViewModel?
 	private var transferDetailsVM: TransferActivityDetailsViewModel?
-    private var borrowDetailsVM: BorrowActivityDetailsViewModel?
+	private var borrowDetailsVM: BorrowActivityDetailsViewModel?
 
 	// MARK: - Internal Properties
 
@@ -54,17 +54,17 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			return .receive
 		case .swap:
 			return .swap
-			//        case .create_investment, .increase_investment:
-			//            return .invest
-			//        case .create_withdraw_investment:
-			//            if isWithdrawTransaction() {
-			//                return .withdraw
-			//            }
-			//            return .invest
-			//        case .decrease_investment:
-			//            return .decrease_invest
-			        case .borrow:
-			            return .borrow
+		//        case .create_investment, .increase_investment:
+		//            return .invest
+		//        case .create_withdraw_investment:
+		//            if isWithdrawTransaction() {
+		//                return .withdraw
+		//            }
+		//            return .invest
+		//        case .decrease_investment:
+		//            return .decrease_invest
+		case .borrow:
+			return .borrow
 			//        case .repay, .repay_behalf:
 			//            return .repay
 			//        case .increase_collateral, .create_collateral:
@@ -153,8 +153,11 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 				activityModel: activityModel as! ActivitySwapModel,
 				globalAssetsList: globalAssetsList
 			)
-        case .borrow:
-            borrowDetailsVM = BorrowActivityDetailsViewModel(activityModel: activityModel as! ActivityBorrowModel, globalAssetsList: globalAssetsList)
+		case .borrow:
+			borrowDetailsVM = BorrowActivityDetailsViewModel(
+				activityModel: activityModel as! ActivityBorrowModel,
+				globalAssetsList: globalAssetsList
+			)
 		}
 	}
 
@@ -188,14 +191,14 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 				"From: \(transferDetailsVM!.userFromAccountInfo?.name ?? activityModel.fromAddress.addressFromStartFormatting())"
 			// set cell icon
 			icon = receiveIcon
-        case .borrow:
-            // set cell title
-            title =
-            "Borrow \(borrowDetailsVM!.tokenAmount.sevenDigitFormat) \(borrowDetailsVM!.tokenSymbol)"
-            // set cell moreInfo
-            activityMoreInfo = borrowDetailsVM!.activityProtocol.capitalized
-            // set cell icon
-            icon = borrowIcon
+		case .borrow:
+			// set cell title
+			title =
+				"Borrow \(borrowDetailsVM!.tokenAmount.sevenDigitFormat) \(borrowDetailsVM!.tokenSymbol)"
+			// set cell moreInfo
+			activityMoreInfo = borrowDetailsVM!.activityProtocol.capitalized
+			// set cell icon
+			icon = borrowIcon
 		}
 	}
 }

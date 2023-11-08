@@ -19,35 +19,35 @@ struct ActivityDetailProperties {
 	private var feeInETH: BigNumber!
 	private var swapDetailsVM: SwapActivityDetailsViewModel?
 	private var transferDetailsVM: TransferActivityDetailsViewModel?
-    private var borrowDetailsVM: BorrowActivityDetailsViewModel?
+	private var borrowDetailsVM: BorrowActivityDetailsViewModel?
 
 	// MARK: - Public Properties
 
 	// header properties
 	public var assetIcon: URL? {
-        switch activityDetails.uiType {
-        case .swap:
-            return nil
-        case .borrow:
-            return borrowDetailsVM?.tokenImage
-        case .send:
-            return transferDetailsVM?.transferTokenImage
-        case .receive:
-            return transferDetailsVM?.transferTokenImage
-        }
+		switch activityDetails.uiType {
+		case .swap:
+			return nil
+		case .borrow:
+			return borrowDetailsVM?.tokenImage
+		case .send:
+			return transferDetailsVM?.transferTokenImage
+		case .receive:
+			return transferDetailsVM?.transferTokenImage
+		}
 	}
 
 	public var assetAmountTitle: String? {
-        switch activityDetails.uiType {
-        case .swap:
-            return nil
-        case .borrow:
-            return "\(borrowDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(borrowDetailsVM?.tokenSymbol ?? "")"
-        case .send:
-            return "\(transferDetailsVM?.transferTokenAmount.sevenDigitFormat ?? "") \(transferDetailsVM?.transferTokenSymbol ?? "")"
-        case .receive:
-            return "\(transferDetailsVM?.transferTokenAmount.sevenDigitFormat ?? "") \(transferDetailsVM?.transferTokenSymbol ?? "")"
-        }
+		switch activityDetails.uiType {
+		case .swap:
+			return nil
+		case .borrow:
+			return "\(borrowDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(borrowDetailsVM?.tokenSymbol ?? "")"
+		case .send:
+			return "\(transferDetailsVM?.transferTokenAmount.sevenDigitFormat ?? "") \(transferDetailsVM?.transferTokenSymbol ?? "")"
+		case .receive:
+			return "\(transferDetailsVM?.transferTokenAmount.sevenDigitFormat ?? "") \(transferDetailsVM?.transferTokenSymbol ?? "")"
+		}
 	}
 
 	public var fromTokenSymbol: String? {
@@ -85,29 +85,29 @@ struct ActivityDetailProperties {
 	}
 
 	public var protocolName: String? {
-        switch activityDetails.uiType {
-        case .swap:
-            return swapDetailsVM?.activityProtocol.capitalized
-        case .borrow:
-            return borrowDetailsVM?.activityProtocol.capitalized
-        case .send:
-            return nil
-        case .receive:
-            return nil
-        }
+		switch activityDetails.uiType {
+		case .swap:
+			return swapDetailsVM?.activityProtocol.capitalized
+		case .borrow:
+			return borrowDetailsVM?.activityProtocol.capitalized
+		case .send:
+			return nil
+		case .receive:
+			return nil
+		}
 	}
 
 	public var protocolImage: String? {
-        switch activityDetails.uiType {
-        case .swap:
-            return swapDetailsVM?.activityProtocol
-        case .borrow:
-            return borrowDetailsVM?.activityProtocol
-        case .send:
-            return nil
-        case .receive:
-            return nil
-        }
+		switch activityDetails.uiType {
+		case .swap:
+			return swapDetailsVM?.activityProtocol
+		case .borrow:
+			return borrowDetailsVM?.activityProtocol
+		case .send:
+			return nil
+		case .receive:
+			return nil
+		}
 	}
 
 	public var formattedFeeInDollar: String {
@@ -195,7 +195,10 @@ struct ActivityDetailProperties {
 			)
 
 		case .borrow:
-            borrowDetailsVM = BorrowActivityDetailsViewModel(activityModel: activityDetails.defaultActivityModel as! ActivityBorrowModel, globalAssetsList: globalAssetsList)
+			borrowDetailsVM = BorrowActivityDetailsViewModel(
+				activityModel: activityDetails.defaultActivityModel as! ActivityBorrowModel,
+				globalAssetsList: globalAssetsList
+			)
 		case .send:
 			transferDetailsVM = TransferActivityDetailsViewModel(
 				activityModel: activityDetails.defaultActivityModel as! ActivityTransferModel,

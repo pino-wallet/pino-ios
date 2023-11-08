@@ -16,7 +16,7 @@ enum ActivityType: String {
 	//    case decrease_investment
 	//    case increase_investment
 	//    case withdraw_investment
-	    case borrow
+	case borrow
 	//    case repay
 	//    case enable_collateral
 	//    case disable_collateral

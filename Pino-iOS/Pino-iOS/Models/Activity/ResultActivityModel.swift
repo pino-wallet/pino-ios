@@ -13,7 +13,7 @@ enum ResultActivityModel: Decodable, Encodable {
 	case swap(ActivityModelProtocol)
 	case transfer(ActivityModelProtocol)
 	case transfer_from(ActivityModelProtocol)
-	    case borrow(ActivityBorrowModel)
+	case borrow(ActivityBorrowModel)
 	//    case collateral(ActivityCollateralModel)
 	//    case repay(ActivityRepayModel)
 	//    case withdraw(ActivityWithdrawModel)
@@ -48,9 +48,9 @@ enum ResultActivityModel: Decodable, Encodable {
 		//        case .withdraw_investment, .decrease_investment:
 		//            let withdrawActivity = try ActivityWithdrawModel(from: decoder)
 		//            self = .withdraw(withdrawActivity)
-		        case .borrow:
-		            let borrowActivity = try ActivityBorrowModel(from: decoder)
-		            self = .borrow(borrowActivity)
+		case .borrow:
+			let borrowActivity = try ActivityBorrowModel(from: decoder)
+			self = .borrow(borrowActivity)
 		//        case .repay, .repay_behalf:
 		//            let repayActivity = try ActivityRepayModel(from: decoder)
 		//            self = .repay(repayActivity)
@@ -77,9 +77,9 @@ enum ResultActivityModel: Decodable, Encodable {
 		case let .transfer_from(transferActivity):
 			try container.encode(ActivityType.transfer_from.rawValue, forKey: .type)
 			try transferActivity.encode(to: encoder)
-		        case let .borrow(borrowActivity):
-		            try container.encode(ActivityType.borrow.rawValue, forKey: .type)
-		            try borrowActivity.encode(to: encoder)
+		case let .borrow(borrowActivity):
+			try container.encode(ActivityType.borrow.rawValue, forKey: .type)
+			try borrowActivity.encode(to: encoder)
 		//        case let .collateral(collateralActivity):
 		//            try container.encode(ActivityType.create_collateral.rawValue, forKey: .type)
 		//            try collateralActivity.encode(to: encoder)
