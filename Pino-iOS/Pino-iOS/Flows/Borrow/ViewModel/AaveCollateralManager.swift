@@ -122,10 +122,10 @@ class AaveCollateralManager: Web3ManagerProtocol {
 	}
 
 	// MARK: - Public Methods
-    
-    public func checkIfAssetUsedAsCollateral() -> Promise<Bool> {
-        web3.checkIfAssetUsedAsCollateral(assetAddress: asset.id)
-    }
+
+	public func checkIfAssetUsedAsCollateral() -> Promise<Bool> {
+		web3.checkIfAssetUsedAsCollateral(assetAddress: asset.id)
+	}
 
 	public func confirmDeposit(completion: @escaping (Result<String>) -> Void) {
 		guard let depositTRX else { return }
