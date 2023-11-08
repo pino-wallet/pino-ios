@@ -9,6 +9,7 @@ import Foundation
 import PromiseKit
 import Web3
 import Web3ContractABI
+import BigInt
 
 public struct W3AaveDepositManager {
 	// MARK: - Initilizer
@@ -41,13 +42,21 @@ public struct W3AaveDepositManager {
     public func checkIfAssetUsedAsCollateral(assetAddress: String) -> Promise<Bool> {
         Promise<Bool> { seal in
             let contract = try Web3Core.getContractOfToken(address: Web3Core.Constants.aavePoolERCContractAddress, abi: .borrowERCAave, web3: web3)
-            let solInvolcation = contract[ABIMethodCall.getReserveData.rawValue]?(assetAddress.eip55Address!)
-            solInvolcation?.call().done { result in
-                print("heh res", result.values)
-                if let reserveData = result.values.first as? BigInt {
-                    let reserveDataBigUInt = try BigUInt(reserveData.description)
-                    let isCollateral = (reserveDataBigUInt & BigUInt(1 << 1)) > 0
-                    seal.fulfill(isCollateral)
+            let reserveListSolInvocation = contract[ABIMethodCall.getReservesList.rawValue]?()
+            let getUserConfigurationSolInvocation = contract[ABIMethodCall.getUserConfiguration.rawValue]?(walletManager.currentAccount.eip55Address.eip55Address!)
+            reserveListSolInvocation?.call().done { result in
+                if let reserveTokensList = result.first?.value as? [EthereumAddress] {
+                    getUserConfigurationSolInvocation?.call().done { configuration in
+                        if let configurationDictionary = configuration.first?.value as? [String:Any] {
+                            if let configurationNumber = configurationDictionary["data"] as? BigUInt {
+                                let configurationBinaryString = String(configurationNumber, radix: 2)
+                                let checkIsAssetCollateralledResult = checkIsCollateralledAsset(reserveList: reserveTokensList, configurationBinaryString: configurationBinaryString, assetAddress: (assetAddress.eip55Address?.hex(eip55: true))!)
+                                seal.fulfill(checkIsAssetCollateralledResult)
+                            }
+                        }
+                    }.catch { error in
+                        seal.reject(error)
+                    }
                 }
             }.catch { error in
                 seal.reject(error)
@@ -128,6 +137,46 @@ public struct W3AaveDepositManager {
 	}
 
 	// MARK: - Private Methods
+    
+    private func checkIsCollateralledAsset(reserveList: [EthereumAddress], configurationBinaryString: String, assetAddress: String) -> Bool {
+        var result = false
+
+        if (configurationBinaryString == "0") {
+          return result;
+        }
+
+        var enabledCollateralList: [Bool] = [];
+        for index in stride(from: configurationBinaryString.count - 1, through: 0, by: -2) {
+            if (index + 1) % 2 == 0 {
+                if index - 1 < 0 {
+                    enabledCollateralList.append(false)
+                    continue
+                }
+                
+                let stringIndex = configurationBinaryString.index(configurationBinaryString.startIndex, offsetBy: index - 1)
+                if configurationBinaryString[stringIndex] == "1" {
+                    enabledCollateralList.append(true)
+                    continue
+                }
+                
+                enabledCollateralList.append(false)
+            }
+        }
+        guard let foundAssetIndexInReserveList = reserveList.firstIndex(where: { $0.hex(eip55: true) == assetAddress.eip55Address?.hex(eip55: true) }) else {
+            return result
+        }
+        
+        guard foundAssetIndexInReserveList <= enabledCollateralList.count - 1 else {
+            return result
+        }
+        
+        if enabledCollateralList[foundAssetIndexInReserveList] {
+            result = true
+        }
+
+        return result;
+      }
+
 
 	private func getUserUseReserveAsCollateralTransaction(contractDetails: ContractDetailsModel)
 		-> Promise<EthereumSignedTransaction> {

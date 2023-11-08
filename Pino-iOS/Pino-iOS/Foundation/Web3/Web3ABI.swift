@@ -73,7 +73,8 @@ public enum ABIMethodCall: String {
 	case symbol
 	case allowance
 	case approve
-    case getReserveData
+    case getReservesList
+    case getUserConfiguration
 }
 
 public enum ABIMethodWrite: String {
