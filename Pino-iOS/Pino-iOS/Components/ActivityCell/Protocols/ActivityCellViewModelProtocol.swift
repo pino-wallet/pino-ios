@@ -31,7 +31,8 @@ public enum ActivityUIType {
 	case send
 	case receive
 //	case collateral
-//	case un_collateral
+//	case decrease_collateral
+//    case decrease_invest
 //	case invest
 //	case repay
 //	case withdraw

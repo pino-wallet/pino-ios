@@ -13,11 +13,11 @@ enum ResultActivityModel: Decodable, Encodable {
 	case swap(ActivityModelProtocol)
 	case transfer(ActivityModelProtocol)
 	case transfer_from(ActivityModelProtocol)
-    case borrow(ActivityBorrowModel)
-    case collateral(ActivityCollateralModel)
-    case repay(ActivityRepayModel)
-    case withdraw(ActivityWithdrawModel)
-    case invest(ActivityInvestModel)
+//    case borrow(ActivityBorrowModel)
+//    case collateral(ActivityCollateralModel)
+//    case repay(ActivityRepayModel)
+//    case withdraw(ActivityWithdrawModel)
+//    case invest(ActivityInvestModel)
 	case unknown(UnknownActivityModel?)
 
 	// MARK: - Coding keys
@@ -42,19 +42,23 @@ enum ResultActivityModel: Decodable, Encodable {
 		case .transfer:
 			let transferActivity = try ActivityTransferModel(from: decoder)
 			self = .transfer(transferActivity)
-        case .create_investment, .create_withdraw_investment:
-        case .decrease_investment:
-        case .increase_investment:
-        case .withdraw_investment:
-        case .borrow:
-        case .repay:
-        case .repay_behalf:
-        case .increase_collateral:
-        case .decrease_collateral:
-        case .create_collateral:
-        case .remove_collateral:
-//		default:
-//			self = .unknown(nil)
+//        case .create_investment, .create_withdraw_investment, .increase_investment:
+//            let investActivity = try ActivityInvestModel(from: decoder)
+//            self = .invest(investActivity)
+//        case .withdraw_investment, .decrease_investment:
+//            let withdrawActivity = try ActivityWithdrawModel(from: decoder)
+//            self = .withdraw(withdrawActivity)
+//        case .borrow:
+//            let borrowActivity = try ActivityBorrowModel(from: decoder)
+//            self = .borrow(borrowActivity)
+//        case .repay, .repay_behalf:
+//            let repayActivity = try ActivityRepayModel(from: decoder)
+//            self = .repay(repayActivity)
+//        case .increase_collateral, .decrease_collateral, .create_collateral, .remove_collateral:
+//            let collateralActivity = try ActivityCollateralModel(from: decoder)
+//            self = .collateral(collateralActivity)
+		default:
+			self = .unknown(nil)
 		}
 	}
 
@@ -73,16 +77,21 @@ enum ResultActivityModel: Decodable, Encodable {
 		case let .transfer_from(transferActivity):
 			try container.encode(ActivityType.transfer_from.rawValue, forKey: .type)
 			try transferActivity.encode(to: encoder)
-        case .borrow(_):
-            <#code#>
-        case .collateral(_):
-            <#code#>
-        case .repay(_):
-            <#code#>
-        case .withdraw(_):
-            <#code#>
-        case .invest(_):
-            <#code#>
+//        case let .borrow(borrowActivity):
+//            try container.encode(ActivityType.borrow.rawValue, forKey: .type)
+//            try borrowActivity.encode(to: encoder)
+//        case let .collateral(collateralActivity):
+//            try container.encode(ActivityType.create_collateral.rawValue, forKey: .type)
+//            try collateralActivity.encode(to: encoder)
+//        case let .repay(repayActivity):
+//            try container.encode(ActivityType.repay.rawValue, forKey: .type)
+//            try repayActivity.encode(to: encoder)
+//        case let .withdraw(withdrawActivity):
+//            try container.encode(ActivityType.withdraw_investment.rawValue, forKey: .type)
+//            try withdrawActivity.encode(to: encoder)
+//        case let .invest(investActivity):
+//            try container.encode(ActivityType.create_investment.rawValue, forKey: .type)
+//            try investActivity.encode(to: encoder)
 		case let .unknown(nilDetails):
 			try nilDetails.encode(to: encoder)
         }
