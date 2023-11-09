@@ -8,36 +8,36 @@
 import Foundation
 
 struct WithdrawInvestmentActivityDetailsViewModel: ActivityDetailsProtocol {
-    // MARK: - Internal Properties
+	// MARK: - Internal Properties
 
-    internal var activityModel: ActivityWithdrawModel
-    internal var globalAssetsList: [AssetViewModel]
+	internal var activityModel: ActivityWithdrawModel
+	internal var globalAssetsList: [AssetViewModel]
 
-    // MARK: - Private Properties
-    
-    private var responseSelectedToken: ActivityTokenModel {
-        activityModel.detail.tokens[0]
-    }
+	// MARK: - Private Properties
 
-    private var token: AssetViewModel? {
-        globalAssetsList.first(where: { $0.id.lowercased() == responseSelectedToken.tokenID.lowercased() })
-    }
+	private var responseSelectedToken: ActivityTokenModel {
+		activityModel.detail.tokens[0]
+	}
 
-    // MARK: - Public Properties
+	private var token: AssetViewModel? {
+		globalAssetsList.first(where: { $0.id.lowercased() == responseSelectedToken.tokenID.lowercased() })
+	}
 
-    public var tokenAmount: BigNumber {
-        BigNumber(number: responseSelectedToken.amount, decimal: token?.decimal ?? 0)
-    }
+	// MARK: - Public Properties
 
-    public var tokenSymbol: String {
-        token?.symbol ?? ""
-    }
+	public var tokenAmount: BigNumber {
+		BigNumber(number: responseSelectedToken.amount, decimal: token?.decimal ?? 0)
+	}
 
-    public var tokenImage: URL? {
-        token?.image
-    }
+	public var tokenSymbol: String {
+		token?.symbol ?? ""
+	}
 
-    public var activityProtocol: String {
-        activityModel.detail.activityProtocol
-    }
+	public var tokenImage: URL? {
+		token?.image
+	}
+
+	public var activityProtocol: String {
+		activityModel.detail.activityProtocol
+	}
 }

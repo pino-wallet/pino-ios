@@ -27,7 +27,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private var transferDetailsVM: TransferActivityDetailsViewModel?
 	private var borrowDetailsVM: BorrowActivityDetailsViewModel?
 	private var repayDetailsVM: RepayActivityDetailsViewModel?
-    private var withdrawInvestmentDetailsVM: WithdrawInvestmentActivityDetailsViewModel?
+	private var withdrawInvestmentDetailsVM: WithdrawInvestmentActivityDetailsViewModel?
 
 	// MARK: - Internal Properties
 
@@ -63,8 +63,8 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		//                return .withdraw_invest
 		//            }
 		//            return .invest
-		        case .decrease_investment, .withdraw_investment:
-		            return .withdraw_investment
+		case .decrease_investment, .withdraw_investment:
+			return .withdraw_investment
 		case .borrow:
 			return .borrow
 		case .repay, .repay_behalf:
@@ -165,9 +165,12 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 				activityModel: activityModel as! ActivityRepayModel,
 				globalAssetsList: globalAssetsList
 			)
-            
-        case .decrease_investment, .withdraw_investment:
-            withdrawInvestmentDetailsVM = WithdrawInvestmentActivityDetailsViewModel(activityModel: activityModel as! ActivityWithdrawModel, globalAssetsList: globalAssetsList)
+
+		case .decrease_investment, .withdraw_investment:
+			withdrawInvestmentDetailsVM = WithdrawInvestmentActivityDetailsViewModel(
+				activityModel: activityModel as! ActivityWithdrawModel,
+				globalAssetsList: globalAssetsList
+			)
 		}
 	}
 
@@ -217,14 +220,14 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			activityMoreInfo = repayDetailsVM!.activityProtocol.capitalized
 			// set cell icon
 			icon = repaidIcon
-        case .withdraw_investment:
-            // set cell title
-            title =
-                "Withdraw \(withdrawInvestmentDetailsVM!.tokenAmount.sevenDigitFormat) \(withdrawInvestmentDetailsVM!.tokenSymbol)"
-            // set cell moreInfo
-            activityMoreInfo = withdrawInvestmentDetailsVM!.activityProtocol.capitalized
-            // set cell icon
-            icon = withdrawIcon
+		case .withdraw_investment:
+			// set cell title
+			title =
+				"Withdraw \(withdrawInvestmentDetailsVM!.tokenAmount.sevenDigitFormat) \(withdrawInvestmentDetailsVM!.tokenSymbol)"
+			// set cell moreInfo
+			activityMoreInfo = withdrawInvestmentDetailsVM!.activityProtocol.capitalized
+			// set cell icon
+			icon = withdrawIcon
 		}
 	}
 }
