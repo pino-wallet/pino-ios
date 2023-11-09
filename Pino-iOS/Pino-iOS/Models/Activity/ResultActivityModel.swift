@@ -45,9 +45,9 @@ enum ResultActivityModel: Decodable, Encodable {
 		//        case .create_investment, .create_withdraw_investment, .increase_investment:
 		//            let investActivity = try ActivityInvestModel(from: decoder)
 		//            self = .invest(investActivity)
-		        case .withdraw_investment, .decrease_investment:
-		            let withdrawActivity = try ActivityWithdrawModel(from: decoder)
-		            self = .withdraw(withdrawActivity)
+		case .withdraw_investment, .decrease_investment:
+			let withdrawActivity = try ActivityWithdrawModel(from: decoder)
+			self = .withdraw(withdrawActivity)
 		case .borrow:
 			let borrowActivity = try ActivityBorrowModel(from: decoder)
 			self = .borrow(borrowActivity)
