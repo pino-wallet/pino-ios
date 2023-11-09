@@ -341,6 +341,7 @@
 		D94A9A2229FE6CDA00DCA28D /* EditAccountNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A2129FE6CDA00DCA28D /* EditAccountNameView.swift */; };
 		D94A9A2429FE75FC00DCA28D /* EditAccountNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A2329FE75FC00DCA28D /* EditAccountNameViewModel.swift */; };
 		D9556E6F2AFB89B800ADF1B9 /* BorrowActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9556E6E2AFB89B800ADF1B9 /* BorrowActivityDetailsViewModel.swift */; };
+		D9556E712AFBA79D00ADF1B9 /* RepayActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9556E702AFBA79D00ADF1B9 /* RepayActivityDetailsViewModel.swift */; };
 		D95D20342AAC9B2E00E0A885 /* HealthScoreSystemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95D20332AAC9B2E00E0A885 /* HealthScoreSystemViewController.swift */; };
 		D95D20362AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95D20352AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift */; };
 		D95D49822A386BC10042FC85 /* TitleWithInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95D49812A386BC10042FC85 /* TitleWithInfo.swift */; };
@@ -1090,6 +1091,7 @@
 		D94A9A2129FE6CDA00DCA28D /* EditAccountNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameView.swift; sourceTree = "<group>"; };
 		D94A9A2329FE75FC00DCA28D /* EditAccountNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameViewModel.swift; sourceTree = "<group>"; };
 		D9556E6E2AFB89B800ADF1B9 /* BorrowActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowActivityDetailsViewModel.swift; sourceTree = "<group>"; };
+		D9556E702AFBA79D00ADF1B9 /* RepayActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepayActivityDetailsViewModel.swift; sourceTree = "<group>"; };
 		D95D20332AAC9B2E00E0A885 /* HealthScoreSystemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthScoreSystemViewController.swift; sourceTree = "<group>"; };
 		D95D20352AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthScoreSystemViewModel.swift; sourceTree = "<group>"; };
 		D95D49812A386BC10042FC85 /* TitleWithInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithInfo.swift; sourceTree = "<group>"; };
@@ -3115,6 +3117,7 @@
 				D9BE15AF2A693593005E4063 /* SwapActivityDetailsViewModel.swift */,
 				D9BE15B12A69360E005E4063 /* TransferActivityDetailsViewModel.swift */,
 				D9556E6E2AFB89B800ADF1B9 /* BorrowActivityDetailsViewModel.swift */,
+				D9556E702AFBA79D00ADF1B9 /* RepayActivityDetailsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -4724,6 +4727,7 @@
 				DF6DEDD22AA8C3D90080B47B /* EIP712PermitModel.swift in Sources */,
 				DFB1E9D42A08F19C00041B26 /* CoreDataManager.swift in Sources */,
 				E3FC69A22A8A0759009B3341 /* InvestmentPerformanceView.swift in Sources */,
+				D9556E712AFBA79D00ADF1B9 /* RepayActivityDetailsViewModel.swift in Sources */,
 				E3ABD2002AB1B26200947D37 /* importAccountsCell.swift in Sources */,
 				D916A8BC2A9F447100F391B5 /* BorrowIncreaseAmountViewModel.swift in Sources */,
 				8BB89902879DDF1FE9C46EF4 /* UnlockPasscodeView.swift in Sources */,
