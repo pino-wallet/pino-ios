@@ -201,8 +201,8 @@ class ActivityInfoView: UIView {
 //			hideFromAndToStackView()
 //		case .un_collateral:
 //			hideFromAndToStackView()
-//		case .invest:
-//			hideFromAndToStackView()
+		case .invest:
+			hideFromAndToStackView()
 		case .repay:
 			hideFromAndToStackView()
 		case .withdraw_investment:

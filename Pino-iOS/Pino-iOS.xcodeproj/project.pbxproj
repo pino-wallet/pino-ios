@@ -343,6 +343,9 @@
 		D9556E6F2AFB89B800ADF1B9 /* BorrowActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9556E6E2AFB89B800ADF1B9 /* BorrowActivityDetailsViewModel.swift */; };
 		D9556E712AFBA79D00ADF1B9 /* RepayActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9556E702AFBA79D00ADF1B9 /* RepayActivityDetailsViewModel.swift */; };
 		D95782372AFCC0B70007D580 /* WithdrawInvestmentActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95782362AFCC0B70007D580 /* WithdrawInvestmentActivityDetailsViewModel.swift */; };
+		D95782392AFCC92A0007D580 /* InvestActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95782382AFCC92A0007D580 /* InvestActivityDetailsViewModel.swift */; };
+		D957823B2AFCDD4E0007D580 /* ActivityInvestmentModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D957823A2AFCDD4E0007D580 /* ActivityInvestmentModelProtocol.swift */; };
+		D957823D2AFCE87D0007D580 /* InvestmentActivityDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D957823C2AFCE87D0007D580 /* InvestmentActivityDetails.swift */; };
 		D95D20342AAC9B2E00E0A885 /* HealthScoreSystemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95D20332AAC9B2E00E0A885 /* HealthScoreSystemViewController.swift */; };
 		D95D20362AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95D20352AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift */; };
 		D95D49822A386BC10042FC85 /* TitleWithInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95D49812A386BC10042FC85 /* TitleWithInfo.swift */; };
@@ -1094,6 +1097,9 @@
 		D9556E6E2AFB89B800ADF1B9 /* BorrowActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowActivityDetailsViewModel.swift; sourceTree = "<group>"; };
 		D9556E702AFBA79D00ADF1B9 /* RepayActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepayActivityDetailsViewModel.swift; sourceTree = "<group>"; };
 		D95782362AFCC0B70007D580 /* WithdrawInvestmentActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawInvestmentActivityDetailsViewModel.swift; sourceTree = "<group>"; };
+		D95782382AFCC92A0007D580 /* InvestActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestActivityDetailsViewModel.swift; sourceTree = "<group>"; };
+		D957823A2AFCDD4E0007D580 /* ActivityInvestmentModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityInvestmentModelProtocol.swift; sourceTree = "<group>"; };
+		D957823C2AFCE87D0007D580 /* InvestmentActivityDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentActivityDetails.swift; sourceTree = "<group>"; };
 		D95D20332AAC9B2E00E0A885 /* HealthScoreSystemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthScoreSystemViewController.swift; sourceTree = "<group>"; };
 		D95D20352AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthScoreSystemViewModel.swift; sourceTree = "<group>"; };
 		D95D49812A386BC10042FC85 /* TitleWithInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithInfo.swift; sourceTree = "<group>"; };
@@ -2755,6 +2761,7 @@
 			isa = PBXGroup;
 			children = (
 				D92278B62A78DF680098A36A /* ActivityModelProtocol.swift */,
+				D957823A2AFCDD4E0007D580 /* ActivityInvestmentModelProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -2763,6 +2770,7 @@
 			isa = PBXGroup;
 			children = (
 				D92278BC2A7904EA0098A36A /* ActivityTokenModel.swift */,
+				D957823C2AFCE87D0007D580 /* InvestmentActivityDetails.swift */,
 			);
 			path = "Shared Models";
 			sourceTree = "<group>";
@@ -3121,6 +3129,7 @@
 				D9556E6E2AFB89B800ADF1B9 /* BorrowActivityDetailsViewModel.swift */,
 				D9556E702AFBA79D00ADF1B9 /* RepayActivityDetailsViewModel.swift */,
 				D95782362AFCC0B70007D580 /* WithdrawInvestmentActivityDetailsViewModel.swift */,
+				D95782382AFCC92A0007D580 /* InvestActivityDetailsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -4151,6 +4160,7 @@
 				F1C2F0DA68898BE55C08D853 /* APIError.swift in Sources */,
 				E35BB64F2A598B80003987F5 /* GradientBorder.swift in Sources */,
 				C450E796AAC076DD8C15D8F9 /* AboutCoinModel.swift in Sources */,
+				D95782392AFCC92A0007D580 /* InvestActivityDetailsViewModel.swift in Sources */,
 				A6A306BA4B25BC475B98C8BD /* AboutCoinViewModel.swift in Sources */,
 				902BA90F4366DD5D18B06A90 /* AboutPinoView.swift in Sources */,
 				DD2E33C472905FA32AE84797 /* AboutPinoViewController.swift in Sources */,
@@ -4225,6 +4235,7 @@
 				8FEE7479372B430975CF245D /* AssetChartViewModel.swift in Sources */,
 				4037DCC72A8BD50100FCA96B /* ApproveContractViewController.swift in Sources */,
 				DFC4D03A2A360D8300F03DC4 /* Web3Core.swift in Sources */,
+				D957823B2AFCDD4E0007D580 /* ActivityInvestmentModelProtocol.swift in Sources */,
 				58725E16FF09C251760EF717 /* AssetLineChart.swift in Sources */,
 				E3FC69E32A920BE0009B3341 /* InvestmentBoardFilterViewModel.swift in Sources */,
 				D9A0BDAC2A974FE900AE132F /* BorrowingBoardDataSource.swift in Sources */,
@@ -4462,6 +4473,7 @@
 				D96FD3B12A9734870008977A /* BorrowSelectDexViewController.swift in Sources */,
 				E39F59522A9B26AE00023292 /* SelectInvestProtocolViewController.swift in Sources */,
 				98D92FBB51CC774F95B06CB8 /* IntroCollectionView.swift in Sources */,
+				D957823D2AFCE87D0007D580 /* InvestmentActivityDetails.swift in Sources */,
 				D94A9A2229FE6CDA00DCA28D /* EditAccountNameView.swift in Sources */,
 				E35BB6402A558F87003987F5 /* SwapProtocolCell.swift in Sources */,
 				0CDD5B1CF93FCD04F68CC1C9 /* IntroCollectionViewCell.swift in Sources */,

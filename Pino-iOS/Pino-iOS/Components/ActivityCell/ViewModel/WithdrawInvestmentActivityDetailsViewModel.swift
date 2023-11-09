@@ -10,7 +10,7 @@ import Foundation
 struct WithdrawInvestmentActivityDetailsViewModel: ActivityDetailsProtocol {
 	// MARK: - Internal Properties
 
-	internal var activityModel: ActivityWithdrawModel
+	internal var activityModel: ActivityInvestmentModelProtocol
 	internal var globalAssetsList: [AssetViewModel]
 
 	// MARK: - Private Properties
