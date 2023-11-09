@@ -22,7 +22,7 @@ struct ActivityDetailProperties {
 	private var borrowDetailsVM: BorrowActivityDetailsViewModel?
 	private var repayDetailsVM: RepayActivityDetailsViewModel?
 	private var withdrawInvestmentDetailsVM: WithdrawInvestmentActivityDetailsViewModel?
-    private var investDetailsVM: InvestActivityDetailsViewModel?
+	private var investDetailsVM: InvestActivityDetailsViewModel?
 
 	// MARK: - Public Properties
 
@@ -41,8 +41,8 @@ struct ActivityDetailProperties {
 			return repayDetailsVM?.tokenImage
 		case .withdraw_investment:
 			return withdrawInvestmentDetailsVM?.tokenImage
-        case .invest:
-                return investDetailsVM?.tokenImage
+		case .invest:
+			return investDetailsVM?.tokenImage
 		}
 	}
 
@@ -60,8 +60,8 @@ struct ActivityDetailProperties {
 			return "\(repayDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(repayDetailsVM?.tokenSymbol ?? "")"
 		case .withdraw_investment:
 			return "\(withdrawInvestmentDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(withdrawInvestmentDetailsVM?.tokenSymbol ?? "")"
-        case .invest:
-            return "\(investDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(investDetailsVM?.tokenSymbol ?? "")"
+		case .invest:
+			return "\(investDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(investDetailsVM?.tokenSymbol ?? "")"
 		}
 	}
 
@@ -109,8 +109,8 @@ struct ActivityDetailProperties {
 			return repayDetailsVM?.activityProtocol.capitalized
 		case .withdraw_investment:
 			return withdrawInvestmentDetailsVM?.activityProtocol.capitalized
-        case .invest:
-            return investDetailsVM?.activityProtocol.capitalized
+		case .invest:
+			return investDetailsVM?.activityProtocol.capitalized
 		case .send:
 			return nil
 		case .receive:
@@ -128,8 +128,8 @@ struct ActivityDetailProperties {
 			return repayDetailsVM?.activityProtocol
 		case .withdraw_investment:
 			return withdrawInvestmentDetailsVM?.activityProtocol
-        case .invest:
-            return investDetailsVM?.activityProtocol
+		case .invest:
+			return investDetailsVM?.activityProtocol
 		case .send:
 			return nil
 		case .receive:
@@ -247,8 +247,11 @@ struct ActivityDetailProperties {
 				activityModel: activityDetails.defaultActivityModel as! ActivityWithdrawModel,
 				globalAssetsList: globalAssetsList
 			)
-        case .invest:
-            investDetailsVM = InvestActivityDetailsViewModel(activityModel: activityDetails.defaultActivityModel as! ActivityInvestModel, globalAssetsList: globalAssetsList)
+		case .invest:
+			investDetailsVM = InvestActivityDetailsViewModel(
+				activityModel: activityDetails.defaultActivityModel as! ActivityInvestModel,
+				globalAssetsList: globalAssetsList
+			)
 //		case .collateral:
 //			return
 //		case .un_collateral:
@@ -314,8 +317,8 @@ extension ActivityUIType {
 			return "Repay"
 		case .withdraw_investment:
 			return "Withdraw investment"
-        case .invest:
-            return "Invest"
-        }
+		case .invest:
+			return "Invest"
+		}
 	}
 }

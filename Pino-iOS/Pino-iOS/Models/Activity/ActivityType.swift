@@ -11,10 +11,10 @@ enum ActivityType: String {
 //	case approve
 //	case other_token
 	case swap
-    case create_investment
-    case create_withdraw_investment
+	case create_investment
+	case create_withdraw_investment
 	case decrease_investment
-    case increase_investment
+	case increase_investment
 	case withdraw_investment
 	case borrow
 	case repay

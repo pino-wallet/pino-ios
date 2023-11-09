@@ -28,7 +28,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private var borrowDetailsVM: BorrowActivityDetailsViewModel?
 	private var repayDetailsVM: RepayActivityDetailsViewModel?
 	private var withdrawInvestmentDetailsVM: WithdrawInvestmentActivityDetailsViewModel?
-    private var investDetailsVM: InvestActivityDetailsViewModel?
+	private var investDetailsVM: InvestActivityDetailsViewModel?
 
 	// MARK: - Internal Properties
 
@@ -57,13 +57,13 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			return .receive
 		case .swap:
 			return .swap
-		        case .create_investment, .increase_investment:
-		            return .invest
-		        case .create_withdraw_investment:
-		            if isWithdrawTransaction() {
-		                return .withdraw_investment
-		            }
-		            return .invest
+		case .create_investment, .increase_investment:
+			return .invest
+		case .create_withdraw_investment:
+			if isWithdrawTransaction() {
+				return .withdraw_investment
+			}
+			return .invest
 		case .decrease_investment, .withdraw_investment:
 			return .withdraw_investment
 		case .borrow:
@@ -172,14 +172,23 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 				activityModel: activityModel as! ActivityWithdrawModel,
 				globalAssetsList: globalAssetsList
 			)
-        case .create_investment, .increase_investment:
-            investDetailsVM = InvestActivityDetailsViewModel(activityModel: activityModel as! ActivityInvestModel, globalAssetsList: globalAssetsList)
-        case .create_withdraw_investment:
-            if isWithdrawTransaction() {
-                withdrawInvestmentDetailsVM = WithdrawInvestmentActivityDetailsViewModel(activityModel: activityModel as! ActivityWithdrawModel, globalAssetsList: globalAssetsList)
-            } else {
-                investDetailsVM = InvestActivityDetailsViewModel(activityModel: activityModel as! ActivityInvestModel, globalAssetsList: globalAssetsList)
-            }
+		case .create_investment, .increase_investment:
+			investDetailsVM = InvestActivityDetailsViewModel(
+				activityModel: activityModel as! ActivityInvestModel,
+				globalAssetsList: globalAssetsList
+			)
+		case .create_withdraw_investment:
+			if isWithdrawTransaction() {
+				withdrawInvestmentDetailsVM = WithdrawInvestmentActivityDetailsViewModel(
+					activityModel: activityModel as! ActivityWithdrawModel,
+					globalAssetsList: globalAssetsList
+				)
+			} else {
+				investDetailsVM = InvestActivityDetailsViewModel(
+					activityModel: activityModel as! ActivityInvestModel,
+					globalAssetsList: globalAssetsList
+				)
+			}
 		}
 	}
 
@@ -237,14 +246,14 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			activityMoreInfo = withdrawInvestmentDetailsVM!.activityProtocol.capitalized
 			// set cell icon
 			icon = withdrawIcon
-        case .invest:
-            // set cell title
-            title =
-                "Invested \(investDetailsVM!.tokenAmount.sevenDigitFormat) \(investDetailsVM!.tokenSymbol)"
-            // set cell moreInfo
-            activityMoreInfo = investDetailsVM!.activityProtocol.capitalized
-            // set cell icon
-            icon = investIcon
+		case .invest:
+			// set cell title
+			title =
+				"Invested \(investDetailsVM!.tokenAmount.sevenDigitFormat) \(investDetailsVM!.tokenSymbol)"
+			// set cell moreInfo
+			activityMoreInfo = investDetailsVM!.activityProtocol.capitalized
+			// set cell icon
+			icon = investIcon
 		}
 	}
 }

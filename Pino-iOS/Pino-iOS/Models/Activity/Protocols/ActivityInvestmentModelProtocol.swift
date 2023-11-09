@@ -6,7 +6,5 @@
 //
 
 protocol ActivityInvestmentModelProtocol: ActivityModelProtocol {
-    var detail: InvestmentActivityDetails { get set}
+	var detail: InvestmentActivityDetails { get set }
 }
-
-

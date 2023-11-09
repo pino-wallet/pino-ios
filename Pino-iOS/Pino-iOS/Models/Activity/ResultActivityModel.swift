@@ -17,7 +17,7 @@ enum ResultActivityModel: Decodable, Encodable {
 	//    case collateral(ActivityCollateralModel)
 	case repay(ActivityRepayModel)
 	case withdraw(ActivityWithdrawModel)
-    case invest(ActivityInvestModel)
+	case invest(ActivityInvestModel)
 	case unknown(UnknownActivityModel?)
 
 	// MARK: - Coding keys
@@ -42,9 +42,9 @@ enum ResultActivityModel: Decodable, Encodable {
 		case .transfer:
 			let transferActivity = try ActivityTransferModel(from: decoder)
 			self = .transfer(transferActivity)
-		        case .create_investment, .create_withdraw_investment, .increase_investment:
-		            let investActivity = try ActivityInvestModel(from: decoder)
-		            self = .invest(investActivity)
+		case .create_investment, .create_withdraw_investment, .increase_investment:
+			let investActivity = try ActivityInvestModel(from: decoder)
+			self = .invest(investActivity)
 		case .withdraw_investment, .decrease_investment:
 			let withdrawActivity = try ActivityWithdrawModel(from: decoder)
 			self = .withdraw(withdrawActivity)
@@ -89,9 +89,9 @@ enum ResultActivityModel: Decodable, Encodable {
 		case let .withdraw(withdrawActivity):
 			try container.encode(ActivityType.withdraw_investment.rawValue, forKey: .type)
 			try withdrawActivity.encode(to: encoder)
-		        case let .invest(investActivity):
-		            try container.encode(ActivityType.create_investment.rawValue, forKey: .type)
-		            try investActivity.encode(to: encoder)
+		case let .invest(investActivity):
+			try container.encode(ActivityType.create_investment.rawValue, forKey: .type)
+			try investActivity.encode(to: encoder)
 		case let .unknown(nilDetails):
 			try nilDetails.encode(to: encoder)
 		}

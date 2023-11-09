@@ -30,4 +30,3 @@ struct ActivityWithdrawModel: ActivityInvestmentModelProtocol {
 		case gasPrice = "gas_price"
 	}
 }
-
