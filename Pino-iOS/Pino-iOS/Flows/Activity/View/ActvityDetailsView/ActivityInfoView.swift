@@ -205,8 +205,8 @@ class ActivityInfoView: UIView {
 //			hideFromAndToStackView()
 		case .repay:
 			hideFromAndToStackView()
-//		case .withdraw:
-//			hideFromAndToStackView()
+		case .withdraw_investment:
+			hideFromAndToStackView()
 		}
 	}
 

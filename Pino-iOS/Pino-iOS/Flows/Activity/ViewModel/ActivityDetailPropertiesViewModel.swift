@@ -21,6 +21,7 @@ struct ActivityDetailProperties {
 	private var transferDetailsVM: TransferActivityDetailsViewModel?
 	private var borrowDetailsVM: BorrowActivityDetailsViewModel?
 	private var repayDetailsVM: RepayActivityDetailsViewModel?
+    private var withdrawInvestmentDetailsVM: WithdrawInvestmentActivityDetailsViewModel?
 
 	// MARK: - Public Properties
 
@@ -37,6 +38,8 @@ struct ActivityDetailProperties {
 			return transferDetailsVM?.transferTokenImage
 		case .repay:
 			return repayDetailsVM?.tokenImage
+        case .withdraw_investment:
+            return withdrawInvestmentDetailsVM?.tokenImage
 		}
 	}
 
@@ -52,6 +55,8 @@ struct ActivityDetailProperties {
 			return "\(transferDetailsVM?.transferTokenAmount.sevenDigitFormat ?? "") \(transferDetailsVM?.transferTokenSymbol ?? "")"
 		case .repay:
 			return "\(repayDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(repayDetailsVM?.tokenSymbol ?? "")"
+        case .withdraw_investment:
+            return "\(withdrawInvestmentDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(withdrawInvestmentDetailsVM?.tokenSymbol ?? "")"
 		}
 	}
 
@@ -97,6 +102,8 @@ struct ActivityDetailProperties {
 			return borrowDetailsVM?.activityProtocol.capitalized
 		case .repay:
 			return repayDetailsVM?.activityProtocol.capitalized
+        case .withdraw_investment:
+            return withdrawInvestmentDetailsVM?.activityProtocol.capitalized
 		case .send:
 			return nil
 		case .receive:
@@ -112,6 +119,8 @@ struct ActivityDetailProperties {
 			return borrowDetailsVM?.activityProtocol
 		case .repay:
 			return repayDetailsVM?.activityProtocol
+        case .withdraw_investment:
+            return withdrawInvestmentDetailsVM?.activityProtocol
 		case .send:
 			return nil
 		case .receive:
@@ -224,6 +233,8 @@ struct ActivityDetailProperties {
 				activityModel: activityDetails.defaultActivityModel as! ActivityRepayModel,
 				globalAssetsList: globalAssetsList
 			)
+        case .withdraw_investment:
+            withdrawInvestmentDetailsVM = WithdrawInvestmentActivityDetailsViewModel(activityModel: activityDetails.defaultActivityModel as! ActivityWithdrawModel, globalAssetsList: globalAssetsList)
 //		case .collateral:
 //			return
 //		case .un_collateral:
@@ -287,8 +298,8 @@ extension ActivityUIType {
 //			return "Invest"
 		case .repay:
 			return "Repay"
-//		case .withdraw:
-//			return "Withdraw investment"
+		case .withdraw_investment:
+			return "Withdraw investment"
 		}
 	}
 }
