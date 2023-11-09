@@ -30,8 +30,8 @@ struct ActivityHelper {
 			return transferActivity
 		case let .borrow(borrowActivity):
 			return borrowActivity
-        case let .repay(repayActvity):
-            return repayActvity
+		case let .repay(repayActvity):
+			return repayActvity
 		case .unknown:
 			return nil
 		}

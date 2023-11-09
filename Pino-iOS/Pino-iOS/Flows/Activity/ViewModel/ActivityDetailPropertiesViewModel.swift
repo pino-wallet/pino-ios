@@ -20,7 +20,7 @@ struct ActivityDetailProperties {
 	private var swapDetailsVM: SwapActivityDetailsViewModel?
 	private var transferDetailsVM: TransferActivityDetailsViewModel?
 	private var borrowDetailsVM: BorrowActivityDetailsViewModel?
-    private var repayDetailsVM: RepayActivityDetailsViewModel?
+	private var repayDetailsVM: RepayActivityDetailsViewModel?
 
 	// MARK: - Public Properties
 
@@ -35,8 +35,8 @@ struct ActivityDetailProperties {
 			return transferDetailsVM?.transferTokenImage
 		case .receive:
 			return transferDetailsVM?.transferTokenImage
-        case .repay:
-            return repayDetailsVM?.tokenImage
+		case .repay:
+			return repayDetailsVM?.tokenImage
 		}
 	}
 
@@ -50,8 +50,8 @@ struct ActivityDetailProperties {
 			return "\(transferDetailsVM?.transferTokenAmount.sevenDigitFormat ?? "") \(transferDetailsVM?.transferTokenSymbol ?? "")"
 		case .receive:
 			return "\(transferDetailsVM?.transferTokenAmount.sevenDigitFormat ?? "") \(transferDetailsVM?.transferTokenSymbol ?? "")"
-        case .repay:
-            return "\(repayDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(repayDetailsVM?.tokenSymbol ?? "")"
+		case .repay:
+			return "\(repayDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(repayDetailsVM?.tokenSymbol ?? "")"
 		}
 	}
 
@@ -95,8 +95,8 @@ struct ActivityDetailProperties {
 			return swapDetailsVM?.activityProtocol.capitalized
 		case .borrow:
 			return borrowDetailsVM?.activityProtocol.capitalized
-        case .repay:
-            return repayDetailsVM?.activityProtocol.capitalized
+		case .repay:
+			return repayDetailsVM?.activityProtocol.capitalized
 		case .send:
 			return nil
 		case .receive:
@@ -110,8 +110,8 @@ struct ActivityDetailProperties {
 			return swapDetailsVM?.activityProtocol
 		case .borrow:
 			return borrowDetailsVM?.activityProtocol
-        case .repay:
-            return repayDetailsVM?.activityProtocol
+		case .repay:
+			return repayDetailsVM?.activityProtocol
 		case .send:
 			return nil
 		case .receive:
@@ -219,8 +219,11 @@ struct ActivityDetailProperties {
 				activityModel: activityDetails.defaultActivityModel as! ActivityTransferModel,
 				globalAssetsList: globalAssetsList
 			)
-        case .repay:
-            repayDetailsVM = RepayActivityDetailsViewModel(activityModel: activityDetails.defaultActivityModel as! ActivityRepayModel, globalAssetsList: globalAssetsList)
+		case .repay:
+			repayDetailsVM = RepayActivityDetailsViewModel(
+				activityModel: activityDetails.defaultActivityModel as! ActivityRepayModel,
+				globalAssetsList: globalAssetsList
+			)
 //		case .collateral:
 //			return
 //		case .un_collateral:
