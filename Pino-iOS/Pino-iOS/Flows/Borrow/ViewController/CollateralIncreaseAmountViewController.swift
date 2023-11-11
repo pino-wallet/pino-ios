@@ -60,7 +60,7 @@ class CollateralIncreaseAmountViewController: UIViewController {
 
 	private func checkForAllowance() {
 		// Check If Permit has access to Token
-		collateralIncreaseAmountVM.didUserHasAllowanceForToken().done { didUserHasAllowance, tokenId in
+		collateralIncreaseAmountVM.checkTokenAllowance().done { didUserHasAllowance, tokenId in
 			if didUserHasAllowance {
 				self.pushToCollateralConfirmVC()
 			} else {

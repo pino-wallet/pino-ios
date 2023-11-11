@@ -95,7 +95,7 @@ class CollateralIncreaseAmountViewModel {
 		}
 	}
 
-	public func didUserHasAllowanceForToken() -> Promise<AllowanceDataType> {
+	public func checkTokenAllowance() -> Promise<AllowanceDataType> {
 		Promise<AllowanceDataType> { seal in
 			if selectedToken.isEth && borrowVM
 				.selectedDexSystem == .compound {
