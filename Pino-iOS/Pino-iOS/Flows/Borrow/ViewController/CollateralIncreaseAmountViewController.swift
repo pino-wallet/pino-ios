@@ -13,7 +13,7 @@ class CollateralIncreaseAmountViewController: UIViewController {
 
 	private let collateralIncreaseAmountVM: CollateralIncreaseAmountViewModel
 	private let web3 = Web3Core.shared
-    private let checkForAllowanceErrorText = "Failed to check for allowance of token"
+	private let checkForAllowanceErrorText = "Failed to check for allowance of token"
 	private var collateralIncreaseAmountView: CollateralIncreaseAmountView!
 
 	// MARK: - View Overrides
@@ -58,23 +58,23 @@ class CollateralIncreaseAmountViewController: UIViewController {
 		)
 	}
 
-    private func checkForAllowance() {
-        // Check If Permit has access to Token
-        collateralIncreaseAmountVM.didUserHasAllowanceForToken().done { didUserHasAllowance, tokenId in
-          if didUserHasAllowance {
-            self.pushToCollateralConfirmVC()
-          } else {
-            self.presentApproveVC(tokenContractAddress: tokenId)
-          }
-        }.catch { error in
-          Toast.default(
-            title: self.checkForAllowanceErrorText,
-            subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-            style: .error
-          )
-          .show(haptic: .warning)
-        }
-      }
+	private func checkForAllowance() {
+		// Check If Permit has access to Token
+		collateralIncreaseAmountVM.didUserHasAllowanceForToken().done { didUserHasAllowance, tokenId in
+			if didUserHasAllowance {
+				self.pushToCollateralConfirmVC()
+			} else {
+				self.presentApproveVC(tokenContractAddress: tokenId)
+			}
+		}.catch { error in
+			Toast.default(
+				title: self.checkForAllowanceErrorText,
+				subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+				style: .error
+			)
+			.show(haptic: .warning)
+		}
+	}
 
 	private func presentApproveVC(tokenContractAddress: String) {
 		let approveVC = ApproveContractViewController(
