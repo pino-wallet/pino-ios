@@ -53,7 +53,6 @@ public struct W3GasInfoManager {
 					gasLimit: nil
 				).promise.map { ($0, nonce, gasPrice) }
 			}.then { transaction, nonce, gasPrice in
-
 				web3.eth.estimateGas(call: .init(
 					from: transaction.from,
 					to: transaction.to!,
