@@ -88,21 +88,46 @@ class CollateralConfirmViewModel {
 		self.collaterallIncreaseAmountVM = collaterallIncreaseAmountVM
 	}
 
+	// MARK: - Private Methods
+
+	private func getUseUserReserveAsCollateralData(depositGasInfo: GasInfo) {
+		aaveCollateralManager.getUserUseReserveAsCollateralData().done { userReserveGasInfo in
+			let totalFeeInDollars = depositGasInfo.feeInDollar + userReserveGasInfo.feeInDollar
+			let totalFeeInETH = depositGasInfo.fee + userReserveGasInfo.fee
+			self.feeInfo = (
+				feeInDollars: totalFeeInDollars.priceFormat,
+				feeInETH: totalFeeInETH.sevenDigitFormat.tokenFormatting(token: self.ethToken?.symbol ?? "")
+			)
+		}.catch { _ in
+			Toast.default(
+				title: self.feeTxErrorText,
+				subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+				style: .error
+			)
+			.show(haptic: .warning)
+		}
+	}
+
+	private func setFeeInfoByDepositGasInfo(depositGasInfo: GasInfo) {
+		feeInfo = (
+			feeInDollars: depositGasInfo.feeInDollar.priceFormat,
+			feeInETH: depositGasInfo.fee.sevenDigitFormat.tokenFormatting(token: ethToken?.symbol ?? "")
+		)
+	}
+
 	// MARK: - Public Methods
 
 	public func getCollateralGasInfo() {
 		switch collaterallIncreaseAmountVM.borrowVM.selectedDexSystem {
 		case .aave:
-			if selectedToken.isEth {
-				aaveCollateralManager.getETHCollateralData().done { _, depositGasInfo in
-					self.aaveCollateralManager.getUserUseReserveAsCollateralData().done { userReserveGasInfo in
-						let totalFeeInDollars = depositGasInfo.feeInDollar + userReserveGasInfo.feeInDollar
-						let totalFeeInETH = depositGasInfo.fee + userReserveGasInfo.fee
-						self.feeInfo = (
-							feeInDollars: totalFeeInDollars.priceFormat,
-							feeInETH: totalFeeInETH.sevenDigitFormat
-								.tokenFormatting(token: self.ethToken?.symbol ?? "ETH")
-						)
+			aaveCollateralManager.checkIfAssetUsedAsCollateral().done { isAssetUsedAsCollateral in
+				if self.selectedToken.isEth {
+					self.aaveCollateralManager.getETHCollateralData().done { _, depositGasInfo in
+						if isAssetUsedAsCollateral {
+							self.setFeeInfoByDepositGasInfo(depositGasInfo: depositGasInfo)
+						} else {
+							self.getUseUserReserveAsCollateralData(depositGasInfo: depositGasInfo)
+						}
 					}.catch { _ in
 						Toast.default(
 							title: self.feeTxErrorText,
@@ -111,23 +136,13 @@ class CollateralConfirmViewModel {
 						)
 						.show(haptic: .warning)
 					}
-				}.catch { _ in
-					Toast.default(
-						title: self.feeTxErrorText,
-						subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-						style: .error
-					)
-					.show(haptic: .warning)
-				}
-			} else {
-				aaveCollateralManager.getERC20CollateralData().done { _, depositGasInfo in
-					self.aaveCollateralManager.getUserUseReserveAsCollateralData().done { userReserveGasInfo in
-						let totalFeeInDollars = depositGasInfo.feeInDollar + userReserveGasInfo.feeInDollar
-						let totalFeeInETH = depositGasInfo.fee + userReserveGasInfo.fee
-						self.feeInfo = (
-							feeInDollars: totalFeeInDollars.priceFormat,
-							feeInETH: totalFeeInETH.sevenDigitFormat.tokenFormatting(token: self.ethToken?.symbol ?? "ETH")
-						)
+				} else {
+					self.aaveCollateralManager.getERC20CollateralData().done { _, depositGasInfo in
+						if isAssetUsedAsCollateral {
+							self.setFeeInfoByDepositGasInfo(depositGasInfo: depositGasInfo)
+						} else {
+							self.getUseUserReserveAsCollateralData(depositGasInfo: depositGasInfo)
+						}
 					}.catch { _ in
 						Toast.default(
 							title: self.feeTxErrorText,
@@ -136,14 +151,14 @@ class CollateralConfirmViewModel {
 						)
 						.show(haptic: .warning)
 					}
-				}.catch { _ in
-					Toast.default(
-						title: self.feeTxErrorText,
-						subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-						style: .error
-					)
-					.show(haptic: .warning)
 				}
+			}.catch { _ in
+				Toast.default(
+					title: self.feeTxErrorText,
+					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+					style: .error
+				)
+				.show(haptic: .warning)
 			}
 		case .compound:
 			#warning("i should add compound collateral manager first to complete this section")
