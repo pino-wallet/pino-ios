@@ -73,7 +73,7 @@ public struct W3AaveDepositManager {
 	public func getUserUseReserveAsCollateralGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
 		Promise<GasInfo> { seal in
 			gasInfoManager.calculateGasOf(
-				method: .borrow,
+				method: .setUserUseReserveAsCollateral,
 				solInvoc: contractDetails.solInvocation,
 				contractAddress: contractDetails.contract.address!
 			).done { gasInfo in
@@ -117,7 +117,7 @@ public struct W3AaveDepositManager {
 		Promise<EthereumSignedTransaction> { seal in
 
 			gasInfoManager.calculateGasOf(
-				method: .borrow,
+				method: .setUserUseReserveAsCollateral,
 				solInvoc: contractDetails.solInvocation,
 				contractAddress: contractDetails.contract.address!
 			)
