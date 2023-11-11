@@ -14,11 +14,13 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private let sendIcon = "send"
 	private let receiveIcon = "receive"
 	private let collateralIcon = "collateral"
-	private let UnCollateralIcon = "uncollateral"
+	private let decreaseCollateral = "uncollateral"
 	private let repaidIcon = "repaid"
 	private let investIcon = "invest"
 	private let withdrawIcon = "withdraw"
 	private let borrowIcon = "borrow_transaction"
+
+	private let currentAddress = PinoWalletManager().currentAccount.eip55Address
 
 	private var activityModel: ActivityModelProtocol
 	private var swapDetailsVM: SwapActivityDetailsViewModel?
@@ -51,6 +53,25 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			return .receive
 		case .swap:
 			return .swap
+			//        case .create_investment, .increase_investment:
+			//            return .invest
+			//        case .create_withdraw_investment:
+			//            if isWithdrawTransaction() {
+			//                return .withdraw
+			//            }
+			//            return .invest
+			//        case .decrease_investment:
+			//            return .decrease_invest
+			//        case .borrow:
+			//            return .borrow
+			//        case .repay, .repay_behalf:
+			//            return .repay
+			//        case .increase_collateral, .create_collateral:
+			//            return .collateral
+			//        case .decrease_collateral:
+			//            return .decrease_collateral
+			//        case .remove_collateral, .withdraw_investment:
+			//            return .withdraw
 		}
 	}
 
@@ -91,9 +112,20 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	// MARK: - Private Methods
 
 	private func isSendTransaction() -> Bool {
-		let currentAddress = PinoWalletManager().currentAccount.eip55Address
 		if let transferActivity = activityModel as? ActivityTransferModel {
 			if currentAddress.lowercased() == transferActivity.detail.from.lowercased() {
+				return true
+			} else {
+				return false
+			}
+		} else {
+			return false
+		}
+	}
+
+	private func isWithdrawTransaction() -> Bool {
+		if let investActivity = activityModel as? ActivityInvestModel {
+			if currentAddress.lowercased() == investActivity.fromAddress.lowercased() {
 				return true
 			} else {
 				return false
@@ -153,16 +185,6 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 				"From: \(transferDetailsVM!.userFromAccountInfo?.name ?? activityModel.fromAddress.addressFromStartFormatting())"
 			// set cell icon
 			icon = receiveIcon
-			//        case .collateral:
-			//            return "Collateralized"
-			//        case .un_collateral:
-			//            return "Uncollateralized"
-			//        case .invest:
-			//            return "Invest"
-			//        case .repay:
-			//            return "Repaid"
-			//        case .withdraw:
-			//            return "Withdraw"
 		}
 	}
 }
