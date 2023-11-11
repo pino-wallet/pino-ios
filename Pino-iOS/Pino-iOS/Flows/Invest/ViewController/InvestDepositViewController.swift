@@ -53,7 +53,7 @@ class InvestDepositViewController: UIViewController {
 		investView = InvestDepositView(
 			investVM: investVM,
 			nextButtonTapped: {
-				self.openConfirmationPage()
+                self.proceedInvestFlow()
 			}
 		)
 		view = investView

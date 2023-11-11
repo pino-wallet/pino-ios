@@ -26,48 +26,6 @@
     "type": "constructor"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_caller",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_errorCode",
-        "type": "uint256"
-      }
-    ],
-    "name": "CompoundCallFailed",
-    "type": "error"
-  },
-  {
-    "inputs": [],
-    "name": "EtherReuseGuardCall",
-    "type": "error"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_caller",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_recipient",
-        "type": "address"
-      }
-    ],
-    "name": "FailedToSendEther",
-    "type": "error"
-  },
-  {
-    "inputs": [],
-    "name": "InvalidAmountToTransfer",
-    "type": "error"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
@@ -780,9 +738,5 @@
     "outputs": [],
     "stateMutability": "payable",
     "type": "function"
-  },
-  {
-    "stateMutability": "payable",
-    "type": "receive"
   }
 ]

@@ -126,8 +126,4 @@ class InvestConfirmationViewModel {
         )
         investManager.invest()
     }
-    
-    public func isTokenApproved() {
-        
-    }
 }

@@ -144,7 +144,7 @@ class InvestManager: Web3ManagerProtocol {
             self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
         }.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
             self.web3.getDepositV2CallData(
-                tokenAdd: cTokenID,
+                tokenAdd: self.selectedToken.id,
                 amount: tokenUIntNumber,
                 recipientAdd: walletManager.currentAccount.eip55Address
             ).map { ($0, permitData, allowanceData) }
