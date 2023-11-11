@@ -23,7 +23,7 @@ struct BorrowableAssetViewModel: AssetsBoardProtocol {
 	}
 
 	public var APYAmount: BigNumber {
-		borrowableTokenModel.apy.bigNumber
+		(borrowableTokenModel.apy / 100).bigNumber
 	}
 
 	public var formattedAPYAmount: String {
