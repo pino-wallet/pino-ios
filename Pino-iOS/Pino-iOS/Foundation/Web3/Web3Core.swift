@@ -452,6 +452,24 @@ public class Web3Core {
 		)
 	}
 
+	public func getUserUseReserveAsCollateralContractDetails(
+		assetAddress: String,
+		useAsCollateral: Bool
+	) -> Promise<ContractDetailsModel> {
+		aaveDepositManager.getUserUseReserveAsCollateralContractDetails(
+			assetAddress: assetAddress,
+			useAsCollateral: useAsCollateral
+		)
+	}
+
+	public func getUserUseReserveAsCollateralGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
+		aaveDepositManager.getUserUseReserveAsCollateralGasInfo(contractDetails: contractDetails)
+	}
+
+	public func setUserUseReserveAsCollateral(contractDetails: ContractDetailsModel) -> Promise<String> {
+		aaveDepositManager.setUserUseReserveAsCollateral(contractDetails: contractDetails)
+	}
+
 	// MARK: - Private Methods
 
 	private func getInfo(address: String, info: ABIMethodCall, abi: Web3ABI) throws -> Promise<[String: Any]> {
