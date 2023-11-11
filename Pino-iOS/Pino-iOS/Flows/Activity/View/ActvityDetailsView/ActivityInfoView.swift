@@ -189,8 +189,8 @@ class ActivityInfoView: UIView {
 		switch activityDetailsVM.properties.uiType {
 		case .swap:
 			hideFromAndToStackView()
-//		case .borrow:
-//			hideFromAndToStackView()
+		case .borrow:
+			hideFromAndToStackView()
 		case .send:
 			hidePrtocolAndTypeStackView()
 			fromStackView.isHidden = true

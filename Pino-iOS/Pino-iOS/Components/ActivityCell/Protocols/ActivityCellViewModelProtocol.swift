@@ -27,7 +27,7 @@ public enum ActivityCellStatus: String {
 
 public enum ActivityUIType {
 	case swap
-//	case borrow
+	case borrow
 	case send
 	case receive
 //	case collateral
