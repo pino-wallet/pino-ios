@@ -197,7 +197,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		switch uiType {
 		case .swap:
 			// set cell title
-			title = "Swap \(swapDetailsVM!.fromTokenSymbol) -> \(swapDetailsVM!.toTokenSymbol)"
+			title = "Swap \(swapDetailsVM!.fromTokenSymbol) → \(swapDetailsVM!.toTokenSymbol)"
 			// set cell moreInfo
 			activityMoreInfo = swapDetailsVM!.activityProtocol.capitalized
 			// set cell icon
