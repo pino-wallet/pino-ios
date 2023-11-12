@@ -89,7 +89,7 @@ public struct W3InvestManager {
 			)
 			let solInvocation = contract[ABIMethodWrite.depositV2.rawValue]?(
 				amount,
-				tokenAdd,
+				tokenAdd.eip55Address!,
 				recipientAdd.eip55Address!
 			)
 			let trx = try trxManager.createTransactionFor(contract: solInvocation!)
@@ -132,7 +132,7 @@ public struct W3InvestManager {
 			)
 			let solInvocation = contract[ABIMethodWrite.withdrawV2.rawValue]?(
 				amount,
-				tokenAdd,
+				tokenAdd.eip55Address!,
 				recipientAdd.eip55Address!
 			)
 			let trx = try trxManager.createTransactionFor(contract: solInvocation!)

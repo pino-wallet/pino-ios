@@ -554,7 +554,6 @@ extension Web3Core {
 		static let permitAddress = "0x000000000022D473030F116dDEE9F6B43aC78BA3"
 		static let pinoAaveProxyAddress = "0xb5ea6BAdD330466D66345e154Db9834B1Fe8Dab6"
 		static let pinoSwapProxyAddress = "0xB51557272E09d41f649a04073dB780AC25998a1e"
-		static let pinoProxyAddress = "0x118E662de0C4cdc2f8AD0fb1c6Ef4a85222baCF0"
 		static let compoundContractAddress = "0xb5E69cBF92E3ff6c11E2CC4A33C26573702Ab98B"
 		static let investContractAddress = "0x7dA89F62340Ad976e4E32a30c7f688aFCcE8a51C"
 		static let paraSwapETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
