@@ -23,6 +23,8 @@ struct ActivityDetailProperties {
 	private var repayDetailsVM: RepayActivityDetailsViewModel?
 	private var withdrawInvestmentDetailsVM: WithdrawInvestmentActivityDetailsViewModel?
 	private var investDetailsVM: InvestActivityDetailsViewModel?
+	private var withdrawCollateralDetailsVM: WithdrawCollateralActivityDetailsViewModel?
+	private var collateralDetailsVM: CollateralActivityDetailsViewModel?
 
 	// MARK: - Public Properties
 
@@ -43,6 +45,10 @@ struct ActivityDetailProperties {
 			return withdrawInvestmentDetailsVM?.tokenImage
 		case .invest:
 			return investDetailsVM?.tokenImage
+		case .collateral:
+			return collateralDetailsVM?.tokenImage
+		case .withdraw_collateral:
+			return withdrawCollateralDetailsVM?.tokenImage
 		}
 	}
 
@@ -62,6 +68,10 @@ struct ActivityDetailProperties {
 			return "\(withdrawInvestmentDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(withdrawInvestmentDetailsVM?.tokenSymbol ?? "")"
 		case .invest:
 			return "\(investDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(investDetailsVM?.tokenSymbol ?? "")"
+		case .collateral:
+			return "\(collateralDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(collateralDetailsVM?.tokenSymbol ?? "")"
+		case .withdraw_collateral:
+			return "\(withdrawCollateralDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(withdrawCollateralDetailsVM?.tokenSymbol ?? "")"
 		}
 	}
 
@@ -115,6 +125,10 @@ struct ActivityDetailProperties {
 			return nil
 		case .receive:
 			return nil
+		case .collateral:
+			return collateralDetailsVM?.activityProtocol.capitalized
+		case .withdraw_collateral:
+			return withdrawCollateralDetailsVM?.activityProtocol.capitalized
 		}
 	}
 
@@ -134,6 +148,10 @@ struct ActivityDetailProperties {
 			return nil
 		case .receive:
 			return nil
+		case .collateral:
+			return collateralDetailsVM?.activityProtocol
+		case .withdraw_collateral:
+			return withdrawCollateralDetailsVM?.activityProtocol
 		}
 	}
 
@@ -252,16 +270,16 @@ struct ActivityDetailProperties {
 				activityModel: activityDetails.defaultActivityModel as! ActivityInvestModel,
 				globalAssetsList: globalAssetsList
 			)
-//		case .collateral:
-//			return
-//		case .un_collateral:
-//			return
-//		case .invest:
-//			return
-//		case .repay:
-//			return
-//		case .withdraw:
-//			return
+		case .collateral:
+			collateralDetailsVM = CollateralActivityDetailsViewModel(
+				activityModel: activityDetails.defaultActivityModel as! ActivityCollateralModel,
+				globalAssetsList: globalAssetsList
+			)
+		case .withdraw_collateral:
+			withdrawCollateralDetailsVM = WithdrawCollateralActivityDetailsViewModel(
+				activityModel: activityDetails.defaultActivityModel as! ActivityCollateralModel,
+				globalAssetsList: globalAssetsList
+			)
 		}
 	}
 
@@ -307,18 +325,16 @@ extension ActivityUIType {
 			return "Send"
 		case .receive:
 			return "Receive"
-//		case .collateral:
-//			return "Add collateral"
-//		case .un_collateral:
-//			return "Withdraw collateral"
-//		case .invest:
-//			return "Invest"
 		case .repay:
 			return "Repay"
 		case .withdraw_investment:
 			return "Withdraw investment"
 		case .invest:
 			return "Invest"
+		case .collateral:
+			return "Collateral"
+		case .withdraw_collateral:
+			return "Withdraw collateral"
 		}
 	}
 }

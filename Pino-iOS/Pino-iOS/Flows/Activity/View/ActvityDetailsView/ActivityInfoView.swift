@@ -197,15 +197,15 @@ class ActivityInfoView: UIView {
 		case .receive:
 			hidePrtocolAndTypeStackView()
 			toStackView.isHidden = true
-//		case .collateral:
-//			hideFromAndToStackView()
-//		case .un_collateral:
-//			hideFromAndToStackView()
 		case .invest:
 			hideFromAndToStackView()
 		case .repay:
 			hideFromAndToStackView()
 		case .withdraw_investment:
+			hideFromAndToStackView()
+		case .collateral:
+			hideFromAndToStackView()
+		case .withdraw_collateral:
 			hideFromAndToStackView()
 		}
 	}
