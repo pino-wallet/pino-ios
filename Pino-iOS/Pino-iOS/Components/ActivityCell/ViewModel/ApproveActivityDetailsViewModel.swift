@@ -8,28 +8,29 @@
 import Foundation
 
 struct ApproveActivityDetailsViewModel: ActivityDetailsProtocol {
-    // MARK: - Internal Properties
+	// MARK: - Internal Properties
 
-    internal var activityModel: ActivityApproveModel
-    internal var globalAssetsList: [AssetViewModel]
+	internal var activityModel: ActivityApproveModel
+	internal var globalAssetsList: [AssetViewModel]
 
-    // MARK: - Private Properties
+	// MARK: - Private Properties
 
-    private var token: AssetViewModel? {
-        var approveToken = globalAssetsList.first(where: { $0.id.lowercased() == activityModel.detail.tokenID.lowercased() })
-        if let foundApprovetoken = approveToken, foundApprovetoken.isEth {
-            approveToken = globalAssetsList.first(where: { $0.isWEth })
-        }
-        return approveToken
-    }
+	private var token: AssetViewModel? {
+		var approveToken = globalAssetsList
+			.first(where: { $0.id.lowercased() == activityModel.detail.tokenID.lowercased() })
+		if let foundApprovetoken = approveToken, foundApprovetoken.isEth {
+			approveToken = globalAssetsList.first(where: { $0.isWEth })
+		}
+		return approveToken
+	}
 
-    // MARK: - Public Properties
+	// MARK: - Public Properties
 
-    public var tokenSymbol: String {
-        token?.symbol ?? ""
-    }
+	public var tokenSymbol: String {
+		token?.symbol ?? ""
+	}
 
-    public var tokenImage: URL? {
-        token?.image
-    }
+	public var tokenImage: URL? {
+		token?.image
+	}
 }

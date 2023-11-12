@@ -25,7 +25,6 @@ struct CollateralStatusActivityDetailsViewModel: ActivityDetailsProtocol {
 
 	// MARK: - Public Properties
 
-
 	public var tokenSymbol: String {
 		token?.symbol ?? ""
 	}
