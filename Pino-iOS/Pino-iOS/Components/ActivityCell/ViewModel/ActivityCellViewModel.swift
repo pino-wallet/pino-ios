@@ -26,6 +26,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private var swapDetailsVM: SwapActivityDetailsViewModel?
 	private var transferDetailsVM: TransferActivityDetailsViewModel?
 	private var borrowDetailsVM: BorrowActivityDetailsViewModel?
+	private var repayDetailsVM: RepayActivityDetailsViewModel?
 
 	// MARK: - Internal Properties
 
@@ -65,8 +66,8 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		//            return .decrease_invest
 		case .borrow:
 			return .borrow
-			//        case .repay, .repay_behalf:
-			//            return .repay
+		case .repay, .repay_behalf:
+			return .repay
 			//        case .increase_collateral, .create_collateral:
 			//            return .collateral
 			//        case .decrease_collateral:
@@ -158,6 +159,11 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 				activityModel: activityModel as! ActivityBorrowModel,
 				globalAssetsList: globalAssetsList
 			)
+		case .repay, .repay_behalf:
+			repayDetailsVM = RepayActivityDetailsViewModel(
+				activityModel: activityModel as! ActivityRepayModel,
+				globalAssetsList: globalAssetsList
+			)
 		}
 	}
 
@@ -199,6 +205,14 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			activityMoreInfo = borrowDetailsVM!.activityProtocol.capitalized
 			// set cell icon
 			icon = borrowIcon
+		case .repay:
+			// set cell title
+			title =
+				"Repaid \(repayDetailsVM!.tokenAmount.sevenDigitFormat) \(repayDetailsVM!.tokenSymbol)"
+			// set cell moreInfo
+			activityMoreInfo = repayDetailsVM!.activityProtocol.capitalized
+			// set cell icon
+			icon = repaidIcon
 		}
 	}
 }
