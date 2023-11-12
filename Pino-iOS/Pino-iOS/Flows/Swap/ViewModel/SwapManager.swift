@@ -425,8 +425,18 @@ class SwapManager: Web3ManagerProtocol {
 				txHash: trxHash,
 				type: "swap",
 				detail: .init(
-					fromToken: .init(amount: srcToken.tokenAmount!, tokenID: srcToken.selectedToken.id),
-					toToken: .init(amount: destToken.tokenAmount!, tokenID: destToken.selectedToken.id),
+					fromToken: .init(
+						amount: Utilities
+							.parseToBigUInt(srcToken.tokenAmount!, units: .custom(srcToken.selectedToken.decimal))!
+							.description,
+						tokenID: srcToken.selectedToken.id
+					),
+					toToken: .init(
+						amount: Utilities
+							.parseToBigUInt(destToken.tokenAmount!, units: .custom(destToken.selectedToken.decimal))!
+							.description,
+						tokenID: destToken.selectedToken.id
+					),
 					activityProtocol: selectedProvider.provider.name
 				),
 				fromAddress: userAddress,

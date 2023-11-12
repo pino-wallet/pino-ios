@@ -26,11 +26,11 @@ struct SwapActivityDetailsViewModel: ActivityDetailsProtocol {
 	// MARK: - Public Properties
 
 	public var fromTokenAmount: BigNumber {
-		BigNumber(numberWithDecimal: activityModel.detail.fromToken.amount)
+		BigNumber(number: activityModel.detail.fromToken.amount, decimal: fromToken?.decimal ?? 0)
 	}
 
 	public var toTokenAmount: BigNumber {
-		BigNumber(numberWithDecimal: activityModel.detail.toToken.amount)
+		BigNumber(number: activityModel.detail.toToken.amount, decimal: toToken?.decimal ?? 0)
 	}
 
 	public var toTokenSymbol: String {
