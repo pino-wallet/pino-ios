@@ -25,6 +25,7 @@ struct ActivityDetailProperties {
 	private var investDetailsVM: InvestActivityDetailsViewModel?
 	private var withdrawCollateralDetailsVM: WithdrawCollateralActivityDetailsViewModel?
 	private var collateralDetailsVM: CollateralActivityDetailsViewModel?
+    private var collateralStatusDetailsVM: CollateralStatusActivityDetailsViewModel?
 
 	// MARK: - Public Properties
 
@@ -49,7 +50,11 @@ struct ActivityDetailProperties {
 			return collateralDetailsVM?.tokenImage
 		case .withdraw_collateral:
 			return withdrawCollateralDetailsVM?.tokenImage
-		}
+        case .enable_collateral:
+            return collateralStatusDetailsVM?.tokenImage
+        case .disable_collateral:
+            return collateralStatusDetailsVM?.tokenImage
+        }
 	}
 
 	public var assetAmountTitle: String? {
@@ -72,7 +77,11 @@ struct ActivityDetailProperties {
 			return "\(collateralDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(collateralDetailsVM?.tokenSymbol ?? "")"
 		case .withdraw_collateral:
 			return "\(withdrawCollateralDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(withdrawCollateralDetailsVM?.tokenSymbol ?? "")"
-		}
+        case .enable_collateral:
+            return "Enable as collateral"
+        case .disable_collateral:
+            return "Disable as collateral"
+        }
 	}
 
 	public var fromTokenSymbol: String? {
@@ -129,7 +138,11 @@ struct ActivityDetailProperties {
 			return collateralDetailsVM?.activityProtocol.capitalized
 		case .withdraw_collateral:
 			return withdrawCollateralDetailsVM?.activityProtocol.capitalized
-		}
+        case .enable_collateral:
+            return collateralStatusDetailsVM?.activityProtocol.capitalized
+        case .disable_collateral:
+            return collateralStatusDetailsVM?.activityProtocol.capitalized
+        }
 	}
 
 	public var protocolImage: String? {
@@ -152,7 +165,11 @@ struct ActivityDetailProperties {
 			return collateralDetailsVM?.activityProtocol
 		case .withdraw_collateral:
 			return withdrawCollateralDetailsVM?.activityProtocol
-		}
+        case .enable_collateral:
+            return collateralStatusDetailsVM?.activityProtocol
+        case .disable_collateral:
+            return collateralStatusDetailsVM?.activityProtocol
+        }
 	}
 
 	public var formattedFeeInDollar: String {
@@ -280,7 +297,11 @@ struct ActivityDetailProperties {
 				activityModel: activityDetails.defaultActivityModel as! ActivityCollateralModel,
 				globalAssetsList: globalAssetsList
 			)
-		}
+        case .enable_collateral:
+            collateralStatusDetailsVM = CollateralStatusActivityDetailsViewModel(activityModel: activityDetails.defaultActivityModel as! ActivityCollateralModel, globalAssetsList: globalAssetsList)
+        case .disable_collateral:
+            collateralStatusDetailsVM = CollateralStatusActivityDetailsViewModel(activityModel: activityDetails.defaultActivityModel as! ActivityCollateralModel, globalAssetsList: globalAssetsList)
+        }
 	}
 
 	private mutating func setEthToken() {
@@ -335,6 +356,10 @@ extension ActivityUIType {
 			return "Collateral"
 		case .withdraw_collateral:
 			return "Withdraw collateral"
-		}
+        case .enable_collateral:
+            return "Enable details"
+        case .disable_collateral:
+            return "Disable details"
+        }
 	}
 }

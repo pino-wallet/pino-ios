@@ -54,7 +54,7 @@ enum ResultActivityModel: Decodable, Encodable {
 		case .repay, .repay_behalf:
 			let repayActivity = try ActivityRepayModel(from: decoder)
 			self = .repay(repayActivity)
-		case .increase_collateral, .decrease_collateral, .create_collateral, .remove_collateral:
+        case .increase_collateral, .decrease_collateral, .create_collateral, .remove_collateral, .enable_collateral, .disable_collateral:
 			let collateralActivity = try ActivityCollateralModel(from: decoder)
 			self = .collateral(collateralActivity)
 		default:

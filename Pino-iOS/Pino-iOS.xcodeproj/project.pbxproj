@@ -348,6 +348,7 @@
 		D957823D2AFCE87D0007D580 /* InvestmentActivityDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D957823C2AFCE87D0007D580 /* InvestmentActivityDetails.swift */; };
 		D95CD85C2B00B14F003C1CF0 /* WithdrawCollateralActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95CD85B2B00B14F003C1CF0 /* WithdrawCollateralActivityDetailsViewModel.swift */; };
 		D95CD85E2B00B210003C1CF0 /* CollateralActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95CD85D2B00B210003C1CF0 /* CollateralActivityDetailsViewModel.swift */; };
+		D95CD8602B00BC00003C1CF0 /* CollateralStatusActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95CD85F2B00BC00003C1CF0 /* CollateralStatusActivityDetailsViewModel.swift */; };
 		D95D20342AAC9B2E00E0A885 /* HealthScoreSystemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95D20332AAC9B2E00E0A885 /* HealthScoreSystemViewController.swift */; };
 		D95D20362AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95D20352AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift */; };
 		D95D49822A386BC10042FC85 /* TitleWithInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95D49812A386BC10042FC85 /* TitleWithInfo.swift */; };
@@ -1104,6 +1105,7 @@
 		D957823C2AFCE87D0007D580 /* InvestmentActivityDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentActivityDetails.swift; sourceTree = "<group>"; };
 		D95CD85B2B00B14F003C1CF0 /* WithdrawCollateralActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawCollateralActivityDetailsViewModel.swift; sourceTree = "<group>"; };
 		D95CD85D2B00B210003C1CF0 /* CollateralActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralActivityDetailsViewModel.swift; sourceTree = "<group>"; };
+		D95CD85F2B00BC00003C1CF0 /* CollateralStatusActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralStatusActivityDetailsViewModel.swift; sourceTree = "<group>"; };
 		D95D20332AAC9B2E00E0A885 /* HealthScoreSystemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthScoreSystemViewController.swift; sourceTree = "<group>"; };
 		D95D20352AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthScoreSystemViewModel.swift; sourceTree = "<group>"; };
 		D95D49812A386BC10042FC85 /* TitleWithInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithInfo.swift; sourceTree = "<group>"; };
@@ -3136,6 +3138,7 @@
 				D95782382AFCC92A0007D580 /* InvestActivityDetailsViewModel.swift */,
 				D95CD85B2B00B14F003C1CF0 /* WithdrawCollateralActivityDetailsViewModel.swift */,
 				D95CD85D2B00B210003C1CF0 /* CollateralActivityDetailsViewModel.swift */,
+				D95CD85F2B00BC00003C1CF0 /* CollateralStatusActivityDetailsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -4375,6 +4378,7 @@
 				D95CD85E2B00B210003C1CF0 /* CollateralActivityDetailsViewModel.swift in Sources */,
 				E35BB6432A593BBB003987F5 /* SwapProtocolModel.swift in Sources */,
 				3235264ABD3DF5ABAA756574 /* CoinPerformanceViewController.swift in Sources */,
+				D95CD8602B00BC00003C1CF0 /* CollateralStatusActivityDetailsViewModel.swift in Sources */,
 				20CB5C205624F431E278A914 /* CoinPerformanceViewModel.swift in Sources */,
 				D9A642C42AFA1EEB00FDE11D /* ActivityCollateralModel.swift in Sources */,
 				D9BFEC3B2A12177C007DFF40 /* AllowNotificationsViewModel.swift in Sources */,
