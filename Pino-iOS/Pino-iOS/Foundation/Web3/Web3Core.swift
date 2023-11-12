@@ -438,6 +438,10 @@ public class Web3Core {
 		aaveBorrowManager.borrowToken(contractDetails: contractDetails)
 	}
 
+	public func checkIfAssetUsedAsCollateral(assetAddress: String) -> Promise<Bool> {
+		aaveDepositManager.checkIfAssetUsedAsCollateral(assetAddress: assetAddress)
+	}
+
 	public func getAaveDespositV3ERCCallData(
 		contract: DynamicContract,
 		assetAddress: String,
@@ -450,6 +454,24 @@ public class Web3Core {
 			amount: amount,
 			userAddress: userAddress
 		)
+	}
+
+	public func getUserUseReserveAsCollateralContractDetails(
+		assetAddress: String,
+		useAsCollateral: Bool
+	) -> Promise<ContractDetailsModel> {
+		aaveDepositManager.getUserUseReserveAsCollateralContractDetails(
+			assetAddress: assetAddress,
+			useAsCollateral: useAsCollateral
+		)
+	}
+
+	public func getUserUseReserveAsCollateralGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
+		aaveDepositManager.getUserUseReserveAsCollateralGasInfo(contractDetails: contractDetails)
+	}
+
+	public func setUserUseReserveAsCollateral(contractDetails: ContractDetailsModel) -> Promise<String> {
+		aaveDepositManager.setUserUseReserveAsCollateral(contractDetails: contractDetails)
 	}
 
 	// MARK: - Private Methods
