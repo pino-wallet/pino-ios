@@ -52,13 +52,13 @@ class CompoundDepositManager: Web3ManagerProtocol {
 		} else if selectedToken.isWEth {
 			compoundWETHDeposit()
 		} else {
-			compoundDeposit()
+			compoundERCDeposit()
 		}
 	}
 
 	// MARK: - Private Methods
 
-	private func compoundDeposit() {
+	private func compoundERCDeposit() {
 		let cTokenID = Web3Core.TokenID(id: selectedToken.id).cTokenID.lowercased()
 		firstly {
 			fetchHash()

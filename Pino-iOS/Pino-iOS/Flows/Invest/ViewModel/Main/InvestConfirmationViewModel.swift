@@ -33,7 +33,7 @@ class InvestConfirmationViewModel {
 		case .compound:
 			return try! web3.getCompoundProxyContract()
 		case .aave:
-			return try! web3.getInvestProxyContract()
+			return try! web3.getPinoAaveProxyContract()
 		}
 	}
 

@@ -63,15 +63,11 @@ public enum Web3ABI {
 	}
 
 	private static var makerAbiString: String {
-		let path = Bundle.main.path(forResource: "MakerABIJson", ofType: "json")!
-		let abiJsonString = try! String(contentsOfFile: path, encoding: .utf8)
-		return abiJsonString
+		ABIReader(fileName: "MakerABIJson")
 	}
 
 	private static var compoundAbiString: String {
-		let path = Bundle.main.path(forResource: "CompoundABIJson", ofType: "json")!
-		let abiJsonString = try! String(contentsOfFile: path, encoding: .utf8)
-		return abiJsonString
+		ABIReader(fileName: "CompoundABIJson")
 	}
 }
 
