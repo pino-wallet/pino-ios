@@ -52,7 +52,7 @@ class BorrowIncreaseAmountViewModel {
 				.price
 			totalFreeCollateralledInDollars = totalFreeCollateralledInDollars + freeCollateralledTokenAmountInDollars
 		}
-		return (totalFreeCollateralledInDollars / selectedToken.price ?? 0.bigNumber)
+		return totalFreeCollateralledInDollars / selectedToken.price ?? 0.bigNumber
 	}
 
 	public var tokenImage: URL {

@@ -5,8 +5,8 @@
 //  Created by Mohi Raoufi on 8/14/23.
 //
 
-import Charts
 import Combine
+import DGCharts
 import Foundation
 
 class InvestCoinPerformanceViewModel {
