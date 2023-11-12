@@ -34,6 +34,8 @@ struct ActivityHelper {
 			return repayActvity
 		case let .withdraw(withdrawActivity):
 			return withdrawActivity
+		case let .invest(investActivity):
+			return investActivity
 		case .unknown:
 			return nil
 		}

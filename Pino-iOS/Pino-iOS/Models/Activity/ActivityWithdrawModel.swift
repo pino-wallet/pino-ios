@@ -5,10 +5,10 @@
 
 // MARK: - WelcomeElement
 
-struct ActivityWithdrawModel: ActivityModelProtocol {
+struct ActivityWithdrawModel: ActivityInvestmentModelProtocol {
 	var txHash: String
 	var type: String
-	var detail: WithdrawActivityDetails
+	var detail: InvestmentActivityDetails
 	var fromAddress: String
 	var toAddress: String
 	var failed: Bool?
@@ -28,18 +28,5 @@ struct ActivityWithdrawModel: ActivityModelProtocol {
 		case blockTime = "block_time"
 		case gasUsed = "gas_used"
 		case gasPrice = "gas_price"
-	}
-}
-
-struct WithdrawActivityDetails: Codable {
-	let tokens: [ActivityTokenModel]
-	let poolId, activityProtocol: String
-	let nftId: Int?
-
-	enum CodingKeys: String, CodingKey {
-		case tokens
-		case poolId = "pool_id"
-		case activityProtocol = "protocol"
-		case nftId = "nft_id"
 	}
 }

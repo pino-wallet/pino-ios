@@ -1,5 +1,5 @@
 //
-//  WithdrawActivityDetailsViewModel.swift
+//  InvestActivityDetailsViewModel.swift
 //  Pino-iOS
 //
 //  Created by Amir hossein kazemi seresht on 11/9/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WithdrawInvestmentActivityDetailsViewModel: ActivityDetailsProtocol {
+struct InvestActivityDetailsViewModel: ActivityDetailsProtocol {
 	// MARK: - Internal Properties
 
 	internal var activityModel: ActivityInvestmentModelProtocol
