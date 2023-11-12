@@ -25,9 +25,6 @@ struct CollateralStatusActivityDetailsViewModel: ActivityDetailsProtocol {
 
 	// MARK: - Public Properties
 
-	public var tokenAmount: BigNumber {
-		BigNumber(number: responseSelectedToken.amount, decimal: token?.decimal ?? 0)
-	}
 
 	public var tokenSymbol: String {
 		token?.symbol ?? ""
