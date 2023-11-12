@@ -207,11 +207,11 @@ class ActivityInfoView: UIView {
 			hideFromAndToStackView()
 		case .withdraw_collateral:
 			hideFromAndToStackView()
-        case .enable_collateral:
-            hideFromAndToStackView()
-        case .disable_collateral:
-            hideFromAndToStackView()
-        }
+		case .enable_collateral:
+			hideFromAndToStackView()
+		case .disable_collateral:
+			hideFromAndToStackView()
+		}
 	}
 
 	private func setupConstraints() {
