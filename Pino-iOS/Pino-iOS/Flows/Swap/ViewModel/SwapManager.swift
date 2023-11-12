@@ -437,7 +437,7 @@ class SwapManager: Web3ManagerProtocol {
 							.description,
 						tokenID: destToken.selectedToken.id
 					),
-					activityProtocol: selectedProvider.provider.rawValue
+					activityProtocol: selectedProvider.provider.name
 				),
 				fromAddress: userAddress,
 				toAddress: selectedProvider.provider.contractAddress,
