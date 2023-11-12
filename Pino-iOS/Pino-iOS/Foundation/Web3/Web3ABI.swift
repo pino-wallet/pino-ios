@@ -10,7 +10,8 @@ import Foundation
 public enum Web3ABI {
 	case erc
 	case swap
-	case invest
+	case investMaker
+	case investCompound
 	case borrowERCAave
 	case borrowETHAave
 	case borrowCTokenCompound
@@ -22,8 +23,10 @@ public enum Web3ABI {
 			return Web3ABI.erc20AbiString.data(using: .utf8)!
 		case .swap:
 			return Web3ABI.swapAbiString.data(using: .utf8)!
-		case .invest:
-			return Web3ABI.investAbiString.data(using: .utf8)!
+		case .investMaker:
+			return Web3ABI.makerAbiString.data(using: .utf8)!
+		case .investCompound:
+			return Web3ABI.compoundAbiString.data(using: .utf8)!
 		case .borrowERCAave:
 			return Web3ABI.borrowERCAaveAbiString.data(using: .utf8)!
 		case .borrowETHAave:
@@ -59,10 +62,12 @@ public enum Web3ABI {
 		ABIReader(fileName: "AaveProxyABIJson")
 	}
 
-	private static var investAbiString: String {
-		let path = Bundle.main.path(forResource: "InvestABIJson", ofType: "json")!
-		let abiJsonString = try! String(contentsOfFile: path, encoding: .utf8)
-		return abiJsonString
+	private static var makerAbiString: String {
+		ABIReader(fileName: "MakerABIJson")
+	}
+
+	private static var compoundAbiString: String {
+		ABIReader(fileName: "CompoundABIJson")
 	}
 }
 
@@ -93,8 +98,14 @@ public enum ABIMethodWrite: String {
 	case sDaiToDai
 	case borrow
 	case borrowETH
+	case depositV2
+	case depositETHV2
 	case depositV3
 	case setUserUseReserveAsCollateral
+	case depositWETHV2
+	case withdrawV2
+	case withdrawETHV2
+	case withdrawWETHV2
 }
 
 fileprivate func ABIReader(fileName: String) -> String {

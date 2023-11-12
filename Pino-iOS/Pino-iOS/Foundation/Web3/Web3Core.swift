@@ -370,6 +370,38 @@ public class Web3Core {
 		investManager.getSDaiToDaiCallData(amount: amount, recipientAdd: recipientAdd)
 	}
 
+	public func getDepositV2CallData(tokenAdd: String, amount: BigUInt, recipientAdd: String) -> Promise<String> {
+		investManager.getDepositV2CallData(tokenAdd: tokenAdd, amount: amount, recipientAdd: recipientAdd)
+	}
+
+	public func getDepositETHV2CallData(recipientAdd: String, proxyFee: BigUInt) -> Promise<String> {
+		investManager.getDepositETHV2CallData(recipientAdd: recipientAdd, proxyFee: proxyFee)
+	}
+
+	public func getDepositWETHV2CallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
+		investManager.getDepositWETHV2CallData(amount: amount, recipientAdd: recipientAdd)
+	}
+
+	public func getWithdrawV2CallData(tokenAdd: String, amount: BigUInt, recipientAdd: String) -> Promise<String> {
+		investManager.getWithdrawV2CallData(tokenAdd: tokenAdd, amount: amount, recipientAdd: recipientAdd)
+	}
+
+	public func getWithdrawETHV2CallData(recipientAdd: String, amount: BigUInt) -> Promise<String> {
+		investManager.getWithdrawETHV2CallData(recipientAdd: recipientAdd, amount: amount)
+	}
+
+	public func getWithdrawWETHV2CallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
+		investManager.getWithdrawWETHV2CallData(amount: amount, recipientAdd: recipientAdd)
+	}
+
+	public func getInvestProxyContract() throws -> DynamicContract {
+		try investManager.getInvestProxyContract()
+	}
+
+	public func getCompoundProxyContract() throws -> DynamicContract {
+		try investManager.getCompoundProxyContract()
+	}
+
 	public func borrowCompoundCToken(contractDetails: ContractDetailsModel) -> Promise<String> {
 		compoundBorrowManager.borrowCToken(contractDetails: contractDetails)
 	}
@@ -526,6 +558,8 @@ extension Web3Core {
 		static let permitAddress = "0x000000000022D473030F116dDEE9F6B43aC78BA3"
 		static let pinoAaveProxyAddress = "0xb5ea6BAdD330466D66345e154Db9834B1Fe8Dab6"
 		static let pinoSwapProxyAddress = "0xB51557272E09d41f649a04073dB780AC25998a1e"
+		static let compoundContractAddress = "0xb5E69cBF92E3ff6c11E2CC4A33C26573702Ab98B"
+		static let investContractAddress = "0x7dA89F62340Ad976e4E32a30c7f688aFCcE8a51C"
 		static let paraSwapETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 		static let oneInchETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 		static let zeroXETHID = "ETH"
@@ -544,5 +578,48 @@ extension Web3Core {
 		static let compoundCUsdcContractAddress = "0x39AA39c021dfbaE8faC545936693aC917d5E7563"
 		static let compoundCUsdtContractAddress = "0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9"
 		static let compoundCWbtcContractAddress = "0xC11b1268C1A384e55C48c2391d8d480264A3A7F4"
+		static let sDaiContractAddress = "0x83f20f44975d03b1b09e64809b757c47f942beea"
+	}
+}
+
+extension Web3Core {
+	public enum TokenID: String {
+		case aave = "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9"
+		case dai = "0x6b175474e89094c44da98b954eedeac495271d0f"
+		case eth = "0x0000000000000000000000000000000000000000"
+		case link = "0x514910771af9ca656af840dff83e8264ecf986ca"
+		case uni = "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984"
+		case usdc = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+		case usdt = "0xdac17f958d2ee523a2206206994597c13d831ec7"
+		case wbtc = "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"
+
+		// MARK: Public Properties
+
+		public var cTokenID: String {
+			switch self {
+			case .aave:
+				return "0xe65cdB6479BaC1e22340E4E755fAE7E509EcD06c"
+			case .dai:
+				return "0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643"
+			case .eth:
+				return "0x4Ddc2D193948926D02f9B1fE9e1daa0718270ED5"
+			case .link:
+				return "0xFAce851a4921ce59e912d19329929CE6da6EB0c7"
+			case .uni:
+				return "0x35A18000230DA775CAc24873d00Ff85BccdeD550"
+			case .usdc:
+				return "0x39AA39c021dfbaE8faC545936693aC917d5E7563"
+			case .usdt:
+				return "0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9"
+			case .wbtc:
+				return "0xC11b1268C1A384e55C48c2391d8d480264A3A7F4"
+			}
+		}
+
+		// MARK: Initializers
+
+		init(id: String) {
+			self = TokenID(rawValue: id)!
+		}
 	}
 }

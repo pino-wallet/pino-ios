@@ -68,7 +68,9 @@ class InvestConfirmationViewController: AuthenticationLockViewController {
 	}
 
 	private func confirmInvestment() {
-		unlockApp {}
+		unlockApp {
+			self.investConfirmationVM.getDepositInfo()
+		}
 	}
 
 	private func getFee() {

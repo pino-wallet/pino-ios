@@ -31,32 +31,6 @@
     "type": "constructor"
   },
   {
-    "inputs": [],
-    "name": "EtherReuseGuardCall",
-    "type": "error"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_caller",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_recipient",
-        "type": "address"
-      }
-    ],
-    "name": "FailedToSendEther",
-    "type": "error"
-  },
-  {
-    "inputs": [],
-    "name": "InvalidAmountToTransfer",
-    "type": "error"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
@@ -634,9 +608,5 @@
     ],
     "stateMutability": "view",
     "type": "function"
-  },
-  {
-    "stateMutability": "payable",
-    "type": "receive"
   }
 ]
