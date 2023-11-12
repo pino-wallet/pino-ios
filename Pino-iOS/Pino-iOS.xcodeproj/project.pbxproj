@@ -504,6 +504,9 @@
 		DF00179529F85774001164EA /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00179429F85774001164EA /* KeychainManager.swift */; };
 		DF00179729F96D3D001164EA /* PinoWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00179629F96D3D001164EA /* PinoWalletManager.swift */; };
 		DF0347B42A39FAFF00A6C265 /* Web3ABI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0347B32A39FAFF00A6C265 /* Web3ABI.swift */; };
+		DF0B1ECF2B00DB3F001B0522 /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0B1ECE2B00DB3F001B0522 /* PushNotificationManager.swift */; };
+		DF0B1ED12B00DE6C001B0522 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = DF0B1ED02B00DE6C001B0522 /* FirebaseMessaging */; };
+		DF0B1ED32B00E0D5001B0522 /* FCMTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0B1ED22B00E0D5001B0522 /* FCMTokenManager.swift */; };
 		DF0F65E529E1B20F00DB7290 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65E429E1B20F00DB7290 /* BigInt */; };
 		DF0F65EB29E1B24500DB7290 /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65EA29E1B24500DB7290 /* OHHTTPStubs */; };
 		DF0F65ED29E1B24500DB7290 /* OHHTTPStubsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65EC29E1B24500DB7290 /* OHHTTPStubsSwift */; };
@@ -1255,6 +1258,8 @@
 		DF00179429F85774001164EA /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		DF00179629F96D3D001164EA /* PinoWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoWalletManager.swift; sourceTree = "<group>"; };
 		DF0347B32A39FAFF00A6C265 /* Web3ABI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3ABI.swift; sourceTree = "<group>"; };
+		DF0B1ECE2B00DB3F001B0522 /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
+		DF0B1ED22B00E0D5001B0522 /* FCMTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenManager.swift; sourceTree = "<group>"; };
 		DF14FC9C2A8E108D005221A8 /* W3TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3TransactionManager.swift; sourceTree = "<group>"; };
 		DF14FC9E2A9105CF005221A8 /* W3GasInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3GasInfoManager.swift; sourceTree = "<group>"; };
 		DF14FCA02A9105F3005221A8 /* W3TransferManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3TransferManager.swift; sourceTree = "<group>"; };
@@ -1495,6 +1500,7 @@
 			files = (
 				DF0F65F029E1B27200DB7290 /* Kingfisher in Frameworks */,
 				DF954B572A8A68DD000A9D45 /* DGCharts in Frameworks */,
+				DF0B1ED12B00DE6C001B0522 /* FirebaseMessaging in Frameworks */,
 				E3E009E02A0635C800234707 /* Hyperconnectivity in Frameworks */,
 				DFC4D0332A360C3B00F03DC4 /* Web3 in Frameworks */,
 				408463C02A3AEE010058FF16 /* Web3-Utility in Frameworks */,
@@ -1844,6 +1850,7 @@
 		3E4B7A8B106106B96A2983A0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				DF0B1ECD2B00DB2C001B0522 /* NotificationManager */,
 				2DF8930CF6FC02BBFE525BEC /* KeychainManager */,
 				6D2C6AE44164F7D140AB3226 /* PasscodeManager */,
 			);
@@ -3304,6 +3311,15 @@
 			path = Wallet;
 			sourceTree = "<group>";
 		};
+		DF0B1ECD2B00DB2C001B0522 /* NotificationManager */ = {
+			isa = PBXGroup;
+			children = (
+				DF0B1ECE2B00DB3F001B0522 /* PushNotificationManager.swift */,
+				DF0B1ED22B00E0D5001B0522 /* FCMTokenManager.swift */,
+			);
+			path = NotificationManager;
+			sourceTree = "<group>";
+		};
 		DF6971184EDF0A9D6DD15E69 /* CustomSwitchCollectionCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -3991,6 +4007,7 @@
 				DFC4D0362A360C3B00F03DC4 /* Web3PromiseKit */,
 				408463BF2A3AEE010058FF16 /* Web3-Utility */,
 				DF954B562A8A68DD000A9D45 /* DGCharts */,
+				DF0B1ED02B00DE6C001B0522 /* FirebaseMessaging */,
 			);
 			productName = "Pino-iOS";
 			productReference = 8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */;
@@ -4676,6 +4693,7 @@
 				078E15176613CB329D507580 /* PassManagmentError.swift in Sources */,
 				B2555AA57E466EAE75423515 /* PasscodeManagerPages.swift in Sources */,
 				E33F7CBA2AD44199007FC04D /* W3InvestManager.swift in Sources */,
+				DF0B1ECF2B00DB3F001B0522 /* PushNotificationManager.swift in Sources */,
 				A9D7256A81B9271BA56435AE /* PasscodeManagerService.swift in Sources */,
 				D924C3412A9495ED007299A4 /* BorrowingPropertiesViewModel.swift in Sources */,
 				C6B2D50A8E7A92DE60F957E2 /* PasteFromClipboardView.swift in Sources */,
@@ -4817,6 +4835,7 @@
 				7D789F2B97B770D2B2B8DF05 /* SettingsViewModel.swift in Sources */,
 				D615530893452E25B58471EF /* ShareOfAssetsViewModel.swift in Sources */,
 				FDC9B8DDC75EF47C7D607182 /* ShowSecretPhraseView.swift in Sources */,
+				DF0B1ED32B00E0D5001B0522 /* FCMTokenManager.swift in Sources */,
 				06DB0B31505094D78686694E /* ShowSecretPhraseViewController.swift in Sources */,
 				92BC3A7553A87622AD6F640E /* ShowSecretPhraseViewModel.swift in Sources */,
 				DF00178F29F8567C001164EA /* Account.swift in Sources */,
@@ -5322,6 +5341,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 408463BE2A3AEE010058FF16 /* XCRemoteSwiftPackageReference "Web3-Utility" */;
 			productName = "Web3-Utility";
+		};
+		DF0B1ED02B00DE6C001B0522 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF7B58F02B00B3A300939375 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 		DF0F65E429E1B20F00DB7290 /* BigInt */ = {
 			isa = XCSwiftPackageProductDependency;
