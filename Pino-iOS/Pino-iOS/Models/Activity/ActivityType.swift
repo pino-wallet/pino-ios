@@ -8,7 +8,7 @@
 enum ActivityType: String {
 	case transfer
 	case transfer_from
-//	case approve
+	case approve
 //	case other_token
 	case swap
 	case create_investment

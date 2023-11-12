@@ -18,6 +18,7 @@ enum ResultActivityModel: Decodable, Encodable {
 	case repay(ActivityRepayModel)
 	case withdraw(ActivityWithdrawModel)
 	case invest(ActivityInvestModel)
+	case approve(ActivityApproveModel)
 	case unknown(UnknownActivityModel?)
 
 	// MARK: - Coding keys
@@ -58,6 +59,9 @@ enum ResultActivityModel: Decodable, Encodable {
 		     .disable_collateral:
 			let collateralActivity = try ActivityCollateralModel(from: decoder)
 			self = .collateral(collateralActivity)
+		case .approve:
+			let approveActivity = try ActivityApproveModel(from: decoder)
+			self = .approve(approveActivity)
 		default:
 			self = .unknown(nil)
 		}
@@ -93,6 +97,9 @@ enum ResultActivityModel: Decodable, Encodable {
 		case let .invest(investActivity):
 			try container.encode(ActivityType.create_investment.rawValue, forKey: .type)
 			try investActivity.encode(to: encoder)
+		case let .approve(approveActivity):
+			try container.encode(ActivityType.approve.rawValue, forKey: .type)
+			try approveActivity.encode(to: encoder)
 		case let .unknown(nilDetails):
 			try nilDetails.encode(to: encoder)
 		}

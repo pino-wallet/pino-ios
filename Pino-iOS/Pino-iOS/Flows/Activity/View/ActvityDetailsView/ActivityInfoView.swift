@@ -211,6 +211,8 @@ class ActivityInfoView: UIView {
 			hideFromAndToStackView()
 		case .disable_collateral:
 			hideFromAndToStackView()
+		case .approve:
+			hideFromAndToStackView()
 		}
 	}
 

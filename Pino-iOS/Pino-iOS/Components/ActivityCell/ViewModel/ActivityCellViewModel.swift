@@ -33,6 +33,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private var withdrawCollateralDetailsVM: WithdrawCollateralActivityDetailsViewModel?
 	private var collateralDetailsVM: CollateralActivityDetailsViewModel?
 	private var collateralStatusDetailsVM: CollateralStatusActivityDetailsViewModel?
+	private var approveDetailsVM: ApproveActivityDetailsViewModel?
 
 	// MARK: - Internal Properties
 
@@ -82,6 +83,8 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			return .enable_collateral
 		case .disable_collateral:
 			return .disable_collateral
+		case .approve:
+			return .approve
 		}
 	}
 
@@ -210,6 +213,11 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 				activityModel: activityModel as! ActivityCollateralModel,
 				globalAssetsList: globalAssetsList
 			)
+		case .approve:
+			approveDetailsVM = ApproveActivityDetailsViewModel(
+				activityModel: activityModel as! ActivityApproveModel,
+				globalAssetsList: globalAssetsList
+			)
 		}
 	}
 
@@ -305,6 +313,14 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			activityMoreInfo = collateralStatusDetailsVM!.activityProtocol.capitalized
 			// set cell icon
 			#warning("this should change")
+			icon = approveIcon
+		case .approve:
+			// set cell title
+			title =
+				"Approve \(approveDetailsVM!.tokenSymbol)"
+			// set cell moreInfo
+			activityMoreInfo = "Permit 2"
+			// set cell icon
 			icon = approveIcon
 		}
 	}

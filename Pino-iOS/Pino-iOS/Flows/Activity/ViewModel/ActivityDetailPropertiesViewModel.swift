@@ -26,6 +26,7 @@ struct ActivityDetailProperties {
 	private var withdrawCollateralDetailsVM: WithdrawCollateralActivityDetailsViewModel?
 	private var collateralDetailsVM: CollateralActivityDetailsViewModel?
 	private var collateralStatusDetailsVM: CollateralStatusActivityDetailsViewModel?
+	private var approveDetailsVM: ApproveActivityDetailsViewModel?
 
 	// MARK: - Public Properties
 
@@ -54,6 +55,8 @@ struct ActivityDetailProperties {
 			return collateralStatusDetailsVM?.tokenImage
 		case .disable_collateral:
 			return collateralStatusDetailsVM?.tokenImage
+		case .approve:
+			return approveDetailsVM?.tokenImage
 		}
 	}
 
@@ -81,6 +84,8 @@ struct ActivityDetailProperties {
 			return "Enable as collateral"
 		case .disable_collateral:
 			return "Disable as collateral"
+		case .approve:
+			return "Approve to Permit 2"
 		}
 	}
 
@@ -142,6 +147,8 @@ struct ActivityDetailProperties {
 			return collateralStatusDetailsVM?.activityProtocol.capitalized
 		case .disable_collateral:
 			return collateralStatusDetailsVM?.activityProtocol.capitalized
+		case .approve:
+			return nil
 		}
 	}
 
@@ -169,6 +176,8 @@ struct ActivityDetailProperties {
 			return collateralStatusDetailsVM?.activityProtocol
 		case .disable_collateral:
 			return collateralStatusDetailsVM?.activityProtocol
+		case .approve:
+			return nil
 		}
 	}
 
@@ -307,6 +316,11 @@ struct ActivityDetailProperties {
 				activityModel: activityDetails.defaultActivityModel as! ActivityCollateralModel,
 				globalAssetsList: globalAssetsList
 			)
+		case .approve:
+			approveDetailsVM = ApproveActivityDetailsViewModel(
+				activityModel: activityDetails.defaultActivityModel as! ActivityApproveModel,
+				globalAssetsList: globalAssetsList
+			)
 		}
 	}
 
@@ -366,6 +380,8 @@ extension ActivityUIType {
 			return "Enable details"
 		case .disable_collateral:
 			return "Disable details"
+		case .approve:
+			return "Approve"
 		}
 	}
 }
