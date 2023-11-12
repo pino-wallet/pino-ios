@@ -24,6 +24,13 @@ class CollateralConfirmViewController: UIViewController {
 		setupNavigationBar()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		if isBeingPresented || isMovingToParent {
+			collateralConfirmView.showSkeletonView()
+			collateralConfirmVM.getCollateralGasInfo()
+		}
+	}
+
 	// MARK: - Initializers
 
 	init(collateralConfirmVM: CollateralConfirmViewModel) {

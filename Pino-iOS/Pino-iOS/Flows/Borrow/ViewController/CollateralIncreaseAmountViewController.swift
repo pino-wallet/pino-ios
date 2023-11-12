@@ -7,14 +7,13 @@
 
 import PromiseKit
 import UIKit
-import Web3_Utility
 
 class CollateralIncreaseAmountViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let collateralIncreaseAmountVM: CollateralIncreaseAmountViewModel
 	private let web3 = Web3Core.shared
-	private let walletManager = PinoWalletManager()
+	private let checkForAllowanceErrorText = "Failed to check for allowance of token"
 	private var collateralIncreaseAmountView: CollateralIncreaseAmountView!
 
 	// MARK: - View Overrides
@@ -61,37 +60,25 @@ class CollateralIncreaseAmountViewController: UIViewController {
 
 	private func checkForAllowance() {
 		// Check If Permit has access to Token
-		if collateralIncreaseAmountVM.selectedToken.isEth {
-			pushToCollateralConfirmVC()
-			return
-		}
-		firstly {
-			try web3.getAllowanceOf(
-				contractAddress: collateralIncreaseAmountVM.selectedToken.id.lowercased(),
-				spenderAddress: Web3Core.Constants.permitAddress,
-				ownerAddress: walletManager.currentAccount.eip55Address
-			)
-		}.done { [self] allowanceAmount in
-			let destTokenDecimal = collateralIncreaseAmountVM.selectedToken.decimal
-			let destTokenAmount = Utilities.parseToBigUInt(
-				collateralIncreaseAmountVM.tokenAmount,
-				decimals: destTokenDecimal
-			)
-			if allowanceAmount == 0 || allowanceAmount < destTokenAmount! {
-				// NOT ALLOWED
-				presentApproveVC()
+		collateralIncreaseAmountVM.checkTokenAllowance().done { didUserHasAllowance, tokenId in
+			if didUserHasAllowance {
+				self.pushToCollateralConfirmVC()
 			} else {
-				// ALLOWED
-				pushToCollateralConfirmVC()
+				self.presentApproveVC(tokenContractAddress: tokenId)
 			}
 		}.catch { error in
-			print(error)
+			Toast.default(
+				title: self.checkForAllowanceErrorText,
+				subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+				style: .error
+			)
+			.show(haptic: .warning)
 		}
 	}
 
-	private func presentApproveVC() {
+	private func presentApproveVC(tokenContractAddress: String) {
 		let approveVC = ApproveContractViewController(
-			approveContractID: collateralIncreaseAmountVM.selectedToken.id,
+			approveContractID: tokenContractAddress,
 			showConfirmVC: {
 				self.pushToCollateralConfirmVC()
 			}, approveType: .collateral
