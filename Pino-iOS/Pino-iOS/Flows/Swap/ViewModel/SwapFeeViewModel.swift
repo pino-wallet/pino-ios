@@ -69,8 +69,8 @@ class SwapFeeViewModel {
 	public func calculatePriceImpact(srcTokenAmount: BigNumber?, destTokenAmount: BigNumber?) {
 		guard let srcTokenAmount, let destTokenAmount else { return }
 		let differenceOfTokensAmount = srcTokenAmount - destTokenAmount
-        guard let dividedDifferenceOfTokenAmount = (differenceOfTokensAmount / srcTokenAmount) else { return }
-        let priceImpactBigNumber = dividedDifferenceOfTokenAmount * 100.bigNumber
+		guard let dividedDifferenceOfTokenAmount = (differenceOfTokensAmount / srcTokenAmount) else { return }
+		let priceImpactBigNumber = dividedDifferenceOfTokenAmount * 100.bigNumber
 		getPriceImpactStatus(priceImpactBigNumber)
 		if priceImpactBigNumber < 0.bigNumber {
 			priceImpact = "0"
