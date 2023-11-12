@@ -19,6 +19,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private let investIcon = "invest"
 	private let withdrawIcon = "withdraw"
 	private let borrowIcon = "borrow_transaction"
+	private let approveIcon = "approve"
 
 	private let currentAddress = PinoWalletManager().currentAccount.eip55Address
 
@@ -31,6 +32,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private var investDetailsVM: InvestActivityDetailsViewModel?
 	private var withdrawCollateralDetailsVM: WithdrawCollateralActivityDetailsViewModel?
 	private var collateralDetailsVM: CollateralActivityDetailsViewModel?
+	private var collateralStatusDetailsVM: CollateralStatusActivityDetailsViewModel?
 
 	// MARK: - Internal Properties
 
@@ -76,6 +78,10 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			return .collateral
 		case .decrease_collateral, .remove_collateral:
 			return .withdraw_collateral
+		case .enable_collateral:
+			return .enable_collateral
+		case .disable_collateral:
+			return .disable_collateral
 		}
 	}
 
@@ -199,6 +205,11 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 				activityModel: activityModel as! ActivityCollateralModel,
 				globalAssetsList: globalAssetsList
 			)
+		case .enable_collateral, .disable_collateral:
+			collateralStatusDetailsVM = CollateralStatusActivityDetailsViewModel(
+				activityModel: activityModel as! ActivityCollateralModel,
+				globalAssetsList: globalAssetsList
+			)
 		}
 	}
 
@@ -277,6 +288,24 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			activityMoreInfo = withdrawCollateralDetailsVM!.activityProtocol.capitalized
 			// set cell icon
 			icon = decreaseCollateral
+		case .enable_collateral:
+			// set cell title
+			title =
+				"Enable \(collateralStatusDetailsVM!.tokenSymbol) to collateralized"
+			// set cell moreInfo
+			activityMoreInfo = collateralStatusDetailsVM!.activityProtocol.capitalized
+			// set cell icon
+			#warning("this should change")
+			icon = approveIcon
+		case .disable_collateral:
+			// set cell title
+			title =
+				"Disable \(collateralStatusDetailsVM!.tokenSymbol) to collateralized"
+			// set cell moreInfo
+			activityMoreInfo = collateralStatusDetailsVM!.activityProtocol.capitalized
+			// set cell icon
+			#warning("this should change")
+			icon = approveIcon
 		}
 	}
 }

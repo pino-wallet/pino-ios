@@ -35,4 +35,6 @@ public enum ActivityUIType {
 	case invest
 	case repay
 	case withdraw_investment
+	case enable_collateral
+	case disable_collateral
 }
