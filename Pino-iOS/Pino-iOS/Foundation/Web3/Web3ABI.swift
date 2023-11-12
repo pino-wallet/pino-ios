@@ -73,6 +73,8 @@ public enum ABIMethodCall: String {
 	case symbol
 	case allowance
 	case approve
+	case getReservesList
+	case getUserConfiguration
 }
 
 public enum ABIMethodWrite: String {
@@ -92,6 +94,7 @@ public enum ABIMethodWrite: String {
 	case borrow
 	case borrowETH
 	case depositV3
+	case setUserUseReserveAsCollateral
 }
 
 fileprivate func ABIReader(fileName: String) -> String {
