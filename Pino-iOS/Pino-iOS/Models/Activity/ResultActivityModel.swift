@@ -16,7 +16,7 @@ enum ResultActivityModel: Decodable, Encodable {
 	case borrow(ActivityBorrowModel)
 	//    case collateral(ActivityCollateralModel)
 	case repay(ActivityRepayModel)
-	//    case withdraw(ActivityWithdrawModel)
+	case withdraw(ActivityWithdrawModel)
 	//    case invest(ActivityInvestModel)
 	case unknown(UnknownActivityModel?)
 
@@ -45,9 +45,9 @@ enum ResultActivityModel: Decodable, Encodable {
 		//        case .create_investment, .create_withdraw_investment, .increase_investment:
 		//            let investActivity = try ActivityInvestModel(from: decoder)
 		//            self = .invest(investActivity)
-		//        case .withdraw_investment, .decrease_investment:
-		//            let withdrawActivity = try ActivityWithdrawModel(from: decoder)
-		//            self = .withdraw(withdrawActivity)
+		case .withdraw_investment, .decrease_investment:
+			let withdrawActivity = try ActivityWithdrawModel(from: decoder)
+			self = .withdraw(withdrawActivity)
 		case .borrow:
 			let borrowActivity = try ActivityBorrowModel(from: decoder)
 			self = .borrow(borrowActivity)
@@ -80,15 +80,15 @@ enum ResultActivityModel: Decodable, Encodable {
 		case let .borrow(borrowActivity):
 			try container.encode(ActivityType.borrow.rawValue, forKey: .type)
 			try borrowActivity.encode(to: encoder)
-		//        case let .collateral(collateralActivity):
-		//            try container.encode(ActivityType.create_collateral.rawValue, forKey: .type)
-		//            try collateralActivity.encode(to: encoder)
+//		        case let .collateral(collateralActivity):
+//		            try container.encode(ActivityType.create_collateral.rawValue, forKey: .type)
+//		            try collateralActivity.encode(to: encoder)
 		case let .repay(repayActivity):
 			try container.encode(ActivityType.repay.rawValue, forKey: .type)
 			try repayActivity.encode(to: encoder)
-		//        case let .withdraw(withdrawActivity):
-		//            try container.encode(ActivityType.withdraw_investment.rawValue, forKey: .type)
-		//            try withdrawActivity.encode(to: encoder)
+		case let .withdraw(withdrawActivity):
+			try container.encode(ActivityType.withdraw_investment.rawValue, forKey: .type)
+			try withdrawActivity.encode(to: encoder)
 		//        case let .invest(investActivity):
 		//            try container.encode(ActivityType.create_investment.rawValue, forKey: .type)
 		//            try investActivity.encode(to: encoder)

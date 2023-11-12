@@ -27,6 +27,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private var transferDetailsVM: TransferActivityDetailsViewModel?
 	private var borrowDetailsVM: BorrowActivityDetailsViewModel?
 	private var repayDetailsVM: RepayActivityDetailsViewModel?
+	private var withdrawInvestmentDetailsVM: WithdrawInvestmentActivityDetailsViewModel?
 
 	// MARK: - Internal Properties
 
@@ -59,11 +60,11 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		//            return .invest
 		//        case .create_withdraw_investment:
 		//            if isWithdrawTransaction() {
-		//                return .withdraw
+		//                return .withdraw_invest
 		//            }
 		//            return .invest
-		//        case .decrease_investment:
-		//            return .decrease_invest
+		case .decrease_investment, .withdraw_investment:
+			return .withdraw_investment
 		case .borrow:
 			return .borrow
 		case .repay, .repay_behalf:
@@ -72,7 +73,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			//            return .collateral
 			//        case .decrease_collateral:
 			//            return .decrease_collateral
-			//        case .remove_collateral, .withdraw_investment:
+			//        case .remove_collateral:
 			//            return .withdraw
 		}
 	}
@@ -164,6 +165,12 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 				activityModel: activityModel as! ActivityRepayModel,
 				globalAssetsList: globalAssetsList
 			)
+
+		case .decrease_investment, .withdraw_investment:
+			withdrawInvestmentDetailsVM = WithdrawInvestmentActivityDetailsViewModel(
+				activityModel: activityModel as! ActivityWithdrawModel,
+				globalAssetsList: globalAssetsList
+			)
 		}
 	}
 
@@ -213,6 +220,14 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			activityMoreInfo = repayDetailsVM!.activityProtocol.capitalized
 			// set cell icon
 			icon = repaidIcon
+		case .withdraw_investment:
+			// set cell title
+			title =
+				"Withdraw \(withdrawInvestmentDetailsVM!.tokenAmount.sevenDigitFormat) \(withdrawInvestmentDetailsVM!.tokenSymbol)"
+			// set cell moreInfo
+			activityMoreInfo = withdrawInvestmentDetailsVM!.activityProtocol.capitalized
+			// set cell icon
+			icon = withdrawIcon
 		}
 	}
 }

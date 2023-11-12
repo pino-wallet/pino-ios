@@ -342,6 +342,7 @@
 		D94A9A2429FE75FC00DCA28D /* EditAccountNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A2329FE75FC00DCA28D /* EditAccountNameViewModel.swift */; };
 		D9556E6F2AFB89B800ADF1B9 /* BorrowActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9556E6E2AFB89B800ADF1B9 /* BorrowActivityDetailsViewModel.swift */; };
 		D9556E712AFBA79D00ADF1B9 /* RepayActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9556E702AFBA79D00ADF1B9 /* RepayActivityDetailsViewModel.swift */; };
+		D95782372AFCC0B70007D580 /* WithdrawInvestmentActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95782362AFCC0B70007D580 /* WithdrawInvestmentActivityDetailsViewModel.swift */; };
 		D95D20342AAC9B2E00E0A885 /* HealthScoreSystemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95D20332AAC9B2E00E0A885 /* HealthScoreSystemViewController.swift */; };
 		D95D20362AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95D20352AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift */; };
 		D95D49822A386BC10042FC85 /* TitleWithInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95D49812A386BC10042FC85 /* TitleWithInfo.swift */; };
@@ -1092,6 +1093,7 @@
 		D94A9A2329FE75FC00DCA28D /* EditAccountNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameViewModel.swift; sourceTree = "<group>"; };
 		D9556E6E2AFB89B800ADF1B9 /* BorrowActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowActivityDetailsViewModel.swift; sourceTree = "<group>"; };
 		D9556E702AFBA79D00ADF1B9 /* RepayActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepayActivityDetailsViewModel.swift; sourceTree = "<group>"; };
+		D95782362AFCC0B70007D580 /* WithdrawInvestmentActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawInvestmentActivityDetailsViewModel.swift; sourceTree = "<group>"; };
 		D95D20332AAC9B2E00E0A885 /* HealthScoreSystemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthScoreSystemViewController.swift; sourceTree = "<group>"; };
 		D95D20352AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthScoreSystemViewModel.swift; sourceTree = "<group>"; };
 		D95D49812A386BC10042FC85 /* TitleWithInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithInfo.swift; sourceTree = "<group>"; };
@@ -3118,6 +3120,7 @@
 				D9BE15B12A69360E005E4063 /* TransferActivityDetailsViewModel.swift */,
 				D9556E6E2AFB89B800ADF1B9 /* BorrowActivityDetailsViewModel.swift */,
 				D9556E702AFBA79D00ADF1B9 /* RepayActivityDetailsViewModel.swift */,
+				D95782362AFCC0B70007D580 /* WithdrawInvestmentActivityDetailsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -4674,6 +4677,7 @@
 				DE33FFB7D492FA770FF9FB5C /* SemiboldStyle.swift in Sources */,
 				D99F4B2329E2C619009F7F55 /* PaymentMethodOptionModel.swift in Sources */,
 				6FB3C66B1E98C7C2B7886069 /* SettingCell.swift in Sources */,
+				D95782372AFCC0B70007D580 /* WithdrawInvestmentActivityDetailsViewModel.swift in Sources */,
 				DF14FCA52A910F74005221A8 /* W3GasInfo.swift in Sources */,
 				E3D478B32A3064C90030A987 /* CustomAssetDataSource.swift in Sources */,
 				D9BFEC3E2A12236C007DFF40 /* ClearNavigationBar.swift in Sources */,
