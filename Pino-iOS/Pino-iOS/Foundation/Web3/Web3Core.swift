@@ -29,7 +29,14 @@ public class Web3Core {
 		}
 	}
 
-	private var trxManager: W3TransferManager {
+	private var userPrivateKey: EthereumPrivateKey {
+		try! EthereumPrivateKey(
+			hexPrivateKey: walletManager.currentAccountPrivateKey
+				.string
+		)
+	}
+
+	private var trxManager: W3TransactionManager {
 		.init(web3: web3)
 	}
 
@@ -58,6 +65,10 @@ public class Web3Core {
 	}
 
 	private var aaveBorrowManager: W3AaveBorrowManager {
+		.init(web3: web3)
+	}
+
+	private var aaveDepositManager: W3AaveDepositManager {
 		.init(web3: web3)
 	}
 
@@ -117,11 +128,12 @@ public class Web3Core {
 		approveManager.getApproveCallData(contractAdd: contractAdd, amount: amount, spender: spender)
 	}
 
-	public func getApproveProxyCallData(tokenAdd: String, spender: String) -> Promise<String> {
-		approveManager.getApproveProxyCallData(tokenAdd: tokenAdd, spender: spender)
+	public func getApproveProxyCallData(contract: DynamicContract, tokenAdd: String, spender: String) -> Promise<String> {
+		approveManager.getApproveProxyCallData(contract: contract, tokenAdd: tokenAdd, spender: spender)
 	}
 
 	public func getPermitTransferCallData(
+		contract: DynamicContract,
 		amount: BigUInt,
 		tokenAdd: String,
 		signiture: String,
@@ -129,7 +141,7 @@ public class Web3Core {
 		deadline: BigUInt
 	) -> Promise<String> {
 		transferManager.getPermitTransferFromCallData(
-			amount: amount,
+			contract: contract, amount: amount,
 			tokenAdd: tokenAdd,
 			signiture: signiture,
 			nonce: nonce,
@@ -137,8 +149,8 @@ public class Web3Core {
 		)
 	}
 
-	public func getWrapETHCallData(proxyFee: BigUInt) -> Promise<String> {
-		swapManager.getWrapETHCallData(proxyFee: proxyFee)
+	public func getWrapETHCallData(contract: DynamicContract, proxyFee: BigUInt) -> Promise<String> {
+		swapManager.getWrapETHCallData(contract: contract, proxyFee: proxyFee)
 	}
 
 	public func getUnwrapETHCallData(recipient: String) -> Promise<String> {
@@ -146,26 +158,57 @@ public class Web3Core {
 	}
 
 	public func getParaswapSwapCallData(data: String) -> Promise<String> {
-		swapManager.getSwapProviderData(callData: data, method: .swapParaswap)
+		swapManager.getSwapProviderData(callData: data, method: .swapParaSwap)
 	}
 
 	public func getOneInchSwapCallData(data: String) -> Promise<String> {
-		swapManager.getSwapProviderData(callData: data, method: .swap1Inch)
+		swapManager.getSwapProviderData(callData: data, method: .swapOneInch)
 	}
 
 	public func getZeroXSwapCallData(data: String) -> Promise<String> {
-		swapManager.getSwapProviderData(callData: data, method: .swap0x)
+		swapManager.getSwapProviderData(callData: data, method: .swapZeroX)
 	}
 
 	public func getSweepTokenCallData(tokenAdd: String, recipientAdd: String) -> Promise<String> {
 		swapManager.getSweepTokenCallData(tokenAdd: tokenAdd, recipientAdd: recipientAdd)
 	}
 
-	public func callProxyMulticall(data: [String], value: BigUInt) -> TrxWithGasInfo {
-		swapManager.callMultiCall(
-			callData: data,
-			value: value
-		)
+	public func getSwapProxyContract() throws -> DynamicContract {
+		try swapManager.getSwapProxyContract()
+	}
+
+	public func getPinoAaveProxyContract() throws -> DynamicContract {
+		try aaveDepositManager.getPinoAaveProxyContract()
+	}
+
+	public func callMultiCall(contractAddress: String, callData: [String], value: BigUInt) -> TrxWithGasInfo {
+		let generatedMulticallData = W3CallDataGenerator.generateMultiCallFrom(calls: callData)
+		let ethCallData = EthereumData(generatedMulticallData.hexToBytes())
+		let eip55ContractAddress = contractAddress.eip55Address!
+
+		return TrxWithGasInfo { [self] seal in
+
+			gasInfoManager
+				.calculateGasOf(data: ethCallData, to: eip55ContractAddress, value: value.etherumQuantity)
+				.then { [self] gasInfo in
+					web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+						.map { ($0, gasInfo) }
+				}.done { [self] nonce, gasInfo in
+					let trx = try trxManager.createTransactionFor(
+						nonce: nonce,
+						gasPrice: gasInfo.gasPrice.etherumQuantity,
+						gasLimit: gasInfo.increasedGasLimit.bigUInt.etherumQuantity,
+						value: value.etherumQuantity,
+						data: ethCallData,
+						to: eip55ContractAddress
+					)
+
+					let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Network.chainID)
+					seal.fulfill((signedTx, gasInfo))
+				}.catch { error in
+					seal.reject(error)
+				}
+		}
 	}
 
 	public func callTransaction(trx: EthereumSignedTransaction) -> Promise<String> {
@@ -326,31 +369,38 @@ public class Web3Core {
 	public func getSDaiToDaiCallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
 		investManager.getSDaiToDaiCallData(amount: amount, recipientAdd: recipientAdd)
 	}
-    
-    public func getDepositV2CallData(tokenAdd: String, amount: BigUInt, recipientAdd: String) -> Promise<String> {
-        investManager.getDepositV2CallData(tokenAdd: tokenAdd, amount: amount, recipientAdd: recipientAdd)
-    }
-    
-    public func getDepositETHV2CallData(recipientAdd: String, proxyFee: BigUInt) -> Promise<String> {
-        investManager.getDepositETHV2CallData(recipientAdd: recipientAdd, proxyFee: proxyFee)
-    }
-    
-    public func getDepositWETHV2CallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
-        investManager.getDepositWETHV2CallData(amount: amount, recipientAdd: recipientAdd)
-    }
-    
-    public func getWithdrawV2CallData(tokenAdd: String, amount: BigUInt, recipientAdd: String) -> Promise<String> {
-        investManager.getWithdrawV2CallData(tokenAdd: tokenAdd, amount: amount, recipientAdd: recipientAdd)
-    }
-    
-    public func getWithdrawETHV2CallData(recipientAdd: String, amount: BigUInt) -> Promise<String> {
-        investManager.getWithdrawETHV2CallData(recipientAdd: recipientAdd, amount: amount)
-    }
-    
-    public func getWithdrawWETHV2CallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
-        investManager.getWithdrawWETHV2CallData(amount: amount, recipientAdd: recipientAdd)
-    }
 
+	public func getDepositV2CallData(tokenAdd: String, amount: BigUInt, recipientAdd: String) -> Promise<String> {
+		investManager.getDepositV2CallData(tokenAdd: tokenAdd, amount: amount, recipientAdd: recipientAdd)
+	}
+
+	public func getDepositETHV2CallData(recipientAdd: String, proxyFee: BigUInt) -> Promise<String> {
+		investManager.getDepositETHV2CallData(recipientAdd: recipientAdd, proxyFee: proxyFee)
+	}
+
+	public func getDepositWETHV2CallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
+		investManager.getDepositWETHV2CallData(amount: amount, recipientAdd: recipientAdd)
+	}
+
+	public func getWithdrawV2CallData(tokenAdd: String, amount: BigUInt, recipientAdd: String) -> Promise<String> {
+		investManager.getWithdrawV2CallData(tokenAdd: tokenAdd, amount: amount, recipientAdd: recipientAdd)
+	}
+
+	public func getWithdrawETHV2CallData(recipientAdd: String, amount: BigUInt) -> Promise<String> {
+		investManager.getWithdrawETHV2CallData(recipientAdd: recipientAdd, amount: amount)
+	}
+
+	public func getWithdrawWETHV2CallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
+		investManager.getWithdrawWETHV2CallData(amount: amount, recipientAdd: recipientAdd)
+	}
+
+	public func getInvestProxyContract() throws -> DynamicContract {
+		try investManager.getInvestProxyContract()
+	}
+
+	public func getCompoundProxyContract() throws -> DynamicContract {
+		try investManager.getCompoundProxyContract()
+	}
 
 	public func borrowCompoundCToken(contractDetails: ContractDetailsModel) -> Promise<String> {
 		compoundBorrowManager.borrowCToken(contractDetails: contractDetails)
@@ -420,6 +470,38 @@ public class Web3Core {
 		aaveBorrowManager.borrowToken(contractDetails: contractDetails)
 	}
 
+	public func getAaveDespositV3ERCCallData(
+		contract: DynamicContract,
+		assetAddress: String,
+		amount: BigUInt,
+		userAddress: String
+	) -> Promise<String> {
+		aaveDepositManager.getAaveDespositV3ERCCallData(
+			contract: contract,
+			assetAddress: assetAddress,
+			amount: amount,
+			userAddress: userAddress
+		)
+	}
+
+	public func getUserUseReserveAsCollateralContractDetails(
+		assetAddress: String,
+		useAsCollateral: Bool
+	) -> Promise<ContractDetailsModel> {
+		aaveDepositManager.getUserUseReserveAsCollateralContractDetails(
+			assetAddress: assetAddress,
+			useAsCollateral: useAsCollateral
+		)
+	}
+
+	public func getUserUseReserveAsCollateralGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
+		aaveDepositManager.getUserUseReserveAsCollateralGasInfo(contractDetails: contractDetails)
+	}
+
+	public func setUserUseReserveAsCollateral(contractDetails: ContractDetailsModel) -> Promise<String> {
+		aaveDepositManager.setUserUseReserveAsCollateral(contractDetails: contractDetails)
+	}
+
 	// MARK: - Private Methods
 
 	private func getInfo(address: String, info: ABIMethodCall, abi: Web3ABI) throws -> Promise<[String: Any]> {
@@ -447,7 +529,6 @@ public class Web3Core {
 			}.done { allowance in
 				seal.fulfill(allowance)
 			}.catch(policy: .allErrors) { error in
-				print(error)
 				seal.reject(error)
 			}
 		}
@@ -471,9 +552,11 @@ extension Web3Core {
 		static let ethGasLimit = "21000"
 		static let eoaCode = "0x"
 		static let permitAddress = "0x000000000022D473030F116dDEE9F6B43aC78BA3"
+		static let pinoAaveProxyAddress = "0xb5ea6BAdD330466D66345e154Db9834B1Fe8Dab6"
+		static let pinoSwapProxyAddress = "0xB51557272E09d41f649a04073dB780AC25998a1e"
 		static let pinoProxyAddress = "0x118E662de0C4cdc2f8AD0fb1c6Ef4a85222baCF0"
-        static let compoundContractAddress = "0xb5E69cBF92E3ff6c11E2CC4A33C26573702Ab98B"
-        static let investContractAddress = "0x7dA89F62340Ad976e4E32a30c7f688aFCcE8a51C"
+		static let compoundContractAddress = "0xb5E69cBF92E3ff6c11E2CC4A33C26573702Ab98B"
+		static let investContractAddress = "0x7dA89F62340Ad976e4E32a30c7f688aFCcE8a51C"
 		static let paraSwapETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 		static let oneInchETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 		static let zeroXETHID = "ETH"
@@ -481,8 +564,8 @@ extension Web3Core {
 		static let wethTokenID = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
 		static let aaveBorrowVariableInterestRate = 2
 		static let aaveBorrowReferralCode = 0
-		static let aaveERCContractAddress = "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2"
-		static let aaveETHContractAddress = "0xD322A49006FC828F9B5B37Ab215F99B4E5caB19C"
+		static let aavePoolERCContractAddress = "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2"
+		static let aaveWrappedTokenETHContractAddress = "0xD322A49006FC828F9B5B37Ab215F99B4E5caB19C"
 		static let compoundCAaveContractAddress = "0xe65cdB6479BaC1e22340E4E755fAE7E509EcD06c"
 		static let compoundCCompContractAddress = "0x70e36f6BF80a52b3B46b3aF8e106CC0ed743E8e4"
 		static let compoundCDaiContractAddress = "0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643"
@@ -492,48 +575,48 @@ extension Web3Core {
 		static let compoundCUsdcContractAddress = "0x39AA39c021dfbaE8faC545936693aC917d5E7563"
 		static let compoundCUsdtContractAddress = "0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9"
 		static let compoundCWbtcContractAddress = "0xC11b1268C1A384e55C48c2391d8d480264A3A7F4"
-        static let sDaiContractAddress = "0x83f20f44975d03b1b09e64809b757c47f942beea"
+		static let sDaiContractAddress = "0x83f20f44975d03b1b09e64809b757c47f942beea"
 	}
 }
 
 extension Web3Core {
-    public enum TokenID: String {
-        case aave = "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9"
-        case dai = "0x6b175474e89094c44da98b954eedeac495271d0f"
-        case eth = "0x0000000000000000000000000000000000000000"
-        case link = "0x514910771af9ca656af840dff83e8264ecf986ca"
-        case uni = "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984"
-        case usdc = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
-        case usdt = "0xdac17f958d2ee523a2206206994597c13d831ec7"
-        case wbtc = "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"
-        
-        // MARK: Public Properties
+	public enum TokenID: String {
+		case aave = "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9"
+		case dai = "0x6b175474e89094c44da98b954eedeac495271d0f"
+		case eth = "0x0000000000000000000000000000000000000000"
+		case link = "0x514910771af9ca656af840dff83e8264ecf986ca"
+		case uni = "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984"
+		case usdc = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+		case usdt = "0xdac17f958d2ee523a2206206994597c13d831ec7"
+		case wbtc = "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"
 
-        public var cTokenID: String {
-            switch self {
-            case .aave:
-                return "0xe65cdB6479BaC1e22340E4E755fAE7E509EcD06c"
-            case .dai:
-                return "0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643"
-            case .eth:
-                return "0x4Ddc2D193948926D02f9B1fE9e1daa0718270ED5"
-            case .link:
-                return "0xFAce851a4921ce59e912d19329929CE6da6EB0c7"
-            case .uni:
-                return "0x35A18000230DA775CAc24873d00Ff85BccdeD550"
-            case .usdc:
-                return "0x39AA39c021dfbaE8faC545936693aC917d5E7563"
-            case .usdt:
-                return "0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9"
-            case .wbtc:
-                return "0xC11b1268C1A384e55C48c2391d8d480264A3A7F4"
-            }
-        }
-        
-        // MARK: Initializers
+		// MARK: Public Properties
 
-        init(id: String) {
-            self = TokenID(rawValue: id)!
-        }
-    }
+		public var cTokenID: String {
+			switch self {
+			case .aave:
+				return "0xe65cdB6479BaC1e22340E4E755fAE7E509EcD06c"
+			case .dai:
+				return "0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643"
+			case .eth:
+				return "0x4Ddc2D193948926D02f9B1fE9e1daa0718270ED5"
+			case .link:
+				return "0xFAce851a4921ce59e912d19329929CE6da6EB0c7"
+			case .uni:
+				return "0x35A18000230DA775CAc24873d00Ff85BccdeD550"
+			case .usdc:
+				return "0x39AA39c021dfbaE8faC545936693aC917d5E7563"
+			case .usdt:
+				return "0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9"
+			case .wbtc:
+				return "0xC11b1268C1A384e55C48c2391d8d480264A3A7F4"
+			}
+		}
+
+		// MARK: Initializers
+
+		init(id: String) {
+			self = TokenID(rawValue: id)!
+		}
+	}
 }

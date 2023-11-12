@@ -9,6 +9,7 @@ import Combine
 import Foundation
 import PromiseKit
 import Web3_Utility
+import Web3ContractABI
 
 class InvestConfirmationViewModel {
 	// MARK: - Private Properties
@@ -18,10 +19,22 @@ class InvestConfirmationViewModel {
 	private let selectedProtocol: InvestProtocolViewModel
 	private let selectedToken: AssetViewModel
 	private var gasFee: BigNumber!
+	private let web3 = Web3Core.shared
 
 	private var cancellables = Set<AnyCancellable>()
 	private var ethToken: AssetViewModel {
 		GlobalVariables.shared.manageAssetsList!.first(where: { $0.isEth })!
+	}
+
+	private var investProxyContract: DynamicContract {
+		switch selectedProtocol {
+		case .uniswap, .balancer, .maker:
+			return try! web3.getInvestProxyContract()
+		case .compound:
+			return try! web3.getCompoundProxyContract()
+		case .aave:
+			return try! web3.getInvestProxyContract()
+		}
 	}
 
 	// MARK: - Public Properties
@@ -117,13 +130,14 @@ class InvestConfirmationViewModel {
 			#warning("Implement later")
 		}
 	}
-    
-    public func getDepositInfo() {
-        let investManager = InvestManager(
-            selectedToken: selectedToken,
-            investProtocol: .compound,
-            investAmount: investAmount
-        )
-        investManager.invest()
-    }
+
+	public func getDepositInfo() {
+		let investManager = InvestManager(
+			contract: investProxyContract,
+			selectedToken: selectedToken,
+			investProtocol: selectedProtocol,
+			investAmount: investAmount
+		)
+		investManager.invest()
+	}
 }

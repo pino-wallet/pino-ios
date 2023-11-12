@@ -16,12 +16,21 @@ class SwapConfirmationViewModel {
 
 	private let selectedProtocol: SwapProtocolModel
 	private let selectedProvider: SwapProviderViewModel?
+	private let web3 = Web3Core.shared
 	private var cancellables = Set<AnyCancellable>()
 	private var ethToken: AssetViewModel {
 		GlobalVariables.shared.manageAssetsList!.first(where: { $0.isEth })!
 	}
 
-	private var swapManager: SwapManager
+	private lazy var swapManager: SwapManager = {
+		let swapProxyContract = try! web3.getSwapProxyContract()
+		return SwapManager(
+			contract: swapProxyContract,
+			selectedProvider: self.selectedProvider,
+			srcToken: self.fromToken,
+			destToken: self.toToken
+		)
+	}()
 
 	// MARK: - Public Properties
 
@@ -63,7 +72,6 @@ class SwapConfirmationViewModel {
 		self.selectedProtocol = selectedProtocol
 		self.selectedProvider = selectedProvider
 		self.swapRate = swapRate
-		self.swapManager = SwapManager(selectedProvider: selectedProvider, srcToken: fromToken, destToken: toToken)
 		setSelectedProtocol()
 	}
 

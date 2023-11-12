@@ -10,11 +10,12 @@ import Foundation
 public enum Web3ABI {
 	case erc
 	case swap
-    case investMaker
+	case investMaker
 	case investCompound
 	case borrowERCAave
 	case borrowETHAave
 	case borrowCTokenCompound
+	case aaveProxy
 
 	public var abi: Data {
 		switch self {
@@ -24,14 +25,16 @@ public enum Web3ABI {
 			return Web3ABI.swapAbiString.data(using: .utf8)!
 		case .investMaker:
 			return Web3ABI.makerAbiString.data(using: .utf8)!
-        case .investCompound:
-            return Web3ABI.compoundAbiString.data(using: .utf8)!
+		case .investCompound:
+			return Web3ABI.compoundAbiString.data(using: .utf8)!
 		case .borrowERCAave:
 			return Web3ABI.borrowERCAaveAbiString.data(using: .utf8)!
 		case .borrowETHAave:
 			return Web3ABI.borrowETHAaveAbiString.data(using: .utf8)!
 		case .borrowCTokenCompound:
 			return Web3ABI.borrowCompoundCTokenAbiString.data(using: .utf8)!
+		case .aaveProxy:
+			return Web3ABI.aaveProxyAbiString.data(using: .utf8)!
 		}
 	}
 
@@ -55,17 +58,21 @@ public enum Web3ABI {
 		ABIReader(fileName: "BorrowCompoundCTokenABIJson")
 	}
 
+	private static var aaveProxyAbiString: String {
+		ABIReader(fileName: "AaveProxyABIJson")
+	}
+
 	private static var makerAbiString: String {
 		let path = Bundle.main.path(forResource: "MakerABIJson", ofType: "json")!
 		let abiJsonString = try! String(contentsOfFile: path, encoding: .utf8)
 		return abiJsonString
 	}
-    
-    private static var compoundAbiString: String {
-        let path = Bundle.main.path(forResource: "CompoundABIJson", ofType: "json")!
-        let abiJsonString = try! String(contentsOfFile: path, encoding: .utf8)
-        return abiJsonString
-    }
+
+	private static var compoundAbiString: String {
+		let path = Bundle.main.path(forResource: "CompoundABIJson", ofType: "json")!
+		let abiJsonString = try! String(contentsOfFile: path, encoding: .utf8)
+		return abiJsonString
+	}
 }
 
 public enum ABIMethodCall: String {
@@ -86,19 +93,21 @@ public enum ABIMethodWrite: String {
 	case unwrapWETH9
 	case wrapETH
 	case multicall
-	case swap0x
-	case swapParaswap
-	case swap1Inch
+	case swapZeroX
+	case swapParaSwap
+	case swapOneInch
 	case daiToSDai
 	case sDaiToDai
 	case borrow
 	case borrowETH
-    case depositV2
-    case depositETHV2
-    case depositWETHV2
-    case withdrawV2
-    case withdrawETHV2
-    case withdrawWETHV2
+	case depositV2
+	case depositETHV2
+	case depositV3
+	case setUserUseReserveAsCollateral
+	case depositWETHV2
+	case withdrawV2
+	case withdrawETHV2
+	case withdrawWETHV2
 }
 
 fileprivate func ABIReader(fileName: String) -> String {

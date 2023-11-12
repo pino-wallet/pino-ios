@@ -33,23 +33,20 @@ public struct W3SwapManager {
 		.init(web3: web3)
 	}
 
-	private var userPrivateKey: EthereumPrivateKey {
-		try! EthereumPrivateKey(
-			hexPrivateKey: walletManager.currentAccountPrivateKey
-				.string
+	// MARK: - Public Methods
+
+	public func getSwapProxyContract() throws -> DynamicContract {
+		try Web3Core.getContractOfToken(
+			address: Web3Core.Constants.pinoSwapProxyAddress,
+			abi: .swap,
+			web3: web3
 		)
 	}
-
-	// MARK: - Public Methods
 
 	public func getSweepTokenCallData(tokenAdd: String, recipientAdd: String) -> Promise<String> {
 		Promise<String>() { [self] seal in
 
-			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.pinoProxyAddress,
-				abi: .swap,
-				web3: web3
-			)
+			let contract = try getSwapProxyContract()
 			let solInvocation = contract[ABIMethodWrite.sweepToken.rawValue]?(
 				tokenAdd.eip55Address!,
 				recipientAdd.eip55Address!
@@ -63,14 +60,9 @@ public struct W3SwapManager {
 		}
 	}
 
-	public func getWrapETHCallData(proxyFee: BigUInt) -> Promise<String> {
+	public func getWrapETHCallData(contract: DynamicContract, proxyFee: BigUInt) -> Promise<String> {
 		Promise<String>() { [self] seal in
 
-			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.pinoProxyAddress,
-				abi: .swap,
-				web3: web3
-			)
 			let solInvocation = contract[ABIMethodWrite.wrapETH.rawValue]?(proxyFee)
 
 			let trx = try trxManager.createTransactionFor(
@@ -84,11 +76,7 @@ public struct W3SwapManager {
 	public func getUnWrapETHCallData(recipient: String) -> Promise<String> {
 		Promise<String>() { [self] seal in
 
-			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.pinoProxyAddress,
-				abi: .swap,
-				web3: web3
-			)
+			let contract = try getSwapProxyContract()
 			let solInvocation = contract[ABIMethodWrite.unwrapWETH9.rawValue]?(recipient.eip55Address!)
 
 			let trx = try trxManager.createTransactionFor(
@@ -99,41 +87,11 @@ public struct W3SwapManager {
 		}
 	}
 
-	public func callMultiCall(callData: [String], value: BigUInt) -> Web3Core.TrxWithGasInfo {
-		let generatedMulticallData = W3CallDataGenerator.generateMultiCallFrom(calls: callData)
-		let ethCallData = EthereumData(generatedMulticallData.hexToBytes())
-		let contractAddress = Web3Core.Constants.investContractAddress.eip55Address!
-
-		return TrxWithGasInfo { [self] seal in
-
-			gasInfoManager
-				.calculateGasOf(data: ethCallData, to: contractAddress, value: value.etherumQuantity)
-				.then { gasInfo in
-					web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
-						.map { ($0, gasInfo) }
-				}.done { nonce, gasInfo in
-					let trx = try trxManager.createTransactionFor(
-						nonce: nonce,
-						gasPrice: gasInfo.gasPrice.etherumQuantity,
-						gasLimit: gasInfo.increasedGasLimit.bigUInt.etherumQuantity,
-						value: value.etherumQuantity,
-						data: ethCallData,
-						to: contractAddress
-					)
-
-					let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Network.chainID)
-					seal.fulfill((signedTx, gasInfo))
-				}.catch { error in
-					seal.reject(error)
-				}
-		}
-	}
-
 	public func getSwapProviderData(callData: String, method: ABIMethodWrite) -> Promise<String> {
 		Promise<String>() { [self] seal in
 
 			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.pinoProxyAddress,
+				address: Web3Core.Constants.pinoSwapProxyAddress,
 				abi: .swap,
 				web3: web3
 			)
@@ -147,7 +105,7 @@ public struct W3SwapManager {
 			// Calculate the length in bytes
 			let lengthInBytes = lengthInCharacters / 2
 
-			let callD = Data(hexString: callData, length: UInt(lengthInBytes))
+			let callD = Data(hexString: cleanedHexString, length: UInt(lengthInBytes))
 			//            let callD2 = Data(callData.hexToBytes())
 			//            let str = String.init(data: callD!, encoding: .utf8)!
 

@@ -198,7 +198,7 @@ class SwapViewController: UIViewController {
 		present(providersVC, animated: true)
 	}
 
-    #warning("refactor")
+	#warning("refactor")
 	private func proceedSwapFlow() {
 		// First Step of Swap
 		// Check If Permit has access to Token
