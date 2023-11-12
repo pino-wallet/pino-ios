@@ -203,11 +203,11 @@ class ActivityInfoView: UIView {
 			hideFromAndToStackView()
 		case .withdraw_investment:
 			hideFromAndToStackView()
-        case .collateral:
-            hideFromAndToStackView()
-        case .withdraw_collateral:
-            hideFromAndToStackView()
-        }
+		case .collateral:
+			hideFromAndToStackView()
+		case .withdraw_collateral:
+			hideFromAndToStackView()
+		}
 	}
 
 	private func setupConstraints() {

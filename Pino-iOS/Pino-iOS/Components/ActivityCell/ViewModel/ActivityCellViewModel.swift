@@ -29,8 +29,8 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private var repayDetailsVM: RepayActivityDetailsViewModel?
 	private var withdrawInvestmentDetailsVM: WithdrawInvestmentActivityDetailsViewModel?
 	private var investDetailsVM: InvestActivityDetailsViewModel?
-    private var withdrawCollateralDetailsVM: WithdrawCollateralActivityDetailsViewModel?
-    private var collateralDetailsVM: CollateralActivityDetailsViewModel?
+	private var withdrawCollateralDetailsVM: WithdrawCollateralActivityDetailsViewModel?
+	private var collateralDetailsVM: CollateralActivityDetailsViewModel?
 
 	// MARK: - Internal Properties
 
@@ -72,10 +72,10 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			return .borrow
 		case .repay, .repay_behalf:
 			return .repay
-			        case .increase_collateral, .create_collateral:
-			            return .collateral
-        case .decrease_collateral, .remove_collateral:
-			            return .withdraw_collateral
+		case .increase_collateral, .create_collateral:
+			return .collateral
+		case .decrease_collateral, .remove_collateral:
+			return .withdraw_collateral
 		}
 	}
 
@@ -189,10 +189,16 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 					globalAssetsList: globalAssetsList
 				)
 			}
-        case .create_collateral, .increase_collateral:
-            collateralDetailsVM = CollateralActivityDetailsViewModel(activityModel: activityModel as! ActivityCollateralModel, globalAssetsList: globalAssetsList)
-        case .remove_collateral, .decrease_collateral:
-            withdrawCollateralDetailsVM = WithdrawCollateralActivityDetailsViewModel(activityModel: activityModel as! ActivityCollateralModel, globalAssetsList: globalAssetsList)
+		case .create_collateral, .increase_collateral:
+			collateralDetailsVM = CollateralActivityDetailsViewModel(
+				activityModel: activityModel as! ActivityCollateralModel,
+				globalAssetsList: globalAssetsList
+			)
+		case .remove_collateral, .decrease_collateral:
+			withdrawCollateralDetailsVM = WithdrawCollateralActivityDetailsViewModel(
+				activityModel: activityModel as! ActivityCollateralModel,
+				globalAssetsList: globalAssetsList
+			)
 		}
 	}
 
@@ -255,22 +261,22 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			activityMoreInfo = investDetailsVM!.activityProtocol.capitalized
 			// set cell icon
 			icon = investIcon
-        case .collateral:
-            // set cell title
-            title =
-                "Collateralized \(collateralDetailsVM!.tokenAmount.sevenDigitFormat) \(collateralDetailsVM!.tokenSymbol)"
-            // set cell moreInfo
-            activityMoreInfo = collateralDetailsVM!.activityProtocol.capitalized
-            // set cell icon
-            icon = collateralIcon
-        case .withdraw_collateral:
-            // set cell title
-            title =
-                "Uncollateralized \(withdrawCollateralDetailsVM!.tokenAmount.sevenDigitFormat) \(withdrawCollateralDetailsVM!.tokenSymbol)"
-            // set cell moreInfo
-            activityMoreInfo = withdrawCollateralDetailsVM!.activityProtocol.capitalized
-            // set cell icon
-            icon = decreaseCollateral
-        }
+		case .collateral:
+			// set cell title
+			title =
+				"Collateralized \(collateralDetailsVM!.tokenAmount.sevenDigitFormat) \(collateralDetailsVM!.tokenSymbol)"
+			// set cell moreInfo
+			activityMoreInfo = collateralDetailsVM!.activityProtocol.capitalized
+			// set cell icon
+			icon = collateralIcon
+		case .withdraw_collateral:
+			// set cell title
+			title =
+				"Uncollateralized \(withdrawCollateralDetailsVM!.tokenAmount.sevenDigitFormat) \(withdrawCollateralDetailsVM!.tokenSymbol)"
+			// set cell moreInfo
+			activityMoreInfo = withdrawCollateralDetailsVM!.activityProtocol.capitalized
+			// set cell icon
+			icon = decreaseCollateral
+		}
 	}
 }
