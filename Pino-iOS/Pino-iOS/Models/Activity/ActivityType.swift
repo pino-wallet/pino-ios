@@ -21,8 +21,8 @@ enum ActivityType: String {
 	//    case enable_collateral
 	//    case disable_collateral
 	case repay_behalf
-	//    case increase_collateral
-	//    case decrease_collateral
-	//    case create_collateral
-	//    case remove_collateral
+	    case increase_collateral
+	    case decrease_collateral
+	    case create_collateral
+	    case remove_collateral
 }

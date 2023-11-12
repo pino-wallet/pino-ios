@@ -36,9 +36,11 @@ struct ActivityHelper {
 			return withdrawActivity
 		case let .invest(investActivity):
 			return investActivity
+        case let .collateral(collateralActivity):
+            return collateralActivity
 		case .unknown:
 			return nil
-		}
+        }
 	}
 
 	public func iterateActivitiesFromResponse(activities: ActivitiesModel) -> [ActivityModelProtocol] {
