@@ -52,9 +52,11 @@ class ActivityCell: UICollectionViewCell {
 
 	private func setupStyle() {
 		historyTitleLabel.text = activityCellVM?.title ?? ""
-		historyTitleLabel.numberOfLines = 0
+		historyTitleLabel.numberOfLines = 1
+		historyTitleLabel.lineBreakMode = .byTruncatingTail
 		historyMoreInfoLabel.text = activityCellVM?.activityMoreInfo ?? ""
-		historyMoreInfoLabel.numberOfLines = 0
+		historyMoreInfoLabel.numberOfLines = 1
+		historyMoreInfoLabel.lineBreakMode = .byTruncatingTail
 
 		historyIcon.image = UIImage(named: activityCellVM?.icon ?? "unverified_asset")
 
