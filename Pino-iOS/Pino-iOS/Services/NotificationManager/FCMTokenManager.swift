@@ -8,13 +8,11 @@
 import Foundation
 
 class FCMTokenManager {
-	static let shared = FCMTokenManager()
+	// MARK: - Public Properties
 
-	private enum UserDefaultKey: String {
-		case fcmToken
-	}
+	public static let shared = FCMTokenManager()
 
-	var currentToken: String? {
+	public var currentToken: String? {
 		get {
 			UserDefaults.standard.string(forKey: UserDefaultKey.fcmToken.rawValue)
 		}
@@ -22,5 +20,11 @@ class FCMTokenManager {
 		set {
 			UserDefaults.standard.setValue(newValue, forKey: UserDefaultKey.fcmToken.rawValue)
 		}
+	}
+
+	// MARK: - Private Properties
+
+	private enum UserDefaultKey: String {
+		case fcmToken
 	}
 }

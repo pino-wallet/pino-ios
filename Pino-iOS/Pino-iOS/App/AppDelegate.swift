@@ -96,6 +96,8 @@ extension AppDelegate {
 	}
 }
 
+// MARK: - Push notification conformation
+
 extension AppDelegate: UNUserNotificationCenterDelegate {
 	private func setupPushNotifications(application: UIApplication) {
 		// FirebaseApp.configure() // 1

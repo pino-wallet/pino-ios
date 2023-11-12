@@ -11,14 +11,20 @@ import UIKit
 import UserNotifications
 
 class PushNotificationManager: NSObject, ObservableObject {
-	static let shared = PushNotificationManager()
+	// MARK: - Public Properties
+
+	public static let shared = PushNotificationManager()
+
+	// MARK: - Public Properties
 
 	override init() {
 		super.init()
 		Messaging.messaging().delegate = self // 1
 	}
 
-	func requestAuthorization(completionHandler: @escaping () -> Void) {
+	// MARK: - Private Methds
+
+	private func requestAuthorization(completionHandler: @escaping () -> Void) {
 		let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
 		UNUserNotificationCenter.current().getNotificationSettings { settings in // 2
 			switch settings.authorizationStatus {
