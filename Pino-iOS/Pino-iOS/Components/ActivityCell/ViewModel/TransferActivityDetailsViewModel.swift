@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TransferActivityDetailsViewModel: ActivityDetailsProtocol {
+struct TransferActivityDetailsViewModel {
 	// MARK: - TypeAliases
 
 	typealias UserAccountInfoType = (image: String, name: String)
@@ -15,16 +15,12 @@ struct TransferActivityDetailsViewModel: ActivityDetailsProtocol {
 	// MARK: - Internal Properties
 
 	internal var activityModel: ActivityTransferModel
-	internal var globalAssetsList: [AssetViewModel]
+    
+    internal var transferToken: AssetViewModel
 
 	// MARK: - Private Properties
-
-	private var transferToken: AssetViewModel? {
-		globalAssetsList.first(where: { $0.id == activityModel.detail.tokenID })
-	}
-
 	private var transferTokenDecimal: Int {
-		transferToken?.decimal ?? 0
+		transferToken.decimal
 	}
 
 	// MARK: - Public Properties
@@ -34,11 +30,11 @@ struct TransferActivityDetailsViewModel: ActivityDetailsProtocol {
 	}
 
 	public var transferTokenSymbol: String {
-		transferToken?.symbol ?? ""
+        transferToken.symbol
 	}
 
 	public var transferTokenImage: URL? {
-		transferToken?.image
+        transferToken.image
 	}
 
 	public var transferFromAddress: String {

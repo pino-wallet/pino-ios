@@ -23,26 +23,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 
 	private let currentAddress = PinoWalletManager().currentAccount.eip55Address
 
-	private var activityModel: ActivityModelProtocol
-	private var swapDetailsVM: SwapActivityDetailsViewModel?
-	private var transferDetailsVM: TransferActivityDetailsViewModel?
-	private var borrowDetailsVM: BorrowActivityDetailsViewModel?
-	private var repayDetailsVM: RepayActivityDetailsViewModel?
-	private var withdrawInvestmentDetailsVM: WithdrawInvestmentActivityDetailsViewModel?
-	private var investDetailsVM: InvestActivityDetailsViewModel?
-	private var withdrawCollateralDetailsVM: WithdrawCollateralActivityDetailsViewModel?
-	private var collateralDetailsVM: CollateralActivityDetailsViewModel?
-	private var collateralStatusDetailsVM: CollateralStatusActivityDetailsViewModel?
-	private var approveDetailsVM: ApproveActivityDetailsViewModel?
-
 	// MARK: - Internal Properties
-
-	internal var globalAssetsList: [AssetViewModel] = [] {
-		didSet {
-			setupDetailsWithType()
-			setValues()
-		}
-	}
 
 	internal var activityType: ActivityType {
 		ActivityType(rawValue: activityModel.type)!
@@ -65,7 +46,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		case .create_investment, .increase_investment:
 			return .invest
 		case .create_withdraw_investment:
-			if isWithdrawTransaction() {
+			if isWithdrawTransaction {
 				return .withdraw_investment
 			}
 			return .invest
@@ -89,12 +70,76 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	}
 
 	// MARK: - Public Properties
+    
+    public var activityModel: ActivityModelProtocol
+    public var swapDetailsVM: SwapActivityDetailsViewModel? {
+        didSet {
+            setValues()
+        }
+    }
+    public var transferDetailsVM: TransferActivityDetailsViewModel? {
+        didSet {
+            setValues()
+        }
+    }
+    public var borrowDetailsVM: BorrowActivityDetailsViewModel? {
+        didSet {
+            setValues()
+        }
+    }
+    public var repayDetailsVM: RepayActivityDetailsViewModel? {
+        didSet {
+            setValues()
+        }
+    }
+    public var withdrawInvestmentDetailsVM: WithdrawInvestmentActivityDetailsViewModel? {
+        didSet {
+            setValues()
+        }
+    }
+    public var investDetailsVM: InvestActivityDetailsViewModel? {
+        didSet {
+            setValues()
+        }
+    }
+    public var withdrawCollateralDetailsVM: WithdrawCollateralActivityDetailsViewModel? {
+        didSet {
+            setValues()
+        }
+    }
+    public var collateralDetailsVM: CollateralActivityDetailsViewModel? {
+        didSet {
+            setValues()
+        }
+    }
+    public var collateralStatusDetailsVM: CollateralStatusActivityDetailsViewModel? {
+        didSet {
+            setValues()
+        }
+    }
+    public var approveDetailsVM: ApproveActivityDetailsViewModel? {
+        didSet {
+            setValues()
+        }
+    }
 
-	var activityMoreInfo: String!
+	public var activityMoreInfo: String!
 
 	public var blockTime: String {
 		activityModel.blockTime
 	}
+    
+    public var isWithdrawTransaction: Bool {
+        if let investActivity = activityModel as? ActivityInvestModel {
+            if currentAddress.lowercased() == investActivity.fromAddress.lowercased() {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
 
 	public var status: ActivityCellStatus {
 		#warning("this section is mock and we should refactor this section")
@@ -136,90 +181,6 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		}
 	}
 
-	private func isWithdrawTransaction() -> Bool {
-		if let investActivity = activityModel as? ActivityInvestModel {
-			if currentAddress.lowercased() == investActivity.fromAddress.lowercased() {
-				return true
-			} else {
-				return false
-			}
-		} else {
-			return false
-		}
-	}
-
-	private mutating func setupDetailsWithType() {
-		switch activityType {
-		case .transfer:
-			transferDetailsVM = TransferActivityDetailsViewModel(
-				activityModel: activityModel as! ActivityTransferModel,
-				globalAssetsList: globalAssetsList
-			)
-		case .transfer_from:
-			transferDetailsVM = TransferActivityDetailsViewModel(
-				activityModel: activityModel as! ActivityTransferModel,
-				globalAssetsList: globalAssetsList
-			)
-		case .swap:
-			swapDetailsVM = SwapActivityDetailsViewModel(
-				activityModel: activityModel as! ActivitySwapModel,
-				globalAssetsList: globalAssetsList
-			)
-		case .borrow:
-			borrowDetailsVM = BorrowActivityDetailsViewModel(
-				activityModel: activityModel as! ActivityBorrowModel,
-				globalAssetsList: globalAssetsList
-			)
-		case .repay, .repay_behalf:
-			repayDetailsVM = RepayActivityDetailsViewModel(
-				activityModel: activityModel as! ActivityRepayModel,
-				globalAssetsList: globalAssetsList
-			)
-
-		case .decrease_investment, .withdraw_investment:
-			withdrawInvestmentDetailsVM = WithdrawInvestmentActivityDetailsViewModel(
-				activityModel: activityModel as! ActivityWithdrawModel,
-				globalAssetsList: globalAssetsList
-			)
-		case .create_investment, .increase_investment:
-			investDetailsVM = InvestActivityDetailsViewModel(
-				activityModel: activityModel as! ActivityInvestModel,
-				globalAssetsList: globalAssetsList
-			)
-		case .create_withdraw_investment:
-			if isWithdrawTransaction() {
-				withdrawInvestmentDetailsVM = WithdrawInvestmentActivityDetailsViewModel(
-					activityModel: activityModel as! ActivityWithdrawModel,
-					globalAssetsList: globalAssetsList
-				)
-			} else {
-				investDetailsVM = InvestActivityDetailsViewModel(
-					activityModel: activityModel as! ActivityInvestModel,
-					globalAssetsList: globalAssetsList
-				)
-			}
-		case .create_collateral, .increase_collateral:
-			collateralDetailsVM = CollateralActivityDetailsViewModel(
-				activityModel: activityModel as! ActivityCollateralModel,
-				globalAssetsList: globalAssetsList
-			)
-		case .remove_collateral, .decrease_collateral:
-			withdrawCollateralDetailsVM = WithdrawCollateralActivityDetailsViewModel(
-				activityModel: activityModel as! ActivityCollateralModel,
-				globalAssetsList: globalAssetsList
-			)
-		case .enable_collateral, .disable_collateral:
-			collateralStatusDetailsVM = CollateralStatusActivityDetailsViewModel(
-				activityModel: activityModel as! ActivityCollateralModel,
-				globalAssetsList: globalAssetsList
-			)
-		case .approve:
-			approveDetailsVM = ApproveActivityDetailsViewModel(
-				activityModel: activityModel as! ActivityApproveModel,
-				globalAssetsList: globalAssetsList
-			)
-		}
-	}
 
 	private mutating func setValues() {
 		switch uiType {

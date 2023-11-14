@@ -7,30 +7,24 @@
 
 import Foundation
 
-struct BorrowActivityDetailsViewModel: ActivityDetailsProtocol {
+struct BorrowActivityDetailsViewModel {
 	// MARK: - Internal Properties
 
 	internal var activityModel: ActivityBorrowModel
-	internal var globalAssetsList: [AssetViewModel]
-
-	// MARK: - Private Properties
-
-	private var token: AssetViewModel? {
-		globalAssetsList.first(where: { $0.id.lowercased() == activityModel.detail.token.tokenID.lowercased() })
-	}
+    internal var token: AssetViewModel
 
 	// MARK: - Public Properties
 
 	public var tokenAmount: BigNumber {
-		BigNumber(number: activityModel.detail.token.amount, decimal: token?.decimal ?? 0)
+        BigNumber(number: activityModel.detail.token.amount, decimal: token.decimal)
 	}
 
 	public var tokenSymbol: String {
-		token?.symbol ?? ""
+        token.symbol
 	}
 
 	public var tokenImage: URL? {
-		token?.image
+        token.image
 	}
 
 	public var activityProtocol: String {
