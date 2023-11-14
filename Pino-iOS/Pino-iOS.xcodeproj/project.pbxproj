@@ -444,7 +444,6 @@
 		D9BE051D2A8221C8008670F9 /* CDSwapActivityDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE05112A8221C8008670F9 /* CDSwapActivityDetails+CoreDataProperties.swift */; };
 		D9BE051E2A8221C8008670F9 /* CDActivityDetailsToken+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE05122A8221C8008670F9 /* CDActivityDetailsToken+CoreDataClass.swift */; };
 		D9BE051F2A8221C8008670F9 /* CDActivityDetailsToken+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE05132A8221C8008670F9 /* CDActivityDetailsToken+CoreDataProperties.swift */; };
-		D9BE15AD2A693539005E4063 /* ActivityDetailsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE15AC2A693539005E4063 /* ActivityDetailsProtocol.swift */; };
 		D9BE15B02A693593005E4063 /* SwapActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE15AF2A693593005E4063 /* SwapActivityDetailsViewModel.swift */; };
 		D9BE15B22A69360E005E4063 /* TransferActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE15B12A69360E005E4063 /* TransferActivityDetailsViewModel.swift */; };
 		D9BFE9972AD28BE8005E4562 /* ContractDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFE9962AD28BE8005E4562 /* ContractDetails.swift */; };
@@ -1214,7 +1213,6 @@
 		D9BE05112A8221C8008670F9 /* CDSwapActivityDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDSwapActivityDetails+CoreDataProperties.swift"; path = "Pino-iOS/CoreData/Models/Activity/CDSwapActivityDetails+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		D9BE05122A8221C8008670F9 /* CDActivityDetailsToken+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDActivityDetailsToken+CoreDataClass.swift"; path = "Pino-iOS/CoreData/Models/Activity/CDActivityDetailsToken+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		D9BE05132A8221C8008670F9 /* CDActivityDetailsToken+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDActivityDetailsToken+CoreDataProperties.swift"; path = "Pino-iOS/CoreData/Models/Activity/CDActivityDetailsToken+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		D9BE15AC2A693539005E4063 /* ActivityDetailsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailsProtocol.swift; sourceTree = "<group>"; };
 		D9BE15AF2A693593005E4063 /* SwapActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapActivityDetailsViewModel.swift; sourceTree = "<group>"; };
 		D9BE15B12A69360E005E4063 /* TransferActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferActivityDetailsViewModel.swift; sourceTree = "<group>"; };
 		D9BFE9962AD28BE8005E4562 /* ContractDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractDetails.swift; sourceTree = "<group>"; };
@@ -3121,7 +3119,6 @@
 			isa = PBXGroup;
 			children = (
 				D9AF29E42A5010C4006BC53E /* ActivityCellViewModelProtocol.swift */,
-				D9BE15AC2A693539005E4063 /* ActivityDetailsProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -4376,7 +4373,6 @@
 				5319850502764EDE67A09C49 /* AddNewAccountCollectionView.swift in Sources */,
 				4CA4F662ECA5E7E45B96C281 /* AddNewAccountCollectionViewCell.swift in Sources */,
 				E3FC69A02A8A0731009B3341 /* InvestmentPerformanceViewController.swift in Sources */,
-				D9BE15AD2A693539005E4063 /* ActivityDetailsProtocol.swift in Sources */,
 				E34728E929E7DCCF00AB8265 /* HomepageViewModel+Wallet.swift in Sources */,
 				67CB57B83460DA7FDE4BFED3 /* AddNewAccountOptionModel.swift in Sources */,
 				DAB2FF91D5EAF0795A12201B /* AddNewAccountOptionViewModel.swift in Sources */,
