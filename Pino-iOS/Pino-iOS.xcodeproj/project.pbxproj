@@ -592,7 +592,7 @@
 		E31106FE2AC17040005723EB /* InvestableAssetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31106FD2AC17040005723EB /* InvestableAssetsModel.swift */; };
 		E333E63A2AA708D3005C977E /* InvestEmptyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E333E6392AA708D3005C977E /* InvestEmptyPageView.swift */; };
 		E33F7CBA2AD44199007FC04D /* W3InvestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F7CB92AD44199007FC04D /* W3InvestManager.swift */; };
-		E33F7CBC2AD442AC007FC04D /* MakerABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = E33F7CBB2AD442AC007FC04D /* MakerABIJson.json */; };
+		E33F7CBC2AD442AC007FC04D /* InvestABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = E33F7CBB2AD442AC007FC04D /* InvestABIJson.json */; };
 		E33F7CBE2AD44CA2007FC04D /* InvestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F7CBD2AD44CA2007FC04D /* InvestManager.swift */; };
 		E343836A2A3D912A0048BDA1 /* SendConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34383692A3D912A0048BDA1 /* SendConfirmationViewController.swift */; };
 		E343836C2A3D92C20048BDA1 /* SendConfimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E343836B2A3D92C20048BDA1 /* SendConfimationView.swift */; };
@@ -1339,7 +1339,7 @@
 		E31106FD2AC17040005723EB /* InvestableAssetsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestableAssetsModel.swift; sourceTree = "<group>"; };
 		E333E6392AA708D3005C977E /* InvestEmptyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestEmptyPageView.swift; sourceTree = "<group>"; };
 		E33F7CB92AD44199007FC04D /* W3InvestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3InvestManager.swift; sourceTree = "<group>"; };
-		E33F7CBB2AD442AC007FC04D /* MakerABIJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MakerABIJson.json; sourceTree = "<group>"; };
+		E33F7CBB2AD442AC007FC04D /* InvestABIJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvestABIJson.json; sourceTree = "<group>"; };
 		E33F7CBD2AD44CA2007FC04D /* InvestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestManager.swift; sourceTree = "<group>"; };
 		E34383692A3D912A0048BDA1 /* SendConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmationViewController.swift; sourceTree = "<group>"; };
 		E343836B2A3D92C20048BDA1 /* SendConfimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfimationView.swift; sourceTree = "<group>"; };
@@ -3448,7 +3448,7 @@
 			children = (
 				D9714C8A2AE4FE5D00FF3AAA /* AaveProxyABIJson.json */,
 				D5E4DDD42AD9295E000AA235 /* CompoundABIJson.json */,
-				E33F7CBB2AD442AC007FC04D /* MakerABIJson.json */,
+				E33F7CBB2AD442AC007FC04D /* InvestABIJson.json */,
 				D92729422AD3EE500043D9B1 /* BorrowCompoundCTokenABIJson.json */,
 				D92729402AD3EDBC0043D9B1 /* BorrowETHAaveABIJson.json */,
 				D9D754252AD133C8001D4B94 /* ERC20ABIJson.json */,
@@ -4181,7 +4181,7 @@
 				D924C34A2A949712007299A4 /* user-borrowing-stub.json in Resources */,
 				AE47F248DD308C61B717B086 /* PPPangramSans-Semibold.ttf in Resources */,
 				6493F198BF5B402E4D922A79 /* PPPangramSans-SemiboldItalic.ttf in Resources */,
-				E33F7CBC2AD442AC007FC04D /* MakerABIJson.json in Resources */,
+				E33F7CBC2AD442AC007FC04D /* InvestABIJson.json in Resources */,
 				BA45498BC5E24EE8ACDA819E /* PPPangramSans-SemiboldReclined.ttf in Resources */,
 				EFC5F586A70E988F98620A79 /* PPPangramSans-Thin.ttf in Resources */,
 				D50E904CB4FBD07E10DE3E9B /* PPPangramSans-ThinItalic.ttf in Resources */,

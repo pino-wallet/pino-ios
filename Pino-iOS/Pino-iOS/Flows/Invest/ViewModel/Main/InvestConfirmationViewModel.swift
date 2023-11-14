@@ -28,7 +28,7 @@ class InvestConfirmationViewModel {
 
 	private var investProxyContract: DynamicContract {
 		switch selectedProtocol {
-		case .uniswap, .balancer, .maker:
+		case .uniswap, .balancer, .maker, .lido:
 			return try! web3.getInvestProxyContract()
 		case .compound:
 			return try! web3.getCompoundProxyContract()
