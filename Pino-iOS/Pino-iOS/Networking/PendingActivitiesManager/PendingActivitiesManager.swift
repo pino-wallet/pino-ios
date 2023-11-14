@@ -136,53 +136,63 @@ class PendingActivitiesManager {
 						gasPrice: cdApproveActivity.gasPrice,
 						prev_txHash: cdApproveActivity.prevTxHash
 					))
-                case .create_investment, .increase_investment:
-                    let cdInvestActivity = activity as! CDInvestActivity
-                    pendingActivitiesList.append(ActivityInvestModel(
-                        txHash: cdInvestActivity.txHash,
-                        type: cdInvestActivity.type,
-                        detail: InvestmentActivityDetails(tokens: cdInvestActivity.details.tokens.compactMap {
-                            ActivityTokenModel(amount: $0.amount, tokenID: $0.tokenId)
-                        }, poolId: cdInvestActivity.details.poolID, activityProtocol: cdInvestActivity.details.activityProtocol, nftId: convertOptionalStringToInt(string: cdInvestActivity.details.nftID)),
-                        fromAddress: cdInvestActivity.fromAddress,
-                        toAddress: cdInvestActivity.toAddress,
-                        failed: nil,
-                        blockNumber: nil,
-                        blockTime: cdInvestActivity.blockTime,
-                        gasUsed: cdInvestActivity.gasUsed,
-                        gasPrice: cdInvestActivity.gasPrice,
-                        prev_txHash: cdInvestActivity.prevTxHash
-                    ))
-                case .decrease_investment, .withdraw_investment:
-                    let cdWithdrawActivity = activity as! CDWithdrawActivity
-                    pendingActivitiesList.append(ActivityWithdrawModel(
-                        txHash: cdWithdrawActivity.txHash,
-                        type: cdWithdrawActivity.type,
-                        detail: InvestmentActivityDetails(tokens: cdWithdrawActivity.details.tokens.compactMap {
-                            ActivityTokenModel(amount: $0.amount, tokenID: $0.tokenId)
-                        }, poolId: cdWithdrawActivity.details.poolID, activityProtocol: cdWithdrawActivity.details.activityProtocol, nftId: convertOptionalStringToInt(string: cdWithdrawActivity.details.nftID)),
-                        fromAddress: cdWithdrawActivity.fromAddress,
-                        toAddress: cdWithdrawActivity.toAddress,
-                        failed: nil,
-                        blockNumber: nil,
-                        blockTime: cdWithdrawActivity.blockTime,
-                        gasUsed: cdWithdrawActivity.gasUsed,
-                        gasPrice: cdWithdrawActivity.gasPrice,
-                        prev_txHash: cdWithdrawActivity.prevTxHash
-                    ))
+				case .create_investment, .increase_investment:
+					let cdInvestActivity = activity as! CDInvestActivity
+					pendingActivitiesList.append(ActivityInvestModel(
+						txHash: cdInvestActivity.txHash,
+						type: cdInvestActivity.type,
+						detail: InvestmentActivityDetails(
+							tokens: cdInvestActivity.details.tokens.compactMap {
+								ActivityTokenModel(amount: $0.amount, tokenID: $0.tokenId)
+							},
+							poolId: cdInvestActivity.details.poolID,
+							activityProtocol: cdInvestActivity.details.activityProtocol,
+							nftId: convertOptionalStringToInt(string: cdInvestActivity.details.nftID)
+						),
+						fromAddress: cdInvestActivity.fromAddress,
+						toAddress: cdInvestActivity.toAddress,
+						failed: nil,
+						blockNumber: nil,
+						blockTime: cdInvestActivity.blockTime,
+						gasUsed: cdInvestActivity.gasUsed,
+						gasPrice: cdInvestActivity.gasPrice,
+						prev_txHash: cdInvestActivity.prevTxHash
+					))
+				case .decrease_investment, .withdraw_investment:
+					let cdWithdrawActivity = activity as! CDWithdrawActivity
+					pendingActivitiesList.append(ActivityWithdrawModel(
+						txHash: cdWithdrawActivity.txHash,
+						type: cdWithdrawActivity.type,
+						detail: InvestmentActivityDetails(
+							tokens: cdWithdrawActivity.details.tokens.compactMap {
+								ActivityTokenModel(amount: $0.amount, tokenID: $0.tokenId)
+							},
+							poolId: cdWithdrawActivity.details.poolID,
+							activityProtocol: cdWithdrawActivity.details.activityProtocol,
+							nftId: convertOptionalStringToInt(string: cdWithdrawActivity.details.nftID)
+						),
+						fromAddress: cdWithdrawActivity.fromAddress,
+						toAddress: cdWithdrawActivity.toAddress,
+						failed: nil,
+						blockNumber: nil,
+						blockTime: cdWithdrawActivity.blockTime,
+						gasUsed: cdWithdrawActivity.gasUsed,
+						gasPrice: cdWithdrawActivity.gasPrice,
+						prev_txHash: cdWithdrawActivity.prevTxHash
+					))
 				default:
 					print("unknown activity type")
 				}
 			}
 		}
 	}
-    
-    private func convertOptionalStringToInt(string: String?) -> Int? {
-        guard let string else {
-            return nil
-        }
-        return Int(string)
-    }
+
+	private func convertOptionalStringToInt(string: String?) -> Int? {
+		guard let string else {
+			return nil
+		}
+		return Int(string)
+	}
 
 	private func getActivityPendings() {
 		for pendingActivity in pendingActivitiesList {

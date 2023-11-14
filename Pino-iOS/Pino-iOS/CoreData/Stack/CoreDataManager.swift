@@ -229,74 +229,74 @@ class CoreDataManager {
 		activityDataSource.save(newActivity)
 		return newActivity
 	}
-    
-    @discardableResult
-    public func addNewInvestActivity(
-        activityModel: ActivityInvestModel,
-        accountAddress: String
-    ) -> CDInvestActivity {
-        let newActivity = CDInvestActivity(context: activityDataSource.managedContext)
 
-        newActivity.txHash = activityModel.txHash
-        newActivity.type = activityModel.type
-        newActivity.fromAddress = activityModel.fromAddress
-        newActivity.toAddress = activityModel.toAddress
-        newActivity.blockTime = activityModel.blockTime
-        newActivity.gasUsed = activityModel.gasUsed
-        newActivity.gasPrice = activityModel.gasPrice
-        newActivity.accountAddress = accountAddress
+	@discardableResult
+	public func addNewInvestActivity(
+		activityModel: ActivityInvestModel,
+		accountAddress: String
+	) -> CDInvestActivity {
+		let newActivity = CDInvestActivity(context: activityDataSource.managedContext)
 
-        let newActivityDetails = CDInvestActivityDetails(context: activityDataSource.managedContext)
+		newActivity.txHash = activityModel.txHash
+		newActivity.type = activityModel.type
+		newActivity.fromAddress = activityModel.fromAddress
+		newActivity.toAddress = activityModel.toAddress
+		newActivity.blockTime = activityModel.blockTime
+		newActivity.gasUsed = activityModel.gasUsed
+		newActivity.gasPrice = activityModel.gasPrice
+		newActivity.accountAddress = accountAddress
 
-        newActivityDetails.nftID = activityModel.detail.nftId?.description
-        newActivityDetails.poolID = activityModel.detail.poolId
-        newActivityDetails.tokens = Set(activityModel.detail.tokens.compactMap {
-            let newActivityDetailsToken = CDActivityDetailsToken(context: activityDataSource.managedContext)
-            newActivityDetailsToken.amount = $0.amount
-            newActivityDetailsToken.tokenId = $0.tokenID
-            return newActivityDetailsToken
-        })
-        newActivityDetails.activityProtocol = activityModel.detail.activityProtocol
+		let newActivityDetails = CDInvestActivityDetails(context: activityDataSource.managedContext)
 
-        newActivity.details = newActivityDetails
+		newActivityDetails.nftID = activityModel.detail.nftId?.description
+		newActivityDetails.poolID = activityModel.detail.poolId
+		newActivityDetails.tokens = Set(activityModel.detail.tokens.compactMap {
+			let newActivityDetailsToken = CDActivityDetailsToken(context: activityDataSource.managedContext)
+			newActivityDetailsToken.amount = $0.amount
+			newActivityDetailsToken.tokenId = $0.tokenID
+			return newActivityDetailsToken
+		})
+		newActivityDetails.activityProtocol = activityModel.detail.activityProtocol
 
-        activityDataSource.save(newActivity)
-        return newActivity
-    }
-    
-    @discardableResult
-    public func addNewWithdrawActivity(
-        activityModel: ActivityWithdrawModel,
-        accountAddress: String
-    ) -> CDWithdrawActivity {
-        let newActivity = CDWithdrawActivity(context: activityDataSource.managedContext)
+		newActivity.details = newActivityDetails
 
-        newActivity.txHash = activityModel.txHash
-        newActivity.type = activityModel.type
-        newActivity.fromAddress = activityModel.fromAddress
-        newActivity.toAddress = activityModel.toAddress
-        newActivity.blockTime = activityModel.blockTime
-        newActivity.gasUsed = activityModel.gasUsed
-        newActivity.gasPrice = activityModel.gasPrice
-        newActivity.accountAddress = accountAddress
+		activityDataSource.save(newActivity)
+		return newActivity
+	}
 
-        let newActivityDetails = CDWithdrawActivityDetails(context: activityDataSource.managedContext)
+	@discardableResult
+	public func addNewWithdrawActivity(
+		activityModel: ActivityWithdrawModel,
+		accountAddress: String
+	) -> CDWithdrawActivity {
+		let newActivity = CDWithdrawActivity(context: activityDataSource.managedContext)
 
-        newActivityDetails.nftID = activityModel.detail.nftId?.description
-        newActivityDetails.poolID = activityModel.detail.poolId
-        newActivityDetails.tokens = Set(activityModel.detail.tokens.compactMap {
-            let newActivityDetailsToken = CDActivityDetailsToken(context: activityDataSource.managedContext)
-            newActivityDetailsToken.amount = $0.amount
-            newActivityDetailsToken.tokenId = $0.tokenID
-            return newActivityDetailsToken
-        })
-        newActivityDetails.activityProtocol = activityModel.detail.activityProtocol
+		newActivity.txHash = activityModel.txHash
+		newActivity.type = activityModel.type
+		newActivity.fromAddress = activityModel.fromAddress
+		newActivity.toAddress = activityModel.toAddress
+		newActivity.blockTime = activityModel.blockTime
+		newActivity.gasUsed = activityModel.gasUsed
+		newActivity.gasPrice = activityModel.gasPrice
+		newActivity.accountAddress = accountAddress
 
-        newActivity.details = newActivityDetails
+		let newActivityDetails = CDWithdrawActivityDetails(context: activityDataSource.managedContext)
 
-        activityDataSource.save(newActivity)
-        return newActivity
-    }
+		newActivityDetails.nftID = activityModel.detail.nftId?.description
+		newActivityDetails.poolID = activityModel.detail.poolId
+		newActivityDetails.tokens = Set(activityModel.detail.tokens.compactMap {
+			let newActivityDetailsToken = CDActivityDetailsToken(context: activityDataSource.managedContext)
+			newActivityDetailsToken.amount = $0.amount
+			newActivityDetailsToken.tokenId = $0.tokenID
+			return newActivityDetailsToken
+		})
+		newActivityDetails.activityProtocol = activityModel.detail.activityProtocol
+
+		newActivity.details = newActivityDetails
+
+		activityDataSource.save(newActivity)
+		return newActivity
+	}
 
 	public func getAllActivities() -> [CDActivityParent] {
 		activityDataSource.getAll()
