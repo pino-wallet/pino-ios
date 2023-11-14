@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct WithdrawCollateralActivityDetailsViewModel: ActivityDetailsProtocol {
+struct WithdrawCollateralActivityDetailsViewModel: ActivityCellDetailsProtocol {
 	// MARK: - Internal Properties
 
 	internal var activityModel: ActivityCollateralModel
-	internal var globalAssetsList: [AssetViewModel]
+	internal var token: AssetViewModel
 
 	// MARK: - Private Properties
 
@@ -19,22 +19,10 @@ struct WithdrawCollateralActivityDetailsViewModel: ActivityDetailsProtocol {
 		activityModel.detail.tokens[0]
 	}
 
-	private var token: AssetViewModel? {
-		globalAssetsList.first(where: { $0.id.lowercased() == responseSelectedToken.tokenID.lowercased() })
-	}
-
 	// MARK: - Public Properties
 
 	public var tokenAmount: BigNumber {
-		BigNumber(number: responseSelectedToken.amount, decimal: token?.decimal ?? 0)
-	}
-
-	public var tokenSymbol: String {
-		token?.symbol ?? ""
-	}
-
-	public var tokenImage: URL? {
-		token?.image
+		BigNumber(number: responseSelectedToken.amount, decimal: token.decimal)
 	}
 
 	public var activityProtocol: String {

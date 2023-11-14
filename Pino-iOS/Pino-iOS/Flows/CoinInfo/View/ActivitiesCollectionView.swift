@@ -357,7 +357,6 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 			coinHistoryCell.showSkeletonView()
 		} else {
 			coinHistoryCell.activityCellVM = separatedActivities[indexPath.section].activities[indexPath.item]
-			coinHistoryCell.activityCellVM?.globalAssetsList = GlobalVariables.shared.manageAssetsList!
 			coinHistoryCell.hideSkeletonView()
 		}
 		return coinHistoryCell

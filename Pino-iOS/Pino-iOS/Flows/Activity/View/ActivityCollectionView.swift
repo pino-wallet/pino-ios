@@ -81,11 +81,15 @@ class ActivityCollectionView: UICollectionView {
 	}
 
 	private func setupBindings() {
-		let activityHelper = ActivityHelper()
+		var activityHelper = ActivityHelper()
 
-		GlobalVariables.shared.$manageAssetsList.sink { assetsList in
+		GlobalVariables.shared.$manageAssetsList.compactMap { $0 }.sink { assetsList in
+			if assetsList.isEmpty {
+				fatalError("Manage assets list is empty")
+			}
 			if self.globalAssetsList == nil {
 				self.globalAssetsList = assetsList
+				activityHelper.globalAssetsList = assetsList
 				if self.activityVM.userActivities != nil {
 					self.separatedActivities = activityHelper
 						.separateActivitiesByTime(activities: self.activityVM.userActivities!)
@@ -212,9 +216,6 @@ extension ActivityCollectionView: UICollectionViewDataSource {
 			activityCell.showSkeletonView()
 		} else {
 			activityCell.activityCellVM = separatedActivities[indexPath.section].activities[indexPath.item]
-			if globalAssetsList != nil {
-				activityCell.activityCellVM?.globalAssetsList = globalAssetsList!
-			}
 			activityCell.hideSkeletonView()
 		}
 		return activityCell

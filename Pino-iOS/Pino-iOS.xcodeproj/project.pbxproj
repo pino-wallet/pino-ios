@@ -444,7 +444,6 @@
 		D9BE051D2A8221C8008670F9 /* CDSwapActivityDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE05112A8221C8008670F9 /* CDSwapActivityDetails+CoreDataProperties.swift */; };
 		D9BE051E2A8221C8008670F9 /* CDActivityDetailsToken+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE05122A8221C8008670F9 /* CDActivityDetailsToken+CoreDataClass.swift */; };
 		D9BE051F2A8221C8008670F9 /* CDActivityDetailsToken+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE05132A8221C8008670F9 /* CDActivityDetailsToken+CoreDataProperties.swift */; };
-		D9BE15AD2A693539005E4063 /* ActivityDetailsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE15AC2A693539005E4063 /* ActivityDetailsProtocol.swift */; };
 		D9BE15B02A693593005E4063 /* SwapActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE15AF2A693593005E4063 /* SwapActivityDetailsViewModel.swift */; };
 		D9BE15B22A69360E005E4063 /* TransferActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE15B12A69360E005E4063 /* TransferActivityDetailsViewModel.swift */; };
 		D9BFE9972AD28BE8005E4562 /* ContractDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFE9962AD28BE8005E4562 /* ContractDetails.swift */; };
@@ -468,6 +467,7 @@
 		D9CD89092AA4699300D6520B /* WithdrawConfirmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD89082AA4699300D6520B /* WithdrawConfirmViewModel.swift */; };
 		D9CD890B2AA469D000D6520B /* WithdrawConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD890A2AA469D000D6520B /* WithdrawConfirmView.swift */; };
 		D9CD890D2AA46A4F00D6520B /* WithdrawConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD890C2AA46A4F00D6520B /* WithdrawConfirmViewController.swift */; };
+		D9CEEC572B037DAB00F5DF92 /* ActivityCellDetailsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEC562B037DAB00F5DF92 /* ActivityCellDetailsProtocol.swift */; };
 		D9D11E922A5990B8003C4298 /* ActivityCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D11E912A5990B8003C4298 /* ActivityCollectionView.swift */; };
 		D9D11E942A5990F0003C4298 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D11E932A5990F0003C4298 /* ActivityViewModel.swift */; };
 		D9D462D52AA466990010ED76 /* RepayConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D462D42AA466990010ED76 /* RepayConfirmViewController.swift */; };
@@ -1214,7 +1214,6 @@
 		D9BE05112A8221C8008670F9 /* CDSwapActivityDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDSwapActivityDetails+CoreDataProperties.swift"; path = "Pino-iOS/CoreData/Models/Activity/CDSwapActivityDetails+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		D9BE05122A8221C8008670F9 /* CDActivityDetailsToken+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDActivityDetailsToken+CoreDataClass.swift"; path = "Pino-iOS/CoreData/Models/Activity/CDActivityDetailsToken+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		D9BE05132A8221C8008670F9 /* CDActivityDetailsToken+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDActivityDetailsToken+CoreDataProperties.swift"; path = "Pino-iOS/CoreData/Models/Activity/CDActivityDetailsToken+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		D9BE15AC2A693539005E4063 /* ActivityDetailsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailsProtocol.swift; sourceTree = "<group>"; };
 		D9BE15AF2A693593005E4063 /* SwapActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapActivityDetailsViewModel.swift; sourceTree = "<group>"; };
 		D9BE15B12A69360E005E4063 /* TransferActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferActivityDetailsViewModel.swift; sourceTree = "<group>"; };
 		D9BFE9962AD28BE8005E4562 /* ContractDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractDetails.swift; sourceTree = "<group>"; };
@@ -1238,6 +1237,7 @@
 		D9CD89082AA4699300D6520B /* WithdrawConfirmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawConfirmViewModel.swift; sourceTree = "<group>"; };
 		D9CD890A2AA469D000D6520B /* WithdrawConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawConfirmView.swift; sourceTree = "<group>"; };
 		D9CD890C2AA46A4F00D6520B /* WithdrawConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawConfirmViewController.swift; sourceTree = "<group>"; };
+		D9CEEC562B037DAB00F5DF92 /* ActivityCellDetailsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCellDetailsProtocol.swift; sourceTree = "<group>"; };
 		D9D11E912A5990B8003C4298 /* ActivityCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCollectionView.swift; sourceTree = "<group>"; };
 		D9D11E932A5990F0003C4298 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 		D9D462D42AA466990010ED76 /* RepayConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepayConfirmViewController.swift; sourceTree = "<group>"; };
@@ -3121,7 +3121,7 @@
 			isa = PBXGroup;
 			children = (
 				D9AF29E42A5010C4006BC53E /* ActivityCellViewModelProtocol.swift */,
-				D9BE15AC2A693539005E4063 /* ActivityDetailsProtocol.swift */,
+				D9CEEC562B037DAB00F5DF92 /* ActivityCellDetailsProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -4376,7 +4376,6 @@
 				5319850502764EDE67A09C49 /* AddNewAccountCollectionView.swift in Sources */,
 				4CA4F662ECA5E7E45B96C281 /* AddNewAccountCollectionViewCell.swift in Sources */,
 				E3FC69A02A8A0731009B3341 /* InvestmentPerformanceViewController.swift in Sources */,
-				D9BE15AD2A693539005E4063 /* ActivityDetailsProtocol.swift in Sources */,
 				E34728E929E7DCCF00AB8265 /* HomepageViewModel+Wallet.swift in Sources */,
 				67CB57B83460DA7FDE4BFED3 /* AddNewAccountOptionModel.swift in Sources */,
 				DAB2FF91D5EAF0795A12201B /* AddNewAccountOptionViewModel.swift in Sources */,
@@ -4720,6 +4719,7 @@
 				D9C4CF012A408C8A00475F01 /* RecentAddressCell.swift in Sources */,
 				807A3209FA3C30C37B860B91 /* NetworkManager.swift in Sources */,
 				5845D3E43E1C94CCA89A6104 /* NetworkManagerProtocol.swift in Sources */,
+				D9CEEC572B037DAB00F5DF92 /* ActivityCellDetailsProtocol.swift in Sources */,
 				C72379E2E2BFAEFF3257EDCE /* Networking+Aliases.swift in Sources */,
 				D970C0E02A74EA80005A7FAC /* GlobalToastTitles.swift in Sources */,
 				E52C3E716C6ACBCE6C8BE230 /* NoInternetConnectionView.swift in Sources */,
