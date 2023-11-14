@@ -200,6 +200,35 @@ class CoreDataManager {
 		activityDataSource.save(newActivity)
 		return newActivity
 	}
+    
+    @discardableResult
+    public func addNewApproveActivity(
+        activityModel: ActivityApproveModel,
+        accountAddress: String
+    ) -> CDApproveActivity {
+        let newActivity = CDApproveActivity(context: activityDataSource.managedContext)
+
+        newActivity.txHash = activityModel.txHash
+        newActivity.type = activityModel.type
+        newActivity.fromAddress = activityModel.fromAddress
+        newActivity.toAddress = activityModel.toAddress
+        newActivity.blockTime = activityModel.blockTime
+        newActivity.gasUsed = activityModel.gasUsed
+        newActivity.gasPrice = activityModel.gasPrice
+        newActivity.accountAddress = accountAddress
+
+        let newActivityDetails = CDApproveActivityDetails(context: activityDataSource.managedContext)
+
+        newActivityDetails.amount = activityModel.detail.amount
+        newActivityDetails.tokenID = activityModel.detail.tokenID
+        newActivityDetails.spender = activityModel.detail.spender
+        newActivityDetails.owner = activityModel.detail.owner
+
+        newActivity.details = newActivityDetails
+
+        activityDataSource.save(newActivity)
+        return newActivity
+    }
 
 	public func getAllActivities() -> [CDActivityParent] {
 		activityDataSource.getAll()

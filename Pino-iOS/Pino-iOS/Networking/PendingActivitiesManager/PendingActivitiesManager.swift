@@ -116,6 +116,26 @@ class PendingActivitiesManager {
 						gasPrice: cdTransferActivity.gasPrice,
 						prev_txHash: cdTransferActivity.prevTxHash
 					))
+                case .approve:
+                    let cdApproveActivity = activity as! CDApproveActivity
+                    pendingActivitiesList.append(ActivityApproveModel(
+                        txHash: cdApproveActivity.txHash,
+                        type: cdApproveActivity.type,
+                        detail: ApproveActivityDetail(
+                            amount: cdApproveActivity.details.amount,
+                            owner: cdApproveActivity.details.owner,
+                            spender: cdApproveActivity.details.spender,
+                            tokenID: cdApproveActivity.details.tokenID
+                        ),
+                        fromAddress: cdApproveActivity.fromAddress,
+                        toAddress: cdApproveActivity.toAddress,
+                        failed: nil,
+                        blockNumber: nil,
+                        blockTime: cdApproveActivity.blockTime,
+                        gasUsed: cdApproveActivity.gasUsed,
+                        gasPrice: cdApproveActivity.gasPrice,
+                        prev_txHash: cdApproveActivity.prevTxHash
+                    ))
 				default:
 					print("unknown activity type")
 				}

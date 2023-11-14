@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22A380" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23B74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CDActivityDetailsToken" representedClassName="CDActivityDetailsToken" syncable="YES">
         <attribute name="amount" attributeType="String"/>
         <attribute name="tokenId" attributeType="String"/>
@@ -16,6 +16,16 @@
         <attribute name="toAddress" attributeType="String"/>
         <attribute name="txHash" attributeType="String"/>
         <attribute name="type" attributeType="String"/>
+    </entity>
+    <entity name="CDApproveActivity" representedClassName="CDApproveActivity" parentEntity="CDActivityParent" syncable="YES">
+        <relationship name="details" maxCount="1" deletionRule="Nullify" destinationEntity="CDApproveActivityDetails" inverseName="activity" inverseEntity="CDApproveActivityDetails"/>
+    </entity>
+    <entity name="CDApproveActivityDetails" representedClassName="CDApproveActivityDetails" syncable="YES">
+        <attribute name="amount" optional="YES" attributeType="String"/>
+        <attribute name="owner" optional="YES" attributeType="String"/>
+        <attribute name="spender" optional="YES" attributeType="String"/>
+        <attribute name="tokenID" optional="YES" attributeType="String"/>
+        <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDApproveActivity" inverseName="details" inverseEntity="CDApproveActivity"/>
     </entity>
     <entity name="CDSwapActivity" representedClassName="CDSwapActivity" parentEntity="CDActivityParent" syncable="YES">
         <relationship name="details" maxCount="1" deletionRule="Nullify" destinationEntity="CDSwapActivityDetails" inverseName="activity" inverseEntity="CDSwapActivityDetails"/>

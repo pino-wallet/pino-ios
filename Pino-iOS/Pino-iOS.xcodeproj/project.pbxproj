@@ -322,6 +322,10 @@
 		D92729412AD3EDBC0043D9B1 /* BorrowETHAaveABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = D92729402AD3EDBC0043D9B1 /* BorrowETHAaveABIJson.json */; };
 		D92729432AD3EE500043D9B1 /* BorrowCompoundCTokenABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = D92729422AD3EE500043D9B1 /* BorrowCompoundCTokenABIJson.json */; };
 		D92B913C2A30756C0055B277 /* PinoContainerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92B913B2A30756C0055B277 /* PinoContainerCard.swift */; };
+		D93260BB2B03691900BAA76A /* CDApproveActivity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93260B82B03691900BAA76A /* CDApproveActivity+CoreDataClass.swift */; };
+		D93260BC2B03691900BAA76A /* CDApproveActivityDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93260B92B03691900BAA76A /* CDApproveActivityDetails+CoreDataProperties.swift */; };
+		D93260BD2B03691900BAA76A /* CDApproveActivity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93260B72B03691900BAA76A /* CDApproveActivity+CoreDataProperties.swift */; };
+		D93260BE2B03691900BAA76A /* CDApproveActivityDetails+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93260BA2B03691900BAA76A /* CDApproveActivityDetails+CoreDataClass.swift */; };
 		D933C3232A99F07600C2BD5A /* CollateralizingBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C3222A99F07600C2BD5A /* CollateralizingBoardViewController.swift */; };
 		D933C32D2A99F53300C2BD5A /* UserCollateralizingAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C32C2A99F53300C2BD5A /* UserCollateralizingAssetViewModel.swift */; };
 		D933C32F2A99F54A00C2BD5A /* CollateralizableAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D933C32E2A99F54A00C2BD5A /* CollateralizableAssetViewModel.swift */; };
@@ -1093,6 +1097,10 @@
 		D92729402AD3EDBC0043D9B1 /* BorrowETHAaveABIJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BorrowETHAaveABIJson.json; sourceTree = "<group>"; };
 		D92729422AD3EE500043D9B1 /* BorrowCompoundCTokenABIJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BorrowCompoundCTokenABIJson.json; sourceTree = "<group>"; };
 		D92B913B2A30756C0055B277 /* PinoContainerCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoContainerCard.swift; sourceTree = "<group>"; };
+		D93260B72B03691900BAA76A /* CDApproveActivity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDApproveActivity+CoreDataProperties.swift"; path = "/Users/amirhosseinkazemiseresht/developing/ios/pino-ios/Pino-iOS/Pino-iOS/CoreData/Models/Activity/CDApproveActivity+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		D93260B82B03691900BAA76A /* CDApproveActivity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDApproveActivity+CoreDataClass.swift"; path = "/Users/amirhosseinkazemiseresht/developing/ios/pino-ios/Pino-iOS/Pino-iOS/CoreData/Models/Activity/CDApproveActivity+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		D93260B92B03691900BAA76A /* CDApproveActivityDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDApproveActivityDetails+CoreDataProperties.swift"; path = "/Users/amirhosseinkazemiseresht/developing/ios/pino-ios/Pino-iOS/Pino-iOS/CoreData/Models/Activity/CDApproveActivityDetails+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		D93260BA2B03691900BAA76A /* CDApproveActivityDetails+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDApproveActivityDetails+CoreDataClass.swift"; path = "/Users/amirhosseinkazemiseresht/developing/ios/pino-ios/Pino-iOS/Pino-iOS/CoreData/Models/Activity/CDApproveActivityDetails+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		D933C3222A99F07600C2BD5A /* CollateralizingBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralizingBoardViewController.swift; sourceTree = "<group>"; };
 		D933C32C2A99F53300C2BD5A /* UserCollateralizingAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollateralizingAssetViewModel.swift; sourceTree = "<group>"; };
 		D933C32E2A99F54A00C2BD5A /* CollateralizableAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralizableAssetViewModel.swift; sourceTree = "<group>"; };
@@ -3126,6 +3134,10 @@
 		D9BE05202A822340008670F9 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
+				D93260B82B03691900BAA76A /* CDApproveActivity+CoreDataClass.swift */,
+				D93260B72B03691900BAA76A /* CDApproveActivity+CoreDataProperties.swift */,
+				D93260BA2B03691900BAA76A /* CDApproveActivityDetails+CoreDataClass.swift */,
+				D93260B92B03691900BAA76A /* CDApproveActivityDetails+CoreDataProperties.swift */,
 				D9BE05082A8221C8008670F9 /* CDActivityParent+CoreDataClass.swift */,
 				D9BE05092A8221C8008670F9 /* CDActivityParent+CoreDataProperties.swift */,
 				D9BE050A2A8221C8008670F9 /* CDTransferActivityDetails+CoreDataClass.swift */,
@@ -4360,6 +4372,7 @@
 				4037DCCE2A8BD93200FCA96B /* ApproveContractViewModel.swift in Sources */,
 				E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */,
 				E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */,
+				D93260BD2B03691900BAA76A /* CDApproveActivity+CoreDataProperties.swift in Sources */,
 				D95D20342AAC9B2E00E0A885 /* HealthScoreSystemViewController.swift in Sources */,
 				D9BE15B02A693593005E4063 /* SwapActivityDetailsViewModel.swift in Sources */,
 				D98355D72A9A1D4000294DCF /* BorrowLoanDetailsView.swift in Sources */,
@@ -4499,6 +4512,7 @@
 				E3099FEC2B00B901004474F0 /* CompoundDepositManager.swift in Sources */,
 				D97CF62C25B975AD3C131881 /* CoinHistoryModel.swift in Sources */,
 				D9D462D52AA466990010ED76 /* RepayConfirmViewController.swift in Sources */,
+				D93260BC2B03691900BAA76A /* CDApproveActivityDetails+CoreDataProperties.swift in Sources */,
 				4BCC037123752C19CB2B98D3 /* ActivityCellViewModel.swift in Sources */,
 				E3ABD2042AB1C22200947D37 /* ImportAccountsFooterView.swift in Sources */,
 				DBE3307F29EF0E7E1926B2B4 /* CoinInfoChartView.swift in Sources */,
@@ -4624,6 +4638,7 @@
 				E3FC69B72A8A3605009B3341 /* InvestProtocolViewModel.swift in Sources */,
 				DF6DEDCB2AA8C13F0080B47B /* Web3Endpoint.swift in Sources */,
 				7CF95B0F99AE30C81601CFAA /* GradientLayer.swift in Sources */,
+				D93260BB2B03691900BAA76A /* CDApproveActivity+CoreDataClass.swift in Sources */,
 				D93C41FD29F7D298003F2297 /* EditAccountViewModel.swift in Sources */,
 				D964AC6B0907B2432359A129 /* GroupCollectionViewCell.swift in Sources */,
 				FBEBDE533CAA644C5EF987A1 /* HDWallet+Extension.swift in Sources */,
@@ -4680,6 +4695,7 @@
 				E3FC69F62A936D6B009B3341 /* InvestmentRiskCell.swift in Sources */,
 				F768EA67E795D2C08C4CDF5B /* LineChartDelegate.swift in Sources */,
 				DFFDEDAC2A76C65800D710D7 /* ZeroXPriceResponseModel.swift in Sources */,
+				D93260BE2B03691900BAA76A /* CDApproveActivityDetails+CoreDataClass.swift in Sources */,
 				E4BC1D70FBAF66825B9358E7 /* LockMethodModel.swift in Sources */,
 				0A7A1624380B55CB1876A9B2 /* SecurityOptionModel.swift in Sources */,
 				1F88E4148A66AB6442600B4D /* SecurityOptionViewModel.swift in Sources */,
