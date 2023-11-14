@@ -43,9 +43,9 @@ public enum InvestProtocolViewModel: String, DexSystemModelProtocol {
 		case .balancer:
 			return "balancer_protocol"
 		case .maker:
-			return "balancer_protocol"
+			return "maker"
 		case .lido:
-			return "balancer_protocol"
+			return "lido"
 		}
 	}
 
@@ -60,9 +60,9 @@ public enum InvestProtocolViewModel: String, DexSystemModelProtocol {
 		case .balancer:
 			return "balancer.fi"
 		case .maker:
-			return "balancer.fi"
+			return ""
 		case .lido:
-			return "balancer.fi"
+			return ""
 		}
 	}
 
