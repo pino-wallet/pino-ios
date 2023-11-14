@@ -13,6 +13,7 @@ public enum InvestProtocolViewModel: String, DexSystemModelProtocol {
 	case aave = "aave"
 	case balancer = "balancer"
 	case maker = "maker"
+	case lido = "lido"
 
 	public var name: String {
 		switch self {
@@ -26,6 +27,8 @@ public enum InvestProtocolViewModel: String, DexSystemModelProtocol {
 			return "Balancer"
 		case .maker:
 			return "Maker"
+		case .lido:
+			return "Lido"
 		}
 	}
 
@@ -41,6 +44,8 @@ public enum InvestProtocolViewModel: String, DexSystemModelProtocol {
 			return "balancer_protocol"
 		case .maker:
 			return "balancer_protocol"
+		case .lido:
+			return "balancer_protocol"
 		}
 	}
 
@@ -55,6 +60,8 @@ public enum InvestProtocolViewModel: String, DexSystemModelProtocol {
 		case .balancer:
 			return "balancer.fi"
 		case .maker:
+			return "balancer.fi"
+		case .lido:
 			return "balancer.fi"
 		}
 	}

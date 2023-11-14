@@ -41,7 +41,7 @@ public struct W3InvestManager {
 	public func getInvestProxyContract() throws -> DynamicContract {
 		try Web3Core.getContractOfToken(
 			address: Web3Core.Constants.investContractAddress,
-			abi: .investMaker,
+			abi: .invest,
 			web3: web3
 		)
 	}
@@ -58,7 +58,7 @@ public struct W3InvestManager {
 		Promise<String>() { [self] seal in
 			let contract = try Web3Core.getContractOfToken(
 				address: Web3Core.Constants.investContractAddress,
-				abi: .investMaker,
+				abi: .invest,
 				web3: web3
 			)
 			let solInvocation = contract[ABIMethodWrite.daiToSDai.rawValue]?(amount, recipientAdd.eip55Address!)
@@ -71,7 +71,7 @@ public struct W3InvestManager {
 		Promise<String>() { [self] seal in
 			let contract = try Web3Core.getContractOfToken(
 				address: Web3Core.Constants.investContractAddress,
-				abi: .investMaker,
+				abi: .invest,
 				web3: web3
 			)
 			let solInvocation = contract[ABIMethodWrite.sDaiToDai.rawValue]?(amount, recipientAdd.eip55Address!)
@@ -161,6 +161,32 @@ public struct W3InvestManager {
 				web3: web3
 			)
 			let solInvocation = contract[ABIMethodWrite.withdrawWETHV2.rawValue]?(amount, recipientAdd.eip55Address!)
+			let trx = try trxManager.createTransactionFor(contract: solInvocation!)
+			seal.fulfill(trx.data.hex())
+		}
+	}
+
+	public func getETHToSTETHCallData(recipientAdd: String, proxyFee: BigUInt) -> Promise<String> {
+		Promise<String>() { [self] seal in
+			let contract = try Web3Core.getContractOfToken(
+				address: Web3Core.Constants.investContractAddress,
+				abi: .invest,
+				web3: web3
+			)
+			let solInvocation = contract[ABIMethodWrite.ethToStETH.rawValue]?(recipientAdd.eip55Address!, proxyFee)
+			let trx = try trxManager.createTransactionFor(contract: solInvocation!)
+			seal.fulfill(trx.data.hex())
+		}
+	}
+
+	public func getWETHToSTETHCallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
+		Promise<String>() { [self] seal in
+			let contract = try Web3Core.getContractOfToken(
+				address: Web3Core.Constants.investContractAddress,
+				abi: .invest,
+				web3: web3
+			)
+			let solInvocation = contract[ABIMethodWrite.wethToStETH.rawValue]?(amount, recipientAdd.eip55Address!)
 			let trx = try trxManager.createTransactionFor(contract: solInvocation!)
 			seal.fulfill(trx.data.hex())
 		}
