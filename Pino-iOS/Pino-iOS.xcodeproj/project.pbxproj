@@ -467,6 +467,7 @@
 		D9CD89092AA4699300D6520B /* WithdrawConfirmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD89082AA4699300D6520B /* WithdrawConfirmViewModel.swift */; };
 		D9CD890B2AA469D000D6520B /* WithdrawConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD890A2AA469D000D6520B /* WithdrawConfirmView.swift */; };
 		D9CD890D2AA46A4F00D6520B /* WithdrawConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CD890C2AA46A4F00D6520B /* WithdrawConfirmViewController.swift */; };
+		D9CEEC572B037DAB00F5DF92 /* ActivityCellDetailsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CEEC562B037DAB00F5DF92 /* ActivityCellDetailsProtocol.swift */; };
 		D9D11E922A5990B8003C4298 /* ActivityCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D11E912A5990B8003C4298 /* ActivityCollectionView.swift */; };
 		D9D11E942A5990F0003C4298 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D11E932A5990F0003C4298 /* ActivityViewModel.swift */; };
 		D9D462D52AA466990010ED76 /* RepayConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D462D42AA466990010ED76 /* RepayConfirmViewController.swift */; };
@@ -1236,6 +1237,7 @@
 		D9CD89082AA4699300D6520B /* WithdrawConfirmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawConfirmViewModel.swift; sourceTree = "<group>"; };
 		D9CD890A2AA469D000D6520B /* WithdrawConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawConfirmView.swift; sourceTree = "<group>"; };
 		D9CD890C2AA46A4F00D6520B /* WithdrawConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawConfirmViewController.swift; sourceTree = "<group>"; };
+		D9CEEC562B037DAB00F5DF92 /* ActivityCellDetailsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCellDetailsProtocol.swift; sourceTree = "<group>"; };
 		D9D11E912A5990B8003C4298 /* ActivityCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCollectionView.swift; sourceTree = "<group>"; };
 		D9D11E932A5990F0003C4298 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 		D9D462D42AA466990010ED76 /* RepayConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepayConfirmViewController.swift; sourceTree = "<group>"; };
@@ -3119,6 +3121,7 @@
 			isa = PBXGroup;
 			children = (
 				D9AF29E42A5010C4006BC53E /* ActivityCellViewModelProtocol.swift */,
+				D9CEEC562B037DAB00F5DF92 /* ActivityCellDetailsProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -4716,6 +4719,7 @@
 				D9C4CF012A408C8A00475F01 /* RecentAddressCell.swift in Sources */,
 				807A3209FA3C30C37B860B91 /* NetworkManager.swift in Sources */,
 				5845D3E43E1C94CCA89A6104 /* NetworkManagerProtocol.swift in Sources */,
+				D9CEEC572B037DAB00F5DF92 /* ActivityCellDetailsProtocol.swift in Sources */,
 				C72379E2E2BFAEFF3257EDCE /* Networking+Aliases.swift in Sources */,
 				D970C0E02A74EA80005A7FAC /* GlobalToastTitles.swift in Sources */,
 				E52C3E716C6ACBCE6C8BE230 /* NoInternetConnectionView.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RepayActivityDetailsViewModel {
+struct RepayActivityDetailsViewModel: ActivityCellDetailsProtocol {
 	// MARK: - Internal Properties
 
 	internal var activityModel: ActivityRepayModel
@@ -17,14 +17,6 @@ struct RepayActivityDetailsViewModel {
 
 	public var tokenAmount: BigNumber {
 		BigNumber(number: activityModel.detail.repaidToken.amount, decimal: token.decimal)
-	}
-
-	public var tokenSymbol: String {
-		token.symbol
-	}
-
-	public var tokenImage: URL? {
-		token.image
 	}
 
 	public var activityProtocol: String {

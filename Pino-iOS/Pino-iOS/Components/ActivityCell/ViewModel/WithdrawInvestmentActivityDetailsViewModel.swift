@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WithdrawInvestmentActivityDetailsViewModel {
+struct WithdrawInvestmentActivityDetailsViewModel: ActivityCellDetailsProtocol {
 	// MARK: - Internal Properties
 
 	internal var activityModel: ActivityInvestmentModelProtocol
@@ -23,14 +23,6 @@ struct WithdrawInvestmentActivityDetailsViewModel {
 
 	public var tokenAmount: BigNumber {
 		BigNumber(number: responseSelectedToken.amount, decimal: token.decimal)
-	}
-
-	public var tokenSymbol: String {
-		token.symbol
-	}
-
-	public var tokenImage: URL? {
-		token.image
 	}
 
 	public var activityProtocol: String {

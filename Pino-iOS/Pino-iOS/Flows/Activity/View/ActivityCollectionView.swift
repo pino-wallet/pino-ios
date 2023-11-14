@@ -83,10 +83,7 @@ class ActivityCollectionView: UICollectionView {
 	private func setupBindings() {
 		var activityHelper = ActivityHelper()
 
-		GlobalVariables.shared.$manageAssetsList.sink { assetsList in
-			guard let assetsList else {
-				return
-			}
+        GlobalVariables.shared.$manageAssetsList.compactMap{ $0 }.sink { assetsList in
 			if assetsList.isEmpty {
 				fatalError("Manage assets list is empty")
 			}

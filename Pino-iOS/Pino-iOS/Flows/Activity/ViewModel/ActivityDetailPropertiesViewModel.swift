@@ -39,9 +39,9 @@ struct ActivityDetailProperties {
 		case .borrow:
 			return borrowDetailsVM?.tokenImage
 		case .send:
-			return transferDetailsVM?.transferTokenImage
+			return transferDetailsVM?.tokenImage
 		case .receive:
-			return transferDetailsVM?.transferTokenImage
+			return transferDetailsVM?.tokenImage
 		case .repay:
 			return repayDetailsVM?.tokenImage
 		case .withdraw_investment:
@@ -68,9 +68,9 @@ struct ActivityDetailProperties {
 		case .borrow:
 			return "\(borrowDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(borrowDetailsVM?.tokenSymbol ?? "")"
 		case .send:
-			return "\(transferDetailsVM?.transferTokenAmount.sevenDigitFormat ?? "") \(transferDetailsVM?.transferTokenSymbol ?? "")"
+			return "\(transferDetailsVM?.transferTokenAmount.sevenDigitFormat ?? "") \(transferDetailsVM?.tokenSymbol ?? "")"
 		case .receive:
-			return "\(transferDetailsVM?.transferTokenAmount.sevenDigitFormat ?? "") \(transferDetailsVM?.transferTokenSymbol ?? "")"
+			return "\(transferDetailsVM?.transferTokenAmount.sevenDigitFormat ?? "") \(transferDetailsVM?.tokenSymbol ?? "")"
 		case .repay:
 			return "\(repayDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(repayDetailsVM?.tokenSymbol ?? "")"
 		case .withdraw_investment:
@@ -292,7 +292,7 @@ struct ActivityDetailProperties {
 			}
 			transferDetailsVM = TransferActivityDetailsViewModel(
 				activityModel: transferActivityModel,
-				transferToken: transferToken
+				token: transferToken
 			)
 		case .receive:
 			guard let transferActivityModel = activityDetails.defaultActivityModel as? ActivityTransferModel,
@@ -302,7 +302,7 @@ struct ActivityDetailProperties {
 			}
 			transferDetailsVM = TransferActivityDetailsViewModel(
 				activityModel: transferActivityModel,
-				transferToken: transferToken
+				token: transferToken
 			)
 		case .repay:
 			guard let repayActivityModel = activityDetails.defaultActivityModel as? ActivityRepayModel,

@@ -7,19 +7,9 @@
 
 import Foundation
 
-struct ApproveActivityDetailsViewModel {
+struct ApproveActivityDetailsViewModel: ActivityCellDetailsProtocol {
 	// MARK: - Internal Properties
 
 	internal var activityModel: ActivityApproveModel
 	internal var token: AssetViewModel
-
-	// MARK: - Public Properties
-
-	public var tokenSymbol: String {
-		token.symbol
-	}
-
-	public var tokenImage: URL? {
-		token.image
-	}
 }
