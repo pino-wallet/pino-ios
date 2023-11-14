@@ -1,15 +1,13 @@
 //
 //  CDRepayActivityDetails+CoreDataClass.swift
-//  
+//
 //
 //  Created by Amir hossein kazemi seresht on 11/14/23.
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(CDRepayActivityDetails)
-public class CDRepayActivityDetails: NSManagedObject {
-
-}
+public class CDRepayActivityDetails: NSManagedObject {}

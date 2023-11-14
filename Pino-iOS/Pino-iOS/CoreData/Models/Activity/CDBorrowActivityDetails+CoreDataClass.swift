@@ -1,15 +1,13 @@
 //
 //  CDBorrowActivityDetails+CoreDataClass.swift
-//  
+//
 //
 //  Created by Amir hossein kazemi seresht on 11/14/23.
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(CDBorrowActivityDetails)
-public class CDBorrowActivityDetails: NSManagedObject {
-
-}
+public class CDBorrowActivityDetails: NSManagedObject {}
