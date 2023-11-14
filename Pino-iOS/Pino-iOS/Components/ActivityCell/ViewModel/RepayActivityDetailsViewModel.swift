@@ -11,7 +11,7 @@ struct RepayActivityDetailsViewModel {
 	// MARK: - Internal Properties
 
 	internal var activityModel: ActivityRepayModel
-    internal var token: AssetViewModel
+	internal var token: AssetViewModel
 
 	// MARK: - Public Properties
 

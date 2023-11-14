@@ -14,7 +14,8 @@ struct ActivityDetailProperties {
 	private var globalAssetsList: [AssetViewModel] {
 		GlobalVariables.shared.manageAssetsList!
 	}
-    private var activityHelper = ActivityHelper()
+
+	private var activityHelper = ActivityHelper()
 	private var ethToken: AssetViewModel!
 	private var feeInETH: BigNumber!
 	private var swapDetailsVM: SwapActivityDetailsViewModel?
@@ -258,111 +259,137 @@ struct ActivityDetailProperties {
 	// MARK: -  Private Methods
 
 	private mutating func setDetailsVM() {
-        activityHelper.globalAssetsList = globalAssetsList
+		activityHelper.globalAssetsList = globalAssetsList
 		switch activityDetails.uiType {
 		case .swap:
-            guard let swapActivityModel = activityDetails.defaultActivityModel as? ActivitySwapModel, let fromToken = activityHelper.findTokenInGlobalAssetsList(tokenId: swapActivityModel.detail.fromToken.tokenID), let toToken = activityHelper.findTokenInGlobalAssetsList(tokenId: swapActivityModel.detail.toToken.tokenID) else {
-                fatalError("Cant find swap tokens in global assets list")
-            }
-                 swapDetailsVM = SwapActivityDetailsViewModel(
-                     activityModel: swapActivityModel,
-                 fromToken: fromToken,
-                     toToken: toToken
-             )
+			guard let swapActivityModel = activityDetails.defaultActivityModel as? ActivitySwapModel,
+			      let fromToken = activityHelper
+			      .findTokenInGlobalAssetsList(tokenId: swapActivityModel.detail.fromToken.tokenID),
+			      let toToken = activityHelper
+			      .findTokenInGlobalAssetsList(tokenId: swapActivityModel.detail.toToken.tokenID) else {
+				fatalError("Cant find swap tokens in global assets list")
+			}
+			swapDetailsVM = SwapActivityDetailsViewModel(
+				activityModel: swapActivityModel,
+				fromToken: fromToken,
+				toToken: toToken
+			)
 		case .borrow:
-            guard let borrowActivityModel = activityDetails.defaultActivityModel as? ActivityBorrowModel, let borrowToken = activityHelper.findTokenInGlobalAssetsList(tokenId: borrowActivityModel.detail.token.tokenID) else {
-                fatalError("Cant find borrow token in global assets list")
-            }
-                borrowDetailsVM = BorrowActivityDetailsViewModel(
-                activityModel: borrowActivityModel,
-                token: borrowToken
-            )
+			guard let borrowActivityModel = activityDetails.defaultActivityModel as? ActivityBorrowModel,
+			      let borrowToken = activityHelper
+			      .findTokenInGlobalAssetsList(tokenId: borrowActivityModel.detail.token.tokenID) else {
+				fatalError("Cant find borrow token in global assets list")
+			}
+			borrowDetailsVM = BorrowActivityDetailsViewModel(
+				activityModel: borrowActivityModel,
+				token: borrowToken
+			)
 		case .send:
-            guard let transferActivityModel = activityDetails.defaultActivityModel as? ActivityTransferModel, let transferToken = activityHelper.findTokenInGlobalAssetsList(tokenId: transferActivityModel.detail.tokenID) else {
-                fatalError("Cant find transfer token in global assets list")
-            }
-                    transferDetailsVM = TransferActivityDetailsViewModel(
-                activityModel:  transferActivityModel,
-                transferToken: transferToken
-            )
+			guard let transferActivityModel = activityDetails.defaultActivityModel as? ActivityTransferModel,
+			      let transferToken = activityHelper
+			      .findTokenInGlobalAssetsList(tokenId: transferActivityModel.detail.tokenID) else {
+				fatalError("Cant find transfer token in global assets list")
+			}
+			transferDetailsVM = TransferActivityDetailsViewModel(
+				activityModel: transferActivityModel,
+				transferToken: transferToken
+			)
 		case .receive:
-            guard let transferActivityModel = activityDetails.defaultActivityModel as? ActivityTransferModel, let transferToken = activityHelper.findTokenInGlobalAssetsList(tokenId: transferActivityModel.detail.tokenID) else {
-                fatalError("Cant find transfer token in global assets list")
-            }
-                    transferDetailsVM = TransferActivityDetailsViewModel(
-                activityModel:  transferActivityModel,
-                transferToken: transferToken
-            )
+			guard let transferActivityModel = activityDetails.defaultActivityModel as? ActivityTransferModel,
+			      let transferToken = activityHelper
+			      .findTokenInGlobalAssetsList(tokenId: transferActivityModel.detail.tokenID) else {
+				fatalError("Cant find transfer token in global assets list")
+			}
+			transferDetailsVM = TransferActivityDetailsViewModel(
+				activityModel: transferActivityModel,
+				transferToken: transferToken
+			)
 		case .repay:
-            guard let repayActivityModel = activityDetails.defaultActivityModel as? ActivityRepayModel, let repayToken = activityHelper.findTokenInGlobalAssetsList(tokenId: repayActivityModel.detail.repaidToken.tokenID) else {
-                fatalError("Cant find repay token in global assets list")
-            }
-            repayDetailsVM = RepayActivityDetailsViewModel(
-                activityModel: repayActivityModel,
-                token: repayToken
-            )
+			guard let repayActivityModel = activityDetails.defaultActivityModel as? ActivityRepayModel,
+			      let repayToken = activityHelper
+			      .findTokenInGlobalAssetsList(tokenId: repayActivityModel.detail.repaidToken.tokenID) else {
+				fatalError("Cant find repay token in global assets list")
+			}
+			repayDetailsVM = RepayActivityDetailsViewModel(
+				activityModel: repayActivityModel,
+				token: repayToken
+			)
 		case .withdraw_investment:
-            guard let withdrawActivityModel = activityDetails.defaultActivityModel as? ActivityWithdrawModel, let withdrawToken = activityHelper.findTokenInGlobalAssetsList(tokenId: withdrawActivityModel.detail.tokens[0].tokenID) else {
-                fatalError("Cant find withdraw token in global assets list")
-            }
-            withdrawInvestmentDetailsVM = WithdrawInvestmentActivityDetailsViewModel(
-                activityModel: withdrawActivityModel,
-                token: withdrawToken
-            )
+			guard let withdrawActivityModel = activityDetails.defaultActivityModel as? ActivityWithdrawModel,
+			      let withdrawToken = activityHelper
+			      .findTokenInGlobalAssetsList(tokenId: withdrawActivityModel.detail.tokens[0].tokenID) else {
+				fatalError("Cant find withdraw token in global assets list")
+			}
+			withdrawInvestmentDetailsVM = WithdrawInvestmentActivityDetailsViewModel(
+				activityModel: withdrawActivityModel,
+				token: withdrawToken
+			)
 		case .invest:
-            guard let investActivityModel = activityDetails.defaultActivityModel as? ActivityInvestModel, let investToken = activityHelper.findTokenInGlobalAssetsList(tokenId: investActivityModel.detail.tokens[0].tokenID) else {
-                fatalError("Cant find invest token in global assets list")
-            }
-            investDetailsVM = InvestActivityDetailsViewModel(
-                activityModel: investActivityModel,
-                token: investToken
-            )
+			guard let investActivityModel = activityDetails.defaultActivityModel as? ActivityInvestModel,
+			      let investToken = activityHelper
+			      .findTokenInGlobalAssetsList(tokenId: investActivityModel.detail.tokens[0].tokenID) else {
+				fatalError("Cant find invest token in global assets list")
+			}
+			investDetailsVM = InvestActivityDetailsViewModel(
+				activityModel: investActivityModel,
+				token: investToken
+			)
 		case .collateral:
-            guard let collateralActivityModel = activityDetails.defaultActivityModel as? ActivityCollateralModel, let collateralToken = activityHelper.findTokenInGlobalAssetsList(tokenId: collateralActivityModel.detail.tokens[0].tokenID) else {
-                fatalError("Cant find collateral token in global assets list")
-            }
-                collateralDetailsVM = CollateralActivityDetailsViewModel(
-                activityModel: collateralActivityModel,
-                token: collateralToken
-            )
+			guard let collateralActivityModel = activityDetails.defaultActivityModel as? ActivityCollateralModel,
+			      let collateralToken = activityHelper
+			      .findTokenInGlobalAssetsList(tokenId: collateralActivityModel.detail.tokens[0].tokenID) else {
+				fatalError("Cant find collateral token in global assets list")
+			}
+			collateralDetailsVM = CollateralActivityDetailsViewModel(
+				activityModel: collateralActivityModel,
+				token: collateralToken
+			)
 		case .withdraw_collateral:
-            guard let withdrawCollateralActivityModel = activityDetails.defaultActivityModel as? ActivityCollateralModel, let withdrawCollateralToken = activityHelper.findTokenInGlobalAssetsList(tokenId: withdrawCollateralActivityModel.detail.tokens[0].tokenID) else {
-                fatalError("Cant find withdraw collateral token in global assets list")
-            }
-            withdrawCollateralDetailsVM = WithdrawCollateralActivityDetailsViewModel(
-                activityModel: withdrawCollateralActivityModel,
-                token: withdrawCollateralToken
-            )
+			guard let withdrawCollateralActivityModel = activityDetails.defaultActivityModel as? ActivityCollateralModel,
+			      let withdrawCollateralToken = activityHelper
+			      .findTokenInGlobalAssetsList(tokenId: withdrawCollateralActivityModel.detail.tokens[0].tokenID) else {
+				fatalError("Cant find withdraw collateral token in global assets list")
+			}
+			withdrawCollateralDetailsVM = WithdrawCollateralActivityDetailsViewModel(
+				activityModel: withdrawCollateralActivityModel,
+				token: withdrawCollateralToken
+			)
 		case .enable_collateral:
-            guard let enableCollateralActivityModel = activityDetails.defaultActivityModel as? ActivityCollateralModel, let enableCollateralToken = activityHelper.findTokenInGlobalAssetsList(tokenId: enableCollateralActivityModel.detail.tokens[0].tokenID) else {
-                fatalError("Cant find enable collateral token in global assets list")
-            }
-            collateralStatusDetailsVM = CollateralStatusActivityDetailsViewModel(
-                activityModel: enableCollateralActivityModel,
-                token: enableCollateralToken
-            )
+			guard let enableCollateralActivityModel = activityDetails.defaultActivityModel as? ActivityCollateralModel,
+			      let enableCollateralToken = activityHelper
+			      .findTokenInGlobalAssetsList(tokenId: enableCollateralActivityModel.detail.tokens[0].tokenID) else {
+				fatalError("Cant find enable collateral token in global assets list")
+			}
+			collateralStatusDetailsVM = CollateralStatusActivityDetailsViewModel(
+				activityModel: enableCollateralActivityModel,
+				token: enableCollateralToken
+			)
 		case .disable_collateral:
-            guard let disableCollateralActivityModel = activityDetails.defaultActivityModel as? ActivityCollateralModel, let disableCollateralToken = activityHelper.findTokenInGlobalAssetsList(tokenId: disableCollateralActivityModel.detail.tokens[0].tokenID) else {
-                fatalError("Cant find disable collateral token in global assets list")
-            }
-            collateralStatusDetailsVM = CollateralStatusActivityDetailsViewModel(
-                activityModel: disableCollateralActivityModel,
-                token: disableCollateralToken
-            )
+			guard let disableCollateralActivityModel = activityDetails.defaultActivityModel as? ActivityCollateralModel,
+			      let disableCollateralToken = activityHelper
+			      .findTokenInGlobalAssetsList(tokenId: disableCollateralActivityModel.detail.tokens[0].tokenID) else {
+				fatalError("Cant find disable collateral token in global assets list")
+			}
+			collateralStatusDetailsVM = CollateralStatusActivityDetailsViewModel(
+				activityModel: disableCollateralActivityModel,
+				token: disableCollateralToken
+			)
 		case .approve:
-            guard let approveActivityModel = activityDetails.defaultActivityModel as? ActivityApproveModel, var approveToken = activityHelper.findTokenInGlobalAssetsList(tokenId: approveActivityModel.detail.tokenID) else {
-                    fatalError("Cant find approve token in global assets list")
-            }
-            if approveToken.isEth {
-                guard let wethToken = GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }) else {
-                    fatalError("Cant find WETH token in global assets list")
-                }
-                approveToken = wethToken
-            }
-            approveDetailsVM = ApproveActivityDetailsViewModel(
-                activityModel: approveActivityModel,
-                token: approveToken
-            )
+			guard let approveActivityModel = activityDetails.defaultActivityModel as? ActivityApproveModel,
+			      var approveToken = activityHelper
+			      .findTokenInGlobalAssetsList(tokenId: approveActivityModel.detail.tokenID) else {
+				fatalError("Cant find approve token in global assets list")
+			}
+			if approveToken.isEth {
+				guard let wethToken = GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }) else {
+					fatalError("Cant find WETH token in global assets list")
+				}
+				approveToken = wethToken
+			}
+			approveDetailsVM = ApproveActivityDetailsViewModel(
+				activityModel: approveActivityModel,
+				token: approveToken
+			)
 		}
 	}
 

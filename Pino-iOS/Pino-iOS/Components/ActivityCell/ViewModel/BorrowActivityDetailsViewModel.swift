@@ -11,20 +11,20 @@ struct BorrowActivityDetailsViewModel {
 	// MARK: - Internal Properties
 
 	internal var activityModel: ActivityBorrowModel
-    internal var token: AssetViewModel
+	internal var token: AssetViewModel
 
 	// MARK: - Public Properties
 
 	public var tokenAmount: BigNumber {
-        BigNumber(number: activityModel.detail.token.amount, decimal: token.decimal)
+		BigNumber(number: activityModel.detail.token.amount, decimal: token.decimal)
 	}
 
 	public var tokenSymbol: String {
-        token.symbol
+		token.symbol
 	}
 
 	public var tokenImage: URL? {
-        token.image
+		token.image
 	}
 
 	public var activityProtocol: String {

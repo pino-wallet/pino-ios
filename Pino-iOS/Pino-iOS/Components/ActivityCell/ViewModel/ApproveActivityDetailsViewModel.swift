@@ -11,7 +11,7 @@ struct ApproveActivityDetailsViewModel {
 	// MARK: - Internal Properties
 
 	internal var activityModel: ActivityApproveModel
-    internal var token: AssetViewModel
+	internal var token: AssetViewModel
 
 	// MARK: - Public Properties
 

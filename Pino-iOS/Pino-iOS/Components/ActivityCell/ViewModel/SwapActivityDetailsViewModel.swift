@@ -11,33 +11,33 @@ struct SwapActivityDetailsViewModel {
 	// MARK: - Internal Properties
 
 	internal var activityModel: ActivitySwapModel
-    internal var fromToken: AssetViewModel
-    internal var toToken: AssetViewModel
+	internal var fromToken: AssetViewModel
+	internal var toToken: AssetViewModel
 
 	// MARK: - Public Properties
 
 	public var fromTokenAmount: BigNumber {
-        BigNumber(number: activityModel.detail.fromToken.amount, decimal: fromToken.decimal)
+		BigNumber(number: activityModel.detail.fromToken.amount, decimal: fromToken.decimal)
 	}
 
 	public var toTokenAmount: BigNumber {
-        BigNumber(number: activityModel.detail.toToken.amount, decimal: toToken.decimal)
+		BigNumber(number: activityModel.detail.toToken.amount, decimal: toToken.decimal)
 	}
 
 	public var toTokenSymbol: String {
-        toToken.symbol
+		toToken.symbol
 	}
 
 	public var fromTokenSymbol: String {
-        fromToken.symbol
+		fromToken.symbol
 	}
 
 	public var fromTokenImage: URL? {
-        fromToken.image
+		fromToken.image
 	}
 
 	public var toTokenImage: URL? {
-        toToken.image
+		toToken.image
 	}
 
 	public var activityProtocol: String {

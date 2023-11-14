@@ -84,15 +84,15 @@ class ActivityCollectionView: UICollectionView {
 		var activityHelper = ActivityHelper()
 
 		GlobalVariables.shared.$manageAssetsList.sink { assetsList in
-            guard let assetsList else {
-                return
-            }
-            if assetsList.isEmpty {
-                fatalError("Manage assets list is empty")
-            }
+			guard let assetsList else {
+				return
+			}
+			if assetsList.isEmpty {
+				fatalError("Manage assets list is empty")
+			}
 			if self.globalAssetsList == nil {
 				self.globalAssetsList = assetsList
-                activityHelper.globalAssetsList = assetsList
+				activityHelper.globalAssetsList = assetsList
 				if self.activityVM.userActivities != nil {
 					self.separatedActivities = activityHelper
 						.separateActivitiesByTime(activities: self.activityVM.userActivities!)

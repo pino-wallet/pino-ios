@@ -15,10 +15,11 @@ struct TransferActivityDetailsViewModel {
 	// MARK: - Internal Properties
 
 	internal var activityModel: ActivityTransferModel
-    
-    internal var transferToken: AssetViewModel
+
+	internal var transferToken: AssetViewModel
 
 	// MARK: - Private Properties
+
 	private var transferTokenDecimal: Int {
 		transferToken.decimal
 	}
@@ -30,11 +31,11 @@ struct TransferActivityDetailsViewModel {
 	}
 
 	public var transferTokenSymbol: String {
-        transferToken.symbol
+		transferToken.symbol
 	}
 
 	public var transferTokenImage: URL? {
-        transferToken.image
+		transferToken.image
 	}
 
 	public var transferFromAddress: String {

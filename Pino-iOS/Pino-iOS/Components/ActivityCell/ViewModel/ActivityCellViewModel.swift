@@ -70,76 +70,85 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	}
 
 	// MARK: - Public Properties
-    
-    public var activityModel: ActivityModelProtocol
-    public var swapDetailsVM: SwapActivityDetailsViewModel? {
-        didSet {
-            setValues()
-        }
-    }
-    public var transferDetailsVM: TransferActivityDetailsViewModel? {
-        didSet {
-            setValues()
-        }
-    }
-    public var borrowDetailsVM: BorrowActivityDetailsViewModel? {
-        didSet {
-            setValues()
-        }
-    }
-    public var repayDetailsVM: RepayActivityDetailsViewModel? {
-        didSet {
-            setValues()
-        }
-    }
-    public var withdrawInvestmentDetailsVM: WithdrawInvestmentActivityDetailsViewModel? {
-        didSet {
-            setValues()
-        }
-    }
-    public var investDetailsVM: InvestActivityDetailsViewModel? {
-        didSet {
-            setValues()
-        }
-    }
-    public var withdrawCollateralDetailsVM: WithdrawCollateralActivityDetailsViewModel? {
-        didSet {
-            setValues()
-        }
-    }
-    public var collateralDetailsVM: CollateralActivityDetailsViewModel? {
-        didSet {
-            setValues()
-        }
-    }
-    public var collateralStatusDetailsVM: CollateralStatusActivityDetailsViewModel? {
-        didSet {
-            setValues()
-        }
-    }
-    public var approveDetailsVM: ApproveActivityDetailsViewModel? {
-        didSet {
-            setValues()
-        }
-    }
+
+	public var activityModel: ActivityModelProtocol
+	public var swapDetailsVM: SwapActivityDetailsViewModel? {
+		didSet {
+			setValues()
+		}
+	}
+
+	public var transferDetailsVM: TransferActivityDetailsViewModel? {
+		didSet {
+			setValues()
+		}
+	}
+
+	public var borrowDetailsVM: BorrowActivityDetailsViewModel? {
+		didSet {
+			setValues()
+		}
+	}
+
+	public var repayDetailsVM: RepayActivityDetailsViewModel? {
+		didSet {
+			setValues()
+		}
+	}
+
+	public var withdrawInvestmentDetailsVM: WithdrawInvestmentActivityDetailsViewModel? {
+		didSet {
+			setValues()
+		}
+	}
+
+	public var investDetailsVM: InvestActivityDetailsViewModel? {
+		didSet {
+			setValues()
+		}
+	}
+
+	public var withdrawCollateralDetailsVM: WithdrawCollateralActivityDetailsViewModel? {
+		didSet {
+			setValues()
+		}
+	}
+
+	public var collateralDetailsVM: CollateralActivityDetailsViewModel? {
+		didSet {
+			setValues()
+		}
+	}
+
+	public var collateralStatusDetailsVM: CollateralStatusActivityDetailsViewModel? {
+		didSet {
+			setValues()
+		}
+	}
+
+	public var approveDetailsVM: ApproveActivityDetailsViewModel? {
+		didSet {
+			setValues()
+		}
+	}
 
 	public var activityMoreInfo: String!
 
 	public var blockTime: String {
 		activityModel.blockTime
 	}
-    
-    public var isWithdrawTransaction: Bool {
-        if let investActivity = activityModel as? ActivityInvestModel {
-            if currentAddress.lowercased() == investActivity.fromAddress.lowercased() {
-                return true
-            } else {
-                return false
-            }
-        } else {
-            return false
-        }
-    }
+
+	public var isWithdrawTransaction: Bool {
+		if let investActivity = activityModel as? ActivityInvestModel {
+			if currentAddress.lowercased() == investActivity.fromAddress.lowercased() {
+				return true
+			} else {
+				return false
+			}
+		} else {
+			return false
+		}
+	}
 
 	public var status: ActivityCellStatus {
 		#warning("this section is mock and we should refactor this section")
@@ -180,7 +189,6 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			return false
 		}
 	}
-
 
 	private mutating func setValues() {
 		switch uiType {

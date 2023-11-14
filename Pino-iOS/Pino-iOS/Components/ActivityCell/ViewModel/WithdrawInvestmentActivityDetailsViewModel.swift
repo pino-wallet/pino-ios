@@ -11,7 +11,7 @@ struct WithdrawInvestmentActivityDetailsViewModel {
 	// MARK: - Internal Properties
 
 	internal var activityModel: ActivityInvestmentModelProtocol
-    internal var token: AssetViewModel
+	internal var token: AssetViewModel
 
 	// MARK: - Private Properties
 
@@ -26,11 +26,11 @@ struct WithdrawInvestmentActivityDetailsViewModel {
 	}
 
 	public var tokenSymbol: String {
-        token.symbol
+		token.symbol
 	}
 
 	public var tokenImage: URL? {
-        token.image
+		token.image
 	}
 
 	public var activityProtocol: String {

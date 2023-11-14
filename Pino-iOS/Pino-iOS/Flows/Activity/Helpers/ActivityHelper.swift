@@ -17,8 +17,10 @@ struct ActivityHelper {
 		sections: [IndexSet],
 		finalSeparatedActivities: SeparatedActivitiesType
 	)
-    // MARK: - Public Properties
-    public var globalAssetsList: [AssetViewModel]?
+
+	// MARK: - Public Properties
+
+	public var globalAssetsList: [AssetViewModel]?
 
 	// MARK: - Public Methods
 
@@ -160,149 +162,183 @@ struct ActivityHelper {
 		}
 		return (indexPaths: indexPaths, finalSeparatedActivities: finalSeparatedActivities)
 	}
-    
-    public func findTokenInGlobalAssetsList(tokenId: String) -> AssetViewModel? {
-        guard let globalAssetsList else {
-            fatalError("Manage assets list is nil")
-        }
-        return globalAssetsList.first(where: { $0.id.lowercased() == tokenId.lowercased() })
-    }
+
+	public func findTokenInGlobalAssetsList(tokenId: String) -> AssetViewModel? {
+		guard let globalAssetsList else {
+			fatalError("Manage assets list is nil")
+		}
+		return globalAssetsList.first(where: { $0.id.lowercased() == tokenId.lowercased() })
+	}
 
 	// MARK: - Private Methods
-    
-    
-    private func getActivityDetails(activity: ActivityCellViewModel) -> ActivityCellViewModel? {
-        var resultActivity = activity
-        let activityDefaultModel = activity.defaultActivityModel
-        switch activity.activityType {
-        case .transfer:
-            guard let transferActivityModel = activityDefaultModel as? ActivityTransferModel, let transferToken = findTokenInGlobalAssetsList(tokenId: transferActivityModel.detail.tokenID) else {
-                return nil
-            }
-                    resultActivity.transferDetailsVM = TransferActivityDetailsViewModel(
-                activityModel:  transferActivityModel,
-                transferToken: transferToken
-            )
-            return resultActivity
-        case .transfer_from:
-            guard let transferActivityModel = activityDefaultModel as? ActivityTransferModel, let transferToken = findTokenInGlobalAssetsList(tokenId: transferActivityModel.detail.tokenID) else {
-                return nil
-            }
-                        resultActivity.transferDetailsVM = TransferActivityDetailsViewModel(
-                activityModel: transferActivityModel,
-                transferToken: transferToken
-            )
-            return resultActivity
-        case .swap:
-           guard let swapActivityModel = activityDefaultModel as? ActivitySwapModel, let fromToken = findTokenInGlobalAssetsList(tokenId: swapActivityModel.detail.fromToken.tokenID), let toToken = findTokenInGlobalAssetsList(tokenId: swapActivityModel.detail.toToken.tokenID) else {
-               return nil
-           }
-                resultActivity.swapDetailsVM = SwapActivityDetailsViewModel(
-                    activityModel: swapActivityModel,
-                fromToken: fromToken,
-                    toToken: toToken
-            )
-            return resultActivity
-        case .borrow:
-            guard let borrowActivityModel = activityDefaultModel as? ActivityBorrowModel, let borrowToken = findTokenInGlobalAssetsList(tokenId: borrowActivityModel.detail.token.tokenID) else {
-                return nil
-            }
-                resultActivity.borrowDetailsVM = BorrowActivityDetailsViewModel(
-                activityModel: borrowActivityModel,
-                token: borrowToken
-            )
-            return resultActivity
-        case .repay, .repay_behalf:
-            guard let repayActivityModel = activityDefaultModel as? ActivityRepayModel, let repayToken = findTokenInGlobalAssetsList(tokenId: repayActivityModel.detail.repaidToken.tokenID) else {
-                return nil
-            }
-            resultActivity.repayDetailsVM = RepayActivityDetailsViewModel(
-                activityModel: repayActivityModel,
-                token: repayToken
-            )
-            return resultActivity
-        case .decrease_investment, .withdraw_investment:
-            guard let withdrawActivityModel = activityDefaultModel as? ActivityWithdrawModel, let withdrawToken = findTokenInGlobalAssetsList(tokenId: withdrawActivityModel.detail.tokens[0].tokenID) else {
-                return nil
-            }
-            resultActivity.withdrawInvestmentDetailsVM = WithdrawInvestmentActivityDetailsViewModel(
-                activityModel: withdrawActivityModel,
-                token: withdrawToken
-            )
-            return resultActivity
-        case .create_investment, .increase_investment:
-            guard let investActivityModel = activityDefaultModel as? ActivityInvestModel, let investToken = findTokenInGlobalAssetsList(tokenId: investActivityModel.detail.tokens[0].tokenID) else {
-                return nil
-            }
-            resultActivity.investDetailsVM = InvestActivityDetailsViewModel(
-                activityModel: investActivityModel,
-                token: investToken
-            )
-            return resultActivity
-        case .create_withdraw_investment:
-            if resultActivity.isWithdrawTransaction {
-                guard let withdrawActivityModel = activityDefaultModel as? ActivityWithdrawModel, let withdrawToken = findTokenInGlobalAssetsList(tokenId: withdrawActivityModel.detail.tokens[0].tokenID) else {
-                    return nil
-                }
-                resultActivity.withdrawInvestmentDetailsVM = WithdrawInvestmentActivityDetailsViewModel(
-                    activityModel: withdrawActivityModel,
-                    token: withdrawToken
-                )
-                return resultActivity
-            } else {
-                guard let investActivityModel = activityDefaultModel as? ActivityInvestModel, let investToken = findTokenInGlobalAssetsList(tokenId: investActivityModel.detail.tokens[0].tokenID) else {
-                    return nil
-                }
-                resultActivity.investDetailsVM = InvestActivityDetailsViewModel(
-                    activityModel: investActivityModel,
-                    token: investToken
-                )
-                return resultActivity
-            }
-        case .create_collateral, .increase_collateral:
-            guard let collateralActivityModel = activityDefaultModel as? ActivityCollateralModel, let collateralToken = findTokenInGlobalAssetsList(tokenId: collateralActivityModel.detail.tokens[0].tokenID) else {
-                return nil
-            }
-                resultActivity.collateralDetailsVM = CollateralActivityDetailsViewModel(
-                activityModel: collateralActivityModel,
-                token: collateralToken
-            )
-            return resultActivity
-        case .remove_collateral, .decrease_collateral:
-            guard let withdrawCollateralActivityModel = activityDefaultModel as? ActivityCollateralModel, let withdrawCollateralToken = findTokenInGlobalAssetsList(tokenId: withdrawCollateralActivityModel.detail.tokens[0].tokenID) else {
-                return nil
-            }
-            resultActivity.withdrawCollateralDetailsVM = WithdrawCollateralActivityDetailsViewModel(
-                activityModel: withdrawCollateralActivityModel,
-                token: withdrawCollateralToken
-            )
-            return resultActivity
-        case .enable_collateral, .disable_collateral:
-            guard let enableCollateralActivityModel = activityDefaultModel as? ActivityCollateralModel, let enableCollateralToken = findTokenInGlobalAssetsList(tokenId: enableCollateralActivityModel.detail.tokens[0].tokenID) else {
-                return nil
-            }
-            resultActivity.collateralStatusDetailsVM = CollateralStatusActivityDetailsViewModel(
-                activityModel: enableCollateralActivityModel,
-                token: enableCollateralToken
-            )
-            return resultActivity
-        case .approve:
-            guard let approveActivityModel = activityDefaultModel as? ActivityApproveModel, var approveToken = findTokenInGlobalAssetsList(tokenId: approveActivityModel.detail.tokenID) else {
-                return nil
-            }
-            if approveToken.isEth {
-                guard let wethToken = GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }) else {
-                    return nil
-                }
-                approveToken = wethToken
-            }
-            resultActivity.approveDetailsVM = ApproveActivityDetailsViewModel(
-                activityModel: approveActivityModel,
-                token: approveToken
-            )
-            return resultActivity
-        }
-    }
+
+	private func getActivityDetails(activity: ActivityCellViewModel) -> ActivityCellViewModel? {
+		var resultActivity = activity
+		let activityDefaultModel = activity.defaultActivityModel
+		switch activity.activityType {
+		case .transfer:
+			guard let transferActivityModel = activityDefaultModel as? ActivityTransferModel,
+			      let transferToken = findTokenInGlobalAssetsList(tokenId: transferActivityModel.detail.tokenID) else {
+				return nil
+			}
+			resultActivity.transferDetailsVM = TransferActivityDetailsViewModel(
+				activityModel: transferActivityModel,
+				transferToken: transferToken
+			)
+			return resultActivity
+		case .transfer_from:
+			guard let transferActivityModel = activityDefaultModel as? ActivityTransferModel,
+			      let transferToken = findTokenInGlobalAssetsList(tokenId: transferActivityModel.detail.tokenID) else {
+				return nil
+			}
+			resultActivity.transferDetailsVM = TransferActivityDetailsViewModel(
+				activityModel: transferActivityModel,
+				transferToken: transferToken
+			)
+			return resultActivity
+		case .swap:
+			guard let swapActivityModel = activityDefaultModel as? ActivitySwapModel,
+			      let fromToken = findTokenInGlobalAssetsList(tokenId: swapActivityModel.detail.fromToken.tokenID),
+			      let toToken = findTokenInGlobalAssetsList(tokenId: swapActivityModel.detail.toToken.tokenID) else {
+				return nil
+			}
+			resultActivity.swapDetailsVM = SwapActivityDetailsViewModel(
+				activityModel: swapActivityModel,
+				fromToken: fromToken,
+				toToken: toToken
+			)
+			return resultActivity
+		case .borrow:
+			guard let borrowActivityModel = activityDefaultModel as? ActivityBorrowModel,
+			      let borrowToken = findTokenInGlobalAssetsList(tokenId: borrowActivityModel.detail.token.tokenID)
+			else {
+				return nil
+			}
+			resultActivity.borrowDetailsVM = BorrowActivityDetailsViewModel(
+				activityModel: borrowActivityModel,
+				token: borrowToken
+			)
+			return resultActivity
+		case .repay, .repay_behalf:
+			guard let repayActivityModel = activityDefaultModel as? ActivityRepayModel,
+			      let repayToken = findTokenInGlobalAssetsList(tokenId: repayActivityModel.detail.repaidToken.tokenID)
+			else {
+				return nil
+			}
+			resultActivity.repayDetailsVM = RepayActivityDetailsViewModel(
+				activityModel: repayActivityModel,
+				token: repayToken
+			)
+			return resultActivity
+		case .decrease_investment, .withdraw_investment:
+			guard let withdrawActivityModel = activityDefaultModel as? ActivityWithdrawModel,
+			      let withdrawToken = findTokenInGlobalAssetsList(
+			      	tokenId: withdrawActivityModel.detail.tokens[0]
+			      		.tokenID
+			      ) else {
+				return nil
+			}
+			resultActivity.withdrawInvestmentDetailsVM = WithdrawInvestmentActivityDetailsViewModel(
+				activityModel: withdrawActivityModel,
+				token: withdrawToken
+			)
+			return resultActivity
+		case .create_investment, .increase_investment:
+			guard let investActivityModel = activityDefaultModel as? ActivityInvestModel,
+			      let investToken = findTokenInGlobalAssetsList(tokenId: investActivityModel.detail.tokens[0].tokenID)
+			else {
+				return nil
+			}
+			resultActivity.investDetailsVM = InvestActivityDetailsViewModel(
+				activityModel: investActivityModel,
+				token: investToken
+			)
+			return resultActivity
+		case .create_withdraw_investment:
+			if resultActivity.isWithdrawTransaction {
+				guard let withdrawActivityModel = activityDefaultModel as? ActivityWithdrawModel,
+				      let withdrawToken = findTokenInGlobalAssetsList(
+				      	tokenId: withdrawActivityModel.detail.tokens[0]
+				      		.tokenID
+				      ) else {
+					return nil
+				}
+				resultActivity.withdrawInvestmentDetailsVM = WithdrawInvestmentActivityDetailsViewModel(
+					activityModel: withdrawActivityModel,
+					token: withdrawToken
+				)
+				return resultActivity
+			} else {
+				guard let investActivityModel = activityDefaultModel as? ActivityInvestModel,
+				      let investToken = findTokenInGlobalAssetsList(
+				      	tokenId: investActivityModel.detail.tokens[0]
+				      		.tokenID
+				      ) else {
+					return nil
+				}
+				resultActivity.investDetailsVM = InvestActivityDetailsViewModel(
+					activityModel: investActivityModel,
+					token: investToken
+				)
+				return resultActivity
+			}
+		case .create_collateral, .increase_collateral:
+			guard let collateralActivityModel = activityDefaultModel as? ActivityCollateralModel,
+			      let collateralToken = findTokenInGlobalAssetsList(
+			      	tokenId: collateralActivityModel.detail.tokens[0]
+			      		.tokenID
+			      ) else {
+				return nil
+			}
+			resultActivity.collateralDetailsVM = CollateralActivityDetailsViewModel(
+				activityModel: collateralActivityModel,
+				token: collateralToken
+			)
+			return resultActivity
+		case .remove_collateral, .decrease_collateral:
+			guard let withdrawCollateralActivityModel = activityDefaultModel as? ActivityCollateralModel,
+			      let withdrawCollateralToken = findTokenInGlobalAssetsList(
+			      	tokenId: withdrawCollateralActivityModel
+			      		.detail.tokens[0].tokenID
+			      ) else {
+				return nil
+			}
+			resultActivity.withdrawCollateralDetailsVM = WithdrawCollateralActivityDetailsViewModel(
+				activityModel: withdrawCollateralActivityModel,
+				token: withdrawCollateralToken
+			)
+			return resultActivity
+		case .enable_collateral, .disable_collateral:
+			guard let enableCollateralActivityModel = activityDefaultModel as? ActivityCollateralModel,
+			      let enableCollateralToken = findTokenInGlobalAssetsList(
+			      	tokenId: enableCollateralActivityModel.detail
+			      		.tokens[0].tokenID
+			      ) else {
+				return nil
+			}
+			resultActivity.collateralStatusDetailsVM = CollateralStatusActivityDetailsViewModel(
+				activityModel: enableCollateralActivityModel,
+				token: enableCollateralToken
+			)
+			return resultActivity
+		case .approve:
+			guard let approveActivityModel = activityDefaultModel as? ActivityApproveModel,
+			      var approveToken = findTokenInGlobalAssetsList(tokenId: approveActivityModel.detail.tokenID) else {
+				return nil
+			}
+			if approveToken.isEth {
+				guard let wethToken = GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }) else {
+					return nil
+				}
+				approveToken = wethToken
+			}
+			resultActivity.approveDetailsVM = ApproveActivityDetailsViewModel(
+				activityModel: approveActivityModel,
+				token: approveToken
+			)
+			return resultActivity
+		}
+	}
 
 	private func separateActivitiesByDay(activities: [ActivityCellViewModel]) -> SeparatedActivitiesWithDayType {
 		let currentDate = Date()
@@ -314,13 +350,13 @@ struct ActivityHelper {
 			activityDate = getActivityDate(activityBlockTime: activity.blockTime)
 			daysBetweenNowAndActivityTime = Calendar.current.dateComponents([.day], from: activityDate, to: currentDate)
 				.day!
-            if let resultActivity = getActivityDetails(activity: activity) {
-                if result[daysBetweenNowAndActivityTime] != nil {
-                    result[daysBetweenNowAndActivityTime]?.append(resultActivity)
-                } else {
-                    result[daysBetweenNowAndActivityTime] = [resultActivity]
-                }
-            }
+			if let resultActivity = getActivityDetails(activity: activity) {
+				if result[daysBetweenNowAndActivityTime] != nil {
+					result[daysBetweenNowAndActivityTime]?.append(resultActivity)
+				} else {
+					result[daysBetweenNowAndActivityTime] = [resultActivity]
+				}
+			}
 		}
 
 		return result
