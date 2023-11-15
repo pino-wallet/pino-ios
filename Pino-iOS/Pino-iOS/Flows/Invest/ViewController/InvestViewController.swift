@@ -33,6 +33,13 @@ class InvestViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		let investEmptyPageView = InvestEmptyPageView(
+			investEmptyPageVM: investEmptyPageVM,
+			startInvestingDidTap: {
+				self.startInvesting()
+			}
+		)
+
 		investView = InvestView(
 			investVM: investVM,
 			totalInvestmentTapped: {
@@ -40,12 +47,9 @@ class InvestViewController: UIViewController {
 			},
 			investmentPerformanceTapped: {
 				self.openInvestmentPerformance()
-			}
-		)
-		let investEmptyPageView = InvestEmptyPageView(
-			investEmptyPageVM: investEmptyPageVM,
-			startInvestingDidTap: {
-				self.startInvesting()
+			},
+			investmentIsEmpty: {
+				self.view = investEmptyPageView
 			}
 		)
 
