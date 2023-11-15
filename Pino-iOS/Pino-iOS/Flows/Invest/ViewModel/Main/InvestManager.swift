@@ -30,6 +30,12 @@ class InvestManager: Web3ManagerProtocol {
 		Utilities.parseToBigUInt(investAmount, decimals: selectedToken.decimal)!
 	}
 
+	// MARK: - Public Properties
+
+	public var depositTrx: EthereumSignedTransaction?
+	public var depositGasInfo: GasInfo?
+	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
+
 	// MARK: - Internal properties
 
 	internal var web3 = Web3Core.shared
@@ -52,57 +58,70 @@ class InvestManager: Web3ManagerProtocol {
 
 	// MARK: Public Methods
 
-	public func invest() {
+	public func getDepositInfo() -> TrxWithGasInfo? {
 		switch investProtocol {
 		case .maker:
-			investInDai()
+			return investInDai()
 		case .compound:
-			investInCompound()
+			return investInCompound()
 		case .lido:
-			investInLido()
+			return investInLido()
 		case .aave:
-			break
+			return nil
 		case .balancer:
-			break
+			return nil
 		case .uniswap:
-			break
+			return nil
+		}
+	}
+
+	public func confirmDeposit(completion: @escaping (Result<String>) -> Void) {
+		guard let depositTrx else { return }
+		Web3Core.shared.callTransaction(trx: depositTrx).done { trxHash in
+			#warning("Add transaction activity later")
+			completion(.fulfilled(trxHash))
+		}.catch { error in
+			completion(.rejected(error))
 		}
 	}
 
 	// MARK: - Private Methods
 
-	private func investInDai() {
-		firstly {
-			fetchHash()
-		}.then { plainHash in
-			self.signHash(plainHash: plainHash)
-		}.then { signiture -> Promise<(String, String?)> in
-			// Check allowance of protocol
-			let spenderAddress = Web3Core.Constants.sDaiContractAddress
-			return self.checkAllowanceOfProvider(
-				approvingToken: self.selectedToken,
-				approvingAmount: self.investAmount,
-				spenderAddress: spenderAddress,
-				ownerAddress: Web3Core.Constants.investContractAddress
-			).map { (signiture, $0) }
-		}.then { signiture, allowanceData -> Promise<(String, String?)> in
-			// Permit Transform
-			self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
-		}.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
-			self.web3.getDaiToSDaiCallData(
-				amount: tokenUIntNumber,
-				recipientAdd: walletManager.currentAccount.eip55Address
-			).map { ($0, permitData, allowanceData) }
-		}.then { protocolCallData, permitData, allowanceData in
-			// MultiCall
-			var callDatas = [permitData, protocolCallData]
-			if let allowanceData { callDatas.insert(allowanceData, at: 0) }
-			return self.callProxyMultiCall(data: callDatas, value: nil)
-		}.done { trx in
-			print(trx.0)
-			print(trx.1)
-		}.catch { error in
-			print(error.localizedDescription)
+	private func investInDai() -> TrxWithGasInfo {
+		TrxWithGasInfo { seal in
+			firstly {
+				fetchHash()
+			}.then { plainHash in
+				self.signHash(plainHash: plainHash)
+			}.then { signiture -> Promise<(String, String?)> in
+				// Check allowance of protocol
+				let spenderAddress = Web3Core.Constants.sDaiContractAddress
+				return self.checkAllowanceOfProvider(
+					approvingToken: self.selectedToken,
+					approvingAmount: self.investAmount,
+					spenderAddress: spenderAddress,
+					ownerAddress: Web3Core.Constants.investContractAddress
+				).map { (signiture, $0) }
+			}.then { signiture, allowanceData -> Promise<(String, String?)> in
+				// Permit Transform
+				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
+			}.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
+				self.web3.getDaiToSDaiCallData(
+					amount: tokenUIntNumber,
+					recipientAdd: walletManager.currentAccount.eip55Address
+				).map { ($0, permitData, allowanceData) }
+			}.then { protocolCallData, permitData, allowanceData in
+				// MultiCall
+				var callDatas = [permitData, protocolCallData]
+				if let allowanceData { callDatas.insert(allowanceData, at: 0) }
+				return self.callProxyMultiCall(data: callDatas, value: nil)
+			}.done { depositResult in
+				self.depositTrx = depositResult.0
+				self.depositGasInfo = depositResult.1
+				seal.fulfill(depositResult)
+			}.catch { error in
+				print(error.localizedDescription)
+			}
 		}
 	}
 
@@ -130,68 +149,76 @@ class InvestManager: Web3ManagerProtocol {
 		}
 	}
 
-	private func investInLido() {
+	private func investInLido() -> TrxWithGasInfo {
 		if selectedToken.isEth {
-			lidoETHDeposit()
+			return lidoETHDeposit()
 		} else if selectedToken.isWEth {
-			lidoWETHDeposit()
+			return lidoWETHDeposit()
 		} else {
 			fatalError("Wrong token for lido investment")
 		}
 	}
 
-	private func lidoETHDeposit() {
-		let proxyFee = 0.bigNumber.bigUInt
-		firstly {
-			self.web3.getETHToSTETHCallData(
-				recipientAdd: walletManager.currentAccount.eip55Address,
-				proxyFee: proxyFee
-			)
-		}.then { protocolCallData in
-			// MultiCall
-			let callDatas = [protocolCallData]
-			let ethDepositAmount = self.tokenUIntNumber + proxyFee
-			return self.callProxyMultiCall(data: callDatas, value: ethDepositAmount)
-		}.done { trx in
-			print(trx)
-		}.catch { error in
-			print(error.localizedDescription)
+	private func lidoETHDeposit() -> TrxWithGasInfo {
+		TrxWithGasInfo { seal in
+			let proxyFee = 0.bigNumber.bigUInt
+			firstly {
+				self.web3.getETHToSTETHCallData(
+					recipientAdd: walletManager.currentAccount.eip55Address,
+					proxyFee: proxyFee
+				)
+			}.then { protocolCallData in
+				// MultiCall
+				let callDatas = [protocolCallData]
+				let ethDepositAmount = self.tokenUIntNumber + proxyFee
+				return self.callProxyMultiCall(data: callDatas, value: ethDepositAmount)
+			}.done { depositResult in
+				self.depositTrx = depositResult.0
+				self.depositGasInfo = depositResult.1
+				seal.fulfill(depositResult)
+			}.catch { error in
+				print(error.localizedDescription)
+			}
 		}
 	}
 
-	private func lidoWETHDeposit() {
-		firstly {
-			fetchHash()
-		}.then { plainHash in
-			self.signHash(plainHash: plainHash)
-		}.then { signiture -> Promise<String> in
-			// Permit Transform
-			self.getProxyPermitTransferData(signiture: signiture)
-		}.then { [self] permitData -> Promise<(String, String)> in
-			web3.getWETHToSTETHCallData(
-				amount: tokenUIntNumber,
-				recipientAdd: walletManager.currentAccount.eip55Address
-			).map { ($0, permitData) }
-		}.then { protocolCallData, permitData in
-			// MultiCall
-			let callDatas = [permitData, protocolCallData]
-			return self.callProxyMultiCall(data: callDatas, value: nil)
-		}.done { trx in
-			print(trx)
-		}.catch { error in
-			print(error.localizedDescription)
+	private func lidoWETHDeposit() -> TrxWithGasInfo {
+		TrxWithGasInfo { seal in
+			firstly {
+				fetchHash()
+			}.then { plainHash in
+				self.signHash(plainHash: plainHash)
+			}.then { signiture -> Promise<String> in
+				// Permit Transform
+				self.getProxyPermitTransferData(signiture: signiture)
+			}.then { [self] permitData -> Promise<(String, String)> in
+				web3.getWETHToSTETHCallData(
+					amount: tokenUIntNumber,
+					recipientAdd: walletManager.currentAccount.eip55Address
+				).map { ($0, permitData) }
+			}.then { protocolCallData, permitData in
+				// MultiCall
+				let callDatas = [permitData, protocolCallData]
+				return self.callProxyMultiCall(data: callDatas, value: nil)
+			}.done { depositResult in
+				self.depositTrx = depositResult.0
+				self.depositGasInfo = depositResult.1
+				seal.fulfill(depositResult)
+			}.catch { error in
+				print(error.localizedDescription)
+			}
 		}
 	}
 
 	private func lodoWithdraw() {}
 
-	private func investInCompound() {
+	private func investInCompound() -> TrxWithGasInfo {
 		let compoundManager = CompoundDepositManager(
 			contract: contract,
 			selectedToken: selectedToken,
 			investAmount: investAmount
 		)
-		compoundManager.invest()
+		return compoundManager.getDepositInfo()
 	}
 
 	private func fetchHash() -> Promise<String> {
