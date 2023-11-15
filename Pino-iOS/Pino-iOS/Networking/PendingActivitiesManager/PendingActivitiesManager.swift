@@ -226,6 +226,24 @@ class PendingActivitiesManager {
 						gasPrice: cdRepayActivity.gasPrice,
 						prev_txHash: cdRepayActivity.prevTxHash
 					))
+                case .increase_collateral, .decrease_collateral, .create_collateral, .remove_collateral, .enable_collateral,
+                        .disable_collateral:
+                    let cdCollateralActivity = activity as! CDCollateralActivity
+                    pendingActivitiesList.append(ActivityCollateralModel(
+                        txHash: cdCollateralActivity.txHash,
+                        type: cdCollateralActivity.type,
+                        detail: CollateralActivityDetails(activityProtocol: cdCollateralActivity.details.activityProtocol, tokens: cdCollateralActivity.details.tokens.compactMap {
+                            ActivityTokenModel(amount: $0.amount, tokenID: $0.tokenId)
+                        }),
+                        fromAddress: cdCollateralActivity.fromAddress,
+                        toAddress: cdCollateralActivity.toAddress,
+                        failed: nil,
+                        blockNumber: nil,
+                        blockTime: cdCollateralActivity.blockTime,
+                        gasUsed: cdCollateralActivity.gasUsed,
+                        gasPrice: cdCollateralActivity.gasPrice,
+                        prev_txHash: cdCollateralActivity.prevTxHash
+                    ))
 				default:
 					print("unknown activity type")
 				}
