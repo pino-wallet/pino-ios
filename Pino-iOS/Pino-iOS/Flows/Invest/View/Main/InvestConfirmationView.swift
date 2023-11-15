@@ -239,9 +239,7 @@ class InvestConfirmationView: UIView {
 		Publishers.Zip(investConfirmationVM.$formattedFeeInDollar, investConfirmationVM.$formattedFeeInETH)
 			.sink { [weak self] feeInDollar, feeInETH in
 				guard let self, let feeInETH, let feeInDollar else { return }
-				self.hideSkeletonView()
-				self.updateFeeLabel(feeInEth: feeInETH, feeInDollar: feeInDollar)
-				self.checkBalanceEnough()
+				self.showEstimatedFee(feeInETH: feeInETH, feeInDollar: feeInDollar)
 			}.store(in: &cancellables)
 	}
 
@@ -261,18 +259,27 @@ class InvestConfirmationView: UIView {
 		}
 	}
 
+	private func showEstimatedFee(feeInETH: String, feeInDollar: String) {
+		hideSkeletonView()
+		feeLabel.layer.cornerRadius = 0
+		updateFeeLabel(feeInEth: feeInETH, feeInDollar: feeInDollar)
+		checkBalanceEnough()
+	}
+
 	private func updateFeeLabel(feeInEth: String, feeInDollar: String) {
 		if showFeeInDollar {
 			feeLabel.text = feeInDollar
 		} else {
-			feeLabel.text = feeInEth
+			feeLabel.text = feeInEth.ethFormatting
 		}
 	}
 
 	@objc
-	private func toggleShowFee(feeInEth: String, feeInDollar: String) {
+	private func toggleShowFee() {
+		guard let feeInETH = investConfirmationVM.formattedFeeInETH,
+		      let feeInDollar = investConfirmationVM.formattedFeeInDollar else { return }
 		showFeeInDollar.toggle()
-		updateFeeLabel(feeInEth: feeInEth, feeInDollar: feeInDollar)
+		updateFeeLabel(feeInEth: feeInETH, feeInDollar: feeInDollar)
 	}
 
 	@objc
