@@ -21,8 +21,7 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 					}
 
 //					NetworkLogger.log(request: request, response: response)
-
-					try checkStatusCode(responseData: data, statusCode: statusCode)
+//					try checkStatusCode(responseData: data, statusCode: statusCode)
 
 					// For cases when response body is empty
 					if statusCode == 204, let noContent = NoContent() as? T {
@@ -32,6 +31,7 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 					do {
 						return try JSONDecoder().decode(T.self, from: data)
 					} catch {
+                        print(request.url)
 						print("Unable to handle request:\(error)")
 						throw APIError.invalidRequest
 					}
@@ -94,7 +94,7 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 			if statusCode == 401 {
 				throw APIError.unauthorized
 			} else if statusCode == 404 {
-				throw APIError.notFound
+                throw APIError.notFound
 			} else {
 				throw APIError.failedRequest
 			}

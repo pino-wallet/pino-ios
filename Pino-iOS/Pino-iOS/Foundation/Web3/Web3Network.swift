@@ -13,7 +13,8 @@ public enum Web3Network: String {
 
 	case mainNet
 	case arb
-	case ganashDev
+    case ganashDev
+	case pinoNode
 
 	// MARK: - Public Properties
 
@@ -21,7 +22,7 @@ public enum Web3Network: String {
 		if Environment.current == .mainNet {
 			return .mainNet
 		} else if Environment.current == .devNet {
-			return .ganashDev
+			return .pinoNode
 		} else {
 			return .arb
 		}

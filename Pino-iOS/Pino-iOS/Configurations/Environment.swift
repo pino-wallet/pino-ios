@@ -16,7 +16,8 @@ enum NetworkEnvironment {
 
 enum Environment {
 	case mainNet
-	case devNet
+    case devNet
+	case pinoNode
 
 	// MARK: Public Properties
 
@@ -35,7 +36,7 @@ enum Environment {
 
 	public static var chainID: Int {
 		switch current {
-		case .mainNet:
+            case .mainNet, .pinoNode:
 			return 1
 		case .devNet:
 			return 1337
@@ -47,7 +48,9 @@ enum Environment {
 		case .mainNet:
 			return "https://rpc.ankr.com/eth"
 		case .devNet:
-			return "https://ganache.pino.xyz"
+            return "https://ganache.pino.xyz"
+        case .pinoNode:
+			return "https://node.pino.xyz"
 		}
 	}
 
@@ -55,7 +58,7 @@ enum Environment {
 		let devMode = UserDefaults.standard.bool(forKey: "isInDevMode")
 
 		if devMode {
-			return .devNet
+			return .pinoNode
 		} else {
 			return .mainNet
 		}

@@ -28,7 +28,7 @@ public class Web3Core {
 			return Web3Network.rpc
 		}
 	}
-
+    
 	private var userPrivateKey: EthereumPrivateKey {
 		try! EthereumPrivateKey(
 			hexPrivateKey: walletManager.currentAccountPrivateKey
