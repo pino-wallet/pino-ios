@@ -180,6 +180,52 @@ class PendingActivitiesManager {
 						gasPrice: cdWithdrawActivity.gasPrice,
 						prev_txHash: cdWithdrawActivity.prevTxHash
 					))
+				case .borrow:
+					let cdBorrowActivity = activity as! CDBorrowActivity
+					pendingActivitiesList.append(ActivityBorrowModel(
+						txHash: cdBorrowActivity.txHash,
+						type: cdBorrowActivity.type,
+						detail: BorrowActivityDetails(
+							activityProtocol: cdBorrowActivity.details.activityProtocol,
+							token: ActivityTokenModel(
+								amount: cdBorrowActivity.details.token.amount,
+								tokenID: cdBorrowActivity.details.token.tokenId
+							)
+						),
+						fromAddress: cdBorrowActivity.fromAddress,
+						toAddress: cdBorrowActivity.toAddress,
+						failed: nil,
+						blockNumber: nil,
+						blockTime: cdBorrowActivity.blockTime,
+						gasUsed: cdBorrowActivity.gasUsed,
+						gasPrice: cdBorrowActivity.gasPrice,
+						prev_txHash: cdBorrowActivity.prevTxHash
+					))
+				case .repay:
+					let cdRepayActivity = activity as! CDRepayActivity
+					pendingActivitiesList.append(ActivityRepayModel(
+						txHash: cdRepayActivity.txHash,
+						type: cdRepayActivity.type,
+						detail: RepayActivityDetails(
+							activityProtocol: cdRepayActivity.details.activityProtocol,
+							repaidToken: ActivityTokenModel(
+								amount: cdRepayActivity.details.repaid_token.amount,
+								tokenID: cdRepayActivity.details.repaid_token.tokenId
+							),
+							repaidWithToken: ActivityTokenModel(
+								amount: cdRepayActivity.details.repaid_with_token.amount,
+								tokenID: cdRepayActivity.details.repaid_with_token.tokenId
+							)
+						),
+						fromAddress: cdRepayActivity.fromAddress,
+						toAddress: cdRepayActivity.toAddress,
+						failed: nil,
+						blockNumber: nil,
+						blockTime: cdRepayActivity.blockTime,
+						gasUsed: cdRepayActivity.gasUsed,
+						gasPrice: cdRepayActivity.gasPrice,
+						prev_txHash: cdRepayActivity.prevTxHash
+					))
 				default:
 					print("unknown activity type")
 				}

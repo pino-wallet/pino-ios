@@ -298,6 +298,73 @@ class CoreDataManager {
 		return newActivity
 	}
 
+	@discardableResult
+	public func addNewRepayActivity(
+		activityModel: ActivityRepayModel,
+		accountAddress: String
+	) -> CDRepayActivity {
+		let newActivity = CDRepayActivity(context: activityDataSource.managedContext)
+
+		newActivity.txHash = activityModel.txHash
+		newActivity.type = activityModel.type
+		newActivity.fromAddress = activityModel.fromAddress
+		newActivity.toAddress = activityModel.toAddress
+		newActivity.blockTime = activityModel.blockTime
+		newActivity.gasUsed = activityModel.gasUsed
+		newActivity.gasPrice = activityModel.gasPrice
+		newActivity.accountAddress = accountAddress
+
+		let newActivityDetails = CDRepayActivityDetails(context: activityDataSource.managedContext)
+
+		let repaidToken = CDActivityDetailsToken(context: accountDataSource.managedContext)
+		repaidToken.amount = activityModel.detail.repaidToken.amount
+		repaidToken.tokenId = activityModel.detail.repaidToken.tokenID
+
+		let repaidWithToken = CDActivityDetailsToken(context: accountDataSource.managedContext)
+		repaidWithToken.amount = activityModel.detail.repaidWithToken.amount
+		repaidWithToken.tokenId = activityModel.detail.repaidWithToken.tokenID
+
+		newActivityDetails.repaid_token = repaidToken
+		newActivityDetails.repaid_with_token = repaidWithToken
+		newActivityDetails.activityProtocol = activityModel.detail.activityProtocol
+
+		newActivity.details = newActivityDetails
+
+		activityDataSource.save(newActivity)
+		return newActivity
+	}
+
+	@discardableResult
+	public func addNewBorrowActivity(
+		activityModel: ActivityBorrowModel,
+		accountAddress: String
+	) -> CDBorrowActivity {
+		let newActivity = CDBorrowActivity(context: activityDataSource.managedContext)
+
+		newActivity.txHash = activityModel.txHash
+		newActivity.type = activityModel.type
+		newActivity.fromAddress = activityModel.fromAddress
+		newActivity.toAddress = activityModel.toAddress
+		newActivity.blockTime = activityModel.blockTime
+		newActivity.gasUsed = activityModel.gasUsed
+		newActivity.gasPrice = activityModel.gasPrice
+		newActivity.accountAddress = accountAddress
+
+		let newActivityDetails = CDBorrowActivityDetails(context: activityDataSource.managedContext)
+
+		let borrowToken = CDActivityDetailsToken(context: accountDataSource.managedContext)
+		borrowToken.amount = activityModel.detail.token.amount
+		borrowToken.tokenId = activityModel.detail.token.tokenID
+
+		newActivityDetails.token = borrowToken
+		newActivityDetails.activityProtocol = activityModel.detail.activityProtocol
+
+		newActivity.details = newActivityDetails
+
+		activityDataSource.save(newActivity)
+		return newActivity
+	}
+
 	public func getAllActivities() -> [CDActivityParent] {
 		activityDataSource.getAll()
 	}
