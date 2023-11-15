@@ -364,39 +364,38 @@ class CoreDataManager {
 		activityDataSource.save(newActivity)
 		return newActivity
 	}
-    
-    @discardableResult
-    public func addNewCollateralActivity(
-        activityModel: ActivityCollateralModel,
-        accountAddress: String
-    ) -> CDCollateralActivity {
-        let newActivity = CDCollateralActivity(context: activityDataSource.managedContext)
 
-        newActivity.txHash = activityModel.txHash
-        newActivity.type = activityModel.type
-        newActivity.fromAddress = activityModel.fromAddress
-        newActivity.toAddress = activityModel.toAddress
-        newActivity.blockTime = activityModel.blockTime
-        newActivity.gasUsed = activityModel.gasUsed
-        newActivity.gasPrice = activityModel.gasPrice
-        newActivity.accountAddress = accountAddress
+	@discardableResult
+	public func addNewCollateralActivity(
+		activityModel: ActivityCollateralModel,
+		accountAddress: String
+	) -> CDCollateralActivity {
+		let newActivity = CDCollateralActivity(context: activityDataSource.managedContext)
 
-        let newActivityDetails = CDCollateralActivityDetails(context: activityDataSource.managedContext)
+		newActivity.txHash = activityModel.txHash
+		newActivity.type = activityModel.type
+		newActivity.fromAddress = activityModel.fromAddress
+		newActivity.toAddress = activityModel.toAddress
+		newActivity.blockTime = activityModel.blockTime
+		newActivity.gasUsed = activityModel.gasUsed
+		newActivity.gasPrice = activityModel.gasPrice
+		newActivity.accountAddress = accountAddress
 
-        newActivityDetails.tokens = Set(activityModel.detail.tokens.compactMap {
-            let newActivityDetailsToken = CDActivityDetailsToken(context: activityDataSource.managedContext)
-            newActivityDetailsToken.amount = $0.amount
-            newActivityDetailsToken.tokenId = $0.tokenID
-            return newActivityDetailsToken
-        })
-        newActivityDetails.activityProtocol = activityModel.detail.activityProtocol
+		let newActivityDetails = CDCollateralActivityDetails(context: activityDataSource.managedContext)
 
-        newActivity.details = newActivityDetails
+		newActivityDetails.tokens = Set(activityModel.detail.tokens.compactMap {
+			let newActivityDetailsToken = CDActivityDetailsToken(context: activityDataSource.managedContext)
+			newActivityDetailsToken.amount = $0.amount
+			newActivityDetailsToken.tokenId = $0.tokenID
+			return newActivityDetailsToken
+		})
+		newActivityDetails.activityProtocol = activityModel.detail.activityProtocol
 
-        activityDataSource.save(newActivity)
-        return newActivity
-    }
+		newActivity.details = newActivityDetails
 
+		activityDataSource.save(newActivity)
+		return newActivity
+	}
 
 	public func getAllActivities() -> [CDActivityParent] {
 		activityDataSource.getAll()
