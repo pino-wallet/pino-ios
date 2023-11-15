@@ -363,6 +363,10 @@
 		D95D49822A386BC10042FC85 /* TitleWithInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95D49812A386BC10042FC85 /* TitleWithInfo.swift */; };
 		D95D96F82AB87CD80082FCA5 /* borrowable-token-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = D95D96F72AB87CD80082FCA5 /* borrowable-token-stub.json */; };
 		D95D96F92AB87CD80082FCA5 /* borrowable-token-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = D95D96F72AB87CD80082FCA5 /* borrowable-token-stub.json */; };
+		D95FFF8A2B04A44C007AAC1A /* CDCollateralActivityDetails+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95FFF892B04A44C007AAC1A /* CDCollateralActivityDetails+CoreDataClass.swift */; };
+		D95FFF8B2B04A44C007AAC1A /* CDCollateralActivity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95FFF882B04A44C007AAC1A /* CDCollateralActivity+CoreDataClass.swift */; };
+		D95FFF8C2B04A44C007AAC1A /* CDCollateralActivity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95FFF862B04A44C007AAC1A /* CDCollateralActivity+CoreDataProperties.swift */; };
+		D95FFF8D2B04A44C007AAC1A /* CDCollateralActivityDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95FFF872B04A44C007AAC1A /* CDCollateralActivityDetails+CoreDataProperties.swift */; };
 		D964AC6B0907B2432359A129 /* GroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D7CE3AA42604B8F78EA87C /* GroupCollectionViewCell.swift */; };
 		D966D5912A9F3912007E63A1 /* PinoRightSideImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D966D5902A9F3912007E63A1 /* PinoRightSideImageButton.swift */; };
 		D966D5932A9F3950007E63A1 /* PinoRightSideImageButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D966D5922A9F3950007E63A1 /* PinoRightSideImageButtonStyle.swift */; };
@@ -1156,6 +1160,10 @@
 		D95D20352AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthScoreSystemViewModel.swift; sourceTree = "<group>"; };
 		D95D49812A386BC10042FC85 /* TitleWithInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithInfo.swift; sourceTree = "<group>"; };
 		D95D96F72AB87CD80082FCA5 /* borrowable-token-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "borrowable-token-stub.json"; sourceTree = "<group>"; };
+		D95FFF862B04A44C007AAC1A /* CDCollateralActivity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDCollateralActivity+CoreDataProperties.swift"; path = "/Users/amirhosseinkazemiseresht/developing/ios/pino-ios/Pino-iOS/Pino-iOS/CoreData/Models/Activity/CDCollateralActivity+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		D95FFF872B04A44C007AAC1A /* CDCollateralActivityDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDCollateralActivityDetails+CoreDataProperties.swift"; path = "/Users/amirhosseinkazemiseresht/developing/ios/pino-ios/Pino-iOS/Pino-iOS/CoreData/Models/Activity/CDCollateralActivityDetails+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		D95FFF882B04A44C007AAC1A /* CDCollateralActivity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDCollateralActivity+CoreDataClass.swift"; path = "/Users/amirhosseinkazemiseresht/developing/ios/pino-ios/Pino-iOS/Pino-iOS/CoreData/Models/Activity/CDCollateralActivity+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		D95FFF892B04A44C007AAC1A /* CDCollateralActivityDetails+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDCollateralActivityDetails+CoreDataClass.swift"; path = "/Users/amirhosseinkazemiseresht/developing/ios/pino-ios/Pino-iOS/Pino-iOS/CoreData/Models/Activity/CDCollateralActivityDetails+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		D966D5902A9F3912007E63A1 /* PinoRightSideImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoRightSideImageButton.swift; sourceTree = "<group>"; };
 		D966D5922A9F3950007E63A1 /* PinoRightSideImageButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoRightSideImageButtonStyle.swift; sourceTree = "<group>"; };
 		D96A40D52A7E83A200C020BC /* PendingActivitiesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingActivitiesManager.swift; sourceTree = "<group>"; };
@@ -3173,6 +3181,10 @@
 		D9BE05202A822340008670F9 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
+				D95FFF892B04A44C007AAC1A /* CDCollateralActivityDetails+CoreDataClass.swift */,
+				D95FFF872B04A44C007AAC1A /* CDCollateralActivityDetails+CoreDataProperties.swift */,
+				D95FFF882B04A44C007AAC1A /* CDCollateralActivity+CoreDataClass.swift */,
+				D95FFF862B04A44C007AAC1A /* CDCollateralActivity+CoreDataProperties.swift */,
 				D987B4AE2B03B6D100F42AED /* CDRepayActivity+CoreDataClass.swift */,
 				D987B4AC2B03B6D000F42AED /* CDRepayActivity+CoreDataProperties.swift */,
 				D987B4AD2B03B6D100F42AED /* CDBorrowActivityDetails+CoreDataClass.swift */,
@@ -4541,6 +4553,7 @@
 				E39F594E2A99E92B00023292 /* InvestConfirmationView.swift in Sources */,
 				D9D9A4082A5E8A4400CECA41 /* ActivityInfoView.swift in Sources */,
 				D9F284762A94B703001204D4 /* BorrowingTokensCollectionView.swift in Sources */,
+				D95FFF8B2B04A44C007AAC1A /* CDCollateralActivity+CoreDataClass.swift in Sources */,
 				8ECABB94DCBB30B784D22CFF /* BorrowViewController.swift in Sources */,
 				404324092A5FF12C006B1468 /* NumberFormatting.swift in Sources */,
 				E385F6182A220D8200EE7EE1 /* CTSAPIClient.swift in Sources */,
@@ -4627,6 +4640,7 @@
 				D987B4A52B03A0F700F42AED /* CDInvestActivityDetails+CoreDataProperties.swift in Sources */,
 				E3ABD1E22AADA0FB00947D37 /* InvestmentDetailViewController.swift in Sources */,
 				D97F0B9A2A94912B0083DA81 /* SelectDexSystemView.swift in Sources */,
+				D95FFF8A2B04A44C007AAC1A /* CDCollateralActivityDetails+CoreDataClass.swift in Sources */,
 				D916A8C42A9F5FEB00F391B5 /* RepayAmountView.swift in Sources */,
 				E3FC69BF2A8C9B3E009B3341 /* InvestmentBoardViewController.swift in Sources */,
 				D97F0B952A9490450083DA81 /* DexSystemCell.swift in Sources */,
@@ -4796,6 +4810,7 @@
 				325E592A9AA1B24C522EA47F /* MediumStyle.swift in Sources */,
 				D93C41FF29F7D3DF003F2297 /* EditAccountOptionModel.swift in Sources */,
 				D9C4CF012A408C8A00475F01 /* RecentAddressCell.swift in Sources */,
+				D95FFF8C2B04A44C007AAC1A /* CDCollateralActivity+CoreDataProperties.swift in Sources */,
 				807A3209FA3C30C37B860B91 /* NetworkManager.swift in Sources */,
 				5845D3E43E1C94CCA89A6104 /* NetworkManagerProtocol.swift in Sources */,
 				D9CEEC572B037DAB00F5DF92 /* ActivityCellDetailsProtocol.swift in Sources */,
@@ -5016,6 +5031,7 @@
 				F8BA0B9925700FFF405AB76D /* VerifyPassViewModel.swift in Sources */,
 				1171EA77FBBB99743B192CFF /* VerifyPasscodeViewController.swift in Sources */,
 				40F704572A03AFFF004D74FE /* AccountActivationModel.swift in Sources */,
+				D95FFF8D2B04A44C007AAC1A /* CDCollateralActivityDetails+CoreDataProperties.swift in Sources */,
 				D90C3F0A2ADABAC500EF6739 /* PinoLoadingExtension.swift in Sources */,
 				E34728F129EEA81000AB8265 /* AssetChartDataViewModel.swift in Sources */,
 				D987B4A72B03A0F700F42AED /* CDInvestmentActivityDetails+CoreDataProperties.swift in Sources */,

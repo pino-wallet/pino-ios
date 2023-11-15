@@ -4,6 +4,7 @@
         <attribute name="amount" attributeType="String"/>
         <attribute name="tokenId" attributeType="String"/>
         <relationship name="details_borrow" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDBorrowActivityDetails" inverseName="token" inverseEntity="CDBorrowActivityDetails"/>
+        <relationship name="details_collateral" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDCollateralActivityDetails" inverseName="tokens" inverseEntity="CDCollateralActivityDetails"/>
         <relationship name="details_from" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSwapActivityDetails" inverseName="from_token" inverseEntity="CDSwapActivityDetails"/>
         <relationship name="details_repaid" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDRepayActivityDetails" inverseName="repaid_token" inverseEntity="CDRepayActivityDetails"/>
         <relationship name="details_repaid_with" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDRepayActivityDetails" inverseName="repaid_with_token" inverseEntity="CDRepayActivityDetails"/>
@@ -37,6 +38,14 @@
         <attribute name="activityProtocol" optional="YES" attributeType="String"/>
         <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDBorrowActivity" inverseName="details" inverseEntity="CDBorrowActivity"/>
         <relationship name="token" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDActivityDetailsToken" inverseName="details_borrow" inverseEntity="CDActivityDetailsToken"/>
+    </entity>
+    <entity name="CDCollateralActivity" representedClassName="CDCollateralActivity" parentEntity="CDActivityParent" syncable="YES">
+        <relationship name="details" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDCollateralActivityDetails" inverseName="activity" inverseEntity="CDCollateralActivityDetails"/>
+    </entity>
+    <entity name="CDCollateralActivityDetails" representedClassName="CDCollateralActivityDetails" syncable="YES">
+        <attribute name="activityProtocol" optional="YES" attributeType="String"/>
+        <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDCollateralActivity" inverseName="details" inverseEntity="CDCollateralActivity"/>
+        <relationship name="tokens" toMany="YES" deletionRule="Nullify" destinationEntity="CDActivityDetailsToken" inverseName="details_collateral" inverseEntity="CDActivityDetailsToken"/>
     </entity>
     <entity name="CDInvestActivity" representedClassName="CDInvestActivity" parentEntity="CDActivityParent" syncable="YES">
         <relationship name="details" maxCount="1" deletionRule="Nullify" destinationEntity="CDInvestActivityDetails" inverseName="activity" inverseEntity="CDInvestActivityDetails"/>
