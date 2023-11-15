@@ -202,7 +202,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		case .send:
 			// set cell title
 			title =
-				"Send \(transferDetailsVM!.transferTokenAmount.sevenDigitFormat) \(transferDetailsVM!.transferTokenSymbol)"
+				"Send \(transferDetailsVM!.transferTokenAmount.sevenDigitFormat) \(transferDetailsVM!.tokenSymbol)"
 			// set cell moreInfo
 			activityMoreInfo =
 				"To: \(transferDetailsVM!.userToAccountInfo?.name ?? activityModel.toAddress.addressFromStartFormatting())"
@@ -211,7 +211,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		case .receive:
 			// set cell title
 			title =
-				"Receive \(transferDetailsVM!.transferTokenAmount.sevenDigitFormat) \(transferDetailsVM!.transferTokenSymbol)"
+				"Receive \(transferDetailsVM!.transferTokenAmount.sevenDigitFormat) \(transferDetailsVM!.tokenSymbol)"
 			// set cell moreInfo
 			activityMoreInfo =
 				"From: \(transferDetailsVM!.userFromAccountInfo?.name ?? activityModel.fromAddress.addressFromStartFormatting())"

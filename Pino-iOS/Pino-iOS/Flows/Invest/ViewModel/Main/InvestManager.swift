@@ -58,6 +58,8 @@ class InvestManager: Web3ManagerProtocol {
 			investInDai()
 		case .compound:
 			investInCompound()
+		case .lido:
+			investInLido()
 		case .aave:
 			break
 		case .balancer:
@@ -127,6 +129,61 @@ class InvestManager: Web3ManagerProtocol {
 			print(error.localizedDescription)
 		}
 	}
+
+	private func investInLido() {
+		if selectedToken.isEth {
+			lidoETHDeposit()
+		} else if selectedToken.isWEth {
+			lidoWETHDeposit()
+		} else {
+			fatalError("Wrong token for lido investment")
+		}
+	}
+
+	private func lidoETHDeposit() {
+		let proxyFee = 0.bigNumber.bigUInt
+		firstly {
+			self.web3.getETHToSTETHCallData(
+				recipientAdd: walletManager.currentAccount.eip55Address,
+				proxyFee: proxyFee
+			)
+		}.then { protocolCallData in
+			// MultiCall
+			let callDatas = [protocolCallData]
+			let ethDepositAmount = self.tokenUIntNumber + proxyFee
+			return self.callProxyMultiCall(data: callDatas, value: ethDepositAmount)
+		}.done { trx in
+			print(trx)
+		}.catch { error in
+			print(error.localizedDescription)
+		}
+	}
+
+	private func lidoWETHDeposit() {
+		firstly {
+			fetchHash()
+		}.then { plainHash in
+			self.signHash(plainHash: plainHash)
+		}.then { signiture -> Promise<String> in
+			// Permit Transform
+			self.getProxyPermitTransferData(signiture: signiture)
+		}.then { [self] permitData -> Promise<(String, String)> in
+			web3.getWETHToSTETHCallData(
+				amount: tokenUIntNumber,
+				recipientAdd: walletManager.currentAccount.eip55Address
+			).map { ($0, permitData) }
+		}.then { protocolCallData, permitData in
+			// MultiCall
+			let callDatas = [permitData, protocolCallData]
+			return self.callProxyMultiCall(data: callDatas, value: nil)
+		}.done { trx in
+			print(trx)
+		}.catch { error in
+			print(error.localizedDescription)
+		}
+	}
+
+	private func lodoWithdraw() {}
 
 	private func investInCompound() {
 		let compoundManager = CompoundDepositManager(

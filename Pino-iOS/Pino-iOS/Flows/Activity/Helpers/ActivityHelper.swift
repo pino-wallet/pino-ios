@@ -183,7 +183,7 @@ struct ActivityHelper {
 			}
 			resultActivity.transferDetailsVM = TransferActivityDetailsViewModel(
 				activityModel: transferActivityModel,
-				transferToken: transferToken
+				token: transferToken
 			)
 			return resultActivity
 		case .transfer_from:
@@ -193,7 +193,7 @@ struct ActivityHelper {
 			}
 			resultActivity.transferDetailsVM = TransferActivityDetailsViewModel(
 				activityModel: transferActivityModel,
-				transferToken: transferToken
+				token: transferToken
 			)
 			return resultActivity
 		case .swap:

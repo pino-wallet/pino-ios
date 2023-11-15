@@ -394,6 +394,14 @@ public class Web3Core {
 		investManager.getWithdrawWETHV2CallData(amount: amount, recipientAdd: recipientAdd)
 	}
 
+	public func getETHToSTETHCallData(recipientAdd: String, proxyFee: BigUInt) -> Promise<String> {
+		investManager.getETHToSTETHCallData(recipientAdd: recipientAdd, proxyFee: proxyFee)
+	}
+
+	public func getWETHToSTETHCallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
+		investManager.getWETHToSTETHCallData(amount: amount, recipientAdd: recipientAdd)
+	}
+
 	public func getInvestProxyContract() throws -> DynamicContract {
 		try investManager.getInvestProxyContract()
 	}

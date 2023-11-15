@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CollateralStatusActivityDetailsViewModel {
+struct CollateralStatusActivityDetailsViewModel: ActivityCellDetailsProtocol {
 	// MARK: - Internal Properties
 
 	internal var activityModel: ActivityCollateralModel
@@ -20,14 +20,6 @@ struct CollateralStatusActivityDetailsViewModel {
 	}
 
 	// MARK: - Public Properties
-
-	public var tokenSymbol: String {
-		token.symbol
-	}
-
-	public var tokenImage: URL? {
-		token.image
-	}
 
 	public var activityProtocol: String {
 		activityModel.detail.activityProtocol

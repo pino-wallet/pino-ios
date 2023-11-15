@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BorrowActivityDetailsViewModel {
+struct BorrowActivityDetailsViewModel: ActivityCellDetailsProtocol {
 	// MARK: - Internal Properties
 
 	internal var activityModel: ActivityBorrowModel
@@ -17,14 +17,6 @@ struct BorrowActivityDetailsViewModel {
 
 	public var tokenAmount: BigNumber {
 		BigNumber(number: activityModel.detail.token.amount, decimal: token.decimal)
-	}
-
-	public var tokenSymbol: String {
-		token.symbol
-	}
-
-	public var tokenImage: URL? {
-		token.image
 	}
 
 	public var activityProtocol: String {
