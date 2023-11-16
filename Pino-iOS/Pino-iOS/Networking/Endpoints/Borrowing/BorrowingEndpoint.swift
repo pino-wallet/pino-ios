@@ -14,7 +14,7 @@ enum BorrowingEndpoint: EndpointType {
 	case getBorrowableTokens(dex: String)
 	case getBorrowableTokenDetails(dex: String, tokenID: String)
 	case getCollateralizableTokens(dex: String)
-    case getPositionTokenId(underlyingTokenId: String, tokenProtocol: String, positionType: PositionTokenType)
+	case getPositionTokenId(underlyingTokenId: String, tokenProtocol: String, positionType: PositionTokenType)
 
 	// MARK: - Internal Properties
 
@@ -41,21 +41,27 @@ enum BorrowingEndpoint: EndpointType {
 			return "listing/borrowings/\(dex)/\(tokenID)"
 		case let .getCollateralizableTokens(dex: dex):
 			return "listing/collaterals/\(dex)"
-        case let .getPositionTokenId(underlyingTokenId: underlyingTokenId, tokenProtocol: tokenProtocol, positionType: positionType):
-            return "indexer/position/\(tokenProtocol)/\(positionType.rawValue)/underlying-token/\(underlyingTokenId)"
+		case let .getPositionTokenId(
+			underlyingTokenId: underlyingTokenId,
+			tokenProtocol: tokenProtocol,
+			positionType: positionType
+		):
+			return "indexer/position/\(tokenProtocol)/\(positionType.rawValue)/underlying-token/\(underlyingTokenId)"
 		}
 	}
 
 	internal var task: HTTPTask {
 		switch self {
-        case .getBorrowingDetails, .getBorrowableTokens, .getBorrowableTokenDetails, .getCollateralizableTokens, .getPositionTokenId:
+		case .getBorrowingDetails, .getBorrowableTokens, .getBorrowableTokenDetails, .getCollateralizableTokens,
+		     .getPositionTokenId:
 			return .request
 		}
 	}
 
 	internal var httpMethod: HTTPMethod {
 		switch self {
-        case .getBorrowingDetails, .getBorrowableTokens, .getBorrowableTokenDetails, .getCollateralizableTokens, .getPositionTokenId:
+		case .getBorrowingDetails, .getBorrowableTokens, .getBorrowableTokenDetails, .getCollateralizableTokens,
+		     .getPositionTokenId:
 			return .get
 		}
 	}

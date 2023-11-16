@@ -6,12 +6,13 @@
 import Foundation
 
 // MARK: - Welcome
-struct PositionTokenModel: Codable {
-    let positionID, tokenProtocol, underlyingToken: String
 
-    enum CodingKeys: String, CodingKey {
-        case positionID = "position_id"
-        case tokenProtocol = "protocol"
-        case underlyingToken = "underlying_token"
-    }
+struct PositionTokenModel: Codable {
+	let positionID, tokenProtocol, underlyingToken: String
+
+	enum CodingKeys: String, CodingKey {
+		case positionID = "position_id"
+		case tokenProtocol = "protocol"
+		case underlyingToken = "underlying_token"
+	}
 }

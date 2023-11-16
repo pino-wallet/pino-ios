@@ -89,7 +89,7 @@ class ActivitiesCollectionView: UICollectionView {
 
 	private func setupBinding() {
 		var activityHelper = ActivityHelper()
-        activityHelper.globalAssetsList = GlobalVariables.shared.manageAssetsList
+		activityHelper.globalAssetsList = GlobalVariables.shared.manageAssetsList
 		coinInfoVM.$coinHistoryActivitiesList.sink { [weak self] activities in
 			guard let userActivitiesOnToken = activities else {
 				self?.showLoading = true
