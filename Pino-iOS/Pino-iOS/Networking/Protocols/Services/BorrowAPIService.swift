@@ -12,4 +12,10 @@ protocol BorrowAPIService {
 	func getBorrowableTokens(dex: String) -> AnyPublisher<BorrowableTokensModel, APIError>
 	func getBorrowableTokenDetails(dex: String, tokenID: String) -> AnyPublisher<BorrowableTokenDetailsModel, APIError>
 	func getCollateralizableTokens(dex: String) -> AnyPublisher<CollateralizableTokensModel, APIError>
+    func getPositionTokenId(underlyingTokenId: String, tokenProtocol: String, positionType: PositionTokenType) -> AnyPublisher<PositionTokenModel, APIError>
+}
+
+enum PositionTokenType: String {
+    case investment
+    case debt
 }

@@ -362,6 +362,7 @@
 		D964AC6B0907B2432359A129 /* GroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D7CE3AA42604B8F78EA87C /* GroupCollectionViewCell.swift */; };
 		D966D5912A9F3912007E63A1 /* PinoRightSideImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D966D5902A9F3912007E63A1 /* PinoRightSideImageButton.swift */; };
 		D966D5932A9F3950007E63A1 /* PinoRightSideImageButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D966D5922A9F3950007E63A1 /* PinoRightSideImageButtonStyle.swift */; };
+		D96A076C2B0616C500970EFD /* PositionTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96A076B2B0616C500970EFD /* PositionTokenModel.swift */; };
 		D96A40D62A7E83A200C020BC /* PendingActivitiesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96A40D52A7E83A200C020BC /* PendingActivitiesManager.swift */; };
 		D96FD3B12A9734870008977A /* BorrowSelectDexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96FD3B02A9734870008977A /* BorrowSelectDexViewController.swift */; };
 		D96FD3B32A97373C0008977A /* BorrowSelectDexViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96FD3B22A97373C0008977A /* BorrowSelectDexViewModel.swift */; };
@@ -1132,6 +1133,8 @@
 		D95D96F72AB87CD80082FCA5 /* borrowable-token-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "borrowable-token-stub.json"; sourceTree = "<group>"; };
 		D966D5902A9F3912007E63A1 /* PinoRightSideImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoRightSideImageButton.swift; sourceTree = "<group>"; };
 		D966D5922A9F3950007E63A1 /* PinoRightSideImageButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoRightSideImageButtonStyle.swift; sourceTree = "<group>"; };
+		D96A076B2B0616C500970EFD /* PositionTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionTokenModel.swift; sourceTree = "<group>"; };
+		D96A076D2B0627F100970EFD /* position-token-id-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "position-token-id-stub.json"; sourceTree = "<group>"; };
 		D96A40D52A7E83A200C020BC /* PendingActivitiesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingActivitiesManager.swift; sourceTree = "<group>"; };
 		D96FD3B02A9734870008977A /* BorrowSelectDexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowSelectDexViewController.swift; sourceTree = "<group>"; };
 		D96FD3B22A97373C0008977A /* BorrowSelectDexViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowSelectDexViewModel.swift; sourceTree = "<group>"; };
@@ -2476,6 +2479,7 @@
 				D9D991AC2AB71CE100E943B0 /* borrowable-tokens-stub.json */,
 				D95D96F72AB87CD80082FCA5 /* borrowable-token-stub.json */,
 				D9F252C92ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json */,
+				D96A076D2B0627F100970EFD /* position-token-id-stub.json */,
 			);
 			path = Stubs;
 			sourceTree = "<group>";
@@ -2827,6 +2831,7 @@
 				D924C3432A94963B007299A4 /* UserBorrowingModel.swift */,
 				D9D991AA2AB70DA900E943B0 /* BorrowableTokensModel.swift */,
 				D9F252C72ABEE3DF00ECF293 /* CollateralizableTokensModel.swift */,
+				D96A076B2B0616C500970EFD /* PositionTokenModel.swift */,
 			);
 			path = Borrow;
 			sourceTree = "<group>";
@@ -4441,6 +4446,7 @@
 				4249EFC00F914608B9BE7171 /* AssetsCollectionViewCell.swift in Sources */,
 				E35BB6452A5944E8003987F5 /* SwapProvidersViewController.swift in Sources */,
 				C95E4117EE56405E9C6A00CB /* AssetsCollectionViewDataSource.swift in Sources */,
+				D96A076C2B0616C500970EFD /* PositionTokenModel.swift in Sources */,
 				E3FC69BB2A8A6CDE009B3341 /* InvestCoinPerformanceView.swift in Sources */,
 				54E9764329CE5F067EFE92D1 /* AssetsEndpoint.swift in Sources */,
 				D9BFEC372A121706007DFF40 /* AllowNotificationsViewController.swift in Sources */,
