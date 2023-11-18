@@ -21,13 +21,16 @@ public class Web3Core {
 	// MARK: - Private Properties
 
 	private init() {}
-	private var web3: Web3 {
+	private var wWeb3: Web3 {
 		if let testURL = AboutPinoView.web3URL {
 			return Web3(rpcURL: testURL)
 		} else {
-			return Web3Network.rpc
+			return Web3Network.writeRPC
 		}
 	}
+    private var rWeb3: Web3 {
+        Web3Network.readRPC
+    }
     
 	private var userPrivateKey: EthereumPrivateKey {
 		try! EthereumPrivateKey(
@@ -37,39 +40,39 @@ public class Web3Core {
 	}
 
 	private var trxManager: W3TransactionManager {
-		.init(web3: web3)
+        .init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
 	private var gasInfoManager: W3GasInfoManager {
-		.init(web3: web3)
+        .init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
 	private var transferManager: W3TransferManager {
-		.init(web3: web3)
+        .init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
 	private var approveManager: W3ApproveManager {
-		.init(web3: web3)
+        .init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
 	private var swapManager: W3SwapManager {
-		.init(web3: web3)
+        .init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
 	private var investManager: W3InvestManager {
-		.init(web3: web3)
+        .init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
 	private var compoundBorrowManager: W3CompoundBorrowManager {
-		.init(web3: web3)
+        .init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
 	private var aaveBorrowManager: W3AaveBorrowManager {
-		.init(web3: web3)
+        .init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
 	private var aaveDepositManager: W3AaveDepositManager {
-		.init(web3: web3)
+        .init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
 	private let walletManager = PinoWalletManager()
@@ -191,7 +194,7 @@ public class Web3Core {
 			gasInfoManager
 				.calculateGasOf(data: ethCallData, to: eip55ContractAddress, value: value.etherumQuantity)
 				.then { [self] gasInfo in
-					web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+					wWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 						.map { ($0, gasInfo) }
 				}.done { [self] nonce, gasInfo in
 					let trx = try trxManager.createTransactionFor(
@@ -213,7 +216,7 @@ public class Web3Core {
 
 	public func callTransaction(trx: EthereumSignedTransaction) -> Promise<String> {
 		Promise<String> { seal in
-			web3.eth.sendRawTransaction(transaction: trx).done { signedData in
+			wWeb3.eth.sendRawTransaction(transaction: trx).done { signedData in
 				seal.fulfill(signedData.hex())
 			}.catch { error in
 				seal.reject(error)
@@ -226,7 +229,7 @@ public class Web3Core {
 
 		return Promise<CustomAssetInfo>() { seal in
 			let _ = firstly {
-				try web3.eth.getCode(address: .init(hex: contractAddress, eip55: true), block: .latest)
+				try wWeb3.eth.getCode(address: .init(hex: contractAddress, eip55: true), block: .latest)
 			}.then { conctractCode in
 				if conctractCode.hex() == Constants.eoaCode {
 					// In this case the smart contract belongs to an EOA
@@ -244,7 +247,7 @@ public class Web3Core {
 			}.then { [self] nameValue -> Promise<[String: Any]> in
 				assetInfo.updateValue(nameValue, forKey: ABIMethodCall.name)
 				let contractAddress = try EthereumAddress(hex: contractAddress, eip55: true)
-				let contract = web3.eth.Contract(type: GenericERC20Contract.self, address: contractAddress)
+				let contract = wWeb3.eth.Contract(type: GenericERC20Contract.self, address: contractAddress)
 				return try contract
 					.balanceOf(address: EthereumAddress(hex: walletManager.currentAccount.eip55Address, eip55: true))
 					.call()
@@ -267,7 +270,7 @@ public class Web3Core {
 	public func getETHBalance(of accountAddress: String) -> Promise<String> {
 		Promise<String>() { seal in
 			firstly {
-				web3.eth.getBalance(address: accountAddress.eip55Address!, block: .latest)
+				wWeb3.eth.getBalance(address: accountAddress.eip55Address!, block: .latest)
 			}.map { balanceValue in
 				BigNumber(unSignedNumber: balanceValue.quantity, decimal: 18)
 			}.done { balance in
@@ -316,7 +319,7 @@ public class Web3Core {
 				guard let txHashBytes = Data.fromHex(txHash) else {
 					fatalError("cant get bytes from txHash string")
 				}
-				return web3.eth.getTransactionByHash(blockHash: try EthereumData(txHashBytes))
+				return wWeb3.eth.getTransactionByHash(blockHash: try EthereumData(txHashBytes))
 			}.done { transactionObject in
 				seal.fulfill(transactionObject)
 			}.catch { error in
@@ -341,7 +344,7 @@ public class Web3Core {
 
 				return try newTx.sign(with: privateKey, chainId: Web3Network.chainID).promise
 			}.then { newTx in
-				self.web3.eth.sendRawTransaction(transaction: newTx)
+				self.wWeb3.eth.sendRawTransaction(transaction: newTx)
 			}.done { txHash in
 				seal.fulfill(txHash.hex())
 			}.catch { error in
@@ -353,7 +356,7 @@ public class Web3Core {
 	public func getGasPrice() -> Promise<EthereumQuantity> {
 		Promise<EthereumQuantity>() { seal in
 			firstly {
-				web3.eth.gasPrice()
+				wWeb3.eth.gasPrice()
 			}.done { gasPrice in
 				seal.fulfill(gasPrice)
 			}.catch { error in
@@ -511,7 +514,7 @@ public class Web3Core {
 	private func getInfo(address: String, info: ABIMethodCall, abi: Web3ABI) throws -> Promise<[String: Any]> {
 		let contractAddress = try EthereumAddress(hex: address, eip55: true)
 		let contractJsonABI = abi.abi
-		let contract = try web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
+		let contract = try wWeb3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
 		return contract[info.rawValue]!(contractAddress).call()
 	}
 
@@ -522,7 +525,7 @@ public class Web3Core {
 		params: ABIParams...
 	) throws -> Promise<T> {
 		// You can optionally pass an abiKey param if the actual abi is nested and not the top level element of the json
-		let contract = try web3.eth.Contract(json: abi.abi, abiKey: nil, address: contractAddress)
+		let contract = try wWeb3.eth.Contract(json: abi.abi, abiKey: nil, address: contractAddress)
 		// Get balance of some address
 
 		return Promise<T>() { seal in

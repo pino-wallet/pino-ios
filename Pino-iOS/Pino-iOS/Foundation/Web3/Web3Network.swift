@@ -32,7 +32,12 @@ public enum Web3Network: String {
 		.init(quantity: BigUInt(Environment.chainID))
 	}
 
-	public static var rpc: Web3 {
-		Web3(rpcURL: Environment.rpcURL)
+	public static var readRPC: Web3 {
+		Web3(rpcURL: Environment.readRPCURL)
 	}
+    
+    public static var writeRPC: Web3 {
+        Web3(rpcURL: Environment.writeRPCURL)
+    }
+    
 }

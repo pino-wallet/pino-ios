@@ -10,38 +10,26 @@ import PromiseKit
 import Web3
 import Web3ContractABI
 
-public struct W3CompoundBorrowManager {
-	// MARK: - Initilizer
-
-	public init(web3: Web3) {
-		self.web3 = web3
-	}
-
-	// MARK: - Private Properties
-
-	private let web3: Web3!
-	private var walletManager = PinoWalletManager()
-	private var gasInfoManager: W3GasInfoManager {
-		.init(web3: web3)
-	}
-
-	private var trxManager: W3TransactionManager {
-		.init(web3: web3)
-	}
-
-	private var userPrivateKey: EthereumPrivateKey {
-		try! EthereumPrivateKey(
-			hexPrivateKey: walletManager.currentAccountPrivateKey
-				.string
-		)
-	}
+public struct W3CompoundBorrowManager: Web3Manager {
+	
+    // MARK: - Internal Properties
+    
+    var writeWeb3: Web3
+    var readWeb3: Web3
+    
+    // MARK: - Initializer
+    
+    init(writeWeb3: Web3, readWeb3: Web3) {
+        self.readWeb3 = readWeb3
+        self.writeWeb3 = writeWeb3
+    }
 
 	// MARK: - Public Methods
 
 	public func borrowCToken(contractDetails: ContractDetailsModel) -> Promise<String> {
 		Promise<String> { seal in
 			getCTokenBorrowTransaction(contractDetails: contractDetails).then { signedtransaction in
-				web3.eth.sendRawTransaction(transaction: signedtransaction)
+				readWeb3.eth.sendRawTransaction(transaction: signedtransaction)
 			}.done { trxHash in
 				seal.fulfill(trxHash.hex())
 			}.catch { error in
@@ -49,13 +37,25 @@ public struct W3CompoundBorrowManager {
 			}
 		}
 	}
+    
+    public func getContractDetails(of contract: String, amount: BigUInt) -> Promise<ContractDetailsModel> {
+        Promise<ContractDetailsModel> { seal in
+            let contract = try Web3Core.getContractOfToken(
+                address: contract,
+                abi: .borrowCTokenCompound,
+                web3: readWeb3
+            )
+            let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
+            seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
+        }
+    }
 
 	public func getCAaveContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
 		Promise<ContractDetailsModel> { seal in
 			let contract = try Web3Core.getContractOfToken(
 				address: Web3Core.Constants.compoundCAaveContractAddress,
 				abi: .borrowCTokenCompound,
-				web3: web3
+				web3: readWeb3
 			)
 			let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
 			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
@@ -67,7 +67,7 @@ public struct W3CompoundBorrowManager {
 			let contract = try Web3Core.getContractOfToken(
 				address: Web3Core.Constants.compoundCDaiContractAddress,
 				abi: .borrowCTokenCompound,
-				web3: web3
+				web3: readWeb3
 			)
 			let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
 			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
@@ -79,7 +79,7 @@ public struct W3CompoundBorrowManager {
 			let contract = try Web3Core.getContractOfToken(
 				address: Web3Core.Constants.compoundCEthContractAddress,
 				abi: .borrowCTokenCompound,
-				web3: web3
+				web3: readWeb3
 			)
 			let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
 			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
@@ -91,7 +91,7 @@ public struct W3CompoundBorrowManager {
 			let contract = try Web3Core.getContractOfToken(
 				address: Web3Core.Constants.compoundCUniContractAddress,
 				abi: .borrowCTokenCompound,
-				web3: web3
+				web3: readWeb3
 			)
 			let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
 			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
@@ -103,7 +103,7 @@ public struct W3CompoundBorrowManager {
 			let contract = try Web3Core.getContractOfToken(
 				address: Web3Core.Constants.compoundCCompContractAddress,
 				abi: .borrowCTokenCompound,
-				web3: web3
+				web3: readWeb3
 			)
 			let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
 			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
@@ -115,7 +115,7 @@ public struct W3CompoundBorrowManager {
 			let contract = try Web3Core.getContractOfToken(
 				address: Web3Core.Constants.compoundCLinkContractAddress,
 				abi: .borrowCTokenCompound,
-				web3: web3
+				web3: readWeb3
 			)
 			let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
 			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
@@ -127,7 +127,7 @@ public struct W3CompoundBorrowManager {
 			let contract = try Web3Core.getContractOfToken(
 				address: Web3Core.Constants.compoundCUsdcContractAddress,
 				abi: .borrowCTokenCompound,
-				web3: web3
+				web3: readWeb3
 			)
 			let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
 			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
@@ -139,7 +139,7 @@ public struct W3CompoundBorrowManager {
 			let contract = try Web3Core.getContractOfToken(
 				address: Web3Core.Constants.compoundCUsdtContractAddress,
 				abi: .borrowCTokenCompound,
-				web3: web3
+				web3: readWeb3
 			)
 			let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
 			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
@@ -151,7 +151,7 @@ public struct W3CompoundBorrowManager {
 			let contract = try Web3Core.getContractOfToken(
 				address: Web3Core.Constants.compoundCWbtcContractAddress,
 				abi: .borrowCTokenCompound,
-				web3: web3
+				web3: readWeb3
 			)
 			let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
 			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
@@ -185,7 +185,7 @@ public struct W3CompoundBorrowManager {
 				contractAddress: contractDetails.contract.address!
 			)
 			.then { [self] gasInfo in
-				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+				readWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 					.map { ($0, gasInfo) }
 			}
 			.done { [self] nonce, gasInfo in

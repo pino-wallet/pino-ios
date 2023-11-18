@@ -10,32 +10,58 @@ import PromiseKit
 import Web3
 import Web3ContractABI
 
-public struct W3TransferManager {
-	// MARK: - Initilizer
+protocol Web3Manager {
+    var writeWeb3: Web3 { get set }
+    var readWeb3: Web3 { get set }
+    init(writeWeb3: Web3, readWeb3: Web3)
+    var gasInfoManager: W3GasInfoManager { get }
+    var trxManager: W3TransactionManager { get }
+    var transferManager: W3TransferManager { get }
+    var walletManager: PinoWalletManager { get }
+    var userPrivateKey: EthereumPrivateKey { get }
+}
 
-	public init(web3: Web3) {
-		self.web3 = web3
-	}
+extension Web3Manager {
+    
+    var gasInfoManager: W3GasInfoManager {
+        .init(writeWeb3: writeWeb3, readWeb3: readWeb3)
+    }
+    
+    var trxManager: W3TransactionManager {
+        .init(writeWeb3: writeWeb3, readWeb3: readWeb3)
+    }
+    
+    var transferManager: W3TransferManager {
+        .init(writeWeb3: writeWeb3, readWeb3: readWeb3)
+    }
+    
+    var walletManager: PinoWalletManager {
+        PinoWalletManager()
+    }
 
-	// MARK: - Private Properties
+    var userPrivateKey: EthereumPrivateKey {
+        try! EthereumPrivateKey(
+            hexPrivateKey: walletManager.currentAccountPrivateKey
+                .string
+        )
+    }
+    
+}
 
-	private let web3: Web3!
-	private var walletManager = PinoWalletManager()
-	private var gasInfoManager: W3GasInfoManager {
-		.init(web3: web3)
-	}
+public struct W3TransferManager: Web3Manager {
+    
+    // MARK: - Internal Properties
 
-	private var trxManager: W3TransactionManager {
-		.init(web3: web3)
-	}
+    var writeWeb3: Web3
+    var readWeb3: Web3
+    
+    // MARK: - Initializer
 
-	private var userPrivateKey: EthereumPrivateKey {
-		try! EthereumPrivateKey(
-			hexPrivateKey: walletManager.currentAccountPrivateKey
-				.string
-		)
-	}
-
+    init(writeWeb3: Web3, readWeb3: Web3) {
+        self.readWeb3 = readWeb3
+        self.writeWeb3 = writeWeb3
+    }
+	
 	// MARK: - Public Methods
 
 	public func getPermitTransferFromCallData(
@@ -79,7 +105,7 @@ public struct W3TransferManager {
 	) -> Promise<String> {
 		Promise<String>() { [self] seal in
 
-			let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, abi: .erc, web3: web3)
+			let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, abi: .erc, web3: readWeb3)
 			let to = try EthereumAddress(hex: address, eip55: true)
 			let solInvocation = contract[ABIMethodWrite.transfer.rawValue]?(to, amount)
 
@@ -89,7 +115,7 @@ public struct W3TransferManager {
 				contractAddress: contract.address!
 			)
 			.then { [self] gasInfo in
-				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+				readWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 					.map { ($0, gasInfo) }
 			}
 			.then { [self] nonce, gasInfo in
@@ -101,7 +127,7 @@ public struct W3TransferManager {
 				)
 
 				let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Network.chainID)
-				return web3.eth.sendRawTransaction(transaction: signedTx)
+				return writeWeb3.eth.sendRawTransaction(transaction: signedTx)
 			}.done { txHash in
 				seal.fulfill(txHash.hex())
 			}.catch { error in
@@ -115,9 +141,9 @@ public struct W3TransferManager {
 		return Promise<String>() { seal in
 			let privateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
 			firstly {
-				web3.eth.gasPrice()
+				readWeb3.eth.gasPrice()
 			}.then { [self] price in
-				web3.eth.getTransactionCount(address: privateKey.address, block: .latest).map { ($0, price) }
+                readWeb3.eth.getTransactionCount(address: privateKey.address, block: .latest).map { ($0, price) }
 			}.then { nonce, price in
 				var tx = try EthereumTransaction(
 					nonce: nonce,
@@ -129,7 +155,7 @@ public struct W3TransferManager {
 				tx.transactionType = .legacy
 				return try tx.sign(with: privateKey, chainId: Web3Network.chainID).promise
 			}.then { [self] tx in
-				web3.eth.sendRawTransaction(transaction: tx)
+				writeWeb3.eth.sendRawTransaction(transaction: tx)
 			}.done { hash in
 				seal.fulfill(hash.hex())
 			}.catch { error in

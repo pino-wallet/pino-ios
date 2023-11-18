@@ -11,32 +11,20 @@ import PromiseKit
 import Web3
 import Web3ContractABI
 
-public struct W3AaveDepositManager {
-	// MARK: - Initilizer
-
-	public init(web3: Web3) {
-		self.web3 = web3
-	}
-
-	// MARK: - Private Properties
-
-	private let web3: Web3!
-	private var walletManager = PinoWalletManager()
-	private var gasInfoManager: W3GasInfoManager {
-		.init(web3: web3)
-	}
-
-	private var trxManager: W3TransactionManager {
-		.init(web3: web3)
-	}
-
-	private var userPrivateKey: EthereumPrivateKey {
-		try! EthereumPrivateKey(
-			hexPrivateKey: walletManager.currentAccountPrivateKey
-				.string
-		)
-	}
-
+public struct W3AaveDepositManager: Web3Manager {
+	
+    // MARK: - Internal Properties
+    
+    var writeWeb3: Web3
+    var readWeb3: Web3
+    
+    // MARK: - Initializer
+    
+    init(writeWeb3: Web3, readWeb3: Web3) {
+        self.readWeb3 = readWeb3
+        self.writeWeb3 = writeWeb3
+    }
+    
 	// MARK: - Public Methods
 
 	public func checkIfAssetUsedAsCollateral(assetAddress: String) -> Promise<Bool> {
@@ -44,7 +32,7 @@ public struct W3AaveDepositManager {
 			let contract = try Web3Core.getContractOfToken(
 				address: Web3Core.Constants.aavePoolERCContractAddress,
 				abi: .borrowERCAave,
-				web3: web3
+				web3: readWeb3
 			)
 			let reserveListSolInvocation = contract[ABIMethodCall.getReservesList.rawValue]?()
 			let getUserConfigurationSolInvocation = contract[ABIMethodCall.getUserConfiguration.rawValue]?(
@@ -83,7 +71,7 @@ public struct W3AaveDepositManager {
 			let contract = try Web3Core.getContractOfToken(
 				address: Web3Core.Constants.aavePoolERCContractAddress,
 				abi: .borrowERCAave,
-				web3: web3
+				web3: readWeb3
 			)
 			let solInvocation = contract[ABIMethodWrite.setUserUseReserveAsCollateral.rawValue]?(
 				assetAddress
@@ -98,7 +86,7 @@ public struct W3AaveDepositManager {
 		Promise<String> { seal in
 			getUserUseReserveAsCollateralTransaction(contractDetails: contractDetails)
 				.then { ethereumSignedTransaction in
-					web3.eth.sendRawTransaction(transaction: ethereumSignedTransaction)
+					writeWeb3.eth.sendRawTransaction(transaction: ethereumSignedTransaction)
 				}.done { trxHash in
 					seal.fulfill(trxHash.hex())
 				}.catch { error in
@@ -125,7 +113,7 @@ public struct W3AaveDepositManager {
 		try Web3Core.getContractOfToken(
 			address: Web3Core.Constants.pinoAaveProxyAddress,
 			abi: .aaveProxy,
-			web3: web3
+			web3: readWeb3
 		)
 	}
 
@@ -206,7 +194,7 @@ public struct W3AaveDepositManager {
 				contractAddress: contractDetails.contract.address!
 			)
 			.then { [self] gasInfo in
-				web3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+				readWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 					.map { ($0, gasInfo) }
 			}
 			.done { [self] nonce, gasInfo in
