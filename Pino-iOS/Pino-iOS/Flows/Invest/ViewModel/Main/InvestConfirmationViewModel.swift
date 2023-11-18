@@ -26,6 +26,15 @@ class InvestConfirmationViewModel {
 		GlobalVariables.shared.manageAssetsList!.first(where: { $0.isEth })!
 	}
 
+	private lazy var investManager: InvestManager = {
+		InvestManager(
+			contract: investProxyContract,
+			selectedToken: selectedToken,
+			investProtocol: selectedProtocol,
+			investAmount: investAmount
+		)
+	}()
+
 	private var investProxyContract: DynamicContract {
 		switch selectedProtocol {
 		case .uniswap, .balancer, .maker, .lido:
@@ -104,23 +113,16 @@ class InvestConfirmationViewModel {
 		self.selectedProtocol = selectedProtocol
 		self.investAmount = investAmount
 		self.investAmountInDollar = investAmountInDollar
-		setupBindings()
 	}
 
 	// MARK: - Private Methods
 
-	private func setupBindings() {
-		GlobalVariables.shared.$ethGasFee
-			.compactMap { $0 }
-			.sink { gasInfo in
-				self.setGasInfo(gasInfo: gasInfo)
-			}.store(in: &cancellables)
-	}
-
-	private func setGasInfo(gasInfo: GasInfo) {
-		gasFee = gasInfo.fee
-		formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
-		formattedFeeInETH = gasInfo.fee.sevenDigitFormat.ethFormatting
+	private func showError() {
+		Toast.default(
+			title: "Failed to fetch deposit Info",
+			subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+			style: .error
+		).show()
 	}
 
 	// MARK: - Public Methods
@@ -132,12 +134,23 @@ class InvestConfirmationViewModel {
 	}
 
 	public func getDepositInfo() {
-		let investManager = InvestManager(
-			contract: investProxyContract,
-			selectedToken: selectedToken,
-			investProtocol: selectedProtocol,
-			investAmount: investAmount
-		)
-		investManager.invest()
+		guard let depositInfoPromiss = investManager.getDepositInfo() else {
+			showError()
+			return
+		}
+		depositInfoPromiss.done { depositTrx, gasInfo in
+			self.gasFee = gasInfo.fee
+			self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
+			self.formattedFeeInETH = gasInfo.fee.sevenDigitFormat
+		}.catch { error in
+			self.showError()
+		}
+	}
+
+	public func confirmDeposit(completion: @escaping () -> Void) {
+		investManager.confirmDeposit { trx in
+			print("INVEST TRX HASH: \(trx)")
+			completion()
+		}
 	}
 }

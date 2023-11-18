@@ -30,6 +30,11 @@ class InvestConfirmationViewController: AuthenticationLockViewController {
 		super.viewDidLoad()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		investConfirmationVM.getDepositInfo()
+	}
+
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 	}
@@ -69,7 +74,9 @@ class InvestConfirmationViewController: AuthenticationLockViewController {
 
 	private func confirmInvestment() {
 		unlockApp {
-			self.investConfirmationVM.getDepositInfo()
+			self.investConfirmationVM.confirmDeposit {
+				self.dismiss(animated: true)
+			}
 		}
 	}
 

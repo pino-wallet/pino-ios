@@ -110,6 +110,7 @@ class InvestConfirmationView: UIView {
 		feeLabel.isUserInteractionEnabled = true
 
 		continueButton.addAction(UIAction(handler: { _ in
+			self.continueButton.style = .loading
 			self.confirmButtonDidTap()
 		}), for: .touchUpInside)
 
@@ -179,13 +180,15 @@ class InvestConfirmationView: UIView {
 		protocolInfoStackView.spacing = 4
 		feeErrorStackView.spacing = 4
 
+		feeLabel.layer.masksToBounds = true
+		feeLabel.layer.cornerRadius = 12
 		tokenImageView.layer.cornerRadius = 25
 		tokenImageView.layer.masksToBounds = true
 
-		showSkeletonView()
 		continueButton.style = .deactive
 		feeErrorStackView.isHidden = true
 		feeLabel.isSkeletonable = true
+		showSkeletonView()
 	}
 
 	private func setupContstraint() {
@@ -220,21 +223,23 @@ class InvestConfirmationView: UIView {
 			.fixedWidth(48)
 		)
 		feeLabel.pin(
-			.allEdges
+			.verticalEdges,
+			.trailing
 		)
 		feeErrorStackView.pin(
 			.allEdges
 		)
-
-		feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
+		NSLayoutConstraint.activate([
+			feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60),
+			feeLabel.leadingAnchor.constraint(greaterThanOrEqualTo: feeResultView.leadingAnchor),
+		])
 	}
 
 	private func setupBindings() {
 		Publishers.Zip(investConfirmationVM.$formattedFeeInDollar, investConfirmationVM.$formattedFeeInETH)
-			.sink { [weak self] formattedFeeDollar, formattedFeeETH in
-				self?.hideSkeletonView()
-				self?.updateFeeLabel()
-				self?.checkBalanceEnough()
+			.sink { [weak self] feeInDollar, feeInETH in
+				guard let self, let feeInETH, let feeInDollar else { return }
+				self.showEstimatedFee(feeInETH: feeInETH, feeInDollar: feeInDollar)
 			}.store(in: &cancellables)
 	}
 
@@ -254,18 +259,27 @@ class InvestConfirmationView: UIView {
 		}
 	}
 
-	private func updateFeeLabel() {
+	private func showEstimatedFee(feeInETH: String, feeInDollar: String) {
+		hideSkeletonView()
+		feeLabel.layer.cornerRadius = 0
+		updateFeeLabel(feeInEth: feeInETH, feeInDollar: feeInDollar)
+		checkBalanceEnough()
+	}
+
+	private func updateFeeLabel(feeInEth: String, feeInDollar: String) {
 		if showFeeInDollar {
-			feeLabel.text = investConfirmationVM.formattedFeeInDollar
+			feeLabel.text = feeInDollar
 		} else {
-			feeLabel.text = investConfirmationVM.formattedFeeInETH
+			feeLabel.text = feeInEth.ethFormatting
 		}
 	}
 
 	@objc
 	private func toggleShowFee() {
+		guard let feeInETH = investConfirmationVM.formattedFeeInETH,
+		      let feeInDollar = investConfirmationVM.formattedFeeInDollar else { return }
 		showFeeInDollar.toggle()
-		updateFeeLabel()
+		updateFeeLabel(feeInEth: feeInETH, feeInDollar: feeInDollar)
 	}
 
 	@objc

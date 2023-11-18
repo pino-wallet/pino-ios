@@ -30,6 +30,12 @@ class CompoundDepositManager: Web3ManagerProtocol {
 		Utilities.parseToBigUInt(investAmount, decimals: selectedToken.decimal)!
 	}
 
+	// MARK: - Public Properties
+
+	public var depositTrx: EthereumSignedTransaction?
+	public var depositGasInfo: GasInfo?
+	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
+
 	// MARK: - Internal properties
 
 	internal var web3 = Web3Core.shared
@@ -46,92 +52,114 @@ class CompoundDepositManager: Web3ManagerProtocol {
 
 	// MARK: Public Methods
 
-	public func invest() {
+	public func getDepositInfo() -> TrxWithGasInfo {
 		if selectedToken.isEth {
-			compoundETHDeposit()
+			return compoundETHDeposit()
 		} else if selectedToken.isWEth {
-			compoundWETHDeposit()
+			return compoundWETHDeposit()
 		} else {
-			compoundERCDeposit()
+			return compoundERCDeposit()
+		}
+	}
+
+	public func confirmDeposit(completion: @escaping (Result<String>) -> Void) {
+		guard let depositTrx else { return }
+		Web3Core.shared.callTransaction(trx: depositTrx).done { trxHash in
+			#warning("Add transaction activity later")
+			completion(.fulfilled(trxHash))
+		}.catch { error in
+			completion(.rejected(error))
 		}
 	}
 
 	// MARK: - Private Methods
 
-	private func compoundERCDeposit() {
-		let cTokenID = Web3Core.TokenID(id: selectedToken.id).cTokenID.lowercased()
-		firstly {
-			fetchHash()
-		}.then { plainHash in
-			self.signHash(plainHash: plainHash)
-		}.then { signiture -> Promise<(String, String)> in
-			// Check allowance of protocol
-			self.checkAllowanceOfProvider(
-				approvingToken: self.selectedToken,
-				approvingAmount: self.investAmount,
-				spenderAddress: cTokenID,
-				ownerAddress: Web3Core.Constants.compoundContractAddress
-			).map { (signiture, $0!) }
-		}.then { signiture, allowanceData -> Promise<(String, String)> in
-			// Permit Transform
-			self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
-		}.then { [self] permitData, allowanceData -> Promise<(String, String, String)> in
-			self.web3.getDepositV2CallData(
-				tokenAdd: cTokenID,
-				amount: tokenUIntNumber,
-				recipientAdd: walletManager.currentAccount.eip55Address
-			).map { ($0, permitData, allowanceData) }
-		}.then { protocolCallData, permitData, allowanceData in
-			// MultiCall
-			let callDatas = [allowanceData, permitData, protocolCallData]
-			return self.callProxyMultiCall(data: callDatas, value: nil)
-		}.done { trxHash in
-			print(trxHash)
-		}.catch { error in
-			print(error.localizedDescription)
+	private func compoundERCDeposit() -> TrxWithGasInfo {
+		TrxWithGasInfo { seal in
+			let cTokenID = Web3Core.TokenID(id: selectedToken.id).cTokenID.lowercased()
+			firstly {
+				fetchHash()
+			}.then { plainHash in
+				self.signHash(plainHash: plainHash)
+			}.then { signiture -> Promise<(String, String)> in
+				// Check allowance of protocol
+				self.checkAllowanceOfProvider(
+					approvingToken: self.selectedToken,
+					approvingAmount: self.investAmount,
+					spenderAddress: cTokenID,
+					ownerAddress: Web3Core.Constants.compoundContractAddress
+				).map { (signiture, $0!) }
+			}.then { signiture, allowanceData -> Promise<(String, String)> in
+				// Permit Transform
+				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
+			}.then { [self] permitData, allowanceData -> Promise<(String, String, String)> in
+				self.web3.getDepositV2CallData(
+					tokenAdd: cTokenID,
+					amount: tokenUIntNumber,
+					recipientAdd: walletManager.currentAccount.eip55Address
+				).map { ($0, permitData, allowanceData) }
+			}.then { protocolCallData, permitData, allowanceData in
+				// MultiCall
+				let callDatas = [allowanceData, permitData, protocolCallData]
+				return self.callProxyMultiCall(data: callDatas, value: nil)
+			}.done { depositResult in
+				self.depositTrx = depositResult.0
+				self.depositGasInfo = depositResult.1
+				seal.fulfill(depositResult)
+			}.catch { error in
+				print(error.localizedDescription)
+			}
 		}
 	}
 
-	private func compoundETHDeposit() {
-		let proxyFee = 0.bigNumber.bigUInt
-		firstly {
-			self.web3.getDepositETHV2CallData(
-				recipientAdd: walletManager.currentAccount.eip55Address,
-				proxyFee: proxyFee
-			)
-		}.then { protocolCallData in
-			// MultiCall
-			let callDatas = [protocolCallData]
-			let ethDepositAmount = self.tokenUIntNumber + proxyFee
-			return self.callProxyMultiCall(data: callDatas, value: ethDepositAmount)
-		}.done { trxHash in
-			print(trxHash)
-		}.catch { error in
-			print(error.localizedDescription)
+	private func compoundETHDeposit() -> TrxWithGasInfo {
+		TrxWithGasInfo { seal in
+			let proxyFee = 0.bigNumber.bigUInt
+			firstly {
+				self.web3.getDepositETHV2CallData(
+					recipientAdd: walletManager.currentAccount.eip55Address,
+					proxyFee: proxyFee
+				)
+			}.then { protocolCallData in
+				// MultiCall
+				let callDatas = [protocolCallData]
+				let ethDepositAmount = self.tokenUIntNumber + proxyFee
+				return self.callProxyMultiCall(data: callDatas, value: ethDepositAmount)
+			}.done { depositResult in
+				self.depositTrx = depositResult.0
+				self.depositGasInfo = depositResult.1
+				seal.fulfill(depositResult)
+			}.catch { error in
+				print(error.localizedDescription)
+			}
 		}
 	}
 
-	private func compoundWETHDeposit() {
-		firstly {
-			fetchHash()
-		}.then { plainHash in
-			self.signHash(plainHash: plainHash)
-		}.then { signiture -> Promise<String> in
-			// Permit Transform
-			self.getProxyPermitTransferData(signiture: signiture)
-		}.then { [self] permitData -> Promise<(String, String)> in
-			self.web3.getDepositWETHV2CallData(
-				amount: tokenUIntNumber,
-				recipientAdd: walletManager.currentAccount.eip55Address
-			).map { ($0, permitData) }
-		}.then { protocolCallData, permitData in
-			// MultiCall
-			let callDatas = [permitData, protocolCallData]
-			return self.callProxyMultiCall(data: callDatas, value: nil)
-		}.done { trxHash in
-			print(trxHash)
-		}.catch { error in
-			print(error.localizedDescription)
+	private func compoundWETHDeposit() -> TrxWithGasInfo {
+		TrxWithGasInfo { seal in
+			firstly {
+				fetchHash()
+			}.then { plainHash in
+				self.signHash(plainHash: plainHash)
+			}.then { signiture -> Promise<String> in
+				// Permit Transform
+				self.getProxyPermitTransferData(signiture: signiture)
+			}.then { [self] permitData -> Promise<(String, String)> in
+				self.web3.getDepositWETHV2CallData(
+					amount: tokenUIntNumber,
+					recipientAdd: walletManager.currentAccount.eip55Address
+				).map { ($0, permitData) }
+			}.then { protocolCallData, permitData in
+				// MultiCall
+				let callDatas = [permitData, protocolCallData]
+				return self.callProxyMultiCall(data: callDatas, value: nil)
+			}.done { depositResult in
+				self.depositTrx = depositResult.0
+				self.depositGasInfo = depositResult.1
+				seal.fulfill(depositResult)
+			}.catch { error in
+				print(error.localizedDescription)
+			}
 		}
 	}
 
