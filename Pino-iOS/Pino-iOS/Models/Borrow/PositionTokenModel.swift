@@ -16,3 +16,8 @@ struct PositionTokenModel: Codable {
 		case underlyingToken = "underlying_token"
 	}
 }
+
+enum PositionTokenType: String {
+    case investment
+    case debt
+}

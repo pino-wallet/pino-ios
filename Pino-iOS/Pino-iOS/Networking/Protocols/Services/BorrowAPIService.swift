@@ -16,7 +16,3 @@ protocol BorrowAPIService {
 		-> AnyPublisher<PositionTokenModel, APIError>
 }
 
-enum PositionTokenType: String {
-	case investment
-	case debt
-}
