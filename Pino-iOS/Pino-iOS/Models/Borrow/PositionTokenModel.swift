@@ -18,6 +18,6 @@ struct PositionTokenModel: Codable {
 }
 
 enum PositionTokenType: String {
-    case investment
-    case debt
+	case investment
+	case debt
 }

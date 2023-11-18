@@ -15,4 +15,3 @@ protocol BorrowAPIService {
 	func getPositionTokenId(underlyingTokenId: String, tokenProtocol: String, positionType: PositionTokenType)
 		-> AnyPublisher<PositionTokenModel, APIError>
 }
-
