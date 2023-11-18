@@ -29,4 +29,17 @@ final class BorrowingAPIClient: BorrowAPIService {
 	func getCollateralizableTokens(dex: String) -> AnyPublisher<CollateralizableTokensModel, APIError> {
 		networkManager.request(.getCollateralizableTokens(dex: dex))
 	}
+
+	func getPositionTokenId(
+		underlyingTokenId: String,
+		tokenProtocol: String,
+		positionType: PositionTokenType
+	) -> AnyPublisher<PositionTokenModel, APIError> {
+		networkManager
+			.request(.getPositionTokenId(
+				underlyingTokenId: underlyingTokenId,
+				tokenProtocol: tokenProtocol,
+				positionType: positionType
+			))
+	}
 }
