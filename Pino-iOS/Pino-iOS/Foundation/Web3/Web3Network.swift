@@ -21,7 +21,7 @@ public enum Web3Network: String {
 	public static var current: Self {
 		if Environment.current == .mainNet {
 			return .mainNet
-		} else if Environment.current == .devNet {
+		} else if Environment.current != .mainNet {
 			return .pinoNode
 		} else {
 			return .arb
