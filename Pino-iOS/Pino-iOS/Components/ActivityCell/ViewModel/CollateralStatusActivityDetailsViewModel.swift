@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct CollateralStatusActivityDetailsViewModel: ActivityDetailsProtocol {
+struct CollateralStatusActivityDetailsViewModel: ActivityCellDetailsProtocol {
 	// MARK: - Internal Properties
 
 	internal var activityModel: ActivityCollateralModel
-	internal var globalAssetsList: [AssetViewModel]
+	internal var token: AssetViewModel
 
 	// MARK: - Private Properties
 
@@ -19,19 +19,7 @@ struct CollateralStatusActivityDetailsViewModel: ActivityDetailsProtocol {
 		activityModel.detail.tokens[0]
 	}
 
-	private var token: AssetViewModel? {
-		globalAssetsList.first(where: { $0.id.lowercased() == responseSelectedToken.tokenID.lowercased() })
-	}
-
 	// MARK: - Public Properties
-
-	public var tokenSymbol: String {
-		token?.symbol ?? ""
-	}
-
-	public var tokenImage: URL? {
-		token?.image
-	}
 
 	public var activityProtocol: String {
 		activityModel.detail.activityProtocol

@@ -88,7 +88,6 @@ class InvestDepositViewModel {
 	private func getToken(investableAsset: AssetsBoardProtocol) {
 		let tokensList = GlobalVariables.shared.manageAssetsList!
 		selectedToken = tokensList.first(where: { $0.symbol == investableAsset.assetName })!
-		//        selectedToken = GlobalVariables.shared.manageAssetsList!.first(where: { $0.symbol == "USDT" })!
 		maxHoldAmount = selectedToken.holdAmount
 	}
 

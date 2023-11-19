@@ -56,14 +56,14 @@ struct ActivityDataSource: DataSourceProtocol {
 		managedContext.delete(activity)
 		coreDataStack.saveContext()
 	}
-    
-    public mutating func deleteAllActivities() {
-        activities.forEach { act in
-            managedContext.delete(act)
-        }
-        activities.removeAll()
-        coreDataStack.saveContext()
-    }
+
+	public mutating func deleteAllActivities() {
+		activities.forEach { act in
+			managedContext.delete(act)
+		}
+		activities.removeAll()
+		coreDataStack.saveContext()
+	}
 
 	public mutating func deleteByID(_ id: String) {
 		if let deletingActivity = activities.first(where: { $0.txHash == id }) {

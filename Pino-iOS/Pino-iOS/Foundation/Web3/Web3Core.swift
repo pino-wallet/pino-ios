@@ -28,10 +28,11 @@ public class Web3Core {
 			return Web3Network.writeRPC
 		}
 	}
-    private var rWeb3: Web3 {
-        Web3Network.readRPC
-    }
-    
+
+	private var rWeb3: Web3 {
+		Web3Network.readRPC
+	}
+
 	private var userPrivateKey: EthereumPrivateKey {
 		try! EthereumPrivateKey(
 			hexPrivateKey: walletManager.currentAccountPrivateKey
@@ -40,39 +41,39 @@ public class Web3Core {
 	}
 
 	private var trxManager: W3TransactionManager {
-        .init(writeWeb3: wWeb3, readWeb3: rWeb3)
+		.init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
 	private var gasInfoManager: W3GasInfoManager {
-        .init(writeWeb3: wWeb3, readWeb3: rWeb3)
+		.init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
 	private var transferManager: W3TransferManager {
-        .init(writeWeb3: wWeb3, readWeb3: rWeb3)
+		.init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
 	private var approveManager: W3ApproveManager {
-        .init(writeWeb3: wWeb3, readWeb3: rWeb3)
+		.init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
 	private var swapManager: W3SwapManager {
-        .init(writeWeb3: wWeb3, readWeb3: rWeb3)
+		.init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
 	private var investManager: W3InvestManager {
-        .init(writeWeb3: wWeb3, readWeb3: rWeb3)
+		.init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
 	private var compoundBorrowManager: W3CompoundBorrowManager {
-        .init(writeWeb3: wWeb3, readWeb3: rWeb3)
+		.init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
 	private var aaveBorrowManager: W3AaveBorrowManager {
-        .init(writeWeb3: wWeb3, readWeb3: rWeb3)
+		.init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
 	private var aaveDepositManager: W3AaveDepositManager {
-        .init(writeWeb3: wWeb3, readWeb3: rWeb3)
+		.init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
 	private let walletManager = PinoWalletManager()
@@ -194,7 +195,7 @@ public class Web3Core {
 			gasInfoManager
 				.calculateGasOf(data: ethCallData, to: eip55ContractAddress, value: value.etherumQuantity)
 				.then { [self] gasInfo in
-					wWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+					rWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 						.map { ($0, gasInfo) }
 				}.done { [self] nonce, gasInfo in
 					let trx = try trxManager.createTransactionFor(
@@ -395,6 +396,14 @@ public class Web3Core {
 
 	public func getWithdrawWETHV2CallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
 		investManager.getWithdrawWETHV2CallData(amount: amount, recipientAdd: recipientAdd)
+	}
+
+	public func getETHToSTETHCallData(recipientAdd: String, proxyFee: BigUInt) -> Promise<String> {
+		investManager.getETHToSTETHCallData(recipientAdd: recipientAdd, proxyFee: proxyFee)
+	}
+
+	public func getWETHToSTETHCallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
+		investManager.getWETHToSTETHCallData(amount: amount, recipientAdd: recipientAdd)
 	}
 
 	public func getInvestProxyContract() throws -> DynamicContract {

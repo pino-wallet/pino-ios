@@ -31,7 +31,7 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 					do {
 						return try JSONDecoder().decode(T.self, from: data)
 					} catch {
-                        print(request.url)
+						print(request.url)
 						print("Unable to handle request:\(error)")
 						throw APIError.invalidRequest
 					}
@@ -94,7 +94,7 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 			if statusCode == 401 {
 				throw APIError.unauthorized
 			} else if statusCode == 404 {
-                throw APIError.notFound
+				throw APIError.notFound
 			} else {
 				throw APIError.failedRequest
 			}

@@ -10,20 +10,19 @@ import PromiseKit
 import Web3
 import Web3ContractABI
 
-public struct W3TransactionManager: Web3Manager {    
-        
+public struct W3TransactionManager: Web3Manager {
 	// MARK: - Type Aliases
 
 	typealias Transaction = EthereumTransaction
 
-    var writeWeb3: Web3
-    var readWeb3: Web3
-    
-    init(writeWeb3: Web3, readWeb3: Web3) {
-        self.readWeb3 = readWeb3
-        self.writeWeb3 = writeWeb3
-    }
-    
+	var writeWeb3: Web3
+	var readWeb3: Web3
+
+	init(writeWeb3: Web3, readWeb3: Web3) {
+		self.readWeb3 = readWeb3
+		self.writeWeb3 = writeWeb3
+	}
+
 	// MARK: - Public Methods
 
 	public func createTransactionFor(

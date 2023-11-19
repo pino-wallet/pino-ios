@@ -98,7 +98,7 @@ class CollateralConfirmViewModel {
 				feeInDollars: totalFeeInDollars.priceFormat,
 				feeInETH: totalFeeInETH.sevenDigitFormat.tokenFormatting(token: self.ethToken?.symbol ?? "")
 			)
-		}.catch { _ in
+		}.catch { err in
 			Toast.default(
 				title: self.feeTxErrorText,
 				subtitle: GlobalToastTitles.tryAgainToastTitle.message,

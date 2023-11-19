@@ -10,7 +10,7 @@ import Foundation
 public enum Web3ABI {
 	case erc
 	case swap
-	case investMaker
+	case invest
 	case investCompound
 	case borrowERCAave
 	case borrowETHAave
@@ -23,7 +23,7 @@ public enum Web3ABI {
 			return Web3ABI.erc20AbiString.data(using: .utf8)!
 		case .swap:
 			return Web3ABI.swapAbiString.data(using: .utf8)!
-		case .investMaker:
+		case .invest:
 			return Web3ABI.makerAbiString.data(using: .utf8)!
 		case .investCompound:
 			return Web3ABI.compoundAbiString.data(using: .utf8)!
@@ -63,7 +63,7 @@ public enum Web3ABI {
 	}
 
 	private static var makerAbiString: String {
-		ABIReader(fileName: "MakerABIJson")
+		ABIReader(fileName: "InvestABIJson")
 	}
 
 	private static var compoundAbiString: String {
@@ -106,6 +106,8 @@ public enum ABIMethodWrite: String {
 	case withdrawV2
 	case withdrawETHV2
 	case withdrawWETHV2
+	case ethToStETH
+	case wethToStETH
 }
 
 fileprivate func ABIReader(fileName: String) -> String {

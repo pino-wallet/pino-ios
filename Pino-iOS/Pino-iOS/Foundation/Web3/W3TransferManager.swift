@@ -11,57 +11,54 @@ import Web3
 import Web3ContractABI
 
 protocol Web3Manager {
-    var writeWeb3: Web3 { get set }
-    var readWeb3: Web3 { get set }
-    init(writeWeb3: Web3, readWeb3: Web3)
-    var gasInfoManager: W3GasInfoManager { get }
-    var trxManager: W3TransactionManager { get }
-    var transferManager: W3TransferManager { get }
-    var walletManager: PinoWalletManager { get }
-    var userPrivateKey: EthereumPrivateKey { get }
+	var writeWeb3: Web3 { get set }
+	var readWeb3: Web3 { get set }
+	init(writeWeb3: Web3, readWeb3: Web3)
+	var gasInfoManager: W3GasInfoManager { get }
+	var trxManager: W3TransactionManager { get }
+	var transferManager: W3TransferManager { get }
+	var walletManager: PinoWalletManager { get }
+	var userPrivateKey: EthereumPrivateKey { get }
 }
 
 extension Web3Manager {
-    
-    var gasInfoManager: W3GasInfoManager {
-        .init(writeWeb3: writeWeb3, readWeb3: readWeb3)
-    }
-    
-    var trxManager: W3TransactionManager {
-        .init(writeWeb3: writeWeb3, readWeb3: readWeb3)
-    }
-    
-    var transferManager: W3TransferManager {
-        .init(writeWeb3: writeWeb3, readWeb3: readWeb3)
-    }
-    
-    var walletManager: PinoWalletManager {
-        PinoWalletManager()
-    }
+	var gasInfoManager: W3GasInfoManager {
+		.init(writeWeb3: writeWeb3, readWeb3: readWeb3)
+	}
 
-    var userPrivateKey: EthereumPrivateKey {
-        try! EthereumPrivateKey(
-            hexPrivateKey: walletManager.currentAccountPrivateKey
-                .string
-        )
-    }
-    
+	var trxManager: W3TransactionManager {
+		.init(writeWeb3: writeWeb3, readWeb3: readWeb3)
+	}
+
+	var transferManager: W3TransferManager {
+		.init(writeWeb3: writeWeb3, readWeb3: readWeb3)
+	}
+
+	var walletManager: PinoWalletManager {
+		PinoWalletManager()
+	}
+
+	var userPrivateKey: EthereumPrivateKey {
+		try! EthereumPrivateKey(
+			hexPrivateKey: walletManager.currentAccountPrivateKey
+				.string
+		)
+	}
 }
 
 public struct W3TransferManager: Web3Manager {
-    
-    // MARK: - Internal Properties
+	// MARK: - Internal Properties
 
-    var writeWeb3: Web3
-    var readWeb3: Web3
-    
-    // MARK: - Initializer
+	var writeWeb3: Web3
+	var readWeb3: Web3
 
-    init(writeWeb3: Web3, readWeb3: Web3) {
-        self.readWeb3 = readWeb3
-        self.writeWeb3 = writeWeb3
-    }
-	
+	// MARK: - Initializer
+
+	init(writeWeb3: Web3, readWeb3: Web3) {
+		self.readWeb3 = readWeb3
+		self.writeWeb3 = writeWeb3
+	}
+
 	// MARK: - Public Methods
 
 	public func getPermitTransferFromCallData(
@@ -143,7 +140,7 @@ public struct W3TransferManager: Web3Manager {
 			firstly {
 				readWeb3.eth.gasPrice()
 			}.then { [self] price in
-                readWeb3.eth.getTransactionCount(address: privateKey.address, block: .latest).map { ($0, price) }
+				readWeb3.eth.getTransactionCount(address: privateKey.address, block: .latest).map { ($0, price) }
 			}.then { nonce, price in
 				var tx = try EthereumTransaction(
 					nonce: nonce,

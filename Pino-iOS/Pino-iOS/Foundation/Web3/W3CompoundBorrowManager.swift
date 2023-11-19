@@ -11,18 +11,17 @@ import Web3
 import Web3ContractABI
 
 public struct W3CompoundBorrowManager: Web3Manager {
-	
-    // MARK: - Internal Properties
-    
-    var writeWeb3: Web3
-    var readWeb3: Web3
-    
-    // MARK: - Initializer
-    
-    init(writeWeb3: Web3, readWeb3: Web3) {
-        self.readWeb3 = readWeb3
-        self.writeWeb3 = writeWeb3
-    }
+	// MARK: - Internal Properties
+
+	var writeWeb3: Web3
+	var readWeb3: Web3
+
+	// MARK: - Initializer
+
+	init(writeWeb3: Web3, readWeb3: Web3) {
+		self.readWeb3 = readWeb3
+		self.writeWeb3 = writeWeb3
+	}
 
 	// MARK: - Public Methods
 
@@ -37,18 +36,18 @@ public struct W3CompoundBorrowManager: Web3Manager {
 			}
 		}
 	}
-    
-    public func getContractDetails(of contract: String, amount: BigUInt) -> Promise<ContractDetailsModel> {
-        Promise<ContractDetailsModel> { seal in
-            let contract = try Web3Core.getContractOfToken(
-                address: contract,
-                abi: .borrowCTokenCompound,
-                web3: readWeb3
-            )
-            let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
-            seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
-        }
-    }
+
+	public func getContractDetails(of contract: String, amount: BigUInt) -> Promise<ContractDetailsModel> {
+		Promise<ContractDetailsModel> { seal in
+			let contract = try Web3Core.getContractOfToken(
+				address: contract,
+				abi: .borrowCTokenCompound,
+				web3: readWeb3
+			)
+			let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
+			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
+		}
+	}
 
 	public func getCAaveContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
 		Promise<ContractDetailsModel> { seal in

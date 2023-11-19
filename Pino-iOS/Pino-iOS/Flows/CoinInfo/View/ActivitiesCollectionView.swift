@@ -88,7 +88,8 @@ class ActivitiesCollectionView: UICollectionView {
 	}
 
 	private func setupBinding() {
-		let activityHelper = ActivityHelper()
+		var activityHelper = ActivityHelper()
+		activityHelper.globalAssetsList = GlobalVariables.shared.manageAssetsList
 		coinInfoVM.$coinHistoryActivitiesList.sink { [weak self] activities in
 			guard let userActivitiesOnToken = activities else {
 				self?.showLoading = true
@@ -357,7 +358,6 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 			coinHistoryCell.showSkeletonView()
 		} else {
 			coinHistoryCell.activityCellVM = separatedActivities[indexPath.section].activities[indexPath.item]
-			coinHistoryCell.activityCellVM?.globalAssetsList = GlobalVariables.shared.manageAssetsList!
 			coinHistoryCell.hideSkeletonView()
 		}
 		return coinHistoryCell

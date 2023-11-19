@@ -13,7 +13,7 @@ public enum Web3Network: String {
 
 	case mainNet
 	case arb
-    case ganashDev
+	case ganashDev
 	case pinoNode
 
 	// MARK: - Public Properties
@@ -35,9 +35,8 @@ public enum Web3Network: String {
 	public static var readRPC: Web3 {
 		Web3(rpcURL: Environment.readRPCURL)
 	}
-    
-    public static var writeRPC: Web3 {
-        Web3(rpcURL: Environment.writeRPCURL)
-    }
-    
+
+	public static var writeRPC: Web3 {
+		Web3(rpcURL: Environment.writeRPCURL)
+	}
 }

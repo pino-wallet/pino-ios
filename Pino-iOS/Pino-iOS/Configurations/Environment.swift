@@ -16,7 +16,7 @@ enum NetworkEnvironment {
 
 enum Environment {
 	case mainNet
-    case devNet
+	case devNet
 	case pinoNode
 
 	// MARK: Public Properties
@@ -36,7 +36,7 @@ enum Environment {
 
 	public static var chainID: Int {
 		switch current {
-            case .mainNet, .pinoNode:
+		case .mainNet, .pinoNode:
 			return 1
 		case .devNet:
 			return 1337
@@ -44,19 +44,19 @@ enum Environment {
 	}
 
 	public static var readRPCURL: String {
-        return "https://node.pino.xyz"
+		"https://node.pino.xyz"
 	}
-    
-    public static var writeRPCURL: String {
-        switch current {
-            case .mainNet:
-                return "https://rpc.ankr.com/eth"
-            case .devNet:
-                return "https://ganache.pino.xyz"
-            case .pinoNode:
-                return "https://ganache.pino.xyz"
-        }
-    }
+
+	public static var writeRPCURL: String {
+		switch current {
+		case .mainNet:
+			return "https://rpc.ankr.com/eth"
+		case .devNet:
+			return "https://ganache.pino.xyz"
+		case .pinoNode:
+			return "https://ganache.pino.xyz"
+		}
+	}
 
 	public static var current: Environment {
 		let devMode = UserDefaults.standard.bool(forKey: "isInDevMode")

@@ -15,17 +15,17 @@ public struct W3SwapManager: Web3Manager {
 
 	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
 
-    // MARK: - Internal Properties
-    
-    var writeWeb3: Web3
-    var readWeb3: Web3
-    
-    // MARK: - Initializer
-    
-    init(writeWeb3: Web3, readWeb3: Web3) {
-        self.readWeb3 = readWeb3
-        self.writeWeb3 = writeWeb3
-    }
+	// MARK: - Internal Properties
+
+	var writeWeb3: Web3
+	var readWeb3: Web3
+
+	// MARK: - Initializer
+
+	init(writeWeb3: Web3, readWeb3: Web3) {
+		self.readWeb3 = readWeb3
+		self.writeWeb3 = writeWeb3
+	}
 
 	// MARK: - Public Methods
 

@@ -8,6 +8,14 @@ import Combine
 import Foundation
 
 class BorrowAPIMockClient: BorrowAPIService {
+	func getPositionTokenId(
+		underlyingTokenId: String,
+		tokenProtocol: String,
+		positionType: PositionTokenType
+	) -> AnyPublisher<PositionTokenModel, APIError> {
+		StubManager.publisher(for: "position-token-id-stub")
+	}
+
 	func getUserBorrowings(address: String, dex: String) -> AnyPublisher<UserBorrowingModel, APIError> {
 		StubManager.publisher(for: "user-borrowing-stub")
 	}
