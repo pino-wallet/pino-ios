@@ -93,7 +93,7 @@ class CompoundDepositManager: Web3ManagerProtocol {
 				// Permit Transform
 				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
 			}.then { [self] permitData, allowanceData -> Promise<(String, String, String)> in
-				self.web3.getDepositV2CallData(
+				web3.getDepositV2CallData(
 					tokenAdd: cTokenID,
 					amount: tokenUIntNumber,
 					recipientAdd: walletManager.currentAccount.eip55Address
@@ -145,7 +145,7 @@ class CompoundDepositManager: Web3ManagerProtocol {
 				// Permit Transform
 				self.getProxyPermitTransferData(signiture: signiture)
 			}.then { [self] permitData -> Promise<(String, String)> in
-				self.web3.getDepositWETHV2CallData(
+				web3.getDepositWETHV2CallData(
 					amount: tokenUIntNumber,
 					recipientAdd: walletManager.currentAccount.eip55Address
 				).map { ($0, permitData) }
@@ -173,7 +173,7 @@ class CompoundDepositManager: Web3ManagerProtocol {
 			// Permit Transform
 			self.getProxyPermitTransferData(signiture: signiture)
 		}.then { [self] permitData in
-			self.web3.getWithdrawV2CallData(
+			web3.getWithdrawV2CallData(
 				tokenAdd: cTokenID,
 				amount: tokenUIntNumber,
 				recipientAdd: walletManager.currentAccount.eip55Address
@@ -215,7 +215,7 @@ class CompoundDepositManager: Web3ManagerProtocol {
 			// Permit Transform
 			self.getProxyPermitTransferData(signiture: signiture)
 		}.then { [self] permitData -> Promise<(String, String)> in
-			self.web3.getWithdrawWETHV2CallData(
+			web3.getWithdrawWETHV2CallData(
 				amount: tokenUIntNumber,
 				recipientAdd: walletManager.currentAccount.eip55Address
 			).map { ($0, permitData) }

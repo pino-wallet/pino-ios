@@ -106,7 +106,7 @@ class InvestManager: Web3ManagerProtocol {
 				// Permit Transform
 				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
 			}.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
-				self.web3.getDaiToSDaiCallData(
+				web3.getDaiToSDaiCallData(
 					amount: tokenUIntNumber,
 					recipientAdd: walletManager.currentAccount.eip55Address
 				).map { ($0, permitData, allowanceData) }
@@ -134,7 +134,7 @@ class InvestManager: Web3ManagerProtocol {
 			// Permit Transform
 			self.getProxyPermitTransferData(signiture: signiture)
 		}.then { [self] permitData -> Promise<(String, String)> in
-			self.web3.getSDaiToDaiCallData(
+			web3.getSDaiToDaiCallData(
 				amount: tokenUIntNumber,
 				recipientAdd: walletManager.currentAccount.eip55Address
 			).map { ($0, permitData) }
