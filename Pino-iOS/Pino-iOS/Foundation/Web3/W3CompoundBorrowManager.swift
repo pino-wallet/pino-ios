@@ -28,7 +28,7 @@ public struct W3CompoundBorrowManager: Web3HelperProtocol {
 	public func borrowCToken(contractDetails: ContractDetailsModel) -> Promise<String> {
 		Promise<String> { seal in
 			getCTokenBorrowTransaction(contractDetails: contractDetails).then { signedtransaction in
-				readWeb3.eth.sendRawTransaction(transaction: signedtransaction)
+				writeWeb3.eth.sendRawTransaction(transaction: signedtransaction)
 			}.done { trxHash in
 				seal.fulfill(trxHash.hex())
 			}.catch { error in

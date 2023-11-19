@@ -78,13 +78,7 @@ class SwapConfirmationViewModel {
 	// MARK: - Public Methods
 
 	public func fetchSwapInfo() {
-		let startTime: Date! = Date()
-
 		swapManager.getSwapInfo().done { swapTrx, gasInfo in
-			let endTime = Date()
-			let executionTime = endTime.timeIntervalSince(startTime)
-			print("FETCH SWAP Execution Time: \(executionTime) seconds")
-
 			self.gasFee = gasInfo.fee
 			self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
 			self.formattedFeeInETH = gasInfo.fee.sevenDigitFormat

@@ -230,7 +230,7 @@ public class Web3Core {
 
 		return Promise<CustomAssetInfo>() { seal in
 			let _ = firstly {
-				try wWeb3.eth.getCode(address: .init(hex: contractAddress, eip55: true), block: .latest)
+				try rWeb3.eth.getCode(address: .init(hex: contractAddress, eip55: true), block: .latest)
 			}.then { conctractCode in
 				if conctractCode.hex() == Constants.eoaCode {
 					// In this case the smart contract belongs to an EOA
@@ -248,7 +248,7 @@ public class Web3Core {
 			}.then { [self] nameValue -> Promise<[String: Any]> in
 				assetInfo.updateValue(nameValue, forKey: ABIMethodCall.name)
 				let contractAddress = try EthereumAddress(hex: contractAddress, eip55: true)
-				let contract = wWeb3.eth.Contract(type: GenericERC20Contract.self, address: contractAddress)
+				let contract = rWeb3.eth.Contract(type: GenericERC20Contract.self, address: contractAddress)
 				return try contract
 					.balanceOf(address: EthereumAddress(hex: walletManager.currentAccount.eip55Address, eip55: true))
 					.call()
@@ -271,7 +271,7 @@ public class Web3Core {
 	public func getETHBalance(of accountAddress: String) -> Promise<String> {
 		Promise<String>() { seal in
 			firstly {
-				wWeb3.eth.getBalance(address: accountAddress.eip55Address!, block: .latest)
+				rWeb3.eth.getBalance(address: accountAddress.eip55Address!, block: .latest)
 			}.map { balanceValue in
 				BigNumber(unSignedNumber: balanceValue.quantity, decimal: 18)
 			}.done { balance in
@@ -320,7 +320,7 @@ public class Web3Core {
 				guard let txHashBytes = Data.fromHex(txHash) else {
 					fatalError("cant get bytes from txHash string")
 				}
-				return wWeb3.eth.getTransactionByHash(blockHash: try EthereumData(txHashBytes))
+				return rWeb3.eth.getTransactionByHash(blockHash: try EthereumData(txHashBytes))
 			}.done { transactionObject in
 				seal.fulfill(transactionObject)
 			}.catch { error in
@@ -357,7 +357,7 @@ public class Web3Core {
 	public func getGasPrice() -> Promise<EthereumQuantity> {
 		Promise<EthereumQuantity>() { seal in
 			firstly {
-				wWeb3.eth.gasPrice()
+				rWeb3.eth.gasPrice()
 			}.done { gasPrice in
 				seal.fulfill(gasPrice)
 			}.catch { error in
@@ -523,7 +523,7 @@ public class Web3Core {
 	private func getInfo(address: String, info: ABIMethodCall, abi: Web3ABI) throws -> Promise<[String: Any]> {
 		let contractAddress = try EthereumAddress(hex: address, eip55: true)
 		let contractJsonABI = abi.abi
-		let contract = try wWeb3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
+		let contract = try rWeb3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
 		return contract[info.rawValue]!(contractAddress).call()
 	}
 
@@ -534,7 +534,7 @@ public class Web3Core {
 		params: ABIParams...
 	) throws -> Promise<T> {
 		// You can optionally pass an abiKey param if the actual abi is nested and not the top level element of the json
-		let contract = try wWeb3.eth.Contract(json: abi.abi, abiKey: nil, address: contractAddress)
+		let contract = try rWeb3.eth.Contract(json: abi.abi, abiKey: nil, address: contractAddress)
 		// Get balance of some address
 
 		return Promise<T>() { seal in
