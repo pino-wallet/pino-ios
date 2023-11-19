@@ -10,7 +10,7 @@ import PromiseKit
 import Web3
 import Web3ContractABI
 
-public struct W3CompoundBorrowManager: Web3Manager {
+public struct W3CompoundBorrowManager: Web3HelperProtocol {
 	// MARK: - Internal Properties
 
 	var writeWeb3: Web3

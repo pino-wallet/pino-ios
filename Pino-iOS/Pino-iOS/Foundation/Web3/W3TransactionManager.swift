@@ -10,7 +10,7 @@ import PromiseKit
 import Web3
 import Web3ContractABI
 
-public struct W3TransactionManager: Web3Manager {
+public struct W3TransactionManager: Web3HelperProtocol {
 	// MARK: - Type Aliases
 
 	typealias Transaction = EthereumTransaction

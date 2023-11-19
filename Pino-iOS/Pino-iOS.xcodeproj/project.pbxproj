@@ -604,6 +604,7 @@
 		DFCB13AF2B09DCEE00EEFD0F /* CDWithdrawActivity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB13AB2B09DCEE00EEFD0F /* CDWithdrawActivity+CoreDataProperties.swift */; };
 		DFCB13B02B09DCEE00EEFD0F /* CDWithdrawActivity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB13AC2B09DCEE00EEFD0F /* CDWithdrawActivity+CoreDataClass.swift */; };
 		DFCB13B12B09DCEE00EEFD0F /* CDWithdrawActivityDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB13AD2B09DCEE00EEFD0F /* CDWithdrawActivityDetails+CoreDataProperties.swift */; };
+		DFCB13B42B0A1E2300EEFD0F /* Web3HelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB13B32B0A1E2300EEFD0F /* Web3HelperProtocol.swift */; };
 		DFFDEDA32A75658700D710D7 /* ParaSwapAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6AD2A756123003DB68A /* ParaSwapAPIClient.swift */; };
 		DFFDEDA42A75659E00D710D7 /* ParaSwapEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6AE2A75615D003DB68A /* ParaSwapEndpoint.swift */; };
 		DFFDEDAA2A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDA92A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift */; };
@@ -1380,6 +1381,7 @@
 		DFCB13AB2B09DCEE00EEFD0F /* CDWithdrawActivity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWithdrawActivity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DFCB13AC2B09DCEE00EEFD0F /* CDWithdrawActivity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWithdrawActivity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DFCB13AD2B09DCEE00EEFD0F /* CDWithdrawActivityDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWithdrawActivityDetails+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DFCB13B32B0A1E2300EEFD0F /* Web3HelperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3HelperProtocol.swift; sourceTree = "<group>"; };
 		DFFDEDA92A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneInchSwapPriceResponseModel.swift; sourceTree = "<group>"; };
 		DFFDEDAB2A76C65800D710D7 /* ZeroXPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroXPriceResponseModel.swift; sourceTree = "<group>"; };
 		DFFDEDAD2A7792D800D710D7 /* OneInchEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneInchEndpoint.swift; sourceTree = "<group>"; };
@@ -3622,6 +3624,7 @@
 		DFC4D0382A360D7300F03DC4 /* Web3 */ = {
 			isa = PBXGroup;
 			children = (
+				DFCB13B22B0A1E1500EEFD0F /* Protocols */,
 				DFBDA0092AB0CD7B00ED42D6 /* ABIs */,
 				DF0347B32A39FAFF00A6C265 /* Web3ABI.swift */,
 				DFC4D0392A360D8300F03DC4 /* Web3Core.swift */,
@@ -3647,6 +3650,14 @@
 			children = (
 			);
 			name = Packages;
+			sourceTree = "<group>";
+		};
+		DFCB13B22B0A1E1500EEFD0F /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				DFCB13B32B0A1E2300EEFD0F /* Web3HelperProtocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		E01D034F43576AABD037FDFE /* NumberFormatter */ = {
@@ -4971,6 +4982,7 @@
 				E39F594C2A99E90B00023292 /* InvestConfirmationViewController.swift in Sources */,
 				34F4A2DA1228B50AC3DFA8A2 /* SeedPhrase.swift in Sources */,
 				E3ABD1FC2AB19FA700947D37 /* ImportAccountsViewModel.swift in Sources */,
+				DFCB13B42B0A1E2300EEFD0F /* Web3HelperProtocol.swift in Sources */,
 				DF00179129F856D5001164EA /* PinoHDWallet.swift in Sources */,
 				44C3312B501D7A88C6ADB659 /* SelectPassViewModel.swift in Sources */,
 				D987B7422AD5420C00727FDD /* W3AaveBorrowManager.swift in Sources */,

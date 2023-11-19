@@ -11,7 +11,7 @@ import PromiseKit
 import Web3
 import Web3ContractABI
 
-public struct W3GasInfoManager: Web3Manager {
+public struct W3GasInfoManager: Web3HelperProtocol {
 	var writeWeb3: Web3
 	var readWeb3: Web3
 

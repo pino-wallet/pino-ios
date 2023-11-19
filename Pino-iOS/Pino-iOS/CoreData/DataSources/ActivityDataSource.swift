@@ -57,6 +57,7 @@ struct ActivityDataSource: DataSourceProtocol {
 		coreDataStack.saveContext()
 	}
 
+    // WARNING: -> This function is for TESTING purpose
 	public mutating func deleteAllActivities() {
 		activities.forEach { act in
 			managedContext.delete(act)

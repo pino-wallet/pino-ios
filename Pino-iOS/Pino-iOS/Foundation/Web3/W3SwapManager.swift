@@ -10,7 +10,7 @@ import PromiseKit
 import Web3
 import Web3ContractABI
 
-public struct W3SwapManager: Web3Manager {
+public struct W3SwapManager: Web3HelperProtocol {
 	// MARK: - Typealias
 
 	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>

@@ -21,7 +21,7 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 					}
 
 //					NetworkLogger.log(request: request, response: response)
-//					try checkStatusCode(responseData: data, statusCode: statusCode)
+					try checkStatusCode(responseData: data, statusCode: statusCode)
 
 					// For cases when response body is empty
 					if statusCode == 204, let noContent = NoContent() as? T {

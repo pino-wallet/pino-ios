@@ -183,45 +183,6 @@ class SwapManager: Web3ManagerProtocol {
 				print(error.localizedDescription)
 			}
 		}
-
-		//        TrxWithGasInfo { seal in
-		//            firstly {
-		//                fetchHash()
-		//            }.then { plainHash in
-		//                self.signHash(plainHash: plainHash)
-		//            }.then { [self] signiture -> Promise<(String, String?)> in
-		//                guard let selectedProvider else { fatalError("provider errror") }
-		//                return checkAllowanceOfProvider(
-		//                    approvingToken: srcToken.selectedToken,
-		//                    approvingAmount: srcToken.tokenAmount!,
-		//                    spenderAddress: selectedProvider.provider.contractAddress
-		//                ).map { (signiture, $0) }
-		//            }.then { signiture, allowanceData -> Promise<(String, String?)> in
-		//                // Permit Transform
-		//                self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
-		//            }.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
-		//                // Fetch Call Data
-		//                // TODO: Set providers dest token in 0x as WETH since dest is ETH else it is ETH
-		//                getSwapInfoFrom().map { ($0, permitData, allowanceData) }
-		//            }.then { providerSwapData, permitData, allowanceData -> Promise<(String, String, String?)> in
-		//                self.getProvidersCallData(providerData: providerSwapData).map { ($0, permitData, allowanceData) }
-		//            }.then { providersCallData, permitData, allowanceData -> Promise<(String?, String, String, String?)> in
-		//                // TODO: Only when provider is 0x
-		//                self.unwrapTokenCallData().map { ($0, providersCallData, permitData, allowanceData) }
-		//            }.then { unwrapData, providersCallData, permitData, allowanceData in
-		//                // MultiCall
-		//                var callDatas = [permitData, providersCallData]
-		//                if let allowanceData { callDatas.insert(allowanceData, at: 0) }
-		//                if let unwrapData { callDatas.append(unwrapData) }
-		//                return self.callProxyMultiCall(data: callDatas, value: nil)
-		//            }.done { swapResult in
-		//                self.pendingSwapTrx = swapResult.0
-		//                self.pendingSwapGasInfo = swapResult.1
-		//                seal.fulfill(swapResult)
-		//            }.catch { error in
-		//                print(error.localizedDescription)
-		//            }
-		//        }
 	}
 
 	private func swapETHtoERC() -> TrxWithGasInfo {

@@ -10,43 +10,7 @@ import PromiseKit
 import Web3
 import Web3ContractABI
 
-protocol Web3Manager {
-	var writeWeb3: Web3 { get set }
-	var readWeb3: Web3 { get set }
-	init(writeWeb3: Web3, readWeb3: Web3)
-	var gasInfoManager: W3GasInfoManager { get }
-	var trxManager: W3TransactionManager { get }
-	var transferManager: W3TransferManager { get }
-	var walletManager: PinoWalletManager { get }
-	var userPrivateKey: EthereumPrivateKey { get }
-}
-
-extension Web3Manager {
-	var gasInfoManager: W3GasInfoManager {
-		.init(writeWeb3: writeWeb3, readWeb3: readWeb3)
-	}
-
-	var trxManager: W3TransactionManager {
-		.init(writeWeb3: writeWeb3, readWeb3: readWeb3)
-	}
-
-	var transferManager: W3TransferManager {
-		.init(writeWeb3: writeWeb3, readWeb3: readWeb3)
-	}
-
-	var walletManager: PinoWalletManager {
-		PinoWalletManager()
-	}
-
-	var userPrivateKey: EthereumPrivateKey {
-		try! EthereumPrivateKey(
-			hexPrivateKey: walletManager.currentAccountPrivateKey
-				.string
-		)
-	}
-}
-
-public struct W3TransferManager: Web3Manager {
+public struct W3TransferManager: Web3HelperProtocol {
 	// MARK: - Internal Properties
 
 	var writeWeb3: Web3

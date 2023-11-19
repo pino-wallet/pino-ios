@@ -11,7 +11,7 @@ import PromiseKit
 import Web3
 import Web3ContractABI
 
-public struct W3AaveDepositManager: Web3Manager {
+public struct W3AaveDepositManager: Web3HelperProtocol {
 	// MARK: - Internal Properties
 
 	var writeWeb3: Web3
