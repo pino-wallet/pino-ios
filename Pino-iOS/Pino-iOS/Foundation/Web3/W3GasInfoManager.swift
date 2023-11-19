@@ -11,25 +11,14 @@ import PromiseKit
 import Web3
 import Web3ContractABI
 
-public struct W3GasInfoManager {
-	// MARK: - Initilizer
+public struct W3GasInfoManager: Web3HelperProtocol {
+	var writeWeb3: Web3
+	var readWeb3: Web3
 
-	public init(web3: Web3) {
-		self.web3 = web3
+	init(writeWeb3: Web3, readWeb3: Web3) {
+		self.readWeb3 = readWeb3
+		self.writeWeb3 = writeWeb3
 	}
-
-	// MARK: - Private Properties
-
-	private let web3: Web3!
-	private var transactionManager: W3TransactionManager {
-		.init(web3: web3)
-	}
-
-	private var gasInfoManager: W3GasInfoManager {
-		.init(web3: web3)
-	}
-
-	private var walletManager = PinoWalletManager()
 
 	// MARK: - Public Methods
 
@@ -42,18 +31,18 @@ public struct W3GasInfoManager {
 			let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
 
 			firstly {
-				web3.eth.gasPrice()
+				readWeb3.eth.gasPrice()
 			}.then { gasPrice in
-				web3.eth.getTransactionCount(address: myPrivateKey.address, block: .latest).map { ($0, gasPrice) }
+				readWeb3.eth.getTransactionCount(address: myPrivateKey.address, block: .latest).map { ($0, gasPrice) }
 			}.then { nonce, gasPrice in
-				try transactionManager.createTransactionFor(
+				try trxManager.createTransactionFor(
 					contract: solInvoc,
 					nonce: nonce,
 					gasPrice: gasPrice,
 					gasLimit: nil
 				).promise.map { ($0, nonce, gasPrice) }
 			}.then { transaction, nonce, gasPrice in
-				web3.eth.estimateGas(call: .init(
+				readWeb3.eth.estimateGas(call: .init(
 					from: transaction.from,
 					to: transaction.to!,
 					gasPrice: gasPrice,
@@ -83,13 +72,13 @@ public struct W3GasInfoManager {
 			let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
 
 			firstly {
-				web3.eth.gasPrice()
+				readWeb3.eth.gasPrice()
 			}.then { gasPrice in
-				web3.eth
+				readWeb3.eth
 					.estimateGas(call: .init(
 						from: myPrivateKey.address,
 						to: to,
-						gasPrice: gasPrice,
+						gasPrice: (try! BigUInt(gasPrice) * BigUInt(120) / BigUInt(100)).etherumQuantity,
 						value: value,
 						data: data
 					)).map { ($0, gasPrice) }
@@ -109,7 +98,7 @@ public struct W3GasInfoManager {
 	public func calculateEthGasFee() -> Promise<GasInfo> {
 		Promise<GasInfo>() { seal in
 			attempt(maximumRetryCount: 3) { [self] in
-				web3.eth.gasPrice()
+				readWeb3.eth.gasPrice()
 			}.done { gasPrice in
 				let gasLimit = BigNumber(number: Web3Core.Constants.ethGasLimit, decimal: 0)
 				let gasPriceBigNum = BigNumber(unSignedNumber: gasPrice.quantity, decimal: 0)
@@ -128,7 +117,7 @@ public struct W3GasInfoManager {
 	) -> Promise<GasInfo> {
 		Promise<GasInfo>() { seal in
 			firstly {
-				let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, abi: .erc, web3: web3)
+				let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, abi: .erc, web3: readWeb3)
 				let solInvocation = contract[ABIMethodWrite.transfer.rawValue]!(recipient.eip55Address!, amount)
 				return gasInfoManager.calculateGasOf(
 					method: .transfer,

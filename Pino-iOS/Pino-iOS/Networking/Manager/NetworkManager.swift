@@ -21,7 +21,6 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 					}
 
 //					NetworkLogger.log(request: request, response: response)
-
 					try checkStatusCode(responseData: data, statusCode: statusCode)
 
 					// For cases when response body is empty
@@ -32,6 +31,7 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 					do {
 						return try JSONDecoder().decode(T.self, from: data)
 					} catch {
+						print(request.url)
 						print("Unable to handle request:\(error)")
 						throw APIError.invalidRequest
 					}

@@ -14,14 +14,15 @@ public enum Web3Network: String {
 	case mainNet
 	case arb
 	case ganashDev
+	case pinoNode
 
 	// MARK: - Public Properties
 
 	public static var current: Self {
 		if Environment.current == .mainNet {
 			return .mainNet
-		} else if Environment.current == .devNet {
-			return .ganashDev
+		} else if Environment.current != .mainNet {
+			return .pinoNode
 		} else {
 			return .arb
 		}
@@ -31,7 +32,11 @@ public enum Web3Network: String {
 		.init(quantity: BigUInt(Environment.chainID))
 	}
 
-	public static var rpc: Web3 {
-		Web3(rpcURL: Environment.rpcURL)
+	public static var readRPC: Web3 {
+		Web3(rpcURL: Environment.readRPCURL)
+	}
+
+	public static var writeRPC: Web3 {
+		Web3(rpcURL: Environment.writeRPCURL)
 	}
 }

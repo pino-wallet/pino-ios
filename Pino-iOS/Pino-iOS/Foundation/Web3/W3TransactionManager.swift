@@ -10,21 +10,18 @@ import PromiseKit
 import Web3
 import Web3ContractABI
 
-public struct W3TransactionManager {
+public struct W3TransactionManager: Web3HelperProtocol {
 	// MARK: - Type Aliases
 
 	typealias Transaction = EthereumTransaction
 
-	// MARK: - Initilizer
+	var writeWeb3: Web3
+	var readWeb3: Web3
 
-	public init(web3: Web3) {
-		self.web3 = web3
+	init(writeWeb3: Web3, readWeb3: Web3) {
+		self.readWeb3 = readWeb3
+		self.writeWeb3 = writeWeb3
 	}
-
-	// MARK: - Private Properties
-
-	private let web3: Web3!
-	private var walletManager = PinoWalletManager()
 
 	// MARK: - Public Methods
 
