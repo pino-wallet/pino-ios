@@ -10,30 +10,17 @@ import PromiseKit
 import Web3
 import Web3ContractABI
 
-public struct W3InvestManager {
-	// MARK: - Initilizer
+public struct W3InvestManager: Web3HelperProtocol {
+	// MARK: - Internal Properties
 
-	public init(web3: Web3) {
-		self.web3 = web3
-	}
+	var writeWeb3: Web3
+	var readWeb3: Web3
 
-	// MARK: - Private Properties
+	// MARK: - Initializer
 
-	private let web3: Web3!
-	private var walletManager = PinoWalletManager()
-	private var gasInfoManager: W3GasInfoManager {
-		.init(web3: web3)
-	}
-
-	private var trxManager: W3TransactionManager {
-		.init(web3: web3)
-	}
-
-	private var userPrivateKey: EthereumPrivateKey {
-		try! EthereumPrivateKey(
-			hexPrivateKey: walletManager.currentAccountPrivateKey
-				.string
-		)
+	init(writeWeb3: Web3, readWeb3: Web3) {
+		self.readWeb3 = readWeb3
+		self.writeWeb3 = writeWeb3
 	}
 
 	// MARK: - Public Methods
@@ -42,7 +29,7 @@ public struct W3InvestManager {
 		try Web3Core.getContractOfToken(
 			address: Web3Core.Constants.investContractAddress,
 			abi: .invest,
-			web3: web3
+			web3: readWeb3
 		)
 	}
 
@@ -50,7 +37,7 @@ public struct W3InvestManager {
 		try Web3Core.getContractOfToken(
 			address: Web3Core.Constants.compoundContractAddress,
 			abi: .investCompound,
-			web3: web3
+			web3: readWeb3
 		)
 	}
 
