@@ -39,14 +39,14 @@ class InvestConfirmationView: UIView {
 	private let confirmButtonDidTap: () -> Void
 	private let infoActionSheetDidTap: (InfoActionSheet) -> Void
 	private let feeCalculationRetry: () -> Void
-	private var investConfirmationVM: InvestConfirmationViewModel!
+	private var investConfirmationVM: InvestConfirmationProtocol!
 	private var cancellables = Set<AnyCancellable>()
 	private var showFeeInDollar = true
 
 	// MARK: - Initializers
 
 	init(
-		investConfirmationVM: InvestConfirmationViewModel,
+		investConfirmationVM: InvestConfirmationProtocol,
 		confirmButtonDidTap: @escaping () -> Void,
 		infoActionSheetDidTap: @escaping (InfoActionSheet) -> Void,
 		feeCalculationRetry: @escaping () -> Void
@@ -127,8 +127,8 @@ class InvestConfirmationView: UIView {
 	}
 
 	private func setupStyle() {
-		investAmountLabel.text = investConfirmationVM.formattedInvestAmount
-		investAmountInDollarLabel.text = investConfirmationVM.formattedInvestAmountInDollar
+		investAmountLabel.text = investConfirmationVM.formattedTransactionAmount
+		investAmountInDollarLabel.text = investConfirmationVM.formattedTransactionAmountInDollar
 		selectedProtocolTitleView.title = investConfirmationVM.selectedProtocolTitle
 		protoclNameLabel.text = investConfirmationVM.selectedProtocolName
 		feeTitleView.title = investConfirmationVM.feeTitle
@@ -236,11 +236,13 @@ class InvestConfirmationView: UIView {
 	}
 
 	private func setupBindings() {
-		Publishers.Zip(investConfirmationVM.$formattedFeeInDollar, investConfirmationVM.$formattedFeeInETH)
-			.sink { [weak self] feeInDollar, feeInETH in
-				guard let self, let feeInETH, let feeInDollar else { return }
-				self.showEstimatedFee(feeInETH: feeInETH, feeInDollar: feeInDollar)
-			}.store(in: &cancellables)
+		Publishers.Zip(
+			investConfirmationVM.formattedFeeInDollarPublisher,
+			investConfirmationVM.formattedFeeInETHPublisher
+		).sink { [weak self] feeInDollar, feeInETH in
+			guard let self, let feeInETH, let feeInDollar else { return }
+			self.showEstimatedFee(feeInETH: feeInETH, feeInDollar: feeInDollar)
+		}.store(in: &cancellables)
 	}
 
 	private func checkBalanceEnough() {

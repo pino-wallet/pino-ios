@@ -12,19 +12,21 @@ import Web3_Utility
 class InvestDepositViewController: UIViewController {
 	// MARK: Private Properties
 
-	private var investVM: InvestDepositViewModel!
+	private var investVM: InvestViewModelProtocol!
 	private var investView: InvestDepositView!
 	private var web3 = Web3Core.shared
 	private let walletManager = PinoWalletManager()
+	private let isWithdraw: Bool
 
 	// MARK: Initializers
 
-	init(selectedAsset: AssetsBoardProtocol, selectedProtocol: InvestProtocolViewModel, isWithraw: Bool = false) {
-		self.investVM = InvestDepositViewModel(
-			selectedAsset: selectedAsset,
-			selectedProtocol: selectedProtocol,
-			isWithraw: isWithraw
-		)
+	init(selectedAsset: AssetsBoardProtocol, selectedProtocol: InvestProtocolViewModel, isWithdraw: Bool = false) {
+		self.isWithdraw = isWithdraw
+		if isWithdraw {
+			self.investVM = WithdrawViewModel(selectedAsset: selectedAsset, selectedProtocol: selectedProtocol)
+		} else {
+			self.investVM = InvestDepositViewModel(selectedAsset: selectedAsset, selectedProtocol: selectedProtocol)
+		}
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -121,12 +123,23 @@ class InvestDepositViewController: UIViewController {
 	}
 
 	private func openConfirmationPage() {
-		let investConfirmationVM = InvestConfirmationViewModel(
-			selectedToken: investVM.selectedToken,
-			selectedProtocol: investVM.selectedProtocol,
-			investAmount: investVM.tokenAmount,
-			investAmountInDollar: investVM.dollarAmount
-		)
+		let investConfirmationVM: InvestConfirmationProtocol
+		if isWithdraw {
+			investConfirmationVM = WithdrawConfirmationViewModel(
+				selectedToken: investVM.selectedToken,
+				selectedProtocol: investVM.selectedProtocol,
+				withdrawAmount: investVM.tokenAmount,
+				withdrawAmountInDollar: investVM.dollarAmount
+			)
+		} else {
+			investConfirmationVM = InvestConfirmationViewModel(
+				selectedToken: investVM.selectedToken,
+				selectedProtocol: investVM.selectedProtocol,
+				investAmount: investVM.tokenAmount,
+				investAmountInDollar: investVM.dollarAmount
+			)
+		}
+
 		let investConfirmationVC = InvestConfirmationViewController(confirmationVM: investConfirmationVM)
 		navigationController?.pushViewController(investConfirmationVC, animated: true)
 	}

@@ -1,10 +1,9 @@
 //
-//  CompoundDepositManager.swift
+//  InvestManager.swift
 //  Pino-iOS
 //
-//  Created by Mohi Raoufi on 11/12/23.
+//  Created by Mohi Raoufi on 10/9/23.
 //
-
 import BigInt
 import Combine
 import Foundation
@@ -13,18 +12,16 @@ import Web3
 import Web3_Utility
 import Web3ContractABI
 
-class CompoundDepositManager: Web3ManagerProtocol {
+class InvestManager: Web3ManagerProtocol {
 	// MARK: - Private Properties
 
+	private var investProtocol: InvestProtocolViewModel
 	private var investAmount: String
 	private let selectedToken: AssetViewModel
 	private let nonce = BigNumber.bigRandomeNumber
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes
 	private let web3Client = Web3APIClient()
 	private var cancellables = Set<AnyCancellable>()
-	private var wethToken: AssetViewModel {
-		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
-	}
 
 	private var tokenUIntNumber: BigUInt {
 		Utilities.parseToBigUInt(investAmount, decimals: selectedToken.decimal)!
@@ -44,21 +41,32 @@ class CompoundDepositManager: Web3ManagerProtocol {
 
 	// MARK: Initializers
 
-	init(contract: DynamicContract, selectedToken: AssetViewModel, investAmount: String) {
+	init(
+		contract: DynamicContract,
+		selectedToken: AssetViewModel,
+		investProtocol: InvestProtocolViewModel,
+		investAmount: String
+	) {
 		self.contract = contract
 		self.selectedToken = selectedToken
+		self.investProtocol = investProtocol
 		self.investAmount = investAmount
 	}
 
 	// MARK: Public Methods
 
-	public func getDepositInfo() -> TrxWithGasInfo {
-		if selectedToken.isEth {
-			return compoundETHDeposit()
-		} else if selectedToken.isWEth {
-			return compoundWETHDeposit()
-		} else {
-			return compoundERCDeposit()
+	public func getDepositInfo() -> TrxWithGasInfo? {
+		switch investProtocol {
+		case .maker:
+			return getMakerDepositInfo()
+		case .compound:
+			return getCompoundDepositInfo()
+		case .lido:
+			return getLidoDepositInfo()
+		case .aave:
+			return nil
+		case .balancer, .uniswap:
+			return nil
 		}
 	}
 
@@ -74,33 +82,33 @@ class CompoundDepositManager: Web3ManagerProtocol {
 
 	// MARK: - Private Methods
 
-	private func compoundERCDeposit() -> TrxWithGasInfo {
+	private func getMakerDepositInfo() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
-			let cTokenID = Web3Core.TokenID(id: selectedToken.id).cTokenID.lowercased()
 			firstly {
 				fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
-			}.then { signiture -> Promise<(String, String)> in
+			}.then { signiture -> Promise<(String, String?)> in
 				// Check allowance of protocol
-				self.checkAllowanceOfProvider(
+				let spenderAddress = Web3Core.Constants.sDaiContractAddress
+				return self.checkAllowanceOfProvider(
 					approvingToken: self.selectedToken,
 					approvingAmount: self.investAmount,
-					spenderAddress: cTokenID,
-					ownerAddress: Web3Core.Constants.compoundContractAddress
-				).map { (signiture, $0!) }
-			}.then { signiture, allowanceData -> Promise<(String, String)> in
+					spenderAddress: spenderAddress,
+					ownerAddress: Web3Core.Constants.investContractAddress
+				).map { (signiture, $0) }
+			}.then { signiture, allowanceData -> Promise<(String, String?)> in
 				// Permit Transform
 				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
-			}.then { [self] permitData, allowanceData -> Promise<(String, String, String)> in
-				web3.getDepositV2CallData(
-					tokenAdd: cTokenID,
+			}.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
+				web3.getDaiToSDaiCallData(
 					amount: tokenUIntNumber,
 					recipientAdd: walletManager.currentAccount.eip55Address
 				).map { ($0, permitData, allowanceData) }
 			}.then { protocolCallData, permitData, allowanceData in
 				// MultiCall
-				let callDatas = [allowanceData, permitData, protocolCallData]
+				var callDatas = [permitData, protocolCallData]
+				if let allowanceData { callDatas.insert(allowanceData, at: 0) }
 				return self.callProxyMultiCall(data: callDatas, value: nil)
 			}.done { depositResult in
 				self.depositTrx = depositResult.0
@@ -112,11 +120,21 @@ class CompoundDepositManager: Web3ManagerProtocol {
 		}
 	}
 
-	private func compoundETHDeposit() -> TrxWithGasInfo {
+	private func getLidoDepositInfo() -> TrxWithGasInfo {
+		if selectedToken.isEth {
+			return getLidoETHDepositInfo()
+		} else if selectedToken.isWEth {
+			return getLidoWETHDepositInfo()
+		} else {
+			fatalError("Wrong token for lido investment")
+		}
+	}
+
+	private func getLidoETHDepositInfo() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			let proxyFee = 0.bigNumber.bigUInt
 			firstly {
-				self.web3.getDepositETHV2CallData(
+				self.web3.getETHToSTETHCallData(
 					recipientAdd: walletManager.currentAccount.eip55Address,
 					proxyFee: proxyFee
 				)
@@ -135,7 +153,7 @@ class CompoundDepositManager: Web3ManagerProtocol {
 		}
 	}
 
-	private func compoundWETHDeposit() -> TrxWithGasInfo {
+	private func getLidoWETHDepositInfo() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			firstly {
 				fetchHash()
@@ -145,7 +163,7 @@ class CompoundDepositManager: Web3ManagerProtocol {
 				// Permit Transform
 				self.getProxyPermitTransferData(signiture: signiture)
 			}.then { [self] permitData -> Promise<(String, String)> in
-				web3.getDepositWETHV2CallData(
+				web3.getWETHToSTETHCallData(
 					amount: tokenUIntNumber,
 					recipientAdd: walletManager.currentAccount.eip55Address
 				).map { ($0, permitData) }
@@ -163,71 +181,13 @@ class CompoundDepositManager: Web3ManagerProtocol {
 		}
 	}
 
-	private func compoundWithdraw() {
-		let cTokenID = Web3Core.TokenID(id: selectedToken.id).cTokenID
-		firstly {
-			fetchHash()
-		}.then { plainHash in
-			self.signHash(plainHash: plainHash)
-		}.then { signiture in
-			// Permit Transform
-			self.getProxyPermitTransferData(signiture: signiture)
-		}.then { [self] permitData in
-			web3.getWithdrawV2CallData(
-				tokenAdd: cTokenID,
-				amount: tokenUIntNumber,
-				recipientAdd: walletManager.currentAccount.eip55Address
-			).map { ($0, permitData) }
-		}.then { protocolCallData, permitData in
-			// MultiCall
-			let callDatas = [permitData, protocolCallData]
-			return self.callProxyMultiCall(data: callDatas, value: nil)
-		}.done { trxHash in
-			print(trxHash)
-		}.catch { error in
-			print(error.localizedDescription)
-		}
-	}
-
-	private func compoundETHWithdraw() {
-		firstly {
-			self.web3.getWithdrawETHV2CallData(
-				recipientAdd: walletManager.currentAccount.eip55Address,
-				amount: tokenUIntNumber
-			)
-		}.then { protocolCallData in
-			// MultiCall
-			let callDatas = [protocolCallData]
-			return self.callProxyMultiCall(data: callDatas, value: nil)
-		}.done { trxHash in
-			print(trxHash)
-		}.catch { error in
-			print(error.localizedDescription)
-		}
-	}
-
-	private func compoundWETHWithdraw() {
-		firstly {
-			fetchHash()
-		}.then { plainHash in
-			self.signHash(plainHash: plainHash)
-		}.then { signiture -> Promise<String> in
-			// Permit Transform
-			self.getProxyPermitTransferData(signiture: signiture)
-		}.then { [self] permitData -> Promise<(String, String)> in
-			web3.getWithdrawWETHV2CallData(
-				amount: tokenUIntNumber,
-				recipientAdd: walletManager.currentAccount.eip55Address
-			).map { ($0, permitData) }
-		}.then { protocolCallData, permitData in
-			// MultiCall
-			let callDatas = [permitData, protocolCallData]
-			return self.callProxyMultiCall(data: callDatas, value: nil)
-		}.done { trxHash in
-			print(trxHash)
-		}.catch { error in
-			print(error.localizedDescription)
-		}
+	private func getCompoundDepositInfo() -> TrxWithGasInfo {
+		let compoundManager = CompoundDepositManager(
+			contract: contract,
+			selectedToken: selectedToken,
+			investAmount: investAmount
+		)
+		return compoundManager.getDepositInfo()
 	}
 
 	private func fetchHash() -> Promise<String> {
@@ -236,7 +196,7 @@ class CompoundDepositManager: Web3ManagerProtocol {
 			let hashREq = EIP712HashRequestModel(
 				tokenAdd: selectedToken.id,
 				amount: tokenUIntNumber.description,
-				spender: Web3Core.Constants.compoundContractAddress,
+				spender: Web3Core.Constants.investContractAddress,
 				nonce: nonce.description,
 				deadline: deadline.description
 			)

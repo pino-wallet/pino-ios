@@ -84,7 +84,7 @@ class InvestmentDetailViewController: UIViewController {
 		let investVC = InvestDepositViewController(
 			selectedAsset: selectedAsset,
 			selectedProtocol: selectedAsset.assetProtocol,
-			isWithraw: true
+			isWithdraw: true
 		)
 		navigationController?.pushViewController(investVC, animated: true)
 	}
