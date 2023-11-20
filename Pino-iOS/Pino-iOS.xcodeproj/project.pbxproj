@@ -372,6 +372,8 @@
 		D9714C8D2AE518AE00FF3AAA /* AaveCollateralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9714C8C2AE518AE00FF3AAA /* AaveCollateralManager.swift */; };
 		D9771DE32A80DE380047605E /* UITabBarController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9771DE22A80DE380047605E /* UITabBarController+Extension.swift */; };
 		D97CF62C25B975AD3C131881 /* CoinHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26427FD948787141E7AA599B /* CoinHistoryModel.swift */; };
+		D97DE9DC2B09E65F00DDF4FB /* CollateralPageStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97DE9DB2B09E65F00DDF4FB /* CollateralPageStatus.swift */; };
+		D97DE9DE2B09E68400DDF4FB /* CollateralMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97DE9DD2B09E68400DDF4FB /* CollateralMode.swift */; };
 		D97F0B892A948E790083DA81 /* DexSystemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97F0B882A948E790083DA81 /* DexSystemModel.swift */; };
 		D97F0B8C2A948F760083DA81 /* DexSystemModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97F0B8B2A948F760083DA81 /* DexSystemModelProtocol.swift */; };
 		D97F0B8E2A948FA30083DA81 /* SelectDexSystemCellVMProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97F0B8D2A948FA30083DA81 /* SelectDexSystemCellVMProtocol.swift */; };
@@ -1169,6 +1171,8 @@
 		D9714C8A2AE4FE5D00FF3AAA /* AaveProxyABIJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AaveProxyABIJson.json; sourceTree = "<group>"; };
 		D9714C8C2AE518AE00FF3AAA /* AaveCollateralManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AaveCollateralManager.swift; sourceTree = "<group>"; };
 		D9771DE22A80DE380047605E /* UITabBarController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+Extension.swift"; sourceTree = "<group>"; };
+		D97DE9DB2B09E65F00DDF4FB /* CollateralPageStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralPageStatus.swift; sourceTree = "<group>"; };
+		D97DE9DD2B09E68400DDF4FB /* CollateralMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralMode.swift; sourceTree = "<group>"; };
 		D97F0B882A948E790083DA81 /* DexSystemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexSystemModel.swift; sourceTree = "<group>"; };
 		D97F0B8B2A948F760083DA81 /* DexSystemModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexSystemModelProtocol.swift; sourceTree = "<group>"; };
 		D97F0B8D2A948FA30083DA81 /* SelectDexSystemCellVMProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDexSystemCellVMProtocol.swift; sourceTree = "<group>"; };
@@ -3062,6 +3066,8 @@
 			isa = PBXGroup;
 			children = (
 				D93572A72A99E85300A0DE20 /* BorrowingTokenModel.swift */,
+				D97DE9DB2B09E65F00DDF4FB /* CollateralPageStatus.swift */,
+				D97DE9DD2B09E68400DDF4FB /* CollateralMode.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4825,6 +4831,7 @@
 				DF00179529F85774001164EA /* KeychainManager.swift in Sources */,
 				E35BB64D2A596E90003987F5 /* SelectSwapProvidersViewModel.swift in Sources */,
 				325E592A9AA1B24C522EA47F /* MediumStyle.swift in Sources */,
+				D97DE9DC2B09E65F00DDF4FB /* CollateralPageStatus.swift in Sources */,
 				D93C41FF29F7D3DF003F2297 /* EditAccountOptionModel.swift in Sources */,
 				D9C4CF012A408C8A00475F01 /* RecentAddressCell.swift in Sources */,
 				807A3209FA3C30C37B860B91 /* NetworkManager.swift in Sources */,
@@ -5018,6 +5025,7 @@
 				DF1D90E72A973AFA00435D85 /* ApprovingLoadingView.swift in Sources */,
 				E25F4C14C3273F63F22E983C /* UIView+Extension.swift in Sources */,
 				403691BD2A3DFFB60013AB6D /* ToastDelegate.swift in Sources */,
+				D97DE9DE2B09E68400DDF4FB /* CollateralMode.swift in Sources */,
 				40F704592A03D5DC004D74FE /* PrivateKeyTextView.swift in Sources */,
 				8F2B1AD252EE32B2F328105B /* URLParameterEncoding.swift in Sources */,
 				7788C1D86DF1F4B1E6B2DE54 /* URLRequest+Extension.swift in Sources */,

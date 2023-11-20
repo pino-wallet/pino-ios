@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class CollateralIncreaseAmountView: UIView {
 	// MARK: - Private Properties
@@ -24,6 +25,7 @@ class CollateralIncreaseAmountView: UIView {
 	private let amountSpacerView = UIView()
 	private let maxAmountSpacerView = UIView()
 	private let continueButton = PinoButton(style: .deactive)
+    private let errorContainerView = UIView()
 	private let errorTextContainerView = UIView()
 	private let errorTextLabel = PinoLabel(style: .title, text: "")
 	private let healthScoreStackView = UIStackView()
@@ -36,16 +38,7 @@ class CollateralIncreaseAmountView: UIView {
 	private var nextButtonBottomConstraint: NSLayoutConstraint!
 	private let nextButtonBottomConstant = CGFloat(12)
 
-	private var pageStatus: PageStatus = .normal {
-		didSet {
-			updateViewWithPageStatus()
-		}
-	}
-
-	private enum PageStatus {
-		case normal
-		case collateralError(String)
-	}
+    private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 
@@ -63,6 +56,9 @@ class CollateralIncreaseAmountView: UIView {
 		setupStyles()
 		setupConstraints()
 		setupNotifications()
+        updateAmountStatus(enteredAmount: .emptyString)
+        setupBindings()
+        setupSkeletonLoading()
 	}
 
 	required init?(coder: NSCoder) {
@@ -75,9 +71,10 @@ class CollateralIncreaseAmountView: UIView {
 		addSubview(contentStackView)
 		addSubview(continueButton)
 		errorTextContainerView.addSubview(errorTextLabel)
+        errorContainerView.addSubview(errorTextContainerView)
 		contentStackView.addArrangedSubview(amountCardView)
 		contentStackView.addArrangedSubview(healthScoreStackView)
-		contentStackView.addArrangedSubview(errorTextContainerView)
+		contentStackView.addArrangedSubview(errorContainerView)
 		amountCardView.addSubview(amountcontainerStackView)
 		amountcontainerStackView.addArrangedSubview(amountStackView)
 		amountcontainerStackView.addArrangedSubview(maximumStackView)
@@ -172,6 +169,9 @@ class CollateralIncreaseAmountView: UIView {
 	}
 
 	private func setupConstraints() {
+        maxAmountLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 38).isActive = true
+        
+        errorTextContainerView.pin(.horizontalEdges(padding: 0), .bottom(padding: 0), .top(padding: 24))
 		contentStackView.pin(
 			.horizontalEdges(padding: 16),
 			.top(to: layoutMarginsGuide, padding: 24)
@@ -195,22 +195,31 @@ class CollateralIncreaseAmountView: UIView {
 		)
 		addConstraint(nextButtonBottomConstraint)
 	}
+    
+    private func setupSkeletonLoading() {
+        maxAmountLabel.isSkeletonable = true
+    }
 
-	private func animateAmountHealthScoreView(isHidden: Bool) {
-		UIView.animate(withDuration: 0.2, animations: {
-			self.collateralIncreaseAmountHealthScore.isHiddenInStackView = isHidden
-			if isHidden {
-				self.collateralIncreaseAmountHealthScore.alpha = 0
-			} else {
-				self.collateralIncreaseAmountHealthScore.alpha = 1
-			}
-		})
+    private func animateAmountHealthScoreView(isHidden: Bool, completion: @escaping () -> Void = {}) {
+        if collateralIncreaseAmountVM.collateralPageStatus != .openPositionError {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.collateralIncreaseAmountHealthScore.isHiddenInStackView = isHidden
+                if isHidden {
+                    self.collateralIncreaseAmountHealthScore.alpha = 0
+                } else {
+                    self.collateralIncreaseAmountHealthScore.alpha = 1
+                }
+            }, completion: { _ in
+                completion()
+            })
+        }
 	}
+    
 
 	private func updateView() {
 		if collateralIncreaseAmountVM.selectedToken.isVerified {
 			tokenView.tokenImageURL = collateralIncreaseAmountVM.tokenImage
-			updateAmount(enteredAmount: amountTextfield.text ?? .emptyString)
+			updateAmountStatus(enteredAmount: amountTextfield.text ?? .emptyString)
 			amountLabel.isHidden = false
 		} else {
 			tokenView.customTokenImage = collateralIncreaseAmountVM.selectedToken.customAssetImage
@@ -225,34 +234,18 @@ class CollateralIncreaseAmountView: UIView {
 		if textField.text?.last == "." || textField.text?.last == "," { return }
 		if let amountText = textField.text, amountText != .emptyString {
 			collateralIncreaseAmountVM.calculateDollarAmount(amountText)
-			updateAmount(enteredAmount: amountText)
+			updateAmountStatus(enteredAmount: amountText)
 			animateAmountHealthScoreView(isHidden: false)
 		} else {
 			collateralIncreaseAmountVM.calculateDollarAmount(.emptyString)
-			updateAmount(enteredAmount: .emptyString)
+			updateAmountStatus(enteredAmount: .emptyString)
 			animateAmountHealthScoreView(isHidden: true)
 		}
 	}
 
-	private func updateAmount(enteredAmount: String) {
-		let amountStatus = collateralIncreaseAmountVM.checkBalanceStatus(amount: enteredAmount)
-		switch amountStatus {
-		case .isZero:
-			maxAmountTitle.textColor = .Pino.label
-			maxAmountLabel.textColor = .Pino.label
-			continueButton.setTitle(collateralIncreaseAmountVM.continueButtonTitle, for: .normal)
-			continueButton.style = .deactive
-		case .isEnough:
-			maxAmountTitle.textColor = .Pino.label
-			maxAmountLabel.textColor = .Pino.label
-			continueButton.setTitle(collateralIncreaseAmountVM.continueButtonTitle, for: .normal)
-			continueButton.style = .active
-		case .isNotEnough:
-			maxAmountTitle.textColor = .Pino.orange
-			maxAmountLabel.textColor = .Pino.orange
-			continueButton.setTitle(collateralIncreaseAmountVM.insufficientAmountButtonTitle, for: .normal)
-			continueButton.style = .deactive
-		}
+	private func updateAmountStatus(enteredAmount: String) {
+        collateralIncreaseAmountVM.checkAmountStatus(amount: enteredAmount)
+		
 		amountLabel.text = collateralIncreaseAmountVM.dollarAmount
 		if amountTextfield.text == .emptyString {
 			continueButton.style = .deactive
@@ -260,33 +253,69 @@ class CollateralIncreaseAmountView: UIView {
 
 		// ACTIVATING continue button since in devnet we don't need validation
 		// to check if there is balance
-		if Web3Network.current == .ganashDev {
-			continueButton.style = .active
-		}
+//		if Web3Network.current == .ganashDev {
+//			continueButton.style = .active
+//		}
 	}
-
-	private func updateViewWithPageStatus() {
-		switch pageStatus {
-		case .normal:
-			errorTextContainerView.isHidden = true
-			#warning("we should validate for other things here to enable coninue button or not")
-		case let .collateralError(errorDescription):
-			contentStackView.spacing = 24
-			errorTextContainerView.isHidden = false
-			errorTextLabel.text = errorDescription
-			continueButton.style = .deactive
-		}
-
-		// ACTIVATING continue button since in devnet we don't need validation
-		// to check if there is balance
-		if Web3Network.current == .ganashDev {
-			continueButton.style = .active
-		}
-	}
+    
+    private func setupBindings() {
+        collateralIncreaseAmountVM.$collateralPageStatus.sink { collateralPageStatus in
+            self.updateViewWithStatus(collateralPageStatus: collateralPageStatus)
+        }.store(in: &cancellables)
+    }
+    
+    private func updateViewWithStatus(collateralPageStatus: CollateralPageStatus) {
+        switch collateralPageStatus {
+        case .isZero:
+            maxAmountTitle.textColor = .Pino.label
+            maxAmountLabel.textColor = .Pino.label
+            continueButton.setTitle(collateralIncreaseAmountVM.continueButtonTitle, for: .normal)
+            continueButton.style = .deactive
+            errorTextContainerView.isHidden = true
+            self.hideSkeletonView()
+            self.maxAmountLabel.text = self.collateralIncreaseAmountVM.formattedMaxHoldAmount
+        case .normal:
+            maxAmountTitle.textColor = .Pino.label
+            maxAmountLabel.textColor = .Pino.label
+            continueButton.setTitle(collateralIncreaseAmountVM.continueButtonTitle, for: .normal)
+            continueButton.style = .active
+            errorTextContainerView.isHidden = true
+            self.hideSkeletonView()
+            self.maxAmountLabel.text = self.collateralIncreaseAmountVM.formattedMaxHoldAmount
+        case .isNotEnough:
+            maxAmountTitle.textColor = .Pino.orange
+            maxAmountLabel.textColor = .Pino.orange
+            continueButton.setTitle(collateralIncreaseAmountVM.insufficientAmountButtonTitle, for: .normal)
+            continueButton.style = .deactive
+            errorTextContainerView.isHidden = true
+            self.hideSkeletonView()
+            self.maxAmountLabel.text = self.collateralIncreaseAmountVM.formattedMaxHoldAmount
+        case .loading:
+               maxAmountTitle.textColor = .Pino.label
+               maxAmountLabel.textColor = .Pino.label
+               errorTextContainerView.isHidden = true
+               continueButton.setTitle(collateralIncreaseAmountVM.loadingButtonTitle, for: .normal)
+               continueButton.style = .deactive
+        case .openPositionError:
+            maxAmountTitle.textColor = .Pino.label
+            maxAmountLabel.textColor = .Pino.label
+            errorTextLabel.text = collateralIncreaseAmountVM.positionErrorText
+            continueButton.setTitle(collateralIncreaseAmountVM.continueButtonTitle, for: .normal)
+            self.hideSkeletonView()
+            self.maxAmountLabel.text = self.collateralIncreaseAmountVM.formattedMaxHoldAmount
+            animateAmountHealthScoreView(isHidden: true, completion: {
+                self.errorTextContainerView.isHidden = false
+            })
+            continueButton.style = .deactive
+        }
+    }
 
 	@objc
 	private func putMaxAmountInTextField() {
-		amountTextfield.text = collateralIncreaseAmountVM.maxHoldAmount.plainSevenDigitFormat
+        guard let maxHoldAmount = collateralIncreaseAmountVM.maxHoldAmount else {
+            return
+        }
+		amountTextfield.text = maxHoldAmount.plainSevenDigitFormat
 		amountLabel.text = collateralIncreaseAmountVM.dollarAmount
 		animateAmountHealthScoreView(isHidden: false)
 
@@ -294,13 +323,13 @@ class CollateralIncreaseAmountView: UIView {
 			collateralIncreaseAmountVM.calculateDollarAmount(amountTextfield.text ?? .emptyString)
 			maxAmountLabel.text = collateralIncreaseAmountVM.formattedMaxHoldAmount
 		} else {
-			collateralIncreaseAmountVM.tokenAmount = collateralIncreaseAmountVM.maxHoldAmount
+			collateralIncreaseAmountVM.tokenAmount = maxHoldAmount
 				.plainSevenDigitFormat
 			collateralIncreaseAmountVM.dollarAmount = collateralIncreaseAmountVM.maxAmountInDollars
 		}
 
 		maxAmountLabel.text = collateralIncreaseAmountVM.formattedMaxHoldAmount
-		updateAmount(enteredAmount: amountTextfield.text!.trimmCurrency)
+		updateAmountStatus(enteredAmount: amountTextfield.text!.trimmCurrency)
 	}
 
 	@objc
