@@ -103,7 +103,7 @@ class CollateralIncreaseAmountViewModel {
 			}
 			self.checkAmountStatus(amount: self.tokenAmount)
 		}.catch { error in
-            print("heh", error)
+			print("heh", error)
 			self.collateralPageStatus = .loading
 			Toast.default(
 				title: self.feeTxErrorText,
