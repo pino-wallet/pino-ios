@@ -21,7 +21,7 @@ class InvestDepositViewController: UIViewController {
 	// MARK: Initializers
 
 	init(selectedAsset: AssetsBoardProtocol, selectedProtocol: InvestProtocolViewModel, isWithdraw: Bool = false) {
-		self.isWithdraw = isWithdraw
+		self.isWithdraw = true
 		if isWithdraw {
 			self.investVM = WithdrawViewModel(selectedAsset: selectedAsset, selectedProtocol: selectedProtocol)
 		} else {
@@ -90,9 +90,15 @@ class InvestDepositViewController: UIViewController {
 			openConfirmationPage()
 			return
 		}
+		getTokenAddress { tokenAddress in
+			checkAllowance(of: tokenAddress)
+		}
+	}
+
+	private func checkAllowance(of tokenAddress: String) {
 		firstly {
 			try web3.getAllowanceOf(
-				contractAddress: investVM.selectedToken.id.lowercased(),
+				contractAddress: tokenAddress,
 				spenderAddress: Web3Core.Constants.permitAddress,
 				ownerAddress: walletManager.currentAccount.eip55Address
 			)
@@ -101,7 +107,7 @@ class InvestDepositViewController: UIViewController {
 			let destTokenAmount = Utilities.parseToBigUInt(investVM.tokenAmount, decimals: destTokenDecimal)
 			if allowanceAmount == 0 || allowanceAmount < destTokenAmount! {
 				// NOT ALLOWED
-				openTokenApprovePage()
+				openTokenApprovePage(tokenID: tokenAddress)
 			} else {
 				// ALLOWED
 				openConfirmationPage()
@@ -111,9 +117,9 @@ class InvestDepositViewController: UIViewController {
 		}
 	}
 
-	private func openTokenApprovePage() {
+	private func openTokenApprovePage(tokenID: String) {
 		let approveVC = ApproveContractViewController(
-			approveContractID: investVM.selectedToken.id,
+			approveContractID: tokenID,
 			showConfirmVC: {
 				self.openConfirmationPage()
 			}, approveType: .invest
@@ -142,5 +148,23 @@ class InvestDepositViewController: UIViewController {
 
 		let investConfirmationVC = InvestConfirmationViewController(confirmationVM: investConfirmationVM)
 		navigationController?.pushViewController(investConfirmationVC, animated: true)
+	}
+
+	private func getTokenAddress(completion: (String) -> Void) {
+		if isWithdraw {
+			switch investVM.selectedProtocol {
+			case .maker:
+				completion("0x83f20f44975d03b1b09e64809b757c47f942beea")
+			case .compound:
+				completion("")
+			case .lido:
+				completion("")
+			case .aave:
+				completion("")
+			}
+		} else {
+			let tokenAddress = investVM.selectedToken.id.lowercased()
+			completion(tokenAddress)
+		}
 	}
 }

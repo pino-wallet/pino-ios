@@ -36,7 +36,7 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 
 	internal var investProxyContract: DynamicContract {
 		switch selectedProtocol {
-		case .uniswap, .balancer, .maker, .lido:
+		case .maker, .lido:
 			return try! web3.getInvestProxyContract()
 		case .compound:
 			return try! web3.getCompoundProxyContract()
@@ -87,11 +87,7 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 	// MARK: - Public Methods
 
 	public func getTransactionInfo() {
-		guard let depositInfoPromiss = investManager.getDepositInfo() else {
-			showError()
-			return
-		}
-		depositInfoPromiss.done { depositTrx, gasInfo in
+		investManager.getDepositInfo().done { depositTrx, gasInfo in
 			self.gasFee = gasInfo.fee
 			self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
 			self.formattedFeeInETH = gasInfo.fee.sevenDigitFormat

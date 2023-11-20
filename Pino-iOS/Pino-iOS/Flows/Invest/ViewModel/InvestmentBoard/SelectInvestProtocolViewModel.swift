@@ -10,6 +10,6 @@ import Foundation
 struct SelectInvestProtocolViewModel: SelectDexSystemVMProtocol {
 	// MARK: - Public Properties
 
-	public let dexSystemList: [InvestProtocolViewModel] = [.uniswap, .compound, .aave, .balancer]
+	public let dexSystemList: [InvestProtocolViewModel] = [.maker, .compound, .lido, .aave]
 	public let pageTitle = "Select protocol"
 }

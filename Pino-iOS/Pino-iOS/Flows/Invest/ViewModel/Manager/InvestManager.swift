@@ -55,7 +55,7 @@ class InvestManager: Web3ManagerProtocol {
 
 	// MARK: Public Methods
 
-	public func getDepositInfo() -> TrxWithGasInfo? {
+	public func getDepositInfo() -> TrxWithGasInfo {
 		switch investProtocol {
 		case .maker:
 			return getMakerDepositInfo()
@@ -64,9 +64,7 @@ class InvestManager: Web3ManagerProtocol {
 		case .lido:
 			return getLidoDepositInfo()
 		case .aave:
-			return nil
-		case .balancer, .uniswap:
-			return nil
+			return getAaveDepositInfo()
 		}
 	}
 
@@ -188,6 +186,11 @@ class InvestManager: Web3ManagerProtocol {
 			investAmount: investAmount
 		)
 		return compoundManager.getDepositInfo()
+	}
+
+	private func getAaveDepositInfo() -> TrxWithGasInfo {
+		TrxWithGasInfo { seal in
+		}
 	}
 
 	private func fetchHash() -> Promise<String> {

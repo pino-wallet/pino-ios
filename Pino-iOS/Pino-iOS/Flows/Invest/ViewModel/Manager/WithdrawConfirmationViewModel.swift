@@ -36,7 +36,7 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 
 	internal var investProxyContract: DynamicContract {
 		switch selectedProtocol {
-		case .uniswap, .balancer, .maker, .lido:
+		case .maker, .lido:
 			return try! web3.getInvestProxyContract()
 		case .compound:
 			return try! web3.getCompoundProxyContract()
@@ -87,11 +87,7 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 	// MARK: - Public Methods
 
 	public func getTransactionInfo() {
-		guard let withdrawInfoPromiss = withdrawManager.getWithdrawInfo() else {
-			showError()
-			return
-		}
-		withdrawInfoPromiss.done { withdrawTrx, gasInfo in
+		withdrawManager.getWithdrawInfo().done { withdrawTrx, gasInfo in
 			self.gasFee = gasInfo.fee
 			self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
 			self.formattedFeeInETH = gasInfo.fee.sevenDigitFormat
