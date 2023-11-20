@@ -19,4 +19,12 @@ final class Web3APIClient: Web3APIService {
 		-> AnyPublisher<EIP712HashResponseModel, APIError> {
 		networkManager.request(.hashTypeData(eip712ReqModel: eip712HashReqInfo))
 	}
+
+	public func getTokenPositionID(
+		tokenAdd: String,
+		positionType: IndexerPositionType,
+		protocolName: String
+	) -> AnyPublisher<PositionTokenModel, APIError> {
+		networkManager.request(.positionID(tokenAdd: tokenAdd, positionType: positionType, protocolName: protocolName))
+	}
 }

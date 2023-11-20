@@ -22,7 +22,7 @@ class InvestDepositViewController: UIViewController {
 
 	init(selectedAsset: AssetsBoardProtocol, selectedProtocol: InvestProtocolViewModel, isWithdraw: Bool = false) {
 		self.isWithdraw = true
-		if isWithdraw {
+		if self.isWithdraw {
 			self.investVM = WithdrawViewModel(selectedAsset: selectedAsset, selectedProtocol: selectedProtocol)
 		} else {
 			self.investVM = InvestDepositViewModel(selectedAsset: selectedAsset, selectedProtocol: selectedProtocol)
@@ -91,7 +91,7 @@ class InvestDepositViewController: UIViewController {
 			return
 		}
 		getTokenAddress { tokenAddress in
-			checkAllowance(of: tokenAddress)
+			self.checkAllowance(of: tokenAddress)
 		}
 	}
 
@@ -150,18 +150,9 @@ class InvestDepositViewController: UIViewController {
 		navigationController?.pushViewController(investConfirmationVC, animated: true)
 	}
 
-	private func getTokenAddress(completion: (String) -> Void) {
-		if isWithdraw {
-			switch investVM.selectedProtocol {
-			case .maker:
-				completion("0x83f20f44975d03b1b09e64809b757c47f942beea")
-			case .compound:
-				completion("")
-			case .lido:
-				completion("")
-			case .aave:
-				completion("")
-			}
+	private func getTokenAddress(completion: @escaping (String) -> Void) {
+		if let withdrawVM = investVM as? WithdrawViewModel {
+			withdrawVM.getTokenPositionID(completion: completion)
 		} else {
 			let tokenAddress = investVM.selectedToken.id.lowercased()
 			completion(tokenAddress)
