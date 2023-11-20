@@ -8,9 +8,9 @@
 import Foundation
 
 enum CollateralPageStatus {
-    case normal
-    case loading
-    case openPositionError
-    case isNotEnough
-    case isZero
+	case normal
+	case loading
+	case openPositionError
+	case isNotEnough
+	case isZero
 }

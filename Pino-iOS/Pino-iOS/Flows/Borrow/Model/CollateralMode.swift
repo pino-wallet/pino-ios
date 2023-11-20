@@ -8,6 +8,6 @@
 import Foundation
 
 enum CollateralMode {
-    case increase
-    case create
+	case increase
+	case create
 }

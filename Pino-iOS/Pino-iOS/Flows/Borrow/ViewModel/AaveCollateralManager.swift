@@ -183,7 +183,7 @@ class AaveCollateralManager: Web3ManagerProtocol {
 				self.depositGasInfo = depositResults.1
 				seal.fulfill(depositResults)
 			}.catch { error in
-                seal.reject(error)
+				seal.reject(error)
 			}
 		}
 	}
@@ -209,7 +209,7 @@ class AaveCollateralManager: Web3ManagerProtocol {
 				self.depositGasInfo = depositResults.1
 				seal.fulfill(depositResults)
 			}.catch { error in
-                seal.reject(error)
+				seal.reject(error)
 			}
 		}
 	}
