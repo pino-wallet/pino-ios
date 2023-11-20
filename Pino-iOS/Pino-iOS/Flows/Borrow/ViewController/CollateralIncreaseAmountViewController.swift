@@ -27,6 +27,17 @@ class CollateralIncreaseAmountViewController: UIViewController {
 		setupNavigationBar()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		if isBeingPresented || isMovingToParent {
+			collateralIncreaseAmountVM.setupRequestTimer()
+			collateralIncreaseAmountView.showSkeletonView()
+		}
+	}
+
+	override func viewDidDisappear(_ animated: Bool) {
+		collateralIncreaseAmountVM.destroyRequestTimer()
+	}
+
 	// MARK: Initializers
 
 	init(collateralIncreaseAmountVM: CollateralIncreaseAmountViewModel) {
