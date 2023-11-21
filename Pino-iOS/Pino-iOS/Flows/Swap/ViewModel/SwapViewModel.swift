@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import PromiseKit
 import Web3_Utility
 
 class SwapViewModel {
@@ -30,6 +31,8 @@ class SwapViewModel {
 	// MARK: - Private Properties
 
 	private let priceManager = SwapPriceManager()
+	private var web3 = Web3Core.shared
+	private let walletManager = PinoWalletManager()
 
 	private var swapSide: SwapSide? {
 		if !fromToken.isEditing && !toToken.isEditing {
@@ -104,6 +107,33 @@ class SwapViewModel {
 			completion(.sell, fromToken, toToken)
 		case .buy:
 			completion(.buy, toToken, fromToken)
+		}
+	}
+
+	public func showConfirmOrApprovePage(_ showApprovePage: @escaping (Bool) -> Void) {
+		if fromToken.selectedToken.isEth {
+			showApprovePage(false)
+			return
+		}
+
+		firstly {
+			try web3.getAllowanceOf(
+				contractAddress: fromToken.selectedToken.id.lowercased(),
+				spenderAddress: Web3Core.Constants.permitAddress,
+				ownerAddress: walletManager.currentAccount.eip55Address
+			)
+		}.done { [self] allowanceAmount in
+			let destTokenDecimal = fromToken.selectedToken.decimal
+			let destTokenAmount = Utilities.parseToBigUInt(fromToken.tokenAmount!, decimals: destTokenDecimal)
+			if allowanceAmount == 0 || allowanceAmount < destTokenAmount! {
+				// NOT ALLOWED
+				showApprovePage(true)
+			} else {
+				// ALLOWED
+				showApprovePage(false)
+			}
+		}.catch { error in
+			print(error)
 		}
 	}
 

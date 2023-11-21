@@ -48,10 +48,6 @@ struct W3CallDataGenerator {
 			multicall.append(filledCalls[i])
 		}
 
-		multicall.forEach { call in
-			print(call)
-		}
-
 		return multicall.reduce("") { partialResult, nexStr in
 			partialResult + nexStr
 		}
