@@ -125,17 +125,6 @@ class AaveCollateralManager: Web3ManagerProtocol {
 		web3.checkIfAssetUsedAsCollateral(assetAddress: asset.id)
 	}
 
-//	public func confirmDeposit(completion: @escaping (Result<String>) -> Void) {
-//		guard let depositTRX else { return }
-//		web3.callTransaction(trx: depositTRX).done { trxHash in
-//			#warning("i should add pending activity here")
-//			#warning("i should send useUserResrverAsCollateral tx here")
-//			completion(.fulfilled(trxHash))
-//		}.catch { error in
-//			completion(.rejected(error))
-//		}
-//	}
-
 	public func getERC20CollateralData() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			firstly {
