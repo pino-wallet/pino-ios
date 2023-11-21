@@ -160,7 +160,7 @@ class SwapViewController: UIViewController {
 	}
 
 	private func selectAssetForFromToken() {
-		var filteredAssets = assets!.filter { $0.isSelected && !$0.holdAmount.isZero && $0.isVerified }
+		var filteredAssets = assets!.filter { $0.isSelected && !$0.holdAmount.isZero }
 		// To prevent swapping same tokens
 		filteredAssets.removeAll(where: { $0.id == swapVM.toToken.selectedToken.id })
 		openSelectAssetPage(assets: filteredAssets) { selectedToken in
@@ -169,7 +169,7 @@ class SwapViewController: UIViewController {
 	}
 
 	private func selectAssetForToToken() {
-		var filteredAssets = assets!.filter { $0.isVerified }
+		var filteredAssets = assets!
 		// To prevent swapping same tokens
 		filteredAssets.removeAll(where: { $0.id == swapVM.fromToken.selectedToken.id })
 		openSelectAssetPage(assets: filteredAssets) { selectedToken in

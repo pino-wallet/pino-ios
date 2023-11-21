@@ -224,10 +224,12 @@ class SwapViewModel {
 		guard let swapProvider else { return }
 		swapFeeVM.swapProviderVM = swapProvider
 		updateBestRateTag()
-		swapFeeVM.calculatePriceImpact(
-			srcTokenAmount: fromToken.decimalDollarAmount,
-			destTokenAmount: toToken.decimalDollarAmount
-		)
+		if fromToken.selectedToken.isVerified && toToken.selectedToken.isVerified {
+			swapFeeVM.calculatePriceImpact(
+				srcTokenAmount: fromToken.decimalDollarAmount,
+				destTokenAmount: toToken.decimalDollarAmount
+			)
+		}
 	}
 
 	private func removePreviousFeeInfo() {
@@ -263,10 +265,12 @@ class SwapViewModel {
 		updateDestinationToken(destToken: destToken, tokenAmount: amount)
 		swapFeeVM.swapProviderVM = nil
 		swapFeeVM.updateQuote(srcToken: fromToken, destToken: toToken)
-		swapFeeVM.calculatePriceImpact(
-			srcTokenAmount: fromToken.decimalDollarAmount,
-			destTokenAmount: toToken.decimalDollarAmount
-		)
+		if fromToken.selectedToken.isVerified && toToken.selectedToken.isVerified {
+			swapFeeVM.calculatePriceImpact(
+				srcTokenAmount: fromToken.decimalDollarAmount,
+				destTokenAmount: toToken.decimalDollarAmount
+			)
+		}
 	}
 
 	private func isEthToWeth() -> Bool {

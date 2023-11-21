@@ -276,6 +276,10 @@ class SwapFeeView: UIView {
 			self.updateSaveAmount(saveAmount)
 		}.store(in: &cancellables)
 
+		swapFeeVM.$calculatedAmount.sink { saveAmount in
+			self.hideLoading()
+		}.store(in: &cancellables)
+
 		swapFeeVM.$priceImpact.sink { priceImpact in
 			self.updatePriceImpact(priceImpact)
 		}.store(in: &cancellables)
