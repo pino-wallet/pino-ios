@@ -25,6 +25,7 @@ class ApproveContractViewController: UIViewController {
 	public enum ApproveType: String {
 		case collateral = "collateralizing"
 		case invest = "investing"
+		case withdraw = "Withdrawal"
 		case swap = "swapping"
 		case repay = "repayment"
 	}

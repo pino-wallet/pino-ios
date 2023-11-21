@@ -10,12 +10,12 @@ import UIKit
 class InvestConfirmationViewController: AuthenticationLockViewController {
 	// MARK: - Private Properties
 
-	private let investConfirmationVM: InvestConfirmationViewModel
+	private let investConfirmationVM: InvestConfirmationProtocol
 	private var investConfirmationView: InvestConfirmationView!
 
 	// MARK: - Initializers
 
-	init(confirmationVM: InvestConfirmationViewModel) {
+	init(confirmationVM: InvestConfirmationProtocol) {
 		self.investConfirmationVM = confirmationVM
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -32,7 +32,7 @@ class InvestConfirmationViewController: AuthenticationLockViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		investConfirmationVM.getDepositInfo()
+		investConfirmationVM.getTransactionInfo()
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -74,7 +74,7 @@ class InvestConfirmationViewController: AuthenticationLockViewController {
 
 	private func confirmInvestment() {
 		unlockApp {
-			self.investConfirmationVM.confirmDeposit {
+			self.investConfirmationVM.confirmTransaction {
 				self.dismiss(animated: true)
 			}
 		}
@@ -83,9 +83,7 @@ class InvestConfirmationViewController: AuthenticationLockViewController {
 	private func getFee() {
 		investConfirmationView.hideFeeCalculationError()
 		investConfirmationView.showSkeletonView()
-		investConfirmationVM.getFee().catch { error in
-			self.showFeeError(error)
-		}
+		investConfirmationVM.getTransactionInfo()
 	}
 
 	private func showFeeError(_ error: Error) {

@@ -32,7 +32,7 @@ class InvestDepositView: UIView {
 	private let estimateSectionSpacerView = UIView()
 	private let continueButton = PinoButton(style: .deactive)
 	private var nextButtonTapped: () -> Void
-	private var investVM: InvestDepositViewModel
+	private var investVM: InvestViewModelProtocol
 
 	private var keyboardHeight: CGFloat = 320
 	private var nextButtonBottomConstraint: NSLayoutConstraint!
@@ -46,7 +46,7 @@ class InvestDepositView: UIView {
 	// MARK: - Initializers
 
 	init(
-		investVM: InvestDepositViewModel,
+		investVM: InvestViewModelProtocol,
 		nextButtonTapped: @escaping (() -> Void)
 	) {
 		self.investVM = investVM
@@ -88,6 +88,7 @@ class InvestDepositView: UIView {
 		estimatedReturnStackView.addArrangedSubview(estimatedReturnLabel)
 
 		continueButton.addAction(UIAction(handler: { _ in
+			self.continueButton.style = .loading
 			self.nextButtonTapped()
 		}), for: .touchUpInside)
 
@@ -192,7 +193,8 @@ class InvestDepositView: UIView {
 	}
 
 	private func setupBinding() {
-		investVM.$yearlyEstimatedReturn.sink { estimatedReturn in
+		guard let depositVM = investVM as? InvestDepositViewModel else { return }
+		depositVM.$yearlyEstimatedReturn.sink { estimatedReturn in
 			self.updateEstimatedReturn(estimatedReturn)
 		}.store(in: &cancellable)
 	}
@@ -266,25 +268,20 @@ class InvestDepositView: UIView {
 
 	@objc
 	private func putMaxAmountInTextField() {
-		amountTextfield.text = investVM.maxHoldAmount.sevenDigitFormat
-		amountLabel.text = investVM.dollarAmount
-
-		if investVM.selectedToken.isEth {
-			investVM.calculateDollarAmount(amountTextfield.text ?? .emptyString)
-			maxAmountLabel.text = investVM.formattedMaxHoldAmount
-		} else {
-			investVM.maxHoldAmount = investVM.selectedToken.holdAmount
-			investVM.tokenAmount = investVM.selectedToken.holdAmount.sevenDigitFormat
-			investVM.dollarAmount = investVM.selectedToken.holdAmountInDollor.priceFormat
-		}
-
-		maxAmountLabel.text = investVM.formattedMaxHoldAmount
+		investVM.calculateDollarAmount(investVM.maxAvailableAmount)
+		amountTextfield.text = investVM.maxAvailableAmount.sevenDigitFormat
 		updateAmount(enteredAmount: amountTextfield.text!.trimmCurrency)
 	}
 
 	@objc
 	private func focusOnAmountTextField() {
 		amountTextfield.becomeFirstResponder()
+	}
+
+	// MARK: Public Methods
+
+	public func stopLoading() {
+		continueButton.style = .active
 	}
 }
 

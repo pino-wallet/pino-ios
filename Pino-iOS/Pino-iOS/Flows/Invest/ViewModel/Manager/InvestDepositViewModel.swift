@@ -8,39 +8,18 @@
 import BigInt
 import Foundation
 
-class InvestDepositViewModel {
+class InvestDepositViewModel: InvestViewModelProtocol {
 	// MARK: - Public Properties
 
-	public let maxTitle = "Available: "
-	public let insufficientAmountButtonTitle = "Insufficient amount"
-	public var textFieldPlaceHolder = "0"
-	public var estimatedReturnTitle = "Yearly estimated return"
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
-	public var maxHoldAmount: BigNumber!
+	public var maxAvailableAmount: BigNumber!
 	public var selectedInvestableAsset: InvestableAssetViewModel?
 	public var selectedToken: AssetViewModel!
 	public var selectedProtocol: InvestProtocolViewModel
-	public let isWithraw: Bool
-
-	public var formattedMaxHoldAmount: String {
-		maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
-	}
-
+	public var continueButtonTitle = "Deposit"
 	public var pageTitle: String {
-		if isWithraw {
-			return "Withdraw \(selectedToken.symbol)"
-		} else {
-			return "Invest in \(selectedToken.symbol)"
-		}
-	}
-
-	public var continueButtonTitle: String {
-		if isWithraw {
-			return "Withdraw"
-		} else {
-			return "Deposit"
-		}
+		"Invest in \(selectedToken.symbol)"
 	}
 
 	@Published
@@ -48,10 +27,9 @@ class InvestDepositViewModel {
 
 	// MARK: - Initializers
 
-	init(selectedAsset: AssetsBoardProtocol, selectedProtocol: InvestProtocolViewModel, isWithraw: Bool) {
+	init(selectedAsset: AssetsBoardProtocol, selectedProtocol: InvestProtocolViewModel) {
 		self.selectedInvestableAsset = selectedAsset as? InvestableAssetViewModel
 		self.selectedProtocol = selectedProtocol
-		self.isWithraw = isWithraw
 		getToken(investableAsset: selectedAsset)
 	}
 
@@ -62,11 +40,19 @@ class InvestDepositViewModel {
 			let amountBigNumber = BigNumber(numberWithDecimal: amount)
 			let amountInDollarDecimalValue = amountBigNumber * selectedToken.price
 			dollarAmount = amountInDollarDecimalValue.priceFormat
+			getYearlyEstimatedReturn(amountInDollar: amountInDollarDecimalValue)
 		} else {
 			dollarAmount = .emptyString
+			getYearlyEstimatedReturn(amountInDollar: nil)
 		}
 		tokenAmount = amount
-		getYearlyEstimatedReturn(amount: amount)
+	}
+
+	public func calculateDollarAmount(_ amount: BigNumber) {
+		let amountInDollarDecimalValue = amount * selectedToken.price
+		dollarAmount = amountInDollarDecimalValue.priceFormat
+		tokenAmount = amount.sevenDigitFormat
+		getYearlyEstimatedReturn(amountInDollar: amountInDollarDecimalValue)
 	}
 
 	public func checkBalanceStatus(amount: String) -> AmountStatus {
@@ -75,7 +61,7 @@ class InvestDepositViewModel {
 		} else if BigNumber(numberWithDecimal: amount).isZero {
 			return .isZero
 		} else {
-			if BigNumber(numberWithDecimal: tokenAmount) > maxHoldAmount {
+			if BigNumber(numberWithDecimal: tokenAmount) > maxAvailableAmount {
 				return .isNotEnough
 			} else {
 				return .isEnough
@@ -88,14 +74,12 @@ class InvestDepositViewModel {
 	private func getToken(investableAsset: AssetsBoardProtocol) {
 		let tokensList = GlobalVariables.shared.manageAssetsList!
 		selectedToken = tokensList.first(where: { $0.symbol == investableAsset.assetName })!
-		maxHoldAmount = selectedToken.holdAmount
+		maxAvailableAmount = selectedToken.holdAmount
 	}
 
-	private func getYearlyEstimatedReturn(amount: String) {
-		if let selectedInvestableAsset, amount != .emptyString, isWithraw == false {
-			let amountBigNumber = BigNumber(numberWithDecimal: amount)
-			let amountInDollarBigNumber = amountBigNumber * selectedToken.price
-			let yearlyReturnBigNumber = amountInDollarBigNumber * selectedInvestableAsset.APYAmount / 100.bigNumber
+	private func getYearlyEstimatedReturn(amountInDollar: BigNumber?) {
+		if let selectedInvestableAsset, let amountInDollar {
+			let yearlyReturnBigNumber = amountInDollar * selectedInvestableAsset.APYAmount / 100.bigNumber
 			yearlyEstimatedReturn = yearlyReturnBigNumber?.priceFormat
 		} else {
 			yearlyEstimatedReturn = nil

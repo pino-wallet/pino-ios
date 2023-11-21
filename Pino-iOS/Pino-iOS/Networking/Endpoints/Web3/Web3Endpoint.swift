@@ -11,6 +11,7 @@ enum Web3Endpoint: EndpointType {
 	// MARK: - Cases
 
 	case hashTypeData(eip712ReqModel: EIP712HashRequestModel)
+	case positionID(tokenAdd: String, positionType: IndexerPositionType, protocolName: String)
 
 	// MARK: - Internal Methods
 
@@ -33,18 +34,21 @@ enum Web3Endpoint: EndpointType {
 		switch self {
 		case .hashTypeData:
 			return "web3/hash-typed-data"
+		case let .positionID(tokenAdd, positionType, protocolName):
+			return "indexer/position/\(protocolName)/\(positionType.rawValue)/underlying-token/\(tokenAdd)"
 		}
 	}
 
 	internal var task: HTTPTask {
 		switch self {
 		case let .hashTypeData(eip712ReqInfo):
-
 			return .requestParameters(
 				bodyParameters: eip712ReqInfo.eip712HashReqBody,
 				bodyEncoding: .jsonEncoding,
 				urlParameters: nil
 			)
+		case .positionID:
+			return .request
 		}
 	}
 
@@ -52,6 +56,8 @@ enum Web3Endpoint: EndpointType {
 		switch self {
 		case .hashTypeData:
 			return .post
+		case .positionID:
+			return .get
 		}
 	}
 
@@ -61,4 +67,9 @@ enum Web3Endpoint: EndpointType {
 			"X-API-TOKEN": "token",
 		]
 	}
+}
+
+enum IndexerPositionType: String {
+	case investment
+	case debt
 }

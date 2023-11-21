@@ -1,9 +1,10 @@
 //
-//  InvestManager.swift
+//  CompoundDepositManager.swift
 //  Pino-iOS
 //
-//  Created by Mohi Raoufi on 10/9/23.
+//  Created by Mohi Raoufi on 11/12/23.
 //
+
 import BigInt
 import Combine
 import Foundation
@@ -12,20 +13,12 @@ import Web3
 import Web3_Utility
 import Web3ContractABI
 
-class InvestManager: Web3ManagerProtocol {
+class CompoundDepositManager: InvestW3ManagerProtocol {
 	// MARK: - Private Properties
 
-	private var investProtocol: InvestProtocolViewModel
 	private var investAmount: String
-	private let selectedToken: AssetViewModel
 	private let nonce = BigNumber.bigRandomeNumber
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes
-	private let web3Client = Web3APIClient()
-	private var cancellables = Set<AnyCancellable>()
-	private var wethToken: AssetViewModel {
-		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
-	}
-
 	private var tokenUIntNumber: BigUInt {
 		Utilities.parseToBigUInt(investAmount, decimals: selectedToken.decimal)!
 	}
@@ -38,40 +31,32 @@ class InvestManager: Web3ManagerProtocol {
 
 	// MARK: - Internal properties
 
+	internal var selectedProtocol: InvestProtocolViewModel
+	internal let selectedToken: AssetViewModel
+	internal var tokenPositionID: String!
+	internal var cancellables = Set<AnyCancellable>()
 	internal var web3 = Web3Core.shared
 	internal var contract: DynamicContract
 	internal var walletManager = PinoWalletManager()
 
 	// MARK: Initializers
 
-	init(
-		contract: DynamicContract,
-		selectedToken: AssetViewModel,
-		investProtocol: InvestProtocolViewModel,
-		investAmount: String
-	) {
+	init(contract: DynamicContract, selectedToken: AssetViewModel, investAmount: String) {
 		self.contract = contract
 		self.selectedToken = selectedToken
-		self.investProtocol = investProtocol
 		self.investAmount = investAmount
+		self.selectedProtocol = .compound
 	}
 
 	// MARK: Public Methods
 
-	public func getDepositInfo() -> TrxWithGasInfo? {
-		switch investProtocol {
-		case .maker:
-			return investInDai()
-		case .compound:
-			return investInCompound()
-		case .lido:
-			return investInLido()
-		case .aave:
-			return nil
-		case .balancer:
-			return nil
-		case .uniswap:
-			return nil
+	public func getDepositInfo() -> TrxWithGasInfo {
+		if selectedToken.isEth {
+			return compoundETHDeposit()
+		} else if selectedToken.isWEth {
+			return compoundWETHDeposit()
+		} else {
+			return compoundERCDeposit()
 		}
 	}
 
@@ -87,33 +72,34 @@ class InvestManager: Web3ManagerProtocol {
 
 	// MARK: - Private Methods
 
-	private func investInDai() -> TrxWithGasInfo {
+	private func compoundERCDeposit() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			firstly {
-				fetchHash()
+				getTokenPositionID()
+			}.then { positionID in
+				self.fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
-			}.then { signiture -> Promise<(String, String?)> in
+			}.then { [self] signiture -> Promise<(String, String)> in
 				// Check allowance of protocol
-				let spenderAddress = Web3Core.Constants.sDaiContractAddress
-				return self.checkAllowanceOfProvider(
-					approvingToken: self.selectedToken,
-					approvingAmount: self.investAmount,
-					spenderAddress: spenderAddress,
-					ownerAddress: Web3Core.Constants.investContractAddress
-				).map { (signiture, $0) }
-			}.then { signiture, allowanceData -> Promise<(String, String?)> in
+				checkAllowanceOfProvider(
+					approvingToken: selectedToken,
+					approvingAmount: investAmount,
+					spenderAddress: tokenPositionID,
+					ownerAddress: Web3Core.Constants.compoundContractAddress
+				).map { (signiture, $0!) }
+			}.then { signiture, allowanceData -> Promise<(String, String)> in
 				// Permit Transform
 				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
-			}.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
-				web3.getDaiToSDaiCallData(
+			}.then { [self] permitData, allowanceData -> Promise<(String, String, String)> in
+				web3.getDepositV2CallData(
+					tokenAdd: tokenPositionID,
 					amount: tokenUIntNumber,
 					recipientAdd: walletManager.currentAccount.eip55Address
 				).map { ($0, permitData, allowanceData) }
 			}.then { protocolCallData, permitData, allowanceData in
 				// MultiCall
-				var callDatas = [permitData, protocolCallData]
-				if let allowanceData { callDatas.insert(allowanceData, at: 0) }
+				let callDatas = [allowanceData, permitData, protocolCallData]
 				return self.callProxyMultiCall(data: callDatas, value: nil)
 			}.done { depositResult in
 				self.depositTrx = depositResult.0
@@ -125,45 +111,11 @@ class InvestManager: Web3ManagerProtocol {
 		}
 	}
 
-	private func withdrawDai() {
-		firstly {
-			fetchHash()
-		}.then { plainHash in
-			self.signHash(plainHash: plainHash)
-		}.then { signiture -> Promise<String> in
-			// Permit Transform
-			self.getProxyPermitTransferData(signiture: signiture)
-		}.then { [self] permitData -> Promise<(String, String)> in
-			web3.getSDaiToDaiCallData(
-				amount: tokenUIntNumber,
-				recipientAdd: walletManager.currentAccount.eip55Address
-			).map { ($0, permitData) }
-		}.then { protocolCallData, permitData in
-			// MultiCall
-			let callDatas = [permitData, protocolCallData]
-			return self.callProxyMultiCall(data: callDatas, value: nil)
-		}.done { trxHash in
-			print(trxHash)
-		}.catch { error in
-			print(error.localizedDescription)
-		}
-	}
-
-	private func investInLido() -> TrxWithGasInfo {
-		if selectedToken.isEth {
-			return lidoETHDeposit()
-		} else if selectedToken.isWEth {
-			return lidoWETHDeposit()
-		} else {
-			fatalError("Wrong token for lido investment")
-		}
-	}
-
-	private func lidoETHDeposit() -> TrxWithGasInfo {
+	private func compoundETHDeposit() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			let proxyFee = 0.bigNumber.bigUInt
 			firstly {
-				self.web3.getETHToSTETHCallData(
+				self.web3.getDepositETHV2CallData(
 					recipientAdd: walletManager.currentAccount.eip55Address,
 					proxyFee: proxyFee
 				)
@@ -182,7 +134,7 @@ class InvestManager: Web3ManagerProtocol {
 		}
 	}
 
-	private func lidoWETHDeposit() -> TrxWithGasInfo {
+	private func compoundWETHDeposit() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			firstly {
 				fetchHash()
@@ -192,7 +144,7 @@ class InvestManager: Web3ManagerProtocol {
 				// Permit Transform
 				self.getProxyPermitTransferData(signiture: signiture)
 			}.then { [self] permitData -> Promise<(String, String)> in
-				web3.getWETHToSTETHCallData(
+				web3.getDepositWETHV2CallData(
 					amount: tokenUIntNumber,
 					recipientAdd: walletManager.currentAccount.eip55Address
 				).map { ($0, permitData) }
@@ -210,24 +162,13 @@ class InvestManager: Web3ManagerProtocol {
 		}
 	}
 
-	private func lodoWithdraw() {}
-
-	private func investInCompound() -> TrxWithGasInfo {
-		let compoundManager = CompoundDepositManager(
-			contract: contract,
-			selectedToken: selectedToken,
-			investAmount: investAmount
-		)
-		return compoundManager.getDepositInfo()
-	}
-
 	private func fetchHash() -> Promise<String> {
 		Promise<String> { seal in
 
 			let hashREq = EIP712HashRequestModel(
 				tokenAdd: selectedToken.id,
 				amount: tokenUIntNumber.description,
-				spender: Web3Core.Constants.investContractAddress,
+				spender: Web3Core.Constants.compoundContractAddress,
 				nonce: nonce.description,
 				deadline: deadline.description
 			)

@@ -12,19 +12,21 @@ import Web3_Utility
 class InvestDepositViewController: UIViewController {
 	// MARK: Private Properties
 
-	private var investVM: InvestDepositViewModel!
+	private var investVM: InvestViewModelProtocol!
 	private var investView: InvestDepositView!
 	private var web3 = Web3Core.shared
 	private let walletManager = PinoWalletManager()
+	private let isWithdraw: Bool
 
 	// MARK: Initializers
 
-	init(selectedAsset: AssetsBoardProtocol, selectedProtocol: InvestProtocolViewModel, isWithraw: Bool = false) {
-		self.investVM = InvestDepositViewModel(
-			selectedAsset: selectedAsset,
-			selectedProtocol: selectedProtocol,
-			isWithraw: isWithraw
-		)
+	init(selectedAsset: AssetsBoardProtocol, selectedProtocol: InvestProtocolViewModel, isWithdraw: Bool = false) {
+		self.isWithdraw = true
+		if self.isWithdraw {
+			self.investVM = WithdrawViewModel(selectedAsset: selectedAsset, selectedProtocol: selectedProtocol)
+		} else {
+			self.investVM = InvestDepositViewModel(selectedAsset: selectedAsset, selectedProtocol: selectedProtocol)
+		}
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -82,15 +84,21 @@ class InvestDepositViewController: UIViewController {
 	}
 
 	private func proceedInvestFlow() {
-		// First Step of Swap
+		// First Step of Invest
 		// Check If Permit has access to Token
 		if investVM.selectedToken.isEth {
 			openConfirmationPage()
 			return
 		}
+		getTokenAddress { tokenAddress in
+			self.checkAllowance(of: tokenAddress)
+		}
+	}
+
+	private func checkAllowance(of tokenAddress: String) {
 		firstly {
 			try web3.getAllowanceOf(
-				contractAddress: investVM.selectedToken.id.lowercased(),
+				contractAddress: tokenAddress,
 				spenderAddress: Web3Core.Constants.permitAddress,
 				ownerAddress: walletManager.currentAccount.eip55Address
 			)
@@ -99,7 +107,7 @@ class InvestDepositViewController: UIViewController {
 			let destTokenAmount = Utilities.parseToBigUInt(investVM.tokenAmount, decimals: destTokenDecimal)
 			if allowanceAmount == 0 || allowanceAmount < destTokenAmount! {
 				// NOT ALLOWED
-				openTokenApprovePage()
+				openTokenApprovePage(tokenID: tokenAddress)
 			} else {
 				// ALLOWED
 				openConfirmationPage()
@@ -109,25 +117,52 @@ class InvestDepositViewController: UIViewController {
 		}
 	}
 
-	private func openTokenApprovePage() {
+	private func openTokenApprovePage(tokenID: String) {
+		var approveType: ApproveContractViewController.ApproveType
+		if isWithdraw {
+			approveType = .withdraw
+		} else {
+			approveType = .invest
+		}
 		let approveVC = ApproveContractViewController(
-			approveContractID: investVM.selectedToken.id,
+			approveContractID: tokenID,
 			showConfirmVC: {
 				self.openConfirmationPage()
-			}, approveType: .invest
+			}, approveType: approveType
 		)
 		let approveNavigationVC = UINavigationController(rootViewController: approveVC)
 		present(approveNavigationVC, animated: true)
 	}
 
 	private func openConfirmationPage() {
-		let investConfirmationVM = InvestConfirmationViewModel(
-			selectedToken: investVM.selectedToken,
-			selectedProtocol: investVM.selectedProtocol,
-			investAmount: investVM.tokenAmount,
-			investAmountInDollar: investVM.dollarAmount
-		)
+		investView.stopLoading()
+		let investConfirmationVM: InvestConfirmationProtocol
+		if isWithdraw {
+			investConfirmationVM = WithdrawConfirmationViewModel(
+				selectedToken: investVM.selectedToken,
+				selectedProtocol: investVM.selectedProtocol,
+				withdrawAmount: investVM.tokenAmount,
+				withdrawAmountInDollar: investVM.dollarAmount
+			)
+		} else {
+			investConfirmationVM = InvestConfirmationViewModel(
+				selectedToken: investVM.selectedToken,
+				selectedProtocol: investVM.selectedProtocol,
+				investAmount: investVM.tokenAmount,
+				investAmountInDollar: investVM.dollarAmount
+			)
+		}
+
 		let investConfirmationVC = InvestConfirmationViewController(confirmationVM: investConfirmationVM)
 		navigationController?.pushViewController(investConfirmationVC, animated: true)
+	}
+
+	private func getTokenAddress(completion: @escaping (String) -> Void) {
+		if let withdrawVM = investVM as? WithdrawViewModel {
+			withdrawVM.getTokenPositionID(completion: completion)
+		} else {
+			let tokenAddress = investVM.selectedToken.id.lowercased()
+			completion(tokenAddress)
+		}
 	}
 }
