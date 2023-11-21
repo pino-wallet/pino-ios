@@ -42,7 +42,7 @@ public struct W3GasInfoManager: Web3HelperProtocol {
 					gasLimit: nil
 				).promise.map { ($0, nonce, gasPrice) }
 			}.then { transaction, nonce, gasPrice in
-				readWeb3.eth.estimateGas(call: .init(
+				writeWeb3.eth.estimateGas(call: .init(
 					from: transaction.from,
 					to: transaction.to!,
 					gasPrice: gasPrice,
@@ -74,7 +74,7 @@ public struct W3GasInfoManager: Web3HelperProtocol {
 			firstly {
 				readWeb3.eth.gasPrice()
 			}.then { gasPrice in
-				readWeb3.eth
+				writeWeb3.eth
 					.estimateGas(call: .init(
 						from: myPrivateKey.address,
 						to: to,

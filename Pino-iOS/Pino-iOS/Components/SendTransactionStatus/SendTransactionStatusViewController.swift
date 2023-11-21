@@ -1,0 +1,51 @@
+//
+//  SendTransactionStatusViewController.swift
+//  Pino-iOS
+//
+//  Created by Amir hossein kazemi seresht on 11/20/23.
+//
+
+import UIKit
+import Web3_Utility
+
+class SendTransactionStatusViewController: UIViewController {
+    // MARK: - Private Properties
+
+    private var sendStatusView: SendTransactionStatusView!
+
+    // MARK: - Initializers
+
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - View Overrides
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        clearNavbar()
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setupView()
+    }
+
+    // MARK: - Private Methods
+
+    private func setupView() {
+        sendStatusView = SendTransactionStatusView(toggleIsModalInPresentation: { isModelInPresentation in
+            self.isModalInPresentation = isModelInPresentation
+        })
+        sendStatusView.onDissmiss = {
+            self.dismiss(animated: true)
+        }
+        view = sendStatusView
+    }
+}
+

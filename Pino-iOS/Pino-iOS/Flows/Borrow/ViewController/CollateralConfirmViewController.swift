@@ -62,6 +62,8 @@ class CollateralConfirmViewController: UIViewController {
 	}
 
 	private func presentActionSheet(actionSheet: InfoActionSheet) {
-		present(actionSheet, animated: true)
+//		present(actionSheet, animated: true)
+        let test = SendTransactionStatusViewController()
+        present(test, animated: true)
 	}
 }
