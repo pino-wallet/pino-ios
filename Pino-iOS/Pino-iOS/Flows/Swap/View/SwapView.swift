@@ -109,6 +109,7 @@ class SwapView: UIView {
 		feeCardView.addSubview(swapFeeView)
 
 		continueButton.addAction(UIAction(handler: { _ in
+			self.continueButton.style = .loading
 			self.nextButtonTapped()
 		}), for: .touchUpInside)
 
@@ -304,6 +305,10 @@ class SwapView: UIView {
 	}
 
 	// MARK: - Public Methods
+
+	public func stopLoading() {
+		continueButton.style = .active
+	}
 
 	public func showProtocolView() {
 		protocolCardView.alpha = 1
