@@ -246,9 +246,9 @@ class CollateralIncreaseAmountView: UIView {
 		collateralIncreaseAmountVM.checkAmountStatus(amount: enteredAmount)
 
 		amountLabel.text = collateralIncreaseAmountVM.dollarAmount
-        if amountTextfield.text == .emptyString {
-            continueButton.style = .deactive
-        }
+		if amountTextfield.text == .emptyString {
+			continueButton.style = .deactive
+		}
 	}
 
 	private func setupBindings() {
@@ -301,11 +301,11 @@ class CollateralIncreaseAmountView: UIView {
 			})
 			continueButton.style = .deactive
 		}
-        // ACTIVATING continue button since in devnet we don't need validation
-        // to check if there is balance
-        if Web3Network.current != .mainNet {
-            continueButton.style = .active
-        }
+		// ACTIVATING continue button since in devnet we don't need validation
+		// to check if there is balance
+		if Web3Network.current != .mainNet {
+			continueButton.style = .active
+		}
 	}
 
 	@objc
