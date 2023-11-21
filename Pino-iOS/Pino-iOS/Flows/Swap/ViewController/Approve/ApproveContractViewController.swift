@@ -73,8 +73,6 @@ class ApproveContractViewController: UIViewController {
 		}, approveType: approveType)
 
 		view = approveContractView
-        let test = SendTransactionStatusViewController()
-        present(test, animated: true)
 	}
 
 	private func showApproveLoadingPage() {

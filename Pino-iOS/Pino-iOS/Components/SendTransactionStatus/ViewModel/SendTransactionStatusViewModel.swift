@@ -15,7 +15,6 @@ class SendTransactionStatusViewModel {
     public let confirmingDescriptionText = "We'll notify you once confirmed."
     public let confirmingTitleText = "Confirming..."
     public let transactionSentText = "Successful"
-    public let transactionSentInfoText = "mock"
     public let closeButtonText = "Close"
     public let viewStatusText = "View status"
     public let somethingWentWrongText = "Something went wrong!"
@@ -25,9 +24,18 @@ class SendTransactionStatusViewModel {
     public let viewStatusIconName = "primary_right_arrow"
     public let navigationDissmissIconName = "close"
     
+    @Published public var sendTransactionStatus: SendTransactionStatus = .sending
+    
+    public var transactionSentInfoText: String {
+        switch transactionInfo.transactionType {
+        case .collateral:
+            return "You collateralized \(Int(transactionInfo.transactionAmount)!.formattedWithCamma) \(transactionInfo.transactionToken.symbol) in \(transactionInfo.transactionDex.name)."
+        }
+    }
+    
     // MARK: - Private Properties
     private let transaction: EthereumSignedTransaction
-    private let secondTransAction: EthereumSignedTransaction?
+    private let transactionInfo: TransactionInfoModel
     private let activityAPIClient = ActivityAPIClient()
     private let web3Core = Web3Core.shared
     private var txHash: String?
@@ -35,9 +43,9 @@ class SendTransactionStatusViewModel {
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Initializers
-    init(transaction: EthereumSignedTransaction, secondTransaction: EthereumSignedTransaction? = nil) {
+    init(transaction: EthereumSignedTransaction, transactionInfo: TransactionInfoModel) {
         self.transaction = transaction
-        self.secondTransAction = secondTransaction
+        self.transactionInfo = transactionInfo
         
         sendTx()
     }
@@ -46,11 +54,11 @@ class SendTransactionStatusViewModel {
     // MARK: - Private Methods
     private func sendTx() {
         web3Core.callTransaction(trx: transaction).done { txHash in
-            #warning("change page state to pending")
+            self.sendTransactionStatus = .pending
             self.txHash = txHash
             self.setupRequestTimer()
         }.catch { _ in
-            #warning("change state page failed")
+            self.sendTransactionStatus = .failed
                     }
     }
     
@@ -71,7 +79,8 @@ class SendTransactionStatusViewModel {
                 print(error)
             }
         } receiveValue: { _ in
-            #warning("change page state to success")
+            self.sendTransactionStatus = .success
+            self.destroyRequestTimer()
         }.store(in: &cancellables)
     }
     

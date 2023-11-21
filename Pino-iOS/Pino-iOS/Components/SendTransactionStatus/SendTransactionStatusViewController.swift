@@ -12,10 +12,12 @@ class SendTransactionStatusViewController: UIViewController {
     // MARK: - Private Properties
 
     private var sendStatusView: SendTransactionStatusView!
+    private var sendStatusVM: SendTransactionStatusViewModel
 
     // MARK: - Initializers
 
-    init() {
+    init(sendStatusVM: SendTransactionStatusViewModel) {
+        self.sendStatusVM = sendStatusVM
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -27,7 +29,13 @@ class SendTransactionStatusViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        clearNavbar()
+        if isBeingPresented || isMovingToParent {
+            clearNavbar()
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        sendStatusVM.destroyRequestTimer()
     }
 
     override func viewDidLoad() {
@@ -41,7 +49,7 @@ class SendTransactionStatusViewController: UIViewController {
     private func setupView() {
         sendStatusView = SendTransactionStatusView(toggleIsModalInPresentation: { isModelInPresentation in
             self.isModalInPresentation = isModelInPresentation
-        })
+        }, sendStatusVM: sendStatusVM)
         sendStatusView.onDissmiss = {
             self.dismiss(animated: true)
         }

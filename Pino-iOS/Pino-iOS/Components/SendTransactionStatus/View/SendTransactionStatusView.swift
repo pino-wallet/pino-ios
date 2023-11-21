@@ -6,22 +6,10 @@
 //
 
 import UIKit
+import Combine
 
 class SendTransactionStatusView: UIView {
     // MARK: - Public Properties
-
-    public enum PageStatus {
-        case pending
-        case success
-        case failed
-        case sending
-    }
-
-    public var pageStatus: PageStatus = .sending {
-        didSet {
-            updateViewWithPageStatus(pageStatus: pageStatus)
-        }
-    }
 
     public var txHash: String
 
@@ -42,19 +30,22 @@ class SendTransactionStatusView: UIView {
     private let closeButton = PinoButton(style: .secondary)
     private let statusInfoStackView = UIStackView()
     private let statusTextsStackView = UIStackView()
-    private var sendStatusVM = SendTransactionStatusViewModel()
+    private var sendStatusVM: SendTransactionStatusViewModel
+    private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Initializers
 
-    init(toggleIsModalInPresentation: @escaping (_: Bool) -> Void, txHash: String = "") {
+    init(toggleIsModalInPresentation: @escaping (_: Bool) -> Void, txHash: String = "", sendStatusVM: SendTransactionStatusViewModel) {
         self.toggleIsModalInPresentation = toggleIsModalInPresentation
         self.txHash = txHash
+        self.sendStatusVM = sendStatusVM
         super.init(frame: .zero)
 
         setupView()
         setupStyles()
         setupConstraints()
-        updateViewWithPageStatus(pageStatus: pageStatus)
+        setupBindings()
+        updateViewWithPageStatus(pageStatus: sendStatusVM.sendTransactionStatus)
     }
 
     required init?(coder: NSCoder) {
@@ -123,8 +114,14 @@ class SendTransactionStatusView: UIView {
         statusInfoStackView.pin(.centerY, .horizontalEdges(to: layoutMarginsGuide, padding: 16))
         closeButton.pin(.bottom(padding: 32), .horizontalEdges(padding: 16))
     }
+    
+    private func setupBindings() {
+        sendStatusVM.$sendTransactionStatus.sink { sendTransactionStatus in
+            self.updateViewWithPageStatus(pageStatus: sendTransactionStatus)
+        }.store(in: &cancellables)
+    }
 
-    private func updateViewWithPageStatus(pageStatus: PageStatus) {
+    private func updateViewWithPageStatus(pageStatus: SendTransactionStatus) {
         switch pageStatus {
         case .pending:
             statusInfoStackView.isHidden = false

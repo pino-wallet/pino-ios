@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Web3
 
 class CollateralConfirmViewController: UIViewController {
 	// MARK: - Private Properties
@@ -52,6 +53,10 @@ class CollateralConfirmViewController: UIViewController {
 				self.presentActionSheet(actionSheet: actionSheet)
 			}
 		)
+        
+        collateralConfirmVM.confirmCollateralClosure = { depositTRX in
+            self.confirmCollateral(depositTRX: depositTRX)
+        }
 
 		view = collateralConfirmView
 	}
@@ -61,9 +66,15 @@ class CollateralConfirmViewController: UIViewController {
 		setNavigationTitle(collateralConfirmVM.pageTitle)
 	}
 
+    private func confirmCollateral(depositTRX: EthereumSignedTransaction) {
+        let sendTransactionStatusVM = SendTransactionStatusViewModel(transaction: depositTRX, transactionInfo: TransactionInfoModel(
+            transactionType: .collateral, transactionDex: collateralConfirmVM.collaterallIncreaseAmountVM.borrowVM.selectedDexSystem, transactionAmount: collateralConfirmVM.collaterallIncreaseAmountVM.tokenAmount, transactionToken: collateralConfirmVM.collaterallIncreaseAmountVM.selectedToken
+        ))
+        let sendTransactionStatusVC = SendTransactionStatusViewController(sendStatusVM: sendTransactionStatusVM)
+        present(sendTransactionStatusVC, animated: true)
+    }
+    
 	private func presentActionSheet(actionSheet: InfoActionSheet) {
-//		present(actionSheet, animated: true)
-        let test = SendTransactionStatusViewController()
-        present(test, animated: true)
+		present(actionSheet, animated: true)
 	}
 }

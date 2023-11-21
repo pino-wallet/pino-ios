@@ -42,6 +42,17 @@ class CollateralConfirmView: UIView {
 	private var feeTitleWithInfo: TitleWithInfo!
 	private var protocolInfoView: UserAccountInfoView!
 	private var cancellables = Set<AnyCancellable>()
+    private var pageStatus: PageStatus = .loading {
+        didSet {
+            updateUIWithPageStatus()
+        }
+    }
+    
+    private enum PageStatus {
+        case loading
+        case notEnough
+        case normal
+    }
 
 	// MARK: - Initializers
 
@@ -59,6 +70,7 @@ class CollateralConfirmView: UIView {
 		setupConstraints()
 		setupBindings()
 		setupSkeletonLoading()
+        updateUIWithPageStatus()
 	}
 
 	required init?(coder: NSCoder) {
@@ -88,6 +100,9 @@ class CollateralConfirmView: UIView {
 			image: collateralConfrimVM.protocolImageName,
 			title: collateralConfrimVM.protocolName
 		)
+        
+        let onConfirmTapGesture = UITapGestureRecognizer(target: self, action: #selector(onConfirm))
+        confirmButton.addGestureRecognizer(onConfirmTapGesture)
 
 		let toggleFeeGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleFeeText))
 		feeLabel.addGestureRecognizer(toggleFeeGestureRecognizer)
@@ -158,8 +173,6 @@ class CollateralConfirmView: UIView {
 		protocolTitleWithInfo.title = collateralConfrimVM.protocolTitle
 
 		feeTitleWithInfo.title = collateralConfrimVM.feeTitle
-
-		confirmButton.title = collateralConfrimVM.confirmButtonTitle
 	}
 
 	private func setupConstraints() {
@@ -192,8 +205,42 @@ class CollateralConfirmView: UIView {
 			self.feeInfo = feeInfo
 			self.feeLabel.text = feeInfo?.feeInDollars
 			self.hideSkeletonView()
+            self.validateFee(bigNumberFee: feeInfo?.bigNumberFee)
 		}.store(in: &cancellables)
 	}
+    
+    private func validateFee(bigNumberFee: BigNumber?) {
+        guard let ethToken = GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth }), let bigNumberFee else {
+            return
+        }
+        if ethToken.holdAmount >= bigNumberFee {
+            pageStatus = .normal
+        } else {
+            pageStatus = .notEnough
+        }
+        
+    }
+    
+    private func updateUIWithPageStatus() {
+        switch pageStatus {
+        case .loading:
+            confirmButton.style = .deactive
+            confirmButton.title = collateralConfrimVM.loadingButtonTitle
+        case .notEnough:
+            confirmButton.style = .deactive
+            confirmButton.title = collateralConfrimVM.insufficientAmountButtonTitle
+            if Environment.current != .mainNet {
+                confirmButton.style = .active
+            }
+        case .normal:
+            confirmButton.style = .active
+            confirmButton.title = collateralConfrimVM.confirmButtonTitle
+        }
+    }
+    
+    @objc private func onConfirm() {
+        collateralConfrimVM.confirmCollateral()
+    }
 
 	@objc
 	private func toggleFeeText() {
