@@ -21,7 +21,7 @@ class InvestDepositViewController: UIViewController {
 	// MARK: Initializers
 
 	init(selectedAsset: AssetsBoardProtocol, selectedProtocol: InvestProtocolViewModel, isWithdraw: Bool = false) {
-		self.isWithdraw = isWithdraw
+		self.isWithdraw = true
 		if self.isWithdraw {
 			self.investVM = WithdrawViewModel(selectedAsset: selectedAsset, selectedProtocol: selectedProtocol)
 		} else {
@@ -135,6 +135,7 @@ class InvestDepositViewController: UIViewController {
 	}
 
 	private func openConfirmationPage() {
+		investView.stopLoading()
 		let investConfirmationVM: InvestConfirmationProtocol
 		if isWithdraw {
 			investConfirmationVM = WithdrawConfirmationViewModel(

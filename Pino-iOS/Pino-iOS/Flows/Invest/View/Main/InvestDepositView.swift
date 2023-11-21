@@ -88,6 +88,7 @@ class InvestDepositView: UIView {
 		estimatedReturnStackView.addArrangedSubview(estimatedReturnLabel)
 
 		continueButton.addAction(UIAction(handler: { _ in
+			self.continueButton.style = .loading
 			self.nextButtonTapped()
 		}), for: .touchUpInside)
 
@@ -275,6 +276,12 @@ class InvestDepositView: UIView {
 	@objc
 	private func focusOnAmountTextField() {
 		amountTextfield.becomeFirstResponder()
+	}
+
+	// MARK: Public Methods
+
+	public func stopLoading() {
+		continueButton.style = .active
 	}
 }
 
