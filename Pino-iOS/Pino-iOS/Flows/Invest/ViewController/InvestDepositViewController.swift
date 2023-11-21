@@ -21,7 +21,7 @@ class InvestDepositViewController: UIViewController {
 	// MARK: Initializers
 
 	init(selectedAsset: AssetsBoardProtocol, selectedProtocol: InvestProtocolViewModel, isWithdraw: Bool = false) {
-		self.isWithdraw = true
+		self.isWithdraw = isWithdraw
 		if self.isWithdraw {
 			self.investVM = WithdrawViewModel(selectedAsset: selectedAsset, selectedProtocol: selectedProtocol)
 		} else {
@@ -118,11 +118,17 @@ class InvestDepositViewController: UIViewController {
 	}
 
 	private func openTokenApprovePage(tokenID: String) {
+		var approveType: ApproveContractViewController.ApproveType
+		if isWithdraw {
+			approveType = .withdraw
+		} else {
+			approveType = .invest
+		}
 		let approveVC = ApproveContractViewController(
 			approveContractID: tokenID,
 			showConfirmVC: {
 				self.openConfirmationPage()
-			}, approveType: .invest
+			}, approveType: approveType
 		)
 		let approveNavigationVC = UINavigationController(rootViewController: approveVC)
 		present(approveNavigationVC, animated: true)
