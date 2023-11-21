@@ -65,7 +65,6 @@ class CollateralConfirmViewModel {
 	private let feeTxErrorText = "Failed to estimate fee of transaction"
 
 	private let web3 = Web3Core.shared
-	private let ethToken = GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth })
 
 	private lazy var aaveCollateralManager: AaveCollateralManager = {
 		let pinoAaveProxyContract = try! web3.getPinoAaveProxyContract()
@@ -101,7 +100,7 @@ class CollateralConfirmViewModel {
 	private func setFeeInfoByDepositGasInfo(depositGasInfo: GasInfo) {
 		feeInfo = (
 			feeInDollars: depositGasInfo.feeInDollar.priceFormat,
-			feeInETH: depositGasInfo.fee.sevenDigitFormat.tokenFormatting(token: ethToken?.symbol ?? ""),
+			feeInETH: depositGasInfo.fee.sevenDigitFormat.ethFormatting,
 			bigNumberFee: depositGasInfo.fee
 		)
 	}

@@ -82,7 +82,6 @@ class ApprovingLoadingViewModel {
 			self.startTimer()
 			self.showSpeedUpAfterSomeTime()
 		}.catch { error in
-			print("heh", error)
 			print("Failed to give permission")
 			self.approveLoadingStatus = .error
 		}
