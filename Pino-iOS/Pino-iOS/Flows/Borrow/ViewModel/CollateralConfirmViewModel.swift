@@ -7,13 +7,19 @@
 
 import Combine
 import Foundation
+import Web3
 
 #warning("this values are static and should be changed")
 
 class CollateralConfirmViewModel {
 	// MARK: - TypeAliases
 
-	typealias FeeInfoType = (feeInDollars: String, feeInETH: String)
+	typealias FeeInfoType = (feeInDollars: String, feeInETH: String, bigNumberFee: BigNumber)
+	typealias ConfirmCollateralClosureType = (EthereumSignedTransaction) -> Void
+
+	// MARK: - Closures
+
+	public var confirmCollateralClosure: ConfirmCollateralClosureType = { _ in }
 
 	// MARK: - Public Properties
 
@@ -21,6 +27,8 @@ class CollateralConfirmViewModel {
 	public let protocolTitle = "Protocol"
 	public let feeTitle = "Fee"
 	public let confirmButtonTitle = "Confirm"
+	public let loadingButtonTitle = "Please wait"
+	public let insufficientAmountButtonTitle = "Insufficient ETH amount"
 	#warning("this actionsheet texts are for test")
 	public let feeActionSheetText = "this is fee"
 	public let protocolActionsheetText = "this is protocol"
@@ -57,7 +65,6 @@ class CollateralConfirmViewModel {
 	private let feeTxErrorText = "Failed to estimate fee of transaction"
 
 	private let web3 = Web3Core.shared
-	private let ethToken = GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth })
 
 	private lazy var aaveCollateralManager: AaveCollateralManager = {
 		let pinoAaveProxyContract = try! web3.getPinoAaveProxyContract()
@@ -90,28 +97,11 @@ class CollateralConfirmViewModel {
 
 	// MARK: - Private Methods
 
-	private func getUseUserReserveAsCollateralData(depositGasInfo: GasInfo) {
-		aaveCollateralManager.getUserUseReserveAsCollateralData().done { userReserveGasInfo in
-			let totalFeeInDollars = depositGasInfo.feeInDollar + userReserveGasInfo.feeInDollar
-			let totalFeeInETH = depositGasInfo.fee + userReserveGasInfo.fee
-			self.feeInfo = (
-				feeInDollars: totalFeeInDollars.priceFormat,
-				feeInETH: totalFeeInETH.sevenDigitFormat.tokenFormatting(token: self.ethToken?.symbol ?? "")
-			)
-		}.catch { err in
-			Toast.default(
-				title: self.feeTxErrorText,
-				subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-				style: .error
-			)
-			.show(haptic: .warning)
-		}
-	}
-
 	private func setFeeInfoByDepositGasInfo(depositGasInfo: GasInfo) {
 		feeInfo = (
 			feeInDollars: depositGasInfo.feeInDollar.priceFormat,
-			feeInETH: depositGasInfo.fee.sevenDigitFormat.tokenFormatting(token: ethToken?.symbol ?? "")
+			feeInETH: depositGasInfo.fee.sevenDigitFormat.ethFormatting,
+			bigNumberFee: depositGasInfo.fee
 		)
 	}
 
@@ -120,45 +110,28 @@ class CollateralConfirmViewModel {
 	public func getCollateralGasInfo() {
 		switch collaterallIncreaseAmountVM.borrowVM.selectedDexSystem {
 		case .aave:
-			aaveCollateralManager.checkIfAssetUsedAsCollateral().done { isAssetUsedAsCollateral in
-				if self.selectedToken.isEth {
-					self.aaveCollateralManager.getETHCollateralData().done { _, depositGasInfo in
-						if isAssetUsedAsCollateral {
-							self.setFeeInfoByDepositGasInfo(depositGasInfo: depositGasInfo)
-						} else {
-							self.getUseUserReserveAsCollateralData(depositGasInfo: depositGasInfo)
-						}
-					}.catch { _ in
-						Toast.default(
-							title: self.feeTxErrorText,
-							subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-							style: .error
-						)
-						.show(haptic: .warning)
-					}
-				} else {
-					self.aaveCollateralManager.getERC20CollateralData().done { _, depositGasInfo in
-						if isAssetUsedAsCollateral {
-							self.setFeeInfoByDepositGasInfo(depositGasInfo: depositGasInfo)
-						} else {
-							self.getUseUserReserveAsCollateralData(depositGasInfo: depositGasInfo)
-						}
-					}.catch { _ in
-						Toast.default(
-							title: self.feeTxErrorText,
-							subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-							style: .error
-						)
-						.show(haptic: .warning)
-					}
+			if selectedToken.isEth {
+				aaveCollateralManager.getETHCollateralData().done { _, depositGasInfo in
+					self.setFeeInfoByDepositGasInfo(depositGasInfo: depositGasInfo)
+				}.catch { _ in
+					Toast.default(
+						title: self.feeTxErrorText,
+						subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+						style: .error
+					)
+					.show(haptic: .warning)
 				}
-			}.catch { _ in
-				Toast.default(
-					title: self.feeTxErrorText,
-					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-					style: .error
-				)
-				.show(haptic: .warning)
+			} else {
+				aaveCollateralManager.getERC20CollateralData().done { _, depositGasInfo in
+					self.setFeeInfoByDepositGasInfo(depositGasInfo: depositGasInfo)
+				}.catch { _ in
+					Toast.default(
+						title: self.feeTxErrorText,
+						subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+						style: .error
+					)
+					.show(haptic: .warning)
+				}
 			}
 		case .compound:
 			#warning("i should add compound collateral manager first to complete this section")
@@ -167,22 +140,13 @@ class CollateralConfirmViewModel {
 		}
 	}
 
-	public func confirmCollateral(completion: @escaping () -> Void) {
+	public func confirmCollateral() {
 		switch collaterallIncreaseAmountVM.borrowVM.selectedDexSystem {
 		case .aave:
-			aaveCollateralManager.confirmDeposit { result in
-				switch result {
-				case .fulfilled:
-					completion()
-				case .rejected:
-					Toast.default(
-						title: self.sendTxErrorText,
-						subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-						style: .error
-					)
-					.show(haptic: .warning)
-				}
+			guard let depositTRX = aaveCollateralManager.depositTRX else {
+				return
 			}
+			confirmCollateralClosure(depositTRX)
 		case .compound:
 			#warning("i should add compound collateral manager first to complete this section")
 			return

@@ -37,8 +37,6 @@ class AaveCollateralManager: Web3ManagerProtocol {
 
 	public var depositGasInfo: GasInfo?
 	public var depositTRX: EthereumSignedTransaction?
-	#warning("i should use this to create tx")
-	public var useUserReserveAsCollateralContractDetails: ContractDetailsModel?
 
 	// MARK: - Initializers
 
@@ -125,33 +123,6 @@ class AaveCollateralManager: Web3ManagerProtocol {
 
 	public func checkIfAssetUsedAsCollateral() -> Promise<Bool> {
 		web3.checkIfAssetUsedAsCollateral(assetAddress: asset.id)
-	}
-
-	public func confirmDeposit(completion: @escaping (Result<String>) -> Void) {
-		guard let depositTRX else { return }
-		web3.callTransaction(trx: depositTRX).done { trxHash in
-			#warning("i should add pending activity here")
-			#warning("i should send useUserResrverAsCollateral tx here")
-			completion(.fulfilled(trxHash))
-		}.catch { error in
-			completion(.rejected(error))
-		}
-	}
-
-	public func getUserUseReserveAsCollateralData() -> Promise<GasInfo> {
-		Promise<GasInfo> { seal in
-			web3.getUserUseReserveAsCollateralContractDetails(assetAddress: asset.id, useAsCollateral: true)
-				.done { contractDetails in
-					self.useUserReserveAsCollateralContractDetails = contractDetails
-					self.web3.getUserUseReserveAsCollateralGasInfo(contractDetails: contractDetails).done { gasInfo in
-						seal.fulfill(gasInfo)
-					}.catch { error in
-						seal.reject(error)
-					}
-				}.catch { error in
-					seal.reject(error)
-				}
-		}
 	}
 
 	public func getERC20CollateralData() -> TrxWithGasInfo {
