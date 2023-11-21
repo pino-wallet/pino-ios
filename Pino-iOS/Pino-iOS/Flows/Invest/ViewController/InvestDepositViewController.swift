@@ -84,7 +84,7 @@ class InvestDepositViewController: UIViewController {
 	}
 
 	private func proceedInvestFlow() {
-		// First Step of Swap
+		// First Step of Invest
 		// Check If Permit has access to Token
 		if investVM.selectedToken.isEth {
 			openConfirmationPage()

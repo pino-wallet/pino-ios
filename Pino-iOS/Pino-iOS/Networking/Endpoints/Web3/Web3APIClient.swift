@@ -20,6 +20,7 @@ final class Web3APIClient: Web3APIService {
 		networkManager.request(.hashTypeData(eip712ReqModel: eip712HashReqInfo))
 	}
 
+	#warning("Refactor this function later")
 	public func getTokenPositionID(
 		tokenAdd: String,
 		positionType: IndexerPositionType,

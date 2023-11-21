@@ -13,18 +13,12 @@ import Web3
 import Web3_Utility
 import Web3ContractABI
 
-class WithdrawManager: Web3ManagerProtocol {
+class WithdrawManager: InvestW3ManagerProtocol {
 	// MARK: - Private Properties
 
-	private var withdrawProtocol: InvestProtocolViewModel
 	private var withdrawAmount: String
-	private let selectedToken: AssetViewModel
-	private var withdrawTokenAddress: String
 	private let nonce = BigNumber.bigRandomeNumber
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes
-	private let web3Client = Web3APIClient()
-	private var cancellables = Set<AnyCancellable>()
-
 	private var tokenUIntNumber: BigUInt {
 		Utilities.parseToBigUInt(withdrawAmount, decimals: selectedToken.decimal)!
 	}
@@ -37,6 +31,10 @@ class WithdrawManager: Web3ManagerProtocol {
 
 	// MARK: - Internal properties
 
+	internal var selectedProtocol: InvestProtocolViewModel
+	internal let selectedToken: AssetViewModel
+	internal var tokenPositionID: String!
+	internal var cancellables = Set<AnyCancellable>()
 	internal var web3 = Web3Core.shared
 	internal var contract: DynamicContract
 	internal var walletManager = PinoWalletManager()
@@ -51,15 +49,14 @@ class WithdrawManager: Web3ManagerProtocol {
 	) {
 		self.contract = contract
 		self.selectedToken = selectedToken
-		self.withdrawProtocol = withdrawProtocol
+		self.selectedProtocol = withdrawProtocol
 		self.withdrawAmount = withdrawAmount
-		self.withdrawTokenAddress = selectedToken.id
 	}
 
 	// MARK: Public Methods
 
 	public func getWithdrawInfo() -> TrxWithGasInfo {
-		switch withdrawProtocol {
+		switch selectedProtocol {
 		case .maker:
 			return getMakerWithdrawInfo()
 		case .compound:
@@ -86,8 +83,9 @@ class WithdrawManager: Web3ManagerProtocol {
 	private func getMakerWithdrawInfo() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			firstly {
-				withdrawTokenAddress = "0x83f20f44975d03b1b09e64809b757c47f942beea"
-				return fetchHash()
+				getTokenPositionID()
+			}.then { positionID in
+				self.fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
 			}.then { signiture -> Promise<String> in
@@ -129,9 +127,10 @@ class WithdrawManager: Web3ManagerProtocol {
 
 	private func getCompoundERCWithdrawInfo() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
-			let cTokenID = Web3Core.TokenID(id: selectedToken.id).cTokenID
 			firstly {
-				fetchHash()
+				getTokenPositionID()
+			}.then { positionID in
+				self.fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
 			}.then { signiture in
@@ -139,7 +138,7 @@ class WithdrawManager: Web3ManagerProtocol {
 				self.getProxyPermitTransferData(signiture: signiture)
 			}.then { [self] permitData in
 				web3.getWithdrawV2CallData(
-					tokenAdd: cTokenID,
+					tokenAdd: tokenPositionID,
 					amount: tokenUIntNumber,
 					recipientAdd: walletManager.currentAccount.eip55Address
 				).map { ($0, permitData) }
@@ -177,7 +176,9 @@ class WithdrawManager: Web3ManagerProtocol {
 	private func getCompoundWETHWithdrawInfo() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			firstly {
-				fetchHash()
+				getTokenPositionID()
+			}.then { positionID in
+				self.fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
 			}.then { signiture -> Promise<String> in
@@ -208,7 +209,7 @@ class WithdrawManager: Web3ManagerProtocol {
 	private func fetchHash() -> Promise<String> {
 		Promise<String> { seal in
 			let hashREq = EIP712HashRequestModel(
-				tokenAdd: withdrawTokenAddress,
+				tokenAdd: tokenPositionID,
 				amount: tokenUIntNumber.description,
 				spender: Web3Core.Constants.investContractAddress,
 				nonce: nonce.description,
@@ -242,7 +243,7 @@ class WithdrawManager: Web3ManagerProtocol {
 		web3.getPermitTransferCallData(
 			contract: contract,
 			amount: tokenUIntNumber,
-			tokenAdd: withdrawTokenAddress,
+			tokenAdd: tokenPositionID,
 			signiture: signiture,
 			nonce: nonce,
 			deadline: deadline

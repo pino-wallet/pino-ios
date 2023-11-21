@@ -13,19 +13,12 @@ import Web3
 import Web3_Utility
 import Web3ContractABI
 
-class CompoundDepositManager: Web3ManagerProtocol {
+class CompoundDepositManager: InvestW3ManagerProtocol {
 	// MARK: - Private Properties
 
 	private var investAmount: String
-	private let selectedToken: AssetViewModel
 	private let nonce = BigNumber.bigRandomeNumber
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes
-	private let web3Client = Web3APIClient()
-	private var cancellables = Set<AnyCancellable>()
-	private var wethToken: AssetViewModel {
-		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
-	}
-
 	private var tokenUIntNumber: BigUInt {
 		Utilities.parseToBigUInt(investAmount, decimals: selectedToken.decimal)!
 	}
@@ -38,6 +31,10 @@ class CompoundDepositManager: Web3ManagerProtocol {
 
 	// MARK: - Internal properties
 
+	internal var selectedProtocol: InvestProtocolViewModel
+	internal let selectedToken: AssetViewModel
+	internal var tokenPositionID: String!
+	internal var cancellables = Set<AnyCancellable>()
 	internal var web3 = Web3Core.shared
 	internal var contract: DynamicContract
 	internal var walletManager = PinoWalletManager()
@@ -48,6 +45,7 @@ class CompoundDepositManager: Web3ManagerProtocol {
 		self.contract = contract
 		self.selectedToken = selectedToken
 		self.investAmount = investAmount
+		self.selectedProtocol = .compound
 	}
 
 	// MARK: Public Methods
@@ -76,17 +74,18 @@ class CompoundDepositManager: Web3ManagerProtocol {
 
 	private func compoundERCDeposit() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
-			let cTokenID = Web3Core.TokenID(id: selectedToken.id).cTokenID.lowercased()
 			firstly {
-				fetchHash()
+				getTokenPositionID()
+			}.then { positionID in
+				self.fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
-			}.then { signiture -> Promise<(String, String)> in
+			}.then { [self] signiture -> Promise<(String, String)> in
 				// Check allowance of protocol
-				self.checkAllowanceOfProvider(
-					approvingToken: self.selectedToken,
-					approvingAmount: self.investAmount,
-					spenderAddress: cTokenID,
+				checkAllowanceOfProvider(
+					approvingToken: selectedToken,
+					approvingAmount: investAmount,
+					spenderAddress: tokenPositionID,
 					ownerAddress: Web3Core.Constants.compoundContractAddress
 				).map { (signiture, $0!) }
 			}.then { signiture, allowanceData -> Promise<(String, String)> in
@@ -94,7 +93,7 @@ class CompoundDepositManager: Web3ManagerProtocol {
 				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
 			}.then { [self] permitData, allowanceData -> Promise<(String, String, String)> in
 				web3.getDepositV2CallData(
-					tokenAdd: cTokenID,
+					tokenAdd: tokenPositionID,
 					amount: tokenUIntNumber,
 					recipientAdd: walletManager.currentAccount.eip55Address
 				).map { ($0, permitData, allowanceData) }

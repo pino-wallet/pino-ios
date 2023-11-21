@@ -12,17 +12,12 @@ import Web3
 import Web3_Utility
 import Web3ContractABI
 
-class InvestManager: Web3ManagerProtocol {
+class DepositManager: InvestW3ManagerProtocol {
 	// MARK: - Private Properties
 
-	private var investProtocol: InvestProtocolViewModel
 	private var investAmount: String
-	private let selectedToken: AssetViewModel
 	private let nonce = BigNumber.bigRandomeNumber
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes
-	private let web3Client = Web3APIClient()
-	private var cancellables = Set<AnyCancellable>()
-
 	private var tokenUIntNumber: BigUInt {
 		Utilities.parseToBigUInt(investAmount, decimals: selectedToken.decimal)!
 	}
@@ -35,6 +30,10 @@ class InvestManager: Web3ManagerProtocol {
 
 	// MARK: - Internal properties
 
+	internal var selectedProtocol: InvestProtocolViewModel
+	internal let selectedToken: AssetViewModel
+	internal var tokenPositionID: String!
+	internal var cancellables = Set<AnyCancellable>()
 	internal var web3 = Web3Core.shared
 	internal var contract: DynamicContract
 	internal var walletManager = PinoWalletManager()
@@ -49,14 +48,14 @@ class InvestManager: Web3ManagerProtocol {
 	) {
 		self.contract = contract
 		self.selectedToken = selectedToken
-		self.investProtocol = investProtocol
+		self.selectedProtocol = investProtocol
 		self.investAmount = investAmount
 	}
 
 	// MARK: Public Methods
 
 	public func getDepositInfo() -> TrxWithGasInfo {
-		switch investProtocol {
+		switch selectedProtocol {
 		case .maker:
 			return getMakerDepositInfo()
 		case .compound:
@@ -83,16 +82,17 @@ class InvestManager: Web3ManagerProtocol {
 	private func getMakerDepositInfo() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			firstly {
-				fetchHash()
+				getTokenPositionID()
+			}.then { positionID in
+				self.fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
-			}.then { signiture -> Promise<(String, String?)> in
+			}.then { [self] signiture -> Promise<(String, String?)> in
 				// Check allowance of protocol
-				let spenderAddress = Web3Core.Constants.sDaiContractAddress
-				return self.checkAllowanceOfProvider(
-					approvingToken: self.selectedToken,
-					approvingAmount: self.investAmount,
-					spenderAddress: spenderAddress,
+				checkAllowanceOfProvider(
+					approvingToken: selectedToken,
+					approvingAmount: investAmount,
+					spenderAddress: tokenPositionID,
 					ownerAddress: Web3Core.Constants.investContractAddress
 				).map { (signiture, $0) }
 			}.then { signiture, allowanceData -> Promise<(String, String?)> in
@@ -195,7 +195,6 @@ class InvestManager: Web3ManagerProtocol {
 
 	private func fetchHash() -> Promise<String> {
 		Promise<String> { seal in
-
 			let hashREq = EIP712HashRequestModel(
 				tokenAdd: selectedToken.id,
 				amount: tokenUIntNumber.description,

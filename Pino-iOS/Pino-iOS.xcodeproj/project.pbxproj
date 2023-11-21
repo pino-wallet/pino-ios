@@ -620,7 +620,7 @@
 		E333E63A2AA708D3005C977E /* InvestEmptyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E333E6392AA708D3005C977E /* InvestEmptyPageView.swift */; };
 		E33F7CBA2AD44199007FC04D /* W3InvestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F7CB92AD44199007FC04D /* W3InvestManager.swift */; };
 		E33F7CBC2AD442AC007FC04D /* InvestABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = E33F7CBB2AD442AC007FC04D /* InvestABIJson.json */; };
-		E33F7CBE2AD44CA2007FC04D /* InvestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F7CBD2AD44CA2007FC04D /* InvestManager.swift */; };
+		E33F7CBE2AD44CA2007FC04D /* DepositManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F7CBD2AD44CA2007FC04D /* DepositManager.swift */; };
 		E343836A2A3D912A0048BDA1 /* SendConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34383692A3D912A0048BDA1 /* SendConfirmationViewController.swift */; };
 		E343836C2A3D92C20048BDA1 /* SendConfimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E343836B2A3D92C20048BDA1 /* SendConfimationView.swift */; };
 		E343836E2A3DA0320048BDA1 /* SendConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E343836D2A3DA0320048BDA1 /* SendConfirmationViewModel.swift */; };
@@ -697,6 +697,7 @@
 		E3C0BCCB2B0A0DC900DAA409 /* InvestViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C0BCCA2B0A0DC900DAA409 /* InvestViewModelProtocol.swift */; };
 		E3C0BCCD2B0A32F400DAA409 /* WithdrawConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C0BCCC2B0A32F400DAA409 /* WithdrawConfirmationViewModel.swift */; };
 		E3C0BCCF2B0A335000DAA409 /* InvestConfirmationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C0BCCE2B0A335000DAA409 /* InvestConfirmationProtocol.swift */; };
+		E3C0BCD22B0C99F000DAA409 /* InvestW3ManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C0BCD12B0C99F000DAA409 /* InvestW3ManagerProtocol.swift */; };
 		E3C802792A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C802782A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift */; };
 		E3C8027B2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C8027A2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift */; };
 		E3C8027D2A95427800A13792 /* InvestmentRiskItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C8027C2A95427800A13792 /* InvestmentRiskItemView.swift */; };
@@ -1400,7 +1401,7 @@
 		E333E6392AA708D3005C977E /* InvestEmptyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestEmptyPageView.swift; sourceTree = "<group>"; };
 		E33F7CB92AD44199007FC04D /* W3InvestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3InvestManager.swift; sourceTree = "<group>"; };
 		E33F7CBB2AD442AC007FC04D /* InvestABIJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvestABIJson.json; sourceTree = "<group>"; };
-		E33F7CBD2AD44CA2007FC04D /* InvestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestManager.swift; sourceTree = "<group>"; };
+		E33F7CBD2AD44CA2007FC04D /* DepositManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositManager.swift; sourceTree = "<group>"; };
 		E34383692A3D912A0048BDA1 /* SendConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmationViewController.swift; sourceTree = "<group>"; };
 		E343836B2A3D92C20048BDA1 /* SendConfimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfimationView.swift; sourceTree = "<group>"; };
 		E343836D2A3DA0320048BDA1 /* SendConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmationViewModel.swift; sourceTree = "<group>"; };
@@ -1478,6 +1479,7 @@
 		E3C0BCCA2B0A0DC900DAA409 /* InvestViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestViewModelProtocol.swift; sourceTree = "<group>"; };
 		E3C0BCCC2B0A32F400DAA409 /* WithdrawConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawConfirmationViewModel.swift; sourceTree = "<group>"; };
 		E3C0BCCE2B0A335000DAA409 /* InvestConfirmationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestConfirmationProtocol.swift; sourceTree = "<group>"; };
+		E3C0BCD12B0C99F000DAA409 /* InvestW3ManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestW3ManagerProtocol.swift; sourceTree = "<group>"; };
 		E3C802782A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskPerformanceViewController.swift; sourceTree = "<group>"; };
 		E3C8027A2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskPerformanceView.swift; sourceTree = "<group>"; };
 		E3C8027C2A95427800A13792 /* InvestmentRiskItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskItemView.swift; sourceTree = "<group>"; };
@@ -3820,7 +3822,7 @@
 		E3C0BCD02B0A335D00DAA409 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				E33F7CBD2AD44CA2007FC04D /* InvestManager.swift */,
+				E33F7CBD2AD44CA2007FC04D /* DepositManager.swift */,
 				E3C0BCC62B0A02CA00DAA409 /* WithdrawManager.swift */,
 				E3099FEB2B00B901004474F0 /* CompoundDepositManager.swift */,
 				E3C0BCCA2B0A0DC900DAA409 /* InvestViewModelProtocol.swift */,
@@ -3829,6 +3831,7 @@
 				E3C0BCC82B0A0C5400DAA409 /* WithdrawViewModel.swift */,
 				E39F594F2A99F20B00023292 /* InvestConfirmationViewModel.swift */,
 				E3C0BCCC2B0A32F400DAA409 /* WithdrawConfirmationViewModel.swift */,
+				E3C0BCD12B0C99F000DAA409 /* InvestW3ManagerProtocol.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -4565,7 +4568,7 @@
 				DF4C23142AC33D000014DC89 /* W3CallDataGenerator.swift in Sources */,
 				24D1C890843C5A3AE41A1442 /* AssetsAPIClient.swift in Sources */,
 				D9A642CC2AFA254200FDE11D /* ActivityWithdrawModel.swift in Sources */,
-				E33F7CBE2AD44CA2007FC04D /* InvestManager.swift in Sources */,
+				E33F7CBE2AD44CA2007FC04D /* DepositManager.swift in Sources */,
 				D16E6EA70136FF5D5C83ED88 /* AssetsAPIMockClient.swift in Sources */,
 				A19CFCA76D9396A5A2612F7E /* AssetsAPIService.swift in Sources */,
 				1B60F4A0467FB90C104F4521 /* AssetsCollectionView.swift in Sources */,
@@ -4899,6 +4902,7 @@
 				55CBB37768826DE00CDAF5FB /* PinoLabel.swift in Sources */,
 				D92B913C2A30756C0055B277 /* PinoContainerCard.swift in Sources */,
 				6C3ACBB9EEE454EC433A907D /* PinoLabelStyle.swift in Sources */,
+				E3C0BCD22B0C99F000DAA409 /* InvestW3ManagerProtocol.swift in Sources */,
 				D919E7542A18FE31003C73D7 /* AccountHeaderViewModel.swift in Sources */,
 				9CC2D1EE167451483C8E7F4F /* PinoLineChart.swift in Sources */,
 				D09AAD1A88DD6C97185FD51B /* PinoLoading.swift in Sources */,

@@ -17,8 +17,8 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 	private let web3 = Web3Core.shared
 	private var cancellables = Set<AnyCancellable>()
 
-	private lazy var investManager: InvestManager = {
-		InvestManager(
+	private lazy var investManager: DepositManager = {
+		DepositManager(
 			contract: investProxyContract,
 			selectedToken: selectedToken,
 			investProtocol: selectedProtocol,
