@@ -5,183 +5,187 @@
 //  Created by Amir hossein kazemi seresht on 11/20/23.
 //
 
-import UIKit
 import Combine
+import UIKit
 
 class SendTransactionStatusView: UIView {
-    // MARK: - Public Properties
+	// MARK: - Public Properties
 
-    public var txHash: String
+	public var txHash: String
 
-    // MARK: - Closures
+	// MARK: - Closures
 
-    public var onDissmiss: () -> Void = {}
-    public var toggleIsModalInPresentation: (_: Bool) -> Void
+	public var onDissmiss: () -> Void = {}
+	public var toggleIsModalInPresentation: (_: Bool) -> Void
 
-    // MARK: - Private Properties
+	// MARK: - Private Properties
 
-    private let dissmissButton = UIButton()
-    private let clearNavigationBar = ClearNavigationBar()
-    private let navigationBarRightView = UIView()
-    private let loading = PinoLoading(size: 50)
-    private let statusIconView = UIImageView()
-    private let statusTitleLabel = PinoLabel(style: .title, text: "")
-    private let statusDescriptionLabel = PinoLabel(style: .description, text: "")
-    private let closeButton = PinoButton(style: .secondary)
-    private let statusInfoStackView = UIStackView()
-    private let statusTextsStackView = UIStackView()
-    private var sendStatusVM: SendTransactionStatusViewModel
-    private var cancellables = Set<AnyCancellable>()
+	private let dissmissButton = UIButton()
+	private let clearNavigationBar = ClearNavigationBar()
+	private let navigationBarRightView = UIView()
+	private let loading = PinoLoading(size: 50)
+	private let statusIconView = UIImageView()
+	private let statusTitleLabel = PinoLabel(style: .title, text: "")
+	private let statusDescriptionLabel = PinoLabel(style: .description, text: "")
+	private let closeButton = PinoButton(style: .secondary)
+	private let statusInfoStackView = UIStackView()
+	private let statusTextsStackView = UIStackView()
+	private var sendStatusVM: SendTransactionStatusViewModel
+	private var cancellables = Set<AnyCancellable>()
 
-    // MARK: - Initializers
+	// MARK: - Initializers
 
-    init(toggleIsModalInPresentation: @escaping (_: Bool) -> Void, txHash: String = "", sendStatusVM: SendTransactionStatusViewModel) {
-        self.toggleIsModalInPresentation = toggleIsModalInPresentation
-        self.txHash = txHash
-        self.sendStatusVM = sendStatusVM
-        super.init(frame: .zero)
+	init(
+		toggleIsModalInPresentation: @escaping (_: Bool) -> Void,
+		txHash: String = "",
+		sendStatusVM: SendTransactionStatusViewModel
+	) {
+		self.toggleIsModalInPresentation = toggleIsModalInPresentation
+		self.txHash = txHash
+		self.sendStatusVM = sendStatusVM
+		super.init(frame: .zero)
 
-        setupView()
-        setupStyles()
-        setupConstraints()
-        setupBindings()
-        updateViewWithPageStatus(pageStatus: sendStatusVM.sendTransactionStatus)
-    }
+		setupView()
+		setupStyles()
+		setupConstraints()
+		setupBindings()
+		updateViewWithPageStatus(pageStatus: sendStatusVM.sendTransactionStatus)
+	}
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
-    // MARK: - Private Methods
+	// MARK: - Private Methods
 
-    private func setupView() {
-        navigationBarRightView.addSubview(dissmissButton)
+	private func setupView() {
+		navigationBarRightView.addSubview(dissmissButton)
 
-        clearNavigationBar.setRightSectionView(view: navigationBarRightView)
+		clearNavigationBar.setRightSectionView(view: navigationBarRightView)
 
-        dissmissButton.addTarget(self, action: #selector(onDissmissTap), for: .touchUpInside)
-        closeButton.addTarget(self, action: #selector(onDissmissTap), for: .touchUpInside)
-        
-        statusTextsStackView.addArrangedSubview(statusTitleLabel)
-        statusTextsStackView.addArrangedSubview(statusDescriptionLabel)
+		dissmissButton.addTarget(self, action: #selector(onDissmissTap), for: .touchUpInside)
+		closeButton.addTarget(self, action: #selector(onDissmissTap), for: .touchUpInside)
 
-        statusInfoStackView.addArrangedSubview(loading)
-        statusInfoStackView.addArrangedSubview(statusIconView)
-        statusInfoStackView.addArrangedSubview(statusTextsStackView)
+		statusTextsStackView.addArrangedSubview(statusTitleLabel)
+		statusTextsStackView.addArrangedSubview(statusDescriptionLabel)
 
-        addSubview(clearNavigationBar)
-        addSubview(statusInfoStackView)
-        addSubview(closeButton)
-    }
+		statusInfoStackView.addArrangedSubview(loading)
+		statusInfoStackView.addArrangedSubview(statusIconView)
+		statusInfoStackView.addArrangedSubview(statusTextsStackView)
 
-    private func setupStyles() {
-        backgroundColor = .Pino.secondaryBackground
+		addSubview(clearNavigationBar)
+		addSubview(statusInfoStackView)
+		addSubview(closeButton)
+	}
 
-        closeButton.setTitle(sendStatusVM.closeButtonText, for: .normal)
+	private func setupStyles() {
+		backgroundColor = .Pino.secondaryBackground
 
-        statusInfoStackView.axis = .vertical
-        statusInfoStackView.spacing = 24
-        statusInfoStackView.alignment = .center
-        
-        statusTextsStackView.axis = .vertical
-        statusTextsStackView.spacing = 8
-        statusTextsStackView.alignment = .center
+		closeButton.setTitle(sendStatusVM.closeButtonText, for: .normal)
 
-        statusDescriptionLabel.font = .PinoStyle.mediumBody
+		statusInfoStackView.axis = .vertical
+		statusInfoStackView.spacing = 24
+		statusInfoStackView.alignment = .center
 
-        statusTitleLabel.font = .PinoStyle.semiboldTitle2
+		statusTextsStackView.axis = .vertical
+		statusTextsStackView.spacing = 8
+		statusTextsStackView.alignment = .center
 
-        var viewStatusConfigurations = PinoButton.Configuration.plain()
-        viewStatusConfigurations.title = sendStatusVM.viewStatusText
-        viewStatusConfigurations.image = UIImage(named: sendStatusVM.viewStatusIconName)
-        viewStatusConfigurations.imagePadding = 4
-        viewStatusConfigurations.imagePlacement = .trailing
-        viewStatusConfigurations.background.backgroundColor = .Pino.clear
-        viewStatusConfigurations.background.customView?.layer.borderWidth = 1.2
-        viewStatusConfigurations.background.customView?.layer.borderColor = UIColor.Pino.primary.cgColor
-        var attributedTitle = AttributedString(sendStatusVM.viewStatusText)
-        attributedTitle.font = .PinoStyle.semiboldBody
-        attributedTitle.foregroundColor = .Pino.primary
-        viewStatusConfigurations.attributedTitle = attributedTitle
+		statusDescriptionLabel.font = .PinoStyle.mediumBody
 
-        dissmissButton.setImage(UIImage(named: sendStatusVM.navigationDissmissIconName), for: .normal)
-    }
+		statusTitleLabel.font = .PinoStyle.semiboldTitle2
 
-    private func setupConstraints() {
-        dissmissButton.pin(.fixedHeight(30), .fixedHeight(30), .top(padding: 22), .trailing(padding: 0))
-        clearNavigationBar.pin(.horizontalEdges(padding: 0), .top(padding: 0))
-        statusIconView.pin(.fixedWidth(56), .fixedHeight(56))
-        statusInfoStackView.pin(.centerY, .horizontalEdges(to: layoutMarginsGuide, padding: 16))
-        closeButton.pin(.bottom(padding: 32), .horizontalEdges(padding: 16))
-    }
-    
-    private func setupBindings() {
-        sendStatusVM.$sendTransactionStatus.sink { sendTransactionStatus in
-            self.updateViewWithPageStatus(pageStatus: sendTransactionStatus)
-        }.store(in: &cancellables)
-    }
+		var viewStatusConfigurations = PinoButton.Configuration.plain()
+		viewStatusConfigurations.title = sendStatusVM.viewStatusText
+		viewStatusConfigurations.image = UIImage(named: sendStatusVM.viewStatusIconName)
+		viewStatusConfigurations.imagePadding = 4
+		viewStatusConfigurations.imagePlacement = .trailing
+		viewStatusConfigurations.background.backgroundColor = .Pino.clear
+		viewStatusConfigurations.background.customView?.layer.borderWidth = 1.2
+		viewStatusConfigurations.background.customView?.layer.borderColor = UIColor.Pino.primary.cgColor
+		var attributedTitle = AttributedString(sendStatusVM.viewStatusText)
+		attributedTitle.font = .PinoStyle.semiboldBody
+		attributedTitle.foregroundColor = .Pino.primary
+		viewStatusConfigurations.attributedTitle = attributedTitle
 
-    private func updateViewWithPageStatus(pageStatus: SendTransactionStatus) {
-        switch pageStatus {
-        case .pending:
-            statusInfoStackView.isHidden = false
-            loading.isHidden = false
-            statusIconView.isHidden = true
-            dissmissButton.isHidden = false
-            toggleIsModalInPresentation(false)
-            closeButton.isHidden = false
-            statusTitleLabel.text = sendStatusVM.confirmingTitleText
-            statusDescriptionLabel.text = sendStatusVM.confirmingDescriptionText
-        case .success:
-            statusIconView.image = UIImage(named: sendStatusVM.sentIconName)
-            statusTitleLabel.text = sendStatusVM.transactionSentText
-            statusDescriptionLabel.text = sendStatusVM.transactionSentInfoText
-            setupAdditionalSettingsForLabels()
-            loading.isHidden = true
-            statusIconView.isHidden = false
-            statusInfoStackView.isHidden = false
-            dissmissButton.isHidden = false
-            toggleIsModalInPresentation(false)
-            closeButton.isHidden = false
-        case .failed:
-            statusIconView.image = UIImage(named: sendStatusVM.failedIconName)
-            statusTitleLabel.text = sendStatusVM.somethingWentWrongText
-            statusDescriptionLabel.text = sendStatusVM.tryAgainLaterText
-            setupAdditionalSettingsForLabels()
-            loading.isHidden = true
-            statusIconView.isHidden = false
-            statusInfoStackView.isHidden = false
-            dissmissButton.isHidden = false
-            toggleIsModalInPresentation(false)
-            closeButton.isHidden = false
-        case .sending:
-            statusInfoStackView.isHidden = false
-            loading.isHidden = false
-            statusIconView.isHidden = true
-            dissmissButton.isHidden = true
-            toggleIsModalInPresentation(true)
-            closeButton.isHidden = true
-            statusTitleLabel.text = sendStatusVM.confirmingTitleText
-            statusDescriptionLabel.text = sendStatusVM.confirmingDescriptionText
-        }
-    }
+		dissmissButton.setImage(UIImage(named: sendStatusVM.navigationDissmissIconName), for: .normal)
+	}
 
-    private func setupAdditionalSettingsForLabels() {
-        statusDescriptionLabel.textAlignment = .center
-        statusDescriptionLabel.numberOfLines = 0
+	private func setupConstraints() {
+		dissmissButton.pin(.fixedHeight(30), .fixedHeight(30), .top(padding: 22), .trailing(padding: 0))
+		clearNavigationBar.pin(.horizontalEdges(padding: 0), .top(padding: 0))
+		statusIconView.pin(.fixedWidth(56), .fixedHeight(56))
+		statusInfoStackView.pin(.centerY, .horizontalEdges(to: layoutMarginsGuide, padding: 16))
+		closeButton.pin(.bottom(padding: 32), .horizontalEdges(padding: 16))
+	}
 
-        statusTitleLabel.textAlignment = .center
-        statusTitleLabel.numberOfLines = 0
-    }
+	private func setupBindings() {
+		sendStatusVM.$sendTransactionStatus.sink { sendTransactionStatus in
+			self.updateViewWithPageStatus(pageStatus: sendTransactionStatus)
+		}.store(in: &cancellables)
+	}
 
-    @objc
-    private func onDissmissTap() {
-        onDissmiss()
-    }
+	private func updateViewWithPageStatus(pageStatus: SendTransactionStatus) {
+		switch pageStatus {
+		case .pending:
+			statusInfoStackView.isHidden = false
+			loading.isHidden = false
+			statusIconView.isHidden = true
+			dissmissButton.isHidden = false
+			toggleIsModalInPresentation(false)
+			closeButton.isHidden = false
+			statusTitleLabel.text = sendStatusVM.confirmingTitleText
+			statusDescriptionLabel.text = sendStatusVM.confirmingDescriptionText
+		case .success:
+			statusIconView.image = UIImage(named: sendStatusVM.sentIconName)
+			statusTitleLabel.text = sendStatusVM.transactionSentText
+			statusDescriptionLabel.text = sendStatusVM.transactionSentInfoText
+			setupAdditionalSettingsForLabels()
+			loading.isHidden = true
+			statusIconView.isHidden = false
+			statusInfoStackView.isHidden = false
+			dissmissButton.isHidden = false
+			toggleIsModalInPresentation(false)
+			closeButton.isHidden = false
+		case .failed:
+			statusIconView.image = UIImage(named: sendStatusVM.failedIconName)
+			statusTitleLabel.text = sendStatusVM.somethingWentWrongText
+			statusDescriptionLabel.text = sendStatusVM.tryAgainLaterText
+			setupAdditionalSettingsForLabels()
+			loading.isHidden = true
+			statusIconView.isHidden = false
+			statusInfoStackView.isHidden = false
+			dissmissButton.isHidden = false
+			toggleIsModalInPresentation(false)
+			closeButton.isHidden = false
+		case .sending:
+			statusInfoStackView.isHidden = false
+			loading.isHidden = false
+			statusIconView.isHidden = true
+			dissmissButton.isHidden = true
+			toggleIsModalInPresentation(true)
+			closeButton.isHidden = true
+			statusTitleLabel.text = sendStatusVM.confirmingTitleText
+			statusDescriptionLabel.text = sendStatusVM.confirmingDescriptionText
+		}
+	}
 
-    @objc
-    private func openViewStatusURL() {
-        let viewStatusUrl = URL(string: txHash.ethScanTxURL)
-        UIApplication.shared.open(viewStatusUrl!)
-    }
+	private func setupAdditionalSettingsForLabels() {
+		statusDescriptionLabel.textAlignment = .center
+		statusDescriptionLabel.numberOfLines = 0
+
+		statusTitleLabel.textAlignment = .center
+		statusTitleLabel.numberOfLines = 0
+	}
+
+	@objc
+	private func onDissmissTap() {
+		onDissmiss()
+	}
+
+	@objc
+	private func openViewStatusURL() {
+		let viewStatusUrl = URL(string: txHash.ethScanTxURL)
+		UIApplication.shared.open(viewStatusUrl!)
+	}
 }

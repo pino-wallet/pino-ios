@@ -8,10 +8,10 @@
 import Foundation
 
 enum SendTransactionType {
-//    case borrow
-//    case send
-//    case repy
-    case collateral
-//    case withdraw
-//    case invest
+	//    case borrow
+	//    case send
+	//    case repy
+	case collateral
+	//    case withdraw
+	//    case invest
 }

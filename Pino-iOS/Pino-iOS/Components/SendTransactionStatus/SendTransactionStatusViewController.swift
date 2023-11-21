@@ -9,51 +9,50 @@ import UIKit
 import Web3_Utility
 
 class SendTransactionStatusViewController: UIViewController {
-    // MARK: - Private Properties
+	// MARK: - Private Properties
 
-    private var sendStatusView: SendTransactionStatusView!
-    private var sendStatusVM: SendTransactionStatusViewModel
+	private var sendStatusView: SendTransactionStatusView!
+	private var sendStatusVM: SendTransactionStatusViewModel
 
-    // MARK: - Initializers
+	// MARK: - Initializers
 
-    init(sendStatusVM: SendTransactionStatusViewModel) {
-        self.sendStatusVM = sendStatusVM
-        super.init(nibName: nil, bundle: nil)
-    }
+	init(sendStatusVM: SendTransactionStatusViewModel) {
+		self.sendStatusVM = sendStatusVM
+		super.init(nibName: nil, bundle: nil)
+	}
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
-    // MARK: - View Overrides
+	// MARK: - View Overrides
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if isBeingPresented || isMovingToParent {
-            clearNavbar()
-        }
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        sendStatusVM.destroyRequestTimer()
-    }
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		if isBeingPresented || isMovingToParent {
+			clearNavbar()
+		}
+	}
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	override func viewDidDisappear(_ animated: Bool) {
+		sendStatusVM.destroyRequestTimer()
+	}
 
-        setupView()
-    }
+	override func viewDidLoad() {
+		super.viewDidLoad()
 
-    // MARK: - Private Methods
+		setupView()
+	}
 
-    private func setupView() {
-        sendStatusView = SendTransactionStatusView(toggleIsModalInPresentation: { isModelInPresentation in
-            self.isModalInPresentation = isModelInPresentation
-        }, sendStatusVM: sendStatusVM)
-        sendStatusView.onDissmiss = {
-            self.dismiss(animated: true)
-        }
-        view = sendStatusView
-    }
+	// MARK: - Private Methods
+
+	private func setupView() {
+		sendStatusView = SendTransactionStatusView(toggleIsModalInPresentation: { isModelInPresentation in
+			self.isModalInPresentation = isModelInPresentation
+		}, sendStatusVM: sendStatusVM)
+		sendStatusView.onDissmiss = {
+			self.dismiss(animated: true)
+		}
+		view = sendStatusView
+	}
 }
-

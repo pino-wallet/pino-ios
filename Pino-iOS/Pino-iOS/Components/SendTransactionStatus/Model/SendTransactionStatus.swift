@@ -7,9 +7,9 @@
 
 import Foundation
 
-     enum SendTransactionStatus {
-        case pending
-        case success
-        case failed
-        case sending
-    }
+enum SendTransactionStatus {
+	case pending
+	case success
+	case failed
+	case sending
+}

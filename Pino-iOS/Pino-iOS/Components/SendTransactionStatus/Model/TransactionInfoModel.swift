@@ -8,8 +8,8 @@
 import Foundation
 
 struct TransactionInfoModel {
-var transactionType: SendTransactionType
-var transactionDex: DexSystemModel
-var transactionAmount: String
-var transactionToken: AssetViewModel
+	var transactionType: SendTransactionType
+	var transactionDex: DexSystemModel
+	var transactionAmount: String
+	var transactionToken: AssetViewModel
 }
