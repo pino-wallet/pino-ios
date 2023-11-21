@@ -34,35 +34,11 @@ enum Environment {
 
 	// MARK: - Environments
 
-	public static var chainID: Int {
-		switch current {
-		case .mainNet, .pinoNode:
-			return 1
-		case .devNet:
-			return 1337
-		}
-	}
-
-	public static var readRPCURL: String {
-		"https://node.pino.xyz"
-	}
-
-	public static var writeRPCURL: String {
-		switch current {
-		case .mainNet:
-			return "https://rpc.ankr.com/eth"
-		case .devNet:
-			return "https://ganache.pino.xyz"
-		case .pinoNode:
-			return "https://ganache.pino.xyz"
-		}
-	}
-
 	public static var current: Environment {
 		let devMode = UserDefaults.standard.bool(forKey: "isInDevMode")
 
 		if devMode {
-			return .pinoNode
+			return .devNet
 		} else {
 			return .mainNet
 		}

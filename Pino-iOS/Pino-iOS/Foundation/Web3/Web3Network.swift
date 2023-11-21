@@ -22,21 +22,33 @@ public enum Web3Network: String {
 		if Environment.current == .mainNet {
 			return .mainNet
 		} else if Environment.current != .mainNet {
-			return .pinoNode
+			return .ganashDev
 		} else {
 			return .arb
 		}
 	}
 
 	public static var chainID: EthereumQuantity {
-		.init(quantity: BigUInt(Environment.chainID))
+		if current == .mainNet {
+			return 1
+		} else {
+			return 1337
+		}
 	}
 
 	public static var readRPC: Web3 {
-		Web3(rpcURL: Environment.readRPCURL)
+		if current == .mainNet {
+			return Web3(rpcURL: "https://node.pino.xyz")
+		} else {
+			return Web3(rpcURL: "https://ganache.pino.xyz")
+		}
 	}
 
 	public static var writeRPC: Web3 {
-		Web3(rpcURL: Environment.writeRPCURL)
+		if current == .mainNet {
+			return Web3(rpcURL: "https://rpc.ankr.com/eth")
+		} else {
+			return Web3(rpcURL: "https://ganache.pino.xyz")
+		}
 	}
 }

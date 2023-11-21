@@ -22,11 +22,7 @@ public class Web3Core {
 
 	private init() {}
 	private var wWeb3: Web3 {
-		if let testURL = AboutPinoView.web3URL {
-			return Web3(rpcURL: testURL)
-		} else {
-			return Web3Network.writeRPC
-		}
+		Web3Network.writeRPC
 	}
 
 	private var rWeb3: Web3 {
