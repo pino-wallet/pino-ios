@@ -21,16 +21,13 @@ public class Web3Core {
 	// MARK: - Private Properties
 
 	private init() {}
-    private var wWeb3: Web3 {
-            if let testURL = AboutPinoView.web3URL {
-                return Web3(rpcURL: testURL)
-            } else {
-                return Web3Network.writeRPC
-            }
-        }
-        private var rWeb3: Web3 {
-            Web3Network.writeRPC
-        }
+	private var wWeb3: Web3 {
+		Web3Network.writeRPC
+	}
+
+	private var rWeb3: Web3 {
+		Web3Network.readRPC
+	}
 
 	private var userPrivateKey: EthereumPrivateKey {
 		try! EthereumPrivateKey(
