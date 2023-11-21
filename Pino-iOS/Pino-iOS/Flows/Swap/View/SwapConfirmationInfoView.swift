@@ -123,6 +123,8 @@ class SwapConfirmationInfoView: UIView {
 		feeErrorLabel.textColor = .Pino.red
 		feeErrorIcon.tintColor = .Pino.red
 
+		feeLabel.layer.masksToBounds = true
+		feeLabel.layer.cornerRadius = 12
 		feeLabel.textAlignment = .right
 		rateLabel.textAlignment = .right
 
@@ -154,13 +156,17 @@ class SwapConfirmationInfoView: UIView {
 			.fixedWidth(48)
 		)
 		feeLabel.pin(
-			.allEdges
+			.verticalEdges,
+			.trailing
 		)
 		feeErrorStackView.pin(
 			.allEdges
 		)
 
-		feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
+		NSLayoutConstraint.activate([
+			feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60),
+			feeLabel.leadingAnchor.constraint(greaterThanOrEqualTo: feeResultView.leadingAnchor),
+		])
 	}
 
 	private func setSketonable() {
@@ -169,9 +175,10 @@ class SwapConfirmationInfoView: UIView {
 
 	@objc
 	private func toggleShowFee() {
+		guard let formattedFee = swapConfirmationVM.formattedFeeInETH else { return }
 		showFeeInDollar.toggle()
 		updateFeeLabel(
-			feeInETH: swapConfirmationVM.formattedFeeInETH!,
+			feeInETH: formattedFee,
 			feeInDollar: swapConfirmationVM.formattedFeeInDollar!
 		)
 	}
