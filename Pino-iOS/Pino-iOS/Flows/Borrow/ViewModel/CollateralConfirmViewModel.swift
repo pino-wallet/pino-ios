@@ -64,9 +64,9 @@ class CollateralConfirmViewModel {
 
 	private let sendTxErrorText = "Failed to send collateral transaction"
 	private let feeTxErrorText = "Failed to estimate fee of transaction"
-    private let coredataManager = CoreDataManager()
-    private let walletManager = PinoWalletManager()
-    private let activityHelper = ActivityHelper()
+	private let coredataManager = CoreDataManager()
+	private let walletManager = PinoWalletManager()
+	private let activityHelper = ActivityHelper()
 
 	private let web3 = Web3Core.shared
 
@@ -110,19 +110,39 @@ class CollateralConfirmViewModel {
 	}
 
 	// MARK: - Public Methods
-    
-    public func createCollateralPendingActivity(txHash: String) {
-         var activityType: String {
-                switch collaterallIncreaseAmountVM.collateralMode {
-                case .increase:
-                    return "increase_collateral"
-                case .create:
-                    return "create_collateral"
-                }
-            }
-        coredataManager.addNewCollateralActivity(activityModel: ActivityCollateralModel(txHash: txHash, type: activityType, detail: CollateralActivityDetails(activityProtocol: selectedDexSystem.type, tokens: [ActivityTokenModel(amount: Utilities.parseToBigUInt(collaterallIncreaseAmountVM.tokenAmount, units: .custom(selectedToken.decimal))!.description, tokenID: selectedToken.id)]), fromAddress: "", toAddress: "", blockTime: activityHelper.getServerFormattedStringDate(date: Date()), gasUsed: aaveCollateralManager.depositGasInfo!.increasedGasLimit.description, gasPrice: aaveCollateralManager.depositGasInfo!.gasPrice.description), accountAddress: self.walletManager.currentAccount.eip55Address)
-            PendingActivitiesManager.shared.startActivityPendingRequests()
-    }
+
+	public func createCollateralPendingActivity(txHash: String) {
+		var activityType: String {
+			switch collaterallIncreaseAmountVM.collateralMode {
+			case .increase:
+				return "increase_collateral"
+			case .create:
+				return "create_collateral"
+			}
+		}
+		coredataManager.addNewCollateralActivity(
+			activityModel: ActivityCollateralModel(
+				txHash: txHash,
+				type: activityType,
+				detail: CollateralActivityDetails(
+					activityProtocol: selectedDexSystem.type,
+					tokens: [ActivityTokenModel(
+						amount: Utilities
+							.parseToBigUInt(collaterallIncreaseAmountVM.tokenAmount, units: .custom(selectedToken.decimal))!
+							.description,
+						tokenID: selectedToken.id
+					)]
+				),
+				fromAddress: "",
+				toAddress: "",
+				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
+				gasUsed: aaveCollateralManager.depositGasInfo!.increasedGasLimit.description,
+				gasPrice: aaveCollateralManager.depositGasInfo!.gasPrice.description
+			),
+			accountAddress: walletManager.currentAccount.eip55Address
+		)
+		PendingActivitiesManager.shared.startActivityPendingRequests()
+	}
 
 	public func getCollateralGasInfo() {
 		switch collaterallIncreaseAmountVM.borrowVM.selectedDexSystem {
