@@ -119,4 +119,14 @@ class SwapConfirmationViewModel {
 			selectedProtocolName = selectedProtocol.name
 		}
 	}
+    
+    private func recalculateSwapRate() {
+        Timer.publish(every: 11, on: .main, in: .common)
+            .autoconnect()
+            .sink { [self] seconds in
+                
+               
+            }
+            .store(in: &cancellables)
+    }
 }
