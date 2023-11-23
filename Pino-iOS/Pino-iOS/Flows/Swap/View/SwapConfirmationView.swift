@@ -17,7 +17,7 @@ class SwapConfirmationView: UIView {
 	private let swapInfoCardView = PinoContainerCard()
 	private let tokenStackView = UIStackView()
 	private let fromTokenView: SwapConfirmationTokenView
-	private let toTokenView: SwapConfirmationTokenView
+	private var toTokenView: SwapConfirmationTokenView
 	private let arrowImageView = UIImageView()
 	private let swapArrowStackView = UIStackView()
 	private let swapArrowSpacerView = UIView()
@@ -97,7 +97,7 @@ class SwapConfirmationView: UIView {
 		contentStackview.spacing = 24
 		cardsStackView.spacing = 18
 
-		showSkeletonView()
+//		showSkeletonView()
 		continueButton.style = .deactive
 	}
 
@@ -131,6 +131,19 @@ class SwapConfirmationView: UIView {
 				self.swapConfirmationInfoView.updateFeeLabel(feeInETH: feeInETH, feeInDollar: feeInDollar)
 				self.checkBalanceEnough()
 			}.store(in: &cancellables)
+
+		swapConfirmationVM.$toToken.sink { [self] toToken in
+			toTokenView = SwapConfirmationTokenView(swapTokenVM: swapConfirmationVM.toToken)
+		}.store(in: &cancellables)
+
+		swapConfirmationVM.$swapRate.sink { [self] rate in
+			guard let rate else {
+				swapConfirmationInfoView.showRateLoading()
+				return
+			}
+			swapConfirmationInfoView.updateRateLabel(rate: rate)
+			swapConfirmationInfoView.hideRateLoading()
+		}.store(in: &cancellables)
 	}
 
 	private func checkBalanceEnough() {
@@ -147,5 +160,15 @@ class SwapConfirmationView: UIView {
 		if Environment.current != .mainNet {
 			continueButton.style = .active
 		}
+	}
+
+	// MARK: - Public Methods
+
+	public func hideFeeError() {
+		swapConfirmationInfoView.hideFeeCalculationError()
+	}
+
+	public func showfeeCalculationError() {
+		swapConfirmationInfoView.showfeeCalculationError()
 	}
 }

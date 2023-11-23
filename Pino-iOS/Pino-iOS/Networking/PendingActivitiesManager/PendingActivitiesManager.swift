@@ -34,7 +34,7 @@ class PendingActivitiesManager {
 		getPendingActivitiesFromCoreData()
 		stopActivityPendingRequests()
 		getActivityPendings()
-		requestsTimer = Timer.publish(every: 10, on: .main, in: .common).autoconnect().sink { _ in
+		requestsTimer = Timer.publish(every: 100, on: .main, in: .common).autoconnect().sink { _ in
 			self.getActivityPendings()
 		}
 	}

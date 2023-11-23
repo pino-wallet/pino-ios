@@ -212,31 +212,35 @@ class SwapViewController: UIViewController {
 	}
 
 	private func openTokenApprovePage() {
-		let swapConfirmationVM = SwapConfirmationViewModel(
-			fromToken: swapVM.fromToken,
-			toToken: swapVM.toToken,
-			selectedProtocol: swapVM.selectedProtocol,
-			selectedProvider: swapVM.swapFeeVM.swapProviderVM,
-			swapRate: swapVM.swapFeeVM.calculatedAmount!
-		)
-		let approveVC = ApproveContractViewController(
-			approveContractID: swapConfirmationVM.fromToken.selectedToken.id,
-			showConfirmVC: {
-				self.openConfirmationPage()
-			}, approveType: .swap
-		)
-		let confirmationNavigationVC = UINavigationController(rootViewController: approveVC)
-		present(confirmationNavigationVC, animated: true)
-	}
-
-	private func openConfirmationPage() {
-		swapVM.getSwapSide { _, srcToken, destToken in
+		swapVM.getSwapSide { side, _, _ in
 			let swapConfirmationVM = SwapConfirmationViewModel(
 				fromToken: swapVM.fromToken,
 				toToken: swapVM.toToken,
 				selectedProtocol: swapVM.selectedProtocol,
 				selectedProvider: swapVM.swapFeeVM.swapProviderVM,
-				swapRate: swapVM.swapFeeVM.calculatedAmount!
+				swapRate: swapVM.swapFeeVM.calculatedAmount!,
+				swapSide: side
+			)
+			let approveVC = ApproveContractViewController(
+				approveContractID: swapConfirmationVM.fromToken.selectedToken.id,
+				showConfirmVC: {
+					self.openConfirmationPage()
+				}, approveType: .swap
+			)
+			let confirmationNavigationVC = UINavigationController(rootViewController: approveVC)
+			present(confirmationNavigationVC, animated: true)
+		}
+	}
+
+	private func openConfirmationPage() {
+		swapVM.getSwapSide { side, srcToken, destToken in
+			let swapConfirmationVM = SwapConfirmationViewModel(
+				fromToken: swapVM.fromToken,
+				toToken: swapVM.toToken,
+				selectedProtocol: swapVM.selectedProtocol,
+				selectedProvider: swapVM.swapFeeVM.swapProviderVM,
+				swapRate: swapVM.swapFeeVM.calculatedAmount!,
+				swapSide: side
 			)
 			let confirmationVC = SwapConfirmationViewController(swapConfirmationVM: swapConfirmationVM)
 			let confirmationNavigationVC = UINavigationController(rootViewController: confirmationVC)
