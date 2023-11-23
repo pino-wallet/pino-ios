@@ -49,6 +49,35 @@ class SwapPriceManager {
 		}
 	}
 
+	public func getSwapResponseFrom(
+		provider: SwapProvider,
+		srcToken: SwapTokenViewModel,
+		destToken: SwapTokenViewModel,
+		swapSide: SwapSide,
+		amount: String,
+		completion: @escaping (_ responses: [SwapPriceResponseProtocol]) -> Void
+	) {
+		let swapInfo = SwapPriceRequestModel(
+			srcToken: srcToken.selectedToken.id,
+			srcDecimals: srcToken.selectedToken.decimal,
+			destToken: destToken.selectedToken.id,
+			destDecimals: destToken.selectedToken.decimal,
+			amount: amount,
+			side: swapSide,
+			userAddress: Web3Core.Constants.pinoSwapProxyAddress,
+			receiver: pinoWalletManager.currentAccount.eip55Address
+		)
+		cancelPreviousRequests()
+		switch provider {
+		case .oneInch:
+			getOneInchPriceResponse(swapInfo: swapInfo, completion: completion)
+		case .paraswap:
+			getParaswapPriceResponse(swapInfo: swapInfo, completion: completion)
+		case .zeroX:
+			getZeroXPriceResponse(swapInfo: swapInfo, completion: completion)
+		}
+	}
+
 	public func cancelPreviousRequests() {
 		cancellables.removeAll()
 	}
@@ -114,6 +143,66 @@ class SwapPriceManager {
 			}
 		} receiveValue: { paraswapResponse, zeroXResponse in
 			let allResponses: [SwapPriceResponseProtocol?] = [paraswapResponse, zeroXResponse]
+			let valuableResponses = allResponses.compactMap { $0 }
+			if !valuableResponses.isEmpty {
+				completion(valuableResponses)
+			}
+		}.store(in: &cancellables)
+	}
+
+	private func getParaswapPriceResponse(
+		swapInfo: SwapPriceRequestModel,
+		completion: @escaping ([SwapPriceResponseProtocol]) -> Void
+	) {
+		paraSwapAPIClient.swapPrice(swapInfo: swapInfo).catch { _ in Just(nil) }.sink { completed in
+			switch completed {
+			case .finished:
+				print("Swap price received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { paraswapResponse in
+			let allResponses: [SwapPriceResponseProtocol?] = [paraswapResponse]
+			let valuableResponses = allResponses.compactMap { $0 }
+			if !valuableResponses.isEmpty {
+				completion(valuableResponses)
+			}
+		}.store(in: &cancellables)
+	}
+
+	private func getOneInchPriceResponse(
+		swapInfo: SwapPriceRequestModel,
+		completion: @escaping ([SwapPriceResponseProtocol]) -> Void
+	) {
+		oneInchAPIClient.swapPrice(swapInfo: swapInfo).catch { _ in Just(nil) }.sink { completed in
+			switch completed {
+			case .finished:
+				print("Swap price received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { oneInchResponse in
+			let allResponses: [SwapPriceResponseProtocol?] = [oneInchResponse]
+			let valuableResponses = allResponses.compactMap { $0 }
+			if !valuableResponses.isEmpty {
+				completion(valuableResponses)
+			}
+		}.store(in: &cancellables)
+	}
+
+	private func getZeroXPriceResponse(
+		swapInfo: SwapPriceRequestModel,
+		completion: @escaping ([SwapPriceResponseProtocol]) -> Void
+	) {
+		zeroXAPIClient.swapPrice(swapInfo: swapInfo).catch { _ in Just(nil) }.sink { completed in
+			switch completed {
+			case .finished:
+				print("Swap price received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { zeroXResponse in
+			let allResponses: [SwapPriceResponseProtocol?] = [zeroXResponse]
 			let valuableResponses = allResponses.compactMap { $0 }
 			if !valuableResponses.isEmpty {
 				completion(valuableResponses)
