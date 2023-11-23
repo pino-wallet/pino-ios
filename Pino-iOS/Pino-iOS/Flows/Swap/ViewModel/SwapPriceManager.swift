@@ -57,26 +57,26 @@ class SwapPriceManager {
 		amount: String,
 		completion: @escaping (_ responses: [SwapPriceResponseProtocol]) -> Void
 	) {
-        let swapInfo = SwapPriceRequestModel(
-            srcToken: srcToken.selectedToken.id,
-            srcDecimals: srcToken.selectedToken.decimal,
-            destToken: destToken.selectedToken.id,
-            destDecimals: destToken.selectedToken.decimal,
-            amount: amount,
-            side: swapSide,
-            userAddress: Web3Core.Constants.pinoSwapProxyAddress,
-            receiver: pinoWalletManager.currentAccount.eip55Address
-        )
-        cancelPreviousRequests()
-        switch provider {
-            case .oneInch:
-                getOneInchPriceResponse(swapInfo: swapInfo, completion: completion(responses))
-            case .paraswap:
-                getParaswapPriceResponse(swapInfo: swapInfo, completion: completion(responses))
-            case .zeroX:
-                getZeroXPriceResponse(swapInfo: swapInfo, completion: completion(responses))
-        }
-    }
+		let swapInfo = SwapPriceRequestModel(
+			srcToken: srcToken.selectedToken.id,
+			srcDecimals: srcToken.selectedToken.decimal,
+			destToken: destToken.selectedToken.id,
+			destDecimals: destToken.selectedToken.decimal,
+			amount: amount,
+			side: swapSide,
+			userAddress: Web3Core.Constants.pinoSwapProxyAddress,
+			receiver: pinoWalletManager.currentAccount.eip55Address
+		)
+		cancelPreviousRequests()
+		switch provider {
+		case .oneInch:
+			getOneInchPriceResponse(swapInfo: swapInfo, completion: completion)
+		case .paraswap:
+			getParaswapPriceResponse(swapInfo: swapInfo, completion: completion)
+		case .zeroX:
+			getZeroXPriceResponse(swapInfo: swapInfo, completion: completion)
+		}
+	}
 
 	public func cancelPreviousRequests() {
 		cancellables.removeAll()

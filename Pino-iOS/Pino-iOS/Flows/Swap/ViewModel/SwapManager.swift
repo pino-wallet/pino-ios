@@ -47,7 +47,6 @@ class SwapManager: Web3ManagerProtocol {
 	private let nonce = BigNumber.bigRandomeNumber
 
 	init(
-		contract: DynamicContract,
 		selectedProvider: SwapProviderViewModel?,
 		srcToken: SwapTokenViewModel,
 		destToken: SwapTokenViewModel
@@ -55,7 +54,7 @@ class SwapManager: Web3ManagerProtocol {
 		self.selectedProvider = selectedProvider
 		self.srcToken = srcToken
 		self.destToken = destToken
-		self.contract = contract
+		self.contract = try! web3.getSwapProxyContract()
 	}
 
 	// MARK: - Public Methods
@@ -131,13 +130,16 @@ class SwapManager: Web3ManagerProtocol {
 				var callDatas = [permitData, providersCallData]
 				if let allowanceData { callDatas.insert(allowanceData, at: 0) }
 				if let sweepData { callDatas.append(sweepData) }
-				return self.callProxyMultiCall(data: callDatas, value: nil)
+				return attempt(maximumRetryCount: 3) { [self] in
+					callProxyMultiCall(data: callDatas, value: nil)
+				}
 			}.done { swapResult in
 				self.pendingSwapTrx = swapResult.0
 				self.pendingSwapGasInfo = swapResult.1
 				seal.fulfill(swapResult)
 			}.catch { error in
 				print(error.localizedDescription)
+				seal.reject(error)
 			}
 		}
 	}
@@ -174,13 +176,16 @@ class SwapManager: Web3ManagerProtocol {
 				var callDatas = [ptfAndProviderCallData.0, ptfAndProviderCallData.1]
 				if let allowanceData { callDatas.insert(allowanceData, at: 0) }
 				if let unwrapCallData { callDatas.append(unwrapCallData) }
-				return self.callProxyMultiCall(data: callDatas, value: nil)
+				return attempt(maximumRetryCount: 3) { [self] in
+					callProxyMultiCall(data: callDatas, value: nil)
+				}
 			}.done { swapResult in
 				self.pendingSwapTrx = swapResult.0
 				self.pendingSwapGasInfo = swapResult.1
 				seal.fulfill(swapResult)
 			}.catch { error in
 				print(error.localizedDescription)
+				seal.reject(error)
 			}
 		}
 	}
@@ -208,13 +213,16 @@ class SwapManager: Web3ManagerProtocol {
 				var callDatas = [wrapTokenData, providersCallData]
 				if let sweepData { callDatas.append(sweepData) }
 				if let allowanceData { callDatas.insert(allowanceData, at: 0) }
-				return self.callProxyMultiCall(data: callDatas, value: self.srcToken.tokenAmountBigNum.bigUInt)
+				return attempt(maximumRetryCount: 3) { [self] in
+					callProxyMultiCall(data: callDatas, value: srcToken.tokenAmountBigNum.bigUInt)
+				}
 			}.done { swapResult in
 				self.pendingSwapTrx = swapResult.0
 				self.pendingSwapGasInfo = swapResult.1
 				seal.fulfill(swapResult)
 			}.catch { error in
 				print(error.localizedDescription)
+				seal.reject(error)
 			}
 		}
 	}
@@ -230,13 +238,16 @@ class SwapManager: Web3ManagerProtocol {
 			}.then { sweepData, wrapTokenData in
 				// MultiCall
 				let callDatas = [wrapTokenData, sweepData!]
-				return self.callProxyMultiCall(data: callDatas, value: self.srcToken.tokenAmountBigNum.bigUInt)
+				return attempt(maximumRetryCount: 3) { [self] in
+					callProxyMultiCall(data: callDatas, value: srcToken.tokenAmountBigNum.bigUInt)
+				}
 			}.done { swapResult in
 				self.pendingSwapTrx = swapResult.0
 				self.pendingSwapGasInfo = swapResult.1
 				seal.fulfill(swapResult)
 			}.catch { error in
 				print(error.localizedDescription)
+				seal.reject(error)
 			}
 		}
 	}
@@ -261,6 +272,7 @@ class SwapManager: Web3ManagerProtocol {
 				seal.fulfill(swapResult)
 			}.catch { error in
 				print(error.localizedDescription)
+				seal.reject(error)
 			}
 		}
 	}
