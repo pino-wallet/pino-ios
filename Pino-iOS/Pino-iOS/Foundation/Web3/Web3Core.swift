@@ -514,6 +514,10 @@ public class Web3Core {
 		aaveDepositManager.setUserUseReserveAsCollateral(contractDetails: contractDetails)
 	}
 
+	public func getCheckMembershipCallData(accountAddress: String, tokenAddress: String) throws -> Promise<Bool> {
+		try investManager.getCheckMemebrshipCallData(accountAddress: accountAddress, tokenAddress: tokenAddress)
+	}
+
 	// MARK: - Private Methods
 
 	private func getInfo(address: String, info: ABIMethodCall, abi: Web3ABI) throws -> Promise<[String: Any]> {
@@ -567,6 +571,7 @@ extension Web3Core {
 		static let pinoAaveProxyAddress = "0xb5ea6BAdD330466D66345e154Db9834B1Fe8Dab6"
 		static let pinoSwapProxyAddress = "0xB51557272E09d41f649a04073dB780AC25998a1e"
 		static let compoundContractAddress = "0xb5E69cBF92E3ff6c11E2CC4A33C26573702Ab98B"
+		static let compoundCollateralCheckContractAddress = "0x3d9819210A31b4961b30EF54bE2aeD79B9c9Cd3B"
 		static let investContractAddress = "0x7dA89F62340Ad976e4E32a30c7f688aFCcE8a51C"
 		static let paraSwapETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 		static let oneInchETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"

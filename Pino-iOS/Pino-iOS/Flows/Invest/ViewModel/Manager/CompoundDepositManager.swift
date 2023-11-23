@@ -77,7 +77,8 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 			firstly {
 				getTokenPositionID()
 			}.then { positionID in
-				self.fetchHash()
+				self.checkMembership(tokenAddress: positionID)
+				return self.fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
 			}.then { [self] signiture -> Promise<(String, String)> in
@@ -108,6 +109,19 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 			}.catch { error in
 				print(error.localizedDescription)
 			}
+		}
+	}
+
+	private func checkMembership(tokenAddress: String) {
+		firstly {
+			try web3.getCheckMembershipCallData(
+				accountAddress: walletManager.currentAccount.eip55Address,
+				tokenAddress: tokenAddress
+			)
+		}.done { membership in
+			print(membership)
+		}.catch { error in
+			print(error)
 		}
 	}
 

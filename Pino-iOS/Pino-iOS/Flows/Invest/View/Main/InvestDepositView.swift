@@ -162,6 +162,10 @@ class InvestDepositView: UIView {
 
 		amountLabel.numberOfLines = 0
 		amountLabel.lineBreakMode = .byCharWrapping
+
+		if let depositVM = investVM as? InvestDepositViewModel, depositVM.hasOpenPosition {
+			showOpenPositionError()
+		}
 	}
 
 	private func setupContstraint() {
@@ -277,6 +281,8 @@ class InvestDepositView: UIView {
 	private func focusOnAmountTextField() {
 		amountTextfield.becomeFirstResponder()
 	}
+
+	private func showOpenPositionError() {}
 
 	// MARK: Public Methods
 

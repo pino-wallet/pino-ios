@@ -26,22 +26,24 @@ extension InvestW3ManagerProtocol {
 
 	public func getTokenPositionID() -> Promise<String> {
 		Promise<String> { seal in
-			web3Client.getTokenPositionID(
-				tokenAdd: selectedToken.id.lowercased(),
-				positionType: .investment,
-				protocolName: selectedProtocol.rawValue
-			).sink { completed in
-				switch completed {
-				case .finished:
-					print("Position id received successfully")
-				case let .failure(error):
-					print("Error getting position id:\(error)")
-					seal.reject(error)
-				}
-			} receiveValue: { tokenPositionModel in
-				self.tokenPositionID = tokenPositionModel.positionID.lowercased()
-				seal.fulfill(self.tokenPositionID)
-			}.store(in: &cancellables)
+			self.tokenPositionID = "0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9".lowercased()
+			seal.fulfill(self.tokenPositionID)
+//			web3Client.getTokenPositionID(
+//				tokenAdd: selectedToken.id.lowercased(),
+//				positionType: .investment,
+//				protocolName: selectedProtocol.rawValue
+//			).sink { completed in
+//				switch completed {
+//				case .finished:
+//					print("Position id received successfully")
+//				case let .failure(error):
+//					print("Error getting position id:\(error)")
+//					seal.reject(error)
+//				}
+//			} receiveValue: { tokenPositionModel in
+//				self.tokenPositionID = tokenPositionModel.positionID.lowercased()
+//				seal.fulfill(self.tokenPositionID)
+//			}.store(in: &cancellables)
 		}
 	}
 }
