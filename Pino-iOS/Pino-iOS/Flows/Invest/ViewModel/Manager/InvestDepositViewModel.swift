@@ -62,7 +62,9 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 	}
 
 	public func checkBalanceStatus(amount: String) -> AmountStatus {
-		if amount == .emptyString {
+		if hasOpenPosition {
+			return .isZero
+		} else if amount == .emptyString {
 			return .isZero
 		} else if BigNumber(numberWithDecimal: amount).isZero {
 			return .isZero
@@ -85,7 +87,8 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 		selectedToken = tokensList.first(where: { $0.symbol == "USDT" })!
 		selectedProtocol = .compound
 
-		if selectedToken.holdAmount < 1000.bigNumber {
+		#warning("it must be refactored later")
+		if selectedToken.holdAmount > 0.bigNumber {
 			hasOpenPosition = true
 		} else {
 			hasOpenPosition = false
@@ -93,7 +96,7 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 	}
 
 	private func getYearlyEstimatedReturn(amountInDollar: BigNumber?) {
-		if let selectedInvestableAsset, let amountInDollar {
+		if let selectedInvestableAsset, let amountInDollar, !hasOpenPosition {
 			let yearlyReturnBigNumber = amountInDollar * selectedInvestableAsset.APYAmount / 100.bigNumber
 			yearlyEstimatedReturn = yearlyReturnBigNumber?.priceFormat
 		} else {
