@@ -10,7 +10,9 @@ import Foundation
 import Web3
 
 class SendTransactionStatusViewModel {
-	// MARK: - Public Properties
+	// MARK: - Closures
+
+	public var addPendingActivityClosure: (_ txHash: String) -> Void = { _ in }
 
 	public let confirmingDescriptionText = "We'll notify you once confirmed."
 	public let confirmingTitleText = "Confirming..."
@@ -57,9 +59,10 @@ class SendTransactionStatusViewModel {
 
 	private func sendTx() {
 		web3Core.callTransaction(trx: transaction).done { txHash in
-			self.sendTransactionStatus = .pending
 			self.txHash = txHash
 			self.setupRequestTimer()
+			self.addPendingActivityClosure(txHash)
+			self.sendTransactionStatus = .pending
 		}.catch { _ in
 			self.sendTransactionStatus = .failed
 		}
