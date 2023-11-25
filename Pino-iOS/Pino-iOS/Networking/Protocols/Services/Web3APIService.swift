@@ -10,4 +10,5 @@ import Foundation
 
 protocol Web3APIService {
 	func getHashTypedData(eip712HashReqInfo: EIP712HashRequestModel) -> AnyPublisher<EIP712HashResponseModel, APIError>
+    func getNetworkFee() -> AnyPublisher<EthGasInfoModel, APIError>
 }

@@ -103,9 +103,9 @@ class CollateralConfirmViewModel {
 
 	private func setFeeInfoByDepositGasInfo(depositGasInfo: GasInfo) {
 		feeInfo = (
-			feeInDollars: depositGasInfo.feeInDollar.priceFormat,
-			feeInETH: depositGasInfo.fee.sevenDigitFormat.ethFormatting,
-			bigNumberFee: depositGasInfo.fee
+			feeInDollars: depositGasInfo.feeInDollar!.priceFormat,
+			feeInETH: depositGasInfo.fee!.sevenDigitFormat.ethFormatting,
+			bigNumberFee: depositGasInfo.fee!
 		)
 	}
 
@@ -136,8 +136,8 @@ class CollateralConfirmViewModel {
 				fromAddress: "",
 				toAddress: "",
 				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
-				gasUsed: aaveCollateralManager.depositGasInfo!.increasedGasLimit.description,
-				gasPrice: aaveCollateralManager.depositGasInfo!.gasPrice.description
+                gasUsed: aaveCollateralManager.depositGasInfo!.increasedGasLimit!.description,
+				gasPrice: aaveCollateralManager.depositGasInfo!.maxFeePerGas.description
 			),
 			accountAddress: walletManager.currentAccount.eip55Address
 		)

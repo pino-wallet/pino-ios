@@ -36,7 +36,7 @@ public struct GasInfo {
     
     public var fee: BigNumber? {
         guard let increasedGasLimit else { return nil }
-        return (increasedBaseFee + priorityFeePerGas) * increasedGasLimit
+        return BigNumber(number: (increasedBaseFee + priorityFeePerGas) * increasedGasLimit, decimal: 18)
     }
     
     public var feeInDollar: BigNumber? {

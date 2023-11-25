@@ -123,8 +123,7 @@ public struct W3AaveBorrowManager: Web3HelperProtocol {
 				let trx = try trxManager.createTransactionFor(
 					contract: contractDetails.solInvocation,
 					nonce: nonce,
-					gasPrice: gasInfo.gasPrice.etherumQuantity,
-					gasLimit: gasInfo.increasedGasLimit.etherumQuantity
+                    gasInfo: gasInfo
 				)
 
 				let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Network.chainID)

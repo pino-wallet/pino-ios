@@ -211,7 +211,7 @@ class EnterSendAmountView: UIView {
 			.compactMap { $0 }
 			.sink { gasInfo in
 				if self.enterAmountVM.selectedToken.isEth {
-					self.enterAmountVM.updateEthMaxAmount(gasInfo: gasInfo)
+                    self.enterAmountVM.updateEthMaxAmount()
 					self.enterAmountVM.calculateAmount(self.amountTextfield.text ?? .emptyString)
 					self.updateAmount(enteredAmount: self.amountTextfield.text ?? .emptyString)
 					self.maxAmountLabel.text = self.enterAmountVM.formattedMaxHoldAmount

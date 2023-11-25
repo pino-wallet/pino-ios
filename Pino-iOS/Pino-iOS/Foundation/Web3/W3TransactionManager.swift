@@ -28,8 +28,7 @@ public struct W3TransactionManager: Web3HelperProtocol {
 	public func createTransactionFor(
 		contract: SolidityInvocation,
 		nonce: EthereumQuantity? = nil,
-		gasPrice: EthereumQuantity? = nil,
-		gasLimit: EthereumQuantity? = nil,
+        gasInfo: GasInfo = GasInfo(),
 		value: EthereumQuantity = 0
 	) throws -> EthereumTransaction {
 		let accountPrivateKey = try EthereumPrivateKey(
@@ -37,15 +36,15 @@ public struct W3TransactionManager: Web3HelperProtocol {
 		)
 
 		let transaction = contract.createTransaction(
-			nonce: nonce,
-			gasPrice: gasPrice,
-			maxFeePerGas: nil,
-			maxPriorityFeePerGas: nil,
-			gasLimit: gasLimit,
+            nonce: nonce,
+            gasPrice: nil,
+            maxFeePerGas: gasInfo.maxFeePerGas.etherumQuantity,
+            maxPriorityFeePerGas: gasInfo.priorityFeePerGas.etherumQuantity,
+            gasLimit: gasInfo.increasedGasLimit?.etherumQuantity,
 			from: accountPrivateKey.address,
 			value: value,
 			accessList: [:],
-			transactionType: .legacy
+			transactionType: .eip1559
 		)
 
 		return transaction!
@@ -53,8 +52,7 @@ public struct W3TransactionManager: Web3HelperProtocol {
 
 	public func createTransactionFor(
 		nonce: EthereumQuantity? = nil,
-		gasPrice: EthereumQuantity? = nil,
-		gasLimit: EthereumQuantity? = nil,
+        gasInfo: GasInfo,
 		value: EthereumQuantity = 0,
 		data: EthereumData,
 		to: EthereumAddress
@@ -65,16 +63,15 @@ public struct W3TransactionManager: Web3HelperProtocol {
 
 		let transaction = EthereumTransaction(
 			nonce: nonce,
-			gasPrice: gasPrice,
-			maxFeePerGas: nil,
-			maxPriorityFeePerGas: nil,
-			gasLimit: gasLimit,
+            maxFeePerGas: gasInfo.maxFeePerGas.etherumQuantity,
+            maxPriorityFeePerGas: gasInfo.priorityFeePerGas.etherumQuantity,
+            gasLimit: gasInfo.increasedGasLimit?.etherumQuantity,
 			from: accountPrivateKey.address,
 			to: to,
 			value: value,
 			data: data,
 			accessList: [:],
-			transactionType: .legacy
+			transactionType: .eip1559
 		)
 
 		return transaction
