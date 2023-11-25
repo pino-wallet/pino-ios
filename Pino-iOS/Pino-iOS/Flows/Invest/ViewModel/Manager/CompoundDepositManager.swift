@@ -77,8 +77,7 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 			firstly {
 				getTokenPositionID()
 			}.then { positionID in
-				self.checkMembership(tokenAddress: positionID)
-				return self.fetchHash()
+				self.fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
 			}.then { [self] signiture -> Promise<(String, String)> in
@@ -102,27 +101,36 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 				// MultiCall
 				let callDatas = [allowanceData, permitData, protocolCallData]
 				return self.callProxyMultiCall(data: callDatas, value: nil)
-			}.done { depositResult in
-				self.depositTrx = depositResult.0
-				self.depositGasInfo = depositResult.1
-				seal.fulfill(depositResult)
+			}.then { depositResult -> Promise<((EthereumSignedTransaction, GasInfo), Bool)> in
+				self.checkMembership(tokenAddress: self.tokenPositionID).map { (depositResult, $0) }
+			}.done { depositResult, hasMembership in
+				if hasMembership {
+				} else {
+					self.depositTrx = depositResult.0
+					self.depositGasInfo = depositResult.1
+					seal.fulfill(depositResult)
+				}
 			}.catch { error in
 				print(error.localizedDescription)
 			}
 		}
 	}
 
-	private func checkMembership(tokenAddress: String) {
+	private func checkMembership(tokenAddress: String) -> Promise<Bool> {
 		firstly {
 			try web3.getCheckMembershipCallData(
 				accountAddress: walletManager.currentAccount.eip55Address,
 				tokenAddress: tokenAddress
 			)
-		}.done { membership in
-			print(membership)
-		}.catch { error in
-			print(error)
 		}
+	}
+
+	private func getEnterMarketInfo() {
+		web3.getCompoundEnterMarketCallData(tokenAddress: tokenPositionID)
+	}
+
+	private func getExitMarketInfo() {
+		web3.getCompoundExitMarketCallData(tokenAddress: tokenPositionID)
 	}
 
 	private func compoundETHDeposit() -> TrxWithGasInfo {

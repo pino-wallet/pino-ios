@@ -116,6 +116,8 @@ public enum ABIMethodWrite: String {
 	case withdrawWETHV2
 	case ethToStETH
 	case wethToStETH
+	case enterMarkets
+	case exitMarket
 }
 
 fileprivate func ABIReader(fileName: String) -> String {

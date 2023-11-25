@@ -402,6 +402,14 @@ public class Web3Core {
 		investManager.getWETHToSTETHCallData(amount: amount, recipientAdd: recipientAdd)
 	}
 
+	public func getCompoundEnterMarketCallData(tokenAddress: String) -> Promise<String> {
+		investManager.getEnterMarketCallData(tokenAddress: tokenAddress)
+	}
+
+	public func getCompoundExitMarketCallData(tokenAddress: String) -> Promise<String> {
+		investManager.getExitMarketCallData(tokenAddress: tokenAddress)
+	}
+
 	public func getInvestProxyContract() throws -> DynamicContract {
 		try investManager.getInvestProxyContract()
 	}

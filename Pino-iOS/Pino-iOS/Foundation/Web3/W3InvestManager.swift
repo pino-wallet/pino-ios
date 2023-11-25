@@ -147,6 +147,24 @@ public struct W3InvestManager: Web3HelperProtocol {
 		}
 	}
 
+	public func getEnterMarketCallData(tokenAddress: String) -> Promise<String> {
+		Promise<String>() { [self] seal in
+			let contract = try getCollateralCheckProxyContract()
+			let solInvocation = contract[ABIMethodWrite.enterMarkets.rawValue]?([tokenAddress])
+			let trx = try trxManager.createTransactionFor(contract: solInvocation!)
+			seal.fulfill(trx.data.hex())
+		}
+	}
+
+	public func getExitMarketCallData(tokenAddress: String) -> Promise<String> {
+		Promise<String>() { [self] seal in
+			let contract = try getCollateralCheckProxyContract()
+			let solInvocation = contract[ABIMethodWrite.exitMarket.rawValue]?(tokenAddress)
+			let trx = try trxManager.createTransactionFor(contract: solInvocation!)
+			seal.fulfill(trx.data.hex())
+		}
+	}
+
 	public func getCheckMemebrshipCallData(accountAddress: String, tokenAddress: String) throws -> Promise<Bool> {
 		let contract = try getCollateralCheckProxyContract()
 		return Promise<Bool>() { seal in
