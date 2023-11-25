@@ -181,7 +181,12 @@ public class Web3Core {
 		try aaveDepositManager.getPinoAaveProxyContract()
 	}
 
-	public func callMultiCall(contractAddress: String, callData: [String], value: BigUInt) -> TrxWithGasInfo {
+	public func callMultiCall(
+		contractAddress: String,
+		callData: [String],
+		value: BigUInt,
+		nonce: EthereumQuantity? = nil
+	) -> TrxWithGasInfo {
 		let generatedMulticallData = W3CallDataGenerator.generateMultiCallFrom(calls: callData)
 		let ethCallData = EthereumData(generatedMulticallData.hexToBytes())
 		let eip55ContractAddress = contractAddress.eip55Address!
@@ -191,8 +196,11 @@ public class Web3Core {
 			gasInfoManager
 				.calculateGasOf(data: ethCallData, to: eip55ContractAddress, value: value.etherumQuantity)
 				.then { [self] gasInfo in
-					rWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
-						.map { ($0, gasInfo) }
+					guard let nonce else {
+						return rWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+							.map { ($0, gasInfo) }
+					}
+					return nonce.promise.map { ($0, gasInfo) }
 				}.done { [self] nonce, gasInfo in
 					let trx = try trxManager.createTransactionFor(
 						nonce: nonce,
