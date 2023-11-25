@@ -88,8 +88,8 @@ class SwapConfirmationViewModel {
 	public func fetchSwapInfo(completion: @escaping (Error) -> Void) {
 		swapManager.getSwapInfo().done { swapTrx, gasInfo in
 			self.gasFee = gasInfo.fee
-			self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
-			self.formattedFeeInETH = gasInfo.fee.sevenDigitFormat
+			self.formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat
+			self.formattedFeeInETH = gasInfo.fee!.sevenDigitFormat
 		}.catch { error in
 			completion(error)
 		}

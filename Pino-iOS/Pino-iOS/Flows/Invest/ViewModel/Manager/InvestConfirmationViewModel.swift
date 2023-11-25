@@ -89,8 +89,8 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 	public func getTransactionInfo() {
 		investManager.getDepositInfo().done { depositTrx, gasInfo in
 			self.gasFee = gasInfo.fee
-			self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
-			self.formattedFeeInETH = gasInfo.fee.sevenDigitFormat
+			self.formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat
+			self.formattedFeeInETH = gasInfo.fee!.sevenDigitFormat
 		}.catch { error in
 			self.showError()
 		}

@@ -456,8 +456,8 @@ class SwapManager: Web3ManagerProtocol {
 				fromAddress: userAddress,
 				toAddress: selectedProvider.provider.contractAddress,
 				blockTime: ActivityHelper().getServerFormattedStringDate(date: .now),
-				gasUsed: pendingSwapGasInfo.increasedGasLimit.description,
-				gasPrice: pendingSwapGasInfo.gasPrice.description
+				gasUsed: pendingSwapGasInfo.increasedGasLimit!.description,
+				gasPrice: pendingSwapGasInfo.maxFeePerGas.description
 			),
 			accountAddress: walletManager.currentAccount.eip55Address
 		)

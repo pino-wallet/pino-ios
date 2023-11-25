@@ -204,8 +204,7 @@ public class Web3Core {
 				}.done { [self] nonce, gasInfo in
 					let trx = try trxManager.createTransactionFor(
 						nonce: nonce,
-						gasPrice: gasInfo.gasPrice.etherumQuantity,
-						gasLimit: gasInfo.increasedGasLimit.bigUInt.etherumQuantity,
+						gasInfo: gasInfo,
 						value: value.etherumQuantity,
 						data: ethCallData,
 						to: eip55ContractAddress
@@ -286,7 +285,7 @@ public class Web3Core {
 		}
 	}
 
-	public func calculateEthGasFee() -> Promise<GasInfo> {
+	public func calculateEthGasFee() -> GasInfo {
 		gasInfoManager.calculateEthGasFee()
 	}
 
