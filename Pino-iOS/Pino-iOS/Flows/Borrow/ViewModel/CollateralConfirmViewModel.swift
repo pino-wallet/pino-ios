@@ -136,7 +136,7 @@ class CollateralConfirmViewModel {
 				fromAddress: "",
 				toAddress: "",
 				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
-                gasUsed: aaveCollateralManager.depositGasInfo!.increasedGasLimit!.description,
+				gasUsed: aaveCollateralManager.depositGasInfo!.increasedGasLimit!.description,
 				gasPrice: aaveCollateralManager.depositGasInfo!.maxFeePerGas.description
 			),
 			accountAddress: walletManager.currentAccount.eip55Address

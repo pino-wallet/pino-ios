@@ -113,8 +113,8 @@ class SendConfirmationViewModel {
 
 	public func getFee(completion: ((Error) -> Void)? = nil) {
 		if selectedToken.isEth {
-            let ethGasInfo = Web3Core.shared.calculateEthGasFee()
-            self.setGasInfo(gasInfo: ethGasInfo)
+			let ethGasInfo = Web3Core.shared.calculateEthGasFee()
+			setGasInfo(gasInfo: ethGasInfo)
 		} else {
 			calculateTokenGasFee(ethPrice: ethToken.price).done { tokenGasInfo in
 				self.setGasInfo(gasInfo: tokenGasInfo)
@@ -182,14 +182,13 @@ class SendConfirmationViewModel {
 		)
 	}
 
-    private func setGasInfo(gasInfo: GasInfo) {
-        gasFee = gasInfo.fee
-        formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat
-        formattedFeeInETH = gasInfo.fee!.sevenDigitFormat.ethFormatting
-        gasPrice = gasInfo.maxFeePerGas.description
-        gasLimit = gasInfo.gasLimit!.description
-    }
-
+	private func setGasInfo(gasInfo: GasInfo) {
+		gasFee = gasInfo.fee
+		formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat
+		formattedFeeInETH = gasInfo.fee!.sevenDigitFormat.ethFormatting
+		gasPrice = gasInfo.maxFeePerGas.description
+		gasLimit = gasInfo.gasLimit!.description
+	}
 
 	private func setUserRecipientAccountInfo() {
 		let accountsList = walletManager.accounts

@@ -28,8 +28,8 @@ final class Web3APIClient: Web3APIService {
 	) -> AnyPublisher<PositionTokenModel, APIError> {
 		networkManager.request(.positionID(tokenAdd: tokenAdd, positionType: positionType, protocolName: protocolName))
 	}
-    
-    func getNetworkFee() -> AnyPublisher<EthGasInfoModel, APIError> {
-        networkManager.request(.ehtGasInfo)
-    }
+
+	func getNetworkFee() -> AnyPublisher<EthGasInfoModel, APIError> {
+		networkManager.request(.ehtGasInfo)
+	}
 }

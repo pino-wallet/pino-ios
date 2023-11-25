@@ -8,10 +8,10 @@
 import Foundation
 
 struct EthGasInfoModel: Codable {
-    let baseFee, gasPrice: String
-    
-    enum CodingKeys: String, CodingKey {
-        case baseFee = "base_fee"
-        case gasPrice = "gas_price"
-    }
+	let baseFee, gasPrice: String
+
+	enum CodingKeys: String, CodingKey {
+		case baseFee = "base_fee"
+		case gasPrice = "gas_price"
+	}
 }

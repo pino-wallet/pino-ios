@@ -201,7 +201,7 @@ public struct W3AaveDepositManager: Web3HelperProtocol {
 				let trx = try trxManager.createTransactionFor(
 					contract: contractDetails.solInvocation,
 					nonce: nonce,
-                    gasInfo: gasInfo
+					gasInfo: gasInfo
 				)
 
 				let signedTx = try trx.sign(with: userPrivateKey, chainId: 1)
