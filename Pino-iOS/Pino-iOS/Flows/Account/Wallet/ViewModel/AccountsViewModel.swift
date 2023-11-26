@@ -20,7 +20,6 @@ class AccountsViewModel {
 
 	// MARK: - Private Properties
 
-	private var accountingAPIClient = AccountingAPIClient()
 	private var cancellables = Set<AnyCancellable>()
 	private let coreDataManager = CoreDataManager()
 	private let pinoWalletManager = PinoWalletManager()
@@ -82,19 +81,15 @@ class AccountsViewModel {
 		derivationPath: String? = nil,
 		completion: @escaping (WalletOperationError?) -> Void
 	) {
-		accountingAPIClient.activateAccountWith(address: address)
-			.retry(3)
-			.sink(receiveCompletion: { completed in
-				switch completed {
-				case .finished:
-					print("Wallet activated")
-				case let .failure(error):
-					completion(WalletOperationError.wallet(.accountActivationFailed(error)))
-				}
-			}) { activatedAccount in
+		let accountActivationVM = AccountActivationViewModel()
+		accountActivationVM.activateNewAccountAddress(address) { result in
+			switch result {
+			case .success:
 				self.addNewWalletAccountWithAddress(address, derivationPath: derivationPath, publicKey: publicKey)
-				completion(nil)
-			}.store(in: &cancellables)
+			case let .failure(failure):
+				completion(failure)
+			}
+		}
 	}
 
 	private func addNewWalletAccountWithAddress(

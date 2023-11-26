@@ -10,7 +10,7 @@ import Foundation
 enum Web3Endpoint: EndpointType {
 	// MARK: - Cases
 
-	case hashTypeData(eip712ReqModel: EIP712HashRequestModel)
+	case hashTypeData(eip712ReqModel: BodyParamsType)
 	case positionID(tokenAdd: String, positionType: IndexerPositionType, protocolName: String)
 	case ehtGasInfo
 
@@ -46,7 +46,7 @@ enum Web3Endpoint: EndpointType {
 		switch self {
 		case let .hashTypeData(eip712ReqInfo):
 			return .requestParameters(
-				bodyParameters: eip712ReqInfo.eip712HashReqBody,
+				bodyParameters: eip712ReqInfo,
 				bodyEncoding: .jsonEncoding,
 				urlParameters: nil
 			)

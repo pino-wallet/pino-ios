@@ -18,7 +18,7 @@ enum AccountingEndpoint: EndpointType {
 	case balances(accountADD: String)
 	case portfolio(timeFrame: String, accountADD: String)
 	case coinPerformance(timeFrame: String, tokenID: String, accountADD: String)
-	case activateAccountWith(address: String)
+	case activateAccount(activateReqModel: AccountActivationRequestModel)
 	case activeAddresses(addresses: [String])
 
 	// MARK: - Internal Methods
@@ -50,8 +50,12 @@ enum AccountingEndpoint: EndpointType {
 		case let .coinPerformance(timeFrame: timeFrame, tokenID: _, accountADD: _):
 			let urlParameters: [String: Any] = ["timeframe": timeFrame]
 			return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: urlParameters)
-		case .activateAccountWith:
-			return .request
+		case let .activateAccount(accountActivationReq):
+			return .requestParameters(
+				bodyParameters: accountActivationReq.reqBody,
+				bodyEncoding: .jsonEncoding,
+				urlParameters: nil
+			)
 		case let .activeAddresses(addresses):
 			return .requestParameters(
 				bodyParameters: .object(addresses),
@@ -82,8 +86,8 @@ enum AccountingEndpoint: EndpointType {
 			return "user/\(accountADD)/portfolio"
 		case let .coinPerformance(_, tokenID: tokenID, accountADD: accountADD):
 			return "user/\(accountADD)/portfolio/\(tokenID)"
-		case let .activateAccountWith(address: address):
-			return "\(endpointParent)/activate/\(address)"
+		case let .activateAccount(activateReqModel):
+			return "\(endpointParent)/activate-sgi/\(activateReqModel.address)"
 		case .activeAddresses:
 			return "\(endpointParent)/active-addresses"
 		}
@@ -93,7 +97,7 @@ enum AccountingEndpoint: EndpointType {
 		switch self {
 		case .cts, .balances, .portfolio, .coinPerformance:
 			return .get
-		case .activateAccountWith, .activeAddresses:
+		case .activateAccount, .activeAddresses:
 			return .post
 		}
 	}
