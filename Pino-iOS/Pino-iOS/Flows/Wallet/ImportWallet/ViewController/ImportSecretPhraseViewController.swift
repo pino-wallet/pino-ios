@@ -39,17 +39,18 @@ class ImportSecretPhraseViewController: UIViewController {
 		if isNewWallet {
 			importsecretPhraseView = ImportSecretPhraseView(
 				validationPharaseVM: importAccountVM,
-				textViewType: SecretPhraseTextView(), importBtnTapped: { [weak self] in
-					self?.importAccountVM.validate(
-						secretPhrase: (self?.importsecretPhraseView.importTextView.text)!,
+				textViewType: SecretPhraseTextView(), importBtnTapped: { [unowned self] in
+					let trimmedInput = cleanMnemonicInput(input: (importsecretPhraseView.importTextView.text)!)
+					importAccountVM.validate(
+						secretPhrase: trimmedInput,
 						onSuccess: {
-							self?.importWallet()
+							self.importWallet()
 						},
 						onFailure: { validationError in
 							switch validationError {
 							case .invalidSecretPhrase:
-								self?.importsecretPhraseView?.showError()
-								self?.importsecretPhraseView?.activateButton()
+								self.importsecretPhraseView?.showError()
+								self.importsecretPhraseView?.activateButton()
 							}
 						}
 					)
@@ -58,17 +59,18 @@ class ImportSecretPhraseViewController: UIViewController {
 		} else {
 			importsecretPhraseView = ImportSecretPhraseView(
 				validationPharaseVM: importAccountVM,
-				textViewType: PrivateKeyTextView(), importBtnTapped: { [weak self] in
-					self?.importAccountVM.validate(
-						privateKey: (self?.importsecretPhraseView.importTextView.text)!,
+				textViewType: PrivateKeyTextView(), importBtnTapped: { [unowned self] in
+					let trimmedInput = cleanMnemonicInput(input: (importsecretPhraseView.importTextView.text)!)
+					importAccountVM.validate(
+						privateKey: trimmedInput,
 						onSuccess: {
-							self?.importWallet()
+							self.importWallet()
 						},
 						onFailure: { validationError in
 							switch validationError {
 							case .invalidSecretPhrase:
-								self?.importsecretPhraseView?.showError()
-								self?.importsecretPhraseView?.activateButton()
+								self.importsecretPhraseView?.showError()
+								self.importsecretPhraseView?.activateButton()
 							}
 						}
 					)
@@ -78,12 +80,19 @@ class ImportSecretPhraseViewController: UIViewController {
 		view = importsecretPhraseView
 	}
 
+	private func cleanMnemonicInput(input: String) -> String {
+		let words = input.lowercased().components(separatedBy: .whitespacesAndNewlines)
+		let trimmedWords = words.filter { !$0.isEmpty }
+		return trimmedWords.joined(separator: " ")
+	}
+
 	private func importWallet() {
+		let trimmedInput = cleanMnemonicInput(input: importsecretPhraseView.textViewText)
 		if !isNewWallet {
-			addedNewWalletWithPrivateKey(importsecretPhraseView.textViewText)
+			addedNewWalletWithPrivateKey(trimmedInput)
 		} else {
 			// Go to create passcode page
-			let importAccountsVC = ImportAccountsViewController(walletMnemonics: importsecretPhraseView.textViewText)
+			let importAccountsVC = ImportAccountsViewController(walletMnemonics: trimmedInput)
 			navigationController?.pushViewController(importAccountsVC, animated: true)
 		}
 	}
