@@ -63,29 +63,25 @@ class AllDoneViewModel {
 	}
 
 	public func createWallet(mnemonics: String, walletCreated: @escaping (WalletOperationError?) -> Void) {
-		internetConnectivity.$isConnected.tryCompactMap { $0 }.sink { _ in } receiveValue: { [self] isConnected in
+		isNetConnected().sink { _ in } receiveValue: { [self] isConnected in
 			if isConnected {
 				let initalAccount = pinoWalletManager.createHDWallet(mnemonics: mnemonics)
 				switch initalAccount {
 				case let .success(account):
-					accountingAPIClient.activateAccountWith(address: account.eip55Address)
-						.retry(3)
-						.sink(receiveCompletion: { [self] completed in
-							switch completed {
-							case .finished:
-								walletCreated(nil)
-								cancellables.forEach { $0.cancel() }
-							case let .failure(error):
-								walletCreated(.wallet(.accountActivationFailed(error)))
-							}
-						}) { [self] activatedAccount in
+					let accActivationVM = AccountActivationViewModel()
+					accActivationVM.activateNewAccountAddress(account.eip55Address) { [self] result in
+						switch result {
+						case .success:
 							createInitialWalletsInCoreData { createdWallet in
 								createInitalAddressInCoreDataIn(wallet: createdWallet, account: account)
+                                walletCreated(nil)
 							}
-							walletCreated(nil)
-						}.store(in: &cancellables)
+						case let .failure(failure):
+							walletCreated(.wallet(.accountActivationFailed(failure)))
+						}
+					}
 				case let .failure(failure):
-					walletCreated(failure)
+					walletCreated(.wallet(.accountActivationFailed(failure)))
 				}
 			} else {
 				walletCreated(.wallet(.netwrokError))
@@ -95,16 +91,8 @@ class AllDoneViewModel {
 
 	// MARK: - Private Methods
 
-	private func activateNewAccount(address: String, completion: @escaping (WalletOperationError?) -> Void) {
-		let accountActivationVM = AccountActivationViewModel()
-		accountActivationVM.activateNewAccountAddress(address) { result in
-			switch result {
-			case .success:
-				completion(nil)
-			case let .failure(failure):
-				completion(failure)
-			}
-		}
+	private func isNetConnected() -> AnyPublisher<Bool, Error> {
+		internetConnectivity.$isConnected.tryCompactMap { $0 }.eraseToAnyPublisher()
 	}
 
 	private func createInitalAddressInCoreDataIn(wallet: Wallet, account: Account) {
