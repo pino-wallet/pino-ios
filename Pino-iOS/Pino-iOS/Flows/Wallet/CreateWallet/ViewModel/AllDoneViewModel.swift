@@ -74,7 +74,7 @@ class AllDoneViewModel {
 						case .success:
 							createInitialWalletsInCoreData { createdWallet in
 								createInitalAddressInCoreDataIn(wallet: createdWallet, account: account)
-                                walletCreated(nil)
+								walletCreated(nil)
 							}
 						case let .failure(failure):
 							walletCreated(.wallet(.accountActivationFailed(failure)))

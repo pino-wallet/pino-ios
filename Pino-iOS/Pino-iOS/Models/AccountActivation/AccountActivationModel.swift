@@ -16,14 +16,18 @@ struct AccountActivationRequestModel: Codable {
 	let address, sig: String
 	let time: BigUInt
 
+	// MARK: - Public Properties
+
 	public var reqBody: BodyParamsType {
 		let params: HTTPParameters = [
 			"Name": address,
 			"sig": sig,
-			"time": time,
+			"time": "\(time)",
 		]
 		return BodyParamsType.json(params)
 	}
+
+	// MARK: - Public Methods
 
 	public static func activationHashType(userAddress: String, createdTime: BigUInt) -> BodyParamsType {
 		let typedData: [String: Any] = [
@@ -41,60 +45,17 @@ struct AccountActivationRequestModel: Codable {
 			],
 			"PrimaryType": "ActivationRequest",
 			"Domain": [
-				"ChainId": "\(Web3Network.chainID)",
+				"ChainId": 1,
 				"Name": "pino",
 				"VerifyingContract": "0x0000000000000000000000000000000000000000",
 				"Version": "1",
 			],
 			"Message": [
 				"address": userAddress,
-				"time": createdTime,
+				"time": "\(createdTime)",
 			],
 		]
 		return BodyParamsType.json(typedData)
-	}
-}
-
-class AccountActivationViewModel {
-	private var accountingAPIClient = AccountingAPIClient()
-	private let web3APIClient = Web3APIClient()
-	private var cancellables = Set<AnyCancellable>()
-
-	public func activateNewAccountAddress(
-		_ address: String,
-		completion: @escaping (Result<String, WalletOperationError>) -> Void
-	) {
-		let accountImportedAt = BigUInt(Date().timeIntervalSince1970)
-		let userActivationReq = AccountActivationRequestModel.activationHashType(
-			userAddress: address,
-			createdTime: accountImportedAt
-		)
-		web3APIClient.getHashTypedData(eip712HashReqInfo: userActivationReq).sink { completed in
-			switch completed {
-			case .finished:
-				print("Wallet activated")
-			case let .failure(error):
-				completion(.failure(WalletOperationError.wallet(.accountActivationFailed(error))))
-			}
-		} receiveValue: { [self] userHash in
-			let accountInfo = AccountActivationRequestModel(
-				address: address,
-				sig: userHash.hash,
-				time: accountImportedAt
-			)
-			accountingAPIClient.activateAccount(activationReqModel: accountInfo)
-				.retry(3)
-				.sink(receiveCompletion: { completed in
-					switch completed {
-					case .finished:
-						print("Wallet activated")
-					case let .failure(error):
-						completion(.failure(WalletOperationError.wallet(.accountActivationFailed(error))))
-					}
-				}) { activatedAccount in
-					completion(.success(activatedAccount.id))
-				}.store(in: &cancellables)
-		}.store(in: &cancellables)
 	}
 }
 

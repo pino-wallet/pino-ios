@@ -87,7 +87,7 @@ enum AccountingEndpoint: EndpointType {
 		case let .coinPerformance(_, tokenID: tokenID, accountADD: accountADD):
 			return "user/\(accountADD)/portfolio/\(tokenID)"
 		case let .activateAccount(activateReqModel):
-			return "\(endpointParent)/activate-sgi/\(activateReqModel.address)"
+			return "\(endpointParent)/activate-sig/\(activateReqModel.address)"
 		case .activeAddresses:
 			return "\(endpointParent)/active-addresses"
 		}

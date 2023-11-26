@@ -614,6 +614,7 @@
 		DFCB13B12B09DCEE00EEFD0F /* CDWithdrawActivityDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB13AD2B09DCEE00EEFD0F /* CDWithdrawActivityDetails+CoreDataProperties.swift */; };
 		DFCB13B42B0A1E2300EEFD0F /* Web3HelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB13B32B0A1E2300EEFD0F /* Web3HelperProtocol.swift */; };
 		DFF8C35B2B11CEEF00C74DAC /* EthGasInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C35A2B11CEEF00C74DAC /* EthGasInfoModel.swift */; };
+		DFF8C35D2B13654700C74DAC /* AccountActivationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C35C2B13654700C74DAC /* AccountActivationViewModel.swift */; };
 		DFFDEDA32A75658700D710D7 /* ParaSwapAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6AD2A756123003DB68A /* ParaSwapAPIClient.swift */; };
 		DFFDEDA42A75659E00D710D7 /* ParaSwapEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6AE2A75615D003DB68A /* ParaSwapEndpoint.swift */; };
 		DFFDEDAA2A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDA92A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift */; };
@@ -1406,6 +1407,7 @@
 		DFCB13AD2B09DCEE00EEFD0F /* CDWithdrawActivityDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWithdrawActivityDetails+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DFCB13B32B0A1E2300EEFD0F /* Web3HelperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3HelperProtocol.swift; sourceTree = "<group>"; };
 		DFF8C35A2B11CEEF00C74DAC /* EthGasInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthGasInfoModel.swift; sourceTree = "<group>"; };
+		DFF8C35C2B13654700C74DAC /* AccountActivationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountActivationViewModel.swift; sourceTree = "<group>"; };
 		DFFDEDA92A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneInchSwapPriceResponseModel.swift; sourceTree = "<group>"; };
 		DFFDEDAB2A76C65800D710D7 /* ZeroXPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroXPriceResponseModel.swift; sourceTree = "<group>"; };
 		DFFDEDAD2A7792D800D710D7 /* OneInchEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneInchEndpoint.swift; sourceTree = "<group>"; };
@@ -2736,6 +2738,7 @@
 				902ADB6DDACF4604CCD18D3E /* ShowSecretPhraseViewModel.swift */,
 				DDBA47FB0ED959F0E18DAD21 /* VerifySecretPhraseViewModel.swift */,
 				D9BFEC3A2A12177C007DFF40 /* AllowNotificationsViewModel.swift */,
+				DFF8C35C2B13654700C74DAC /* AccountActivationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -5101,6 +5104,7 @@
 				7D789F2B97B770D2B2B8DF05 /* SettingsViewModel.swift in Sources */,
 				D615530893452E25B58471EF /* ShareOfAssetsViewModel.swift in Sources */,
 				FDC9B8DDC75EF47C7D607182 /* ShowSecretPhraseView.swift in Sources */,
+				DFF8C35D2B13654700C74DAC /* AccountActivationViewModel.swift in Sources */,
 				DF0B1ED32B00E0D5001B0522 /* FCMTokenManager.swift in Sources */,
 				06DB0B31505094D78686694E /* ShowSecretPhraseViewController.swift in Sources */,
 				92BC3A7553A87622AD6F640E /* ShowSecretPhraseViewModel.swift in Sources */,

@@ -86,6 +86,7 @@ class AccountsViewModel {
 			switch result {
 			case .success:
 				self.addNewWalletAccountWithAddress(address, derivationPath: derivationPath, publicKey: publicKey)
+				completion(nil)
 			case let .failure(failure):
 				completion(failure)
 			}
