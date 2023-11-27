@@ -1,8 +1,8 @@
 //
-//  WithdrawManager.swift
+//  CompoundWithdrawManager.swift
 //  Pino-iOS
 //
-//  Created by Mohi Raoufi on 11/19/23.
+//  Created by Mohi Raoufi on 11/27/23.
 //
 
 import BigInt
@@ -13,13 +13,12 @@ import Web3
 import Web3_Utility
 import Web3ContractABI
 
-class WithdrawManager: InvestW3ManagerProtocol {
+class CompoundWithdrawManager: InvestW3ManagerProtocol {
 	// MARK: - Private Properties
 
 	private var withdrawAmount: String
 	private let nonce = BigNumber.bigRandomeNumber
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes
-	private let compoundManager: CompoundWithdrawManager
 	private var tokenUIntNumber: BigUInt {
 		Utilities.parseToBigUInt(withdrawAmount, decimals: selectedToken.decimal)!
 	}
@@ -45,52 +44,39 @@ class WithdrawManager: InvestW3ManagerProtocol {
 	init(
 		contract: DynamicContract,
 		selectedToken: AssetViewModel,
-		withdrawProtocol: InvestProtocolViewModel,
 		withdrawAmount: String
 	) {
 		self.contract = contract
 		self.selectedToken = selectedToken
-		self.selectedProtocol = withdrawProtocol
+		self.selectedProtocol = .compound
 		self.withdrawAmount = withdrawAmount
-		self.compoundManager = CompoundWithdrawManager(
-			contract: contract,
-			selectedToken: selectedToken,
-			withdrawAmount: withdrawAmount
-		)
 	}
 
 	// MARK: Public Methods
 
 	public func getWithdrawInfo() -> TrxWithGasInfo {
-		switch selectedProtocol {
-		case .maker:
-			return getMakerWithdrawInfo()
-		case .compound:
-			return compoundManager.getWithdrawInfo()
-		case .lido:
-			return getLidoWithdrawInfo()
-		case .aave:
-			return getAaveWithdrawInfo()
+		if selectedToken.isEth {
+			return getCompoundETHWithdrawInfo()
+		} else if selectedToken.isWEth {
+			return getCompoundWETHWithdrawInfo()
+		} else {
+			return getCompoundERCWithdrawInfo()
 		}
 	}
 
 	public func confirmWithdraw(completion: @escaping (Result<String>) -> Void) {
-		if selectedProtocol == .compound {
-			compoundManager.confirmWithdraw(completion: completion)
-		} else {
-			guard let withdrawTrx else { return }
-			Web3Core.shared.callTransaction(trx: withdrawTrx).done { trxHash in
-				#warning("Add transaction activity later")
-				completion(.fulfilled(trxHash))
-			}.catch { error in
-				completion(.rejected(error))
-			}
+		guard let withdrawTrx else { return }
+		Web3Core.shared.callTransaction(trx: withdrawTrx).done { trxHash in
+			#warning("Add transaction activity later")
+			completion(.fulfilled(trxHash))
+		}.catch { error in
+			completion(.rejected(error))
 		}
 	}
 
 	// MARK: - Private Methods
 
-	private func getMakerWithdrawInfo() -> TrxWithGasInfo {
+	private func getCompoundERCWithdrawInfo() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			firstly {
 				getTokenPositionID()
@@ -98,11 +84,12 @@ class WithdrawManager: InvestW3ManagerProtocol {
 				self.fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
-			}.then { signiture -> Promise<String> in
+			}.then { signiture in
 				// Permit Transform
 				self.getProxyPermitTransferData(signiture: signiture)
-			}.then { [self] permitData -> Promise<(String, String)> in
-				web3.getSDaiToDaiCallData(
+			}.then { [self] permitData in
+				web3.getWithdrawV2CallData(
+					tokenAdd: tokenPositionID,
 					amount: tokenUIntNumber,
 					recipientAdd: walletManager.currentAccount.eip55Address
 				).map { ($0, permitData) }
@@ -115,18 +102,68 @@ class WithdrawManager: InvestW3ManagerProtocol {
 				self.withdrawGasInfo = withdrawResult.1
 				seal.fulfill(withdrawResult)
 			}.catch { error in
-				print(error.localizedDescription)
+				seal.reject(error)
 			}
 		}
 	}
 
-	private func getLidoWithdrawInfo() -> TrxWithGasInfo {
+	private func getCompoundETHWithdrawInfo() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
+			firstly {
+				getTokenPositionID()
+			}.then { positionID in
+				self.fetchHash()
+			}.then { plainHash in
+				self.signHash(plainHash: plainHash)
+			}.then { signiture in
+				// Permit Transform
+				self.getProxyPermitTransferData(signiture: signiture)
+			}.then { [self] permitData in
+				web3.getWithdrawETHV2CallData(
+					recipientAdd: walletManager.currentAccount.eip55Address,
+					amount: tokenUIntNumber
+				).map { (permitData, $0) }
+			}.then { permitData, protocolCallData in
+				// MultiCall
+				let callDatas = [permitData, protocolCallData]
+				return self.callProxyMultiCall(data: callDatas, value: nil)
+			}.done { withdrawResult in
+				self.withdrawTrx = withdrawResult.0
+				self.withdrawGasInfo = withdrawResult.1
+				seal.fulfill(withdrawResult)
+			}.catch { error in
+				seal.reject(error)
+			}
 		}
 	}
 
-	private func getAaveWithdrawInfo() -> TrxWithGasInfo {
+	private func getCompoundWETHWithdrawInfo() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
+			firstly {
+				getTokenPositionID()
+			}.then { positionID in
+				self.fetchHash()
+			}.then { plainHash in
+				self.signHash(plainHash: plainHash)
+			}.then { signiture -> Promise<String> in
+				// Permit Transform
+				self.getProxyPermitTransferData(signiture: signiture)
+			}.then { [self] permitData -> Promise<(String, String)> in
+				web3.getWithdrawWETHV2CallData(
+					amount: tokenUIntNumber,
+					recipientAdd: walletManager.currentAccount.eip55Address
+				).map { (permitData, $0) }
+			}.then { permitData, protocolCallData in
+				// MultiCall
+				let callDatas = [permitData, protocolCallData]
+				return self.callProxyMultiCall(data: callDatas, value: nil)
+			}.done { withdrawResult in
+				self.withdrawTrx = withdrawResult.0
+				self.withdrawGasInfo = withdrawResult.1
+				seal.fulfill(withdrawResult)
+			}.catch { error in
+				seal.reject(error)
+			}
 		}
 	}
 
