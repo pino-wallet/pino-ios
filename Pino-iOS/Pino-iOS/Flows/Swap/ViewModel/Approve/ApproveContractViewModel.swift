@@ -92,7 +92,7 @@ class ApproveContractViewModel {
 				guard let userEthToken = self.globalAssetsList?.first(where: { $0.isEth }) else {
 					return
 				}
-				if gasInfo.fee > userEthToken.holdAmount {
+				if gasInfo.fee! > userEthToken.holdAmount {
 					self.approveStatus = .insufficientEthBalance
 				} else {
 					self.approveStatus = .normal

@@ -206,7 +206,7 @@ class DepositManager: InvestW3ManagerProtocol {
 				deadline: deadline.description
 			)
 
-			web3Client.getHashTypedData(eip712HashReqInfo: hashREq).sink { completed in
+			web3Client.getHashTypedData(eip712HashReqInfo: hashREq.eip712HashReqBody).sink { completed in
 				switch completed {
 				case .finished:
 					print("Info received successfully")

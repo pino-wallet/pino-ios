@@ -15,7 +15,7 @@ final class Web3APIClient: Web3APIService {
 
 	// MARK: - Public Methods
 
-	public func getHashTypedData(eip712HashReqInfo: EIP712HashRequestModel)
+	public func getHashTypedData(eip712HashReqInfo: BodyParamsType)
 		-> AnyPublisher<EIP712HashResponseModel, APIError> {
 		networkManager.request(.hashTypeData(eip712ReqModel: eip712HashReqInfo))
 	}
@@ -27,5 +27,9 @@ final class Web3APIClient: Web3APIService {
 		protocolName: String
 	) -> AnyPublisher<PositionTokenModel, APIError> {
 		networkManager.request(.positionID(tokenAdd: tokenAdd, positionType: positionType, protocolName: protocolName))
+	}
+
+	func getNetworkFee() -> AnyPublisher<EthGasInfoModel, APIError> {
+		networkManager.request(.ehtGasInfo)
 	}
 }
