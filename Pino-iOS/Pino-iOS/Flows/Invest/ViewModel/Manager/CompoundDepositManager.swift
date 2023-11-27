@@ -19,6 +19,7 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 	private var investAmount: String
 	private let nonce = BigNumber.bigRandomeNumber
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes
+	private let depositType: DepositType
 	private var tokenUIntNumber: BigUInt {
 		Utilities.parseToBigUInt(investAmount, decimals: selectedToken.decimal)!
 	}
@@ -27,8 +28,8 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 
 	public var depositTrx: EthereumSignedTransaction?
 	public var depositGasInfo: GasInfo?
-	public var exitMarketTrx: EthereumSignedTransaction?
-	public var exitMarketGasInfo: GasInfo?
+	public var collateralCheckTrx: EthereumSignedTransaction?
+	public var collateralCheckGasInfo: GasInfo?
 	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
 
 	// MARK: - Internal properties
@@ -43,11 +44,12 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 
 	// MARK: Initializers
 
-	init(contract: DynamicContract, selectedToken: AssetViewModel, investAmount: String) {
+	init(contract: DynamicContract, selectedToken: AssetViewModel, investAmount: String, type: DepositType) {
 		self.contract = contract
 		self.selectedToken = selectedToken
 		self.investAmount = investAmount
 		self.selectedProtocol = .compound
+		self.depositType = type
 	}
 
 	// MARK: Public Methods
@@ -66,11 +68,11 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 		guard let depositTrx else { return }
 		Web3Core.shared.callTransaction(trx: depositTrx).done { trxHash in
 			#warning("Add transaction activity later")
-			guard let exitMarketTrx = self.exitMarketTrx else {
+			guard let collateralCheckTrx = self.collateralCheckTrx else {
 				completion(.fulfilled(trxHash))
 				return
 			}
-			Web3Core.shared.callTransaction(trx: exitMarketTrx).done { trxHash in
+			Web3Core.shared.callTransaction(trx: collateralCheckTrx).done { trxHash in
 				completion(.fulfilled(trxHash))
 			}.catch { error in
 				completion(.rejected(error))
@@ -206,6 +208,15 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 	}
 
 	private func checkMembership(trxNonce: EthereumQuantity) -> Promise<GasInfo?> {
+		switch depositType {
+		case .invest:
+			return checkMembershipForInvest(trxNonce: trxNonce)
+		case .collateral:
+			return checkMembershipForCollateral(trxNonce: trxNonce)
+		}
+	}
+
+	private func checkMembershipForInvest(trxNonce: EthereumQuantity) -> Promise<GasInfo?> {
 		Promise<GasInfo?> { seal in
 			firstly {
 				try web3.getCheckMembershipCallData(
@@ -216,11 +227,37 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 				if hasMembership {
 					self.getExitMarketInfo(trxNonce: EthereumQuantity(quantity: trxNonce.quantity + 1))
 						.done { [self] exitMarketResult in
-							exitMarketTrx = exitMarketResult.0
-							exitMarketGasInfo = exitMarketResult.1
-							seal.fulfill(exitMarketGasInfo!)
+							collateralCheckTrx = exitMarketResult.0
+							collateralCheckGasInfo = exitMarketResult.1
+							seal.fulfill(collateralCheckGasInfo!)
 						}.catch { error in
-							print(error)
+							seal.reject(error)
+						}
+				} else {
+					seal.fulfill(nil)
+				}
+			}.catch { error in
+				print(error)
+				seal.reject(error)
+			}
+		}
+	}
+
+	private func checkMembershipForCollateral(trxNonce: EthereumQuantity) -> Promise<GasInfo?> {
+		Promise<GasInfo?> { seal in
+			firstly {
+				try web3.getCheckMembershipCallData(
+					accountAddress: walletManager.currentAccount.eip55Address,
+					tokenAddress: self.tokenPositionID
+				)
+			}.done { hasMembership in
+				if !hasMembership {
+					self.getEnterMarketInfo(trxNonce: EthereumQuantity(quantity: trxNonce.quantity + 1))
+						.done { [self] enterMarketResult in
+							collateralCheckTrx = enterMarketResult.0
+							collateralCheckGasInfo = enterMarketResult.1
+							seal.fulfill(collateralCheckGasInfo!)
+						}.catch { error in
 							seal.reject(error)
 						}
 				} else {
@@ -308,4 +345,9 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 			deadline: deadline
 		)
 	}
+}
+
+enum DepositType {
+	case invest
+	case collateral
 }

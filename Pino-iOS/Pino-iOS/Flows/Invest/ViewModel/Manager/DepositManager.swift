@@ -55,7 +55,8 @@ class DepositManager: InvestW3ManagerProtocol {
 		self.compoundManager = CompoundDepositManager(
 			contract: contract,
 			selectedToken: selectedToken,
-			investAmount: investAmount
+			investAmount: investAmount,
+			type: .invest
 		)
 	}
 
