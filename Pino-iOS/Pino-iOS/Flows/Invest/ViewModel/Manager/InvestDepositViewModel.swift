@@ -84,9 +84,6 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 		selectedToken = tokensList.first(where: { $0.symbol == investableAsset.assetName })!
 		maxAvailableAmount = selectedToken.holdAmount
 
-		selectedToken = tokensList.first(where: { $0.symbol == "ETH" })!
-		selectedProtocol = .compound
-
 		#warning("it must be refactored later")
 		if selectedToken.holdAmount > 0.bigNumber {
 			hasOpenPosition = true

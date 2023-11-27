@@ -146,10 +146,12 @@ class WithdrawManager: InvestW3ManagerProtocol {
 				// MultiCall
 				let callDatas = [permitData, protocolCallData]
 				return self.callProxyMultiCall(data: callDatas, value: nil)
-			}.done { trxHash in
-				print(trxHash)
+			}.done { withdrawResult in
+				self.withdrawTrx = withdrawResult.0
+				self.withdrawGasInfo = withdrawResult.1
+				seal.fulfill(withdrawResult)
 			}.catch { error in
-				print(error.localizedDescription)
+				seal.reject(error)
 			}
 		}
 	}
@@ -157,18 +159,29 @@ class WithdrawManager: InvestW3ManagerProtocol {
 	private func getCompoundETHWithdrawInfo() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			firstly {
-				self.web3.getWithdrawETHV2CallData(
+				getTokenPositionID()
+			}.then { positionID in
+				self.fetchHash()
+			}.then { plainHash in
+				self.signHash(plainHash: plainHash)
+			}.then { signiture in
+				// Permit Transform
+				self.getProxyPermitTransferData(signiture: signiture)
+			}.then { [self] permitData in
+				web3.getWithdrawETHV2CallData(
 					recipientAdd: walletManager.currentAccount.eip55Address,
 					amount: tokenUIntNumber
-				)
-			}.then { protocolCallData in
+				).map { (permitData, $0) }
+			}.then { permitData, protocolCallData in
 				// MultiCall
-				let callDatas = [protocolCallData]
+				let callDatas = [permitData, protocolCallData]
 				return self.callProxyMultiCall(data: callDatas, value: nil)
-			}.done { trxHash in
-				print(trxHash)
+			}.done { withdrawResult in
+				self.withdrawTrx = withdrawResult.0
+				self.withdrawGasInfo = withdrawResult.1
+				seal.fulfill(withdrawResult)
 			}.catch { error in
-				print(error.localizedDescription)
+				seal.reject(error)
 			}
 		}
 	}
@@ -188,15 +201,17 @@ class WithdrawManager: InvestW3ManagerProtocol {
 				web3.getWithdrawWETHV2CallData(
 					amount: tokenUIntNumber,
 					recipientAdd: walletManager.currentAccount.eip55Address
-				).map { ($0, permitData) }
-			}.then { protocolCallData, permitData in
+				).map { (permitData, $0) }
+			}.then { permitData, protocolCallData in
 				// MultiCall
 				let callDatas = [permitData, protocolCallData]
 				return self.callProxyMultiCall(data: callDatas, value: nil)
-			}.done { trxHash in
-				print(trxHash)
+			}.done { withdrawResult in
+				self.withdrawTrx = withdrawResult.0
+				self.withdrawGasInfo = withdrawResult.1
+				seal.fulfill(withdrawResult)
 			}.catch { error in
-				print(error.localizedDescription)
+				seal.reject(error)
 			}
 		}
 	}
@@ -211,7 +226,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 			let hashREq = EIP712HashRequestModel(
 				tokenAdd: tokenPositionID,
 				amount: tokenUIntNumber.description,
-				spender: Web3Core.Constants.investContractAddress,
+				spender: contract.address!.hex(eip55: true),
 				nonce: nonce.description,
 				deadline: deadline.description
 			)
