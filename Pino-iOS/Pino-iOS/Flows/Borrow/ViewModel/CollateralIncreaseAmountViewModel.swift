@@ -95,7 +95,7 @@ class CollateralIncreaseAmountViewModel {
 	private func calculateAaveCollateralETHMaxAmount() {
 		aaveCollateralManager.getETHCollateralData().done { collateralData in
 			let collateralFee = collateralData.1.fee
-			let maxHoldAmountBigNumber = self.selectedToken.holdAmount - collateralFee
+			let maxHoldAmountBigNumber = self.selectedToken.holdAmount - collateralFee!
 			if maxHoldAmountBigNumber.number.sign == .minus {
 				self.maxHoldAmount = 0.bigNumber
 			} else {
