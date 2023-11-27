@@ -14,6 +14,7 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 
 	private let swapConfirmationVM: SwapConfirmationViewModel
 	private var cancellables = Set<AnyCancellable>()
+	private var swapConfirmationView: SwapConfirmationView!
 
 	// MARK: Initializers
 
@@ -34,11 +35,13 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		swapConfirmationVM.fetchSwapInfo { error in
+			self.showFeeError(error)
+		}
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		swapConfirmationVM.fetchSwapInfo()
 	}
 
 	override func loadView() {
@@ -48,15 +51,26 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 
 	// MARK: - Private Methods
 
+	private func getFee() {
+		swapConfirmationView.hideFeeError()
+		swapConfirmationView.showSkeletonView()
+		swapConfirmationVM.fetchSwapInfo { error in
+			self.showFeeError(error)
+		}
+	}
+
 	private func setupView() {
-		view = SwapConfirmationView(
+		swapConfirmationView = SwapConfirmationView(
 			swapConfirmationVM: swapConfirmationVM,
 			confirmButtonTapped: {
 				self.confirmSwap()
 			},
 			presentFeeInfo: { infoActionSheet in },
-			retryFeeCalculation: {}
+			retryFeeCalculation: {
+				self.getFee()
+			}
 		)
+		view = swapConfirmationView
 	}
 
 	private func setupNavigationBar() {
@@ -85,5 +99,15 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 	@objc
 	private func dismissPage() {
 		dismiss(animated: true)
+	}
+
+	private func showFeeError(_ error: Error) {
+		swapConfirmationView.showfeeCalculationError()
+		Toast.default(
+			title: "\(error.localizedDescription)",
+			subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+			style: .error
+		)
+		.show(haptic: .warning)
 	}
 }

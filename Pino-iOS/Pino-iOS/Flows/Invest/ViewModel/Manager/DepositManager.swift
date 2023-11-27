@@ -22,6 +22,8 @@ class DepositManager: InvestW3ManagerProtocol {
 		Utilities.parseToBigUInt(investAmount, decimals: selectedToken.decimal)!
 	}
 
+	private var compoundManager: CompoundDepositManager
+
 	// MARK: - Public Properties
 
 	public var depositTrx: EthereumSignedTransaction?
@@ -50,16 +52,21 @@ class DepositManager: InvestW3ManagerProtocol {
 		self.selectedToken = selectedToken
 		self.selectedProtocol = investProtocol
 		self.investAmount = investAmount
+		self.compoundManager = CompoundDepositManager(
+			contract: contract,
+			selectedToken: selectedToken,
+			investAmount: investAmount
+		)
 	}
 
 	// MARK: Public Methods
 
-	public func getDepositInfo() -> TrxWithGasInfo {
+	public func getDepositInfo() -> Promise<[GasInfo]> {
 		switch selectedProtocol {
 		case .maker:
 			return getMakerDepositInfo()
 		case .compound:
-			return getCompoundDepositInfo()
+			return compoundManager.getDepositInfo()
 		case .lido:
 			return getLidoDepositInfo()
 		case .aave:
@@ -68,19 +75,23 @@ class DepositManager: InvestW3ManagerProtocol {
 	}
 
 	public func confirmDeposit(completion: @escaping (Result<String>) -> Void) {
-		guard let depositTrx else { return }
-		Web3Core.shared.callTransaction(trx: depositTrx).done { trxHash in
-			#warning("Add transaction activity later")
-			completion(.fulfilled(trxHash))
-		}.catch { error in
-			completion(.rejected(error))
+		if selectedProtocol == .compound {
+			compoundManager.confirmDeposit(completion: completion)
+		} else {
+			guard let depositTrx else { return }
+			Web3Core.shared.callTransaction(trx: depositTrx).done { trxHash in
+				#warning("Add transaction activity later")
+				completion(.fulfilled(trxHash))
+			}.catch { error in
+				completion(.rejected(error))
+			}
 		}
 	}
 
 	// MARK: - Private Methods
 
-	private func getMakerDepositInfo() -> TrxWithGasInfo {
-		TrxWithGasInfo { seal in
+	private func getMakerDepositInfo() -> Promise<[GasInfo]> {
+		Promise<[GasInfo]> { seal in
 			firstly {
 				getTokenPositionID()
 			}.then { positionID in
@@ -111,14 +122,14 @@ class DepositManager: InvestW3ManagerProtocol {
 			}.done { depositResult in
 				self.depositTrx = depositResult.0
 				self.depositGasInfo = depositResult.1
-				seal.fulfill(depositResult)
+				seal.fulfill([depositResult.1])
 			}.catch { error in
 				print(error.localizedDescription)
 			}
 		}
 	}
 
-	private func getLidoDepositInfo() -> TrxWithGasInfo {
+	private func getLidoDepositInfo() -> Promise<[GasInfo]> {
 		if selectedToken.isEth {
 			return getLidoETHDepositInfo()
 		} else if selectedToken.isWEth {
@@ -128,8 +139,8 @@ class DepositManager: InvestW3ManagerProtocol {
 		}
 	}
 
-	private func getLidoETHDepositInfo() -> TrxWithGasInfo {
-		TrxWithGasInfo { seal in
+	private func getLidoETHDepositInfo() -> Promise<[GasInfo]> {
+		Promise<[GasInfo]> { seal in
 			let proxyFee = 0.bigNumber.bigUInt
 			firstly {
 				self.web3.getETHToSTETHCallData(
@@ -144,15 +155,15 @@ class DepositManager: InvestW3ManagerProtocol {
 			}.done { depositResult in
 				self.depositTrx = depositResult.0
 				self.depositGasInfo = depositResult.1
-				seal.fulfill(depositResult)
+				seal.fulfill([depositResult.1])
 			}.catch { error in
 				print(error.localizedDescription)
 			}
 		}
 	}
 
-	private func getLidoWETHDepositInfo() -> TrxWithGasInfo {
-		TrxWithGasInfo { seal in
+	private func getLidoWETHDepositInfo() -> Promise<[GasInfo]> {
+		Promise<[GasInfo]> { seal in
 			firstly {
 				fetchHash()
 			}.then { plainHash in
@@ -172,24 +183,15 @@ class DepositManager: InvestW3ManagerProtocol {
 			}.done { depositResult in
 				self.depositTrx = depositResult.0
 				self.depositGasInfo = depositResult.1
-				seal.fulfill(depositResult)
+				seal.fulfill([depositResult.1])
 			}.catch { error in
 				print(error.localizedDescription)
 			}
 		}
 	}
 
-	private func getCompoundDepositInfo() -> TrxWithGasInfo {
-		let compoundManager = CompoundDepositManager(
-			contract: contract,
-			selectedToken: selectedToken,
-			investAmount: investAmount
-		)
-		return compoundManager.getDepositInfo()
-	}
-
-	private func getAaveDepositInfo() -> TrxWithGasInfo {
-		TrxWithGasInfo { seal in
+	private func getAaveDepositInfo() -> Promise<[GasInfo]> {
+		Promise<[GasInfo]> { seal in
 		}
 	}
 
@@ -216,7 +218,7 @@ class DepositManager: InvestW3ManagerProtocol {
 		}
 	}
 
-	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
+	private func callProxyMultiCall(data: [String], value: BigUInt?) -> TrxWithGasInfo {
 		web3.callMultiCall(
 			contractAddress: contract.address!.hex(eip55: true),
 			callData: data,

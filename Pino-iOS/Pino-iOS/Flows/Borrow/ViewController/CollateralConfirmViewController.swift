@@ -76,6 +76,9 @@ class CollateralConfirmViewController: UIViewController {
 				transactionToken: collateralConfirmVM.collaterallIncreaseAmountVM.selectedToken
 			)
 		)
+		sendTransactionStatusVM.addPendingActivityClosure = { txHash in
+			self.collateralConfirmVM.createCollateralPendingActivity(txHash: txHash)
+		}
 		let sendTransactionStatusVC = SendTransactionStatusViewController(sendStatusVM: sendTransactionStatusVM)
 		present(sendTransactionStatusVC, animated: true)
 	}

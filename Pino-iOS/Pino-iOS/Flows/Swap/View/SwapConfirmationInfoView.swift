@@ -51,6 +51,7 @@ class SwapConfirmationInfoView: UIView {
 		setupView()
 		setupStyle()
 		setupContstraint()
+		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -135,7 +136,7 @@ class SwapConfirmationInfoView: UIView {
 		feeErrorStackView.spacing = 4
 
 		setSketonable()
-		showSkeletonView()
+		showFeeLoading()
 		feeErrorStackView.isHidden = true
 	}
 
@@ -169,8 +170,17 @@ class SwapConfirmationInfoView: UIView {
 		])
 	}
 
+	private func setupBindings() {
+		swapConfirmationVM.$swapRate.sink { [self] rate in
+			guard let rate else { showRateLoading(); return }
+			rateLabel.text = rate
+			hideRateLoading()
+		}.store(in: &cancellables)
+	}
+
 	private func setSketonable() {
 		feeLabel.isSkeletonable = true
+		rateLabel.isSkeletonable = true
 	}
 
 	@objc
@@ -198,6 +208,10 @@ class SwapConfirmationInfoView: UIView {
 		}
 	}
 
+	public func updateRateLabel(rate: String) {
+		rateLabel.text = rate
+	}
+
 	public func showfeeCalculationError() {
 		feeLabel.isHidden = true
 		feeErrorStackView.isHidden = false
@@ -206,5 +220,21 @@ class SwapConfirmationInfoView: UIView {
 	public func hideFeeCalculationError() {
 		feeErrorStackView.isHidden = true
 		feeLabel.isHidden = false
+	}
+
+	public func showRateLoading() {
+		rateStrackView.showSkeletonView()
+	}
+
+	public func hideRateLoading() {
+		rateStrackView.hideSkeletonView()
+	}
+
+	public func showFeeLoading() {
+		feeStackView.showSkeletonView()
+	}
+
+	public func hideFeeLoading() {
+		feeStackView.showSkeletonView()
 	}
 }

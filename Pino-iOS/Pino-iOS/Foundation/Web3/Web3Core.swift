@@ -181,7 +181,12 @@ public class Web3Core {
 		try aaveDepositManager.getPinoAaveProxyContract()
 	}
 
-	public func callMultiCall(contractAddress: String, callData: [String], value: BigUInt) -> TrxWithGasInfo {
+	public func callMultiCall(
+		contractAddress: String,
+		callData: [String],
+		value: BigUInt,
+		nonce: EthereumQuantity? = nil
+	) -> TrxWithGasInfo {
 		let generatedMulticallData = W3CallDataGenerator.generateMultiCallFrom(calls: callData)
 		let ethCallData = EthereumData(generatedMulticallData.hexToBytes())
 		let eip55ContractAddress = contractAddress.eip55Address!
@@ -191,8 +196,11 @@ public class Web3Core {
 			gasInfoManager
 				.calculateGasOf(data: ethCallData, to: eip55ContractAddress, value: value.etherumQuantity)
 				.then { [self] gasInfo in
-					rWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
-						.map { ($0, gasInfo) }
+					guard let nonce else {
+						return rWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+							.map { ($0, gasInfo) }
+					}
+					return nonce.promise.map { ($0, gasInfo) }
 				}.done { [self] nonce, gasInfo in
 					let trx = try trxManager.createTransactionFor(
 						nonce: nonce,
@@ -209,6 +217,43 @@ public class Web3Core {
 					seal.reject(error)
 				}
 		}
+	}
+
+	public func getTransactionCallData(
+		contractAddress: String,
+		trxCallData: EthereumData,
+		nonce: EthereumQuantity? = nil,
+		value: BigUInt = 0
+	) -> Promise<(EthereumSignedTransaction, GasInfo)> {
+		TrxWithGasInfo { [self] seal in
+			gasInfoManager
+				.calculateGasOf(data: trxCallData, to: contractAddress.eip55Address!, value: value.etherumQuantity)
+				.then { [self] gasInfo in
+					guard let nonce else {
+						return rWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+							.map { ($0, gasInfo) }
+					}
+					return nonce.promise.map { ($0, gasInfo) }
+				}.done { [self] nonce, gasInfo in
+					let trx = try trxManager.createTransactionFor(
+						nonce: nonce,
+						gasPrice: gasInfo.gasPrice.etherumQuantity,
+						gasLimit: gasInfo.increasedGasLimit.bigUInt.etherumQuantity,
+						value: value.etherumQuantity,
+						data: trxCallData,
+						to: contractAddress.eip55Address!
+					)
+
+					let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Network.chainID)
+					seal.fulfill((signedTx, gasInfo))
+				}.catch { error in
+					seal.reject(error)
+				}
+		}
+	}
+
+	public func getNonce() -> Promise<EthereumQuantity> {
+		rWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 	}
 
 	public func callTransaction(trx: EthereumSignedTransaction) -> Promise<String> {
@@ -402,11 +447,11 @@ public class Web3Core {
 		investManager.getWETHToSTETHCallData(amount: amount, recipientAdd: recipientAdd)
 	}
 
-	public func getCompoundEnterMarketCallData(tokenAddress: String) -> Promise<String> {
+	public func getCompoundEnterMarketCallData(tokenAddress: String) -> Promise<EthereumData> {
 		investManager.getEnterMarketCallData(tokenAddress: tokenAddress)
 	}
 
-	public func getCompoundExitMarketCallData(tokenAddress: String) -> Promise<String> {
+	public func getCompoundExitMarketCallData(tokenAddress: String) -> Promise<EthereumData> {
 		investManager.getExitMarketCallData(tokenAddress: tokenAddress)
 	}
 
@@ -416,6 +461,10 @@ public class Web3Core {
 
 	public func getCompoundProxyContract() throws -> DynamicContract {
 		try investManager.getCompoundProxyContract()
+	}
+
+	public func getCompoundCollateralCheckProxyContract() throws -> DynamicContract {
+		try investManager.getCollateralCheckProxyContract()
 	}
 
 	public func borrowCompoundCToken(contractDetails: ContractDetailsModel) -> Promise<String> {

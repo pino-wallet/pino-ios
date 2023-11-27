@@ -27,6 +27,8 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 
 	public var depositTrx: EthereumSignedTransaction?
 	public var depositGasInfo: GasInfo?
+	public var exitMarketTrx: EthereumSignedTransaction?
+	public var exitMarketGasInfo: GasInfo?
 	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
 
 	// MARK: - Internal properties
@@ -50,7 +52,7 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 
 	// MARK: Public Methods
 
-	public func getDepositInfo() -> TrxWithGasInfo {
+	public func getDepositInfo() -> Promise<[GasInfo]> {
 		if selectedToken.isEth {
 			return compoundETHDeposit()
 		} else if selectedToken.isWEth {
@@ -64,7 +66,15 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 		guard let depositTrx else { return }
 		Web3Core.shared.callTransaction(trx: depositTrx).done { trxHash in
 			#warning("Add transaction activity later")
-			completion(.fulfilled(trxHash))
+			guard let exitMarketTrx = self.exitMarketTrx else {
+				completion(.fulfilled(trxHash))
+				return
+			}
+			Web3Core.shared.callTransaction(trx: exitMarketTrx).done { trxHash in
+				completion(.fulfilled(trxHash))
+			}.catch { error in
+				completion(.rejected(error))
+			}
 		}.catch { error in
 			completion(.rejected(error))
 		}
@@ -72,43 +82,50 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 
 	// MARK: - Private Methods
 
-	private func compoundERCDeposit() -> TrxWithGasInfo {
-		TrxWithGasInfo { seal in
+	private func compoundERCDeposit() -> Promise<[GasInfo]> {
+		Promise<[GasInfo]> { seal in
 			firstly {
 				getTokenPositionID()
 			}.then { positionID in
 				self.fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
-			}.then { [self] signiture -> Promise<(String, String)> in
+			}.then { [self] signiture -> Promise<(String, String?)> in
 				// Check allowance of protocol
 				checkAllowanceOfProvider(
 					approvingToken: selectedToken,
 					approvingAmount: investAmount,
 					spenderAddress: tokenPositionID,
 					ownerAddress: Web3Core.Constants.compoundContractAddress
-				).map { (signiture, $0!) }
-			}.then { signiture, allowanceData -> Promise<(String, String)> in
+				).map { (signiture, $0) }
+			}.then { signiture, allowanceData -> Promise<(String, String?)> in
 				// Permit Transform
 				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
-			}.then { [self] permitData, allowanceData -> Promise<(String, String, String)> in
+			}.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
 				web3.getDepositV2CallData(
 					tokenAdd: tokenPositionID,
 					amount: tokenUIntNumber,
 					recipientAdd: walletManager.currentAccount.eip55Address
 				).map { ($0, permitData, allowanceData) }
-			}.then { protocolCallData, permitData, allowanceData in
+			}
+			.then { protocolCallData, permitData, allowanceData -> Promise<(String, String, String?, EthereumQuantity)> in
+				self.web3.getNonce().map { (protocolCallData, permitData, allowanceData, $0) }
+			}.then { protocolCallData, permitData, allowanceData, trxNonce in
 				// MultiCall
-				let callDatas = [allowanceData, permitData, protocolCallData]
-				return self.callProxyMultiCall(data: callDatas, value: nil)
-			}.then { depositResult -> Promise<((EthereumSignedTransaction, GasInfo), Bool)> in
-				self.checkMembership(tokenAddress: self.tokenPositionID).map { (depositResult, $0) }
-			}.done { depositResult, hasMembership in
-				if hasMembership {
+				var callDatas = [permitData, protocolCallData]
+				if let allowanceData {
+					callDatas.insert(allowanceData, at: 0)
+				}
+				return self.callProxyMultiCall(data: callDatas, value: nil, trxNonce: trxNonce).map { (trxNonce, $0) }
+			}.then { trxNonce, depositResult -> Promise<((EthereumSignedTransaction, GasInfo), GasInfo?)> in
+				self.checkMembership(trxNonce: trxNonce).map { (depositResult, $0) }
+			}.done { depositResult, exitMarketGas in
+				self.depositTrx = depositResult.0
+				self.depositGasInfo = depositResult.1
+				if let exitMarketGas {
+					seal.fulfill([depositResult.1, exitMarketGas])
 				} else {
-					self.depositTrx = depositResult.0
-					self.depositGasInfo = depositResult.1
-					seal.fulfill(depositResult)
+					seal.fulfill([depositResult.1])
 				}
 			}.catch { error in
 				print(error.localizedDescription)
@@ -116,50 +133,46 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 		}
 	}
 
-	private func checkMembership(tokenAddress: String) -> Promise<Bool> {
-		firstly {
-			try web3.getCheckMembershipCallData(
-				accountAddress: walletManager.currentAccount.eip55Address,
-				tokenAddress: tokenAddress
-			)
-		}
-	}
-
-	private func getEnterMarketInfo() {
-		web3.getCompoundEnterMarketCallData(tokenAddress: tokenPositionID)
-	}
-
-	private func getExitMarketInfo() {
-		web3.getCompoundExitMarketCallData(tokenAddress: tokenPositionID)
-	}
-
-	private func compoundETHDeposit() -> TrxWithGasInfo {
-		TrxWithGasInfo { seal in
+	private func compoundETHDeposit() -> Promise<[GasInfo]> {
+		Promise<[GasInfo]> { seal in
 			let proxyFee = 0.bigNumber.bigUInt
 			firstly {
-				self.web3.getDepositETHV2CallData(
+				getTokenPositionID()
+			}.then { [self] positionID in
+				web3.getDepositETHV2CallData(
 					recipientAdd: walletManager.currentAccount.eip55Address,
 					proxyFee: proxyFee
 				)
 			}.then { protocolCallData in
+				self.web3.getNonce().map { (protocolCallData, $0) }
+			}.then { protocolCallData, trxNonce in
 				// MultiCall
 				let callDatas = [protocolCallData]
 				let ethDepositAmount = self.tokenUIntNumber + proxyFee
-				return self.callProxyMultiCall(data: callDatas, value: ethDepositAmount)
-			}.done { depositResult in
+				return self.callProxyMultiCall(data: callDatas, value: ethDepositAmount, trxNonce: trxNonce)
+					.map { (trxNonce, $0) }
+			}.then { trxNonce, depositResult -> Promise<((EthereumSignedTransaction, GasInfo), GasInfo?)> in
+				self.checkMembership(trxNonce: trxNonce).map { (depositResult, $0) }
+			}.done { depositResult, exitMarketGas in
 				self.depositTrx = depositResult.0
 				self.depositGasInfo = depositResult.1
-				seal.fulfill(depositResult)
+				if let exitMarketGas {
+					seal.fulfill([depositResult.1, exitMarketGas])
+				} else {
+					seal.fulfill([depositResult.1])
+				}
 			}.catch { error in
 				print(error.localizedDescription)
 			}
 		}
 	}
 
-	private func compoundWETHDeposit() -> TrxWithGasInfo {
-		TrxWithGasInfo { seal in
+	private func compoundWETHDeposit() -> Promise<[GasInfo]> {
+		Promise<[GasInfo]> { seal in
 			firstly {
-				fetchHash()
+				getTokenPositionID()
+			}.then { positionID in
+				self.fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
 			}.then { signiture -> Promise<String> in
@@ -171,16 +184,78 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 					recipientAdd: walletManager.currentAccount.eip55Address
 				).map { ($0, permitData) }
 			}.then { protocolCallData, permitData in
+				self.web3.getNonce().map { (protocolCallData, permitData, $0) }
+			}.then { protocolCallData, permitData, trxNonce in
 				// MultiCall
 				let callDatas = [permitData, protocolCallData]
-				return self.callProxyMultiCall(data: callDatas, value: nil)
-			}.done { depositResult in
+				return self.callProxyMultiCall(data: callDatas, value: nil, trxNonce: trxNonce).map { (trxNonce, $0) }
+			}.then { trxNonce, depositResult -> Promise<((EthereumSignedTransaction, GasInfo), GasInfo?)> in
+				self.checkMembership(trxNonce: trxNonce).map { (depositResult, $0) }
+			}.done { depositResult, exitMarketGas in
 				self.depositTrx = depositResult.0
 				self.depositGasInfo = depositResult.1
-				seal.fulfill(depositResult)
+				if let exitMarketGas {
+					seal.fulfill([depositResult.1, exitMarketGas])
+				} else {
+					seal.fulfill([depositResult.1])
+				}
 			}.catch { error in
 				print(error.localizedDescription)
 			}
+		}
+	}
+
+	private func checkMembership(trxNonce: EthereumQuantity) -> Promise<GasInfo?> {
+		Promise<GasInfo?> { seal in
+			firstly {
+				try web3.getCheckMembershipCallData(
+					accountAddress: walletManager.currentAccount.eip55Address,
+					tokenAddress: self.tokenPositionID
+				)
+			}.done { hasMembership in
+				if hasMembership {
+					self.getExitMarketInfo(trxNonce: EthereumQuantity(quantity: trxNonce.quantity + 1))
+						.done { [self] exitMarketResult in
+							exitMarketTrx = exitMarketResult.0
+							exitMarketGasInfo = exitMarketResult.1
+							seal.fulfill(exitMarketGasInfo!)
+						}.catch { error in
+							print(error)
+							seal.reject(error)
+						}
+				} else {
+					seal.fulfill(nil)
+				}
+			}.catch { error in
+				print(error)
+				seal.reject(error)
+			}
+		}
+	}
+
+	private func getEnterMarketInfo(trxNonce: EthereumQuantity) -> TrxWithGasInfo {
+		firstly {
+			self.web3.getCompoundEnterMarketCallData(tokenAddress: tokenPositionID)
+		}.then { trxCallData in
+			let collateralCheckContract = try self.web3.getCompoundCollateralCheckProxyContract()
+			return self.web3.getTransactionCallData(
+				contractAddress: collateralCheckContract.address!.hex(eip55: true),
+				trxCallData: trxCallData,
+				nonce: trxNonce
+			)
+		}
+	}
+
+	private func getExitMarketInfo(trxNonce: EthereumQuantity) -> TrxWithGasInfo {
+		firstly {
+			self.web3.getCompoundExitMarketCallData(tokenAddress: tokenPositionID)
+		}.then { trxCallData in
+			let collateralCheckContract = try self.web3.getCompoundCollateralCheckProxyContract()
+			return self.web3.getTransactionCallData(
+				contractAddress: collateralCheckContract.address!.hex(eip55: true),
+				trxCallData: trxCallData,
+				nonce: trxNonce
+			)
 		}
 	}
 
@@ -208,11 +283,16 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 		}
 	}
 
-	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
+	private func callProxyMultiCall(
+		data: [String],
+		value: BigUInt?,
+		trxNonce: EthereumQuantity? = nil
+	) -> TrxWithGasInfo {
 		web3.callMultiCall(
 			contractAddress: contract.address!.hex(eip55: true),
 			callData: data,
-			value: value ?? 0.bigNumber.bigUInt
+			value: value ?? 0.bigNumber.bigUInt,
+			nonce: trxNonce
 		)
 	}
 
