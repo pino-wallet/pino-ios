@@ -16,7 +16,7 @@ struct CollateralizableTokenDetailsModel: Codable {
 		case tokenID = "token_id"
 		case tokenProtocol = "protocol"
 		case liquidationThreshold = "liquidation_threshold"
-        case ltv
+		case ltv
 	}
 
 	struct ProtocolClass: Codable {
