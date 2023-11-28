@@ -615,6 +615,13 @@
 		DFCB13B42B0A1E2300EEFD0F /* Web3HelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB13B32B0A1E2300EEFD0F /* Web3HelperProtocol.swift */; };
 		DFF8C35B2B11CEEF00C74DAC /* EthGasInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C35A2B11CEEF00C74DAC /* EthGasInfoModel.swift */; };
 		DFF8C35D2B13654700C74DAC /* AccountActivationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C35C2B13654700C74DAC /* AccountActivationViewModel.swift */; };
+		DFF8C3842B14703E00C74DAC /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C3832B14703E00C74DAC /* TutorialViewController.swift */; };
+		DFF8C3862B14710A00C74DAC /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C3852B14710A00C74DAC /* TutorialView.swift */; };
+		DFF8C3882B1472FB00C74DAC /* TutorialStepperContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C3872B1472FB00C74DAC /* TutorialStepperContainerView.swift */; };
+		DFF8C38A2B14767C00C74DAC /* TutorialStepperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C3892B14767C00C74DAC /* TutorialStepperCell.swift */; };
+		DFF8C38C2B14776100C74DAC /* TutorialStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C38B2B14776100C74DAC /* TutorialStepViewModel.swift */; };
+		DFF8C38E2B149EB200C74DAC /* TutorialContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C38D2B149EB200C74DAC /* TutorialContainerViewModel.swift */; };
+		DFF8C3902B14AE3400C74DAC /* TutorialModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C38F2B14AE3400C74DAC /* TutorialModel.swift */; };
 		DFFDEDA32A75658700D710D7 /* ParaSwapAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6AD2A756123003DB68A /* ParaSwapAPIClient.swift */; };
 		DFFDEDA42A75659E00D710D7 /* ParaSwapEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6AE2A75615D003DB68A /* ParaSwapEndpoint.swift */; };
 		DFFDEDAA2A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDA92A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift */; };
@@ -1408,6 +1415,13 @@
 		DFCB13B32B0A1E2300EEFD0F /* Web3HelperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3HelperProtocol.swift; sourceTree = "<group>"; };
 		DFF8C35A2B11CEEF00C74DAC /* EthGasInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthGasInfoModel.swift; sourceTree = "<group>"; };
 		DFF8C35C2B13654700C74DAC /* AccountActivationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountActivationViewModel.swift; sourceTree = "<group>"; };
+		DFF8C3832B14703E00C74DAC /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TutorialViewController.swift; path = "Pino-iOS/Flows/Tutorials/ViewController/TutorialViewController.swift"; sourceTree = SOURCE_ROOT; };
+		DFF8C3852B14710A00C74DAC /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
+		DFF8C3872B1472FB00C74DAC /* TutorialStepperContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialStepperContainerView.swift; sourceTree = "<group>"; };
+		DFF8C3892B14767C00C74DAC /* TutorialStepperCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialStepperCell.swift; sourceTree = "<group>"; };
+		DFF8C38B2B14776100C74DAC /* TutorialStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialStepViewModel.swift; sourceTree = "<group>"; };
+		DFF8C38D2B149EB200C74DAC /* TutorialContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialContainerViewModel.swift; sourceTree = "<group>"; };
+		DFF8C38F2B14AE3400C74DAC /* TutorialModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialModel.swift; sourceTree = "<group>"; };
 		DFFDEDA92A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneInchSwapPriceResponseModel.swift; sourceTree = "<group>"; };
 		DFFDEDAB2A76C65800D710D7 /* ZeroXPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroXPriceResponseModel.swift; sourceTree = "<group>"; };
 		DFFDEDAD2A7792D800D710D7 /* OneInchEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneInchEndpoint.swift; sourceTree = "<group>"; };
@@ -1903,6 +1917,7 @@
 		2FA22488D62B1AF3C6FD3600 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				DFF8C37E2B146FB200C74DAC /* Tutorials */,
 				E3F482F22A35B03200EEC9CF /* Send */,
 				99C279C49EE9A767DEB155C7 /* Account */,
 				8F87D654352C570B4F7592D9 /* Activity */,
@@ -3734,6 +3749,52 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		DFF8C37E2B146FB200C74DAC /* Tutorials */ = {
+			isa = PBXGroup;
+			children = (
+				DFF8C37F2B146FC100C74DAC /* Model */,
+				DFF8C3802B146FC700C74DAC /* ViewModel */,
+				DFF8C3812B146FD300C74DAC /* View */,
+				DFF8C3822B146FDB00C74DAC /* ViewController */,
+			);
+			path = Tutorials;
+			sourceTree = "<group>";
+		};
+		DFF8C37F2B146FC100C74DAC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DFF8C38F2B14AE3400C74DAC /* TutorialModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DFF8C3802B146FC700C74DAC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DFF8C38B2B14776100C74DAC /* TutorialStepViewModel.swift */,
+				DFF8C38D2B149EB200C74DAC /* TutorialContainerViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DFF8C3812B146FD300C74DAC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DFF8C3852B14710A00C74DAC /* TutorialView.swift */,
+				DFF8C3892B14767C00C74DAC /* TutorialStepperCell.swift */,
+				DFF8C3872B1472FB00C74DAC /* TutorialStepperContainerView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DFF8C3822B146FDB00C74DAC /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DFF8C3832B14703E00C74DAC /* TutorialViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		E01D034F43576AABD037FDFE /* NumberFormatter */ = {
 			isa = PBXGroup;
 			children = (
@@ -4585,6 +4646,7 @@
 				5319850502764EDE67A09C49 /* AddNewAccountCollectionView.swift in Sources */,
 				4CA4F662ECA5E7E45B96C281 /* AddNewAccountCollectionViewCell.swift in Sources */,
 				E3FC69A02A8A0731009B3341 /* InvestmentPerformanceViewController.swift in Sources */,
+				DFF8C38C2B14776100C74DAC /* TutorialStepViewModel.swift in Sources */,
 				E34728E929E7DCCF00AB8265 /* HomepageViewModel+Wallet.swift in Sources */,
 				67CB57B83460DA7FDE4BFED3 /* AddNewAccountOptionModel.swift in Sources */,
 				DAB2FF91D5EAF0795A12201B /* AddNewAccountOptionViewModel.swift in Sources */,
@@ -4695,6 +4757,7 @@
 				D9F2508029E576FB00DE0410 /* NotificationSettingsCell.swift in Sources */,
 				D93C41F729F7C1F9003F2297 /* EditAccountCollectionView.swift in Sources */,
 				C18F61B7AEF94EEC4A102666 /* ChartDataModel.swift in Sources */,
+				DFF8C3842B14703E00C74DAC /* TutorialViewController.swift in Sources */,
 				D9A642C62AFA210300FDE11D /* ActivityBorrowModel.swift in Sources */,
 				86AE4E895C42E9E1302295FD /* ChartDateFilter.swift in Sources */,
 				D9703F6A29ED547000D09277 /* CoinInfoFooterview.swift in Sources */,
@@ -4743,6 +4806,7 @@
 				D9A3281C2A34C444005A8393 /* SelectAssetVMProtocol.swift in Sources */,
 				E35BB6572A62E650003987F5 /* SwapConfirmationTokenView.swift in Sources */,
 				E3847B382A52CBE6005ED78B /* AmountStatus.swift in Sources */,
+				DFF8C3862B14710A00C74DAC /* TutorialView.swift in Sources */,
 				D98355D92A9A1FD400294DCF /* BorrowLoanDetailsViewController.swift in Sources */,
 				E39F59502A99F20B00023292 /* InvestConfirmationViewModel.swift in Sources */,
 				1AD184E82488453998E5A2E5 /* CoinPerformanceInfoModel.swift in Sources */,
@@ -4753,6 +4817,7 @@
 				DF1D90E32A9733E300435D85 /* W3ApproveManager.swift in Sources */,
 				DFB1E9D02A08EC1800041B26 /* DataSourceProtocol.swift in Sources */,
 				D9A328192A34B650005A8393 /* SelectAssetCellViewModel.swift in Sources */,
+				DFF8C3882B1472FB00C74DAC /* TutorialStepperContainerView.swift in Sources */,
 				D95CD85E2B00B210003C1CF0 /* CollateralActivityDetailsViewModel.swift in Sources */,
 				E35BB6432A593BBB003987F5 /* SwapProtocolModel.swift in Sources */,
 				3235264ABD3DF5ABAA756574 /* CoinPerformanceViewController.swift in Sources */,
@@ -4800,6 +4865,7 @@
 				F606F78789DCF2CDED5E8BB0 /* CustomNavigationController.swift in Sources */,
 				F1655D3CC058F9A6ED4E8521 /* CustomSwitchOptionVM.swift in Sources */,
 				2919216FFA72DA25EADE5CF3 /* CustomSwitchOptionView.swift in Sources */,
+				DFF8C38A2B14767C00C74DAC /* TutorialStepperCell.swift in Sources */,
 				E3C0BCC72B0A02CA00DAA409 /* WithdrawManager.swift in Sources */,
 				D933C3332A99F5ED00C2BD5A /* CollateralizingBoardView.swift in Sources */,
 				D933C32D2A99F53300C2BD5A /* UserCollateralizingAssetViewModel.swift in Sources */,
@@ -4972,7 +5038,9 @@
 				9131F7218905C2F4AFD3CDE7 /* PinoCheckBoxStyle.swift in Sources */,
 				D916A8CA2A9F653500F391B5 /* CollateralIncreaseAmountViewModel.swift in Sources */,
 				E385F6132A22029100EE7EE1 /* Wallet+CoreDataClass.swift in Sources */,
+				DFF8C38E2B149EB200C74DAC /* TutorialContainerViewModel.swift in Sources */,
 				D9176F172AA46E68007D4DBC /* CollateralConfirmViewController.swift in Sources */,
+				DFF8C3902B14AE3400C74DAC /* TutorialModel.swift in Sources */,
 				4CEF60EEF4EB1F6FFF04D23D /* PinoColor.swift in Sources */,
 				E3FC699E2A89069A009B3341 /* InvestAssetViewModel.swift in Sources */,
 				858596F6A073F29FF9BB7033 /* PinoFont.swift in Sources */,
