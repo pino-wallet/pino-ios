@@ -573,6 +573,10 @@ public class Web3Core {
 		try investManager.getCheckMemebrshipCallData(accountAddress: accountAddress, tokenAddress: tokenAddress)
 	}
 
+	public func getExchangeRateStoredCallData(cTokenID: String) throws -> Promise<BigUInt> {
+		try investManager.getExchangeRateStoredCallData(cTokenID: cTokenID)
+	}
+
 	// MARK: - Private Methods
 
 	private func getInfo(address: String, info: ABIMethodCall, abi: Web3ABI) throws -> Promise<[String: Any]> {
