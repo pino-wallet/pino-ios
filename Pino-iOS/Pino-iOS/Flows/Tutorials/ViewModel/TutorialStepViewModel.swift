@@ -22,7 +22,7 @@ struct TutorialStepViewModel {
 	// MARK: - Private properties
 
 	private(set) var progressValue = CurrentValueSubject<(value: Float, animated: Bool), Never>((Float(0), true))
-	private static let totalUnitCount: Int64 = 200
+	private static let totalUnitCount: Int64 = 500
 
 	// MARK: - Public Methods
 
@@ -40,5 +40,13 @@ struct TutorialStepViewModel {
 		progress.completedUnitCount = TutorialStepViewModel.totalUnitCount
 		timer?.invalidate()
 		setProgress(value: Float(100), animated: false)
+	}
+
+	public func pauseProgress() {
+		timer?.invalidate()
+	}
+
+	public func resumeProgress() {
+		timer?.fire()
 	}
 }

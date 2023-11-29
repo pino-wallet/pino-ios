@@ -54,6 +54,12 @@ class TutorialView: UIView {
 		let holdLeftGesture = UILongPressGestureRecognizer(target: self, action: #selector(holdTutorial))
 		skipLeftView.addGestureRecognizer(holdRightGesture)
 		skipRightView.addGestureRecognizer(holdLeftGesture)
+
+		holdRightGesture.minimumPressDuration = 0.2
+		holdRightGesture.delaysTouchesBegan = true
+
+		holdLeftGesture.minimumPressDuration = 0.2
+		holdLeftGesture.delaysTouchesBegan = true
 	}
 
 	private func setupStyles() {
@@ -96,7 +102,12 @@ class TutorialView: UIView {
 	}
 
 	@objc
-	private func holdTutorial() {
-		print("HOLDDD")
+	private func holdTutorial(gestureReconizer: UILongPressGestureRecognizer) {
+		if gestureReconizer.state == .began {
+			tutorialVM.isPaused = true
+		}
+		if gestureReconizer.state == .ended {
+			tutorialVM.isPaused = false
+		}
 	}
 }

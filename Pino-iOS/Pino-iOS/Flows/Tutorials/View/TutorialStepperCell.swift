@@ -62,10 +62,13 @@ class TutorialStepperCell: UICollectionViewCell {
 		setupBinding()
 	}
 
-	public func startProgressFrom(value: Int, completed: @escaping () -> Void) {
+	public func startProgressFrom(completed: @escaping () -> Void) {
 		stepProgressView.progress = 0
 		tutStepperCellVM.progress.completedUnitCount = 0
+		progressFilling(completed: completed)
+	}
 
+	public func progressFilling(completed: @escaping () -> Void) {
 		tutStepperCellVM.timer = Timer
 			.scheduledTimer(withTimeInterval: tutStepperCellVM.timeInterval, repeats: true) { [self] timer in
 
@@ -81,9 +84,5 @@ class TutorialStepperCell: UICollectionViewCell {
 
 				tutStepperCellVM.setProgress(value: progressFloat, animated: true)
 			}
-	}
-
-	public func pauseProgress() {
-		tutStepperCellVM.isPause = true
 	}
 }

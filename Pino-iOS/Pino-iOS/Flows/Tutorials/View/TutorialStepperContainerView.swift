@@ -15,6 +15,7 @@ class TutorialStepperContainerView: UICollectionView {
 
 	private let tutorialVM: TutorialContainerViewModel!
 	private var cancellables = Set<AnyCancellable>()
+	private var currentInex = 0
 
 	private func configureCollectionView() {
 		delegate = self
@@ -48,6 +49,7 @@ class TutorialStepperContainerView: UICollectionView {
 			print("Index:\(index)")
 			print("---------------------------------")
 
+			currentInex = index
 			for x in index ..< tutorialVM.tutorials.count {
 				let cell = cellForItem(at: .init(row: x, section: 0)) as! TutorialStepperCell
 				cell.tutStepperCellVM.resetProgress()
@@ -58,10 +60,22 @@ class TutorialStepperContainerView: UICollectionView {
 			}
 
 			let cell = cellForItem(at: .init(row: index, section: 0)) as! TutorialStepperCell
-			cell.startProgressFrom(value: 0) { [self] in
+			cell.startProgressFrom { [self] in
 				tutorialVM.nextTutorial()
 			}
 
+		}.store(in: &cancellables)
+
+		tutorialVM.$isPaused.compactMap { $0 }.sink { [self] isPaused in
+			let cell = cellForItem(at: .init(row: currentInex, section: 0)) as! TutorialStepperCell
+
+			if isPaused {
+				cell.tutStepperCellVM.pauseProgress()
+			} else {
+				cell.progressFilling {
+					self.tutorialVM.nextTutorial()
+				}
+			}
 		}.store(in: &cancellables)
 	}
 }

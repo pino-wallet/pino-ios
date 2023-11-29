@@ -15,6 +15,8 @@ class TutorialContainerViewModel {
 
 	@Published
 	public var currentIndex = 0
+	@Published
+	public var isPaused: Bool?
 
 	// MARK: - Public Properties
 
