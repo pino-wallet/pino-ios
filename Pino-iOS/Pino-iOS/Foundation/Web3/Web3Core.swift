@@ -72,6 +72,10 @@ public class Web3Core {
 		.init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
+	private var aaveWithdrawManager: W3AaveWithdrawManager {
+		.init(writeWeb3: wWeb3, readWeb3: rWeb3)
+	}
+
 	private let walletManager = PinoWalletManager()
 
 	// MARK: - Typealias
@@ -567,6 +571,18 @@ public class Web3Core {
 
 	public func setUserUseReserveAsCollateral(contractDetails: ContractDetailsModel) -> Promise<String> {
 		aaveDepositManager.setUserUseReserveAsCollateral(contractDetails: contractDetails)
+	}
+
+	public func getAaveWithdrawERCCallData(
+		contract: DynamicContract,
+		tokenAddress: String,
+		amount: BigUInt
+	) -> Promise<String> {
+		aaveWithdrawManager.getAaveWithdrawERCCallData(contract: contract, tokenAddress: tokenAddress, amount: amount)
+	}
+
+	public func getAaveUnwrapWETHCallData(contract: DynamicContract) -> Promise<String> {
+		aaveWithdrawManager.getAaveUnwrapWethCallData(contract: contract)
 	}
 
 	public func getCheckMembershipCallData(accountAddress: String, tokenAddress: String) throws -> Promise<Bool> {

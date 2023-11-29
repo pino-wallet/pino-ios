@@ -505,6 +505,8 @@
 		D9F252CB2ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = D9F252C92ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json */; };
 		D9F284762A94B703001204D4 /* BorrowingTokensCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F284752A94B703001204D4 /* BorrowingTokensCollectionView.swift */; };
 		D9F284782A94B727001204D4 /* BorrowingTokenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F284772A94B727001204D4 /* BorrowingTokenCell.swift */; };
+		D9F927AA2B120DA800147013 /* W3AaveWithdrawManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F927A92B120DA800147013 /* W3AaveWithdrawManager.swift */; };
+		D9F927AC2B1213D800147013 /* AaveWithdrawManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F927AB2B1213D800147013 /* AaveWithdrawManager.swift */; };
 		D9F9D5CC2AE4FC7700F81C38 /* W3AaveDepositManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F9D5CB2AE4FC7700F81C38 /* W3AaveDepositManager.swift */; };
 		DAB2FF91D5EAF0795A12201B /* AddNewAccountOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D375B5D2DBB3E66A081076C /* AddNewAccountOptionViewModel.swift */; };
 		DBE3307F29EF0E7E1926B2B4 /* CoinInfoChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05FB16B9B1B3CADA89C02F6 /* CoinInfoChartView.swift */; };
@@ -1318,6 +1320,8 @@
 		D9F252C92ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "collaterilizable-tokens-stub.json"; sourceTree = "<group>"; };
 		D9F284752A94B703001204D4 /* BorrowingTokensCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingTokensCollectionView.swift; sourceTree = "<group>"; };
 		D9F284772A94B727001204D4 /* BorrowingTokenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingTokenCell.swift; sourceTree = "<group>"; };
+		D9F927A92B120DA800147013 /* W3AaveWithdrawManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3AaveWithdrawManager.swift; sourceTree = "<group>"; };
+		D9F927AB2B1213D800147013 /* AaveWithdrawManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AaveWithdrawManager.swift; sourceTree = "<group>"; };
 		D9F9D5CB2AE4FC7700F81C38 /* W3AaveDepositManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3AaveDepositManager.swift; sourceTree = "<group>"; };
 		DA8ADDD22F193963D587AE57 /* ChartInfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartInfoItem.swift; sourceTree = "<group>"; };
 		DCDBF81923E5F2C83F0DB3C9 /* SuggestedSeedPhraseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedSeedPhraseCollectionView.swift; sourceTree = "<group>"; };
@@ -2075,6 +2079,7 @@
 				D9176F122AA46DD2007D4DBC /* CollateralConfirmViewModel.swift */,
 				D95D20352AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift */,
 				D9714C8C2AE518AE00FF3AAA /* AaveCollateralManager.swift */,
+				D9F927AB2B1213D800147013 /* AaveWithdrawManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3720,6 +3725,7 @@
 				407E33272AE2A1D9001079B8 /* Web3ManagerProtocol.swift */,
 				D9F9D5CB2AE4FC7700F81C38 /* W3AaveDepositManager.swift */,
 				401939BA2AE570CD00052928 /* Web3Network.swift */,
+				D9F927A92B120DA800147013 /* W3AaveWithdrawManager.swift */,
 			);
 			path = Web3;
 			sourceTree = "<group>";
@@ -4653,6 +4659,7 @@
 				E33F7CBE2AD44CA2007FC04D /* DepositManager.swift in Sources */,
 				D16E6EA70136FF5D5C83ED88 /* AssetsAPIMockClient.swift in Sources */,
 				A19CFCA76D9396A5A2612F7E /* AssetsAPIService.swift in Sources */,
+				D9F927AC2B1213D800147013 /* AaveWithdrawManager.swift in Sources */,
 				1B60F4A0467FB90C104F4521 /* AssetsCollectionView.swift in Sources */,
 				D924C3392A94952D007299A4 /* BorrowingDetailsView.swift in Sources */,
 				E3FC69A42A8A0771009B3341 /* InvestmentPerformanceViewModel.swift in Sources */,
@@ -4922,6 +4929,7 @@
 				E3ABD1E02AA718B400947D37 /* InvestEmptyPageViewModel.swift in Sources */,
 				D9A3281E2A34C545005A8393 /* SelectAssetCellVMProtocol.swift in Sources */,
 				EFCE871CCDF8A29DA4F8950F /* ManageAssetCell.swift in Sources */,
+				D9F927AA2B120DA800147013 /* W3AaveWithdrawManager.swift in Sources */,
 				D933C3352A99F60C00C2BD5A /* CollateralizingBoardDataSource.swift in Sources */,
 				5CDFF4C90BE60A5FF26C2596 /* ManageAssetsCollectionView.swift in Sources */,
 				D9A0BDB12A97533500AE132F /* BorrowableAssetViewModel.swift in Sources */,

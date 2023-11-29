@@ -116,6 +116,7 @@ public enum ABIMethodWrite: String {
 	case withdrawWETHV2
 	case ethToStETH
 	case wethToStETH
+	case withdrawV3
 	case enterMarkets
 	case exitMarket
 }

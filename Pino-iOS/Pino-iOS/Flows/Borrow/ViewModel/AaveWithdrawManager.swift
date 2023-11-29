@@ -1,8 +1,8 @@
 //
-//  CollateralManager.swift
+//  AaveWithdrawManager.swift
 //  Pino-iOS
 //
-//  Created by Amir hossein kazemi seresht on 10/22/23.
+//  Created by Amir hossein kazemi seresht on 11/25/23.
 //
 
 import Combine
@@ -12,7 +12,7 @@ import Web3
 import Web3_Utility
 import Web3ContractABI
 
-class AaveCollateralManager: Web3ManagerProtocol {
+class AaveWithdrawManager: Web3ManagerProtocol {
 	// MARK: - TypeAliases
 
 	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
@@ -35,8 +35,8 @@ class AaveCollateralManager: Web3ManagerProtocol {
 
 	// MARK: - Public Properties
 
-	public var depositGasInfo: GasInfo?
-	public var depositTRX: EthereumSignedTransaction?
+	public var withdrawGasInfo: GasInfo?
+	public var withdrawTRX: EthereumSignedTransaction?
 
 	// MARK: - Initializers
 
@@ -52,6 +52,18 @@ class AaveCollateralManager: Web3ManagerProtocol {
 	}
 
 	// MARK: - Internal Methods
+
+	func signHash(plainHash: String) -> Promise<String> {
+		Promise<String> { seal in
+			var signiture = try Sec256k1Encryptor.sign(
+				msg: plainHash.hexToBytes(),
+				seckey: walletManager.currentAccountPrivateKey.string.hexToBytes()
+			)
+			signiture[signiture.count - 1] += 27
+
+			seal.fulfill("0x\(signiture.toHexString())")
+		}
+	}
 
 	func getProxyPermitTransferData(signiture: String) -> Promise<String> {
 		web3.getPermitTransferCallData(
@@ -90,25 +102,9 @@ class AaveCollateralManager: Web3ManagerProtocol {
 		}
 	}
 
-	func signHash(plainHash: String) -> Promise<String> {
-		Promise<String> { seal in
-			var signiture = try Sec256k1Encryptor.sign(
-				msg: plainHash.hexToBytes(),
-				seckey: walletManager.currentAccountPrivateKey.string.hexToBytes()
-			)
-			signiture[signiture.count - 1] += 27
-
-			seal.fulfill("0x\(signiture.toHexString())")
-		}
-	}
-
-	private func getAaveDespositV3ERCCallData() -> Promise<String> {
-		web3.getAaveDespositV3ERCCallData(
-			contract: contract,
-			assetAddress: asset.id,
-			amount: assetAmountBigUInt,
-			userAddress: walletManager.currentAccount.eip55Address
-		)
+	private func getERCWithdrawCallData() -> Promise<String> {
+		#warning("for example here use dai address and for others use ADAi")
+		return web3.getAaveWithdrawERCCallData(contract: contract, tokenAddress: asset.id, amount: assetAmountBigUInt)
 	}
 
 	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
@@ -121,11 +117,7 @@ class AaveCollateralManager: Web3ManagerProtocol {
 
 	// MARK: - Public Methods
 
-	public func checkIfAssetUsedAsCollateral() -> Promise<Bool> {
-		web3.checkIfAssetUsedAsCollateral(assetAddress: asset.id)
-	}
-
-	public func getERC20CollateralData() -> TrxWithGasInfo {
+	public func getERC20WithdrawData() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			firstly {
 				fetchHash()
@@ -142,16 +134,16 @@ class AaveCollateralManager: Web3ManagerProtocol {
 			}.then { signiture, allowanceData -> Promise<(String, String?)> in
 				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
 			}.then { permitData, allowanceData -> Promise<(String, String, String?)> in
-				self.getAaveDespositV3ERCCallData().map {
+				self.getERCWithdrawCallData().map {
 					($0, permitData, allowanceData)
 				}
-			}.then { depositData, permitData, allowanceData in
-				var multiCallData: [String] = [permitData, depositData]
+			}.then { withdrawData, permitData, allowanceData in
+				var multiCallData: [String] = [permitData, withdrawData]
 				if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
 				return self.callProxyMultiCall(data: multiCallData, value: nil)
 			}.done { depositResults in
-				self.depositTRX = depositResults.0
-				self.depositGasInfo = depositResults.1
+				self.withdrawTRX = depositResults.0
+				self.withdrawGasInfo = depositResults.1
 				seal.fulfill(depositResults)
 			}.catch { error in
 				seal.reject(error)
@@ -159,25 +151,37 @@ class AaveCollateralManager: Web3ManagerProtocol {
 		}
 	}
 
-	public func getETHCollateralData() -> TrxWithGasInfo {
+	public func getETHWithdrawData() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			firstly {
-				self.checkAllowanceOfProvider(
+				fetchHash()
+			}.then { plainHash in
+				self.signHash(plainHash: plainHash)
+			}.then { signiture in
+				#warning("use AWETH asset here")
+				return self.checkAllowanceOfProvider(
 					approvingToken: self.asset,
 					approvingAmount: self.assetAmountBigNumber.plainSevenDigitFormat,
 					spenderAddress: Web3Core.Constants.aavePoolERCContractAddress
-				)
-			}.then { allowanceData -> Promise<(String, String?)> in
-				self.wrapTokenCallData().map { ($0, allowanceData) }
-			}.then { wrapETHData, allowanceData -> Promise<(String, String, String?)> in
-				self.getAaveDespositV3ERCCallData().map { ($0, wrapETHData, allowanceData) }
-			}.then { depositData, wrapETHData, allowanceData in
-				var multiCallData: [String] = [wrapETHData, depositData]
+				).map {
+					(signiture, $0)
+				}
+			}.then { signiture, allowanceData -> Promise<(String, String?)> in
+				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
+			}.then { permitData, allowanceData -> Promise<(String, String, String?)> in
+				self.getERCWithdrawCallData().map {
+					($0, permitData, allowanceData)
+				}
+			}.then { withdrawData, permitData, allowanceData -> Promise<(String, String, String, String?)> in
+				self.web3.getAaveUnwrapWETHCallData(contract: self.contract)
+					.map { ($0, withdrawData, permitData, allowanceData) }
+			}.then { unwrapData, withdrawData, permitData, allowanceData in
+				var multiCallData: [String] = [permitData, withdrawData, unwrapData]
 				if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
-				return self.callProxyMultiCall(data: multiCallData, value: self.assetAmountBigUInt)
+				return self.callProxyMultiCall(data: multiCallData, value: nil)
 			}.done { depositResults in
-				self.depositTRX = depositResults.0
-				self.depositGasInfo = depositResults.1
+				self.withdrawTRX = depositResults.0
+				self.withdrawGasInfo = depositResults.1
 				seal.fulfill(depositResults)
 			}.catch { error in
 				seal.reject(error)

@@ -8,12 +8,65 @@ import Combine
 import UIKit
 
 class BorrowViewModel {
+	// MARK: - TypeAliases
+
+	typealias totalCollateralAmountsInDollarType = (
+		totalAmountInDollars: BigNumber,
+		totalBorrowableAmountInDollars: BigNumber
+	)
+
 	// MARK: - Public Properties
 
 	@Published
 	public var selectedDexSystem: DexSystemModel = .aave
 	@Published
 	public var userBorrowingDetails: UserBorrowingModel? = nil
+
+	public var totalCollateralAmountsInDollar: totalCollateralAmountsInDollarType {
+		var totalAmountInDollars = 0.bigNumber
+		var totalBorrowableAmountInDollars = 0.bigNumber
+		guard let collateralledTokens = userBorrowingDetails?.collateralTokens, let collateralizableTokens else {
+			fatalError("Collateraled tokens or collateralizable tokens is nil")
+		}
+		for collateraledToken in collateralledTokens {
+			guard let foundTokenInGlobalTokens = globalAssetsList?.first(where: { $0.id == collateraledToken.id })
+			else {
+				fatalError("Collateralled token not found in global tokens list")
+			}
+			guard let tokenLTV = collateralizableTokens.first(where: { $0.tokenID == collateraledToken.id })?.ltv else {
+				fatalError("Liquidation treshold of collateralled token is nil")
+			}
+			let calculatedTokenLTV = (tokenLTV / 100)
+			let tokenTotalAmountInDollars = BigNumber(
+				number: collateraledToken.amount,
+				decimal: foundTokenInGlobalTokens.decimal
+			) * foundTokenInGlobalTokens.price
+			totalAmountInDollars = totalAmountInDollars + tokenTotalAmountInDollars
+			totalBorrowableAmountInDollars = (tokenTotalAmountInDollars / 100.bigNumber)! * calculatedTokenLTV.bigNumber
+		}
+		return (
+			totalAmountInDollars: totalAmountInDollars,
+			totalBorrowableAmountInDollars: totalBorrowableAmountInDollars
+		)
+	}
+
+	public var totalBorrowAmountInDollars: BigNumber {
+		var totalBorrowedAmountInDollars = 0.bigNumber
+		guard let borrowedTokens = userBorrowingDetails?.borrowTokens else {
+			fatalError("User borrowed tokens list is nil")
+		}
+		for borrowedToken in borrowedTokens {
+			guard let foundTokenInGlobalTokens = globalAssetsList?.first(where: { $0.id == borrowedToken.id }) else {
+				fatalError("Borrowed token not found in global tokens list")
+			}
+			let tokenBorrowedAmountInDollars = BigNumber(
+				number: borrowedToken.amount,
+				decimal: foundTokenInGlobalTokens.decimal
+			) * foundTokenInGlobalTokens.price
+			totalBorrowedAmountInDollars = totalBorrowedAmountInDollars + tokenBorrowedAmountInDollars
+		}
+		return totalBorrowedAmountInDollars
+	}
 
 	public var globalAssetsList: [AssetViewModel]?
 	public var collateralizableTokens: CollateralizableTokensModel?
