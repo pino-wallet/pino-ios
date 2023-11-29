@@ -40,7 +40,7 @@ class WithdrawAmountViewController: UIViewController {
 
 	private func setupView() {
 		withdrawAmountView = WithdrawAmountView(withdrawAmountVM: withdrawAmountVM, nextButtonTapped: {
-			self.pushToWithdrawConfirmVC()
+			self.checkForAllowance()
 		})
 
 		view = withdrawAmountView
@@ -51,6 +51,36 @@ class WithdrawAmountViewController: UIViewController {
 			"\(withdrawAmountVM.pageTitleWithdrawText) \(withdrawAmountVM.tokenSymbol)"
 		)
 	}
+    
+    private func checkForAllowance() {
+        // Check If Permit has access to Token
+        withdrawAmountVM.checkTokenAllowance().done { didUserHasAllowance, positionTokenID in
+            if didUserHasAllowance {
+                self.pushToWithdrawConfirmVC()
+            } else {
+                self.presentApproveVC(tokenContractAddress: positionTokenID)
+            }
+        }.catch { error in
+            Toast.default(
+                title: self.withdrawAmountVM.failedToGetApproveDataErrorText,
+                subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+                style: .error
+            )
+            .show(haptic: .warning)
+        }
+    }
+
+    private func presentApproveVC(tokenContractAddress: String) {
+        let approveVC = ApproveContractViewController(
+            approveContractID: tokenContractAddress,
+            showConfirmVC: {
+                self.pushToWithdrawConfirmVC()
+            }, approveType: .withdraw
+        )
+        let navigationVC = UINavigationController()
+        navigationVC.viewControllers = [approveVC]
+        present(navigationVC, animated: true)
+    }
 
 	private func pushToWithdrawConfirmVC() {
 		let withdrawConfirmVM = WithdrawConfirmViewModel(withdrawAmountVM: withdrawAmountVM)

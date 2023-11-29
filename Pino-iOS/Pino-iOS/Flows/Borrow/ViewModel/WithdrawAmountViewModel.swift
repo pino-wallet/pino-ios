@@ -6,8 +6,14 @@
 //
 
 import Foundation
+import PromiseKit
+import Web3_Utility
+import Combine
 
 class WithdrawAmountViewModel {
+    // MARK: - TypeAliases
+
+    typealias AllowanceDataType = (hasAllowance: Bool, selectedPositionTokenID: String)
 	// MARK: - Public Properties
 
 	public let pageTitleWithdrawText = "Withdraw"
@@ -15,6 +21,7 @@ class WithdrawAmountViewModel {
 	public let continueButtonTitle = "Withdraw"
 	public let maxTitle = "Max: "
 	public var textFieldPlaceHolder = "0"
+    public let failedToGetApproveDataErrorText = "Failed to get approve data"
 
 	public let userCollateralledTokenID: String
 	public let borrowVM: BorrowViewModel
@@ -23,6 +30,7 @@ class WithdrawAmountViewModel {
 	public var selectedToken: AssetViewModel {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == userCollateralledTokenModel.id }))!
 	}
+    public var aavePositionToken: AssetViewModel?
 
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
@@ -61,6 +69,12 @@ class WithdrawAmountViewModel {
 	#warning("this is mock")
 	public var prevHealthScore: Double = 0
 	public var newHealthScore: Double = 24
+    
+    // MARK: - Private Properties
+    private let web3 = Web3Core.shared
+    private let walletManager = PinoWalletManager()
+    private let borrowingAPIClient = BorrowingAPIClient()
+    private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -77,6 +91,42 @@ class WithdrawAmountViewModel {
 		userCollateralledTokenModel = borrowVM.userBorrowingDetails?.collateralTokens
 			.first(where: { $0.id == userCollateralledTokenID })
 	}
+    
+    private func getPositionTokenID() -> Promise<String> {
+        Promise<String> { seal in
+            borrowingAPIClient.getPositionTokenId(underlyingTokenId: selectedToken.id, tokenProtocol: borrowVM.selectedDexSystem.type, positionType: .investment).sink { _ in
+            } receiveValue: { positionTokenDetails in
+                seal.fulfill(positionTokenDetails.positionID)
+            }.store(in: &cancellables)
+        }
+    }
+    
+    private func checkTokenAllowancePermit2(selectedAllowenceToken: AssetViewModel) -> Promise<Bool> {
+        Promise<Bool> { seal in
+            firstly {
+                try web3.getAllowanceOf(
+                    contractAddress: selectedAllowenceToken.id.lowercased(),
+                    spenderAddress: Web3Core.Constants.permitAddress,
+                    ownerAddress: walletManager.currentAccount.eip55Address
+                )
+            }.done { [self] allowanceAmount in
+                let destTokenDecimal = selectedAllowenceToken.decimal
+                let destTokenAmount = Utilities.parseToBigUInt(
+                    tokenAmount,
+                    decimals: destTokenDecimal
+                )
+                if allowanceAmount == 0 || allowanceAmount < destTokenAmount! {
+                    // NOT ALLOWED
+                    seal.fulfill(false)
+                } else {
+                    // ALLOWED
+                    seal.fulfill(true)
+                }
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
+    }
 
 	// MARK: - Public Methods
 
@@ -109,4 +159,28 @@ class WithdrawAmountViewModel {
 			}
 		}
 	}
+    
+    public func checkTokenAllowance() -> Promise<AllowanceDataType> {
+        Promise<AllowanceDataType> { seal in
+            switch borrowVM.selectedDexSystem {
+            case .aave:
+                getPositionTokenID().done { positionTokenID in
+                    let selectedAllowenceToken = (GlobalVariables.shared.manageAssetsList?.first(where: { $0.id.lowercased() == positionTokenID.lowercased() }))!
+                    self.checkTokenAllowancePermit2(selectedAllowenceToken: selectedAllowenceToken).done { hasAllowance in
+                        self.aavePositionToken = selectedAllowenceToken
+                        seal.fulfill((hasAllowance: hasAllowance, selectedPositionTokenID: selectedAllowenceToken.id))
+                    }.catch { error in
+                        seal.reject(error)
+                    }
+                }.catch { error in
+                    seal.reject(error)
+                }
+            case .compound:
+                #warning("this should change")
+                seal.fulfill((hasAllowance: true, selectedPositionTokenID: selectedToken.id))
+            default:
+                fatalError("Unknown selected dex system")
+            }
+        }
+    }
 }

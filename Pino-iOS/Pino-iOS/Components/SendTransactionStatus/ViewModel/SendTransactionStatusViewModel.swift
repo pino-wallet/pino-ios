@@ -33,7 +33,9 @@ class SendTransactionStatusViewModel {
 		switch transactionInfo.transactionType {
 		case .collateral:
 			return "You collateralized \(Int(transactionInfo.transactionAmount)!.formattedWithCamma) \(transactionInfo.transactionToken.symbol) in \(transactionInfo.transactionDex.name)."
-		}
+        case .withdraw:
+            return "You withdrew  \(Int(transactionInfo.transactionAmount)!.formattedWithCamma) \(transactionInfo.transactionToken.symbol) from \(transactionInfo.transactionDex.name)."
+        }
 	}
 
 	// MARK: - Private Properties

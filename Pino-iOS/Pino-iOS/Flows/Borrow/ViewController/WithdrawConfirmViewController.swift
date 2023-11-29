@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Web3
 
 class WithdrawConfirmViewController: UIViewController {
 	// MARK: - Private Properties
@@ -23,6 +24,13 @@ class WithdrawConfirmViewController: UIViewController {
 		setupView()
 		setupNavigationBar()
 	}
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if isBeingPresented || isMovingToParent {
+            withdrawConfirmView.showSkeletonView()
+            withdrawConfirmVM.getWithdrawGasInfo()
+        }
+    }
 
 	// MARK: - Initializers
 
@@ -45,6 +53,10 @@ class WithdrawConfirmViewController: UIViewController {
 				self.presentActionSheet(actionSheet: actionSheet)
 			}
 		)
+        
+        withdrawConfirmVM.confirmWithdrawClosure = { withdrawTX in
+            self.confirmWithdraw(withdrawTRX: withdrawTX)
+        }
 
 		view = withdrawConfirmView
 	}
@@ -53,6 +65,23 @@ class WithdrawConfirmViewController: UIViewController {
 		setupPrimaryColorNavigationBar()
 		setNavigationTitle(withdrawConfirmVM.pageTitle)
 	}
+    
+    private func confirmWithdraw(withdrawTRX: EthereumSignedTransaction) {
+        let sendTransactionStatusVM = SendTransactionStatusViewModel(
+            transaction: withdrawTRX,
+            transactionInfo: TransactionInfoModel(
+                transactionType: .withdraw,
+                transactionDex: withdrawConfirmVM.withdrawAmountVM.borrowVM.selectedDexSystem,
+                transactionAmount: withdrawConfirmVM.withdrawAmountVM.tokenAmount,
+                transactionToken: withdrawConfirmVM.withdrawAmountVM.selectedToken
+            )
+        )
+        sendTransactionStatusVM.addPendingActivityClosure = { txHash in
+            self.withdrawConfirmVM.createWithdrawPendingActivity(txHash: txHash)
+        }
+        let sendTransactionStatusVC = SendTransactionStatusViewController(sendStatusVM: sendTransactionStatusVM)
+        present(sendTransactionStatusVC, animated: true)
+    }
 
 	private func presentActionSheet(actionSheet: InfoActionSheet) {
 		present(actionSheet, animated: true)
