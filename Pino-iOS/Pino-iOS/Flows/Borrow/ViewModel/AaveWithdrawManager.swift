@@ -55,17 +55,6 @@ class AaveWithdrawManager: Web3ManagerProtocol {
 
 	// MARK: - Internal Methods
 
-	func signHash(plainHash: String) -> Promise<String> {
-		Promise<String> { seal in
-			var signiture = try Sec256k1Encryptor.sign(
-				msg: plainHash.hexToBytes(),
-				seckey: walletManager.currentAccountPrivateKey.string.hexToBytes()
-			)
-			signiture[signiture.count - 1] += 27
-
-			seal.fulfill("0x\(signiture.toHexString())")
-		}
-	}
 
 	func getProxyPermitTransferData(signiture: String) -> Promise<String> {
 		web3.getPermitTransferCallData(

@@ -10,7 +10,7 @@ import UIKit
 class BorrowViewModel {
 	// MARK: - TypeAliases
 
-	typealias totalCollateralAmountsInDollarType = (
+	typealias TotalCollateralAmountsInDollarType = (
 		totalAmountInDollars: BigNumber,
 		totalBorrowableAmountInDollars: BigNumber
 	)
@@ -22,7 +22,7 @@ class BorrowViewModel {
 	@Published
 	public var userBorrowingDetails: UserBorrowingModel? = nil
 
-	public var totalCollateralAmountsInDollar: totalCollateralAmountsInDollarType {
+	public var totalCollateralAmountsInDollar: TotalCollateralAmountsInDollarType {
 		var totalAmountInDollars = 0.bigNumber
 		var totalBorrowableAmountInDollars = 0.bigNumber
 		guard let collateralledTokens = userBorrowingDetails?.collateralTokens, let collateralizableTokens else {

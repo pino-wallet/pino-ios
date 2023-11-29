@@ -108,11 +108,11 @@ class WithdrawConfirmViewModel {
 
 	// MARK: - Private Methods
 
-	private func setFeeInfoByDepositGasInfo(depositGasInfo: GasInfo) {
+	private func setFeeInfoByDepositGasInfo(withdrawGasinfo: GasInfo) {
 		feeInfo = (
-			feeInDollars: depositGasInfo.feeInDollar.priceFormat,
-			feeInETH: depositGasInfo.fee.sevenDigitFormat.ethFormatting,
-			bigNumberFee: depositGasInfo.fee
+            feeInDollars: withdrawGasinfo.feeInDollar!.priceFormat,
+            feeInETH: withdrawGasinfo.fee!.sevenDigitFormat.ethFormatting,
+			bigNumberFee: withdrawGasinfo.fee!
 		)
 	}
 
@@ -142,8 +142,8 @@ class WithdrawConfirmViewModel {
 				fromAddress: "",
 				toAddress: "",
 				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
-				gasUsed: aaveWithdrawManager.withdrawGasInfo!.increasedGasLimit.description,
-				gasPrice: aaveWithdrawManager.withdrawGasInfo!.gasPrice.description
+                gasUsed: aaveWithdrawManager.withdrawGasInfo!.increasedGasLimit!.description,
+                gasPrice: aaveWithdrawManager.withdrawGasInfo!.maxFeePerGas.description
 			),
 			accountAddress: walletManager.currentAccount.eip55Address
 		)
@@ -155,7 +155,7 @@ class WithdrawConfirmViewModel {
 		case .aave:
 			if selectedToken.isEth {
 				aaveWithdrawManager.getETHWithdrawData().done { _, depositGasInfo in
-					self.setFeeInfoByDepositGasInfo(depositGasInfo: depositGasInfo)
+					self.setFeeInfoByDepositGasInfo(withdrawGasinfo: depositGasInfo)
 				}.catch { _ in
 					Toast.default(
 						title: self.feeTxErrorText,
@@ -166,7 +166,7 @@ class WithdrawConfirmViewModel {
 				}
 			} else {
 				aaveWithdrawManager.getERC20WithdrawData().done { _, depositGasInfo in
-					self.setFeeInfoByDepositGasInfo(depositGasInfo: depositGasInfo)
+					self.setFeeInfoByDepositGasInfo(withdrawGasinfo: depositGasInfo)
 				}.catch { _ in
 					Toast.default(
 						title: self.feeTxErrorText,
