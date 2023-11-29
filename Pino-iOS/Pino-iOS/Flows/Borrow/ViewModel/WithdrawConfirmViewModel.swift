@@ -110,8 +110,8 @@ class WithdrawConfirmViewModel {
 
 	private func setFeeInfoByDepositGasInfo(withdrawGasinfo: GasInfo) {
 		feeInfo = (
-            feeInDollars: withdrawGasinfo.feeInDollar!.priceFormat,
-            feeInETH: withdrawGasinfo.fee!.sevenDigitFormat.ethFormatting,
+			feeInDollars: withdrawGasinfo.feeInDollar!.priceFormat,
+			feeInETH: withdrawGasinfo.fee!.sevenDigitFormat.ethFormatting,
 			bigNumberFee: withdrawGasinfo.fee!
 		)
 	}
@@ -142,8 +142,8 @@ class WithdrawConfirmViewModel {
 				fromAddress: "",
 				toAddress: "",
 				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
-                gasUsed: aaveWithdrawManager.withdrawGasInfo!.increasedGasLimit!.description,
-                gasPrice: aaveWithdrawManager.withdrawGasInfo!.maxFeePerGas.description
+				gasUsed: aaveWithdrawManager.withdrawGasInfo!.increasedGasLimit!.description,
+				gasPrice: aaveWithdrawManager.withdrawGasInfo!.maxFeePerGas.description
 			),
 			accountAddress: walletManager.currentAccount.eip55Address
 		)

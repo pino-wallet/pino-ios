@@ -55,7 +55,6 @@ class AaveWithdrawManager: Web3ManagerProtocol {
 
 	// MARK: - Internal Methods
 
-
 	func getProxyPermitTransferData(signiture: String) -> Promise<String> {
 		web3.getPermitTransferCallData(
 			contract: contract, amount: assetAmountBigUInt,
