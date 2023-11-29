@@ -21,7 +21,7 @@ class InvestDepositViewController: UIViewController {
 	// MARK: Initializers
 
 	init(selectedAsset: AssetsBoardProtocol, selectedProtocol: InvestProtocolViewModel, isWithdraw: Bool = false) {
-		self.isWithdraw = true
+		self.isWithdraw = isWithdraw
 		if self.isWithdraw {
 			self.investVM = WithdrawViewModel(selectedAsset: selectedAsset, selectedProtocol: selectedProtocol)
 		} else {
@@ -86,11 +86,11 @@ class InvestDepositViewController: UIViewController {
 	private func proceedInvestFlow() {
 		// First Step of Invest
 		// Check If Permit has access to Token
-		if investVM.selectedToken.isEth {
-			openConfirmationPage()
-			return
-		}
 		getTokenAddress { tokenAddress in
+			if tokenAddress == GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth })?.id {
+				self.openConfirmationPage()
+				return
+			}
 			self.checkAllowance(of: tokenAddress)
 		}
 	}
@@ -118,6 +118,7 @@ class InvestDepositViewController: UIViewController {
 	}
 
 	private func openTokenApprovePage(tokenID: String) {
+		investView.stopLoading()
 		var approveType: ApproveContractViewController.ApproveType
 		if isWithdraw {
 			approveType = .withdraw

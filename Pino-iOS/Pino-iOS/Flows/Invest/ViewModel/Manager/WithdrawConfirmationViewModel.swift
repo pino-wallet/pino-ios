@@ -89,8 +89,8 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 	public func getTransactionInfo() {
 		withdrawManager.getWithdrawInfo().done { withdrawTrx, gasInfo in
 			self.gasFee = gasInfo.fee
-			self.formattedFeeInDollar = gasInfo.feeInDollar.priceFormat
-			self.formattedFeeInETH = gasInfo.fee.sevenDigitFormat
+			self.formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat
+			self.formattedFeeInETH = gasInfo.fee!.sevenDigitFormat
 		}.catch { error in
 			self.showError()
 		}

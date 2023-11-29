@@ -92,7 +92,11 @@ class AddNewAccountViewController: UIViewController {
 
 	private func importAccountWithKey(_ privateKey: String, completion: @escaping (WalletOperationError?) -> Void) {
 		accountsVM.importAccountWith(privateKey: privateKey) { error in
-			completion(error)
+			if let error {
+				completion(error)
+			} else {
+				completion(nil)
+			}
 		}
 	}
 

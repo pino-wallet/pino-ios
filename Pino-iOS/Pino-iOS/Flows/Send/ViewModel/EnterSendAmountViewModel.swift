@@ -91,20 +91,16 @@ class EnterSendAmountViewModel {
 		}
 	}
 
-	public func updateEthMaxAmount(gasInfo: GasInfo? = nil) {
-		var gasInfo: GasInfo? = gasInfo
-		if gasInfo == nil {
-			gasInfo = GlobalVariables.shared.ethGasFee!
-		}
-
-		let estimatedAmount = selectedToken.holdAmount - gasInfo!.fee
+	public func updateEthMaxAmount() {
+		let gasInfo = Web3Core.shared.calculateEthGasFee()
+		let estimatedAmount = selectedToken.holdAmount - gasInfo.fee!
 		if estimatedAmount.number.sign == .minus {
 			maxHoldAmount = 0.bigNumber
 		} else {
 			maxHoldAmount = estimatedAmount
 		}
 
-		let estimatedAmountInDollar = selectedToken.holdAmountInDollor - gasInfo!.feeInDollar
+		let estimatedAmountInDollar = selectedToken.holdAmountInDollor - gasInfo.feeInDollar!
 		if estimatedAmountInDollar.number.sign == .minus {
 			maxAmountInDollar = 0.bigNumber
 		} else {
