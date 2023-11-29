@@ -576,9 +576,15 @@ public class Web3Core {
 	public func getAaveWithdrawERCCallData(
 		contract: DynamicContract,
 		tokenAddress: String,
-		amount: BigUInt
+		amount: BigUInt,
+		userAddress: String
 	) -> Promise<String> {
-		aaveWithdrawManager.getAaveWithdrawERCCallData(contract: contract, tokenAddress: tokenAddress, amount: amount)
+		aaveWithdrawManager.getAaveWithdrawERCCallData(
+			contract: contract,
+			tokenAddress: tokenAddress,
+			amount: amount,
+			userAddress: userAddress
+		)
 	}
 
 	public func getAaveUnwrapWETHCallData(contract: DynamicContract) -> Promise<String> {

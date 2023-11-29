@@ -12,6 +12,6 @@ enum SendTransactionType {
 	//    case send
 	//    case repy
 	case collateral
-	//    case withdraw
+	case withdraw
 	//    case invest
 }

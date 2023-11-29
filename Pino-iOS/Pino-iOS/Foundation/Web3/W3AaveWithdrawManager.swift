@@ -30,13 +30,14 @@ public struct W3AaveWithdrawManager: Web3HelperProtocol {
 	public func getAaveWithdrawERCCallData(
 		contract: DynamicContract,
 		tokenAddress: String,
-		amount: BigUInt
+		amount: BigUInt,
+		userAddress: String
 	) -> Promise<String> {
 		Promise<String> { seal in
 			let solInvocation = contract[ABIMethodWrite.withdrawV3.rawValue]?(
 				tokenAddress.eip55Address!,
 				amount,
-				walletManager.currentAccount.eip55Address.eip55Address!
+				userAddress.eip55Address!
 			)
 			let tx = try trxManager.createTransactionFor(contract: solInvocation!)
 			seal.fulfill(tx.data.hex())
