@@ -173,7 +173,6 @@ class BorrowViewModel {
 				.show(haptic: .warning)
 			}
 		} receiveValue: { collateralizabletokens in
-			print("heh", collateralizabletokens)
 			self.collateralizableTokens = collateralizabletokens
 			self.requestTimer?.fire()
 		}.store(in: &cancellables)

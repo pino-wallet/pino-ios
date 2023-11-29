@@ -134,6 +134,26 @@ class WithdrawAmountViewModel {
 			}
 		}
 	}
+    
+    private func checkTokenAllowanceForAave() -> Promise<AllowanceDataType> {
+        Promise<AllowanceDataType> { seal in
+            firstly {
+                getPositionTokenID()
+            }.then { positionTokenID -> Promise<(AssetViewModel, Bool)> in
+                    let selectedAllowenceToken = (
+                        GlobalVariables.shared.manageAssetsList?
+                            .first(where: { $0.id.lowercased() == positionTokenID.lowercased() })
+                    )!
+                return self.checkTokenAllowancePermit2(selectedAllowenceToken: selectedAllowenceToken).map { (selectedAllowenceToken, $0) }
+            }.done { selectedAllowenceToken, hasAllowance in
+                self.aavePositionToken = selectedAllowenceToken
+                seal.fulfill((hasAllowance: hasAllowance, selectedPositionTokenID: selectedAllowenceToken.id))
+                
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
+    }
 
 	// MARK: - Public Methods
 
@@ -171,21 +191,11 @@ class WithdrawAmountViewModel {
 		Promise<AllowanceDataType> { seal in
 			switch borrowVM.selectedDexSystem {
 			case .aave:
-				getPositionTokenID().done { positionTokenID in
-					let selectedAllowenceToken = (
-						GlobalVariables.shared.manageAssetsList?
-							.first(where: { $0.id.lowercased() == positionTokenID.lowercased() })
-					)!
-					self.checkTokenAllowancePermit2(selectedAllowenceToken: selectedAllowenceToken)
-						.done { hasAllowance in
-							self.aavePositionToken = selectedAllowenceToken
-							seal.fulfill((hasAllowance: hasAllowance, selectedPositionTokenID: selectedAllowenceToken.id))
-						}.catch { error in
-							seal.reject(error)
-						}
-				}.catch { error in
-					seal.reject(error)
-				}
+                checkTokenAllowanceForAave().done { allowanceData in
+                    seal.fulfill(allowanceData)
+                }.catch { error in
+                    seal.reject(error)
+                }
 			case .compound:
 				#warning("this should change")
 				seal.fulfill((hasAllowance: true, selectedPositionTokenID: selectedToken.id))
