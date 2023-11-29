@@ -8,6 +8,6 @@
 import Foundation
 
 enum WithdrawMode {
-    case decrease
-    case withdraw
+	case decrease
+	case withdraw
 }

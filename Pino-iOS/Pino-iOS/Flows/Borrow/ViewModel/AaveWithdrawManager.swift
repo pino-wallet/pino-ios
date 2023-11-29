@@ -23,7 +23,7 @@ class AaveWithdrawManager: Web3ManagerProtocol {
 	private let nonce = BigNumber.bigRandomeNumber
 	private let web3Client = Web3APIClient()
 	private var asset: AssetViewModel
-    private var positionAsset: AssetViewModel
+	private var positionAsset: AssetViewModel
 	private var assetAmountBigNumber: BigNumber
 	private var assetAmountBigUInt: BigUInt
 	private var cancellables = Set<AnyCancellable>()
@@ -41,13 +41,13 @@ class AaveWithdrawManager: Web3ManagerProtocol {
 
 	// MARK: - Initializers
 
-    init(contract: DynamicContract, asset: AssetViewModel, assetAmount: String, positionAsset: AssetViewModel) {
+	init(contract: DynamicContract, asset: AssetViewModel, assetAmount: String, positionAsset: AssetViewModel) {
 		if asset.isEth {
 			self.asset = (GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
 		} else {
 			self.asset = asset
 		}
-        self.positionAsset = positionAsset
+		self.positionAsset = positionAsset
 		self.assetAmountBigNumber = BigNumber(numberWithDecimal: assetAmount)
 		self.assetAmountBigUInt = Utilities.parseToBigUInt(assetAmount, decimals: asset.decimal)!
 		self.contract = contract
@@ -105,12 +105,22 @@ class AaveWithdrawManager: Web3ManagerProtocol {
 	}
 
 	private func getERCWithdrawCallData() -> Promise<String> {
-        return web3.getAaveWithdrawERCCallData(contract: contract, tokenAddress: asset.id, amount: assetAmountBigUInt, userAddress: walletManager.currentAccount.eip55Address)
+		web3.getAaveWithdrawERCCallData(
+			contract: contract,
+			tokenAddress: asset.id,
+			amount: assetAmountBigUInt,
+			userAddress: walletManager.currentAccount.eip55Address
+		)
 	}
-    
-    private func getETHWithdrawCallData() -> Promise<String> {
-        return web3.getAaveWithdrawERCCallData(contract: contract, tokenAddress: asset.id, amount: assetAmountBigUInt, userAddress: (contract.address?.hex(eip55: true))!)
-    }
+
+	private func getETHWithdrawCallData() -> Promise<String> {
+		web3.getAaveWithdrawERCCallData(
+			contract: contract,
+			tokenAddress: asset.id,
+			amount: assetAmountBigUInt,
+			userAddress: (contract.address?.hex(eip55: true))!
+		)
+	}
 
 	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
 		web3.callMultiCall(
@@ -163,7 +173,7 @@ class AaveWithdrawManager: Web3ManagerProtocol {
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
 			}.then { signiture in
-				return self.checkAllowanceOfProvider(
+				self.checkAllowanceOfProvider(
 					approvingToken: self.positionAsset,
 					approvingAmount: self.assetAmountBigNumber.plainSevenDigitFormat,
 					spenderAddress: Web3Core.Constants.aavePoolERCContractAddress

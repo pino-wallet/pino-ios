@@ -173,7 +173,7 @@ class BorrowViewModel {
 				.show(haptic: .warning)
 			}
 		} receiveValue: { collateralizabletokens in
-            print("heh", collateralizabletokens)
+			print("heh", collateralizabletokens)
 			self.collateralizableTokens = collateralizabletokens
 			self.requestTimer?.fire()
 		}.store(in: &cancellables)
@@ -183,7 +183,7 @@ class BorrowViewModel {
 	private func getUserBorrowingDetails() {
 		if collateralizableTokens != nil {
 			borrowAPIClient.getUserBorrowings(
-                address: walletManager.currentAccount.eip55Address,
+				address: walletManager.currentAccount.eip55Address,
 				dex: selectedDexSystem.type
 			).sink { completed in
 				switch completed {
