@@ -616,6 +616,8 @@
 		DFCB13B02B09DCEE00EEFD0F /* CDWithdrawActivity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB13AC2B09DCEE00EEFD0F /* CDWithdrawActivity+CoreDataClass.swift */; };
 		DFCB13B12B09DCEE00EEFD0F /* CDWithdrawActivityDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB13AD2B09DCEE00EEFD0F /* CDWithdrawActivityDetails+CoreDataProperties.swift */; };
 		DFCB13B42B0A1E2300EEFD0F /* Web3HelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB13B32B0A1E2300EEFD0F /* Web3HelperProtocol.swift */; };
+		DFF8C35B2B11CEEF00C74DAC /* EthGasInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C35A2B11CEEF00C74DAC /* EthGasInfoModel.swift */; };
+		DFF8C35D2B13654700C74DAC /* AccountActivationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C35C2B13654700C74DAC /* AccountActivationViewModel.swift */; };
 		DFFDEDA32A75658700D710D7 /* ParaSwapAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6AD2A756123003DB68A /* ParaSwapAPIClient.swift */; };
 		DFFDEDA42A75659E00D710D7 /* ParaSwapEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6AE2A75615D003DB68A /* ParaSwapEndpoint.swift */; };
 		DFFDEDAA2A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDEDA92A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift */; };
@@ -686,6 +688,8 @@
 		E39F59502A99F20B00023292 /* InvestConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39F594F2A99F20B00023292 /* InvestConfirmationViewModel.swift */; };
 		E39F59522A9B26AE00023292 /* SelectInvestProtocolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39F59512A9B26AE00023292 /* SelectInvestProtocolViewController.swift */; };
 		E39F59542A9B2B9400023292 /* SelectInvestProtocolViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39F59532A9B2B9400023292 /* SelectInvestProtocolViewModel.swift */; };
+		E3A32FA62B0F385400C771AE /* CmpoundCollateralCheckABI.json in Resources */ = {isa = PBXBuildFile; fileRef = E3A32FA52B0F385400C771AE /* CmpoundCollateralCheckABI.json */; };
+		E3A32FA82B14B7ED00C771AE /* CompoundWithdrawManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A32FA72B14B7ED00C771AE /* CompoundWithdrawManager.swift */; };
 		E3ABD1E02AA718B400947D37 /* InvestEmptyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1DF2AA718B400947D37 /* InvestEmptyPageViewModel.swift */; };
 		E3ABD1E22AADA0FB00947D37 /* InvestmentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1E12AADA0FB00947D37 /* InvestmentDetailViewController.swift */; };
 		E3ABD1E42AADA3CF00947D37 /* InvestmentDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ABD1E32AADA3CF00947D37 /* InvestmentDetailViewModel.swift */; };
@@ -1410,6 +1414,8 @@
 		DFCB13AC2B09DCEE00EEFD0F /* CDWithdrawActivity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWithdrawActivity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DFCB13AD2B09DCEE00EEFD0F /* CDWithdrawActivityDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWithdrawActivityDetails+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DFCB13B32B0A1E2300EEFD0F /* Web3HelperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3HelperProtocol.swift; sourceTree = "<group>"; };
+		DFF8C35A2B11CEEF00C74DAC /* EthGasInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthGasInfoModel.swift; sourceTree = "<group>"; };
+		DFF8C35C2B13654700C74DAC /* AccountActivationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountActivationViewModel.swift; sourceTree = "<group>"; };
 		DFFDEDA92A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneInchSwapPriceResponseModel.swift; sourceTree = "<group>"; };
 		DFFDEDAB2A76C65800D710D7 /* ZeroXPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroXPriceResponseModel.swift; sourceTree = "<group>"; };
 		DFFDEDAD2A7792D800D710D7 /* OneInchEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneInchEndpoint.swift; sourceTree = "<group>"; };
@@ -1480,6 +1486,8 @@
 		E39F594F2A99F20B00023292 /* InvestConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestConfirmationViewModel.swift; sourceTree = "<group>"; };
 		E39F59512A9B26AE00023292 /* SelectInvestProtocolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInvestProtocolViewController.swift; sourceTree = "<group>"; };
 		E39F59532A9B2B9400023292 /* SelectInvestProtocolViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInvestProtocolViewModel.swift; sourceTree = "<group>"; };
+		E3A32FA52B0F385400C771AE /* CmpoundCollateralCheckABI.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CmpoundCollateralCheckABI.json; sourceTree = "<group>"; };
+		E3A32FA72B14B7ED00C771AE /* CompoundWithdrawManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundWithdrawManager.swift; sourceTree = "<group>"; };
 		E3ABD1DF2AA718B400947D37 /* InvestEmptyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestEmptyPageViewModel.swift; sourceTree = "<group>"; };
 		E3ABD1E12AADA0FB00947D37 /* InvestmentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentDetailViewController.swift; sourceTree = "<group>"; };
 		E3ABD1E32AADA3CF00947D37 /* InvestmentDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentDetailViewModel.swift; sourceTree = "<group>"; };
@@ -2741,6 +2749,7 @@
 				902ADB6DDACF4604CCD18D3E /* ShowSecretPhraseViewModel.swift */,
 				DDBA47FB0ED959F0E18DAD21 /* VerifySecretPhraseViewModel.swift */,
 				D9BFEC3A2A12177C007DFF40 /* AllowNotificationsViewModel.swift */,
+				DFF8C35C2B13654700C74DAC /* AccountActivationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2762,6 +2771,7 @@
 				D9BFE9952AD28B5D005E4562 /* ContractDetails */,
 				E3ABD1F02AB0BAA400947D37 /* Invest */,
 				D924C3422A94962A007299A4 /* Borrow */,
+				DF6DEDCE2AA8C2830080B47B /* Web3 */,
 				DFC1F6A22A755ECE003DB68A /* Swap */,
 				D9AF29E02A500AC0006BC53E /* Activity */,
 				40F704552A03AFEF004D74FE /* AccountActivation */,
@@ -3539,6 +3549,7 @@
 				DF6DEDCF2AA8C29D0080B47B /* EIP712HashRequestModel.swift */,
 				DF6DEDD32AA8CD1F0080B47B /* EIP712HashResponseModel.swift */,
 				DF6DEDD12AA8C3D90080B47B /* EIP712PermitModel.swift */,
+				DFF8C35A2B11CEEF00C74DAC /* EthGasInfoModel.swift */,
 			);
 			path = Web3;
 			sourceTree = "<group>";
@@ -3607,6 +3618,7 @@
 		DFBDA0092AB0CD7B00ED42D6 /* ABIs */ = {
 			isa = PBXGroup;
 			children = (
+				E3A32FA52B0F385400C771AE /* CmpoundCollateralCheckABI.json */,
 				D9714C8A2AE4FE5D00FF3AAA /* AaveProxyABIJson.json */,
 				D5E4DDD42AD9295E000AA235 /* CompoundABIJson.json */,
 				E33F7CBB2AD442AC007FC04D /* InvestABIJson.json */,
@@ -3632,7 +3644,6 @@
 		DFC1F6A22A755ECE003DB68A /* Swap */ = {
 			isa = PBXGroup;
 			children = (
-				DF6DEDCE2AA8C2830080B47B /* Web3 */,
 				DFC1F6A32A755EE9003DB68A /* ParaSwap */,
 				DFC1F6A52A755EF4003DB68A /* 1inch */,
 				DFC1F6A42A755EF0003DB68A /* 0x */,
@@ -3901,6 +3912,7 @@
 				E33F7CBD2AD44CA2007FC04D /* DepositManager.swift */,
 				E3C0BCC62B0A02CA00DAA409 /* WithdrawManager.swift */,
 				E3099FEB2B00B901004474F0 /* CompoundDepositManager.swift */,
+				E3A32FA72B14B7ED00C771AE /* CompoundWithdrawManager.swift */,
 				E3C0BCCA2B0A0DC900DAA409 /* InvestViewModelProtocol.swift */,
 				E3C0BCCE2B0A335000DAA409 /* InvestConfirmationProtocol.swift */,
 				D5E4DDCE2A960367000AA235 /* InvestDepositViewModel.swift */,
@@ -4376,6 +4388,7 @@
 				DF0F65F429E1B29C00DB7290 /* coin-portfolio-stub.json in Resources */,
 				DF0F65F529E1B29C00DB7290 /* positions-stub.json in Resources */,
 				DF0F65FB29E1B29C00DB7290 /* wallets-stub.json in Resources */,
+				E3A32FA62B0F385400C771AE /* CmpoundCollateralCheckABI.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4675,6 +4688,7 @@
 				E3847B472A53F9A8005ED78B /* SwapFeeView.swift in Sources */,
 				E3ABD2022AB1BAAB00947D37 /* ImportAccountsHeaderView.swift in Sources */,
 				8EADE74E5260CF1542FF0EF0 /* AvatarViewModel.swift in Sources */,
+				E3A32FA82B14B7ED00C771AE /* CompoundWithdrawManager.swift in Sources */,
 				D92278BD2A7904EA0098A36A /* ActivityTokenModel.swift in Sources */,
 				1362C46CED869A0C712B9DA0 /* BalanceModel.swift in Sources */,
 				152CA78F967F16F922365095 /* BigInt+Extension.swift in Sources */,
@@ -4953,6 +4967,7 @@
 				DFA9687E2A0FABB9007D4513 /* WalletAccount+CoreDataProperties.swift in Sources */,
 				D9F1BD022A7111FE00F5303F /* CoinInfoEmptyStateFooterView.swift in Sources */,
 				B6C747AA398D7E37B1B727AC /* PassDotsView.swift in Sources */,
+				DFF8C35B2B11CEEF00C74DAC /* EthGasInfoModel.swift in Sources */,
 				D97F0B8C2A948F760083DA81 /* DexSystemModelProtocol.swift in Sources */,
 				DF00178229E82084001164EA /* SecureEnclaveHelper.swift in Sources */,
 				D966D5932A9F3950007E63A1 /* PinoRightSideImageButtonStyle.swift in Sources */,
@@ -5109,6 +5124,7 @@
 				7D789F2B97B770D2B2B8DF05 /* SettingsViewModel.swift in Sources */,
 				D615530893452E25B58471EF /* ShareOfAssetsViewModel.swift in Sources */,
 				FDC9B8DDC75EF47C7D607182 /* ShowSecretPhraseView.swift in Sources */,
+				DFF8C35D2B13654700C74DAC /* AccountActivationViewModel.swift in Sources */,
 				DF0B1ED32B00E0D5001B0522 /* FCMTokenManager.swift in Sources */,
 				06DB0B31505094D78686694E /* ShowSecretPhraseViewController.swift in Sources */,
 				92BC3A7553A87622AD6F640E /* ShowSecretPhraseViewModel.swift in Sources */,

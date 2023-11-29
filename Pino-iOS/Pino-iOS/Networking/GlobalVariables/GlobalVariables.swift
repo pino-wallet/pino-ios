@@ -17,7 +17,7 @@ class GlobalVariables {
 	// MARK: - Public Properties
 
 	@Published
-	public var ethGasFee: GasInfo!
+	public var ethGasFee: EthGasInfoModel!
 	@Published
 	public var manageAssetsList: [AssetViewModel]?
 	@Published
@@ -27,10 +27,12 @@ class GlobalVariables {
 
 	private var cancellables = Set<AnyCancellable>()
 	private var internetConnectivity = InternetConnectivity()
+	private let web3Client = Web3APIClient()
 
 	// MARK: - Private Initializer
 
 	private init() {
+		calculateEthGasFee()
 		fetchSharedInfoPeriodically { [self] in
 			fetchSharedInfo().catch { error in
 				#warning("Toast view is temporarily removed")
@@ -55,10 +57,8 @@ class GlobalVariables {
 		print("== SENDING REQUEST ==")
 		return firstly {
 			getManageAssetLists()
-		}.get { assets in
+		}.done { assets in
 			self.manageAssetsList = assets
-		}.then { assets in
-			self.calculateEthGasFee()
 		}
 	}
 
@@ -90,10 +90,21 @@ class GlobalVariables {
 			.store(in: &cancellables)
 	}
 
-	private func calculateEthGasFee() -> Promise<Void> {
-		Web3Core.shared.calculateEthGasFee().done { gasInfo in
-			GlobalVariables.shared.ethGasFee = gasInfo
-		}
+	private func calculateEthGasFee() {
+		Timer.publish(every: 3, on: .main, in: .common)
+			.autoconnect()
+			.sink { [self] seconds in
+				web3Client.getNetworkFee().sink { completed in
+					switch completed {
+					case .finished:
+						print("Chart info received successfully")
+					case let .failure(error):
+						print(error)
+					}
+				} receiveValue: { gasInfo in
+					GlobalVariables.shared.ethGasFee = gasInfo
+				}.store(in: &cancellables)
+			}.store(in: &cancellables)
 	}
 
 	private func getManageAssetLists() -> Promise<[AssetViewModel]> {

@@ -32,8 +32,9 @@ final class AccountingAPIClient: AccountingAPIService {
 		networkManager.request(.coinPerformance(timeFrame: timeFrame, tokenID: tokenID, accountADD: currentAccountAdd))
 	}
 
-	func activateAccountWith(address: String) -> AnyPublisher<AccountActivationModel, APIError> {
-		networkManager.request(.activateAccountWith(address: address))
+	func activateAccount(activationReqModel: AccountActivationRequestModel)
+		-> AnyPublisher<AccountActivationModel, APIError> {
+		networkManager.request(.activateAccount(activateReqModel: activationReqModel))
 	}
 
 	func activeAddresses(addresses: [String]) -> AnyPublisher<ActiveAddressesModel, APIError> {

@@ -30,6 +30,9 @@ class InvestDepositView: UIView {
 	private let estimatedReturnTitleLabel = UILabel()
 	private let estimatedReturnLabel = UILabel()
 	private let estimateSectionSpacerView = UIView()
+	private let openPositionContainerView = UIView()
+	private let openPositionErrorCard = UIView()
+	private let openPositionErrorLabel = PinoLabel(style: .title, text: "")
 	private let continueButton = PinoButton(style: .deactive)
 	private var nextButtonTapped: () -> Void
 	private var investVM: InvestViewModelProtocol
@@ -70,6 +73,7 @@ class InvestDepositView: UIView {
 		addSubview(continueButton)
 		contentStackView.addArrangedSubview(investCardView)
 		contentStackView.addArrangedSubview(estimateSectionStackView)
+		contentStackView.addArrangedSubview(openPositionContainerView)
 		investCardView.addSubview(investStackView)
 		investStackView.addArrangedSubview(amountStackView)
 		investStackView.addArrangedSubview(maximumStackView)
@@ -86,6 +90,8 @@ class InvestDepositView: UIView {
 		estimatedReturnCardView.addSubview(estimatedReturnStackView)
 		estimatedReturnStackView.addArrangedSubview(estimatedReturnTitleLabel)
 		estimatedReturnStackView.addArrangedSubview(estimatedReturnLabel)
+		openPositionContainerView.addSubview(openPositionErrorCard)
+		openPositionErrorCard.addSubview(openPositionErrorLabel)
 
 		continueButton.addAction(UIAction(handler: { _ in
 			self.continueButton.style = .loading
@@ -133,6 +139,7 @@ class InvestDepositView: UIView {
 		maxAmountLabel.font = .PinoStyle.mediumSubheadline
 		estimatedReturnTitleLabel.font = .PinoStyle.mediumBody
 		estimatedReturnLabel.font = .PinoStyle.mediumBody
+		openPositionErrorLabel.font = .PinoStyle.mediumCallout
 
 		amountLabel.textColor = .Pino.secondaryLabel
 		amountTextfield.textColor = .Pino.label
@@ -141,9 +148,11 @@ class InvestDepositView: UIView {
 		maxAmountLabel.textColor = .Pino.label
 		estimatedReturnTitleLabel.textColor = .Pino.label
 		estimatedReturnLabel.textColor = .Pino.label
+		openPositionErrorLabel.textColor = .Pino.label
 
 		backgroundColor = .Pino.background
 		investCardView.backgroundColor = .Pino.secondaryBackground
+		openPositionErrorCard.backgroundColor = .Pino.lightRed
 
 		investCardView.layer.cornerRadius = 12
 
@@ -162,6 +171,18 @@ class InvestDepositView: UIView {
 
 		amountLabel.numberOfLines = 0
 		amountLabel.lineBreakMode = .byCharWrapping
+		openPositionErrorLabel.numberOfLines = 0
+
+		openPositionErrorCard.layer.cornerRadius = 12
+
+		if let depositVM = investVM as? InvestDepositViewModel, depositVM.hasOpenPosition {
+			openPositionErrorLabel.text = depositVM.positionErrorText
+			openPositionErrorCard.isHiddenInStackView = false
+			estimateSectionStackView.isHiddenInStackView = true
+			continueButton.style = .deactive
+		} else {
+			openPositionErrorCard.isHiddenInStackView = true
+		}
 	}
 
 	private func setupContstraint() {
@@ -179,6 +200,15 @@ class InvestDepositView: UIView {
 		)
 		continueButton.pin(
 			.horizontalEdges(padding: 16)
+		)
+		openPositionErrorLabel.pin(
+			.horizontalEdges(padding: 16),
+			.verticalEdges(padding: 14)
+		)
+		openPositionErrorCard.pin(
+			.top(padding: 24),
+			.bottom,
+			.horizontalEdges
 		)
 		nextButtonBottomConstraint = NSLayoutConstraint(
 			item: continueButton,

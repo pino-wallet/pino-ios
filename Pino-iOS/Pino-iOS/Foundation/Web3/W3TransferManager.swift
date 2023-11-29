@@ -83,8 +83,7 @@ public struct W3TransferManager: Web3HelperProtocol {
 				let trx = try trxManager.createTransactionFor(
 					contract: solInvocation!,
 					nonce: nonce,
-					gasPrice: gasInfo.gasPrice.etherumQuantity,
-					gasLimit: gasInfo.gasLimit.etherumQuantity
+					gasInfo: gasInfo
 				)
 
 				let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Network.chainID)

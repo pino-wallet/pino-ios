@@ -42,7 +42,7 @@ class ApprovingLoadingViewModel {
 		guard let approveGasInfo else {
 			return "0"
 		}
-		return approveGasInfo.feeInDollar.priceFormat
+		return approveGasInfo.feeInDollar!.priceFormat
 	}
 
 	public enum ApproveLoadingStatuses {
