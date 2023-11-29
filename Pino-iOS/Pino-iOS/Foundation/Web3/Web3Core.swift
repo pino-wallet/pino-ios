@@ -573,7 +573,6 @@ public class Web3Core {
 		aaveDepositManager.setUserUseReserveAsCollateral(contractDetails: contractDetails)
 	}
 
-
 	public func getAaveWithdrawERCCallData(
 		contract: DynamicContract,
 		tokenAddress: String,
@@ -582,9 +581,10 @@ public class Web3Core {
 		aaveWithdrawManager.getAaveWithdrawERCCallData(contract: contract, tokenAddress: tokenAddress, amount: amount)
 	}
 
-    public func getAaveUnwrapWETHCallData(contract: DynamicContract) -> Promise<String> {
-        aaveWithdrawManager.getAaveUnwrapWethCallData(contract: contract)
-    }
+	public func getAaveUnwrapWETHCallData(contract: DynamicContract) -> Promise<String> {
+		aaveWithdrawManager.getAaveUnwrapWethCallData(contract: contract)
+	}
+
 	public func getCheckMembershipCallData(accountAddress: String, tokenAddress: String) throws -> Promise<Bool> {
 		try investManager.getCheckMemebrshipCallData(accountAddress: accountAddress, tokenAddress: tokenAddress)
 	}
