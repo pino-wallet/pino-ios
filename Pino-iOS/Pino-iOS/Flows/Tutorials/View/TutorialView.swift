@@ -15,14 +15,14 @@ class TutorialView: UIView {
 
 	private let skipLeftView = UIView()
 	private let skipRightView = UIView()
-    private var tutorialVM: TutorialContainerViewModel!
-    private let stepperCollectionView:TutorialStepperContainerView!
+	private var tutorialVM: TutorialContainerViewModel!
+	private let stepperCollectionView: TutorialStepperContainerView!
 
 	// MARK: - Initializers
 
-    init(tutorialVM: TutorialContainerViewModel) {
-        self.tutorialVM = tutorialVM
-        self.stepperCollectionView = TutorialStepperContainerView(tutorialVM: tutorialVM)
+	init(tutorialVM: TutorialContainerViewModel) {
+		self.tutorialVM = tutorialVM
+		self.stepperCollectionView = TutorialStepperContainerView(tutorialVM: tutorialVM)
 		super.init(frame: .zero)
 		setupView()
 		addGeatures()
@@ -86,13 +86,13 @@ class TutorialView: UIView {
 	@objc
 	private func skipLeft() {
 		print("skip left")
-        tutorialVM.prevTutorial()
+		tutorialVM.prevTutorial()
 	}
 
 	@objc
 	private func skipRight() {
 		print("skip right")
-        tutorialVM.nextTutorial()
+		tutorialVM.nextTutorial()
 	}
 
 	@objc

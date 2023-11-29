@@ -5,43 +5,41 @@
 //  Created by Sobhan Eskandari on 11/27/23.
 //
 
-import UIKit
 import Combine
+import UIKit
 
 class TutorialStepperCell: UICollectionViewCell {
-	
-    // MARK: Private Properties
+	// MARK: Private Properties
 
 	private let stepProgressView = UIProgressView()
-    private var cancellables = Set<AnyCancellable>()
-    
-    var timer: Timer?
-    let duration = 8.0 // Duration in seconds
-    let timeInterval = 0.1 // Time interval for the timer
-    
+	private var cancellables = Set<AnyCancellable>()
+
 	// MARK: Public Properties
 
 	public static let cellReuseID = "tutStepperCell"
 	public var tutStepperCellVM: TutorialStepViewModel!
-    
+
 	// MARK: Private UI Methods
 
 	private func setupView() {
 		contentView.addSubview(stepProgressView)
 	}
-    
-    private func setupBinding() {
-        tutStepperCellVM.progressValue.sink { progValue in
-            self.stepProgressView.setProgress(progValue.value, animated: progValue.animated)
-        }.store(in: &cancellables)
-    }
+
+	private func setupBinding() {
+		tutStepperCellVM.progressValue.sink { progValue in
+			self.stepProgressView.setProgress(progValue.value, animated: progValue.animated)
+		}.store(in: &cancellables)
+	}
 
 	private func setupStyle() {
 		stepProgressView.progressViewStyle = .bar
 		stepProgressView.trackTintColor = UIColor.Pino.white
 		stepProgressView.progressTintColor = UIColor.Pino.primary
 		stepProgressView.layer.cornerRadius = 2
-        stepProgressView.setProgress(tutStepperCellVM.progressValue.value.value, animated: tutStepperCellVM.progressValue.value.animated)
+		stepProgressView.setProgress(
+			tutStepperCellVM.progressValue.value.value,
+			animated: tutStepperCellVM.progressValue.value.animated
+		)
 	}
 
 	private func setupConstraint() {
@@ -57,59 +55,35 @@ class TutorialStepperCell: UICollectionViewCell {
 
 	// MARK: Public Methods
 
-    public func configCell() {
-        setupView()
-        setupStyle()
-        setupConstraint()
-        setupBinding()
-    }
-    
-    public func startProgressFrom(value: Int, completed:@escaping ()->Void) {
-        tutStepperCellVM.isPause = false
-        for x in value ... 100000 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
-                if tutStepperCellVM.isPause {
-                    return
-                } else {
-                    tutStepperCellVM.setProgress(value: Float(x), animated: true)
-                    if x == 100 {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            completed()
-                        }
-                    }
-                }
-            }
-            
-        }
+	public func configCell() {
+		setupView()
+		setupStyle()
+		setupConstraint()
+		setupBinding()
 	}
-    
-    func startProgress() {
-        stepProgressView.progress = 0
-        var elapsedTime = 0.0
-        
-        timer = Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: true) { [weak self] timer in
-            guard let strongSelf = self else { return }
-            
-            elapsedTime += strongSelf.timeInterval
-            let progress = Float(elapsedTime / strongSelf.duration)
-            
-            // Update the progress view
-            strongSelf.stepProgressView.setProgress(progress, animated: true)
-            
-            // Check if the progress is complete
-            if elapsedTime >= strongSelf.duration {
-                timer.invalidate()
-                print("Progress complete")
-            }
-        }
-    }
+
+	public func startProgressFrom(value: Int, completed: @escaping () -> Void) {
+		stepProgressView.progress = 0
+		tutStepperCellVM.progress.completedUnitCount = 0
+
+		tutStepperCellVM.timer = Timer
+			.scheduledTimer(withTimeInterval: tutStepperCellVM.timeInterval, repeats: true) { [self] timer in
+
+				guard tutStepperCellVM.progress.isFinished == false else {
+					tutStepperCellVM.timer?.invalidate()
+					completed()
+					return
+				}
+
+				tutStepperCellVM.progress.completedUnitCount += 1
+				let progressFloat = Float(tutStepperCellVM.progress.fractionCompleted)
+				stepProgressView.setProgress(progressFloat, animated: true)
+
+				tutStepperCellVM.setProgress(value: progressFloat, animated: true)
+			}
+	}
 
 	public func pauseProgress() {
-        tutStepperCellVM.isPause = true
+		tutStepperCellVM.isPause = true
 	}
-    
-    public func resetProgress() {
-        tutStepperCellVM.isPause = true
-        tutStepperCellVM.setProgress(value: Float(0), animated: false)
-    }
 }

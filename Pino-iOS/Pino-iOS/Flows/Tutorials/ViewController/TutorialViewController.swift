@@ -39,7 +39,7 @@ class TutorialViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-        tutorialView = TutorialView(tutorialVM: .init(tutorialType: .swap))
+		tutorialView = TutorialView(tutorialVM: .init(tutorialType: .swap))
 		view = tutorialView
 	}
 }
