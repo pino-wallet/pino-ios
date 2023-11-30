@@ -60,14 +60,14 @@ extension AssetsBoardCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		switch indexPath.section {
 		case 0:
-            guard !userAssets.isEmpty else {
-                return
-            }
+			guard !userAssets.isEmpty else {
+				return
+			}
 			assetDidSelect(userAssets[indexPath.item])
 		case 1:
-            guard !assets.isEmpty else {
-                return
-            }
+			guard !assets.isEmpty else {
+				return
+			}
 			return assetDidSelect(assets[indexPath.item])
 		default:
 			fatalError("Invalid section index in notificaition collection view")

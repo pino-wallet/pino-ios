@@ -139,7 +139,7 @@ extension UIView {
 				backgroundView.pin(.allEdges(padding: 0))
 				corneredView.pin(.allEdges(padding: 0))
 				backgroundView.backgroundColor = backgroundColor ?? .Pino.white
-				corneredView.backgroundColor =  UIColor(
+				corneredView.backgroundColor = UIColor(
 					red: 0.859,
 					green: 0.859,
 					blue: 0.859,

@@ -27,7 +27,6 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 					if statusCode == 204, let noContent = NoContent() as? T {
 						return noContent
 					}
-                    
 
 					do {
 						return try JSONDecoder().decode(T.self, from: data)
