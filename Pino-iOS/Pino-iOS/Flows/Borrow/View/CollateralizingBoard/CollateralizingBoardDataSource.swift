@@ -29,11 +29,7 @@ class CollateralizingBoardDataSource: NSObject, UICollectionViewDataSource {
 	// MARK: - Internal Methods
 
 	func numberOfSections(in collectionView: UICollectionView) -> Int {
-		if userCollateralizingAssets.isEmpty {
-			return 1
-		} else {
-			return 2
-		}
+			2
 	}
 
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
