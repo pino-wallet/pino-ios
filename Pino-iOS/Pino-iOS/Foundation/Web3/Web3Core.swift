@@ -590,18 +590,19 @@ public class Web3Core {
 	public func getAaveUnwrapWETHCallData(contract: DynamicContract) -> Promise<String> {
 		aaveWithdrawManager.getAaveUnwrapWethCallData(contract: contract)
 	}
-    
-    public func getAaveWithdrawMAXERCContractDetails(tokenAddress: String) -> Promise<ContractDetailsModel> {
-        aaveWithdrawManager.getWithdrawMAXERCContractDetails(tokenAddress: tokenAddress)
-    }
-    
-    public func getAaveWithdrawMAXERCGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
-        aaveWithdrawManager.getWithdrawMaxERCGasInfo(contractDetails: contractDetails)
-    }
-    
-    public func getAaveWithdrawMAXERCTransaction(contractDetails: ContractDetailsModel) -> Promise<EthereumSignedTransaction> {
-        aaveWithdrawManager.getWithdrawMaxERCTransaction(contractDetails: contractDetails)
-    }
+
+	public func getAaveWithdrawMAXERCContractDetails(tokenAddress: String) -> Promise<ContractDetailsModel> {
+		aaveWithdrawManager.getWithdrawMAXERCContractDetails(tokenAddress: tokenAddress)
+	}
+
+	public func getAaveWithdrawMAXERCGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
+		aaveWithdrawManager.getWithdrawMaxERCGasInfo(contractDetails: contractDetails)
+	}
+
+	public func getAaveWithdrawMAXERCTransaction(contractDetails: ContractDetailsModel)
+		-> Promise<EthereumSignedTransaction> {
+		aaveWithdrawManager.getWithdrawMaxERCTransaction(contractDetails: contractDetails)
+	}
 
 	public func getCheckMembershipCallData(accountAddress: String, tokenAddress: String) throws -> Promise<Bool> {
 		try investManager.getCheckMemebrshipCallData(accountAddress: accountAddress, tokenAddress: tokenAddress)

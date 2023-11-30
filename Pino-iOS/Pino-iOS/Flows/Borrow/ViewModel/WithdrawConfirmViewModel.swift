@@ -153,7 +153,7 @@ class WithdrawConfirmViewModel {
 	public func getWithdrawGasInfo() {
 		switch withdrawAmountVM.borrowVM.selectedDexSystem {
 		case .aave:
-            if withdrawMode == .withdrawMax {
+			if withdrawMode == .withdrawMax {
 				aaveWithdrawManager.getERC20WithdrawMaxData().done { _, depositGasInfo in
 					self.setFeeInfoByDepositGasInfo(withdrawGasinfo: depositGasInfo)
 				}.catch { _ in
