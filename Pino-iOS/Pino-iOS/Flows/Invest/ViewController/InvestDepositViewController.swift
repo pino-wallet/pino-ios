@@ -161,7 +161,7 @@ class InvestDepositViewController: UIViewController {
 	private func getTokenAddress(completion: @escaping (String) -> Void) {
 		if let withdrawVM = investVM as? WithdrawViewModel {
 //			withdrawVM.getTokenPositionID(completion: completion)
-			completion("0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9".lowercased())
+			completion("0x39AA39c021dfbaE8faC545936693aC917d5E7563".lowercased())
 		} else {
 			let tokenAddress = investVM.selectedToken.id.lowercased()
 			completion(tokenAddress)

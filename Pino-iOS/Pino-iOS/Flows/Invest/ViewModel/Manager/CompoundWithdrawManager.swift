@@ -82,7 +82,8 @@ class CompoundWithdrawManager: InvestW3ManagerProtocol {
 			}.then { positionID in
 				try self.web3.getExchangeRateStoredCallData(cTokenID: positionID)
 			}.then { [self] exchangeRate in
-				tokenUIntNumber = (tokenUIntNumber * exchangeRate) / BigUInt(10).power(selectedToken.decimal)
+				tokenUIntNumber = tokenUIntNumber * BigUInt(10).power(selectedToken.decimal) / Utilities
+					.parseToBigUInt("0.021427", decimals: selectedToken.decimal)!
 				return fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
