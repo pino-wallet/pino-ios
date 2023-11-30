@@ -26,6 +26,56 @@ public struct W3AaveWithdrawManager: Web3HelperProtocol {
 	}
 
 	// MARK: - Public Methods
+    
+    public func getWithdrawMAXERCContractDetails(tokenAddress: String) -> Promise<ContractDetailsModel> {
+        Promise<ContractDetailsModel> { seal in
+            let contract = try Web3Core.getContractOfToken(address: Web3Core.Constants.aavePoolERCContractAddress, abi: .borrowERCAave, web3: readWeb3)
+            let solInvocation = contract[ABIMethodWrite.withdraw.rawValue]?(tokenAddress.eip55Address!, BigNumber.maxUInt256.bigUInt, walletManager.currentAccount.eip55Address.eip55Address!)
+            seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvocation!))
+        }
+    }
+    
+    public func getWithdrawMaxERCGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
+        Promise<GasInfo> { seal in
+            gasInfoManager.calculateGasOf(
+                method: .withdraw,
+                solInvoc: contractDetails.solInvocation,
+                contractAddress: contractDetails.contract.address!
+            ).done { gasInfo in
+                seal.fulfill(gasInfo)
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
+    }
+    
+    public func getWithdrawMaxERCTransaction(contractDetails: ContractDetailsModel) -> Promise<EthereumSignedTransaction> {
+        Promise<EthereumSignedTransaction> { seal in
+
+            gasInfoManager.calculateGasOf(
+                method: .withdraw,
+                solInvoc: contractDetails.solInvocation,
+                contractAddress: contractDetails.contract.address!
+            )
+            .then { [self] gasInfo in
+                readWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+                    .map { ($0, gasInfo) }
+            }
+            .done { [self] nonce, gasInfo in
+
+                let trx = try trxManager.createTransactionFor(
+                    contract: contractDetails.solInvocation,
+                    nonce: nonce,
+                    gasInfo: gasInfo
+                )
+
+                let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Network.chainID)
+                seal.fulfill(signedTx)
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
+    }
 
 	public func getAaveWithdrawERCCallData(
 		contract: DynamicContract,
@@ -54,4 +104,5 @@ public struct W3AaveWithdrawManager: Web3HelperProtocol {
 			seal.fulfill(tx.data.hex())
 		}
 	}
+    
 }

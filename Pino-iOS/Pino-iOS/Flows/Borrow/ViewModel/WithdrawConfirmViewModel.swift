@@ -100,7 +100,7 @@ class WithdrawConfirmViewModel {
 		self.withdrawAmountVM = withdrawAmountVM
 		let assetAmountBigNumber = BigNumber(numberWithDecimal: withdrawAmountVM.tokenAmount)
 		if assetAmountBigNumber.plainSevenDigitFormat == withdrawAmountVM.maxWithdrawAmount.plainSevenDigitFormat {
-			self.withdrawMode = .withdraw
+			self.withdrawMode = .withdrawMax
 		} else {
 			self.withdrawMode = .decrease
 		}
@@ -123,7 +123,7 @@ class WithdrawConfirmViewModel {
 			switch withdrawMode {
 			case .decrease:
 				return "decrease_collateral"
-			case .withdraw:
+			case .withdrawMax:
 				return "remove_collateral"
 			}
 		}
@@ -153,8 +153,8 @@ class WithdrawConfirmViewModel {
 	public func getWithdrawGasInfo() {
 		switch withdrawAmountVM.borrowVM.selectedDexSystem {
 		case .aave:
-			if selectedToken.isEth {
-				aaveWithdrawManager.getETHWithdrawData().done { _, depositGasInfo in
+            if withdrawMode == .withdrawMax {
+				aaveWithdrawManager.getERC20WithdrawMaxData().done { _, depositGasInfo in
 					self.setFeeInfoByDepositGasInfo(withdrawGasinfo: depositGasInfo)
 				}.catch { _ in
 					Toast.default(

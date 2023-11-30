@@ -9,5 +9,5 @@ import Foundation
 
 enum WithdrawMode {
 	case decrease
-	case withdraw
+	case withdrawMax
 }
