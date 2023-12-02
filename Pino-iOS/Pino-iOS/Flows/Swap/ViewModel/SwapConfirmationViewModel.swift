@@ -15,8 +15,8 @@ import Web3_Utility
 class SwapConfirmationViewModel {
 	// MARK: - Private Properties
 
-	private var selectedProtocol: SwapProtocolModel
-	private var selectedProvider: SwapProviderViewModel?
+	private let selectedProtocol: SwapProtocolModel
+	private let selectedProvider: SwapProviderViewModel?
 	private let web3 = Web3Core.shared
 	private var cancellables = Set<AnyCancellable>()
 	private var ethToken: AssetViewModel {

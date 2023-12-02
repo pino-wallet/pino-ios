@@ -24,7 +24,6 @@ class SwapManager: Web3ManagerProtocol {
 
 	// MARK: - Public Properties
 
-	private var pendingSwapTrx: EthereumSignedTransaction?
 	private var pendingSwapGasInfo: GasInfo?
 
 	// MARK: - Private Properties
@@ -143,7 +142,6 @@ class SwapManager: Web3ManagerProtocol {
 					callProxyMultiCall(data: callDatas, value: nil)
 				}
 			}.done { swapResult in
-				self.pendingSwapTrx = swapResult.0
 				self.pendingSwapGasInfo = swapResult.1
 				seal.fulfill(swapResult)
 			}.catch { error in
@@ -189,7 +187,6 @@ class SwapManager: Web3ManagerProtocol {
 					callProxyMultiCall(data: callDatas, value: nil)
 				}
 			}.done { swapResult in
-				self.pendingSwapTrx = swapResult.0
 				self.pendingSwapGasInfo = swapResult.1
 				seal.fulfill(swapResult)
 			}.catch { error in
@@ -226,7 +223,6 @@ class SwapManager: Web3ManagerProtocol {
 					callProxyMultiCall(data: callDatas, value: swapAmountBigNum.bigUInt)
 				}
 			}.done { swapResult in
-				self.pendingSwapTrx = swapResult.0
 				self.pendingSwapGasInfo = swapResult.1
 				seal.fulfill(swapResult)
 			}.catch { error in
@@ -251,7 +247,6 @@ class SwapManager: Web3ManagerProtocol {
 					callProxyMultiCall(data: callDatas, value: swapAmountBigNum.bigUInt)
 				}
 			}.done { swapResult in
-				self.pendingSwapTrx = swapResult.0
 				self.pendingSwapGasInfo = swapResult.1
 				seal.fulfill(swapResult)
 			}.catch { error in
@@ -276,7 +271,6 @@ class SwapManager: Web3ManagerProtocol {
 				// MultiCall
 				self.callProxyMultiCall(data: [permitData, unwrapData!], value: nil)
 			}.done { swapResult in
-				self.pendingSwapTrx = swapResult.0
 				self.pendingSwapGasInfo = swapResult.1
 				seal.fulfill(swapResult)
 			}.catch { error in
@@ -452,7 +446,7 @@ class SwapManager: Web3ManagerProtocol {
 					),
 					toToken: .init(
 						amount: Utilities
-							.parseToBigUInt(destinationAmount, units: .custom(destToken.decimal))!
+							.parseToBigUInt(destinationAmount, decimals: destToken.decimal)!
 							.description,
 						tokenID: destToken.id
 					),
