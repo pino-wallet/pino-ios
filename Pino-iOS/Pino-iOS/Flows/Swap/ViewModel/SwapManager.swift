@@ -24,16 +24,24 @@ class SwapManager: Web3ManagerProtocol {
 
 	// MARK: - Public Properties
 
-	public var pendingSwapTrx: EthereumSignedTransaction?
-	public var pendingSwapGasInfo: GasInfo?
+	private var pendingSwapTrx: EthereumSignedTransaction?
+	private var pendingSwapGasInfo: GasInfo?
 
 	// MARK: - Private Properties
 
-	private let selectedProvider: SwapProviderViewModel?
-	private var srcToken: SwapTokenViewModel
-	private var destToken: SwapTokenViewModel
+	private var swapPriceManager = SwapPriceManager()
+	private var selectedProvider: SwapProviderViewModel?
+	private var srcToken: AssetViewModel
+	private var destToken: AssetViewModel
 	private var wethToken: AssetViewModel {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
+	}
+
+	private var enteredSwapAmount: String
+	private var destinationAmount: String
+	private var swapAmountBigNum: BigNumber {
+		let tokenUIntNumber = Utilities.parseToBigUInt(enteredSwapAmount, decimals: srcToken.decimal)
+		return .init(unSignedNumber: tokenUIntNumber!, decimal: srcToken.decimal)
 	}
 
 	private let coreDataManager = CoreDataManager()
@@ -48,39 +56,40 @@ class SwapManager: Web3ManagerProtocol {
 
 	init(
 		selectedProvider: SwapProviderViewModel?,
-		srcToken: SwapTokenViewModel,
-		destToken: SwapTokenViewModel
+		srcToken: AssetViewModel,
+		destToken: AssetViewModel,
+		swapAmount: String,
+		destinationAmount: String
 	) {
 		self.selectedProvider = selectedProvider
 		self.srcToken = srcToken
 		self.destToken = destToken
 		self.contract = try! web3.getSwapProxyContract()
+		self.enteredSwapAmount = swapAmount
+		self.destinationAmount = destinationAmount
 	}
 
 	// MARK: - Public Methods
 
 	public func getSwapInfo() -> TrxWithGasInfo {
-		let selectedSrcToken = srcToken.selectedToken
-		let selectedDestToken = destToken.selectedToken
-		if (selectedSrcToken.isERC20 || selectedSrcToken.isWEth) &&
-			(selectedDestToken.isERC20 || selectedDestToken.isWEth) {
+		if (srcToken.isERC20 || srcToken.isWEth) &&
+			(destToken.isERC20 || destToken.isWEth) {
 			return swapERCtoERC()
-		} else if selectedSrcToken.isERC20 && selectedDestToken.isEth {
+		} else if srcToken.isERC20 && destToken.isEth {
 			return swapERCtoETH()
-		} else if selectedSrcToken.isEth && selectedDestToken.isERC20 {
+		} else if srcToken.isEth && destToken.isERC20 {
 			return swapETHtoERC()
-		} else if selectedSrcToken.isEth && selectedDestToken.isWEth {
+		} else if srcToken.isEth && destToken.isWEth {
 			return swapETHtoWETH()
-		} else if selectedSrcToken.isWEth && selectedDestToken.isEth {
+		} else if srcToken.isWEth && destToken.isEth {
 			return swapWETHtoETH()
 		} else {
 			fatalError()
 		}
 	}
 
-	public func confirmSwap(completion: @escaping (Result<String>) -> Void) {
-		guard let pendingSwapTrx else { return }
-		Web3Core.shared.callTransaction(trx: pendingSwapTrx).done { trxHash in
+	public func confirmSwap(swapTrx trx: EthereumSignedTransaction, completion: @escaping (Result<String>) -> Void) {
+		Web3Core.shared.callTransaction(trx: trx).done { trxHash in
 			self.addPendingTransferActivity(trxHash: trxHash)
 			completion(.fulfilled(trxHash))
 		}.catch { error in
@@ -92,8 +101,8 @@ class SwapManager: Web3ManagerProtocol {
 
 	internal func getProxyPermitTransferData(signiture: String) -> Promise<String> {
 		web3.getPermitTransferCallData(
-			contract: contract, amount: srcToken.tokenAmountBigNum.bigUInt,
-			tokenAdd: srcToken.selectedToken.id,
+			contract: contract, amount: swapAmountBigNum.bigUInt,
+			tokenAdd: srcToken.id,
 			signiture: signiture,
 			nonce: nonce,
 			deadline: deadline
@@ -111,8 +120,8 @@ class SwapManager: Web3ManagerProtocol {
 			}.then { [self] signiture -> Promise<(String, String?)> in
 				guard let selectedProvider else { fatalError("provider errror") }
 				return checkAllowanceOfProvider(
-					approvingToken: srcToken.selectedToken,
-					approvingAmount: srcToken.tokenAmount!,
+					approvingToken: srcToken,
+					approvingAmount: swapAmountBigNum.description,
 					spenderAddress: selectedProvider.provider.contractAddress
 				).map { (signiture, $0) }
 			}.then { signiture, allowanceData -> Promise<(String, String?)> in
@@ -150,8 +159,8 @@ class SwapManager: Web3ManagerProtocol {
 			guard let selectedProvider else { fatalError("provider errror") }
 			let fetchHashPromise = fetchHash()
 			let allowancePromise = checkAllowanceOfProvider(
-				approvingToken: srcToken.selectedToken,
-				approvingAmount: srcToken.tokenAmount!,
+				approvingToken: srcToken,
+				approvingAmount: swapAmountBigNum.description,
 				spenderAddress: selectedProvider.provider.contractAddress
 			)
 			let swapProvidersDataPromise = getSwapInfoFrom()
@@ -198,7 +207,7 @@ class SwapManager: Web3ManagerProtocol {
 				guard let selectedProvider else { fatalError("provider errror") }
 				return checkAllowanceOfProvider(
 					approvingToken: wethToken,
-					approvingAmount: srcToken.tokenAmount!,
+					approvingAmount: swapAmountBigNum.description,
 					spenderAddress: selectedProvider.provider.contractAddress
 				).map { ($0, wrapTokenData) }
 			}.then { [self] allowanceData, wrapTokenData -> Promise<(String, String?, String)> in
@@ -214,7 +223,7 @@ class SwapManager: Web3ManagerProtocol {
 				if let sweepData { callDatas.append(sweepData) }
 				if let allowanceData { callDatas.insert(allowanceData, at: 0) }
 				return attempt(maximumRetryCount: 3) { [self] in
-					callProxyMultiCall(data: callDatas, value: srcToken.tokenAmountBigNum.bigUInt)
+					callProxyMultiCall(data: callDatas, value: swapAmountBigNum.bigUInt)
 				}
 			}.done { swapResult in
 				self.pendingSwapTrx = swapResult.0
@@ -239,7 +248,7 @@ class SwapManager: Web3ManagerProtocol {
 				// MultiCall
 				let callDatas = [wrapTokenData, sweepData!]
 				return attempt(maximumRetryCount: 3) { [self] in
-					callProxyMultiCall(data: callDatas, value: srcToken.tokenAmountBigNum.bigUInt)
+					callProxyMultiCall(data: callDatas, value: swapAmountBigNum.bigUInt)
 				}
 			}.done { swapResult in
 				self.pendingSwapTrx = swapResult.0
@@ -279,11 +288,9 @@ class SwapManager: Web3ManagerProtocol {
 
 	private func fetchHash() -> Promise<String> {
 		Promise<String> { seal in
-
 			let hashREq = EIP712HashRequestModel(
-				tokenAdd: srcToken.selectedToken.id,
-				amount:
-				srcToken.tokenAmountBigNum.description,
+				tokenAdd: srcToken.id,
+				amount: swapAmountBigNum.description,
 				spender: Web3Core.Constants.pinoSwapProxyAddress,
 				nonce: nonce.description,
 				deadline: deadline.description
@@ -317,16 +324,16 @@ class SwapManager: Web3ManagerProtocol {
 
 		let swapReq =
 			SwapRequestModel(
-				srcToken: srcToken.selectedToken.id,
-				destToken: destToken.selectedToken.id,
-				amount: srcToken.tokenAmountBigNum.description,
+				srcToken: srcToken.id,
+				destToken: destToken.id,
+				amount: swapAmountBigNum.bigUInt.description,
 				destAmount: selectedProvider.providerResponseInfo.destAmount,
 				receiver: walletManager.currentAccount.eip55Address,
 				userAddress: Web3Core.Constants.pinoSwapProxyAddress,
 				slippage: selectedProvider.provider.slippage,
 				networkID: 1,
-				srcDecimal: srcToken.selectedToken.decimal.description,
-				destDecimal: destToken.selectedToken.decimal.description,
+				srcDecimal: srcToken.decimal.description,
+				destDecimal: destToken.decimal.description,
 				priceRoute: priceRoute,
 				provider: selectedProvider.provider
 			)
@@ -348,13 +355,13 @@ class SwapManager: Web3ManagerProtocol {
 	private func sweepTokenCallData() -> Promise<CallData?> {
 		if let selectedProvider {
 			if selectedProvider.provider == .zeroX {
-				return sweepToken(tokenAddress: destToken.selectedToken.id)
+				return sweepToken(tokenAddress: destToken.id)
 			} else {
 				return Promise<String?>() { seal in seal.fulfill(nil) }
 			}
 		} else {
-			if destToken.selectedToken.isWEth {
-				return sweepToken(tokenAddress: destToken.selectedToken.id)
+			if destToken.isWEth {
+				return sweepToken(tokenAddress: destToken.id)
 			} else {
 				return Promise<String?>() { seal in seal.fulfill(nil) }
 			}
@@ -370,7 +377,7 @@ class SwapManager: Web3ManagerProtocol {
 			}
 
 		} else {
-			if destToken.selectedToken.isEth {
+			if destToken.isEth {
 				return unwrapToken()
 			} else {
 				return Promise<String?>() { seal in seal.fulfill(nil) }
@@ -440,16 +447,14 @@ class SwapManager: Web3ManagerProtocol {
 				type: "swap",
 				detail: .init(
 					fromToken: .init(
-						amount: Utilities
-							.parseToBigUInt(srcToken.tokenAmount!, units: .custom(srcToken.selectedToken.decimal))!
-							.description,
-						tokenID: srcToken.selectedToken.id
+						amount: swapAmountBigNum.description,
+						tokenID: srcToken.id
 					),
 					toToken: .init(
 						amount: Utilities
-							.parseToBigUInt(destToken.tokenAmount!, units: .custom(destToken.selectedToken.decimal))!
+							.parseToBigUInt(destinationAmount, units: .custom(destToken.decimal))!
 							.description,
-						tokenID: destToken.selectedToken.id
+						tokenID: destToken.id
 					),
 					activityProtocol: selectedProvider.provider.name
 				),
