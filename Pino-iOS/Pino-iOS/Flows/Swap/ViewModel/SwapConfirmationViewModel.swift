@@ -9,6 +9,7 @@ import BigInt
 import Combine
 import Foundation
 import PromiseKit
+import Web3
 import Web3_Utility
 
 class SwapConfirmationViewModel {
@@ -25,18 +26,21 @@ class SwapConfirmationViewModel {
 	private lazy var swapManager: SwapManager = {
 		SwapManager(
 			selectedProvider: self.selectedProvider,
-			srcToken: self.fromToken,
-			destToken: self.toToken
+			srcToken: self.fromToken.selectedToken,
+			destToken: self.toToken.selectedToken,
+			swapAmount: self.fromToken.tokenAmount!,
+			destinationAmount: self.toToken.tokenAmount!
 		)
 	}()
 
 	private var swapPriceManager = SwapPriceManager()
 	private var swapSide: SwapSide
+	private var pendingSwapTrx: EthereumSignedTransaction?
+	private var pendingSwapGasInfo: GasInfo?
 
 	// MARK: - Public Properties
 
 	public let fromToken: SwapTokenViewModel
-	public var gasFee: BigNumber!
 	public let confirmButtonTitle = "Confirm"
 	public let insufficientTitle = "Insufficient ETH Amount"
 
@@ -87,7 +91,8 @@ class SwapConfirmationViewModel {
 
 	public func fetchSwapInfo(completion: @escaping (Error) -> Void) {
 		swapManager.getSwapInfo().done { swapTrx, gasInfo in
-			self.gasFee = gasInfo.fee
+			self.pendingSwapTrx = swapTrx
+			self.pendingSwapGasInfo = gasInfo
 			self.formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat
 			self.formattedFeeInETH = gasInfo.fee!.sevenDigitFormat
 		}.catch { error in
@@ -96,14 +101,15 @@ class SwapConfirmationViewModel {
 	}
 
 	public func confirmSwap(completion: @escaping () -> Void) {
-		swapManager.confirmSwap { trx in
-			print("SWAP TRX HASH: \(trx)")
+		guard let pendingSwapTrx else { return }
+		swapManager.confirmSwap(swapTrx: pendingSwapTrx) { trxHash in
+			print("SWAP TRX HASH: \(trxHash)")
 			completion()
 		}
 	}
 
 	public func checkEnoughBalance() -> Bool {
-		if gasFee > ethToken.holdAmount {
+		if pendingSwapGasInfo!.fee! > ethToken.holdAmount {
 			return false
 		} else {
 			return true
@@ -136,8 +142,8 @@ class SwapConfirmationViewModel {
 				)
 				swapPriceManager.getSwapResponseFrom(
 					provider: selectedProvider.provider,
-					srcToken: fromToken,
-					destToken: toToken,
+					srcToken: fromToken.selectedToken,
+					destToken: toToken.selectedToken,
 					swapSide: swapSide,
 					amount: srcTokenAmount!.description
 				) { [self] providersInfo in
@@ -156,8 +162,10 @@ class SwapConfirmationViewModel {
 					swapRate = feeVM.calculatedAmount
 					swapManager = SwapManager(
 						selectedProvider: recalculatedSwapInfo,
-						srcToken: fromToken,
-						destToken: toToken
+						srcToken: fromToken.selectedToken,
+						destToken: toToken.selectedToken,
+						swapAmount: fromToken.tokenAmount!,
+						destinationAmount: toToken.tokenAmount!
 					)
 				}
 			}
