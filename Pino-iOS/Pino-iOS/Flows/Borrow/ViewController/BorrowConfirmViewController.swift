@@ -74,7 +74,7 @@ class BorrowConfirmViewController: UIViewController {
 		let sendTransactionStatusVM = SendTransactionStatusViewModel(
 			transaction: borrowTRX,
 			transactionInfo: TransactionInfoModel(
-                transactionType: .borrow,
+				transactionType: .borrow,
 				transactionDex: borrowConfirmVM.borrowIncreaseAmountVM.borrowVM.selectedDexSystem,
 				transactionAmount: borrowConfirmVM.borrowIncreaseAmountVM.tokenAmount,
 				transactionToken: borrowConfirmVM.borrowIncreaseAmountVM.selectedToken
