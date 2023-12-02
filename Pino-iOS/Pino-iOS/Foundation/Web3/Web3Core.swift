@@ -533,9 +533,9 @@ public class Web3Core {
 		aaveBorrowManager.getETHBorrowGasInfo(contractDetails: contractDetails)
 	}
 
-	public func aaveBorrowToken(contractDetails: ContractDetailsModel) -> Promise<String> {
-		aaveBorrowManager.borrowToken(contractDetails: contractDetails)
-	}
+    public func getAaveERCBorrowTransaction(contractDetails: ContractDetailsModel) -> Promise<EthereumSignedTransaction> {
+        aaveBorrowManager.getBorrowTransaction(contractDetails: contractDetails)
+    }
 
 	public func checkIfAssetUsedAsCollateral(assetAddress: String) -> Promise<Bool> {
 		aaveDepositManager.checkIfAssetUsedAsCollateral(assetAddress: assetAddress)

@@ -496,6 +496,7 @@
 		D9DD538BAF953A18503AB3F0 /* RemoveAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887EDE19A8B81F1FB217E0FA /* RemoveAccountView.swift */; };
 		D9E134852A52FB4A00193FF0 /* ActivityHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E134842A52FB4A00193FF0 /* ActivityHeaderView.swift */; };
 		D9E134872A53013D00193FF0 /* ActivityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E134862A53013D00193FF0 /* ActivityHelper.swift */; };
+		D9E27FF02B1B502B00AFA7D0 /* AaveBorrowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E27FEF2B1B502B00AFA7D0 /* AaveBorrowManager.swift */; };
 		D9E34BC92C3AE69B3D5EC4F2 /* PortfolioPerformanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4FFBB4CC6D342FF946AB9 /* PortfolioPerformanceViewModel.swift */; };
 		D9F1BD022A7111FE00F5303F /* CoinInfoEmptyStateFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F1BD012A7111FE00F5303F /* CoinInfoEmptyStateFooterView.swift */; };
 		D9F1BD042A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F1BD032A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift */; };
@@ -1314,6 +1315,7 @@
 		D9DC773E2A6FAB2B00AA0987 /* ActivityDetailPropertiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailPropertiesViewModel.swift; sourceTree = "<group>"; };
 		D9E134842A52FB4A00193FF0 /* ActivityHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHeaderView.swift; sourceTree = "<group>"; };
 		D9E134862A53013D00193FF0 /* ActivityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHelper.swift; sourceTree = "<group>"; };
+		D9E27FEF2B1B502B00AFA7D0 /* AaveBorrowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AaveBorrowManager.swift; sourceTree = "<group>"; };
 		D9F1BD012A7111FE00F5303F /* CoinInfoEmptyStateFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoEmptyStateFooterView.swift; sourceTree = "<group>"; };
 		D9F1BD032A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoEmptyStateFooterViewModel.swift; sourceTree = "<group>"; };
 		D9F2507F29E576FB00DE0410 /* NotificationSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsCell.swift; sourceTree = "<group>"; };
@@ -2082,6 +2084,7 @@
 				D95D20352AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift */,
 				D9714C8C2AE518AE00FF3AAA /* AaveCollateralManager.swift */,
 				D9F927AB2B1213D800147013 /* AaveWithdrawManager.swift */,
+				D9E27FEF2B1B502B00AFA7D0 /* AaveBorrowManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -5194,6 +5197,7 @@
 				96892E44DA2E5556E1679817 /* AccountBalanceHeaderView.swift in Sources */,
 				0F91AD673ECAFFCD63C38A33 /* WalletBalanceModel.swift in Sources */,
 				1EA05F6363FCD68B38A3B13B /* WalletBalanceViewModel.swift in Sources */,
+				D9E27FF02B1B502B00AFA7D0 /* AaveBorrowManager.swift in Sources */,
 				403691C22A3DFFB60013AB6D /* Toast.swift in Sources */,
 				E3FC69BD2A8A70BF009B3341 /* InvestCoinPerformanceViewModel.swift in Sources */,
 				D99F746F2AAF01CB00802BCF /* BorrowingAPIClient.swift in Sources */,
