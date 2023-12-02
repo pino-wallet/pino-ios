@@ -111,7 +111,7 @@ class AaveWithdrawManager: Web3ManagerProtocol {
 	}
 
 	private func getERCWithdrawMaxContractDetails() -> Promise<ContractDetailsModel> {
-		web3.getAaveWithdrawMAXERCContractDetails(tokenAddress: asset.id)
+		web3.getAaveWithdrawMaxERCContractDetails(tokenAddress: asset.id)
 	}
 
 	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
@@ -163,10 +163,10 @@ class AaveWithdrawManager: Web3ManagerProtocol {
 			firstly {
 				getERCWithdrawMaxContractDetails()
 			}.then { contractDetails -> Promise<(ContractDetailsModel, GasInfo)> in
-				self.web3.getAaveWithdrawMAXERCGasInfo(contractDetails: contractDetails).map { (contractDetails, $0) }
-			}.then { contractDetails, gasInfo -> Promise<(GasInfo, EthereumSignedTransaction)> in
-				self.web3.getAaveWithdrawMAXERCTransaction(contractDetails: contractDetails).map { (gasInfo, $0) }
-			}.done { gasInfo, signedTx in
+				self.web3.getAaveWithdrawMaxERCGasInfo(contractDetails: contractDetails).map { (contractDetails, $0) }
+			}.then { contractDetails, gasInfo -> TrxWithGasInfo in
+				self.web3.getAaveWithdrawMAXERCTransaction(contractDetails: contractDetails).map { ($0, gasInfo) }
+			}.done { signedTx, gasInfo in
 				self.withdrawTRX = signedTx
 				self.withdrawGasInfo = gasInfo
 				seal.fulfill((signedTx, gasInfo))

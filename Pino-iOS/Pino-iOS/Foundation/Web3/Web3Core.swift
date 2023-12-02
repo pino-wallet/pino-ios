@@ -591,11 +591,11 @@ public class Web3Core {
 		aaveWithdrawManager.getAaveUnwrapWethCallData(contract: contract)
 	}
 
-	public func getAaveWithdrawMAXERCContractDetails(tokenAddress: String) -> Promise<ContractDetailsModel> {
+	public func getAaveWithdrawMaxERCContractDetails(tokenAddress: String) -> Promise<ContractDetailsModel> {
 		aaveWithdrawManager.getWithdrawMAXERCContractDetails(tokenAddress: tokenAddress)
 	}
 
-	public func getAaveWithdrawMAXERCGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
+	public func getAaveWithdrawMaxERCGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
 		aaveWithdrawManager.getWithdrawMaxERCGasInfo(contractDetails: contractDetails)
 	}
 
