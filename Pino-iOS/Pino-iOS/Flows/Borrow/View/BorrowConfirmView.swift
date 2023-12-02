@@ -5,8 +5,8 @@
 //  Created by Amir hossein kazemi seresht on 9/2/23.
 //
 
-import Kingfisher
 import Combine
+import Kingfisher
 import UIKit
 
 class BorrowConfirmView: UIView {
@@ -35,25 +35,25 @@ class BorrowConfirmView: UIView {
 	private let feeSpacerView = UIView()
 	private let feeLabel = PinoLabel(style: .info, text: "")
 	private let confirmButton = PinoButton(style: .active)
-    private var feeInfo: CollateralConfirmViewModel.FeeInfoType?
+	private var feeInfo: CollateralConfirmViewModel.FeeInfoType?
 	private var borrowConfrimVM: BorrowConfirmViewModel
 
 	private var protocolTitleWithInfo: TitleWithInfo!
 	private var feeTitleWithInfo: TitleWithInfo!
 	private var protocolInfoView: UserAccountInfoView!
-    private var cancellables = Set<AnyCancellable>()
-    
-    private var pageStatus: PageStatus = .loading {
-        didSet {
-            updateUIWithPageStatus()
-        }
-    }
+	private var cancellables = Set<AnyCancellable>()
 
-    private enum PageStatus {
-        case loading
-        case notEnough
-        case normal
-    }
+	private var pageStatus: PageStatus = .loading {
+		didSet {
+			updateUIWithPageStatus()
+		}
+	}
+
+	private enum PageStatus {
+		case loading
+		case notEnough
+		case normal
+	}
 
 	// MARK: - Initializers
 
@@ -66,8 +66,8 @@ class BorrowConfirmView: UIView {
 		setupView()
 		setupStyles()
 		setupConstraints()
-        setupBindings()
-        setupSkeletonLoading()
+		setupBindings()
+		setupSkeletonLoading()
 	}
 
 	required init?(coder: NSCoder) {
@@ -97,13 +97,13 @@ class BorrowConfirmView: UIView {
 			image: borrowConfrimVM.protocolImageName,
 			title: borrowConfrimVM.protocolName
 		)
-        
-        let onConfirmTapGesture = UITapGestureRecognizer(target: self, action: #selector(onConfirm))
-        confirmButton.addGestureRecognizer(onConfirmTapGesture)
 
-        let toggleFeeGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleFeeText))
-        feeLabel.addGestureRecognizer(toggleFeeGestureRecognizer)
-        feeLabel.isUserInteractionEnabled = true
+		let onConfirmTapGesture = UITapGestureRecognizer(target: self, action: #selector(onConfirm))
+		confirmButton.addGestureRecognizer(onConfirmTapGesture)
+
+		let toggleFeeGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleFeeText))
+		feeLabel.addGestureRecognizer(toggleFeeGestureRecognizer)
+		feeLabel.isUserInteractionEnabled = true
 
 		protocolInfoStackView.addArrangedSubview(protocolTitleWithInfo)
 		protocolInfoStackView.addArrangedSubview(protocolSpacerView)
@@ -191,63 +191,63 @@ class BorrowConfirmView: UIView {
 			.horizontalEdges(to: layoutMarginsGuide, padding: 0),
 			.bottom(to: layoutMarginsGuide, padding: 12)
 		)
-        feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 45).isActive = true
-        feeLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
+		feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 45).isActive = true
+		feeLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 	}
-    
-    private func setupSkeletonLoading() {
-        feeLabel.isSkeletonable = true
-    }
-    
-    private func setupBindings() {
-        borrowConfrimVM.$feeInfo.sink { feeInfo in
-            self.feeInfo = feeInfo
-            self.feeLabel.text = feeInfo?.feeInDollars
-            self.hideSkeletonView()
-            self.validateFee(bigNumberFee: feeInfo?.bigNumberFee)
-        }.store(in: &cancellables)
-    }
 
-    private func validateFee(bigNumberFee: BigNumber?) {
-        guard let ethToken = GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth }),
-              let bigNumberFee else {
-            return
-        }
-        if ethToken.holdAmount >= bigNumberFee {
-            pageStatus = .normal
-        } else {
-            pageStatus = .notEnough
-        }
-    }
+	private func setupSkeletonLoading() {
+		feeLabel.isSkeletonable = true
+	}
 
-    private func updateUIWithPageStatus() {
-        switch pageStatus {
-        case .loading:
-            confirmButton.style = .deactive
-            confirmButton.title = borrowConfrimVM.loadingButtonTitle
-        case .notEnough:
-            confirmButton.style = .deactive
-            confirmButton.title = borrowConfrimVM.insufficientAmountButtonTitle
-            if Environment.current != .mainNet {
-                confirmButton.style = .active
-            }
-        case .normal:
-            confirmButton.style = .active
-            confirmButton.title = borrowConfrimVM.confirmButtonTitle
-        }
-    }
+	private func setupBindings() {
+		borrowConfrimVM.$feeInfo.sink { feeInfo in
+			self.feeInfo = feeInfo
+			self.feeLabel.text = feeInfo?.feeInDollars
+			self.hideSkeletonView()
+			self.validateFee(bigNumberFee: feeInfo?.bigNumberFee)
+		}.store(in: &cancellables)
+	}
 
-    @objc
-    private func onConfirm() {
-        borrowConfrimVM.confirmBorrow()
-    }
+	private func validateFee(bigNumberFee: BigNumber?) {
+		guard let ethToken = GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth }),
+		      let bigNumberFee else {
+			return
+		}
+		if ethToken.holdAmount >= bigNumberFee {
+			pageStatus = .normal
+		} else {
+			pageStatus = .notEnough
+		}
+	}
 
-    @objc
-    private func toggleFeeText() {
-        if feeLabel.text == feeInfo?.feeInDollars {
-            feeLabel.text = feeInfo?.feeInETH
-        } else {
-            feeLabel.text = feeInfo?.feeInDollars
-        }
-    }
+	private func updateUIWithPageStatus() {
+		switch pageStatus {
+		case .loading:
+			confirmButton.style = .deactive
+			confirmButton.title = borrowConfrimVM.loadingButtonTitle
+		case .notEnough:
+			confirmButton.style = .deactive
+			confirmButton.title = borrowConfrimVM.insufficientAmountButtonTitle
+			if Environment.current != .mainNet {
+				confirmButton.style = .active
+			}
+		case .normal:
+			confirmButton.style = .active
+			confirmButton.title = borrowConfrimVM.confirmButtonTitle
+		}
+	}
+
+	@objc
+	private func onConfirm() {
+		borrowConfrimVM.confirmBorrow()
+	}
+
+	@objc
+	private func toggleFeeText() {
+		if feeLabel.text == feeInfo?.feeInDollars {
+			feeLabel.text = feeInfo?.feeInETH
+		} else {
+			feeLabel.text = feeInfo?.feeInDollars
+		}
+	}
 }
