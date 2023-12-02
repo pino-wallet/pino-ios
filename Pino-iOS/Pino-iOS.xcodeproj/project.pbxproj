@@ -577,6 +577,13 @@
 		DFB1E9D62A08F21C00041B26 /* SelectedAssetsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB1E9D52A08F21C00041B26 /* SelectedAssetsDataSource.swift */; };
 		DFB566272A1926C600F9D6A0 /* ImportTextViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB566262A1926C600F9D6A0 /* ImportTextViewType.swift */; };
 		DFB566292A192CD600F9D6A0 /* WalletManagementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB566282A192CD600F9D6A0 /* WalletManagementType.swift */; };
+		DFB60DA12B1B3F4700464143 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = DFB60DA02B1B3F4700464143 /* Lottie */; };
+		DFB60DA92B1B3F9D00464143 /* BorrowEnsureLoanSafety.json in Resources */ = {isa = PBXBuildFile; fileRef = DFB60DA32B1B3F9D00464143 /* BorrowEnsureLoanSafety.json */; };
+		DFB60DAA2B1B3F9D00464143 /* SwapEasyAssetConversion.json in Resources */ = {isa = PBXBuildFile; fileRef = DFB60DA42B1B3F9D00464143 /* SwapEasyAssetConversion.json */; };
+		DFB60DAB2B1B3F9D00464143 /* InvestEasyProfitTracking.json in Resources */ = {isa = PBXBuildFile; fileRef = DFB60DA52B1B3F9D00464143 /* InvestEasyProfitTracking.json */; };
+		DFB60DAC2B1B3F9D00464143 /* BorrowLoansMadeEasy.json in Resources */ = {isa = PBXBuildFile; fileRef = DFB60DA62B1B3F9D00464143 /* BorrowLoansMadeEasy.json */; };
+		DFB60DAD2B1B3F9D00464143 /* SwapSaveOnSwaps.json in Resources */ = {isa = PBXBuildFile; fileRef = DFB60DA72B1B3F9D00464143 /* SwapSaveOnSwaps.json */; };
+		DFB60DAE2B1B3F9D00464143 /* InvestSimpleYieldEarning.json in Resources */ = {isa = PBXBuildFile; fileRef = DFB60DA82B1B3F9D00464143 /* InvestSimpleYieldEarning.json */; };
 		DFBDA00B2AB0CDA700ED42D6 /* SwapABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = DFBDA00A2AB0CDA700ED42D6 /* SwapABIJson.json */; };
 		DFC1F6A12A755620003DB68A /* SwapProvidersAPIServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6A02A75561F003DB68A /* SwapProvidersAPIServices.swift */; };
 		DFC1F6A72A755F55003DB68A /* ParaSwapPriceResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6A62A755F55003DB68A /* ParaSwapPriceResponseModel.swift */; };
@@ -1378,6 +1385,12 @@
 		DFB2C343099A9B87E6C231F0 /* StubManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubManager.swift; sourceTree = "<group>"; };
 		DFB566262A1926C600F9D6A0 /* ImportTextViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTextViewType.swift; sourceTree = "<group>"; };
 		DFB566282A192CD600F9D6A0 /* WalletManagementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletManagementType.swift; sourceTree = "<group>"; };
+		DFB60DA32B1B3F9D00464143 /* BorrowEnsureLoanSafety.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BorrowEnsureLoanSafety.json; sourceTree = "<group>"; };
+		DFB60DA42B1B3F9D00464143 /* SwapEasyAssetConversion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SwapEasyAssetConversion.json; sourceTree = "<group>"; };
+		DFB60DA52B1B3F9D00464143 /* InvestEasyProfitTracking.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvestEasyProfitTracking.json; sourceTree = "<group>"; };
+		DFB60DA62B1B3F9D00464143 /* BorrowLoansMadeEasy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BorrowLoansMadeEasy.json; sourceTree = "<group>"; };
+		DFB60DA72B1B3F9D00464143 /* SwapSaveOnSwaps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SwapSaveOnSwaps.json; sourceTree = "<group>"; };
+		DFB60DA82B1B3F9D00464143 /* InvestSimpleYieldEarning.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvestSimpleYieldEarning.json; sourceTree = "<group>"; };
 		DFBDA00A2AB0CDA700ED42D6 /* SwapABIJson.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SwapABIJson.json; sourceTree = "<group>"; };
 		DFC1F6A02A75561F003DB68A /* SwapProvidersAPIServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapProvidersAPIServices.swift; sourceTree = "<group>"; };
 		DFC1F6A62A755F55003DB68A /* ParaSwapPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParaSwapPriceResponseModel.swift; sourceTree = "<group>"; };
@@ -1631,6 +1644,7 @@
 				E3E009E02A0635C800234707 /* Hyperconnectivity in Frameworks */,
 				DFC4D0332A360C3B00F03DC4 /* Web3 in Frameworks */,
 				408463C02A3AEE010058FF16 /* Web3-Utility in Frameworks */,
+				DFB60DA12B1B3F4700464143 /* Lottie in Frameworks */,
 				DF0F65E529E1B20F00DB7290 /* BigInt in Frameworks */,
 				DFC4D0372A360C3B00F03DC4 /* Web3PromiseKit in Frameworks */,
 				DFC4D0352A360C3B00F03DC4 /* Web3ContractABI in Frameworks */,
@@ -1758,6 +1772,7 @@
 		1D13366B966864F971A82F68 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DFB60DA22B1B3F8300464143 /* LottieFiles */,
 				C27C5CD593A5978426386378 /* Assets.xcassets */,
 				941DD7FB51B23C52ED61480C /* Fonts */,
 			);
@@ -3618,6 +3633,19 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
+		DFB60DA22B1B3F8300464143 /* LottieFiles */ = {
+			isa = PBXGroup;
+			children = (
+				DFB60DA62B1B3F9D00464143 /* BorrowLoansMadeEasy.json */,
+				DFB60DA32B1B3F9D00464143 /* BorrowEnsureLoanSafety.json */,
+				DFB60DA52B1B3F9D00464143 /* InvestEasyProfitTracking.json */,
+				DFB60DA82B1B3F9D00464143 /* InvestSimpleYieldEarning.json */,
+				DFB60DA42B1B3F9D00464143 /* SwapEasyAssetConversion.json */,
+				DFB60DA72B1B3F9D00464143 /* SwapSaveOnSwaps.json */,
+			);
+			path = LottieFiles;
+			sourceTree = "<group>";
+		};
 		DFBDA0092AB0CD7B00ED42D6 /* ABIs */ = {
 			isa = PBXGroup;
 			children = (
@@ -4287,6 +4315,7 @@
 				408463BF2A3AEE010058FF16 /* Web3-Utility */,
 				DF954B562A8A68DD000A9D45 /* DGCharts */,
 				DF0B1ED02B00DE6C001B0522 /* FirebaseMessaging */,
+				DFB60DA02B1B3F4700464143 /* Lottie */,
 			);
 			productName = "Pino-iOS";
 			productReference = 8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */;
@@ -4368,6 +4397,7 @@
 				DFC4D0312A360C3B00F03DC4 /* XCRemoteSwiftPackageReference "Web3.swift" */,
 				408463BE2A3AEE010058FF16 /* XCRemoteSwiftPackageReference "Web3-Utility" */,
 				DF7B58F02B00B3A300939375 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				DFB60D9F2B1B3F4700464143 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
 			productRefGroup = 2821FB9CEE9F9B9E6BAE9FD7 /* Products */;
 			projectDirPath = "";
@@ -4391,6 +4421,7 @@
 				1F73812756988538BC594057 /* LaunchScreen.storyboard in Resources */,
 				D92729412AD3EDBC0043D9B1 /* BorrowETHAaveABIJson.json in Resources */,
 				879CCE498D1A04C8EDE64430 /* PPPangramSans-Bold.ttf in Resources */,
+				DFB60DAA2B1B3F9D00464143 /* SwapEasyAssetConversion.json in Resources */,
 				A895518EB79CEB4B5CD8758A /* PPPangramSans-BoldItalic.ttf in Resources */,
 				D9F252CA2ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json in Resources */,
 				84D88149949C0D8A0E7C2BF5 /* PPPangramSans-BoldReclined.ttf in Resources */,
@@ -4401,6 +4432,7 @@
 				D9714C8B2AE4FE5D00FF3AAA /* AaveProxyABIJson.json in Resources */,
 				62227423FCF2309039BB6FAC /* PPPangramSans-Extralight.ttf in Resources */,
 				D9D754242AD13248001D4B94 /* BorrowERCAaveABIJson.json in Resources */,
+				DFB60DAC2B1B3F9D00464143 /* BorrowLoansMadeEasy.json in Resources */,
 				710BFFE4625F76FC84268937 /* PPPangramSans-ExtralightItalic.ttf in Resources */,
 				79073EE50BEA80FAE0356625 /* PPPangramSans-ExtralightReclined.ttf in Resources */,
 				DF0F65F829E1B29C00DB7290 /* wallet-info-stub.json in Resources */,
@@ -4409,11 +4441,13 @@
 				3D47F14ECA2A8CAE61061F57 /* PPPangramSans-LightItalic.ttf in Resources */,
 				02DF93FE57661E220F5EFAAA /* PPPangramSans-LightReclined.ttf in Resources */,
 				822D161496971BD8810457B7 /* PPPangramSans-Medium.ttf in Resources */,
+				DFB60DAB2B1B3F9D00464143 /* InvestEasyProfitTracking.json in Resources */,
 				D5E4DDD52AD9295E000AA235 /* CompoundABIJson.json in Resources */,
 				DF0F65F929E1B29C00DB7290 /* wallet-balance-stub.json in Resources */,
 				9AD896368BEA2DF5FD408FDF /* PPPangramSans-MediumItalic.ttf in Resources */,
 				C7947A17B0833FA7A202FA92 /* PPPangramSans-MediumReclined.ttf in Resources */,
 				DFBDA00B2AB0CDA700ED42D6 /* SwapABIJson.json in Resources */,
+				DFB60DAE2B1B3F9D00464143 /* InvestSimpleYieldEarning.json in Resources */,
 				25BF49CF523EA1322C6FC4EB /* PPPangramSans-Regular.ttf in Resources */,
 				DF0F65F329E1B29C00DB7290 /* coin-performance-info-stub.json in Resources */,
 				DF0F65F129E1B29C00DB7290 /* about-coin-stub.json in Resources */,
@@ -4424,6 +4458,7 @@
 				D924C34A2A949712007299A4 /* user-borrowing-stub.json in Resources */,
 				AE47F248DD308C61B717B086 /* PPPangramSans-Semibold.ttf in Resources */,
 				6493F198BF5B402E4D922A79 /* PPPangramSans-SemiboldItalic.ttf in Resources */,
+				DFB60DA92B1B3F9D00464143 /* BorrowEnsureLoanSafety.json in Resources */,
 				E33F7CBC2AD442AC007FC04D /* InvestABIJson.json in Resources */,
 				BA45498BC5E24EE8ACDA819E /* PPPangramSans-SemiboldReclined.ttf in Resources */,
 				EFC5F586A70E988F98620A79 /* PPPangramSans-Thin.ttf in Resources */,
@@ -4434,6 +4469,7 @@
 				DF0F65F429E1B29C00DB7290 /* coin-portfolio-stub.json in Resources */,
 				DF0F65F529E1B29C00DB7290 /* positions-stub.json in Resources */,
 				DF0F65FB29E1B29C00DB7290 /* wallets-stub.json in Resources */,
+				DFB60DAD2B1B3F9D00464143 /* SwapSaveOnSwaps.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5660,6 +5696,14 @@
 				minimumVersion = 10.17.0;
 			};
 		};
+		DFB60D9F2B1B3F4700464143 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.3.4;
+			};
+		};
 		DFC4D0312A360C3B00F03DC4 /* XCRemoteSwiftPackageReference "Web3.swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Boilertalk/Web3.swift.git";
@@ -5713,6 +5757,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DF0F660429E1B47B00DB7290 /* XCRemoteSwiftPackageReference "Charts" */;
 			productName = DGCharts;
+		};
+		DFB60DA02B1B3F4700464143 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DFB60D9F2B1B3F4700464143 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
 		};
 		DFC4D0322A360C3B00F03DC4 /* Web3 */ = {
 			isa = XCSwiftPackageProductDependency;
