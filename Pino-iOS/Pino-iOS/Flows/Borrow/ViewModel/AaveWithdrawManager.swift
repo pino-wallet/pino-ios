@@ -110,6 +110,10 @@ class AaveWithdrawManager: Web3ManagerProtocol {
 		)
 	}
 
+	private func getERCWithdrawMaxContractDetails() -> Promise<ContractDetailsModel> {
+		web3.getAaveWithdrawMaxERCContractDetails(tokenAddress: asset.id)
+	}
+
 	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
 		web3.callMultiCall(
 			contractAddress: contract.address!.hex(eip55: true),
@@ -154,40 +158,59 @@ class AaveWithdrawManager: Web3ManagerProtocol {
 		}
 	}
 
-	public func getETHWithdrawData() -> TrxWithGasInfo {
+	public func getERC20WithdrawMaxData() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			firstly {
-				fetchHash()
-			}.then { plainHash in
-				self.signHash(plainHash: plainHash)
-			}.then { signiture in
-				self.checkAllowanceOfProvider(
-					approvingToken: self.positionAsset,
-					approvingAmount: self.assetAmountBigNumber.plainSevenDigitFormat,
-					spenderAddress: Web3Core.Constants.aavePoolERCContractAddress
-				).map {
-					(signiture, $0)
-				}
-			}.then { signiture, allowanceData -> Promise<(String, String?)> in
-				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
-			}.then { permitData, allowanceData -> Promise<(String, String, String?)> in
-				self.getETHWithdrawCallData().map {
-					($0, permitData, allowanceData)
-				}
-			}.then { withdrawData, permitData, allowanceData -> Promise<(String, String, String, String?)> in
-				self.web3.getAaveUnwrapWETHCallData(contract: self.contract)
-					.map { ($0, withdrawData, permitData, allowanceData) }
-			}.then { unwrapData, withdrawData, permitData, allowanceData in
-				var multiCallData: [String] = [permitData, withdrawData, unwrapData]
-				if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
-				return self.callProxyMultiCall(data: multiCallData, value: nil)
-			}.done { depositResults in
-				self.withdrawTRX = depositResults.0
-				self.withdrawGasInfo = depositResults.1
-				seal.fulfill(depositResults)
+				getERCWithdrawMaxContractDetails()
+			}.then { contractDetails -> Promise<(ContractDetailsModel, GasInfo)> in
+				self.web3.getAaveWithdrawMaxERCGasInfo(contractDetails: contractDetails).map { (contractDetails, $0) }
+			}.then { contractDetails, gasInfo -> TrxWithGasInfo in
+				self.web3.getAaveWithdrawMAXERCTransaction(contractDetails: contractDetails).map { ($0, gasInfo) }
+			}.done { signedTx, gasInfo in
+				self.withdrawTRX = signedTx
+				self.withdrawGasInfo = gasInfo
+				seal.fulfill((signedTx, gasInfo))
 			}.catch { error in
 				seal.reject(error)
 			}
 		}
 	}
+
+	#warning("maybe we use it later")
+	//	public func getETHWithdrawData() -> TrxWithGasInfo {
+	//		TrxWithGasInfo { seal in
+	//			firstly {
+	//				fetchHash()
+	//			}.then { plainHash in
+	//				self.signHash(plainHash: plainHash)
+	//			}.then { signiture in
+	//				self.checkAllowanceOfProvider(
+	//					approvingToken: self.positionAsset,
+	//					approvingAmount: self.assetAmountBigNumber.plainSevenDigitFormat,
+	//					spenderAddress: Web3Core.Constants.aavePoolERCContractAddress
+	//				).map {
+	//					(signiture, $0)
+	//				}
+	//			}.then { signiture, allowanceData -> Promise<(String, String?)> in
+	//				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
+	//			}.then { permitData, allowanceData -> Promise<(String, String, String?)> in
+	//				self.getETHWithdrawCallData().map {
+	//					($0, permitData, allowanceData)
+	//				}
+	//			}.then { withdrawData, permitData, allowanceData -> Promise<(String, String, String, String?)> in
+	//				self.web3.getAaveUnwrapWETHCallData(contract: self.contract)
+	//					.map { ($0, withdrawData, permitData, allowanceData) }
+	//			}.then { unwrapData, withdrawData, permitData, allowanceData in
+	//				var multiCallData: [String] = [permitData, withdrawData, unwrapData]
+	//				if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
+	//				return self.callProxyMultiCall(data: multiCallData, value: nil)
+	//			}.done { depositResults in
+	//				self.withdrawTRX = depositResults.0
+	//				self.withdrawGasInfo = depositResults.1
+	//				seal.fulfill(depositResults)
+	//			}.catch { error in
+	//				seal.reject(error)
+	//			}
+	//		}
+	//	}
 }

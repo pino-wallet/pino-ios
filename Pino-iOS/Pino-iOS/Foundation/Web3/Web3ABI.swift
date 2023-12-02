@@ -111,6 +111,7 @@ public enum ABIMethodWrite: String {
 	case depositV3
 	case setUserUseReserveAsCollateral
 	case depositWETHV2
+	case withdraw
 	case withdrawV2
 	case withdrawETHV2
 	case withdrawWETHV2
