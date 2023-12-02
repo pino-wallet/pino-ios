@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Web3
 
 class BorrowConfirmViewController: UIViewController {
 	// MARK: - Private Properties
@@ -23,6 +24,13 @@ class BorrowConfirmViewController: UIViewController {
 		setupView()
 		setupNavigationBar()
 	}
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if isBeingPresented || isMovingToParent {
+            borrowConfirmView.showSkeletonView()
+            borrowConfirmVM.getBorrowGasInfo()
+        }
+    }
 
 	// MARK: - Initializers
 
@@ -45,6 +53,10 @@ class BorrowConfirmViewController: UIViewController {
 				self.presentActionSheet(actionSheet: actionSheet)
 			}
 		)
+        
+        borrowConfirmVM.confirmBorrowClosure = { borrowTRX in
+            self.confirmBorrow(borrowTRX: borrowTRX)
+        }
 
 		view = borrowConfirmView
 	}
@@ -57,4 +69,21 @@ class BorrowConfirmViewController: UIViewController {
 	private func presentActionSheet(actionSheet: InfoActionSheet) {
 		present(actionSheet, animated: true)
 	}
+    
+    private func confirmBorrow(borrowTRX: EthereumSignedTransaction) {
+        let sendTransactionStatusVM = SendTransactionStatusViewModel(
+            transaction: borrowTRX,
+            transactionInfo: TransactionInfoModel(
+                transactionType: .collateral,
+                transactionDex: borrowConfirmVM.borrowIncreaseAmountVM.borrowVM.selectedDexSystem,
+                transactionAmount: borrowConfirmVM.borrowIncreaseAmountVM.tokenAmount,
+                transactionToken: borrowConfirmVM.borrowIncreaseAmountVM.selectedToken
+            )
+        )
+        sendTransactionStatusVM.addPendingActivityClosure = { txHash in
+            self.borrowConfirmVM.createBorrowPendingActivity(txHash: txHash)
+        }
+        let sendTransactionStatusVC = SendTransactionStatusViewController(sendStatusVM: sendTransactionStatusVM)
+        present(sendTransactionStatusVC, animated: true)
+    }
 }

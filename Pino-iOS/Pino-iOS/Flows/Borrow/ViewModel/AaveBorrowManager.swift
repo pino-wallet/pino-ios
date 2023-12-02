@@ -33,8 +33,8 @@ class AaveBorrowManager: Web3ManagerProtocol {
 
     // MARK: - Public Properties
 
-    public var withdrawGasInfo: GasInfo?
-    public var withdrawTRX: EthereumSignedTransaction?
+    public var borrowGasInfo: GasInfo?
+    public var borrowTRX: EthereumSignedTransaction?
 
     // MARK: - Initializers
 
@@ -78,8 +78,8 @@ class AaveBorrowManager: Web3ManagerProtocol {
             }.then { contractDetails, gasInfo -> TrxWithGasInfo in
                 self.web3.getAaveERCBorrowTransaction(contractDetails: contractDetails).map { ($0, gasInfo) }
             }.done { signedTx, gasInfo in
-                self.withdrawTRX = signedTx
-                self.withdrawGasInfo = gasInfo
+                self.borrowTRX = signedTx
+                self.borrowGasInfo = gasInfo
                 seal.fulfill((signedTx, gasInfo))
             }.catch { error in
                 seal.reject(error)
