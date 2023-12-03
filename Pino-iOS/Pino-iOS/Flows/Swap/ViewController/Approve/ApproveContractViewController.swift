@@ -80,7 +80,7 @@ class ApproveContractViewController: UIViewController {
 		approveContractVM.goToApproveLoading { approveContractDetails in
 			let approveLoadingVM = ApprovingLoadingViewModel(
 				approveContractDetails: approveContractDetails,
-				approveGasInfo: self.approveContractVM.approveGasInfo
+				approveContractVM: self.approveContractVM
 			)
 			let approveLoadingVC = ApprovingLoadingViewController(
 				showConfirmVC: {
