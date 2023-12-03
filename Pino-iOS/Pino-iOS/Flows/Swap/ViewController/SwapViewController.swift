@@ -40,6 +40,7 @@ class SwapViewController: UIViewController {
 		if GlobalVariables.shared.manageAssetsList == nil {
 			swapLoadingView.showSkeletonView()
 		}
+		showTutorial()
 	}
 
 	// MARK: - Private Methods
@@ -245,6 +246,17 @@ class SwapViewController: UIViewController {
 			let confirmationVC = SwapConfirmationViewController(swapConfirmationVM: swapConfirmationVM)
 			let confirmationNavigationVC = UINavigationController(rootViewController: confirmationVC)
 			present(confirmationNavigationVC, animated: true)
+		}
+	}
+
+	private func showTutorial() {
+		if !UserDefaults.standard.bool(forKey: "hasSeenSwapTut") {
+			let tutorialPage = TutorialViewController(tutorialType: .swap) {
+				self.dismiss(animated: true)
+				UserDefaults.standard.set(true, forKey: "hasSeenSwapTut")
+			}
+			tutorialPage.modalPresentationStyle = .overFullScreen
+			present(tutorialPage, animated: true)
 		}
 	}
 }

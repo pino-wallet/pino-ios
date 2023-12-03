@@ -12,6 +12,7 @@ class TutorialContainerViewModel {
 	// MARK: - Private Properties
 
 	private var tutorialType: TutorialType
+	private var watchedTutorial: () -> Void
 
 	@Published
 	public var currentIndex = 0
@@ -26,8 +27,9 @@ class TutorialContainerViewModel {
 
 	// MARK: - Initializer
 
-	init(tutorialType: TutorialType) {
+	init(tutorialType: TutorialType, completion: @escaping () -> Void) {
 		self.tutorialType = tutorialType
+		self.watchedTutorial = completion
 	}
 
 	// MARK: - Public Methods
@@ -35,6 +37,9 @@ class TutorialContainerViewModel {
 	public func nextTutorial() {
 		if currentIndex != tutorials.count - 1 {
 			currentIndex += 1
+		} else {
+			// Finished Watching tutorials
+			watchedTutorial()
 		}
 	}
 

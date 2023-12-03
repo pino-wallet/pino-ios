@@ -28,6 +28,7 @@ class BorrowViewController: UIViewController {
 		if borrowVM.userBorrowingDetails == nil {
 			borrowView.showLoading()
 		}
+		showTutorial()
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {
@@ -82,5 +83,15 @@ class BorrowViewController: UIViewController {
 	private func presentHealthScoreView(healthScoreSystemVM: HealthScoreSystemViewModel) {
 		let healthScoreSystemVC = HealthScoreSystemViewController(healthScoreSystemInfoVM: healthScoreSystemVM)
 		present(healthScoreSystemVC, animated: true)
+	}
+
+	private func showTutorial() {
+		if !UserDefaults.standard.bool(forKey: "hasSeenBorrowTut") {
+			let tutorialPage = TutorialViewController(tutorialType: .invest) {
+				self.dismiss(animated: true)
+			}
+			tutorialPage.modalPresentationStyle = .overFullScreen
+			present(tutorialPage, animated: true)
+		}
 	}
 }

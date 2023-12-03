@@ -5,7 +5,9 @@
 //  Created by Sobhan Eskandari on 11/27/23.
 //
 
+import Combine
 import Foundation
+import Lottie
 import UIKit
 
 class TutorialView: UIView {
@@ -17,6 +19,12 @@ class TutorialView: UIView {
 	private let skipRightView = UIView()
 	private var tutorialVM: TutorialContainerViewModel!
 	private let stepperCollectionView: TutorialStepperContainerView!
+	private var animationView = LottieAnimationView()
+	private var titleLabel = UILabel()
+	private var bodyLabel = UILabel()
+	private var contentStackView = UIStackView()
+	private var titleBodyStackView = UIStackView()
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -28,6 +36,7 @@ class TutorialView: UIView {
 		addGeatures()
 		setupStyles()
 		setupConstraints()
+		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -37,10 +46,34 @@ class TutorialView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		animationView = .init(name: tutorialVM.tutorials.first!.lottieFile)
+		animationView.play()
+
+		titleLabel.text = tutorialVM.tutorials.first?.title
+		bodyLabel.text = tutorialVM.tutorials.first?.desc
+
+		titleLabel.font = UIFont.PinoStyle.boldBigTitle
+		titleLabel.numberOfLines = 0
+
+		bodyLabel.font = UIFont.PinoStyle.mediumBody
+		bodyLabel.numberOfLines = 0
+
+		contentStackView.spacing = 40
+		titleBodyStackView.spacing = 24
+
+		contentStackView.axis = .vertical
+		titleBodyStackView.axis = .vertical
+
+		titleBodyStackView.addArrangedSubview(titleLabel)
+		titleBodyStackView.addArrangedSubview(bodyLabel)
+
+		contentStackView.addArrangedSubview(animationView)
+		contentStackView.addArrangedSubview(titleBodyStackView)
+
+		addSubview(contentStackView)
 		addSubview(stepperCollectionView)
 		addSubview(skipLeftView)
 		addSubview(skipRightView)
-		stepperCollectionView.backgroundColor = .clear
 	}
 
 	private func addGeatures() {
@@ -60,12 +93,18 @@ class TutorialView: UIView {
 
 		holdLeftGesture.minimumPressDuration = 0.2
 		holdLeftGesture.delaysTouchesBegan = true
+
+		animationView.contentMode = .scaleAspectFit
+		animationView.loopMode = .loop
+		animationView.animationSpeed = 1
+		animationView.backgroundColor = .clear
 	}
 
 	private func setupStyles() {
 		backgroundColor = .Pino.lightBlue
 		skipLeftView.backgroundColor = .clear
 		skipRightView.backgroundColor = .clear
+		stepperCollectionView.backgroundColor = .clear
 	}
 
 	private func setupConstraints() {
@@ -83,21 +122,42 @@ class TutorialView: UIView {
 			.verticalEdges
 		)
 
+		contentStackView.pin(
+			.top(to: stepperCollectionView, padding: 63),
+			.centerX,
+			.horizontalEdges(padding: 24)
+		)
+
+		animationView.pin(
+			.centerX,
+			.fixedWidth(256),
+			.fixedHeight(256)
+		)
+
 		NSLayoutConstraint.activate([
 			skipRightView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
 			skipLeftView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
 		])
 	}
 
+	func setupBindings() {
+		tutorialVM.$currentIndex.compactMap { $0 }.sink { [self] tutIndex in
+			animationView.pause()
+			animationView.animation = LottieAnimation.named(tutorialVM.tutorials[tutIndex].lottieFile)
+			animationView.play()
+
+			titleLabel.text = tutorialVM.tutorials[tutIndex].title
+			bodyLabel.text = tutorialVM.tutorials[tutIndex].desc
+		}.store(in: &cancellables)
+	}
+
 	@objc
 	private func skipLeft() {
-		print("skip left")
 		tutorialVM.prevTutorial()
 	}
 
 	@objc
 	private func skipRight() {
-		print("skip right")
 		tutorialVM.nextTutorial()
 	}
 

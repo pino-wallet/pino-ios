@@ -97,11 +97,3 @@ class TabBarViewController: UITabBarController {
 		}.store(in: &cancellables)
 	}
 }
-
-extension TabBarViewController: UITabBarControllerDelegate {
-	override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-		let tutorialPage = TutorialViewController()
-		tutorialPage.modalPresentationStyle = .fullScreen
-		present(tutorialPage, animated: true)
-	}
-}

@@ -9,8 +9,6 @@ import Combine
 import UIKit
 
 class TutorialStepperContainerView: UICollectionView {
-	// MARK: - Public Properties
-
 	// MARK: - Private Properties
 
 	private let tutorialVM: TutorialContainerViewModel!
@@ -22,7 +20,7 @@ class TutorialStepperContainerView: UICollectionView {
 		dataSource = self
 
 		register(TutorialStepperCell.self, forCellWithReuseIdentifier: TutorialStepperCell.cellReuseID)
-		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 			self.setupBindings()
 		}
 	}
@@ -44,24 +42,24 @@ class TutorialStepperContainerView: UICollectionView {
 
 	// MARK: - Private Methods
 
-	private func setupBindings() {
+	public func setupBindings() {
 		tutorialVM.$currentIndex.sink { [self] index in
-			print("Index:\(index)")
-			print("---------------------------------")
-
 			currentInex = index
 			for x in index ..< tutorialVM.tutorials.count {
-				let cell = cellForItem(at: .init(row: x, section: 0)) as! TutorialStepperCell
-				cell.tutStepperCellVM.resetProgress()
+				if let cell = cellForItem(at: .init(row: x, section: 0)) as? TutorialStepperCell {
+					cell.tutStepperCellVM.resetProgress()
+				}
 			}
 			for x in 0 ..< index {
-				let cell = cellForItem(at: .init(row: x, section: 0)) as! TutorialStepperCell
-				cell.tutStepperCellVM.fillProgress()
+				if let cell = cellForItem(at: .init(row: x, section: 0)) as? TutorialStepperCell {
+					cell.tutStepperCellVM.fillProgress()
+				}
 			}
 
-			let cell = cellForItem(at: .init(row: index, section: 0)) as! TutorialStepperCell
-			cell.startProgressFrom { [self] in
-				tutorialVM.nextTutorial()
+			if let cell = cellForItem(at: .init(row: index, section: 0)) as? TutorialStepperCell {
+				cell.startProgressFrom { [self] in
+					tutorialVM.nextTutorial()
+				}
 			}
 
 		}.store(in: &cancellables)
