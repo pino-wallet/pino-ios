@@ -85,7 +85,7 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 		maxAvailableAmount = selectedToken.holdAmount
 
 		selectedProtocol = .compound
-		selectedToken = tokensList.first(where: { $0.symbol == "USDC" })!
+		selectedToken = tokensList.first(where: { $0.symbol == "WETH" })!
 
 		#warning("it must be refactored later")
 		if selectedToken.holdAmount > 0.bigNumber {

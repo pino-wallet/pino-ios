@@ -82,8 +82,7 @@ class CompoundWithdrawManager: InvestW3ManagerProtocol {
 			}.then { positionID in
 				try self.web3.getExchangeRateStoredCallData(cTokenID: positionID)
 			}.then { [self] exchangeRate in
-				tokenUIntNumber = tokenUIntNumber * BigUInt(10).power(selectedToken.decimal) / Utilities
-					.parseToBigUInt("0.021427", decimals: selectedToken.decimal)!
+				tokenUIntNumber = tokenUIntNumber * BigUInt(10).power(18) / exchangeRate
 				return fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
@@ -115,7 +114,10 @@ class CompoundWithdrawManager: InvestW3ManagerProtocol {
 			firstly {
 				getTokenPositionID()
 			}.then { positionID in
-				self.fetchHash()
+				try self.web3.getExchangeRateStoredCallData(cTokenID: positionID)
+			}.then { [self] exchangeRate in
+				tokenUIntNumber = tokenUIntNumber * BigUInt(10).power(18) / exchangeRate
+				return self.fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
 			}.then { signiture in
@@ -145,7 +147,10 @@ class CompoundWithdrawManager: InvestW3ManagerProtocol {
 			firstly {
 				getTokenPositionID()
 			}.then { positionID in
-				self.fetchHash()
+				try self.web3.getExchangeRateStoredCallData(cTokenID: positionID)
+			}.then { [self] exchangeRate in
+				tokenUIntNumber = tokenUIntNumber * BigUInt(10).power(18) / exchangeRate
+				return fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
 			}.then { signiture -> Promise<String> in

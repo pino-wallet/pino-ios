@@ -26,7 +26,7 @@ extension InvestW3ManagerProtocol {
 
 	public func getTokenPositionID() -> Promise<String> {
 		Promise<String> { seal in
-			self.tokenPositionID = "0x39AA39c021dfbaE8faC545936693aC917d5E7563".lowercased()
+			self.tokenPositionID = "0x4Ddc2D193948926D02f9B1fE9e1daa0718270ED5".lowercased()
 			seal.fulfill(self.tokenPositionID)
 //			web3Client.getTokenPositionID(
 //				tokenAdd: selectedToken.id.lowercased(),

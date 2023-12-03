@@ -94,6 +94,6 @@ class WithdrawViewModel: InvestViewModelProtocol {
 		maxAvailableAmount = selectedToken.holdAmount
 
 		selectedProtocol = .compound
-		selectedToken = tokensList.first(where: { $0.symbol == "USDC" })!
+		selectedToken = tokensList.first(where: { $0.symbol == "WETH" })!
 	}
 }
