@@ -21,7 +21,7 @@ class InvestDepositViewController: UIViewController {
 	// MARK: Initializers
 
 	init(selectedAsset: AssetsBoardProtocol, selectedProtocol: InvestProtocolViewModel, isWithdraw: Bool = false) {
-		self.isWithdraw = true
+		self.isWithdraw = isWithdraw
 		if self.isWithdraw {
 			self.investVM = WithdrawViewModel(selectedAsset: selectedAsset, selectedProtocol: selectedProtocol)
 		} else {
@@ -160,8 +160,7 @@ class InvestDepositViewController: UIViewController {
 
 	private func getTokenAddress(completion: @escaping (String) -> Void) {
 		if let withdrawVM = investVM as? WithdrawViewModel {
-//			withdrawVM.getTokenPositionID(completion: completion)
-			completion("0x4Ddc2D193948926D02f9B1fE9e1daa0718270ED5".lowercased())
+			withdrawVM.getTokenPositionID(completion: completion)
 		} else {
 			let tokenAddress = investVM.selectedToken.id.lowercased()
 			completion(tokenAddress)
