@@ -143,3 +143,16 @@ public class AssetViewModel: SecurityModeProtocol {
 		}
 	}
 }
+
+extension AssetViewModel {
+	// It is used for object of asset with position id
+	public func copy(newId: String) -> AssetViewModel {
+		var newAssetModel = BalanceAssetModel(
+			id: newId,
+			amount: assetModel.amount,
+			detail: assetModel.detail,
+			previousDayNetworth: assetModel.previousDayNetworth
+		)
+		return AssetViewModel(assetModel: newAssetModel, isSelected: isSelected)
+	}
+}
