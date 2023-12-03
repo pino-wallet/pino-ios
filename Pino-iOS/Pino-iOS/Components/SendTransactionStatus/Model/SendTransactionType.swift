@@ -8,7 +8,7 @@
 import Foundation
 
 enum SendTransactionType {
-	//    case borrow
+	case borrow
 	//    case send
 	//    case repy
 	case collateral
