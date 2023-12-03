@@ -47,10 +47,10 @@ class ApproveContractViewModel {
 	}
 
 	public var approveGasInfo: GasInfo?
-    
-    public var approveAssetVM: AssetViewModel {
-        (globalAssetsList?.first(where: { $0.id == contractId }))!
-    }
+
+	public var approveAssetVM: AssetViewModel {
+		(globalAssetsList?.first(where: { $0.id == contractId }))!
+	}
 
 	// MARK: - Private Properties
 

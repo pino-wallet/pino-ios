@@ -16,9 +16,9 @@ class ApprovingLoadingViewModel {
 	private let showSpeedUpTimeOut: Double = 10
 	private var approveContractVM: ApproveContractViewModel
 	private let web3 = Web3Core.shared
-    private let coreDataManager = CoreDataManager()
-    private let activityHelper = ActivityHelper()
-    private let walletManager = PinoWalletManager()
+	private let coreDataManager = CoreDataManager()
+	private let activityHelper = ActivityHelper()
+	private let walletManager = PinoWalletManager()
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
@@ -42,7 +42,7 @@ class ApprovingLoadingViewModel {
 	@Published
 	public var approveLoadingStatus: ApproveLoadingStatuses = .normalLoading
 	public var formattedFeeInDollar: String {
-        guard let approveGasInfo = approveContractVM.approveGasInfo else {
+		guard let approveGasInfo = approveContractVM.approveGasInfo else {
 			return "0"
 		}
 		return approveGasInfo.feeInDollar!.priceFormat
@@ -58,7 +58,7 @@ class ApprovingLoadingViewModel {
 
 	// MARK: - Initializers
 
-    init(approveContractDetails: ContractDetailsModel, approveContractVM: ApproveContractViewModel) {
+	init(approveContractDetails: ContractDetailsModel, approveContractVM: ApproveContractViewModel) {
 		self.approveContractDetails = approveContractDetails
 		self.approveContractVM = approveContractVM
 
@@ -82,7 +82,7 @@ class ApprovingLoadingViewModel {
 		web3.approveContract(contractDetails: approveContractDetails).done { trxHash in
 			print("APPROVE TRX HASH: \(trxHash)")
 			self.approveTxHash = trxHash
-            self.createApprovePendingActivity(trxHash: trxHash)
+			self.createApprovePendingActivity(trxHash: trxHash)
 			self.startTimer()
 			self.showSpeedUpAfterSomeTime()
 		}.catch { error in
@@ -92,11 +92,28 @@ class ApprovingLoadingViewModel {
 	}
 
 	// MARK: - Private Methods
-    
-    private func createApprovePendingActivity(trxHash: String) {
-        coreDataManager.addNewApproveActivity(activityModel: ActivityApproveModel(txHash: trxHash, type: "approve", detail: ApproveActivityDetail(amount: "0", owner: "", spender: "", tokenID: approveContractVM.approveAssetVM.id), fromAddress: "", toAddress: "", blockTime: activityHelper.getServerFormattedStringDate(date: Date()), gasUsed: (approveContractVM.approveGasInfo?.increasedGasLimit!.description)!, gasPrice: (approveContractVM.approveGasInfo?.maxFeePerGas.description)!), accountAddress: walletManager.currentAccount.eip55Address)
-        PendingActivitiesManager.shared.startActivityPendingRequests()
-    }
+
+	private func createApprovePendingActivity(trxHash: String) {
+		coreDataManager.addNewApproveActivity(
+			activityModel: ActivityApproveModel(
+				txHash: trxHash,
+				type: "approve",
+				detail: ApproveActivityDetail(
+					amount: "0",
+					owner: "",
+					spender: "",
+					tokenID: approveContractVM.approveAssetVM.id
+				),
+				fromAddress: "",
+				toAddress: "",
+				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
+				gasUsed: (approveContractVM.approveGasInfo?.increasedGasLimit!.description)!,
+				gasPrice: (approveContractVM.approveGasInfo?.maxFeePerGas.description)!
+			),
+			accountAddress: walletManager.currentAccount.eip55Address
+		)
+		PendingActivitiesManager.shared.startActivityPendingRequests()
+	}
 
 	private func startTimer() {
 		setupTimer()
