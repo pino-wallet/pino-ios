@@ -20,6 +20,9 @@ class WithdrawManager: InvestW3ManagerProtocol {
 	private let nonce = BigNumber.bigRandomeNumber
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes
 	private let compoundManager: CompoundWithdrawManager
+	private var swapManager: SwapManager?
+	private let swapPriceManager = SwapPriceManager()
+	private var swapTrx: EthereumSignedTransaction?
 	private var tokenUIntNumber: BigUInt {
 		Utilities.parseToBigUInt(withdrawAmount, decimals: selectedToken.decimal)!
 	}
@@ -75,9 +78,13 @@ class WithdrawManager: InvestW3ManagerProtocol {
 	}
 
 	public func confirmWithdraw(completion: @escaping (Result<String>) -> Void) {
-		if selectedProtocol == .compound {
+		switch selectedProtocol {
+		case .compound:
 			compoundManager.confirmWithdraw(completion: completion)
-		} else {
+		case .lido:
+			guard let swapTrx else { return }
+			swapManager!.confirmSwap(swapTrx: swapTrx, completion: completion)
+		case .aave, .maker:
 			guard let withdrawTrx else { return }
 			Web3Core.shared.callTransaction(trx: withdrawTrx).done { trxHash in
 				#warning("Add transaction activity later")
@@ -122,6 +129,46 @@ class WithdrawManager: InvestW3ManagerProtocol {
 
 	private func getLidoWithdrawInfo() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
+			firstly {
+				getTokenPositionID()
+			}.then { positionID in
+				self.getSTETHToETHSwapInfo()
+			}.done { trx, gasInfo in
+				seal.fulfill((trx, gasInfo))
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	private func getSTETHToETHSwapInfo() -> TrxWithGasInfo {
+		TrxWithGasInfo { seal in
+			let stethToken = selectedToken.copy(newId: tokenPositionID)
+			swapPriceManager.getSwapResponseFrom(
+				provider: .paraswap,
+				srcToken: stethToken,
+				destToken: selectedToken,
+				swapSide: .sell,
+				amount: tokenUIntNumber.description
+			) { priceResponce in
+				self.swapManager = SwapManager(
+					selectedProvider: SwapProviderViewModel(
+						providerResponseInfo: priceResponce.first!,
+						side: .sell,
+						destToken: self.selectedToken
+					),
+					srcToken: stethToken,
+					destToken: self.selectedToken,
+					swapAmount: self.withdrawAmount,
+					destinationAmount: priceResponce.first!.destAmount
+				)
+				self.swapManager!.getSwapInfo().done { trxWithGasInfo in
+					self.swapTrx = trxWithGasInfo.0
+					seal.fulfill(trxWithGasInfo)
+				}.catch { error in
+					seal.reject(error)
+				}
+			}
 		}
 	}
 
