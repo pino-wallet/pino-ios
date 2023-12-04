@@ -618,8 +618,9 @@ public class Web3Core {
 		contract: DynamicContract,
 		tokenAddress: String,
 		amount: BigUInt
-	) -> Promise<String> {
-		aaveRepayManager.getRepayERCCallData(contract: contract, tokenAddress: tokenAddress, amount: amount)
+    ) -> Promise<String> {
+        aaveRepayManager.getRepayERCCallData(contract: contract, tokenAddress: tokenAddress, amount: amount)
+    }
 
 	public func getExchangeRateStoredCallData(cTokenID: String) throws -> Promise<BigUInt> {
 		try investManager.getExchangeRateStoredCallData(cTokenID: cTokenID)
