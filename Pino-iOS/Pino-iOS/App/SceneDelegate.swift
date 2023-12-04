@@ -29,6 +29,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			let navigationController = CustomNavigationController(rootViewController: IntroViewController())
 			window?.rootViewController = navigationController
 		}
+		UserDefaults.standard.register(defaults: [
+			"hasSeenSwapTut": false,
+			"hasSeenInvestTut": false,
+			"hasSeenBorrowTut": false,
+		])
 		window?.makeKeyAndVisible()
 
 		// Disable animations in test mode to speed up tests
