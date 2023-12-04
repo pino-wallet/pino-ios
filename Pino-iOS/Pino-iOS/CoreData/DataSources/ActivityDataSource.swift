@@ -39,11 +39,11 @@ struct ActivityDataSource: DataSourceProtocol {
 	}
 
 	public func get(byId id: String) -> CDActivityParent? {
-		activities.first(where: { $0.txHash == id })
+		activities.first(where: { $0.txHash.lowercased() == id.lowercased() })
 	}
 
 	public mutating func save(_ activity: CDActivityParent) {
-		if let index = activities.firstIndex(where: { $0.txHash == activity.txHash }) {
+		if let index = activities.firstIndex(where: { $0.txHash.lowercased() == activity.txHash.lowercased() }) {
 			activities[index] = activity
 		} else {
 			activities.append(activity)
@@ -52,7 +52,7 @@ struct ActivityDataSource: DataSourceProtocol {
 	}
 
 	public mutating func delete(_ activity: CDActivityParent) {
-		activities.removeAll(where: { $0.txHash == activity.txHash })
+		activities.removeAll(where: { $0.txHash.lowercased() == activity.txHash.lowercased() })
 		managedContext.delete(activity)
 		coreDataStack.saveContext()
 	}
@@ -67,8 +67,8 @@ struct ActivityDataSource: DataSourceProtocol {
 	}
 
 	public mutating func deleteByID(_ id: String) {
-		if let deletingActivity = activities.first(where: { $0.txHash == id }) {
-			activities.removeAll(where: { $0.txHash == id })
+		if let deletingActivity = activities.first(where: { $0.txHash.lowercased() == id.lowercased() }) {
+			activities.removeAll(where: { $0.txHash.lowercased() == id.lowercased() })
 			managedContext.delete(deletingActivity)
 			coreDataStack.saveContext()
 		}
@@ -83,7 +83,7 @@ struct ActivityDataSource: DataSourceProtocol {
 	}
 
 	public func performSpeedUpChanges(txHash: String, newTxHash: String, newGasPrice: String) {
-		let updatingIndex = activities.firstIndex(where: { $0.txHash == txHash })
+		let updatingIndex = activities.firstIndex(where: { $0.txHash.lowercased() == txHash.lowercased() })
 		guard let updatingIndex else {
 			return
 		}

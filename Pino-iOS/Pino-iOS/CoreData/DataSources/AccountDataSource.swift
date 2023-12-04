@@ -38,7 +38,7 @@ struct AccountDataSource: DataSourceProtocol {
 	}
 
 	public func get(byId id: String) -> WalletAccount? {
-		accounts.first(where: { $0.publicKey == id })
+		accounts.first(where: { $0.publicKey.lowercased() == id.lowercased() })
 	}
 
 	public func get(byWalletType type: Wallet.WalletType) -> [WalletAccount] {
@@ -46,7 +46,7 @@ struct AccountDataSource: DataSourceProtocol {
 	}
 
 	public mutating func save(_ account: WalletAccount) {
-		if let index = accounts.firstIndex(where: { $0.objectID == account.objectID }) {
+		if let index = accounts.firstIndex(where: { $0.publicKey.lowercased() == account.publicKey.lowercased() }) {
 			accounts[index] = account
 		} else {
 			accounts.append(account)
@@ -56,7 +56,7 @@ struct AccountDataSource: DataSourceProtocol {
 
 	public mutating func delete(_ account: WalletAccount) {
 		let isAccountSelected = account.isSelected
-		accounts.removeAll(where: { $0.objectID == account.objectID })
+		accounts.removeAll(where: { $0.publicKey.lowercased() == account.publicKey.lowercased() })
 		managedContext.delete(account)
 		coreDataStack.saveContext()
 		if isAccountSelected {
