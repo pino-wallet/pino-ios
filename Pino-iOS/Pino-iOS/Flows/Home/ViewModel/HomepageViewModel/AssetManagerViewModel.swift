@@ -130,13 +130,17 @@ class AssetManagerViewModel {
 
 	private func addSelectedAssetToCoreData(_ asset: AssetViewModel) {
 		let selectedAsset = coreDataManager.addNewSelectedAsset(id: asset.id)
-		selectedAssets.append(selectedAsset)
+        if let selectedAsset {
+            selectedAssets.append(selectedAsset)
+        }
 	}
 
 	private func addSelectedAssetToCoreData(id: String) {
 		let selectedAsset = coreDataManager.addNewSelectedAsset(id: id)
-		selectedAssets.append(selectedAsset)
-	}
+        if let selectedAsset {
+            selectedAssets.append(selectedAsset)
+        }
+    }
 
 	private func deleteSelectedAssetFromCoreData(_ asset: AssetViewModel) {
 		guard let selectedAsset = selectedAssets.first(where: { $0.id == asset.id }) else { return }
@@ -146,11 +150,17 @@ class AssetManagerViewModel {
 
 	private func addDefaultAssetsToCoreData(assets: [BalanceAssetModel]) {
 		let ethToken = coreDataManager.addNewSelectedAsset(id: ctsAPIclient.defaultTokenID)
-		selectedAssets = [ethToken]
+        if let ethToken {
+            selectedAssets = [ethToken]
+        } else {
+            selectedAssets = [coreDataManager.getSelectedAsset(byId: ctsAPIclient.defaultTokenID)!]
+        }
 		let userAssets = assets.filter { !BigNumber(number: $0.amount, decimal: $0.detail!.decimals).isZero }
 		for token in userAssets {
 			let selectedAsset = coreDataManager.addNewSelectedAsset(id: token.id)
-			selectedAssets.append(selectedAsset)
+            if let selectedAsset {
+                selectedAssets.append(selectedAsset)
+            }
 		}
 	}
 

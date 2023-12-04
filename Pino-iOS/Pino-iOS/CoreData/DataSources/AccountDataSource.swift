@@ -38,7 +38,7 @@ struct AccountDataSource: DataSourceProtocol {
 	}
 
 	public func get(byId id: String) -> WalletAccount? {
-		accounts.first(where: { $0.objectID.description == id })
+		accounts.first(where: { $0.publicKey == id })
 	}
 
 	public func get(byWalletType type: Wallet.WalletType) -> [WalletAccount] {
