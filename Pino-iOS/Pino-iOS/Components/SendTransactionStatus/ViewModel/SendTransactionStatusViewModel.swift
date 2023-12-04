@@ -37,7 +37,9 @@ class SendTransactionStatusViewModel {
 			return "You withdrew  \(Int(transactionInfo.transactionAmount)!.formattedWithCamma) \(transactionInfo.transactionToken.symbol) from \(transactionInfo.transactionDex.name)."
 		case .borrow:
 			return "You borrowed  \(Int(transactionInfo.transactionAmount)!.formattedWithCamma) \(transactionInfo.transactionToken.symbol) from \(transactionInfo.transactionDex.name)."
-		}
+        case .repay:
+            return "You repaid  \(Int(transactionInfo.transactionAmount)!.formattedWithCamma) \(transactionInfo.transactionToken.symbol) to \(transactionInfo.transactionDex.name)."
+        }
 	}
 
 	// MARK: - Private Properties

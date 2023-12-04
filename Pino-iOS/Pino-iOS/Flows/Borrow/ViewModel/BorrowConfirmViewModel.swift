@@ -9,8 +9,6 @@ import Foundation
 import Web3
 import Web3_Utility
 
-#warning("this values are static and should be changed")
-
 class BorrowConfirmViewModel {
 	// MARK: - TypeAliases
 
