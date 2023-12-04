@@ -74,12 +74,12 @@ class SendTransactionStatusViewModel {
 		}
 		when(fulfilled: getActivityPromiss).done { transactionStatus in
 			self.sendTransactionStatus = .success
-		}.catch { error in
+		}.catch { _ in
 			self.sendTransactionStatus = .failed
 		}
 	}
 
-	// MARK: - Public Methods
+	// MARK: Public Methods
 
 	public func destroyRequestTimer() {
 		transactions.forEach { transaction in
