@@ -20,6 +20,11 @@ extension UIFont.PinoStyle {
 		size: FontSize.largeTitle.rawValue
 	)
 
+	static let boldBigTitle = UIFont(
+		name: FontName.pinoBold.rawValue,
+		size: FontSize.bigTitle.rawValue
+	)
+
 	static let boldTitle1 = UIFont(
 		name: FontName.pinoBold.rawValue,
 		size: FontSize.title1.rawValue

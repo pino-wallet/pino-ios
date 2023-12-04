@@ -19,9 +19,7 @@ class CompoundWithdrawManager: InvestW3ManagerProtocol {
 	private var withdrawAmount: String
 	private let nonce = BigNumber.bigRandomeNumber
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes
-	private var tokenUIntNumber: BigUInt {
-		Utilities.parseToBigUInt(withdrawAmount, decimals: selectedToken.decimal)!
-	}
+	private var tokenUIntNumber: BigUInt
 
 	// MARK: - Public Properties
 
@@ -50,6 +48,7 @@ class CompoundWithdrawManager: InvestW3ManagerProtocol {
 		self.selectedToken = selectedToken
 		self.selectedProtocol = .compound
 		self.withdrawAmount = withdrawAmount
+		self.tokenUIntNumber = Utilities.parseToBigUInt(withdrawAmount, decimals: selectedToken.decimal)!
 	}
 
 	// MARK: Public Methods
@@ -81,7 +80,10 @@ class CompoundWithdrawManager: InvestW3ManagerProtocol {
 			firstly {
 				getTokenPositionID()
 			}.then { positionID in
-				self.fetchHash()
+				try self.web3.getExchangeRateStoredCallData(cTokenID: positionID)
+			}.then { [self] exchangeRate in
+				tokenUIntNumber = tokenUIntNumber * BigUInt(10).power(18) / exchangeRate
+				return fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
 			}.then { signiture in
@@ -112,7 +114,10 @@ class CompoundWithdrawManager: InvestW3ManagerProtocol {
 			firstly {
 				getTokenPositionID()
 			}.then { positionID in
-				self.fetchHash()
+				try self.web3.getExchangeRateStoredCallData(cTokenID: positionID)
+			}.then { [self] exchangeRate in
+				tokenUIntNumber = tokenUIntNumber * BigUInt(10).power(18) / exchangeRate
+				return fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
 			}.then { signiture in
@@ -142,7 +147,10 @@ class CompoundWithdrawManager: InvestW3ManagerProtocol {
 			firstly {
 				getTokenPositionID()
 			}.then { positionID in
-				self.fetchHash()
+				try self.web3.getExchangeRateStoredCallData(cTokenID: positionID)
+			}.then { [self] exchangeRate in
+				tokenUIntNumber = tokenUIntNumber * BigUInt(10).power(18) / exchangeRate
+				return fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
 			}.then { signiture -> Promise<String> in

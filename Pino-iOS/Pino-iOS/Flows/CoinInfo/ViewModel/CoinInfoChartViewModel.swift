@@ -48,7 +48,7 @@ class CoinInfoChartViewModel {
 		assetsAPIClient.aboutCoin().sink { completed in
 			switch completed {
 			case .finished:
-				print("Coin info received successfully")
+				print("Chart info received successfully")
 			case let .failure(error):
 				print(error)
 			}
