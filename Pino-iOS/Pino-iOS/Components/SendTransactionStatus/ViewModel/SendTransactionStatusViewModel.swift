@@ -5,15 +5,11 @@
 //  Created by Amir hossein kazemi seresht on 11/20/23.
 //
 
-import Combine
 import Foundation
 import PromiseKit
-import Web3
 
 class SendTransactionStatusViewModel {
 	// MARK: - Closures
-
-	public var addPendingActivityClosure: (_ txHash: String) -> Void = { _ in }
 
 	public let confirmingDescriptionText = "We'll notify you once confirmed."
 	public let confirmingTitleText = "Confirming..."
@@ -43,17 +39,12 @@ class SendTransactionStatusViewModel {
 
 	// MARK: - Private Properties
 
-	private let transactions: [EthereumSignedTransaction]
+	private let transactions: [SendTransactionViewModel]
 	private let transactionInfo: TransactionInfoModel
-	private let activityAPIClient = ActivityAPIClient()
-	private let web3Core = Web3Core.shared
-	private var txHash: String?
-	private var requestTimer: Timer?
-	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
-	init(transactions: [EthereumSignedTransaction], transactionInfo: TransactionInfoModel) {
+	init(transactions: [SendTransactionViewModel], transactionInfo: TransactionInfoModel) {
 		self.transactions = transactions
 		self.transactionInfo = transactionInfo
 
@@ -63,100 +54,36 @@ class SendTransactionStatusViewModel {
 	// MARK: - Private Methods
 
 	private func sendTx() {
+		var sendTXPromiss: [Promise<SendTransactionStatus>] = []
 		transactions.forEach { transaction in
-			web3Core.callTransaction(trx: transaction).done { txHash in
-				self.txHash = txHash
-				self.setupRequestTimer()
-				self.addPendingActivityClosure(txHash)
-				self.sendTransactionStatus = .pending
-			}.catch { _ in
-				self.sendTransactionStatus = .failed
-			}
+			sendTXPromiss.append(transaction.sendTx())
 		}
-	}
-
-	private func setupRequestTimer() {
-		requestTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { timer in
+		when(fulfilled: sendTXPromiss).done { transactionStatus in
 			self.getPendingTransactionActivity()
+			self.sendTransactionStatus = .pending
+		}.catch { error in
+			self.sendTransactionStatus = .failed
 		}
 	}
 
 	@objc
 	private func getPendingTransactionActivity() {
-		guard let txHash else {
-			return
+		var getActivityPromiss: [Promise<SendTransactionStatus>] = []
+		transactions.forEach { transaction in
+			getActivityPromiss.append(transaction.getPendingTransactionActivity())
 		}
-		activityAPIClient.singleActivity(txHash: txHash).sink { completed in
-			switch completed {
-			case .finished:
-				print("Transaction activity received sucsessfully")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { result in
+		when(fulfilled: getActivityPromiss).done { transactionStatus in
 			self.sendTransactionStatus = .success
-			self.destroyRequestTimer()
-		}.store(in: &cancellables)
-	}
-
-	// MARK: Public Methods
-
-	public func destroyRequestTimer() {
-		requestTimer?.invalidate()
-		requestTimer = nil
-	}
-}
-
-class TransactionViewModel {
-	private var txHash: String?
-	private let transaction: EthereumSignedTransaction
-	private let web3Core = Web3Core.shared
-	private let activityAPIClient = ActivityAPIClient()
-	private var cancellables = Set<AnyCancellable>()
-	private var requestTimer: Timer?
-	public var addPendingActivityClosure: (_ txHash: String) -> Void = { _ in }
-
-	init(transaction: EthereumSignedTransaction, addPendingActivityClosure: @escaping (_: String) -> Void) {
-		self.transaction = transaction
-		self.addPendingActivityClosure = addPendingActivityClosure
-	}
-
-	public func sendTx() -> Promise<SendTransactionStatus> {
-		Promise<SendTransactionStatus> { seal in
-			web3Core.callTransaction(trx: transaction).done { txHash in
-				self.txHash = txHash
-				self.addPendingActivityClosure(txHash)
-				self.getPendingTransactionActivity()
-				seal.fulfill(.pending)
-			}.catch { error in
-				seal.reject(error)
-			}
+		}.catch { error in
+			self.sendTransactionStatus = .failed
 		}
 	}
 
-	public func getPendingTransactionActivity() -> Promise<SendTransactionStatus> {
-		Promise<SendTransactionStatus> { seal in
-			guard let txHash else {
-				return
-			}
-			requestTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { [self] timer in
-				activityAPIClient.singleActivity(txHash: txHash).sink { completed in
-					switch completed {
-					case .finished:
-						print("Transaction activity received sucsessfully")
-					case let .failure(error):
-						print(error)
-					}
-				} receiveValue: { _ in
-					seal.fulfill(.success)
-					self.destroyRequestTimer()
-				}.store(in: &cancellables)
-			}
-		}
-	}
+	// MARK: - Public Methods
 
 	public func destroyRequestTimer() {
-		requestTimer?.invalidate()
-		requestTimer = nil
+		transactions.forEach { transaction in
+			transaction.destroyRequestTimer()
+		}
 	}
 }
