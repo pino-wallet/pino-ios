@@ -636,6 +636,7 @@
 		E33F7CBA2AD44199007FC04D /* W3InvestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F7CB92AD44199007FC04D /* W3InvestManager.swift */; };
 		E33F7CBC2AD442AC007FC04D /* InvestABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = E33F7CBB2AD442AC007FC04D /* InvestABIJson.json */; };
 		E33F7CBE2AD44CA2007FC04D /* DepositManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F7CBD2AD44CA2007FC04D /* DepositManager.swift */; };
+		E33F90FF2B15BD3F00409CAE /* CTokenABI.json in Resources */ = {isa = PBXBuildFile; fileRef = E33F90FE2B15BD3F00409CAE /* CTokenABI.json */; };
 		E343836A2A3D912A0048BDA1 /* SendConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34383692A3D912A0048BDA1 /* SendConfirmationViewController.swift */; };
 		E343836C2A3D92C20048BDA1 /* SendConfimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E343836B2A3D92C20048BDA1 /* SendConfimationView.swift */; };
 		E343836E2A3DA0320048BDA1 /* SendConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E343836D2A3DA0320048BDA1 /* SendConfirmationViewModel.swift */; };
@@ -1434,6 +1435,7 @@
 		E33F7CB92AD44199007FC04D /* W3InvestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3InvestManager.swift; sourceTree = "<group>"; };
 		E33F7CBB2AD442AC007FC04D /* InvestABIJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvestABIJson.json; sourceTree = "<group>"; };
 		E33F7CBD2AD44CA2007FC04D /* DepositManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositManager.swift; sourceTree = "<group>"; };
+		E33F90FE2B15BD3F00409CAE /* CTokenABI.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CTokenABI.json; sourceTree = "<group>"; };
 		E34383692A3D912A0048BDA1 /* SendConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmationViewController.swift; sourceTree = "<group>"; };
 		E343836B2A3D92C20048BDA1 /* SendConfimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfimationView.swift; sourceTree = "<group>"; };
 		E343836D2A3DA0320048BDA1 /* SendConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmationViewModel.swift; sourceTree = "<group>"; };
@@ -3623,6 +3625,7 @@
 			children = (
 				E3A32FA52B0F385400C771AE /* CmpoundCollateralCheckABI.json */,
 				D9714C8A2AE4FE5D00FF3AAA /* AaveProxyABIJson.json */,
+				E33F90FE2B15BD3F00409CAE /* CTokenABI.json */,
 				D5E4DDD42AD9295E000AA235 /* CompoundABIJson.json */,
 				E33F7CBB2AD442AC007FC04D /* InvestABIJson.json */,
 				D92729422AD3EE500043D9B1 /* BorrowCompoundCTokenABIJson.json */,
@@ -4386,6 +4389,7 @@
 				EFC5F586A70E988F98620A79 /* PPPangramSans-Thin.ttf in Resources */,
 				D50E904CB4FBD07E10DE3E9B /* PPPangramSans-ThinItalic.ttf in Resources */,
 				EE23BD62B18C9118376A405C /* PPPangramSans-ThinReclined.ttf in Resources */,
+				E33F90FF2B15BD3F00409CAE /* CTokenABI.json in Resources */,
 				DF0F65F629E1B29C00DB7290 /* coin-history-stub.json in Resources */,
 				DF0F65FA29E1B29C00DB7290 /* assets-stub.json in Resources */,
 				DF0F65F429E1B29C00DB7290 /* coin-portfolio-stub.json in Resources */,
