@@ -92,8 +92,5 @@ class WithdrawViewModel: InvestViewModelProtocol {
 		let tokensList = GlobalVariables.shared.manageAssetsList!
 		selectedToken = tokensList.first(where: { $0.symbol == investableAsset.assetName })!
 		maxAvailableAmount = selectedToken.holdAmount
-
-		selectedToken = tokensList.first(where: { $0.symbol == "ETH" })!
-		selectedProtocol = .lido
 	}
 }

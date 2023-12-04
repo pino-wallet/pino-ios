@@ -78,8 +78,8 @@ class SwapViewController: UIViewController {
 
 	private func setupViewModel(assetList: [AssetViewModel]) {
 		let ethToken = assetList.first(where: { $0.isEth })!
-		let usdcToken = ethToken.copy(newId: "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84".lowercased())
-		swapVM = SwapViewModel(fromToken: usdcToken, toToken: ethToken)
+		let usdcToken = assetList.first(where: { $0.symbol == "USDC" })!
+		swapVM = SwapViewModel(fromToken: ethToken, toToken: usdcToken)
 	}
 
 	private func updateSelectedToken(assetList: [AssetViewModel]) {
