@@ -76,6 +76,10 @@ public class Web3Core {
 		.init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
+	private var aaveRepayManager: W3AaveRepayManager {
+		.init(writeWeb3: wWeb3, readWeb3: rWeb3)
+	}
+
 	private let walletManager = PinoWalletManager()
 
 	// MARK: - Typealias
@@ -607,6 +611,14 @@ public class Web3Core {
 
 	public func getCheckMembershipCallData(accountAddress: String, tokenAddress: String) throws -> Promise<Bool> {
 		try investManager.getCheckMemebrshipCallData(accountAddress: accountAddress, tokenAddress: tokenAddress)
+	}
+
+	public func getAaveRepayERCCallData(
+		contract: DynamicContract,
+		tokenAddress: String,
+		amount: BigUInt
+	) -> Promise<String> {
+		aaveRepayManager.getRepayERCCallData(contract: contract, tokenAddress: tokenAddress, amount: amount)
 	}
 
 	public func getExchangeRateStoredCallData(cTokenID: String) throws -> Promise<BigUInt> {
