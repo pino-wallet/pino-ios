@@ -613,14 +613,13 @@ public class Web3Core {
 		try investManager.getCheckMemebrshipCallData(accountAddress: accountAddress, tokenAddress: tokenAddress)
 	}
 
-
 	public func getAaveRepayERCCallData(
 		contract: DynamicContract,
 		tokenAddress: String,
 		amount: BigUInt
-    ) -> Promise<String> {
-        aaveRepayManager.getRepayERCCallData(contract: contract, tokenAddress: tokenAddress, amount: amount)
-    }
+	) -> Promise<String> {
+		aaveRepayManager.getRepayERCCallData(contract: contract, tokenAddress: tokenAddress, amount: amount)
+	}
 
 	public func getExchangeRateStoredCallData(cTokenID: String) throws -> Promise<BigUInt> {
 		try investManager.getExchangeRateStoredCallData(cTokenID: cTokenID)
