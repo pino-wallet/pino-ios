@@ -48,12 +48,13 @@ class ApproveContractViewModel {
 
 	public var approveGasInfo: GasInfo?
 
+	public var approveAssetVM: AssetViewModel {
+		(globalAssetsList?.first(where: { $0.id == contractId }))!
+	}
+
 	// MARK: - Private Properties
 
 	private let globalAssetsList = GlobalVariables.shared.manageAssetsList
-	private var approveAssetVM: AssetViewModel {
-		(globalAssetsList?.first(where: { $0.id == contractId }))!
-	}
 
 	private var web3 = Web3Core.shared
 	private var swapConfirmVM: SwapConfirmationViewModel!
