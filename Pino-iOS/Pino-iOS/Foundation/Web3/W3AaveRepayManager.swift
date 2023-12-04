@@ -16,7 +16,6 @@ public struct W3AaveRepayManager: Web3HelperProtocol {
 
 	var writeWeb3: Web3
 	var readWeb3: Web3
-	internal let walletManager = PinoWalletManager()
 
 	// MARK: - Initializer
 
