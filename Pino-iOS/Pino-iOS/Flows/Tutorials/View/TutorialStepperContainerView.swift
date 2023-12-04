@@ -57,7 +57,7 @@ class TutorialStepperContainerView: UICollectionView {
 			}
 
 			if let cell = cellForItem(at: .init(row: index, section: 0)) as? TutorialStepperCell {
-				cell.startProgressFrom { [self] in
+				cell.startProgress { [self] in
 					tutorialVM.nextTutorial()
 				}
 			}

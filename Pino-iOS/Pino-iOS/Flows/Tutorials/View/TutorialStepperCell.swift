@@ -62,7 +62,7 @@ class TutorialStepperCell: UICollectionViewCell {
 		setupBinding()
 	}
 
-	public func startProgressFrom(completed: @escaping () -> Void) {
+	public func startProgress(completed: @escaping () -> Void) {
 		stepProgressView.progress = 0
 		tutStepperCellVM.progress.completedUnitCount = 0
 		progressFilling(completed: completed)
@@ -71,7 +71,6 @@ class TutorialStepperCell: UICollectionViewCell {
 	public func progressFilling(completed: @escaping () -> Void) {
 		tutStepperCellVM.timer = Timer
 			.scheduledTimer(withTimeInterval: tutStepperCellVM.timeInterval, repeats: true) { [self] timer in
-
 				guard tutStepperCellVM.progress.isFinished == false else {
 					tutStepperCellVM.timer?.invalidate()
 					completed()

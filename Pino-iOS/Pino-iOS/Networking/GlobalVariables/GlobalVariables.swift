@@ -97,7 +97,7 @@ class GlobalVariables {
 				web3Client.getNetworkFee().sink { completed in
 					switch completed {
 					case .finished:
-						print("")
+						print("Received Fee")
 					case let .failure(error):
 						print(error)
 					}

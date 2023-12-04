@@ -87,7 +87,7 @@ class BorrowViewController: UIViewController {
 
 	private func showTutorial() {
 		if !UserDefaults.standard.bool(forKey: "hasSeenBorrowTut") {
-			let tutorialPage = TutorialViewController(tutorialType: .invest) {
+			let tutorialPage = TutorialViewController(tutorialType: .borrow) {
 				self.dismiss(animated: true)
 			}
 			tutorialPage.modalPresentationStyle = .overFullScreen
