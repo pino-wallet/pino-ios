@@ -87,10 +87,10 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 	// MARK: - Public Methods
 
 	public func getTransactionInfo() {
-		investManager.getDepositInfo().done { depositTrx, gasInfo in
-			self.gasFee = gasInfo.fee
-			self.formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat
-			self.formattedFeeInETH = gasInfo.fee!.sevenDigitFormat
+		investManager.getDepositInfo().done { gasInfos in
+			self.gasFee = gasInfos.map { $0.fee! }.reduce(0.bigNumber, +)
+			self.formattedFeeInDollar = gasInfos.map { $0.feeInDollar! }.reduce(0.bigNumber, +).priceFormat
+			self.formattedFeeInETH = gasInfos.map { $0.fee! }.reduce(0.bigNumber, +).sevenDigitFormat
 		}.catch { error in
 			self.showError()
 		}

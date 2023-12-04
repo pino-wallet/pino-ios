@@ -72,6 +72,10 @@ public class Web3Core {
 		.init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
+	private var aaveWithdrawManager: W3AaveWithdrawManager {
+		.init(writeWeb3: wWeb3, readWeb3: rWeb3)
+	}
+
 	private let walletManager = PinoWalletManager()
 
 	// MARK: - Typealias
@@ -216,6 +220,42 @@ public class Web3Core {
 					seal.reject(error)
 				}
 		}
+	}
+
+	public func getTransactionCallData(
+		contractAddress: String,
+		trxCallData: EthereumData,
+		nonce: EthereumQuantity? = nil,
+		value: BigUInt = 0
+	) -> Promise<(EthereumSignedTransaction, GasInfo)> {
+		TrxWithGasInfo { [self] seal in
+			gasInfoManager
+				.calculateGasOf(data: trxCallData, to: contractAddress.eip55Address!, value: value.etherumQuantity)
+				.then { [self] gasInfo in
+					guard let nonce else {
+						return rWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+							.map { ($0, gasInfo) }
+					}
+					return nonce.promise.map { ($0, gasInfo) }
+				}.done { [self] nonce, gasInfo in
+					let trx = try trxManager.createTransactionFor(
+						nonce: nonce,
+						gasInfo: gasInfo,
+						value: value.etherumQuantity,
+						data: trxCallData,
+						to: contractAddress.eip55Address!
+					)
+
+					let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Network.chainID)
+					seal.fulfill((signedTx, gasInfo))
+				}.catch { error in
+					seal.reject(error)
+				}
+		}
+	}
+
+	public func getNonce() -> Promise<EthereumQuantity> {
+		rWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 	}
 
 	public func callTransaction(trx: EthereumSignedTransaction) -> Promise<String> {
@@ -409,12 +449,24 @@ public class Web3Core {
 		investManager.getWETHToSTETHCallData(amount: amount, recipientAdd: recipientAdd)
 	}
 
+	public func getCompoundEnterMarketCallData(tokenAddress: String) -> Promise<EthereumData> {
+		investManager.getEnterMarketCallData(tokenAddress: tokenAddress)
+	}
+
+	public func getCompoundExitMarketCallData(tokenAddress: String) -> Promise<EthereumData> {
+		investManager.getExitMarketCallData(tokenAddress: tokenAddress)
+	}
+
 	public func getInvestProxyContract() throws -> DynamicContract {
 		try investManager.getInvestProxyContract()
 	}
 
 	public func getCompoundProxyContract() throws -> DynamicContract {
 		try investManager.getCompoundProxyContract()
+	}
+
+	public func getCompoundCollateralCheckProxyContract() throws -> DynamicContract {
+		try investManager.getCollateralCheckProxyContract()
 	}
 
 	public func borrowCompoundCToken(contractDetails: ContractDetailsModel) -> Promise<String> {
@@ -481,8 +533,9 @@ public class Web3Core {
 		aaveBorrowManager.getETHBorrowGasInfo(contractDetails: contractDetails)
 	}
 
-	public func aaveBorrowToken(contractDetails: ContractDetailsModel) -> Promise<String> {
-		aaveBorrowManager.borrowToken(contractDetails: contractDetails)
+	public func getAaveERCBorrowTransaction(contractDetails: ContractDetailsModel)
+		-> Promise<EthereumSignedTransaction> {
+		aaveBorrowManager.getBorrowTransaction(contractDetails: contractDetails)
 	}
 
 	public func checkIfAssetUsedAsCollateral(assetAddress: String) -> Promise<Bool> {
@@ -519,6 +572,45 @@ public class Web3Core {
 
 	public func setUserUseReserveAsCollateral(contractDetails: ContractDetailsModel) -> Promise<String> {
 		aaveDepositManager.setUserUseReserveAsCollateral(contractDetails: contractDetails)
+	}
+
+	public func getAaveWithdrawERCCallData(
+		contract: DynamicContract,
+		tokenAddress: String,
+		amount: BigUInt,
+		userAddress: String
+	) -> Promise<String> {
+		aaveWithdrawManager.getAaveWithdrawERCCallData(
+			contract: contract,
+			tokenAddress: tokenAddress,
+			amount: amount,
+			userAddress: userAddress
+		)
+	}
+
+	public func getAaveUnwrapWETHCallData(contract: DynamicContract) -> Promise<String> {
+		aaveWithdrawManager.getAaveUnwrapWethCallData(contract: contract)
+	}
+
+	public func getAaveWithdrawMaxERCContractDetails(tokenAddress: String) -> Promise<ContractDetailsModel> {
+		aaveWithdrawManager.getWithdrawMAXERCContractDetails(tokenAddress: tokenAddress)
+	}
+
+	public func getAaveWithdrawMaxERCGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
+		aaveWithdrawManager.getWithdrawMaxERCGasInfo(contractDetails: contractDetails)
+	}
+
+	public func getAaveWithdrawMAXERCTransaction(contractDetails: ContractDetailsModel)
+		-> Promise<EthereumSignedTransaction> {
+		aaveWithdrawManager.getWithdrawMaxERCTransaction(contractDetails: contractDetails)
+	}
+
+	public func getCheckMembershipCallData(accountAddress: String, tokenAddress: String) throws -> Promise<Bool> {
+		try investManager.getCheckMemebrshipCallData(accountAddress: accountAddress, tokenAddress: tokenAddress)
+	}
+
+	public func getExchangeRateStoredCallData(cTokenID: String) throws -> Promise<BigUInt> {
+		try investManager.getExchangeRateStoredCallData(cTokenID: cTokenID)
 	}
 
 	// MARK: - Private Methods
@@ -574,6 +666,7 @@ extension Web3Core {
 		static let pinoAaveProxyAddress = "0xb5ea6BAdD330466D66345e154Db9834B1Fe8Dab6"
 		static let pinoSwapProxyAddress = "0xB51557272E09d41f649a04073dB780AC25998a1e"
 		static let compoundContractAddress = "0xb5E69cBF92E3ff6c11E2CC4A33C26573702Ab98B"
+		static let compoundCollateralCheckContractAddress = "0x3d9819210A31b4961b30EF54bE2aeD79B9c9Cd3B"
 		static let investContractAddress = "0x7dA89F62340Ad976e4E32a30c7f688aFCcE8a51C"
 		static let paraSwapETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 		static let oneInchETHID = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"

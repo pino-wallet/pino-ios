@@ -92,21 +92,7 @@ public struct W3AaveBorrowManager: Web3HelperProtocol {
 		}
 	}
 
-	public func borrowToken(contractDetails: ContractDetailsModel) -> Promise<String> {
-		Promise<String> { seal in
-			getBorrowTransaction(contractDetails: contractDetails).then { ethereumSignedTransaction in
-				writeWeb3.eth.sendRawTransaction(transaction: ethereumSignedTransaction)
-			}.done { trxHash in
-				seal.fulfill(trxHash.hex())
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
-	}
-
-	// MARK: - Private Methods
-
-	private func getBorrowTransaction(contractDetails: ContractDetailsModel) -> Promise<EthereumSignedTransaction> {
+	public func getBorrowTransaction(contractDetails: ContractDetailsModel) -> Promise<EthereumSignedTransaction> {
 		Promise<EthereumSignedTransaction> { seal in
 
 			gasInfoManager.calculateGasOf(

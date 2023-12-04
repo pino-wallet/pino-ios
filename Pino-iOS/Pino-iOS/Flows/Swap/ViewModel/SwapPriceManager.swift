@@ -51,17 +51,17 @@ class SwapPriceManager {
 
 	public func getSwapResponseFrom(
 		provider: SwapProvider,
-		srcToken: SwapTokenViewModel,
-		destToken: SwapTokenViewModel,
+		srcToken: AssetViewModel,
+		destToken: AssetViewModel,
 		swapSide: SwapSide,
 		amount: String,
 		completion: @escaping (_ responses: [SwapPriceResponseProtocol]) -> Void
 	) {
 		let swapInfo = SwapPriceRequestModel(
-			srcToken: srcToken.selectedToken.id,
-			srcDecimals: srcToken.selectedToken.decimal,
-			destToken: destToken.selectedToken.id,
-			destDecimals: destToken.selectedToken.decimal,
+			srcToken: srcToken.id,
+			srcDecimals: srcToken.decimal,
+			destToken: destToken.id,
+			destDecimals: destToken.decimal,
 			amount: amount,
 			side: swapSide,
 			userAddress: Web3Core.Constants.pinoSwapProxyAddress,

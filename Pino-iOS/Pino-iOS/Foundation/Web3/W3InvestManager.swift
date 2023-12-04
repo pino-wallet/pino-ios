@@ -41,6 +41,22 @@ public struct W3InvestManager: Web3HelperProtocol {
 		)
 	}
 
+	public func getCollateralCheckProxyContract() throws -> DynamicContract {
+		try Web3Core.getContractOfToken(
+			address: Web3Core.Constants.compoundCollateralCheckContractAddress,
+			abi: .compoundCollateralCheck,
+			web3: readWeb3
+		)
+	}
+
+	public func getCTokenProxyContract(cTokenID: String) throws -> DynamicContract {
+		try Web3Core.getContractOfToken(
+			address: cTokenID,
+			abi: .cToken,
+			web3: readWeb3
+		)
+	}
+
 	public func getDaiToSDaiCallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
 		Promise<String>() { [self] seal in
 			let contract = try getInvestProxyContract()
@@ -136,6 +152,57 @@ public struct W3InvestManager: Web3HelperProtocol {
 			let solInvocation = contract[ABIMethodWrite.wethToStETH.rawValue]?(amount, recipientAdd.eip55Address!)
 			let trx = try trxManager.createTransactionFor(contract: solInvocation!)
 			seal.fulfill(trx.data.hex())
+		}
+	}
+
+	public func getEnterMarketCallData(tokenAddress: String) -> Promise<EthereumData> {
+		Promise<EthereumData>() { [self] seal in
+			let contract = try getCollateralCheckProxyContract()
+			let solInvocation = contract[ABIMethodWrite.enterMarkets.rawValue]?([tokenAddress.eip55Address!])
+			let trx = try trxManager.createTransactionFor(contract: solInvocation!)
+			seal.fulfill(trx.data)
+		}
+	}
+
+	public func getExitMarketCallData(tokenAddress: String) -> Promise<EthereumData> {
+		Promise<EthereumData>() { [self] seal in
+			let contract = try getCollateralCheckProxyContract()
+			let solInvocation = contract[ABIMethodWrite.exitMarket.rawValue]?(tokenAddress.eip55Address!)
+			let trx = try trxManager.createTransactionFor(contract: solInvocation!)
+			seal.fulfill(trx.data)
+		}
+	}
+
+	public func getCheckMemebrshipCallData(accountAddress: String, tokenAddress: String) throws -> Promise<Bool> {
+		let contract = try getCollateralCheckProxyContract()
+		return Promise<Bool>() { seal in
+			firstly {
+				contract[ABIMethodCall.checkMembership.rawValue]!(
+					accountAddress.eip55Address!,
+					tokenAddress.eip55Address!
+				).call()
+			}.map { response in
+				response[.emptyString] as! Bool
+			}.done { membership in
+				seal.fulfill(membership)
+			}.catch(policy: .allErrors) { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	public func getExchangeRateStoredCallData(cTokenID: String) throws -> Promise<BigUInt> {
+		let contract = try getCTokenProxyContract(cTokenID: cTokenID)
+		return Promise<BigUInt>() { seal in
+			firstly {
+				contract[ABIMethodCall.exchangeRateStored.rawValue]!().call()
+			}.map { response in
+				response[.emptyString] as! BigUInt
+			}.done { exchangeRate in
+				seal.fulfill(exchangeRate)
+			}.catch(policy: .allErrors) { error in
+				seal.reject(error)
+			}
 		}
 	}
 }

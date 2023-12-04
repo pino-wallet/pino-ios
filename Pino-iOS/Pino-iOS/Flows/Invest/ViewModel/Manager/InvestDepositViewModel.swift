@@ -22,6 +22,12 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 		"Invest in \(selectedToken.symbol)"
 	}
 
+	public var positionErrorText: String {
+		"You have an open \(selectedToken.symbol) collateral position in \(selectedProtocol.name), which you need to close before depositing \(selectedToken.symbol) as investment."
+	}
+
+	public var hasOpenPosition: Bool!
+
 	@Published
 	public var yearlyEstimatedReturn: String?
 
@@ -56,7 +62,9 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 	}
 
 	public func checkBalanceStatus(amount: String) -> AmountStatus {
-		if amount == .emptyString {
+		if hasOpenPosition {
+			return .isZero
+		} else if amount == .emptyString {
 			return .isZero
 		} else if BigNumber(numberWithDecimal: amount).isZero {
 			return .isZero
@@ -75,10 +83,17 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 		let tokensList = GlobalVariables.shared.manageAssetsList!
 		selectedToken = tokensList.first(where: { $0.symbol == investableAsset.assetName })!
 		maxAvailableAmount = selectedToken.holdAmount
+
+		#warning("it must be refactored later")
+		if selectedToken.holdAmount > 0.bigNumber {
+			hasOpenPosition = true
+		} else {
+			hasOpenPosition = false
+		}
 	}
 
 	private func getYearlyEstimatedReturn(amountInDollar: BigNumber?) {
-		if let selectedInvestableAsset, let amountInDollar {
+		if let selectedInvestableAsset, let amountInDollar, !hasOpenPosition {
 			let yearlyReturnBigNumber = amountInDollar * selectedInvestableAsset.APYAmount / 100.bigNumber
 			yearlyEstimatedReturn = yearlyReturnBigNumber?.priceFormat
 		} else {

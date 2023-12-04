@@ -134,7 +134,7 @@ class AaveCollateralManager: Web3ManagerProtocol {
 			}.then { signiture -> Promise<(String, String?)> in
 				self.checkAllowanceOfProvider(
 					approvingToken: self.asset,
-					approvingAmount: self.assetAmountBigNumber.sevenDigitFormat,
+					approvingAmount: self.assetAmountBigNumber.plainSevenDigitFormat,
 					spenderAddress: Web3Core.Constants.aavePoolERCContractAddress
 				).map {
 					(signiture, $0)
@@ -164,7 +164,7 @@ class AaveCollateralManager: Web3ManagerProtocol {
 			firstly {
 				self.checkAllowanceOfProvider(
 					approvingToken: self.asset,
-					approvingAmount: self.assetAmountBigNumber.sevenDigitFormat,
+					approvingAmount: self.assetAmountBigNumber.plainSevenDigitFormat,
 					spenderAddress: Web3Core.Constants.aavePoolERCContractAddress
 				)
 			}.then { allowanceData -> Promise<(String, String?)> in

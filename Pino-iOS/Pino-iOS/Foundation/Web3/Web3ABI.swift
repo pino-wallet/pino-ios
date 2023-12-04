@@ -16,6 +16,8 @@ public enum Web3ABI {
 	case borrowETHAave
 	case borrowCTokenCompound
 	case aaveProxy
+	case compoundCollateralCheck
+	case cToken
 
 	public var abi: Data {
 		switch self {
@@ -35,6 +37,10 @@ public enum Web3ABI {
 			return Web3ABI.borrowCompoundCTokenAbiString.data(using: .utf8)!
 		case .aaveProxy:
 			return Web3ABI.aaveProxyAbiString.data(using: .utf8)!
+		case .compoundCollateralCheck:
+			return Web3ABI.compoundCollateralCheckAbiString.data(using: .utf8)!
+		case .cToken:
+			return Web3ABI.cTokenAbiString.data(using: .utf8)!
 		}
 	}
 
@@ -69,6 +75,14 @@ public enum Web3ABI {
 	private static var compoundAbiString: String {
 		ABIReader(fileName: "CompoundABIJson")
 	}
+
+	private static var compoundCollateralCheckAbiString: String {
+		ABIReader(fileName: "CmpoundCollateralCheckABI")
+	}
+
+	private static var cTokenAbiString: String {
+		ABIReader(fileName: "CTokenABI")
+	}
 }
 
 public enum ABIMethodCall: String {
@@ -80,6 +94,8 @@ public enum ABIMethodCall: String {
 	case approve
 	case getReservesList
 	case getUserConfiguration
+	case checkMembership
+	case exchangeRateStored
 }
 
 public enum ABIMethodWrite: String {
@@ -103,11 +119,15 @@ public enum ABIMethodWrite: String {
 	case depositV3
 	case setUserUseReserveAsCollateral
 	case depositWETHV2
+	case withdraw
 	case withdrawV2
 	case withdrawETHV2
 	case withdrawWETHV2
 	case ethToStETH
 	case wethToStETH
+	case withdrawV3
+	case enterMarkets
+	case exitMarket
 }
 
 fileprivate func ABIReader(fileName: String) -> String {

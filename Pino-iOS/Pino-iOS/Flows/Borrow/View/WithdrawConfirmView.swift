@@ -5,6 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 9/3/23.
 //
 
+import Combine
 import Kingfisher
 import UIKit
 
@@ -35,10 +36,24 @@ class WithdrawConfirmView: UIView {
 	private let feeLabel = PinoLabel(style: .info, text: "")
 	private let confirmButton = PinoButton(style: .active)
 	private var withdrawConfrimVM: WithdrawConfirmViewModel
+	private var feeInfo: WithdrawConfirmViewModel.FeeInfoType?
 
 	private var protocolTitleWithInfo: TitleWithInfo!
 	private var feeTitleWithInfo: TitleWithInfo!
 	private var protocolInfoView: UserAccountInfoView!
+	private var cancellables = Set<AnyCancellable>()
+
+	private var pageStatus: PageStatus = .loading {
+		didSet {
+			updateUIWithPageStatus()
+		}
+	}
+
+	private enum PageStatus {
+		case loading
+		case notEnough
+		case normal
+	}
 
 	// MARK: - Initializers
 
@@ -54,6 +69,9 @@ class WithdrawConfirmView: UIView {
 		setupView()
 		setupStyles()
 		setupConstraints()
+		setupBindings()
+		setupSkeletonLoading()
+		updateUIWithPageStatus()
 	}
 
 	required init?(coder: NSCoder) {
@@ -78,6 +96,13 @@ class WithdrawConfirmView: UIView {
 		feeTitleWithInfo.presentActionSheet = { actionSheet in
 			self.presentActionSheetClosure(actionSheet)
 		}
+
+		let onConfirmTapGesture = UITapGestureRecognizer(target: self, action: #selector(onConfirm))
+		confirmButton.addGestureRecognizer(onConfirmTapGesture)
+
+		let toggleFeeGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleFeeText))
+		feeLabel.addGestureRecognizer(toggleFeeGestureRecognizer)
+		feeLabel.isUserInteractionEnabled = true
 
 		protocolInfoView = UserAccountInfoView(
 			image: withdrawConfrimVM.protocolImageName,
@@ -160,6 +185,8 @@ class WithdrawConfirmView: UIView {
 		headerDescriptionLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 		protocolInfoStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 		feeInfoStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
+		feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 45).isActive = true
+		feeLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 
 		mainStackView.pin(
 			.horizontalEdges(to: layoutMarginsGuide, padding: 0),
@@ -172,5 +199,61 @@ class WithdrawConfirmView: UIView {
 			.horizontalEdges(to: layoutMarginsGuide, padding: 0),
 			.bottom(to: layoutMarginsGuide, padding: 12)
 		)
+	}
+
+	private func setupSkeletonLoading() {
+		feeLabel.isSkeletonable = true
+	}
+
+	private func setupBindings() {
+		withdrawConfrimVM.$feeInfo.sink { feeInfo in
+			self.feeInfo = feeInfo
+			self.feeLabel.text = feeInfo?.feeInDollars
+			self.hideSkeletonView()
+			self.validateFee(bigNumberFee: feeInfo?.bigNumberFee)
+		}.store(in: &cancellables)
+	}
+
+	private func validateFee(bigNumberFee: BigNumber?) {
+		guard let ethToken = GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth }),
+		      let bigNumberFee else {
+			return
+		}
+		if ethToken.holdAmount >= bigNumberFee {
+			pageStatus = .normal
+		} else {
+			pageStatus = .notEnough
+		}
+	}
+
+	private func updateUIWithPageStatus() {
+		switch pageStatus {
+		case .loading:
+			confirmButton.style = .deactive
+			confirmButton.title = withdrawConfrimVM.loadingButtonTitle
+		case .notEnough:
+			confirmButton.style = .deactive
+			confirmButton.title = withdrawConfrimVM.insufficientAmountButtonTitle
+			if Environment.current != .mainNet {
+				confirmButton.style = .active
+			}
+		case .normal:
+			confirmButton.style = .active
+			confirmButton.title = withdrawConfrimVM.confirmButtonTitle
+		}
+	}
+
+	@objc
+	private func onConfirm() {
+		withdrawConfrimVM.confirmWithdraw()
+	}
+
+	@objc
+	private func toggleFeeText() {
+		if feeLabel.text == feeInfo?.feeInDollars {
+			feeLabel.text = feeInfo?.feeInETH
+		} else {
+			feeLabel.text = feeInfo?.feeInDollars
+		}
 	}
 }
