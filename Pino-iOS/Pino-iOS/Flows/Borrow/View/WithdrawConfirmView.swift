@@ -175,8 +175,6 @@ class WithdrawConfirmView: UIView {
 
 		feeTitleWithInfo.title = withdrawConfrimVM.feeTitle
 
-		feeLabel.text = withdrawConfrimVM.fee
-
 		confirmButton.title = withdrawConfrimVM.confirmButtonTitle
 	}
 

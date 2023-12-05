@@ -10,8 +10,6 @@ import Foundation
 import Web3
 import Web3_Utility
 
-#warning("this values are static and should be changed")
-
 class WithdrawConfirmViewModel {
 	// MARK: - TypeAliases
 
@@ -33,8 +31,6 @@ class WithdrawConfirmViewModel {
 	#warning("this actionsheet texts are for test")
 	public let feeActionSheetText = "this is fee"
 	public let protocolActionsheetText = "this is protocol"
-	#warning("this fee is mock and it should be removed")
-	public let fee = "$10"
 
 	@Published
 	public var feeInfo: FeeInfoType? = nil
