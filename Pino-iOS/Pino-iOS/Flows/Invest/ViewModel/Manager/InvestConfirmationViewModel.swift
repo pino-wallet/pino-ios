@@ -71,6 +71,8 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 		}
 	}
 
+	public var transactionType: SendTransactionType = .invest
+
 	// MARK: - Initializer
 
 	init(

@@ -71,6 +71,8 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 		}
 	}
 
+	public var transactionType: SendTransactionType = .withdraw
+
 	// MARK: - Initializer
 
 	init(
