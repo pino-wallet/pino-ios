@@ -59,14 +59,14 @@ class RepayConfirmViewController: UIViewController {
 	}
 
 	private func confirmRepay(repayTRX: EthereumSignedTransaction) {
-        let repayTransaction = SendTransactionViewModel(
-            transaction: repayTRX,
-            addPendingActivityClosure: { txHash in
-                self.repayConfirmVM.createRepayPendingActivity(txHash: txHash)
-            }
-        )
+		let repayTransaction = SendTransactionViewModel(
+			transaction: repayTRX,
+			addPendingActivityClosure: { txHash in
+				self.repayConfirmVM.createRepayPendingActivity(txHash: txHash)
+			}
+		)
 		let sendTransactionStatusVM = SendTransactionStatusViewModel(
-            transactions: [repayTransaction],
+			transactions: [repayTransaction],
 			transactionInfo: TransactionInfoModel(
 				transactionType: .repay,
 				transactionDex: repayConfirmVM.repayAmountVM.borrowVM.selectedDexSystem,
