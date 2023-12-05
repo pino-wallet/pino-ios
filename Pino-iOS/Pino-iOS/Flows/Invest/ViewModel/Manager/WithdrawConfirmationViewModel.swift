@@ -129,11 +129,4 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 			self.showError()
 		}
 	}
-
-	public func confirmTransaction(completion: @escaping () -> Void) {
-		withdrawManager.confirmWithdraw { trx in
-			print("INVEST TRX HASH: \(trx)")
-			completion()
-		}
-	}
 }

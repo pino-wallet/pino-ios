@@ -77,24 +77,6 @@ class WithdrawManager: InvestW3ManagerProtocol {
 		}
 	}
 
-	public func confirmWithdraw(completion: @escaping (Result<String>) -> Void) {
-		switch selectedProtocol {
-		case .compound:
-			compoundManager.confirmWithdraw(completion: completion)
-		case .lido:
-			guard let swapTrx else { return }
-			swapManager!.confirmSwap(swapTrx: swapTrx, completion: completion)
-		case .aave, .maker:
-			guard let withdrawTrx else { return }
-			Web3Core.shared.callTransaction(trx: withdrawTrx).done { trxHash in
-				#warning("Add transaction activity later")
-				completion(.fulfilled(trxHash))
-			}.catch { error in
-				completion(.rejected(error))
-			}
-		}
-	}
-
 	// MARK: - Private Methods
 
 	private func getMakerWithdrawInfo() -> TrxWithGasInfo {

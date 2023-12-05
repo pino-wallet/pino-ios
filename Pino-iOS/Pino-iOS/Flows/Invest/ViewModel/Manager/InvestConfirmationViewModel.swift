@@ -112,7 +112,7 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 		}
 		if let collateralCheckTrx = investManager.compoundManager.collateralCheckTrx {
 			let collateralCheckTransaction =
-				SendTransactionViewModel(transaction: depositTrx) { pendingActivityTXHash in
+				SendTransactionViewModel(transaction: collateralCheckTrx) { pendingActivityTXHash in
 					self.addPendingActivity(txHash: pendingActivityTXHash)
 				}
 			return [depositTransaction, collateralCheckTransaction]

@@ -64,24 +64,6 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 		}
 	}
 
-	public func confirmDeposit(completion: @escaping (Result<String>) -> Void) {
-		guard let depositTrx else { return }
-		Web3Core.shared.callTransaction(trx: depositTrx).done { trxHash in
-			#warning("Add transaction activity later")
-			guard let collateralCheckTrx = self.collateralCheckTrx else {
-				completion(.fulfilled(trxHash))
-				return
-			}
-			Web3Core.shared.callTransaction(trx: collateralCheckTrx).done { trxHash in
-				completion(.fulfilled(trxHash))
-			}.catch { error in
-				completion(.rejected(error))
-			}
-		}.catch { error in
-			completion(.rejected(error))
-		}
-	}
-
 	// MARK: - Private Methods
 
 	private func compoundERCDeposit() -> Promise<[GasInfo]> {

@@ -74,20 +74,6 @@ class DepositManager: InvestW3ManagerProtocol {
 		}
 	}
 
-	public func confirmDeposit(completion: @escaping (Result<String>) -> Void) {
-		if selectedProtocol == .compound {
-			compoundManager.confirmDeposit(completion: completion)
-		} else {
-			guard let depositTrx else { return }
-			Web3Core.shared.callTransaction(trx: depositTrx).done { trxHash in
-				#warning("Add transaction activity later")
-				completion(.fulfilled(trxHash))
-			}.catch { error in
-				completion(.rejected(error))
-			}
-		}
-	}
-
 	// MARK: - Private Methods
 
 	private func getMakerDepositInfo() -> Promise<[GasInfo]> {
