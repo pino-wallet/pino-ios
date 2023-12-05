@@ -119,16 +119,23 @@ public struct BigNumber {
 		let million = BigInt(10).power(6 + decimal)
 		let billion = BigInt(10).power(9 + decimal)
 
+		func formatNumber(_ number: BigInt, divisor: BigInt, suffix: String) -> String {
+			let wholePart = number / divisor
+			let decimalPart = number % divisor
+
+			// Calculate the decimal part for the format, we take more digits to get a precise representation
+			let decimalDigits = 2 // You can choose how many decimal digits you want
+			let decimalDivisor = BigInt(10).power(decimalDigits)
+			let formattedDecimalPart = decimalPart * BigInt(10).power(decimalDigits) / divisor
+
+			let decimalString = formattedDecimalPart > 0 ? ".\(formattedDecimalPart)" : ""
+			return "\(wholePart)\(decimalString)\(suffix)"
+		}
+		print(number.description)
 		if number >= billion {
-			let formattedNumber = number / billion
-			let decimalPart = formattedNumber % BigInt(10)
-			let decimalString = decimalPart > 0 ? ".\(decimalPart)" : ""
-			return "\(formattedNumber)\(decimalString)B"
+			return formatNumber(number, divisor: billion, suffix: "B")
 		} else if number >= million {
-			let formattedNumber = number / million
-			let decimalPart = formattedNumber % BigInt(10)
-			let decimalString = decimalPart > 0 ? ".\(decimalPart)" : ""
-			return "\(formattedNumber)\(decimalString)M"
+			return formatNumber(number, divisor: million, suffix: "M")
 		} else {
 			return number.description
 		}
