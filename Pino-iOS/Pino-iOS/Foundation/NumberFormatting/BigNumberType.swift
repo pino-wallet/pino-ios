@@ -123,15 +123,15 @@ public struct BigNumber {
 			let wholePart = number / divisor
 			let decimalPart = number % divisor
 
-			// Calculate the decimal part for the format, we take more digits to get a precise representation
-			let decimalDigits = 2 // You can choose how many decimal digits you want
+			// Calculate the decimal part for the format
+			let decimalDigits = 2 // Number of decimal digits in the abbreviated format
 			let decimalDivisor = BigInt(10).power(decimalDigits)
-			let formattedDecimalPart = decimalPart * BigInt(10).power(decimalDigits) / divisor
+			let formattedDecimalPart = decimalPart * decimalDivisor / divisor
 
 			let decimalString = formattedDecimalPart > 0 ? ".\(formattedDecimalPart)" : ""
 			return "\(wholePart)\(decimalString)\(suffix)"
 		}
-		print(number.description)
+
 		if number >= billion {
 			return formatNumber(number, divisor: billion, suffix: "B")
 		} else if number >= million {
