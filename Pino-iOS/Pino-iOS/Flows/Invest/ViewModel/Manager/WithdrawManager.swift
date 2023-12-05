@@ -19,7 +19,6 @@ class WithdrawManager: InvestW3ManagerProtocol {
 	private var withdrawAmount: String
 	private let nonce = BigNumber.bigRandomeNumber
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes
-	private let compoundManager: CompoundWithdrawManager
 	private var swapManager: SwapManager?
 	private let swapPriceManager = SwapPriceManager()
 	private var swapTrx: EthereumSignedTransaction?
@@ -29,6 +28,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 
 	// MARK: - Public Properties
 
+	public let compoundManager: CompoundWithdrawManager
 	public var withdrawTrx: EthereumSignedTransaction?
 	public var withdrawGasInfo: GasInfo?
 	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>

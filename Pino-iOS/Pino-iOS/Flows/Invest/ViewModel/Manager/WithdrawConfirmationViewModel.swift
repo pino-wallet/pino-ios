@@ -60,6 +60,17 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 		$formattedFeeInDollar
 	}
 
+	public var sendTransactions: [SendTransactionViewModel]? {
+		switch selectedProtocol {
+		case .maker, .lido:
+			return getWithdrawTransaction()
+		case .compound:
+			return getCompoundTransaction()
+		case .aave:
+			return getAaveTransaction()
+		}
+	}
+
 	// MARK: - Initializer
 
 	init(
@@ -83,6 +94,29 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 			style: .error
 		).show()
 	}
+
+	private func getWithdrawTransaction() -> [SendTransactionViewModel]? {
+		guard let withdrawTrx = withdrawManager.withdrawTrx else { return nil }
+		let withdrawTransaction = SendTransactionViewModel(transaction: withdrawTrx) { pendingActivityTXHash in
+			self.addPendingActivity(txHash: pendingActivityTXHash)
+		}
+		return [withdrawTransaction]
+	}
+
+	private func getCompoundTransaction() -> [SendTransactionViewModel]? {
+		guard let withdrawTrx = withdrawManager.compoundManager.withdrawTrx else { return nil }
+		let withdrawTransaction = SendTransactionViewModel(transaction: withdrawTrx) { pendingActivityTXHash in
+			self.addPendingActivity(txHash: pendingActivityTXHash)
+		}
+		return [withdrawTransaction]
+	}
+
+	private func getAaveTransaction() -> [SendTransactionViewModel]? {
+		#warning("Implement later")
+		return nil
+	}
+
+	private func addPendingActivity(txHash: String) {}
 
 	// MARK: - Public Methods
 

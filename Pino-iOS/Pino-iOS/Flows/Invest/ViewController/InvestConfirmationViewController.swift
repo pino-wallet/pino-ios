@@ -73,10 +73,19 @@ class InvestConfirmationViewController: AuthenticationLockViewController {
 	}
 
 	private func confirmInvestment() {
-		unlockApp {
-			self.investConfirmationVM.confirmTransaction {
-				self.dismiss(animated: true)
-			}
+		unlockApp { [self] in
+			guard let sendTransactions = investConfirmationVM.sendTransactions else { return }
+			let sendTransactionStatusVM = SendTransactionStatusViewModel(
+				transactions: sendTransactions,
+				transactionInfo: TransactionInfoModel(
+					transactionType: .collateral,
+					transactionDex: investConfirmationVM.selectedProtocol,
+					transactionAmount: investConfirmationVM.transactionAmount,
+					transactionToken: investConfirmationVM.selectedToken
+				)
+			)
+			let sendTransactionStatusVC = SendTransactionStatusViewController(sendStatusVM: sendTransactionStatusVM)
+			present(sendTransactionStatusVC, animated: true)
 		}
 	}
 

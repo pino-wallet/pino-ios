@@ -22,10 +22,9 @@ class DepositManager: InvestW3ManagerProtocol {
 		Utilities.parseToBigUInt(investAmount, decimals: selectedToken.decimal)!
 	}
 
-	private var compoundManager: CompoundDepositManager
-
 	// MARK: - Public Properties
 
+	public var compoundManager: CompoundDepositManager
 	public var depositTrx: EthereumSignedTransaction?
 	public var depositGasInfo: GasInfo?
 	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>

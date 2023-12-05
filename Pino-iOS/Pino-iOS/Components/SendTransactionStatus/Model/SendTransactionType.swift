@@ -13,5 +13,5 @@ enum SendTransactionType {
 	case repay
 	case collateral
 	case withdraw
-	//    case invest
+	case invest
 }

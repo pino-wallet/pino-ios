@@ -28,8 +28,8 @@ protocol InvestConfirmationProtocol: InvestConfirmationViewProtocol {
 	var customAssetImage: String { get }
 	var selectedProtocolImage: String { get }
 	var selectedProtocolName: String { get }
+	var sendTransactions: [SendTransactionViewModel]? { get }
 	func getTransactionInfo()
-	func confirmTransaction(completion: @escaping () -> Void)
 }
 
 protocol InvestConfirmationViewProtocol {
