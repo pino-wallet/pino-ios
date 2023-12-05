@@ -37,8 +37,8 @@ struct WalletDataSource: DataSourceProtocol {
 		wallets
 	}
 
-	public func get(byId id: String) -> Wallet? {
-		wallets.first(where: { $0.objectID.description == id })
+	public func getBy(id: String) -> Wallet? {
+		wallets.first(where: { $0.objectID.description.lowercased() == id.lowercased() })
 	}
 
 	public func get(byType type: Wallet.WalletType) -> Wallet? {
