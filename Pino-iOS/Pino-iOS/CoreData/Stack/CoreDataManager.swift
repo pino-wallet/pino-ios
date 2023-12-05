@@ -39,8 +39,8 @@ class CoreDataManager {
 		accountDataSource.getAll()
 	}
 
-	public func getWalletAccount(byId id: String) -> WalletAccount? {
-		accountDataSource.get(byId: id)
+	public func getWalletAccountBy(publicKey: String) -> WalletAccount? {
+		accountDataSource.getBy(id: publicKey)
 	}
 
 	public func getWalletAccountsOfType(walletType: Wallet.WalletType) -> [WalletAccount] {
@@ -58,7 +58,7 @@ class CoreDataManager {
 		isSelected: Bool = true,
 		wallet: Wallet
 	) -> WalletAccount? {
-		guard accountDataSource.get(byId: publicKey) == nil else { return nil }
+		guard accountDataSource.getBy(id: publicKey) == nil else { return nil }
 		let newAccount = WalletAccount(context: accountDataSource.managedContext)
 		newAccount.eip55Address = address
 		newAccount.publicKey = publicKey
@@ -117,8 +117,8 @@ class CoreDataManager {
 		return newSelectedAsset
 	}
 
-	public func getSelectedAsset(byId id: String) -> SelectedAsset? {
-		selectedAssetDataSource.get(byId: id)
+	public func getSelectedAssetBy(id: String) -> SelectedAsset? {
+		selectedAssetDataSource.getBy(id: id)
 	}
 
 	public func deleteSelectedAsset(_ selectedAsset: SelectedAsset) {
@@ -130,7 +130,7 @@ class CoreDataManager {
 	}
 
 	public func addNewCustomAsset(id: String, symbol: String, name: String, decimal: String) -> CustomAsset? {
-		guard customAssetsDataSource.get(byId: id) == nil else { return nil }
+		guard customAssetsDataSource.getBy(id: id) == nil else { return nil }
 		let newCustomAsset = CustomAsset(context: customAssetsDataSource.managedContext)
 		newCustomAsset.id = id.lowercased()
 		newCustomAsset.symbol = symbol
@@ -142,7 +142,7 @@ class CoreDataManager {
 
 	@discardableResult
 	public func addNewSwapActivity(activityModel: ActivitySwapModel, accountAddress: String) -> CDSwapActivity? {
-		guard activityDataSource.get(byId: activityModel.txHash) == nil else { return nil }
+		guard activityDataSource.getBy(id: activityModel.txHash) == nil else { return nil }
 		let newActivity = CDSwapActivity(context: activityDataSource.managedContext)
 
 		newActivity.txHash = activityModel.txHash
@@ -184,7 +184,7 @@ class CoreDataManager {
 		activityModel: ActivityTransferModel,
 		accountAddress: String
 	) -> CDTransferActivity? {
-		guard activityDataSource.get(byId: activityModel.txHash) == nil else { return nil }
+		guard activityDataSource.getBy(id: activityModel.txHash) == nil else { return nil }
 		let newActivity = CDTransferActivity(context: activityDataSource.managedContext)
 
 		newActivity.txHash = activityModel.txHash
@@ -214,7 +214,7 @@ class CoreDataManager {
 		activityModel: ActivityApproveModel,
 		accountAddress: String
 	) -> CDApproveActivity? {
-		guard activityDataSource.get(byId: activityModel.txHash) == nil else { return nil }
+		guard activityDataSource.getBy(id: activityModel.txHash) == nil else { return nil }
 		let newActivity = CDApproveActivity(context: activityDataSource.managedContext)
 
 		newActivity.txHash = activityModel.txHash
@@ -244,7 +244,7 @@ class CoreDataManager {
 		activityModel: ActivityInvestModel,
 		accountAddress: String
 	) -> CDInvestActivity? {
-		guard activityDataSource.get(byId: activityModel.txHash) == nil else { return nil }
+		guard activityDataSource.getBy(id: activityModel.txHash) == nil else { return nil }
 		let newActivity = CDInvestActivity(context: activityDataSource.managedContext)
 
 		newActivity.txHash = activityModel.txHash
@@ -279,7 +279,7 @@ class CoreDataManager {
 		activityModel: ActivityWithdrawModel,
 		accountAddress: String
 	) -> CDWithdrawActivity? {
-		guard activityDataSource.get(byId: activityModel.txHash) == nil else { return nil }
+		guard activityDataSource.getBy(id: activityModel.txHash) == nil else { return nil }
 		let newActivity = CDWithdrawActivity(context: activityDataSource.managedContext)
 
 		newActivity.txHash = activityModel.txHash
@@ -314,7 +314,7 @@ class CoreDataManager {
 		activityModel: ActivityRepayModel,
 		accountAddress: String
 	) -> CDRepayActivity? {
-		guard activityDataSource.get(byId: activityModel.txHash) == nil else { return nil }
+		guard activityDataSource.getBy(id: activityModel.txHash) == nil else { return nil }
 		let newActivity = CDRepayActivity(context: activityDataSource.managedContext)
 
 		newActivity.txHash = activityModel.txHash
@@ -351,7 +351,7 @@ class CoreDataManager {
 		activityModel: ActivityBorrowModel,
 		accountAddress: String
 	) -> CDBorrowActivity? {
-		guard activityDataSource.get(byId: activityModel.txHash) == nil else { return nil }
+		guard activityDataSource.getBy(id: activityModel.txHash) == nil else { return nil }
 		let newActivity = CDBorrowActivity(context: activityDataSource.managedContext)
 
 		newActivity.txHash = activityModel.txHash
@@ -383,7 +383,7 @@ class CoreDataManager {
 		activityModel: ActivityCollateralModel,
 		accountAddress: String
 	) -> CDCollateralActivity? {
-		guard activityDataSource.get(byId: activityModel.txHash) == nil else { return nil }
+		guard activityDataSource.getBy(id: activityModel.txHash) == nil else { return nil }
 		let newActivity = CDCollateralActivity(context: activityDataSource.managedContext)
 
 		newActivity.txHash = activityModel.txHash

@@ -15,7 +15,7 @@ protocol DataSourceProtocol {
 
 	mutating func fetchEntities()
 	mutating func getAll() -> [CoreDataType]
-	func get(byId id: String) -> CoreDataType?
+	func getBy(id: String) -> CoreDataType?
 	mutating func save(_ item: CoreDataType)
 	mutating func delete(_ item: CoreDataType)
 

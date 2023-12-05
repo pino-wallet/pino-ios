@@ -38,7 +38,7 @@ struct ActivityDataSource: DataSourceProtocol {
 		return activities
 	}
 
-	public func get(byId id: String) -> CDActivityParent? {
+	public func getBy(id: String) -> CDActivityParent? {
 		activities.first(where: { $0.txHash.lowercased() == id.lowercased() })
 	}
 

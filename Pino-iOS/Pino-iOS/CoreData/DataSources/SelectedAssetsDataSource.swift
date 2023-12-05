@@ -37,7 +37,7 @@ struct SelectedAssetsDataSource: DataSourceProtocol {
 		selectedAssets
 	}
 
-	public func get(byId id: String) -> SelectedAsset? {
+	public func getBy(id: String) -> SelectedAsset? {
 		selectedAssets.first(where: { $0.id.lowercased() == id.lowercased() })
 	}
 

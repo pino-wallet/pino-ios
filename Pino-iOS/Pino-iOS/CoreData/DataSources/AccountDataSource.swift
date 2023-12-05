@@ -37,7 +37,7 @@ struct AccountDataSource: DataSourceProtocol {
 		accounts
 	}
 
-	public func get(byId id: String) -> WalletAccount? {
+	public func getBy(id: String) -> WalletAccount? {
 		accounts.first(where: { $0.publicKey.lowercased() == id.lowercased() })
 	}
 

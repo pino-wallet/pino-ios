@@ -38,7 +38,7 @@ struct CustomAssetDataSource: DataSourceProtocol {
 		return customAssets
 	}
 
-	public func get(byId id: String) -> CustomAsset? {
+	public func getBy(id: String) -> CustomAsset? {
 		customAssets.first(where: { $0.id.lowercased() == id.lowercased() })
 	}
 
