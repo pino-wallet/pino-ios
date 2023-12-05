@@ -5,14 +5,11 @@
 //  Created by Amir hossein kazemi seresht on 11/20/23.
 //
 
-import Combine
 import Foundation
-import Web3
+import PromiseKit
 
 class SendTransactionStatusViewModel {
 	// MARK: - Closures
-
-	public var addPendingActivityClosure: (_ txHash: String) -> Void = { _ in }
 
 	public let confirmingDescriptionText = "We'll notify you once confirmed."
 	public let confirmingTitleText = "Confirming..."
@@ -42,18 +39,13 @@ class SendTransactionStatusViewModel {
 
 	// MARK: - Private Properties
 
-	private let transaction: EthereumSignedTransaction
+	private let transactions: [SendTransactionViewModel]
 	private let transactionInfo: TransactionInfoModel
-	private let activityAPIClient = ActivityAPIClient()
-	private let web3Core = Web3Core.shared
-	private var txHash: String?
-	private var requestTimer: Timer?
-	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
-	init(transaction: EthereumSignedTransaction, transactionInfo: TransactionInfoModel) {
-		self.transaction = transaction
+	init(transactions: [SendTransactionViewModel], transactionInfo: TransactionInfoModel) {
+		self.transactions = transactions
 		self.transactionInfo = transactionInfo
 
 		sendTx()
@@ -62,49 +54,36 @@ class SendTransactionStatusViewModel {
 	// MARK: - Private Methods
 
 	private func sendTx() {
-		web3Core.callTransaction(trx: transaction).done { txHash in
-			self.txHash = txHash
-			self.setupRequestTimer()
-			self.addPendingActivityClosure(txHash)
+		var sendTXPromiss: [Promise<SendTransactionStatus>] = []
+		transactions.forEach { transaction in
+			sendTXPromiss.append(transaction.sendTx())
+		}
+		when(fulfilled: sendTXPromiss).done { transactionStatus in
+			self.getPendingTransactionActivity()
 			self.sendTransactionStatus = .pending
+		}.catch { error in
+			self.sendTransactionStatus = .failed
+		}
+	}
+
+	@objc
+	private func getPendingTransactionActivity() {
+		var getActivityPromiss: [Promise<SendTransactionStatus>] = []
+		transactions.forEach { transaction in
+			getActivityPromiss.append(transaction.getPendingTransactionActivity())
+		}
+		when(fulfilled: getActivityPromiss).done { transactionStatus in
+			self.sendTransactionStatus = .success
 		}.catch { _ in
 			self.sendTransactionStatus = .failed
 		}
 	}
 
-	private func setupRequestTimer() {
-		requestTimer = Timer.scheduledTimer(
-			timeInterval: 2,
-			target: self,
-			selector: #selector(getPendingTransactionActivity),
-			userInfo: nil,
-			repeats: true
-		)
-		requestTimer?.fire()
-	}
-
-	@objc
-	private func getPendingTransactionActivity() {
-		guard let txHash else {
-			return
-		}
-		activityAPIClient.singleActivity(txHash: txHash).sink { completed in
-			switch completed {
-			case .finished:
-				print("Transaction activity received sucsessfully")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { _ in
-			self.sendTransactionStatus = .success
-			self.destroyRequestTimer()
-		}.store(in: &cancellables)
-	}
-
 	// MARK: Public Methods
 
 	public func destroyRequestTimer() {
-		requestTimer?.invalidate()
-		requestTimer = nil
+		transactions.forEach { transaction in
+			transaction.destroyRequestTimer()
+		}
 	}
 }
