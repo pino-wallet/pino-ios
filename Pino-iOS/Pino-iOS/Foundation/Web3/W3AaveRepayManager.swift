@@ -34,7 +34,7 @@ public struct W3AaveRepayManager: Web3HelperProtocol {
 		Promise<String> { seal in
 			let solInvocation = contract[ABIMethodWrite.repayV3.rawValue]?(
 				tokenAddress.eip55Address!,
-                amount,
+				amount,
 				BigUInt(Web3Core.Constants.aaveBorrowVariableInterestRate),
 				walletManager.currentAccount.eip55Address.eip55Address!
 			)

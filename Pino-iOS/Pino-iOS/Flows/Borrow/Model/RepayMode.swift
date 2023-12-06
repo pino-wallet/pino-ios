@@ -8,6 +8,6 @@
 import Foundation
 
 enum RepayMode {
-    case decrease
-    case repayMax
+	case decrease
+	case repayMax
 }
