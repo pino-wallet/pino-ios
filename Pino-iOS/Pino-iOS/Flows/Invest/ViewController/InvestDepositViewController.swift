@@ -17,16 +17,23 @@ class InvestDepositViewController: UIViewController {
 	private var web3 = Web3Core.shared
 	private let walletManager = PinoWalletManager()
 	private let isWithdraw: Bool
+	private var onDepositConfirm: () -> Void
 
 	// MARK: Initializers
 
-	init(selectedAsset: AssetsBoardProtocol, selectedProtocol: InvestProtocolViewModel, isWithdraw: Bool = false) {
+	init(
+		selectedAsset: AssetsBoardProtocol,
+		selectedProtocol: InvestProtocolViewModel,
+		isWithdraw: Bool = false,
+		onDepositConfirm: @escaping () -> Void
+	) {
 		self.isWithdraw = isWithdraw
 		if self.isWithdraw {
 			self.investVM = WithdrawViewModel(selectedAsset: selectedAsset, selectedProtocol: selectedProtocol)
 		} else {
 			self.investVM = InvestDepositViewModel(selectedAsset: selectedAsset, selectedProtocol: selectedProtocol)
 		}
+		self.onDepositConfirm = onDepositConfirm
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -154,7 +161,10 @@ class InvestDepositViewController: UIViewController {
 			)
 		}
 
-		let investConfirmationVC = InvestConfirmationViewController(confirmationVM: investConfirmationVM)
+		let investConfirmationVC = InvestConfirmationViewController(
+			confirmationVM: investConfirmationVM,
+			onConfirm: onDepositConfirm
+		)
 		navigationController?.pushViewController(investConfirmationVC, animated: true)
 	}
 
