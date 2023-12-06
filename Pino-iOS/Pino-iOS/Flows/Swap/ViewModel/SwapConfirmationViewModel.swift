@@ -131,7 +131,7 @@ class SwapConfirmationViewModel {
 	}
 
 	private func recalculateSwapRate() {
-		Timer.publish(every: 5, on: .main, in: .common)
+		Timer.publish(every: 15, on: .main, in: .common)
 			.autoconnect()
 			.sink { [self] seconds in
 				swapRate = nil

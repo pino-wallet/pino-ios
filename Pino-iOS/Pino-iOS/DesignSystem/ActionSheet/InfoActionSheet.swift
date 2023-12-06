@@ -26,7 +26,7 @@ class InfoActionSheet: UIAlertController {
 	// MARK: - Initializers
 
 	convenience init(title: String, description: String) {
-		self.init(title: "", message: nil, preferredStyle: .actionSheet)
+        self.init(title: "", message: nil, preferredStyle: .actionSheet)
 
 		setupView()
 		setupStyle(title: title, description: description)
