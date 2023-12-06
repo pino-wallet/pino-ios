@@ -368,6 +368,7 @@
 		D96A40D62A7E83A200C020BC /* PendingActivitiesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96A40D52A7E83A200C020BC /* PendingActivitiesManager.swift */; };
 		D96FD3B12A9734870008977A /* BorrowSelectDexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96FD3B02A9734870008977A /* BorrowSelectDexViewController.swift */; };
 		D96FD3B32A97373C0008977A /* BorrowSelectDexViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96FD3B22A97373C0008977A /* BorrowSelectDexViewModel.swift */; };
+		D970220D2B20539A00717D9A /* RepayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D970220C2B20539A00717D9A /* RepayMode.swift */; };
 		D9703F6A29ED547000D09277 /* CoinInfoFooterview.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9703F6929ED547000D09277 /* CoinInfoFooterview.swift */; };
 		D970C0E02A74EA80005A7FAC /* GlobalToastTitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D970C0DF2A74EA80005A7FAC /* GlobalToastTitles.swift */; };
 		D9714C8B2AE4FE5D00FF3AAA /* AaveProxyABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = D9714C8A2AE4FE5D00FF3AAA /* AaveProxyABIJson.json */; };
@@ -1207,6 +1208,7 @@
 		D96A40D52A7E83A200C020BC /* PendingActivitiesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingActivitiesManager.swift; sourceTree = "<group>"; };
 		D96FD3B02A9734870008977A /* BorrowSelectDexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowSelectDexViewController.swift; sourceTree = "<group>"; };
 		D96FD3B22A97373C0008977A /* BorrowSelectDexViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowSelectDexViewModel.swift; sourceTree = "<group>"; };
+		D970220C2B20539A00717D9A /* RepayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepayMode.swift; sourceTree = "<group>"; };
 		D9703F6929ED547000D09277 /* CoinInfoFooterview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoFooterview.swift; sourceTree = "<group>"; };
 		D970C0DF2A74EA80005A7FAC /* GlobalToastTitles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalToastTitles.swift; sourceTree = "<group>"; };
 		D9714C8A2AE4FE5D00FF3AAA /* AaveProxyABIJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AaveProxyABIJson.json; sourceTree = "<group>"; };
@@ -3182,6 +3184,7 @@
 				D97DE9DB2B09E65F00DDF4FB /* CollateralPageStatus.swift */,
 				D97DE9DD2B09E68400DDF4FB /* CollateralMode.swift */,
 				D95A57CD2B17240D005A57EB /* WithdrawMode.swift */,
+				D970220C2B20539A00717D9A /* RepayMode.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4861,6 +4864,7 @@
 				D5E4DDCB2A95FD78000AA235 /* InvestDepositViewController.swift in Sources */,
 				D93C41FB29F7CC67003F2297 /* EditAccountCell.swift in Sources */,
 				D9F252C82ABEE3DF00ECF293 /* CollateralizableTokensModel.swift in Sources */,
+				D970220D2B20539A00717D9A /* RepayMode.swift in Sources */,
 				D9A642C82AFA219D00FDE11D /* ActivityRepayModel.swift in Sources */,
 				130F1B30243DA82379EB2BD4 /* CoinInfoChartViewModel.swift in Sources */,
 				D933C3372A99F66100C2BD5A /* UserCollateralizingAssetCell.swift in Sources */,
