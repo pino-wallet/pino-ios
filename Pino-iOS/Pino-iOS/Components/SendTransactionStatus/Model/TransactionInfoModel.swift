@@ -9,7 +9,7 @@ import Foundation
 
 struct TransactionInfoModel {
 	var transactionType: SendTransactionType
-	var transactionDex: DexSystemModel
+	var transactionDex: DexSystemModelProtocol
 	var transactionAmount: String
 	var transactionToken: AssetViewModel
 }

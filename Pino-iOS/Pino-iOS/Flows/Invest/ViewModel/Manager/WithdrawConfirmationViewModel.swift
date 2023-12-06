@@ -60,6 +60,19 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 		$formattedFeeInDollar
 	}
 
+	public var sendTransactions: [SendTransactionViewModel]? {
+		switch selectedProtocol {
+		case .maker, .lido:
+			return getWithdrawTransaction()
+		case .compound:
+			return getCompoundTransaction()
+		case .aave:
+			return getAaveTransaction()
+		}
+	}
+
+	public var transactionType: SendTransactionType = .withdraw
+
 	// MARK: - Initializer
 
 	init(
@@ -84,6 +97,29 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 		).show()
 	}
 
+	private func getWithdrawTransaction() -> [SendTransactionViewModel]? {
+		guard let withdrawTrx = withdrawManager.withdrawTrx else { return nil }
+		let withdrawTransaction = SendTransactionViewModel(transaction: withdrawTrx) { pendingActivityTXHash in
+			self.addPendingActivity(txHash: pendingActivityTXHash)
+		}
+		return [withdrawTransaction]
+	}
+
+	private func getCompoundTransaction() -> [SendTransactionViewModel]? {
+		guard let withdrawTrx = withdrawManager.compoundManager.withdrawTrx else { return nil }
+		let withdrawTransaction = SendTransactionViewModel(transaction: withdrawTrx) { pendingActivityTXHash in
+			self.addPendingActivity(txHash: pendingActivityTXHash)
+		}
+		return [withdrawTransaction]
+	}
+
+	private func getAaveTransaction() -> [SendTransactionViewModel]? {
+		#warning("Implement later")
+		return nil
+	}
+
+	private func addPendingActivity(txHash: String) {}
+
 	// MARK: - Public Methods
 
 	public func getTransactionInfo() {
@@ -93,13 +129,6 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 			self.formattedFeeInETH = gasInfo.fee!.sevenDigitFormat
 		}.catch { error in
 			self.showError()
-		}
-	}
-
-	public func confirmTransaction(completion: @escaping () -> Void) {
-		withdrawManager.confirmWithdraw { trx in
-			print("INVEST TRX HASH: \(trx)")
-			completion()
 		}
 	}
 }

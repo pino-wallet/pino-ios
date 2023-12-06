@@ -72,7 +72,12 @@ class InvestViewController: UIViewController {
 
 	private func openInvestmentBoard() {
 		guard let assets = investVM.assets else { return }
-		let investmentBoardVC = InvestmentBoardViewController(assets: assets)
+		let investmentBoardVC = InvestmentBoardViewController(
+			assets: assets,
+			onDepositConfirm: {
+				self.dismiss(animated: true)
+			}
+		)
 		let investmentBoardNavigationVC = UINavigationController(rootViewController: investmentBoardVC)
 		present(investmentBoardNavigationVC, animated: true)
 	}

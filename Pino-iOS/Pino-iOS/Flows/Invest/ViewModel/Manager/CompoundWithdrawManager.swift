@@ -63,16 +63,6 @@ class CompoundWithdrawManager: InvestW3ManagerProtocol {
 		}
 	}
 
-	public func confirmWithdraw(completion: @escaping (Result<String>) -> Void) {
-		guard let withdrawTrx else { return }
-		Web3Core.shared.callTransaction(trx: withdrawTrx).done { trxHash in
-			#warning("Add transaction activity later")
-			completion(.fulfilled(trxHash))
-		}.catch { error in
-			completion(.rejected(error))
-		}
-	}
-
 	// MARK: - Private Methods
 
 	private func getCompoundERCWithdrawInfo() -> TrxWithGasInfo {

@@ -13,11 +13,13 @@ class SendTransactionStatusViewController: UIViewController {
 
 	private var sendStatusView: SendTransactionStatusView!
 	private var sendStatusVM: SendTransactionStatusViewModel
+	private var onDismiss: (() -> Void)?
 
 	// MARK: - Initializers
 
-	init(sendStatusVM: SendTransactionStatusViewModel) {
+	init(sendStatusVM: SendTransactionStatusViewModel, onDismiss: (() -> Void)? = nil) {
 		self.sendStatusVM = sendStatusVM
+		self.onDismiss = onDismiss
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -52,6 +54,9 @@ class SendTransactionStatusViewController: UIViewController {
 		}, sendStatusVM: sendStatusVM)
 		sendStatusView.onDissmiss = {
 			self.dismiss(animated: true)
+			if let onDismiss = self.onDismiss {
+				onDismiss()
+			}
 		}
 		view = sendStatusView
 	}

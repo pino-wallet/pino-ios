@@ -36,6 +36,8 @@ class SendTransactionStatusViewModel {
 			return "You borrowed  \(Int(transactionInfo.transactionAmount)!.formattedWithCamma) \(transactionInfo.transactionToken.symbol) from \(transactionInfo.transactionDex.name)."
 		case .repay:
 			return "You repaid  \(Int(transactionInfo.transactionAmount)!.formattedWithCamma) \(transactionInfo.transactionToken.symbol) to \(transactionInfo.transactionDex.name)."
+		case .invest:
+			return "You invested  \(Int(transactionInfo.transactionAmount)!.formattedWithCamma) \(transactionInfo.transactionToken.symbol) in \(transactionInfo.transactionDex.name)."
 		}
 	}
 

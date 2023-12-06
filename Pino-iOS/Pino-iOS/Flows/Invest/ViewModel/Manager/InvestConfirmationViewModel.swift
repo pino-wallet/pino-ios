@@ -60,6 +60,19 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 		$formattedFeeInDollar
 	}
 
+	public var sendTransactions: [SendTransactionViewModel]? {
+		switch selectedProtocol {
+		case .maker, .lido:
+			return getDepositTransaction()
+		case .compound:
+			return getCompoundTransactions()
+		case .aave:
+			return getAaveTransactions()
+		}
+	}
+
+	public var transactionType: SendTransactionType = .invest
+
 	// MARK: - Initializer
 
 	init(
@@ -84,6 +97,37 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 		).show()
 	}
 
+	private func addPendingActivity(txHash: String) {}
+
+	private func getDepositTransaction() -> [SendTransactionViewModel]? {
+		guard let depositTrx = investManager.depositTrx else { return nil }
+		let depositTransaction = SendTransactionViewModel(transaction: depositTrx) { pendingActivityTXHash in
+			self.addPendingActivity(txHash: pendingActivityTXHash)
+		}
+		return [depositTransaction]
+	}
+
+	private func getCompoundTransactions() -> [SendTransactionViewModel]? {
+		guard let depositTrx = investManager.compoundManager.depositTrx else { return nil }
+		let depositTransaction = SendTransactionViewModel(transaction: depositTrx) { pendingActivityTXHash in
+			self.addPendingActivity(txHash: pendingActivityTXHash)
+		}
+		if let collateralCheckTrx = investManager.compoundManager.collateralCheckTrx {
+			let collateralCheckTransaction =
+				SendTransactionViewModel(transaction: collateralCheckTrx) { pendingActivityTXHash in
+					self.addPendingActivity(txHash: pendingActivityTXHash)
+				}
+			return [depositTransaction, collateralCheckTransaction]
+		} else {
+			return [depositTransaction]
+		}
+	}
+
+	private func getAaveTransactions() -> [SendTransactionViewModel]? {
+		#warning("Implement later")
+		return nil
+	}
+
 	// MARK: - Public Methods
 
 	public func getTransactionInfo() {
@@ -93,13 +137,6 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 			self.formattedFeeInETH = gasInfos.map { $0.fee! }.reduce(0.bigNumber, +).sevenDigitFormat
 		}.catch { error in
 			self.showError()
-		}
-	}
-
-	public func confirmTransaction(completion: @escaping () -> Void) {
-		investManager.confirmDeposit { trx in
-			print("INVEST TRX HASH: \(trx)")
-			completion()
 		}
 	}
 }
