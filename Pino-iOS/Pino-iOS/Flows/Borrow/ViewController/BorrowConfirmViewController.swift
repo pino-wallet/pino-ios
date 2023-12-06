@@ -79,12 +79,7 @@ class BorrowConfirmViewController: UIViewController {
 		)
 		let sendTransactionStatusVM = SendTransactionStatusViewModel(
 			transactions: [borrowTransaction],
-			transactionInfo: TransactionInfoModel(
-				transactionType: .borrow,
-				transactionDex: borrowConfirmVM.borrowIncreaseAmountVM.borrowVM.selectedDexSystem,
-				transactionAmount: borrowConfirmVM.borrowIncreaseAmountVM.tokenAmount,
-				transactionToken: borrowConfirmVM.borrowIncreaseAmountVM.selectedToken
-			)
+            transactionSentInfoText: "You borrowed \(Int(borrowConfirmVM.borrowIncreaseAmountVM.tokenAmount)!.formattedWithCamma) \(borrowConfirmVM.borrowIncreaseAmountVM.selectedToken.symbol) from \(borrowConfirmVM.borrowIncreaseAmountVM.borrowVM.selectedDexSystem.name) \(borrowConfirmVM.borrowIncreaseAmountVM.borrowVM.selectedDexSystem.version)."
 		)
 		let sendTransactionStatusVC = SendTransactionStatusViewController(sendStatusVM: sendTransactionStatusVM)
 		present(sendTransactionStatusVC, animated: true)

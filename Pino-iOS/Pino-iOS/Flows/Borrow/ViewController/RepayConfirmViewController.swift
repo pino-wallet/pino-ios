@@ -67,12 +67,7 @@ class RepayConfirmViewController: UIViewController {
 		)
 		let sendTransactionStatusVM = SendTransactionStatusViewModel(
 			transactions: [repayTransaction],
-			transactionInfo: TransactionInfoModel(
-				transactionType: .repay,
-				transactionDex: repayConfirmVM.repayAmountVM.borrowVM.selectedDexSystem,
-				transactionAmount: repayConfirmVM.repayAmountVM.tokenAmount,
-				transactionToken: repayConfirmVM.repayAmountVM.selectedToken
-			)
+            transactionSentInfoText: "You repaid \(Int(repayConfirmVM.repayAmountVM.tokenAmount)!.formattedWithCamma) \(repayConfirmVM.repayAmountVM.selectedToken.symbol) to \(repayConfirmVM.repayAmountVM.borrowVM.selectedDexSystem.name) \(repayConfirmVM.repayAmountVM.borrowVM.selectedDexSystem.version)."
 		)
 		let sendTransactionStatusVC = SendTransactionStatusViewController(sendStatusVM: sendTransactionStatusVM)
 		present(sendTransactionStatusVC, animated: true)

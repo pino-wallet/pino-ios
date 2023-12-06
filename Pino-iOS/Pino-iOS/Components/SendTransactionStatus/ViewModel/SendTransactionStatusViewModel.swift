@@ -26,31 +26,17 @@ class SendTransactionStatusViewModel {
 	@Published
 	public var sendTransactionStatus: SendTransactionStatus = .sending
 
-	public var transactionSentInfoText: String {
-		switch transactionInfo.transactionType {
-		case .collateral:
-			return "You collateralized \(Int(transactionInfo.transactionAmount)!.formattedWithCamma) \(transactionInfo.transactionToken.symbol) in \(transactionInfo.transactionDex.name)."
-		case .withdraw:
-			return "You withdrew  \(Int(transactionInfo.transactionAmount)!.formattedWithCamma) \(transactionInfo.transactionToken.symbol) from \(transactionInfo.transactionDex.name)."
-		case .borrow:
-			return "You borrowed  \(Int(transactionInfo.transactionAmount)!.formattedWithCamma) \(transactionInfo.transactionToken.symbol) from \(transactionInfo.transactionDex.name)."
-		case .repay:
-			return "You repaid  \(Int(transactionInfo.transactionAmount)!.formattedWithCamma) \(transactionInfo.transactionToken.symbol) to \(transactionInfo.transactionDex.name)."
-		case .invest:
-			return "You invested  \(Int(transactionInfo.transactionAmount)!.formattedWithCamma) \(transactionInfo.transactionToken.symbol) in \(transactionInfo.transactionDex.name)."
-		}
-	}
+	public var transactionSentInfoText: String
 
 	// MARK: - Private Properties
 
 	private let transactions: [SendTransactionViewModel]
-	private let transactionInfo: TransactionInfoModel
 
 	// MARK: - Initializers
 
-	init(transactions: [SendTransactionViewModel], transactionInfo: TransactionInfoModel) {
+    init(transactions: [SendTransactionViewModel], transactionSentInfoText: String) {
 		self.transactions = transactions
-		self.transactionInfo = transactionInfo
+        self.transactionSentInfoText = transactionSentInfoText
 
 		sendTx()
 	}
