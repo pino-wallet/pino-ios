@@ -193,14 +193,14 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private mutating func setValues() {
 		switch uiType {
 		case .swap:
-            var baseTitle: String {
-                switch status {
-                case .pending:
-                    "Swapping"
-                default:
-                    "Swapped"
-                }
-            }
+			var baseTitle: String {
+				switch status {
+				case .pending:
+					"Swapping"
+				default:
+					"Swapped"
+				}
+			}
 			// set cell title
 			title = "\(baseTitle) \(swapDetailsVM!.fromTokenSymbol) → \(swapDetailsVM!.toTokenSymbol)"
 			// set cell moreInfo
@@ -208,14 +208,14 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			// set cell icon
 			icon = swapIcon
 		case .send:
-            var baseTitle: String {
-                switch status {
-                case .pending:
-                    "Sending"
-                default:
-                    "Sent"
-                }
-            }
+			var baseTitle: String {
+				switch status {
+				case .pending:
+					"Sending"
+				default:
+					"Sent"
+				}
+			}
 			// set cell title
 			title =
 				"\(baseTitle) \(transferDetailsVM!.transferTokenAmount.sevenDigitFormat) \(transferDetailsVM!.tokenSymbol)"
@@ -225,14 +225,14 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			// set cell icon
 			icon = sendIcon
 		case .receive:
-            var baseTitle: String {
-                switch status {
-                case .pending:
-                    "Receiving"
-                default:
-                    "Received"
-                }
-            }
+			var baseTitle: String {
+				switch status {
+				case .pending:
+					"Receiving"
+				default:
+					"Received"
+				}
+			}
 			// set cell title
 			title =
 				"\(baseTitle) \(transferDetailsVM!.transferTokenAmount.sevenDigitFormat) \(transferDetailsVM!.tokenSymbol)"
@@ -242,14 +242,14 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			// set cell icon
 			icon = receiveIcon
 		case .borrow:
-            var baseTitle: String {
-                switch status {
-                case .pending:
-                    "‌Borrowing"
-                default:
-                    "Borrowed"
-                }
-            }
+			var baseTitle: String {
+				switch status {
+				case .pending:
+					"‌Borrowing"
+				default:
+					"Borrowed"
+				}
+			}
 			// set cell title
 			title =
 				"\(baseTitle) \(borrowDetailsVM!.tokenAmount.sevenDigitFormat) \(borrowDetailsVM!.tokenSymbol)"
@@ -258,14 +258,14 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			// set cell icon
 			icon = borrowIcon
 		case .repay:
-            var baseTitle: String {
-                switch status {
-                case .pending:
-                    "Repaying"
-                default:
-                    "Repaid"
-                }
-            }
+			var baseTitle: String {
+				switch status {
+				case .pending:
+					"Repaying"
+				default:
+					"Repaid"
+				}
+			}
 			// set cell title
 			title =
 				"\(baseTitle) \(repayDetailsVM!.tokenAmount.sevenDigitFormat) \(repayDetailsVM!.tokenSymbol)"
@@ -274,14 +274,14 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			// set cell icon
 			icon = repaidIcon
 		case .withdraw_investment:
-            var baseTitle: String {
-                switch status {
-                case .pending:
-                    "Withdrawing"
-                default:
-                    "Withdrew"
-                }
-            }
+			var baseTitle: String {
+				switch status {
+				case .pending:
+					"Withdrawing"
+				default:
+					"Withdrew"
+				}
+			}
 			// set cell title
 			title =
 				"\(baseTitle) \(withdrawInvestmentDetailsVM!.tokenAmount.sevenDigitFormat) \(withdrawInvestmentDetailsVM!.tokenSymbol)"
@@ -290,14 +290,14 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			// set cell icon
 			icon = withdrawIcon
 		case .invest:
-            var baseTitle: String {
-                switch status {
-                case .pending:
-                    "Investing"
-                default:
-                    "Invested"
-                }
-            }
+			var baseTitle: String {
+				switch status {
+				case .pending:
+					"Investing"
+				default:
+					"Invested"
+				}
+			}
 			// set cell title
 			title =
 				"\(baseTitle) \(investDetailsVM!.tokenAmount.sevenDigitFormat) \(investDetailsVM!.tokenSymbol)"
@@ -306,14 +306,14 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			// set cell icon
 			icon = investIcon
 		case .collateral:
-            var baseTitle: String {
-                switch status {
-                case .pending:
-                    "Collateralizing"
-                default:
-                    "Collateralized"
-                }
-            }
+			var baseTitle: String {
+				switch status {
+				case .pending:
+					"Collateralizing"
+				default:
+					"Collateralized"
+				}
+			}
 			// set cell title
 			title =
 				"\(baseTitle) \(collateralDetailsVM!.tokenAmount.sevenDigitFormat) \(collateralDetailsVM!.tokenSymbol)"
@@ -322,14 +322,14 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			// set cell icon
 			icon = collateralIcon
 		case .withdraw_collateral:
-            var baseTitle: String {
-                switch status {
-                case .pending:
-                    "Uncollateralizing"
-                default:
-                    "Uncollateralized"
-                }
-            }
+			var baseTitle: String {
+				switch status {
+				case .pending:
+					"Uncollateralizing"
+				default:
+					"Uncollateralized"
+				}
+			}
 			// set cell title
 			title =
 				"\(baseTitle) \(withdrawCollateralDetailsVM!.tokenAmount.sevenDigitFormat) \(withdrawCollateralDetailsVM!.tokenSymbol)"
@@ -338,14 +338,14 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			// set cell icon
 			icon = decreaseCollateral
 		case .enable_collateral:
-            var baseTitle: String {
-                switch status {
-                case .pending:
-                    "Enabling"
-                default:
-                    "Enabled"
-                }
-            }
+			var baseTitle: String {
+				switch status {
+				case .pending:
+					"Enabling"
+				default:
+					"Enabled"
+				}
+			}
 			// set cell title
 			title =
 				"\(baseTitle) \(collateralStatusDetailsVM!.tokenSymbol) to collateralized"
@@ -355,14 +355,14 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			#warning("this should change")
 			icon = approveIcon
 		case .disable_collateral:
-            var baseTitle: String {
-                switch status {
-                case .pending:
-                    "Disabling"
-                default:
-                    "Disabled"
-                }
-            }
+			var baseTitle: String {
+				switch status {
+				case .pending:
+					"Disabling"
+				default:
+					"Disabled"
+				}
+			}
 			// set cell title
 			title =
 				"\(baseTitle) \(collateralStatusDetailsVM!.tokenSymbol) to collateralized"
@@ -372,14 +372,14 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			#warning("this should change")
 			icon = approveIcon
 		case .approve:
-            var baseTitle: String {
-                switch status {
-                case .pending:
-                    "Approving"
-                default:
-                    "Approved"
-                }
-            }
+			var baseTitle: String {
+				switch status {
+				case .pending:
+					"Approving"
+				default:
+					"Approved"
+				}
+			}
 			// set cell title
 			title =
 				"\(baseTitle) \(approveDetailsVM!.tokenSymbol)"

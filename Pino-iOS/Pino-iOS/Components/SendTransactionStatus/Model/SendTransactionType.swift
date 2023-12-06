@@ -9,11 +9,11 @@ import Foundation
 
 enum SendTransactionType {
 	case borrow
-    case send
+	case send
 	case repay
 	case collateral
-    case unCollateral
+	case unCollateral
 	case withdraw
 	case invest
-    case swap
+	case swap
 }

@@ -10,5 +10,5 @@ protocol DexSystemModelProtocol {
 	var image: String { get }
 	var description: String { get }
 	var type: String { get }
-    var version: String { get }
+	var version: String { get }
 }

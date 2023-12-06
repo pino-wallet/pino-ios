@@ -34,9 +34,9 @@ class SendTransactionStatusViewModel {
 
 	// MARK: - Initializers
 
-    init(transactions: [SendTransactionViewModel], transactionSentInfoText: String) {
+	init(transactions: [SendTransactionViewModel], transactionSentInfoText: String) {
 		self.transactions = transactions
-        self.transactionSentInfoText = transactionSentInfoText
+		self.transactionSentInfoText = transactionSentInfoText
 
 		sendTx()
 	}
