@@ -69,9 +69,7 @@ class RepayAmountViewModel {
 	public var prevHealthScore: Double = 0
 	public var newHealthScore: Double = 24
 
-	// MARK: - Private Properties
-
-	private var selectedTokenTotalDebt: BigNumber {
+	public var selectedTokenTotalDebt: BigNumber {
 		BigNumber(number: selectedUserBorrowingToken.totalDebt!, decimal: selectedToken.decimal)
 	}
 

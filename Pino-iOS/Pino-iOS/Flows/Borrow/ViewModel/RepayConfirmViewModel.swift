@@ -58,6 +58,9 @@ class RepayConfirmViewModel {
 		selectedToken.image
 	}
 
+	public var assetAmountBigNumber: BigNumber
+	public var repayMode: RepayMode
+
 	// MARK: - Private Properties
 
 	private let feeTxErrorText = "Failed to estimate fee of transaction"
@@ -79,11 +82,21 @@ class RepayConfirmViewModel {
 	}
 
 	private lazy var aaveRepayManager: AaveRepayManager = {
+		var calculatedAssetAmount: String
+		switch repayMode {
+		case .decrease:
+			calculatedAssetAmount = repayAmountVM.tokenAmount
+		case .repayMax:
+			let estimatedExtraDebtForOneMinute = (assetAmountBigNumber / 100_000.bigNumber)! * 3.bigNumber
+			let totalDebt = assetAmountBigNumber + estimatedExtraDebtForOneMinute
+			calculatedAssetAmount = totalDebt.plainSevenDigitFormat
+		}
+
 		let pinoAaveProxyContract = try! web3.getPinoAaveProxyContract()
 		return AaveRepayManager(
 			contract: pinoAaveProxyContract,
 			asset: selectedToken,
-			assetAmount: repayAmountVM.tokenAmount
+			assetAmount: calculatedAssetAmount
 		)
 	}()
 
@@ -91,6 +104,12 @@ class RepayConfirmViewModel {
 
 	init(repayamountVM: RepayAmountViewModel) {
 		self.repayAmountVM = repayamountVM
+		self.assetAmountBigNumber = BigNumber(numberWithDecimal: repayAmountVM.tokenAmount)
+		if assetAmountBigNumber.plainSevenDigitFormat == repayamountVM.selectedTokenTotalDebt.plainSevenDigitFormat {
+			self.repayMode = .repayMax
+		} else {
+			self.repayMode = .decrease
+		}
 	}
 
 	// MARK: - Private Methods
