@@ -62,8 +62,9 @@ class SwapConfirmationViewModel {
 
 	public let swapRateTitle = "Rate"
 	public let feeTitle = "Fee"
-	public let feeInfoActionSheetTitle = "Fee"
-	public let feeInfoActionSheetDescription = "Sample Text"
+	public let feeInfoActionSheetTitle = "Network fee"
+	public let feeInfoActionSheetDescription =
+		"This is a network fee charged by Ethereum for processing your transaction. Pino does not receive any part of this fee."
 	public let feeErrorText = "Error in calculation!"
 	public let feeErrorIcon = "refresh"
 
@@ -131,7 +132,7 @@ class SwapConfirmationViewModel {
 	}
 
 	private func recalculateSwapRate() {
-		Timer.publish(every: 5, on: .main, in: .common)
+		Timer.publish(every: 15, on: .main, in: .common)
 			.autoconnect()
 			.sink { [self] seconds in
 				swapRate = nil

@@ -91,12 +91,12 @@ class SwapConfirmationInfoView: UIView {
 		feeLabel.addGestureRecognizer(feeLabelTapGesture)
 		feeLabel.isUserInteractionEnabled = true
 
+		let feeRetryTapGesture = UITapGestureRecognizer(target: self, action: #selector(getFee))
+		feeErrorStackView.addGestureRecognizer(feeRetryTapGesture)
+
 		feeTitleView.presentActionSheet = { feeInfoActionSheet in
 			self.presentFeeInfo(feeInfoActionSheet)
 		}
-
-		let feeRetryTapGesture = UITapGestureRecognizer(target: self, action: #selector(getFee))
-		feeErrorStackView.addGestureRecognizer(feeRetryTapGesture)
 	}
 
 	private func setupStyle() {
