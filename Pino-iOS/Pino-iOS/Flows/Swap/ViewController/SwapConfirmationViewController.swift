@@ -65,9 +65,9 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 			confirmButtonTapped: {
 				self.confirmSwap()
 			},
-            presentFeeInfo: { infoActionSheet in
-                self.showFeeInfoActionSheet(infoActionSheet)
-            },
+			presentFeeInfo: { infoActionSheet in
+				self.showFeeInfoActionSheet(infoActionSheet)
+			},
 			retryFeeCalculation: {
 				self.getFee()
 			}
@@ -88,7 +88,7 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 		)
 	}
 
-	private func showFeeInfoActionSheet(_ feeInfoActionSheet: SwapFeeInfoSheet) {
+	private func showFeeInfoActionSheet(_ feeInfoActionSheet: InfoActionSheet) {
 		present(feeInfoActionSheet, animated: true)
 	}
 

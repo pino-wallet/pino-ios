@@ -26,7 +26,7 @@ class SwapConfirmationView: UIView {
 
 	private let swapConfirmationVM: SwapConfirmationViewModel
 	private let confirmButtonTapped: () -> Void
-	private let presentFeeInfo: (SwapFeeInfoSheet) -> Void
+	private let presentFeeInfo: (InfoActionSheet) -> Void
 	private let retryFeeCalculation: () -> Void
 	private var cancellables = Set<AnyCancellable>()
 	private var showFeeInDollar = true
@@ -36,7 +36,7 @@ class SwapConfirmationView: UIView {
 	init(
 		swapConfirmationVM: SwapConfirmationViewModel,
 		confirmButtonTapped: @escaping () -> Void,
-		presentFeeInfo: @escaping (SwapFeeInfoSheet) -> Void,
+		presentFeeInfo: @escaping (InfoActionSheet) -> Void,
 		retryFeeCalculation: @escaping () -> Void
 	) {
 		self.swapConfirmationVM = swapConfirmationVM

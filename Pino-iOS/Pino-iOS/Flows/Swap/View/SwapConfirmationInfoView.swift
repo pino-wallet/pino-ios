@@ -32,7 +32,7 @@ class SwapConfirmationInfoView: UIView {
 	private let feeLabel = UILabel()
 
 	private let swapConfirmationVM: SwapConfirmationViewModel
-	private let presentFeeInfo: (SwapFeeInfoSheet) -> Void
+	private let presentFeeInfo: (InfoActionSheet) -> Void
 	private let retryFeeCalculation: () -> Void
 	private var cancellables = Set<AnyCancellable>()
 	private var showFeeInDollar = true
@@ -41,7 +41,7 @@ class SwapConfirmationInfoView: UIView {
 
 	init(
 		swapConfirmationVM: SwapConfirmationViewModel,
-		presentFeeInfo: @escaping (SwapFeeInfoSheet) -> Void,
+		presentFeeInfo: @escaping (InfoActionSheet) -> Void,
 		retryFeeCalculation: @escaping () -> Void
 	) {
 		self.swapConfirmationVM = swapConfirmationVM
@@ -93,9 +93,10 @@ class SwapConfirmationInfoView: UIView {
 
 		let feeRetryTapGesture = UITapGestureRecognizer(target: self, action: #selector(getFee))
 		feeErrorStackView.addGestureRecognizer(feeRetryTapGesture)
-        
-        let feeInfoViewGesture = UITapGestureRecognizer(target: self, action: #selector(feeInfoViewTapped))
-        feeTitleView.addGestureRecognizer(feeInfoViewGesture)
+
+		feeTitleView.presentActionSheet = { feeInfoActionSheet in
+			self.presentFeeInfo(feeInfoActionSheet)
+		}
 	}
 
 	private func setupStyle() {
@@ -196,12 +197,6 @@ class SwapConfirmationInfoView: UIView {
 	private func getFee() {
 		retryFeeCalculation()
 	}
-    
-    @objc
-    private func feeInfoViewTapped() {
-        let swapInfoView = SwapFeeInfoSheet(title: "Fee", networkFee: "2.4", pinoFee: "2.4")
-        presentFeeInfo(swapInfoView)
-    }
 
 	// MARK: - Public Methods
 
