@@ -141,7 +141,7 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 			activityProtocol: selectedProtocol.type,
 			nftId: nil
 		)
-		let investActivityModel = ActivityInvestModel(
+		let withdrawActivityModel = ActivityWithdrawModel(
 			txHash: txHash,
 			type: activityType.rawValue,
 			detail: activityDetailModel,
@@ -151,8 +151,8 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 			gasUsed: gasInfo.increasedGasLimit!.description,
 			gasPrice: gasInfo.maxFeePerGas.description
 		)
-		coreDataManager.addNewInvestActivity(
-			activityModel: investActivityModel,
+		coreDataManager.addNewWithdrawActivity(
+			activityModel: withdrawActivityModel,
 			accountAddress: withdrawManager.walletManager.currentAccount.eip55Address
 		)
 		PendingActivitiesManager.shared.startActivityPendingRequests()
