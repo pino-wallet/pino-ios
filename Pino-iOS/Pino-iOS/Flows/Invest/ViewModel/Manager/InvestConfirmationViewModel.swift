@@ -16,6 +16,8 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 
 	private let web3 = Web3Core.shared
 	private var cancellables = Set<AnyCancellable>()
+	private let activityHelper = ActivityHelper()
+	internal var investmentType: InvestmentType
 	private lazy var investManager: DepositManager = {
 		DepositManager(
 			contract: investProxyContract,
@@ -32,7 +34,6 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 	internal let selectedProtocol: InvestProtocolViewModel
 	internal let selectedToken: AssetViewModel
 	internal var gasFee: BigNumber!
-	internal var investmentType: InvestmentType
 
 	internal var investProxyContract: DynamicContract {
 		switch selectedProtocol {
@@ -99,25 +100,60 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 		).show()
 	}
 
-	private func addPendingActivity(txHash: String) {}
+	private func addPendingActivity(txHash: String, gasInfo: GasInfo) {
+		let coreDataManager = CoreDataManager()
+		var activityType: ActivityType {
+			switch investmentType {
+			case .create:
+				return .create_investment
+			case .increase:
+				return .increase_investment
+			}
+		}
+		let activityTokenModel = ActivityTokenModel(
+			amount: Utilities.parseToBigUInt(transactionAmount, units: .custom(selectedToken.decimal))!.description,
+			tokenID: selectedToken.id
+		)
+		let activityDetailModel = InvestmentActivityDetails(
+			tokens: [activityTokenModel],
+			poolId: "",
+			activityProtocol: selectedProtocol.type,
+			nftId: nil
+		)
+		let investActivityModel = ActivityInvestModel(
+			txHash: txHash,
+			type: activityType.rawValue,
+			detail: activityDetailModel,
+			fromAddress: "",
+			toAddress: "",
+			blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
+			gasUsed: gasInfo.increasedGasLimit!.description,
+			gasPrice: gasInfo.maxFeePerGas.description
+		)
+		coreDataManager.addNewInvestActivity(
+			activityModel: investActivityModel,
+			accountAddress: investManager.walletManager.currentAccount.eip55Address
+		)
+		PendingActivitiesManager.shared.startActivityPendingRequests()
+	}
 
 	private func getDepositTransaction() -> [SendTransactionViewModel]? {
 		guard let depositTrx = investManager.depositTrx else { return nil }
 		let depositTransaction = SendTransactionViewModel(transaction: depositTrx) { pendingActivityTXHash in
-			self.addPendingActivity(txHash: pendingActivityTXHash)
+			self.addPendingActivity(txHash: pendingActivityTXHash, gasInfo: self.investManager.depositGasInfo!)
 		}
 		return [depositTransaction]
 	}
 
 	private func getCompoundTransactions() -> [SendTransactionViewModel]? {
 		guard let depositTrx = investManager.compoundManager.depositTrx else { return nil }
-		let depositTransaction = SendTransactionViewModel(transaction: depositTrx) { pendingActivityTXHash in
-			self.addPendingActivity(txHash: pendingActivityTXHash)
+		let depositTransaction = SendTransactionViewModel(transaction: depositTrx) { [self] pendingActivityTXHash in
+			addPendingActivity(txHash: pendingActivityTXHash, gasInfo: investManager.compoundManager.depositGasInfo!)
 		}
 		if let collateralCheckTrx = investManager.compoundManager.collateralCheckTrx {
 			let collateralCheckTransaction =
 				SendTransactionViewModel(transaction: collateralCheckTrx) { pendingActivityTXHash in
-					self.addPendingActivity(txHash: pendingActivityTXHash)
+					#warning("Check enter/exit market ativity must be added or not")
 				}
 			return [depositTransaction, collateralCheckTransaction]
 		} else {

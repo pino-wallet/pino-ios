@@ -30,7 +30,6 @@ protocol InvestConfirmationProtocol: InvestConfirmationViewProtocol {
 	var selectedProtocolName: String { get }
 	var sendTransactions: [SendTransactionViewModel]? { get }
 	var transactionType: SendTransactionType { get }
-	var investmentType: InvestmentType { get }
 	func getTransactionInfo()
 }
 

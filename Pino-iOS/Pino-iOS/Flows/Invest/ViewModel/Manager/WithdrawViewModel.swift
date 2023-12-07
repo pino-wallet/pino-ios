@@ -13,11 +13,11 @@ class WithdrawViewModel: InvestViewModelProtocol {
 	// MARK: - Private Properties
 
 	private var cancellables = Set<AnyCancellable>()
-	private var investmentType: InvestmentType {
+	private var withdrawType: WithdrawType {
 		if BigNumber(numberWithDecimal: tokenAmount) < maxAvailableAmount {
-			return .increase
+			return .decrease
 		} else {
-			return .create
+			return .all
 		}
 	}
 
@@ -41,7 +41,7 @@ class WithdrawViewModel: InvestViewModelProtocol {
 			selectedProtocol: selectedProtocol,
 			withdrawAmount: tokenAmount,
 			withdrawAmountInDollar: dollarAmount,
-			investmentType: investmentType
+			withdrawType: withdrawType
 		)
 	}
 
