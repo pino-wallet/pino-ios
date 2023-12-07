@@ -20,6 +20,7 @@ class ManagePasscodeView: UIView {
 	private let errorInfoStackViewBottomConstant = CGFloat(40)
 	private var keyboardHeight: CGFloat = 320 // Minimum height in rare case keyboard of height was not calculated
 	private var errorInfoStackViewBottomConstraint: NSLayoutConstraint!
+	private let keyboardview = PinoNumberPadView()
 
 	// MARK: Public Properties
 
@@ -30,6 +31,7 @@ class ManagePasscodeView: UIView {
 	init(managePassVM: PasscodeManagerPages) {
 		self.managePassVM = managePassVM
 		self.passDotsView = PassDotsView(passcodeManagerVM: managePassVM)
+		keyboardview.delegate = passDotsView
 		super.init(frame: .zero)
 
 		setupNotifications()
@@ -71,6 +73,7 @@ extension ManagePasscodeView {
 		addSubview(topInfoContainerView)
 		addSubview(passDotsView)
 		addSubview(errorInfoStackView)
+		addSubview(keyboardview)
 	}
 
 	private func setupStyle() {
@@ -127,6 +130,11 @@ extension ManagePasscodeView {
 
 		errorInfoStackView.pin(
 			.horizontalEdges(padding: 16)
+		)
+
+		keyboardview.pin(
+			.horizontalEdges(padding: 62.5),
+			.bottom(to: layoutMarginsGuide, padding: 44)
 		)
 	}
 

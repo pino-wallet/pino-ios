@@ -35,7 +35,10 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	public var image: URL {
-		URL(string: assetModel.detail!.logo)!
+		let eipID = id.eip55Address!.hex(eip55: true)
+		return URL(
+			string: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/\(eipID)/logo.png"
+		)!
 	}
 
 	public var customAssetImage: String {

@@ -23,6 +23,7 @@ class PassDotsView: UIView {
 		setupView()
 		setupStyle()
 		setupContstraint()
+		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -52,6 +53,8 @@ extension PassDotsView {
 			.allEdges
 		)
 	}
+
+	private func setupBindings() {}
 
 	private func createDotsView() {
 		for _ in 0 ..< passcodeManagerVM.passDigitsCount {
@@ -108,17 +111,7 @@ extension PassDotsView {
 
 // Confirming to UIKeyInput In order to show keyboard
 // swiftlint: disable unused_setter_value
-extension PassDotsView: UIKeyInput, UITextInputTraits {
-	// MARK: Overrides
-
-	override var canBecomeFirstResponder: Bool { true }
-	override var canResignFirstResponder: Bool { true }
-
-	var hasText: Bool { passcodeManagerVM.passcode?.isEmpty == false }
-
-	var keyboardType: UIKeyboardType { get { UIKeyboardType.asciiCapableNumberPad } set {} }
-	var keyboardAppearance: UIKeyboardAppearance { get { UIKeyboardAppearance.light } set {} }
-
+extension PassDotsView: PinoNumberPadDelegate {
 	func insertText(_ text: String) {
 		setDotviewStyleAt(index: passcodeManagerVM.passcode?.count ?? 0, withState: .fill)
 		passcodeManagerVM.passInserted(passChar: text)
