@@ -41,8 +41,3 @@ enum InvestmentType {
 	case create
 	case increase
 }
-
-enum WithdrawType {
-	case all
-	case decrease
-}

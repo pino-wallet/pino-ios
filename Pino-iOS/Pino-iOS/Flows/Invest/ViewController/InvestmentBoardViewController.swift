@@ -91,9 +91,10 @@ class InvestmentBoardViewController: UIViewController {
 
 	private func openInvestabelAssetPage(_ investableAsset: InvestableAssetViewModel) {
 		let riskPerformanceVC = InvestmentRiskPerformanceViewController(investableAsset: investableAsset) {
-			let depositVM = WithdrawViewModel(
+			let depositVM = InvestDepositViewModel(
 				selectedAsset: investableAsset,
-				selectedProtocol: investableAsset.assetProtocol
+				selectedProtocol: investableAsset.assetProtocol,
+				investmentType: .create
 			)
 			let investVC = InvestDepositViewController(
 				investVM: depositVM,

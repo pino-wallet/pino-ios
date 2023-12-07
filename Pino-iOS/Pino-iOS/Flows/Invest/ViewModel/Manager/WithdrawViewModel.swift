@@ -13,11 +13,11 @@ class WithdrawViewModel: InvestViewModelProtocol {
 	// MARK: - Private Properties
 
 	private var cancellables = Set<AnyCancellable>()
-	private var withdrawType: WithdrawType {
+	private var withdrawType: WithdrawMode {
 		if BigNumber(numberWithDecimal: tokenAmount) < maxAvailableAmount {
 			return .decrease
 		} else {
-			return .all
+			return .withdrawMax
 		}
 	}
 

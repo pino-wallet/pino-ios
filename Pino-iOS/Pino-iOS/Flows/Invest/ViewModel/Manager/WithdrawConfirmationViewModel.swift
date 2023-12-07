@@ -17,7 +17,7 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 	private let web3 = Web3Core.shared
 	private var cancellables = Set<AnyCancellable>()
 	private let activityHelper = ActivityHelper()
-	private var withdrawType: WithdrawType
+	private var withdrawType: WithdrawMode
 	private lazy var withdrawManager: WithdrawManager = {
 		WithdrawManager(
 			contract: investProxyContract,
@@ -81,7 +81,7 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 		selectedProtocol: InvestProtocolViewModel,
 		withdrawAmount: String,
 		withdrawAmountInDollar: String,
-		withdrawType: WithdrawType
+		withdrawType: WithdrawMode
 	) {
 		self.selectedToken = selectedToken
 		self.selectedProtocol = selectedProtocol
@@ -125,7 +125,7 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 		let coreDataManager = CoreDataManager()
 		var activityType: ActivityType {
 			switch withdrawType {
-			case .all:
+			case .withdrawMax:
 				return .withdraw_investment
 			case .decrease:
 				return .decrease_investment
