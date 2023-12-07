@@ -154,7 +154,7 @@ extension String {
 				numberOfCammas = numberOfCammas + 1
 			}
 		}
-		var result = Array(reversedArray.reversed()).joined(separator: "")
+		let result = Array(reversedArray.reversed()).joined(separator: "")
 		if let tokenAmountDecimals {
 			return result + "." + tokenAmountDecimals
 		} else {
