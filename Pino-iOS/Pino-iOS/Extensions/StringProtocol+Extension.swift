@@ -133,4 +133,32 @@ extension String {
 	public var ethScanTxURL: String {
 		"http://www.etherscan.io/tx/\(self)"
 	}
+    
+    public var formattedNumberWithCamma: String {
+        var tokenAmountNumbersArray: [String]
+        var tokenAmountDecimals: String?
+        if contains(".") {
+            let splittedTokenAmountArray = components(separatedBy: ".")
+            tokenAmountNumbersArray = Array(splittedTokenAmountArray[0]).map { String($0) }
+            tokenAmountDecimals = splittedTokenAmountArray[1]
+        } else {
+          tokenAmountNumbersArray = Array(self).map { String($0) }
+        }
+        var reversedArray = Array(tokenAmountNumbersArray.reversed())
+
+        var numberOfCammas = 0
+        for (index, _) in reversedArray.enumerated() {
+            let indexOfCamma = index + 1
+            if indexOfCamma % 3 == 0 && indexOfCamma < (reversedArray.count - numberOfCammas) {
+                reversedArray.insert(",", at: indexOfCamma + numberOfCammas)
+                numberOfCammas = numberOfCammas + 1
+            }
+        }
+        var result = Array(reversedArray.reversed()).joined(separator: "")
+        if let tokenAmountDecimals {
+            return result + "." + tokenAmountDecimals
+        } else {
+            return result
+        }
+    }
 }

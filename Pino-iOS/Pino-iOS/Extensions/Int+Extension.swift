@@ -11,12 +11,4 @@ extension Int {
 	public var bigNumber: BigNumber {
 		BigNumber(number: description, decimal: 0)
 	}
-
-	public var formattedWithCamma: String {
-		let numberFormatter = NumberFormatter()
-		numberFormatter.groupingSeparator = ","
-		numberFormatter.numberStyle = .decimal
-		let formattedNumber = numberFormatter.string(from: NSNumber(value: self))
-		return formattedNumber!
-	}
 }

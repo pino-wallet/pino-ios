@@ -73,9 +73,10 @@ class WithdrawConfirmViewController: UIViewController {
 				self.withdrawConfirmVM.createWithdrawPendingActivity(txHash: txHash)
 			}
 		)
+        let withdrawAmountVM = withdrawConfirmVM.withdrawAmountVM
 		let sendTransactionStatusVM = SendTransactionStatusViewModel(
 			transactions: [withdrawTransaction],
-			transactionSentInfoText: "You withdrew  \(Int(withdrawConfirmVM.withdrawAmountVM.tokenAmount)!.formattedWithCamma) \(withdrawConfirmVM.withdrawAmountVM.selectedToken.symbol) from \(withdrawConfirmVM.withdrawAmountVM.borrowVM.selectedDexSystem.name) \(withdrawConfirmVM.withdrawAmountVM.borrowVM.selectedDexSystem.version)."
+            transactionSentInfoText: "You withdrew  \(withdrawAmountVM.tokenAmount.formattedNumberWithCamma) \(withdrawAmountVM.selectedToken.symbol) from \(withdrawAmountVM.borrowVM.selectedDexSystem.name) \(withdrawAmountVM.borrowVM.selectedDexSystem.version)."
 		)
 		let sendTransactionStatusVC = SendTransactionStatusViewController(sendStatusVM: sendTransactionStatusVM)
 		present(sendTransactionStatusVC, animated: true)
