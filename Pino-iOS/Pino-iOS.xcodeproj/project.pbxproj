@@ -628,6 +628,7 @@
 		DFCB13B02B09DCEE00EEFD0F /* CDWithdrawActivity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB13AC2B09DCEE00EEFD0F /* CDWithdrawActivity+CoreDataClass.swift */; };
 		DFCB13B12B09DCEE00EEFD0F /* CDWithdrawActivityDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB13AD2B09DCEE00EEFD0F /* CDWithdrawActivityDetails+CoreDataProperties.swift */; };
 		DFCB13B42B0A1E2300EEFD0F /* Web3HelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB13B32B0A1E2300EEFD0F /* Web3HelperProtocol.swift */; };
+		DFF5D99F2B206EE600F7274B /* PinoNumberPadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF5D99E2B206EE600F7274B /* PinoNumberPadView.swift */; };
 		DFF8C35B2B11CEEF00C74DAC /* EthGasInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C35A2B11CEEF00C74DAC /* EthGasInfoModel.swift */; };
 		DFF8C35D2B13654700C74DAC /* AccountActivationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C35C2B13654700C74DAC /* AccountActivationViewModel.swift */; };
 		DFF8C3842B14703E00C74DAC /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C3832B14703E00C74DAC /* TutorialViewController.swift */; };
@@ -1446,6 +1447,7 @@
 		DFCB13AC2B09DCEE00EEFD0F /* CDWithdrawActivity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWithdrawActivity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DFCB13AD2B09DCEE00EEFD0F /* CDWithdrawActivityDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWithdrawActivityDetails+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DFCB13B32B0A1E2300EEFD0F /* Web3HelperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3HelperProtocol.swift; sourceTree = "<group>"; };
+		DFF5D99E2B206EE600F7274B /* PinoNumberPadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoNumberPadView.swift; sourceTree = "<group>"; };
 		DFF8C35A2B11CEEF00C74DAC /* EthGasInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthGasInfoModel.swift; sourceTree = "<group>"; };
 		DFF8C35C2B13654700C74DAC /* AccountActivationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountActivationViewModel.swift; sourceTree = "<group>"; };
 		DFF8C3832B14703E00C74DAC /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TutorialViewController.swift; path = "Pino-iOS/Flows/Tutorials/ViewController/TutorialViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -1708,6 +1710,7 @@
 		02F7EC4A2D81621079530268 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				DFF5D99D2B206EC000F7274B /* Keyboard */,
 				D920B0072A9E073B00A1DBD6 /* UserAccountInfoView */,
 				D95D49802A386BB00042FC85 /* TitleWithInfo */,
 				D92B913A2A30754F0055B277 /* PinoContainerCard */,
@@ -3811,6 +3814,14 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		DFF5D99D2B206EC000F7274B /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				DFF5D99E2B206EE600F7274B /* PinoNumberPadView.swift */,
+			);
+			path = Keyboard;
+			sourceTree = "<group>";
+		};
 		DFF8C37E2B146FB200C74DAC /* Tutorials */ = {
 			isa = PBXGroup;
 			children = (
@@ -5100,6 +5111,7 @@
 				D97F0B8C2A948F760083DA81 /* DexSystemModelProtocol.swift in Sources */,
 				DF00178229E82084001164EA /* SecureEnclaveHelper.swift in Sources */,
 				D966D5932A9F3950007E63A1 /* PinoRightSideImageButtonStyle.swift in Sources */,
+				DFF5D99F2B206EE600F7274B /* PinoNumberPadView.swift in Sources */,
 				D9C1807F2A88FAF80066C2A7 /* GradientShowFeeView.swift in Sources */,
 				078E15176613CB329D507580 /* PassManagmentError.swift in Sources */,
 				B2555AA57E466EAE75423515 /* PasscodeManagerPages.swift in Sources */,

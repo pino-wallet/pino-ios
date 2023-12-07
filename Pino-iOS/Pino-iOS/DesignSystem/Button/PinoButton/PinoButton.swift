@@ -58,7 +58,7 @@ public class PinoButton: UIButton {
 	private func updateStyle() {
 		backgroundColor = style.backgroundColor
 		setTitleColor(style.titleColor, for: .normal)
-		titleLabel?.font = UIFont.PinoStyle.semiboldBody
+		titleLabel?.font = style.font
 		layer.borderColor = style.borderColor?.cgColor
 		layer.borderWidth = 1.2
 		clipsToBounds = true
