@@ -16,7 +16,6 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 
 	private let web3 = Web3Core.shared
 	private var cancellables = Set<AnyCancellable>()
-
 	private lazy var investManager: DepositManager = {
 		DepositManager(
 			contract: investProxyContract,
@@ -33,6 +32,7 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 	internal let selectedProtocol: InvestProtocolViewModel
 	internal let selectedToken: AssetViewModel
 	internal var gasFee: BigNumber!
+	internal var investmentType: InvestmentType
 
 	internal var investProxyContract: DynamicContract {
 		switch selectedProtocol {
@@ -79,12 +79,14 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 		selectedToken: AssetViewModel,
 		selectedProtocol: InvestProtocolViewModel,
 		investAmount: String,
-		investAmountInDollar: String
+		investAmountInDollar: String,
+		investmentType: InvestmentType
 	) {
 		self.selectedToken = selectedToken
 		self.selectedProtocol = selectedProtocol
 		self.transactionAmount = investAmount
 		self.transactionAmountInDollar = investAmountInDollar
+		self.investmentType = investmentType
 	}
 
 	// MARK: - Private Methods
@@ -128,15 +130,28 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 		return nil
 	}
 
+	private func updateFee(gasInfos: [GasInfo]) {
+		gasFee = gasInfos.map { $0.fee! }.reduce(0.bigNumber, +)
+		formattedFeeInDollar = gasInfos.map { $0.feeInDollar! }.reduce(0.bigNumber, +).priceFormat
+		formattedFeeInETH = gasInfos.map { $0.fee! }.reduce(0.bigNumber, +).sevenDigitFormat
+	}
+
 	// MARK: - Public Methods
 
 	public func getTransactionInfo() {
-		investManager.getDepositInfo().done { gasInfos in
-			self.gasFee = gasInfos.map { $0.fee! }.reduce(0.bigNumber, +)
-			self.formattedFeeInDollar = gasInfos.map { $0.feeInDollar! }.reduce(0.bigNumber, +).priceFormat
-			self.formattedFeeInETH = gasInfos.map { $0.fee! }.reduce(0.bigNumber, +).sevenDigitFormat
-		}.catch { error in
-			self.showError()
+		switch investmentType {
+		case .create:
+			investManager.getDepositInfo().done { gasInfos in
+				self.updateFee(gasInfos: gasInfos)
+			}.catch { error in
+				self.showError()
+			}
+		case .increase:
+			investManager.getIncreaseDepositInfo().done { gasInfos in
+				self.updateFee(gasInfos: gasInfos)
+			}.catch { error in
+				self.showError()
+			}
 		}
 	}
 }

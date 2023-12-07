@@ -17,10 +17,11 @@ protocol InvestViewModelProtocol {
 	var tokenAmount: String { get set }
 	var dollarAmount: String { get set }
 	var maxAvailableAmount: BigNumber! { get }
-	var selectedInvestableAsset: InvestableAssetViewModel? { get }
 	var selectedToken: AssetViewModel! { get }
 	var selectedProtocol: InvestProtocolViewModel { get }
 	var formattedMaxHoldAmount: String { get }
+	var approveType: ApproveContractViewController.ApproveType { get }
+	var investConfirmationVM: InvestConfirmationProtocol { get }
 	func calculateDollarAmount(_ amount: String)
 	func calculateDollarAmount(_ amount: BigNumber)
 	func checkBalanceStatus(amount: String) -> AmountStatus
@@ -34,4 +35,9 @@ extension InvestViewModelProtocol {
 	var formattedMaxHoldAmount: String {
 		maxAvailableAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
+}
+
+enum InvestmentType {
+	case create
+	case increase
 }

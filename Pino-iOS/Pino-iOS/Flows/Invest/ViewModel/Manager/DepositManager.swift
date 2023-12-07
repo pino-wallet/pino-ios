@@ -74,6 +74,19 @@ class DepositManager: InvestW3ManagerProtocol {
 		}
 	}
 
+	public func getIncreaseDepositInfo() -> Promise<[GasInfo]> {
+		switch selectedProtocol {
+		case .maker:
+			return getMakerDepositInfo()
+		case .compound:
+			return compoundManager.getIncreaseDepositInfo()
+		case .lido:
+			return getLidoDepositInfo()
+		case .aave:
+			return getAaveDepositInfo()
+		}
+	}
+
 	// MARK: - Private Methods
 
 	private func getMakerDepositInfo() -> Promise<[GasInfo]> {

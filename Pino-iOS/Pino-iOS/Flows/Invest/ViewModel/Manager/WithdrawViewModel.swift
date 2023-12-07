@@ -13,24 +13,41 @@ class WithdrawViewModel: InvestViewModelProtocol {
 	// MARK: - Private Properties
 
 	private var cancellables = Set<AnyCancellable>()
+	private var investmentType: InvestmentType {
+		if BigNumber(numberWithDecimal: tokenAmount) < maxAvailableAmount {
+			return .increase
+		} else {
+			return .create
+		}
+	}
 
 	// MARK: - Public Properties
 
 	public var maxAvailableAmount: BigNumber!
-	public var selectedInvestableAsset: InvestableAssetViewModel?
 	public var selectedToken: AssetViewModel!
 	public var selectedProtocol: InvestProtocolViewModel
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
 	public var continueButtonTitle = "Withdraw"
+	public var transactionType: SendTransactionType = .withdraw
 	public var pageTitle: String {
 		"Withdraw \(selectedToken.symbol)"
+	}
+
+	public var approveType: ApproveContractViewController.ApproveType = .withdraw
+	public var investConfirmationVM: InvestConfirmationProtocol {
+		WithdrawConfirmationViewModel(
+			selectedToken: selectedToken,
+			selectedProtocol: selectedProtocol,
+			withdrawAmount: tokenAmount,
+			withdrawAmountInDollar: dollarAmount,
+			investmentType: investmentType
+		)
 	}
 
 	// MARK: - Initializers
 
 	init(selectedAsset: AssetsBoardProtocol, selectedProtocol: InvestProtocolViewModel) {
-		self.selectedInvestableAsset = selectedAsset as? InvestableAssetViewModel
 		self.selectedProtocol = selectedProtocol
 		getToken(investableAsset: selectedAsset)
 	}

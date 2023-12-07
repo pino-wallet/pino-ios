@@ -33,6 +33,7 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 	internal let selectedProtocol: InvestProtocolViewModel
 	internal let selectedToken: AssetViewModel
 	internal var gasFee: BigNumber!
+	internal var investmentType: InvestmentType
 
 	internal var investProxyContract: DynamicContract {
 		switch selectedProtocol {
@@ -79,12 +80,14 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 		selectedToken: AssetViewModel,
 		selectedProtocol: InvestProtocolViewModel,
 		withdrawAmount: String,
-		withdrawAmountInDollar: String
+		withdrawAmountInDollar: String,
+		investmentType: InvestmentType
 	) {
 		self.selectedToken = selectedToken
 		self.selectedProtocol = selectedProtocol
 		self.transactionAmount = withdrawAmount
 		self.transactionAmountInDollar = withdrawAmountInDollar
+		self.investmentType = investmentType
 	}
 
 	// MARK: - Private Methods
