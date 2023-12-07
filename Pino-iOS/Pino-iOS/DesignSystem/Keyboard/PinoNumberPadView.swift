@@ -51,7 +51,6 @@ class PinoNumberPadView: UIView {
 		setupView()
 		setupStyle()
 		setupContstraint()
-		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -135,8 +134,6 @@ class PinoNumberPadView: UIView {
 			.allEdges
 		)
 	}
-
-	private func setupBindings() {}
 
 	@objc
 	private func num0Tapped() {
