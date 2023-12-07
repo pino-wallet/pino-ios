@@ -162,10 +162,6 @@ class CollateralIncreaseAmountView: UIView {
 		errorTextLabel.numberOfLines = 0
 
 		collateralIncreaseAmountHealthScore.isHiddenInStackView = true
-
-		#warning("this values are temporary and should be deleted")
-		collateralIncreaseAmountHealthScore.prevHealthScore = collateralIncreaseAmountVM.prevHealthScore
-		collateralIncreaseAmountHealthScore.newHealthScore = collateralIncreaseAmountVM.newHealthScore
 	}
 
 	private func setupConstraints() {
@@ -253,9 +249,15 @@ class CollateralIncreaseAmountView: UIView {
 
 	private func setupBindings() {
 		collateralIncreaseAmountVM.$collateralPageStatus.sink { collateralPageStatus in
+            self.updateHealthScores()
 			self.updateViewWithStatus(collateralPageStatus: collateralPageStatus)
 		}.store(in: &cancellables)
 	}
+    
+    private func updateHealthScores() {
+        collateralIncreaseAmountHealthScore.prevHealthScore = collateralIncreaseAmountVM.prevHealthScore
+        collateralIncreaseAmountHealthScore.newHealthScore = collateralIncreaseAmountVM.newHealthScore
+    }
 
 	private func updateViewWithStatus(collateralPageStatus: CollateralPageStatus) {
 		switch collateralPageStatus {

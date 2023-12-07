@@ -23,7 +23,6 @@ class CollateralIncreaseAmountViewModel {
 	public let loadingButtonTitle = "Please wait"
 	public let maxTitle = "Max: "
 	public var textFieldPlaceHolder = "0"
-	private let feeTxErrorText = "Failed to estimate fee of transaction"
 
 	public let selectedToken: AssetViewModel
 	public let borrowVM: BorrowViewModel
@@ -58,16 +57,20 @@ class CollateralIncreaseAmountViewModel {
 		"You have an open \(selectedToken.symbol) investment position in \(borrowVM.selectedDexSystem.name), which you need to close before depositing \(selectedToken.symbol) as collateral."
 	}
 
-	#warning("this is mock")
-	public var prevHealthScore: Double = 0
-	public var newHealthScore: Double = 24
+    public var prevHealthScore: Double {
+        calculateCurrentHealthScore()
+    }
+    
+    public var newHealthScore: Double = 0
 
 	// MARK: - Private Properties
 
+    private let feeTxErrorText = "Failed to estimate fee of transaction"
 	private let web3 = Web3Core.shared
 	private let defaultTokenAmount = "1"
 	private let walletManager = PinoWalletManager()
 	private let borrowingAPIClient = BorrowingAPIClient()
+    private let borrowingHelper = BorrowingHelper()
 	private var requestTimer: Timer?
 	private var cancellables = Set<AnyCancellable>()
 
@@ -91,6 +94,10 @@ class CollateralIncreaseAmountViewModel {
 	}
 
 	// MARK: - Private Methods
+    
+    private func calculateCurrentHealthScore() -> Double {
+        borrowingHelper.calculateHealthScore(totalBorrowedAmount: borrowVM.totalBorrowAmountInDollars, totalBorrowableAmount: borrowVM.totalCollateralAmountsInDollar.totalBorrowableAmountInDollars)
+    }
 
 	private func calculateAaveCollateralETHMaxAmount() {
 		aaveCollateralManager.getETHCollateralData().done { collateralData in
@@ -237,6 +244,7 @@ class CollateralIncreaseAmountViewModel {
 			)
 			dollarAmount = amountInDollarDecimalValue.priceFormat
 		} else {
+            newHealthScore = calculateCurrentHealthScore()
 			dollarAmount = .emptyString
 		}
 		tokenAmount = amount
