@@ -9,6 +9,10 @@ import BigInt
 import Foundation
 
 class InvestDepositViewModel: InvestViewModelProtocol {
+	// MARK: - Private Properties
+
+	private var investmentType: InvestmentType
+
 	// MARK: - Public Properties
 
 	public var tokenAmount: String = .emptyString
@@ -31,11 +35,27 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 	@Published
 	public var yearlyEstimatedReturn: String?
 
+	public var approveType: ApproveContractViewController.ApproveType = .invest
+	public var investConfirmationVM: InvestConfirmationProtocol {
+		InvestConfirmationViewModel(
+			selectedToken: selectedToken,
+			selectedProtocol: selectedProtocol,
+			investAmount: tokenAmount,
+			investAmountInDollar: dollarAmount,
+			investmentType: investmentType
+		)
+	}
+
 	// MARK: - Initializers
 
-	init(selectedAsset: AssetsBoardProtocol, selectedProtocol: InvestProtocolViewModel) {
+	init(
+		selectedAsset: AssetsBoardProtocol,
+		selectedProtocol: InvestProtocolViewModel,
+		investmentType: InvestmentType
+	) {
 		self.selectedInvestableAsset = selectedAsset as? InvestableAssetViewModel
 		self.selectedProtocol = selectedProtocol
+		self.investmentType = investmentType
 		getToken(investableAsset: selectedAsset)
 	}
 
@@ -85,7 +105,7 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 		maxAvailableAmount = selectedToken.holdAmount
 
 		#warning("it must be refactored later")
-		if selectedToken.holdAmount > 0.bigNumber {
+		if investmentType == .create, selectedToken.holdAmount > 0.bigNumber {
 			hasOpenPosition = true
 		} else {
 			hasOpenPosition = false

@@ -75,21 +75,27 @@ class InvestmentDetailViewController: UIViewController {
 	}
 
 	private func openInvestPage() {
-		let investVC = InvestDepositViewController(
+		let depositVM = InvestDepositViewModel(
 			selectedAsset: selectedAsset,
 			selectedProtocol: selectedAsset.assetProtocol,
+			investmentType: .increase
+		)
+		let investVC = InvestDepositViewController(
+			investVM: depositVM,
 			onDepositConfirm: onDepositConfirm
 		)
 		navigationController?.pushViewController(investVC, animated: true)
 	}
 
 	private func openWithdrawPage() {
-		let investVC = InvestDepositViewController(
+		let withdrawVM = WithdrawViewModel(
 			selectedAsset: selectedAsset,
-			selectedProtocol: selectedAsset.assetProtocol,
-			isWithdraw: true,
+			selectedProtocol: selectedAsset.assetProtocol
+		)
+		let withdrawVC = InvestDepositViewController(
+			investVM: withdrawVM,
 			onDepositConfirm: onDepositConfirm
 		)
-		navigationController?.pushViewController(investVC, animated: true)
+		navigationController?.pushViewController(withdrawVC, animated: true)
 	}
 }

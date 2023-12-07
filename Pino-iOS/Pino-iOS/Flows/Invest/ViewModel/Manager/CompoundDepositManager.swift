@@ -64,6 +64,16 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 		}
 	}
 
+	public func getIncreaseDepositInfo() -> Promise<[GasInfo]> {
+		if selectedToken.isEth {
+			return increaseCompoundETHDeposit()
+		} else if selectedToken.isWEth {
+			return increaseCompoundWETHDeposit()
+		} else {
+			return increaseCompoundERCDeposit()
+		}
+	}
+
 	// MARK: - Private Methods
 
 	private func compoundERCDeposit() -> Promise<[GasInfo]> {
@@ -185,6 +195,104 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 				}
 			}.catch { error in
 				print(error.localizedDescription)
+			}
+		}
+	}
+
+	private func increaseCompoundERCDeposit() -> Promise<[GasInfo]> {
+		Promise<[GasInfo]> { seal in
+			firstly {
+				getTokenPositionID()
+			}.then { positionID in
+				self.fetchHash()
+			}.then { plainHash in
+				self.signHash(plainHash: plainHash)
+			}.then { [self] signiture -> Promise<(String, String?)> in
+				// Check allowance of protocol
+				checkAllowanceOfProvider(
+					approvingToken: selectedToken,
+					approvingAmount: investAmount,
+					spenderAddress: tokenPositionID,
+					ownerAddress: Web3Core.Constants.compoundContractAddress
+				).map { (signiture, $0) }
+			}.then { signiture, allowanceData -> Promise<(String, String?)> in
+				// Permit Transform
+				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
+			}.then { [self] permitData, allowanceData -> Promise<(String, String, String?)> in
+				web3.getDepositV2CallData(
+					tokenAdd: tokenPositionID,
+					amount: tokenUIntNumber,
+					recipientAdd: walletManager.currentAccount.eip55Address
+				).map { ($0, permitData, allowanceData) }
+			}
+			.then { protocolCallData, permitData, allowanceData in
+				// MultiCall
+				var callDatas = [permitData, protocolCallData]
+				if let allowanceData {
+					callDatas.insert(allowanceData, at: 0)
+				}
+				return self.callProxyMultiCall(data: callDatas, value: nil)
+			}.done { depositResult in
+				self.depositTrx = depositResult.0
+				self.depositGasInfo = depositResult.1
+				seal.fulfill([depositResult.1])
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	private func increaseCompoundETHDeposit() -> Promise<[GasInfo]> {
+		Promise<[GasInfo]> { seal in
+			let proxyFee = 0.bigNumber.bigUInt
+			firstly {
+				getTokenPositionID()
+			}.then { [self] positionID in
+				web3.getDepositETHV2CallData(
+					recipientAdd: walletManager.currentAccount.eip55Address,
+					proxyFee: proxyFee
+				)
+			}.then { protocolCallData in
+				// MultiCall
+				let callDatas = [protocolCallData]
+				let ethDepositAmount = self.tokenUIntNumber + proxyFee
+				return self.callProxyMultiCall(data: callDatas, value: ethDepositAmount)
+			}.done { depositResult in
+				self.depositTrx = depositResult.0
+				self.depositGasInfo = depositResult.1
+				seal.fulfill([depositResult.1])
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	private func increaseCompoundWETHDeposit() -> Promise<[GasInfo]> {
+		Promise<[GasInfo]> { seal in
+			firstly {
+				getTokenPositionID()
+			}.then { positionID in
+				self.fetchHash()
+			}.then { plainHash in
+				self.signHash(plainHash: plainHash)
+			}.then { signiture -> Promise<String> in
+				// Permit Transform
+				self.getProxyPermitTransferData(signiture: signiture)
+			}.then { [self] permitData -> Promise<(String, String)> in
+				web3.getDepositWETHV2CallData(
+					amount: tokenUIntNumber,
+					recipientAdd: walletManager.currentAccount.eip55Address
+				).map { ($0, permitData) }
+			}.then { protocolCallData, permitData in
+				// MultiCall
+				let callDatas = [permitData, protocolCallData]
+				return self.callProxyMultiCall(data: callDatas, value: nil)
+			}.done { depositResult in
+				self.depositTrx = depositResult.0
+				self.depositGasInfo = depositResult.1
+				seal.fulfill([depositResult.1])
+			}.catch { error in
+				seal.reject(error)
 			}
 		}
 	}
