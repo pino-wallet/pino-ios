@@ -79,7 +79,7 @@ class InvestConfirmationViewController: AuthenticationLockViewController {
 			guard let sendTransactions = investConfirmationVM.sendTransactions else { return }
 			let sendTransactionStatusVM = SendTransactionStatusViewModel(
 				transactions: sendTransactions,
-                transactionSentInfoText: "You invested \(investConfirmationVM.transactionAmount.formattedNumberWithCamma) \(investConfirmationVM.selectedToken.symbol) in \(investConfirmationVM.selectedProtocol.name) \(investConfirmationVM.selectedProtocol.version)"
+				transactionSentInfoText: "You invested \(investConfirmationVM.transactionAmount.formattedNumberWithCamma) \(investConfirmationVM.selectedToken.symbol) in \(investConfirmationVM.selectedProtocol.name) \(investConfirmationVM.selectedProtocol.version)"
 			)
 			let sendTransactionStatusVC = SendTransactionStatusViewController(
 				sendStatusVM: sendTransactionStatusVM,

@@ -22,72 +22,72 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private let approveIcon = "approve"
 
 	private let currentAddress = PinoWalletManager().currentAccount.eip55Address
-    private var baseTitle: String {
-        switch status {
-        case .pending:
-            pendingTitle
-        default:
-            doneTitle
-        }
-    }
-    
-    private var pendingTitle: String {
-        switch uiType {
-        case .swap:
-            "Swapping"
-        case .borrow:
-            "Borrowing"
-        case .send:
-            "Sending"
-        case .receive:
-            "Receiving"
-        case .collateral:
-            "Collateralizing"
-        case .withdraw_collateral:
-            "Uncollateralizing"
-        case .invest:
-            "Investing"
-        case .repay:
-            "Repaying"
-        case .withdraw_investment:
-            "Withdrawing"
-        case .enable_collateral:
-            "Enabling"
-        case .disable_collateral:
-            "Disabling"
-        case .approve:
-            "Approving"
-        }
-    }
-    
-    private var doneTitle: String {
-        switch uiType {
-        case .swap:
-            "Swapped"
-        case .borrow:
-            "Borrowed"
-        case .send:
-            "Sent"
-        case .receive:
-            "Received"
-        case .collateral:
-            "Collateralized"
-        case .withdraw_collateral:
-            "Uncollateralized"
-        case .invest:
-            "Invested"
-        case .repay:
-            "Repaid"
-        case .withdraw_investment:
-            "Withdrew"
-        case .enable_collateral:
-            "Enabled"
-        case .disable_collateral:
-            "Disabled"
-        case .approve:
-            "Approved"
-        }
-    }
+	private var baseTitle: String {
+		switch status {
+		case .pending:
+			pendingTitle
+		default:
+			doneTitle
+		}
+	}
+
+	private var pendingTitle: String {
+		switch uiType {
+		case .swap:
+			"Swapping"
+		case .borrow:
+			"Borrowing"
+		case .send:
+			"Sending"
+		case .receive:
+			"Receiving"
+		case .collateral:
+			"Collateralizing"
+		case .withdraw_collateral:
+			"Uncollateralizing"
+		case .invest:
+			"Investing"
+		case .repay:
+			"Repaying"
+		case .withdraw_investment:
+			"Withdrawing"
+		case .enable_collateral:
+			"Enabling"
+		case .disable_collateral:
+			"Disabling"
+		case .approve:
+			"Approving"
+		}
+	}
+
+	private var doneTitle: String {
+		switch uiType {
+		case .swap:
+			"Swapped"
+		case .borrow:
+			"Borrowed"
+		case .send:
+			"Sent"
+		case .receive:
+			"Received"
+		case .collateral:
+			"Collateralized"
+		case .withdraw_collateral:
+			"Uncollateralized"
+		case .invest:
+			"Invested"
+		case .repay:
+			"Repaid"
+		case .withdraw_investment:
+			"Withdrew"
+		case .enable_collateral:
+			"Enabled"
+		case .disable_collateral:
+			"Disabled"
+		case .approve:
+			"Approved"
+		}
+	}
 
 	// MARK: - Internal Properties
 
@@ -292,7 +292,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			// set cell icon
 			icon = borrowIcon
 		case .repay:
-            // set cell title
+			// set cell title
 			title =
 				"\(baseTitle) \(repayDetailsVM!.tokenAmount.sevenDigitFormat) \(repayDetailsVM!.tokenSymbol)"
 			// set cell moreInfo
