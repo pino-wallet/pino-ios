@@ -9,12 +9,14 @@ import BigInt
 import Combine
 import Foundation
 import PromiseKit
+import Web3
 import Web3_Utility
 
 class SendConfirmationViewModel {
 	// MARK: - TypeAliases
 
 	typealias UserRecipientAccountInfoType = (image: String, name: String)
+	typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
 
 	// MARK: - Private Properties
 
@@ -29,6 +31,8 @@ class SendConfirmationViewModel {
 		GlobalVariables.shared.manageAssetsList!.first(where: { $0.isEth })!
 	}
 
+	private var pendingSwapTrx: EthereumSignedTransaction?
+
 	// MARK: - Public Properties
 
 	public let selectedToken: AssetViewModel
@@ -40,6 +44,9 @@ class SendConfirmationViewModel {
 	public let confirmBtnText = "Confirm"
 	public let insuffientText = "Insufficient ETH Amount"
 	public let sendAmountInDollar: String
+	public var sendStatusText: String {
+		"You sent \(sendAmount.formattedNumberWithCamma) \(selectedToken.symbol) to \(recipientAddress)"
+	}
 
 	public var isTokenVerified: Bool {
 		selectedToken.isVerified
@@ -63,6 +70,14 @@ class SendConfirmationViewModel {
 
 	public var selectedWalletName: String {
 		selectedWallet.name
+	}
+
+	public var sendTransactions: [SendTransactionViewModel]? {
+		guard let swapTrx = pendingSwapTrx else { return nil }
+		let swapTrxStatus = SendTransactionViewModel(transaction: swapTrx) { pendingActivityTXHash in
+			self.addPendingTransferActivity(trxHash: pendingActivityTXHash)
+		}
+		return [swapTrxStatus]
 	}
 
 	@Published
@@ -112,19 +127,20 @@ class SendConfirmationViewModel {
 	}
 
 	public func getFee(completion: ((Error) -> Void)? = nil) {
-		if selectedToken.isEth {
-			let ethGasInfo = Web3Core.shared.calculateEthGasFee()
-			setGasInfo(gasInfo: ethGasInfo)
-		} else {
-			calculateTokenGasFee(ethPrice: ethToken.price).done { tokenGasInfo in
-				self.setGasInfo(gasInfo: tokenGasInfo)
-			}.catch { error in
-				completion?(error)
-			}
+		sendToken().done { [self] trxWithGas in
+			pendingSwapTrx = trxWithGas.0
+			let gasInfo = trxWithGas.1
+			gasFee = gasInfo.fee
+			formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat
+			formattedFeeInETH = gasInfo.fee!.sevenDigitFormat.ethFormatting
+			gasPrice = gasInfo.maxFeePerGas.description
+			gasLimit = gasInfo.gasLimit!.description
+		}.catch { error in
+			completion?(error)
 		}
 	}
 
-	public func sendToken() -> Promise<String> {
+	public func sendToken() -> TrxWithGasInfo {
 		if selectedToken.isEth {
 			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .ether)
 			return Web3Core.shared.sendEtherTo(address: recipientAddress, amount: sendAmount!)
@@ -171,23 +187,6 @@ class SendConfirmationViewModel {
 			.sink { gasInfo in
 				self.getFee()
 			}.store(in: &cancellables)
-	}
-
-	private func calculateTokenGasFee(ethPrice: BigNumber) -> Promise<GasInfo> {
-		let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))
-		return Web3Core.shared.calculateSendERCGasFee(
-			address: recipientAddress,
-			amount: sendAmount!,
-			tokenContractAddress: selectedToken.id
-		)
-	}
-
-	private func setGasInfo(gasInfo: GasInfo) {
-		gasFee = gasInfo.fee
-		formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat
-		formattedFeeInETH = gasInfo.fee!.sevenDigitFormat.ethFormatting
-		gasPrice = gasInfo.maxFeePerGas.description
-		gasLimit = gasInfo.gasLimit!.description
 	}
 
 	private func setUserRecipientAccountInfo() {

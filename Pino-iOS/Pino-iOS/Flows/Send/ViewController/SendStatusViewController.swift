@@ -8,7 +8,7 @@
 import UIKit
 import Web3_Utility
 
-class SendStatusViewController: UIViewController {
+class SendStatusViewControllerr: UIViewController {
 	// MARK: - Private Properties
 
 	private var sendStatusView: SendStatusView!
@@ -37,13 +37,13 @@ class SendStatusViewController: UIViewController {
 
 		setupView()
 
-		confirmationVM.sendToken().done { [self] trxHash in
-			sendStatusView.pageStatus = .success
-			confirmationVM.addPendingTransferActivity(trxHash: trxHash)
-			sendStatusView.txHash = trxHash
-		}.catch { [self] error in
-			sendStatusView.pageStatus = .failed
-		}
+//		confirmationVM.sendToken().done { [self] trxHash in
+//			sendStatusView.pageStatus = .success
+//			confirmationVM.addPendingTransferActivity(trxHash: trxHash)
+//			sendStatusView.txHash = trxHash
+//		}.catch { [self] error in
+//			sendStatusView.pageStatus = .failed
+//		}
 	}
 
 	// MARK: - Private Methods

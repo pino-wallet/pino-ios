@@ -97,7 +97,7 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 		unlockApp { [self] in
 			let sendTrxStatusVM = SendTransactionStatusViewModel(
 				transactions: sendTransactions,
-				transactionSentInfoText: "You swapped"
+				transactionSentInfoText: swapConfirmationVM.sendStatusText
 			)
 			let sendTransactionStatuVC = SendTransactionStatusViewController(
 				sendStatusVM: sendTrxStatusVM,
