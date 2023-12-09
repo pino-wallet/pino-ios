@@ -95,7 +95,7 @@ class AssetsCollectionView: UICollectionView {
 	}
 
 	private func setupBindings() {
-		GlobalVariables.shared.$selectedManageAssetsList.sink { [weak self] _ in
+		homeVM.$selectedAssetsList.sink { [weak self] assets in
 			self?.reloadData()
 		}.store(in: &cancellables)
 
@@ -151,7 +151,7 @@ extension AssetsCollectionView: UICollectionViewDelegate {
 		let homeSection = HomeSection(rawValue: indexPath.section)
 		switch homeSection {
 		case .asset:
-			if let assetsList = GlobalVariables.shared.selectedManageAssetsList {
+			if let assetsList = homeVM.selectedAssetsList {
 				assetTapped(assetsList[indexPath.item])
 			}
 		case .position:

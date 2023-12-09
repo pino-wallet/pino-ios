@@ -86,6 +86,10 @@ public class AssetViewModel: SecurityModeProtocol {
 		BigNumber(number: assetModel.previousDayNetworth, decimal: 2)
 	}
 
+	public var isPosition: Bool {
+		assetModel.detail!.isPosition
+	}
+
 	// MARK: - Initializers
 
 	init(assetModel: AssetProtocol, isSelected: Bool) {
