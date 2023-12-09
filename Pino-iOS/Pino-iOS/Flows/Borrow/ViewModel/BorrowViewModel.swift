@@ -101,7 +101,7 @@ class BorrowViewModel {
 	// MARK: - Public Methods
     
     public func getCollateralizableTokenLQ(tokenID: String) -> BigNumber {
-        guard let tokenLQ = collateralizableTokens?.first(where: { $0.tokenID == tokenID })?.liquidationThreshold else {
+        guard let tokenLQ = collateralizableTokens?.first(where: { $0.tokenID.lowercased() == tokenID.lowercased() })?.liquidationThreshold else {
             fatalError("Liquidation treshold of collateralled token is nil")
         }
         return tokenLQ.bigNumber

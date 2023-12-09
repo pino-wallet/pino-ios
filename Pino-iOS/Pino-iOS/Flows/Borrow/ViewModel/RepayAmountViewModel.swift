@@ -73,7 +73,6 @@ class RepayAmountViewModel {
 	// MARK: - Private Properties
 
     private let borrowingHelper = BorrowingHelper()
-	private var selectedTokenTotalDebt: BigNumber {
 	public var selectedTokenTotalDebt: BigNumber {
 		BigNumber(number: selectedUserBorrowingToken.totalDebt!, decimal: selectedToken.decimal)
 	}
@@ -100,7 +99,6 @@ class RepayAmountViewModel {
     }
     
     private func calculateNewHealthScore(dollarAmount: BigNumber) -> BigNumber {
-        let tokenLQ = borrowVM.getCollateralizableTokenLQ(tokenID: selectedToken.id)
         let totalBorrowedAmount = borrowVM.totalBorrowAmountInDollars - dollarAmount
         return borrowingHelper.calculateHealthScore(totalBorrowedAmount: totalBorrowedAmount, totalBorrowableAmountForHealthScore: borrowVM.totalCollateralAmountsInDollar.totalBorrowableAmountForHealthScore)
     }
