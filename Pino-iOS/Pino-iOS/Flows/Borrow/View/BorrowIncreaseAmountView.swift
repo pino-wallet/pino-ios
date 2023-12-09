@@ -196,18 +196,18 @@ class BorrowIncreaseAmountView: UIView {
 			borrowIncreaseAmountVM.calculateDollarAmount(amountText)
 			updateAmount(enteredAmount: amountText)
 			animateAmountHealthScoreView(isHidden: false)
-            updateHealthScores()
+			updateHealthScores()
 		} else {
 			borrowIncreaseAmountVM.calculateDollarAmount(.emptyString)
 			updateAmount(enteredAmount: .emptyString)
 			animateAmountHealthScoreView(isHidden: true)
 		}
 	}
-    
-    private func updateHealthScores() {
-        borrowIncreaseAmountHealthScore.prevHealthScore = borrowIncreaseAmountVM.prevHealthScore
-        borrowIncreaseAmountHealthScore.newHealthScore = borrowIncreaseAmountVM.newHealthScore
-    }
+
+	private func updateHealthScores() {
+		borrowIncreaseAmountHealthScore.prevHealthScore = borrowIncreaseAmountVM.prevHealthScore
+		borrowIncreaseAmountHealthScore.newHealthScore = borrowIncreaseAmountVM.newHealthScore
+	}
 
 	private func animateAmountHealthScoreView(isHidden: Bool) {
 		UIView.animate(withDuration: 0.2, animations: {
@@ -266,8 +266,8 @@ class BorrowIncreaseAmountView: UIView {
 
 		maxAmountLabel.text = borrowIncreaseAmountVM.formattedMaxHoldAmount
 		updateAmount(enteredAmount: amountTextfield.text!.trimmCurrency)
-        borrowIncreaseAmountVM.calculateDollarAmount(amountTextfield.text!)
-        updateHealthScores()
+		borrowIncreaseAmountVM.calculateDollarAmount(amountTextfield.text!)
+		updateHealthScores()
 	}
 
 	@objc

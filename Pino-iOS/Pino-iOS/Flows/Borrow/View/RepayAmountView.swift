@@ -206,18 +206,18 @@ class RepayAmountView: UIView {
 			repayAmountVM.calculateDollarAmount(amountText)
 			updateAmount(enteredAmount: amountText)
 			animateAmountHealthScoreView(isHidden: false)
-            updateHealthScores()
+			updateHealthScores()
 		} else {
 			repayAmountVM.calculateDollarAmount(.emptyString)
 			updateAmount(enteredAmount: .emptyString)
 			animateAmountHealthScoreView(isHidden: true)
 		}
 	}
-    
-    private func updateHealthScores() {
-        repayAmountHealthScore.prevHealthScore = repayAmountVM.prevHealthScore
-        repayAmountHealthScore.newHealthScore = repayAmountVM.newHealthScore
-    }
+
+	private func updateHealthScores() {
+		repayAmountHealthScore.prevHealthScore = repayAmountVM.prevHealthScore
+		repayAmountHealthScore.newHealthScore = repayAmountVM.newHealthScore
+	}
 
 	private func updateAmount(enteredAmount: String) {
 		let amountStatus = repayAmountVM.checkBalanceStatus(amount: enteredAmount)
@@ -270,8 +270,8 @@ class RepayAmountView: UIView {
 
 		maxAmountLabel.text = repayAmountVM.formattedMaxHoldAmount
 		updateAmount(enteredAmount: amountTextfield.text!.trimmCurrency)
-        repayAmountVM.calculateDollarAmount(amountTextfield.text!)
-        updateHealthScores()
+		repayAmountVM.calculateDollarAmount(amountTextfield.text!)
+		updateHealthScores()
 	}
 
 	@objc

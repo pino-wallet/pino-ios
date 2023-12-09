@@ -65,18 +65,18 @@ class RepayAmountViewModel {
 		maxHoldAmount.plainSevenDigitFormat
 	}
 
-    public var prevHealthScore: BigNumber {
-        calculateCurrentHealthScore()
-    }
-    public var newHealthScore: BigNumber = 0.bigNumber
+	public var prevHealthScore: BigNumber {
+		calculateCurrentHealthScore()
+	}
+
+	public var newHealthScore: BigNumber = 0.bigNumber
 
 	// MARK: - Private Properties
 
-    private let borrowingHelper = BorrowingHelper()
+	private let borrowingHelper = BorrowingHelper()
 	public var selectedTokenTotalDebt: BigNumber {
 		BigNumber(number: selectedUserBorrowingToken.totalDebt!, decimal: selectedToken.decimal)
 	}
-    
 
 	// MARK: - Initializers
 
@@ -93,15 +93,23 @@ class RepayAmountViewModel {
 		selectedUserBorrowingToken = borrowVM.userBorrowingDetails?.borrowTokens
 			.first(where: { $0.id == userBorrowedTokenID })
 	}
-    
-    private func calculateCurrentHealthScore() -> BigNumber {
-        borrowingHelper.calculateHealthScore(totalBorrowedAmount: borrowVM.totalBorrowAmountInDollars, totalBorrowableAmountForHealthScore: borrowVM.totalCollateralAmountsInDollar.totalBorrowableAmountForHealthScore)
-    }
-    
-    private func calculateNewHealthScore(dollarAmount: BigNumber) -> BigNumber {
-        let totalBorrowedAmount = borrowVM.totalBorrowAmountInDollars - dollarAmount
-        return borrowingHelper.calculateHealthScore(totalBorrowedAmount: totalBorrowedAmount, totalBorrowableAmountForHealthScore: borrowVM.totalCollateralAmountsInDollar.totalBorrowableAmountForHealthScore)
-    }
+
+	private func calculateCurrentHealthScore() -> BigNumber {
+		borrowingHelper.calculateHealthScore(
+			totalBorrowedAmount: borrowVM.totalBorrowAmountInDollars,
+			totalBorrowableAmountForHealthScore: borrowVM.totalCollateralAmountsInDollar
+				.totalBorrowableAmountForHealthScore
+		)
+	}
+
+	private func calculateNewHealthScore(dollarAmount: BigNumber) -> BigNumber {
+		let totalBorrowedAmount = borrowVM.totalBorrowAmountInDollars - dollarAmount
+		return borrowingHelper.calculateHealthScore(
+			totalBorrowedAmount: totalBorrowedAmount,
+			totalBorrowableAmountForHealthScore: borrowVM.totalCollateralAmountsInDollar
+				.totalBorrowableAmountForHealthScore
+		)
+	}
 
 	// MARK: - Public Methods
 
@@ -114,10 +122,10 @@ class RepayAmountViewModel {
 				number: decimalBigNum.number * price.number,
 				decimal: decimalBigNum.decimal + 6
 			)
-            newHealthScore = calculateNewHealthScore(dollarAmount: amountInDollarDecimalValue)
+			newHealthScore = calculateNewHealthScore(dollarAmount: amountInDollarDecimalValue)
 			dollarAmount = amountInDollarDecimalValue.priceFormat
 		} else {
-            newHealthScore = calculateCurrentHealthScore()
+			newHealthScore = calculateCurrentHealthScore()
 			dollarAmount = .emptyString
 		}
 		tokenAmount = amount

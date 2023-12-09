@@ -68,17 +68,18 @@ class WithdrawAmountViewModel {
 		maxWithdrawAmount.priceFormat
 	}
 
-    public var prevHealthScore: BigNumber {
-        calculateCurrentHealthScore()
-    }
-    public var newHealthScore: BigNumber = 0.bigNumber
+	public var prevHealthScore: BigNumber {
+		calculateCurrentHealthScore()
+	}
+
+	public var newHealthScore: BigNumber = 0.bigNumber
 
 	// MARK: - Private Properties
 
 	private let web3 = Web3Core.shared
 	private let walletManager = PinoWalletManager()
 	private let borrowingAPIClient = BorrowingAPIClient()
-    private let borrowingHelper = BorrowingHelper()
+	private let borrowingHelper = BorrowingHelper()
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
@@ -91,15 +92,24 @@ class WithdrawAmountViewModel {
 	}
 
 	// MARK: - Private Methods
-    private func calculateCurrentHealthScore() -> BigNumber {
-        borrowingHelper.calculateHealthScore(totalBorrowedAmount: borrowVM.totalBorrowAmountInDollars, totalBorrowableAmountForHealthScore: borrowVM.totalCollateralAmountsInDollar.totalBorrowableAmountForHealthScore)
-    }
-    
-    private func calculateNewHealthScore(dollarAmount: BigNumber) -> BigNumber {
-        let tokenLQ = borrowVM.getCollateralizableTokenLQ(tokenID: selectedToken.id)
-        let totalBorrowableAmountForHealthScore = borrowVM.totalCollateralAmountsInDollar.totalBorrowableAmountForHealthScore - ((dollarAmount / tokenLQ)!)
-        return borrowingHelper.calculateHealthScore(totalBorrowedAmount: borrowVM.totalBorrowAmountInDollars, totalBorrowableAmountForHealthScore: totalBorrowableAmountForHealthScore)
-    }
+
+	private func calculateCurrentHealthScore() -> BigNumber {
+		borrowingHelper.calculateHealthScore(
+			totalBorrowedAmount: borrowVM.totalBorrowAmountInDollars,
+			totalBorrowableAmountForHealthScore: borrowVM.totalCollateralAmountsInDollar
+				.totalBorrowableAmountForHealthScore
+		)
+	}
+
+	private func calculateNewHealthScore(dollarAmount: BigNumber) -> BigNumber {
+		let tokenLQ = borrowVM.getCollateralizableTokenLQ(tokenID: selectedToken.id)
+		let totalBorrowableAmountForHealthScore = borrowVM.totalCollateralAmountsInDollar
+			.totalBorrowableAmountForHealthScore - (dollarAmount / tokenLQ)!
+		return borrowingHelper.calculateHealthScore(
+			totalBorrowedAmount: borrowVM.totalBorrowAmountInDollars,
+			totalBorrowableAmountForHealthScore: totalBorrowableAmountForHealthScore
+		)
+	}
 
 	private func setUserCollateralledToken() {
 		userCollateralledTokenModel = borrowVM.userBorrowingDetails?.collateralTokens
@@ -178,10 +188,10 @@ class WithdrawAmountViewModel {
 				number: decimalBigNum.number * price.number,
 				decimal: decimalBigNum.decimal + 6
 			)
-            newHealthScore = calculateNewHealthScore(dollarAmount: amountInDollarDecimalValue)
+			newHealthScore = calculateNewHealthScore(dollarAmount: amountInDollarDecimalValue)
 			dollarAmount = amountInDollarDecimalValue.priceFormat
 		} else {
-            newHealthScore = calculateCurrentHealthScore()
+			newHealthScore = calculateCurrentHealthScore()
 			dollarAmount = .emptyString
 		}
 		tokenAmount = amount

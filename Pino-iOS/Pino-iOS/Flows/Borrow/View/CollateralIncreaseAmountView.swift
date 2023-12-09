@@ -231,7 +231,7 @@ class CollateralIncreaseAmountView: UIView {
 			collateralIncreaseAmountVM.calculateDollarAmount(amountText)
 			updateAmountStatus(enteredAmount: amountText)
 			animateAmountHealthScoreView(isHidden: false)
-            updateHealthScores()
+			updateHealthScores()
 		} else {
 			collateralIncreaseAmountVM.calculateDollarAmount(.emptyString)
 			updateAmountStatus(enteredAmount: .emptyString)
@@ -253,11 +253,11 @@ class CollateralIncreaseAmountView: UIView {
 			self.updateViewWithStatus(collateralPageStatus: collateralPageStatus)
 		}.store(in: &cancellables)
 	}
-    
-    private func updateHealthScores() {
-        collateralIncreaseAmountHealthScore.prevHealthScore = collateralIncreaseAmountVM.prevHealthScore
-        collateralIncreaseAmountHealthScore.newHealthScore = collateralIncreaseAmountVM.newHealthScore
-    }
+
+	private func updateHealthScores() {
+		collateralIncreaseAmountHealthScore.prevHealthScore = collateralIncreaseAmountVM.prevHealthScore
+		collateralIncreaseAmountHealthScore.newHealthScore = collateralIncreaseAmountVM.newHealthScore
+	}
 
 	private func updateViewWithStatus(collateralPageStatus: CollateralPageStatus) {
 		switch collateralPageStatus {
@@ -329,8 +329,8 @@ class CollateralIncreaseAmountView: UIView {
 
 		maxAmountLabel.text = collateralIncreaseAmountVM.formattedMaxHoldAmount
 		updateAmountStatus(enteredAmount: amountTextfield.text!.trimmCurrency)
-        collateralIncreaseAmountVM.calculateDollarAmount(amountTextfield.text!)
-        updateHealthScores()
+		collateralIncreaseAmountVM.calculateDollarAmount(amountTextfield.text!)
+		updateHealthScores()
 	}
 
 	@objc

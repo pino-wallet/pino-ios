@@ -10,21 +10,21 @@ import UIKit
 class AmountHealthScoreView: UIView {
 	// MARK: - Public Properties
 
-    public var prevHealthScore: BigNumber = 0.bigNumber {
+	public var prevHealthScore: BigNumber = 0.bigNumber {
 		didSet {
-            if prevHealthScore.number.sign == .minus {
-                prevHealthScore = 0.bigNumber
-            }
-            prevHealthScoreLabel.text = prevHealthScore.percentFormat
+			if prevHealthScore.number.sign == .minus {
+				prevHealthScore = 0.bigNumber
+			}
+			prevHealthScoreLabel.text = prevHealthScore.percentFormat
 			prevHealthScoreLabel.textColor = getHealthScoreColor(healthScore: prevHealthScore)
 		}
 	}
 
-    public var newHealthScore: BigNumber = 0.bigNumber {
+	public var newHealthScore: BigNumber = 0.bigNumber {
 		didSet {
-            if newHealthScore.number.sign == .minus {
-                newHealthScore = 0.bigNumber
-            }
+			if newHealthScore.number.sign == .minus {
+				newHealthScore = 0.bigNumber
+			}
 			newHealthScoreLabel.text = newHealthScore.percentFormat
 			newHealthScoreLabel.textColor = getHealthScoreColor(healthScore: newHealthScore)
 		}
@@ -93,9 +93,9 @@ class AmountHealthScoreView: UIView {
 	}
 
 	private func getHealthScoreColor(healthScore: BigNumber) -> UIColor {
-        if healthScore.isZero {
+		if healthScore.isZero {
 			return .Pino.red
-        } else if healthScore > 0.bigNumber && healthScore < 10.bigNumber {
+		} else if healthScore > 0.bigNumber && healthScore < 10.bigNumber {
 			return .Pino.orange
 		} else {
 			return .Pino.green

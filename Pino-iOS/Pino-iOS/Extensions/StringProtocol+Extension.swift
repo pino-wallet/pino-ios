@@ -133,7 +133,6 @@ extension String {
 	public var ethScanTxURL: String {
 		"http://www.etherscan.io/tx/\(self)"
 	}
-    
 
 	public var formattedNumberWithCamma: String {
 		var tokenAmountNumbersArray: [String]

@@ -200,18 +200,18 @@ class WithdrawAmountView: UIView {
 			withdrawAmountVM.calculateDollarAmount(amountText)
 			updateAmount(enteredAmount: amountText)
 			animateAmountHealthScoreView(isHidden: false)
-            updateHealthScores()
+			updateHealthScores()
 		} else {
 			withdrawAmountVM.calculateDollarAmount(.emptyString)
 			updateAmount(enteredAmount: .emptyString)
 			animateAmountHealthScoreView(isHidden: true)
 		}
 	}
-    
-    private func updateHealthScores() {
-        withdrawAmountHealthScore.prevHealthScore = withdrawAmountVM.prevHealthScore
-        withdrawAmountHealthScore.newHealthScore = withdrawAmountVM.newHealthScore
-    }
+
+	private func updateHealthScores() {
+		withdrawAmountHealthScore.prevHealthScore = withdrawAmountVM.prevHealthScore
+		withdrawAmountHealthScore.newHealthScore = withdrawAmountVM.newHealthScore
+	}
 
 	private func updateAmount(enteredAmount: String) {
 		let amountStatus = withdrawAmountVM.checkBalanceStatus(amount: enteredAmount)
@@ -261,8 +261,8 @@ class WithdrawAmountView: UIView {
 
 		maxAmountLabel.text = withdrawAmountVM.formattedMaxWithdrawAmount
 		updateAmount(enteredAmount: amountTextfield.text!.trimmCurrency)
-        withdrawAmountVM.calculateDollarAmount(amountTextfield.text!)
-        updateHealthScores()
+		withdrawAmountVM.calculateDollarAmount(amountTextfield.text!)
+		updateHealthScores()
 	}
 
 	@objc
