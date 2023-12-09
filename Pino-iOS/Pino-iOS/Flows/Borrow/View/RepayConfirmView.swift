@@ -5,6 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 9/3/23.
 //
 
+import Combine
 import Kingfisher
 import UIKit
 
@@ -39,6 +40,20 @@ class RepayConfirmView: UIView {
 	private var protocolTitleWithInfo: TitleWithInfo!
 	private var feeTitleWithInfo: TitleWithInfo!
 	private var protocolInfoView: UserAccountInfoView!
+	private var feeInfo: RepayConfirmViewModel.FeeInfoType?
+	private var cancellables = Set<AnyCancellable>()
+
+	private var pageStatus: PageStatus = .loading {
+		didSet {
+			updateUIWithPageStatus()
+		}
+	}
+
+	private enum PageStatus {
+		case loading
+		case notEnough
+		case normal
+	}
 
 	// MARK: - Initializers
 
@@ -51,6 +66,9 @@ class RepayConfirmView: UIView {
 		setupView()
 		setupStyles()
 		setupConstraints()
+		setupBindings()
+		setupSkeletonLoading()
+		updateUIWithPageStatus()
 	}
 
 	required init?(coder: NSCoder) {
@@ -80,6 +98,13 @@ class RepayConfirmView: UIView {
 			image: repayConfrimVM.protocolImageName,
 			title: repayConfrimVM.protocolName
 		)
+
+		let onConfirmTapGesture = UITapGestureRecognizer(target: self, action: #selector(onConfirm))
+		confirmButton.addGestureRecognizer(onConfirmTapGesture)
+
+		let toggleFeeGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleFeeText))
+		feeLabel.addGestureRecognizer(toggleFeeGestureRecognizer)
+		feeLabel.isUserInteractionEnabled = true
 
 		protocolInfoStackView.addArrangedSubview(protocolTitleWithInfo)
 		protocolInfoStackView.addArrangedSubview(protocolSpacerView)
@@ -147,8 +172,6 @@ class RepayConfirmView: UIView {
 
 		feeTitleWithInfo.title = repayConfrimVM.feeTitle
 
-		feeLabel.text = repayConfrimVM.fee
-
 		confirmButton.title = repayConfrimVM.confirmButtonTitle
 	}
 
@@ -162,6 +185,8 @@ class RepayConfirmView: UIView {
 			.horizontalEdges(to: layoutMarginsGuide, padding: 0),
 			.top(to: layoutMarginsGuide, padding: 24)
 		)
+		feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 45).isActive = true
+		feeLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 		headerStackView.pin(.verticalEdges(padding: 16), .horizontalEdges(padding: 10))
 		headerImageView.pin(.fixedWidth(50), .fixedHeight(50))
 		infoStackView.pin(.horizontalEdges(padding: 10), .verticalEdges(padding: 20))
@@ -169,5 +194,61 @@ class RepayConfirmView: UIView {
 			.horizontalEdges(to: layoutMarginsGuide, padding: 0),
 			.bottom(to: layoutMarginsGuide, padding: 12)
 		)
+	}
+
+	private func setupSkeletonLoading() {
+		feeLabel.isSkeletonable = true
+	}
+
+	private func setupBindings() {
+		repayConfrimVM.$feeInfo.sink { feeInfo in
+			self.feeInfo = feeInfo
+			self.feeLabel.text = feeInfo?.feeInDollars
+			self.hideSkeletonView()
+			self.validateFee(bigNumberFee: feeInfo?.bigNumberFee)
+		}.store(in: &cancellables)
+	}
+
+	private func validateFee(bigNumberFee: BigNumber?) {
+		guard let ethToken = GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth }),
+		      let bigNumberFee else {
+			return
+		}
+		if ethToken.holdAmount >= bigNumberFee {
+			pageStatus = .normal
+		} else {
+			pageStatus = .notEnough
+		}
+	}
+
+	private func updateUIWithPageStatus() {
+		switch pageStatus {
+		case .loading:
+			confirmButton.style = .deactive
+			confirmButton.title = repayConfrimVM.loadingButtonTitle
+		case .notEnough:
+			confirmButton.style = .deactive
+			confirmButton.title = repayConfrimVM.insufficientAmountButtonTitle
+			if Environment.current != .mainNet {
+				confirmButton.style = .active
+			}
+		case .normal:
+			confirmButton.style = .active
+			confirmButton.title = repayConfrimVM.confirmButtonTitle
+		}
+	}
+
+	@objc
+	private func onConfirm() {
+		repayConfrimVM.confirmRepay()
+	}
+
+	@objc
+	private func toggleFeeText() {
+		if feeLabel.text == feeInfo?.feeInDollars {
+			feeLabel.text = feeInfo?.feeInETH
+		} else {
+			feeLabel.text = feeInfo?.feeInDollars
+		}
 	}
 }

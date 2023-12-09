@@ -37,12 +37,12 @@ struct SelectedAssetsDataSource: DataSourceProtocol {
 		selectedAssets
 	}
 
-	public func get(byId id: String) -> SelectedAsset? {
-		selectedAssets.first(where: { $0.id == id })
+	public func getBy(id: String) -> SelectedAsset? {
+		selectedAssets.first(where: { $0.id.lowercased() == id.lowercased() })
 	}
 
 	public mutating func save(_ asset: SelectedAsset) {
-		if let index = selectedAssets.firstIndex(where: { $0.id == asset.id }) {
+		if let index = selectedAssets.firstIndex(where: { $0.id.lowercased() == asset.id.lowercased() }) {
 			selectedAssets[index] = asset
 		} else {
 			selectedAssets.append(asset)
@@ -51,7 +51,7 @@ struct SelectedAssetsDataSource: DataSourceProtocol {
 	}
 
 	public mutating func delete(_ asset: SelectedAsset) {
-		selectedAssets.removeAll(where: { $0.id == asset.id })
+		selectedAssets.removeAll(where: { $0.id.lowercased() == asset.id.lowercased() })
 		managedContext.delete(asset)
 		coreDataStack.saveContext()
 	}

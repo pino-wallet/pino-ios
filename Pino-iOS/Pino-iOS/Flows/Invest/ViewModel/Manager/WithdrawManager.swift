@@ -19,7 +19,6 @@ class WithdrawManager: InvestW3ManagerProtocol {
 	private var withdrawAmount: String
 	private let nonce = BigNumber.bigRandomeNumber
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes
-	private let compoundManager: CompoundWithdrawManager
 	private var swapManager: SwapManager?
 	private let swapPriceManager = SwapPriceManager()
 	private var swapTrx: EthereumSignedTransaction?
@@ -29,6 +28,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 
 	// MARK: - Public Properties
 
+	public let compoundManager: CompoundWithdrawManager
 	public var withdrawTrx: EthereumSignedTransaction?
 	public var withdrawGasInfo: GasInfo?
 	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
@@ -74,24 +74,6 @@ class WithdrawManager: InvestW3ManagerProtocol {
 			return getLidoWithdrawInfo()
 		case .aave:
 			return getAaveWithdrawInfo()
-		}
-	}
-
-	public func confirmWithdraw(completion: @escaping (Result<String>) -> Void) {
-		switch selectedProtocol {
-		case .compound:
-			compoundManager.confirmWithdraw(completion: completion)
-		case .lido:
-			guard let swapTrx else { return }
-			swapManager!.confirmSwap(swapTrx: swapTrx, completion: completion)
-		case .aave, .maker:
-			guard let withdrawTrx else { return }
-			Web3Core.shared.callTransaction(trx: withdrawTrx).done { trxHash in
-				#warning("Add transaction activity later")
-				completion(.fulfilled(trxHash))
-			}.catch { error in
-				completion(.rejected(error))
-			}
 		}
 	}
 

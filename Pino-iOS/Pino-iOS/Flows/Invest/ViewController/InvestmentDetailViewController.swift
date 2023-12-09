@@ -12,12 +12,14 @@ class InvestmentDetailViewController: UIViewController {
 
 	private let selectedAsset: InvestAssetViewModel
 	private let investmentDetailsVM: InvestmentDetailViewModel
+	private let onDepositConfirm: () -> Void
 
 	// MARK: - Initializers
 
-	init(selectedAsset: InvestAssetViewModel) {
+	init(selectedAsset: InvestAssetViewModel, onDepositConfirm: @escaping () -> Void) {
 		self.selectedAsset = selectedAsset
 		self.investmentDetailsVM = InvestmentDetailViewModel(selectedAsset: selectedAsset)
+		self.onDepositConfirm = onDepositConfirm
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -73,19 +75,27 @@ class InvestmentDetailViewController: UIViewController {
 	}
 
 	private func openInvestPage() {
-		let investVC = InvestDepositViewController(
+		let depositVM = InvestDepositViewModel(
 			selectedAsset: selectedAsset,
-			selectedProtocol: selectedAsset.assetProtocol
+			selectedProtocol: selectedAsset.assetProtocol,
+			investmentType: .increase
+		)
+		let investVC = InvestDepositViewController(
+			investVM: depositVM,
+			onDepositConfirm: onDepositConfirm
 		)
 		navigationController?.pushViewController(investVC, animated: true)
 	}
 
 	private func openWithdrawPage() {
-		let investVC = InvestDepositViewController(
+		let withdrawVM = WithdrawViewModel(
 			selectedAsset: selectedAsset,
-			selectedProtocol: selectedAsset.assetProtocol,
-			isWithdraw: true
+			selectedProtocol: selectedAsset.assetProtocol
 		)
-		navigationController?.pushViewController(investVC, animated: true)
+		let withdrawVC = InvestDepositViewController(
+			investVM: withdrawVM,
+			onDepositConfirm: onDepositConfirm
+		)
+		navigationController?.pushViewController(withdrawVC, animated: true)
 	}
 }

@@ -74,6 +74,7 @@ class RepayAmountViewModel {
 
     private let borrowingHelper = BorrowingHelper()
 	private var selectedTokenTotalDebt: BigNumber {
+	public var selectedTokenTotalDebt: BigNumber {
 		BigNumber(number: selectedUserBorrowingToken.totalDebt!, decimal: selectedToken.decimal)
 	}
     

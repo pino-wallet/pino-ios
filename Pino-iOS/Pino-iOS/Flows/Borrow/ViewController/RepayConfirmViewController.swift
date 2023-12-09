@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Web3
 
 class RepayConfirmViewController: UIViewController {
 	// MARK: - Private Properties
@@ -22,6 +23,13 @@ class RepayConfirmViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		if isBeingPresented || isMovingToParent {
+			repayConfirmView.showSkeletonView()
+			repayConfirmVM.getRepayGasInfo()
+		}
 	}
 
 	// MARK: - Initializers
@@ -43,7 +51,27 @@ class RepayConfirmViewController: UIViewController {
 			self.presentActionSheet(actionSheet: actionSheet)
 		})
 
+		repayConfirmVM.confirmRepayClosure = { trxHash in
+			self.confirmRepay(repayTRX: trxHash)
+		}
+
 		view = repayConfirmView
+	}
+
+	private func confirmRepay(repayTRX: EthereumSignedTransaction) {
+		let repayTransaction = SendTransactionViewModel(
+			transaction: repayTRX,
+			addPendingActivityClosure: { txHash in
+				self.repayConfirmVM.createRepayPendingActivity(txHash: txHash)
+			}
+		)
+		let repayAmountVM = repayConfirmVM.repayAmountVM
+		let sendTransactionStatusVM = SendTransactionStatusViewModel(
+			transactions: [repayTransaction],
+			transactionSentInfoText: "You repaid \(repayAmountVM.tokenAmount.formattedNumberWithCamma) \(repayAmountVM.selectedToken.symbol) to \(repayAmountVM.borrowVM.selectedDexSystem.name) \(repayAmountVM.borrowVM.selectedDexSystem.version)."
+		)
+		let sendTransactionStatusVC = SendTransactionStatusViewController(sendStatusVM: sendTransactionStatusVM)
+		present(sendTransactionStatusVC, animated: true)
 	}
 
 	private func setupNavigationBar() {

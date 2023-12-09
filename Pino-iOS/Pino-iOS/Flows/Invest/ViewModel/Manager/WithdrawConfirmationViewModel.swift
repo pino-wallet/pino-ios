@@ -16,7 +16,8 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 
 	private let web3 = Web3Core.shared
 	private var cancellables = Set<AnyCancellable>()
-
+	private let activityHelper = ActivityHelper()
+	private var withdrawType: WithdrawMode
 	private lazy var withdrawManager: WithdrawManager = {
 		WithdrawManager(
 			contract: investProxyContract,
@@ -60,18 +61,31 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 		$formattedFeeInDollar
 	}
 
+	public var sendTransactions: [SendTransactionViewModel]? {
+		switch selectedProtocol {
+		case .maker, .lido:
+			return getWithdrawTransaction()
+		case .compound:
+			return getCompoundTransaction()
+		case .aave:
+			return getAaveTransaction()
+		}
+	}
+
 	// MARK: - Initializer
 
 	init(
 		selectedToken: AssetViewModel,
 		selectedProtocol: InvestProtocolViewModel,
 		withdrawAmount: String,
-		withdrawAmountInDollar: String
+		withdrawAmountInDollar: String,
+		withdrawType: WithdrawMode
 	) {
 		self.selectedToken = selectedToken
 		self.selectedProtocol = selectedProtocol
 		self.transactionAmount = withdrawAmount
 		self.transactionAmountInDollar = withdrawAmountInDollar
+		self.withdrawType = withdrawType
 	}
 
 	// MARK: - Private Methods
@@ -84,6 +98,64 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 		).show()
 	}
 
+	private func getWithdrawTransaction() -> [SendTransactionViewModel]? {
+		guard let withdrawTrx = withdrawManager.withdrawTrx else { return nil }
+		let withdrawTransaction = SendTransactionViewModel(transaction: withdrawTrx) { [self] pendingActivityTXHash in
+			addPendingActivity(txHash: pendingActivityTXHash, gasInfo: withdrawManager.withdrawGasInfo!)
+		}
+		return [withdrawTransaction]
+	}
+
+	private func getCompoundTransaction() -> [SendTransactionViewModel]? {
+		guard let withdrawTrx = withdrawManager.compoundManager.withdrawTrx else { return nil }
+		let withdrawTransaction = SendTransactionViewModel(transaction: withdrawTrx) { [self] pendingActivityTXHash in
+			addPendingActivity(txHash: pendingActivityTXHash, gasInfo: withdrawManager.compoundManager.withdrawGasInfo!)
+		}
+		return [withdrawTransaction]
+	}
+
+	private func getAaveTransaction() -> [SendTransactionViewModel]? {
+		#warning("Implement later")
+		return nil
+	}
+
+	private func addPendingActivity(txHash: String, gasInfo: GasInfo) {
+		let coreDataManager = CoreDataManager()
+		var activityType: ActivityType {
+			switch withdrawType {
+			case .withdrawMax:
+				return .withdraw_investment
+			case .decrease:
+				return .decrease_investment
+			}
+		}
+		let activityTokenModel = ActivityTokenModel(
+			amount: Utilities.parseToBigUInt(transactionAmount, units: .custom(selectedToken.decimal))!.description,
+			tokenID: selectedToken.id
+		)
+		let activityDetailModel = InvestmentActivityDetails(
+			tokens: [activityTokenModel],
+			poolId: "",
+			activityProtocol: selectedProtocol.type,
+			nftId: nil
+		)
+		let withdrawActivityModel = ActivityWithdrawModel(
+			txHash: txHash,
+			type: activityType.rawValue,
+			detail: activityDetailModel,
+			fromAddress: "",
+			toAddress: "",
+			blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
+			gasUsed: gasInfo.increasedGasLimit!.description,
+			gasPrice: gasInfo.maxFeePerGas.description
+		)
+		coreDataManager.addNewWithdrawActivity(
+			activityModel: withdrawActivityModel,
+			accountAddress: withdrawManager.walletManager.currentAccount.eip55Address
+		)
+		PendingActivitiesManager.shared.startActivityPendingRequests()
+	}
+
 	// MARK: - Public Methods
 
 	public func getTransactionInfo() {
@@ -93,13 +165,6 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 			self.formattedFeeInETH = gasInfo.fee!.sevenDigitFormat
 		}.catch { error in
 			self.showError()
-		}
-	}
-
-	public func confirmTransaction(completion: @escaping () -> Void) {
-		withdrawManager.confirmWithdraw { trx in
-			print("INVEST TRX HASH: \(trx)")
-			completion()
 		}
 	}
 }

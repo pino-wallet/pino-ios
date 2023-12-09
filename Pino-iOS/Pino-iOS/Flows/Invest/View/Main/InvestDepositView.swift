@@ -223,7 +223,10 @@ class InvestDepositView: UIView {
 	}
 
 	private func setupBinding() {
-		guard let depositVM = investVM as? InvestDepositViewModel else { return }
+		guard let depositVM = investVM as? InvestDepositViewModel else {
+			updateEstimatedReturn(nil)
+			return
+		}
 		depositVM.$yearlyEstimatedReturn.sink { estimatedReturn in
 			self.updateEstimatedReturn(estimatedReturn)
 		}.store(in: &cancellable)

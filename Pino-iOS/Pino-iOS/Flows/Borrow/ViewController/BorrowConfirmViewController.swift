@@ -71,18 +71,17 @@ class BorrowConfirmViewController: UIViewController {
 	}
 
 	private func confirmBorrow(borrowTRX: EthereumSignedTransaction) {
-		let sendTransactionStatusVM = SendTransactionStatusViewModel(
+		let borrowTransaction = SendTransactionViewModel(
 			transaction: borrowTRX,
-			transactionInfo: TransactionInfoModel(
-				transactionType: .borrow,
-				transactionDex: borrowConfirmVM.borrowIncreaseAmountVM.borrowVM.selectedDexSystem,
-				transactionAmount: borrowConfirmVM.borrowIncreaseAmountVM.tokenAmount,
-				transactionToken: borrowConfirmVM.borrowIncreaseAmountVM.selectedToken
-			)
+			addPendingActivityClosure: { txHash in
+				self.borrowConfirmVM.createBorrowPendingActivity(txHash: txHash)
+			}
 		)
-		sendTransactionStatusVM.addPendingActivityClosure = { txHash in
-			self.borrowConfirmVM.createBorrowPendingActivity(txHash: txHash)
-		}
+		let borrowIncreaseAmountVM = borrowConfirmVM.borrowIncreaseAmountVM
+		let sendTransactionStatusVM = SendTransactionStatusViewModel(
+			transactions: [borrowTransaction],
+			transactionSentInfoText: "You borrowed \(borrowIncreaseAmountVM.tokenAmount.formattedNumberWithCamma) \(borrowIncreaseAmountVM.selectedToken.symbol) from \(borrowIncreaseAmountVM.borrowVM.selectedDexSystem.name) \(borrowIncreaseAmountVM.borrowVM.selectedDexSystem.version)."
+		)
 		let sendTransactionStatusVC = SendTransactionStatusViewController(sendStatusVM: sendTransactionStatusVM)
 		present(sendTransactionStatusVC, animated: true)
 	}

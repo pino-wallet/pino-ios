@@ -12,11 +12,13 @@ class InvestConfirmationViewController: AuthenticationLockViewController {
 
 	private let investConfirmationVM: InvestConfirmationProtocol
 	private var investConfirmationView: InvestConfirmationView!
+	private var onConfirm: () -> Void
 
 	// MARK: - Initializers
 
-	init(confirmationVM: InvestConfirmationProtocol) {
+	init(confirmationVM: InvestConfirmationProtocol, onConfirm: @escaping () -> Void) {
 		self.investConfirmationVM = confirmationVM
+		self.onConfirm = onConfirm
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -73,10 +75,17 @@ class InvestConfirmationViewController: AuthenticationLockViewController {
 	}
 
 	private func confirmInvestment() {
-		unlockApp {
-			self.investConfirmationVM.confirmTransaction {
-				self.dismiss(animated: true)
-			}
+		unlockApp { [self] in
+			guard let sendTransactions = investConfirmationVM.sendTransactions else { return }
+			let sendTransactionStatusVM = SendTransactionStatusViewModel(
+				transactions: sendTransactions,
+				transactionSentInfoText: "You invested \(investConfirmationVM.transactionAmount.formattedNumberWithCamma) \(investConfirmationVM.selectedToken.symbol) in \(investConfirmationVM.selectedProtocol.name) \(investConfirmationVM.selectedProtocol.version)"
+			)
+			let sendTransactionStatusVC = SendTransactionStatusViewController(
+				sendStatusVM: sendTransactionStatusVM,
+				onDismiss: onConfirm
+			)
+			present(sendTransactionStatusVC, animated: true)
 		}
 	}
 

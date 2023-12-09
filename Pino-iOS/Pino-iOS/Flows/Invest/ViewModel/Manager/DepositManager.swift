@@ -22,10 +22,9 @@ class DepositManager: InvestW3ManagerProtocol {
 		Utilities.parseToBigUInt(investAmount, decimals: selectedToken.decimal)!
 	}
 
-	private var compoundManager: CompoundDepositManager
-
 	// MARK: - Public Properties
 
+	public var compoundManager: CompoundDepositManager
 	public var depositTrx: EthereumSignedTransaction?
 	public var depositGasInfo: GasInfo?
 	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
@@ -75,17 +74,16 @@ class DepositManager: InvestW3ManagerProtocol {
 		}
 	}
 
-	public func confirmDeposit(completion: @escaping (Result<String>) -> Void) {
-		if selectedProtocol == .compound {
-			compoundManager.confirmDeposit(completion: completion)
-		} else {
-			guard let depositTrx else { return }
-			Web3Core.shared.callTransaction(trx: depositTrx).done { trxHash in
-				#warning("Add transaction activity later")
-				completion(.fulfilled(trxHash))
-			}.catch { error in
-				completion(.rejected(error))
-			}
+	public func getIncreaseDepositInfo() -> Promise<[GasInfo]> {
+		switch selectedProtocol {
+		case .maker:
+			return getMakerDepositInfo()
+		case .compound:
+			return compoundManager.getIncreaseDepositInfo()
+		case .lido:
+			return getLidoDepositInfo()
+		case .aave:
+			return getAaveDepositInfo()
 		}
 	}
 

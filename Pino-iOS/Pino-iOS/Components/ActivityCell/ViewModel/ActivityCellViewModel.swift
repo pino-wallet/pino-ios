@@ -22,6 +22,72 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private let approveIcon = "approve"
 
 	private let currentAddress = PinoWalletManager().currentAccount.eip55Address
+	private var baseTitle: String {
+		switch status {
+		case .pending:
+			pendingTitle
+		default:
+			doneTitle
+		}
+	}
+
+	private var pendingTitle: String {
+		switch uiType {
+		case .swap:
+			"Swapping"
+		case .borrow:
+			"Borrowing"
+		case .send:
+			"Sending"
+		case .receive:
+			"Receiving"
+		case .collateral:
+			"Collateralizing"
+		case .withdraw_collateral:
+			"Uncollateralizing"
+		case .invest:
+			"Investing"
+		case .repay:
+			"Repaying"
+		case .withdraw_investment:
+			"Withdrawing"
+		case .enable_collateral:
+			"Enabling"
+		case .disable_collateral:
+			"Disabling"
+		case .approve:
+			"Approving"
+		}
+	}
+
+	private var doneTitle: String {
+		switch uiType {
+		case .swap:
+			"Swapped"
+		case .borrow:
+			"Borrowed"
+		case .send:
+			"Sent"
+		case .receive:
+			"Received"
+		case .collateral:
+			"Collateralized"
+		case .withdraw_collateral:
+			"Uncollateralized"
+		case .invest:
+			"Invested"
+		case .repay:
+			"Repaid"
+		case .withdraw_investment:
+			"Withdrew"
+		case .enable_collateral:
+			"Enabled"
+		case .disable_collateral:
+			"Disabled"
+		case .approve:
+			"Approved"
+		}
+	}
 
 	// MARK: - Internal Properties
 
@@ -194,7 +260,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		switch uiType {
 		case .swap:
 			// set cell title
-			title = "Swap \(swapDetailsVM!.fromTokenSymbol) → \(swapDetailsVM!.toTokenSymbol)"
+			title = "\(baseTitle) \(swapDetailsVM!.fromTokenSymbol) → \(swapDetailsVM!.toTokenSymbol)"
 			// set cell moreInfo
 			activityMoreInfo = swapDetailsVM!.activityProtocol.capitalized
 			// set cell icon
@@ -202,7 +268,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		case .send:
 			// set cell title
 			title =
-				"Send \(transferDetailsVM!.transferTokenAmount.sevenDigitFormat) \(transferDetailsVM!.tokenSymbol)"
+				"\(baseTitle) \(transferDetailsVM!.transferTokenAmount.sevenDigitFormat) \(transferDetailsVM!.tokenSymbol)"
 			// set cell moreInfo
 			activityMoreInfo =
 				"To: \(transferDetailsVM!.userToAccountInfo?.name ?? activityModel.toAddress.addressFromStartFormatting())"
@@ -211,7 +277,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		case .receive:
 			// set cell title
 			title =
-				"Receive \(transferDetailsVM!.transferTokenAmount.sevenDigitFormat) \(transferDetailsVM!.tokenSymbol)"
+				"\(baseTitle) \(transferDetailsVM!.transferTokenAmount.sevenDigitFormat) \(transferDetailsVM!.tokenSymbol)"
 			// set cell moreInfo
 			activityMoreInfo =
 				"From: \(transferDetailsVM!.userFromAccountInfo?.name ?? activityModel.fromAddress.addressFromStartFormatting())"
@@ -220,7 +286,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		case .borrow:
 			// set cell title
 			title =
-				"Borrow \(borrowDetailsVM!.tokenAmount.sevenDigitFormat) \(borrowDetailsVM!.tokenSymbol)"
+				"\(baseTitle) \(borrowDetailsVM!.tokenAmount.sevenDigitFormat) \(borrowDetailsVM!.tokenSymbol)"
 			// set cell moreInfo
 			activityMoreInfo = borrowDetailsVM!.activityProtocol.capitalized
 			// set cell icon
@@ -228,7 +294,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		case .repay:
 			// set cell title
 			title =
-				"Repaid \(repayDetailsVM!.tokenAmount.sevenDigitFormat) \(repayDetailsVM!.tokenSymbol)"
+				"\(baseTitle) \(repayDetailsVM!.tokenAmount.sevenDigitFormat) \(repayDetailsVM!.tokenSymbol)"
 			// set cell moreInfo
 			activityMoreInfo = repayDetailsVM!.activityProtocol.capitalized
 			// set cell icon
@@ -236,7 +302,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		case .withdraw_investment:
 			// set cell title
 			title =
-				"Withdraw \(withdrawInvestmentDetailsVM!.tokenAmount.sevenDigitFormat) \(withdrawInvestmentDetailsVM!.tokenSymbol)"
+				"\(baseTitle) \(withdrawInvestmentDetailsVM!.tokenAmount.sevenDigitFormat) \(withdrawInvestmentDetailsVM!.tokenSymbol)"
 			// set cell moreInfo
 			activityMoreInfo = withdrawInvestmentDetailsVM!.activityProtocol.capitalized
 			// set cell icon
@@ -244,7 +310,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		case .invest:
 			// set cell title
 			title =
-				"Invested \(investDetailsVM!.tokenAmount.sevenDigitFormat) \(investDetailsVM!.tokenSymbol)"
+				"\(baseTitle) \(investDetailsVM!.tokenAmount.sevenDigitFormat) \(investDetailsVM!.tokenSymbol)"
 			// set cell moreInfo
 			activityMoreInfo = investDetailsVM!.activityProtocol.capitalized
 			// set cell icon
@@ -252,7 +318,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		case .collateral:
 			// set cell title
 			title =
-				"Collateralized \(collateralDetailsVM!.tokenAmount.sevenDigitFormat) \(collateralDetailsVM!.tokenSymbol)"
+				"\(baseTitle) \(collateralDetailsVM!.tokenAmount.sevenDigitFormat) \(collateralDetailsVM!.tokenSymbol)"
 			// set cell moreInfo
 			activityMoreInfo = collateralDetailsVM!.activityProtocol.capitalized
 			// set cell icon
@@ -260,7 +326,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		case .withdraw_collateral:
 			// set cell title
 			title =
-				"Uncollateralized \(withdrawCollateralDetailsVM!.tokenAmount.sevenDigitFormat) \(withdrawCollateralDetailsVM!.tokenSymbol)"
+				"\(baseTitle) \(withdrawCollateralDetailsVM!.tokenAmount.sevenDigitFormat) \(withdrawCollateralDetailsVM!.tokenSymbol)"
 			// set cell moreInfo
 			activityMoreInfo = withdrawCollateralDetailsVM!.activityProtocol.capitalized
 			// set cell icon
@@ -268,7 +334,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		case .enable_collateral:
 			// set cell title
 			title =
-				"Enable \(collateralStatusDetailsVM!.tokenSymbol) to collateralized"
+				"\(baseTitle) \(collateralStatusDetailsVM!.tokenSymbol) to collateralized"
 			// set cell moreInfo
 			activityMoreInfo = collateralStatusDetailsVM!.activityProtocol.capitalized
 			// set cell icon
@@ -277,7 +343,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		case .disable_collateral:
 			// set cell title
 			title =
-				"Disable \(collateralStatusDetailsVM!.tokenSymbol) to collateralized"
+				"\(baseTitle) \(collateralStatusDetailsVM!.tokenSymbol) to collateralized"
 			// set cell moreInfo
 			activityMoreInfo = collateralStatusDetailsVM!.activityProtocol.capitalized
 			// set cell icon
@@ -286,7 +352,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		case .approve:
 			// set cell title
 			title =
-				"Approve \(approveDetailsVM!.tokenSymbol)"
+				"\(baseTitle) \(approveDetailsVM!.tokenSymbol)"
 			// set cell moreInfo
 			activityMoreInfo = "Permit 2"
 			// set cell icon
