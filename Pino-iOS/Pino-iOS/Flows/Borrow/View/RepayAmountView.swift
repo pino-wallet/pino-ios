@@ -149,10 +149,6 @@ class RepayAmountView: UIView {
 		amountLabel.lineBreakMode = .byCharWrapping
 
 		repayAmountHealthScore.isHiddenInStackView = true
-
-		#warning("this values are temporary and should be deleted")
-		repayAmountHealthScore.prevHealthScore = repayAmountVM.prevHealthScore
-		repayAmountHealthScore.newHealthScore = repayAmountVM.newHealthScore
 	}
 
 	private func setupConstraints() {
@@ -210,12 +206,18 @@ class RepayAmountView: UIView {
 			repayAmountVM.calculateDollarAmount(amountText)
 			updateAmount(enteredAmount: amountText)
 			animateAmountHealthScoreView(isHidden: false)
+            updateHealthScores()
 		} else {
 			repayAmountVM.calculateDollarAmount(.emptyString)
 			updateAmount(enteredAmount: .emptyString)
 			animateAmountHealthScoreView(isHidden: true)
 		}
 	}
+    
+    private func updateHealthScores() {
+        repayAmountHealthScore.prevHealthScore = repayAmountVM.prevHealthScore
+        repayAmountHealthScore.newHealthScore = repayAmountVM.newHealthScore
+    }
 
 	private func updateAmount(enteredAmount: String) {
 		let amountStatus = repayAmountVM.checkBalanceStatus(amount: enteredAmount)

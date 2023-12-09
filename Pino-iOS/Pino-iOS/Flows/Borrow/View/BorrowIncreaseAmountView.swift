@@ -150,10 +150,6 @@ class BorrowIncreaseAmountView: UIView {
 
 		borrowIncreaseAmountHealthScore.isHiddenInStackView = true
 		borrowIncreaseAmountHealthScore.alpha = 0
-
-		#warning("this values are temporary and should be deleted")
-		borrowIncreaseAmountHealthScore.prevHealthScore = borrowIncreaseAmountVM.prevHealthScore
-		borrowIncreaseAmountHealthScore.newHealthScore = borrowIncreaseAmountVM.newHealthScore
 	}
 
 	private func setupConstraints() {
@@ -200,12 +196,18 @@ class BorrowIncreaseAmountView: UIView {
 			borrowIncreaseAmountVM.calculateDollarAmount(amountText)
 			updateAmount(enteredAmount: amountText)
 			animateAmountHealthScoreView(isHidden: false)
+            updateHealthScores()
 		} else {
 			borrowIncreaseAmountVM.calculateDollarAmount(.emptyString)
 			updateAmount(enteredAmount: .emptyString)
 			animateAmountHealthScoreView(isHidden: true)
 		}
 	}
+    
+    private func updateHealthScores() {
+        borrowIncreaseAmountHealthScore.prevHealthScore = borrowIncreaseAmountVM.prevHealthScore
+        borrowIncreaseAmountHealthScore.newHealthScore = borrowIncreaseAmountVM.newHealthScore
+    }
 
 	private func animateAmountHealthScoreView(isHidden: Bool) {
 		UIView.animate(withDuration: 0.2, animations: {

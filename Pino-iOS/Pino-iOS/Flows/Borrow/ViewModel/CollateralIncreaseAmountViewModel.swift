@@ -57,11 +57,11 @@ class CollateralIncreaseAmountViewModel {
 		"You have an open \(selectedToken.symbol) investment position in \(borrowVM.selectedDexSystem.name), which you need to close before depositing \(selectedToken.symbol) as collateral."
 	}
 
-    public var prevHealthScore: Double {
+    public var prevHealthScore: BigNumber {
         calculateCurrentHealthScore()
     }
     
-    public var newHealthScore: Double = 0
+    public var newHealthScore: BigNumber = 0.bigNumber
 
 	// MARK: - Private Properties
 
@@ -95,8 +95,14 @@ class CollateralIncreaseAmountViewModel {
 
 	// MARK: - Private Methods
     
-    private func calculateCurrentHealthScore() -> Double {
-        borrowingHelper.calculateHealthScore(totalBorrowedAmount: borrowVM.totalBorrowAmountInDollars, totalBorrowableAmount: borrowVM.totalCollateralAmountsInDollar.totalBorrowableAmountInDollars)
+    private func calculateCurrentHealthScore() -> BigNumber {
+        borrowingHelper.calculateHealthScore(totalBorrowedAmount: borrowVM.totalBorrowAmountInDollars, totalBorrowableAmountForHealthScore: borrowVM.totalCollateralAmountsInDollar.totalBorrowableAmountForHealthScore)
+    }
+    
+    private func calculateNewHealthScore(dollarAmount: BigNumber) -> BigNumber {
+        let tokenLQ = borrowVM.getCollateralizableTokenLQ(tokenID: selectedToken.id)
+        let totalBorrowableAmountForHealthScore = borrowVM.totalCollateralAmountsInDollar.totalBorrowableAmountForHealthScore + ((dollarAmount / tokenLQ)!)
+        return borrowingHelper.calculateHealthScore(totalBorrowedAmount: borrowVM.totalBorrowAmountInDollars, totalBorrowableAmountForHealthScore: totalBorrowableAmountForHealthScore)
     }
 
 	private func calculateAaveCollateralETHMaxAmount() {
@@ -242,6 +248,7 @@ class CollateralIncreaseAmountViewModel {
 				number: decimalBigNum.number * price.number,
 				decimal: decimalBigNum.decimal + 6
 			)
+            newHealthScore = calculateNewHealthScore(dollarAmount: amountInDollarDecimalValue)
 			dollarAmount = amountInDollarDecimalValue.priceFormat
 		} else {
             newHealthScore = calculateCurrentHealthScore()

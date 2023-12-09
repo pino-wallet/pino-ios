@@ -231,6 +231,7 @@ class CollateralIncreaseAmountView: UIView {
 			collateralIncreaseAmountVM.calculateDollarAmount(amountText)
 			updateAmountStatus(enteredAmount: amountText)
 			animateAmountHealthScoreView(isHidden: false)
+            updateHealthScores()
 		} else {
 			collateralIncreaseAmountVM.calculateDollarAmount(.emptyString)
 			updateAmountStatus(enteredAmount: .emptyString)
@@ -249,7 +250,6 @@ class CollateralIncreaseAmountView: UIView {
 
 	private func setupBindings() {
 		collateralIncreaseAmountVM.$collateralPageStatus.sink { collateralPageStatus in
-            self.updateHealthScores()
 			self.updateViewWithStatus(collateralPageStatus: collateralPageStatus)
 		}.store(in: &cancellables)
 	}

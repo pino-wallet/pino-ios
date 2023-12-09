@@ -143,10 +143,6 @@ class WithdrawAmountView: UIView {
 		amountLabel.lineBreakMode = .byCharWrapping
 
 		withdrawAmountHealthScore.isHiddenInStackView = true
-
-		#warning("this values are temporary and should be deleted")
-		withdrawAmountHealthScore.prevHealthScore = withdrawAmountVM.prevHealthScore
-		withdrawAmountHealthScore.newHealthScore = withdrawAmountVM.newHealthScore
 	}
 
 	private func setupConstraints() {
@@ -204,12 +200,18 @@ class WithdrawAmountView: UIView {
 			withdrawAmountVM.calculateDollarAmount(amountText)
 			updateAmount(enteredAmount: amountText)
 			animateAmountHealthScoreView(isHidden: false)
+            updateHealthScores()
 		} else {
 			withdrawAmountVM.calculateDollarAmount(.emptyString)
 			updateAmount(enteredAmount: .emptyString)
 			animateAmountHealthScoreView(isHidden: true)
 		}
 	}
+    
+    private func updateHealthScores() {
+        withdrawAmountHealthScore.prevHealthScore = withdrawAmountVM.prevHealthScore
+        withdrawAmountHealthScore.newHealthScore = withdrawAmountVM.newHealthScore
+    }
 
 	private func updateAmount(enteredAmount: String) {
 		let amountStatus = withdrawAmountVM.checkBalanceStatus(amount: enteredAmount)

@@ -133,4 +133,5 @@ extension String {
 	public var ethScanTxURL: String {
 		"http://www.etherscan.io/tx/\(self)"
 	}
+    
 }

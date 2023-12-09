@@ -10,10 +10,12 @@ import Foundation
 
 struct BorrowingHelper {
     // MARK: - Public Methods
-    public func calculateHealthScore(totalBorrowedAmount: BigNumber, totalBorrowableAmount: BigNumber) -> Double {
-        let divedTotalBorrowAmount = totalBorrowedAmount / totalBorrowableAmount
-        print("heh", totalBorrowedAmount, totalBorrowableAmount, divedTotalBorrowAmount)
-        let plainHealhScore = 1.bigNumber - divedTotalBorrowAmount!
-        return (plainHealhScore * 100.bigNumber).doubleValue
+    public func calculateHealthScore(totalBorrowedAmount: BigNumber, totalBorrowableAmountForHealthScore: BigNumber) -> BigNumber {
+        let divedTotalBorrowAmount = totalBorrowedAmount / totalBorrowableAmountForHealthScore
+        if divedTotalBorrowAmount?.number.sign == .minus {
+            return 0.bigNumber
+        }
+        let plainHealhScore = 10000.bigNumber - divedTotalBorrowAmount!
+        return (plainHealhScore / 100.bigNumber)!
     }
 }

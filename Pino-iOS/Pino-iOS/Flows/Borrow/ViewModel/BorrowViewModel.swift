@@ -12,7 +12,8 @@ class BorrowViewModel {
 
 	typealias TotalCollateralAmountsInDollarType = (
 		totalAmountInDollars: BigNumber,
-		totalBorrowableAmountInDollars: BigNumber
+		totalBorrowableAmountInDollars: BigNumber,
+        totalBorrowableAmountForHealthScore: BigNumber
 	)
 
 	// MARK: - Public Properties
@@ -25,6 +26,7 @@ class BorrowViewModel {
 	public var totalCollateralAmountsInDollar: TotalCollateralAmountsInDollarType {
 		var totalAmountInDollars = 0.bigNumber
 		var totalBorrowableAmountInDollars = 0.bigNumber
+        var totalBorrowableAmountForHealthScore = 0.bigNumber
 		guard let collateralledTokens = userBorrowingDetails?.collateralTokens else {
 			fatalError("Collateraled tokens is nil")
 		}
@@ -34,18 +36,19 @@ class BorrowViewModel {
 				fatalError("Collateralled token not found in global tokens list")
 			}
 			
-            let calculatedTokenLQ = getCollateralizableTokenLQ(tokenID: collateraledToken.id)
+            let tokenLQ = getCollateralizableTokenLQ(tokenID: collateraledToken.id)
 			let tokenTotalAmountInDollars = BigNumber(
 				number: collateraledToken.amount,
 				decimal: foundTokenInGlobalTokens.decimal
 			) * foundTokenInGlobalTokens.price
 			totalAmountInDollars = totalAmountInDollars + tokenTotalAmountInDollars
-            print("hehe", (tokenTotalAmountInDollars / calculatedTokenLQ)!)
-            totalBorrowableAmountInDollars = (tokenTotalAmountInDollars / calculatedTokenLQ)!
+            totalBorrowableAmountInDollars = totalBorrowableAmountInDollars + ((tokenTotalAmountInDollars / 100.bigNumber)!) * ((tokenLQ / 100.bigNumber)!)
+            totalBorrowableAmountForHealthScore = totalBorrowableAmountForHealthScore + (tokenTotalAmountInDollars / tokenLQ)!
 		}
 		return (
 			totalAmountInDollars: totalAmountInDollars,
-			totalBorrowableAmountInDollars: totalBorrowableAmountInDollars
+			totalBorrowableAmountInDollars: totalBorrowableAmountInDollars,
+            totalBorrowableAmountForHealthScore: totalBorrowableAmountForHealthScore
 		)
 	}
 
