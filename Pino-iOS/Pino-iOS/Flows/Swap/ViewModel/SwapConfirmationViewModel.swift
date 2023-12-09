@@ -68,6 +68,14 @@ class SwapConfirmationViewModel {
 	public let feeErrorText = "Error in calculation!"
 	public let feeErrorIcon = "refresh"
 
+	public var sendTransactions: [SendTransactionViewModel]? {
+		guard let swapTrx = pendingSwapTrx else { return nil }
+		let swapTrxStatus = SendTransactionViewModel(transaction: swapTrx) { pendingActivityTXHash in
+			self.swapManager.addPendingTransferActivity(trxHash: pendingActivityTXHash)
+		}
+		return [swapTrxStatus]
+	}
+
 	// MARK: - Initializer
 
 	init(

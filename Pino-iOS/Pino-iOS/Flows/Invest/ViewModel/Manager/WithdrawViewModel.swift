@@ -29,7 +29,6 @@ class WithdrawViewModel: InvestViewModelProtocol {
 	public var tokenAmount: String = .emptyString
 	public var dollarAmount: String = .emptyString
 	public var continueButtonTitle = "Withdraw"
-	public var transactionType: SendTransactionType = .withdraw
 	public var pageTitle: String {
 		"Withdraw \(selectedToken.symbol)"
 	}
