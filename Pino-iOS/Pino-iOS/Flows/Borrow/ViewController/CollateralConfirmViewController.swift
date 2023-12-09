@@ -73,14 +73,10 @@ class CollateralConfirmViewController: UIViewController {
 				self.collateralConfirmVM.createCollateralPendingActivity(txHash: txHash)
 			}
 		)
+		let collateralIncreaseAmountVM = collateralConfirmVM.collaterallIncreaseAmountVM
 		let sendTransactionStatusVM = SendTransactionStatusViewModel(
 			transactions: [depositTransaction],
-			transactionInfo: TransactionInfoModel(
-				transactionType: .collateral,
-				transactionDex: collateralConfirmVM.collaterallIncreaseAmountVM.borrowVM.selectedDexSystem,
-				transactionAmount: collateralConfirmVM.collaterallIncreaseAmountVM.tokenAmount,
-				transactionToken: collateralConfirmVM.collaterallIncreaseAmountVM.selectedToken
-			)
+			transactionSentInfoText: "You collateralized \(collateralIncreaseAmountVM.tokenAmount.formattedNumberWithCamma) \(collateralIncreaseAmountVM.selectedToken.symbol) in \(collateralIncreaseAmountVM.borrowVM.selectedDexSystem.name) \(collateralIncreaseAmountVM.borrowVM.selectedDexSystem.version)."
 		)
 		let sendTransactionStatusVC = SendTransactionStatusViewController(sendStatusVM: sendTransactionStatusVM)
 		present(sendTransactionStatusVC, animated: true)

@@ -438,19 +438,19 @@ extension ActivityUIType {
 		case .repay:
 			return "Repay"
 		case .withdraw_investment:
-			return "Withdraw investment"
+			return "Withdraw"
 		case .invest:
 			return "Invest"
 		case .collateral:
-			return "Collateral"
+			return "Collateralization"
 		case .withdraw_collateral:
-			return "Withdraw collateral"
+			return "Uncollateralization"
 		case .enable_collateral:
-			return "Enable details"
+			return "Enable collateralization"
 		case .disable_collateral:
-			return "Disable details"
+			return "Disable collateralization"
 		case .approve:
-			return "Approve"
+			return "Approval"
 		}
 	}
 }

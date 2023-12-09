@@ -65,14 +65,10 @@ class RepayConfirmViewController: UIViewController {
 				self.repayConfirmVM.createRepayPendingActivity(txHash: txHash)
 			}
 		)
+		let repayAmountVM = repayConfirmVM.repayAmountVM
 		let sendTransactionStatusVM = SendTransactionStatusViewModel(
 			transactions: [repayTransaction],
-			transactionInfo: TransactionInfoModel(
-				transactionType: .repay,
-				transactionDex: repayConfirmVM.repayAmountVM.borrowVM.selectedDexSystem,
-				transactionAmount: repayConfirmVM.repayAmountVM.tokenAmount,
-				transactionToken: repayConfirmVM.repayAmountVM.selectedToken
-			)
+			transactionSentInfoText: "You repaid \(repayAmountVM.tokenAmount.formattedNumberWithCamma) \(repayAmountVM.selectedToken.symbol) to \(repayAmountVM.borrowVM.selectedDexSystem.name) \(repayAmountVM.borrowVM.selectedDexSystem.version)."
 		)
 		let sendTransactionStatusVC = SendTransactionStatusViewController(sendStatusVM: sendTransactionStatusVM)
 		present(sendTransactionStatusVC, animated: true)
