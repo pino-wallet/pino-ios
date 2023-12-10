@@ -345,16 +345,16 @@ public class Web3Core {
 		)
 	}
 
-	public func sendEtherTo(address: String, amount: BigUInt) -> Promise<String> {
-		transferManager.sendEtherTo(recipient: address, amount: amount)
+	public func sendEtherTo(address: String, amount: BigUInt) -> TrxWithGasInfo {
+		transferManager.getTrxOfsendEtherTo(recipient: address, amount: amount)
 	}
 
 	public func sendERC20TokenTo(
 		recipient: String,
 		amount: BigUInt,
 		tokenContractAddress: String
-	) -> Promise<String> {
-		transferManager.sendERC20TokenTo(
+	) -> TrxWithGasInfo {
+		transferManager.getTrxOfSendERC20TokenTo(
 			recipientAddress: recipient,
 			amount: amount,
 			tokenContractAddress: tokenContractAddress

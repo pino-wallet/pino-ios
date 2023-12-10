@@ -93,8 +93,17 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 	}
 
 	private func confirmSwap() {
-		swapConfirmationVM.confirmSwap {
-			self.dismissPage()
+		guard let sendTransactions = swapConfirmationVM.sendTransactions else { return }
+		unlockApp { [self] in
+			let sendTrxStatusVM = SendTransactionStatusViewModel(
+				transactions: sendTransactions,
+				transactionSentInfoText: swapConfirmationVM.sendStatusText
+			)
+			let sendTransactionStatuVC = SendTransactionStatusViewController(
+				sendStatusVM: sendTrxStatusVM,
+				onDismiss: dismissPage
+			)
+			present(sendTransactionStatuVC, animated: true)
 		}
 	}
 

@@ -70,9 +70,17 @@ class SendConfirmationViewController: AuthenticationLockViewController {
 	}
 
 	private func confirmSend() {
-		unlockApp {
-			let statusPageVC = SendStatusViewController(confirmationVM: self.sendConfirmationVM)
-			self.navigationController?.pushViewController(statusPageVC, animated: true)
+		unlockApp { [self] in
+			guard let sendTransactions = sendConfirmationVM.sendTransactions else { return }
+			let sendTransactionStatusVM = SendTransactionStatusViewModel(
+				transactions: sendTransactions,
+				transactionSentInfoText: sendConfirmationVM.sendStatusText
+			)
+			let sendTransactionStatusVC = SendTransactionStatusViewController(
+				sendStatusVM: sendTransactionStatusVM,
+				onDismiss: {}
+			)
+			present(sendTransactionStatusVC, animated: true)
 		}
 	}
 

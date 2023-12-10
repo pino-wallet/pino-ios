@@ -67,6 +67,17 @@ class SwapConfirmationViewModel {
 		"This is a network fee charged by Ethereum for processing your transaction. Pino does not receive any part of this fee."
 	public let feeErrorText = "Error in calculation!"
 	public let feeErrorIcon = "refresh"
+	public var sendStatusText: String {
+		"You swapped \(fromToken.tokenAmount!.formattedNumberWithCamma) \(fromToken.selectedToken.symbol) to \(toToken.tokenAmount!.formattedNumberWithCamma) \(toToken.selectedToken.symbol)."
+	}
+
+	public var sendTransactions: [SendTransactionViewModel]? {
+		guard let swapTrx = pendingSwapTrx else { return nil }
+		let swapTrxStatus = SendTransactionViewModel(transaction: swapTrx) { pendingActivityTXHash in
+			self.swapManager.addPendingTransferActivity(trxHash: pendingActivityTXHash)
+		}
+		return [swapTrxStatus]
+	}
 
 	// MARK: - Initializer
 

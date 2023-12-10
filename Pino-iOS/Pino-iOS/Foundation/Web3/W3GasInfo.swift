@@ -19,6 +19,10 @@ public struct GasInfo {
 		.init(number: GlobalVariables.shared.ethGasFee.baseFee, decimal: 0)
 	}
 
+	public var gasPrice: BigNumber {
+		.init(number: GlobalVariables.shared.ethGasFee.gasPrice, decimal: 0)
+	}
+
 	public var maxFeePerGas: BigNumber {
 		(baseFee * 2.bigNumber) + priorityFeePerGas
 	}
