@@ -15,9 +15,9 @@ struct BorrowingHelper {
 		totalBorrowedAmount: BigNumber,
 		totalBorrowableAmountForHealthScore: BigNumber
 	) -> BigNumber {
-        if totalBorrowableAmountForHealthScore.isZero {
-            return 0.bigNumber
-        }
+		if totalBorrowableAmountForHealthScore.isZero {
+			return 0.bigNumber
+		}
 		let divedTotalBorrowAmount = totalBorrowedAmount / totalBorrowableAmountForHealthScore
 		if totalBorrowedAmount.isZero || totalBorrowedAmount.number.sign == .minus {
 			return 100.bigNumber
