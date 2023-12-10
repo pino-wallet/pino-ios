@@ -6,12 +6,14 @@
 //
 
 import BigInt
+import Combine
 import Foundation
 
 class InvestDepositViewModel: InvestViewModelProtocol {
 	// MARK: - Private Properties
 
 	private var investmentType: InvestmentType
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 
@@ -30,7 +32,7 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 		"You have an open \(selectedToken.symbol) collateral position in \(selectedProtocol.name), which you need to close before depositing \(selectedToken.symbol) as investment."
 	}
 
-	public var hasOpenPosition: Bool!
+	public let hasOpenPosition: Bool
 
 	@Published
 	public var yearlyEstimatedReturn: String?
@@ -51,11 +53,13 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 	init(
 		selectedAsset: AssetsBoardProtocol,
 		selectedProtocol: InvestProtocolViewModel,
-		investmentType: InvestmentType
+		investmentType: InvestmentType,
+		hasOpenPosition: Bool = false
 	) {
 		self.selectedInvestableAsset = selectedAsset as? InvestableAssetViewModel
 		self.selectedProtocol = selectedProtocol
 		self.investmentType = investmentType
+		self.hasOpenPosition = hasOpenPosition
 		getToken(investableAsset: selectedAsset)
 	}
 
@@ -104,11 +108,12 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 		selectedToken = tokensList.first(where: { $0.symbol == investableAsset.assetName })!
 		maxAvailableAmount = selectedToken.holdAmount
 
-		#warning("it must be refactored later")
-		if investmentType == .create, selectedToken.holdAmount > 0.bigNumber {
-			hasOpenPosition = true
-		} else {
-			hasOpenPosition = false
+		getTokenPositionID { positionId in
+			if investmentType == .create, selectedToken.isPosition, selectedToken.holdAmount > 0.bigNumber {
+				hasOpenPosition = true
+			} else {
+				hasOpenPosition = false
+			}
 		}
 	}
 
@@ -119,5 +124,23 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 		} else {
 			yearlyEstimatedReturn = nil
 		}
+	}
+
+	private func getTokenPositionID(completion: @escaping (String) -> Void) {
+		let w3APIClient = Web3APIClient()
+		w3APIClient.getTokenPositionID(
+			tokenAdd: selectedToken.id.lowercased(),
+			positionType: .investment,
+			protocolName: selectedProtocol.rawValue
+		).sink { completed in
+			switch completed {
+			case .finished:
+				print("Position id received successfully")
+			case let .failure(error):
+				print("Error getting position id:\(error)")
+			}
+		} receiveValue: { tokenPositionModel in
+			completion(tokenPositionModel.positionID.lowercased())
+		}.store(in: &cancellables)
 	}
 }

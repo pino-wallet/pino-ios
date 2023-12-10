@@ -91,17 +91,20 @@ class InvestmentBoardViewController: UIViewController {
 
 	private func openInvestabelAssetPage(_ investableAsset: InvestableAssetViewModel) {
 		let riskPerformanceVC = InvestmentRiskPerformanceViewController(investableAsset: investableAsset) {
-			let depositVM = InvestDepositViewModel(
-				selectedAsset: investableAsset,
-				selectedProtocol: investableAsset.assetProtocol,
-				investmentType: .create
-			)
-			let investVC = InvestDepositViewController(
-				investVM: depositVM,
-				onDepositConfirm: self.onDepositConfirm
-			)
-			let investNavigationVC = UINavigationController(rootViewController: investVC)
-			self.present(investNavigationVC, animated: true)
+			self.investmentBoardVM.checkOpenPosition(selectedAsset: investableAsset) { hasOpenPosition in
+				let depositVM = InvestDepositViewModel(
+					selectedAsset: investableAsset,
+					selectedProtocol: investableAsset.assetProtocol,
+					investmentType: .create,
+					hasOpenPosition: hasOpenPosition
+				)
+				let investVC = InvestDepositViewController(
+					investVM: depositVM,
+					onDepositConfirm: self.onDepositConfirm
+				)
+				let investNavigationVC = UINavigationController(rootViewController: investVC)
+				self.present(investNavigationVC, animated: true)
+			}
 		}
 		present(riskPerformanceVC, animated: true)
 	}
