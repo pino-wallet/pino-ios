@@ -23,7 +23,6 @@ class CollateralIncreaseAmountViewModel {
 	public let loadingButtonTitle = "Please wait"
 	public let maxTitle = "Max: "
 	public var textFieldPlaceHolder = "0"
-	private let feeTxErrorText = "Failed to estimate fee of transaction"
 
 	public let selectedToken: AssetViewModel
 	public let borrowVM: BorrowViewModel
@@ -58,16 +57,20 @@ class CollateralIncreaseAmountViewModel {
 		"You have an open \(selectedToken.symbol) investment position in \(borrowVM.selectedDexSystem.name), which you need to close before depositing \(selectedToken.symbol) as collateral."
 	}
 
-	#warning("this is mock")
-	public var prevHealthScore: Double = 0
-	public var newHealthScore: Double = 24
+	public var prevHealthScore: BigNumber {
+		calculateCurrentHealthScore()
+	}
+
+	public var newHealthScore: BigNumber = 0.bigNumber
 
 	// MARK: - Private Properties
 
+	private let feeTxErrorText = "Failed to estimate fee of transaction"
 	private let web3 = Web3Core.shared
 	private let defaultTokenAmount = "1"
 	private let walletManager = PinoWalletManager()
 	private let borrowingAPIClient = BorrowingAPIClient()
+	private let borrowingHelper = BorrowingHelper()
 	private var requestTimer: Timer?
 	private var cancellables = Set<AnyCancellable>()
 
@@ -91,6 +94,24 @@ class CollateralIncreaseAmountViewModel {
 	}
 
 	// MARK: - Private Methods
+
+	private func calculateCurrentHealthScore() -> BigNumber {
+		borrowingHelper.calculateHealthScore(
+			totalBorrowedAmount: borrowVM.totalBorrowAmountInDollars,
+			totalBorrowableAmountForHealthScore: borrowVM.totalCollateralAmountsInDollar
+				.totalBorrowableAmountForHealthScore
+		)
+	}
+
+	private func calculateNewHealthScore(dollarAmount: BigNumber) -> BigNumber {
+		let tokenLQ = borrowVM.getCollateralizableTokenLQ(tokenID: selectedToken.id)
+		let totalBorrowableAmountForHealthScore = borrowVM.totalCollateralAmountsInDollar
+			.totalBorrowableAmountForHealthScore + (dollarAmount / tokenLQ)!
+		return borrowingHelper.calculateHealthScore(
+			totalBorrowedAmount: borrowVM.totalBorrowAmountInDollars,
+			totalBorrowableAmountForHealthScore: totalBorrowableAmountForHealthScore
+		)
+	}
 
 	private func calculateAaveCollateralETHMaxAmount() {
 		aaveCollateralManager.getETHCollateralData().done { collateralData in
@@ -235,8 +256,10 @@ class CollateralIncreaseAmountViewModel {
 				number: decimalBigNum.number * price.number,
 				decimal: decimalBigNum.decimal + 6
 			)
+			newHealthScore = calculateNewHealthScore(dollarAmount: amountInDollarDecimalValue)
 			dollarAmount = amountInDollarDecimalValue.priceFormat
 		} else {
+			newHealthScore = calculateCurrentHealthScore()
 			dollarAmount = .emptyString
 		}
 		tokenAmount = amount

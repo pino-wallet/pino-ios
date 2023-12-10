@@ -75,15 +75,40 @@ class BorrowIncreaseAmountViewModel {
 		(maxHoldAmount * selectedToken.price).priceFormat
 	}
 
-	#warning("this values are mock")
-	public var prevHealthScore: Double = 0
-	public var newHealthScore: Double = 24
+	public var prevHealthScore: BigNumber {
+		calculateCurrentHealthScore()
+	}
+
+	public var newHealthScore: BigNumber = 0.bigNumber
+
+	// MARK: - Private Properties
+
+	private let borrowingHelper = BorrowingHelper()
 
 	// MARK: - Initializers
 
 	init(selectedToken: AssetViewModel, borrowVM: BorrowViewModel) {
 		self.selectedToken = selectedToken
 		self.borrowVM = borrowVM
+	}
+
+	// MARK: - Private Methods
+
+	private func calculateCurrentHealthScore() -> BigNumber {
+		borrowingHelper.calculateHealthScore(
+			totalBorrowedAmount: borrowVM.totalBorrowAmountInDollars,
+			totalBorrowableAmountForHealthScore: borrowVM.totalCollateralAmountsInDollar
+				.totalBorrowableAmountForHealthScore
+		)
+	}
+
+	private func calculateNewHealthScore(dollarAmount: BigNumber) -> BigNumber {
+		let totalBorrowedAmount = borrowVM.totalBorrowAmountInDollars + dollarAmount
+		return borrowingHelper.calculateHealthScore(
+			totalBorrowedAmount: totalBorrowedAmount,
+			totalBorrowableAmountForHealthScore: borrowVM.totalCollateralAmountsInDollar
+				.totalBorrowableAmountForHealthScore
+		)
 	}
 
 	// MARK: - Public Methods
@@ -97,8 +122,10 @@ class BorrowIncreaseAmountViewModel {
 				number: decimalBigNum.number * price.number,
 				decimal: decimalBigNum.decimal + 6
 			)
+			newHealthScore = calculateNewHealthScore(dollarAmount: amountInDollarDecimalValue)
 			dollarAmount = amountInDollarDecimalValue.priceFormat
 		} else {
+			newHealthScore = calculateCurrentHealthScore()
 			dollarAmount = .emptyString
 		}
 		tokenAmount = amount

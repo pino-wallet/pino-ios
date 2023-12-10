@@ -150,10 +150,6 @@ class BorrowIncreaseAmountView: UIView {
 
 		borrowIncreaseAmountHealthScore.isHiddenInStackView = true
 		borrowIncreaseAmountHealthScore.alpha = 0
-
-		#warning("this values are temporary and should be deleted")
-		borrowIncreaseAmountHealthScore.prevHealthScore = borrowIncreaseAmountVM.prevHealthScore
-		borrowIncreaseAmountHealthScore.newHealthScore = borrowIncreaseAmountVM.newHealthScore
 	}
 
 	private func setupConstraints() {
@@ -200,11 +196,17 @@ class BorrowIncreaseAmountView: UIView {
 			borrowIncreaseAmountVM.calculateDollarAmount(amountText)
 			updateAmount(enteredAmount: amountText)
 			animateAmountHealthScoreView(isHidden: false)
+			updateHealthScores()
 		} else {
 			borrowIncreaseAmountVM.calculateDollarAmount(.emptyString)
 			updateAmount(enteredAmount: .emptyString)
 			animateAmountHealthScoreView(isHidden: true)
 		}
+	}
+
+	private func updateHealthScores() {
+		borrowIncreaseAmountHealthScore.prevHealthScore = borrowIncreaseAmountVM.prevHealthScore
+		borrowIncreaseAmountHealthScore.newHealthScore = borrowIncreaseAmountVM.newHealthScore
 	}
 
 	private func animateAmountHealthScoreView(isHidden: Bool) {
@@ -252,7 +254,6 @@ class BorrowIncreaseAmountView: UIView {
 	@objc
 	private func putMaxAmountInTextField() {
 		amountTextfield.text = borrowIncreaseAmountVM.maxHoldAmount.plainSevenDigitFormat
-		amountLabel.text = borrowIncreaseAmountVM.dollarAmount
 		animateAmountHealthScoreView(isHidden: false)
 
 		if borrowIncreaseAmountVM.selectedToken.isEth {
@@ -265,6 +266,8 @@ class BorrowIncreaseAmountView: UIView {
 
 		maxAmountLabel.text = borrowIncreaseAmountVM.formattedMaxHoldAmount
 		updateAmount(enteredAmount: amountTextfield.text!.trimmCurrency)
+		borrowIncreaseAmountVM.calculateDollarAmount(amountTextfield.text!)
+		updateHealthScores()
 	}
 
 	@objc
