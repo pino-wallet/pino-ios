@@ -10,13 +10,12 @@ import Foundation
 import Web3
 import Web3_Utility
 
-#warning("this values are static and should be changed")
 
 class CollateralConfirmViewModel {
 	// MARK: - TypeAliases
 
 	typealias FeeInfoType = (feeInDollars: String, feeInETH: String, bigNumberFee: BigNumber)
-	typealias ConfirmCollateralClosureType = (EthereumSignedTransaction) -> Void
+	typealias ConfirmCollateralClosureType = ([SendTransactionViewModel]) -> Void
 
 	// MARK: - Closures
 
@@ -78,8 +77,11 @@ class CollateralConfirmViewModel {
 			assetAmount: collaterallIncreaseAmountVM.tokenAmount
 		)
 	}()
-
-	#warning("i should add compound collateral manager here")
+    
+    private lazy var compoundDepositManager: CompoundDepositManager = {
+        let pinoCompoundProxyContract = try! web3.getCompoundProxyContract()
+        return CompoundDepositManager(contract: pinoCompoundProxyContract, selectedToken: selectedToken, investAmount: collaterallIncreaseAmountVM.tokenAmount, type: .collateral)
+    }()
 
 	private var collateralIncreaseAmountBigNumber: BigNumber {
 		BigNumber(numberWithDecimal: collaterallIncreaseAmountVM.tokenAmount)
@@ -108,10 +110,18 @@ class CollateralConfirmViewModel {
 			bigNumberFee: depositGasInfo.fee!
 		)
 	}
+    
+    private func setFeeInfosByDepositGasInfo(depositGasInfos: [GasInfo]) {
+        feeInfo = (
+            feeInDollars: depositGasInfos.map { $0.feeInDollar! }.reduce(0.bigNumber, +).priceFormat,
+            feeInETH: depositGasInfos.map { $0.fee! }.reduce(0.bigNumber, +).sevenDigitFormat.ethFormatting,
+            bigNumberFee: depositGasInfos.map { $0.fee! }.reduce(0.bigNumber, +)
+        )
+    }
 
 	// MARK: - Public Methods
 
-	public func createCollateralPendingActivity(txHash: String) {
+	private func createCollateralPendingActivity(txHash: String) {
 		var activityType: String {
 			switch collaterallIncreaseAmountVM.collateralMode {
 			case .increase:
@@ -120,6 +130,19 @@ class CollateralConfirmViewModel {
 				return "create_collateral"
 			}
 		}
+        let zeroAmountBigNumber = 0.bigNumber
+        var gasUsed: String
+        var gasPrice: String
+        switch collaterallIncreaseAmountVM.borrowVM.selectedDexSystem {
+        case .aave:
+            gasUsed = aaveCollateralManager.depositGasInfo!.increasedGasLimit!.description
+            gasPrice = aaveCollateralManager.depositGasInfo!.maxFeePerGas.description
+        case .compound:
+            gasUsed = (compoundDepositManager.depositGasInfo!.increasedGasLimit! + (compoundDepositManager.collateralCheckGasInfo?.increasedGasLimit ?? zeroAmountBigNumber)).description
+            gasPrice = (compoundDepositManager.depositGasInfo!.maxFeePerGas + (compoundDepositManager.collateralCheckGasInfo?.maxFeePerGas ?? zeroAmountBigNumber)).description
+        default:
+            fatalError("Unknown dex type")
+        }
 		coredataManager.addNewCollateralActivity(
 			activityModel: ActivityCollateralModel(
 				txHash: txHash,
@@ -136,8 +159,8 @@ class CollateralConfirmViewModel {
 				fromAddress: "",
 				toAddress: "",
 				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
-				gasUsed: aaveCollateralManager.depositGasInfo!.increasedGasLimit!.description,
-				gasPrice: aaveCollateralManager.depositGasInfo!.maxFeePerGas.description
+				gasUsed: gasUsed,
+				gasPrice: gasPrice
 			),
 			accountAddress: walletManager.currentAccount.eip55Address
 		)
@@ -171,7 +194,32 @@ class CollateralConfirmViewModel {
 				}
 			}
 		case .compound:
-			#warning("i should add compound collateral manager first to complete this section")
+            switch collaterallIncreaseAmountVM.collateralMode {
+            case .increase:
+                compoundDepositManager.getIncreaseDepositInfo().done { depositGasInfos in
+                    self.setFeeInfosByDepositGasInfo(depositGasInfos: depositGasInfos)
+                }.catch { _ in
+                    Toast.default(
+                        title: self.feeTxErrorText,
+                        subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+                        style: .error
+                    )
+                    .show(haptic: .warning)
+                }
+
+            case .create:
+                compoundDepositManager.getDepositInfo().done { depositGasInfos in
+                    self.setFeeInfosByDepositGasInfo(depositGasInfos: depositGasInfos)
+                }.catch { _ in
+                    Toast.default(
+                        title: self.feeTxErrorText,
+                        subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+                        style: .error
+                    )
+                    .show(haptic: .warning)
+                }
+
+            }
 		default:
 			print("Unknown selected dex system !")
 		}
@@ -183,10 +231,24 @@ class CollateralConfirmViewModel {
 			guard let depositTRX = aaveCollateralManager.depositTRX else {
 				return
 			}
-			confirmCollateralClosure(depositTRX)
+            let depositTransaction = SendTransactionViewModel(transaction: depositTRX) { pendingActivityTXHash in
+                self.createCollateralPendingActivity(txHash: pendingActivityTXHash)
+            }
+			confirmCollateralClosure([depositTransaction])
 		case .compound:
-			#warning("i should add compound collateral manager first to complete this section")
-			return
+			guard let depositTrx = compoundDepositManager.depositTrx else { return }
+        let depositTransaction = SendTransactionViewModel(transaction: depositTrx) { [self] pendingActivityTXHash in
+            createCollateralPendingActivity(txHash: pendingActivityTXHash)
+        }
+        if let collateralCheckTrx = compoundDepositManager.collateralCheckTrx {
+            let collateralCheckTransaction =
+                SendTransactionViewModel(transaction: collateralCheckTrx) { pendingActivityTXHash in
+                    #warning("Check enter/exit market ativity must be added or not")
+                }
+            confirmCollateralClosure([depositTransaction, collateralCheckTransaction])
+        } else {
+            confirmCollateralClosure([depositTransaction])
+        }
 		default:
 			print("Unknown selected dex system !")
 		}

@@ -54,8 +54,8 @@ class CollateralConfirmViewController: UIViewController {
 			}
 		)
 
-		collateralConfirmVM.confirmCollateralClosure = { depositTRX in
-			self.confirmCollateral(depositTRX: depositTRX)
+		collateralConfirmVM.confirmCollateralClosure = { depositTRXList in
+            self.confirmCollateral(depositTRXList: depositTRXList)
 		}
 
 		view = collateralConfirmView
@@ -66,16 +66,11 @@ class CollateralConfirmViewController: UIViewController {
 		setNavigationTitle(collateralConfirmVM.pageTitle)
 	}
 
-	private func confirmCollateral(depositTRX: EthereumSignedTransaction) {
-		let depositTransaction = SendTransactionViewModel(
-			transaction: depositTRX,
-			addPendingActivityClosure: { txHash in
-				self.collateralConfirmVM.createCollateralPendingActivity(txHash: txHash)
-			}
-		)
+	private func confirmCollateral(depositTRXList: [SendTransactionViewModel]) {
+		
 		let collateralIncreaseAmountVM = collateralConfirmVM.collaterallIncreaseAmountVM
 		let sendTransactionStatusVM = SendTransactionStatusViewModel(
-			transactions: [depositTransaction],
+			transactions: depositTRXList,
 			transactionSentInfoText: "You collateralized \(collateralIncreaseAmountVM.tokenAmount.formattedNumberWithCamma) \(collateralIncreaseAmountVM.selectedToken.symbol) in \(collateralIncreaseAmountVM.borrowVM.selectedDexSystem.name) \(collateralIncreaseAmountVM.borrowVM.selectedDexSystem.version)."
 		)
 		let sendTransactionStatusVC = SendTransactionStatusViewController(sendStatusVM: sendTransactionStatusVM)
