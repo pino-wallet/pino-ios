@@ -127,7 +127,7 @@ class SendConfirmationViewModel {
 	}
 
 	public func getFee(completion: ((Error) -> Void)? = nil) {
-		sendToken().done { [self] trxWithGas in
+		getSendTrxInfo().done { [self] trxWithGas in
 			pendingSwapTrx = trxWithGas.0
 			let gasInfo = trxWithGas.1
 			gasFee = gasInfo.fee
@@ -140,7 +140,7 @@ class SendConfirmationViewModel {
 		}
 	}
 
-	public func sendToken() -> TrxWithGasInfo {
+	public func getSendTrxInfo() -> TrxWithGasInfo {
 		if selectedToken.isEth {
 			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .ether)
 			return Web3Core.shared.sendEtherTo(address: recipientAddress, amount: sendAmount!)

@@ -101,22 +101,23 @@ public struct W3TransferManager: Web3HelperProtocol {
 	public func getTrxOfsendEtherTo(recipient address: String, amount: BigUInt) -> TrxWithGasInfo {
 		let enteredAmount = EthereumQuantity(quantity: amount)
 		return TrxWithGasInfo { seal in
-			let privateKey = try EthereumPrivateKey(hexPrivateKey: walletManager.currentAccountPrivateKey.string)
 			firstly {
-				readWeb3.eth.gasPrice()
-			}.then { [self] price in
-				readWeb3.eth.getTransactionCount(address: privateKey.address, block: .latest).map { ($0, price) }
-			}.done { nonce, price in
-				var tx = try EthereumTransaction(
+				readWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+			}.done { nonce in
+				let gasInfo = GasInfo(gasLimit: 21000)
+				let tx = EthereumTransaction(
 					nonce: nonce,
-					gasPrice: price,
-					to: EthereumAddress(hex: address, eip55: true),
-					value: enteredAmount
+					gasPrice: nil,
+					maxFeePerGas: gasInfo.maxFeePerGas.etherumQuantity,
+					maxPriorityFeePerGas: gasInfo.priorityFeePerGas.etherumQuantity,
+					gasLimit: gasInfo.increasedGasLimit?.etherumQuantity,
+					from: userPrivateKey.address,
+					value: enteredAmount,
+					accessList: [:],
+					transactionType: .eip1559
 				)
-				tx.gasLimit = 21000
-				tx.transactionType = .legacy
-				let signedTrx = try tx.sign(with: privateKey, chainId: Web3Network.chainID)
-				seal.fulfill((signedTrx, GasInfo()))
+				let signedTrx = try tx.sign(with: userPrivateKey, chainId: Web3Network.chainID)
+				seal.fulfill((signedTrx, gasInfo))
 			}.catch { error in
 				seal.reject(error)
 			}
