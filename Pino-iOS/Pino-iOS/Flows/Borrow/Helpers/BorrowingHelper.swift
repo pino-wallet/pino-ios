@@ -7,6 +7,7 @@
 
 import Foundation
 
+#warning("i should ask about this and double check with ali")
 struct BorrowingHelper {
 	// MARK: - Public Methods
 
@@ -14,6 +15,9 @@ struct BorrowingHelper {
 		totalBorrowedAmount: BigNumber,
 		totalBorrowableAmountForHealthScore: BigNumber
 	) -> BigNumber {
+        if totalBorrowableAmountForHealthScore.isZero {
+            return 0.bigNumber
+        }
 		let divedTotalBorrowAmount = totalBorrowedAmount / totalBorrowableAmountForHealthScore
 		if totalBorrowedAmount.isZero || totalBorrowedAmount.number.sign == .minus {
 			return 100.bigNumber
