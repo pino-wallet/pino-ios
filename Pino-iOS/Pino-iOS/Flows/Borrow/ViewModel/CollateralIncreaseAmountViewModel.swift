@@ -83,10 +83,15 @@ class CollateralIncreaseAmountViewModel {
 		)
 	}()
 
-    private lazy var compoundDepositManager: CompoundDepositManager = {
-        let pinoCompoundProxyContract = try! web3.getCompoundProxyContract()
-        return CompoundDepositManager(contract: pinoCompoundProxyContract, selectedToken: selectedToken, investAmount: tokenAmount, type: .collateral)
-    }()
+	private lazy var compoundDepositManager: CompoundDepositManager = {
+		let pinoCompoundProxyContract = try! web3.getCompoundProxyContract()
+		return CompoundDepositManager(
+			contract: pinoCompoundProxyContract,
+			selectedToken: selectedToken,
+			investAmount: tokenAmount,
+			type: .collateral
+		)
+	}()
 
 	// MARK: - Initializers
 
@@ -119,7 +124,7 @@ class CollateralIncreaseAmountViewModel {
 	private func calculateAaveCollateralETHMaxAmount() {
 		aaveCollateralManager.getETHCollateralData().done { collateralData in
 			let collateralFee = collateralData.1.fee
-            self.calculateMaxHoldAmountWithCollaterallFee(collateralFee: collateralFee!)
+			self.calculateMaxHoldAmountWithCollaterallFee(collateralFee: collateralFee!)
 		}.catch { error in
 			self.collateralPageStatus = .loading
 			Toast.default(
@@ -130,49 +135,47 @@ class CollateralIncreaseAmountViewModel {
 			.show(haptic: .warning)
 		}
 	}
-    
-    private func calculateCompoundCollateralETHMaxAmount() {
-        switch collateralMode {
-        case .increase:
-            compoundDepositManager.getIncreaseDepositInfo().done { collateralGasInfos in
-                let collateralFee = collateralGasInfos.map { $0.fee! }.reduce(0.bigNumber, +)
-                self.calculateMaxHoldAmountWithCollaterallFee(collateralFee: collateralFee)
-            }.catch { error in
-                self.collateralPageStatus = .loading
-                Toast.default(
-                    title: self.feeTxErrorText,
-                    subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-                    style: .error
-                )
-                .show(haptic: .warning)
-            }
-        case .create:
-            compoundDepositManager.getDepositInfo().done { collateralGasInfos in
-                let collateralFee = collateralGasInfos.map { $0.fee! }.reduce(0.bigNumber, +)
-                self.calculateMaxHoldAmountWithCollaterallFee(collateralFee: collateralFee)
-            }.catch { error in
-                self.collateralPageStatus = .loading
-                Toast.default(
-                    title: self.feeTxErrorText,
-                    subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-                    style: .error
-                )
-                .show(haptic: .warning)
-            }
-        }
-        
-    }
-    
-    private func calculateMaxHoldAmountWithCollaterallFee(collateralFee: BigNumber) {
-        let maxHoldAmountBigNumber = self.selectedToken.holdAmount - collateralFee
-        if maxHoldAmountBigNumber.number.sign == .minus {
-            self.maxHoldAmount = 0.bigNumber
-        } else {
-            self.maxHoldAmount = maxHoldAmountBigNumber
-        }
-        self.checkAmountStatus(amount: self.tokenAmount)
-    }
 
+	private func calculateCompoundCollateralETHMaxAmount() {
+		switch collateralMode {
+		case .increase:
+			compoundDepositManager.getIncreaseDepositInfo().done { collateralGasInfos in
+				let collateralFee = collateralGasInfos.map { $0.fee! }.reduce(0.bigNumber, +)
+				self.calculateMaxHoldAmountWithCollaterallFee(collateralFee: collateralFee)
+			}.catch { error in
+				self.collateralPageStatus = .loading
+				Toast.default(
+					title: self.feeTxErrorText,
+					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+					style: .error
+				)
+				.show(haptic: .warning)
+			}
+		case .create:
+			compoundDepositManager.getDepositInfo().done { collateralGasInfos in
+				let collateralFee = collateralGasInfos.map { $0.fee! }.reduce(0.bigNumber, +)
+				self.calculateMaxHoldAmountWithCollaterallFee(collateralFee: collateralFee)
+			}.catch { error in
+				self.collateralPageStatus = .loading
+				Toast.default(
+					title: self.feeTxErrorText,
+					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+					style: .error
+				)
+				.show(haptic: .warning)
+			}
+		}
+	}
+
+	private func calculateMaxHoldAmountWithCollaterallFee(collateralFee: BigNumber) {
+		let maxHoldAmountBigNumber = selectedToken.holdAmount - collateralFee
+		if maxHoldAmountBigNumber.number.sign == .minus {
+			maxHoldAmount = 0.bigNumber
+		} else {
+			maxHoldAmount = maxHoldAmountBigNumber
+		}
+		checkAmountStatus(amount: tokenAmount)
+	}
 
 	private func checkForOpenPositionToken() -> Promise<Bool> {
 		Promise<Bool> { seal in
@@ -228,21 +231,21 @@ class CollateralIncreaseAmountViewModel {
 	}
 
 	private func calculateETHFeeCompound() {
-        switch collateralMode {
-        case .increase:
-            calculateCompoundCollateralETHMaxAmount()
-        case .create:
-            checkForOpenPositionToken().done { isOpenPosition in
-                if isOpenPosition {
-                    self.collateralPageStatus = .openPositionError
-                    self.destroyRequestTimer()
-                } else {
-                    self.calculateCompoundCollateralETHMaxAmount()
-                }
-            }.catch { error in
-                print(error)
-            }
-        }
+		switch collateralMode {
+		case .increase:
+			calculateCompoundCollateralETHMaxAmount()
+		case .create:
+			checkForOpenPositionToken().done { isOpenPosition in
+				if isOpenPosition {
+					self.collateralPageStatus = .openPositionError
+					self.destroyRequestTimer()
+				} else {
+					self.calculateCompoundCollateralETHMaxAmount()
+				}
+			}.catch { error in
+				print(error)
+			}
+		}
 	}
 
 	private func setMaxHoldAmount() {

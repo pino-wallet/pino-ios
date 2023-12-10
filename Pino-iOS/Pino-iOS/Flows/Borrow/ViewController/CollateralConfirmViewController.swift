@@ -55,7 +55,7 @@ class CollateralConfirmViewController: UIViewController {
 		)
 
 		collateralConfirmVM.confirmCollateralClosure = { depositTRXList in
-            self.confirmCollateral(depositTRXList: depositTRXList)
+			self.confirmCollateral(depositTRXList: depositTRXList)
 		}
 
 		view = collateralConfirmView
@@ -67,7 +67,6 @@ class CollateralConfirmViewController: UIViewController {
 	}
 
 	private func confirmCollateral(depositTRXList: [SendTransactionViewModel]) {
-		
 		let collateralIncreaseAmountVM = collateralConfirmVM.collaterallIncreaseAmountVM
 		let sendTransactionStatusVM = SendTransactionStatusViewModel(
 			transactions: depositTRXList,
