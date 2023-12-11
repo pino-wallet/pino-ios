@@ -123,7 +123,6 @@ class CollateralConfirmViewModel {
 		)
 	}
 
-
 	private func createCollateralPendingActivity(txHash: String) {
 		var activityType: String {
 			switch collaterallIncreaseAmountVM.collateralMode {
@@ -178,8 +177,8 @@ class CollateralConfirmViewModel {
 		PendingActivitiesManager.shared.startActivityPendingRequests()
 	}
 
-    // MARK: - Public Methods
-    
+	// MARK: - Public Methods
+
 	public func getCollateralGasInfo() {
 		switch collaterallIncreaseAmountVM.borrowVM.selectedDexSystem {
 		case .aave:
