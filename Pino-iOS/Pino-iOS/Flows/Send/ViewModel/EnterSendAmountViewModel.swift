@@ -31,8 +31,8 @@ class EnterSendAmountViewModel {
 
 	public var maxHoldAmount: BigNumber!
 	public var maxAmountInDollar: BigNumber!
-	public var tokenAmount = ""
-	public var dollarAmount = ""
+	public var tokenAmount: BigNumber!
+	public var dollarAmount: BigNumber!
 
 	public var formattedMaxHoldAmount: String {
 		maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
@@ -44,9 +44,9 @@ class EnterSendAmountViewModel {
 
 	public var formattedAmount: String {
 		if isDollarEnabled {
-			return "\(tokenAmount.tokenFormatting(token: selectedToken.symbol))"
+			return "\(tokenAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol))"
 		} else {
-			return dollarAmount
+			return dollarAmount == nil ? "" : dollarAmount.priceFormat
 		}
 	}
 
@@ -61,10 +61,11 @@ class EnterSendAmountViewModel {
 	// MARK: - Public Methods
 
 	public func calculateAmount(_ amount: String) {
+		let bignumAmount = BigNumber(numberWithDecimal: amount)
 		if isDollarEnabled {
-			convertDollarAmountToTokenValue(amount: amount)
+			convertDollarAmountToTokenValue(amount: bignumAmount)
 		} else {
-			convertEnteredAmountToDollar(amount: amount)
+			convertEnteredAmountToDollar(amount: bignumAmount)
 		}
 	}
 
@@ -78,10 +79,10 @@ class EnterSendAmountViewModel {
 			var enteredAmmount: BigNumber
 			if isDollarEnabled {
 				decimalMaxAmount = maxAmountInDollar
-				enteredAmmount = BigNumber(numberWithDecimal: dollarAmount)
+				enteredAmmount = dollarAmount
 			} else {
 				decimalMaxAmount = maxHoldAmount
-				enteredAmmount = BigNumber(numberWithDecimal: tokenAmount)
+				enteredAmmount = tokenAmount
 			}
 			if enteredAmmount > decimalMaxAmount {
 				amountStatus(.isNotEnough)
@@ -119,33 +120,30 @@ class EnterSendAmountViewModel {
 		}
 	}
 
-	private func convertEnteredAmountToDollar(amount: String) {
-		if amount != .emptyString {
-			let decimalBigNum = BigNumber(numberWithDecimal: amount)
+	private func convertEnteredAmountToDollar(amount: BigNumber) {
+		if amount != 0.bigNumber {
 			let price = selectedToken.price
 
 			let amountInDollarDecimalValue = BigNumber(
-				number: decimalBigNum.number * price.number,
-				decimal: decimalBigNum.decimal + 6
+				number: amount.number * price.number,
+				decimal: amount.decimal + 6
 			)
-			dollarAmount = amountInDollarDecimalValue.priceFormat
+			dollarAmount = amountInDollarDecimalValue
 		} else {
-			dollarAmount = .emptyString
+			dollarAmount = 0.bigNumber
 		}
 		tokenAmount = amount
 	}
 
-	private func convertDollarAmountToTokenValue(amount: String) {
-		if amount != .emptyString {
-			let decimalBigNum = BigNumber(numberWithDecimal: amount)
-			let priceAmount = decimalBigNum.number * BigInt(10).power(6 + selectedToken.decimal - decimalBigNum.decimal)
+	private func convertDollarAmountToTokenValue(amount: BigNumber) {
+		if amount != 0.bigNumber {
+			let priceAmount = amount.number * BigInt(10).power(6 + selectedToken.decimal - amount.decimal)
 			let price = selectedToken.price
 
 			let tokenAmountDecimalValue = priceAmount.quotientAndRemainder(dividingBy: price.number)
 			tokenAmount = BigNumber(number: tokenAmountDecimalValue.quotient, decimal: selectedToken.decimal)
-				.sevenDigitFormat
 		} else {
-			tokenAmount = .emptyString
+			tokenAmount = 0.bigNumber
 		}
 		dollarAmount = amount
 	}
