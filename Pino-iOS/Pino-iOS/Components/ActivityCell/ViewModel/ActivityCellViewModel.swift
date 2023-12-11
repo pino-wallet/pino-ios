@@ -25,67 +25,67 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	private var baseTitle: String {
 		switch status {
 		case .pending:
-			pendingTitle
+			return pendingTitle
 		default:
-			doneTitle
+			return doneTitle
 		}
 	}
 
 	private var pendingTitle: String {
 		switch uiType {
 		case .swap:
-			"Swapping"
+			return "Swapping"
 		case .borrow:
-			"Borrowing"
+			return "Borrowing"
 		case .send:
-			"Sending"
+			return "Sending"
 		case .receive:
-			"Receiving"
+			return "Receiving"
 		case .collateral:
-			"Collateralizing"
+			return "Collateralizing"
 		case .withdraw_collateral:
-			"Uncollateralizing"
+			return "Uncollateralizing"
 		case .invest:
-			"Investing"
+			return "Investing"
 		case .repay:
-			"Repaying"
+			return "Repaying"
 		case .withdraw_investment:
-			"Withdrawing"
+			return "Withdrawing"
 		case .enable_collateral:
-			"Enabling"
+			return "Enabling"
 		case .disable_collateral:
-			"Disabling"
+			return "Disabling"
 		case .approve:
-			"Approving"
+			return "Approving"
 		}
 	}
 
 	private var doneTitle: String {
 		switch uiType {
 		case .swap:
-			"Swapped"
+			return "Swapped"
 		case .borrow:
-			"Borrowed"
+			return "Borrowed"
 		case .send:
-			"Sent"
+			return "Sent"
 		case .receive:
-			"Received"
+			return "Received"
 		case .collateral:
-			"Collateralized"
+			return "Collateralized"
 		case .withdraw_collateral:
-			"Uncollateralized"
+			return "Uncollateralized"
 		case .invest:
-			"Invested"
+			return "Invested"
 		case .repay:
-			"Repaid"
+			return "Repaid"
 		case .withdraw_investment:
-			"Withdrew"
+			return "Withdrew"
 		case .enable_collateral:
-			"Enabled"
+			return "Enabled"
 		case .disable_collateral:
-			"Disabled"
+			return "Disabled"
 		case .approve:
-			"Approved"
+			return "Approved"
 		}
 	}
 
