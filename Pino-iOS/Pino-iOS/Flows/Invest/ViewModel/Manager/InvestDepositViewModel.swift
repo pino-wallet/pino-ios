@@ -103,7 +103,7 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 		let tokensList = GlobalVariables.shared.manageAssetsList!
 		selectedToken = tokensList.first(where: { $0.symbol == investableAsset.assetName })!
 		maxAvailableAmount = selectedToken.holdAmount
-		selectedProtocol = .aave
+
 		#warning("it must be refactored later")
 		if investmentType == .create, selectedToken.holdAmount > 0.bigNumber {
 			hasOpenPosition = true
