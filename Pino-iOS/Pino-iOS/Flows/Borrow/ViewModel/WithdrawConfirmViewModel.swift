@@ -90,11 +90,15 @@ class WithdrawConfirmViewModel {
 			positionAsset: withdrawAmountVM.aavePositionToken!
 		)
 	}()
-    
-    private lazy var compoundWithdrawManager: CompoundWithdrawManager = {
-        let pinoCompoundProxyContract = try! web3.getCompoundProxyContract()
-        return CompoundWithdrawManager(contract: pinoCompoundProxyContract, selectedToken: selectedToken, withdrawAmount: withdrawAmountVM.tokenAmount)
-    }()
+
+	private lazy var compoundWithdrawManager: CompoundWithdrawManager = {
+		let pinoCompoundProxyContract = try! web3.getCompoundProxyContract()
+		return CompoundWithdrawManager(
+			contract: pinoCompoundProxyContract,
+			selectedToken: selectedToken,
+			withdrawAmount: withdrawAmountVM.tokenAmount
+		)
+	}()
 
 	// MARK: - Initializers
 
@@ -129,18 +133,18 @@ class WithdrawConfirmViewModel {
 				return "remove_collateral"
 			}
 		}
-        var gasUsed: String
-        var gasPrice: String
-        switch withdrawAmountVM.borrowVM.selectedDexSystem {
-        case .aave:
-        gasUsed = aaveWithdrawManager.withdrawGasInfo!.increasedGasLimit!.description
-        gasPrice = aaveWithdrawManager.withdrawGasInfo!.maxFeePerGas.description
-        case .compound:
-        gasUsed = compoundWithdrawManager.withdrawGasInfo!.increasedGasLimit!.description
-        gasPrice = compoundWithdrawManager.withdrawGasInfo!.maxFeePerGas.description
-        default:
-            fatalError("Unknown selected dex system !")
-        }
+		var gasUsed: String
+		var gasPrice: String
+		switch withdrawAmountVM.borrowVM.selectedDexSystem {
+		case .aave:
+			gasUsed = aaveWithdrawManager.withdrawGasInfo!.increasedGasLimit!.description
+			gasPrice = aaveWithdrawManager.withdrawGasInfo!.maxFeePerGas.description
+		case .compound:
+			gasUsed = compoundWithdrawManager.withdrawGasInfo!.increasedGasLimit!.description
+			gasPrice = compoundWithdrawManager.withdrawGasInfo!.maxFeePerGas.description
+		default:
+			fatalError("Unknown selected dex system !")
+		}
 		coreDataManager.addNewCollateralActivity(
 			activityModel: ActivityCollateralModel(
 				txHash: txHash,
@@ -191,16 +195,16 @@ class WithdrawConfirmViewModel {
 				}
 			}
 		case .compound:
-            compoundWithdrawManager.getWithdrawInfo().done { _, withdrawGasInfo in
-                self.setFeeInfoByDepositGasInfo(withdrawGasinfo: withdrawGasInfo)
-            }.catch { _ in
-                Toast.default(
-                    title: self.feeTxErrorText,
-                    subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-                    style: .error
-                )
-                .show(haptic: .warning)
-            }
+			compoundWithdrawManager.getWithdrawInfo().done { _, withdrawGasInfo in
+				self.setFeeInfoByDepositGasInfo(withdrawGasinfo: withdrawGasInfo)
+			}.catch { _ in
+				Toast.default(
+					title: self.feeTxErrorText,
+					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+					style: .error
+				)
+				.show(haptic: .warning)
+			}
 		default:
 			print("Unknown selected dex system !")
 		}
@@ -214,9 +218,9 @@ class WithdrawConfirmViewModel {
 			}
 			confirmWithdrawClosure(withdrawTRX)
 		case .compound:
-            guard let withdrawTRX = compoundWithdrawManager.withdrawTrx else {
-                return
-            }
+			guard let withdrawTRX = compoundWithdrawManager.withdrawTrx else {
+				return
+			}
 			confirmWithdrawClosure(withdrawTRX)
 		default:
 			print("Unknown selected dex system !")

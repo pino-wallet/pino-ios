@@ -221,11 +221,11 @@ class WithdrawAmountViewModel {
 					seal.reject(error)
 				}
 			case .compound:
-                checkTokenAllowanceForPermit2().done { allowanceData in
-                    seal.fulfill(allowanceData)
-                }.catch { error in
-                    seal.reject(error)
-                }
+				checkTokenAllowanceForPermit2().done { allowanceData in
+					seal.fulfill(allowanceData)
+				}.catch { error in
+					seal.reject(error)
+				}
 			default:
 				fatalError("Unknown selected dex system")
 			}
