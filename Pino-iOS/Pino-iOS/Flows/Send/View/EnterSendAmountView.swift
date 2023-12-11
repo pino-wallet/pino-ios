@@ -251,13 +251,15 @@ class EnterSendAmountView: UIView {
 				self.enterAmountVM.isDollarEnabled = false
 				self.dollarFormatButton.backgroundColor = .Pino.background
 				self.dollarFormatButton.tintColor = .Pino.primary
+				self.amountTextfield.text = self.enterAmountVM.tokenAmount.sevenDigitFormat
+				self.enterAmountVM.calculateAmount(self.enterAmountVM.tokenAmount.decimalString)
 			} else {
 				self.enterAmountVM.isDollarEnabled = true
 				self.dollarFormatButton.backgroundColor = .Pino.primary
 				self.dollarFormatButton.tintColor = .Pino.green1
+				self.amountTextfield.text = self.enterAmountVM.dollarAmount.plainPriceFormat.trimmCurrency
+				self.enterAmountVM.calculateAmount(self.enterAmountVM.dollarAmount.decimalString)
 			}
-			self.amountTextfield.text = .emptyString
-			self.enterAmountVM.calculateAmount(.emptyString)
 			self.updateAmount(enteredAmount: self.amountTextfield.text ?? .emptyString)
 			self.applyDollarFormatChanges()
 		}
@@ -331,8 +333,8 @@ class EnterSendAmountView: UIView {
 		} else {
 			enterAmountVM.maxHoldAmount = enterAmountVM.selectedToken.holdAmount
 			enterAmountVM.maxAmountInDollar = enterAmountVM.selectedToken.holdAmountInDollor
-			enterAmountVM.tokenAmount = enterAmountVM.selectedToken.holdAmount.sevenDigitFormat
-			enterAmountVM.dollarAmount = enterAmountVM.selectedToken.holdAmountInDollor.priceFormat
+			enterAmountVM.tokenAmount = enterAmountVM.selectedToken.holdAmount
+			enterAmountVM.dollarAmount = enterAmountVM.selectedToken.holdAmountInDollor
 		}
 
 		maxAmountInDollarLabel.text = enterAmountVM.formattedMaxAmountInDollar

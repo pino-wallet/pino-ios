@@ -262,6 +262,18 @@ extension BigNumber: CustomStringConvertible {
 		}
 	}
 
+	public var plainPriceFormat: String {
+		let formattedNumber: String = formattedAmountOf(type: .priceRule)
+
+		if isZero {
+			return "$0"
+		} else if self.abs < BigNumber(number: 1, decimal: 2) {
+			return "<" + "0.01".currencyFormatting
+		} else {
+			return formattedNumber.currencyFormatting
+		}
+	}
+
 	public var percentFormat: String {
 		var formattedPercent = formattedAmountOf(type: .percentRule)
 		if number.sign == .minus {
