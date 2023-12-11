@@ -557,6 +557,7 @@
 		DF1D90E52A973ACC00435D85 /* ApprovingLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1D90E42A973ACC00435D85 /* ApprovingLoadingViewController.swift */; };
 		DF1D90E72A973AFA00435D85 /* ApprovingLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1D90E62A973AFA00435D85 /* ApprovingLoadingView.swift */; };
 		DF4C23142AC33D000014DC89 /* W3CallDataGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4C23132AC33D000014DC89 /* W3CallDataGenerator.swift */; };
+		DF62CEC12B2709FC00AA6D41 /* SignImportWalletSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF62CEC02B2709FC00AA6D41 /* SignImportWalletSheet.swift */; };
 		DF6DEDC92AA8C1310080B47B /* Web3APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDC82AA8C1310080B47B /* Web3APIClient.swift */; };
 		DF6DEDCB2AA8C13F0080B47B /* Web3Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDCA2AA8C13F0080B47B /* Web3Endpoint.swift */; };
 		DF6DEDCD2AA8C1890080B47B /* Web3APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDCC2AA8C1890080B47B /* Web3APIService.swift */; };
@@ -1375,6 +1376,7 @@
 		DF1D90E42A973ACC00435D85 /* ApprovingLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovingLoadingViewController.swift; sourceTree = "<group>"; };
 		DF1D90E62A973AFA00435D85 /* ApprovingLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovingLoadingView.swift; sourceTree = "<group>"; };
 		DF4C23132AC33D000014DC89 /* W3CallDataGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3CallDataGenerator.swift; sourceTree = "<group>"; };
+		DF62CEC02B2709FC00AA6D41 /* SignImportWalletSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignImportWalletSheet.swift; sourceTree = "<group>"; };
 		DF6DEDC82AA8C1310080B47B /* Web3APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3APIClient.swift; sourceTree = "<group>"; };
 		DF6DEDCA2AA8C13F0080B47B /* Web3Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3Endpoint.swift; sourceTree = "<group>"; };
 		DF6DEDCC2AA8C1890080B47B /* Web3APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3APIService.swift; sourceTree = "<group>"; };
@@ -2270,6 +2272,7 @@
 				E3ABD2012AB1BAAB00947D37 /* ImportAccountsHeaderView.swift */,
 				E3ABD2032AB1C22200947D37 /* ImportAccountsFooterView.swift */,
 				E3ABD2052AB594B900947D37 /* ImportAccountLoadingView.swift */,
+				DF62CEC02B2709FC00AA6D41 /* SignImportWalletSheet.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4981,6 +4984,7 @@
 				D9714C8D2AE518AE00FF3AAA /* AaveCollateralManager.swift in Sources */,
 				407E33282AE2A1D9001079B8 /* Web3ManagerProtocol.swift in Sources */,
 				D9AABE112A7D6B410025463E /* ActivityDataSource.swift in Sources */,
+				DF62CEC12B2709FC00AA6D41 /* SignImportWalletSheet.swift in Sources */,
 				D9F284782A94B727001204D4 /* BorrowingTokenCell.swift in Sources */,
 				E35BB6472A595717003987F5 /* SwapProviderCollectionView.swift in Sources */,
 				E3847B3A2A52CC19005ED78B /* SwapTokenViewModel.swift in Sources */,

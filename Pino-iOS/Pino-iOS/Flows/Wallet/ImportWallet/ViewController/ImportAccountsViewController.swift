@@ -64,12 +64,20 @@ class ImportAccountsViewController: UIViewController {
 	}
 
 	private func openPasscodePage() {
-		guard let accounts = importAccountsVM.accounts else { return }
-		let selectedAccounts = accounts.filter { $0.isSelected }
-		if !selectedAccounts.isEmpty {
-			let createPasscodeViewController = CreatePasscodeViewController(selectedAccounts: selectedAccounts)
-			createPasscodeViewController.pageSteps = 3
-			navigationController?.pushViewController(createPasscodeViewController, animated: true)
+		let signWalletSheet = SignImportWalletSheet(
+			title: "Sign the message in you wallet to continue",
+			description: "Pino uses this signature to verify that you’re the owner of this Ethereum address"
+		)
+		signWalletSheet.onActionButtonTap = { [self] in
+			signWalletSheet.dismiss(animated: true)
+			guard let accounts = importAccountsVM.accounts else { return }
+			let selectedAccounts = accounts.filter { $0.isSelected }
+			if !selectedAccounts.isEmpty {
+				let createPasscodeViewController = CreatePasscodeViewController(selectedAccounts: selectedAccounts)
+				createPasscodeViewController.pageSteps = 3
+				navigationController?.pushViewController(createPasscodeViewController, animated: true)
+			}
 		}
+		present(signWalletSheet, animated: true)
 	}
 }
