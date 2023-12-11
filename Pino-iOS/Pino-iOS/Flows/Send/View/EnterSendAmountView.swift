@@ -257,7 +257,7 @@ class EnterSendAmountView: UIView {
 				self.enterAmountVM.isDollarEnabled = true
 				self.dollarFormatButton.backgroundColor = .Pino.primary
 				self.dollarFormatButton.tintColor = .Pino.green1
-                self.amountTextfield.text = self.enterAmountVM.dollarAmount.plainPriceFormat.trimmCurrency
+				self.amountTextfield.text = self.enterAmountVM.dollarAmount.plainPriceFormat.trimmCurrency
 				self.enterAmountVM.calculateAmount(self.enterAmountVM.dollarAmount.decimalString)
 			}
 			self.updateAmount(enteredAmount: self.amountTextfield.text ?? .emptyString)
