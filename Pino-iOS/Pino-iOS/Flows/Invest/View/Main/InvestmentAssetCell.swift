@@ -12,6 +12,8 @@ public class InvestmentAssetCell: UICollectionViewCell {
 
 	private let assetStackView = UIStackView()
 	private let assetAmountStackView = UIStackView()
+	private let titleStackView = UIStackView()
+	private let assetImageView = UIImageView()
 	private let assetNameLabel = UILabel()
 	private let assetAmountLabel = UILabel()
 	private let assetVolatilityLabel = UILabel()
@@ -32,8 +34,10 @@ public class InvestmentAssetCell: UICollectionViewCell {
 
 	private func setupView() {
 		contentView.addSubview(assetStackView)
-		assetStackView.addArrangedSubview(assetNameLabel)
+		assetStackView.addArrangedSubview(titleStackView)
 		assetStackView.addArrangedSubview(assetAmountStackView)
+		titleStackView.addArrangedSubview(assetNameLabel)
+		titleStackView.addArrangedSubview(assetImageView)
 		assetAmountStackView.addArrangedSubview(assetAmountLabel)
 		assetAmountStackView.addArrangedSubview(assetVolatilityIcon)
 		assetAmountStackView.addArrangedSubview(assetVolatilityLabel)
@@ -45,6 +49,8 @@ public class InvestmentAssetCell: UICollectionViewCell {
 			assetNameLabel.text = asset.assetName
 			assetAmountLabel.text = asset.formattedInvestmentAmount
 			assetVolatilityLabel.text = asset.formattedAssetVolatility
+			assetImageView.kf.indicatorType = .activity
+			assetImageView.kf.setImage(with: asset.assetImage)
 
 			switch asset.volatilityType {
 			case .profit:
@@ -73,6 +79,7 @@ public class InvestmentAssetCell: UICollectionViewCell {
 		assetStackView.axis = .vertical
 		assetStackView.spacing = 10
 		assetAmountStackView.spacing = 2
+		titleStackView.spacing = 4
 
 		assetNameLabel.isSkeletonable = true
 		assetAmountLabel.isSkeletonable = true
@@ -84,6 +91,10 @@ public class InvestmentAssetCell: UICollectionViewCell {
 			.allEdges(padding: 12)
 		)
 		assetVolatilityIcon.pin(
+			.fixedWidth(20),
+			.fixedHeight(20)
+		)
+		assetImageView.pin(
 			.fixedWidth(20),
 			.fixedHeight(20)
 		)
