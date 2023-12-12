@@ -156,7 +156,7 @@ class WithdrawAmountViewModel {
 		}
 	}
 
-	private func checkTokenAllowanceForAave() -> Promise<AllowanceDataType> {
+	private func checkTokenAllowanceForPermit2() -> Promise<AllowanceDataType> {
 		Promise<AllowanceDataType> { seal in
 			firstly {
 				getPositionTokenID()
@@ -215,14 +215,17 @@ class WithdrawAmountViewModel {
 		Promise<AllowanceDataType> { seal in
 			switch borrowVM.selectedDexSystem {
 			case .aave:
-				checkTokenAllowanceForAave().done { allowanceData in
+				checkTokenAllowanceForPermit2().done { allowanceData in
 					seal.fulfill(allowanceData)
 				}.catch { error in
 					seal.reject(error)
 				}
 			case .compound:
-				#warning("this should change")
-				seal.fulfill((hasAllowance: true, selectedPositionTokenID: selectedToken.id))
+				checkTokenAllowanceForPermit2().done { allowanceData in
+					seal.fulfill(allowanceData)
+				}.catch { error in
+					seal.reject(error)
+				}
 			default:
 				fatalError("Unknown selected dex system")
 			}
