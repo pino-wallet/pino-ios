@@ -43,7 +43,8 @@ class IntroCollectionView: UICollectionView {
 	// MARK: Private Methods
 
 	private func configCollectionView() {
-		register(IntroCollectionViewCell.self, forCellWithReuseIdentifier: IntroCollectionViewCell.cellReuseID)
+        register(IntroCollectionViewCell.self, forCellWithReuseIdentifier: IntroCollectionViewCell.cellReuseID)
+		register(IntroAnimationCollectionViewCell.self, forCellWithReuseIdentifier: IntroAnimationCollectionViewCell.cellReuseID)
 		dataSource = self
 		delegate = self
 		isPagingEnabled = true
@@ -67,12 +68,22 @@ extension IntroCollectionView: UICollectionViewDataSource {
 		cellForItemAt indexPath: IndexPath
 	) -> UICollectionViewCell {
 		let index = indexPath.item
-		let introCell = collectionView.dequeueReusableCell(
-			withReuseIdentifier: IntroCollectionViewCell.cellReuseID,
-			for: indexPath
-		) as! IntroCollectionViewCell
-		introCell.introModel = introContents[index]
-		return introCell
+        if index == 0 {
+            let introAnimationCell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: IntroAnimationCollectionViewCell.cellReuseID,
+                for: indexPath
+            ) as! IntroAnimationCollectionViewCell
+            introAnimationCell.introModel = introContents[index]
+            return introAnimationCell
+        } else {
+            let introCell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: IntroCollectionViewCell.cellReuseID,
+                for: indexPath
+            ) as! IntroCollectionViewCell
+            introCell.introModel = introContents[index]
+            return introCell
+        }
+		
 	}
 }
 
@@ -97,7 +108,11 @@ extension IntroCollectionView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		sizeForItemAt indexPath: IndexPath
 	) -> CGSize {
-		CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        if indexPath.row == 0 {
+            CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        } else {
+            CGSize(width: collectionView.frame.width, height: 480)
+        }
 	}
 
 	func collectionView(

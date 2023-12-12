@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Lottie
 
 struct TutorialModel {
 	// MARK: - Public Properties
