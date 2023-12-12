@@ -25,9 +25,10 @@ class CompoundBorrowManager: Web3ManagerProtocol {
 	private var asset: AssetViewModel
 	private var assetAmountBigNumber: BigNumber
 	private var assetAmountBigUInt: BigUInt
-    private var ethToken: AssetViewModel {
-        (GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth }))!
-    }
+	private var ethToken: AssetViewModel {
+		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth }))!
+	}
+
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Internal Properties
@@ -44,7 +45,7 @@ class CompoundBorrowManager: Web3ManagerProtocol {
 	// MARK: - Initializers
 
 	init(contract: DynamicContract, asset: AssetViewModel, assetAmount: String) {
-        self.asset = asset
+		self.asset = asset
 		self.assetAmountBigNumber = BigNumber(numberWithDecimal: assetAmount)
 		self.assetAmountBigUInt = Utilities.parseToBigUInt(assetAmount, decimals: asset.decimal)!
 		self.contract = contract
