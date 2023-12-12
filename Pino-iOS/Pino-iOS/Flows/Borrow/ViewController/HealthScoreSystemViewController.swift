@@ -70,19 +70,15 @@ class HealthScoreSystemViewController: UIAlertController {
 		healthScoreGradientStackView.addArrangedSubview(healthScoreGradientView)
 		healthScoreGradientStackView.addArrangedSubview(healthScoreNumbersStackView)
 
-
 		currentHealthScoreView.addSubview(currentHealthScoreLabelContainer)
 		currentHealthScoreLabelContainer.addSubview(currentHealthScoreLabel)
 
 		healthScoreContainerView.addSubview(healthScoreGradientStackView)
 		healthScoreContainerView.addSubview(currentHealthScoreView)
 
-
 		liquidationZoneStackView.addArrangedSubview(liquidationZoneDescribtionLabel)
 
-
 		dangerZoneStackView.addArrangedSubview(dangerZoneDescribtionLabel)
-
 
 		safetyZoneStackView.addArrangedSubview(safetyZoneDescribtionLabel)
 
@@ -238,15 +234,15 @@ class HealthScoreSystemViewController: UIAlertController {
 		let healthScoreGradientRemainingWidth = healthScoreGradientViewWidth - currentHealthScorePixel
 
 		if halfCurrentHealthScoreLabelContainerWidth > currentHealthScorePixel {
-            currentHealthScoreView.pin(
+			currentHealthScoreView.pin(
 				.leading(padding: -1)
 			)
 		} else if healthScoreGradientRemainingWidth < halfCurrentHealthScoreLabelContainerWidth {
-            currentHealthScoreView.pin(
+			currentHealthScoreView.pin(
 				.trailing(padding: -1)
 			)
 		} else {
-            currentHealthScoreView.pin(
+			currentHealthScoreView.pin(
 				.leading(padding: currentHealthScorePixel - halfCurrentHealthScoreLabelContainerWidth)
 			)
 		}

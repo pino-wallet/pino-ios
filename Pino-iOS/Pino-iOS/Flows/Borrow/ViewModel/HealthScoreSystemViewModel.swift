@@ -10,15 +10,15 @@ struct HealthScoreSystemViewModel {
 	// MARK: - Public Properties
 
 	public var healthScoreNumber: Double
-    public var formattedHealthScore: String {
-         if healthScoreNumber >= 1 && healthScoreNumber < 10 {
-            return String(format: "%.1f", healthScoreNumber)
-        } else if healthScoreNumber >= 10 {
-            return String(format: "%.f", floor(healthScoreNumber))
-        } else {
-            return healthScoreNumber.description
-        }
-    }
+	public var formattedHealthScore: String {
+		if healthScoreNumber >= 1 && healthScoreNumber < 10 {
+			return String(format: "%.1f", healthScoreNumber)
+		} else if healthScoreNumber >= 10 {
+			return String(format: "%.f", floor(healthScoreNumber))
+		} else {
+			return healthScoreNumber.description
+		}
+	}
 
 	public let healthScoreTitle = "Health Score"
 	public let healthScoreDescription = "This shows how safe your collateral is from liquidation."
@@ -34,6 +34,6 @@ struct HealthScoreSystemViewModel {
 	// MARK: - Initializers
 
 	init(healthScoreNumber: Double) {
-        self.healthScoreNumber = healthScoreNumber
+		self.healthScoreNumber = healthScoreNumber
 	}
 }
