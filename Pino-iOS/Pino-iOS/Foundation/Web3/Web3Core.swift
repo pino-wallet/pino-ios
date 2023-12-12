@@ -473,45 +473,13 @@ public class Web3Core {
 		try investManager.getCollateralCheckProxyContract()
 	}
 
-	public func borrowCompoundCToken(contractDetails: ContractDetailsModel) -> Promise<String> {
-		compoundBorrowManager.borrowCToken(contractDetails: contractDetails)
+    public func getCompoundBorrowCTokenContractDetails(contractID: String, amount: BigUInt) -> Promise<ContractDetailsModel> {
+		compoundBorrowManager.getContractDetails(contractAddress: contractID, amount: amount)
 	}
 
-	public func getCompoundBorrowCDaiContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
-		compoundBorrowManager.getCDaiContractDetails(amount: amount)
-	}
-
-	public func getCompoundBorrowCEthContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
-		compoundBorrowManager.getCEthContractDetails(amount: amount)
-	}
-
-	public func getCompoundBorrowCLinkContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
-		compoundBorrowManager.getCLinkContractDetails(amount: amount)
-	}
-
-	public func getCompoundBorrowCUsdcContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
-		compoundBorrowManager.getCUsdcContractDetails(amount: amount)
-	}
-
-	public func getCompoundBorrowCUsdtContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
-		compoundBorrowManager.getCUsdtContractDetails(amount: amount)
-	}
-
-	public func getCompoundBorrowCAaveContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
-		compoundBorrowManager.getCAaveContractDetails(amount: amount)
-	}
-
-	public func getCompoundBorrowCCompContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
-		compoundBorrowManager.getCCompContractDetails(amount: amount)
-	}
-
-	public func getCompoundBorrowCUniContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
-		compoundBorrowManager.getCUniContractDetails(amount: amount)
-	}
-
-	public func getCompoundBorrowCWbtcContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
-		compoundBorrowManager.getCWbtcContractDetails(amount: amount)
-	}
+    public func getCompoundBorrowTransaction(contractDetails: ContractDetailsModel) -> Promise<EthereumSignedTransaction> {
+        compoundBorrowManager.getCTokenBorrowTransaction(contractDetails: contractDetails)
+    }
 
 	public func getCompoundBorrowCTokenGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
 		compoundBorrowManager.getCTokenBorrowGasInfo(contractDetails: contractDetails)

@@ -25,130 +25,10 @@ public struct W3CompoundBorrowManager: Web3HelperProtocol {
 
 	// MARK: - Public Methods
 
-	public func borrowCToken(contractDetails: ContractDetailsModel) -> Promise<String> {
-		Promise<String> { seal in
-			getCTokenBorrowTransaction(contractDetails: contractDetails).then { signedtransaction in
-				writeWeb3.eth.sendRawTransaction(transaction: signedtransaction)
-			}.done { trxHash in
-				seal.fulfill(trxHash.hex())
-			}.catch { error in
-				seal.reject(error)
-			}
-		}
-	}
-
-	public func getContractDetails(of contract: String, amount: BigUInt) -> Promise<ContractDetailsModel> {
+	public func getContractDetails(contractAddress: String, amount: BigUInt) -> Promise<ContractDetailsModel> {
 		Promise<ContractDetailsModel> { seal in
 			let contract = try Web3Core.getContractOfToken(
-				address: contract,
-				abi: .borrowCTokenCompound,
-				web3: readWeb3
-			)
-			let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
-			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
-		}
-	}
-
-	public func getCAaveContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
-		Promise<ContractDetailsModel> { seal in
-			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.compoundCAaveContractAddress,
-				abi: .borrowCTokenCompound,
-				web3: readWeb3
-			)
-			let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
-			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
-		}
-	}
-
-	public func getCDaiContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
-		Promise<ContractDetailsModel> { seal in
-			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.compoundCDaiContractAddress,
-				abi: .borrowCTokenCompound,
-				web3: readWeb3
-			)
-			let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
-			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
-		}
-	}
-
-	public func getCEthContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
-		Promise<ContractDetailsModel> { seal in
-			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.compoundCEthContractAddress,
-				abi: .borrowCTokenCompound,
-				web3: readWeb3
-			)
-			let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
-			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
-		}
-	}
-
-	public func getCUniContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
-		Promise<ContractDetailsModel> { seal in
-			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.compoundCUniContractAddress,
-				abi: .borrowCTokenCompound,
-				web3: readWeb3
-			)
-			let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
-			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
-		}
-	}
-
-	public func getCCompContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
-		Promise<ContractDetailsModel> { seal in
-			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.compoundCCompContractAddress,
-				abi: .borrowCTokenCompound,
-				web3: readWeb3
-			)
-			let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
-			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
-		}
-	}
-
-	public func getCLinkContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
-		Promise<ContractDetailsModel> { seal in
-			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.compoundCLinkContractAddress,
-				abi: .borrowCTokenCompound,
-				web3: readWeb3
-			)
-			let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
-			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
-		}
-	}
-
-	public func getCUsdcContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
-		Promise<ContractDetailsModel> { seal in
-			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.compoundCUsdcContractAddress,
-				abi: .borrowCTokenCompound,
-				web3: readWeb3
-			)
-			let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
-			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
-		}
-	}
-
-	public func getCUsdtContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
-		Promise<ContractDetailsModel> { seal in
-			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.compoundCUsdtContractAddress,
-				abi: .borrowCTokenCompound,
-				web3: readWeb3
-			)
-			let solInvolcation = contract[ABIMethodWrite.borrow.rawValue]?(amount)
-			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvolcation!))
-		}
-	}
-
-	public func getCWbtcContractDetails(amount: BigUInt) -> Promise<ContractDetailsModel> {
-		Promise<ContractDetailsModel> { seal in
-			let contract = try Web3Core.getContractOfToken(
-				address: Web3Core.Constants.compoundCWbtcContractAddress,
+				address: contractAddress,
 				abi: .borrowCTokenCompound,
 				web3: readWeb3
 			)
@@ -171,9 +51,7 @@ public struct W3CompoundBorrowManager: Web3HelperProtocol {
 		}
 	}
 
-	// MARK: - Private Properties
-
-	private func getCTokenBorrowTransaction(
+	public func getCTokenBorrowTransaction(
 		contractDetails: ContractDetailsModel
 	) -> Promise<EthereumSignedTransaction> {
 		Promise<EthereumSignedTransaction> { seal in

@@ -88,6 +88,16 @@ class BorrowConfirmViewModel {
 			assetAmount: borrowIncreaseAmountVM.tokenAmount
 		)
 	}()
+    
+    private lazy var compoundBorrowManager: CompoundBorrowManager = {
+        let pinoAaveProxyContract = try! web3.getCompoundProxyContract()
+        return CompoundBorrowManager(
+            contract: pinoAaveProxyContract,
+            asset: selectedToken,
+            assetAmount: borrowIncreaseAmountVM.tokenAmount
+        )
+    }()
+    
 
 	// MARK: - Initializers
 
@@ -108,6 +118,18 @@ class BorrowConfirmViewModel {
 	// MARK: - Public Methods
 
 	public func createBorrowPendingActivity(txHash: String) {
+        var gasUsed: String
+        var gasPrice: String
+        switch borrowIncreaseAmountVM.borrowVM.selectedDexSystem {
+        case .aave:
+            gasUsed = aaveBorrowManager.borrowGasInfo!.increasedGasLimit!.description
+            gasPrice = aaveBorrowManager.borrowGasInfo!.maxFeePerGas.description
+        case .compound:
+            gasUsed = compoundBorrowManager.borrowGasInfo!.increasedGasLimit!.description
+            gasPrice = compoundBorrowManager.borrowGasInfo!.maxFeePerGas.description
+        default:
+            fatalError("Unknown selected dex system !")
+        }
 		coreDataManager.addNewBorrowActivity(
 			activityModel: ActivityBorrowModel(
 				txHash: txHash,
@@ -124,8 +146,8 @@ class BorrowConfirmViewModel {
 				fromAddress: "",
 				toAddress: "",
 				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
-				gasUsed: aaveBorrowManager.borrowGasInfo!.increasedGasLimit!.description,
-				gasPrice: aaveBorrowManager.borrowGasInfo!.maxFeePerGas.description
+				gasUsed: gasUsed,
+				gasPrice: gasPrice
 			),
 			accountAddress: walletManager.currentAccount.eip55Address
 		)
@@ -135,8 +157,8 @@ class BorrowConfirmViewModel {
 	public func getBorrowGasInfo() {
 		switch borrowIncreaseAmountVM.borrowVM.selectedDexSystem {
 		case .aave:
-			aaveBorrowManager.getERC20BorrowData().done { _, depositGasInfo in
-				self.setFeeInfoByDepositGasInfo(depositGasInfo: depositGasInfo)
+			aaveBorrowManager.getERC20BorrowData().done { _, borrowGasInfo in
+				self.setFeeInfoByDepositGasInfo(depositGasInfo: borrowGasInfo)
 			}.catch { _ in
 				Toast.default(
 					title: self.feeTxErrorText,
@@ -146,7 +168,16 @@ class BorrowConfirmViewModel {
 				.show(haptic: .warning)
 			}
 		case .compound:
-			#warning("i should add compound collateral manager first to complete this section")
+            compoundBorrowManager.getBorrowData().done { _, borrowGasInfo in
+                self.setFeeInfoByDepositGasInfo(depositGasInfo: borrowGasInfo)
+            }.catch { _ in
+                Toast.default(
+                    title: self.feeTxErrorText,
+                    subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+                    style: .error
+                )
+                .show(haptic: .warning)
+            }
 		default:
 			print("Unknown selected dex system !")
 		}
@@ -160,8 +191,10 @@ class BorrowConfirmViewModel {
 			}
 			confirmBorrowClosure(borrowTRX)
 		case .compound:
-			#warning("i should add compound collateral manager first to complete this section")
-			return
+            guard let borrowTRX = compoundBorrowManager.borrowTRX else {
+                return
+            }
+            confirmBorrowClosure(borrowTRX)
 		default:
 			print("Unknown selected dex system !")
 		}
