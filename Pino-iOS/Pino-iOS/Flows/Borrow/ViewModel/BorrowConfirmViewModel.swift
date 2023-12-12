@@ -13,7 +13,7 @@ class BorrowConfirmViewModel {
 	// MARK: - TypeAliases
 
 	typealias FeeInfoType = (feeInDollars: String, feeInETH: String, bigNumberFee: BigNumber)
-	typealias ConfirmBorrowClosureType = (EthereumSignedTransaction) -> Void
+	typealias ConfirmBorrowClosureType = ([SendTransactionViewModel]) -> Void
 
 	// MARK: - Closures
 
@@ -116,19 +116,7 @@ class BorrowConfirmViewModel {
 
 	// MARK: - Public Methods
 
-	public func createBorrowPendingActivity(txHash: String) {
-		var gasUsed: String
-		var gasPrice: String
-		switch borrowIncreaseAmountVM.borrowVM.selectedDexSystem {
-		case .aave:
-			gasUsed = aaveBorrowManager.borrowGasInfo!.increasedGasLimit!.description
-			gasPrice = aaveBorrowManager.borrowGasInfo!.maxFeePerGas.description
-		case .compound:
-			gasUsed = compoundBorrowManager.borrowGasInfo!.increasedGasLimit!.description
-			gasPrice = compoundBorrowManager.borrowGasInfo!.maxFeePerGas.description
-		default:
-			fatalError("Unknown selected dex system !")
-		}
+    public func createBorrowPendingActivity(txHash: String, gasInfo: GasInfo) {
 		coreDataManager.addNewBorrowActivity(
 			activityModel: ActivityBorrowModel(
 				txHash: txHash,
@@ -145,8 +133,8 @@ class BorrowConfirmViewModel {
 				fromAddress: "",
 				toAddress: "",
 				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
-				gasUsed: gasUsed,
-				gasPrice: gasPrice
+				gasUsed: gasInfo.increasedGasLimit!.description,
+				gasPrice: gasInfo.maxFeePerGas.description
 			),
 			accountAddress: walletManager.currentAccount.eip55Address
 		)
@@ -188,12 +176,24 @@ class BorrowConfirmViewModel {
 			guard let borrowTRX = aaveBorrowManager.borrowTRX else {
 				return
 			}
-			confirmBorrowClosure(borrowTRX)
+            let borrowTransaction = SendTransactionViewModel(
+                transaction: borrowTRX,
+                addPendingActivityClosure: { txHash in
+                    self.createBorrowPendingActivity(txHash: txHash, gasInfo: self.aaveBorrowManager.borrowGasInfo!)
+                }
+            )
+			confirmBorrowClosure([borrowTransaction])
 		case .compound:
 			guard let borrowTRX = compoundBorrowManager.borrowTRX else {
 				return
 			}
-			confirmBorrowClosure(borrowTRX)
+            let borrowTransaction = SendTransactionViewModel(
+                transaction: borrowTRX,
+                addPendingActivityClosure: { txHash in
+                    self.createBorrowPendingActivity(txHash: txHash, gasInfo: self.compoundBorrowManager.borrowGasInfo!)
+                }
+            )
+			confirmBorrowClosure([borrowTransaction])
 		default:
 			print("Unknown selected dex system !")
 		}

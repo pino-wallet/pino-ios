@@ -54,8 +54,8 @@ class WithdrawConfirmViewController: UIViewController {
 			}
 		)
 
-		withdrawConfirmVM.confirmWithdrawClosure = { withdrawTX in
-			self.confirmWithdraw(withdrawTRX: withdrawTX)
+		withdrawConfirmVM.confirmWithdrawClosure = { withdrawTRXs in
+			self.confirmWithdraw(withdrawTRXs: withdrawTRXs)
 		}
 
 		view = withdrawConfirmView
@@ -66,16 +66,10 @@ class WithdrawConfirmViewController: UIViewController {
 		setNavigationTitle(withdrawConfirmVM.pageTitle)
 	}
 
-	private func confirmWithdraw(withdrawTRX: EthereumSignedTransaction) {
-		let withdrawTransaction = SendTransactionViewModel(
-			transaction: withdrawTRX,
-			addPendingActivityClosure: { txHash in
-				self.withdrawConfirmVM.createWithdrawPendingActivity(txHash: txHash)
-			}
-		)
+	private func confirmWithdraw(withdrawTRXs: [SendTransactionViewModel]) {
 		let withdrawAmountVM = withdrawConfirmVM.withdrawAmountVM
 		let sendTransactionStatusVM = SendTransactionStatusViewModel(
-			transactions: [withdrawTransaction],
+			transactions: withdrawTRXs,
 			transactionSentInfoText: "You withdrew  \(withdrawAmountVM.tokenAmount.formattedNumberWithCamma) \(withdrawAmountVM.selectedToken.symbol) from \(withdrawAmountVM.borrowVM.selectedDexSystem.name) \(withdrawAmountVM.borrowVM.selectedDexSystem.version)."
 		)
 		let sendTransactionStatusVC = SendTransactionStatusViewController(sendStatusVM: sendTransactionStatusVM)
