@@ -88,16 +88,15 @@ class BorrowConfirmViewModel {
 			assetAmount: borrowIncreaseAmountVM.tokenAmount
 		)
 	}()
-    
-    private lazy var compoundBorrowManager: CompoundBorrowManager = {
-        let pinoAaveProxyContract = try! web3.getCompoundProxyContract()
-        return CompoundBorrowManager(
-            contract: pinoAaveProxyContract,
-            asset: selectedToken,
-            assetAmount: borrowIncreaseAmountVM.tokenAmount
-        )
-    }()
-    
+
+	private lazy var compoundBorrowManager: CompoundBorrowManager = {
+		let pinoAaveProxyContract = try! web3.getCompoundProxyContract()
+		return CompoundBorrowManager(
+			contract: pinoAaveProxyContract,
+			asset: selectedToken,
+			assetAmount: borrowIncreaseAmountVM.tokenAmount
+		)
+	}()
 
 	// MARK: - Initializers
 
@@ -118,18 +117,18 @@ class BorrowConfirmViewModel {
 	// MARK: - Public Methods
 
 	public func createBorrowPendingActivity(txHash: String) {
-        var gasUsed: String
-        var gasPrice: String
-        switch borrowIncreaseAmountVM.borrowVM.selectedDexSystem {
-        case .aave:
-            gasUsed = aaveBorrowManager.borrowGasInfo!.increasedGasLimit!.description
-            gasPrice = aaveBorrowManager.borrowGasInfo!.maxFeePerGas.description
-        case .compound:
-            gasUsed = compoundBorrowManager.borrowGasInfo!.increasedGasLimit!.description
-            gasPrice = compoundBorrowManager.borrowGasInfo!.maxFeePerGas.description
-        default:
-            fatalError("Unknown selected dex system !")
-        }
+		var gasUsed: String
+		var gasPrice: String
+		switch borrowIncreaseAmountVM.borrowVM.selectedDexSystem {
+		case .aave:
+			gasUsed = aaveBorrowManager.borrowGasInfo!.increasedGasLimit!.description
+			gasPrice = aaveBorrowManager.borrowGasInfo!.maxFeePerGas.description
+		case .compound:
+			gasUsed = compoundBorrowManager.borrowGasInfo!.increasedGasLimit!.description
+			gasPrice = compoundBorrowManager.borrowGasInfo!.maxFeePerGas.description
+		default:
+			fatalError("Unknown selected dex system !")
+		}
 		coreDataManager.addNewBorrowActivity(
 			activityModel: ActivityBorrowModel(
 				txHash: txHash,
@@ -168,16 +167,16 @@ class BorrowConfirmViewModel {
 				.show(haptic: .warning)
 			}
 		case .compound:
-            compoundBorrowManager.getBorrowData().done { _, borrowGasInfo in
-                self.setFeeInfoByDepositGasInfo(depositGasInfo: borrowGasInfo)
-            }.catch { _ in
-                Toast.default(
-                    title: self.feeTxErrorText,
-                    subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-                    style: .error
-                )
-                .show(haptic: .warning)
-            }
+			compoundBorrowManager.getBorrowData().done { _, borrowGasInfo in
+				self.setFeeInfoByDepositGasInfo(depositGasInfo: borrowGasInfo)
+			}.catch { _ in
+				Toast.default(
+					title: self.feeTxErrorText,
+					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+					style: .error
+				)
+				.show(haptic: .warning)
+			}
 		default:
 			print("Unknown selected dex system !")
 		}
@@ -191,10 +190,10 @@ class BorrowConfirmViewModel {
 			}
 			confirmBorrowClosure(borrowTRX)
 		case .compound:
-            guard let borrowTRX = compoundBorrowManager.borrowTRX else {
-                return
-            }
-            confirmBorrowClosure(borrowTRX)
+			guard let borrowTRX = compoundBorrowManager.borrowTRX else {
+				return
+			}
+			confirmBorrowClosure(borrowTRX)
 		default:
 			print("Unknown selected dex system !")
 		}

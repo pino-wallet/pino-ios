@@ -473,13 +473,17 @@ public class Web3Core {
 		try investManager.getCollateralCheckProxyContract()
 	}
 
-    public func getCompoundBorrowCTokenContractDetails(contractID: String, amount: BigUInt) -> Promise<ContractDetailsModel> {
+	public func getCompoundBorrowCTokenContractDetails(
+		contractID: String,
+		amount: BigUInt
+	) -> Promise<ContractDetailsModel> {
 		compoundBorrowManager.getContractDetails(contractAddress: contractID, amount: amount)
 	}
 
-    public func getCompoundBorrowTransaction(contractDetails: ContractDetailsModel) -> Promise<EthereumSignedTransaction> {
-        compoundBorrowManager.getCTokenBorrowTransaction(contractDetails: contractDetails)
-    }
+	public func getCompoundBorrowTransaction(contractDetails: ContractDetailsModel)
+		-> Promise<EthereumSignedTransaction> {
+		compoundBorrowManager.getCTokenBorrowTransaction(contractDetails: contractDetails)
+	}
 
 	public func getCompoundBorrowCTokenGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
 		compoundBorrowManager.getCTokenBorrowGasInfo(contractDetails: contractDetails)
