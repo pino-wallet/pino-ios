@@ -21,6 +21,8 @@ class HomepageViewModel {
 	@Published
 	public var positionAssetsList: [AssetViewModel]?
 	@Published
+	public var selectedAssetsList: [AssetViewModel]?
+	@Published
 	public var securityMode = false
 
 	public let sendButtonTitle = "Send"
@@ -44,18 +46,20 @@ class HomepageViewModel {
 	// MARK: Private Methods
 
 	private func switchSecurityMode(_ isOn: Bool) {
-		guard let selectedAssets = GlobalVariables.shared.selectedManageAssetsList else { return }
 		if let walletBalance {
 			walletBalance.switchSecurityMode(isOn)
 		}
-		for asset in selectedAssets {
-			asset.switchSecurityMode(isOn)
+		if let selectedAssetsList {
+			for asset in selectedAssetsList {
+				asset.switchSecurityMode(isOn)
+			}
 		}
 		if let positionAssetsList {
 			for asset in positionAssetsList {
 				asset.switchSecurityMode(isOn)
 			}
 		}
+		selectedAssetsList = selectedAssetsList
 		positionAssetsList = positionAssetsList
 	}
 
@@ -67,6 +71,8 @@ class HomepageViewModel {
 
 		GlobalVariables.shared.$selectedManageAssetsList.compactMap { $0 }.sink { assets in
 			self.getWalletBalance(assets: assets)
+			self.selectedAssetsList = assets.filter { $0.isPosition == false }
+			self.positionAssetsList = assets.filter { $0.isPosition == true }
 		}.store(in: &cancellables)
 	}
 }
