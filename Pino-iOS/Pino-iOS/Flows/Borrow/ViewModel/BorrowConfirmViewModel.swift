@@ -116,7 +116,7 @@ class BorrowConfirmViewModel {
 
 	// MARK: - Public Methods
 
-    public func createBorrowPendingActivity(txHash: String, gasInfo: GasInfo) {
+	public func createBorrowPendingActivity(txHash: String, gasInfo: GasInfo) {
 		coreDataManager.addNewBorrowActivity(
 			activityModel: ActivityBorrowModel(
 				txHash: txHash,
@@ -176,23 +176,23 @@ class BorrowConfirmViewModel {
 			guard let borrowTRX = aaveBorrowManager.borrowTRX else {
 				return
 			}
-            let borrowTransaction = SendTransactionViewModel(
-                transaction: borrowTRX,
-                addPendingActivityClosure: { txHash in
-                    self.createBorrowPendingActivity(txHash: txHash, gasInfo: self.aaveBorrowManager.borrowGasInfo!)
-                }
-            )
+			let borrowTransaction = SendTransactionViewModel(
+				transaction: borrowTRX,
+				addPendingActivityClosure: { txHash in
+					self.createBorrowPendingActivity(txHash: txHash, gasInfo: self.aaveBorrowManager.borrowGasInfo!)
+				}
+			)
 			confirmBorrowClosure([borrowTransaction])
 		case .compound:
 			guard let borrowTRX = compoundBorrowManager.borrowTRX else {
 				return
 			}
-            let borrowTransaction = SendTransactionViewModel(
-                transaction: borrowTRX,
-                addPendingActivityClosure: { txHash in
-                    self.createBorrowPendingActivity(txHash: txHash, gasInfo: self.compoundBorrowManager.borrowGasInfo!)
-                }
-            )
+			let borrowTransaction = SendTransactionViewModel(
+				transaction: borrowTRX,
+				addPendingActivityClosure: { txHash in
+					self.createBorrowPendingActivity(txHash: txHash, gasInfo: self.compoundBorrowManager.borrowGasInfo!)
+				}
+			)
 			confirmBorrowClosure([borrowTransaction])
 		default:
 			print("Unknown selected dex system !")

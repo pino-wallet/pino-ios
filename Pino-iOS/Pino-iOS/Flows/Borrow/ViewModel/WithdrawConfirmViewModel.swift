@@ -124,7 +124,7 @@ class WithdrawConfirmViewModel {
 
 	// MARK: - Public Methods
 
-    public func createWithdrawPendingActivity(txHash: String, gasInfo: GasInfo) {
+	public func createWithdrawPendingActivity(txHash: String, gasInfo: GasInfo) {
 		var activityType: String {
 			switch withdrawMode {
 			case .decrease:
@@ -133,7 +133,7 @@ class WithdrawConfirmViewModel {
 				return "remove_collateral"
 			}
 		}
-		
+
 		coreDataManager.addNewCollateralActivity(
 			activityModel: ActivityCollateralModel(
 				txHash: txHash,
@@ -205,23 +205,26 @@ class WithdrawConfirmViewModel {
 			guard let withdrawTRX = aaveWithdrawManager.withdrawTRX else {
 				return
 			}
-            let withdrawTransaction = SendTransactionViewModel(
-            transaction: withdrawTRX,
-            addPendingActivityClosure: { txHash in
-                self.createWithdrawPendingActivity(txHash: txHash, gasInfo: self.aaveWithdrawManager.withdrawGasInfo!)
-            }
-        )
+			let withdrawTransaction = SendTransactionViewModel(
+				transaction: withdrawTRX,
+				addPendingActivityClosure: { txHash in
+					self.createWithdrawPendingActivity(txHash: txHash, gasInfo: self.aaveWithdrawManager.withdrawGasInfo!)
+				}
+			)
 			confirmWithdrawClosure([withdrawTransaction])
 		case .compound:
 			guard let withdrawTRX = compoundWithdrawManager.withdrawTrx else {
 				return
 			}
-            let withdrawTransaction = SendTransactionViewModel(
-            transaction: withdrawTRX,
-            addPendingActivityClosure: { txHash in
-                self.createWithdrawPendingActivity(txHash: txHash, gasInfo: self.compoundWithdrawManager.withdrawGasInfo!)
-            }
-        )
+			let withdrawTransaction = SendTransactionViewModel(
+				transaction: withdrawTRX,
+				addPendingActivityClosure: { txHash in
+					self.createWithdrawPendingActivity(
+						txHash: txHash,
+						gasInfo: self.compoundWithdrawManager.withdrawGasInfo!
+					)
+				}
+			)
 			confirmWithdrawClosure([withdrawTransaction])
 		default:
 			print("Unknown selected dex system !")
