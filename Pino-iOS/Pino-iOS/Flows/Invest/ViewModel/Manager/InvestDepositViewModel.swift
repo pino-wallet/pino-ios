@@ -32,7 +32,8 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 		"You have an open \(selectedToken.symbol) collateral position in \(selectedProtocol.name), which you need to close before depositing \(selectedToken.symbol) as investment."
 	}
 
-	public let hasOpenPosition: Bool
+	@Published
+	public var hasOpenPosition: Bool?
 
 	@Published
 	public var yearlyEstimatedReturn: String?
@@ -53,13 +54,11 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 	init(
 		selectedAsset: AssetsBoardProtocol,
 		selectedProtocol: InvestProtocolViewModel,
-		investmentType: InvestmentType,
-		hasOpenPosition: Bool = false
+		investmentType: InvestmentType
 	) {
 		self.selectedInvestableAsset = selectedAsset as? InvestableAssetViewModel
 		self.selectedProtocol = selectedProtocol
 		self.investmentType = investmentType
-		self.hasOpenPosition = hasOpenPosition
 		getToken(investableAsset: selectedAsset)
 	}
 
@@ -86,7 +85,9 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 	}
 
 	public func checkBalanceStatus(amount: String) -> AmountStatus {
-		if hasOpenPosition {
+		if hasOpenPosition == nil {
+			return .isZero
+		} else if let hasOpenPosition, hasOpenPosition {
 			return .isZero
 		} else if amount == .emptyString {
 			return .isZero
@@ -108,8 +109,9 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 		selectedToken = tokensList.first(where: { $0.symbol == investableAsset.assetName })!
 		maxAvailableAmount = selectedToken.holdAmount
 
-		getTokenPositionID { positionId in
-			if investmentType == .create, selectedToken.isPosition, selectedToken.holdAmount > 0.bigNumber {
+		getTokenPositionID { [self] positionId in
+			let tokenPosition = tokensList.first(where: { $0.id == positionId })!
+			if investmentType == .create, tokenPosition.holdAmount > 0.bigNumber {
 				hasOpenPosition = true
 			} else {
 				hasOpenPosition = false
@@ -118,7 +120,7 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 	}
 
 	private func getYearlyEstimatedReturn(amountInDollar: BigNumber?) {
-		if let selectedInvestableAsset, let amountInDollar, !hasOpenPosition {
+		if let selectedInvestableAsset, let amountInDollar, let hasOpenPosition, !hasOpenPosition {
 			let yearlyReturnBigNumber = amountInDollar * selectedInvestableAsset.APYAmount / 100.bigNumber
 			yearlyEstimatedReturn = yearlyReturnBigNumber?.priceFormat
 		} else {

@@ -50,27 +50,6 @@ class InvestmentBoardViewModel: InvestFilterDelegate {
 		}.store(in: &cancellables)
 	}
 
-	private func getTokenPositionID(
-		investableAsset: InvestableAssetViewModel,
-		completion: @escaping (String) -> Void
-	) {
-		let w3APIClient = Web3APIClient()
-		w3APIClient.getTokenPositionID(
-			tokenAdd: investableAsset.tokenId.lowercased(),
-			positionType: .investment,
-			protocolName: investableAsset.assetProtocol.rawValue
-		).sink { completed in
-			switch completed {
-			case .finished:
-				print("Position id received successfully")
-			case let .failure(error):
-				print("Error getting position id:\(error)")
-			}
-		} receiveValue: { tokenPositionModel in
-			completion(tokenPositionModel.positionID.lowercased())
-		}.store(in: &cancellables)
-	}
-
 	// MARK: - Internal Methods
 
 	internal func filterUpdated(
@@ -94,20 +73,5 @@ class InvestmentBoardViewModel: InvestFilterDelegate {
 		}
 
 		filteredAssets = filteringAssets
-	}
-
-	// MARK: - Public Methods
-
-	public func checkOpenPosition(
-		selectedAsset: InvestableAssetViewModel,
-		completion: @escaping (Bool) -> Void
-	) {
-		getTokenPositionID(investableAsset: selectedAsset) { positionId in
-			if selectedAsset.investToken.isPosition, selectedAsset.investToken.holdAmount > 0.bigNumber {
-				completion(true)
-			} else {
-				completion(false)
-			}
-		}
 	}
 }

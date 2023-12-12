@@ -174,15 +174,6 @@ class InvestDepositView: UIView {
 		openPositionErrorLabel.numberOfLines = 0
 
 		openPositionErrorCard.layer.cornerRadius = 12
-
-		if let depositVM = investVM as? InvestDepositViewModel, depositVM.hasOpenPosition {
-			openPositionErrorLabel.text = depositVM.positionErrorText
-			openPositionErrorCard.isHiddenInStackView = false
-			estimateSectionStackView.isHiddenInStackView = true
-			continueButton.style = .deactive
-		} else {
-			openPositionErrorCard.isHiddenInStackView = true
-		}
 	}
 
 	private func setupContstraint() {
@@ -230,6 +221,11 @@ class InvestDepositView: UIView {
 		depositVM.$yearlyEstimatedReturn.sink { estimatedReturn in
 			self.updateEstimatedReturn(estimatedReturn)
 		}.store(in: &cancellable)
+
+		depositVM.$hasOpenPosition.sink { hasOpenPosition in
+			self.updateOpenPositionAlert(hasOpenPosition: hasOpenPosition, errorText: depositVM.positionErrorText)
+			self.updateBalanceStatus(amount: depositVM.tokenAmount)
+		}.store(in: &cancellable)
 	}
 
 	private func updateView() {
@@ -258,7 +254,21 @@ class InvestDepositView: UIView {
 	}
 
 	private func updateAmount(enteredAmount: String) {
-		let amountStatus = investVM.checkBalanceStatus(amount: enteredAmount)
+		updateBalanceStatus(amount: enteredAmount)
+		amountLabel.text = investVM.dollarAmount
+		if amountTextfield.text == .emptyString {
+			continueButton.style = .deactive
+		}
+
+		// ACTIVATING continue button since in devnet we don't need validation
+		// to check if there is balance
+		if Environment.current != .mainNet {
+			continueButton.style = .active
+		}
+	}
+
+	private func updateBalanceStatus(amount: String) {
+		let amountStatus = investVM.checkBalanceStatus(amount: amount)
 		switch amountStatus {
 		case .isZero:
 			maxAmountTitle.textColor = .Pino.label
@@ -275,16 +285,6 @@ class InvestDepositView: UIView {
 			maxAmountLabel.textColor = .Pino.orange
 			continueButton.setTitle(investVM.insufficientAmountButtonTitle, for: .normal)
 			continueButton.style = .deactive
-		}
-		amountLabel.text = investVM.dollarAmount
-		if amountTextfield.text == .emptyString {
-			continueButton.style = .deactive
-		}
-
-		// ACTIVATING continue button since in devnet we don't need validation
-		// to check if there is balance
-		if Environment.current != .mainNet {
-			continueButton.style = .active
 		}
 	}
 
@@ -309,6 +309,17 @@ class InvestDepositView: UIView {
 	@objc
 	private func focusOnAmountTextField() {
 		amountTextfield.becomeFirstResponder()
+	}
+
+	private func updateOpenPositionAlert(hasOpenPosition: Bool?, errorText: String) {
+		if let hasOpenPosition, hasOpenPosition == true {
+			openPositionErrorLabel.text = errorText
+			openPositionErrorCard.isHiddenInStackView = false
+			estimateSectionStackView.isHiddenInStackView = true
+			continueButton.style = .deactive
+		} else {
+			openPositionErrorCard.isHiddenInStackView = true
+		}
 	}
 
 	// MARK: Public Methods
