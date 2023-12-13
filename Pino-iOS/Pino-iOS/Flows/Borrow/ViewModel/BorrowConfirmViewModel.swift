@@ -90,9 +90,9 @@ class BorrowConfirmViewModel {
 	}()
 
 	private lazy var compoundBorrowManager: CompoundBorrowManager = {
-		let pinoAaveProxyContract = try! web3.getCompoundProxyContract()
+		let pinoCompoundProxyContract = try! web3.getCompoundProxyContract()
 		return CompoundBorrowManager(
-			contract: pinoAaveProxyContract,
+			contract: pinoCompoundProxyContract,
 			asset: selectedToken,
 			assetAmount: borrowIncreaseAmountVM.tokenAmount
 		)
