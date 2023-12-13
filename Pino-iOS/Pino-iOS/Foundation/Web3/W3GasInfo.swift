@@ -38,6 +38,10 @@ public struct GasInfo {
 		return BigNumber(unSignedNumber: increased, decimal: 0)
 	}
 
+	public var baseFeeWithPriorityFee: BigNumber {
+		BigNumber(number: increasedBaseFee + priorityFeePerGas, decimal: 0)
+	}
+
 	public var fee: BigNumber? {
 		guard let increasedGasLimit else { return nil }
 		return BigNumber(number: (increasedBaseFee + priorityFeePerGas) * increasedGasLimit, decimal: 18)

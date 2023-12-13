@@ -134,7 +134,7 @@ class BorrowConfirmViewModel {
 				toAddress: "",
 				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
 				gasUsed: gasInfo.increasedGasLimit!.description,
-				gasPrice: gasInfo.maxFeePerGas.description
+				gasPrice: gasInfo.baseFeeWithPriorityFee.description
 			),
 			accountAddress: walletManager.currentAccount.eip55Address
 		)

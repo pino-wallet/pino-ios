@@ -147,7 +147,7 @@ class CollateralConfirmViewModel {
 			).description
 			gasPrice = (
 				compoundDepositManager.depositGasInfo!
-					.maxFeePerGas + (compoundDepositManager.collateralCheckGasInfo?.maxFeePerGas ?? zeroAmountBigNumber)
+					.maxFeePerGas + (compoundDepositManager.collateralCheckGasInfo?.baseFeeWithPriorityFee ?? zeroAmountBigNumber)
 			)
 			.description
 		default:
