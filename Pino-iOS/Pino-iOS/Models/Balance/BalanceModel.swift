@@ -27,6 +27,7 @@ public struct Detail: Codable {
 	let decimals: Int
 	let change24H, changePercentage, price: String
 	var isVerified = true
+	let isPosition: Bool
 
 	enum CodingKeys: String, CodingKey {
 		case id
@@ -37,6 +38,7 @@ public struct Detail: Codable {
 		case change24H = "change_24h"
 		case changePercentage = "change_percentage"
 		case price
+		case isPosition = "is_position"
 	}
 }
 

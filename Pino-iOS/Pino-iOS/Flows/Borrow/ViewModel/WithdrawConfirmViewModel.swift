@@ -9,6 +9,7 @@ import Combine
 import Foundation
 import Web3
 import Web3_Utility
+import Web3ContractABI
 
 class WithdrawConfirmViewModel {
 	// MARK: - TypeAliases
@@ -90,6 +91,15 @@ class WithdrawConfirmViewModel {
 		)
 	}()
 
+	private lazy var compoundWithdrawManager: CompoundWithdrawManager = {
+		let pinoCompoundProxyContract = try! web3.getCompoundProxyContract()
+		return CompoundWithdrawManager(
+			contract: pinoCompoundProxyContract,
+			selectedToken: selectedToken,
+			withdrawAmount: withdrawAmountVM.tokenAmount
+		)
+	}()
+
 	// MARK: - Initializers
 
 	init(withdrawAmountVM: WithdrawAmountViewModel) {
@@ -123,6 +133,18 @@ class WithdrawConfirmViewModel {
 				return "remove_collateral"
 			}
 		}
+		var gasUsed: String
+		var gasPrice: String
+		switch withdrawAmountVM.borrowVM.selectedDexSystem {
+		case .aave:
+			gasUsed = aaveWithdrawManager.withdrawGasInfo!.increasedGasLimit!.description
+			gasPrice = aaveWithdrawManager.withdrawGasInfo!.maxFeePerGas.description
+		case .compound:
+			gasUsed = compoundWithdrawManager.withdrawGasInfo!.increasedGasLimit!.description
+			gasPrice = compoundWithdrawManager.withdrawGasInfo!.maxFeePerGas.description
+		default:
+			fatalError("Unknown selected dex system !")
+		}
 		coreDataManager.addNewCollateralActivity(
 			activityModel: ActivityCollateralModel(
 				txHash: txHash,
@@ -138,8 +160,8 @@ class WithdrawConfirmViewModel {
 				fromAddress: "",
 				toAddress: "",
 				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
-				gasUsed: aaveWithdrawManager.withdrawGasInfo!.increasedGasLimit!.description,
-				gasPrice: aaveWithdrawManager.withdrawGasInfo!.maxFeePerGas.description
+				gasUsed: gasUsed,
+				gasPrice: gasPrice
 			),
 			accountAddress: walletManager.currentAccount.eip55Address
 		)
@@ -150,8 +172,8 @@ class WithdrawConfirmViewModel {
 		switch withdrawAmountVM.borrowVM.selectedDexSystem {
 		case .aave:
 			if withdrawMode == .withdrawMax {
-				aaveWithdrawManager.getERC20WithdrawMaxData().done { _, depositGasInfo in
-					self.setFeeInfoByDepositGasInfo(withdrawGasinfo: depositGasInfo)
+				aaveWithdrawManager.getERC20WithdrawMaxData().done { _, withdrawGasInfo in
+					self.setFeeInfoByDepositGasInfo(withdrawGasinfo: withdrawGasInfo)
 				}.catch { _ in
 					Toast.default(
 						title: self.feeTxErrorText,
@@ -161,8 +183,8 @@ class WithdrawConfirmViewModel {
 					.show(haptic: .warning)
 				}
 			} else {
-				aaveWithdrawManager.getERC20WithdrawData().done { _, depositGasInfo in
-					self.setFeeInfoByDepositGasInfo(withdrawGasinfo: depositGasInfo)
+				aaveWithdrawManager.getERC20WithdrawData().done { _, withdrawGasInfo in
+					self.setFeeInfoByDepositGasInfo(withdrawGasinfo: withdrawGasInfo)
 				}.catch { _ in
 					Toast.default(
 						title: self.feeTxErrorText,
@@ -173,7 +195,16 @@ class WithdrawConfirmViewModel {
 				}
 			}
 		case .compound:
-			#warning("i should add compound withdraw manager first to complete this section")
+			compoundWithdrawManager.getWithdrawInfo().done { _, withdrawGasInfo in
+				self.setFeeInfoByDepositGasInfo(withdrawGasinfo: withdrawGasInfo)
+			}.catch { _ in
+				Toast.default(
+					title: self.feeTxErrorText,
+					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+					style: .error
+				)
+				.show(haptic: .warning)
+			}
 		default:
 			print("Unknown selected dex system !")
 		}
@@ -187,8 +218,10 @@ class WithdrawConfirmViewModel {
 			}
 			confirmWithdrawClosure(withdrawTRX)
 		case .compound:
-			#warning("i should add compound collateral manager first to complete this section")
-			return
+			guard let withdrawTRX = compoundWithdrawManager.withdrawTrx else {
+				return
+			}
+			confirmWithdrawClosure(withdrawTRX)
 		default:
 			print("Unknown selected dex system !")
 		}

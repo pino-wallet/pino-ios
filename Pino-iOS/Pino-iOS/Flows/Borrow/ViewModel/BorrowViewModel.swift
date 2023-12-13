@@ -12,7 +12,8 @@ class BorrowViewModel {
 
 	typealias TotalCollateralAmountsInDollarType = (
 		totalAmountInDollars: BigNumber,
-		totalBorrowableAmountInDollars: BigNumber
+		totalBorrowableAmountInDollars: BigNumber,
+		totalBorrowableAmountForHealthScore: BigNumber
 	)
 
 	// MARK: - Public Properties
@@ -25,28 +26,31 @@ class BorrowViewModel {
 	public var totalCollateralAmountsInDollar: TotalCollateralAmountsInDollarType {
 		var totalAmountInDollars = 0.bigNumber
 		var totalBorrowableAmountInDollars = 0.bigNumber
-		guard let collateralledTokens = userBorrowingDetails?.collateralTokens, let collateralizableTokens else {
-			fatalError("Collateraled tokens or collateralizable tokens is nil")
+		var totalBorrowableAmountForHealthScore = 0.bigNumber
+		guard let collateralledTokens = userBorrowingDetails?.collateralTokens else {
+			fatalError("Collateraled tokens is nil")
 		}
 		for collateraledToken in collateralledTokens {
 			guard let foundTokenInGlobalTokens = globalAssetsList?.first(where: { $0.id == collateraledToken.id })
 			else {
 				fatalError("Collateralled token not found in global tokens list")
 			}
-			guard let tokenLTV = collateralizableTokens.first(where: { $0.tokenID == collateraledToken.id })?.ltv else {
-				fatalError("Liquidation treshold of collateralled token is nil")
-			}
-			let calculatedTokenLTV = (tokenLTV / 100)
+
+			let tokenLQ = getCollateralizableTokenLQ(tokenID: collateraledToken.id)
 			let tokenTotalAmountInDollars = BigNumber(
 				number: collateraledToken.amount,
 				decimal: foundTokenInGlobalTokens.decimal
 			) * foundTokenInGlobalTokens.price
 			totalAmountInDollars = totalAmountInDollars + tokenTotalAmountInDollars
-			totalBorrowableAmountInDollars = (tokenTotalAmountInDollars / 100.bigNumber)! * calculatedTokenLTV.bigNumber
+			totalBorrowableAmountInDollars = totalBorrowableAmountInDollars +
+				(tokenTotalAmountInDollars / 100.bigNumber)! * (tokenLQ / 100.bigNumber)!
+			totalBorrowableAmountForHealthScore = totalBorrowableAmountForHealthScore +
+				(tokenTotalAmountInDollars / tokenLQ)!
 		}
 		return (
 			totalAmountInDollars: totalAmountInDollars,
-			totalBorrowableAmountInDollars: totalBorrowableAmountInDollars
+			totalBorrowableAmountInDollars: totalBorrowableAmountInDollars,
+			totalBorrowableAmountForHealthScore: totalBorrowableAmountForHealthScore
 		)
 	}
 
@@ -60,7 +64,7 @@ class BorrowViewModel {
 				fatalError("Borrowed token not found in global tokens list")
 			}
 			let tokenBorrowedAmountInDollars = BigNumber(
-				number: borrowedToken.amount,
+				number: borrowedToken.totalDebt!,
 				decimal: foundTokenInGlobalTokens.decimal
 			) * foundTokenInGlobalTokens.price
 			totalBorrowedAmountInDollars = totalBorrowedAmountInDollars + tokenBorrowedAmountInDollars
@@ -97,6 +101,14 @@ class BorrowViewModel {
 	private var globalAssetsListCancellable = Set<AnyCancellable>()
 
 	// MARK: - Public Methods
+
+	public func getCollateralizableTokenLQ(tokenID: String) -> BigNumber {
+		guard let tokenLQ = collateralizableTokens?.first(where: { $0.tokenID.lowercased() == tokenID.lowercased() })?
+			.liquidationThreshold else {
+			fatalError("Liquidation treshold of collateralled token is nil")
+		}
+		return tokenLQ.bigNumber
+	}
 
 	public func getBorrowingDetailsFromVC() {
 		if walletManager.currentAccount.eip55Address != currentUserAddress {

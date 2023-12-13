@@ -143,10 +143,6 @@ class WithdrawAmountView: UIView {
 		amountLabel.lineBreakMode = .byCharWrapping
 
 		withdrawAmountHealthScore.isHiddenInStackView = true
-
-		#warning("this values are temporary and should be deleted")
-		withdrawAmountHealthScore.prevHealthScore = withdrawAmountVM.prevHealthScore
-		withdrawAmountHealthScore.newHealthScore = withdrawAmountVM.newHealthScore
 	}
 
 	private func setupConstraints() {
@@ -204,11 +200,17 @@ class WithdrawAmountView: UIView {
 			withdrawAmountVM.calculateDollarAmount(amountText)
 			updateAmount(enteredAmount: amountText)
 			animateAmountHealthScoreView(isHidden: false)
+			updateHealthScores()
 		} else {
 			withdrawAmountVM.calculateDollarAmount(.emptyString)
 			updateAmount(enteredAmount: .emptyString)
 			animateAmountHealthScoreView(isHidden: true)
 		}
+	}
+
+	private func updateHealthScores() {
+		withdrawAmountHealthScore.prevHealthScore = withdrawAmountVM.prevHealthScore
+		withdrawAmountHealthScore.newHealthScore = withdrawAmountVM.newHealthScore
 	}
 
 	private func updateAmount(enteredAmount: String) {
@@ -245,7 +247,6 @@ class WithdrawAmountView: UIView {
 	@objc
 	private func putMaxAmountInTextField() {
 		amountTextfield.text = withdrawAmountVM.maxWithdrawAmount.plainSevenDigitFormat
-		amountLabel.text = withdrawAmountVM.dollarAmount
 
 		animateAmountHealthScoreView(isHidden: false)
 
@@ -260,6 +261,8 @@ class WithdrawAmountView: UIView {
 
 		maxAmountLabel.text = withdrawAmountVM.formattedMaxWithdrawAmount
 		updateAmount(enteredAmount: amountTextfield.text!.trimmCurrency)
+		withdrawAmountVM.calculateDollarAmount(amountTextfield.text!)
+		updateHealthScores()
 	}
 
 	@objc

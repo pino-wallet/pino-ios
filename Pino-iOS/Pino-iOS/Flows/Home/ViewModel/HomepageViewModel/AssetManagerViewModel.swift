@@ -23,11 +23,6 @@ class AssetManagerViewModel {
 
 	public var selectedAssets = [SelectedAsset]()
 
-	@Published
-	public var assetsModelList: [AssetProtocol]!
-	@Published
-	public var positionAssetsList: [AssetViewModel]?
-
 	// MARK: - Private Properties
 
 	private let accountingAPIClient = AccountingAPIClient()
@@ -70,7 +65,6 @@ class AssetManagerViewModel {
 				previousDayNetworth: userAsset?.previousDayNetworth ?? "0"
 			)
 		}
-		assetsModelList = tokensModel
 		checkDefaultAssetsAdded(assets: tokensModel)
 		getSelectedAssetsFromCoreData()
 		let tokens = tokensModel.compactMap {
@@ -108,7 +102,8 @@ class AssetManagerViewModel {
 				change24H: "0",
 				changePercentage: "0",
 				price: "0",
-				isVerified: false
+				isVerified: false,
+				isPosition: false
 			)
 		}
 		return customAssets
@@ -167,7 +162,8 @@ class AssetManagerViewModel {
 			change24H: "0",
 			changePercentage: "0",
 			price: "0",
-			isVerified: false
+			isVerified: false,
+			isPosition: false
 		)
 
 		tokens.append(customAssetDetail)
@@ -188,10 +184,5 @@ class AssetManagerViewModel {
 				deleteSelectedAssetFromCoreData(manageAssetsList[selectedAssetIndex])
 			}
 		}
-	}
-
-	#warning("This is temporary and must be replaced with API data")
-	internal func getPositionAssetsList() {
-		positionAssetsList = []
 	}
 }

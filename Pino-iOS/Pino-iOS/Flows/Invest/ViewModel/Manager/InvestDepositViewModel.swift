@@ -6,12 +6,14 @@
 //
 
 import BigInt
+import Combine
 import Foundation
 
 class InvestDepositViewModel: InvestViewModelProtocol {
 	// MARK: - Private Properties
 
 	private var investmentType: InvestmentType
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 
@@ -30,7 +32,8 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 		"You have an open \(selectedToken.symbol) collateral position in \(selectedProtocol.name), which you need to close before depositing \(selectedToken.symbol) as investment."
 	}
 
-	public var hasOpenPosition: Bool!
+	@Published
+	public var hasOpenPosition: Bool?
 
 	@Published
 	public var yearlyEstimatedReturn: String?
@@ -82,7 +85,9 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 	}
 
 	public func checkBalanceStatus(amount: String) -> AmountStatus {
-		if hasOpenPosition {
+		if hasOpenPosition == nil {
+			return .isZero
+		} else if let hasOpenPosition, hasOpenPosition {
 			return .isZero
 		} else if amount == .emptyString {
 			return .isZero
@@ -104,20 +109,40 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 		selectedToken = tokensList.first(where: { $0.symbol == investableAsset.assetName })!
 		maxAvailableAmount = selectedToken.holdAmount
 
-		#warning("it must be refactored later")
-		if investmentType == .create, selectedToken.holdAmount > 0.bigNumber {
-			hasOpenPosition = true
-		} else {
-			hasOpenPosition = false
+		getTokenPositionID { [self] positionId in
+			let tokenPosition = tokensList.first(where: { $0.id == positionId })!
+			if investmentType == .create, tokenPosition.holdAmount > 0.bigNumber {
+				hasOpenPosition = true
+			} else {
+				hasOpenPosition = false
+			}
 		}
 	}
 
 	private func getYearlyEstimatedReturn(amountInDollar: BigNumber?) {
-		if let selectedInvestableAsset, let amountInDollar, !hasOpenPosition {
+		if let selectedInvestableAsset, let amountInDollar, let hasOpenPosition, !hasOpenPosition {
 			let yearlyReturnBigNumber = amountInDollar * selectedInvestableAsset.APYAmount / 100.bigNumber
 			yearlyEstimatedReturn = yearlyReturnBigNumber?.priceFormat
 		} else {
 			yearlyEstimatedReturn = nil
 		}
+	}
+
+	private func getTokenPositionID(completion: @escaping (String) -> Void) {
+		let w3APIClient = Web3APIClient()
+		w3APIClient.getTokenPositionID(
+			tokenAdd: selectedToken.id.lowercased(),
+			positionType: .investment,
+			protocolName: selectedProtocol.rawValue
+		).sink { completed in
+			switch completed {
+			case .finished:
+				print("Position id received successfully")
+			case let .failure(error):
+				print("Error getting position id:\(error)")
+			}
+		} receiveValue: { tokenPositionModel in
+			completion(tokenPositionModel.positionID.lowercased())
+		}.store(in: &cancellables)
 	}
 }

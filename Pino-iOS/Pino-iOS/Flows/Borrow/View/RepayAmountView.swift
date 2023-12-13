@@ -149,10 +149,6 @@ class RepayAmountView: UIView {
 		amountLabel.lineBreakMode = .byCharWrapping
 
 		repayAmountHealthScore.isHiddenInStackView = true
-
-		#warning("this values are temporary and should be deleted")
-		repayAmountHealthScore.prevHealthScore = repayAmountVM.prevHealthScore
-		repayAmountHealthScore.newHealthScore = repayAmountVM.newHealthScore
 	}
 
 	private func setupConstraints() {
@@ -210,11 +206,17 @@ class RepayAmountView: UIView {
 			repayAmountVM.calculateDollarAmount(amountText)
 			updateAmount(enteredAmount: amountText)
 			animateAmountHealthScoreView(isHidden: false)
+			updateHealthScores()
 		} else {
 			repayAmountVM.calculateDollarAmount(.emptyString)
 			updateAmount(enteredAmount: .emptyString)
 			animateAmountHealthScoreView(isHidden: true)
 		}
+	}
+
+	private func updateHealthScores() {
+		repayAmountHealthScore.prevHealthScore = repayAmountVM.prevHealthScore
+		repayAmountHealthScore.newHealthScore = repayAmountVM.newHealthScore
 	}
 
 	private func updateAmount(enteredAmount: String) {
@@ -256,7 +258,6 @@ class RepayAmountView: UIView {
 	@objc
 	private func putMaxAmountInTextField() {
 		amountTextfield.text = repayAmountVM.maxHoldAmount.plainSevenDigitFormat
-		amountLabel.text = repayAmountVM.dollarAmount
 		animateAmountHealthScoreView(isHidden: false)
 
 		if repayAmountVM.selectedToken.isEth {
@@ -269,6 +270,8 @@ class RepayAmountView: UIView {
 
 		maxAmountLabel.text = repayAmountVM.formattedMaxHoldAmount
 		updateAmount(enteredAmount: amountTextfield.text!.trimmCurrency)
+		repayAmountVM.calculateDollarAmount(amountTextfield.text!)
+		updateHealthScores()
 	}
 
 	@objc

@@ -162,10 +162,6 @@ class CollateralIncreaseAmountView: UIView {
 		errorTextLabel.numberOfLines = 0
 
 		collateralIncreaseAmountHealthScore.isHiddenInStackView = true
-
-		#warning("this values are temporary and should be deleted")
-		collateralIncreaseAmountHealthScore.prevHealthScore = collateralIncreaseAmountVM.prevHealthScore
-		collateralIncreaseAmountHealthScore.newHealthScore = collateralIncreaseAmountVM.newHealthScore
 	}
 
 	private func setupConstraints() {
@@ -235,6 +231,7 @@ class CollateralIncreaseAmountView: UIView {
 			collateralIncreaseAmountVM.calculateDollarAmount(amountText)
 			updateAmountStatus(enteredAmount: amountText)
 			animateAmountHealthScoreView(isHidden: false)
+			updateHealthScores()
 		} else {
 			collateralIncreaseAmountVM.calculateDollarAmount(.emptyString)
 			updateAmountStatus(enteredAmount: .emptyString)
@@ -255,6 +252,11 @@ class CollateralIncreaseAmountView: UIView {
 		collateralIncreaseAmountVM.$collateralPageStatus.sink { collateralPageStatus in
 			self.updateViewWithStatus(collateralPageStatus: collateralPageStatus)
 		}.store(in: &cancellables)
+	}
+
+	private func updateHealthScores() {
+		collateralIncreaseAmountHealthScore.prevHealthScore = collateralIncreaseAmountVM.prevHealthScore
+		collateralIncreaseAmountHealthScore.newHealthScore = collateralIncreaseAmountVM.newHealthScore
 	}
 
 	private func updateViewWithStatus(collateralPageStatus: CollateralPageStatus) {
@@ -314,7 +316,6 @@ class CollateralIncreaseAmountView: UIView {
 			return
 		}
 		amountTextfield.text = maxHoldAmount.plainSevenDigitFormat
-		amountLabel.text = collateralIncreaseAmountVM.dollarAmount
 		animateAmountHealthScoreView(isHidden: false)
 
 		if collateralIncreaseAmountVM.selectedToken.isEth {
@@ -328,6 +329,8 @@ class CollateralIncreaseAmountView: UIView {
 
 		maxAmountLabel.text = collateralIncreaseAmountVM.formattedMaxHoldAmount
 		updateAmountStatus(enteredAmount: amountTextfield.text!.trimmCurrency)
+		collateralIncreaseAmountVM.calculateDollarAmount(amountTextfield.text!)
+		updateHealthScores()
 	}
 
 	@objc

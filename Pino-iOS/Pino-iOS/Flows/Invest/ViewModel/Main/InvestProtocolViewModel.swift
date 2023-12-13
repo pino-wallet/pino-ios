@@ -53,7 +53,6 @@ public enum InvestProtocolViewModel: String, DexSystemModelProtocol {
 	}
 
 	public var version: String {
-		#warning("mohadese please fill this ")
 		switch self {
 		case .compound:
 			return "V2"

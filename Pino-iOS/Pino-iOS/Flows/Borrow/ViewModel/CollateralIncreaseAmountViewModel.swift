@@ -23,7 +23,6 @@ class CollateralIncreaseAmountViewModel {
 	public let loadingButtonTitle = "Please wait"
 	public let maxTitle = "Max: "
 	public var textFieldPlaceHolder = "0"
-	private let feeTxErrorText = "Failed to estimate fee of transaction"
 
 	public let selectedToken: AssetViewModel
 	public let borrowVM: BorrowViewModel
@@ -58,16 +57,20 @@ class CollateralIncreaseAmountViewModel {
 		"You have an open \(selectedToken.symbol) investment position in \(borrowVM.selectedDexSystem.name), which you need to close before depositing \(selectedToken.symbol) as collateral."
 	}
 
-	#warning("this is mock")
-	public var prevHealthScore: Double = 0
-	public var newHealthScore: Double = 24
+	public var prevHealthScore: BigNumber {
+		calculateCurrentHealthScore()
+	}
+
+	public var newHealthScore: BigNumber = 0.bigNumber
 
 	// MARK: - Private Properties
 
+	private let feeTxErrorText = "Failed to estimate fee of transaction"
 	private let web3 = Web3Core.shared
 	private let defaultTokenAmount = "1"
 	private let walletManager = PinoWalletManager()
 	private let borrowingAPIClient = BorrowingAPIClient()
+	private let borrowingHelper = BorrowingHelper()
 	private var requestTimer: Timer?
 	private var cancellables = Set<AnyCancellable>()
 
@@ -80,7 +83,15 @@ class CollateralIncreaseAmountViewModel {
 		)
 	}()
 
-	#warning("i should add compoundCollateralManager here")
+	private lazy var compoundDepositManager: CompoundDepositManager = {
+		let pinoCompoundProxyContract = try! web3.getCompoundProxyContract()
+		return CompoundDepositManager(
+			contract: pinoCompoundProxyContract,
+			selectedToken: selectedToken,
+			investAmount: tokenAmount,
+			type: .collateral
+		)
+	}()
 
 	// MARK: - Initializers
 
@@ -92,16 +103,28 @@ class CollateralIncreaseAmountViewModel {
 
 	// MARK: - Private Methods
 
+	private func calculateCurrentHealthScore() -> BigNumber {
+		borrowingHelper.calculateHealthScore(
+			totalBorrowedAmount: borrowVM.totalBorrowAmountInDollars,
+			totalBorrowableAmountForHealthScore: borrowVM.totalCollateralAmountsInDollar
+				.totalBorrowableAmountForHealthScore
+		)
+	}
+
+	private func calculateNewHealthScore(dollarAmount: BigNumber) -> BigNumber {
+		let tokenLQ = borrowVM.getCollateralizableTokenLQ(tokenID: selectedToken.id)
+		let totalBorrowableAmountForHealthScore = borrowVM.totalCollateralAmountsInDollar
+			.totalBorrowableAmountForHealthScore + (dollarAmount / tokenLQ)!
+		return borrowingHelper.calculateHealthScore(
+			totalBorrowedAmount: borrowVM.totalBorrowAmountInDollars,
+			totalBorrowableAmountForHealthScore: totalBorrowableAmountForHealthScore
+		)
+	}
+
 	private func calculateAaveCollateralETHMaxAmount() {
 		aaveCollateralManager.getETHCollateralData().done { collateralData in
 			let collateralFee = collateralData.1.fee
-			let maxHoldAmountBigNumber = self.selectedToken.holdAmount - collateralFee!
-			if maxHoldAmountBigNumber.number.sign == .minus {
-				self.maxHoldAmount = 0.bigNumber
-			} else {
-				self.maxHoldAmount = maxHoldAmountBigNumber
-			}
-			self.checkAmountStatus(amount: self.tokenAmount)
+			self.calculateMaxHoldAmountWithCollaterallFee(collateralFee: collateralFee!)
 		}.catch { error in
 			self.collateralPageStatus = .loading
 			Toast.default(
@@ -113,7 +136,46 @@ class CollateralIncreaseAmountViewModel {
 		}
 	}
 
-	#warning("i should create setCompoundCollateralETHMaxAmount too")
+	private func calculateCompoundCollateralETHMaxAmount() {
+		switch collateralMode {
+		case .increase:
+			compoundDepositManager.getIncreaseDepositInfo().done { collateralGasInfos in
+				let collateralFee = collateralGasInfos.map { $0.fee! }.reduce(0.bigNumber, +)
+				self.calculateMaxHoldAmountWithCollaterallFee(collateralFee: collateralFee)
+			}.catch { error in
+				self.collateralPageStatus = .loading
+				Toast.default(
+					title: self.feeTxErrorText,
+					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+					style: .error
+				)
+				.show(haptic: .warning)
+			}
+		case .create:
+			compoundDepositManager.getDepositInfo().done { collateralGasInfos in
+				let collateralFee = collateralGasInfos.map { $0.fee! }.reduce(0.bigNumber, +)
+				self.calculateMaxHoldAmountWithCollaterallFee(collateralFee: collateralFee)
+			}.catch { error in
+				self.collateralPageStatus = .loading
+				Toast.default(
+					title: self.feeTxErrorText,
+					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+					style: .error
+				)
+				.show(haptic: .warning)
+			}
+		}
+	}
+
+	private func calculateMaxHoldAmountWithCollaterallFee(collateralFee: BigNumber) {
+		let maxHoldAmountBigNumber = selectedToken.holdAmount - collateralFee
+		if maxHoldAmountBigNumber.number.sign == .minus {
+			maxHoldAmount = 0.bigNumber
+		} else {
+			maxHoldAmount = maxHoldAmountBigNumber
+		}
+		checkAmountStatus(amount: tokenAmount)
+	}
 
 	private func checkForOpenPositionToken() -> Promise<Bool> {
 		Promise<Bool> { seal in
@@ -169,7 +231,21 @@ class CollateralIncreaseAmountViewModel {
 	}
 
 	private func calculateETHFeeCompound() {
-		#warning("i should add it later")
+		switch collateralMode {
+		case .increase:
+			calculateCompoundCollateralETHMaxAmount()
+		case .create:
+			checkForOpenPositionToken().done { isOpenPosition in
+				if isOpenPosition {
+					self.collateralPageStatus = .openPositionError
+					self.destroyRequestTimer()
+				} else {
+					self.calculateCompoundCollateralETHMaxAmount()
+				}
+			}.catch { error in
+				print(error)
+			}
+		}
 	}
 
 	private func setMaxHoldAmount() {
@@ -235,8 +311,10 @@ class CollateralIncreaseAmountViewModel {
 				number: decimalBigNum.number * price.number,
 				decimal: decimalBigNum.decimal + 6
 			)
+			newHealthScore = calculateNewHealthScore(dollarAmount: amountInDollarDecimalValue)
 			dollarAmount = amountInDollarDecimalValue.priceFormat
 		} else {
+			newHealthScore = calculateCurrentHealthScore()
 			dollarAmount = .emptyString
 		}
 		tokenAmount = amount

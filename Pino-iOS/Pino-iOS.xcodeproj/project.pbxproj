@@ -293,6 +293,7 @@
 		D9176F132AA46DD2007D4DBC /* CollateralConfirmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9176F122AA46DD2007D4DBC /* CollateralConfirmViewModel.swift */; };
 		D9176F152AA46E16007D4DBC /* CollateralConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9176F142AA46E16007D4DBC /* CollateralConfirmView.swift */; };
 		D9176F172AA46E68007D4DBC /* CollateralConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9176F162AA46E68007D4DBC /* CollateralConfirmViewController.swift */; };
+		D919176C2B1F063E00B0E892 /* BorrowingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D919176B2B1F063E00B0E892 /* BorrowingHelper.swift */; };
 		D919E7542A18FE31003C73D7 /* AccountHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D919E7532A18FE31003C73D7 /* AccountHeaderViewModel.swift */; };
 		D91A39FD29E40EA400004CB2 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A39FC29E40EA400004CB2 /* NotificationSettingsViewController.swift */; };
 		D91A39FF29E40F8900004CB2 /* NotificationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A39FE29E40F8900004CB2 /* NotificationSettingsViewModel.swift */; };
@@ -1132,6 +1133,7 @@
 		D9176F122AA46DD2007D4DBC /* CollateralConfirmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralConfirmViewModel.swift; sourceTree = "<group>"; };
 		D9176F142AA46E16007D4DBC /* CollateralConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralConfirmView.swift; sourceTree = "<group>"; };
 		D9176F162AA46E68007D4DBC /* CollateralConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralConfirmViewController.swift; sourceTree = "<group>"; };
+		D919176B2B1F063E00B0E892 /* BorrowingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingHelper.swift; sourceTree = "<group>"; };
 		D919E7532A18FE31003C73D7 /* AccountHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHeaderViewModel.swift; sourceTree = "<group>"; };
 		D91A39FC29E40EA400004CB2 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		D91A39FE29E40F8900004CB2 /* NotificationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewModel.swift; sourceTree = "<group>"; };
@@ -1761,6 +1763,7 @@
 		08F6C5346D722CF16AB89790 /* Borrow */ = {
 			isa = PBXGroup;
 			children = (
+				D919176A2B1F062800B0E892 /* Helpers */,
 				D9A0BDB22A9753CA00AE132F /* Model */,
 				4037DCCA2A8BD58A00FCA96B /* ViewModel */,
 				4037DCC92A8BD57F00FCA96B /* ViewController */,
@@ -2937,6 +2940,14 @@
 				9EA3E5DF9FE696BD1307327F /* AccountInfoViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D919176A2B1F062800B0E892 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D919176B2B1F063E00B0E892 /* BorrowingHelper.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		D920B0072A9E073B00A1DBD6 /* UserAccountInfoView */ = {
@@ -4913,6 +4924,7 @@
 				D97F0B9A2A94912B0083DA81 /* SelectDexSystemView.swift in Sources */,
 				D916A8C42A9F5FEB00F391B5 /* RepayAmountView.swift in Sources */,
 				E3FC69BF2A8C9B3E009B3341 /* InvestmentBoardViewController.swift in Sources */,
+				D919176C2B1F063E00B0E892 /* BorrowingHelper.swift in Sources */,
 				D97F0B952A9490450083DA81 /* DexSystemCell.swift in Sources */,
 				D916A8BE2A9F44DD00F391B5 /* BorrowIncreaseAmountView.swift in Sources */,
 				D9D991AB2AB70DA900E943B0 /* BorrowableTokensModel.swift in Sources */,
