@@ -13,7 +13,7 @@ class BorrowConfirmViewModel {
 	// MARK: - TypeAliases
 
 	typealias FeeInfoType = (feeInDollars: String, feeInETH: String, bigNumberFee: BigNumber)
-	typealias ConfirmBorrowClosureType = (EthereumSignedTransaction) -> Void
+	typealias ConfirmBorrowClosureType = ([SendTransactionViewModel]) -> Void
 
 	// MARK: - Closures
 
@@ -89,6 +89,15 @@ class BorrowConfirmViewModel {
 		)
 	}()
 
+	private lazy var compoundBorrowManager: CompoundBorrowManager = {
+		let pinoCompoundProxyContract = try! web3.getCompoundProxyContract()
+		return CompoundBorrowManager(
+			contract: pinoCompoundProxyContract,
+			asset: selectedToken,
+			assetAmount: borrowIncreaseAmountVM.tokenAmount
+		)
+	}()
+
 	// MARK: - Initializers
 
 	init(borrowIncreaseAmountVM: BorrowIncreaseAmountViewModel) {
@@ -107,7 +116,7 @@ class BorrowConfirmViewModel {
 
 	// MARK: - Public Methods
 
-	public func createBorrowPendingActivity(txHash: String) {
+	public func createBorrowPendingActivity(txHash: String, gasInfo: GasInfo) {
 		coreDataManager.addNewBorrowActivity(
 			activityModel: ActivityBorrowModel(
 				txHash: txHash,
@@ -124,8 +133,8 @@ class BorrowConfirmViewModel {
 				fromAddress: "",
 				toAddress: "",
 				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
-				gasUsed: aaveBorrowManager.borrowGasInfo!.increasedGasLimit!.description,
-				gasPrice: aaveBorrowManager.borrowGasInfo!.maxFeePerGas.description
+				gasUsed: gasInfo.increasedGasLimit!.description,
+				gasPrice: gasInfo.maxFeePerGas.description
 			),
 			accountAddress: walletManager.currentAccount.eip55Address
 		)
@@ -135,8 +144,8 @@ class BorrowConfirmViewModel {
 	public func getBorrowGasInfo() {
 		switch borrowIncreaseAmountVM.borrowVM.selectedDexSystem {
 		case .aave:
-			aaveBorrowManager.getERC20BorrowData().done { _, depositGasInfo in
-				self.setFeeInfoByDepositGasInfo(depositGasInfo: depositGasInfo)
+			aaveBorrowManager.getERC20BorrowData().done { _, borrowGasInfo in
+				self.setFeeInfoByDepositGasInfo(depositGasInfo: borrowGasInfo)
 			}.catch { _ in
 				Toast.default(
 					title: self.feeTxErrorText,
@@ -146,7 +155,16 @@ class BorrowConfirmViewModel {
 				.show(haptic: .warning)
 			}
 		case .compound:
-			#warning("i should add compound collateral manager first to complete this section")
+			compoundBorrowManager.getBorrowData().done { _, borrowGasInfo in
+				self.setFeeInfoByDepositGasInfo(depositGasInfo: borrowGasInfo)
+			}.catch { _ in
+				Toast.default(
+					title: self.feeTxErrorText,
+					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+					style: .error
+				)
+				.show(haptic: .warning)
+			}
 		default:
 			print("Unknown selected dex system !")
 		}
@@ -158,10 +176,24 @@ class BorrowConfirmViewModel {
 			guard let borrowTRX = aaveBorrowManager.borrowTRX else {
 				return
 			}
-			confirmBorrowClosure(borrowTRX)
+			let borrowTransaction = SendTransactionViewModel(
+				transaction: borrowTRX,
+				addPendingActivityClosure: { txHash in
+					self.createBorrowPendingActivity(txHash: txHash, gasInfo: self.aaveBorrowManager.borrowGasInfo!)
+				}
+			)
+			confirmBorrowClosure([borrowTransaction])
 		case .compound:
-			#warning("i should add compound collateral manager first to complete this section")
-			return
+			guard let borrowTRX = compoundBorrowManager.borrowTRX else {
+				return
+			}
+			let borrowTransaction = SendTransactionViewModel(
+				transaction: borrowTRX,
+				addPendingActivityClosure: { txHash in
+					self.createBorrowPendingActivity(txHash: txHash, gasInfo: self.compoundBorrowManager.borrowGasInfo!)
+				}
+			)
+			confirmBorrowClosure([borrowTransaction])
 		default:
 			print("Unknown selected dex system !")
 		}

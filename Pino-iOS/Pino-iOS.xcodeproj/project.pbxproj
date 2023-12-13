@@ -389,6 +389,7 @@
 		D98355D52A9A1BC800294DCF /* BorrowLoanDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98355D42A9A1BC800294DCF /* BorrowLoanDetailsViewModel.swift */; };
 		D98355D72A9A1D4000294DCF /* BorrowLoanDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98355D62A9A1D4000294DCF /* BorrowLoanDetailsView.swift */; };
 		D98355D92A9A1FD400294DCF /* BorrowLoanDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98355D82A9A1FD400294DCF /* BorrowLoanDetailsViewController.swift */; };
+		D985F7142B2846A000E4E90D /* CompoundBorrowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D985F7132B2846A000E4E90D /* CompoundBorrowManager.swift */; };
 		D986BC2E2B0B5D9000DCE03C /* SendTransactionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986BC2D2B0B5D9000DCE03C /* SendTransactionStatusView.swift */; };
 		D986BC302B0B5E0100DCE03C /* SendTransactionStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986BC2F2B0B5E0100DCE03C /* SendTransactionStatusViewModel.swift */; };
 		D986BC332B0B669600DCE03C /* SendTransactionStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986BC322B0B669600DCE03C /* SendTransactionStatusViewController.swift */; };
@@ -1226,6 +1227,7 @@
 		D98355D42A9A1BC800294DCF /* BorrowLoanDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowLoanDetailsViewModel.swift; sourceTree = "<group>"; };
 		D98355D62A9A1D4000294DCF /* BorrowLoanDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowLoanDetailsView.swift; sourceTree = "<group>"; };
 		D98355D82A9A1FD400294DCF /* BorrowLoanDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowLoanDetailsViewController.swift; sourceTree = "<group>"; };
+		D985F7132B2846A000E4E90D /* CompoundBorrowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundBorrowManager.swift; sourceTree = "<group>"; };
 		D986BC2D2B0B5D9000DCE03C /* SendTransactionStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendTransactionStatusView.swift; sourceTree = "<group>"; };
 		D986BC2F2B0B5E0100DCE03C /* SendTransactionStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendTransactionStatusViewModel.swift; sourceTree = "<group>"; };
 		D986BC322B0B669600DCE03C /* SendTransactionStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendTransactionStatusViewController.swift; sourceTree = "<group>"; };
@@ -2124,6 +2126,7 @@
 				D9F927AB2B1213D800147013 /* AaveWithdrawManager.swift */,
 				D9E27FEF2B1B502B00AFA7D0 /* AaveBorrowManager.swift */,
 				D9EBBF9E2B1CB6030005B1D6 /* AaveRepayManager.swift */,
+				D985F7132B2846A000E4E90D /* CompoundBorrowManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -5031,6 +5034,7 @@
 				CC788E5AD6EC8CE9488DA049 /* IntroViewController.swift in Sources */,
 				2551C3796076DA146C40F1AC /* IntroViewModel.swift in Sources */,
 				E3FC69AA2A8A107E009B3341 /* InvestmentShareOfAssetsViewModel.swift in Sources */,
+				D985F7142B2846A000E4E90D /* CompoundBorrowManager.swift in Sources */,
 				E3FC69EE2A924FDA009B3341 /* InvestFilterDelegate.swift in Sources */,
 				E3847B492A542A76005ED78B /* SwapFeeViewModel.swift in Sources */,
 				E3FC69DD2A910F0F009B3341 /* InvestmentBoardDataSource.swift in Sources */,

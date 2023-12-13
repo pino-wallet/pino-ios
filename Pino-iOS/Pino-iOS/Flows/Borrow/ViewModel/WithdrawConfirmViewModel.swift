@@ -15,7 +15,7 @@ class WithdrawConfirmViewModel {
 	// MARK: - TypeAliases
 
 	typealias FeeInfoType = (feeInDollars: String, feeInETH: String, bigNumberFee: BigNumber)
-	typealias ConfirmWithdrawClosureType = (EthereumSignedTransaction) -> Void
+	typealias ConfirmWithdrawClosureType = ([SendTransactionViewModel]) -> Void
 
 	// MARK: - Closures
 
@@ -124,7 +124,7 @@ class WithdrawConfirmViewModel {
 
 	// MARK: - Public Methods
 
-	public func createWithdrawPendingActivity(txHash: String) {
+	public func createWithdrawPendingActivity(txHash: String, gasInfo: GasInfo) {
 		var activityType: String {
 			switch withdrawMode {
 			case .decrease:
@@ -133,18 +133,7 @@ class WithdrawConfirmViewModel {
 				return "remove_collateral"
 			}
 		}
-		var gasUsed: String
-		var gasPrice: String
-		switch withdrawAmountVM.borrowVM.selectedDexSystem {
-		case .aave:
-			gasUsed = aaveWithdrawManager.withdrawGasInfo!.increasedGasLimit!.description
-			gasPrice = aaveWithdrawManager.withdrawGasInfo!.maxFeePerGas.description
-		case .compound:
-			gasUsed = compoundWithdrawManager.withdrawGasInfo!.increasedGasLimit!.description
-			gasPrice = compoundWithdrawManager.withdrawGasInfo!.maxFeePerGas.description
-		default:
-			fatalError("Unknown selected dex system !")
-		}
+
 		coreDataManager.addNewCollateralActivity(
 			activityModel: ActivityCollateralModel(
 				txHash: txHash,
@@ -160,8 +149,8 @@ class WithdrawConfirmViewModel {
 				fromAddress: "",
 				toAddress: "",
 				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
-				gasUsed: gasUsed,
-				gasPrice: gasPrice
+				gasUsed: gasInfo.increasedGasLimit!.description,
+				gasPrice: gasInfo.maxFeePerGas.description
 			),
 			accountAddress: walletManager.currentAccount.eip55Address
 		)
@@ -216,12 +205,27 @@ class WithdrawConfirmViewModel {
 			guard let withdrawTRX = aaveWithdrawManager.withdrawTRX else {
 				return
 			}
-			confirmWithdrawClosure(withdrawTRX)
+			let withdrawTransaction = SendTransactionViewModel(
+				transaction: withdrawTRX,
+				addPendingActivityClosure: { txHash in
+					self.createWithdrawPendingActivity(txHash: txHash, gasInfo: self.aaveWithdrawManager.withdrawGasInfo!)
+				}
+			)
+			confirmWithdrawClosure([withdrawTransaction])
 		case .compound:
 			guard let withdrawTRX = compoundWithdrawManager.withdrawTrx else {
 				return
 			}
-			confirmWithdrawClosure(withdrawTRX)
+			let withdrawTransaction = SendTransactionViewModel(
+				transaction: withdrawTRX,
+				addPendingActivityClosure: { txHash in
+					self.createWithdrawPendingActivity(
+						txHash: txHash,
+						gasInfo: self.compoundWithdrawManager.withdrawGasInfo!
+					)
+				}
+			)
+			confirmWithdrawClosure([withdrawTransaction])
 		default:
 			print("Unknown selected dex system !")
 		}
