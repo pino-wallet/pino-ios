@@ -18,7 +18,7 @@ public class IntroAnimationCollectionViewCell: UICollectionViewCell {
 	// MARK: Public Properties
 
 	public static let cellReuseID = "introAnimationCell"
-	public var introModel: IntroModel! {
+	public var introTitleModel: String! {
 		didSet {
 			setupView()
 			setupStyle()
@@ -38,7 +38,7 @@ extension IntroAnimationCollectionViewCell {
 	}
 
 	private func setupStyle() {
-		introTitle.text = introModel.title
+		introTitle.text = introTitleModel
 		introTitle.numberOfLines = 2
 		introTitle.textAlignment = .center
 

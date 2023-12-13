@@ -18,7 +18,6 @@ class SignImportWalletSheet: UIAlertController {
 	private let descLabel = PinoLabel(style: .description, text: nil)
 	private var titleText: String!
 	private var descriptionText: String!
-
 	private let actionButton = PinoButton(style: .active)
 
 	// MARK: - Public Properties

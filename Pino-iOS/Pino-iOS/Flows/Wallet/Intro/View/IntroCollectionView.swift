@@ -75,7 +75,7 @@ extension IntroCollectionView: UICollectionViewDataSource {
 				withReuseIdentifier: IntroAnimationCollectionViewCell.cellReuseID,
 				for: indexPath
 			) as! IntroAnimationCollectionViewCell
-			introAnimationCell.introModel = introContents[index]
+			introAnimationCell.introTitleModel = introContents[index].title
 			return introAnimationCell
 		} else {
 			let introCell = collectionView.dequeueReusableCell(
@@ -112,7 +112,7 @@ extension IntroCollectionView: UICollectionViewDelegateFlowLayout {
 		if indexPath.row == 0 {
 			CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
 		} else {
-			CGSize(width: collectionView.frame.width, height: 480)
+			CGSize(width: collectionView.frame.width - 10, height: 480)
 		}
 	}
 
@@ -122,13 +122,5 @@ extension IntroCollectionView: UICollectionViewDelegateFlowLayout {
 		minimumLineSpacingForSectionAt section: Int
 	) -> CGFloat {
 		0
-	}
-
-	func collectionView(
-		_ collectionView: UICollectionView,
-		layout collectionViewLayout: UICollectionViewLayout,
-		insetForSectionAt section: Int
-	) -> UIEdgeInsets {
-		UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 	}
 }
