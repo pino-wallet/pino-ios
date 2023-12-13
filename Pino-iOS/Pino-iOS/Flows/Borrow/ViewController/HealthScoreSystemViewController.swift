@@ -182,7 +182,7 @@ class HealthScoreSystemViewController: UIAlertController {
 
 		containerView.pin(.allEdges(padding: 0))
 		mainStackView.pin(.verticalEdges(padding: 32), .horizontalEdges(padding: 16))
-		healthScoreContainerView.pin(.fixedHeight(75))
+		healthScoreContainerView.pin(.fixedHeight(60))
 		healthScoreGradientView.pin(.fixedHeight(8))
 		healthScoreGradientStackView.pin(.horizontalEdges(padding: 0), .bottom(padding: 0))
 		currentHealthScoreView.pin(
