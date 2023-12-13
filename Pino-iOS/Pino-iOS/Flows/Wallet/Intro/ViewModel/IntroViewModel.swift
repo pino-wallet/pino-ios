@@ -24,19 +24,24 @@ struct IntroViewModel {
 	private mutating func setupIntroContentList() {
 		contentList = [
 			IntroModel(
-				image: "",
-				title: "DeFi Hub",
-				description: "Invest, borrow, and swap from top DeFi protocols smoothly."
+				image: "intro-exp",
+				title: "A Gateway to DeFi Efficiency",
+				description: "Interact with top DeFi protocols through app-native, intuitive interfaces."
 			),
 			IntroModel(
-				image: "",
-				title: "DeFi Hub",
-				description: "Invest, borrow, and swap from top DeFi protocols smoothly."
+				image: "intro-exp",
+				title: "Unified experience",
+				description: "Interact with top DeFi protocols through app-native, intuitive interfaces."
 			),
 			IntroModel(
-				image: "",
-				title: "DeFi Hub",
-				description: "Invest, borrow, and swap from top DeFi protocols smoothly."
+				image: "intro-metrics",
+				title: "Insightful metrics",
+				description: "Gain a realistic view of your profitability by tracking specialized metrics."
+			),
+			IntroModel(
+				image: "intro-security",
+				title: "Reinforced security",
+				description: "Secure your interactions with Permit 2 and biometric authentication."
 			),
 		]
 	}

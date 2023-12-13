@@ -438,7 +438,7 @@ class SwapManager: Web3ManagerProtocol {
 		coreDataManager.addNewSwapActivity(
 			activityModel: .init(
 				txHash: trxHash,
-				type: "swap",
+				type: ActivityType.swap.rawValue,
 				detail: .init(
 					fromToken: .init(
 						amount: swapAmountBigNum.description,

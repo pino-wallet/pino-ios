@@ -86,8 +86,8 @@ extension IntroView {
 	private func setupContstraint() {
 		introCollectionView.pin(
 			.width(to: self),
-			.relative(.bottom, 88, to: self, .centerY),
-			.top(to: layoutMarginsGuide, padding: 26),
+			.relative(.bottom, -16, to: pageControl, .top),
+			.top(to: layoutMarginsGuide),
 			.centerX
 		)
 		signinStackView.pin(

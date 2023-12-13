@@ -558,6 +558,9 @@
 		DF1D90E52A973ACC00435D85 /* ApprovingLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1D90E42A973ACC00435D85 /* ApprovingLoadingViewController.swift */; };
 		DF1D90E72A973AFA00435D85 /* ApprovingLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1D90E62A973AFA00435D85 /* ApprovingLoadingView.swift */; };
 		DF4C23142AC33D000014DC89 /* W3CallDataGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4C23132AC33D000014DC89 /* W3CallDataGenerator.swift */; };
+		DF62CEC12B2709FC00AA6D41 /* SignImportWalletSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF62CEC02B2709FC00AA6D41 /* SignImportWalletSheet.swift */; };
+		DF62CEC32B272F2C00AA6D41 /* IntroAnimationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF62CEC22B272F2C00AA6D41 /* IntroAnimationCollectionViewCell.swift */; };
+		DF62CEC52B282BB000AA6D41 /* IntroAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = DF62CEC42B282BB000AA6D41 /* IntroAnimation.json */; };
 		DF6DEDC92AA8C1310080B47B /* Web3APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDC82AA8C1310080B47B /* Web3APIClient.swift */; };
 		DF6DEDCB2AA8C13F0080B47B /* Web3Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDCA2AA8C13F0080B47B /* Web3Endpoint.swift */; };
 		DF6DEDCD2AA8C1890080B47B /* Web3APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDCC2AA8C1890080B47B /* Web3APIService.swift */; };
@@ -1378,6 +1381,9 @@
 		DF1D90E42A973ACC00435D85 /* ApprovingLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovingLoadingViewController.swift; sourceTree = "<group>"; };
 		DF1D90E62A973AFA00435D85 /* ApprovingLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovingLoadingView.swift; sourceTree = "<group>"; };
 		DF4C23132AC33D000014DC89 /* W3CallDataGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3CallDataGenerator.swift; sourceTree = "<group>"; };
+		DF62CEC02B2709FC00AA6D41 /* SignImportWalletSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignImportWalletSheet.swift; sourceTree = "<group>"; };
+		DF62CEC22B272F2C00AA6D41 /* IntroAnimationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAnimationCollectionViewCell.swift; sourceTree = "<group>"; };
+		DF62CEC42B282BB000AA6D41 /* IntroAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = IntroAnimation.json; sourceTree = "<group>"; };
 		DF6DEDC82AA8C1310080B47B /* Web3APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3APIClient.swift; sourceTree = "<group>"; };
 		DF6DEDCA2AA8C13F0080B47B /* Web3Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3Endpoint.swift; sourceTree = "<group>"; };
 		DF6DEDCC2AA8C1890080B47B /* Web3APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3APIService.swift; sourceTree = "<group>"; };
@@ -2275,6 +2281,7 @@
 				E3ABD2012AB1BAAB00947D37 /* ImportAccountsHeaderView.swift */,
 				E3ABD2032AB1C22200947D37 /* ImportAccountsFooterView.swift */,
 				E3ABD2052AB594B900947D37 /* ImportAccountLoadingView.swift */,
+				DF62CEC02B2709FC00AA6D41 /* SignImportWalletSheet.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2414,6 +2421,7 @@
 				794AA4C69F21813E48C811E4 /* IntroCollectionView.swift */,
 				35DD3D417678658C9A87E94E /* IntroCollectionViewCell.swift */,
 				6607F3D23F306FA733008E8D /* IntroView.swift */,
+				DF62CEC22B272F2C00AA6D41 /* IntroAnimationCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3673,6 +3681,7 @@
 		DFB60DA22B1B3F8300464143 /* LottieFiles */ = {
 			isa = PBXGroup;
 			children = (
+				DF62CEC42B282BB000AA6D41 /* IntroAnimation.json */,
 				DFB60DA62B1B3F9D00464143 /* BorrowLoansMadeEasy.json */,
 				DFB60DA32B1B3F9D00464143 /* BorrowEnsureLoanSafety.json */,
 				DFB60DA52B1B3F9D00464143 /* InvestEasyProfitTracking.json */,
@@ -4491,6 +4500,7 @@
 				02DF93FE57661E220F5EFAAA /* PPPangramSans-LightReclined.ttf in Resources */,
 				822D161496971BD8810457B7 /* PPPangramSans-Medium.ttf in Resources */,
 				DFB60DAB2B1B3F9D00464143 /* InvestEasyProfitTracking.json in Resources */,
+				DF62CEC52B282BB000AA6D41 /* IntroAnimation.json in Resources */,
 				D5E4DDD52AD9295E000AA235 /* CompoundABIJson.json in Resources */,
 				DF0F65F929E1B29C00DB7290 /* wallet-balance-stub.json in Resources */,
 				9AD896368BEA2DF5FD408FDF /* PPPangramSans-MediumItalic.ttf in Resources */,
@@ -4798,6 +4808,7 @@
 				D16E6EA70136FF5D5C83ED88 /* AssetsAPIMockClient.swift in Sources */,
 				A19CFCA76D9396A5A2612F7E /* AssetsAPIService.swift in Sources */,
 				D9F927AC2B1213D800147013 /* AaveWithdrawManager.swift in Sources */,
+				DF62CEC32B272F2C00AA6D41 /* IntroAnimationCollectionViewCell.swift in Sources */,
 				1B60F4A0467FB90C104F4521 /* AssetsCollectionView.swift in Sources */,
 				D924C3392A94952D007299A4 /* BorrowingDetailsView.swift in Sources */,
 				E3FC69A42A8A0771009B3341 /* InvestmentPerformanceViewModel.swift in Sources */,
@@ -4987,6 +4998,7 @@
 				D9714C8D2AE518AE00FF3AAA /* AaveCollateralManager.swift in Sources */,
 				407E33282AE2A1D9001079B8 /* Web3ManagerProtocol.swift in Sources */,
 				D9AABE112A7D6B410025463E /* ActivityDataSource.swift in Sources */,
+				DF62CEC12B2709FC00AA6D41 /* SignImportWalletSheet.swift in Sources */,
 				D9F284782A94B727001204D4 /* BorrowingTokenCell.swift in Sources */,
 				E35BB6472A595717003987F5 /* SwapProviderCollectionView.swift in Sources */,
 				E3847B3A2A52CC19005ED78B /* SwapTokenViewModel.swift in Sources */,
