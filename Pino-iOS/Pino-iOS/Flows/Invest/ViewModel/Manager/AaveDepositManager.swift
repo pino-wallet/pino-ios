@@ -138,18 +138,6 @@ class AaveDepositManager: Web3ManagerProtocol {
 		}
 	}
 
-	func signHash(plainHash: String) -> Promise<String> {
-		Promise<String> { seal in
-			var signiture = try Sec256k1Encryptor.sign(
-				msg: plainHash.hexToBytes(),
-				seckey: walletManager.currentAccountPrivateKey.string.hexToBytes()
-			)
-			signiture[signiture.count - 1] += 27
-
-			seal.fulfill("0x\(signiture.toHexString())")
-		}
-	}
-
 	private func getAaveDespositV3ERCCallData() -> Promise<String> {
 		web3.getAaveDespositV3ERCCallData(
 			contract: contract,
