@@ -160,8 +160,14 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 	}
 
 	private func getAaveTransactions() -> [SendTransactionViewModel]? {
-		#warning("Implement later")
-		return nil
+		guard let depositTrx = investManager.aaveManager.depositTRX else { return nil }
+		let depositTransaction = SendTransactionViewModel(transaction: depositTrx) { pendingActivityTXHash in
+			self.addPendingActivity(
+				txHash: pendingActivityTXHash,
+				gasInfo: self.investManager.aaveManager.depositGasInfo!
+			)
+		}
+		return [depositTransaction]
 	}
 
 	private func updateFee(gasInfos: [GasInfo]) {

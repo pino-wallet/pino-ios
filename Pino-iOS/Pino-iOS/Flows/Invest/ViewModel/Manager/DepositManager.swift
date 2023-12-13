@@ -25,6 +25,7 @@ class DepositManager: InvestW3ManagerProtocol {
 	// MARK: - Public Properties
 
 	public var compoundManager: CompoundDepositManager
+	public var aaveManager: AaveDepositManager
 	public var depositTrx: EthereumSignedTransaction?
 	public var depositGasInfo: GasInfo?
 	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
@@ -57,6 +58,11 @@ class DepositManager: InvestW3ManagerProtocol {
 			investAmount: investAmount,
 			type: .invest
 		)
+		self.aaveManager = AaveDepositManager(
+			contract: contract,
+			selectedToken: selectedToken,
+			depositAmount: investAmount
+		)
 	}
 
 	// MARK: Public Methods
@@ -70,7 +76,7 @@ class DepositManager: InvestW3ManagerProtocol {
 		case .lido:
 			return getLidoDepositInfo()
 		case .aave:
-			return getAaveDepositInfo()
+			return aaveManager.getDepositInfo()
 		}
 	}
 
@@ -83,7 +89,7 @@ class DepositManager: InvestW3ManagerProtocol {
 		case .lido:
 			return getLidoDepositInfo()
 		case .aave:
-			return getAaveDepositInfo()
+			return aaveManager.getDepositInfo()
 		}
 	}
 
@@ -186,11 +192,6 @@ class DepositManager: InvestW3ManagerProtocol {
 			}.catch { error in
 				print(error.localizedDescription)
 			}
-		}
-	}
-
-	private func getAaveDepositInfo() -> Promise<[GasInfo]> {
-		Promise<[GasInfo]> { seal in
 		}
 	}
 

@@ -29,6 +29,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 	// MARK: - Public Properties
 
 	public let compoundManager: CompoundWithdrawManager
+	public var aaveManager: AaveWithdrawManager!
 	public var withdrawTrx: EthereumSignedTransaction?
 	public var withdrawGasInfo: GasInfo?
 	public typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
@@ -155,7 +156,18 @@ class WithdrawManager: InvestW3ManagerProtocol {
 	}
 
 	private func getAaveWithdrawInfo() -> TrxWithGasInfo {
-		TrxWithGasInfo { seal in
+		firstly {
+			getTokenPositionID()
+		}.then { [self] tokenPositionId in
+			let tokenPosition = GlobalVariables.shared.manageAssetsList!
+				.first(where: { $0.id.lowercased() == tokenPositionId.lowercased() })!
+			aaveManager = AaveWithdrawManager(
+				contract: contract,
+				asset: selectedToken,
+				assetAmount: withdrawAmount,
+				positionAsset: tokenPosition
+			)
+			return aaveManager.getWithdrawInfo()
 		}
 	}
 

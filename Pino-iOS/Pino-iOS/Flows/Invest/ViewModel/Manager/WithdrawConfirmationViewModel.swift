@@ -115,8 +115,11 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 	}
 
 	private func getAaveTransaction() -> [SendTransactionViewModel]? {
-		#warning("Implement later")
-		return nil
+		guard let withdrawTrx = withdrawManager.aaveManager.withdrawTRX else { return nil }
+		let withdrawTransaction = SendTransactionViewModel(transaction: withdrawTrx) { [self] pendingActivityTXHash in
+			addPendingActivity(txHash: pendingActivityTXHash, gasInfo: withdrawManager.aaveManager.withdrawGasInfo!)
+		}
+		return [withdrawTransaction]
 	}
 
 	private func addPendingActivity(txHash: String, gasInfo: GasInfo) {

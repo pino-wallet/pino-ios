@@ -124,6 +124,14 @@ class AaveWithdrawManager: Web3ManagerProtocol {
 
 	// MARK: - Public Methods
 
+	public func getWithdrawInfo() -> TrxWithGasInfo {
+		if asset.isEth {
+			return getETHWithdrawData()
+		} else {
+			return getERC20WithdrawData()
+		}
+	}
+
 	public func getERC20WithdrawData() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			firstly {
@@ -177,40 +185,40 @@ class AaveWithdrawManager: Web3ManagerProtocol {
 	}
 
 	#warning("maybe we use it later")
-	//	public func getETHWithdrawData() -> TrxWithGasInfo {
-	//		TrxWithGasInfo { seal in
-	//			firstly {
-	//				fetchHash()
-	//			}.then { plainHash in
-	//				self.signHash(plainHash: plainHash)
-	//			}.then { signiture in
-	//				self.checkAllowanceOfProvider(
-	//					approvingToken: self.positionAsset,
-	//					approvingAmount: self.assetAmountBigNumber.plainSevenDigitFormat,
-	//					spenderAddress: Web3Core.Constants.aavePoolERCContractAddress
-	//				).map {
-	//					(signiture, $0)
-	//				}
-	//			}.then { signiture, allowanceData -> Promise<(String, String?)> in
-	//				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
-	//			}.then { permitData, allowanceData -> Promise<(String, String, String?)> in
-	//				self.getETHWithdrawCallData().map {
-	//					($0, permitData, allowanceData)
-	//				}
-	//			}.then { withdrawData, permitData, allowanceData -> Promise<(String, String, String, String?)> in
-	//				self.web3.getAaveUnwrapWETHCallData(contract: self.contract)
-	//					.map { ($0, withdrawData, permitData, allowanceData) }
-	//			}.then { unwrapData, withdrawData, permitData, allowanceData in
-	//				var multiCallData: [String] = [permitData, withdrawData, unwrapData]
-	//				if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
-	//				return self.callProxyMultiCall(data: multiCallData, value: nil)
-	//			}.done { depositResults in
-	//				self.withdrawTRX = depositResults.0
-	//				self.withdrawGasInfo = depositResults.1
-	//				seal.fulfill(depositResults)
-	//			}.catch { error in
-	//				seal.reject(error)
-	//			}
-	//		}
-	//	}
+	public func getETHWithdrawData() -> TrxWithGasInfo {
+		TrxWithGasInfo { seal in
+			//			firstly {
+			//				fetchHash()
+			//			}.then { plainHash in
+			//				self.signHash(plainHash: plainHash)
+			//			}.then { signiture in
+			//				self.checkAllowanceOfProvider(
+			//					approvingToken: self.positionAsset,
+			//					approvingAmount: self.assetAmountBigNumber.plainSevenDigitFormat,
+			//					spenderAddress: Web3Core.Constants.aavePoolERCContractAddress
+			//				).map {
+			//					(signiture, $0)
+			//				}
+			//			}.then { signiture, allowanceData -> Promise<(String, String?)> in
+			//				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
+			//			}.then { permitData, allowanceData -> Promise<(String, String, String?)> in
+			//				self.getETHWithdrawCallData().map {
+			//					($0, permitData, allowanceData)
+			//				}
+			//			}.then { withdrawData, permitData, allowanceData -> Promise<(String, String, String, String?)> in
+			//				self.web3.getAaveUnwrapWETHCallData(contract: self.contract)
+			//					.map { ($0, withdrawData, permitData, allowanceData) }
+			//			}.then { unwrapData, withdrawData, permitData, allowanceData in
+			//				var multiCallData: [String] = [permitData, withdrawData, unwrapData]
+			//				if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
+			//				return self.callProxyMultiCall(data: multiCallData, value: nil)
+			//			}.done { depositResults in
+			//				self.withdrawTRX = depositResults.0
+			//				self.withdrawGasInfo = depositResults.1
+			//				seal.fulfill(depositResults)
+			//			}.catch { error in
+			//				seal.reject(error)
+			//			}
+		}
+	}
 }
