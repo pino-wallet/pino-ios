@@ -113,7 +113,7 @@ class AaveRepayManager: Web3ManagerProtocol {
 			}.then { signiture -> Promise<(String, String?)> in
 				self.checkAllowanceOfProvider(
 					approvingToken: self.asset,
-					approvingAmount: self.assetAmountBigNumber.plainSevenDigitFormat,
+					approvingAmount: self.assetAmountBigNumber.sevenDigitFormat,
 					spenderAddress: Web3Core.Constants.aavePoolERCContractAddress
 				).map {
 					(signiture, $0)

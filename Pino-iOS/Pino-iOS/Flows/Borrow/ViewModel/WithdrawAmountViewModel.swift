@@ -57,7 +57,7 @@ class WithdrawAmountViewModel {
 	}
 
 	public var formattedMaxWithdrawAmount: String {
-		maxWithdrawAmount.plainSevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
+		maxWithdrawAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
 
 	public var tokenImage: URL {

@@ -246,7 +246,7 @@ class WithdrawAmountView: UIView {
 
 	@objc
 	private func putMaxAmountInTextField() {
-		amountTextfield.text = withdrawAmountVM.maxWithdrawAmount.plainSevenDigitFormat
+		amountTextfield.text = withdrawAmountVM.maxWithdrawAmount.sevenDigitFormat
 
 		animateAmountHealthScoreView(isHidden: false)
 
@@ -255,7 +255,7 @@ class WithdrawAmountView: UIView {
 			maxAmountLabel.text = withdrawAmountVM.formattedMaxWithdrawAmount
 		} else {
 			withdrawAmountVM.tokenAmount = withdrawAmountVM.maxWithdrawAmount
-				.plainSevenDigitFormat
+				.sevenDigitFormat
 			withdrawAmountVM.dollarAmount = withdrawAmountVM.maxWithdrawAmountInDollars
 		}
 

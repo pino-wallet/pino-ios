@@ -50,7 +50,7 @@ class RepayAmountViewModel {
 	}
 
 	public var formattedMaxHoldAmount: String {
-		maxHoldAmount.plainSevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
+		maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
 
 	public var maxHoldAmountInDollars: String {
@@ -62,7 +62,7 @@ class RepayAmountViewModel {
 	}
 
 	public var plainSevenDigitMaxHoldAmount: String {
-		maxHoldAmount.plainSevenDigitFormat
+		maxHoldAmount.sevenDigitFormat
 	}
 
 	public var prevHealthScore: BigNumber {

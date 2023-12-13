@@ -42,7 +42,7 @@ class CollateralIncreaseAmountViewModel {
 		guard let maxHoldAmount, maxHoldAmount.number.sign != .minus else {
 			return "0".tokenFormatting(token: selectedToken.symbol)
 		}
-		return maxHoldAmount.plainSevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
+		return maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
 
 	public var maxAmountInDollars: String {

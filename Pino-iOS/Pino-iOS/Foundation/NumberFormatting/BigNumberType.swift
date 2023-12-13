@@ -106,41 +106,6 @@ public struct BigNumber {
 		return absNumber
 	}
 
-	private var isBiggerThanMillion: Bool {
-		let million = BigInt(10).power(6 + decimal)
-		if number >= million {
-			return true
-		} else {
-			return false
-		}
-	}
-
-	public var abbreviatedFormat: String {
-		let million = BigInt(10).power(6 + decimal)
-		let billion = BigInt(10).power(9 + decimal)
-
-		func formatNumber(_ number: BigInt, divisor: BigInt, suffix: String) -> String {
-			let wholePart = number / divisor
-			let decimalPart = number % divisor
-
-			// Calculate the decimal part for the format
-			let decimalDigits = 2 // Number of decimal digits in the abbreviated format
-			let decimalDivisor = BigInt(10).power(decimalDigits)
-			let formattedDecimalPart = decimalPart * decimalDivisor / divisor
-
-			let decimalString = formattedDecimalPart > 0 ? ".\(formattedDecimalPart)" : ""
-			return "\(wholePart)\(decimalString)\(suffix)"
-		}
-
-		if number >= billion {
-			return formatNumber(number, divisor: billion, suffix: "B")
-		} else if number >= million {
-			return formatNumber(number, divisor: million, suffix: "M")
-		} else {
-			return number.description
-		}
-	}
-
 	public static var bigRandomeNumber: BigUInt {
 		BigUInt.randomInteger(lessThan: maxUInt256.bigUInt)
 	}
@@ -235,35 +200,12 @@ extension BigNumber: CustomStringConvertible {
 	}
 
 	public var sevenDigitFormat: String {
-		if isBiggerThanMillion {
-			return abbreviatedFormat
-		} else {
-			return formattedAmountOf(type: .sevenDigitsRule)
-		}
-	}
-
-	public var plainSevenDigitFormat: String {
 		formattedAmountOf(type: .sevenDigitsRule)
 	}
 
 	public var priceFormat: String {
 		let formattedNumber: String!
-		if isBiggerThanMillion {
-			formattedNumber = abbreviatedFormat
-		} else {
-			formattedNumber = formattedAmountOf(type: .priceRule)
-		}
-		if isZero {
-			return "$0"
-		} else if self.abs < BigNumber(number: 1, decimal: 2) {
-			return "<" + "0.01".currencyFormatting
-		} else {
-			return formattedNumber.currencyFormatting
-		}
-	}
-
-	public var plainPriceFormat: String {
-		let formattedNumber: String = formattedAmountOf(type: .priceRule)
+		formattedNumber = formattedAmountOf(type: .priceRule)
 
 		if isZero {
 			return "$0"
