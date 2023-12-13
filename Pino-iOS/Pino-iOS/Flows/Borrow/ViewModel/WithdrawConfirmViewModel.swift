@@ -105,7 +105,7 @@ class WithdrawConfirmViewModel {
 	init(withdrawAmountVM: WithdrawAmountViewModel) {
 		self.withdrawAmountVM = withdrawAmountVM
 		let assetAmountBigNumber = BigNumber(numberWithDecimal: withdrawAmountVM.tokenAmount)
-		if assetAmountBigNumber.plainSevenDigitFormat == withdrawAmountVM.maxWithdrawAmount.plainSevenDigitFormat {
+		if assetAmountBigNumber.sevenDigitFormat == withdrawAmountVM.maxWithdrawAmount.sevenDigitFormat {
 			self.withdrawMode = .withdrawMax
 		} else {
 			self.withdrawMode = .decrease

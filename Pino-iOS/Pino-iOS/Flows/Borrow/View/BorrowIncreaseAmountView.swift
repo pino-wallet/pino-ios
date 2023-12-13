@@ -253,7 +253,7 @@ class BorrowIncreaseAmountView: UIView {
 
 	@objc
 	private func putMaxAmountInTextField() {
-		amountTextfield.text = borrowIncreaseAmountVM.maxHoldAmount.plainSevenDigitFormat
+		amountTextfield.text = borrowIncreaseAmountVM.maxHoldAmount.sevenDigitFormat
 		animateAmountHealthScoreView(isHidden: false)
 
 		if borrowIncreaseAmountVM.selectedToken.isEth {
