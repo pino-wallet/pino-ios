@@ -11,7 +11,7 @@ class IntroView: UIView {
 	// MARK: Private Properties
 
 	private let introCollectionView = IntroCollectionView()
-    private let signinStackView = UIStackView()
+	private let signinStackView = UIStackView()
 	private let createWalletButton = PinoButton(style: .active)
 	private let importWalletButton = UIButton()
 	private let pageControl = UIPageControl()
@@ -87,7 +87,7 @@ extension IntroView {
 		introCollectionView.pin(
 			.width(to: self),
 			.relative(.bottom, -16, to: pageControl, .top),
-			.top,
+			.top(to: layoutMarginsGuide),
 			.centerX
 		)
 		signinStackView.pin(

@@ -23,11 +23,11 @@ struct IntroViewModel {
 
 	private mutating func setupIntroContentList() {
 		contentList = [
-            IntroModel(
-                image: "intro-exp",
-                title: "A Gateway to DeFi Efficiency",
-                description: "Interact with top DeFi protocols through app-native, intuitive interfaces."
-            ),
+			IntroModel(
+				image: "intro-exp",
+				title: "A Gateway to DeFi Efficiency",
+				description: "Interact with top DeFi protocols through app-native, intuitive interfaces."
+			),
 			IntroModel(
 				image: "intro-exp",
 				title: "Unified experience",

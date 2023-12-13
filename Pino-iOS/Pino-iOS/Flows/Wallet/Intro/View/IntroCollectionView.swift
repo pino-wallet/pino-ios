@@ -24,7 +24,6 @@ class IntroCollectionView: UICollectionView {
 	convenience init() {
 		// Set flow layout for collection view
 		let flowLayout = UICollectionViewFlowLayout()
-		flowLayout.itemSize = UICollectionViewFlowLayout.automaticSize
 		flowLayout.scrollDirection = .horizontal
 		self.init(frame: .zero, collectionViewLayout: flowLayout)
 
@@ -43,8 +42,11 @@ class IntroCollectionView: UICollectionView {
 	// MARK: Private Methods
 
 	private func configCollectionView() {
-        register(IntroCollectionViewCell.self, forCellWithReuseIdentifier: IntroCollectionViewCell.cellReuseID)
-		register(IntroAnimationCollectionViewCell.self, forCellWithReuseIdentifier: IntroAnimationCollectionViewCell.cellReuseID)
+		register(IntroCollectionViewCell.self, forCellWithReuseIdentifier: IntroCollectionViewCell.cellReuseID)
+		register(
+			IntroAnimationCollectionViewCell.self,
+			forCellWithReuseIdentifier: IntroAnimationCollectionViewCell.cellReuseID
+		)
 		dataSource = self
 		delegate = self
 		isPagingEnabled = true
@@ -68,22 +70,21 @@ extension IntroCollectionView: UICollectionViewDataSource {
 		cellForItemAt indexPath: IndexPath
 	) -> UICollectionViewCell {
 		let index = indexPath.item
-        if index == 0 {
-            let introAnimationCell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: IntroAnimationCollectionViewCell.cellReuseID,
-                for: indexPath
-            ) as! IntroAnimationCollectionViewCell
-            introAnimationCell.introModel = introContents[index]
-            return introAnimationCell
-        } else {
-            let introCell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: IntroCollectionViewCell.cellReuseID,
-                for: indexPath
-            ) as! IntroCollectionViewCell
-            introCell.introModel = introContents[index]
-            return introCell
-        }
-		
+		if index == 0 {
+			let introAnimationCell = collectionView.dequeueReusableCell(
+				withReuseIdentifier: IntroAnimationCollectionViewCell.cellReuseID,
+				for: indexPath
+			) as! IntroAnimationCollectionViewCell
+			introAnimationCell.introModel = introContents[index]
+			return introAnimationCell
+		} else {
+			let introCell = collectionView.dequeueReusableCell(
+				withReuseIdentifier: IntroCollectionViewCell.cellReuseID,
+				for: indexPath
+			) as! IntroCollectionViewCell
+			introCell.introModel = introContents[index]
+			return introCell
+		}
 	}
 }
 
@@ -108,11 +109,11 @@ extension IntroCollectionView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		sizeForItemAt indexPath: IndexPath
 	) -> CGSize {
-        if indexPath.row == 0 {
-            CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
-        } else {
-            CGSize(width: collectionView.frame.width, height: 480)
-        }
+		if indexPath.row == 0 {
+			CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+		} else {
+			CGSize(width: collectionView.frame.width, height: 480)
+		}
 	}
 
 	func collectionView(
@@ -121,5 +122,13 @@ extension IntroCollectionView: UICollectionViewDelegateFlowLayout {
 		minimumLineSpacingForSectionAt section: Int
 	) -> CGFloat {
 		0
+	}
+
+	func collectionView(
+		_ collectionView: UICollectionView,
+		layout collectionViewLayout: UICollectionViewLayout,
+		insetForSectionAt section: Int
+	) -> UIEdgeInsets {
+		UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 	}
 }
