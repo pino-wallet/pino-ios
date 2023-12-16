@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-class HomepageViewController: UIViewController {
+class HomepageViewController: AuthenticationLockViewController {
 	// MARK: - Private Properties
 
 	private var homeVM: HomepageViewModel!
@@ -19,7 +19,9 @@ class HomepageViewController: UIViewController {
 	// MARK: - View Overrides
 
 	override func viewDidAppear(_ animated: Bool) {
-		assetsCollectionView.getHomeData()
+		unlockApp {
+			self.assetsCollectionView.getHomeData()
+		}
 	}
 
 	override func viewWillAppear(_ animated: Bool) {

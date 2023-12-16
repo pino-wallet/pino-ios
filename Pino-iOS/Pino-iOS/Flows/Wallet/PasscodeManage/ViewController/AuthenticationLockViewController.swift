@@ -13,10 +13,10 @@ class AuthenticationLockViewController: UIViewController {
 	// MARK: - Public Methods
 
 	public func unlockApp(onSuccess: @escaping () -> Void) {
-		guard !UIDevice.current.isSimulator else {
-			onSuccess()
-			return
-		}
+//		guard !UIDevice.current.isSimulator else {
+//			onSuccess()
+//			return
+//		}
 		let lockMethod = getLockMethod()
 
 		switch lockMethod {
@@ -37,7 +37,7 @@ class AuthenticationLockViewController: UIViewController {
 		let defaultLockMethod = LockMethodType.face_id
 		let savedLockMethod = UserDefaults.standard.string(forKey: "lockMethodType") ?? defaultLockMethod.rawValue
 		let lockMethod = LockMethodType(rawValue: savedLockMethod) ?? defaultLockMethod
-		return lockMethod
+		return .passcode
 	}
 
 	private func unlockWithBiometric(onSuccess: @escaping () -> Void) {
