@@ -56,6 +56,21 @@ class HealthScoreSystemViewController: UIAlertController {
 		setupView()
 		setupStyles()
 		setupConstraints()
+        let web3 = Web3Core.shared
+        var compoundRepayManager: CompoundRepayManager = {
+            let pinoAaveProxyContract = try! web3.getCompoundProxyContract()
+            return CompoundRepayManager(
+                contract: pinoAaveProxyContract,
+                asset: GlobalVariables.shared.manageAssetsList!.first(where: { ($0.id == "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48") })!,
+                assetAmount: 105.bigNumber.plainSevenDigitFormat
+            )
+        }()
+        
+        compoundRepayManager.getERC20RepayData().done { results in
+            print("heh", results)
+        }.catch { error in
+            print("heh", error)
+        }
 	}
 
 	// MARK: - Private Methods

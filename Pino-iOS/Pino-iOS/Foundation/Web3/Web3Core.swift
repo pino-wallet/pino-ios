@@ -79,6 +79,10 @@ public class Web3Core {
 	private var aaveRepayManager: W3AaveRepayManager {
 		.init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
+    
+    private var compoundRepayManager: W3CompoundRepayManager {
+        .init(writeWeb3: wWeb3, readWeb3: rWeb3)
+    }
 
 	private let walletManager = PinoWalletManager()
 
@@ -596,6 +600,14 @@ public class Web3Core {
 	public func getExchangeRateStoredCallData(cTokenID: String) throws -> Promise<BigUInt> {
 		try investManager.getExchangeRateStoredCallData(cTokenID: cTokenID)
 	}
+    
+    public func getCompoundERCRepayCallData(contract: DynamicContract, cTokenAddress: String, amount: BigUInt) -> Promise<String> {
+        compoundRepayManager.getRepayERCCallData(contract: contract, cTokenAddress: cTokenAddress, amount: amount)
+    }
+    
+    public func getCompoundETHRepayCallData(contract: DynamicContract, amount: BigUInt, proxyFee: BigUInt) -> Promise<String> {
+        compoundRepayManager.getRepayETHCallData(contract: contract, amount: amount, proxyFee: proxyFee)
+    }
 
 	// MARK: - Private Methods
 

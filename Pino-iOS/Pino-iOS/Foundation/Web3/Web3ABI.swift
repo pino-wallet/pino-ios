@@ -129,6 +129,8 @@ public enum ABIMethodWrite: String {
 	case enterMarkets
 	case exitMarket
 	case repayV3
+    case repayV2
+    case repayETHV2
 }
 
 fileprivate func ABIReader(fileName: String) -> String {
