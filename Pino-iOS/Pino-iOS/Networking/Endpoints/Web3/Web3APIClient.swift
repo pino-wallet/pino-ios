@@ -26,7 +26,14 @@ final class Web3APIClient: Web3APIService {
 		positionType: IndexerPositionType,
 		protocolName: String
 	) -> AnyPublisher<PositionTokenModel, APIError> {
-		networkManager.request(.positionID(tokenAdd: tokenAdd, positionType: positionType, protocolName: protocolName))
+//		networkManager.request(.positionID(tokenAdd: tokenAdd, positionType: positionType, protocolName: protocolName))
+		Just(PositionTokenModel(
+			positionID: "0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8",
+			tokenProtocol: "aave",
+			underlyingToken: ""
+		))
+		.setFailureType(to: APIError.self)
+		.eraseToAnyPublisher()
 	}
 
 	func getNetworkFee() -> AnyPublisher<EthGasInfoModel, APIError> {

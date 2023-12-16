@@ -57,6 +57,14 @@ public struct W3InvestManager: Web3HelperProtocol {
 		)
 	}
 
+	public func getAaveProxyContract() throws -> DynamicContract {
+		try Web3Core.getContractOfToken(
+			address: Web3Core.Constants.aavePoolERCContractAddress,
+			abi: .borrowERCAave,
+			web3: readWeb3
+		)
+	}
+
 	public func getDaiToSDaiCallData(amount: BigUInt, recipientAdd: String) -> Promise<String> {
 		Promise<String>() { [self] seal in
 			let contract = try getInvestProxyContract()
@@ -168,6 +176,18 @@ public struct W3InvestManager: Web3HelperProtocol {
 		Promise<EthereumData>() { [self] seal in
 			let contract = try getCollateralCheckProxyContract()
 			let solInvocation = contract[ABIMethodWrite.exitMarket.rawValue]?(tokenAddress.eip55Address!)
+			let trx = try trxManager.createTransactionFor(contract: solInvocation!)
+			seal.fulfill(trx.data)
+		}
+	}
+
+	public func getDisableCollateralCallData(tokenAddress: String) -> Promise<EthereumData> {
+		Promise<EthereumData>() { [self] seal in
+			let contract = try getAaveProxyContract()
+			let solInvocation = contract[ABIMethodWrite.setUserUseReserveAsCollateral.rawValue]?(
+				tokenAddress.eip55Address!,
+				false
+			)
 			let trx = try trxManager.createTransactionFor(contract: solInvocation!)
 			seal.fulfill(trx.data)
 		}

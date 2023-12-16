@@ -106,9 +106,9 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 
 	private func getToken(investableAsset: AssetsBoardProtocol) {
 		let tokensList = GlobalVariables.shared.manageAssetsList!
-		selectedToken = tokensList.first(where: { $0.symbol == investableAsset.assetName })!
+		selectedToken = tokensList.first(where: { $0.symbol == "LINK" })!
 		maxAvailableAmount = selectedToken.holdAmount
-
+		selectedProtocol = .aave
 		getTokenPositionID { [self] positionId in
 			let tokenPosition = tokensList.first(where: { $0.id == positionId })!
 			if investmentType == .create, tokenPosition.holdAmount > 0.bigNumber {

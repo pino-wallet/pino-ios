@@ -76,7 +76,7 @@ class DepositManager: InvestW3ManagerProtocol {
 		case .lido:
 			return getLidoDepositInfo()
 		case .aave:
-			return aaveManager.getDepositInfo()
+			return aaveManager.getERC20DepositInfo()
 		}
 	}
 

@@ -461,6 +461,10 @@ public class Web3Core {
 		investManager.getExitMarketCallData(tokenAddress: tokenAddress)
 	}
 
+	public func getDisableCollateralCallData(tokenAddress: String) -> Promise<EthereumData> {
+		investManager.getDisableCollateralCallData(tokenAddress: tokenAddress)
+	}
+
 	public func getInvestProxyContract() throws -> DynamicContract {
 		try investManager.getInvestProxyContract()
 	}
@@ -471,6 +475,10 @@ public class Web3Core {
 
 	public func getCompoundCollateralCheckProxyContract() throws -> DynamicContract {
 		try investManager.getCollateralCheckProxyContract()
+	}
+
+	public func getDisableCollateralProxyContract() throws -> DynamicContract {
+		try investManager.getAaveProxyContract()
 	}
 
 	public func getCompoundBorrowCTokenContractDetails(
