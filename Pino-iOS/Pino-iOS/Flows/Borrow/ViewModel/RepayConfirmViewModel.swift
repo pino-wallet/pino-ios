@@ -147,7 +147,7 @@ class RepayConfirmViewModel {
 				toAddress: "",
 				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
 				gasUsed: aaveRepayManager.repayGasInfo!.increasedGasLimit!.description,
-				gasPrice: aaveRepayManager.repayGasInfo!.maxFeePerGas.description
+				gasPrice: aaveRepayManager.repayGasInfo!.baseFeeWithPriorityFee.description
 			),
 			accountAddress: walletManager.currentAccount.eip55Address
 		)
