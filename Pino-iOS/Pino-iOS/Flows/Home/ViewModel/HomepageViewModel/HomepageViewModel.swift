@@ -73,6 +73,7 @@ class HomepageViewModel {
 			self.getWalletBalance(assets: assets)
 			self.selectedAssetsList = assets.filter { $0.isPosition == false }
 			self.positionAssetsList = assets.filter { $0.isPosition == true }
+			self.switchSecurityMode(self.securityMode)
 		}.store(in: &cancellables)
 	}
 }
