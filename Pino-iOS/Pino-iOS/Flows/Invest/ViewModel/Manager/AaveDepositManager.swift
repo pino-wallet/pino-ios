@@ -141,10 +141,12 @@ class AaveDepositManager: Web3ManagerProtocol {
 				return self.callProxyMultiCall(data: multiCallData, value: nil, trxNonce: trxNonce)
 			}.then { depositResult in
 				self.checkCollateral().map { _ in depositResult }
-			}.done { depositResults in
+			}.then { depositResult in
+				self.getDisableCollateralInfo().map { (depositResult, $0) }
+			}.done { depositResults, collateralCheckGas in
 				self.depositTRX = depositResults.0
 				self.depositGasInfo = depositResults.1
-				seal.fulfill([depositResults.1])
+				seal.fulfill([depositResults.1, collateralCheckGas])
 			}.catch { error in
 				seal.reject(error)
 			}
@@ -187,17 +189,26 @@ class AaveDepositManager: Web3ManagerProtocol {
 		}
 	}
 
-	private func disableCollateral() -> Promise<(EthereumSignedTransaction, GasInfo)> {
-		firstly {
-			self.web3.getDisableCollateralCallData(tokenAddress: selectedToken.id)
-		}.then { trxCallData in
-			let collateralCheckContract = try self.web3.getDisableCollateralProxyContract()
-			let collateralCheckNonce = EthereumQuantity(quantity: self.trxNonce.quantity + 1)
-			return self.web3.getTransactionCallData(
-				contractAddress: collateralCheckContract.address!.hex(eip55: true),
-				trxCallData: trxCallData,
-				nonce: collateralCheckNonce
-			)
+	private func getDisableCollateralInfo() -> Promise<GasInfo> {
+		Promise<GasInfo> { seal in
+			firstly {
+				self.web3.getDisableCollateralCallData(tokenAddress: selectedToken.id)
+			}.then { trxCallData in
+				let collateralCheckContract = try self.web3.getDisableCollateralProxyContract()
+				let collateralCheckNonce = EthereumQuantity(quantity: self.trxNonce.quantity + 1)
+				return self.web3.getTransactionCallData(
+					contractAddress: collateralCheckContract.address!.hex(eip55: true),
+					trxCallData: trxCallData,
+					nonce: collateralCheckNonce,
+					gasLimit: 100_000
+				)
+			}.done { result in
+				self.collateralCheckTRX = result.0
+				self.collateralCheckGasInfo = result.1
+				seal.fulfill(self.collateralCheckGasInfo!)
+			}.catch { error in
+				seal.reject(error)
+			}
 		}
 	}
 
@@ -207,14 +218,7 @@ class AaveDepositManager: Web3ManagerProtocol {
 				self.web3.checkIfAssetUsedAsCollateral(assetAddress: selectedToken.id)
 			}.done { isCollateral in
 				if isCollateral {
-					self.disableCollateral()
-						.done { result in
-							self.collateralCheckTRX = result.0
-							self.collateralCheckGasInfo = result.1
-							seal.fulfill(result.1)
-						}.catch { error in
-							seal.reject(error)
-						}
+					seal.fulfill(nil)
 				} else {
 					seal.fulfill(nil)
 				}

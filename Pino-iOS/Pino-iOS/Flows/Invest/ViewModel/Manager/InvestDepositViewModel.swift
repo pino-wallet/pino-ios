@@ -106,7 +106,7 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 
 	private func getToken(investableAsset: AssetsBoardProtocol) {
 		let tokensList = GlobalVariables.shared.manageAssetsList!
-		selectedToken = tokensList.first(where: { $0.symbol == "DAI" })!
+		selectedToken = tokensList.first(where: { $0.symbol == "WETH" })!
 		maxAvailableAmount = selectedToken.holdAmount
 		selectedProtocol = .aave
 		getTokenPositionID { [self] positionId in
