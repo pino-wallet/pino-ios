@@ -605,8 +605,20 @@ public class Web3Core {
         compoundRepayManager.getRepayERCCallData(contract: contract, cTokenAddress: cTokenAddress, amount: amount)
     }
     
-    public func getCompoundETHRepayCallData(contract: DynamicContract, amount: BigUInt, proxyFee: BigUInt) -> Promise<String> {
-        compoundRepayManager.getRepayETHCallData(contract: contract, amount: amount, proxyFee: proxyFee)
+    public func getCompoundETHRepayCallData(contractID: String) -> Promise<String> {
+        compoundRepayManager.getRepayETHCallData(contractID: contractID)
+    }
+    
+    public func getCompoundETHRepayContractDetails(contractID: String) -> Promise<ContractDetailsModel> {
+        compoundRepayManager.getRepayETHContractDetails(contractID: contractID)
+    }
+    
+    public func getCompoundETHRepayGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
+        compoundRepayManager.getRepayETHGasInfo(contractDetails: contractDetails)
+    }
+    
+    public func getCompoundETHRepayTransaction(contractDetails: ContractDetailsModel, amount: BigUInt) -> Promise<EthereumSignedTransaction> {
+        compoundRepayManager.getRepayETHTransaction(contractDetails: contractDetails, amount: amount)
     }
 
 	// MARK: - Private Methods

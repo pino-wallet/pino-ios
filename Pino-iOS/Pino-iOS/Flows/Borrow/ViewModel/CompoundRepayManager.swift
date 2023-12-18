@@ -25,6 +25,7 @@ class CompoundRepayManager: Web3ManagerProtocol {
     private var asset: AssetViewModel
     private var assetAmountBigNumber: BigNumber
     private var assetAmountBigUInt: BigUInt
+    private var repayMode: RepayMode
     private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Internal Properties
@@ -40,11 +41,12 @@ class CompoundRepayManager: Web3ManagerProtocol {
 
     // MARK: - Initializers
 
-    init(contract: DynamicContract, asset: AssetViewModel, assetAmount: String) {
+    init(contract: DynamicContract, asset: AssetViewModel, assetAmount: String, repayMode: RepayMode) {
         self.asset = asset
         self.assetAmountBigNumber = BigNumber(numberWithDecimal: assetAmount)
         self.assetAmountBigUInt = Utilities.parseToBigUInt(assetAmount, decimals: asset.decimal)!
         self.contract = contract
+        self.repayMode = repayMode
     }
 
     // MARK: - Internal Methods
@@ -107,7 +109,15 @@ class CompoundRepayManager: Web3ManagerProtocol {
     }
 
     private func getERCRepayCallData(positionID: String) -> Promise<String> {
-        web3.getCompoundERCRepayCallData(contract: contract, cTokenAddress: positionID, amount: assetAmountBigUInt)
+        var repayAmount: BigUInt {
+            switch repayMode {
+            case .decrease:
+                return assetAmountBigUInt
+            case .repayMax:
+                return BigNumber.maxUInt256.bigUInt
+            }
+        }
+        return web3.getCompoundERCRepayCallData(contract: contract, cTokenAddress: positionID, amount: repayAmount)
     }
 
     private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
@@ -119,6 +129,7 @@ class CompoundRepayManager: Web3ManagerProtocol {
     }
 
     // MARK: - Public Methods
+    
     public func getERC20RepayData() -> TrxWithGasInfo {
         TrxWithGasInfo { seal in
             firstly {
@@ -157,37 +168,21 @@ class CompoundRepayManager: Web3ManagerProtocol {
     public func getETHRepayData() -> TrxWithGasInfo {
         TrxWithGasInfo { seal in
             firstly {
-                getTokenPositionID()
-            }.then { positionID -> Promise<(String, String)> in
-                self.fetchHash().map { (positionID, $0) }
-            }.then { positionID, plainHash -> Promise<(String, String)> in
-                self.signHash(plainHash: plainHash).map { (positionID, $0) }
-            }.then { positionID, signiture -> Promise<(String, String, String?)> in
-                self.checkAllowanceOfProvider(
-                    approvingToken: self.asset,
-                    approvingAmount: self.assetAmountBigNumber.plainSevenDigitFormat,
-                    spenderAddress: positionID,
-                    ownerAddress: Web3Core.Constants.compoundContractAddress
-                ).map {
-                    (positionID, signiture, $0)
-                }
-            }.then { positionID, signiture, allowanceData -> Promise<(String, String, String?)> in
-                return self.getProxyPermitTransferData(signiture: signiture).map { (positionID, $0, allowanceData) }
-            }.then { positionID, permitData, allowanceData -> Promise<(String, String?, String)> in
-                self.getERCRepayCallData(positionID: positionID).map { (permitData, allowanceData, $0) }
-            }.then { permitData, allowanceData, repayData in
-                var multiCallData: [String] = [permitData, repayData]
-                if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
-                return self.callProxyMultiCall(data: multiCallData, value: nil)
-            }.done { repayResults in
-                self.repayTRX = repayResults.0
-                self.repayGasInfo = repayResults.1
-                seal.fulfill(repayResults)
+                self.getTokenPositionID()
+            }.then { positionID in
+                self.web3.getCompoundETHRepayContractDetails(contractID: positionID)
+            }.then { contractDetails -> Promise<(ContractDetailsModel, GasInfo)> in
+                self.web3.getCompoundETHRepayGasInfo(contractDetails: contractDetails).map { (contractDetails, $0) }
+            }.then { contractDetails, repayGasInfo -> Promise<(GasInfo, EthereumSignedTransaction)> in
+                self.web3.getCompoundETHRepayTransaction(contractDetails: contractDetails, amount: self.assetAmountBigUInt).map { (repayGasInfo, $0) }
+            }.done { repayGasInfo, repayTransaction in
+                self.repayTRX = repayTransaction
+                self.repayGasInfo = repayGasInfo
+                seal.fulfill((repayTransaction, repayGasInfo))
             }.catch { error in
                 seal.reject(error)
             }
         }
     }
 
-    
 }
