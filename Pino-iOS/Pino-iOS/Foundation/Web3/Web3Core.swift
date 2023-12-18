@@ -79,10 +79,10 @@ public class Web3Core {
 	private var aaveRepayManager: W3AaveRepayManager {
 		.init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
-    
-    private var compoundRepayManager: W3CompoundRepayManager {
-        .init(writeWeb3: wWeb3, readWeb3: rWeb3)
-    }
+
+	private var compoundRepayManager: W3CompoundRepayManager {
+		.init(writeWeb3: wWeb3, readWeb3: rWeb3)
+	}
 
 	private let walletManager = PinoWalletManager()
 
@@ -600,26 +600,33 @@ public class Web3Core {
 	public func getExchangeRateStoredCallData(cTokenID: String) throws -> Promise<BigUInt> {
 		try investManager.getExchangeRateStoredCallData(cTokenID: cTokenID)
 	}
-    
-    public func getCompoundERCRepayCallData(contract: DynamicContract, cTokenAddress: String, amount: BigUInt) -> Promise<String> {
-        compoundRepayManager.getRepayERCCallData(contract: contract, cTokenAddress: cTokenAddress, amount: amount)
-    }
-    
-    public func getCompoundETHRepayCallData(contractID: String) -> Promise<String> {
-        compoundRepayManager.getRepayETHCallData(contractID: contractID)
-    }
-    
-    public func getCompoundETHRepayContractDetails(contractID: String) -> Promise<ContractDetailsModel> {
-        compoundRepayManager.getRepayETHContractDetails(contractID: contractID)
-    }
-    
-    public func getCompoundETHRepayGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
-        compoundRepayManager.getRepayETHGasInfo(contractDetails: contractDetails)
-    }
-    
-    public func getCompoundETHRepayTransaction(contractDetails: ContractDetailsModel, amount: BigUInt) -> Promise<EthereumSignedTransaction> {
-        compoundRepayManager.getRepayETHTransaction(contractDetails: contractDetails, amount: amount)
-    }
+
+	public func getCompoundERCRepayCallData(
+		contract: DynamicContract,
+		cTokenAddress: String,
+		amount: BigUInt
+	) -> Promise<String> {
+		compoundRepayManager.getRepayERCCallData(contract: contract, cTokenAddress: cTokenAddress, amount: amount)
+	}
+
+	public func getCompoundETHRepayCallData(contractID: String) -> Promise<String> {
+		compoundRepayManager.getRepayETHCallData(contractID: contractID)
+	}
+
+	public func getCompoundETHRepayContractDetails(contractID: String) -> Promise<ContractDetailsModel> {
+		compoundRepayManager.getRepayETHContractDetails(contractID: contractID)
+	}
+
+	public func getCompoundETHRepayGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
+		compoundRepayManager.getRepayETHGasInfo(contractDetails: contractDetails)
+	}
+
+	public func getCompoundETHRepayTransaction(
+		contractDetails: ContractDetailsModel,
+		amount: BigUInt
+	) -> Promise<EthereumSignedTransaction> {
+		compoundRepayManager.getRepayETHTransaction(contractDetails: contractDetails, amount: amount)
+	}
 
 	// MARK: - Private Methods
 
