@@ -47,7 +47,7 @@ class InvestmentBoardViewModel: InvestFilterDelegate {
 		} receiveValue: { investableAssetsModel in
 			let investableAssets = investableAssetsModel.compactMap { InvestableAssetViewModel(assetModel: $0) }
 			self.investableAssets = investableAssets.filter { asset in
-				if self.userInvestments.contains(where: { $0.listId == asset.id }) {
+				if self.userInvestments.contains(where: { $0.listId.lowercased() == asset.id.lowercased() }) {
 					return false
 				} else {
 					return true
