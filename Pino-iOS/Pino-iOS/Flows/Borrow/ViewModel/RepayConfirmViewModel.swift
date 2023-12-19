@@ -112,7 +112,7 @@ class RepayConfirmViewModel {
 				#warning("maybe we should edit this")
 				let estimatedExtraDebtForOneMinute = (assetAmountBigNumber / 100_000.bigNumber)! * 3.bigNumber
 				let totalDebt = assetAmountBigNumber + estimatedExtraDebtForOneMinute
-				calculatedAssetAmount = totalDebt.plainSevenDigitFormat
+				calculatedAssetAmount = totalDebt.sevenDigitFormat
 			}
 		}
 
