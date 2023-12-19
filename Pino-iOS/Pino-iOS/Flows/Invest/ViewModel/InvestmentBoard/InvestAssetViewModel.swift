@@ -51,6 +51,10 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 		investmentAmount.priceFormat
 	}
 
+	public var prevoiusInvestmentAmount: BigNumber {
+		BigNumber(number: assetModel.lastDayWorth, decimal: 2)
+	}
+
 	public var tokenAmount: BigNumber {
 		BigNumber(number: assetModel.tokens.first!.amount, decimal: investToken.decimal)
 	}
@@ -68,7 +72,7 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 	}
 
 	public var assetVolatility: BigNumber {
-		BigNumber(number: assetModel.lastDayWorth, decimal: 2)
+		investmentAmount - prevoiusInvestmentAmount
 	}
 
 	public var formattedAssetVolatility: String {
