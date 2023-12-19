@@ -14,7 +14,7 @@ class RepayConfirmViewModel {
 	// MARK: - TypeAliases
 
 	typealias FeeInfoType = (feeInDollars: String, feeInETH: String, bigNumberFee: BigNumber)
-	typealias ConfirmRepayClosureType = (EthereumSignedTransaction) -> Void
+	typealias ConfirmRepayClosureType = ([SendTransactionViewModel]) -> Void
 
 	// MARK: - Closures
 
@@ -99,6 +99,30 @@ class RepayConfirmViewModel {
 			assetAmount: calculatedAssetAmount
 		)
 	}()
+    
+    private lazy var compoundRepayManager: CompoundRepayManager = {
+        var calculatedAssetAmount: String
+        if selectedToken.isEth {
+            calculatedAssetAmount = repayAmountVM.tokenAmount
+        } else {
+            switch repayMode {
+            case .decrease:
+                calculatedAssetAmount = repayAmountVM.tokenAmount
+            case .repayMax:
+            #warning("maybe we should edit this")
+                let estimatedExtraDebtForOneMinute = (assetAmountBigNumber / 100_000.bigNumber)! * 3.bigNumber
+                let totalDebt = assetAmountBigNumber + estimatedExtraDebtForOneMinute
+                calculatedAssetAmount = totalDebt.plainSevenDigitFormat
+            }
+        }
+
+        let pinoCompoundProxyContract = try! web3.getCompoundProxyContract()
+        return CompoundRepayManager(
+            contract: pinoCompoundProxyContract,
+            asset: selectedToken,
+            assetAmount: calculatedAssetAmount, repayMode: repayMode
+        )
+    }()
 
 	// MARK: - Initializers
 
@@ -124,7 +148,7 @@ class RepayConfirmViewModel {
 
 	// MARK: - Public Methods
 
-	public func createRepayPendingActivity(txHash: String) {
+    public func createRepayPendingActivity(txHash: String, gasInfo: GasInfo) {
 		coreDataManager.addNewRepayActivity(
 			activityModel: ActivityRepayModel(
 				txHash: txHash,
@@ -146,8 +170,8 @@ class RepayConfirmViewModel {
 				fromAddress: "",
 				toAddress: "",
 				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
-				gasUsed: aaveRepayManager.repayGasInfo!.increasedGasLimit!.description,
-				gasPrice: aaveRepayManager.repayGasInfo!.maxFeePerGas.description
+				gasUsed: gasInfo.increasedGasLimit!.description,
+				gasPrice: gasInfo.maxFeePerGas.description
 			),
 			accountAddress: walletManager.currentAccount.eip55Address
 		)
@@ -168,7 +192,29 @@ class RepayConfirmViewModel {
 				.show(haptic: .warning)
 			}
 		case .compound:
-			#warning("i should add compound repay manager first to complete this section")
+            if selectedToken.isEth {
+                compoundRepayManager.getETHRepayData().done { _, repayGasInfo in
+                    self.setFeeInfoByDepositGasInfo(repayGasinfo: repayGasInfo)
+                }.catch { _ in
+                    Toast.default(
+                        title: self.feeTxErrorText,
+                        subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+                        style: .error
+                    )
+                    .show(haptic: .warning)
+                }
+            } else {
+                compoundRepayManager.getERC20RepayData().done { _, repayGasInfo in
+                    self.setFeeInfoByDepositGasInfo(repayGasinfo: repayGasInfo)
+                }.catch { _ in
+                    Toast.default(
+                        title: self.feeTxErrorText,
+                        subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+                        style: .error
+                    )
+                    .show(haptic: .warning)
+                }
+            }
 		default:
 			print("Unknown selected dex system !")
 		}
@@ -180,10 +226,26 @@ class RepayConfirmViewModel {
 			guard let repayTRX = aaveRepayManager.repayTRX else {
 				return
 			}
-			confirmRepayClosure(repayTRX)
+            let repayTransaction = SendTransactionViewModel(
+                transaction: repayTRX,
+                addPendingActivityClosure: { txHash in
+                    self.createRepayPendingActivity(txHash: txHash, gasInfo: self.aaveRepayManager.repayGasInfo!)
+                }
+            )
+
+			confirmRepayClosure([repayTransaction])
 		case .compound:
-			#warning("i should add compound repay manager first to complete this section")
-			return
+            guard let repayTRX = compoundRepayManager.repayTRX else {
+                return
+            }
+            let repayTransaction = SendTransactionViewModel(
+                transaction: repayTRX,
+                addPendingActivityClosure: { txHash in
+                    self.createRepayPendingActivity(txHash: txHash, gasInfo: self.compoundRepayManager.repayGasInfo!)
+                }
+            )
+
+            confirmRepayClosure([repayTransaction])
 		default:
 			print("Unknown selected dex system !")
 		}
