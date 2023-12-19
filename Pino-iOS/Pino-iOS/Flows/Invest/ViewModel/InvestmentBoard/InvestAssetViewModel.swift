@@ -23,6 +23,10 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 		assetModel.listingID
 	}
 
+	public var assetId: String {
+		investToken.id
+	}
+
 	public var assetName: String {
 		investToken.symbol
 	}

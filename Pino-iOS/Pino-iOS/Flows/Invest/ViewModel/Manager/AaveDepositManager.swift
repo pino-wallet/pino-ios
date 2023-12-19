@@ -17,6 +17,7 @@ class AaveDepositManager: Web3ManagerProtocol {
 
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes in ms
 	private let nonce = BigNumber.bigRandomeNumber
+	private var trxNonce: EthereumQuantity!
 	private let web3Client = Web3APIClient()
 	private var selectedToken: AssetViewModel
 	private var depositAmount: String
@@ -33,6 +34,8 @@ class AaveDepositManager: Web3ManagerProtocol {
 
 	public var depositGasInfo: GasInfo?
 	public var depositTRX: EthereumSignedTransaction?
+	public var collateralCheckGasInfo: GasInfo?
+	public var collateralCheckTRX: EthereumSignedTransaction?
 
 	// MARK: - Initializers
 
@@ -54,6 +57,14 @@ class AaveDepositManager: Web3ManagerProtocol {
 			return getETHDepositInfo()
 		} else {
 			return getERC20DepositInfo()
+		}
+	}
+
+	public func getIncreaseDepositInfo() -> Promise<[GasInfo]> {
+		if selectedToken.isEth {
+			return getETHDepositInfo()
+		} else {
+			return getERC20IncreaseDepositInfo()
 		}
 	}
 
@@ -82,9 +93,42 @@ class AaveDepositManager: Web3ManagerProtocol {
 					approvingToken: self.selectedToken,
 					approvingAmount: self.depositAmount,
 					spenderAddress: Web3Core.Constants.aavePoolERCContractAddress
-				).map {
-					(signiture, $0)
-				}
+				).map { (signiture, $0) }
+			}.then { signiture, allowanceData -> Promise<(String, String?)> in
+				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
+			}.then { permitData, allowanceData -> Promise<(String, String, String?)> in
+				self.getAaveDespositV3ERCCallData().map { ($0, permitData, allowanceData) }
+			}.then { depositData, permitData, allowanceData in
+				self.web3.getNonce().map { ($0, depositData, permitData, allowanceData) }
+			}.then { trxNonce, depositData, permitData, allowanceData in
+				self.trxNonce = trxNonce
+				var multiCallData: [String] = [permitData, depositData]
+				if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
+				return self.callProxyMultiCall(data: multiCallData, value: nil, trxNonce: trxNonce)
+			}.then { depositResult in
+				self.getDisableCollateralInfo().map { (depositResult, $0) }
+			}.done { [self] depositResults, collateralCheckGas in
+				depositTRX = depositResults.0
+				depositGasInfo = depositResults.1
+				seal.fulfill([depositGasInfo!, collateralCheckGas])
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	public func getERC20IncreaseDepositInfo() -> Promise<[GasInfo]> {
+		Promise<[GasInfo]> { seal in
+			firstly {
+				fetchHash()
+			}.then { plainHash in
+				self.signHash(plainHash: plainHash)
+			}.then { signiture -> Promise<(String, String?)> in
+				self.checkAllowanceOfProvider(
+					approvingToken: self.selectedToken,
+					approvingAmount: self.depositAmount,
+					spenderAddress: Web3Core.Constants.aavePoolERCContractAddress
+				).map { (signiture, $0) }
 			}.then { signiture, allowanceData -> Promise<(String, String?)> in
 				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
 			}.then { permitData, allowanceData -> Promise<(String, String, String?)> in
@@ -109,8 +153,40 @@ class AaveDepositManager: Web3ManagerProtocol {
 		}
 	}
 
-	private func checkIfAssetUsedAsCollateral() -> Promise<Bool> {
-		web3.checkIfAssetUsedAsCollateral(assetAddress: selectedToken.id)
+	private func getDisableCollateralInfo() -> Promise<GasInfo> {
+		Promise<GasInfo> { seal in
+			firstly {
+				self.web3.getDisableCollateralCallData(tokenAddress: selectedToken.id)
+			}.then { trxCallData in
+				let collateralCheckContract = try self.web3.getDisableCollateralProxyContract()
+				let collateralCheckNonce = EthereumQuantity(quantity: self.trxNonce.quantity + 1)
+				return self.web3.getTransactionCallData(
+					contractAddress: collateralCheckContract.address!.hex(eip55: true),
+					trxCallData: trxCallData,
+					nonce: collateralCheckNonce,
+					gasLimit: 500_000
+				)
+			}.done { result in
+				self.collateralCheckTRX = result.0
+				self.collateralCheckGasInfo = result.1
+				seal.fulfill(self.collateralCheckGasInfo!)
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	private func checkCollateral() -> Promise<Bool> {
+		Promise<Bool> { seal in
+			firstly {
+				self.web3.checkIfAssetUsedAsCollateral(assetAddress: selectedToken.id)
+			}.done { isCollateral in
+				seal.fulfill(isCollateral)
+			}.catch { error in
+				print(error)
+				seal.reject(error)
+			}
+		}
 	}
 
 	private func fetchHash() -> Promise<String> {
@@ -147,11 +223,16 @@ class AaveDepositManager: Web3ManagerProtocol {
 		)
 	}
 
-	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
+	private func callProxyMultiCall(
+		data: [String],
+		value: BigUInt?,
+		trxNonce: EthereumQuantity? = nil
+	) -> Promise<(EthereumSignedTransaction, GasInfo)> {
 		web3.callMultiCall(
 			contractAddress: contract.address!.hex(eip55: true),
 			callData: data,
-			value: value ?? 0.bigNumber.bigUInt
+			value: value ?? 0.bigNumber.bigUInt,
+			nonce: trxNonce
 		)
 	}
 }
