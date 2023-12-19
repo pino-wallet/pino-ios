@@ -117,15 +117,15 @@ class PinoNumberPadView: UIView {
 		keysStackView.spacing = 37
 
 		num0.addTarget(self, action: #selector(num0Tapped), for: .touchUpInside)
-		num1.addTarget(self, action: #selector(num0Tapped), for: .touchUpInside)
-		num2.addTarget(self, action: #selector(num0Tapped), for: .touchUpInside)
-		num3.addTarget(self, action: #selector(num0Tapped), for: .touchUpInside)
-		num4.addTarget(self, action: #selector(num0Tapped), for: .touchUpInside)
-		num5.addTarget(self, action: #selector(num0Tapped), for: .touchUpInside)
-		num6.addTarget(self, action: #selector(num0Tapped), for: .touchUpInside)
-		num7.addTarget(self, action: #selector(num0Tapped), for: .touchUpInside)
-		num8.addTarget(self, action: #selector(num0Tapped), for: .touchUpInside)
-		num9.addTarget(self, action: #selector(num0Tapped), for: .touchUpInside)
+		num1.addTarget(self, action: #selector(num1Tapped), for: .touchUpInside)
+		num2.addTarget(self, action: #selector(num2Tapped), for: .touchUpInside)
+		num3.addTarget(self, action: #selector(num3Tapped), for: .touchUpInside)
+		num4.addTarget(self, action: #selector(num4Tapped), for: .touchUpInside)
+		num5.addTarget(self, action: #selector(num5Tapped), for: .touchUpInside)
+		num6.addTarget(self, action: #selector(num6Tapped), for: .touchUpInside)
+		num7.addTarget(self, action: #selector(num7Tapped), for: .touchUpInside)
+		num8.addTarget(self, action: #selector(num8Tapped), for: .touchUpInside)
+		num9.addTarget(self, action: #selector(num9Tapped), for: .touchUpInside)
 		clearBtn.addTarget(self, action: #selector(clearTapped), for: .touchUpInside)
 	}
 

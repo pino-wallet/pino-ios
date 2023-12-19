@@ -7,12 +7,15 @@
 
 import UIKit
 
-class InvestConfirmationViewController: AuthenticationLockViewController {
+class InvestConfirmationViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let investConfirmationVM: InvestConfirmationProtocol
 	private var investConfirmationView: InvestConfirmationView!
 	private var onConfirm: () -> Void
+	private lazy var authManager: AuthenticationLockManager = {
+		.init(parentController: self)
+	}()
 
 	// MARK: - Initializers
 
@@ -75,7 +78,7 @@ class InvestConfirmationViewController: AuthenticationLockViewController {
 	}
 
 	private func confirmInvestment() {
-		unlockApp { [self] in
+		authManager.unlockApp { [self] in
 			guard let sendTransactions = investConfirmationVM.sendTransactions else { return }
 			let sendTransactionStatusVM = SendTransactionStatusViewModel(
 				transactions: sendTransactions,

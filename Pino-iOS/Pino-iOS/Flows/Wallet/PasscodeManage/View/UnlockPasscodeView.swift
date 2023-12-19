@@ -25,6 +25,9 @@ class UnlockPasscodeView: UIView {
 	private let useFaceIDbetweenStackView = UIStackView()
 	private let useFaceIDInfoStackView = UIStackView()
 	private let keyboardview = PinoNumberPadView()
+	private var unlockVM: UnlockAppViewModel? {
+		managePassVM as? UnlockAppViewModel
+	}
 
 	// MARK: Public Properties
 
@@ -38,7 +41,6 @@ class UnlockPasscodeView: UIView {
 
 	// MARK: - Closures
 
-	public var onSuccessUnlockClosure: (() -> Void)!
 	public var onFaceIDSelected: () -> Void
 
 	// MARK: Initializers
@@ -50,6 +52,7 @@ class UnlockPasscodeView: UIView {
 		self.managePassVM = managePassVM
 		self.passDotsView = PassDotsView(passcodeManagerVM: managePassVM)
 		self.onFaceIDSelected = onFaceIDSelected
+		keyboardview.delegate = passDotsView
 		super.init(frame: .zero)
 
 		setupView()
@@ -117,12 +120,29 @@ extension UnlockPasscodeView {
 		useFaceIdAndErrorStackView.axis = .vertical
 		useFaceIdAndErrorStackView.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
 		useFaceIdAndErrorStackView.isLayoutMarginsRelativeArrangement = true
+
+		if let unlockVM {
+			switch unlockVM.lockMethodType {
+			case .face_id:
+				useFaceIDSwitch.isOn = true
+			case .passcode:
+				useFaceIDSwitch.isOn = false
+			case .fallback:
+				useFaceIDOptionStackView.isHidden = true
+			}
+		} else {
+			useFaceIDSwitch.isOn = false
+		}
 	}
 
 	private func setupFaceIDOptionStyles() {
-		useFaceIDIcon.image = UIImage(named: managePassVM.useFaceIdIcon!)
+		if let biometricsTitle = managePassVM.useBiometricTitle, let biometricsIcon = managePassVM.useBiometricIcon {
+			useFaceIDIcon.image = UIImage(named: biometricsIcon)
+			useFaceIDTitleLabel.text = biometricsTitle
+		} else {
+			useFaceIDOptionStackView.isHidden = true
+		}
 
-		useFaceIDTitleLabel.text = managePassVM.useFaceIdTitle
 		useFaceIDTitleLabel.font = .PinoStyle.mediumSubheadline
 
 		useFaceIDSwitch.onTintColor = .Pino.green3
@@ -133,7 +153,10 @@ extension UnlockPasscodeView {
 	@objc
 	private func onUseFaceIDSwitchChange() {
 		if useFaceIDSwitch.isOn {
+			unlockVM?.setLockType(.face_id)
 			onFaceIDSelected()
+		} else {
+			unlockVM?.setLockType(.passcode)
 		}
 	}
 

@@ -9,12 +9,15 @@ import Combine
 import PromiseKit
 import UIKit
 
-class SwapConfirmationViewController: AuthenticationLockViewController {
+class SwapConfirmationViewController: UIViewController {
 	// MARK: Private Properties
 
 	private let swapConfirmationVM: SwapConfirmationViewModel
 	private var cancellables = Set<AnyCancellable>()
 	private var swapConfirmationView: SwapConfirmationView!
+	private lazy var authManager: AuthenticationLockManager = {
+		.init(parentController: self)
+	}()
 
 	// MARK: Initializers
 
@@ -94,7 +97,7 @@ class SwapConfirmationViewController: AuthenticationLockViewController {
 
 	private func confirmSwap() {
 		guard let sendTransactions = swapConfirmationVM.sendTransactions else { return }
-		unlockApp { [self] in
+		authManager.unlockApp { [self] in
 			let sendTrxStatusVM = SendTransactionStatusViewModel(
 				transactions: sendTransactions,
 				transactionSentInfoText: swapConfirmationVM.sendStatusText

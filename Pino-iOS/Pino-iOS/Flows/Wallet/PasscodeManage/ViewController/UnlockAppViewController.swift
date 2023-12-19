@@ -51,9 +51,6 @@ class UnlockAppViewController: UIViewController {
 				self.onFaceIDSelected()
 			}
 		)
-		managePasscodeView.onSuccessUnlockClosure = { [weak self] in
-			self?.onSuccessUnlock()
-		}
 		checkIfUserHasFaceID()
 		view = managePasscodeView
 	}
