@@ -66,8 +66,7 @@ class InvestViewModel {
 			} receiveValue: { portfolio in
 				let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0, networthDecimal: 2) }
 				self.chartDataEntries = chartDataVM.map {
-					let timeStamp = $0.date?.timeIntervalSinceNow ?? 0
-					return ChartDataEntry(x: timeStamp, y: $0.networth.doubleValue)
+					ChartDataEntry(x: $0.date!.timeIntervalSinceNow, y: $0.networth.doubleValue)
 				}
 			}.store(in: &cancellables)
 	}
