@@ -67,9 +67,8 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 		tokenAmountInDollor.priceFormat
 	}
 
-	#warning("We don't have this data yet")
 	public var assetVolatility: BigNumber {
-		BigNumber(number: "0", decimal: 2)
+		BigNumber(number: assetModel.lastDayWorth, decimal: 2)
 	}
 
 	public var formattedAssetVolatility: String {

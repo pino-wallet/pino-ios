@@ -141,7 +141,7 @@ class CompoundRepayManager: Web3ManagerProtocol {
 			}.then { positionID, signiture -> Promise<(String, String, String?)> in
 				self.checkAllowanceOfProvider(
 					approvingToken: self.asset,
-					approvingAmount: self.assetAmountBigNumber.plainSevenDigitFormat,
+					approvingAmount: self.assetAmountBigNumber.sevenDigitFormat,
 					spenderAddress: positionID,
 					ownerAddress: Web3Core.Constants.compoundContractAddress
 				).map {
