@@ -106,9 +106,8 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 
 	private func getToken(investableAsset: AssetsBoardProtocol) {
 		let tokensList = GlobalVariables.shared.manageAssetsList!
-		selectedToken = tokensList.first(where: { $0.symbol == "WBTC" })!
+		selectedToken = tokensList.first(where: { $0.id == investableAsset.assetId })!
 		maxAvailableAmount = selectedToken.holdAmount
-		selectedProtocol = .aave
 		getTokenPositionID { [self] positionId in
 			let tokenPosition = tokensList.first(where: { $0.id == positionId })!
 			if investmentType == .create, tokenPosition.holdAmount > 0.bigNumber {

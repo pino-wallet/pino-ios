@@ -14,6 +14,10 @@ struct CollateralizableAssetViewModel: AssetsBoardProtocol {
 
 	// MARK: - Public Properties
 
+	public var assetId: String {
+		foundCollateralledToken.id
+	}
+
 	public var assetName: String {
 		foundCollateralledToken.symbol
 	}
