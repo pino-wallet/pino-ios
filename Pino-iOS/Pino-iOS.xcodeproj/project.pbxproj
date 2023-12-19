@@ -370,6 +370,7 @@
 		D970C0E02A74EA80005A7FAC /* GlobalToastTitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D970C0DF2A74EA80005A7FAC /* GlobalToastTitles.swift */; };
 		D9714C8B2AE4FE5D00FF3AAA /* AaveProxyABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = D9714C8A2AE4FE5D00FF3AAA /* AaveProxyABIJson.json */; };
 		D9714C8D2AE518AE00FF3AAA /* AaveCollateralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9714C8C2AE518AE00FF3AAA /* AaveCollateralManager.swift */; };
+		D973E7652B2ADB2100862C4C /* CompoundRepayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D973E7642B2ADB2100862C4C /* CompoundRepayManager.swift */; };
 		D9771DE32A80DE380047605E /* UITabBarController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9771DE22A80DE380047605E /* UITabBarController+Extension.swift */; };
 		D97CF62C25B975AD3C131881 /* CoinHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26427FD948787141E7AA599B /* CoinHistoryModel.swift */; };
 		D97DE9DC2B09E65F00DDF4FB /* CollateralPageStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97DE9DB2B09E65F00DDF4FB /* CollateralPageStatus.swift */; };
@@ -398,6 +399,7 @@
 		D990197A2A93514D008CF9EC /* CollateralDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99019792A93514D008CF9EC /* CollateralDetailsView.swift */; };
 		D990197E2A935383008CF9EC /* CollateralDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D990197D2A935383008CF9EC /* CollateralDetailsViewController.swift */; };
 		D99019802A93660B008CF9EC /* LoanDetailsInfoStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D990197F2A93660B008CF9EC /* LoanDetailsInfoStackView.swift */; };
+		D99042BF2B29A35F00C99798 /* W3CompoundRepayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99042BE2B29A35F00C99798 /* W3CompoundRepayManager.swift */; };
 		D99850472A55C66A00C2DF60 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99850462A55C66A00C2DF60 /* DateHelper.swift */; };
 		D99CAFC92A3AF0D400DBEF2B /* EnterSendAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99CAFC82A3AF0D400DBEF2B /* EnterSendAddressViewController.swift */; };
 		D99CAFCB2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99CAFCA2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift */; };
@@ -1213,6 +1215,7 @@
 		D970C0DF2A74EA80005A7FAC /* GlobalToastTitles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalToastTitles.swift; sourceTree = "<group>"; };
 		D9714C8A2AE4FE5D00FF3AAA /* AaveProxyABIJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AaveProxyABIJson.json; sourceTree = "<group>"; };
 		D9714C8C2AE518AE00FF3AAA /* AaveCollateralManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AaveCollateralManager.swift; sourceTree = "<group>"; };
+		D973E7642B2ADB2100862C4C /* CompoundRepayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundRepayManager.swift; sourceTree = "<group>"; };
 		D9771DE22A80DE380047605E /* UITabBarController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+Extension.swift"; sourceTree = "<group>"; };
 		D97DE9DB2B09E65F00DDF4FB /* CollateralPageStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralPageStatus.swift; sourceTree = "<group>"; };
 		D97DE9DD2B09E68400DDF4FB /* CollateralMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralMode.swift; sourceTree = "<group>"; };
@@ -1240,6 +1243,7 @@
 		D99019792A93514D008CF9EC /* CollateralDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralDetailsView.swift; sourceTree = "<group>"; };
 		D990197D2A935383008CF9EC /* CollateralDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollateralDetailsViewController.swift; path = "Pino-iOS/Flows/Borrow/View/CollateralDetailsViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D990197F2A93660B008CF9EC /* LoanDetailsInfoStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanDetailsInfoStackView.swift; sourceTree = "<group>"; };
+		D99042BE2B29A35F00C99798 /* W3CompoundRepayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3CompoundRepayManager.swift; sourceTree = "<group>"; };
 		D99850462A55C66A00C2DF60 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		D99CAFC82A3AF0D400DBEF2B /* EnterSendAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAddressViewController.swift; sourceTree = "<group>"; };
 		D99CAFCA2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAddressViewModel.swift; sourceTree = "<group>"; };
@@ -2135,6 +2139,7 @@
 				D9E27FEF2B1B502B00AFA7D0 /* AaveBorrowManager.swift */,
 				D9EBBF9E2B1CB6030005B1D6 /* AaveRepayManager.swift */,
 				D985F7132B2846A000E4E90D /* CompoundBorrowManager.swift */,
+				D973E7642B2ADB2100862C4C /* CompoundRepayManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3808,6 +3813,7 @@
 				401939BA2AE570CD00052928 /* Web3Network.swift */,
 				D9F927A92B120DA800147013 /* W3AaveWithdrawManager.swift */,
 				D9EBBF9C2B1C913C0005B1D6 /* W3AaveRepayManager.swift */,
+				D99042BE2B29A35F00C99798 /* W3CompoundRepayManager.swift */,
 			);
 			path = Web3;
 			sourceTree = "<group>";
@@ -4967,6 +4973,7 @@
 				E3CFC07A2A2F241500E165A4 /* CircleMarker.swift in Sources */,
 				87F08F9B76154826B35A43F3 /* CustomAssetModel.swift in Sources */,
 				D9C1807D2A88EB950066C2A7 /* SpeedUpAlertViewModel.swift in Sources */,
+				D99042BF2B29A35F00C99798 /* W3CompoundRepayManager.swift in Sources */,
 				58FE43283099B1D4516B33B1 /* CustomAssetViewModel.swift in Sources */,
 				F606F78789DCF2CDED5E8BB0 /* CustomNavigationController.swift in Sources */,
 				F1655D3CC058F9A6ED4E8521 /* CustomSwitchOptionVM.swift in Sources */,
@@ -5315,6 +5322,7 @@
 				DF6DEDD82AAA30150080B47B /* W3SwapManager.swift in Sources */,
 				D9556E6F2AFB89B800ADF1B9 /* BorrowActivityDetailsViewModel.swift in Sources */,
 				E3FC69EC2A9247BD009B3341 /* InvestmentBoardFilterView.swift in Sources */,
+				D973E7652B2ADB2100862C4C /* CompoundRepayManager.swift in Sources */,
 				D95CD8642B00CBA4003C1CF0 /* ApproveActivityDetailsViewModel.swift in Sources */,
 				E3FC69922A88B0EB009B3341 /* InvestView.swift in Sources */,
 				E338DF112B25B0F3005D6883 /* AaveDepositManager.swift in Sources */,
