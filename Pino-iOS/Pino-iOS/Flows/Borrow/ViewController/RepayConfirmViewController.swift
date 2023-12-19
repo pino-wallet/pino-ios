@@ -59,7 +59,7 @@ class RepayConfirmViewController: UIViewController {
 	}
 
 	private func confirmRepay(repayTRXs: [SendTransactionViewModel]) {
-        let repayAmountVM = repayConfirmVM.repayAmountVM
+		let repayAmountVM = repayConfirmVM.repayAmountVM
 		let sendTransactionStatusVM = SendTransactionStatusViewModel(
 			transactions: repayTRXs,
 			transactionSentInfoText: "You repaid \(repayAmountVM.tokenAmount.formattedNumberWithCamma) \(repayAmountVM.selectedToken.symbol) to \(repayAmountVM.borrowVM.selectedDexSystem.name) \(repayAmountVM.borrowVM.selectedDexSystem.version)."
