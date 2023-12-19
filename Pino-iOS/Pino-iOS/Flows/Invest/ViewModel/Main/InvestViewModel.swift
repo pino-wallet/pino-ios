@@ -55,20 +55,20 @@ class InvestViewModel {
 	}
 
 	private func getChartData() {
-		chartDataEntries = [
-			ChartDataEntry(x: 0, y: 0),
-			ChartDataEntry(x: 1, y: 0.5),
-			ChartDataEntry(x: 2, y: 0.2),
-			ChartDataEntry(x: 3, y: 2),
-			ChartDataEntry(x: 4, y: 1),
-			ChartDataEntry(x: 5, y: 3),
-			ChartDataEntry(x: 6, y: 1.3),
-			ChartDataEntry(x: 7, y: 3),
-			ChartDataEntry(x: 8, y: 1.5),
-			ChartDataEntry(x: 9, y: 4),
-			ChartDataEntry(x: 10, y: 0.5),
-			ChartDataEntry(x: 11, y: 4),
-		]
+		investmentAPIClient.investPortfolio(timeFrame: ChartDateFilter.week.timeFrame)
+			.sink { completed in
+				switch completed {
+				case .finished:
+					print("investment performance received successfully")
+				case let .failure(error):
+					print(error)
+				}
+			} receiveValue: { portfolio in
+				let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0, networthDecimal: 2) }
+				self.chartDataEntries = chartDataVM.map {
+					ChartDataEntry(x: $0.date!.timeIntervalSinceNow, y: $0.networth.doubleValue)
+				}
+			}.store(in: &cancellables)
 	}
 
 	private func setupBinding() {

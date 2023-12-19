@@ -108,7 +108,7 @@ class ApprovingLoadingViewModel {
 				toAddress: "",
 				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
 				gasUsed: (approveContractVM.approveGasInfo?.increasedGasLimit!.description)!,
-				gasPrice: (approveContractVM.approveGasInfo?.maxFeePerGas.description)!
+				gasPrice: (approveContractVM.approveGasInfo?.baseFeeWithPriorityFee.description)!
 			),
 			accountAddress: walletManager.currentAccount.eip55Address
 		)

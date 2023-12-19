@@ -30,7 +30,7 @@ struct SwapProviderViewModel {
 	}
 
 	public var formattedSwapAmount: String {
-		swapAmount.plainSevenDigitFormat
+		swapAmount.sevenDigitFormat
 	}
 
 	public var formattedSwapAmountWithSymbol: String {

@@ -89,7 +89,7 @@ class RepayConfirmViewModel {
 		case .repayMax:
 			let estimatedExtraDebtForOneMinute = (assetAmountBigNumber / 100_000.bigNumber)! * 3.bigNumber
 			let totalDebt = assetAmountBigNumber + estimatedExtraDebtForOneMinute
-			calculatedAssetAmount = totalDebt.plainSevenDigitFormat
+			calculatedAssetAmount = totalDebt.sevenDigitFormat
 		}
 
 		let pinoAaveProxyContract = try! web3.getPinoAaveProxyContract()
@@ -129,7 +129,7 @@ class RepayConfirmViewModel {
 	init(repayamountVM: RepayAmountViewModel) {
 		self.repayAmountVM = repayamountVM
 		self.assetAmountBigNumber = BigNumber(numberWithDecimal: repayAmountVM.tokenAmount)
-		if assetAmountBigNumber.plainSevenDigitFormat == repayamountVM.selectedTokenTotalDebt.plainSevenDigitFormat {
+		if assetAmountBigNumber.sevenDigitFormat == repayamountVM.selectedTokenTotalDebt.sevenDigitFormat {
 			self.repayMode = .repayMax
 		} else {
 			self.repayMode = .decrease

@@ -315,7 +315,7 @@ class CollateralIncreaseAmountView: UIView {
 		guard let maxHoldAmount = collateralIncreaseAmountVM.maxHoldAmount else {
 			return
 		}
-		amountTextfield.text = maxHoldAmount.plainSevenDigitFormat
+		amountTextfield.text = maxHoldAmount.sevenDigitFormat
 		animateAmountHealthScoreView(isHidden: false)
 
 		if collateralIncreaseAmountVM.selectedToken.isEth {
@@ -323,7 +323,7 @@ class CollateralIncreaseAmountView: UIView {
 			maxAmountLabel.text = collateralIncreaseAmountVM.formattedMaxHoldAmount
 		} else {
 			collateralIncreaseAmountVM.tokenAmount = maxHoldAmount
-				.plainSevenDigitFormat
+				.sevenDigitFormat
 			collateralIncreaseAmountVM.dollarAmount = collateralIncreaseAmountVM.maxAmountInDollars
 		}
 

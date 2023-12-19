@@ -14,6 +14,10 @@ struct BorrowableAssetViewModel: AssetsBoardProtocol {
 
 	// MARK: - Public Properties
 
+	public var assetId: String {
+		foundBorrowedToken.id
+	}
+
 	public var assetName: String {
 		foundBorrowedToken.symbol
 	}

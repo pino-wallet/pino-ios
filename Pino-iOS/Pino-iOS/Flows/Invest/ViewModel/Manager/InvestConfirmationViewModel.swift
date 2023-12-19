@@ -126,7 +126,7 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 			toAddress: "",
 			blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
 			gasUsed: gasInfo.increasedGasLimit!.description,
-			gasPrice: gasInfo.maxFeePerGas.description
+			gasPrice: gasInfo.baseFeeWithPriorityFee.description
 		)
 		coreDataManager.addNewInvestActivity(
 			activityModel: investActivityModel,
@@ -167,7 +167,15 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 				gasInfo: self.investManager.aaveManager.depositGasInfo!
 			)
 		}
-		return [depositTransaction]
+		if let collateralCheckTrx = investManager.aaveManager.collateralCheckTRX {
+			let collateralCheckTransaction =
+				SendTransactionViewModel(transaction: collateralCheckTrx) { pendingActivityTXHash in
+					#warning("Check enter/exit market ativity must be added or not")
+				}
+			return [depositTransaction, collateralCheckTransaction]
+		} else {
+			return [depositTransaction]
+		}
 	}
 
 	private func updateFee(gasInfos: [GasInfo]) {

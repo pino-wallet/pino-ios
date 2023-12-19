@@ -141,7 +141,7 @@ class AaveWithdrawManager: Web3ManagerProtocol {
 			}.then { signiture -> Promise<(String, String?)> in
 				self.checkAllowanceOfProvider(
 					approvingToken: self.positionAsset,
-					approvingAmount: self.assetAmountBigNumber.plainSevenDigitFormat,
+					approvingAmount: self.assetAmountBigNumber.sevenDigitFormat,
 					spenderAddress: Web3Core.Constants.aavePoolERCContractAddress
 				).map {
 					(signiture, $0)
@@ -194,7 +194,7 @@ class AaveWithdrawManager: Web3ManagerProtocol {
 			//			}.then { signiture in
 			//				self.checkAllowanceOfProvider(
 			//					approvingToken: self.positionAsset,
-			//					approvingAmount: self.assetAmountBigNumber.plainSevenDigitFormat,
+			//					approvingAmount: self.assetAmountBigNumber.sevenDigitFormat,
 			//					spenderAddress: Web3Core.Constants.aavePoolERCContractAddress
 			//				).map {
 			//					(signiture, $0)
