@@ -82,38 +82,6 @@ class AaveDepositManager: Web3ManagerProtocol {
 
 	// MARK: - Private Methods
 
-//	public func getERC20DepositInfo() -> Promise<[GasInfo]> {
-//		Promise<[GasInfo]> { seal in
-//			firstly {
-//				fetchHash()
-//			}.then { plainHash in
-//				self.signHash(plainHash: plainHash)
-//			}.then { signiture -> Promise<(String, String?)> in
-//				self.checkAllowanceOfProvider(
-//					approvingToken: self.selectedToken,
-//					approvingAmount: self.depositAmount,
-//					spenderAddress: Web3Core.Constants.aavePoolERCContractAddress
-//				).map {
-//					(signiture, $0)
-//				}
-//			}.then { signiture, allowanceData -> Promise<(String, String?)> in
-//				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
-//			}.then { permitData, allowanceData -> Promise<(String, String, String?)> in
-//				self.getAaveDespositV3ERCCallData().map { ($0, permitData, allowanceData) }
-//			}.then { depositData, permitData, allowanceData in
-//				var multiCallData: [String] = [permitData, depositData]
-//				if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
-//				return self.callProxyMultiCall(data: multiCallData, value: nil)
-//			}.done { depositResults in
-//				self.depositTRX = depositResults.0
-//				self.depositGasInfo = depositResults.1
-//				seal.fulfill([depositResults.1])
-//			}.catch { error in
-//				seal.reject(error)
-//			}
-//		}
-//	}
-
 	public func getERC20DepositInfo() -> Promise<[GasInfo]> {
 		Promise<[GasInfo]> { seal in
 			firstly {
@@ -125,9 +93,7 @@ class AaveDepositManager: Web3ManagerProtocol {
 					approvingToken: self.selectedToken,
 					approvingAmount: self.depositAmount,
 					spenderAddress: Web3Core.Constants.aavePoolERCContractAddress
-				).map {
-					(signiture, $0)
-				}
+				).map { (signiture, $0) }
 			}.then { signiture, allowanceData -> Promise<(String, String?)> in
 				self.getProxyPermitTransferData(signiture: signiture).map { ($0, allowanceData) }
 			}.then { permitData, allowanceData -> Promise<(String, String, String?)> in
@@ -140,13 +106,11 @@ class AaveDepositManager: Web3ManagerProtocol {
 				if let allowanceData { multiCallData.insert(allowanceData, at: 0) }
 				return self.callProxyMultiCall(data: multiCallData, value: nil, trxNonce: trxNonce)
 			}.then { depositResult in
-				self.checkCollateral().map { _ in depositResult }
-			}.then { depositResult in
 				self.getDisableCollateralInfo().map { (depositResult, $0) }
-			}.done { depositResults, collateralCheckGas in
-				self.depositTRX = depositResults.0
-				self.depositGasInfo = depositResults.1
-				seal.fulfill([depositResults.1, collateralCheckGas])
+			}.done { [self] depositResults, collateralCheckGas in
+				depositTRX = depositResults.0
+				depositGasInfo = depositResults.1
+				seal.fulfill([depositGasInfo!, collateralCheckGas])
 			}.catch { error in
 				seal.reject(error)
 			}
@@ -212,16 +176,12 @@ class AaveDepositManager: Web3ManagerProtocol {
 		}
 	}
 
-	private func checkCollateral() -> Promise<GasInfo?> {
-		Promise<GasInfo?> { seal in
+	private func checkCollateral() -> Promise<Bool> {
+		Promise<Bool> { seal in
 			firstly {
 				self.web3.checkIfAssetUsedAsCollateral(assetAddress: selectedToken.id)
 			}.done { isCollateral in
-				if isCollateral {
-					seal.fulfill(nil)
-				} else {
-					seal.fulfill(nil)
-				}
+				seal.fulfill(isCollateral)
 			}.catch { error in
 				print(error)
 				seal.reject(error)
