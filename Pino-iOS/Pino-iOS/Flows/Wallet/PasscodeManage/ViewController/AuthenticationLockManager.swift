@@ -19,7 +19,7 @@ class AuthenticationLockManager {
 
 	// MARK: - Public Methods
 
-	public func unlockApp(onSuccess: @escaping () -> Void) {
+	public func unlockApp(onSuccess: @escaping () -> Void, onFailure: @escaping () -> Void) {
 		guard !UIDevice.current.isSimulator || Environment.current != .mainNet else {
 			onSuccess()
 			return
@@ -27,13 +27,9 @@ class AuthenticationLockManager {
 
 		switch getLockMethod() {
 		case .face_id:
-			unlockWithBiometric {
-				onSuccess()
-			}
+			unlockWithBiometric(onSuccess: onSuccess, onFailure: onFailure)
 		case .passcode, .fallback:
-			unlockWithPasscode {
-				onSuccess()
-			}
+			unlockWithPasscode(onSuccess: onSuccess, onFailure: onFailure)
 		}
 	}
 
@@ -46,7 +42,7 @@ class AuthenticationLockManager {
 		return lockMethod
 	}
 
-	private func unlockWithBiometric(onSuccess: @escaping () -> Void) {
+	private func unlockWithBiometric(onSuccess: @escaping () -> Void, onFailure: @escaping () -> Void) {
 		var biometricAuthentication = BiometricAuthentication()
 		biometricAuthentication.evaluate(
 			onSuccess: {
@@ -56,19 +52,19 @@ class AuthenticationLockManager {
 				switch errorCode {
 				case LAError.userFallback.rawValue:
 					self.setLockType(.fallback)
-					self.unlockWithPasscode {
-						onSuccess()
-					}
+					self.unlockWithPasscode(onSuccess: onSuccess, onFailure: onFailure)
 				case LAError.userCancel.rawValue:
 					print("User cancel authentication")
+					onFailure()
 				default:
 					print("Error in AUTH \(errorCode)")
+					onFailure()
 				}
 			}
 		)
 	}
 
-	private func unlockWithPasscode(onSuccess: @escaping () -> Void) {
+	private func unlockWithPasscode(onSuccess: @escaping () -> Void, onFailure: @escaping () -> Void) {
 		unlockAppVC = UnlockAppViewController(
 			onSuccessUnlock: {
 				onSuccess()
@@ -78,6 +74,9 @@ class AuthenticationLockManager {
 				self.unlockWithBiometric {
 					onSuccess()
 					self.parentVC.dismiss(animated: true)
+				} onFailure: { [self] in
+					(unlockAppVC!.view as! UnlockPasscodeView).biometricsAuthFailed()
+					onFailure()
 				}
 			}
 		)

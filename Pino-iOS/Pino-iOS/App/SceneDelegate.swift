@@ -8,15 +8,14 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-	
-    var window: UIWindow?
+	var window: UIWindow?
 	private var lockScreenView: PrivacyLockView?
 	private var authVC: AuthenticationLockManager!
 	private var appIsLocked = true
-    private var showPrivateScreen = true
-    private var isUserLoggedIn: Bool {
-        UserDefaults.standard.bool(forKey: "isLogin")
-    }
+	private var showPrivateScreen = true
+	private var isUserLoggedIn: Bool {
+		UserDefaults.standard.bool(forKey: "isLogin")
+	}
 
 	func scene(
 		_ scene: UIScene,
@@ -31,6 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		window = UIWindow(windowScene: windowScene)
 		UserDefaults.standard.register(defaults: ["hasShownNotifPage": false])
 		UserDefaults.standard.register(defaults: ["isInDevMode": false])
+		UserDefaults.standard.register(defaults: ["showBiometricCounts": 0])
 		if isUserLoggedIn {
 			window?.rootViewController = TabBarViewController()
 		} else {
@@ -94,13 +94,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	}
 
 	private func hideLockView() {
-        guard isUserLoggedIn == true else { return }
+		guard isUserLoggedIn == true else { return }
 
 		if showPrivateScreen && appIsLocked {
 			authVC.unlockApp {
 				self.appIsLocked = false
 				self.lockScreenView?.removeFromSuperview()
 				self.lockScreenView = nil
+			} onFailure: {
+				// Authentication failed
+				self.showPrivateScreen = false
+				self.appIsLocked = false
 			}
 		} else if showPrivateScreen && !appIsLocked {
 			lockScreenView?.removeFromSuperview()
@@ -109,7 +113,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	}
 
 	private func showLockView() {
-        guard isUserLoggedIn == true else { return }
+		guard isUserLoggedIn == true else { return }
 		if let window = window {
 			if showPrivateScreen && lockScreenView == nil {
 				lockScreenView = PrivacyLockView(frame: window.bounds)

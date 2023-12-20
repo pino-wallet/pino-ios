@@ -89,6 +89,8 @@ class InvestConfirmationViewController: UIViewController {
 				onDismiss: onConfirm
 			)
 			present(sendTransactionStatusVC, animated: true)
+		} onFailure: {
+			#warning("Error should be handled")
 		}
 	}
 

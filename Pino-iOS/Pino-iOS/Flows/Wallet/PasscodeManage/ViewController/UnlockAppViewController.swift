@@ -77,8 +77,13 @@ class UnlockAppViewController: UIViewController {
 
 	private func checkIfUserHasFaceID() {
 		// check if user has face id
-
-		managePasscodeView.hasFaceIDMode = true
+		let showBiometricOptionCount = UserDefaults.standard.integer(forKey: "showBiometricCounts")
+		if showBiometricOptionCount <= 2 {
+			UserDefaults.standard.setValue(showBiometricOptionCount + 1, forKey: "showBiometricCounts")
+			managePasscodeView.hasFaceIDMode = true
+		} else {
+			managePasscodeView.hasFaceIDMode = false
+		}
 	}
 
 	private func onSuccessLogin() {

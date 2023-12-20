@@ -107,6 +107,8 @@ class SwapConfirmationViewController: UIViewController {
 				onDismiss: dismissPage
 			)
 			present(sendTransactionStatuVC, animated: true)
+		} onFailure: {
+			#warning("Error should be handled")
 		}
 	}
 

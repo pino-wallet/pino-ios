@@ -76,6 +76,8 @@ class RecoveryPhraseViewController: UIViewController {
 	private func showFaceID() {
 		authManager.unlockApp {
 			self.recoverPhraseView.showSeedPhrase()
+		} onFailure: {
+			#warning("Error should be handled")
 		}
 	}
 }

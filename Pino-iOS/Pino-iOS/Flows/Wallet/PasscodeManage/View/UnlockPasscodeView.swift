@@ -136,18 +136,23 @@ extension UnlockPasscodeView {
 	}
 
 	private func setupFaceIDOptionStyles() {
-		if let biometricsTitle = managePassVM.useBiometricTitle, let biometricsIcon = managePassVM.useBiometricIcon {
-			useFaceIDIcon.image = UIImage(named: biometricsIcon)
-			useFaceIDTitleLabel.text = biometricsTitle
+		if hasFaceIDMode {
+			if let biometricsTitle = managePassVM.useBiometricTitle,
+			   let biometricsIcon = managePassVM.useBiometricIcon {
+				useFaceIDIcon.image = UIImage(named: biometricsIcon)
+				useFaceIDTitleLabel.text = biometricsTitle
+			} else {
+				useFaceIDOptionStackView.isHidden = true
+			}
+
+			useFaceIDTitleLabel.font = .PinoStyle.mediumSubheadline
+
+			useFaceIDSwitch.onTintColor = .Pino.green3
+
+			useFaceIDOptionStackView.isHidden = false
 		} else {
 			useFaceIDOptionStackView.isHidden = true
 		}
-
-		useFaceIDTitleLabel.font = .PinoStyle.mediumSubheadline
-
-		useFaceIDSwitch.onTintColor = .Pino.green3
-
-		useFaceIDOptionStackView.isHidden = false
 	}
 
 	@objc
@@ -170,6 +175,13 @@ extension UnlockPasscodeView {
 
 	public func hideError() {
 		errorLabel.isHidden = true
+	}
+
+	public func biometricsAuthFailed() {
+		useFaceIDSwitch.isOn = false
+		hideError()
+		errorLabel.text = "Failed to authorize Biometrics"
+		unlockVM?.setLockType(.passcode)
 	}
 
 	private func setupContstraint() {

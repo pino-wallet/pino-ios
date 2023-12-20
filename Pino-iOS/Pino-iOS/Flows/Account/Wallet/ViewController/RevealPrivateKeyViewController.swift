@@ -88,6 +88,8 @@ class RevealPrivateKeyViewController: UIViewController {
 	private func showFaceID() {
 		authManager.unlockApp {
 			self.revealPrivateKeyView.showPrivateKey()
+		} onFailure: {
+			#warning("Error should be handled")
 		}
 	}
 }
