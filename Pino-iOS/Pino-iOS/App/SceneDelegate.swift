@@ -9,6 +9,9 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	var window: UIWindow?
+
+	// MARK: - Private Properties
+
 	private var lockScreenView: PrivacyLockView?
 	private var authVC: AuthenticationLockManager!
 	private var appIsLocked = true
@@ -89,6 +92,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		showLockView()
 		print("scene: sceneDidEnterBackground: \(appIsLocked)")
 	}
+
+	// MARK: - Private Methods
 
 	private func hideLockView() {
 		guard isUserLoggedIn == true else { return }

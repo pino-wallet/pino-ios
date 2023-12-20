@@ -42,9 +42,9 @@ class UnlockAppViewModel: UnlockPasscodePageManager {
 	public var useBiometricTitle: String? {
 		switch BiometricAuthentication.biometricType() {
 		case .face:
-			return "Unlock with face id"
+			return "Unlock with Face ID"
 		case .touch:
-			return "Unlock with touch id"
+			return "Unlock with Touch ID"
 		case .none:
 			return nil
 		}

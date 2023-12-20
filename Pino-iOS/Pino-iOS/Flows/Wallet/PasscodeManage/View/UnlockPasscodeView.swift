@@ -127,8 +127,6 @@ extension UnlockPasscodeView {
 				useFaceIDSwitch.isOn = true
 			case .passcode:
 				useFaceIDSwitch.isOn = false
-			case .fallback:
-				useFaceIDOptionStackView.isHidden = true
 			}
 		} else {
 			useFaceIDSwitch.isOn = false

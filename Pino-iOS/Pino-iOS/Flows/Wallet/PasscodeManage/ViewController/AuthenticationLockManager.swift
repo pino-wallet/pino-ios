@@ -10,6 +10,8 @@ import LocalAuthentication
 import UIKit
 
 class AuthenticationLockManager {
+	// MARK: - Private Properties
+
 	private var unlockAppVC: UnlockAppViewController?
 	private var parentVC: UIViewController!
 
@@ -28,7 +30,7 @@ class AuthenticationLockManager {
 		switch getLockMethod() {
 		case .face_id:
 			unlockWithBiometric(onSuccess: onSuccess, onFailure: onFailure)
-		case .passcode, .fallback:
+		case .passcode:
 			unlockWithPasscode(onSuccess: onSuccess, onFailure: onFailure)
 		}
 	}
@@ -51,7 +53,6 @@ class AuthenticationLockManager {
 			onFailure: { errorCode in
 				switch errorCode {
 				case LAError.userFallback.rawValue:
-					self.setLockType(.fallback)
 					self.unlockWithPasscode(onSuccess: onSuccess, onFailure: onFailure)
 				case LAError.userCancel.rawValue:
 					print("User cancel authentication")
@@ -129,23 +130,6 @@ struct BiometricAuthentication {
 		}
 	}
 
-	private func showAuthPrompt(onSuccess: @escaping () -> Void, onFailure: @escaping (Int) -> Void) {
-		laContext.evaluatePolicy(
-			biometricsPolicy,
-			localizedReason: localizedReason,
-			reply: { isSuccess, error in
-				DispatchQueue.main.async {
-					if isSuccess {
-						onSuccess()
-					} else {
-						guard let error else { return }
-						onFailure(error._code)
-					}
-				}
-			}
-		)
-	}
-
 	static func biometricType() -> BiometricType {
 		let authContext = LAContext()
 		let _ = authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
@@ -176,5 +160,22 @@ struct BiometricAuthentication {
 			return false
 		}
 		return true
+	}
+
+	private func showAuthPrompt(onSuccess: @escaping () -> Void, onFailure: @escaping (Int) -> Void) {
+		laContext.evaluatePolicy(
+			biometricsPolicy,
+			localizedReason: localizedReason,
+			reply: { isSuccess, error in
+				DispatchQueue.main.async {
+					if isSuccess {
+						onSuccess()
+					} else {
+						guard let error else { return }
+						onFailure(error._code)
+					}
+				}
+			}
+		)
 	}
 }

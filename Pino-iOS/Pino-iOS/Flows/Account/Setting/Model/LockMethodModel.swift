@@ -13,5 +13,4 @@ struct LockMethodModel {
 public enum LockMethodType: String {
 	case face_id
 	case passcode
-	case fallback
 }
