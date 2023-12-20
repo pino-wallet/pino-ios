@@ -7,11 +7,14 @@
 
 import UIKit
 
-class RevealPrivateKeyViewController: AuthenticationLockViewController {
+class RevealPrivateKeyViewController: UIViewController {
 	// MARK: Private Properties
 
 	private var revealPrivateKeyView: RevealPrivateKeyView!
 	private let revealPrivateKeyVM = RevealPrivateKeyViewModel()
+	private lazy var authManager: AuthenticationLockManager = {
+		.init(parentController: self)
+	}()
 
 	// MARK: - View Overrides
 
@@ -83,8 +86,10 @@ class RevealPrivateKeyViewController: AuthenticationLockViewController {
 	}
 
 	private func showFaceID() {
-		unlockApp {
+		authManager.unlockApp {
 			self.revealPrivateKeyView.showPrivateKey()
+		} onFailure: {
+			#warning("Error should be handled")
 		}
 	}
 }

@@ -15,17 +15,19 @@ class UnlockPasscodeView: UIView {
 	private let topInfoContainerView = UIStackView()
 	private let errorLabel = UILabel()
 	private let managePassVM: UnlockPasscodePageManager
+	private let biometricActivationContainerView = UIStackView()
+	private let lineView = UIView()
 	private let useFaceIdAndErrorStackView = UIStackView()
 	private let useFaceIDOptionStackView = UIStackView()
 	private let useFaceIDIcon = UIImageView()
 	private let useFaceIDTitleLabel = PinoLabel(style: .title, text: "")
 	private let useFaceIDSwitch = UISwitch()
-	private let useFaceIDIconContainer = UIView()
 	private let useFaceIDbetweenStackView = UIStackView()
 	private let useFaceIDInfoStackView = UIStackView()
-	private let useFaceIdAndErrorStackViewBottomConstant = CGFloat(40)
-	private var keyboardHeight: CGFloat = 320 // Minimum height in rare case keyboard of height was not calculated
-	private var useFaceIdAndErrorStackViewBottomConstraint: NSLayoutConstraint!
+	private let keyboardview = PinoNumberPadView()
+	private var unlockVM: UnlockAppViewModel? {
+		managePassVM as? UnlockAppViewModel
+	}
 
 	// MARK: Public Properties
 
@@ -39,7 +41,6 @@ class UnlockPasscodeView: UIView {
 
 	// MARK: - Closures
 
-	public var onSuccessUnlockClosure: (() -> Void)!
 	public var onFaceIDSelected: () -> Void
 
 	// MARK: Initializers
@@ -51,9 +52,9 @@ class UnlockPasscodeView: UIView {
 		self.managePassVM = managePassVM
 		self.passDotsView = PassDotsView(passcodeManagerVM: managePassVM)
 		self.onFaceIDSelected = onFaceIDSelected
+		keyboardview.delegate = passDotsView
 		super.init(frame: .zero)
 
-		setupNotifications()
 		setupView()
 		setupStyle()
 		setupContstraint()
@@ -67,27 +68,10 @@ class UnlockPasscodeView: UIView {
 extension UnlockPasscodeView {
 	// MARK: Private Methods
 
-	private func setupNotifications() {
-		NotificationCenter.default.addObserver(
-			self,
-			selector: #selector(keyboardWillShow(_:)),
-			name: UIResponder.keyboardWillShowNotification,
-			object: nil
-		)
-
-		NotificationCenter.default.addObserver(
-			self,
-			selector: #selector(keyboardWillHide(_:)),
-			name: UIResponder.keyboardWillHideNotification,
-			object: nil
-		)
-	}
-
 	private func setupView() {
 		topInfoContainerView.addArrangedSubview(unlockPageTitle)
 
-		useFaceIDIconContainer.addSubview(useFaceIDIcon)
-		useFaceIDInfoStackView.addArrangedSubview(useFaceIDIconContainer)
+		useFaceIDInfoStackView.addArrangedSubview(useFaceIDIcon)
 		useFaceIDInfoStackView.addArrangedSubview(useFaceIDTitleLabel)
 
 		useFaceIDOptionStackView.addArrangedSubview(useFaceIDInfoStackView)
@@ -96,15 +80,23 @@ extension UnlockPasscodeView {
 
 		useFaceIdAndErrorStackView.addArrangedSubview(errorLabel)
 		useFaceIdAndErrorStackView.addArrangedSubview(useFaceIDOptionStackView)
+		biometricActivationContainerView.addArrangedSubview(useFaceIdAndErrorStackView)
+		biometricActivationContainerView.addArrangedSubview(lineView)
 
 		useFaceIDSwitch.addTarget(self, action: #selector(onUseFaceIDSwitchChange), for: .valueChanged)
 
 		addSubview(topInfoContainerView)
+		addSubview(biometricActivationContainerView)
 		addSubview(passDotsView)
-		addSubview(useFaceIdAndErrorStackView)
+		addSubview(keyboardview)
 	}
 
 	private func setupStyle() {
+		biometricActivationContainerView.axis = .vertical
+		biometricActivationContainerView.spacing = 16
+
+		lineView.backgroundColor = .Pino.background
+
 		useFaceIDInfoStackView.axis = .horizontal
 		useFaceIDInfoStackView.spacing = 4
 
@@ -126,23 +118,48 @@ extension UnlockPasscodeView {
 		useFaceIDOptionStackView.isHidden = true
 
 		useFaceIdAndErrorStackView.axis = .vertical
+		useFaceIdAndErrorStackView.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+		useFaceIdAndErrorStackView.isLayoutMarginsRelativeArrangement = true
+
+		if let unlockVM {
+			switch unlockVM.lockMethodType {
+			case .face_id:
+				useFaceIDSwitch.isOn = true
+			case .passcode:
+				useFaceIDSwitch.isOn = false
+			}
+		} else {
+			useFaceIDSwitch.isOn = false
+		}
 	}
 
 	private func setupFaceIDOptionStyles() {
-		useFaceIDIcon.image = UIImage(named: managePassVM.useFaceIdIcon!)
+		if hasFaceIDMode {
+			if let biometricsTitle = managePassVM.useBiometricTitle,
+			   let biometricsIcon = managePassVM.useBiometricIcon {
+				useFaceIDIcon.image = UIImage(named: biometricsIcon)
+				useFaceIDTitleLabel.text = biometricsTitle
+			} else {
+				useFaceIDOptionStackView.isHidden = true
+			}
 
-		useFaceIDTitleLabel.text = managePassVM.useFaceIdTitle
-		useFaceIDTitleLabel.font = .PinoStyle.mediumSubheadline
+			useFaceIDTitleLabel.font = .PinoStyle.mediumSubheadline
 
-		useFaceIDSwitch.onTintColor = .Pino.green3
+			useFaceIDSwitch.onTintColor = .Pino.green3
 
-		useFaceIDOptionStackView.isHidden = false
+			useFaceIDOptionStackView.isHidden = false
+		} else {
+			useFaceIDOptionStackView.isHidden = true
+		}
 	}
 
 	@objc
 	private func onUseFaceIDSwitchChange() {
 		if useFaceIDSwitch.isOn {
+			unlockVM?.setLockType(.face_id)
 			onFaceIDSelected()
+		} else {
+			unlockVM?.setLockType(.passcode)
 		}
 	}
 
@@ -158,22 +175,19 @@ extension UnlockPasscodeView {
 		errorLabel.isHidden = true
 	}
 
+	public func biometricsAuthFailed() {
+		useFaceIDSwitch.isOn = false
+		hideError()
+		errorLabel.text = "Failed to authorize Biometrics"
+		unlockVM?.setLockType(.passcode)
+	}
+
 	private func setupContstraint() {
 		errorLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 42).isActive = true
 		useFaceIDOptionStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 42).isActive = true
-		useFaceIdAndErrorStackViewBottomConstraint = NSLayoutConstraint(
-			item: useFaceIdAndErrorStackView,
-			attribute: .bottom,
-			relatedBy: .equal,
-			toItem: layoutMarginsGuide,
-			attribute: .bottom,
-			multiplier: 1,
-			constant: -useFaceIdAndErrorStackViewBottomConstant
-		)
-		addConstraint(useFaceIdAndErrorStackViewBottomConstraint)
 
 		topInfoContainerView.pin(
-			.top(to: layoutMarginsGuide, padding: 24),
+			.top(padding: 115),
 			.horizontalEdges(padding: 16)
 		)
 
@@ -183,68 +197,21 @@ extension UnlockPasscodeView {
 			.fixedHeight(20)
 		)
 
-		useFaceIdAndErrorStackView.pin(
-			.horizontalEdges(padding: 16)
+		keyboardview.pin(
+			.horizontalEdges(padding: 62.5),
+			.bottom(to: layoutMarginsGuide, padding: 44)
+		)
+
+		lineView.pin(
+			.fixedHeight(1),
+			.horizontalEdges
+		)
+
+		biometricActivationContainerView.pin(
+			.horizontalEdges,
+			.relative(.bottom, -16, to: keyboardview, .top)
 		)
 
 		useFaceIDIcon.pin(.fixedWidth(24), .fixedHeight(24), .centerY())
-		useFaceIDIconContainer.pin(.fixedWidth(24))
-	}
-
-	private func moveViewWithKeyboard(notification: NSNotification, keyboardWillShow: Bool) {
-		// Keyboard's animation duration
-		let keyboardDuration = notification
-			.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
-
-		// Keyboard's animation curve
-		let keyboardCurve = UIView
-			.AnimationCurve(
-				rawValue: notification
-					.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! Int
-			)!
-
-		// Change the constant
-		if keyboardWillShow {
-			let safeAreaExists = (window?.safeAreaInsets.bottom != 0) // Check if safe area exists
-			let keyboardOpenConstant = keyboardHeight - (safeAreaExists ? 20 : 0)
-			useFaceIdAndErrorStackViewBottomConstraint.constant = -keyboardOpenConstant
-		} else {
-			useFaceIdAndErrorStackViewBottomConstraint.constant = -useFaceIdAndErrorStackViewBottomConstant
-		}
-
-		// Animate the view the same way the keyboard animates
-		let animator = UIViewPropertyAnimator(duration: keyboardDuration, curve: keyboardCurve) { [weak self] in
-			// Update Constraints
-			self?.layoutIfNeeded()
-		}
-
-		// Perform the animation
-		animator.startAnimation()
-	}
-}
-
-extension UnlockPasscodeView {
-	// swiftlint: redundant_void_return
-	@objc
-	internal func keyboardWillShow(_ notification: NSNotification) {
-		if let info = notification.userInfo {
-			let frameEndUserInfoKey = UIResponder.keyboardFrameEndUserInfoKey
-			//  Getting UIKeyboardSize.
-			if let kbFrame = info[frameEndUserInfoKey] as? CGRect {
-				let screenSize = UIScreen.main.bounds
-				let intersectRect = kbFrame.intersection(screenSize)
-				if intersectRect.isNull {
-					keyboardHeight = 0
-				} else {
-					keyboardHeight = intersectRect.size.height
-				}
-			}
-		}
-		moveViewWithKeyboard(notification: notification, keyboardWillShow: true)
-	}
-
-	@objc
-	internal func keyboardWillHide(_ notification: NSNotification) {
-		moveViewWithKeyboard(notification: notification, keyboardWillShow: false)
 	}
 }

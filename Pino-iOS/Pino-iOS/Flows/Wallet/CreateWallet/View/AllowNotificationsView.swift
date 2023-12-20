@@ -224,11 +224,12 @@ class AllowNotificationsView: UIView {
 				self?.layoutIfNeeded()
 			}
 		) { [weak self] _ in
+			guard let self = self else { return }
 			UIView.animate(
-				withDuration: self!.animationTime,
+				withDuration: self.animationTime,
 				delay: 0,
-				usingSpringWithDamping: self!.animationTime,
-				initialSpringVelocity: self!.animationTime,
+				usingSpringWithDamping: self.animationTime,
+				initialSpringVelocity: self.animationTime,
 				options: .curveLinear,
 				animations: { [weak self] in
 					self?.sampleNotificationCard2.alpha = 1
