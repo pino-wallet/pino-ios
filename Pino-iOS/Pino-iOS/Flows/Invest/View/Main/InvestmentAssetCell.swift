@@ -13,7 +13,7 @@ public class InvestmentAssetCell: UICollectionViewCell {
 	private let assetStackView = UIStackView()
 	private let assetAmountStackView = UIStackView()
 	private let titleStackView = UIStackView()
-	private let assetImageView = UIImageView()
+	private let protocolImageView = UIImageView()
 	private let assetNameLabel = UILabel()
 	private let assetAmountLabel = UILabel()
 	private let assetVolatilityLabel = UILabel()
@@ -37,7 +37,7 @@ public class InvestmentAssetCell: UICollectionViewCell {
 		assetStackView.addArrangedSubview(titleStackView)
 		assetStackView.addArrangedSubview(assetAmountStackView)
 		titleStackView.addArrangedSubview(assetNameLabel)
-		titleStackView.addArrangedSubview(assetImageView)
+		titleStackView.addArrangedSubview(protocolImageView)
 		assetAmountStackView.addArrangedSubview(assetAmountLabel)
 		assetAmountStackView.addArrangedSubview(assetVolatilityIcon)
 		assetAmountStackView.addArrangedSubview(assetVolatilityLabel)
@@ -49,8 +49,7 @@ public class InvestmentAssetCell: UICollectionViewCell {
 			assetNameLabel.text = asset.assetName
 			assetAmountLabel.text = asset.formattedInvestmentAmount
 			assetVolatilityLabel.text = asset.formattedAssetVolatility
-			assetImageView.kf.indicatorType = .activity
-			assetImageView.kf.setImage(with: asset.assetImage)
+			protocolImageView.image = UIImage(named: asset.protocolImage)
 
 			switch asset.volatilityType {
 			case .profit:
@@ -77,9 +76,12 @@ public class InvestmentAssetCell: UICollectionViewCell {
 		assetVolatilityLabel.font = .PinoStyle.mediumBody
 
 		assetStackView.axis = .vertical
+
 		assetStackView.spacing = 10
 		assetAmountStackView.spacing = 2
 		titleStackView.spacing = 4
+
+		assetStackView.alignment = .leading
 
 		assetNameLabel.isSkeletonable = true
 		assetAmountLabel.isSkeletonable = true
@@ -92,9 +94,10 @@ public class InvestmentAssetCell: UICollectionViewCell {
 		)
 		assetVolatilityIcon.pin(
 			.fixedWidth(20),
-			.fixedHeight(20)
+			.fixedHeight(20),
+			.bottom(padding: 5)
 		)
-		assetImageView.pin(
+		protocolImageView.pin(
 			.fixedWidth(20),
 			.fixedHeight(20)
 		)

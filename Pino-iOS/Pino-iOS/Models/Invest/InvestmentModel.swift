@@ -13,6 +13,7 @@ struct InvestmentModel: Codable {
 	public let capital: String
 	public let currentWorth: String
 	public let id: String
+	public let lastDayWorth: String
 	public let listingID: String
 	public let protocolName: String
 	public let userID: String
@@ -22,6 +23,7 @@ struct InvestmentModel: Codable {
 		case capital
 		case currentWorth = "current_worth"
 		case id
+		case lastDayWorth = "last_day_worth"
 		case listingID = "listing_id"
 		case protocolName = "protocol"
 		case userID = "user_id"
