@@ -63,7 +63,7 @@ class SelectAssetToSendViewController: UIViewController {
 		selectAssetcollectionView.didSelectAsset = { selectedAsset in
 			if let selectedAssetChanged = self.changeAssetFromEnterAmountPage {
 				selectedAssetChanged(selectedAsset)
-				self.dismissSelf()
+				self.navigationController?.dismiss(animated: true)
 			} else {
 				self.openEnterAmountPage(selectedAsset: selectedAsset)
 			}
