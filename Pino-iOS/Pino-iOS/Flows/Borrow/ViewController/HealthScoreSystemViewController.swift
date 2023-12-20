@@ -173,13 +173,13 @@ class HealthScoreSystemViewController: UIAlertController {
 		currentHealthScoreLabel.font = .PinoStyle.semiboldCallout
 		currentHealthScoreLabel.textColor = .Pino.white
 		currentHealthScoreLabel.text = healthScoreSystemInfoVM.formattedHealthScore
-        currentHealthScoreLabel.textAlignment = .center
+		currentHealthScoreLabel.textAlignment = .center
 	}
 
 	private func setupConstraints() {
 		containerView.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
-        currentHealthScoreLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 23).isActive = true
-        currentHealthScoreLabel.heightAnchor.constraint(equalToConstant: 23).isActive = true
+		currentHealthScoreLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 23).isActive = true
+		currentHealthScoreLabel.heightAnchor.constraint(equalToConstant: 23).isActive = true
 
 		containerView.pin(.allEdges(padding: 0))
 		mainStackView.pin(.verticalEdges(padding: 32), .horizontalEdges(padding: 16))
@@ -229,9 +229,9 @@ class HealthScoreSystemViewController: UIAlertController {
 	}
 
 	private func setupHealthScoreConstraints(currentHealthScorePixel: Double) {
-        currentHealthScoreLabelContainer.layer.cornerRadius = currentHealthScoreLabelContainer.frame.height / 2
-        currentHealthScoreView.layer.cornerRadius = currentHealthScoreView.frame.height / 2
-        
+		currentHealthScoreLabelContainer.layer.cornerRadius = currentHealthScoreLabelContainer.frame.height / 2
+		currentHealthScoreView.layer.cornerRadius = currentHealthScoreView.frame.height / 2
+
 		let healthScoreGradientViewWidth = healthScoreGradientView.frame.width
 		let halfCurrentHealthScoreLabelContainerWidth = currentHealthScoreView.frame.width / 2
 		let healthScoreGradientRemainingWidth = healthScoreGradientViewWidth - currentHealthScorePixel
