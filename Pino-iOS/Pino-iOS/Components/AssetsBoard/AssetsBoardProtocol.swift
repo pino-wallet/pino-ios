@@ -8,6 +8,7 @@
 import Foundation
 
 protocol AssetsBoardProtocol {
+	var assetId: String { get }
 	var assetName: String { get }
 	var assetImage: URL { get }
 	var protocolImage: String { get }

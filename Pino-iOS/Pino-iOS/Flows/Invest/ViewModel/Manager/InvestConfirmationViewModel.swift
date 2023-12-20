@@ -167,7 +167,15 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 				gasInfo: self.investManager.aaveManager.depositGasInfo!
 			)
 		}
-		return [depositTransaction]
+		if let collateralCheckTrx = investManager.aaveManager.collateralCheckTRX {
+			let collateralCheckTransaction =
+				SendTransactionViewModel(transaction: collateralCheckTrx) { pendingActivityTXHash in
+					#warning("Check enter/exit market ativity must be added or not")
+				}
+			return [depositTransaction, collateralCheckTransaction]
+		} else {
+			return [depositTransaction]
+		}
 	}
 
 	private func updateFee(gasInfos: [GasInfo]) {

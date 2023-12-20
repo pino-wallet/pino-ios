@@ -46,9 +46,9 @@ class WithdrawViewModel: InvestViewModelProtocol {
 
 	// MARK: - Initializers
 
-	init(selectedAsset: AssetsBoardProtocol, selectedProtocol: InvestProtocolViewModel) {
+	init(selectedAsset: InvestAssetViewModel, selectedProtocol: InvestProtocolViewModel) {
 		self.selectedProtocol = selectedProtocol
-		getToken(investableAsset: selectedAsset)
+		getToken(investmentAsset: selectedAsset)
 	}
 
 	// MARK: - Public Methods
@@ -104,9 +104,9 @@ class WithdrawViewModel: InvestViewModelProtocol {
 
 	// MARK: - Private Methods
 
-	private func getToken(investableAsset: AssetsBoardProtocol) {
+	private func getToken(investmentAsset: InvestAssetViewModel) {
 		let tokensList = GlobalVariables.shared.manageAssetsList!
-		selectedToken = tokensList.first(where: { $0.symbol == investableAsset.assetName })!
-		maxAvailableAmount = selectedToken.holdAmount
+		selectedToken = tokensList.first(where: { $0.id.lowercased() == investmentAsset.assetId.lowercased() })!
+		maxAvailableAmount = investmentAsset.tokenAmount
 	}
 }

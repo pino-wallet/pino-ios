@@ -174,6 +174,9 @@ class InvestDepositView: UIView {
 		openPositionErrorLabel.numberOfLines = 0
 
 		openPositionErrorCard.layer.cornerRadius = 12
+
+		openPositionErrorCard.isHiddenInStackView = true
+		estimatedReturnCardView.isHiddenInStackView = true
 	}
 
 	private func setupContstraint() {

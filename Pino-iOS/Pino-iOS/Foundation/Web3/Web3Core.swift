@@ -80,6 +80,10 @@ public class Web3Core {
 		.init(writeWeb3: wWeb3, readWeb3: rWeb3)
 	}
 
+	private var compoundRepayManager: W3CompoundRepayManager {
+		.init(writeWeb3: wWeb3, readWeb3: rWeb3)
+	}
+
 	private let walletManager = PinoWalletManager()
 
 	// MARK: - Typealias
@@ -255,6 +259,37 @@ public class Web3Core {
 				}.catch { error in
 					seal.reject(error)
 				}
+		}
+	}
+
+	public func getTransactionCallData(
+		contractAddress: String,
+		trxCallData: EthereumData,
+		nonce: EthereumQuantity? = nil,
+		value: BigUInt = 0,
+		gasLimit: EthereumQuantity
+	) -> Promise<(EthereumSignedTransaction, GasInfo)> {
+		TrxWithGasInfo { [self] seal in
+			firstly {
+				guard let nonce else {
+					return rWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+				}
+				return nonce.promise
+			}.done { [self] nonce in
+				let gasInfo = GasInfo(gasLimit: gasLimit)
+				let trx = try trxManager.createTransactionFor(
+					nonce: nonce,
+					gasInfo: gasInfo,
+					value: value.etherumQuantity,
+					data: trxCallData,
+					to: contractAddress.eip55Address!
+				)
+
+				let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Network.chainID)
+				seal.fulfill((signedTx, gasInfo))
+			}.catch { error in
+				seal.reject(error)
+			}
 		}
 	}
 
@@ -461,6 +496,10 @@ public class Web3Core {
 		investManager.getExitMarketCallData(tokenAddress: tokenAddress)
 	}
 
+	public func getDisableCollateralCallData(tokenAddress: String) -> Promise<EthereumData> {
+		investManager.getDisableCollateralCallData(tokenAddress: tokenAddress)
+	}
+
 	public func getInvestProxyContract() throws -> DynamicContract {
 		try investManager.getInvestProxyContract()
 	}
@@ -471,6 +510,10 @@ public class Web3Core {
 
 	public func getCompoundCollateralCheckProxyContract() throws -> DynamicContract {
 		try investManager.getCollateralCheckProxyContract()
+	}
+
+	public func getDisableCollateralProxyContract() throws -> DynamicContract {
+		try investManager.getAaveProxyContract()
 	}
 
 	public func getCompoundBorrowCTokenContractDetails(
@@ -595,6 +638,33 @@ public class Web3Core {
 
 	public func getExchangeRateStoredCallData(cTokenID: String) throws -> Promise<BigUInt> {
 		try investManager.getExchangeRateStoredCallData(cTokenID: cTokenID)
+	}
+
+	public func getCompoundERCRepayCallData(
+		contract: DynamicContract,
+		cTokenAddress: String,
+		amount: BigUInt
+	) -> Promise<String> {
+		compoundRepayManager.getRepayERCCallData(contract: contract, cTokenAddress: cTokenAddress, amount: amount)
+	}
+
+	public func getCompoundETHRepayCallData(contractID: String) -> Promise<String> {
+		compoundRepayManager.getRepayETHCallData(contractID: contractID)
+	}
+
+	public func getCompoundETHRepayContractDetails(contractID: String) -> Promise<ContractDetailsModel> {
+		compoundRepayManager.getRepayETHContractDetails(contractID: contractID)
+	}
+
+	public func getCompoundETHRepayGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
+		compoundRepayManager.getRepayETHGasInfo(contractDetails: contractDetails)
+	}
+
+	public func getCompoundETHRepayTransaction(
+		contractDetails: ContractDetailsModel,
+		amount: BigUInt
+	) -> Promise<EthereumSignedTransaction> {
+		compoundRepayManager.getRepayETHTransaction(contractDetails: contractDetails, amount: amount)
 	}
 
 	// MARK: - Private Methods

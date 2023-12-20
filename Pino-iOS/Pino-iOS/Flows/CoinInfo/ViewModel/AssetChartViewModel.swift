@@ -15,7 +15,7 @@ struct AssetChartViewModel {
 
 	public var chartDataEntry: [ChartDataEntry] {
 		chartDataVM.map {
-			let timeStamp = $0.date?.timeIntervalSinceNow ?? 0
+			let timeStamp = $0.date!.timeIntervalSinceNow
 			return ChartDataEntry(x: timeStamp, y: $0.networth.doubleValue)
 		}
 	}

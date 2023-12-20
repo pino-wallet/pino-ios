@@ -45,7 +45,14 @@ class InvestmentBoardViewModel: InvestFilterDelegate {
 				print("Error getting investable assets:\(error)")
 			}
 		} receiveValue: { investableAssetsModel in
-			self.investableAssets = investableAssetsModel.compactMap { InvestableAssetViewModel(assetModel: $0) }
+			let investableAssets = investableAssetsModel.compactMap { InvestableAssetViewModel(assetModel: $0) }
+			self.investableAssets = investableAssets.filter { asset in
+				if self.userInvestments.contains(where: { $0.listId.lowercased() == asset.id.lowercased() }) {
+					return false
+				} else {
+					return true
+				}
+			}
 			self.filteredAssets = self.investableAssets
 		}.store(in: &cancellables)
 	}

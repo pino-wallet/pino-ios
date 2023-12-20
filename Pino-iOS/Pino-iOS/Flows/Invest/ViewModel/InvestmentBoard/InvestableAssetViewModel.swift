@@ -14,11 +14,15 @@ public struct InvestableAssetViewModel: AssetsBoardProtocol {
 
 	// MARK: - Public Properties
 
+	public var id: String {
+		assetModel.id
+	}
+
 	public var investToken: AssetViewModel {
 		GlobalVariables.shared.manageAssetsList!.first(where: { $0.id == assetModel.tokens.first!.tokenId })!
 	}
 
-	public var tokenId: String {
+	public var assetId: String {
 		investToken.id
 	}
 
