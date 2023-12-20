@@ -20,7 +20,7 @@ class AuthenticationLockManager {
 	// MARK: - Public Methods
 
 	public func unlockApp(onSuccess: @escaping () -> Void, onFailure: @escaping () -> Void) {
-		guard !UIDevice.current.isSimulator || Environment.current != .mainNet else {
+		if UIDevice.current.isSimulator || Environment.current != .mainNet {
 			onSuccess()
 			return
 		}

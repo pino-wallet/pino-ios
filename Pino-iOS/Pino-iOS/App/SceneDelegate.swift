@@ -43,9 +43,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			"hasSeenBorrowTut": false,
 		])
 		window?.makeKeyAndVisible()
-		if let window {
-			authVC = AuthenticationLockManager(parentController: window.rootViewController!)
-		}
 
 		// Disable animations in test mode to speed up tests
 		disableAllAnimationsInTestMode()
@@ -97,6 +94,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		guard isUserLoggedIn == true else { return }
 
 		if showPrivateScreen && appIsLocked {
+			if let window {
+				authVC = AuthenticationLockManager(parentController: window.rootViewController!)
+			}
 			authVC.unlockApp {
 				self.appIsLocked = false
 				self.lockScreenView?.removeFromSuperview()

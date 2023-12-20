@@ -37,7 +37,7 @@ enum Environment {
 	public static var current: Environment {
 		let devMode = UserDefaults.standard.bool(forKey: "isInDevMode")
 
-		return .devNet
+//		return .devNet
 		if devMode {
 			return .devNet
 		} else {
