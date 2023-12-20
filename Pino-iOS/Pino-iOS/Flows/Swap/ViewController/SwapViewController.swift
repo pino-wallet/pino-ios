@@ -170,7 +170,7 @@ class SwapViewController: UIViewController {
 	}
 
 	private func selectAssetForToToken() {
-		var filteredAssets = assets!
+		var filteredAssets = assets!.filter { !$0.isPosition }
 		// To prevent swapping same tokens
 		filteredAssets.removeAll(where: { $0.id == swapVM.fromToken.selectedToken.id })
 		openSelectAssetPage(assets: filteredAssets) { selectedToken in
@@ -179,7 +179,8 @@ class SwapViewController: UIViewController {
 	}
 
 	private func openSelectAssetPage(assets: [AssetViewModel], assetChanged: @escaping (AssetViewModel) -> Void) {
-		let selectAssetVC = SelectAssetToSendViewController(assets: assets)
+		let filteredAssets = assets.filter { !$0.isPosition }
+		let selectAssetVC = SelectAssetToSendViewController(assets: filteredAssets)
 		selectAssetVC.changeAssetFromEnterAmountPage = { selectedAsset in
 			assetChanged(selectedAsset)
 		}
