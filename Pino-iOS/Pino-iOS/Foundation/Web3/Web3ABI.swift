@@ -18,6 +18,7 @@ public enum Web3ABI {
 	case aaveProxy
 	case compoundCollateralCheck
 	case cToken
+    case maxiMillion
 
 	public var abi: Data {
 		switch self {
@@ -41,7 +42,9 @@ public enum Web3ABI {
 			return Web3ABI.compoundCollateralCheckAbiString.data(using: .utf8)!
 		case .cToken:
 			return Web3ABI.cTokenAbiString.data(using: .utf8)!
-		}
+        case .maxiMillion:
+            return Web3ABI.maxiMillionAbiString.data(using: .utf8)!
+        }
 	}
 
 	private static var erc20AbiString: String {
@@ -83,6 +86,10 @@ public enum Web3ABI {
 	private static var cTokenAbiString: String {
 		ABIReader(fileName: "CTokenABI")
 	}
+    
+    private static var maxiMillionAbiString: String {
+        ABIReader(fileName: "MaxiMillionABIJson")
+    }
 }
 
 public enum ABIMethodCall: String {
@@ -132,6 +139,7 @@ public enum ABIMethodWrite: String {
 	case repayV2
 	case repayETHV2
 	case repayBorrow
+    case repayBehalf
 }
 
 fileprivate func ABIReader(fileName: String) -> String {

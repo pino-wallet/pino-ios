@@ -74,7 +74,7 @@ class RepayConfirmViewModel {
 	}
 
 	private var selectedToken: AssetViewModel {
-		repayAmountVM.selectedToken
+        repayAmountVM.selectedToken
 	}
 
 	private var selectedDexSystem: DexSystemModel {
@@ -102,9 +102,6 @@ class RepayConfirmViewModel {
 
 	private lazy var compoundRepayManager: CompoundRepayManager = {
 		var calculatedAssetAmount: String
-		if selectedToken.isEth {
-			calculatedAssetAmount = repayAmountVM.tokenAmount
-		} else {
 			switch repayMode {
 			case .decrease:
 				calculatedAssetAmount = repayAmountVM.tokenAmount
@@ -113,7 +110,6 @@ class RepayConfirmViewModel {
 				let estimatedExtraDebtForOneMinute = (assetAmountBigNumber / 100_000.bigNumber)! * 3.bigNumber
 				let totalDebt = assetAmountBigNumber + estimatedExtraDebtForOneMinute
 				calculatedAssetAmount = totalDebt.sevenDigitFormat
-			}
 		}
 
 		let pinoCompoundProxyContract = try! web3.getCompoundProxyContract()
