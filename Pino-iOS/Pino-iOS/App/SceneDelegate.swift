@@ -108,7 +108,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				self.lockScreenView = nil
 			} onFailure: {
 				// Authentication failed
-				self.showPrivateScreen = false
+//				self.showPrivateScreen = false
 				self.appIsLocked = false
 			}
 		} else if showPrivateScreen && !appIsLocked {
