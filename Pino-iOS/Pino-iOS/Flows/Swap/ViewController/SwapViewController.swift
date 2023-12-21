@@ -21,7 +21,7 @@ class SwapViewController: UIViewController {
 	private let pageTitleLabel = UILabel()
 	private let walletManager = PinoWalletManager()
 	private let swapLoadingView = SwapLoadingView()
-
+	private var isDismissingVC = false
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - View Overrides
@@ -110,6 +110,7 @@ class SwapViewController: UIViewController {
 		}.store(in: &cancellables)
 
 		swapView.$keyboardIsOpen.sink { keyboardIsOpen in
+			if self.isDismissingVC { return }
 			if keyboardIsOpen {
 				self.swapView.closeFeeCard()
 			} else {
@@ -153,11 +154,13 @@ class SwapViewController: UIViewController {
 	}
 
 	private func openSelectProtocolPage() {
+		isDismissingVC = false
 		let swapProtocolVC = SelectSwapProtocolViewController { selectedProtocol in
 			self.swapVM.changeSwapProtocol(to: selectedProtocol)
 		}
 		let swapProtocolNavigationVC = UINavigationController(rootViewController: swapProtocolVC)
 		present(swapProtocolNavigationVC, animated: true)
+		isDismissingVC = true
 	}
 
 	private func selectAssetForFromToken() {
@@ -179,6 +182,7 @@ class SwapViewController: UIViewController {
 	}
 
 	private func openSelectAssetPage(assets: [AssetViewModel], assetChanged: @escaping (AssetViewModel) -> Void) {
+		isDismissingVC = true
 		let filteredAssets = assets.filter { !$0.isPosition }
 		let selectAssetVC = SelectAssetToSendViewController(assets: filteredAssets)
 		selectAssetVC.changeAssetFromEnterAmountPage = { selectedAsset in
@@ -186,6 +190,7 @@ class SwapViewController: UIViewController {
 		}
 		let selectAssetNavigationController = UINavigationController(rootViewController: selectAssetVC)
 		present(selectAssetNavigationController, animated: true)
+		isDismissingVC = false
 	}
 
 	private func openProvidersPage() {
@@ -215,6 +220,7 @@ class SwapViewController: UIViewController {
 
 	private func openTokenApprovePage() {
 		swapVM.getSwapSide { side, _, _ in
+			isDismissingVC = true
 			let swapConfirmationVM = SwapConfirmationViewModel(
 				fromToken: swapVM.fromToken,
 				toToken: swapVM.toToken,
@@ -231,11 +237,13 @@ class SwapViewController: UIViewController {
 			)
 			let confirmationNavigationVC = UINavigationController(rootViewController: approveVC)
 			present(confirmationNavigationVC, animated: true)
+			isDismissingVC = false
 		}
 	}
 
 	private func openConfirmationPage() {
 		swapVM.getSwapSide { side, srcToken, destToken in
+			isDismissingVC = true
 			let swapConfirmationVM = SwapConfirmationViewModel(
 				fromToken: swapVM.fromToken,
 				toToken: swapVM.toToken,
@@ -247,6 +255,7 @@ class SwapViewController: UIViewController {
 			let confirmationVC = SwapConfirmationViewController(swapConfirmationVM: swapConfirmationVM)
 			let confirmationNavigationVC = UINavigationController(rootViewController: confirmationVC)
 			present(confirmationNavigationVC, animated: true)
+			isDismissingVC = false
 		}
 	}
 
