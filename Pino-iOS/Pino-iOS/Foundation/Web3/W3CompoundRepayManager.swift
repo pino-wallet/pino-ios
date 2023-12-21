@@ -71,7 +71,7 @@ public struct W3CompoundRepayManager: Web3HelperProtocol {
 		}
 	}
 
-    public func getRepayETHGasInfo(contractDetails: ContractDetailsModel, method: ABIMethodWrite) -> Promise<GasInfo> {
+	public func getRepayETHGasInfo(contractDetails: ContractDetailsModel, method: ABIMethodWrite) -> Promise<GasInfo> {
 		Promise<GasInfo> { seal in
 			gasInfoManager.calculateGasOf(
 				method: method,
@@ -88,7 +88,7 @@ public struct W3CompoundRepayManager: Web3HelperProtocol {
 	public func getRepayETHTransaction(
 		contractDetails: ContractDetailsModel,
 		amount: BigUInt,
-        method: ABIMethodWrite
+		method: ABIMethodWrite
 	) -> Promise<EthereumSignedTransaction> {
 		Promise<EthereumSignedTransaction> { seal in
 			gasInfoManager.calculateGasOf(
@@ -116,18 +116,21 @@ public struct W3CompoundRepayManager: Web3HelperProtocol {
 			}
 		}
 	}
-    
-    // repay max eth
-    
-    public func getRepayMaxETHContractDetails() -> Promise<ContractDetailsModel> {
-        Promise<ContractDetailsModel> { seal in
-            let contract = try! Web3Core.getContractOfToken(
-                address: Web3Core.Constants.maxiMillionContractAddress,
-                abi: .maxiMillion,
-                web3: readWeb3
-            )
-            let solInvocation = contract[ABIMethodWrite.repayBehalf.rawValue]?(walletManager.currentAccount.eip55Address.eip55Address!)
-            seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvocation!))
-        }
-    }
+
+	// repay max eth
+
+	public func getRepayMaxETHContractDetails() -> Promise<ContractDetailsModel> {
+		Promise<ContractDetailsModel> { seal in
+			let contract = try! Web3Core.getContractOfToken(
+				address: Web3Core.Constants.maxiMillionContractAddress,
+				abi: .maxiMillion,
+				web3: readWeb3
+			)
+			let solInvocation = contract[ABIMethodWrite.repayBehalf.rawValue]?(
+				walletManager.currentAccount.eip55Address
+					.eip55Address!
+			)
+			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvocation!))
+		}
+	}
 }

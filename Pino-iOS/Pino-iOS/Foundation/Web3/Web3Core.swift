@@ -656,21 +656,24 @@ public class Web3Core {
 		compoundRepayManager.getRepayETHContractDetails(contractID: contractID)
 	}
 
-    public func getCompoundETHRepayGasInfo(contractDetails: ContractDetailsModel, method: ABIMethodWrite) -> Promise<GasInfo> {
-        compoundRepayManager.getRepayETHGasInfo(contractDetails: contractDetails, method: method)
+	public func getCompoundETHRepayGasInfo(
+		contractDetails: ContractDetailsModel,
+		method: ABIMethodWrite
+	) -> Promise<GasInfo> {
+		compoundRepayManager.getRepayETHGasInfo(contractDetails: contractDetails, method: method)
 	}
 
 	public func getCompoundETHRepayTransaction(
 		contractDetails: ContractDetailsModel,
 		amount: BigUInt,
-        method: ABIMethodWrite
+		method: ABIMethodWrite
 	) -> Promise<EthereumSignedTransaction> {
-        compoundRepayManager.getRepayETHTransaction(contractDetails: contractDetails, amount: amount, method: method)
+		compoundRepayManager.getRepayETHTransaction(contractDetails: contractDetails, amount: amount, method: method)
 	}
-    
-    public func getCompoundRepayMaxETHContractDetails() -> Promise<ContractDetailsModel> {
-        compoundRepayManager.getRepayMaxETHContractDetails()
-    }
+
+	public func getCompoundRepayMaxETHContractDetails() -> Promise<ContractDetailsModel> {
+		compoundRepayManager.getRepayMaxETHContractDetails()
+	}
 
 	// MARK: - Private Methods
 
@@ -746,7 +749,7 @@ extension Web3Core {
 		static let compoundCUsdtContractAddress = "0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9"
 		static let compoundCWbtcContractAddress = "0xC11b1268C1A384e55C48c2391d8d480264A3A7F4"
 		static let sDaiContractAddress = "0x83f20f44975d03b1b09e64809b757c47f942beea"
-        static let maxiMillionContractAddress = "0xf859A1AD94BcF445A406B892eF0d3082f4174088"
+		static let maxiMillionContractAddress = "0xf859A1AD94BcF445A406B892eF0d3082f4174088"
 	}
 }
 
