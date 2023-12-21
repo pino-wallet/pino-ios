@@ -34,6 +34,7 @@ class IntroViewController: UIViewController {
 				self.goToImportWalletPage()
 			}
 		)
+		navigationController?.navigationBar.prefersLargeTitles = false
 		view = introView
 	}
 
