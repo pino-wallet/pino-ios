@@ -142,6 +142,7 @@ class TutorialView: UIView {
 
 	func setupBindings() {
 		tutorialVM.$currentIndex.compactMap { $0 }.sink { [self] tutIndex in
+			guard tutIndex < tutorialVM.tutorials.count else { return }
 			animationView.pause()
 			animationView.animation = LottieAnimation.named(tutorialVM.tutorials[tutIndex].lottieFile)
 			animationView.play()
