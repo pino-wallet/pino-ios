@@ -34,6 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		UserDefaults.standard.register(defaults: ["hasShownNotifPage": false])
 		UserDefaults.standard.register(defaults: ["isInDevMode": false])
 		UserDefaults.standard.register(defaults: ["showBiometricCounts": 0])
+		UserDefaults.standard.register(defaults: ["recentSentAddresses": []])
 		if isUserLoggedIn {
 			window?.rootViewController = TabBarViewController()
 		} else {

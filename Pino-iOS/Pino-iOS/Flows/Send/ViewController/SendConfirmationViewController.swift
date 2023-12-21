@@ -75,6 +75,7 @@ class SendConfirmationViewController: UIViewController {
 	private func confirmSend() {
 		authManager.unlockApp { [self] in
 			guard let sendTransactions = sendConfirmationVM.sendTransactions else { return }
+			sendConfirmationVM.setRecentAddress()
 			let sendTransactionStatusVM = SendTransactionStatusViewModel(
 				transactions: sendTransactions,
 				transactionSentInfoText: sendConfirmationVM.sendStatusText

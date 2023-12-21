@@ -179,6 +179,12 @@ class SendConfirmationViewModel {
 		PendingActivitiesManager.shared.startActivityPendingRequests()
 	}
 
+	public func setRecentAddress() {
+		var recentAdds = UserDefaults.standard.value(forKey: "recentSentAddresses") as! [String]
+		recentAdds.insert(recipientAddress, at: 0)
+		UserDefaults.standard.set(recentAdds, forKey: "recentSentAddresses")
+	}
+
 	// MARK: - Private Methods
 
 	private func setupBindings() {
