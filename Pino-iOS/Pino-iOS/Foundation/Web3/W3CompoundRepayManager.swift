@@ -117,8 +117,6 @@ public struct W3CompoundRepayManager: Web3HelperProtocol {
 		}
 	}
 
-	// repay max eth
-
 	public func getRepayMaxETHContractDetails() -> Promise<ContractDetailsModel> {
 		Promise<ContractDetailsModel> { seal in
 			let contract = try! Web3Core.getContractOfToken(
