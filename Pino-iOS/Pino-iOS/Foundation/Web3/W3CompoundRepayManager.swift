@@ -71,10 +71,10 @@ public struct W3CompoundRepayManager: Web3HelperProtocol {
 		}
 	}
 
-	public func getRepayETHGasInfo(contractDetails: ContractDetailsModel) -> Promise<GasInfo> {
+	public func getRepayETHGasInfo(contractDetails: ContractDetailsModel, method: ABIMethodWrite) -> Promise<GasInfo> {
 		Promise<GasInfo> { seal in
 			gasInfoManager.calculateGasOf(
-				method: .repayBorrow,
+				method: method,
 				solInvoc: contractDetails.solInvocation,
 				contractAddress: contractDetails.contract.address!
 			).done { gasInfo in
@@ -87,11 +87,12 @@ public struct W3CompoundRepayManager: Web3HelperProtocol {
 
 	public func getRepayETHTransaction(
 		contractDetails: ContractDetailsModel,
-		amount: BigUInt
+		amount: BigUInt,
+		method: ABIMethodWrite
 	) -> Promise<EthereumSignedTransaction> {
 		Promise<EthereumSignedTransaction> { seal in
 			gasInfoManager.calculateGasOf(
-				method: .repayBorrow,
+				method: method,
 				solInvoc: contractDetails.solInvocation,
 				contractAddress: contractDetails.contract.address!
 			)
@@ -113,6 +114,21 @@ public struct W3CompoundRepayManager: Web3HelperProtocol {
 			}.catch { error in
 				seal.reject(error)
 			}
+		}
+	}
+
+	public func getRepayMaxETHContractDetails() -> Promise<ContractDetailsModel> {
+		Promise<ContractDetailsModel> { seal in
+			let contract = try! Web3Core.getContractOfToken(
+				address: Web3Core.Constants.maxiMillionContractAddress,
+				abi: .maxiMillion,
+				web3: readWeb3
+			)
+			let solInvocation = contract[ABIMethodWrite.repayBehalf.rawValue]?(
+				walletManager.currentAccount.eip55Address
+					.eip55Address!
+			)
+			seal.fulfill(ContractDetailsModel(contract: contract, solInvocation: solInvocation!))
 		}
 	}
 }

@@ -166,17 +166,49 @@ class CompoundRepayManager: Web3ManagerProtocol {
 	}
 
 	public func getETHRepayData() -> TrxWithGasInfo {
+		switch repayMode {
+		case .decrease:
+			getETHDecreaseRepayData()
+		case .repayMax:
+			getETHMaxRepayData()
+		}
+	}
+
+	public func getETHDecreaseRepayData() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			firstly {
 				self.getTokenPositionID()
 			}.then { positionID in
 				self.web3.getCompoundETHRepayContractDetails(contractID: positionID)
 			}.then { contractDetails -> Promise<(ContractDetailsModel, GasInfo)> in
-				self.web3.getCompoundETHRepayGasInfo(contractDetails: contractDetails).map { (contractDetails, $0) }
+				self.web3.getCompoundETHRepayGasInfo(contractDetails: contractDetails, method: .repayBorrow)
+					.map { (contractDetails, $0) }
 			}.then { contractDetails, repayGasInfo -> Promise<(GasInfo, EthereumSignedTransaction)> in
 				self.web3.getCompoundETHRepayTransaction(
 					contractDetails: contractDetails,
-					amount: self.assetAmountBigUInt
+					amount: self.assetAmountBigUInt, method: .repayBorrow
+				).map { (repayGasInfo, $0) }
+			}.done { repayGasInfo, repayTransaction in
+				self.repayTRX = repayTransaction
+				self.repayGasInfo = repayGasInfo
+				seal.fulfill((repayTransaction, repayGasInfo))
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	public func getETHMaxRepayData() -> TrxWithGasInfo {
+		TrxWithGasInfo { seal in
+			firstly {
+				self.web3.getCompoundRepayMaxETHContractDetails()
+			}.then { contractDetails -> Promise<(ContractDetailsModel, GasInfo)> in
+				self.web3.getCompoundETHRepayGasInfo(contractDetails: contractDetails, method: .repayBehalf)
+					.map { (contractDetails, $0) }
+			}.then { contractDetails, repayGasInfo -> Promise<(GasInfo, EthereumSignedTransaction)> in
+				self.web3.getCompoundETHRepayTransaction(
+					contractDetails: contractDetails,
+					amount: self.assetAmountBigUInt, method: .repayBehalf
 				).map { (repayGasInfo, $0) }
 			}.done { repayGasInfo, repayTransaction in
 				self.repayTRX = repayTransaction

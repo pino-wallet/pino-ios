@@ -500,6 +500,7 @@
 		D9E34BC92C3AE69B3D5EC4F2 /* PortfolioPerformanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4FFBB4CC6D342FF946AB9 /* PortfolioPerformanceViewModel.swift */; };
 		D9EBBF9D2B1C913C0005B1D6 /* W3AaveRepayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EBBF9C2B1C913C0005B1D6 /* W3AaveRepayManager.swift */; };
 		D9EBBF9F2B1CB6030005B1D6 /* AaveRepayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EBBF9E2B1CB6030005B1D6 /* AaveRepayManager.swift */; };
+		D9EF38BC2B336C56006E326F /* MaxiMillionABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = D9EF38BB2B32EE23006E326F /* MaxiMillionABIJson.json */; };
 		D9F1BD022A7111FE00F5303F /* CoinInfoEmptyStateFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F1BD012A7111FE00F5303F /* CoinInfoEmptyStateFooterView.swift */; };
 		D9F1BD042A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F1BD032A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift */; };
 		D9F2508029E576FB00DE0410 /* NotificationSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F2507F29E576FB00DE0410 /* NotificationSettingsCell.swift */; };
@@ -1343,6 +1344,7 @@
 		D9E27FEF2B1B502B00AFA7D0 /* AaveBorrowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AaveBorrowManager.swift; sourceTree = "<group>"; };
 		D9EBBF9C2B1C913C0005B1D6 /* W3AaveRepayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3AaveRepayManager.swift; sourceTree = "<group>"; };
 		D9EBBF9E2B1CB6030005B1D6 /* AaveRepayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AaveRepayManager.swift; sourceTree = "<group>"; };
+		D9EF38BB2B32EE23006E326F /* MaxiMillionABIJson.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MaxiMillionABIJson.json; sourceTree = "<group>"; };
 		D9F1BD012A7111FE00F5303F /* CoinInfoEmptyStateFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoEmptyStateFooterView.swift; sourceTree = "<group>"; };
 		D9F1BD032A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoEmptyStateFooterViewModel.swift; sourceTree = "<group>"; };
 		D9F2507F29E576FB00DE0410 /* NotificationSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsCell.swift; sourceTree = "<group>"; };
@@ -3713,6 +3715,7 @@
 				D9D754252AD133C8001D4B94 /* ERC20ABIJson.json */,
 				D9D754232AD13248001D4B94 /* BorrowERCAaveABIJson.json */,
 				DFBDA00A2AB0CDA700ED42D6 /* SwapABIJson.json */,
+				D9EF38BB2B32EE23006E326F /* MaxiMillionABIJson.json */,
 			);
 			path = ABIs;
 			sourceTree = "<group>";
@@ -4500,6 +4503,7 @@
 				62227423FCF2309039BB6FAC /* PPPangramSans-Extralight.ttf in Resources */,
 				D9D754242AD13248001D4B94 /* BorrowERCAaveABIJson.json in Resources */,
 				DFB60DAC2B1B3F9D00464143 /* BorrowLoansMadeEasy.json in Resources */,
+				D9EF38BC2B336C56006E326F /* MaxiMillionABIJson.json in Resources */,
 				710BFFE4625F76FC84268937 /* PPPangramSans-ExtralightItalic.ttf in Resources */,
 				79073EE50BEA80FAE0356625 /* PPPangramSans-ExtralightReclined.ttf in Resources */,
 				DF0F65F829E1B29C00DB7290 /* wallet-info-stub.json in Resources */,
