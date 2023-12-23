@@ -70,17 +70,21 @@ enum InvestableAsset: String {
 	public var riskInfo: [(titel: String, color: String)]? {
 		switch self {
 		case .USDCAave:
-			[("Low yield", ""), ("Stable principal", ""), ("Smart contract risk", "")]
+			[("Low yield", "Orange Color"), ("Stable principal", "Green Color"), ("Smart contract risk", "Orange Color")]
 		case .USDTAave:
-			[("Low yield", ""), ("Stable principal", ""), ("Smart contract risk", "")]
+			[("Low yield", "Orange Color"), ("Stable principal", "Green Color"), ("Smart contract risk", "Orange Color")]
 		case .USDCCompound:
-			[("Low yield", ""), ("Stable principal", ""), ("Smart contract risk", "")]
+			[("Low yield", "Orange Color"), ("Stable principal", "Green Color"), ("Smart contract risk", "Orange Color")]
 		case .USDTCompound:
-			[("Low yield", ""), ("Stable principal", ""), ("Smart contract risk", "")]
+			[("Low yield", "Orange Color"), ("Stable principal", "Green Color"), ("Smart contract risk", "Orange Color")]
 		case .ETHLido:
-			[("High yield", ""), ("Variable principal", ""), ("Smart contract risk", "")]
+			[("High yield", "Green Color"), ("Variable principal", "Orange Color"), ("Smart contract risk", "Orange Color")]
 		case .DAIMaker:
-			[("Low yield", ""), ("Stable principal", ""), ("Smart contract vulnerability", "")]
+			[
+				("Low yield", "Orange Color"),
+				("Stable principal", "Green Color"),
+				("Smart contract vulnerability", "Orange Color"),
+			]
 		case .none:
 			nil
 		}
