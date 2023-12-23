@@ -41,6 +41,13 @@ class ActivityInfoView: UIView {
 
 	private var activityDetailsVM: ActivityDetailsViewModel
 
+	private enum ShowFeeModes {
+		case inDollars
+		case inETH
+	}
+
+	private var showFeeMode: ShowFeeModes = .inDollars
+
 	// MARK: - Initializers
 
 	init(activityDetailsVM: ActivityDetailsViewModel, presentActionSheet: @escaping PresentActionSheetType) {
@@ -247,7 +254,12 @@ class ActivityInfoView: UIView {
 
 		toAddressLabel.text = activityProperties.toAddress
 
-		feeLabel.text = activityProperties.formattedFeeInDollar
+		switch showFeeMode {
+		case .inDollars:
+			feeLabel.text = activityProperties.formattedFeeInDollar
+		case .inETH:
+			feeLabel.text = activityProperties.formattedFeeInETH
+		}
 
 		dateStackView.info = activityProperties.formattedDate
 
@@ -288,8 +300,10 @@ class ActivityInfoView: UIView {
 	private func toggleFee() {
 		if feeLabel.text == activityProperties.formattedFeeInDollar {
 			feeLabel.text = activityProperties.formattedFeeInETH
+			showFeeMode = .inETH
 		} else {
 			feeLabel.text = activityProperties.formattedFeeInDollar
+			showFeeMode = .inDollars
 		}
 	}
 

@@ -37,6 +37,6 @@ struct CollateralActivityDetails: Codable {
 
 	enum CodingKeys: String, CodingKey {
 		case activityProtocol = "protocol"
-		case tokens = "token"
+		case tokens = "tokens"
 	}
 }

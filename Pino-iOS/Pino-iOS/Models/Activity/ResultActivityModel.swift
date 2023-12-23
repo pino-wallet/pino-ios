@@ -10,9 +10,9 @@ import Foundation
 enum ResultActivityModel: Decodable, Encodable {
 	// MARK: - Cases
 
-	case swap(ActivityModelProtocol)
-	case transfer(ActivityModelProtocol)
-	case transfer_from(ActivityModelProtocol)
+	case swap(ActivitySwapModel)
+	case transfer(ActivityTransferModel)
+	case transfer_from(ActivityTransferModel)
 	case borrow(ActivityBorrowModel)
 	case collateral(ActivityCollateralModel)
 	case repay(ActivityRepayModel)
