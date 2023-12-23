@@ -21,7 +21,7 @@ public enum NumberFormatTypes {
 			return 7 - wholeNumDigitsCount
 		case .priceRule:
 			switch wholeNumDigitsCount {
-			case _ where wholeNumDigitsCount > 5:
+			case _ where wholeNumDigitsCount >= 5:
 				return 0
 			case _ where wholeNumDigitsCount < 5 && wholeNumDigitsCount > 2:
 				return 1
