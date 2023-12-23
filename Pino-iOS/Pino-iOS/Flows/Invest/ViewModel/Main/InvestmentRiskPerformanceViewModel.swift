@@ -11,17 +11,17 @@ struct InvestmentRiskPerformanceViewModel {
 	// MARK: - Private Properties
 
 	private let selectedAsset: InvestableAssetViewModel
+	private let investableAsset: InvestableAsset
 
 	// MARK: - Public Properties
 
 	public let protocolTitle = "Protocol"
 	public let investmentRiskTitle = "Benefits and risks"
 	public let confirmButtonTitle = "Got it"
-	public let risksInfo: [(titel: String, color: String)] = [
-		("Higher fee collection", "Green Color"),
-		("Principal value volatility", "Orange Color"),
-		("Impermanent loss", "Orange Color"),
-	]
+
+	public var risksInfo: [(titel: String, color: String)]? {
+		investableAsset.riskInfo
+	}
 
 	public var assetImage: URL {
 		selectedAsset.assetImage
@@ -39,8 +39,8 @@ struct InvestmentRiskPerformanceViewModel {
 		selectedAsset.assetProtocol.name
 	}
 
-	public var protocolDescription: String {
-		"\(protocolName) is a DEX enabling users to supply liquidity and earn trade fees in return."
+	public var protocolDescription: String? {
+		investableAsset.riskDescription
 	}
 
 	public var investmentRisk: InvestmentRisk {
@@ -55,5 +55,9 @@ struct InvestmentRiskPerformanceViewModel {
 
 	init(selectedAsset: InvestableAssetViewModel) {
 		self.selectedAsset = selectedAsset
+		self.investableAsset = InvestableAsset(
+			assetId: selectedAsset.assetId,
+			investProtocol: selectedAsset.assetProtocol
+		)
 	}
 }
