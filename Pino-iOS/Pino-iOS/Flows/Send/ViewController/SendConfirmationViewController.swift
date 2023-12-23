@@ -7,11 +7,14 @@
 
 import UIKit
 
-class SendConfirmationViewController: AuthenticationLockViewController {
+class SendConfirmationViewController: UIViewController {
 	// MARK: Private Properties
 
 	private let sendConfirmationVM: SendConfirmationViewModel
 	private var sendConfirmationView: SendConfirmationView!
+	private lazy var authManager: AuthenticationLockManager = {
+		.init(parentController: self)
+	}()
 
 	// MARK: Initializers
 
@@ -70,8 +73,9 @@ class SendConfirmationViewController: AuthenticationLockViewController {
 	}
 
 	private func confirmSend() {
-		unlockApp { [self] in
+		authManager.unlockApp { [self] in
 			guard let sendTransactions = sendConfirmationVM.sendTransactions else { return }
+			sendConfirmationVM.setRecentAddress()
 			let sendTransactionStatusVM = SendTransactionStatusViewModel(
 				transactions: sendTransactions,
 				transactionSentInfoText: sendConfirmationVM.sendStatusText
@@ -81,6 +85,8 @@ class SendConfirmationViewController: AuthenticationLockViewController {
 				onDismiss: {}
 			)
 			present(sendTransactionStatusVC, animated: true)
+		} onFailure: {
+			#warning("Error should be handled")
 		}
 	}
 

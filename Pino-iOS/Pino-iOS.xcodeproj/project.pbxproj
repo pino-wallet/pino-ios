@@ -151,7 +151,7 @@
 		6D6ECC6BF79139F030C8039A /* ManageAssetsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037EE814D04B9042E0D65DB1 /* ManageAssetsFooterView.swift */; };
 		6FB08C15B02317A1FE3C012D /* AccountingAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46070D648E66AFA3E1563008 /* AccountingAPIService.swift */; };
 		6FB3C66B1E98C7C2B7886069 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67A3C8D0587A7C0B53C0EC4 /* SettingCell.swift */; };
-		7060BC04A8267A9B50B8BF09 /* AuthenticationLockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B3471DBAE7B1EDD075DAF /* AuthenticationLockViewController.swift */; };
+		7060BC04A8267A9B50B8BF09 /* AuthenticationLockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B3471DBAE7B1EDD075DAF /* AuthenticationLockManager.swift */; };
 		70A38450573C86C7CA6A6C27 /* APIClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EBD8E6BF7C5877B562FCA2 /* APIClientTest.swift */; };
 		710BFFE4625F76FC84268937 /* PPPangramSans-ExtralightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 068F5D74F8B1876B22DD2AC0 /* PPPangramSans-ExtralightItalic.ttf */; };
 		71ED4673E278D4F56B0CC895 /* UnlockAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B008BFDEFA5F3ED319D3D533 /* UnlockAppViewController.swift */; };
@@ -631,6 +631,7 @@
 		DFCB13B02B09DCEE00EEFD0F /* CDWithdrawActivity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB13AC2B09DCEE00EEFD0F /* CDWithdrawActivity+CoreDataClass.swift */; };
 		DFCB13B12B09DCEE00EEFD0F /* CDWithdrawActivityDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB13AD2B09DCEE00EEFD0F /* CDWithdrawActivityDetails+CoreDataProperties.swift */; };
 		DFCB13B42B0A1E2300EEFD0F /* Web3HelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB13B32B0A1E2300EEFD0F /* Web3HelperProtocol.swift */; };
+		DFE6E80C2B2EFA8600B03930 /* PrivacyLockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE6E80B2B2EFA8600B03930 /* PrivacyLockView.swift */; };
 		DFF5D99F2B206EE600F7274B /* PinoNumberPadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF5D99E2B206EE600F7274B /* PinoNumberPadView.swift */; };
 		DFF8C35B2B11CEEF00C74DAC /* EthGasInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C35A2B11CEEF00C74DAC /* EthGasInfoModel.swift */; };
 		DFF8C35D2B13654700C74DAC /* AccountActivationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C35C2B13654700C74DAC /* AccountActivationViewModel.swift */; };
@@ -871,7 +872,7 @@
 		1999DA19B91CEBCAD9352C43 /* ChartDateFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDateFilter.swift; sourceTree = "<group>"; };
 		1ACC445FAA9626AB655BE5E6 /* SecurityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityViewModel.swift; sourceTree = "<group>"; };
 		1AE59B4F8A912C260EBD9FD8 /* ImportSecretPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSecretPhraseView.swift; sourceTree = "<group>"; };
-		1B8B3471DBAE7B1EDD075DAF /* AuthenticationLockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationLockViewController.swift; sourceTree = "<group>"; };
+		1B8B3471DBAE7B1EDD075DAF /* AuthenticationLockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationLockManager.swift; sourceTree = "<group>"; };
 		1D79E6ABFF159E2B8FB5C0A2 /* ManagePasscodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagePasscodeView.swift; sourceTree = "<group>"; };
 		1DE3198FB191E8A67A84E0B5 /* CoinPerformanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceView.swift; sourceTree = "<group>"; };
 		1E7C5231800B75EB304677F5 /* InfoActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoActionSheet.swift; sourceTree = "<group>"; };
@@ -1454,6 +1455,7 @@
 		DFCB13AC2B09DCEE00EEFD0F /* CDWithdrawActivity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWithdrawActivity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DFCB13AD2B09DCEE00EEFD0F /* CDWithdrawActivityDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWithdrawActivityDetails+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DFCB13B32B0A1E2300EEFD0F /* Web3HelperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3HelperProtocol.swift; sourceTree = "<group>"; };
+		DFE6E80B2B2EFA8600B03930 /* PrivacyLockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyLockView.swift; sourceTree = "<group>"; };
 		DFF5D99E2B206EE600F7274B /* PinoNumberPadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoNumberPadView.swift; sourceTree = "<group>"; };
 		DFF8C35A2B11CEEF00C74DAC /* EthGasInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthGasInfoModel.swift; sourceTree = "<group>"; };
 		DFF8C35C2B13654700C74DAC /* AccountActivationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountActivationViewModel.swift; sourceTree = "<group>"; };
@@ -1938,7 +1940,7 @@
 			isa = PBXGroup;
 			children = (
 				71EEC20862FCD98123D65A01 /* CreatePasscodeViewController.swift */,
-				1B8B3471DBAE7B1EDD075DAF /* AuthenticationLockViewController.swift */,
+				1B8B3471DBAE7B1EDD075DAF /* AuthenticationLockManager.swift */,
 				B008BFDEFA5F3ED319D3D533 /* UnlockAppViewController.swift */,
 				EDE34223ED5A368C78F99208 /* VerifyPasscodeViewController.swift */,
 			);
@@ -2490,6 +2492,7 @@
 				1D79E6ABFF159E2B8FB5C0A2 /* ManagePasscodeView.swift */,
 				34DCACC427D66E42E2D55705 /* PassDotsView.swift */,
 				D6E0DC27B3A2CA3D50A64780 /* UnlockPasscodeView.swift */,
+				DFE6E80B2B2EFA8600B03930 /* PrivacyLockView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4852,7 +4855,7 @@
 				152CA78F967F16F922365095 /* BigInt+Extension.swift in Sources */,
 				AE303633276027AB6FD058F9 /* BigNumberType.swift in Sources */,
 				E3FC69992A89066D009B3341 /* InvestViewModel.swift in Sources */,
-				7060BC04A8267A9B50B8BF09 /* AuthenticationLockViewController.swift in Sources */,
+				7060BC04A8267A9B50B8BF09 /* AuthenticationLockManager.swift in Sources */,
 				F46E91AF149D34F200213B3F /* BlurEffectView.swift in Sources */,
 				E3C8027B2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift in Sources */,
 				D93572A82A99E85300A0DE20 /* BorrowingTokenModel.swift in Sources */,
@@ -5035,6 +5038,7 @@
 				D9BE05192A8221C8008670F9 /* CDTransferActivity+CoreDataProperties.swift in Sources */,
 				DF0347B42A39FAFF00A6C265 /* Web3ABI.swift in Sources */,
 				5CE69653C9688E3C116CC0E6 /* HomepageViewController.swift in Sources */,
+				DFE6E80C2B2EFA8600B03930 /* PrivacyLockView.swift in Sources */,
 				8585A2F6E4BB1FCBD88E538B /* HomepageViewModel.swift in Sources */,
 				AAA1EE9680DD6A62A7F88602 /* ImportSecretPhraseView.swift in Sources */,
 				D924C3442A94963B007299A4 /* UserBorrowingModel.swift in Sources */,
@@ -5506,7 +5510,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Pino;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -5524,6 +5528,7 @@
 				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 44E38FYW6J;
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Pino;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5585,6 +5590,7 @@
 				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 44E38FYW6J;
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Pino;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5682,7 +5688,7 @@
 				MARKETING_VERSION = 1.0.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Pino;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";

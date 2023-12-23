@@ -7,11 +7,14 @@
 
 import UIKit
 
-class RecoveryPhraseViewController: AuthenticationLockViewController {
+class RecoveryPhraseViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let secretPhraseVM = RecoveryPhraseViewModel()
 	private var recoverPhraseView: RecoveryPhraseView!
+	private lazy var authManager: AuthenticationLockManager = {
+		.init(parentController: self)
+	}()
 
 	// MARK: - View Overrides
 
@@ -71,8 +74,10 @@ class RecoveryPhraseViewController: AuthenticationLockViewController {
 	}
 
 	private func showFaceID() {
-		unlockApp {
+		authManager.unlockApp {
 			self.recoverPhraseView.showSeedPhrase()
+		} onFailure: {
+			#warning("Error should be handled")
 		}
 	}
 }

@@ -12,12 +12,12 @@ class TutorialContainerViewModel {
 	// MARK: - Private Properties
 
 	private var tutorialType: TutorialType
-	private var watchedTutorial: () -> Void
 
 	@Published
 	public var currentIndex = 0
 	@Published
 	public var isPaused: Bool?
+	public var watchedTutorial: () -> Void
 
 	// MARK: - Public Properties
 
@@ -35,12 +35,7 @@ class TutorialContainerViewModel {
 	// MARK: - Public Methods
 
 	public func nextTutorial() {
-		if currentIndex != tutorials.count - 1 {
-			currentIndex += 1
-		} else {
-			// Finished Watching tutorials
-			watchedTutorial()
-		}
+		currentIndex += 1
 	}
 
 	public func prevTutorial() {

@@ -14,11 +14,14 @@ public class IntroAnimationCollectionViewCell: UICollectionViewCell {
 	private let introAnimationView = LottieAnimationView()
 	private let introTitle = PinoLabel(style: .title, text: "hi")
 	private let introGradientView = UIImageView()
+	private var topGradientView = UIImageView()
+	private var btmGradientView = UIImageView()
 
 	// MARK: Public Properties
 
 	public static let cellReuseID = "introAnimationCell"
-	public var introTitleModel: String! {
+
+	var introTitleModel: String! {
 		didSet {
 			setupView()
 			setupStyle()
@@ -35,6 +38,8 @@ extension IntroAnimationCollectionViewCell {
 		contentView.addSubview(introAnimationView)
 		contentView.addSubview(introTitle)
 		contentView.insertSubview(introGradientView, belowSubview: introAnimationView)
+		contentView.insertSubview(topGradientView, aboveSubview: introAnimationView)
+		contentView.insertSubview(btmGradientView, aboveSubview: introAnimationView)
 	}
 
 	private func setupStyle() {
@@ -47,8 +52,13 @@ extension IntroAnimationCollectionViewCell {
 
 		introAnimationView.backgroundColor = .Pino.clear
 		introAnimationView.animation = LottieAnimation.named("IntroAnimation")
+		//        introAnimationView.configuration.renderingEngine = .
 		introAnimationView.play()
+		introAnimationView.animationSpeed = 1
 		introAnimationView.loopMode = .loop
+
+		topGradientView.image = .init(named: "intro-top-grad")
+		btmGradientView.image = .init(named: "intro-btm-grad")
 	}
 
 	private func setupConstraint() {
@@ -57,13 +67,24 @@ extension IntroAnimationCollectionViewCell {
 		)
 		introAnimationView.pin(
 			.horizontalEdges,
-			.top
+			.top(padding: -100),
+			.bottom(padding: -70)
 		)
 		introTitle.pin(
 			.horizontalEdges(padding: 16),
 			.bottom,
 			.relative(.top, -16, to: introAnimationView, .bottom),
 			.fixedHeight(30)
+		)
+		topGradientView.pin(
+			.top(padding: -10),
+			.horizontalEdges,
+			.fixedHeight(150)
+		)
+		btmGradientView.pin(
+			.bottom(padding: 30),
+			.horizontalEdges,
+			.fixedHeight(150)
 		)
 	}
 

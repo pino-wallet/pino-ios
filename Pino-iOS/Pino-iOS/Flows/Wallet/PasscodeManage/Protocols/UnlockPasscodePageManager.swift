@@ -9,6 +9,6 @@ import Foundation
 
 protocol UnlockPasscodePageManager: PasscodeManagerPages {
 	var faceIdTitle: String? { get }
-	var useFaceIdTitle: String? { get }
-	var useFaceIdIcon: String? { get }
+	var useBiometricTitle: String? { get }
+	var useBiometricIcon: String? { get }
 }
