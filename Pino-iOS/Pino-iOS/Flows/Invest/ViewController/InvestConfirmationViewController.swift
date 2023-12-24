@@ -58,7 +58,7 @@ class InvestConfirmationViewController: UIViewController {
 				self.confirmInvestment()
 			},
 			infoActionSheetDidTap: { infoActionSheet, completion in
-                self.showInfoActionSheet(infoActionSheet, completion: completion)
+				self.showInfoActionSheet(infoActionSheet, completion: completion)
 			},
 			feeCalculationRetry: {
 				self.getFee()
@@ -73,7 +73,7 @@ class InvestConfirmationViewController: UIViewController {
 		setNavigationTitle("Confirm investment")
 	}
 
-    private func showInfoActionSheet(_ feeInfoActionSheet: InfoActionSheet, completion: @escaping () -> Void) {
+	private func showInfoActionSheet(_ feeInfoActionSheet: InfoActionSheet, completion: @escaping () -> Void) {
 		present(feeInfoActionSheet, animated: true, completion: completion)
 	}
 

@@ -12,7 +12,8 @@ import UIKit
 class RepayConfirmView: UIView {
 	// MARK: - TypeAliases
 
-    typealias PresentActionSheetClosureType = (_ actionSheet: InfoActionSheet, _ completion: @escaping () -> Void) -> Void
+	typealias PresentActionSheetClosureType = (_ actionSheet: InfoActionSheet, _ completion: @escaping () -> Void)
+		-> Void
 
 	// MARK: - Closures
 

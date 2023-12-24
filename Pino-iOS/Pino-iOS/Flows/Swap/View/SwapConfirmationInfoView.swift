@@ -9,8 +9,10 @@ import Combine
 import UIKit
 
 class SwapConfirmationInfoView: UIView {
-    // MARK: - TypeAliases
-    typealias PresentFeeInfoType = (InfoActionSheet, _ completion: @escaping () -> Void) -> Void
+	// MARK: - TypeAliases
+
+	typealias PresentFeeInfoType = (InfoActionSheet, _ completion: @escaping () -> Void) -> Void
+
 	// MARK: - Private Properties
 
 	private let swapInfoStackView = UIStackView()
@@ -34,7 +36,7 @@ class SwapConfirmationInfoView: UIView {
 	private let feeLabel = UILabel()
 
 	private let swapConfirmationVM: SwapConfirmationViewModel
-    private let presentFeeInfo: PresentFeeInfoType
+	private let presentFeeInfo: PresentFeeInfoType
 	private let retryFeeCalculation: () -> Void
 	private var cancellables = Set<AnyCancellable>()
 	private var showFeeInDollar = true
@@ -43,7 +45,7 @@ class SwapConfirmationInfoView: UIView {
 
 	init(
 		swapConfirmationVM: SwapConfirmationViewModel,
-        presentFeeInfo: @escaping PresentFeeInfoType,
+		presentFeeInfo: @escaping PresentFeeInfoType,
 		retryFeeCalculation: @escaping () -> Void
 	) {
 		self.swapConfirmationVM = swapConfirmationVM

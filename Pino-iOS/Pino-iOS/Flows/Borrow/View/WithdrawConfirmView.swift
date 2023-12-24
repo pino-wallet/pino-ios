@@ -12,7 +12,8 @@ import UIKit
 class WithdrawConfirmView: UIView {
 	// MARK: - TypeAliases
 
-    typealias presentActionSheetClosureType = (_ actionSheet: InfoActionSheet, _ completion: @escaping () -> Void) -> Void
+	typealias presentActionSheetClosureType = (_ actionSheet: InfoActionSheet, _ completion: @escaping () -> Void)
+		-> Void
 
 	// MARK: - Closures
 

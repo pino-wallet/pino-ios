@@ -68,8 +68,8 @@ class SwapConfirmationViewController: UIViewController {
 			confirmButtonTapped: {
 				self.confirmSwap()
 			},
-            presentFeeInfo: { infoActionSheet, completion in
-                self.showFeeInfoActionSheet(infoActionSheet, completion: completion)
+			presentFeeInfo: { infoActionSheet, completion in
+				self.showFeeInfoActionSheet(infoActionSheet, completion: completion)
 			},
 			retryFeeCalculation: {
 				self.getFee()
@@ -91,7 +91,7 @@ class SwapConfirmationViewController: UIViewController {
 		)
 	}
 
-    private func showFeeInfoActionSheet(_ feeInfoActionSheet: InfoActionSheet, completion: @escaping () -> Void) {
+	private func showFeeInfoActionSheet(_ feeInfoActionSheet: InfoActionSheet, completion: @escaping () -> Void) {
 		present(feeInfoActionSheet, animated: true, completion: completion)
 	}
 

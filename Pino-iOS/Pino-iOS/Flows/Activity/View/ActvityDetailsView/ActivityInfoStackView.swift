@@ -14,7 +14,8 @@ class ActivityInfoStackView: UIStackView {
 
 	// MARK: - Closures
 
-    public var presentActionSheet: (_ actionSheet: InfoActionSheet,_ completion: @escaping () -> Void) -> Void = { _, _  in }
+	public var presentActionSheet: (_ actionSheet: InfoActionSheet, _ completion: @escaping () -> Void)
+		-> Void = { _, _ in }
 
 	// MARK: - Public Properties
 

@@ -11,7 +11,7 @@ import UIKit
 class ActivityInfoView: UIView {
 	// MARK: - TypeAliases
 
-    typealias PresentActionSheetType = (_ actionSheet: InfoActionSheet, _ completion: @escaping () -> Void) -> Void
+	typealias PresentActionSheetType = (_ actionSheet: InfoActionSheet, _ completion: @escaping () -> Void) -> Void
 
 	// MARK: - Closures
 

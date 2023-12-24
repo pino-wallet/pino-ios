@@ -10,7 +10,8 @@ import UIKit
 class TitleWithInfo: UIView {
 	// MARK: - Closures
 
-    public var presentActionSheet: (_ actionSheet: InfoActionSheet, _ completion: @escaping () -> Void) -> Void = { _, _ in }
+	public var presentActionSheet: (_ actionSheet: InfoActionSheet, _ completion: @escaping () -> Void)
+		-> Void = { _, _ in }
 
 	// MARK: - Private Properties
 
@@ -103,20 +104,21 @@ class TitleWithInfo: UIView {
 
 		infoActionSheetIcon.pin(.fixedWidth(16), .fixedHeight(16))
 	}
-    
-    private func setupDismissGesture() {
-        let dismissTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onDismiss))
-        infoActionSheet.view.superview?.subviews[0].addGestureRecognizer(dismissTapGestureRecognizer)
-        infoActionSheet.view.superview?.subviews[0].isUserInteractionEnabled = true
-    }
+
+	private func setupDismissGesture() {
+		let dismissTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onDismiss))
+		infoActionSheet.view.superview?.subviews[0].addGestureRecognizer(dismissTapGestureRecognizer)
+		infoActionSheet.view.superview?.subviews[0].isUserInteractionEnabled = true
+	}
 
 	@objc
 	private func onIconTap() {
 		presentActionSheet(infoActionSheet, setupDismissGesture)
-        infoActionSheet.view.superview?.isUserInteractionEnabled = true
+		infoActionSheet.view.superview?.isUserInteractionEnabled = true
 	}
-    
-    @objc private func onDismiss() {
-        infoActionSheet.dismiss(animated: true)
-    }
+
+	@objc
+	private func onDismiss() {
+		infoActionSheet.dismiss(animated: true)
+	}
 }

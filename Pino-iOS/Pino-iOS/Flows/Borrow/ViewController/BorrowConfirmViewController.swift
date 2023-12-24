@@ -66,7 +66,7 @@ class BorrowConfirmViewController: UIViewController {
 		setNavigationTitle(borrowConfirmVM.pageTitle)
 	}
 
-    private func presentActionSheet(actionSheet: InfoActionSheet, completion: @escaping () -> Void) {
+	private func presentActionSheet(actionSheet: InfoActionSheet, completion: @escaping () -> Void) {
 		present(actionSheet, animated: true, completion: completion)
 	}
 

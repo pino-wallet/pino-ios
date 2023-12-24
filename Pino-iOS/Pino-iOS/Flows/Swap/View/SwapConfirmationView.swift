@@ -9,8 +9,10 @@ import Combine
 import UIKit
 
 class SwapConfirmationView: UIView {
-    // MARK: - TypeAlises
-    typealias PresentFeeInfoType = (InfoActionSheet, _ completion: @escaping () -> Void) -> Void
+	// MARK: - TypeAlises
+
+	typealias PresentFeeInfoType = (InfoActionSheet, _ completion: @escaping () -> Void) -> Void
+
 	// MARK: - Private Properties
 
 	private let contentStackview = UIStackView()
@@ -38,7 +40,7 @@ class SwapConfirmationView: UIView {
 	init(
 		swapConfirmationVM: SwapConfirmationViewModel,
 		confirmButtonTapped: @escaping () -> Void,
-        presentFeeInfo: @escaping PresentFeeInfoType,
+		presentFeeInfo: @escaping PresentFeeInfoType,
 		retryFeeCalculation: @escaping () -> Void
 	) {
 		self.swapConfirmationVM = swapConfirmationVM

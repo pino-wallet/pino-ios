@@ -9,8 +9,10 @@ import Combine
 import UIKit
 
 class InvestConfirmationView: UIView {
-    // MARK: - TypeAliases
-    typealias InfoActionSheetDidTapType = (InfoActionSheet, _ completion: @escaping () -> Void) -> Void
+	// MARK: - TypeAliases
+
+	typealias InfoActionSheetDidTapType = (InfoActionSheet, _ completion: @escaping () -> Void) -> Void
+
 	// MARK: - Private Properties
 
 	private let contentStackview = UIStackView()
