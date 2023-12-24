@@ -33,6 +33,7 @@ class ActivityViewController: UIViewController {
 		if activityVM.userActivities == nil {
 			activityColectionView.toggleLoading(isLoading: true)
 		}
+		setupLoading()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -78,6 +79,16 @@ class ActivityViewController: UIViewController {
 				self?.view = self?.activityEmptyStateView
 			} else {
 				self?.view = self?.activityColectionView
+			}
+		}.store(in: &cancellables)
+	}
+
+	private func setupLoading() {
+		activityColectionView?.$showLoading.sink { showLoading in
+			if showLoading {
+				self.view.showGradientSkeletonView(endLocation: 0.3)
+			} else {
+				self.view.hideGradientSkeletonView()
 			}
 		}.store(in: &cancellables)
 	}
