@@ -11,4 +11,5 @@ import Foundation
 protocol Web3APIService {
 	func getHashTypedData(eip712HashReqInfo: BodyParamsType) -> AnyPublisher<EIP712HashResponseModel, APIError>
 	func getNetworkFee() -> AnyPublisher<EthGasInfoModel, APIError>
+	func getGasLimits() -> AnyPublisher<GasLimitsModel, APIError>
 }

@@ -25,13 +25,13 @@ class AaveCollateralManager: Web3ManagerProtocol {
 	private var asset: AssetViewModel
 	private var assetAmountBigNumber: BigNumber
 	private var assetAmountBigUInt: BigUInt
-	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Internal Properties
 
 	internal var web3 = Web3Core.shared
 	internal var contract: DynamicContract
 	internal var walletManager = PinoWalletManager()
+	internal var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 

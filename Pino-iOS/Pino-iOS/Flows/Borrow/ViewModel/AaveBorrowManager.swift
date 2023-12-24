@@ -5,6 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 12/2/23.
 //
 
+import Combine
 import Foundation
 import PromiseKit
 import Web3
@@ -30,6 +31,7 @@ class AaveBorrowManager: Web3ManagerProtocol {
 	internal var web3 = Web3Core.shared
 	internal var contract: DynamicContract
 	internal var walletManager = PinoWalletManager()
+	internal var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 

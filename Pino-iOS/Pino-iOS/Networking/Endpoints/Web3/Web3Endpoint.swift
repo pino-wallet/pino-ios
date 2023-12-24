@@ -13,6 +13,7 @@ enum Web3Endpoint: EndpointType {
 	case hashTypeData(eip712ReqModel: BodyParamsType)
 	case positionID(tokenAdd: String, positionType: IndexerPositionType, protocolName: String)
 	case ehtGasInfo
+	case gasLimits
 
 	// MARK: - Internal Methods
 
@@ -39,6 +40,8 @@ enum Web3Endpoint: EndpointType {
 			return "indexer/position/\(protocolName)/\(positionType.rawValue)/underlying-token/\(tokenAdd)"
 		case .ehtGasInfo:
 			return "web3/network-fee"
+		case .gasLimits:
+			return "listing/gas-limits"
 		}
 	}
 
@@ -50,7 +53,7 @@ enum Web3Endpoint: EndpointType {
 				bodyEncoding: .jsonEncoding,
 				urlParameters: nil
 			)
-		case .positionID, .ehtGasInfo:
+		case .positionID, .ehtGasInfo, .gasLimits:
 			return .request
 		}
 	}
@@ -59,7 +62,7 @@ enum Web3Endpoint: EndpointType {
 		switch self {
 		case .hashTypeData:
 			return .post
-		case .positionID, .ehtGasInfo:
+		case .positionID, .ehtGasInfo, .gasLimits:
 			return .get
 		}
 	}
