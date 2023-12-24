@@ -32,4 +32,8 @@ final class Web3APIClient: Web3APIService {
 	func getNetworkFee() -> AnyPublisher<EthGasInfoModel, APIError> {
 		networkManager.request(.ehtGasInfo)
 	}
+
+	func getGasLimits() -> AnyPublisher<GasLimitsModel, APIError> {
+		networkManager.request(.gasLimits)
+	}
 }

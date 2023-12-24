@@ -549,6 +549,7 @@
 		DF0F65F929E1B29C00DB7290 /* wallet-balance-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 326B0DAFD947F590C331F13D /* wallet-balance-stub.json */; };
 		DF0F65FA29E1B29C00DB7290 /* assets-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B2220BAE0D7613EB95414ED /* assets-stub.json */; };
 		DF0F65FB29E1B29C00DB7290 /* wallets-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = DE9E95DAD0FE359D802524FC /* wallets-stub.json */; };
+		DF136FDE2B381E5E00A7B878 /* GasLimitsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF136FDD2B381E5E00A7B878 /* GasLimitsModel.swift */; };
 		DF14FC9D2A8E108D005221A8 /* W3TransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FC9C2A8E108D005221A8 /* W3TransactionManager.swift */; };
 		DF14FC9F2A9105CF005221A8 /* W3GasInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FC9E2A9105CF005221A8 /* W3GasInfoManager.swift */; };
 		DF14FCA12A9105F3005221A8 /* W3TransferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FCA02A9105F3005221A8 /* W3TransferManager.swift */; };
@@ -977,7 +978,7 @@
 		6721806A1540B888590AFF4C /* ShareOfAssetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOfAssetsViewModel.swift; sourceTree = "<group>"; };
 		68C640FE522F73C9313D7ECB /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		69B08E01F8697BCB86DF01F6 /* PinoColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoColor.swift; sourceTree = "<group>"; };
-		69F80E5332D902C3DF82DC4A /* Pino-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pino-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		69F80E5332D902C3DF82DC4A /* Pino-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "Pino-iOSTests.xctest"; path = Pino.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B2220BAE0D7613EB95414ED /* assets-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "assets-stub.json"; sourceTree = "<group>"; };
 		6C39A3F6B8ACA2CF53DFB7F3 /* ReceiveAssetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAssetView.swift; sourceTree = "<group>"; };
 		6EEC9118028F28BE505CEF38 /* CoinPerformanceInfoItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPerformanceInfoItems.swift; sourceTree = "<group>"; };
@@ -1023,7 +1024,7 @@
 		860A5D67C58E6FF224570BFE /* MediumStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumStyle.swift; sourceTree = "<group>"; };
 		86E0EA60A15BE45047B83861 /* BigInt+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BigInt+Extension.swift"; sourceTree = "<group>"; };
 		86F8C6EC31E9AE1094243D0B /* PPPangramSans-MediumReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-MediumReclined.ttf"; sourceTree = "<group>"; };
-		8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pino-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Pino-iOS.app"; path = Pino.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		886A8F723E50C884CA276AB4 /* WalletsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsModel.swift; sourceTree = "<group>"; };
 		887EDE19A8B81F1FB217E0FA /* RemoveAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveAccountView.swift; sourceTree = "<group>"; };
 		88A9D51E2876395DCD62E189 /* AssetsEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsEndpoint.swift; sourceTree = "<group>"; };
@@ -1075,7 +1076,7 @@
 		B2D5774D76FC507F8B176185 /* CoinInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinInfoViewModel.swift; sourceTree = "<group>"; };
 		B33656AE9BB6138666D2E679 /* ViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Extension.swift"; sourceTree = "<group>"; };
 		B3BDF4D66564915FBD19B9A4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B40D6EF0262990FF33E91CCD /* Pino-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pino-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B40D6EF0262990FF33E91CCD /* Pino-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "Pino-iOSUITests.xctest"; path = Pino.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B596DBDA65A59B498030E742 /* AddCustomAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomAssetViewModel.swift; sourceTree = "<group>"; };
 		B677CAE87B1A7D14774BE29D /* HTTPTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
 		B6922A1FD91EE9D2DAF8D928 /* AccountingEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountingEndpoint.swift; sourceTree = "<group>"; };
@@ -1376,6 +1377,7 @@
 		DF0347B32A39FAFF00A6C265 /* Web3ABI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3ABI.swift; sourceTree = "<group>"; };
 		DF0B1ECE2B00DB3F001B0522 /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
 		DF0B1ED22B00E0D5001B0522 /* FCMTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenManager.swift; sourceTree = "<group>"; };
+		DF136FDD2B381E5E00A7B878 /* GasLimitsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GasLimitsModel.swift; sourceTree = "<group>"; };
 		DF14FC9C2A8E108D005221A8 /* W3TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3TransactionManager.swift; sourceTree = "<group>"; };
 		DF14FC9E2A9105CF005221A8 /* W3GasInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3GasInfoManager.swift; sourceTree = "<group>"; };
 		DF14FCA02A9105F3005221A8 /* W3TransferManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3TransferManager.swift; sourceTree = "<group>"; };
@@ -3623,6 +3625,7 @@
 				DF6DEDD32AA8CD1F0080B47B /* EIP712HashResponseModel.swift */,
 				DF6DEDD12AA8C3D90080B47B /* EIP712PermitModel.swift */,
 				DFF8C35A2B11CEEF00C74DAC /* EthGasInfoModel.swift */,
+				DF136FDD2B381E5E00A7B878 /* GasLimitsModel.swift */,
 			);
 			path = Web3;
 			sourceTree = "<group>";
@@ -4804,6 +4807,7 @@
 				D98207CA2A5D6D8C0066A090 /* ActivityDetailsHeaderView.swift in Sources */,
 				D9C584872ADD3C3200371B7A /* ApproveSpeedUpViewModel.swift in Sources */,
 				E3596B1B2A6E51D60030B682 /* SwapSide.swift in Sources */,
+				DF136FDE2B381E5E00A7B878 /* GasLimitsModel.swift in Sources */,
 				40BB42282A47157800E1A121 /* UIDevice+Extension.swift in Sources */,
 				D986BC332B0B669600DCE03C /* SendTransactionStatusViewController.swift in Sources */,
 				E3FC69C12A8C9CBC009B3341 /* InvestmentBoardView.swift in Sources */,
