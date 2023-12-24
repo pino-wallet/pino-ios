@@ -63,8 +63,8 @@ class ActivityDetailsView: UIScrollView {
 	private func setupView() {
 		activityDetailsInfoView = ActivityInfoView(
 			activityDetailsVM: activityDetailsVM,
-			presentActionSheet: { [weak self] actionSheet in
-				self?.presentActionSheet(actionSheet, nil)
+			presentActionSheet: { [weak self] actionSheet, completion in
+				self?.presentActionSheet(actionSheet, completion)
 			}
 		)
 

@@ -12,7 +12,7 @@ import UIKit
 class CollateralConfirmView: UIView {
 	// MARK: - TypeAliases
 
-	typealias presentActionSheetClosureType = (_ actionSheet: InfoActionSheet) -> Void
+    typealias presentActionSheetClosureType = (_ actionSheet: InfoActionSheet, _ completion: @escaping () -> Void) -> Void
 
 	// MARK: - Closures
 
@@ -84,16 +84,16 @@ class CollateralConfirmView: UIView {
 			actionSheetTitle: collateralConfrimVM.protocolTitle,
 			actionSheetDescription: collateralConfrimVM.protocolActionsheetText
 		)
-		protocolTitleWithInfo.presentActionSheet = { actionSheet in
-			self.presentActionSheetClosure(actionSheet)
+		protocolTitleWithInfo.presentActionSheet = { actionSheet, completion in
+			self.presentActionSheetClosure(actionSheet, completion)
 		}
 
 		feeTitleWithInfo = TitleWithInfo(
 			actionSheetTitle: collateralConfrimVM.feeTitle,
 			actionSheetDescription: collateralConfrimVM.feeActionSheetText
 		)
-		feeTitleWithInfo.presentActionSheet = { actionSheet in
-			self.presentActionSheetClosure(actionSheet)
+		feeTitleWithInfo.presentActionSheet = { actionSheet, completion in
+			self.presentActionSheetClosure(actionSheet, completion)
 		}
 
 		protocolInfoView = UserAccountInfoView(

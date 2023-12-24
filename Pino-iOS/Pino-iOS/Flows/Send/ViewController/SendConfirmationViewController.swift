@@ -51,8 +51,8 @@ class SendConfirmationViewController: UIViewController {
 			confirmButtonTapped: {
 				self.confirmSend()
 			},
-			presentFeeInfo: { feeInfoActionSheet in
-				self.showFeeInfoActionSheet(feeInfoActionSheet)
+			presentFeeInfo: { feeInfoActionSheet, completion in
+                self.showFeeInfoActionSheet(feeInfoActionSheet, completion: completion)
 			},
 			retryFeeCalculation: {
 				self.getFee()
@@ -68,8 +68,8 @@ class SendConfirmationViewController: UIViewController {
 		setNavigationTitle("Confirm transfer")
 	}
 
-	private func showFeeInfoActionSheet(_ feeInfoActionSheet: InfoActionSheet) {
-		present(feeInfoActionSheet, animated: true)
+    private func showFeeInfoActionSheet(_ feeInfoActionSheet: InfoActionSheet, completion: @escaping () -> Void) {
+        present(feeInfoActionSheet, animated: true, completion: completion)
 	}
 
 	private func confirmSend() {

@@ -11,7 +11,7 @@ import UIKit
 class ActivityInfoView: UIView {
 	// MARK: - TypeAliases
 
-	typealias PresentActionSheetType = (_ actionSheet: InfoActionSheet) -> Void
+    typealias PresentActionSheetType = (_ actionSheet: InfoActionSheet, _ completion: @escaping () -> Void) -> Void
 
 	// MARK: - Closures
 
@@ -161,11 +161,11 @@ class ActivityInfoView: UIView {
 			)
 		}
 
-		statusStackView.presentActionSheet = { [weak self] actionSheet in
-			self?.presentActionSheet(actionSheet)
+		statusStackView.presentActionSheet = { [weak self] actionSheet, completion in
+			self?.presentActionSheet(actionSheet, completion)
 		}
-		feeStackView.presentActionSheet = { [weak self] actionSheet in
-			self?.presentActionSheet(actionSheet)
+		feeStackView.presentActionSheet = { [weak self] actionSheet, completion in
+			self?.presentActionSheet(actionSheet, completion)
 		}
 
 		mainStackView.addArrangedSubview(dateStackView)

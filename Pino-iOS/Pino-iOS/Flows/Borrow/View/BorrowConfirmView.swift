@@ -12,7 +12,7 @@ import UIKit
 class BorrowConfirmView: UIView {
 	// MARK: - TypeAliases
 
-	typealias presentActionSheetClosureType = (_ actionSheet: InfoActionSheet) -> Void
+    typealias presentActionSheetClosureType = (_ actionSheet: InfoActionSheet, _ completion: @escaping () -> Void) -> Void
 
 	// MARK: - Closures
 
@@ -81,16 +81,16 @@ class BorrowConfirmView: UIView {
 			actionSheetTitle: borrowConfrimVM.protocolTitle,
 			actionSheetDescription: borrowConfrimVM.protocolActionsheetText
 		)
-		protocolTitleWithInfo.presentActionSheet = { actionSheet in
-			self.presentActionSheetClosure(actionSheet)
+		protocolTitleWithInfo.presentActionSheet = { actionSheet, completion in
+			self.presentActionSheetClosure(actionSheet, completion)
 		}
 
 		feeTitleWithInfo = TitleWithInfo(
 			actionSheetTitle: borrowConfrimVM.feeTitle,
 			actionSheetDescription: borrowConfrimVM.feeActionSheetText
 		)
-		feeTitleWithInfo.presentActionSheet = { actionSheet in
-			self.presentActionSheetClosure(actionSheet)
+		feeTitleWithInfo.presentActionSheet = { actionSheet, completion in
+			self.presentActionSheetClosure(actionSheet, completion)
 		}
 
 		protocolInfoView = UserAccountInfoView(

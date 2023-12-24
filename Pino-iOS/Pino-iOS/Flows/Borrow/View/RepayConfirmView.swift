@@ -12,11 +12,11 @@ import UIKit
 class RepayConfirmView: UIView {
 	// MARK: - TypeAliases
 
-	typealias presentActionSheetClosureType = (_ actionSheet: InfoActionSheet) -> Void
+    typealias PresentActionSheetClosureType = (_ actionSheet: InfoActionSheet, _ completion: @escaping () -> Void) -> Void
 
 	// MARK: - Closures
 
-	public var presentActionSheetClosure: presentActionSheetClosureType
+	public var presentActionSheetClosure: PresentActionSheetClosureType
 
 	// MARK: - Private Properties
 
@@ -57,7 +57,7 @@ class RepayConfirmView: UIView {
 
 	// MARK: - Initializers
 
-	init(repayConfrimVM: RepayConfirmViewModel, presentActionSheetClosure: @escaping presentActionSheetClosureType) {
+	init(repayConfrimVM: RepayConfirmViewModel, presentActionSheetClosure: @escaping PresentActionSheetClosureType) {
 		self.repayConfrimVM = repayConfrimVM
 		self.presentActionSheetClosure = presentActionSheetClosure
 
@@ -82,16 +82,16 @@ class RepayConfirmView: UIView {
 			actionSheetTitle: repayConfrimVM.protocolTitle,
 			actionSheetDescription: repayConfrimVM.protocolActionsheetText
 		)
-		protocolTitleWithInfo.presentActionSheet = { actionSheet in
-			self.presentActionSheetClosure(actionSheet)
+		protocolTitleWithInfo.presentActionSheet = { actionSheet, completion in
+			self.presentActionSheetClosure(actionSheet, completion)
 		}
 
 		feeTitleWithInfo = TitleWithInfo(
 			actionSheetTitle: repayConfrimVM.feeTitle,
 			actionSheetDescription: repayConfrimVM.feeActionSheetText
 		)
-		feeTitleWithInfo.presentActionSheet = { actionSheet in
-			self.presentActionSheetClosure(actionSheet)
+		feeTitleWithInfo.presentActionSheet = { actionSheet, completion in
+			self.presentActionSheetClosure(actionSheet, completion)
 		}
 
 		protocolInfoView = UserAccountInfoView(

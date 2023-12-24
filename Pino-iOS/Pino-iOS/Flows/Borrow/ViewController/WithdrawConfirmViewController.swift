@@ -49,8 +49,8 @@ class WithdrawConfirmViewController: UIViewController {
 	private func setupView() {
 		withdrawConfirmView = WithdrawConfirmView(
 			withdrawConfrimVM: withdrawConfirmVM,
-			presentActionSheetClosure: { actionSheet in
-				self.presentActionSheet(actionSheet: actionSheet)
+			presentActionSheetClosure: { actionSheet, completion in
+                self.presentActionSheet(actionSheet: actionSheet, completion: completion)
 			}
 		)
 
@@ -76,7 +76,7 @@ class WithdrawConfirmViewController: UIViewController {
 		present(sendTransactionStatusVC, animated: true)
 	}
 
-	private func presentActionSheet(actionSheet: InfoActionSheet) {
-		present(actionSheet, animated: true)
+    private func presentActionSheet(actionSheet: InfoActionSheet, completion: @escaping () -> Void) {
+		present(actionSheet, animated: true, completion: completion)
 	}
 }
