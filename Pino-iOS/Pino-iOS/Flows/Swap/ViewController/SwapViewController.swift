@@ -260,7 +260,7 @@ class SwapViewController: UIViewController {
 	}
 
 	private func showTutorial() {
-		if UserDefaults.standard.bool(forKey: "hasSeenSwapTut") {
+		if !UserDefaults.standard.bool(forKey: "hasSeenSwapTut") {
 			let tutorialPage = TutorialViewController(tutorialType: .swap) {
 				self.dismiss(animated: true)
 			}
