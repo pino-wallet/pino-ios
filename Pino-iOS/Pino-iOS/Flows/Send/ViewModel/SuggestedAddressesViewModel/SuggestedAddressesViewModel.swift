@@ -14,7 +14,7 @@ struct SuggestedAddressesViewModel {
 	public let myAddressTitle = "My address"
 
 	public var recentAddresses: [RecentAddressModel] {
-		var recentAdds = UserDefaults.standard.value(forKey: "recentSentAddresses") as! [String]
+		let recentAdds = UserDefaults.standard.value(forKey: "recentSentAddresses") as! [String]
 		let adds = recentAdds.map { RecentAddressModel(address: $0) }
 		return Array(adds.prefix(3))
 	}

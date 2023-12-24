@@ -61,8 +61,10 @@ class EnterSendAddressView: UIView {
 	public func showSuggestedAddresses() {
 		updateSuggestedAddressesCardHeight()
 
-		UIView.animate(withDuration: 0.3) {
-			self.suggestedAddressesContainerView.alpha = 1
+		if !suggestedAddressesVM.userWallets.isEmpty || !suggestedAddressesVM.recentAddresses.isEmpty {
+			UIView.animate(withDuration: 0.3) {
+				self.suggestedAddressesContainerView.alpha = 1
+			}
 		}
 	}
 
