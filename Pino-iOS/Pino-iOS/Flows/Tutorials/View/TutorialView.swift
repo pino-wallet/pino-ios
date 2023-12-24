@@ -54,9 +54,11 @@ class TutorialView: UIView {
 
 		titleLabel.font = UIFont.PinoStyle.boldBigTitle
 		titleLabel.numberOfLines = 0
+		titleLabel.textColor = .Pino.primary
 
 		bodyLabel.font = UIFont.PinoStyle.mediumBody
 		bodyLabel.numberOfLines = 0
+		bodyLabel.textColor = .Pino.primary
 
 		contentStackView.spacing = 40
 		titleBodyStackView.spacing = 24
