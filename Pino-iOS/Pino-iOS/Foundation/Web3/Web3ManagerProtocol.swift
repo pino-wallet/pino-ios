@@ -5,13 +5,18 @@
 //  Created by Sobhan Eskandari on 10/20/23.
 //
 
+import Combine
 import Foundation
 import PromiseKit
 import Web3
 import Web3_Utility
 import Web3ContractABI
 
-protocol Web3ManagerProtocol {
+protocol CancellableStoring {
+	var cancellables: Set<AnyCancellable> { get set }
+}
+
+protocol Web3ManagerProtocol: CancellableStoring {
 	typealias CallData = String
 
 	var web3: Web3Core { get set }
@@ -28,6 +33,7 @@ protocol Web3ManagerProtocol {
 	) -> Promise<CallData?>
 	func sweepToken(tokenAddress: String) -> Promise<CallData?>
 	func signHash(plainHash: String) -> Promise<CallData>
+	mutating func getGasLimits() -> Promise<GasLimitsModel>
 }
 
 extension Web3ManagerProtocol {
@@ -103,6 +109,22 @@ extension Web3ManagerProtocol {
 			signiture[signiture.count - 1] += 27
 
 			seal.fulfill("0x\(signiture.toHexString())")
+		}
+	}
+
+	mutating func getGasLimits() -> Promise<GasLimitsModel> {
+		Promise<GasLimitsModel> { seal in
+			let web3Client = Web3APIClient()
+			web3Client.getGasLimits().sink { completed in
+				switch completed {
+				case .finished:
+					print("Info received successfully")
+				case let .failure(error):
+					print(error)
+				}
+			} receiveValue: { gasLimitsResponse in
+				seal.fulfill(gasLimitsResponse)
+			}.store(in: &cancellables)
 		}
 	}
 }
