@@ -10,6 +10,7 @@ class BorrowViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let borrowVM = BorrowViewModel()
+	private var healthScoreSystemVC: HealthScoreSystemViewController!
 	private var borrowView: BorrowView!
 
 	// MARK: - View Overrides
@@ -81,8 +82,15 @@ class BorrowViewController: UIViewController {
 	}
 
 	private func presentHealthScoreView(healthScoreSystemVM: HealthScoreSystemViewModel) {
-		let healthScoreSystemVC = HealthScoreSystemViewController(healthScoreSystemInfoVM: healthScoreSystemVM)
-		present(healthScoreSystemVC, animated: true)
+		healthScoreSystemVC = HealthScoreSystemViewController(healthScoreSystemInfoVM: healthScoreSystemVM)
+		present(healthScoreSystemVC, animated: true, completion: {
+			let disMissTapGesture = UITapGestureRecognizer(
+				target: self,
+				action: #selector(self.dismissHealthScore)
+			)
+			self.healthScoreSystemVC.view.superview?.subviews[0].addGestureRecognizer(disMissTapGesture)
+			self.healthScoreSystemVC.view.superview?.subviews[0].isUserInteractionEnabled = true
+		})
 	}
 
 	private func showTutorial() {
@@ -93,5 +101,10 @@ class BorrowViewController: UIViewController {
 			tutorialPage.modalPresentationStyle = .overFullScreen
 			present(tutorialPage, animated: true)
 		}
+	}
+
+	@objc
+	private func dismissHealthScore() {
+		healthScoreSystemVC.dismiss(animated: true)
 	}
 }

@@ -9,6 +9,10 @@ import Combine
 import UIKit
 
 class SwapConfirmationInfoView: UIView {
+	// MARK: - TypeAliases
+
+	typealias PresentFeeInfoType = (InfoActionSheet, _ completion: @escaping () -> Void) -> Void
+
 	// MARK: - Private Properties
 
 	private let swapInfoStackView = UIStackView()
@@ -32,7 +36,7 @@ class SwapConfirmationInfoView: UIView {
 	private let feeLabel = UILabel()
 
 	private let swapConfirmationVM: SwapConfirmationViewModel
-	private let presentFeeInfo: (InfoActionSheet) -> Void
+	private let presentFeeInfo: PresentFeeInfoType
 	private let retryFeeCalculation: () -> Void
 	private var cancellables = Set<AnyCancellable>()
 	private var showFeeInDollar = true
@@ -41,7 +45,7 @@ class SwapConfirmationInfoView: UIView {
 
 	init(
 		swapConfirmationVM: SwapConfirmationViewModel,
-		presentFeeInfo: @escaping (InfoActionSheet) -> Void,
+		presentFeeInfo: @escaping PresentFeeInfoType,
 		retryFeeCalculation: @escaping () -> Void
 	) {
 		self.swapConfirmationVM = swapConfirmationVM
@@ -94,8 +98,8 @@ class SwapConfirmationInfoView: UIView {
 		let feeRetryTapGesture = UITapGestureRecognizer(target: self, action: #selector(getFee))
 		feeErrorStackView.addGestureRecognizer(feeRetryTapGesture)
 
-		feeTitleView.presentActionSheet = { feeInfoActionSheet in
-			self.presentFeeInfo(feeInfoActionSheet)
+		feeTitleView.presentActionSheet = { feeInfoActionSheet, completion in
+			self.presentFeeInfo(feeInfoActionSheet, completion)
 		}
 	}
 

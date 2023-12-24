@@ -9,6 +9,10 @@ import Combine
 import UIKit
 
 class InvestConfirmationView: UIView {
+	// MARK: - TypeAliases
+
+	typealias InfoActionSheetDidTapType = (InfoActionSheet, _ completion: @escaping () -> Void) -> Void
+
 	// MARK: - Private Properties
 
 	private let contentStackview = UIStackView()
@@ -37,7 +41,7 @@ class InvestConfirmationView: UIView {
 
 	private let continueButton = PinoButton(style: .active)
 	private let confirmButtonDidTap: () -> Void
-	private let infoActionSheetDidTap: (InfoActionSheet) -> Void
+	private let infoActionSheetDidTap: InfoActionSheetDidTapType
 	private let feeCalculationRetry: () -> Void
 	private var investConfirmationVM: InvestConfirmationProtocol!
 	private var cancellables = Set<AnyCancellable>()
@@ -48,7 +52,7 @@ class InvestConfirmationView: UIView {
 	init(
 		investConfirmationVM: InvestConfirmationProtocol,
 		confirmButtonDidTap: @escaping () -> Void,
-		infoActionSheetDidTap: @escaping (InfoActionSheet) -> Void,
+		infoActionSheetDidTap: @escaping InfoActionSheetDidTapType,
 		feeCalculationRetry: @escaping () -> Void
 	) {
 		self.investConfirmationVM = investConfirmationVM
@@ -114,12 +118,12 @@ class InvestConfirmationView: UIView {
 			self.confirmButtonDidTap()
 		}), for: .touchUpInside)
 
-		feeTitleView.presentActionSheet = { feeInfoActionSheet in
-			self.infoActionSheetDidTap(feeInfoActionSheet)
+		feeTitleView.presentActionSheet = { feeInfoActionSheet, completion in
+			self.infoActionSheetDidTap(feeInfoActionSheet, completion)
 		}
 
-		selectedProtocolTitleView.presentActionSheet = { feeInfoActionSheet in
-			self.infoActionSheetDidTap(feeInfoActionSheet)
+		selectedProtocolTitleView.presentActionSheet = { feeInfoActionSheet, completion in
+			self.infoActionSheetDidTap(feeInfoActionSheet, completion)
 		}
 
 		let feeRetryTapGesture = UITapGestureRecognizer(target: self, action: #selector(getFee))

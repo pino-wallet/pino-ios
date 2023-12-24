@@ -47,9 +47,12 @@ class RepayConfirmViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		repayConfirmView = RepayConfirmView(repayConfrimVM: repayConfirmVM, presentActionSheetClosure: { actionSheet in
-			self.presentActionSheet(actionSheet: actionSheet)
-		})
+		repayConfirmView = RepayConfirmView(
+			repayConfrimVM: repayConfirmVM,
+			presentActionSheetClosure: { actionSheet, completion in
+				self.presentActionSheet(actionSheet: actionSheet, completion: completion)
+			}
+		)
 
 		repayConfirmVM.confirmRepayClosure = { trxs in
 			self.confirmRepay(repayTRXs: trxs)
@@ -73,7 +76,7 @@ class RepayConfirmViewController: UIViewController {
 		setNavigationTitle(repayConfirmVM.pageTitle)
 	}
 
-	private func presentActionSheet(actionSheet: InfoActionSheet) {
-		present(actionSheet, animated: true)
+	private func presentActionSheet(actionSheet: InfoActionSheet, completion: @escaping () -> Void) {
+		present(actionSheet, animated: true, completion: completion)
 	}
 }

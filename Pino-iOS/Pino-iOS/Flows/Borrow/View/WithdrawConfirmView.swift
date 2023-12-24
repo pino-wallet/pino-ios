@@ -12,7 +12,8 @@ import UIKit
 class WithdrawConfirmView: UIView {
 	// MARK: - TypeAliases
 
-	typealias presentActionSheetClosureType = (_ actionSheet: InfoActionSheet) -> Void
+	typealias presentActionSheetClosureType = (_ actionSheet: InfoActionSheet, _ completion: @escaping () -> Void)
+		-> Void
 
 	// MARK: - Closures
 
@@ -85,16 +86,16 @@ class WithdrawConfirmView: UIView {
 			actionSheetTitle: withdrawConfrimVM.protocolTitle,
 			actionSheetDescription: withdrawConfrimVM.protocolActionsheetText
 		)
-		protocolTitleWithInfo.presentActionSheet = { actionSheet in
-			self.presentActionSheetClosure(actionSheet)
+		protocolTitleWithInfo.presentActionSheet = { actionSheet, completion in
+			self.presentActionSheetClosure(actionSheet, completion)
 		}
 
 		feeTitleWithInfo = TitleWithInfo(
 			actionSheetTitle: withdrawConfrimVM.feeTitle,
 			actionSheetDescription: withdrawConfrimVM.feeActionSheetText
 		)
-		feeTitleWithInfo.presentActionSheet = { actionSheet in
-			self.presentActionSheetClosure(actionSheet)
+		feeTitleWithInfo.presentActionSheet = { actionSheet, completion in
+			self.presentActionSheetClosure(actionSheet, completion)
 		}
 
 		let onConfirmTapGesture = UITapGestureRecognizer(target: self, action: #selector(onConfirm))
