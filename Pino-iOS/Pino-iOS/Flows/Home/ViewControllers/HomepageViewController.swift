@@ -24,6 +24,13 @@ class HomepageViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		assetsCollectionView.reloadData()
+		homeVM.$selectedAssetsList.sink { [weak self] assets in
+			if assets == nil {
+				self?.view.showGradientSkeletonView()
+			} else {
+				self?.view.hideGradientSkeletonView()
+			}
+		}.store(in: &cancellables)
 	}
 
 	override func viewDidLayoutSubviews() {

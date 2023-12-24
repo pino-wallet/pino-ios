@@ -16,6 +16,10 @@ extension UIView {
 		"skeletonBordered"
 	}
 
+	private var skeletonGradientName: String {
+		"skeletonGradient"
+	}
+
 	public var isSkeletonable: Bool {
 		get { if layer.name == skeletonContainerName {
 			return true
@@ -185,5 +189,34 @@ extension UIView {
 				}
 			}
 		}
+	}
+
+	public func showGradientSkeletonView() {
+		layoutIfNeeded()
+		// Prevent to add gradient view twice
+		for subview in subviews.filter({ $0.layer.name == skeletonGradientName }) {
+			subview.removeFromSuperview()
+		}
+		// Add loading gradient view
+		let gradientLoadingView = UIView()
+		gradientLoadingView.layer.name = skeletonGradientName
+		let loadingGradientLayer = GradientLayer(
+			frame: bounds,
+			colors: [.Pino.clear, .Pino.background],
+			startPoint: CGPoint(x: 0.5, y: 0.4),
+			endPoint: CGPoint(x: 0.5, y: 1)
+		)
+		loadingGradientLayer.locations = [0, 0.5]
+		gradientLoadingView.layer.addSublayer(loadingGradientLayer)
+		addSubview(gradientLoadingView)
+		// Show all skeletonable ui elements
+		showSkeletonView()
+	}
+
+	public func hideGradientSkeletonView() {
+		for subview in subviews.filter({ $0.layer.name == skeletonGradientName }) {
+			subview.removeFromSuperview()
+		}
+		hideSkeletonView()
 	}
 }
