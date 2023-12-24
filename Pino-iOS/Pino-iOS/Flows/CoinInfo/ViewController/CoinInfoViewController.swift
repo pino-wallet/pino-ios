@@ -5,12 +5,15 @@
 //  Created by Mohi Raoufi on 2/17/23.
 //
 
+import Combine
 import UIKit
 
 class CoinInfoViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private var coinInfoVM: CoinInfoViewModel!
+	private var coinInfoView: ActivitiesCollectionView!
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -38,6 +41,7 @@ class CoinInfoViewController: UIViewController {
 		if isBeingPresented || isMovingToParent {
 			coinInfoVM.getUserActivitiesFromVC()
 		}
+		setupLoading()
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {
@@ -48,9 +52,10 @@ class CoinInfoViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = ActivitiesCollectionView(coinInfoVM: coinInfoVM, openActivityDetails: { [weak self] activityDetails in
+		coinInfoView = ActivitiesCollectionView(coinInfoVM: coinInfoVM, openActivityDetails: { [weak self] activityDetails in
 			self?.openActivityDetailsPage(activityDetails: activityDetails)
 		})
+		view = coinInfoView
 	}
 
 	private func setupNavigationBar() {
@@ -74,6 +79,16 @@ class CoinInfoViewController: UIViewController {
 				action: #selector(openCoinInfoChartPage)
 			)
 		}
+	}
+
+	private func setupLoading() {
+		coinInfoView.$showLoading.sink { showLoading in
+			if showLoading {
+				self.view.showGradientSkeletonView(endLocation: 0.7)
+			} else {
+				self.view.hideGradientSkeletonView()
+			}
+		}.store(in: &cancellables)
 	}
 
 	private func openActivityDetailsPage(activityDetails: ActivityCellViewModel) {

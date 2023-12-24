@@ -191,7 +191,7 @@ extension UIView {
 		}
 	}
 
-	public func showGradientSkeletonView() {
+	public func showGradientSkeletonView(startLocation: NSNumber = 0, endLocation: NSNumber = 0.5) {
 		layoutIfNeeded()
 		// Prevent to add gradient view twice
 		for subview in subviews.filter({ $0.layer.name == skeletonGradientName }) {
@@ -206,7 +206,7 @@ extension UIView {
 			startPoint: CGPoint(x: 0.5, y: 0.4),
 			endPoint: CGPoint(x: 0.5, y: 1)
 		)
-		loadingGradientLayer.locations = [0, 0.5]
+		loadingGradientLayer.locations = [startLocation, endLocation]
 		gradientLoadingView.layer.addSublayer(loadingGradientLayer)
 		addSubview(gradientLoadingView)
 		// Show all skeletonable ui elements

@@ -13,8 +13,10 @@ class ActivitiesCollectionView: UICollectionView {
 
 	typealias OpenActivityDetailsType = (_ activityDetails: ActivityCellViewModel) -> Void
 
-	// MARK: - Closures
+	// MARK: - Public Properties
 
+	@Published
+	public var showLoading = true
 	public var openActivityDetails: OpenActivityDetailsType
 
 	// MARK: - Private Properties
@@ -23,7 +25,6 @@ class ActivitiesCollectionView: UICollectionView {
 	private let historyRefreshContorl = UIRefreshControl()
 	private var coinInfoVM: CoinInfoViewModel!
 	private var separatedActivities: ActivityHelper.SeparatedActivitiesType! = []
-	private var showLoading = true
 	private var isRefreshing = false
 
 	// MARK: - Initializers
@@ -254,7 +255,6 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 					for: indexPath
 				) as! CoinInfoHeaderView
 				coinInfoHeaderView.coinInfoVM = coinInfoVM
-
 				return coinInfoHeaderView
 			} else {
 				let activityHeaderView = dequeueReusableSupplementaryView(
