@@ -550,6 +550,7 @@
 		DF0F65FA29E1B29C00DB7290 /* assets-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B2220BAE0D7613EB95414ED /* assets-stub.json */; };
 		DF0F65FB29E1B29C00DB7290 /* wallets-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = DE9E95DAD0FE359D802524FC /* wallets-stub.json */; };
 		DF136FDE2B381E5E00A7B878 /* GasLimitsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF136FDD2B381E5E00A7B878 /* GasLimitsModel.swift */; };
+		DF136FE02B38251F00A7B878 /* SwapGasLimitsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF136FDF2B38251F00A7B878 /* SwapGasLimitsManager.swift */; };
 		DF14FC9D2A8E108D005221A8 /* W3TransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FC9C2A8E108D005221A8 /* W3TransactionManager.swift */; };
 		DF14FC9F2A9105CF005221A8 /* W3GasInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FC9E2A9105CF005221A8 /* W3GasInfoManager.swift */; };
 		DF14FCA12A9105F3005221A8 /* W3TransferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FCA02A9105F3005221A8 /* W3TransferManager.swift */; };
@@ -1378,6 +1379,7 @@
 		DF0B1ECE2B00DB3F001B0522 /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
 		DF0B1ED22B00E0D5001B0522 /* FCMTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenManager.swift; sourceTree = "<group>"; };
 		DF136FDD2B381E5E00A7B878 /* GasLimitsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GasLimitsModel.swift; sourceTree = "<group>"; };
+		DF136FDF2B38251F00A7B878 /* SwapGasLimitsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapGasLimitsManager.swift; sourceTree = "<group>"; };
 		DF14FC9C2A8E108D005221A8 /* W3TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3TransactionManager.swift; sourceTree = "<group>"; };
 		DF14FC9E2A9105CF005221A8 /* W3GasInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3GasInfoManager.swift; sourceTree = "<group>"; };
 		DF14FCA02A9105F3005221A8 /* W3TransferManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3TransferManager.swift; sourceTree = "<group>"; };
@@ -3985,6 +3987,7 @@
 				E35BB6542A62D4A5003987F5 /* SwapConfirmationViewModel.swift */,
 				E3FC698D2A80DD2F009B3341 /* SwapPriceManager.swift */,
 				40E7C1122AAF6C74006A61DD /* SwapManager.swift */,
+				DF136FDF2B38251F00A7B878 /* SwapGasLimitsManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -5392,6 +5395,7 @@
 				E35BB6512A62955D003987F5 /* SwapConfirmationViewController.swift in Sources */,
 				D9BE051D2A8221C8008670F9 /* CDSwapActivityDetails+CoreDataProperties.swift in Sources */,
 				D9D11E922A5990B8003C4298 /* ActivityCollectionView.swift in Sources */,
+				DF136FE02B38251F00A7B878 /* SwapGasLimitsManager.swift in Sources */,
 				D9DC773F2A6FAB2B00AA0987 /* ActivityDetailPropertiesViewModel.swift in Sources */,
 				33647E7FA041A9CC0130F158 /* AccountsViewModel.swift in Sources */,
 				E3F482EF2A35A6E900EEC9CF /* CustomAsset+CoreDataClass.swift in Sources */,
