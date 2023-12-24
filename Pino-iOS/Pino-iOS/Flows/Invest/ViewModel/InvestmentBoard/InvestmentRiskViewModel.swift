@@ -40,6 +40,8 @@ public enum InvestmentRisk: String {
 }
 
 enum InvestableAsset: String {
+	// MARK: - Cases
+
 	case USDCAave
 	case USDTAave
 	case USDCCompound
@@ -47,6 +49,8 @@ enum InvestableAsset: String {
 	case ETHLido
 	case DAIMaker
 	case none
+
+	// MARK: - Public Properties
 
 	public var riskDescription: String? {
 		switch self {
@@ -109,6 +113,8 @@ enum InvestableAsset: String {
 			nil
 		}
 	}
+
+	// MARK: - Public Initializers
 
 	public init(assetId: String, investProtocol: InvestProtocolViewModel) {
 		switch investProtocol {
