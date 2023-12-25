@@ -44,6 +44,8 @@ public class InvestmentAssetCell: UICollectionViewCell {
 	}
 
 	private func setupStyle() {
+		titleStackView.isSkeletonable = true
+		assetAmountStackView.isSkeletonable = true
 		if let asset {
 			hideSkeletonView()
 			assetNameLabel.text = asset.assetName
@@ -64,7 +66,13 @@ public class InvestmentAssetCell: UICollectionViewCell {
 				assetVolatilityLabel.isHidden = true
 				assetVolatilityIcon.isHidden = true
 			}
+			titleStackView.layer.cornerRadius = 0
+			assetAmountStackView.layer.cornerRadius = 0
 		} else {
+			titleStackView.layer.cornerRadius = 10
+			assetAmountStackView.layer.cornerRadius = 12.5
+			titleStackView.layer.masksToBounds = true
+			assetAmountStackView.layer.masksToBounds = true
 			showSkeletonView()
 		}
 
@@ -82,15 +90,12 @@ public class InvestmentAssetCell: UICollectionViewCell {
 		titleStackView.spacing = 4
 
 		assetStackView.alignment = .leading
-
-		assetNameLabel.isSkeletonable = true
-		assetAmountLabel.isSkeletonable = true
-		assetVolatilityLabel.isSkeletonable = true
 	}
 
 	private func setupConstraint() {
 		assetStackView.pin(
-			.allEdges(padding: 12)
+			.horizontalEdges(padding: 12),
+			.centerY
 		)
 		assetVolatilityIcon.pin(
 			.fixedWidth(20),
@@ -101,5 +106,12 @@ public class InvestmentAssetCell: UICollectionViewCell {
 			.fixedWidth(20),
 			.fixedHeight(20)
 		)
+
+		NSLayoutConstraint.activate([
+			titleStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 20),
+			titleStackView.widthAnchor.constraint(greaterThanOrEqualToConstant: 45),
+			assetAmountStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 25),
+			assetAmountStackView.widthAnchor.constraint(greaterThanOrEqualToConstant: 72),
+		])
 	}
 }
