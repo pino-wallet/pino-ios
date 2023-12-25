@@ -10,16 +10,14 @@ import Foundation
 struct NotificationOptionModel {
 	public var title: String
 	public var type: NotificationOption
-	public var tooltipText: String?
 	public var isSelected: Bool
+    public var description: String?
 }
 
 extension NotificationOptionModel {
 	public enum NotificationOption: String {
 		case wallet_activity
-		case investment_performance
-		case health_score
-		case uniswap_price_range
+		case liquidation_notice
 		case pino_update
 		case allow_notification
 	}

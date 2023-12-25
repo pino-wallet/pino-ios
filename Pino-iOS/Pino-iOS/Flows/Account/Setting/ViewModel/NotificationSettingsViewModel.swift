@@ -13,45 +13,32 @@ class NotificationSettingsViewModel {
 	public let pageTitle = "Notifications"
 	public let notificationOptionsSectionTitle = "Options"
 
-	#warning("this tooltip texts are for testing and should be changed")
 	public let notificationOptions = [
 		NotificationOptionModel(
 			title: "Wallet activity",
 			type: .wallet_activity,
-			tooltipText: "this is wallet activity",
-			isSelected: true
+			isSelected: true,
+            description: "Send, swap, borrow, and more."
 		),
 		NotificationOptionModel(
-			title: "Investment performance",
-			type: .investment_performance,
-			tooltipText: "this is investment performance",
-			isSelected: false
-		),
-		NotificationOptionModel(
-			title: "Health score",
-			type: .health_score,
-			tooltipText: "this is wallet health score",
-			isSelected: true
-		),
-		NotificationOptionModel(
-			title: "Uniswap price range",
-			type: .uniswap_price_range,
-			tooltipText: "this is uniswap price range",
-			isSelected: false
+			title: "Liquidation notice",
+			type: .liquidation_notice,
+			isSelected: false,
+            description: "Health Score reaches danger zone"
 		),
 		NotificationOptionModel(
 			title: "Pino update",
 			type: .pino_update,
-			tooltipText: "this is pino update",
-			isSelected: true
+			isSelected: true,
+            description: "Feature announcements and update"
 		),
 	]
 	public let generalNotificationOptions = [
 		NotificationOptionModel(
 			title: "Allow notification",
 			type: .allow_notification,
-			tooltipText: nil,
-			isSelected: true
+			isSelected: true,
+            description: nil
 		),
 	]
 }

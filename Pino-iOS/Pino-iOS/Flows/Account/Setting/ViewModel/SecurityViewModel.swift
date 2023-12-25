@@ -22,8 +22,8 @@ class SecurityViewModel {
 		LockMethodModel(title: "Passcode", type: .passcode),
 	]
 	public let securityOptions = [
-		SecurityOptionModel(title: "Immediately", type: .immediately, isSelected: true),
-		SecurityOptionModel(title: "For every transaction", type: .on_transactions, isSelected: false),
+        SecurityOptionModel(title: "Immediately", type: .immediately, isSelected: true, description: nil),
+        SecurityOptionModel(title: "For every transaction", type: .on_transactions, isSelected: false, description: nil),
 	]
 
 	@Published

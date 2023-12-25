@@ -105,7 +105,7 @@ class AboutPinoView: UIView {
 		logoBackgroundView.backgroundColor = .Pino.primary
 		pinoInfoCardView.backgroundColor = .Pino.secondaryBackground
 		for line in separatorLines {
-			line.backgroundColor = .Pino.gray5
+			line.backgroundColor = .Pino.gray3
 		}
 
 		pinoName.textColor = .Pino.green6
@@ -166,7 +166,7 @@ class AboutPinoView: UIView {
 		)
 		for line in separatorLines {
 			line.pin(
-				.fixedHeight(1)
+                .fixedHeight((1 / UIScreen.main.scale))
 			)
 		}
 		for detailIcon in detailIcons {

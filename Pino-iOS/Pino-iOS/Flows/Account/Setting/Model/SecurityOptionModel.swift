@@ -9,6 +9,7 @@ struct SecurityOptionModel {
 	public let title: String
 	public let type: LockType
 	public let isSelected: Bool
+    public let description: String? 
 }
 
 extension SecurityOptionModel {
