@@ -18,29 +18,29 @@ class TitleWithInfo: UIButton {
 	private let mainStackView = UIStackView()
 	private let infoActionSheetIcon = UIImageView()
 	private var infoActionSheet: InfoActionSheet!
-    private var customConfiguration = UIButton.Configuration.filled()
+	private var customConfiguration = UIButton.Configuration.filled()
 
 	// MARK: - Public Properties
-    
-    override var isHighlighted: Bool {
-        didSet {
-            if isHighlighted && showInfoActionSheet {
-                customConfiguration.attributedTitle?.foregroundColor = .Pino.gray3
-                configuration = customConfiguration
-            } else {
-                customConfiguration.attributedTitle?.foregroundColor = .Pino.secondaryLabel
-                configuration = customConfiguration
-            }
-        }
-    }
+
+	override var isHighlighted: Bool {
+		didSet {
+			if isHighlighted && showInfoActionSheet {
+				customConfiguration.attributedTitle?.foregroundColor = .Pino.gray3
+				configuration = customConfiguration
+			} else {
+				customConfiguration.attributedTitle?.foregroundColor = .Pino.secondaryLabel
+				configuration = customConfiguration
+			}
+		}
+	}
 
 	public var title: String! = "" {
 		didSet {
-            var attributedTitle = AttributedString(title)
-            attributedTitle.foregroundColor = .Pino.secondaryLabel
-            attributedTitle.font = .PinoStyle.mediumCallout
-            customConfiguration.attributedTitle = attributedTitle
-            configuration = customConfiguration
+			var attributedTitle = AttributedString(title)
+			attributedTitle.foregroundColor = .Pino.secondaryLabel
+			attributedTitle.font = .PinoStyle.mediumCallout
+			customConfiguration.attributedTitle = attributedTitle
+			configuration = customConfiguration
 		}
 	}
 
@@ -48,27 +48,27 @@ class TitleWithInfo: UIButton {
 		didSet {
 			if showInfoActionSheet {
 				infoActionSheetIcon.isHidden = false
-                customConfiguration.image = UIImage(named: "alert")
-                configuration = customConfiguration
+				customConfiguration.image = UIImage(named: "alert")
+				configuration = customConfiguration
 			} else {
 				infoActionSheetIcon.isHidden = true
-                customConfiguration.image = nil
-                configuration = customConfiguration
+				customConfiguration.image = nil
+				configuration = customConfiguration
 			}
 		}
 	}
 
 	public var customTextFont: UIFont! {
 		didSet {
-            customConfiguration.attributedTitle?.font = customTextFont
-            configuration = customConfiguration
+			customConfiguration.attributedTitle?.font = customTextFont
+			configuration = customConfiguration
 		}
 	}
 
 	public var customTextColor: UIColor! {
 		didSet {
-            customConfiguration.attributedTitle?.foregroundColor = customTextColor
-            configuration = customConfiguration
+			customConfiguration.attributedTitle?.foregroundColor = customTextColor
+			configuration = customConfiguration
 		}
 	}
 
@@ -95,19 +95,19 @@ class TitleWithInfo: UIButton {
 	// MARK: - Private Methods
 
 	private func setupView() {
-        customConfiguration.imagePadding = 2
-        customConfiguration.imagePlacement = .trailing
-        customConfiguration.cornerStyle = .fixed
-        customConfiguration.image = UIImage(named: "alert")
-        
-        addTarget(self, action: #selector(onIconTap), for: .touchUpInside)
+		customConfiguration.imagePadding = 2
+		customConfiguration.imagePlacement = .trailing
+		customConfiguration.cornerStyle = .fixed
+		customConfiguration.image = UIImage(named: "alert")
+
+		addTarget(self, action: #selector(onIconTap), for: .touchUpInside)
 	}
 
-    private func setupStyles() {
-        customConfiguration.background.backgroundColor = .Pino.clear
-        customConfiguration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-        configuration = customConfiguration
-    }
+	private func setupStyles() {
+		customConfiguration.background.backgroundColor = .Pino.clear
+		customConfiguration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+		configuration = customConfiguration
+	}
 
 	private func setupConstraints() {
 		heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
