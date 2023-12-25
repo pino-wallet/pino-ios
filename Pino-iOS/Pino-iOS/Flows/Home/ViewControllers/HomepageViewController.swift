@@ -165,7 +165,12 @@ class HomepageViewController: UIViewController {
 	private func openSendAssetPage() {
 		if let assetsList = GlobalVariables.shared.selectedManageAssetsList {
 			let navigationVC = UINavigationController()
-			let selectAssetToSendVC = SelectAssetToSendViewController(assets: assetsList)
+            let selectAssetToSendVC = SelectAssetToSendViewController(assets: assetsList, onDismiss: { pageStatus in
+                if pageStatus == .pending {
+                    self.tabBarController?.selectedIndex = 4
+                }
+                self.dismiss(animated: true)
+            })
 			navigationVC.viewControllers = [selectAssetToSendVC]
 			present(navigationVC, animated: true)
 		}

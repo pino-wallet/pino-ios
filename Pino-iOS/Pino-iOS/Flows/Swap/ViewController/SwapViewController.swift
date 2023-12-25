@@ -184,7 +184,7 @@ class SwapViewController: UIViewController {
 	private func openSelectAssetPage(assets: [AssetViewModel], assetChanged: @escaping (AssetViewModel) -> Void) {
 		isDismissingVC = true
 		let filteredAssets = assets.filter { !$0.isPosition }
-		let selectAssetVC = SelectAssetToSendViewController(assets: filteredAssets)
+        let selectAssetVC = SelectAssetToSendViewController(assets: filteredAssets, onDismiss: nil)
 		selectAssetVC.changeAssetFromEnterAmountPage = { selectedAsset in
 			assetChanged(selectedAsset)
 		}

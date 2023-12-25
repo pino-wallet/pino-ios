@@ -12,6 +12,7 @@ class EnterSendAddressViewController: UIViewController {
 
 	private var enterSendAddressView: EnterSendAddressView!
 	private var enterSendAddressVM: EnterSendAddressViewModel
+    private var onSendConfirm: (SendTransactionStatus) -> Void
 
 	// MARK: - View Overrides
 
@@ -23,8 +24,9 @@ class EnterSendAddressViewController: UIViewController {
 
 	// MARK: - Initializers
 
-	init(enterAddressVM: EnterSendAddressViewModel) {
+    init(enterAddressVM: EnterSendAddressViewModel, onSendConfirm: @escaping (SendTransactionStatus) -> Void) {
 		self.enterSendAddressVM = enterAddressVM
+        self.onSendConfirm = onSendConfirm
 		super.init(nibName: nil, bundle: nil)
 		setupView()
 		setupNavigationBar()
@@ -74,7 +76,9 @@ class EnterSendAddressViewController: UIViewController {
 			sendAmount: enterSendAddressVM.sendAmountVM.tokenAmount.sevenDigitFormat,
 			sendAmountInDollar: enterSendAddressVM.sendAmountVM.dollarAmount.priceFormat
 		)
-		let confirmationVC = SendConfirmationViewController(sendConfirmationVM: confirmationVM)
+        let confirmationVC = SendConfirmationViewController(sendConfirmationVM: confirmationVM, onSendConfirm: { pageStatus in
+            self.onSendConfirm(pageStatus)
+        })
 		navigationController?.pushViewController(confirmationVC, animated: true)
 	}
 }
