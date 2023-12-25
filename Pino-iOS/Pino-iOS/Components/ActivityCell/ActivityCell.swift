@@ -127,13 +127,13 @@ class ActivityCell: UICollectionViewCell {
 	}
 
 	private func setupConstraint() {
-		historyTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 180).isActive = true
+		historyTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 130).isActive = true
 		historyTitleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 220).isActive = true
 		historyMoreInfoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 120).isActive = true
 		historyMoreInfoLoadingContainer.widthAnchor.constraint(equalToConstant: 56).isActive = true
-		historyMoreInfoLoadingContainer.heightAnchor.constraint(equalToConstant: 14).isActive = true
+		historyMoreInfoLoadingContainer.heightAnchor.constraint(equalToConstant: 12).isActive = true
 
-		historyTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 17).isActive = true
+		historyTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14).isActive = true
 		historyMoreInfoLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14).isActive = true
 
 		historyCardView.heightAnchor.constraint(greaterThanOrEqualToConstant: 64).isActive = true
