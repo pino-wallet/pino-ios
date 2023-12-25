@@ -112,7 +112,12 @@ extension UIView {
 			} else {
 				let gradientLayer = CAGradientLayer()
 
-				gradientLayer.colors = [UIColor.Pino.skeleton1.cgColor, UIColor.Pino.skeleton2.cgColor]
+				gradientLayer.colors = [
+					UIColor.Pino.skeleton2.cgColor,
+					UIColor.Pino.skeleton1.cgColor,
+					UIColor.Pino.skeleton2.cgColor,
+				]
+
 				gradientLayer.locations = [0, 0.5]
 				gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
 				gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
@@ -133,7 +138,7 @@ extension UIView {
 				backgroundView.pin(.allEdges(padding: 0))
 				corneredView.pin(.allEdges(padding: 0))
 				backgroundView.backgroundColor = backgroundColor ?? .Pino.white
-				corneredView.backgroundColor = .Pino.skeleton1
+				corneredView.backgroundColor = .Pino.skeleton2
 
 				if skeletonView.layer.cornerRadius == 0 {
 					corneredView.layer.cornerRadius = skeletonView.frame.size.height / 2
