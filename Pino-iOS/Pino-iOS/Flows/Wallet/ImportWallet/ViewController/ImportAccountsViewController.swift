@@ -14,6 +14,7 @@ class ImportAccountsViewController: UIViewController {
 	private var importAccountsVM: ImportAccountsViewModel
 	private var importAccountsView: ImportAccountsView!
 	private var importLoadingView = ImportAccountLoadingView()
+    private var signWalletSheet: SignImportWalletSheet!
 
 	// MARK: - Initializers
 
@@ -64,7 +65,7 @@ class ImportAccountsViewController: UIViewController {
 	}
 
 	private func openPasscodePage() {
-		let signWalletSheet = SignImportWalletSheet(
+		 signWalletSheet = SignImportWalletSheet(
 			title: "Sign the message in you wallet to continue",
 			description: "Pino uses this signature to verify that you’re the owner of this Ethereum address"
 		)
@@ -78,6 +79,14 @@ class ImportAccountsViewController: UIViewController {
 				navigationController?.pushViewController(createPasscodeViewController, animated: true)
 			}
 		}
-		present(signWalletSheet, animated: true)
+		present(signWalletSheet, animated: true, completion: {
+            let dismissTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissSignImportWalletSheet))
+            self.signWalletSheet.view.superview?.subviews[0].addGestureRecognizer(dismissTapGesture)
+            self.signWalletSheet.view.superview?.subviews[0].isUserInteractionEnabled = true
+        })
 	}
+    
+    @objc private func dismissSignImportWalletSheet() {
+        signWalletSheet.dismiss(animated: true)
+    }
 }
