@@ -33,12 +33,12 @@ class ShowSecretPhraseViewController: UIViewController {
 			setSteperView(stepsCount: 3, curreuntStep: 1)
 		}
 	}
-    
-    // MARK: - Initializers
-    
-    deinit {
-        NotificationCenter.default.removeObserver(UIApplication.userDidTakeScreenshotNotification)
-    }
+
+	// MARK: - Initializers
+
+	deinit {
+		NotificationCenter.default.removeObserver(UIApplication.userDidTakeScreenshotNotification)
+	}
 
 	// MARK: Private Methods
 

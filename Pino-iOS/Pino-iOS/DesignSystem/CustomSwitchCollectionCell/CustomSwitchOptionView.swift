@@ -26,9 +26,9 @@ class CustomSwitchOptionView: UIView {
 	private let titleLabel = PinoLabel(style: .info, text: "")
 	private let switcher = UISwitch()
 	private let betWeenView = UIView()
-    private let descriptionLabel = PinoLabel(style: .description, text: "")
+	private let descriptionLabel = PinoLabel(style: .description, text: "")
 	private let titleLabelContainerView = UIView()
-    private let textStackView = UIStackView()
+	private let textStackView = UIStackView()
 
 	// MARK: - Public Properties
 
@@ -50,13 +50,13 @@ class CustomSwitchOptionView: UIView {
 
 	private func setupView() {
 		addSubview(mainStackView)
-        addSubview(topBorderView)
+		addSubview(topBorderView)
 
 		switcher.isOn = customSwitchCollectionViewCellVM.isSelected
 		switcher.addTarget(self, action: #selector(onSwitcherChange), for: .valueChanged)
-        
-        textStackView.addArrangedSubview(titleLabel)
-        textStackView.addArrangedSubview(descriptionLabel)
+
+		textStackView.addArrangedSubview(titleLabel)
+		textStackView.addArrangedSubview(descriptionLabel)
 
 		titleLabelContainerView.addSubview(textStackView)
 
@@ -67,19 +67,24 @@ class CustomSwitchOptionView: UIView {
 	}
 
 	private func setupConstraints() {
-        titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
+		titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 		titleLabelContainerView.widthAnchor.constraint(lessThanOrEqualToConstant: 240).isActive = true
-        descriptionLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 18).isActive = true
+		descriptionLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 18).isActive = true
 
-        titleLabelContainerView.pin(.verticalEdges(padding: 0), .leading(padding: 0))
+		titleLabelContainerView.pin(.verticalEdges(padding: 0), .leading(padding: 0))
 		mainStackView.pin(.horizontalEdges(padding: 16))
-        topBorderView.pin(.fixedHeight((1 / UIScreen.main.scale)), .top(padding: 0), .leading(padding: 16), .trailing(padding: 0))
-        textStackView.pin(.allEdges(padding: 0))
-        if customSwitchCollectionViewCellVM.description != nil {
-            mainStackView.pin(.verticalEdges(padding: 10))
-        } else {
-            mainStackView.pin(.verticalEdges(padding: 8.5))
-        }
+		topBorderView.pin(
+			.fixedHeight(1 / UIScreen.main.scale),
+			.top(padding: 0),
+			.leading(padding: 16),
+			.trailing(padding: 0)
+		)
+		textStackView.pin(.allEdges(padding: 0))
+		if customSwitchCollectionViewCellVM.description != nil {
+			mainStackView.pin(.verticalEdges(padding: 10))
+		} else {
+			mainStackView.pin(.verticalEdges(padding: 8.5))
+		}
 	}
 
 	private func setupStyle() {
@@ -98,17 +103,17 @@ class CustomSwitchOptionView: UIView {
 		titleLabel.lineBreakMode = .byWordWrapping
 
 		switcher.onTintColor = .Pino.green3
-        
-        descriptionLabel.font = .PinoStyle.mediumFootnote
-        descriptionLabel.text = customSwitchCollectionViewCellVM.description
-        descriptionLabel.isHidden = true
-        
-        if customSwitchCollectionViewCellVM.description != nil {
-            descriptionLabel.isHidden = false
-        }
-        
-        textStackView.axis = .vertical
-        textStackView.spacing = 2
+
+		descriptionLabel.font = .PinoStyle.mediumFootnote
+		descriptionLabel.text = customSwitchCollectionViewCellVM.description
+		descriptionLabel.isHidden = true
+
+		if customSwitchCollectionViewCellVM.description != nil {
+			descriptionLabel.isHidden = false
+		}
+
+		textStackView.axis = .vertical
+		textStackView.spacing = 2
 	}
 
 	private func showTopBorder() {

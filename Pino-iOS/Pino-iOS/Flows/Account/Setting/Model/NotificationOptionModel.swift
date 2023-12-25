@@ -11,7 +11,7 @@ struct NotificationOptionModel {
 	public var title: String
 	public var type: NotificationOption
 	public var isSelected: Bool
-    public var description: String?
+	public var description: String?
 }
 
 extension NotificationOptionModel {

@@ -18,19 +18,19 @@ class NotificationSettingsViewModel {
 			title: "Wallet activity",
 			type: .wallet_activity,
 			isSelected: true,
-            description: "Send, swap, borrow, and more."
+			description: "Send, swap, borrow, and more."
 		),
 		NotificationOptionModel(
 			title: "Liquidation notice",
 			type: .liquidation_notice,
 			isSelected: false,
-            description: "Health Score reaches danger zone"
+			description: "Health Score reaches danger zone"
 		),
 		NotificationOptionModel(
 			title: "Pino update",
 			type: .pino_update,
 			isSelected: true,
-            description: "Feature announcements and update"
+			description: "Feature announcements and update"
 		),
 	]
 	public let generalNotificationOptions = [
@@ -38,7 +38,7 @@ class NotificationSettingsViewModel {
 			title: "Allow notification",
 			type: .allow_notification,
 			isSelected: true,
-            description: nil
+			description: nil
 		),
 	]
 }

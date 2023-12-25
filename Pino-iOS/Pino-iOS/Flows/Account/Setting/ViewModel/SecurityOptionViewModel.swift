@@ -17,10 +17,10 @@ struct SecurityOptionViewModel: CustomSwitchOptionVM {
 	public var isSelected: Bool {
 		lockSettingOption.isSelected
 	}
-    
-    public var description: String? {
-        lockSettingOption.description
-    }
+
+	public var description: String? {
+		lockSettingOption.description
+	}
 
 	public var type: String {
 		lockSettingOption.type.rawValue

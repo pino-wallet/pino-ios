@@ -7,7 +7,7 @@
 
 protocol CustomSwitchOptionVM {
 	var title: String { get }
-    var description: String? { get }
+	var description: String? { get }
 	var isSelected: Bool { get }
 	var type: String { get }
 }

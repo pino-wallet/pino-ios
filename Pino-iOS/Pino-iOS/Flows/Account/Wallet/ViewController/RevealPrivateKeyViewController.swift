@@ -27,13 +27,13 @@ class RevealPrivateKeyViewController: UIViewController {
 		setupNavigationBar()
 		setupNotifications()
 	}
-    
-    // MARK: - Initializers
-    
-    deinit {
-        NotificationCenter.default.removeObserver(UIApplication.userDidTakeScreenshotNotification)
-    }
-    
+
+	// MARK: - Initializers
+
+	deinit {
+		NotificationCenter.default.removeObserver(UIApplication.userDidTakeScreenshotNotification)
+	}
+
 	// MARK: - Private Methods
 
 	private func setupView() {

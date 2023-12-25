@@ -166,7 +166,7 @@ class AboutPinoView: UIView {
 		)
 		for line in separatorLines {
 			line.pin(
-                .fixedHeight((1 / UIScreen.main.scale))
+				.fixedHeight(1 / UIScreen.main.scale)
 			)
 		}
 		for detailIcon in detailIcons {
