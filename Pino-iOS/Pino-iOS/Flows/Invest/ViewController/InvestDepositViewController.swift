@@ -16,11 +16,11 @@ class InvestDepositViewController: UIViewController {
 	private var investView: InvestDepositView!
 	private var web3 = Web3Core.shared
 	private let walletManager = PinoWalletManager()
-	private var onDepositConfirm: () -> Void
+	private var onDepositConfirm: (SendTransactionStatus) -> Void
 
 	// MARK: Initializers
 
-	init(investVM: InvestViewModelProtocol, onDepositConfirm: @escaping () -> Void) {
+	init(investVM: InvestViewModelProtocol, onDepositConfirm: @escaping (SendTransactionStatus) -> Void) {
 		self.investVM = investVM
 		self.onDepositConfirm = onDepositConfirm
 		super.init(nibName: nil, bundle: nil)

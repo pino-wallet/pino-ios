@@ -252,7 +252,12 @@ class SwapViewController: UIViewController {
 				swapRate: swapVM.swapFeeVM.calculatedAmount!,
 				swapSide: side
 			)
-			let confirmationVC = SwapConfirmationViewController(swapConfirmationVM: swapConfirmationVM)
+            let confirmationVC = SwapConfirmationViewController(swapConfirmationVM: swapConfirmationVM, onSwapConfirm: { pageStatus in
+                if pageStatus == .pending {
+                    self.tabBarController?.selectedIndex = 4
+                }
+                self.dismiss(animated: true)
+            })
 			let confirmationNavigationVC = UINavigationController(rootViewController: confirmationVC)
 			present(confirmationNavigationVC, animated: true)
 			isDismissingVC = false

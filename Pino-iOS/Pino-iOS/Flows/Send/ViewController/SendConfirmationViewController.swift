@@ -82,7 +82,9 @@ class SendConfirmationViewController: UIViewController {
 			)
 			let sendTransactionStatusVC = SendTransactionStatusViewController(
 				sendStatusVM: sendTransactionStatusVM,
-				onDismiss: {}
+                onDismiss: { pageStatus in
+                        
+                }
 			)
 			present(sendTransactionStatusVC, animated: true)
 		} onFailure: {

@@ -12,14 +12,14 @@ class InvestConfirmationViewController: UIViewController {
 
 	private let investConfirmationVM: InvestConfirmationProtocol
 	private var investConfirmationView: InvestConfirmationView!
-	private var onConfirm: () -> Void
+	private var onConfirm: (SendTransactionStatus) -> Void
 	private lazy var authManager: AuthenticationLockManager = {
 		.init(parentController: self)
 	}()
 
 	// MARK: - Initializers
 
-	init(confirmationVM: InvestConfirmationProtocol, onConfirm: @escaping () -> Void) {
+	init(confirmationVM: InvestConfirmationProtocol, onConfirm: @escaping (SendTransactionStatus) -> Void) {
 		self.investConfirmationVM = confirmationVM
 		self.onConfirm = onConfirm
 		super.init(nibName: nil, bundle: nil)
