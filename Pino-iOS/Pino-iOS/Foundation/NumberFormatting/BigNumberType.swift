@@ -109,60 +109,61 @@ public struct BigNumber {
 	public static var bigRandomeNumber: BigUInt {
 		BigUInt.randomInteger(lessThan: maxUInt256.bigUInt)
 	}
-    
-    // MARK: - Private Properties
-    private var isBiggerThanBillion: Bool {
-        let million = BigInt(10).power(9 + decimal)
-        if number >= million {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    private var abbreviatedFormat: String {
-        let billion = BigInt(10).power(9 + decimal)
-        let trillion = BigInt(10).power(12 + decimal)
-        let quadrillion = BigInt(10).power(15 + decimal)
-        let quintillion = BigInt(10).power(18 + decimal)
-        let sextillion = BigInt(10).power(21 + decimal)
-        let septillion = BigInt(10).power(24 + decimal)
-        let octillion = BigInt(10).power(27 + decimal)
-        let nonillion = BigInt(10).power(30 + decimal)
-        
-        func formatNumber(_ number: BigInt, divisor: BigInt, suffix: String) -> String {
-            let wholePart = number / divisor
-            let decimalPart = number % divisor
-            
-            // Calculate the decimal part for the format
-            let decimalDigits = 2 // Number of decimal digits in the abbreviated format
-            let decimalDivisor = BigInt(10).power(decimalDigits)
-            let formattedDecimalPart = decimalPart * decimalDivisor / divisor
-            
-            let decimalString = formattedDecimalPart > 0 ? ".\(formattedDecimalPart)" : ""
-            return "\(wholePart)\(decimalString)\(suffix)"
-        }
-        
-        if number >= nonillion {
-            return formatNumber(number, divisor: nonillion, suffix: "Nm")
-        } else if number >= octillion {
-            return formatNumber(number, divisor: octillion, suffix: "Oc")
-        } else if number >= septillion {
-            return formatNumber(number, divisor: septillion, suffix: "Sp")
-        } else if number >= sextillion {
-            return formatNumber(number, divisor: sextillion, suffix: "Sx")
-        } else if number >= quintillion {
-            return formatNumber(number, divisor: quintillion, suffix: "Qi")
-        } else if number >= quadrillion {
-            return formatNumber(number, divisor: quadrillion, suffix: "Qa")
-        } else if number >= trillion {
-            return formatNumber(number, divisor: trillion, suffix: "T")
-        } else if number >= billion {
-            return formatNumber(number, divisor: billion, suffix: "B")
-        } else {
-            return number.description
-        }
-    }
+
+	// MARK: - Private Properties
+
+	private var isBiggerThanBillion: Bool {
+		let million = BigInt(10).power(9 + decimal)
+		if number >= million {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	private var abbreviatedFormat: String {
+		let billion = BigInt(10).power(9 + decimal)
+		let trillion = BigInt(10).power(12 + decimal)
+		let quadrillion = BigInt(10).power(15 + decimal)
+		let quintillion = BigInt(10).power(18 + decimal)
+		let sextillion = BigInt(10).power(21 + decimal)
+		let septillion = BigInt(10).power(24 + decimal)
+		let octillion = BigInt(10).power(27 + decimal)
+		let nonillion = BigInt(10).power(30 + decimal)
+
+		func formatNumber(_ number: BigInt, divisor: BigInt, suffix: String) -> String {
+			let wholePart = number / divisor
+			let decimalPart = number % divisor
+
+			// Calculate the decimal part for the format
+			let decimalDigits = 2 // Number of decimal digits in the abbreviated format
+			let decimalDivisor = BigInt(10).power(decimalDigits)
+			let formattedDecimalPart = decimalPart * decimalDivisor / divisor
+
+			let decimalString = formattedDecimalPart > 0 ? ".\(formattedDecimalPart)" : ""
+			return "\(wholePart)\(decimalString)\(suffix)"
+		}
+
+		if number >= nonillion {
+			return formatNumber(number, divisor: nonillion, suffix: "Nm")
+		} else if number >= octillion {
+			return formatNumber(number, divisor: octillion, suffix: "Oc")
+		} else if number >= septillion {
+			return formatNumber(number, divisor: septillion, suffix: "Sp")
+		} else if number >= sextillion {
+			return formatNumber(number, divisor: sextillion, suffix: "Sx")
+		} else if number >= quintillion {
+			return formatNumber(number, divisor: quintillion, suffix: "Qi")
+		} else if number >= quadrillion {
+			return formatNumber(number, divisor: quadrillion, suffix: "Qa")
+		} else if number >= trillion {
+			return formatNumber(number, divisor: trillion, suffix: "T")
+		} else if number >= billion {
+			return formatNumber(number, divisor: billion, suffix: "B")
+		} else {
+			return number.description
+		}
+	}
 }
 
 // MARK: - Operator Overloading
@@ -260,17 +261,17 @@ extension BigNumber: CustomStringConvertible {
 	public var priceFormat: String {
 		var formattedNumber: String!
 		formattedNumber = formattedAmountOf(type: .priceRule)
-        if isBiggerThanBillion {
-            formattedNumber = abbreviatedFormat
-        } else {
-            formattedNumber = formattedAmountOf(type: .priceRule)
-        }
+		if isBiggerThanBillion {
+			formattedNumber = abbreviatedFormat
+		} else {
+			formattedNumber = formattedAmountOf(type: .priceRule)
+		}
 		if isZero {
 			return "$0"
 		} else if self.abs < BigNumber(number: 1, decimal: 2) {
 			return "<" + "0.01".currencyFormatting
 		} else {
-			return formattedNumber.currencyFormatting
+			return formattedNumber.formattedNumberWithCamma.currencyFormatting
 		}
 	}
 
