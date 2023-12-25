@@ -96,10 +96,7 @@ extension UIView {
 				gradientBorderLayer.frame = CGRect(origin: CGPoint.zero, size: skeletonView.frame.size)
 				gradientBorderLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
 				gradientBorderLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
-				gradientBorderLayer.colors = [
-					UIColor(red: 0.859, green: 0.859, blue: 0.859, alpha: 1).cgColor,
-					UIColor(red: 0.859, green: 0.859, blue: 0.859, alpha: 0.05).cgColor,
-				]
+				gradientBorderLayer.colors = [UIColor.Pino.skeleton1.cgColor, UIColor.Pino.skeleton2.cgColor]
 				let gradientBorderRenderer =
 					UIGraphicsImageRenderer(bounds: CGRect(origin: CGPoint.zero, size: skeletonView.frame.size))
 				let gradientBorderImage = gradientBorderRenderer.image { ctx in
@@ -115,16 +112,9 @@ extension UIView {
 			} else {
 				let gradientLayer = CAGradientLayer()
 
-				gradientLayer.colors = [
-					UIColor(red: 0.859, green: 0.859, blue: 0.859, alpha: 1).cgColor,
-					(backgroundColor ?? .white).cgColor,
-					UIColor(red: 0.859, green: 0.859, blue: 0.859, alpha: 1).cgColor,
-				]
-
+				gradientLayer.colors = [UIColor.Pino.skeleton1.cgColor, UIColor.Pino.skeleton2.cgColor]
 				gradientLayer.locations = [0, 0.5]
-
 				gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
-
 				gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
 
 				gradientLayer
@@ -143,12 +133,7 @@ extension UIView {
 				backgroundView.pin(.allEdges(padding: 0))
 				corneredView.pin(.allEdges(padding: 0))
 				backgroundView.backgroundColor = backgroundColor ?? .Pino.white
-				corneredView.backgroundColor = UIColor(
-					red: 0.859,
-					green: 0.859,
-					blue: 0.859,
-					alpha: 1
-				)
+				corneredView.backgroundColor = .Pino.skeleton1
 
 				if skeletonView.layer.cornerRadius == 0 {
 					corneredView.layer.cornerRadius = skeletonView.frame.size.height / 2
@@ -160,7 +145,7 @@ extension UIView {
 				let screenWidth = UIScreen.main.bounds.width
 
 				let animation = CABasicAnimation(keyPath: "transform.translation.x")
-				animation.duration = 2
+				animation.duration = 3
 				animation.fromValue = -screenWidth
 				animation.toValue = screenWidth
 				animation.repeatCount = .infinity
@@ -191,7 +176,7 @@ extension UIView {
 		}
 	}
 
-	public func showGradientSkeletonView(startLocation: NSNumber = 0, endLocation: NSNumber = 0.5) {
+	public func showGradientSkeletonView(startLocation: NSNumber = 0, endLocation: NSNumber = 0.6) {
 		layoutIfNeeded()
 		// Prevent to add gradient view twice
 		for subview in subviews.filter({ $0.layer.name == skeletonGradientName }) {

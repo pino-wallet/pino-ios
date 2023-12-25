@@ -178,7 +178,7 @@ class AccountBalanceHeaderView: UICollectionReusableView {
 			self.volatilityDetailButton.tintColor = volatilityViewTintColor
 
 			if walletBalance.securityMode {
-				self.balanceLabel.font = .PinoStyle.boldExtraLargeTitle
+				self.balanceLabel.font = .PinoStyle.boldBigTitle
 				self.volatilityView.isHidden = true
 				self.showBalanceButton.isHidden = false
 			} else {
@@ -202,14 +202,11 @@ class AccountBalanceHeaderView: UICollectionReusableView {
 	private func setupConstraint() {
 		contentStackView.pin(
 			.horizontalEdges(padding: 16),
-			.top(to: layoutMarginsGuide, padding: 10)
+			.bottom(padding: 32)
 		)
 		volatilityStackView.pin(
 			.centerY,
 			.horizontalEdges(padding: 12)
-		)
-		volatilityView.pin(
-			.fixedHeight(28)
 		)
 		showBalanceButton.pin(
 			.fixedHeight(28)
@@ -228,12 +225,12 @@ class AccountBalanceHeaderView: UICollectionReusableView {
 			.fixedWidth(0.6),
 			.verticalEdges
 		)
-		balanceLabel.pin(
-			.fixedHeight(41)
-		)
 
 		NSLayoutConstraint.activate([
-			balanceLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 150),
+			balanceLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 94),
+			balanceLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 28),
+			volatilityView.heightAnchor.constraint(greaterThanOrEqualToConstant: 28),
+			volatilityView.widthAnchor.constraint(greaterThanOrEqualToConstant: 132),
 			volatilityInDollarLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 20),
 			volatilityPercentageLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 20),
 		])

@@ -35,6 +35,8 @@ extension UIColor {
 		static let successGreen3 = UIColor(named: "Success Green 3 Color") ?? UIColor.green
 		static let mediumGreen = UIColor(named: "Medium Green Color") ?? UIColor.green
 		static let errorRed = UIColor(named: "Error Red Color") ?? UIColor.red
+		static let skeleton1 = UIColor(named: "Skeleton Color 1") ?? UIColor.red
+		static let skeleton2 = UIColor(named: "Skeleton Color 2") ?? UIColor.red
 
 		// MARK: - Gray
 

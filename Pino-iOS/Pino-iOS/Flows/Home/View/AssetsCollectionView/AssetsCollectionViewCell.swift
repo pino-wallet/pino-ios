@@ -122,8 +122,6 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 		assetImage.isSkeletonable = true
 		assetTitleLabel.isSkeletonable = true
 		assetAmountLabel.isSkeletonable = true
-		assetVolatilityLabel.isSkeletonable = true
-		assetAmountInDollorLabel.isSkeletonable = true
 	}
 
 	private func setupConstraint() {
@@ -149,12 +147,12 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 		)
 
 		NSLayoutConstraint.activate([
-			assetTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
-			assetAmountLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60),
+			assetTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 130),
+			assetAmountLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 56),
 			assetAmountInDollorLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60),
 			assetVolatilityLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 40),
 			assetTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14),
-			assetAmountLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14),
+			assetAmountLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 12),
 			assetAmountInDollorLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14),
 			assetVolatilityLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14),
 		])
