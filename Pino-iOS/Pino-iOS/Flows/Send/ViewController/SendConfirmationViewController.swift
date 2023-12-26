@@ -12,14 +12,16 @@ class SendConfirmationViewController: UIViewController {
 
 	private let sendConfirmationVM: SendConfirmationViewModel
 	private var sendConfirmationView: SendConfirmationView!
+	private var onSendConfirm: (SendTransactionStatus) -> Void
 	private lazy var authManager: AuthenticationLockManager = {
 		.init(parentController: self)
 	}()
 
 	// MARK: Initializers
 
-	init(sendConfirmationVM: SendConfirmationViewModel) {
+	init(sendConfirmationVM: SendConfirmationViewModel, onSendConfirm: @escaping (SendTransactionStatus) -> Void) {
 		self.sendConfirmationVM = sendConfirmationVM
+		self.onSendConfirm = onSendConfirm
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -82,7 +84,9 @@ class SendConfirmationViewController: UIViewController {
 			)
 			let sendTransactionStatusVC = SendTransactionStatusViewController(
 				sendStatusVM: sendTransactionStatusVM,
-				onDismiss: {}
+				onDismiss: { pageStatus in
+					self.onSendConfirm(pageStatus)
+				}
 			)
 			present(sendTransactionStatusVC, animated: true)
 		} onFailure: {

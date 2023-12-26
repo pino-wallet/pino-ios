@@ -74,7 +74,10 @@ class InvestViewController: UIViewController {
 		guard let assets = investVM.assets else { return }
 		let investmentBoardVC = InvestmentBoardViewController(
 			assets: assets,
-			onDepositConfirm: {
+			onDepositConfirm: { pageStatus in
+				if pageStatus == .pending {
+					self.tabBarController?.selectedIndex = 4
+				}
 				self.dismiss(animated: true)
 			}
 		)

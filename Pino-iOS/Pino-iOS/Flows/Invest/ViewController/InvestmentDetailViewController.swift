@@ -12,11 +12,11 @@ class InvestmentDetailViewController: UIViewController {
 
 	private let selectedAsset: InvestAssetViewModel
 	private let investmentDetailsVM: InvestmentDetailViewModel
-	private let onDepositConfirm: () -> Void
+	private let onDepositConfirm: (SendTransactionStatus) -> Void
 
 	// MARK: - Initializers
 
-	init(selectedAsset: InvestAssetViewModel, onDepositConfirm: @escaping () -> Void) {
+	init(selectedAsset: InvestAssetViewModel, onDepositConfirm: @escaping (SendTransactionStatus) -> Void) {
 		self.selectedAsset = selectedAsset
 		self.investmentDetailsVM = InvestmentDetailViewModel(selectedAsset: selectedAsset)
 		self.onDepositConfirm = onDepositConfirm
