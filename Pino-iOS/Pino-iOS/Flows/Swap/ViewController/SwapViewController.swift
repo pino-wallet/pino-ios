@@ -184,7 +184,7 @@ class SwapViewController: UIViewController {
 	private func openSelectAssetPage(assets: [AssetViewModel], assetChanged: @escaping (AssetViewModel) -> Void) {
 		isDismissingVC = true
 		let filteredAssets = assets.filter { !$0.isPosition }
-        let selectAssetVC = SelectAssetToSendViewController(assets: filteredAssets, onDismiss: nil)
+		let selectAssetVC = SelectAssetToSendViewController(assets: filteredAssets, onDismiss: nil)
 		selectAssetVC.changeAssetFromEnterAmountPage = { selectedAsset in
 			assetChanged(selectedAsset)
 		}
@@ -252,12 +252,15 @@ class SwapViewController: UIViewController {
 				swapRate: swapVM.swapFeeVM.calculatedAmount!,
 				swapSide: side
 			)
-            let confirmationVC = SwapConfirmationViewController(swapConfirmationVM: swapConfirmationVM, onSwapConfirm: { pageStatus in
-                if pageStatus == .pending {
-                    self.tabBarController?.selectedIndex = 4
-                }
-                self.dismiss(animated: true)
-            })
+			let confirmationVC = SwapConfirmationViewController(
+				swapConfirmationVM: swapConfirmationVM,
+				onSwapConfirm: { pageStatus in
+					if pageStatus == .pending {
+						self.tabBarController?.selectedIndex = 4
+					}
+					self.dismiss(animated: true)
+				}
+			)
 			let confirmationNavigationVC = UINavigationController(rootViewController: confirmationVC)
 			present(confirmationNavigationVC, animated: true)
 			isDismissingVC = false

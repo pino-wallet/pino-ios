@@ -15,7 +15,7 @@ class SendTransactionStatusView: UIView {
 
 	// MARK: - Closures
 
-    public var onDissmiss: (SendTransactionStatus) -> Void = { _ in }
+	public var onDissmiss: (SendTransactionStatus) -> Void = { _ in }
 	public var toggleIsModalInPresentation: (_: Bool) -> Void
 
 	// MARK: - Private Properties
@@ -32,7 +32,7 @@ class SendTransactionStatusView: UIView {
 	private let statusTextsStackView = UIStackView()
 	private var sendStatusVM: SendTransactionStatusViewModel
 	private var cancellables = Set<AnyCancellable>()
-    private var pageStatus: SendTransactionStatus = .pending
+	private var pageStatus: SendTransactionStatus = .pending
 
 	// MARK: - Initializers
 
@@ -127,7 +127,7 @@ class SendTransactionStatusView: UIView {
 	}
 
 	private func updateViewWithPageStatus(pageStatus: SendTransactionStatus) {
-        self.pageStatus = pageStatus
+		self.pageStatus = pageStatus
 		switch pageStatus {
 		case .pending:
 			statusInfoStackView.isHidden = false

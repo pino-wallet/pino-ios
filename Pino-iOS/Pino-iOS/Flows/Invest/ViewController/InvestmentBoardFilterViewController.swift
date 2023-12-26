@@ -85,7 +85,10 @@ class InvestmentBoardFilterViewController: UIViewController {
 	}
 
 	private func openSelectAssetPage() {
-        let selectAssetVC = SelectAssetToSendViewController(assets: GlobalVariables.shared.manageAssetsList!, onDismiss: nil)
+		let selectAssetVC = SelectAssetToSendViewController(
+			assets: GlobalVariables.shared.manageAssetsList!,
+			onDismiss: nil
+		)
 		selectAssetVC.changeAssetFromEnterAmountPage = { selectedAsset in
 			self.filterVM.updateFilter(selectedAsset: selectedAsset)
 		}
