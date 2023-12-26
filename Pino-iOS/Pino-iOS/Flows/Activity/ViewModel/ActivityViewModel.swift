@@ -12,7 +12,7 @@ class ActivityViewModel {
 	// MARK: - Public Properties
 
 	public let pageTitle = "Recent activity"
-    public let noActivityTitleText = "No activity"
+	public let noActivityTitleText = "No activity"
 	public let noActivityDescriptionText = "Your activity appears here"
 	public let noActivityIconName = "no_activity"
 	public let errorFetchingToastMessage = "Error fetching activities from server"

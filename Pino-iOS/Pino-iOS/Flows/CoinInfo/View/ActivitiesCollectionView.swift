@@ -278,7 +278,7 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 
 				coinInfoFooterView.emptyFooterVM = CoinInfoEmptyStateFooterViewModel(
 					titleText: coinInfoVM.emptyActivityTitleText,
-                    iconName: coinInfoVM.emptyActivityIconName, descriptionText: coinInfoVM.emptyActivityDescriptionText
+					iconName: coinInfoVM.emptyActivityIconName, descriptionText: coinInfoVM.emptyActivityDescriptionText
 				)
 				return coinInfoFooterView
 			case .unVerified:

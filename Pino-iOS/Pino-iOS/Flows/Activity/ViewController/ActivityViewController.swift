@@ -57,7 +57,7 @@ class ActivityViewController: UIViewController {
 		activityEmptyStateView = ActivityEmptyStateView(
 			titleText: activityVM.noActivityTitleText,
 			titleImageName: activityVM.noActivityIconName,
-            descriptionText: activityVM.noActivityDescriptionText
+			descriptionText: activityVM.noActivityDescriptionText
 		)
 		view = activityColectionView
 	}

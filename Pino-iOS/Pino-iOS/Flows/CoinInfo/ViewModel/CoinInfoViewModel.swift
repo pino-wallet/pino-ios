@@ -45,9 +45,9 @@ class CoinInfoViewModel {
 	public let unavailableRecentHistoryIconName = "gray_error_alert"
 	public let emptyActivityIconName = "no_activity"
 	public let emptyActivityTitleText = "No activity"
-    public var emptyActivityDescriptionText: String {
-        "Your \(selectedAsset.symbol) activity appears here"
-    }
+	public var emptyActivityDescriptionText: String {
+		"Your \(selectedAsset.symbol) activity appears here"
+	}
 
 	#warning("this text is for testing and should be removed")
 	public let positionAssetInfoText = """

@@ -26,7 +26,7 @@ class BorrowView: UIView {
 	private let healthScoreNumberLabel = UILabel()
 	private let healthScoreInfoStackView = UIStackView()
 	private let healthScoreTitleLabel = PinoLabel(style: .info, text: "")
-    private let emptyStateView = EmptyStateCardView(properties: .borrow)
+	private let emptyStateView = EmptyStateCardView(properties: .borrow)
 	private let healthScoreInfoImageView = UIImageView()
 	private var startBorrowView: StartBorrowingView!
 	private var startCollateralView: StartBorrowingView!
@@ -116,10 +116,10 @@ class BorrowView: UIView {
 			buttonTitleText: borrowVM.collateralTitle,
 			didTapActionButtonClosure: {}
 		)
-        
-        emptyStateView.onActionButtonTap = {
-            self.presentCollateralizingBoardVC()
-        }
+
+		emptyStateView.onActionButtonTap = {
+			self.presentCollateralizingBoardVC()
+		}
 
 		borrowDetailsView =
 			BorrowingDetailsView(
@@ -149,7 +149,7 @@ class BorrowView: UIView {
 		healthScoreStackView.addArrangedSubview(healthScoreNumberLabel)
 
 		mainStackView.addArrangedSubview(selectDexSystemView)
-        mainStackView.addArrangedSubview(emptyStateView)
+		mainStackView.addArrangedSubview(emptyStateView)
 		mainStackView.addArrangedSubview(healthScoreContainerView)
 		mainStackView.addArrangedSubview(startCollateralView)
 		mainStackView.addArrangedSubview(collateralDetailsView)
@@ -160,8 +160,8 @@ class BorrowView: UIView {
 	}
 
 	private func setupStyles() {
-        emptyStateView.isHidden = true
-        
+		emptyStateView.isHidden = true
+
 		healthScoreInfoImageView.isUserInteractionEnabled = true
 
 		backgroundColor = .Pino.background
@@ -233,15 +233,15 @@ class BorrowView: UIView {
 			borrowDetailsView.isHidden = true
 			startCollateralView.isHidden = true
 			collateralDetailsView.isHidden = true
-            healthScoreContainerView.isHidden = true
-            emptyStateView.isHidden = false
+			healthScoreContainerView.isHidden = true
+			emptyStateView.isHidden = false
 		} else if userBorrowingDetails.borrowTokens.isEmpty && !userBorrowingDetails.collateralTokens.isEmpty {
 			startBorrowView.isHidden = false
 			borrowDetailsView.isHidden = true
 			startCollateralView.isHidden = true
 			collateralDetailsView.isHidden = false
-            emptyStateView.isHidden = true
-            healthScoreContainerView.isHidden = false
+			emptyStateView.isHidden = true
+			healthScoreContainerView.isHidden = false
 		} else {
 			showCollateralAndBorrowDetails()
 		}
@@ -270,8 +270,8 @@ class BorrowView: UIView {
 		borrowDetailsView.isHidden = false
 		startCollateralView.isHidden = true
 		collateralDetailsView.isHidden = false
-        emptyStateView.isHidden = true
-        healthScoreContainerView.isHidden = false
+		emptyStateView.isHidden = true
+		healthScoreContainerView.isHidden = false
 	}
 
 	private func setupSkeletonViews() {
