@@ -484,6 +484,8 @@
 		D9D462D72AA466A40010ED76 /* RepayConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D462D62AA466A40010ED76 /* RepayConfirmView.swift */; };
 		D9D462D92AA466B20010ED76 /* RepayConfirmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D462D82AA466B20010ED76 /* RepayConfirmViewModel.swift */; };
 		D9D509192AD577D800F40C33 /* W3CompoundBorrowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D509182AD577D800F40C33 /* W3CompoundBorrowManager.swift */; };
+		D9D6ECCA2B3ABAD600EA0C1E /* EmptyStateCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6ECC92B3ABAD600EA0C1E /* EmptyStateCardView.swift */; };
+		D9D6ECCC2B3ABB0600EA0C1E /* EmptyStateCardDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6ECCB2B3ABB0600EA0C1E /* EmptyStateCardDetails.swift */; };
 		D9D754242AD13248001D4B94 /* BorrowERCAaveABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = D9D754232AD13248001D4B94 /* BorrowERCAaveABIJson.json */; };
 		D9D754262AD133C8001D4B94 /* ERC20ABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = D9D754252AD133C8001D4B94 /* ERC20ABIJson.json */; };
 		D9D991AB2AB70DA900E943B0 /* BorrowableTokensModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D991AA2AB70DA900E943B0 /* BorrowableTokensModel.swift */; };
@@ -1333,6 +1335,8 @@
 		D9D462D62AA466A40010ED76 /* RepayConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepayConfirmView.swift; sourceTree = "<group>"; };
 		D9D462D82AA466B20010ED76 /* RepayConfirmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepayConfirmViewModel.swift; sourceTree = "<group>"; };
 		D9D509182AD577D800F40C33 /* W3CompoundBorrowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3CompoundBorrowManager.swift; sourceTree = "<group>"; };
+		D9D6ECC92B3ABAD600EA0C1E /* EmptyStateCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateCardView.swift; sourceTree = "<group>"; };
+		D9D6ECCB2B3ABB0600EA0C1E /* EmptyStateCardDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateCardDetails.swift; sourceTree = "<group>"; };
 		D9D754232AD13248001D4B94 /* BorrowERCAaveABIJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BorrowERCAaveABIJson.json; sourceTree = "<group>"; };
 		D9D754252AD133C8001D4B94 /* ERC20ABIJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ERC20ABIJson.json; sourceTree = "<group>"; };
 		D9D991AA2AB70DA900E943B0 /* BorrowableTokensModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowableTokensModel.swift; sourceTree = "<group>"; };
@@ -3225,6 +3229,7 @@
 		D9A3280A2A3452DC005A8393 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				D9D6ECC82B3AB5B400EA0C1E /* EmptyStateCardView */,
 				D986BC2B2B0B5BC300DCE03C /* SendTransactionStatus */,
 				D97F0B982A9491110083DA81 /* SelectDexSystemView */,
 				D97F0B862A948E4F0083DA81 /* SelectDexSystemCollectionView */,
@@ -3515,6 +3520,15 @@
 				D91C17C92A5BE259000C448E /* ActivityEmptyStateView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D9D6ECC82B3AB5B400EA0C1E /* EmptyStateCardView */ = {
+			isa = PBXGroup;
+			children = (
+				D9D6ECC92B3ABAD600EA0C1E /* EmptyStateCardView.swift */,
+				D9D6ECCB2B3ABB0600EA0C1E /* EmptyStateCardDetails.swift */,
+			);
+			path = EmptyStateCardView;
 			sourceTree = "<group>";
 		};
 		D9E134832A52FB3400193FF0 /* ActivityHeaderView */ = {
@@ -4825,6 +4839,7 @@
 				24D1C890843C5A3AE41A1442 /* AssetsAPIClient.swift in Sources */,
 				D9A642CC2AFA254200FDE11D /* ActivityWithdrawModel.swift in Sources */,
 				E33F7CBE2AD44CA2007FC04D /* DepositManager.swift in Sources */,
+				D9D6ECCA2B3ABAD600EA0C1E /* EmptyStateCardView.swift in Sources */,
 				D16E6EA70136FF5D5C83ED88 /* AssetsAPIMockClient.swift in Sources */,
 				A19CFCA76D9396A5A2612F7E /* AssetsAPIService.swift in Sources */,
 				D9F927AC2B1213D800147013 /* AaveWithdrawManager.swift in Sources */,
@@ -5256,6 +5271,7 @@
 				A9EB8A9CA5BE7BA334FBB816 /* SecretPhraseCenteredFlowLayout.swift in Sources */,
 				9A7CE65990DD193F0FAF3C75 /* SecretPhraseCollectionView.swift in Sources */,
 				36705A78402D3518B33881DD /* SecretPhraseTextView.swift in Sources */,
+				D9D6ECCC2B3ABB0600EA0C1E /* EmptyStateCardDetails.swift in Sources */,
 				D9C584852ADD3B5E00371B7A /* ApproveSpeedUpViewController.swift in Sources */,
 				D9AEA0A029F9818300DD61A8 /* EditAccountOptionViewModel.swift in Sources */,
 				DFC1F6A12A755620003DB68A /* SwapProvidersAPIServices.swift in Sources */,

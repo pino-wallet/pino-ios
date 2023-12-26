@@ -26,6 +26,7 @@ class BorrowView: UIView {
 	private let healthScoreNumberLabel = UILabel()
 	private let healthScoreInfoStackView = UIStackView()
 	private let healthScoreTitleLabel = PinoLabel(style: .info, text: "")
+    private let emptyStateView = EmptyStateCardView(properties: .borrow)
 	private let healthScoreInfoImageView = UIImageView()
 	private var startBorrowView: StartBorrowingView!
 	private var startCollateralView: StartBorrowingView!
@@ -93,7 +94,6 @@ class BorrowView: UIView {
 		)
 		healthScoreInfoImageView.addGestureRecognizer(healthScoreTapGesture)
 
-		#warning("this should open selectDexProtocolVC")
 		selectDexSystemView = SelectDexSystemView(
 			title: borrowVM.selectedDexSystem.name,
 			image: borrowVM.selectedDexSystem.image,
@@ -102,7 +102,6 @@ class BorrowView: UIView {
 			}
 		)
 
-		#warning("didTapactionButton closure should open another page later")
 		startBorrowView = StartBorrowingView(
 			titleText: borrowVM.borrowTitle,
 			descriptionText: borrowVM.borrowDescription,
@@ -115,12 +114,13 @@ class BorrowView: UIView {
 			titleText: borrowVM.collateralTitle,
 			descriptionText: borrowVM.collateralDescription,
 			buttonTitleText: borrowVM.collateralTitle,
-			didTapActionButtonClosure: {
-				self.presentCollateralizingBoardVC()
-			}
+			didTapActionButtonClosure: {}
 		)
+        
+        emptyStateView.onActionButtonTap = {
+            self.presentCollateralizingBoardVC()
+        }
 
-		#warning("global assets list in mock")
 		borrowDetailsView =
 			BorrowingDetailsView(
 				borrowingDetailsVM: BorrowingDetailsViewModel(borrowVM: borrowVM, borrowingType: .borrow),
@@ -149,6 +149,7 @@ class BorrowView: UIView {
 		healthScoreStackView.addArrangedSubview(healthScoreNumberLabel)
 
 		mainStackView.addArrangedSubview(selectDexSystemView)
+        mainStackView.addArrangedSubview(emptyStateView)
 		mainStackView.addArrangedSubview(healthScoreContainerView)
 		mainStackView.addArrangedSubview(startCollateralView)
 		mainStackView.addArrangedSubview(collateralDetailsView)
@@ -159,6 +160,8 @@ class BorrowView: UIView {
 	}
 
 	private func setupStyles() {
+        emptyStateView.isHidden = true
+        
 		healthScoreInfoImageView.isUserInteractionEnabled = true
 
 		backgroundColor = .Pino.background
@@ -227,14 +230,18 @@ class BorrowView: UIView {
 	private func updatePageStatus(userBorrowingDetails: UserBorrowingModel) {
 		if userBorrowingDetails.borrowTokens.isEmpty && userBorrowingDetails.collateralTokens.isEmpty {
 			startBorrowView.isHidden = true
-			borrowDetailsView.isHidden = false
-			startCollateralView.isHidden = false
+			borrowDetailsView.isHidden = true
+			startCollateralView.isHidden = true
 			collateralDetailsView.isHidden = true
+            healthScoreContainerView.isHidden = true
+            emptyStateView.isHidden = false
 		} else if userBorrowingDetails.borrowTokens.isEmpty && !userBorrowingDetails.collateralTokens.isEmpty {
 			startBorrowView.isHidden = false
 			borrowDetailsView.isHidden = true
 			startCollateralView.isHidden = true
 			collateralDetailsView.isHidden = false
+            emptyStateView.isHidden = true
+            healthScoreContainerView.isHidden = false
 		} else {
 			showCollateralAndBorrowDetails()
 		}
@@ -263,6 +270,8 @@ class BorrowView: UIView {
 		borrowDetailsView.isHidden = false
 		startCollateralView.isHidden = true
 		collateralDetailsView.isHidden = false
+        emptyStateView.isHidden = true
+        healthScoreContainerView.isHidden = false
 	}
 
 	private func setupSkeletonViews() {
