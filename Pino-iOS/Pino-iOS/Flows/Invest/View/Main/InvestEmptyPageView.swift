@@ -10,18 +10,12 @@ import UIKit
 class InvestEmptyPageView: UIView {
 	// MARK: Private Properties
 
-	private let contentStackView = UIStackView()
-	private let chartIconBackgroundView = UIView()
-	private let chartImageView = UIImageView()
-	private let emptyPageTitleLabel = UILabel()
-	private let startInvestingButton = PinoRightSideImageButton(imageName: "arrow_right", style: .primary)
+	private let emptyStateView = EmptyStateCardView(properties: .invest)
 	private var startInvestingDidTap: () -> Void
-	private let investEmptyPageVM: InvestEmptyPageViewModel
 
 	// MARK: Initializers
 
-	init(investEmptyPageVM: InvestEmptyPageViewModel, startInvestingDidTap: @escaping () -> Void) {
-		self.investEmptyPageVM = investEmptyPageVM
+	init(startInvestingDidTap: @escaping () -> Void) {
 		self.startInvestingDidTap = startInvestingDidTap
 		super.init(frame: .zero)
 		setupView()
@@ -36,55 +30,18 @@ class InvestEmptyPageView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		addSubview(contentStackView)
-		contentStackView.addArrangedSubview(chartIconBackgroundView)
-		contentStackView.addArrangedSubview(emptyPageTitleLabel)
-		contentStackView.addArrangedSubview(startInvestingButton)
-		chartIconBackgroundView.addSubview(chartImageView)
-
-		startInvestingButton.addAction(UIAction(handler: { _ in
-			self.startInvestingDidTap()
-		}), for: .touchUpInside)
+		addSubview(emptyStateView)
+		emptyStateView.onActionButtonTap = startInvestingDidTap
 	}
 
 	private func setupStyle() {
-		emptyPageTitleLabel.text = investEmptyPageVM.pageTitle
-		startInvestingButton.title = investEmptyPageVM.startInvestingTitle
-		startInvestingButton.setImage(UIImage(named: investEmptyPageVM.startInvestingIcon), for: .normal)
-		chartImageView.image = UIImage(named: investEmptyPageVM.chartImageName)
-
-		emptyPageTitleLabel.font = .PinoStyle.mediumCallout
-
-		emptyPageTitleLabel.textColor = .Pino.secondaryLabel
-		chartImageView.tintColor = .Pino.primary
-
 		backgroundColor = .Pino.background
-		chartIconBackgroundView.backgroundColor = .Pino.green1
-
-		contentStackView.axis = .vertical
-		contentStackView.alignment = .center
-		contentStackView.spacing = 22
-
-		chartImageView.contentMode = .scaleAspectFit
-		chartIconBackgroundView.layer.cornerRadius = 36
-		startInvestingButton.corderRadius = 8
 	}
 
 	private func setupContstraint() {
-		contentStackView.pin(
-			.centerX,
-			.centerY
-		)
-		chartImageView.pin(
-			.allEdges(padding: 22)
-		)
-		chartIconBackgroundView.pin(
-			.fixedWidth(72),
-			.fixedHeight(72)
-		)
-		startInvestingButton.pin(
-			.fixedWidth(162),
-			.fixedHeight(40)
+		emptyStateView.pin(
+			.top(to: layoutMarginsGuide, padding: 26),
+			.horizontalEdges(padding: 16)
 		)
 	}
 }

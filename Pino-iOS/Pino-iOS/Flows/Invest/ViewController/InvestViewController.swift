@@ -12,7 +12,6 @@ class InvestViewController: UIViewController {
 
 	private var investView: InvestView!
 	private let investVM = InvestViewModel()
-	private let investEmptyPageVM = InvestEmptyPageViewModel()
 
 	// MARK: - View Overrides
 
@@ -39,7 +38,6 @@ class InvestViewController: UIViewController {
 
 	private func setupView() {
 		let investEmptyPageView = InvestEmptyPageView(
-			investEmptyPageVM: investEmptyPageVM,
 			startInvestingDidTap: {
 				self.startInvesting()
 			}
