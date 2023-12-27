@@ -23,12 +23,12 @@ public class EmptyStateCardView: UIView {
 	private let descriptionLabel = PinoLabel(style: .description, text: "")
 	private let actionButton = PinoButton(style: .active)
 
-	private var properties: Properties
+	private var emptyStateCardViewproperties: EmptyStateCardViewProperties
 
 	// MARK: - Initializers
 
-	init(properties: Properties) {
-		self.properties = properties
+	init(properties: EmptyStateCardViewProperties) {
+		self.emptyStateCardViewproperties = properties
 
 		super.init(frame: .zero)
 
@@ -68,15 +68,15 @@ public class EmptyStateCardView: UIView {
 		textStackView.alignment = .center
 
 		titleLabel.font = .PinoStyle.semiboldTitle2
-		titleLabel.text = properties.title
+		titleLabel.text = emptyStateCardViewproperties.title
 
 		descriptionLabel.font = .PinoStyle.mediumBody
-		descriptionLabel.text = properties.description
+		descriptionLabel.text = emptyStateCardViewproperties.description
 		descriptionLabel.textAlignment = .center
 
-		actionButton.title = properties.buttonTitle
+		actionButton.title = emptyStateCardViewproperties.buttonTitle
 
-		titleImageView.image = UIImage(named: properties.imageName)
+		titleImageView.image = UIImage(named: emptyStateCardViewproperties.imageName)
 	}
 
 	private func setupConstraints() {
