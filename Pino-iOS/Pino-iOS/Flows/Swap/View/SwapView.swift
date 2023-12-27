@@ -147,7 +147,7 @@ class SwapView: UIView {
 		protocolName.font = .PinoStyle.mediumBody
 
 		protocolName.textColor = .Pino.label
-		switchTokenButton.setTitleColor(.Pino.primary, for: .normal)
+		switchTokenButton.tintColor = .Pino.primary
 		protocolChangeIcon.tintColor = .Pino.label
 
 		backgroundColor = .Pino.background

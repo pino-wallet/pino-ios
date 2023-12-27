@@ -18,7 +18,7 @@ class SwapViewModel {
 
 	public let continueButtonTitle = "Swap"
 	public let insufficientAmountButtonTitle = "Insufficient amount"
-	public let switchIcon = "switch_swap"
+	public let switchIcon = "arrow_down"
 
 	public var fromToken: SwapTokenViewModel
 	public var toToken: SwapTokenViewModel
