@@ -14,6 +14,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 	// MARK: - Private Properties
 
 	private let balanceStackview = UIStackView()
+	private let contentStackView = UIStackView()
 	private let infoStackView = UIStackView()
 	private let chartStackView = UIStackView()
 	private let volatilityStackView = UIStackView()
@@ -62,10 +63,11 @@ class AssetLineChart: UIView, LineChartDelegate {
 		balanceStackview.addArrangedSubview(coinVolatilityPersentage)
 		infoStackView.addArrangedSubview(balanceStackview)
 		infoStackView.addArrangedSubview(dateLabel)
-		chartStackView.addArrangedSubview(infoStackView)
+		contentStackView.addArrangedSubview(infoStackView)
+		contentStackView.addArrangedSubview(chartStackView)
 		chartStackView.addArrangedSubview(lineChartView)
 		chartStackView.addArrangedSubview(chartDateFilter)
-		addSubview(chartStackView)
+		addSubview(contentStackView)
 		addSubview(loadingGradientView)
 		addSubview(chartPointer)
 	}
@@ -85,6 +87,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 		coinBalanceLabel.adjustsFontSizeToFitWidth = true
 		dateLabel.textAlignment = .right
 
+		contentStackView.axis = .vertical
 		chartStackView.axis = .vertical
 		infoStackView.axis = .horizontal
 		balanceStackview.axis = .vertical
@@ -92,9 +95,10 @@ class AssetLineChart: UIView, LineChartDelegate {
 
 		volatilityStackView.alignment = .center
 		balanceStackview.alignment = .leading
-		chartStackView.alignment = .center
+		contentStackView.alignment = .center
 		infoStackView.alignment = .top
 
+		contentStackView.spacing = 24
 		volatilityStackView.spacing = 8
 		balanceStackview.spacing = 8
 		infoStackView.spacing = 8
@@ -147,13 +151,16 @@ class AssetLineChart: UIView, LineChartDelegate {
 	}
 
 	private func setupCostraints() {
-		chartStackView.pin(
+		contentStackView.pin(
 			.horizontalEdges,
 			.top(padding: 16),
 			.bottom
 		)
 		infoStackView.pin(
 			.horizontalEdges(padding: 16)
+		)
+		chartStackView.pin(
+			.horizontalEdges
 		)
 		lineChartView.pin(
 			.horizontalEdges
