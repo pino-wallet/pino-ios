@@ -134,6 +134,9 @@ class SwapTokenSectionView: UIView {
 		NSLayoutConstraint.activate([
 			estimatedAmountLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60),
 		])
+		changeTokenView.pin(
+			.fixedWidth(115)
+		)
 	}
 
 	private func setupBinding() {

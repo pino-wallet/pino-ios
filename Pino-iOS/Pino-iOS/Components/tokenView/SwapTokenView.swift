@@ -69,6 +69,7 @@ class SwapTokenView: UIView {
 		changeTokenIcon.image = UIImage(named: "chevron_down")
 		tokenNameLabel.font = .PinoStyle.mediumCallout
 		tokenNameLabel.textColor = .Pino.label
+		tokenNameLabel.textAlignment = .center
 		changeTokenIcon.tintColor = .Pino.label
 
 		backgroundColor = .Pino.background
