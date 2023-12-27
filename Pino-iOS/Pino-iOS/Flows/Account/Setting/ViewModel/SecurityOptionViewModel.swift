@@ -18,8 +18,8 @@ struct SecurityOptionViewModel: CustomSwitchOptionVM {
 		lockSettingOption.isSelected
 	}
 
-	public var tooltipText: String! {
-		nil
+	public var description: String? {
+		lockSettingOption.description
 	}
 
 	public var type: String {

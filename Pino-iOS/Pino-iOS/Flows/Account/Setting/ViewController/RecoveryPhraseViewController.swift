@@ -28,6 +28,12 @@ class RecoveryPhraseViewController: UIViewController {
 		setupNotifications()
 	}
 
+	// MARK: - Initializers
+
+	deinit {
+		NotificationCenter.default.removeObserver(UIApplication.userDidTakeScreenshotNotification)
+	}
+
 	// MARK: - Private Methods
 
 	private func setupView() {

@@ -25,9 +25,10 @@ class CustomSwitchOptionView: UIView {
 	private let topBorderView = UIView()
 	private let titleLabel = PinoLabel(style: .info, text: "")
 	private let switcher = UISwitch()
-	private let tooltipImageView = UIButton()
 	private let betWeenView = UIView()
-	private let titleLabelContainverView = UIView()
+	private let descriptionLabel = PinoLabel(style: .description, text: "")
+	private let titleLabelContainerView = UIView()
+	private let textStackView = UIStackView()
 
 	// MARK: - Public Properties
 
@@ -54,25 +55,36 @@ class CustomSwitchOptionView: UIView {
 		switcher.isOn = customSwitchCollectionViewCellVM.isSelected
 		switcher.addTarget(self, action: #selector(onSwitcherChange), for: .valueChanged)
 
-		tooltipImageView.addTarget(self, action: #selector(onTooltipTap), for: .touchUpInside)
+		textStackView.addArrangedSubview(titleLabel)
+		textStackView.addArrangedSubview(descriptionLabel)
 
-		titleLabelContainverView.addSubview(titleLabel)
+		titleLabelContainerView.addSubview(textStackView)
 
-		mainStackView.addArrangedSubview(titleLabelContainverView)
-		mainStackView.addArrangedSubview(tooltipImageView)
+		mainStackView.addArrangedSubview(titleLabelContainerView)
 
 		mainStackView.addArrangedSubview(betWeenView)
 		mainStackView.addArrangedSubview(switcher)
 	}
 
 	private func setupConstraints() {
-		titleLabel.translatesAutoresizingMaskIntoConstraints = false
-		titleLabelContainverView.widthAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
+		titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
+		titleLabelContainerView.widthAnchor.constraint(lessThanOrEqualToConstant: 240).isActive = true
+		descriptionLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 18).isActive = true
 
-		titleLabel.pin(.allEdges(padding: 0))
-		mainStackView.pin(.verticalEdges(padding: 8.5), .horizontalEdges(padding: 16))
-		topBorderView.pin(.fixedHeight(0.5), .top(padding: 0), .leading(padding: 16), .trailing(padding: 0))
-		tooltipImageView.pin(.fixedWidth(16), .fixedHeight(16))
+		titleLabelContainerView.pin(.verticalEdges(padding: 0), .leading(padding: 0))
+		mainStackView.pin(.horizontalEdges(padding: 16))
+		topBorderView.pin(
+			.fixedHeight(1 / UIScreen.main.scale),
+			.top(padding: 0),
+			.leading(padding: 16),
+			.trailing(padding: 0)
+		)
+		textStackView.pin(.allEdges(padding: 0))
+		if customSwitchCollectionViewCellVM.description != nil {
+			mainStackView.pin(.verticalEdges(padding: 10))
+		} else {
+			mainStackView.pin(.verticalEdges(padding: 8.5))
+		}
 	}
 
 	private func setupStyle() {
@@ -92,12 +104,16 @@ class CustomSwitchOptionView: UIView {
 
 		switcher.onTintColor = .Pino.green3
 
-		tooltipImageView.isHidden = true
-		if customSwitchCollectionViewCellVM.tooltipText != nil {
-			tooltipImageView.isHidden = false
+		descriptionLabel.font = .PinoStyle.mediumFootnote
+		descriptionLabel.text = customSwitchCollectionViewCellVM.description
+		descriptionLabel.isHidden = true
+
+		if customSwitchCollectionViewCellVM.description != nil {
+			descriptionLabel.isHidden = false
 		}
 
-		tooltipImageView.setImage(UIImage(named: "alert"), for: .normal)
+		textStackView.axis = .vertical
+		textStackView.spacing = 2
 	}
 
 	private func showTopBorder() {
@@ -137,10 +153,5 @@ class CustomSwitchOptionView: UIView {
 	@objc
 	private func onSwitcherChange() {
 		switchValueClosure(switcher.isOn, customSwitchCollectionViewCellVM.type)
-	}
-
-	@objc
-	private func onTooltipTap() {
-		onTooltipTapClosure(customSwitchCollectionViewCellVM.title, customSwitchCollectionViewCellVM.tooltipText)
 	}
 }
