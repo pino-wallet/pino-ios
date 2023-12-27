@@ -189,11 +189,11 @@ class SwapConfirmationInfoView: UIView {
 
 	@objc
 	private func toggleShowFee() {
-		guard let formattedFee = swapConfirmationVM.formattedFeeInETH else { return }
+		guard let formattedFee = swapConfirmationVM.swapManager.formattedFeeInETH else { return }
 		showFeeInDollar.toggle()
 		updateFeeLabel(
 			feeInETH: formattedFee,
-			feeInDollar: swapConfirmationVM.formattedFeeInDollar!
+			feeInDollar: swapConfirmationVM.swapManager.formattedFeeInDollar!
 		)
 	}
 

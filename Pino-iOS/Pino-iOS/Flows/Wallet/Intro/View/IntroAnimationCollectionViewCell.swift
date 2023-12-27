@@ -54,7 +54,7 @@ extension IntroAnimationCollectionViewCell {
 		introAnimationView.animation = LottieAnimation.named("IntroAnimation")
 		//        introAnimationView.configuration.renderingEngine = .
 		introAnimationView.play()
-		introAnimationView.animationSpeed = 1
+		introAnimationView.animationSpeed = 0.7
 		introAnimationView.loopMode = .loop
 
 		topGradientView.image = .init(named: "intro-top-grad")

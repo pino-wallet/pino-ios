@@ -127,13 +127,19 @@ class SwapConfirmationView: UIView {
 	}
 
 	private func setupBindings() {
-		Publishers.Zip(swapConfirmationVM.$formattedFeeInDollar, swapConfirmationVM.$formattedFeeInETH)
-			.sink { [weak self] feeInDollar, feeInETH in
-				guard let self, let feeInETH, let feeInDollar else { return }
+		Publishers.Zip(
+			swapConfirmationVM.swapManager.$formattedFeeInDollar,
+			swapConfirmationVM.swapManager.$formattedFeeInETH
+		)
+		.sink { [weak self] feeInDollar, feeInETH in
+			guard let self, let feeInETH, let feeInDollar else { return }
+			DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+				print("fee:\(feeInDollar)")
 				self.swapConfirmationInfoView.hideSkeletonView()
 				self.swapConfirmationInfoView.updateFeeLabel(feeInETH: feeInETH, feeInDollar: feeInDollar)
 				self.checkBalanceEnough()
-			}.store(in: &cancellables)
+			}
+		}.store(in: &cancellables)
 
 		swapConfirmationVM.$toToken.sink { [self] toToken in
 			toTokenView = SwapConfirmationTokenView(swapTokenVM: swapConfirmationVM.toToken)
@@ -147,10 +153,17 @@ class SwapConfirmationView: UIView {
 			swapConfirmationInfoView.updateRateLabel(rate: rate)
 			swapConfirmationInfoView.hideRateLoading()
 		}.store(in: &cancellables)
+
+		swapConfirmationVM.swapManager.$pendingSwapTrx.sink { [self] rate in
+			swapConfirmationInfoView.showFeeLoading()
+			checkBalanceEnough()
+		}.store(in: &cancellables)
 	}
 
 	private func checkBalanceEnough() {
-		if swapConfirmationVM.checkEnoughBalance() {
+		if swapConfirmationVM.swapManager.pendingSwapTrx == nil {
+			continueButton.style = .loading
+		} else if swapConfirmationVM.checkEnoughBalance() {
 			continueButton.style = .active
 			continueButton.setTitle(swapConfirmationVM.confirmButtonTitle, for: .normal)
 		} else {

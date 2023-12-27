@@ -230,6 +230,41 @@ public class Web3Core {
 		}
 	}
 
+	public func callMultiCall(
+		contractAddress: String,
+		callData: [String],
+		value: BigUInt,
+		nonce: EthereumQuantity? = nil,
+		gasInfo: GasInfo
+	) -> TrxWithGasInfo {
+		let generatedMulticallData = W3CallDataGenerator.generateMultiCallFrom(calls: callData)
+		let ethCallData = EthereumData(generatedMulticallData.hexToBytes())
+		let eip55ContractAddress = contractAddress.eip55Address!
+
+		return TrxWithGasInfo { [self] seal in
+
+			firstly {
+				guard let nonce else {
+					return rWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+						.map { ($0, gasInfo) }
+				}
+				return nonce.promise.map { ($0, gasInfo) }
+			}.done { [self] nonce, gasInfo in
+				let trx = try trxManager.createTransactionFor(
+					nonce: nonce,
+					gasInfo: gasInfo,
+					value: value.etherumQuantity,
+					data: ethCallData,
+					to: eip55ContractAddress
+				)
+				let signedTx = try trx.sign(with: userPrivateKey, chainId: Web3Network.chainID)
+				seal.fulfill((signedTx, gasInfo))
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
 	public func getTransactionCallData(
 		contractAddress: String,
 		trxCallData: EthereumData,

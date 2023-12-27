@@ -25,9 +25,19 @@ class SwapManager: Web3ManagerProtocol {
 
 	// MARK: - Public Properties
 
+	@Published
+	public var formattedFeeInETH: String?
+
+	@Published
+	public var formattedFeeInDollar: String?
+
+	@Published
+	public var pendingSwapTrx: EthereumSignedTransaction?
+
+	public var pendingSwapGasInfo: GasInfo?
+
 	// MARK: - Private Properties
 
-	private var pendingSwapGasInfo: GasInfo?
 	private var swapPriceManager = SwapPriceManager()
 	private var selectedProvider: SwapProviderViewModel?
 	private var srcToken: AssetViewModel
@@ -36,6 +46,7 @@ class SwapManager: Web3ManagerProtocol {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
 	}
 
+	private var fetchedGasLimits: GasInfo!
 	private var enteredSwapAmount: String
 	private var destinationAmount: String
 	private var swapAmountBigNum: BigNumber {
@@ -69,7 +80,8 @@ class SwapManager: Web3ManagerProtocol {
 
 	// MARK: - Public Methods
 
-	public func getSwapInfo() -> TrxWithGasInfo {
+	public func getSwapInfo(fetchedGasLimits: GasInfo) -> TrxWithGasInfo {
+		self.fetchedGasLimits = fetchedGasLimits
 		if (srcToken.isERC20 || srcToken.isWEth) &&
 			(destToken.isERC20 || destToken.isWEth) {
 			return swapERCtoERC()
@@ -137,11 +149,17 @@ class SwapManager: Web3ManagerProtocol {
 				var callDatas = [permitData, providersCallData]
 				if let allowanceData { callDatas.insert(allowanceData, at: 0) }
 				if let sweepData { callDatas.append(sweepData) }
-				return attempt(maximumRetryCount: 3) { [self] in
-					callProxyMultiCall(data: callDatas, value: nil)
-				}
+				return self.callProxyMultiCall(data: callDatas, value: nil, gasInfo: self.fetchedGasLimits)
+					.map { ($0, callDatas) }
+			}.then { swapResult, callDatas in
+				self.pendingSwapGasInfo = swapResult.1
+				self.pendingSwapTrx = swapResult.0
+				return self.callProxyMultiCall(data: callDatas, value: nil, gasInfo: nil)
 			}.done { swapResult in
 				self.pendingSwapGasInfo = swapResult.1
+				self.pendingSwapTrx = swapResult.0
+				self.formattedFeeInDollar = swapResult.1.feeInDollar!.priceFormat
+				self.formattedFeeInETH = swapResult.1.fee!.sevenDigitFormat
 				seal.fulfill(swapResult)
 			}.catch { error in
 				print(error.localizedDescription)
@@ -182,11 +200,17 @@ class SwapManager: Web3ManagerProtocol {
 				var callDatas = [ptfAndProviderCallData.0, ptfAndProviderCallData.1]
 				if let allowanceData { callDatas.insert(allowanceData, at: 0) }
 				if let unwrapCallData { callDatas.append(unwrapCallData) }
-				return attempt(maximumRetryCount: 3) { [self] in
-					callProxyMultiCall(data: callDatas, value: nil)
-				}
+				return self.callProxyMultiCall(data: callDatas, value: nil, gasInfo: self.fetchedGasLimits)
+					.map { ($0, callDatas) }
+			}.then { swapResult, callDatas in
+				self.pendingSwapGasInfo = swapResult.1
+				self.pendingSwapTrx = swapResult.0
+				return self.callProxyMultiCall(data: callDatas, value: nil, gasInfo: nil)
 			}.done { swapResult in
 				self.pendingSwapGasInfo = swapResult.1
+				self.pendingSwapTrx = swapResult.0
+				self.formattedFeeInDollar = swapResult.1.feeInDollar!.priceFormat
+				self.formattedFeeInETH = swapResult.1.fee!.sevenDigitFormat
 				seal.fulfill(swapResult)
 			}.catch { error in
 				print(error.localizedDescription)
@@ -218,11 +242,20 @@ class SwapManager: Web3ManagerProtocol {
 				var callDatas = [wrapTokenData, providersCallData]
 				if let sweepData { callDatas.append(sweepData) }
 				if let allowanceData { callDatas.insert(allowanceData, at: 0) }
-				return attempt(maximumRetryCount: 3) { [self] in
-					callProxyMultiCall(data: callDatas, value: swapAmountBigNum.bigUInt)
-				}
+				return self.callProxyMultiCall(
+					data: callDatas,
+					value: self.swapAmountBigNum.bigUInt,
+					gasInfo: self.fetchedGasLimits
+				).map { ($0, callDatas) }
+			}.then { swapResult, callDatas in
+				self.pendingSwapGasInfo = swapResult.1
+				self.pendingSwapTrx = swapResult.0
+				return self.callProxyMultiCall(data: callDatas, value: self.swapAmountBigNum.bigUInt, gasInfo: nil)
 			}.done { swapResult in
 				self.pendingSwapGasInfo = swapResult.1
+				self.pendingSwapTrx = swapResult.0
+				self.formattedFeeInDollar = swapResult.1.feeInDollar!.priceFormat
+				self.formattedFeeInETH = swapResult.1.fee!.sevenDigitFormat
 				seal.fulfill(swapResult)
 			}.catch { error in
 				print(error.localizedDescription)
@@ -242,11 +275,20 @@ class SwapManager: Web3ManagerProtocol {
 			}.then { sweepData, wrapTokenData in
 				// MultiCall
 				let callDatas = [wrapTokenData, sweepData!]
-				return attempt(maximumRetryCount: 3) { [self] in
-					callProxyMultiCall(data: callDatas, value: swapAmountBigNum.bigUInt)
-				}
+				return self.callProxyMultiCall(
+					data: callDatas,
+					value: self.swapAmountBigNum.bigUInt,
+					gasInfo: self.fetchedGasLimits
+				).map { ($0, callDatas) }
+			}.then { swapResult, callDatas in
+				self.pendingSwapGasInfo = swapResult.1
+				self.pendingSwapTrx = swapResult.0
+				return self.callProxyMultiCall(data: callDatas, value: self.swapAmountBigNum.bigUInt, gasInfo: nil)
 			}.done { swapResult in
 				self.pendingSwapGasInfo = swapResult.1
+				self.pendingSwapTrx = swapResult.0
+				self.formattedFeeInDollar = swapResult.1.feeInDollar!.priceFormat
+				self.formattedFeeInETH = swapResult.1.fee!.sevenDigitFormat
 				seal.fulfill(swapResult)
 			}.catch { error in
 				print(error.localizedDescription)
@@ -268,9 +310,18 @@ class SwapManager: Web3ManagerProtocol {
 				self.unwrapTokenCallData().map { ($0, permitData) }
 			}.then { unwrapData, permitData in
 				// MultiCall
-				self.callProxyMultiCall(data: [permitData, unwrapData!], value: nil)
+				let callDatas = [permitData, unwrapData!]
+				return self.callProxyMultiCall(data: callDatas, value: nil, gasInfo: self.fetchedGasLimits)
+					.map { ($0, callDatas) }
+			}.then { swapResult, callDatas in
+				self.pendingSwapGasInfo = swapResult.1
+				self.pendingSwapTrx = swapResult.0
+				return self.callProxyMultiCall(data: callDatas, value: self.swapAmountBigNum.bigUInt, gasInfo: nil)
 			}.done { swapResult in
 				self.pendingSwapGasInfo = swapResult.1
+				self.pendingSwapTrx = swapResult.0
+				self.formattedFeeInDollar = swapResult.1.feeInDollar!.priceFormat
+				self.formattedFeeInETH = swapResult.1.fee!.sevenDigitFormat
 				seal.fulfill(swapResult)
 			}.catch { error in
 				print(error.localizedDescription)
@@ -337,12 +388,25 @@ class SwapManager: Web3ManagerProtocol {
 		}
 	}
 
-	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
-		web3.callMultiCall(
-			contractAddress: contract.address!.hex(eip55: true),
-			callData: data,
-			value: value ?? 0.bigNumber.bigUInt
-		)
+	private func callProxyMultiCall(
+		data: [String],
+		value: BigUInt?,
+		gasInfo: GasInfo? = nil
+	) -> Promise<(EthereumSignedTransaction, GasInfo)> {
+		if let gasInfo {
+			return web3.callMultiCall(
+				contractAddress: contract.address!.hex(eip55: true),
+				callData: data,
+				value: value ?? 0.bigNumber.bigUInt,
+				gasInfo: gasInfo
+			)
+		} else {
+			return web3.callMultiCall(
+				contractAddress: contract.address!.hex(eip55: true),
+				callData: data,
+				value: value ?? 0.bigNumber.bigUInt
+			)
+		}
 	}
 
 	private func sweepTokenCallData() -> Promise<CallData?> {

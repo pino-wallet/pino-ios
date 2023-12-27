@@ -23,20 +23,8 @@ class SwapConfirmationViewModel {
 		GlobalVariables.shared.manageAssetsList!.first(where: { $0.isEth })!
 	}
 
-	private lazy var swapManager: SwapManager = {
-		SwapManager(
-			selectedProvider: self.selectedProvider,
-			srcToken: self.fromToken.selectedToken,
-			destToken: self.toToken.selectedToken,
-			swapAmount: self.fromToken.tokenAmount!,
-			destinationAmount: self.toToken.tokenAmount!
-		)
-	}()
-
 	private var swapPriceManager = SwapPriceManager()
 	private var swapSide: SwapSide
-	private var pendingSwapTrx: EthereumSignedTransaction?
-	private var pendingSwapGasInfo: GasInfo?
 
 	// MARK: - Public Properties
 
@@ -54,11 +42,15 @@ class SwapConfirmationViewModel {
 	@Published
 	public var toToken: SwapTokenViewModel
 
-	@Published
-	public var formattedFeeInETH: String?
-
-	@Published
-	public var formattedFeeInDollar: String?
+	public lazy var swapManager: SwapManager = {
+		SwapManager(
+			selectedProvider: self.selectedProvider,
+			srcToken: self.fromToken.selectedToken,
+			destToken: self.toToken.selectedToken,
+			swapAmount: self.fromToken.tokenAmount!,
+			destinationAmount: self.toToken.tokenAmount!
+		)
+	}()
 
 	public let swapRateTitle = "Rate"
 	public let feeTitle = "Fee"
@@ -72,7 +64,7 @@ class SwapConfirmationViewModel {
 	}
 
 	public var sendTransactions: [SendTransactionViewModel]? {
-		guard let swapTrx = pendingSwapTrx else { return nil }
+		guard let swapTrx = swapManager.pendingSwapTrx else { return nil }
 		let swapTrxStatus = SendTransactionViewModel(transaction: swapTrx) { pendingActivityTXHash in
 			self.swapManager.addPendingTransferActivity(trxHash: pendingActivityTXHash)
 		}
@@ -102,43 +94,37 @@ class SwapConfirmationViewModel {
 	// MARK: - Public Methods
 
 	public func fetchSwapInfo(completion: @escaping (Error) -> Void) {
-		if let selectedProvider, let dolalarAmountBigNum = fromToken.decimalDollarAmount {
+		if let selectedProvider, let dolarAmountBigNum = fromToken.decimalDollarAmount {
 			swapManager.getGasLimits().done { [weak self] gasLimits in
 				guard let self = self else { return }
 				let gasManager = SwapGasLimitsManager(
-					swapAmount: dolalarAmountBigNum,
+					swapAmount: dolarAmountBigNum,
 					gasLimitsModel: gasLimits,
 					isEth: fromToken.selectedToken.isEth,
 					provider: selectedProvider.provider
 				)
-				self.pendingSwapGasInfo = gasManager.gasInfo
-				self.formattedFeeInDollar = gasManager.gasInfo.feeInDollar!.priceFormat
-				self.formattedFeeInETH = gasManager.gasInfo.fee!.sevenDigitFormat
+				self.swapManager.pendingSwapGasInfo = gasManager.gasInfo
+				self.swapManager.formattedFeeInDollar = gasManager.gasInfo.feeInDollar!.priceFormat
+				self.swapManager.formattedFeeInETH = gasManager.gasInfo.fee!.sevenDigitFormat
+				swapManager.getSwapInfo(fetchedGasLimits: gasManager.gasInfo).catch { error in
+					completion(error)
+				}
 			}.catch { error in
 				completion(error)
 			}
 		}
-
-		swapManager.getSwapInfo().done { swapTrx, gasInfo in
-			self.pendingSwapTrx = swapTrx
-			self.pendingSwapGasInfo = gasInfo
-			self.formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat
-			self.formattedFeeInETH = gasInfo.fee!.sevenDigitFormat
-		}.catch { error in
-			completion(error)
-		}
 	}
 
 	public func confirmSwap(completion: @escaping () -> Void) {
-		guard let pendingSwapTrx else { return }
-		swapManager.confirmSwap(swapTrx: pendingSwapTrx) { trxHash in
+		guard let pendingTrx = swapManager.pendingSwapTrx else { return }
+		swapManager.confirmSwap(swapTrx: pendingTrx) { trxHash in
 			print("SWAP TRX HASH: \(trxHash)")
 			completion()
 		}
 	}
 
 	public func checkEnoughBalance() -> Bool {
-		if pendingSwapGasInfo!.fee! > ethToken.holdAmount {
+		if swapManager.pendingSwapGasInfo!.fee! > ethToken.holdAmount {
 			return false
 		} else {
 			return true

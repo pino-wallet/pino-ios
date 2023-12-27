@@ -145,12 +145,12 @@ class WithdrawManager: InvestW3ManagerProtocol {
 					swapAmount: self.withdrawAmount,
 					destinationAmount: priceResponce.first!.destAmount
 				)
-				self.swapManager!.getSwapInfo().done { trxWithGasInfo in
-					self.swapTrx = trxWithGasInfo.0
-					seal.fulfill(trxWithGasInfo)
-				}.catch { error in
-					seal.reject(error)
-				}
+//				self.swapManager!.getSwapInfo().done { trxWithGasInfo in
+//					self.swapTrx = trxWithGasInfo.0
+//					seal.fulfill(trxWithGasInfo)
+//				}.catch { error in
+//					seal.reject(error)
+//				}
 			}
 		}
 	}
