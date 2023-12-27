@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 8/16/23.
 //
 
+import Combine
 import UIKit
 
 class InvestmentBoardViewController: UIViewController {
@@ -14,6 +15,7 @@ class InvestmentBoardViewController: UIViewController {
 	private var investmentBoardView: InvestmentBoardView!
 	private var investmentBoardVM: InvestmentBoardViewModel
 	private var onDepositConfirm: () -> Void
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
 
@@ -30,6 +32,11 @@ class InvestmentBoardViewController: UIViewController {
 
 	// MARK: - View Overrides
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		setupLoading()
+	}
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 	}
@@ -42,7 +49,7 @@ class InvestmentBoardViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = InvestmentBoardView(
+		investmentBoardView = InvestmentBoardView(
 			investmentBoardVM: investmentBoardVM,
 			assetDidSelect: { selectedAsset in
 				self.openInvestPage(selectedAsset: selectedAsset)
@@ -51,6 +58,7 @@ class InvestmentBoardViewController: UIViewController {
 				self.openFilterPage()
 			}
 		)
+		view = investmentBoardView
 	}
 
 	private func setupNavigationBar() {
@@ -66,6 +74,16 @@ class InvestmentBoardViewController: UIViewController {
 			action: #selector(closePage)
 		)
 		navigationController?.navigationBar.tintColor = .Pino.white
+	}
+
+	private func setupLoading() {
+		investmentBoardView.$showLoading.sink { showLoading in
+			if showLoading {
+				self.view.showGradientSkeletonView(endLocation: 0.25)
+			} else {
+				self.view.hideGradientSkeletonView()
+			}
+		}.store(in: &cancellables)
 	}
 
 	@objc

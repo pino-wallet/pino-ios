@@ -150,7 +150,7 @@ extension UIView {
 				let screenWidth = UIScreen.main.bounds.width
 
 				let animation = CABasicAnimation(keyPath: "transform.translation.x")
-				animation.duration = 3
+				animation.duration = 2
 				animation.fromValue = -screenWidth
 				animation.toValue = screenWidth
 				animation.repeatCount = .infinity

@@ -81,7 +81,11 @@ extension AssetsBoardCollectionView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		sizeForItemAt indexPath: IndexPath
 	) -> CGSize {
-		CGSize(width: collectionView.frame.width, height: 92)
+		if assets.isEmpty {
+			return CGSize(width: collectionView.frame.width, height: 70)
+		} else {
+			return CGSize(width: collectionView.frame.width, height: 92)
+		}
 	}
 
 	func collectionView(

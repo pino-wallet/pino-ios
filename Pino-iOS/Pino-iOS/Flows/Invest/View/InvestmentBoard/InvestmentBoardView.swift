@@ -16,6 +16,11 @@ class InvestmentBoardView: AssetsBoardCollectionView {
 	private let filterDidTap: () -> Void
 	private var cancellables = Set<AnyCancellable>()
 
+	// MARK: - Public Properties
+
+	@Published
+	public var showLoading = true
+
 	// MARK: - Initializers
 
 	init(
@@ -43,6 +48,7 @@ class InvestmentBoardView: AssetsBoardCollectionView {
 	private func setupCollectionView() {
 		register(UserInvestmentAssetCell.self, forCellWithReuseIdentifier: UserInvestmentAssetCell.cellReuseID)
 		register(InvestableAssetCell.self, forCellWithReuseIdentifier: InvestableAssetCell.cellReuseID)
+		register(AssetsCollectionViewCell.self, forCellWithReuseIdentifier: AssetsCollectionViewCell.cellReuseID)
 
 		investmentDataSource = InvestmentBoardDataSource(
 			userInvestments: investmentBoardVM.userInvestments,
@@ -53,10 +59,15 @@ class InvestmentBoardView: AssetsBoardCollectionView {
 	}
 
 	private func setupBinding() {
-		investmentBoardVM.$filteredAssets.compactMap { $0 }.sink { filteredAssets in
+		investmentBoardVM.$filteredAssets.sink { filteredAssets in
 			self.investmentDataSource.investableAssets = filteredAssets
-			self.assets = filteredAssets
+			self.assets = filteredAssets ?? []
 			self.reloadData()
+			if filteredAssets == nil {
+				self.showLoading = true
+			} else {
+				self.showLoading = false
+			}
 		}.store(in: &cancellables)
 	}
 }

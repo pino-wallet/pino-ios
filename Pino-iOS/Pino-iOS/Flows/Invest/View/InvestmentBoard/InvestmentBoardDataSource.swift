@@ -14,7 +14,7 @@ class InvestmentBoardDataSource: NSObject, UICollectionViewDataSource {
 
 	// MARK: - Public Properties
 
-	public var investableAssets: [InvestableAssetViewModel]
+	public var investableAssets: [InvestableAssetViewModel]?
 	public var userInvestments: [InvestAssetViewModel]
 
 	// MARK: - Initializers
@@ -32,10 +32,17 @@ class InvestmentBoardDataSource: NSObject, UICollectionViewDataSource {
 	// MARK: - Internal Methods
 
 	func numberOfSections(in collectionView: UICollectionView) -> Int {
-		2
+		if let investableAssets {
+			return 2
+		} else {
+			return 1
+		}
 	}
 
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		guard let investableAssets else {
+			return 6
+		}
 		switch section {
 		case 0:
 			return userInvestments.count
@@ -50,6 +57,15 @@ class InvestmentBoardDataSource: NSObject, UICollectionViewDataSource {
 		_ collectionView: UICollectionView,
 		cellForItemAt indexPath: IndexPath
 	) -> UICollectionViewCell {
+		guard let investableAssets else {
+			let AssetCell = collectionView.dequeueReusableCell(
+				withReuseIdentifier: AssetsCollectionViewCell.cellReuseID,
+				for: indexPath
+			) as! AssetsCollectionViewCell
+			AssetCell.assetVM = nil
+			AssetCell.showSkeletonView()
+			return AssetCell
+		}
 		switch indexPath.section {
 		case 0:
 			let AssetCell = collectionView.dequeueReusableCell(
