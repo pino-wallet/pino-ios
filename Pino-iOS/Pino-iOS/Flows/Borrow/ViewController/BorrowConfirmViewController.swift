@@ -49,8 +49,8 @@ class BorrowConfirmViewController: UIViewController {
 	private func setupView() {
 		borrowConfirmView = BorrowConfirmView(
 			borrowConfirmVM: borrowConfirmVM,
-			presentActionSheetClosure: { actionSheet in
-				self.presentActionSheet(actionSheet: actionSheet)
+			presentActionSheetClosure: { actionSheet, completion in
+				self.presentActionSheet(actionSheet: actionSheet, completion: completion)
 			}
 		)
 
@@ -66,8 +66,8 @@ class BorrowConfirmViewController: UIViewController {
 		setNavigationTitle(borrowConfirmVM.pageTitle)
 	}
 
-	private func presentActionSheet(actionSheet: InfoActionSheet) {
-		present(actionSheet, animated: true)
+	private func presentActionSheet(actionSheet: InfoActionSheet, completion: @escaping () -> Void) {
+		present(actionSheet, animated: true, completion: completion)
 	}
 
 	private func confirmBorrow(borrowTRXs: [SendTransactionViewModel]) {

@@ -14,7 +14,8 @@ class ActivityInfoStackView: UIStackView {
 
 	// MARK: - Closures
 
-	public var presentActionSheet: (_ actionSheet: InfoActionSheet) -> Void = { _ in }
+	public var presentActionSheet: (_ actionSheet: InfoActionSheet, _ completion: @escaping () -> Void)
+		-> Void = { _, _ in }
 
 	// MARK: - Public Properties
 
@@ -66,8 +67,8 @@ class ActivityInfoStackView: UIStackView {
 				actionSheetTitle: actionSheetInfo.title,
 				actionSheetDescription: actionSheetInfo.description
 			)
-			titleLabel.presentActionSheet = { [weak self] actionSheet in
-				self?.presentActionSheet(actionSheet)
+			titleLabel.presentActionSheet = { [weak self] actionSheet, completion in
+				self?.presentActionSheet(actionSheet, completion)
 			}
 		} else {
 			titleLabel = TitleWithInfo()

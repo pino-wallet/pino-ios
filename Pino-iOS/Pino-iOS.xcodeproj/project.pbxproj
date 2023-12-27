@@ -484,6 +484,8 @@
 		D9D462D72AA466A40010ED76 /* RepayConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D462D62AA466A40010ED76 /* RepayConfirmView.swift */; };
 		D9D462D92AA466B20010ED76 /* RepayConfirmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D462D82AA466B20010ED76 /* RepayConfirmViewModel.swift */; };
 		D9D509192AD577D800F40C33 /* W3CompoundBorrowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D509182AD577D800F40C33 /* W3CompoundBorrowManager.swift */; };
+		D9D6ECCA2B3ABAD600EA0C1E /* EmptyStateCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6ECC92B3ABAD600EA0C1E /* EmptyStateCardView.swift */; };
+		D9D6ECCC2B3ABB0600EA0C1E /* EmptyStateCardDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6ECCB2B3ABB0600EA0C1E /* EmptyStateCardDetails.swift */; };
 		D9D754242AD13248001D4B94 /* BorrowERCAaveABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = D9D754232AD13248001D4B94 /* BorrowERCAaveABIJson.json */; };
 		D9D754262AD133C8001D4B94 /* ERC20ABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = D9D754252AD133C8001D4B94 /* ERC20ABIJson.json */; };
 		D9D991AB2AB70DA900E943B0 /* BorrowableTokensModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D991AA2AB70DA900E943B0 /* BorrowableTokensModel.swift */; };
@@ -549,6 +551,8 @@
 		DF0F65F929E1B29C00DB7290 /* wallet-balance-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 326B0DAFD947F590C331F13D /* wallet-balance-stub.json */; };
 		DF0F65FA29E1B29C00DB7290 /* assets-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B2220BAE0D7613EB95414ED /* assets-stub.json */; };
 		DF0F65FB29E1B29C00DB7290 /* wallets-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = DE9E95DAD0FE359D802524FC /* wallets-stub.json */; };
+		DF136FDE2B381E5E00A7B878 /* GasLimitsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF136FDD2B381E5E00A7B878 /* GasLimitsModel.swift */; };
+		DF136FE02B38251F00A7B878 /* SwapGasLimitsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF136FDF2B38251F00A7B878 /* SwapGasLimitsManager.swift */; };
 		DF14FC9D2A8E108D005221A8 /* W3TransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FC9C2A8E108D005221A8 /* W3TransactionManager.swift */; };
 		DF14FC9F2A9105CF005221A8 /* W3GasInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FC9E2A9105CF005221A8 /* W3GasInfoManager.swift */; };
 		DF14FCA12A9105F3005221A8 /* W3TransferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF14FCA02A9105F3005221A8 /* W3TransferManager.swift */; };
@@ -1331,6 +1335,8 @@
 		D9D462D62AA466A40010ED76 /* RepayConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepayConfirmView.swift; sourceTree = "<group>"; };
 		D9D462D82AA466B20010ED76 /* RepayConfirmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepayConfirmViewModel.swift; sourceTree = "<group>"; };
 		D9D509182AD577D800F40C33 /* W3CompoundBorrowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3CompoundBorrowManager.swift; sourceTree = "<group>"; };
+		D9D6ECC92B3ABAD600EA0C1E /* EmptyStateCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateCardView.swift; sourceTree = "<group>"; };
+		D9D6ECCB2B3ABB0600EA0C1E /* EmptyStateCardDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateCardDetails.swift; sourceTree = "<group>"; };
 		D9D754232AD13248001D4B94 /* BorrowERCAaveABIJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BorrowERCAaveABIJson.json; sourceTree = "<group>"; };
 		D9D754252AD133C8001D4B94 /* ERC20ABIJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ERC20ABIJson.json; sourceTree = "<group>"; };
 		D9D991AA2AB70DA900E943B0 /* BorrowableTokensModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowableTokensModel.swift; sourceTree = "<group>"; };
@@ -1376,6 +1382,8 @@
 		DF0347B32A39FAFF00A6C265 /* Web3ABI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3ABI.swift; sourceTree = "<group>"; };
 		DF0B1ECE2B00DB3F001B0522 /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
 		DF0B1ED22B00E0D5001B0522 /* FCMTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenManager.swift; sourceTree = "<group>"; };
+		DF136FDD2B381E5E00A7B878 /* GasLimitsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GasLimitsModel.swift; sourceTree = "<group>"; };
+		DF136FDF2B38251F00A7B878 /* SwapGasLimitsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapGasLimitsManager.swift; sourceTree = "<group>"; };
 		DF14FC9C2A8E108D005221A8 /* W3TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3TransactionManager.swift; sourceTree = "<group>"; };
 		DF14FC9E2A9105CF005221A8 /* W3GasInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3GasInfoManager.swift; sourceTree = "<group>"; };
 		DF14FCA02A9105F3005221A8 /* W3TransferManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3TransferManager.swift; sourceTree = "<group>"; };
@@ -3221,6 +3229,7 @@
 		D9A3280A2A3452DC005A8393 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				D9D6ECC82B3AB5B400EA0C1E /* EmptyStateCardView */,
 				D986BC2B2B0B5BC300DCE03C /* SendTransactionStatus */,
 				D97F0B982A9491110083DA81 /* SelectDexSystemView */,
 				D97F0B862A948E4F0083DA81 /* SelectDexSystemCollectionView */,
@@ -3513,6 +3522,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		D9D6ECC82B3AB5B400EA0C1E /* EmptyStateCardView */ = {
+			isa = PBXGroup;
+			children = (
+				D9D6ECC92B3ABAD600EA0C1E /* EmptyStateCardView.swift */,
+				D9D6ECCB2B3ABB0600EA0C1E /* EmptyStateCardDetails.swift */,
+			);
+			path = EmptyStateCardView;
+			sourceTree = "<group>";
+		};
 		D9E134832A52FB3400193FF0 /* ActivityHeaderView */ = {
 			isa = PBXGroup;
 			children = (
@@ -3623,6 +3641,7 @@
 				DF6DEDD32AA8CD1F0080B47B /* EIP712HashResponseModel.swift */,
 				DF6DEDD12AA8C3D90080B47B /* EIP712PermitModel.swift */,
 				DFF8C35A2B11CEEF00C74DAC /* EthGasInfoModel.swift */,
+				DF136FDD2B381E5E00A7B878 /* GasLimitsModel.swift */,
 			);
 			path = Web3;
 			sourceTree = "<group>";
@@ -3982,6 +4001,7 @@
 				E35BB6542A62D4A5003987F5 /* SwapConfirmationViewModel.swift */,
 				E3FC698D2A80DD2F009B3341 /* SwapPriceManager.swift */,
 				40E7C1122AAF6C74006A61DD /* SwapManager.swift */,
+				DF136FDF2B38251F00A7B878 /* SwapGasLimitsManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -4804,6 +4824,7 @@
 				D98207CA2A5D6D8C0066A090 /* ActivityDetailsHeaderView.swift in Sources */,
 				D9C584872ADD3C3200371B7A /* ApproveSpeedUpViewModel.swift in Sources */,
 				E3596B1B2A6E51D60030B682 /* SwapSide.swift in Sources */,
+				DF136FDE2B381E5E00A7B878 /* GasLimitsModel.swift in Sources */,
 				40BB42282A47157800E1A121 /* UIDevice+Extension.swift in Sources */,
 				D986BC332B0B669600DCE03C /* SendTransactionStatusViewController.swift in Sources */,
 				E3FC69C12A8C9CBC009B3341 /* InvestmentBoardView.swift in Sources */,
@@ -4818,6 +4839,7 @@
 				24D1C890843C5A3AE41A1442 /* AssetsAPIClient.swift in Sources */,
 				D9A642CC2AFA254200FDE11D /* ActivityWithdrawModel.swift in Sources */,
 				E33F7CBE2AD44CA2007FC04D /* DepositManager.swift in Sources */,
+				D9D6ECCA2B3ABAD600EA0C1E /* EmptyStateCardView.swift in Sources */,
 				D16E6EA70136FF5D5C83ED88 /* AssetsAPIMockClient.swift in Sources */,
 				A19CFCA76D9396A5A2612F7E /* AssetsAPIService.swift in Sources */,
 				D9F927AC2B1213D800147013 /* AaveWithdrawManager.swift in Sources */,
@@ -5249,6 +5271,7 @@
 				A9EB8A9CA5BE7BA334FBB816 /* SecretPhraseCenteredFlowLayout.swift in Sources */,
 				9A7CE65990DD193F0FAF3C75 /* SecretPhraseCollectionView.swift in Sources */,
 				36705A78402D3518B33881DD /* SecretPhraseTextView.swift in Sources */,
+				D9D6ECCC2B3ABB0600EA0C1E /* EmptyStateCardDetails.swift in Sources */,
 				D9C584852ADD3B5E00371B7A /* ApproveSpeedUpViewController.swift in Sources */,
 				D9AEA0A029F9818300DD61A8 /* EditAccountOptionViewModel.swift in Sources */,
 				DFC1F6A12A755620003DB68A /* SwapProvidersAPIServices.swift in Sources */,
@@ -5388,6 +5411,7 @@
 				E35BB6512A62955D003987F5 /* SwapConfirmationViewController.swift in Sources */,
 				D9BE051D2A8221C8008670F9 /* CDSwapActivityDetails+CoreDataProperties.swift in Sources */,
 				D9D11E922A5990B8003C4298 /* ActivityCollectionView.swift in Sources */,
+				DF136FE02B38251F00A7B878 /* SwapGasLimitsManager.swift in Sources */,
 				D9DC773F2A6FAB2B00AA0987 /* ActivityDetailPropertiesViewModel.swift in Sources */,
 				33647E7FA041A9CC0130F158 /* AccountsViewModel.swift in Sources */,
 				E3F482EF2A35A6E900EEC9CF /* CustomAsset+CoreDataClass.swift in Sources */,

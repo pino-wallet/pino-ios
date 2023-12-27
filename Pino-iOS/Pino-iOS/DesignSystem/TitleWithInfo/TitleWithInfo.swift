@@ -7,24 +7,40 @@
 
 import UIKit
 
-class TitleWithInfo: UIView {
+class TitleWithInfo: UIButton {
 	// MARK: - Closures
 
-	public var presentActionSheet: (_ actionSheet: InfoActionSheet) -> Void = { _ in }
+	public var presentActionSheet: (_ actionSheet: InfoActionSheet, _ completion: @escaping () -> Void)
+		-> Void = { _, _ in }
 
 	// MARK: - Private Properties
 
 	private let mainStackView = UIStackView()
-	private let titleLabel = PinoLabel(style: .description, text: "")
 	private let infoActionSheetIcon = UIImageView()
 	private var infoActionSheet: InfoActionSheet!
+	private var customConfiguration = UIButton.Configuration.filled()
 
 	// MARK: - Public Properties
 
+	override var isHighlighted: Bool {
+		didSet {
+			if isHighlighted && showInfoActionSheet {
+				customConfiguration.attributedTitle?.foregroundColor = .Pino.gray3
+				configuration = customConfiguration
+			} else {
+				customConfiguration.attributedTitle?.foregroundColor = .Pino.secondaryLabel
+				configuration = customConfiguration
+			}
+		}
+	}
+
 	public var title: String! = "" {
 		didSet {
-			titleLabel.text = title
-			titleLabel.numberOfLines = 0
+			var attributedTitle = AttributedString(title)
+			attributedTitle.foregroundColor = .Pino.secondaryLabel
+			attributedTitle.font = .PinoStyle.mediumCallout
+			customConfiguration.attributedTitle = attributedTitle
+			configuration = customConfiguration
 		}
 	}
 
@@ -32,21 +48,27 @@ class TitleWithInfo: UIView {
 		didSet {
 			if showInfoActionSheet {
 				infoActionSheetIcon.isHidden = false
+				customConfiguration.image = UIImage(named: "alert")
+				configuration = customConfiguration
 			} else {
 				infoActionSheetIcon.isHidden = true
+				customConfiguration.image = nil
+				configuration = customConfiguration
 			}
 		}
 	}
 
 	public var customTextFont: UIFont! {
 		didSet {
-			titleLabel.font = customTextFont
+			customConfiguration.attributedTitle?.font = customTextFont
+			configuration = customConfiguration
 		}
 	}
 
 	public var customTextColor: UIColor! {
 		didSet {
-			titleLabel.textColor = customTextColor
+			customConfiguration.attributedTitle?.foregroundColor = customTextColor
+			configuration = customConfiguration
 		}
 	}
 
@@ -73,39 +95,41 @@ class TitleWithInfo: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		mainStackView.addArrangedSubview(titleLabel)
-		mainStackView.addArrangedSubview(infoActionSheetIcon)
+		customConfiguration.imagePadding = 2
+		customConfiguration.imagePlacement = .trailing
+		customConfiguration.cornerStyle = .fixed
+		customConfiguration.image = UIImage(named: "alert")
 
-		let iconTapGesture = UITapGestureRecognizer(target: self, action: #selector(onIconTap))
-		infoActionSheetIcon.addGestureRecognizer(iconTapGesture)
-		infoActionSheetIcon.isUserInteractionEnabled = true
-
-		addSubview(mainStackView)
+		addTarget(self, action: #selector(onIconTap), for: .touchUpInside)
 	}
 
 	private func setupStyles() {
-		mainStackView.axis = .horizontal
-		mainStackView.spacing = 2
-		mainStackView.alignment = .center
-
-		titleLabel.font = .PinoStyle.mediumBody
-
-		infoActionSheetIcon.image = UIImage(named: "alert")
+		customConfiguration.background.backgroundColor = .Pino.clear
+		customConfiguration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+		configuration = customConfiguration
 	}
 
 	private func setupConstraints() {
 		heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 		widthAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
 
-		titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 108).isActive = true
+		widthAnchor.constraint(lessThanOrEqualToConstant: 108).isActive = true
+	}
 
-		mainStackView.pin(.allEdges(padding: 0))
-
-		infoActionSheetIcon.pin(.fixedWidth(16), .fixedHeight(16))
+	private func setupDismissGesture() {
+		let dismissTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onDismiss))
+		infoActionSheet.view.superview?.subviews[0].addGestureRecognizer(dismissTapGestureRecognizer)
+		infoActionSheet.view.superview?.subviews[0].isUserInteractionEnabled = true
 	}
 
 	@objc
 	private func onIconTap() {
-		presentActionSheet(infoActionSheet)
+		presentActionSheet(infoActionSheet, setupDismissGesture)
+		infoActionSheet.view.superview?.isUserInteractionEnabled = true
+	}
+
+	@objc
+	private func onDismiss() {
+		infoActionSheet.dismiss(animated: true)
 	}
 }

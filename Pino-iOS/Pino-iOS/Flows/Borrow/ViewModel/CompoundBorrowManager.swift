@@ -29,13 +29,12 @@ class CompoundBorrowManager: Web3ManagerProtocol {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth }))!
 	}
 
-	private var cancellables = Set<AnyCancellable>()
-
 	// MARK: - Internal Properties
 
 	internal var web3 = Web3Core.shared
 	internal var contract: DynamicContract
 	internal var walletManager = PinoWalletManager()
+	internal var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 

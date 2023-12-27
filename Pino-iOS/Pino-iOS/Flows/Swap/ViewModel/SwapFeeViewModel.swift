@@ -55,7 +55,7 @@ class SwapFeeViewModel {
 			let formattedFromTokenAmount = "1 \(srcToken.selectedToken.symbol)"
 			let formattedToTokenAmount: String
 			if let toTokenAmount = BigNumber(numberWithDecimal: destAmount) / BigNumber(numberWithDecimal: srcAmount) {
-				formattedToTokenAmount = toTokenAmount.sevenDigitFormat
+				formattedToTokenAmount = toTokenAmount.sevenDigitFormat.formattedNumberWithCamma
 					.tokenFormatting(token: destToken.selectedToken.symbol)
 			} else {
 				formattedToTokenAmount = "0 \(destToken.selectedToken.symbol)"

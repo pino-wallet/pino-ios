@@ -15,14 +15,16 @@ class SwapConfirmationViewController: UIViewController {
 	private let swapConfirmationVM: SwapConfirmationViewModel
 	private var cancellables = Set<AnyCancellable>()
 	private var swapConfirmationView: SwapConfirmationView!
+	private var onSwapConfirm: (SendTransactionStatus) -> Void
 	private lazy var authManager: AuthenticationLockManager = {
 		.init(parentController: self)
 	}()
 
 	// MARK: Initializers
 
-	init(swapConfirmationVM: SwapConfirmationViewModel) {
+	init(swapConfirmationVM: SwapConfirmationViewModel, onSwapConfirm: @escaping (SendTransactionStatus) -> Void) {
 		self.swapConfirmationVM = swapConfirmationVM
+		self.onSwapConfirm = onSwapConfirm
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -68,8 +70,8 @@ class SwapConfirmationViewController: UIViewController {
 			confirmButtonTapped: {
 				self.confirmSwap()
 			},
-			presentFeeInfo: { infoActionSheet in
-				self.showFeeInfoActionSheet(infoActionSheet)
+			presentFeeInfo: { infoActionSheet, completion in
+				self.showFeeInfoActionSheet(infoActionSheet, completion: completion)
 			},
 			retryFeeCalculation: {
 				self.getFee()
@@ -91,8 +93,8 @@ class SwapConfirmationViewController: UIViewController {
 		)
 	}
 
-	private func showFeeInfoActionSheet(_ feeInfoActionSheet: InfoActionSheet) {
-		present(feeInfoActionSheet, animated: true)
+	private func showFeeInfoActionSheet(_ feeInfoActionSheet: InfoActionSheet, completion: @escaping () -> Void) {
+		present(feeInfoActionSheet, animated: true, completion: completion)
 	}
 
 	private func confirmSwap() {
@@ -104,7 +106,9 @@ class SwapConfirmationViewController: UIViewController {
 			)
 			let sendTransactionStatuVC = SendTransactionStatusViewController(
 				sendStatusVM: sendTrxStatusVM,
-				onDismiss: dismissPage
+				onDismiss: { [unowned self] pageStatus in
+					onSwapConfirm(pageStatus)
+				}
 			)
 			present(sendTransactionStatuVC, animated: true)
 		} onFailure: {

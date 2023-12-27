@@ -15,6 +15,7 @@ class SelectAssetToSendViewController: UIViewController {
 	private var selectAssetcollectionView: SelectAssetCollectionView!
 	private var cancellables = Set<AnyCancellable>()
 	private let assets: [AssetViewModel]
+	private var onDismiss: ((SendTransactionStatus) -> Void)?
 
 	// MARK: - Public Properties
 
@@ -34,9 +35,10 @@ class SelectAssetToSendViewController: UIViewController {
 
 	// MARK: - Initializers
 
-	init(assets: [AssetViewModel]) {
+	init(assets: [AssetViewModel], onDismiss: ((SendTransactionStatus) -> Void)?) {
 		self.selectAssetToSendVM = SelectAssetToSendViewModel(assetsList: assets)
 		self.assets = assets
+		self.onDismiss = onDismiss
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -83,7 +85,13 @@ class SelectAssetToSendViewController: UIViewController {
 	}
 
 	private func openEnterAmountPage(selectedAsset: AssetViewModel) {
-		let enterAmountVC = EnterSendAmountViewController(selectedAsset: selectedAsset, assets: assets)
+		let enterAmountVC = EnterSendAmountViewController(
+			selectedAsset: selectedAsset,
+			assets: assets,
+			onSendConfirm: { pageStatus in
+				self.onDismiss?(pageStatus)
+			}
+		)
 		navigationController?.pushViewController(enterAmountVC, animated: true)
 	}
 }

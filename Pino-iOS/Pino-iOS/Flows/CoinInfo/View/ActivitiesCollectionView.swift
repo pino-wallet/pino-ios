@@ -278,7 +278,7 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 
 				coinInfoFooterView.emptyFooterVM = CoinInfoEmptyStateFooterViewModel(
 					titleText: coinInfoVM.emptyActivityTitleText,
-					iconName: coinInfoVM.emptyActivityIconName
+					iconName: coinInfoVM.emptyActivityIconName, descriptionText: coinInfoVM.emptyActivityDescriptionText
 				)
 				return coinInfoFooterView
 			case .unVerified:
@@ -335,7 +335,7 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 				return CGSize(width: 0, height: 0)
 			}
 			if userAcitivites.isEmpty {
-				return CGSize(width: collectionView.frame.width, height: 173)
+				return CGSize(width: collectionView.frame.width, height: 220)
 			}
 			return CGSize(width: 0, height: 0)
 		case .unVerified:

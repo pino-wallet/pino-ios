@@ -21,13 +21,13 @@ class SwapManager: Web3ManagerProtocol {
 	internal var web3 = Web3Core.shared
 	internal var contract: DynamicContract
 	internal var walletManager = PinoWalletManager()
+	internal var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 
-	private var pendingSwapGasInfo: GasInfo?
-
 	// MARK: - Private Properties
 
+	private var pendingSwapGasInfo: GasInfo?
 	private var swapPriceManager = SwapPriceManager()
 	private var selectedProvider: SwapProviderViewModel?
 	private var srcToken: AssetViewModel
@@ -48,7 +48,6 @@ class SwapManager: Web3ManagerProtocol {
 	private let oneInchAPIClient = OneInchAPIClient()
 	private let zeroXAPIClient = ZeroXAPIClient()
 	private let web3Client = Web3APIClient()
-	private var cancellables = Set<AnyCancellable>()
 
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes in ms
 	private let nonce = BigNumber.bigRandomeNumber

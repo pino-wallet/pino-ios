@@ -14,12 +14,12 @@ class InvestmentBoardViewController: UIViewController {
 	private let assets: [InvestAssetViewModel]
 	private var investmentBoardView: InvestmentBoardView!
 	private var investmentBoardVM: InvestmentBoardViewModel
-	private var onDepositConfirm: () -> Void
+	private var onDepositConfirm: (SendTransactionStatus) -> Void
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
 
-	init(assets: [InvestAssetViewModel], onDepositConfirm: @escaping () -> Void) {
+	init(assets: [InvestAssetViewModel], onDepositConfirm: @escaping (SendTransactionStatus) -> Void) {
 		self.assets = assets
 		self.investmentBoardVM = InvestmentBoardViewModel(userInvestments: assets)
 		self.onDepositConfirm = onDepositConfirm

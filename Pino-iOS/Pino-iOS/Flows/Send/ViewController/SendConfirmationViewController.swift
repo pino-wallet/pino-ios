@@ -12,14 +12,16 @@ class SendConfirmationViewController: UIViewController {
 
 	private let sendConfirmationVM: SendConfirmationViewModel
 	private var sendConfirmationView: SendConfirmationView!
+	private var onSendConfirm: (SendTransactionStatus) -> Void
 	private lazy var authManager: AuthenticationLockManager = {
 		.init(parentController: self)
 	}()
 
 	// MARK: Initializers
 
-	init(sendConfirmationVM: SendConfirmationViewModel) {
+	init(sendConfirmationVM: SendConfirmationViewModel, onSendConfirm: @escaping (SendTransactionStatus) -> Void) {
 		self.sendConfirmationVM = sendConfirmationVM
+		self.onSendConfirm = onSendConfirm
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -51,8 +53,8 @@ class SendConfirmationViewController: UIViewController {
 			confirmButtonTapped: {
 				self.confirmSend()
 			},
-			presentFeeInfo: { feeInfoActionSheet in
-				self.showFeeInfoActionSheet(feeInfoActionSheet)
+			presentFeeInfo: { feeInfoActionSheet, completion in
+				self.showFeeInfoActionSheet(feeInfoActionSheet, completion: completion)
 			},
 			retryFeeCalculation: {
 				self.getFee()
@@ -68,8 +70,8 @@ class SendConfirmationViewController: UIViewController {
 		setNavigationTitle("Confirm transfer")
 	}
 
-	private func showFeeInfoActionSheet(_ feeInfoActionSheet: InfoActionSheet) {
-		present(feeInfoActionSheet, animated: true)
+	private func showFeeInfoActionSheet(_ feeInfoActionSheet: InfoActionSheet, completion: @escaping () -> Void) {
+		present(feeInfoActionSheet, animated: true, completion: completion)
 	}
 
 	private func confirmSend() {
@@ -82,7 +84,9 @@ class SendConfirmationViewController: UIViewController {
 			)
 			let sendTransactionStatusVC = SendTransactionStatusViewController(
 				sendStatusVM: sendTransactionStatusVM,
-				onDismiss: {}
+				onDismiss: { pageStatus in
+					self.onSendConfirm(pageStatus)
+				}
 			)
 			present(sendTransactionStatusVC, animated: true)
 		} onFailure: {

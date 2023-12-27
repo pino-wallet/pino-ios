@@ -26,13 +26,13 @@ class CompoundRepayManager: Web3ManagerProtocol {
 	private var assetAmountBigNumber: BigNumber
 	private var assetAmountBigUInt: BigUInt
 	private var repayMode: RepayMode
-	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Internal Properties
 
 	internal var web3 = Web3Core.shared
 	internal var contract: DynamicContract
 	internal var walletManager = PinoWalletManager()
+	internal var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 

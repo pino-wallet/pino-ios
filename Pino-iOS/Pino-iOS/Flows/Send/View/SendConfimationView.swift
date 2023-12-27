@@ -9,6 +9,10 @@ import Combine
 import UIKit
 
 class SendConfirmationView: UIView {
+	// MARK: - TypeAliases
+
+	typealias PresentFeeInfoType = (InfoActionSheet, _ completion: @escaping () -> Void) -> Void
+
 	// MARK: - Private Properties
 
 	private let contentStackview = UIStackView()
@@ -46,7 +50,7 @@ class SendConfirmationView: UIView {
 
 	private let continueButton = PinoButton(style: .active)
 	private let confirmButtonTapped: () -> Void
-	private let presentFeeInfo: (InfoActionSheet) -> Void
+	private let presentFeeInfo: PresentFeeInfoType
 	private let retryFeeCalculation: () -> Void
 	private let sendConfirmationVM: SendConfirmationViewModel
 	private var cancellables = Set<AnyCancellable>()
@@ -57,7 +61,7 @@ class SendConfirmationView: UIView {
 	init(
 		sendConfirmationVM: SendConfirmationViewModel,
 		confirmButtonTapped: @escaping () -> Void,
-		presentFeeInfo: @escaping (InfoActionSheet) -> Void,
+		presentFeeInfo: @escaping PresentFeeInfoType,
 		retryFeeCalculation: @escaping () -> Void
 	) {
 		self.sendConfirmationVM = sendConfirmationVM
@@ -138,8 +142,8 @@ class SendConfirmationView: UIView {
 			self.confirmButtonTapped()
 		}), for: .touchUpInside)
 
-		feeTitleView.presentActionSheet = { feeInfoActionSheet in
-			self.presentFeeInfo(feeInfoActionSheet)
+		feeTitleView.presentActionSheet = { feeInfoActionSheet, completion in
+			self.presentFeeInfo(feeInfoActionSheet, completion)
 		}
 
 		let feeRetryTapGesture = UITapGestureRecognizer(target: self, action: #selector(getFee))

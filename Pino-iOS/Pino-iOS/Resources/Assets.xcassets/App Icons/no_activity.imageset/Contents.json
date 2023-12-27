@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "no_activity.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

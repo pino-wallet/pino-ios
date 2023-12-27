@@ -12,7 +12,9 @@ class CoinInfoEmptyStateFooterView: UICollectionReusableView {
 
 	private let mainStackView = UIStackView()
 	private let iconView = UIImageView()
-	private let titleLabel = PinoLabel(style: .info, text: "")
+	private let textStackView = UIStackView()
+	private let titleLabel = PinoLabel(style: .title, text: "")
+	private let descriptionLabel = PinoLabel(style: .description, text: "")
 
 	// MARK: - Public Properties
 
@@ -29,26 +31,39 @@ class CoinInfoEmptyStateFooterView: UICollectionReusableView {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		textStackView.addArrangedSubview(titleLabel)
+		textStackView.addArrangedSubview(descriptionLabel)
+
 		mainStackView.addArrangedSubview(iconView)
-		mainStackView.addArrangedSubview(titleLabel)
+		mainStackView.addArrangedSubview(textStackView)
 
 		addSubview(mainStackView)
 	}
 
 	private func setupStyles() {
 		mainStackView.axis = .vertical
-		mainStackView.spacing = 16
+		mainStackView.spacing = 24
 		mainStackView.alignment = .center
 
-		titleLabel.textColor = .Pino.secondaryLabel
+		textStackView.axis = .vertical
+		textStackView.alignment = .center
+		textStackView.spacing = 8
 
+		titleLabel.font = .PinoStyle.semiboldTitle2
 		titleLabel.text = emptyFooterVM.titleText
+
+		descriptionLabel.font = .PinoStyle.mediumBody
+		descriptionLabel.text = emptyFooterVM.descriptionText
+		descriptionLabel.textAlignment = .center
 
 		iconView.image = UIImage(named: emptyFooterVM.iconName)
 	}
 
 	private func setupConstraints() {
-		iconView.pin(.fixedWidth(53), .fixedHeight(53))
+		titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 28).isActive = true
+		descriptionLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
+
+		iconView.pin(.fixedWidth(56), .fixedHeight(56))
 		mainStackView.pin(.horizontalEdges(padding: 16), .bottom(padding: 0), .top(padding: 80))
 	}
 }

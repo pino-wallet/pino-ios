@@ -12,14 +12,14 @@ class InvestConfirmationViewController: UIViewController {
 
 	private let investConfirmationVM: InvestConfirmationProtocol
 	private var investConfirmationView: InvestConfirmationView!
-	private var onConfirm: () -> Void
+	private var onConfirm: (SendTransactionStatus) -> Void
 	private lazy var authManager: AuthenticationLockManager = {
 		.init(parentController: self)
 	}()
 
 	// MARK: - Initializers
 
-	init(confirmationVM: InvestConfirmationProtocol, onConfirm: @escaping () -> Void) {
+	init(confirmationVM: InvestConfirmationProtocol, onConfirm: @escaping (SendTransactionStatus) -> Void) {
 		self.investConfirmationVM = confirmationVM
 		self.onConfirm = onConfirm
 		super.init(nibName: nil, bundle: nil)
@@ -57,8 +57,8 @@ class InvestConfirmationViewController: UIViewController {
 			confirmButtonDidTap: {
 				self.confirmInvestment()
 			},
-			infoActionSheetDidTap: { infoActionSheet in
-				self.showInfoActionSheet(infoActionSheet)
+			infoActionSheetDidTap: { infoActionSheet, completion in
+				self.showInfoActionSheet(infoActionSheet, completion: completion)
 			},
 			feeCalculationRetry: {
 				self.getFee()
@@ -73,8 +73,8 @@ class InvestConfirmationViewController: UIViewController {
 		setNavigationTitle("Confirm investment")
 	}
 
-	private func showInfoActionSheet(_ feeInfoActionSheet: InfoActionSheet) {
-		present(feeInfoActionSheet, animated: true)
+	private func showInfoActionSheet(_ feeInfoActionSheet: InfoActionSheet, completion: @escaping () -> Void) {
+		present(feeInfoActionSheet, animated: true, completion: completion)
 	}
 
 	private func confirmInvestment() {

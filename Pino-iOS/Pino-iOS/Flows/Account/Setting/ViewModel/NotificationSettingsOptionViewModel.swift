@@ -14,12 +14,12 @@ struct NotificationSettingsOptionViewModel: CustomSwitchOptionVM {
 		notificationOption.title
 	}
 
-	public var isSelected: Bool {
-		notificationOption.isSelected
+	public var description: String? {
+		notificationOption.description
 	}
 
-	public var tooltipText: String! {
-		notificationOption.tooltipText
+	public var isSelected: Bool {
+		notificationOption.isSelected
 	}
 
 	public var type: String {
