@@ -102,22 +102,23 @@ class SwapConfirmationViewModel {
 	// MARK: - Public Methods
 
 	public func fetchSwapInfo(completion: @escaping (Error) -> Void) {
-		if let selectedProvider, let dolalarAmountBigNum = fromToken.decimalDollarAmount {
-			swapManager.getGasLimits().done { [weak self] gasLimits in
-				guard let self = self else { return }
-				let gasManager = SwapGasLimitsManager(
-					swapAmount: dolalarAmountBigNum,
-					gasLimitsModel: gasLimits,
-					isEth: fromToken.selectedToken.isEth,
-					provider: selectedProvider.provider
-				)
-				self.pendingSwapGasInfo = gasManager.gasInfo
-				self.formattedFeeInDollar = gasManager.gasInfo.feeInDollar!.priceFormat
-				self.formattedFeeInETH = gasManager.gasInfo.fee!.sevenDigitFormat
-			}.catch { error in
-				completion(error)
-			}
-		}
+		#warning("Waiting for amir to say is we should use this or not")
+//		if let selectedProvider, let dolalarAmountBigNum = fromToken.decimalDollarAmount {
+//			swapManager.getGasLimits().done { [weak self] gasLimits in
+//				guard let self = self else { return }
+//				let gasManager = SwapGasLimitsManager(
+//					swapAmount: dolalarAmountBigNum,
+//					gasLimitsModel: gasLimits,
+//					isEth: fromToken.selectedToken.isEth,
+//					provider: selectedProvider.provider
+//				)
+//				self.pendingSwapGasInfo = gasManager.gasInfo
+//				self.formattedFeeInDollar = gasManager.gasInfo.feeInDollar!.priceFormat
+//				self.formattedFeeInETH = gasManager.gasInfo.fee!.sevenDigitFormat
+//			}.catch { error in
+//				completion(error)
+//			}
+//		}
 
 		swapManager.getSwapInfo().done { swapTrx, gasInfo in
 			self.pendingSwapTrx = swapTrx
