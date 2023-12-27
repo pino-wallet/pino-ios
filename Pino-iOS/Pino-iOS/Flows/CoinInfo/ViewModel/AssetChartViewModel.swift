@@ -15,15 +15,12 @@ struct AssetChartViewModel {
 
 	public var chartDataEntry: [ChartDataEntry] {
 		chartDataVM.map {
-			guard let timeStamp = $0.date?.timeIntervalSinceNow else {
-				return ChartDataEntry(x: Date.now.timeIntervalSinceNow, y: $0.networth.doubleValue)
-			}
-			return ChartDataEntry(x: timeStamp, y: $0.networth.doubleValue)
+			ChartDataEntry(x: $0.date!.timeIntervalSinceNow, y: $0.networth.doubleValue)
 		}
 	}
 
 	public var balance: String {
-		chartDataVM.last!.networth.decimalString.currencyFormatting
+		chartDataVM.last?.networth.decimalString.currencyFormatting ?? "0.0"
 	}
 
 	public var volatilityPercentage: String {
@@ -40,11 +37,7 @@ struct AssetChartViewModel {
 	}
 
 	init(chartDataVM: [AssetChartDataViewModel], dateFilter: ChartDateFilter) {
-		if chartDataVM.isEmpty {
-			self.chartDataVM = [AssetChartDataViewModel(chartModel: ChartDataModel(networth: "0", time: "0"))]
-		} else {
-			self.chartDataVM = chartDataVM
-		}
+		self.chartDataVM = chartDataVM
 		self.dateFilter = dateFilter
 	}
 

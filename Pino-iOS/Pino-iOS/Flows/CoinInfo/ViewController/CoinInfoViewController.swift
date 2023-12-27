@@ -66,14 +66,12 @@ class CoinInfoViewController: UIViewController {
 			action: #selector(dismissCoinInfo)
 		)
 
-		if coinInfoVM.selectedAsset.isVerified, coinInfoVM.selectedAsset.holdAmount > 0.bigNumber {
-			navigationItem.rightBarButtonItem = UIBarButtonItem(
-				image: UIImage(named: "chart"),
-				style: .plain,
-				target: self,
-				action: #selector(openCoinInfoChartPage)
-			)
-		}
+		navigationItem.rightBarButtonItem = UIBarButtonItem(
+			image: UIImage(named: "chart"),
+			style: .plain,
+			target: self,
+			action: #selector(openCoinInfoChartPage)
+		)
 	}
 
 	private func openActivityDetailsPage(activityDetails: ActivityCellViewModel) {
@@ -90,7 +88,6 @@ class CoinInfoViewController: UIViewController {
 
 	@objc
 	private func openCoinInfoChartPage() {
-		guard coinInfoVM.selectedAsset.holdAmount > 0.bigNumber else { return }
 		let coinPerformanceVC = CoinPerformanceViewController(selectedAsset: coinInfoVM.selectedAsset)
 		let navigationVC = UINavigationController(rootViewController: coinPerformanceVC)
 		navigationVC.modalPresentationStyle = .formSheet

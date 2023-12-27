@@ -146,7 +146,7 @@ class HomepageViewController: UIViewController {
 
 	private func openPortfolioPage() {
 		guard let assets = GlobalVariables.shared.selectedManageAssetsList else { return }
-		let filteredAsset = assets.filter { $0.isVerified && $0.holdAmount > 0.bigNumber }
+		let filteredAsset = assets.filter { !$0.isPosition && $0.isVerified && $0.holdAmount > 0.bigNumber }
 //		guard !filteredAsset.isEmpty else { return }
 		let portfolioPerformanceVC = PortfolioPerformanceViewController(assets: filteredAsset)
 		portfolioPerformanceVC.modalPresentationStyle = .formSheet
