@@ -60,9 +60,10 @@ class AssetLineChart: UIView, LineChartDelegate {
 
 	private func setupView() {
 		balanceStackview.addArrangedSubview(coinBalanceLabel)
-		balanceStackview.addArrangedSubview(coinVolatilityPersentage)
+		balanceStackview.addArrangedSubview(volatilityStackView)
+		volatilityStackView.addArrangedSubview(coinVolatilityPersentage)
+		volatilityStackView.addArrangedSubview(dateLabel)
 		infoStackView.addArrangedSubview(balanceStackview)
-		infoStackView.addArrangedSubview(dateLabel)
 		contentStackView.addArrangedSubview(infoStackView)
 		contentStackView.addArrangedSubview(chartStackView)
 		chartStackView.addArrangedSubview(lineChartView)
@@ -77,7 +78,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 		chartPointer.tintColor = .Pino.primary
 		coinBalanceLabel.textColor = .Pino.label
 		coinVolatilityInDollor.textColor = .Pino.secondaryLabel
-		dateLabel.textColor = .Pino.secondaryLabel
+		dateLabel.textColor = .Pino.gray2
 
 		coinBalanceLabel.font = .PinoStyle.semiboldTitle1
 		coinVolatilityInDollor.font = .PinoStyle.mediumSubheadline
@@ -133,16 +134,10 @@ class AssetLineChart: UIView, LineChartDelegate {
 
 		chartPointer.isHidden = true
 
-		coinVolatilityPersentage.layer.cornerRadius = 8
-		coinBalanceLabel.layer.cornerRadius = 14
-		dateLabel.layer.cornerRadius = 14
-
 		coinVolatilityPersentage.layer.masksToBounds = true
 		coinBalanceLabel.layer.masksToBounds = true
-		dateLabel.layer.masksToBounds = true
 
 		coinBalanceLabel.isSkeletonable = true
-		dateLabel.isSkeletonable = true
 		coinVolatilityPersentage.isSkeletonable = true
 
 		lineChartView.chartDelegate = self
@@ -165,9 +160,6 @@ class AssetLineChart: UIView, LineChartDelegate {
 		lineChartView.pin(
 			.horizontalEdges
 		)
-		dateLabel.pin(
-			.relative(.centerY, 0, to: coinBalanceLabel, .centerY)
-		)
 
 		chartDateFilter.pin(
 			.horizontalEdges(padding: 16),
@@ -183,11 +175,9 @@ class AssetLineChart: UIView, LineChartDelegate {
 			.bottom(to: lineChartView, padding: 40)
 		)
 		NSLayoutConstraint.activate([
-			coinBalanceLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
-			dateLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
-			coinVolatilityPersentage.widthAnchor.constraint(greaterThanOrEqualToConstant: 40),
-			coinBalanceLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 28),
-			dateLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 28),
+			coinBalanceLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 110),
+			coinBalanceLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24),
+			coinVolatilityPersentage.widthAnchor.constraint(greaterThanOrEqualToConstant: 35),
 			coinVolatilityPersentage.heightAnchor.constraint(greaterThanOrEqualToConstant: 16),
 		])
 	}
@@ -196,6 +186,11 @@ class AssetLineChart: UIView, LineChartDelegate {
 		$chartVM.sink { chart in
 			if let chart {
 				self.reloadChartData(chart)
+				self.coinVolatilityPersentage.layer.cornerRadius = 0
+				self.coinBalanceLabel.layer.cornerRadius = 0
+			} else {
+				self.coinVolatilityPersentage.layer.cornerRadius = 8
+				self.coinBalanceLabel.layer.cornerRadius = 12
 			}
 		}.store(in: &cancellables)
 	}
@@ -205,6 +200,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 		lineChartView.showLoading()
 		loadingGradientView.alpha = 0.8
 		chartDateFilter.isEnabled = false
+		dateLabel.isHiddenInStackView = true
 	}
 
 	private func reloadChartData(_ chart: AssetChartViewModel) {
@@ -216,6 +212,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 		hideSkeletonView()
 		loadingGradientView.alpha = 0
 		chartDateFilter.isEnabled = true
+		dateLabel.isHiddenInStackView = false
 	}
 
 	@objc
