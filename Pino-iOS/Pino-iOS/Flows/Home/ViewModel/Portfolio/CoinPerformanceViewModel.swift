@@ -60,20 +60,22 @@ class CoinPerformanceViewModel {
 	private func updateCoinPerformanceInfo(chart: AssetChartViewModel) {
 		coinInfoVM.coinPerformanceInfo = CoinPerformanceInfoValues(
 			netProfit: "0",
-			ATH: allTimeHigh(chart: chart),
-			ATL: allTimeLow(chart: chart)
+			ATH: allTimeHigh(chart: chart) ?? "0",
+			ATL: allTimeLow(chart: chart) ?? "0"
 		)
 	}
 
-	private func allTimeHigh(chart: AssetChartViewModel) -> String {
+	private func allTimeHigh(chart: AssetChartViewModel) -> String? {
 		let networthList = chart.chartDataEntry.map { $0.y }
 		let maxNetworth = networthList.max()
-		return String(maxNetworth!)
+		guard let maxNetworth else { return nil }
+		return String(maxNetworth)
 	}
 
-	private func allTimeLow(chart: AssetChartViewModel) -> String {
+	private func allTimeLow(chart: AssetChartViewModel) -> String? {
 		let networthList = chart.chartDataEntry.map { $0.y }
 		let minNetworth = networthList.min()
-		return String(minNetworth!)
+		guard let minNetworth else { return nil }
+		return String(minNetworth)
 	}
 }
