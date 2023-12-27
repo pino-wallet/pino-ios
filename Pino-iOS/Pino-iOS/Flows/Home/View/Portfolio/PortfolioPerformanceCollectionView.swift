@@ -48,6 +48,8 @@ class PortfolioPerformanceCollectionView: UICollectionView {
 			forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
 			withReuseIdentifier: PortfolioPerformanceHeaderView.headerReuseID
 		)
+        
+        register(PortfolioFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: PortfolioFooterView.footerReuseID)
 
 		dataSource = self
 		delegate = self
@@ -115,6 +117,10 @@ extension PortfolioPerformanceCollectionView: UICollectionViewDataSource {
 			) as! PortfolioPerformanceHeaderView
 			chartHedear.portfolioPerformanceVM = portfolioPerformanceVM
 			return chartHedear
+        case UICollectionView.elementKindSectionFooter:
+            let chartFooter = dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PortfolioFooterView.footerReuseID, for: indexPath) as! PortfolioFooterView
+            chartFooter.footerVM = PortfolioFooterViewModel()
+            return chartFooter
 		default:
 			fatalError("Invalid element type")
 		}
@@ -137,4 +143,11 @@ extension PortfolioPerformanceCollectionView: UICollectionViewDataSource {
 			verticalFittingPriority: .fittingSizeLevel
 		)
 	}
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        if portfolioPerformanceVM.shareOfAssetsVM.isEmpty {
+            return CGSize(width: collectionView.frame.width - 32, height: 204)
+        }
+            return CGSize(width: 0, height: 0)
+    }
 }

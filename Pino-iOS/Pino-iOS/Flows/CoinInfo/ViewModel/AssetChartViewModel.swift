@@ -14,8 +14,10 @@ struct AssetChartViewModel {
 	public var dateFilter: ChartDateFilter
 
 	public var chartDataEntry: [ChartDataEntry] {
-		chartDataVM.map {
-			let timeStamp = $0.date!.timeIntervalSinceNow
+        chartDataVM.map {
+            guard let timeStamp = $0.date?.timeIntervalSinceNow else {
+                return ChartDataEntry(x: Date.now.timeIntervalSinceNow, y: $0.networth.doubleValue)
+            }
 			return ChartDataEntry(x: timeStamp, y: $0.networth.doubleValue)
 		}
 	}

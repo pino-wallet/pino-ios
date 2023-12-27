@@ -50,11 +50,15 @@ class PortfolioPerformanceHeaderView: UICollectionReusableView {
 	private func setupStyle() {
 		chartCardView.backgroundColor = .Pino.secondaryBackground
 
-		chartTitle.text = "Total value"
-		assetsTitle.text = "The share of assets"
+		chartTitle.text = "Total portfolio value"
+		assetsTitle.text = "Asset shares"
 
 		chartTitle.textColor = .Pino.label
 		assetsTitle.textColor = .Pino.label
+        
+        if portfolioPerformanceVM.shareOfAssetsVM.isEmpty {
+            assetsTitle.isHidden = true
+        }
 
 		chartTitle.font = .PinoStyle.semiboldTitle3
 		assetsTitle.font = .PinoStyle.semiboldTitle3
