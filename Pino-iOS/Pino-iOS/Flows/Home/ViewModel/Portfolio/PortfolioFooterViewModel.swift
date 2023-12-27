@@ -8,8 +8,9 @@
 import Foundation
 
 struct PortfolioFooterViewModel {
-    // MARK: - Public Properties
-    public let titleImageName = "no_assets"
-    public let titleText = "No asset"
-    public let descriptionText = "Your asset shares appears here"
+	// MARK: - Public Properties
+
+	public let titleImageName = "no_assets"
+	public let titleText = "No asset"
+	public let descriptionText = "Your asset shares appears here"
 }
