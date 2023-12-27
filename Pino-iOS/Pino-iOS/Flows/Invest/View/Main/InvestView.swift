@@ -184,7 +184,7 @@ class InvestView: UIView {
 
 		NSLayoutConstraint.activate([
 			totalInvestmentLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 30),
-			totalInvestmentLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 120),
+			totalInvestmentLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 160),
 		])
 	}
 
@@ -234,7 +234,7 @@ class InvestView: UIView {
 
 	private func showTotalInvestmentLoading() {
 		totalInvestmentLabel.layer.masksToBounds = true
-		showSkeletonView(backgroundColor: .Pino.green3)
+		showSkeletonView(backgroundColor: .Pino.green3, animationColor: .Pino.green2)
 	}
 
 	private func updateTotalInvestment(_ totalInvestments: String) {

@@ -120,7 +120,6 @@ class AssetsCollectionView: UICollectionView {
 
 	public func getHomeData() {
 		GlobalVariables.shared.fetchSharedInfo().done { _ in
-			self.hideSkeletonView()
 			self.refreshControl?.endRefreshing()
 		}.catch { error in
 			Toast.default(

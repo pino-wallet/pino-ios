@@ -13,8 +13,10 @@ class ActivityCollectionView: UICollectionView {
 
 	typealias openActivityDetailsClosureType = (_ activityDetails: ActivityCellViewModel) -> Void
 
-	// MARK: - Closures
+	// MARK: - Public properties
 
+	@Published
+	public var showLoading = true
 	public var openActivityDetailsClosure: openActivityDetailsClosureType
 
 	// MARK: - Private Properties
@@ -24,7 +26,6 @@ class ActivityCollectionView: UICollectionView {
 	private var separatedActivities: ActivityHelper.SeparatedActivitiesType = []
 	private var cancellables = Set<AnyCancellable>()
 	private var globalAssetsCancellable = Set<AnyCancellable>()
-	private var showLoading = true
 	private var globalAssetsList: [AssetViewModel]?
 
 	// MARK: - Initializers

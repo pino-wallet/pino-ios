@@ -24,6 +24,7 @@ class HomepageViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		assetsCollectionView.reloadData()
+		setupLoading()
 	}
 
 	override func viewDidLayoutSubviews() {
@@ -95,6 +96,16 @@ class HomepageViewController: UIViewController {
 	private func setupBindings() {
 		profileVM.$walletInfo.sink { walletInfo in
 			self.homeVM.walletInfo = walletInfo
+		}.store(in: &cancellables)
+	}
+
+	private func setupLoading() {
+		homeVM.$selectedAssetsList.sink { [weak self] assets in
+			if assets == nil {
+				self?.view.showGradientSkeletonView()
+			} else {
+				self?.view.hideGradientSkeletonView()
+			}
 		}.store(in: &cancellables)
 	}
 
