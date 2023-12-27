@@ -24,13 +24,13 @@ class ChartDateBuilder {
 	public func timeFrame() -> String {
 		switch dateFilter {
 		case .day:
-			return "Past day"
+			return "Last day"
 		case .week:
-			return "Past week"
+			return "Last week"
 		case .month:
-			return "Past month"
+			return "Last month"
 		case .year:
-			return "Past year"
+			return "Last year"
 		case .all:
 			return ""
 		}
