@@ -9,10 +9,14 @@ import PromiseKit
 import UIKit
 
 class CollateralIncreaseAmountViewController: UIViewController {
-    // MARK: - TypeAliases
-    typealias onDismissClosureType = (SendTransactionStatus) -> Void
-    // MARK: - Closures
-    private let onDismiss: onDismissClosureType
+	// MARK: - TypeAliases
+
+	typealias onDismissClosureType = (SendTransactionStatus) -> Void
+
+	// MARK: - Closures
+
+	private let onDismiss: onDismissClosureType
+
 	// MARK: - Private Properties
 
 	private let collateralIncreaseAmountVM: CollateralIncreaseAmountViewModel
@@ -44,9 +48,9 @@ class CollateralIncreaseAmountViewController: UIViewController {
 
 	// MARK: Initializers
 
-    init(collateralIncreaseAmountVM: CollateralIncreaseAmountViewModel, onDismiss: @escaping onDismissClosureType) {
+	init(collateralIncreaseAmountVM: CollateralIncreaseAmountViewModel, onDismiss: @escaping onDismissClosureType) {
 		self.collateralIncreaseAmountVM = collateralIncreaseAmountVM
-        self.onDismiss = onDismiss
+		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -106,9 +110,12 @@ class CollateralIncreaseAmountViewController: UIViewController {
 
 	private func pushToCollateralConfirmVC() {
 		let collateralConfirmVM = CollateralConfirmViewModel(collaterallIncreaseAmountVM: collateralIncreaseAmountVM)
-        let collateralConfirmVC = CollateralConfirmViewController(collateralConfirmVM: collateralConfirmVM, onDismiss: { pageStatus in
-            self.onDismiss(pageStatus)
-        })
+		let collateralConfirmVC = CollateralConfirmViewController(
+			collateralConfirmVM: collateralConfirmVM,
+			onDismiss: { pageStatus in
+				self.onDismiss(pageStatus)
+			}
+		)
 		navigationController?.pushViewController(collateralConfirmVC, animated: true)
 	}
 }

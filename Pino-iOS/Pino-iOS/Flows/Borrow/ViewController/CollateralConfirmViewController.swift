@@ -9,10 +9,14 @@ import UIKit
 import Web3
 
 class CollateralConfirmViewController: UIViewController {
-    // MARK: - TypeAliases
-    typealias onDismissClosureType = (SendTransactionStatus) -> Void
-    // MARK: - Closures
-    private let onDismiss: onDismissClosureType
+	// MARK: - TypeAliases
+
+	typealias onDismissClosureType = (SendTransactionStatus) -> Void
+
+	// MARK: - Closures
+
+	private let onDismiss: onDismissClosureType
+
 	// MARK: - Private Properties
 
 	private let collateralConfirmVM: CollateralConfirmViewModel
@@ -38,9 +42,9 @@ class CollateralConfirmViewController: UIViewController {
 
 	// MARK: - Initializers
 
-    init(collateralConfirmVM: CollateralConfirmViewModel, onDismiss: @escaping onDismissClosureType) {
+	init(collateralConfirmVM: CollateralConfirmViewModel, onDismiss: @escaping onDismissClosureType) {
 		self.collateralConfirmVM = collateralConfirmVM
-        self.onDismiss = onDismiss
+		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -77,9 +81,12 @@ class CollateralConfirmViewController: UIViewController {
 			transactions: depositTRXList,
 			transactionSentInfoText: "You collateralized \(collateralIncreaseAmountVM.tokenAmount.formattedNumberWithCamma) \(collateralIncreaseAmountVM.selectedToken.symbol) in \(collateralIncreaseAmountVM.borrowVM.selectedDexSystem.name) \(collateralIncreaseAmountVM.borrowVM.selectedDexSystem.version)."
 		)
-        let sendTransactionStatusVC = SendTransactionStatusViewController(sendStatusVM: sendTransactionStatusVM, onDismiss: { pageStatus in
-            self.onDismiss(pageStatus)
-        })
+		let sendTransactionStatusVC = SendTransactionStatusViewController(
+			sendStatusVM: sendTransactionStatusVM,
+			onDismiss: { pageStatus in
+				self.onDismiss(pageStatus)
+			}
+		)
 		present(sendTransactionStatusVC, animated: true)
 	}
 

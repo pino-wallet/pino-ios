@@ -9,10 +9,14 @@ import UIKit
 import Web3
 
 class WithdrawConfirmViewController: UIViewController {
-    // MARK: - TypeAliases
-    typealias onDismissClosureType = (SendTransactionStatus) -> Void
-    // MARK: - Closures
-    private let onDismiss: onDismissClosureType
+	// MARK: - TypeAliases
+
+	typealias onDismissClosureType = (SendTransactionStatus) -> Void
+
+	// MARK: - Closures
+
+	private let onDismiss: onDismissClosureType
+
 	// MARK: - Private Properties
 
 	private let withdrawConfirmVM: WithdrawConfirmViewModel
@@ -38,9 +42,9 @@ class WithdrawConfirmViewController: UIViewController {
 
 	// MARK: - Initializers
 
-    init(withdrawConfirmVM: WithdrawConfirmViewModel, onDismiss: @escaping onDismissClosureType) {
+	init(withdrawConfirmVM: WithdrawConfirmViewModel, onDismiss: @escaping onDismissClosureType) {
 		self.withdrawConfirmVM = withdrawConfirmVM
-        self.onDismiss = onDismiss
+		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -77,9 +81,12 @@ class WithdrawConfirmViewController: UIViewController {
 			transactions: withdrawTRXs,
 			transactionSentInfoText: "You withdrew  \(withdrawAmountVM.tokenAmount.formattedNumberWithCamma) \(withdrawAmountVM.selectedToken.symbol) from \(withdrawAmountVM.borrowVM.selectedDexSystem.name) \(withdrawAmountVM.borrowVM.selectedDexSystem.version)."
 		)
-		let sendTransactionStatusVC = SendTransactionStatusViewController(sendStatusVM: sendTransactionStatusVM, onDismiss: { pageStatus in
-            self.onDismiss(pageStatus)
-        })
+		let sendTransactionStatusVC = SendTransactionStatusViewController(
+			sendStatusVM: sendTransactionStatusVM,
+			onDismiss: { pageStatus in
+				self.onDismiss(pageStatus)
+			}
+		)
 		present(sendTransactionStatusVC, animated: true)
 	}
 

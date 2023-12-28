@@ -8,10 +8,14 @@
 import UIKit
 
 class BorrowingBoardViewController: UIViewController {
-    // MARK: - TypeAliases
-    typealias onDismissClosureType = (SendTransactionStatus) -> Void
-    // MARK: - Closures
-    private let onDismiss: onDismissClosureType
+	// MARK: - TypeAliases
+
+	typealias onDismissClosureType = (SendTransactionStatus) -> Void
+
+	// MARK: - Closures
+
+	private let onDismiss: onDismissClosureType
+
 	// MARK: - Private Properties
 
 	private var borrowVM: BorrowViewModel
@@ -39,7 +43,7 @@ class BorrowingBoardViewController: UIViewController {
 
 	init(borrowVM: BorrowViewModel, onDismiss: @escaping onDismissClosureType) {
 		self.borrowVM = borrowVM
-        self.onDismiss = onDismiss
+		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -79,9 +83,12 @@ class BorrowingBoardViewController: UIViewController {
 
 	private func presentBorrowLoanDetailsVC(selectedTokenID: String) {
 		let borrowLoanDetailsVM = BorrowLoanDetailsViewModel(borrowVM: borrowVM, userBorrowedTokenID: selectedTokenID)
-        let borrowLoanDetailsVC = BorrowLoanDetailsViewController(borrowLoanDetailsVM: borrowLoanDetailsVM, onDismiss: { pageStatus in
-            self.onDismiss(pageStatus)
-        })
+		let borrowLoanDetailsVC = BorrowLoanDetailsViewController(
+			borrowLoanDetailsVM: borrowLoanDetailsVM,
+			onDismiss: { pageStatus in
+				self.onDismiss(pageStatus)
+			}
+		)
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [borrowLoanDetailsVC]
 		present(navigationVC, animated: true)
@@ -89,9 +96,12 @@ class BorrowingBoardViewController: UIViewController {
 
 	private func pushToBorrowIncreaseAmountPage(selectedToken: AssetViewModel) {
 		let borrowIncreaseAmountVM = BorrowIncreaseAmountViewModel(selectedToken: selectedToken, borrowVM: borrowVM)
-        let borrowIncreaseAmountVC = BorrowIncreaseAmountViewController(borrowIncreaseAmountVM: borrowIncreaseAmountVM, onDismiss: { pageStatus in
-            self.onDismiss(pageStatus)
-        })
+		let borrowIncreaseAmountVC = BorrowIncreaseAmountViewController(
+			borrowIncreaseAmountVM: borrowIncreaseAmountVM,
+			onDismiss: { pageStatus in
+				self.onDismiss(pageStatus)
+			}
+		)
 		navigationController?.pushViewController(borrowIncreaseAmountVC, animated: true)
 	}
 

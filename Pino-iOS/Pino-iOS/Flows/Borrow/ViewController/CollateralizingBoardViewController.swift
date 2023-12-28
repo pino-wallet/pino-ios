@@ -8,10 +8,14 @@
 import UIKit
 
 class CollateralizingBoardViewController: UIViewController {
-    // MARK: - TypeAliases
-    typealias onDismissClosureType = (SendTransactionStatus) -> Void
-    // MARK: - Closures
-    private let onDismiss: onDismissClosureType
+	// MARK: - TypeAliases
+
+	typealias onDismissClosureType = (SendTransactionStatus) -> Void
+
+	// MARK: - Closures
+
+	private let onDismiss: onDismissClosureType
+
 	// MARK: - Private Properties
 
 	private var borrowVM: BorrowViewModel
@@ -37,9 +41,9 @@ class CollateralizingBoardViewController: UIViewController {
 
 	// MARK: - Initializers
 
-    init(borrowVM: BorrowViewModel, onDismiss: @escaping onDismissClosureType) {
+	init(borrowVM: BorrowViewModel, onDismiss: @escaping onDismissClosureType) {
 		self.borrowVM = borrowVM
-        self.onDismiss = onDismiss
+		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -83,9 +87,12 @@ class CollateralizingBoardViewController: UIViewController {
 
 	private func presentCollateralDetailsVC(selectedAssetID: String) {
 		let collateralDetailVM = CollateralDetailsViewModel(borrowVM: borrowVM, collateralledTokenID: selectedAssetID)
-        let collateralDetailsVC = CollateralDetailsViewController(collateralDetailsVM: collateralDetailVM, onDismiss: { pageStatus in
-            self.onDismiss(pageStatus)
-        })
+		let collateralDetailsVC = CollateralDetailsViewController(
+			collateralDetailsVM: collateralDetailVM,
+			onDismiss: { pageStatus in
+				self.onDismiss(pageStatus)
+			}
+		)
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [collateralDetailsVC]
 		present(navigationVC, animated: true)
@@ -98,9 +105,12 @@ class CollateralizingBoardViewController: UIViewController {
 			collateralMode: .create
 		)
 		let collateralIncreaseAmountVC =
-        CollateralIncreaseAmountViewController(collateralIncreaseAmountVM: collateralIncreaseAmountVM, onDismiss: { pageStatus in
-            self.onDismiss(pageStatus)
-        })
+			CollateralIncreaseAmountViewController(
+				collateralIncreaseAmountVM: collateralIncreaseAmountVM,
+				onDismiss: { pageStatus in
+					self.onDismiss(pageStatus)
+				}
+			)
 		navigationController?.pushViewController(collateralIncreaseAmountVC, animated: true)
 	}
 

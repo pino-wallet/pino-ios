@@ -8,10 +8,14 @@
 import UIKit
 
 class BorrowLoanDetailsViewController: UIViewController {
-    // MARK: - TypeAliases
-    typealias onDismissClosureType = (SendTransactionStatus) -> Void
-    // MARK: - Closures
-    private let onDismiss: onDismissClosureType
+	// MARK: - TypeAliases
+
+	typealias onDismissClosureType = (SendTransactionStatus) -> Void
+
+	// MARK: - Closures
+
+	private let onDismiss: onDismissClosureType
+
 	// MARK: - Private Properties
 
 	private let borrowLoanDetailsVM: BorrowLoanDetailsViewModel
@@ -39,7 +43,7 @@ class BorrowLoanDetailsViewController: UIViewController {
 
 	init(borrowLoanDetailsVM: BorrowLoanDetailsViewModel, onDismiss: @escaping onDismissClosureType) {
 		self.borrowLoanDetailsVM = borrowLoanDetailsVM
-        self.onDismiss = onDismiss
+		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -81,9 +85,12 @@ class BorrowLoanDetailsViewController: UIViewController {
 			selectedToken: selectedToken,
 			borrowVM: borrowLoanDetailsVM.borrowVM
 		)
-        let borrowIncreaseAmountVC = BorrowIncreaseAmountViewController(borrowIncreaseAmountVM: borrowIncreaseAmountVM, onDismiss: { pageStatus in
-            self.onDismiss(pageStatus)
-        })
+		let borrowIncreaseAmountVC = BorrowIncreaseAmountViewController(
+			borrowIncreaseAmountVM: borrowIncreaseAmountVM,
+			onDismiss: { pageStatus in
+				self.onDismiss(pageStatus)
+			}
+		)
 		navigationController?.pushViewController(borrowIncreaseAmountVC, animated: true)
 	}
 
@@ -92,9 +99,9 @@ class BorrowLoanDetailsViewController: UIViewController {
 			borrowVM: borrowLoanDetailsVM.borrowVM,
 			userBorrowedTokenID: selectedTokenID
 		)
-        let repayAmountVC = RepayAmountViewController(repayAmountVM: repayAmountVM, onDismiss: { pageStatus in
-            self.onDismiss(pageStatus)
-        })
+		let repayAmountVC = RepayAmountViewController(repayAmountVM: repayAmountVM, onDismiss: { pageStatus in
+			self.onDismiss(pageStatus)
+		})
 		navigationController?.pushViewController(repayAmountVC, animated: true)
 	}
 

@@ -10,10 +10,14 @@ import UIKit
 import Web3_Utility
 
 class RepayAmountViewController: UIViewController {
-    // MARK: - TypeAliases
-    typealias onDismissClosureType = (SendTransactionStatus) -> Void
-    // MARK: - Closures
-    private let onDismiss: onDismissClosureType
+	// MARK: - TypeAliases
+
+	typealias onDismissClosureType = (SendTransactionStatus) -> Void
+
+	// MARK: - Closures
+
+	private let onDismiss: onDismissClosureType
+
 	// MARK: - Private Properties
 
 	private let walletManager = PinoWalletManager()
@@ -34,9 +38,9 @@ class RepayAmountViewController: UIViewController {
 
 	// MARK: - Initializers
 
-    init(repayAmountVM: RepayAmountViewModel, onDismiss: @escaping onDismissClosureType) {
+	init(repayAmountVM: RepayAmountViewModel, onDismiss: @escaping onDismissClosureType) {
 		self.repayAmountVM = repayAmountVM
-        self.onDismiss = onDismiss
+		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -103,9 +107,9 @@ class RepayAmountViewController: UIViewController {
 
 	private func pushToRepayConfirmVC() {
 		let repayConfirmVM = RepayConfirmViewModel(repayamountVM: repayAmountVM)
-        let repayConfirmVC = RepayConfirmViewController(repayConfirmVM: repayConfirmVM, onDismiss: { pageStatus in
-            self.onDismiss(pageStatus)
-        })
+		let repayConfirmVC = RepayConfirmViewController(repayConfirmVM: repayConfirmVM, onDismiss: { pageStatus in
+			self.onDismiss(pageStatus)
+		})
 		navigationController?.pushViewController(repayConfirmVC, animated: true)
 	}
 }

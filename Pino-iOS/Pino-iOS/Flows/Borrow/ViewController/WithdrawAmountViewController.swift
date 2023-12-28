@@ -8,10 +8,14 @@
 import UIKit
 
 class WithdrawAmountViewController: UIViewController {
-    // MARK: - TypeAliases
-    typealias onDismissClosureType = (SendTransactionStatus) -> Void
-    // MARK: - Closures
-    private let onDismiss: onDismissClosureType
+	// MARK: - TypeAliases
+
+	typealias onDismissClosureType = (SendTransactionStatus) -> Void
+
+	// MARK: - Closures
+
+	private let onDismiss: onDismissClosureType
+
 	// MARK: - Private Properties
 
 	private let withdrawAmountVM: WithdrawAmountViewModel
@@ -30,9 +34,9 @@ class WithdrawAmountViewController: UIViewController {
 
 	// MARK: - Initializers
 
-    init(withdrawAmountVM: WithdrawAmountViewModel, onDismiss: @escaping onDismissClosureType) {
+	init(withdrawAmountVM: WithdrawAmountViewModel, onDismiss: @escaping onDismissClosureType) {
 		self.withdrawAmountVM = withdrawAmountVM
-        self.onDismiss = onDismiss
+		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -89,9 +93,12 @@ class WithdrawAmountViewController: UIViewController {
 
 	private func pushToWithdrawConfirmVC() {
 		let withdrawConfirmVM = WithdrawConfirmViewModel(withdrawAmountVM: withdrawAmountVM)
-        let withdrawConfirmVC = WithdrawConfirmViewController(withdrawConfirmVM: withdrawConfirmVM, onDismiss: { pageStatus in
-            self.onDismiss(pageStatus)
-        })
+		let withdrawConfirmVC = WithdrawConfirmViewController(
+			withdrawConfirmVM: withdrawConfirmVM,
+			onDismiss: { pageStatus in
+				self.onDismiss(pageStatus)
+			}
+		)
 		navigationController?.pushViewController(withdrawConfirmVC, animated: true)
 	}
 }
