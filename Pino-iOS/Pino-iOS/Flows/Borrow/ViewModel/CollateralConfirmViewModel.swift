@@ -123,15 +123,77 @@ class CollateralConfirmViewModel {
 		)
 	}
 
-	private func createCollateralPendingActivity(txHash: String) {
-		var activityType: String {
-			switch collaterallIncreaseAmountVM.collateralMode {
-			case .increase:
-				return "increase_collateral"
-			case .create:
-				return "create_collateral"
+	private func createCollateralPendingActivity(txHash: String, isEnabledCollateral: Bool) {
+		var activityType: String!
+		switch collaterallIncreaseAmountVM.collateralMode {
+		case .increase:
+			activityType = "increase_collateral"
+		case .create:
+			activityType = "create_collateral"
+		}
+		let zeroAmountBigNumber = 0.bigNumber
+		var gasUsed: String
+		var gasPrice: String
+		switch collaterallIncreaseAmountVM.borrowVM.selectedDexSystem {
+		case .aave:
+			gasUsed = aaveCollateralManager.depositGasInfo!.increasedGasLimit!.description
+			gasPrice = aaveCollateralManager.depositGasInfo!.maxFeePerGas.description
+		case .compound:
+			if isEnabledCollateral {
+				gasUsed = (
+					compoundDepositManager.collateralCheckGasInfo!.increasedGasLimit
+				)!.description
+				gasPrice = (
+					compoundDepositManager.collateralCheckGasInfo!.baseFeeWithPriorityFee
+				)
+				.description
+			} else {
+				gasUsed = (
+					compoundDepositManager.depositGasInfo!
+						.increasedGasLimit!
+				).description
+				gasPrice = (
+					compoundDepositManager.depositGasInfo!
+						.baseFeeWithPriorityFee
+				)
+				.description
+			}
+		default:
+			fatalError("Unknown dex type")
+		}
+		var activityDate: Date {
+			if isEnabledCollateral {
+				Date() + 1
+			} else {
+				Date()
 			}
 		}
+
+		coredataManager.addNewCollateralActivity(
+			activityModel: ActivityCollateralModel(
+				txHash: txHash,
+				type: activityType,
+				detail: CollateralActivityDetails(
+					activityProtocol: selectedDexSystem.type,
+					tokens: [ActivityTokenModel(
+						amount: Utilities
+							.parseToBigUInt(collaterallIncreaseAmountVM.tokenAmount, units: .custom(selectedToken.decimal))!
+							.description,
+						tokenID: selectedToken.id
+					)]
+				),
+				fromAddress: "",
+				toAddress: "",
+				blockTime: activityHelper.getServerFormattedStringDate(date: activityDate),
+				gasUsed: gasUsed,
+				gasPrice: gasPrice
+			),
+			accountAddress: walletManager.currentAccount.eip55Address
+		)
+		PendingActivitiesManager.shared.startActivityPendingRequests()
+	}
+
+	private func createInvestPendingActivity(txHash: String) {
 		let zeroAmountBigNumber = 0.bigNumber
 		var gasUsed: String
 		var gasPrice: String
@@ -154,19 +216,16 @@ class CollateralConfirmViewModel {
 		default:
 			fatalError("Unknown dex type")
 		}
-		coredataManager.addNewCollateralActivity(
-			activityModel: ActivityCollateralModel(
+		coredataManager.addNewInvestActivity(
+			activityModel: ActivityInvestModel(
 				txHash: txHash,
-				type: activityType,
-				detail: CollateralActivityDetails(
-					activityProtocol: selectedDexSystem.type,
-					tokens: [ActivityTokenModel(
-						amount: Utilities
-							.parseToBigUInt(collaterallIncreaseAmountVM.tokenAmount, units: .custom(selectedToken.decimal))!
-							.description,
-						tokenID: selectedToken.id
-					)]
-				),
+				type: "create_investment",
+				detail: InvestmentActivityDetails(tokens: [ActivityTokenModel(
+					amount: Utilities
+						.parseToBigUInt(collaterallIncreaseAmountVM.tokenAmount, units: .custom(selectedToken.decimal))!
+						.description,
+					tokenID: selectedToken.id
+				)], poolId: "", activityProtocol: selectedDexSystem.type, nftId: nil),
 				fromAddress: "",
 				toAddress: "",
 				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
@@ -244,21 +303,25 @@ class CollateralConfirmViewModel {
 				return
 			}
 			let depositTransaction = SendTransactionViewModel(transaction: depositTRX) { pendingActivityTXHash in
-				self.createCollateralPendingActivity(txHash: pendingActivityTXHash)
+				self.createCollateralPendingActivity(txHash: pendingActivityTXHash, isEnabledCollateral: false)
 			}
 			confirmCollateralClosure([depositTransaction])
 		case .compound:
 			guard let depositTrx = compoundDepositManager.depositTrx else { return }
-			let depositTransaction = SendTransactionViewModel(transaction: depositTrx) { [self] pendingActivityTXHash in
-				createCollateralPendingActivity(txHash: pendingActivityTXHash)
-			}
+			var depositTransaction: SendTransactionViewModel!
 			if let collateralCheckTrx = compoundDepositManager.collateralCheckTrx {
+				depositTransaction = SendTransactionViewModel(transaction: depositTrx) { [self] pendingActivityTXHash in
+					createInvestPendingActivity(txHash: pendingActivityTXHash)
+				}
 				let collateralCheckTransaction =
 					SendTransactionViewModel(transaction: collateralCheckTrx) { pendingActivityTXHash in
-						#warning("Check enter/exit market ativity must be added or not")
+						self.createCollateralPendingActivity(txHash: pendingActivityTXHash, isEnabledCollateral: true)
 					}
 				confirmCollateralClosure([depositTransaction, collateralCheckTransaction])
 			} else {
+				depositTransaction = SendTransactionViewModel(transaction: depositTrx) { [self] pendingActivityTXHash in
+					createCollateralPendingActivity(txHash: pendingActivityTXHash, isEnabledCollateral: false)
+				}
 				confirmCollateralClosure([depositTransaction])
 			}
 		default:

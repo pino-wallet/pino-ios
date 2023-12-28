@@ -8,6 +8,14 @@
 import UIKit
 
 class CollateralDetailsViewController: UIViewController {
+	// MARK: - TypeAliases
+
+	typealias onDismissClosureType = (SendTransactionStatus) -> Void
+
+	// MARK: - Closures
+
+	private let onDismiss: onDismissClosureType
+
 	// MARK: - Private Properties
 
 	private let collateralDetailsVM: CollateralDetailsViewModel
@@ -26,8 +34,9 @@ class CollateralDetailsViewController: UIViewController {
 
 	// MARK: - Initializers
 
-	init(collateralDetailsVM: CollateralDetailsViewModel) {
+	init(collateralDetailsVM: CollateralDetailsViewModel, onDismiss: @escaping onDismissClosureType) {
 		self.collateralDetailsVM = collateralDetailsVM
+		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -69,7 +78,12 @@ class CollateralDetailsViewController: UIViewController {
 			borrowVM: collateralDetailsVM.borrowVM, collateralMode: .increase
 		)
 		let collateralIncreaseAmountVC =
-			CollateralIncreaseAmountViewController(collateralIncreaseAmountVM: collateralIncreaseAmountVM)
+			CollateralIncreaseAmountViewController(
+				collateralIncreaseAmountVM: collateralIncreaseAmountVM,
+				onDismiss: { pageStatus in
+					self.onDismiss(pageStatus)
+				}
+			)
 		navigationController?.pushViewController(collateralIncreaseAmountVC, animated: true)
 	}
 
@@ -78,7 +92,12 @@ class CollateralDetailsViewController: UIViewController {
 			borrowVM: collateralDetailsVM.borrowVM, userCollateralledTokenID: collateralDetailsVM
 				.collateralledTokenID
 		)
-		let withdrawAmountVC = WithdrawAmountViewController(withdrawAmountVM: withdrawAmountVM)
+		let withdrawAmountVC = WithdrawAmountViewController(
+			withdrawAmountVM: withdrawAmountVM,
+			onDismiss: { pageStatus in
+				self.onDismiss(pageStatus)
+			}
+		)
 		navigationController?.pushViewController(withdrawAmountVC, animated: true)
 	}
 
