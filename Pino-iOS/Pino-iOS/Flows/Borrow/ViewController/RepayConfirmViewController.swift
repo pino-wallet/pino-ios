@@ -9,6 +9,10 @@ import UIKit
 import Web3
 
 class RepayConfirmViewController: UIViewController {
+    // MARK: - TypeAliases
+    typealias onDismissClosureType = (SendTransactionStatus) -> Void
+    // MARK: - Closures
+    private let onDismiss: onDismissClosureType
 	// MARK: - Private Properties
 
 	private let repayConfirmVM: RepayConfirmViewModel
@@ -34,8 +38,9 @@ class RepayConfirmViewController: UIViewController {
 
 	// MARK: - Initializers
 
-	init(repayConfirmVM: RepayConfirmViewModel) {
+    init(repayConfirmVM: RepayConfirmViewModel, onDismiss: @escaping onDismissClosureType) {
 		self.repayConfirmVM = repayConfirmVM
+        self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -67,7 +72,9 @@ class RepayConfirmViewController: UIViewController {
 			transactions: repayTRXs,
 			transactionSentInfoText: "You repaid \(repayAmountVM.tokenAmount.formattedNumberWithCamma) \(repayAmountVM.selectedToken.symbol) to \(repayAmountVM.borrowVM.selectedDexSystem.name) \(repayAmountVM.borrowVM.selectedDexSystem.version)."
 		)
-		let sendTransactionStatusVC = SendTransactionStatusViewController(sendStatusVM: sendTransactionStatusVM)
+        let sendTransactionStatusVC = SendTransactionStatusViewController(sendStatusVM: sendTransactionStatusVM, onDismiss: { pageStatus in
+            self.onDismiss(pageStatus)
+        })
 		present(sendTransactionStatusVC, animated: true)
 	}
 

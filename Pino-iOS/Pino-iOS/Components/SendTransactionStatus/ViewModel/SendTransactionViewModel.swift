@@ -20,10 +20,11 @@ class SendTransactionViewModel {
 	private var cancellables = Set<AnyCancellable>()
 	private var requestTimer: Timer?
 	private var addPendingActivityClosure: (_ txHash: String) -> Void = { _ in }
+    
 
 	// MARK: Initializers
 
-	init(transaction: EthereumSignedTransaction, addPendingActivityClosure: @escaping (_: String) -> Void) {
+    init(transaction: EthereumSignedTransaction, addPendingActivityClosure: @escaping (_: String) -> Void) {
 		self.transaction = transaction
 		self.addPendingActivityClosure = addPendingActivityClosure
 	}

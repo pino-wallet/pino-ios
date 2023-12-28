@@ -68,14 +68,18 @@ class BorrowViewController: UIViewController {
 	}
 
 	private func presentBorrowingBoard() {
-		let borrowingBoardVC = BorrowingBoardViewController(borrowVM: borrowVM)
+        let borrowingBoardVC = BorrowingBoardViewController(borrowVM: borrowVM, onDismiss: { pageStatus in
+            self.dismissAfterTransaction(pageStatus: pageStatus)
+        })
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [borrowingBoardVC]
 		present(navigationVC, animated: true)
 	}
 
 	private func presentCollateralizingBoard() {
-		let collateralizingBoardVC = CollateralizingBoardViewController(borrowVM: borrowVM)
+        let collateralizingBoardVC = CollateralizingBoardViewController(borrowVM: borrowVM, onDismiss: { pageStatus in
+            self.dismissAfterTransaction(pageStatus: pageStatus)
+        })
 		let navigationVC = UINavigationController()
 		navigationVC.viewControllers = [collateralizingBoardVC]
 		present(navigationVC, animated: true)
@@ -102,6 +106,13 @@ class BorrowViewController: UIViewController {
 			present(tutorialPage, animated: true)
 		}
 	}
+    
+    private func dismissAfterTransaction(pageStatus: SendTransactionStatus) {
+        if pageStatus == .pending {
+                    self.tabBarController?.selectedIndex = 4
+                  }
+                  self.dismiss(animated: true)
+    }
 
 	@objc
 	private func dismissHealthScore() {

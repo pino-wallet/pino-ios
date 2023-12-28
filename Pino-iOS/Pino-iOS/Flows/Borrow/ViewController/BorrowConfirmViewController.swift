@@ -9,6 +9,10 @@ import UIKit
 import Web3
 
 class BorrowConfirmViewController: UIViewController {
+    // MARK: - TypeAliases
+    typealias onDismissClosureType = (SendTransactionStatus) -> Void
+    // MARK: - Closures
+    private let onDismiss: onDismissClosureType
 	// MARK: - Private Properties
 
 	private let borrowConfirmVM: BorrowConfirmViewModel
@@ -34,8 +38,9 @@ class BorrowConfirmViewController: UIViewController {
 
 	// MARK: - Initializers
 
-	init(borrowConfirmVM: BorrowConfirmViewModel) {
+	init(borrowConfirmVM: BorrowConfirmViewModel, onDismiss: @escaping onDismissClosureType) {
 		self.borrowConfirmVM = borrowConfirmVM
+        self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -76,7 +81,9 @@ class BorrowConfirmViewController: UIViewController {
 			transactions: borrowTRXs,
 			transactionSentInfoText: "You borrowed \(borrowIncreaseAmountVM.tokenAmount.formattedNumberWithCamma) \(borrowIncreaseAmountVM.selectedToken.symbol) from \(borrowIncreaseAmountVM.borrowVM.selectedDexSystem.name) \(borrowIncreaseAmountVM.borrowVM.selectedDexSystem.version)."
 		)
-		let sendTransactionStatusVC = SendTransactionStatusViewController(sendStatusVM: sendTransactionStatusVM)
+        let sendTransactionStatusVC = SendTransactionStatusViewController(sendStatusVM: sendTransactionStatusVM, onDismiss: { pageStatus in
+            self.onDismiss(pageStatus)
+        })
 		present(sendTransactionStatusVC, animated: true)
 	}
 }

@@ -45,7 +45,7 @@ class SendTransactionStatusViewModel {
 
 	private func sendTx() {
 		var sendTXPromiss: [Promise<SendTransactionStatus>] = []
-		transactions.forEach { transaction in
+        transactions.forEach { transaction in
 			sendTXPromiss.append(transaction.sendTx())
 		}
 		when(fulfilled: sendTXPromiss).done { transactionStatus in

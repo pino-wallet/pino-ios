@@ -8,6 +8,10 @@
 import UIKit
 
 class BorrowIncreaseAmountViewController: UIViewController {
+    // MARK: - TypeAliases
+    typealias onDismissClosureType = (SendTransactionStatus) -> Void
+    // MARK: - Closures
+    private let onDismiss: onDismissClosureType
 	// MARK: - Private Properties
 
 	private let borrowIncreaseAmountVM: BorrowIncreaseAmountViewModel
@@ -26,8 +30,9 @@ class BorrowIncreaseAmountViewController: UIViewController {
 
 	// MARK: - Initializers
 
-	init(borrowIncreaseAmountVM: BorrowIncreaseAmountViewModel) {
+	init(borrowIncreaseAmountVM: BorrowIncreaseAmountViewModel, onDismiss: @escaping onDismissClosureType) {
 		self.borrowIncreaseAmountVM = borrowIncreaseAmountVM
+        self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -55,7 +60,9 @@ class BorrowIncreaseAmountViewController: UIViewController {
 
 	private func pushToBorrowConfirmVC() {
 		let borrowConfirmVM = BorrowConfirmViewModel(borrowIncreaseAmountVM: borrowIncreaseAmountVM)
-		let borrowConfirmVC = BorrowConfirmViewController(borrowConfirmVM: borrowConfirmVM)
+        let borrowConfirmVC = BorrowConfirmViewController(borrowConfirmVM: borrowConfirmVM, onDismiss: { pageStatus in
+            self.onDismiss(pageStatus)
+        })
 		navigationController?.pushViewController(borrowConfirmVC, animated: true)
 	}
 }
