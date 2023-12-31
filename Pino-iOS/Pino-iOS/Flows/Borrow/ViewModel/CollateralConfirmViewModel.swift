@@ -200,7 +200,7 @@ class CollateralConfirmViewModel {
 		switch collaterallIncreaseAmountVM.borrowVM.selectedDexSystem {
 		case .aave:
 			gasUsed = aaveCollateralManager.depositGasInfo!.increasedGasLimit!.description
-			gasPrice = aaveCollateralManager.depositGasInfo!.maxFeePerGas.description
+			gasPrice = aaveCollateralManager.depositGasInfo!.baseFeeWithPriorityFee.description
 		case .compound:
 			gasUsed = (
 				compoundDepositManager.depositGasInfo!

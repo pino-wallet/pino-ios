@@ -26,4 +26,10 @@ extension PinoRightSideImageButton.Style {
 		backgroundColor: .Pino.clear,
 		borderColor: .clear
 	)
+    
+    public static let deactive = PinoRightSideImageButton.Style(
+        titleColor: .Pino.gray2,
+        backgroundColor: .Pino.gray5,
+        borderColor: .Pino.clear
+    )
 }

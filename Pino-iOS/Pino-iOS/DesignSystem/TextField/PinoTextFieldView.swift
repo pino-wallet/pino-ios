@@ -14,6 +14,7 @@ public class PinoTextFieldView: UIView {
 	public var textDidChange: (() -> Void)?
 	public var editingBegin: (() -> Void)?
 	public var editingEnd: (() -> Void)?
+    public var validationPattern: () -> Bool = { return true }
 
 	// MARK: - Private Properties
 
@@ -30,6 +31,8 @@ public class PinoTextFieldView: UIView {
 			updateStyle()
 		}
 	}
+    
+    public var pattern: Pattern?
 
 	public var returnKeyType: UIReturnKeyType {
 		didSet {
@@ -190,6 +193,18 @@ extension PinoTextFieldView: UITextFieldDelegate {
 		}
 		return true
 	}
+    
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let pattern else {
+            return true
+        }
+        switch pattern {
+        case .number:
+            return textField.enteredNumberPatternIsValid(charactersRange: range, replacementString: string)
+        case .englishNumbersAndLetters:
+            return textField.enteredInviteCodePatternIsValid(charactersRange: range, replacementString: string)
+        }
+    }
 }
 
 extension UITextField {
