@@ -15,9 +15,9 @@ extension PinoTextFieldView {
 		case customIcon(UIView)
 		case pending
 	}
-    
-    public enum Pattern {
-        case number
-        case englishNumbersAndLetters
-    }
+
+	public enum Pattern {
+		case number
+		case englishNumbersAndLetters
+	}
 }
