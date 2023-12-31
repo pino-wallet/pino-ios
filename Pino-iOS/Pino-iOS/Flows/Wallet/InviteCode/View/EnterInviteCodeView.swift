@@ -12,7 +12,7 @@ class EnterInviteCodeView: UIView, UITextFieldDelegate {
 	// MARK: - Closures
 
 	private let dismissViewClosure: () -> Void
-    private let presentGetInviteCodeClosure: () -> Void
+	private let presentGetInviteCodeClosure: () -> Void
 
 	// MARK: - Private Properties
 
@@ -34,10 +34,14 @@ class EnterInviteCodeView: UIView, UITextFieldDelegate {
 
 	// MARK: - Initializers
 
-    init(enterInviteCodeVM: EnterInviteCodeViewModel, dismissViewClosure: @escaping () -> Void, presentGetInviteCodeClosure: @escaping () -> Void) {
+	init(
+		enterInviteCodeVM: EnterInviteCodeViewModel,
+		dismissViewClosure: @escaping () -> Void,
+		presentGetInviteCodeClosure: @escaping () -> Void
+	) {
 		self.enterInviteCodeVM = enterInviteCodeVM
 		self.dismissViewClosure = dismissViewClosure
-        self.presentGetInviteCodeClosure = presentGetInviteCodeClosure
+		self.presentGetInviteCodeClosure = presentGetInviteCodeClosure
 
 		super.init(frame: .zero)
 
@@ -64,8 +68,8 @@ class EnterInviteCodeView: UIView, UITextFieldDelegate {
 		codeTextField.pattern = .englishNumbersAndLetters
 
 		navigationDismissButton.addTarget(self, action: #selector(onDismissSelf), for: .touchUpInside)
-        
-        getCodeButton.addTarget(self, action: #selector(onGetInviteCode), for: .touchUpInside)
+
+		getCodeButton.addTarget(self, action: #selector(onGetInviteCode), for: .touchUpInside)
 
 		navigationBarRightSideView.addSubview(navigationDismissButton)
 
@@ -132,10 +136,11 @@ class EnterInviteCodeView: UIView, UITextFieldDelegate {
 	private func onDismissSelf() {
 		dismissViewClosure()
 	}
-    
-    @objc private func onGetInviteCode() {
-        presentGetInviteCodeClosure()
-    }
+
+	@objc
+	private func onGetInviteCode() {
+		presentGetInviteCodeClosure()
+	}
 }
 
 // MARK: - Keyboard Functions
