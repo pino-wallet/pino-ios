@@ -29,7 +29,6 @@ class BorrowViewController: UIViewController {
 		if borrowVM.userBorrowingDetails == nil {
 			borrowView.showLoading()
 		}
-		showTutorial()
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {
@@ -95,16 +94,6 @@ class BorrowViewController: UIViewController {
 			self.healthScoreSystemVC.view.superview?.subviews[0].addGestureRecognizer(disMissTapGesture)
 			self.healthScoreSystemVC.view.superview?.subviews[0].isUserInteractionEnabled = true
 		})
-	}
-
-	private func showTutorial() {
-		if !UserDefaults.standard.bool(forKey: "hasSeenBorrowTut") {
-			let tutorialPage = TutorialViewController(tutorialType: .borrow) {
-				self.dismiss(animated: true)
-			}
-			tutorialPage.modalPresentationStyle = .overFullScreen
-			present(tutorialPage, animated: true)
-		}
 	}
 
 	private func dismissAfterTransaction(pageStatus: SendTransactionStatus) {

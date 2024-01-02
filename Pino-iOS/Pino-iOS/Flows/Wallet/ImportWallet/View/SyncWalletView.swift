@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 class SyncWalletView: UIView {
+    // MARK: - Closures
+    private let presentTutorialPage: () -> Void
 	// MARK: - Private Properties
 
 	private let titleImageView = UIImageView()
@@ -25,8 +27,9 @@ class SyncWalletView: UIView {
 
 	// MARK: - Initializers
 
-	init(syncWalletVM: SyncWalletViewModel) {
+    init(syncWalletVM: SyncWalletViewModel, presentTutorialPage: @escaping () -> Void) {
 		self.syncWalletVM = syncWalletVM
+        self.presentTutorialPage = presentTutorialPage
 
 		super.init(frame: .zero)
 
@@ -42,6 +45,8 @@ class SyncWalletView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
+        exploreButton.addTarget(self, action: #selector(onExpolePinoTap), for: .touchUpInside)
+        
 		exploreStackView.addArrangedSubview(exploreTitleLabel)
 		exploreStackView.addArrangedSubview(exploreButton)
 
@@ -106,6 +111,10 @@ class SyncWalletView: UIView {
 		titleImageView.pin(.fixedWidth(181), .fixedHeight(181))
 		exploreStackView.pin(.horizontalEdges(padding: 16), .bottom(to: layoutMarginsGuide, padding: 12))
 	}
+    
+    @objc private func onExpolePinoTap() {
+        presentTutorialPage()
+    }
 
 	// MARK: - Public Properties
 
@@ -118,4 +127,5 @@ class SyncWalletView: UIView {
 			#warning("we should use this to go to next page")
 		})
 	}
+    
 }

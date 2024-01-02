@@ -21,7 +21,6 @@ class InvestViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		showTutorial()
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -92,15 +91,5 @@ class InvestViewController: UIViewController {
 
 	private func startInvesting() {
 		openInvestmentBoard()
-	}
-
-	private func showTutorial() {
-		if !UserDefaults.standard.bool(forKey: "hasSeenInvestTut") {
-			let tutorialPage = TutorialViewController(tutorialType: .invest) {
-				self.dismiss(animated: true)
-			}
-			tutorialPage.modalPresentationStyle = .overFullScreen
-			present(tutorialPage, animated: true)
-		}
 	}
 }

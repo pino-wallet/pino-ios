@@ -11,13 +11,11 @@ class TutorialViewController: UIViewController {
 	// MARK: Private Properties
 
 	private var tutorialView: TutorialView!
-	private var tutType: TutorialType
 	private var watchedTutorial: () -> Void
 
 	// MARK: Initializers
 
-	init(tutorialType: TutorialType, completion: @escaping () -> Void) {
-		self.tutType = tutorialType
+	init(completion: @escaping () -> Void) {
 		self.watchedTutorial = completion
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -30,14 +28,6 @@ class TutorialViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		switch tutType {
-		case .swap:
-			UserDefaults.standard.set(true, forKey: "hasSeenSwapTut")
-		case .invest:
-			UserDefaults.standard.set(true, forKey: "hasSeenInvestTut")
-		case .borrow:
-			UserDefaults.standard.set(true, forKey: "hasSeenBorrowTut")
-		}
 	}
 
 	override func loadView() {
@@ -51,7 +41,7 @@ class TutorialViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		tutorialView = TutorialView(tutorialVM: .init(tutorialType: tutType, completion: watchedTutorial))
+		tutorialView = TutorialView(tutorialVM: .init(completion: watchedTutorial))
 		view = tutorialView
 	}
 }
