@@ -20,7 +20,7 @@ enum AccountingEndpoint: EndpointType {
 	case coinPerformance(timeFrame: String, tokenID: String, accountADD: String)
 	case activateAccount(activateReqModel: AccountActivationRequestModel)
 	case activeAddresses(addresses: [String])
-    case activateAccountWithInviteCode(deciveID: String, inviteCode: String)
+	case activateAccountWithInviteCode(deciveID: String, inviteCode: String)
 
 	// MARK: - Internal Methods
 
@@ -43,7 +43,7 @@ enum AccountingEndpoint: EndpointType {
 		switch self {
 		case .cts:
 			return .request
-        case .balances, .activateAccountWithInviteCode:
+		case .balances, .activateAccountWithInviteCode:
 			return .request
 		case let .portfolio(timeFrame, _):
 			let urlParameters: [String: Any] = ["timeframe": timeFrame]
@@ -91,9 +91,9 @@ enum AccountingEndpoint: EndpointType {
 			return "\(endpointParent)/activate-sig/\(activateReqModel.address)"
 		case .activeAddresses:
 			return "\(endpointParent)/active-addresses"
-        case let .activateAccountWithInviteCode(deciveID: deviceID, inviteCode: inviteCode):
-            return "\(endpointParent)/activate-device/\(deviceID)/\(inviteCode)"
-        }
+		case let .activateAccountWithInviteCode(deciveID: deviceID, inviteCode: inviteCode):
+			return "\(endpointParent)/activate-device/\(deviceID)/\(inviteCode)"
+		}
 	}
 
 	internal var httpMethod: HTTPMethod {

@@ -8,5 +8,5 @@
 import Foundation
 
 struct ActivateAccountWithInviteCodeModel: Codable {
-    public let status: String
+	public let status: String
 }
