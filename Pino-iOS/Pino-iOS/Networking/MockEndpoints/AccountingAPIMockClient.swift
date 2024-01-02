@@ -9,6 +9,7 @@ import Combine
 import Foundation
 
 final class AccountingAPIMockClient: AccountingAPIService {
+    
 	// MARK: Public Methods
 
 	public func userBalance() -> AnyPublisher<BalanceModel, APIError> {
@@ -39,4 +40,10 @@ final class AccountingAPIMockClient: AccountingAPIService {
 			.setFailureType(to: APIError.self)
 			.eraseToAnyPublisher()
 	}
+    
+    func activateAccountWithInviteCode(inviteCode: String) -> AnyPublisher<ActivateAccountWithInviteCodeModel, APIError> {
+        Just(ActivateAccountWithInviteCodeModel(status: "failed"))
+            .setFailureType(to: APIError.self)
+            .eraseToAnyPublisher()
+    }
 }
