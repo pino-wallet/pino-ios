@@ -42,18 +42,18 @@ class SyncWalletViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-        syncWalletView = SyncWalletView(syncWalletVM: syncWalletVM, presentTutorialPage: {
-            self.presentTutorialPage()
-        })
+		syncWalletView = SyncWalletView(syncWalletVM: syncWalletVM, presentTutorialPage: {
+			self.presentTutorialPage()
+		})
 
 		view = syncWalletView
 	}
-    
-    private func presentTutorialPage() {
-              let tutorialPage = TutorialViewController() {
-                self.dismiss(animated: true)
-              }
-              tutorialPage.modalPresentationStyle = .overFullScreen
-              present(tutorialPage, animated: true)
-            }
+
+	private func presentTutorialPage() {
+		let tutorialPage = TutorialViewController {
+			self.dismiss(animated: true)
+		}
+		tutorialPage.modalPresentationStyle = .overFullScreen
+		present(tutorialPage, animated: true)
+	}
 }

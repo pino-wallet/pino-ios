@@ -20,7 +20,7 @@ class TutorialContainerViewModel {
 	// MARK: - Public Properties
 
 	public var tutorials: [TutorialModel] {
-        TutorialModel.tutorials
+		TutorialModel.tutorials
 	}
 
 	// MARK: - Initializer
@@ -42,5 +42,4 @@ class TutorialContainerViewModel {
 			currentIndex -= 1
 		}
 	}
-	
 }

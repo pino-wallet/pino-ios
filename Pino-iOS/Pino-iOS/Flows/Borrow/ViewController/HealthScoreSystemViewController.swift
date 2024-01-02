@@ -293,9 +293,6 @@ class HealthScoreSystemViewController: UIAlertController {
 
 	@objc
 	private func dismissSelf() {
-//		dismiss(animated: true)
-        let testVM = SyncWalletViewModel(loadingTime: 60)
-        let test = SyncWalletViewController(syncWalletVM: testVM)
-        present(test, animated: true)
+		dismiss(animated: true)
 	}
 }
