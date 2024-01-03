@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import UIKit
 import Lottie
+import UIKit
 
 class GetInviteCodeView: UIView, UITextFieldDelegate {
 	// MARK: - Closures
@@ -25,8 +25,8 @@ class GetInviteCodeView: UIView, UITextFieldDelegate {
 	private let titleLabel = PinoLabel(style: .title, text: "")
 	private let descriptionLabel = PinoLabel(style: .description, text: "")
 	private let getCodeButton = PinoButton(style: .active)
-    private let titleAnimationContainerView = UIView()
-    private var titleAnimationView = LottieAnimationView()
+	private let titleAnimationContainerView = UIView()
+	private var titleAnimationView = LottieAnimationView()
 
 	// MARK: - Initializers
 
@@ -58,8 +58,8 @@ class GetInviteCodeView: UIView, UITextFieldDelegate {
 
 		textsStackView.addArrangedSubview(titleLabel)
 		textsStackView.addArrangedSubview(descriptionLabel)
-        
-        titleAnimationContainerView.addSubview(titleAnimationView)
+
+		titleAnimationContainerView.addSubview(titleAnimationView)
 
 		mainStackView.addArrangedSubview(titleAnimationContainerView)
 		mainStackView.addArrangedSubview(textsStackView)
@@ -74,10 +74,10 @@ class GetInviteCodeView: UIView, UITextFieldDelegate {
 
 		navigationDismissButton.setImage(UIImage(named: getInviteCodeVM.navbarDismissImageName), for: .normal)
 
-        titleAnimationView.animation = LottieAnimation.named(getInviteCodeVM.titleAnimationName)
-        titleAnimationView.contentMode = .scaleAspectFit
-        titleAnimationView.loopMode = .loop
-        titleAnimationView.play()
+		titleAnimationView.animation = LottieAnimation.named(getInviteCodeVM.titleAnimationName)
+		titleAnimationView.contentMode = .scaleAspectFit
+		titleAnimationView.loopMode = .loop
+		titleAnimationView.play()
 
 		mainStackView.axis = .vertical
 		mainStackView.spacing = 85
@@ -111,7 +111,7 @@ class GetInviteCodeView: UIView, UITextFieldDelegate {
 		clearNavigationBar.pin(.horizontalEdges(padding: 0), .top(padding: 0))
 		navigationDismissButton.pin(.fixedHeight(30), .fixedHeight(30), .top(padding: 22), .trailing(padding: 0))
 		titleAnimationContainerView.pin(.fixedWidth(238), .fixedHeight(134))
-        titleAnimationView.pin(.horizontalEdges(padding: -125), .verticalEdges(padding: -58), .centerX, .centerY)
+		titleAnimationView.pin(.horizontalEdges(padding: -125), .verticalEdges(padding: -58), .centerX, .centerY)
 		mainStackView.pin(.relative(.top, 128, to: clearNavigationBar, .bottom), .horizontalEdges(padding: 16))
 		getCodeButton.pin(.horizontalEdges(padding: 16), .bottom(to: layoutMarginsGuide, padding: 12))
 	}
