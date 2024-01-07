@@ -441,6 +441,7 @@
 		D9A642C82AFA219D00FDE11D /* ActivityRepayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A642C72AFA219D00FDE11D /* ActivityRepayModel.swift */; };
 		D9A642CA2AFA235E00FDE11D /* ActivityInvestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A642C92AFA235E00FDE11D /* ActivityInvestModel.swift */; };
 		D9A642CC2AFA254200FDE11D /* ActivityWithdrawModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A642CB2AFA254200FDE11D /* ActivityWithdrawModel.swift */; };
+		D9A8E1CA2B440CCA00B78252 /* ActivateAccountWithInviteCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8E1C92B440CCA00B78252 /* ActivateAccountWithInviteCodeModel.swift */; };
 		D9A936C92ACD60CD00C3449E /* ApprovingLoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A936C82ACD60CD00C3449E /* ApprovingLoadingViewModel.swift */; };
 		D9AABE112A7D6B410025463E /* ActivityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AABE102A7D6B410025463E /* ActivityDataSource.swift */; };
 		D9AEA0A029F9818300DD61A8 /* EditAccountOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AEA09F29F9818300DD61A8 /* EditAccountOptionViewModel.swift */; };
@@ -1302,6 +1303,7 @@
 		D9A642C72AFA219D00FDE11D /* ActivityRepayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRepayModel.swift; sourceTree = "<group>"; };
 		D9A642C92AFA235E00FDE11D /* ActivityInvestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityInvestModel.swift; sourceTree = "<group>"; };
 		D9A642CB2AFA254200FDE11D /* ActivityWithdrawModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityWithdrawModel.swift; sourceTree = "<group>"; };
+		D9A8E1C92B440CCA00B78252 /* ActivateAccountWithInviteCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivateAccountWithInviteCodeModel.swift; sourceTree = "<group>"; };
 		D9A936C82ACD60CD00C3449E /* ApprovingLoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovingLoadingViewModel.swift; sourceTree = "<group>"; };
 		D9AABE102A7D6B410025463E /* ActivityDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDataSource.swift; sourceTree = "<group>"; };
 		D9AEA09F29F9818300DD61A8 /* EditAccountOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountOptionViewModel.swift; sourceTree = "<group>"; };
@@ -2192,6 +2194,7 @@
 			children = (
 				40F704562A03AFFF004D74FE /* AccountActivationModel.swift */,
 				E3CB68472AB5D3C10042359D /* ActiveAddressesModel.swift */,
+				D9A8E1C92B440CCA00B78252 /* ActivateAccountWithInviteCodeModel.swift */,
 			);
 			path = AccountActivation;
 			sourceTree = "<group>";
@@ -5411,6 +5414,7 @@
 				7DD0703DDA2759A33DB4F582 /* SuggestedSeedPhraseCell.swift in Sources */,
 				DF00178D29F855DF001164EA /* WalletValidator.swift in Sources */,
 				E3FC69F22A936C3B009B3341 /* InvestmentRiskViewController.swift in Sources */,
+				D9A8E1CA2B440CCA00B78252 /* ActivateAccountWithInviteCodeModel.swift in Sources */,
 				87D5D64B10D301DA28F383FE /* SuggestedSeedPhraseCollectionView.swift in Sources */,
 				59F0D2F9CA8BEA2BB4728B8E /* SwapViewController.swift in Sources */,
 				58B890F4377EE8853C655AFA /* TabBarItem.swift in Sources */,

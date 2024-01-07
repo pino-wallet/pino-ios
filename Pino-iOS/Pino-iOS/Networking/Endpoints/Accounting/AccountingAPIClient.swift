@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import UIKit
 
 final class AccountingAPIClient: AccountingAPIService {
 	// MARK: - Private Properties
@@ -15,6 +16,10 @@ final class AccountingAPIClient: AccountingAPIService {
 	private let pinoWalletManager = PinoWalletManager()
 	private var currentAccountAdd: String {
 		pinoWalletManager.currentAccount.eip55Address
+	}
+
+	private var deviceID: String {
+		UIDevice.current.identifierForVendor!.uuidString
 	}
 
 	// MARK: - Public Methods
@@ -39,6 +44,11 @@ final class AccountingAPIClient: AccountingAPIService {
 
 	func activeAddresses(addresses: [String]) -> AnyPublisher<ActiveAddressesModel, APIError> {
 		networkManager.request(.activeAddresses(addresses: addresses))
+	}
+
+	func activateAccountWithInviteCode(inviteCode: String)
+		-> AnyPublisher<ActivateAccountWithInviteCodeModel, APIError> {
+		networkManager.request(.activateAccountWithInviteCode(deciveID: deviceID, inviteCode: inviteCode))
 	}
 }
 
