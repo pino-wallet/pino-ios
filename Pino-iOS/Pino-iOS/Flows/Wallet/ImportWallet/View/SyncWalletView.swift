@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Lottie
 import UIKit
 
 class SyncWalletView: UIView {
@@ -15,7 +16,6 @@ class SyncWalletView: UIView {
 
 	// MARK: - Private Properties
 
-	private let titleImageView = UIImageView()
 	private let mainStackView = UIStackView()
 	private let titleStackView = UIStackView()
 	private let titleLabel = PinoLabel(style: .title, text: "")
@@ -26,6 +26,8 @@ class SyncWalletView: UIView {
 	private let loadingContainerView = UIView()
 	private let loadingProgressView = UIView()
 	private let syncWalletVM: SyncWalletViewModel
+	private let titleAnimationViewContainer = UIView()
+	private var titleAnimationView = LottieAnimationView()
 
 	// MARK: - Initializers
 
@@ -58,7 +60,9 @@ class SyncWalletView: UIView {
 		titleStackView.addArrangedSubview(loadingContainerView)
 		titleStackView.addArrangedSubview(descriptionLabel)
 
-		mainStackView.addArrangedSubview(titleImageView)
+		titleAnimationViewContainer.addSubview(titleAnimationView)
+
+		mainStackView.addArrangedSubview(titleAnimationViewContainer)
 		mainStackView.addArrangedSubview(titleStackView)
 
 		addSubview(mainStackView)
@@ -72,7 +76,10 @@ class SyncWalletView: UIView {
 		titleLabel.text = syncWalletVM.titleText
 		titleLabel.textAlignment = .center
 
-		titleImageView.image = UIImage(named: syncWalletVM.titleImageName)
+		titleAnimationView.animation = LottieAnimation.named(syncWalletVM.titleAnimationName)
+		titleAnimationView.loopMode = .loop
+		titleAnimationView.contentMode = .scaleAspectFit
+		titleAnimationView.play()
 
 		loadingContainerView.layer.cornerRadius = 2
 		loadingContainerView.backgroundColor = .Pino.gray4
@@ -110,7 +117,8 @@ class SyncWalletView: UIView {
 		loadingProgressView.pin(.leading(padding: 0), .verticalEdges(padding: 0))
 
 		mainStackView.pin(.top(to: layoutMarginsGuide, padding: 154), .horizontalEdges(padding: 16))
-		titleImageView.pin(.fixedWidth(181), .fixedHeight(181))
+		titleAnimationViewContainer.pin(.fixedWidth(181), .fixedHeight(181))
+		titleAnimationView.pin(.horizontalEdges(padding: -30), .verticalEdges(padding: -30), .centerX, .centerY)
 		exploreStackView.pin(.horizontalEdges(padding: 16), .bottom(to: layoutMarginsGuide, padding: 12))
 	}
 

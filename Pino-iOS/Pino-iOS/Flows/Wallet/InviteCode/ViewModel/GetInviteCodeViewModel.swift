@@ -10,8 +10,7 @@ import Foundation
 struct GetInviteCodeViewModel {
 	// MARK: - Public Properties
 
-	#warning("this title image should change to lottie")
-	public let titleImageName = "invite_code"
+	public let titleAnimationName = "InviteCode"
 	public let navbarDismissImageName = "close"
 	public let titleText = "How I get invite code"
 	public let descriptionText =
