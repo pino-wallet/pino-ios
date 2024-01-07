@@ -514,6 +514,9 @@
 		D9F252CB2ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = D9F252C92ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json */; };
 		D9F284762A94B703001204D4 /* BorrowingTokensCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F284752A94B703001204D4 /* BorrowingTokensCollectionView.swift */; };
 		D9F284782A94B727001204D4 /* BorrowingTokenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F284772A94B727001204D4 /* BorrowingTokenCell.swift */; };
+		D9F8D37A2B40008A004D8AEE /* EnterInviteCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F8D3792B40008A004D8AEE /* EnterInviteCodeView.swift */; };
+		D9F8D37C2B4000A4004D8AEE /* EnterInviteCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F8D37B2B4000A4004D8AEE /* EnterInviteCodeViewController.swift */; };
+		D9F8D37E2B4000BA004D8AEE /* EnterInviteCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F8D37D2B4000BA004D8AEE /* EnterInviteCodeViewModel.swift */; };
 		D9F927AA2B120DA800147013 /* W3AaveWithdrawManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F927A92B120DA800147013 /* W3AaveWithdrawManager.swift */; };
 		D9F927AC2B1213D800147013 /* AaveWithdrawManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F927AB2B1213D800147013 /* AaveWithdrawManager.swift */; };
 		D9F9D5CC2AE4FC7700F81C38 /* W3AaveDepositManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F9D5CB2AE4FC7700F81C38 /* W3AaveDepositManager.swift */; };
@@ -1363,6 +1366,9 @@
 		D9F252C92ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "collaterilizable-tokens-stub.json"; sourceTree = "<group>"; };
 		D9F284752A94B703001204D4 /* BorrowingTokensCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingTokensCollectionView.swift; sourceTree = "<group>"; };
 		D9F284772A94B727001204D4 /* BorrowingTokenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingTokenCell.swift; sourceTree = "<group>"; };
+		D9F8D3792B40008A004D8AEE /* EnterInviteCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterInviteCodeView.swift; sourceTree = "<group>"; };
+		D9F8D37B2B4000A4004D8AEE /* EnterInviteCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterInviteCodeViewController.swift; sourceTree = "<group>"; };
+		D9F8D37D2B4000BA004D8AEE /* EnterInviteCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterInviteCodeViewModel.swift; sourceTree = "<group>"; };
 		D9F927A92B120DA800147013 /* W3AaveWithdrawManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3AaveWithdrawManager.swift; sourceTree = "<group>"; };
 		D9F927AB2B1213D800147013 /* AaveWithdrawManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AaveWithdrawManager.swift; sourceTree = "<group>"; };
 		D9F9D5CB2AE4FC7700F81C38 /* W3AaveDepositManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3AaveDepositManager.swift; sourceTree = "<group>"; };
@@ -2861,6 +2867,7 @@
 		B3C54D90FD2C46C3C7B36B30 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
+				D9F8D3752B3FFEBE004D8AEE /* InviteCode */,
 				04B106B3DF470073D0EB3602 /* CreateWallet */,
 				0A8C8735A267A40CD87F6460 /* ImportWallet */,
 				7F66794FB8C844FB7B097CF8 /* Intro */,
@@ -3542,6 +3549,40 @@
 				D9E134842A52FB4A00193FF0 /* ActivityHeaderView.swift */,
 			);
 			path = ActivityHeaderView;
+			sourceTree = "<group>";
+		};
+		D9F8D3752B3FFEBE004D8AEE /* InviteCode */ = {
+			isa = PBXGroup;
+			children = (
+				D9F8D3782B3FFF0B004D8AEE /* ViewModel */,
+				D9F8D3772B3FFF04004D8AEE /* ViewController */,
+				D9F8D3762B3FFEFA004D8AEE /* View */,
+			);
+			path = InviteCode;
+			sourceTree = "<group>";
+		};
+		D9F8D3762B3FFEFA004D8AEE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D9F8D3792B40008A004D8AEE /* EnterInviteCodeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D9F8D3772B3FFF04004D8AEE /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D9F8D37B2B4000A4004D8AEE /* EnterInviteCodeViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		D9F8D3782B3FFF0B004D8AEE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D9F8D37D2B4000BA004D8AEE /* EnterInviteCodeViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		D9FE90A22A1A2479001AD8E4 /* NavigationBar */ = {
@@ -4906,6 +4947,7 @@
 				D9A642C62AFA210300FDE11D /* ActivityBorrowModel.swift in Sources */,
 				86AE4E895C42E9E1302295FD /* ChartDateFilter.swift in Sources */,
 				D9703F6A29ED547000D09277 /* CoinInfoFooterview.swift in Sources */,
+				D9F8D37E2B4000BA004D8AEE /* EnterInviteCodeViewModel.swift in Sources */,
 				B4E756CF19F769668E2A4FB5 /* ChartInfoItem.swift in Sources */,
 				E34728E229E5360300AB8265 /* CoreDataStack.swift in Sources */,
 				DF00178029E80696001164EA /* SecureEnclave.swift in Sources */,
@@ -5132,6 +5174,7 @@
 				D9F927AA2B120DA800147013 /* W3AaveWithdrawManager.swift in Sources */,
 				D933C3352A99F60C00C2BD5A /* CollateralizingBoardDataSource.swift in Sources */,
 				5CDFF4C90BE60A5FF26C2596 /* ManageAssetsCollectionView.swift in Sources */,
+				D9F8D37C2B4000A4004D8AEE /* EnterInviteCodeViewController.swift in Sources */,
 				D9A0BDB12A97533500AE132F /* BorrowableAssetViewModel.swift in Sources */,
 				6D6ECC6BF79139F030C8039A /* ManageAssetsFooterView.swift in Sources */,
 				D99850472A55C66A00C2DF60 /* DateHelper.swift in Sources */,
@@ -5270,6 +5313,7 @@
 				D916A8D02A9F694000F391B5 /* WithdrawAmountView.swift in Sources */,
 				221F423020A78CA891331436 /* RevealPrivateKeyViewController.swift in Sources */,
 				E3847B362A52CB32005ED78B /* SwapViewModel.swift in Sources */,
+				D9F8D37A2B40008A004D8AEE /* EnterInviteCodeView.swift in Sources */,
 				7AD456E027211FE731B27DF8 /* RevealPrivateKeyViewModel.swift in Sources */,
 				D99019802A93660B008CF9EC /* LoanDetailsInfoStackView.swift in Sources */,
 				643BAB8ABDEFDA509D258D94 /* SceneDelegate.swift in Sources */,
