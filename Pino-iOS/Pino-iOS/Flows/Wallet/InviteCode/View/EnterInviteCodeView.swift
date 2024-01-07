@@ -24,7 +24,7 @@ class EnterInviteCodeView: UIView, UITextFieldDelegate {
 	private let textsStackView = UIStackView()
 	private let titleLabel = PinoLabel(style: .title, text: "")
 	private let descriptionLabel = PinoLabel(style: .description, text: "")
-	private let codeTextField = PinoTextFieldView()
+    private let codeTextField = PinoTextFieldView(pattern: .alphaNumeric)
 	private let getCodeButton = PinoButton(style: .clear)
 	private let buttonsStackView = UIStackView()
 	private var nextButton = PinoButton(style: .deactive)
@@ -64,8 +64,6 @@ class EnterInviteCodeView: UIView, UITextFieldDelegate {
 		codeTextField.textFieldKeyboardOnReturn = {
 			self.dismisskeyBoard()
 		}
-
-		codeTextField.pattern = .englishNumbersAndLetters
 
 		navigationDismissButton.addTarget(self, action: #selector(onDismissSelf), for: .touchUpInside)
 

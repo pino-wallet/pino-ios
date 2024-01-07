@@ -250,7 +250,7 @@ extension SwapTokenSectionView: UITextFieldDelegate {
 		shouldChangeCharactersIn range: NSRange,
 		replacementString string: String
 	) -> Bool {
-		textField.enteredNumberPatternIsValid(charactersRange: range, replacementString: string)
+		textField.isNumber(charactersRange: range, replacementString: string)
 	}
 
 	func textFieldDidBeginEditing(_ textField: UITextField) {

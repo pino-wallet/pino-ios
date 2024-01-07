@@ -286,7 +286,7 @@ extension RepayAmountView: UITextFieldDelegate {
 		shouldChangeCharactersIn range: NSRange,
 		replacementString string: String
 	) -> Bool {
-		textField.enteredNumberPatternIsValid(charactersRange: range, replacementString: string)
+		textField.isNumber(charactersRange: range, replacementString: string)
 	}
 }
 
