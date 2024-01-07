@@ -7,7 +7,7 @@
 
 import Foundation
 
-class EnterInviteCodeViewModel {
+struct EnterInviteCodeViewModel {
 	// MARK: - Public Properties
 
 	public let navbarDismissImageName = "close"

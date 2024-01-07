@@ -40,9 +40,16 @@ class EnterInviteCodeViewController: UIViewController {
 	private func setupView() {
 		enterInviteCodeView = EnterInviteCodeView(enterInviteCodeVM: enterInviteCodeVM, dismissViewClosure: {
 			self.dismissSelf()
+		}, presentGetInviteCodeClosure: {
+			self.presentGetInviteCodePage()
 		})
 
 		view = enterInviteCodeView
+	}
+
+	private func presentGetInviteCodePage() {
+		let getInviteCodePage = GetInviteCodeViewController()
+		present(getInviteCodePage, animated: true)
 	}
 
 	private func dismissSelf() {
