@@ -23,7 +23,7 @@ public class PinoTextFieldView: UIView {
 	private let textField = UITextField()
 	private let errorLabel = UILabel()
 	private let pendingLoading = PinoLoading(size: 24)
-    private var pattern: Pattern?
+	private var pattern: Pattern?
 
 	// MARK: - Public Properties
 
@@ -32,7 +32,6 @@ public class PinoTextFieldView: UIView {
 			updateStyle()
 		}
 	}
-
 
 	public var returnKeyType: UIReturnKeyType {
 		didSet {
@@ -64,14 +63,14 @@ public class PinoTextFieldView: UIView {
 		style: Style = .normal,
 		placeholder: String = "",
 //		errorText: String = "",
-        pattern: Pattern?,
+		pattern: Pattern?,
 		returnKeyType: UIReturnKeyType = .default
 	) {
 		self.style = style
 		self.placeholderText = placeholder
 //		self.errorText = errorText
 		self.returnKeyType = returnKeyType
-        self.pattern = pattern
+		self.pattern = pattern
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()

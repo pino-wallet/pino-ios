@@ -30,7 +30,7 @@ class AddCustomAssetView: UIView {
 
 	// MARK: - Private Properties
 
-    private let contractTextfieldView = PinoTextFieldView(pattern: nil)
+	private let contractTextfieldView = PinoTextFieldView(pattern: nil)
 	private let addButton = PinoButton(style: .active, title: "")
 	private let scanQRCodeIconButton = UIButton()
 	private let pasteFromClipboardview =

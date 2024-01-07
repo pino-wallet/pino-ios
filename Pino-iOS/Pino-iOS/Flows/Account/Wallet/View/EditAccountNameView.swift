@@ -16,7 +16,7 @@ class EditAccountNameView: UIView {
 
 	public var editAccountNameVM: EditAccountNameViewModel
 	public var selectedAccountVM: AccountInfoViewModel
-    public var walletNameTextFieldView = PinoTextFieldView(pattern: nil)
+	public var walletNameTextFieldView = PinoTextFieldView(pattern: nil)
 	public var doneButton = PinoButton(style: .active, title: "")
 
 	// MARK: - Initializers

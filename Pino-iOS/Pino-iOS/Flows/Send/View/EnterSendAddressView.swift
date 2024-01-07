@@ -29,7 +29,7 @@ class EnterSendAddressView: UIView {
 
 	// MARK: - Public Properties
 
-    public let addressTextField = PinoTextFieldView(pattern: nil)
+	public let addressTextField = PinoTextFieldView(pattern: nil)
 
 	public var validationStatus: EnterSendAddressViewModel.ValidationStatus = .normal {
 		didSet {
