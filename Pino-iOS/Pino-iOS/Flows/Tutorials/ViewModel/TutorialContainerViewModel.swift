@@ -11,8 +11,6 @@ import Foundation
 class TutorialContainerViewModel {
 	// MARK: - Private Properties
 
-	private var tutorialType: TutorialType
-
 	@Published
 	public var currentIndex = 0
 	@Published
@@ -22,13 +20,12 @@ class TutorialContainerViewModel {
 	// MARK: - Public Properties
 
 	public var tutorials: [TutorialModel] {
-		getTutorialsOf(type: tutorialType)
+		TutorialModel.tutorials
 	}
 
 	// MARK: - Initializer
 
-	init(tutorialType: TutorialType, completion: @escaping () -> Void) {
-		self.tutorialType = tutorialType
+	init(completion: @escaping () -> Void) {
 		self.watchedTutorial = completion
 	}
 
@@ -44,9 +41,5 @@ class TutorialContainerViewModel {
 		} else {
 			currentIndex -= 1
 		}
-	}
-
-	public func getTutorialsOf(type: TutorialType) -> [TutorialModel] {
-		TutorialModel.tutorials.filter { $0.type == type }
 	}
 }
