@@ -16,7 +16,7 @@ class SwapViewModel {
 	@Published
 	public var selectedProtocol: SwapProtocolModel
 	@Published
-	public var swapStatus: SwapStatus
+	public var swapState: SwapState
 
 	public let continueButtonTitle = "Swap"
 	public let insufficientAmountButtonTitle = "Insufficient amount"
@@ -55,7 +55,7 @@ class SwapViewModel {
 		self.fromToken = SwapTokenViewModel(selectedToken: fromToken)
 		self.toToken = SwapTokenViewModel(selectedToken: toToken)
 		self.swapFeeVM = SwapFeeViewModel()
-		self.swapStatus = .initial
+		self.swapState = .initial
 
 		self.fromToken.amountUpdated = { amount in
 			self.recalculateTokensAmount(amount: amount)
@@ -69,7 +69,7 @@ class SwapViewModel {
 
 	public func changeFromToken(to newToken: AssetViewModel) {
 		fromToken.selectedToken = newToken
-		switch swapStatus {
+		switch swapState {
 		case .hasAmount, .loading, .noQuote:
 			recalculateTokensAmount()
 		case .initial, .noToToken, .clear:
@@ -81,11 +81,12 @@ class SwapViewModel {
 
 	public func changeToToken(to newToken: AssetViewModel) {
 		toToken.selectedToken = newToken
-		switch swapStatus {
+		switch swapState {
 		case .initial:
-			swapStatus = .clear
+			swapState = .clear
 		case .noToToken:
-			swapStatus = .loading
+			swapState = .loading
+			recalculateTokensAmount()
 		case .hasAmount, .loading, .noQuote:
 			recalculateTokensAmount()
 		case .clear:
@@ -194,13 +195,13 @@ class SwapViewModel {
 	}
 
 	private func getDestinationAmount(_ destToken: SwapTokenViewModel, swapAmount: String, swapSide: SwapSide) {
-		switch swapStatus {
+		switch swapState {
 		case .initial:
-			swapStatus = .noToToken
+			swapState = .noToToken
 		case .noToToken:
 			break
 		case .clear, .hasAmount, .loading, .noQuote:
-			swapStatus = .loading
+			swapState = .loading
 			removePreviousFeeInfo()
 			destToken.swapDelegate.swapAmountCalculating()
 			getSwapProviderInfo(
@@ -209,23 +210,23 @@ class SwapViewModel {
 				swapSide: swapSide
 			) { swapAmount in
 				self.updateDestinationToken(destToken: destToken, tokenAmount: swapAmount)
-				self.swapStatus = .hasAmount
+				self.swapState = .hasAmount
 			}
 		}
 	}
 
 	private func removeDestinationAmount(_ destToken: SwapTokenViewModel) {
-		switch swapStatus {
+		switch swapState {
 		case .initial, .clear:
 			break
 		case .noToToken:
 			if fromToken.tokenAmount == nil {
-				swapStatus = .initial
+				swapState = .initial
 			} else {
 				break
 			}
 		case .hasAmount, .loading, .noQuote:
-			swapStatus = .clear
+			swapState = .clear
 		}
 		priceManager.cancelPreviousRequests()
 		updateDestinationToken(destToken: destToken, tokenAmount: nil)
@@ -331,7 +332,7 @@ class SwapViewModel {
 	}
 }
 
-public enum SwapStatus {
+public enum SwapState {
 	case initial
 	case clear
 	case hasAmount

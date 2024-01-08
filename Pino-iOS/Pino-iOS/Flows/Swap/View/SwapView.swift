@@ -234,8 +234,8 @@ class SwapView: UIView {
 			self.updateSwapProtocol(swapProtocol)
 		}.store(in: &cancellables)
 
-		swapVM.$swapStatus.sink { [self] swapStatus in
-			switch swapStatus {
+		swapVM.$swapState.sink { [self] swapState in
+			switch swapState {
 			case .initial:
 				deactivateSwapButton()
 				hideFeeCard()
@@ -249,12 +249,15 @@ class SwapView: UIView {
 			case .hasAmount:
 				activateSwapButton()
 				showFeeCard()
+				swapFeeView.hideLoading()
 			case .loading:
 				deactivateSwapButton()
 				showFeeCard()
+				swapFeeView.showLoading()
 			case .noQuote:
 				deactivateSwapButton()
 				showFeeCard()
+				swapFeeView.hideLoading()
 			case .noToToken:
 				deactivateSwapButton()
 				hideFeeCard()
@@ -286,7 +289,7 @@ class SwapView: UIView {
 	}
 
 	private func switchTokens() {
-		switch swapVM.swapStatus {
+		switch swapVM.swapState {
 		case .initial, .noToToken, .loading:
 			break
 		case .clear, .hasAmount, .noQuote:
