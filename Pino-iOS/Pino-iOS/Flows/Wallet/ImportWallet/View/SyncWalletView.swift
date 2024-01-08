@@ -109,7 +109,8 @@ class SyncWalletView: UIView {
 	private func setupConstraints() {
 		descriptionLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 248).isActive = true
 
-		progressView.pin(.fixedWidth(296))
+        titleStackView.pin(.horizontalEdges(padding: 70))
+        progressView.pin(.horizontalEdges)
 		mainStackView.pin(.top(to: layoutMarginsGuide, padding: 154), .horizontalEdges(padding: 16))
 		titleAnimationViewContainer.pin(.fixedWidth(181), .fixedHeight(181))
 		titleAnimationView.pin(.horizontalEdges(padding: -30), .verticalEdges(padding: -30), .centerX, .centerY)
