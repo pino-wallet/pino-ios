@@ -23,6 +23,7 @@ public class PinoTextFieldView: UIView {
 	private let textField = UITextField()
 	private let errorLabel = UILabel()
 	private let pendingLoading = PinoLoading(size: 24)
+	private var pattern: Pattern?
 
 	// MARK: - Public Properties
 
@@ -31,8 +32,6 @@ public class PinoTextFieldView: UIView {
 			updateStyle()
 		}
 	}
-
-	public var pattern: Pattern?
 
 	public var returnKeyType: UIReturnKeyType {
 		didSet {
@@ -64,12 +63,14 @@ public class PinoTextFieldView: UIView {
 		style: Style = .normal,
 		placeholder: String = "",
 //		errorText: String = "",
+		pattern: Pattern?,
 		returnKeyType: UIReturnKeyType = .default
 	) {
 		self.style = style
 		self.placeholderText = placeholder
 //		self.errorText = errorText
 		self.returnKeyType = returnKeyType
+		self.pattern = pattern
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -204,9 +205,9 @@ extension PinoTextFieldView: UITextFieldDelegate {
 		}
 		switch pattern {
 		case .number:
-			return textField.enteredNumberPatternIsValid(charactersRange: range, replacementString: string)
-		case .englishNumbersAndLetters:
-			return textField.enteredInviteCodePatternIsValid(charactersRange: range, replacementString: string)
+			return textField.isNumber(charactersRange: range, replacementString: string)
+		case .alphaNumeric:
+			return textField.isAlphaNumeric(charactersRange: range, replacementString: string)
 		}
 	}
 }

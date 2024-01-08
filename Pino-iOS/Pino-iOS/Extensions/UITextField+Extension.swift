@@ -8,7 +8,7 @@
 import UIKit
 
 extension UITextField {
-	public func enteredNumberPatternIsValid(charactersRange: NSRange, replacementString: String) -> Bool {
+	public func isNumber(charactersRange: NSRange, replacementString: String) -> Bool {
 		guard let currentText = text as NSString? else {
 			return true
 		}
@@ -20,7 +20,7 @@ extension UITextField {
 		)
 	}
 
-	public func enteredInviteCodePatternIsValid(charactersRange: NSRange, replacementString: String) -> Bool {
+	public func isAlphaNumeric(charactersRange: NSRange, replacementString: String) -> Bool {
 		guard let currentText = text as NSString? else {
 			return true
 		}

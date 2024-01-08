@@ -18,6 +18,6 @@ extension PinoTextFieldView {
 
 	public enum Pattern {
 		case number
-		case englishNumbersAndLetters
+		case alphaNumeric
 	}
 }
