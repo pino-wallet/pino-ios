@@ -23,11 +23,10 @@ class SyncWalletView: UIView {
 	private let exploreStackView = UIStackView()
 	private let exploreTitleLabel = PinoLabel(style: .title, text: "")
 	private let exploreButton = PinoButton(style: .secondary)
-	private let loadingContainerView = UIView()
-	private let loadingProgressView = UIView()
 	private let syncWalletVM: SyncWalletViewModel
 	private let titleAnimationViewContainer = UIView()
 	private var titleAnimationView = LottieAnimationView()
+    private var progressView: PinoProgressView!
 
 	// MARK: - Initializers
 
@@ -49,15 +48,19 @@ class SyncWalletView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
+        progressView = PinoProgressView(progressBarVM: .init(progressDuration: syncWalletVM.loadingTime))
+        progressView.completion = {
+            #warning("here we should go to next page")
+        }
+        
 		exploreButton.addTarget(self, action: #selector(onExpolePinoTap), for: .touchUpInside)
 
 		exploreStackView.addArrangedSubview(exploreTitleLabel)
 		exploreStackView.addArrangedSubview(exploreButton)
 
-		loadingContainerView.addSubview(loadingProgressView)
 
 		titleStackView.addArrangedSubview(titleLabel)
-		titleStackView.addArrangedSubview(loadingContainerView)
+		titleStackView.addArrangedSubview(progressView)
 		titleStackView.addArrangedSubview(descriptionLabel)
 
 		titleAnimationViewContainer.addSubview(titleAnimationView)
@@ -80,12 +83,6 @@ class SyncWalletView: UIView {
 		titleAnimationView.loopMode = .loop
 		titleAnimationView.contentMode = .scaleAspectFit
 		titleAnimationView.play()
-
-		loadingContainerView.layer.cornerRadius = 2
-		loadingContainerView.backgroundColor = .Pino.gray4
-
-		loadingProgressView.layer.cornerRadius = 2
-		loadingProgressView.backgroundColor = .Pino.primary
 
 		descriptionLabel.font = .PinoStyle.mediumSubheadline
 		descriptionLabel.text = syncWalletVM.descriptionText
@@ -113,9 +110,7 @@ class SyncWalletView: UIView {
 	private func setupConstraints() {
 		descriptionLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 248).isActive = true
 
-		loadingContainerView.pin(.fixedHeight(4), .fixedWidth(296))
-		loadingProgressView.pin(.leading(padding: 0), .verticalEdges(padding: 0))
-
+        progressView.pin(.fixedWidth(296))
 		mainStackView.pin(.top(to: layoutMarginsGuide, padding: 154), .horizontalEdges(padding: 16))
 		titleAnimationViewContainer.pin(.fixedWidth(181), .fixedHeight(181))
 		titleAnimationView.pin(.horizontalEdges(padding: -30), .verticalEdges(padding: -30), .centerX, .centerY)
@@ -130,12 +125,6 @@ class SyncWalletView: UIView {
 	// MARK: - Public Properties
 
 	public func animateLoading() {
-		layoutIfNeeded()
-		UIView.animate(withDuration: syncWalletVM.loadingTime, animations: { [weak self] in
-			self?.loadingProgressView.pin(.horizontalEdges(padding: 0))
-			self?.layoutIfNeeded()
-		}, completion: { _ in
-			#warning("we should use this to go to next page")
-		})
+        progressView.start()
 	}
 }
