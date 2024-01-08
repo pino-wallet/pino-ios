@@ -8,5 +8,5 @@
 import Foundation
 
 struct PinoProgressBarViewModel {
-    public let progressDuration: Double
+	public let progressDuration: Double
 }
