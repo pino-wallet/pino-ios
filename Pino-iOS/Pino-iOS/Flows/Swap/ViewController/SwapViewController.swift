@@ -168,7 +168,7 @@ class SwapViewController: UIViewController {
 		// To prevent swapping same tokens
 		filteredAssets.removeAll(where: { $0.id == swapVM.toToken.selectedToken.id })
 		openSelectAssetPage(assets: filteredAssets) { selectedToken in
-			self.swapVM.changeSelectedToken(self.swapVM.fromToken, to: selectedToken)
+			self.swapVM.changeFromToken(to: selectedToken)
 		}
 	}
 
@@ -177,7 +177,7 @@ class SwapViewController: UIViewController {
 		// To prevent swapping same tokens
 		filteredAssets.removeAll(where: { $0.id == swapVM.fromToken.selectedToken.id })
 		openSelectAssetPage(assets: filteredAssets) { selectedToken in
-			self.swapVM.changeSelectedToken(self.swapVM.toToken, to: selectedToken)
+			self.swapVM.changeToToken(to: selectedToken)
 		}
 	}
 

@@ -33,7 +33,6 @@ class SwapTokenSectionView: UIView {
 	public var balanceStatus: AmountStatus = .isZero
 	public var balanceStatusDidChange: ((AmountStatus) -> Void)?
 	public var editingBegin: (() -> Void)?
-	public var isCalculating = false
 
 	// MARK: - Initializers
 
@@ -221,6 +220,14 @@ class SwapTokenSectionView: UIView {
 	public func openKeyboard() {
 		amountTextfield.becomeFirstResponder()
 	}
+
+	public func lockTextField() {
+		amountTextfield.isUserInteractionEnabled = false
+	}
+
+	public func unlockTextField() {
+		amountTextfield.isUserInteractionEnabled = true
+	}
 }
 
 extension SwapTokenSectionView: SwapDelegate {
@@ -232,15 +239,13 @@ extension SwapTokenSectionView: SwapDelegate {
 		hideSkeletonView()
 		amountTextfield.textColor = .Pino.label
 		updateAmountView()
-		isCalculating = false
-		amountTextfield.isUserInteractionEnabled = true
+		unlockTextField()
 	}
 
 	func swapAmountCalculating() {
 		showSkeletonView()
 		amountTextfield.textColor = .Pino.gray3
-		isCalculating = true
-		amountTextfield.isUserInteractionEnabled = false
+		lockTextField()
 	}
 }
 
