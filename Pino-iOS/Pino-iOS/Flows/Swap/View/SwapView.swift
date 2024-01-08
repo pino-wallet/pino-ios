@@ -240,28 +240,34 @@ class SwapView: UIView {
 				deactivateSwapButton()
 				hideFeeCard()
 				toTokenSectionView.lockTextField()
+				toTokenSectionView.showSelectAssetButton()
 				clearTextFields()
 			case .clear:
 				deactivateSwapButton()
 				hideFeeCard()
 				toTokenSectionView.unlockTextField()
+				toTokenSectionView.hideSelectAssetButton()
 				clearTextFields()
 			case .hasAmount:
 				activateSwapButton()
 				showFeeCard()
 				swapFeeView.hideLoading()
+				toTokenSectionView.hideSelectAssetButton()
 			case .loading:
 				deactivateSwapButton()
 				showFeeCard()
 				swapFeeView.showLoading()
+				toTokenSectionView.hideSelectAssetButton()
 			case .noQuote:
 				deactivateSwapButton()
 				showFeeCard()
 				swapFeeView.hideLoading()
+				toTokenSectionView.hideSelectAssetButton()
 			case .noToToken:
 				deactivateSwapButton()
 				hideFeeCard()
 				toTokenSectionView.lockTextField()
+				toTokenSectionView.showSelectAssetButton()
 			}
 		}.store(in: &cancellables)
 	}

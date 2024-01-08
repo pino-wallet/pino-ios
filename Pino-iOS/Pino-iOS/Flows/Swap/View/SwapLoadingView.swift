@@ -76,7 +76,8 @@ class SwapLoadingView: UIView {
 	}
 
 	private func setupStyle() {
-		switchTokenButton.setImage(UIImage(named: "switch_swap"), for: .normal)
+		switchTokenButton.setImage(UIImage(named: "arrow_down"), for: .normal)
+		switchTokenButton.tintColor = .Pino.primary
 
 		protocolName.font = .PinoStyle.mediumBody
 
