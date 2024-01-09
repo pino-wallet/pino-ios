@@ -659,7 +659,6 @@
 		DFF8C3862B14710A00C74DAC /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C3852B14710A00C74DAC /* TutorialView.swift */; };
 		DFF8C3882B1472FB00C74DAC /* TutorialStepperContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C3872B1472FB00C74DAC /* TutorialStepperContainerView.swift */; };
 		DFF8C38A2B14767C00C74DAC /* TutorialStepperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C3892B14767C00C74DAC /* TutorialStepperCell.swift */; };
-		DFF8C38C2B14776100C74DAC /* TutorialStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C38B2B14776100C74DAC /* TutorialStepViewModel.swift */; };
 		DFF8C38E2B149EB200C74DAC /* TutorialContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C38D2B149EB200C74DAC /* TutorialContainerViewModel.swift */; };
 		DFF8C3902B14AE3400C74DAC /* TutorialModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8C38F2B14AE3400C74DAC /* TutorialModel.swift */; };
 		DFFDEDA32A75658700D710D7 /* ParaSwapAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6AD2A756123003DB68A /* ParaSwapAPIClient.swift */; };
@@ -1503,7 +1502,6 @@
 		DFF8C3852B14710A00C74DAC /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		DFF8C3872B1472FB00C74DAC /* TutorialStepperContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialStepperContainerView.swift; sourceTree = "<group>"; };
 		DFF8C3892B14767C00C74DAC /* TutorialStepperCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialStepperCell.swift; sourceTree = "<group>"; };
-		DFF8C38B2B14776100C74DAC /* TutorialStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialStepViewModel.swift; sourceTree = "<group>"; };
 		DFF8C38D2B149EB200C74DAC /* TutorialContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialContainerViewModel.swift; sourceTree = "<group>"; };
 		DFF8C38F2B14AE3400C74DAC /* TutorialModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialModel.swift; sourceTree = "<group>"; };
 		DFFDEDA92A76C09000D710D7 /* OneInchSwapPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneInchSwapPriceResponseModel.swift; sourceTree = "<group>"; };
@@ -3983,7 +3981,6 @@
 		DFF8C3802B146FC700C74DAC /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				DFF8C38B2B14776100C74DAC /* TutorialStepViewModel.swift */,
 				DFF8C38D2B149EB200C74DAC /* TutorialContainerViewModel.swift */,
 			);
 			path = ViewModel;
@@ -4876,7 +4873,6 @@
 				5319850502764EDE67A09C49 /* AddNewAccountCollectionView.swift in Sources */,
 				4CA4F662ECA5E7E45B96C281 /* AddNewAccountCollectionViewCell.swift in Sources */,
 				E3FC69A02A8A0731009B3341 /* InvestmentPerformanceViewController.swift in Sources */,
-				DFF8C38C2B14776100C74DAC /* TutorialStepViewModel.swift in Sources */,
 				E34728E929E7DCCF00AB8265 /* HomepageViewModel+Wallet.swift in Sources */,
 				67CB57B83460DA7FDE4BFED3 /* AddNewAccountOptionModel.swift in Sources */,
 				DAB2FF91D5EAF0795A12201B /* AddNewAccountOptionViewModel.swift in Sources */,

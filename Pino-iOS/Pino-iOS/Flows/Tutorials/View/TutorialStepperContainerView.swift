@@ -48,18 +48,20 @@ class TutorialStepperContainerView: UICollectionView {
 			checkIfFinished(index: index)
 			for x in index ..< tutorialVM.tutorials.count {
 				if let cell = cellForItem(at: .init(row: x, section: 0)) as? TutorialStepperCell {
-					cell.tutStepperCellVM.resetProgress()
+					cell.resetProgress()
 				}
 			}
+			print("index:\(index)")
 			for x in 0 ..< index {
 				if let cell = cellForItem(at: .init(row: x, section: 0)) as? TutorialStepperCell {
-					cell.tutStepperCellVM.fillProgress()
+					cell.fillProgress()
 				}
 			}
 
 			if let cell = cellForItem(at: .init(row: index, section: 0)) as? TutorialStepperCell {
 				cell.startProgress { [self] in
 					tutorialVM.nextTutorial()
+					print("next")
 				}
 			}
 
@@ -69,7 +71,7 @@ class TutorialStepperContainerView: UICollectionView {
 			let cell = cellForItem(at: .init(row: currentIndex, section: 0)) as! TutorialStepperCell
 
 			if isPaused {
-				cell.tutStepperCellVM.pauseProgress()
+				cell.pauseProgress()
 			} else {
 				cell.progressFilling {
 					self.tutorialVM.nextTutorial()
@@ -82,7 +84,7 @@ class TutorialStepperContainerView: UICollectionView {
 		if index == tutorialVM.tutorials.count {
 			for i in 0 ..< tutorialVM.tutorials.count {
 				if let cell = cellForItem(at: .init(row: i, section: 0)) as? TutorialStepperCell {
-					cell.tutStepperCellVM.pauseProgress()
+					cell.pauseProgress()
 				}
 			}
 			tutorialVM.watchedTutorial()
@@ -106,7 +108,6 @@ extension TutorialStepperContainerView: UICollectionViewDataSource {
 			withReuseIdentifier: TutorialStepperCell.cellReuseID,
 			for: indexPath
 		) as! TutorialStepperCell
-		cell.tutStepperCellVM = TutorialStepViewModel()
 		cell.configCell()
 		return cell
 	}
