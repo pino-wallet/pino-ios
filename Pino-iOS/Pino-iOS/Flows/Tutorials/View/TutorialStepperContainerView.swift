@@ -46,16 +46,16 @@ class TutorialStepperContainerView: UICollectionView {
 		tutorialVM.$currentIndex.sink { [self] index in
 			currentIndex = index
 			checkIfFinished(index: index)
-			for x in index ..< tutorialVM.tutorials.count {
-				if let cell = cellForItem(at: .init(row: x, section: 0)) as? TutorialStepperCell {
-					cell.tutStepperCellVM.resetProgress()
-				}
-			}
-			for x in 0 ..< index {
-				if let cell = cellForItem(at: .init(row: x, section: 0)) as? TutorialStepperCell {
-					cell.tutStepperCellVM.fillProgress()
-				}
-			}
+//			for x in index ..< tutorialVM.tutorials.count {
+//				if let cell = cellForItem(at: .init(row: x, section: 0)) as? TutorialStepperCell {
+//					cell.resetProgress()
+//				}
+//			}
+//			for x in 0 ..< index {
+//				if let cell = cellForItem(at: .init(row: x, section: 0)) as? TutorialStepperCell {
+//					cell.fillProgress()
+//				}
+//			}
 
 			if let cell = cellForItem(at: .init(row: index, section: 0)) as? TutorialStepperCell {
 				cell.startProgress { [self] in
@@ -69,7 +69,7 @@ class TutorialStepperContainerView: UICollectionView {
 			let cell = cellForItem(at: .init(row: currentIndex, section: 0)) as! TutorialStepperCell
 
 			if isPaused {
-				cell.tutStepperCellVM.pauseProgress()
+				cell.pauseProgress()
 			} else {
 				cell.progressFilling {
 					self.tutorialVM.nextTutorial()
@@ -82,7 +82,7 @@ class TutorialStepperContainerView: UICollectionView {
 		if index == tutorialVM.tutorials.count {
 			for i in 0 ..< tutorialVM.tutorials.count {
 				if let cell = cellForItem(at: .init(row: i, section: 0)) as? TutorialStepperCell {
-					cell.tutStepperCellVM.pauseProgress()
+					cell.pauseProgress()
 				}
 			}
 			tutorialVM.watchedTutorial()

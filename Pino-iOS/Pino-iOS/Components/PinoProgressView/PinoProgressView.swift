@@ -72,14 +72,15 @@ class PinoProgressView: UIView {
 	private func animateProgress(duration: Double) {
 		layoutIfNeeded()
 		containerProgressBarWidth = progressContainerView.frame.width
-		UIView.animate(withDuration: duration, animations: { [weak self] in
 
-			self?.progressFullConstraint.constant = 0
-			self?.progressFullConstraint.isActive = true
-			self?.layoutIfNeeded()
-		}, completion: { _ in
-			self.completion()
-		})
+        UIView.animate(withDuration: duration, delay: 0, options: [.curveLinear]) { [weak self] in
+            self?.progressFullConstraint.constant = 0
+            self?.progressFullConstraint.isActive = true
+            self?.layoutIfNeeded()
+        } completion: { _ in
+            self.completion()
+        }
+
 	}
 
 	// MARK: - Public Methods
@@ -122,4 +123,10 @@ class PinoProgressView: UIView {
 		progressFullConstraint.constant = -containerProgressBarWidth
 		animateProgress(duration: progressBarVM.progressDuration)
 	}
+    
+    public func fill() {
+        progressBarView.layer.removeAllAnimations()
+        progressFullConstraint.constant = containerProgressBarWidth
+        animateProgress(duration: 0)
+    }
 }

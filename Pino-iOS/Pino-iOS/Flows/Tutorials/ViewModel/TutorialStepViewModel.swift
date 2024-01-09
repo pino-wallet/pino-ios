@@ -12,41 +12,33 @@ struct TutorialStepViewModel {
 	// MARK: - Public properties
 
 	public var isPause = true
-	public var timer: Timer?
-	public let timeInterval = 0.01 // Time interval for the timer
-	public var progress = Progress(totalUnitCount: TutorialStepViewModel.totalUnitCount)
-	public var progressFloat: Float {
-		Float(progress.fractionCompleted)
-	}
 
 	// MARK: - Private properties
 
-	private(set) var progressValue = CurrentValueSubject<(value: Float, animated: Bool), Never>((Float(0), true))
-	private static let totalUnitCount: Int64 = 500
 
 	// MARK: - Public Methods
 
-	public func setProgress(value: Float, animated: Bool) {
-		progressValue.send((progressFloat, animated))
-	}
-
-	public func resetProgress() {
-		progress.completedUnitCount = 0
-		timer?.invalidate()
-		setProgress(value: Float(0), animated: false)
-	}
-
-	public func fillProgress() {
-		progress.completedUnitCount = TutorialStepViewModel.totalUnitCount
-		timer?.invalidate()
-		setProgress(value: Float(100), animated: false)
-	}
-
-	public func pauseProgress() {
-		timer?.invalidate()
-	}
-
-	public func resumeProgress() {
-		timer?.fire()
-	}
+//	public func setProgress(value: Float, animated: Bool) {
+//		progressValue.send((progressFloat, animated))
+//	}
+//
+//	public func resetProgress() {
+//		progress.completedUnitCount = 0
+//		timer?.invalidate()
+//		setProgress(value: Float(0), animated: false)
+//	}
+//
+//	public func fillProgress() {
+//		progress.completedUnitCount = TutorialStepViewModel.totalUnitCount
+//		timer?.invalidate()
+//		setProgress(value: Float(100), animated: false)
+//	}
+//
+//	public func pauseProgress() {
+//		timer?.invalidate()
+//	}
+//
+//	public func resumeProgress() {
+//		timer?.fire()
+//	}
 }
