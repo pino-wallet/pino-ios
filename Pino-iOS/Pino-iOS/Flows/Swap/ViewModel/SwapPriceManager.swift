@@ -113,7 +113,7 @@ class SwapPriceManager {
 		} receiveValue: { paraswapResponse, zeroXResponse, oneInchResponse in
 			let allResponses: [SwapPriceResponseProtocol?] = [paraswapResponse, zeroXResponse, oneInchResponse]
 			let valuableResponses = allResponses.compactMap { $0 }
-			completion([])
+			completion(valuableResponses)
 		}.store(in: &cancellables)
 	}
 
