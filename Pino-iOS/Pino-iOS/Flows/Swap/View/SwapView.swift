@@ -258,11 +258,13 @@ class SwapView: UIView {
 				showFeeCard()
 				swapFeeView.showLoading()
 				toTokenSectionView.hideSelectAssetButton()
+				swapFeeView.hideNoQuoteError()
 			case .noQuote:
 				deactivateSwapButton()
 				showFeeCard()
 				swapFeeView.hideLoading()
 				toTokenSectionView.hideSelectAssetButton()
+				swapFeeView.showNoQuoteError()
 			case .noToToken:
 				deactivateSwapButton()
 				hideFeeCard()

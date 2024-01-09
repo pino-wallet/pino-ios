@@ -113,9 +113,7 @@ class SwapPriceManager {
 		} receiveValue: { paraswapResponse, zeroXResponse, oneInchResponse in
 			let allResponses: [SwapPriceResponseProtocol?] = [paraswapResponse, zeroXResponse, oneInchResponse]
 			let valuableResponses = allResponses.compactMap { $0 }
-			if !valuableResponses.isEmpty {
-				completion(valuableResponses)
-			}
+			completion([])
 		}.store(in: &cancellables)
 	}
 
@@ -144,9 +142,7 @@ class SwapPriceManager {
 		} receiveValue: { paraswapResponse, zeroXResponse in
 			let allResponses: [SwapPriceResponseProtocol?] = [paraswapResponse, zeroXResponse]
 			let valuableResponses = allResponses.compactMap { $0 }
-			if !valuableResponses.isEmpty {
-				completion(valuableResponses)
-			}
+			completion(valuableResponses)
 		}.store(in: &cancellables)
 	}
 

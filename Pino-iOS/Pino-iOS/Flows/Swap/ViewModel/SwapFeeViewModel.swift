@@ -36,6 +36,7 @@ class SwapFeeViewModel {
 	public let feeTitle = "Fee"
 	public let celebrateEmoji = "🎉"
 	public let loadingText = "Fetching the best price"
+	public let noQuoteErrorText = "No quotes found"
 
 	// MARK: - Initializers
 
