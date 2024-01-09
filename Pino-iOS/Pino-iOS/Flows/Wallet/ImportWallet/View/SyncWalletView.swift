@@ -44,6 +44,12 @@ class SyncWalletView: UIView {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+    
+    // MARK: - View Overrides
+    
+    override func removeFromSuperview() {
+        titleAnimationView.animation = nil
+    }
 
 	// MARK: - Private Methods
 
@@ -78,7 +84,7 @@ class SyncWalletView: UIView {
 		titleLabel.text = syncWalletVM.titleText
 		titleLabel.textAlignment = .center
 
-		titleAnimationView.animation = LottieAnimation.named(syncWalletVM.titleAnimationName)
+        titleAnimationView.animation = LottieAnimation.named(syncWalletVM.titleAnimationName)
 		titleAnimationView.loopMode = .loop
 		titleAnimationView.contentMode = .scaleAspectFit
 		titleAnimationView.play()

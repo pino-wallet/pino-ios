@@ -44,6 +44,12 @@ class GetInviteCodeView: UIView, UITextFieldDelegate {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+    
+    // MARK: - View Overrides
+    
+    override func removeFromSuperview() {
+        titleAnimationView.animation = nil
+    }
 
 	// MARK: - Private Methods
 
