@@ -239,9 +239,9 @@ class SwapView: UIView {
 			case .initial:
 				deactivateSwapButton()
 				hideFeeCard()
+				clearTextFields()
 				toTokenSectionView.lockTextField()
 				toTokenSectionView.showSelectAssetButton()
-				clearTextFields()
 			case .clear:
 				deactivateSwapButton()
 				hideFeeCard()
