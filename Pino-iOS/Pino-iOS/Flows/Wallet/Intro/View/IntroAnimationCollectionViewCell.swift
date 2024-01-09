@@ -84,20 +84,21 @@ extension IntroAnimationCollectionViewCell {
 	private func setImageCornerRadius() {
 		layoutIfNeeded()
 	}
-    
-    // MARK: - Public Methods
-    public func removeLottieFromRam() {
-        introAnimationView.animation = nil
-    }
-    
-    public func loadLottieAnimation() {
-        if introAnimationView.animation == nil {
-            introAnimationView.backgroundColor = .Pino.clear
-            introAnimationView.animation = LottieAnimation.named("IntroAnimation")
-            //        introAnimationView.configuration.renderingEngine = .
-            introAnimationView.play()
-            introAnimationView.animationSpeed = 1
-            introAnimationView.loopMode = .loop
-        }
-    }
+
+	// MARK: - Public Methods
+
+	public func removeLottieFromRam() {
+		introAnimationView.animation = nil
+	}
+
+	public func loadLottieAnimation() {
+		if introAnimationView.animation == nil {
+			introAnimationView.backgroundColor = .Pino.clear
+			introAnimationView.animation = LottieAnimation.named("IntroAnimation")
+			//        introAnimationView.configuration.renderingEngine = .
+			introAnimationView.play()
+			introAnimationView.animationSpeed = 1
+			introAnimationView.loopMode = .loop
+		}
+	}
 }

@@ -56,24 +56,24 @@ class IntroCollectionView: UICollectionView {
 	private func setupStyle() {
 		backgroundColor = .Pino.secondaryBackground
 	}
-    
-    // MARK: - Public Methods
-    
-    public func removeLottieAnimationFromRam() {
-        for cell in visibleCells {
-            if let currentCell = cell as? IntroAnimationCollectionViewCell {
-                currentCell.removeLottieFromRam()
-            }
-        }
-    }
-    
-    public func loadLottieAnimation() {
-        for cell in visibleCells {
-            if let currentCell = cell as? IntroAnimationCollectionViewCell {
-                currentCell.loadLottieAnimation()
-            }
-        }
-    }
+
+	// MARK: - Public Methods
+
+	public func removeLottieAnimationFromRam() {
+		for cell in visibleCells {
+			if let currentCell = cell as? IntroAnimationCollectionViewCell {
+				currentCell.removeLottieFromRam()
+			}
+		}
+	}
+
+	public func loadLottieAnimation() {
+		for cell in visibleCells {
+			if let currentCell = cell as? IntroAnimationCollectionViewCell {
+				currentCell.loadLottieAnimation()
+			}
+		}
+	}
 }
 
 // MARK: Collection View DataSource
@@ -117,18 +117,28 @@ extension IntroCollectionView: UICollectionViewDelegate {
 			pageDidChange(page)
 		}
 	}
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.item == 0 {
-            let animationCell = cell as! IntroAnimationCollectionViewCell
-            animationCell.removeLottieFromRam()
-        }
-    }
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.item == 0 {
-            let animationCell = cell as! IntroAnimationCollectionViewCell
-            animationCell.loadLottieAnimation()
-        }
-    }
+
+	func collectionView(
+		_ collectionView: UICollectionView,
+		didEndDisplaying cell: UICollectionViewCell,
+		forItemAt indexPath: IndexPath
+	) {
+		if indexPath.item == 0 {
+			let animationCell = cell as! IntroAnimationCollectionViewCell
+			animationCell.removeLottieFromRam()
+		}
+	}
+
+	func collectionView(
+		_ collectionView: UICollectionView,
+		willDisplay cell: UICollectionViewCell,
+		forItemAt indexPath: IndexPath
+	) {
+		if indexPath.item == 0 {
+			let animationCell = cell as! IntroAnimationCollectionViewCell
+			animationCell.loadLottieAnimation()
+		}
+	}
 }
 
 // MARK: Collection View Flow Layout
