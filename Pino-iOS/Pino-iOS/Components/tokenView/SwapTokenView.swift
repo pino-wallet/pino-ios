@@ -18,9 +18,13 @@ class SwapTokenView: UIView {
 
 	// MARK: - Public Properties
 
-	public var tokenName: String? {
+	public var tokenName: String! {
 		didSet {
-			tokenNameLabel.text = tokenName
+			if tokenName.count < 7 {
+				tokenNameLabel.text = tokenName
+			} else {
+				tokenNameLabel.text = "\(tokenName.prefix(3))..."
+			}
 		}
 	}
 

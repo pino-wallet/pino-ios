@@ -142,10 +142,9 @@ class SwapTokenSectionView: UIView {
 		)
 		NSLayoutConstraint.activate([
 			estimatedAmountLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60),
+			changeTokenView.widthAnchor.constraint(greaterThanOrEqualToConstant: 101),
+			changeTokenView.widthAnchor.constraint(lessThanOrEqualToConstant: 130),
 		])
-		changeTokenView.pin(
-			.fixedWidth(115)
-		)
 		selectAssetButton.pin(
 			.fixedHeight(40)
 		)
@@ -278,7 +277,7 @@ extension SwapTokenSectionView: UITextFieldDelegate {
 		shouldChangeCharactersIn range: NSRange,
 		replacementString string: String
 	) -> Bool {
-		textField.enteredNumberPatternIsValid(charactersRange: range, replacementString: string)
+		textField.isNumber(charactersRange: range, replacementString: string)
 	}
 
 	func textFieldDidBeginEditing(_ textField: UITextField) {

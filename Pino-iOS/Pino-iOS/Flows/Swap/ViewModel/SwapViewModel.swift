@@ -182,6 +182,9 @@ class SwapViewModel {
 		amount: String?,
 		swapSide: SwapSide
 	) {
+		if let amount {
+			if amount.last == "." { return }
+		}
 		srcToken.calculateDollarAmount(amount)
 		if isEthToWeth() || isWethToEth() {
 			updateEthSwapInfo(destToken: destToken, amount: amount)

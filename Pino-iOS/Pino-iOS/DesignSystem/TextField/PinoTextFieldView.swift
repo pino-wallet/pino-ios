@@ -14,6 +14,7 @@ public class PinoTextFieldView: UIView {
 	public var textDidChange: (() -> Void)?
 	public var editingBegin: (() -> Void)?
 	public var editingEnd: (() -> Void)?
+	public var validationPattern: () -> Bool = { true }
 
 	// MARK: - Private Properties
 
@@ -22,6 +23,7 @@ public class PinoTextFieldView: UIView {
 	private let textField = UITextField()
 	private let errorLabel = UILabel()
 	private let pendingLoading = PinoLoading(size: 24)
+	private var pattern: Pattern?
 
 	// MARK: - Public Properties
 
@@ -61,12 +63,14 @@ public class PinoTextFieldView: UIView {
 		style: Style = .normal,
 		placeholder: String = "",
 //		errorText: String = "",
+		pattern: Pattern?,
 		returnKeyType: UIReturnKeyType = .default
 	) {
 		self.style = style
 		self.placeholderText = placeholder
 //		self.errorText = errorText
 		self.returnKeyType = returnKeyType
+		self.pattern = pattern
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -189,6 +193,22 @@ extension PinoTextFieldView: UITextFieldDelegate {
 			textFieldKeyboardOnReturn()
 		}
 		return true
+	}
+
+	public func textField(
+		_ textField: UITextField,
+		shouldChangeCharactersIn range: NSRange,
+		replacementString string: String
+	) -> Bool {
+		guard let pattern else {
+			return true
+		}
+		switch pattern {
+		case .number:
+			return textField.isNumber(charactersRange: range, replacementString: string)
+		case .alphaNumeric:
+			return textField.isAlphaNumeric(charactersRange: range, replacementString: string)
+		}
 	}
 }
 
