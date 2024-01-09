@@ -46,20 +46,22 @@ class TutorialStepperContainerView: UICollectionView {
 		tutorialVM.$currentIndex.sink { [self] index in
 			currentIndex = index
 			checkIfFinished(index: index)
-//			for x in index ..< tutorialVM.tutorials.count {
-//				if let cell = cellForItem(at: .init(row: x, section: 0)) as? TutorialStepperCell {
-//					cell.resetProgress()
-//				}
-//			}
-//			for x in 0 ..< index {
-//				if let cell = cellForItem(at: .init(row: x, section: 0)) as? TutorialStepperCell {
-//					cell.fillProgress()
-//				}
-//			}
+			for x in index ..< tutorialVM.tutorials.count {
+				if let cell = cellForItem(at: .init(row: x, section: 0)) as? TutorialStepperCell {
+					cell.resetProgress()
+				}
+			}
+			print("index:\(index)")
+			for x in 0 ..< index {
+				if let cell = cellForItem(at: .init(row: x, section: 0)) as? TutorialStepperCell {
+					cell.fillProgress()
+				}
+			}
 
 			if let cell = cellForItem(at: .init(row: index, section: 0)) as? TutorialStepperCell {
 				cell.startProgress { [self] in
 					tutorialVM.nextTutorial()
+					print("next")
 				}
 			}
 
@@ -106,7 +108,6 @@ extension TutorialStepperContainerView: UICollectionViewDataSource {
 			withReuseIdentifier: TutorialStepperCell.cellReuseID,
 			for: indexPath
 		) as! TutorialStepperCell
-		cell.tutStepperCellVM = TutorialStepViewModel()
 		cell.configCell()
 		return cell
 	}

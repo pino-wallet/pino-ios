@@ -20,9 +20,6 @@ class HomepageViewController: UIViewController {
 
 	override func viewDidAppear(_ animated: Bool) {
 		assetsCollectionView.getHomeData()
-        
-        let vc = SyncWalletViewController(syncWalletVM: .init(loadingTime: 5))
-        present(vc, animated: true)
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
