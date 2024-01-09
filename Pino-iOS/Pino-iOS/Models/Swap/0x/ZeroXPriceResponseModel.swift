@@ -10,13 +10,8 @@ import Foundation
 struct ZeroXPriceResponseModel: SwapPriceResponseProtocol {
 	// MARK: - Private Properties
 
-	let chainId: Int
-	let price, guaranteedPrice, estimatedPriceImpact, to: String
-	let data, value, gas, estimatedGas: String
-	let gasPrice, protocolFee, minimumProtocolFee, buyTokenAddress: String
-	let sellTokenAddress, buyAmount, sellAmount: String
-	let allowanceTarget, sellTokenToEthRate, buyTokenToEthRate: String
-	let grossPrice, grossBuyAmount, grossSellAmount: String?
+	let to, data, value, gasPrice: String
+	let gas, estimatedGas, buyAmount, sellAmount: String
 
 	// MARK: - Public Properties
 
@@ -33,7 +28,7 @@ struct ZeroXPriceResponseModel: SwapPriceResponseProtocol {
 	}
 
 	public var gasFee: String {
-		protocolFee
+		gas
 	}
 }
 

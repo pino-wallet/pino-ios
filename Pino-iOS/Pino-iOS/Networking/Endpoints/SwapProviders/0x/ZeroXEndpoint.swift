@@ -26,13 +26,13 @@ enum ZeroXEndpoint: EndpointType {
 	// MARK: - Internal Properties
 
 	internal var url: URL {
-		URL(string: "https://api.0x.org/swap/v1")!.appendingPathComponent(path)
+		Environment.apiBaseURL.appendingPathComponent(path)
 	}
 
 	internal var path: String {
 		switch self {
 		case .quote:
-			return "/quote"
+			return "swap/0x-quote"
 		}
 	}
 
@@ -57,7 +57,6 @@ enum ZeroXEndpoint: EndpointType {
 	internal var headers: HTTPHeaders {
 		[
 			"Content-Type": "application/json",
-			"0x-api-key": "7cf84073-95c9-4203-8e85-d3b0fc4cddf0",
 		]
 	}
 }
