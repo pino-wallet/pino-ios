@@ -68,7 +68,6 @@ enum ParaSwapEndpoint: EndpointType {
 	internal var headers: HTTPHeaders {
 		[
 			"Content-Type": "application/json",
-			"X-API-TOKEN": "token",
 		]
 	}
 }
