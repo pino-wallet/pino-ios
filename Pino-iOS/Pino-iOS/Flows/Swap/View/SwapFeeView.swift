@@ -276,8 +276,8 @@ class SwapFeeView: UIView {
 			self.updateSaveAmount(saveAmount)
 		}.store(in: &cancellables)
 
-		swapFeeVM.$calculatedAmount.sink { saveAmount in
-			self.hideLoading()
+		swapFeeVM.$calculatedAmount.sink { amount in
+			self.updateCalculatedAmount(amount)
 		}.store(in: &cancellables)
 
 		swapFeeVM.$priceImpact.sink { priceImpact in
@@ -332,7 +332,6 @@ class SwapFeeView: UIView {
 		if let priceImpact {
 			priceImpactStackView.isHidden = false
 			priceImpactLabel.text = priceImpact.percentFormatting
-			hideLoading()
 			switch swapFeeVM.priceImpactStatus {
 			case .low:
 				amountWarningImage.isHiddenInStackView = true
@@ -353,28 +352,11 @@ class SwapFeeView: UIView {
 			}
 		} else {
 			priceImpactStackView.isHidden = true
-			showLoading()
 		}
 	}
 
-	private func showLoading() {
-		if !isCollapsed {
-			feeInfoStackView.isHiddenInStackView = true
-		}
-		amountStackView.isHidden = true
-		contentStackView.isHidden = true
-		feeLoadingStackView.isHidden = false
-		feeLoadingIndicator.isHidden = false
-	}
-
-	private func hideLoading() {
-		if !isCollapsed {
-			feeInfoStackView.isHiddenInStackView = false
-		}
-		amountStackView.isHidden = false
-		contentStackView.isHidden = false
-		feeLoadingStackView.isHidden = true
-		feeLoadingIndicator.isHidden = true
+	private func updateCalculatedAmount(_ amount: String?) {
+		amountLabel.text = amount
 	}
 
 	@objc
@@ -404,10 +386,6 @@ class SwapFeeView: UIView {
 
 	// MARK: - Public Methods
 
-	public func updateCalculatedAmount(_ amount: String) {
-		amountLabel.text = amount
-	}
-
 	public func hideFeeInfo() {
 		isCollapsed = true
 		feeInfoStackView.isHiddenInStackView = true
@@ -424,6 +402,26 @@ class SwapFeeView: UIView {
 		if feeLoadingIndicator.isHidden {
 			feeInfoStackView.isHiddenInStackView = false
 		}
+	}
+
+	public func showLoading() {
+		if !isCollapsed {
+			feeInfoStackView.isHiddenInStackView = true
+		}
+		amountStackView.isHiddenInStackView = true
+		contentStackView.isHiddenInStackView = true
+		feeLoadingStackView.isHiddenInStackView = false
+		feeLoadingIndicator.isHiddenInStackView = false
+	}
+
+	public func hideLoading() {
+		if !isCollapsed {
+			feeInfoStackView.isHiddenInStackView = false
+		}
+		amountStackView.isHiddenInStackView = false
+		contentStackView.isHiddenInStackView = false
+		feeLoadingStackView.isHiddenInStackView = true
+		feeLoadingIndicator.isHiddenInStackView = true
 	}
 
 	override func layoutSubviews() {

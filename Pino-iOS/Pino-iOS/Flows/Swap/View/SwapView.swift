@@ -234,27 +234,40 @@ class SwapView: UIView {
 			self.updateSwapProtocol(swapProtocol)
 		}.store(in: &cancellables)
 
-		swapVM.swapFeeVM.$calculatedAmount.sink { amount in
-			UIView.animate(withDuration: 0.3) {
-				if let amount {
-					self.swapFeeView.updateCalculatedAmount(amount)
-					self.feeCardView.alpha = 1
-				} else {
-					self.feeCardView.alpha = 0
-				}
-			}
-		}.store(in: &cancellables)
-
-		swapVM.swapFeeVM.$priceImpact.sink { priceImpact in
-			if priceImpact != nil, self.fromTokenSectionView.balanceStatus == .isEnough {
-				self.continueButton.style = .active
-			} else {
-				self.continueButton.style = .deactive
-			}
-			// ACTIVATING continue button since in devnet we don't need validation
-			// to check if there is balance
-			if Environment.current != .mainNet {
-				self.continueButton.style = .active
+		swapVM.$swapState.sink { [self] swapState in
+			switch swapState {
+			case .initial:
+				deactivateSwapButton()
+				hideFeeCard()
+				clearTextFields()
+				toTokenSectionView.lockTextField()
+				toTokenSectionView.showSelectAssetButton()
+			case .clear:
+				deactivateSwapButton()
+				hideFeeCard()
+				toTokenSectionView.unlockTextField()
+				toTokenSectionView.hideSelectAssetButton()
+				clearTextFields()
+			case .hasAmount:
+				activateSwapButton()
+				showFeeCard()
+				swapFeeView.hideLoading()
+				toTokenSectionView.hideSelectAssetButton()
+			case .loading:
+				deactivateSwapButton()
+				showFeeCard()
+				swapFeeView.showLoading()
+				toTokenSectionView.hideSelectAssetButton()
+			case .noQuote:
+				deactivateSwapButton()
+				showFeeCard()
+				swapFeeView.hideLoading()
+				toTokenSectionView.hideSelectAssetButton()
+			case .noToToken:
+				deactivateSwapButton()
+				hideFeeCard()
+				toTokenSectionView.lockTextField()
+				toTokenSectionView.showSelectAssetButton()
 			}
 		}.store(in: &cancellables)
 	}
@@ -282,7 +295,10 @@ class SwapView: UIView {
 	}
 
 	private func switchTokens() {
-		if !fromTokenSectionView.isCalculating, !toTokenSectionView.isCalculating {
+		switch swapVM.swapState {
+		case .initial, .noToToken, .loading:
+			break
+		case .clear, .hasAmount, .noQuote:
 			switchTextFieldsFocus()
 			swapVM.switchTokens()
 		}
@@ -302,6 +318,37 @@ class SwapView: UIView {
 	@objc
 	private func changeSwapProtocol() {
 		swapProtocolChange()
+	}
+
+	private func clearTextFields() {
+		swapVM.fromToken.calculateDollarAmount(nil)
+		swapVM.toToken.calculateDollarAmount(nil)
+		fromTokenSectionView.swapAmountDidCalculate()
+		toTokenSectionView.swapAmountDidCalculate()
+	}
+
+	private func showFeeCard() {
+		UIView.animate(withDuration: 0.3) {
+			self.feeCardView.alpha = 1
+		}
+	}
+
+	private func hideFeeCard() {
+		UIView.animate(withDuration: 0.3) {
+			self.feeCardView.alpha = 0
+		}
+	}
+
+	private func activateSwapButton() {
+		if fromTokenSectionView.balanceStatus == .isEnough {
+			continueButton.style = .active
+		} else {
+			continueButton.style = .deactive
+		}
+	}
+
+	private func deactivateSwapButton() {
+		continueButton.style = .deactive
 	}
 
 	// MARK: - Public Methods

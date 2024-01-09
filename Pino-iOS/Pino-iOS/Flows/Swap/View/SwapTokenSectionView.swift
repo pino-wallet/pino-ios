@@ -21,6 +21,7 @@ class SwapTokenSectionView: UIView {
 	private let maxAmountTitle = UILabel()
 	private let maxAmountLabel = UILabel()
 	private let changeTokenView = SwapTokenView()
+	private let selectAssetButton: PinoRightSideImageButton
 	private let textFieldSpacerView = UIView()
 	private let estimatedAmountSpacerView = UIView()
 	private let changeSelectedToken: () -> Void
@@ -33,7 +34,6 @@ class SwapTokenSectionView: UIView {
 	public var balanceStatus: AmountStatus = .isZero
 	public var balanceStatusDidChange: ((AmountStatus) -> Void)?
 	public var editingBegin: (() -> Void)?
-	public var isCalculating = false
 
 	// MARK: - Initializers
 
@@ -45,6 +45,7 @@ class SwapTokenSectionView: UIView {
 		self.changeSelectedToken = changeSelectedToken
 		self.swapVM = swapVM
 		self.hasMaxAmount = hasMaxAmount
+		self.selectAssetButton = PinoRightSideImageButton(imageName: "chevron_down", style: .primary)
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -65,6 +66,7 @@ class SwapTokenSectionView: UIView {
 		textFieldStackView.addArrangedSubview(amountTextfield)
 		textFieldStackView.addArrangedSubview(textFieldSpacerView)
 		textFieldStackView.addArrangedSubview(changeTokenView)
+		textFieldStackView.addArrangedSubview(selectAssetButton)
 		estimatedAmountStackView.addArrangedSubview(estimatedAmountLabel)
 		estimatedAmountStackView.addArrangedSubview(estimatedAmountSpacerView)
 		estimatedAmountStackView.addArrangedSubview(maxAmountStackView)
@@ -74,6 +76,10 @@ class SwapTokenSectionView: UIView {
 		changeTokenView.tokenViewDidSelect = {
 			self.changeSelectedToken()
 		}
+
+		selectAssetButton.addAction(UIAction(handler: { _ in
+			self.changeSelectedToken()
+		}), for: .touchUpInside)
 
 		amountTextfield.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 		let focusTextFieldTapGesture = UITapGestureRecognizer(target: self, action: #selector(openKeyboard))
@@ -85,6 +91,7 @@ class SwapTokenSectionView: UIView {
 	private func setupStyle() {
 		maxAmountTitle.text = swapVM.maxTitle
 		maxAmountLabel.text = swapVM.maxHoldAmount
+		selectAssetButton.title = "Select asset"
 		changeTokenView.tokenName = swapVM.selectedToken.symbol
 
 		if swapVM.selectedToken.isVerified {
@@ -119,11 +126,13 @@ class SwapTokenSectionView: UIView {
 		estimatedAmountLabel.numberOfLines = 0
 		estimatedAmountLabel.lineBreakMode = .byCharWrapping
 		estimatedAmountLabel.isSkeletonable = true
+		selectAssetButton.corderRadius = 20
 
 		amountTextfield.delegate = self
 		swapVM.swapDelegate = self
 
 		maxAmountStackView.isHidden = !hasMaxAmount
+		selectAssetButton.isHiddenInStackView = true
 	}
 
 	private func setupContstraint() {
@@ -136,6 +145,9 @@ class SwapTokenSectionView: UIView {
 			changeTokenView.widthAnchor.constraint(greaterThanOrEqualToConstant: 101),
 			changeTokenView.widthAnchor.constraint(lessThanOrEqualToConstant: 130),
 		])
+		selectAssetButton.pin(
+			.fixedHeight(40)
+		)
 	}
 
 	private func setupBinding() {
@@ -220,6 +232,24 @@ class SwapTokenSectionView: UIView {
 	public func openKeyboard() {
 		amountTextfield.becomeFirstResponder()
 	}
+
+	public func lockTextField() {
+		amountTextfield.isUserInteractionEnabled = false
+	}
+
+	public func unlockTextField() {
+		amountTextfield.isUserInteractionEnabled = true
+	}
+
+	public func showSelectAssetButton() {
+		selectAssetButton.isHiddenInStackView = false
+		changeTokenView.isHiddenInStackView = true
+	}
+
+	public func hideSelectAssetButton() {
+		selectAssetButton.isHiddenInStackView = true
+		changeTokenView.isHiddenInStackView = false
+	}
 }
 
 extension SwapTokenSectionView: SwapDelegate {
@@ -231,15 +261,13 @@ extension SwapTokenSectionView: SwapDelegate {
 		hideSkeletonView()
 		amountTextfield.textColor = .Pino.label
 		updateAmountView()
-		isCalculating = false
-		amountTextfield.isUserInteractionEnabled = true
+		unlockTextField()
 	}
 
 	func swapAmountCalculating() {
 		showSkeletonView()
 		amountTextfield.textColor = .Pino.gray3
-		isCalculating = true
-		amountTextfield.isUserInteractionEnabled = false
+		lockTextField()
 	}
 }
 
