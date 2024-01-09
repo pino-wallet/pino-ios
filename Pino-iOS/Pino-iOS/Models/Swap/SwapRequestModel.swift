@@ -82,8 +82,6 @@ struct SwapRequestModel {
 			"from": userAddress, // this is pino proxy
 			"receiver": receiver, // this is user who receives token
 			"slippage": slippage,
-			"includeProtocols": false,
-			"includeTokensInfo": false,
 			"disableEstimate": true,
 			"allowPartialFill": true,
 		]

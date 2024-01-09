@@ -73,7 +73,7 @@ enum SwapProvider: String {
 		case .paraswap:
 			return "1"
 		case .zeroX:
-			return "1"
+			return "0.01"
 		}
 	}
 }

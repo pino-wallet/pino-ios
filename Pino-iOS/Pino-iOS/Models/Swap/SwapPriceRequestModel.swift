@@ -84,9 +84,6 @@ struct SwapPriceRequestModel {
 			"src": editedSrcToken,
 			"dst": editedDestToken,
 			"amount": amount,
-			"includeProtocols": "false",
-			"includeTokensInfo": "false",
-			"includeGas": "true",
 		]
 	}
 
@@ -94,6 +91,8 @@ struct SwapPriceRequestModel {
 		var params = [
 			"sellToken": editedSrcToken,
 			"buyToken": editedDestToken,
+			"slippagePercentage": provider.slippage,
+			"skipValidation": true,
 		] as HTTPParameters
 		if side == .sell {
 			params["sellAmount"] = amount
