@@ -45,6 +45,9 @@ class SwapFeeView: UIView {
 	private let feeLoadingStackView = UIStackView()
 	private let feeLoadingLabel = UILabel()
 	private let feeLoadingIndicator = PinoLoading(size: 22)
+	private let noQuoteErrorStackView = UIStackView()
+	private let noQuoteErrorImageView = UIImageView()
+	private let noQuoteErrorLabel = UILabel()
 
 	private let openFeeInfoIcon = UIImage(named: "chevron_down")
 	private let closeFeeInfoIcon = UIImage(named: "chevron_up")
@@ -81,6 +84,7 @@ class SwapFeeView: UIView {
 
 	private func setupView() {
 		addSubview(feeLoadingStackView)
+		addSubview(noQuoteErrorStackView)
 		addSubview(amountStackView)
 		addSubview(contentStackView)
 		contentStackView.addArrangedSubview(contentSpacerView)
@@ -114,6 +118,8 @@ class SwapFeeView: UIView {
 		feeStackView.addArrangedSubview(feeLabel)
 		feeLoadingStackView.addArrangedSubview(feeLoadingIndicator)
 		feeLoadingStackView.addArrangedSubview(feeLoadingLabel)
+		noQuoteErrorStackView.addArrangedSubview(noQuoteErrorImageView)
+		noQuoteErrorStackView.addArrangedSubview(noQuoteErrorLabel)
 
 		amountStackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(collapsFeeCard)))
 
@@ -131,11 +137,13 @@ class SwapFeeView: UIView {
 		priceImpactTitleLabel.text = swapFeeVM.priceImpactTitle
 		feeTitleLabel.text = swapFeeVM.feeTitle
 		feeLoadingLabel.text = swapFeeVM.loadingText
+		noQuoteErrorLabel.text = swapFeeVM.noQuoteErrorText
 		bestRateTagTitle.text = "Best rate"
 
 		collapsButton.image = openFeeInfoIcon
 		providerChangeIcon.image = UIImage(named: "chevron_right")
 		amountWarningImage.image = UIImage(named: "swap_warning")
+		noQuoteErrorImageView.image = UIImage(named: "swap_warning")
 
 		amountLabel.font = .PinoStyle.mediumBody
 		impactTagLabel.font = .PinoStyle.semiboldFootnote
@@ -148,6 +156,7 @@ class SwapFeeView: UIView {
 		priceImpactTitleLabel.font = .PinoStyle.mediumBody
 		priceImpactLabel.font = .PinoStyle.mediumBody
 		feeLoadingLabel.font = .PinoStyle.mediumBody
+		noQuoteErrorLabel.font = .PinoStyle.mediumBody
 		bestRateTagTitle.font = .PinoStyle.SemiboldCaption2
 
 		amountLabel.textColor = .Pino.label
@@ -159,10 +168,13 @@ class SwapFeeView: UIView {
 		feeLabel.textColor = .Pino.label
 		priceImpactTitleLabel.textColor = .Pino.secondaryLabel
 		feeLoadingLabel.textColor = .Pino.label
+		noQuoteErrorLabel.textColor = .Pino.label
 		bestRateTagTitle.textColor = .Pino.white
 
 		collapsButton.tintColor = .Pino.label
 		providerChangeIcon.tintColor = .Pino.secondaryLabel
+		amountWarningImage.tintColor = .Pino.red
+		noQuoteErrorImageView.tintColor = .Pino.gray3
 
 		bestRateTagView.backgroundColor = .orange
 
@@ -178,10 +190,13 @@ class SwapFeeView: UIView {
 		feeLoadingStackView.spacing = 10
 		feeLoadingStackView.alignment = .center
 		providerTitleStackView.spacing = 5
+		amountStackView.spacing = 7
+		noQuoteErrorStackView.spacing = 7
 
 		providerChangeStackView.alignment = .center
 		impactTagStackView.alignment = .center
 		amountStackView.alignment = .center
+		noQuoteErrorStackView.alignment = .center
 
 		impactTagView.layer.cornerRadius = 14
 		contentStackView.layer.masksToBounds = true
@@ -230,6 +245,13 @@ class SwapFeeView: UIView {
 		feeLoadingStackView.pin(
 			.allEdges(padding: 10)
 		)
+		noQuoteErrorStackView.pin(
+			.allEdges(padding: 10)
+		)
+		noQuoteErrorImageView.pin(
+			.fixedWidth(15),
+			.fixedHeight(15)
+		)
 		bestRateTagView.pin(
 			.fixedWidth(60),
 			.fixedHeight(24)
@@ -239,8 +261,8 @@ class SwapFeeView: UIView {
 			.centerY
 		)
 		amountWarningImage.pin(
-			.fixedWidth(30),
-			.fixedHeight(30)
+			.fixedWidth(15),
+			.fixedHeight(15)
 		)
 		providerTagView.pin(
 			.fixedHeight(24),
@@ -357,6 +379,7 @@ class SwapFeeView: UIView {
 
 	private func updateCalculatedAmount(_ amount: String?) {
 		amountLabel.text = amount
+		hideNoQuoteError()
 	}
 
 	@objc
@@ -422,6 +445,19 @@ class SwapFeeView: UIView {
 		contentStackView.isHiddenInStackView = false
 		feeLoadingStackView.isHiddenInStackView = true
 		feeLoadingIndicator.isHiddenInStackView = true
+	}
+
+	public func showNoQuoteError() {
+		if !isCollapsed {
+			feeInfoStackView.isHiddenInStackView = true
+		}
+		amountStackView.isHiddenInStackView = true
+		contentStackView.isHiddenInStackView = true
+		noQuoteErrorStackView.isHiddenInStackView = false
+	}
+
+	public func hideNoQuoteError() {
+		noQuoteErrorStackView.isHiddenInStackView = true
 	}
 
 	override func layoutSubviews() {

@@ -213,7 +213,11 @@ class SwapViewModel {
 				swapSide: swapSide
 			) { swapAmount in
 				self.updateDestinationToken(destToken: destToken, tokenAmount: swapAmount)
-				self.swapState = .hasAmount
+				if swapAmount == nil {
+					self.swapState = .noQuote
+				} else {
+					self.swapState = .hasAmount
+				}
 			}
 		}
 	}
@@ -240,7 +244,7 @@ class SwapViewModel {
 		destToken: AssetViewModel,
 		amount: String,
 		swapSide: SwapSide,
-		completion: @escaping (String) -> Void
+		completion: @escaping (String?) -> Void
 	) {
 		if selectedProtocol == .bestRate {
 			getBestRate(destToken: destToken, amount: amount, swapSide: swapSide, completion: completion)
@@ -253,17 +257,21 @@ class SwapViewModel {
 		destToken: AssetViewModel,
 		amount: String,
 		swapSide: SwapSide,
-		completion: @escaping (String) -> Void
+		completion: @escaping (String?) -> Void
 	) {
 		priceManager.getBestPrice(srcToken: fromToken, destToken: toToken, swapSide: swapSide, amount: amount)
 			{ providersInfo in
-				self.providers = providersInfo.compactMap {
-					SwapProviderViewModel(providerResponseInfo: $0, side: swapSide, destToken: destToken)
-				}.sorted { $0.swapAmount > $1.swapAmount }
-				let bestProvider = self.providers.first!
-				self.bestProvider = bestProvider
-				completion(bestProvider.formattedSwapAmount)
-				self.getFeeInfo(swapProvider: bestProvider)
+				if providersInfo.isEmpty {
+					completion(nil)
+				} else {
+					self.providers = providersInfo.compactMap {
+						SwapProviderViewModel(providerResponseInfo: $0, side: swapSide, destToken: destToken)
+					}.sorted { $0.swapAmount > $1.swapAmount }
+					let bestProvider = self.providers.first!
+					self.bestProvider = bestProvider
+					completion(bestProvider.formattedSwapAmount)
+					self.getFeeInfo(swapProvider: bestProvider)
+				}
 			}
 	}
 
