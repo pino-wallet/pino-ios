@@ -256,6 +256,8 @@ class SwapViewController: UIViewController {
 				onSwapConfirm: { pageStatus in
 					if pageStatus == .pending {
 						self.tabBarController?.selectedIndex = 4
+					} else if pageStatus == .success {
+						self.swapVM.swapState = .clear
 					}
 					self.dismiss(animated: true)
 				}
