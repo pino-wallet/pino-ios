@@ -71,6 +71,10 @@ public class PinoButton: UIButton {
 		case .deactive:
 			isEnabled = false
 			loadingView.isHidden = true
+		case .secondary:
+			isEnabled = true
+			updateTitle(title)
+			loadingView.isHidden = true
 		default:
 			isEnabled = true
 			updateTitle(title)
