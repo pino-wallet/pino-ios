@@ -98,7 +98,7 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 		).show()
 	}
 
-	private func addPendingActivity(txHash: String, gasInfo: GasInfo, activityDate: Date = Date()) {
+	private func addInvestPendingActivity(txHash: String, gasInfo: GasInfo, activityDate: Date = Date()) {
 		let coreDataManager = CoreDataManager()
 		var activityType: ActivityType {
 			switch investmentType {
@@ -165,7 +165,7 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 	private func getDepositTransaction() -> [SendTransactionViewModel]? {
 		guard let depositTrx = investManager.depositTrx else { return nil }
 		let depositTransaction = SendTransactionViewModel(transaction: depositTrx) { pendingActivityTXHash in
-			self.addPendingActivity(txHash: pendingActivityTXHash, gasInfo: self.investManager.depositGasInfo!)
+			self.addInvestPendingActivity(txHash: pendingActivityTXHash, gasInfo: self.investManager.depositGasInfo!)
 		}
 		return [depositTransaction]
 	}
@@ -180,7 +180,7 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 				)
 			}
 			let investTransaction = SendTransactionViewModel(transaction: collateralCheckTrx) { activityTXHash in
-				self.addPendingActivity(
+				self.addInvestPendingActivity(
 					txHash: activityTXHash,
 					gasInfo: self.investManager.compoundManager.collateralCheckGasInfo!,
 					activityDate: Date() + 1
@@ -189,7 +189,7 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 			return [collateralTransaction, investTransaction]
 		} else {
 			let depositTransaction = SendTransactionViewModel(transaction: depositTrx) { [self] activityTXHash in
-				addPendingActivity(txHash: activityTXHash, gasInfo: investManager.compoundManager.depositGasInfo!)
+				addInvestPendingActivity(txHash: activityTXHash, gasInfo: investManager.compoundManager.depositGasInfo!)
 			}
 			return [depositTransaction]
 		}
@@ -205,7 +205,7 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 				)
 			}
 			let investTransaction = SendTransactionViewModel(transaction: collateralCheckTrx) { activityTXHash in
-				self.addPendingActivity(
+				self.addInvestPendingActivity(
 					txHash: activityTXHash,
 					gasInfo: self.investManager.aaveManager.collateralCheckGasInfo!,
 					activityDate: Date() + 1
@@ -214,7 +214,7 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 			return [collateralTransaction, investTransaction]
 		} else {
 			let depositTransaction = SendTransactionViewModel(transaction: depositTrx) { [self] activityTXHash in
-				addPendingActivity(txHash: activityTXHash, gasInfo: investManager.aaveManager.depositGasInfo!)
+				addInvestPendingActivity(txHash: activityTXHash, gasInfo: investManager.aaveManager.depositGasInfo!)
 			}
 			return [depositTransaction]
 		}
