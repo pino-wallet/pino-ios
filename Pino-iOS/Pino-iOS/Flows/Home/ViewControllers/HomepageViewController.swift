@@ -19,7 +19,7 @@ class HomepageViewController: UIViewController {
 	// MARK: - View Overrides
 
 	override func viewDidAppear(_ animated: Bool) {
-		assetsCollectionView.getHomeData()
+		assetsCollectionView.getHomeData() s
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
