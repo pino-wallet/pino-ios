@@ -22,6 +22,8 @@ class GlobalVariables {
 	public var manageAssetsList: [AssetViewModel]?
 	@Published
 	public var selectedManageAssetsList: [AssetViewModel]?
+	@Published
+	public var currentAccount: WalletAccount!
 
 	// MARK: - Private Properties
 
@@ -44,6 +46,7 @@ class GlobalVariables {
 //				.show(haptic: .warning)
 			}
 		}
+		self.currentAccount = PinoWalletManager().currentAccount
 		$manageAssetsList.sink { assets in
 			guard var assets else { return }
 			assets.sort { asset1, asset2 in
