@@ -56,6 +56,24 @@ class IntroCollectionView: UICollectionView {
 	private func setupStyle() {
 		backgroundColor = .Pino.secondaryBackground
 	}
+
+	// MARK: - Public Methods
+
+	public func removeLottieAnimationFromRam() {
+		for cell in visibleCells {
+			if let currentCell = cell as? IntroAnimationCollectionViewCell {
+				currentCell.removeLottieFromRam()
+			}
+		}
+	}
+
+	public func loadLottieAnimation() {
+		for cell in visibleCells {
+			if let currentCell = cell as? IntroAnimationCollectionViewCell {
+				currentCell.loadLottieAnimation()
+			}
+		}
+	}
 }
 
 // MARK: Collection View DataSource
@@ -97,6 +115,28 @@ extension IntroCollectionView: UICollectionViewDelegate {
 			// Get the current page based on the scroll offset
 			let page = Int(round(scrollView.contentOffset.x / scrollView.frame.size.width))
 			pageDidChange(page)
+		}
+	}
+
+	func collectionView(
+		_ collectionView: UICollectionView,
+		didEndDisplaying cell: UICollectionViewCell,
+		forItemAt indexPath: IndexPath
+	) {
+		if indexPath.item == 0 {
+			let animationCell = cell as! IntroAnimationCollectionViewCell
+			animationCell.removeLottieFromRam()
+		}
+	}
+
+	func collectionView(
+		_ collectionView: UICollectionView,
+		willDisplay cell: UICollectionViewCell,
+		forItemAt indexPath: IndexPath
+	) {
+		if indexPath.item == 0 {
+			let animationCell = cell as! IntroAnimationCollectionViewCell
+			animationCell.loadLottieAnimation()
 		}
 	}
 }

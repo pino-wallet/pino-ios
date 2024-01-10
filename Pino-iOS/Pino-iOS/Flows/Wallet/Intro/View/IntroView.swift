@@ -34,6 +34,16 @@ class IntroView: UIView {
 	required init?(coder: NSCoder) {
 		fatalError()
 	}
+
+	// MARK: - View Overrides
+
+	override func removeFromSuperview() {
+		introCollectionView.removeLottieAnimationFromRam()
+	}
+
+	override func didMoveToSuperview() {
+		introCollectionView.loadLottieAnimation()
+	}
 }
 
 extension IntroView {

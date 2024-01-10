@@ -43,6 +43,12 @@ class TutorialView: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - View Overrides
+
+	override func removeFromSuperview() {
+		animationView.animation = nil
+	}
+
 	// MARK: - Private Methods
 
 	private func setupView() {
@@ -146,6 +152,7 @@ class TutorialView: UIView {
 		tutorialVM.$currentIndex.compactMap { $0 }.sink { [self] tutIndex in
 			guard tutIndex < tutorialVM.tutorials.count else { return }
 			animationView.pause()
+			animationView.animation = nil
 			animationView.animation = LottieAnimation.named(tutorialVM.tutorials[tutIndex].lottieFile)
 			animationView.play()
 
