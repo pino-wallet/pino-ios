@@ -131,38 +131,7 @@ class AccountsViewModel {
 			}
 		}
 	}
-
-
-	private func addNewWalletAccountWithAddress(
-		_ address: String,
-		derivationPath: String? = nil,
-		publicKey: EthereumPublicKey
-	) {
-		var walletType: Wallet.WalletType = .nonHDWallet
-		if derivationPath != nil {
-			walletType = .hdWallet
-		}
-		let wallet = coreDataManager.getAllWallets().first(where: { $0.walletType == walletType })
-		let walletsAvatar = accountsList.map { $0.profileImage }
-		let walletsName = accountsList.map { $0.name }
-		let newAvatar = Avatar
-			.allCases
-			.filter { !walletsAvatar.contains($0.rawValue) && !walletsName.contains($0.name) }
-			.randomElement()
-			?? .green_apple
-
-		let createdAccount = coreDataManager.createWalletAccount(
-			address: address,
-			derivationPath: derivationPath,
-			publicKey: publicKey.hex(),
-			name: newAvatar.name,
-			avatarIcon: newAvatar.rawValue,
-			avatarColor: newAvatar.rawValue,
-			wallet: wallet!
-		)
-		GlobalVariables.shared.currentAccount = createdAccount
-		getAccounts()
-	}
+    
 
 	public func editAccount(account: AccountInfoViewModel, newName: String) -> AccountInfoViewModel {
 		let edittedAccount = coreDataManager.editWalletAccount(account.walletAccountInfoModel, newName: newName)
