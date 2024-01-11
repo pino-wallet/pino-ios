@@ -14,8 +14,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	private var lockScreenView: PrivacyLockView?
 	private var authVC: AuthenticationLockManager!
-	private var appIsLocked = true
-	private var showPrivateScreen = true
+	private var appIsLocked = false
+	private var showPrivateScreen = false
 	private var isUserLoggedIn: Bool {
 		UserDefaults.standard.bool(forKey: "isLogin")
 	}

@@ -62,7 +62,7 @@ extension PinoButton.Style {
 	public static let clear = PinoButton.Style(
 		titleColor: .Pino.primary,
 		backgroundColor: .Pino.clear,
-		borderColor: .clear
+		borderColor: .Pino.clear
 	)
 
 	public static let numpad = PinoButton.Style(
@@ -71,5 +71,17 @@ extension PinoButton.Style {
 		borderColor: .clear,
 		font: UIFont.PinoStyle.mediumTitle1,
 		cornerRadius: 0
+	)
+
+	public static let activeSelected = PinoButton.Style(
+		titleColor: .Pino.white,
+		backgroundColor: .Pino.green3,
+		borderColor: .Pino.clear
+	)
+
+	public static let secondarySelected = PinoButton.Style(
+		titleColor: .Pino.green3,
+		backgroundColor: .Pino.secondaryBackground,
+		borderColor: .Pino.green3
 	)
 }

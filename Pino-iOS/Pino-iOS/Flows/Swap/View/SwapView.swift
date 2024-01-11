@@ -272,6 +272,10 @@ class SwapView: UIView {
 				toTokenSectionView.showSelectAssetButton()
 			}
 		}.store(in: &cancellables)
+
+		GlobalVariables.shared.$currentAccount.sink { walletAccount in
+			self.swapVM.swapState = .initial
+		}.store(in: &cancellables)
 	}
 
 	private func updateSwapProtocol(_ swapProtocol: SwapProtocolModel) {
