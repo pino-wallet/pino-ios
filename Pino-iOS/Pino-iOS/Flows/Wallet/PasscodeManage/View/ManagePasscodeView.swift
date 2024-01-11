@@ -104,8 +104,8 @@ extension ManagePasscodeView {
 		)
 
 		keyboardview.pin(
-			.horizontalEdges(padding: 62.5),
-			.bottom(to: layoutMarginsGuide, padding: 44)
+			.horizontalEdges(padding: 27),
+			.bottom(to: layoutMarginsGuide, padding: 32)
 		)
 	}
 }

@@ -99,22 +99,22 @@ class PinoNumberPadView: UIView {
 
 		row1StackView.axis = .horizontal
 		row1StackView.distribution = .fillEqually
-		row1StackView.spacing = 98
+		row1StackView.spacing = 2
 
 		row2StackView.axis = .horizontal
 		row2StackView.distribution = .fillEqually
-		row2StackView.spacing = 98
+		row2StackView.spacing = 2
 
 		row3StackView.axis = .horizontal
 		row3StackView.distribution = .fillEqually
-		row3StackView.spacing = 98
+		row3StackView.spacing = 2
 
 		row4StackView.axis = .horizontal
 		row4StackView.distribution = .fillEqually
-		row4StackView.spacing = 98
+		row4StackView.spacing = 2
 
 		keysStackView.axis = .vertical
-		keysStackView.spacing = 37
+		keysStackView.spacing = 2
 
 		num0.addTarget(self, action: #selector(num0Tapped), for: .touchUpInside)
 		num1.addTarget(self, action: #selector(num1Tapped), for: .touchUpInside)
@@ -130,6 +130,10 @@ class PinoNumberPadView: UIView {
 	}
 
 	private func setupContstraint() {
+        row1StackView.pin(.fixedHeight(70))
+        row2StackView.pin(.fixedHeight(70))
+        row3StackView.pin(.fixedHeight(70))
+        row4StackView.pin(.fixedHeight(70))
 		keysStackView.pin(
 			.allEdges
 		)

@@ -16,6 +16,7 @@ extension PinoButton {
 		public let backgroundColor: UIColor
 		public let borderColor: UIColor?
 		public var font: UIFont? = UIFont.PinoStyle.semiboldBody
+        public var cornerRadius: CGFloat?
 	}
 }
 
@@ -66,8 +67,9 @@ extension PinoButton.Style {
 
 	public static let numpad = PinoButton.Style(
 		titleColor: .Pino.black,
-		backgroundColor: .Pino.clear,
+		backgroundColor: .Pino.gray5,
 		borderColor: .clear,
-		font: UIFont.PinoStyle.mediumTitle1
+		font: UIFont.PinoStyle.mediumTitle1,
+        cornerRadius: 0
 	)
 }
