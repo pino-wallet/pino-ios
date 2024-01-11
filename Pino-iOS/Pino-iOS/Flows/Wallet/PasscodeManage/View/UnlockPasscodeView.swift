@@ -96,7 +96,7 @@ extension UnlockPasscodeView {
 		biometricActivationContainerView.spacing = 16
 
 		lineView.backgroundColor = .Pino.background
-        lineView.isHidden = true
+		lineView.isHidden = true
 
 		useFaceIDInfoStackView.axis = .horizontal
 		useFaceIDInfoStackView.spacing = 4
@@ -140,10 +140,10 @@ extension UnlockPasscodeView {
 			   let biometricsIcon = managePassVM.useBiometricIcon {
 				useFaceIDIcon.image = UIImage(named: biometricsIcon)
 				useFaceIDTitleLabel.text = biometricsTitle
-                lineView.isHidden = false
+				lineView.isHidden = false
 			} else {
 				useFaceIDOptionStackView.isHidden = true
-                lineView.isHidden = true
+				lineView.isHidden = true
 			}
 
 			useFaceIDTitleLabel.font = .PinoStyle.mediumSubheadline

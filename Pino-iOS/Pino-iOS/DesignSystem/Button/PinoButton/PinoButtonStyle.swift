@@ -16,7 +16,7 @@ extension PinoButton {
 		public let backgroundColor: UIColor
 		public let borderColor: UIColor?
 		public var font: UIFont? = UIFont.PinoStyle.semiboldBody
-        public var cornerRadius: CGFloat?
+		public var cornerRadius: CGFloat?
 	}
 }
 
@@ -70,6 +70,6 @@ extension PinoButton.Style {
 		backgroundColor: .Pino.gray5,
 		borderColor: .clear,
 		font: UIFont.PinoStyle.mediumTitle1,
-        cornerRadius: 0
+		cornerRadius: 0
 	)
 }

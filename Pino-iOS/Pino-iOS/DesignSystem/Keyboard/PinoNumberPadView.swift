@@ -130,10 +130,10 @@ class PinoNumberPadView: UIView {
 	}
 
 	private func setupContstraint() {
-        row1StackView.pin(.fixedHeight(70))
-        row2StackView.pin(.fixedHeight(70))
-        row3StackView.pin(.fixedHeight(70))
-        row4StackView.pin(.fixedHeight(70))
+		row1StackView.pin(.fixedHeight(70))
+		row2StackView.pin(.fixedHeight(70))
+		row3StackView.pin(.fixedHeight(70))
+		row4StackView.pin(.fixedHeight(70))
 		keysStackView.pin(
 			.allEdges
 		)
