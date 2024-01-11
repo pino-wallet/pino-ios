@@ -131,7 +131,6 @@ class AccountsViewModel {
 			}
 		}
 	}
-    
 
 	public func editAccount(account: AccountInfoViewModel, newName: String) -> AccountInfoViewModel {
 		let edittedAccount = coreDataManager.editWalletAccount(account.walletAccountInfoModel, newName: newName)
@@ -158,6 +157,6 @@ class AccountsViewModel {
 		coreDataManager.updateSelectedWalletAccount(selectedAccount.walletAccountInfoModel)
 		getAccounts()
 		GlobalVariables.shared.currentAccount = selectedAccount.walletAccountInfoModel
-    resetPendingActivities()
+		resetPendingActivities()
 	}
 }
