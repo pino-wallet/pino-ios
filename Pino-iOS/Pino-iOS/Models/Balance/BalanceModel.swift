@@ -39,7 +39,7 @@ public struct Detail: Codable {
 		case changePercentage = "change_percentage"
 		case price
 		case isPosition = "is_position"
-        case website
+		case website
 	}
 }
 

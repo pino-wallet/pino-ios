@@ -58,11 +58,11 @@ class CoinPerformanceViewModel {
 	}
 
 	private func updateCoinPerformanceInfo(chart: AssetChartViewModel) {
-        #warning("this net profit is mock and should change")
+		#warning("this net profit is mock and should change")
 		coinInfoVM.coinPerformanceInfo = CoinPerformanceInfoValues(
-            netProfit: GlobalZeroAmounts.tokenAmount.zeroAmount,
-            ATH: allTimeHigh(chart: chart) ?? GlobalZeroAmounts.tokenAmount.zeroAmount,
-            ATL: allTimeLow(chart: chart) ?? GlobalZeroAmounts.tokenAmount.zeroAmount
+			netProfit: GlobalZeroAmounts.tokenAmount.zeroAmount,
+			ATH: allTimeHigh(chart: chart) ?? GlobalZeroAmounts.tokenAmount.zeroAmount,
+			ATL: allTimeLow(chart: chart) ?? GlobalZeroAmounts.tokenAmount.zeroAmount
 		)
 	}
 

@@ -8,18 +8,18 @@
 import Foundation
 
 enum GlobalZeroAmounts {
-    case dollars
-    case tokenAmount
-    case percentage
-    
-    public var zeroAmount: String {
-        switch self {
-        case .dollars:
-            "$0.00"
-        case .tokenAmount:
-            "0.00"
-        case .percentage:
-            "0.00%"
-        }
-    }
+	case dollars
+	case tokenAmount
+	case percentage
+
+	public var zeroAmount: String {
+		switch self {
+		case .dollars:
+			"$0.00"
+		case .tokenAmount:
+			"0.00"
+		case .percentage:
+			"0.00%"
+		}
+	}
 }

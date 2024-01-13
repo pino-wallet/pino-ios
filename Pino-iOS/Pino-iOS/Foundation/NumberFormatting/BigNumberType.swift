@@ -267,7 +267,7 @@ extension BigNumber: CustomStringConvertible {
 			formattedNumber = formattedAmountOf(type: .priceRule)
 		}
 		if isZero {
-            return GlobalZeroAmounts.dollars.zeroAmount
+			return GlobalZeroAmounts.dollars.zeroAmount
 		} else if self.abs < BigNumber(number: 1, decimal: 2) {
 			return "<" + "0.01".currencyFormatting
 		} else {

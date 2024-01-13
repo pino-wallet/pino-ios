@@ -20,7 +20,7 @@ struct AssetChartViewModel {
 	}
 
 	public var balance: String {
-        chartDataVM.last?.networth.decimalString.currencyFormatting ?? GlobalZeroAmounts.dollars.zeroAmount
+		chartDataVM.last?.networth.decimalString.currencyFormatting ?? GlobalZeroAmounts.dollars.zeroAmount
 	}
 
 	public var volatilityPercentage: String {
@@ -51,7 +51,7 @@ struct AssetChartViewModel {
 			)
 			return valueChangePercentage
 		} else {
-            return 0
+			return 0
 		}
 	}
 
@@ -62,14 +62,14 @@ struct AssetChartViewModel {
 			let changePercentage = ((pointValue - previousValue) / previousValue) * 100
 			return changePercentage.roundToPlaces(2)
 		} else {
-            return 0
+			return 0
 		}
 	}
 
 	public func formattedVolatility(_ valueChangePercentage: Double) -> String {
-        if valueChangePercentage.isZero {
-            return GlobalZeroAmounts.percentage.zeroAmount
-        }
+		if valueChangePercentage.isZero {
+			return GlobalZeroAmounts.percentage.zeroAmount
+		}
 		let volatilityType = volatilityType(valueChangePercentage)
 		return "\(volatilityType.prependSign)\(abs(valueChangePercentage))%"
 	}

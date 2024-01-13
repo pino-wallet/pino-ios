@@ -185,7 +185,7 @@ struct ActivityDetailProperties {
 	public var formattedFeeInDollar: String {
 		let feeInDollar = ethToken.price * feeInETH
 		if feeInDollar.isZero {
-            return GlobalZeroAmounts.dollars.zeroAmount
+			return GlobalZeroAmounts.dollars.zeroAmount
 		} else {
 			return feeInDollar.priceFormat
 		}
@@ -193,7 +193,7 @@ struct ActivityDetailProperties {
 
 	public var formattedFeeInETH: String {
 		if feeInETH.isZero {
-            return GlobalZeroAmounts.tokenAmount.zeroAmount
+			return GlobalZeroAmounts.tokenAmount.zeroAmount
 		} else {
 			return feeInETH.sevenDigitFormat.ethFormatting
 		}

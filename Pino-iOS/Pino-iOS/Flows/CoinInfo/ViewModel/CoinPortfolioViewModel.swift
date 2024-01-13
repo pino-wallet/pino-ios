@@ -23,12 +23,12 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var userAmountAndCoinSymbol: String {
-        var formattedUserAmount: String
-        if userAmount.isZero {
-            formattedUserAmount = GlobalZeroAmounts.tokenAmount.zeroAmount
-        } else {
-            formattedUserAmount = userAmount.sevenDigitFormat
-        }
+		var formattedUserAmount: String
+		if userAmount.isZero {
+			formattedUserAmount = GlobalZeroAmounts.tokenAmount.zeroAmount
+		} else {
+			formattedUserAmount = userAmount.sevenDigitFormat
+		}
 		return "\(formattedUserAmount) \(coinPortfolioModel.detail!.symbol)"
 	}
 
@@ -46,9 +46,9 @@ struct CoinPortfolioViewModel {
 
 	public var volatilityRatePercentage: String {
 		let formattedChangePercentage = BigNumber(number: changePercentage, decimal: 2)
-        if formattedChangePercentage.isZero {
-            return GlobalZeroAmounts.percentage.zeroAmount
-        }
+		if formattedChangePercentage.isZero {
+			return GlobalZeroAmounts.percentage.zeroAmount
+		}
 		return "\(volatilityType.prependSign)\(formattedChangePercentage)%"
 	}
 
@@ -69,8 +69,8 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var website: String {
-        let websiteURL = URL(string: coinPortfolioModel.detail!.website)
-        return (websiteURL!.host ?? coinPortfolioModel.detail?.website) ?? "-"
+		let websiteURL = URL(string: coinPortfolioModel.detail!.website)
+		return (websiteURL!.host ?? coinPortfolioModel.detail?.website) ?? "-"
 	}
 
 	public var userAmountInDollar: String {

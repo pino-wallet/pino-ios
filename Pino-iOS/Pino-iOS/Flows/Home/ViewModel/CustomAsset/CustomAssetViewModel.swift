@@ -34,7 +34,7 @@ struct CustomAssetViewModel {
 			)
 			return userBalanceOfCustomToken.sevenDigitFormat
 		} else {
-            return GlobalZeroAmounts.tokenAmount.zeroAmount
+			return GlobalZeroAmounts.tokenAmount.zeroAmount
 		}
 	}
 
