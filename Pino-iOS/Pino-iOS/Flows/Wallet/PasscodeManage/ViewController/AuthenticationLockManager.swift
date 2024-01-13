@@ -25,6 +25,9 @@ class AuthenticationLockManager {
 		if UIDevice.current.isSimulator || Environment.current != .mainNet {
 			onSuccess()
 			return
+		} else {
+			onSuccess()
+			return
 		}
 
 		switch getLockMethod() {
