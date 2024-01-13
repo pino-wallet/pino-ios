@@ -23,7 +23,13 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var userAmountAndCoinSymbol: String {
-		"\(userAmount.sevenDigitFormat) \(coinPortfolioModel.detail!.symbol)"
+        var formattedUserAmount: String
+        if userAmount.isZero {
+            formattedUserAmount = GlobalZeroAmounts.tokenAmount.zeroAmount
+        } else {
+            formattedUserAmount = userAmount.sevenDigitFormat
+        }
+		return "\(formattedUserAmount) \(coinPortfolioModel.detail!.symbol)"
 	}
 
 	public var logo: URL? {
@@ -39,7 +45,10 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var volatilityRatePercentage: String {
-		let formattedChangePercentage = BigNumber(number: changePercentage, decimal: 2).priceFormat
+		let formattedChangePercentage = BigNumber(number: changePercentage, decimal: 2)
+        if formattedChangePercentage.isZero {
+            return GlobalZeroAmounts.percentage.zeroAmount
+        }
 		return "\(volatilityType.prependSign)\(formattedChangePercentage)%"
 	}
 
@@ -60,9 +69,8 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var website: String {
-		#warning("this website is temporary and should be updated")
-		//        return coinPortfolioModel.detail.website
-		return "www.ethereum.com"
+        let websiteURL = URL(string: coinPortfolioModel.detail!.website)
+        return (websiteURL!.host ?? coinPortfolioModel.detail?.website) ?? "-"
 	}
 
 	public var userAmountInDollar: String {

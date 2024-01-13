@@ -15,8 +15,8 @@ public class AssetViewModel: SecurityModeProtocol {
 	public var securityMode = false
 	public var isSelected: Bool
 	public var amount = "0"
-	public var amountInDollor = "-"
-	public var volatilityInDollor = "-"
+    public var amountInDollor = GlobalZeroAmounts.dollars.zeroAmount
+	public var volatilityInDollor = GlobalZeroAmounts.dollars.zeroAmount
 
 	public var id: String {
 		assetModel.id
@@ -128,7 +128,7 @@ public class AssetViewModel: SecurityModeProtocol {
 
 	private func getFormattedAmountInDollor() -> String {
 		if holdAmountInDollor.isZero {
-			return "-"
+            return GlobalZeroAmounts.dollars.zeroAmount
 		} else {
 			return formattedHoldAmount
 		}
@@ -136,7 +136,7 @@ public class AssetViewModel: SecurityModeProtocol {
 
 	private func getFormattedVolatility() -> String {
 		if change24h.isZero {
-			return "-"
+            return GlobalZeroAmounts.dollars.zeroAmount
 		} else {
 			switch volatilityType {
 			case .loss:
