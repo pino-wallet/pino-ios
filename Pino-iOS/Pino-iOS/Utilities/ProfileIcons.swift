@@ -6,7 +6,7 @@
 //
 
 enum Avatar: String, CaseIterable {
-	case grapes
+	case grape
 	case tangerine
 	case coconut
 	case green_apple
@@ -33,7 +33,7 @@ enum Avatar: String, CaseIterable {
 
 	public var name: String {
 		switch self {
-		case .grapes:
+		case .grape:
 			return "Grapes"
 		case .tangerine:
 			return "Tangerine"
