@@ -37,6 +37,7 @@ class SwapConfirmationViewModel {
 	private var swapSide: SwapSide
 	private var pendingSwapTrx: EthereumSignedTransaction?
 	private var pendingSwapGasInfo: GasInfo?
+	private var swapTimer: Timer?
 
 	// MARK: - Public Properties
 
@@ -146,6 +147,10 @@ class SwapConfirmationViewModel {
 		}
 	}
 
+	public func destoryRateTimer() {
+		swapTimer?.invalidate()
+	}
+
 	// MARK: - Private Methods
 
 	private func setSelectedProtocol() {
@@ -161,44 +166,42 @@ class SwapConfirmationViewModel {
 	}
 
 	private func recalculateSwapRate() {
-		Timer.publish(every: 15, on: .main, in: .common)
-			.autoconnect()
-			.sink { [self] seconds in
-				swapRate = nil
-				guard let selectedProvider = selectedProvider else { return }
-				let srcTokenAmount = Utilities.parseToBigUInt(
-					fromToken.tokenAmount!,
-					decimals: fromToken.selectedToken.decimal
-				)
-				swapPriceManager.getSwapResponseFrom(
-					provider: selectedProvider.provider,
-					srcToken: fromToken.selectedToken,
-					destToken: toToken.selectedToken,
-					swapSide: swapSide,
-					amount: srcTokenAmount!.description
-				) { [self] providersInfo in
+		swapTimer = Timer.scheduledTimer(withTimeInterval: 15.0, repeats: true) { [weak self] timer in
+			guard let self = self else { return }
+			guard let selectedProvider = selectedProvider else { return }
+			swapRate = nil
+			let srcTokenAmount = Utilities.parseToBigUInt(
+				fromToken.tokenAmount!,
+				decimals: fromToken.selectedToken.decimal
+			)
+			swapPriceManager.getSwapResponseFrom(
+				provider: selectedProvider.provider,
+				srcToken: fromToken.selectedToken,
+				destToken: toToken.selectedToken,
+				swapSide: swapSide,
+				amount: srcTokenAmount!.description
+			) { [self] providersInfo in
 
-					let recalculatedSwapInfo = providersInfo.compactMap {
-						SwapProviderViewModel(
-							providerResponseInfo: $0,
-							side: swapSide,
-							destToken: toToken.selectedToken
-						)
-					}.first
-					toToken.calculateDollarAmount(recalculatedSwapInfo?.formattedSwapAmount)
-					toToken = toToken
-					let feeVM = SwapFeeViewModel(swapProviderVM: recalculatedSwapInfo)
-					feeVM.updateQuote(srcToken: fromToken, destToken: toToken)
-					swapRate = feeVM.calculatedAmount
-					swapManager = SwapManager(
-						selectedProvider: recalculatedSwapInfo,
-						srcToken: fromToken.selectedToken,
-						destToken: toToken.selectedToken,
-						swapAmount: fromToken.tokenAmount!,
-						destinationAmount: toToken.tokenAmount!
+				let recalculatedSwapInfo = providersInfo.compactMap {
+					SwapProviderViewModel(
+						providerResponseInfo: $0,
+						side: self.swapSide,
+						destToken: self.toToken.selectedToken
 					)
-				}
+				}.first
+				self.toToken.calculateDollarAmount(recalculatedSwapInfo?.formattedSwapAmount)
+				self.toToken = self.toToken
+				let feeVM = SwapFeeViewModel(swapProviderVM: recalculatedSwapInfo)
+				feeVM.updateQuote(srcToken: self.fromToken, destToken: self.toToken)
+				self.swapRate = feeVM.calculatedAmount
+				self.swapManager = SwapManager(
+					selectedProvider: recalculatedSwapInfo,
+					srcToken: self.fromToken.selectedToken,
+					destToken: self.toToken.selectedToken,
+					swapAmount: self.fromToken.tokenAmount!,
+					destinationAmount: self.toToken.tokenAmount!
+				)
 			}
-			.store(in: &cancellables)
+		}
 	}
 }

@@ -49,6 +49,11 @@ class SwapConfirmationViewController: UIViewController {
 		super.viewDidAppear(animated)
 	}
 
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+		swapConfirmationVM.destoryRateTimer()
+	}
+
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
@@ -110,6 +115,7 @@ class SwapConfirmationViewController: UIViewController {
 					onSwapConfirm(pageStatus)
 				}
 			)
+			swapConfirmationVM.destoryRateTimer()
 			present(sendTransactionStatuVC, animated: true)
 		} onFailure: {
 			#warning("Error should be handled")
@@ -118,6 +124,7 @@ class SwapConfirmationViewController: UIViewController {
 
 	@objc
 	private func dismissPage() {
+		swapConfirmationVM.destoryRateTimer()
 		dismiss(animated: true)
 	}
 
