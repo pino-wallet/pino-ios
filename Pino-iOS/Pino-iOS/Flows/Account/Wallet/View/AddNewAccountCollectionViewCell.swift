@@ -17,6 +17,8 @@ class AddNewAccountCollectionViewCell: UICollectionViewCell {
 	private let titleLabel = PinoLabel(style: .title, text: "")
 	private let descriptionLabel = PinoLabel(style: .description, text: "")
 	private let cellStatusContainerView = UIView()
+	private let cellImageContainerView = UIView()
+	private let cellLoadingContainerView = UIView()
 	private let iconImageView = UIImageView()
 	private var loadingView: PinoLoading!
 
@@ -40,16 +42,17 @@ class AddNewAccountCollectionViewCell: UICollectionViewCell {
 		textStackView.addArrangedSubview(titleLabel)
 		textStackView.addArrangedSubview(descriptionLabel)
 
-		cellStatusContainerView.addSubview(iconImageView)
-		cellStatusContainerView.addSubview(loadingView)
+		cellImageContainerView.addSubview(iconImageView)
+		cellLoadingContainerView.addSubview(loadingView)
 
-		iconStackView.addArrangedSubview(cellStatusContainerView)
+		cellStatusContainerView.addSubview(cellImageContainerView)
+		cellStatusContainerView.addSubview(cellLoadingContainerView)
 
 		contentView.addSubview(mainStackView)
 		mainStackView.axis = .horizontal
 		mainStackView.addArrangedSubview(textStackView)
 		mainStackView.addArrangedSubview(betWeenStackView)
-		mainStackView.addArrangedSubview(iconStackView)
+		mainStackView.addArrangedSubview(cellStatusContainerView)
 	}
 
 	private func setupStyles() {
@@ -75,21 +78,23 @@ class AddNewAccountCollectionViewCell: UICollectionViewCell {
 	private func toggleCellLoading(_ loadingStatus: Bool) {
 		if loadingStatus {
 			isUserInteractionEnabled = false
-			loadingView.isHidden = false
-			iconImageView.isHidden = true
+			cellLoadingContainerView.isHidden = false
+			cellImageContainerView.isHidden = true
 		} else {
 			isUserInteractionEnabled = true
-			loadingView.isHidden = true
-			iconImageView.isHidden = false
+			cellLoadingContainerView.isHidden = true
+			cellImageContainerView.isHidden = false
 		}
 	}
 
 	private func setupConstraints() {
 		mainStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
 
-		cellStatusContainerView.pin(.fixedWidth(28))
+		cellImageContainerView.pin(.fixedWidth(28))
 		iconImageView.pin(.fixedWidth(28), .fixedHeight(28), .centerY())
 		loadingView.pin(.centerY())
+		cellImageContainerView.pin(.allEdges(padding: 0))
+		cellLoadingContainerView.pin(.allEdges(padding: 0))
 		mainStackView.pin(.allEdges(padding: 14))
 	}
 }

@@ -116,7 +116,7 @@ class SendTransactionStatusView: UIView {
 		dissmissButton.pin(.fixedHeight(30), .fixedHeight(30), .top(padding: 22), .trailing(padding: 0))
 		clearNavigationBar.pin(.horizontalEdges(padding: 0), .top(padding: 0))
 		statusIconView.pin(.fixedWidth(56), .fixedHeight(56))
-		statusInfoStackView.pin(.centerY, .horizontalEdges(to: layoutMarginsGuide, padding: 16))
+		statusInfoStackView.pin(.centerY(padding: -68), .horizontalEdges(to: layoutMarginsGuide, padding: 16))
 		closeButton.pin(.bottom(padding: 32), .horizontalEdges(padding: 16))
 	}
 

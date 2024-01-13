@@ -41,7 +41,7 @@ class SecurityViewModel {
 	// MARK: - Private Methods
 
 	private func getLockMethod() -> LockMethodModel {
-		let defaultLockMethod = LockMethodType.face_id
+		let defaultLockMethod = LockMethodType.passcode
 		let savedLockMethodType = UserDefaults.standard.string(forKey: "lockMethodType") ?? defaultLockMethod.rawValue
 		let lockMethodType = LockMethodType(rawValue: savedLockMethodType) ?? defaultLockMethod
 		return lockMethods.first(where: { $0.type == lockMethodType })!

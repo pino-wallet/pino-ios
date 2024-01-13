@@ -33,6 +33,44 @@ class AccountsViewModel {
 		}
 	}
 
+	// MARK: - Private Methods
+
+	private func resetPendingActivities() {
+		if !coreDataManager.getAllActivities().isEmpty {
+			PendingActivitiesManager.shared.startActivityPendingRequests()
+		}
+	}
+
+	private func addNewWalletAccountWithAddress(
+		_ address: String,
+		derivationPath: String? = nil,
+		publicKey: EthereumPublicKey
+	) {
+		var walletType: Wallet.WalletType = .nonHDWallet
+		if derivationPath != nil {
+			walletType = .hdWallet
+		}
+		let wallet = coreDataManager.getAllWallets().first(where: { $0.walletType == walletType })
+		let walletsAvatar = accountsList.map { $0.profileImage }
+		let walletsName = accountsList.map { $0.name }
+		let newAvatar = Avatar
+			.allCases
+			.filter { !walletsAvatar.contains($0.rawValue) && !walletsName.contains($0.name) }
+			.randomElement()
+			?? .green_apple
+
+		coreDataManager.createWalletAccount(
+			address: address,
+			derivationPath: derivationPath,
+			publicKey: publicKey.hex(),
+			name: newAvatar.name,
+			avatarIcon: newAvatar.rawValue,
+			avatarColor: newAvatar.rawValue,
+			wallet: wallet!
+		)
+		getAccounts()
+	}
+
 	// MARK: - Public Methods
 
 	public func getAccounts() {
@@ -86,42 +124,12 @@ class AccountsViewModel {
 			switch result {
 			case .success:
 				self.addNewWalletAccountWithAddress(address, derivationPath: derivationPath, publicKey: publicKey)
+				self.resetPendingActivities()
 				completion(nil)
 			case let .failure(failure):
 				completion(failure)
 			}
 		}
-	}
-
-	private func addNewWalletAccountWithAddress(
-		_ address: String,
-		derivationPath: String? = nil,
-		publicKey: EthereumPublicKey
-	) {
-		var walletType: Wallet.WalletType = .nonHDWallet
-		if derivationPath != nil {
-			walletType = .hdWallet
-		}
-		let wallet = coreDataManager.getAllWallets().first(where: { $0.walletType == walletType })
-		let walletsAvatar = accountsList.map { $0.profileImage }
-		let walletsName = accountsList.map { $0.name }
-		let newAvatar = Avatar
-			.allCases
-			.filter { !walletsAvatar.contains($0.rawValue) && !walletsName.contains($0.name) }
-			.randomElement()
-			?? .green_apple
-
-		let createdAccount = coreDataManager.createWalletAccount(
-			address: address,
-			derivationPath: derivationPath,
-			publicKey: publicKey.hex(),
-			name: newAvatar.name,
-			avatarIcon: newAvatar.rawValue,
-			avatarColor: newAvatar.rawValue,
-			wallet: wallet!
-		)
-		GlobalVariables.shared.currentAccount = createdAccount
-		getAccounts()
 	}
 
 	public func editAccount(account: AccountInfoViewModel, newName: String) -> AccountInfoViewModel {
@@ -149,8 +157,6 @@ class AccountsViewModel {
 		coreDataManager.updateSelectedWalletAccount(selectedAccount.walletAccountInfoModel)
 		getAccounts()
 		GlobalVariables.shared.currentAccount = selectedAccount.walletAccountInfoModel
-		if !coreDataManager.getAllActivities().isEmpty {
-			PendingActivitiesManager.shared.startActivityPendingRequests()
-		}
+		resetPendingActivities()
 	}
 }

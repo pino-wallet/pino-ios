@@ -57,7 +57,7 @@ public class PinoButton: UIButton {
 
 	override public func layoutSubviews() {
 		super.layoutSubviews()
-		layer.cornerRadius = 12
+		layer.cornerRadius = style.cornerRadius ?? 12
 	}
 
 	// MARK: - Private methods
