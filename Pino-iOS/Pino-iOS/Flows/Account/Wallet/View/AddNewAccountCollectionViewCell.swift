@@ -16,9 +16,9 @@ class AddNewAccountCollectionViewCell: UICollectionViewCell {
 	private let iconStackView = UIStackView()
 	private let titleLabel = PinoLabel(style: .title, text: "")
 	private let descriptionLabel = PinoLabel(style: .description, text: "")
-    private let cellStatusContainerView = UIView()
+	private let cellStatusContainerView = UIView()
 	private let cellImageContainerView = UIView()
-    private let cellLoadingContainerView = UIView()
+	private let cellLoadingContainerView = UIView()
 	private let iconImageView = UIImageView()
 	private var loadingView: PinoLoading!
 
@@ -43,10 +43,10 @@ class AddNewAccountCollectionViewCell: UICollectionViewCell {
 		textStackView.addArrangedSubview(descriptionLabel)
 
 		cellImageContainerView.addSubview(iconImageView)
-        cellLoadingContainerView.addSubview(loadingView)
-        
-        cellStatusContainerView.addSubview(cellImageContainerView)
-        cellStatusContainerView.addSubview(cellLoadingContainerView)
+		cellLoadingContainerView.addSubview(loadingView)
+
+		cellStatusContainerView.addSubview(cellImageContainerView)
+		cellStatusContainerView.addSubview(cellLoadingContainerView)
 
 		contentView.addSubview(mainStackView)
 		mainStackView.axis = .horizontal
@@ -57,7 +57,7 @@ class AddNewAccountCollectionViewCell: UICollectionViewCell {
 
 	private func setupStyles() {
 		toggleCellLoading(addNewAccountOptionVM.isLoading)
-        
+
 		contentView.layer.cornerRadius = 12
 		contentView.layer.backgroundColor = UIColor.Pino.white.cgColor
 
@@ -76,15 +76,15 @@ class AddNewAccountCollectionViewCell: UICollectionViewCell {
 	}
 
 	private func toggleCellLoading(_ loadingStatus: Bool) {
-            if loadingStatus {
-                isUserInteractionEnabled = false
-                cellLoadingContainerView.isHidden = false
-                cellImageContainerView.isHidden = true
-            } else {
-                isUserInteractionEnabled = true
-                cellLoadingContainerView.isHidden = true
-                cellImageContainerView.isHidden = false
-            }
+		if loadingStatus {
+			isUserInteractionEnabled = false
+			cellLoadingContainerView.isHidden = false
+			cellImageContainerView.isHidden = true
+		} else {
+			isUserInteractionEnabled = true
+			cellLoadingContainerView.isHidden = true
+			cellImageContainerView.isHidden = false
+		}
 	}
 
 	private func setupConstraints() {
@@ -93,8 +93,8 @@ class AddNewAccountCollectionViewCell: UICollectionViewCell {
 		cellImageContainerView.pin(.fixedWidth(28))
 		iconImageView.pin(.fixedWidth(28), .fixedHeight(28), .centerY())
 		loadingView.pin(.centerY())
-        cellImageContainerView.pin(.allEdges(padding: 0))
-        cellLoadingContainerView.pin(.allEdges(padding: 0))
+		cellImageContainerView.pin(.allEdges(padding: 0))
+		cellLoadingContainerView.pin(.allEdges(padding: 0))
 		mainStackView.pin(.allEdges(padding: 14))
 	}
 }
