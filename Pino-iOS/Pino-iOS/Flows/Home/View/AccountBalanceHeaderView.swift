@@ -103,7 +103,7 @@ class AccountBalanceHeaderView: UICollectionReusableView {
 		contentStackView.spacing = 32
 		balanceStackView.spacing = 10
 		sendReceiveStackView.spacing = 24
-		volatilityStackView.spacing = 6
+		volatilityStackView.spacing = 5
 
 		contentStackView.alignment = .center
 		balanceStackView.alignment = .center
@@ -224,6 +224,11 @@ class AccountBalanceHeaderView: UICollectionReusableView {
 		volatilitySeparatorLine.pin(
 			.fixedWidth(0.6),
 			.verticalEdges
+		)
+
+		volatilityDetailButton.pin(
+			.fixedWidth(18),
+			.fixedHeight(18)
 		)
 
 		NSLayoutConstraint.activate([
