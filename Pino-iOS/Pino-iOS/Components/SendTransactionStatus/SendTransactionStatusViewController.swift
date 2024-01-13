@@ -53,7 +53,6 @@ class SendTransactionStatusViewController: UIViewController {
 			self.isModalInPresentation = isModelInPresentation
 		}, sendStatusVM: sendStatusVM)
 		sendStatusView.onDissmiss = { pageStatus in
-			self.dismiss(animated: true)
 			if let onDismiss = self.onDismiss {
 				onDismiss(pageStatus)
 			}
