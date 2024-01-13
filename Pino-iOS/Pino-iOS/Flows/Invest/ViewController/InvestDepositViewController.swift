@@ -127,6 +127,7 @@ class InvestDepositViewController: UIViewController {
 	}
 
 	private func openConfirmationPage() {
+		investView.stopLoading()
 		let investConfirmationVC = InvestConfirmationViewController(
 			confirmationVM: investVM.investConfirmationVM,
 			onConfirm: onDepositConfirm
