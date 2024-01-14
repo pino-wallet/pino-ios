@@ -188,6 +188,7 @@ class SwapTokenSectionView: UIView {
 		amountTextfield.text = swapVM.selectedToken.holdAmount.sevenDigitFormat
 		updateEstimatedAmount(enteredAmount: swapVM.selectedToken.holdAmount.decimalString)
 		updateAmountView()
+		updateBalanceStatus()
 	}
 
 	fileprivate func extractedFunc(_ balanceStatus: AmountStatus) {
