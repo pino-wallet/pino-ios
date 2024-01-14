@@ -25,8 +25,9 @@ class SwapTokenViewModel {
 	public var dollarAmount: String?
 	public var decimalDollarAmount: BigNumber?
 	public var maxHoldAmount: String
-	public var tokenAmountBigNum: BigNumber {
-		let tokenUIntNumber = Utilities.parseToBigUInt(tokenAmount!, decimals: selectedToken.decimal)
+	public var tokenAmountBigNum: BigNumber? {
+		guard let tokenAmount else { return nil }
+		let tokenUIntNumber = Utilities.parseToBigUInt(tokenAmount, decimals: selectedToken.decimal)
 		return .init(unSignedNumber: tokenUIntNumber!, decimal: selectedToken.decimal)
 	}
 
