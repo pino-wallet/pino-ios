@@ -23,7 +23,7 @@ struct BalanceAssetModel: Codable, AssetProtocol {
 // MARK: - Detail
 
 public struct Detail: Codable {
-	let id, symbol, name, logo: String
+	let id, symbol, name, logo, website: String
 	let decimals: Int
 	let change24H, changePercentage, price: String
 	var isVerified = true
@@ -39,6 +39,7 @@ public struct Detail: Codable {
 		case changePercentage = "change_percentage"
 		case price
 		case isPosition = "is_position"
+		case website
 	}
 }
 

@@ -12,7 +12,7 @@ class WalletBalanceViewModel: SecurityModeProtocol {
 
 	public var securityMode = false
 
-	public var balance = "0.0"
+	public var balance = GlobalZeroAmounts.tokenAmount.zeroAmount
 
 	public var volatilityPercentage: String {
 		getFormattedVolatilityPercentage()

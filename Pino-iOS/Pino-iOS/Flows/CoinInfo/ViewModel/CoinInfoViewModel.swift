@@ -40,7 +40,8 @@ class CoinInfoViewModel {
 	public let priceSepratorText = "|"
 	public let noUserAmountInDollarText = "--"
 	public let unverifiedAssetIcon = "unverified_asset"
-	public let noAssetPriceText = "-"
+	public let noAssetPriceText = GlobalZeroAmounts.dollars.zeroAmount
+
 	public let unavailableRecentHistoryText = "The history are only available for verified assets!"
 	public let unavailableRecentHistoryIconName = "gray_error_alert"
 	public let emptyActivityIconName = "no_activity"

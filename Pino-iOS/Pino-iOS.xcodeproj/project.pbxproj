@@ -367,6 +367,7 @@
 		D964AC6B0907B2432359A129 /* GroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D7CE3AA42604B8F78EA87C /* GroupCollectionViewCell.swift */; };
 		D966D5912A9F3912007E63A1 /* PinoRightSideImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D966D5902A9F3912007E63A1 /* PinoRightSideImageButton.swift */; };
 		D966D5932A9F3950007E63A1 /* PinoRightSideImageButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D966D5922A9F3950007E63A1 /* PinoRightSideImageButtonStyle.swift */; };
+		D96833F72B52BA2900521772 /* GlobalZeroAmounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96833F62B52BA2900521772 /* GlobalZeroAmounts.swift */; };
 		D96A076C2B0616C500970EFD /* PositionTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96A076B2B0616C500970EFD /* PositionTokenModel.swift */; };
 		D96A40D62A7E83A200C020BC /* PendingActivitiesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96A40D52A7E83A200C020BC /* PendingActivitiesManager.swift */; };
 		D96FD3B12A9734870008977A /* BorrowSelectDexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96FD3B02A9734870008977A /* BorrowSelectDexViewController.swift */; };
@@ -1232,6 +1233,7 @@
 		D95D96F72AB87CD80082FCA5 /* borrowable-token-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "borrowable-token-stub.json"; sourceTree = "<group>"; };
 		D966D5902A9F3912007E63A1 /* PinoRightSideImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoRightSideImageButton.swift; sourceTree = "<group>"; };
 		D966D5922A9F3950007E63A1 /* PinoRightSideImageButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoRightSideImageButtonStyle.swift; sourceTree = "<group>"; };
+		D96833F62B52BA2900521772 /* GlobalZeroAmounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalZeroAmounts.swift; sourceTree = "<group>"; };
 		D96A076B2B0616C500970EFD /* PositionTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionTokenModel.swift; sourceTree = "<group>"; };
 		D96A076D2B0627F100970EFD /* position-token-id-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "position-token-id-stub.json"; sourceTree = "<group>"; };
 		D96A40D52A7E83A200C020BC /* PendingActivitiesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingActivitiesManager.swift; sourceTree = "<group>"; };
@@ -1928,6 +1930,7 @@
 		23F1BD4FAC784DB47F844F5D /* Pino-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				D96833F52B52B9CC00521772 /* Global enums */,
 				D9A3280A2A3452DC005A8393 /* Components */,
 				DFB1E9CE2A08EBAF00041B26 /* CoreData */,
 				5952BFBE13B5028BDF1E686D /* LaunchScreen.storyboard */,
@@ -2083,7 +2086,6 @@
 				403691B42A3DFFB50013AB6D /* ToastDelegate.swift */,
 				403691B52A3DFFB50013AB6D /* ToastViews */,
 				403691BB2A3DFFB50013AB6D /* Toast.swift */,
-				D970C0DF2A74EA80005A7FAC /* GlobalToastTitles.swift */,
 			);
 			path = Toast;
 			sourceTree = "<group>";
@@ -3104,6 +3106,15 @@
 				D966D5922A9F3950007E63A1 /* PinoRightSideImageButtonStyle.swift */,
 			);
 			path = PinoRightSideImageButton;
+			sourceTree = "<group>";
+		};
+		D96833F52B52B9CC00521772 /* Global enums */ = {
+			isa = PBXGroup;
+			children = (
+				D970C0DF2A74EA80005A7FAC /* GlobalToastTitles.swift */,
+				D96833F62B52BA2900521772 /* GlobalZeroAmounts.swift */,
+			);
+			path = "Global enums";
 			sourceTree = "<group>";
 		};
 		D96A40D42A7E837300C020BC /* PendingActivitiesManager */ = {
@@ -4913,6 +4924,7 @@
 				D95CD8622B00C9F0003C1CF0 /* ActivityApproveModel.swift in Sources */,
 				D9A0BDAC2A974FE900AE132F /* BorrowingBoardDataSource.swift in Sources */,
 				E3FC69A62A8A0952009B3341 /* InvestmentPerformanceHeaderView.swift in Sources */,
+				D96833F72B52BA2900521772 /* GlobalZeroAmounts.swift in Sources */,
 				72A3CB357D4BD765C3616F3E /* AssetProtocol.swift in Sources */,
 				D4FCAA07F82037BF6EF0B823 /* AssetViewModel.swift in Sources */,
 				E34728EB29E7DD6B00AB8265 /* AssetManagerViewModel.swift in Sources */,
