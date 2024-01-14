@@ -8,9 +8,10 @@
 import Foundation
 
 struct ManageAssetEmptyStateViewModel {
-    // MARK: - Public Properties
-    public let titleImageName = "no_token"
-    public let titleText = "Not found"
-    public let descriptionText = "Didn’t see your crypto?"
-    public let importButtonTitle = "Import"
+	// MARK: - Public Properties
+
+	public let titleImageName = "no_token"
+	public let titleText = "Not found"
+	public let descriptionText = "Didn’t see your crypto?"
+	public let importButtonTitle = "Import"
 }

@@ -15,7 +15,7 @@ class ManageAssetsViewController: UIViewController {
 	// MARK: Private Properties
 
 	private var manageAssetCollectionview: ManageAssetsCollectionView
-    private var manageAssetEmptyStateView: ManageAssetEmptyStateView!
+	private var manageAssetEmptyStateView: ManageAssetEmptyStateView!
 
 	// MARK: Initializers
 
@@ -48,10 +48,10 @@ class ManageAssetsViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-        manageAssetEmptyStateView = ManageAssetEmptyStateView(onImportButton: {
-            self.addCustomAssets()
-        })
-        
+		manageAssetEmptyStateView = ManageAssetEmptyStateView(onImportButton: {
+			self.addCustomAssets()
+		})
+
 		view = manageAssetCollectionview
 		view.backgroundColor = .Pino.background
 	}
@@ -76,14 +76,14 @@ class ManageAssetsViewController: UIViewController {
 			action: #selector(dismissManageAsset)
 		)
 	}
-    
-    private func toggleView() {
-        if manageAssetCollectionview.filteredAssets.isEmpty {
-            view = manageAssetEmptyStateView
-        } else {
-            view = manageAssetCollectionview
-        }
-    }
+
+	private func toggleView() {
+		if manageAssetCollectionview.filteredAssets.isEmpty {
+			view = manageAssetEmptyStateView
+		} else {
+			view = manageAssetCollectionview
+		}
+	}
 
 	@objc
 	private func dismissManageAsset() {
@@ -115,7 +115,7 @@ extension ManageAssetsViewController: UISearchResultsUpdating {
 					$0.name.lowercased().contains(searchTextLowerCased) || $0.symbol.lowercased()
 						.contains(searchTextLowerCased)
 				}
-           toggleView()
+			toggleView()
 		} else {
 			manageAssetCollectionview.filteredAssets = manageAssetsList
 		}
