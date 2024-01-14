@@ -50,7 +50,7 @@ class SwapConfirmationTokenView: UIView {
 
 	private func setupStyle() {
 		tokenNameLabel.text = swapTokenVM.selectedToken.symbol
-		tokenAmountLabel.text = swapTokenVM.tokenAmount
+		tokenAmountLabel.text = swapTokenVM.tokenAmountBigNum?.sevenDigitFormat
 		tokenAmountInDollar.text = swapTokenVM.dollarAmount
 
 		if swapTokenVM.selectedToken.isVerified {

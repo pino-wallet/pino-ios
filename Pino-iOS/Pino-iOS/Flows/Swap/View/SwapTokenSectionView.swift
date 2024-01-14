@@ -170,7 +170,7 @@ class SwapTokenSectionView: UIView {
 	}
 
 	private func updateAmountView() {
-		amountTextfield.text = swapVM.tokenAmount
+		amountTextfield.text = swapVM.tokenAmountBigNum?.sevenDigitFormat
 		estimatedAmountLabel.text = swapVM.dollarAmount
 		maxAmountLabel.text = swapVM.maxHoldAmount
 		updateBalanceStatus()
@@ -186,7 +186,9 @@ class SwapTokenSectionView: UIView {
 	private func enterMaxAmount() {
 		openKeyboard()
 		amountTextfield.text = swapVM.selectedToken.holdAmount.sevenDigitFormat
-		amountTextfield.sendActions(for: .editingChanged)
+		updateEstimatedAmount(enteredAmount: swapVM.selectedToken.holdAmount.decimalString)
+		updateAmountView()
+		updateBalanceStatus()
 	}
 
 	fileprivate func extractedFunc(_ balanceStatus: AmountStatus) {

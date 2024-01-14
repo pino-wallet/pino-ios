@@ -85,11 +85,7 @@ public struct BigNumber {
 	public var fraction: String {
 		// fraction is string because in some case the fraction could be like .0123 in this case the 0 before 123
 		// would be ignored if the type was not string
-		String(number.description.suffix(decimal))
-	}
-
-	public var decimalValue: Decimal {
-		Decimal(string: number.description)! * pow(10, -decimal)
+		String(decimalString.suffix(decimal))
 	}
 
 	public var doubleValue: Double {
@@ -247,11 +243,17 @@ extension BigNumber: Equatable, Comparable {
 
 extension BigNumber: CustomStringConvertible {
 	public var description: String {
-		number.description
+		decimalString
 	}
 
 	public var decimalString: String {
-		"\(whole).\(fraction)"
+		Utilities.formatToPrecision(
+			number,
+			units: .custom(decimal),
+			formattingDecimals: 18,
+			decimalSeparator: ".",
+			fallbackToScientific: false
+		)
 	}
 
 	public var sevenDigitFormat: String {
