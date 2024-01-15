@@ -52,8 +52,6 @@ class CoinInfoViewModel {
 
 	#warning("this text is for testing and should be changed")
 	public let positionAssetInfoText = "This asset represents your DAI collateral position in the Compound Protocol."
-    
-
 
 	// MARK: - Private Properties
 

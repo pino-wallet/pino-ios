@@ -52,7 +52,7 @@ class CoinInfoFooterview: UICollectionReusableView {
 
 		noRecentHistoryMessageCard.pin(.horizontalEdges(padding: 16), .top(padding: 16))
 		noRecentHistoryMessageStackview.pin(.horizontalEdges(padding: 8), .verticalEdges(padding: 10))
-        noRecentHistoryAlertIcon.pin(.fixedHeight(20), .fixedWidth(20), .centerY)
+		noRecentHistoryAlertIcon.pin(.fixedHeight(20), .fixedWidth(20), .centerY)
 		noRecentHistoryMessageIconContainer.pin(.fixedWidth(20))
 
 		positionCoinInfoLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
@@ -64,7 +64,7 @@ class CoinInfoFooterview: UICollectionReusableView {
 	private func setupStyles() {
 		noRecentHistoryMessageStackview.axis = .horizontal
 		noRecentHistoryMessageStackview.spacing = 4
-        noRecentHistoryMessageStackview.alignment = .center
+		noRecentHistoryMessageStackview.alignment = .center
 
 		noRecentHistoryMessageCard.backgroundColor = .Pino.white
 		noRecentHistoryMessageCard.layer.cornerRadius = 8
