@@ -61,6 +61,9 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var type: CoinType {
+        if coinPortfolioModel.detail!.isPosition {
+            return CoinType.position
+        }
 		if coinPortfolioModel.detail!.isVerified {
 			return CoinType.verified
 		} else {

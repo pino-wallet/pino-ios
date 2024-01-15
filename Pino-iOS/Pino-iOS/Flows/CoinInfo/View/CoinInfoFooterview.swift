@@ -28,7 +28,6 @@ class CoinInfoFooterview: UICollectionReusableView {
 	private let noRecentHistoryAlertIcon = UIImageView()
 	private let noRecentHistoryMessageLabel = PinoLabel(style: .title, text: "")
 	private let noRecentHistoryMessageIconContainer = UIView()
-	private let noRecentHistoryMessageLabelRightSide = UIView()
 	private let positionCoinInfoCard = UIView()
 	private let positionCoinInfoLabel = PinoLabel(style: .title, text: "")
 
@@ -39,7 +38,6 @@ class CoinInfoFooterview: UICollectionReusableView {
 
 		noRecentHistoryMessageStackview.addArrangedSubview(noRecentHistoryMessageIconContainer)
 		noRecentHistoryMessageStackview.addArrangedSubview(noRecentHistoryMessageLabel)
-		noRecentHistoryMessageStackview.addArrangedSubview(noRecentHistoryMessageLabelRightSide)
 
 		addSubview(noRecentHistoryMessageCard)
 		noRecentHistoryMessageCard.addSubview(noRecentHistoryMessageStackview)
@@ -50,24 +48,23 @@ class CoinInfoFooterview: UICollectionReusableView {
 	}
 
 	private func setupConstraints() {
-		noRecentHistoryMessageLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
+		noRecentHistoryMessageLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 
 		noRecentHistoryMessageCard.pin(.horizontalEdges(padding: 16), .top(padding: 16))
 		noRecentHistoryMessageStackview.pin(.horizontalEdges(padding: 8), .verticalEdges(padding: 10))
-		noRecentHistoryAlertIcon.pin(.fixedHeight(18), .fixedWidth(18))
-		noRecentHistoryMessageIconContainer.pin(.fixedWidth(18))
-		noRecentHistoryMessageLabelRightSide.pin(.fixedWidth(20))
+        noRecentHistoryAlertIcon.pin(.fixedHeight(20), .fixedWidth(20), .centerY)
+		noRecentHistoryMessageIconContainer.pin(.fixedWidth(20))
 
-		positionCoinInfoLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 120).isActive = true
+		positionCoinInfoLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
 
 		positionCoinInfoCard.pin(.top(padding: 16), .horizontalEdges(padding: 16))
-		positionCoinInfoLabel.pin(.horizontalEdges(padding: 8), .verticalEdges(padding: 10))
+		positionCoinInfoLabel.pin(.horizontalEdges(padding: 12), .verticalEdges(padding: 10))
 	}
 
 	private func setupStyles() {
 		noRecentHistoryMessageStackview.axis = .horizontal
 		noRecentHistoryMessageStackview.spacing = 4
-		noRecentHistoryMessageStackview.distribution = .fillProportionally
+        noRecentHistoryMessageStackview.alignment = .center
 
 		noRecentHistoryMessageCard.backgroundColor = .Pino.white
 		noRecentHistoryMessageCard.layer.cornerRadius = 8

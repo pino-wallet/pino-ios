@@ -204,7 +204,7 @@ extension ActivitiesCollectionView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		insetForSectionAt section: Int
 	) -> UIEdgeInsets {
-		if section == 0 && showLoading {
+        if section == 0 && showLoading && coinInfoVM.coinPortfolio.type == .verified {
 			return UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
 		}
 		return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -215,7 +215,7 @@ extension ActivitiesCollectionView: UICollectionViewDelegateFlowLayout {
 
 extension ActivitiesCollectionView: UICollectionViewDataSource {
 	func numberOfSections(in collectionView: UICollectionView) -> Int {
-		if separatedActivities.isEmpty {
+        if separatedActivities.isEmpty || coinInfoVM.coinPortfolio.coinPortfolioModel.detail!.isPosition {
 			return 1
 		} else {
 			return separatedActivities.count
@@ -339,9 +339,9 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 			}
 			return CGSize(width: 0, height: 0)
 		case .unVerified:
-			return CGSize(width: collectionView.frame.width, height: 216)
+			return CGSize(width: collectionView.frame.width, height: 44)
 		case .position:
-			return CGSize(width: collectionView.frame.width, height: 200)
+			return CGSize(width: collectionView.frame.width, height: 68)
 		}
 	}
 

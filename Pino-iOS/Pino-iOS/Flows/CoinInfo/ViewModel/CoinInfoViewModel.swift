@@ -33,8 +33,8 @@ class CoinInfoViewModel {
 	public let priceTitle = "Price"
 	public let contractAddressTitle = "Contract address"
 	public let protocolTitle = "Protocol"
-	public let positionTitle = "Position"
-	public let assetTitle = "Asset"
+	public let positionTitle = "Position type"
+	public let assetTitle = "Underlying asset"
 	public let tooltipIconName = "info"
 	public let positionAssetTitle = "Position asset"
 	public let priceSepratorText = "|"
@@ -42,22 +42,18 @@ class CoinInfoViewModel {
 	public let unverifiedAssetIcon = "unverified_asset"
 	public let noAssetPriceText = GlobalZeroAmounts.dollars.zeroAmount
 
-	public let unavailableRecentHistoryText = "The history are only available for verified assets!"
-	public let unavailableRecentHistoryIconName = "gray_error_alert"
+	public let unavailableRecentHistoryText = "History is only available for verified assets."
+	public let unavailableRecentHistoryIconName = "alert"
 	public let emptyActivityIconName = "no_activity"
 	public let emptyActivityTitleText = "No activity"
 	public var emptyActivityDescriptionText: String {
 		"Your \(selectedAsset.symbol) activity appears here"
 	}
 
-	#warning("this text is for testing and should be removed")
-	public let positionAssetInfoText = """
-	This asset represents your DAI collateral
-	 position in the Compound Protocol. Note that
-	 transferring this asset to another address will
-	 fully transfer your position to the new
-	 address.
-	"""
+	#warning("this text is for testing and should be changed")
+	public let positionAssetInfoText = "This asset represents your DAI collateral position in the Compound Protocol."
+    
+
 
 	// MARK: - Private Properties
 
