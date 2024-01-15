@@ -185,4 +185,10 @@ class AssetManagerViewModel {
 			}
 		}
 	}
+
+	public func updateSelectedPositions(_ isSelected: Bool) {
+		guard let manageAssetsList = GlobalVariables.shared.manageAssetsList else { return }
+		UserDefaults.standard.set(isSelected, forKey: GlobalVariables.shared.positionsUserDefaultKey)
+		GlobalVariables.shared.manageAssetsList = manageAssetsList
+	}
 }

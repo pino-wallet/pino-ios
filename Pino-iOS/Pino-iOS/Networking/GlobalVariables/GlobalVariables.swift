@@ -25,6 +25,8 @@ class GlobalVariables {
 	@Published
 	public var currentAccount: WalletAccount!
 
+	public let positionsUserDefaultKey = "isPositionsSelected"
+
 	// MARK: - Private Properties
 
 	private var cancellables = Set<AnyCancellable>()
@@ -52,7 +54,10 @@ class GlobalVariables {
 			assets.sort { asset1, asset2 in
 				asset1.holdAmountInDollor > asset2.holdAmountInDollor
 			}
-			self.selectedManageAssetsList = assets.filter { $0.isSelected }
+			let isPositionsSelected = UserDefaults.standard.bool(forKey: self.positionsUserDefaultKey)
+			let selectedPositions = assets.filter { isPositionsSelected && $0.isPosition }
+			let selectedAssets = assets.filter { !$0.isPosition && $0.isSelected }
+			self.selectedManageAssetsList = selectedAssets + selectedPositions
 		}.store(in: &cancellables)
 	}
 

@@ -110,6 +110,7 @@ extension ManageAssetsCollectionView: UICollectionViewDelegate {
 		if indexPath.section == 0 {
 			let positionsCell = cellForItem(at: indexPath) as! ManageAssetPositionsCell
 			positionsCell.toggleAssetSwitch()
+			AssetManagerViewModel.shared.updateSelectedPositions(positionsCell.isSwitchOn())
 		} else {
 			let manageAssetCell = cellForItem(at: indexPath) as! ManageAssetCell
 			manageAssetCell.toggleAssetSwitch()

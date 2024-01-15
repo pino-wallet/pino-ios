@@ -35,7 +35,6 @@ public class ManageAssetPositionsCell: UICollectionViewCell {
 	public func toggleAssetSwitch() {
 		let isSelected = !isSwitchOn()
 		selectAssetSwitch.setOn(isSelected, animated: true)
-		positionsVM.toggleIsSelected(isSelected)
 	}
 
 	public func isSwitchOn() -> Bool {
