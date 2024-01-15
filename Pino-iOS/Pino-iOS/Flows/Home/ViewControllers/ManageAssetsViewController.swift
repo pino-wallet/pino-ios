@@ -106,7 +106,7 @@ class ManageAssetsViewController: UIViewController {
 
 extension ManageAssetsViewController: UISearchResultsUpdating {
 	func updateSearchResults(for searchController: UISearchController) {
-		guard let manageAssetsList = GlobalVariables.shared.manageAssetsList?.filter({ $0.isEth == false })
+		guard let manageAssetsList = GlobalVariables.shared.manageAssetsList?.filter({ $0.isPosition == false })
 		else { return }
 		if let searchTextLowerCased = searchController.searchBar.searchTextField.text?.lowercased(),
 		   searchTextLowerCased != "" {
