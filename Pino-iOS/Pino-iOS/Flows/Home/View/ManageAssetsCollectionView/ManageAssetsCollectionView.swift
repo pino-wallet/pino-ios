@@ -22,11 +22,16 @@ class ManageAssetsCollectionView: UICollectionView {
 		}
 	}
 
+	public var positionsVM: ManageAssetPositionsViewModel
+
 	// MARK: Initializers
 
 	init(homeVM: HomepageViewModel) {
 		self.homeVM = homeVM
-		self.filteredAssets = GlobalVariables.shared.manageAssetsList?.filter { $0.isEth == false } ?? []
+		self.filteredAssets = GlobalVariables.shared.manageAssetsList?.filter { $0.isPosition == false } ?? []
+		self.positionsVM = ManageAssetPositionsViewModel(
+			positions: GlobalVariables.shared.manageAssetsList?.filter { $0.isPosition == true } ?? []
+		)
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 
@@ -46,6 +51,11 @@ class ManageAssetsCollectionView: UICollectionView {
 			forCellWithReuseIdentifier: ManageAssetCell.cellReuseID
 		)
 
+		register(
+			ManageAssetPositionsCell.self,
+			forCellWithReuseIdentifier: ManageAssetPositionsCell.cellReuseID
+		)
+
 		dataSource = self
 		delegate = self
 	}
@@ -59,20 +69,37 @@ class ManageAssetsCollectionView: UICollectionView {
 // MARK: - CollectionView DataSource
 
 extension ManageAssetsCollectionView: UICollectionViewDataSource {
+	internal func numberOfSections(in collectionView: UICollectionView) -> Int {
+		2
+	}
+
 	internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		filteredAssets.count
+		if section == 0 {
+			return 1
+		} else {
+			return filteredAssets.count
+		}
 	}
 
 	internal func collectionView(
 		_ collectionView: UICollectionView,
 		cellForItemAt indexPath: IndexPath
 	) -> UICollectionViewCell {
-		let assetCell = dequeueReusableCell(
-			withReuseIdentifier: ManageAssetCell.cellReuseID,
-			for: indexPath
-		) as! ManageAssetCell
-		assetCell.assetVM = filteredAssets[indexPath.item]
-		return assetCell
+		if indexPath.section == 0 {
+			let positionsCell = dequeueReusableCell(
+				withReuseIdentifier: ManageAssetPositionsCell.cellReuseID,
+				for: indexPath
+			) as! ManageAssetPositionsCell
+			positionsCell.positionsVM = positionsVM
+			return positionsCell
+		} else {
+			let assetCell = dequeueReusableCell(
+				withReuseIdentifier: ManageAssetCell.cellReuseID,
+				for: indexPath
+			) as! ManageAssetCell
+			assetCell.assetVM = filteredAssets[indexPath.item]
+			return assetCell
+		}
 	}
 }
 
@@ -80,12 +107,17 @@ extension ManageAssetsCollectionView: UICollectionViewDataSource {
 
 extension ManageAssetsCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		let manageAssetCell = cellForItem(at: indexPath) as! ManageAssetCell
-		manageAssetCell.toggleAssetSwitch()
-		AssetManagerViewModel.shared.updateSelectedAssets(
-			filteredAssets[indexPath.item],
-			isSelected: manageAssetCell.isSwitchOn()
-		)
+		if indexPath.section == 0 {
+			let positionsCell = cellForItem(at: indexPath) as! ManageAssetPositionsCell
+			positionsCell.toggleAssetSwitch()
+		} else {
+			let manageAssetCell = cellForItem(at: indexPath) as! ManageAssetCell
+			manageAssetCell.toggleAssetSwitch()
+			AssetManagerViewModel.shared.updateSelectedAssets(
+				filteredAssets[indexPath.item],
+				isSelected: manageAssetCell.isSwitchOn()
+			)
+		}
 	}
 }
 
@@ -105,6 +137,6 @@ extension ManageAssetsCollectionView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		minimumLineSpacingForSectionAt section: Int
 	) -> CGFloat {
-		1
+		.zero
 	}
 }

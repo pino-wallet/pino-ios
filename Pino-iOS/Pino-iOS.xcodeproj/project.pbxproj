@@ -678,6 +678,8 @@
 		E3099FEC2B00B901004474F0 /* CompoundDepositManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3099FEB2B00B901004474F0 /* CompoundDepositManager.swift */; };
 		E31106FE2AC17040005723EB /* InvestableAssetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31106FD2AC17040005723EB /* InvestableAssetsModel.swift */; };
 		E333E63A2AA708D3005C977E /* InvestEmptyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E333E6392AA708D3005C977E /* InvestEmptyPageView.swift */; };
+		E33649A52B551FF900341466 /* ManageAssetPositionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33649A42B551FF900341466 /* ManageAssetPositionsCell.swift */; };
+		E33649A72B5523EF00341466 /* ManageAssetPositionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33649A62B5523EF00341466 /* ManageAssetPositionsViewModel.swift */; };
 		E338DF112B25B0F3005D6883 /* AaveDepositManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E338DF102B25B0F3005D6883 /* AaveDepositManager.swift */; };
 		E33F7CBA2AD44199007FC04D /* W3InvestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F7CB92AD44199007FC04D /* W3InvestManager.swift */; };
 		E33F7CBC2AD442AC007FC04D /* InvestABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = E33F7CBB2AD442AC007FC04D /* InvestABIJson.json */; };
@@ -1523,6 +1525,8 @@
 		E3099FEB2B00B901004474F0 /* CompoundDepositManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundDepositManager.swift; sourceTree = "<group>"; };
 		E31106FD2AC17040005723EB /* InvestableAssetsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestableAssetsModel.swift; sourceTree = "<group>"; };
 		E333E6392AA708D3005C977E /* InvestEmptyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestEmptyPageView.swift; sourceTree = "<group>"; };
+		E33649A42B551FF900341466 /* ManageAssetPositionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAssetPositionsCell.swift; sourceTree = "<group>"; };
+		E33649A62B5523EF00341466 /* ManageAssetPositionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAssetPositionsViewModel.swift; sourceTree = "<group>"; };
 		E338DF102B25B0F3005D6883 /* AaveDepositManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AaveDepositManager.swift; sourceTree = "<group>"; };
 		E33F7CB92AD44199007FC04D /* W3InvestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3InvestManager.swift; sourceTree = "<group>"; };
 		E33F7CBB2AD442AC007FC04D /* InvestABIJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvestABIJson.json; sourceTree = "<group>"; };
@@ -2069,6 +2073,7 @@
 			children = (
 				6232F5D274252F511DC03A52 /* ManageAssetCell.swift */,
 				7BBDAE3E61D4F73804CBA92E /* ManageAssetsCollectionView.swift */,
+				E33649A42B551FF900341466 /* ManageAssetPositionsCell.swift */,
 			);
 			path = ManageAssetsCollectionView;
 			sourceTree = "<group>";
@@ -3010,6 +3015,7 @@
 				4E6325D0E27CD114807676AB /* WalletBalanceViewModel.swift */,
 				9EA3E5DF9FE696BD1307327F /* AccountInfoViewModel.swift */,
 				D9A332772B53C021001161F4 /* ManageAssetEmptyStateViewModel.swift */,
+				E33649A62B5523EF00341466 /* ManageAssetPositionsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -4821,6 +4827,7 @@
 				DFCB13972B09DCB800EEFD0F /* CDBorrowActivity+CoreDataProperties.swift in Sources */,
 				DFCB13982B09DCB800EEFD0F /* CDApproveActivity+CoreDataProperties.swift in Sources */,
 				DFCB13992B09DCB800EEFD0F /* CDBorrowActivity+CoreDataClass.swift in Sources */,
+				E33649A72B5523EF00341466 /* ManageAssetPositionsViewModel.swift in Sources */,
 				DFCB139A2B09DCB800EEFD0F /* CDBorrowActivityDetails+CoreDataProperties.swift in Sources */,
 				DFCB139B2B09DCB800EEFD0F /* CDBorrowActivityDetails+CoreDataClass.swift in Sources */,
 				DFCB139C2B09DCB800EEFD0F /* CDInvestActivity+CoreDataProperties.swift in Sources */,
@@ -5269,6 +5276,7 @@
 				5845D3E43E1C94CCA89A6104 /* NetworkManagerProtocol.swift in Sources */,
 				D9CEEC572B037DAB00F5DF92 /* ActivityCellDetailsProtocol.swift in Sources */,
 				C72379E2E2BFAEFF3257EDCE /* Networking+Aliases.swift in Sources */,
+				E33649A52B551FF900341466 /* ManageAssetPositionsCell.swift in Sources */,
 				D970C0E02A74EA80005A7FAC /* GlobalToastTitles.swift in Sources */,
 				E52C3E716C6ACBCE6C8BE230 /* NoInternetConnectionView.swift in Sources */,
 				44DBA60846C0B1DA8E26EAD8 /* NoInternetConnectionViewModel.swift in Sources */,
