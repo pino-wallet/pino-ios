@@ -82,6 +82,7 @@ public class ManageAssetCell: UICollectionViewCell {
 		assetTitleStackView.alignment = .leading
 
 		assetImage.layer.cornerRadius = 22
+		assetCardView.layer.cornerRadius = 12
 
 		selectAssetSwitch.onTintColor = .Pino.green3
 		selectAssetSwitch.setOn(assetVM.isSelected, animated: false)
@@ -90,7 +91,8 @@ public class ManageAssetCell: UICollectionViewCell {
 
 	private func setupConstraint() {
 		assetCardView.pin(
-			.allEdges
+			.verticalEdges(padding: 4),
+			.horizontalEdges(padding: 16)
 		)
 		assetTitleStackView.pin(
 			.verticalEdges

@@ -30,7 +30,7 @@ class ManageAssetsCollectionView: UICollectionView {
 		self.homeVM = homeVM
 		self.filteredAssets = GlobalVariables.shared.manageAssetsList?.filter { $0.isPosition == false } ?? []
 		self.positionsVM = ManageAssetPositionsViewModel(
-			positions: GlobalVariables.shared.manageAssetsList?.filter { $0.isPosition == true } ?? []
+			positions: GlobalVariables.shared.manageAssetsList?.filter { $0.isPosition && !$0.holdAmount.isZero } ?? []
 		)
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
@@ -139,5 +139,17 @@ extension ManageAssetsCollectionView: UICollectionViewDelegateFlowLayout {
 		minimumLineSpacingForSectionAt section: Int
 	) -> CGFloat {
 		.zero
+	}
+
+	func collectionView(
+		_ collectionView: UICollectionView,
+		layout collectionViewLayout: UICollectionViewLayout,
+		insetForSectionAt section: Int
+	) -> UIEdgeInsets {
+		if section == 0 {
+			UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+		} else {
+			.zero
+		}
 	}
 }

@@ -11,7 +11,7 @@ public struct ManageAssetPositionsViewModel {
 	// MARK: - Public Properties
 
 	public let positionsTitle = "Positions"
-	public let positionsImage = ""
+	public let positionsImage = "manage_asset_positions"
 	public let positionsCount: Int
 	public var isSelected: Bool {
 		UserDefaults.standard.bool(forKey: GlobalVariables.shared.positionsUserDefaultKey)

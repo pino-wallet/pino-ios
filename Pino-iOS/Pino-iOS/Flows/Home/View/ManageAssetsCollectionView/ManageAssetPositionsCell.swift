@@ -61,7 +61,6 @@ public class ManageAssetPositionsCell: UICollectionViewCell {
 
 		backgroundColor = .Pino.background
 		positionsCardView.backgroundColor = .Pino.secondaryBackground
-		positionsImage.backgroundColor = .Pino.background
 
 		positionsTitleLabel.textColor = .Pino.label
 		positionsCountLabel.textColor = .Pino.secondaryLabel
@@ -77,6 +76,7 @@ public class ManageAssetPositionsCell: UICollectionViewCell {
 		positionsTitleStackView.alignment = .leading
 
 		positionsImage.layer.cornerRadius = 22
+		positionsCardView.layer.cornerRadius = 12
 
 		selectAssetSwitch.onTintColor = .Pino.green3
 		selectAssetSwitch.setOn(positionsVM.isSelected, animated: false)
@@ -85,7 +85,8 @@ public class ManageAssetPositionsCell: UICollectionViewCell {
 
 	private func setupConstraint() {
 		positionsCardView.pin(
-			.allEdges
+			.verticalEdges(padding: 4),
+			.horizontalEdges(padding: 16)
 		)
 		positionsTitleStackView.pin(
 			.verticalEdges

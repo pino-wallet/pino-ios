@@ -55,7 +55,7 @@ class GlobalVariables {
 				asset1.holdAmountInDollor > asset2.holdAmountInDollor
 			}
 			let isPositionsSelected = UserDefaults.standard.bool(forKey: self.positionsUserDefaultKey)
-			let selectedPositions = assets.filter { isPositionsSelected && $0.isPosition }
+			let selectedPositions = assets.filter { isPositionsSelected && $0.isPosition && !$0.holdAmount.isZero }
 			let selectedAssets = assets.filter { !$0.isPosition && $0.isSelected }
 			self.selectedManageAssetsList = selectedAssets + selectedPositions
 		}.store(in: &cancellables)
