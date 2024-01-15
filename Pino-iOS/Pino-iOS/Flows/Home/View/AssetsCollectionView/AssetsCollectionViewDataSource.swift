@@ -84,6 +84,8 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 				return .zero
 			} else if let positionsList = homeVM.positionAssetsList, !positionsList.isEmpty {
 				return .zero
+			} else if let selectedAssets = homeVM.selectedAssetsList, selectedAssets.isEmpty {
+				return CGSize(width: collectionView.frame.width, height: collectionView.frame.height - 400)
 			} else {
 				return CGSize(width: collectionView.frame.width, height: 120)
 			}
@@ -128,16 +130,29 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 	}
 
 	private func homepageFooterView(kind: String, indexPath: IndexPath) -> UICollectionReusableView? {
-		let manageAssetsFooterView = dequeueReusableSupplementaryView(
-			ofKind: kind,
-			withReuseIdentifier: ManageAssetsFooterView.footerReuseID,
-			for: indexPath
-		) as! ManageAssetsFooterView
-		manageAssetsFooterView.title = "Manage assets"
-		manageAssetsFooterView.manageAssetButton.addAction(UIAction(handler: { _ in
-			self.manageAssetButtonTapped()
-		}), for: .touchUpInside)
-		return manageAssetsFooterView
+		if let selectedAssets = homeVM.selectedAssetsList, selectedAssets.isEmpty {
+			let emptyStateView = dequeueReusableSupplementaryView(
+				ofKind: kind,
+				withReuseIdentifier: HomepageEmptyStateView.footerReuseID,
+				for: indexPath
+			) as! HomepageEmptyStateView
+			emptyStateView.isEmptyState = true
+			emptyStateView.manageAssetButton.addAction(UIAction(handler: { _ in
+				self.manageAssetButtonTapped()
+			}), for: .touchUpInside)
+			return emptyStateView
+		} else {
+			let manageAssetsFooterView = dequeueReusableSupplementaryView(
+				ofKind: kind,
+				withReuseIdentifier: ManageAssetsFooterView.footerReuseID,
+				for: indexPath
+			) as! ManageAssetsFooterView
+			manageAssetsFooterView.title = "Manage assets"
+			manageAssetsFooterView.manageAssetButton.addAction(UIAction(handler: { _ in
+				self.manageAssetButtonTapped()
+			}), for: .touchUpInside)
+			return manageAssetsFooterView
+		}
 	}
 
 	private func assetCollectionViewCell(indexPath: IndexPath) -> UICollectionViewCell {
