@@ -74,6 +74,11 @@ public class ManageAssetCell: UICollectionViewCell {
 		assetTitleLabel.font = .PinoStyle.mediumCallout
 		assetAmountLabel.font = .PinoStyle.mediumFootnote
 
+		assetTitleLabel.lineBreakMode = .byTruncatingTail
+		assetTitleLabel.setContentHuggingPriority(UILayoutPriority(250), for: .horizontal)
+		assetTitleLabel.setContentHuggingPriority(UILayoutPriority(750), for: .horizontal)
+		selectAssetSwitch.setContentHuggingPriority(UILayoutPriority(750), for: .horizontal)
+
 		assetStackView.axis = .horizontal
 		assetTitleStackView.axis = .vertical
 
@@ -92,7 +97,8 @@ public class ManageAssetCell: UICollectionViewCell {
 	private func setupConstraint() {
 		assetCardView.pin(
 			.verticalEdges(padding: 4),
-			.horizontalEdges(padding: 16)
+			.horizontalEdges(padding: 16),
+			.fixedWidth(contentView.frame.width - 32)
 		)
 		assetTitleStackView.pin(
 			.verticalEdges
@@ -115,5 +121,9 @@ public class ManageAssetCell: UICollectionViewCell {
 		assetAmountLabel.pin(
 			.fixedHeight(18)
 		)
+
+		NSLayoutConstraint.activate([
+			assetStackView.trailingAnchor.constraint(lessThanOrEqualTo: selectAssetSwitch.leadingAnchor, constant: -24),
+		])
 	}
 }
