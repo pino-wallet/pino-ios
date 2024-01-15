@@ -31,8 +31,8 @@ class EnterSendAmountViewModel {
 
 	public var maxHoldAmount: BigNumber!
 	public var maxAmountInDollar: BigNumber!
-	public var tokenAmount: BigNumber!
-	public var dollarAmount: BigNumber!
+	public var tokenAmount: BigNumber?
+	public var dollarAmount: BigNumber?
 
 	public var formattedMaxHoldAmount: String {
 		maxHoldAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
@@ -44,9 +44,10 @@ class EnterSendAmountViewModel {
 
 	public var formattedAmount: String {
 		if isDollarEnabled {
-			return "\(tokenAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol))"
+			return tokenAmount == nil ? "" :
+				"\(tokenAmount!.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol))"
 		} else {
-			return dollarAmount == nil ? "" : dollarAmount.priceFormat
+			return dollarAmount == nil ? "" : dollarAmount!.priceFormat
 		}
 	}
 
@@ -79,10 +80,10 @@ class EnterSendAmountViewModel {
 			var enteredAmmount: BigNumber
 			if isDollarEnabled {
 				decimalMaxAmount = maxAmountInDollar
-				enteredAmmount = dollarAmount
+				enteredAmmount = dollarAmount!
 			} else {
 				decimalMaxAmount = maxHoldAmount
-				enteredAmmount = tokenAmount
+				enteredAmmount = tokenAmount!
 			}
 			if enteredAmmount > decimalMaxAmount {
 				amountStatus(.isNotEnough)
