@@ -69,7 +69,7 @@ class ApproveSpeedUpViewModel {
 			tx: transactionObject,
 			newGasPrice: EthereumQuantity(
 				quantity: Utilities
-					.parseToBigUInt(newBigNumberGasPrice.description, units: .custom(0))!
+					.parseToBigUInt(newBigNumberGasPrice.bigIntFormat, units: .custom(0))!
 			)
 		).done { txHash in
 			guard let approveTxHash = self.approveLoadingVM.approveTxHash else {
@@ -78,7 +78,7 @@ class ApproveSpeedUpViewModel {
 			self.coreDataManager.performSpeedUpChanges(
 				txHash: approveTxHash,
 				newTxHash: txHash,
-				newGasPrice: self.newBigNumberGasPrice.description
+				newGasPrice: self.newBigNumberGasPrice.bigIntFormat
 			)
 			self.approveLoadingVM.changeTXHash(newTXHash: txHash)
 			PendingActivitiesManager.shared.startActivityPendingRequests()

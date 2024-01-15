@@ -136,27 +136,27 @@ class CollateralConfirmViewModel {
 		var gasPrice: String
 		switch collaterallIncreaseAmountVM.borrowVM.selectedDexSystem {
 		case .aave:
-			gasUsed = aaveCollateralManager.depositGasInfo!.increasedGasLimit!.description
-			gasPrice = aaveCollateralManager.depositGasInfo!.maxFeePerGas.description
+			gasUsed = aaveCollateralManager.depositGasInfo!.increasedGasLimit!.bigIntFormat
+			gasPrice = aaveCollateralManager.depositGasInfo!.maxFeePerGas.bigIntFormat
 		case .compound:
 			if isEnabledCollateral {
 				gasUsed = (
 					compoundDepositManager.collateralCheckGasInfo!.increasedGasLimit
-				)!.description
+				)!.bigIntFormat
 				gasPrice = (
 					compoundDepositManager.collateralCheckGasInfo!.baseFeeWithPriorityFee
 				)
-				.description
+				.bigIntFormat
 			} else {
 				gasUsed = (
 					compoundDepositManager.depositGasInfo!
 						.increasedGasLimit!
-				).description
+				).bigIntFormat
 				gasPrice = (
 					compoundDepositManager.depositGasInfo!
 						.baseFeeWithPriorityFee
 				)
-				.description
+				.bigIntFormat
 			}
 		default:
 			fatalError("Unknown dex type")
@@ -199,20 +199,20 @@ class CollateralConfirmViewModel {
 		var gasPrice: String
 		switch collaterallIncreaseAmountVM.borrowVM.selectedDexSystem {
 		case .aave:
-			gasUsed = aaveCollateralManager.depositGasInfo!.increasedGasLimit!.description
-			gasPrice = aaveCollateralManager.depositGasInfo!.baseFeeWithPriorityFee.description
+			gasUsed = aaveCollateralManager.depositGasInfo!.increasedGasLimit!.bigIntFormat
+			gasPrice = aaveCollateralManager.depositGasInfo!.baseFeeWithPriorityFee.bigIntFormat
 		case .compound:
 			gasUsed = (
 				compoundDepositManager.depositGasInfo!
 					.increasedGasLimit! +
 					(compoundDepositManager.collateralCheckGasInfo?.increasedGasLimit ?? zeroAmountBigNumber)
-			).description
+			).bigIntFormat
 			gasPrice = (
 				compoundDepositManager.depositGasInfo!
 					.baseFeeWithPriorityFee +
 					(compoundDepositManager.collateralCheckGasInfo?.baseFeeWithPriorityFee ?? zeroAmountBigNumber)
 			)
-			.description
+			.bigIntFormat
 		default:
 			fatalError("Unknown dex type")
 		}

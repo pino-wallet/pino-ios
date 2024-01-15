@@ -133,8 +133,8 @@ class SendConfirmationViewModel {
 			gasFee = gasInfo.fee
 			formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat
 			formattedFeeInETH = gasInfo.fee!.sevenDigitFormat.ethFormatting
-			gasPrice = gasInfo.baseFeeWithPriorityFee.description
-			gasLimit = gasInfo.gasLimit!.description
+			gasPrice = gasInfo.baseFeeWithPriorityFee.bigIntFormat
+			gasLimit = gasInfo.gasLimit!.bigIntFormat
 		}.catch { error in
 			completion?(error)
 		}

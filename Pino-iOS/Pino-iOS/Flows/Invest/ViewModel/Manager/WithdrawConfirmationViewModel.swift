@@ -149,8 +149,8 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 			fromAddress: "",
 			toAddress: "",
 			blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
-			gasUsed: gasInfo.increasedGasLimit!.description,
-			gasPrice: gasInfo.baseFeeWithPriorityFee.description
+			gasUsed: gasInfo.increasedGasLimit!.bigIntFormat,
+			gasPrice: gasInfo.baseFeeWithPriorityFee.bigIntFormat
 		)
 		coreDataManager.addNewWithdrawActivity(
 			activityModel: withdrawActivityModel,
