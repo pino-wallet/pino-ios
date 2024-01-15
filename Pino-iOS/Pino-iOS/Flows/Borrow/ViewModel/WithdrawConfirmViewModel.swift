@@ -149,8 +149,8 @@ class WithdrawConfirmViewModel {
 				fromAddress: "",
 				toAddress: "",
 				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
-				gasUsed: gasInfo.increasedGasLimit!.description,
-				gasPrice: gasInfo.baseFeeWithPriorityFee.description
+				gasUsed: gasInfo.increasedGasLimit!.bigIntFormat,
+				gasPrice: gasInfo.baseFeeWithPriorityFee.bigIntFormat
 			),
 			accountAddress: walletManager.currentAccount.eip55Address
 		)

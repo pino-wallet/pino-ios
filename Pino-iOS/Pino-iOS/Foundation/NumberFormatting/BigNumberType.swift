@@ -241,9 +241,9 @@ extension BigNumber: Equatable, Comparable {
 	}
 }
 
-extension BigNumber: CustomStringConvertible {
-	public var description: String {
-		decimalString
+extension BigNumber {
+	public var bigIntFormat: String {
+		number.description
 	}
 
 	public var decimalString: String {

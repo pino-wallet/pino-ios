@@ -125,8 +125,8 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 			fromAddress: "",
 			toAddress: "",
 			blockTime: activityHelper.getServerFormattedStringDate(date: activityDate),
-			gasUsed: gasInfo.increasedGasLimit!.description,
-			gasPrice: gasInfo.baseFeeWithPriorityFee.description
+			gasUsed: gasInfo.increasedGasLimit!.bigIntFormat,
+			gasPrice: gasInfo.baseFeeWithPriorityFee.bigIntFormat
 		)
 		coreDataManager.addNewInvestActivity(
 			activityModel: investActivityModel,
@@ -152,8 +152,8 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 			fromAddress: "",
 			toAddress: "",
 			blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
-			gasUsed: gasInfo.increasedGasLimit!.description,
-			gasPrice: gasInfo.baseFeeWithPriorityFee.description
+			gasUsed: gasInfo.increasedGasLimit!.bigIntFormat,
+			gasPrice: gasInfo.baseFeeWithPriorityFee.bigIntFormat
 		)
 		coreDataManager.addNewCollateralActivity(
 			activityModel: collateralActivityModel,
