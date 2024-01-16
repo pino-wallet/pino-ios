@@ -241,7 +241,11 @@ extension BigNumber: Equatable, Comparable {
 	}
 }
 
-extension BigNumber {
+extension BigNumber: CustomStringConvertible {
+	public var description: String {
+		bigIntFormat
+	}
+
 	public var bigIntFormat: String {
 		number.description
 	}
