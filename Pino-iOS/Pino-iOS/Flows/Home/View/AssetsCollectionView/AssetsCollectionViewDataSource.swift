@@ -85,7 +85,9 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 			} else if let positionsList = homeVM.positionAssetsList, !positionsList.isEmpty {
 				return .zero
 			} else if let selectedAssets = homeVM.selectedAssetsList, selectedAssets.isEmpty {
-				return CGSize(width: collectionView.frame.width, height: collectionView.frame.height - 400)
+				// Calculate homepage height without calculating balance header
+				let assetsSectionHeight = collectionView.frame.height - 400
+				return CGSize(width: collectionView.frame.width, height: assetsSectionHeight)
 			} else {
 				return CGSize(width: collectionView.frame.width, height: 120)
 			}
