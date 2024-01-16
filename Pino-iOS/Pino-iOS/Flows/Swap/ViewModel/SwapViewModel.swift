@@ -234,10 +234,10 @@ class SwapViewModel {
 			}
 		case .hasAmount, .loading, .noQuote:
 			swapState = .clear
+			priceManager.cancelPreviousRequests()
+			updateDestinationToken(destToken: destToken, tokenAmount: nil)
+			getFeeInfo(swapProvider: nil)
 		}
-		priceManager.cancelPreviousRequests()
-		updateDestinationToken(destToken: destToken, tokenAmount: nil)
-		getFeeInfo(swapProvider: nil)
 	}
 
 	private func getSwapProviderInfo(
