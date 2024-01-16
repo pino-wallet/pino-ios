@@ -72,6 +72,7 @@ class EllipsisAnimatedText: UIView {
 
 	public func start() {
 		if timer == nil {
+            label.text = defaultText
 			timer = Timer.scheduledTimer(
 				timeInterval: 0.3,
 				target: self,
@@ -84,6 +85,7 @@ class EllipsisAnimatedText: UIView {
 	}
 
 	public func stop() {
+        label.text = defaultText
 		timer?.invalidate()
 		timer = nil
 	}
