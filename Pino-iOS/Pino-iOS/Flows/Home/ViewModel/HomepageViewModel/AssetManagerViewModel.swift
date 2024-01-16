@@ -65,7 +65,8 @@ class AssetManagerViewModel {
 				previousDayNetworth: userAsset?.previousDayNetworth ?? "0"
 			)
 		}
-		checkDefaultAssetsAdded(assets: tokensModel)
+		#warning("Default assets must be added in intro flow")
+//		checkDefaultAssetsAdded(assets: tokensModel)
 		getSelectedAssetsFromCoreData()
 		let tokens = tokensModel.compactMap {
 			AssetViewModel(assetModel: $0, isSelected: self.selectedAssets.map { $0.id }.contains($0.id))

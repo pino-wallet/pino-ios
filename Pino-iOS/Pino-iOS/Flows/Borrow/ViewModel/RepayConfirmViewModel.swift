@@ -166,8 +166,8 @@ class RepayConfirmViewModel {
 				fromAddress: "",
 				toAddress: "",
 				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
-				gasUsed: gasInfo.increasedGasLimit!.description,
-				gasPrice: gasInfo.maxFeePerGas.description
+				gasUsed: gasInfo.increasedGasLimit!.bigIntFormat,
+				gasPrice: gasInfo.maxFeePerGas.bigIntFormat
 			),
 			accountAddress: walletManager.currentAccount.eip55Address
 		)

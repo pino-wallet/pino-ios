@@ -119,7 +119,7 @@ class SwapManager: Web3ManagerProtocol {
 				guard let selectedProvider else { fatalError("provider errror") }
 				return checkAllowanceOfProvider(
 					approvingToken: srcToken,
-					approvingAmount: swapAmountBigNum.description,
+					approvingAmount: swapAmountBigNum.bigIntFormat,
 					spenderAddress: selectedProvider.provider.contractAddress
 				).map { (signiture, $0) }
 			}.then { signiture, allowanceData -> Promise<(String, String?)> in
@@ -157,7 +157,7 @@ class SwapManager: Web3ManagerProtocol {
 			let fetchHashPromise = fetchHash()
 			let allowancePromise = checkAllowanceOfProvider(
 				approvingToken: srcToken,
-				approvingAmount: swapAmountBigNum.description,
+				approvingAmount: swapAmountBigNum.bigIntFormat,
 				spenderAddress: selectedProvider.provider.contractAddress
 			)
 			let swapProvidersDataPromise = getSwapInfoFrom()
@@ -203,7 +203,7 @@ class SwapManager: Web3ManagerProtocol {
 				guard let selectedProvider else { fatalError("provider errror") }
 				return checkAllowanceOfProvider(
 					approvingToken: wethToken,
-					approvingAmount: swapAmountBigNum.description,
+					approvingAmount: swapAmountBigNum.bigIntFormat,
 					spenderAddress: selectedProvider.provider.contractAddress
 				).map { ($0, wrapTokenData) }
 			}.then { [self] allowanceData, wrapTokenData -> Promise<(String, String?, String)> in
@@ -283,7 +283,7 @@ class SwapManager: Web3ManagerProtocol {
 		Promise<String> { seal in
 			let hashREq = EIP712HashRequestModel(
 				tokenAdd: srcToken.id,
-				amount: swapAmountBigNum.description,
+				amount: swapAmountBigNum.bigIntFormat,
 				spender: Web3Core.Constants.pinoSwapProxyAddress,
 				nonce: nonce.description,
 				deadline: deadline.description
@@ -319,7 +319,7 @@ class SwapManager: Web3ManagerProtocol {
 			SwapRequestModel(
 				srcToken: srcToken.id,
 				destToken: destToken.id,
-				amount: swapAmountBigNum.bigUInt.description,
+				amount: swapAmountBigNum.bigIntFormat,
 				destAmount: selectedProvider.providerResponseInfo.destAmount,
 				receiver: walletManager.currentAccount.eip55Address,
 				userAddress: Web3Core.Constants.pinoSwapProxyAddress,
@@ -440,7 +440,7 @@ class SwapManager: Web3ManagerProtocol {
 				type: ActivityType.swap.rawValue,
 				detail: .init(
 					fromToken: .init(
-						amount: swapAmountBigNum.description,
+						amount: swapAmountBigNum.bigIntFormat,
 						tokenID: srcToken.id
 					),
 					toToken: .init(
@@ -454,8 +454,8 @@ class SwapManager: Web3ManagerProtocol {
 				fromAddress: userAddress,
 				toAddress: selectedProvider.provider.contractAddress,
 				blockTime: ActivityHelper().getServerFormattedStringDate(date: .now),
-				gasUsed: pendingSwapGasInfo.increasedGasLimit!.description,
-				gasPrice: pendingSwapGasInfo.baseFeeWithPriorityFee.description
+				gasUsed: pendingSwapGasInfo.increasedGasLimit!.bigIntFormat,
+				gasPrice: pendingSwapGasInfo.baseFeeWithPriorityFee.bigIntFormat
 			),
 			accountAddress: walletManager.currentAccount.eip55Address
 		)

@@ -70,17 +70,17 @@ class SpeedUpAlertViewModel {
 			tx: transactionObject,
 			newGasPrice: EthereumQuantity(
 				quantity: Utilities
-					.parseToBigUInt(newBigNumberGasPrice.description, units: .custom(0))!
+					.parseToBigUInt(newBigNumberGasPrice.bigIntFormat, units: .custom(0))!
 			)
 		).done { txHash in
 			self.coreDataManager.performSpeedUpChanges(
 				txHash: self.activityDetailsVM.activityDetails.defaultActivityModel.txHash,
 				newTxHash: txHash,
-				newGasPrice: self.newBigNumberGasPrice.description
+				newGasPrice: self.newBigNumberGasPrice.bigIntFormat
 			)
 			self.activityDetailsVM.performSpeedUpChanges(
 				newTxHash: txHash,
-				newGasPrice: self.newBigNumberGasPrice.description
+				newGasPrice: self.newBigNumberGasPrice.bigIntFormat
 			)
 			PendingActivitiesManager.shared.startActivityPendingRequests()
 			self.didSpeedUpTransaction(nil)

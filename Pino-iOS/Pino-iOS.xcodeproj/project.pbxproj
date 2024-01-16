@@ -680,6 +680,7 @@
 		E333E63A2AA708D3005C977E /* InvestEmptyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E333E6392AA708D3005C977E /* InvestEmptyPageView.swift */; };
 		E33649A52B551FF900341466 /* ManageAssetPositionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33649A42B551FF900341466 /* ManageAssetPositionsCell.swift */; };
 		E33649A72B5523EF00341466 /* ManageAssetPositionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33649A62B5523EF00341466 /* ManageAssetPositionsViewModel.swift */; };
+		E33649A32B53FF0300341466 /* HomepgaeEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33649A22B53FF0300341466 /* HomepgaeEmptyState.swift */; };
 		E338DF112B25B0F3005D6883 /* AaveDepositManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E338DF102B25B0F3005D6883 /* AaveDepositManager.swift */; };
 		E33F7CBA2AD44199007FC04D /* W3InvestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F7CB92AD44199007FC04D /* W3InvestManager.swift */; };
 		E33F7CBC2AD442AC007FC04D /* InvestABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = E33F7CBB2AD442AC007FC04D /* InvestABIJson.json */; };
@@ -1527,6 +1528,7 @@
 		E333E6392AA708D3005C977E /* InvestEmptyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestEmptyPageView.swift; sourceTree = "<group>"; };
 		E33649A42B551FF900341466 /* ManageAssetPositionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAssetPositionsCell.swift; sourceTree = "<group>"; };
 		E33649A62B5523EF00341466 /* ManageAssetPositionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAssetPositionsViewModel.swift; sourceTree = "<group>"; };
+		E33649A22B53FF0300341466 /* HomepgaeEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepgaeEmptyState.swift; sourceTree = "<group>"; };
 		E338DF102B25B0F3005D6883 /* AaveDepositManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AaveDepositManager.swift; sourceTree = "<group>"; };
 		E33F7CB92AD44199007FC04D /* W3InvestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3InvestManager.swift; sourceTree = "<group>"; };
 		E33F7CBB2AD442AC007FC04D /* InvestABIJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvestABIJson.json; sourceTree = "<group>"; };
@@ -2451,6 +2453,7 @@
 				27C67E904C0B3815BD92FF78 /* PositionHeaderView.swift */,
 				0370664A9072624853167972 /* AccountBalanceHeaderView.swift */,
 				E149E7B618CEFE5E909B2D78 /* AccountInfoNavigationItems.swift */,
+				E33649A22B53FF0300341466 /* HomepgaeEmptyState.swift */,
 				55D09939AE0791A97C71E859 /* AddCustomAssetView */,
 				8F0DA0B575132072F9462E66 /* AssetsCollectionView */,
 				378738E9160BC02790091E65 /* ManageAssetsCollectionView */,
@@ -5421,6 +5424,7 @@
 				D98207C62A5D5D4D0066A090 /* ActivityDetailsViewModel.swift in Sources */,
 				D933C3312A99F57800C2BD5A /* CollateralizingBoardViewModel.swift in Sources */,
 				E3C8027D2A95427800A13792 /* InvestmentRiskItemView.swift in Sources */,
+				E33649A32B53FF0300341466 /* HomepgaeEmptyState.swift in Sources */,
 				E3FC69DF2A9207E8009B3341 /* InvestmentBoardFilterViewController.swift in Sources */,
 				13F430044A23AF2BA55BBDFB /* SecurityModeProtocol.swift in Sources */,
 				DFC1F6A92A755F7B003DB68A /* SwapPriceRequestModel.swift in Sources */,

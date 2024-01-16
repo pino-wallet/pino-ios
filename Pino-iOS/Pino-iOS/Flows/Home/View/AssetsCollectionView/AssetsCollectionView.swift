@@ -81,6 +81,12 @@ class AssetsCollectionView: UICollectionView {
 			withReuseIdentifier: ManageAssetsFooterView.footerReuseID
 		)
 
+		register(
+			HomepageEmptyStateView.self,
+			forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+			withReuseIdentifier: HomepageEmptyStateView.footerReuseID
+		)
+
 		dataSource = self
 		delegate = self
 	}

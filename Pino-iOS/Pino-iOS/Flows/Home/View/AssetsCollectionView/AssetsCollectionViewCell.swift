@@ -18,7 +18,14 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 	private let assetTitleLabel = UILabel()
 	private let assetAmountLabel = UILabel()
 	private let assetVolatilityStackView = UIStackView()
+	private let rightIconContainerView = UIView()
+	private let rightIconImageView = UIImageView()
 	private let assetAmountInDollorLabel = UILabel()
+	private let spacerView = UIView()
+
+	private var assetTitleLabelHeightconstraint: NSLayoutConstraint!
+	private var assetAmountLabelHeightConstraint: NSLayoutConstraint!
+
 	private let assetVolatilityLabel = UILabel()
 
 	// MARK: Public Properties
@@ -30,6 +37,7 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 			setupView()
 			setupStyle()
 			setupConstraint()
+			toggleIsLoadingStyles()
 		}
 	}
 
@@ -37,10 +45,13 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 
 	private func setupView() {
 		contentView.addSubview(assetCardView)
+		rightIconContainerView.addSubview(rightIconImageView)
 		assetCardView.addSubview(assetStackView)
-		assetCardView.addSubview(assetVolatilityStackView)
 		assetStackView.addArrangedSubview(assetImage)
 		assetStackView.addArrangedSubview(assetTitleStackView)
+		assetStackView.addArrangedSubview(spacerView)
+		assetStackView.addArrangedSubview(assetVolatilityStackView)
+		assetStackView.addArrangedSubview(rightIconContainerView)
 		assetTitleStackView.addArrangedSubview(assetTitleLabel)
 		assetTitleStackView.addArrangedSubview(assetAmountLabel)
 		assetVolatilityStackView.addArrangedSubview(assetAmountInDollorLabel)
@@ -52,6 +63,7 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 
 		assetTitleLabel.text = assetVM?.name
 		assetAmountLabel.text = assetVM?.amount
+		assetAmountLabel.lineBreakMode = .byTruncatingTail
 		assetAmountInDollorLabel.text = assetVM?.amountInDollor
 		assetVolatilityLabel.text = assetVM?.volatilityInDollor
 
@@ -94,20 +106,18 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 		assetImage.backgroundColor = .Pino.background
 
 		assetTitleLabel.textColor = .Pino.label
-
 		assetTitleLabel.font = .PinoStyle.mediumCallout
+		assetTitleLabel.lineBreakMode = .byTruncatingTail
 
 		assetStackView.axis = .horizontal
+		assetStackView.alignment = .center
 		assetTitleStackView.axis = .vertical
+		assetTitleStackView.spacing = 14
+		assetTitleStackView.alignment = .leading
 		assetVolatilityStackView.axis = .vertical
+		assetVolatilityStackView.spacing = 4
 
 		assetStackView.spacing = 10
-
-		assetVolatilityStackView.alignment = .trailing
-		assetTitleStackView.alignment = .leading
-		assetVolatilityStackView.alignment = .trailing
-		assetTitleStackView.distribution = .equalCentering
-		assetVolatilityStackView.distribution = .equalCentering
 
 		assetCardView.layer.cornerRadius = 12
 		assetImage.layer.cornerRadius = 22
@@ -115,7 +125,36 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 		assetImage.layer.masksToBounds = true
 
 		assetAmountInDollorLabel.textAlignment = .right
+		assetAmountInDollorLabel.lineBreakMode = .byTruncatingTail
 		assetVolatilityLabel.textAlignment = .right
+		assetVolatilityLabel.lineBreakMode = .byTruncatingTail
+
+		rightIconImageView.image = UIImage(named: "chevron_right")
+		rightIconImageView.tintColor = .Pino.gray3
+
+		updateStyleWithAssetType()
+	}
+
+	private func updateStyleWithAssetType() {
+		guard let isPositionToken = assetVM?.isPosition else {
+			disablePositionStyles()
+			return
+		}
+		if isPositionToken == true {
+			assetCardView.layer.borderWidth = 1
+			assetCardView.layer.borderColor = UIColor.Pino.borderGray.cgColor
+
+			assetVolatilityStackView.isHidden = true
+			rightIconContainerView.isHidden = false
+		} else {
+			disablePositionStyles()
+		}
+	}
+
+	private func disablePositionStyles() {
+		assetCardView.layer.borderWidth = 0
+		assetVolatilityStackView.isHidden = false
+		rightIconContainerView.isHidden = true
 	}
 
 	private func setSkeletonable() {
@@ -125,36 +164,53 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 	}
 
 	private func setupConstraint() {
+		assetTitleLabelHeightconstraint = assetTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14)
+		assetAmountLabelHeightConstraint = assetAmountLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 12)
+
+		contentView.pin(.allEdges(padding: 0))
 		assetCardView.pin(
 			.verticalEdges(padding: 4),
 			.horizontalEdges(padding: 16)
 		)
-		assetTitleStackView.pin(
-			.top(padding: 4),
-			.bottom(padding: 2)
-		)
 		assetStackView.pin(
-			.centerY,
-			.leading(padding: 14)
-		)
-		assetVolatilityStackView.pin(
-			.verticalEdges(to: assetTitleStackView),
-			.trailing(padding: 14)
+			.horizontalEdges(padding: 14),
+			.verticalEdges(padding: 7),
+			.fixedHeight(50)
 		)
 		assetImage.pin(
 			.fixedWidth(44),
 			.fixedHeight(44)
 		)
+		rightIconContainerView.pin(.fixedWidth(24))
+		rightIconImageView.pin(.fixedWidth(24), .fixedHeight(24), .centerY)
 
 		NSLayoutConstraint.activate([
 			assetTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 130),
 			assetAmountLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 56),
 			assetAmountInDollorLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60),
 			assetVolatilityLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 40),
-			assetTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14),
-			assetAmountLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 12),
-			assetAmountInDollorLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14),
-			assetVolatilityLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14),
+			assetTitleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 170),
+			assetAmountLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 170),
+			assetAmountInDollorLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 80),
+			assetVolatilityLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 80),
+			assetAmountInDollorLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24),
+			assetVolatilityLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 18),
+			assetTitleLabelHeightconstraint,
+			assetAmountLabelHeightConstraint,
 		])
+	}
+
+	private func toggleIsLoadingStyles() {
+		if assetVM == nil {
+			assetTitleLabelHeightconstraint.constant = 14
+			assetAmountLabelHeightConstraint.constant = 12
+			assetTitleStackView.spacing = 14
+			layoutIfNeeded()
+		} else {
+			assetTitleLabelHeightconstraint.constant = 24
+			assetAmountLabelHeightConstraint.constant = 18
+			assetTitleStackView.spacing = 4
+			layoutIfNeeded()
+		}
 	}
 }
