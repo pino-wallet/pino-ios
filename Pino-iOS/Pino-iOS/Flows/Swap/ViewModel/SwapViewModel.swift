@@ -224,7 +224,7 @@ class SwapViewModel {
 
 	private func removeDestinationAmount(_ destToken: SwapTokenViewModel) {
 		switch swapState {
-		case .initial, .clear:
+		case .initial:
 			break
 		case .noToToken:
 			if fromToken.tokenAmount == nil {
@@ -232,7 +232,7 @@ class SwapViewModel {
 			} else {
 				break
 			}
-		case .hasAmount, .loading, .noQuote:
+		case .hasAmount, .loading, .noQuote, .clear:
 			swapState = .clear
 			priceManager.cancelPreviousRequests()
 			updateDestinationToken(destToken: destToken, tokenAmount: nil)
