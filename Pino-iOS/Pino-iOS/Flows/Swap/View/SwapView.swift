@@ -327,10 +327,20 @@ class SwapView: UIView {
 	}
 
 	private func clearTextFields() {
-		swapVM.fromToken.calculateDollarAmount(nil)
-		swapVM.toToken.calculateDollarAmount(nil)
-		fromTokenSectionView.swapAmountDidCalculate()
-		toTokenSectionView.swapAmountDidCalculate()
+		if let tokenAmount = swapVM.fromToken.tokenAmountBigNum, tokenAmount.isZero {
+			// Don't delete zero amount from text field
+			return
+		} else {
+			swapVM.fromToken.calculateDollarAmount(nil)
+			fromTokenSectionView.swapAmountDidCalculate()
+		}
+		if let tokenAmount = swapVM.toToken.tokenAmountBigNum, tokenAmount.isZero {
+			// Don't delete zero amount from text field
+			return
+		} else {
+			swapVM.toToken.calculateDollarAmount(nil)
+			toTokenSectionView.swapAmountDidCalculate()
+		}
 	}
 
 	private func showFeeCard() {
