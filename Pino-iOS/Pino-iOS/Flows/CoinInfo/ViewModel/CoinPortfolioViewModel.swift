@@ -49,7 +49,11 @@ struct CoinPortfolioViewModel {
 		if formattedChangePercentage.isZero {
 			return GlobalZeroAmounts.percentage.zeroAmount
 		}
-		return "\(volatilityType.prependSign)\(formattedChangePercentage)%"
+		if formattedChangePercentage.number.sign == .plus {
+			return "\(volatilityType.prependSign)\(formattedChangePercentage.percentFormat)%"
+		} else {
+			return "\(formattedChangePercentage.percentFormat)%"
+		}
 	}
 
 	public var coinPrice: BigNumber {
