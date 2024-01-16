@@ -75,9 +75,6 @@ public class ManageAssetCell: UICollectionViewCell {
 		assetAmountLabel.font = .PinoStyle.mediumFootnote
 
 		assetTitleLabel.lineBreakMode = .byTruncatingTail
-		assetTitleLabel.setContentHuggingPriority(UILayoutPriority(250), for: .horizontal)
-		assetTitleLabel.setContentHuggingPriority(UILayoutPriority(750), for: .horizontal)
-		selectAssetSwitch.setContentHuggingPriority(UILayoutPriority(750), for: .horizontal)
 
 		assetStackView.axis = .horizontal
 		assetTitleStackView.axis = .vertical
