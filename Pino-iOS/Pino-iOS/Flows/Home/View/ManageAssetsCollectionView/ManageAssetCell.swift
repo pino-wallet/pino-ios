@@ -74,6 +74,8 @@ public class ManageAssetCell: UICollectionViewCell {
 		assetTitleLabel.font = .PinoStyle.mediumCallout
 		assetAmountLabel.font = .PinoStyle.mediumFootnote
 
+		assetTitleLabel.lineBreakMode = .byTruncatingTail
+
 		assetStackView.axis = .horizontal
 		assetTitleStackView.axis = .vertical
 
@@ -82,6 +84,7 @@ public class ManageAssetCell: UICollectionViewCell {
 		assetTitleStackView.alignment = .leading
 
 		assetImage.layer.cornerRadius = 22
+		assetCardView.layer.cornerRadius = 12
 
 		selectAssetSwitch.onTintColor = .Pino.green3
 		selectAssetSwitch.setOn(assetVM.isSelected, animated: false)
@@ -90,7 +93,9 @@ public class ManageAssetCell: UICollectionViewCell {
 
 	private func setupConstraint() {
 		assetCardView.pin(
-			.allEdges
+			.verticalEdges(padding: 4),
+			.horizontalEdges(padding: 16),
+			.fixedWidth(contentView.frame.width - 32)
 		)
 		assetTitleStackView.pin(
 			.verticalEdges
@@ -113,5 +118,9 @@ public class ManageAssetCell: UICollectionViewCell {
 		assetAmountLabel.pin(
 			.fixedHeight(18)
 		)
+
+		NSLayoutConstraint.activate([
+			assetStackView.trailingAnchor.constraint(lessThanOrEqualTo: selectAssetSwitch.leadingAnchor, constant: -24),
+		])
 	}
 }
