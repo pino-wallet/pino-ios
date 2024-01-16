@@ -13,7 +13,7 @@ class TabBarViewController: UITabBarController {
 	// MARK: - Private Properties
 
 	private let tabBarItems: [TabBarItem] = [.home, .swap, .invest, .borrow, .activity]
-	private let activityPendingBadgeView = UIView(frame: CGRect(x: 38, y: 8, width: 8, height: 8))
+//	private let activityPendingBadgeView = UIView(frame: CGRect(x: 38, y: 8, width: 8, height: 8))
 	private var tabBarItemViewControllers = [UIViewController]()
 	private var cancellables = Set<AnyCancellable>()
 
@@ -28,8 +28,8 @@ class TabBarViewController: UITabBarController {
 		setupView()
 		setupTabBarItems()
 		presentAllowNotifications()
-		setupCustomBadgeStyles()
-		setupBindings()
+//		setupCustomBadgeStyles()
+//		setupBindings()
 		setupDevmodeStatusbar()
 	}
 
@@ -72,7 +72,7 @@ class TabBarViewController: UITabBarController {
 
 		viewControllers = tabBarItemViewControllers
 
-		addCustomTabBarBadgeFor(index: 4, customView: activityPendingBadgeView)
+//		addCustomTabBarBadgeFor(index: 4, customView: activityPendingBadgeView)
 	}
 
 	private func presentAllowNotifications() {
@@ -83,20 +83,20 @@ class TabBarViewController: UITabBarController {
 		}
 	}
 
-	private func setupCustomBadgeStyles() {
-		activityPendingBadgeView.backgroundColor = .Pino.orange
-		activityPendingBadgeView.layer.cornerRadius = 4
-	}
+//	private func setupCustomBadgeStyles() {
+//		activityPendingBadgeView.backgroundColor = .Pino.orange
+//		activityPendingBadgeView.layer.cornerRadius = 4
+//	}
 
-	private func setupBindings() {
-		PendingActivitiesManager.shared.$pendingActivitiesList.sink { pendingActivities in
-			if pendingActivities.isEmpty {
-				self.activityPendingBadgeView.isHidden = true
-			} else {
-				self.activityPendingBadgeView.isHidden = false
-			}
-		}.store(in: &cancellables)
-	}
+//	private func setupBindings() {
+//		PendingActivitiesManager.shared.$pendingActivitiesList.sink { pendingActivities in
+//			if pendingActivities.isEmpty {
+//				self.activityPendingBadgeView.isHidden = true
+//			} else {
+//				self.activityPendingBadgeView.isHidden = false
+//			}
+//		}.store(in: &cancellables)
+//	}
 
 	private func setupDevmodeStatusbar() {
 		if Environment.current != .mainNet {
