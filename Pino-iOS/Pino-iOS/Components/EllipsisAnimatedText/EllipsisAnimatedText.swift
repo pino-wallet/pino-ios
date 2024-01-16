@@ -27,9 +27,9 @@ class EllipsisAnimatedText: UIView {
 
 		if newWindow == nil {
 			stop()
-        } else {
-            start()
-        }
+		} else {
+			start()
+		}
 	}
 
 	// MARK: - Initializers
