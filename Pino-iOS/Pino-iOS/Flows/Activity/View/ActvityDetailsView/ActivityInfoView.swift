@@ -38,8 +38,8 @@ class ActivityInfoView: UIView {
 	private var toInfoCustomView: UserAccountInfoView!
 	private var protocolInfoCustomView: UserAccountInfoView!
 	private var cancellables = Set<AnyCancellable>()
-    private var pendingEllipsisView: EllipsisAnimatedText!
-    private var pendingEllipsisWidthConstraint: NSLayoutConstraint!
+	private var pendingEllipsisView: EllipsisAnimatedText!
+	private var pendingEllipsisWidthConstraint: NSLayoutConstraint!
 
 	private var activityDetailsVM: ActivityDetailsViewModel
 
@@ -71,10 +71,13 @@ class ActivityInfoView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-        pendingEllipsisView = EllipsisAnimatedText(defaultText: ActivityDetailProperties.ActivityStatus.pending.description)
+		pendingEllipsisView = EllipsisAnimatedText(
+			defaultText: ActivityDetailProperties.ActivityStatus.pending
+				.description
+		)
 
 		statusLabelContainer.addSubview(statusInfoLabel)
-        statusLabelContainer.addSubview(pendingEllipsisView)
+		statusLabelContainer.addSubview(pendingEllipsisView)
 
 		fromInfoCustomView = UserAccountInfoView(
 			image: nil,
@@ -190,7 +193,7 @@ class ActivityInfoView: UIView {
 		mainStackView.spacing = 22
 
 		statusInfoLabel.font = .PinoStyle.semiboldSubheadline
-        pendingEllipsisView.label.font = .PinoStyle.semiboldSubheadline
+		pendingEllipsisView.label.font = .PinoStyle.semiboldSubheadline
 
 		statusLabelContainer.layer.cornerRadius = 14
 		statusLabelContainer.layer.masksToBounds = true
@@ -232,10 +235,10 @@ class ActivityInfoView: UIView {
 	private func setupConstraints() {
 		containerView.heightAnchor.constraint(greaterThanOrEqualToConstant: 72).isActive = true
 
-        statusLabelContainer.pin(.fixedHeight(28))
+		statusLabelContainer.pin(.fixedHeight(28))
 
 		statusInfoLabel.pin(.horizontalEdges(padding: 10), .centerY)
-        pendingEllipsisView.pin(.horizontalEdges(padding: 10), .centerY)
+		pendingEllipsisView.pin(.horizontalEdges(padding: 10), .centerY)
 
 		containerView.pin(.allEdges(padding: 0))
 		mainStackView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 24))
@@ -269,32 +272,31 @@ class ActivityInfoView: UIView {
 		}
 
 		dateStackView.info = activityProperties.formattedDate
-        
 
 		switch activityProperties.status {
 		case .complete:
-            pendingEllipsisView.stop()
+			pendingEllipsisView.stop()
 			statusInfoLabel.textColor = .Pino.green3
 			statusLabelContainer.backgroundColor = .Pino.green1
-            pendingEllipsisView.isHidden = true
-            statusInfoLabel.isHidden = false
+			pendingEllipsisView.isHidden = true
+			statusInfoLabel.isHidden = false
 		case .failed:
-            pendingEllipsisView.stop()
+			pendingEllipsisView.stop()
 			statusInfoLabel.textColor = .Pino.red
 			statusLabelContainer.backgroundColor = .Pino.lightRed
-            pendingEllipsisView.isHidden = true
-            statusInfoLabel.isHidden = false
+			pendingEllipsisView.isHidden = true
+			statusInfoLabel.isHidden = false
 		case .pending:
-            pendingEllipsisView.start()
-            pendingEllipsisView.isHidden = false
-            statusInfoLabel.isHidden = true
-            pendingEllipsisView.label.textColor = .Pino.pendingOrange
-            statusLabelContainer.backgroundColor = .Pino.lightOrange
+			pendingEllipsisView.start()
+			pendingEllipsisView.isHidden = false
+			statusInfoLabel.isHidden = true
+			pendingEllipsisView.label.textColor = .Pino.pendingOrange
+			statusLabelContainer.backgroundColor = .Pino.lightOrange
 		}
 		statusInfoLabel.text = activityProperties.status.description
-        statusInfoLabel.textAlignment = .center
-        
-        updateConstraintsWithStatus()
+		statusInfoLabel.textAlignment = .center
+
+		updateConstraintsWithStatus()
 
 		if activityDetailsVM.properties.userFromAccountInfo != nil {
 			fromInfoCustomView.image = activityDetailsVM.properties.userFromAccountInfo?.image
@@ -308,24 +310,24 @@ class ActivityInfoView: UIView {
 		protocolInfoCustomView.title = activityProperties.protocolName
 		protocolInfoCustomView.image = activityProperties.protocolImage
 	}
-    
-    private func updateConstraintsWithStatus() {
-        pendingEllipsisWidthConstraint = pendingEllipsisView.widthAnchor.constraint(equalToConstant: 72)
-        switch activityProperties.status {
-        case .complete:
-            pendingEllipsisWidthConstraint.isActive = false
-            pendingEllipsisView.pin(.horizontalEdges(padding: 0), .centerY)
-            layoutIfNeeded()
-        case .failed:
-            pendingEllipsisWidthConstraint.isActive = false
-            pendingEllipsisView.pin(.horizontalEdges(padding: 0), .centerY)
-            layoutIfNeeded()
-        case .pending:
-            pendingEllipsisWidthConstraint.isActive = true
-            pendingEllipsisView.pin(.horizontalEdges(padding: 10), .centerY)
-            layoutIfNeeded()
-        }
-    }
+
+	private func updateConstraintsWithStatus() {
+		pendingEllipsisWidthConstraint = pendingEllipsisView.widthAnchor.constraint(equalToConstant: 72)
+		switch activityProperties.status {
+		case .complete:
+			pendingEllipsisWidthConstraint.isActive = false
+			pendingEllipsisView.pin(.horizontalEdges(padding: 0), .centerY)
+			layoutIfNeeded()
+		case .failed:
+			pendingEllipsisWidthConstraint.isActive = false
+			pendingEllipsisView.pin(.horizontalEdges(padding: 0), .centerY)
+			layoutIfNeeded()
+		case .pending:
+			pendingEllipsisWidthConstraint.isActive = true
+			pendingEllipsisView.pin(.horizontalEdges(padding: 10), .centerY)
+			layoutIfNeeded()
+		}
+	}
 
 	private func setupBindings() {
 		activityDetailsVM.$properties.sink { activityProperties in

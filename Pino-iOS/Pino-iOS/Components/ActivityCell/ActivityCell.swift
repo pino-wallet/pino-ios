@@ -20,9 +20,9 @@ class ActivityCell: UICollectionViewCell {
 	private let historyMoreInfoLoadingContainer = UIView()
 	private let statusStackView = UIStackView()
 	private let pendingStatusLabelContainer = UIView()
-    private let failedStatusLabelContainer = UIView()
+	private let failedStatusLabelContainer = UIView()
 	private let failedStatusLabel = UILabel()
-    private var pendingEllipsisStatus: EllipsisAnimatedText!
+	private var pendingEllipsisStatus: EllipsisAnimatedText!
 
 	// MARK: - public properties
 
@@ -41,11 +41,11 @@ class ActivityCell: UICollectionViewCell {
 	// MARK: - private UI method
 
 	private func setupView() {
-        pendingEllipsisStatus = EllipsisAnimatedText(defaultText: ActivityCellStatus.pending.rawValue)
-        
+		pendingEllipsisStatus = EllipsisAnimatedText(defaultText: ActivityCellStatus.pending.rawValue)
+
 		contentView.addSubview(historyCardView)
 		failedStatusLabelContainer.addSubview(failedStatusLabel)
-        pendingStatusLabelContainer.addSubview(pendingEllipsisStatus)
+		pendingStatusLabelContainer.addSubview(pendingEllipsisStatus)
 		historyCardView.addSubview(contentStackView)
 		contentStackView.addArrangedSubview(historyIcon)
 		historyTitleContainer.addSubview(historyTitleStackView)
@@ -55,7 +55,7 @@ class ActivityCell: UICollectionViewCell {
 		statusStackView.addArrangedSubview(historyMoreInfoLoadingContainer)
 		statusStackView.addArrangedSubview(historyMoreInfoLabel)
 		statusStackView.addArrangedSubview(pendingStatusLabelContainer)
-        statusStackView.addArrangedSubview(failedStatusLabelContainer)
+		statusStackView.addArrangedSubview(failedStatusLabelContainer)
 	}
 
 	private func setupStyle() {
@@ -78,8 +78,8 @@ class ActivityCell: UICollectionViewCell {
 		historyTitleLabel.font = .PinoStyle.mediumCallout
 		historyMoreInfoLabel.font = .PinoStyle.mediumFootnote
 		failedStatusLabel.font = .PinoStyle.SemiboldCaption2
-        pendingEllipsisStatus.label.font = .PinoStyle.SemiboldCaption2
-        pendingEllipsisStatus.label.textColor = .Pino.pendingOrange
+		pendingEllipsisStatus.label.font = .PinoStyle.SemiboldCaption2
+		pendingEllipsisStatus.label.textColor = .Pino.pendingOrange
 
 		contentStackView.axis = .horizontal
 		historyTitleStackView.axis = .vertical
@@ -105,30 +105,30 @@ class ActivityCell: UICollectionViewCell {
 			historyMoreInfoLoadingContainer.isHidden = false
 			historyMoreInfoLabel.isHidden = true
 		}
-        
-        failedStatusLabelContainer.backgroundColor = .Pino.lightRed
-        failedStatusLabel.textColor = .Pino.red
-        
-        pendingStatusLabelContainer.backgroundColor = .Pino.lightOrange
 
-        failedStatusLabel.text = ActivityCellStatus.failed.rawValue
+		failedStatusLabelContainer.backgroundColor = .Pino.lightRed
+		failedStatusLabel.textColor = .Pino.red
+
+		pendingStatusLabelContainer.backgroundColor = .Pino.lightOrange
+
+		failedStatusLabel.text = ActivityCellStatus.failed.rawValue
 		switch activityCellVM?.status {
 		case .failed:
-            failedStatusLabelContainer.isHidden = false
-            pendingStatusLabelContainer.isHidden = true
-            pendingEllipsisStatus.stop()
+			failedStatusLabelContainer.isHidden = false
+			pendingStatusLabelContainer.isHidden = true
+			pendingEllipsisStatus.stop()
 		case .pending:
-            failedStatusLabelContainer.isHidden = true
-            pendingStatusLabelContainer.isHidden = false
-            pendingEllipsisStatus.start()
+			failedStatusLabelContainer.isHidden = true
+			pendingStatusLabelContainer.isHidden = false
+			pendingEllipsisStatus.start()
 		case .success:
-            failedStatusLabelContainer.isHidden = true
-            pendingStatusLabelContainer.isHidden = true
-            pendingEllipsisStatus.stop()
+			failedStatusLabelContainer.isHidden = true
+			pendingStatusLabelContainer.isHidden = true
+			pendingEllipsisStatus.stop()
 		default:
-            failedStatusLabelContainer.isHidden = true
-            pendingStatusLabelContainer.isHidden = true
-            pendingEllipsisStatus.stop()
+			failedStatusLabelContainer.isHidden = true
+			pendingStatusLabelContainer.isHidden = true
+			pendingEllipsisStatus.stop()
 		}
 	}
 
@@ -137,8 +137,8 @@ class ActivityCell: UICollectionViewCell {
 		historyIcon.layer.cornerRadius = historyIcon.frame.height * 0.5
 		pendingStatusLabelContainer.layer.cornerRadius = 10
 		pendingStatusLabelContainer.layer.masksToBounds = true
-        failedStatusLabelContainer.layer.cornerRadius = 10
-        failedStatusLabelContainer.layer.masksToBounds = true
+		failedStatusLabelContainer.layer.cornerRadius = 10
+		failedStatusLabelContainer.layer.masksToBounds = true
 	}
 
 	private func setupConstraint() {
@@ -168,18 +168,18 @@ class ActivityCell: UICollectionViewCell {
 			.fixedHeight(44)
 		)
 		pendingStatusLabelContainer.pin(.fixedHeight(20))
-        failedStatusLabelContainer.pin(.fixedHeight(20))
+		failedStatusLabelContainer.pin(.fixedHeight(20))
 		failedStatusLabel.pin(
 			.fixedHeight(13),
 			.horizontalEdges(padding: 6),
 			.centerY
 		)
-        pendingEllipsisStatus.pin(
-            .fixedHeight(13),
-            .horizontalEdges(padding: 6),
-            .fixedWidth(53),
-            .centerY
-        )
+		pendingEllipsisStatus.pin(
+			.fixedHeight(13),
+			.horizontalEdges(padding: 6),
+			.fixedWidth(53),
+			.centerY
+		)
 	}
 
 	private func setupSkeletonView() {
