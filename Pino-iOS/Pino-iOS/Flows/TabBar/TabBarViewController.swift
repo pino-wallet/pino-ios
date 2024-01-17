@@ -83,6 +83,7 @@ class TabBarViewController: UITabBarController {
 		}
 	}
 
+    #warning("maybe we use this custom badge later")
 //	private func setupCustomBadgeStyles() {
 //		activityPendingBadgeView.backgroundColor = .Pino.orange
 //		activityPendingBadgeView.layer.cornerRadius = 4
