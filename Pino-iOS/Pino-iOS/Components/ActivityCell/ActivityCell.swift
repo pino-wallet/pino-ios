@@ -116,7 +116,7 @@ class ActivityCell: UICollectionViewCell {
 		case .failed:
 			failedStatusLabelContainer.isHidden = false
 			pendingStatusLabelContainer.isHidden = true
-            pendingEllipsisStatus.shouldAnimate = false
+			pendingEllipsisStatus.shouldAnimate = false
 		case .pending:
 			failedStatusLabelContainer.isHidden = true
 			pendingStatusLabelContainer.isHidden = false
@@ -124,11 +124,11 @@ class ActivityCell: UICollectionViewCell {
 		case .success:
 			failedStatusLabelContainer.isHidden = true
 			pendingStatusLabelContainer.isHidden = true
-            pendingEllipsisStatus.shouldAnimate = false
+			pendingEllipsisStatus.shouldAnimate = false
 		default:
 			failedStatusLabelContainer.isHidden = true
 			pendingStatusLabelContainer.isHidden = true
-            pendingEllipsisStatus.shouldAnimate = false
+			pendingEllipsisStatus.shouldAnimate = false
 		}
 	}
 

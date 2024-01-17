@@ -135,6 +135,6 @@ extension ManageAssetsViewController: UISearchResultsUpdating {
 			manageAssetCollectionview.filteredAssets = assetsList
 			manageAssetCollectionview.reloadData()
 		}
-            toggleView()
+		toggleView()
 	}
 }
