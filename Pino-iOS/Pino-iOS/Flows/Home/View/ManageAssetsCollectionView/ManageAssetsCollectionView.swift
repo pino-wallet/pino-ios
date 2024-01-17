@@ -12,22 +12,26 @@ class ManageAssetsCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
 	private var cancellables = Set<AnyCancellable>()
+	private let positionsIsSelected: (Bool) -> Void
+	private let asssetIsSelected: ((selectedAsset: AssetViewModel, isSelected: Bool)) -> Void
 
 	// MARK: - Public Properties
 
-	public var filteredAssets: [AssetViewModel] {
-		didSet {
-			reloadData()
-		}
-	}
-
+	public var filteredAssets: [AssetViewModel]
 	public var positionsVM: ManageAssetPositionsViewModel?
 
 	// MARK: Initializers
 
-	init(assets: [AssetViewModel], positionsVM: ManageAssetPositionsViewModel) {
+	init(
+		assets: [AssetViewModel],
+		positionsVM: ManageAssetPositionsViewModel,
+		positionsIsSelected: @escaping (Bool) -> Void,
+		assetIsSelected: @escaping ((selectedAsset: AssetViewModel, isSelected: Bool)) -> Void
+	) {
 		self.filteredAssets = assets
 		self.positionsVM = positionsVM
+		self.positionsIsSelected = positionsIsSelected
+		self.asssetIsSelected = assetIsSelected
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 
@@ -110,14 +114,11 @@ extension ManageAssetsCollectionView: UICollectionViewDelegate {
 		if indexPath.section == 0 {
 			let positionsCell = cellForItem(at: indexPath) as! ManageAssetPositionsCell
 			positionsCell.toggleAssetSwitch()
-			AssetManagerViewModel.shared.updateSelectedPositions(positionsCell.isSwitchOn())
+			positionsIsSelected(positionsCell.isSwitchOn())
 		} else {
 			let manageAssetCell = cellForItem(at: indexPath) as! ManageAssetCell
 			manageAssetCell.toggleAssetSwitch()
-			AssetManagerViewModel.shared.updateSelectedAssets(
-				filteredAssets[indexPath.item],
-				isSelected: manageAssetCell.isSwitchOn()
-			)
+			asssetIsSelected((filteredAssets[indexPath.item], manageAssetCell.isSwitchOn()))
 		}
 	}
 }

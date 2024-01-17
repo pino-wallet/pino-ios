@@ -10,21 +10,22 @@ import UIKit
 class ManageAssetsViewController: UIViewController {
 	// MARK: Private Properties
 
-	private var manageAssetCollectionview: ManageAssetsCollectionView
+	private var manageAssetCollectionview: ManageAssetsCollectionView!
 	private var manageAssetEmptyStateView: ManageAssetEmptyStateView!
-	private var assetsList: [AssetViewModel]
 	private var positionsVM: ManageAssetPositionsViewModel
 	private var usersAddress: String
+
+	private var assetsList: [AssetViewModel] {
+		GlobalVariables.shared.manageAssetsList?.filter { $0.isPosition == false } ?? []
+	}
 
 	// MARK: Initializers
 
 	init(userAddress: String) {
 		self.usersAddress = userAddress
-		self.assetsList = GlobalVariables.shared.manageAssetsList?.filter { $0.isPosition == false } ?? []
 		self.positionsVM = ManageAssetPositionsViewModel(
 			positions: GlobalVariables.shared.manageAssetsList?.filter { $0.isPosition && !$0.holdAmount.isZero } ?? []
 		)
-		self.manageAssetCollectionview = ManageAssetsCollectionView(assets: assetsList, positionsVM: positionsVM)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -51,6 +52,18 @@ class ManageAssetsViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		manageAssetCollectionview = ManageAssetsCollectionView(
+			assets: assetsList,
+			positionsVM: positionsVM,
+			positionsIsSelected: { isSelected in
+				AssetManagerViewModel.shared.updateSelectedPositions(isSelected)
+			},
+			assetIsSelected: { selectedAsset, isSelected in
+				AssetManagerViewModel.shared.updateSelectedAssets(selectedAsset, isSelected: isSelected)
+				self.manageAssetCollectionview.filteredAssets = self.assetsList
+			}
+		)
+
 		manageAssetEmptyStateView = ManageAssetEmptyStateView(onImportButton: {
 			self.addCustomAssets()
 		})
@@ -112,15 +125,16 @@ extension ManageAssetsViewController: UISearchResultsUpdating {
 		if let searchTextLowerCased = searchController.searchBar.searchTextField.text?.lowercased(),
 		   searchTextLowerCased != "" {
 			manageAssetCollectionview.positionsVM = nil
-			manageAssetCollectionview.filteredAssets = assetsList
-				.filter {
-					$0.name.lowercased().contains(searchTextLowerCased) || $0.symbol.lowercased()
-						.contains(searchTextLowerCased)
-				}
+			manageAssetCollectionview.filteredAssets = assetsList.filter {
+				$0.name.lowercased().contains(searchTextLowerCased)
+					|| $0.symbol.lowercased().contains(searchTextLowerCased)
+			}
+			manageAssetCollectionview.reloadData()
 			toggleView()
 		} else {
 			manageAssetCollectionview.positionsVM = positionsVM
 			manageAssetCollectionview.filteredAssets = assetsList
+			manageAssetCollectionview.reloadData()
 		}
 	}
 }
