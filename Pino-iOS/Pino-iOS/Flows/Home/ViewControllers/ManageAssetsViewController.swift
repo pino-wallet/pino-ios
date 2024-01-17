@@ -8,21 +8,18 @@
 import UIKit
 
 class ManageAssetsViewController: UIViewController {
-	// MARK: - Public Properties
-
-	public var homeVM: HomepageViewModel
-
 	// MARK: Private Properties
 
 	private var manageAssetCollectionview: ManageAssetsCollectionView
 	private var manageAssetEmptyStateView: ManageAssetEmptyStateView!
 	private var assetsList: [AssetViewModel]
 	private var positionsVM: ManageAssetPositionsViewModel
+	private var usersAddress: String
 
 	// MARK: Initializers
 
-	init(homeVM: HomepageViewModel) {
-		self.homeVM = homeVM
+	init(userAddress: String) {
+		self.usersAddress = userAddress
 		self.assetsList = GlobalVariables.shared.manageAssetsList?.filter { $0.isPosition == false } ?? []
 		self.positionsVM = ManageAssetPositionsViewModel(
 			positions: GlobalVariables.shared.manageAssetsList?.filter { $0.isPosition && !$0.holdAmount.isZero } ?? []
@@ -99,7 +96,7 @@ class ManageAssetsViewController: UIViewController {
 	@objc
 	private func addCustomAssets() {
 		let addCustomAssetVC = AddCustomAssetViewController(
-			userAddress: homeVM.walletInfo.address
+			userAddress: usersAddress
 		) { customAsset in
 			AssetManagerViewModel.shared.addNewCustomAsset(customAsset)
 			self.dismiss(animated: true)
