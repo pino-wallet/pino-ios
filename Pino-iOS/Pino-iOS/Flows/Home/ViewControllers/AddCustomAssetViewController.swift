@@ -75,7 +75,9 @@ class AddCustomAssetViewController: UIViewController {
 					self?.navigationItem.rightBarButtonItem?.isEnabled = isEnabled
 				}, addButtonTapped: {
 					self.addCustomAssetHandler()
-				}
+                }, presentScannerVC: { scannerQRCodeVC in
+                    self.openScannerQRCodeVC(scannerVC: scannerQRCodeVC)
+                }
 			)
 		view = addCustomAssetView
 		view.backgroundColor = .Pino.background
@@ -135,4 +137,8 @@ class AddCustomAssetViewController: UIViewController {
 	private func validateClipboardTextAfterAppDidBecomeActive() {
 		validateClipboardText()
 	}
+    
+    @objc func openScannerQRCodeVC(scannerVC: ScannerViewController) {
+        present(scannerVC, animated: true)
+    }
 }
