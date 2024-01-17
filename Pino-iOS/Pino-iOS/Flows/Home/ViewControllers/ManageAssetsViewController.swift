@@ -16,12 +16,18 @@ class ManageAssetsViewController: UIViewController {
 
 	private var manageAssetCollectionview: ManageAssetsCollectionView
 	private var manageAssetEmptyStateView: ManageAssetEmptyStateView!
+	private var assetsList: [AssetViewModel]
+	private var positionsVM: ManageAssetPositionsViewModel
 
 	// MARK: Initializers
 
 	init(homeVM: HomepageViewModel) {
 		self.homeVM = homeVM
-		self.manageAssetCollectionview = ManageAssetsCollectionView(homeVM: homeVM)
+		self.assetsList = GlobalVariables.shared.manageAssetsList?.filter { $0.isPosition == false } ?? []
+		self.positionsVM = ManageAssetPositionsViewModel(
+			positions: GlobalVariables.shared.manageAssetsList?.filter { $0.isPosition && !$0.holdAmount.isZero } ?? []
+		)
+		self.manageAssetCollectionview = ManageAssetsCollectionView(assets: assetsList, positionsVM: positionsVM)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -106,18 +112,18 @@ class ManageAssetsViewController: UIViewController {
 
 extension ManageAssetsViewController: UISearchResultsUpdating {
 	func updateSearchResults(for searchController: UISearchController) {
-		guard let manageAssetsList = GlobalVariables.shared.manageAssetsList?.filter({ $0.isPosition == false })
-		else { return }
 		if let searchTextLowerCased = searchController.searchBar.searchTextField.text?.lowercased(),
 		   searchTextLowerCased != "" {
-			manageAssetCollectionview.filteredAssets = manageAssetsList
+			manageAssetCollectionview.positionsVM = nil
+			manageAssetCollectionview.filteredAssets = assetsList
 				.filter {
 					$0.name.lowercased().contains(searchTextLowerCased) || $0.symbol.lowercased()
 						.contains(searchTextLowerCased)
 				}
 			toggleView()
 		} else {
-			manageAssetCollectionview.filteredAssets = manageAssetsList
+			manageAssetCollectionview.positionsVM = positionsVM
+			manageAssetCollectionview.filteredAssets = assetsList
 		}
 	}
 }
