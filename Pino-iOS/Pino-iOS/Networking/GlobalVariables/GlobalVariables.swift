@@ -52,7 +52,10 @@ class GlobalVariables {
 			assets.sort { asset1, asset2 in
 				asset1.holdAmountInDollor > asset2.holdAmountInDollor
 			}
-			self.selectedManageAssetsList = assets.filter { $0.isSelected }
+			let isPositionsSelected = ManageAssetPositionsViewModel.positionsSelected
+			let selectedPositions = assets.filter { isPositionsSelected && $0.isPosition && !$0.holdAmount.isZero }
+			let selectedAssets = assets.filter { !$0.isPosition && $0.isSelected }
+			self.selectedManageAssetsList = selectedAssets + selectedPositions
 		}.store(in: &cancellables)
 	}
 
