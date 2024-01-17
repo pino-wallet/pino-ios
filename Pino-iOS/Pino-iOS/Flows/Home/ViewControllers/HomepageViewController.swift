@@ -131,7 +131,7 @@ class HomepageViewController: UIViewController {
 	@objc
 	private func openManageAssetsPage() {
 		if GlobalVariables.shared.manageAssetsList != nil {
-			let manageAssetsVC = ManageAssetsViewController(homeVM: homeVM)
+			let manageAssetsVC = ManageAssetsViewController(userAddress: homeVM.walletInfo.address)
 			let navigationVC = UINavigationController()
 			navigationVC.viewControllers = [manageAssetsVC]
 			navigationVC.modalPresentationStyle = .formSheet

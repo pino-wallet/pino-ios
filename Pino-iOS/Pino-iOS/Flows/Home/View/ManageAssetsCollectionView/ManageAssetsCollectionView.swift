@@ -15,23 +15,19 @@ class ManageAssetsCollectionView: UICollectionView {
 
 	// MARK: - Public Properties
 
-	public var homeVM: HomepageViewModel
 	public var filteredAssets: [AssetViewModel] {
 		didSet {
 			reloadData()
 		}
 	}
 
-	public var positionsVM: ManageAssetPositionsViewModel
+	public var positionsVM: ManageAssetPositionsViewModel?
 
 	// MARK: Initializers
 
-	init(homeVM: HomepageViewModel) {
-		self.homeVM = homeVM
-		self.filteredAssets = GlobalVariables.shared.manageAssetsList?.filter { $0.isPosition == false } ?? []
-		self.positionsVM = ManageAssetPositionsViewModel(
-			positions: GlobalVariables.shared.manageAssetsList?.filter { $0.isPosition && !$0.holdAmount.isZero } ?? []
-		)
+	init(assets: [AssetViewModel], positionsVM: ManageAssetPositionsViewModel) {
+		self.filteredAssets = assets
+		self.positionsVM = positionsVM
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 
@@ -75,7 +71,11 @@ extension ManageAssetsCollectionView: UICollectionViewDataSource {
 
 	internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		if section == 0 {
-			return 1
+			if let positionsVM {
+				return 1
+			} else {
+				return 0
+			}
 		} else {
 			return filteredAssets.count
 		}
