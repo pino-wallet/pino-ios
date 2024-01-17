@@ -454,6 +454,7 @@
 		D9AF29E52A5010C4006BC53E /* ActivityCellViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF29E42A5010C4006BC53E /* ActivityCellViewModelProtocol.swift */; };
 		D9AF29E82A506F1A006BC53E /* ActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF29E72A506F1A006BC53E /* ActivityType.swift */; };
 		D9AF6DCC29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */; };
+		D9B8DAA52B56904E00256589 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B8DAA42B56904E00256589 /* ScannerViewController.swift */; };
 		D9BCE5C72A63C519002A9B58 /* ActivitySwapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BCE5C62A63C519002A9B58 /* ActivitySwapHeaderView.swift */; };
 		D9BD90472A95DE2000B28B74 /* BorrowingTokenCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD90462A95DE2000B28B74 /* BorrowingTokenCellViewModel.swift */; };
 		D9BE05142A8221C8008670F9 /* CDActivityParent+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE05082A8221C8008670F9 /* CDActivityParent+CoreDataClass.swift */; };
@@ -1049,7 +1050,7 @@
 		860A5D67C58E6FF224570BFE /* MediumStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumStyle.swift; sourceTree = "<group>"; };
 		86E0EA60A15BE45047B83861 /* BigInt+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BigInt+Extension.swift"; sourceTree = "<group>"; };
 		86F8C6EC31E9AE1094243D0B /* PPPangramSans-MediumReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-MediumReclined.ttf"; sourceTree = "<group>"; };
-		8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Pino-iOS.app"; path = Pino.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8709B718DBC4F0CE1F89E4E2 /* Pino.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pino.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		886A8F723E50C884CA276AB4 /* WalletsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsModel.swift; sourceTree = "<group>"; };
 		887EDE19A8B81F1FB217E0FA /* RemoveAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveAccountView.swift; sourceTree = "<group>"; };
 		88A9D51E2876395DCD62E189 /* AssetsEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsEndpoint.swift; sourceTree = "<group>"; };
@@ -1326,6 +1327,7 @@
 		D9AF29E42A5010C4006BC53E /* ActivityCellViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCellViewModelProtocol.swift; sourceTree = "<group>"; };
 		D9AF29E72A506F1A006BC53E /* ActivityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityType.swift; sourceTree = "<group>"; };
 		D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralNotificationSettingsHeader.swift; sourceTree = "<group>"; };
+		D9B8DAA42B56904E00256589 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		D9BCE5C62A63C519002A9B58 /* ActivitySwapHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySwapHeaderView.swift; sourceTree = "<group>"; };
 		D9BD90462A95DE2000B28B74 /* BorrowingTokenCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingTokenCellViewModel.swift; sourceTree = "<group>"; };
 		D9BD90492A95DE7C00B28B74 /* BorrowingTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingTokenModel.swift; sourceTree = "<group>"; };
@@ -1964,7 +1966,7 @@
 		2821FB9CEE9F9B9E6BAE9FD7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */,
+				8709B718DBC4F0CE1F89E4E2 /* Pino.app */,
 				69F80E5332D902C3DF82DC4A /* Pino-iOSTests.xctest */,
 				B40D6EF0262990FF33E91CCD /* Pino-iOSUITests.xctest */,
 			);
@@ -3309,6 +3311,7 @@
 		D9A3280A2A3452DC005A8393 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				D9B8DAA32B568FC900256589 /* ScannerViewcontroller */,
 				D9D78C132B55368800F9C780 /* EllipsisAnimatedText */,
 				D97293062B4BB47600ADFB8A /* PinoProgressView */,
 				D9D6ECC82B3AB5B400EA0C1E /* EmptyStateCardView */,
@@ -3433,6 +3436,14 @@
 				D9CEEC562B037DAB00F5DF92 /* ActivityCellDetailsProtocol.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		D9B8DAA32B568FC900256589 /* ScannerViewcontroller */ = {
+			isa = PBXGroup;
+			children = (
+				D9B8DAA42B56904E00256589 /* ScannerViewController.swift */,
+			);
+			path = ScannerViewcontroller;
 			sourceTree = "<group>";
 		};
 		D9BE05202A822340008670F9 /* Activity */ = {
@@ -4538,7 +4549,7 @@
 				DFB60DA02B1B3F4700464143 /* Lottie */,
 			);
 			productName = "Pino-iOS";
-			productReference = 8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */;
+			productReference = 8709B718DBC4F0CE1F89E4E2 /* Pino.app */;
 			productType = "com.apple.product-type.application";
 		};
 		A7CDCF5E2B678210FB4DF98B /* Pino-iOSTests */ = {
@@ -5140,6 +5151,7 @@
 				D924C3482A94969F007299A4 /* BorrowAPIService.swift in Sources */,
 				D9A936C92ACD60CD00C3449E /* ApprovingLoadingViewModel.swift in Sources */,
 				E3CFC07A2A2F241500E165A4 /* CircleMarker.swift in Sources */,
+				D9B8DAA52B56904E00256589 /* ScannerViewController.swift in Sources */,
 				87F08F9B76154826B35A43F3 /* CustomAssetModel.swift in Sources */,
 				D9C1807D2A88EB950066C2A7 /* SpeedUpAlertViewModel.swift in Sources */,
 				D99042BF2B29A35F00C99798 /* W3CompoundRepayManager.swift in Sources */,
@@ -5702,7 +5714,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 24;
-				DEVELOPMENT_TEAM = 44E38FYW6J;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Pino;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5764,7 +5776,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 24;
-				DEVELOPMENT_TEAM = 44E38FYW6J;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Pino;
 				LD_RUNPATH_SEARCH_PATHS = (

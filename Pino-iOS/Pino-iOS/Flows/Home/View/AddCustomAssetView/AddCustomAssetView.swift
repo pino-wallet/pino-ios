@@ -8,27 +8,29 @@
 import UIKit
 
 class AddCustomAssetView: UIView {
-	// Private Enum
-	private enum viewStatuses {
+	// MARK: - Typealias
+
+	typealias PresentAlertClosureType = (_ alertTitle: String, _ alertDescription: String) -> Void
+	typealias DissmissKeyboardClosureType = () -> Void
+	typealias ToggleNavigationRightButtonEnabledClosureType = (_ isEnabled: Bool) -> Void
+	typealias PresentScannerVCType = (_ scannerVC: ScannerViewController) -> Void
+
+	// MARK: - Closure
+
+	private var presentAlertClosure: PresentAlertClosureType
+	private var dissmissKeyboardClosure: DissmissKeyboardClosureType
+	private var toggleNavigationRightButtonEnabledClosure: ToggleNavigationRightButtonEnabledClosureType
+	private var presentScannerVC: PresentScannerVCType
+
+	// MARK: - Private Properties
+
+	private enum ViewStatuses {
 		case clearView
 		case errorView(String)
 		case pendingView
 		case pasteFromClipboardView
 		case successView
 	}
-
-	// Typealias
-	typealias PresentAlertClosureType = (_ alertTitle: String, _ alertDescription: String) -> Void
-	typealias DissmissKeyboardClosureType = () -> Void
-	typealias ToggleNavigationRightButtonEnabledClosureType = (_ isEnabled: Bool) -> Void
-
-	// MARK: - Closure
-
-	var presentAlertClosure: PresentAlertClosureType
-	var dissmissKeyboardClosure: DissmissKeyboardClosureType
-	var toggleNavigationRightButtonEnabledClosure: ToggleNavigationRightButtonEnabledClosureType
-
-	// MARK: - Private Properties
 
 	private let contractTextfieldView = PinoTextFieldView(pattern: nil)
 	private let addButton = PinoButton(style: .active, title: "")
@@ -41,13 +43,14 @@ class AddCustomAssetView: UIView {
 		action: #selector(dissmissKeyboard(_:))
 	)
 	private var addCustomAssetVM: AddCustomAssetViewModel
-	private var viewStatus: viewStatuses = .clearView {
+	private var viewStatus: ViewStatuses = .clearView {
 		didSet {
 			switchViewStatus()
 		}
 	}
 
 	private let addButtonTapped: () -> Void
+	private var scannerQRCodeVC: ScannerViewController!
 
 	// MARK: - Initializers
 
@@ -56,13 +59,15 @@ class AddCustomAssetView: UIView {
 		dissmissKeybaordClosure: @escaping DissmissKeyboardClosureType,
 		addCustomAssetVM: AddCustomAssetViewModel,
 		toggleNavigationRightButtonEnabledClosure: @escaping ToggleNavigationRightButtonEnabledClosureType,
-		addButtonTapped: @escaping () -> Void
+		addButtonTapped: @escaping () -> Void,
+		presentScannerVC: @escaping PresentScannerVCType
 	) {
 		self.presentAlertClosure = presentAlertClosure
 		self.dissmissKeyboardClosure = dissmissKeybaordClosure
 		self.addCustomAssetVM = addCustomAssetVM
 		self.toggleNavigationRightButtonEnabledClosure = toggleNavigationRightButtonEnabledClosure
 		self.addButtonTapped = addButtonTapped
+		self.presentScannerVC = presentScannerVC
 		super.init(frame: .zero)
 		setupView()
 		setupConstraints()
@@ -77,6 +82,15 @@ class AddCustomAssetView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		scanQRCodeIconButton.addTarget(self, action: #selector(openScannerQRCodeVC), for: .touchUpInside)
+
+		scannerQRCodeVC = ScannerViewController(getScanResult: { scanResult in
+			self.contractTextfieldView.text = scanResult
+			self.addCustomAssetVM.validateContractAddressBeforeRequest(
+				textFieldText: self.contractTextfieldView.text ?? ""
+			)
+		})
+
 		addButton.title = addCustomAssetVM.addCustomAssetButtonTitle
 
 		addGestureRecognizer(dissmissKeyboardTapGesture)
@@ -101,7 +115,7 @@ class AddCustomAssetView: UIView {
 			)
 		}
 		scanQRCodeIconButton.setImage(UIImage(named: addCustomAssetVM.addCustomAssetTextfieldIcon), for: .normal)
-		contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
+		contractTextfieldView.style = .customView(scanQRCodeIconButton)
 		// Setup pasteFromClipboardView
 		pasteFromClipboardview.isHidden = true
 
@@ -164,7 +178,7 @@ class AddCustomAssetView: UIView {
 		case .clearView:
 			pasteFromClipboardview.isHidden = true
 			customAssetInfoView?.isHidden = true
-			contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
+			contractTextfieldView.style = .customView(scanQRCodeIconButton)
 			addButton.title = addCustomAssetVM.addCustomAssetButtonTitle
 
 		case let .errorView(errorText):
@@ -182,7 +196,7 @@ class AddCustomAssetView: UIView {
 		case .pasteFromClipboardView:
 			customAssetInfoView?.isHidden = true
 			pasteFromClipboardview.isHidden = false
-			contractTextfieldView.style = .customIcon(scanQRCodeIconButton)
+			contractTextfieldView.style = .customView(scanQRCodeIconButton)
 			addButton.title = addCustomAssetVM.addCustomAssetButtonTitle
 
 		case .successView:
@@ -198,5 +212,10 @@ class AddCustomAssetView: UIView {
 	@objc
 	private func dissmissKeyboard(_ sender: UITapGestureRecognizer) {
 		dissmissKeyboardClosure()
+	}
+
+	@objc
+	private func openScannerQRCodeVC() {
+		presentScannerVC(scannerQRCodeVC)
 	}
 }

@@ -67,7 +67,7 @@ extension PinoButton.Style {
 
 	public static let numpad = PinoButton.Style(
 		titleColor: .Pino.black,
-		backgroundColor: .Pino.gray5,
+		backgroundColor: .Pino.secondaryBackground,
 		borderColor: .clear,
 		font: UIFont.PinoStyle.mediumTitle1,
 		cornerRadius: 0

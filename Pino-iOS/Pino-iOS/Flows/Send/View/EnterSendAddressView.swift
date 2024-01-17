@@ -178,7 +178,7 @@ class EnterSendAddressView: UIView {
 			nextButton.style = .active
 			nextButton.title = enterSendAddressVM.nextButtonTitle
 		case .normal:
-			addressTextField.style = .customIcon(qrCodeScanButton)
+			addressTextField.style = .customView(qrCodeScanButton)
 
 			nextButton.style = .deactive
 			nextButton.title = enterSendAddressVM.nextButtonTitle

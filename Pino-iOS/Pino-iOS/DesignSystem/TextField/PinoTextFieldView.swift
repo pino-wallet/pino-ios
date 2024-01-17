@@ -134,7 +134,7 @@ public class PinoTextFieldView: UIView {
 			textField.setRightViewWithPadding(UIImageView(image: UIImage(named: "done")), paddingLeft: 10)
 			textField.rightViewMode = .always
 			errorLabel.isHidden = true
-		case let .customIcon(customView):
+		case let .customView(customView):
 			textField.setRightViewWithPadding(customView, paddingLeft: 10)
 			textField.rightViewMode = .always
 			errorLabel.isHidden = true
