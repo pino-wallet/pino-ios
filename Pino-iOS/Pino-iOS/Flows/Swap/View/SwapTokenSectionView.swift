@@ -177,9 +177,10 @@ class SwapTokenSectionView: UIView {
 	}
 
 	private func updateEstimatedAmount(enteredAmount: String) {
-		swapVM.amountUpdated(enteredAmount)
+		swapVM.calculateDollarAmount(enteredAmount)
 		estimatedAmountLabel.text = swapVM.dollarAmount
 		updateBalanceStatus()
+		swapVM.amountUpdated(enteredAmount)
 	}
 
 	@objc

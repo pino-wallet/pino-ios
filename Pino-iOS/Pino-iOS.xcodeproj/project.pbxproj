@@ -678,9 +678,9 @@
 		E3099FEC2B00B901004474F0 /* CompoundDepositManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3099FEB2B00B901004474F0 /* CompoundDepositManager.swift */; };
 		E31106FE2AC17040005723EB /* InvestableAssetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31106FD2AC17040005723EB /* InvestableAssetsModel.swift */; };
 		E333E63A2AA708D3005C977E /* InvestEmptyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E333E6392AA708D3005C977E /* InvestEmptyPageView.swift */; };
+		E33649A32B53FF0300341466 /* HomepgaeEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33649A22B53FF0300341466 /* HomepgaeEmptyState.swift */; };
 		E33649A52B551FF900341466 /* ManageAssetPositionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33649A42B551FF900341466 /* ManageAssetPositionsCell.swift */; };
 		E33649A72B5523EF00341466 /* ManageAssetPositionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33649A62B5523EF00341466 /* ManageAssetPositionsViewModel.swift */; };
-		E33649A32B53FF0300341466 /* HomepgaeEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33649A22B53FF0300341466 /* HomepgaeEmptyState.swift */; };
 		E338DF112B25B0F3005D6883 /* AaveDepositManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E338DF102B25B0F3005D6883 /* AaveDepositManager.swift */; };
 		E33F7CBA2AD44199007FC04D /* W3InvestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F7CB92AD44199007FC04D /* W3InvestManager.swift */; };
 		E33F7CBC2AD442AC007FC04D /* InvestABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = E33F7CBB2AD442AC007FC04D /* InvestABIJson.json */; };
@@ -1048,7 +1048,7 @@
 		860A5D67C58E6FF224570BFE /* MediumStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumStyle.swift; sourceTree = "<group>"; };
 		86E0EA60A15BE45047B83861 /* BigInt+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BigInt+Extension.swift"; sourceTree = "<group>"; };
 		86F8C6EC31E9AE1094243D0B /* PPPangramSans-MediumReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-MediumReclined.ttf"; sourceTree = "<group>"; };
-		8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Pino-iOS.app"; path = Pino.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8709B718DBC4F0CE1F89E4E2 /* Pino.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pino.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		886A8F723E50C884CA276AB4 /* WalletsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsModel.swift; sourceTree = "<group>"; };
 		887EDE19A8B81F1FB217E0FA /* RemoveAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveAccountView.swift; sourceTree = "<group>"; };
 		88A9D51E2876395DCD62E189 /* AssetsEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsEndpoint.swift; sourceTree = "<group>"; };
@@ -1526,9 +1526,9 @@
 		E3099FEB2B00B901004474F0 /* CompoundDepositManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundDepositManager.swift; sourceTree = "<group>"; };
 		E31106FD2AC17040005723EB /* InvestableAssetsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestableAssetsModel.swift; sourceTree = "<group>"; };
 		E333E6392AA708D3005C977E /* InvestEmptyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestEmptyPageView.swift; sourceTree = "<group>"; };
+		E33649A22B53FF0300341466 /* HomepgaeEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepgaeEmptyState.swift; sourceTree = "<group>"; };
 		E33649A42B551FF900341466 /* ManageAssetPositionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAssetPositionsCell.swift; sourceTree = "<group>"; };
 		E33649A62B5523EF00341466 /* ManageAssetPositionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAssetPositionsViewModel.swift; sourceTree = "<group>"; };
-		E33649A22B53FF0300341466 /* HomepgaeEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepgaeEmptyState.swift; sourceTree = "<group>"; };
 		E338DF102B25B0F3005D6883 /* AaveDepositManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AaveDepositManager.swift; sourceTree = "<group>"; };
 		E33F7CB92AD44199007FC04D /* W3InvestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3InvestManager.swift; sourceTree = "<group>"; };
 		E33F7CBB2AD442AC007FC04D /* InvestABIJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvestABIJson.json; sourceTree = "<group>"; };
@@ -1962,7 +1962,7 @@
 		2821FB9CEE9F9B9E6BAE9FD7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */,
+				8709B718DBC4F0CE1F89E4E2 /* Pino.app */,
 				69F80E5332D902C3DF82DC4A /* Pino-iOSTests.xctest */,
 				B40D6EF0262990FF33E91CCD /* Pino-iOSUITests.xctest */,
 			);
@@ -4527,7 +4527,7 @@
 				DFB60DA02B1B3F4700464143 /* Lottie */,
 			);
 			productName = "Pino-iOS";
-			productReference = 8709B718DBC4F0CE1F89E4E2 /* Pino-iOS.app */;
+			productReference = 8709B718DBC4F0CE1F89E4E2 /* Pino.app */;
 			productType = "com.apple.product-type.application";
 		};
 		A7CDCF5E2B678210FB4DF98B /* Pino-iOSTests */ = {
