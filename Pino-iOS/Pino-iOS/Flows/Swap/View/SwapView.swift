@@ -361,6 +361,11 @@ class SwapView: UIView {
 		} else {
 			continueButton.style = .deactive
 		}
+		// ACTIVATING continue button since in devnet we don't need validation
+		// to check if there is balance
+		if Environment.current != .mainNet {
+			continueButton.style = .active
+		}
 	}
 
 	private func deactivateSwapButton() {
