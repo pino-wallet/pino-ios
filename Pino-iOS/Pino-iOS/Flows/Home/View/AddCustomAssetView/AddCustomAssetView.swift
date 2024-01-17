@@ -8,29 +8,29 @@
 import UIKit
 
 class AddCustomAssetView: UIView {
-
 	// MARK: - Typealias
+
 	typealias PresentAlertClosureType = (_ alertTitle: String, _ alertDescription: String) -> Void
 	typealias DissmissKeyboardClosureType = () -> Void
 	typealias ToggleNavigationRightButtonEnabledClosureType = (_ isEnabled: Bool) -> Void
-    typealias PresentScannerVCType = (_ scannerVC: ScannerViewController) -> Void
+	typealias PresentScannerVCType = (_ scannerVC: ScannerViewController) -> Void
 
 	// MARK: - Closure
 
 	private var presentAlertClosure: PresentAlertClosureType
 	private var dissmissKeyboardClosure: DissmissKeyboardClosureType
 	private var toggleNavigationRightButtonEnabledClosure: ToggleNavigationRightButtonEnabledClosureType
-    private var presentScannerVC: PresentScannerVCType
+	private var presentScannerVC: PresentScannerVCType
 
 	// MARK: - Private Properties
-    
-    private enum viewStatuses {
-        case clearView
-        case errorView(String)
-        case pendingView
-        case pasteFromClipboardView
-        case successView
-    }
+
+	private enum viewStatuses {
+		case clearView
+		case errorView(String)
+		case pendingView
+		case pasteFromClipboardView
+		case successView
+	}
 
 	private let contractTextfieldView = PinoTextFieldView(pattern: nil)
 	private let addButton = PinoButton(style: .active, title: "")
@@ -50,7 +50,7 @@ class AddCustomAssetView: UIView {
 	}
 
 	private let addButtonTapped: () -> Void
-    private var scannerQRCodeVC: ScannerViewController!
+	private var scannerQRCodeVC: ScannerViewController!
 
 	// MARK: - Initializers
 
@@ -60,14 +60,14 @@ class AddCustomAssetView: UIView {
 		addCustomAssetVM: AddCustomAssetViewModel,
 		toggleNavigationRightButtonEnabledClosure: @escaping ToggleNavigationRightButtonEnabledClosureType,
 		addButtonTapped: @escaping () -> Void,
-        presentScannerVC: @escaping PresentScannerVCType
+		presentScannerVC: @escaping PresentScannerVCType
 	) {
 		self.presentAlertClosure = presentAlertClosure
 		self.dissmissKeyboardClosure = dissmissKeybaordClosure
 		self.addCustomAssetVM = addCustomAssetVM
 		self.toggleNavigationRightButtonEnabledClosure = toggleNavigationRightButtonEnabledClosure
 		self.addButtonTapped = addButtonTapped
-        self.presentScannerVC = presentScannerVC
+		self.presentScannerVC = presentScannerVC
 		super.init(frame: .zero)
 		setupView()
 		setupConstraints()
@@ -82,15 +82,15 @@ class AddCustomAssetView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-        scanQRCodeIconButton.addTarget(self, action: #selector(openScannerQRCodeVC), for: .touchUpInside)
-        
-        scannerQRCodeVC = ScannerViewController(getScanResult: { scanResult in
-            self.contractTextfieldView.text = scanResult
-            self.addCustomAssetVM.validateContractAddressBeforeRequest(
-                textFieldText: self.contractTextfieldView.text ?? ""
-            )
-        })
-        
+		scanQRCodeIconButton.addTarget(self, action: #selector(openScannerQRCodeVC), for: .touchUpInside)
+
+		scannerQRCodeVC = ScannerViewController(getScanResult: { scanResult in
+			self.contractTextfieldView.text = scanResult
+			self.addCustomAssetVM.validateContractAddressBeforeRequest(
+				textFieldText: self.contractTextfieldView.text ?? ""
+			)
+		})
+
 		addButton.title = addCustomAssetVM.addCustomAssetButtonTitle
 
 		addGestureRecognizer(dissmissKeyboardTapGesture)
@@ -213,8 +213,9 @@ class AddCustomAssetView: UIView {
 	private func dissmissKeyboard(_ sender: UITapGestureRecognizer) {
 		dissmissKeyboardClosure()
 	}
-    
-    @objc private func openScannerQRCodeVC() {
-        presentScannerVC(scannerQRCodeVC)
-    }
+
+	@objc
+	private func openScannerQRCodeVC() {
+		presentScannerVC(scannerQRCodeVC)
+	}
 }
