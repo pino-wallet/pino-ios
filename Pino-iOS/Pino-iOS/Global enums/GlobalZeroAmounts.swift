@@ -17,7 +17,7 @@ enum GlobalZeroAmounts {
 		case .dollars:
 			"$0.00"
 		case .tokenAmount:
-			"0.00"
+			"0"
 		case .percentage:
 			"0.00%"
 		}

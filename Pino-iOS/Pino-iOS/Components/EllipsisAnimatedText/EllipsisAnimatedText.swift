@@ -12,6 +12,15 @@ class EllipsisAnimatedText: UIView {
 	// MARK: - Public Properties
 
 	public let label = UILabel()
+    public var shouldAnimate: Bool = false {
+        didSet {
+            if shouldAnimate {
+                start()
+            } else {
+                stop()
+            }
+        }
+    }
 
 	// MARK: - Private Properties
 
@@ -24,12 +33,13 @@ class EllipsisAnimatedText: UIView {
 
 	override func willMove(toWindow newWindow: UIWindow?) {
 		super.willMove(toWindow: newWindow)
-
-		if newWindow == nil {
-			stop()
-		} else {
-			start()
-		}
+        if shouldAnimate {
+            if newWindow == nil {
+                stop()
+            } else {
+                start()
+            }
+        }
 	}
 
 	// MARK: - Initializers
@@ -61,32 +71,30 @@ class EllipsisAnimatedText: UIView {
 	private func setupConstraints() {
 		label.pin(.allEdges(padding: 0))
 	}
+    
+    private func start() {
+        if timer == nil {
+            timer = Timer.scheduledTimer(
+                timeInterval: 0.3,
+                target: self,
+                selector: #selector(updateLabel),
+                userInfo: self,
+                repeats: true
+            )
+            timer?.fire()
+        }
+    }
+
+    private func stop() {
+        label.text = defaultText
+        timer?.invalidate()
+        timer = nil
+    }
 
 	@objc
 	private func updateLabel() {
 		currentState = (currentState + 1) % labelEllipsisTexts.count
 		label.text = "\(defaultText)\(labelEllipsisTexts[currentState])"
 	}
-
-	// MARK: - Public Methods
-
-	public func start() {
-		if timer == nil {
-			label.text = defaultText
-			timer = Timer.scheduledTimer(
-				timeInterval: 0.3,
-				target: self,
-				selector: #selector(updateLabel),
-				userInfo: self,
-				repeats: true
-			)
-			timer?.fire()
-		}
-	}
-
-	public func stop() {
-		label.text = defaultText
-		timer?.invalidate()
-		timer = nil
-	}
+	
 }
