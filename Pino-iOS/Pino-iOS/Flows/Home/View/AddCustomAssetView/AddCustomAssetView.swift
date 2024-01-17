@@ -24,7 +24,7 @@ class AddCustomAssetView: UIView {
 
 	// MARK: - Private Properties
 
-	private enum viewStatuses {
+	private enum ViewStatuses {
 		case clearView
 		case errorView(String)
 		case pendingView
@@ -43,7 +43,7 @@ class AddCustomAssetView: UIView {
 		action: #selector(dissmissKeyboard(_:))
 	)
 	private var addCustomAssetVM: AddCustomAssetViewModel
-	private var viewStatus: viewStatuses = .clearView {
+	private var viewStatus: ViewStatuses = .clearView {
 		didSet {
 			switchViewStatus()
 		}
