@@ -71,12 +71,14 @@ class CoinInfoViewController: UIViewController {
 			action: #selector(dismissCoinInfo)
 		)
 
-		navigationItem.rightBarButtonItem = UIBarButtonItem(
-			image: UIImage(named: "chart"),
-			style: .plain,
-			target: self,
-			action: #selector(openCoinInfoChartPage)
-		)
+		if coinInfoVM.coinPortfolio.type == .verified {
+			navigationItem.rightBarButtonItem = UIBarButtonItem(
+				image: UIImage(named: "chart"),
+				style: .plain,
+				target: self,
+				action: #selector(openCoinInfoChartPage)
+			)
+		}
 	}
 
 	private func setupLoading() {

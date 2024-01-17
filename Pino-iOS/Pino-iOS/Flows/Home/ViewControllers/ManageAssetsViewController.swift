@@ -130,11 +130,11 @@ extension ManageAssetsViewController: UISearchResultsUpdating {
 					|| $0.symbol.lowercased().contains(searchTextLowerCased)
 			}
 			manageAssetCollectionview.reloadData()
-			toggleView()
 		} else {
 			manageAssetCollectionview.positionsVM = positionsVM
 			manageAssetCollectionview.filteredAssets = assetsList
 			manageAssetCollectionview.reloadData()
 		}
+		toggleView()
 	}
 }

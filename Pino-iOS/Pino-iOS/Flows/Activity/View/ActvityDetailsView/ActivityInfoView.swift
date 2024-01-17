@@ -275,19 +275,19 @@ class ActivityInfoView: UIView {
 
 		switch activityProperties.status {
 		case .complete:
-			pendingEllipsisView.stop()
+			pendingEllipsisView.shouldAnimate = false
 			statusInfoLabel.textColor = .Pino.green3
 			statusLabelContainer.backgroundColor = .Pino.green1
 			pendingEllipsisView.isHidden = true
 			statusInfoLabel.isHidden = false
 		case .failed:
-			pendingEllipsisView.stop()
+			pendingEllipsisView.shouldAnimate = false
 			statusInfoLabel.textColor = .Pino.red
 			statusLabelContainer.backgroundColor = .Pino.lightRed
 			pendingEllipsisView.isHidden = true
 			statusInfoLabel.isHidden = false
 		case .pending:
-			pendingEllipsisView.start()
+			pendingEllipsisView.shouldAnimate = true
 			pendingEllipsisView.isHidden = false
 			statusInfoLabel.isHidden = true
 			pendingEllipsisView.label.textColor = .Pino.pendingOrange

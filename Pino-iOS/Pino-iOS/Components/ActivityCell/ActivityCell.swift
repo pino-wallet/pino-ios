@@ -116,19 +116,19 @@ class ActivityCell: UICollectionViewCell {
 		case .failed:
 			failedStatusLabelContainer.isHidden = false
 			pendingStatusLabelContainer.isHidden = true
-			pendingEllipsisStatus.stop()
+			pendingEllipsisStatus.shouldAnimate = false
 		case .pending:
 			failedStatusLabelContainer.isHidden = true
 			pendingStatusLabelContainer.isHidden = false
-			pendingEllipsisStatus.start()
+			pendingEllipsisStatus.shouldAnimate = true
 		case .success:
 			failedStatusLabelContainer.isHidden = true
 			pendingStatusLabelContainer.isHidden = true
-			pendingEllipsisStatus.stop()
+			pendingEllipsisStatus.shouldAnimate = false
 		default:
 			failedStatusLabelContainer.isHidden = true
 			pendingStatusLabelContainer.isHidden = true
-			pendingEllipsisStatus.stop()
+			pendingEllipsisStatus.shouldAnimate = false
 		}
 	}
 

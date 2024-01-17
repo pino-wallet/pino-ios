@@ -12,6 +12,15 @@ class EllipsisAnimatedText: UIView {
 	// MARK: - Public Properties
 
 	public let label = UILabel()
+	public var shouldAnimate = false {
+		didSet {
+			if shouldAnimate {
+				start()
+			} else {
+				stop()
+			}
+		}
+	}
 
 	// MARK: - Private Properties
 
@@ -24,11 +33,12 @@ class EllipsisAnimatedText: UIView {
 
 	override func willMove(toWindow newWindow: UIWindow?) {
 		super.willMove(toWindow: newWindow)
-
-		if newWindow == nil {
-			stop()
-		} else {
-			start()
+		if shouldAnimate {
+			if newWindow == nil {
+				stop()
+			} else {
+				start()
+			}
 		}
 	}
 
@@ -62,17 +72,8 @@ class EllipsisAnimatedText: UIView {
 		label.pin(.allEdges(padding: 0))
 	}
 
-	@objc
-	private func updateLabel() {
-		currentState = (currentState + 1) % labelEllipsisTexts.count
-		label.text = "\(defaultText)\(labelEllipsisTexts[currentState])"
-	}
-
-	// MARK: - Public Methods
-
-	public func start() {
+	private func start() {
 		if timer == nil {
-			label.text = defaultText
 			timer = Timer.scheduledTimer(
 				timeInterval: 0.3,
 				target: self,
@@ -84,9 +85,15 @@ class EllipsisAnimatedText: UIView {
 		}
 	}
 
-	public func stop() {
+	private func stop() {
 		label.text = defaultText
 		timer?.invalidate()
 		timer = nil
+	}
+
+	@objc
+	private func updateLabel() {
+		currentState = (currentState + 1) % labelEllipsisTexts.count
+		label.text = "\(defaultText)\(labelEllipsisTexts[currentState])"
 	}
 }
