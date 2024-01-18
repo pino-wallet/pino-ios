@@ -153,7 +153,7 @@ extension AssetViewModel {
 	public func copy(newId: String) -> AssetViewModel {
 		let newAssetModel = BalanceAssetModel(
 			id: newId,
-            amount: assetModel.amount, capital: assetModel.capital,
+			amount: assetModel.amount, capital: assetModel.capital,
 			detail: assetModel.detail,
 			previousDayNetworth: assetModel.previousDayNetworth
 		)

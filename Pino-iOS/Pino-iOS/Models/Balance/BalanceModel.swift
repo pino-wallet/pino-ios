@@ -17,7 +17,7 @@ struct BalanceAssetModel: Codable, AssetProtocol {
 		case amount
 		case detail
 		case previousDayNetworth = "previous_day_networth"
-        case capital
+		case capital
 	}
 }
 
