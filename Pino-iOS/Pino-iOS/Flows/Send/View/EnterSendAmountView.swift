@@ -254,17 +254,18 @@ class EnterSendAmountView: UIView {
 				if let tokenAmount = self.enterAmountVM.tokenAmount {
 					self.amountTextfield.text = tokenAmount.sevenDigitFormat
 					self.enterAmountVM.calculateAmount(tokenAmount.decimalString)
+					self.updateAmount(enteredAmount: tokenAmount.decimalString)
 				}
 			} else {
 				self.enterAmountVM.isDollarEnabled = true
 				self.dollarFormatButton.backgroundColor = .Pino.primary
 				self.dollarFormatButton.tintColor = .Pino.green1
 				if let dollarAmount = self.enterAmountVM.dollarAmount {
-					self.amountTextfield.text = dollarAmount.priceFormat.trimmCurrency
+					self.amountTextfield.text = dollarAmount.plainPriceFormat.trimmCurrency
 					self.enterAmountVM.calculateAmount(dollarAmount.decimalString)
+					self.updateAmount(enteredAmount: dollarAmount.decimalString)
 				}
 			}
-			self.updateAmount(enteredAmount: self.amountTextfield.text ?? .emptyString)
 			self.applyDollarFormatChanges()
 		}
 	}
