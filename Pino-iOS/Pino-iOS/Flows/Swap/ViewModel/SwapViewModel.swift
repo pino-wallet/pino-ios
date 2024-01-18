@@ -75,7 +75,7 @@ class SwapViewModel {
 		case .initial, .noToToken, .clear:
 			break
 		}
-		recalculateTokensAmount()
+//		recalculateTokensAmount()
 		fromToken.swapDelegate.selectedTokenDidChange()
 	}
 
