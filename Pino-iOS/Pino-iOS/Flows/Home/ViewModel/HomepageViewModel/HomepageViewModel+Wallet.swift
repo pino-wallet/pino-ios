@@ -48,7 +48,7 @@ extension HomepageViewModel {
 
 	private func getVolatilityPercentage(balance: BigNumber, previousBalance: BigNumber) -> String {
 		if previousBalance.doubleValue == .zero {
-			return GlobalZeroAmounts.tokenAmount.zeroAmount
+            return GlobalZeroAmounts.plain.zeroAmount
 		} else {
 			let volatility = balance - previousBalance
 			let volatilityPercentage = (volatility / previousBalance)! * 100.bigNumber

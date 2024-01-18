@@ -11,6 +11,7 @@ enum GlobalZeroAmounts {
 	case dollars
 	case tokenAmount
 	case percentage
+    case plain
 
 	public var zeroAmount: String {
 		switch self {
@@ -20,6 +21,8 @@ enum GlobalZeroAmounts {
 			"0"
 		case .percentage:
 			"0.00%"
+        case .plain:
+            "0.00"
 		}
 	}
 }

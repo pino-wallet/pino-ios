@@ -8,7 +8,7 @@ import Foundation
 // MARK: - BalanceModelElement
 
 struct BalanceAssetModel: Codable, AssetProtocol {
-	let id, amount: String
+	let id, amount, capital: String
 	let detail: Detail?
 	let previousDayNetworth: String
 
@@ -17,6 +17,7 @@ struct BalanceAssetModel: Codable, AssetProtocol {
 		case amount
 		case detail
 		case previousDayNetworth = "previous_day_networth"
+        case capital
 	}
 }
 

@@ -60,7 +60,7 @@ class AssetManagerViewModel {
 			let userAsset = userAssets.first(where: { $0.id == tokenID })
 			return BalanceAssetModel(
 				id: $0.id,
-				amount: userAsset?.amount ?? "0",
+                amount: userAsset?.amount ?? "0", capital: userAsset?.capital ?? "0",
 				detail: $0,
 				previousDayNetworth: userAsset?.previousDayNetworth ?? "0"
 			)
