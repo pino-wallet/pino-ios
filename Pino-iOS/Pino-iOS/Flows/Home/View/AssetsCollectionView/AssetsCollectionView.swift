@@ -13,6 +13,8 @@ class AssetsCollectionView: UICollectionView {
 
 	public var receiveButtonTappedClosure: () -> Void
 	public var sendButtonTappedClosure: () -> Void
+	public var selectedAssets: [AssetViewModel]?
+	public var selectedPositions: [AssetViewModel]?
 
 	// MARK: - Private Properties
 
@@ -51,7 +53,6 @@ class AssetsCollectionView: UICollectionView {
 		configCollectionView()
 		setupView()
 		setupStyle()
-		setupBindings()
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -100,19 +101,6 @@ class AssetsCollectionView: UICollectionView {
 		showsVerticalScrollIndicator = false
 	}
 
-	private func setupBindings() {
-		homeVM.$selectedAssetsList.sink { [weak self] assets in
-			self?.reloadData()
-		}.store(in: &cancellables)
-
-		homeVM.$walletInfo.sink { [weak self] walletInfo in
-			if self?.homeVM.walletInfo.id != walletInfo?.id {
-				self?.showSkeletonView()
-				self?.getHomeData()
-			}
-		}.store(in: &cancellables)
-	}
-
 	private func setupRefreshControl() {
 		indicatorStyle = .white
 		assetsRefreshControl.tintColor = .Pino.green2
@@ -156,12 +144,12 @@ extension AssetsCollectionView: UICollectionViewDelegate {
 		let homeSection = HomeSection(rawValue: indexPath.section)
 		switch homeSection {
 		case .asset:
-			if let assetsList = homeVM.selectedAssetsList {
-				assetTapped(assetsList[indexPath.item])
+			if let selectedAssets {
+				assetTapped(selectedAssets[indexPath.item])
 			}
 		case .position:
-			if let positionsList = homeVM.positionAssetsList {
-				assetTapped(positionsList[indexPath.item])
+			if let selectedPositions {
+				assetTapped(selectedPositions[indexPath.item])
 			}
 		default: break
 		}

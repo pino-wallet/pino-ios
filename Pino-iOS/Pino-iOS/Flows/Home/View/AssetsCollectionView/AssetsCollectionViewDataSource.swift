@@ -11,7 +11,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 	// MARK: - CollectionView DataSource Methods
 
 	internal func numberOfSections(in collectionView: UICollectionView) -> Int {
-		if let positionsList = homeVM.positionAssetsList, !positionsList.isEmpty {
+		if let selectedPositions, !selectedPositions.isEmpty {
 			return 2
 		} else {
 			return 1
@@ -20,12 +20,12 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 
 	internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		let homeSection = HomeSection(rawValue: section)
-		if let selectedAssets = homeVM.selectedAssetsList {
+		if let selectedAssets {
 			switch homeSection {
 			case .asset:
 				return selectedAssets.count
 			case .position:
-				return homeVM.positionAssetsList?.count ?? .zero
+				return selectedPositions?.count ?? .zero
 			case .none:
 				return .zero
 			}
@@ -80,11 +80,11 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 		let homeSection = HomeSection(rawValue: section)
 		switch homeSection {
 		case .asset:
-			if homeVM.selectedAssetsList == nil {
+			if selectedAssets == nil {
 				return .zero
-			} else if let positionsList = homeVM.positionAssetsList, !positionsList.isEmpty {
+			} else if let selectedPositions, !selectedPositions.isEmpty {
 				return .zero
-			} else if let selectedAssets = homeVM.selectedAssetsList, selectedAssets.isEmpty {
+			} else if let selectedAssets, selectedAssets.isEmpty {
 				// Calculate homepage height without calculating balance header
 				let assetsSectionHeight = collectionView.frame.height - 400
 				return CGSize(width: collectionView.frame.width, height: assetsSectionHeight)
@@ -114,6 +114,11 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 			walletBalanceHeaderView.sendButtonTappedClosure = sendButtonTappedClosure
 			walletBalanceHeaderView.receiveButtonTappedClosure = receiveButtonTappedClosure
 			walletBalanceHeaderView.portfolioPerformanceTapped = portfolioPerformanceTapped
+			if selectedAssets == nil {
+				walletBalanceHeaderView.showSkeletonView()
+			} else {
+				walletBalanceHeaderView.hideSkeletonView()
+			}
 			return walletBalanceHeaderView
 
 		case .position:
@@ -132,7 +137,7 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 	}
 
 	private func homepageFooterView(kind: String, indexPath: IndexPath) -> UICollectionReusableView? {
-		if let selectedAssets = homeVM.selectedAssetsList, selectedAssets.isEmpty {
+		if let selectedAssets, selectedAssets.isEmpty, let selectedPositions, selectedPositions.isEmpty {
 			let emptyStateView = dequeueReusableSupplementaryView(
 				ofKind: kind,
 				withReuseIdentifier: HomepageEmptyStateView.footerReuseID,
@@ -162,14 +167,14 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: AssetsCollectionViewCell.cellReuseID,
 			for: indexPath
 		) as! AssetsCollectionViewCell
-		if let selectedAssets = homeVM.selectedAssetsList {
+		if let selectedAssets {
 			assetCell.hideSkeletonView()
 			let homeSection = HomeSection(rawValue: indexPath.section)
 			switch homeSection {
 			case .asset:
 				assetCell.assetVM = selectedAssets[indexPath.row]
 			case .position:
-				assetCell.assetVM = homeVM.positionAssetsList?[indexPath.row]
+				assetCell.assetVM = selectedPositions?[indexPath.row]
 			case .none: break
 			}
 		} else {

@@ -72,10 +72,12 @@ class HomepageViewModel {
 		GlobalVariables.shared.$selectedManageAssetsList.sink { assets in
 			if let assets {
 				self.getWalletBalance(assets: assets)
-				self.selectedAssetsList = assets.filter { $0.isPosition == false }
 				self.positionAssetsList = assets.filter { $0.isPosition == true }
+				self.selectedAssetsList = assets.filter { $0.isPosition == false }
 				self.switchSecurityMode(self.securityMode)
 			} else {
+				self.walletBalance = nil
+				self.positionAssetsList = nil
 				self.selectedAssetsList = nil
 			}
 		}.store(in: &cancellables)
