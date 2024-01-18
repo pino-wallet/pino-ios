@@ -86,6 +86,20 @@ extension String {
 		}
 	}
 
+	public var trimmSeperators: Self {
+		let locale = Locale.current
+		let decimalSeparator = locale.decimalSeparator ?? "."
+		let groupingSeparator = locale.groupingSeparator ?? ","
+
+		if decimalSeparator != groupingSeparator {
+			return replacingOccurrences(of: groupingSeparator, with: "")
+		} else {
+			// Handle the case where the decimal and grouping separators are the same
+			// Example: Return the string as is, or implement alternative logic
+			return self
+		}
+	}
+
 	public var promise: Promise<Self> {
 		Promise<Self> { seal in
 			seal.fulfill(self)
