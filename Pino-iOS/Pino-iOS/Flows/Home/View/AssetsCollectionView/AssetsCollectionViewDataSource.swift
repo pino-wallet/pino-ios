@@ -132,7 +132,8 @@ extension AssetsCollectionView: UICollectionViewDataSource {
 	}
 
 	private func homepageFooterView(kind: String, indexPath: IndexPath) -> UICollectionReusableView? {
-		if let selectedAssets = homeVM.selectedAssetsList, selectedAssets.isEmpty {
+		if let selectedAssets = homeVM.selectedAssetsList, selectedAssets.isEmpty,
+		   let selectedPositions = homeVM.positionAssetsList, selectedPositions.isEmpty {
 			let emptyStateView = dequeueReusableSupplementaryView(
 				ofKind: kind,
 				withReuseIdentifier: HomepageEmptyStateView.footerReuseID,
