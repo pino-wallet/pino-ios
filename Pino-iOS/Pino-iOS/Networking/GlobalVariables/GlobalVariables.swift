@@ -59,6 +59,30 @@ class GlobalVariables {
 		}.store(in: &cancellables)
 	}
 
+	public func updateCurrentAccount(_ newAccount: WalletAccount) {
+		// Cancel all active timers and requests
+		cancellables.removeAll()
+		manageAssetsList = nil
+		selectedManageAssetsList = nil
+		currentAccount = newAccount
+		fetchSharedInfoPeriodically { [self] in
+			fetchSharedInfo().catch { error in
+				// Handle error
+			}
+		}
+
+		$manageAssetsList.sink { assets in
+			guard var assets else { return }
+			assets.sort { asset1, asset2 in
+				asset1.holdAmountInDollor > asset2.holdAmountInDollor
+			}
+			let isPositionsSelected = ManageAssetPositionsViewModel.positionsSelected
+			let selectedPositions = assets.filter { isPositionsSelected && $0.isPosition && !$0.holdAmount.isZero }
+			let selectedAssets = assets.filter { !$0.isPosition && $0.isSelected }
+			self.selectedManageAssetsList = selectedAssets + selectedPositions
+		}.store(in: &cancellables)
+	}
+
 	public func fetchSharedInfo() -> Promise<Void> {
 		print("== SENDING REQUEST ==")
 		return firstly {

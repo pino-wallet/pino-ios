@@ -69,11 +69,15 @@ class HomepageViewModel {
 			self.switchSecurityMode(securityMode)
 		}.store(in: &cancellables)
 
-		GlobalVariables.shared.$selectedManageAssetsList.compactMap { $0 }.sink { assets in
-			self.getWalletBalance(assets: assets)
-			self.selectedAssetsList = assets.filter { $0.isPosition == false }
-			self.positionAssetsList = assets.filter { $0.isPosition == true }
-			self.switchSecurityMode(self.securityMode)
+		GlobalVariables.shared.$selectedManageAssetsList.sink { assets in
+			if let assets {
+				self.getWalletBalance(assets: assets)
+				self.selectedAssetsList = assets.filter { $0.isPosition == false }
+				self.positionAssetsList = assets.filter { $0.isPosition == true }
+				self.switchSecurityMode(self.securityMode)
+			} else {
+				self.selectedAssetsList = nil
+			}
 		}.store(in: &cancellables)
 	}
 }

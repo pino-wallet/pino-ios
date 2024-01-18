@@ -156,7 +156,7 @@ class AccountsViewModel {
 	public func updateSelectedAccount(with selectedAccount: AccountInfoViewModel) {
 		coreDataManager.updateSelectedWalletAccount(selectedAccount.walletAccountInfoModel)
 		getAccounts()
-		GlobalVariables.shared.currentAccount = selectedAccount.walletAccountInfoModel
+		GlobalVariables.shared.updateCurrentAccount(selectedAccount.walletAccountInfoModel)
 		resetPendingActivities()
 	}
 }
