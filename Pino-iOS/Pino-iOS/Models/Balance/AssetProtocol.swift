@@ -12,4 +12,5 @@ public protocol AssetProtocol {
 	var amount: String { get }
 	var detail: Detail? { get }
 	var previousDayNetworth: String { get }
+	var capital: String { get }
 }
