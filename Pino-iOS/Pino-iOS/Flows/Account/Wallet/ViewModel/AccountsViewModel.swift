@@ -59,7 +59,7 @@ class AccountsViewModel {
 			.randomElement()
 			?? .green_apple
 
-		coreDataManager.createWalletAccount(
+		guard let newAccount = coreDataManager.createWalletAccount(
 			address: address,
 			derivationPath: derivationPath,
 			publicKey: publicKey.hex(),
@@ -67,8 +67,9 @@ class AccountsViewModel {
 			avatarIcon: newAvatar.rawValue,
 			avatarColor: newAvatar.rawValue,
 			wallet: wallet!
-		)
+		) else { return }
 		getAccounts()
+		GlobalVariables.shared.updateCurrentAccount(newAccount)
 	}
 
 	// MARK: - Public Methods
@@ -156,7 +157,7 @@ class AccountsViewModel {
 	public func updateSelectedAccount(with selectedAccount: AccountInfoViewModel) {
 		coreDataManager.updateSelectedWalletAccount(selectedAccount.walletAccountInfoModel)
 		getAccounts()
-		GlobalVariables.shared.currentAccount = selectedAccount.walletAccountInfoModel
+		GlobalVariables.shared.updateCurrentAccount(selectedAccount.walletAccountInfoModel)
 		resetPendingActivities()
 	}
 }

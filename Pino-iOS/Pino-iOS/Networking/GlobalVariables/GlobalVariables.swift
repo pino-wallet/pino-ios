@@ -35,28 +35,18 @@ class GlobalVariables {
 
 	private init() {
 		calculateEthGasFee()
-		fetchSharedInfoPeriodically { [self] in
-			fetchSharedInfo().catch { error in
-				#warning("Toast view is temporarily removed")
-//				Toast.default(
-//					title: GlobalErrors.connectionFailed.message,
-//					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-//					style: .error
-//				)
-//				.show(haptic: .warning)
-			}
-		}
 		self.currentAccount = PinoWalletManager().currentAccount
-		$manageAssetsList.sink { assets in
-			guard var assets else { return }
-			assets.sort { asset1, asset2 in
-				asset1.holdAmountInDollor > asset2.holdAmountInDollor
-			}
-			let isPositionsSelected = ManageAssetPositionsViewModel.positionsSelected
-			let selectedPositions = assets.filter { isPositionsSelected && $0.isPosition && !$0.holdAmount.isZero }
-			let selectedAssets = assets.filter { !$0.isPosition && $0.isSelected }
-			self.selectedManageAssetsList = selectedAssets + selectedPositions
-		}.store(in: &cancellables)
+		setupBindings()
+	}
+
+	public func updateCurrentAccount(_ newAccount: WalletAccount) {
+		// Cancel all active timers and requests
+		cancellables.removeAll()
+		manageAssetsList = nil
+		selectedManageAssetsList = nil
+		currentAccount = newAccount
+		fetchBalances()
+		setupBindings()
 	}
 
 	public func fetchSharedInfo() -> Promise<Void> {
@@ -96,6 +86,18 @@ class GlobalVariables {
 			.store(in: &cancellables)
 	}
 
+	private func fetchBalances() {
+		fetchSharedInfo().catch { error in
+			#warning("Toast view is temporarily removed")
+			//                Toast.default(
+			//                    title: GlobalErrors.connectionFailed.message,
+			//                    subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+			//                    style: .error
+			//                )
+			//                .show(haptic: .warning)
+		}
+	}
+
 	private func calculateEthGasFee() {
 		Timer.publish(every: 3, on: .main, in: .common)
 			.autoconnect()
@@ -115,6 +117,22 @@ class GlobalVariables {
 
 	private func getManageAssetLists() -> Promise<[AssetViewModel]> {
 		AssetManagerViewModel.shared.getAssetsList()
+	}
+
+	private func setupBindings() {
+		fetchSharedInfoPeriodically { [self] in
+			fetchBalances()
+		}
+		$manageAssetsList.sink { assets in
+			guard var assets else { return }
+			assets.sort { asset1, asset2 in
+				asset1.holdAmountInDollor > asset2.holdAmountInDollor
+			}
+			let isPositionsSelected = ManageAssetPositionsViewModel.positionsSelected
+			let selectedPositions = assets.filter { isPositionsSelected && $0.isPosition && !$0.holdAmount.isZero }
+			let selectedAssets = assets.filter { !$0.isPosition && $0.isSelected }
+			self.selectedManageAssetsList = selectedAssets + selectedPositions
+		}.store(in: &cancellables)
 	}
 }
 
