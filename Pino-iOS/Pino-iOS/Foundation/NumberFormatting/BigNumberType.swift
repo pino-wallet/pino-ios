@@ -120,12 +120,6 @@ public struct BigNumber {
 	private var abbreviatedFormat: String {
 		let billion = BigInt(10).power(9 + decimal)
 		let trillion = BigInt(10).power(12 + decimal)
-		let quadrillion = BigInt(10).power(15 + decimal)
-		let quintillion = BigInt(10).power(18 + decimal)
-		let sextillion = BigInt(10).power(21 + decimal)
-		let septillion = BigInt(10).power(24 + decimal)
-		let octillion = BigInt(10).power(27 + decimal)
-		let nonillion = BigInt(10).power(30 + decimal)
 
 		func formatNumber(_ number: BigInt, divisor: BigInt, suffix: String) -> String {
 			let wholePart = number / divisor
@@ -140,20 +134,8 @@ public struct BigNumber {
 			return "\(wholePart)\(decimalString)\(suffix)"
 		}
 
-		if number >= nonillion {
-			return formatNumber(number, divisor: nonillion, suffix: "Nm")
-		} else if number >= octillion {
-			return formatNumber(number, divisor: octillion, suffix: "Oc")
-		} else if number >= septillion {
-			return formatNumber(number, divisor: septillion, suffix: "Sp")
-		} else if number >= sextillion {
-			return formatNumber(number, divisor: sextillion, suffix: "Sx")
-		} else if number >= quintillion {
-			return formatNumber(number, divisor: quintillion, suffix: "Qi")
-		} else if number >= quadrillion {
-			return formatNumber(number, divisor: quadrillion, suffix: "Qa")
-		} else if number >= trillion {
-			return formatNumber(number, divisor: trillion, suffix: "T")
+		if number >= trillion {
+			return "0"
 		} else if number >= billion {
 			return formatNumber(number, divisor: billion, suffix: "B")
 		} else {

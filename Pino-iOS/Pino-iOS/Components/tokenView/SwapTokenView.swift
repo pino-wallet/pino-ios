@@ -98,6 +98,8 @@ class SwapTokenView: UIView {
 			.verticalEdges(padding: 6),
 			.horizontalEdges(padding: 8)
 		)
+
+		tokenNameLabel.setContentCompressionResistancePriority(.init(1000), for: .horizontal)
 	}
 
 	@objc

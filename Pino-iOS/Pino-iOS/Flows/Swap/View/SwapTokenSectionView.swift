@@ -144,6 +144,7 @@ class SwapTokenSectionView: UIView {
 			estimatedAmountLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60),
 			changeTokenView.widthAnchor.constraint(greaterThanOrEqualToConstant: 101),
 			changeTokenView.widthAnchor.constraint(lessThanOrEqualToConstant: 130),
+			textFieldSpacerView.widthAnchor.constraint(greaterThanOrEqualToConstant: 6),
 		])
 		selectAssetButton.pin(
 			.fixedHeight(40)
