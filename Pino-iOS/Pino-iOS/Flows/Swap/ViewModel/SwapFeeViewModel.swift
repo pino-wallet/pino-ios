@@ -52,10 +52,10 @@ class SwapFeeViewModel {
 
 	#warning("There is a bug here in high amounts calculation that becomes 0. (1 ETH = 0 USDT)")
 	public func updateQuote(srcToken: SwapTokenViewModel, destToken: SwapTokenViewModel) {
-		if let srcAmount = srcToken.tokenAmount, let destAmount = destToken.tokenAmount {
+		if let srcAmount = srcToken.tokenAmountBigNum, let destAmount = destToken.tokenAmountBigNum {
 			let formattedFromTokenAmount = "1 \(srcToken.selectedToken.symbol)"
 			let formattedToTokenAmount: String
-			if let toTokenAmount = BigNumber(numberWithDecimal: destAmount) / BigNumber(numberWithDecimal: srcAmount) {
+			if let toTokenAmount = destAmount / srcAmount {
 				formattedToTokenAmount = toTokenAmount.sevenDigitFormat.formattedNumberWithCamma
 					.tokenFormatting(token: destToken.selectedToken.symbol)
 			} else {
