@@ -47,6 +47,10 @@ class EnterSendAmountViewController: UIViewController {
 		enterAmountView.amountTextfield.becomeFirstResponder()
 	}
 
+	override func viewDidDisappear(_ animated: Bool) {
+		enterAmountView.cancelGasRequests()
+	}
+
 	// MARK: - Private Methods
 
 	private func setupView() {

@@ -207,17 +207,15 @@ class EnterSendAmountView: UIView {
 	}
 
 	private func setupBindings() {
-		GlobalVariables.shared.$ethGasFee
-			.compactMap { $0 }
-			.sink { gasInfo in
-				if self.enterAmountVM.selectedToken.isEth {
-					self.enterAmountVM.updateEthMaxAmount()
-					self.enterAmountVM.calculateAmount(self.amountTextfield.text ?? .emptyString)
-					self.updateAmount(enteredAmount: self.amountTextfield.text ?? .emptyString)
-					self.maxAmountLabel.text = self.enterAmountVM.formattedMaxHoldAmount
-					self.maxAmountInDollarLabel.text = self.enterAmountVM.formattedMaxAmountInDollar
-				}
+		if enterAmountVM.selectedToken.isEth {
+			GlobalVariables.shared.$ethGasFee.compactMap { $0 }.sink { gasInfo in
+				self.enterAmountVM.updateEthMaxAmount()
+				self.enterAmountVM.calculateAmount(self.amountTextfield.text ?? .emptyString)
+				self.updateAmount(enteredAmount: self.amountTextfield.text ?? .emptyString)
+				self.maxAmountLabel.text = self.enterAmountVM.formattedMaxHoldAmount
+				self.maxAmountInDollarLabel.text = self.enterAmountVM.formattedMaxAmountInDollar
 			}.store(in: &cancellable)
+		}
 	}
 
 	private func updateView() {
@@ -442,5 +440,11 @@ extension EnterSendAmountView {
 	@objc
 	private func keyboardWillHide(_ notification: NSNotification) {
 		moveViewWithKeyboard(notification: notification, keyboardWillShow: false)
+	}
+
+	// MARK: - Public Methods
+
+	public func cancelGasRequests() {
+		cancellable.removeAll()
 	}
 }
