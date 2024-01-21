@@ -27,6 +27,7 @@ enum AccountingEndpoint: EndpointType {
 	internal func request() throws -> URLRequest {
 		var request = URLRequest(url: url)
 		request.httpMethod = httpMethod.rawValue
+		request.addHeaders(headers)
 
 		try task.configParams(&request)
 
@@ -74,7 +75,6 @@ enum AccountingEndpoint: EndpointType {
 	internal var headers: HTTPHeaders {
 		[
 			"Content-Type": "application/json",
-			"X-API-TOKEN": "token",
 		]
 	}
 
