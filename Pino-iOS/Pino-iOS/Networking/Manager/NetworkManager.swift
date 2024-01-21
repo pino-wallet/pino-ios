@@ -20,7 +20,7 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 						throw APIError.failedRequest
 					}
 
-//					NetworkLogger.log(request: request, response: response)
+					NetworkLogger.log(request: request, response: response)
 					try checkStatusCode(responseData: data, statusCode: statusCode)
 
 					// For cases when response body is empty
@@ -98,6 +98,9 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 				throw APIError.failedRequest
 			}
 		}
+		print("SUCCESS:------------------")
+		print(String(data: responseData, encoding: String.Encoding.utf8)! as String)
+		print("------------------------")
 	}
 
 	private func mapError(_ error: Error) -> APIError {

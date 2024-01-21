@@ -10,7 +10,7 @@ import Foundation
 
 protocol AccountingAPIService {
 	func userBalance() -> AnyPublisher<BalanceModel, APIError>
-	func userPortfolio(timeFrame: String) -> AnyPublisher<[ChartDataModel], APIError>
+	func userPortfolio(timeFrame: String, tokensId: [String]) -> AnyPublisher<[ChartDataModel], APIError>
 	func coinPerformance(timeFrame: String, tokenID: String) -> AnyPublisher<[ChartDataModel], APIError>
 	func activateAccount(activationReqModel: AccountActivationRequestModel)
 		-> AnyPublisher<AccountActivationModel, APIError>

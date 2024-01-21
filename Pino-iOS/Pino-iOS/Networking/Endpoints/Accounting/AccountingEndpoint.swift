@@ -16,7 +16,7 @@ enum AccountingEndpoint: EndpointType {
 
 	case cts
 	case balances(accountADD: String)
-	case portfolio(timeFrame: String, accountADD: String)
+	case portfolio(timeFrame: String, accountADD: String, tokensId: [String])
 	case coinPerformance(timeFrame: String, tokenID: String, accountADD: String)
 	case activateAccount(activateReqModel: AccountActivationRequestModel)
 	case activeAddresses(addresses: [String])
@@ -45,9 +45,14 @@ enum AccountingEndpoint: EndpointType {
 			return .request
 		case .balances, .activateAccountWithInviteCode:
 			return .request
-		case let .portfolio(timeFrame, _):
+		case let .portfolio(timeFrame, _, tokensId):
 			let urlParameters: [String: Any] = ["timeframe": timeFrame]
-			return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: urlParameters)
+			let bodyParameters: HTTPParameters = ["tokens": tokensId]
+			return .requestParameters(
+				bodyParameters: .json(bodyParameters),
+				bodyEncoding: .urlAndJsonEncoding,
+				urlParameters: urlParameters
+			)
 		case let .coinPerformance(timeFrame: timeFrame, tokenID: _, accountADD: _):
 			let urlParameters: [String: Any] = ["timeframe": timeFrame]
 			return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: urlParameters)
@@ -83,7 +88,7 @@ enum AccountingEndpoint: EndpointType {
 			return "cts/tokens"
 		case let .balances(accountADD):
 			return "user/\(accountADD)/balances"
-		case let .portfolio(_, accountADD):
+		case let .portfolio(_, accountADD, _):
 			return "user/\(accountADD)/portfolio"
 		case let .coinPerformance(_, tokenID: tokenID, accountADD: accountADD):
 			return "user/\(accountADD)/portfolio/\(tokenID)"
@@ -98,10 +103,12 @@ enum AccountingEndpoint: EndpointType {
 
 	internal var httpMethod: HTTPMethod {
 		switch self {
-		case .cts, .balances, .portfolio, .coinPerformance:
+		case .cts, .balances, .coinPerformance:
 			return .get
-		case .activateAccount, .activeAddresses, .activateAccountWithInviteCode:
+		case .activateAccount, .activeAddresses, .activateAccountWithInviteCode, .portfolio:
 			return .post
 		}
 	}
 }
+
+struct TokensID {}

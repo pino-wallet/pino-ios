@@ -28,8 +28,10 @@ final class AccountingAPIClient: AccountingAPIService {
 		networkManager.request(.balances(accountADD: currentAccountAdd))
 	}
 
-	public func userPortfolio(timeFrame: String) -> AnyPublisher<[ChartDataModel], APIError> {
-		networkManager.request(.portfolio(timeFrame: timeFrame, accountADD: currentAccountAdd))
+	public func userPortfolio(timeFrame: String, tokensId: [String]) -> AnyPublisher<[ChartDataModel], APIError> {
+		networkManager.request(
+			.portfolio(timeFrame: timeFrame, accountADD: currentAccountAdd, tokensId: tokensId)
+		)
 	}
 
 	public func coinPerformance(timeFrame: String, tokenID: String)
