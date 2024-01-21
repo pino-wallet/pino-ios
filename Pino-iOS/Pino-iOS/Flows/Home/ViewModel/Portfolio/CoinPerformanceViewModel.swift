@@ -60,7 +60,7 @@ class CoinPerformanceViewModel {
 	private func updateCoinPerformanceInfo(chart: AssetChartViewModel) {
 		let capitalDecimal = 2
 		let selectedAssetCapitalBigNumber = BigNumber(number: selectedAsset.assetModel.capital, decimal: capitalDecimal)
-        let userNetProfit = (chart.chartDataVM.last?.networth ?? 0.bigNumber) - selectedAssetCapitalBigNumber
+		let userNetProfit = (chart.chartDataVM.last?.networth ?? 0.bigNumber) - selectedAssetCapitalBigNumber
 
 		coinInfoVM.coinPerformanceInfo = CoinPerformanceInfoValues(
 			netProfit: userNetProfit.decimalString,

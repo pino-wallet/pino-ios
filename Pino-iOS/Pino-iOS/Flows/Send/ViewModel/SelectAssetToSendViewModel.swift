@@ -33,7 +33,7 @@ class SelectAssetToSendViewModel: SelectAssetVMProtocol {
 		if !searchValue.isEmpty {
 			filteredAssetList = filteredAssetListByAmount
 				.filter { asset in
-					return asset.name.lowercased().contains(searchValueLowerCased) ||
+					asset.name.lowercased().contains(searchValueLowerCased) ||
 						asset.symbol.lowercased().contains(searchValueLowerCased)
 				}
 		} else {
