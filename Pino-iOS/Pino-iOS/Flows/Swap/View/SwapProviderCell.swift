@@ -15,11 +15,12 @@ class SwapProviderCell: UICollectionViewCell {
 	private let swapProviderImageView = UIImageView()
 	private let swapProviderTitleStackView = UIStackView()
 	private let swapProviderNameLabel = PinoLabel(style: .title, text: "")
+	private let swapProviderSpacerView = UIView()
 	private let swapAmountLabel = PinoLabel(style: .title, text: "")
 
 	// MARK: - Public Properties
 
-	public var swapProviderVM: SwapProviderViewModel! {
+	public var swapProviderVM: SwapProviderViewModel? {
 		didSet {
 			setupView()
 			setupStyles()
@@ -41,17 +42,13 @@ class SwapProviderCell: UICollectionViewCell {
 		addSubview(mainContainerView)
 		mainContainerView.addSubview(mainStackView)
 		mainStackView.addArrangedSubview(swapProviderTitleStackView)
+		mainStackView.addArrangedSubview(swapProviderSpacerView)
 		mainStackView.addArrangedSubview(swapAmountLabel)
 		swapProviderTitleStackView.addArrangedSubview(swapProviderImageView)
 		swapProviderTitleStackView.addArrangedSubview(swapProviderNameLabel)
 	}
 
 	private func setupStyles() {
-		swapProviderNameLabel.text = swapProviderVM.provider.name
-		swapAmountLabel.text = swapProviderVM.formattedSwapAmountWithSymbol
-
-		swapProviderImageView.image = UIImage(named: swapProviderVM.provider.image)
-
 		swapProviderNameLabel.font = .PinoStyle.mediumCallout
 		swapAmountLabel.font = .PinoStyle.mediumCallout
 
@@ -65,11 +62,29 @@ class SwapProviderCell: UICollectionViewCell {
 
 		swapProviderTitleStackView.spacing = 10
 
+		swapProviderTitleStackView.alignment = .center
+		mainStackView.alignment = .center
+
 		swapProviderImageView.layer.cornerRadius = 22
 		mainContainerView.layer.cornerRadius = 12
+
 		mainContainerView.layer.masksToBounds = true
+		swapProviderImageView.layer.masksToBounds = true
 
 		mainContainerView.frame = bounds
+
+		swapProviderImageView.isSkeletonable = true
+		swapProviderNameLabel.isSkeletonable = true
+		swapAmountLabel.isSkeletonable = true
+
+		if let swapProviderVM {
+			swapProviderNameLabel.text = swapProviderVM.provider.name
+			swapAmountLabel.text = swapProviderVM.formattedSwapAmountWithSymbol
+			swapProviderImageView.image = UIImage(named: swapProviderVM.provider.image)
+		} else {
+			swapProviderNameLabel.text = nil
+			swapAmountLabel.text = nil
+		}
 	}
 
 	private func setupConstraints() {
@@ -85,6 +100,13 @@ class SwapProviderCell: UICollectionViewCell {
 			.fixedHeight(44),
 			.fixedWidth(44)
 		)
+
+		NSLayoutConstraint.activate([
+			swapProviderNameLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 77),
+			swapAmountLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 64),
+			swapProviderNameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14),
+			swapAmountLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 12),
+		])
 	}
 
 	private func updateStyle(_ style: Style) {

@@ -35,11 +35,9 @@ class SwapProvidersViewcontroller: UIAlertController {
 	) {
 		self.init(title: "", message: nil, preferredStyle: .actionSheet)
 		self.providerDidSelect = providerDidSelect
-		providers
-			.sink { [weak self] newProviders in
-				self?.selectProviderVM.providers = newProviders
-			}
-			.store(in: &cancellables)
+		providers.sink { [weak self] newProviders in
+			self?.selectProviderVM.providers = newProviders
+		}.store(in: &cancellables)
 		selectProviderVM.bestProvider = bestProvider
 		selectProviderVM.selectedProvider = selectedProvider
 		setupView()
@@ -112,17 +110,16 @@ class SwapProvidersViewcontroller: UIAlertController {
 	}
 
 	private func setupBindings() {
-		selectProviderVM.$providers.compactMap { $0 }.sink { providers in
-			if !providers.isEmpty {
-				self.loadingview.stopAnimating()
-				self.updateProviderCollectionView(providers: providers)
+		selectProviderVM.$providers.sink { providers in
+			if providers.isEmpty {
+				self.updateProviderCollectionView(providers: nil)
 			} else {
-				self.loadingview.startAnimating()
+				self.updateProviderCollectionView(providers: providers)
 			}
 		}.store(in: &cancellables)
 	}
 
-	private func updateProviderCollectionView(providers: [SwapProviderViewModel]) {
+	private func updateProviderCollectionView(providers: [SwapProviderViewModel]?) {
 		providersCollectionView.swapProviders = providers
 		providersCollectionView.bestProvider = selectProviderVM.bestProvider
 		providersCollectionView.selectedProvider = selectProviderVM.selectedProvider
