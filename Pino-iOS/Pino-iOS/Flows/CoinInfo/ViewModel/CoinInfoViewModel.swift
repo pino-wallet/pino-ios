@@ -50,22 +50,26 @@ class CoinInfoViewModel {
 		"Your \(selectedAsset.symbol) activity appears here"
 	}
 
-    public var positionAssetInfoText: String? {
-        guard let positionAssetType else { return nil }
-        guard let positionAssetProtocol else { return nil }
-        guard let positionUnderlyingAssetSymbol else { return nil}
-        return "This asset represents your \(positionUnderlyingAssetSymbol) \(positionAssetType) position in the \(positionAssetProtocol) Protocol."
-    }
-    public var positionAssetProtocol: String? {
-        currentPositionAsset?.assetProtocol.capitalized
-    }
-    public var positionAssetFormattedType: String? {
-        positionAssetType?.capitalized
-    }
-    public var positionUnderlyingAssetSymbol: String? {
-        let underlyingAsset = GlobalVariables.shared.manageAssetsList?.first(where: { $0.id.lowercased() == currentPositionAsset?.underlyingToken.lowercased() })
-        return underlyingAsset?.symbol
-    }
+	public var positionAssetInfoText: String? {
+		guard let positionAssetType else { return nil }
+		guard let positionAssetProtocol else { return nil }
+		guard let positionUnderlyingAssetSymbol else { return nil }
+		return "This asset represents your \(positionUnderlyingAssetSymbol) \(positionAssetType) position in the \(positionAssetProtocol) Protocol."
+	}
+
+	public var positionAssetProtocol: String? {
+		currentPositionAsset?.assetProtocol.capitalized
+	}
+
+	public var positionAssetFormattedType: String? {
+		positionAssetType?.capitalized
+	}
+
+	public var positionUnderlyingAssetSymbol: String? {
+		let underlyingAsset = GlobalVariables.shared.manageAssetsList?
+			.first(where: { $0.id.lowercased() == currentPositionAsset?.underlyingToken.lowercased() })
+		return underlyingAsset?.symbol
+	}
 
 	// MARK: - Private Properties
 
@@ -79,21 +83,21 @@ class CoinInfoViewModel {
 	private var prevActivities: [ActivityModelProtocol] = []
 	private var cancellables = Set<AnyCancellable>()
 	private var pendingActivitiesCancellable = Set<AnyCancellable>()
-    
-    private var currentPositionAsset: PositionAssetModel? {
-        homeVM.positionAssetDetailsList?.first(where: { selectedAsset.id.lowercased() == $0.positionID.lowercased() })
-    }
-    
-    private var positionAssetType: String? {
-        switch currentPositionAsset?.type {
-        case .debt:
-            return "borrow"
-        case .investment:
-            return "investment"
-        case nil:
-            return nil
-        }
-    }
+
+	private var currentPositionAsset: PositionAssetModel? {
+		homeVM.positionAssetDetailsList?.first(where: { selectedAsset.id.lowercased() == $0.positionID.lowercased() })
+	}
+
+	private var positionAssetType: String? {
+		switch currentPositionAsset?.type {
+		case .debt:
+			return "borrow"
+		case .investment:
+			return "investment"
+		case nil:
+			return nil
+		}
+	}
 
 	// MARK: - Inintializers
 

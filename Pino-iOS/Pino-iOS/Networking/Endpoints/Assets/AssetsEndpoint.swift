@@ -18,7 +18,7 @@ enum AssetsEndpoint: EndpointType {
 	case positions
 	case coinPortfolio
 	case coinHistory
-    case getAllPositionAssets
+	case getAllPositionAssets
 
 	// MARK: - Internal Methods
 
@@ -35,14 +35,14 @@ enum AssetsEndpoint: EndpointType {
 
 	internal var requiresAuthentication: Bool {
 		switch self {
-        case .assets, .positions, .coinPortfolio, .coinHistory, .getAllPositionAssets:
+		case .assets, .positions, .coinPortfolio, .coinHistory, .getAllPositionAssets:
 			return false
-        }
+		}
 	}
 
 	internal var task: HTTPTask {
 		switch self {
-        case .assets, .positions, .coinPortfolio, .coinHistory, .getAllPositionAssets:
+		case .assets, .positions, .coinPortfolio, .coinHistory, .getAllPositionAssets:
 			return .request
 		}
 	}
@@ -68,14 +68,14 @@ enum AssetsEndpoint: EndpointType {
 			return "coin-info"
 		case .coinHistory:
 			return "coin-history"
-        case .getAllPositionAssets:
-            return "indexer/position"
-        }
+		case .getAllPositionAssets:
+			return "indexer/position"
+		}
 	}
 
 	internal var httpMethod: HTTPMethod {
 		switch self {
-        case .assets, .positions, .coinPortfolio, .coinHistory, .getAllPositionAssets:
+		case .assets, .positions, .coinPortfolio, .coinHistory, .getAllPositionAssets:
 			return .get
 		}
 	}

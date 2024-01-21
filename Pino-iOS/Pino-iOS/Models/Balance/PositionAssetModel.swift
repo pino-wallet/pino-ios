@@ -8,22 +8,22 @@
 import Foundation
 
 struct PositionAssetModel: Codable {
-    let positionID: String
-    let assetProtocol: String
-    let underlyingToken: String
-    let type: PositionAssetTypeEnum
+	let positionID: String
+	let assetProtocol: String
+	let underlyingToken: String
+	let type: PositionAssetTypeEnum
 
-    enum CodingKeys: String, CodingKey {
-        case positionID = "position_id"
-        case assetProtocol = "protocol"
-        case underlyingToken = "underlying_token"
-        case type
-    }
+	enum CodingKeys: String, CodingKey {
+		case positionID = "position_id"
+		case assetProtocol = "protocol"
+		case underlyingToken = "underlying_token"
+		case type
+	}
 }
 
 enum PositionAssetTypeEnum: String, Codable {
-    case debt = "debt"
-    case investment = "investment"
+	case debt = "debt"
+	case investment = "investment"
 }
 
 typealias PositionAssetsModel = [PositionAssetModel]
