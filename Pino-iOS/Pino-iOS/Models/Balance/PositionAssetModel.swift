@@ -19,11 +19,13 @@ struct PositionAssetModel: Codable {
 		case underlyingToken = "underlying_token"
 		case type
 	}
+    
+    enum PositionAssetTypeEnum: String, Codable {
+    case debt = "debt"
+    case investment = "investment"
+}
 }
 
-enum PositionAssetTypeEnum: String, Codable {
-	case debt = "debt"
-	case investment = "investment"
-}
+
 
 typealias PositionAssetsModel = [PositionAssetModel]

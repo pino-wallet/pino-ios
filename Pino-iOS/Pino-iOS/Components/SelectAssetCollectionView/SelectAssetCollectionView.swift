@@ -47,7 +47,7 @@ class SelectAssetCollectionView: UICollectionView {
 
 extension SelectAssetCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		didSelectAsset(selectAssetVM.filteredAssetList[indexPath.item]!)
+		didSelectAsset(selectAssetVM.filteredAssetList[indexPath.item])
 	}
 }
 
@@ -64,7 +64,7 @@ extension SelectAssetCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: SelectAssetCell.cellReuseID,
 			for: indexPath
 		) as! SelectAssetCell
-		cell.assetVM = selectAssetVM.filteredAssetList[indexPath.item]!
+		cell.assetVM = selectAssetVM.filteredAssetList[indexPath.item]
 		return cell
 	}
 }

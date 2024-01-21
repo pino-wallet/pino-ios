@@ -33,13 +33,6 @@ enum AssetsEndpoint: EndpointType {
 
 	// MARK: - Internal Properties
 
-	internal var requiresAuthentication: Bool {
-		switch self {
-		case .assets, .positions, .coinPortfolio, .coinHistory, .getAllPositionAssets:
-			return false
-		}
-	}
-
 	internal var task: HTTPTask {
 		switch self {
 		case .assets, .positions, .coinPortfolio, .coinHistory, .getAllPositionAssets:

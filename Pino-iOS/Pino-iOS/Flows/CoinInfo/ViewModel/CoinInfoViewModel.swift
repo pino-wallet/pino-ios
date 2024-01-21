@@ -51,9 +51,7 @@ class CoinInfoViewModel {
 	}
 
 	public var positionAssetInfoText: String? {
-		guard let positionAssetType else { return nil }
-		guard let positionAssetProtocol else { return nil }
-		guard let positionUnderlyingAssetSymbol else { return nil }
+		guard let positionAssetType, let positionAssetProtocol, let positionUnderlyingAssetSymbol else { return nil }
 		return "This asset represents your \(positionUnderlyingAssetSymbol) \(positionAssetType) position in the \(positionAssetProtocol) Protocol."
 	}
 
