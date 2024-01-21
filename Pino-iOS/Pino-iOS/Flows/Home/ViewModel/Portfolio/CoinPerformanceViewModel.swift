@@ -58,9 +58,12 @@ class CoinPerformanceViewModel {
 	}
 
 	private func updateCoinPerformanceInfo(chart: AssetChartViewModel) {
-		#warning("this net profit is mock and should change")
+        let capitalDecimal = 2
+        let selectedAssetCapitalBigNumber = BigNumber(number: selectedAsset.assetModel.capital, decimal: capitalDecimal)
+        let userNetProfit = chart.chartDataVM.last!.networth - selectedAssetCapitalBigNumber
+        
 		coinInfoVM.coinPerformanceInfo = CoinPerformanceInfoValues(
-			netProfit: GlobalZeroAmounts.tokenAmount.zeroAmount,
+            netProfit: userNetProfit.description,
 			ATH: allTimeHigh(chart: chart) ?? GlobalZeroAmounts.tokenAmount.zeroAmount,
 			ATL: allTimeLow(chart: chart) ?? GlobalZeroAmounts.tokenAmount.zeroAmount
 		)

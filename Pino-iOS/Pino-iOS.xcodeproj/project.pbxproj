@@ -446,6 +446,7 @@
 		D9A642C82AFA219D00FDE11D /* ActivityRepayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A642C72AFA219D00FDE11D /* ActivityRepayModel.swift */; };
 		D9A642CA2AFA235E00FDE11D /* ActivityInvestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A642C92AFA235E00FDE11D /* ActivityInvestModel.swift */; };
 		D9A642CC2AFA254200FDE11D /* ActivityWithdrawModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A642CB2AFA254200FDE11D /* ActivityWithdrawModel.swift */; };
+		D9A66C0B2B5BCAC200875A88 /* PositionAssetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A66C0A2B5BCAC200875A88 /* PositionAssetModel.swift */; };
 		D9A8E1CA2B440CCA00B78252 /* ActivateAccountWithInviteCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8E1C92B440CCA00B78252 /* ActivateAccountWithInviteCodeModel.swift */; };
 		D9A936C92ACD60CD00C3449E /* ApprovingLoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A936C82ACD60CD00C3449E /* ApprovingLoadingViewModel.swift */; };
 		D9AABE112A7D6B410025463E /* ActivityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AABE102A7D6B410025463E /* ActivityDataSource.swift */; };
@@ -1319,6 +1320,7 @@
 		D9A642C72AFA219D00FDE11D /* ActivityRepayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRepayModel.swift; sourceTree = "<group>"; };
 		D9A642C92AFA235E00FDE11D /* ActivityInvestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityInvestModel.swift; sourceTree = "<group>"; };
 		D9A642CB2AFA254200FDE11D /* ActivityWithdrawModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityWithdrawModel.swift; sourceTree = "<group>"; };
+		D9A66C0A2B5BCAC200875A88 /* PositionAssetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionAssetModel.swift; sourceTree = "<group>"; };
 		D9A8E1C92B440CCA00B78252 /* ActivateAccountWithInviteCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivateAccountWithInviteCodeModel.swift; sourceTree = "<group>"; };
 		D9A936C82ACD60CD00C3449E /* ApprovingLoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovingLoadingViewModel.swift; sourceTree = "<group>"; };
 		D9AABE102A7D6B410025463E /* ActivityDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDataSource.swift; sourceTree = "<group>"; };
@@ -2383,6 +2385,7 @@
 			children = (
 				DE5E7B8E5AB0A855FCC75096 /* AssetProtocol.swift */,
 				85B8E4B322CA8BD26A71AD22 /* BalanceModel.swift */,
+				D9A66C0A2B5BCAC200875A88 /* PositionAssetModel.swift */,
 			);
 			path = Balance;
 			sourceTree = "<group>";
@@ -5555,6 +5558,7 @@
 				403691C22A3DFFB60013AB6D /* Toast.swift in Sources */,
 				E3FC69BD2A8A70BF009B3341 /* InvestCoinPerformanceViewModel.swift in Sources */,
 				D99F746F2AAF01CB00802BCF /* BorrowingAPIClient.swift in Sources */,
+				D9A66C0B2B5BCAC200875A88 /* PositionAssetModel.swift in Sources */,
 				9C3606E4114D73E964762BF1 /* AccountCell.swift in Sources */,
 				D924C33B2A949553007299A4 /* StartBorrowingView.swift in Sources */,
 				E3FC69C82A90A837009B3341 /* UserInvestmentAssetCell.swift in Sources */,

@@ -26,4 +26,9 @@ final class AssetsAPIClient: AssetsAPIService {
 	public func coinPortfolio() -> AnyPublisher<[CoinHistoryModel], APIError> {
 		networkManager.request(.coinHistory)
 	}
+    
+    func getAllPositionAssets() -> AnyPublisher<PositionAssetsModel, APIError> {
+        networkManager.request(.getAllPositionAssets)
+    }
+    
 }
