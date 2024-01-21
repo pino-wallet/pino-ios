@@ -16,8 +16,6 @@ class SwapProvidersViewcontroller: UIAlertController {
 	private let titleStackView = UIStackView()
 	private let titleLabel = PinoLabel(style: .title, text: nil)
 	private let descriptionLabel = PinoLabel(style: .description, text: nil)
-	private let providersContainerView = UIView()
-	private let loadingview = UIActivityIndicatorView()
 	private var providersCollectionView: SwapProvidersCollectionView!
 
 	private var providerDidSelect: ((SwapProviderViewModel) -> Void)!
@@ -62,11 +60,9 @@ class SwapProvidersViewcontroller: UIAlertController {
 			self.dismiss(animated: true)
 		})
 		contentStackView.addArrangedSubview(titleStackView)
-		contentStackView.addArrangedSubview(providersContainerView)
+		contentStackView.addArrangedSubview(providersCollectionView)
 		titleStackView.addArrangedSubview(titleLabel)
 		titleStackView.addArrangedSubview(descriptionLabel)
-		providersContainerView.addSubview(loadingview)
-		providersContainerView.addSubview(providersCollectionView)
 		contentView.addSubview(contentStackView)
 		view.addSubview(contentView)
 	}
@@ -83,9 +79,6 @@ class SwapProvidersViewcontroller: UIAlertController {
 
 		contentStackView.spacing = 30
 		titleStackView.spacing = 12
-
-		loadingview.style = .large
-		loadingview.color = .Pino.primary
 	}
 
 	private func setupConstraint() {
@@ -97,15 +90,8 @@ class SwapProvidersViewcontroller: UIAlertController {
 		contentView.pin(
 			.allEdges
 		)
-		providersContainerView.pin(
-			.fixedHeight(210)
-		)
 		providersCollectionView.pin(
-			.allEdges()
-		)
-		loadingview.pin(
-			.centerX,
-			.centerY
+			.fixedHeight(210)
 		)
 	}
 
