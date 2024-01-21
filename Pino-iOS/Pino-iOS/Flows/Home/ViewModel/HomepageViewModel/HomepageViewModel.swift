@@ -73,6 +73,12 @@ class HomepageViewModel {
 		positionAssetsList = assets.filter { $0.isPosition == true }
 		switchSecurityMode(securityMode)
 	}
+    
+    private func destroyValues() {
+        walletBalance = nil
+        positionAssetsList = nil
+        selectedAssetsList = nil
+    }
 
 	private func setupBindings() {
 		$securityMode.sink { [weak self] securityMode in
@@ -80,7 +86,11 @@ class HomepageViewModel {
 			self.switchSecurityMode(securityMode)
 		}.store(in: &cancellables)
 
-		GlobalVariables.shared.$selectedManageAssetsList.compactMap { $0 }.sink { assets in
+		GlobalVariables.shared.$selectedManageAssetsList.sink { assets in
+            guard let assets else { 
+                self.destroyValues()
+                return
+            }
 			if self.positionAssetDetailsList != nil {
 				self.setAssetValues(assets: assets)
 			}
@@ -101,9 +111,7 @@ class HomepageViewModel {
 			if let assets = GlobalVariables.shared.selectedManageAssetsList {
 				self.setAssetValues(assets: assets)
 			} else {
-        self.walletBalance = nil
-				self.positionAssetsList = nil
-				self.selectedAssetsList = nil
+                self.destroyValues()
       }
 		}.store(in: &cancellables)
 	}
