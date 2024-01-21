@@ -100,7 +100,11 @@ class HomepageViewModel {
 			self.positionAssetDetailsList = positionAssets
 			if let assets = GlobalVariables.shared.selectedManageAssetsList {
 				self.setAssetValues(assets: assets)
-			}
+			} else {
+        self.walletBalance = nil
+				self.positionAssetsList = nil
+				self.selectedAssetsList = nil
+      }
 		}.store(in: &cancellables)
 	}
 }

@@ -101,6 +101,9 @@ class HomepageViewController: UIViewController {
 
 	private func setupLoading() {
 		homeVM.$selectedAssetsList.sink { [weak self] assets in
+			self?.assetsCollectionView.selectedAssets = assets
+			self?.assetsCollectionView.selectedPositions = self?.homeVM.positionAssetsList
+			self?.assetsCollectionView.reloadData()
 			if assets == nil {
 				self?.view.showGradientSkeletonView()
 			} else {

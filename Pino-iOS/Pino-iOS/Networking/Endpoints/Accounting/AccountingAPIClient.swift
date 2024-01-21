@@ -15,7 +15,7 @@ final class AccountingAPIClient: AccountingAPIService {
 	private let networkManager = NetworkManager<AccountingEndpoint>()
 	private let pinoWalletManager = PinoWalletManager()
 	private var currentAccountAdd: String {
-		pinoWalletManager.currentAccount.eip55Address
+		GlobalVariables.shared.currentAccount.eip55Address
 	}
 
 	private var deviceID: String {
