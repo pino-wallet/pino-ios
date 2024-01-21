@@ -15,7 +15,7 @@ final class AccountingAPIMockClient: AccountingAPIService {
 		StubManager.publisher(for: "user-balance-stub")
 	}
 
-	func userPortfolio(timeFrame: String) -> AnyPublisher<[ChartDataModel], APIError> {
+	func userPortfolio(timeFrame: String, tokensId: [String]) -> AnyPublisher<[ChartDataModel], APIError> {
 		Just([])
 			.setFailureType(to: APIError.self)
 			.eraseToAnyPublisher()

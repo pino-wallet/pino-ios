@@ -35,6 +35,6 @@ struct NetworkLogger {
 		print(requestLog)
 
 		requestLog += "\n------------- ## Response ## ------------>\n"
-		print(response)
+		print("Response:\n", response)
 	}
 }

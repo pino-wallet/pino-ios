@@ -10,6 +10,7 @@ import Combine
 class PortfolioPerformanceViewModel {
 	// MARK: - Private Properties
 
+	private let selectedAssets: [AssetViewModel]
 	private var accountingAPIClient = AccountingAPIClient()
 	private var cancellables = Set<AnyCancellable>()
 
@@ -22,14 +23,16 @@ class PortfolioPerformanceViewModel {
 	// MARK: - Initializers
 
 	init(assets: [AssetViewModel]) {
+		self.selectedAssets = assets
 		getChartData()
-		getShareOfAssets(assets: assets)
+		getShareOfAssets()
 	}
 
 	// MARK: - Public Methods
 
 	public func getChartData(dateFilter: ChartDateFilter = .day) {
-		accountingAPIClient.userPortfolio(timeFrame: dateFilter.timeFrame)
+		let tokensId = selectedAssets.map { $0.id.lowercased() }
+		accountingAPIClient.userPortfolio(timeFrame: dateFilter.timeFrame, tokensId: tokensId)
 			.sink { completed in
 				switch completed {
 				case .finished:
@@ -45,8 +48,8 @@ class PortfolioPerformanceViewModel {
 
 	// MARK: - Private Methods
 
-	private func getShareOfAssets(assets: [AssetViewModel]) {
-		let userAssets = assets
+	private func getShareOfAssets() {
+		let userAssets = selectedAssets
 			.filter { !$0.holdAmount.isZero }
 			.sorted { $0.holdAmountInDollor.doubleValue > $1.holdAmountInDollor.doubleValue }
 		let totalAmount = userAssets.compactMap { $0.holdAmountInDollor }.reduce(0.bigNumber, +)
