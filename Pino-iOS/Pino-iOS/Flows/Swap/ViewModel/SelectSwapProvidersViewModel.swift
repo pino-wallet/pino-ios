@@ -14,7 +14,7 @@ class SelectSwapProvidersViewModel {
 	public let pageDescription = "Select the provider (default is the best)"
 	public let confirmButtonTitle = "Got it"
 	@Published
-	public var providers: [SwapProviderViewModel]?
+	public var providers: [SwapProviderViewModel] = []
 	public var bestProvider: SwapProviderViewModel?
 	public var selectedProvider: SwapProviderViewModel?
 }

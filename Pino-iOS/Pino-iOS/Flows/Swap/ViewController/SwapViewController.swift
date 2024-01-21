@@ -23,6 +23,7 @@ class SwapViewController: UIViewController {
 	private let swapLoadingView = SwapLoadingView()
 	private var isDismissingVC = false
 	private var cancellables = Set<AnyCancellable>()
+	private var providersVC: SwapProvidersViewcontroller!
 
 	// MARK: - View Overrides
 
@@ -40,6 +41,11 @@ class SwapViewController: UIViewController {
 		if GlobalVariables.shared.manageAssetsList == nil {
 			swapLoadingView.showSkeletonView()
 		}
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		swapVM.removeRateTimer()
 	}
 
 	// MARK: - Private Methods
@@ -194,8 +200,8 @@ class SwapViewController: UIViewController {
 
 	private func openProvidersPage() {
 		guard let bestProvider = swapVM.bestProvider else { return }
-		let providersVC = SwapProvidersViewcontroller(
-			providers: swapVM.providers,
+		providersVC = SwapProvidersViewcontroller(
+			providers: swapVM.$providers,
 			bestProvider: bestProvider,
 			selectedProvider: swapVM.swapFeeVM.swapProviderVM
 		) { provider in
@@ -215,6 +221,7 @@ class SwapViewController: UIViewController {
 				self.openConfirmationPage()
 			}
 		}
+		swapVM.removeRateTimer()
 	}
 
 	private func openTokenApprovePage() {

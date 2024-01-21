@@ -28,14 +28,18 @@ class SwapProvidersViewcontroller: UIAlertController {
 	// MARK: - Initializers
 
 	convenience init(
-		providers: [SwapProviderViewModel],
+		providers: Published<[SwapProviderViewModel]>.Publisher,
 		bestProvider: SwapProviderViewModel,
 		selectedProvider: SwapProviderViewModel?,
 		providerDidSelect: @escaping (SwapProviderViewModel) -> Void
 	) {
 		self.init(title: "", message: nil, preferredStyle: .actionSheet)
 		self.providerDidSelect = providerDidSelect
-		selectProviderVM.providers = providers
+		providers
+			.sink { [weak self] newProviders in
+				self?.selectProviderVM.providers = newProviders
+			}
+			.store(in: &cancellables)
 		selectProviderVM.bestProvider = bestProvider
 		selectProviderVM.selectedProvider = selectedProvider
 		setupView()
@@ -108,8 +112,8 @@ class SwapProvidersViewcontroller: UIAlertController {
 	}
 
 	private func setupBindings() {
-		selectProviderVM.$providers.sink { providers in
-			if let providers {
+		selectProviderVM.$providers.compactMap { $0 }.sink { providers in
+			if !providers.isEmpty {
 				self.loadingview.stopAnimating()
 				self.updateProviderCollectionView(providers: providers)
 			} else {

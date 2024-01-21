@@ -17,6 +17,8 @@ class SwapViewModel {
 	public var selectedProtocol: SwapProtocolModel
 	@Published
 	public var swapState: SwapState
+	@Published
+	public var providers: [SwapProviderViewModel] = []
 
 	public let continueButtonTitle = "Swap"
 	public let insufficientAmountButtonTitle = "Insufficient amount"
@@ -27,7 +29,6 @@ class SwapViewModel {
 
 	public var swapFeeVM: SwapFeeViewModel
 
-	public var providers: [SwapProviderViewModel] = []
 	public var bestProvider: SwapProviderViewModel?
 
 	// MARK: - Private Properties
@@ -35,6 +36,7 @@ class SwapViewModel {
 	private let priceManager = SwapPriceManager()
 	private var web3 = Web3Core.shared
 	private let walletManager = PinoWalletManager()
+	private var recalculateSwapTimer: Timer!
 
 	private var swapSide: SwapSide? {
 		if !fromToken.isEditing && !toToken.isEditing {
@@ -63,6 +65,7 @@ class SwapViewModel {
 		self.toToken.amountUpdated = { amount in
 			self.recalculateTokensAmount(amount: amount)
 		}
+		recalculateTokensAmountPeriodically()
 	}
 
 	// MARK: - Public Methods
@@ -161,7 +164,20 @@ class SwapViewModel {
 		}
 	}
 
+	public func removeRateTimer() {
+		recalculateSwapTimer.invalidate()
+	}
+
 	// MARK: - Private Methods
+
+	private func recalculateTokensAmountPeriodically() {
+		recalculateSwapTimer = Timer.scheduledTimer(withTimeInterval: 12, repeats: true) { [weak self] timer in
+			guard let self = self else { return }
+			self.providers = []
+			self.recalculateTokensAmount()
+		}
+		recalculateSwapTimer.fire()
+	}
 
 	private func recalculateTokensAmount(amount: String?) {
 		getSwapSide { side, srcToken, destToken in
