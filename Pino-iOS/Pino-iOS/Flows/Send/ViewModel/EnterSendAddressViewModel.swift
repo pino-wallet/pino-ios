@@ -20,6 +20,10 @@ class EnterSendAddressViewModel {
 	public var sendAmountVM: EnterSendAmountViewModel
 	public var selectedWallet: AccountInfoViewModel!
 
+	public var sendAddressQrCodeScannerTitle: String {
+		"Scan address to send \(sendAmountVM.selectedToken.symbol)"
+	}
+
 	public enum ValidationStatus: Equatable {
 		case error(ValidationError)
 		case success

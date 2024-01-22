@@ -47,11 +47,13 @@ class EnterSendAddressViewController: UIViewController {
 			self.openConfiramtionPage()
 		}
 		enterSendAddressView.scanAddressQRCode = {
-			let qrScanner = QRScannerViewController(foundAddress: { address in
-				self.enterSendAddressView.addressTextField.text = address
-				self.enterSendAddressVM.validateSendAddress(address: address)
-
-			})
+			let qrScanner = QRScannerViewController(
+				scannerTitle: self.enterSendAddressVM.sendAddressQrCodeScannerTitle,
+				foundAddress: { address in
+					self.enterSendAddressView.addressTextField.text = address
+					self.enterSendAddressVM.validateSendAddress(address: address)
+				}
+			)
 			self.present(qrScanner, animated: true)
 		}
 
