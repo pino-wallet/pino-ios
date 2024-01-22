@@ -87,15 +87,15 @@ class SwapConfirmationViewModel {
 		toToken: SwapTokenViewModel,
 		selectedProtocol: SwapProtocolModel,
 		selectedProvider: SwapProviderViewModel?,
-		swapRate: String,
+		swapRate: String?,
 		swapSide: SwapSide
 	) {
 		self.fromToken = fromToken
 		self.toToken = toToken
 		self.selectedProtocol = selectedProtocol
 		self.selectedProvider = selectedProvider
-		self.swapRate = swapRate
 		self.swapSide = swapSide
+		self.swapRate = swapRate
 		setSelectedProtocol()
 		recalculateSwapRate()
 	}
@@ -193,7 +193,7 @@ class SwapConfirmationViewModel {
 				self.toToken = self.toToken
 				let feeVM = SwapFeeViewModel(swapProviderVM: recalculatedSwapInfo)
 				feeVM.updateQuote(srcToken: self.fromToken, destToken: self.toToken)
-				self.swapRate = feeVM.calculatedAmount
+				self.swapRate = feeVM.swapQuote
 				self.swapManager = SwapManager(
 					selectedProvider: recalculatedSwapInfo,
 					srcToken: self.fromToken.selectedToken,

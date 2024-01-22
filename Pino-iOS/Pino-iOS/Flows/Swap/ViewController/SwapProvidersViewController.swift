@@ -16,8 +16,6 @@ class SwapProvidersViewcontroller: UIAlertController {
 	private let titleStackView = UIStackView()
 	private let titleLabel = PinoLabel(style: .title, text: nil)
 	private let descriptionLabel = PinoLabel(style: .description, text: nil)
-	private let providersContainerView = UIView()
-	private let loadingview = UIActivityIndicatorView()
 	private var providersCollectionView: SwapProvidersCollectionView!
 
 	private var providerDidSelect: ((SwapProviderViewModel) -> Void)!
@@ -28,14 +26,16 @@ class SwapProvidersViewcontroller: UIAlertController {
 	// MARK: - Initializers
 
 	convenience init(
-		providers: [SwapProviderViewModel],
+		providers: Published<[SwapProviderViewModel]>.Publisher,
 		bestProvider: SwapProviderViewModel,
 		selectedProvider: SwapProviderViewModel?,
 		providerDidSelect: @escaping (SwapProviderViewModel) -> Void
 	) {
 		self.init(title: "", message: nil, preferredStyle: .actionSheet)
 		self.providerDidSelect = providerDidSelect
-		selectProviderVM.providers = providers
+		providers.sink { [weak self] newProviders in
+			self?.selectProviderVM.providers = newProviders
+		}.store(in: &cancellables)
 		selectProviderVM.bestProvider = bestProvider
 		selectProviderVM.selectedProvider = selectedProvider
 		setupView()
@@ -60,11 +60,9 @@ class SwapProvidersViewcontroller: UIAlertController {
 			self.dismiss(animated: true)
 		})
 		contentStackView.addArrangedSubview(titleStackView)
-		contentStackView.addArrangedSubview(providersContainerView)
+		contentStackView.addArrangedSubview(providersCollectionView)
 		titleStackView.addArrangedSubview(titleLabel)
 		titleStackView.addArrangedSubview(descriptionLabel)
-		providersContainerView.addSubview(loadingview)
-		providersContainerView.addSubview(providersCollectionView)
 		contentView.addSubview(contentStackView)
 		view.addSubview(contentView)
 	}
@@ -81,9 +79,6 @@ class SwapProvidersViewcontroller: UIAlertController {
 
 		contentStackView.spacing = 30
 		titleStackView.spacing = 12
-
-		loadingview.style = .large
-		loadingview.color = .Pino.primary
 	}
 
 	private func setupConstraint() {
@@ -95,30 +90,22 @@ class SwapProvidersViewcontroller: UIAlertController {
 		contentView.pin(
 			.allEdges
 		)
-		providersContainerView.pin(
-			.fixedHeight(210)
-		)
 		providersCollectionView.pin(
-			.allEdges()
-		)
-		loadingview.pin(
-			.centerX,
-			.centerY
+			.fixedHeight(210)
 		)
 	}
 
 	private func setupBindings() {
 		selectProviderVM.$providers.sink { providers in
-			if let providers {
-				self.loadingview.stopAnimating()
-				self.updateProviderCollectionView(providers: providers)
+			if providers.isEmpty {
+				self.updateProviderCollectionView(providers: nil)
 			} else {
-				self.loadingview.startAnimating()
+				self.updateProviderCollectionView(providers: providers)
 			}
 		}.store(in: &cancellables)
 	}
 
-	private func updateProviderCollectionView(providers: [SwapProviderViewModel]) {
+	private func updateProviderCollectionView(providers: [SwapProviderViewModel]?) {
 		providersCollectionView.swapProviders = providers
 		providersCollectionView.bestProvider = selectProviderVM.bestProvider
 		providersCollectionView.selectedProvider = selectProviderVM.selectedProvider

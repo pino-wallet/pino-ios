@@ -14,7 +14,7 @@ class SwapProvidersCollectionView: UICollectionView {
 
 	// MARK: - Public Properties
 
-	public var swapProviders = [SwapProviderViewModel]()
+	public var swapProviders: [SwapProviderViewModel]?
 	public var bestProvider: SwapProviderViewModel?
 	public var selectedProvider: SwapProviderViewModel?
 
@@ -44,13 +44,15 @@ class SwapProvidersCollectionView: UICollectionView {
 
 extension SwapProvidersCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		guard let swapProviders else { return }
 		providerDidSelect(swapProviders[indexPath.item])
 	}
 }
 
 extension SwapProvidersCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		swapProviders.count
+		guard let swapProviders else { return 3 }
+		return swapProviders.count
 	}
 
 	func collectionView(
@@ -61,15 +63,22 @@ extension SwapProvidersCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: SwapProviderCell.cellReuseID,
 			for: indexPath
 		) as! SwapProviderCell
-		cell.swapProviderVM = swapProviders[indexPath.item]
-		if let selectedProvider, swapProviders[indexPath.item].provider == selectedProvider.provider {
-			if let bestProvider, selectedProvider.provider == bestProvider.provider {
-				cell.cellStyle = .bestRate
+		if let swapProviders {
+			cell.hideSkeletonView()
+			cell.swapProviderVM = swapProviders[indexPath.item]
+			if let selectedProvider, swapProviders[indexPath.item].provider == selectedProvider.provider {
+				if let bestProvider, selectedProvider.provider == bestProvider.provider {
+					cell.cellStyle = .bestRate
+				} else {
+					cell.cellStyle = .selected
+				}
 			} else {
-				cell.cellStyle = .selected
+				cell.cellStyle = .normal
 			}
 		} else {
+			cell.swapProviderVM = nil
 			cell.cellStyle = .normal
+			cell.showSkeletonView()
 		}
 		return cell
 	}

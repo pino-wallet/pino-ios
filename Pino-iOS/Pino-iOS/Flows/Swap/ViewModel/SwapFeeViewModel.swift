@@ -11,7 +11,7 @@ class SwapFeeViewModel {
 	// MARK: Public Properties
 
 	@Published
-	public var calculatedAmount: String?
+	public var swapQuote: String?
 	@Published
 	public var feeTag: FeeTag = .none
 	@Published
@@ -61,9 +61,9 @@ class SwapFeeViewModel {
 			} else {
 				formattedToTokenAmount = "0 \(destToken.selectedToken.symbol)"
 			}
-			calculatedAmount = "\(formattedFromTokenAmount) = \(formattedToTokenAmount)"
+			swapQuote = "\(formattedFromTokenAmount) = \(formattedToTokenAmount)"
 		} else {
-			calculatedAmount = nil
+			swapQuote = nil
 		}
 	}
 
