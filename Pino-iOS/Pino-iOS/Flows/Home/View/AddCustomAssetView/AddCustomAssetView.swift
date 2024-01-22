@@ -84,12 +84,15 @@ class AddCustomAssetView: UIView {
 	private func setupView() {
 		scanQRCodeIconButton.addTarget(self, action: #selector(openScannerQRCodeVC), for: .touchUpInside)
 
-		scannerQRCodeVC = ScannerViewController(getScanResult: { scanResult in
-			self.contractTextfieldView.text = scanResult
-			self.addCustomAssetVM.validateContractAddressBeforeRequest(
-				textFieldText: self.contractTextfieldView.text ?? ""
-			)
-		})
+		scannerQRCodeVC = ScannerViewController(
+			scannerTitle: addCustomAssetVM.customAssetQrCodeScannetTitle,
+			getScanResult: { scanResult in
+				self.contractTextfieldView.text = scanResult
+				self.addCustomAssetVM.validateContractAddressBeforeRequest(
+					textFieldText: self.contractTextfieldView.text ?? ""
+				)
+			}
+		)
 
 		addButton.title = addCustomAssetVM.addCustomAssetButtonTitle
 
