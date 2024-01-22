@@ -32,7 +32,7 @@ class ActivityDetailsViewModel {
 	public let fromTitle = "From"
 	public let toTitle = "To"
 	public let typeTitle = "Type"
-	public let feeTitle = "Fee"
+	public let feeTitle = "Network Fee"
 	public let viewEthScanTitle = "View on etherscan"
 	public let viewEthScanIconName = "primary_right_arrow"
 	public let otherTokenTransactionMessage =

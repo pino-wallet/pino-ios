@@ -62,7 +62,7 @@ class SwapConfirmationViewModel {
 	public var formattedFeeInDollar: String?
 
 	public let swapRateTitle = "Rate"
-	public let feeTitle = "Fee"
+	public let feeTitle = "Network Fee"
 	public let feeInfoActionSheetTitle = "Network fee"
 	public let feeInfoActionSheetDescription =
 		"This is a network fee charged by Ethereum for processing your transaction. Pino does not receive any part of this fee."

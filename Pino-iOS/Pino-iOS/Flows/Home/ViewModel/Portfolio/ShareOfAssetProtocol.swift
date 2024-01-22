@@ -29,7 +29,7 @@ extension ShareOfAssetsProtocol {
 		if amountPercentage > 1.bigNumber {
 			return "\(amountPercentage.percentFormat)%"
 		} else {
-			return "Less than 1%"
+			return "<1%"
 		}
 	}
 

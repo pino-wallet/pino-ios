@@ -224,7 +224,7 @@ class InvestConfirmationView: UIView {
 			.fixedHeight(20)
 		)
 		feeTitleView.pin(
-			.fixedWidth(48)
+			.fixedWidth(120)
 		)
 		feeLabel.pin(
 			.verticalEdges,

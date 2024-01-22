@@ -46,14 +46,15 @@ class TabBarViewController: UITabBarController {
 		appearance.stackedLayoutAppearance.selected.titleTextAttributes = [
 			.foregroundColor: UIColor.Pino.primary,
 			.font: UIFont.PinoStyle.SemiboldCaption2!,
-		]
+        ]
 		appearance.stackedLayoutAppearance.normal.titleTextAttributes = [
-			.foregroundColor: UIColor.Pino.primary,
+            .foregroundColor: UIColor.Pino.primary.withAlphaComponent(0.64),
 			.font: UIFont.PinoStyle.mediumCaption2!,
 		]
 		// Tab icon color
-		appearance.stackedLayoutAppearance.normal.iconColor = .Pino.primary
+        appearance.stackedLayoutAppearance.normal.iconColor = .Pino.primary.withAlphaComponent(0.64)
 		appearance.stackedLayoutAppearance.selected.iconColor = .Pino.primary
+        
 
 		tabBar.standardAppearance = appearance
 		tabBar.scrollEdgeAppearance = appearance
@@ -64,7 +65,7 @@ class TabBarViewController: UITabBarController {
 			let tabBarItemViewController = tabItem.viewController
 			tabBarItemViewController.tabBarItem = UITabBarItem(
 				title: tabItem.title,
-				image: UIImage(named: tabItem.image),
+                image: UIImage(named: tabItem.image),
 				selectedImage: UIImage(named: tabItem.selectedImage)
 			)
 			tabBarItemViewControllers.append(tabBarItemViewController)

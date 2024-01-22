@@ -33,7 +33,7 @@ class SwapFeeViewModel {
 	public let saveAmountTitle = "You save"
 	public let providerTitle = "Provider"
 	public let priceImpactTitle = "Price impact"
-	public let feeTitle = "Fee"
+	public let feeTitle = "Network Fee"
 	public let celebrateEmoji = "🎉"
 	public let loadingText = "Fetching the best price"
 	public let noQuoteErrorText = "No quotes found"

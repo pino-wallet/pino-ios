@@ -25,7 +25,7 @@ class WithdrawConfirmViewModel {
 
 	public let pageTitle = "Confirm withdraw withdrawal"
 	public let protocolTitle = "Protocol"
-	public let feeTitle = "Fee"
+	public let feeTitle = "Network Fee"
 	public let confirmButtonTitle = "Confirm"
 	public let loadingButtonTitle = "Please wait"
 	public let insufficientAmountButtonTitle = "Insufficient ETH amount"

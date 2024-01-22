@@ -215,7 +215,7 @@ extension ActivitiesCollectionView: UICollectionViewDelegateFlowLayout {
 
 extension ActivitiesCollectionView: UICollectionViewDataSource {
 	func numberOfSections(in collectionView: UICollectionView) -> Int {
-		if separatedActivities.isEmpty || coinInfoVM.coinPortfolio.coinPortfolioModel.detail!.isPosition {
+        if separatedActivities.isEmpty || coinInfoVM.coinPortfolio.type != .verified {
 			return 1
 		} else {
 			return separatedActivities.count
