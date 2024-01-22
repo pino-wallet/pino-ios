@@ -182,7 +182,12 @@ class CoinInfoStatsView: UIStackView {
 
 			coinPriceStackView.isHidden = true
 			thirdStatLabel.isHidden = false
-			#warning("this section should be updated after connect app to position assets")
+
+			thirdStatLabel.text = coinInfoVM.positionUnderlyingAssetSymbol
+
+			firstStatLabel.text = coinInfoVM.positionAssetProtocol
+
+			secondStatLabel.text = coinInfoVM.positionAssetFormattedType
 		}
 
 		[firstStatLabel, secondStatLabel, thirdStatLabel].forEach {
