@@ -298,7 +298,7 @@ class SwapFeeView: UIView {
 			self.updateSaveAmount(saveAmount)
 		}.store(in: &cancellables)
 
-		swapFeeVM.$calculatedAmount.sink { amount in
+		swapFeeVM.$swapQuote.sink { amount in
 			self.updateCalculatedAmount(amount)
 		}.store(in: &cancellables)
 

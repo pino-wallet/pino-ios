@@ -221,7 +221,7 @@ class SwapViewController: UIViewController {
 				self.openConfirmationPage()
 			}
 		}
-		swapVM.removeRateTimer()
+//		swapVM.removeRateTimer()
 	}
 
 	private func openTokenApprovePage() {
@@ -232,7 +232,7 @@ class SwapViewController: UIViewController {
 				toToken: swapVM.toToken,
 				selectedProtocol: swapVM.selectedProtocol,
 				selectedProvider: swapVM.swapFeeVM.swapProviderVM,
-				swapRate: swapVM.swapFeeVM.calculatedAmount!,
+				swapRate: swapVM.swapFeeVM.swapQuote,
 				swapSide: side
 			)
 			let approveVC = ApproveContractViewController(
@@ -255,7 +255,7 @@ class SwapViewController: UIViewController {
 				toToken: swapVM.toToken,
 				selectedProtocol: swapVM.selectedProtocol,
 				selectedProvider: swapVM.swapFeeVM.swapProviderVM,
-				swapRate: swapVM.swapFeeVM.calculatedAmount!,
+				swapRate: swapVM.swapFeeVM.swapQuote,
 				swapSide: side
 			)
 			let confirmationVC = SwapConfirmationViewController(

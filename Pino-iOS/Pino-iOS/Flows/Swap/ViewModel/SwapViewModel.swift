@@ -309,7 +309,7 @@ class SwapViewModel {
 	}
 
 	private func removePreviousFeeInfo() {
-		swapFeeVM.calculatedAmount = .emptyString
+		swapFeeVM.swapQuote = .emptyString
 		swapFeeVM.priceImpact = nil
 	}
 
