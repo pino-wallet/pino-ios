@@ -104,6 +104,7 @@ class TitleWithInfo: UIButton {
 	}
 
 	private func setupStyles() {
+		contentHorizontalAlignment = .leading
 		customConfiguration.background.backgroundColor = .Pino.clear
 		customConfiguration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
 		configuration = customConfiguration
@@ -113,7 +114,7 @@ class TitleWithInfo: UIButton {
 		heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 		widthAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
 
-		widthAnchor.constraint(lessThanOrEqualToConstant: 108).isActive = true
+		widthAnchor.constraint(lessThanOrEqualToConstant: 130).isActive = true
 	}
 
 	private func setupDismissGesture() {

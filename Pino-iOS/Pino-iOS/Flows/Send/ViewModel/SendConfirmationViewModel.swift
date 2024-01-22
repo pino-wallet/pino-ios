@@ -88,12 +88,12 @@ class SendConfirmationViewModel {
 
 	public let selectedWalletTitle = "From"
 	public let recipientAddressTitle = "To"
-	public let feeTitle = "Fee"
+	public let feeTitle = "Network Fee"
 	public let confirmButtonTitle = "Confirm"
 	public let scamConfirmButtonTitle = "Confirm Anyway"
 	public let scamErrorTitle =
 		"This address maybe be a scam! This address maybe be a scam! This address maybe be a scam!"
-	public let feeInfoActionSheetTitle = "Fee"
+	public let feeInfoActionSheetTitle = "Network Fee"
 	public let feeInfoActionSheetDescription = "Sample Text"
 	public let feeErrorText = "Error in calculation!"
 	public let feeErrorIcon = "refresh"

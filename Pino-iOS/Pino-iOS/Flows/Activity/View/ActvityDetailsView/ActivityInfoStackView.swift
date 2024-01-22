@@ -104,6 +104,7 @@ class ActivityInfoStackView: UIStackView {
 
 	private func setupConstraints() {
 		infoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 160).isActive = true
+		titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 140).isActive = true
 
 		heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
 	}

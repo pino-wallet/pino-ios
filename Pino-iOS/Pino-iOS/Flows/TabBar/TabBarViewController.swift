@@ -48,11 +48,11 @@ class TabBarViewController: UITabBarController {
 			.font: UIFont.PinoStyle.SemiboldCaption2!,
 		]
 		appearance.stackedLayoutAppearance.normal.titleTextAttributes = [
-			.foregroundColor: UIColor.Pino.primary,
+			.foregroundColor: UIColor.Pino.primary.withAlphaComponent(0.64),
 			.font: UIFont.PinoStyle.mediumCaption2!,
 		]
 		// Tab icon color
-		appearance.stackedLayoutAppearance.normal.iconColor = .Pino.primary
+		appearance.stackedLayoutAppearance.normal.iconColor = .Pino.primary.withAlphaComponent(0.64)
 		appearance.stackedLayoutAppearance.selected.iconColor = .Pino.primary
 
 		tabBar.standardAppearance = appearance

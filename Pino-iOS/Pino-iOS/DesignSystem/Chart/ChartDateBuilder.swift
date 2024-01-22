@@ -22,16 +22,19 @@ class ChartDateBuilder {
 	// MARK: - Public Methods
 
 	public func timeFrame() -> String {
+		#warning("maybe we use this section later")
 		switch dateFilter {
-		case .day:
-			return "Last day"
-		case .week:
-			return "Last week"
-		case .month:
-			return "Last month"
-		case .year:
-			return "Last year"
-		case .all:
+//		case .day:
+//			return "Last day"
+//		case .week:
+//			return "Last week"
+//		case .month:
+//			return "Last month"
+//		case .year:
+//			return "Last year"
+//		case .all:
+//			return ""
+		default:
 			return ""
 		}
 	}

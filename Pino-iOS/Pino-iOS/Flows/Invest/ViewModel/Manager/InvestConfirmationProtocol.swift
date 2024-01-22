@@ -47,8 +47,8 @@ protocol InvestConfirmationViewProtocol {
 
 extension InvestConfirmationViewProtocol {
 	var selectedProtocolTitle: String { "Protocol" }
-	var feeTitle: String { "Fee" }
-	var feeInfoActionSheetTitle: String { "Fee" }
+	var feeTitle: String { "Network Fee" }
+	var feeInfoActionSheetTitle: String { "Network Fee" }
 	var feeInfoActionSheetDescription: String { "Sample Text" }
 	var protocolInfoActionSheetTitle: String { "Protocol" }
 	var protocolInfoActionSheetDescription: String { "Sample Text" }
