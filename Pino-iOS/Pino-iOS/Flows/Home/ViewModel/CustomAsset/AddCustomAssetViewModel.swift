@@ -60,6 +60,7 @@ class AddCustomAssetViewModel {
 	public let addCustomAssetTextfieldPlaceholder = "Enter contract address"
 	public let addCustomAssetTextfieldError = "This is an error!"
 	public let addCustomAssetTextfieldIcon = "qr_code_scanner"
+	public let customAssetQrCodeScannetTitle = "Scan contract address"
 
 	public var customAssetNameInfo: CustomAssetInfoViewModel
 	public var customAssetUserBalanceInfo: CustomAssetInfoViewModel

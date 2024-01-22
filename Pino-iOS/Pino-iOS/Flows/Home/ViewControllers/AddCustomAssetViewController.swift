@@ -139,7 +139,7 @@ class AddCustomAssetViewController: UIViewController {
 	}
 
 	@objc
-	func openScannerQRCodeVC(scannerVC: ScannerViewController) {
+	func openScannerQRCodeVC(scannerVC: QRScannerViewController) {
 		present(scannerVC, animated: true)
 	}
 }

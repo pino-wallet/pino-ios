@@ -13,7 +13,7 @@ class AddCustomAssetView: UIView {
 	typealias PresentAlertClosureType = (_ alertTitle: String, _ alertDescription: String) -> Void
 	typealias DissmissKeyboardClosureType = () -> Void
 	typealias ToggleNavigationRightButtonEnabledClosureType = (_ isEnabled: Bool) -> Void
-	typealias PresentScannerVCType = (_ scannerVC: ScannerViewController) -> Void
+	typealias PresentScannerVCType = (_ scannerVC: QRScannerViewController) -> Void
 
 	// MARK: - Closure
 
@@ -50,7 +50,7 @@ class AddCustomAssetView: UIView {
 	}
 
 	private let addButtonTapped: () -> Void
-	private var scannerQRCodeVC: ScannerViewController!
+	private var scannerQRCodeVC: QRScannerViewController!
 
 	// MARK: - Initializers
 
@@ -84,12 +84,15 @@ class AddCustomAssetView: UIView {
 	private func setupView() {
 		scanQRCodeIconButton.addTarget(self, action: #selector(openScannerQRCodeVC), for: .touchUpInside)
 
-		scannerQRCodeVC = ScannerViewController(getScanResult: { scanResult in
-			self.contractTextfieldView.text = scanResult
-			self.addCustomAssetVM.validateContractAddressBeforeRequest(
-				textFieldText: self.contractTextfieldView.text ?? ""
-			)
-		})
+		scannerQRCodeVC = QRScannerViewController(
+			scannerTitle: addCustomAssetVM.customAssetQrCodeScannetTitle,
+			foundAddress: { scanResult in
+				self.contractTextfieldView.text = scanResult
+				self.addCustomAssetVM.validateContractAddressBeforeRequest(
+					textFieldText: self.contractTextfieldView.text ?? ""
+				)
+			}
+		)
 
 		addButton.title = addCustomAssetVM.addCustomAssetButtonTitle
 

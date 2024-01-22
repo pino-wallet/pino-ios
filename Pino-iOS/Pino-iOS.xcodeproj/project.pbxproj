@@ -455,7 +455,6 @@
 		D9AF29E52A5010C4006BC53E /* ActivityCellViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF29E42A5010C4006BC53E /* ActivityCellViewModelProtocol.swift */; };
 		D9AF29E82A506F1A006BC53E /* ActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF29E72A506F1A006BC53E /* ActivityType.swift */; };
 		D9AF6DCC29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */; };
-		D9B8DAA52B56904E00256589 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B8DAA42B56904E00256589 /* ScannerViewController.swift */; };
 		D9BCE5C72A63C519002A9B58 /* ActivitySwapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BCE5C62A63C519002A9B58 /* ActivitySwapHeaderView.swift */; };
 		D9BD90472A95DE2000B28B74 /* BorrowingTokenCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD90462A95DE2000B28B74 /* BorrowingTokenCellViewModel.swift */; };
 		D9BE05142A8221C8008670F9 /* CDActivityParent+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE05082A8221C8008670F9 /* CDActivityParent+CoreDataClass.swift */; };
@@ -1329,7 +1328,6 @@
 		D9AF29E42A5010C4006BC53E /* ActivityCellViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCellViewModelProtocol.swift; sourceTree = "<group>"; };
 		D9AF29E72A506F1A006BC53E /* ActivityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityType.swift; sourceTree = "<group>"; };
 		D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralNotificationSettingsHeader.swift; sourceTree = "<group>"; };
-		D9B8DAA42B56904E00256589 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		D9BCE5C62A63C519002A9B58 /* ActivitySwapHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySwapHeaderView.swift; sourceTree = "<group>"; };
 		D9BD90462A95DE2000B28B74 /* BorrowingTokenCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingTokenCellViewModel.swift; sourceTree = "<group>"; };
 		D9BD90492A95DE7C00B28B74 /* BorrowingTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingTokenModel.swift; sourceTree = "<group>"; };
@@ -3444,7 +3442,7 @@
 		D9B8DAA32B568FC900256589 /* ScannerViewcontroller */ = {
 			isa = PBXGroup;
 			children = (
-				D9B8DAA42B56904E00256589 /* ScannerViewController.swift */,
+				E3D204CB2A39B7E90027FEBC /* QRScannerViewController.swift */,
 			);
 			path = ScannerViewcontroller;
 			sourceTree = "<group>";
@@ -4271,7 +4269,6 @@
 				D9A328122A3462B6005A8393 /* SelectAssetToSendViewController.swift */,
 				E3F482EB2A3485A500EEC9CF /* EnterSendAmountViewController.swift */,
 				D99CAFC82A3AF0D400DBEF2B /* EnterSendAddressViewController.swift */,
-				E3D204CB2A39B7E90027FEBC /* QRScannerViewController.swift */,
 				E34383692A3D912A0048BDA1 /* SendConfirmationViewController.swift */,
 			);
 			path = ViewController;
@@ -5154,7 +5151,6 @@
 				D924C3482A94969F007299A4 /* BorrowAPIService.swift in Sources */,
 				D9A936C92ACD60CD00C3449E /* ApprovingLoadingViewModel.swift in Sources */,
 				E3CFC07A2A2F241500E165A4 /* CircleMarker.swift in Sources */,
-				D9B8DAA52B56904E00256589 /* ScannerViewController.swift in Sources */,
 				87F08F9B76154826B35A43F3 /* CustomAssetModel.swift in Sources */,
 				D9C1807D2A88EB950066C2A7 /* SpeedUpAlertViewModel.swift in Sources */,
 				D99042BF2B29A35F00C99798 /* W3CompoundRepayManager.swift in Sources */,
