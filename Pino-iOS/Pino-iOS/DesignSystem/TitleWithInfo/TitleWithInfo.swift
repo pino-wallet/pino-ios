@@ -104,7 +104,7 @@ class TitleWithInfo: UIButton {
 	}
 
 	private func setupStyles() {
-        contentHorizontalAlignment = .leading
+		contentHorizontalAlignment = .leading
 		customConfiguration.background.backgroundColor = .Pino.clear
 		customConfiguration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
 		configuration = customConfiguration
