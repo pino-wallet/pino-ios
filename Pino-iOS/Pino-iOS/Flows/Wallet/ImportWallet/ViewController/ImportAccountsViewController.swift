@@ -14,7 +14,6 @@ class ImportAccountsViewController: UIViewController {
 	private var importAccountsVM: ImportAccountsViewModel
 	private var importAccountsView: ImportAccountsView!
 	private var importLoadingView = ImportAccountLoadingView()
-	private var signWalletSheet: SignImportWalletSheet!
 
 	// MARK: - Initializers
 
@@ -65,32 +64,12 @@ class ImportAccountsViewController: UIViewController {
 	}
 
 	private func openPasscodePage() {
-		signWalletSheet = SignImportWalletSheet(
-			title: "Sign the message in you wallet to continue",
-			description: "Pino uses this signature to verify that you’re the owner of this Ethereum address"
-		)
-		signWalletSheet.onActionButtonTap = { [self] in
-			signWalletSheet.dismiss(animated: true)
-			guard let accounts = importAccountsVM.accounts else { return }
-			let selectedAccounts = accounts.filter { $0.isSelected }
-			if !selectedAccounts.isEmpty {
-				let createPasscodeViewController = CreatePasscodeViewController(selectedAccounts: selectedAccounts)
-				createPasscodeViewController.pageSteps = 3
-				navigationController?.pushViewController(createPasscodeViewController, animated: true)
-			}
+		guard let accounts = importAccountsVM.accounts else { return }
+		let selectedAccounts = accounts.filter { $0.isSelected }
+		if !selectedAccounts.isEmpty {
+			let createPasscodeViewController = CreatePasscodeViewController(selectedAccounts: selectedAccounts)
+			createPasscodeViewController.pageSteps = 3
+			navigationController?.pushViewController(createPasscodeViewController, animated: true)
 		}
-		present(signWalletSheet, animated: true, completion: {
-			let dismissTapGesture = UITapGestureRecognizer(
-				target: self,
-				action: #selector(self.dismissSignImportWalletSheet)
-			)
-			self.signWalletSheet.view.superview?.subviews[0].addGestureRecognizer(dismissTapGesture)
-			self.signWalletSheet.view.superview?.subviews[0].isUserInteractionEnabled = true
-		})
-	}
-
-	@objc
-	private func dismissSignImportWalletSheet() {
-		signWalletSheet.dismiss(animated: true)
 	}
 }
