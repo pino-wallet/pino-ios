@@ -18,6 +18,7 @@ class CreatePasscodeViewController: UIViewController {
 	public var createPassView: ManagePasscodeView?
 	public var createPassVM: SelectPassViewModel!
 	public var pageSteps: Int!
+	public var currentStep: Int!
 
 	// MARK: - initializers
 
@@ -45,7 +46,7 @@ class CreatePasscodeViewController: UIViewController {
 
 	override func loadView() {
 		setupView()
-		setSteperView(stepsCount: pageSteps, curreuntStep: pageSteps)
+		setSteperView(stepsCount: pageSteps, curreuntStep: currentStep)
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -63,14 +64,16 @@ class CreatePasscodeViewController: UIViewController {
 
 	private func configCreatePassVM() {
 		// Custom view should be created
-		createPassVM = SelectPassViewModel(finishPassCreation: { passcode in
+		createPassVM = SelectPassViewModel(finishPassCreation: { [self] passcode in
 			// Passcode was chose -> Show verify passcode page
 			let verifyPassVC = VerifyPasscodeViewController(
-				selectedAccounts: self.selectedAccounts,
-				mnemonics: self.mnemonics
+				selectedAccounts: selectedAccounts,
+				mnemonics: mnemonics
 			)
 			verifyPassVC.selectedPasscode = passcode
-			self.navigationController?.pushViewController(verifyPassVC, animated: true)
+			verifyPassVC.pageSteps = pageSteps
+			verifyPassVC.currentStep = currentStep + 1
+			navigationController?.pushViewController(verifyPassVC, animated: true)
 		}, onErrorHandling: { error in
 			switch error {
 			case .emptySelectedPasscode:

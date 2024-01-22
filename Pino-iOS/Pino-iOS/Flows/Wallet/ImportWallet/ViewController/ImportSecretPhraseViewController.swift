@@ -24,7 +24,7 @@ class ImportSecretPhraseViewController: UIViewController {
 	override func loadView() {
 		setupView()
 		if isNewWallet {
-			setSteperView(stepsCount: 3, curreuntStep: 1)
+			setSteperView(stepsCount: 4, curreuntStep: 1)
 		} else {
 			setupPrimaryColorNavigationBar()
 			setNavigationTitle(importAccountVM.pageTitle)

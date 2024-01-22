@@ -18,6 +18,8 @@ class VerifyPasscodeViewController: UIViewController {
 	public var verifyPassView: ManagePasscodeView?
 	public var verifyPassVM: VerifyPassViewModel!
 	public var selectedPasscode = ""
+	public var pageSteps: Int!
+	public var currentStep: Int!
 
 	// MARK: Initializers
 
@@ -43,7 +45,7 @@ class VerifyPasscodeViewController: UIViewController {
 
 	override func loadView() {
 		setupView()
-		setSteperView(stepsCount: 3, curreuntStep: 3)
+		setSteperView(stepsCount: pageSteps, curreuntStep: currentStep)
 	}
 
 	// MARK: Private Methods

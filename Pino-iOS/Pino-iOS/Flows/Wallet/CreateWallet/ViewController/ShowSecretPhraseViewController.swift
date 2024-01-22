@@ -82,8 +82,17 @@ class ShowSecretPhraseViewController: UIViewController {
 	}
 
 	private func goToVerifyPage() {
-		let verifyViewController = VerifySecretPhraseViewController()
-		verifyViewController.secretPhraseVM = VerifySecretPhraseViewModel(secretPhraseVM.secretPhraseList)
-		navigationController?.pushViewController(verifyViewController, animated: true)
+//		let verifyViewController = VerifySecretPhraseViewController()
+//		verifyViewController.secretPhraseVM = VerifySecretPhraseViewModel(secretPhraseVM.secretPhraseList)
+//		navigationController?.pushViewController(verifyViewController, animated: true)
+
+		/// Temporarily removing verify step and moving to create pass section
+		let createPasscodeViewController = CreatePasscodeViewController(
+			mnemonics: secretPhraseVM.secretPhraseList
+				.joined(separator: " ")
+		)
+		createPasscodeViewController.pageSteps = 3
+		createPasscodeViewController.currentStep = 2
+		navigationController?.pushViewController(createPasscodeViewController, animated: true)
 	}
 }
