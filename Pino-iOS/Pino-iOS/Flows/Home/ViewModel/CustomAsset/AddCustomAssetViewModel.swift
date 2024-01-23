@@ -73,6 +73,7 @@ class AddCustomAssetViewModel {
 	private var getCustomAssetInfoRequestWork: DispatchWorkItem!
 	private var readNodeContractKey = "0"
 	private var userAddressStaticCode = "0x"
+    private var currentValidationStatus: ContractValidationStatus = .clear
 
 	private let coredataManager = CoreDataManager()
 
@@ -108,13 +109,17 @@ class AddCustomAssetViewModel {
 			return
 		}
 		if clipboardText.validateETHContractAddress() {
-			changeViewStatusClosure(.pasteFromClipboard(clipboardText))
+            if currentValidationStatus == .clear {
+                changeViewStatusClosure(.pasteFromClipboard(clipboardText))
+                currentValidationStatus = .pasteFromClipboard(clipboardText)
+            }
 		}
 	}
 
 	public func validateContractAddressBeforeRequest(textFieldText: String) {
 		if textFieldText.isEmpty {
 			changeViewStatusClosure(.clear)
+            currentValidationStatus = .clear
 			return
 		}
 
@@ -124,9 +129,11 @@ class AddCustomAssetViewModel {
 				.first(where: { $0.id.lowercased() == lowercasedTextFieldText })
 			if foundToken != nil {
 				changeViewStatusClosure(.error(.alreadyAdded))
+                currentValidationStatus = .error(.alreadyAdded)
 				return
 			} else {
 				changeViewStatusClosure(.pending)
+                currentValidationStatus = .pending
 				let contractChecksumAddress = Web3Core.shared.getChecksumOfEip55Address(eip55Address: textFieldText)
 				Web3Core.shared.getCustomAssetInfo(contractAddress: contractChecksumAddress)
 					.done { [weak self] assetInfo in
@@ -142,13 +149,16 @@ class AddCustomAssetViewModel {
 								decimal: decimal
 							))
 							self?.changeViewStatusClosure(.success)
+                            self?.currentValidationStatus = .success
 						}
 					}.catch { error in
 						self.changeViewStatusClosure(.error(.networkError))
+                        self.currentValidationStatus = .error(.networkError)
 					}
 			}
 		} else {
 			changeViewStatusClosure(.error(.notValid))
+            currentValidationStatus = .error(.notValid)
 		}
 	}
 

@@ -10,7 +10,7 @@ import UIKit
 class AddCustomAssetView: UIView {
 	// MARK: - Typealias
 
-	typealias PresentAlertClosureType = (_ alertTitle: String, _ alertDescription: String) -> Void
+	typealias PresentAlertClosureType = (_ infoActionSheet: InfoActionSheet, _ completion: @escaping () -> Void) -> Void
 	typealias DissmissKeyboardClosureType = () -> Void
 	typealias ToggleNavigationRightButtonEnabledClosureType = (_ isEnabled: Bool) -> Void
 	typealias PresentScannerVCType = (_ scannerVC: QRScannerViewController) -> Void
