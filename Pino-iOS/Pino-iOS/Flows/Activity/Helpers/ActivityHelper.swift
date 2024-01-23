@@ -62,12 +62,16 @@ struct ActivityHelper {
 	public func getActivityDate(activityBlockTime: String) -> Date {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+		dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+		dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
 		return dateFormatter.date(from: activityBlockTime)!
 	}
 
 	public func getServerFormattedStringDate(date: Date) -> String {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+		dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+		dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
 		return dateFormatter.string(from: date)
 	}
 
