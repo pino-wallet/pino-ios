@@ -26,6 +26,7 @@ class AssetManagerViewModel {
 	// MARK: - Private Properties
 
 	private let accountingAPIClient = AccountingAPIClient()
+	private let assetsAPIClient = AssetsAPIClient()
 	private let ctsAPIclient = CTSAPIClient()
 	private let coreDataManager = CoreDataManager()
 	private var cancellables = Set<AnyCancellable>()
@@ -122,7 +123,7 @@ class AssetManagerViewModel {
 		}
 	}
 
-	// MARK: Private Methods
+	// MARK: - Private Methods
 
 	private func addSelectedAssetToCoreData(_ asset: AssetViewModel) {
 		let selectedAsset = coreDataManager.addNewSelectedAsset(id: asset.id)
@@ -150,7 +151,23 @@ class AssetManagerViewModel {
 		}
 	}
 
-	// MARK: Public Methods
+	// MARK: - Public Methods
+
+	public func getPositionAssetDetails() -> Promise<[PositionAssetModel]> {
+		Promise<[PositionAssetModel]> { seal in
+			assetsAPIClient.getAllPositionAssets().sink { completed in
+				switch completed {
+				case .finished:
+					print("tokens received successfully")
+				case let .failure(error):
+					print("Failed to fetch position asset details:\(error)")
+					Toast.default(title: "Failed to get position assets", style: .error).show(haptic: .warning)
+				}
+			} receiveValue: { positionAssets in
+				seal.fulfill(positionAssets)
+			}.store(in: &cancellables)
+		}
+	}
 
 	public func addNewCustomAsset(_ customAsset: CustomAsset) {
 		addSelectedAssetToCoreData(id: customAsset.id)

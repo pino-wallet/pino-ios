@@ -32,11 +32,9 @@ class HomepageViewModel {
 	public let receiveButtonImage = "arrow_down"
 	public let showBalanceButtonTitle = "Show balance"
 	public let showBalanceButtonImage = "eye"
-	public let errorText = "Failed to get position assets"
 
 	// MARK: Private Properties
 
-	private let assetsAPIClient = AssetsAPIClient()
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
@@ -44,7 +42,6 @@ class HomepageViewModel {
 	init() {
 		getWalletInfo()
 		setupBindings()
-		getPositionAssetDetails()
 	}
 
 	// MARK: Private Methods
@@ -87,31 +84,16 @@ class HomepageViewModel {
 		}.store(in: &cancellables)
 
 		GlobalVariables.shared.$selectedManageAssetsList.sink { assets in
-			guard let assets else {
-				self.destroyValues()
-				return
-			}
-			if self.positionAssetDetailsList != nil {
-				self.setAssetValues(assets: assets)
-			}
-		}.store(in: &cancellables)
-	}
-
-	private func getPositionAssetDetails() {
-		assetsAPIClient.getAllPositionAssets().sink { completed in
-			switch completed {
-			case .finished:
-				print("tokens received successfully")
-			case let .failure(error):
-				print("Failed to fetch position asset details:\(error)")
-				Toast.default(title: self.errorText, style: .error).show(haptic: .warning)
-			}
-		} receiveValue: { positionAssets in
-			self.positionAssetDetailsList = positionAssets
-			if let assets = GlobalVariables.shared.selectedManageAssetsList {
-				self.setAssetValues(assets: assets)
+			if let assets {
+				self.getWalletBalance(assets: assets)
+				self.positionAssetsList = assets.filter { $0.isPosition == true }
+				self.selectedAssetsList = assets.filter { $0.isPosition == false }
+				self.switchSecurityMode(self.securityMode)
+				self.positionAssetDetailsList = GlobalVariables.shared.positionAssetDetailsList
 			} else {
-				self.destroyValues()
+				self.walletBalance = nil
+				self.positionAssetsList = nil
+				self.selectedAssetsList = nil
 			}
 		}.store(in: &cancellables)
 	}
