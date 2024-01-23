@@ -24,6 +24,7 @@ class GlobalVariables {
 	public var selectedManageAssetsList: [AssetViewModel]?
 	@Published
 	public var currentAccount: WalletAccount!
+	public var positionAssetDetailsList: [PositionAssetModel]?
 
 	// MARK: - Private Properties
 
@@ -52,8 +53,11 @@ class GlobalVariables {
 	public func fetchSharedInfo() -> Promise<Void> {
 		print("== SENDING REQUEST ==")
 		return firstly {
-			getManageAssetLists()
-		}.done { assets in
+			self.getManageAssetLists()
+		}.then { assets in
+			self.getPositoinsDetail().map { (assets, $0) }
+		}.done { assets, positions in
+			self.positionAssetDetailsList = positions
 			self.manageAssetsList = assets
 		}
 	}
@@ -117,6 +121,10 @@ class GlobalVariables {
 
 	private func getManageAssetLists() -> Promise<[AssetViewModel]> {
 		AssetManagerViewModel.shared.getAssetsList()
+	}
+
+	private func getPositoinsDetail() -> Promise<[PositionAssetModel]> {
+		AssetManagerViewModel.shared.getPositionAssetDetails()
 	}
 
 	private func setupBindings() {
