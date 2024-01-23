@@ -33,7 +33,7 @@ class SendConfirmationView: UIView {
 	private var feeTitleView: TitleWithInfo!
 //	private let walletInfoStackView = UIStackView()
 	private let recipientAddressLabel = UILabel()
-    private let userRecipientAddressLabel = UILabel()
+	private let userRecipientAddressLabel = UILabel()
 //	private let walletImageBackgroundView = UIView()
 //	private let walletImageView = UIImageView()
 //	private let walletNameLabel = UILabel()
@@ -116,7 +116,7 @@ class SendConfirmationView: UIView {
 		recipientStackView.addArrangedSubview(recipientSpacerView)
 		recipientStackView.addArrangedSubview(recipientAddressLabel)
 		recipientStackView.addArrangedSubview(userAccountInfoView)
-        recipientStackView.addArrangedSubview(userRecipientAddressLabel)
+		recipientStackView.addArrangedSubview(userRecipientAddressLabel)
 
 		feeStackView.addArrangedSubview(feeTitleView)
 		feeStackView.addArrangedSubview(feeSpacerView)

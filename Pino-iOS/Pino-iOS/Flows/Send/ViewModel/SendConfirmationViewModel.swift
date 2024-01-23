@@ -198,7 +198,12 @@ class SendConfirmationViewModel {
 		let accountsList = walletManager.accounts
 		let foundAccount = accountsList.first(where: { $0.eip55Address == recipientAddress })
 		if let foundAccount {
-            userRecipientAccountInfoVM = UserAccountInfoViewModel(accountIconName: foundAccount.avatarIcon, accountIconColorName: foundAccount.avatarColor, accountName: foundAccount.name, accountAddress: foundAccount.eip55Address)
+			userRecipientAccountInfoVM = UserAccountInfoViewModel(
+				accountIconName: foundAccount.avatarIcon,
+				accountIconColorName: foundAccount.avatarColor,
+				accountName: foundAccount.name,
+				accountAddress: foundAccount.eip55Address
+			)
 		} else {
 			userRecipientAccountInfoVM = nil
 		}
