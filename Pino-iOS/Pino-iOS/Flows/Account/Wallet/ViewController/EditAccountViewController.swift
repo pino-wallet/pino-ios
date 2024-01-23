@@ -113,7 +113,8 @@ class EditAccountViewController: UIViewController {
 	}
 
 	private func openRevealPrivateKey() {
-		let revaelPrivateKeyVC = RevealPrivateKeyViewController()
+		let revealVM = RevealPrivateKeyViewModel(selectedAccount: editAccountVM.selectedAccount)
+		let revaelPrivateKeyVC = RevealPrivateKeyViewController(revealPrivateKeyVM: revealVM)
 		navigationController?.pushViewController(revaelPrivateKeyVC, animated: true)
 	}
 
