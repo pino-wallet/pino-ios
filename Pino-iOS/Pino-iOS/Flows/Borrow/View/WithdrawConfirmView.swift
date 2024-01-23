@@ -41,7 +41,7 @@ class WithdrawConfirmView: UIView {
 
 	private var protocolTitleWithInfo: TitleWithInfo!
 	private var feeTitleWithInfo: TitleWithInfo!
-	private var protocolInfoView: UserAccountInfoView!
+	private var protocolInfoView: ImageAndInfoView!
 	private var cancellables = Set<AnyCancellable>()
 
 	private var pageStatus: PageStatus = .loading {
@@ -105,7 +105,7 @@ class WithdrawConfirmView: UIView {
 		feeLabel.addGestureRecognizer(toggleFeeGestureRecognizer)
 		feeLabel.isUserInteractionEnabled = true
 
-		protocolInfoView = UserAccountInfoView(
+		protocolInfoView = ImageAndInfoView(
 			image: withdrawConfrimVM.protocolImageName,
 			title: withdrawConfrimVM.protocolName
 		)
