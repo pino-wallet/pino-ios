@@ -1,73 +1,83 @@
 //
-//  ImageAndTitleStackView.swift
+//  UserAccountInfoView.swift
 //  Pino-iOS
 //
-//  Created by Amir hossein kazemi seresht on 7/12/23.
+//  Created by Amir hossein kazemi seresht on 1/23/24.
 //
 
 import UIKit
 
 class UserAccountInfoView: UIStackView {
-	// MARK: - Public Properties
+    // MARK: - Public Properties
+    
+    public var userAccountInfoVM: UserAccountInfoViewModel? {
+        didSet {
+            setupStyles()
+        }
+    }
 
-	public var image: String? {
-		didSet {
-			imageView.image = UIImage(named: image ?? "")
-		}
-	}
+            
 
-	public var title: String? {
-		didSet {
-			titleLabel.text = title
-			titleLabel.numberOfLines = 0
-		}
-	}
 
-	// MARK: - Private Properties
+    // MARK: - Private Properties
 
-	private let imageView = UIImageView()
-	private let titleLabel = PinoLabel(style: .title, text: "")
+    private let imageBackgroundView = UIView()
+    private let imageView = UIImageView()
+    private let nameLabel = PinoLabel(style: .title, text: "")
+    private let addressLabel = PinoLabel(style: .title, text: "")
 
-	// MARK: - Initializers
+    // MARK: - Initializers
 
-	init(image: String?, title: String?) {
-		self.image = image
-		self.title = title
+    init(userAccountInfoVM: UserAccountInfoViewModel?) {
+        self.userAccountInfoVM = userAccountInfoVM
 
-		super.init(frame: .zero)
+        super.init(frame: .zero)
 
-		setupView()
-		setupStyles()
-		setupConstraints()
-	}
+        setupView()
+        setupStyles()
+        setupConstraints()
+    }
 
-	required init(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
-	// MARK: - Private Methods
+    // MARK: - Private Methods
 
-	private func setupView() {
-		addArrangedSubview(imageView)
-		addArrangedSubview(titleLabel)
-	}
+    private func setupView() {
+        imageBackgroundView.addSubview(imageView)
+        
+        addArrangedSubview(imageBackgroundView)
+        addArrangedSubview(nameLabel)
+        addArrangedSubview(addressLabel)
+    }
 
-	private func setupStyles() {
-		axis = .horizontal
-		spacing = 2
-		alignment = .center
+    private func setupStyles() {
+        axis = .horizontal
+        spacing = 2
+        alignment = .center
+        
+        addressLabel.font = .PinoStyle.regularBody
+        if let userAddress = userAccountInfoVM?.accountAddress {
+            addressLabel.text = "(\(userAddress.addressFormating()))"
+        }
+        
+        imageBackgroundView.layer.cornerRadius = 10
+        imageBackgroundView.backgroundColor = UIColor(named: userAccountInfoVM?.accountIconColorName ?? "")
 
-		titleLabel.font = .PinoStyle.mediumBody
-		titleLabel.text = title
-		titleLabel.numberOfLines = 0
+        nameLabel.font = .PinoStyle.mediumBody
+        nameLabel.text = userAccountInfoVM?.accountName
+        nameLabel.numberOfLines = 0
 
-		imageView.image = UIImage(named: image ?? "")
-	}
+        imageView.image = UIImage(named: userAccountInfoVM?.accountIconName ?? "")
+    }
 
-	private func setupConstraints() {
-		titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
-		titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 130).isActive = true
+    private func setupConstraints() {
+        nameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
+        nameLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 130).isActive = true
 
-		imageView.pin(.fixedWidth(20), .fixedHeight(20))
-	}
+        imageBackgroundView.pin(.fixedWidth(20), .fixedHeight(20))
+        imageView.pin(.fixedWidth(16), .fixedHeight(16), .centerX, .centerY)
+    }
 }
+

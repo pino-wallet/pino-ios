@@ -40,7 +40,7 @@ class RepayConfirmView: UIView {
 
 	private var protocolTitleWithInfo: TitleWithInfo!
 	private var feeTitleWithInfo: TitleWithInfo!
-	private var protocolInfoView: UserAccountInfoView!
+	private var protocolInfoView: ImageAndInfoView!
 	private var feeInfo: RepayConfirmViewModel.FeeInfoType?
 	private var cancellables = Set<AnyCancellable>()
 
@@ -95,7 +95,7 @@ class RepayConfirmView: UIView {
 			self.presentActionSheetClosure(actionSheet, completion)
 		}
 
-		protocolInfoView = UserAccountInfoView(
+		protocolInfoView = ImageAndInfoView(
 			image: repayConfrimVM.protocolImageName,
 			title: repayConfrimVM.protocolName
 		)

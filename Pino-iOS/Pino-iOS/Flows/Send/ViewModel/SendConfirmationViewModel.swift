@@ -15,7 +15,6 @@ import Web3_Utility
 class SendConfirmationViewModel {
 	// MARK: - TypeAliases
 
-	typealias UserRecipientAccountInfoType = (image: String, name: String)
 	typealias TrxWithGasInfo = Promise<(EthereumSignedTransaction, GasInfo)>
 
 	// MARK: - Private Properties
@@ -39,7 +38,7 @@ class SendConfirmationViewModel {
 	public var gasFee: BigNumber!
 	public var isAddressScam = false
 	public let recipientAddress: String
-	public var userRecipientAccountInfo: UserRecipientAccountInfoType?
+	public var userRecipientAccountInfoVM: UserAccountInfoViewModel?
 	public let sendAmount: String
 	public let confirmBtnText = "Confirm"
 	public let insuffientText = "Insufficient ETH Amount"
@@ -198,10 +197,10 @@ class SendConfirmationViewModel {
 	private func setUserRecipientAccountInfo() {
 		let accountsList = walletManager.accounts
 		let foundAccount = accountsList.first(where: { $0.eip55Address == recipientAddress })
-		if foundAccount != nil {
-			userRecipientAccountInfo = (image: foundAccount?.avatarIcon ?? "", name: foundAccount?.name ?? "")
+		if let foundAccount {
+            userRecipientAccountInfoVM = UserAccountInfoViewModel(accountIconName: foundAccount.avatarIcon, accountIconColorName: foundAccount.avatarColor, accountName: foundAccount.name, accountAddress: foundAccount.eip55Address)
 		} else {
-			userRecipientAccountInfo = nil
+			userRecipientAccountInfoVM = nil
 		}
 	}
 }

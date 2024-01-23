@@ -41,7 +41,7 @@ class CollateralConfirmView: UIView {
 
 	private var protocolTitleWithInfo: TitleWithInfo!
 	private var feeTitleWithInfo: TitleWithInfo!
-	private var protocolInfoView: UserAccountInfoView!
+	private var protocolInfoView: ImageAndInfoView!
 	private var cancellables = Set<AnyCancellable>()
 	private var pageStatus: PageStatus = .loading {
 		didSet {
@@ -97,7 +97,7 @@ class CollateralConfirmView: UIView {
 			self.presentActionSheetClosure(actionSheet, completion)
 		}
 
-		protocolInfoView = UserAccountInfoView(
+		protocolInfoView = ImageAndInfoView(
 			image: collateralConfrimVM.protocolImageName,
 			title: collateralConfrimVM.protocolName
 		)
