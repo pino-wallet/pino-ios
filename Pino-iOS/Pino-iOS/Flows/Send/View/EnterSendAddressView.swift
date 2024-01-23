@@ -73,9 +73,12 @@ class EnterSendAddressView: UIView {
 	private func setupView() {
 		suggestedAddressesCollectionView = SuggestedAddressesCollectionView(
 			suggestedAddressesVM: suggestedAddressesVM,
-			suggestedAddressDidSelect: { address in
+			recentAddressDidSelect: { address in
 				self.addressTextField.text = address
 				self.enterSendAddressVM.validateSendAddress(address: address)
+			},
+			userWalletDidSelect: { userWallet in
+				self.selectUserWallet(userWallet)
 			}
 		)
 		addressTextField.textDidChange = {
@@ -119,6 +122,9 @@ class EnterSendAddressView: UIView {
 
 		addressTextField.editingBegin = {
 			self.endEditingTapGesture.isEnabled = true
+			if let recipientAddress = self.enterSendAddressVM.addressShouldChanged() {
+				self.addressTextField.text = recipientAddress
+			}
 			UIView.animate(withDuration: 0.3) {
 				self.suggestedAddressesContainerView.alpha = 0
 			}
@@ -263,6 +269,22 @@ class EnterSendAddressView: UIView {
 	@objc
 	private func viewEndEditing() {
 		endEditing(true)
+	}
+
+	private func selectUserWallet(_ userWallet: AccountInfoViewModel) {
+		let walletName = userWallet.name
+		let walletAddress = "(\(userWallet.address.addressFormating()))"
+		let addressAttributedText = NSMutableAttributedString(string: "\(walletName) \(walletAddress)")
+		addressAttributedText.addAttributes(
+			[.font: UIFont.PinoStyle.regularBody!, .foregroundColor: UIColor.Pino.label],
+			range: (addressAttributedText.string as NSString).range(of: walletAddress)
+		)
+		addressAttributedText.addAttributes(
+			[.font: UIFont.PinoStyle.mediumBody!, .foregroundColor: UIColor.Pino.label],
+			range: (addressAttributedText.string as NSString).range(of: walletName)
+		)
+		addressTextField.attributedText = addressAttributedText
+		enterSendAddressVM.selectUserWallet(userWallet)
 	}
 }
 

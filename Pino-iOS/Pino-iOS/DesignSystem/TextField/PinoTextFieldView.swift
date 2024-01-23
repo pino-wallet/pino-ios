@@ -54,6 +54,13 @@ public class PinoTextFieldView: UIView {
 	public var text: String? {
 		didSet {
 			textField.text = text
+			textField.font = .PinoStyle.mediumBody
+		}
+	}
+
+	public var attributedText: NSMutableAttributedString? {
+		didSet {
+			textField.attributedText = attributedText
 		}
 	}
 

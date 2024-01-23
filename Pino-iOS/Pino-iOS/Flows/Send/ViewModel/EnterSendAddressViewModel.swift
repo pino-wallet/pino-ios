@@ -19,6 +19,7 @@ class EnterSendAddressViewModel {
 	public let qrCodeIconName = "qr_code_scanner"
 	public var sendAmountVM: EnterSendAmountViewModel
 	public var selectedWallet: AccountInfoViewModel!
+	public var recipientAddress: String?
 
 	public var sendAddressQrCodeScannerTitle: String {
 		"Scan address to send \(sendAmountVM.selectedToken.symbol)"
@@ -47,6 +48,7 @@ class EnterSendAddressViewModel {
 	// MARK: - Private Properties
 
 	private let pinoWalletManager = PinoWalletManager()
+	private var addressInputType: AddressInputType = .regularAddress
 
 	// MARK: - Initializers
 
@@ -62,21 +64,60 @@ class EnterSendAddressViewModel {
 		selectedWallet = AccountInfoViewModel(walletAccountInfoModel: currentWallet)
 	}
 
-	// MARK: - Public Methods
-
-	public func validateSendAddress(address: String) {
+	private func validateRegularAddress(_ address: String) {
 		if address.isEmpty {
+			recipientAddress = nil
 			didValidateSendAddress(.normal)
 			return
 		}
 		if address == pinoWalletManager.currentAccount.eip55Address {
+			recipientAddress = nil
 			didValidateSendAddress(.error(.sameAddress))
 			return
 		}
 		if address.validateETHContractAddress() {
+			recipientAddress = address
 			didValidateSendAddress(.success)
 		} else {
+			recipientAddress = nil
 			didValidateSendAddress(.error(.addressNotValid))
 		}
 	}
+
+	private func getENSAddress(_ ensId: String) {
+		didValidateSendAddress(.error(.addressNotValid))
+	}
+
+	// MARK: - Public Methods
+
+	public func validateSendAddress(address: String) {
+		if address.isENSAddress() {
+			getENSAddress(address)
+		} else {
+			addressInputType = .regularAddress
+			validateRegularAddress(address)
+		}
+	}
+
+	public func selectUserWallet(_ account: AccountInfoViewModel) {
+		addressInputType = .userNameWithAddress
+		recipientAddress = account.address
+		validateRegularAddress(account.address)
+	}
+
+	public func addressShouldChanged() -> String? {
+		switch addressInputType {
+		case .regularAddress:
+			return nil
+		case .ensWithAddress, .userNameWithAddress:
+			addressInputType = .regularAddress
+			return recipientAddress
+		}
+	}
+}
+
+enum AddressInputType {
+	case regularAddress
+	case ensWithAddress
+	case userNameWithAddress
 }
