@@ -11,7 +11,7 @@ class RevealPrivateKeyViewController: UIViewController {
 	// MARK: Private Properties
 
 	private var revealPrivateKeyView: RevealPrivateKeyView!
-	private let revealPrivateKeyVM = RevealPrivateKeyViewModel()
+	private let revealPrivateKeyVM: RevealPrivateKeyViewModel!
 	private lazy var authManager: AuthenticationLockManager = {
 		.init(parentController: self)
 	}()
@@ -29,6 +29,15 @@ class RevealPrivateKeyViewController: UIViewController {
 	}
 
 	// MARK: - Initializers
+
+	init(revealPrivateKeyVM: RevealPrivateKeyViewModel!) {
+		self.revealPrivateKeyVM = revealPrivateKeyVM
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	deinit {
 		NotificationCenter.default.removeObserver(UIApplication.userDidTakeScreenshotNotification)
