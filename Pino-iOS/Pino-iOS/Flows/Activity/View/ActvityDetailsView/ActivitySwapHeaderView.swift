@@ -116,22 +116,22 @@ class ActivitySwapHeaderView: UIView {
 	}
 
 	private func setValues(activityProperties: ActivityDetailProperties) {
-        if let fromTokenIcon = activityProperties.fromTokenIcon {
-            fromTokenImageView.kf.indicatorType = .activity
-            fromTokenImageView.kf.setImage(with: fromTokenIcon)
-        } else {
-            fromTokenImageView.image = UIImage(named: activityDetailsVM.unVerifiedAssetIconName)
-        }
+		if let fromTokenIcon = activityProperties.fromTokenIcon {
+			fromTokenImageView.kf.indicatorType = .activity
+			fromTokenImageView.kf.setImage(with: fromTokenIcon)
+		} else {
+			fromTokenImageView.image = UIImage(named: activityDetailsVM.unVerifiedAssetIconName)
+		}
 		fromTokenAmountLabel.text = activityProperties.fromTokenAmount
 		fromTokenAmountLabel.numberOfLines = 0
 		fromTokenSymbolLabel.text = activityProperties.fromTokenSymbol
 
-        if let toTokenIcon = activityProperties.toTokenIcon {
-            toTokenImageView.kf.indicatorType = .activity
-            toTokenImageView.kf.setImage(with: toTokenIcon)
-        } else {
-            toTokenImageView.image = UIImage(named: activityDetailsVM.unVerifiedAssetIconName)
-        }
+		if let toTokenIcon = activityProperties.toTokenIcon {
+			toTokenImageView.kf.indicatorType = .activity
+			toTokenImageView.kf.setImage(with: toTokenIcon)
+		} else {
+			toTokenImageView.image = UIImage(named: activityDetailsVM.unVerifiedAssetIconName)
+		}
 		toTokenAmountLabel.text = activityProperties.toTokenAmount
 		toTokenAmountLabel.numberOfLines = 0
 		toTokenSymbolLabel.text = activityProperties.toTokenSymbol

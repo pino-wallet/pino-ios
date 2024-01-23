@@ -8,7 +8,7 @@ import UIKit
 
 class CustomAssetInfoView: UIView {
 	// Typealias
-    typealias presentAlertClosureType = (_ infoActionSheet: InfoActionSheet, _ completion: @escaping () -> Void) -> Void
+	typealias presentAlertClosureType = (_ infoActionSheet: InfoActionSheet, _ completion: @escaping () -> Void) -> Void
 
 	// MARK: - Closure
 
@@ -25,7 +25,7 @@ class CustomAssetInfoView: UIView {
 	private let mainStackView = UIStackView()
 	private let betweenStackView = UIStackView()
 	private let infoStackView = UIStackView()
-    private var titleView: TitleWithInfo!
+	private var titleView: TitleWithInfo!
 
 	// MARK: - Initializers
 
@@ -47,30 +47,28 @@ class CustomAssetInfoView: UIView {
 	// MARK: - PrivateMethods
 
 	private func setupView() {
-        titleView = TitleWithInfo(actionSheetTitle: titleText, actionSheetDescription: alertText)
+		titleView = TitleWithInfo(actionSheetTitle: titleText, actionSheetDescription: alertText)
 		// Setup titleLabel
 		titleView.title = titleText
 
 		// Setup subviews
 		addSubview(mainStackView)
 
-
 		// Setup center stackview
 		betweenStackView.alignment = .center
 
 		// Setup main stackview
-        mainStackView.alignment = .top
+		mainStackView.alignment = .top
 		mainStackView.axis = .horizontal
 		mainStackView.addArrangedSubview(titleView)
 		mainStackView.addArrangedSubview(betweenStackView)
 		mainStackView.addArrangedSubview(infoStackView)
 
-		
-        titleView.presentActionSheet = { infoActionSheet, completion in
-            if self.presentAlertClosure != nil {
-                self.presentAlertClosure!(infoActionSheet, completion)
-            }
-        }
+		titleView.presentActionSheet = { infoActionSheet, completion in
+			if self.presentAlertClosure != nil {
+				self.presentAlertClosure!(infoActionSheet, completion)
+			}
+		}
 
 		// Setup info stack view
 		infoStackView.axis = .horizontal
@@ -84,5 +82,4 @@ class CustomAssetInfoView: UIView {
 		betweenStackView.widthAnchor.constraint(greaterThanOrEqualToConstant: 32).isActive = true
 		mainStackView.pin(.allEdges(to: superview))
 	}
-
 }

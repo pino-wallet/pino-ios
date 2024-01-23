@@ -33,19 +33,19 @@ struct SwapActivityDetailsViewModel {
 	}
 
 	public var fromTokenImage: URL? {
-        if fromToken.isVerified {
-            return fromToken.image
-        } else {
-            return nil
-        }
+		if fromToken.isVerified {
+			return fromToken.image
+		} else {
+			return nil
+		}
 	}
 
 	public var toTokenImage: URL? {
-        if toToken.isVerified {
-            return toToken.image
-        } else {
-            return nil
-        }
+		if toToken.isVerified {
+			return toToken.image
+		} else {
+			return nil
+		}
 	}
 
 	public var activityProtocol: String {

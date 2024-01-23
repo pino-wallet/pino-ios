@@ -24,13 +24,13 @@ class CustomAssetInfoContainerView: UIView {
 	private let decimalView: CustomAssetInfoView
 	private var userBalanceView: CustomAssetInfoView
 
-    private let nameLabelContainerView = UIView()
+	private let nameLabelContainerView = UIView()
 	private let nameLabel = PinoLabel(style: .info, text: "")
-    private let symbolLabelContainerView = UIView()
+	private let symbolLabelContainerView = UIView()
 	private let symbolLabel = PinoLabel(style: .info, text: "")
-    private let decimalLabelContainerView = UIView()
+	private let decimalLabelContainerView = UIView()
 	private let decimalLabel = PinoLabel(style: .info, text: "")
-    private let userBalanceLabelContainerView = UIView()
+	private let userBalanceLabelContainerView = UIView()
 	private let userBalanceLabel = PinoLabel(style: .info, text: "")
 	private var cancellables = Set<AnyCancellable>()
 
@@ -94,10 +94,10 @@ class CustomAssetInfoContainerView: UIView {
 	}
 
 	private func setupView() {
-        nameLabelContainerView.addSubview(nameLabel)
-        symbolLabelContainerView.addSubview(symbolLabel)
-        decimalLabelContainerView.addSubview(decimalLabel)
-        userBalanceLabelContainerView.addSubview(userBalanceLabel)
+		nameLabelContainerView.addSubview(nameLabel)
+		symbolLabelContainerView.addSubview(symbolLabel)
+		decimalLabelContainerView.addSubview(decimalLabel)
+		userBalanceLabelContainerView.addSubview(userBalanceLabel)
 		// Setup asset name label
 		nameLabel.numberOfLines = 0
 		nameLabel.lineBreakMode = .byWordWrapping
@@ -127,25 +127,25 @@ class CustomAssetInfoContainerView: UIView {
 
 	private func setupViewCustomValues() {
 		guard let customAsset = addCustomAssetVM.customAssetVM else { return }
-        nameLabel.text = customAsset.name
-        nameLabel.textAlignment = .right
+		nameLabel.text = customAsset.name
+		nameLabel.textAlignment = .right
 		symbolLabel.text = customAsset.symbol
-        symbolLabel.textAlignment = .right
+		symbolLabel.textAlignment = .right
 		decimalLabel.text = customAsset.decimal
-        decimalLabel.textAlignment = .right
+		decimalLabel.textAlignment = .right
 		userBalanceLabel.text = customAsset.balance
-        userBalanceLabel.textAlignment = .right
+		userBalanceLabel.textAlignment = .right
 	}
 
 	private func setupConstraints() {
 		mainStackView.pin(.horizontalEdges(to: superview, padding: 14), .verticalEdges(to: superview, padding: 18))
-        nameLabel.pin(.horizontalEdges(padding: 0), .verticalEdges(padding: 3))
-        symbolLabel.pin(.horizontalEdges(padding: 0), .verticalEdges(padding: 3))
-        decimalLabel.pin(.horizontalEdges(padding: 0), .verticalEdges(padding: 3))
-        userBalanceLabel.pin(.horizontalEdges(padding: 0), .verticalEdges(padding: 3))
-        nameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 18).isActive = true
-        symbolLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 18).isActive = true
-        decimalLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 18).isActive = true
-        userBalanceLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 18).isActive = true
+		nameLabel.pin(.horizontalEdges(padding: 0), .verticalEdges(padding: 3))
+		symbolLabel.pin(.horizontalEdges(padding: 0), .verticalEdges(padding: 3))
+		decimalLabel.pin(.horizontalEdges(padding: 0), .verticalEdges(padding: 3))
+		userBalanceLabel.pin(.horizontalEdges(padding: 0), .verticalEdges(padding: 3))
+		nameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 18).isActive = true
+		symbolLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 18).isActive = true
+		decimalLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 18).isActive = true
+		userBalanceLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 18).isActive = true
 	}
 }
