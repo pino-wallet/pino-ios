@@ -116,6 +116,7 @@
         <attribute name="eip55Address" attributeType="String"/>
         <attribute name="isSelected" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="lastBalance" optional="YES" attributeType="String"/>
+        <attribute name="lastETHBalance" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="publicKey" attributeType="String"/>
         <relationship name="selectedAssets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SelectedAsset" inverseName="account" inverseEntity="SelectedAsset"/>
