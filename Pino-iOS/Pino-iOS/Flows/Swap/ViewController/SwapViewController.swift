@@ -171,7 +171,12 @@ class SwapViewController: UIViewController {
 	private func selectAssetForFromToken() {
 		var filteredAssets = assets!.filter { $0.isSelected && !$0.holdAmount.isZero }
 		// To prevent swapping same tokens
-		filteredAssets.removeAll(where: { $0.id == swapVM.toToken.selectedToken.id })
+		switch swapVM.swapState {
+		case .initial, .noToToken:
+			break
+		case .clear, .hasAmount, .loading, .noQuote:
+			filteredAssets.removeAll(where: { $0.id == swapVM.toToken.selectedToken.id })
+		}
 		openSelectAssetPage(assets: filteredAssets) { selectedToken in
 			self.swapVM.changeFromToken(to: selectedToken)
 		}
