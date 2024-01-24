@@ -37,7 +37,7 @@ public struct AccountInfoViewModel: Equatable {
 	}
 
 	public var ethBalance: String {
-		walletAccountInfoModel.lastETHBalance ?? GlobalZeroAmounts.plain.zeroAmount.tokenFormatting(token: "ETH")
+		walletAccountInfoModel.lastETHBalance ?? GlobalZeroAmounts.tokenAmount.zeroAmount.tokenFormatting(token: "ETH")
 	}
 
 	public var isSelected: Bool {

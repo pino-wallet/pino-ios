@@ -35,7 +35,7 @@ class AccountsViewModel {
 			let userETHBalance = ethToken.holdAmount
 			var userETHFormattedPrice: String {
 				if userETHBalance.isZero {
-					return GlobalZeroAmounts.plain.zeroAmount.tokenFormatting(token: ethToken.symbol)
+					return GlobalZeroAmounts.tokenAmount.zeroAmount.tokenFormatting(token: ethToken.symbol)
 				} else {
 					return userETHBalance.sevenDigitFormat.tokenFormatting(token: ethToken.symbol)
 				}
