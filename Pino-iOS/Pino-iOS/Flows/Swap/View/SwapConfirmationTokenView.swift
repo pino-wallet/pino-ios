@@ -60,6 +60,10 @@ class SwapConfirmationTokenView: UIView {
 			tokenImageView.image = UIImage(named: swapTokenVM.selectedToken.customAssetImage)
 		}
 
+		if !swapTokenVM.selectedToken.isVerified {
+			tokenAmountInDollar.isHidden = true
+		}
+
 		tokenNameLabel.font = .PinoStyle.mediumCallout
 		tokenAmountLabel.font = .PinoStyle.semiboldTitle1
 		tokenAmountInDollar.font = .PinoStyle.mediumSubheadline

@@ -33,12 +33,11 @@ class AccountsViewModel {
 		}
 		if let ethToken = GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth }) {
 			let userETHBalance = ethToken.holdAmount
-			var userETHFormattedPrice: String {
-				if userETHBalance.isZero {
-					return GlobalZeroAmounts.tokenAmount.zeroAmount.tokenFormatting(token: ethToken.symbol)
-				} else {
-					return userETHBalance.sevenDigitFormat.tokenFormatting(token: ethToken.symbol)
-				}
+			var userETHFormattedPrice: String
+			if userETHBalance.isZero {
+				userETHFormattedPrice = GlobalZeroAmounts.tokenAmount.zeroAmount.ethFormatting
+			} else {
+				userETHFormattedPrice = userETHBalance.sevenDigitFormat.ethFormatting
 			}
 			setAccountLastETHBalance(account: currentAccount, ethBalance: userETHFormattedPrice)
 		}
