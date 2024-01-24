@@ -27,7 +27,7 @@ class UserAddressCell: UICollectionViewCell {
 	private let walletImageView = UIImageView()
 	private let titleStackView = UIStackView()
 	private let walletNameLabel = UILabel()
-	private let walletAddressLabel = UILabel()
+	private let walletETHBalanceLabel = UILabel()
 
 	// MARK: - Private Methods
 
@@ -37,20 +37,20 @@ class UserAddressCell: UICollectionViewCell {
 		mainStackView.addArrangedSubview(titleStackView)
 		walletImageBackground.addSubview(walletImageView)
 		titleStackView.addArrangedSubview(walletNameLabel)
-		titleStackView.addArrangedSubview(walletAddressLabel)
+		titleStackView.addArrangedSubview(walletETHBalanceLabel)
 	}
 
 	private func setupStyles() {
 		walletNameLabel.text = walletVM.name
-		walletAddressLabel.text = walletVM.address.addressFormating()
+		walletETHBalanceLabel.text = walletVM.ethBalance
 		walletImageView.image = UIImage(named: walletVM.profileImage)
 		walletImageBackground.backgroundColor = UIColor(named: walletVM.profileColor)
 
 		walletNameLabel.textColor = .Pino.label
-		walletAddressLabel.textColor = .Pino.secondaryLabel
+		walletETHBalanceLabel.textColor = .Pino.secondaryLabel
 
 		walletNameLabel.font = .PinoStyle.semiboldSubheadline
-		walletAddressLabel.font = .PinoStyle.mediumSubheadline
+		walletETHBalanceLabel.font = .PinoStyle.mediumSubheadline
 
 		titleStackView.axis = .vertical
 
@@ -75,7 +75,7 @@ class UserAddressCell: UICollectionViewCell {
 		walletNameLabel.pin(
 			.fixedHeight(28)
 		)
-		walletAddressLabel.pin(
+		walletETHBalanceLabel.pin(
 			.fixedHeight(16)
 		)
 	}

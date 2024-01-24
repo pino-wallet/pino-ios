@@ -31,6 +31,17 @@ class AccountsViewModel {
 		if let currentWalletBalance {
 			setAccountLastBalance(account: currentAccount, balance: currentWalletBalance)
 		}
+		if let ethToken = GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth }) {
+			let userETHBalance = ethToken.holdAmount
+			var userETHFormattedPrice: String {
+				if userETHBalance.isZero {
+					return GlobalZeroAmounts.plain.zeroAmount.tokenFormatting(token: ethToken.symbol)
+				} else {
+					return userETHBalance.sevenDigitFormat.tokenFormatting(token: ethToken.symbol)
+				}
+			}
+			setAccountLastETHBalance(account: currentAccount, ethBalance: userETHFormattedPrice)
+		}
 	}
 
 	// MARK: - Private Methods
@@ -152,6 +163,10 @@ class AccountsViewModel {
 
 	public func setAccountLastBalance(account: AccountInfoViewModel, balance: String) {
 		coreDataManager.editWalletAccount(account.walletAccountInfoModel, lastBalance: balance)
+	}
+
+	public func setAccountLastETHBalance(account: AccountInfoViewModel, ethBalance: String) {
+		coreDataManager.editWalletAccount(account.walletAccountInfoModel, lastETHBalance: ethBalance)
 	}
 
 	public func updateSelectedAccount(with selectedAccount: AccountInfoViewModel) {

@@ -84,6 +84,13 @@ class CoreDataManager {
 	}
 
 	@discardableResult
+	public func editWalletAccount(_ account: WalletAccount, lastETHBalance: String) -> WalletAccount {
+		account.lastETHBalance = lastETHBalance
+		accountDataSource.save(account)
+		return account
+	}
+
+	@discardableResult
 	public func editWalletAccount(_ account: WalletAccount, lastBalance: String) -> WalletAccount {
 		account.lastBalance = lastBalance
 		accountDataSource.save(account)
