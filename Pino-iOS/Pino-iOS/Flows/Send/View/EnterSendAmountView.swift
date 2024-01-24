@@ -204,6 +204,9 @@ class EnterSendAmountView: UIView {
 			constant: -nextButtonBottomConstant
 		)
 		addConstraint(nextButtonBottomConstraint)
+		NSLayoutConstraint.activate([
+			amountSpacerView.widthAnchor.constraint(greaterThanOrEqualToConstant: 6),
+		])
 	}
 
 	private func setupBindings() {
