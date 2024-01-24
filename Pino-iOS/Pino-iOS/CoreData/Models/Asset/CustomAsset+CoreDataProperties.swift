@@ -23,4 +23,6 @@ extension CustomAsset {
 	public var name: String
 	@NSManaged
 	public var decimal: String
+	@NSManaged
+	public var accountAddress: String
 }

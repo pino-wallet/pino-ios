@@ -94,6 +94,7 @@
         <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWithdrawActivity" inverseName="details" inverseEntity="CDWithdrawActivity"/>
     </entity>
     <entity name="CustomAsset" representedClassName="CustomAsset" syncable="YES">
+        <attribute name="accountAddress" optional="YES" attributeType="String"/>
         <attribute name="decimal" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>

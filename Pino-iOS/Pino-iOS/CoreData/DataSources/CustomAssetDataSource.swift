@@ -42,6 +42,11 @@ struct CustomAssetDataSource: DataSourceProtocol {
 		customAssets.first(where: { $0.id.lowercased() == id.lowercased() })
 	}
 
+	public func checkForAlreadyExist(accountAddress: String, id: String) -> Bool {
+		let userCustomTokens = customAssets.filter { $0.accountAddress.lowercased() == accountAddress.lowercased() }
+		return userCustomTokens.contains { $0.id.lowercased() == id.lowercased() }
+	}
+
 	public mutating func save(_ asset: CustomAsset) {
 		if let index = customAssets.firstIndex(where: { $0.id.lowercased() == asset.id.lowercased() }) {
 			customAssets[index] = asset
