@@ -76,6 +76,7 @@ class AddCustomAssetViewModel {
 	private var currentValidationStatus: ContractValidationStatus = .clear
 
 	private let coredataManager = CoreDataManager()
+	private let currentAccountAddress = PinoWalletManager().currentAccount.eip55Address
 
 	// MARK: - Initializers
 
@@ -164,8 +165,10 @@ class AddCustomAssetViewModel {
 
 	public func saveCustomTokenToCoredata() -> CustomAsset? {
 		guard let customAssetVM else { return nil }
-		if coredataManager.getAllCustomAssets()
-			.contains(where: { $0.id == customAssetVM.contractAddress.lowercased() }) {
+		let userAllCustomAssets = coredataManager.getAllCustomAssets()
+			.filter { $0.accountAddress.lowercased() == currentAccountAddress.lowercased() }
+		if userAllCustomAssets
+			.contains(where: { $0.id.lowercased() == customAssetVM.contractAddress.lowercased() }) {
 			Toast.default(title: "Asset Exists", subtitle: nil, style: .error, direction: .bottom).show()
 			return nil
 		} else {
@@ -173,7 +176,8 @@ class AddCustomAssetViewModel {
 				id: customAssetVM.contractAddress,
 				symbol: customAssetVM.symbol,
 				name: customAssetVM.name,
-				decimal: customAssetVM.decimal
+				decimal: customAssetVM.decimal,
+				accountAddress: currentAccountAddress.lowercased()
 			)
 			return customAssetModel
 		}

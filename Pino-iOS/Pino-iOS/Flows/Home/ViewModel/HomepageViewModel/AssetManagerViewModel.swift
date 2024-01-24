@@ -94,20 +94,22 @@ class AssetManagerViewModel {
 	}
 
 	internal func getCustomAssets() -> [Detail] {
-		let customAssets = coreDataManager.getAllCustomAssets().compactMap {
-			Detail(
-				id: $0.id,
-				symbol: $0.symbol,
-				name: $0.name,
-				logo: "unverified_asset", website: "-",
-				decimals: Int($0.decimal) ?? 0,
-				change24H: "0",
-				changePercentage: "0",
-				price: "0",
-				isVerified: false,
-				isPosition: false
-			)
-		}
+		let customAssets = coreDataManager.getAllCustomAssets()
+			.filter { $0.accountAddress.lowercased() == PinoWalletManager().currentAccount.eip55Address.lowercased() }
+			.compactMap {
+				Detail(
+					id: $0.id,
+					symbol: $0.symbol,
+					name: $0.name,
+					logo: "unverified_asset", website: "-",
+					decimals: Int($0.decimal) ?? 0,
+					change24H: "0",
+					changePercentage: "0",
+					price: "0",
+					isVerified: false,
+					isPosition: false
+				)
+			}
 		return customAssets
 	}
 

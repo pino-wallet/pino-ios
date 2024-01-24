@@ -136,13 +136,20 @@ class CoreDataManager {
 		customAssetsDataSource.getAll()
 	}
 
-	public func addNewCustomAsset(id: String, symbol: String, name: String, decimal: String) -> CustomAsset? {
-		guard customAssetsDataSource.getBy(id: id) == nil else { return nil }
+	public func addNewCustomAsset(
+		id: String,
+		symbol: String,
+		name: String,
+		decimal: String,
+		accountAddress: String
+	) -> CustomAsset? {
+		guard !customAssetsDataSource.checkForAlreadyExist(accountAddress: accountAddress, id: id) else { return nil }
 		let newCustomAsset = CustomAsset(context: customAssetsDataSource.managedContext)
 		newCustomAsset.id = id.lowercased()
 		newCustomAsset.symbol = symbol
 		newCustomAsset.name = name
 		newCustomAsset.decimal = decimal
+		newCustomAsset.accountAddress = accountAddress
 		customAssetsDataSource.save(newCustomAsset)
 		return newCustomAsset
 	}
