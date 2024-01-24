@@ -63,9 +63,8 @@ class AddCustomAssetViewController: UIViewController {
 		addCustomAssetVM = AddCustomAssetViewModel(useraddress: userAddress)
 		let addCustomAssetView =
 			AddCustomAssetView(
-				presentAlertClosure: { [weak self] alertTitle, alertDescription in
-					let alert = InfoActionSheet(title: alertTitle, description: alertDescription)
-					self?.present(alert, animated: true)
+				presentAlertClosure: { [weak self] infoActonSheet, completion in
+					self?.present(infoActonSheet, animated: true, completion: completion)
 				},
 				dissmissKeybaordClosure: { [weak self] in
 					self?.view.endEditing(true)
