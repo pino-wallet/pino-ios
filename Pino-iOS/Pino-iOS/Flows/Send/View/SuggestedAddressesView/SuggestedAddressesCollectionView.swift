@@ -176,9 +176,17 @@ extension SuggestedAddressesCollectionView: UICollectionViewDelegateFlowLayout {
 		insetForSectionAt section: Int
 	) -> UIEdgeInsets {
 		if section == 0 {
-			return UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
+			if suggestedAddressesVM.recentAddresses.isEmpty {
+				return .zero
+			} else {
+				return UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
+			}
 		} else {
-			return UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
+			if suggestedAddressesVM.userWallets.isEmpty {
+				return .zero
+			} else {
+				return UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
+			}
 		}
 	}
 }
