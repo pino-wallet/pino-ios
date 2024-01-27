@@ -122,17 +122,23 @@ class EnterSendAddressView: UIView {
 
 		addressTextField.editingBegin = {
 			self.endEditingTapGesture.isEnabled = true
-			if let recipientAddress = self.enterSendAddressVM.addressShouldChanged() {
-				self.addressTextField.text = recipientAddress
-			}
 			UIView.animate(withDuration: 0.3) {
 				self.suggestedAddressesContainerView.alpha = 0
+			}
+			let addressInputType = self.enterSendAddressVM.addressInputType
+			if addressInputType == .ensWithAddress || addressInputType == .userNameWithAddress {
+				self.addressTextField.text = self.enterSendAddressVM.recipientAddress
 			}
 		}
 		addressTextField.editingEnd = {
 			self.endEditingTapGesture.isEnabled = false
 			UIView.animate(withDuration: 0.3) {
 				self.suggestedAddressesContainerView.alpha = 1
+			}
+			// if the entered address is for a user wallet, show its name in the  text field
+			if let selectedWallet = self.suggestedAddressesVM.userWallets
+				.first(where: { $0.address == self.addressTextField.text }) {
+				self.selectUserWallet(selectedWallet)
 			}
 		}
 	}

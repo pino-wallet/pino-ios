@@ -20,6 +20,7 @@ class EnterSendAddressViewModel {
 	public var sendAmountVM: EnterSendAmountViewModel
 	public var selectedWallet: AccountInfoViewModel!
 	public var recipientAddress: String?
+	public var addressInputType: AddressInputType = .regularAddress
 
 	public var sendAddressQrCodeScannerTitle: String {
 		"Scan address to send \(sendAmountVM.selectedToken.symbol)"
@@ -48,7 +49,6 @@ class EnterSendAddressViewModel {
 	// MARK: - Private Properties
 
 	private let pinoWalletManager = PinoWalletManager()
-	private var addressInputType: AddressInputType = .regularAddress
 
 	// MARK: - Initializers
 
@@ -85,6 +85,8 @@ class EnterSendAddressViewModel {
 	}
 
 	private func getENSAddress(_ ensId: String) {
+		// The request to get ENS address will implement later
+		addressInputType = .regularAddress
 		didValidateSendAddress(.error(.addressNotValid))
 	}
 
@@ -103,16 +105,6 @@ class EnterSendAddressViewModel {
 		addressInputType = .userNameWithAddress
 		recipientAddress = account.address
 		validateRegularAddress(account.address)
-	}
-
-	public func addressShouldChanged() -> String? {
-		switch addressInputType {
-		case .regularAddress:
-			return nil
-		case .ensWithAddress, .userNameWithAddress:
-			addressInputType = .regularAddress
-			return recipientAddress
-		}
 	}
 }
 
