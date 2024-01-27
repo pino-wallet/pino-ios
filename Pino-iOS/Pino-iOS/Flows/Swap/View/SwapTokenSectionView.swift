@@ -147,7 +147,8 @@ class SwapTokenSectionView: UIView {
 			textFieldSpacerView.widthAnchor.constraint(greaterThanOrEqualToConstant: 6),
 		])
 		selectAssetButton.pin(
-			.fixedHeight(40)
+			.fixedHeight(40),
+			.fixedWidth(140)
 		)
 	}
 
@@ -253,6 +254,14 @@ class SwapTokenSectionView: UIView {
 	public func hideSelectAssetButton() {
 		selectAssetButton.isHiddenInStackView = true
 		changeTokenView.isHiddenInStackView = false
+	}
+
+	public func hideDollarAmount() {
+		estimatedAmountLabel.isHidden = true
+	}
+
+	public func showDollarAmount() {
+		estimatedAmountLabel.isHidden = false
 	}
 }
 
