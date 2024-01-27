@@ -26,13 +26,14 @@ class SendConfirmationView: UIView {
 	private let sendAmountLabel = UILabel()
 	private let sendInfoStackView = UIStackView()
 //	private let selectedWalletStackView = UIStackView()
-	private let recipientStrackView = UIStackView()
+	private let recipientStackView = UIStackView()
 	private let feeStackView = UIStackView()
 //	private let selectedWalletTitleLabel = UILabel()
 	private let recipientTitleLabel = UILabel()
 	private var feeTitleView: TitleWithInfo!
 //	private let walletInfoStackView = UIStackView()
 	private let recipientAddressLabel = UILabel()
+	private let userRecipientAddressLabel = UILabel()
 //	private let walletImageBackgroundView = UIView()
 //	private let walletImageView = UIImageView()
 //	private let walletNameLabel = UILabel()
@@ -82,7 +83,7 @@ class SendConfirmationView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		userAccountInfoView = UserAccountInfoView(image: nil, title: nil)
+		userAccountInfoView = UserAccountInfoView(userAccountInfoVM: nil)
 		feeTitleView = TitleWithInfo(
 			actionSheetTitle: sendConfirmationVM.feeInfoActionSheetTitle,
 			actionSheetDescription: sendConfirmationVM.feeInfoActionSheetDescription
@@ -103,7 +104,7 @@ class SendConfirmationView: UIView {
 		tokenAmountStackView.addArrangedSubview(sendAmountLabel)
 		sendInfoCardView.addSubview(sendInfoStackView)
 //		sendInfoStackView.addArrangedSubview(selectedWalletStackView)
-		sendInfoStackView.addArrangedSubview(recipientStrackView)
+		sendInfoStackView.addArrangedSubview(recipientStackView)
 		sendInfoStackView.addArrangedSubview(feeStackView)
 //		selectedWalletStackView.addArrangedSubview(selectedWalletTitleLabel)
 //		selectedWalletStackView.addArrangedSubview(selectedWalletSpacerView)
@@ -111,10 +112,11 @@ class SendConfirmationView: UIView {
 //		walletInfoStackView.addArrangedSubview(walletImageBackgroundView)
 //		walletInfoStackView.addArrangedSubview(walletNameLabel)
 //		walletImageBackgroundView.addSubview(walletImageView)
-		recipientStrackView.addArrangedSubview(recipientTitleLabel)
-		recipientStrackView.addArrangedSubview(recipientSpacerView)
-		recipientStrackView.addArrangedSubview(recipientAddressLabel)
-		recipientStrackView.addArrangedSubview(userAccountInfoView)
+		recipientStackView.addArrangedSubview(recipientTitleLabel)
+		recipientStackView.addArrangedSubview(recipientSpacerView)
+		recipientStackView.addArrangedSubview(recipientAddressLabel)
+		recipientStackView.addArrangedSubview(userAccountInfoView)
+		recipientStackView.addArrangedSubview(userRecipientAddressLabel)
 
 		feeStackView.addArrangedSubview(feeTitleView)
 		feeStackView.addArrangedSubview(feeSpacerView)
@@ -175,9 +177,8 @@ class SendConfirmationView: UIView {
 			sendAmountLabel.isHidden = true
 		}
 
-		if sendConfirmationVM.userRecipientAccountInfo != nil {
-			userAccountInfoView.title = sendConfirmationVM.userRecipientAccountInfo?.name
-			userAccountInfoView.image = sendConfirmationVM.userRecipientAccountInfo?.image
+		if sendConfirmationVM.userRecipientAccountInfoVM != nil {
+			userAccountInfoView.userAccountInfoVM = sendConfirmationVM.userRecipientAccountInfoVM
 			userAccountInfoView.isHidden = false
 			recipientAddressLabel.isHidden = true
 		} else {

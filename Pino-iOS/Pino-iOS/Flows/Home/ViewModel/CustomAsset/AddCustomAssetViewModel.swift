@@ -73,8 +73,10 @@ class AddCustomAssetViewModel {
 	private var getCustomAssetInfoRequestWork: DispatchWorkItem!
 	private var readNodeContractKey = "0"
 	private var userAddressStaticCode = "0x"
+	private var currentValidationStatus: ContractValidationStatus = .clear
 
 	private let coredataManager = CoreDataManager()
+	private let currentAccountAddress = PinoWalletManager().currentAccount.eip55Address
 
 	// MARK: - Initializers
 
@@ -108,13 +110,17 @@ class AddCustomAssetViewModel {
 			return
 		}
 		if clipboardText.validateETHContractAddress() {
-			changeViewStatusClosure(.pasteFromClipboard(clipboardText))
+			if currentValidationStatus == .clear {
+				changeViewStatusClosure(.pasteFromClipboard(clipboardText))
+				currentValidationStatus = .pasteFromClipboard(clipboardText)
+			}
 		}
 	}
 
 	public func validateContractAddressBeforeRequest(textFieldText: String) {
 		if textFieldText.isEmpty {
 			changeViewStatusClosure(.clear)
+			currentValidationStatus = .clear
 			return
 		}
 
@@ -124,9 +130,11 @@ class AddCustomAssetViewModel {
 				.first(where: { $0.id.lowercased() == lowercasedTextFieldText })
 			if foundToken != nil {
 				changeViewStatusClosure(.error(.alreadyAdded))
+				currentValidationStatus = .error(.alreadyAdded)
 				return
 			} else {
 				changeViewStatusClosure(.pending)
+				currentValidationStatus = .pending
 				let contractChecksumAddress = Web3Core.shared.getChecksumOfEip55Address(eip55Address: textFieldText)
 				Web3Core.shared.getCustomAssetInfo(contractAddress: contractChecksumAddress)
 					.done { [weak self] assetInfo in
@@ -142,20 +150,25 @@ class AddCustomAssetViewModel {
 								decimal: decimal
 							))
 							self?.changeViewStatusClosure(.success)
+							self?.currentValidationStatus = .success
 						}
 					}.catch { error in
 						self.changeViewStatusClosure(.error(.networkError))
+						self.currentValidationStatus = .error(.networkError)
 					}
 			}
 		} else {
 			changeViewStatusClosure(.error(.notValid))
+			currentValidationStatus = .error(.notValid)
 		}
 	}
 
 	public func saveCustomTokenToCoredata() -> CustomAsset? {
 		guard let customAssetVM else { return nil }
-		if coredataManager.getAllCustomAssets()
-			.contains(where: { $0.id == customAssetVM.contractAddress.lowercased() }) {
+		let userAllCustomAssets = coredataManager.getAllCustomAssets()
+			.filter { $0.accountAddress.lowercased() == currentAccountAddress.lowercased() }
+		if userAllCustomAssets
+			.contains(where: { $0.id.lowercased() == customAssetVM.contractAddress.lowercased() }) {
 			Toast.default(title: "Asset Exists", subtitle: nil, style: .error, direction: .bottom).show()
 			return nil
 		} else {
@@ -163,7 +176,8 @@ class AddCustomAssetViewModel {
 				id: customAssetVM.contractAddress,
 				symbol: customAssetVM.symbol,
 				name: customAssetVM.name,
-				decimal: customAssetVM.decimal
+				decimal: customAssetVM.decimal,
+				accountAddress: currentAccountAddress.lowercased()
 			)
 			return customAssetModel
 		}

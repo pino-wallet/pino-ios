@@ -126,7 +126,6 @@ class AccountBalanceHeaderView: UICollectionReusableView {
 		)
 		receiveButton.addTarget(self, action: #selector(openReceiveButtonVC), for: .touchUpInside)
 		showBalanceButton.setConfiguraton(font: .PinoStyle.mediumFootnote!, imagePadding: 5)
-		showBalanceButton.isUserInteractionEnabled = false
 
 		volatilityView
 			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openVolatilityDetailPage)))

@@ -94,6 +94,7 @@
         <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWithdrawActivity" inverseName="details" inverseEntity="CDWithdrawActivity"/>
     </entity>
     <entity name="CustomAsset" representedClassName="CustomAsset" syncable="YES">
+        <attribute name="accountAddress" optional="YES" attributeType="String"/>
         <attribute name="decimal" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
@@ -116,6 +117,7 @@
         <attribute name="eip55Address" attributeType="String"/>
         <attribute name="isSelected" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="lastBalance" optional="YES" attributeType="String"/>
+        <attribute name="lastETHBalance" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="publicKey" attributeType="String"/>
         <relationship name="selectedAssets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SelectedAsset" inverseName="account" inverseEntity="SelectedAsset"/>

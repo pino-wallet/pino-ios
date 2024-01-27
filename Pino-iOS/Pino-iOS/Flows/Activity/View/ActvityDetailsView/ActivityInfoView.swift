@@ -34,9 +34,9 @@ class ActivityInfoView: UIView {
 	private var protocolStackView: ActivityInfoStackView!
 	private var feeStackView: ActivityInfoStackView!
 	private var activityProperties: ActivityDetailProperties!
-	private var fromInfoCustomView: UserAccountInfoView!
-	private var toInfoCustomView: UserAccountInfoView!
-	private var protocolInfoCustomView: UserAccountInfoView!
+	private var fromInfoCustomView: ImageAndInfoView!
+	private var toInfoCustomView: ImageAndInfoView!
+	private var protocolInfoCustomView: ImageAndInfoView!
 	private var cancellables = Set<AnyCancellable>()
 	private var pendingEllipsisView: EllipsisAnimatedText!
 	private var pendingEllipsisWidthConstraint: NSLayoutConstraint!
@@ -79,16 +79,16 @@ class ActivityInfoView: UIView {
 		statusLabelContainer.addSubview(statusInfoLabel)
 		statusLabelContainer.addSubview(pendingEllipsisView)
 
-		fromInfoCustomView = UserAccountInfoView(
+		fromInfoCustomView = ImageAndInfoView(
 			image: nil,
 			title: nil
 		)
-		toInfoCustomView = UserAccountInfoView(
+		toInfoCustomView = ImageAndInfoView(
 			image: nil,
 			title: nil
 		)
 
-		protocolInfoCustomView = UserAccountInfoView(
+		protocolInfoCustomView = ImageAndInfoView(
 			image: nil,
 			title: nil
 		)

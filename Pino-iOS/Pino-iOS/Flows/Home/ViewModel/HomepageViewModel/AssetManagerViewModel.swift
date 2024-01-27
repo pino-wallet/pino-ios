@@ -26,6 +26,7 @@ class AssetManagerViewModel {
 	// MARK: - Private Properties
 
 	private let accountingAPIClient = AccountingAPIClient()
+	private let assetsAPIClient = AssetsAPIClient()
 	private let ctsAPIclient = CTSAPIClient()
 	private let coreDataManager = CoreDataManager()
 	private var cancellables = Set<AnyCancellable>()
@@ -93,20 +94,22 @@ class AssetManagerViewModel {
 	}
 
 	internal func getCustomAssets() -> [Detail] {
-		let customAssets = coreDataManager.getAllCustomAssets().compactMap {
-			Detail(
-				id: $0.id,
-				symbol: $0.symbol,
-				name: $0.name,
-				logo: "unverified_asset", website: "-",
-				decimals: Int($0.decimal) ?? 0,
-				change24H: "0",
-				changePercentage: "0",
-				price: "0",
-				isVerified: false,
-				isPosition: false
-			)
-		}
+		let customAssets = coreDataManager.getAllCustomAssets()
+			.filter { $0.accountAddress.lowercased() == PinoWalletManager().currentAccount.eip55Address.lowercased() }
+			.compactMap {
+				Detail(
+					id: $0.id,
+					symbol: $0.symbol,
+					name: $0.name,
+					logo: "unverified_asset", website: "-",
+					decimals: Int($0.decimal) ?? 0,
+					change24H: "0",
+					changePercentage: "0",
+					price: "0",
+					isVerified: false,
+					isPosition: false
+				)
+			}
 		return customAssets
 	}
 
@@ -122,7 +125,7 @@ class AssetManagerViewModel {
 		}
 	}
 
-	// MARK: Private Methods
+	// MARK: - Private Methods
 
 	private func addSelectedAssetToCoreData(_ asset: AssetViewModel) {
 		let selectedAsset = coreDataManager.addNewSelectedAsset(id: asset.id)
@@ -150,7 +153,23 @@ class AssetManagerViewModel {
 		}
 	}
 
-	// MARK: Public Methods
+	// MARK: - Public Methods
+
+	public func getPositionAssetDetails() -> Promise<[PositionAssetModel]> {
+		Promise<[PositionAssetModel]> { seal in
+			assetsAPIClient.getAllPositionAssets().sink { completed in
+				switch completed {
+				case .finished:
+					print("tokens received successfully")
+				case let .failure(error):
+					print("Failed to fetch position asset details:\(error)")
+					Toast.default(title: "Failed to get position assets", style: .error).show(haptic: .warning)
+				}
+			} receiveValue: { positionAssets in
+				seal.fulfill(positionAssets)
+			}.store(in: &cancellables)
+		}
+	}
 
 	public func addNewCustomAsset(_ customAsset: CustomAsset) {
 		addSelectedAssetToCoreData(id: customAsset.id)

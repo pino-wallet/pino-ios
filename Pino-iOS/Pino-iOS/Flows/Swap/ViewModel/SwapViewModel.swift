@@ -65,7 +65,6 @@ class SwapViewModel {
 		self.toToken.amountUpdated = { amount in
 			self.recalculateTokensAmount(amount: amount)
 		}
-		recalculateTokensAmountPeriodically()
 	}
 
 	// MARK: - Public Methods
@@ -171,12 +170,14 @@ class SwapViewModel {
 	// MARK: - Private Methods
 
 	private func recalculateTokensAmountPeriodically() {
+		if let recalculateSwapTimer {
+			recalculateSwapTimer.invalidate()
+		}
 		recalculateSwapTimer = Timer.scheduledTimer(withTimeInterval: 12, repeats: true) { [weak self] timer in
 			guard let self = self else { return }
 			self.providers = []
 			self.recalculateTokensAmount()
 		}
-		recalculateSwapTimer.fire()
 	}
 
 	private func recalculateTokensAmount(amount: String?) {
@@ -200,6 +201,7 @@ class SwapViewModel {
 		if let amount {
 			if amount.last == "." { return }
 		}
+		recalculateTokensAmountPeriodically()
 		srcToken.calculateDollarAmount(amount)
 		if isEthToWeth() || isWethToEth() {
 			updateEthSwapInfo(destToken: destToken, amount: srcToken.tokenAmount)
