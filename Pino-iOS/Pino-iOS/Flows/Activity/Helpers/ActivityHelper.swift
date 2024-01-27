@@ -62,16 +62,16 @@ struct ActivityHelper {
 	public func getActivityDate(activityBlockTime: String) -> Date {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        dateFormatter.locale = Locale(identifier: GlobalVariables.shared.timeZoneIdentifier)
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: GlobalVariables.shared.timeZoneSecondsFromGMT)
+		dateFormatter.locale = Locale(identifier: GlobalVariables.shared.timeZoneIdentifier)
+		dateFormatter.timeZone = TimeZone(secondsFromGMT: GlobalVariables.shared.timeZoneSecondsFromGMT)
 		return dateFormatter.date(from: activityBlockTime)!
 	}
 
 	public func getServerFormattedStringDate(date: Date) -> String {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        dateFormatter.locale = Locale(identifier: GlobalVariables.shared.timeZoneIdentifier)
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: GlobalVariables.shared.timeZoneSecondsFromGMT)
+		dateFormatter.locale = Locale(identifier: GlobalVariables.shared.timeZoneIdentifier)
+		dateFormatter.timeZone = TimeZone(secondsFromGMT: GlobalVariables.shared.timeZoneSecondsFromGMT)
 		return dateFormatter.string(from: date)
 	}
 
@@ -345,19 +345,23 @@ struct ActivityHelper {
 	}
 
 	private func separateActivitiesByDay(activities: [ActivityCellViewModel]) -> SeparatedActivitiesWithDayType {
-        let currentStringDate = getServerFormattedStringDate(date: Date())
-        let currentDate = getActivityDate(activityBlockTime: currentStringDate)
+		let currentStringDate = getServerFormattedStringDate(date: Date())
+		let currentDate = getActivityDate(activityBlockTime: currentStringDate)
 		var activityDate: Date
 		var daysBetweenNowAndActivityTime: Int
 		var result: SeparatedActivitiesWithDayType = [:]
 
 		for activity in activities {
 			activityDate = getActivityDate(activityBlockTime: activity.blockTime)
-            let calendar = Calendar.current
-            let activityStartOfDayTime = calendar.startOfDay(for: activityDate)
-            let currentStartOfDayTime = calendar.startOfDay(for: currentDate)
-            daysBetweenNowAndActivityTime = calendar.dateComponents([.day], from: activityStartOfDayTime, to: currentStartOfDayTime)
-				.day!
+			let calendar = Calendar.current
+			let activityStartOfDayTime = calendar.startOfDay(for: activityDate)
+			let currentStartOfDayTime = calendar.startOfDay(for: currentDate)
+			daysBetweenNowAndActivityTime = calendar.dateComponents(
+				[.day],
+				from: activityStartOfDayTime,
+				to: currentStartOfDayTime
+			)
+			.day!
 			if let resultActivity = getActivityDetails(activity: activity) {
 				if result[daysBetweenNowAndActivityTime] != nil {
 					result[daysBetweenNowAndActivityTime]?.append(resultActivity)
@@ -387,20 +391,19 @@ struct ActivityHelper {
 			} else if activityGroupKey == 1 {
 				activityGroupTitle = "Yesterday"
 			} else {
-                let firstactivityInGroupDate = getActivityDate(activityBlockTime: activityGroup[0].blockTime)
+				let firstactivityInGroupDate = getActivityDate(activityBlockTime: activityGroup[0].blockTime)
 				let dateFormatter = DateFormatter()
 				dateFormatter.dateFormat = "MMM d yyyy"
-                dateFormatter.locale = Locale(identifier: GlobalVariables.shared.timeZoneIdentifier)
-                dateFormatter.timeZone = TimeZone(secondsFromGMT: GlobalVariables.shared.timeZoneSecondsFromGMT)
-                activityGroupTitle = dateFormatter.string(from: firstactivityInGroupDate)
+				dateFormatter.locale = Locale(identifier: GlobalVariables.shared.timeZoneIdentifier)
+				dateFormatter.timeZone = TimeZone(secondsFromGMT: GlobalVariables.shared.timeZoneSecondsFromGMT)
+				activityGroupTitle = dateFormatter.string(from: firstactivityInGroupDate)
 			}
-            
-            if let foundIndex = result.firstIndex(where: { $0.title == activityGroupTitle }) {
-                result[foundIndex].activities.append(contentsOf: activityGroup)
-            } else {
-                result.append((title: activityGroupTitle, activities: activityGroup))
-            }
 
+			if let foundIndex = result.firstIndex(where: { $0.title == activityGroupTitle }) {
+				result[foundIndex].activities.append(contentsOf: activityGroup)
+			} else {
+				result.append((title: activityGroupTitle, activities: activityGroup))
+			}
 		}
 		return result
 	}

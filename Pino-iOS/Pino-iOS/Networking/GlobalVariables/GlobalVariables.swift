@@ -25,13 +25,14 @@ class GlobalVariables {
 	@Published
 	public var currentAccount: WalletAccount!
 	public var positionAssetDetailsList: [PositionAssetModel]?
-    
-    public var timeZoneIdentifier: String {
-        TimeZone.current.identifier
-    }
-    public var timeZoneSecondsFromGMT: Int {
-        TimeZone.current.secondsFromGMT()
-    }
+
+	public var timeZoneIdentifier: String {
+		TimeZone.current.identifier
+	}
+
+	public var timeZoneSecondsFromGMT: Int {
+		TimeZone.current.secondsFromGMT()
+	}
 
 	// MARK: - Private Properties
 
