@@ -141,6 +141,11 @@ class EnterSendAddressView: UIView {
 				self.selectUserWallet(selectedWallet)
 			}
 		}
+
+		enterSendAddressVM.ensAddressFound = { name, address in
+			self.setNameWithAddressText(name: name, address: address)
+			self.endEditing(true)
+		}
 	}
 
 	private func setupConstraints() {
@@ -157,8 +162,7 @@ class EnterSendAddressView: UIView {
 
 		addressTextField.pin(
 			.top(to: layoutMarginsGuide, padding: 24),
-			.horizontalEdges(padding: 16),
-			.fixedHeight(48)
+			.horizontalEdges(padding: 16)
 		)
 		suggestedAddressesContainerView.pin(
 			.top(to: addressTextField, .bottom, padding: 8),
@@ -191,6 +195,11 @@ class EnterSendAddressView: UIView {
 			nextButton.title = enterSendAddressVM.nextButtonTitle
 		case .normal:
 			addressTextField.style = .customView(qrCodeScanButton)
+
+			nextButton.style = .deactive
+			nextButton.title = enterSendAddressVM.nextButtonTitle
+		case .loading:
+			addressTextField.style = .pending
 
 			nextButton.style = .deactive
 			nextButton.title = enterSendAddressVM.nextButtonTitle
@@ -278,19 +287,22 @@ class EnterSendAddressView: UIView {
 	}
 
 	private func selectUserWallet(_ userWallet: AccountInfoViewModel) {
-		let walletName = userWallet.name
-		let walletAddress = "(\(userWallet.address.addressFormating()))"
-		let addressAttributedText = NSMutableAttributedString(string: "\(walletName) \(walletAddress)")
+		setNameWithAddressText(name: userWallet.name, address: userWallet.address)
+		enterSendAddressVM.selectUserWallet(userWallet)
+	}
+
+	private func setNameWithAddressText(name: String, address: String) {
+		let formattedAddress = "(\(address.addressFormating()))"
+		let addressAttributedText = NSMutableAttributedString(string: "\(name) \(formattedAddress)")
 		addressAttributedText.addAttributes(
 			[.font: UIFont.PinoStyle.regularBody!, .foregroundColor: UIColor.Pino.label],
-			range: (addressAttributedText.string as NSString).range(of: walletAddress)
+			range: (addressAttributedText.string as NSString).range(of: formattedAddress)
 		)
 		addressAttributedText.addAttributes(
 			[.font: UIFont.PinoStyle.mediumBody!, .foregroundColor: UIColor.Pino.label],
-			range: (addressAttributedText.string as NSString).range(of: walletName)
+			range: (addressAttributedText.string as NSString).range(of: name)
 		)
 		addressTextField.attributedText = addressAttributedText
-		enterSendAddressVM.selectUserWallet(userWallet)
 	}
 }
 

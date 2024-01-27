@@ -20,6 +20,10 @@ final class Web3APIClient: Web3APIService {
 		networkManager.request(.hashTypeData(eip712ReqModel: eip712HashReqInfo))
 	}
 
+	public func getEnsAddress(ensName: String) -> AnyPublisher<EnsAddress, APIError> {
+		networkManager.request(.ensAddress(ensName: ensName))
+	}
+
 	#warning("Refactor this function later")
 	public func getTokenPositionID(
 		tokenAdd: String,

@@ -4,12 +4,14 @@
 //
 //  Created by Amir hossein kazemi seresht on 6/15/23.
 //
+import Combine
 import Foundation
 
 class EnterSendAddressViewModel {
 	// MARK: - Closures
 
 	public var didValidateSendAddress: (ValidationStatus) -> Void = { _ in }
+	public var ensAddressFound: ((_ name: String, _ address: String) -> Void)!
 
 	// MARK: - Public Properties
 
@@ -30,6 +32,7 @@ class EnterSendAddressViewModel {
 		case error(ValidationError)
 		case success
 		case normal
+		case loading
 	}
 
 	public enum ValidationError: Error {
@@ -49,6 +52,8 @@ class EnterSendAddressViewModel {
 	// MARK: - Private Properties
 
 	private let pinoWalletManager = PinoWalletManager()
+	private let web3APIClient = Web3APIClient()
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -84,10 +89,24 @@ class EnterSendAddressViewModel {
 		}
 	}
 
-	private func getENSAddress(_ ensId: String) {
-		// The request to get ENS address will implement later
+	private func getENSAddress(_ ensName: String) {
 		addressInputType = .regularAddress
-		didValidateSendAddress(.error(.addressNotValid))
+		didValidateSendAddress(.loading)
+		web3APIClient.getEnsAddress(ensName: ensName)
+			.sink { completed in
+				switch completed {
+				case .finished:
+					print("ENS address received successfully")
+				case let .failure(error):
+					print("Error getting ENS address:\(error)")
+					self.didValidateSendAddress(.error(.addressNotValid))
+				}
+			} receiveValue: { ensAddress in
+				self.recipientAddress = ensAddress.address
+				self.ensAddressFound(ensName, ensAddress.address)
+				self.validateRegularAddress(ensAddress.address)
+				self.addressInputType = .ensWithAddress
+			}.store(in: &cancellables)
 	}
 
 	// MARK: - Public Methods
