@@ -133,7 +133,7 @@ class ActivityViewModel {
 
 	@objc
 	private func getUserActivities() {
-		let userAddress = "0xeD930c5a2a3DcB85E6f2901755F740ec5B265df9"
+		let userAddress = walletManager.currentAccount.eip55Address
 		activityAPIClient.allActivities(userAddress: userAddress).sink { completed in
 			switch completed {
 			case .finished:
