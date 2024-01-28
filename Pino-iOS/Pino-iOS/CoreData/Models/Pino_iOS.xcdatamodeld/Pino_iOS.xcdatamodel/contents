@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23B74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23C64" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CDActivityDetailsToken" representedClassName="CDActivityDetailsToken" syncable="YES">
         <attribute name="amount" attributeType="String"/>
         <attribute name="tokenId" attributeType="String"/>
@@ -115,6 +115,7 @@
         <attribute name="avatarIcon" optional="YES" attributeType="String"/>
         <attribute name="derivationPath" optional="YES" attributeType="String"/>
         <attribute name="eip55Address" attributeType="String"/>
+        <attribute name="isPositionEnabled" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isSelected" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="lastBalance" optional="YES" attributeType="String"/>
         <attribute name="lastETHBalance" optional="YES" attributeType="String"/>
