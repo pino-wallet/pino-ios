@@ -35,8 +35,8 @@ struct AssetChartDataViewModel {
 	private func getDate(from time: String) -> Date? {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-		dateFormatter.locale = Locale(identifier: GlobalVariables.shared.timeZoneIdentifier)
-		dateFormatter.timeZone = TimeZone(secondsFromGMT: GlobalVariables.shared.timeZoneSecondsFromGMT)
+        dateFormatter.locale = Locale(identifier: Date().timeZoneIdentifier)
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: Date().timeZoneSecondsFromGMT)
 		let date = dateFormatter.date(from: time)
 		return date
 	}

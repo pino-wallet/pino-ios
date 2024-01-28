@@ -70,8 +70,12 @@ class ActivityDetailsHeaderView: UIView {
 		defaultTitleLabel.text = activityProperties.assetAmountTitle ?? ""
 		defaultTitleLabel.numberOfLines = 0
 
-		defaultImageView.kf.indicatorType = .activity
-		defaultImageView.kf.setImage(with: activityProperties.assetIcon)
+        if let assetIcon = activityProperties.assetIcon {
+            defaultImageView.kf.indicatorType = .activity
+            defaultImageView.kf.setImage(with: assetIcon)
+        } else {
+            defaultImageView.image = UIImage(named: activityDetailsVM.unVerifiedAssetIconName)
+        }
 	}
 
 	private func setupBindings() {

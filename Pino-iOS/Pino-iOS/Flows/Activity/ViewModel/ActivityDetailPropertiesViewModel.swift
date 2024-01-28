@@ -121,8 +121,8 @@ struct ActivityDetailProperties {
 			.getActivityDate(activityBlockTime: activityDetails.defaultActivityModel.blockTime)
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "MMM d yyyy, HH:mm"
-		dateFormatter.locale = Locale(identifier: GlobalVariables.shared.timeZoneIdentifier)
-		dateFormatter.timeZone = TimeZone(secondsFromGMT: GlobalVariables.shared.timeZoneSecondsFromGMT)
+        dateFormatter.locale = Locale(identifier: Date().timeZoneIdentifier)
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: Date().timeZoneSecondsFromGMT)
 		return dateFormatter.string(from: activityDate)
 	}
 
