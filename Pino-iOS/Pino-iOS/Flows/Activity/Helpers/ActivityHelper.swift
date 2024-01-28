@@ -62,16 +62,16 @@ struct ActivityHelper {
 	public func getActivityDate(activityBlockTime: String) -> Date {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        dateFormatter.locale = Locale(identifier: Date().timeZoneIdentifier)
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: Date().timeZoneSecondsFromGMT)
+		dateFormatter.locale = Locale(identifier: Date().timeZoneIdentifier)
+		dateFormatter.timeZone = TimeZone(secondsFromGMT: Date().timeZoneSecondsFromGMT)
 		return dateFormatter.date(from: activityBlockTime)!
 	}
 
 	public func getServerFormattedStringDate(date: Date) -> String {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        dateFormatter.locale = Locale(identifier: Date().timeZoneIdentifier)
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: Date().timeZoneSecondsFromGMT)
+		dateFormatter.locale = Locale(identifier: Date().timeZoneIdentifier)
+		dateFormatter.timeZone = TimeZone(secondsFromGMT: Date().timeZoneSecondsFromGMT)
 		return dateFormatter.string(from: date)
 	}
 
@@ -394,8 +394,8 @@ struct ActivityHelper {
 				let firstactivityInGroupDate = getActivityDate(activityBlockTime: activityGroup[0].blockTime)
 				let dateFormatter = DateFormatter()
 				dateFormatter.dateFormat = "MMM d yyyy"
-                dateFormatter.locale = Locale(identifier: Date().timeZoneIdentifier)
-                dateFormatter.timeZone = TimeZone(secondsFromGMT: Date().timeZoneSecondsFromGMT)
+				dateFormatter.locale = Locale(identifier: Date().timeZoneIdentifier)
+				dateFormatter.timeZone = TimeZone(secondsFromGMT: Date().timeZoneSecondsFromGMT)
 				activityGroupTitle = dateFormatter.string(from: firstactivityInGroupDate)
 			}
 

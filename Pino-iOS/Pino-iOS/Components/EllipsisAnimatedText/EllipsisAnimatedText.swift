@@ -5,9 +5,9 @@
 //  Created by Amir hossein kazemi seresht on 1/15/24.
 //
 
+import Combine
 import Foundation
 import UIKit
-import Combine
 
 class EllipsisAnimatedText: UIView {
 	// MARK: - Public Properties
@@ -29,7 +29,7 @@ class EllipsisAnimatedText: UIView {
 	private var defaultText: String
 	private var currentState = 0
 	private var timer: Timer?
-    private var cancellables = Set<AnyCancellable>()
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - View Overrides
 
