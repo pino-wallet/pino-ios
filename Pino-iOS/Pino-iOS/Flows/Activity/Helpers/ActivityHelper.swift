@@ -60,11 +60,11 @@ struct ActivityHelper {
 	}
 
 	public func getActivityDate(activityBlockTime: String) -> Date {
-        activityBlockTime.serverFormattedDate
+		activityBlockTime.serverFormattedDate
 	}
 
 	public func getServerFormattedStringDate(date: Date) -> String {
-        date.serverFormattedDate
+		date.serverFormattedDate
 	}
 
 	public func separateActivitiesByTime(activities: [ActivityCellViewModel]) -> SeparatedActivitiesType {

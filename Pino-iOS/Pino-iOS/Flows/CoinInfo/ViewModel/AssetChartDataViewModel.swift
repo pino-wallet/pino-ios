@@ -33,6 +33,6 @@ struct AssetChartDataViewModel {
 	// MARK: - Private Methods
 
 	private func getDate(from time: String) -> Date? {
-        time.serverFormattedDate
+		time.serverFormattedDate
 	}
 }
