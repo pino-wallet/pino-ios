@@ -40,6 +40,6 @@ class SuggestedAddressHeaderView: UICollectionReusableView {
 	private func setupConstraints() {
 		titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 22).isActive = true
 
-		titleLabel.pin(.horizontalEdges(padding: 14), .bottom(padding: 16))
+		titleLabel.pin(.horizontalEdges(padding: 14), .centerY)
 	}
 }

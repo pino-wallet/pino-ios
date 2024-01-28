@@ -68,7 +68,7 @@ class EnterSendAddressViewController: UIViewController {
 	}
 
 	private func openConfiramtionPage() {
-		guard let address = enterSendAddressView.addressTextField.getText(),
+		guard let address = enterSendAddressVM.recipientAddress,
 		      enterSendAddressView.validationStatus == .success else { return }
 
 		let confirmationVM = SendConfirmationViewModel(

@@ -14,6 +14,7 @@ enum Web3Endpoint: EndpointType {
 	case positionID(tokenAdd: String, positionType: IndexerPositionType, protocolName: String)
 	case ehtGasInfo
 	case gasLimits
+	case ensAddress(ensName: String)
 
 	// MARK: - Internal Methods
 
@@ -42,6 +43,8 @@ enum Web3Endpoint: EndpointType {
 			return "web3/network-fee"
 		case .gasLimits:
 			return "listing/gas-limits"
+		case let .ensAddress(ensName):
+			return "web3/ens-resolve/\(ensName)"
 		}
 	}
 
@@ -53,7 +56,7 @@ enum Web3Endpoint: EndpointType {
 				bodyEncoding: .jsonEncoding,
 				urlParameters: nil
 			)
-		case .positionID, .ehtGasInfo, .gasLimits:
+		case .positionID, .ehtGasInfo, .gasLimits, .ensAddress:
 			return .request
 		}
 	}
@@ -62,7 +65,7 @@ enum Web3Endpoint: EndpointType {
 		switch self {
 		case .hashTypeData:
 			return .post
-		case .positionID, .ehtGasInfo, .gasLimits:
+		case .positionID, .ehtGasInfo, .gasLimits, .ensAddress:
 			return .get
 		}
 	}

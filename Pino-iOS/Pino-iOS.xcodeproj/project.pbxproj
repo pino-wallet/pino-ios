@@ -699,6 +699,7 @@
 		E34728EB29E7DD6B00AB8265 /* AssetManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34728EA29E7DD6B00AB8265 /* AssetManagerViewModel.swift */; };
 		E34728F129EEA81000AB8265 /* AssetChartDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34728F029EEA81000AB8265 /* AssetChartDataViewModel.swift */; };
 		E351A72729F5247000635715 /* ChartDateBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E351A72629F5247000635715 /* ChartDateBuilder.swift */; };
+		E356F7DA2B64F81B009A90AE /* EnsAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E356F7D92B64F81B009A90AE /* EnsAddress.swift */; };
 		E3596B1B2A6E51D60030B682 /* SwapSide.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3596B1A2A6E51D60030B682 /* SwapSide.swift */; };
 		E35BB63A2A5589F3003987F5 /* SelectSwapProtocolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB6392A5589F3003987F5 /* SelectSwapProtocolViewController.swift */; };
 		E35BB63C2A558B2E003987F5 /* SelectSwapProtocolViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BB63B2A558B2E003987F5 /* SelectSwapProtocolViewModel.swift */; };
@@ -1551,6 +1552,7 @@
 		E34728EA29E7DD6B00AB8265 /* AssetManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetManagerViewModel.swift; sourceTree = "<group>"; };
 		E34728F029EEA81000AB8265 /* AssetChartDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetChartDataViewModel.swift; sourceTree = "<group>"; };
 		E351A72629F5247000635715 /* ChartDateBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDateBuilder.swift; sourceTree = "<group>"; };
+		E356F7D92B64F81B009A90AE /* EnsAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsAddress.swift; sourceTree = "<group>"; };
 		E3596B1A2A6E51D60030B682 /* SwapSide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapSide.swift; sourceTree = "<group>"; };
 		E35BB6372A5585FA003987F5 /* SwapProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapProtocol.swift; sourceTree = "<group>"; };
 		E35BB6392A5589F3003987F5 /* SelectSwapProtocolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSwapProtocolViewController.swift; sourceTree = "<group>"; };
@@ -3804,6 +3806,7 @@
 				DF6DEDD12AA8C3D90080B47B /* EIP712PermitModel.swift */,
 				DFF8C35A2B11CEEF00C74DAC /* EthGasInfoModel.swift */,
 				DF136FDD2B381E5E00A7B878 /* GasLimitsModel.swift */,
+				E356F7D92B64F81B009A90AE /* EnsAddress.swift */,
 			);
 			path = Web3;
 			sourceTree = "<group>";
@@ -5569,6 +5572,7 @@
 				E351A72729F5247000635715 /* ChartDateBuilder.swift in Sources */,
 				E3F482EC2A3485A500EEC9CF /* EnterSendAmountViewController.swift in Sources */,
 				E35BB6592A62F1A8003987F5 /* SwapConfirmationInfoView.swift in Sources */,
+				E356F7DA2B64F81B009A90AE /* EnsAddress.swift in Sources */,
 				DF14FC9F2A9105CF005221A8 /* W3GasInfoManager.swift in Sources */,
 				96892E44DA2E5556E1679817 /* AccountBalanceHeaderView.swift in Sources */,
 				0F91AD673ECAFFCD63C38A33 /* WalletBalanceModel.swift in Sources */,

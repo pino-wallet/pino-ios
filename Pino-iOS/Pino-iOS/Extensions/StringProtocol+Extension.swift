@@ -49,6 +49,15 @@ extension String {
 		}
 	}
 
+	public func isENSAddress() -> Bool {
+		let ensAddressRegex = "(?i).*\\.eth$"
+		if range(of: ensAddressRegex, options: .regularExpression, range: nil, locale: nil) != nil {
+			return true
+		} else {
+			return false
+		}
+	}
+
 	public func generateQRCode(customHeight: Int, customWidth: Int) -> UIImage? {
 		let data = data(using: String.Encoding.ascii)
 		if let filter = CIFilter(name: "CIQRCodeGenerator") {

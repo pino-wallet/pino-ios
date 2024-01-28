@@ -73,9 +73,12 @@ class EnterSendAddressView: UIView {
 	private func setupView() {
 		suggestedAddressesCollectionView = SuggestedAddressesCollectionView(
 			suggestedAddressesVM: suggestedAddressesVM,
-			suggestedAddressDidSelect: { address in
+			recentAddressDidSelect: { address in
 				self.addressTextField.text = address
 				self.enterSendAddressVM.validateSendAddress(address: address)
+			},
+			userWalletDidSelect: { userWallet in
+				self.selectUserWallet(userWallet)
 			}
 		)
 		addressTextField.textDidChange = {
@@ -122,12 +125,26 @@ class EnterSendAddressView: UIView {
 			UIView.animate(withDuration: 0.3) {
 				self.suggestedAddressesContainerView.alpha = 0
 			}
+			let addressInputType = self.enterSendAddressVM.addressInputType
+			if addressInputType == .ensWithAddress || addressInputType == .userNameWithAddress {
+				self.addressTextField.text = self.enterSendAddressVM.recipientAddress
+			}
 		}
 		addressTextField.editingEnd = {
 			self.endEditingTapGesture.isEnabled = false
 			UIView.animate(withDuration: 0.3) {
 				self.suggestedAddressesContainerView.alpha = 1
 			}
+			// if the entered address is for a user wallet, show its name in the  text field
+			if let selectedWallet = self.suggestedAddressesVM.userWallets
+				.first(where: { $0.address == self.addressTextField.text }) {
+				self.selectUserWallet(selectedWallet)
+			}
+		}
+
+		enterSendAddressVM.ensAddressFound = { name, address in
+			self.setNameWithAddressText(name: name, address: address)
+			self.endEditing(true)
 		}
 	}
 
@@ -145,8 +162,7 @@ class EnterSendAddressView: UIView {
 
 		addressTextField.pin(
 			.top(to: layoutMarginsGuide, padding: 24),
-			.horizontalEdges(padding: 16),
-			.fixedHeight(48)
+			.horizontalEdges(padding: 16)
 		)
 		suggestedAddressesContainerView.pin(
 			.top(to: addressTextField, .bottom, padding: 8),
@@ -179,6 +195,11 @@ class EnterSendAddressView: UIView {
 			nextButton.title = enterSendAddressVM.nextButtonTitle
 		case .normal:
 			addressTextField.style = .customView(qrCodeScanButton)
+
+			nextButton.style = .deactive
+			nextButton.title = enterSendAddressVM.nextButtonTitle
+		case .loading:
+			addressTextField.style = .pending
 
 			nextButton.style = .deactive
 			nextButton.title = enterSendAddressVM.nextButtonTitle
@@ -263,6 +284,25 @@ class EnterSendAddressView: UIView {
 	@objc
 	private func viewEndEditing() {
 		endEditing(true)
+	}
+
+	private func selectUserWallet(_ userWallet: AccountInfoViewModel) {
+		setNameWithAddressText(name: userWallet.name, address: userWallet.address)
+		enterSendAddressVM.selectUserWallet(userWallet)
+	}
+
+	private func setNameWithAddressText(name: String, address: String) {
+		let formattedAddress = "(\(address.addressFormating()))"
+		let addressAttributedText = NSMutableAttributedString(string: "\(name) \(formattedAddress)")
+		addressAttributedText.addAttributes(
+			[.font: UIFont.PinoStyle.regularBody!, .foregroundColor: UIColor.Pino.label],
+			range: (addressAttributedText.string as NSString).range(of: formattedAddress)
+		)
+		addressAttributedText.addAttributes(
+			[.font: UIFont.PinoStyle.mediumBody!, .foregroundColor: UIColor.Pino.label],
+			range: (addressAttributedText.string as NSString).range(of: name)
+		)
+		addressTextField.attributedText = addressAttributedText
 	}
 }
 
