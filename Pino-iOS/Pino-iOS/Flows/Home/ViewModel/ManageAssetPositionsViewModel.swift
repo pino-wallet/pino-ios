@@ -8,10 +8,6 @@
 import Foundation
 
 public struct ManageAssetPositionsViewModel {
-	// MARK: - Private Properties
-
-	private static let positionsUserDefaultKey = "isPositionsSelected"
-
 	// MARK: - Public Properties
 
 	public let positionsTitle = "Positions"
@@ -23,10 +19,11 @@ public struct ManageAssetPositionsViewModel {
 
 	public static var positionsSelected: Bool {
 		get {
-			UserDefaults.standard.bool(forKey: ManageAssetPositionsViewModel.positionsUserDefaultKey)
+			GlobalVariables.shared.currentAccount.isPositionEnabled
 		}
 		set {
-			UserDefaults.standard.set(newValue, forKey: ManageAssetPositionsViewModel.positionsUserDefaultKey)
+			CoreDataManager().enableAccountPositions(newValue)
+			GlobalVariables.shared.currentAccount.isPositionEnabled = newValue
 		}
 	}
 
