@@ -69,6 +69,7 @@ class CoreDataManager {
 		newAccount.isSelected = isSelected
 		newAccount.wallet = wallet
 		newAccount.selectedAssets = []
+		newAccount.isPositionEnabled = false
 		if newAccount.wallet.walletType == .hdWallet {
 			newAccount.wallet.lastDrivedIndex += 1
 		}
@@ -130,6 +131,12 @@ class CoreDataManager {
 
 	public func deleteSelectedAsset(_ selectedAsset: SelectedAsset) {
 		selectedAssetDataSource.delete(selectedAsset)
+	}
+
+	public func enableAccountPositions(_ isPositionEnable: Bool) {
+		let currentAccount = PinoWalletManager().currentAccount
+		currentAccount.isPositionEnabled = isPositionEnable
+		accountDataSource.save(currentAccount)
 	}
 
 	public func getAllCustomAssets() -> [CustomAsset] {
