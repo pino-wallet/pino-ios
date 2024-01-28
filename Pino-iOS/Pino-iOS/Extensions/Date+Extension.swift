@@ -31,4 +31,20 @@ extension Date {
 	static func - (lhs: Date, rhs: Int) -> Date {
 		Calendar.current.date(byAdding: .day, value: -rhs, to: lhs)!
 	}
+
+	public var timeZoneSecondsFromGMT: Int {
+		TimeZone.current.secondsFromGMT()
+	}
+
+	public var timeZoneIdentifier: String {
+		TimeZone.current.identifier
+	}
+
+	public var serverFormattedDate: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+		dateFormatter.locale = Locale(identifier: Date().timeZoneIdentifier)
+		dateFormatter.timeZone = TimeZone(secondsFromGMT: Date().timeZoneSecondsFromGMT)
+		return dateFormatter.string(from: self)
+	}
 }

@@ -17,6 +17,10 @@ extension ActivityCellDetailsProtocol {
 	}
 
 	var tokenImage: URL? {
-		token.image
+		if token.isVerified || token.isPosition {
+			return token.image
+		} else {
+			return nil
+		}
 	}
 }

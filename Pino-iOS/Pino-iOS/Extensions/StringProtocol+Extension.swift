@@ -184,4 +184,12 @@ extension String {
 			return result
 		}
 	}
+
+	public var serverFormattedDate: Date {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+		dateFormatter.locale = Locale(identifier: Date().timeZoneIdentifier)
+		dateFormatter.timeZone = TimeZone(secondsFromGMT: Date().timeZoneSecondsFromGMT)
+		return dateFormatter.date(from: self)!
+	}
 }

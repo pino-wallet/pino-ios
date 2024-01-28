@@ -33,11 +33,6 @@ struct AssetChartDataViewModel {
 	// MARK: - Private Methods
 
 	private func getDate(from time: String) -> Date? {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-		dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-		dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-		let date = dateFormatter.date(from: time)
-		return date
+		time.serverFormattedDate
 	}
 }
