@@ -60,19 +60,11 @@ struct ActivityHelper {
 	}
 
 	public func getActivityDate(activityBlockTime: String) -> Date {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-		dateFormatter.locale = Locale(identifier: Date().timeZoneIdentifier)
-		dateFormatter.timeZone = TimeZone(secondsFromGMT: Date().timeZoneSecondsFromGMT)
-		return dateFormatter.date(from: activityBlockTime)!
+        activityBlockTime.serverFormattedDate
 	}
 
 	public func getServerFormattedStringDate(date: Date) -> String {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-		dateFormatter.locale = Locale(identifier: Date().timeZoneIdentifier)
-		dateFormatter.timeZone = TimeZone(secondsFromGMT: Date().timeZoneSecondsFromGMT)
-		return dateFormatter.string(from: date)
+        date.serverFormattedDate
 	}
 
 	public func separateActivitiesByTime(activities: [ActivityCellViewModel]) -> SeparatedActivitiesType {
