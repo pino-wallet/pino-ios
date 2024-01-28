@@ -36,7 +36,7 @@ class SwapViewModel {
 	private let priceManager = SwapPriceManager()
 	private var web3 = Web3Core.shared
 	private let walletManager = PinoWalletManager()
-	private var recalculateSwapTimer: Timer!
+	private var recalculateSwapTimer: Timer?
 
 	private var swapSide: SwapSide? {
 		if !fromToken.isEditing && !toToken.isEditing {
@@ -164,15 +164,15 @@ class SwapViewModel {
 	}
 
 	public func removeRateTimer() {
-		recalculateSwapTimer.invalidate()
+		if let recalculateSwapTimer {
+			recalculateSwapTimer.invalidate()
+		}
 	}
 
 	// MARK: - Private Methods
 
 	private func recalculateTokensAmountPeriodically() {
-		if let recalculateSwapTimer {
-			recalculateSwapTimer.invalidate()
-		}
+		removeRateTimer()
 		recalculateSwapTimer = Timer.scheduledTimer(withTimeInterval: 12, repeats: true) { [weak self] timer in
 			guard let self = self else { return }
 			self.providers = []
