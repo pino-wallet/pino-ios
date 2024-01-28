@@ -77,9 +77,7 @@ class AccountsViewModel {
 			avatarIcon: newAvatar.rawValue,
 			avatarColor: newAvatar.rawValue,
 			wallet: wallet!
-		) else {
-			return
-		}
+		) else { return }
 		getAccounts()
 		GlobalVariables.shared.updateCurrentAccount(newAccount)
 	}
