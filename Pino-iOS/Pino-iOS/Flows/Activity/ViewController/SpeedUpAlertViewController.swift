@@ -72,20 +72,24 @@ class SpeedUpAlertViewController: UIAlertController {
 
 	private func setupView() {
 		speedUpAlertVM = SpeedUpAlertViewModel(activityDetailsVM: activityDetailsVM, didSpeedUpTransaction: { error in
-			if error != nil {
-				switch error {
-				case .insufficientBalanceError:
-					self.pageStatus = .insufficientBalance
-				case .somethingWentWrong:
-					self.pageStatus = .somethingWrong
-				case .transactionExistError:
-					self.pageStatus = .transactionExist
-				default:
-					print("unknown error type")
-				}
-			} else {
-				self.dismiss(animated: true)
-			}
+                if error != nil {
+                    switch error {
+                    case .insufficientBalanceError:
+                        if Environment.pinoNode != .mainNet {
+                            self.pageStatus = .normal
+                        } else {
+                            self.pageStatus = .insufficientBalance
+                        }
+                    case .somethingWentWrong:
+                        self.pageStatus = .somethingWrong
+                    case .transactionExistError:
+                        self.pageStatus = .transactionExist
+                    default:
+                        print("unknown error type")
+                    }
+                } else {
+                    self.dismiss(animated: true)
+                }
 		})
 
 		currentFeeView = GradientShowFeeView(
