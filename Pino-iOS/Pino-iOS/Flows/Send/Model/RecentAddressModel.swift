@@ -11,6 +11,6 @@ struct RecentAddressModel: Codable {
 	// MARK: - Public Properties
 
 	public var address: String
-    public var userAddress: String
-    public var date: Date
+	public var userAddress: String
+	public var date: Date
 }

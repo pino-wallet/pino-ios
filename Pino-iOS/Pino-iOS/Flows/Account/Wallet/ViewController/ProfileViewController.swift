@@ -45,7 +45,7 @@ class ProfileViewController: UIViewController {
 
 	override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
 		if motion == .motionShake {
-            let devMode = UserDefaults.standard.bool(forKey: GlobalUserDefaultsKeys.isInDevMode.key)
+			let devMode = UserDefaults.standard.bool(forKey: GlobalUserDefaultsKeys.isInDevMode.key)
 			UserDefaults.standard.set(!devMode, forKey: GlobalUserDefaultsKeys.isInDevMode.key)
 			if devMode {
 				Toast.default(title: "DevMode DeActivated", style: .error).show(haptic: .success)

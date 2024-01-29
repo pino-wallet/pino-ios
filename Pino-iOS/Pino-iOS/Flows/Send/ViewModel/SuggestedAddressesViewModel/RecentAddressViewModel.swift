@@ -21,10 +21,10 @@ struct RecentAddressViewModel {
 	public var logoText: String {
 		recentAddressModel.address[0 ..< 2]
 	}
-    
-    public var relativeDate: String {
-        recentAddressModel.date.relativeDate
-    }
+
+	public var relativeDate: String {
+		recentAddressModel.date.relativeDate
+	}
 
 	// MARK: - Initializers
 

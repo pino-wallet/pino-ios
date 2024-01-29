@@ -76,7 +76,7 @@ class TabBarViewController: UITabBarController {
 	}
 
 	private func presentAllowNotifications() {
-        if !UserDefaults.standard.bool(forKey: GlobalUserDefaultsKeys.hasShownNotifPage.key) {
+		if !UserDefaults.standard.bool(forKey: GlobalUserDefaultsKeys.hasShownNotifPage.key) {
 			UserDefaults.standard.set(true, forKey: GlobalUserDefaultsKeys.hasShownNotifPage.key)
 			let allowNotificationsVC = AllowNotificationsViewController()
 			present(allowNotificationsVC, animated: true)

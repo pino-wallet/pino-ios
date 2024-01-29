@@ -35,7 +35,7 @@ enum Environment {
 	// MARK: - Environments
 
 	public static var current: Environment {
-        let devMode = UserDefaults.standard.bool(forKey: GlobalUserDefaultsKeys.isInDevMode.key)
+		let devMode = UserDefaults.standard.bool(forKey: GlobalUserDefaultsKeys.isInDevMode.key)
 
 //		return .devNet
 		if devMode {

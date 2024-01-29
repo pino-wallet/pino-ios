@@ -14,8 +14,8 @@ struct SuggestedAddressesViewModel {
 	public let myAddressTitle = "My wallets"
 
 	public var recentAddresses: [RecentAddressModel] {
-        let recentAddressHelper = RecentAddressHelper()
-        let recentAddressList = recentAddressHelper.getUserRecentAddresses()
+		let recentAddressHelper = RecentAddressHelper()
+		let recentAddressList = recentAddressHelper.getUserRecentAddresses()
 		return Array(recentAddressList.prefix(3))
 	}
 

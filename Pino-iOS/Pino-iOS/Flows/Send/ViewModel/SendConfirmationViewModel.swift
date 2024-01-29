@@ -180,7 +180,11 @@ class SendConfirmationViewModel {
 
 	public func setRecentAddress() {
 		let recentAddressHelper = RecentAddressHelper()
-        recentAddressHelper.addNewRecentAddress(newRecentAddress: RecentAddressModel(address: recipientAddress, userAddress: walletManager.currentAccount.eip55Address, date: Date()))
+		recentAddressHelper.addNewRecentAddress(newRecentAddress: RecentAddressModel(
+			address: recipientAddress,
+			userAddress: walletManager.currentAccount.eip55Address,
+			date: Date()
+		))
 	}
 
 	// MARK: - Private Methods

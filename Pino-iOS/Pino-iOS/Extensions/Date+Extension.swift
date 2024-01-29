@@ -47,15 +47,13 @@ extension Date {
 		dateFormatter.timeZone = TimeZone(secondsFromGMT: Date().timeZoneSecondsFromGMT)
 		return dateFormatter.string(from: self)
 	}
-    
-    public var relativeDate: String {
-        let formatter = RelativeDateTimeFormatter()
-        formatter.unitsStyle = .full
 
-        let relativeDate = formatter.localizedString(for: self, relativeTo: Date.now)
+	public var relativeDate: String {
+		let formatter = RelativeDateTimeFormatter()
+		formatter.unitsStyle = .full
 
-        return relativeDate.replacingOccurrences(of: "minute", with: "min")
-    }
-    
-    
+		let relativeDate = formatter.localizedString(for: self, relativeTo: Date.now)
+
+		return relativeDate.replacingOccurrences(of: "minute", with: "min")
+	}
 }
