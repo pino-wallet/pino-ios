@@ -11,7 +11,7 @@ class VerifyPasscodeViewController: UIViewController {
 	// MARK: Private Properties
 
 	private var selectedAccounts: [ActiveAccountViewModel]?
-	private var mnemonics: String?
+	private var mnemonics: String
 
 	// MARK: Public Properties
 
@@ -23,7 +23,7 @@ class VerifyPasscodeViewController: UIViewController {
 
 	// MARK: Initializers
 
-	init(selectedAccounts: [ActiveAccountViewModel]?, mnemonics: String?) {
+	init(selectedAccounts: [ActiveAccountViewModel]?, mnemonics: String) {
 		self.selectedAccounts = selectedAccounts
 		self.mnemonics = mnemonics
 		super.init(nibName: nil, bundle: nil)

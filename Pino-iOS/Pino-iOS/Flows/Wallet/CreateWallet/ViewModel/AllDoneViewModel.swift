@@ -35,6 +35,11 @@ class AllDoneViewModel {
 	private let internetConnectivity = InternetConnectivity()
 	private var cancellables = Set<AnyCancellable>()
 	private var accountingAPIClient = AccountingAPIClient()
+	private let mnemonics: String
+
+	init(mnemonics: String) {
+		self.mnemonics = mnemonics
+	}
 
 	// MARK: - Public Methods
 
@@ -43,8 +48,9 @@ class AllDoneViewModel {
 		completion: @escaping (WalletOperationError?) -> Void
 	) {
 		createInitialWalletsInCoreData { wallet in
-			for account in selectedAccounts {
-				do {
+			do {
+				try pinoWalletManager.createHDWalletWith(mnemonics: mnemonics, for: selectedAccounts)
+				for account in selectedAccounts {
 					coreDataManager.createWalletAccount(
 						address: account.address,
 						publicKey: account.publicKey,
@@ -53,11 +59,10 @@ class AllDoneViewModel {
 						avatarColor: account.profileColor,
 						wallet: wallet
 					)
-					try pinoWalletManager.createAccount(account: account)
-					completion(nil)
-				} catch {
-					completion(WalletOperationError.unknow(error))
 				}
+				completion(nil)
+			} catch {
+				completion(.wallet(.importAccountFailed))
 			}
 		}
 	}

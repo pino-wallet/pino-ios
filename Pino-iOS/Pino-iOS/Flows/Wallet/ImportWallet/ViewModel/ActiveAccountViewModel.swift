@@ -10,10 +10,11 @@ import Foundation
 public struct ActiveAccountViewModel: Equatable {
 	// MARK: - Private Properties
 
-	private let account: Account
 	private let avatar = Avatar.randAvatar()
 
 	// MARK: - Public Properties
+
+	public let account: Account
 
 	public var name: String {
 		avatar.name

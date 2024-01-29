@@ -16,22 +16,10 @@ public class Account {
 	public var derivationPath: String? /// For Accounts derived from HDWallet
 	public var publicKey: EthereumPublicKey
 	public var accountSource: Wallet.WalletType
+	public var privateKey: Data
 
 	public var eip55Address: String {
 		address.hex(eip55: true)
-	}
-
-	public var privateKey: Data {
-		let privateKeyFetchKey = KeychainManager.privateKey.getKey(eip55Address)
-		let secureEnclave = SecureEnclave()
-		guard let encryptedPrivateKey = KeychainManager.privateKey.getValueWithKey(accountAddress: eip55Address) else {
-			fatalError(WalletOperationError.keyManager(.privateKeyRetrievalFailed).localizedDescription)
-		}
-		let decryptedData = secureEnclave.decrypt(
-			cipherData: encryptedPrivateKey,
-			withPublicKeyLabel: privateKeyFetchKey
-		)
-		return decryptedData
 	}
 
 	// MARK: - Initializers
@@ -41,21 +29,15 @@ public class Account {
 		else { throw WalletOperationError.validator(.privateKeyIsInvalid) }
 		let privateKey = try EthereumPrivateKey(privateKeyData)
 		let publicKey = privateKey.publicKey
-		try self.init(publicKey: publicKey, accountSource: accountSource)
+		try self.init(publicKey: publicKey, accountSource: accountSource, privateKey: privateKeyData)
 	}
 
-	init(publicKey: EthereumPublicKey, accountSource: Wallet.WalletType = .hdWallet) throws {
+	init(publicKey: EthereumPublicKey, accountSource: Wallet.WalletType = .hdWallet, privateKey: Data) throws {
 		self.derivationPath = nil
 		self.publicKey = publicKey
 		self.address = publicKey.address
 		self.accountSource = accountSource
-	}
-
-	init(account: WalletAccount) throws {
-		self.derivationPath = account.derivationPath
-		self.publicKey = try EthereumPublicKey(hexPublicKey: account.publicKey)
-		self.address = publicKey.address
-		self.accountSource = account.wallet.walletType
+		self.privateKey = privateKey
 	}
 }
 

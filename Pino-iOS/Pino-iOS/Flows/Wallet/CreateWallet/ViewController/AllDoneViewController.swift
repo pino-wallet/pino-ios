@@ -11,16 +11,17 @@ import UIKit
 class AllDoneViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private var allDoneVM = AllDoneViewModel()
+	private var allDoneVM: AllDoneViewModel
 	private var allDoneView: AllDoneView!
 	private var selectedAccounts: [ActiveAccountViewModel]?
-	private var mnemonics: String?
+	private var mnemonics: String
 
 	// MARK: - Initializers
 
-	init(selectedAccounts: [ActiveAccountViewModel]?, mnemonics: String?) {
+	init(selectedAccounts: [ActiveAccountViewModel]?, mnemonics: String) {
 		self.selectedAccounts = selectedAccounts
 		self.mnemonics = mnemonics
+		self.allDoneVM = AllDoneViewModel(mnemonics: mnemonics)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -57,7 +58,7 @@ class AllDoneViewController: UIViewController {
 					self.openHomepage()
 				}
 			}
-		} else if let mnemonics {
+		} else {
 			allDoneVM.createWallet(mnemonics: mnemonics) { error in
 				if let error {
 					self.showError(error)

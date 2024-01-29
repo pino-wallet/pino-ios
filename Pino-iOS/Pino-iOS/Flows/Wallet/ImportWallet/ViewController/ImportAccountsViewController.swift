@@ -67,7 +67,10 @@ class ImportAccountsViewController: UIViewController {
 		guard let accounts = importAccountsVM.accounts else { return }
 		let selectedAccounts = accounts.filter { $0.isSelected }
 		if !selectedAccounts.isEmpty {
-			let createPasscodeViewController = CreatePasscodeViewController(selectedAccounts: selectedAccounts)
+			let createPasscodeViewController = CreatePasscodeViewController(
+				selectedAccounts: selectedAccounts,
+				mnemonics: importAccountsVM.walletMnemonics
+			)
 			createPasscodeViewController.pageSteps = 4
 			createPasscodeViewController.currentStep = 3
 			navigationController?.pushViewController(createPasscodeViewController, animated: true)

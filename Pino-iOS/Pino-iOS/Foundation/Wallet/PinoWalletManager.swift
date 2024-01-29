@@ -42,6 +42,10 @@ class PinoWalletManager: WalletManagement {
 		pinoHDWallet.createInitialHDWallet(mnemonics: mnemonics)
 	}
 
+	public func createHDWalletWith(mnemonics: String, for accounts: [ActiveAccountViewModel]) throws {
+		try pinoHDWallet.createHDWallet(with: mnemonics, for: accounts.map { $0.account })
+	}
+
 	public func exportMnemonics() -> (string: String, array: [String]) {
 		(currentHDWallet!.mnemonic, currentHDWallet!.mnemonic.split(separator: " ").map { String($0) })
 	}
@@ -51,9 +55,9 @@ class PinoWalletManager: WalletManagement {
 		return account
 	}
 
-	public func createAccount(account: ActiveAccountViewModel) throws {
-		try pinoHDWallet.createAccountIn(wallet: currentHDWallet!, account: account)
-	}
+//	public func createAccount(account: ActiveAccountViewModel) throws {
+//		try pinoHDWallet.createAccountIn(wallet: currentHDWallet!, account: account)
+//	}
 
 	public func deleteAccount(account: WalletAccount) -> Result<WalletAccount, WalletOperationError> {
 		guard let deletingAccount = accounts.first(where: { $0 == account }) else {
@@ -75,8 +79,17 @@ class PinoWalletManager: WalletManagement {
 	}
 
 	public func exportPrivateKeyFor(account: WalletAccount) throws -> (data: Data, string: String) {
-		let account = try Account(account: account)
-		return (account.privateKey, account.privateKey.hexString)
+		let accountAdd = account.eip55Address
+		let privateKeyFetchKey = KeychainManager.privateKey.getKey(accountAdd)
+		let secureEnclave = SecureEnclave()
+		guard let encryptedPrivateKey = KeychainManager.privateKey.getValueWithKey(accountAddress: accountAdd) else {
+			fatalError(WalletOperationError.keyManager(.privateKeyRetrievalFailed).localizedDescription)
+		}
+		let decryptedData = secureEnclave.decrypt(
+			cipherData: encryptedPrivateKey,
+			withPublicKeyLabel: privateKeyFetchKey
+		)
+		return (decryptedData, decryptedData.hexString)
 	}
 
 	public func isMnemonicsValid(_ mnemonics: String) -> Bool {
