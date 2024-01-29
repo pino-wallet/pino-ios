@@ -5,6 +5,8 @@
 //  Created by Amir hossein kazemi seresht on 6/19/23.
 //
 
+import Foundation
+
 struct RecentAddressViewModel {
 	// MARK: - Private Properties
 
@@ -19,6 +21,10 @@ struct RecentAddressViewModel {
 	public var logoText: String {
 		recentAddressModel.address[0 ..< 2]
 	}
+    
+    public var relativeDate: String {
+        recentAddressModel.date.relativeDate
+    }
 
 	// MARK: - Initializers
 

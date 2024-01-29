@@ -5,8 +5,12 @@
 //  Created by Amir hossein kazemi seresht on 6/19/23.
 //
 
-struct RecentAddressModel {
+import Foundation
+
+struct RecentAddressModel: Codable {
 	// MARK: - Public Properties
 
 	public var address: String
+    public var userAddress: String
+    public var date: Date
 }
