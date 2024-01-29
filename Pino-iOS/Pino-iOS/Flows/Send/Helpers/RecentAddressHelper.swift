@@ -46,7 +46,7 @@ class RecentAddressHelper {
 	private func removeOldRecentAddresses() {
 		let decodedRecentAddressList = getDecodedRecentAddressList()
 		let calendar = Calendar.current
-		let numberOfDaysOfExpiration = 14
+		let numberOfDaysOfExpiration = 7
 		let filteredRecentAddressList = decodedRecentAddressList
 			.filter { calendar.dateComponents([.day], from: $0.date, to: Date()).day! < numberOfDaysOfExpiration }
 		let encodedFilteredRecentAddressList = encodeRecentAddressList(recentAddressList: filteredRecentAddressList)
