@@ -516,6 +516,7 @@
 		D9D9A40C2A5ED76400CECA41 /* ActivityInfoStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9A40B2A5ED76400CECA41 /* ActivityInfoStackView.swift */; };
 		D9DC773F2A6FAB2B00AA0987 /* ActivityDetailPropertiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC773E2A6FAB2B00AA0987 /* ActivityDetailPropertiesViewModel.swift */; };
 		D9DD538BAF953A18503AB3F0 /* RemoveAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887EDE19A8B81F1FB217E0FA /* RemoveAccountView.swift */; };
+		D9E132792B67B5EB009808C5 /* GlobalUserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E132782B67B5EB009808C5 /* GlobalUserDefaultsKeys.swift */; };
 		D9E134852A52FB4A00193FF0 /* ActivityHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E134842A52FB4A00193FF0 /* ActivityHeaderView.swift */; };
 		D9E134872A53013D00193FF0 /* ActivityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E134862A53013D00193FF0 /* ActivityHelper.swift */; };
 		D9E27FF02B1B502B00AFA7D0 /* AaveBorrowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E27FEF2B1B502B00AFA7D0 /* AaveBorrowManager.swift */; };
@@ -532,6 +533,7 @@
 		D9F252CB2ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = D9F252C92ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json */; };
 		D9F284762A94B703001204D4 /* BorrowingTokensCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F284752A94B703001204D4 /* BorrowingTokensCollectionView.swift */; };
 		D9F284782A94B727001204D4 /* BorrowingTokenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F284772A94B727001204D4 /* BorrowingTokenCell.swift */; };
+		D9F8BF622B667DC5009DB092 /* RecentAddressHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F8BF612B667DC5009DB092 /* RecentAddressHelper.swift */; };
 		D9F8D37A2B40008A004D8AEE /* EnterInviteCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F8D3792B40008A004D8AEE /* EnterInviteCodeView.swift */; };
 		D9F8D37C2B4000A4004D8AEE /* EnterInviteCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F8D37B2B4000A4004D8AEE /* EnterInviteCodeViewController.swift */; };
 		D9F8D37E2B4000BA004D8AEE /* EnterInviteCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F8D37D2B4000BA004D8AEE /* EnterInviteCodeViewModel.swift */; };
@@ -1391,6 +1393,7 @@
 		D9D9A4092A5E9CD200CECA41 /* ImageAndInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAndInfoView.swift; sourceTree = "<group>"; };
 		D9D9A40B2A5ED76400CECA41 /* ActivityInfoStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityInfoStackView.swift; sourceTree = "<group>"; };
 		D9DC773E2A6FAB2B00AA0987 /* ActivityDetailPropertiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailPropertiesViewModel.swift; sourceTree = "<group>"; };
+		D9E132782B67B5EB009808C5 /* GlobalUserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUserDefaultsKeys.swift; sourceTree = "<group>"; };
 		D9E134842A52FB4A00193FF0 /* ActivityHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHeaderView.swift; sourceTree = "<group>"; };
 		D9E134862A53013D00193FF0 /* ActivityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHelper.swift; sourceTree = "<group>"; };
 		D9E27FEF2B1B502B00AFA7D0 /* AaveBorrowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AaveBorrowManager.swift; sourceTree = "<group>"; };
@@ -1405,6 +1408,7 @@
 		D9F252C92ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "collaterilizable-tokens-stub.json"; sourceTree = "<group>"; };
 		D9F284752A94B703001204D4 /* BorrowingTokensCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingTokensCollectionView.swift; sourceTree = "<group>"; };
 		D9F284772A94B727001204D4 /* BorrowingTokenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingTokenCell.swift; sourceTree = "<group>"; };
+		D9F8BF612B667DC5009DB092 /* RecentAddressHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentAddressHelper.swift; sourceTree = "<group>"; };
 		D9F8D3792B40008A004D8AEE /* EnterInviteCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterInviteCodeView.swift; sourceTree = "<group>"; };
 		D9F8D37B2B4000A4004D8AEE /* EnterInviteCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterInviteCodeViewController.swift; sourceTree = "<group>"; };
 		D9F8D37D2B4000BA004D8AEE /* EnterInviteCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterInviteCodeViewModel.swift; sourceTree = "<group>"; };
@@ -3155,6 +3159,7 @@
 			children = (
 				D970C0DF2A74EA80005A7FAC /* GlobalToastTitles.swift */,
 				D96833F62B52BA2900521772 /* GlobalZeroAmounts.swift */,
+				D9E132782B67B5EB009808C5 /* GlobalUserDefaultsKeys.swift */,
 			);
 			path = "Global enums";
 			sourceTree = "<group>";
@@ -3671,6 +3676,14 @@
 				D9E134842A52FB4A00193FF0 /* ActivityHeaderView.swift */,
 			);
 			path = ActivityHeaderView;
+			sourceTree = "<group>";
+		};
+		D9F8BF602B667DA0009DB092 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D9F8BF612B667DC5009DB092 /* RecentAddressHelper.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		D9F8D3752B3FFEBE004D8AEE /* InviteCode */ = {
@@ -4288,6 +4301,7 @@
 		E3F482F22A35B03200EEC9CF /* Send */ = {
 			isa = PBXGroup;
 			children = (
+				D9F8BF602B667DA0009DB092 /* Helpers */,
 				D9C4CF0B2A4094AF00475F01 /* Model */,
 				E3F482F52A35B05F00EEC9CF /* ViewModel */,
 				E3F482F42A35B05400EEC9CF /* View */,
@@ -4894,6 +4908,7 @@
 				DFCB139F2B09DCB800EEFD0F /* CDInvestActivity+CoreDataClass.swift in Sources */,
 				DFCB13A02B09DCB800EEFD0F /* CDInvestActivityDetails+CoreDataProperties.swift in Sources */,
 				DFCB13A12B09DCB800EEFD0F /* CDCollateralActivityDetails+CoreDataClass.swift in Sources */,
+				D9F8BF622B667DC5009DB092 /* RecentAddressHelper.swift in Sources */,
 				DFCB13A22B09DCB800EEFD0F /* CDInvestmentActivityDetails+CoreDataClass.swift in Sources */,
 				DFCB13A32B09DCB800EEFD0F /* CDRepayActivityDetails+CoreDataProperties.swift in Sources */,
 				DFCB13A42B09DCB800EEFD0F /* CDRepayActivity+CoreDataClass.swift in Sources */,
@@ -5603,6 +5618,7 @@
 				D9C4CEFF2A408C5E00475F01 /* SuggestedAddressesCollectionView.swift in Sources */,
 				798A57BFA5D028A04B449F34 /* AccountInfoViewModel.swift in Sources */,
 				AD68BBE3C5E6C48C129C6BA7 /* AccountsCollectionView.swift in Sources */,
+				D9E132792B67B5EB009808C5 /* GlobalUserDefaultsKeys.swift in Sources */,
 				D990197A2A93514D008CF9EC /* CollateralDetailsView.swift in Sources */,
 				D9BE051B2A8221C8008670F9 /* CDSwapActivity+CoreDataProperties.swift in Sources */,
 				C3321EBB6DC83BCDC3CFC3B0 /* WalletsModel.swift in Sources */,

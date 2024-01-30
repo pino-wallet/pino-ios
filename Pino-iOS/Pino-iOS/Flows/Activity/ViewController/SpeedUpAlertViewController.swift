@@ -75,7 +75,11 @@ class SpeedUpAlertViewController: UIAlertController {
 			if error != nil {
 				switch error {
 				case .insufficientBalanceError:
-					self.pageStatus = .insufficientBalance
+					if Environment.pinoNode != .mainNet {
+						self.pageStatus = .normal
+					} else {
+						self.pageStatus = .insufficientBalance
+					}
 				case .somethingWentWrong:
 					self.pageStatus = .somethingWrong
 				case .transactionExistError:
