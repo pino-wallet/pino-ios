@@ -179,9 +179,12 @@ class SendConfirmationViewModel {
 	}
 
 	public func setRecentAddress() {
-		var recentAdds = UserDefaults.standard.value(forKey: "recentSentAddresses") as! [String]
-		recentAdds.insert(recipientAddress, at: 0)
-		UserDefaults.standard.set(recentAdds, forKey: "recentSentAddresses")
+		let recentAddressHelper = RecentAddressHelper()
+		recentAddressHelper.addNewRecentAddress(newRecentAddress: RecentAddressModel(
+			address: recipientAddress,
+			userAddress: walletManager.currentAccount.eip55Address,
+			date: Date()
+		))
 	}
 
 	// MARK: - Private Methods
