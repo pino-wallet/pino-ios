@@ -11,7 +11,7 @@ class CreatePasscodeViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private var selectedAccounts: [ActiveAccountViewModel]?
-	private var mnemonics: String?
+	private var mnemonics: String
 
 	// MARK: Public Properties
 
@@ -22,14 +22,8 @@ class CreatePasscodeViewController: UIViewController {
 
 	// MARK: - initializers
 
-	// Initializer for imported accounts
-	init(selectedAccounts: [ActiveAccountViewModel]) {
+	init(selectedAccounts: [ActiveAccountViewModel]?, mnemonics: String) {
 		self.selectedAccounts = selectedAccounts
-		super.init(nibName: nil, bundle: nil)
-	}
-
-	// Initializer for created wallet
-	init(mnemonics: String) {
 		self.mnemonics = mnemonics
 		super.init(nibName: nil, bundle: nil)
 	}

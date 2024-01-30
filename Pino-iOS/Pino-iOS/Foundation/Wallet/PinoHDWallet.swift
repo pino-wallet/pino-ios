@@ -22,8 +22,8 @@ public class PinoHDWallet: PinoHDWalletType {
 	// MARK: - Public Methods
 
 	public func createInitialHDWallet(mnemonics: String) -> Result<Account, WalletOperationError> {
-		let hdWalelt = createHDWallet(mnemonics: mnemonics)
-		switch hdWalelt {
+		let hdWallet = createHDWallet(mnemonics: mnemonics)
+		switch hdWallet {
 		case let .success(createdWallet):
 			let createdAccount = createInitialAccountIn(wallet: createdWallet)
 			switch createdAccount {
@@ -76,6 +76,44 @@ public class PinoHDWallet: PinoHDWalletType {
 		}
 
 		return .success(wallet)
+	}
+
+	public func createHDWallet(with mnemonics: String, for accounts: [Account]) throws {
+		let hdWallet = createHDWallet(mnemonics: mnemonics)
+		switch hdWallet {
+		case let .success(createdWallet):
+			do {
+				try accounts.forEach { account in
+					let encryptedPrivateKeyData = encryptPrivateKey(
+						account.privateKey,
+						forAccount: account.eip55Address
+					)
+					if let error = KeychainManager.privateKey.setValueWithKey(
+						value: encryptedPrivateKeyData,
+						accountAddress: account.eip55Address
+					) {
+						throw error
+					}
+
+					let encryptedMnemonicsData = encryptHdWalletMnemonics(
+						createdWallet.mnemonic,
+						forAccount: account.eip55Address
+					)
+					if let error = KeychainManager.mnemonics.setValueWithKey(
+						value: encryptedMnemonicsData,
+						accountAddress: account.eip55Address
+					) {
+						throw error
+					}
+				}
+			} catch let error where error is WalletOperationError {
+				throw error
+			} catch {
+				throw error
+			}
+		case let .failure(failure):
+			throw failure
+		}
 	}
 
 	public func createAccountIn(wallet: HDWallet, lastIndex: Int) throws -> Account {

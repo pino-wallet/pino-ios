@@ -88,7 +88,7 @@ class ShowSecretPhraseViewController: UIViewController {
 
 		/// Temporarily removing verify step and moving to create pass section
 		let createPasscodeViewController = CreatePasscodeViewController(
-			mnemonics: secretPhraseVM.secretPhraseList
+			selectedAccounts: nil, mnemonics: secretPhraseVM.secretPhraseList
 				.joined(separator: " ")
 		)
 		createPasscodeViewController.pageSteps = 3
