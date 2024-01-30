@@ -16,6 +16,7 @@ class SelectAssetToSendViewController: UIViewController {
 	private var cancellables = Set<AnyCancellable>()
 	private let assets: [AssetViewModel]
 	private var onDismiss: ((SendTransactionStatus) -> Void)?
+    private var emptyStateView: TokensEmptyStateView!
 
 	// MARK: - Public Properties
 
@@ -70,12 +71,23 @@ class SelectAssetToSendViewController: UIViewController {
 				self.openEnterAmountPage(selectedAsset: selectedAsset)
 			}
 		}
+        
+        emptyStateView = TokensEmptyStateView(tokensEmptyStateTexts: .noResults)
 		view = selectAssetcollectionView
 	}
+    
+    private func toggleView(assetsList: [AssetViewModel]) {
+        if assetsList.isEmpty {
+            view = emptyStateView
+        } else {
+            view = selectAssetcollectionView
+        }
+    }
 
 	private func setupBindings() {
-		selectAssetToSendVM.$filteredAssetList.sink { [weak self] _ in
+		selectAssetToSendVM.$filteredAssetList.sink { [weak self] filteredAssetsList in
 			self?.selectAssetcollectionView.reloadData()
+            self?.toggleView(assetsList: filteredAssetsList)
 		}.store(in: &cancellables)
 	}
 

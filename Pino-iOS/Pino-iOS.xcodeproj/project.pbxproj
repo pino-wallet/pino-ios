@@ -440,8 +440,8 @@
 		D9A328192A34B650005A8393 /* SelectAssetCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A328182A34B650005A8393 /* SelectAssetCellViewModel.swift */; };
 		D9A3281C2A34C444005A8393 /* SelectAssetVMProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A3281B2A34C444005A8393 /* SelectAssetVMProtocol.swift */; };
 		D9A3281E2A34C545005A8393 /* SelectAssetCellVMProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A3281D2A34C545005A8393 /* SelectAssetCellVMProtocol.swift */; };
-		D9A332762B53BFB2001161F4 /* ManageAssetEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A332752B53BFB2001161F4 /* ManageAssetEmptyStateView.swift */; };
-		D9A332782B53C021001161F4 /* ManageAssetEmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A332772B53C021001161F4 /* ManageAssetEmptyStateViewModel.swift */; };
+		D9A332762B53BFB2001161F4 /* TokensEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A332752B53BFB2001161F4 /* TokensEmptyStateView.swift */; };
+		D9A332782B53C021001161F4 /* ManageAssetEmptyStateTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A332772B53C021001161F4 /* ManageAssetEmptyStateTexts.swift */; };
 		D9A4BD042B0C88C300DFD072 /* SendTransactionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A4BD032B0C88C300DFD072 /* SendTransactionStatus.swift */; };
 		D9A642C42AFA1EEB00FDE11D /* ActivityCollateralModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A642C32AFA1EEB00FDE11D /* ActivityCollateralModel.swift */; };
 		D9A642C62AFA210300FDE11D /* ActivityBorrowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A642C52AFA210300FDE11D /* ActivityBorrowModel.swift */; };
@@ -1316,8 +1316,8 @@
 		D9A328182A34B650005A8393 /* SelectAssetCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetCellViewModel.swift; sourceTree = "<group>"; };
 		D9A3281B2A34C444005A8393 /* SelectAssetVMProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetVMProtocol.swift; sourceTree = "<group>"; };
 		D9A3281D2A34C545005A8393 /* SelectAssetCellVMProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetCellVMProtocol.swift; sourceTree = "<group>"; };
-		D9A332752B53BFB2001161F4 /* ManageAssetEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAssetEmptyStateView.swift; sourceTree = "<group>"; };
-		D9A332772B53C021001161F4 /* ManageAssetEmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAssetEmptyStateViewModel.swift; sourceTree = "<group>"; };
+		D9A332752B53BFB2001161F4 /* TokensEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensEmptyStateView.swift; sourceTree = "<group>"; };
+		D9A332772B53C021001161F4 /* ManageAssetEmptyStateTexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAssetEmptyStateTexts.swift; sourceTree = "<group>"; };
 		D9A4BD032B0C88C300DFD072 /* SendTransactionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendTransactionStatus.swift; sourceTree = "<group>"; };
 		D9A642C32AFA1EEB00FDE11D /* ActivityCollateralModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCollateralModel.swift; sourceTree = "<group>"; };
 		D9A642C52AFA210300FDE11D /* ActivityBorrowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityBorrowModel.swift; sourceTree = "<group>"; };
@@ -2471,7 +2471,6 @@
 				378738E9160BC02790091E65 /* ManageAssetsCollectionView */,
 				568D90CC915CBBC27AB56C39 /* Portfolio */,
 				A58E149ED2A2086795EF5E28 /* ReceiveAssetView */,
-				D9A332752B53BFB2001161F4 /* ManageAssetEmptyStateView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3029,7 +3028,6 @@
 				79BCB139B9DD46E47FA2E234 /* SecurityModeProtocol.swift */,
 				4E6325D0E27CD114807676AB /* WalletBalanceViewModel.swift */,
 				9EA3E5DF9FE696BD1307327F /* AccountInfoViewModel.swift */,
-				D9A332772B53C021001161F4 /* ManageAssetEmptyStateViewModel.swift */,
 				E33649A62B5523EF00341466 /* ManageAssetPositionsViewModel.swift */,
 			);
 			path = ViewModel;
@@ -3167,6 +3165,15 @@
 				D96A40D52A7E83A200C020BC /* PendingActivitiesManager.swift */,
 			);
 			path = PendingActivitiesManager;
+			sourceTree = "<group>";
+		};
+		D9711F4D2B68E35A006C0143 /* TokensEmptyStateView */ = {
+			isa = PBXGroup;
+			children = (
+				D9A332772B53C021001161F4 /* ManageAssetEmptyStateTexts.swift */,
+				D9A332752B53BFB2001161F4 /* TokensEmptyStateView.swift */,
+			);
+			path = TokensEmptyStateView;
 			sourceTree = "<group>";
 		};
 		D97293062B4BB47600ADFB8A /* PinoProgressView */ = {
@@ -3336,6 +3343,7 @@
 		D9A3280A2A3452DC005A8393 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				D9711F4D2B68E35A006C0143 /* TokensEmptyStateView */,
 				D9B8DAA32B568FC900256589 /* ScannerViewcontroller */,
 				D9D78C132B55368800F9C780 /* EllipsisAnimatedText */,
 				D97293062B4BB47600ADFB8A /* PinoProgressView */,
@@ -4952,7 +4960,7 @@
 				DAB2FF91D5EAF0795A12201B /* AddNewAccountOptionViewModel.swift in Sources */,
 				D986BC2E2B0B5D9000DCE03C /* SendTransactionStatusView.swift in Sources */,
 				D9D11E942A5990F0003C4298 /* ActivityViewModel.swift in Sources */,
-				D9A332782B53C021001161F4 /* ManageAssetEmptyStateViewModel.swift in Sources */,
+				D9A332782B53C021001161F4 /* ManageAssetEmptyStateTexts.swift in Sources */,
 				C450B15464CE5EF43B603409 /* AddNewAccountViewController.swift in Sources */,
 				D97F0B892A948E790083DA81 /* DexSystemModel.swift in Sources */,
 				D97F0B932A9490110083DA81 /* SelectDexCellViewModel.swift in Sources */,
@@ -5588,7 +5596,7 @@
 				225160794A3F677530CF8181 /* WalletInfoModel.swift in Sources */,
 				D9BE051C2A8221C8008670F9 /* CDSwapActivityDetails+CoreDataClass.swift in Sources */,
 				D907829A2B5FAFDA0068D451 /* UserAccountInfoViewModel.swift in Sources */,
-				D9A332762B53BFB2001161F4 /* ManageAssetEmptyStateView.swift in Sources */,
+				D9A332762B53BFB2001161F4 /* TokensEmptyStateView.swift in Sources */,
 				E3847B3C2A52CDB2005ED78B /* SwapView.swift in Sources */,
 				2E5C040F84977824A977D541 /* AccountInfoNavigationItems.swift in Sources */,
 				E3ABD1E42AADA3CF00947D37 /* InvestmentDetailViewModel.swift in Sources */,

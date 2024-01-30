@@ -11,7 +11,7 @@ class ManageAssetsViewController: UIViewController {
 	// MARK: Private Properties
 
 	private var manageAssetCollectionview: ManageAssetsCollectionView!
-	private var manageAssetEmptyStateView: ManageAssetEmptyStateView!
+	private var manageAssetEmptyStateView: TokensEmptyStateView!
 	private var positionsVM: ManageAssetPositionsViewModel
 	private var usersAddress: String
 
@@ -64,7 +64,7 @@ class ManageAssetsViewController: UIViewController {
 			}
 		)
 
-		manageAssetEmptyStateView = ManageAssetEmptyStateView(onImportButton: {
+        manageAssetEmptyStateView = TokensEmptyStateView(tokensEmptyStateTexts: .manageAsset, onImportButton: {
 			self.addCustomAssets()
 		})
 
