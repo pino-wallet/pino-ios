@@ -64,7 +64,7 @@ class ManageAssetsViewController: UIViewController {
 			}
 		)
 
-        manageAssetEmptyStateView = TokensEmptyStateView(tokensEmptyStateTexts: .manageAsset, onImportButton: {
+		manageAssetEmptyStateView = TokensEmptyStateView(tokensEmptyStateTexts: .manageAsset, onImportButton: {
 			self.addCustomAssets()
 		})
 

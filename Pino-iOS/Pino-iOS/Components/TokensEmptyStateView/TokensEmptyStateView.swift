@@ -22,16 +22,16 @@ class TokensEmptyStateView: UIView {
 	private let descriptionStackView = UIStackView()
 	private let descriptionLabel = PinoLabel(style: .description, text: "")
 	private let actionLabel = UILabel()
-    private var tokensEmptyStateTexts: TokensEmptyStateTexts {
-        didSet {
-            updateUI()
-        }
-    }
+	private var tokensEmptyStateTexts: TokensEmptyStateTexts {
+		didSet {
+			updateUI()
+		}
+	}
 
 	// MARK: - Initializers
 
-    init(tokensEmptyStateTexts: TokensEmptyStateTexts, onImportButton: @escaping () -> Void = {}) {
-        self.tokensEmptyStateTexts = tokensEmptyStateTexts
+	init(tokensEmptyStateTexts: TokensEmptyStateTexts, onImportButton: @escaping () -> Void = {}) {
+		self.tokensEmptyStateTexts = tokensEmptyStateTexts
 		self.onActionButton = onImportButton
 
 		super.init(frame: .zero)
@@ -39,7 +39,7 @@ class TokensEmptyStateView: UIView {
 		setupView()
 		setupStyles()
 		setupConstraints()
-        updateUI()
+		updateUI()
 	}
 
 	required init?(coder: NSCoder) {
@@ -80,7 +80,6 @@ class TokensEmptyStateView: UIView {
 		descriptionStackView.spacing = 2
 		descriptionStackView.alignment = .center
 
-
 		titleLabel.font = .PinoStyle.semiboldTitle2
 
 		descriptionLabel.font = .PinoStyle.mediumBody
@@ -88,22 +87,22 @@ class TokensEmptyStateView: UIView {
 		actionLabel.textColor = .Pino.primary
 		actionLabel.font = .PinoStyle.boldBody
 	}
-    
-    private func updateUI() {
-        titleImageView.image = UIImage(named: tokensEmptyStateTexts.titleImageName)
-        
-        titleLabel.text = tokensEmptyStateTexts.titleText
-        
-        descriptionLabel.text = tokensEmptyStateTexts.descriptionText
-        
-        actionLabel.text = tokensEmptyStateTexts.buttonTitle
-        
-        if tokensEmptyStateTexts.buttonTitle != nil {
-            actionLabel.isHidden = false
-        } else {
-            actionLabel.isHidden = true
-        }
-    }
+
+	private func updateUI() {
+		titleImageView.image = UIImage(named: tokensEmptyStateTexts.titleImageName)
+
+		titleLabel.text = tokensEmptyStateTexts.titleText
+
+		descriptionLabel.text = tokensEmptyStateTexts.descriptionText
+
+		actionLabel.text = tokensEmptyStateTexts.buttonTitle
+
+		if tokensEmptyStateTexts.buttonTitle != nil {
+			actionLabel.isHidden = false
+		} else {
+			actionLabel.isHidden = true
+		}
+	}
 
 	private func setupConstraints() {
 		titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 28).isActive = true
