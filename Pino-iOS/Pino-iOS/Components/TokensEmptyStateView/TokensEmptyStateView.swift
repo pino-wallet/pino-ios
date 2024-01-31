@@ -8,32 +8,38 @@
 import Foundation
 import UIKit
 
-class ManageAssetEmptyStateView: UIView {
+class TokensEmptyStateView: UIView {
 	// MARK: - Closures
 
-	private var onImportButton: () -> Void
+	private var onActionButton: () -> Void
 
 	// MARK: - Private Properties
 
-	private let manageAssetEmptyStateVM = ManageAssetEmptyStateViewModel()
 	private let mainStackView = UIStackView()
 	private let titleImageView = UIImageView()
 	private let titleLabel = PinoLabel(style: .title, text: "")
 	private let textStackView = UIStackView()
 	private let descriptionStackView = UIStackView()
 	private let descriptionLabel = PinoLabel(style: .description, text: "")
-	private let importLabel = UILabel()
+	private let actionLabel = UILabel()
+	private var tokensEmptyStateTexts: TokensEmptyStateTexts {
+		didSet {
+			updateUI()
+		}
+	}
 
 	// MARK: - Initializers
 
-	init(onImportButton: @escaping () -> Void) {
-		self.onImportButton = onImportButton
+	init(tokensEmptyStateTexts: TokensEmptyStateTexts, onImportButton: @escaping () -> Void = {}) {
+		self.tokensEmptyStateTexts = tokensEmptyStateTexts
+		self.onActionButton = onImportButton
 
 		super.init(frame: .zero)
 
 		setupView()
 		setupStyles()
 		setupConstraints()
+		updateUI()
 	}
 
 	required init?(coder: NSCoder) {
@@ -43,9 +49,9 @@ class ManageAssetEmptyStateView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		let onImportTapGesture = UITapGestureRecognizer(target: self, action: #selector(onImportTap))
-		importLabel.addGestureRecognizer(onImportTapGesture)
-		importLabel.isUserInteractionEnabled = true
+		let onImportTapGesture = UITapGestureRecognizer(target: self, action: #selector(onActionTap))
+		actionLabel.addGestureRecognizer(onImportTapGesture)
+		actionLabel.isUserInteractionEnabled = true
 
 		mainStackView.addArrangedSubview(titleImageView)
 		mainStackView.addArrangedSubview(textStackView)
@@ -54,7 +60,7 @@ class ManageAssetEmptyStateView: UIView {
 		textStackView.addArrangedSubview(descriptionStackView)
 
 		descriptionStackView.addArrangedSubview(descriptionLabel)
-		descriptionStackView.addArrangedSubview(importLabel)
+		descriptionStackView.addArrangedSubview(actionLabel)
 
 		addSubview(mainStackView)
 	}
@@ -74,17 +80,28 @@ class ManageAssetEmptyStateView: UIView {
 		descriptionStackView.spacing = 2
 		descriptionStackView.alignment = .center
 
-		titleImageView.image = UIImage(named: manageAssetEmptyStateVM.titleImageName)
-
 		titleLabel.font = .PinoStyle.semiboldTitle2
-		titleLabel.text = manageAssetEmptyStateVM.titleText
 
 		descriptionLabel.font = .PinoStyle.mediumBody
-		descriptionLabel.text = manageAssetEmptyStateVM.descriptionText
 
-		importLabel.textColor = .Pino.primary
-		importLabel.font = .PinoStyle.boldBody
-		importLabel.text = manageAssetEmptyStateVM.importButtonTitle
+		actionLabel.textColor = .Pino.primary
+		actionLabel.font = .PinoStyle.boldBody
+	}
+
+	private func updateUI() {
+		titleImageView.image = UIImage(named: tokensEmptyStateTexts.titleImageName)
+
+		titleLabel.text = tokensEmptyStateTexts.titleText
+
+		descriptionLabel.text = tokensEmptyStateTexts.descriptionText
+
+		actionLabel.text = tokensEmptyStateTexts.buttonTitle
+
+		if tokensEmptyStateTexts.buttonTitle != nil {
+			actionLabel.isHidden = false
+		} else {
+			actionLabel.isHidden = true
+		}
 	}
 
 	private func setupConstraints() {
@@ -96,7 +113,7 @@ class ManageAssetEmptyStateView: UIView {
 	}
 
 	@objc
-	private func onImportTap() {
-		onImportButton()
+	private func onActionTap() {
+		onActionButton()
 	}
 }
