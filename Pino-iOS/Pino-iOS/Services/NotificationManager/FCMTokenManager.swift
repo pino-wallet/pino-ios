@@ -8,21 +8,21 @@
 import Foundation
 
 class FCMTokenManager {
-    // MARK: - Private Properties
-    private let userDefaultsManager = UserDefaultsManager(userDefaultKey: .fcmToken)
-    
+	// MARK: - Private Properties
+
+	private let userDefaultsManager = UserDefaultsManager(userDefaultKey: .fcmToken)
+
 	// MARK: - Public Properties
 
 	public static let shared = FCMTokenManager()
 
 	public var currentToken: String? {
 		get {
-            userDefaultsManager.getValue()
+			userDefaultsManager.getValue()
 		}
 
 		set {
-            userDefaultsManager.setValue(value: newValue)
+			userDefaultsManager.setValue(value: newValue)
 		}
 	}
-	
 }
