@@ -33,10 +33,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		// `application:configurationForConnectingSceneSession` instead).
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		window = UIWindow(windowScene: windowScene)
-//		UserDefaults.standard.register(defaults: [GlobalUserDefaultsKeys.hasShownNotifPage.key: false])
-//		UserDefaults.standard.register(defaults: [GlobalUserDefaultsKeys.isInDevMode.key: false])
-//		UserDefaults.standard.register(defaults: [GlobalUserDefaultsKeys.showBiometricCounts.key: 0])
-//		UserDefaults.standard.register(defaults: [GlobalUserDefaultsKeys.recentSentAddresses.key: []])
 		userDefaultsManager
 			.registerDefaults(defaults: [
 				GlobalUserDefaultsKeys.hasShownNotifPage.key: false,
