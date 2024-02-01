@@ -16,8 +16,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	private var authVC: AuthenticationLockManager!
 	private var appIsLocked = false
 	private var showPrivateScreen = false
+    private let userDefaultsManager = UserDefaultsManager(userDefaultKey: .isLogin)
 	private var isUserLoggedIn: Bool {
-		UserDefaults.standard.bool(forKey: "isLogin")
+        let isUserLoggedInBool: Bool? = userDefaultsManager.getValue()
+        return isUserLoggedInBool ?? false
 	}
 
 	func scene(
@@ -31,10 +33,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		// `application:configurationForConnectingSceneSession` instead).
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		window = UIWindow(windowScene: windowScene)
-		UserDefaults.standard.register(defaults: [GlobalUserDefaultsKeys.hasShownNotifPage.key: false])
-		UserDefaults.standard.register(defaults: [GlobalUserDefaultsKeys.isInDevMode.key: false])
-		UserDefaults.standard.register(defaults: [GlobalUserDefaultsKeys.showBiometricCounts.key: 0])
-		UserDefaults.standard.register(defaults: [GlobalUserDefaultsKeys.recentSentAddresses.key: []])
+//		UserDefaults.standard.register(defaults: [GlobalUserDefaultsKeys.hasShownNotifPage.key: false])
+//		UserDefaults.standard.register(defaults: [GlobalUserDefaultsKeys.isInDevMode.key: false])
+//		UserDefaults.standard.register(defaults: [GlobalUserDefaultsKeys.showBiometricCounts.key: 0])
+//		UserDefaults.standard.register(defaults: [GlobalUserDefaultsKeys.recentSentAddresses.key: []])
+        userDefaultsManager.registerDefaults(defaults: [GlobalUserDefaultsKeys.hasShownNotifPage.key: false, GlobalUserDefaultsKeys.isInDevMode.key: false])
+        userDefaultsManager.registerDefaults(defaults: [GlobalUserDefaultsKeys.showBiometricCounts.key: 0])
+        let emptyRecentAddressList: [RecentAddressModel] = []
+        userDefaultsManager.registerDefaults(defaults: [GlobalUserDefaultsKeys.recentSentAddresses.key: emptyRecentAddressList])
 		if isUserLoggedIn {
 			window?.rootViewController = TabBarViewController()
 		} else {

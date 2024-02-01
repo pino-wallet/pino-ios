@@ -8,6 +8,8 @@
 import Foundation
 
 class UnlockAppViewModel: UnlockPasscodePageManager {
+    // MARK: - Private Properties
+    private let userDefaultsManager = UserDefaultsManager(userDefaultKey: .lockMethodType)
 	// MARK: - Public Properties
 
 	public let title = "Enter your passcode"
@@ -18,13 +20,13 @@ class UnlockAppViewModel: UnlockPasscodePageManager {
 	public let dontMatchErrorText = "Incorrect, try again!"
 	public var lockMethodType: LockMethodType {
 		get {
-			let savedLockMethod = UserDefaults.standard.string(forKey: "lockMethodType") ?? LockMethodType.passcode
+            let savedLockMethod: String = userDefaultsManager.getValue() ?? LockMethodType.passcode
 				.rawValue
 			let lockMethod = LockMethodType(rawValue: savedLockMethod) ?? LockMethodType.passcode
 			return lockMethod
 		}
 		set {
-			UserDefaults.standard.setValue(newValue.rawValue, forKey: "lockMethodType")
+            userDefaultsManager.setValue(value: newValue.rawValue)
 		}
 	}
 

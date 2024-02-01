@@ -457,6 +457,7 @@
 		D9AF29E52A5010C4006BC53E /* ActivityCellViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF29E42A5010C4006BC53E /* ActivityCellViewModelProtocol.swift */; };
 		D9AF29E82A506F1A006BC53E /* ActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF29E72A506F1A006BC53E /* ActivityType.swift */; };
 		D9AF6DCC29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */; };
+		D9BBEEED2B6A56DD00DE6C84 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BBEEEC2B6A56DD00DE6C84 /* UserDefaultsManager.swift */; };
 		D9BCE5C72A63C519002A9B58 /* ActivitySwapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BCE5C62A63C519002A9B58 /* ActivitySwapHeaderView.swift */; };
 		D9BD90472A95DE2000B28B74 /* BorrowingTokenCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD90462A95DE2000B28B74 /* BorrowingTokenCellViewModel.swift */; };
 		D9BE05142A8221C8008670F9 /* CDActivityParent+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BE05082A8221C8008670F9 /* CDActivityParent+CoreDataClass.swift */; };
@@ -1335,6 +1336,7 @@
 		D9AF29E42A5010C4006BC53E /* ActivityCellViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCellViewModelProtocol.swift; sourceTree = "<group>"; };
 		D9AF29E72A506F1A006BC53E /* ActivityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityType.swift; sourceTree = "<group>"; };
 		D9AF6DCB29E6CA8F00BB7D4D /* GeneralNotificationSettingsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralNotificationSettingsHeader.swift; sourceTree = "<group>"; };
+		D9BBEEEC2B6A56DD00DE6C84 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		D9BCE5C62A63C519002A9B58 /* ActivitySwapHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySwapHeaderView.swift; sourceTree = "<group>"; };
 		D9BD90462A95DE2000B28B74 /* BorrowingTokenCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingTokenCellViewModel.swift; sourceTree = "<group>"; };
 		D9BD90492A95DE7C00B28B74 /* BorrowingTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowingTokenModel.swift; sourceTree = "<group>"; };
@@ -2826,6 +2828,7 @@
 		9644A21ECD0A37919E016265 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				D9BBEEEB2B6A569F00DE6C84 /* UserDefaults */,
 				DF6DEDD92AAB05F90080B47B /* Encryption */,
 				DFC4D0382A360D7300F03DC4 /* Web3 */,
 				DF00178329EC37A0001164EA /* Wallet */,
@@ -3474,6 +3477,14 @@
 				E3D204CB2A39B7E90027FEBC /* QRScannerViewController.swift */,
 			);
 			path = ScannerViewcontroller;
+			sourceTree = "<group>";
+		};
+		D9BBEEEB2B6A569F00DE6C84 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				D9BBEEEC2B6A56DD00DE6C84 /* UserDefaultsManager.swift */,
+			);
+			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 		D9BE05202A822340008670F9 /* Activity */ = {
@@ -5251,6 +5262,7 @@
 				B6CA82D12404F5406CFF9CFD /* HomeError.swift in Sources */,
 				D9BE05192A8221C8008670F9 /* CDTransferActivity+CoreDataProperties.swift in Sources */,
 				DF0347B42A39FAFF00A6C265 /* Web3ABI.swift in Sources */,
+				D9BBEEED2B6A56DD00DE6C84 /* UserDefaultsManager.swift in Sources */,
 				5CE69653C9688E3C116CC0E6 /* HomepageViewController.swift in Sources */,
 				DFE6E80C2B2EFA8600B03930 /* PrivacyLockView.swift in Sources */,
 				8585A2F6E4BB1FCBD88E538B /* HomepageViewModel.swift in Sources */,

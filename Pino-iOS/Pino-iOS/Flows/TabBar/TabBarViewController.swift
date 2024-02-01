@@ -13,6 +13,7 @@ class TabBarViewController: UITabBarController {
 	// MARK: - Private Properties
 
 	private let tabBarItems: [TabBarItem] = [.home, .swap, .invest, .borrow, .activity]
+    private let userDefaultsManager = UserDefaultsManager(userDefaultKey: .hasShownNotifPage)
 //	private let activityPendingBadgeView = UIView(frame: CGRect(x: 38, y: 8, width: 8, height: 8))
 	private var tabBarItemViewControllers = [UIViewController]()
 	private var cancellables = Set<AnyCancellable>()
@@ -27,11 +28,14 @@ class TabBarViewController: UITabBarController {
 		super.viewWillAppear(animated)
 		setupView()
 		setupTabBarItems()
-		presentAllowNotifications()
 //		setupCustomBadgeStyles()
 //		setupBindings()
 		setupDevmodeStatusbar()
 	}
+    
+    override func viewDidAppear(_ animated: Bool) {
+        presentAllowNotifications()
+    }
 
 	// MARK: - Private Functions
 
@@ -76,8 +80,9 @@ class TabBarViewController: UITabBarController {
 	}
 
 	private func presentAllowNotifications() {
-		if !UserDefaults.standard.bool(forKey: GlobalUserDefaultsKeys.hasShownNotifPage.key) {
-			UserDefaults.standard.set(true, forKey: GlobalUserDefaultsKeys.hasShownNotifPage.key)
+        let hasShownNotifPage: Bool = userDefaultsManager.getValue() ?? false
+		if !hasShownNotifPage {
+            userDefaultsManager.setValue(value: true)
 			let allowNotificationsVC = AllowNotificationsViewController()
 			present(allowNotificationsVC, animated: true)
 		}

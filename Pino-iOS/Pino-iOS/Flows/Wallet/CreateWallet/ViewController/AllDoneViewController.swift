@@ -11,6 +11,7 @@ import UIKit
 class AllDoneViewController: UIViewController {
 	// MARK: - Private Properties
 
+    private let userDefaultsManager = UserDefaultsManager(userDefaultKey: .isLogin)
 	private var allDoneVM: AllDoneViewModel
 	private var allDoneView: AllDoneView!
 	private var selectedAccounts: [ActiveAccountViewModel]?
@@ -75,7 +76,7 @@ class AllDoneViewController: UIViewController {
 	}
 
 	private func openHomepage() {
-		UserDefaults.standard.set(true, forKey: "isLogin")
+        userDefaultsManager.setValue(value: true)
 		let tabBarVC = TabBarViewController()
 
 		// Find the current UIWindowScene
