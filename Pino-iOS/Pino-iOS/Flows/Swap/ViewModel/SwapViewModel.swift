@@ -340,18 +340,19 @@ class SwapViewModel {
 	}
 
 	private func updateEthSwapInfo(destToken: SwapTokenViewModel, amount: String?) {
-		updateDestinationToken(destToken: destToken, tokenAmount: amount)
-		swapFeeVM.swapProviderVM = nil
-		swapFeeVM.updateQuote(srcToken: fromToken, destToken: toToken)
-		if fromToken.selectedToken.isVerified && toToken.selectedToken.isVerified {
-			swapFeeVM.calculatePriceImpact(
-				srcTokenAmount: fromToken.decimalDollarAmount,
-				destTokenAmount: toToken.decimalDollarAmount
-			)
-		}
-		if amount != nil {
+		if let amount, !BigNumber(numberWithDecimal: amount).isZero {
+			updateDestinationToken(destToken: destToken, tokenAmount: amount)
+			swapFeeVM.swapProviderVM = nil
+			swapFeeVM.updateQuote(srcToken: fromToken, destToken: toToken)
+			if fromToken.selectedToken.isVerified && toToken.selectedToken.isVerified {
+				swapFeeVM.calculatePriceImpact(
+					srcTokenAmount: fromToken.decimalDollarAmount,
+					destTokenAmount: toToken.decimalDollarAmount
+				)
+			}
 			swapState = .hasAmount
 		} else {
+			updateDestinationToken(destToken: destToken, tokenAmount: nil)
 			swapState = .clear
 		}
 	}
