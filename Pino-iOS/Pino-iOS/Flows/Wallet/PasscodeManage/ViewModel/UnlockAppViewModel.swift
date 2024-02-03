@@ -10,7 +10,7 @@ import Foundation
 class UnlockAppViewModel: UnlockPasscodePageManager {
 	// MARK: - Private Properties
 
-	private let userDefaultsManager = UserDefaultsManager(userDefaultKey: .lockMethodType)
+	private let lockMethodTypeUserDefaultsManager = UserDefaultsManager(userDefaultKey: .lockMethodType)
 
 	// MARK: - Public Properties
 
@@ -22,13 +22,13 @@ class UnlockAppViewModel: UnlockPasscodePageManager {
 	public let dontMatchErrorText = "Incorrect, try again!"
 	public var lockMethodType: LockMethodType {
 		get {
-			let savedLockMethod: String = userDefaultsManager.getValue() ?? LockMethodType.passcode
+			let savedLockMethod: String = lockMethodTypeUserDefaultsManager.getValue() ?? LockMethodType.passcode
 				.rawValue
 			let lockMethod = LockMethodType(rawValue: savedLockMethod) ?? LockMethodType.passcode
 			return lockMethod
 		}
 		set {
-			userDefaultsManager.setValue(value: newValue.rawValue)
+			lockMethodTypeUserDefaultsManager.setValue(value: newValue.rawValue)
 		}
 	}
 

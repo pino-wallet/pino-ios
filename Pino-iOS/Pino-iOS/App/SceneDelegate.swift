@@ -16,9 +16,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	private var authVC: AuthenticationLockManager!
 	private var appIsLocked = false
 	private var showPrivateScreen = false
-	private let userDefaultsManager = UserDefaultsManager(userDefaultKey: .isLogin)
+	private let isLoginUserDefaultsManager = UserDefaultsManager(userDefaultKey: .isLogin)
 	private var isUserLoggedIn: Bool {
-		let isUserLoggedInBool: Bool? = userDefaultsManager.getValue()
+		let isUserLoggedInBool: Bool? = isLoginUserDefaultsManager.getValue()
 		return isUserLoggedInBool ?? false
 	}
 
@@ -33,14 +33,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		// `application:configurationForConnectingSceneSession` instead).
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		window = UIWindow(windowScene: windowScene)
-		userDefaultsManager
+		isLoginUserDefaultsManager
 			.registerDefaults(defaults: [
 				GlobalUserDefaultsKeys.hasShownNotifPage.key: false,
 				GlobalUserDefaultsKeys.isInDevMode.key: false,
 			])
-		userDefaultsManager.registerDefaults(defaults: [GlobalUserDefaultsKeys.showBiometricCounts.key: 0])
+		isLoginUserDefaultsManager.registerDefaults(defaults: [GlobalUserDefaultsKeys.showBiometricCounts.key: 0])
 		let emptyRecentAddressList: [RecentAddressModel] = []
-		userDefaultsManager
+		isLoginUserDefaultsManager
 			.registerDefaults(defaults: [GlobalUserDefaultsKeys.recentSentAddresses.key: emptyRecentAddressList])
 		if isUserLoggedIn {
 			window?.rootViewController = TabBarViewController()
