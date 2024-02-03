@@ -43,7 +43,8 @@ class AuthenticationLockManager {
 
 	private func getLockMethod() -> LockMethodType {
 		let defaultLockMethod = LockMethodType.passcode
-		let savedLockMethod: LockMethodType.RawValue = lockMethodTypeUserDefaultsManager.getValue() ?? defaultLockMethod.rawValue
+		let savedLockMethod: LockMethodType.RawValue = lockMethodTypeUserDefaultsManager.getValue() ?? defaultLockMethod
+			.rawValue
 		let lockMethod = LockMethodType(rawValue: savedLockMethod) ?? defaultLockMethod
 		return lockMethod
 	}
