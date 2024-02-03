@@ -8,6 +8,7 @@
 import BigInt
 import Combine
 import Foundation
+import PromiseKit
 
 class AccountActivationViewModel {
 	// MARK: - Public Properties
@@ -18,42 +19,58 @@ class AccountActivationViewModel {
 
 	// MARK: - Public Methods
 
-	#warning("Needs refactoring")
-	public func activateNewAccountAddress(
-		_ address: String,
-		completion: @escaping (Result<String, WalletOperationError>) -> Void
-	) {
-		let accountImportedAt = BigUInt(Date().timeIntervalSince1970)
-		let userActivationReq = AccountActivationRequestModel.activationHashType(
-			userAddress: address,
-			createdTime: accountImportedAt
-		)
-		web3APIClient.getHashTypedData(eip712HashReqInfo: userActivationReq).sink { completed in
-			switch completed {
-			case .finished:
-				print("Wallet activated")
-				completion(.success(""))
-			case let .failure(error):
-				completion(.failure(WalletOperationError.wallet(.accountActivationFailed(error))))
-			}
-		} receiveValue: { [self] userHash in
+	public func activateNewAccountAddress(_ address: String) -> Promise<String> {
+		let activateTime = Date().timeIntervalSince1970
+		return firstly {
+			fetchHash(address: address.lowercased(), activateTime: BigUInt(activateTime))
+		}.then { userHash in
+			self.activateAccountWithHash(
+				address: address.lowercased(),
+				userHash: userHash,
+				activateTime: Int(activateTime)
+			)
+		}
+	}
+
+	// MARK: - Private Methods
+
+	private func activateAccountWithHash(address: String, userHash: String, activateTime: Int) -> Promise<String> {
+		Promise<String> { seal in
 			let accountInfo = AccountActivationRequestModel(
 				address: address,
-				sig: userHash.hash,
-				time: accountImportedAt
+				sig: userHash,
+				time: activateTime
 			)
 			accountingAPIClient.activateAccount(activationReqModel: accountInfo)
-				.retry(3)
-				.sink(receiveCompletion: { completed in
+				.sink { completed in
 					switch completed {
 					case .finished:
 						print("Wallet activated")
 					case let .failure(error):
-						completion(.failure(WalletOperationError.wallet(.accountActivationFailed(error))))
+						seal.reject(error)
 					}
-				}) { activatedAccount in
-					completion(.success(activatedAccount.id))
+				} receiveValue: { activatedAccount in
+					seal.fulfill(activatedAccount.id)
 				}.store(in: &cancellables)
-		}.store(in: &cancellables)
+		}
+	}
+
+	private func fetchHash(address: String, activateTime: BigUInt) -> Promise<String> {
+		Promise<String> { seal in
+			let userActivationReq = AccountActivationRequestModel.activationHashType(
+				userAddress: address,
+				createdTime: activateTime
+			)
+			web3APIClient.getHashTypedData(eip712HashReqInfo: userActivationReq).sink { completed in
+				switch completed {
+				case .finished:
+					print("User hash received successfully")
+				case let .failure(error):
+					seal.reject(error)
+				}
+			} receiveValue: { userHash in
+				seal.fulfill(userHash.hash)
+			}.store(in: &cancellables)
+		}
 	}
 }

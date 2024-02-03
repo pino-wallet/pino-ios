@@ -131,15 +131,12 @@ class AccountsViewModel {
 		completion: @escaping (WalletOperationError?) -> Void
 	) {
 		let accountActivationVM = AccountActivationViewModel()
-		accountActivationVM.activateNewAccountAddress(address) { result in
-			switch result {
-			case .success:
-				self.addNewWalletAccountWithAddress(address, derivationPath: derivationPath, publicKey: publicKey)
-				self.resetPendingActivities()
-				completion(nil)
-			case let .failure(failure):
-				completion(failure)
-			}
+		accountActivationVM.activateNewAccountAddress(address).done { accountId in
+			self.addNewWalletAccountWithAddress(address, derivationPath: derivationPath, publicKey: publicKey)
+			self.resetPendingActivities()
+			completion(nil)
+		}.catch { error in
+			completion(WalletOperationError.wallet(.accountActivationFailed(error)))
 		}
 	}
 

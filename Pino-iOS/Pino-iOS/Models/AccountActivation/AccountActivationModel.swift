@@ -14,15 +14,15 @@ import Web3
 
 struct AccountActivationRequestModel: Codable {
 	let address, sig: String
-	let time: BigUInt
+	let time: Int
 
 	// MARK: - Public Properties
 
 	public var reqBody: BodyParamsType {
 		let params: HTTPParameters = [
-			"Name": address,
+			"address": address,
 			"sig": sig,
-			"time": "\(time)",
+			"time": time,
 		]
 		return BodyParamsType.json(params)
 	}
@@ -60,5 +60,6 @@ struct AccountActivationRequestModel: Codable {
 }
 
 struct AccountActivationModel: Codable {
+	let created_at: String
 	let id: String
 }
