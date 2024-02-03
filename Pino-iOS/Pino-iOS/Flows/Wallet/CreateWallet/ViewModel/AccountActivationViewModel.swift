@@ -16,18 +16,20 @@ class AccountActivationViewModel {
 	private var accountingAPIClient = AccountingAPIClient()
 	private let web3APIClient = Web3APIClient()
 	private var cancellables = Set<AnyCancellable>()
+	let activateTime = Date().timeIntervalSince1970
 
 	// MARK: - Public Methods
 
-	public func activateNewAccountAddress(_ address: String) -> Promise<String> {
-		let activateTime = Date().timeIntervalSince1970
-		return firstly {
-			fetchHash(address: address.lowercased(), activateTime: BigUInt(activateTime))
-		}.then { userHash in
+	public func activateNewAccountAddress(_ account: Account) -> Promise<String> {
+		firstly {
+			fetchHash(address: account.eip55Address, activateTime: Int(activateTime))
+		}.then { plainHash in
+			self.signHash(plainHash: plainHash, userKey: account.privateKey.hexString)
+		}.then { signiture in
 			self.activateAccountWithHash(
-				address: address.lowercased(),
-				userHash: userHash,
-				activateTime: Int(activateTime)
+				address: account.eip55Address,
+				userHash: signiture,
+				activateTime: Int(self.activateTime)
 			)
 		}
 	}
@@ -55,7 +57,7 @@ class AccountActivationViewModel {
 		}
 	}
 
-	private func fetchHash(address: String, activateTime: BigUInt) -> Promise<String> {
+	private func fetchHash(address: String, activateTime: Int) -> Promise<String> {
 		Promise<String> { seal in
 			let userActivationReq = AccountActivationRequestModel.activationHashType(
 				userAddress: address,
@@ -71,6 +73,18 @@ class AccountActivationViewModel {
 			} receiveValue: { userHash in
 				seal.fulfill(userHash.hash)
 			}.store(in: &cancellables)
+		}
+	}
+
+	func signHash(plainHash: String, userKey: String) -> Promise<String> {
+		Promise<String> { seal in
+			var signiture = try Sec256k1Encryptor.sign(
+				msg: plainHash.hexToBytes(),
+				seckey: userKey.hexToBytes()
+			)
+			signiture[signiture.count - 1] += 27
+
+			seal.fulfill("0x\(signiture.toHexString())")
 		}
 	}
 }

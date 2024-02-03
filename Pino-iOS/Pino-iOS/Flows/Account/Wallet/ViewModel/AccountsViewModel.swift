@@ -97,7 +97,7 @@ class AccountsViewModel {
 			let createdAccount = try pinoWalletManager
 				.createAccount(lastAccountIndex: Int(currentWallet.lastDrivedIndex))
 			activateNewAccountAddress(
-				createdAccount.eip55Address,
+				createdAccount,
 				publicKey: createdAccount.publicKey,
 				derivationPath: createdAccount.derivationPath
 			) { error in
@@ -115,7 +115,7 @@ class AccountsViewModel {
 			if coreDataManager.getAllWalletAccounts().contains(where: { $0.eip55Address == account.eip55Address }) {
 				completion(WalletOperationError.wallet(.accountAlreadyExists))
 			} else {
-				activateNewAccountAddress(account.eip55Address, publicKey: account.publicKey) { error in
+				activateNewAccountAddress(account, publicKey: account.publicKey) { error in
 					completion(error)
 				}
 			}
@@ -125,15 +125,15 @@ class AccountsViewModel {
 	}
 
 	public func activateNewAccountAddress(
-		_ address: String,
+		_ account: Account,
 		publicKey: EthereumPublicKey,
 		derivationPath: String? = nil,
 		completion: @escaping (WalletOperationError?) -> Void
 	) {
 		let accountActivationVM = AccountActivationViewModel()
-		accountActivationVM.activateNewAccountAddress(address).done { accountId in
-			self.addNewWalletAccountWithAddress(address, derivationPath: derivationPath, publicKey: publicKey)
-			self.resetPendingActivities()
+		accountActivationVM.activateNewAccountAddress(account).done { [self] accountId in
+			addNewWalletAccountWithAddress(account.eip55Address, derivationPath: derivationPath, publicKey: publicKey)
+			resetPendingActivities()
 			completion(nil)
 		}.catch { error in
 			completion(WalletOperationError.wallet(.accountActivationFailed(error)))

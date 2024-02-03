@@ -74,7 +74,7 @@ class AllDoneViewModel {
 				let initalAccount = pinoWalletManager.createHDWallet(mnemonics: mnemonics)
 				switch initalAccount {
 				case let .success(account):
-					accActivationVM.activateNewAccountAddress(account.eip55Address).done { accountId in
+					accActivationVM.activateNewAccountAddress(account).done { accountId in
 						self.createInitialWalletsInCoreData { createdWallet in
 							self.createInitalAddressInCoreDataIn(wallet: createdWallet, account: account)
 							walletCreated(nil)

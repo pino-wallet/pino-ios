@@ -29,7 +29,7 @@ struct AccountActivationRequestModel: Codable {
 
 	// MARK: - Public Methods
 
-	public static func activationHashType(userAddress: String, createdTime: BigUInt) -> BodyParamsType {
+	public static func activationHashType(userAddress: String, createdTime: Int) -> BodyParamsType {
 		let typedData: [String: Any] = [
 			"Types": [
 				"ActivationRequest": [
