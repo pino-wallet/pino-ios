@@ -86,15 +86,42 @@ class HomepageViewModel {
 		GlobalVariables.shared.$selectedManageAssetsList.sink { assets in
 			if let assets {
 				self.getWalletBalance(assets: assets)
-				self.positionAssetsList = assets.filter { $0.isPosition == true }
+				self.positionAssetDetailsList = GlobalVariables.shared.positionAssetDetailsList
+				self.groupPositionsByProtocol(assets.filter { $0.isPosition == true })
 				self.selectedAssetsList = assets.filter { $0.isPosition == false }
 				self.switchSecurityMode(self.securityMode)
-				self.positionAssetDetailsList = GlobalVariables.shared.positionAssetDetailsList
 			} else {
 				self.walletBalance = nil
 				self.positionAssetsList = nil
 				self.selectedAssetsList = nil
 			}
 		}.store(in: &cancellables)
+	}
+
+	private func groupPositionsByProtocol(_ positions: [AssetViewModel]) {
+		var positionsProtocolDictionary: [String: String] = [:]
+		var groupedAssetsByProtocol: [String: [AssetViewModel]] = [:]
+
+		positionAssetDetailsList?.forEach { positionAsset in
+			positionsProtocolDictionary[positionAsset.positionID] = positionAsset.assetProtocol
+		}
+
+		positions.forEach { assetViewModel in
+			guard let assetProtocol = positionsProtocolDictionary[assetViewModel.id] else {
+				// Cases where no matching protocol is found
+				let unknownProtocolKey = "Unknown"
+				groupedAssetsByProtocol[unknownProtocolKey, default: []].append(assetViewModel)
+				return
+			}
+			// Assuming asset id matches underlying token in position detail
+			if var assetsInProtocol = groupedAssetsByProtocol[assetProtocol] {
+				assetsInProtocol.append(assetViewModel)
+				groupedAssetsByProtocol[assetProtocol] = assetsInProtocol
+			} else {
+				groupedAssetsByProtocol[assetProtocol] = [assetViewModel]
+			}
+		}
+
+		positionAssetsList = groupedAssetsByProtocol.sorted { $0.key < $1.key }.flatMap { $0.value }
 	}
 }
