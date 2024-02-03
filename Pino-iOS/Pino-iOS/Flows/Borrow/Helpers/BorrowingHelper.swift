@@ -25,7 +25,7 @@ struct BorrowingHelper {
 		if divedTotalBorrowAmount?.number.sign == .minus {
 			return 0.bigNumber
 		}
-		let plainHealhScore = 10000.bigNumber - divedTotalBorrowAmount!
-		return (plainHealhScore / 100.bigNumber)!
+		let plainHealhScore = 1.bigNumber - divedTotalBorrowAmount!
+		return (plainHealhScore * 100.bigNumber)
 	}
 }

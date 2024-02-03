@@ -29,7 +29,7 @@ class RepayAmountViewModel {
 	public let borrowVM: BorrowViewModel
 	public var selectedUserBorrowingToken: UserBorrowingToken!
 
-	public var tokenAmount: String = .emptyString
+	public var tokenAmount: String = "0"
 	public var dollarAmount: String = .emptyString
 	// check if user have more than his debt, use his debt for max amount to repay, otherwise use user amount in token to
 	// repay the debt
@@ -98,7 +98,7 @@ class RepayAmountViewModel {
 		borrowingHelper.calculateHealthScore(
 			totalBorrowedAmount: borrowVM.totalBorrowAmountInDollars,
 			totalBorrowableAmountForHealthScore: borrowVM.totalCollateralAmountsInDollar
-				.totalBorrowableAmountForHealthScore
+				.totalBorrowableAmountInDollars
 		)
 	}
 
@@ -107,7 +107,7 @@ class RepayAmountViewModel {
 		return borrowingHelper.calculateHealthScore(
 			totalBorrowedAmount: totalBorrowedAmount,
 			totalBorrowableAmountForHealthScore: borrowVM.totalCollateralAmountsInDollar
-				.totalBorrowableAmountForHealthScore
+				.totalBorrowableAmountInDollars
 		)
 	}
 

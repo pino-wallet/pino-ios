@@ -18,7 +18,7 @@ class BorrowIncreaseAmountViewModel {
 
 	public let selectedToken: AssetViewModel
 	public let borrowVM: BorrowViewModel
-	public var tokenAmount: String = .emptyString
+	public var tokenAmount: String = "0"
 	public var dollarAmount: String = .emptyString
 	// here max amount is sum of user max free collateralled amount in tokens
 	#warning("maybe we should refactor this section in future")
@@ -98,7 +98,7 @@ class BorrowIncreaseAmountViewModel {
 		borrowingHelper.calculateHealthScore(
 			totalBorrowedAmount: borrowVM.totalBorrowAmountInDollars,
 			totalBorrowableAmountForHealthScore: borrowVM.totalCollateralAmountsInDollar
-				.totalBorrowableAmountForHealthScore
+				.totalBorrowableAmountInDollars
 		)
 	}
 
@@ -107,7 +107,7 @@ class BorrowIncreaseAmountViewModel {
 		return borrowingHelper.calculateHealthScore(
 			totalBorrowedAmount: totalBorrowedAmount,
 			totalBorrowableAmountForHealthScore: borrowVM.totalCollateralAmountsInDollar
-				.totalBorrowableAmountForHealthScore
+				.totalBorrowableAmountInDollars
 		)
 	}
 

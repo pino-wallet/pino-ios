@@ -12,8 +12,7 @@ class BorrowViewModel {
 
 	typealias TotalCollateralAmountsInDollarType = (
 		totalAmountInDollars: BigNumber,
-		totalBorrowableAmountInDollars: BigNumber,
-		totalBorrowableAmountForHealthScore: BigNumber
+		totalBorrowableAmountInDollars: BigNumber
 	)
 
 	// MARK: - Public Properties
@@ -44,13 +43,10 @@ class BorrowViewModel {
 			totalAmountInDollars = totalAmountInDollars + tokenTotalAmountInDollars
 			totalBorrowableAmountInDollars = totalBorrowableAmountInDollars +
 				(tokenTotalAmountInDollars / 100.bigNumber)! * (tokenLQ / 100.bigNumber)!
-			totalBorrowableAmountForHealthScore = totalBorrowableAmountForHealthScore +
-				(tokenTotalAmountInDollars / tokenLQ)!
 		}
 		return (
 			totalAmountInDollars: totalAmountInDollars,
-			totalBorrowableAmountInDollars: totalBorrowableAmountInDollars,
-			totalBorrowableAmountForHealthScore: totalBorrowableAmountForHealthScore
+			totalBorrowableAmountInDollars: totalBorrowableAmountInDollars
 		)
 	}
 
