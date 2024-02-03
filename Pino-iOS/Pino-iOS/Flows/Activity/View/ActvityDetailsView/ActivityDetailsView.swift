@@ -153,9 +153,9 @@ class ActivityDetailsView: UIScrollView {
 	private func setupBindings() {
 		activityDetailsVM.$properties.sink { properties in
 			self.refreshControl?.endRefreshing()
-            #warning("speed up will come back after v1")
+			#warning("speed up will come back after v1")
 //			if properties!.status != .pending {
-				self.speedUpButton.isHidden = true
+			self.speedUpButton.isHidden = true
 //			}
 		}.store(in: &cancellables)
 	}

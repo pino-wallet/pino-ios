@@ -34,7 +34,7 @@ class WithdrawAmountViewModel {
 
 	public var aavePositionToken: AssetViewModel?
 
-	public var tokenAmount: String = "0"
+	public var tokenAmount = "0"
 	public var dollarAmount: String = .emptyString
 	// This is max of user collateralled free amount
 	public var maxWithdrawAmount: BigNumber {
@@ -104,7 +104,7 @@ class WithdrawAmountViewModel {
 	private func calculateNewHealthScore(dollarAmount: BigNumber) -> BigNumber {
 		let tokenLQ = borrowVM.getCollateralizableTokenLQ(tokenID: selectedToken.id)
 		let totalBorrowableAmountForHealthScore = borrowVM.totalCollateralAmountsInDollar
-            .totalBorrowableAmountInDollars - (((dollarAmount / 100.bigNumber)!) * (tokenLQ / 100.bigNumber)!)
+			.totalBorrowableAmountInDollars - ((dollarAmount / 100.bigNumber)! * (tokenLQ / 100.bigNumber)!)
 		return borrowingHelper.calculateHealthScore(
 			totalBorrowedAmount: borrowVM.totalBorrowAmountInDollars,
 			totalBorrowableAmountForHealthScore: totalBorrowableAmountForHealthScore
