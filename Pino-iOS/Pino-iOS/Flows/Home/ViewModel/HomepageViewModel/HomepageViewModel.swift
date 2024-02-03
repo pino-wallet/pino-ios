@@ -64,19 +64,6 @@ class HomepageViewModel {
 		positionAssetsList = positionAssetsList
 	}
 
-	private func setAssetValues(assets: [AssetViewModel]) {
-		getWalletBalance(assets: assets)
-		selectedAssetsList = assets.filter { $0.isPosition == false }
-		positionAssetsList = assets.filter { $0.isPosition == true }
-		switchSecurityMode(securityMode)
-	}
-
-	private func destroyValues() {
-		walletBalance = nil
-		positionAssetsList = nil
-		selectedAssetsList = nil
-	}
-
 	private func setupBindings() {
 		$securityMode.sink { [weak self] securityMode in
 			guard let self = self else { return }
