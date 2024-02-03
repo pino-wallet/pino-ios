@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -100,7 +100,6 @@
 		404324062A5FF115006B1468 /* TextFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404324052A5FF115006B1468 /* TextFormatting.swift */; };
 		404324092A5FF12C006B1468 /* NumberFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404324082A5FF12C006B1468 /* NumberFormatting.swift */; };
 		407E33282AE2A1D9001079B8 /* Web3ManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E33272AE2A1D9001079B8 /* Web3ManagerProtocol.swift */; };
-		408463C02A3AEE010058FF16 /* Web3-Utility in Frameworks */ = {isa = PBXBuildFile; productRef = 408463BF2A3AEE010058FF16 /* Web3-Utility */; };
 		40BB42282A47157800E1A121 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB42272A47157800E1A121 /* UIDevice+Extension.swift */; };
 		40E7C1132AAF6C74006A61DD /* SwapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E7C1122AAF6C74006A61DD /* SwapManager.swift */; };
 		40F704572A03AFFF004D74FE /* AccountActivationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F704562A03AFFF004D74FE /* AccountActivationModel.swift */; };
@@ -562,10 +561,6 @@
 		DF0B1ECF2B00DB3F001B0522 /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0B1ECE2B00DB3F001B0522 /* PushNotificationManager.swift */; };
 		DF0B1ED12B00DE6C001B0522 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = DF0B1ED02B00DE6C001B0522 /* FirebaseMessaging */; };
 		DF0B1ED32B00E0D5001B0522 /* FCMTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0B1ED22B00E0D5001B0522 /* FCMTokenManager.swift */; };
-		DF0F65E529E1B20F00DB7290 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65E429E1B20F00DB7290 /* BigInt */; };
-		DF0F65EB29E1B24500DB7290 /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65EA29E1B24500DB7290 /* OHHTTPStubs */; };
-		DF0F65ED29E1B24500DB7290 /* OHHTTPStubsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65EC29E1B24500DB7290 /* OHHTTPStubsSwift */; };
-		DF0F65F029E1B27200DB7290 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DF0F65EF29E1B27200DB7290 /* Kingfisher */; };
 		DF0F65F129E1B29C00DB7290 /* about-coin-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 0AE19B638118F9E2565134EF /* about-coin-stub.json */; };
 		DF0F65F229E1B29C00DB7290 /* all-users-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 054F035BC1020A3673EEB0AD /* all-users-stub.json */; };
 		DF0F65F329E1B29C00DB7290 /* coin-performance-info-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = EA79C702C8831F7059E16070 /* coin-performance-info-stub.json */; };
@@ -590,6 +585,19 @@
 		DF1D90E32A9733E300435D85 /* W3ApproveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1D90E22A9733E300435D85 /* W3ApproveManager.swift */; };
 		DF1D90E52A973ACC00435D85 /* ApprovingLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1D90E42A973ACC00435D85 /* ApprovingLoadingViewController.swift */; };
 		DF1D90E72A973AFA00435D85 /* ApprovingLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1D90E62A973AFA00435D85 /* ApprovingLoadingView.swift */; };
+		DF3E0E0B2B6E18A700937955 /* Web3-Utility in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E0A2B6E18A700937955 /* Web3-Utility */; };
+		DF3E0E0E2B6E199800937955 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E0D2B6E199800937955 /* BigInt */; };
+		DF3E0E112B6E19AA00937955 /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E102B6E19AA00937955 /* DGCharts */; };
+		DF3E0E132B6E19AA00937955 /* DGChartsDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E122B6E19AA00937955 /* DGChartsDynamic */; };
+		DF3E0E162B6E19BB00937955 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E152B6E19BB00937955 /* CryptoSwift */; };
+		DF3E0E192B6E19D600937955 /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E182B6E19D600937955 /* OHHTTPStubs */; };
+		DF3E0E1B2B6E19D600937955 /* OHHTTPStubsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E1A2B6E19D600937955 /* OHHTTPStubsSwift */; };
+		DF3E0E1E2B6E19E800937955 /* Hyperconnectivity in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E1D2B6E19E800937955 /* Hyperconnectivity */; };
+		DF3E0E212B6E1A6B00937955 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E202B6E1A6B00937955 /* Kingfisher */; };
+		DF3E0E242B6E1AC500937955 /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E232B6E1AC500937955 /* Web3 */; };
+		DF3E0E262B6E1AC500937955 /* Web3ContractABI in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E252B6E1AC500937955 /* Web3ContractABI */; };
+		DF3E0E282B6E1AC500937955 /* Web3PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E272B6E1AC500937955 /* Web3PromiseKit */; };
+		DF3E0E2B2B6E1D3400937955 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E2A2B6E1D3400937955 /* Lottie */; };
 		DF4C23142AC33D000014DC89 /* W3CallDataGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4C23132AC33D000014DC89 /* W3CallDataGenerator.swift */; };
 		DF62CEC12B2709FC00AA6D41 /* SignImportWalletSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF62CEC02B2709FC00AA6D41 /* SignImportWalletSheet.swift */; };
 		DF62CEC32B272F2C00AA6D41 /* IntroAnimationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF62CEC22B272F2C00AA6D41 /* IntroAnimationCollectionViewCell.swift */; };
@@ -605,7 +613,6 @@
 		DF6DEDDD2AACE00F0080B47B /* Permit2Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDDC2AACE00F0080B47B /* Permit2Model.swift */; };
 		DF6DEDDF2AACE2F30080B47B /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDDE2AACE2F30080B47B /* NetworkLogger.swift */; };
 		DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF705C69E87F6C936F8261B /* AccountingAPIClient.swift */; };
-		DF954B572A8A68DD000A9D45 /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = DF954B562A8A68DD000A9D45 /* DGCharts */; };
 		DFA968732A0F8A77007D4513 /* WalletDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA968722A0F8A77007D4513 /* WalletDataSource.swift */; };
 		DFA9687B2A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA968752A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift */; };
 		DFA9687C2A0FABB9007D4513 /* SelectedAsset+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA968762A0FABB9007D4513 /* SelectedAsset+CoreDataProperties.swift */; };
@@ -618,7 +625,6 @@
 		DFB2A6552B2049D300635F78 /* SwapFeeInfoSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB2A6542B2049D300635F78 /* SwapFeeInfoSheet.swift */; };
 		DFB566272A1926C600F9D6A0 /* ImportTextViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB566262A1926C600F9D6A0 /* ImportTextViewType.swift */; };
 		DFB566292A192CD600F9D6A0 /* WalletManagementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB566282A192CD600F9D6A0 /* WalletManagementType.swift */; };
-		DFB60DA12B1B3F4700464143 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = DFB60DA02B1B3F4700464143 /* Lottie */; };
 		DFB60DA92B1B3F9D00464143 /* BorrowEnsureLoanSafety.json in Resources */ = {isa = PBXBuildFile; fileRef = DFB60DA32B1B3F9D00464143 /* BorrowEnsureLoanSafety.json */; };
 		DFB60DAA2B1B3F9D00464143 /* SwapEasyAssetConversion.json in Resources */ = {isa = PBXBuildFile; fileRef = DFB60DA42B1B3F9D00464143 /* SwapEasyAssetConversion.json */; };
 		DFB60DAB2B1B3F9D00464143 /* InvestEasyProfitTracking.json in Resources */ = {isa = PBXBuildFile; fileRef = DFB60DA52B1B3F9D00464143 /* InvestEasyProfitTracking.json */; };
@@ -629,9 +635,6 @@
 		DFC1F6A12A755620003DB68A /* SwapProvidersAPIServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6A02A75561F003DB68A /* SwapProvidersAPIServices.swift */; };
 		DFC1F6A72A755F55003DB68A /* ParaSwapPriceResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6A62A755F55003DB68A /* ParaSwapPriceResponseModel.swift */; };
 		DFC1F6A92A755F7B003DB68A /* SwapPriceRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6A82A755F7B003DB68A /* SwapPriceRequestModel.swift */; };
-		DFC4D0332A360C3B00F03DC4 /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = DFC4D0322A360C3B00F03DC4 /* Web3 */; };
-		DFC4D0352A360C3B00F03DC4 /* Web3ContractABI in Frameworks */ = {isa = PBXBuildFile; productRef = DFC4D0342A360C3B00F03DC4 /* Web3ContractABI */; };
-		DFC4D0372A360C3B00F03DC4 /* Web3PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = DFC4D0362A360C3B00F03DC4 /* Web3PromiseKit */; };
 		DFC4D03A2A360D8300F03DC4 /* Web3Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC4D0392A360D8300F03DC4 /* Web3Core.swift */; };
 		DFCAAD3A2A62DA8000D8BB8D /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCAAD392A62DA8000D8BB8D /* Int+Extension.swift */; };
 		DFCB13942B09DCB800EEFD0F /* CDApproveActivityDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB137E2B09DCB700EEFD0F /* CDApproveActivityDetails+CoreDataProperties.swift */; };
@@ -782,7 +785,6 @@
 		E3D204CA2A3992EB0027FEBC /* TokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D204C92A3992EB0027FEBC /* TokenView.swift */; };
 		E3D204CC2A39B7E90027FEBC /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D204CB2A39B7E90027FEBC /* QRScannerViewController.swift */; };
 		E3D478B32A3064C90030A987 /* CustomAssetDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D478B22A3064C90030A987 /* CustomAssetDataSource.swift */; };
-		E3E009E02A0635C800234707 /* Hyperconnectivity in Frameworks */ = {isa = PBXBuildFile; productRef = E3E009DF2A0635C800234707 /* Hyperconnectivity */; };
 		E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E009E12A06377D00234707 /* InternetConnectivity.swift */; };
 		E3F482EC2A3485A500EEC9CF /* EnterSendAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482EB2A3485A500EEC9CF /* EnterSendAmountViewController.swift */; };
 		E3F482EF2A35A6E900EEC9CF /* CustomAsset+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482ED2A35A6E900EEC9CF /* CustomAsset+CoreDataClass.swift */; };
@@ -1730,9 +1732,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF0F65ED29E1B24500DB7290 /* OHHTTPStubsSwift in Frameworks */,
-				DF0F65EB29E1B24500DB7290 /* OHHTTPStubs in Frameworks */,
 				4942E471194C48B22ACFF8A4 /* Pods_Pino_iOSTests.framework in Frameworks */,
+				DF3E0E1B2B6E19D600937955 /* OHHTTPStubsSwift in Frameworks */,
+				DF3E0E192B6E19D600937955 /* OHHTTPStubs in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1740,17 +1742,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF0F65F029E1B27200DB7290 /* Kingfisher in Frameworks */,
-				DF954B572A8A68DD000A9D45 /* DGCharts in Frameworks */,
+				DF3E0E2B2B6E1D3400937955 /* Lottie in Frameworks */,
+				DF3E0E1E2B6E19E800937955 /* Hyperconnectivity in Frameworks */,
 				DF0B1ED12B00DE6C001B0522 /* FirebaseMessaging in Frameworks */,
-				E3E009E02A0635C800234707 /* Hyperconnectivity in Frameworks */,
-				DFC4D0332A360C3B00F03DC4 /* Web3 in Frameworks */,
-				408463C02A3AEE010058FF16 /* Web3-Utility in Frameworks */,
-				DFB60DA12B1B3F4700464143 /* Lottie in Frameworks */,
-				DF0F65E529E1B20F00DB7290 /* BigInt in Frameworks */,
-				DFC4D0372A360C3B00F03DC4 /* Web3PromiseKit in Frameworks */,
-				DFC4D0352A360C3B00F03DC4 /* Web3ContractABI in Frameworks */,
+				DF3E0E0B2B6E18A700937955 /* Web3-Utility in Frameworks */,
+				DF3E0E212B6E1A6B00937955 /* Kingfisher in Frameworks */,
+				DF3E0E262B6E1AC500937955 /* Web3ContractABI in Frameworks */,
+				DF3E0E112B6E19AA00937955 /* DGCharts in Frameworks */,
 				ABC427C6A619164E6554C043 /* Pods_Pino_iOS.framework in Frameworks */,
+				DF3E0E132B6E19AA00937955 /* DGChartsDynamic in Frameworks */,
+				DF3E0E0E2B6E199800937955 /* BigInt in Frameworks */,
+				DF3E0E162B6E19BB00937955 /* CryptoSwift in Frameworks */,
+				DF3E0E282B6E1AC500937955 /* Web3PromiseKit in Frameworks */,
+				DF3E0E242B6E1AC500937955 /* Web3 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4595,16 +4599,18 @@
 			);
 			name = "Pino-iOS";
 			packageProductDependencies = (
-				DF0F65E429E1B20F00DB7290 /* BigInt */,
-				DF0F65EF29E1B27200DB7290 /* Kingfisher */,
-				E3E009DF2A0635C800234707 /* Hyperconnectivity */,
-				DFC4D0322A360C3B00F03DC4 /* Web3 */,
-				DFC4D0342A360C3B00F03DC4 /* Web3ContractABI */,
-				DFC4D0362A360C3B00F03DC4 /* Web3PromiseKit */,
-				408463BF2A3AEE010058FF16 /* Web3-Utility */,
-				DF954B562A8A68DD000A9D45 /* DGCharts */,
 				DF0B1ED02B00DE6C001B0522 /* FirebaseMessaging */,
-				DFB60DA02B1B3F4700464143 /* Lottie */,
+				DF3E0E0A2B6E18A700937955 /* Web3-Utility */,
+				DF3E0E0D2B6E199800937955 /* BigInt */,
+				DF3E0E102B6E19AA00937955 /* DGCharts */,
+				DF3E0E122B6E19AA00937955 /* DGChartsDynamic */,
+				DF3E0E152B6E19BB00937955 /* CryptoSwift */,
+				DF3E0E1D2B6E19E800937955 /* Hyperconnectivity */,
+				DF3E0E202B6E1A6B00937955 /* Kingfisher */,
+				DF3E0E232B6E1AC500937955 /* Web3 */,
+				DF3E0E252B6E1AC500937955 /* Web3ContractABI */,
+				DF3E0E272B6E1AC500937955 /* Web3PromiseKit */,
+				DF3E0E2A2B6E1D3400937955 /* Lottie */,
 			);
 			productName = "Pino-iOS";
 			productReference = 8709B718DBC4F0CE1F89E4E2 /* Pino.app */;
@@ -4626,8 +4632,8 @@
 			);
 			name = "Pino-iOSTests";
 			packageProductDependencies = (
-				DF0F65EA29E1B24500DB7290 /* OHHTTPStubs */,
-				DF0F65EC29E1B24500DB7290 /* OHHTTPStubsSwift */,
+				DF3E0E182B6E19D600937955 /* OHHTTPStubs */,
+				DF3E0E1A2B6E19D600937955 /* OHHTTPStubsSwift */,
 			);
 			productName = "Pino-iOSTests";
 			productReference = 69F80E5332D902C3DF82DC4A /* Pino-iOSTests.xctest */;
@@ -4678,15 +4684,16 @@
 			);
 			mainGroup = 2277E1FFDD10A1C98A64D20C;
 			packageReferences = (
-				DF0F65E329E1B20F00DB7290 /* XCRemoteSwiftPackageReference "BigInt" */,
-				DF0F65E929E1B24500DB7290 /* XCRemoteSwiftPackageReference "OHHTTPStubs" */,
-				DF0F65EE29E1B27200DB7290 /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				DF0F660429E1B47B00DB7290 /* XCRemoteSwiftPackageReference "Charts" */,
-				E3E009DE2A0635C800234707 /* XCRemoteSwiftPackageReference "hyperconnectivity" */,
-				DFC4D0312A360C3B00F03DC4 /* XCRemoteSwiftPackageReference "Web3.swift" */,
-				408463BE2A3AEE010058FF16 /* XCRemoteSwiftPackageReference "Web3-Utility" */,
 				DF7B58F02B00B3A300939375 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				DFB60D9F2B1B3F4700464143 /* XCRemoteSwiftPackageReference "lottie-spm" */,
+				DF3E0E092B6E18A700937955 /* XCLocalSwiftPackageReference "../../Libraries/Web3-Utility" */,
+				DF3E0E0C2B6E199800937955 /* XCLocalSwiftPackageReference "../../Libraries/BigInt" */,
+				DF3E0E0F2B6E19AA00937955 /* XCLocalSwiftPackageReference "../../Libraries/Charts" */,
+				DF3E0E142B6E19BB00937955 /* XCLocalSwiftPackageReference "../../Libraries/CryptoSwift" */,
+				DF3E0E172B6E19D600937955 /* XCLocalSwiftPackageReference "../../Libraries/OHHTTPStubs" */,
+				DF3E0E1C2B6E19E800937955 /* XCLocalSwiftPackageReference "../../Libraries/Hyperconnectivity" */,
+				DF3E0E1F2B6E1A6A00937955 /* XCLocalSwiftPackageReference "../../Libraries/Kingfisher" */,
+				DF3E0E222B6E1AC500937955 /* XCLocalSwiftPackageReference "../../Libraries/Web3.swift" */,
+				DF3E0E292B6E1D3400937955 /* XCLocalSwiftPackageReference "../../Libraries/lottie-ios" */,
 			);
 			productRefGroup = 2821FB9CEE9F9B9E6BAE9FD7 /* Products */;
 			projectDirPath = "";
@@ -5989,47 +5996,46 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		DF3E0E092B6E18A700937955 /* XCLocalSwiftPackageReference "../../Libraries/Web3-Utility" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../Libraries/Web3-Utility";
+		};
+		DF3E0E0C2B6E199800937955 /* XCLocalSwiftPackageReference "../../Libraries/BigInt" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Libraries/BigInt;
+		};
+		DF3E0E0F2B6E19AA00937955 /* XCLocalSwiftPackageReference "../../Libraries/Charts" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Libraries/Charts;
+		};
+		DF3E0E142B6E19BB00937955 /* XCLocalSwiftPackageReference "../../Libraries/CryptoSwift" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Libraries/CryptoSwift;
+		};
+		DF3E0E172B6E19D600937955 /* XCLocalSwiftPackageReference "../../Libraries/OHHTTPStubs" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Libraries/OHHTTPStubs;
+		};
+		DF3E0E1C2B6E19E800937955 /* XCLocalSwiftPackageReference "../../Libraries/Hyperconnectivity" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Libraries/Hyperconnectivity;
+		};
+		DF3E0E1F2B6E1A6A00937955 /* XCLocalSwiftPackageReference "../../Libraries/Kingfisher" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Libraries/Kingfisher;
+		};
+		DF3E0E222B6E1AC500937955 /* XCLocalSwiftPackageReference "../../Libraries/Web3.swift" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Libraries/Web3.swift;
+		};
+		DF3E0E292B6E1D3400937955 /* XCLocalSwiftPackageReference "../../Libraries/lottie-ios" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../Libraries/lottie-ios";
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
-		408463BE2A3AEE010058FF16 /* XCRemoteSwiftPackageReference "Web3-Utility" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/nitolabs/Web3-Utility";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		DF0F65E329E1B20F00DB7290 /* XCRemoteSwiftPackageReference "BigInt" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/attaswift/BigInt";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-		DF0F65E929E1B24500DB7290 /* XCRemoteSwiftPackageReference "OHHTTPStubs" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AliSoftware/OHHTTPStubs";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
-			};
-		};
-		DF0F65EE29E1B27200DB7290 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.0;
-			};
-		};
-		DF0F660429E1B47B00DB7290 /* XCRemoteSwiftPackageReference "Charts" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/danielgindi/Charts";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
 		DF7B58F02B00B3A300939375 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -6038,92 +6044,65 @@
 				minimumVersion = 10.17.0;
 			};
 		};
-		DFB60D9F2B1B3F4700464143 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.3.4;
-			};
-		};
-		DFC4D0312A360C3B00F03DC4 /* XCRemoteSwiftPackageReference "Web3.swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Boilertalk/Web3.swift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.8.3;
-			};
-		};
-		E3E009DE2A0635C800234707 /* XCRemoteSwiftPackageReference "hyperconnectivity" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rwbutler/hyperconnectivity";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		408463BF2A3AEE010058FF16 /* Web3-Utility */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 408463BE2A3AEE010058FF16 /* XCRemoteSwiftPackageReference "Web3-Utility" */;
-			productName = "Web3-Utility";
-		};
 		DF0B1ED02B00DE6C001B0522 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DF7B58F02B00B3A300939375 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
 		};
-		DF0F65E429E1B20F00DB7290 /* BigInt */ = {
+		DF3E0E0A2B6E18A700937955 /* Web3-Utility */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DF0F65E329E1B20F00DB7290 /* XCRemoteSwiftPackageReference "BigInt" */;
+			productName = "Web3-Utility";
+		};
+		DF3E0E0D2B6E199800937955 /* BigInt */ = {
+			isa = XCSwiftPackageProductDependency;
 			productName = BigInt;
 		};
-		DF0F65EA29E1B24500DB7290 /* OHHTTPStubs */ = {
+		DF3E0E102B6E19AA00937955 /* DGCharts */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DF0F65E929E1B24500DB7290 /* XCRemoteSwiftPackageReference "OHHTTPStubs" */;
-			productName = OHHTTPStubs;
-		};
-		DF0F65EC29E1B24500DB7290 /* OHHTTPStubsSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DF0F65E929E1B24500DB7290 /* XCRemoteSwiftPackageReference "OHHTTPStubs" */;
-			productName = OHHTTPStubsSwift;
-		};
-		DF0F65EF29E1B27200DB7290 /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DF0F65EE29E1B27200DB7290 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
-		};
-		DF954B562A8A68DD000A9D45 /* DGCharts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DF0F660429E1B47B00DB7290 /* XCRemoteSwiftPackageReference "Charts" */;
 			productName = DGCharts;
 		};
-		DFB60DA02B1B3F4700464143 /* Lottie */ = {
+		DF3E0E122B6E19AA00937955 /* DGChartsDynamic */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DFB60D9F2B1B3F4700464143 /* XCRemoteSwiftPackageReference "lottie-spm" */;
-			productName = Lottie;
+			productName = DGChartsDynamic;
 		};
-		DFC4D0322A360C3B00F03DC4 /* Web3 */ = {
+		DF3E0E152B6E19BB00937955 /* CryptoSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DFC4D0312A360C3B00F03DC4 /* XCRemoteSwiftPackageReference "Web3.swift" */;
+			productName = CryptoSwift;
+		};
+		DF3E0E182B6E19D600937955 /* OHHTTPStubs */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OHHTTPStubs;
+		};
+		DF3E0E1A2B6E19D600937955 /* OHHTTPStubsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OHHTTPStubsSwift;
+		};
+		DF3E0E1D2B6E19E800937955 /* Hyperconnectivity */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Hyperconnectivity;
+		};
+		DF3E0E202B6E1A6B00937955 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Kingfisher;
+		};
+		DF3E0E232B6E1AC500937955 /* Web3 */ = {
+			isa = XCSwiftPackageProductDependency;
 			productName = Web3;
 		};
-		DFC4D0342A360C3B00F03DC4 /* Web3ContractABI */ = {
+		DF3E0E252B6E1AC500937955 /* Web3ContractABI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DFC4D0312A360C3B00F03DC4 /* XCRemoteSwiftPackageReference "Web3.swift" */;
 			productName = Web3ContractABI;
 		};
-		DFC4D0362A360C3B00F03DC4 /* Web3PromiseKit */ = {
+		DF3E0E272B6E1AC500937955 /* Web3PromiseKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DFC4D0312A360C3B00F03DC4 /* XCRemoteSwiftPackageReference "Web3.swift" */;
 			productName = Web3PromiseKit;
 		};
-		E3E009DF2A0635C800234707 /* Hyperconnectivity */ = {
+		DF3E0E2A2B6E1D3400937955 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E3E009DE2A0635C800234707 /* XCRemoteSwiftPackageReference "hyperconnectivity" */;
-			productName = Hyperconnectivity;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 
