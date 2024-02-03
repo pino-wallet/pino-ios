@@ -8,6 +8,10 @@
 import Foundation
 
 class SecurityViewModel {
+	// MARK: - Private Properties
+
+	private let lockMethodTypeUserDefaultsManager = UserDefaultsManager(userDefaultKey: .lockMethodType)
+
 	// MARK: - Public Properties
 
 	public let pageTitle = "Security"
@@ -42,7 +46,7 @@ class SecurityViewModel {
 
 	private func getLockMethod() -> LockMethodModel {
 		let defaultLockMethod = LockMethodType.passcode
-		let savedLockMethodType = UserDefaults.standard.string(forKey: "lockMethodType") ?? defaultLockMethod.rawValue
+		let savedLockMethodType: String = lockMethodTypeUserDefaultsManager.getValue() ?? defaultLockMethod.rawValue
 		let lockMethodType = LockMethodType(rawValue: savedLockMethodType) ?? defaultLockMethod
 		return lockMethods.first(where: { $0.type == lockMethodType })!
 	}
@@ -51,6 +55,6 @@ class SecurityViewModel {
 
 	public func changeLockMethod(to lockMethod: LockMethodModel) {
 		selectedLockMethod = lockMethod
-		UserDefaults.standard.set(lockMethod.type.rawValue, forKey: "lockMethodType")
+		lockMethodTypeUserDefaultsManager.setValue(value: lockMethod.type.rawValue)
 	}
 }

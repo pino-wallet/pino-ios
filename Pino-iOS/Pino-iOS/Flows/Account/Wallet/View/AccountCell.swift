@@ -63,10 +63,9 @@ public class AccountCell: UICollectionViewCell {
 		accountBalance.text = accountVM.balance
 		accountIcon.image = UIImage(named: accountVM.profileImage)
 
-		editButtonView.backgroundColor = .Pino.background
 		editButtonView.layer.cornerRadius = 16
 
-		editButtonImageView.image = UIImage(named: "edit_accounts")
+		editButtonImageView.image = UIImage(named: "pencil")
 
 		accountIconBackgroundView.backgroundColor = UIColor(named: accountVM.profileColor)
 		accountCardView.backgroundColor = .Pino.secondaryBackground

@@ -12,6 +12,9 @@ enum GlobalUserDefaultsKeys {
 	case isInDevMode
 	case showBiometricCounts
 	case recentSentAddresses
+	case isLogin
+	case fcmToken
+	case lockMethodType
 
 	public var key: String {
 		switch self {
@@ -23,6 +26,12 @@ enum GlobalUserDefaultsKeys {
 			"showBiometricCounts"
 		case .recentSentAddresses:
 			"recentSentAddresses"
+		case .isLogin:
+			"isLogin"
+		case .fcmToken:
+			"fcmToken"
+		case .lockMethodType:
+			"lockMethodType"
 		}
 	}
 }
