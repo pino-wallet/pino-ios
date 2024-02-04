@@ -55,11 +55,11 @@ public struct BigNumber {
 	}
 
 	public init(numberWithDecimal: String) {
-        guard numberWithDecimal != .emptyString else {
-            self.number = BigInt("0")
-            self.decimal = 0
-            return
-        }
+		guard numberWithDecimal != .emptyString else {
+			self.number = BigInt("0")
+			self.decimal = 0
+			return
+		}
 		var trimmingNumber = numberWithDecimal.trimmCurrency
 		guard let decimalSeperator = numberWithDecimal.first(where: { $0 == "." || $0 == "," }) else {
 			// Passed string has no decimal and is passed to wrong initlizer
