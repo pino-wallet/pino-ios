@@ -213,8 +213,8 @@ class EnterSendAmountView: UIView {
 		if enterAmountVM.selectedToken.isEth {
 			GlobalVariables.shared.$ethGasFee.compactMap { $0 }.sink { gasInfo in
 				self.enterAmountVM.updateEthMaxAmount()
-				self.enterAmountVM.calculateAmount(self.amountTextfield.text ?? .emptyString)
-				self.updateAmount(enteredAmount: self.amountTextfield.text ?? .emptyString)
+				self.enterAmountVM.calculateAmount(self.amountTextfield.text ?? "0")
+				self.updateAmount(enteredAmount: self.amountTextfield.text ?? "0")
 				self.maxAmountLabel.text = self.enterAmountVM.formattedMaxHoldAmount
 				self.maxAmountInDollarLabel.text = self.enterAmountVM.formattedMaxAmountInDollar
 			}.store(in: &cancellable)
@@ -224,7 +224,7 @@ class EnterSendAmountView: UIView {
 	private func updateView() {
 		if enterAmountVM.selectedToken.isVerified {
 			changeTokenView.tokenImageURL = enterAmountVM.selectedToken.image
-			updateAmount(enteredAmount: amountTextfield.text ?? .emptyString)
+			updateAmount(enteredAmount: amountTextfield.text ?? "0")
 			dollarFormatButton.isHidden = false
 			amountLabel.isHidden = false
 			applyDollarFormatChanges()
@@ -280,8 +280,8 @@ class EnterSendAmountView: UIView {
 			updateAmount(enteredAmount: amountText)
 		} else {
 			dollarSignLabel.textColor = .Pino.gray2
-			enterAmountVM.calculateAmount(.emptyString)
-			updateAmount(enteredAmount: .emptyString)
+			enterAmountVM.calculateAmount("0")
+			updateAmount(enteredAmount: "0")
 		}
 	}
 
@@ -333,7 +333,7 @@ class EnterSendAmountView: UIView {
 		}
 
 		if enterAmountVM.selectedToken.isEth {
-			enterAmountVM.calculateAmount(amountTextfield.text ?? .emptyString)
+			enterAmountVM.calculateAmount(amountTextfield.text ?? "0")
 			maxAmountLabel.text = enterAmountVM.formattedMaxHoldAmount
 			maxAmountInDollarLabel.text = enterAmountVM.formattedMaxAmountInDollar
 		} else {
