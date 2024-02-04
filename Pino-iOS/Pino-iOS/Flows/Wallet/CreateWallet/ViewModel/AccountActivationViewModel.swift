@@ -16,12 +16,12 @@ class AccountActivationViewModel {
 	private var accountingAPIClient = AccountingAPIClient()
 	private let web3APIClient = Web3APIClient()
 	private var cancellables = Set<AnyCancellable>()
-	let activateTime = Date().timeIntervalSince1970
 
 	// MARK: - Public Methods
 
 	public func activateNewAccountAddress(_ account: Account) -> Promise<String> {
-		firstly {
+		let activateTime = Date().timeIntervalSince1970
+		return firstly {
 			fetchHash(address: account.eip55Address.lowercased(), activateTime: Int(activateTime))
 		}.then { plainHash in
 			self.signHash(plainHash: plainHash, userKey: account.privateKey.hexString)
@@ -29,7 +29,7 @@ class AccountActivationViewModel {
 			self.activateAccountWithHash(
 				address: account.eip55Address.lowercased(),
 				userHash: signiture,
-				activateTime: Int(self.activateTime)
+				activateTime: Int(activateTime)
 			)
 		}
 	}

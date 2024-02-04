@@ -23,6 +23,7 @@ class AccountsViewModel {
 	private var cancellables = Set<AnyCancellable>()
 	private let coreDataManager = CoreDataManager()
 	private let pinoWalletManager = PinoWalletManager()
+	private let accountActivationVM = AccountActivationViewModel()
 
 	// MARK: - Initializers
 
@@ -130,7 +131,6 @@ class AccountsViewModel {
 		derivationPath: String? = nil,
 		completion: @escaping (WalletOperationError?) -> Void
 	) {
-		let accountActivationVM = AccountActivationViewModel()
 		accountActivationVM.activateNewAccountAddress(account).done { [self] accountId in
 			addNewWalletAccountWithAddress(account.eip55Address, derivationPath: derivationPath, publicKey: publicKey)
 			resetPendingActivities()
