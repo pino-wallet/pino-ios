@@ -22,12 +22,12 @@ class AccountActivationViewModel {
 
 	public func activateNewAccountAddress(_ account: Account) -> Promise<String> {
 		firstly {
-			fetchHash(address: account.eip55Address, activateTime: Int(activateTime))
+			fetchHash(address: account.eip55Address.lowercased(), activateTime: Int(activateTime))
 		}.then { plainHash in
 			self.signHash(plainHash: plainHash, userKey: account.privateKey.hexString)
 		}.then { signiture in
 			self.activateAccountWithHash(
-				address: account.eip55Address,
+				address: account.eip55Address.lowercased(),
 				userHash: signiture,
 				activateTime: Int(self.activateTime)
 			)

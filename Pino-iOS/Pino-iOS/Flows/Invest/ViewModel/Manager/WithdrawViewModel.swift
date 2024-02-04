@@ -26,7 +26,7 @@ class WithdrawViewModel: InvestViewModelProtocol {
 	public var maxAvailableAmount: BigNumber!
 	public var selectedToken: AssetViewModel!
 	public var selectedProtocol: InvestProtocolViewModel
-	public var tokenAmount: String = .emptyString
+	public var tokenAmount = "0"
 	public var dollarAmount: String = .emptyString
 	public var continueButtonTitle = "Withdraw"
 	public var pageTitle: String {

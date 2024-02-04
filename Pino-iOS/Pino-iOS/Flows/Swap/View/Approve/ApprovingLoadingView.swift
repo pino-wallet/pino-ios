@@ -154,8 +154,9 @@ class ApprovingLoadingView: UIView {
 			warningTitleImageView.isHidden = true
 			navigationBarDismissButton.isHidden = false
 			tryAgainButton.isHidden = true
-			speedUpDescriptionContainerView.isHidden = false
-			speedUpButton.isHidden = false
+			#warning("speed up will come back after v1")
+//			speedUpDescriptionContainerView.isHidden = false
+//			speedUpButton.isHidden = false
 			setLoadingTextLabel(text: approvngContractLoadingVM.approvingText)
 			setLoadingDescriptionLabelText(text: approvngContractLoadingVM.takeFewMinutesText)
 		case .fastLoading:
