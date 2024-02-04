@@ -17,7 +17,7 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 
 	// MARK: - Public Properties
 
-	public var tokenAmount: String = .emptyString
+	public var tokenAmount = "0"
 	public var dollarAmount: String = .emptyString
 	public var maxAvailableAmount: BigNumber!
 	public var selectedInvestableAsset: InvestableAssetViewModel?

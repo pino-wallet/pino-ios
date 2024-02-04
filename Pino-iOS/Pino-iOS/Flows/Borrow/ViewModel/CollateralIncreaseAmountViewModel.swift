@@ -28,7 +28,7 @@ class CollateralIncreaseAmountViewModel {
 	public let borrowVM: BorrowViewModel
 	public let collateralMode: CollateralMode
 
-	public var tokenAmount: String = .emptyString
+	public var tokenAmount = "0"
 	public var dollarAmount: String = .emptyString
 	public var maxHoldAmount: BigNumber?
 	@Published
@@ -107,14 +107,14 @@ class CollateralIncreaseAmountViewModel {
 		borrowingHelper.calculateHealthScore(
 			totalBorrowedAmount: borrowVM.totalBorrowAmountInDollars,
 			totalBorrowableAmountForHealthScore: borrowVM.totalCollateralAmountsInDollar
-				.totalBorrowableAmountForHealthScore
+				.totalBorrowableAmountInDollars
 		)
 	}
 
 	private func calculateNewHealthScore(dollarAmount: BigNumber) -> BigNumber {
 		let tokenLQ = borrowVM.getCollateralizableTokenLQ(tokenID: selectedToken.id)
 		let totalBorrowableAmountForHealthScore = borrowVM.totalCollateralAmountsInDollar
-			.totalBorrowableAmountForHealthScore + (dollarAmount / tokenLQ)!
+			.totalBorrowableAmountInDollars + ((dollarAmount / 100.bigNumber)! * (tokenLQ / 100.bigNumber)!)
 		return borrowingHelper.calculateHealthScore(
 			totalBorrowedAmount: borrowVM.totalBorrowAmountInDollars,
 			totalBorrowableAmountForHealthScore: totalBorrowableAmountForHealthScore
