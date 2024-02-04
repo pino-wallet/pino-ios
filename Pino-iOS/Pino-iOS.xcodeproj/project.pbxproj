@@ -559,7 +559,6 @@
 		DF00179729F96D3D001164EA /* PinoWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00179629F96D3D001164EA /* PinoWalletManager.swift */; };
 		DF0347B42A39FAFF00A6C265 /* Web3ABI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0347B32A39FAFF00A6C265 /* Web3ABI.swift */; };
 		DF0B1ECF2B00DB3F001B0522 /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0B1ECE2B00DB3F001B0522 /* PushNotificationManager.swift */; };
-		DF0B1ED12B00DE6C001B0522 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = DF0B1ED02B00DE6C001B0522 /* FirebaseMessaging */; };
 		DF0B1ED32B00E0D5001B0522 /* FCMTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0B1ED22B00E0D5001B0522 /* FCMTokenManager.swift */; };
 		DF0F65F129E1B29C00DB7290 /* about-coin-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 0AE19B638118F9E2565134EF /* about-coin-stub.json */; };
 		DF0F65F229E1B29C00DB7290 /* all-users-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 054F035BC1020A3673EEB0AD /* all-users-stub.json */; };
@@ -588,7 +587,6 @@
 		DF3E0E0B2B6E18A700937955 /* Web3-Utility in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E0A2B6E18A700937955 /* Web3-Utility */; };
 		DF3E0E0E2B6E199800937955 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E0D2B6E199800937955 /* BigInt */; };
 		DF3E0E112B6E19AA00937955 /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E102B6E19AA00937955 /* DGCharts */; };
-		DF3E0E132B6E19AA00937955 /* DGChartsDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E122B6E19AA00937955 /* DGChartsDynamic */; };
 		DF3E0E162B6E19BB00937955 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E152B6E19BB00937955 /* CryptoSwift */; };
 		DF3E0E192B6E19D600937955 /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E182B6E19D600937955 /* OHHTTPStubs */; };
 		DF3E0E1B2B6E19D600937955 /* OHHTTPStubsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E1A2B6E19D600937955 /* OHHTTPStubsSwift */; };
@@ -878,6 +876,19 @@
 			remoteInfo = "Pino-iOS";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DFAC22872B6F91B5001388F0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0370664A9072624853167972 /* AccountBalanceHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceHeaderView.swift; sourceTree = "<group>"; };
@@ -1744,13 +1755,11 @@
 			files = (
 				DF3E0E2B2B6E1D3400937955 /* Lottie in Frameworks */,
 				DF3E0E1E2B6E19E800937955 /* Hyperconnectivity in Frameworks */,
-				DF0B1ED12B00DE6C001B0522 /* FirebaseMessaging in Frameworks */,
 				DF3E0E0B2B6E18A700937955 /* Web3-Utility in Frameworks */,
 				DF3E0E212B6E1A6B00937955 /* Kingfisher in Frameworks */,
 				DF3E0E262B6E1AC500937955 /* Web3ContractABI in Frameworks */,
 				DF3E0E112B6E19AA00937955 /* DGCharts in Frameworks */,
 				ABC427C6A619164E6554C043 /* Pods_Pino_iOS.framework in Frameworks */,
-				DF3E0E132B6E19AA00937955 /* DGChartsDynamic in Frameworks */,
 				DF3E0E0E2B6E199800937955 /* BigInt in Frameworks */,
 				DF3E0E162B6E19BB00937955 /* CryptoSwift in Frameworks */,
 				DF3E0E282B6E1AC500937955 /* Web3PromiseKit in Frameworks */,
@@ -4592,6 +4601,7 @@
 				76BA89512FCF3114FC9C7AE9 /* Resources */,
 				A5740CD01138FCD9566A9785 /* Frameworks */,
 				B0BB767DB69437BEF85EB688 /* [CP] Embed Pods Frameworks */,
+				DFAC22872B6F91B5001388F0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -4599,11 +4609,9 @@
 			);
 			name = "Pino-iOS";
 			packageProductDependencies = (
-				DF0B1ED02B00DE6C001B0522 /* FirebaseMessaging */,
 				DF3E0E0A2B6E18A700937955 /* Web3-Utility */,
 				DF3E0E0D2B6E199800937955 /* BigInt */,
 				DF3E0E102B6E19AA00937955 /* DGCharts */,
-				DF3E0E122B6E19AA00937955 /* DGChartsDynamic */,
 				DF3E0E152B6E19BB00937955 /* CryptoSwift */,
 				DF3E0E1D2B6E19E800937955 /* Hyperconnectivity */,
 				DF3E0E202B6E1A6B00937955 /* Kingfisher */,
@@ -4684,7 +4692,6 @@
 			);
 			mainGroup = 2277E1FFDD10A1C98A64D20C;
 			packageReferences = (
-				DF7B58F02B00B3A300939375 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				DF3E0E092B6E18A700937955 /* XCLocalSwiftPackageReference "../../Libraries/Web3-Utility" */,
 				DF3E0E0C2B6E199800937955 /* XCLocalSwiftPackageReference "../../Libraries/BigInt" */,
 				DF3E0E0F2B6E19AA00937955 /* XCLocalSwiftPackageReference "../../Libraries/Charts" */,
@@ -6035,23 +6042,7 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		DF7B58F02B00B3A300939375 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.17.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
-		DF0B1ED02B00DE6C001B0522 /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DF7B58F02B00B3A300939375 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMessaging;
-		};
 		DF3E0E0A2B6E18A700937955 /* Web3-Utility */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "Web3-Utility";
@@ -6063,10 +6054,6 @@
 		DF3E0E102B6E19AA00937955 /* DGCharts */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DGCharts;
-		};
-		DF3E0E122B6E19AA00937955 /* DGChartsDynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DGChartsDynamic;
 		};
 		DF3E0E152B6E19BB00937955 /* CryptoSwift */ = {
 			isa = XCSwiftPackageProductDependency;

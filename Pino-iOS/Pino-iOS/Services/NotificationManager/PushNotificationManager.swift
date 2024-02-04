@@ -5,7 +5,7 @@
 //  Created by Sobhan Eskandari on 11/12/23.
 //
 
-import FirebaseMessaging
+// import FirebaseMessaging
 import Foundation
 import UIKit
 import UserNotifications
@@ -19,7 +19,7 @@ class PushNotificationManager: NSObject, ObservableObject {
 
 	override init() {
 		super.init()
-		Messaging.messaging().delegate = self // 1
+		// Messaging.messaging().delegate = self // 1
 	}
 
 	// MARK: - Private Methds
@@ -58,9 +58,9 @@ class PushNotificationManager: NSObject, ObservableObject {
 	}
 }
 
-extension PushNotificationManager: MessagingDelegate {
-	func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-		guard let fcmToken = fcmToken else { return }
-		FCMTokenManager.shared.currentToken = fcmToken // 6
-	}
-}
+// extension PushNotificationManager: MessagingDelegate {
+//	func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+//		guard let fcmToken = fcmToken else { return }
+//		FCMTokenManager.shared.currentToken = fcmToken // 6
+//	}
+// }
