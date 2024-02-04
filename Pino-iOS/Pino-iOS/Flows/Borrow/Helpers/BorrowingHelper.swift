@@ -26,6 +26,6 @@ struct BorrowingHelper {
 			return 0.bigNumber
 		}
 		let plainHealhScore = 1.bigNumber - divedTotalBorrowAmount!
-		return (plainHealhScore * 100.bigNumber)
+		return plainHealhScore * 100.bigNumber
 	}
 }
