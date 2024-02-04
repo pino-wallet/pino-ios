@@ -137,8 +137,9 @@ class EnterSendAddressView: UIView {
 				self.suggestedAddressesContainerView.alpha = 1
 			}
 			// if the entered address is for a user wallet, show its name in the  text field
-			if let selectedWallet = self.suggestedAddressesVM.userWallets
-				.first(where: { $0.address == self.addressTextField.attributedText?.string }) {
+			if let recipientAddress = self.enterSendAddressVM.recipientAddress,
+			   let selectedWallet = self.suggestedAddressesVM.userWallets
+			   .first(where: { $0.address == recipientAddress }) {
 				self.selectUserWallet(selectedWallet)
 			}
 		}
