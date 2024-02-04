@@ -36,6 +36,7 @@ class AllDoneViewModel {
 	private var cancellables = Set<AnyCancellable>()
 	private var accountingAPIClient = AccountingAPIClient()
 	private let mnemonics: String
+	private let accActivationVM = AccountActivationViewModel()
 
 	init(mnemonics: String) {
 		self.mnemonics = mnemonics
@@ -73,17 +74,13 @@ class AllDoneViewModel {
 				let initalAccount = pinoWalletManager.createHDWallet(mnemonics: mnemonics)
 				switch initalAccount {
 				case let .success(account):
-					let accActivationVM = AccountActivationViewModel()
-					accActivationVM.activateNewAccountAddress(account.eip55Address) { [self] result in
-						switch result {
-						case .success:
-							createInitialWalletsInCoreData { createdWallet in
-								createInitalAddressInCoreDataIn(wallet: createdWallet, account: account)
-								walletCreated(nil)
-							}
-						case let .failure(failure):
-							walletCreated(.wallet(.accountActivationFailed(failure)))
+					accActivationVM.activateNewAccountAddress(account).done { accountId in
+						self.createInitialWalletsInCoreData { createdWallet in
+							self.createInitalAddressInCoreDataIn(wallet: createdWallet, account: account)
+							walletCreated(nil)
 						}
+					}.catch { error in
+						walletCreated(.wallet(.accountActivationFailed(error)))
 					}
 				case let .failure(failure):
 					walletCreated(.wallet(.accountActivationFailed(failure)))

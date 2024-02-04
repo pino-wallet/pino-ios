@@ -23,6 +23,7 @@ class AccountsViewModel {
 	private var cancellables = Set<AnyCancellable>()
 	private let coreDataManager = CoreDataManager()
 	private let pinoWalletManager = PinoWalletManager()
+	private let accountActivationVM = AccountActivationViewModel()
 
 	// MARK: - Initializers
 
@@ -97,7 +98,7 @@ class AccountsViewModel {
 			let createdAccount = try pinoWalletManager
 				.createAccount(lastAccountIndex: Int(currentWallet.lastDrivedIndex))
 			activateNewAccountAddress(
-				createdAccount.eip55Address,
+				createdAccount,
 				publicKey: createdAccount.publicKey,
 				derivationPath: createdAccount.derivationPath
 			) { error in
@@ -115,7 +116,7 @@ class AccountsViewModel {
 			if coreDataManager.getAllWalletAccounts().contains(where: { $0.eip55Address == account.eip55Address }) {
 				completion(WalletOperationError.wallet(.accountAlreadyExists))
 			} else {
-				activateNewAccountAddress(account.eip55Address, publicKey: account.publicKey) { error in
+				activateNewAccountAddress(account, publicKey: account.publicKey) { error in
 					completion(error)
 				}
 			}
@@ -125,21 +126,17 @@ class AccountsViewModel {
 	}
 
 	public func activateNewAccountAddress(
-		_ address: String,
+		_ account: Account,
 		publicKey: EthereumPublicKey,
 		derivationPath: String? = nil,
 		completion: @escaping (WalletOperationError?) -> Void
 	) {
-		let accountActivationVM = AccountActivationViewModel()
-		accountActivationVM.activateNewAccountAddress(address) { result in
-			switch result {
-			case .success:
-				self.addNewWalletAccountWithAddress(address, derivationPath: derivationPath, publicKey: publicKey)
-				self.resetPendingActivities()
-				completion(nil)
-			case let .failure(failure):
-				completion(failure)
-			}
+		accountActivationVM.activateNewAccountAddress(account).done { [self] accountId in
+			addNewWalletAccountWithAddress(account.eip55Address, derivationPath: derivationPath, publicKey: publicKey)
+			resetPendingActivities()
+			completion(nil)
+		}.catch { error in
+			completion(WalletOperationError.wallet(.accountActivationFailed(error)))
 		}
 	}
 

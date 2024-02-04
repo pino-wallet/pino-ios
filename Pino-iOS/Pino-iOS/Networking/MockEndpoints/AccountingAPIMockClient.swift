@@ -29,7 +29,7 @@ final class AccountingAPIMockClient: AccountingAPIService {
 
 	func activateAccount(activationReqModel: AccountActivationRequestModel)
 		-> AnyPublisher<AccountActivationModel, APIError> {
-		Just(AccountActivationModel(id: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F"))
+		Just(AccountActivationModel(created_at: "0", id: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F"))
 			.setFailureType(to: APIError.self)
 			.eraseToAnyPublisher()
 	}

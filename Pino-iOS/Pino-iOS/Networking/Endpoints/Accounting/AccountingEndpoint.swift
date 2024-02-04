@@ -93,7 +93,7 @@ enum AccountingEndpoint: EndpointType {
 		case let .coinPerformance(_, tokenID: tokenID, accountADD: accountADD):
 			return "user/\(accountADD)/portfolio/\(tokenID)"
 		case let .activateAccount(activateReqModel):
-			return "\(endpointParent)/activate-sig/\(activateReqModel.address)"
+			return "\(endpointParent)/activate-sig"
 		case .activeAddresses:
 			return "\(endpointParent)/active-addresses"
 		case let .activateAccountWithInviteCode(deciveID: deviceID, inviteCode: inviteCode):

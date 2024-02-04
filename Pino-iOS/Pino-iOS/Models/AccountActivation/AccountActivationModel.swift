@@ -14,22 +14,22 @@ import Web3
 
 struct AccountActivationRequestModel: Codable {
 	let address, sig: String
-	let time: BigUInt
+	let time: Int
 
 	// MARK: - Public Properties
 
 	public var reqBody: BodyParamsType {
 		let params: HTTPParameters = [
-			"Name": address,
+			"address": address,
 			"sig": sig,
-			"time": "\(time)",
+			"time": time,
 		]
 		return BodyParamsType.json(params)
 	}
 
 	// MARK: - Public Methods
 
-	public static func activationHashType(userAddress: String, createdTime: BigUInt) -> BodyParamsType {
+	public static func activationHashType(userAddress: String, createdTime: Int) -> BodyParamsType {
 		let typedData: [String: Any] = [
 			"Types": [
 				"ActivationRequest": [
@@ -60,5 +60,6 @@ struct AccountActivationRequestModel: Codable {
 }
 
 struct AccountActivationModel: Codable {
+	let created_at: String
 	let id: String
 }
