@@ -18,11 +18,8 @@ class HomepageViewController: UIViewController {
 
 	// MARK: - View Overrides
 
-	override func viewDidAppear(_ animated: Bool) {
-		assetsCollectionView.getHomeData()
-	}
-
 	override func viewWillAppear(_ animated: Bool) {
+		assetsCollectionView.getHomeData()
 		assetsCollectionView.reloadData()
 		setupLoading()
 	}
