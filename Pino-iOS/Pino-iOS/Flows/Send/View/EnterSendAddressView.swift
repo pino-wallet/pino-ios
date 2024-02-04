@@ -127,7 +127,8 @@ class EnterSendAddressView: UIView {
 			}
 			let addressInputType = self.enterSendAddressVM.addressInputType
 			if addressInputType == .ensWithAddress || addressInputType == .userNameWithAddress {
-				self.addressTextField.text = self.enterSendAddressVM.recipientAddress
+				self.addressTextField
+					.attributedText = NSMutableAttributedString(string: self.enterSendAddressVM.recipientAddress!)
 			}
 		}
 		addressTextField.editingEnd = {
@@ -137,7 +138,7 @@ class EnterSendAddressView: UIView {
 			}
 			// if the entered address is for a user wallet, show its name in the  text field
 			if let selectedWallet = self.suggestedAddressesVM.userWallets
-				.first(where: { $0.address == self.addressTextField.text }) {
+				.first(where: { $0.address == self.addressTextField.attributedText?.string }) {
 				self.selectUserWallet(selectedWallet)
 			}
 		}
