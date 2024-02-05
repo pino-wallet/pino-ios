@@ -53,7 +53,10 @@ class GlobalVariables {
 	public func fetchSharedInfo() -> Promise<Void> {
 		print("== SENDING REQUEST ==")
 		return firstly {
-			self.getManageAssetLists()
+			self.getEthGasFee()
+		}.then { gasFee in
+			GlobalVariables.shared.ethGasFee = gasFee
+			return self.getManageAssetLists()
 		}.then { assets in
 			self.getPositoinsDetail().map { (assets, $0) }
 		}.done { assets, positions in
@@ -78,12 +81,6 @@ class GlobalVariables {
 						completion()
 					} else {
 						#warning("Toast view is temporarily removed")
-//						Toast.default(
-//							title: GlobalErrors.connectionFailed.message,
-//							subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-//							style: .error
-//						)
-//						.show(haptic: .warning)
 					}
 				}.store(in: &cancellables)
 			}
@@ -93,12 +90,6 @@ class GlobalVariables {
 	private func fetchBalances() {
 		fetchSharedInfo().catch { error in
 			#warning("Toast view is temporarily removed")
-			//                Toast.default(
-			//                    title: GlobalErrors.connectionFailed.message,
-			//                    subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-			//                    style: .error
-			//                )
-			//                .show(haptic: .warning)
 		}
 	}
 
@@ -106,16 +97,11 @@ class GlobalVariables {
 		Timer.publish(every: 3, on: .main, in: .common)
 			.autoconnect()
 			.sink { [self] seconds in
-				web3Client.getNetworkFee().sink { completed in
-					switch completed {
-					case .finished:
-						print("Received Fee")
-					case let .failure(error):
-						print(error)
-					}
-				} receiveValue: { gasInfo in
-					GlobalVariables.shared.ethGasFee = gasInfo
-				}.store(in: &cancellables)
+				getEthGasFee().done { ethGasFee in
+					GlobalVariables.shared.ethGasFee = ethGasFee
+				}.catch { error in
+					print(error)
+				}
 			}.store(in: &cancellables)
 	}
 
@@ -125,6 +111,22 @@ class GlobalVariables {
 
 	private func getPositoinsDetail() -> Promise<[PositionAssetModel]> {
 		AssetManagerViewModel.shared.getPositionAssetDetails()
+	}
+
+	private func getEthGasFee() -> Promise<EthGasInfoModel> {
+		Promise<EthGasInfoModel> { seal in
+			web3Client.getNetworkFee().sink { completed in
+				switch completed {
+				case .finished:
+					print("Received Fee")
+				case let .failure(error):
+					print(error)
+					seal.reject(error)
+				}
+			} receiveValue: { gasInfo in
+				seal.fulfill(gasInfo)
+			}.store(in: &cancellables)
+		}
 	}
 
 	private func setupBindings() {
