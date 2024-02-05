@@ -225,7 +225,7 @@ class CollateralConfirmViewModel {
 						.parseToBigUInt(collaterallIncreaseAmountVM.tokenAmount, units: .custom(selectedToken.decimal))!
 						.description,
 					tokenID: selectedToken.id
-				)], poolId: "", activityProtocol: selectedDexSystem.type, nftId: nil),
+				)], positionId: "", activityProtocol: selectedDexSystem.type, nftId: nil),
 				fromAddress: "",
 				toAddress: "",
 				blockTime: activityHelper.getServerFormattedStringDate(date: Date()),
