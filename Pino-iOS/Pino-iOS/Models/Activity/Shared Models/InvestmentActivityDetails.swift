@@ -9,12 +9,12 @@ import Foundation
 
 struct InvestmentActivityDetails: Codable {
 	let tokens: [ActivityTokenModel]
-	let poolId, activityProtocol: String
+	let positionId, activityProtocol: String
 	let nftId: Int?
 
 	enum CodingKeys: String, CodingKey {
 		case tokens
-		case poolId = "pool_id"
+		case positionId = "position_id"
 		case activityProtocol = "protocol"
 		case nftId = "nft_id"
 	}

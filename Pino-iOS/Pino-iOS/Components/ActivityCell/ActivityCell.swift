@@ -22,6 +22,8 @@ class ActivityCell: UICollectionViewCell {
 	private let pendingStatusLabelContainer = UIView()
 	private let failedStatusLabelContainer = UIView()
 	private let failedStatusLabel = UILabel()
+    private var titleLabelHeightConstraint: NSLayoutConstraint!
+    private var infoLabelHeightConstraint: NSLayoutConstraint!
 	private var pendingEllipsisStatus: EllipsisAnimatedText!
 
 	// MARK: - public properties
@@ -35,6 +37,7 @@ class ActivityCell: UICollectionViewCell {
 			setupConstraint()
 			layoutIfNeeded()
 			setupSkeletonView()
+            performLoadingUIChanges()
 		}
 	}
 
@@ -86,7 +89,7 @@ class ActivityCell: UICollectionViewCell {
 		statusStackView.axis = .horizontal
 
 		contentStackView.spacing = 8
-		historyTitleStackView.spacing = 12
+		historyTitleStackView.spacing = 14
 		statusStackView.spacing = 4
 
 		historyTitleStackView.alignment = .leading
@@ -142,14 +145,17 @@ class ActivityCell: UICollectionViewCell {
 	}
 
 	private func setupConstraint() {
+        titleLabelHeightConstraint = historyTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14)
+        infoLabelHeightConstraint = historyMoreInfoLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 12)
+        
+        titleLabelHeightConstraint.isActive = true
+        infoLabelHeightConstraint.isActive = true
+        
 		historyTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 130).isActive = true
 		historyTitleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 220).isActive = true
 		historyMoreInfoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 120).isActive = true
 		historyMoreInfoLoadingContainer.widthAnchor.constraint(equalToConstant: 56).isActive = true
 		historyMoreInfoLoadingContainer.heightAnchor.constraint(equalToConstant: 12).isActive = true
-
-		historyTitleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14).isActive = true
-		historyMoreInfoLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14).isActive = true
 
 		historyCardView.heightAnchor.constraint(greaterThanOrEqualToConstant: 64).isActive = true
 		contentStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 46).isActive = true
@@ -187,4 +193,19 @@ class ActivityCell: UICollectionViewCell {
 		historyMoreInfoLoadingContainer.isSkeletonable = true
 		historyTitleLabel.isSkeletonable = true
 	}
+    
+    private func performLoadingUIChanges() {
+        if activityCellVM != nil {
+        historyTitleStackView.spacing = 4
+            titleLabelHeightConstraint.constant = 24
+            infoLabelHeightConstraint.constant = 18
+            layoutIfNeeded()
+        } else {
+        historyTitleStackView.spacing = 14
+            titleLabelHeightConstraint.constant = 14
+            infoLabelHeightConstraint.constant = 12
+            layoutIfNeeded()
+        }
+        
+    }
 }

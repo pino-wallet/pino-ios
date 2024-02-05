@@ -280,7 +280,7 @@ class CoreDataManager {
 		let newActivityDetails = CDInvestActivityDetails(context: activityDataSource.managedContext)
 
 		newActivityDetails.nftID = activityModel.detail.nftId?.description
-		newActivityDetails.poolID = activityModel.detail.poolId
+		newActivityDetails.poolID = activityModel.detail.positionId
 		newActivityDetails.tokens = Set(activityModel.detail.tokens.compactMap {
 			let newActivityDetailsToken = CDActivityDetailsToken(context: activityDataSource.managedContext)
 			newActivityDetailsToken.amount = $0.amount
@@ -315,7 +315,7 @@ class CoreDataManager {
 		let newActivityDetails = CDWithdrawActivityDetails(context: activityDataSource.managedContext)
 
 		newActivityDetails.nftID = activityModel.detail.nftId?.description
-		newActivityDetails.poolID = activityModel.detail.poolId
+		newActivityDetails.poolID = activityModel.detail.positionId
 		newActivityDetails.tokens = Set(activityModel.detail.tokens.compactMap {
 			let newActivityDetailsToken = CDActivityDetailsToken(context: activityDataSource.managedContext)
 			newActivityDetailsToken.amount = $0.amount
