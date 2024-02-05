@@ -68,7 +68,7 @@ class BorrowConfirmViewModel {
 
 	private let web3 = Web3Core.shared
 
-	private var tokenAmountBigNumber: BigNumber {
+	private var tokenAmountBigNumber: BigNumber! {
 		BigNumber(numberWithDecimal: borrowIncreaseAmountVM.tokenAmount)
 	}
 

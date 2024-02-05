@@ -62,7 +62,7 @@ class EnterSendAmountViewModel {
 	// MARK: - Public Methods
 
 	public func calculateAmount(_ amount: String) {
-		let bignumAmount = BigNumber(numberWithDecimal: amount)
+		guard let bignumAmount = BigNumber(numberWithDecimal: amount) else { return }
 		if isDollarEnabled {
 			convertDollarAmountToTokenValue(amount: bignumAmount)
 		} else {
@@ -73,7 +73,7 @@ class EnterSendAmountViewModel {
 	public func checkIfBalanceIsEnough(amount: String, amountStatus: (AmountStatus) -> Void) {
 		if amount == .emptyString {
 			amountStatus(.isZero)
-		} else if BigNumber(numberWithDecimal: amount).isZero {
+		} else if let amountBigNumber = BigNumber(numberWithDecimal: amount), amountBigNumber.isZero {
 			amountStatus(.isZero)
 		} else {
 			var decimalMaxAmount: BigNumber

@@ -180,14 +180,8 @@ class WithdrawAmountViewModel {
 	// MARK: - Public Methods
 
 	public func calculateDollarAmount(_ amount: String) {
-		if amount != .emptyString {
-			let decimalBigNum = BigNumber(numberWithDecimal: amount)
-			let price = selectedToken.price
-
-			let amountInDollarDecimalValue = BigNumber(
-				number: decimalBigNum.number * price.number,
-				decimal: decimalBigNum.decimal + 6
-			)
+		if let decimalBigNum = BigNumber(numberWithDecimal: amount) {
+			let amountInDollarDecimalValue = decimalBigNum * selectedToken.price
 			newHealthScore = calculateNewHealthScore(dollarAmount: amountInDollarDecimalValue)
 			dollarAmount = amountInDollarDecimalValue.priceFormat
 		} else {
@@ -200,14 +194,12 @@ class WithdrawAmountViewModel {
 	public func checkBalanceStatus(amount: String) -> AmountStatus {
 		if amount == .emptyString {
 			return .isZero
-		} else if BigNumber(numberWithDecimal: amount).isZero {
+		} else if let amountBigNum = BigNumber(numberWithDecimal: amount), amountBigNum.isZero {
 			return .isZero
+		} else if let amountBigNum = BigNumber(numberWithDecimal: tokenAmount), amountBigNum <= maxWithdrawAmount {
+			return .isEnough
 		} else {
-			if BigNumber(numberWithDecimal: tokenAmount) > maxWithdrawAmount {
-				return .isNotEnough
-			} else {
-				return .isEnough
-			}
+			return .isNotEnough
 		}
 	}
 

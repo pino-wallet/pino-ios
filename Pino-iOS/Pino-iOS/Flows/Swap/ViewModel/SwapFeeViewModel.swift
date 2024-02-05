@@ -84,9 +84,9 @@ class SwapFeeViewModel {
 		switch priceImpactNumber {
 		case _ where priceImpactNumber > 1.bigNumber:
 			priceImpactStatus = .veryHigh
-		case _ where priceImpactNumber < BigNumber(numberWithDecimal: "0.1"):
+		case _ where priceImpactNumber < BigNumber(numberWithDecimal: "0.1")!:
 			priceImpactStatus = .low
-		case _ where priceImpactNumber < 1.bigNumber && priceImpactNumber > BigNumber(numberWithDecimal: "0.1"):
+		case _ where priceImpactNumber < 1.bigNumber && priceImpactNumber > BigNumber(numberWithDecimal: "0.1")!:
 			priceImpactStatus = .high
 		default: break
 		}

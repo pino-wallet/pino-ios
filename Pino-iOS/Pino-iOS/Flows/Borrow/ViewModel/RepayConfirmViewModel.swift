@@ -69,7 +69,7 @@ class RepayConfirmViewModel {
 	private let activityHelper = ActivityHelper()
 	private let walletManager = PinoWalletManager()
 
-	private var repayAmountBigNumber: BigNumber {
+	private var repayAmountBigNumber: BigNumber! {
 		BigNumber(numberWithDecimal: repayAmountVM.tokenAmount)
 	}
 
@@ -124,7 +124,7 @@ class RepayConfirmViewModel {
 
 	init(repayamountVM: RepayAmountViewModel) {
 		self.repayAmountVM = repayamountVM
-		self.assetAmountBigNumber = BigNumber(numberWithDecimal: repayAmountVM.tokenAmount)
+		self.assetAmountBigNumber = BigNumber(numberWithDecimal: repayAmountVM.tokenAmount)!
 		if assetAmountBigNumber.sevenDigitFormat == repayamountVM.selectedTokenTotalDebt.sevenDigitFormat {
 			self.repayMode = .repayMax
 		} else {

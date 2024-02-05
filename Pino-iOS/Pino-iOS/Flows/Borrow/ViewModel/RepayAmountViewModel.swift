@@ -114,14 +114,8 @@ class RepayAmountViewModel {
 	// MARK: - Public Methods
 
 	public func calculateDollarAmount(_ amount: String) {
-		if amount != .emptyString {
-			let decimalBigNum = BigNumber(numberWithDecimal: amount)
-			let price = selectedToken.price
-
-			let amountInDollarDecimalValue = BigNumber(
-				number: decimalBigNum.number * price.number,
-				decimal: decimalBigNum.decimal + 6
-			)
+		if let decimalBigNum = BigNumber(numberWithDecimal: amount) {
+			let amountInDollarDecimalValue = decimalBigNum * selectedToken.price
 			newHealthScore = calculateNewHealthScore(dollarAmount: amountInDollarDecimalValue)
 			dollarAmount = amountInDollarDecimalValue.priceFormat
 		} else {
@@ -134,17 +128,18 @@ class RepayAmountViewModel {
 	public func checkBalanceStatus(amount: String) -> RepayAmountStatus {
 		if amount == .emptyString {
 			return .isZero
-		} else if BigNumber(numberWithDecimal: amount).isZero {
+		} else if let amountBigNumber = BigNumber(numberWithDecimal: amount), amountBigNumber.isZero {
 			return .isZero
-		} else {
-			let bignumberTokenAmount = BigNumber(numberWithDecimal: tokenAmount)
-			if bignumberTokenAmount > selectedToken.holdAmount {
+		} else if let amountBigNumber = BigNumber(numberWithDecimal: tokenAmount) {
+			if amountBigNumber > selectedToken.holdAmount {
 				return .isNotEnough
-			} else if bignumberTokenAmount > selectedTokenTotalDebt {
+			} else if amountBigNumber > selectedTokenTotalDebt {
 				return .amountExceedsDebt
 			} else {
 				return .isEnough
 			}
+		} else {
+			return .isNotEnough
 		}
 	}
 }
