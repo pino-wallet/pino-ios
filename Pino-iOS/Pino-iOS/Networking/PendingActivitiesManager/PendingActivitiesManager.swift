@@ -145,7 +145,7 @@ class PendingActivitiesManager {
 							tokens: cdInvestActivity.details.tokens.compactMap {
 								ActivityTokenModel(amount: $0.amount, tokenID: $0.tokenId)
 							},
-                            positionId: cdInvestActivity.details.poolID,
+							positionId: cdInvestActivity.details.poolID,
 							activityProtocol: cdInvestActivity.details.activityProtocol,
 							nftId: convertOptionalStringToInt(string: cdInvestActivity.details.nftID)
 						),
@@ -167,7 +167,7 @@ class PendingActivitiesManager {
 							tokens: cdWithdrawActivity.details.tokens.compactMap {
 								ActivityTokenModel(amount: $0.amount, tokenID: $0.tokenId)
 							},
-                            positionId: cdWithdrawActivity.details.poolID,
+							positionId: cdWithdrawActivity.details.poolID,
 							activityProtocol: cdWithdrawActivity.details.activityProtocol,
 							nftId: convertOptionalStringToInt(string: cdWithdrawActivity.details.nftID)
 						),

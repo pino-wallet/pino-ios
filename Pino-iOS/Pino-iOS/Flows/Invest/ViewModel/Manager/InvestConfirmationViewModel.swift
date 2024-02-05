@@ -114,7 +114,7 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 		)
 		let activityDetailModel = InvestmentActivityDetails(
 			tokens: [activityTokenModel],
-            positionId: "",
+			positionId: "",
 			activityProtocol: selectedProtocol.type,
 			nftId: nil
 		)

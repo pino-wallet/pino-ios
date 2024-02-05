@@ -138,7 +138,7 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 		)
 		let activityDetailModel = InvestmentActivityDetails(
 			tokens: [activityTokenModel],
-            positionId: "",
+			positionId: "",
 			activityProtocol: selectedProtocol.type,
 			nftId: nil
 		)
