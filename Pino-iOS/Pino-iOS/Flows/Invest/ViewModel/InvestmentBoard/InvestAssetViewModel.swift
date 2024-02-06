@@ -83,6 +83,10 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 		AssetVolatilityType(change24h: assetVolatility)
 	}
 
+	public var investmentCapital: BigNumber {
+		BigNumber(number: assetModel.capital, decimal: 2)
+	}
+
 	// MARK: - Initializers
 
 	init(assetModel: InvestmentModel, token: AssetViewModel) {

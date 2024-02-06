@@ -65,10 +65,16 @@ class InvestCoinPerformanceViewModel {
 
 	private func updateCoinPerformanceInfo(chart: AssetChartViewModel) {
 		coinInfoVM.coinPerformanceInfo = CoinPerformanceInfoValues(
-			netProfit: "0",
+			netProfit: calculateNetProfit(chart: chart),
 			ATH: allTimeHigh(chart: chart),
 			ATL: allTimeLow(chart: chart)
 		)
+	}
+
+	private func calculateNetProfit(chart: AssetChartViewModel) -> String {
+		guard let currentWorth = chart.chartDataVM.last?.networth else { return "0" }
+		let netProfit = currentWorth - selectedAsset.investmentCapital
+		return netProfit.decimalString
 	}
 
 	private func allTimeHigh(chart: AssetChartViewModel) -> String {
