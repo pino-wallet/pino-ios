@@ -33,8 +33,7 @@ class BorrowIncreaseAmountViewModel {
 				number: collateralledToken.amount,
 				decimal: foundCollateralledToken.decimal
 			)
-			guard let healthScoreBigNumber = BigNumber(numberWithDecimal: borrowVM.calculatedHealthScore.description)
-			else { return 0.bigNumber }
+			let healthScoreBigNumber = BigNumber(numberWithDecimal: borrowVM.calculatedHealthScore.description)!
 			let freeCollateralledTokenAmount = (
 				userCollateralledAmountIntoken * healthScoreBigNumber / 100.bigNumber
 			)!
