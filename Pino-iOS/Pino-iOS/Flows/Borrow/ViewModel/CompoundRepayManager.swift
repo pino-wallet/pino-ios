@@ -43,7 +43,7 @@ class CompoundRepayManager: Web3ManagerProtocol {
 
 	init(contract: DynamicContract, asset: AssetViewModel, assetAmount: String, repayMode: RepayMode) {
 		self.asset = asset
-		self.assetAmountBigNumber = BigNumber(numberWithDecimal: assetAmount)
+		self.assetAmountBigNumber = BigNumber(numberWithDecimal: assetAmount)!
 		self.assetAmountBigUInt = Utilities.parseToBigUInt(assetAmount, decimals: asset.decimal)!
 		self.contract = contract
 		self.repayMode = repayMode

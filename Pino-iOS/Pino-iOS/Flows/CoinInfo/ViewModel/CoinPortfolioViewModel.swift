@@ -44,15 +44,22 @@ struct CoinPortfolioViewModel {
 		AssetVolatilityType(change24h: BigNumber(number: changePercentage, decimal: 6))
 	}
 
-	public var volatilityRatePercentage: String {
-		let formattedChangePercentage = BigNumber(number: changePercentage, decimal: 2)
-		if formattedChangePercentage.isZero {
-			return GlobalZeroAmounts.percentage.zeroAmount
+	public var volatilityRatePercentage: String? {
+		guard let selectedTokenDetails = coinPortfolioModel.detail else {
+			return nil
 		}
-		if formattedChangePercentage.number.sign == .plus {
-			return "\(volatilityType.prependSign)\(formattedChangePercentage.percentFormat)%"
+		if selectedTokenDetails.isVerified && !selectedTokenDetails.isPosition {
+			let formattedChangePercentage = BigNumber(number: changePercentage, decimal: 2)
+			if formattedChangePercentage.isZero {
+				return GlobalZeroAmounts.percentage.zeroAmount
+			}
+			if formattedChangePercentage.number.sign == .plus {
+				return "\(volatilityType.prependSign)\(formattedChangePercentage.percentFormat)%"
+			} else {
+				return "\(formattedChangePercentage.percentFormat)%"
+			}
 		} else {
-			return "\(formattedChangePercentage.percentFormat)%"
+			return nil
 		}
 	}
 

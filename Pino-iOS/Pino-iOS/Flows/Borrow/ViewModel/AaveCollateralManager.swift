@@ -46,7 +46,7 @@ class AaveCollateralManager: Web3ManagerProtocol {
 		} else {
 			self.asset = asset
 		}
-		self.assetAmountBigNumber = BigNumber(numberWithDecimal: assetAmount)
+		self.assetAmountBigNumber = BigNumber(numberWithDecimal: assetAmount)!
 		self.assetAmountBigUInt = Utilities.parseToBigUInt(assetAmount, decimals: asset.decimal)!
 		self.contract = contract
 	}

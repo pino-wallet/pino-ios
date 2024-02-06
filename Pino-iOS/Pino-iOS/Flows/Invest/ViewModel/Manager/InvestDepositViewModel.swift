@@ -65,8 +65,7 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 	// MARK: - Public Methods
 
 	public func calculateDollarAmount(_ amount: String) {
-		if amount != .emptyString {
-			let amountBigNumber = BigNumber(numberWithDecimal: amount)
+		if let amountBigNumber = BigNumber(numberWithDecimal: amount) {
 			let amountInDollarDecimalValue = amountBigNumber * selectedToken.price
 			dollarAmount = amountInDollarDecimalValue.priceFormat
 			getYearlyEstimatedReturn(amountInDollar: amountInDollarDecimalValue)
@@ -91,14 +90,12 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 			return .isZero
 		} else if amount == .emptyString {
 			return .isZero
-		} else if BigNumber(numberWithDecimal: amount).isZero {
+		} else if let amountBigNum = BigNumber(numberWithDecimal: amount), amountBigNum.isZero {
 			return .isZero
+		} else if let amountBigNum = BigNumber(numberWithDecimal: tokenAmount), amountBigNum <= maxAvailableAmount {
+			return .isEnough
 		} else {
-			if BigNumber(numberWithDecimal: tokenAmount) > maxAvailableAmount {
-				return .isNotEnough
-			} else {
-				return .isEnough
-			}
+			return .isNotEnough
 		}
 	}
 
