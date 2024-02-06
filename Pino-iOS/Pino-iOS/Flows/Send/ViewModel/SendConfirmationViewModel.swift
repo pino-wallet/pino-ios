@@ -187,6 +187,10 @@ class SendConfirmationViewModel {
 		))
 	}
 
+	public func removeBindings() {
+		cancellables.removeAll()
+	}
+
 	// MARK: - Private Methods
 
 	private func setupBindings() {
