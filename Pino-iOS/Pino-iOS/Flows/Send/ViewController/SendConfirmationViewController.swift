@@ -40,6 +40,11 @@ class SendConfirmationViewController: UIViewController {
 		getFee()
 	}
 
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+		sendConfirmationVM.removeBindings()
+	}
+
 	override func loadView() {
 		setupView()
 		setupNavigationBar()
