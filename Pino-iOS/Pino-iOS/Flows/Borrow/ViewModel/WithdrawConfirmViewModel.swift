@@ -67,7 +67,7 @@ class WithdrawConfirmViewModel {
 	private let walletManager = PinoWalletManager()
 	private let activityHelper = ActivityHelper()
 
-	private var withdrawAmountBigNumber: BigNumber {
+	private var withdrawAmountBigNumber: BigNumber! {
 		BigNumber(numberWithDecimal: withdrawAmountVM.tokenAmount)
 	}
 
@@ -104,7 +104,7 @@ class WithdrawConfirmViewModel {
 
 	init(withdrawAmountVM: WithdrawAmountViewModel) {
 		self.withdrawAmountVM = withdrawAmountVM
-		let assetAmountBigNumber = BigNumber(numberWithDecimal: withdrawAmountVM.tokenAmount)
+		let assetAmountBigNumber = BigNumber(numberWithDecimal: withdrawAmountVM.tokenAmount)!
 		if assetAmountBigNumber.sevenDigitFormat == withdrawAmountVM.maxWithdrawAmount.sevenDigitFormat {
 			self.withdrawMode = .withdrawMax
 		} else {

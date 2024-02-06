@@ -316,7 +316,7 @@ class SwapViewModel {
 	}
 
 	private func getFeeTag(saveAmount: String) -> SwapFeeViewModel.FeeTag {
-		if BigNumber(numberWithDecimal: saveAmount) > BigNumber(number: 0, decimal: 0) {
+		if let saveAmountBigNumber = BigNumber(numberWithDecimal: saveAmount), saveAmountBigNumber > 0.bigNumber {
 			return .save("\(saveAmount.currencyFormatting) \(swapFeeVM.celebrateEmoji)")
 		} else {
 			return .none
@@ -324,7 +324,7 @@ class SwapViewModel {
 	}
 
 	private func getFeeTag(priceImpact: String) -> SwapFeeViewModel.FeeTag {
-		if BigNumber(numberWithDecimal: priceImpact) > BigNumber(number: 1, decimal: 0) {
+		if let priceImpactBigNumber = BigNumber(numberWithDecimal: priceImpact), priceImpactBigNumber > 1.bigNumber {
 			return .highImpact
 		} else {
 			return .none
@@ -340,7 +340,7 @@ class SwapViewModel {
 	}
 
 	private func updateEthSwapInfo(destToken: SwapTokenViewModel, amount: String?) {
-		if let amount, !BigNumber(numberWithDecimal: amount).isZero {
+		if let amount, let amountBigNumber = BigNumber(numberWithDecimal: amount), !amountBigNumber.isZero {
 			updateDestinationToken(destToken: destToken, tokenAmount: amount)
 			swapFeeVM.swapProviderVM = nil
 			swapFeeVM.updateQuote(srcToken: fromToken, destToken: toToken)

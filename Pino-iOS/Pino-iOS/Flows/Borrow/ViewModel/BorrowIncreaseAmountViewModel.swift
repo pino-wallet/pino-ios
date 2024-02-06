@@ -33,13 +33,10 @@ class BorrowIncreaseAmountViewModel {
 				number: collateralledToken.amount,
 				decimal: foundCollateralledToken.decimal
 			)
-			let freeCollateralledTokenAmount =
-				(
-					userCollateralledAmountIntoken * BigNumber(
-						numberWithDecimal: borrowVM.calculatedHealthScore.description
-					) /
-						100.bigNumber
-				)!
+			let healthScoreBigNumber = BigNumber(numberWithDecimal: borrowVM.calculatedHealthScore.description)!
+			let freeCollateralledTokenAmount = (
+				userCollateralledAmountIntoken * healthScoreBigNumber / 100.bigNumber
+			)!
 			#warning("maybe we should change this section later")
 			guard let tokenLiquidationThreshold = borrowVM.collateralizableTokens?
 				.first(where: { $0.tokenID == collateralledToken.id })?.liquidationThreshold else {
@@ -114,14 +111,8 @@ class BorrowIncreaseAmountViewModel {
 	// MARK: - Public Methods
 
 	public func calculateDollarAmount(_ amount: String) {
-		if amount != .emptyString {
-			let decimalBigNum = BigNumber(numberWithDecimal: amount)
-			let price = selectedToken.price
-
-			let amountInDollarDecimalValue = BigNumber(
-				number: decimalBigNum.number * price.number,
-				decimal: decimalBigNum.decimal + 6
-			)
+		if let decimalBigNum = BigNumber(numberWithDecimal: amount) {
+			let amountInDollarDecimalValue = decimalBigNum * selectedToken.price
 			newHealthScore = calculateNewHealthScore(dollarAmount: amountInDollarDecimalValue)
 			dollarAmount = amountInDollarDecimalValue.priceFormat
 		} else {
@@ -134,14 +125,12 @@ class BorrowIncreaseAmountViewModel {
 	public func checkBalanceStatus(amount: String) -> AmountStatus {
 		if amount == .emptyString {
 			return .isZero
-		} else if BigNumber(numberWithDecimal: amount).isZero {
+		} else if let amountBignumber = BigNumber(numberWithDecimal: amount), amountBignumber.isZero {
 			return .isZero
+		} else if let amountBigNumber = BigNumber(numberWithDecimal: tokenAmount), amountBigNumber <= maxHoldAmount {
+			return .isEnough
 		} else {
-			if BigNumber(numberWithDecimal: tokenAmount) > maxHoldAmount {
-				return .isNotEnough
-			} else {
-				return .isEnough
-			}
+			return .isNotEnough
 		}
 	}
 }

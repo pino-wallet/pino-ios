@@ -303,14 +303,8 @@ class CollateralIncreaseAmountViewModel {
 	}
 
 	public func calculateDollarAmount(_ amount: String) {
-		if amount != .emptyString {
-			let decimalBigNum = BigNumber(numberWithDecimal: amount)
-			let price = selectedToken.price
-
-			let amountInDollarDecimalValue = BigNumber(
-				number: decimalBigNum.number * price.number,
-				decimal: decimalBigNum.decimal + 6
-			)
+		if let decimalBigNum = BigNumber(numberWithDecimal: amount) {
+			let amountInDollarDecimalValue = decimalBigNum * selectedToken.price
 			newHealthScore = calculateNewHealthScore(dollarAmount: amountInDollarDecimalValue)
 			dollarAmount = amountInDollarDecimalValue.priceFormat
 		} else {
@@ -330,14 +324,12 @@ class CollateralIncreaseAmountViewModel {
 		}
 		if amount == .emptyString {
 			collateralPageStatus = .isZero
-		} else if BigNumber(numberWithDecimal: amount).isZero {
+		} else if let amountBigNumber = BigNumber(numberWithDecimal: amount), amountBigNumber.isZero {
 			collateralPageStatus = .isZero
+		} else if let amountBigNumber = BigNumber(numberWithDecimal: tokenAmount), amountBigNumber <= maxHoldAmount {
+			collateralPageStatus = .normal
 		} else {
-			if BigNumber(numberWithDecimal: tokenAmount) > maxHoldAmount {
-				collateralPageStatus = .isNotEnough
-			} else {
-				collateralPageStatus = .normal
-			}
+			collateralPageStatus = .isNotEnough
 		}
 	}
 

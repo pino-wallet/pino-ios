@@ -87,7 +87,7 @@ class CollateralConfirmViewModel {
 		)
 	}()
 
-	private var collateralIncreaseAmountBigNumber: BigNumber {
+	private var collateralIncreaseAmountBigNumber: BigNumber! {
 		BigNumber(numberWithDecimal: collaterallIncreaseAmountVM.tokenAmount)
 	}
 

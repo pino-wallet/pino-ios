@@ -14,7 +14,8 @@ class WithdrawViewModel: InvestViewModelProtocol {
 
 	private var cancellables = Set<AnyCancellable>()
 	private var withdrawType: WithdrawMode {
-		if BigNumber(numberWithDecimal: tokenAmount) < maxAvailableAmount {
+		let tokenAmoutBigNumber = BigNumber(numberWithDecimal: tokenAmount) ?? 0.bigNumber
+		if tokenAmoutBigNumber < maxAvailableAmount {
 			return .decrease
 		} else {
 			return .withdrawMax
@@ -54,8 +55,7 @@ class WithdrawViewModel: InvestViewModelProtocol {
 	// MARK: - Public Methods
 
 	public func calculateDollarAmount(_ amount: String) {
-		if amount != .emptyString {
-			let amountBigNumber = BigNumber(numberWithDecimal: amount)
+		if let amountBigNumber = BigNumber(numberWithDecimal: amount) {
 			let amountInDollarDecimalValue = amountBigNumber * selectedToken.price
 			dollarAmount = amountInDollarDecimalValue.priceFormat
 		} else {
@@ -73,14 +73,12 @@ class WithdrawViewModel: InvestViewModelProtocol {
 	public func checkBalanceStatus(amount: String) -> AmountStatus {
 		if amount == .emptyString {
 			return .isZero
-		} else if BigNumber(numberWithDecimal: amount).isZero {
+		} else if let amountBigNum = BigNumber(numberWithDecimal: amount), amountBigNum.isZero {
 			return .isZero
+		} else if let amountBigNum = BigNumber(numberWithDecimal: tokenAmount), amountBigNum <= maxAvailableAmount {
+			return .isEnough
 		} else {
-			if BigNumber(numberWithDecimal: tokenAmount) > maxAvailableAmount {
-				return .isNotEnough
-			} else {
-				return .isEnough
-			}
+			return .isNotEnough
 		}
 	}
 
