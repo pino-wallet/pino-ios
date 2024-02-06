@@ -172,15 +172,21 @@ extension BigNumber {
 			return nil
 		}
 
-		// Decide on a suitable scaling factor. For example, 10^2 = 100 to keep 2 decimal places.
-		let scalingFactor = BigInt(10).power(max(left.decimal, right.decimal))
+		// To increase precision, we may need to adjust the scaling factor based on the magnitude of the numbers involved.
+		// A higher scaling factor will result in more preserved decimal places after division.
+		let scalingFactorPower = max(left.decimal, right.decimal) +
+			10 // Increase the additional scale to improve precision.
+		let scalingFactor = BigInt(10).power(scalingFactorPower)
 
 		let scaledLeft = left.number * scalingFactor
 		let quotient = scaledLeft / right.number
 
-		// Adjust the decimal places of the result
-		let resultDecimal = left.decimal - right
-			.decimal + max(left.decimal, right.decimal) // add 2 because of the scalingFactor
+		// The resultDecimal calculation now includes the additional scaling factor to compensate for the initial scaling.
+		let resultDecimal = left.decimal + scalingFactorPower - right.decimal
+
+		// After division, we might have a result with more decimals than desired.
+		// Adjusting the result to match the expected decimal places can be done outside this function or considered here if a
+		// specific precision is required.
 
 		return BigNumber(number: quotient, decimal: resultDecimal)
 	}
