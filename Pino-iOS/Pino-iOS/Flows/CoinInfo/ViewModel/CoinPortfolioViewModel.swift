@@ -44,9 +44,9 @@ struct CoinPortfolioViewModel {
 		AssetVolatilityType(change24h: BigNumber(number: changePercentage, decimal: 6))
 	}
 
-	public var volatilityRatePercentage: String {
+	public var volatilityRatePercentage: String? {
 		guard let selectedTokenDetails = coinPortfolioModel.detail else {
-			return ""
+			return nil
 		}
 		if selectedTokenDetails.isVerified && !selectedTokenDetails.isPosition {
 			let formattedChangePercentage = BigNumber(number: changePercentage, decimal: 2)
@@ -59,7 +59,7 @@ struct CoinPortfolioViewModel {
 				return "\(formattedChangePercentage.percentFormat)%"
 			}
 		} else {
-			return ""
+			return nil
 		}
 	}
 
