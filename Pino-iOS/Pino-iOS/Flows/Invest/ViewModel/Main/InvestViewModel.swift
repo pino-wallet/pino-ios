@@ -72,14 +72,12 @@ class InvestViewModel {
 	}
 
 	private func setupBinding() {
-		if let userTokens = GlobalVariables.shared.manageAssetsList {
-			getAssets(userTokens: userTokens)
-		} else {
-			GlobalVariables.shared.$manageAssetsList.compactMap { $0 }.sink { userTokens in
-				if self.assets == nil {
-					self.getAssets(userTokens: userTokens)
-				}
-			}.store(in: &cancellables)
-		}
+		GlobalVariables.shared.$manageAssetsList.sink { userTokens in
+			if let userTokens {
+				self.getAssets(userTokens: userTokens)
+			} else {
+				self.assets = nil
+			}
+		}.store(in: &cancellables)
 	}
 }
