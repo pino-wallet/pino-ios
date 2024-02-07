@@ -88,7 +88,8 @@ class InvestmentDetailViewModel {
 				print("Error getting investment info:\(error)")
 			}
 		} receiveValue: { investmentInfo in
-			self.apy = investmentInfo.first!.apy.percentFormatting
+			let apyBigNumber = BigNumber(number: investmentInfo.first!.apy.description, decimal: 2)
+			self.apy = apyBigNumber.percentFormat
 		}.store(in: &cancellables)
 	}
 }
