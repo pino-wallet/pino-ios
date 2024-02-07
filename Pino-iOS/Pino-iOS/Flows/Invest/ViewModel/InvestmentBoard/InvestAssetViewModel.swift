@@ -87,6 +87,10 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 		BigNumber(number: assetModel.capital, decimal: 2)
 	}
 
+	public var earnedFee: BigNumber {
+		investmentAmount - investmentCapital
+	}
+
 	// MARK: - Initializers
 
 	init(assetModel: InvestmentModel, token: AssetViewModel) {

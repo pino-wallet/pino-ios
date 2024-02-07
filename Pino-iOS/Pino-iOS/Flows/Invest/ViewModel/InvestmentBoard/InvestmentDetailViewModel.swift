@@ -56,15 +56,15 @@ class InvestmentDetailViewModel {
 	}
 
 	public var investmentAmount: String {
-		selectedAsset.formattedInvestmentAmount
+		selectedAsset.investmentCapital.priceFormat
 	}
 
 	public var earnedFee: String {
-		selectedAsset.formattedAssetVolatility
+		selectedAsset.earnedFee.priceFormat
 	}
 
 	public var totalInvestmentAmount: String {
-		let totalAmount = selectedAsset.investmentAmount + selectedAsset.assetVolatility
+		let totalAmount = selectedAsset.investmentCapital + selectedAsset.earnedFee
 		return totalAmount.priceFormat
 	}
 
@@ -88,7 +88,8 @@ class InvestmentDetailViewModel {
 				print("Error getting investment info:\(error)")
 			}
 		} receiveValue: { investmentInfo in
-			self.apy = investmentInfo.first!.apy.percentFormatting
+			let apyBigNumber = BigNumber(number: investmentInfo.first!.apy.description, decimal: 2)
+			self.apy = "%\(apyBigNumber.percentFormat)"
 		}.store(in: &cancellables)
 	}
 }

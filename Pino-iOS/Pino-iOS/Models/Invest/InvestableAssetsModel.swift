@@ -8,7 +8,7 @@
 import Foundation
 
 struct InvestableAssetsModel: Codable {
-	public let apy: Double
+	public let apy: Int
 	public let id: String
 	public let protocolName: String
 	public let risk: String
