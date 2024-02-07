@@ -190,7 +190,7 @@ class BorrowViewModel {
 	private func getUserBorrowingDetails() {
 		if collateralizableTokens != nil {
 			borrowAPIClient.getUserBorrowings(
-				address: "0x81Ad046aE9a7Ad56092fa7A7F09A04C82064e16C",
+				address: walletManager.currentAccount.eip55Address,
 				dex: selectedDexSystem.type
 			).sink { completed in
 				switch completed {
