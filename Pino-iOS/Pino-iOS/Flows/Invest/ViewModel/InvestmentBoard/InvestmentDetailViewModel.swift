@@ -56,15 +56,15 @@ class InvestmentDetailViewModel {
 	}
 
 	public var investmentAmount: String {
-		selectedAsset.formattedInvestmentAmount
+		selectedAsset.investmentCapital.priceFormat
 	}
 
 	public var earnedFee: String {
-		selectedAsset.formattedAssetVolatility
+		selectedAsset.earnedFee.priceFormat
 	}
 
 	public var totalInvestmentAmount: String {
-		let totalAmount = selectedAsset.investmentAmount + selectedAsset.assetVolatility
+		let totalAmount = selectedAsset.investmentCapital + selectedAsset.earnedFee
 		return totalAmount.priceFormat
 	}
 
