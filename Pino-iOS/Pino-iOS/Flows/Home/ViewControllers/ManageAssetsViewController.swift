@@ -66,9 +66,9 @@ class ManageAssetsViewController: UIViewController {
 
 		manageAssetEmptyStateView = TokensEmptyStateView(tokensEmptyStateTexts: .manageAsset, onImportButton: {
 			self.addCustomAssets()
-        }, onDismissKeyboard: {
-            self.navigationItem.searchController?.searchBar.resignFirstResponder()
-        })
+		}, onDismissKeyboard: {
+			self.navigationItem.searchController?.searchBar.resignFirstResponder()
+		})
 
 		view = manageAssetCollectionview
 		view.backgroundColor = .Pino.background

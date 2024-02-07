@@ -22,10 +22,10 @@ class TokensEmptyStateView: UIView {
 	private let descriptionStackView = UIStackView()
 	private let descriptionLabel = PinoLabel(style: .description, text: "")
 	private let actionLabel = UILabel()
-    private var keyboardHeight: CGFloat = 320
-    private var mainStackViewCenterConstraint: NSLayoutConstraint!
-    private var mainStackViewBottomConstraint: NSLayoutConstraint!
-    private var onDismissKeyboard: () -> Void
+	private var keyboardHeight: CGFloat = 320
+	private var mainStackViewCenterConstraint: NSLayoutConstraint!
+	private var mainStackViewBottomConstraint: NSLayoutConstraint!
+	private var onDismissKeyboard: () -> Void
 	private var tokensEmptyStateTexts: TokensEmptyStateTexts {
 		didSet {
 			updateUI()
@@ -34,16 +34,20 @@ class TokensEmptyStateView: UIView {
 
 	// MARK: - Initializers
 
-    init(tokensEmptyStateTexts: TokensEmptyStateTexts, onImportButton: @escaping () -> Void = {}, onDismissKeyboard: @escaping () -> Void) {
+	init(
+		tokensEmptyStateTexts: TokensEmptyStateTexts,
+		onImportButton: @escaping () -> Void = {},
+		onDismissKeyboard: @escaping () -> Void
+	) {
 		self.tokensEmptyStateTexts = tokensEmptyStateTexts
 		self.onActionButton = onImportButton
-        self.onDismissKeyboard = onDismissKeyboard
+		self.onDismissKeyboard = onDismissKeyboard
 
 		super.init(frame: .zero)
 
 		setupView()
 		setupStyles()
-        setupNotifications()
+		setupNotifications()
 		setupConstraints()
 		updateUI()
 	}
@@ -58,10 +62,10 @@ class TokensEmptyStateView: UIView {
 		let onImportTapGesture = UITapGestureRecognizer(target: self, action: #selector(onActionTap))
 		actionLabel.addGestureRecognizer(onImportTapGesture)
 		actionLabel.isUserInteractionEnabled = true
-        
-        let keyboardDismissTapGesture = UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard))
-        addGestureRecognizer(keyboardDismissTapGesture)
-        isUserInteractionEnabled = true
+
+		let keyboardDismissTapGesture = UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard))
+		addGestureRecognizer(keyboardDismissTapGesture)
+		isUserInteractionEnabled = true
 
 		mainStackView.addArrangedSubview(titleImageView)
 		mainStackView.addArrangedSubview(textStackView)
@@ -117,10 +121,9 @@ class TokensEmptyStateView: UIView {
 	private func setupConstraints() {
 		titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 28).isActive = true
 		descriptionStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
-        mainStackViewCenterConstraint = mainStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0)
-        mainStackViewCenterConstraint.isActive = true
-        mainStackViewBottomConstraint = mainStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0)
-        
+		mainStackViewCenterConstraint = mainStackView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 0)
+		mainStackViewCenterConstraint.isActive = true
+		mainStackViewBottomConstraint = mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
 
 		mainStackView.pin(.horizontalEdges(padding: 16))
 		titleImageView.pin(.fixedWidth(56), .fixedHeight(56))
@@ -130,90 +133,88 @@ class TokensEmptyStateView: UIView {
 	private func onActionTap() {
 		onActionButton()
 	}
-    
-    @objc
-    private func dissmisskeyBoard() {
-        onDismissKeyboard()
-    }
-}
 
+	@objc
+	private func dissmisskeyBoard() {
+		onDismissKeyboard()
+	}
+}
 
 // MARK: - Keyboard Functions
 
 extension TokensEmptyStateView {
-    // MARK: - Private Methods
-    
-    private func setupNotifications() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillShow(_:)),
-            name: UIResponder.keyboardWillShowNotification,
-            object: nil
-        )
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillHide(_:)),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil
-        )
-    }
-    
-    private func moveViewWithKeyboard(notification: NSNotification, keyboardWillShow: Bool) {
-        // Keyboard's animation duration
-        let keyboardDuration = notification
-            .userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
-        
-        // Keyboard's animation curve
-        let keyboardCurve = UIView
-            .AnimationCurve(
-                rawValue: notification
-                    .userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! Int
-            )!
-        
-        // Change the constant
-        if keyboardWillShow {
-            let safeAreaExists = (window?.safeAreaInsets.bottom != 0) // Check if safe area exists
-            let keyboardOpenConstant = keyboardHeight - (safeAreaExists ? 20 : 0)
-            mainStackViewBottomConstraint.constant = -(keyboardOpenConstant + 130)
-            mainStackViewBottomConstraint.isActive = true
-            mainStackViewCenterConstraint.isActive = false
-        } else {
-            mainStackViewBottomConstraint.isActive = false
-            mainStackViewCenterConstraint.isActive = true
-        }
-        
-        // Animate the view the same way the keyboard animates
-        let animator = UIViewPropertyAnimator(duration: keyboardDuration, curve: keyboardCurve) { [weak self] in
-            // Update Constraints
-            self?.layoutIfNeeded()
-        }
-        
-        // Perform the animation
-        animator.startAnimation()
-    }
-    
-    @objc
-    private func keyboardWillShow(_ notification: NSNotification) {
-        if let info = notification.userInfo {
-            let frameEndUserInfoKey = UIResponder.keyboardFrameEndUserInfoKey
-            //  Getting UIKeyboardSize.
-            if let kbFrame = info[frameEndUserInfoKey] as? CGRect {
-                let screenSize = UIScreen.main.bounds
-                let intersectRect = kbFrame.intersection(screenSize)
-                if intersectRect.isNull {
-                    keyboardHeight = 0
-                } else {
-                    keyboardHeight = intersectRect.size.height
-                }
-            }
-        }
-        moveViewWithKeyboard(notification: notification, keyboardWillShow: true)
-    }
-    
-    @objc
-    private func keyboardWillHide(_ notification: NSNotification) {
-        moveViewWithKeyboard(notification: notification, keyboardWillShow: false)
-    }
-    
+	// MARK: - Private Methods
+
+	private func setupNotifications() {
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(keyboardWillShow(_:)),
+			name: UIResponder.keyboardWillShowNotification,
+			object: nil
+		)
+
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(keyboardWillHide(_:)),
+			name: UIResponder.keyboardWillHideNotification,
+			object: nil
+		)
+	}
+
+	private func moveViewWithKeyboard(notification: NSNotification, keyboardWillShow: Bool) {
+		// Keyboard's animation duration
+		let keyboardDuration = notification
+			.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
+
+		// Keyboard's animation curve
+		let keyboardCurve = UIView
+			.AnimationCurve(
+				rawValue: notification
+					.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! Int
+			)!
+
+		// Change the constant
+		if keyboardWillShow {
+			let safeAreaExists = (window?.safeAreaInsets.bottom != 0) // Check if safe area exists
+			let keyboardOpenConstant = keyboardHeight - (safeAreaExists ? 20 : 0)
+			mainStackViewBottomConstraint.constant = -(keyboardOpenConstant + 130)
+			mainStackViewBottomConstraint.isActive = true
+			mainStackViewCenterConstraint.isActive = false
+		} else {
+			mainStackViewBottomConstraint.isActive = false
+			mainStackViewCenterConstraint.isActive = true
+		}
+
+		// Animate the view the same way the keyboard animates
+		let animator = UIViewPropertyAnimator(duration: keyboardDuration, curve: keyboardCurve) { [weak self] in
+			// Update Constraints
+			self?.layoutIfNeeded()
+		}
+
+		// Perform the animation
+		animator.startAnimation()
+	}
+
+	@objc
+	private func keyboardWillShow(_ notification: NSNotification) {
+		if let info = notification.userInfo {
+			let frameEndUserInfoKey = UIResponder.keyboardFrameEndUserInfoKey
+			//  Getting UIKeyboardSize.
+			if let kbFrame = info[frameEndUserInfoKey] as? CGRect {
+				let screenSize = UIScreen.main.bounds
+				let intersectRect = kbFrame.intersection(screenSize)
+				if intersectRect.isNull {
+					keyboardHeight = 0
+				} else {
+					keyboardHeight = intersectRect.size.height
+				}
+			}
+		}
+		moveViewWithKeyboard(notification: notification, keyboardWillShow: true)
+	}
+
+	@objc
+	private func keyboardWillHide(_ notification: NSNotification) {
+		moveViewWithKeyboard(notification: notification, keyboardWillShow: false)
+	}
 }

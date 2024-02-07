@@ -72,9 +72,9 @@ class SelectAssetToSendViewController: UIViewController {
 			}
 		}
 
-        emptyStateView = TokensEmptyStateView(tokensEmptyStateTexts: .noResults, onDismissKeyboard: {
-            self.navigationItem.searchController?.searchBar.resignFirstResponder()
-        })
+		emptyStateView = TokensEmptyStateView(tokensEmptyStateTexts: .noResults, onDismissKeyboard: {
+			self.navigationItem.searchController?.searchBar.resignFirstResponder()
+		})
 		view = selectAssetcollectionView
 	}
 
