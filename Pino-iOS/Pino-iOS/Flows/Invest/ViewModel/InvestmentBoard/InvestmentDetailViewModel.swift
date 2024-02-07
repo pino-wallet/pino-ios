@@ -89,7 +89,7 @@ class InvestmentDetailViewModel {
 			}
 		} receiveValue: { investmentInfo in
 			let apyBigNumber = BigNumber(number: investmentInfo.first!.apy.description, decimal: 2)
-			self.apy = apyBigNumber.percentFormat
+			self.apy = "%\(apyBigNumber.percentFormat)"
 		}.store(in: &cancellables)
 	}
 }
