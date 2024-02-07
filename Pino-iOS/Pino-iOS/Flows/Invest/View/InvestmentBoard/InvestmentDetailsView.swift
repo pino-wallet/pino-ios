@@ -27,6 +27,7 @@ class InvestmentDeatilsView: UIView {
 	private let totalSectionStackView = UIStackView()
 	private let totalAmountSeparatorLine = UIView()
 	private let totalAmountStackView = UIStackView()
+	private let totalAmountSpacerView = UIView()
 	private var selectedProtocolTitleLabel = UILabel()
 	private var apyTitleLabel = UILabel()
 	private var investmentAmountTitleLabel = UILabel()
@@ -104,6 +105,7 @@ class InvestmentDeatilsView: UIView {
 		totalSectionStackView.addArrangedSubview(totalAmountSeparatorLine)
 		totalSectionStackView.addArrangedSubview(totalAmountStackView)
 		totalAmountStackView.addArrangedSubview(totalAmountTitleLabel)
+		totalAmountStackView.addArrangedSubview(totalAmountSpacerView)
 		totalAmountStackView.addArrangedSubview(totalAmountLabel)
 
 		investButtonsStackView.addArrangedSubview(increaseInvestmentButton)
