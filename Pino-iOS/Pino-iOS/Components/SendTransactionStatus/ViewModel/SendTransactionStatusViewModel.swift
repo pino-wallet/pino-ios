@@ -11,7 +11,7 @@ import PromiseKit
 class SendTransactionStatusViewModel {
 	// MARK: - Closures
 
-	public let confirmingDescriptionText = "We'll notify you once confirmed."
+	public let confirmingDescriptionText = "This may take a short while"
 	public let confirmingTitleText = "Confirming..."
 	public let transactionSentText = "Successful"
 	public let closeButtonText = "Close"

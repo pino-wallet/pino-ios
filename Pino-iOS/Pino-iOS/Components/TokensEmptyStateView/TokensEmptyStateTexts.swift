@@ -20,7 +20,7 @@ extension TokensEmptyStateView {
 
 extension TokensEmptyStateView.TokensEmptyStateTexts {
 	public static let manageAsset = TokensEmptyStateView.TokensEmptyStateTexts(
-		titleImageName: "no_token",
+		titleImageName: "no_results",
 		titleText: "Not found",
 		descriptionText: "Didn’t see your crypto?",
 		buttonTitle: "Import"
