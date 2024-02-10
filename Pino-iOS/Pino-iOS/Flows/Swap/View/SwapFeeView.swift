@@ -374,6 +374,8 @@ class SwapFeeView: UIView {
 			}
 		} else {
 			priceImpactStackView.isHidden = true
+			amountWarningImage.isHiddenInStackView = true
+			amountLabel.textColor = .Pino.label
 		}
 	}
 
