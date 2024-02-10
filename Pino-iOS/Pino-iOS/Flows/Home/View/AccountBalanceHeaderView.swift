@@ -242,7 +242,8 @@ class AccountBalanceHeaderView: UICollectionReusableView {
 
 	@objc
 	private func activateSecurityMode() {
-		homeVM.securityMode.toggle()
+		// Uncomment this line to enable security mode
+//		homeVM.securityMode.toggle()
 	}
 
 	@objc
