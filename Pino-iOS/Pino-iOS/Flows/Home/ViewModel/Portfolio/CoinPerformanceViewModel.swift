@@ -27,7 +27,7 @@ class CoinPerformanceViewModel {
 
 	init(selectedAsset: AssetViewModel) {
 		self.selectedAsset = selectedAsset
-		self.assetName = selectedAsset.name
+		self.assetName = selectedAsset.symbol
 		self.assetImage = selectedAsset.image
 		getChartData()
 		setupBindings()
