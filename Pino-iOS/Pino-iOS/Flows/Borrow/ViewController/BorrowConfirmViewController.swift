@@ -81,9 +81,10 @@ class BorrowConfirmViewController: UIViewController {
 
 	private func confirmBorrow(borrowTRXs: [SendTransactionViewModel]) {
 		let borrowIncreaseAmountVM = borrowConfirmVM.borrowIncreaseAmountVM
+        let borrowAmountBigNumber = BigNumber(numberWithDecimal: borrowIncreaseAmountVM.tokenAmount)
 		let sendTransactionStatusVM = SendTransactionStatusViewModel(
 			transactions: borrowTRXs,
-			transactionSentInfoText: "You borrowed \(borrowIncreaseAmountVM.tokenAmount.formattedNumberWithCamma) \(borrowIncreaseAmountVM.selectedToken.symbol) from \(borrowIncreaseAmountVM.borrowVM.selectedDexSystem.name) \(borrowIncreaseAmountVM.borrowVM.selectedDexSystem.version)."
+            transactionSentInfoText: "You borrowed \(borrowAmountBigNumber!.sevenDigitFormat) \(borrowIncreaseAmountVM.selectedToken.symbol) from \(borrowIncreaseAmountVM.borrowVM.selectedDexSystem.name) \(borrowIncreaseAmountVM.borrowVM.selectedDexSystem.version)."
 		)
 		let sendTransactionStatusVC = SendTransactionStatusViewController(
 			sendStatusVM: sendTransactionStatusVM,
