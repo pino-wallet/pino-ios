@@ -77,9 +77,10 @@ class CollateralConfirmViewController: UIViewController {
 
 	private func confirmCollateral(depositTRXList: [SendTransactionViewModel]) {
 		let collateralIncreaseAmountVM = collateralConfirmVM.collaterallIncreaseAmountVM
+		let collateralAmountBigNumber = BigNumber(numberWithDecimal: collateralIncreaseAmountVM.tokenAmount)
 		let sendTransactionStatusVM = SendTransactionStatusViewModel(
 			transactions: depositTRXList,
-			transactionSentInfoText: "You collateralized \(collateralIncreaseAmountVM.tokenAmount.formattedNumberWithCamma) \(collateralIncreaseAmountVM.selectedToken.symbol) in \(collateralIncreaseAmountVM.borrowVM.selectedDexSystem.name) \(collateralIncreaseAmountVM.borrowVM.selectedDexSystem.version)."
+			transactionSentInfoText: "You collateralized \(collateralAmountBigNumber!.sevenDigitFormat) \(collateralIncreaseAmountVM.selectedToken.symbol) in \(collateralIncreaseAmountVM.borrowVM.selectedDexSystem.name) \(collateralIncreaseAmountVM.borrowVM.selectedDexSystem.version)."
 		)
 		let sendTransactionStatusVC = SendTransactionStatusViewController(
 			sendStatusVM: sendTransactionStatusVM,

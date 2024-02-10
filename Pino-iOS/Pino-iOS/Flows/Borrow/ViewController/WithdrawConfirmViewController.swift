@@ -77,9 +77,10 @@ class WithdrawConfirmViewController: UIViewController {
 
 	private func confirmWithdraw(withdrawTRXs: [SendTransactionViewModel]) {
 		let withdrawAmountVM = withdrawConfirmVM.withdrawAmountVM
+		let withdrawAmountBigNumber = BigNumber(numberWithDecimal: withdrawAmountVM.tokenAmount)
 		let sendTransactionStatusVM = SendTransactionStatusViewModel(
 			transactions: withdrawTRXs,
-			transactionSentInfoText: "You withdrew  \(withdrawAmountVM.tokenAmount.formattedNumberWithCamma) \(withdrawAmountVM.selectedToken.symbol) from \(withdrawAmountVM.borrowVM.selectedDexSystem.name) \(withdrawAmountVM.borrowVM.selectedDexSystem.version)."
+			transactionSentInfoText: "You withdrew  \(withdrawAmountBigNumber!.sevenDigitFormat) \(withdrawAmountVM.selectedToken.symbol) from \(withdrawAmountVM.borrowVM.selectedDexSystem.name) \(withdrawAmountVM.borrowVM.selectedDexSystem.version)."
 		)
 		let sendTransactionStatusVC = SendTransactionStatusViewController(
 			sendStatusVM: sendTransactionStatusVM,

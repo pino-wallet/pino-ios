@@ -69,7 +69,21 @@ class SwapConfirmationViewModel {
 	public let feeErrorText = "Error in calculation!"
 	public let feeErrorIcon = "refresh"
 	public var sendStatusText: String {
-		"You swapped \(fromToken.tokenAmount!.formattedNumberWithCamma) \(fromToken.selectedToken.symbol) to \(toToken.tokenAmount!.formattedNumberWithCamma) \(toToken.selectedToken.symbol)."
+		let fromTokenUIntNumber = Utilities.parseToBigUInt(
+			fromToken.tokenAmount!,
+			decimals: fromToken.selectedToken.decimal
+		)
+		let fromTokenBigNumberAmount = BigNumber(
+			unSignedNumber: fromTokenUIntNumber!,
+			decimal: fromToken.selectedToken.decimal
+		)
+
+		let toTokenUIntNumber = Utilities.parseToBigUInt(toToken.tokenAmount!, decimals: toToken.selectedToken.decimal)
+		let toTokenBigNumberAmount = BigNumber(
+			unSignedNumber: toTokenUIntNumber!,
+			decimal: toToken.selectedToken.decimal
+		)
+		return "You swapped \(fromTokenBigNumberAmount.sevenDigitFormat) \(fromToken.selectedToken.symbol) to \(toTokenBigNumberAmount.sevenDigitFormat) \(toToken.selectedToken.symbol)."
 	}
 
 	public var sendTransactions: [SendTransactionViewModel]? {
