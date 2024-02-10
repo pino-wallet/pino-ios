@@ -115,7 +115,6 @@ class SendConfirmationViewModel {
 		self.recipientAddress = recipientAddress
 		setupBindings()
 		setUserRecipientAccountInfo()
-		print("heh", sendStatusText)
 	}
 
 	// MARK: - Public Methods
