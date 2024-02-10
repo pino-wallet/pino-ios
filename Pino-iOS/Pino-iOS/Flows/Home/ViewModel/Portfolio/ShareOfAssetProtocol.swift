@@ -27,7 +27,7 @@ extension ShareOfAssetsProtocol {
 	var amountPercentage: String {
 		let amountPercentage = ((holdAmount * 100.bigNumber) / totalAmount)!
 		if amountPercentage.isZero {
-			return "0%"
+			return "0.00%"
 		} else if amountPercentage > 1.bigNumber {
 			return "\(amountPercentage.percentFormat)%"
 		} else {
