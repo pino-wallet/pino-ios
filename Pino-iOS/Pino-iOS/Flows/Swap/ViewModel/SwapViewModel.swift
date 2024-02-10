@@ -307,6 +307,8 @@ class SwapViewModel {
 				srcTokenAmount: fromToken.decimalDollarAmount,
 				destTokenAmount: toToken.decimalDollarAmount
 			)
+		} else {
+			swapFeeVM.priceImpactStatus = .normal
 		}
 	}
 
