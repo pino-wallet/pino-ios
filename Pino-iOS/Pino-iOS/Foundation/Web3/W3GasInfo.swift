@@ -13,7 +13,7 @@ public struct GasInfo {
 	// MARK: - Public Properties
 
 	public let gasLimit: BigNumber?
-	public let priorityFeePerGas = BigNumber(number: "2000000000", decimal: 0) // in Wei
+	public let priorityFeePerGas = BigNumber(number: "1000000000", decimal: 0) // in Wei
 
 	public var baseFee: BigNumber {
 		.init(number: GlobalVariables.shared.ethGasFee.baseFee, decimal: 0)
@@ -29,7 +29,7 @@ public struct GasInfo {
 
 	public var increasedGasLimit: BigNumber? {
 		guard let gasLimit else { return nil }
-		let increased = try! EthereumQuantity((gasLimit.bigUInt * BigUInt(120)) / BigUInt(100)).quantity
+		let increased = try! EthereumQuantity((gasLimit.bigUInt * BigUInt(105)) / BigUInt(100)).quantity
 		return BigNumber(unSignedNumber: increased, decimal: 0)
 	}
 
