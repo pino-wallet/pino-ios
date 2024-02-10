@@ -44,9 +44,9 @@ class SendConfirmationViewModel {
 	public let insuffientText = "Insufficient ETH Amount"
 	public let sendAmountInDollar: String
 	public var sendStatusText: String {
-        let sendAmountBigUInt = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))!
-        let sendAmountBigNumber = BigNumber(unSignedNumber: sendAmountBigUInt, decimal: selectedToken.decimal)
-        return "You sent \(sendAmountBigNumber.sevenDigitFormat) \(selectedToken.symbol) to \(recipientAddress)"
+		let sendAmountBigUInt = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))!
+		let sendAmountBigNumber = BigNumber(unSignedNumber: sendAmountBigUInt, decimal: selectedToken.decimal)
+		return "You sent \(sendAmountBigNumber.sevenDigitFormat) \(selectedToken.symbol) to \(recipientAddress)"
 	}
 
 	public var isTokenVerified: Bool {
@@ -115,7 +115,7 @@ class SendConfirmationViewModel {
 		self.recipientAddress = recipientAddress
 		setupBindings()
 		setUserRecipientAccountInfo()
-        print("heh", sendStatusText)
+		print("heh", sendStatusText)
 	}
 
 	// MARK: - Public Methods

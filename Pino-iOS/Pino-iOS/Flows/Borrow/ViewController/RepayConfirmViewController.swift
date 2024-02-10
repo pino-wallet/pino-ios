@@ -72,10 +72,10 @@ class RepayConfirmViewController: UIViewController {
 
 	private func confirmRepay(repayTRXs: [SendTransactionViewModel]) {
 		let repayAmountVM = repayConfirmVM.repayAmountVM
-        let repayAmountBigNumber = BigNumber(numberWithDecimal: repayAmountVM.tokenAmount)
+		let repayAmountBigNumber = BigNumber(numberWithDecimal: repayAmountVM.tokenAmount)
 		let sendTransactionStatusVM = SendTransactionStatusViewModel(
 			transactions: repayTRXs,
-            transactionSentInfoText: "You repaid \(repayAmountBigNumber!.sevenDigitFormat) \(repayAmountVM.selectedToken.symbol) to \(repayAmountVM.borrowVM.selectedDexSystem.name) \(repayAmountVM.borrowVM.selectedDexSystem.version)."
+			transactionSentInfoText: "You repaid \(repayAmountBigNumber!.sevenDigitFormat) \(repayAmountVM.selectedToken.symbol) to \(repayAmountVM.borrowVM.selectedDexSystem.name) \(repayAmountVM.borrowVM.selectedDexSystem.version)."
 		)
 		let sendTransactionStatusVC = SendTransactionStatusViewController(
 			sendStatusVM: sendTransactionStatusVM,
