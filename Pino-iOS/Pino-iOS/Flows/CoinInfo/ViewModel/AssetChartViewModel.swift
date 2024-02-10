@@ -20,7 +20,7 @@ struct AssetChartViewModel {
 	}
 
 	public var balance: String {
-		chartDataVM.last?.networth.decimalString.currencyFormatting ?? GlobalZeroAmounts.dollars.zeroAmount
+		chartDataVM.last?.networth.priceFormat ?? GlobalZeroAmounts.dollars.zeroAmount
 	}
 
 	public var volatilityPercentage: String {
@@ -43,41 +43,57 @@ struct AssetChartViewModel {
 
 	// MARK: - Private Methods
 
-	private func valueChangePercentage() -> Double {
-		if chartDataEntry.count > 1 {
+	private func valueChangePercentage() -> BigNumber {
+		if chartDataVM.count > 1 {
 			let valueChangePercentage = valueChangePercentage(
-				pointValue: chartDataEntry[chartDataEntry.count - 1].y,
-				previousValue: chartDataEntry[0].y
+				pointValue: chartDataVM[chartDataVM.count - 1].networth,
+				previousValue: chartDataVM[0].networth
 			)
 			return valueChangePercentage
 		} else {
-			return 0
+			return 0.bigNumber
 		}
 	}
 
 	// MARK: - Public Methods
 
-	public func valueChangePercentage(pointValue: Double, previousValue: Double?) -> Double {
+	public func valueChangePercentage(pointValue: Double, previousValue: Double?) -> BigNumber {
 		if let previousValue, previousValue != 0 {
-			let changePercentage = ((pointValue - previousValue) / previousValue) * 100
-			return changePercentage.roundToPlaces(2)
+			let pointValueNumber = BigNumber(numberWithDecimal: pointValue.description)!
+			let previousValueNumber = BigNumber(numberWithDecimal: previousValue.description)!
+			let changePercentage = ((pointValueNumber - previousValueNumber) / previousValueNumber)! * 100.bigNumber
+			return changePercentage
 		} else {
-			return 0
+			return 0.bigNumber
 		}
 	}
 
-	public func formattedVolatility(_ valueChangePercentage: Double) -> String {
+	public func valueChangePercentage(pointValue: BigNumber, previousValue: BigNumber?) -> BigNumber {
+		if let previousValue, !previousValue.isZero {
+			let changePercentage = ((pointValue - previousValue) / previousValue)! * 100.bigNumber
+			return changePercentage
+		} else {
+			return 0.bigNumber
+		}
+	}
+
+	public func formattedVolatility(_ valueChangePercentage: BigNumber) -> String {
 		if valueChangePercentage.isZero {
 			return GlobalZeroAmounts.percentage.zeroAmount
 		}
 		let volatilityType = volatilityType(valueChangePercentage)
-		return "\(volatilityType.prependSign)\(abs(valueChangePercentage))%"
+		switch volatilityType {
+		case .profit:
+			return "\(volatilityType.prependSign)\(valueChangePercentage.percentFormat)%"
+		case .loss, .none:
+			return "\(valueChangePercentage.percentFormat)%"
+		}
 	}
 
-	public func volatilityType(_ valueChangePercentage: Double) -> AssetVolatilityType {
-		if valueChangePercentage > 0 {
+	public func volatilityType(_ valueChangePercentage: BigNumber) -> AssetVolatilityType {
+		if valueChangePercentage > 0.bigNumber {
 			return .profit
-		} else if valueChangePercentage < 0 {
+		} else if valueChangePercentage < 0.bigNumber {
 			return .loss
 		} else {
 			return .none
