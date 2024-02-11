@@ -97,9 +97,12 @@ class GlobalVariables {
 		Timer.publish(every: 3, on: .main, in: .common)
 			.autoconnect()
 			.sink { [self] seconds in
-                if ethGasFee != nil {
-                    GlobalVariables.shared.ethGasFee = EthBaseFeeModelDetails(baseFeeModel: ethGasFee!.baseFeeModel, isLoading: true)
-                }
+				if ethGasFee != nil {
+					GlobalVariables.shared.ethGasFee = EthBaseFeeModelDetails(
+						baseFeeModel: ethGasFee!.baseFeeModel,
+						isLoading: true
+					)
+				}
 				getEthGasFee().done { ethGasFee in
 					GlobalVariables.shared.ethGasFee = EthBaseFeeModelDetails(baseFeeModel: ethGasFee, isLoading: false)
 				}.catch { error in

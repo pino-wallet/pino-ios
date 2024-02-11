@@ -56,7 +56,7 @@ class SendConfirmationView: UIView {
 	private let sendConfirmationVM: SendConfirmationViewModel
 	private var cancellables = Set<AnyCancellable>()
 	private var showFeeInDollar = true
-    private var feeContainerViewWidthConstraint: NSLayoutConstraint!
+	private var feeContainerViewWidthConstraint: NSLayoutConstraint!
 
 	// MARK: - Initializers
 
@@ -294,7 +294,7 @@ class SendConfirmationView: UIView {
 		)
 
 		feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
-        feeContainerViewWidthConstraint = feeResultView.widthAnchor.constraint(equalToConstant: 48)
+		feeContainerViewWidthConstraint = feeResultView.widthAnchor.constraint(equalToConstant: 48)
 	}
 
 	private func setupBindings() {
@@ -309,14 +309,14 @@ class SendConfirmationView: UIView {
 				self?.hideSkeletonView()
 				self?.updateFeeLabel()
 				self?.checkBalanceEnough()
-                self?.feeContainerViewWidthConstraint.isActive = false
+				self?.feeContainerViewWidthConstraint.isActive = false
 			}.store(in: &cancellables)
-        sendConfirmationVM.$updatingFeeLoading.sink { isLoading in
-            if isLoading {
-                self.showSkeletonView()
-                self.feeContainerViewWidthConstraint.isActive = true
-            }
-        }.store(in: &cancellables)
+		sendConfirmationVM.$updatingFeeLoading.sink { isLoading in
+			if isLoading {
+				self.showSkeletonView()
+				self.feeContainerViewWidthConstraint.isActive = true
+			}
+		}.store(in: &cancellables)
 	}
 
 	private func checkBalanceEnough() {

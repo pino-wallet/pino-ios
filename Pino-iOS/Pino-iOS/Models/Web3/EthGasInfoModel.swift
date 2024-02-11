@@ -7,10 +7,9 @@
 
 import Foundation
 
-
 struct EthBaseFeeModelDetails {
-    let baseFeeModel: EthGasInfoModel
-    let isLoading: Bool
+	let baseFeeModel: EthGasInfoModel
+	let isLoading: Bool
 }
 
 struct EthGasInfoModel: Codable {
