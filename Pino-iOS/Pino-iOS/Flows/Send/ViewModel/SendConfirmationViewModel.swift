@@ -23,7 +23,7 @@ class SendConfirmationViewModel {
 	private let walletManager = PinoWalletManager()
 	private let activityHelper = ActivityHelper()
 	private let selectedWallet: AccountInfoViewModel
-    private let ensName: String?
+	private let ensName: String?
 	private var cancellables = Set<AnyCancellable>()
 	private var gasPrice = "0"
 	private var gasLimit = "0"
@@ -108,14 +108,14 @@ class SendConfirmationViewModel {
 		recipientAddress: String,
 		sendAmount: String,
 		sendAmountInDollar: String,
-        ensName: String?
+		ensName: String?
 	) {
 		self.selectedToken = selectedToken
 		self.selectedWallet = selectedWallet
 		self.sendAmount = sendAmount
 		self.sendAmountInDollar = sendAmountInDollar
 		self.recipientAddress = recipientAddress
-        self.ensName = ensName
+		self.ensName = ensName
 		setupBindings()
 		setUserRecipientAccountInfo()
 	}
@@ -189,7 +189,7 @@ class SendConfirmationViewModel {
 			address: recipientAddress,
 			userAddress: walletManager.currentAccount.eip55Address,
 			date: Date(),
-            ensName: ensName
+			ensName: ensName
 		))
 	}
 

@@ -66,7 +66,7 @@ class RecentAddressCell: UICollectionViewCell {
 		relativeDateLabel.font = .PinoStyle.mediumSubheadline
 
 		addressOrENSLabel.font = .PinoStyle.semiboldSubheadline
-        addressOrENSLabel.text = recentAddressVM.ensName ?? recentAddressVM.shortEndAddress
+		addressOrENSLabel.text = recentAddressVM.ensName ?? recentAddressVM.shortEndAddress
 		addressOrENSLabel.numberOfLines = 0
 
 		relativeDateLabel.text = recentAddressVM.relativeDate
