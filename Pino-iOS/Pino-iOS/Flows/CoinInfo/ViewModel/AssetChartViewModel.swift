@@ -20,7 +20,7 @@ struct AssetChartViewModel {
 	}
 
 	public var balance: String {
-		chartDataVM.last?.networth.priceFormat ?? GlobalZeroAmounts.dollars.zeroAmount
+		chartDataVM.last?.networth.chartPriceFormat ?? GlobalZeroAmounts.dollars.zeroAmount
 	}
 
 	public var volatilityPercentage: String {
