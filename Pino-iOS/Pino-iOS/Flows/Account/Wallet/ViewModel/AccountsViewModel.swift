@@ -155,6 +155,8 @@ class AccountsViewModel {
 	public func removeAccount(_ walletVM: AccountInfoViewModel) {
 		coreDataManager.deleteWalletAccount(walletVM.walletAccountInfoModel)
 		getAccounts()
+		GlobalVariables.shared.updateCurrentAccount(currentAccount.walletAccountInfoModel)
+		resetPendingActivities()
 	}
 
 	public func setAccountLastBalance(account: AccountInfoViewModel, balance: String) {
