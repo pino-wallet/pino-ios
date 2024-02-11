@@ -17,7 +17,7 @@ class GlobalVariables {
 	// MARK: - Public Properties
 
 	@Published
-	public var ethGasFee: EthGasInfoModel!
+	public var ethGasFee: EthBaseFeeModelDetails?
 	@Published
 	public var manageAssetsList: [AssetViewModel]?
 	@Published
@@ -55,7 +55,7 @@ class GlobalVariables {
 		return firstly {
 			self.getEthGasFee()
 		}.then { gasFee in
-			GlobalVariables.shared.ethGasFee = gasFee
+			GlobalVariables.shared.ethGasFee = EthBaseFeeModelDetails(baseFeeModel: gasFee, isLoading: false)
 			return self.getManageAssetLists()
 		}.then { assets in
 			self.getPositoinsDetail().map { (assets, $0) }
@@ -97,8 +97,11 @@ class GlobalVariables {
 		Timer.publish(every: 3, on: .main, in: .common)
 			.autoconnect()
 			.sink { [self] seconds in
+                if ethGasFee != nil {
+                    GlobalVariables.shared.ethGasFee = EthBaseFeeModelDetails(baseFeeModel: ethGasFee!.baseFeeModel, isLoading: true)
+                }
 				getEthGasFee().done { ethGasFee in
-					GlobalVariables.shared.ethGasFee = ethGasFee
+					GlobalVariables.shared.ethGasFee = EthBaseFeeModelDetails(baseFeeModel: ethGasFee, isLoading: false)
 				}.catch { error in
 					print(error)
 				}

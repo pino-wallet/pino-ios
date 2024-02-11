@@ -16,11 +16,11 @@ public struct GasInfo {
 	public let priorityFeePerGas = BigNumber(number: "1000000000", decimal: 0) // in Wei
 
 	public var baseFee: BigNumber {
-		.init(number: GlobalVariables.shared.ethGasFee.baseFee, decimal: 0)
+        .init(number: GlobalVariables.shared.ethGasFee!.baseFeeModel.baseFee, decimal: 0)
 	}
 
 	public var gasPrice: BigNumber {
-		.init(number: GlobalVariables.shared.ethGasFee.gasPrice, decimal: 0)
+        .init(number: GlobalVariables.shared.ethGasFee!.baseFeeModel.gasPrice, decimal: 0)
 	}
 
 	public var maxFeePerGas: BigNumber {
