@@ -49,6 +49,7 @@ enum InvestableAsset: String {
 	case ETHLido
 	case DAIMaker
 	case none
+	case ETHCompound
 
 	// MARK: - Public Properties
 
@@ -61,7 +62,9 @@ enum InvestableAsset: String {
 		case .USDCCompound:
 			"You deposit USDC into Compound’s lending pools and, in return, you receive fees from borrowers."
 		case .USDTCompound:
-			"You deposit USDC into Compound’s lending pools and, in return, you receive fees from borrowers."
+			"You deposit USDT into Compound’s lending pools and, in return, you receive fees from borrowers."
+		case .ETHCompound:
+			"You deposit ETH into Compound’s lending pools and, in return, you receive fees from borrowers."
 		case .ETHLido:
 			"You deposit ETH in the Lido’s Ethereum nodes and in return, you receive fees from them."
 		case .DAIMaker:
@@ -97,6 +100,12 @@ enum InvestableAsset: String {
 				("Stable principal", "Green Color"),
 				("Smart contract risk", "Orange Color"),
 			]
+		case .ETHCompound:
+			[
+				("Low yield", "Orange Color"),
+				("Stable principal", "Green Color"),
+				("Smart contract risk", "Orange Color"),
+			]
 		case .ETHLido:
 			[
 				("High yield", "Green Color"),
@@ -123,6 +132,8 @@ enum InvestableAsset: String {
 				self = .USDCCompound
 			} else if assetId.lowercased() == "0xdAC17F958D2ee523a2206206994597C13D831ec7".lowercased() {
 				self = .USDTCompound
+			} else if assetId.lowercased() == "0x0000000000000000000000000000000000000000".lowercased() {
+				self = .ETHCompound
 			} else {
 				self = .none
 			}
