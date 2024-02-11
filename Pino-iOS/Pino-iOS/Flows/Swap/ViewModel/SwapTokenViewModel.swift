@@ -15,49 +15,41 @@ class SwapTokenViewModel {
 
 	public let maxTitle = "Max: "
 	public let avgSign = "≈"
-	public var amountUpdated: ((String) -> Void)!
+	public var amountUpdated: ((BigNumber) -> Void)!
 	public var textFieldPlaceHolder = "0"
 	public var isEditing = false
 	@Published
 	public var selectedToken: AssetViewModel
 	@Published
-	public var tokenAmount: String?
-	public var dollarAmount: String?
-	public var decimalDollarAmount: BigNumber?
-	public var maxHoldAmount: String
-	public var tokenAmountBigNum: BigNumber? {
-		guard let tokenAmount else { return nil }
-		return .init(numberWithDecimal: tokenAmount)
-	}
+	public var tokenAmount: BigNumber?
+	public var dollarAmount: BigNumber?
+	public var maxHoldAmount: BigNumber
 
 	// MARK: - Initializers
 
 	init(selectedToken: AssetViewModel) {
 		self.selectedToken = selectedToken
-		self.maxHoldAmount = selectedToken.amount
+		self.maxHoldAmount = selectedToken.holdAmount
 	}
 
 	// MARK: - Public Methods
 
-	public func calculateDollarAmount(_ enteredAmount: String?) {
-		if let enteredAmount, let amountBigNumber = BigNumber(numberWithDecimal: enteredAmount) {
+	public func calculateDollarAmount(_ enteredAmount: BigNumber?) {
+		if let enteredAmount {
 			tokenAmount = enteredAmount
-			decimalDollarAmount = amountBigNumber * selectedToken.price
-			dollarAmount = decimalDollarAmount?.priceFormat
+            dollarAmount = enteredAmount * selectedToken.price
 		} else {
 			tokenAmount = nil
-			decimalDollarAmount = nil
 			dollarAmount = nil
 		}
 	}
 
 	public func calculateTokenAmount(decimalDollarAmount: BigNumber?) {
-		self.decimalDollarAmount = decimalDollarAmount
-		dollarAmount = decimalDollarAmount?.priceFormat
+		dollarAmount = decimalDollarAmount
 		tokenAmount = convertDollarAmountToTokenAmount(dollarAmount: decimalDollarAmount)
 	}
 
-	public func setAmount(tokenAmount: String?, dollarAmount: String?) {
+	public func setAmount(tokenAmount: BigNumber?, dollarAmount: BigNumber?) {
 		self.dollarAmount = dollarAmount
 		if let tokenAmount {
 			self.tokenAmount = tokenAmount
@@ -67,8 +59,8 @@ class SwapTokenViewModel {
 	}
 
 	public func checkBalanceStatus(token: AssetViewModel) -> AmountStatus {
-		if let amount = tokenAmount, let amountBigNum = BigNumber(numberWithDecimal: amount), !amountBigNum.isZero {
-			if amountBigNum > token.holdAmount {
+		if let amount = tokenAmount, !amount.isZero {
+			if amount > token.holdAmount {
 				return .isNotEnough
 			} else {
 				return .isEnough
@@ -80,7 +72,7 @@ class SwapTokenViewModel {
 
 	// MARK: - Private Methods
 
-	private func convertDollarAmountToTokenAmount(dollarAmount: BigNumber?) -> String? {
+	private func convertDollarAmountToTokenAmount(dollarAmount: BigNumber?) -> BigNumber? {
 		if let dollarAmount {
 			let priceAmount = dollarAmount.number * 10.bigNumber.number
 				.power(6 + selectedToken.decimal - dollarAmount.decimal)
@@ -88,7 +80,6 @@ class SwapTokenViewModel {
 
 			let tokenAmountDecimalValue = priceAmount.quotientAndRemainder(dividingBy: price.number)
 			let tokenAmount = BigNumber(number: tokenAmountDecimalValue.quotient, decimal: selectedToken.decimal)
-				.sevenDigitFormat
 			return tokenAmount
 		} else {
 			return nil

@@ -79,7 +79,7 @@ class SwapProviderCell: UICollectionViewCell {
 
 		if let swapProviderVM {
 			swapProviderNameLabel.text = swapProviderVM.provider.name
-			swapAmountLabel.text = swapProviderVM.formattedSwapAmountWithSymbol
+            swapAmountLabel.text = swapProviderVM.swapAmount.sevenDigitFormat
 			swapProviderImageView.image = UIImage(named: swapProviderVM.provider.image)
 		} else {
 			swapProviderNameLabel.text = nil

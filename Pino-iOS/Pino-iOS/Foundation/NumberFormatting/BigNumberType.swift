@@ -250,7 +250,12 @@ extension BigNumber: CustomStringConvertible {
 	}
 
 	public var sevenDigitFormat: String {
-		formattedAmountOf(type: .sevenDigitsRule)
+        let minAmount = BigNumber(unSignedNumber: 1, decimal: 6)
+        if self <= minAmount && !self.isZero {
+            return "<\(minAmount.decimalString)"
+        } else {
+            return formattedAmountOf(type: .sevenDigitsRule)
+        }
 	}
 
 	public var priceFormat: String {

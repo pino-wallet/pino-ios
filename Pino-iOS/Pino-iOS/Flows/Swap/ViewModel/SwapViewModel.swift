@@ -119,7 +119,7 @@ class SwapViewModel {
 	public func changeSwapProvider(to swapProvider: SwapProviderViewModel) {
 		getSwapSide { side, srcToken, destToken in
 			swapFeeVM.swapProviderVM = swapProvider
-			updateDestinationToken(destToken: destToken, tokenAmount: swapProvider.formattedSwapAmount)
+			updateDestinationToken(destToken: destToken, tokenAmount: swapProvider.swapAmount)
 			getFeeInfo(swapProvider: swapProvider)
 		}
 	}
@@ -180,7 +180,7 @@ class SwapViewModel {
 		}
 	}
 
-	private func recalculateTokensAmount(amount: String?) {
+	private func recalculateTokensAmount(amount: BigNumber?) {
 		getSwapSide { side, srcToken, destToken in
 			getSwapAmount(srcToken: srcToken, destToken: destToken, amount: amount, swapSide: side)
 		}
@@ -195,12 +195,9 @@ class SwapViewModel {
 	private func getSwapAmount(
 		srcToken: SwapTokenViewModel,
 		destToken: SwapTokenViewModel,
-		amount: String?,
+		amount: BigNumber?,
 		swapSide: SwapSide
 	) {
-		if let amount {
-			if amount.last == "." { return }
-		}
 		recalculateTokensAmountPeriodically()
 		srcToken.calculateDollarAmount(amount)
 		if isEthToWeth() || isWethToEth() {
@@ -214,7 +211,7 @@ class SwapViewModel {
 		}
 	}
 
-	private func getDestinationAmount(_ destToken: SwapTokenViewModel, swapAmount: String, swapSide: SwapSide) {
+	private func getDestinationAmount(_ destToken: SwapTokenViewModel, swapAmount: BigNumber, swapSide: SwapSide) {
 		switch swapState {
 		case .initial:
 			swapState = .noToToken
@@ -259,9 +256,9 @@ class SwapViewModel {
 
 	private func getSwapProviderInfo(
 		destToken: AssetViewModel,
-		amount: String,
+		amount: BigNumber,
 		swapSide: SwapSide,
-		completion: @escaping (String?) -> Void
+		completion: @escaping (BigNumber?) -> Void
 	) {
 		if selectedProtocol == .bestRate {
 			getBestRate(destToken: destToken, amount: amount, swapSide: swapSide, completion: completion)
@@ -272,11 +269,11 @@ class SwapViewModel {
 
 	private func getBestRate(
 		destToken: AssetViewModel,
-		amount: String,
+		amount: BigNumber,
 		swapSide: SwapSide,
-		completion: @escaping (String?) -> Void
+		completion: @escaping (BigNumber?) -> Void
 	) {
-		priceManager.getBestPrice(srcToken: fromToken, destToken: toToken, swapSide: swapSide, amount: amount)
+        priceManager.getBestPrice(srcToken: fromToken, destToken: toToken, swapSide: swapSide, amount: amount.bigIntFormat)
 			{ providersInfo in
 				if providersInfo.isEmpty {
 					completion(nil)
@@ -286,13 +283,13 @@ class SwapViewModel {
 					}.sorted { $0.swapAmount > $1.swapAmount }
 					let bestProvider = self.providers.first!
 					self.bestProvider = bestProvider
-					completion(bestProvider.formattedSwapAmount)
+					completion(bestProvider.swapAmount)
 					self.getFeeInfo(swapProvider: bestProvider)
 				}
 			}
 	}
 
-	private func updateDestinationToken(destToken: SwapTokenViewModel, tokenAmount: String?) {
+	private func updateDestinationToken(destToken: SwapTokenViewModel, tokenAmount: BigNumber?) {
 		destToken.calculateDollarAmount(tokenAmount)
 		destToken.swapDelegate.swapAmountDidCalculate()
 	}
@@ -304,8 +301,8 @@ class SwapViewModel {
 		updateBestRateTag()
 		if fromToken.selectedToken.isVerified && toToken.selectedToken.isVerified {
 			swapFeeVM.calculatePriceImpact(
-				srcTokenAmount: fromToken.decimalDollarAmount,
-				destTokenAmount: toToken.decimalDollarAmount
+				srcTokenAmount: fromToken.dollarAmount,
+				destTokenAmount: toToken.dollarAmount
 			)
 		} else {
 			swapFeeVM.priceImpactStatus = .normal
@@ -341,15 +338,15 @@ class SwapViewModel {
 		}
 	}
 
-	private func updateEthSwapInfo(destToken: SwapTokenViewModel, amount: String?) {
-		if let amount, let amountBigNumber = BigNumber(numberWithDecimal: amount), !amountBigNumber.isZero {
+	private func updateEthSwapInfo(destToken: SwapTokenViewModel, amount: BigNumber?) {
+		if let amount, !amount.isZero {
 			updateDestinationToken(destToken: destToken, tokenAmount: amount)
 			swapFeeVM.swapProviderVM = nil
 			swapFeeVM.updateQuote(srcToken: fromToken, destToken: toToken)
 			if fromToken.selectedToken.isVerified && toToken.selectedToken.isVerified {
 				swapFeeVM.calculatePriceImpact(
-					srcTokenAmount: fromToken.decimalDollarAmount,
-					destTokenAmount: toToken.decimalDollarAmount
+					srcTokenAmount: fromToken.dollarAmount,
+					destTokenAmount: toToken.dollarAmount
 				)
 			}
 			swapState = .hasAmount

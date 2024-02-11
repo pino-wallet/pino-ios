@@ -69,21 +69,7 @@ class SwapConfirmationViewModel {
 	public let feeErrorText = "Error in calculation!"
 	public let feeErrorIcon = "refresh"
 	public var sendStatusText: String {
-		let fromTokenUIntNumber = Utilities.parseToBigUInt(
-			fromToken.tokenAmount!,
-			decimals: fromToken.selectedToken.decimal
-		)
-		let fromTokenBigNumberAmount = BigNumber(
-			unSignedNumber: fromTokenUIntNumber!,
-			decimal: fromToken.selectedToken.decimal
-		)
-
-		let toTokenUIntNumber = Utilities.parseToBigUInt(toToken.tokenAmount!, decimals: toToken.selectedToken.decimal)
-		let toTokenBigNumberAmount = BigNumber(
-			unSignedNumber: toTokenUIntNumber!,
-			decimal: toToken.selectedToken.decimal
-		)
-		return "You swapped \(fromTokenBigNumberAmount.sevenDigitFormat) \(fromToken.selectedToken.symbol) to \(toTokenBigNumberAmount.sevenDigitFormat) \(toToken.selectedToken.symbol)."
+        return "You swapped \(fromToken.tokenAmount!.sevenDigitFormat) \(fromToken.selectedToken.symbol) to \(toToken.tokenAmount!.sevenDigitFormat) \(toToken.selectedToken.symbol)."
 	}
 
 	public var sendTransactions: [SendTransactionViewModel]? {
@@ -184,16 +170,16 @@ class SwapConfirmationViewModel {
 			guard let self = self else { return }
 			guard let selectedProvider = selectedProvider else { return }
 			swapRate = nil
-			let srcTokenAmount = Utilities.parseToBigUInt(
-				fromToken.tokenAmount!,
-				decimals: fromToken.selectedToken.decimal
-			)
+//			let srcTokenAmount = Utilities.parseToBigUInt(
+//				fromToken.tokenAmount!,
+//				decimals: fromToken.selectedToken.decimal
+//			)
 			swapPriceManager.getSwapResponseFrom(
 				provider: selectedProvider.provider,
 				srcToken: fromToken.selectedToken,
 				destToken: toToken.selectedToken,
 				swapSide: swapSide,
-				amount: srcTokenAmount!.description
+                amount: fromToken.tokenAmount!.bigIntFormat
 			) { [self] providersInfo in
 
 				let recalculatedSwapInfo = providersInfo.compactMap {
@@ -203,7 +189,7 @@ class SwapConfirmationViewModel {
 						destToken: self.toToken.selectedToken
 					)
 				}.first
-				self.toToken.calculateDollarAmount(recalculatedSwapInfo?.formattedSwapAmount)
+				self.toToken.calculateDollarAmount(recalculatedSwapInfo?.swapAmount)
 				self.toToken = self.toToken
 				let feeVM = SwapFeeViewModel(swapProviderVM: recalculatedSwapInfo)
 				feeVM.updateQuote(srcToken: self.fromToken, destToken: self.toToken)

@@ -36,12 +36,12 @@ class SwapManager: Web3ManagerProtocol {
 		(GlobalVariables.shared.manageAssetsList?.first(where: { $0.isWEth }))!
 	}
 
-	private var enteredSwapAmount: String
-	private var destinationAmount: String
-	private var swapAmountBigNum: BigNumber {
-		let tokenUIntNumber = Utilities.parseToBigUInt(enteredSwapAmount, decimals: srcToken.decimal)
-		return .init(unSignedNumber: tokenUIntNumber!, decimal: srcToken.decimal)
-	}
+	private var destinationAmount: BigNumber
+//	private var swapAmountBigNum: BigNumber {
+//        let tokenUIntNumber = Utilities.parseToBigUInt(enteredSwapAmount, decimals: srcToken.decimal)
+//        return .init(unSignedNumber: tokenUIntNumber!, decimal: srcToken.decimal)
+//    }
+    private var swapAmountBigNum: BigNumber
 
 	private let coreDataManager = CoreDataManager()
 	private let paraSwapAPIClient = ParaSwapAPIClient()
@@ -56,14 +56,14 @@ class SwapManager: Web3ManagerProtocol {
 		selectedProvider: SwapProviderViewModel?,
 		srcToken: AssetViewModel,
 		destToken: AssetViewModel,
-		swapAmount: String,
-		destinationAmount: String
+		swapAmount: BigNumber,
+		destinationAmount: BigNumber
 	) {
 		self.selectedProvider = selectedProvider
 		self.srcToken = srcToken
 		self.destToken = destToken
 		self.contract = try! web3.getSwapProxyContract()
-		self.enteredSwapAmount = swapAmount
+		self.swapAmountBigNum = swapAmount
 		self.destinationAmount = destinationAmount
 	}
 
@@ -444,9 +444,7 @@ class SwapManager: Web3ManagerProtocol {
 						tokenID: srcToken.id
 					),
 					toToken: .init(
-						amount: Utilities
-							.parseToBigUInt(destinationAmount, decimals: destToken.decimal)!
-							.description,
+                        amount: destinationAmount.bigIntFormat,
 						tokenID: destToken.id
 					),
 					activityProtocol: selectedProvider.provider.name
