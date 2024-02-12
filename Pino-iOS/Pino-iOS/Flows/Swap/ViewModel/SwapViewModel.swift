@@ -203,9 +203,9 @@ class SwapViewModel {
 		if isEthToWeth() || isWethToEth() {
 			updateEthSwapInfo(destToken: destToken, amount: srcToken.tokenAmount)
 		} else if let tokenAmount = srcToken.tokenAmount {
-			let biguint = Utilities.parseToBigUInt(tokenAmount.decimalString, decimals: srcToken.selectedToken.decimal)
-			if let biguint {
-				let swapAmount = BigNumber(unSignedNumber: biguint, decimal: srcToken.selectedToken.decimal)
+			let amountBigInt = Utilities.parseToBigUInt(tokenAmount.decimalString, decimals: srcToken.selectedToken.decimal)
+			if let amountBigInt {
+				let swapAmount = BigNumber(unSignedNumber: amountBigInt, decimal: srcToken.selectedToken.decimal)
 				if !swapAmount.isZero {
 					getDestinationAmount(destToken, swapAmount: swapAmount, swapSide: swapSide)
 				}
