@@ -170,16 +170,17 @@ class SwapConfirmationViewModel {
 			guard let self = self else { return }
 			guard let selectedProvider = selectedProvider else { return }
 			swapRate = nil
-//			let srcTokenAmount = Utilities.parseToBigUInt(
-//				fromToken.tokenAmount!,
-//				decimals: fromToken.selectedToken.decimal
-//			)
+			guard let srcTokenAmount = Utilities.parseToBigUInt(
+				fromToken.tokenAmount!.decimalString,
+				decimals: fromToken.selectedToken.decimal
+			) else { return }
+
 			swapPriceManager.getSwapResponseFrom(
 				provider: selectedProvider.provider,
 				srcToken: fromToken.selectedToken,
 				destToken: toToken.selectedToken,
 				swapSide: swapSide,
-				amount: fromToken.tokenAmount!.bigIntFormat
+				amount: srcTokenAmount.description
 			) { [self] providersInfo in
 
 				let recalculatedSwapInfo = providersInfo.compactMap {

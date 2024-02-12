@@ -37,11 +37,12 @@ class SwapManager: Web3ManagerProtocol {
 	}
 
 	private var destinationAmount: BigNumber
-//	private var swapAmountBigNum: BigNumber {
-	//        let tokenUIntNumber = Utilities.parseToBigUInt(enteredSwapAmount, decimals: srcToken.decimal)
-	//        return .init(unSignedNumber: tokenUIntNumber!, decimal: srcToken.decimal)
-	//    }
-	private var swapAmountBigNum: BigNumber
+	private var swapAmountBigNum: BigNumber {
+		let tokenUIntNumber = Utilities.parseToBigUInt(swapAmount.decimalString, decimals: srcToken.decimal)
+		return .init(unSignedNumber: tokenUIntNumber!, decimal: srcToken.decimal)
+	}
+
+	private var swapAmount: BigNumber
 
 	private let coreDataManager = CoreDataManager()
 	private let paraSwapAPIClient = ParaSwapAPIClient()
@@ -63,7 +64,7 @@ class SwapManager: Web3ManagerProtocol {
 		self.srcToken = srcToken
 		self.destToken = destToken
 		self.contract = try! web3.getSwapProxyContract()
-		self.swapAmountBigNum = swapAmount
+		self.swapAmount = swapAmount
 		self.destinationAmount = destinationAmount
 	}
 
