@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct EthBaseFeeModelDetails {
+struct EthBaseFeeModel {
 	let baseFeeModel: EthGasInfoModel
 	let isLoading: Bool
 }
