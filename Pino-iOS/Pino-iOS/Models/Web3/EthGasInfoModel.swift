@@ -7,6 +7,11 @@
 
 import Foundation
 
+struct EthBaseFeeModel {
+	let baseFeeModel: EthGasInfoModel
+	let isLoading: Bool
+}
+
 struct EthGasInfoModel: Codable {
 	let baseFee, gasPrice: String
 

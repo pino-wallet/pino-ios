@@ -17,7 +17,7 @@ class GlobalVariables {
 	// MARK: - Public Properties
 
 	@Published
-	public var ethGasFee: EthGasInfoModel!
+	public var ethGasFee: EthBaseFeeModel?
 	@Published
 	public var manageAssetsList: [AssetViewModel]?
 	@Published
@@ -53,10 +53,9 @@ class GlobalVariables {
 	public func fetchSharedInfo() -> Promise<Void> {
 		print("== SENDING REQUEST ==")
 		return firstly {
-			self.getEthGasFee()
-		}.then { gasFee in
-			GlobalVariables.shared.ethGasFee = gasFee
-			return self.getManageAssetLists()
+			self.checkEthFee()
+		}.then { _ in
+			self.getManageAssetLists()
 		}.then { assets in
 			self.getPositoinsDetail().map { (assets, $0) }
 		}.done { assets, positions in
@@ -97,10 +96,8 @@ class GlobalVariables {
 		Timer.publish(every: 3, on: .main, in: .common)
 			.autoconnect()
 			.sink { [self] seconds in
-				getEthGasFee().done { ethGasFee in
-					GlobalVariables.shared.ethGasFee = ethGasFee
-				}.catch { error in
-					print(error)
+				getEthGasFee().catch { error in
+					// Show toast
 				}
 			}.store(in: &cancellables)
 	}
@@ -115,6 +112,9 @@ class GlobalVariables {
 
 	private func getEthGasFee() -> Promise<EthGasInfoModel> {
 		Promise<EthGasInfoModel> { seal in
+			if let ethGasFee = self.ethGasFee {
+				self.ethGasFee = EthBaseFeeModel(baseFeeModel: ethGasFee.baseFeeModel, isLoading: true)
+			}
 			web3Client.getNetworkFee().sink { completed in
 				switch completed {
 				case .finished:
@@ -124,8 +124,23 @@ class GlobalVariables {
 					seal.reject(error)
 				}
 			} receiveValue: { gasInfo in
+				self.ethGasFee = EthBaseFeeModel(baseFeeModel: gasInfo, isLoading: false)
 				seal.fulfill(gasInfo)
 			}.store(in: &cancellables)
+		}
+	}
+
+	private func checkEthFee() -> Promise<EthGasInfoModel?> {
+		Promise<EthGasInfoModel?> { seal in
+			if let ethGasFee {
+				seal.fulfill(ethGasFee.baseFeeModel)
+			} else {
+				getEthGasFee().done { ethGasInfo in
+					seal.fulfill(ethGasInfo)
+				}.catch { error in
+					seal.reject(error)
+				}
+			}
 		}
 	}
 
@@ -133,6 +148,7 @@ class GlobalVariables {
 		fetchSharedInfoPeriodically { [self] in
 			fetchBalances()
 		}
+
 		$manageAssetsList.sink { assets in
 			guard var assets else { return }
 			assets.sort { asset1, asset2 in

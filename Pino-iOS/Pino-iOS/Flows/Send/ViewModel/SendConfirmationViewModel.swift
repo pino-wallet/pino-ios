@@ -46,7 +46,7 @@ class SendConfirmationViewModel {
 	public var sendStatusText: String {
 		let sendAmountBigUInt = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))!
 		let sendAmountBigNumber = BigNumber(unSignedNumber: sendAmountBigUInt, decimal: selectedToken.decimal)
-		return "You sent \(sendAmountBigNumber.sevenDigitFormat) \(selectedToken.symbol) to \(recipientAddress)"
+		return "You sent \(sendAmountBigNumber.sevenDigitFormat) \(selectedToken.symbol) to \(recipientAddress.addressFormating())"
 	}
 
 	public var isTokenVerified: Bool {
@@ -86,6 +86,9 @@ class SendConfirmationViewModel {
 
 	@Published
 	public var formattedFeeInDollar: String?
+
+	@Published
+	public var updatingFeeLoading = false
 
 	public let selectedWalletTitle = "From"
 	public let recipientAddressTitle = "To"
@@ -198,8 +201,13 @@ class SendConfirmationViewModel {
 	private func setupBindings() {
 		GlobalVariables.shared.$ethGasFee
 			.compactMap { $0 }
-			.sink { gasInfo in
-				self.getFee()
+			.sink { gasInfoDetils in
+				if !gasInfoDetils.isLoading {
+					self.updatingFeeLoading = false
+					self.getFee()
+				} else {
+					self.updatingFeeLoading = true
+				}
 			}.store(in: &cancellables)
 	}
 

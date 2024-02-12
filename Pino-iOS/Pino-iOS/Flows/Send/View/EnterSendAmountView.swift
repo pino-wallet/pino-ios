@@ -211,7 +211,7 @@ class EnterSendAmountView: UIView {
 
 	private func setupBindings() {
 		if enterAmountVM.selectedToken.isEth {
-			GlobalVariables.shared.$ethGasFee.compactMap { $0 }.sink { gasInfo in
+			GlobalVariables.shared.$ethGasFee.compactMap { $0 }.sink { _ in
 				self.enterAmountVM.updateEthMaxAmount()
 				self.enterAmountVM.calculateAmount(self.amountTextfield.text ?? .emptyString)
 				self.updateAmount(enteredAmount: self.amountTextfield.text ?? .emptyString)
