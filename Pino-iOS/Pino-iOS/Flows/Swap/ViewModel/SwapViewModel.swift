@@ -198,6 +198,10 @@ class SwapViewModel {
 		amount: BigNumber?,
 		swapSide: SwapSide
 	) {
+		if amount == nil {
+			swapState = .clear
+			return
+		}
 		recalculateTokensAmountPeriodically()
 		srcToken.calculateDollarAmount(amount)
 		if isEthToWeth() || isWethToEth() {
@@ -346,20 +350,27 @@ class SwapViewModel {
 	}
 
 	private func updateEthSwapInfo(destToken: SwapTokenViewModel, amount: BigNumber?) {
-		if let amount, !amount.isZero {
-			updateDestinationToken(destToken: destToken, tokenAmount: amount)
-			swapFeeVM.swapProviderVM = nil
-			swapFeeVM.updateQuote(srcToken: fromToken, destToken: toToken)
-			if fromToken.selectedToken.isVerified && toToken.selectedToken.isVerified {
-				swapFeeVM.calculatePriceImpact(
-					srcTokenAmount: fromToken.dollarAmount,
-					destTokenAmount: toToken.dollarAmount
-				)
+		switch swapState {
+		case .initial:
+			swapState = .noToToken
+		case .noToToken:
+			break
+		case .clear, .hasAmount, .loading, .noQuote:
+			if let amount, !amount.isZero {
+				updateDestinationToken(destToken: destToken, tokenAmount: amount)
+				swapFeeVM.swapProviderVM = nil
+				swapFeeVM.updateQuote(srcToken: fromToken, destToken: toToken)
+				if fromToken.selectedToken.isVerified && toToken.selectedToken.isVerified {
+					swapFeeVM.calculatePriceImpact(
+						srcTokenAmount: fromToken.dollarAmount,
+						destTokenAmount: toToken.dollarAmount
+					)
+				}
+				swapState = .hasAmount
+			} else {
+				updateDestinationToken(destToken: destToken, tokenAmount: nil)
+				swapState = .clear
 			}
-			swapState = .hasAmount
-		} else {
-			updateDestinationToken(destToken: destToken, tokenAmount: nil)
-			swapState = .clear
 		}
 	}
 

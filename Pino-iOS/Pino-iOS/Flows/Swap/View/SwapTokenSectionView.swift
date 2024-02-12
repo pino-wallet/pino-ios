@@ -308,9 +308,13 @@ extension SwapTokenSectionView: UITextFieldDelegate {
 
 	@objc
 	private func textFieldDidChange(_ textField: UITextField) {
-		if let inputAmount = textField.text, inputAmount.last != ".", inputAmount != .emptyString {
-			let amountBigNum = BigNumber(numberWithDecimal: inputAmount)
-			updateEstimatedAmount(enteredAmount: amountBigNum!)
+		if let inputAmount = textField.text, inputAmount.last != "." {
+			if inputAmount == .emptyString {
+				swapVM.amountUpdated(nil)
+			} else {
+				let amountBigNum = BigNumber(numberWithDecimal: inputAmount)
+				updateEstimatedAmount(enteredAmount: amountBigNum!)
+			}
 		}
 	}
 }
