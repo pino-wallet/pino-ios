@@ -330,14 +330,14 @@ class SwapView: UIView {
 	}
 
 	private func clearTextFields() {
-		if let tokenAmount = swapVM.fromToken.tokenAmountBigNum, tokenAmount.isZero {
+		if let tokenAmount = swapVM.fromToken.tokenAmount, tokenAmount.isZero {
 			// Don't delete zero amount from text field
 			return
 		} else {
 			swapVM.fromToken.calculateDollarAmount(nil)
 			fromTokenSectionView.swapAmountDidCalculate()
 		}
-		if let tokenAmount = swapVM.toToken.tokenAmountBigNum, tokenAmount.isZero {
+		if let tokenAmount = swapVM.toToken.tokenAmount, tokenAmount.isZero {
 			// Don't delete zero amount from text field
 			return
 		} else {
