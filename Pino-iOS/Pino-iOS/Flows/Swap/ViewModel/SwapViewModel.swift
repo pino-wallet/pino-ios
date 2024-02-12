@@ -150,8 +150,8 @@ class SwapViewModel {
 			)
 		}.done { [self] allowanceAmount in
 			let destTokenDecimal = fromToken.selectedToken.decimal
-			let destTokenAmount = Utilities.parseToBigUInt(fromToken.tokenAmount!, decimals: destTokenDecimal)
-			if allowanceAmount == 0 || allowanceAmount < destTokenAmount! {
+			let destTokenAmount = fromToken.tokenAmount!.number
+			if allowanceAmount == 0 || allowanceAmount < destTokenAmount {
 				// NOT ALLOWED
 				showApprovePage(true)
 			} else {
@@ -202,10 +202,17 @@ class SwapViewModel {
 		srcToken.calculateDollarAmount(amount)
 		if isEthToWeth() || isWethToEth() {
 			updateEthSwapInfo(destToken: destToken, amount: srcToken.tokenAmount)
-		} else if let tokenAmount = srcToken.tokenAmount,
-		          let swapAmount = Utilities.parseToBigUInt(tokenAmount, units: .custom(srcToken.selectedToken.decimal)),
-		          !swapAmount.isZero {
-			getDestinationAmount(destToken, swapAmount: swapAmount.description, swapSide: swapSide)
+		} else if let tokenAmount = srcToken.tokenAmount {
+			let biguint = Utilities.parseToBigUInt(tokenAmount.decimalString, decimals: srcToken.selectedToken.decimal)
+			if let biguint {
+				let swapAmount = BigNumber(unSignedNumber: biguint, decimal: srcToken.selectedToken.decimal)
+				if !swapAmount.isZero {
+					getDestinationAmount(destToken, swapAmount: swapAmount, swapSide: swapSide)
+				}
+			} else {
+				swapState = .noQuote
+				return
+			}
 		} else {
 			removeDestinationAmount(destToken)
 		}
@@ -273,20 +280,29 @@ class SwapViewModel {
 		swapSide: SwapSide,
 		completion: @escaping (BigNumber?) -> Void
 	) {
-        priceManager.getBestPrice(srcToken: fromToken, destToken: toToken, swapSide: swapSide, amount: amount.bigIntFormat)
-			{ providersInfo in
-				if providersInfo.isEmpty {
-					completion(nil)
+		priceManager.getBestPrice(
+			srcToken: fromToken,
+			destToken: toToken,
+			swapSide: swapSide,
+			amount: amount.bigIntFormat
+		) { providersInfo in
+			if providersInfo.isEmpty {
+				completion(nil)
+			} else {
+				self.providers = providersInfo.compactMap {
+					SwapProviderViewModel(providerResponseInfo: $0, side: swapSide, destToken: destToken)
+				}.sorted { $0.swapAmount > $1.swapAmount }
+				let bestProvider = self.providers.first!
+				self.bestProvider = bestProvider
+				if bestProvider.swapAmount < BigNumber.minAcceptableAmount {
+					completion(0.bigNumber)
+					self.swapState = .noQuote
 				} else {
-					self.providers = providersInfo.compactMap {
-						SwapProviderViewModel(providerResponseInfo: $0, side: swapSide, destToken: destToken)
-					}.sorted { $0.swapAmount > $1.swapAmount }
-					let bestProvider = self.providers.first!
-					self.bestProvider = bestProvider
 					completion(bestProvider.swapAmount)
 					self.getFeeInfo(swapProvider: bestProvider)
 				}
 			}
+		}
 	}
 
 	private func updateDestinationToken(destToken: SwapTokenViewModel, tokenAmount: BigNumber?) {

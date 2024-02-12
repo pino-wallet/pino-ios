@@ -134,17 +134,17 @@ class WithdrawManager: InvestW3ManagerProtocol {
 				swapSide: .sell,
 				amount: tokenUIntNumber.description
 			) { priceResponce in
-				self.swapManager = SwapManager(
-					selectedProvider: SwapProviderViewModel(
-						providerResponseInfo: priceResponce.first!,
-						side: .sell,
-						destToken: self.selectedToken
-					),
-					srcToken: stethToken,
-					destToken: self.selectedToken,
-					swapAmount: self.withdrawAmount,
-					destinationAmount: priceResponce.first!.destAmount
-				)
+//				self.swapManager = SwapManager(
+//					selectedProvider: SwapProviderViewModel(
+//						providerResponseInfo: priceResponce.first!,
+//						side: .sell,
+//						destToken: self.selectedToken
+//					),
+//					srcToken: stethToken,
+//					destToken: self.selectedToken,
+//					swapAmount: self.withdrawAmount,
+//					destinationAmount: priceResponce.first!.destAmount
+//				)
 				self.swapManager!.getSwapInfo().done { trxWithGasInfo in
 					self.swapTrx = trxWithGasInfo.0
 					seal.fulfill(trxWithGasInfo)

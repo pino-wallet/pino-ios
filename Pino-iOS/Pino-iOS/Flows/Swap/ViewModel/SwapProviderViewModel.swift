@@ -29,13 +29,9 @@ struct SwapProviderViewModel {
 		}
 	}
 
-//	public var formattedSwapAmount: String {
-//		swapAmount.decimalString
-//	}
-//
-//	public var formattedSwapAmountWithSymbol: String {
-//		formattedSwapAmount.tokenFormatting(token: destToken.symbol)
-//	}
+	public var formattedSwapAmountWithSymbol: String {
+		swapAmount.sevenDigitFormat.tokenFormatting(token: destToken.symbol)
+	}
 
 	// MARK: - Initializers
 

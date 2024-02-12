@@ -69,7 +69,7 @@ class SwapConfirmationViewModel {
 	public let feeErrorText = "Error in calculation!"
 	public let feeErrorIcon = "refresh"
 	public var sendStatusText: String {
-        return "You swapped \(fromToken.tokenAmount!.sevenDigitFormat) \(fromToken.selectedToken.symbol) to \(toToken.tokenAmount!.sevenDigitFormat) \(toToken.selectedToken.symbol)."
+		"You swapped \(fromToken.tokenAmount!.sevenDigitFormat) \(fromToken.selectedToken.symbol) to \(toToken.tokenAmount!.sevenDigitFormat) \(toToken.selectedToken.symbol)."
 	}
 
 	public var sendTransactions: [SendTransactionViewModel]? {
@@ -179,7 +179,7 @@ class SwapConfirmationViewModel {
 				srcToken: fromToken.selectedToken,
 				destToken: toToken.selectedToken,
 				swapSide: swapSide,
-                amount: fromToken.tokenAmount!.bigIntFormat
+				amount: fromToken.tokenAmount!.bigIntFormat
 			) { [self] providersInfo in
 
 				let recalculatedSwapInfo = providersInfo.compactMap {

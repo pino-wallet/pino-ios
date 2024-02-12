@@ -37,7 +37,7 @@ class SwapTokenViewModel {
 	public func calculateDollarAmount(_ enteredAmount: BigNumber?) {
 		if let enteredAmount {
 			tokenAmount = enteredAmount
-            dollarAmount = enteredAmount * selectedToken.price
+			dollarAmount = enteredAmount * selectedToken.price
 		} else {
 			tokenAmount = nil
 			dollarAmount = nil

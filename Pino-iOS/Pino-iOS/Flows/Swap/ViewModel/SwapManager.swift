@@ -38,10 +38,10 @@ class SwapManager: Web3ManagerProtocol {
 
 	private var destinationAmount: BigNumber
 //	private var swapAmountBigNum: BigNumber {
-//        let tokenUIntNumber = Utilities.parseToBigUInt(enteredSwapAmount, decimals: srcToken.decimal)
-//        return .init(unSignedNumber: tokenUIntNumber!, decimal: srcToken.decimal)
-//    }
-    private var swapAmountBigNum: BigNumber
+	//        let tokenUIntNumber = Utilities.parseToBigUInt(enteredSwapAmount, decimals: srcToken.decimal)
+	//        return .init(unSignedNumber: tokenUIntNumber!, decimal: srcToken.decimal)
+	//    }
+	private var swapAmountBigNum: BigNumber
 
 	private let coreDataManager = CoreDataManager()
 	private let paraSwapAPIClient = ParaSwapAPIClient()
@@ -444,7 +444,7 @@ class SwapManager: Web3ManagerProtocol {
 						tokenID: srcToken.id
 					),
 					toToken: .init(
-                        amount: destinationAmount.bigIntFormat,
+						amount: destinationAmount.bigIntFormat,
 						tokenID: destToken.id
 					),
 					activityProtocol: selectedProvider.provider.name
