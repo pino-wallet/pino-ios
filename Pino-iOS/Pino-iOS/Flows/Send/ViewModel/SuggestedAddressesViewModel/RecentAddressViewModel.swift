@@ -26,6 +26,10 @@ struct RecentAddressViewModel {
 		recentAddressModel.date.relativeDate
 	}
 
+	public var ensName: String? {
+		recentAddressModel.ensName
+	}
+
 	// MARK: - Initializers
 
 	init(recentAddressModel: RecentAddressModel) {
