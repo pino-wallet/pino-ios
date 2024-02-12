@@ -166,7 +166,6 @@ class EnterSendAmountView: UIView {
 		amountTextfield.keyboardType = .decimalPad
 		amountTextfield.delegate = self
 
-		dollarSignLabel.isHidden = true
 		maxAmountInDollarLabel.isHidden = true
 		dollarFormatButton.isHidden = !enterAmountVM.selectedToken.isVerified
 
@@ -195,7 +194,7 @@ class EnterSendAmountView: UIView {
 			.fixedHeight(32)
 		)
 		dollarSignLabel.pin(
-			.fixedWidth(20)
+			.fixedWidth(0)
 		)
 		nextButtonBottomConstraint = NSLayoutConstraint(
 			item: continueButton,
@@ -234,7 +233,7 @@ class EnterSendAmountView: UIView {
 		} else {
 			changeTokenView.customTokenImage = enterAmountVM.selectedToken.customAssetImage
 			dollarFormatButton.isHidden = true
-			dollarSignLabel.isHidden = true
+			hideTextfieldDollarSign(true)
 			amountLabel.isHidden = true
 		}
 		maxAmountLabel.text = enterAmountVM.formattedMaxHoldAmount
@@ -243,7 +242,7 @@ class EnterSendAmountView: UIView {
 	}
 
 	private func applyDollarFormatChanges() {
-		dollarSignLabel.isHidden = !enterAmountVM.isDollarEnabled
+		hideTextfieldDollarSign(!enterAmountVM.isDollarEnabled)
 		maxAmountLabel.isHidden = enterAmountVM.isDollarEnabled
 		maxAmountInDollarLabel.isHidden = !enterAmountVM.isDollarEnabled
 	}
@@ -346,6 +345,19 @@ class EnterSendAmountView: UIView {
 		maxAmountInDollarLabel.text = enterAmountVM.formattedMaxAmountInDollar
 		maxAmountLabel.text = enterAmountVM.formattedMaxHoldAmount
 		updateAmount(enteredAmount: amountTextfield.text!.trimmCurrency)
+	}
+
+	private func hideTextfieldDollarSign(_ isHidden: Bool) {
+		NSLayoutConstraint.deactivate(dollarSignLabel.constraints)
+		if isHidden {
+			dollarSignLabel.pin(
+				.fixedWidth(0)
+			)
+		} else {
+			dollarSignLabel.pin(
+				.fixedWidth(20)
+			)
+		}
 	}
 
 	@objc
