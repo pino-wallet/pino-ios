@@ -268,7 +268,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 	internal func valueDidChange(pointValue: Double?, previousValue: Double?, date: Double?) {
 		guard let chartVM else { return }
 		if let pointValue {
-			coinBalanceLabel.text = pointValue.currencyFormatting
+			coinBalanceLabel.text = BigNumber(numberWithDecimal: pointValue.description)!.chartPriceFormat
 			updateVolatility(pointValue: pointValue, previousValue: previousValue)
 			updateChartDate(date: date!)
 		} else {
