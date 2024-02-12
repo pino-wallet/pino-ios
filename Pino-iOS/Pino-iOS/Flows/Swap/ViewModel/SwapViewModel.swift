@@ -150,8 +150,8 @@ class SwapViewModel {
 			)
 		}.done { [self] allowanceAmount in
 			let destTokenDecimal = fromToken.selectedToken.decimal
-			let destTokenAmount = fromToken.tokenAmount!.number
-			if allowanceAmount == 0 || allowanceAmount < destTokenAmount {
+			let destTokenAmount = fromToken.fullAmount!
+			if allowanceAmount == 0 || allowanceAmount < destTokenAmount.number {
 				// NOT ALLOWED
 				showApprovePage(true)
 			} else {
@@ -202,17 +202,8 @@ class SwapViewModel {
 		srcToken.calculateDollarAmount(amount)
 		if isEthToWeth() || isWethToEth() {
 			updateEthSwapInfo(destToken: destToken, amount: srcToken.tokenAmount)
-		} else if let tokenAmount = srcToken.tokenAmount {
-			let amountBigInt = Utilities.parseToBigUInt(tokenAmount.decimalString, decimals: srcToken.selectedToken.decimal)
-			if let amountBigInt {
-				let swapAmount = BigNumber(unSignedNumber: amountBigInt, decimal: srcToken.selectedToken.decimal)
-				if !swapAmount.isZero {
-					getDestinationAmount(destToken, swapAmount: swapAmount, swapSide: swapSide)
-				}
-			} else {
-				swapState = .noQuote
-				return
-			}
+		} else if let tokenAmount = srcToken.fullAmount, !tokenAmount.isZero {
+			getDestinationAmount(destToken, swapAmount: tokenAmount, swapSide: swapSide)
 		} else {
 			removeDestinationAmount(destToken)
 		}
