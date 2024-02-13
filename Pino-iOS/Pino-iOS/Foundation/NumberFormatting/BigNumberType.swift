@@ -250,6 +250,42 @@ extension BigNumber: CustomStringConvertible {
 		)
 	}
 
+	public var formattedDecimalString: String {
+		// Use formatToPrecision to format the number according to the BigNumber's decimal property
+		let rawFormattedString = Utilities.formatToPrecision(
+			number,
+			units: .custom(decimal),
+			formattingDecimals: decimal,
+			decimalSeparator: ".",
+			fallbackToScientific: false
+		)
+
+		// Split the string into whole and fractional parts
+		let parts = rawFormattedString.split(separator: ".").map(String.init)
+
+		// If there is no fractional part, return the whole part
+		guard parts.count > 1 else {
+			return parts[0]
+		}
+
+		let wholePart = parts[0]
+		let fractionalPart = parts[1]
+
+		// Remove trailing zeros from the fractional part
+		var trimmedFractionalPart = fractionalPart
+		while trimmedFractionalPart.hasSuffix("0") && !trimmedFractionalPart.isEmpty {
+			trimmedFractionalPart.removeLast()
+		}
+
+		// If the fractional part becomes empty after trimming zeros, return only the whole part
+		if trimmedFractionalPart.isEmpty {
+			return wholePart
+		} else {
+			// Return the formatted string with the non-empty fractional part
+			return "\(wholePart).\(trimmedFractionalPart)"
+		}
+	}
+
 	public var sevenDigitFormat: String {
 		let minAmount = BigNumber(unSignedNumber: 1, decimal: 6)
 		if self <= minAmount && !isZero {

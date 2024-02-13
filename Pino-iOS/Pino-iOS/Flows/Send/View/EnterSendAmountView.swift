@@ -147,7 +147,7 @@ class EnterSendAmountView: UIView {
 		maxAmountTitle.textColor = .Pino.label
 		maxAmountLabel.textColor = .Pino.label
 		maxAmountInDollarLabel.textColor = .Pino.label
-		dollarSignLabel.textColor = .Pino.gray2
+		dollarSignLabel.textColor = .Pino.primary
 
 		backgroundColor = .Pino.background
 		contentCardView.backgroundColor = .Pino.secondaryBackground
@@ -166,7 +166,6 @@ class EnterSendAmountView: UIView {
 		amountTextfield.keyboardType = .decimalPad
 		amountTextfield.delegate = self
 
-		dollarSignLabel.isHidden = true
 		maxAmountInDollarLabel.isHidden = true
 		dollarFormatButton.isHidden = !enterAmountVM.selectedToken.isVerified
 
@@ -193,6 +192,9 @@ class EnterSendAmountView: UIView {
 		dollarFormatButton.pin(
 			.fixedWidth(32),
 			.fixedHeight(32)
+		)
+		dollarSignLabel.pin(
+			.fixedWidth(0)
 		)
 		nextButtonBottomConstraint = NSLayoutConstraint(
 			item: continueButton,
@@ -231,7 +233,7 @@ class EnterSendAmountView: UIView {
 		} else {
 			changeTokenView.customTokenImage = enterAmountVM.selectedToken.customAssetImage
 			dollarFormatButton.isHidden = true
-			dollarSignLabel.isHidden = true
+			hideTextfieldDollarSign(true)
 			amountLabel.isHidden = true
 		}
 		maxAmountLabel.text = enterAmountVM.formattedMaxHoldAmount
@@ -240,10 +242,9 @@ class EnterSendAmountView: UIView {
 	}
 
 	private func applyDollarFormatChanges() {
-		dollarSignLabel.isHidden = !enterAmountVM.isDollarEnabled
+		hideTextfieldDollarSign(!enterAmountVM.isDollarEnabled)
 		maxAmountLabel.isHidden = enterAmountVM.isDollarEnabled
 		maxAmountInDollarLabel.isHidden = !enterAmountVM.isDollarEnabled
-		dollarSignLabel.textColor = .Pino.gray2
 	}
 
 	private func toggleDollarFormat() {
@@ -253,7 +254,7 @@ class EnterSendAmountView: UIView {
 				self.dollarFormatButton.backgroundColor = .Pino.background
 				self.dollarFormatButton.tintColor = .Pino.primary
 				if let tokenAmount = self.enterAmountVM.tokenAmount {
-					self.amountTextfield.text = tokenAmount.sevenDigitFormat
+					self.amountTextfield.text = tokenAmount.formattedDecimalString
 					self.enterAmountVM.calculateAmount(tokenAmount.decimalString)
 					self.updateAmount(enteredAmount: tokenAmount.decimalString)
 				}
@@ -262,7 +263,7 @@ class EnterSendAmountView: UIView {
 				self.dollarFormatButton.backgroundColor = .Pino.primary
 				self.dollarFormatButton.tintColor = .Pino.green1
 				if let dollarAmount = self.enterAmountVM.dollarAmount {
-					self.amountTextfield.text = dollarAmount.plainPriceFormat.trimmCurrency.trimmSeperators
+					self.amountTextfield.text = dollarAmount.formattedDecimalString
 					self.enterAmountVM.calculateAmount(dollarAmount.decimalString)
 					self.updateAmount(enteredAmount: dollarAmount.decimalString)
 				}
@@ -275,11 +276,9 @@ class EnterSendAmountView: UIView {
 	private func textFieldDidChange(_ textField: UITextField) {
 		if textField.text?.last == "." || textField.text?.last == "," { return }
 		if let amountText = textField.text, amountText != .emptyString {
-			dollarSignLabel.textColor = .Pino.label
 			enterAmountVM.calculateAmount(amountText)
 			updateAmount(enteredAmount: amountText)
 		} else {
-			dollarSignLabel.textColor = .Pino.gray2
 			enterAmountVM.calculateAmount(.emptyString)
 			updateAmount(enteredAmount: .emptyString)
 		}
@@ -346,7 +345,19 @@ class EnterSendAmountView: UIView {
 		maxAmountInDollarLabel.text = enterAmountVM.formattedMaxAmountInDollar
 		maxAmountLabel.text = enterAmountVM.formattedMaxHoldAmount
 		updateAmount(enteredAmount: amountTextfield.text!.trimmCurrency)
-		dollarSignLabel.textColor = .Pino.label
+	}
+
+	private func hideTextfieldDollarSign(_ isHidden: Bool) {
+		NSLayoutConstraint.deactivate(dollarSignLabel.constraints)
+		if isHidden {
+			dollarSignLabel.pin(
+				.fixedWidth(0)
+			)
+		} else {
+			dollarSignLabel.pin(
+				.fixedWidth(20)
+			)
+		}
 	}
 
 	@objc
