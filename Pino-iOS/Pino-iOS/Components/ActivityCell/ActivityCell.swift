@@ -163,7 +163,7 @@ class ActivityCell: UICollectionViewCell {
 
 		historyCardView.pin(
 			.allEdges(padding: 0),
-            .fixedWidth(contentView.frame.width)
+			.fixedWidth(contentView.frame.width)
 		)
 		contentStackView.pin(
 			.verticalEdges(padding: 9),

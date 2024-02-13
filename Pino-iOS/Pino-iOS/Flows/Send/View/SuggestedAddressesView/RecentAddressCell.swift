@@ -66,9 +66,9 @@ class RecentAddressCell: UICollectionViewCell {
 		relativeDateLabel.font = .PinoStyle.mediumSubheadline
 
 		addressOrENSLabel.font = .PinoStyle.semiboldSubheadline
-        addressOrENSLabel.text = recentAddressVM.ensName ?? recentAddressVM.shortEndAddress
-        addressOrENSLabel.lineBreakMode = .byTruncatingTail
-        addressOrENSLabel.numberOfLines = 1
+		addressOrENSLabel.text = recentAddressVM.ensName ?? recentAddressVM.shortEndAddress
+		addressOrENSLabel.lineBreakMode = .byTruncatingTail
+		addressOrENSLabel.numberOfLines = 1
 
 		relativeDateLabel.text = recentAddressVM.relativeDate
 	}
@@ -78,10 +78,14 @@ class RecentAddressCell: UICollectionViewCell {
 		addressOrENSLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 22).isActive = true
 		relativeDateLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 22).isActive = true
 
-        mainContainerView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 0), .fixedWidth(contentView.frame.width - 28))
+		mainContainerView.pin(
+			.horizontalEdges(padding: 14),
+			.verticalEdges(padding: 0),
+			.fixedWidth(contentView.frame.width - 28)
+		)
 		addressOrENSLabel.pin(.allEdges(padding: 0))
 		logoContainer.pin(.fixedHeight(44), .fixedWidth(44))
 		logoTextLabel.pin(.centerY(), .centerX())
-        mainStackView.pin(.horizontalEdges(padding: 0), .verticalEdges(padding: 0))
+		mainStackView.pin(.horizontalEdges(padding: 0), .verticalEdges(padding: 0))
 	}
 }

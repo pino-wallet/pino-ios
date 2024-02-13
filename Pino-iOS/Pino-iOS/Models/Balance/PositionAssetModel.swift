@@ -22,7 +22,7 @@ struct PositionAssetModel: Codable {
 
 	enum PositionAssetTypeEnum: String, Codable {
 		case investment = "investment"
-        case collateral = "collateral"
+		case collateral = "collateral"
 	}
 }
 

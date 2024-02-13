@@ -18,7 +18,7 @@ enum AssetsEndpoint: EndpointType {
 	case positions
 	case coinPortfolio
 	case coinHistory
-    case getUserPositionAssets(userAddress: String)
+	case getUserPositionAssets(userAddress: String)
 
 	// MARK: - Internal Methods
 

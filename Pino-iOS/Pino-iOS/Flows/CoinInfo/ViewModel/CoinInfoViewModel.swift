@@ -90,8 +90,8 @@ class CoinInfoViewModel {
 		switch currentPositionAsset?.type {
 		case .investment:
 			return "investment"
-        case .collateral:
-            return "collateral"
+		case .collateral:
+			return "collateral"
 		case nil:
 			return nil
 		}
