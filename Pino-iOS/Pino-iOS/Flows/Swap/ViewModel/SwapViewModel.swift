@@ -197,14 +197,17 @@ class SwapViewModel {
 		amount: BigNumber?,
 		swapSide: SwapSide
 	) {
-		recalculateTokensAmountPeriodically()
 		srcToken.calculateDollarAmount(amount)
-		if isEthToWeth() || isWethToEth() {
-			updateEthSwapInfo(destToken: destToken, amount: srcToken.tokenAmount)
-		} else if let tokenAmount = srcToken.fullAmount, !tokenAmount.isZero {
-			getDestinationAmount(destToken, swapAmount: tokenAmount, swapSide: swapSide)
-		} else {
+		guard let tokenAmount = srcToken.fullAmount, !tokenAmount.isZero else {
 			removeDestinationAmount(destToken)
+			return
+		}
+		if isEthToWeth() || isWethToEth() {
+			removeRateTimer()
+			updateEthSwapInfo(destToken: destToken, amount: srcToken.tokenAmount!)
+		} else {
+			recalculateTokensAmountPeriodically()
+			getDestinationAmount(destToken, swapAmount: tokenAmount, swapSide: swapSide)
 		}
 	}
 
@@ -344,8 +347,13 @@ class SwapViewModel {
 		}
 	}
 
-	private func updateEthSwapInfo(destToken: SwapTokenViewModel, amount: BigNumber?) {
-		if let amount, !amount.isZero {
+	private func updateEthSwapInfo(destToken: SwapTokenViewModel, amount: BigNumber) {
+		switch swapState {
+		case .initial:
+			swapState = .noToToken
+		case .noToToken:
+			break
+		case .clear, .hasAmount, .loading, .noQuote:
 			updateDestinationToken(destToken: destToken, tokenAmount: amount)
 			swapFeeVM.swapProviderVM = nil
 			swapFeeVM.updateQuote(srcToken: fromToken, destToken: toToken)
@@ -356,9 +364,6 @@ class SwapViewModel {
 				)
 			}
 			swapState = .hasAmount
-		} else {
-			updateDestinationToken(destToken: destToken, tokenAmount: nil)
-			swapState = .clear
 		}
 	}
 

@@ -278,6 +278,7 @@ class SwapView: UIView {
 
 		GlobalVariables.shared.$currentAccount.sink { walletAccount in
 			self.swapVM.swapState = .initial
+			self.swapVM.removeRateTimer()
 		}.store(in: &cancellables)
 	}
 
