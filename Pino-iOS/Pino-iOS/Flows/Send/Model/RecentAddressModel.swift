@@ -13,4 +13,5 @@ struct RecentAddressModel: Codable {
 	public var address: String
 	public var userAddress: String
 	public var date: Date
+	public var ensName: String?
 }

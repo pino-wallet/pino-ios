@@ -31,6 +31,7 @@ public struct BigNumber {
 
 	public var number: BigInt
 	public var decimal: Int
+	public static let minAcceptableAmount = BigNumber(unSignedNumber: 1, decimal: 6)
 
 	// MARK: - Initializers
 
@@ -250,6 +251,15 @@ extension BigNumber: CustomStringConvertible {
 	}
 
 	public var sevenDigitFormat: String {
+		let minAmount = BigNumber(unSignedNumber: 1, decimal: 6)
+		if self <= minAmount && !isZero {
+			return "<\(minAmount.decimalString)"
+		} else {
+			return formattedAmountOf(type: .sevenDigitsRule)
+		}
+	}
+
+	public var plainSevenDigitFormat: String {
 		formattedAmountOf(type: .sevenDigitsRule)
 	}
 

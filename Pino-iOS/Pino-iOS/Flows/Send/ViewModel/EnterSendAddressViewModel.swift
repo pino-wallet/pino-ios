@@ -23,6 +23,7 @@ class EnterSendAddressViewModel {
 	public var selectedWallet: AccountInfoViewModel!
 	public var recipientAddress: String?
 	public var addressInputType: AddressInputType = .regularAddress
+	public var ensName: String?
 
 	public var sendAddressQrCodeScannerTitle: String {
 		"Scan address to send \(sendAmountVM.selectedToken.symbol)"
@@ -104,6 +105,7 @@ class EnterSendAddressViewModel {
 			} receiveValue: { ensAddress in
 				self.recipientAddress = ensAddress.address
 				self.ensAddressFound(ensName, ensAddress.address)
+				self.ensName = ensName
 				self.validateRegularAddress(ensAddress.address)
 				self.addressInputType = .ensWithAddress
 			}.store(in: &cancellables)
@@ -116,6 +118,7 @@ class EnterSendAddressViewModel {
 			getENSAddress(address)
 		} else {
 			addressInputType = .regularAddress
+			ensName = nil
 			validateRegularAddress(address)
 		}
 	}

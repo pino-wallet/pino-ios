@@ -133,7 +133,10 @@ class WithdrawManager: InvestW3ManagerProtocol {
 				destToken: selectedToken,
 				swapSide: .sell,
 				amount: tokenUIntNumber.description
-			) { priceResponce in
+			) { [weak self] priceResponce in
+				guard let self else { return }
+				let swapAmountBig = BigNumber(unSignedNumber: tokenUIntNumber, decimal: stethToken.decimal)
+				let destAmountBig = BigNumber(number: priceResponce.first!.destAmount, decimal: selectedToken.decimal)
 				self.swapManager = SwapManager(
 					selectedProvider: SwapProviderViewModel(
 						providerResponseInfo: priceResponce.first!,
@@ -142,8 +145,8 @@ class WithdrawManager: InvestW3ManagerProtocol {
 					),
 					srcToken: stethToken,
 					destToken: self.selectedToken,
-					swapAmount: self.withdrawAmount,
-					destinationAmount: priceResponce.first!.destAmount
+					swapAmount: swapAmountBig,
+					destinationAmount: destAmountBig
 				)
 				self.swapManager!.getSwapInfo().done { trxWithGasInfo in
 					self.swapTrx = trxWithGasInfo.0
