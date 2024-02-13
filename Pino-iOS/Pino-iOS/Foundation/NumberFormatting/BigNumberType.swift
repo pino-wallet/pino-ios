@@ -295,6 +295,15 @@ extension BigNumber: CustomStringConvertible {
 		}
 	}
 
+	public var sevenDigitFormatForFewAmounts: String {
+		let minAmount = BigNumber(unSignedNumber: 1, decimal: 6)
+		if self <= minAmount && !isZero {
+			return "0"
+		} else {
+			return formattedAmountOf(type: .sevenDigitsRule)
+		}
+	}
+
 	public var plainSevenDigitFormat: String {
 		formattedAmountOf(type: .sevenDigitsRule)
 	}
