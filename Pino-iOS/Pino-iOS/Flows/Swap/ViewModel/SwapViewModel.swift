@@ -198,18 +198,17 @@ class SwapViewModel {
 		amount: BigNumber?,
 		swapSide: SwapSide
 	) {
-		if amount == nil {
-			swapState = .clear
+		srcToken.calculateDollarAmount(amount)
+		guard let tokenAmount = srcToken.fullAmount, !tokenAmount.isZero else {
+			removeDestinationAmount(destToken)
 			return
 		}
-		recalculateTokensAmountPeriodically()
-		srcToken.calculateDollarAmount(amount)
 		if isEthToWeth() || isWethToEth() {
-			updateEthSwapInfo(destToken: destToken, amount: srcToken.tokenAmount)
-		} else if let tokenAmount = srcToken.fullAmount, !tokenAmount.isZero {
-			getDestinationAmount(destToken, swapAmount: tokenAmount, swapSide: swapSide)
+			removeRateTimer()
+			updateEthSwapInfo(destToken: destToken, amount: srcToken.tokenAmount!)
 		} else {
-			removeDestinationAmount(destToken)
+			recalculateTokensAmountPeriodically()
+			getDestinationAmount(destToken, swapAmount: tokenAmount, swapSide: swapSide)
 		}
 	}
 
@@ -349,28 +348,23 @@ class SwapViewModel {
 		}
 	}
 
-	private func updateEthSwapInfo(destToken: SwapTokenViewModel, amount: BigNumber?) {
+	private func updateEthSwapInfo(destToken: SwapTokenViewModel, amount: BigNumber) {
 		switch swapState {
 		case .initial:
 			swapState = .noToToken
 		case .noToToken:
 			break
 		case .clear, .hasAmount, .loading, .noQuote:
-			if let amount, !amount.isZero {
-				updateDestinationToken(destToken: destToken, tokenAmount: amount)
-				swapFeeVM.swapProviderVM = nil
-				swapFeeVM.updateQuote(srcToken: fromToken, destToken: toToken)
-				if fromToken.selectedToken.isVerified && toToken.selectedToken.isVerified {
-					swapFeeVM.calculatePriceImpact(
-						srcTokenAmount: fromToken.dollarAmount,
-						destTokenAmount: toToken.dollarAmount
-					)
-				}
-				swapState = .hasAmount
-			} else {
-				updateDestinationToken(destToken: destToken, tokenAmount: nil)
-				swapState = .clear
+			updateDestinationToken(destToken: destToken, tokenAmount: amount)
+			swapFeeVM.swapProviderVM = nil
+			swapFeeVM.updateQuote(srcToken: fromToken, destToken: toToken)
+			if fromToken.selectedToken.isVerified && toToken.selectedToken.isVerified {
+				swapFeeVM.calculatePriceImpact(
+					srcTokenAmount: fromToken.dollarAmount,
+					destTokenAmount: toToken.dollarAmount
+				)
 			}
+			swapState = .hasAmount
 		}
 	}
 

@@ -182,7 +182,7 @@ class SwapTokenSectionView: UIView {
 		updateBalanceStatus()
 	}
 
-	private func updateEstimatedAmount(enteredAmount: BigNumber) {
+	private func updateEstimatedAmount(enteredAmount: BigNumber?) {
 		swapVM.calculateDollarAmount(enteredAmount)
 		estimatedAmountLabel.text = swapVM.dollarAmount?.priceFormat
 		updateBalanceStatus()
@@ -309,12 +309,8 @@ extension SwapTokenSectionView: UITextFieldDelegate {
 	@objc
 	private func textFieldDidChange(_ textField: UITextField) {
 		if let inputAmount = textField.text, inputAmount.last != "." {
-			if inputAmount == .emptyString {
-				swapVM.amountUpdated(nil)
-			} else {
-				let amountBigNum = BigNumber(numberWithDecimal: inputAmount)
-				updateEstimatedAmount(enteredAmount: amountBigNum!)
-			}
+			let amountBigNum = BigNumber(numberWithDecimal: inputAmount)
+			updateEstimatedAmount(enteredAmount: amountBigNum)
 		}
 	}
 }
