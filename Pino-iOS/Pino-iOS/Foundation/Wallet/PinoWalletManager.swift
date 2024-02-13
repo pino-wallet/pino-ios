@@ -67,7 +67,7 @@ class PinoWalletManager: WalletManagement {
 	}
 
 	public func importAccount(privateKey: String) -> Result<Account, WalletOperationError> {
-		nonHDWallet.importAccount(privateKey: privateKey)
+		nonHDWallet.importAccount(wallet: currentHDWallet!, privateKey: privateKey)
 	}
 
 	public func accountExist(account: WalletAccount) -> Bool {
@@ -100,8 +100,13 @@ class PinoWalletManager: WalletManagement {
 
 	private var currentHDWallet: HDWallet? {
 		let coreDataManager = CoreDataManager()
-		let hdwalletAccount = coreDataManager.getWalletAccountsOfType(walletType: .hdWallet).first!
-		let decryptedMnemonicsData = exportMnemonics(key: hdwalletAccount.eip55Address)
+		let firstAccount: WalletAccount
+		if let hdwalletAccount = coreDataManager.getWalletAccountsOfType(walletType: .hdWallet).first {
+			firstAccount = hdwalletAccount
+		} else {
+			firstAccount = coreDataManager.getWalletAccountsOfType(walletType: .nonHDWallet).first!
+		}
+		let decryptedMnemonicsData = exportMnemonics(key: firstAccount.eip55Address)
 		let decryptedMnemonics = String(data: decryptedMnemonicsData, encoding: .utf8)
 		guard let decryptedMnemonics else {
 			return nil
