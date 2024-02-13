@@ -15,7 +15,7 @@ class SwapTokenViewModel {
 
 	public let maxTitle = "Max: "
 	public let avgSign = "≈"
-	public var amountUpdated: ((BigNumber) -> Void)!
+	public var amountUpdated: ((BigNumber?) -> Void)!
 	public var textFieldPlaceHolder = "0"
 	public var isEditing = false
 	@Published
