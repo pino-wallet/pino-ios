@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum GlobalUserDefaultsKeys {
+enum GlobalUserDefaultsKeys: String {
 	case hasShownNotifPage
 	case isInDevMode
 	case showBiometricCounts
@@ -15,23 +15,9 @@ enum GlobalUserDefaultsKeys {
 	case isLogin
 	case fcmToken
 	case lockMethodType
+	case gasLimits
 
 	public var key: String {
-		switch self {
-		case .hasShownNotifPage:
-			"hasShownNotifPage"
-		case .isInDevMode:
-			"isInDevMode"
-		case .showBiometricCounts:
-			"showBiometricCounts"
-		case .recentSentAddresses:
-			"recentSentAddresses"
-		case .isLogin:
-			"isLogin"
-		case .fcmToken:
-			"fcmToken"
-		case .lockMethodType:
-			"lockMethodType"
-		}
+		rawValue
 	}
 }

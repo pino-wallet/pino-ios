@@ -23,7 +23,6 @@ class SwapTokenViewModel {
 	@Published
 	public var tokenAmount: BigNumber?
 	public var dollarAmount: BigNumber?
-	public var maxHoldAmount: BigNumber
 	public var fullAmount: BigNumber? {
 		guard let tokenAmount else { return nil }
 		let bigIntFormat = Utilities.parseToBigUInt(tokenAmount.decimalString, decimals: selectedToken.decimal)
@@ -38,7 +37,6 @@ class SwapTokenViewModel {
 
 	init(selectedToken: AssetViewModel) {
 		self.selectedToken = selectedToken
-		self.maxHoldAmount = selectedToken.holdAmount
 	}
 
 	// MARK: - Public Methods
