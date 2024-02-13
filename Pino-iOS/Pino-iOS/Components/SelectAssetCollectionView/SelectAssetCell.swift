@@ -56,12 +56,14 @@ class SelectAssetCell: UICollectionViewCell {
 		assetInfoStackView.spacing = 4
 
 		assetNameLabel.font = .PinoStyle.mediumCallout
-		assetNameLabel.text = assetVM.name
-		assetNameLabel.numberOfLines = 0
+        assetNameLabel.text = assetVM.name
+		assetNameLabel.numberOfLines = 1
+        assetNameLabel.lineBreakMode = .byTruncatingTail
 
 		assetAmountAndSymbolLabel.font = .PinoStyle.mediumFootnote
 		assetAmountAndSymbolLabel.text = assetVM.amount
-		assetAmountAndSymbolLabel.numberOfLines = 0
+		assetAmountAndSymbolLabel.numberOfLines = 1
+        assetAmountAndSymbolLabel.lineBreakMode = .byTruncatingTail
 
 		if assetVM.isVerified {
 			assetImageView.kf.indicatorType = .activity
@@ -76,14 +78,12 @@ class SelectAssetCell: UICollectionViewCell {
 
 	private func setupConstraints() {
 		assetNameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24).isActive = true
-		assetNameLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 220).isActive = true
 		assetAmountAndSymbolLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 18).isActive = true
-		assetAmountAndSymbolLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 220).isActive = true
 		mainStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 46).isActive = true
 
-		mainContainerView.pin(.allEdges(padding: 0))
+        mainContainerView.pin(.allEdges(padding: 0), .fixedWidth(contentView.frame.width))
 		mainStackView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 9))
-		assetInfoStackView.pin(.leading(padding: 0), .verticalEdges(padding: 0))
+		assetInfoStackView.pin(.horizontalEdges(padding: 0), .verticalEdges(padding: 0))
 		assetImageView.pin(.fixedHeight(44), .fixedWidth(44))
 	}
 }

@@ -62,10 +62,10 @@ class ActivityCell: UICollectionViewCell {
 	}
 
 	private func setupStyle() {
-		historyTitleLabel.text = activityCellVM?.title ?? ""
+		historyTitleLabel.text = activityCellVM?.title
 		historyTitleLabel.numberOfLines = 1
 		historyTitleLabel.lineBreakMode = .byTruncatingTail
-		historyMoreInfoLabel.text = activityCellVM?.activityMoreInfo ?? ""
+		historyMoreInfoLabel.text = activityCellVM?.activityMoreInfo
 		historyMoreInfoLabel.numberOfLines = 1
 		historyMoreInfoLabel.lineBreakMode = .byTruncatingTail
 
@@ -152,7 +152,6 @@ class ActivityCell: UICollectionViewCell {
 		infoLabelHeightConstraint.isActive = true
 
 		historyTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 130).isActive = true
-		historyTitleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 220).isActive = true
 		historyMoreInfoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 120).isActive = true
 		historyMoreInfoLoadingContainer.widthAnchor.constraint(equalToConstant: 56).isActive = true
 		historyMoreInfoLoadingContainer.heightAnchor.constraint(equalToConstant: 12).isActive = true
@@ -160,10 +159,11 @@ class ActivityCell: UICollectionViewCell {
 		historyCardView.heightAnchor.constraint(greaterThanOrEqualToConstant: 64).isActive = true
 		contentStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 46).isActive = true
 
-		historyTitleStackView.pin(.leading(padding: 0), .verticalEdges(padding: 0))
+		historyTitleStackView.pin(.allEdges(padding: 0))
 
 		historyCardView.pin(
-			.allEdges(padding: 0)
+			.allEdges(padding: 0),
+            .fixedWidth(contentView.frame.width)
 		)
 		contentStackView.pin(
 			.verticalEdges(padding: 9),
