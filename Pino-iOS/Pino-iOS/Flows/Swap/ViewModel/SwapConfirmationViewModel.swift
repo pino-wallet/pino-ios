@@ -38,6 +38,7 @@ class SwapConfirmationViewModel {
 	private var pendingSwapTrx: EthereumSignedTransaction?
 	private var pendingSwapGasInfo: GasInfo?
 	private var swapTimer: Timer?
+	private var swapProvidersTimer: Timer?
 
 	// MARK: - Public Properties
 
@@ -88,7 +89,8 @@ class SwapConfirmationViewModel {
 		selectedProtocol: SwapProtocolModel,
 		selectedProvider: SwapProviderViewModel?,
 		swapRate: String?,
-		swapSide: SwapSide
+		swapSide: SwapSide,
+		swapProvidersTimer: Timer?
 	) {
 		self.fromToken = fromToken
 		self.toToken = toToken
@@ -96,6 +98,7 @@ class SwapConfirmationViewModel {
 		self.selectedProvider = selectedProvider
 		self.swapSide = swapSide
 		self.swapRate = swapRate
+		self.swapProvidersTimer = swapProvidersTimer
 		setSelectedProtocol()
 		recalculateSwapRate()
 	}
@@ -149,6 +152,7 @@ class SwapConfirmationViewModel {
 
 	public func destoryRateTimer() {
 		swapTimer?.invalidate()
+		swapProvidersTimer?.invalidate()
 	}
 
 	// MARK: - Private Methods

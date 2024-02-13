@@ -28,15 +28,14 @@ class SwapViewModel {
 	public var toToken: SwapTokenViewModel
 
 	public var swapFeeVM: SwapFeeViewModel
-
 	public var bestProvider: SwapProviderViewModel?
+	public var recalculateSwapTimer: Timer?
 
 	// MARK: - Private Properties
 
 	private let priceManager = SwapPriceManager()
 	private var web3 = Web3Core.shared
 	private let walletManager = PinoWalletManager()
-	private var recalculateSwapTimer: Timer?
 
 	private var swapSide: SwapSide? {
 		if !fromToken.isEditing && !toToken.isEditing {

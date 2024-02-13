@@ -240,7 +240,7 @@ class SwapViewController: UIViewController {
 				selectedProtocol: swapVM.selectedProtocol,
 				selectedProvider: swapVM.swapFeeVM.swapProviderVM,
 				swapRate: swapVM.swapFeeVM.swapQuote,
-				swapSide: side
+				swapSide: side, swapProvidersTimer: swapVM.recalculateSwapTimer
 			)
 			let approveVC = ApproveContractViewController(
 				approveContractID: swapConfirmationVM.fromToken.selectedToken.id,
@@ -263,15 +263,15 @@ class SwapViewController: UIViewController {
 				selectedProtocol: swapVM.selectedProtocol,
 				selectedProvider: swapVM.swapFeeVM.swapProviderVM,
 				swapRate: swapVM.swapFeeVM.swapQuote,
-				swapSide: side
+				swapSide: side,
+				swapProvidersTimer: swapVM.recalculateSwapTimer
 			)
 			let confirmationVC = SwapConfirmationViewController(
 				swapConfirmationVM: swapConfirmationVM,
 				onSwapConfirm: { pageStatus in
+					self.swapVM.swapState = .clear
 					if pageStatus == .pending {
 						self.tabBarController?.selectedIndex = 4
-					} else if pageStatus == .success {
-						self.swapVM.swapState = .clear
 					}
 					self.dismiss(animated: true)
 				}
