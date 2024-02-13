@@ -24,6 +24,11 @@ class HomepageViewController: UIViewController {
 		setupLoading()
 	}
 
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		homeVM.getGasLimits()
+	}
+
 	override func viewDidLayoutSubviews() {
 		let gradientLayer = GradientLayer(frame: view.bounds, style: .homeBackground)
 		view.layer.insertSublayer(gradientLayer, at: 0)

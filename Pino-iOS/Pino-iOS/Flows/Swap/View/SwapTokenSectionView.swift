@@ -90,7 +90,7 @@ class SwapTokenSectionView: UIView {
 
 	private func setupStyle() {
 		maxAmountTitle.text = swapVM.maxTitle
-		maxAmountLabel.text = swapVM.maxHoldAmount.sevenDigitFormat
+		maxAmountLabel.text = getMaxAmount().sevenDigitFormat
 		selectAssetButton.title = "Select asset"
 		changeTokenView.tokenName = swapVM.selectedToken.symbol
 
@@ -178,7 +178,7 @@ class SwapTokenSectionView: UIView {
 			amountTextfield.text = swapVM.tokenAmount?.sevenDigitFormat
 		}
 		estimatedAmountLabel.text = swapVM.dollarAmount?.priceFormat
-		maxAmountLabel.text = swapVM.maxHoldAmount.sevenDigitFormat
+		maxAmountLabel.text = getMaxAmount().sevenDigitFormat
 		updateBalanceStatus()
 	}
 
@@ -189,10 +189,36 @@ class SwapTokenSectionView: UIView {
 		swapVM.amountUpdated(enteredAmount)
 	}
 
+	private func getMaxAmount() -> BigNumber {
+		if swapVM.selectedToken.isEth {
+			let userDefManager = UserDefaultsManager(userDefaultKey: .gasLimits)
+			let gasLimits: GasLimitsModel? = userDefManager.getValue()
+			if let gasLimits {
+				let maxEthAmount = swapVM.selectedToken.holdAmountInDollor
+				let gasLimitsManager = SwapGasLimitsManager(
+					swapAmount: maxEthAmount,
+					gasLimitsModel: gasLimits,
+					isEth: true,
+					provider: .paraswap
+				)
+				let maxAmount = swapVM.selectedToken.holdAmount - gasLimitsManager.gasInfo.fee!
+				if maxAmount.number > 0 {
+					return maxAmount
+				} else {
+					return 0.bigNumber
+				}
+			} else {
+				return swapVM.selectedToken.holdAmount
+			}
+		} else {
+			return swapVM.selectedToken.holdAmount
+		}
+	}
+
 	@objc
 	private func enterMaxAmount() {
 		openKeyboard()
-		amountTextfield.text = swapVM.selectedToken.holdAmount.decimalString
+		amountTextfield.text = getMaxAmount().decimalString
 		updateEstimatedAmount(enteredAmount: swapVM.selectedToken.holdAmount)
 		updateAmountView()
 		updateBalanceStatus()
@@ -226,8 +252,7 @@ class SwapTokenSectionView: UIView {
 	}
 
 	private func updateMaxAmount(token: AssetViewModel) {
-		swapVM.maxHoldAmount = token.holdAmount
-		maxAmountLabel.text = swapVM.maxHoldAmount.sevenDigitFormat
+		maxAmountLabel.text = getMaxAmount().sevenDigitFormat
 	}
 
 	// MARK: - Public Methods

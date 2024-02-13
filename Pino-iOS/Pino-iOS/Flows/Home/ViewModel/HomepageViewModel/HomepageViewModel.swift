@@ -10,6 +10,7 @@ import CoreData
 import Foundation
 import Hyperconnectivity
 import Network
+import PromiseKit
 
 class HomepageViewModel {
 	// MARK: - Public Properties
@@ -44,7 +45,24 @@ class HomepageViewModel {
 		setupBindings()
 	}
 
-	// MARK: Private Methods
+	// MARK: - Public Methods
+
+	public func getGasLimits() {
+		let web3Client = Web3APIClient()
+		web3Client.getGasLimits().sink { completed in
+			switch completed {
+			case .finished:
+				print("Info received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { gasLimitsResponse in
+			let userdefManager = UserDefaultsManager(userDefaultKey: .gasLimits)
+			userdefManager.setValue(value: gasLimitsResponse)
+		}.store(in: &cancellables)
+	}
+
+	// MARK: - Private Methods
 
 	private func switchSecurityMode(_ isOn: Bool) {
 		if let walletBalance {
