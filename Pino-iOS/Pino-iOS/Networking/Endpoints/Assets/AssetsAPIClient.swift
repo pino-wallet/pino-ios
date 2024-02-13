@@ -12,7 +12,6 @@ final class AssetsAPIClient: AssetsAPIService {
 	// MARK: - Private Properties
 
 	private let networkManager = NetworkManager<AssetsEndpoint>()
-    private let currentAccountAddress = PinoWalletManager().currentAccount.eip55Address
 
 	// MARK: - Public Methods
 
@@ -29,6 +28,6 @@ final class AssetsAPIClient: AssetsAPIService {
 	}
 
 	func getAllPositionAssets() -> AnyPublisher<PositionAssetsModel, APIError> {
-		networkManager.request(.getUserPositionAssets(userAddress: currentAccountAddress))
+		networkManager.request(.getUserPositionAssets(userAddress: PinoWalletManager().currentAccount.eip55Address))
 	}
 }
