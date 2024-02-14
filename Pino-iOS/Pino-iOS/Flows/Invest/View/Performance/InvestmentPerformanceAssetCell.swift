@@ -53,7 +53,7 @@ class InvestmentPerformanceAssetCell: GroupCollectionViewCell {
 		assetImageView.assetImage = assetVM.assetImage
 		assetImageView.protocolImage = assetVM.protocolImage
 
-		let progressbarFloatValue = Float(assetVM.progressBarValue!.decimalString)!
+		let progressbarFloatValue = Float(assetVM.progressBarValue.decimalString)!
 		progressView.setProgress(progressbarFloatValue, animated: true)
 		progressView.progressTintColor = .Pino.gray3
 		progressView.trackTintColor = .Pino.clear
