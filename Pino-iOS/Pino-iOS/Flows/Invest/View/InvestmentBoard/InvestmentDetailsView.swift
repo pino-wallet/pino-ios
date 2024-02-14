@@ -165,15 +165,12 @@ class InvestmentDeatilsView: UIView {
 		investmentAmountLabel.textColor = .Pino.label
 		totalAmountLabel.textColor = .Pino.label
 
-		switch investmentDetailsVM.investVolatilityType {
+		switch investmentDetailsVM.feeVolatilityType {
 		case .profit:
-			apyLabel.textColor = .Pino.green
 			feeLabel.textColor = .Pino.green
 		case .loss:
-			apyLabel.textColor = .Pino.red
 			feeLabel.textColor = .Pino.red
 		case .none:
-			apyLabel.textColor = .Pino.label
 			feeLabel.textColor = .Pino.label
 		}
 
@@ -246,7 +243,7 @@ class InvestmentDeatilsView: UIView {
 		investmentDetailsVM.$apy.sink { apy in
 			if let apy {
 				self.hideSkeletonView()
-				self.apyLabel.text = apy
+				self.updateAPY(apy)
 			} else {
 				self.showSkeletonView()
 			}

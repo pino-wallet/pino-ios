@@ -75,8 +75,10 @@ class InvestViewModel {
 		GlobalVariables.shared.$manageAssetsList.sink { userTokens in
 			if let userTokens {
 				self.getAssets(userTokens: userTokens)
+				self.getChartData()
 			} else {
 				self.assets = nil
+				self.totalInvestments = nil
 			}
 		}.store(in: &cancellables)
 	}

@@ -197,15 +197,6 @@ class InvestView: UIView {
 			}
 		}.store(in: &cancellables)
 
-		investVM.$assets.sink { assets in
-			if let assets, assets.isEmpty {
-				self.investmentIsEmpty()
-			} else {
-				self.investmentAssets.assets = assets
-				self.investmentAssets.reloadData()
-			}
-		}.store(in: &cancellables)
-
 		investVM.$totalInvestments.sink { totalInvestments in
 			if let totalInvestments {
 				self.updateTotalInvestment(totalInvestments)
@@ -280,5 +271,10 @@ class InvestView: UIView {
 	public func setupGradients() {
 		addLoadingGradient()
 		addAssetsGradient()
+	}
+
+	public func reloadInvestments(_ assets: [InvestAssetViewModel]?) {
+		investmentAssets.assets = assets
+		investmentAssets.reloadData()
 	}
 }
