@@ -249,4 +249,16 @@ class InvestmentDeatilsView: UIView {
 			}
 		}.store(in: &cancellables)
 	}
+
+	private func updateAPY(_ apy: String) {
+		apyLabel.text = apy
+		switch investmentDetailsVM.apyVolatilityType {
+		case .profit:
+			apyLabel.textColor = .Pino.green
+		case .loss:
+			apyLabel.textColor = .Pino.red
+		case .none:
+			apyLabel.textColor = .Pino.label
+		}
+	}
 }
