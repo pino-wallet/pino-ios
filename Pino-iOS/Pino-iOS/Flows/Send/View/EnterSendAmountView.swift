@@ -263,7 +263,7 @@ class EnterSendAmountView: UIView {
 				self.dollarFormatButton.backgroundColor = .Pino.primary
 				self.dollarFormatButton.tintColor = .Pino.green1
 				if let dollarAmount = self.enterAmountVM.dollarAmount {
-					self.amountTextfield.text = dollarAmount.formattedDecimalString
+					self.amountTextfield.text = dollarAmount.priceFormatForFields
 					self.enterAmountVM.calculateAmount(dollarAmount.decimalString)
 					self.updateAmount(enteredAmount: dollarAmount.decimalString)
 				}
@@ -324,10 +324,10 @@ class EnterSendAmountView: UIView {
 	@objc
 	private func putMaxAmountInTextField() {
 		if enterAmountVM.isDollarEnabled {
-			amountTextfield.text = enterAmountVM.maxAmountInDollar.priceFormat.trimmCurrency
+			amountTextfield.text = enterAmountVM.maxAmountInDollar.priceFormatForFields
 			amountLabel.text = enterAmountVM.formattedMaxHoldAmount
 		} else {
-			amountTextfield.text = enterAmountVM.maxHoldAmount.sevenDigitFormat
+			amountTextfield.text = enterAmountVM.maxHoldAmount.decimalString
 			amountLabel.text = enterAmountVM.formattedMaxAmountInDollar
 		}
 

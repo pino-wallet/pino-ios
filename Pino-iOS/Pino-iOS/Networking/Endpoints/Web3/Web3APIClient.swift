@@ -21,8 +21,7 @@ final class Web3APIClient: Web3APIService {
 	}
 
 	public func getEnsAddress(ensName: String) -> AnyPublisher<EnsAddress, APIError> {
-		let trimmedAdd = ensName.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-		return networkManager.request(.ensAddress(ensName: trimmedAdd))
+		networkManager.request(.ensAddress(ensName: ensName))
 	}
 
 	#warning("Refactor this function later")
