@@ -53,8 +53,7 @@ class InvestViewController: UIViewController {
 			},
 			investmentPerformanceTapped: {
 				self.openInvestmentPerformance()
-			},
-			investmentIsEmpty: {}
+			}
 		)
 	}
 

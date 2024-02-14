@@ -79,6 +79,7 @@ class InvestViewModel {
 			} else {
 				self.assets = nil
 				self.totalInvestments = nil
+				self.chartDataEntries = nil
 			}
 		}.store(in: &cancellables)
 	}
