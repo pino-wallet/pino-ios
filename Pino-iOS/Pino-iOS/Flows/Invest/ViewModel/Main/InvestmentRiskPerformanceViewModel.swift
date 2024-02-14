@@ -56,7 +56,7 @@ struct InvestmentRiskPerformanceViewModel {
 	init(selectedAsset: InvestableAssetViewModel) {
 		self.selectedAsset = selectedAsset
 		self.investableAsset = InvestableAsset(
-			assetId: selectedAsset.assetId,
+			investableAsset: selectedAsset,
 			investProtocol: selectedAsset.assetProtocol
 		)
 	}

@@ -57,16 +57,18 @@ public class InvestmentAssetCell: UICollectionViewCell {
 			case .profit:
 				assetVolatilityLabel.textColor = .Pino.green
 				assetVolatilityIcon.tintColor = .Pino.green
-				assetVolatilityIcon.isHidden = false
 				assetVolatilityIcon.image = UIImage(named: "arrow_up")
+				assetVolatilityLabel.isHiddenInStackView = false
+				assetVolatilityIcon.isHiddenInStackView = false
 			case .loss:
 				assetVolatilityLabel.textColor = .Pino.red
 				assetVolatilityIcon.tintColor = .Pino.red
-				assetVolatilityIcon.isHidden = false
 				assetVolatilityIcon.image = UIImage(named: "arrow_down")
+				assetVolatilityLabel.isHiddenInStackView = false
+				assetVolatilityIcon.isHiddenInStackView = false
 			case .none:
-				assetVolatilityLabel.textColor = .Pino.secondaryLabel
-				assetVolatilityIcon.isHidden = true
+				assetVolatilityLabel.isHiddenInStackView = true
+				assetVolatilityIcon.isHiddenInStackView = true
 			}
 			titleStackView.layer.cornerRadius = 0
 			assetAmountStackView.layer.cornerRadius = 0
