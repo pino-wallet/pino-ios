@@ -112,6 +112,7 @@ public struct W3TransferManager: Web3HelperProtocol {
 					maxPriorityFeePerGas: gasInfo.priorityFeePerGas.etherumQuantity,
 					gasLimit: gasInfo.increasedGasLimit?.etherumQuantity,
 					from: userPrivateKey.address,
+					to: address.eip55Address!,
 					value: enteredAmount,
 					accessList: [:],
 					transactionType: .eip1559
