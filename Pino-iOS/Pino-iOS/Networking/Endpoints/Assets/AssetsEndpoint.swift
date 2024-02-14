@@ -18,7 +18,7 @@ enum AssetsEndpoint: EndpointType {
 	case positions
 	case coinPortfolio
 	case coinHistory
-	case getAllPositionAssets
+	case getUserPositionAssets(userAddress: String)
 
 	// MARK: - Internal Methods
 
@@ -35,7 +35,7 @@ enum AssetsEndpoint: EndpointType {
 
 	internal var task: HTTPTask {
 		switch self {
-		case .assets, .positions, .coinPortfolio, .coinHistory, .getAllPositionAssets:
+		case .assets, .positions, .coinPortfolio, .coinHistory, .getUserPositionAssets:
 			return .request
 		}
 	}
@@ -61,14 +61,14 @@ enum AssetsEndpoint: EndpointType {
 			return "coin-info"
 		case .coinHistory:
 			return "coin-history"
-		case .getAllPositionAssets:
-			return "indexer/position"
+		case let .getUserPositionAssets(userAddress):
+			return "user/\(userAddress)/positions"
 		}
 	}
 
 	internal var httpMethod: HTTPMethod {
 		switch self {
-		case .assets, .positions, .coinPortfolio, .coinHistory, .getAllPositionAssets:
+		case .assets, .positions, .coinPortfolio, .coinHistory, .getUserPositionAssets:
 			return .get
 		}
 	}

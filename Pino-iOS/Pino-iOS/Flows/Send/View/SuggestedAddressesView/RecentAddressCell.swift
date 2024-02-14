@@ -28,7 +28,7 @@ class RecentAddressCell: UICollectionViewCell {
 	private let textsStackView = UIStackView()
 	private let logoTextLabel = PinoLabel(style: .title, text: "")
 	private let relativeDateLabel = PinoLabel(style: .description, text: "")
-	private let shortEndAddressLabelContainer = UIView()
+	private let addressOrENSLabelContainer = UIView()
 	private let addressOrENSLabel = PinoLabel(style: .title, text: "")
 
 	// MARK: - Private Methods
@@ -36,9 +36,9 @@ class RecentAddressCell: UICollectionViewCell {
 	private func setupView() {
 		logoContainer.addSubview(logoTextLabel)
 
-		shortEndAddressLabelContainer.addSubview(addressOrENSLabel)
+		addressOrENSLabelContainer.addSubview(addressOrENSLabel)
 
-		textsStackView.addArrangedSubview(shortEndAddressLabelContainer)
+		textsStackView.addArrangedSubview(addressOrENSLabelContainer)
 		textsStackView.addArrangedSubview(relativeDateLabel)
 
 		mainStackView.addArrangedSubview(logoContainer)
@@ -67,21 +67,25 @@ class RecentAddressCell: UICollectionViewCell {
 
 		addressOrENSLabel.font = .PinoStyle.semiboldSubheadline
 		addressOrENSLabel.text = recentAddressVM.ensName ?? recentAddressVM.shortEndAddress
-		addressOrENSLabel.numberOfLines = 0
+		addressOrENSLabel.lineBreakMode = .byTruncatingTail
+		addressOrENSLabel.numberOfLines = 1
 
 		relativeDateLabel.text = recentAddressVM.relativeDate
 	}
 
 	private func setupConstraints() {
 		mainStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).isActive = true
-		addressOrENSLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 150).isActive = true
 		addressOrENSLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 22).isActive = true
 		relativeDateLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 22).isActive = true
 
-		mainContainerView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 0))
+		mainContainerView.pin(
+			.horizontalEdges(padding: 14),
+			.verticalEdges(padding: 0),
+			.fixedWidth(contentView.frame.width - 28)
+		)
 		addressOrENSLabel.pin(.allEdges(padding: 0))
 		logoContainer.pin(.fixedHeight(44), .fixedWidth(44))
 		logoTextLabel.pin(.centerY(), .centerX())
-		mainStackView.pin(.leading(padding: 0), .verticalEdges(padding: 0))
+		mainStackView.pin(.horizontalEdges(padding: 0), .verticalEdges(padding: 0))
 	}
 }

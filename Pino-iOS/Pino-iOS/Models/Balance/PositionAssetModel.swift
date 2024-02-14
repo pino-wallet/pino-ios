@@ -21,8 +21,8 @@ struct PositionAssetModel: Codable {
 	}
 
 	enum PositionAssetTypeEnum: String, Codable {
-		case debt = "debt"
 		case investment = "investment"
+		case collateral = "collateral"
 	}
 }
 

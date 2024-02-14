@@ -28,6 +28,6 @@ final class AssetsAPIClient: AssetsAPIService {
 	}
 
 	func getAllPositionAssets() -> AnyPublisher<PositionAssetsModel, APIError> {
-		networkManager.request(.getAllPositionAssets)
+		networkManager.request(.getUserPositionAssets(userAddress: PinoWalletManager().currentAccount.eip55Address))
 	}
 }

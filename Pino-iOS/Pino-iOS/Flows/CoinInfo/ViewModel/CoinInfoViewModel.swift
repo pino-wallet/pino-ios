@@ -88,10 +88,10 @@ class CoinInfoViewModel {
 
 	private var positionAssetType: String? {
 		switch currentPositionAsset?.type {
-		case .debt:
-			return "borrow"
 		case .investment:
 			return "investment"
+		case .collateral:
+			return "collateral"
 		case nil:
 			return nil
 		}
