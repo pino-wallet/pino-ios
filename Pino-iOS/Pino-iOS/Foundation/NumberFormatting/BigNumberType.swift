@@ -353,6 +353,17 @@ extension BigNumber: CustomStringConvertible {
 		}
 	}
 
+	public var priceFormatForFields: String {
+		var formattedNumber: String!
+		formattedNumber = formattedAmountOf(type: .priceRule)
+		let minAmount = BigNumber(unSignedNumber: 1, decimal: 6)
+		if self <= minAmount && !isZero {
+			return "0"
+		} else {
+			return formattedNumber
+		}
+	}
+
 	public var percentFormat: String {
 		var formattedPercent = formattedAmountOf(type: .percentRule)
 		if number.sign == .minus {
