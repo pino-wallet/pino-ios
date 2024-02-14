@@ -81,8 +81,12 @@ class ApproveContractView: UIView {
 		contentStackView.alignment = .center
 		contentStackView.setCustomSpacing(8, after: titleLabel)
 
-		titleImageView.kf.indicatorType = .activity
-		titleImageView.kf.setImage(with: approveContractVM.tokenImage)
+        if let tokenImage = approveContractVM.tokenImage {
+            titleImageView.kf.indicatorType = .activity
+            titleImageView.kf.setImage(with: approveContractVM.tokenImage)
+        } else {
+            titleImageView.image = UIImage(named: approveContractVM.unverifiedTAssetImageName)
+        }
 
 		rightArrowImageView.image = UIImage(named: approveContractVM.rightArrowImageName)
 
