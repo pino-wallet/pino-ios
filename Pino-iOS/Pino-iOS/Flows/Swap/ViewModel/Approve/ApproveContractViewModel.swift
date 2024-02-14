@@ -28,7 +28,7 @@ class ApproveContractViewModel {
 	public let failedToApproveErrorText = "Failed to Approve"
 	public let failedToGetApproveFeeText = "Failed to get approve fee"
 	public let failedToGetApproveDetailsText = "Failed to get approve details, please try again"
-    public let unverifiedTAssetImageName = "unverified_asset"
+	public let unverifiedTAssetImageName = "unverified_asset"
 
 	public enum ApproveStatuses {
 		case calculatingFee
@@ -44,11 +44,11 @@ class ApproveContractViewModel {
 	}
 
 	public var tokenImage: URL? {
-        if !approveAssetVM.isVerified {
-            return nil
-        } else {
-        return approveAssetVM.image
-        }
+		if !approveAssetVM.isVerified {
+			return nil
+		} else {
+			return approveAssetVM.image
+		}
 	}
 
 	public var approveGasInfo: GasInfo?
