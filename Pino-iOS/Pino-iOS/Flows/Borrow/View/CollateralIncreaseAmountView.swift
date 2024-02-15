@@ -320,7 +320,6 @@ class CollateralIncreaseAmountView: UIView {
 		}
 		amountTextfield.text = maxHoldAmount.decimalString
 		animateAmountHealthScoreView(isHidden: false)
-        
 
 		if collateralIncreaseAmountVM.selectedToken.isEth {
 			collateralIncreaseAmountVM.calculateDollarAmount(amountTextfield.text ?? .emptyString)
