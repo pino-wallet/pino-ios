@@ -5,13 +5,16 @@
 //  Created by Mohi Raoufi on 12/17/22.
 //
 
+import Combine
 import UIKit
 
 class InvestViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private var investView: InvestView!
+	private var investEmptyPageView: InvestEmptyPageView!
 	private let investVM = InvestViewModel()
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - View Overrides
 
@@ -31,12 +34,13 @@ class InvestViewController: UIViewController {
 	override func loadView() {
 		setupNavigationBar()
 		setupView()
+		setupBinding()
 	}
 
 	// MARK: - Private Methods
 
 	private func setupView() {
-		let investEmptyPageView = InvestEmptyPageView(
+		investEmptyPageView = InvestEmptyPageView(
 			startInvestingDidTap: {
 				self.startInvesting()
 			}
@@ -49,22 +53,24 @@ class InvestViewController: UIViewController {
 			},
 			investmentPerformanceTapped: {
 				self.openInvestmentPerformance()
-			},
-			investmentIsEmpty: {
-				self.view = investEmptyPageView
 			}
 		)
-
-		if let assets = investVM.assets, assets.isEmpty {
-			view = investEmptyPageView
-		} else {
-			view = investView
-		}
 	}
 
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
 		setNavigationTitle("Invest")
+	}
+
+	private func setupBinding() {
+		investVM.$assets.sink { assets in
+			if let assets, assets.isEmpty {
+				self.view = self.investEmptyPageView
+			} else {
+				self.investView.reloadInvestments(assets)
+				self.view = self.investView
+			}
+		}.store(in: &cancellables)
 	}
 
 	private func openInvestmentBoard() {

@@ -39,133 +39,60 @@ public enum InvestmentRisk: String {
 	}
 }
 
-enum InvestableAsset: String {
+struct InvestableAsset {
 	// MARK: - Cases
 
-	case USDCAave
-	case USDTAave
-	case USDCCompound
-	case USDTCompound
-	case ETHLido
-	case DAIMaker
-	case none
-	case ETHCompound
+	private var assetName: String
+	private var selectedProtocol: InvestProtocolViewModel
 
 	// MARK: - Public Properties
 
 	public var riskDescription: String? {
-		switch self {
-		case .USDCAave:
-			"You deposit USDC into Aave’s lending pools and, in return, you receive fees from borrowers."
-		case .USDTAave:
-			"You deposit USDT into Aave’s lending pools and, in return, you receive fees from borrowers."
-		case .USDCCompound:
-			"You deposit USDC into Compound’s lending pools and, in return, you receive fees from borrowers."
-		case .USDTCompound:
-			"You deposit USDT into Compound’s lending pools and, in return, you receive fees from borrowers."
-		case .ETHCompound:
-			"You deposit ETH into Compound’s lending pools and, in return, you receive fees from borrowers."
-		case .ETHLido:
-			"You deposit ETH in the Lido’s Ethereum nodes and in return, you receive fees from them."
-		case .DAIMaker:
-			"You deposit your DAI into Maker's DAI Savings Rate pool and, in return, you receive fees from borrowers."
-		case .none:
-			nil
+		switch selectedProtocol {
+		case .aave:
+			"You deposit \(assetName) into Aave’s lending pools and, in return, you receive fees from borrowers."
+		case .compound:
+			"You deposit \(assetName) into Compound’s lending pools and, in return, you receive fees from borrowers."
+		case .lido:
+			"You deposit \(assetName) in the Lido’s Ethereum nodes and in return, you receive fees from them."
+		case .maker:
+			"You deposit your \(assetName) into Maker's DAI Savings Rate pool and, in return, you receive fees from borrowers."
 		}
 	}
 
 	public var riskInfo: [(titel: String, color: String)]? {
-		switch self {
-		case .USDCAave:
+		switch selectedProtocol {
+		case .aave:
 			[
 				("Low yield", "Orange Color"),
 				("Stable principal", "Green Color"),
 				("Smart contract risk", "Orange Color"),
 			]
-		case .USDTAave:
+		case .compound:
 			[
 				("Low yield", "Orange Color"),
 				("Stable principal", "Green Color"),
 				("Smart contract risk", "Orange Color"),
 			]
-		case .USDCCompound:
-			[
-				("Low yield", "Orange Color"),
-				("Stable principal", "Green Color"),
-				("Smart contract risk", "Orange Color"),
-			]
-		case .USDTCompound:
-			[
-				("Low yield", "Orange Color"),
-				("Stable principal", "Green Color"),
-				("Smart contract risk", "Orange Color"),
-			]
-		case .ETHCompound:
-			[
-				("Low yield", "Orange Color"),
-				("Stable principal", "Green Color"),
-				("Smart contract risk", "Orange Color"),
-			]
-		case .ETHLido:
+		case .lido:
 			[
 				("High yield", "Green Color"),
 				("Variable principal", "Orange Color"),
 				("Smart contract risk", "Orange Color"),
 			]
-		case .DAIMaker:
+		case .maker:
 			[
 				("Low yield", "Orange Color"),
 				("Stable principal", "Green Color"),
 				("Smart contract vulnerability", "Orange Color"),
 			]
-		case .none:
-			nil
 		}
 	}
 
 	// MARK: - Public Initializers
 
-	public init(assetId: String, investProtocol: InvestProtocolViewModel) {
-		switch investProtocol {
-		case .compound:
-			if assetId.lowercased() == TokenId.USDC.lowercased() {
-				self = .USDCCompound
-			} else if assetId.lowercased() == TokenId.USDT.lowercased() {
-				self = .USDTCompound
-			} else if assetId.lowercased() == TokenId.ETH.lowercased() {
-				self = .ETHCompound
-			} else {
-				self = .none
-			}
-		case .aave:
-			if assetId.lowercased() == TokenId.USDC.lowercased() {
-				self = .USDCAave
-			} else if assetId.lowercased() == TokenId.USDT.lowercased() {
-				self = .USDTAave
-			} else {
-				self = .none
-			}
-		case .maker:
-			if assetId.lowercased() == TokenId.DAI.lowercased() {
-				self = .DAIMaker
-			} else {
-				self = .none
-			}
-		case .lido:
-			if assetId.lowercased() == TokenId.ETH.lowercased() {
-				self = .ETHLido
-			} else {
-				self = .none
-			}
-		}
-	}
-}
-
-extension InvestableAsset {
-	public enum TokenId {
-		static let ETH = "0x0000000000000000000000000000000000000000"
-		static let USDC = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
-		static let USDT = "0xdAC17F958D2ee523a2206206994597C13D831ec7"
-		static let DAI = "0x6B175474E89094C44Da98b954EedeAC495271d0F"
+	public init(investableAsset: InvestableAssetViewModel, investProtocol: InvestProtocolViewModel) {
+		self.assetName = investableAsset.assetName
+		self.selectedProtocol = investProtocol
 	}
 }

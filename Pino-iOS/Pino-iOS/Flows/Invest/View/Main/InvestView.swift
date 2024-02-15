@@ -36,7 +36,6 @@ class InvestView: UIView {
 	private var investVM: InvestViewModel
 	private var totalInvestmentTapped: () -> Void
 	private var investmentPerformanceTapped: () -> Void
-	private var investmentIsEmpty: () -> Void
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
@@ -44,13 +43,11 @@ class InvestView: UIView {
 	init(
 		investVM: InvestViewModel,
 		totalInvestmentTapped: @escaping () -> Void,
-		investmentPerformanceTapped: @escaping () -> Void,
-		investmentIsEmpty: @escaping () -> Void
+		investmentPerformanceTapped: @escaping () -> Void
 	) {
 		self.investVM = investVM
 		self.totalInvestmentTapped = totalInvestmentTapped
 		self.investmentPerformanceTapped = investmentPerformanceTapped
-		self.investmentIsEmpty = investmentIsEmpty
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -197,15 +194,6 @@ class InvestView: UIView {
 			}
 		}.store(in: &cancellables)
 
-		investVM.$assets.sink { assets in
-			if let assets, assets.isEmpty {
-				self.investmentIsEmpty()
-			} else {
-				self.investmentAssets.assets = assets
-				self.investmentAssets.reloadData()
-			}
-		}.store(in: &cancellables)
-
 		investVM.$totalInvestments.sink { totalInvestments in
 			if let totalInvestments {
 				self.updateTotalInvestment(totalInvestments)
@@ -280,5 +268,10 @@ class InvestView: UIView {
 	public func setupGradients() {
 		addLoadingGradient()
 		addAssetsGradient()
+	}
+
+	public func reloadInvestments(_ assets: [InvestAssetViewModel]?) {
+		investmentAssets.assets = assets
+		investmentAssets.reloadData()
 	}
 }

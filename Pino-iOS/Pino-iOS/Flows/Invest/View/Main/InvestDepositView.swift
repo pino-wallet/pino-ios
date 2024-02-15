@@ -308,8 +308,8 @@ class InvestDepositView: UIView {
 	@objc
 	private func putMaxAmountInTextField() {
 		investVM.calculateDollarAmount(investVM.maxAvailableAmount)
-		amountTextfield.text = investVM.maxAvailableAmount.sevenDigitFormat
-		updateAmount(enteredAmount: amountTextfield.text!.trimmCurrency)
+		amountTextfield.text = investVM.maxAvailableAmount.formattedDecimalString
+		updateAmount(enteredAmount: investVM.maxAvailableAmount.formattedDecimalString)
 	}
 
 	@objc

@@ -92,7 +92,7 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 			return .isZero
 		} else if let amountBigNum = BigNumber(numberWithDecimal: amount), amountBigNum.isZero {
 			return .isZero
-		} else if let amountBigNum = BigNumber(numberWithDecimal: tokenAmount), amountBigNum <= maxAvailableAmount {
+		} else if let amountBigNum = BigNumber(numberWithDecimal: amount), amountBigNum <= maxAvailableAmount {
 			return .isEnough
 		} else {
 			return .isNotEnough

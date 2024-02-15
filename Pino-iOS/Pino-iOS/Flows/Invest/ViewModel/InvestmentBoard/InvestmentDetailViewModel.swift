@@ -26,6 +26,7 @@ class InvestmentDetailViewModel {
 	public let withdrawButtonTitle = "Withdraw"
 	@Published
 	public var apy: String?
+	public var apyVolatilityType: AssetVolatilityType = .none
 
 	public var pageTitle: String {
 		"\(assetName) investment details"
@@ -63,13 +64,13 @@ class InvestmentDetailViewModel {
 		selectedAsset.earnedFee.priceFormat
 	}
 
+	public var feeVolatilityType: AssetVolatilityType {
+		.init(change24h: selectedAsset.earnedFee)
+	}
+
 	public var totalInvestmentAmount: String {
 		let totalAmount = selectedAsset.investmentCapital + selectedAsset.earnedFee
 		return totalAmount.priceFormat
-	}
-
-	public var investVolatilityType: AssetVolatilityType {
-		selectedAsset.volatilityType
 	}
 
 	// MARK: Initializers
@@ -80,6 +81,7 @@ class InvestmentDetailViewModel {
 	}
 
 	public func getAPY() {
+		#warning("it should replace with new api")
 		investmentAPIClient.investmentListingInfo(listingId: selectedAsset.listId).sink { completed in
 			switch completed {
 			case .finished:
@@ -88,7 +90,10 @@ class InvestmentDetailViewModel {
 				print("Error getting investment info:\(error)")
 			}
 		} receiveValue: { investmentInfo in
-			let apyBigNumber = BigNumber(number: investmentInfo.first!.apy.description, decimal: 2)
+			guard let selectedInvestmentInfo = investmentInfo.first(where: { $0.id == self.selectedAsset.listId })
+			else { return }
+			let apyBigNumber = BigNumber(number: selectedInvestmentInfo.apy.description, decimal: 2)
+			self.apyVolatilityType = .init(change24h: apyBigNumber)
 			self.apy = "%\(apyBigNumber.percentFormat)"
 		}.store(in: &cancellables)
 	}
