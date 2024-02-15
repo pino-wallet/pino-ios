@@ -57,11 +57,19 @@ class InvestmentDetailViewModel {
 	}
 
 	public var investmentAmount: String {
-		selectedAsset.investmentCapital.priceFormat
+		if selectedAsset.investmentCapital < 0.bigNumber {
+			return "-\(selectedAsset.investmentCapital.priceFormat)"
+		} else {
+			return selectedAsset.investmentCapital.priceFormat
+		}
 	}
 
 	public var earnedFee: String {
-		selectedAsset.earnedFee.priceFormat
+		if selectedAsset.investmentCapital < 0.bigNumber {
+			return "-\(selectedAsset.earnedFee.priceFormat)"
+		} else {
+			return selectedAsset.earnedFee.priceFormat
+		}
 	}
 
 	public var feeVolatilityType: AssetVolatilityType {
