@@ -424,7 +424,7 @@ class SwapFeeView: UIView {
 		collapsButton.image = closeFeeInfoIcon
 		providerTagView.alpha = 0
 		impactTagView.alpha = 1
-		if feeLoadingIndicator.isHidden {
+		if feeLoadingIndicator.isHidden, noQuoteErrorStackView.isHidden {
 			feeInfoStackView.isHiddenInStackView = false
 		}
 	}
