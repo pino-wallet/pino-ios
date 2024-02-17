@@ -164,7 +164,7 @@ class AaveDepositManager: Web3ManagerProtocol {
 					contractAddress: collateralCheckContract.address!.hex(eip55: true),
 					trxCallData: trxCallData,
 					nonce: collateralCheckNonce,
-					gasLimit: 500_000
+					gasLimit: 115_000
 				)
 			}.done { result in
 				self.collateralCheckTRX = result.0
