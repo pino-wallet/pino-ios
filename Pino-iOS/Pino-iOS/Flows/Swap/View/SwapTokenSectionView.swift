@@ -201,7 +201,7 @@ class SwapTokenSectionView: UIView {
 					isEth: true,
 					provider: .paraswap
 				)
-				let maxAmount = swapVM.selectedToken.holdAmount - gasLimitsManager.gasInfo.fee!
+				let maxAmount = swapVM.selectedToken.holdAmount - gasLimitsManager.medianGasInfo.fee!
 				if maxAmount.number > 0 {
 					return maxAmount
 				} else {

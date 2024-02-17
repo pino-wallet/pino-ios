@@ -76,8 +76,7 @@ public struct W3TransferManager: Web3HelperProtocol {
 
 			gasInfoManager.calculateGasOf(
 				method: .transfer,
-				solInvoc: solInvocation!,
-				contractAddress: contract.address!
+				solInvoc: solInvocation!
 			)
 			.then { [self] gasInfo in
 				readWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
@@ -100,25 +99,23 @@ public struct W3TransferManager: Web3HelperProtocol {
 
 	public func getTrxOfsendEtherTo(recipient address: String, amount: BigUInt) -> TrxWithGasInfo {
 		let enteredAmount = EthereumQuantity(quantity: amount)
+
 		return TrxWithGasInfo { seal in
 			firstly {
+				gasInfoManager.calculateEthGasFee(enteredAmount: amount.etherumQuantity, to: address.eip55Address!)
+			}.then { [self] gasInfo in
 				readWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
-			}.done { nonce in
-				let gasInfo = GasInfo(gasLimit: 21000)
-				let tx = EthereumTransaction(
+					.map { ($0, gasInfo) }
+			}.done { [self] nonce, gasInfo in
+				let tx = trxManager.createEthSendTrx(
+					gasInfo: gasInfo,
 					nonce: nonce,
-					gasPrice: nil,
-					maxFeePerGas: gasInfo.maxFeePerGas.etherumQuantity,
-					maxPriorityFeePerGas: gasInfo.priorityFeePerGas.etherumQuantity,
-					gasLimit: gasInfo.increasedGasLimit?.etherumQuantity,
-					from: userPrivateKey.address,
-					to: address.eip55Address!,
-					value: enteredAmount,
-					accessList: [:],
-					transactionType: .eip1559
+					enteredAmount: amount.etherumQuantity,
+					recepient: address.eip55Address!
 				)
-				let signedTrx = try tx.sign(with: userPrivateKey, chainId: Web3Network.chainID)
-				seal.fulfill((signedTrx, gasInfo))
+
+				let signedTx = try tx.sign(with: userPrivateKey, chainId: Web3Network.chainID)
+				seal.fulfill((signedTx, gasInfo))
 			}.catch { error in
 				seal.reject(error)
 			}

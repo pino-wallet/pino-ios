@@ -75,8 +75,7 @@ public struct W3CompoundRepayManager: Web3HelperProtocol {
 		Promise<GasInfo> { seal in
 			gasInfoManager.calculateGasOf(
 				method: method,
-				solInvoc: contractDetails.solInvocation,
-				contractAddress: contractDetails.contract.address!
+				solInvoc: contractDetails.solInvocation
 			).done { gasInfo in
 				seal.fulfill(gasInfo)
 			}.catch { error in
@@ -93,8 +92,7 @@ public struct W3CompoundRepayManager: Web3HelperProtocol {
 		Promise<EthereumSignedTransaction> { seal in
 			gasInfoManager.calculateGasOf(
 				method: method,
-				solInvoc: contractDetails.solInvocation,
-				contractAddress: contractDetails.contract.address!
+				solInvoc: contractDetails.solInvocation
 			)
 			.then { [self] gasInfo in
 				readWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)

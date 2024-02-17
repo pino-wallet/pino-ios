@@ -41,8 +41,7 @@ public struct W3CompoundBorrowManager: Web3HelperProtocol {
 		Promise<GasInfo> { seal in
 			gasInfoManager.calculateGasOf(
 				method: .borrow,
-				solInvoc: contractDetails.solInvocation,
-				contractAddress: contractDetails.contract.address!
+				solInvoc: contractDetails.solInvocation
 			).done { gasInfo in
 				seal.fulfill(gasInfo)
 			}.catch { error in
@@ -58,8 +57,7 @@ public struct W3CompoundBorrowManager: Web3HelperProtocol {
 
 			gasInfoManager.calculateGasOf(
 				method: .borrow,
-				solInvoc: contractDetails.solInvocation,
-				contractAddress: contractDetails.contract.address!
+				solInvoc: contractDetails.solInvocation
 			)
 			.then { [self] gasInfo in
 				readWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)

@@ -24,8 +24,7 @@ public struct W3GasInfoManager: Web3HelperProtocol {
 
 	public func calculateGasOf(
 		method: ABIMethodWrite,
-		solInvoc: SolidityInvocation,
-		contractAddress: EthereumAddress
+		solInvoc: SolidityInvocation
 	) -> Promise<GasInfo> {
 		Promise<GasInfo>() { seal in
 
@@ -86,6 +85,32 @@ public struct W3GasInfoManager: Web3HelperProtocol {
 		return gasInfo
 	}
 
+	public func calculateEthGasFee(enteredAmount: EthereumQuantity, to address: EthereumAddress) -> Promise<GasInfo> {
+		let gasInfo = GasInfo()
+
+		return Promise<GasInfo> { seal in
+			firstly {
+				readWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
+			}.then { nonce in
+				trxManager.createEthSendTrx(nonce: nonce, enteredAmount: enteredAmount, recepient: address).promise
+					.map { ($0, nonce) }
+			}.then { trx, nonce in
+				readWeb3.eth
+					.estimateGas(call: .init(
+						from: userPrivateKey.address,
+						to: address,
+						gasPrice: gasInfo.maxFeePerGas.etherumQuantity,
+						value: enteredAmount
+					)).map { $0 }
+			}.done { gasLimit in
+				let gasInfo = GasInfo(gasLimit: gasLimit)
+				seal.fulfill(gasInfo)
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
 	public func calculateSendERCGasFee(
 		recipient: String,
 		amount: BigUInt,
@@ -97,8 +122,7 @@ public struct W3GasInfoManager: Web3HelperProtocol {
 				let solInvocation = contract[ABIMethodWrite.transfer.rawValue]!(recipient.eip55Address!, amount)
 				return gasInfoManager.calculateGasOf(
 					method: .transfer,
-					solInvoc: solInvocation,
-					contractAddress: contract.address!
+					solInvoc: solInvocation
 				)
 			}.done { trxGasInfo in
 				seal.fulfill(trxGasInfo)
