@@ -61,10 +61,6 @@ public struct GasInfo {
 		self.gasLimit = BigNumber(number: gasLimit, decimal: 0)
 	}
 
-	public init(gasLimit: BigNumber) {
-		self.gasLimit = BigNumber(number: gasLimit, decimal: 0)
-	}
-
 	// This init for gas estimation phase
 	public init() {
 		self.gasLimit = nil
