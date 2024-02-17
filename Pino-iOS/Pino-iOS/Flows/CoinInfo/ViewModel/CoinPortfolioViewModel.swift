@@ -84,7 +84,7 @@ struct CoinPortfolioViewModel {
 
 	public var website: String {
 		let websiteURL = URL(string: coinPortfolioModel.detail!.website)
-		return (websiteURL!.host ?? coinPortfolioModel.detail?.website) ?? "-"
+        return (websiteURL!.host ?? coinPortfolioModel.detail?.website)?.replacingOccurrences(of: "www.", with: "") ?? "-"
 	}
 
 	public var userAmountInDollar: String {

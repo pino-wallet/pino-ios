@@ -91,6 +91,8 @@ class ActivityDetailsView: UIScrollView {
 	}
 
 	private func setupStyles() {
+//        delaysContentTouches = false
+        
 		backgroundColor = .Pino.background
 
 		viewEthScanButton.title = activityDetailsVM.viewEthScanTitle
