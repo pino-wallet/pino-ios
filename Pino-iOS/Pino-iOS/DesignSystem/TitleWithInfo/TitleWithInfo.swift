@@ -25,9 +25,9 @@ class TitleWithInfo: UIButton {
 	override var isHighlighted: Bool {
 		didSet {
 			if isHighlighted && showInfoActionSheet {
-                alpha = 0.7
+				alpha = 0.7
 			} else {
-                alpha = 1
+				alpha = 1
 			}
 		}
 	}
