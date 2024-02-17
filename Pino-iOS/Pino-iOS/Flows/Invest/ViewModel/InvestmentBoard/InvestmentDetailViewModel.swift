@@ -65,7 +65,7 @@ class InvestmentDetailViewModel {
 	}
 
 	public var earnedFee: String {
-		if selectedAsset.investmentCapital < 0.bigNumber {
+		if selectedAsset.earnedFee < 0.bigNumber {
 			return "-\(selectedAsset.earnedFee.priceFormat)"
 		} else {
 			return selectedAsset.earnedFee.priceFormat
