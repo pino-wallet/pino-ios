@@ -89,7 +89,7 @@ class SendConfirmationViewModel {
 	public var formattedFeeInDollar: String?
 
 	@Published
-	public var updatingFeeLoading = false
+	public var feeCalculationState = FeeState.loading
 
 	public let selectedWalletTitle = "From"
 	public let recipientAddressTitle = "To"
@@ -133,7 +133,8 @@ class SendConfirmationViewModel {
 		}
 	}
 
-	public func getFee(completion: ((Error) -> Void)? = nil) {
+	public func getFee() {
+		feeCalculationState = .loading
 		getSendTrxInfo().done { [self] trxWithGas in
 			pendingSwapTrx = trxWithGas.0
 			let gasInfo = trxWithGas.1
@@ -142,8 +143,9 @@ class SendConfirmationViewModel {
 			formattedFeeInETH = gasInfo.fee!.sevenDigitFormat.ethFormatting
 			gasPrice = gasInfo.baseFeeWithPriorityFee.bigIntFormat
 			gasLimit = gasInfo.gasLimit!.bigIntFormat
+			feeCalculationState = .hasValue
 		}.catch { error in
-			completion?(error)
+			self.feeCalculationState = .error
 		}
 	}
 
@@ -206,11 +208,10 @@ class SendConfirmationViewModel {
 		GlobalVariables.shared.$ethGasFee
 			.compactMap { $0 }
 			.sink { gasInfoDetils in
-				if !gasInfoDetils.isLoading {
-					self.updatingFeeLoading = false
-					self.getFee()
+				if gasInfoDetils.isLoading {
+					self.feeCalculationState = .loading
 				} else {
-					self.updatingFeeLoading = true
+					self.getFee()
 				}
 			}.store(in: &cancellables)
 	}
@@ -228,5 +229,11 @@ class SendConfirmationViewModel {
 		} else {
 			userRecipientAccountInfoVM = nil
 		}
+	}
+
+	public enum FeeState {
+		case hasValue
+		case loading
+		case error
 	}
 }
