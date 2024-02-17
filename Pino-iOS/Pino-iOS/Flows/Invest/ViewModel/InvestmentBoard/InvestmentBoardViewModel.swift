@@ -46,14 +46,14 @@ class InvestmentBoardViewModel: InvestFilterDelegate {
 			}
 		} receiveValue: { investableAssetsModel in
 			let investableAssets = investableAssetsModel.compactMap { InvestableAssetViewModel(assetModel: $0) }
-			self.investableAssets = investableAssets.filter { asset in
+			self.investableAssets = investableAssets
+			self.filteredAssets = investableAssets.filter { asset in
 				if self.userInvestments.contains(where: { $0.listId.lowercased() == asset.id.lowercased() }) {
 					return false
 				} else {
 					return true
 				}
 			}
-			self.filteredAssets = self.investableAssets
 		}.store(in: &cancellables)
 	}
 
@@ -68,7 +68,13 @@ class InvestmentBoardViewModel: InvestFilterDelegate {
 		self.protocolFilter = protocolFilter
 		self.riskFilter = riskFilter
 
-		var filteringAssets = investableAssets
+		var filteringAssets = investableAssets.filter { asset in
+			if self.userInvestments.contains(where: { $0.listId.lowercased() == asset.id.lowercased() }) {
+				return false
+			} else {
+				return true
+			}
+		}
 		if let assetFilter {
 			filteringAssets = filteringAssets.filter { $0.assetName == assetFilter.symbol }
 		}
@@ -80,5 +86,14 @@ class InvestmentBoardViewModel: InvestFilterDelegate {
 		}
 
 		filteredAssets = filteringAssets
+	}
+
+	// MARK: - Public Methods
+
+	public func getApy(of selectedAsset: InvestAssetViewModel) -> BigNumber {
+		let selectedInvestmentInfo = investableAssets.first(
+			where: { $0.id.lowercased() == selectedAsset.listId.lowercased() }
+		)!
+		return selectedInvestmentInfo.APYAmount
 	}
 }
