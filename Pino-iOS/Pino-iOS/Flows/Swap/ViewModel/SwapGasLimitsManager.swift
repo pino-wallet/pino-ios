@@ -66,4 +66,41 @@ struct SwapGasLimitsManager {
 			}
 		}
 	}
+
+	public var medianGasInfo: GasInfo {
+		if isEth {
+			if swapAmount > 0.bigNumber && swapAmount < 10000.bigNumber {
+				return .init(gasLimit: calculateMedianOfProvidersGas(range: \.ethBelow100000))
+			} else if swapAmount >= 10000.bigNumber && swapAmount < 20000.bigNumber {
+				return .init(gasLimit: calculateMedianOfProvidersGas(range: \.ethBelow200000))
+			} else if swapAmount >= 20000.bigNumber && swapAmount < 200_000.bigNumber {
+				return .init(gasLimit: calculateMedianOfProvidersGas(range: \.ethBelow2000000))
+			} else {
+				return .init(gasLimit: calculateMedianOfProvidersGas(range: \.ethAbove2000000))
+			}
+		} else {
+			if swapAmount > 0.bigNumber && swapAmount < 10000.bigNumber {
+				return .init(gasLimit: calculateMedianOfProvidersGas(range: \.erc20Below10000))
+			} else if swapAmount >= 10000.bigNumber && swapAmount < 50000.bigNumber {
+				return .init(gasLimit: calculateMedianOfProvidersGas(range: \.erc20Below50000))
+			} else if swapAmount >= 50000.bigNumber && swapAmount < 100_000.bigNumber {
+				return .init(gasLimit: calculateMedianOfProvidersGas(range: \.erc20Below100000))
+			} else if swapAmount >= 100_000.bigNumber && swapAmount < 1_000_000.bigNumber {
+				return .init(gasLimit: calculateMedianOfProvidersGas(range: \.erc20Below1000000))
+			} else {
+				return .init(gasLimit: calculateMedianOfProvidersGas(range: \.erc20Above1000000))
+			}
+		}
+	}
+
+	private func calculateMedianOfProvidersGas(range: KeyPath<GasLimitsModel.Swaps, String>) -> String {
+		let paraswapProv = gasLimitsModel.paraswapSwaps
+		let oneInchProv = gasLimitsModel.oneInchSwaps
+		let zeroxProv = gasLimitsModel.zeroXSwaps
+		let median = (
+			paraswapProv[keyPath: range].doubleValue! + oneInchProv[keyPath: range]
+				.doubleValue! + zeroxProv[keyPath: range].doubleValue!
+		) / 3
+		return Int(median).description
+	}
 }

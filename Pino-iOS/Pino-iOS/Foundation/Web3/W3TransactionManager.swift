@@ -50,6 +50,26 @@ public struct W3TransactionManager: Web3HelperProtocol {
 		return transaction!
 	}
 
+	public func createEthSendTrx(
+		gasInfo: GasInfo = .init(),
+		nonce: EthereumQuantity,
+		enteredAmount: EthereumQuantity,
+		recepient: EthereumAddress
+	) -> EthereumTransaction {
+		EthereumTransaction(
+			nonce: nonce,
+			gasPrice: nil,
+			maxFeePerGas: gasInfo.maxFeePerGas.etherumQuantity,
+			maxPriorityFeePerGas: gasInfo.priorityFeePerGas.etherumQuantity,
+			gasLimit: gasInfo.increasedGasLimit?.etherumQuantity,
+			from: userPrivateKey.address,
+			to: recepient,
+			value: enteredAmount,
+			accessList: [:],
+			transactionType: .eip1559
+		)
+	}
+
 	public func createTransactionFor(
 		nonce: EthereumQuantity? = nil,
 		gasInfo: GasInfo,

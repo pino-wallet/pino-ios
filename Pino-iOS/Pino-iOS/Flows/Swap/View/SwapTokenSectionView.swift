@@ -90,7 +90,7 @@ class SwapTokenSectionView: UIView {
 
 	private func setupStyle() {
 		maxAmountTitle.text = swapVM.maxTitle
-		maxAmountLabel.text = getMaxAmount().sevenDigitFormat
+		maxAmountLabel.text = getMaxAmount(selectedToken: swapVM.selectedToken).sevenDigitFormat
 		selectAssetButton.title = "Select asset"
 		changeTokenView.tokenName = swapVM.selectedToken.symbol
 
@@ -178,7 +178,7 @@ class SwapTokenSectionView: UIView {
 			amountTextfield.text = swapVM.tokenAmount?.sevenDigitFormatForFewAmounts
 		}
 		estimatedAmountLabel.text = swapVM.dollarAmount?.priceFormat
-		maxAmountLabel.text = getMaxAmount().sevenDigitFormat
+		maxAmountLabel.text = getMaxAmount(selectedToken: swapVM.selectedToken).sevenDigitFormat
 		updateBalanceStatus()
 	}
 
@@ -189,36 +189,36 @@ class SwapTokenSectionView: UIView {
 		swapVM.amountUpdated(enteredAmount)
 	}
 
-	private func getMaxAmount() -> BigNumber {
-		if swapVM.selectedToken.isEth {
+	private func getMaxAmount(selectedToken: AssetViewModel) -> BigNumber {
+		if selectedToken.isEth {
 			let userDefManager = UserDefaultsManager(userDefaultKey: .gasLimits)
 			let gasLimits: GasLimitsModel? = userDefManager.getValue()
 			if let gasLimits {
-				let maxEthAmount = swapVM.selectedToken.holdAmountInDollor
+				let maxEthAmount = selectedToken.holdAmountInDollor
 				let gasLimitsManager = SwapGasLimitsManager(
 					swapAmount: maxEthAmount,
 					gasLimitsModel: gasLimits,
 					isEth: true,
 					provider: .paraswap
 				)
-				let maxAmount = swapVM.selectedToken.holdAmount - gasLimitsManager.gasInfo.fee!
+				let maxAmount = selectedToken.holdAmount - gasLimitsManager.medianGasInfo.fee!
 				if maxAmount.number > 0 {
 					return maxAmount
 				} else {
 					return 0.bigNumber
 				}
 			} else {
-				return swapVM.selectedToken.holdAmount
+				return selectedToken.holdAmount
 			}
 		} else {
-			return swapVM.selectedToken.holdAmount
+			return selectedToken.holdAmount
 		}
 	}
 
 	@objc
 	private func enterMaxAmount() {
 		openKeyboard()
-		updateEstimatedAmount(enteredAmount: getMaxAmount())
+		updateEstimatedAmount(enteredAmount: getMaxAmount(selectedToken: swapVM.selectedToken))
 		updateAmountView()
 		updateBalanceStatus()
 	}
@@ -251,7 +251,7 @@ class SwapTokenSectionView: UIView {
 	}
 
 	private func updateMaxAmount(token: AssetViewModel) {
-		maxAmountLabel.text = getMaxAmount().sevenDigitFormat
+		maxAmountLabel.text = getMaxAmount(selectedToken: token).sevenDigitFormat
 	}
 
 	// MARK: - Public Methods
