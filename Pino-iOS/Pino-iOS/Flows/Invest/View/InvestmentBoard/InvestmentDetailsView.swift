@@ -65,7 +65,6 @@ class InvestmentDeatilsView: UIView {
 		setupView()
 		setupStyle()
 		setupContstraint()
-		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -127,6 +126,7 @@ class InvestmentDeatilsView: UIView {
 		investmentAmountLabel.text = investmentDetailsVM.investmentAmount
 		feeLabel.text = investmentDetailsVM.earnedFee
 		totalAmountLabel.text = investmentDetailsVM.totalInvestmentAmount
+		apyLabel.text = investmentDetailsVM.apy
 
 		selectedProtocolTitleLabel.text = investmentDetailsVM.selectedProtocolTitle
 		apyTitleLabel.text = investmentDetailsVM.apyTitle
@@ -165,6 +165,15 @@ class InvestmentDeatilsView: UIView {
 		investmentAmountLabel.textColor = .Pino.label
 		totalAmountLabel.textColor = .Pino.label
 
+		switch investmentDetailsVM.apyVolatilityType {
+		case .profit:
+			apyLabel.textColor = .Pino.green
+		case .loss:
+			apyLabel.textColor = .Pino.red
+		case .none:
+			apyLabel.textColor = .Pino.label
+		}
+
 		switch investmentDetailsVM.feeVolatilityType {
 		case .profit:
 			feeLabel.textColor = .Pino.green
@@ -201,8 +210,6 @@ class InvestmentDeatilsView: UIView {
 
 		tokenImageView.layer.cornerRadius = 25
 		tokenImageView.layer.masksToBounds = true
-
-		apyLabel.isSkeletonable = true
 	}
 
 	private func setupContstraint() {
@@ -237,28 +244,5 @@ class InvestmentDeatilsView: UIView {
 		apyLabel.pin(
 			.fixedWidth(60)
 		)
-	}
-
-	private func setupBindings() {
-		investmentDetailsVM.$apy.sink { apy in
-			if let apy {
-				self.hideSkeletonView()
-				self.updateAPY(apy)
-			} else {
-				self.showSkeletonView()
-			}
-		}.store(in: &cancellables)
-	}
-
-	private func updateAPY(_ apy: String) {
-		apyLabel.text = apy
-		switch investmentDetailsVM.apyVolatilityType {
-		case .profit:
-			apyLabel.textColor = .Pino.green
-		case .loss:
-			apyLabel.textColor = .Pino.red
-		case .none:
-			apyLabel.textColor = .Pino.label
-		}
 	}
 }

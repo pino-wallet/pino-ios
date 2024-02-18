@@ -16,9 +16,13 @@ class InvestmentDetailViewController: UIViewController {
 
 	// MARK: - Initializers
 
-	init(selectedAsset: InvestAssetViewModel, onDepositConfirm: @escaping (SendTransactionStatus) -> Void) {
+	init(
+		selectedAsset: InvestAssetViewModel,
+		apy: BigNumber,
+		onDepositConfirm: @escaping (SendTransactionStatus) -> Void
+	) {
 		self.selectedAsset = selectedAsset
-		self.investmentDetailsVM = InvestmentDetailViewModel(selectedAsset: selectedAsset)
+		self.investmentDetailsVM = InvestmentDetailViewModel(selectedAsset: selectedAsset, apy: apy)
 		self.onDepositConfirm = onDepositConfirm
 		super.init(nibName: nil, bundle: nil)
 	}

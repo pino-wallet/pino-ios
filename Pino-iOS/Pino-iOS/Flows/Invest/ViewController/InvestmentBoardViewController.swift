@@ -100,8 +100,10 @@ class InvestmentBoardViewController: UIViewController {
 	}
 
 	private func openInvestmentDetailPage(_ userInvestment: InvestAssetViewModel) {
+		let investmentAPY = investmentBoardVM.getApy(of: userInvestment)
 		let investmentDetailVC = InvestmentDetailViewController(
 			selectedAsset: userInvestment,
+			apy: investmentAPY,
 			onDepositConfirm: onDepositConfirm
 		)
 		navigationController?.pushViewController(investmentDetailVC, animated: true)
