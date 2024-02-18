@@ -63,7 +63,7 @@ enum ResultActivityModel: Decodable, Encodable {
 			let approveActivity = try ActivityApproveModel(from: decoder)
 			self = .approve(approveActivity)
 		default:
-            let baseActivity = try ActivityBaseModel(from: decoder)
+			let baseActivity = try ActivityBaseModel(from: decoder)
 			self = .unknown(baseActivity)
 		}
 	}

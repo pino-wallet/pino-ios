@@ -56,12 +56,13 @@ class SendTransactionViewModel {
 						print(error)
 					}
 				} receiveValue: { activity in
-                    guard let resultActivityIsFailed = ActivityHelper().iterateBaseActivityModel(activity: activity).failed, !resultActivityIsFailed else {
-                        seal.fulfill(.failed)
-                        self.destroyRequestTimer()
-                        return
-                    }
-                    seal.fulfill(.success)
+					guard let resultActivityIsFailed = ActivityHelper().iterateBaseActivityModel(activity: activity)
+						.failed, !resultActivityIsFailed else {
+						seal.fulfill(.failed)
+						self.destroyRequestTimer()
+						return
+					}
+					seal.fulfill(.success)
 					self.destroyRequestTimer()
 				}.store(in: &cancellables)
 			}
