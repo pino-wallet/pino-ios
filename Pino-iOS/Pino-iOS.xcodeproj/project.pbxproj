@@ -365,6 +365,7 @@
 		D95D7E002B429DA30001AFF6 /* SyncWalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95D7DFF2B429DA30001AFF6 /* SyncWalletViewModel.swift */; };
 		D95D96F82AB87CD80082FCA5 /* borrowable-token-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = D95D96F72AB87CD80082FCA5 /* borrowable-token-stub.json */; };
 		D95D96F92AB87CD80082FCA5 /* borrowable-token-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = D95D96F72AB87CD80082FCA5 /* borrowable-token-stub.json */; };
+		D9629D242B81E8F600D3DA9F /* ActivityBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9629D232B81E8F600D3DA9F /* ActivityBaseModel.swift */; };
 		D964AC6B0907B2432359A129 /* GroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D7CE3AA42604B8F78EA87C /* GroupCollectionViewCell.swift */; };
 		D966D5912A9F3912007E63A1 /* PinoRightSideImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D966D5902A9F3912007E63A1 /* PinoRightSideImageButton.swift */; };
 		D966D5932A9F3950007E63A1 /* PinoRightSideImageButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D966D5922A9F3950007E63A1 /* PinoRightSideImageButtonStyle.swift */; };
@@ -1259,6 +1260,7 @@
 		D95D7DFD2B429D6E0001AFF6 /* SyncWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncWalletViewController.swift; sourceTree = "<group>"; };
 		D95D7DFF2B429DA30001AFF6 /* SyncWalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncWalletViewModel.swift; sourceTree = "<group>"; };
 		D95D96F72AB87CD80082FCA5 /* borrowable-token-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "borrowable-token-stub.json"; sourceTree = "<group>"; };
+		D9629D232B81E8F600D3DA9F /* ActivityBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityBaseModel.swift; sourceTree = "<group>"; };
 		D966D5902A9F3912007E63A1 /* PinoRightSideImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoRightSideImageButton.swift; sourceTree = "<group>"; };
 		D966D5922A9F3950007E63A1 /* PinoRightSideImageButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoRightSideImageButtonStyle.swift; sourceTree = "<group>"; };
 		D96833F62B52BA2900521772 /* GlobalZeroAmounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalZeroAmounts.swift; sourceTree = "<group>"; };
@@ -3479,6 +3481,7 @@
 				D9A642C92AFA235E00FDE11D /* ActivityInvestModel.swift */,
 				D9A642CB2AFA254200FDE11D /* ActivityWithdrawModel.swift */,
 				D95CD8612B00C9F0003C1CF0 /* ActivityApproveModel.swift */,
+				D9629D232B81E8F600D3DA9F /* ActivityBaseModel.swift */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -5440,6 +5443,7 @@
 				A6BFD6F684AF4BA205C23CE7 /* Pino_iOS.xcdatamodeld in Sources */,
 				E3C0BCC92B0A0C5400DAA409 /* WithdrawViewModel.swift in Sources */,
 				E333E63A2AA708D3005C977E /* InvestEmptyPageView.swift in Sources */,
+				D9629D242B81E8F600D3DA9F /* ActivityBaseModel.swift in Sources */,
 				0BB077D3A362E14524196936 /* PortfolioPerformanceCollectionView.swift in Sources */,
 				A1664AE26C5D333D2213330F /* PortfolioPerformanceHeaderView.swift in Sources */,
 				D9BD90472A95DE2000B28B74 /* BorrowingTokenCellViewModel.swift in Sources */,
