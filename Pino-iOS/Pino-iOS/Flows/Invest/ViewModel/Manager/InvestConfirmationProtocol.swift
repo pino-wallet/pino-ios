@@ -84,7 +84,8 @@ extension InvestConfirmationProtocol {
 	}
 
 	var formattedTransactionAmount: String {
-		transactionAmount.tokenFormatting(token: selectedToken.symbol)
+		let transactionBigNumber = BigNumber(numberWithDecimal: transactionAmount)
+		return transactionBigNumber!.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
 
 	var formattedTransactionAmountInDollar: String {

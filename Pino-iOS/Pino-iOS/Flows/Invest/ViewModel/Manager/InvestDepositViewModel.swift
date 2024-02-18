@@ -79,7 +79,7 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 	public func calculateDollarAmount(_ amount: BigNumber) {
 		let amountInDollarDecimalValue = amount * selectedToken.price
 		dollarAmount = amountInDollarDecimalValue.priceFormat
-		tokenAmount = amount.sevenDigitFormat
+		tokenAmount = amount.decimalString
 		getYearlyEstimatedReturn(amountInDollar: amountInDollarDecimalValue)
 	}
 
