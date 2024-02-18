@@ -232,7 +232,7 @@ class SendConfirmationViewModel {
 	}
 }
 
-extension {
+extension SendConfirmationViewModel {
 	public enum FeeState {
 		case hasValue
 		case loading
