@@ -20,6 +20,7 @@ class CoinPerformanceInfoItem: UIView {
 	private let contentStackView = UIStackView()
 	private let itemTitleLabel = UILabel()
 	private let itemValueLabel = UILabel()
+	private let spacerView = UIView()
 
 	// MARK: - Public Properties
 
@@ -42,6 +43,7 @@ class CoinPerformanceInfoItem: UIView {
 		setupView()
 		setupStyle()
 		setupContstraint()
+		setupSkeletonLoading()
 	}
 
 	required init?(coder: NSCoder) {
@@ -52,6 +54,7 @@ class CoinPerformanceInfoItem: UIView {
 
 	private func setupView() {
 		contentStackView.addArrangedSubview(itemTitleLabel)
+		contentStackView.addArrangedSubview(spacerView)
 		contentStackView.addArrangedSubview(itemValueLabel)
 		addSubview(contentStackView)
 	}
@@ -71,6 +74,8 @@ class CoinPerformanceInfoItem: UIView {
 	}
 
 	private func setupContstraint() {
+		itemValueLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
+
 		contentStackView.pin(
 			.horizontalEdges(padding: 14),
 			.verticalEdges(padding: 11)
@@ -83,5 +88,9 @@ class CoinPerformanceInfoItem: UIView {
 
 	private func updateKey(_ key: String) {
 		itemTitleLabel.text = key
+	}
+
+	private func setupSkeletonLoading() {
+		itemValueLabel.isSkeletonable = true
 	}
 }

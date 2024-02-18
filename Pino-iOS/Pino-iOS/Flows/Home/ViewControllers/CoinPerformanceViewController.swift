@@ -34,6 +34,10 @@ class CoinPerformanceViewController: UIViewController {
 		setupNavigationBar()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		view.showSkeletonView()
+	}
+
 	// MARK: - Private Methods
 
 	private func setupView() {

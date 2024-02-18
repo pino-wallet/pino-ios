@@ -70,6 +70,7 @@ class CoinPerformanceInfoView: UIView {
 		coinPerformanceVM.$coinPerformanceInfo.sink { coinInfo in
 			guard let coinInfo else { return }
 			self.updateItems(coinInfo)
+			self.hideSkeletonView()
 		}.store(in: &cancellables)
 	}
 }
