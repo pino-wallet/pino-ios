@@ -230,7 +230,9 @@ class SendConfirmationViewModel {
 			userRecipientAccountInfoVM = nil
 		}
 	}
+}
 
+extension {
 	public enum FeeState {
 		case hasValue
 		case loading
