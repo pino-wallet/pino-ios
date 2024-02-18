@@ -25,11 +25,9 @@ class TitleWithInfo: UIButton {
 	override var isHighlighted: Bool {
 		didSet {
 			if isHighlighted && showInfoActionSheet {
-				customConfiguration.attributedTitle?.foregroundColor = .Pino.gray3
-				configuration = customConfiguration
+				alpha = 0.7
 			} else {
-				customConfiguration.attributedTitle?.foregroundColor = .Pino.secondaryLabel
-				configuration = customConfiguration
+				alpha = 1
 			}
 		}
 	}

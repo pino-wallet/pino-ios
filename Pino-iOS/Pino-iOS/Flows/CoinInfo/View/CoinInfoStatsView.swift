@@ -205,10 +205,12 @@ class CoinInfoStatsView: UIStackView {
 
 	@objc
 	private func copyWebsite() {
-		let pasteBoard = UIPasteboard.general
-		pasteBoard.string = coinInfoVM.coinPortfolio.website
+		if coinInfoVM.selectedAsset.isVerified {
+			let pasteBoard = UIPasteboard.general
+			pasteBoard.string = coinInfoVM.coinPortfolio.website
 
-		Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)
+			Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)
+		}
 	}
 
 	@objc
