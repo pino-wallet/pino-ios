@@ -67,15 +67,19 @@ class WithdrawViewModel: InvestViewModelProtocol {
 	public func calculateDollarAmount(_ amount: BigNumber) {
 		let amountInDollarDecimalValue = amount * selectedToken.price
 		dollarAmount = amountInDollarDecimalValue.priceFormat
-		tokenAmount = amount.sevenDigitFormat
+		tokenAmount = amount.decimalString
 	}
 
 	public func checkBalanceStatus(amount: String) -> AmountStatus {
-		if amount == .emptyString {
+		guard let amountBigNumber = BigNumber(numberWithDecimal: amount) else {
 			return .isZero
-		} else if let amountBigNum = BigNumber(numberWithDecimal: amount), amountBigNum.isZero {
+		}
+		if amountBigNumber.isZero ||
+			amountBigNumber <= .minAcceptableAmount ||
+			amountBigNumber.decimal > selectedToken.decimal {
 			return .isZero
-		} else if let amountBigNum = BigNumber(numberWithDecimal: tokenAmount), amountBigNum <= maxAvailableAmount {
+		}
+		if amountBigNumber <= maxAvailableAmount {
 			return .isEnough
 		} else {
 			return .isNotEnough

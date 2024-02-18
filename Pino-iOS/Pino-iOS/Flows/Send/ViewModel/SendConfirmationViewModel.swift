@@ -63,7 +63,8 @@ class SendConfirmationViewModel {
 	}
 
 	public var formattedSendAmount: String {
-		sendAmount.tokenFormatting(token: selectedToken.symbol)
+		let sendAmountBigNumber = BigNumber(numberWithDecimal: sendAmount)
+		return sendAmountBigNumber!.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
 
 	public var selectedWalletImage: String {

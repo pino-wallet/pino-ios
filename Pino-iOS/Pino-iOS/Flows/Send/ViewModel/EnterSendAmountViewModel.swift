@@ -71,25 +71,29 @@ class EnterSendAmountViewModel {
 	}
 
 	public func checkIfBalanceIsEnough(amount: String, amountStatus: (AmountStatus) -> Void) {
-		if amount == .emptyString {
+		guard let amountBigNumber = BigNumber(numberWithDecimal: amount) else {
 			amountStatus(.isZero)
-		} else if let amountBigNumber = BigNumber(numberWithDecimal: amount), amountBigNumber.isZero {
+			return
+		}
+		if amountBigNumber.isZero ||
+			amountBigNumber <= .minAcceptableAmount ||
+			amountBigNumber.decimal > selectedToken.decimal {
 			amountStatus(.isZero)
+			return
+		}
+		var decimalMaxAmount: BigNumber
+		var enteredAmmount: BigNumber
+		if isDollarEnabled {
+			decimalMaxAmount = maxAmountInDollar
+			enteredAmmount = dollarAmount!
 		} else {
-			var decimalMaxAmount: BigNumber
-			var enteredAmmount: BigNumber
-			if isDollarEnabled {
-				decimalMaxAmount = maxAmountInDollar
-				enteredAmmount = dollarAmount!
-			} else {
-				decimalMaxAmount = maxHoldAmount
-				enteredAmmount = tokenAmount!
-			}
-			if enteredAmmount > decimalMaxAmount {
-				amountStatus(.isNotEnough)
-			} else {
-				amountStatus(.isEnough)
-			}
+			decimalMaxAmount = maxHoldAmount
+			enteredAmmount = tokenAmount!
+		}
+		if enteredAmmount > decimalMaxAmount {
+			amountStatus(.isNotEnough)
+		} else {
+			amountStatus(.isEnough)
 		}
 	}
 
