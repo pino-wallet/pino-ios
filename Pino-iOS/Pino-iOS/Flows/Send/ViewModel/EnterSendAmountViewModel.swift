@@ -75,8 +75,9 @@ class EnterSendAmountViewModel {
 			amountStatus(.isZero)
 			return
 		}
-		if amountBigNumber.isZero || amountBigNumber <= .minAcceptableAmount || amountBigNumber.decimal > selectedToken
-			.decimal {
+		if amountBigNumber.isZero ||
+			amountBigNumber <= .minAcceptableAmount ||
+			amountBigNumber.decimal > selectedToken.decimal {
 			amountStatus(.isZero)
 			return
 		}
