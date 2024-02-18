@@ -75,7 +75,7 @@ class EnterSendAddressViewController: UIViewController {
 			selectedToken: enterSendAddressVM.sendAmountVM.selectedToken,
 			selectedWallet: enterSendAddressVM.selectedWallet,
 			recipientAddress: address,
-			sendAmount: enterSendAddressVM.sendAmountVM.tokenAmount!.sevenDigitFormat,
+			sendAmount: enterSendAddressVM.sendAmountVM.tokenAmount!.decimalString,
 			sendAmountInDollar: enterSendAddressVM.sendAmountVM.dollarAmount!.priceFormat,
 			ensName: enterSendAddressVM.ensName
 		)
