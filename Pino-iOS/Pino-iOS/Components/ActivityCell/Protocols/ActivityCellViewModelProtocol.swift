@@ -21,7 +21,7 @@ protocol ActivityCellViewModelProtocol {
 public enum ActivityCellStatus: String {
 	case failed = "Failed"
 	case success = "Success"
-	case pending = "Pending"
+	case pending = "Pending..."
 }
 
 public enum ActivityUIType {

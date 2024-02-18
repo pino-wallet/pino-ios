@@ -20,11 +20,11 @@ class ActivityCell: UICollectionViewCell {
 	private let historyMoreInfoLoadingContainer = UIView()
 	private let statusStackView = UIStackView()
 	private let pendingStatusLabelContainer = UIView()
+    private let pendingStatusLabel = UILabel()
 	private let failedStatusLabelContainer = UIView()
 	private let failedStatusLabel = UILabel()
 	private var titleLabelHeightConstraint: NSLayoutConstraint!
 	private var infoLabelHeightConstraint: NSLayoutConstraint!
-	private var pendingEllipsisStatus: EllipsisAnimatedText!
 
 	// MARK: - public properties
 
@@ -44,11 +44,9 @@ class ActivityCell: UICollectionViewCell {
 	// MARK: - private UI method
 
 	private func setupView() {
-		pendingEllipsisStatus = EllipsisAnimatedText(defaultText: ActivityCellStatus.pending.rawValue)
-
 		contentView.addSubview(historyCardView)
 		failedStatusLabelContainer.addSubview(failedStatusLabel)
-		pendingStatusLabelContainer.addSubview(pendingEllipsisStatus)
+		pendingStatusLabelContainer.addSubview(pendingStatusLabel)
 		historyCardView.addSubview(contentStackView)
 		contentStackView.addArrangedSubview(historyIcon)
 		historyTitleContainer.addSubview(historyTitleStackView)
@@ -81,8 +79,8 @@ class ActivityCell: UICollectionViewCell {
 		historyTitleLabel.font = .PinoStyle.mediumCallout
 		historyMoreInfoLabel.font = .PinoStyle.mediumFootnote
 		failedStatusLabel.font = .PinoStyle.SemiboldCaption2
-		pendingEllipsisStatus.label.font = .PinoStyle.SemiboldCaption2
-		pendingEllipsisStatus.label.textColor = .Pino.pendingOrange
+		pendingStatusLabel.font = .PinoStyle.SemiboldCaption2
+		pendingStatusLabel.textColor = .Pino.pendingOrange
 
 		contentStackView.axis = .horizontal
 		historyTitleStackView.axis = .vertical
@@ -113,25 +111,23 @@ class ActivityCell: UICollectionViewCell {
 		failedStatusLabel.textColor = .Pino.red
 
 		pendingStatusLabelContainer.backgroundColor = .Pino.lightOrange
+        
+        pendingStatusLabel.text = ActivityCellStatus.pending.rawValue
 
 		failedStatusLabel.text = ActivityCellStatus.failed.rawValue
 		switch activityCellVM?.status {
 		case .failed:
 			failedStatusLabelContainer.isHidden = false
 			pendingStatusLabelContainer.isHidden = true
-			pendingEllipsisStatus.shouldAnimate = false
 		case .pending:
 			failedStatusLabelContainer.isHidden = true
 			pendingStatusLabelContainer.isHidden = false
-			pendingEllipsisStatus.shouldAnimate = true
 		case .success:
 			failedStatusLabelContainer.isHidden = true
 			pendingStatusLabelContainer.isHidden = true
-			pendingEllipsisStatus.shouldAnimate = false
 		default:
 			failedStatusLabelContainer.isHidden = true
 			pendingStatusLabelContainer.isHidden = true
-			pendingEllipsisStatus.shouldAnimate = false
 		}
 	}
 
@@ -180,10 +176,9 @@ class ActivityCell: UICollectionViewCell {
 			.horizontalEdges(padding: 6),
 			.centerY
 		)
-		pendingEllipsisStatus.pin(
+		pendingStatusLabel.pin(
 			.fixedHeight(13),
 			.horizontalEdges(padding: 6),
-			.fixedWidth(53),
 			.centerY
 		)
 	}
