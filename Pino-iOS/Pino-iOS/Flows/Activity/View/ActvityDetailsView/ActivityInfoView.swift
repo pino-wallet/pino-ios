@@ -270,12 +270,11 @@ class ActivityInfoView: UIView {
 			statusInfoLabel.textColor = .Pino.red
 			statusLabelContainer.backgroundColor = .Pino.lightRed
 		case .pending:
-            statusInfoLabel.textColor = .Pino.pendingOrange
+			statusInfoLabel.textColor = .Pino.pendingOrange
 			statusLabelContainer.backgroundColor = .Pino.lightOrange
 		}
 		statusInfoLabel.text = activityProperties.status.description
 		statusInfoLabel.textAlignment = .center
-
 
 		if activityDetailsVM.properties.userFromAccountInfo != nil {
 			fromInfoCustomView.image = activityDetailsVM.properties.userFromAccountInfo?.image

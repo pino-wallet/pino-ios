@@ -20,7 +20,7 @@ class ActivityCell: UICollectionViewCell {
 	private let historyMoreInfoLoadingContainer = UIView()
 	private let statusStackView = UIStackView()
 	private let pendingStatusLabelContainer = UIView()
-    private let pendingStatusLabel = UILabel()
+	private let pendingStatusLabel = UILabel()
 	private let failedStatusLabelContainer = UIView()
 	private let failedStatusLabel = UILabel()
 	private var titleLabelHeightConstraint: NSLayoutConstraint!
@@ -111,8 +111,8 @@ class ActivityCell: UICollectionViewCell {
 		failedStatusLabel.textColor = .Pino.red
 
 		pendingStatusLabelContainer.backgroundColor = .Pino.lightOrange
-        
-        pendingStatusLabel.text = ActivityCellStatus.pending.rawValue
+
+		pendingStatusLabel.text = ActivityCellStatus.pending.rawValue
 
 		failedStatusLabel.text = ActivityCellStatus.failed.rawValue
 		switch activityCellVM?.status {
