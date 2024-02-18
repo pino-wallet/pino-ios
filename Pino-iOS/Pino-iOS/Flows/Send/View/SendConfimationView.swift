@@ -293,8 +293,8 @@ class SendConfirmationView: UIView {
 			.allEdges
 		)
 
-		feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
-		feeContainerViewWidthConstraint = feeResultView.widthAnchor.constraint(equalToConstant: 48)
+		feeContainerViewWidthConstraint = feeLabel.widthAnchor.constraint(equalToConstant: 48)
+		feeContainerViewWidthConstraint.isActive = true
 	}
 
 	private func setupBindings() {
@@ -305,15 +305,24 @@ class SendConfirmationView: UIView {
 				}
 				return (formattedFeeDollar, formattedFeeETH)
 			}.sink { [weak self] formattedFeeDollar, formattedFeeETH in
-				self?.hideSkeletonView()
 				self?.updateFeeLabel()
 				self?.checkBalanceEnough()
-				self?.feeContainerViewWidthConstraint.isActive = false
 			}.store(in: &cancellables)
-		sendConfirmationVM.$updatingFeeLoading.sink { isLoading in
-			if isLoading {
+
+		sendConfirmationVM.$feeCalculationState.sink { feeState in
+			switch feeState {
+			case .loading:
+				self.hideFeeCalculationError()
 				self.showSkeletonView()
 				self.feeContainerViewWidthConstraint.isActive = true
+			case .hasValue:
+				self.hideFeeCalculationError()
+				self.hideSkeletonView()
+				self.feeContainerViewWidthConstraint.isActive = false
+			case .error:
+				self.showfeeCalculationError()
+				self.hideSkeletonView()
+				self.feeContainerViewWidthConstraint.isActive = false
 			}
 		}.store(in: &cancellables)
 	}
@@ -357,17 +366,17 @@ class SendConfirmationView: UIView {
 		retryFeeCalculation()
 	}
 
-	// MARK: - Public Methods
-
-	public func showfeeCalculationError() {
+	private func showfeeCalculationError() {
 		feeLabel.isHidden = true
 		feeErrorStackView.isHidden = false
 	}
 
-	public func hideFeeCalculationError() {
+	private func hideFeeCalculationError() {
 		feeErrorStackView.isHidden = true
 		feeLabel.isHidden = false
 	}
+
+	// MARK: - Public Methods
 
 	@objc
 	public func copyRecipientAddress() {

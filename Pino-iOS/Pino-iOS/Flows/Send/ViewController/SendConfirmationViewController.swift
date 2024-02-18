@@ -37,7 +37,6 @@ class SendConfirmationViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		getFee()
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {
@@ -100,15 +99,10 @@ class SendConfirmationViewController: UIViewController {
 	}
 
 	private func getFee() {
-		sendConfirmationView.hideFeeCalculationError()
-		sendConfirmationView.showSkeletonView()
-		sendConfirmationVM.getFee { error in
-			self.showFeeError(error)
-		}
+		sendConfirmationVM.getFee()
 	}
 
 	private func showFeeError(_ error: Error) {
-		sendConfirmationView.showfeeCalculationError()
 		Toast.default(
 			title: "\(error.localizedDescription)",
 			subtitle: GlobalToastTitles.tryAgainToastTitle.message,
