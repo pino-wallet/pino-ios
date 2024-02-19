@@ -33,7 +33,7 @@ class InvestCoinPerformanceViewModel {
 		self.assetImage = selectedAsset.assetImage
 		self.protocolImage = selectedAsset.assetProtocol.image
 		getChartData()
-		setupBindings()
+		getCoinPerformanceInfo()
 	}
 
 	// MARK: - Private Methods
@@ -56,36 +56,21 @@ class InvestCoinPerformanceViewModel {
 		}.store(in: &cancellables)
 	}
 
-	private func setupBindings() {
-		$chartVM.sink { chart in
-			guard let chart else { return }
-			self.updateCoinPerformanceInfo(chart: chart)
-		}.store(in: &cancellables)
-	}
-
-	private func updateCoinPerformanceInfo(chart: AssetChartViewModel) {
-		coinInfoVM.coinPerformanceInfo = CoinPerformanceInfoValues(
-			netProfit: calculateNetProfit(chart: chart),
-			ATH: allTimeHigh(chart: chart),
-			ATL: allTimeLow(chart: chart)
-		)
-	}
-
-	private func calculateNetProfit(chart: AssetChartViewModel) -> BigNumber? {
-		guard let currentWorth = chart.chartDataVM.last?.networth else { return nil }
-		let netProfit = currentWorth - selectedAsset.investmentCapital
-		return netProfit
-	}
-
-	private func allTimeHigh(chart: AssetChartViewModel) -> Double? {
-		let networthList = chart.chartDataEntry.map { $0.y }
-		let maxNetworth = networthList.max()
-		return maxNetworth
-	}
-
-	private func allTimeLow(chart: AssetChartViewModel) -> Double? {
-		let networthList = chart.chartDataEntry.map { $0.y }
-		let minNetworth = networthList.min()
-		return minNetworth
+	private func getCoinPerformanceInfo() {
+		let allTimeFrame = ChartDateFilter.all.timeFrame
+		investmentAPIClient.investmentPerformance(timeFrame: allTimeFrame, investmentID: selectedAsset.investmentId)
+			.sink { completed in
+				switch completed {
+				case .finished:
+					print("Coin performance received successfully")
+				case let .failure(error):
+					print(error)
+				}
+			} receiveValue: { portfolio in
+				let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0, networthDecimal: 2) }
+				self.coinInfoVM.updateAllTimeHigh(chartDataVM)
+				self.coinInfoVM.updateAllTimelow(chartDataVM)
+				self.coinInfoVM.updateNetProfit(chartDataVM, selectedAssetCapital: self.selectedAsset.investmentCapital)
+			}.store(in: &cancellables)
 	}
 }
