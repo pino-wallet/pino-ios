@@ -227,7 +227,9 @@ class SendConfirmationViewModel {
 				accountName: foundAccount.name,
 				accountAddress: foundAccount.eip55Address
 			)
-		} else {
+        } else if let ensName {
+            userRecipientAccountInfoVM = UserAccountInfoViewModel(accountIconName: nil, accountIconColorName: nil, accountName: ensName, accountAddress: recipientAddress)
+        } else {
 			userRecipientAccountInfoVM = nil
 		}
 	}
