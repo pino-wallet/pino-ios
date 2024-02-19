@@ -60,21 +60,22 @@ class CoinPerformanceInfoView: UIView {
 		)
 	}
 
-	private func updateItems(_ coinInfoVM: CoinPerformanceInfoValues) {
-		netProfitItem.value = coinInfoVM.netProfit
-		allTimeHighItem.value = coinInfoVM.allTimeHigh
-		allTimeLowItem.value = coinInfoVM.allTimeLow
+	private func updateItems(allTimeHigh: String, allTimeLow: String, netProfit: String) {
+		netProfitItem.value = netProfit
+		allTimeHighItem.value = allTimeHigh
+		allTimeLowItem.value = allTimeLow
 	}
 
 	private func setupBindings() {
-		coinPerformanceVM.$coinPerformanceInfo.sink { coinInfo in
-			guard let coinInfo else {
-				self.layoutSubviews()
-				self.showSkeletonView()
-				return
-			}
-			self.updateItems(coinInfo)
-			self.hideSkeletonView()
-		}.store(in: &cancellables)
+		Publishers.Zip3(coinPerformanceVM.$allTimeHigh, coinPerformanceVM.$allTimeLow, coinPerformanceVM.$netProfit)
+			.sink { allTimeHigh, allTimeLow, netProfit in
+				guard let allTimeHigh, let allTimeLow, let netProfit else {
+					self.layoutSubviews()
+					self.showSkeletonView()
+					return
+				}
+				self.updateItems(allTimeHigh: allTimeHigh, allTimeLow: allTimeLow, netProfit: netProfit)
+				self.hideSkeletonView()
+			}.store(in: &cancellables)
 	}
 }

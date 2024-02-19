@@ -62,32 +62,9 @@ class CoinPerformanceViewModel {
 				}
 			} receiveValue: { portfolio in
 				let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0) }
-				self.coinInfoVM.coinPerformanceInfo = CoinPerformanceInfoValues(
-					netProfit: self.userNetProfit(chart: chartDataVM),
-					ATH: self.allTimeHigh(chart: chartDataVM),
-					ATL: self.allTimeLow(chart: chartDataVM)
-				)
+				self.coinInfoVM.updateAllTimeHigh(chartDataVM)
+				self.coinInfoVM.updateAllTimelow(chartDataVM)
+				self.coinInfoVM.updateNetProfit(chartDataVM, selectedAssetCapital: self.selectedAsset.assetCapital)
 			}.store(in: &cancellables)
-	}
-
-	private func allTimeHigh(chart: [AssetChartDataViewModel]) -> String {
-		let networthList = chart.map { $0.networth.doubleValue }
-		let maxNetworth = networthList.max()
-		guard let maxNetworth, maxNetworth != 0 else { return GlobalZeroAmounts.plain.zeroAmount }
-		return String(maxNetworth)
-	}
-
-	private func allTimeLow(chart: [AssetChartDataViewModel]) -> String {
-		let networthList = chart.map { $0.networth.doubleValue }
-		let minNetworth = networthList.min()
-		guard let minNetworth, minNetworth != 0 else { return GlobalZeroAmounts.plain.zeroAmount }
-		return String(minNetworth)
-	}
-
-	private func userNetProfit(chart: [AssetChartDataViewModel]) -> String {
-		guard let currentWorth = chart.last?.networth else { return GlobalZeroAmounts.plain.zeroAmount }
-		let selectedAssetCapital = BigNumber(number: selectedAsset.assetModel.capital, decimal: 2)
-		let userNetProfit = currentWorth - selectedAssetCapital
-		return userNetProfit.decimalString
 	}
 }

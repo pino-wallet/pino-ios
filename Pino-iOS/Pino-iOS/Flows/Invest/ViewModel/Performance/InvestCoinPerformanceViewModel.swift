@@ -71,21 +71,21 @@ class InvestCoinPerformanceViewModel {
 		)
 	}
 
-	private func calculateNetProfit(chart: AssetChartViewModel) -> String {
-		guard let currentWorth = chart.chartDataVM.last?.networth else { return "0" }
+	private func calculateNetProfit(chart: AssetChartViewModel) -> BigNumber? {
+		guard let currentWorth = chart.chartDataVM.last?.networth else { return nil }
 		let netProfit = currentWorth - selectedAsset.investmentCapital
-		return netProfit.decimalString
+		return netProfit
 	}
 
-	private func allTimeHigh(chart: AssetChartViewModel) -> String {
+	private func allTimeHigh(chart: AssetChartViewModel) -> Double? {
 		let networthList = chart.chartDataEntry.map { $0.y }
 		let maxNetworth = networthList.max()
-		return String(maxNetworth!)
+		return maxNetworth
 	}
 
-	private func allTimeLow(chart: AssetChartViewModel) -> String {
+	private func allTimeLow(chart: AssetChartViewModel) -> Double? {
 		let networthList = chart.chartDataEntry.map { $0.y }
 		let minNetworth = networthList.min()
-		return String(minNetworth!)
+		return minNetworth
 	}
 }
