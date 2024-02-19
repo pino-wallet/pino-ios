@@ -46,9 +46,9 @@ public enum InvestProtocolViewModel: String, DexSystemModelProtocol {
 		case .aave:
 			return "aave.com"
 		case .maker:
-			return ""
+			return "makerdao.com"
 		case .lido:
-			return ""
+			return "stake.lido.fi"
 		}
 	}
 
