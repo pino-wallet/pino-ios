@@ -68,7 +68,11 @@ class CoinPerformanceInfoView: UIView {
 
 	private func setupBindings() {
 		coinPerformanceVM.$coinPerformanceInfo.sink { coinInfo in
-			guard let coinInfo else { return }
+			guard let coinInfo else {
+				self.layoutSubviews()
+				self.showSkeletonView()
+				return
+			}
 			self.updateItems(coinInfo)
 			self.hideSkeletonView()
 		}.store(in: &cancellables)
