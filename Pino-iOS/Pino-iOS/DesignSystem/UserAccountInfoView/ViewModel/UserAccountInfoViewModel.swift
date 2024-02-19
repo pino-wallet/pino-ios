@@ -10,8 +10,8 @@ import Foundation
 struct UserAccountInfoViewModel {
 	// MARK: - Public Properties
 
-	public let accountIconName: String
-	public let accountIconColorName: String
+	public let accountIconName: String?
+	public let accountIconColorName: String?
 	public let accountName: String
 	public let accountAddress: String
 }
