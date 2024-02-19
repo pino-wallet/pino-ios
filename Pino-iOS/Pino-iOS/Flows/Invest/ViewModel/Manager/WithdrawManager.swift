@@ -21,7 +21,6 @@ class WithdrawManager: InvestW3ManagerProtocol {
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes
 	private var swapManager: SwapManager?
 	private let swapPriceManager = SwapPriceManager()
-	private var swapTrx: EthereumSignedTransaction?
 	private var tokenUIntNumber: BigUInt {
 		Utilities.parseToBigUInt(withdrawAmount, decimals: selectedToken.decimal)!
 	}
@@ -149,7 +148,8 @@ class WithdrawManager: InvestW3ManagerProtocol {
 					destinationAmount: destAmountBig
 				)
 				self.swapManager!.getSwapInfo().done { trxWithGasInfo in
-					self.swapTrx = trxWithGasInfo.0
+					self.withdrawTrx = trxWithGasInfo.0
+					self.withdrawGasInfo = trxWithGasInfo.1
 					seal.fulfill(trxWithGasInfo)
 				}.catch { error in
 					seal.reject(error)
