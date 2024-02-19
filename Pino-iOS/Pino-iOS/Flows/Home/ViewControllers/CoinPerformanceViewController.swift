@@ -35,7 +35,9 @@ class CoinPerformanceViewController: UIViewController {
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
-		view.showSkeletonView()
+		if isBeingPresented || isMovingToParent {
+			view.showSkeletonView()
+		}
 	}
 
 	// MARK: - Private Methods
