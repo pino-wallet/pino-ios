@@ -38,9 +38,6 @@ class ActivityInfoView: UIView {
 	private var toInfoCustomView: ImageAndInfoView!
 	private var protocolInfoCustomView: ImageAndInfoView!
 	private var cancellables = Set<AnyCancellable>()
-	private var pendingEllipsisView: EllipsisAnimatedText!
-	private var pendingEllipsisWidthConstraint: NSLayoutConstraint!
-
 	private var activityDetailsVM: ActivityDetailsViewModel
 
 	private enum ShowFeeModes {
@@ -71,13 +68,7 @@ class ActivityInfoView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		pendingEllipsisView = EllipsisAnimatedText(
-			defaultText: ActivityDetailProperties.ActivityStatus.pending
-				.description
-		)
-
 		statusLabelContainer.addSubview(statusInfoLabel)
-		statusLabelContainer.addSubview(pendingEllipsisView)
 
 		fromInfoCustomView = ImageAndInfoView(
 			image: nil,
@@ -193,7 +184,6 @@ class ActivityInfoView: UIView {
 		mainStackView.spacing = 22
 
 		statusInfoLabel.font = .PinoStyle.semiboldSubheadline
-		pendingEllipsisView.label.font = .PinoStyle.semiboldSubheadline
 
 		statusLabelContainer.layer.cornerRadius = 14
 		statusLabelContainer.layer.masksToBounds = true
@@ -238,7 +228,6 @@ class ActivityInfoView: UIView {
 		statusLabelContainer.pin(.fixedHeight(28))
 
 		statusInfoLabel.pin(.horizontalEdges(padding: 10), .centerY)
-		pendingEllipsisView.pin(.horizontalEdges(padding: 10), .centerY)
 
 		containerView.pin(.allEdges(padding: 0))
 		mainStackView.pin(.horizontalEdges(padding: 14), .verticalEdges(padding: 24))
@@ -275,28 +264,17 @@ class ActivityInfoView: UIView {
 
 		switch activityProperties.status {
 		case .complete:
-			pendingEllipsisView.shouldAnimate = false
 			statusInfoLabel.textColor = .Pino.green3
 			statusLabelContainer.backgroundColor = .Pino.green1
-			pendingEllipsisView.isHidden = true
-			statusInfoLabel.isHidden = false
 		case .failed:
-			pendingEllipsisView.shouldAnimate = false
 			statusInfoLabel.textColor = .Pino.red
 			statusLabelContainer.backgroundColor = .Pino.lightRed
-			pendingEllipsisView.isHidden = true
-			statusInfoLabel.isHidden = false
 		case .pending:
-			pendingEllipsisView.shouldAnimate = true
-			pendingEllipsisView.isHidden = false
-			statusInfoLabel.isHidden = true
-			pendingEllipsisView.label.textColor = .Pino.pendingOrange
+			statusInfoLabel.textColor = .Pino.pendingOrange
 			statusLabelContainer.backgroundColor = .Pino.lightOrange
 		}
 		statusInfoLabel.text = activityProperties.status.description
 		statusInfoLabel.textAlignment = .center
-
-		updateConstraintsWithStatus()
 
 		if activityDetailsVM.properties.userFromAccountInfo != nil {
 			fromInfoCustomView.image = activityDetailsVM.properties.userFromAccountInfo?.image
@@ -309,24 +287,6 @@ class ActivityInfoView: UIView {
 
 		protocolInfoCustomView.title = activityProperties.protocolName
 		protocolInfoCustomView.image = activityProperties.protocolImage
-	}
-
-	private func updateConstraintsWithStatus() {
-		pendingEllipsisWidthConstraint = pendingEllipsisView.widthAnchor.constraint(equalToConstant: 72)
-		switch activityProperties.status {
-		case .complete:
-			pendingEllipsisWidthConstraint.isActive = false
-			pendingEllipsisView.pin(.horizontalEdges(padding: 0), .centerY)
-			layoutIfNeeded()
-		case .failed:
-			pendingEllipsisWidthConstraint.isActive = false
-			pendingEllipsisView.pin(.horizontalEdges(padding: 0), .centerY)
-			layoutIfNeeded()
-		case .pending:
-			pendingEllipsisWidthConstraint.isActive = true
-			pendingEllipsisView.pin(.horizontalEdges(padding: 10), .centerY)
-			layoutIfNeeded()
-		}
 	}
 
 	private func setupBindings() {

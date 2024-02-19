@@ -507,7 +507,6 @@
 		D9D6ECCC2B3ABB0600EA0C1E /* EmptyStateCardDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6ECCB2B3ABB0600EA0C1E /* EmptyStateCardDetails.swift */; };
 		D9D754242AD13248001D4B94 /* BorrowERCAaveABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = D9D754232AD13248001D4B94 /* BorrowERCAaveABIJson.json */; };
 		D9D754262AD133C8001D4B94 /* ERC20ABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = D9D754252AD133C8001D4B94 /* ERC20ABIJson.json */; };
-		D9D78C152B5536FD00F9C780 /* EllipsisAnimatedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D78C142B5536FD00F9C780 /* EllipsisAnimatedText.swift */; };
 		D9D991AB2AB70DA900E943B0 /* BorrowableTokensModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D991AA2AB70DA900E943B0 /* BorrowableTokensModel.swift */; };
 		D9D991AD2AB71CE600E943B0 /* borrowable-tokens-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = D9D991AC2AB71CE100E943B0 /* borrowable-tokens-stub.json */; };
 		D9D991AE2AB71CE600E943B0 /* borrowable-tokens-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = D9D991AC2AB71CE100E943B0 /* borrowable-tokens-stub.json */; };
@@ -1401,7 +1400,6 @@
 		D9D6ECCB2B3ABB0600EA0C1E /* EmptyStateCardDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateCardDetails.swift; sourceTree = "<group>"; };
 		D9D754232AD13248001D4B94 /* BorrowERCAaveABIJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BorrowERCAaveABIJson.json; sourceTree = "<group>"; };
 		D9D754252AD133C8001D4B94 /* ERC20ABIJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ERC20ABIJson.json; sourceTree = "<group>"; };
-		D9D78C142B5536FD00F9C780 /* EllipsisAnimatedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllipsisAnimatedText.swift; sourceTree = "<group>"; };
 		D9D991AA2AB70DA900E943B0 /* BorrowableTokensModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowableTokensModel.swift; sourceTree = "<group>"; };
 		D9D991AC2AB71CE100E943B0 /* borrowable-tokens-stub.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "borrowable-tokens-stub.json"; sourceTree = "<group>"; };
 		D9D9A4072A5E8A4400CECA41 /* ActivityInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityInfoView.swift; sourceTree = "<group>"; };
@@ -3366,7 +3364,6 @@
 			children = (
 				D9711F4D2B68E35A006C0143 /* TokensEmptyStateView */,
 				D9B8DAA32B568FC900256589 /* ScannerViewcontroller */,
-				D9D78C132B55368800F9C780 /* EllipsisAnimatedText */,
 				D97293062B4BB47600ADFB8A /* PinoProgressView */,
 				D9D6ECC82B3AB5B400EA0C1E /* EmptyStateCardView */,
 				D986BC2B2B0B5BC300DCE03C /* SendTransactionStatus */,
@@ -3684,14 +3681,6 @@
 				D9D6ECCB2B3ABB0600EA0C1E /* EmptyStateCardDetails.swift */,
 			);
 			path = EmptyStateCardView;
-			sourceTree = "<group>";
-		};
-		D9D78C132B55368800F9C780 /* EllipsisAnimatedText */ = {
-			isa = PBXGroup;
-			children = (
-				D9D78C142B5536FD00F9C780 /* EllipsisAnimatedText.swift */,
-			);
-			path = EllipsisAnimatedText;
 			sourceTree = "<group>";
 		};
 		D9E134832A52FB3400193FF0 /* ActivityHeaderView */ = {
@@ -5110,7 +5099,6 @@
 				404324092A5FF12C006B1468 /* NumberFormatting.swift in Sources */,
 				E385F6182A220D8200EE7EE1 /* CTSAPIClient.swift in Sources */,
 				D933C3392A99F6A600C2BD5A /* CollateralizableAssetCell.swift in Sources */,
-				D9D78C152B5536FD00F9C780 /* EllipsisAnimatedText.swift in Sources */,
 				535DAC5A885056552EC3C09F /* Button+Extension.swift in Sources */,
 				D2D65A4730F14DFCD4BE1B32 /* ChangeAvatarViewController.swift in Sources */,
 				DFFDEDB62A7795F200D710D7 /* SwapPriceResponseProtocol.swift in Sources */,

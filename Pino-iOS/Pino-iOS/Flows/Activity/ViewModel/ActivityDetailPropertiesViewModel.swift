@@ -420,7 +420,7 @@ extension ActivityDetailProperties {
 			case .failed:
 				return "Failed"
 			case .pending:
-				return "Pending"
+				return "Pending..."
 			}
 		}
 	}
