@@ -15,7 +15,11 @@ final class CTSAPIClient: CTSAPIService {
 
 	// MARK: - Public Properties
 
-	public var defaultTokenID = "0x0000000000000000000000000000000000000000"
+	public var defaultTokensID = [
+		"0x0000000000000000000000000000000000000000",
+		"0x6b175474e89094c44da98b954eedeac495271d0f",
+		"0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+	]
 
 	// MARK: - Public Methods
 

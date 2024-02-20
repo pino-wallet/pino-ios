@@ -115,6 +115,7 @@
         <attribute name="avatarIcon" optional="YES" attributeType="String"/>
         <attribute name="derivationPath" optional="YES" attributeType="String"/>
         <attribute name="eip55Address" attributeType="String"/>
+        <attribute name="hasDefaultAssets" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isPositionEnabled" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isSelected" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="lastBalance" optional="YES" attributeType="String"/>

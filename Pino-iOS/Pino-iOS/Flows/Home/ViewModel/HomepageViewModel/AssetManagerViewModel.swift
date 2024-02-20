@@ -66,9 +66,7 @@ class AssetManagerViewModel {
 				previousDayNetworth: userAsset?.previousDayNetworth ?? "0"
 			)
 		}
-		#warning("Default assets must be added in intro flow")
-//		checkDefaultAssetsAdded(assets: tokensModel)
-		getSelectedAssetsFromCoreData()
+		getSelectedAssets(tokensModel)
 		let tokens = tokensModel.compactMap {
 			AssetViewModel(assetModel: $0, isSelected: self.selectedAssets.map { $0.id }.contains($0.id))
 		}
@@ -113,23 +111,20 @@ class AssetManagerViewModel {
 		return customAssets
 	}
 
-	internal func getSelectedAssetsFromCoreData() {
-		let currentAccount = PinoWalletManager().currentAccount
-		selectedAssets = currentAccount.selectedAssets.allObjects as! [SelectedAsset]
-	}
+	// MARK: - Private Methods
 
-	internal func checkDefaultAssetsAdded(assets: [BalanceAssetModel]) {
+	private func getSelectedAssets(_ assets: [BalanceAssetModel]) {
 		let currentAccount = PinoWalletManager().currentAccount
-		if currentAccount.selectedAssets.allObjects.isEmpty {
+		if currentAccount.hasDefaultAssets {
+			getSelectedAssetsFromCoreData()
+		} else {
 			addDefaultAssetsToCoreData(assets: assets)
 		}
 	}
 
-	// MARK: - Private Methods
-
-	private func addSelectedAssetToCoreData(_ asset: AssetViewModel) {
-		let selectedAsset = coreDataManager.addNewSelectedAsset(id: asset.id)
-		selectedAssets.append(selectedAsset)
+	private func getSelectedAssetsFromCoreData() {
+		let currentAccount = PinoWalletManager().currentAccount
+		selectedAssets = currentAccount.selectedAssets.allObjects as! [SelectedAsset]
 	}
 
 	private func addSelectedAssetToCoreData(id: String) {
@@ -138,18 +133,25 @@ class AssetManagerViewModel {
 	}
 
 	private func deleteSelectedAssetFromCoreData(_ asset: AssetViewModel) {
-		guard let selectedAsset = selectedAssets.first(where: { $0.id == asset.id }) else { return }
-		coreDataManager.deleteSelectedAsset(selectedAsset)
-		selectedAssets.removeAll(where: { $0 == selectedAsset })
+		let selectedAssets = selectedAssets.filter { $0.id == asset.id }
+		for selectedAsset in selectedAssets {
+			coreDataManager.deleteSelectedAsset(selectedAsset)
+			self.selectedAssets.removeAll(where: { $0 == selectedAsset })
+		}
 	}
 
 	private func addDefaultAssetsToCoreData(assets: [BalanceAssetModel]) {
-		let ethToken = coreDataManager.addNewSelectedAsset(id: ctsAPIclient.defaultTokenID)
-		selectedAssets = [ethToken]
-		let userAssets = assets.filter { !BigNumber(number: $0.amount, decimal: $0.detail!.decimals).isZero }
-		for token in userAssets {
-			let selectedAsset = coreDataManager.addNewSelectedAsset(id: token.id)
-			selectedAssets.append(selectedAsset)
+		selectedAssets = []
+		let userAssets = assets.compactMap { AssetViewModel(assetModel: $0, isSelected: false) }
+			.filter { !$0.isPosition && !$0.holdAmount.isZero }
+		if userAssets.isEmpty {
+			for tokenID in ctsAPIclient.defaultTokensID {
+				addSelectedAssetToCoreData(id: tokenID)
+			}
+			return
+		}
+		for asset in userAssets {
+			addSelectedAssetToCoreData(id: asset.id)
 		}
 	}
 
@@ -199,7 +201,7 @@ class AssetManagerViewModel {
 			updatedAssets[selectedAssetIndex].toggleIsSelected()
 			GlobalVariables.shared.manageAssetsList = updatedAssets
 			if isSelected {
-				addSelectedAssetToCoreData(manageAssetsList[selectedAssetIndex])
+				addSelectedAssetToCoreData(id: manageAssetsList[selectedAssetIndex].id)
 			} else {
 				deleteSelectedAssetFromCoreData(manageAssetsList[selectedAssetIndex])
 			}
