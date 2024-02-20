@@ -35,6 +35,12 @@ class InvestCoinPerformanceViewController: UIViewController {
 		setupNavigationBar()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		if isBeingPresented || isMovingToParent {
+			view.showSkeletonView()
+		}
+	}
+
 	// MARK: - Private Methods
 
 	private func setupView() {

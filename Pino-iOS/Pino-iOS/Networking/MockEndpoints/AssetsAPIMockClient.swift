@@ -27,10 +27,6 @@ final class AssetsAPIMockClient: AssetsAPIService {
 		StubManager.publisher(for: "about-coin-stub")
 	}
 
-	public func performanceInfo() -> AnyPublisher<CoinPerformanceInfoModel, APIError> {
-		StubManager.publisher(for: "coin-performance-info-stub")
-	}
-
 	func getAllPositionAssets() -> AnyPublisher<PositionAssetsModel, APIError> {
 		Just([])
 			.setFailureType(to: APIError.self)

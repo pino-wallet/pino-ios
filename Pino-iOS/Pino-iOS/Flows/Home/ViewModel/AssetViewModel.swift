@@ -90,6 +90,10 @@ public class AssetViewModel: SecurityModeProtocol {
 		assetModel.detail!.isPosition
 	}
 
+	public var assetCapital: BigNumber {
+		BigNumber(number: assetModel.capital, decimal: 2)
+	}
+
 	// MARK: - Initializers
 
 	init(assetModel: AssetProtocol, isSelected: Bool) {
