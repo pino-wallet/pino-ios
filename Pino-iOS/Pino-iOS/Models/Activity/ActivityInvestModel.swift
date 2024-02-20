@@ -32,24 +32,24 @@ struct ActivityInvestModel: ActivityInvestmentModelProtocol {
 }
 
 extension ActivityInvestModel {
-    init(cdInvestActivityModel: CDInvestActivity) {
-    txHash = cdInvestActivityModel.txHash
-    type = cdInvestActivityModel.type
-    detail = InvestmentActivityDetails(
-        tokens: cdInvestActivityModel.details.tokens.compactMap {
-            ActivityTokenModel(amount: $0.amount, tokenID: $0.tokenId)
-        },
-        positionId: cdInvestActivityModel.details.poolID,
-        activityProtocol: cdInvestActivityModel.details.activityProtocol,
-        nftId: Int(cdInvestActivityModel.details.nftID)
-    )
-    fromAddress = cdInvestActivityModel.fromAddress
-    toAddress = cdInvestActivityModel.toAddress
-    failed = nil
-    blockNumber = nil
-    blockTime = cdInvestActivityModel.blockTime
-    gasUsed = cdInvestActivityModel.gasUsed
-    gasPrice = cdInvestActivityModel.gasPrice
-    prev_txHash = cdInvestActivityModel.prevTxHash
-    }
+	init(cdInvestActivityModel: CDInvestActivity) {
+		self.txHash = cdInvestActivityModel.txHash
+		self.type = cdInvestActivityModel.type
+		self.detail = InvestmentActivityDetails(
+			tokens: cdInvestActivityModel.details.tokens.compactMap {
+				ActivityTokenModel(amount: $0.amount, tokenID: $0.tokenId)
+			},
+			positionId: cdInvestActivityModel.details.poolID,
+			activityProtocol: cdInvestActivityModel.details.activityProtocol,
+			nftId: Int(cdInvestActivityModel.details.nftID)
+		)
+		self.fromAddress = cdInvestActivityModel.fromAddress
+		self.toAddress = cdInvestActivityModel.toAddress
+		self.failed = nil
+		self.blockNumber = nil
+		self.blockTime = cdInvestActivityModel.blockTime
+		self.gasUsed = cdInvestActivityModel.gasUsed
+		self.gasPrice = cdInvestActivityModel.gasPrice
+		self.prev_txHash = cdInvestActivityModel.prevTxHash
+	}
 }

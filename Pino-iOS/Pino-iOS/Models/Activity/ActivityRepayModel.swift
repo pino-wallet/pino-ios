@@ -42,29 +42,28 @@ struct RepayActivityDetails: Codable {
 	}
 }
 
-
 extension ActivityRepayModel {
-    init(cdRepayActivityModel: CDRepayActivity) {
-    txHash = cdRepayActivityModel.txHash
-    type = cdRepayActivityModel.type
-    detail = RepayActivityDetails(
-        activityProtocol: cdRepayActivityModel.details.activityProtocol,
-        repaidToken: ActivityTokenModel(
-            amount: cdRepayActivityModel.details.repaid_token.amount,
-            tokenID: cdRepayActivityModel.details.repaid_token.tokenId
-        ),
-        repaidWithToken: ActivityTokenModel(
-            amount: cdRepayActivityModel.details.repaid_with_token.amount,
-            tokenID: cdRepayActivityModel.details.repaid_with_token.tokenId
-        )
-    )
-    fromAddress = cdRepayActivityModel.fromAddress
-    toAddress = cdRepayActivityModel.toAddress
-    failed = nil
-    blockNumber = nil
-    blockTime = cdRepayActivityModel.blockTime
-    gasUsed = cdRepayActivityModel.gasUsed
-    gasPrice = cdRepayActivityModel.gasPrice
-    prev_txHash = cdRepayActivityModel.prevTxHash
-    }
+	init(cdRepayActivityModel: CDRepayActivity) {
+		self.txHash = cdRepayActivityModel.txHash
+		self.type = cdRepayActivityModel.type
+		self.detail = RepayActivityDetails(
+			activityProtocol: cdRepayActivityModel.details.activityProtocol,
+			repaidToken: ActivityTokenModel(
+				amount: cdRepayActivityModel.details.repaid_token.amount,
+				tokenID: cdRepayActivityModel.details.repaid_token.tokenId
+			),
+			repaidWithToken: ActivityTokenModel(
+				amount: cdRepayActivityModel.details.repaid_with_token.amount,
+				tokenID: cdRepayActivityModel.details.repaid_with_token.tokenId
+			)
+		)
+		self.fromAddress = cdRepayActivityModel.fromAddress
+		self.toAddress = cdRepayActivityModel.toAddress
+		self.failed = nil
+		self.blockNumber = nil
+		self.blockTime = cdRepayActivityModel.blockTime
+		self.gasUsed = cdRepayActivityModel.gasUsed
+		self.gasPrice = cdRepayActivityModel.gasPrice
+		self.prev_txHash = cdRepayActivityModel.prevTxHash
+	}
 }

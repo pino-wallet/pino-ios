@@ -279,7 +279,7 @@ class CoreDataManager {
 
 		let newActivityDetails = CDInvestActivityDetails(context: activityDataSource.managedContext)
 
-        newActivityDetails.nftID = Int64(activityModel.detail.nftId ?? 0)
+		newActivityDetails.nftID = Int64(activityModel.detail.nftId ?? 0)
 		newActivityDetails.poolID = activityModel.detail.positionId
 		newActivityDetails.tokens = Set(activityModel.detail.tokens.compactMap {
 			let newActivityDetailsToken = CDActivityDetailsToken(context: activityDataSource.managedContext)
@@ -435,10 +435,10 @@ class CoreDataManager {
 	public func getAllActivities() -> [CDActivityParent] {
 		activityDataSource.getAll()
 	}
-    
-    public func getUserAllActivities(userID: String) -> [CDActivityParent] {
-        activityDataSource.getAll().filter { $0.accountAddress == userID }
-    }
+
+	public func getUserAllActivities(userID: String) -> [CDActivityParent] {
+		activityDataSource.getAll().filter { $0.accountAddress == userID }
+	}
 
 	public func deleteActivityByID(_ id: String) {
 		activityDataSource.deleteByID(id)

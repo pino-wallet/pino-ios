@@ -45,22 +45,22 @@ struct ApproveActivityDetail: Codable {
 }
 
 extension ActivityApproveModel {
-    init(cdApproveActivityModel: CDApproveActivity) {
-    txHash = cdApproveActivityModel.txHash
-    type = cdApproveActivityModel.type
-    detail = ApproveActivityDetail(
-        amount: cdApproveActivityModel.details.amount,
-        owner: cdApproveActivityModel.details.owner,
-        spender: cdApproveActivityModel.details.spender,
-        tokenID: cdApproveActivityModel.details.tokenID
-    )
-    fromAddress = cdApproveActivityModel.fromAddress
-    toAddress = cdApproveActivityModel.toAddress
-    failed = nil
-    blockNumber = nil
-    blockTime = cdApproveActivityModel.blockTime
-    gasUsed = cdApproveActivityModel.gasUsed
-    gasPrice = cdApproveActivityModel.gasPrice
-    prev_txHash = cdApproveActivityModel.prevTxHash
-    }
+	init(cdApproveActivityModel: CDApproveActivity) {
+		self.txHash = cdApproveActivityModel.txHash
+		self.type = cdApproveActivityModel.type
+		self.detail = ApproveActivityDetail(
+			amount: cdApproveActivityModel.details.amount,
+			owner: cdApproveActivityModel.details.owner,
+			spender: cdApproveActivityModel.details.spender,
+			tokenID: cdApproveActivityModel.details.tokenID
+		)
+		self.fromAddress = cdApproveActivityModel.fromAddress
+		self.toAddress = cdApproveActivityModel.toAddress
+		self.failed = nil
+		self.blockNumber = nil
+		self.blockTime = cdApproveActivityModel.blockTime
+		self.gasUsed = cdApproveActivityModel.gasUsed
+		self.gasPrice = cdApproveActivityModel.gasPrice
+		self.prev_txHash = cdApproveActivityModel.prevTxHash
+	}
 }

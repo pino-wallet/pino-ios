@@ -33,7 +33,7 @@ class PendingActivitiesManager {
 	public func startActivityPendingRequests() {
 		getPendingActivitiesFromCoreData()
 		stopActivityPendingRequests()
-        requestsTimer = Timer.publish(every: 10, on: .main, in: .common).autoconnect().prepend(Date()).sink { _ in
+		requestsTimer = Timer.publish(every: 10, on: .main, in: .common).autoconnect().prepend(Date()).sink { _ in
 			self.getActivityPendings()
 		}
 	}
@@ -47,40 +47,40 @@ class PendingActivitiesManager {
 
 	private func getPendingActivitiesFromCoreData() {
 		pendingActivitiesList = []
-        for activity in coreDataManager.getUserAllActivities(userID: walletManager.currentAccount.eip55Address) {
-				switch ActivityType(rawValue: activity.type) {
-				case .swap:
-					let cdSwapActivity = activity as! CDSwapActivity
-					pendingActivitiesList.append(ActivitySwapModel(cdSwapActivityModel: cdSwapActivity))
-				case .transfer:
-					let cdTransferActivity = activity as! CDTransferActivity
-					pendingActivitiesList.append(ActivityTransferModel(cdTransferActivityModel: cdTransferActivity))
-				case .transfer_from:
-					let cdTransferActivity = activity as! CDTransferActivity
-					pendingActivitiesList.append(ActivityTransferModel(cdTransferActivityModel: cdTransferActivity))
-				case .approve:
-					let cdApproveActivity = activity as! CDApproveActivity
-					pendingActivitiesList.append(ActivityApproveModel(cdApproveActivityModel: cdApproveActivity))
-				case .create_investment, .increase_investment:
-					let cdInvestActivity = activity as! CDInvestActivity
-					pendingActivitiesList.append(ActivityInvestModel(cdInvestActivityModel: cdInvestActivity))
-				case .decrease_investment, .withdraw_investment:
-					let cdWithdrawActivity = activity as! CDWithdrawActivity
-					pendingActivitiesList.append(ActivityWithdrawModel(cdWithDrawActivityModel: cdWithdrawActivity))
-				case .borrow:
-					let cdBorrowActivity = activity as! CDBorrowActivity
-					pendingActivitiesList.append(ActivityBorrowModel(cdBorrowActivityModel: cdBorrowActivity))
-				case .repay:
-					let cdRepayActivity = activity as! CDRepayActivity
-					pendingActivitiesList.append(ActivityRepayModel(cdRepayActivityModel: cdRepayActivity))
-				case .increase_collateral, .decrease_collateral, .create_collateral, .remove_collateral,
-				     .enable_collateral,
-				     .disable_collateral:
-					let cdCollateralActivity = activity as! CDCollateralActivity
-					pendingActivitiesList.append(ActivityCollateralModel(cdCollateralActivityModel: cdCollateralActivity))
-				default:
-					print("unknown activity type")
-				}
+		for activity in coreDataManager.getUserAllActivities(userID: walletManager.currentAccount.eip55Address) {
+			switch ActivityType(rawValue: activity.type) {
+			case .swap:
+				let cdSwapActivity = activity as! CDSwapActivity
+				pendingActivitiesList.append(ActivitySwapModel(cdSwapActivityModel: cdSwapActivity))
+			case .transfer:
+				let cdTransferActivity = activity as! CDTransferActivity
+				pendingActivitiesList.append(ActivityTransferModel(cdTransferActivityModel: cdTransferActivity))
+			case .transfer_from:
+				let cdTransferActivity = activity as! CDTransferActivity
+				pendingActivitiesList.append(ActivityTransferModel(cdTransferActivityModel: cdTransferActivity))
+			case .approve:
+				let cdApproveActivity = activity as! CDApproveActivity
+				pendingActivitiesList.append(ActivityApproveModel(cdApproveActivityModel: cdApproveActivity))
+			case .create_investment, .increase_investment:
+				let cdInvestActivity = activity as! CDInvestActivity
+				pendingActivitiesList.append(ActivityInvestModel(cdInvestActivityModel: cdInvestActivity))
+			case .decrease_investment, .withdraw_investment:
+				let cdWithdrawActivity = activity as! CDWithdrawActivity
+				pendingActivitiesList.append(ActivityWithdrawModel(cdWithDrawActivityModel: cdWithdrawActivity))
+			case .borrow:
+				let cdBorrowActivity = activity as! CDBorrowActivity
+				pendingActivitiesList.append(ActivityBorrowModel(cdBorrowActivityModel: cdBorrowActivity))
+			case .repay:
+				let cdRepayActivity = activity as! CDRepayActivity
+				pendingActivitiesList.append(ActivityRepayModel(cdRepayActivityModel: cdRepayActivity))
+			case .increase_collateral, .decrease_collateral, .create_collateral, .remove_collateral,
+			     .enable_collateral,
+			     .disable_collateral:
+				let cdCollateralActivity = activity as! CDCollateralActivity
+				pendingActivitiesList.append(ActivityCollateralModel(cdCollateralActivityModel: cdCollateralActivity))
+			default:
+				print("unknown activity type")
+			}
 		}
 	}
 

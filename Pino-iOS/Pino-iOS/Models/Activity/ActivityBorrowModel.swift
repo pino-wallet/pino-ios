@@ -41,25 +41,24 @@ struct BorrowActivityDetails: Codable {
 	}
 }
 
-
 extension ActivityBorrowModel {
-    init(cdBorrowActivityModel: CDBorrowActivity) {
-    txHash = cdBorrowActivityModel.txHash
-    type = cdBorrowActivityModel.type
-    detail = BorrowActivityDetails(
-        activityProtocol: cdBorrowActivityModel.details.activityProtocol,
-        token: ActivityTokenModel(
-            amount: cdBorrowActivityModel.details.token.amount,
-            tokenID: cdBorrowActivityModel.details.token.tokenId
-        )
-    )
-    fromAddress = cdBorrowActivityModel.fromAddress
-    toAddress = cdBorrowActivityModel.toAddress
-    failed = nil
-    blockNumber = nil
-    blockTime = cdBorrowActivityModel.blockTime
-    gasUsed = cdBorrowActivityModel.gasUsed
-    gasPrice = cdBorrowActivityModel.gasPrice
-    prev_txHash = cdBorrowActivityModel.prevTxHash
-    }
+	init(cdBorrowActivityModel: CDBorrowActivity) {
+		self.txHash = cdBorrowActivityModel.txHash
+		self.type = cdBorrowActivityModel.type
+		self.detail = BorrowActivityDetails(
+			activityProtocol: cdBorrowActivityModel.details.activityProtocol,
+			token: ActivityTokenModel(
+				amount: cdBorrowActivityModel.details.token.amount,
+				tokenID: cdBorrowActivityModel.details.token.tokenId
+			)
+		)
+		self.fromAddress = cdBorrowActivityModel.fromAddress
+		self.toAddress = cdBorrowActivityModel.toAddress
+		self.failed = nil
+		self.blockNumber = nil
+		self.blockTime = cdBorrowActivityModel.blockTime
+		self.gasUsed = cdBorrowActivityModel.gasUsed
+		self.gasPrice = cdBorrowActivityModel.gasPrice
+		self.prev_txHash = cdBorrowActivityModel.prevTxHash
+	}
 }
