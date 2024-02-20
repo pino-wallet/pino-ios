@@ -41,3 +41,30 @@ struct RepayActivityDetails: Codable {
 		case repaidWithToken = "repaid_with"
 	}
 }
+
+
+extension ActivityRepayModel {
+    init(cdRepayActivityModel: CDRepayActivity) {
+    txHash = cdRepayActivityModel.txHash
+    type = cdRepayActivityModel.type
+    detail = RepayActivityDetails(
+        activityProtocol: cdRepayActivityModel.details.activityProtocol,
+        repaidToken: ActivityTokenModel(
+            amount: cdRepayActivityModel.details.repaid_token.amount,
+            tokenID: cdRepayActivityModel.details.repaid_token.tokenId
+        ),
+        repaidWithToken: ActivityTokenModel(
+            amount: cdRepayActivityModel.details.repaid_with_token.amount,
+            tokenID: cdRepayActivityModel.details.repaid_with_token.tokenId
+        )
+    )
+    fromAddress = cdRepayActivityModel.fromAddress
+    toAddress = cdRepayActivityModel.toAddress
+    failed = nil
+    blockNumber = nil
+    blockTime = cdRepayActivityModel.blockTime
+    gasUsed = cdRepayActivityModel.gasUsed
+    gasPrice = cdRepayActivityModel.gasPrice
+    prev_txHash = cdRepayActivityModel.prevTxHash
+    }
+}

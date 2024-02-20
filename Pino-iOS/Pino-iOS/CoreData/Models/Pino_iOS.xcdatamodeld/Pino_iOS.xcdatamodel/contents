@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23C64" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23D60" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CDActivityDetailsToken" representedClassName="CDActivityDetailsToken" syncable="YES">
         <attribute name="amount" attributeType="String"/>
         <attribute name="tokenId" attributeType="String"/>
@@ -55,7 +55,7 @@
     </entity>
     <entity name="CDInvestmentActivityDetails" representedClassName="CDInvestmentActivityDetails" syncable="YES">
         <attribute name="activityProtocol" optional="YES" attributeType="String"/>
-        <attribute name="nftID" optional="YES" attributeType="String"/>
+        <attribute name="nftID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="poolID" optional="YES" attributeType="String"/>
         <relationship name="tokens" toMany="YES" deletionRule="Nullify" destinationEntity="CDActivityDetailsToken"/>
     </entity>

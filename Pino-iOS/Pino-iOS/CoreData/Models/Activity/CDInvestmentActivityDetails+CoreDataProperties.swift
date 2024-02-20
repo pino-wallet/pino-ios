@@ -18,7 +18,7 @@ extension CDInvestmentActivityDetails {
 	@NSManaged
 	public var activityProtocol: String
 	@NSManaged
-	public var nftID: String?
+	public var nftID: Int64
 	@NSManaged
 	public var poolID: String
 	@NSManaged

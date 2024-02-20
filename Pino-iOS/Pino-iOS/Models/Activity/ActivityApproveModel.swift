@@ -43,3 +43,24 @@ struct ApproveActivityDetail: Codable {
 		case tokenID = "token_id"
 	}
 }
+
+extension ActivityApproveModel {
+    init(cdApproveActivityModel: CDApproveActivity) {
+    txHash = cdApproveActivityModel.txHash
+    type = cdApproveActivityModel.type
+    detail = ApproveActivityDetail(
+        amount: cdApproveActivityModel.details.amount,
+        owner: cdApproveActivityModel.details.owner,
+        spender: cdApproveActivityModel.details.spender,
+        tokenID: cdApproveActivityModel.details.tokenID
+    )
+    fromAddress = cdApproveActivityModel.fromAddress
+    toAddress = cdApproveActivityModel.toAddress
+    failed = nil
+    blockNumber = nil
+    blockTime = cdApproveActivityModel.blockTime
+    gasUsed = cdApproveActivityModel.gasUsed
+    gasPrice = cdApproveActivityModel.gasPrice
+    prev_txHash = cdApproveActivityModel.prevTxHash
+    }
+}

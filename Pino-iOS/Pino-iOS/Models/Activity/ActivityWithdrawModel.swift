@@ -30,3 +30,26 @@ struct ActivityWithdrawModel: ActivityInvestmentModelProtocol {
 		case gasPrice = "gas_price"
 	}
 }
+
+extension ActivityWithdrawModel {
+     init(cdWithDrawActivityModel: CDWithdrawActivity) {
+            txHash = cdWithDrawActivityModel.txHash
+            type = cdWithDrawActivityModel.type
+            detail = InvestmentActivityDetails(
+                tokens: cdWithDrawActivityModel.details.tokens.compactMap {
+                    ActivityTokenModel(amount: $0.amount, tokenID: $0.tokenId)
+                },
+                positionId: cdWithDrawActivityModel.details.poolID,
+                activityProtocol: cdWithDrawActivityModel.details.activityProtocol,
+                nftId: Int(cdWithDrawActivityModel.details.nftID)
+            )
+            fromAddress = cdWithDrawActivityModel.fromAddress
+            toAddress = cdWithDrawActivityModel.toAddress
+            failed = nil
+            blockNumber = nil
+            blockTime = cdWithDrawActivityModel.blockTime
+            gasUsed = cdWithDrawActivityModel.gasUsed
+            gasPrice = cdWithDrawActivityModel.gasPrice
+            prev_txHash = cdWithDrawActivityModel.prevTxHash
+    }
+}
