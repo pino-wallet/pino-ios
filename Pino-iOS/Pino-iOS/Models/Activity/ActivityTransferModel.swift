@@ -45,3 +45,24 @@ struct TransferActivityDetail: Codable {
 		case from, to
 	}
 }
+
+extension ActivityTransferModel {
+	init(cdTransferActivityModel: CDTransferActivity) {
+		self.txHash = cdTransferActivityModel.txHash
+		self.type = cdTransferActivityModel.type
+		self.detail = TransferActivityDetail(
+			amount: cdTransferActivityModel.details.amount,
+			tokenID: cdTransferActivityModel.details.tokenID,
+			from: cdTransferActivityModel.details.from,
+			to: cdTransferActivityModel.details.to
+		)
+		self.fromAddress = cdTransferActivityModel.fromAddress
+		self.toAddress = cdTransferActivityModel.toAddress
+		self.failed = nil
+		self.blockNumber = nil
+		self.blockTime = cdTransferActivityModel.blockTime
+		self.gasUsed = cdTransferActivityModel.gasUsed
+		self.gasPrice = cdTransferActivityModel.gasPrice
+		self.prev_txHash = cdTransferActivityModel.prevTxHash
+	}
+}

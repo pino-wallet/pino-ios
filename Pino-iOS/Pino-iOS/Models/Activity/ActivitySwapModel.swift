@@ -41,3 +41,29 @@ struct SwapActivityDetails: Codable {
 		case activityProtocol = "protocol"
 	}
 }
+
+extension ActivitySwapModel {
+	init(cdSwapActivityModel: CDSwapActivity) {
+		self.txHash = cdSwapActivityModel.txHash
+		self.type = cdSwapActivityModel.type
+		self.detail = SwapActivityDetails(
+			fromToken: ActivityTokenModel(
+				amount: cdSwapActivityModel.details.from_token.amount,
+				tokenID: cdSwapActivityModel.details.from_token.tokenId
+			),
+			toToken: ActivityTokenModel(
+				amount: cdSwapActivityModel.details.to_token.amount,
+				tokenID: cdSwapActivityModel.details.to_token.tokenId
+			),
+			activityProtocol: cdSwapActivityModel.details.activityProtool
+		)
+		self.fromAddress = cdSwapActivityModel.fromAddress
+		self.toAddress = cdSwapActivityModel.toAddress
+		self.failed = nil
+		self.blockNumber = nil
+		self.blockTime = cdSwapActivityModel.blockTime
+		self.gasUsed = cdSwapActivityModel.gasUsed
+		self.gasPrice = cdSwapActivityModel.gasPrice
+		self.prev_txHash = cdSwapActivityModel.prevTxHash
+	}
+}

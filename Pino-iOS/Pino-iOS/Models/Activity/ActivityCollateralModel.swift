@@ -40,3 +40,24 @@ struct CollateralActivityDetails: Codable {
 		case tokens = "tokens"
 	}
 }
+
+extension ActivityCollateralModel {
+	init(cdCollateralActivityModel: CDCollateralActivity) {
+		self.txHash = cdCollateralActivityModel.txHash
+		self.type = cdCollateralActivityModel.type
+		self.detail = CollateralActivityDetails(
+			activityProtocol: cdCollateralActivityModel.details.activityProtocol,
+			tokens: cdCollateralActivityModel.details.tokens.compactMap {
+				ActivityTokenModel(amount: $0.amount, tokenID: $0.tokenId)
+			}
+		)
+		self.fromAddress = cdCollateralActivityModel.fromAddress
+		self.toAddress = cdCollateralActivityModel.toAddress
+		self.failed = nil
+		self.blockNumber = nil
+		self.blockTime = cdCollateralActivityModel.blockTime
+		self.gasUsed = cdCollateralActivityModel.gasUsed
+		self.gasPrice = cdCollateralActivityModel.gasPrice
+		self.prev_txHash = cdCollateralActivityModel.prevTxHash
+	}
+}

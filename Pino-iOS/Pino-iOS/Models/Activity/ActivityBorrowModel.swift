@@ -40,3 +40,25 @@ struct BorrowActivityDetails: Codable {
 		case token
 	}
 }
+
+extension ActivityBorrowModel {
+	init(cdBorrowActivityModel: CDBorrowActivity) {
+		self.txHash = cdBorrowActivityModel.txHash
+		self.type = cdBorrowActivityModel.type
+		self.detail = BorrowActivityDetails(
+			activityProtocol: cdBorrowActivityModel.details.activityProtocol,
+			token: ActivityTokenModel(
+				amount: cdBorrowActivityModel.details.token.amount,
+				tokenID: cdBorrowActivityModel.details.token.tokenId
+			)
+		)
+		self.fromAddress = cdBorrowActivityModel.fromAddress
+		self.toAddress = cdBorrowActivityModel.toAddress
+		self.failed = nil
+		self.blockNumber = nil
+		self.blockTime = cdBorrowActivityModel.blockTime
+		self.gasUsed = cdBorrowActivityModel.gasUsed
+		self.gasPrice = cdBorrowActivityModel.gasPrice
+		self.prev_txHash = cdBorrowActivityModel.prevTxHash
+	}
+}
