@@ -19,7 +19,7 @@ enum ResultActivityModel: Decodable, Encodable {
 	case withdraw(ActivityWithdrawModel)
 	case invest(ActivityInvestModel)
 	case approve(ActivityApproveModel)
-	case unknown(UnknownActivityModel?)
+	case unknown(ActivityBaseModel)
 
 	// MARK: - Coding keys
 
@@ -63,7 +63,8 @@ enum ResultActivityModel: Decodable, Encodable {
 			let approveActivity = try ActivityApproveModel(from: decoder)
 			self = .approve(approveActivity)
 		default:
-			self = .unknown(nil)
+			let baseActivity = try ActivityBaseModel(from: decoder)
+			self = .unknown(baseActivity)
 		}
 	}
 
@@ -100,12 +101,10 @@ enum ResultActivityModel: Decodable, Encodable {
 		case let .approve(approveActivity):
 			try container.encode(ActivityType.approve.rawValue, forKey: .type)
 			try approveActivity.encode(to: encoder)
-		case let .unknown(nilDetails):
-			try nilDetails.encode(to: encoder)
+		case let .unknown(baseActivity):
+			try baseActivity.encode(to: encoder)
 		}
 	}
 }
-
-struct UnknownActivityModel: Codable {}
 
 typealias ActivitiesModel = [ResultActivityModel]

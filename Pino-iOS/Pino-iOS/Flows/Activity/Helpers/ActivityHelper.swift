@@ -49,6 +49,31 @@ struct ActivityHelper {
 		}
 	}
 
+	public func iterateBaseActivityModel(activity: ResultActivityModel) -> ActivityModelProtocol {
+		switch activity {
+		case let .swap(swapActivity):
+			return swapActivity
+		case let .transfer(transferActivity):
+			return transferActivity
+		case let .transfer_from(transferActivity):
+			return transferActivity
+		case let .borrow(borrowActivity):
+			return borrowActivity
+		case let .repay(repayActvity):
+			return repayActvity
+		case let .withdraw(withdrawActivity):
+			return withdrawActivity
+		case let .invest(investActivity):
+			return investActivity
+		case let .collateral(collateralActivity):
+			return collateralActivity
+		case let .approve(approveActivity):
+			return approveActivity
+		case let .unknown(baseActivity):
+			return baseActivity
+		}
+	}
+
 	public func iterateActivitiesFromResponse(activities: ActivitiesModel) -> [ActivityModelProtocol] {
 		var iteratedActivities: [ActivityModelProtocol] = []
 		for activity in activities {
