@@ -44,10 +44,10 @@ class EnterSendAmountViewModel {
 
 	public var formattedAmount: String {
 		if isDollarEnabled {
-			return tokenAmount == nil ? "" :
+			return tokenAmount == nil ? .emptyString :
 				"\(tokenAmount!.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol))"
 		} else {
-			return dollarAmount == nil ? "" : dollarAmount!.priceFormat
+			return dollarAmount == nil ? .emptyString : dollarAmount!.priceFormat
 		}
 	}
 
@@ -62,7 +62,11 @@ class EnterSendAmountViewModel {
 	// MARK: - Public Methods
 
 	public func calculateAmount(_ amount: String) {
-		guard let bignumAmount = BigNumber(numberWithDecimal: amount) else { return }
+		guard let bignumAmount = BigNumber(numberWithDecimal: amount) else {
+			tokenAmount = nil
+			dollarAmount = nil
+			return
+		}
 		if isDollarEnabled {
 			convertDollarAmountToTokenValue(amount: bignumAmount)
 		} else {
@@ -76,7 +80,6 @@ class EnterSendAmountViewModel {
 			return
 		}
 		if amountBigNumber.isZero ||
-			amountBigNumber <= .minAcceptableAmount ||
 			amountBigNumber.decimal > selectedToken.decimal {
 			amountStatus(.isZero)
 			return

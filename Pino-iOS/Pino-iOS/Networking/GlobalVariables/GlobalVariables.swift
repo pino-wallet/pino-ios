@@ -93,7 +93,7 @@ class GlobalVariables {
 	}
 
 	private func calculateEthGasFee() {
-		Timer.publish(every: 6, on: .main, in: .common)
+		Timer.publish(every: 15, on: .main, in: .common)
 			.autoconnect()
 			.sink { [self] seconds in
 				getEthGasFee().catch { error in
