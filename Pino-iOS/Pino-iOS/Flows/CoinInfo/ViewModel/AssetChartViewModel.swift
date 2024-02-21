@@ -15,7 +15,7 @@ struct AssetChartViewModel {
 
 	public var chartDataEntry: [ChartDataEntry] {
 		chartDataVM.map {
-			ChartDataEntry(x: $0.date!.timeIntervalSinceNow, y: $0.networth.doubleValue)
+			ChartDataEntry(x: $0.date.timeIntervalSinceNow, y: $0.networth.doubleValue, data: $0)
 		}
 	}
 
@@ -100,8 +100,7 @@ struct AssetChartViewModel {
 		}
 	}
 
-	public func selectedDate(timeStamp: Double) -> String {
-		let date = Date(timeIntervalSinceNow: timeStamp)
+	public func selectedDate(_ date: Date) -> String {
 		let chartDateBuilder = ChartDateBuilder(dateFilter: dateFilter)
 		return chartDateBuilder.selectedDate(date: date)
 	}

@@ -10,4 +10,5 @@ struct ChartDataModel: Codable {
 
 	public var networth: String
 	public var time: String
+	public var insignificant: Bool
 }

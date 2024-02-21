@@ -222,7 +222,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 		dateFilterChanged(dateFilter)
 	}
 
-	private func updateVolatility(pointValue: Double, previousValue: Double?) {
+	private func updateVolatility(pointValue: BigNumber, previousValue: BigNumber?) {
 		guard let chartVM else { return }
 		let valueChangePercentage = chartVM.valueChangePercentage(pointValue: pointValue, previousValue: previousValue)
 		coinVolatilityPersentage.text = chartVM.formattedVolatility(valueChangePercentage)
@@ -253,8 +253,8 @@ class AssetLineChart: UIView, LineChartDelegate {
 
 	// MARK: - Public Methods
 
-	public func updateChartDate(date: Double) {
-		let formattedDate = chartVM?.selectedDate(timeStamp: date)
+	public func updateChartDate(date: Date) {
+		let formattedDate = chartVM?.selectedDate(date)
 		dateLabel.text = formattedDate
 	}
 
@@ -265,12 +265,14 @@ class AssetLineChart: UIView, LineChartDelegate {
 		addLoadingGradient()
 	}
 
-	internal func valueDidChange(pointValue: Double?, previousValue: Double?, date: Double?) {
+	internal func valueDidChange(selectedPointData: Any?, previousPointData: Any?) {
 		guard let chartVM else { return }
-		if let pointValue {
-			coinBalanceLabel.text = BigNumber(numberWithDecimal: pointValue.description)!.chartPriceFormat
-			updateVolatility(pointValue: pointValue, previousValue: previousValue)
-			updateChartDate(date: date!)
+		let selectedPointAssetVM = selectedPointData as? AssetChartDataViewModel
+		let previousPointAssetVM = previousPointData as? AssetChartDataViewModel
+		if let selectedPointAssetVM {
+			coinBalanceLabel.text = selectedPointAssetVM.networth.chartPriceFormat
+			updateVolatility(pointValue: selectedPointAssetVM.networth, previousValue: previousPointAssetVM?.networth)
+			updateChartDate(date: selectedPointAssetVM.date)
 		} else {
 			coinBalanceLabel.text = chartVM.balance
 			coinVolatilityPersentage.text = chartVM.volatilityPercentage

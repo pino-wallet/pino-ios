@@ -15,12 +15,16 @@ struct AssetChartDataViewModel {
 
 	// MARK: - Public Properties
 
-	public var date: Date? {
+	public var date: Date {
 		getDate(from: chartModel.time)
 	}
 
 	public var networth: BigNumber {
 		BigNumber(number: chartModel.networth, decimal: networthDecimal)
+	}
+
+	public var insignificant: Bool {
+		chartModel.insignificant
 	}
 
 	// MARK: - Initializers
@@ -32,7 +36,7 @@ struct AssetChartDataViewModel {
 
 	// MARK: - Private Methods
 
-	private func getDate(from time: String) -> Date? {
+	private func getDate(from time: String) -> Date {
 		time.serverFormattedDate
 	}
 }
