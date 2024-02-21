@@ -114,7 +114,7 @@ class PendingActivitiesManager {
 				} else {
 					self.pendingActivitiesList.removeAll(where: { $0.txHash == iteratedActivity.txHash })
 					self.coreDataManager
-						.changePendingActivityToSuccess(activityModel: iteratedActivity as! ActivityBaseModel)
+						.changePendingActivityToDone(activityModel: iteratedActivity as! ActivityBaseModel)
 					if self.pendingActivitiesList.isEmpty {
 						self.stopActivityPendingRequests()
 					}

@@ -93,7 +93,7 @@ struct ActivityDataSource: DataSourceProtocol {
 		coreDataStack.saveContext()
 	}
 
-	public func changePendingActivityToSuccess(activityBaseModel: ActivityBaseModel) {
+	public func changePendingActivityToDone(activityBaseModel: ActivityBaseModel) {
 		let updatingIndex = activities
 			.firstIndex(where: { $0.txHash.lowercased() == activityBaseModel.txHash.lowercased() })
 		guard let updatingIndex else {
@@ -102,7 +102,12 @@ struct ActivityDataSource: DataSourceProtocol {
 		activities[updatingIndex].gasPrice = activityBaseModel.gasPrice
 		activities[updatingIndex].gasUsed = activityBaseModel.gasUsed
 		activities[updatingIndex].blockTime = activityBaseModel.blockTime
-		activities[updatingIndex].status = ActivityStatus.success.rawValue
+        if activityBaseModel.failed! {
+            activities[updatingIndex].status = ActivityStatus.failed.rawValue
+        } else {
+            activities[updatingIndex].status = ActivityStatus.success.rawValue
+        }
+		
 		coreDataStack.saveContext()
 	}
 }

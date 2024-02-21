@@ -516,7 +516,7 @@ class CoreDataManager {
 		activityDataSource.performSpeedUpChanges(txHash: txHash, newTxHash: newTxHash, newGasPrice: newGasPrice)
 	}
 
-	public func changePendingActivityToSuccess(activityModel: ActivityBaseModel) {
-		activityDataSource.changePendingActivityToSuccess(activityBaseModel: activityModel)
+	public func changePendingActivityToDone(activityModel: ActivityBaseModel) {
+		activityDataSource.changePendingActivityToDone(activityBaseModel: activityModel)
 	}
 }
