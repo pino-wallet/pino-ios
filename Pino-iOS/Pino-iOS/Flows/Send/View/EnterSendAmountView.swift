@@ -96,8 +96,8 @@ class EnterSendAmountView: UIView {
 		amountTextfield.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 		let focusTextFieldTapGesture = UITapGestureRecognizer(target: self, action: #selector(focusOnAmountTextField))
 		amountSpacerView.addGestureRecognizer(focusTextFieldTapGesture)
-		let putMAxAmountTapgesture = UITapGestureRecognizer(target: self, action: #selector(putMaxAmountInTextField))
-		maxAmountStackView.addGestureRecognizer(putMAxAmountTapgesture)
+		let enterMaxAmountTapGesture = UITapGestureRecognizer(target: self, action: #selector(enterMaxAmount))
+		maxAmountStackView.addGestureRecognizer(enterMaxAmountTapGesture)
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
 	}
 
@@ -322,7 +322,7 @@ class EnterSendAmountView: UIView {
 	}
 
 	@objc
-	private func putMaxAmountInTextField() {
+	private func enterMaxAmount() {
 		if enterAmountVM.isDollarEnabled {
 			amountTextfield.text = enterAmountVM.maxAmountInDollar.priceFormatForFields
 			amountLabel.text = enterAmountVM.formattedMaxHoldAmount
