@@ -223,11 +223,13 @@ class AssetLineChart: UIView, LineChartDelegate {
 	}
 
 	private func updateChartBalance(_ assetData: AssetChartDataViewModel) {
-		coinBalanceLabel.text = chartVM?.formattedBalance(assetData)
+		guard let chartVM else { return }
+		coinBalanceLabel.text = chartVM.formattedBalance(assetData)
 	}
 
 	private func updateChartDate(date: Date) {
-		dateLabel.text = chartVM?.formattedDate(date)
+		guard let chartVM else { return }
+		dateLabel.text = chartVM.formattedDate(date)
 	}
 
 	private func updateChartVolatility(pointValue: BigNumber, previousValue: BigNumber?) {
@@ -248,7 +250,13 @@ class AssetLineChart: UIView, LineChartDelegate {
 		}
 	}
 
-	private func removeChartHighlightedPointData() {}
+	private func removeChartHighlightedPointData() {
+		guard let chartVM else { return }
+		coinBalanceLabel.text = chartVM.balance
+		coinVolatilityPersentage.text = chartVM.volatilityPercentage
+		updateVolatilityColor(type: chartVM.volatilityType)
+		dateLabel.text = chartVM.chartDate
+	}
 
 	private func addLoadingGradient() {
 		loadingGradientLayer?.removeFromSuperlayer()
@@ -269,7 +277,6 @@ class AssetLineChart: UIView, LineChartDelegate {
 	}
 
 	internal func valueDidChange(selectedPointData: Any?, previousPointData: Any?) {
-		guard let chartVM else { return }
 		let selectedAssetVM = selectedPointData as? AssetChartDataViewModel
 		let previousAssetVM = previousPointData as? AssetChartDataViewModel
 		if let selectedAssetVM {
