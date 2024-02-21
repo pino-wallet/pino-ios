@@ -257,7 +257,8 @@ class BorrowIncreaseAmountView: UIView {
 	@objc
 	private func putMaxAmountInTextField() {
 		amountTextfield.text = borrowIncreaseAmountVM.maxHoldAmount.decimalString
-		moveCursorToBeginning()
+		amountTextfield
+			.moveCursorToBeginning(textfieldWidth: amountTextfield.bounds.width + amountSpacerView.bounds.width)
 		animateAmountHealthScoreView(isHidden: false)
 
 		if borrowIncreaseAmountVM.selectedToken.isEth {
@@ -368,19 +369,5 @@ extension BorrowIncreaseAmountView {
 	@objc
 	private func keyboardWillHide(_ notification: NSNotification) {
 		moveViewWithKeyboard(notification: notification, keyboardWillShow: false)
-	}
-
-	func moveCursorToBeginning() {
-		guard let textFieldText = amountTextfield.text else { return }
-		let textAttributes = [NSAttributedString.Key.font: amountTextfield.font!]
-		let textWidth = textFieldText.size(withAttributes: textAttributes).width
-
-		if textWidth > (amountTextfield.bounds.width + amountSpacerView.bounds.width) {
-			// Move the cursor to the beginning
-			DispatchQueue.main.async {
-				let beginning = self.amountTextfield.beginningOfDocument
-				self.amountTextfield.selectedTextRange = self.amountTextfield.textRange(from: beginning, to: beginning)
-			}
-		}
 	}
 }

@@ -330,7 +330,8 @@ class EnterSendAmountView: UIView {
 			amountTextfield.text = enterAmountVM.maxHoldAmount.decimalString
 			amountLabel.text = enterAmountVM.formattedMaxAmountInDollar
 		}
-		moveCursorToBeginning()
+		amountTextfield
+			.moveCursorToBeginning(textfieldWidth: amountTextfield.bounds.width + amountSpacerView.bounds.width)
 
 		if enterAmountVM.selectedToken.isEth {
 			enterAmountVM.calculateAmount(amountTextfield.text ?? .emptyString)
@@ -461,19 +462,5 @@ extension EnterSendAmountView {
 
 	public func cancelGasRequests() {
 		cancellable.removeAll()
-	}
-
-	func moveCursorToBeginning() {
-		guard let textFieldText = amountTextfield.text else { return }
-		let textAttributes = [NSAttributedString.Key.font: amountTextfield.font!]
-		let textWidth = textFieldText.size(withAttributes: textAttributes).width
-
-		if textWidth > (amountTextfield.bounds.width + amountSpacerView.bounds.width) {
-			// Move the cursor to the beginning
-			DispatchQueue.main.async {
-				let beginning = self.amountTextfield.beginningOfDocument
-				self.amountTextfield.selectedTextRange = self.amountTextfield.textRange(from: beginning, to: beginning)
-			}
-		}
 	}
 }

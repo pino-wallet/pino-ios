@@ -28,6 +28,20 @@ extension UITextField {
 		let updatedText = currentText.replacingCharacters(in: charactersRange, with: replacementString)
 		return validatePatternWithRegex(regexPattern: "^[a-zA-Z0-9]*$", updatedText: updatedText)
 	}
+
+	func moveCursorToBeginning(textfieldWidth: CGFloat) {
+		guard let textFieldText = text else { return }
+		let textAttributes = [NSAttributedString.Key.font: font!]
+		let textWidth = textFieldText.size(withAttributes: textAttributes).width
+
+		if textWidth > textfieldWidth {
+			// Move the cursor to the beginning
+			DispatchQueue.main.async {
+				let beginning = self.self.beginningOfDocument
+				self.selectedTextRange = self.self.textRange(from: beginning, to: beginning)
+			}
+		}
+	}
 }
 
 fileprivate func validatePatternWithRegex(regexPattern: String, updatedText: String) -> Bool {

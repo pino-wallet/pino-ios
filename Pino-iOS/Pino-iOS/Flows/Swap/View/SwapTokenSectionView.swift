@@ -221,7 +221,8 @@ class SwapTokenSectionView: UIView {
 		updateEstimatedAmount(enteredAmount: getMaxAmount(selectedToken: swapVM.selectedToken))
 		updateAmountView()
 		updateBalanceStatus()
-		moveCursorToBeginning()
+		amountTextfield
+			.moveCursorToBeginning(textfieldWidth: amountTextfield.bounds.width + textFieldSpacerView.bounds.width)
 	}
 
 	fileprivate func extractedFunc(_ balanceStatus: AmountStatus) {
@@ -336,20 +337,6 @@ extension SwapTokenSectionView: UITextFieldDelegate {
 		if let inputAmount = textField.text, inputAmount.last != "." {
 			let amountBigNum = BigNumber(numberWithDecimal: inputAmount)
 			updateEstimatedAmount(enteredAmount: amountBigNum)
-		}
-	}
-
-	func moveCursorToBeginning() {
-		guard let textFieldText = amountTextfield.text else { return }
-		let textAttributes = [NSAttributedString.Key.font: amountTextfield.font!]
-		let textWidth = textFieldText.size(withAttributes: textAttributes).width
-
-		if textWidth > (amountTextfield.bounds.width + textFieldSpacerView.bounds.width) {
-			// Move the cursor to the beginning
-			DispatchQueue.main.async {
-				let beginning = self.amountTextfield.beginningOfDocument
-				self.amountTextfield.selectedTextRange = self.amountTextfield.textRange(from: beginning, to: beginning)
-			}
 		}
 	}
 }
