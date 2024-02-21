@@ -23,7 +23,7 @@ struct AssetChartDataViewModel {
 		BigNumber(number: chartModel.networth, decimal: networthDecimal)
 	}
 
-	public var insignificant: Bool {
+	public var isInsignificant: Bool {
 		chartModel.insignificant
 	}
 

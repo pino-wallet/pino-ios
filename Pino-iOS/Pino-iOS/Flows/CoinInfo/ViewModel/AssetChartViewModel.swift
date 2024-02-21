@@ -20,7 +20,7 @@ struct AssetChartViewModel {
 	}
 
 	public var balance: String {
-		chartDataVM.last?.networth.chartPriceFormat ?? GlobalZeroAmounts.dollars.zeroAmount
+		formattedBalance(chartDataVM.last)
 	}
 
 	public var volatilityPercentage: String {
@@ -57,17 +57,6 @@ struct AssetChartViewModel {
 
 	// MARK: - Public Methods
 
-	public func valueChangePercentage(pointValue: Double, previousValue: Double?) -> BigNumber {
-		if let previousValue, previousValue != 0 {
-			let pointValueNumber = BigNumber(numberWithDecimal: pointValue.description)!
-			let previousValueNumber = BigNumber(numberWithDecimal: previousValue.description)!
-			let changePercentage = ((pointValueNumber - previousValueNumber) / previousValueNumber)! * 100.bigNumber
-			return changePercentage
-		} else {
-			return 0.bigNumber
-		}
-	}
-
 	public func valueChangePercentage(pointValue: BigNumber, previousValue: BigNumber?) -> BigNumber {
 		if let previousValue, !previousValue.isZero {
 			let changePercentage = ((pointValue - previousValue) / previousValue)! * 100.bigNumber
@@ -100,8 +89,17 @@ struct AssetChartViewModel {
 		}
 	}
 
-	public func selectedDate(_ date: Date) -> String {
+	public func formattedDate(_ date: Date) -> String {
 		let chartDateBuilder = ChartDateBuilder(dateFilter: dateFilter)
 		return chartDateBuilder.selectedDate(date: date)
+	}
+
+	public func formattedBalance(_ assetData: AssetChartDataViewModel?) -> String {
+		guard let assetData else { return GlobalZeroAmounts.dollars.zeroAmount }
+		if assetData.networth.isZero, assetData.isInsignificant {
+			return "<0.01".currencyFormatting
+		} else {
+			return assetData.networth.chartPriceFormat
+		}
 	}
 }

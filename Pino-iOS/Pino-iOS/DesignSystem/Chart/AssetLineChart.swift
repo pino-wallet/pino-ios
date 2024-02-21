@@ -222,7 +222,15 @@ class AssetLineChart: UIView, LineChartDelegate {
 		dateFilterChanged(dateFilter)
 	}
 
-	private func updateVolatility(pointValue: BigNumber, previousValue: BigNumber?) {
+	private func updateChartBalance(_ assetData: AssetChartDataViewModel) {
+		coinBalanceLabel.text = chartVM?.formattedBalance(assetData)
+	}
+
+	private func updateChartDate(date: Date) {
+		dateLabel.text = chartVM?.formattedDate(date)
+	}
+
+	private func updateChartVolatility(pointValue: BigNumber, previousValue: BigNumber?) {
 		guard let chartVM else { return }
 		let valueChangePercentage = chartVM.valueChangePercentage(pointValue: pointValue, previousValue: previousValue)
 		coinVolatilityPersentage.text = chartVM.formattedVolatility(valueChangePercentage)
@@ -240,6 +248,8 @@ class AssetLineChart: UIView, LineChartDelegate {
 		}
 	}
 
+	private func removeChartHighlightedPointData() {}
+
 	private func addLoadingGradient() {
 		loadingGradientLayer?.removeFromSuperlayer()
 		loadingGradientLayer = GradientLayer(
@@ -251,13 +261,6 @@ class AssetLineChart: UIView, LineChartDelegate {
 		loadingGradientView.layer.addSublayer(loadingGradientLayer)
 	}
 
-	// MARK: - Public Methods
-
-	public func updateChartDate(date: Date) {
-		let formattedDate = chartVM?.selectedDate(date)
-		dateLabel.text = formattedDate
-	}
-
 	// MARK: - Internal Methods
 
 	override func layoutSubviews() {
@@ -267,17 +270,14 @@ class AssetLineChart: UIView, LineChartDelegate {
 
 	internal func valueDidChange(selectedPointData: Any?, previousPointData: Any?) {
 		guard let chartVM else { return }
-		let selectedPointAssetVM = selectedPointData as? AssetChartDataViewModel
-		let previousPointAssetVM = previousPointData as? AssetChartDataViewModel
-		if let selectedPointAssetVM {
-			coinBalanceLabel.text = selectedPointAssetVM.networth.chartPriceFormat
-			updateVolatility(pointValue: selectedPointAssetVM.networth, previousValue: previousPointAssetVM?.networth)
-			updateChartDate(date: selectedPointAssetVM.date)
+		let selectedAssetVM = selectedPointData as? AssetChartDataViewModel
+		let previousAssetVM = previousPointData as? AssetChartDataViewModel
+		if let selectedAssetVM {
+			updateChartBalance(selectedAssetVM)
+			updateChartDate(date: selectedAssetVM.date)
+			updateChartVolatility(pointValue: selectedAssetVM.networth, previousValue: previousAssetVM?.networth)
 		} else {
-			coinBalanceLabel.text = chartVM.balance
-			coinVolatilityPersentage.text = chartVM.volatilityPercentage
-			updateVolatilityColor(type: chartVM.volatilityType)
-			dateLabel.text = chartVM.chartDate
+			removeChartHighlightedPointData()
 		}
 	}
 }
