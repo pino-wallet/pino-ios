@@ -102,12 +102,12 @@ struct ActivityDataSource: DataSourceProtocol {
 		activities[updatingIndex].gasPrice = activityBaseModel.gasPrice
 		activities[updatingIndex].gasUsed = activityBaseModel.gasUsed
 		activities[updatingIndex].blockTime = activityBaseModel.blockTime
-        if activityBaseModel.failed! {
-            activities[updatingIndex].status = ActivityStatus.failed.rawValue
-        } else {
-            activities[updatingIndex].status = ActivityStatus.success.rawValue
-        }
-		
+		if activityBaseModel.failed! {
+			activities[updatingIndex].status = ActivityStatus.failed.rawValue
+		} else {
+			activities[updatingIndex].status = ActivityStatus.success.rawValue
+		}
+
 		coreDataStack.saveContext()
 	}
 }
