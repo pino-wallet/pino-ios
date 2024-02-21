@@ -44,10 +44,10 @@ struct ActivityHelper {
 			return collateralActivity
 		case let .approve(approveActivity):
 			return approveActivity
-        case let .wrap(wrapActivity):
-            return wrapActivity
-        case let .unwrap(unwrapActivity):
-            return unwrapActivity
+		case let .wrap(wrapActivity):
+			return wrapActivity
+		case let .unwrap(unwrapActivity):
+			return unwrapActivity
 		case let .unknown(baseActivity):
 			return baseActivity
 		}
@@ -57,10 +57,10 @@ struct ActivityHelper {
 		var iteratedActivities: [ActivityModelProtocol] = []
 		for activity in activities {
 			let iteratedActivity = iterateActivityModel(activity: activity)
-            // prevent crash if activity have other type
-            if ActivityType(rawValue: iteratedActivity.type) != nil {
-                iteratedActivities.append(iteratedActivity)
-            }
+			// prevent crash if activity have other type
+			if ActivityType(rawValue: iteratedActivity.type) != nil {
+				iteratedActivities.append(iteratedActivity)
+			}
 		}
 		return iteratedActivities
 	}
@@ -339,19 +339,31 @@ struct ActivityHelper {
 				token: approveToken
 			)
 			return resultActivity
-        case .wrap_eth, .swap_wrap:
-            guard let wrapActivityModel = activityDefaultModel as? ActivityWrapETHModel, let ethToken = globalAssetsList?.first(where: { $0.isEth }), let wethToken = globalAssetsList?.first(where: { $0.isWEth }) else {
-                return nil
-            }
-            resultActivity.wrapDetailsVM = WrapActivityDetailsViewModel(activityModel: wrapActivityModel, fromToken: ethToken, toToken: wethToken)
-            return resultActivity
-        case .unwrap_eth, .swap_unwrap:
-            guard let unwrapActivityModel = activityDefaultModel as? ActivityUnwrapETHModel, let ethToken = globalAssetsList?.first(where: { $0.isEth }), let wethToken = globalAssetsList?.first(where: { $0.isWEth }) else {
-                return nil
-            }
-            resultActivity.unwrapDetailsVM = UnwrapActivityDetailsViewModel(activityModel: unwrapActivityModel, fromToken: wethToken, toToken: ethToken)
-            return resultActivity
-        }
+		case .wrap_eth, .swap_wrap:
+			guard let wrapActivityModel = activityDefaultModel as? ActivityWrapETHModel,
+			      let ethToken = globalAssetsList?.first(where: { $0.isEth }),
+			      let wethToken = globalAssetsList?.first(where: { $0.isWEth }) else {
+				return nil
+			}
+			resultActivity.wrapDetailsVM = WrapActivityDetailsViewModel(
+				activityModel: wrapActivityModel,
+				fromToken: ethToken,
+				toToken: wethToken
+			)
+			return resultActivity
+		case .unwrap_eth, .swap_unwrap:
+			guard let unwrapActivityModel = activityDefaultModel as? ActivityUnwrapETHModel,
+			      let ethToken = globalAssetsList?.first(where: { $0.isEth }),
+			      let wethToken = globalAssetsList?.first(where: { $0.isWEth }) else {
+				return nil
+			}
+			resultActivity.unwrapDetailsVM = UnwrapActivityDetailsViewModel(
+				activityModel: unwrapActivityModel,
+				fromToken: wethToken,
+				toToken: ethToken
+			)
+			return resultActivity
+		}
 	}
 
 	private func separateActivitiesByDay(activities: [ActivityCellViewModel]) -> SeparatedActivitiesWithDayType {

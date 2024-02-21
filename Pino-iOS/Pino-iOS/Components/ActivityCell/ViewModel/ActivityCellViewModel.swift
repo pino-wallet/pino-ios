@@ -62,7 +62,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 
 	private var doneTitle: String {
 		switch uiType {
-        case .swap, .unwrapETH, .wrapETH:
+		case .swap, .unwrapETH, .wrapETH:
 			return "Swapped"
 		case .borrow:
 			return "Borrowed"
@@ -132,11 +132,11 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			return .disable_collateral
 		case .approve:
 			return .approve
-        case .wrap_eth, .swap_wrap:
-            return .wrapETH
-        case .unwrap_eth, .swap_unwrap:
-            return .unwrapETH
-        }
+		case .wrap_eth, .swap_wrap:
+			return .wrapETH
+		case .unwrap_eth, .swap_unwrap:
+			return .unwrapETH
+		}
 	}
 
 	// MARK: - Public Properties
@@ -201,18 +201,18 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			setValues()
 		}
 	}
-    
-    public var wrapDetailsVM: WrapActivityDetailsViewModel? {
-        didSet {
-            setValues()
-        }
-    }
-    
-    public var unwrapDetailsVM: UnwrapActivityDetailsViewModel? {
-        didSet {
-            setValues()
-        }
-    }
+
+	public var wrapDetailsVM: WrapActivityDetailsViewModel? {
+		didSet {
+			setValues()
+		}
+	}
+
+	public var unwrapDetailsVM: UnwrapActivityDetailsViewModel? {
+		didSet {
+			setValues()
+		}
+	}
 
 	public var activityMoreInfo: String!
 
@@ -372,20 +372,20 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			activityMoreInfo = "Permit 2"
 			// set cell icon
 			icon = approveIcon
-        case .wrapETH:
-            // set cell title
-            title = "\(baseTitle) \(wrapDetailsVM!.fromTokenSymbol) → \(wrapDetailsVM!.toTokenSymbol)"
-            // set cell moreInfo
-            activityMoreInfo = "Wrap contract"
-            // set cell icon
-            icon = swapIcon
-        case .unwrapETH:
-            // set cell title
-            title = "\(baseTitle) \(unwrapDetailsVM!.fromTokenSymbol) → \(unwrapDetailsVM!.toTokenSymbol)"
-            // set cell moreInfo
-            activityMoreInfo = "Wrap contract"
-            // set cell icon
-            icon = swapIcon
-        }
+		case .wrapETH:
+			// set cell title
+			title = "\(baseTitle) \(wrapDetailsVM!.fromTokenSymbol) → \(wrapDetailsVM!.toTokenSymbol)"
+			// set cell moreInfo
+			activityMoreInfo = "Wrap contract"
+			// set cell icon
+			icon = swapIcon
+		case .unwrapETH:
+			// set cell title
+			title = "\(baseTitle) \(unwrapDetailsVM!.fromTokenSymbol) → \(unwrapDetailsVM!.toTokenSymbol)"
+			// set cell moreInfo
+			activityMoreInfo = "Wrap contract"
+			// set cell icon
+			icon = swapIcon
+		}
 	}
 }

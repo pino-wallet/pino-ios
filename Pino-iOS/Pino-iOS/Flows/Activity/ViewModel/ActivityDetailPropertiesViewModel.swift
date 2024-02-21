@@ -28,15 +28,15 @@ struct ActivityDetailProperties {
 	private var collateralDetailsVM: CollateralActivityDetailsViewModel?
 	private var collateralStatusDetailsVM: CollateralStatusActivityDetailsViewModel?
 	private var approveDetailsVM: ApproveActivityDetailsViewModel?
-    private var wrapDetailsVM: WrapActivityDetailsViewModel?
-    private var unwrapDetailsVM: UnwrapActivityDetailsViewModel?
+	private var wrapDetailsVM: WrapActivityDetailsViewModel?
+	private var unwrapDetailsVM: UnwrapActivityDetailsViewModel?
 
 	// MARK: - Public Properties
 
 	// header properties
 	public var assetIcon: URL? {
 		switch activityDetails.uiType {
-        case .swap, .wrapETH, .unwrapETH:
+		case .swap, .wrapETH, .unwrapETH:
 			return nil
 		case .borrow:
 			return borrowDetailsVM?.tokenImage
@@ -65,7 +65,7 @@ struct ActivityDetailProperties {
 
 	public var assetAmountTitle: String? {
 		switch activityDetails.uiType {
-        case .swap, .unwrapETH, .wrapETH:
+		case .swap, .unwrapETH, .wrapETH:
 			return nil
 		case .borrow:
 			return "\(borrowDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(borrowDetailsVM?.tokenSymbol ?? "")"
@@ -93,84 +93,81 @@ struct ActivityDetailProperties {
 	}
 
 	public var fromTokenSymbol: String? {
-        switch uiType {
-        case .swap:
-            return swapDetailsVM?.fromTokenSymbol
-        case .wrapETH:
-            return wrapDetailsVM?.fromTokenSymbol
-        case .unwrapETH:
-            return unwrapDetailsVM?.fromTokenSymbol
-        default:
-            return nil
-        }
-
+		switch uiType {
+		case .swap:
+			return swapDetailsVM?.fromTokenSymbol
+		case .wrapETH:
+			return wrapDetailsVM?.fromTokenSymbol
+		case .unwrapETH:
+			return unwrapDetailsVM?.fromTokenSymbol
+		default:
+			return nil
+		}
 	}
 
 	public var toTokenSymbol: String? {
-        switch uiType {
-        case .swap:
-            return swapDetailsVM?.toTokenSymbol
-        case .wrapETH:
-            return wrapDetailsVM?.toTokenSymbol
-        case .unwrapETH:
-            return unwrapDetailsVM?.toTokenSymbol
-        default:
-            return nil
-        }
-
+		switch uiType {
+		case .swap:
+			return swapDetailsVM?.toTokenSymbol
+		case .wrapETH:
+			return wrapDetailsVM?.toTokenSymbol
+		case .unwrapETH:
+			return unwrapDetailsVM?.toTokenSymbol
+		default:
+			return nil
+		}
 	}
 
 	public var fromTokenIcon: URL? {
-        switch uiType {
-        case .swap:
-            return swapDetailsVM?.fromTokenImage
-        case .wrapETH:
-            return wrapDetailsVM?.fromTokenImage
-        case .unwrapETH:
-            return unwrapDetailsVM?.fromTokenImage
-        default:
-            return nil
-        }
+		switch uiType {
+		case .swap:
+			return swapDetailsVM?.fromTokenImage
+		case .wrapETH:
+			return wrapDetailsVM?.fromTokenImage
+		case .unwrapETH:
+			return unwrapDetailsVM?.fromTokenImage
+		default:
+			return nil
+		}
 	}
 
 	public var toTokenIcon: URL? {
-        switch uiType {
-        case .swap:
-            return swapDetailsVM?.toTokenImage
-        case .wrapETH:
-            return wrapDetailsVM?.toTokenImage
-        case .unwrapETH:
-            return unwrapDetailsVM?.toTokenImage
-        default:
-            return nil
-        }
+		switch uiType {
+		case .swap:
+			return swapDetailsVM?.toTokenImage
+		case .wrapETH:
+			return wrapDetailsVM?.toTokenImage
+		case .unwrapETH:
+			return unwrapDetailsVM?.toTokenImage
+		default:
+			return nil
+		}
 	}
 
 	public var fromTokenAmount: String? {
-        switch uiType {
-        case .swap:
-            return swapDetailsVM?.fromTokenAmount.sevenDigitFormat
-        case .wrapETH:
-            return wrapDetailsVM?.fromTokenAmount.sevenDigitFormat
-        case .unwrapETH:
-            return unwrapDetailsVM?.fromTokenAmount.sevenDigitFormat
-        default:
-            return nil
-        }
-
+		switch uiType {
+		case .swap:
+			return swapDetailsVM?.fromTokenAmount.sevenDigitFormat
+		case .wrapETH:
+			return wrapDetailsVM?.fromTokenAmount.sevenDigitFormat
+		case .unwrapETH:
+			return unwrapDetailsVM?.fromTokenAmount.sevenDigitFormat
+		default:
+			return nil
+		}
 	}
 
 	public var toTokenAmount: String? {
-        switch uiType {
-        case .swap:
-            return swapDetailsVM?.toTokenAmount.sevenDigitFormat
-        case .wrapETH:
-            return wrapDetailsVM?.toTokenAmount.sevenDigitFormat
-        case .unwrapETH:
-            return unwrapDetailsVM?.toTokenAmount.sevenDigitFormat
-        default:
-            return nil
-        }
+		switch uiType {
+		case .swap:
+			return swapDetailsVM?.toTokenAmount.sevenDigitFormat
+		case .wrapETH:
+			return wrapDetailsVM?.toTokenAmount.sevenDigitFormat
+		case .unwrapETH:
+			return unwrapDetailsVM?.toTokenAmount.sevenDigitFormat
+		default:
+			return nil
+		}
 	}
 
 	// information properties
@@ -211,9 +208,9 @@ struct ActivityDetailProperties {
 			return collateralStatusDetailsVM?.activityProtocol.capitalized
 		case .approve:
 			return nil
-        case .wrapETH, .unwrapETH:
-            return nil
-        }
+		case .wrapETH, .unwrapETH:
+			return nil
+		}
 	}
 
 	public var protocolImage: String? {
@@ -242,9 +239,9 @@ struct ActivityDetailProperties {
 			return collateralStatusDetailsVM?.activityProtocol
 		case .approve:
 			return nil
-        case .wrapETH, .unwrapETH:
-            return nil
-        }
+		case .wrapETH, .unwrapETH:
+			return nil
+		}
 	}
 
 	public var formattedFeeInDollar: String {
@@ -455,17 +452,29 @@ struct ActivityDetailProperties {
 				activityModel: approveActivityModel,
 				token: approveToken
 			)
-        case .wrapETH:
-            guard let wrapActivityModel = activityDetails.defaultActivityModel as? ActivityWrapETHModel, let ethToken = globalAssetsList.first(where: { $0.isEth }), let wethToken = globalAssetsList.first(where: { $0.isWEth }) else {
-                fatalError("Cant generate wrap activity details viewmodel")
-            }
-            wrapDetailsVM = WrapActivityDetailsViewModel(activityModel: wrapActivityModel, fromToken: ethToken, toToken: wethToken)
-        case .unwrapETH:
-            guard let unwrapActivityModel = activityDetails.defaultActivityModel as? ActivityUnwrapETHModel, let ethToken = globalAssetsList.first(where: { $0.isEth }), let wethToken = globalAssetsList.first(where: { $0.isWEth }) else {
-                fatalError("Cant generate unwrap activity details viewmodel")
-            }
-            unwrapDetailsVM = UnwrapActivityDetailsViewModel(activityModel: unwrapActivityModel, fromToken: wethToken, toToken: ethToken)
-        }
+		case .wrapETH:
+			guard let wrapActivityModel = activityDetails.defaultActivityModel as? ActivityWrapETHModel,
+			      let ethToken = globalAssetsList.first(where: { $0.isEth }),
+			      let wethToken = globalAssetsList.first(where: { $0.isWEth }) else {
+				fatalError("Cant generate wrap activity details viewmodel")
+			}
+			wrapDetailsVM = WrapActivityDetailsViewModel(
+				activityModel: wrapActivityModel,
+				fromToken: ethToken,
+				toToken: wethToken
+			)
+		case .unwrapETH:
+			guard let unwrapActivityModel = activityDetails.defaultActivityModel as? ActivityUnwrapETHModel,
+			      let ethToken = globalAssetsList.first(where: { $0.isEth }),
+			      let wethToken = globalAssetsList.first(where: { $0.isWEth }) else {
+				fatalError("Cant generate unwrap activity details viewmodel")
+			}
+			unwrapDetailsVM = UnwrapActivityDetailsViewModel(
+				activityModel: unwrapActivityModel,
+				fromToken: wethToken,
+				toToken: ethToken
+			)
+		}
 	}
 
 	private mutating func setEthToken() {
@@ -502,7 +511,7 @@ extension ActivityDetailProperties {
 extension ActivityUIType {
 	fileprivate var pageTitleText: String {
 		switch self {
-        case .swap, .wrapETH, .unwrapETH:
+		case .swap, .wrapETH, .unwrapETH:
 			return "Swap"
 		case .borrow:
 			return "Borrow"

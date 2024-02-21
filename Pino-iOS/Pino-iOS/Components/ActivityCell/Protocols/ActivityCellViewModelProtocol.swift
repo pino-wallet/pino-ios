@@ -37,6 +37,6 @@ public enum ActivityUIType {
 	case enable_collateral
 	case disable_collateral
 	case approve
-    case wrapETH
-    case unwrapETH
+	case wrapETH
+	case unwrapETH
 }

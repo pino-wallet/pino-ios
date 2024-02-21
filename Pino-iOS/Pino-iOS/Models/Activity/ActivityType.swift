@@ -25,15 +25,14 @@ enum ActivityType: String {
 	case decrease_collateral
 	case create_collateral
 	case remove_collateral
-    case wrap_eth
-    case unwrap_eth
-    case swap_wrap
-    case swap_unwrap
+	case wrap_eth
+	case unwrap_eth
+	case swap_wrap
+	case swap_unwrap
 }
 
-
 enum ActivityStatus: String {
-    case pending
-    case success
-    case failed
+	case pending
+	case success
+	case failed
 }

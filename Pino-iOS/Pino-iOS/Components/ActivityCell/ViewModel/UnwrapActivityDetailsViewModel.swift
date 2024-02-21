@@ -8,44 +8,43 @@
 import Foundation
 
 struct UnwrapActivityDetailsViewModel {
-    // MARK: - Internal Properties
+	// MARK: - Internal Properties
 
-    internal var activityModel: ActivityUnwrapETHModel
-    internal var fromToken: AssetViewModel
-    internal var toToken: AssetViewModel
+	internal var activityModel: ActivityUnwrapETHModel
+	internal var fromToken: AssetViewModel
+	internal var toToken: AssetViewModel
 
-    // MARK: - Public Properties
+	// MARK: - Public Properties
 
-    public var fromTokenAmount: BigNumber {
-        BigNumber(number: activityModel.detail.amount, decimal: fromToken.decimal)
-    }
+	public var fromTokenAmount: BigNumber {
+		BigNumber(number: activityModel.detail.amount, decimal: fromToken.decimal)
+	}
 
-    public var toTokenAmount: BigNumber {
-        BigNumber(number: activityModel.detail.amount, decimal: toToken.decimal)
-    }
+	public var toTokenAmount: BigNumber {
+		BigNumber(number: activityModel.detail.amount, decimal: toToken.decimal)
+	}
 
-    public var toTokenSymbol: String {
-        toToken.symbol
-    }
+	public var toTokenSymbol: String {
+		toToken.symbol
+	}
 
-    public var fromTokenSymbol: String {
-        fromToken.symbol
-    }
+	public var fromTokenSymbol: String {
+		fromToken.symbol
+	}
 
-    public var fromTokenImage: URL? {
-        if fromToken.isVerified {
-            return fromToken.image
-        } else {
-            return nil
-        }
-    }
+	public var fromTokenImage: URL? {
+		if fromToken.isVerified {
+			return fromToken.image
+		} else {
+			return nil
+		}
+	}
 
-    public var toTokenImage: URL? {
-        if toToken.isVerified {
-            return toToken.image
-        } else {
-            return nil
-        }
-    }
-
+	public var toTokenImage: URL? {
+		if toToken.isVerified {
+			return toToken.image
+		} else {
+			return nil
+		}
+	}
 }
