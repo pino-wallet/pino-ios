@@ -470,7 +470,7 @@ class CoreDataManager {
 
 	@discardableResult
 	public func addNewUnwrapETHActivity(
-		activityModel: ActivityWrapETHModel,
+		activityModel: ActivityUnwrapETHModel,
 		accountAddress: String
 	) -> CDUnwrapETHActivity? {
 		guard activityDataSource.getBy(id: activityModel.txHash) == nil else { return nil }
