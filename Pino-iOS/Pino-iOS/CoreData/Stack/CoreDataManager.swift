@@ -56,6 +56,7 @@ class CoreDataManager {
 		avatarIcon: String,
 		avatarColor: String,
 		isSelected: Bool = true,
+		hasDefaultAssets: Bool = false,
 		wallet: Wallet
 	) -> WalletAccount? {
 		guard accountDataSource.getBy(id: publicKey) == nil else { return nil }
@@ -69,6 +70,7 @@ class CoreDataManager {
 		newAccount.isSelected = isSelected
 		newAccount.wallet = wallet
 		newAccount.selectedAssets = []
+		newAccount.hasDefaultAssets = hasDefaultAssets
 		newAccount.isPositionEnabled = false
 		if newAccount.wallet.walletType == .hdWallet {
 			newAccount.wallet.lastDrivedIndex += 1
@@ -121,6 +123,7 @@ class CoreDataManager {
 		let newSelectedAsset = SelectedAsset(context: selectedAssetDataSource.managedContext)
 		newSelectedAsset.id = id
 		newSelectedAsset.account = PinoWalletManager().currentAccount
+		newSelectedAsset.account.hasDefaultAssets = true
 		selectedAssetDataSource.save(newSelectedAsset)
 		return newSelectedAsset
 	}

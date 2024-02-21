@@ -39,4 +39,6 @@ extension WalletAccount {
 	public var lastETHBalance: String?
 	@NSManaged
 	public var isPositionEnabled: Bool
+	@NSManaged
+	public var hasDefaultAssets: Bool
 }
