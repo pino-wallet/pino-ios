@@ -101,8 +101,8 @@ class InvestDepositView: UIView {
 		amountTextfield.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 		let focusTextFieldTapGesture = UITapGestureRecognizer(target: self, action: #selector(focusOnAmountTextField))
 		amountSpacerView.addGestureRecognizer(focusTextFieldTapGesture)
-		let putMAxAmountTapgesture = UITapGestureRecognizer(target: self, action: #selector(putMaxAmountInTextField))
-		maxAmountStackView.addGestureRecognizer(putMAxAmountTapgesture)
+		let enterMaxAmountTapGesture = UITapGestureRecognizer(target: self, action: #selector(enterMaxAmount))
+		maxAmountStackView.addGestureRecognizer(enterMaxAmountTapGesture)
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
 	}
 
@@ -306,10 +306,12 @@ class InvestDepositView: UIView {
 	}
 
 	@objc
-	private func putMaxAmountInTextField() {
+	private func enterMaxAmount() {
 		investVM.calculateDollarAmount(investVM.maxAvailableAmount)
 		amountTextfield.text = investVM.maxAvailableAmount.formattedDecimalString
 		updateAmount(enteredAmount: investVM.maxAvailableAmount.formattedDecimalString)
+		amountTextfield
+			.moveCursorToBeginning(textfieldWidth: amountTextfield.bounds.width + amountSpacerView.bounds.width)
 	}
 
 	@objc

@@ -257,6 +257,8 @@ class BorrowIncreaseAmountView: UIView {
 	@objc
 	private func putMaxAmountInTextField() {
 		amountTextfield.text = borrowIncreaseAmountVM.maxHoldAmount.decimalString
+		amountTextfield
+			.moveCursorToBeginning(textfieldWidth: amountTextfield.bounds.width + amountSpacerView.bounds.width)
 		animateAmountHealthScoreView(isHidden: false)
 
 		if borrowIncreaseAmountVM.selectedToken.isEth {

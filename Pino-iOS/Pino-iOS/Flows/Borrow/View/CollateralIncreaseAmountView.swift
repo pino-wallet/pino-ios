@@ -319,6 +319,8 @@ class CollateralIncreaseAmountView: UIView {
 			return
 		}
 		amountTextfield.text = maxHoldAmount.decimalString
+		amountTextfield
+			.moveCursorToBeginning(textfieldWidth: amountTextfield.bounds.width + amountSpacerView.bounds.width)
 		animateAmountHealthScoreView(isHidden: false)
 
 		if collateralIncreaseAmountVM.selectedToken.isEth {

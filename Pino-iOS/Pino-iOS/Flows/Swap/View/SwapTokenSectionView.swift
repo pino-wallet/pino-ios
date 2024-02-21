@@ -221,6 +221,8 @@ class SwapTokenSectionView: UIView {
 		updateEstimatedAmount(enteredAmount: getMaxAmount(selectedToken: swapVM.selectedToken))
 		updateAmountView()
 		updateBalanceStatus()
+		amountTextfield
+			.moveCursorToBeginning(textfieldWidth: amountTextfield.bounds.width + textFieldSpacerView.bounds.width)
 	}
 
 	fileprivate func extractedFunc(_ balanceStatus: AmountStatus) {

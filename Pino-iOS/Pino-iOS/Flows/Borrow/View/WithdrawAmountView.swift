@@ -250,7 +250,8 @@ class WithdrawAmountView: UIView {
 	@objc
 	private func putMaxAmountInTextField() {
 		amountTextfield.text = withdrawAmountVM.maxWithdrawAmount.decimalString
-
+		amountTextfield
+			.moveCursorToBeginning(textfieldWidth: amountTextfield.bounds.width + amountSpacerView.bounds.width)
 		animateAmountHealthScoreView(isHidden: false)
 
 		if withdrawAmountVM.selectedToken.isEth {

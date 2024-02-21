@@ -261,6 +261,8 @@ class RepayAmountView: UIView {
 	@objc
 	private func putMaxAmountInTextField() {
 		amountTextfield.text = repayAmountVM.maxHoldAmount.decimalString
+		amountTextfield
+			.moveCursorToBeginning(textfieldWidth: amountTextfield.bounds.width + amountSpacerView.bounds.width)
 		animateAmountHealthScoreView(isHidden: false)
 
 		if repayAmountVM.selectedToken.isEth {
