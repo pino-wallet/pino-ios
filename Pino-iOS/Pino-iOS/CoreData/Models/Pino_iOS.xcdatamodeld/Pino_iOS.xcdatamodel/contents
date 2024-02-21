@@ -17,6 +17,7 @@
         <attribute name="gasPrice" attributeType="String"/>
         <attribute name="gasUsed" attributeType="String"/>
         <attribute name="prevTxHash" optional="YES" attributeType="String"/>
+        <attribute name="status" optional="YES" attributeType="String"/>
         <attribute name="toAddress" attributeType="String"/>
         <attribute name="txHash" attributeType="String"/>
         <attribute name="type" attributeType="String"/>
@@ -87,11 +88,25 @@
         <attribute name="tokenID" attributeType="String"/>
         <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDTransferActivity" inverseName="details" inverseEntity="CDTransferActivity"/>
     </entity>
+    <entity name="CDUnwrapETHActivity" representedClassName="CDUnwrapETHActivity" parentEntity="CDActivityParent" syncable="YES">
+        <relationship name="details" maxCount="1" deletionRule="Nullify" destinationEntity="CDUnwrapETHActivityDetails" inverseName="activity" inverseEntity="CDUnwrapETHActivityDetails"/>
+    </entity>
+    <entity name="CDUnwrapETHActivityDetails" representedClassName="CDUnwrapETHActivityDetails" syncable="YES">
+        <attribute name="amount" attributeType="String"/>
+        <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDUnwrapETHActivity" inverseName="details" inverseEntity="CDUnwrapETHActivity"/>
+    </entity>
     <entity name="CDWithdrawActivity" representedClassName="CDWithdrawActivity" parentEntity="CDActivityParent" syncable="YES">
         <relationship name="details" maxCount="1" deletionRule="Nullify" destinationEntity="CDWithdrawActivityDetails" inverseName="activity" inverseEntity="CDWithdrawActivityDetails"/>
     </entity>
     <entity name="CDWithdrawActivityDetails" representedClassName="CDWithdrawActivityDetails" parentEntity="CDInvestmentActivityDetails" syncable="YES">
         <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWithdrawActivity" inverseName="details" inverseEntity="CDWithdrawActivity"/>
+    </entity>
+    <entity name="CDWrapETHActivity" representedClassName="CDWrapETHActivity" parentEntity="CDActivityParent" syncable="YES">
+        <relationship name="details" maxCount="1" deletionRule="Nullify" destinationEntity="CDWrapETHActivityDetails" inverseName="activity" inverseEntity="CDWrapETHActivityDetails"/>
+    </entity>
+    <entity name="CDWrapETHActivityDetails" representedClassName="CDWrapETHActivityDetails" syncable="YES">
+        <attribute name="amount" attributeType="String"/>
+        <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWrapETHActivity" inverseName="details" inverseEntity="CDWrapETHActivity"/>
     </entity>
     <entity name="CustomAsset" representedClassName="CustomAsset" syncable="YES">
         <attribute name="accountAddress" optional="YES" attributeType="String"/>

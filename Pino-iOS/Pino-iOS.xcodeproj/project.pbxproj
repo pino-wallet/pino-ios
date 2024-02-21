@@ -65,6 +65,18 @@
 		2551C3796076DA146C40F1AC /* IntroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493670F85AF24449B805AFDA /* IntroViewModel.swift */; };
 		25BF49CF523EA1322C6FC4EB /* PPPangramSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C31426AD24C3B8759699C644 /* PPPangramSans-Regular.ttf */; };
 		2919216FFA72DA25EADE5CF3 /* CustomSwitchOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC85295F255DE999F94EA171 /* CustomSwitchOptionView.swift */; };
+		296AFFE22B85D33800B90E55 /* ActivityWrapETHModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296AFFE12B85D33800B90E55 /* ActivityWrapETHModel.swift */; };
+		296AFFE42B85DB5400B90E55 /* WrapActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296AFFE32B85DB5400B90E55 /* WrapActivityDetailsViewModel.swift */; };
+		296AFFE62B85DBFB00B90E55 /* UnwrapActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296AFFE52B85DBFB00B90E55 /* UnwrapActivityDetailsViewModel.swift */; };
+		29B332402B8602CB001E34B7 /* CDUnwrapETHActivity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B332382B8602CA001E34B7 /* CDUnwrapETHActivity+CoreDataClass.swift */; };
+		29B332412B8602CB001E34B7 /* CDUnwrapETHActivity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3323A2B8602CA001E34B7 /* CDUnwrapETHActivity+CoreDataProperties.swift */; };
+		29B332422B8602CB001E34B7 /* CDWrapETHActivityDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3323E2B8602CB001E34B7 /* CDWrapETHActivityDetails+CoreDataProperties.swift */; };
+		29B332432B8602CB001E34B7 /* CDUnwrapETHActivityDetails+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3323C2B8602CB001E34B7 /* CDUnwrapETHActivityDetails+CoreDataClass.swift */; };
+		29B332442B8602CB001E34B7 /* CDUnwrapETHActivityDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B332392B8602CA001E34B7 /* CDUnwrapETHActivityDetails+CoreDataProperties.swift */; };
+		29B332452B8602CB001E34B7 /* CDWrapETHActivity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3323B2B8602CA001E34B7 /* CDWrapETHActivity+CoreDataClass.swift */; };
+		29B332462B8602CB001E34B7 /* CDWrapETHActivityDetails+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3323D2B8602CB001E34B7 /* CDWrapETHActivityDetails+CoreDataClass.swift */; };
+		29B332472B8602CB001E34B7 /* CDWrapETHActivity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3323F2B8602CB001E34B7 /* CDWrapETHActivity+CoreDataProperties.swift */; };
+		29B332492B8612E8001E34B7 /* ActivityUnwrapETHModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B332482B8612E8001E34B7 /* ActivityUnwrapETHModel.swift */; };
 		2BC73AE9759B87DCBF761327 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016DB0AD44B6C2F7D74B730 /* AlertHelper.swift */; };
 		2E5C040F84977824A977D541 /* AccountInfoNavigationItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = E149E7B618CEFE5E909B2D78 /* AccountInfoNavigationItems.swift */; };
 		316F0DDECBB3FA68BFFA1577 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662126D2932FB4BDCEAAB8DB /* AccountsViewController.swift */; };
@@ -933,7 +945,19 @@
 		27C67E904C0B3815BD92FF78 /* PositionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionHeaderView.swift; sourceTree = "<group>"; };
 		28065F9D448678F63B909BC4 /* AddNewAccountCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewAccountCollectionView.swift; sourceTree = "<group>"; };
 		29586CCAC21CB070FEBA025F /* BodyParamsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyParamsType.swift; sourceTree = "<group>"; };
+		296AFFE12B85D33800B90E55 /* ActivityWrapETHModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityWrapETHModel.swift; sourceTree = "<group>"; };
+		296AFFE32B85DB5400B90E55 /* WrapActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapActivityDetailsViewModel.swift; sourceTree = "<group>"; };
+		296AFFE52B85DBFB00B90E55 /* UnwrapActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnwrapActivityDetailsViewModel.swift; sourceTree = "<group>"; };
 		29AE3680C6C881D44A865492 /* AvatarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarViewModel.swift; sourceTree = "<group>"; };
+		29B332382B8602CA001E34B7 /* CDUnwrapETHActivity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDUnwrapETHActivity+CoreDataClass.swift"; path = "/Users/amir/developing/ios/pino-ios/Pino-iOS/Pino-iOS/CoreData/Models/Activity/CDUnwrapETHActivity+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		29B332392B8602CA001E34B7 /* CDUnwrapETHActivityDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDUnwrapETHActivityDetails+CoreDataProperties.swift"; path = "/Users/amir/developing/ios/pino-ios/Pino-iOS/Pino-iOS/CoreData/Models/Activity/CDUnwrapETHActivityDetails+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		29B3323A2B8602CA001E34B7 /* CDUnwrapETHActivity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDUnwrapETHActivity+CoreDataProperties.swift"; path = "/Users/amir/developing/ios/pino-ios/Pino-iOS/Pino-iOS/CoreData/Models/Activity/CDUnwrapETHActivity+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		29B3323B2B8602CA001E34B7 /* CDWrapETHActivity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDWrapETHActivity+CoreDataClass.swift"; path = "/Users/amir/developing/ios/pino-ios/Pino-iOS/Pino-iOS/CoreData/Models/Activity/CDWrapETHActivity+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		29B3323C2B8602CB001E34B7 /* CDUnwrapETHActivityDetails+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDUnwrapETHActivityDetails+CoreDataClass.swift"; path = "/Users/amir/developing/ios/pino-ios/Pino-iOS/Pino-iOS/CoreData/Models/Activity/CDUnwrapETHActivityDetails+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		29B3323D2B8602CB001E34B7 /* CDWrapETHActivityDetails+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDWrapETHActivityDetails+CoreDataClass.swift"; path = "/Users/amir/developing/ios/pino-ios/Pino-iOS/Pino-iOS/CoreData/Models/Activity/CDWrapETHActivityDetails+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		29B3323E2B8602CB001E34B7 /* CDWrapETHActivityDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDWrapETHActivityDetails+CoreDataProperties.swift"; path = "/Users/amir/developing/ios/pino-ios/Pino-iOS/Pino-iOS/CoreData/Models/Activity/CDWrapETHActivityDetails+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		29B3323F2B8602CB001E34B7 /* CDWrapETHActivity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDWrapETHActivity+CoreDataProperties.swift"; path = "/Users/amir/developing/ios/pino-ios/Pino-iOS/Pino-iOS/CoreData/Models/Activity/CDWrapETHActivity+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		29B332482B8612E8001E34B7 /* ActivityUnwrapETHModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityUnwrapETHModel.swift; sourceTree = "<group>"; };
 		2C692B063F7DF262E32FBCF9 /* ReceiveViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveViewModel.swift; sourceTree = "<group>"; };
 		2CE296532DABA81FAA3B00A3 /* PinoLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoLabelStyle.swift; sourceTree = "<group>"; };
 		2D375B5D2DBB3E66A081076C /* AddNewAccountOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewAccountOptionViewModel.swift; sourceTree = "<group>"; };
@@ -3479,6 +3503,8 @@
 				D9A642CB2AFA254200FDE11D /* ActivityWithdrawModel.swift */,
 				D95CD8612B00C9F0003C1CF0 /* ActivityApproveModel.swift */,
 				D9629D232B81E8F600D3DA9F /* ActivityBaseModel.swift */,
+				296AFFE12B85D33800B90E55 /* ActivityWrapETHModel.swift */,
+				29B332482B8612E8001E34B7 /* ActivityUnwrapETHModel.swift */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -3511,6 +3537,14 @@
 		D9BE05202A822340008670F9 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
+				29B332382B8602CA001E34B7 /* CDUnwrapETHActivity+CoreDataClass.swift */,
+				29B3323A2B8602CA001E34B7 /* CDUnwrapETHActivity+CoreDataProperties.swift */,
+				29B3323C2B8602CB001E34B7 /* CDUnwrapETHActivityDetails+CoreDataClass.swift */,
+				29B332392B8602CA001E34B7 /* CDUnwrapETHActivityDetails+CoreDataProperties.swift */,
+				29B3323B2B8602CA001E34B7 /* CDWrapETHActivity+CoreDataClass.swift */,
+				29B3323F2B8602CB001E34B7 /* CDWrapETHActivity+CoreDataProperties.swift */,
+				29B3323D2B8602CB001E34B7 /* CDWrapETHActivityDetails+CoreDataClass.swift */,
+				29B3323E2B8602CB001E34B7 /* CDWrapETHActivityDetails+CoreDataProperties.swift */,
 				DFCB13AC2B09DCEE00EEFD0F /* CDWithdrawActivity+CoreDataClass.swift */,
 				DFCB13AB2B09DCEE00EEFD0F /* CDWithdrawActivity+CoreDataProperties.swift */,
 				DFCB13AA2B09DCEE00EEFD0F /* CDWithdrawActivityDetails+CoreDataClass.swift */,
@@ -3589,6 +3623,8 @@
 				D95CD85D2B00B210003C1CF0 /* CollateralActivityDetailsViewModel.swift */,
 				D95CD85F2B00BC00003C1CF0 /* CollateralStatusActivityDetailsViewModel.swift */,
 				D95CD8632B00CBA4003C1CF0 /* ApproveActivityDetailsViewModel.swift */,
+				296AFFE32B85DB5400B90E55 /* WrapActivityDetailsViewModel.swift */,
+				296AFFE52B85DBFB00B90E55 /* UnwrapActivityDetailsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -4923,6 +4959,7 @@
 				DFCB139D2B09DCB800EEFD0F /* CDInvestActivityDetails+CoreDataClass.swift in Sources */,
 				DFCB139E2B09DCB800EEFD0F /* CDCollateralActivity+CoreDataClass.swift in Sources */,
 				DFCB139F2B09DCB800EEFD0F /* CDInvestActivity+CoreDataClass.swift in Sources */,
+				29B332492B8612E8001E34B7 /* ActivityUnwrapETHModel.swift in Sources */,
 				DFCB13A02B09DCB800EEFD0F /* CDInvestActivityDetails+CoreDataProperties.swift in Sources */,
 				DFCB13A12B09DCB800EEFD0F /* CDCollateralActivityDetails+CoreDataClass.swift in Sources */,
 				D9F8BF622B667DC5009DB092 /* RecentAddressHelper.swift in Sources */,
@@ -4965,8 +5002,10 @@
 				3FCBDE4AD53846BFEBF7F716 /* AccountingEndpoint.swift in Sources */,
 				E3ABD1F82AB1941500947D37 /* ImportAccountsView.swift in Sources */,
 				D95D7E002B429DA30001AFF6 /* SyncWalletViewModel.swift in Sources */,
+				29B332452B8602CB001E34B7 /* CDWrapETHActivity+CoreDataClass.swift in Sources */,
 				E3ABD1F22AB0BAB700947D37 /* InvestmentModel.swift in Sources */,
 				D9D9A40A2A5E9CD200CECA41 /* ImageAndInfoView.swift in Sources */,
+				29B332472B8602CB001E34B7 /* CDWrapETHActivity+CoreDataProperties.swift in Sources */,
 				D9EBBF9D2B1C913C0005B1D6 /* W3AaveRepayManager.swift in Sources */,
 				DF6DEDD02AA8C29D0080B47B /* EIP712HashRequestModel.swift in Sources */,
 				D9D9A40A2A5E9CD200CECA41 /* ImageAndInfoView.swift in Sources */,
@@ -5008,6 +5047,7 @@
 				E39954612A4C1358001248C3 /* GlobalVariables.swift in Sources */,
 				D98207C42A5D5C7C0066A090 /* ActivityDetailsView.swift in Sources */,
 				4BD24A38B1C81FA80EB0B6E8 /* AllDoneViewModel.swift in Sources */,
+				296AFFE42B85DB5400B90E55 /* WrapActivityDetailsViewModel.swift in Sources */,
 				D9EBBF9F2B1CB6030005B1D6 /* AaveRepayManager.swift in Sources */,
 				A56FBAD2E31C10F504631CD6 /* AppDelegate.swift in Sources */,
 				D9BE15B22A69360E005E4063 /* TransferActivityDetailsViewModel.swift in Sources */,
@@ -5036,6 +5076,7 @@
 				D9C584872ADD3C3200371B7A /* ApproveSpeedUpViewModel.swift in Sources */,
 				E3596B1B2A6E51D60030B682 /* SwapSide.swift in Sources */,
 				DF136FDE2B381E5E00A7B878 /* GasLimitsModel.swift in Sources */,
+				29B332442B8602CB001E34B7 /* CDUnwrapETHActivityDetails+CoreDataProperties.swift in Sources */,
 				40BB42282A47157800E1A121 /* UIDevice+Extension.swift in Sources */,
 				D986BC332B0B669600DCE03C /* SendTransactionStatusViewController.swift in Sources */,
 				E3FC69C12A8C9CBC009B3341 /* InvestmentBoardView.swift in Sources */,
@@ -5181,6 +5222,7 @@
 				E3FC69CA2A90A852009B3341 /* InvastableAssetCell.swift in Sources */,
 				D97F0B902A948FD10083DA81 /* SelectDexSystemVMProtocol.swift in Sources */,
 				D936FB982B41663700A73F17 /* GetInviteCodeViewModel.swift in Sources */,
+				296AFFE22B85D33800B90E55 /* ActivityWrapETHModel.swift in Sources */,
 				DFB566272A1926C600F9D6A0 /* ImportTextViewType.swift in Sources */,
 				D92278BB2A79043C0098A36A /* ActivityTransferModel.swift in Sources */,
 				E3ABD1E22AADA0FB00947D37 /* InvestmentDetailViewController.swift in Sources */,
@@ -5300,6 +5342,7 @@
 				FC0D80A069760DC032C1B9D6 /* IntroModel.swift in Sources */,
 				E3C802792A9499B500A13792 /* InvestmentRiskPerformanceViewController.swift in Sources */,
 				FDEF1CFCCEFF7401C0A664FD /* IntroView.swift in Sources */,
+				29B332422B8602CB001E34B7 /* CDWrapETHActivityDetails+CoreDataProperties.swift in Sources */,
 				CC788E5AD6EC8CE9488DA049 /* IntroViewController.swift in Sources */,
 				D97179F82B3C27560067D8BD /* PortfolioFooterViewModel.swift in Sources */,
 				2551C3796076DA146C40F1AC /* IntroViewModel.swift in Sources */,
@@ -5316,6 +5359,7 @@
 				D95D7DFC2B429D0A0001AFF6 /* SyncWalletView.swift in Sources */,
 				06E5204105CFC5FFF4B310EE /* JSONParameterEncoder.swift in Sources */,
 				403691BE2A3DFFB60013AB6D /* ToastView.swift in Sources */,
+				29B332402B8602CB001E34B7 /* CDUnwrapETHActivity+CoreDataClass.swift in Sources */,
 				763F91967E4347D64BD561C4 /* KeychainHelper.swift in Sources */,
 				D916A8C02A9F5F0200F391B5 /* RepayAmountViewModel.swift in Sources */,
 				D95D20362AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift in Sources */,
@@ -5358,6 +5402,7 @@
 				403691BC2A3DFFB50013AB6D /* ToastConfiguration.swift in Sources */,
 				D9A0BDAA2A974B9800AE132F /* BorrowingBoardViewController.swift in Sources */,
 				DF00179529F85774001164EA /* KeychainManager.swift in Sources */,
+				29B332432B8602CB001E34B7 /* CDUnwrapETHActivityDetails+CoreDataClass.swift in Sources */,
 				E35BB64D2A596E90003987F5 /* SelectSwapProvidersViewModel.swift in Sources */,
 				325E592A9AA1B24C522EA47F /* MediumStyle.swift in Sources */,
 				D97DE9DC2B09E65F00DDF4FB /* CollateralPageStatus.swift in Sources */,
@@ -5524,6 +5569,7 @@
 				34F4A2DA1228B50AC3DFA8A2 /* SeedPhrase.swift in Sources */,
 				E3ABD1FC2AB19FA700947D37 /* ImportAccountsViewModel.swift in Sources */,
 				DFCB13B42B0A1E2300EEFD0F /* Web3HelperProtocol.swift in Sources */,
+				29B332412B8602CB001E34B7 /* CDUnwrapETHActivity+CoreDataProperties.swift in Sources */,
 				DF00179129F856D5001164EA /* PinoHDWallet.swift in Sources */,
 				44C3312B501D7A88C6ADB659 /* SelectPassViewModel.swift in Sources */,
 				D987B7422AD5420C00727FDD /* W3AaveBorrowManager.swift in Sources */,
@@ -5598,6 +5644,7 @@
 				8BB89902879DDF1FE9C46EF4 /* UnlockPasscodeView.swift in Sources */,
 				88F5D80113398502A2D2BE03 /* ImportSecretPhraseViewModel.swift in Sources */,
 				F8BA0B9925700FFF405AB76D /* VerifyPassViewModel.swift in Sources */,
+				296AFFE62B85DBFB00B90E55 /* UnwrapActivityDetailsViewModel.swift in Sources */,
 				1171EA77FBBB99743B192CFF /* VerifyPasscodeViewController.swift in Sources */,
 				40F704572A03AFFF004D74FE /* AccountActivationModel.swift in Sources */,
 				D90C3F0A2ADABAC500EF6739 /* PinoLoadingExtension.swift in Sources */,
@@ -5633,6 +5680,7 @@
 				E3847B3C2A52CDB2005ED78B /* SwapView.swift in Sources */,
 				2E5C040F84977824A977D541 /* AccountInfoNavigationItems.swift in Sources */,
 				E3ABD1E42AADA3CF00947D37 /* InvestmentDetailViewModel.swift in Sources */,
+				29B332462B8602CB001E34B7 /* CDWrapETHActivityDetails+CoreDataClass.swift in Sources */,
 				D9C4CEFF2A408C5E00475F01 /* SuggestedAddressesCollectionView.swift in Sources */,
 				798A57BFA5D028A04B449F34 /* AccountInfoViewModel.swift in Sources */,
 				AD68BBE3C5E6C48C129C6BA7 /* AccountsCollectionView.swift in Sources */,

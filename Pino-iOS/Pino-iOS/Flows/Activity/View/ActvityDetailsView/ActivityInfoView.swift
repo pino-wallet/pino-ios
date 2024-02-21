@@ -219,7 +219,10 @@ class ActivityInfoView: UIView {
 			hideFromAndToStackView()
 		case .approve:
 			hideFromAndToStackView()
-		}
+        case .wrapETH, .unwrapETH:
+            hidePrtocolAndTypeStackView()
+            hideFromAndToStackView()
+        }
 	}
 
 	private func setupConstraints() {

@@ -19,6 +19,8 @@ enum ResultActivityModel: Decodable, Encodable {
 	case withdraw(ActivityWithdrawModel)
 	case invest(ActivityInvestModel)
 	case approve(ActivityApproveModel)
+    case wrap(ActivityWrapETHModel)
+    case unwrap(ActivityUnwrapETHModel)
 	case unknown(ActivityBaseModel)
 
 	// MARK: - Coding keys
@@ -62,6 +64,12 @@ enum ResultActivityModel: Decodable, Encodable {
 		case .approve:
 			let approveActivity = try ActivityApproveModel(from: decoder)
 			self = .approve(approveActivity)
+        case .swap_wrap, .wrap_eth:
+            let wrapActivity = try ActivityWrapETHModel(from: decoder)
+            self = .wrap(wrapActivity)
+        case .unwrap_eth, .swap_unwrap:
+            let unwrapActivity = try ActivityUnwrapETHModel(from: decoder)
+            self = .unwrap(unwrapActivity)
 		default:
 			let baseActivity = try ActivityBaseModel(from: decoder)
 			self = .unknown(baseActivity)
@@ -101,6 +109,12 @@ enum ResultActivityModel: Decodable, Encodable {
 		case let .approve(approveActivity):
 			try container.encode(ActivityType.approve.rawValue, forKey: .type)
 			try approveActivity.encode(to: encoder)
+        case let .wrap(wrapActivity):
+            try container.encode(ActivityType.wrap_eth.rawValue, forKey: .type)
+            try wrapActivity.encode(to: encoder)
+        case let .unwrap(unwrapActivity):
+            try container.encode(ActivityType.unwrap_eth.rawValue, forKey: .type)
+            try unwrapActivity.encode(to: encoder)
 		case let .unknown(baseActivity):
 			try baseActivity.encode(to: encoder)
 		}
