@@ -365,7 +365,11 @@ extension BigNumber: CustomStringConvertible {
 	}
 
 	public var percentFormat: String {
+		guard !isZero else { return GlobalZeroAmounts.dollars.zeroAmount }
 		var formattedPercent = formattedAmountOf(type: .percentRule)
+		if self.abs < BigNumber(number: 1, decimal: 2) {
+			formattedPercent = "<0.01"
+		}
 		if number.sign == .minus {
 			formattedPercent = "-\(formattedPercent)"
 		}
