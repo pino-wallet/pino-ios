@@ -45,9 +45,6 @@ class SwapViewController: UIViewController {
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		if swapVM != nil {
-			swapVM.removeRateTimer()
-		}
 	}
 
 	// MARK: - Private Methods
