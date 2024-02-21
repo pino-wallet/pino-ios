@@ -326,12 +326,11 @@ class EnterSendAmountView: UIView {
 		if enterAmountVM.isDollarEnabled {
 			amountTextfield.text = enterAmountVM.maxAmountInDollar.priceFormatForFields
 			amountLabel.text = enterAmountVM.formattedMaxHoldAmount
-			moveCursorToBeginning(enterAmountVM.maxAmountInDollar.priceFormatForFields)
 		} else {
 			amountTextfield.text = enterAmountVM.maxHoldAmount.decimalString
 			amountLabel.text = enterAmountVM.formattedMaxAmountInDollar
-			moveCursorToBeginning(enterAmountVM.maxHoldAmount.decimalString)
 		}
+		moveCursorToBeginning()
 
 		if enterAmountVM.selectedToken.isEth {
 			enterAmountVM.calculateAmount(amountTextfield.text ?? .emptyString)
@@ -464,9 +463,10 @@ extension EnterSendAmountView {
 		cancellable.removeAll()
 	}
 
-	func moveCursorToBeginning(_ text: String) {
+	func moveCursorToBeginning() {
+		guard let textFieldText = amountTextfield.text else { return }
 		let textAttributes = [NSAttributedString.Key.font: amountTextfield.font!]
-		let textWidth = text.size(withAttributes: textAttributes).width
+		let textWidth = textFieldText.size(withAttributes: textAttributes).width
 
 		if textWidth > (amountTextfield.bounds.width + amountSpacerView.bounds.width) {
 			// Move the cursor to the beginning
