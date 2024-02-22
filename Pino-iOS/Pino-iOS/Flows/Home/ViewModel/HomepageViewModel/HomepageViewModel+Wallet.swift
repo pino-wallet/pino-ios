@@ -47,12 +47,14 @@ extension HomepageViewModel {
 	}
 
 	private func getVolatilityPercentage(balance: BigNumber, previousBalance: BigNumber) -> String {
+		if balance.isZero, previousBalance.isZero {
+			return GlobalZeroAmounts.plain.zeroAmount
+		}
 		if previousBalance.isZero {
 			return 100.bigNumber.percentFormat
-		} else {
-			let volatility = balance - previousBalance
-			let volatilityPercentage = (volatility / previousBalance)! * 100.bigNumber
-			return volatilityPercentage.percentFormat
 		}
+		let volatility = balance - previousBalance
+		let volatilityPercentage = (volatility / previousBalance)! * 100.bigNumber
+		return volatilityPercentage.percentFormat
 	}
 }
