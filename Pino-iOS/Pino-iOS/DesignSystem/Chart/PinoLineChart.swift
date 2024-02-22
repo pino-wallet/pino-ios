@@ -139,7 +139,6 @@ class PinoLineChart: LineChartView {
 
 	private func updateHighlightValue(selectedPoint: Highlight?) {
 		if let selectedPoint {
-			print(selectedPoint.dataIndex)
 			generateHapticFeedback(selectedPoint)
 			let selectedPointData = getSelectedPointData(point: selectedPoint)
 			let previousPointData = getPreviousPointData(point: selectedPoint)
