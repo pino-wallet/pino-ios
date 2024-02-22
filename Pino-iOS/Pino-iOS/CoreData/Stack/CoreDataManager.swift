@@ -177,6 +177,7 @@ class CoreDataManager {
 		newActivity.gasUsed = activityModel.gasUsed
 		newActivity.gasPrice = activityModel.gasPrice
 		newActivity.accountAddress = accountAddress
+		newActivity.status = ActivityStatus.pending.rawValue
 
 		let newActivityDetails = CDSwapActivityDetails(context: activityDataSource.managedContext)
 
@@ -219,6 +220,7 @@ class CoreDataManager {
 		newActivity.gasUsed = activityModel.gasUsed
 		newActivity.gasPrice = activityModel.gasPrice
 		newActivity.accountAddress = accountAddress
+		newActivity.status = ActivityStatus.pending.rawValue
 
 		let newActivityDetails = CDTransferActivityDetails(context: activityDataSource.managedContext)
 
@@ -249,6 +251,7 @@ class CoreDataManager {
 		newActivity.gasUsed = activityModel.gasUsed
 		newActivity.gasPrice = activityModel.gasPrice
 		newActivity.accountAddress = accountAddress
+		newActivity.status = ActivityStatus.pending.rawValue
 
 		let newActivityDetails = CDApproveActivityDetails(context: activityDataSource.managedContext)
 
@@ -279,6 +282,7 @@ class CoreDataManager {
 		newActivity.gasUsed = activityModel.gasUsed
 		newActivity.gasPrice = activityModel.gasPrice
 		newActivity.accountAddress = accountAddress
+		newActivity.status = ActivityStatus.pending.rawValue
 
 		let newActivityDetails = CDInvestActivityDetails(context: activityDataSource.managedContext)
 
@@ -314,6 +318,7 @@ class CoreDataManager {
 		newActivity.gasUsed = activityModel.gasUsed
 		newActivity.gasPrice = activityModel.gasPrice
 		newActivity.accountAddress = accountAddress
+		newActivity.status = ActivityStatus.pending.rawValue
 
 		let newActivityDetails = CDWithdrawActivityDetails(context: activityDataSource.managedContext)
 
@@ -349,6 +354,7 @@ class CoreDataManager {
 		newActivity.gasUsed = activityModel.gasUsed
 		newActivity.gasPrice = activityModel.gasPrice
 		newActivity.accountAddress = accountAddress
+		newActivity.status = ActivityStatus.pending.rawValue
 
 		let newActivityDetails = CDRepayActivityDetails(context: activityDataSource.managedContext)
 
@@ -386,6 +392,7 @@ class CoreDataManager {
 		newActivity.gasUsed = activityModel.gasUsed
 		newActivity.gasPrice = activityModel.gasPrice
 		newActivity.accountAddress = accountAddress
+		newActivity.status = ActivityStatus.pending.rawValue
 
 		let newActivityDetails = CDBorrowActivityDetails(context: activityDataSource.managedContext)
 
@@ -418,6 +425,7 @@ class CoreDataManager {
 		newActivity.gasUsed = activityModel.gasUsed
 		newActivity.gasPrice = activityModel.gasPrice
 		newActivity.accountAddress = accountAddress
+		newActivity.status = ActivityStatus.pending.rawValue
 
 		let newActivityDetails = CDCollateralActivityDetails(context: activityDataSource.managedContext)
 
@@ -428,6 +436,62 @@ class CoreDataManager {
 			return newActivityDetailsToken
 		})
 		newActivityDetails.activityProtocol = activityModel.detail.activityProtocol
+
+		newActivity.details = newActivityDetails
+
+		activityDataSource.save(newActivity)
+		return newActivity
+	}
+
+	@discardableResult
+	public func addNewWrapETHActivity(
+		activityModel: ActivityWrapETHModel,
+		accountAddress: String
+	) -> CDWrapETHActivity? {
+		guard activityDataSource.getBy(id: activityModel.txHash) == nil else { return nil }
+		let newActivity = CDWrapETHActivity(context: activityDataSource.managedContext)
+
+		newActivity.txHash = activityModel.txHash
+		newActivity.type = activityModel.type
+		newActivity.fromAddress = activityModel.fromAddress
+		newActivity.toAddress = activityModel.toAddress
+		newActivity.blockTime = activityModel.blockTime
+		newActivity.gasUsed = activityModel.gasUsed
+		newActivity.gasPrice = activityModel.gasPrice
+		newActivity.accountAddress = accountAddress
+		newActivity.status = ActivityStatus.pending.rawValue
+
+		let newActivityDetails = CDWrapETHActivityDetails(context: activityDataSource.managedContext)
+
+		newActivityDetails.amount = activityModel.detail.amount
+
+		newActivity.details = newActivityDetails
+
+		activityDataSource.save(newActivity)
+		return newActivity
+	}
+
+	@discardableResult
+	public func addNewUnwrapETHActivity(
+		activityModel: ActivityUnwrapETHModel,
+		accountAddress: String
+	) -> CDUnwrapETHActivity? {
+		guard activityDataSource.getBy(id: activityModel.txHash) == nil else { return nil }
+		let newActivity = CDUnwrapETHActivity(context: activityDataSource.managedContext)
+
+		newActivity.txHash = activityModel.txHash
+		newActivity.type = activityModel.type
+		newActivity.fromAddress = activityModel.fromAddress
+		newActivity.toAddress = activityModel.toAddress
+		newActivity.blockTime = activityModel.blockTime
+		newActivity.gasUsed = activityModel.gasUsed
+		newActivity.gasPrice = activityModel.gasPrice
+		newActivity.accountAddress = accountAddress
+		newActivity.status = ActivityStatus.pending.rawValue
+
+		let newActivityDetails = CDUnwrapETHActivityDetails(context: activityDataSource.managedContext)
+
+		newActivityDetails.amount = activityModel.detail.amount
 
 		newActivity.details = newActivityDetails
 
@@ -453,5 +517,9 @@ class CoreDataManager {
 
 	public func performSpeedUpChanges(txHash: String, newTxHash: String, newGasPrice: String) {
 		activityDataSource.performSpeedUpChanges(txHash: txHash, newTxHash: newTxHash, newGasPrice: newGasPrice)
+	}
+
+	public func changePendingActivityToDone(activityModel: ActivityBaseModel) {
+		activityDataSource.changePendingActivityToDone(activityBaseModel: activityModel)
 	}
 }

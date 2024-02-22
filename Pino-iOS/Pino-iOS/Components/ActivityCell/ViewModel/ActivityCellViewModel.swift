@@ -33,7 +33,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 
 	private var pendingTitle: String {
 		switch uiType {
-		case .swap:
+		case .swap, .wrapETH, .unwrapETH:
 			return "Swapping"
 		case .borrow:
 			return "Borrowing"
@@ -62,7 +62,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 
 	private var doneTitle: String {
 		switch uiType {
-		case .swap:
+		case .swap, .unwrapETH, .wrapETH:
 			return "Swapped"
 		case .borrow:
 			return "Borrowed"
@@ -132,6 +132,10 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			return .disable_collateral
 		case .approve:
 			return .approve
+		case .wrap_eth, .swap_wrap:
+			return .wrapETH
+		case .unwrap_eth, .swap_unwrap:
+			return .unwrapETH
 		}
 	}
 
@@ -193,6 +197,18 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 	}
 
 	public var approveDetailsVM: ApproveActivityDetailsViewModel? {
+		didSet {
+			setValues()
+		}
+	}
+
+	public var wrapDetailsVM: WrapActivityDetailsViewModel? {
+		didSet {
+			setValues()
+		}
+	}
+
+	public var unwrapDetailsVM: UnwrapActivityDetailsViewModel? {
 		didSet {
 			setValues()
 		}
@@ -356,6 +372,20 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			activityMoreInfo = "Permit 2"
 			// set cell icon
 			icon = approveIcon
+		case .wrapETH:
+			// set cell title
+			title = "\(baseTitle) \(wrapDetailsVM!.fromTokenSymbol) → \(wrapDetailsVM!.toTokenSymbol)"
+			// set cell moreInfo
+			activityMoreInfo = "Wrap contract"
+			// set cell icon
+			icon = swapIcon
+		case .unwrapETH:
+			// set cell title
+			title = "\(baseTitle) \(unwrapDetailsVM!.fromTokenSymbol) → \(unwrapDetailsVM!.toTokenSymbol)"
+			// set cell moreInfo
+			activityMoreInfo = "Wrap contract"
+			// set cell icon
+			icon = swapIcon
 		}
 	}
 }

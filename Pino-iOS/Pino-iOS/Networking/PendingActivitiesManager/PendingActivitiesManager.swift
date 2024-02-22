@@ -47,7 +47,10 @@ class PendingActivitiesManager {
 
 	private func getPendingActivitiesFromCoreData() {
 		pendingActivitiesList = []
-		for activity in coreDataManager.getUserAllActivities(userID: walletManager.currentAccount.eip55Address) {
+		let allUserPendingActivities = coreDataManager
+			.getUserAllActivities(userID: walletManager.currentAccount.eip55Address)
+			.filter { ActivityStatus(rawValue: $0.status) == ActivityStatus.pending }
+		for activity in allUserPendingActivities {
 			switch ActivityType(rawValue: activity.type) {
 			case .swap:
 				let cdSwapActivity = activity as! CDSwapActivity
@@ -78,6 +81,12 @@ class PendingActivitiesManager {
 			     .disable_collateral:
 				let cdCollateralActivity = activity as! CDCollateralActivity
 				pendingActivitiesList.append(ActivityCollateralModel(cdCollateralActivityModel: cdCollateralActivity))
+			case .wrap_eth, .swap_wrap:
+				let cdWrapETHActivity = activity as! CDWrapETHActivity
+				pendingActivitiesList.append(ActivityWrapETHModel(cdApproveActivityModel: cdWrapETHActivity))
+			case .unwrap_eth, .swap_unwrap:
+				let cdUnwrapETHActivity = activity as! CDUnwrapETHActivity
+				pendingActivitiesList.append(ActivityUnwrapETHModel(cdApproveActivityModel: cdUnwrapETHActivity))
 			default:
 				print("unknown activity type")
 			}
@@ -96,13 +105,21 @@ class PendingActivitiesManager {
 				}
 			} receiveValue: { activity in
 				let iteratedActivity = self.activityHelper.iterateActivityModel(activity: activity)
-				if iteratedActivity != nil {
-					self.pendingActivitiesList.removeAll(where: { $0.txHash == iteratedActivity!.txHash })
-					self.coreDataManager.deleteActivityByID(iteratedActivity!.txHash)
+				if ActivityType(rawValue: iteratedActivity.type) != nil {
+					self.pendingActivitiesList.removeAll(where: { $0.txHash == iteratedActivity.txHash })
+					self.coreDataManager.deleteActivityByID(iteratedActivity.txHash)
+					if self.pendingActivitiesList.isEmpty {
+						self.stopActivityPendingRequests()
+					}
+				} else {
+					self.pendingActivitiesList.removeAll(where: { $0.txHash == iteratedActivity.txHash })
+					self.coreDataManager
+						.changePendingActivityToDone(activityModel: iteratedActivity as! ActivityBaseModel)
 					if self.pendingActivitiesList.isEmpty {
 						self.stopActivityPendingRequests()
 					}
 				}
+
 				self.requestsDispatchGroup.leave()
 			}.store(in: &cancellables)
 		}

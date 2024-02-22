@@ -115,9 +115,7 @@ class ActivityDetailsViewModel {
 				}
 			}
 		} receiveValue: { activityDetails in
-			guard let iteratedActivity = self.activityHelper.iterateActivityModel(activity: activityDetails) else {
-				return
-			}
+			let iteratedActivity = self.activityHelper.iterateActivityModel(activity: activityDetails)
 			let newActivityDetails = ActivityCellViewModel(activityModel: iteratedActivity)
 			if newActivityDetails.status != .pending {
 				self.destroyTimer()

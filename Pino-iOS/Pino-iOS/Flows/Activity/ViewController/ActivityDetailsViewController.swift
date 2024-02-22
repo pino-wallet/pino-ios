@@ -49,14 +49,20 @@ class ActivityDetailsViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		var activityDetailsHeaderView: UIView {
+			switch activityDetailsVM.properties.uiType {
+			case .swap, .unwrapETH, .wrapETH:
+				return ActivitySwapHeaderView(activityDetailsVM: activityDetailsVM)
+			default:
+				return ActivityDetailsHeaderView(activityDetailsVM: activityDetailsVM)
+			}
+		}
 		activityDetailsView = ActivityDetailsView(
 			activityDetailsVM: activityDetailsVM,
 			presentActionSheet: { [weak self] actionSheet, completion in
 				self?.present(actionSheet, animated: true, completion: completion)
 			},
-			activityDetailsHeader: activityDetailsVM.properties
-				.uiType == .swap ? ActivitySwapHeaderView(activityDetailsVM: activityDetailsVM) :
-				ActivityDetailsHeaderView(activityDetailsVM: activityDetailsVM)
+			activityDetailsHeader: activityDetailsHeaderView
 		)
 
 		view = activityDetailsView

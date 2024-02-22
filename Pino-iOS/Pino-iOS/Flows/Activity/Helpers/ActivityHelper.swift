@@ -24,7 +24,7 @@ struct ActivityHelper {
 
 	// MARK: - Public Methods
 
-	public func iterateActivityModel(activity: ResultActivityModel) -> ActivityModelProtocol? {
+	public func iterateActivityModel(activity: ResultActivityModel) -> ActivityModelProtocol {
 		switch activity {
 		case let .swap(swapActivity):
 			return swapActivity
@@ -44,31 +44,10 @@ struct ActivityHelper {
 			return collateralActivity
 		case let .approve(approveActivity):
 			return approveActivity
-		case .unknown:
-			return nil
-		}
-	}
-
-	public func iterateBaseActivityModel(activity: ResultActivityModel) -> ActivityModelProtocol {
-		switch activity {
-		case let .swap(swapActivity):
-			return swapActivity
-		case let .transfer(transferActivity):
-			return transferActivity
-		case let .transfer_from(transferActivity):
-			return transferActivity
-		case let .borrow(borrowActivity):
-			return borrowActivity
-		case let .repay(repayActvity):
-			return repayActvity
-		case let .withdraw(withdrawActivity):
-			return withdrawActivity
-		case let .invest(investActivity):
-			return investActivity
-		case let .collateral(collateralActivity):
-			return collateralActivity
-		case let .approve(approveActivity):
-			return approveActivity
+		case let .wrap(wrapActivity):
+			return wrapActivity
+		case let .unwrap(unwrapActivity):
+			return unwrapActivity
 		case let .unknown(baseActivity):
 			return baseActivity
 		}
@@ -77,7 +56,9 @@ struct ActivityHelper {
 	public func iterateActivitiesFromResponse(activities: ActivitiesModel) -> [ActivityModelProtocol] {
 		var iteratedActivities: [ActivityModelProtocol] = []
 		for activity in activities {
-			if let iteratedActivity = iterateActivityModel(activity: activity) {
+			let iteratedActivity = iterateActivityModel(activity: activity)
+			// prevent crash if activity have other type
+			if ActivityType(rawValue: iteratedActivity.type) != nil {
 				iteratedActivities.append(iteratedActivity)
 			}
 		}
@@ -356,6 +337,30 @@ struct ActivityHelper {
 			resultActivity.approveDetailsVM = ApproveActivityDetailsViewModel(
 				activityModel: approveActivityModel,
 				token: approveToken
+			)
+			return resultActivity
+		case .wrap_eth, .swap_wrap:
+			guard let wrapActivityModel = activityDefaultModel as? ActivityWrapETHModel,
+			      let ethToken = globalAssetsList?.first(where: { $0.isEth }),
+			      let wethToken = globalAssetsList?.first(where: { $0.isWEth }) else {
+				return nil
+			}
+			resultActivity.wrapDetailsVM = WrapActivityDetailsViewModel(
+				activityModel: wrapActivityModel,
+				fromToken: ethToken,
+				toToken: wethToken
+			)
+			return resultActivity
+		case .unwrap_eth, .swap_unwrap:
+			guard let unwrapActivityModel = activityDefaultModel as? ActivityUnwrapETHModel,
+			      let ethToken = globalAssetsList?.first(where: { $0.isEth }),
+			      let wethToken = globalAssetsList?.first(where: { $0.isWEth }) else {
+				return nil
+			}
+			resultActivity.unwrapDetailsVM = UnwrapActivityDetailsViewModel(
+				activityModel: unwrapActivityModel,
+				fromToken: wethToken,
+				toToken: ethToken
 			)
 			return resultActivity
 		}
