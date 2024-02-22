@@ -27,9 +27,6 @@ class HomepageViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		homeVM.getGasLimits()
-
-		let big = BigNumber(numberWithDecimal: "1.00")!
-		print(big.priceFormat)
 	}
 
 	override func viewDidLayoutSubviews() {
