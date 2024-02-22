@@ -248,27 +248,19 @@ class EnterSendAmountView: UIView {
 	}
 
 	private func toggleDollarFormat() {
-		UIView.animate(withDuration: 0.3) {
-			if self.enterAmountVM.isDollarEnabled {
-				self.enterAmountVM.isDollarEnabled = false
-				self.dollarFormatButton.backgroundColor = .Pino.background
-				self.dollarFormatButton.tintColor = .Pino.primary
-				if let tokenAmount = self.enterAmountVM.tokenAmount {
-					self.amountTextfield.text = tokenAmount.formattedDecimalString
-					self.enterAmountVM.calculateAmount(tokenAmount.decimalString)
-					self.updateAmount(enteredAmount: tokenAmount.decimalString)
-				}
+		UIView.animate(withDuration: 0.3) { [unowned self] in
+			if enterAmountVM.isDollarEnabled {
+				enterAmountVM.isDollarEnabled = false
+				dollarFormatButton.backgroundColor = .Pino.background
+				dollarFormatButton.tintColor = .Pino.primary
 			} else {
-				self.enterAmountVM.isDollarEnabled = true
-				self.dollarFormatButton.backgroundColor = .Pino.primary
-				self.dollarFormatButton.tintColor = .Pino.green1
-				if let dollarAmount = self.enterAmountVM.dollarAmount {
-					self.amountTextfield.text = dollarAmount.priceFormatForFields
-					self.enterAmountVM.calculateAmount(dollarAmount.decimalString)
-					self.updateAmount(enteredAmount: dollarAmount.decimalString)
-				}
+				enterAmountVM.isDollarEnabled = true
+				dollarFormatButton.backgroundColor = .Pino.primary
+				dollarFormatButton.tintColor = .Pino.green1
 			}
-			self.applyDollarFormatChanges()
+			enterAmountVM.calculateAmount(amountTextfield.text ?? .emptyString)
+			updateAmount(enteredAmount: amountTextfield.text ?? .emptyString)
+			applyDollarFormatChanges()
 		}
 	}
 

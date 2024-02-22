@@ -287,13 +287,8 @@ class SwapViewModel {
 				}.sorted { $0.swapAmount > $1.swapAmount }
 				let bestProvider = self.providers.first!
 				self.bestProvider = bestProvider
-				if bestProvider.swapAmount <= BigNumber.minAcceptableAmount {
-					completion(0.bigNumber)
-					self.swapState = .noQuote
-				} else {
-					completion(bestProvider.swapAmount)
-					self.getFeeInfo(swapProvider: bestProvider)
-				}
+				completion(bestProvider.swapAmount)
+				self.getFeeInfo(swapProvider: bestProvider)
 			}
 		}
 	}

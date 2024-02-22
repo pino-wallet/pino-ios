@@ -93,7 +93,6 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 			return .isZero
 		}
 		if amountBigNumber.isZero ||
-			amountBigNumber <= .minAcceptableAmount ||
 			amountBigNumber.decimal > selectedToken.decimal {
 			return .isZero
 		}

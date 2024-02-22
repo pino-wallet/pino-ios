@@ -31,7 +31,6 @@ public struct BigNumber {
 
 	public var number: BigInt
 	public var decimal: Int
-	public static let minAcceptableAmount = BigNumber(unSignedNumber: 1, decimal: 6)
 
 	// MARK: - Initializers
 
