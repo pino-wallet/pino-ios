@@ -42,13 +42,13 @@ class PendingActivitiesManager {
 		requestsTimer?.cancel()
 		requestsTimer = nil
 	}
-    
-    public func removePendingActivity(txHash: String) {
-        pendingActivitiesList.removeAll(where: { $0.txHash.lowercased() == txHash.lowercased() })
-        if pendingActivitiesList.isEmpty {
-            stopActivityPendingRequests()
-        }
-    }
+
+	public func removePendingActivity(txHash: String) {
+		pendingActivitiesList.removeAll(where: { $0.txHash.lowercased() == txHash.lowercased() })
+		if pendingActivitiesList.isEmpty {
+			stopActivityPendingRequests()
+		}
+	}
 
 	// MARK: - Private Methods
 
