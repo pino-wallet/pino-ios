@@ -76,8 +76,7 @@ class InvestmentDetailViewModel {
 	}
 
 	public var totalInvestmentAmount: String {
-		let totalAmount = selectedAsset.investmentCapital + selectedAsset.earnedFee
-		return totalAmount.priceFormat
+		selectedAsset.tokenTotalAmountInDollar.priceFormat
 	}
 
 	// MARK: Initializers
