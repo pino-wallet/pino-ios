@@ -37,12 +37,16 @@ struct InvestmentModel: Codable {
 		public let idx: Int?
 		public let investmentID: String
 		public let tokenID: String
+		public let totalAmount: String
+		public let investedAmount: String
 
 		enum CodingKeys: String, CodingKey {
 			case amount
 			case idx
 			case investmentID = "investment_id"
 			case tokenID = "token_id"
+			case totalAmount = "total_amount"
+			case investedAmount = "invested_amount"
 		}
 	}
 }
