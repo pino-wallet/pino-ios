@@ -19,7 +19,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 	private let chartStackView = UIStackView()
 	private let volatilityStackView = UIStackView()
 	private let coinBalanceLabel = UILabel()
-	private let coinVolatilityPersentage = UILabel()
+	private let coinVolatilityPercentage = UILabel()
 	private let coinVolatilityInDollor = UILabel()
 	private let dateLabel = UILabel()
 	private let chartPointer = UIImageView()
@@ -61,7 +61,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 	private func setupView() {
 		balanceStackview.addArrangedSubview(coinBalanceLabel)
 		balanceStackview.addArrangedSubview(volatilityStackView)
-		volatilityStackView.addArrangedSubview(coinVolatilityPersentage)
+		volatilityStackView.addArrangedSubview(coinVolatilityPercentage)
 		volatilityStackView.addArrangedSubview(dateLabel)
 		infoStackView.addArrangedSubview(balanceStackview)
 		contentStackView.addArrangedSubview(infoStackView)
@@ -82,7 +82,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 
 		coinBalanceLabel.font = .PinoStyle.semiboldTitle1
 		coinVolatilityInDollor.font = .PinoStyle.mediumSubheadline
-		coinVolatilityPersentage.font = .PinoStyle.mediumSubheadline
+		coinVolatilityPercentage.font = .PinoStyle.mediumSubheadline
 		dateLabel.font = .PinoStyle.mediumSubheadline
 
 		coinBalanceLabel.adjustsFontSizeToFitWidth = true
@@ -134,11 +134,11 @@ class AssetLineChart: UIView, LineChartDelegate {
 
 		chartPointer.isHidden = true
 
-		coinVolatilityPersentage.layer.masksToBounds = true
+		coinVolatilityPercentage.layer.masksToBounds = true
 		coinBalanceLabel.layer.masksToBounds = true
 
 		coinBalanceLabel.isSkeletonable = true
-		coinVolatilityPersentage.isSkeletonable = true
+		coinVolatilityPercentage.isSkeletonable = true
 
 		lineChartView.chartDelegate = self
 
@@ -177,8 +177,8 @@ class AssetLineChart: UIView, LineChartDelegate {
 		NSLayoutConstraint.activate([
 			coinBalanceLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 110),
 			coinBalanceLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24),
-			coinVolatilityPersentage.widthAnchor.constraint(greaterThanOrEqualToConstant: 35),
-			coinVolatilityPersentage.heightAnchor.constraint(greaterThanOrEqualToConstant: 16),
+			coinVolatilityPercentage.widthAnchor.constraint(greaterThanOrEqualToConstant: 35),
+			coinVolatilityPercentage.heightAnchor.constraint(greaterThanOrEqualToConstant: 16),
 		])
 	}
 
@@ -186,10 +186,10 @@ class AssetLineChart: UIView, LineChartDelegate {
 		$chartVM.sink { chart in
 			if let chart {
 				self.reloadChartData(chart)
-				self.coinVolatilityPersentage.layer.cornerRadius = 0
+				self.coinVolatilityPercentage.layer.cornerRadius = 0
 				self.coinBalanceLabel.layer.cornerRadius = 0
 			} else {
-				self.coinVolatilityPersentage.layer.cornerRadius = 8
+				self.coinVolatilityPercentage.layer.cornerRadius = 8
 				self.coinBalanceLabel.layer.cornerRadius = 12
 			}
 		}.store(in: &cancellables)
@@ -205,7 +205,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 
 	private func reloadChartData(_ chart: AssetChartViewModel) {
 		coinBalanceLabel.text = chart.balance
-		coinVolatilityPersentage.text = chart.volatilityPercentage
+		coinVolatilityPercentage.text = chart.volatilityPercentage
 		dateLabel.text = chart.chartDate
 		updateVolatilityColor(type: chart.volatilityType)
 		lineChartView.chartDataEntries = chart.chartDataEntry
@@ -222,22 +222,40 @@ class AssetLineChart: UIView, LineChartDelegate {
 		dateFilterChanged(dateFilter)
 	}
 
-	private func updateVolatility(pointValue: Double, previousValue: Double?) {
+	private func updateChartBalance(_ assetData: AssetChartDataViewModel) {
+		guard let chartVM else { return }
+		coinBalanceLabel.text = chartVM.formattedBalance(assetData)
+	}
+
+	private func updateChartDate(date: Date) {
+		guard let chartVM else { return }
+		dateLabel.text = chartVM.formattedDate(date)
+	}
+
+	private func updateChartVolatility(pointValue: BigNumber, previousValue: BigNumber?) {
 		guard let chartVM else { return }
 		let valueChangePercentage = chartVM.valueChangePercentage(pointValue: pointValue, previousValue: previousValue)
-		coinVolatilityPersentage.text = chartVM.formattedVolatility(valueChangePercentage)
+		coinVolatilityPercentage.text = chartVM.formattedVolatility(valueChangePercentage)
 		updateVolatilityColor(type: chartVM.volatilityType(valueChangePercentage))
 	}
 
 	private func updateVolatilityColor(type: AssetVolatilityType) {
 		switch type {
 		case .profit:
-			coinVolatilityPersentage.textColor = .Pino.green
+			coinVolatilityPercentage.textColor = .Pino.green
 		case .loss:
-			coinVolatilityPersentage.textColor = .Pino.red
+			coinVolatilityPercentage.textColor = .Pino.red
 		case .none:
-			coinVolatilityPersentage.textColor = .Pino.secondaryLabel
+			coinVolatilityPercentage.textColor = .Pino.secondaryLabel
 		}
+	}
+
+	private func removeChartHighlightedPointData() {
+		guard let chartVM else { return }
+		coinBalanceLabel.text = chartVM.balance
+		coinVolatilityPercentage.text = chartVM.volatilityPercentage
+		updateVolatilityColor(type: chartVM.volatilityType)
+		dateLabel.text = chartVM.chartDate
 	}
 
 	private func addLoadingGradient() {
@@ -251,13 +269,6 @@ class AssetLineChart: UIView, LineChartDelegate {
 		loadingGradientView.layer.addSublayer(loadingGradientLayer)
 	}
 
-	// MARK: - Public Methods
-
-	public func updateChartDate(date: Double) {
-		let formattedDate = chartVM?.selectedDate(timeStamp: date)
-		dateLabel.text = formattedDate
-	}
-
 	// MARK: - Internal Methods
 
 	override func layoutSubviews() {
@@ -265,17 +276,15 @@ class AssetLineChart: UIView, LineChartDelegate {
 		addLoadingGradient()
 	}
 
-	internal func valueDidChange(pointValue: Double?, previousValue: Double?, date: Double?) {
-		guard let chartVM else { return }
-		if let pointValue {
-			coinBalanceLabel.text = BigNumber(numberWithDecimal: pointValue.description)!.chartPriceFormat
-			updateVolatility(pointValue: pointValue, previousValue: previousValue)
-			updateChartDate(date: date!)
+	internal func valueDidChange(selectedPointData: Any?, previousPointData: Any?) {
+		let selectedAssetVM = selectedPointData as? AssetChartDataViewModel
+		let previousAssetVM = previousPointData as? AssetChartDataViewModel
+		if let selectedAssetVM {
+			updateChartBalance(selectedAssetVM)
+			updateChartDate(date: selectedAssetVM.date)
+			updateChartVolatility(pointValue: selectedAssetVM.networth, previousValue: previousAssetVM?.networth)
 		} else {
-			coinBalanceLabel.text = chartVM.balance
-			coinVolatilityPersentage.text = chartVM.volatilityPercentage
-			updateVolatilityColor(type: chartVM.volatilityType)
-			dateLabel.text = chartVM.chartDate
+			removeChartHighlightedPointData()
 		}
 	}
 }

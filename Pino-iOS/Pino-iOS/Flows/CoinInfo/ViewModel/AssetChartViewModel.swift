@@ -15,12 +15,12 @@ struct AssetChartViewModel {
 
 	public var chartDataEntry: [ChartDataEntry] {
 		chartDataVM.map {
-			ChartDataEntry(x: $0.date!.timeIntervalSinceNow, y: $0.networth.doubleValue)
+			ChartDataEntry(x: $0.date.timeIntervalSinceNow, y: $0.networth.doubleValue, data: $0)
 		}
 	}
 
 	public var balance: String {
-		chartDataVM.last?.networth.chartPriceFormat ?? GlobalZeroAmounts.dollars.zeroAmount
+		formattedBalance(chartDataVM.last)
 	}
 
 	public var volatilityPercentage: String {
@@ -57,23 +57,16 @@ struct AssetChartViewModel {
 
 	// MARK: - Public Methods
 
-	public func valueChangePercentage(pointValue: Double, previousValue: Double?) -> BigNumber {
-		if let previousValue, previousValue != 0 {
-			let pointValueNumber = BigNumber(numberWithDecimal: pointValue.description)!
-			let previousValueNumber = BigNumber(numberWithDecimal: previousValue.description)!
-			let changePercentage = ((pointValueNumber - previousValueNumber) / previousValueNumber)! * 100.bigNumber
-			return changePercentage
-		} else {
+	public func valueChangePercentage(pointValue: BigNumber, previousValue: BigNumber?) -> BigNumber {
+		guard let previousValue else { return 0.bigNumber }
+		if pointValue.isZero && previousValue.isZero {
 			return 0.bigNumber
 		}
-	}
-
-	public func valueChangePercentage(pointValue: BigNumber, previousValue: BigNumber?) -> BigNumber {
-		if let previousValue, !previousValue.isZero {
+		if !previousValue.isZero {
 			let changePercentage = ((pointValue - previousValue) / previousValue)! * 100.bigNumber
 			return changePercentage
 		} else {
-			return 0.bigNumber
+			return 100.bigNumber
 		}
 	}
 
@@ -100,9 +93,17 @@ struct AssetChartViewModel {
 		}
 	}
 
-	public func selectedDate(timeStamp: Double) -> String {
-		let date = Date(timeIntervalSinceNow: timeStamp)
+	public func formattedDate(_ date: Date) -> String {
 		let chartDateBuilder = ChartDateBuilder(dateFilter: dateFilter)
 		return chartDateBuilder.selectedDate(date: date)
+	}
+
+	public func formattedBalance(_ assetData: AssetChartDataViewModel?) -> String {
+		guard let assetData else { return GlobalZeroAmounts.dollars.zeroAmount }
+		if assetData.networth.isZero, assetData.isInsignificant {
+			return "<0.01".currencyFormatting
+		} else {
+			return assetData.networth.chartPriceFormat
+		}
 	}
 }
