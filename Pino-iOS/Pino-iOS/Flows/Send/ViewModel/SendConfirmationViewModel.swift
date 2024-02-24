@@ -32,22 +32,35 @@ class SendConfirmationViewModel {
 	}
 
 	private var pendingSwapTrx: EthereumSignedTransaction?
+	private var sendAmount: BigNumber
 
 	// MARK: - Public Properties
 
 	public let selectedToken: AssetViewModel
-	public var gasFee: BigNumber!
+	public var gasFee: BigNumber = 0.bigNumber
 	public var isAddressScam = false
 	public let recipientAddress: String
 	public var userRecipientAccountInfoVM: UserAccountInfoViewModel?
-	public let sendAmount: String
 	public let confirmBtnText = "Confirm"
 	public let insuffientText = "Insufficient ETH Amount"
-	public let sendAmountInDollar: String
 	public var sendStatusText: String {
-		let sendAmountBigUInt = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))!
-		let sendAmountBigNumber = BigNumber(unSignedNumber: sendAmountBigUInt, decimal: selectedToken.decimal)
-		return "You sent \(sendAmountBigNumber.sevenDigitFormat) \(selectedToken.symbol) to \(recipientAddress.addressFormating())"
+		"You sent \(formattedSendAmount) to \(recipientAddress.addressFormating())"
+	}
+
+	public var sendAmountMinusFee: BigNumber {
+		if selectedToken.isERC20 {
+			return sendAmount - gasFee
+		} else {
+			if sendAmount == ethToken.holdAmount {
+				return sendAmount - gasFee
+			} else {
+				return sendAmount - gasFee
+			}
+		}
+	}
+
+	public var sendAmountInDollar: BigNumber {
+		sendAmountMinusFee * ethToken.price
 	}
 
 	public var isTokenVerified: Bool {
@@ -63,8 +76,7 @@ class SendConfirmationViewModel {
 	}
 
 	public var formattedSendAmount: String {
-		let sendAmountBigNumber = BigNumber(numberWithDecimal: sendAmount)
-		return sendAmountBigNumber!.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
+		sendAmountMinusFee.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
 
 	public var selectedWalletImage: String {
@@ -111,13 +123,11 @@ class SendConfirmationViewModel {
 		selectedWallet: AccountInfoViewModel,
 		recipientAddress: String,
 		sendAmount: String,
-		sendAmountInDollar: String,
 		ensName: String?
 	) {
 		self.selectedToken = selectedToken
 		self.selectedWallet = selectedWallet
-		self.sendAmount = sendAmount
-		self.sendAmountInDollar = sendAmountInDollar
+		self.sendAmount = BigNumber(numberWithDecimal: sendAmount)!
 		self.recipientAddress = recipientAddress
 		self.ensName = ensName
 		setupBindings()
@@ -127,10 +137,18 @@ class SendConfirmationViewModel {
 	// MARK: - Public Methods
 
 	public func checkEnoughBalance() -> Bool {
-		if gasFee > ethToken.holdAmount {
-			return false
+		if selectedToken.isEth {
+			if gasFee > ethToken.holdAmount - sendAmount {
+				return false
+			} else {
+				return true
+			}
 		} else {
-			return true
+			if gasFee > ethToken.holdAmount {
+				return false
+			} else {
+				return true
+			}
 		}
 	}
 
@@ -139,7 +157,7 @@ class SendConfirmationViewModel {
 		getSendTrxInfo().done { [self] trxWithGas in
 			pendingSwapTrx = trxWithGas.0
 			let gasInfo = trxWithGas.1
-			gasFee = gasInfo.fee
+			gasFee = gasInfo.fee!
 			formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat
 			formattedFeeInETH = gasInfo.fee!.sevenDigitFormat.ethFormatting
 			gasPrice = gasInfo.baseFeeWithPriorityFee.bigIntFormat
@@ -152,10 +170,13 @@ class SendConfirmationViewModel {
 
 	public func getSendTrxInfo() -> TrxWithGasInfo {
 		if selectedToken.isEth {
-			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .ether)
+			let sendAmount = Utilities.parseToBigUInt(sendAmountMinusFee.decimalString, units: .ether)
 			return Web3Core.shared.sendEtherTo(address: recipientAddress, amount: sendAmount!)
 		} else {
-			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))
+			let sendAmount = Utilities.parseToBigUInt(
+				sendAmountMinusFee.decimalString,
+				units: .custom(selectedToken.decimal)
+			)
 			return Web3Core.shared.sendERC20TokenTo(
 				recipient: recipientAddress,
 				amount: sendAmount!,
@@ -172,7 +193,7 @@ class SendConfirmationViewModel {
 				type: "transfer",
 				detail: TransferActivityDetail(
 					amount: Utilities
-						.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))!
+						.parseToBigUInt(sendAmountMinusFee.decimalString, units: .custom(selectedToken.decimal))!
 						.description,
 					tokenID: selectedToken.id,
 					from: userAddress,

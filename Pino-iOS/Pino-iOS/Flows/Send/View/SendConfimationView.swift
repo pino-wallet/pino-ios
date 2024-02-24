@@ -155,7 +155,7 @@ class SendConfirmationView: UIView {
 
 	private func setupStyle() {
 		tokenNameLabel.text = sendConfirmationVM.formattedSendAmount
-		sendAmountLabel.text = sendConfirmationVM.sendAmountInDollar
+		sendAmountLabel.text = sendConfirmationVM.sendAmountInDollar.priceFormat
 //		selectedWalletTitleLabel.text = sendConfirmationVM.selectedWalletTitle
 //		walletNameLabel.text = sendConfirmationVM.selectedWalletName
 		recipientTitleLabel.text = sendConfirmationVM.recipientAddressTitle
@@ -345,9 +345,13 @@ class SendConfirmationView: UIView {
 
 	private func setSketonable() {
 		feeLabel.isSkeletonable = true
+		tokenNameLabel.isSkeletonable = true
+		sendAmountLabel.isSkeletonable = true
 	}
 
 	private func updateFeeLabel() {
+		tokenNameLabel.text = sendConfirmationVM.formattedSendAmount
+		sendAmountLabel.text = sendConfirmationVM.sendAmountInDollar.priceFormat
 		if showFeeInDollar {
 			feeLabel.text = sendConfirmationVM.formattedFeeInDollar
 		} else {
