@@ -123,7 +123,10 @@ class EnterSendAddressView: UIView {
 			guard let recipientAddress = self.enterSendAddressVM.recipientAddress else { return }
 			switch recipientAddress {
 			case .ensAddress, .userWalletAddress:
-				self.addressTextField.attributedText = NSMutableAttributedString(string: recipientAddress.address)
+				self.addressTextField.attributedText = NSMutableAttributedString(
+					string: recipientAddress.address,
+					attributes: [.font: UIFont.PinoStyle.mediumBody!]
+				)
 			case .regularAddress: break
 			}
 		}
@@ -143,7 +146,7 @@ class EnterSendAddressView: UIView {
 			if let recipientAddress = self.enterSendAddressVM.recipientAddress,
 			   let selectedRecentAddress = self.suggestedAddressesVM.recentAddresses
 			   .first(where: { $0.address == recipientAddress.address }),
-			   let ensName = selectedRecentAddress.ensName {
+			   selectedRecentAddress.ensName != nil {
 				self.selectRecentAddress(selectedRecentAddress)
 			}
 		}
