@@ -194,7 +194,7 @@ class SendConfirmationViewModel {
 	public func setRecentAddress() {
 		let recentAddressHelper = RecentAddressHelper()
 		recentAddressHelper.addNewRecentAddress(newRecentAddress: RecentAddressModel(
-			recipientAddress: recipientAddress.address,
+			address: recipientAddress.address,
 			userAddress: walletManager.currentAccount.eip55Address,
 			date: Date(),
 			ensName: recipientAddress.ensName

@@ -15,7 +15,7 @@ struct RecentAddressViewModel {
 	// MARK: - Public Properties
 
 	public var address: String {
-		recentAddressModel.recipientAddress
+		recentAddressModel.address
 	}
 
 	public var shortEndAddress: String {
@@ -23,7 +23,7 @@ struct RecentAddressViewModel {
 	}
 
 	public var logoText: String {
-		recentAddressModel.recipientAddress[0 ..< 2]
+		recentAddressModel.address[0 ..< 2]
 	}
 
 	public var relativeDate: String {

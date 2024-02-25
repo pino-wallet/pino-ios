@@ -10,7 +10,7 @@ import Foundation
 struct RecentAddressModel: Codable {
 	// MARK: - Public Properties
 
-	public var recipientAddress: String
+	public var address: String
 	public var userAddress: String
 	public var date: Date
 	public var ensName: String?

@@ -19,11 +19,11 @@ class RecentAddressHelper {
 	public func addNewRecentAddress(newRecentAddress: RecentAddressModel) {
 		let userAccountList = coreDataManager.getAllWalletAccounts()
 		guard userAccountList
-			.first(where: { $0.eip55Address.lowercased() == newRecentAddress.recipientAddress.lowercased() }) == nil
+			.first(where: { $0.eip55Address.lowercased() == newRecentAddress.address.lowercased() }) == nil
 		else { return }
 		var decodedRecentAddressList = getDecodedRecentAddressList()
 		if let recentAddressIndex = decodedRecentAddressList
-			.firstIndex(where: { $0.recipientAddress.lowercased() == newRecentAddress.recipientAddress.lowercased() }) {
+			.firstIndex(where: { $0.address.lowercased() == newRecentAddress.address.lowercased() }) {
 			decodedRecentAddressList[recentAddressIndex].date = newRecentAddress.date
 		} else {
 			decodedRecentAddressList.append(newRecentAddress)
