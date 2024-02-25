@@ -132,14 +132,14 @@ class EnterSendAddressView: UIView {
 			UIView.animate(withDuration: 0.3) {
 				self.suggestedAddressesContainerView.alpha = 1
 			}
-			// if the entered address is for a user wallet, show its name in the  text field
+			// if the entered address is for a user wallet, show its name in the text field
 			if let recipientAddress = self.enterSendAddressVM.recipientAddress,
 			   let selectedWallet = self.suggestedAddressesVM.userWallets
 			   .first(where: { $0.address == recipientAddress.address }) {
 				self.selectUserWallet(selectedWallet)
 			}
 
-			// if the entered address is an ens address, show its name in the  text field
+			// if the entered address is an ens address, show its name in the text field
 			if let recipientAddress = self.enterSendAddressVM.recipientAddress,
 			   let selectedRecentAddress = self.suggestedAddressesVM.recentAddresses
 			   .first(where: { $0.address == recipientAddress.address }),
