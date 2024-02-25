@@ -45,7 +45,16 @@ extension ActivityInvestModel {
 		)
 		self.fromAddress = cdInvestActivityModel.fromAddress
 		self.toAddress = cdInvestActivityModel.toAddress
-		self.failed = nil
+        switch ActivityStatus(rawValue: cdInvestActivityModel.status) {
+        case .pending:
+            self.failed = nil
+        case .success:
+            self.failed = false
+        case .failed:
+            self.failed = true
+        default:
+            self.failed = nil
+        }
 		self.blockNumber = nil
 		self.blockTime = cdInvestActivityModel.blockTime
 		self.gasUsed = cdInvestActivityModel.gasUsed

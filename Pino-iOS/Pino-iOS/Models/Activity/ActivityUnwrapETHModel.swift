@@ -43,17 +43,26 @@ struct ActivityUnwrapETHDetails: Codable {
 }
 
 extension ActivityUnwrapETHModel {
-	init(cdApproveActivityModel: CDUnwrapETHActivity) {
-		self.txHash = cdApproveActivityModel.txHash
-		self.type = cdApproveActivityModel.type
-		self.detail = ActivityUnwrapETHDetails(amount: cdApproveActivityModel.details.amount)
-		self.fromAddress = cdApproveActivityModel.fromAddress
-		self.toAddress = cdApproveActivityModel.toAddress
-		self.failed = nil
+	init(cdUnwrapActivityModel: CDUnwrapETHActivity) {
+		self.txHash = cdUnwrapActivityModel.txHash
+		self.type = cdUnwrapActivityModel.type
+		self.detail = ActivityUnwrapETHDetails(amount: cdUnwrapActivityModel.details.amount)
+		self.fromAddress = cdUnwrapActivityModel.fromAddress
+		self.toAddress = cdUnwrapActivityModel.toAddress
+        switch ActivityStatus(rawValue: cdUnwrapActivityModel.status) {
+        case .pending:
+            self.failed = nil
+        case .success:
+            self.failed = false
+        case .failed:
+            self.failed = true
+        default:
+            self.failed = nil
+        }
 		self.blockNumber = nil
-		self.blockTime = cdApproveActivityModel.blockTime
-		self.gasUsed = cdApproveActivityModel.gasUsed
-		self.gasPrice = cdApproveActivityModel.gasPrice
-		self.prev_txHash = cdApproveActivityModel.prevTxHash
+		self.blockTime = cdUnwrapActivityModel.blockTime
+		self.gasUsed = cdUnwrapActivityModel.gasUsed
+		self.gasPrice = cdUnwrapActivityModel.gasPrice
+		self.prev_txHash = cdUnwrapActivityModel.prevTxHash
 	}
 }

@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import Combine
 
-struct ActivityHelper {
+class ActivityHelper {
 	// MARK: - TypeAliases
 
 	public typealias SeparatedActivitiesType = [(title: String, activities: [ActivityCellViewModel])]
@@ -18,9 +19,23 @@ struct ActivityHelper {
 		finalSeparatedActivities: SeparatedActivitiesType
 	)
 
-	// MARK: - Public Properties
+	// MARK: - Private Properties
 
-	public var globalAssetsList: [AssetViewModel]?
+	private var globalAssetsList: [AssetViewModel]?
+    private var cancellables = Set<AnyCancellable>()
+    
+    // MARK: - Initializers
+    init() {
+        setupBindings()
+    }
+    
+    // MARK: - Private Methods
+    private func setupBindings() {
+        GlobalVariables.shared.$manageAssetsList.sink { globalTokens in
+            self.globalAssetsList = globalTokens
+            self.cancellables.removeAll()
+        }.store(in: &cancellables)
+    }
 
 	// MARK: - Public Methods
 
@@ -64,6 +79,48 @@ struct ActivityHelper {
 		}
 		return iteratedActivities
 	}
+    
+    public func iterateCoreDataActivity(coreDataActivity: CDActivityParent) -> ActivityModelProtocol {
+        switch ActivityType(rawValue: coreDataActivity.type) {
+        case .swap:
+            let cdSwapActivity = coreDataActivity as! CDSwapActivity
+            return ActivitySwapModel(cdSwapActivityModel: cdSwapActivity)
+        case .transfer:
+            let cdTransferActivity = coreDataActivity as! CDTransferActivity
+            return ActivityTransferModel(cdTransferActivityModel: cdTransferActivity)
+        case .transfer_from:
+            let cdTransferActivity = coreDataActivity as! CDTransferActivity
+            return ActivityTransferModel(cdTransferActivityModel: cdTransferActivity)
+        case .approve:
+            let cdApproveActivity = coreDataActivity as! CDApproveActivity
+            return ActivityApproveModel(cdApproveActivityModel: cdApproveActivity)
+        case .create_investment, .increase_investment:
+            let cdInvestActivity = coreDataActivity as! CDInvestActivity
+            return ActivityInvestModel(cdInvestActivityModel: cdInvestActivity)
+        case .decrease_investment, .withdraw_investment:
+            let cdWithdrawActivity = coreDataActivity as! CDWithdrawActivity
+            return ActivityWithdrawModel(cdWithDrawActivityModel: cdWithdrawActivity)
+        case .borrow:
+            let cdBorrowActivity = coreDataActivity as! CDBorrowActivity
+            return ActivityBorrowModel(cdBorrowActivityModel: cdBorrowActivity)
+        case .repay:
+            let cdRepayActivity = coreDataActivity as! CDRepayActivity
+            return ActivityRepayModel(cdRepayActivityModel: cdRepayActivity)
+        case .increase_collateral, .decrease_collateral, .create_collateral, .remove_collateral,
+             .enable_collateral,
+             .disable_collateral:
+            let cdCollateralActivity = coreDataActivity as! CDCollateralActivity
+            return ActivityCollateralModel(cdCollateralActivityModel: cdCollateralActivity)
+        case .wrap_eth, .swap_wrap:
+            let cdWrapETHActivity = coreDataActivity as! CDWrapETHActivity
+            return ActivityWrapETHModel(cdWrapActivityModel: cdWrapETHActivity)
+        case .unwrap_eth, .swap_unwrap:
+            let cdUnwrapETHActivity = coreDataActivity as! CDUnwrapETHActivity
+            return ActivityUnwrapETHModel(cdUnwrapActivityModel: cdUnwrapETHActivity)
+        default:
+            fatalError("Unknown activity type from coredata")
+        }
+    }
 
 	public func getActivityDate(activityBlockTime: String) -> Date {
 		activityBlockTime.serverFormattedDate

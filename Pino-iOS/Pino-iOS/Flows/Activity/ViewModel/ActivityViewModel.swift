@@ -19,10 +19,6 @@ class ActivityViewModel {
 
 	@Published
 	public var userActivities: [ActivityCellViewModel]? = nil
-	@Published
-	public var newUserActivities: [ActivityCellViewModel] = []
-	@Published
-	public var shouldReplacedActivites: [ActivityCellViewModel] = []
 
 	// MARK: - Private Properties
 
@@ -34,8 +30,8 @@ class ActivityViewModel {
 	private var requestTimer: Timer?
 	private var prevActivities: [ActivityModelProtocol] = []
 	private var prevAccountAddress: String!
-	private var isFirstTime = true
 	private var coreDataManager = CoreDataManager()
+    private var shouldUpdateActivities = true
 
 	// MARK: - Initializers
 
@@ -52,11 +48,11 @@ class ActivityViewModel {
 		}
 		setupRequestTimer()
 		setupBindings()
-		requestTimer?.fire()
+        requestTimer?.fire()
 	}
 
 	public func refreshUserActvities() {
-		requestTimer?.fire()
+            requestTimer?.fire()
 	}
 
 	public func destroyTimer() {
@@ -82,120 +78,144 @@ class ActivityViewModel {
 	}
 
 	private func setupBindings() {
+        GlobalVariables.shared.$manageAssetsList.compactMap { $0 }.sink { _ in
+            if self.userActivities == nil {
+                self.requestTimer?.fire()
+            }
+        }.store(in: &cancellables)
 		PendingActivitiesManager.shared.$pendingActivitiesList.sink { pendingActivities in
 			guard self.userActivities != nil else {
 				return
 			}
-
-			for pendingActivity in pendingActivities {
-				let foundPendingActivityIndex = self.prevActivities
-					.firstIndex(where: { $0.txHash == pendingActivity.prev_txHash })
-				if foundPendingActivityIndex != nil {
-					if self.prevActivities[foundPendingActivityIndex!].txHash != pendingActivity
-						.txHash {
-						self
-							.shouldReplacedActivites.append(
-								ActivityCellViewModel(activityModel: pendingActivity)
-							)
-						self.prevActivities[foundPendingActivityIndex!] = pendingActivity
-					}
-				}
-			}
-			self.shouldReplacedActivites = []
-
-			let newPendingActivities = pendingActivities.filter { activity in
-				!self.prevActivities.contains(where: { $0.txHash == activity.txHash })
-			}
-			self.newUserActivities = newPendingActivities.compactMap {
-				ActivityCellViewModel(activityModel: $0)
-			}
-			self.prevActivities.append(contentsOf: newPendingActivities)
-
-			let prevPendingActivities = self.prevActivities.filter { activity in
-				activity.failed == nil
-			}
-			if prevPendingActivities.count > pendingActivities.count {
-				self.requestTimer?.fire()
-			}
-		}.store(in: &pendingActivitiesCancellable)
+            var finalActivities = self.prevActivities
+            for pendingActivity in pendingActivities {
+                if finalActivities.first(where: { $0.txHash.lowercased() == pendingActivity.txHash.lowercased() }) == nil {
+                    finalActivities.append(pendingActivity)
+                    finalActivities = self.sortIteratedActivities(activities: finalActivities)
+                    self.userActivities = finalActivities.compactMap { ActivityCellViewModel(activityModel: $0) }
+                    self.prevActivities = finalActivities
+                    self.shouldUpdateActivities = false
+                }
+            }
+        }.store(in: &pendingActivitiesCancellable)
 	}
 
 	private func refreshPrevData() {
 		userActivities = nil
 		prevActivities = []
-		newUserActivities = []
-		isFirstTime = true
+        shouldUpdateActivities = true
 	}
 
 	private func setPrevAccountAddress() {
 		prevAccountAddress = walletManager.currentAccount.eip55Address
 	}
+    
+    private func sortIteratedActivities(activities: [ActivityModelProtocol]) -> [ActivityModelProtocol] {
+        let activityLimitCount = 20
+        let sortedActivities = activities.sorted(by: {
+            activityHelper.getActivityDate(activityBlockTime: $0.blockTime)
+                .timeIntervalSince1970 > activityHelper.getActivityDate(activityBlockTime: $1.blockTime)
+                .timeIntervalSince1970
+        })
+            if sortedActivities.count > activityLimitCount {
+                return Array(sortedActivities.prefix(upTo: 20))
+                  } else {
+                return sortedActivities
+            }
+    }
+    
+    private func getUpdatedPendingActivitiesFromCoreData(activities: [ActivityModelProtocol]) -> [ActivityModelProtocol] {
+        let coreDataIteratedActivities = coreDataManager.getUserAllActivities(userID: walletManager.currentAccount.eip55Address).filter { ActivityStatus(rawValue: $0.status) != .pending }
+        var updatedActivitiesList = activities
+        for coreDataActivity in coreDataIteratedActivities {
+            if let foundPendingActivityIndex = updatedActivitiesList.firstIndex(where: { $0.txHash.lowercased() == coreDataActivity.txHash.lowercased() }) {
+                updatedActivitiesList[foundPendingActivityIndex] = activityHelper.iterateCoreDataActivity(coreDataActivity: coreDataActivity)
+                shouldUpdateActivities = true
+            }
+        }
+        return updatedActivitiesList
+    }
+    
+    private func getUpdatedPendingActivitiesFromResponse(responseActivities: [ActivityModelProtocol], activities: [ActivityModelProtocol]) -> [ActivityModelProtocol] {
+        var updatedActivitiesList = activities
+        for responseActivity in responseActivities {
+            if let foundPendingActivityIndex = updatedActivitiesList.firstIndex(where: { $0.txHash.lowercased() == responseActivity.txHash.lowercased() }) {
+                updatedActivitiesList[foundPendingActivityIndex] = responseActivity
+                shouldUpdateActivities = true
+            }
+        }
+        return updatedActivitiesList
+    }
+    
+    private func checkForPendingActivityListChanges(responseActivities: [ActivityModelProtocol]) {
+        for responseActivity in responseActivities {
+            if let foundPendingActivityInResponse = PendingActivitiesManager.shared.pendingActivitiesList.first(where: { $0.txHash.lowercased() == responseActivity.txHash.lowercased() }) {
+                PendingActivitiesManager.shared.removePendingActivity(txHash: foundPendingActivityInResponse.txHash)
+            }
+        }
+    }
+    
+    private func checkForNewActivity(responseActivities: [ActivityModelProtocol]) {
+        guard userActivities != nil else {
+            shouldUpdateActivities = true
+            return
+        }
+        for newActivity in responseActivities {
+            if prevActivities.first(where: { $0.txHash.lowercased() == newActivity.txHash.lowercased() }) == nil {
+                shouldUpdateActivities = true
+            }
+        }
+    }
+    
 
 	@objc
-	private func getUserActivities() {
-		let userAddress = walletManager.currentAccount.eip55Address
-		activityAPIClient.allActivities(userAddress: userAddress).sink { completed in
-			switch completed {
-			case .finished:
-				print("User activities received successfully")
-			case let .failure(error):
-				print(error)
-				Toast.default(
-					title: self.errorFetchingToastMessage,
-					subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-					style: .error
-				)
-				.show(haptic: .warning)
-			}
-		} receiveValue: { [weak self] activities in
-			var iteratedActivities = self?.activityHelper
-				.iterateActivitiesFromResponse(activities: activities) ?? []
-			if (self?.isFirstTime) != nil {
-				iteratedActivities.append(contentsOf: PendingActivitiesManager.shared.pendingActivitiesList)
-				iteratedActivities = iteratedActivities
-					.sorted(by: {
-						self?.activityHelper.getActivityDate(activityBlockTime: $0.blockTime)
-							.timeIntervalSince1970 ?? 1 > self?.activityHelper.getActivityDate(activityBlockTime: $1.blockTime)
-							.timeIntervalSince1970 ?? 0
-					})
-				self?.isFirstTime = false
-			}
-			if self?.userActivities == nil || (self?.userActivities!.isEmpty)! {
-				self?.userActivities = iteratedActivities.compactMap {
-					ActivityCellViewModel(activityModel: $0)
-				}
-				self?.prevActivities = iteratedActivities
-			} else {
-				var newActivities: [ActivityModelProtocol] = []
-				newActivities = iteratedActivities.filter { activity in
-					!self!.prevActivities.contains { activity.txHash == $0.txHash }
-				}
-
-				self?.newUserActivities = newActivities.compactMap {
-					ActivityCellViewModel(activityModel: $0)
-				}
-				self?.prevActivities.append(contentsOf: newActivities)
-
-				for activity in iteratedActivities {
-					let foundActivityIndex = self?.prevActivities
-						.firstIndex(where: { $0.txHash == activity.txHash })
-					guard foundActivityIndex != nil else {
-						return
-					}
-					if self?.prevActivities[foundActivityIndex!].failed == nil && activity
-						.failed != nil {
-						guard let coreDataActivites = self?.coreDataManager.getAllActivities() else {
-							return
-						}
-						if !coreDataActivites.isEmpty {
-							PendingActivitiesManager.shared.startActivityPendingRequests()
-						}
-						self?.shouldReplacedActivites.append(ActivityCellViewModel(activityModel: activity))
-						self?.prevActivities[foundActivityIndex!] = activity
-					}
-				}
-				self?.shouldReplacedActivites = []
-			}
-		}.store(in: &cancellables)
-	}
+    private func getUserActivities() {
+            let userAddress = walletManager.currentAccount.eip55Address
+            activityAPIClient.allActivities(userAddress: userAddress).sink { completed in
+                switch completed {
+                case .finished:
+                    print("User activities received successfully")
+                case let .failure(error):
+                    print(error)
+                    Toast.default(
+                        title: self.errorFetchingToastMessage,
+                        subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+                        style: .error
+                    )
+                    .show(haptic: .warning)
+                }
+            } receiveValue: { [weak self] activities in
+                guard let self, GlobalVariables.shared.manageAssetsList != nil else {
+                    return
+                }
+                let iteratedActivities = self.activityHelper
+                    .iterateActivitiesFromResponse(activities: activities)
+                var finalActivities = iteratedActivities
+                for pendingCoreDataActivity in PendingActivitiesManager.shared.pendingActivitiesList {
+                    if finalActivities.first(where: { $0.txHash.lowercased() == pendingCoreDataActivity.txHash.lowercased() }) == nil {
+                        finalActivities.append(pendingCoreDataActivity)
+                    }
+                }
+                let doneCoreDataActivities = coreDataManager.getUserAllActivities(userID: walletManager.currentAccount.eip55Address)
+                for doneCoreDataActivity in doneCoreDataActivities {
+                    if finalActivities.first(where: { $0.txHash.lowercased() == doneCoreDataActivity.txHash.lowercased() }) == nil {
+                        finalActivities.append(activityHelper.iterateCoreDataActivity(coreDataActivity: doneCoreDataActivity))
+                    }
+                }
+                if self.prevActivities.isEmpty {
+                    finalActivities = sortIteratedActivities(activities: finalActivities)
+                } else {
+                    finalActivities = getUpdatedPendingActivitiesFromResponse(responseActivities: iteratedActivities, activities: finalActivities)
+                    finalActivities = getUpdatedPendingActivitiesFromCoreData(activities: finalActivities)
+                    finalActivities = sortIteratedActivities(activities: finalActivities)
+                }
+                checkForPendingActivityListChanges(responseActivities: iteratedActivities)
+                checkForNewActivity(responseActivities: iteratedActivities)
+                if shouldUpdateActivities {
+                    userActivities = finalActivities.compactMap { ActivityCellViewModel(activityModel: $0) }
+                    self.prevActivities = finalActivities
+                    self.shouldUpdateActivities = false
+                }
+            }.store(in: &cancellables)
+    }
 }

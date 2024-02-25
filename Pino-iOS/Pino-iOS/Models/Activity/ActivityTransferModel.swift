@@ -58,7 +58,16 @@ extension ActivityTransferModel {
 		)
 		self.fromAddress = cdTransferActivityModel.fromAddress
 		self.toAddress = cdTransferActivityModel.toAddress
-		self.failed = nil
+            switch ActivityStatus(rawValue: cdTransferActivityModel.status) {
+            case .pending:
+                self.failed = nil
+            case .success:
+                self.failed = false
+            case .failed:
+                self.failed = true
+            default:
+                self.failed = nil
+            }
 		self.blockNumber = nil
 		self.blockTime = cdTransferActivityModel.blockTime
 		self.gasUsed = cdTransferActivityModel.gasUsed

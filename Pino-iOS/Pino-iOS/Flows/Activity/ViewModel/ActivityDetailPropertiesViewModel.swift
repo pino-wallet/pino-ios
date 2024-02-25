@@ -321,7 +321,6 @@ struct ActivityDetailProperties {
 	// MARK: -  Private Methods
 
 	private mutating func setDetailsVM() {
-		activityHelper.globalAssetsList = globalAssetsList
 		switch activityDetails.uiType {
 		case .swap:
 			guard let swapActivityModel = activityDetails.defaultActivityModel as? ActivitySwapModel,

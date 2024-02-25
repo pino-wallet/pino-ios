@@ -25,8 +25,6 @@ class ActivityCollectionView: UICollectionView {
 	private var activityVM: ActivityViewModel
 	private var separatedActivities: ActivityHelper.SeparatedActivitiesType = []
 	private var cancellables = Set<AnyCancellable>()
-	private var globalAssetsCancellable = Set<AnyCancellable>()
-	private var globalAssetsList: [AssetViewModel]?
 
 	// MARK: - Initializers
 
@@ -56,14 +54,14 @@ class ActivityCollectionView: UICollectionView {
 	public func toggleLoading(isLoading: Bool) {
 		if isLoading {
 			showLoading = true
-			reloadData()
 			contentInset = UIEdgeInsets(top: 46, left: 0, bottom: 24, right: 0)
 			refreshControl?.endRefreshing()
+            reloadData()
 		} else {
 			showLoading = false
-			reloadData()
 			contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
 			refreshControl?.endRefreshing()
+            reloadData()
 		}
 	}
 
@@ -82,74 +80,11 @@ class ActivityCollectionView: UICollectionView {
 	}
 
 	private func setupBindings() {
-		var activityHelper = ActivityHelper()
-
-		GlobalVariables.shared.$manageAssetsList.compactMap { $0 }.sink { assetsList in
-			if assetsList.isEmpty {
-				fatalError("Manage assets list is empty")
-			}
-			if self.globalAssetsList == nil {
-				self.globalAssetsList = assetsList
-				activityHelper.globalAssetsList = assetsList
-				if self.activityVM.userActivities != nil {
-					self.separatedActivities = activityHelper
-						.separateActivitiesByTime(activities: self.activityVM.userActivities!)
-					self.toggleLoading(isLoading: false)
-				}
-				self.globalAssetsCancellable.removeAll()
-			}
-
-		}.store(in: &globalAssetsCancellable)
-
-		activityVM.$userActivities.sink { activities in
-			guard let userActivities = activities else {
-				return
-			}
-
-			if self.globalAssetsList != nil {
-				self.separatedActivities = activityHelper.separateActivitiesByTime(activities: userActivities)
+        let activityHelper = ActivityHelper()
+        
+        activityVM.$userActivities.compactMap { $0 }.sink { activities in
+				self.separatedActivities = activityHelper.separateActivitiesByTime(activities: activities)
 				self.toggleLoading(isLoading: false)
-			}
-		}.store(in: &cancellables)
-
-		activityVM.$newUserActivities.sink { newActivities in
-			guard !newActivities.isEmpty else {
-				self.refreshControl?.endRefreshing()
-				return
-			}
-			let newSeparatedActivities = activityHelper.separateActivitiesByTime(activities: newActivities)
-			let newActivitiesInfo = activityHelper.getNewActivitiesInfo(
-				separatedActivities: self.separatedActivities,
-				newSeparatedActivities: newSeparatedActivities
-			)
-			self.performBatchUpdates({
-				self.separatedActivities = newActivitiesInfo.finalSeparatedActivities
-				if !newActivitiesInfo.sections.isEmpty {
-					for newActivitySection in newActivitiesInfo.sections {
-						self.insertSections(newActivitySection)
-						self.collectionViewLayout.invalidateLayout()
-					}
-				}
-				self.insertItems(at: newActivitiesInfo.indexPaths)
-				self.collectionViewLayout.invalidateLayout()
-			}, completion: nil)
-			self.refreshControl?.endRefreshing()
-		}.store(in: &cancellables)
-
-		activityVM.$shouldReplacedActivites.sink { shouldReplacedActivities in
-			guard !shouldReplacedActivities.isEmpty else {
-				return
-			}
-			let replacedActivitiesInfo = activityHelper.getReplacedActivitiesInfo(
-				replacedActivities: shouldReplacedActivities,
-				separatedActivities: self.separatedActivities
-			)
-			self.performBatchUpdates({
-				self.separatedActivities = replacedActivitiesInfo.finalSeparatedActivities
-				self.reloadItems(at: replacedActivitiesInfo.indexPaths)
-				self.collectionViewLayout.invalidateLayout()
-			}, completion: nil)
-
 		}.store(in: &cancellables)
 	}
 
