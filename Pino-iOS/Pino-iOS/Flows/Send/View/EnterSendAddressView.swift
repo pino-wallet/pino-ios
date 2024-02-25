@@ -70,8 +70,7 @@ class EnterSendAddressView: UIView {
 		suggestedAddressesCollectionView = SuggestedAddressesCollectionView(
 			suggestedAddressesVM: suggestedAddressesVM,
 			recentAddressDidSelect: { recentAddress in
-				self.setNameWithAddressText(name: recentAddress.ensName, address: recentAddress.address)
-				self.enterSendAddressVM.selectRecentAddress(name: recentAddress.ensName, address: recentAddress.address)
+				self.selectRecentAddress(recentAddress)
 			},
 			userWalletDidSelect: { userWallet in
 				self.selectUserWallet(userWallet)
@@ -145,7 +144,7 @@ class EnterSendAddressView: UIView {
 			   let selectedRecentAddress = self.suggestedAddressesVM.recentAddresses
 			   .first(where: { $0.address == recipientAddress.address }),
 			   let ensName = selectedRecentAddress.ensName {
-				self.setNameWithAddressText(name: ensName, address: selectedRecentAddress.address)
+				self.selectRecentAddress(selectedRecentAddress)
 			}
 		}
 
@@ -302,6 +301,11 @@ class EnterSendAddressView: UIView {
 	private func selectUserWallet(_ userWallet: AccountInfoViewModel) {
 		setNameWithAddressText(name: userWallet.name, address: userWallet.address)
 		enterSendAddressVM.selectUserWallet(userWallet)
+	}
+
+	private func selectRecentAddress(_ recentAddress: RecentAddressViewModel) {
+		setNameWithAddressText(name: recentAddress.ensName, address: recentAddress.address)
+		enterSendAddressVM.selectRecentAddress(name: recentAddress.ensName, address: recentAddress.address)
 	}
 
 	private func setNameWithAddressText(name: String?, address: String) {
