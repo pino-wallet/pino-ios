@@ -56,12 +56,12 @@ class ActivityCollectionView: UICollectionView {
 			showLoading = true
 			contentInset = UIEdgeInsets(top: 46, left: 0, bottom: 24, right: 0)
 			refreshControl?.endRefreshing()
-            reloadData()
+			reloadData()
 		} else {
 			showLoading = false
 			contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
 			refreshControl?.endRefreshing()
-            reloadData()
+			reloadData()
 		}
 	}
 
@@ -80,11 +80,11 @@ class ActivityCollectionView: UICollectionView {
 	}
 
 	private func setupBindings() {
-        let activityHelper = ActivityHelper()
-        
-        activityVM.$userActivities.compactMap { $0 }.sink { activities in
-				self.separatedActivities = activityHelper.separateActivitiesByTime(activities: activities)
-				self.toggleLoading(isLoading: false)
+		let activityHelper = ActivityHelper()
+
+		activityVM.$userActivities.compactMap { $0 }.sink { activities in
+			self.separatedActivities = activityHelper.separateActivitiesByTime(activities: activities)
+			self.toggleLoading(isLoading: false)
 		}.store(in: &cancellables)
 	}
 

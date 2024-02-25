@@ -89,7 +89,7 @@ class ActivitiesCollectionView: UICollectionView {
 	}
 
 	private func setupBinding() {
-        let activityHelper = ActivityHelper()
+		let activityHelper = ActivityHelper()
 		coinInfoVM.$coinHistoryActivitiesList.sink { [weak self] activities in
 			guard let userActivitiesOnToken = activities else {
 				self?.showLoading = true

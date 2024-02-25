@@ -56,16 +56,16 @@ extension ActivityApproveModel {
 		)
 		self.fromAddress = cdApproveActivityModel.fromAddress
 		self.toAddress = cdApproveActivityModel.toAddress
-        switch ActivityStatus(rawValue: cdApproveActivityModel.status) {
-        case .pending:
-            self.failed = nil
-        case .success:
-            self.failed = false
-        case .failed:
-            self.failed = true
-        default:
-            self.failed = nil
-        }
+		switch ActivityStatus(rawValue: cdApproveActivityModel.status) {
+		case .pending:
+			self.failed = nil
+		case .success:
+			self.failed = false
+		case .failed:
+			self.failed = true
+		default:
+			self.failed = nil
+		}
 		self.blockNumber = nil
 		self.blockTime = cdApproveActivityModel.blockTime
 		self.gasUsed = cdApproveActivityModel.gasUsed

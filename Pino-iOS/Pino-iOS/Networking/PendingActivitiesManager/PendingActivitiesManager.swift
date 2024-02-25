@@ -45,7 +45,7 @@ class PendingActivitiesManager {
 
 	public func removePendingActivity(txHash: String) {
 		pendingActivitiesList.removeAll(where: { $0.txHash.lowercased() == txHash.lowercased() })
-        coreDataManager.deleteActivityByID(txHash)
+		coreDataManager.deleteActivityByID(txHash)
 		if pendingActivitiesList.isEmpty {
 			stopActivityPendingRequests()
 		}
@@ -59,7 +59,7 @@ class PendingActivitiesManager {
 			.getUserAllActivities(userID: walletManager.currentAccount.eip55Address)
 			.filter { ActivityStatus(rawValue: $0.status) == ActivityStatus.pending }
 		for activity in allUserPendingActivities {
-            pendingActivitiesList.append(activityHelper.iterateCoreDataActivity(coreDataActivity: activity))
+			pendingActivitiesList.append(activityHelper.iterateCoreDataActivity(coreDataActivity: activity))
 		}
 	}
 

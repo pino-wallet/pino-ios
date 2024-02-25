@@ -49,16 +49,16 @@ extension ActivityUnwrapETHModel {
 		self.detail = ActivityUnwrapETHDetails(amount: cdUnwrapActivityModel.details.amount)
 		self.fromAddress = cdUnwrapActivityModel.fromAddress
 		self.toAddress = cdUnwrapActivityModel.toAddress
-        switch ActivityStatus(rawValue: cdUnwrapActivityModel.status) {
-        case .pending:
-            self.failed = nil
-        case .success:
-            self.failed = false
-        case .failed:
-            self.failed = true
-        default:
-            self.failed = nil
-        }
+		switch ActivityStatus(rawValue: cdUnwrapActivityModel.status) {
+		case .pending:
+			self.failed = nil
+		case .success:
+			self.failed = false
+		case .failed:
+			self.failed = true
+		default:
+			self.failed = nil
+		}
 		self.blockNumber = nil
 		self.blockTime = cdUnwrapActivityModel.blockTime
 		self.gasUsed = cdUnwrapActivityModel.gasUsed

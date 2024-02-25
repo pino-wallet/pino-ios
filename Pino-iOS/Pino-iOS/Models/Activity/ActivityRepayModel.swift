@@ -59,16 +59,16 @@ extension ActivityRepayModel {
 		)
 		self.fromAddress = cdRepayActivityModel.fromAddress
 		self.toAddress = cdRepayActivityModel.toAddress
-        switch ActivityStatus(rawValue: cdRepayActivityModel.status) {
-        case .pending:
-            self.failed = nil
-        case .success:
-            self.failed = false
-        case .failed:
-            self.failed = true
-        default:
-            self.failed = nil
-        }
+		switch ActivityStatus(rawValue: cdRepayActivityModel.status) {
+		case .pending:
+			self.failed = nil
+		case .success:
+			self.failed = false
+		case .failed:
+			self.failed = true
+		default:
+			self.failed = nil
+		}
 		self.blockNumber = nil
 		self.blockTime = cdRepayActivityModel.blockTime
 		self.gasUsed = cdRepayActivityModel.gasUsed
