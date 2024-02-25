@@ -5,6 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 6/15/23.
 //
 
+import Combine
 import UIKit
 
 class EnterSendAddressView: UIView {
@@ -26,16 +27,11 @@ class EnterSendAddressView: UIView {
 	private var keyboardHeight: CGFloat = 320 // Minimum height in rare case keyboard of height was not calculated
 	private var nextButtonBottomConstraint: NSLayoutConstraint!
 	private var endEditingTapGesture: UITapGestureRecognizer!
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 
 	public let addressTextField = PinoTextFieldView(pattern: nil)
-
-	public var validationStatus: EnterSendAddressViewModel.ValidationStatus = .normal {
-		didSet {
-			changeViewStatus(validationStatus: validationStatus)
-		}
-	}
 
 	// MARK: - Initializers
 
@@ -47,9 +43,9 @@ class EnterSendAddressView: UIView {
 		setupView()
 		setupStyles()
 		setupConstraints()
+		setupBinding()
 		setupNotifications()
 		configureKeyboard()
-		changeViewStatus(validationStatus: validationStatus)
 	}
 
 	required init?(coder: NSCoder) {
@@ -73,9 +69,9 @@ class EnterSendAddressView: UIView {
 	private func setupView() {
 		suggestedAddressesCollectionView = SuggestedAddressesCollectionView(
 			suggestedAddressesVM: suggestedAddressesVM,
-			recentAddressDidSelect: { address in
-				self.addressTextField.text = address
-				self.enterSendAddressVM.validateSendAddress(address: address)
+			recentAddressDidSelect: { recentAddress in
+				self.setNameWithAddressText(name: recentAddress.ensName, address: recentAddress.address)
+				self.enterSendAddressVM.selectRecentAddress(name: recentAddress.ensName, address: recentAddress.address)
 			},
 			userWalletDidSelect: { userWallet in
 				self.selectUserWallet(userWallet)
@@ -125,10 +121,11 @@ class EnterSendAddressView: UIView {
 			UIView.animate(withDuration: 0.3) {
 				self.suggestedAddressesContainerView.alpha = 0
 			}
-			let addressInputType = self.enterSendAddressVM.addressInputType
-			if addressInputType == .ensWithAddress || addressInputType == .userNameWithAddress {
-				self.addressTextField
-					.attributedText = NSMutableAttributedString(string: self.enterSendAddressVM.recipientAddress!)
+			guard let recipientAddress = self.enterSendAddressVM.recipientAddress else { return }
+			switch recipientAddress {
+			case .ensAddress, .userWalletAddress:
+				self.addressTextField.attributedText = NSMutableAttributedString(string: recipientAddress.address)
+			case .regularAddress: break
 			}
 		}
 		addressTextField.editingEnd = {
@@ -139,8 +136,16 @@ class EnterSendAddressView: UIView {
 			// if the entered address is for a user wallet, show its name in the  text field
 			if let recipientAddress = self.enterSendAddressVM.recipientAddress,
 			   let selectedWallet = self.suggestedAddressesVM.userWallets
-			   .first(where: { $0.address == recipientAddress }) {
+			   .first(where: { $0.address == recipientAddress.address }) {
 				self.selectUserWallet(selectedWallet)
+			}
+
+			// if the entered address is an ens address, show its name in the  text field
+			if let recipientAddress = self.enterSendAddressVM.recipientAddress,
+			   let selectedRecentAddress = self.suggestedAddressesVM.recentAddresses
+			   .first(where: { $0.address == recipientAddress.address }),
+			   let ensName = selectedRecentAddress.ensName {
+				self.setNameWithAddressText(name: ensName, address: selectedRecentAddress.address)
 			}
 		}
 
@@ -181,6 +186,12 @@ class EnterSendAddressView: UIView {
 			.bottom,
 			.fixedHeight(57)
 		)
+	}
+
+	private func setupBinding() {
+		enterSendAddressVM.$validationStatus.sink { validationStatus in
+			self.changeViewStatus(validationStatus: validationStatus)
+		}.store(in: &cancellables)
 	}
 
 	private func changeViewStatus(validationStatus: EnterSendAddressViewModel.ValidationStatus) {
@@ -293,7 +304,11 @@ class EnterSendAddressView: UIView {
 		enterSendAddressVM.selectUserWallet(userWallet)
 	}
 
-	private func setNameWithAddressText(name: String, address: String) {
+	private func setNameWithAddressText(name: String?, address: String) {
+		guard let name else {
+			addressTextField.attributedText = NSMutableAttributedString(string: address)
+			return
+		}
 		let formattedAddress = "(\(address.addressFormating()))"
 		let addressAttributedText = NSMutableAttributedString(string: "\(name) \(formattedAddress)")
 		addressAttributedText.addAttributes(

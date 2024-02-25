@@ -14,12 +14,16 @@ struct RecentAddressViewModel {
 
 	// MARK: - Public Properties
 
+	public var address: String {
+		recentAddressModel.recipientAddress
+	}
+
 	public var shortEndAddress: String {
-		recentAddressModel.address.addressFormating()
+		address.addressFormating()
 	}
 
 	public var logoText: String {
-		recentAddressModel.address[0 ..< 2]
+		recentAddressModel.recipientAddress[0 ..< 2]
 	}
 
 	public var relativeDate: String {

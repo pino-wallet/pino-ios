@@ -10,7 +10,6 @@ import Foundation
 class EnterSendAddressViewModel {
 	// MARK: - Closures
 
-	public var didValidateSendAddress: (ValidationStatus) -> Void = { _ in }
 	public var ensAddressFound: ((_ name: String, _ address: String) -> Void)!
 
 	// MARK: - Public Properties
@@ -21,13 +20,14 @@ class EnterSendAddressViewModel {
 	public let qrCodeIconName = "qr_code_scanner"
 	public var sendAmountVM: EnterSendAmountViewModel
 	public var selectedWallet: AccountInfoViewModel!
-	public var recipientAddress: String?
-	public var addressInputType: AddressInputType = .regularAddress
-	public var ensName: String?
+	public var recipientAddress: SendRecipientAddress?
 
 	public var sendAddressQrCodeScannerTitle: String {
 		"Scan address to send \(sendAmountVM.selectedToken.symbol)"
 	}
+
+	@Published
+	public var validationStatus: ValidationStatus
 
 	public enum ValidationStatus: Equatable {
 		case error(ValidationError)
@@ -60,6 +60,7 @@ class EnterSendAddressViewModel {
 
 	init(sendAmountVM: EnterSendAmountViewModel) {
 		self.sendAmountVM = sendAmountVM
+		self.validationStatus = .normal
 		getSelectedWallet()
 	}
 
@@ -73,26 +74,25 @@ class EnterSendAddressViewModel {
 	private func validateRegularAddress(_ address: String) {
 		if address.isEmpty {
 			recipientAddress = nil
-			didValidateSendAddress(.normal)
+			validationStatus = .normal
 			return
 		}
 		if address == pinoWalletManager.currentAccount.eip55Address {
 			recipientAddress = nil
-			didValidateSendAddress(.error(.sameAddress))
+			validationStatus = .error(.sameAddress)
 			return
 		}
 		if address.validateETHContractAddress() {
-			recipientAddress = address
-			didValidateSendAddress(.success)
+			validationStatus = .success
 		} else {
 			recipientAddress = nil
-			didValidateSendAddress(.error(.addressNotValid))
+			validationStatus = .error(.addressNotValid)
 		}
 	}
 
 	private func getENSAddress(_ ensName: String) {
-		addressInputType = .regularAddress
-		didValidateSendAddress(.loading)
+		recipientAddress = .regularAddress(.emptyString)
+		validationStatus = .loading
 		web3APIClient.getEnsAddress(ensName: ensName)
 			.sink { completed in
 				switch completed {
@@ -100,14 +100,12 @@ class EnterSendAddressViewModel {
 					print("ENS address received successfully")
 				case let .failure(error):
 					print("Error getting ENS address:\(error)")
-					self.didValidateSendAddress(.error(.addressNotValid))
+					self.validationStatus = .error(.addressNotValid)
 				}
 			} receiveValue: { ensAddress in
-				self.recipientAddress = ensAddress.address
+				self.recipientAddress = .ensAddress(RecipientENSInfo(name: ensName, address: ensAddress.address))
 				self.ensAddressFound(ensName, ensAddress.address)
-				self.ensName = ensName
 				self.validateRegularAddress(ensAddress.address)
-				self.addressInputType = .ensWithAddress
 			}.store(in: &cancellables)
 	}
 
@@ -117,21 +115,23 @@ class EnterSendAddressViewModel {
 		if address.isENSAddress() {
 			getENSAddress(address)
 		} else {
-			addressInputType = .regularAddress
-			ensName = nil
+			recipientAddress = .regularAddress(address)
 			validateRegularAddress(address)
 		}
 	}
 
 	public func selectUserWallet(_ account: AccountInfoViewModel) {
-		addressInputType = .userNameWithAddress
-		recipientAddress = account.address
+		recipientAddress = .userWalletAddress(account)
 		validateRegularAddress(account.address)
 	}
-}
 
-enum AddressInputType {
-	case regularAddress
-	case ensWithAddress
-	case userNameWithAddress
+	public func selectRecentAddress(name: String?, address: String) {
+		guard let name else {
+			recipientAddress = .regularAddress(address)
+			validateRegularAddress(address)
+			return
+		}
+		recipientAddress = .ensAddress(RecipientENSInfo(name: name, address: address))
+		validateRegularAddress(address)
+	}
 }

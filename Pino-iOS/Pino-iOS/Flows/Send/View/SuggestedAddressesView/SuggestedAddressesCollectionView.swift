@@ -14,14 +14,14 @@ class SuggestedAddressesCollectionView: UICollectionView {
 
 	// MARK: - Private Properties
 
-	private var recentAddressDidSelect: (String) -> Void
+	private var recentAddressDidSelect: (RecentAddressViewModel) -> Void
 	private var userWalletDidSelect: (AccountInfoViewModel) -> Void
 
 	// MARK: - Initializers
 
 	init(
 		suggestedAddressesVM: SuggestedAddressesViewModel,
-		recentAddressDidSelect: @escaping (String) -> Void,
+		recentAddressDidSelect: @escaping (RecentAddressViewModel) -> Void,
 		userWalletDidSelect: @escaping (AccountInfoViewModel) -> Void
 	) {
 		self.suggestedAddressesVM = suggestedAddressesVM
@@ -58,7 +58,7 @@ extension SuggestedAddressesCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		switch indexPath.section {
 		case 0:
-			recentAddressDidSelect(suggestedAddressesVM.recentAddresses[indexPath.item].address)
+			recentAddressDidSelect(suggestedAddressesVM.recentAddresses[indexPath.item])
 		case 1:
 			return userWalletDidSelect(suggestedAddressesVM.userWallets[indexPath.item])
 		default:
@@ -94,9 +94,7 @@ extension SuggestedAddressesCollectionView: UICollectionViewDataSource {
 				for: indexPath
 			) as! RecentAddressCell
 			recentAddressCell
-				.recentAddressVM = RecentAddressViewModel(
-					recentAddressModel: suggestedAddressesVM.recentAddresses[indexPath.item]
-				)
+				.recentAddressVM = suggestedAddressesVM.recentAddresses[indexPath.item]
 			return recentAddressCell
 		case 1:
 			let walletCell = dequeueReusableCell(

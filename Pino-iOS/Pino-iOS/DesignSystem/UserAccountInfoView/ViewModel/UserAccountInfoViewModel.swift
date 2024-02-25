@@ -14,4 +14,18 @@ struct UserAccountInfoViewModel {
 	public let accountIconColorName: String?
 	public let accountName: String
 	public let accountAddress: String
+
+	init(accountInfoVM: AccountInfoViewModel) {
+		self.accountName = accountInfoVM.name
+		self.accountAddress = accountInfoVM.address
+		self.accountIconName = accountInfoVM.profileImage
+		self.accountIconColorName = accountInfoVM.profileColor
+	}
+
+	init(ensAddressInfo: RecipientENSInfo) {
+		self.accountName = ensAddressInfo.name
+		self.accountAddress = ensAddressInfo.address
+		self.accountIconName = nil
+		self.accountIconColorName = nil
+	}
 }
