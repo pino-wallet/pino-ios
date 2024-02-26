@@ -114,6 +114,7 @@ class SendConfirmationViewModel {
 	public let feeInfoActionSheetTitle = "Network Fee"
 	public let feeInfoActionSheetDescription = "Sample Text"
 	public let feeErrorText = "Error in calculation!"
+	public let insufficientFundsErrorText = "Insufficient Funds!"
 	public let feeErrorIcon = "refresh"
 
 	// MARK: - Initializer
@@ -164,7 +165,14 @@ class SendConfirmationViewModel {
 			gasLimit = gasInfo.gasLimit!.bigIntFormat
 			feeCalculationState = .hasValue
 		}.catch { error in
-			self.feeCalculationState = .error
+
+			if let errorCode = (error as? RPCResponse<EthereumQuantity>.Error)?.code {
+				if errorCode == -32000 {
+					self.feeCalculationState = .insufficientFunds
+				} else {
+					self.feeCalculationState = .error
+				}
+			}
 		}
 	}
 
@@ -229,6 +237,10 @@ class SendConfirmationViewModel {
 	private func setupBindings() {
 		GlobalVariables.shared.$ethGasFee
 			.compactMap { $0 }
+			.filter { [weak self] _ in
+				guard let self = self else { return false }
+				return feeCalculationState == .loading || feeCalculationState == .hasValue
+			}
 			.sink { gasInfoDetils in
 				if gasInfoDetils.isLoading {
 					self.feeCalculationState = .loading
@@ -266,5 +278,6 @@ extension SendConfirmationViewModel {
 		case hasValue
 		case loading
 		case error
+		case insufficientFunds
 	}
 }
