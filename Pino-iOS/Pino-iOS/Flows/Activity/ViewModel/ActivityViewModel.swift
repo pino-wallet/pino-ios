@@ -52,7 +52,7 @@ class ActivityViewModel {
 	}
 
 	public func refreshUserActvities() {
-        shouldUpdateActivities = true
+		shouldUpdateActivities = true
 		requestTimer?.fire()
 	}
 
@@ -91,8 +91,8 @@ class ActivityViewModel {
 			for pendingActivity in pendingActivities {
 				if self.prevActivities
 					.indexOf(activity: pendingActivity) == nil {
-                    self.prevActivities.append(pendingActivity)
-                    self.prevActivities = self.sortIteratedActivities(activities: self.prevActivities)
+					self.prevActivities.append(pendingActivity)
+					self.prevActivities = self.sortIteratedActivities(activities: self.prevActivities)
 					self.userActivityCellVMList = self.prevActivities.compactMap { ActivityCellViewModel(activityModel: $0) }
 					self.shouldUpdateActivities = false
 				}
@@ -132,7 +132,8 @@ class ActivityViewModel {
 		var updatedActivitiesList = activities
 		for coreDataActivity in coredataVerifiedActivitiesList {
 			if let foundPendingActivityIndex = updatedActivitiesList
-                .firstIndex(where: { $0.txHash.lowercased() == coreDataActivity.txHash.lowercased() && $0.failed == nil }) {
+				.firstIndex(where: { $0.txHash.lowercased() == coreDataActivity.txHash.lowercased() && $0.failed == nil
+				}) {
 				updatedActivitiesList[foundPendingActivityIndex] = activityHelper
 					.iterateCoreDataActivity(coreDataActivity: coreDataActivity)
 				shouldUpdateActivities = true
@@ -148,7 +149,7 @@ class ActivityViewModel {
 		var updatedActivitiesList = activities
 		for responseActivity in responseActivities {
 			if let foundPendingActivityIndex = updatedActivitiesList
-                .indexOf(activity: responseActivity) {
+				.indexOf(activity: responseActivity) {
 				updatedActivitiesList[foundPendingActivityIndex] = responseActivity
 				shouldUpdateActivities = true
 			}
@@ -176,7 +177,6 @@ class ActivityViewModel {
 			}
 		}
 	}
-    
 
 	@objc
 	private func getUserActivities() {
@@ -231,9 +231,8 @@ class ActivityViewModel {
 	}
 }
 
-
-fileprivate extension Array where Element == any ActivityModelProtocol {
-    func indexOf(activity: Element) -> Self.Index? {
-    firstIndex(where: { $0.txHash.lowercased() == activity.txHash.lowercased() })
-  }
+extension Array where Element == any ActivityModelProtocol {
+	fileprivate func indexOf(activity: Element) -> Self.Index? {
+		firstIndex(where: { $0.txHash.lowercased() == activity.txHash.lowercased() })
+	}
 }
