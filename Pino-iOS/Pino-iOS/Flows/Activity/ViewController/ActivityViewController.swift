@@ -30,7 +30,7 @@ class ActivityViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		activityVM.getUserActivitiesFromVC()
-		if activityVM.userActivities == nil {
+		if activityVM.userActivityCellVMList == nil {
 			activityColectionView.toggleLoading(isLoading: true)
 		}
 		setupLoading()
@@ -71,7 +71,7 @@ class ActivityViewController: UIViewController {
 	}
 
 	private func setupBindings() {
-		activityVM.$userActivities.sink { [weak self] activities in
+		activityVM.$userActivityCellVMList.sink { [weak self] activities in
 			guard let isActvitiesEmpty = activities?.isEmpty else {
 				self?.view = self?.activityColectionView
 				return

@@ -33,7 +33,7 @@ class PendingActivitiesManager {
 	public func startActivityPendingRequests() {
 		getPendingActivitiesFromCoreData()
 		stopActivityPendingRequests()
-		requestsTimer = Timer.publish(every: 10, on: .main, in: .common).autoconnect().prepend(Date()).sink { _ in
+		requestsTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect().prepend(Date()).sink { _ in
 			self.getActivityPendings()
 		}
 	}

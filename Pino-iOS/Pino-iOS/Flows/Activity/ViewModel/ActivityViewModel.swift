@@ -18,7 +18,7 @@ class ActivityViewModel {
 	public let errorFetchingToastMessage = "Error fetching activities from server"
 
 	@Published
-	public var userActivities: [ActivityCellViewModel]? = nil
+	public var userActivityCellVMList: [ActivityCellViewModel]? = nil
 
 	// MARK: - Private Properties
 
@@ -52,6 +52,7 @@ class ActivityViewModel {
 	}
 
 	public func refreshUserActvities() {
+        shouldUpdateActivities = true
 		requestTimer?.fire()
 	}
 
@@ -69,7 +70,7 @@ class ActivityViewModel {
 	private func setupRequestTimer() {
 		destroyTimer()
 		requestTimer = Timer.scheduledTimer(
-			timeInterval: 12,
+			timeInterval: 5,
 			target: self,
 			selector: #selector(getUserActivities),
 			userInfo: nil,
@@ -79,22 +80,20 @@ class ActivityViewModel {
 
 	private func setupBindings() {
 		GlobalVariables.shared.$manageAssetsList.compactMap { $0 }.sink { _ in
-			if self.userActivities == nil {
+			if self.userActivityCellVMList == nil {
 				self.requestTimer?.fire()
 			}
 		}.store(in: &cancellables)
 		PendingActivitiesManager.shared.$pendingActivitiesList.sink { pendingActivities in
-			guard self.userActivities != nil else {
+			guard self.userActivityCellVMList != nil else {
 				return
 			}
-			var finalActivities = self.prevActivities
 			for pendingActivity in pendingActivities {
-				if finalActivities
-					.first(where: { $0.txHash.lowercased() == pendingActivity.txHash.lowercased() }) == nil {
-					finalActivities.append(pendingActivity)
-					finalActivities = self.sortIteratedActivities(activities: finalActivities)
-					self.userActivities = finalActivities.compactMap { ActivityCellViewModel(activityModel: $0) }
-					self.prevActivities = finalActivities
+				if self.prevActivities
+					.indexOf(activity: pendingActivity) == nil {
+                    self.prevActivities.append(pendingActivity)
+                    self.prevActivities = self.sortIteratedActivities(activities: self.prevActivities)
+					self.userActivityCellVMList = self.prevActivities.compactMap { ActivityCellViewModel(activityModel: $0) }
 					self.shouldUpdateActivities = false
 				}
 			}
@@ -102,7 +101,7 @@ class ActivityViewModel {
 	}
 
 	private func refreshPrevData() {
-		userActivities = nil
+		userActivityCellVMList = nil
 		prevActivities = []
 		shouldUpdateActivities = true
 	}
@@ -119,7 +118,7 @@ class ActivityViewModel {
 				.timeIntervalSince1970
 		})
 		if sortedActivities.count > activityLimitCount {
-			return Array(sortedActivities.prefix(upTo: 20))
+			return Array(sortedActivities.prefix(upTo: activityLimitCount))
 		} else {
 			return sortedActivities
 		}
@@ -127,13 +126,13 @@ class ActivityViewModel {
 
 	private func getUpdatedPendingActivitiesFromCoreData(activities: [ActivityModelProtocol])
 		-> [ActivityModelProtocol] {
-		let coreDataIteratedActivities = coreDataManager
+		let coredataVerifiedActivitiesList = coreDataManager
 			.getUserAllActivities(userID: walletManager.currentAccount.eip55Address)
 			.filter { ActivityStatus(rawValue: $0.status) != .pending }
 		var updatedActivitiesList = activities
-		for coreDataActivity in coreDataIteratedActivities {
+		for coreDataActivity in coredataVerifiedActivitiesList {
 			if let foundPendingActivityIndex = updatedActivitiesList
-				.firstIndex(where: { $0.txHash.lowercased() == coreDataActivity.txHash.lowercased() }) {
+                .firstIndex(where: { $0.txHash.lowercased() == coreDataActivity.txHash.lowercased() && $0.failed == nil }) {
 				updatedActivitiesList[foundPendingActivityIndex] = activityHelper
 					.iterateCoreDataActivity(coreDataActivity: coreDataActivity)
 				shouldUpdateActivities = true
@@ -149,7 +148,7 @@ class ActivityViewModel {
 		var updatedActivitiesList = activities
 		for responseActivity in responseActivities {
 			if let foundPendingActivityIndex = updatedActivitiesList
-				.firstIndex(where: { $0.txHash.lowercased() == responseActivity.txHash.lowercased() }) {
+                .indexOf(activity: responseActivity) {
 				updatedActivitiesList[foundPendingActivityIndex] = responseActivity
 				shouldUpdateActivities = true
 			}
@@ -167,16 +166,17 @@ class ActivityViewModel {
 	}
 
 	private func checkForNewActivity(responseActivities: [ActivityModelProtocol]) {
-		guard userActivities != nil else {
+		guard userActivityCellVMList != nil else {
 			shouldUpdateActivities = true
 			return
 		}
 		for newActivity in responseActivities {
-			if prevActivities.first(where: { $0.txHash.lowercased() == newActivity.txHash.lowercased() }) == nil {
+			if prevActivities.indexOf(activity: newActivity) == nil {
 				shouldUpdateActivities = true
 			}
 		}
 	}
+    
 
 	@objc
 	private func getUserActivities() {
@@ -194,45 +194,46 @@ class ActivityViewModel {
 				)
 				.show(haptic: .warning)
 			}
-		} receiveValue: { [weak self] activities in
+		} receiveValue: { [weak self] fetchedActivities in
 			guard let self, GlobalVariables.shared.manageAssetsList != nil else {
 				return
 			}
-			let iteratedActivities = self.activityHelper
-				.iterateActivitiesFromResponse(activities: activities)
-			var finalActivities = iteratedActivities
-			for pendingCoreDataActivity in PendingActivitiesManager.shared.pendingActivitiesList {
-				if finalActivities
-					.first(where: { $0.txHash.lowercased() == pendingCoreDataActivity.txHash.lowercased() }) == nil {
-					finalActivities.append(pendingCoreDataActivity)
-				}
-			}
-			let doneCoreDataActivities = coreDataManager
+			let activitiesList = self.activityHelper
+				.iterateActivitiesFromResponse(activities: fetchedActivities)
+			var finalActivities = activitiesList
+			let allCoreDataActivities = coreDataManager
 				.getUserAllActivities(userID: walletManager.currentAccount.eip55Address)
-			for doneCoreDataActivity in doneCoreDataActivities {
+			for coreDataActivity in allCoreDataActivities {
 				if finalActivities
-					.first(where: { $0.txHash.lowercased() == doneCoreDataActivity.txHash.lowercased() }) == nil {
+					.first(where: { $0.txHash.lowercased() == coreDataActivity.txHash.lowercased() }) == nil {
 					finalActivities
-						.append(activityHelper.iterateCoreDataActivity(coreDataActivity: doneCoreDataActivity))
+						.append(activityHelper.iterateCoreDataActivity(coreDataActivity: coreDataActivity))
 				}
 			}
 			if self.prevActivities.isEmpty {
 				finalActivities = sortIteratedActivities(activities: finalActivities)
 			} else {
 				finalActivities = getUpdatedPendingActivitiesFromResponse(
-					responseActivities: iteratedActivities,
+					responseActivities: activitiesList,
 					activities: finalActivities
 				)
 				finalActivities = getUpdatedPendingActivitiesFromCoreData(activities: finalActivities)
 				finalActivities = sortIteratedActivities(activities: finalActivities)
 			}
-			checkForPendingActivityListChanges(responseActivities: iteratedActivities)
-			checkForNewActivity(responseActivities: iteratedActivities)
+			checkForPendingActivityListChanges(responseActivities: activitiesList)
+			checkForNewActivity(responseActivities: activitiesList)
 			if shouldUpdateActivities {
-				userActivities = finalActivities.compactMap { ActivityCellViewModel(activityModel: $0) }
+				userActivityCellVMList = finalActivities.compactMap { ActivityCellViewModel(activityModel: $0) }
 				self.prevActivities = finalActivities
 				self.shouldUpdateActivities = false
 			}
 		}.store(in: &cancellables)
 	}
+}
+
+
+fileprivate extension Array where Element == any ActivityModelProtocol {
+    func indexOf(activity: Element) -> Self.Index? {
+    firstIndex(where: { $0.txHash.lowercased() == activity.txHash.lowercased() })
+  }
 }

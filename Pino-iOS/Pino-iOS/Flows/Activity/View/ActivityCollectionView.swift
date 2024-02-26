@@ -82,7 +82,7 @@ class ActivityCollectionView: UICollectionView {
 	private func setupBindings() {
 		let activityHelper = ActivityHelper()
 
-		activityVM.$userActivities.compactMap { $0 }.sink { activities in
+		activityVM.$userActivityCellVMList.compactMap { $0 }.sink { activities in
 			self.separatedActivities = activityHelper.separateActivitiesByTime(activities: activities)
 			self.toggleLoading(isLoading: false)
 		}.store(in: &cancellables)
