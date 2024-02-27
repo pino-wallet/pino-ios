@@ -23,7 +23,6 @@ class SendConfirmationViewModel {
 	private let walletManager = PinoWalletManager()
 	private let activityHelper = ActivityHelper()
 	private let selectedWallet: AccountInfoViewModel
-	private let ensName: String?
 	private var cancellables = Set<AnyCancellable>()
 	private var gasPrice = "0"
 	private var gasLimit = "0"
@@ -38,7 +37,7 @@ class SendConfirmationViewModel {
 	public let selectedToken: AssetViewModel
 	public var gasFee: BigNumber!
 	public var isAddressScam = false
-	public let recipientAddress: String
+	public let recipientAddress: SendRecipientAddress
 	public var userRecipientAccountInfoVM: UserAccountInfoViewModel?
 	public let sendAmount: String
 	public let confirmBtnText = "Confirm"
@@ -47,7 +46,13 @@ class SendConfirmationViewModel {
 	public var sendStatusText: String {
 		let sendAmountBigUInt = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))!
 		let sendAmountBigNumber = BigNumber(unSignedNumber: sendAmountBigUInt, decimal: selectedToken.decimal)
-		return "You sent \(sendAmountBigNumber.sevenDigitFormat) \(selectedToken.symbol) to \(recipientAddress.addressFormating())"
+		var formattedRecipientAddress: String
+		if let recipientAddressName = recipientAddress.name {
+			formattedRecipientAddress = "\(recipientAddressName)(\(recipientAddress.address.addressFormating()))"
+		} else {
+			formattedRecipientAddress = recipientAddress.address.addressFormating()
+		}
+		return "You sent \(sendAmountBigNumber.sevenDigitFormat) \(selectedToken.symbol) to \(formattedRecipientAddress)"
 	}
 
 	public var isTokenVerified: Bool {
@@ -109,19 +114,16 @@ class SendConfirmationViewModel {
 	init(
 		selectedToken: AssetViewModel,
 		selectedWallet: AccountInfoViewModel,
-		recipientAddress: String,
+		recipientAddress: SendRecipientAddress,
 		sendAmount: String,
-		sendAmountInDollar: String,
-		ensName: String?
+		sendAmountInDollar: String
 	) {
 		self.selectedToken = selectedToken
 		self.selectedWallet = selectedWallet
 		self.sendAmount = sendAmount
 		self.sendAmountInDollar = sendAmountInDollar
 		self.recipientAddress = recipientAddress
-		self.ensName = ensName
 		setupBindings()
-		setUserRecipientAccountInfo()
 	}
 
 	// MARK: - Public Methods
@@ -153,11 +155,11 @@ class SendConfirmationViewModel {
 	public func getSendTrxInfo() -> TrxWithGasInfo {
 		if selectedToken.isEth {
 			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .ether)
-			return Web3Core.shared.sendEtherTo(address: recipientAddress, amount: sendAmount!)
+			return Web3Core.shared.sendEtherTo(address: recipientAddress.address, amount: sendAmount!)
 		} else {
 			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))
 			return Web3Core.shared.sendERC20TokenTo(
-				recipient: recipientAddress,
+				recipient: recipientAddress.address,
 				amount: sendAmount!,
 				tokenContractAddress: selectedToken.id
 			)
@@ -176,10 +178,10 @@ class SendConfirmationViewModel {
 						.description,
 					tokenID: selectedToken.id,
 					from: userAddress,
-					to: recipientAddress
+					to: recipientAddress.address
 				),
 				fromAddress: userAddress,
-				toAddress: recipientAddress,
+				toAddress: recipientAddress.address,
 				blockTime: activityHelper.getServerFormattedStringDate(date: .now),
 				gasUsed: gasLimit,
 				gasPrice: gasPrice
@@ -192,10 +194,10 @@ class SendConfirmationViewModel {
 	public func setRecentAddress() {
 		let recentAddressHelper = RecentAddressHelper()
 		recentAddressHelper.addNewRecentAddress(newRecentAddress: RecentAddressModel(
-			address: recipientAddress,
+			address: recipientAddress.address,
 			userAddress: walletManager.currentAccount.eip55Address,
 			date: Date(),
-			ensName: ensName
+			ensName: recipientAddress.ensName
 		))
 	}
 
@@ -215,28 +217,6 @@ class SendConfirmationViewModel {
 					self.getFee()
 				}
 			}.store(in: &cancellables)
-	}
-
-	private func setUserRecipientAccountInfo() {
-		let accountsList = walletManager.accounts
-		let foundAccount = accountsList.first(where: { $0.eip55Address == recipientAddress })
-		if let foundAccount {
-			userRecipientAccountInfoVM = UserAccountInfoViewModel(
-				accountIconName: foundAccount.avatarIcon,
-				accountIconColorName: foundAccount.avatarColor,
-				accountName: foundAccount.name,
-				accountAddress: foundAccount.eip55Address
-			)
-		} else if let ensName {
-			userRecipientAccountInfoVM = UserAccountInfoViewModel(
-				accountIconName: nil,
-				accountIconColorName: nil,
-				accountName: ensName,
-				accountAddress: recipientAddress
-			)
-		} else {
-			userRecipientAccountInfoVM = nil
-		}
 	}
 }
 

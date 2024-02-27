@@ -696,6 +696,7 @@
 		E25F4C14C3273F63F22E983C /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA3FFE35308EBEC961CD7BF /* UIView+Extension.swift */; };
 		E3099FEC2B00B901004474F0 /* CompoundDepositManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3099FEB2B00B901004474F0 /* CompoundDepositManager.swift */; };
 		E31106FE2AC17040005723EB /* InvestableAssetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31106FD2AC17040005723EB /* InvestableAssetsModel.swift */; };
+		E31D646B2B89DDA400A9FF94 /* SendRecipientAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31D646A2B89DDA400A9FF94 /* SendRecipientAddress.swift */; };
 		E333E63A2AA708D3005C977E /* InvestEmptyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E333E6392AA708D3005C977E /* InvestEmptyPageView.swift */; };
 		E33649A32B53FF0300341466 /* HomepgaeEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33649A22B53FF0300341466 /* HomepgaeEmptyState.swift */; };
 		E33649A52B551FF900341466 /* ManageAssetPositionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33649A42B551FF900341466 /* ManageAssetPositionsCell.swift */; };
@@ -1575,6 +1576,7 @@
 		E19FF7EA659493C72C4B0AD9 /* PinoTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoTextFieldView.swift; sourceTree = "<group>"; };
 		E3099FEB2B00B901004474F0 /* CompoundDepositManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundDepositManager.swift; sourceTree = "<group>"; };
 		E31106FD2AC17040005723EB /* InvestableAssetsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestableAssetsModel.swift; sourceTree = "<group>"; };
+		E31D646A2B89DDA400A9FF94 /* SendRecipientAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendRecipientAddress.swift; sourceTree = "<group>"; };
 		E333E6392AA708D3005C977E /* InvestEmptyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestEmptyPageView.swift; sourceTree = "<group>"; };
 		E33649A22B53FF0300341466 /* HomepgaeEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepgaeEmptyState.swift; sourceTree = "<group>"; };
 		E33649A42B551FF900341466 /* ManageAssetPositionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAssetPositionsCell.swift; sourceTree = "<group>"; };
@@ -3675,6 +3677,7 @@
 			children = (
 				D9C4CF0C2A4094C400475F01 /* RecentAddressModel.swift */,
 				E3847B372A52CBE6005ED78B /* AmountStatus.swift */,
+				E31D646A2B89DDA400A9FF94 /* SendRecipientAddress.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5099,6 +5102,7 @@
 				D9A4BD042B0C88C300DFD072 /* SendTransactionStatus.swift in Sources */,
 				C95E4117EE56405E9C6A00CB /* AssetsCollectionViewDataSource.swift in Sources */,
 				D96A076C2B0616C500970EFD /* PositionTokenModel.swift in Sources */,
+				E31D646B2B89DDA400A9FF94 /* SendRecipientAddress.swift in Sources */,
 				E3FC69BB2A8A6CDE009B3341 /* InvestCoinPerformanceView.swift in Sources */,
 				54E9764329CE5F067EFE92D1 /* AssetsEndpoint.swift in Sources */,
 				D9BFEC372A121706007DFF40 /* AllowNotificationsViewController.swift in Sources */,
