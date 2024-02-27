@@ -707,6 +707,8 @@
 		E33F7CBE2AD44CA2007FC04D /* DepositManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F7CBD2AD44CA2007FC04D /* DepositManager.swift */; };
 		E33F90FF2B15BD3F00409CAE /* CTokenABI.json in Resources */ = {isa = PBXBuildFile; fileRef = E33F90FE2B15BD3F00409CAE /* CTokenABI.json */; };
 		E33F91012B1DDA7300409CAE /* SendTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F91002B1DDA7300409CAE /* SendTransactionViewModel.swift */; };
+		E341EBA22B8DE1BF00A738AF /* BorrowCommigSoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E341EBA12B8DE1BF00A738AF /* BorrowCommigSoonView.swift */; };
+		E341EBA42B8DE35E00A738AF /* BorrowCommingSoonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E341EBA32B8DE35E00A738AF /* BorrowCommingSoonViewController.swift */; };
 		E343836A2A3D912A0048BDA1 /* SendConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34383692A3D912A0048BDA1 /* SendConfirmationViewController.swift */; };
 		E343836C2A3D92C20048BDA1 /* SendConfimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E343836B2A3D92C20048BDA1 /* SendConfimationView.swift */; };
 		E343836E2A3DA0320048BDA1 /* SendConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E343836D2A3DA0320048BDA1 /* SendConfirmationViewModel.swift */; };
@@ -1587,6 +1589,8 @@
 		E33F7CBD2AD44CA2007FC04D /* DepositManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositManager.swift; sourceTree = "<group>"; };
 		E33F90FE2B15BD3F00409CAE /* CTokenABI.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CTokenABI.json; sourceTree = "<group>"; };
 		E33F91002B1DDA7300409CAE /* SendTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendTransactionViewModel.swift; sourceTree = "<group>"; };
+		E341EBA12B8DE1BF00A738AF /* BorrowCommigSoonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowCommigSoonView.swift; sourceTree = "<group>"; };
+		E341EBA32B8DE35E00A738AF /* BorrowCommingSoonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowCommingSoonViewController.swift; sourceTree = "<group>"; };
 		E34383692A3D912A0048BDA1 /* SendConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmationViewController.swift; sourceTree = "<group>"; };
 		E343836B2A3D92C20048BDA1 /* SendConfimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfimationView.swift; sourceTree = "<group>"; };
 		E343836D2A3DA0320048BDA1 /* SendConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmationViewModel.swift; sourceTree = "<group>"; };
@@ -2196,6 +2200,7 @@
 				D9CD890A2AA469D000D6520B /* WithdrawConfirmView.swift */,
 				D9176F142AA46E16007D4DBC /* CollateralConfirmView.swift */,
 				D903AC462AA47D6C0083727F /* AmountHealthScoreView.swift */,
+				E341EBA12B8DE1BF00A738AF /* BorrowCommigSoonView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2218,6 +2223,7 @@
 				D9CD890C2AA46A4F00D6520B /* WithdrawConfirmViewController.swift */,
 				D9176F162AA46E68007D4DBC /* CollateralConfirmViewController.swift */,
 				D95D20332AAC9B2E00E0A885 /* HealthScoreSystemViewController.swift */,
+				E341EBA32B8DE35E00A738AF /* BorrowCommingSoonViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -4973,6 +4979,7 @@
 				DFCB13A82B09DCB800EEFD0F /* CDApproveActivityDetails+CoreDataClass.swift in Sources */,
 				DFCB13A92B09DCB800EEFD0F /* CDInvestmentActivityDetails+CoreDataProperties.swift in Sources */,
 				E3FC69E92A922045009B3341 /* InvestmentFilterItemViewModel.swift in Sources */,
+				E341EBA22B8DE1BF00A738AF /* BorrowCommigSoonView.swift in Sources */,
 				DFFDEDA42A75659E00D710D7 /* ParaSwapEndpoint.swift in Sources */,
 				E3ABD1FE2AB1B01D00947D37 /* ActiveAccountViewModel.swift in Sources */,
 				DFFDEDA32A75658700D710D7 /* ParaSwapAPIClient.swift in Sources */,
@@ -5656,6 +5663,7 @@
 				D936FB9A2B41669500A73F17 /* GetInviteCodeViewController.swift in Sources */,
 				4C7FBB094D7EA8820D1F4D69 /* ViewController+Extension.swift in Sources */,
 				D9A3280D2A345313005A8393 /* SelectAssetCollectionView.swift in Sources */,
+				E341EBA42B8DE35E00A738AF /* BorrowCommingSoonViewController.swift in Sources */,
 				E351A72729F5247000635715 /* ChartDateBuilder.swift in Sources */,
 				E3F482EC2A3485A500EEC9CF /* EnterSendAmountViewController.swift in Sources */,
 				D920CAAD2B89C6E100EF4B37 /* CDWrapETHActivity+CoreDataProperties.swift in Sources */,
