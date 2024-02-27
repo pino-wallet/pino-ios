@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BorrowCommingSoonViewController: UIViewController {
+class BorrowComingSoonViewController: UIViewController {
 	// MARK: - View Overrides
 
 	override func viewDidLoad() {
@@ -27,6 +27,6 @@ class BorrowCommingSoonViewController: UIViewController {
 	}
 
 	private func setupView() {
-		view = BorrowCommingSoonView()
+		view = BorrowComingSoonView()
 	}
 }

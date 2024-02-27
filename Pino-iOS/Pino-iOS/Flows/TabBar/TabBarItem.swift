@@ -51,7 +51,7 @@ extension TabBarItem {
 		image: "borrow_tab",
 		selectedImage: "borrow_tab_fill",
 		viewController: CustomNavigationController(
-			rootViewController: BorrowCommingSoonViewController(),
+			rootViewController: BorrowComingSoonViewController(),
 			statusBarStyle: .lightContent
 		)
 	)

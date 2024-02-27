@@ -7,14 +7,14 @@
 
 import UIKit
 
-class BorrowCommingSoonView: UICollectionReusableView {
+class BorrowComingSoonView: UICollectionReusableView {
 	// MARK: - Private Properties
 
 	private let contentStackview = UIStackView()
 	private let emptyPageImageView = UIImageView()
 	private let titleStackView = UIStackView()
 	private let emptyPageTitle = UILabel()
-	private let emptyPageDescription = UILabel()
+	private let emptyPageDescription = PinoLabel(style: .description, text: nil)
 
 	// MARK: - Initializers
 
@@ -40,9 +40,9 @@ class BorrowCommingSoonView: UICollectionReusableView {
 	}
 
 	private func setupStyle() {
-		emptyPageImageView.image = UIImage(named: "")
-		emptyPageTitle.text = ""
-		emptyPageDescription.text = ""
+		emptyPageImageView.image = UIImage(named: "borrow_coming_soon")
+		emptyPageTitle.text = "Coming Soon!"
+		emptyPageDescription.text = #"The "Borrow" section is currently under development. We expect to release soon."#
 
 		backgroundColor = .Pino.background
 		emptyPageTitle.textColor = .Pino.label
@@ -51,20 +51,34 @@ class BorrowCommingSoonView: UICollectionReusableView {
 		emptyPageTitle.font = .PinoStyle.semiboldTitle2
 		emptyPageDescription.font = .PinoStyle.mediumBody
 
+		emptyPageDescription.numberOfLines = 0
+		emptyPageDescription.textAlignment = .center
+
 		contentStackview.axis = .vertical
 		titleStackView.axis = .vertical
 
 		contentStackview.alignment = .center
 		titleStackView.alignment = .center
 
-		contentStackview.spacing = 24
-		titleStackView.spacing = -5
+		contentStackview.spacing = 56
+		titleStackView.spacing = 16
 	}
 
 	private func setupConstraint() {
 		contentStackview.pin(
-			.horizontalEdges(padding: 16),
-			.centerY
+			.horizontalEdges(padding: 16)
 		)
+
+		NSLayoutConstraint.activate([
+			NSLayoutConstraint(
+				item: contentStackview,
+				attribute: .centerY,
+				relatedBy: .equal,
+				toItem: self,
+				attribute: .centerY,
+				multiplier: 0.9,
+				constant: 0
+			),
+		])
 	}
 }
