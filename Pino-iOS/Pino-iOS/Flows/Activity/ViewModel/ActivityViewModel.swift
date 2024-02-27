@@ -149,7 +149,8 @@ class ActivityViewModel {
 		var updatedActivitiesList = activities
 		for responseActivity in responseActivities {
 			if let foundPendingActivityIndex = updatedActivitiesList
-                .firstIndex(where: { $0.txHash.lowercased() == responseActivity.txHash.lowercased() && $0.failed == nil }) {
+				.firstIndex(where: { $0.txHash.lowercased() == responseActivity.txHash.lowercased() && $0.failed == nil
+				}) {
 				updatedActivitiesList[foundPendingActivityIndex] = responseActivity
 				shouldUpdateActivities = true
 			}
@@ -177,7 +178,6 @@ class ActivityViewModel {
 			}
 		}
 	}
-    
 
 	@objc
 	private func getUserActivities() {
@@ -201,7 +201,7 @@ class ActivityViewModel {
 			}
 			let activitiesList = self.activityHelper
 				.iterateActivitiesFromResponse(activities: fetchedActivities)
-            var finalActivities: [ActivityModelProtocol] = []
+			var finalActivities: [ActivityModelProtocol] = []
 			let allCoreDataActivities = coreDataManager
 				.getUserAllActivities(userID: walletManager.currentAccount.eip55Address)
 			for coreDataActivity in allCoreDataActivities {
@@ -211,24 +211,24 @@ class ActivityViewModel {
 						.append(activityHelper.iterateCoreDataActivity(coreDataActivity: coreDataActivity))
 				}
 			}
-            
-            if !self.prevActivities.isEmpty {
-                finalActivities = getUpdatedPendingActivitiesFromResponse(
-                    responseActivities: activitiesList,
-                    activities: finalActivities
-                )
-                finalActivities = getUpdatedPendingActivitiesFromCoreData(activities: finalActivities)
-                finalActivities = sortIteratedActivities(activities: finalActivities)
-            }
-            
-            for activity in activitiesList {
-                if finalActivities.indexOf(activity: activity) == nil {
-                    finalActivities.append(activity)
-                }
-            }
-            
-                finalActivities = sortIteratedActivities(activities: finalActivities)
-            
+
+			if !self.prevActivities.isEmpty {
+				finalActivities = getUpdatedPendingActivitiesFromResponse(
+					responseActivities: activitiesList,
+					activities: finalActivities
+				)
+				finalActivities = getUpdatedPendingActivitiesFromCoreData(activities: finalActivities)
+				finalActivities = sortIteratedActivities(activities: finalActivities)
+			}
+
+			for activity in activitiesList {
+				if finalActivities.indexOf(activity: activity) == nil {
+					finalActivities.append(activity)
+				}
+			}
+
+			finalActivities = sortIteratedActivities(activities: finalActivities)
+
 			checkForPendingActivityListChanges(responseActivities: activitiesList)
 			checkForNewActivity(responseActivities: activitiesList)
 			if shouldUpdateActivities {
