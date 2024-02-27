@@ -176,6 +176,9 @@ class ActivityViewModel {
 			if prevActivities.indexOf(activity: newActivity) == nil {
 				shouldUpdateActivities = true
 			}
+            if prevActivities.first(where: { $0.txHash.lowercased() == newActivity.txHash.lowercased() && $0.failed == nil }) != nil {
+                shouldUpdateActivities = true
+            }
 		}
 	}
 
