@@ -13,10 +13,10 @@ struct SuggestedAddressesViewModel {
 	public let recentAddressTitle = "Recent"
 	public let myAddressTitle = "My wallets"
 
-	public var recentAddresses: [RecentAddressModel] {
+	public var recentAddresses: [RecentAddressViewModel] {
 		let recentAddressHelper = RecentAddressHelper()
 		let recentAddressList = recentAddressHelper.getUserRecentAddresses()
-		return Array(recentAddressList.prefix(3))
+		return Array(recentAddressList.prefix(3)).map { RecentAddressViewModel(recentAddressModel: $0) }
 	}
 
 	public var userWallets: [AccountInfoViewModel] {

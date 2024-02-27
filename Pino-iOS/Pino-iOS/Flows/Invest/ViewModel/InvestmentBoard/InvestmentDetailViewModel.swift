@@ -56,10 +56,10 @@ class InvestmentDetailViewModel {
 	}
 
 	public var investmentAmount: String {
-		if selectedAsset.investmentCapital < 0.bigNumber {
-			return "-\(selectedAsset.investmentCapital.priceFormat)"
+		if selectedAsset.tokenInvestedAmountInDollar < 0.bigNumber {
+			return "-\(selectedAsset.tokenInvestedAmountInDollar.priceFormat)"
 		} else {
-			return selectedAsset.investmentCapital.priceFormat
+			return selectedAsset.tokenInvestedAmountInDollar.priceFormat
 		}
 	}
 
@@ -76,8 +76,7 @@ class InvestmentDetailViewModel {
 	}
 
 	public var totalInvestmentAmount: String {
-		let totalAmount = selectedAsset.investmentCapital + selectedAsset.earnedFee
-		return totalAmount.priceFormat
+		selectedAsset.tokenTotalAmountInDollar.priceFormat
 	}
 
 	// MARK: Initializers

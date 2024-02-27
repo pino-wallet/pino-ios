@@ -40,9 +40,6 @@ class EnterSendAddressViewController: UIViewController {
 
 	private func setupView() {
 		enterSendAddressView = EnterSendAddressView(enterSendAddressVM: enterSendAddressVM)
-		enterSendAddressVM.didValidateSendAddress = { [weak self] validationStatus in
-			self?.enterSendAddressView.validationStatus = validationStatus
-		}
 		enterSendAddressView.tapNextButton = {
 			self.openConfiramtionPage()
 		}
@@ -68,15 +65,14 @@ class EnterSendAddressViewController: UIViewController {
 	}
 
 	private func openConfiramtionPage() {
-		guard let address = enterSendAddressVM.recipientAddress,
-		      enterSendAddressView.validationStatus == .success else { return }
-
+		guard let address = enterSendAddressVM.recipientAddress, enterSendAddressVM.validationStatus == .success else {
+			return
+		}
 		let confirmationVM = SendConfirmationViewModel(
 			selectedToken: enterSendAddressVM.sendAmountVM.selectedToken,
 			selectedWallet: enterSendAddressVM.selectedWallet,
 			recipientAddress: address,
-			sendAmount: enterSendAddressVM.sendAmountVM.tokenAmount!.decimalString,
-			ensName: enterSendAddressVM.ensName
+			sendAmount: enterSendAddressVM.sendAmountVM.tokenAmount!.decimalString
 		)
 		let confirmationVC = SendConfirmationViewController(
 			sendConfirmationVM: confirmationVM,

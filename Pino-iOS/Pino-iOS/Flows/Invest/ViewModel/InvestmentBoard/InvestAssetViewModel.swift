@@ -88,7 +88,23 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 	}
 
 	public var earnedFee: BigNumber {
-		investmentAmount - investmentCapital
+		(tokenTotalAmount - tokenInvestedAmount) * investToken.price
+	}
+
+	public var tokenInvestedAmount: BigNumber {
+		BigNumber(number: assetModel.tokens.first!.investedAmount, decimal: investToken.decimal)
+	}
+
+	public var tokenTotalAmount: BigNumber {
+		BigNumber(number: assetModel.tokens.first!.totalAmount, decimal: investToken.decimal)
+	}
+
+	public var tokenInvestedAmountInDollar: BigNumber {
+		tokenInvestedAmount * investToken.price
+	}
+
+	public var tokenTotalAmountInDollar: BigNumber {
+		tokenTotalAmount * investToken.price
 	}
 
 	// MARK: - Initializers

@@ -162,7 +162,6 @@ class SendConfirmationView: UIView {
 		scamErrorLabel.text = sendConfirmationVM.scamErrorTitle
 		feeTitleView.title = sendConfirmationVM.feeTitle
 		continueButton.title = sendConfirmationVM.confirmButtonTitle
-		recipientAddressLabel.text = sendConfirmationVM.recipientAddress.addressFormating()
 		feeErrorLabel.text = sendConfirmationVM.feeErrorText
 		feeErrorIcon.image = UIImage(named: sendConfirmationVM.feeErrorIcon)
 
@@ -178,13 +177,19 @@ class SendConfirmationView: UIView {
 			sendAmountLabel.isHidden = true
 		}
 
-		if sendConfirmationVM.userRecipientAccountInfoVM != nil {
-			userAccountInfoView.userAccountInfoVM = sendConfirmationVM.userRecipientAccountInfoVM
-			userAccountInfoView.isHidden = false
-			recipientAddressLabel.isHidden = true
-		} else {
+		switch sendConfirmationVM.recipientAddress {
+		case .regularAddress:
+			recipientAddressLabel.text = sendConfirmationVM.recipientAddress.address.addressFormating()
 			recipientAddressLabel.isHidden = false
 			userAccountInfoView.isHidden = true
+		case let .ensAddress(ensInfo):
+			userAccountInfoView.userAccountInfoVM = UserAccountInfoViewModel(ensAddressInfo: ensInfo)
+			userAccountInfoView.isHidden = false
+			recipientAddressLabel.isHidden = true
+		case let .userWalletAddress(accountInfo):
+			userAccountInfoView.userAccountInfoVM = UserAccountInfoViewModel(accountInfoVM: accountInfo)
+			userAccountInfoView.isHidden = false
+			recipientAddressLabel.isHidden = true
 		}
 
 		tokenNameLabel.font = .PinoStyle.semiboldTitle2
@@ -398,7 +403,7 @@ class SendConfirmationView: UIView {
 	@objc
 	public func copyRecipientAddress() {
 		let pasteBoard = UIPasteboard.general
-		pasteBoard.string = sendConfirmationVM.recipientAddress
+		pasteBoard.string = sendConfirmationVM.recipientAddress.address
 
 		Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)
 	}
