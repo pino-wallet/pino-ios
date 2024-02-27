@@ -354,8 +354,8 @@ class SendConfirmationView: UIView {
 
 	private func setSketonable() {
 		feeLabel.isSkeletonable = true
-		tokenNameLabel.isSkeletonable = true
-		sendAmountLabel.isSkeletonable = true
+//		tokenNameLabel.isSkeletonable = true
+//		sendAmountLabel.isSkeletonable = true
 	}
 
 	private func updateFeeLabel() {

@@ -52,20 +52,8 @@ class SendConfirmationViewModel {
 		return "You sent \(formattedSendAmount) to \(formattedRecipientAddress)"
 	}
 
-	public var sendAmountMinusFee: BigNumber {
-		if selectedToken.isERC20 {
-			return sendAmount - gasFee
-		} else {
-			if sendAmount == ethToken.holdAmount {
-				return sendAmount - gasFee
-			} else {
-				return sendAmount - gasFee
-			}
-		}
-	}
-
 	public var sendAmountInDollar: BigNumber {
-		sendAmountMinusFee * ethToken.price
+		sendAmount * ethToken.price
 	}
 
 	public var isTokenVerified: Bool {
@@ -81,7 +69,7 @@ class SendConfirmationViewModel {
 	}
 
 	public var formattedSendAmount: String {
-		sendAmountMinusFee.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
+		sendAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
 
 	public var selectedWalletImage: String {
@@ -180,11 +168,11 @@ class SendConfirmationViewModel {
 
 	public func getSendTrxInfo() -> TrxWithGasInfo {
 		if selectedToken.isEth {
-			let sendAmount = Utilities.parseToBigUInt(sendAmountMinusFee.decimalString, units: .ether)
+			let sendAmount = Utilities.parseToBigUInt(sendAmount.decimalString, units: .ether)
 			return Web3Core.shared.sendEtherTo(address: recipientAddress.address, amount: sendAmount!)
 		} else {
 			let sendAmount = Utilities.parseToBigUInt(
-				sendAmountMinusFee.decimalString,
+				sendAmount.decimalString,
 				units: .custom(selectedToken.decimal)
 			)
 			return Web3Core.shared.sendERC20TokenTo(
@@ -203,7 +191,7 @@ class SendConfirmationViewModel {
 				type: "transfer",
 				detail: TransferActivityDetail(
 					amount: Utilities
-						.parseToBigUInt(sendAmountMinusFee.decimalString, units: .custom(selectedToken.decimal))!
+						.parseToBigUInt(sendAmount.decimalString, units: .custom(selectedToken.decimal))!
 						.description,
 					tokenID: selectedToken.id,
 					from: userAddress,
