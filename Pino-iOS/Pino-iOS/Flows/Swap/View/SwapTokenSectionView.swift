@@ -328,9 +328,10 @@ extension SwapTokenSectionView: UITextFieldDelegate {
 		editingBegin()
 	}
 
-	func textFieldDidEndEditing(_ textField: UITextField) {
-		swapVM.isEditing = false
-	}
+	#warning("After testing swap should be deleted")
+//	func textFieldDidEndEditing(_ textField: UITextField) {
+//		swapVM.isEditing = false
+//	}
 
 	@objc
 	private func textFieldDidChange(_ textField: UITextField) {
