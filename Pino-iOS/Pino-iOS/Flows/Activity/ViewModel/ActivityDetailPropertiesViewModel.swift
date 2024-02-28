@@ -82,7 +82,8 @@ struct ActivityDetailProperties {
 		case .collateral:
 			return "\(collateralDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(collateralDetailsVM?.tokenSymbol ?? "")"
 //		case .withdraw_collateral:
-//			return "\(withdrawCollateralDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(withdrawCollateralDetailsVM?.tokenSymbol ?? "")"
+//			return "\(withdrawCollateralDetailsVM?.tokenAmount.sevenDigitFormat ?? "")
+//			\(withdrawCollateralDetailsVM?.tokenSymbol ?? "")"
 //		case .enable_collateral:
 //			return "Enable as collateral"
 //		case .disable_collateral:

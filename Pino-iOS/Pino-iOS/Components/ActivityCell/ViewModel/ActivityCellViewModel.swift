@@ -122,7 +122,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 //			return .borrow
 //		case .repay, .repay_behalf:
 //			return .repay
-		case /*.increase_collateral, */.create_collateral:
+		case /* .increase_collateral, */ .create_collateral:
 			return .collateral
 //		case .decrease_collateral, .remove_collateral:
 //			return .withdraw_collateral
@@ -341,7 +341,8 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 //		case .withdraw_collateral:
 //			// set cell title
 //			title =
-//				"\(baseTitle) \(withdrawCollateralDetailsVM!.tokenAmount.sevenDigitFormat) \(withdrawCollateralDetailsVM!.tokenSymbol)"
+//				"\(baseTitle) \(withdrawCollateralDetailsVM!.tokenAmount.sevenDigitFormat)
+//				\(withdrawCollateralDetailsVM!.tokenSymbol)"
 //			// set cell moreInfo
 //			activityMoreInfo = withdrawCollateralDetailsVM!.activityProtocol.capitalized
 //			// set cell icon

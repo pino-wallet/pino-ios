@@ -343,7 +343,7 @@ class ActivityHelper {
 				)
 				return resultActivity
 			}
-		case .create_collateral/*, .increase_collateral*/:
+		case .create_collateral /* , .increase_collateral */:
 			guard let collateralActivityModel = activityDefaultModel as? ActivityCollateralModel,
 			      let collateralToken = findTokenInGlobalAssetsList(
 			      	tokenId: collateralActivityModel.detail.tokens[0]
