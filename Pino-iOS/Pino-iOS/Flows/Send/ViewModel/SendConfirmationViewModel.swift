@@ -31,28 +31,29 @@ class SendConfirmationViewModel {
 	}
 
 	private var pendingSwapTrx: EthereumSignedTransaction?
+	private var sendAmount: BigNumber
 
 	// MARK: - Public Properties
 
 	public let selectedToken: AssetViewModel
-	public var gasFee: BigNumber!
+	public var gasFee: BigNumber = 0.bigNumber
 	public var isAddressScam = false
 	public let recipientAddress: SendRecipientAddress
 	public var userRecipientAccountInfoVM: UserAccountInfoViewModel?
-	public let sendAmount: String
 	public let confirmBtnText = "Confirm"
 	public let insuffientText = "Insufficient ETH Amount"
-	public let sendAmountInDollar: String
 	public var sendStatusText: String {
-		let sendAmountBigUInt = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))!
-		let sendAmountBigNumber = BigNumber(unSignedNumber: sendAmountBigUInt, decimal: selectedToken.decimal)
 		var formattedRecipientAddress: String
 		if let recipientAddressName = recipientAddress.name {
 			formattedRecipientAddress = "\(recipientAddressName)(\(recipientAddress.address.addressFormating()))"
 		} else {
 			formattedRecipientAddress = recipientAddress.address.addressFormating()
 		}
-		return "You sent \(sendAmountBigNumber.sevenDigitFormat) \(selectedToken.symbol) to \(formattedRecipientAddress)"
+		return "You sent \(formattedSendAmount) to \(formattedRecipientAddress)"
+	}
+
+	public var sendAmountInDollar: BigNumber {
+		sendAmount * ethToken.price
 	}
 
 	public var isTokenVerified: Bool {
@@ -68,8 +69,7 @@ class SendConfirmationViewModel {
 	}
 
 	public var formattedSendAmount: String {
-		let sendAmountBigNumber = BigNumber(numberWithDecimal: sendAmount)
-		return sendAmountBigNumber!.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
+		sendAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
 	}
 
 	public var selectedWalletImage: String {
@@ -107,6 +107,7 @@ class SendConfirmationViewModel {
 	public let feeInfoActionSheetTitle = "Network Fee"
 	public let feeInfoActionSheetDescription = "Sample Text"
 	public let feeErrorText = "Error in calculation!"
+	public let insufficientFundsErrorText = "Insufficient Funds!"
 	public let feeErrorIcon = "refresh"
 
 	// MARK: - Initializer
@@ -115,13 +116,11 @@ class SendConfirmationViewModel {
 		selectedToken: AssetViewModel,
 		selectedWallet: AccountInfoViewModel,
 		recipientAddress: SendRecipientAddress,
-		sendAmount: String,
-		sendAmountInDollar: String
+		sendAmount: String
 	) {
 		self.selectedToken = selectedToken
 		self.selectedWallet = selectedWallet
-		self.sendAmount = sendAmount
-		self.sendAmountInDollar = sendAmountInDollar
+		self.sendAmount = BigNumber(numberWithDecimal: sendAmount)!
 		self.recipientAddress = recipientAddress
 		setupBindings()
 	}
@@ -129,10 +128,18 @@ class SendConfirmationViewModel {
 	// MARK: - Public Methods
 
 	public func checkEnoughBalance() -> Bool {
-		if gasFee > ethToken.holdAmount {
-			return false
+		if selectedToken.isEth {
+			if gasFee > ethToken.holdAmount - sendAmount {
+				return false
+			} else {
+				return true
+			}
 		} else {
-			return true
+			if gasFee > ethToken.holdAmount {
+				return false
+			} else {
+				return true
+			}
 		}
 	}
 
@@ -141,23 +148,32 @@ class SendConfirmationViewModel {
 		getSendTrxInfo().done { [self] trxWithGas in
 			pendingSwapTrx = trxWithGas.0
 			let gasInfo = trxWithGas.1
-			gasFee = gasInfo.fee
+			gasFee = gasInfo.fee!
 			formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat
 			formattedFeeInETH = gasInfo.fee!.sevenDigitFormat.ethFormatting
 			gasPrice = gasInfo.baseFeeWithPriorityFee.bigIntFormat
 			gasLimit = gasInfo.gasLimit!.bigIntFormat
 			feeCalculationState = .hasValue
 		}.catch { error in
-			self.feeCalculationState = .error
+			if let errorCode = (error as? RPCResponse<EthereumQuantity>.Error)?.code {
+				if errorCode == -32000 {
+					self.feeCalculationState = .insufficientFunds
+				} else {
+					self.feeCalculationState = .error
+				}
+			}
 		}
 	}
 
 	public func getSendTrxInfo() -> TrxWithGasInfo {
 		if selectedToken.isEth {
-			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .ether)
+			let sendAmount = Utilities.parseToBigUInt(sendAmount.decimalString, units: .ether)
 			return Web3Core.shared.sendEtherTo(address: recipientAddress.address, amount: sendAmount!)
 		} else {
-			let sendAmount = Utilities.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))
+			let sendAmount = Utilities.parseToBigUInt(
+				sendAmount.decimalString,
+				units: .custom(selectedToken.decimal)
+			)
 			return Web3Core.shared.sendERC20TokenTo(
 				recipient: recipientAddress.address,
 				amount: sendAmount!,
@@ -174,7 +190,7 @@ class SendConfirmationViewModel {
 				type: "transfer",
 				detail: TransferActivityDetail(
 					amount: Utilities
-						.parseToBigUInt(sendAmount, units: .custom(selectedToken.decimal))!
+						.parseToBigUInt(sendAmount.decimalString, units: .custom(selectedToken.decimal))!
 						.description,
 					tokenID: selectedToken.id,
 					from: userAddress,
@@ -210,6 +226,10 @@ class SendConfirmationViewModel {
 	private func setupBindings() {
 		GlobalVariables.shared.$ethGasFee
 			.compactMap { $0 }
+			.filter { [weak self] _ in
+				guard let self = self else { return false }
+				return feeCalculationState == .loading || feeCalculationState == .hasValue
+			}
 			.sink { gasInfoDetils in
 				if gasInfoDetils.isLoading {
 					self.feeCalculationState = .loading
@@ -225,5 +245,6 @@ extension SendConfirmationViewModel {
 		case hasValue
 		case loading
 		case error
+		case insufficientFunds
 	}
 }

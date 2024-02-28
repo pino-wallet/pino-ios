@@ -72,8 +72,7 @@ class EnterSendAddressViewController: UIViewController {
 			selectedToken: enterSendAddressVM.sendAmountVM.selectedToken,
 			selectedWallet: enterSendAddressVM.selectedWallet,
 			recipientAddress: address,
-			sendAmount: enterSendAddressVM.sendAmountVM.tokenAmount!.decimalString,
-			sendAmountInDollar: enterSendAddressVM.sendAmountVM.dollarAmount!.priceFormat
+			sendAmount: enterSendAddressVM.sendAmountVM.tokenAmount!.decimalString
 		)
 		let confirmationVC = SendConfirmationViewController(
 			sendConfirmationVM: confirmationVM,

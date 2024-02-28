@@ -155,7 +155,7 @@ class SendConfirmationView: UIView {
 
 	private func setupStyle() {
 		tokenNameLabel.text = sendConfirmationVM.formattedSendAmount
-		sendAmountLabel.text = sendConfirmationVM.sendAmountInDollar
+		sendAmountLabel.text = sendConfirmationVM.sendAmountInDollar.priceFormat
 //		selectedWalletTitleLabel.text = sendConfirmationVM.selectedWalletTitle
 //		walletNameLabel.text = sendConfirmationVM.selectedWalletName
 		recipientTitleLabel.text = sendConfirmationVM.recipientAddressTitle
@@ -328,6 +328,10 @@ class SendConfirmationView: UIView {
 				self.showfeeCalculationError()
 				self.hideSkeletonView()
 				self.feeContainerViewWidthConstraint.isActive = false
+			case .insufficientFunds:
+				self.showInsufficientFundsError()
+				self.hideSkeletonView()
+				self.feeContainerViewWidthConstraint.isActive = false
 			}
 		}.store(in: &cancellables)
 	}
@@ -374,6 +378,15 @@ class SendConfirmationView: UIView {
 	private func showfeeCalculationError() {
 		feeLabel.isHidden = true
 		feeErrorStackView.isHidden = false
+		feeErrorIcon.isHidden = false
+		feeErrorLabel.text = sendConfirmationVM.feeErrorText
+	}
+
+	private func showInsufficientFundsError() {
+		feeLabel.isHidden = true
+		feeErrorStackView.isHidden = false
+		feeErrorIcon.isHidden = true
+		feeErrorLabel.text = sendConfirmationVM.insufficientFundsErrorText
 	}
 
 	private func hideFeeCalculationError() {
