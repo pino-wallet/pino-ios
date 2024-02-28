@@ -15,6 +15,8 @@ class ActivityDetailsViewModel {
 	private let activityAPIClient = ActivityAPIClient()
 	private let errorFetchingToastMessage = "Error fetching activity from server"
 	private let activityHelper = ActivityHelper()
+	private let coreDataManager = CoreDataManager()
+	private let walletManager = PinoWalletManager()
 	private var requestTimer: Timer!
 	private var cancellables = Set<AnyCancellable>()
 
@@ -100,8 +102,7 @@ class ActivityDetailsViewModel {
 		)
 	}
 
-	@objc
-	private func getActivityDetails() {
+	private func activityDetailsRequest() {
 		activityAPIClient.singleActivity(txHash: activityDetails.defaultActivityModel.txHash).sink { completed in
 			switch completed {
 			case .finished:
@@ -116,13 +117,37 @@ class ActivityDetailsViewModel {
 			}
 		} receiveValue: { activityDetails in
 			let iteratedActivity = self.activityHelper.iterateActivityModel(activity: activityDetails)
-			let newActivityDetails = ActivityCellViewModel(activityModel: iteratedActivity)
-			if newActivityDetails.status != .pending {
-				self.destroyTimer()
+			if ActivityType(rawValue: iteratedActivity.type) != nil {
+				let newActivityDetails = ActivityCellViewModel(activityModel: iteratedActivity)
+				if newActivityDetails.status != .pending {
+					self.destroyTimer()
+				}
+				self.properties = ActivityDetailProperties(
+					activityDetails: newActivityDetails
+				)
 			}
-			self.properties = ActivityDetailProperties(
-				activityDetails: newActivityDetails
-			)
 		}.store(in: &cancellables)
+	}
+
+	@objc
+	private func getActivityDetails() {
+		let coreDataActivities = coreDataManager.getUserAllActivities(userID: walletManager.currentAccount.eip55Address)
+		guard let currentActivityInCoreData = coreDataActivities
+			.first(where: { $0.txHash == activityDetails.defaultActivityModel.txHash }) else {
+			activityDetailsRequest()
+			return
+		}
+
+		switch ActivityStatus(rawValue: currentActivityInCoreData.status) {
+		case .pending:
+			activityDetailsRequest()
+		case .failed, .success:
+			let iteratedActivity = activityHelper.iterateCoreDataActivity(coreDataActivity: currentActivityInCoreData)
+			let newActivityDetails = ActivityCellViewModel(activityModel: iteratedActivity)
+			properties = ActivityDetailProperties(activityDetails: newActivityDetails)
+			destroyTimer()
+		default:
+			fatalError("Unknown activity status type")
+		}
 	}
 }

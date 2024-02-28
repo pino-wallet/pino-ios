@@ -38,26 +38,26 @@ struct ActivityDetailProperties {
 		switch activityDetails.uiType {
 		case .swap, .wrapETH, .unwrapETH:
 			return nil
-		case .borrow:
-			return borrowDetailsVM?.tokenImage
+//		case .borrow:
+//			return borrowDetailsVM?.tokenImage
 		case .send:
 			return transferDetailsVM?.tokenImage
 		case .receive:
 			return transferDetailsVM?.tokenImage
-		case .repay:
-			return repayDetailsVM?.tokenImage
+//		case .repay:
+//			return repayDetailsVM?.tokenImage
 		case .withdraw_investment:
 			return withdrawInvestmentDetailsVM?.tokenImage
 		case .invest:
 			return investDetailsVM?.tokenImage
 		case .collateral:
 			return collateralDetailsVM?.tokenImage
-		case .withdraw_collateral:
-			return withdrawCollateralDetailsVM?.tokenImage
-		case .enable_collateral:
-			return collateralStatusDetailsVM?.tokenImage
-		case .disable_collateral:
-			return collateralStatusDetailsVM?.tokenImage
+//		case .withdraw_collateral:
+//			return withdrawCollateralDetailsVM?.tokenImage
+//		case .enable_collateral:
+//			return collateralStatusDetailsVM?.tokenImage
+//		case .disable_collateral:
+//			return collateralStatusDetailsVM?.tokenImage
 		case .approve:
 			return approveDetailsVM?.tokenImage
 		}
@@ -67,26 +67,27 @@ struct ActivityDetailProperties {
 		switch activityDetails.uiType {
 		case .swap, .unwrapETH, .wrapETH:
 			return nil
-		case .borrow:
-			return "\(borrowDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(borrowDetailsVM?.tokenSymbol ?? "")"
+//		case .borrow:
+//			return "\(borrowDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(borrowDetailsVM?.tokenSymbol ?? "")"
 		case .send:
 			return "\(transferDetailsVM?.transferTokenAmount.sevenDigitFormat ?? "") \(transferDetailsVM?.tokenSymbol ?? "")"
 		case .receive:
 			return "\(transferDetailsVM?.transferTokenAmount.sevenDigitFormat ?? "") \(transferDetailsVM?.tokenSymbol ?? "")"
-		case .repay:
-			return "\(repayDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(repayDetailsVM?.tokenSymbol ?? "")"
+//		case .repay:
+//			return "\(repayDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(repayDetailsVM?.tokenSymbol ?? "")"
 		case .withdraw_investment:
 			return "\(withdrawInvestmentDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(withdrawInvestmentDetailsVM?.tokenSymbol ?? "")"
 		case .invest:
 			return "\(investDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(investDetailsVM?.tokenSymbol ?? "")"
 		case .collateral:
 			return "\(collateralDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(collateralDetailsVM?.tokenSymbol ?? "")"
-		case .withdraw_collateral:
-			return "\(withdrawCollateralDetailsVM?.tokenAmount.sevenDigitFormat ?? "") \(withdrawCollateralDetailsVM?.tokenSymbol ?? "")"
-		case .enable_collateral:
-			return "Enable as collateral"
-		case .disable_collateral:
-			return "Disable as collateral"
+//		case .withdraw_collateral:
+//			return "\(withdrawCollateralDetailsVM?.tokenAmount.sevenDigitFormat ?? "")
+//			\(withdrawCollateralDetailsVM?.tokenSymbol ?? "")"
+//		case .enable_collateral:
+//			return "Enable as collateral"
+//		case .disable_collateral:
+//			return "Disable as collateral"
 		case .approve:
 			return "Approve to Permit 2"
 		}
@@ -186,10 +187,10 @@ struct ActivityDetailProperties {
 		switch activityDetails.uiType {
 		case .swap:
 			return swapDetailsVM?.activityProtocol.capitalized
-		case .borrow:
-			return borrowDetailsVM?.activityProtocol.capitalized
-		case .repay:
-			return repayDetailsVM?.activityProtocol.capitalized
+//		case .borrow:
+//			return borrowDetailsVM?.activityProtocol.capitalized
+//		case .repay:
+//			return repayDetailsVM?.activityProtocol.capitalized
 		case .withdraw_investment:
 			return withdrawInvestmentDetailsVM?.activityProtocol.capitalized
 		case .invest:
@@ -200,12 +201,12 @@ struct ActivityDetailProperties {
 			return nil
 		case .collateral:
 			return collateralDetailsVM?.activityProtocol.capitalized
-		case .withdraw_collateral:
-			return withdrawCollateralDetailsVM?.activityProtocol.capitalized
-		case .enable_collateral:
-			return collateralStatusDetailsVM?.activityProtocol.capitalized
-		case .disable_collateral:
-			return collateralStatusDetailsVM?.activityProtocol.capitalized
+//		case .withdraw_collateral:
+//			return withdrawCollateralDetailsVM?.activityProtocol.capitalized
+//		case .enable_collateral:
+//			return collateralStatusDetailsVM?.activityProtocol.capitalized
+//		case .disable_collateral:
+//			return collateralStatusDetailsVM?.activityProtocol.capitalized
 		case .approve:
 			return nil
 		case .wrapETH, .unwrapETH:
@@ -217,10 +218,10 @@ struct ActivityDetailProperties {
 		switch activityDetails.uiType {
 		case .swap:
 			return swapDetailsVM?.activityProtocol
-		case .borrow:
-			return borrowDetailsVM?.activityProtocol
-		case .repay:
-			return repayDetailsVM?.activityProtocol
+//		case .borrow:
+//			return borrowDetailsVM?.activityProtocol
+//		case .repay:
+//			return repayDetailsVM?.activityProtocol
 		case .withdraw_investment:
 			return withdrawInvestmentDetailsVM?.activityProtocol
 		case .invest:
@@ -231,12 +232,12 @@ struct ActivityDetailProperties {
 			return nil
 		case .collateral:
 			return collateralDetailsVM?.activityProtocol
-		case .withdraw_collateral:
-			return withdrawCollateralDetailsVM?.activityProtocol
-		case .enable_collateral:
-			return collateralStatusDetailsVM?.activityProtocol
-		case .disable_collateral:
-			return collateralStatusDetailsVM?.activityProtocol
+//		case .withdraw_collateral:
+//			return withdrawCollateralDetailsVM?.activityProtocol
+//		case .enable_collateral:
+//			return collateralStatusDetailsVM?.activityProtocol
+//		case .disable_collateral:
+//			return collateralStatusDetailsVM?.activityProtocol
 		case .approve:
 			return nil
 		case .wrapETH, .unwrapETH:
@@ -321,7 +322,6 @@ struct ActivityDetailProperties {
 	// MARK: -  Private Methods
 
 	private mutating func setDetailsVM() {
-		activityHelper.globalAssetsList = globalAssetsList
 		switch activityDetails.uiType {
 		case .swap:
 			guard let swapActivityModel = activityDetails.defaultActivityModel as? ActivitySwapModel,
@@ -336,16 +336,16 @@ struct ActivityDetailProperties {
 				fromToken: fromToken,
 				toToken: toToken
 			)
-		case .borrow:
-			guard let borrowActivityModel = activityDetails.defaultActivityModel as? ActivityBorrowModel,
-			      let borrowToken = activityHelper
-			      .findTokenInGlobalAssetsList(tokenId: borrowActivityModel.detail.token.tokenID) else {
-				fatalError("Cant find borrow token in global assets list")
-			}
-			borrowDetailsVM = BorrowActivityDetailsViewModel(
-				activityModel: borrowActivityModel,
-				token: borrowToken
-			)
+//		case .borrow:
+//			guard let borrowActivityModel = activityDetails.defaultActivityModel as? ActivityBorrowModel,
+//			      let borrowToken = activityHelper
+//			      .findTokenInGlobalAssetsList(tokenId: borrowActivityModel.detail.token.tokenID) else {
+//				fatalError("Cant find borrow token in global assets list")
+//			}
+//			borrowDetailsVM = BorrowActivityDetailsViewModel(
+//				activityModel: borrowActivityModel,
+//				token: borrowToken
+//			)
 		case .send:
 			guard let transferActivityModel = activityDetails.defaultActivityModel as? ActivityTransferModel,
 			      let transferToken = activityHelper
@@ -366,16 +366,16 @@ struct ActivityDetailProperties {
 				activityModel: transferActivityModel,
 				token: transferToken
 			)
-		case .repay:
-			guard let repayActivityModel = activityDetails.defaultActivityModel as? ActivityRepayModel,
-			      let repayToken = activityHelper
-			      .findTokenInGlobalAssetsList(tokenId: repayActivityModel.detail.repaidToken.tokenID) else {
-				fatalError("Cant find repay token in global assets list")
-			}
-			repayDetailsVM = RepayActivityDetailsViewModel(
-				activityModel: repayActivityModel,
-				token: repayToken
-			)
+//		case .repay:
+//			guard let repayActivityModel = activityDetails.defaultActivityModel as? ActivityRepayModel,
+//			      let repayToken = activityHelper
+//			      .findTokenInGlobalAssetsList(tokenId: repayActivityModel.detail.repaidToken.tokenID) else {
+//				fatalError("Cant find repay token in global assets list")
+//			}
+//			repayDetailsVM = RepayActivityDetailsViewModel(
+//				activityModel: repayActivityModel,
+//				token: repayToken
+//			)
 		case .withdraw_investment:
 			guard let withdrawActivityModel = activityDetails.defaultActivityModel as? ActivityWithdrawModel,
 			      let withdrawToken = activityHelper
@@ -406,36 +406,36 @@ struct ActivityDetailProperties {
 				activityModel: collateralActivityModel,
 				token: collateralToken
 			)
-		case .withdraw_collateral:
-			guard let withdrawCollateralActivityModel = activityDetails.defaultActivityModel as? ActivityCollateralModel,
-			      let withdrawCollateralToken = activityHelper
-			      .findTokenInGlobalAssetsList(tokenId: withdrawCollateralActivityModel.detail.tokens[0].tokenID) else {
-				fatalError("Cant find withdraw collateral token in global assets list")
-			}
-			withdrawCollateralDetailsVM = WithdrawCollateralActivityDetailsViewModel(
-				activityModel: withdrawCollateralActivityModel,
-				token: withdrawCollateralToken
-			)
-		case .enable_collateral:
-			guard let enableCollateralActivityModel = activityDetails.defaultActivityModel as? ActivityCollateralModel,
-			      let enableCollateralToken = activityHelper
-			      .findTokenInGlobalAssetsList(tokenId: enableCollateralActivityModel.detail.tokens[0].tokenID) else {
-				fatalError("Cant find enable collateral token in global assets list")
-			}
-			collateralStatusDetailsVM = CollateralStatusActivityDetailsViewModel(
-				activityModel: enableCollateralActivityModel,
-				token: enableCollateralToken
-			)
-		case .disable_collateral:
-			guard let disableCollateralActivityModel = activityDetails.defaultActivityModel as? ActivityCollateralModel,
-			      let disableCollateralToken = activityHelper
-			      .findTokenInGlobalAssetsList(tokenId: disableCollateralActivityModel.detail.tokens[0].tokenID) else {
-				fatalError("Cant find disable collateral token in global assets list")
-			}
-			collateralStatusDetailsVM = CollateralStatusActivityDetailsViewModel(
-				activityModel: disableCollateralActivityModel,
-				token: disableCollateralToken
-			)
+//		case .withdraw_collateral:
+//			guard let withdrawCollateralActivityModel = activityDetails.defaultActivityModel as? ActivityCollateralModel,
+//			      let withdrawCollateralToken = activityHelper
+//			      .findTokenInGlobalAssetsList(tokenId: withdrawCollateralActivityModel.detail.tokens[0].tokenID) else {
+//				fatalError("Cant find withdraw collateral token in global assets list")
+//			}
+//			withdrawCollateralDetailsVM = WithdrawCollateralActivityDetailsViewModel(
+//				activityModel: withdrawCollateralActivityModel,
+//				token: withdrawCollateralToken
+//			)
+//		case .enable_collateral:
+//			guard let enableCollateralActivityModel = activityDetails.defaultActivityModel as? ActivityCollateralModel,
+//			      let enableCollateralToken = activityHelper
+//			      .findTokenInGlobalAssetsList(tokenId: enableCollateralActivityModel.detail.tokens[0].tokenID) else {
+//				fatalError("Cant find enable collateral token in global assets list")
+//			}
+//			collateralStatusDetailsVM = CollateralStatusActivityDetailsViewModel(
+//				activityModel: enableCollateralActivityModel,
+//				token: enableCollateralToken
+//			)
+//		case .disable_collateral:
+//			guard let disableCollateralActivityModel = activityDetails.defaultActivityModel as? ActivityCollateralModel,
+//			      let disableCollateralToken = activityHelper
+//			      .findTokenInGlobalAssetsList(tokenId: disableCollateralActivityModel.detail.tokens[0].tokenID) else {
+//				fatalError("Cant find disable collateral token in global assets list")
+//			}
+//			collateralStatusDetailsVM = CollateralStatusActivityDetailsViewModel(
+//				activityModel: disableCollateralActivityModel,
+//				token: disableCollateralToken
+//			)
 		case .approve:
 			guard let approveActivityModel = activityDetails.defaultActivityModel as? ActivityApproveModel,
 			      var approveToken = activityHelper
@@ -513,26 +513,26 @@ extension ActivityUIType {
 		switch self {
 		case .swap, .wrapETH, .unwrapETH:
 			return "Swap"
-		case .borrow:
-			return "Borrow"
+//		case .borrow:
+//			return "Borrow"
 		case .send:
 			return "Send"
 		case .receive:
 			return "Receive"
-		case .repay:
-			return "Repay"
+//		case .repay:
+//			return "Repay"
 		case .withdraw_investment:
 			return "Withdraw"
 		case .invest:
 			return "Invest"
 		case .collateral:
 			return "Collateralization"
-		case .withdraw_collateral:
-			return "Uncollateralization"
-		case .enable_collateral:
-			return "Enable collateralization"
-		case .disable_collateral:
-			return "Disable collateralization"
+//		case .withdraw_collateral:
+//			return "Uncollateralization"
+//		case .enable_collateral:
+//			return "Enable collateralization"
+//		case .disable_collateral:
+//			return "Disable collateralization"
 		case .approve:
 			return "Approval"
 		}

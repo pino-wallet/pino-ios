@@ -53,7 +53,16 @@ extension ActivityCollateralModel {
 		)
 		self.fromAddress = cdCollateralActivityModel.fromAddress
 		self.toAddress = cdCollateralActivityModel.toAddress
-		self.failed = nil
+		switch ActivityStatus(rawValue: cdCollateralActivityModel.status) {
+		case .pending:
+			self.failed = nil
+		case .success:
+			self.failed = false
+		case .failed:
+			self.failed = true
+		default:
+			self.failed = nil
+		}
 		self.blockNumber = nil
 		self.blockTime = cdCollateralActivityModel.blockTime
 		self.gasUsed = cdCollateralActivityModel.gasUsed

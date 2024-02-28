@@ -195,8 +195,8 @@ class ActivityInfoView: UIView {
 		switch activityDetailsVM.properties.uiType {
 		case .swap:
 			hideFromAndToStackView()
-		case .borrow:
-			hideFromAndToStackView()
+//		case .borrow:
+//			hideFromAndToStackView()
 		case .send:
 			hidePrtocolAndTypeStackView()
 			fromStackView.isHidden = true
@@ -205,18 +205,18 @@ class ActivityInfoView: UIView {
 			toStackView.isHidden = true
 		case .invest:
 			hideFromAndToStackView()
-		case .repay:
-			hideFromAndToStackView()
+//		case .repay:
+//			hideFromAndToStackView()
 		case .withdraw_investment:
 			hideFromAndToStackView()
 		case .collateral:
 			hideFromAndToStackView()
-		case .withdraw_collateral:
-			hideFromAndToStackView()
-		case .enable_collateral:
-			hideFromAndToStackView()
-		case .disable_collateral:
-			hideFromAndToStackView()
+//		case .withdraw_collateral:
+//			hideFromAndToStackView()
+//		case .enable_collateral:
+//			hideFromAndToStackView()
+//		case .disable_collateral:
+//			hideFromAndToStackView()
 		case .approve:
 			hideFromAndToStackView()
 		case .wrapETH, .unwrapETH:
