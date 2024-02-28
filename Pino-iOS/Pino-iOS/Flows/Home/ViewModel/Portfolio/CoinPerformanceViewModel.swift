@@ -36,7 +36,7 @@ class CoinPerformanceViewModel {
 	// MARK: - Public Methods
 
 	public func getChartData(dateFilter: ChartDateFilter) {
-		getChartData().done { [weak self] assetChartVM in
+		getChartData(dateFilter: dateFilter).done { [weak self] assetChartVM in
 			self?.chartVM = assetChartVM
 		}.catch { [weak self] error in
 			self?.showError(error)
