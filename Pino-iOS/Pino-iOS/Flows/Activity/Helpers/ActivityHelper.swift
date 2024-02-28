@@ -49,10 +49,10 @@ class ActivityHelper {
 			return transferActivity
 		case let .transfer_from(transferActivity):
 			return transferActivity
-		case let .borrow(borrowActivity):
-			return borrowActivity
-		case let .repay(repayActvity):
-			return repayActvity
+//		case let .borrow(borrowActivity):
+//			return borrowActivity
+//		case let .repay(repayActvity):
+//			return repayActvity
 		case let .withdraw(withdrawActivity):
 			return withdrawActivity
 		case let .invest(investActivity):
@@ -102,17 +102,17 @@ class ActivityHelper {
 		case .decrease_investment, .withdraw_investment:
 			let cdWithdrawActivity = coreDataActivity as! CDWithdrawActivity
 			return ActivityWithdrawModel(cdWithDrawActivityModel: cdWithdrawActivity)
-		case .borrow:
-			let cdBorrowActivity = coreDataActivity as! CDBorrowActivity
-			return ActivityBorrowModel(cdBorrowActivityModel: cdBorrowActivity)
-		case .repay:
-			let cdRepayActivity = coreDataActivity as! CDRepayActivity
-			return ActivityRepayModel(cdRepayActivityModel: cdRepayActivity)
-		case .increase_collateral, .decrease_collateral, .create_collateral, .remove_collateral,
-		     .enable_collateral,
-		     .disable_collateral:
-			let cdCollateralActivity = coreDataActivity as! CDCollateralActivity
-			return ActivityCollateralModel(cdCollateralActivityModel: cdCollateralActivity)
+//		case .borrow:
+//			let cdBorrowActivity = coreDataActivity as! CDBorrowActivity
+//			return ActivityBorrowModel(cdBorrowActivityModel: cdBorrowActivity)
+//		case .repay:
+//			let cdRepayActivity = coreDataActivity as! CDRepayActivity
+//			return ActivityRepayModel(cdRepayActivityModel: cdRepayActivity)
+//		case .increase_collateral, .decrease_collateral, .create_collateral, .remove_collateral,
+//		     .enable_collateral,
+//		     .disable_collateral:
+//			let cdCollateralActivity = coreDataActivity as! CDCollateralActivity
+//			return ActivityCollateralModel(cdCollateralActivityModel: cdCollateralActivity)
 		case .wrap_eth, .swap_wrap:
 			let cdWrapETHActivity = coreDataActivity as! CDWrapETHActivity
 			return ActivityWrapETHModel(cdWrapActivityModel: cdWrapETHActivity)
@@ -269,28 +269,28 @@ class ActivityHelper {
 				toToken: toToken
 			)
 			return resultActivity
-		case .borrow:
-			guard let borrowActivityModel = activityDefaultModel as? ActivityBorrowModel,
-			      let borrowToken = findTokenInGlobalAssetsList(tokenId: borrowActivityModel.detail.token.tokenID)
-			else {
-				return nil
-			}
-			resultActivity.borrowDetailsVM = BorrowActivityDetailsViewModel(
-				activityModel: borrowActivityModel,
-				token: borrowToken
-			)
-			return resultActivity
-		case .repay, .repay_behalf:
-			guard let repayActivityModel = activityDefaultModel as? ActivityRepayModel,
-			      let repayToken = findTokenInGlobalAssetsList(tokenId: repayActivityModel.detail.repaidToken.tokenID)
-			else {
-				return nil
-			}
-			resultActivity.repayDetailsVM = RepayActivityDetailsViewModel(
-				activityModel: repayActivityModel,
-				token: repayToken
-			)
-			return resultActivity
+//		case .borrow:
+//			guard let borrowActivityModel = activityDefaultModel as? ActivityBorrowModel,
+//			      let borrowToken = findTokenInGlobalAssetsList(tokenId: borrowActivityModel.detail.token.tokenID)
+//			else {
+//				return nil
+//			}
+//			resultActivity.borrowDetailsVM = BorrowActivityDetailsViewModel(
+//				activityModel: borrowActivityModel,
+//				token: borrowToken
+//			)
+//			return resultActivity
+//		case .repay, .repay_behalf:
+//			guard let repayActivityModel = activityDefaultModel as? ActivityRepayModel,
+//			      let repayToken = findTokenInGlobalAssetsList(tokenId: repayActivityModel.detail.repaidToken.tokenID)
+//			else {
+//				return nil
+//			}
+//			resultActivity.repayDetailsVM = RepayActivityDetailsViewModel(
+//				activityModel: repayActivityModel,
+//				token: repayToken
+//			)
+//			return resultActivity
 		case .decrease_investment, .withdraw_investment:
 			guard let withdrawActivityModel = activityDefaultModel as? ActivityWithdrawModel,
 			      let withdrawToken = findTokenInGlobalAssetsList(
@@ -343,7 +343,7 @@ class ActivityHelper {
 				)
 				return resultActivity
 			}
-		case .create_collateral, .increase_collateral:
+		case .create_collateral/*, .increase_collateral*/:
 			guard let collateralActivityModel = activityDefaultModel as? ActivityCollateralModel,
 			      let collateralToken = findTokenInGlobalAssetsList(
 			      	tokenId: collateralActivityModel.detail.tokens[0]
@@ -356,32 +356,32 @@ class ActivityHelper {
 				token: collateralToken
 			)
 			return resultActivity
-		case .remove_collateral, .decrease_collateral:
-			guard let withdrawCollateralActivityModel = activityDefaultModel as? ActivityCollateralModel,
-			      let withdrawCollateralToken = findTokenInGlobalAssetsList(
-			      	tokenId: withdrawCollateralActivityModel
-			      		.detail.tokens[0].tokenID
-			      ) else {
-				return nil
-			}
-			resultActivity.withdrawCollateralDetailsVM = WithdrawCollateralActivityDetailsViewModel(
-				activityModel: withdrawCollateralActivityModel,
-				token: withdrawCollateralToken
-			)
-			return resultActivity
-		case .enable_collateral, .disable_collateral:
-			guard let enableCollateralActivityModel = activityDefaultModel as? ActivityCollateralModel,
-			      let enableCollateralToken = findTokenInGlobalAssetsList(
-			      	tokenId: enableCollateralActivityModel.detail
-			      		.tokens[0].tokenID
-			      ) else {
-				return nil
-			}
-			resultActivity.collateralStatusDetailsVM = CollateralStatusActivityDetailsViewModel(
-				activityModel: enableCollateralActivityModel,
-				token: enableCollateralToken
-			)
-			return resultActivity
+//		case .remove_collateral, .decrease_collateral:
+//			guard let withdrawCollateralActivityModel = activityDefaultModel as? ActivityCollateralModel,
+//			      let withdrawCollateralToken = findTokenInGlobalAssetsList(
+//			      	tokenId: withdrawCollateralActivityModel
+//			      		.detail.tokens[0].tokenID
+//			      ) else {
+//				return nil
+//			}
+//			resultActivity.withdrawCollateralDetailsVM = WithdrawCollateralActivityDetailsViewModel(
+//				activityModel: withdrawCollateralActivityModel,
+//				token: withdrawCollateralToken
+//			)
+//			return resultActivity
+//		case .enable_collateral, .disable_collateral:
+//			guard let enableCollateralActivityModel = activityDefaultModel as? ActivityCollateralModel,
+//			      let enableCollateralToken = findTokenInGlobalAssetsList(
+//			      	tokenId: enableCollateralActivityModel.detail
+//			      		.tokens[0].tokenID
+//			      ) else {
+//				return nil
+//			}
+//			resultActivity.collateralStatusDetailsVM = CollateralStatusActivityDetailsViewModel(
+//				activityModel: enableCollateralActivityModel,
+//				token: enableCollateralToken
+//			)
+//			return resultActivity
 		case .approve:
 			guard let approveActivityModel = activityDefaultModel as? ActivityApproveModel,
 			      var approveToken = findTokenInGlobalAssetsList(tokenId: approveActivityModel.detail.tokenID) else {
