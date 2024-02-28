@@ -25,3 +25,9 @@ extension NSSet {
 		return array
 	}
 }
+
+extension Array where Element == any ActivityModelProtocol {
+    func indexOfActivityModel(activity: Element) -> Self.Index? {
+        firstIndex(where: { $0.txHash.lowercased() == activity.txHash.lowercased() })
+    }
+}
