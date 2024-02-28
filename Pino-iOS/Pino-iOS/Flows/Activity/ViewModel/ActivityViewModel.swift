@@ -42,7 +42,8 @@ class ActivityViewModel {
 	// MARK: - Public Properties
 
 	public func getUserActivitiesFromVC() {
-        if prevAccountAddress != walletManager.currentAccount.eip55Address || prevActivities.first(where: { $0.failed == nil }) != nil {
+		if prevAccountAddress != walletManager.currentAccount.eip55Address || prevActivities
+			.first(where: { $0.failed == nil }) != nil {
 			refreshPrevData()
 			setPrevAccountAddress()
 		}
@@ -243,5 +244,3 @@ class ActivityViewModel {
 		}.store(in: &cancellables)
 	}
 }
-
-
