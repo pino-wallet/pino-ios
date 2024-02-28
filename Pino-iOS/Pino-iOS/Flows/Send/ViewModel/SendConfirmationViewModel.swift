@@ -155,7 +155,6 @@ class SendConfirmationViewModel {
 			gasLimit = gasInfo.gasLimit!.bigIntFormat
 			feeCalculationState = .hasValue
 		}.catch { error in
-
 			if let errorCode = (error as? RPCResponse<EthereumQuantity>.Error)?.code {
 				if errorCode == -32000 {
 					self.feeCalculationState = .insufficientFunds
