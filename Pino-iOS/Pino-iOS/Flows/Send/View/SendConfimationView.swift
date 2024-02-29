@@ -320,18 +320,22 @@ class SendConfirmationView: UIView {
 				self.hideFeeCalculationError()
 				self.showSkeletonView()
 				self.feeContainerViewWidthConstraint.isActive = true
+				self.continueButton.style = .deactive
 			case .hasValue:
 				self.hideFeeCalculationError()
 				self.hideSkeletonView()
 				self.feeContainerViewWidthConstraint.isActive = false
+				self.continueButton.style = .active
 			case .error:
 				self.showfeeCalculationError()
 				self.hideSkeletonView()
 				self.feeContainerViewWidthConstraint.isActive = false
+				self.continueButton.style = .deactive
 			case .insufficientFunds:
 				self.showInsufficientFundsError()
 				self.hideSkeletonView()
 				self.feeContainerViewWidthConstraint.isActive = false
+				self.continueButton.style = .deactive
 			}
 		}.store(in: &cancellables)
 	}
