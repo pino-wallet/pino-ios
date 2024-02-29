@@ -240,9 +240,5 @@ class InvestmentDeatilsView: UIView {
 		totalAmountSeparatorLine.pin(
 			.fixedHeight(1)
 		)
-
-		apyLabel.pin(
-			.fixedWidth(60)
-		)
 	}
 }
