@@ -48,6 +48,8 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 
 	// MARK: - Public Properties
 
+	public let pageTitle = "Confirm withdraw"
+
 	@Published
 	public var formattedFeeInETH: String?
 	@Published
@@ -69,6 +71,14 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 			return getCompoundTransaction()
 		case .aave:
 			return getAaveTransaction()
+		}
+	}
+
+	public var userBalanceIsEnough: Bool {
+		if gasFee > ethToken.holdAmount {
+			return false
+		} else {
+			return true
 		}
 	}
 
@@ -168,23 +178,6 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 			self.formattedFeeInETH = gasInfo.fee!.sevenDigitFormat
 		}.catch { error in
 			self.showError()
-		}
-	}
-
-	public func checkEnoughBalance() -> Bool {
-		if selectedToken.isEth {
-			let investAmountBigNumber = BigNumber(numberWithDecimal: transactionAmount)!
-			if gasFee > ethToken.holdAmount - investAmountBigNumber {
-				return false
-			} else {
-				return true
-			}
-		} else {
-			if gasFee > ethToken.holdAmount {
-				return false
-			} else {
-				return true
-			}
 		}
 	}
 }

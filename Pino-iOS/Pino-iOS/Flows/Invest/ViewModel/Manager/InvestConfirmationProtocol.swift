@@ -28,9 +28,9 @@ protocol InvestConfirmationProtocol: InvestConfirmationViewProtocol {
 	var customAssetImage: String { get }
 	var selectedProtocolImage: String { get }
 	var selectedProtocolName: String { get }
+	var pageTitle: String { get }
 	var sendTransactions: [SendTransactionViewModel]? { get }
 	func getTransactionInfo()
-	func checkEnoughBalance() -> Bool
 }
 
 protocol InvestConfirmationViewProtocol {
@@ -91,13 +91,5 @@ extension InvestConfirmationProtocol {
 
 	var formattedTransactionAmountInDollar: String {
 		transactionAmountInDollar
-	}
-
-	var userBalanceIsEnough: Bool {
-		if gasFee > ethToken.holdAmount {
-			return false
-		} else {
-			return true
-		}
 	}
 }

@@ -48,6 +48,8 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 
 	// MARK: - Public Properties
 
+	public let pageTitle = "Confirm investment"
+
 	@Published
 	public var formattedFeeInETH: String?
 	@Published
@@ -69,6 +71,23 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 			return getCompoundTransactions()
 		case .aave:
 			return getAaveTransactions()
+		}
+	}
+
+	public var userBalanceIsEnough: Bool {
+		if selectedToken.isEth {
+			let investAmountBigNumber = BigNumber(numberWithDecimal: transactionAmount)!
+			if gasFee > ethToken.holdAmount - investAmountBigNumber {
+				return false
+			} else {
+				return true
+			}
+		} else {
+			if gasFee > ethToken.holdAmount {
+				return false
+			} else {
+				return true
+			}
 		}
 	}
 
@@ -241,23 +260,6 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 				self.updateFee(gasInfos: gasInfos)
 			}.catch { error in
 				self.showError()
-			}
-		}
-	}
-
-	public func checkEnoughBalance() -> Bool {
-		if selectedToken.isEth {
-			let investAmountBigNumber = BigNumber(numberWithDecimal: transactionAmount)!
-			if gasFee > ethToken.holdAmount - investAmountBigNumber {
-				return false
-			} else {
-				return true
-			}
-		} else {
-			if gasFee > ethToken.holdAmount {
-				return false
-			} else {
-				return true
 			}
 		}
 	}
