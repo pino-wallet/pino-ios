@@ -56,7 +56,7 @@ extension InvestConfirmationViewProtocol {
 	var feeErrorText: String { "Error in calculation!" }
 	var feeErrorIcon: String { "refresh" }
 	var confirmButtonTitle: String { "Confirm" }
-	var insuffientButtonTitle: String { "Insufficient Amount" }
+	var insuffientButtonTitle: String { "Insufficient amount" }
 }
 
 extension InvestConfirmationProtocol {
