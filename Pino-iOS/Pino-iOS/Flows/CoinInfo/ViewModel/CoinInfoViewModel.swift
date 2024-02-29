@@ -190,13 +190,13 @@ class CoinInfoViewModel {
 				return false
 			case .create_investment, .create_withdraw_investment, .increase_investment:
 				let investActivity = activity as! ActivityInvestModel
-                if investActivity.detail.tokens.containsTokenId(selectedAssetLowerCasedID){
+				if investActivity.detail.tokens.containsTokenId(selectedAssetLowerCasedID) {
 					return true
 				}
 				return false
 			case .withdraw_investment, .decrease_investment:
 				let withdrawActivity = activity as! ActivityWithdrawModel
-                if withdrawActivity.detail.tokens.containsTokenId(selectedAssetLowerCasedID) {
+				if withdrawActivity.detail.tokens.containsTokenId(selectedAssetLowerCasedID) {
 					return true
 				}
 				return false

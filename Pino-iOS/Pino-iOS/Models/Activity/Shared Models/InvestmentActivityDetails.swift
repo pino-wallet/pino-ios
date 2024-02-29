@@ -21,7 +21,7 @@ struct InvestmentActivityDetails: Codable {
 }
 
 extension Array where Element == ActivityTokenModel {
-    internal func containsTokenId(_ id: String) -> Bool {
-        self.first(where: { $0.tokenID.lowercased() == id }) != nil
-    }
+	internal func containsTokenId(_ id: String) -> Bool {
+		first(where: { $0.tokenID.lowercased() == id }) != nil
+	}
 }
