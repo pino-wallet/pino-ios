@@ -143,10 +143,18 @@ class SwapConfirmationViewModel {
 	}
 
 	public func checkEnoughBalance() -> Bool {
-		if pendingSwapGasInfo!.fee! > ethToken.holdAmount {
-			return false
+		if fromToken.selectedToken.isEth {
+			if pendingSwapGasInfo!.fee! > ethToken.holdAmount - fromToken.fullAmount! {
+				return false
+			} else {
+				return true
+			}
 		} else {
-			return true
+			if pendingSwapGasInfo!.fee! > ethToken.holdAmount {
+				return false
+			} else {
+				return true
+			}
 		}
 	}
 

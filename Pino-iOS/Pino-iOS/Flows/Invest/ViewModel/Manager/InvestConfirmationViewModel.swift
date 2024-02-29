@@ -244,4 +244,21 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 			}
 		}
 	}
+
+	public func checkEnoughBalance() -> Bool {
+		if selectedToken.isEth {
+			let investAmountBigNumber = BigNumber(numberWithDecimal: transactionAmount)!
+			if gasFee > ethToken.holdAmount - investAmountBigNumber {
+				return false
+			} else {
+				return true
+			}
+		} else {
+			if gasFee > ethToken.holdAmount {
+				return false
+			} else {
+				return true
+			}
+		}
+	}
 }
