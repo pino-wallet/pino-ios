@@ -48,6 +48,8 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 
 	// MARK: - Public Properties
 
+	public let pageTitle = "Confirm withdraw"
+
 	@Published
 	public var formattedFeeInETH: String?
 	@Published
@@ -69,6 +71,14 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 			return getCompoundTransaction()
 		case .aave:
 			return getAaveTransaction()
+		}
+	}
+
+	public var userBalanceIsEnough: Bool {
+		if gasFee > ethToken.holdAmount {
+			return false
+		} else {
+			return true
 		}
 	}
 

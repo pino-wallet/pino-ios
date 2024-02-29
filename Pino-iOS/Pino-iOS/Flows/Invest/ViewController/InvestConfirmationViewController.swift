@@ -70,7 +70,7 @@ class InvestConfirmationViewController: UIViewController {
 
 	private func setupNavigationBar() {
 		setupPrimaryColorNavigationBar()
-		setNavigationTitle("Confirm investment")
+		setNavigationTitle(investConfirmationVM.pageTitle)
 	}
 
 	private func showInfoActionSheet(_ feeInfoActionSheet: InfoActionSheet, completion: @escaping () -> Void) {
