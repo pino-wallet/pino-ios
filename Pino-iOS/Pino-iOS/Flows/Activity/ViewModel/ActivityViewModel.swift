@@ -42,7 +42,8 @@ class ActivityViewModel {
 	// MARK: - Public Properties
 
 	public func getUserActivitiesFromVC() {
-		if prevAccountAddress != walletManager.currentAccount.eip55Address {
+		if prevAccountAddress != walletManager.currentAccount.eip55Address || prevActivities
+			.first(where: { $0.failed == nil }) != nil {
 			refreshPrevData()
 			setPrevAccountAddress()
 		}
@@ -90,7 +91,7 @@ class ActivityViewModel {
 			}
 			for pendingActivity in pendingActivities {
 				if self.prevActivities
-					.indexOf(activity: pendingActivity) == nil {
+					.indexOfActivityModel(activity: pendingActivity) == nil {
 					self.prevActivities.append(pendingActivity)
 					self.prevActivities = self.sortIteratedActivities(activities: self.prevActivities)
 					self.userActivityCellVMList = self.prevActivities.compactMap { ActivityCellViewModel(activityModel: $0) }
@@ -173,7 +174,7 @@ class ActivityViewModel {
 			return
 		}
 		for newActivity in responseActivities {
-			if prevActivities.indexOf(activity: newActivity) == nil {
+			if prevActivities.indexOfActivityModel(activity: newActivity) == nil {
 				shouldUpdateActivities = true
 			}
 			if prevActivities
@@ -226,7 +227,7 @@ class ActivityViewModel {
 			}
 
 			for activity in activitiesList {
-				if finalActivities.indexOf(activity: activity) == nil {
+				if finalActivities.indexOfActivityModel(activity: activity) == nil {
 					finalActivities.append(activity)
 				}
 			}
@@ -241,11 +242,5 @@ class ActivityViewModel {
 				self.shouldUpdateActivities = false
 			}
 		}.store(in: &cancellables)
-	}
-}
-
-extension Array where Element == any ActivityModelProtocol {
-	fileprivate func indexOf(activity: Element) -> Self.Index? {
-		firstIndex(where: { $0.txHash.lowercased() == activity.txHash.lowercased() })
 	}
 }
