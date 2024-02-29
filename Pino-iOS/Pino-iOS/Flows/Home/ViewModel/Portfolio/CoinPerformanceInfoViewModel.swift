@@ -57,7 +57,7 @@ class CoinPerformanceInfoViewModel {
 		}
 	}
 
-	public func updateTokenAllTime(_ tokenAllTime: TokenAllTime) {
+	public func updateTokenAllTime(_ tokenAllTime: TokenAllTimePerformance) {
 		updateAllTimeHigh(String(tokenAllTime.ath))
 		updateAllTimelow(String(tokenAllTime.atl))
 	}

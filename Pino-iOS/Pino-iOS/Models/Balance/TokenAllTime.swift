@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TokenAllTime: Codable {
+struct TokenAllTimePerformance: Codable {
 	public let ath: Int
 	public let atl: Int
 }

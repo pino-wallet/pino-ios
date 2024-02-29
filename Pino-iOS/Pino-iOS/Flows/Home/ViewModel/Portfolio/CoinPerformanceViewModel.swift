@@ -67,7 +67,7 @@ class CoinPerformanceViewModel {
 		firstly {
 			getChartData()
 		}.then { assetChartVM in
-			self.getAllTimeInfo().map { (assetChartVM, $0) }
+			self.getAllTimePerformance().map { (assetChartVM, $0) }
 		}.done { [weak self] assetChartVM, tokenAllTime in
 			guard let self else { return }
 			chartVM = assetChartVM
@@ -78,9 +78,9 @@ class CoinPerformanceViewModel {
 		}
 	}
 
-	private func getAllTimeInfo() -> Promise<TokenAllTime> {
-		Promise<TokenAllTime> { seal in
-			accountingAPIClient.getTokenAllTime(tokenID: selectedAsset.id).sink { completed in
+	private func getAllTimePerformance() -> Promise<TokenAllTimePerformance> {
+		Promise<TokenAllTimePerformance> { seal in
+			accountingAPIClient.getAllTimePerformanceOf(selectedAsset.id).sink { completed in
 				switch completed {
 				case .finished:
 					print("ATL and ATH recieved successfully")
