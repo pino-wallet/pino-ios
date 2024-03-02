@@ -90,7 +90,7 @@ class SwapTokenSectionView: UIView {
 
 	private func setupStyle() {
 		maxAmountTitle.text = swapVM.maxTitle
-		maxAmountLabel.text = SwapGasLimitsManager.getMaxAmount(selectedToken: swapVM.selectedToken).sevenDigitFormat
+		maxAmountLabel.text = swapVM.selectedTokenMaxAmount.sevenDigitFormat
 		selectAssetButton.title = "Select asset"
 		changeTokenView.tokenName = swapVM.selectedToken.symbol
 
@@ -178,7 +178,7 @@ class SwapTokenSectionView: UIView {
 			amountTextfield.text = swapVM.tokenAmount?.sevenDigitFormatForFewAmounts
 		}
 		estimatedAmountLabel.text = swapVM.dollarAmount?.priceFormat
-		maxAmountLabel.text = SwapGasLimitsManager.getMaxAmount(selectedToken: swapVM.selectedToken).sevenDigitFormat
+		maxAmountLabel.text = swapVM.selectedTokenMaxAmount.sevenDigitFormat
 		updateBalanceStatus()
 	}
 
@@ -192,7 +192,7 @@ class SwapTokenSectionView: UIView {
 	@objc
 	private func enterMaxAmount() {
 		openKeyboard()
-		updateEstimatedAmount(enteredAmount: SwapGasLimitsManager.getMaxAmount(selectedToken: swapVM.selectedToken))
+		updateEstimatedAmount(enteredAmount: swapVM.selectedTokenMaxAmount)
 		updateAmountView()
 		updateBalanceStatus()
 		amountTextfield

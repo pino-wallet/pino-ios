@@ -33,6 +33,10 @@ class SwapTokenViewModel {
 		}
 	}
 
+	public var selectedTokenMaxAmount: BigNumber {
+		SwapGasLimitsManager.getMaxAmount(selectedToken: selectedToken)
+	}
+
 	// MARK: - Initializers
 
 	init(selectedToken: AssetViewModel) {
