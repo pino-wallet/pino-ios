@@ -32,6 +32,7 @@ class SendConfirmationViewModel {
 
 	private var pendingSwapTrx: EthereumSignedTransaction?
 	private var sendAmount: BigNumber
+	private var sendAmountInDollar: BigNumber?
 
 	// MARK: - Public Properties
 
@@ -52,10 +53,6 @@ class SendConfirmationViewModel {
 		return "You sent \(formattedSendAmount) to \(formattedRecipientAddress)"
 	}
 
-	public var sendAmountInDollar: BigNumber {
-		sendAmount * selectedToken.price
-	}
-
 	public var isTokenVerified: Bool {
 		selectedToken.isVerified
 	}
@@ -70,6 +67,10 @@ class SendConfirmationViewModel {
 
 	public var formattedSendAmount: String {
 		sendAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
+	}
+
+	public var formattedSendAmountInDollar: String? {
+		sendAmountInDollar?.priceFormat
 	}
 
 	public var selectedWalletImage: String {
@@ -116,11 +117,13 @@ class SendConfirmationViewModel {
 		selectedToken: AssetViewModel,
 		selectedWallet: AccountInfoViewModel,
 		recipientAddress: SendRecipientAddress,
-		sendAmount: String
+		sendAmount: BigNumber,
+		sendAmountInDollar: BigNumber?
 	) {
 		self.selectedToken = selectedToken
 		self.selectedWallet = selectedWallet
-		self.sendAmount = BigNumber(numberWithDecimal: sendAmount)!
+		self.sendAmount = sendAmount
+		self.sendAmountInDollar = sendAmountInDollar
 		self.recipientAddress = recipientAddress
 		setupBindings()
 	}
