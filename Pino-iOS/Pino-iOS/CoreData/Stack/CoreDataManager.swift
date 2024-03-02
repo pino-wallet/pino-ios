@@ -72,6 +72,7 @@ class CoreDataManager {
 		newAccount.selectedAssets = []
 		newAccount.hasDefaultAssets = hasDefaultAssets
 		newAccount.isPositionEnabled = false
+		newAccount.createdAt = Date()
 		if newAccount.wallet.walletType == .hdWallet {
 			newAccount.wallet.lastDrivedIndex += 1
 		}
