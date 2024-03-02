@@ -21,6 +21,7 @@ enum AccountingEndpoint: EndpointType {
 	case activateAccount(activateReqModel: AccountActivationRequestModel)
 	case activeAddresses(addresses: [String])
 	case activateAccountWithInviteCode(deciveID: String, inviteCode: String)
+	case tokenAllTime(accountADD: String, tokenID: String)
 
 	// MARK: - Internal Methods
 
@@ -42,9 +43,7 @@ enum AccountingEndpoint: EndpointType {
 
 	internal var task: HTTPTask {
 		switch self {
-		case .cts:
-			return .request
-		case .balances, .activateAccountWithInviteCode:
+		case .cts, .balances, .activateAccountWithInviteCode, .tokenAllTime:
 			return .request
 		case let .portfolio(timeFrame, _, tokensId):
 			let urlParameters: [String: Any] = ["timeframe": timeFrame]
@@ -98,12 +97,14 @@ enum AccountingEndpoint: EndpointType {
 			return "\(endpointParent)/active-addresses"
 		case let .activateAccountWithInviteCode(deciveID: deviceID, inviteCode: inviteCode):
 			return "\(endpointParent)/activate-device/\(deviceID)/\(inviteCode)"
+		case let .tokenAllTime(accountADD: accountADD, tokenID: tokenID):
+			return "user/\(accountADD)/balance/\(tokenID)/all-time"
 		}
 	}
 
 	internal var httpMethod: HTTPMethod {
 		switch self {
-		case .cts, .balances, .coinPerformance:
+		case .cts, .balances, .coinPerformance, .tokenAllTime:
 			return .get
 		case .activateAccount, .activeAddresses, .activateAccountWithInviteCode, .portfolio:
 			return .post

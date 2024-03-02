@@ -52,6 +52,10 @@ final class AccountingAPIClient: AccountingAPIService {
 		-> AnyPublisher<ActivateAccountWithInviteCodeModel, APIError> {
 		networkManager.request(.activateAccountWithInviteCode(deciveID: deviceID, inviteCode: inviteCode))
 	}
+
+	func getAllTimePerformanceOf(_ tokenID: String) -> AnyPublisher<TokenAllTimePerformance, APIError> {
+		networkManager.request(.tokenAllTime(accountADD: currentAccountAdd, tokenID: tokenID))
+	}
 }
 
 struct NoContent: Codable {}

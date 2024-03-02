@@ -56,4 +56,29 @@ class CoinPerformanceInfoViewModel {
 			allTimeLow = GlobalZeroAmounts.dollars.zeroAmount
 		}
 	}
+
+	public func updateTokenAllTime(_ tokenAllTime: TokenAllTimePerformance) {
+		updateAllTimeHigh(tokenAllTime.ath)
+		updateAllTimelow(tokenAllTime.atl)
+	}
+
+	// MARK: - Private Methods
+
+	private func updateAllTimeHigh(_ ath: String) {
+		let allTimeHighBigNumber = BigNumber(number: ath, decimal: 2)
+		if allTimeHighBigNumber.isZero {
+			allTimeHigh = GlobalZeroAmounts.dollars.zeroAmount
+		} else {
+			allTimeHigh = allTimeHighBigNumber.priceFormat
+		}
+	}
+
+	private func updateAllTimelow(_ atl: String) {
+		let allTimeLowBigNumber = BigNumber(number: atl, decimal: 2)
+		if allTimeLowBigNumber.isZero {
+			allTimeLow = GlobalZeroAmounts.dollars.zeroAmount
+		} else {
+			allTimeLow = allTimeLowBigNumber.priceFormat
+		}
+	}
 }

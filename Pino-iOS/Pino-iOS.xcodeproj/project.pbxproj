@@ -709,6 +709,7 @@
 		E33F91012B1DDA7300409CAE /* SendTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F91002B1DDA7300409CAE /* SendTransactionViewModel.swift */; };
 		E341EBA22B8DE1BF00A738AF /* BorrowComigSoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E341EBA12B8DE1BF00A738AF /* BorrowComigSoonView.swift */; };
 		E341EBA42B8DE35E00A738AF /* BorrowComingSoonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E341EBA32B8DE35E00A738AF /* BorrowComingSoonViewController.swift */; };
+		E341EBA62B8F172E00A738AF /* TokenAllTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = E341EBA52B8F172E00A738AF /* TokenAllTime.swift */; };
 		E343836A2A3D912A0048BDA1 /* SendConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34383692A3D912A0048BDA1 /* SendConfirmationViewController.swift */; };
 		E343836C2A3D92C20048BDA1 /* SendConfimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E343836B2A3D92C20048BDA1 /* SendConfimationView.swift */; };
 		E343836E2A3DA0320048BDA1 /* SendConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E343836D2A3DA0320048BDA1 /* SendConfirmationViewModel.swift */; };
@@ -1591,6 +1592,7 @@
 		E33F91002B1DDA7300409CAE /* SendTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendTransactionViewModel.swift; sourceTree = "<group>"; };
 		E341EBA12B8DE1BF00A738AF /* BorrowComigSoonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowComigSoonView.swift; sourceTree = "<group>"; };
 		E341EBA32B8DE35E00A738AF /* BorrowComingSoonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowComingSoonViewController.swift; sourceTree = "<group>"; };
+		E341EBA52B8F172E00A738AF /* TokenAllTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAllTime.swift; sourceTree = "<group>"; };
 		E34383692A3D912A0048BDA1 /* SendConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmationViewController.swift; sourceTree = "<group>"; };
 		E343836B2A3D92C20048BDA1 /* SendConfimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfimationView.swift; sourceTree = "<group>"; };
 		E343836D2A3DA0320048BDA1 /* SendConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmationViewModel.swift; sourceTree = "<group>"; };
@@ -2440,6 +2442,7 @@
 				DE5E7B8E5AB0A855FCC75096 /* AssetProtocol.swift */,
 				85B8E4B322CA8BD26A71AD22 /* BalanceModel.swift */,
 				D9A66C0A2B5BCAC200875A88 /* PositionAssetModel.swift */,
+				E341EBA52B8F172E00A738AF /* TokenAllTime.swift */,
 			);
 			path = Balance;
 			sourceTree = "<group>";
@@ -5386,6 +5389,7 @@
 				3FB363922C364DE0175B075E /* SecurityOptionsCollectionView.swift in Sources */,
 				D9771DE32A80DE380047605E /* UITabBarController+Extension.swift in Sources */,
 				DFB566292A192CD600F9D6A0 /* WalletManagementType.swift in Sources */,
+				E341EBA62B8F172E00A738AF /* TokenAllTime.swift in Sources */,
 				D9BE05142A8221C8008670F9 /* CDActivityParent+CoreDataClass.swift in Sources */,
 				E384CB1A29FFADE9009C74F5 /* OtherShareOfAssetsViewModel.swift in Sources */,
 				8BF8943C4316B64F59BC29DC /* SecurityOptionsFooter.swift in Sources */,
