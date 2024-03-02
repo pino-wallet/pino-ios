@@ -21,12 +21,12 @@ class PendingActivitiesManager {
 	// MARK: - Private Properties
 
 	private let activityAPIClient = ActivityAPIClient()
-	private let activityHelper = ActivityHelper()
 	private let coreDataManager = CoreDataManager()
 	private let requestsDispatchGroup = DispatchGroup()
 	private let walletManager = PinoWalletManager()
 	private var requestsTimer: Cancellable?
 	private var cancellables = Set<AnyCancellable>()
+	private lazy var activityHelper = ActivityHelper()
 
 	// MARK: - Public Methods
 
