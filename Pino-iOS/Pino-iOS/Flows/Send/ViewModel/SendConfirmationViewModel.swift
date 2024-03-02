@@ -53,7 +53,7 @@ class SendConfirmationViewModel {
 	}
 
 	public var sendAmountInDollar: BigNumber {
-		sendAmount * ethToken.price
+		sendAmount * selectedToken.price
 	}
 
 	public var isTokenVerified: Bool {
