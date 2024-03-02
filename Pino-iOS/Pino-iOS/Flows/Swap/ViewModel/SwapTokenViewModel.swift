@@ -71,8 +71,9 @@ class SwapTokenViewModel {
 	}
 
 	public func checkBalanceStatus(token: AssetViewModel) -> AmountStatus {
+		let maxAmount = SwapGasLimitsManager.getMaxAmount(selectedToken: selectedToken)
 		if let amount = tokenAmount, !amount.isZero {
-			if amount > token.holdAmount {
+			if amount > maxAmount {
 				return .isNotEnough
 			} else {
 				return .isEnough
