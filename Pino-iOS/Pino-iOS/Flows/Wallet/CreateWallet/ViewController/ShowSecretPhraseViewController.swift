@@ -25,7 +25,6 @@ class ShowSecretPhraseViewController: UIViewController {
 	}
 
 	override func loadView() {
-		setupNotifications()
 		if isNewWallet {
 			setupPrimaryColorNavigationBar()
 			setNavigationTitle(secretPhraseVM.pageTitle)
@@ -34,10 +33,18 @@ class ShowSecretPhraseViewController: UIViewController {
 		}
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		setupNotifications()
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		removeNotifications()
+	}
+
 	// MARK: - Initializers
 
 	deinit {
-		NotificationCenter.default.removeObserver(UIApplication.userDidTakeScreenshotNotification)
+		removeNotifications()
 	}
 
 	// MARK: Private Methods
@@ -59,6 +66,14 @@ class ShowSecretPhraseViewController: UIViewController {
 		NotificationCenter.default.addObserver(
 			self,
 			selector: #selector(screenshotTaken),
+			name: UIApplication.userDidTakeScreenshotNotification,
+			object: nil
+		)
+	}
+
+	private func removeNotifications() {
+		NotificationCenter.default.removeObserver(
+			self,
 			name: UIApplication.userDidTakeScreenshotNotification,
 			object: nil
 		)
