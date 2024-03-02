@@ -8,6 +8,6 @@
 import Foundation
 
 struct TokenAllTimePerformance: Codable {
-	public let ath: Int
-	public let atl: Int
+	public let ath: String
+	public let atl: String
 }
