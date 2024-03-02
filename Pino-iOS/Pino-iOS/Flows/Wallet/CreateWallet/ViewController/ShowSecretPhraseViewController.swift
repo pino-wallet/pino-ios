@@ -32,19 +32,19 @@ class ShowSecretPhraseViewController: UIViewController {
 			setSteperView(stepsCount: 3, curreuntStep: 1)
 		}
 	}
-    
-    override func viewWillAppear(_ animated: Bool) {
-        setupNotifications()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        removeNotifications()
-    }
+
+	override func viewWillAppear(_ animated: Bool) {
+		setupNotifications()
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		removeNotifications()
+	}
 
 	// MARK: - Initializers
 
 	deinit {
-        removeNotifications()
+		removeNotifications()
 	}
 
 	// MARK: Private Methods
@@ -70,10 +70,14 @@ class ShowSecretPhraseViewController: UIViewController {
 			object: nil
 		)
 	}
-    
-    private func removeNotifications() {
-        NotificationCenter.default.removeObserver(self, name: UIApplication.userDidTakeScreenshotNotification, object: nil)
-    }
+
+	private func removeNotifications() {
+		NotificationCenter.default.removeObserver(
+			self,
+			name: UIApplication.userDidTakeScreenshotNotification,
+			object: nil
+		)
+	}
 
 	@objc
 	private func screenshotTaken() {
