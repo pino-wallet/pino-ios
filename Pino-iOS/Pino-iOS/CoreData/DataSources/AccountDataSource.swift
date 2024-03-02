@@ -23,7 +23,7 @@ struct AccountDataSource: DataSourceProtocol {
 
 	internal mutating func fetchEntities() {
 		let accountFetch: NSFetchRequest<WalletAccount> = WalletAccount.fetchRequest()
-		accountFetch.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+		accountFetch.sortDescriptors = [NSSortDescriptor(key: #keyPath(WalletAccount.name), ascending: true)]
 		do {
 			let results = try managedContext.fetch(accountFetch)
 			accounts = results

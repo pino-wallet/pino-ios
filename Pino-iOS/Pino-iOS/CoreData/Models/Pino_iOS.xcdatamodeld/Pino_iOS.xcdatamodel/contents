@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23B74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23C64" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CDActivityDetailsToken" representedClassName="CDActivityDetailsToken" syncable="YES">
         <attribute name="amount" attributeType="String"/>
         <attribute name="tokenId" attributeType="String"/>
@@ -128,6 +128,7 @@
     <entity name="WalletAccount" representedClassName="WalletAccount" syncable="YES">
         <attribute name="avatarColor" optional="YES" attributeType="String"/>
         <attribute name="avatarIcon" optional="YES" attributeType="String"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="derivationPath" optional="YES" attributeType="String"/>
         <attribute name="eip55Address" attributeType="String"/>
         <attribute name="hasDefaultAssets" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
