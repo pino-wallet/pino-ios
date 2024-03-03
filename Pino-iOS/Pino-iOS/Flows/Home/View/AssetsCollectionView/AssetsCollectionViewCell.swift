@@ -40,15 +40,15 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 			toggleIsLoadingStyles()
 		}
 	}
-    
-    // MARK: - View Overrides
-    
-    public override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        assetTitleLabelHeightconstraint.constant = 0
-        assetAmountLabelHeightConstraint.constant = 0
-    }
+
+	// MARK: - View Overrides
+
+	override public func prepareForReuse() {
+		super.prepareForReuse()
+
+		assetTitleLabelHeightconstraint.constant = 0
+		assetAmountLabelHeightConstraint.constant = 0
+	}
 
 	// MARK: Private UI Methods
 

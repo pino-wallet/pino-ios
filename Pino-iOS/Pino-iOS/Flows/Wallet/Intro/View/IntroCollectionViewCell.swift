@@ -58,14 +58,14 @@ extension IntroCollectionViewCell {
 	}
 
 	private func setupConstraint() {
-        introTitle.heightAnchor.constraint(greaterThanOrEqualToConstant: 25).isActive = true
-        introDescription.heightAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
-        
+		introTitle.heightAnchor.constraint(greaterThanOrEqualToConstant: 25).isActive = true
+		introDescription.heightAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
+
 		contentStackView.pin(
 			.horizontalEdges(padding: 33),
-            .top(to: layoutMarginsGuide, padding: 37)
+			.top(to: layoutMarginsGuide, padding: 37)
 		)
-        introImage.pin(.fixedWidth(240), .fixedHeight(240))
+		introImage.pin(.fixedWidth(240), .fixedHeight(240))
 	}
 
 	private func setImageCornerRadius() {
