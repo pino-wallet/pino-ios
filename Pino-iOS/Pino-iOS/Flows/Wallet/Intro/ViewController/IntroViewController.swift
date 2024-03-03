@@ -28,24 +28,23 @@ class IntroViewController: UIViewController {
 		let introView = IntroView(
 			introVM: introVM,
 			createWallet: {
-				self.goToCreateWalletPage()
+				self.openCreateWalletPage()
 			},
 			importWallet: {
-				self.goToImportWalletPage()
+				self.openImportWalletPage()
 			}
 		)
 		navigationController?.navigationBar.prefersLargeTitles = false
 		view = introView
 	}
 
-	private func goToCreateWalletPage() {
+	private func openCreateWalletPage() {
 		let showSecretPhrasePage = ShowSecretPhraseViewController()
 		navigationController?.pushViewController(showSecretPhrasePage, animated: true)
 	}
 
-	private func goToImportWalletPage() {
+	private func openImportWalletPage() {
 		let importSecretPhrasePage = ImportSecretPhraseViewController()
-		importSecretPhrasePage.isNewWallet = true
 		navigationController?.pushViewController(importSecretPhrasePage, animated: true)
 	}
 }

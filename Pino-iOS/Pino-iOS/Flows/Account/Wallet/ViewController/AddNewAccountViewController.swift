@@ -74,12 +74,11 @@ class AddNewAccountViewController: UIViewController {
 				}
 			}
 		case .Import:
-			let importWalletVC = ImportSecretPhraseViewController()
-			importWalletVC.isNewWallet = false
-			importWalletVC.addedNewWalletWithPrivateKey = { privateKey in
+			let importWalletVC = ImportNewAccountViewController()
+			importWalletVC.newAccountDidImport = { privateKey in
 				self.importAccountWithKey(privateKey) { error in
 					if let error {
-						importWalletVC.importsecretPhraseView.activateButton()
+						importWalletVC.importAccountView.activateButton()
 						Toast.default(title: error.localizedDescription, style: .error).show(haptic: .warning)
 					} else {
 						self.dismiss(animated: true)
