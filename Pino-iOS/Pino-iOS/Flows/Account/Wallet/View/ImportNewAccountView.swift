@@ -5,6 +5,7 @@
 //  Created by Mohi Raoufi on 3/3/24.
 //
 
+import Combine
 import UIKit
 
 class ImportNewAccountView: UIView {
@@ -21,6 +22,7 @@ class ImportNewAccountView: UIView {
 	private let errorIcon = UIImageView()
 	private var importAccountVM: ImportNewAccountViewModel
 	private let importButton = PinoButton(style: .deactive)
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 
@@ -101,10 +103,7 @@ class ImportNewAccountView: UIView {
 	// MARK: - Private Methods
 
 	private func setupStyle() {
-		titleLabel.text = importAccountVM.title
-		descriptionLabel.text = importAccountVM.description
-		errorLabel.text = importAccountVM.errorTitle
-		errorIcon.image = UIImage(systemName: importAccountVM.errorIcon)
+		descriptionLabel.text = importAccountVM.pageDeescription
 		importButton.title = importAccountVM.continueButtonTitle
 		seedPhrasePasteButton.setTitle(importAccountVM.pasteButtonTitle, for: .normal)
 
@@ -170,6 +169,25 @@ class ImportNewAccountView: UIView {
 			.relative(.top, 10, to: seedPhraseBox, .bottom),
 			.trailing(padding: 17)
 		)
+	}
+
+	private func setupBindings() {
+		importAccountVM.$validationStatus.sink { validationStatus in
+			switch validationStatus {
+			case .normal:
+				self.importButton.setTitle(self.importAccountVM.continueButtonTitle, for: .normal)
+				self.importButton.style = .deactive
+			case .loading:
+				self.importButton.setTitle(self.importAccountVM.continueButtonTitle, for: .normal)
+				self.importButton.style = .deactive
+			case .error:
+				self.importButton.setTitle(self.importAccountVM.InvalidTitle, for: .normal)
+				self.importButton.style = .deactive
+			case .success:
+				self.importButton.setTitle(self.importAccountVM.continueButtonTitle, for: .normal)
+				self.importButton.style = .active
+			}
+		}.store(in: &cancellables)
 	}
 
 	@objc

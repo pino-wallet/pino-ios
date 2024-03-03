@@ -12,7 +12,7 @@ class ImportNewAccountViewController: UIViewController {
 
 	public var importAccountView: ImportNewAccountView!
 	public var importAccountVM = ImportNewAccountViewModel()
-	public var newAccountDidImport: ((String) -> Void)!
+	public var newAccountDidImport: ((_ privateKey: String, _ avatar: Avatar, _ accountName: String) -> Void)!
 
 	// MARK: - View Overrides
 
@@ -43,8 +43,9 @@ class ImportNewAccountViewController: UIViewController {
 		let privateKey = importAccountView.textViewText
 		importAccountVM.validate(
 			privateKey: privateKey,
-			onSuccess: {
-				self.newAccountDidImport(privateKey)
+			onSuccess: { [weak self] in
+				guard let self else { return }
+				newAccountDidImport(privateKey, importAccountVM.accountAvatar, importAccountVM.accountName)
 			},
 			onFailure: { validationError in
 				self.showValidationError(validationError)

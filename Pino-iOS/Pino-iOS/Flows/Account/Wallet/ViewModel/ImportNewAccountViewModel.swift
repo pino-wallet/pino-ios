@@ -5,17 +5,27 @@
 //  Created by Mohi Raoufi on 3/3/24.
 //
 
-struct ImportNewAccountViewModel {
+import Combine
+
+class ImportNewAccountViewModel {
 	// MARK: - Public Properties
 
-	public var title = "Import private key"
-	public var description = "Typically 64 charecters"
+	public let pageTitle = "Import wallet"
+	public var pageDeescription =
+		"By tapping on Import, you sign an off-chain message that activates this account in Pino."
+	public var textViewDescription = "Typically 64 charecters"
 	public var textViewPlaceholder = "Private Key"
-	public var errorTitle = "Invalid Private Key"
+	public var InvalidTitle = "Invalid Private Key"
 	public let pasteButtonTitle = "Paste"
-	public let errorIcon = "exclamationmark.circle.fill"
 	public let continueButtonTitle = "Import"
-	public let pageTitle = "Import new wallet"
+	public let newAvatarButtonTitle = "Set new avatar"
+
+	@Published
+	public var validationStatus: ValidationStatus = .normal
+	@Published
+	public var accountAvatar = Avatar.avocado
+	@Published
+	public var accountName = Avatar.avocado.name
 
 	// MARK: - Private Properties
 
@@ -34,5 +44,14 @@ struct ImportNewAccountViewModel {
 		} else {
 			onFailure(.invalidSecretPhrase)
 		}
+	}
+}
+
+extension ImportNewAccountViewModel {
+	public enum ValidationStatus: Equatable {
+		case error
+		case success
+		case normal
+		case loading
 	}
 }
