@@ -44,7 +44,8 @@ extension IntroAnimationCollectionViewCell {
 
 	private func setupStyle() {
 		introTitle.text = introTitleModel
-		introTitle.numberOfLines = 2
+		introTitle.numberOfLines = 0
+        introTitle.lineBreakMode = .byWordWrapping
 		introTitle.textAlignment = .center
 
 		introGradientView.image = UIImage(named: "intro-gradient")
@@ -55,6 +56,9 @@ extension IntroAnimationCollectionViewCell {
 	}
 
 	private func setupConstraint() {
+        introTitle.widthAnchor.constraint(lessThanOrEqualToConstant: 180).isActive = true
+        introTitle.heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
+        
 		introGradientView.pin(
 			.allEdges
 		)
@@ -64,10 +68,9 @@ extension IntroAnimationCollectionViewCell {
 			.bottom(padding: -70)
 		)
 		introTitle.pin(
-			.horizontalEdges(padding: 16),
 			.bottom,
-			.relative(.top, -16, to: introAnimationView, .bottom),
-			.fixedHeight(30)
+			.relative(.top, -130, to: introAnimationView, .bottom),
+            .centerX
 		)
 		topGradientView.pin(
 			.top(padding: -10),

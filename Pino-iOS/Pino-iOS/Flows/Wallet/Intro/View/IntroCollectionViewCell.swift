@@ -42,11 +42,11 @@ extension IntroCollectionViewCell {
 
 	private func setupStyle() {
 		contentStackView.axis = .vertical
-		contentStackView.spacing = 32
+		contentStackView.spacing = 56
 		contentStackView.alignment = .center
 
 		titleStackView.axis = .vertical
-		titleStackView.spacing = 20
+		titleStackView.spacing = 16
 		titleStackView.alignment = .center
 
 		introImage.image = UIImage(named: introModel.image)
@@ -58,13 +58,14 @@ extension IntroCollectionViewCell {
 	}
 
 	private func setupConstraint() {
+        introTitle.heightAnchor.constraint(greaterThanOrEqualToConstant: 25).isActive = true
+        introDescription.heightAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
+        
 		contentStackView.pin(
-			.horizontalEdges(padding: 48),
-			.verticalEdges
+			.horizontalEdges(padding: 33),
+            .top(to: layoutMarginsGuide, padding: 37)
 		)
-		introImage.pin(
-			.relative(.width, 0, to: introImage, .height)
-		)
+        introImage.pin(.fixedWidth(240), .fixedHeight(240))
 	}
 
 	private func setImageCornerRadius() {
