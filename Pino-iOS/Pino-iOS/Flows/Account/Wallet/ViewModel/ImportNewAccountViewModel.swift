@@ -13,19 +13,20 @@ class ImportNewAccountViewModel {
 	public let pageTitle = "Import wallet"
 	public var pageDeescription =
 		"By tapping on Import, you sign an off-chain message that activates this account in Pino."
-	public var textViewDescription = "Typically 64 charecters"
+	public var textViewDescription = "Typically 64 alphanumeric characters"
 	public var textViewPlaceholder = "Private Key"
 	public var InvalidTitle = "Invalid Private Key"
 	public let pasteButtonTitle = "Paste"
 	public let continueButtonTitle = "Import"
 	public let newAvatarButtonTitle = "Set new avatar"
+	public let accountNamePlaceHolder = "Enter name"
+
+	@Published
+	public var accountAvatar = Avatar.avocado
+	public var accountName = Avatar.avocado.name
 
 	@Published
 	public var validationStatus: ValidationStatus = .normal
-	@Published
-	public var accountAvatar = Avatar.avocado
-	@Published
-	public var accountName = Avatar.avocado.name
 
 	// MARK: - Private Properties
 
@@ -34,15 +35,27 @@ class ImportNewAccountViewModel {
 
 	// MARK: Public Methods
 
-	public func validate(
+	public func validateWalletAccount(
 		privateKey: String,
 		onSuccess: @escaping () -> Void,
-		onFailure: @escaping (SecretPhraseValidationError) -> Void
+		onFailure: @escaping (ImportValidationError) -> Void
 	) {
 		if pinoWalletManager.isPrivatekeyValid(privateKey) {
 			onSuccess()
 		} else {
-			onFailure(.invalidSecretPhrase)
+			onFailure(.invalidPrivateKey)
+		}
+	}
+
+	public func validatePrivateKey(_ privateKey: String) {
+		guard privateKey != .emptyString else {
+			validationStatus = .normal
+			return
+		}
+		if pinoWalletManager.isPrivatekeyValid(privateKey) {
+			validationStatus = .success
+		} else {
+			validationStatus = .error
 		}
 	}
 }

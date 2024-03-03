@@ -25,7 +25,7 @@ class ImportSecretPhraseView: UIView {
 	// MARK: - Public Properties
 
 	public let errorStackView = UIStackView()
-	public let importTextView: ImportTextViewType!
+	public let importTextView = SecretPhraseTextView()
 	public var textViewText: String {
 		importTextView.text
 	}
@@ -36,14 +36,10 @@ class ImportSecretPhraseView: UIView {
 
 	init(
 		validationPharaseVM: ImportSecretPhraseViewModel,
-		textViewType: ImportTextViewType,
 		importBtnTapped: @escaping () -> Void
 	) {
 		self.importAccountVM = validationPharaseVM
-		self.importTextView = textViewType
-		if let seedPhraseTextView = importTextView as? SecretPhraseTextView {
-			seedPhraseTextView.seedPhraseMaxCount = validationPharaseVM.maxSeedPhraseCount
-		}
+		importTextView.seedPhraseMaxCount = validationPharaseVM.maxSeedPhraseCount
 		self.importBtnTapped = importBtnTapped
 		super.init(frame: .zero)
 		setupView()

@@ -12,14 +12,17 @@ class ImportNewAccountView: UIView {
 	// MARK: - Private Properties
 
 	private let contentStackView = UIStackView()
-	private let titleStackView = UIStackView()
-	private let titleLabel = PinoLabel(style: .title, text: nil)
+	private let accountInfoStackView = UIStackView()
+	private let accountAvatarStackView = UIStackView()
+	private let avatarBackgroundView = UIView()
+	private let accountAvatarImageView = UIImageView()
+	private let setAvatarButton = UILabel()
+	private let accountNameTextField = PinoTextFieldView(pattern: nil)
 	private let descriptionLabel = PinoLabel(style: .description, text: nil)
-	private let seedPhraseStackView = UIStackView()
-	private let seedPhraseBox = UIView()
-	private let seedPhrasePasteButton = UIButton()
-	private let errorLabel = UILabel()
-	private let errorIcon = UIImageView()
+	private let importPrivateKeyStackView = UIStackView()
+	private let privateKeyCardView = UIView()
+	private let privateKeyPasteButton = UIButton()
+	private let importTextViewDescription = UILabel()
 	private var importAccountVM: ImportNewAccountViewModel
 	private let importButton = PinoButton(style: .deactive)
 	private var cancellables = Set<AnyCancellable>()
@@ -27,9 +30,9 @@ class ImportNewAccountView: UIView {
 	// MARK: - Public Properties
 
 	public let errorStackView = UIStackView()
-	public let importTextView: ImportTextViewType!
+	public let importTextView = PrivateKeyTextView()
 	public var textViewText: String {
-		importTextView.text
+		importTextView.textViewText
 	}
 
 	public let importBtnTapped: () -> Void
@@ -38,16 +41,15 @@ class ImportNewAccountView: UIView {
 
 	init(
 		importAccountVM: ImportNewAccountViewModel,
-		textViewType: ImportTextViewType,
 		importBtnTapped: @escaping () -> Void
 	) {
 		self.importAccountVM = importAccountVM
-		self.importTextView = textViewType
 		self.importBtnTapped = importBtnTapped
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
 		setupContstraint()
+		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -57,32 +59,30 @@ class ImportNewAccountView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		contentStackView.addArrangedSubview(titleStackView)
-		contentStackView.addArrangedSubview(seedPhraseStackView)
-		titleStackView.addArrangedSubview(titleLabel)
-		titleStackView.addArrangedSubview(descriptionLabel)
-		seedPhraseStackView.addArrangedSubview(seedPhraseBox)
-		seedPhraseStackView.addArrangedSubview(importTextView.errorStackView)
-		seedPhraseBox.addSubview(importTextView)
-		seedPhraseBox.addSubview(seedPhrasePasteButton)
-		importTextView.errorStackView.addArrangedSubview(errorIcon)
-		importTextView.errorStackView.addArrangedSubview(errorLabel)
+		contentStackView.addArrangedSubview(accountInfoStackView)
+		contentStackView.addArrangedSubview(importPrivateKeyStackView)
+		accountInfoStackView.addArrangedSubview(accountAvatarStackView)
+		accountInfoStackView.addArrangedSubview(accountNameTextField)
+		accountAvatarStackView.addArrangedSubview(avatarBackgroundView)
+		accountAvatarStackView.addArrangedSubview(setAvatarButton)
+		avatarBackgroundView.addSubview(accountAvatarImageView)
+		importPrivateKeyStackView.addArrangedSubview(privateKeyCardView)
+		importPrivateKeyStackView.addArrangedSubview(importTextViewDescription)
+		privateKeyCardView.addSubview(importTextView)
+		privateKeyCardView.addSubview(privateKeyPasteButton)
 		addSubview(contentStackView)
 		addSubview(importButton)
-		addSubview(importTextView.enteredWordsCount)
 
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
+		let setAccountAvatarTapGesture = UITapGestureRecognizer(target: self, action: #selector(setNewAvatar))
+		accountAvatarStackView.addGestureRecognizer(setAccountAvatarTapGesture)
 
-		seedPhrasePasteButton.addAction(UIAction(handler: { _ in
+		privateKeyPasteButton.addAction(UIAction(handler: { _ in
 			self.importTextView.pasteText()
 		}), for: .touchUpInside)
 
-		importTextView.importKeyCountVerified = { isVerified in
-			if isVerified {
-				self.importButton.style = .active
-			} else {
-				self.importButton.style = .deactive
-			}
+		importTextView.privateKeyDidChange = { privateKey in
+			self.importAccountVM.validatePrivateKey(privateKey)
 		}
 
 		importButton.addAction(UIAction(handler: { _ in
@@ -90,50 +90,43 @@ class ImportNewAccountView: UIView {
 		}), for: .touchUpInside)
 	}
 
-	// MARK: - Public Methods
-
-	public func showError() {
-		importTextView.errorStackView.isHidden = false
-	}
-
-	public func activateButton() {
-		importButton.style = .active
-	}
-
-	// MARK: - Private Methods
-
 	private func setupStyle() {
+		setAvatarButton.text = importAccountVM.newAvatarButtonTitle
+		accountNameTextField.text = importAccountVM.accountName
+		accountNameTextField.placeholderText = importAccountVM.accountNamePlaceHolder
+		importTextViewDescription.text = importAccountVM.textViewDescription
 		descriptionLabel.text = importAccountVM.pageDeescription
 		importButton.title = importAccountVM.continueButtonTitle
-		seedPhrasePasteButton.setTitle(importAccountVM.pasteButtonTitle, for: .normal)
+		privateKeyPasteButton.setTitle(importAccountVM.pasteButtonTitle, for: .normal)
 
 		backgroundColor = .Pino.secondaryBackground
 
-		errorLabel.textColor = .Pino.errorRed
-		errorIcon.tintColor = .Pino.errorRed
-		seedPhrasePasteButton.setTitleColor(.Pino.primary, for: .normal)
+		setAvatarButton.textColor = .Pino.primary
+		importTextViewDescription.textColor = .Pino.secondaryLabel
+		privateKeyPasteButton.setTitleColor(.Pino.primary, for: .normal)
 
-		errorLabel.font = .PinoStyle.mediumCallout
-		seedPhrasePasteButton.titleLabel?.font = .PinoStyle.semiboldCallout
+		setAvatarButton.font = .PinoStyle.mediumBody
+		importTextViewDescription.font = .PinoStyle.mediumCaption1
+		privateKeyPasteButton.titleLabel?.font = .PinoStyle.semiboldCallout
 
 		contentStackView.axis = .horizontal
-		seedPhraseStackView.axis = .vertical
+		accountInfoStackView.axis = .vertical
+		accountAvatarStackView.axis = .vertical
+		importPrivateKeyStackView.axis = .vertical
 		contentStackView.axis = .vertical
-		titleStackView.axis = .vertical
 
-		importTextView.errorStackView.spacing = 5
-		seedPhraseStackView.spacing = 8
-		contentStackView.spacing = 33
-		titleStackView.spacing = 18
+		contentStackView.spacing = 24
+		accountInfoStackView.spacing = 32
+		accountAvatarStackView.spacing = 8
+		importPrivateKeyStackView.spacing = 8
 
-		seedPhraseStackView.alignment = .leading
-		errorLabel.textAlignment = .center
+		accountAvatarStackView.alignment = .center
+		importPrivateKeyStackView.alignment = .leading
 
-		seedPhraseBox.layer.cornerRadius = 8
-		seedPhraseBox.layer.borderColor = UIColor.Pino.gray5.cgColor
-		seedPhraseBox.layer.borderWidth = 1
-
-		importTextView.errorStackView.isHidden = true
+		avatarBackgroundView.layer.cornerRadius = 44
+		privateKeyCardView.layer.cornerRadius = 8
+		privateKeyCardView.layer.borderColor = UIColor.Pino.gray5.cgColor
+		privateKeyCardView.layer.borderWidth = 1
 	}
 
 	private func setupContstraint() {
@@ -141,33 +134,29 @@ class ImportNewAccountView: UIView {
 			.top(to: layoutMarginsGuide, padding: 26),
 			.horizontalEdges(padding: 16)
 		)
+		avatarBackgroundView.pin(
+			.fixedHeight(88),
+			.fixedWidth(88)
+		)
+		accountAvatarImageView.pin(
+			.allEdges(padding: 19)
+		)
 		importTextView.pin(
 			.top(padding: 12),
 			.horizontalEdges(padding: 12)
 		)
-		seedPhrasePasteButton.pin(
+		privateKeyPasteButton.pin(
 			.relative(.top, 8, to: importTextView, .bottom),
 			.bottom(padding: 6),
 			.trailing(padding: 8)
 		)
-		seedPhraseBox.pin(
+		privateKeyCardView.pin(
 			.fixedHeight(160),
 			.width
-		)
-		errorIcon.pin(
-			.fixedWidth(16),
-			.fixedHeight(16)
-		)
-		errorLabel.pin(
-			.fixedHeight(24)
 		)
 		importButton.pin(
 			.bottom(to: layoutMarginsGuide, padding: 8),
 			.horizontalEdges(padding: 16)
-		)
-		importTextView.enteredWordsCount.pin(
-			.relative(.top, 10, to: seedPhraseBox, .bottom),
-			.trailing(padding: 17)
 		)
 	}
 
@@ -177,21 +166,43 @@ class ImportNewAccountView: UIView {
 			case .normal:
 				self.importButton.setTitle(self.importAccountVM.continueButtonTitle, for: .normal)
 				self.importButton.style = .deactive
+				self.importTextView.hideValidationView()
 			case .loading:
 				self.importButton.setTitle(self.importAccountVM.continueButtonTitle, for: .normal)
 				self.importButton.style = .deactive
+				self.importTextView.hideValidationView()
 			case .error:
 				self.importButton.setTitle(self.importAccountVM.InvalidTitle, for: .normal)
 				self.importButton.style = .deactive
+				self.importTextView.showError()
 			case .success:
 				self.importButton.setTitle(self.importAccountVM.continueButtonTitle, for: .normal)
 				self.importButton.style = .active
+				self.importTextView.showSuccess()
 			}
+		}.store(in: &cancellables)
+
+		importAccountVM.$accountAvatar.sink { accountAvatar in
+			self.accountAvatarImageView.image = UIImage(named: accountAvatar.rawValue)
+			self.avatarBackgroundView.backgroundColor = UIColor(named: accountAvatar.rawValue)
 		}.store(in: &cancellables)
 	}
 
 	@objc
+	private func setNewAvatar() {}
+
+	@objc
 	private func dissmisskeyBoard() {
 		importTextView.endEditing(true)
+	}
+
+	// MARK: - Public Methods
+
+	public func activateButton() {
+		importButton.style = .active
+	}
+
+	public func showError() {
+		importTextView.showError()
 	}
 }

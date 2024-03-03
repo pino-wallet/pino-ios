@@ -7,24 +7,30 @@
 
 import UIKit
 
-class PrivateKeyTextView: UITextView, ImportTextViewType {
+class PrivateKeyTextView: UIView {
 	// MARK: - Private Property
 
+	private let privateKeyTextView = UITextView()
+	private let validationStatusView = UIImageView()
 	private var placeHolderText = "Private Key"
 	private let pinoWalletManager = PinoWalletManager()
 
 	// MARK: - Public Properties
 
-	public var errorStackView = UIStackView()
-	public var importKeyCountVerified: ((Bool) -> Void)?
-	public var enteredWordsCount = UILabel()
+	public var privateKeyDidChange: ((String) -> Void)!
+
+	public var textViewText: String {
+		privateKeyTextView.text
+	}
 
 	// MARK: - Initializer
 
-	override init(frame: CGRect, textContainer: NSTextContainer?) {
-		super.init(frame: .zero, textContainer: textContainer)
-		delegate = self
+	init() {
+		super.init(frame: .zero)
+		privateKeyTextView.delegate = self
+		setupView()
 		setupStyle()
+		setupConstraint()
 	}
 
 	required init?(coder: NSCoder) {
@@ -34,51 +40,57 @@ class PrivateKeyTextView: UITextView, ImportTextViewType {
 	// MARK: - Public Method
 
 	public func pasteText() {
-		hideError()
+		hideValidationView()
 		let pasteboardString = UIPasteboard.general.string
 		if let pasteboardString {
-			text = pasteboardString
-			textColor = .Pino.label
-			endEditing(true)
-			verifyPrivateKey()
+			privateKeyTextView.text = pasteboardString
+			privateKeyTextView.textColor = .Pino.label
+			privateKeyTextView.endEditing(true)
+			privateKeyDidChange(pasteboardString)
 		}
+	}
+
+	public func showError() {
+		validationStatusView.image = UIImage(named: "error")
+	}
+
+	public func showSuccess() {
+		validationStatusView.image = UIImage(named: "done")
+	}
+
+	public func hideValidationView() {
+		validationStatusView.image = nil
 	}
 
 	// MARK: - Private Method
 
+	private func setupView() {
+		addSubview(privateKeyTextView)
+		addSubview(validationStatusView)
+	}
+
 	private func setupStyle() {
-		autocorrectionType = .no
-		autocapitalizationType = .none
-		backgroundColor = .Pino.clear
-		text = placeHolderText
-		textColor = .Pino.gray2
-		font = .PinoStyle.mediumBody
-		returnKeyType = .done
-
-		enteredWordsCount.text = "0/64"
-		enteredWordsCount.textColor = .Pino.secondaryLabel
-		enteredWordsCount.font = .PinoStyle.mediumFootnote
+		privateKeyTextView.autocorrectionType = .no
+		privateKeyTextView.autocapitalizationType = .none
+		privateKeyTextView.backgroundColor = .Pino.clear
+		privateKeyTextView.text = placeHolderText
+		privateKeyTextView.textColor = .Pino.gray2
+		privateKeyTextView.font = .PinoStyle.mediumBody
+		privateKeyTextView.returnKeyType = .done
 	}
 
-	private func verifyPrivateKey() {
-		if let importKeyCountVerified {
-			enteredWordsCount.text = "\(text.count)/64"
-			if pinoWalletManager.isPrivatekeyValid(text) {
-				importKeyCountVerified(true)
-				hideError()
-			} else {
-				importKeyCountVerified(false)
-				showError()
-			}
-		}
-	}
-
-	private func showError() {
-		errorStackView.isHidden = false
-	}
-
-	private func hideError() {
-		errorStackView.isHidden = true
+	private func setupConstraint() {
+		privateKeyTextView.pin(
+			.verticalEdges,
+			.trailing(padding: 50),
+			.leading
+		)
+		validationStatusView.pin(
+			.fixedWidth(24),
+			.fixedHeight(24),
+			.trailing,
+			.top
+		)
 	}
 }
 
@@ -86,24 +98,23 @@ extension PrivateKeyTextView: UITextViewDelegate {
 	// MARK: - Text View Delegate Method
 
 	internal func textViewDidBeginEditing(_ textView: UITextView) {
-		if text == placeHolderText {
-			text = nil
-			textColor = .Pino.label
+		if privateKeyTextView.text == placeHolderText {
+			privateKeyTextView.text = nil
+			privateKeyTextView.textColor = .Pino.label
 		}
 		becomeFirstResponder()
 	}
 
 	internal func textViewDidEndEditing(_ textView: UITextView) {
-		if text.isEmpty {
-			text = placeHolderText
-			textColor = .Pino.gray2
+		if privateKeyTextView.text.isEmpty {
+			privateKeyTextView.text = placeHolderText
+			privateKeyTextView.textColor = .Pino.gray2
 		}
 		resignFirstResponder()
 	}
 
 	internal func textViewDidChange(_ textView: UITextView) {
-		hideError()
-		verifyPrivateKey()
+		privateKeyDidChange(privateKeyTextView.text)
 	}
 
 	func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

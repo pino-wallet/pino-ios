@@ -31,7 +31,6 @@ class ImportNewAccountViewController: UIViewController {
 	private func setupView() {
 		importAccountView = ImportNewAccountView(
 			importAccountVM: importAccountVM,
-			textViewType: PrivateKeyTextView(),
 			importBtnTapped: { [unowned self] in
 				self.importWallet()
 			}
@@ -41,23 +40,20 @@ class ImportNewAccountViewController: UIViewController {
 
 	private func importWallet() {
 		let privateKey = importAccountView.textViewText
-		importAccountVM.validate(
+		importAccountVM.validateWalletAccount(
 			privateKey: privateKey,
 			onSuccess: { [weak self] in
 				guard let self else { return }
 				newAccountDidImport(privateKey, importAccountVM.accountAvatar, importAccountVM.accountName)
 			},
 			onFailure: { validationError in
-				self.showValidationError(validationError)
+				self.showValidationError()
 			}
 		)
 	}
 
-	private func showValidationError(_ error: SecretPhraseValidationError) {
-		switch error {
-		case .invalidSecretPhrase:
-			importAccountView?.showError()
-			importAccountView?.activateButton()
-		}
+	private func showValidationError() {
+		importAccountView?.showError()
+		importAccountView?.activateButton()
 	}
 }

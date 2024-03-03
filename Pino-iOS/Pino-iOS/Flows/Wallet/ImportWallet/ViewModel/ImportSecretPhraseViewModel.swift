@@ -28,7 +28,7 @@ struct ImportSecretPhraseViewModel {
 	public func validate(
 		secretPhrase: String,
 		onSuccess: @escaping () -> Void,
-		onFailure: @escaping (SecretPhraseValidationError) -> Void
+		onFailure: @escaping (ImportValidationError) -> Void
 	) {
 		if pinoWalletManager.isMnemonicsValid(secretPhrase) {
 			onSuccess()

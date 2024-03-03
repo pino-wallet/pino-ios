@@ -29,7 +29,6 @@ class ImportSecretPhraseViewController: UIViewController {
 	private func setupView() {
 		importsecretPhraseView = ImportSecretPhraseView(
 			validationPharaseVM: importAccountVM,
-			textViewType: SecretPhraseTextView(),
 			importBtnTapped: { [unowned self] in
 				importWallet()
 			}
@@ -45,7 +44,7 @@ class ImportSecretPhraseViewController: UIViewController {
 				self.openAccountsPage(mnemonics: trimmedMnemonic)
 			},
 			onFailure: { validationError in
-				self.showValidationError(validationError)
+				self.showValidationError()
 			}
 		)
 	}
@@ -55,11 +54,8 @@ class ImportSecretPhraseViewController: UIViewController {
 		navigationController?.pushViewController(importAccountsVC, animated: true)
 	}
 
-	private func showValidationError(_ error: SecretPhraseValidationError) {
-		switch error {
-		case .invalidSecretPhrase:
-			importsecretPhraseView?.showError()
-			importsecretPhraseView?.activateButton()
-		}
+	private func showValidationError() {
+		importsecretPhraseView?.showError()
+		importsecretPhraseView?.activateButton()
 	}
 }
