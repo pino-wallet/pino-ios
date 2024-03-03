@@ -21,6 +21,7 @@ enum AccountingEndpoint: EndpointType {
 	case activateAccount(activateReqModel: AccountActivationRequestModel)
 	case activeAddresses(addresses: [String])
 	case activateAccountWithInviteCode(deciveID: String, inviteCode: String)
+	case validateDeviceForBeta(deviceID: String)
 	case tokenAllTime(accountADD: String, tokenID: String)
 
 	// MARK: - Internal Methods
@@ -43,7 +44,7 @@ enum AccountingEndpoint: EndpointType {
 
 	internal var task: HTTPTask {
 		switch self {
-		case .cts, .balances, .activateAccountWithInviteCode, .tokenAllTime:
+		case .cts, .balances, .activateAccountWithInviteCode, .tokenAllTime, .validateDeviceForBeta:
 			return .request
 		case let .portfolio(timeFrame, _, tokensId):
 			let urlParameters: [String: Any] = ["timeframe": timeFrame]
@@ -99,12 +100,14 @@ enum AccountingEndpoint: EndpointType {
 			return "\(endpointParent)/activate-device/\(deviceID)/\(inviteCode)"
 		case let .tokenAllTime(accountADD: accountADD, tokenID: tokenID):
 			return "user/\(accountADD)/balance/\(tokenID)/all-time"
+		case let .validateDeviceForBeta(deviceID: deviceID):
+			return "\(endpointParent)/validate-device/\(deviceID)"
 		}
 	}
 
 	internal var httpMethod: HTTPMethod {
 		switch self {
-		case .cts, .balances, .coinPerformance, .tokenAllTime:
+		case .cts, .balances, .coinPerformance, .tokenAllTime, .validateDeviceForBeta:
 			return .get
 		case .activateAccount, .activeAddresses, .activateAccountWithInviteCode, .portfolio:
 			return .post

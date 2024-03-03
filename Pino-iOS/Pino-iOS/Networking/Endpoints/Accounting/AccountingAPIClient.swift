@@ -48,9 +48,13 @@ final class AccountingAPIClient: AccountingAPIService {
 		networkManager.request(.activeAddresses(addresses: addresses))
 	}
 
-	func activateAccountWithInviteCode(inviteCode: String)
+	func activateDeviceWithInviteCode(inviteCode: String)
 		-> AnyPublisher<ActivateAccountWithInviteCodeModel, APIError> {
 		networkManager.request(.activateAccountWithInviteCode(deciveID: deviceID, inviteCode: inviteCode))
+	}
+
+	func validateDeviceForBeta() -> AnyPublisher<ValidateDeviceForBetaModel, APIError> {
+		networkManager.request(.validateDeviceForBeta(deviceID: deviceID))
 	}
 
 	func getAllTimePerformanceOf(_ tokenID: String) -> AnyPublisher<TokenAllTimePerformance, APIError> {

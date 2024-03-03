@@ -11,6 +11,7 @@ class IntroViewController: UIViewController {
 	// MARK: Private Properties
 
 	private let introVM = IntroViewModel()
+	private var introView: IntroView!
 
 	// MARK: View Overrides
 
@@ -25,7 +26,7 @@ class IntroViewController: UIViewController {
 	// MARK: Private Methods
 
 	private func setupView() {
-		let introView = IntroView(
+		introView = IntroView(
 			introVM: introVM,
 			createWallet: {
 				self.goToCreateWalletPage()
@@ -39,13 +40,40 @@ class IntroViewController: UIViewController {
 	}
 
 	private func goToCreateWalletPage() {
-		let showSecretPhrasePage = ShowSecretPhraseViewController()
-		navigationController?.pushViewController(showSecretPhrasePage, animated: true)
+		if let userCanTestBeta = introVM.userCanTestBeta {
+			if userCanTestBeta {
+				let showSecretPhrasePage = ShowSecretPhraseViewController()
+				navigationController?.pushViewController(showSecretPhrasePage, animated: true)
+			} else {
+				openInviteCodePage()
+			}
+		} else {
+			introView.showCreateWalletLoading()
+			introVM.checkBetaAvailibity { isValid in
+				self.goToImportWalletPage()
+			}
+		}
 	}
 
 	private func goToImportWalletPage() {
-		let importSecretPhrasePage = ImportSecretPhraseViewController()
-		importSecretPhrasePage.isNewWallet = true
-		navigationController?.pushViewController(importSecretPhrasePage, animated: true)
+		if let userCanTestBeta = introVM.userCanTestBeta {
+			if userCanTestBeta {
+				let importSecretPhrasePage = ImportSecretPhraseViewController()
+				importSecretPhrasePage.isNewWallet = true
+				navigationController?.pushViewController(importSecretPhrasePage, animated: true)
+			} else {
+				openInviteCodePage()
+			}
+		} else {
+			introView.showImportWalletLoading()
+			introVM.checkBetaAvailibity { isValid in
+				self.goToImportWalletPage()
+			}
+		}
+	}
+
+	private func openInviteCodePage() {
+		let inviteCodePage = EnterInviteCodeViewController()
+		present(inviteCodePage, animated: true)
 	}
 }

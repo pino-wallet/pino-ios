@@ -13,7 +13,7 @@ class IntroView: UIView {
 	private let introCollectionView = IntroCollectionView()
 	private let signinStackView = UIStackView()
 	private let createWalletButton = PinoButton(style: .active)
-	private let importWalletButton = UIButton()
+	private let importWalletButton = PinoButton(style: .clear)
 	private let pageControl = UIPageControl()
 	private var createWallet: () -> Void
 	private var importWallet: () -> Void
@@ -108,5 +108,15 @@ extension IntroView {
 			.centerX,
 			.relative(.bottom, -24, to: signinStackView, .top)
 		)
+	}
+
+	// MARK: - Public Methods
+
+	public func showCreateWalletLoading() {
+		createWalletButton.style = .loading
+	}
+
+	public func showImportWalletLoading() {
+		importWalletButton.style = .loading
 	}
 }
