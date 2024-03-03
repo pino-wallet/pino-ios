@@ -20,6 +20,7 @@ struct ImportNewAccountViewModel {
 	// MARK: - Private Properties
 
 	private let pinoWalletManager = PinoWalletManager()
+	private let coreDataManager = CoreDataManager()
 
 	// MARK: Public Methods
 
