@@ -60,42 +60,53 @@ class AddNewAccountViewController: UIViewController {
 	private func openAddNewAccountPage(option: AddNewAccountOptionModel) {
 		switch option.type {
 		case .Create:
-			// New Wallet should be created
-			// Loading should be shown
-			// Homepage in the new account should be opened
-			addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: true)
-			accountsVM.createNewAccount { [weak self] error in
-				if let error {
-					Toast.default(title: error.description, style: .error).show(haptic: .warning)
-					self?.addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: false)
-					return
-				} else {
-					self?.dismiss(animated: true)
-				}
-			}
+			createNewAccount()
 		case .Import:
-			let importWalletVC = ImportSecretPhraseViewController()
-			importWalletVC.isNewWallet = false
-			importWalletVC.addedNewWalletWithPrivateKey = { privateKey in
-				self.importAccountWithKey(privateKey) { error in
-					if let error {
-						importWalletVC.importsecretPhraseView.activateButton()
-						Toast.default(title: error.localizedDescription, style: .error).show(haptic: .warning)
-					} else {
-						self.dismiss(animated: true)
-					}
-				}
-			}
-			navigationController?.pushViewController(importWalletVC, animated: true)
+			openImportAccountPage()
 		}
 	}
 
-	private func importAccountWithKey(_ privateKey: String, completion: @escaping (WalletOperationError?) -> Void) {
-		accountsVM.importAccountWith(privateKey: privateKey) { error in
+	private func openImportAccountPage() {
+		let importWalletVC = ImportNewAccountViewController()
+		importWalletVC.newAccountDidImport = { privateKey, avatar, accountName in
+			self.importAccount(privateKey: privateKey, avatar: avatar, accountName: accountName) { error in
+				if let error {
+					importWalletVC.showValidationError(error)
+				} else {
+					self.dismiss(animated: true)
+				}
+			}
+		}
+		navigationController?.pushViewController(importWalletVC, animated: true)
+	}
+
+	private func importAccount(
+		privateKey: String,
+		avatar: Avatar,
+		accountName: String,
+		completion: @escaping (WalletOperationError?) -> Void
+	) {
+		accountsVM.importAccount(privateKey: privateKey, accountName: accountName, accountAvatar: avatar) { error in
 			if let error {
 				completion(error)
 			} else {
 				completion(nil)
+			}
+		}
+	}
+
+	private func createNewAccount() {
+		// New Wallet should be created
+		// Loading should be shown
+		// Homepage in the new account should be opened
+		addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: true)
+		accountsVM.createNewAccount { [weak self] error in
+			if let error {
+				Toast.default(title: error.description, style: .error).show(haptic: .warning)
+				self?.addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: false)
+				return
+			} else {
+				self?.dismiss(animated: true)
 			}
 		}
 	}

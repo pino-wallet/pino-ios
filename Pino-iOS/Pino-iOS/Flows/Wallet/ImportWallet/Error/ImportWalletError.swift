@@ -7,6 +7,7 @@
 
 import Foundation
 
-enum SecretPhraseValidationError: Error {
+enum ImportValidationError: Error {
 	case invalidSecretPhrase
+	case invalidPrivateKey
 }
