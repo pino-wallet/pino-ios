@@ -76,9 +76,14 @@ public class PinoButton: UIButton {
 		clipsToBounds = true
 
 		switch style {
-		case .loading, .clearLoading:
+		case .loading:
 			isEnabled = false
 			loadingView.isHidden = false
+			updateTitle(nil)
+		case .clearLoading:
+			isEnabled = false
+			loadingView.isHidden = false
+			loadingView.imageType = .primary
 			updateTitle(nil)
 		case .deactive:
 			isEnabled = false
