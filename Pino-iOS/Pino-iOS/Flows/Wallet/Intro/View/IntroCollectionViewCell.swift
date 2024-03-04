@@ -63,7 +63,7 @@ extension IntroCollectionViewCell {
 
 		contentStackView.pin(
 			.horizontalEdges(padding: 33),
-			.top(to: layoutMarginsGuide, padding: 37)
+			.top(to: layoutMarginsGuide, padding: 30)
 		)
 		introImage.pin(.fixedWidth(240), .fixedHeight(240))
 	}

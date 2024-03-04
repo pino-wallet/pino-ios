@@ -96,7 +96,7 @@ extension IntroView {
 	private func setupContstraint() {
 		introCollectionView.pin(
 			.width(to: self),
-			.relative(.bottom, -16, to: pageControl, .top),
+			.relative(.bottom, 0, to: pageControl, .top),
 			.top(to: layoutMarginsGuide),
 			.centerX
 		)

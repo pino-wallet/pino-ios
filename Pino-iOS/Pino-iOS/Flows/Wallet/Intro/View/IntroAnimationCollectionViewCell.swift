@@ -65,11 +65,11 @@ extension IntroAnimationCollectionViewCell {
 		introAnimationView.pin(
 			.horizontalEdges,
 			.top(padding: -100),
-			.bottom(padding: -70)
+            .relative(.bottom, 40, to: btmGradientView, .bottom)
 		)
 		introTitle.pin(
 			.bottom,
-			.relative(.top, -130, to: introAnimationView, .bottom),
+			.relative(.top, -106, to: introAnimationView, .bottom),
 			.centerX
 		)
 		topGradientView.pin(
@@ -80,7 +80,7 @@ extension IntroAnimationCollectionViewCell {
 		btmGradientView.pin(
 			.bottom(padding: 30),
 			.horizontalEdges,
-			.fixedHeight(150)
+			.fixedHeight(190)
 		)
 	}
 
@@ -98,7 +98,6 @@ extension IntroAnimationCollectionViewCell {
 		if introAnimationView.animation == nil {
 			introAnimationView.backgroundColor = .Pino.clear
 			introAnimationView.animation = LottieAnimation.named("IntroAnimation")
-			//        introAnimationView.configuration.renderingEngine = .
 			introAnimationView.play()
 			introAnimationView.animationSpeed = 1
 			introAnimationView.loopMode = .loop
