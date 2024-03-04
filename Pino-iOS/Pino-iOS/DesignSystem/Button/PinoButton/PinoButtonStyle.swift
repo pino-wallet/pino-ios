@@ -61,7 +61,13 @@ extension PinoButton.Style {
 
 	public static let clear = PinoButton.Style(
 		titleColor: .Pino.primary,
-		backgroundColor: .Pino.clear,
+		backgroundColor: UIColor.clear,
+		borderColor: .Pino.clear
+	)
+
+	public static let clearLoading = PinoButton.Style(
+		titleColor: .Pino.clear,
+		backgroundColor: UIColor.clear,
 		borderColor: .Pino.clear
 	)
 

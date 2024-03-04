@@ -52,9 +52,12 @@ public class PinoTextFieldView: UIView {
 //	}
 
 	public var text: String? {
-		didSet {
-			textField.text = text
+		set {
+			textField.text = newValue
 			textField.font = .PinoStyle.mediumBody
+		}
+		get {
+			textField.text
 		}
 	}
 

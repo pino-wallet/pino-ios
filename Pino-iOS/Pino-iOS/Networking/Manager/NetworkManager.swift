@@ -95,7 +95,7 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 			} else if statusCode == 404 {
 				throw APIError.notFound
 			} else {
-				throw APIError.failedRequest
+				throw APIError.failedWith(statusCode: statusCode)
 			}
 		}
 		print("SUCCESS:------------------")

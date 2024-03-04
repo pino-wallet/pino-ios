@@ -73,18 +73,12 @@ extension IntroView {
 
 	private func setupStyle() {
 		createWalletButton.title = introVM.createButtonTitle
-		importWalletButton.setTitle(introVM.importButtonTitle, for: .normal)
+		importWalletButton.title = introVM.importButtonTitle
 
 		backgroundColor = .Pino.secondaryBackground
 
-		importWalletButton.setTitleColor(.Pino.primary, for: .normal)
-
-		importWalletButton.titleLabel?.font = .PinoStyle.semiboldBody
-
 		signinStackView.axis = .vertical
-
 		signinStackView.spacing = 36
-
 		signinStackView.alignment = .fill
 
 		pageControl.numberOfPages = introVM.contentList.count
@@ -117,6 +111,11 @@ extension IntroView {
 	}
 
 	public func showImportWalletLoading() {
-		importWalletButton.style = .loading
+		importWalletButton.style = .clearLoading
+	}
+
+	public func resetButtonsStatus() {
+		createWalletButton.style = .active
+		importWalletButton.style = .clear
 	}
 }

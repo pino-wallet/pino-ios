@@ -10,7 +10,7 @@ import UIKit
 public class PinoButton: UIButton {
 	// MARK: - Private properties
 
-	private var loadingView = PinoLoading(size: 22, imageType: .secondary)
+	private var loadingView = PinoLoading(size: 22, imageType: .primary)
 
 	// MARK: - Public properties
 
@@ -76,7 +76,7 @@ public class PinoButton: UIButton {
 		clipsToBounds = true
 
 		switch style {
-		case .loading:
+		case .loading, .clearLoading:
 			isEnabled = false
 			loadingView.isHidden = false
 			updateTitle(nil)

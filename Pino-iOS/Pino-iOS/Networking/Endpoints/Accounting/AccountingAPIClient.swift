@@ -19,7 +19,12 @@ final class AccountingAPIClient: AccountingAPIService {
 	}
 
 	private var deviceID: String {
-		UIDevice.current.identifierForVendor!.uuidString
+		let cloudKitManager = CloudKitKeyStoreManager(key: "inviteCode")
+		if let deviceID = cloudKitManager.getValue() {
+			return deviceID
+		} else {
+			return UIDevice.current.identifierForVendor!.uuidString
+		}
 	}
 
 	// MARK: - Public Methods

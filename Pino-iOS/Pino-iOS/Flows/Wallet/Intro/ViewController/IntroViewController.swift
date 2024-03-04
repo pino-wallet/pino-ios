@@ -19,6 +19,11 @@ class IntroViewController: UIViewController {
 		super.viewDidLoad()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		introVM.checkBetaAvailibity()
+	}
+
 	override func loadView() {
 		setupView()
 	}
@@ -50,6 +55,7 @@ class IntroViewController: UIViewController {
 		} else {
 			introView.showCreateWalletLoading()
 			introVM.checkBetaAvailibity { isValid in
+				self.introView.resetButtonsStatus()
 				self.goToImportWalletPage()
 			}
 		}
@@ -67,6 +73,7 @@ class IntroViewController: UIViewController {
 		} else {
 			introView.showImportWalletLoading()
 			introVM.checkBetaAvailibity { isValid in
+				self.introView.resetButtonsStatus()
 				self.goToImportWalletPage()
 			}
 		}

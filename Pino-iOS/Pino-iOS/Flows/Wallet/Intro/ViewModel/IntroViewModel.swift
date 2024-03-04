@@ -25,7 +25,6 @@ class IntroViewModel {
 
 	init() {
 		setupIntroContentList()
-		checkBetaAvailibity()
 	}
 
 	// MARK: - Private Methods
