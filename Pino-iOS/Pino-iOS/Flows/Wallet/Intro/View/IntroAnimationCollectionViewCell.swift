@@ -65,7 +65,7 @@ extension IntroAnimationCollectionViewCell {
 		introAnimationView.pin(
 			.horizontalEdges,
 			.top(padding: -100),
-            .relative(.bottom, 40, to: btmGradientView, .bottom)
+			.relative(.bottom, 40, to: btmGradientView, .bottom)
 		)
 		introTitle.pin(
 			.bottom,
