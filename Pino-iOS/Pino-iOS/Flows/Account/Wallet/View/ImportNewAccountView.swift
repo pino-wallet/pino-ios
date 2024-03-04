@@ -18,33 +18,36 @@ class ImportNewAccountView: UIView {
 	private let accountAvatarImageView = UIImageView()
 	private let setAvatarButton = UILabel()
 	private let accountNameTextField = PinoTextFieldView(pattern: nil)
-	private let descriptionLabel = PinoLabel(style: .description, text: nil)
+	private let importTextView = PrivateKeyTextView()
 	private let importPrivateKeyStackView = UIStackView()
 	private let privateKeyCardView = UIView()
 	private let privateKeyPasteButton = UIButton()
 	private let importTextViewDescription = UILabel()
-	private var importAccountVM: ImportNewAccountViewModel
+	private let importButtonStackView = UIStackView()
 	private let importButton = PinoButton(style: .deactive)
+	private let pageDescriptionLabel = PinoLabel(style: .description, text: nil)
+	private let importAccountVM: ImportNewAccountViewModel
 	private var cancellables = Set<AnyCancellable>()
+
+	private let importButtonDidTap: () -> Void
+	private let changeAvatarDidTap: () -> Void
 
 	// MARK: - Public Properties
 
-	public let errorStackView = UIStackView()
-	public let importTextView = PrivateKeyTextView()
 	public var textViewText: String {
 		importTextView.textViewText
 	}
-
-	public let importBtnTapped: () -> Void
 
 	// MARK: - Initializers
 
 	init(
 		importAccountVM: ImportNewAccountViewModel,
-		importBtnTapped: @escaping () -> Void
+		importButtonDidTap: @escaping () -> Void,
+		changeAvatarDidTap: @escaping () -> Void
 	) {
 		self.importAccountVM = importAccountVM
-		self.importBtnTapped = importBtnTapped
+		self.importButtonDidTap = importButtonDidTap
+		self.changeAvatarDidTap = changeAvatarDidTap
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -70,8 +73,10 @@ class ImportNewAccountView: UIView {
 		importPrivateKeyStackView.addArrangedSubview(importTextViewDescription)
 		privateKeyCardView.addSubview(importTextView)
 		privateKeyCardView.addSubview(privateKeyPasteButton)
+		importButtonStackView.addArrangedSubview(importButton)
+		importButtonStackView.addArrangedSubview(pageDescriptionLabel)
 		addSubview(contentStackView)
-		addSubview(importButton)
+		addSubview(importButtonStackView)
 
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
 		let setAccountAvatarTapGesture = UITapGestureRecognizer(target: self, action: #selector(setNewAvatar))
@@ -86,7 +91,7 @@ class ImportNewAccountView: UIView {
 		}
 
 		importButton.addAction(UIAction(handler: { _ in
-			self.importBtnTapped()
+			self.importButtonDidTap()
 		}), for: .touchUpInside)
 
 		accountNameTextField.textDidChange = {
@@ -101,11 +106,12 @@ class ImportNewAccountView: UIView {
 		accountNameTextField.text = importAccountVM.accountName
 		accountNameTextField.placeholderText = importAccountVM.accountNamePlaceHolder
 		importTextViewDescription.text = importAccountVM.textViewDescription
-		descriptionLabel.text = importAccountVM.pageDeescription
+		pageDescriptionLabel.text = importAccountVM.pageDeescription
 		importButton.title = importAccountVM.continueButtonTitle
 		privateKeyPasteButton.setTitle(importAccountVM.pasteButtonTitle, for: .normal)
 
-		backgroundColor = .Pino.secondaryBackground
+		backgroundColor = .Pino.background
+		privateKeyCardView.backgroundColor = .Pino.secondaryBackground
 
 		setAvatarButton.textColor = .Pino.primary
 		importTextViewDescription.textColor = .Pino.secondaryLabel
@@ -114,20 +120,26 @@ class ImportNewAccountView: UIView {
 		setAvatarButton.font = .PinoStyle.mediumBody
 		importTextViewDescription.font = .PinoStyle.mediumCaption1
 		privateKeyPasteButton.titleLabel?.font = .PinoStyle.semiboldCallout
+		pageDescriptionLabel.font = .PinoStyle.mediumFootnote
+
+		pageDescriptionLabel.textAlignment = .center
 
 		contentStackView.axis = .horizontal
 		accountInfoStackView.axis = .vertical
 		accountAvatarStackView.axis = .vertical
 		importPrivateKeyStackView.axis = .vertical
 		contentStackView.axis = .vertical
+		importButtonStackView.axis = .vertical
 
 		contentStackView.spacing = 24
 		accountInfoStackView.spacing = 32
 		accountAvatarStackView.spacing = 8
 		importPrivateKeyStackView.spacing = 8
+		importButtonStackView.spacing = 12
 
 		accountAvatarStackView.alignment = .center
 		importPrivateKeyStackView.alignment = .leading
+		importButtonStackView.alignment = .center
 
 		avatarBackgroundView.layer.cornerRadius = 44
 		privateKeyCardView.layer.cornerRadius = 8
@@ -149,7 +161,7 @@ class ImportNewAccountView: UIView {
 		)
 		importTextView.pin(
 			.top(padding: 12),
-			.horizontalEdges(padding: 12)
+			.horizontalEdges(padding: 14)
 		)
 		privateKeyPasteButton.pin(
 			.relative(.top, 8, to: importTextView, .bottom),
@@ -157,12 +169,18 @@ class ImportNewAccountView: UIView {
 			.trailing(padding: 8)
 		)
 		privateKeyCardView.pin(
-			.fixedHeight(160),
+			.fixedHeight(132),
 			.width
 		)
-		importButton.pin(
-			.bottom(to: layoutMarginsGuide, padding: 8),
+		importButtonStackView.pin(
+			.bottom(to: layoutMarginsGuide, padding: 4),
 			.horizontalEdges(padding: 16)
+		)
+		importButton.pin(
+			.horizontalEdges
+		)
+		pageDescriptionLabel.pin(
+			.horizontalEdges(padding: 8)
 		)
 	}
 
@@ -198,7 +216,9 @@ class ImportNewAccountView: UIView {
 	}
 
 	@objc
-	private func setNewAvatar() {}
+	private func setNewAvatar() {
+		changeAvatarDidTap()
+	}
 
 	private func activateImportButton(_ isActive: Bool) {
 		if isActive, importAccountVM.accountName != .emptyString {

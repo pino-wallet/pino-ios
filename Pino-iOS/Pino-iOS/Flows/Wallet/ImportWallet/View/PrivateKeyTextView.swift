@@ -82,14 +82,14 @@ class PrivateKeyTextView: UIView {
 	private func setupConstraint() {
 		privateKeyTextView.pin(
 			.verticalEdges,
-			.trailing(padding: 50),
+			.trailing(padding: 32),
 			.leading
 		)
 		validationStatusView.pin(
 			.fixedWidth(24),
 			.fixedHeight(24),
 			.trailing,
-			.top
+			.top(padding: 5)
 		)
 	}
 }

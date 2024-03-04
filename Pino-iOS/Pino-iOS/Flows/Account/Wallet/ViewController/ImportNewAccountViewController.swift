@@ -31,8 +31,11 @@ class ImportNewAccountViewController: UIViewController {
 	private func setupView() {
 		importAccountView = ImportNewAccountView(
 			importAccountVM: importAccountVM,
-			importBtnTapped: { [unowned self] in
+			importButtonDidTap: {
 				self.importWallet()
+			},
+			changeAvatarDidTap: {
+				self.openAvatarPage()
 			}
 		)
 		view = importAccountView
@@ -50,6 +53,14 @@ class ImportNewAccountViewController: UIViewController {
 				self.showValidationError(validationError)
 			}
 		)
+	}
+
+	private func openAvatarPage() {
+		let avatarVM = AvatarViewModel(selectedAvatar: importAccountVM.accountAvatar.rawValue)
+		let changeAvatarVC = ChangeAvatarViewController(avatarVM: avatarVM) { [weak self] avatarName in
+			self?.importAccountVM.accountAvatar = Avatar(rawValue: avatarName)!
+		}
+		navigationController?.pushViewController(changeAvatarVC, animated: true)
 	}
 
 	// MARK: - Public Methods
