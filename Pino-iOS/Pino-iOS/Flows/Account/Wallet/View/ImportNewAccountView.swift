@@ -231,5 +231,6 @@ class ImportNewAccountView: UIView {
 	@objc
 	private func dissmisskeyBoard() {
 		importTextView.endEditing(true)
+		accountNameTextField.endEditing(true)
 	}
 }
