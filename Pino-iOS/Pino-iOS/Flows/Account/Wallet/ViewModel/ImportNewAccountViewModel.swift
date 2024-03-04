@@ -26,7 +26,7 @@ class ImportNewAccountViewModel {
 	public var accountName = Avatar.avocado.name
 
 	@Published
-	public var validationStatus: ValidationStatus = .normal
+	public var validationStatus: ValidationStatus = .empty
 
 	// MARK: - Private Properties
 
@@ -49,22 +49,22 @@ class ImportNewAccountViewModel {
 
 	public func validatePrivateKey(_ privateKey: String) {
 		guard privateKey != .emptyString else {
-			validationStatus = .normal
+			validationStatus = .empty
 			return
 		}
 		if pinoWalletManager.isPrivatekeyValid(privateKey) {
-			validationStatus = .success
+			validationStatus = .validKey
 		} else {
-			validationStatus = .error
+			validationStatus = .invalidKey
 		}
 	}
 }
 
 extension ImportNewAccountViewModel {
 	public enum ValidationStatus: Equatable {
-		case error
-		case success
-		case normal
-		case loading
+		case empty
+		case validKey
+		case invalidKey
+		case invalidAccount
 	}
 }

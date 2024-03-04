@@ -88,6 +88,12 @@ class ImportNewAccountView: UIView {
 		importButton.addAction(UIAction(handler: { _ in
 			self.importBtnTapped()
 		}), for: .touchUpInside)
+
+		accountNameTextField.textDidChange = {
+			let accountName = self.accountNameTextField.getText() ?? .emptyString
+			self.importAccountVM.accountName = accountName
+			self.updateValidationState(self.importAccountVM.validationStatus)
+		}
 	}
 
 	private func setupStyle() {
@@ -162,24 +168,7 @@ class ImportNewAccountView: UIView {
 
 	private func setupBindings() {
 		importAccountVM.$validationStatus.sink { validationStatus in
-			switch validationStatus {
-			case .normal:
-				self.importButton.setTitle(self.importAccountVM.continueButtonTitle, for: .normal)
-				self.importButton.style = .deactive
-				self.importTextView.hideValidationView()
-			case .loading:
-				self.importButton.setTitle(self.importAccountVM.continueButtonTitle, for: .normal)
-				self.importButton.style = .deactive
-				self.importTextView.hideValidationView()
-			case .error:
-				self.importButton.setTitle(self.importAccountVM.InvalidTitle, for: .normal)
-				self.importButton.style = .deactive
-				self.importTextView.showError()
-			case .success:
-				self.importButton.setTitle(self.importAccountVM.continueButtonTitle, for: .normal)
-				self.importButton.style = .active
-				self.importTextView.showSuccess()
-			}
+			self.updateValidationState(validationStatus)
 		}.store(in: &cancellables)
 
 		importAccountVM.$accountAvatar.sink { accountAvatar in
@@ -188,21 +177,39 @@ class ImportNewAccountView: UIView {
 		}.store(in: &cancellables)
 	}
 
+	private func updateValidationState(_ validationStatus: ImportNewAccountViewModel.ValidationStatus) {
+		switch validationStatus {
+		case .empty:
+			importButton.setTitle(importAccountVM.continueButtonTitle, for: .normal)
+			activateImportButton(false)
+			importTextView.hideValidationView()
+		case .validKey:
+			importButton.setTitle(importAccountVM.continueButtonTitle, for: .normal)
+			activateImportButton(true)
+			importTextView.showSuccess()
+		case .invalidKey:
+			importButton.setTitle(importAccountVM.InvalidTitle, for: .normal)
+			activateImportButton(false)
+			importTextView.showError()
+		case .invalidAccount:
+			importButton.setTitle(importAccountVM.continueButtonTitle, for: .normal)
+			activateImportButton(true)
+		}
+	}
+
 	@objc
 	private func setNewAvatar() {}
+
+	private func activateImportButton(_ isActive: Bool) {
+		if isActive, importAccountVM.accountName != .emptyString {
+			importButton.style = .active
+		} else {
+			importButton.style = .deactive
+		}
+	}
 
 	@objc
 	private func dissmisskeyBoard() {
 		importTextView.endEditing(true)
-	}
-
-	// MARK: - Public Methods
-
-	public func activateButton() {
-		importButton.style = .active
-	}
-
-	public func showError() {
-		importTextView.showError()
 	}
 }

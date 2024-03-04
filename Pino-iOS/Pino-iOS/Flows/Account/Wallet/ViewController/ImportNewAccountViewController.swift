@@ -47,13 +47,15 @@ class ImportNewAccountViewController: UIViewController {
 				newAccountDidImport(privateKey, importAccountVM.accountAvatar, importAccountVM.accountName)
 			},
 			onFailure: { validationError in
-				self.showValidationError()
+				self.showValidationError(validationError)
 			}
 		)
 	}
 
-	private func showValidationError() {
-		importAccountView?.showError()
-		importAccountView?.activateButton()
+	// MARK: - Public Methods
+
+	public func showValidationError(_ error: Error) {
+		importAccountVM.validationStatus = .invalidAccount
+		Toast.default(title: error.localizedDescription, style: .error).show(haptic: .warning)
 	}
 }

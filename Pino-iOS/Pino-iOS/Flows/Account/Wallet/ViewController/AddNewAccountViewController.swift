@@ -71,8 +71,7 @@ class AddNewAccountViewController: UIViewController {
 		importWalletVC.newAccountDidImport = { privateKey, avatar, accountName in
 			self.importAccount(privateKey: privateKey, avatar: avatar, accountName: accountName) { error in
 				if let error {
-					importWalletVC.importAccountView.activateButton()
-					Toast.default(title: error.localizedDescription, style: .error).show(haptic: .warning)
+					importWalletVC.showValidationError(error)
 				} else {
 					self.dismiss(animated: true)
 				}
