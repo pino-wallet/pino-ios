@@ -25,6 +25,9 @@ class ImportAccountsViewModel {
 
 	public let pageTitle = "Import account"
 	public var pageDescription: String {
+		if accounts.first(where: { $0.isNewWallet }) != nil {
+			return "You have no account with activity. Try to import some new one."
+		}
 		if accounts.count > 1 {
 			return "We found \(accounts.count) accounts with activity"
 		} else {
@@ -149,7 +152,7 @@ class ImportAccountsViewModel {
 			}.then { account in
 				self.accountActivationVM.activateNewAccountAddress(account).map { (account, $0) }
 			}.done { account, _ in
-				seal.fulfill(ActiveAccountViewModel(account: account, balance: "0", isNewWallet: true))
+				seal.fulfill(ActiveAccountViewModel(account: account, balance: nil, isNewWallet: true))
 			}.catch { error in
 				seal.reject(error)
 			}
