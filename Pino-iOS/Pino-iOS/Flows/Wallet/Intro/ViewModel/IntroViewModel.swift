@@ -7,6 +7,7 @@
 // swiftlint: disable trailing_comma
 
 import Combine
+import UIKit
 
 class IntroViewModel {
 	// MARK: - Public Properties
@@ -57,6 +58,11 @@ class IntroViewModel {
 	// MARK: - Public Methods
 
 	public func checkBetaAvailibity(completion: ((Bool) -> Void)? = nil) {
+		if UIDevice.current.isSimulator {
+			userCanTestBeta = true
+			completion?(true)
+			return
+		}
 		accountingClient.validateDeviceForBeta().sink { completed in
 			switch completed {
 			case .finished:
