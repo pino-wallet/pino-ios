@@ -40,14 +40,21 @@ public struct ActiveAccountViewModel: Equatable {
 		account.publicKey.hex()
 	}
 
-	public var isSelected = false
+	public var isSelected: Bool
+	public var isNewWallet: Bool
 	public var balance: String
 
 	// MARK: - Initializers
 
-	init(account: Account, balance: String) {
+	init(account: Account, balance: String, isNewWallet: Bool = false) {
 		self.account = account
 		self.balance = balance
+		self.isNewWallet = isNewWallet
+		if isNewWallet {
+			self.isSelected = true
+		} else {
+			self.isSelected = false
+		}
 	}
 
 	// MARK: - Public Methods

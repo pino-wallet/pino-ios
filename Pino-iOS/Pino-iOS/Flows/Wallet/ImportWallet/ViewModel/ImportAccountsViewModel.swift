@@ -71,52 +71,96 @@ class ImportAccountsViewModel {
 		return account
 	}
 
-	private func getActiveAddresses(accountAddresses: [String], completion: @escaping (Result<[String]>) -> Void) {
-		accountingAPIClient.activeAddresses(addresses: accountAddresses)
-			.sink { completed in
-				switch completed {
-				case .finished:
-					print("Accounts received successfully")
-				case let .failure(error):
-					print("Error getting accounts:\(error)")
-					completion(.rejected(error))
-				}
-			} receiveValue: { accounts in
-				print("Active accounts: \(accounts)")
-				completion(.fulfilled(accounts.addresses))
-			}.store(in: &cancellables)
-	}
-
-	private func getAccountsBalance(of accounts: [Account], completion: @escaping ([ActiveAccountViewModel]) -> Void) {
-		let promises = accounts.compactMap { account in
-			Web3Core.shared.getETHBalance(of: account.eip55Address).map {
-				ActiveAccountViewModel(account: account, balance: $0)
-			}
-		}
-		when(fulfilled: promises).done { accountsVM in
-			completion(accountsVM)
-		}.catch { error in
+	private func getActiveAddresses(accountAddresses: [String]) -> Promise<[String]> {
+		Promise<[String]> { seal in
+			accountingAPIClient.activeAddresses(addresses: accountAddresses)
+				.sink { completed in
+					switch completed {
+					case .finished:
+						print("Accounts received successfully")
+					case let .failure(error):
+						print("Error getting accounts:\(error)")
+						seal.reject(error)
+					}
+				} receiveValue: { accounts in
+					print("Active accounts: \(accounts)")
+					seal.fulfill(accounts.addresses)
+				}.store(in: &cancellables)
 		}
 	}
 
-	private func setupActiveAccounts(createdAccounts: [Account], completion: @escaping (Error?) -> Void) {
-		let accountAddresses = createdAccounts.map { $0.eip55Address.lowercased() }
-		getActiveAddresses(accountAddresses: accountAddresses) { result in
-			switch result {
-			case let .fulfilled(activeAccountAddresses):
-				let activeAccounts = createdAccounts.filter {
-					activeAccountAddresses.contains($0.eip55Address.lowercased())
+	private func getAccountsBalance(of accounts: [Account]) -> Promise<[ActiveAccountViewModel]> {
+		Promise<[ActiveAccountViewModel]> { seal in
+			let promises = accounts.compactMap { account in
+				Web3Core.shared.getETHBalance(of: account.eip55Address).map {
+					ActiveAccountViewModel(account: account, balance: $0)
 				}
-				self.getAccountsBalance(of: activeAccounts) { accountsVM in
-					self.accounts = self.accounts! + accountsVM
-					completion(nil)
-				}
-				if !activeAccounts.compactMap({ $0.eip55Address }).contains(createdAccounts.last!.eip55Address) {
-					self.lastAccountIndex = nil
-				}
-			case let .rejected(error):
-				completion(error)
 			}
+			when(fulfilled: promises).done { accountsVM in
+				seal.fulfill(accountsVM)
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+//	private func setupActiveAccounts(createdAccounts: [Account], completion: @escaping (Error?) -> Void) {
+//		let accountAddresses = createdAccounts.map { $0.eip55Address.lowercased() }
+//		getActiveAddresses(accountAddresses: accountAddresses) { result in
+//			switch result {
+//			case let .fulfilled(activeAccountAddresses):
+//				let activeAccounts = createdAccounts.filter {
+//					activeAccountAddresses.contains($0.eip55Address.lowercased())
+//				}
+//				self.getAccountsBalance(of: activeAccounts) { accountsVM in
+	//                    self.updateAccountsList(accountsVM) { error in
+	//                        completion(error)
+	//                    }
+//				}
+//				if !activeAccounts.compactMap({ $0.eip55Address }).contains(createdAccounts.last!.eip55Address) {
+//					self.lastAccountIndex = nil
+//				}
+//			case let .rejected(error):
+//				completion(error)
+//			}
+//		}
+//	}
+
+	private func setupActiveAccounts(createdAccounts: [Account]) -> Promise<[ActiveAccountViewModel]> {
+		firstly {
+			let accountAddresses = createdAccounts.map { $0.eip55Address.lowercased() }
+			return getActiveAddresses(accountAddresses: accountAddresses)
+		}.then { activeAddressses in
+			let activeAccounts = createdAccounts.filter {
+				activeAddressses.contains($0.eip55Address.lowercased())
+			}
+			if !activeAccounts.compactMap({ $0.eip55Address }).contains(createdAccounts.last!.eip55Address) {
+				self.lastAccountIndex = nil
+			}
+			return self.getAccountsBalance(of: activeAccounts)
+		}.then { activeAccounts in
+			self.updateAccountsList(activeAccounts)
+		}
+	}
+
+	private func updateAccountsList(_ activeAccounts: [ActiveAccountViewModel]) -> Promise<[ActiveAccountViewModel]> {
+		Promise<[ActiveAccountViewModel]> { seal in
+			self.accounts = self.accounts! + activeAccounts
+			if self.accounts!.isEmpty {
+				createNewAccount().done { newCreatedAccount in
+					self.accounts = [newCreatedAccount]
+					seal.fulfill(self.accounts!)
+				}.catch { error in
+					seal.reject(error)
+				}
+			} else {
+				seal.fulfill(self.accounts!)
+			}
+		}
+	}
+
+	private func createNewAccount() -> Promise<ActiveAccountViewModel> {
+		Promise<ActiveAccountViewModel> { seal in
 		}
 	}
 

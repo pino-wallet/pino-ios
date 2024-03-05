@@ -18,6 +18,9 @@ public class ImportAccountCell: UICollectionViewCell {
 	private let accountName = UILabel()
 	private let accountBalance = UILabel()
 	private let accountAddress = UILabel()
+	private let accountNameStackView = UIStackView()
+	private let newAccountTagView = UIView()
+	private let newAccountTagLabel = UILabel()
 
 	// MARK: Public Properties
 
@@ -45,9 +48,12 @@ public class ImportAccountCell: UICollectionViewCell {
 		accountInfoStackView.addArrangedSubview(accountIconBackgroundView)
 		accountInfoStackView.addArrangedSubview(titleStackView)
 		accountInfoStackView.addArrangedSubview(accountAddress)
-		titleStackView.addArrangedSubview(accountName)
+		titleStackView.addArrangedSubview(accountNameStackView)
 		titleStackView.addArrangedSubview(accountBalance)
 		accountIconBackgroundView.addSubview(accountIcon)
+		accountNameStackView.addArrangedSubview(accountName)
+		accountNameStackView.addArrangedSubview(newAccountTagView)
+		newAccountTagView.addSubview(newAccountTagLabel)
 	}
 
 	private func setupStyle() {
@@ -55,17 +61,21 @@ public class ImportAccountCell: UICollectionViewCell {
 		accountBalance.text = accountVM.balance
 		accountAddress.text = accountVM.address.shortenedString(characterCountFromStart: 4, characterCountFromEnd: 4)
 		accountIcon.image = UIImage(named: accountVM.profileImage)
+		newAccountTagLabel.text = "New"
 
 		accountIconBackgroundView.backgroundColor = UIColor(named: accountVM.profileColor)
 		accountCardView.backgroundColor = .Pino.secondaryBackground
+		newAccountTagView.backgroundColor = .Pino.green
 
 		accountName.textColor = .Pino.label
 		accountBalance.textColor = .Pino.secondaryLabel
 		accountAddress.textColor = .Pino.label
+		newAccountTagLabel.textColor = .Pino.white
 
 		accountName.font = .PinoStyle.mediumCallout
 		accountBalance.font = .PinoStyle.mediumFootnote
 		accountAddress.font = .PinoStyle.mediumCallout
+		newAccountTagLabel.font = .PinoStyle.semiboldFootnote
 
 		titleStackView.axis = .vertical
 		accountInfoStackView.axis = .horizontal
@@ -75,11 +85,19 @@ public class ImportAccountCell: UICollectionViewCell {
 
 		titleStackView.spacing = 4
 		accountInfoStackView.spacing = 12
+		accountNameStackView.spacing = 3
 
 		accountCardView.layer.cornerRadius = 12
 		accountIconBackgroundView.layer.cornerRadius = 22
 		accountCardView.layer.borderWidth = 1
+		newAccountTagView.layer.cornerRadius = 11
 		updateStyle()
+
+		if accountVM.isNewWallet {
+			newAccountTagView.isHiddenInStackView = false
+		} else {
+			newAccountTagView.isHiddenInStackView = true
+		}
 	}
 
 	private func setupConstraint() {
@@ -104,6 +122,14 @@ public class ImportAccountCell: UICollectionViewCell {
 		)
 		accountName.pin(
 			.fixedHeight(24)
+		)
+		newAccountTagView.pin(
+			.fixedHeight(22),
+			.fixedWidth(40)
+		)
+		newAccountTagLabel.pin(
+			.centerX,
+			.centerY
 		)
 	}
 
