@@ -15,8 +15,8 @@ struct CloudKitKeyStoreManager {
 
 	// MARK: - Public Init
 
-    public init(key: CloudKitKeyStoreManager.Keys) {
-        self.key = key.rawValue
+	public init(key: CloudKitKeyStoreManager.Keys) {
+		self.key = key.rawValue
 	}
 
 	// MARK: - Public Methods
@@ -36,9 +36,7 @@ struct CloudKitKeyStoreManager {
 }
 
 extension CloudKitKeyStoreManager {
-    
-    public enum Keys: String {
-        case inviteCode
-    }
-    
+	public enum Keys: String {
+		case inviteCode
+	}
 }

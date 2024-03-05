@@ -27,7 +27,7 @@ class EnterInviteCodeViewModel {
 
 	private let accountingAPI = AccountingAPIClient()
 	private var cancellables = Set<AnyCancellable>()
-    private let cloudKitKeyManager = CloudKitKeyStoreManager(key: .inviteCode)
+	private let cloudKitKeyManager = CloudKitKeyStoreManager(key: .inviteCode)
 
 	// MARK: - Public Methods
 
@@ -52,16 +52,16 @@ class EnterInviteCodeViewModel {
 			self.saveDeviceID()
 		}.store(in: &cancellables)
 	}
-    
-    public func isIcloudAvailable() -> Bool {
-        // Request iCloud token
-        let token = FileManager.default.ubiquityIdentityToken
-        if token == nil {
-            return false
-        } else {
-            return true
-        }
-    }
+
+	public func isIcloudAvailable() -> Bool {
+		// Request iCloud token
+		let token = FileManager.default.ubiquityIdentityToken
+		if token == nil {
+			return false
+		} else {
+			return true
+		}
+	}
 
 	// MARK: - Private Methods
 
@@ -72,11 +72,9 @@ class EnterInviteCodeViewModel {
 }
 
 extension EnterInviteCodeViewModel {
-    
-    public enum InviteCodeStatus: Int {
-        case sucess = 200
-        case notFound = 404
-        case alreadyUsed = 409
-    }
-    
+	public enum InviteCodeStatus: Int {
+		case sucess = 200
+		case notFound = 404
+		case alreadyUsed = 409
+	}
 }

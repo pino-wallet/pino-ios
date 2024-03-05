@@ -78,8 +78,8 @@ class IntroViewController: UIViewController {
 		}
 	}
 
-    private func openInviteCodePage() {
-        let inviteCodePage = EnterInviteCodeViewController()
-        present(inviteCodePage, animated: true)
-    }
+	private func openInviteCodePage() {
+		let inviteCodePage = EnterInviteCodeViewController()
+		present(inviteCodePage, animated: true)
+	}
 }

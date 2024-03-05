@@ -10,7 +10,7 @@ import UIKit
 public class PinoButton: UIButton {
 	// MARK: - Private properties
 
-	private var loadingView = PinoLoading(size: 22, imageType: .primary)
+	private var loadingView = PinoLoading(size: 22, imageType: .secondary)
 
 	// MARK: - Public properties
 
