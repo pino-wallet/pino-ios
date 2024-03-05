@@ -19,7 +19,7 @@ final class AccountingAPIClient: AccountingAPIService {
 	}
 
 	private var deviceID: String {
-		let cloudKitManager = CloudKitKeyStoreManager(key: "inviteCode")
+        let cloudKitManager = CloudKitKeyStoreManager(key: .inviteCode)
 		if let deviceID = cloudKitManager.getValue() {
 			return deviceID
 		} else {
@@ -59,7 +59,7 @@ final class AccountingAPIClient: AccountingAPIService {
 	}
 
 	func validateDeviceForBeta() -> AnyPublisher<ValidateDeviceForBetaModel, APIError> {
-		networkManager.request(.validateDeviceForBeta(deviceID: deviceID))
+		networkManager.request(.validateDeviceForBeta(deviceID: "deviceID"))
 	}
 
 	func getAllTimePerformanceOf(_ tokenID: String) -> AnyPublisher<TokenAllTimePerformance, APIError> {

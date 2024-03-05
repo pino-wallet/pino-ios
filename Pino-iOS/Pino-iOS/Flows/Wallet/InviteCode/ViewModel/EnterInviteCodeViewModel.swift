@@ -20,12 +20,6 @@ class EnterInviteCodeViewModel {
 	public let codePlaceHolder = "CODE"
 	public let invalidCodeError = "Invalid code!"
 
-	public enum InviteCodeStatus: Int {
-		case sucess = 200
-		case notFound = 404
-		case alreadyUsed = 409
-	}
-
 	@Published
 	public var inviteCodeStatus: InviteCodeStatus?
 
@@ -33,7 +27,7 @@ class EnterInviteCodeViewModel {
 
 	private let accountingAPI = AccountingAPIClient()
 	private var cancellables = Set<AnyCancellable>()
-	private let cloudKitKeyManager = CloudKitKeyStoreManager(key: "inviteCode")
+    private let cloudKitKeyManager = CloudKitKeyStoreManager(key: .inviteCode)
 
 	// MARK: - Public Methods
 
@@ -58,6 +52,16 @@ class EnterInviteCodeViewModel {
 			self.saveDeviceID()
 		}.store(in: &cancellables)
 	}
+    
+    public func isIcloudAvailable() -> Bool {
+        // Request iCloud token
+        let token = FileManager.default.ubiquityIdentityToken
+        if token == nil {
+            return false
+        } else {
+            return true
+        }
+    }
 
 	// MARK: - Private Methods
 
@@ -65,4 +69,14 @@ class EnterInviteCodeViewModel {
 		let deviceID = UIDevice.current.identifierForVendor!.uuidString
 		cloudKitKeyManager.setValue(deviceID)
 	}
+}
+
+extension EnterInviteCodeViewModel {
+    
+    public enum InviteCodeStatus: Int {
+        case sucess = 200
+        case notFound = 404
+        case alreadyUsed = 409
+    }
+    
 }

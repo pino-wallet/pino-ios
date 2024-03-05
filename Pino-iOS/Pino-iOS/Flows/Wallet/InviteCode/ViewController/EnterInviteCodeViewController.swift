@@ -30,6 +30,14 @@ class EnterInviteCodeViewController: UIViewController {
 
 		// Do any additional setup after loading the view.
 	}
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !enterInviteCodeVM.isIcloudAvailable() {
+            let icloudAlert = AlertHelper.alertController(title: "Warning", message: "To use beta you should enable iCloud in your phone", actions: [.ok()])
+            present(icloudAlert, animated: true)
+        }
+    }
 
 	override func loadView() {
 		setupView()

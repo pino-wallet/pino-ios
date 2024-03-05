@@ -8,38 +8,10 @@
 struct ImportSecretPhraseViewModel {
 	// MARK: - Public Properties
 
-	public var title: String {
-		if isNewWallet {
-			return "Import secret phrase"
-		} else {
-			return "Import private key"
-		}
-	}
-
-	public var description: String {
-		if isNewWallet {
-			return "Typically 12 words separated by single spaces"
-		} else {
-			return "Typically 64 charecters"
-		}
-	}
-
-	public var textViewPlaceholder: String {
-		if isNewWallet {
-			return "Secret phrase"
-		} else {
-			return "Private Key"
-		}
-	}
-
-	public var errorTitle: String {
-		if isNewWallet {
-			return "Invalid Secret Phrase"
-		} else {
-			return "Invalid Private Key"
-		}
-	}
-
+	public var title = "Import secret phrase"
+	public var description = "Typically 12 words separated by single spaces"
+	public var textViewPlaceholder = "Secret phrase"
+	public var errorTitle = "Invalid Secret Phrase"
 	public let pasteButtonTitle = "Paste"
 	public let errorIcon = "exclamationmark.circle.fill"
 	public let continueButtonTitle = "Import"
@@ -50,18 +22,13 @@ struct ImportSecretPhraseViewModel {
 	// MARK: - Private Properties
 
 	private let pinoWalletManager = PinoWalletManager()
-	private var isNewWallet: Bool
-
-	init(isNewWallet: Bool) {
-		self.isNewWallet = isNewWallet
-	}
 
 	// MARK: Public Methods
 
 	public func validate(
 		secretPhrase: String,
 		onSuccess: @escaping () -> Void,
-		onFailure: @escaping (SecretPhraseValidationError) -> Void
+		onFailure: @escaping (ImportValidationError) -> Void
 	) {
 		if pinoWalletManager.isMnemonicsValid(secretPhrase) {
 			onSuccess()
@@ -70,15 +37,9 @@ struct ImportSecretPhraseViewModel {
 		}
 	}
 
-	public func validate(
-		privateKey: String,
-		onSuccess: @escaping () -> Void,
-		onFailure: @escaping (SecretPhraseValidationError) -> Void
-	) {
-		if pinoWalletManager.isPrivatekeyValid(privateKey) {
-			onSuccess()
-		} else {
-			onFailure(.invalidSecretPhrase)
-		}
+	public func trimmedMnemonic(_ input: String) -> String {
+		let words = input.lowercased().components(separatedBy: .whitespacesAndNewlines)
+		let trimmedWords = words.filter { !$0.isEmpty }
+		return trimmedWords.joined(separator: " ")
 	}
 }
