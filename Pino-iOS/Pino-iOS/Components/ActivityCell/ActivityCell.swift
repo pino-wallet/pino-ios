@@ -41,6 +41,15 @@ class ActivityCell: UICollectionViewCell {
 		}
 	}
 
+	// MARK: - View Overrides
+
+	override func prepareForReuse() {
+		super.prepareForReuse()
+
+		titleLabelHeightConstraint.constant = 0
+		infoLabelHeightConstraint.constant = 0
+	}
+
 	// MARK: - private UI method
 
 	private func setupView() {
