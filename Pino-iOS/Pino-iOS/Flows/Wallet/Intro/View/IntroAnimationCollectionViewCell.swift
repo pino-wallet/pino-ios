@@ -14,6 +14,7 @@ public class IntroAnimationCollectionViewCell: UICollectionViewCell {
 	private let introAnimationView = LottieAnimationView()
 	private let introTitle = PinoLabel(style: .title, text: "hi")
 	private let introGradientView = UIImageView()
+    private let animationBtmCoverView = UIView()
 	private var topGradientView = UIImageView()
 	private var btmGradientView = UIImageView()
 
@@ -40,6 +41,7 @@ extension IntroAnimationCollectionViewCell {
 		contentView.insertSubview(introGradientView, belowSubview: introAnimationView)
 		contentView.insertSubview(topGradientView, aboveSubview: introAnimationView)
 		contentView.insertSubview(btmGradientView, aboveSubview: introAnimationView)
+        contentView.addSubview(animationBtmCoverView)
 	}
 
 	private func setupStyle() {
@@ -47,12 +49,15 @@ extension IntroAnimationCollectionViewCell {
 		introTitle.numberOfLines = 0
 		introTitle.lineBreakMode = .byWordWrapping
 		introTitle.textAlignment = .center
+        introTitle.layer.zPosition = 1
 
 		introGradientView.image = UIImage(named: "intro-gradient")
 		introGradientView.contentMode = .redraw
 
 		topGradientView.image = .init(named: "intro-top-grad")
 		btmGradientView.image = .init(named: "intro-btm-grad")
+        
+        animationBtmCoverView.backgroundColor = .Pino.secondaryBackground
 	}
 
 	private func setupConstraint() {
@@ -82,6 +87,8 @@ extension IntroAnimationCollectionViewCell {
 			.horizontalEdges,
 			.fixedHeight(190)
 		)
+        
+        animationBtmCoverView.pin(.horizontalEdges, .fixedHeight(40), .relative(.bottom, 0, to: introAnimationView, .bottom))
 	}
 
 	private func setImageCornerRadius() {
