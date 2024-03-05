@@ -19,7 +19,12 @@ final class AccountingAPIClient: AccountingAPIService {
 	}
 
 	private var deviceID: String {
-		UIDevice.current.identifierForVendor!.uuidString
+		let cloudKitManager = CloudKitKeyStoreManager(key: .inviteCode)
+		if let deviceID = cloudKitManager.getValue() {
+			return deviceID
+		} else {
+			return UIDevice.current.identifierForVendor!.uuidString
+		}
 	}
 
 	// MARK: - Public Methods
@@ -48,9 +53,13 @@ final class AccountingAPIClient: AccountingAPIService {
 		networkManager.request(.activeAddresses(addresses: addresses))
 	}
 
-	func activateAccountWithInviteCode(inviteCode: String)
+	func activateDeviceWithInviteCode(inviteCode: String)
 		-> AnyPublisher<ActivateAccountWithInviteCodeModel, APIError> {
 		networkManager.request(.activateAccountWithInviteCode(deciveID: deviceID, inviteCode: inviteCode))
+	}
+
+	func validateDeviceForBeta() -> AnyPublisher<ValidateDeviceForBetaModel, APIError> {
+		networkManager.request(.validateDeviceForBeta(deviceID: deviceID))
 	}
 
 	func getAllTimePerformanceOf(_ tokenID: String) -> AnyPublisher<TokenAllTimePerformance, APIError> {

@@ -5,6 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 12/30/23.
 //
 
+import Combine
 import Foundation
 import UIKit
 
@@ -16,7 +17,7 @@ class EnterInviteCodeView: UIView, UITextFieldDelegate {
 
 	// MARK: - Private Properties
 
-	private let enterInviteCodeVM: EnterInviteCodeViewModel
+	private var enterInviteCodeVM: EnterInviteCodeViewModel
 	private let clearNavigationBar = ClearNavigationBar()
 	private let navigationDismissButton = UIButton()
 	private let navigationBarRightSideView = UIView()
@@ -31,6 +32,7 @@ class EnterInviteCodeView: UIView, UITextFieldDelegate {
 	private var buttonsStackViewBottomConstraint: NSLayoutConstraint!
 	private let buttonsStackViewBottomConstant = CGFloat(12)
 	private var keyboardHeight: CGFloat = 320
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
@@ -48,6 +50,7 @@ class EnterInviteCodeView: UIView, UITextFieldDelegate {
 		setupView()
 		setupStyles()
 		setupConstraints()
+		setupBindings()
 		setupNotifications()
 	}
 
@@ -65,9 +68,14 @@ class EnterInviteCodeView: UIView, UITextFieldDelegate {
 			self.dismisskeyBoard()
 		}
 
+		codeTextField.textDidChange = {
+			self.validateInviteCode()
+		}
+
 		navigationDismissButton.addTarget(self, action: #selector(onDismissSelf), for: .touchUpInside)
 
 		getCodeButton.addTarget(self, action: #selector(onGetInviteCode), for: .touchUpInside)
+		nextButton.addTarget(self, action: #selector(onDismissSelf), for: .touchUpInside)
 
 		navigationBarRightSideView.addSubview(navigationDismissButton)
 
@@ -112,6 +120,12 @@ class EnterInviteCodeView: UIView, UITextFieldDelegate {
 		getCodeButton.title = enterInviteCodeVM.getCodeText
 	}
 
+	private func setupBindings() {
+		enterInviteCodeVM.$inviteCodeStatus.compactMap { $0 }.sink { inviteCodeStatus in
+			self.updateUIWith(status: inviteCodeStatus)
+		}.store(in: &cancellables)
+	}
+
 	private func setupConstraints() {
 		clearNavigationBar.pin(.horizontalEdges(padding: 0), .top(padding: 0))
 		navigationDismissButton.pin(.fixedHeight(30), .fixedHeight(30), .top(padding: 22), .trailing(padding: 0))
@@ -130,6 +144,23 @@ class EnterInviteCodeView: UIView, UITextFieldDelegate {
 		addConstraint(buttonsStackViewBottomConstraint)
 	}
 
+	private func updateUIWith(status: EnterInviteCodeViewModel.InviteCodeStatus) {
+		switch status {
+		case .sucess:
+			codeTextField.style = .success
+			nextButton.style = .active
+			nextButton.title = "Confirm"
+		case .notFound:
+			codeTextField.style = .error
+			nextButton.style = .deactive
+			nextButton.title = "Not Found"
+		case .alreadyUsed:
+			codeTextField.style = .error
+			nextButton.style = .deactive
+			nextButton.title = "Already Used"
+		}
+	}
+
 	@objc
 	private func onDismissSelf() {
 		dismissViewClosure()
@@ -138,6 +169,16 @@ class EnterInviteCodeView: UIView, UITextFieldDelegate {
 	@objc
 	private func onGetInviteCode() {
 		presentGetInviteCodeClosure()
+	}
+
+	@objc
+	private func validateInviteCode() {
+		codeTextField.style = .normal
+		if let inviteCode = codeTextField.text, inviteCode.count == 12 {
+			codeTextField.style = .pending
+			nextButton.style = .deactive
+			enterInviteCodeVM.activateDeviceForBeta(inviteCode: inviteCode)
+		}
 	}
 }
 

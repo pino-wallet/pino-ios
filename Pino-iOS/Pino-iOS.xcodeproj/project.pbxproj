@@ -608,6 +608,8 @@
 		DF3E0E282B6E1AC500937955 /* Web3PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E272B6E1AC500937955 /* Web3PromiseKit */; };
 		DF3E0E2B2B6E1D3400937955 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E2A2B6E1D3400937955 /* Lottie */; };
 		DF4C23142AC33D000014DC89 /* W3CallDataGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4C23132AC33D000014DC89 /* W3CallDataGenerator.swift */; };
+		DF56F3862B94766100442BB2 /* ValidateDeviceForBetaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF56F3852B94766100442BB2 /* ValidateDeviceForBetaModel.swift */; };
+		DF56F38A2B949B0600442BB2 /* CloudKitKeyStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF56F3892B949B0600442BB2 /* CloudKitKeyStoreManager.swift */; };
 		DF62CEC12B2709FC00AA6D41 /* SignImportWalletSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF62CEC02B2709FC00AA6D41 /* SignImportWalletSheet.swift */; };
 		DF62CEC32B272F2C00AA6D41 /* IntroAnimationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF62CEC22B272F2C00AA6D41 /* IntroAnimationCollectionViewCell.swift */; };
 		DF62CEC52B282BB000AA6D41 /* IntroAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = DF62CEC42B282BB000AA6D41 /* IntroAnimation.json */; };
@@ -1493,6 +1495,9 @@
 		DF1D90E42A973ACC00435D85 /* ApprovingLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovingLoadingViewController.swift; sourceTree = "<group>"; };
 		DF1D90E62A973AFA00435D85 /* ApprovingLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovingLoadingView.swift; sourceTree = "<group>"; };
 		DF4C23132AC33D000014DC89 /* W3CallDataGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3CallDataGenerator.swift; sourceTree = "<group>"; };
+		DF56F3852B94766100442BB2 /* ValidateDeviceForBetaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateDeviceForBetaModel.swift; sourceTree = "<group>"; };
+		DF56F3872B949A9500442BB2 /* Pino-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pino-iOS.entitlements"; sourceTree = "<group>"; };
+		DF56F3892B949B0600442BB2 /* CloudKitKeyStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitKeyStoreManager.swift; sourceTree = "<group>"; };
 		DF62CEC02B2709FC00AA6D41 /* SignImportWalletSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignImportWalletSheet.swift; sourceTree = "<group>"; };
 		DF62CEC22B272F2C00AA6D41 /* IntroAnimationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAnimationCollectionViewCell.swift; sourceTree = "<group>"; };
 		DF62CEC42B282BB000AA6D41 /* IntroAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = IntroAnimation.json; sourceTree = "<group>"; };
@@ -2006,6 +2011,7 @@
 		23F1BD4FAC784DB47F844F5D /* Pino-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				DF56F3872B949A9500442BB2 /* Pino-iOS.entitlements */,
 				D96833F52B52B9CC00521772 /* Global enums */,
 				D9A3280A2A3452DC005A8393 /* Components */,
 				DFB1E9CE2A08EBAF00041B26 /* CoreData */,
@@ -2149,6 +2155,7 @@
 		3E4B7A8B106106B96A2983A0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				DF56F3882B949ADF00442BB2 /* iCloudManager */,
 				DF0B1ECD2B00DB2C001B0522 /* NotificationManager */,
 				2DF8930CF6FC02BBFE525BEC /* KeychainManager */,
 				6D2C6AE44164F7D140AB3226 /* PasscodeManager */,
@@ -2282,6 +2289,7 @@
 				40F704562A03AFFF004D74FE /* AccountActivationModel.swift */,
 				E3CB68472AB5D3C10042359D /* ActiveAddressesModel.swift */,
 				D9A8E1C92B440CCA00B78252 /* ActivateAccountWithInviteCodeModel.swift */,
+				DF56F3852B94766100442BB2 /* ValidateDeviceForBetaModel.swift */,
 			);
 			path = AccountActivation;
 			sourceTree = "<group>";
@@ -3868,6 +3876,14 @@
 				DF0B1ED22B00E0D5001B0522 /* FCMTokenManager.swift */,
 			);
 			path = NotificationManager;
+			sourceTree = "<group>";
+		};
+		DF56F3882B949ADF00442BB2 /* iCloudManager */ = {
+			isa = PBXGroup;
+			children = (
+				DF56F3892B949B0600442BB2 /* CloudKitKeyStoreManager.swift */,
+			);
+			path = iCloudManager;
 			sourceTree = "<group>";
 		};
 		DF6971184EDF0A9D6DD15E69 /* CustomSwitchCollectionCell */ = {
@@ -5601,6 +5617,7 @@
 				DE33FFB7D492FA770FF9FB5C /* SemiboldStyle.swift in Sources */,
 				D99F4B2329E2C619009F7F55 /* PaymentMethodOptionModel.swift in Sources */,
 				6FB3C66B1E98C7C2B7886069 /* SettingCell.swift in Sources */,
+				DF56F38A2B949B0600442BB2 /* CloudKitKeyStoreManager.swift in Sources */,
 				D95782372AFCC0B70007D580 /* WithdrawInvestmentActivityDetailsViewModel.swift in Sources */,
 				DF14FCA52A910F74005221A8 /* W3GasInfo.swift in Sources */,
 				E3D478B32A3064C90030A987 /* CustomAssetDataSource.swift in Sources */,
@@ -5653,6 +5670,7 @@
 				E3FC69EC2A9247BD009B3341 /* InvestmentBoardFilterView.swift in Sources */,
 				D973E7652B2ADB2100862C4C /* CompoundRepayManager.swift in Sources */,
 				D95CD8642B00CBA4003C1CF0 /* ApproveActivityDetailsViewModel.swift in Sources */,
+				DF56F3862B94766100442BB2 /* ValidateDeviceForBetaModel.swift in Sources */,
 				E3FC69922A88B0EB009B3341 /* InvestView.swift in Sources */,
 				E338DF112B25B0F3005D6883 /* AaveDepositManager.swift in Sources */,
 				99B64004802220934AD0B60B /* UnlockAppViewModel.swift in Sources */,
@@ -5853,6 +5871,7 @@
 			baseConfigurationReference = 2529D1295B19B2D46D7ABD3A /* Pods-Pino-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Pino-iOS/Pino-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 24;
@@ -5915,6 +5934,7 @@
 			baseConfigurationReference = BE45D80645CDD175489653D2 /* Pods-Pino-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Pino-iOS/Pino-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 24;

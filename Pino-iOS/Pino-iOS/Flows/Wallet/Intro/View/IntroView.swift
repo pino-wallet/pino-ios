@@ -13,7 +13,7 @@ class IntroView: UIView {
 	private let introCollectionView = IntroCollectionView()
 	private let signinStackView = UIStackView()
 	private let createWalletButton = PinoButton(style: .active)
-	private let importWalletButton = UIButton()
+	private let importWalletButton = PinoButton(style: .clear)
 	private let pageControl = UIPageControl()
 	private var createWallet: () -> Void
 	private var importWallet: () -> Void
@@ -73,18 +73,12 @@ extension IntroView {
 
 	private func setupStyle() {
 		createWalletButton.title = introVM.createButtonTitle
-		importWalletButton.setTitle(introVM.importButtonTitle, for: .normal)
+		importWalletButton.title = introVM.importButtonTitle
 
 		backgroundColor = .Pino.secondaryBackground
 
-		importWalletButton.setTitleColor(.Pino.primary, for: .normal)
-
-		importWalletButton.titleLabel?.font = .PinoStyle.semiboldBody
-
 		signinStackView.axis = .vertical
-
 		signinStackView.spacing = 36
-
 		signinStackView.alignment = .fill
 
 		pageControl.numberOfPages = introVM.contentList.count
@@ -108,5 +102,20 @@ extension IntroView {
 			.centerX,
 			.relative(.bottom, -24, to: signinStackView, .top)
 		)
+	}
+
+	// MARK: - Public Methods
+
+	public func showCreateWalletLoading() {
+		createWalletButton.style = .loading
+	}
+
+	public func showImportWalletLoading() {
+		importWalletButton.style = .clearLoading
+	}
+
+	public func resetButtonsStatus() {
+		createWalletButton.style = .active
+		importWalletButton.style = .clear
 	}
 }
