@@ -78,7 +78,11 @@ extension ImportAccountsCollectionView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		referenceSizeForHeaderInSection section: Int
 	) -> CGSize {
-		CGSize(width: collectionView.frame.width, height: 56)
+		if let firstAccount = accounts.first, firstAccount.isNewWallet {
+			return CGSize(width: collectionView.frame.width, height: 80)
+		} else {
+			return CGSize(width: collectionView.frame.width, height: 56)
+		}
 	}
 
 	func collectionView(
@@ -94,7 +98,7 @@ extension ImportAccountsCollectionView: UICollectionViewDelegateFlowLayout {
 
 extension ImportAccountsCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		accountsVM.accounts![indexPath.item].toggleIsSelected()
+		accountsVM.accounts[indexPath.item].toggleIsSelected()
 	}
 }
 
