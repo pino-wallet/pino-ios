@@ -133,6 +133,7 @@ class ImportAccountsViewModel {
 		Promise<[ActiveAccountViewModel]> { seal in
 			self.accounts = self.accounts + activeAccounts
 			guard self.accounts.isEmpty else {
+				// Accounts must be activated here
 				seal.fulfill(self.accounts)
 				return
 			}
@@ -147,11 +148,7 @@ class ImportAccountsViewModel {
 
 	private func activateNewAccount() -> Promise<ActiveAccountViewModel> {
 		Promise<ActiveAccountViewModel> { seal in
-			firstly {
-				createAccount(wallet: createdWallet!, accountIndex: 0)
-			}.then { account in
-				self.accountActivationVM.activateNewAccountAddress(account).map { (account, $0) }
-			}.done { account, _ in
+			createAccount(wallet: createdWallet!, accountIndex: 0).done { account in
 				seal.fulfill(ActiveAccountViewModel(account: account, balance: nil, isNewWallet: true))
 			}.catch { error in
 				seal.reject(error)
