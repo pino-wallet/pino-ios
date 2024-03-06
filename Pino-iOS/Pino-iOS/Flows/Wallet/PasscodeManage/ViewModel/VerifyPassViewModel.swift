@@ -19,8 +19,9 @@ struct VerifyPassViewModel: PasscodeManagerPages {
 	public var onErrorHandling: (PassVerifyError) -> Void
 	public var hideError: () -> Void
 	public var selectedPasscode: String
+	public var selectedAccounts: [ActiveAccountViewModel]?
 
-	// MARK: Public Methods
+	// MARK: - Public Methods
 
 	public mutating func passInserted(passChar: String) {
 		guard let enteredPass = passcode, enteredPass.count < passDigitsCount else { return }
@@ -28,7 +29,19 @@ struct VerifyPassViewModel: PasscodeManagerPages {
 		verifyPasscode()
 	}
 
-	// MARK: Private Methods
+	public func showSyncPage() -> Bool {
+		if let selectedAccounts {
+			if selectedAccounts.count == 1 && selectedAccounts.first!.isNewWallet == true {
+				return false
+			} else {
+				return true
+			}
+		} else {
+			return false
+		}
+	}
+
+	// MARK: - Private Methods
 
 	private func verifyPasscode() {
 		guard let enteredPass = passcode else {

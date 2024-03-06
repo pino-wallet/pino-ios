@@ -60,13 +60,18 @@ class VerifyPasscodeViewController: UIViewController {
 
 	func configVerifyPassVM() {
 		verifyPassVM = VerifyPassViewModel(
-			finishPassCreation: {
+			finishPassCreation: { [self] in
 				// Passcode was verified -> Show all done page
-				let allDoneVC = AllDoneViewController(
-					selectedAccounts: self.selectedAccounts,
-					mnemonics: self.mnemonics
-				)
-				self.navigationController?.pushViewController(allDoneVC, animated: true)
+				if verifyPassVM.showSyncPage() {
+					let syncPage = SyncWalletViewController(syncWalletVM: .init())
+					navigationController?.pushViewController(syncPage, animated: true)
+				} else {
+					let allDoneVC = AllDoneViewController(
+						selectedAccounts: selectedAccounts,
+						mnemonics: mnemonics
+					)
+					navigationController?.pushViewController(allDoneVC, animated: true)
+				}
 			},
 			onErrorHandling: { error in
 				// display error
@@ -85,7 +90,8 @@ class VerifyPasscodeViewController: UIViewController {
 			hideError: {
 				self.verifyPassView?.hideError()
 			},
-			selectedPasscode: selectedPasscode
+			selectedPasscode: selectedPasscode,
+			selectedAccounts: selectedAccounts
 		)
 	}
 }
