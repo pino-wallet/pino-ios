@@ -10,7 +10,7 @@ import Foundation
 class FCMTokenManager {
 	// MARK: - Private Properties
 
-	private let fcmTokenUserDefaultsManager = UserDefaultsManager(userDefaultKey: .fcmToken)
+	private let fcmTokenUserDefaultsManager = UserDefaultsManager<String>(userDefaultKey: .fcmToken)
 
 	// MARK: - Public Properties
 
@@ -20,9 +20,8 @@ class FCMTokenManager {
 		get {
 			fcmTokenUserDefaultsManager.getValue()
 		}
-
 		set {
-			fcmTokenUserDefaultsManager.setValue(value: newValue)
+			fcmTokenUserDefaultsManager.setValue(value: newValue!)
 		}
 	}
 }

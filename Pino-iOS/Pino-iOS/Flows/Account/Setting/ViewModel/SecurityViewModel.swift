@@ -10,7 +10,7 @@ import Foundation
 class SecurityViewModel {
 	// MARK: - Private Properties
 
-	private let lockMethodTypeUserDefaultsManager = UserDefaultsManager(userDefaultKey: .lockMethodType)
+	private let lockMethodTypeUserDefaultsManager = UserDefaultsManager<String>(userDefaultKey: .lockMethodType)
 
 	// MARK: - Public Properties
 

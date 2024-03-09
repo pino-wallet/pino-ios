@@ -15,7 +15,7 @@ class UnlockAppViewController: UIViewController {
 
 	// MARK: - Private Properties
 
-	private let biometricCountsUserDefaultsManager = UserDefaultsManager(userDefaultKey: .showBiometricCounts)
+	private let biometricCountsUserDefaultsManager = UserDefaultsManager<Int>(userDefaultKey: .showBiometricCounts)
 	private var unlockAppVM: UnlockAppViewModel!
 	private var managePasscodeView: UnlockPasscodeView!
 

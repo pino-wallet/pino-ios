@@ -12,7 +12,7 @@ import UIKit
 class AuthenticationLockManager {
 	// MARK: - Private Properties
 
-	private let lockMethodTypeUserDefaultsManager = UserDefaultsManager(userDefaultKey: .lockMethodType)
+	private let lockMethodTypeUserDefaultsManager = UserDefaultsManager<String>(userDefaultKey: .lockMethodType)
 	private var unlockAppVC: UnlockAppViewController?
 	private var parentVC: UIViewController!
 

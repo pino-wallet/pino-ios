@@ -7,7 +7,7 @@
 
 import Foundation
 
-class UserDefaultsManager {
+class UserDefaultsManager<T: Codable> {
 	// MARK: - Private Properties
 
 	private let userDefaults = UserDefaults.standard
@@ -21,7 +21,7 @@ class UserDefaultsManager {
 
 	// MARK: - Private Methods
 
-	private func encodeValue<T: Codable>(value: T) -> Data {
+	private func encodeValue(value: T) -> Data {
 		let encoder = JSONEncoder()
 		do {
 			let result = try encoder.encode(value)
@@ -31,7 +31,7 @@ class UserDefaultsManager {
 		}
 	}
 
-	private func decodeValue<T: Decodable>(value: Data) -> T {
+	private func decodeValue(value: Data) -> T {
 		let decoder = JSONDecoder()
 		do {
 			let result = try decoder.decode(T.self, from: value)
@@ -43,12 +43,12 @@ class UserDefaultsManager {
 
 	// MARK: - Public Methods
 
-	public func setValue<T: Codable>(value: T) {
+	public func setValue(value: T) {
 		let encodedValue = encodeValue(value: value)
 		userDefaults.set(encodedValue, forKey: userDefaultKey.key)
 	}
 
-	public func getValue<T: Codable>() -> T? {
+	public func getValue() -> T? {
 		guard let defaultValue = userDefaults.value(forKey: userDefaultKey.key) as? Data else {
 			return nil
 		}
@@ -59,8 +59,8 @@ class UserDefaultsManager {
 		userDefaults.removeObject(forKey: userDefaultKey.key)
 	}
 
-	public func registerDefaults<T: Codable>(defaults: [String: T]) {
-		let encodedDefaults = defaults.mapValues { encodeValue(value: $0) }
-		userDefaults.register(defaults: encodedDefaults)
+	public func registerDefault(value: T) {
+		let encodedDefaults = encodeValue(value: value)
+		userDefaults.register(defaults: [userDefaultKey.key: encodedDefaults])
 	}
 }

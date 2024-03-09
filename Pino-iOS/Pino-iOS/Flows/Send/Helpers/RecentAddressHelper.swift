@@ -10,7 +10,8 @@ import Foundation
 class RecentAddressHelper {
 	// MARK: - Private Properties
 
-	private let recentAddressUserDefaultsManager = UserDefaultsManager(userDefaultKey: .recentSentAddresses)
+	private let recentAddressUserDefaultsManager =
+		UserDefaultsManager<[RecentAddressModel]>(userDefaultKey: .recentSentAddresses)
 	private let coreDataManager = CoreDataManager()
 	private let pinoWalletManager = PinoWalletManager()
 

@@ -57,7 +57,7 @@ class HomepageViewModel {
 				print(error)
 			}
 		} receiveValue: { gasLimitsResponse in
-			let userdefManager = UserDefaultsManager(userDefaultKey: .gasLimits)
+			let userdefManager = UserDefaultsManager<GasLimitsModel>(userDefaultKey: .gasLimits)
 			userdefManager.setValue(value: gasLimitsResponse)
 		}.store(in: &cancellables)
 	}

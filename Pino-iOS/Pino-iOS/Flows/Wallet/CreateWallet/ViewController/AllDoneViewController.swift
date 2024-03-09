@@ -11,7 +11,7 @@ import UIKit
 class AllDoneViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let isLoginUserDefaultsManager = UserDefaultsManager(userDefaultKey: .isLogin)
+	private let isLoginUserDefaultsManager = UserDefaultsManager<Bool>(userDefaultKey: .isLogin)
 	private var allDoneVM: AllDoneViewModel
 	private var allDoneView: AllDoneView!
 	private var selectedAccounts: [ActiveAccountViewModel]?

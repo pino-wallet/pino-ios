@@ -20,6 +20,7 @@ class ImportAccountsViewModel {
 	private let internetConnectivity = InternetConnectivity()
 	private var createdWallet: HDWallet?
 	private let accountActivationVM = AccountActivationViewModel()
+	private let accountSyncTimeUserDef = UserDefaultsManager<Date>(userDefaultKey: .syncFinishTime)
 
 	// MARK: Public Properties
 
@@ -48,7 +49,7 @@ class ImportAccountsViewModel {
 		self.walletMnemonics = walletMnemonics
 	}
 
-	// MARK: Private Methods
+	// MARK: - Private Methods
 
 	private func getWallet() -> Promise<HDWallet> {
 		Promise<HDWallet> { seal in
@@ -196,7 +197,28 @@ class ImportAccountsViewModel {
 		}
 	}
 
+	private func findLatestSyncTime(accounts: [AccountActivationModel]) {
+		let maxSyncTime = accounts.map { activatedAccount in
+			activatedAccount.created_at.serverFormattedDate
+		}.max()
+		accountSyncTimeUserDef.setValue(value: maxSyncTime!)
+	}
+
 	// MARK: - Public Methods
+
+	public func startSync() {
+		let selectedAccounts = accounts.filter { $0.isSelected }
+
+		let activateAccountsReqs: [Promise<AccountActivationModel>] = selectedAccounts.map { selectedAccount in
+			accountActivationVM.activateNewAccountAddress(selectedAccount.account)
+		}
+
+		when(fulfilled: activateAccountsReqs).done { [unowned self] activateAccountsResp in
+			findLatestSyncTime(accounts: activateAccountsResp)
+		}.catch { error in
+			Toast.default(title: "Failed to import accounts", style: .error).show(haptic: .warning)
+		}
+	}
 
 	public func getFirstAccounts() -> Promise<[ActiveAccountViewModel]> {
 		getActiveAccounts(form: 0, to: 9)

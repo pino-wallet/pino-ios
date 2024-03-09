@@ -12,13 +12,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	// MARK: - Private Properties
 
+	private let isLoginUserDefManager = UserDefaultsManager<Bool>(userDefaultKey: .isLogin)
+	private let isDevModeUserDefManager = UserDefaultsManager<Bool>(userDefaultKey: .isInDevMode)
+	private let biometricCountDefManager = UserDefaultsManager<Int>(userDefaultKey: .showBiometricCounts)
+	private let recentAddUserDefManager =
+		UserDefaultsManager<[RecentAddressModel]>(userDefaultKey: .recentSentAddresses)
+	private let hasShowNotifPageUserDefManager = UserDefaultsManager<Bool>(userDefaultKey: .recentSentAddresses)
+
 	private var lockScreenView: PrivacyLockView?
 	private var authVC: AuthenticationLockManager!
 	private var appIsLocked = false
 	private var showPrivateScreen = false
-	private let isLoginUserDefaultsManager = UserDefaultsManager(userDefaultKey: .isLogin)
+
 	private var isUserLoggedIn: Bool {
-		let isUserLoggedInBool: Bool? = isLoginUserDefaultsManager.getValue()
+		let isUserLoggedInBool: Bool? = isLoginUserDefManager.getValue()
 		return isUserLoggedInBool ?? false
 	}
 
@@ -33,15 +40,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		// `application:configurationForConnectingSceneSession` instead).
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		window = UIWindow(windowScene: windowScene)
-		isLoginUserDefaultsManager
-			.registerDefaults(defaults: [
-				GlobalUserDefaultsKeys.hasShownNotifPage.key: false,
-				GlobalUserDefaultsKeys.isInDevMode.key: false,
-			])
-		isLoginUserDefaultsManager.registerDefaults(defaults: [GlobalUserDefaultsKeys.showBiometricCounts.key: 0])
+		isDevModeUserDefManager.registerDefault(value: false)
+		hasShowNotifPageUserDefManager.registerDefault(value: false)
+		biometricCountDefManager.registerDefault(value: 0)
 		let emptyRecentAddressList: [RecentAddressModel] = []
-		isLoginUserDefaultsManager
-			.registerDefaults(defaults: [GlobalUserDefaultsKeys.recentSentAddresses.key: emptyRecentAddressList])
+		recentAddUserDefManager
+			.registerDefault(value: emptyRecentAddressList)
 		if isUserLoggedIn {
 			window?.rootViewController = TabBarViewController()
 		} else {

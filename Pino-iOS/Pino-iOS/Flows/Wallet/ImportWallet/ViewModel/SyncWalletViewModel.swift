@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 struct SyncWalletViewModel {
 	// MARK: - Public Properties
@@ -15,7 +16,16 @@ struct SyncWalletViewModel {
 	public let descriptionText = "We are syncing your wallet data. This may take a few minutes."
 	public let exploreTitleText = "Do you want to explore Pino in the meantime?"
 	public let explorePinoButtonText = "Explore Pino"
-	public var loadingTime: TimeInterval = 2000
+	public var loadingTime: TimeInterval = 15
+
+	public static var isSyncFinished: Bool {
+		let syncFinishTime = UserDefaultsManager<Date>(userDefaultKey: .syncFinishTime).getValue()!
+		if Date.now > syncFinishTime {
+			return true
+		} else {
+			return false
+		}
+	}
 
 	// MARK: - Initializers
 }

@@ -13,7 +13,7 @@ class ProfileViewController: UIViewController {
 
 	private let profileVM: ProfileViewModel
 	private let accountsVM: AccountsViewModel
-	private let devModeUserDefaultsManager = UserDefaultsManager(userDefaultKey: .isInDevMode)
+	private let devModeUserDefaultsManager = UserDefaultsManager<Bool>(userDefaultKey: .isInDevMode)
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
