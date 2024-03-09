@@ -197,16 +197,15 @@ class ImportAccountsViewModel {
 		}
 	}
 
-	private func findLatestSyncTime(accounts: [AccountActivationModel]) {
-		let maxSyncTime = accounts.map { activatedAccount in
-			activatedAccount.created_at.serverFormattedDate
-		}.max()
-		accountSyncTimeUserDef.setValue(value: maxSyncTime!)
+	private func saveSyncFinishTime() {
+		if let oneMinuteLater = Calendar.current.date(byAdding: .minute, value: 1, to: .now) {
+			accountSyncTimeUserDef.setValue(value: oneMinuteLater)
+		}
 	}
 
 	// MARK: - Public Methods
 
-	public func startSync() {
+	public func startSync(syncFinished: @escaping () -> Void) {
 		let selectedAccounts = accounts.filter { $0.isSelected }
 
 		let activateAccountsReqs: [Promise<AccountActivationModel>] = selectedAccounts.map { selectedAccount in
@@ -214,7 +213,8 @@ class ImportAccountsViewModel {
 		}
 
 		when(fulfilled: activateAccountsReqs).done { [unowned self] activateAccountsResp in
-			findLatestSyncTime(accounts: activateAccountsResp)
+			saveSyncFinishTime()
+			syncFinished()
 		}.catch { error in
 			Toast.default(title: "Failed to import accounts", style: .error).show(haptic: .warning)
 		}

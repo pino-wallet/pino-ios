@@ -60,15 +60,18 @@ class ImportAccountsViewController: UIViewController {
 	}
 
 	private func openPasscodePage() {
-		let selectedAccounts = importAccountsVM.accounts.filter { $0.isSelected }
-		if !selectedAccounts.isEmpty {
-			let createPasscodeViewController = CreatePasscodeViewController(
-				selectedAccounts: selectedAccounts,
-				mnemonics: importAccountsVM.walletMnemonics
-			)
-			createPasscodeViewController.pageSteps = 4
-			createPasscodeViewController.currentStep = 3
-			navigationController?.pushViewController(createPasscodeViewController, animated: true)
+		importAccountsVM.startSync { [unowned self] in
+			importAccountsView.stopLoading()
+			let selectedAccounts = importAccountsVM.accounts.filter { $0.isSelected }
+			if !selectedAccounts.isEmpty {
+				let createPasscodeViewController = CreatePasscodeViewController(
+					selectedAccounts: selectedAccounts,
+					mnemonics: importAccountsVM.walletMnemonics
+				)
+				createPasscodeViewController.pageSteps = 4
+				createPasscodeViewController.currentStep = 3
+				navigationController?.pushViewController(createPasscodeViewController, animated: true)
+			}
 		}
 	}
 }

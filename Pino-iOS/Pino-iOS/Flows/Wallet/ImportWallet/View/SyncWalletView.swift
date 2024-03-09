@@ -5,14 +5,20 @@
 //  Created by Amir hossein kazemi seresht on 1/1/24.
 //
 
+import Combine
 import Foundation
 import Lottie
 import UIKit
 
 class SyncWalletView: UIView {
+	// MARK: - typealias
+
+	typealias Completion = () -> Void
+
 	// MARK: - Closures
 
 	private let presentTutorialPage: () -> Void
+	private let presentAllDonePage: () -> Void
 
 	// MARK: - Private Properties
 
@@ -27,18 +33,25 @@ class SyncWalletView: UIView {
 	private let titleAnimationViewContainer = UIView()
 	private var titleAnimationView = LottieAnimationView()
 	private var progressView: PinoProgressView!
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
 
-	init(syncWalletVM: SyncWalletViewModel, presentTutorialPage: @escaping () -> Void) {
+	init(
+		syncWalletVM: SyncWalletViewModel,
+		presentTutorialPage: @escaping Completion,
+		presentAllDonePage: @escaping Completion
+	) {
 		self.syncWalletVM = syncWalletVM
 		self.presentTutorialPage = presentTutorialPage
+		self.presentAllDonePage = presentAllDonePage
 
 		super.init(frame: .zero)
 
 		setupView()
 		setupStyles()
 		setupConstraints()
+		setupBindings()
 	}
 
 	required init?(coder: NSCoder) {
@@ -55,9 +68,10 @@ class SyncWalletView: UIView {
 
 	private func setupView() {
 		progressView = PinoProgressView(progressBarVM: .init(progressDuration: syncWalletVM.loadingTime))
-		progressView.completion = {
-			#warning("here we should go to next page")
-		}
+		progressView.completion = { [weak self] in
+            guard let self = self else { return }
+            syncWalletVM.syncStatus = .finished
+        }
 
 		exploreButton.addTarget(self, action: #selector(onExpolePinoTap), for: .touchUpInside)
 
@@ -81,7 +95,6 @@ class SyncWalletView: UIView {
 		backgroundColor = .Pino.secondaryBackground
 
 		titleLabel.font = .PinoStyle.semiboldTitle2
-		titleLabel.text = syncWalletVM.titleText
 		titleLabel.textAlignment = .center
 
 		titleAnimationView.animation = LottieAnimation.named(syncWalletVM.titleAnimationName)
@@ -90,7 +103,6 @@ class SyncWalletView: UIView {
 		titleAnimationView.play()
 
 		descriptionLabel.font = .PinoStyle.mediumSubheadline
-		descriptionLabel.text = syncWalletVM.descriptionText
 		descriptionLabel.textAlignment = .center
 
 		mainStackView.axis = .vertical
@@ -109,7 +121,6 @@ class SyncWalletView: UIView {
 		exploreTitleLabel.text = syncWalletVM.exploreTitleText
 		exploreTitleLabel.textAlignment = .center
 
-		exploreButton.title = syncWalletVM.explorePinoButtonText
 	}
 
 	private func setupConstraints() {
@@ -123,9 +134,35 @@ class SyncWalletView: UIView {
 		exploreStackView.pin(.horizontalEdges(padding: 16), .bottom(to: layoutMarginsGuide, padding: 12))
 	}
 
+	private func setupBindings() {
+		syncWalletVM.$syncStatus.sink { [weak self] syncStatus in
+			guard let self = self else { return }
+			switch syncStatus {
+			case .finished:
+				titleLabel.text = syncWalletVM.titleFinishedText
+				descriptionLabel.text = syncWalletVM.descriptionFinishedText
+                exploreButton.style = .active
+                exploreTitleLabel.isHidden = true
+                exploreButton.title = syncWalletVM.explorePinoFinishedBtnText
+			case .syncing:
+				titleLabel.text = syncWalletVM.titleText
+				descriptionLabel.text = syncWalletVM.descriptionText
+                exploreButton.style = .secondary
+                exploreTitleLabel.isHidden = false
+                exploreTitleLabel.text = syncWalletVM.exploreTitleText
+                exploreButton.title = syncWalletVM.explorePinoBtnText
+			}
+		}.store(in: &cancellables)
+	}
+
 	@objc
 	private func onExpolePinoTap() {
-		presentTutorialPage()
+		switch syncWalletVM.syncStatus {
+		case .syncing:
+			presentTutorialPage()
+		case .finished:
+			presentAllDonePage()
+		}
 	}
 
 	// MARK: - Public Properties

@@ -63,7 +63,7 @@ class VerifyPasscodeViewController: UIViewController {
 			finishPassCreation: { [self] in
 				// Passcode was verified -> Show all done page
 				if verifyPassVM.showSyncPage() {
-					let syncPage = SyncWalletViewController(syncWalletVM: .init())
+					let syncPage = SyncWalletViewController(selectedAccounts: selectedAccounts!, mnemonics: mnemonics)
 					navigationController?.pushViewController(syncPage, animated: true)
 				} else {
 					let allDoneVC = AllDoneViewController(
