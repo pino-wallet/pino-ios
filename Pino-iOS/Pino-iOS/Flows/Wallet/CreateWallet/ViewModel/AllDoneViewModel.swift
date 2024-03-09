@@ -61,6 +61,8 @@ class AllDoneViewModel {
 						wallet: wallet
 					)
 				}
+				let createdAccounts = coreDataManager.getAllWalletAccounts()
+				coreDataManager.updateSelectedWalletAccount(createdAccounts.first!)
 				completion(nil)
 			} catch {
 				completion(.wallet(.importAccountFailed))
