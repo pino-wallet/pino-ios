@@ -12,8 +12,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	// MARK: - Private Properties
 
-    private let isLoginUserDefaultsManager = UserDefaultsManager(userDefaultKey: .isLogin)
-    private let securitysModesUserDefaultsManager = UserDefaultsManager(userDefaultKey: .securityModes)
+	private let isLoginUserDefaultsManager = UserDefaultsManager(userDefaultKey: .isLogin)
+	private let securitysModesUserDefaultsManager = UserDefaultsManager(userDefaultKey: .securityModes)
 	private var lockScreenView: PrivacyLockView?
 	private var appIsLocked = false
 	private var showPrivateScreen = true
@@ -21,7 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		let isUserLoggedInBool: Bool? = isLoginUserDefaultsManager.getValue()
 		return isUserLoggedInBool ?? false
 	}
-    private var lockScreenVC: LockScreenViewController?
+
+	private var lockScreenVC: LockScreenViewController?
 
 	func scene(
 		_ scene: UIScene,
@@ -37,13 +38,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		isLoginUserDefaultsManager
 			.registerDefaults(defaults: [
 				GlobalUserDefaultsKeys.hasShownNotifPage.key: false,
-				GlobalUserDefaultsKeys.isInDevMode.key: false
+				GlobalUserDefaultsKeys.isInDevMode.key: false,
 			])
 		isLoginUserDefaultsManager.registerDefaults(defaults: [GlobalUserDefaultsKeys.showBiometricCounts.key: 0])
 		let emptyRecentAddressList: [RecentAddressModel] = []
 		isLoginUserDefaultsManager
 			.registerDefaults(defaults: [GlobalUserDefaultsKeys.recentSentAddresses.key: emptyRecentAddressList])
-        isLoginUserDefaultsManager.registerDefaults(defaults: [GlobalUserDefaultsKeys.securityModes.key: [SecurityOptionModel.LockType.immediately.rawValue]])
+		isLoginUserDefaultsManager
+			.registerDefaults(defaults: [
+				GlobalUserDefaultsKeys.securityModes
+					.key: [SecurityOptionModel.LockType.immediately.rawValue],
+			])
 		if isUserLoggedIn {
 			window?.rootViewController = TabBarViewController()
 		} else {
@@ -51,8 +56,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			window?.rootViewController = navigationController
 		}
 		window?.makeKeyAndVisible()
-        
-        modifyAppLock()
+
+		modifyAppLock()
 
 		// Disable animations in test mode to speed up tests
 		disableAllAnimationsInTestMode()
@@ -96,24 +101,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		// Save changes in the application's managed object context when the application transitions to the background.
 		CoreDataStack.pinoSharedStack.saveContext()
 		modifyAppLock()
-        dismissLockScreenVC()
+		dismissLockScreenVC()
 		print("scene: sceneDidEnterBackground: \(appIsLocked)")
 	}
 
 	// MARK: - Private Methods
-    
-    private func modifyAppLock() {
-        let securityModes: [String] = securitysModesUserDefaultsManager.getValue() ?? []
-        if securityModes.first(where: { $0 == SecurityOptionModel.LockType.immediately.rawValue }) != nil {
-            appIsLocked = true
-        }
-    }
+
+	private func modifyAppLock() {
+		let securityModes: [String] = securitysModesUserDefaultsManager.getValue() ?? []
+		if securityModes.first(where: { $0 == SecurityOptionModel.LockType.immediately.rawValue }) != nil {
+			appIsLocked = true
+		}
+	}
 
 	private func hideLockView() {
 		guard isUserLoggedIn == true else { return }
 
-		 if showPrivateScreen && !appIsLocked {
-            dismissLockScreenVC()
+		if showPrivateScreen && !appIsLocked {
+			dismissLockScreenVC()
 		}
 	}
 
@@ -121,25 +126,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		guard isUserLoggedIn == true else { return }
 		if let window = window {
 			if showPrivateScreen && lockScreenVC == nil {
-                lockScreenVC = LockScreenViewController(onSuccessLoginClosure: {
-                    self.appIsLocked = false
-                    self.dismissLockScreenVC()
-                }, shouldUnlockApp: appIsLocked)
-                lockScreenVC?.modalPresentationStyle = .overFullScreen
-                let rootVC = window.rootViewController
-                if rootVC?.presentedViewController != nil {
-                    rootVC?.presentedViewController?.present(lockScreenVC!, animated: false)
-                } else {
-                    window.rootViewController?.present(lockScreenVC!, animated: false)
-                }
+				lockScreenVC = LockScreenViewController(onSuccessLoginClosure: {
+					self.appIsLocked = false
+					self.dismissLockScreenVC()
+				}, shouldUnlockApp: appIsLocked)
+				lockScreenVC?.modalPresentationStyle = .overFullScreen
+				let rootVC = window.rootViewController
+				if rootVC?.presentedViewController != nil {
+					rootVC?.presentedViewController?.present(lockScreenVC!, animated: false)
+				} else {
+					window.rootViewController?.present(lockScreenVC!, animated: false)
+				}
 			}
 		}
 	}
-    
-    private func dismissLockScreenVC() {
-        lockScreenVC?.dismissSelf()
-        lockScreenVC = nil
-    }
+
+	private func dismissLockScreenVC() {
+		lockScreenVC?.dismissSelf()
+		lockScreenVC = nil
+	}
 
 	private func disableAllAnimationsInTestMode() {
 		if ProcessInfo.processInfo.arguments.contains(LaunchArguments.isRunningUITests.rawValue) {

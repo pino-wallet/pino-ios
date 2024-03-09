@@ -15,7 +15,7 @@ class AuthenticationLockManager {
 	private let lockMethodTypeUserDefaultsManager = UserDefaultsManager(userDefaultKey: .lockMethodType)
 	private var unlockAppVC: UnlockAppViewController?
 	private var parentVC: UIViewController!
-        private var biometricAuthentication = BiometricAuthentication()
+	private var biometricAuthentication = BiometricAuthentication()
 
 	init(parentController: UIViewController) {
 		self.parentVC = parentController
@@ -131,7 +131,7 @@ struct BiometricAuthentication {
 			onFailure(LAError.authenticationFailed.rawValue)
 		}
 	}
-    
+
 	static func biometricType() -> BiometricType {
 		let authContext = LAContext()
 		let _ = authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)

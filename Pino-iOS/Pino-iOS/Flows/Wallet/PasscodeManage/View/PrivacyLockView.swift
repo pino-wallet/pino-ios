@@ -19,8 +19,8 @@ class PrivacyLockView: UIView {
 	// MARK: Initializers
 
 	// Initialize your UI components here
-    init() {
-        super.init(frame: .zero)
+	init() {
+		super.init(frame: .zero)
 		backgroundColor = .Pino.primary // or any color you prefer
 		setupView()
 		setupContstraint()

@@ -16,7 +16,7 @@ enum GlobalUserDefaultsKeys: String {
 	case fcmToken
 	case lockMethodType
 	case gasLimits
-    case securityModes
+	case securityModes
 
 	public var key: String {
 		rawValue

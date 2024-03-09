@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		setupLightKeyboardForTextFields()
 		setCacheLimitForKingFisherImages()
 		setupNotifications()
-        
+
 		// setupPushNotifications(application: application)
 		return true
 	}
