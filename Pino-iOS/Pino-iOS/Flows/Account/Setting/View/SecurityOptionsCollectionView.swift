@@ -91,18 +91,33 @@ extension SecurityOptionsCollectionView: UICollectionViewDataSource {
 		_ collectionView: UICollectionView,
 		cellForItemAt indexPath: IndexPath
 	) -> UICollectionViewCell {
+        let currentOption = securityLockVM.securityOptions[indexPath.item]
 		let cell = dequeueReusableCell(
 			withReuseIdentifier: SecurityOptionCell.cellReuseID,
 			for: indexPath
 		) as! SecurityOptionCell
 		cell
 			.securityOptionVM = SecurityOptionViewModel(
-				lockSettingOption: securityLockVM
-					.securityOptions[indexPath.item]
+				lockSettingOption: currentOption
 			)
 		cell.manageIndex = (viewIndex: indexPath.item, viewsCount: securityLockVM.securityOptions.count)
 		cell.switchValueClosure = { isOn, type in
+            self.securityLockVM.changeSecurityModes(isOn: isOn, type: type)
+            for (index ,option) in self.securityLockVM.securityOptions.enumerated() {
+                if option.type.rawValue != type {
+                    UIView.performWithoutAnimation {
+                        self.reloadItems(at: [IndexPath(item: index, section: indexPath.section)])
+                    }
+                }
+            }
 		}
+        let currentSecurityModes: [String] = securityLockVM.securityModesUserDefaultsManager.getValue() ?? []
+        if currentSecurityModes.count == 1 && currentSecurityModes[0] == currentOption.type.rawValue {
+            cell.isEnabled = false
+        } else {
+            cell.isEnabled = true
+        }
+        
 		return cell
 	}
 

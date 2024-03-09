@@ -19,8 +19,8 @@ class PrivacyLockView: UIView {
 	// MARK: Initializers
 
 	// Initialize your UI components here
-	override init(frame: CGRect) {
-		super.init(frame: frame)
+    init() {
+        super.init(frame: .zero)
 		backgroundColor = .Pino.primary // or any color you prefer
 		setupView()
 		setupContstraint()
@@ -42,6 +42,4 @@ class PrivacyLockView: UIView {
 			.centerY
 		)
 	}
-
-	private func setupBindings() {}
 }

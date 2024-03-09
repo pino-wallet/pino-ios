@@ -18,6 +18,7 @@ class CustomSwitchOptionView: UIView {
 
 	public var switchValueClosure: switchValueClosureType! = { isOn, type in }
 	public var onTooltipTapClosure: onTooltipTapClosureType! = { tooltipTitle, tooltipText in }
+    
 
 	// MARK: - Private Properties
 
@@ -31,6 +32,13 @@ class CustomSwitchOptionView: UIView {
 	private let textStackView = UIStackView()
 
 	// MARK: - Public Properties
+    
+    public var isEnabled: Bool? {
+        didSet {
+            guard let isEnabled else { return }
+            switcher.isEnabled = isEnabled
+        }
+    }
 
 	public var customSwitchCollectionViewCellVM: CustomSwitchOptionVM! {
 		didSet {
@@ -53,7 +61,7 @@ class CustomSwitchOptionView: UIView {
 		addSubview(topBorderView)
 
 		switcher.isOn = customSwitchCollectionViewCellVM.isSelected
-		switcher.addTarget(self, action: #selector(onSwitcherChange), for: .valueChanged)
+        switcher.addTarget(self, action: #selector(onSwitcherChange(_:)), for: .valueChanged)
 
 		textStackView.addArrangedSubview(titleLabel)
 		textStackView.addArrangedSubview(descriptionLabel)
@@ -151,7 +159,7 @@ class CustomSwitchOptionView: UIView {
 	}
 
 	@objc
-	private func onSwitcherChange() {
-		switchValueClosure(switcher.isOn, customSwitchCollectionViewCellVM.type)
+    private func onSwitcherChange(_ sender: UISwitch) {
+            switchValueClosure(switcher.isOn, customSwitchCollectionViewCellVM.type)
 	}
 }
