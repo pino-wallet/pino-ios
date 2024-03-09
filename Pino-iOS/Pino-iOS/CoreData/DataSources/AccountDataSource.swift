@@ -34,8 +34,9 @@ struct AccountDataSource: DataSourceProtocol {
 
 	// MARK: - Public Methods
 
-	public func getAll() -> [WalletAccount] {
-		accounts
+	public mutating func getAll() -> [WalletAccount] {
+		fetchEntities()
+		return accounts
 	}
 
 	public func getBy(id: String) -> WalletAccount? {
