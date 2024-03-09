@@ -69,9 +69,9 @@ class SyncWalletView: UIView {
 	private func setupView() {
 		progressView = PinoProgressView(progressBarVM: .init(progressDuration: syncWalletVM.loadingTime))
 		progressView.completion = { [weak self] in
-            guard let self = self else { return }
-            syncWalletVM.syncStatus = .finished
-        }
+			guard let self = self else { return }
+			syncWalletVM.syncStatus = .finished
+		}
 
 		exploreButton.addTarget(self, action: #selector(onExpolePinoTap), for: .touchUpInside)
 
@@ -120,7 +120,6 @@ class SyncWalletView: UIView {
 		exploreTitleLabel.font = .PinoStyle.mediumSubheadline
 		exploreTitleLabel.text = syncWalletVM.exploreTitleText
 		exploreTitleLabel.textAlignment = .center
-
 	}
 
 	private func setupConstraints() {
@@ -141,16 +140,16 @@ class SyncWalletView: UIView {
 			case .finished:
 				titleLabel.text = syncWalletVM.titleFinishedText
 				descriptionLabel.text = syncWalletVM.descriptionFinishedText
-                exploreButton.style = .active
-                exploreTitleLabel.isHidden = true
-                exploreButton.title = syncWalletVM.explorePinoFinishedBtnText
+				exploreButton.style = .active
+				exploreTitleLabel.isHidden = true
+				exploreButton.title = syncWalletVM.explorePinoFinishedBtnText
 			case .syncing:
 				titleLabel.text = syncWalletVM.titleText
 				descriptionLabel.text = syncWalletVM.descriptionText
-                exploreButton.style = .secondary
-                exploreTitleLabel.isHidden = false
-                exploreTitleLabel.text = syncWalletVM.exploreTitleText
-                exploreButton.title = syncWalletVM.explorePinoBtnText
+				exploreButton.style = .secondary
+				exploreTitleLabel.isHidden = false
+				exploreTitleLabel.text = syncWalletVM.exploreTitleText
+				exploreButton.title = syncWalletVM.explorePinoBtnText
 			}
 		}.store(in: &cancellables)
 	}

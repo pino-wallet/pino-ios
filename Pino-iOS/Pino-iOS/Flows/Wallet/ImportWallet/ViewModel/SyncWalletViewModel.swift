@@ -17,7 +17,7 @@ class SyncWalletViewModel {
 	public let descriptionText = "We are syncing your wallet data. This may take a few minutes."
 	public let descriptionFinishedText = "Your wallet is now set up and ready to use in the DeFi world."
 	public let exploreTitleText = "Do you want to explore Pino in the meantime?"
-    public let explorePinoBtnText = "OK, let’s go!"
+	public let explorePinoBtnText = "OK, let’s go!"
 	public let explorePinoFinishedBtnText = "OK, let’s go!"
 	public var loadingTime: TimeInterval = 15
 

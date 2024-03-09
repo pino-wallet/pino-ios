@@ -51,7 +51,7 @@ class TutorialStepperContainerView: UICollectionView {
 					cell.resetProgress()
 				}
 			}
-			print("index:\(index)")
+
 			for x in 0 ..< index {
 				if let cell = cellForItem(at: .init(row: x, section: 0)) as? TutorialStepperCell {
 					cell.fillProgress()
@@ -61,7 +61,6 @@ class TutorialStepperContainerView: UICollectionView {
 			if let cell = cellForItem(at: .init(row: index, section: 0)) as? TutorialStepperCell {
 				cell.startProgress { [self] in
 					tutorialVM.nextTutorial()
-					print("next")
 				}
 			}
 
@@ -123,7 +122,7 @@ extension TutorialStepperContainerView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		sizeForItemAt indexPath: IndexPath
 	) -> CGSize {
-		CGSize(width: Int(collectionView.frame.width) / (tutorialVM.tutorials.count + 1), height: 3)
+		CGSize(width: (Int(collectionView.frame.width) / (tutorialVM.tutorials.count + 1)) + 12, height: 3)
 	}
 
 	func collectionView(

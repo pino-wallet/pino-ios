@@ -12,8 +12,8 @@ class SyncWalletViewController: UIViewController {
 
 	private var syncWalletVM = SyncWalletViewModel()
 	private var syncWalletView: SyncWalletView!
-    private var selectedAccounts: [ActiveAccountViewModel]
-    private var mnemonics: String
+	private var selectedAccounts: [ActiveAccountViewModel]
+	private var mnemonics: String
 
 	// MARK: - View Overrides
 
@@ -34,11 +34,11 @@ class SyncWalletViewController: UIViewController {
 
 	// MARK: - Initializers
 
-    init(selectedAccounts: [ActiveAccountViewModel], mnemonics: String) {
-        self.selectedAccounts = selectedAccounts
-        self.mnemonics = mnemonics
-        super.init(nibName: nil, bundle: nil)
-    }
+	init(selectedAccounts: [ActiveAccountViewModel], mnemonics: String) {
+		self.selectedAccounts = selectedAccounts
+		self.mnemonics = mnemonics
+		super.init(nibName: nil, bundle: nil)
+	}
 
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
@@ -49,9 +49,9 @@ class SyncWalletViewController: UIViewController {
 	private func setupView() {
 		syncWalletView = SyncWalletView(syncWalletVM: syncWalletVM, presentTutorialPage: {
 			self.presentTutorialPage()
-        }, presentAllDonePage: {
-            self.presentAllDonePage()
-        })
+		}, presentAllDonePage: {
+			self.presentAllDonePage()
+		})
 
 		view = syncWalletView
 	}
@@ -63,12 +63,12 @@ class SyncWalletViewController: UIViewController {
 		tutorialPage.modalPresentationStyle = .overFullScreen
 		present(tutorialPage, animated: true)
 	}
-    
-    private func presentAllDonePage() {
-        let allDoneVC = AllDoneViewController(
-            selectedAccounts: selectedAccounts,
-            mnemonics: mnemonics
-        )
-        navigationController?.pushViewController(allDoneVC, animated: true)
-    }
+
+	private func presentAllDonePage() {
+		let allDoneVC = AllDoneViewController(
+			selectedAccounts: selectedAccounts,
+			mnemonics: mnemonics
+		)
+		navigationController?.pushViewController(allDoneVC, animated: true)
+	}
 }
