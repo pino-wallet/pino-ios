@@ -13,7 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	// MARK: - Private Properties
 
 	private let isLoginUserDefaultsManager = UserDefaultsManager(userDefaultKey: .isLogin)
-	private let securitysModesUserDefaultsManager = UserDefaultsManager(userDefaultKey: .securityModes)
+	private let securitiesModesUserDefaultsManager = UserDefaultsManager(userDefaultKey: .securityModes)
 	private var lockScreenView: PrivacyLockView?
 	private var appIsLocked = false
 	private var showPrivateScreen = true
@@ -108,8 +108,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	// MARK: - Private Methods
 
 	private func modifyAppLock() {
-		let securityModes: [String] = securitysModesUserDefaultsManager.getValue() ?? []
-		if securityModes.first(where: { $0 == SecurityOptionModel.LockType.immediately.rawValue }) != nil {
+		let securityModes: [String] = securitiesModesUserDefaultsManager.getValue() ?? []
+		if securityModes.contains(SecurityOptionModel.LockType.immediately.rawValue) {
 			appIsLocked = true
 		}
 	}
