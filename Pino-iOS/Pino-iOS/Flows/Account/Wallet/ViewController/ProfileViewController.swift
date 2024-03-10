@@ -13,7 +13,6 @@ class ProfileViewController: UIViewController {
 
 	private let profileVM: ProfileViewModel
 	private let accountsVM: AccountsViewModel
-	private let devModeUserDefaultsManager = UserDefaultsManager(userDefaultKey: .isInDevMode)
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
@@ -46,8 +45,8 @@ class ProfileViewController: UIViewController {
 
 	override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
 		if motion == .motionShake {
-			let devMode: Bool = devModeUserDefaultsManager.getValue() ?? false
-			devModeUserDefaultsManager.setValue(value: !devMode)
+			let devMode: Bool = UserDefaultsManager.isDevModeUser.getValue() ?? false
+			UserDefaultsManager.isDevModeUser.setValue(value: !devMode)
 			if devMode {
 				Toast.default(title: "DevMode DeActivated", style: .error).show(haptic: .success)
 			} else {
@@ -92,7 +91,7 @@ class ProfileViewController: UIViewController {
 			let notificationsVC = NotificationSettingsViewController()
 			navigationController?.pushViewController(notificationsVC, animated: true)
 		case .securityLock:
-			let securityLockVC = SecurityViewController()
+			let securityLockVC = SecuritySettingsViewController()
 			navigationController?.pushViewController(securityLockVC, animated: true)
 		case .recoverPhrase:
 			let recoverPhraseVC = RecoveryPhraseViewController()

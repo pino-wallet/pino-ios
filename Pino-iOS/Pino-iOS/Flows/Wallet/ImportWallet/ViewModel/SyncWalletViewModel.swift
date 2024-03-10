@@ -6,20 +6,38 @@
 //
 
 import Foundation
+import PromiseKit
 
-struct SyncWalletViewModel {
+class SyncWalletViewModel {
 	// MARK: - Public Properties
 
 	public let titleAnimationName = "SyncWallet"
 	public let titleText = "Synchronizing..."
+	public let titleFinishedText = "Synced successfully!"
 	public let descriptionText = "We are syncing your wallet data. This may take a few minutes."
+	public let descriptionFinishedText = "Your wallet is now set up and ready to use in the DeFi world."
 	public let exploreTitleText = "Do you want to explore Pino in the meantime?"
-	public let explorePinoButtonText = "Explore Pino"
-	public var loadingTime: TimeInterval
+	public let explorePinoBtnText = "OK, let’s go!"
+	public let explorePinoFinishedBtnText = "OK, let’s go!"
+	public var loadingTime: TimeInterval = 15
+
+	@Published
+	public var syncStatus: SyncStatus = .syncing
+
+	public static var isSyncFinished: Bool {
+		if Date.now > UserDefaultsManager.syncFinishTime.getValue()! {
+			return true
+		} else {
+			return false
+		}
+	}
 
 	// MARK: - Initializers
+}
 
-	init(loadingTime: TimeInterval) {
-		self.loadingTime = loadingTime
+extension SyncWalletViewModel {
+	public enum SyncStatus {
+		case syncing
+		case finished
 	}
 }

@@ -30,11 +30,7 @@ class TutorialStepperCell: UICollectionViewCell {
 
 	private func setupConstraint() {
 		stepProgressView.pin(
-			.centerX,
-			.centerY,
-			.horizontalEdges(padding: 0),
-			.top(padding: 0),
-			.bottom(padding: 0),
+			.allEdges,
 			.fixedHeight(2)
 		)
 	}

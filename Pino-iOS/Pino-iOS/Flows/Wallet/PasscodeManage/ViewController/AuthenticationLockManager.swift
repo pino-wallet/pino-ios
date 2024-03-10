@@ -12,7 +12,6 @@ import UIKit
 class AuthenticationLockManager {
 	// MARK: - Private Properties
 
-	private let lockMethodTypeUserDefaultsManager = UserDefaultsManager(userDefaultKey: .lockMethodType)
 	private var unlockAppVC: UnlockAppViewController?
 	private var parentVC: UIViewController!
 	private var biometricAuthentication = BiometricAuthentication()
@@ -41,7 +40,8 @@ class AuthenticationLockManager {
 
 	private func getLockMethod() -> LockMethodType {
 		let defaultLockMethod = LockMethodType.passcode
-		let savedLockMethod: LockMethodType.RawValue = lockMethodTypeUserDefaultsManager.getValue() ?? defaultLockMethod
+		let savedLockMethod: LockMethodType.RawValue = UserDefaultsManager.lockMethodType
+			.getValue() ?? defaultLockMethod
 			.rawValue
 		let lockMethod = LockMethodType(rawValue: savedLockMethod) ?? defaultLockMethod
 		return lockMethod
@@ -88,7 +88,7 @@ class AuthenticationLockManager {
 	}
 
 	private func setLockType(_ type: LockMethodType) {
-		lockMethodTypeUserDefaultsManager.setValue(value: type.rawValue)
+		UserDefaultsManager.lockMethodType.setValue(value: type.rawValue)
 	}
 
 	private func showFailureAlert() {

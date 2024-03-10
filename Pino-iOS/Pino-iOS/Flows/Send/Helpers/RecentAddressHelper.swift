@@ -10,7 +10,6 @@ import Foundation
 class RecentAddressHelper {
 	// MARK: - Private Properties
 
-	private let recentAddressUserDefaultsManager = UserDefaultsManager(userDefaultKey: .recentSentAddresses)
 	private let coreDataManager = CoreDataManager()
 	private let pinoWalletManager = PinoWalletManager()
 
@@ -28,7 +27,7 @@ class RecentAddressHelper {
 		} else {
 			decodedRecentAddressList.append(newRecentAddress)
 		}
-		recentAddressUserDefaultsManager.setValue(value: decodedRecentAddressList)
+		UserDefaultsManager.recentAddUser.setValue(value: decodedRecentAddressList)
 	}
 
 	public func getUserRecentAddresses() -> [RecentAddressModel] {
@@ -49,11 +48,12 @@ class RecentAddressHelper {
 		let numberOfDaysOfExpiration = 7
 		let filteredRecentAddressList = decodedRecentAddressList
 			.filter { calendar.dateComponents([.day], from: $0.date, to: Date()).day! < numberOfDaysOfExpiration }
-		recentAddressUserDefaultsManager.setValue(value: filteredRecentAddressList)
+		UserDefaultsManager.recentAddUser.setValue(value: filteredRecentAddressList)
 	}
 
 	private func getDecodedRecentAddressList() -> [RecentAddressModel] {
-		let recentAddressList: [RecentAddressModel]? = recentAddressUserDefaultsManager.getValue()
-		return recentAddressList ?? []
+		guard let recentAddressList: [RecentAddressModel] = UserDefaultsManager.recentAddUser.getValue()
+		else { return [] }
+		return recentAddressList
 	}
 }

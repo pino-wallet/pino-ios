@@ -48,7 +48,7 @@ class ImportAccountsViewModel {
 		self.walletMnemonics = walletMnemonics
 	}
 
-	// MARK: Private Methods
+	// MARK: - Private Methods
 
 	private func getWallet() -> Promise<HDWallet> {
 		Promise<HDWallet> { seal in
@@ -196,7 +196,28 @@ class ImportAccountsViewModel {
 		}
 	}
 
+	private func saveSyncFinishTime() {
+		if let oneMinuteLater = Calendar.current.date(byAdding: .minute, value: 1, to: .now) {
+			UserDefaultsManager.syncFinishTime.setValue(value: oneMinuteLater)
+		}
+	}
+
 	// MARK: - Public Methods
+
+	public func startSync(syncFinished: @escaping () -> Void) {
+		let selectedAccounts = accounts.filter { $0.isSelected }
+
+		let activateAccountsReqs: [Promise<AccountActivationModel>] = selectedAccounts.map { selectedAccount in
+			accountActivationVM.activateNewAccountAddress(selectedAccount.account)
+		}
+
+		when(fulfilled: activateAccountsReqs).done { [unowned self] activateAccountsResp in
+			saveSyncFinishTime()
+			syncFinished()
+		}.catch { error in
+			Toast.default(title: "Failed to import accounts", style: .error).show(haptic: .warning)
+		}
+	}
 
 	public func getFirstAccounts() -> Promise<[ActiveAccountViewModel]> {
 		getActiveAccounts(form: 0, to: 9)

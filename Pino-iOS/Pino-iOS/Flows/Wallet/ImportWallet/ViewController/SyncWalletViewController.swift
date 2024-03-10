@@ -10,8 +10,10 @@ import UIKit
 class SyncWalletViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private var syncWalletVM: SyncWalletViewModel
+	private var syncWalletVM = SyncWalletViewModel()
 	private var syncWalletView: SyncWalletView!
+	private var selectedAccounts: [ActiveAccountViewModel]
+	private var mnemonics: String
 
 	// MARK: - View Overrides
 
@@ -25,13 +27,16 @@ class SyncWalletViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		syncWalletView.animateLoading()
+		if isBeingPresented || isMovingToParent {
+			clearNavbar()
+		}
 	}
 
 	// MARK: - Initializers
 
-	init(syncWalletVM: SyncWalletViewModel) {
-		self.syncWalletVM = syncWalletVM
-
+	init(selectedAccounts: [ActiveAccountViewModel], mnemonics: String) {
+		self.selectedAccounts = selectedAccounts
+		self.mnemonics = mnemonics
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -44,6 +49,8 @@ class SyncWalletViewController: UIViewController {
 	private func setupView() {
 		syncWalletView = SyncWalletView(syncWalletVM: syncWalletVM, presentTutorialPage: {
 			self.presentTutorialPage()
+		}, presentAllDonePage: {
+			self.presentAllDonePage()
 		})
 
 		view = syncWalletView
@@ -55,5 +62,13 @@ class SyncWalletViewController: UIViewController {
 		}
 		tutorialPage.modalPresentationStyle = .overFullScreen
 		present(tutorialPage, animated: true)
+	}
+
+	private func presentAllDonePage() {
+		let allDoneVC = AllDoneViewController(
+			selectedAccounts: selectedAccounts,
+			mnemonics: mnemonics
+		)
+		navigationController?.pushViewController(allDoneVC, animated: true)
 	}
 }
