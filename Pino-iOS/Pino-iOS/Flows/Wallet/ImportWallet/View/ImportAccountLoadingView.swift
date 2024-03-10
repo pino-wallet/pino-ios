@@ -6,14 +6,15 @@
 //
 
 import UIKit
+import Lottie
 
 class ImportAccountLoadingView: UIView {
 	// MARK: - Private Properties
 
 	private let contentStackView = UIStackView()
 	private let titleStackView = UIStackView()
-	private let searchImageBackgroundView = UIStackView()
-	private let searchImageView = UIImageView()
+	private let findingAccountLottieBackgroundView = UIView()
+	private let findingAccountLottieAnimationView = LottieAnimationView()
 	private let loadingTitleLabel = UILabel()
 	private let loadingDescriptionLabel = UILabel()
 
@@ -29,23 +30,25 @@ class ImportAccountLoadingView: UIView {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+    // MARK: - View Overrides
+    override func removeFromSuperview() {
+        findingAccountLottieAnimationView.animation = nil
+    }
 
 	// MARK: - Private Methods
 
 	private func setupView() {
 		addSubview(contentStackView)
-		contentStackView.addArrangedSubview(searchImageBackgroundView)
+		contentStackView.addArrangedSubview(findingAccountLottieBackgroundView)
 		contentStackView.addArrangedSubview(titleStackView)
 		titleStackView.addArrangedSubview(loadingTitleLabel)
 		titleStackView.addArrangedSubview(loadingDescriptionLabel)
-		searchImageBackgroundView.addSubview(searchImageView)
+		findingAccountLottieBackgroundView.addSubview(findingAccountLottieAnimationView)
 	}
 
 	private func setupStyle() {
 		loadingTitleLabel.text = "Finding your accounts"
 		loadingDescriptionLabel.text = "This may take a few seconds"
-
-		searchImageView.image = UIImage(named: "search")
 
 		loadingTitleLabel.font = .PinoStyle.semiboldTitle2
 		loadingDescriptionLabel.font = .PinoStyle.mediumBody
@@ -54,18 +57,22 @@ class ImportAccountLoadingView: UIView {
 		loadingDescriptionLabel.textColor = .Pino.secondaryLabel
 
 		backgroundColor = .Pino.secondaryBackground
-		searchImageBackgroundView.backgroundColor = .Pino.lightGreen
 
 		contentStackView.axis = .vertical
 		titleStackView.axis = .vertical
 
-		contentStackView.spacing = 28
+		contentStackView.spacing = 24
 		titleStackView.spacing = 14
 
 		contentStackView.alignment = .center
 		titleStackView.alignment = .center
 
-		searchImageBackgroundView.layer.cornerRadius = 32
+        findingAccountLottieAnimationView.animation = LottieAnimation.named("FindingAccount")
+        findingAccountLottieAnimationView.loopMode = .loop
+        findingAccountLottieAnimationView.contentMode = .scaleAspectFit
+        findingAccountLottieAnimationView.play()
+        
+        findingAccountLottieBackgroundView.layer.cornerRadius = 28
 	}
 
 	private func setupConstraint() {
@@ -73,12 +80,10 @@ class ImportAccountLoadingView: UIView {
 			.horizontalEdges(padding: 16),
 			.centerY
 		)
-		searchImageView.pin(
-			.allEdges(padding: 12)
-		)
-		searchImageBackgroundView.pin(
-			.fixedWidth(64),
-			.fixedHeight(64)
+        findingAccountLottieAnimationView.pin(.centerX, .centerY, .fixedWidth(115), .fixedHeight(115))
+		findingAccountLottieBackgroundView.pin(
+			.fixedWidth(56),
+			.fixedHeight(56)
 		)
 	}
 }
