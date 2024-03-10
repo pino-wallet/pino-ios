@@ -5,8 +5,8 @@
 //  Created by Mohi Raoufi on 9/16/23.
 //
 
-import UIKit
 import Lottie
+import UIKit
 
 class ImportAccountLoadingView: UIView {
 	// MARK: - Private Properties
@@ -30,10 +30,12 @@ class ImportAccountLoadingView: UIView {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-    // MARK: - View Overrides
-    override func removeFromSuperview() {
-        findingAccountLottieAnimationView.animation = nil
-    }
+
+	// MARK: - View Overrides
+
+	override func removeFromSuperview() {
+		findingAccountLottieAnimationView.animation = nil
+	}
 
 	// MARK: - Private Methods
 
@@ -67,12 +69,12 @@ class ImportAccountLoadingView: UIView {
 		contentStackView.alignment = .center
 		titleStackView.alignment = .center
 
-        findingAccountLottieAnimationView.animation = LottieAnimation.named("FindingAccount")
-        findingAccountLottieAnimationView.loopMode = .loop
-        findingAccountLottieAnimationView.contentMode = .scaleAspectFit
-        findingAccountLottieAnimationView.play()
-        
-        findingAccountLottieBackgroundView.layer.cornerRadius = 28
+		findingAccountLottieAnimationView.animation = LottieAnimation.named("FindingAccount")
+		findingAccountLottieAnimationView.loopMode = .loop
+		findingAccountLottieAnimationView.contentMode = .scaleAspectFit
+		findingAccountLottieAnimationView.play()
+
+		findingAccountLottieBackgroundView.layer.cornerRadius = 28
 	}
 
 	private func setupConstraint() {
@@ -80,7 +82,7 @@ class ImportAccountLoadingView: UIView {
 			.horizontalEdges(padding: 16),
 			.centerY
 		)
-        findingAccountLottieAnimationView.pin(.centerX, .centerY, .fixedWidth(115), .fixedHeight(115))
+		findingAccountLottieAnimationView.pin(.centerX, .centerY, .fixedWidth(115), .fixedHeight(115))
 		findingAccountLottieBackgroundView.pin(
 			.fixedWidth(56),
 			.fixedHeight(56)
