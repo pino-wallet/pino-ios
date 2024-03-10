@@ -15,6 +15,7 @@ class AuthenticationLockManager {
 	private let lockMethodTypeUserDefaultsManager = UserDefaultsManager(userDefaultKey: .lockMethodType)
 	private var unlockAppVC: UnlockAppViewController?
 	private var parentVC: UIViewController!
+	private var biometricAuthentication = BiometricAuthentication()
 
 	init(parentController: UIViewController) {
 		self.parentVC = parentController
@@ -24,9 +25,6 @@ class AuthenticationLockManager {
 
 	public func unlockApp(onSuccess: @escaping () -> Void, onFailure: @escaping () -> Void) {
 		if UIDevice.current.isSimulator || Environment.current != .mainNet {
-			onSuccess()
-			return
-		} else {
 			onSuccess()
 			return
 		}
@@ -50,7 +48,6 @@ class AuthenticationLockManager {
 	}
 
 	private func unlockWithBiometric(onSuccess: @escaping () -> Void, onFailure: @escaping () -> Void) {
-		var biometricAuthentication = BiometricAuthentication()
 		biometricAuthentication.evaluate(
 			onSuccess: {
 				onSuccess()
@@ -107,7 +104,7 @@ class AuthenticationLockManager {
 struct BiometricAuthentication {
 	// MARK: - Private Properties
 
-	private let laContext = LAContext()
+	private var laContext = LAContext()
 	private let biometricsPolicy = LAPolicy.deviceOwnerAuthenticationWithBiometrics
 	private var localizedReason = "Unlock device"
 	private var error: NSError?
@@ -165,22 +162,5 @@ struct BiometricAuthentication {
 			return false
 		}
 		return true
-	}
-
-	private func showAuthPrompt(onSuccess: @escaping () -> Void, onFailure: @escaping (Int) -> Void) {
-		laContext.evaluatePolicy(
-			biometricsPolicy,
-			localizedReason: localizedReason,
-			reply: { isSuccess, error in
-				DispatchQueue.main.async {
-					if isSuccess {
-						onSuccess()
-					} else {
-						guard let error else { return }
-						onFailure(error._code)
-					}
-				}
-			}
-		)
 	}
 }

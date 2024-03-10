@@ -25,6 +25,15 @@ class SecurityOptionCell: UICollectionViewCell {
 		}
 	}
 
+	public var isEnabled: Bool? {
+		didSet {
+			guard let isEnabled else {
+				return
+			}
+			customSwitchOptionView.isEnabled = isEnabled
+		}
+	}
+
 	// MARK: - Closures
 
 	public var switchValueClosure: CustomSwitchOptionView.switchValueClosureType!
