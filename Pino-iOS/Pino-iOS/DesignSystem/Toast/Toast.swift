@@ -433,7 +433,7 @@ extension Toast.Style {
 	)
 
 	public static let secondary = Toast.Style(
-		tintColor: .Pino.black,
+		tintColor: .Pino.primary,
 		backgroundColor: .Pino.white,
 		image: .init(systemName: "info.circle")!
 	)

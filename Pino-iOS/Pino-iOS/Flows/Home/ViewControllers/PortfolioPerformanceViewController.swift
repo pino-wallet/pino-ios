@@ -11,6 +11,7 @@ class PortfolioPerformanceViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let assets: [AssetViewModel]
+	private let isWalletSyncFinished = SyncWalletViewModel.isSyncFinished
 
 	// MARK: Initializers
 
@@ -25,8 +26,18 @@ class PortfolioPerformanceViewController: UIViewController {
 
 	// MARK: - View Overrides
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		if !isWalletSyncFinished {
+			view.showGradientSkeletonView(startLocation: 0.3, endLocation: 0.8)
+		}
+	}
+
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		if !isWalletSyncFinished {
+			Toast.default(title: "Working on your data ...", style: .secondary).show()
+		}
 	}
 
 	override func loadView() {
@@ -37,7 +48,10 @@ class PortfolioPerformanceViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		let portfolioPerformaneVM = PortfolioPerformanceViewModel(assets: assets)
+		let portfolioPerformaneVM = PortfolioPerformanceViewModel(
+			assets: assets,
+			isWalletSyncFinished: isWalletSyncFinished
+		)
 		view = PortfolioPerformanceCollectionView(
 			portfolioPerformanceVM: portfolioPerformaneVM,
 			assetSelected: { shareOfAsset in

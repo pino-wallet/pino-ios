@@ -18,14 +18,16 @@ class PortfolioPerformanceViewModel {
 
 	@Published
 	public var chartVM: AssetChartViewModel?
-	public var shareOfAssetsVM: [ShareOfAssetsProtocol]!
+	public var shareOfAssetsVM: [ShareOfAssetsProtocol]?
 
 	// MARK: - Initializers
 
-	init(assets: [AssetViewModel]) {
+	init(assets: [AssetViewModel], isWalletSyncFinished: Bool) {
 		self.selectedAssets = assets
-		getChartData()
-		getShareOfAssets()
+		if isWalletSyncFinished {
+			getChartData()
+			getShareOfAssets()
+		}
 	}
 
 	// MARK: - Public Methods
@@ -55,7 +57,7 @@ class PortfolioPerformanceViewModel {
 			ShareOfAssetsViewModel(assetVM: $0, totalAmount: totalAmount)
 		}
 		if userAssets.count > 10 {
-			shareOfAssetsVM.append(OtherShareOfAssetsViewModel(
+			shareOfAssetsVM?.append(OtherShareOfAssetsViewModel(
 				assetsVM: Array(userAssets.suffix(from: 10)),
 				totalAmount: totalAmount
 			))
