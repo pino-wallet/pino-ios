@@ -20,7 +20,6 @@ class ImportAccountsViewModel {
 	private let internetConnectivity = InternetConnectivity()
 	private var createdWallet: HDWallet?
 	private let accountActivationVM = AccountActivationViewModel()
-	private let accountSyncTimeUserDef = UserDefaultsManager<Date>(userDefaultKey: .syncFinishTime)
 
 	// MARK: Public Properties
 
@@ -199,7 +198,7 @@ class ImportAccountsViewModel {
 
 	private func saveSyncFinishTime() {
 		if let oneMinuteLater = Calendar.current.date(byAdding: .minute, value: 1, to: .now) {
-			accountSyncTimeUserDef.setValue(value: oneMinuteLater)
+			UserDefaultsManager.syncFinishTime.setValue(value: oneMinuteLater)
 		}
 	}
 

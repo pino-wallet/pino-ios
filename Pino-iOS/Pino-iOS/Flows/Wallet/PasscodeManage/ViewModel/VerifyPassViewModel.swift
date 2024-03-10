@@ -30,14 +30,11 @@ struct VerifyPassViewModel: PasscodeManagerPages {
 	}
 
 	public func showSyncPage() -> Bool {
-		if let selectedAccounts {
-			if selectedAccounts.count == 1 && selectedAccounts.first!.isNewWallet == true {
-				return false
-			} else {
-				return true
-			}
-		} else {
+		guard let selectedAccounts else { return false }
+		if selectedAccounts.count == 1 && selectedAccounts.first!.isNewWallet {
 			return false
+		} else {
+			return true
 		}
 	}
 

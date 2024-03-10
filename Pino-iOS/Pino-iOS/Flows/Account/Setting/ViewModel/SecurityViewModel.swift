@@ -10,10 +10,8 @@ import Foundation
 class SecurityViewModel {
 	// MARK: - Private Properties
 
-	private let lockMethodTypeUserDefaultsManager = UserDefaultsManager<String>(userDefaultKey: .lockMethodType)
-
 	private var defaultSecurityModes: [String] {
-		securityModesUserDefaultsManager.getValue() ?? []
+		UserDefaultsManager.securityModesUser.getValue() ?? []
 	}
 
 	// MARK: - Public Properties
@@ -48,8 +46,6 @@ class SecurityViewModel {
 		]
 	}
 
-	public let securityModesUserDefaultsManager = UserDefaultsManager<[String]>(userDefaultKey: .securityModes)
-
 	@Published
 	public var selectedLockMethod: LockMethodModel!
 
@@ -61,7 +57,7 @@ class SecurityViewModel {
 
 	private func getLockMethod() -> LockMethodModel {
 		let defaultLockMethod = LockMethodType.passcode
-		let savedLockMethodType: String = lockMethodTypeUserDefaultsManager.getValue() ?? defaultLockMethod.rawValue
+		let savedLockMethodType: String = UserDefaultsManager.lockMethodType.getValue() ?? defaultLockMethod.rawValue
 		let lockMethodType = LockMethodType(rawValue: savedLockMethodType) ?? defaultLockMethod
 		return lockMethods.first(where: { $0.type == lockMethodType })!
 	}
@@ -70,15 +66,15 @@ class SecurityViewModel {
 
 	public func changeLockMethod(to lockMethod: LockMethodModel) {
 		selectedLockMethod = lockMethod
-		lockMethodTypeUserDefaultsManager.setValue(value: lockMethod.type.rawValue)
+		UserDefaultsManager.lockMethodType.setValue(value: lockMethod.type.rawValue)
 	}
 
 	public func changeSecurityModes(isOn: Bool, type: String) {
-		var currentSecurityModes: [String] = securityModesUserDefaultsManager.getValue() ?? []
+		var currentSecurityModes: [String] = UserDefaultsManager.securityModesUser.getValue() ?? []
 		guard let currentModeIndex = currentSecurityModes.firstIndex(where: { $0 == type }) else {
 			if isOn {
 				currentSecurityModes.append(type)
-				securityModesUserDefaultsManager.setValue(value: currentSecurityModes)
+				UserDefaultsManager.securityModesUser.setValue(value: currentSecurityModes)
 			} else {
 				fatalError("Cannot modify security mode list")
 			}
@@ -87,7 +83,7 @@ class SecurityViewModel {
 
 		if !isOn {
 			currentSecurityModes.remove(at: currentModeIndex)
-			securityModesUserDefaultsManager.setValue(value: currentSecurityModes)
+			UserDefaultsManager.securityModesUser.setValue(value: currentSecurityModes)
 		} else {
 			fatalError("Cannot modify security mode list")
 		}

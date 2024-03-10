@@ -111,7 +111,8 @@ extension SecurityOptionsCollectionView: UICollectionViewDataSource {
 				}
 			}
 		}
-		let currentSecurityModes: [String] = securityLockVM.securityModesUserDefaultsManager.getValue() ?? []
+
+		let currentSecurityModes: [String] = UserDefaultsManager.securityModesUser.getValue() ?? []
 		if currentSecurityModes.count == 1 && currentSecurityModes[0] == currentOption.type.rawValue {
 			cell.isEnabled = false
 		} else {

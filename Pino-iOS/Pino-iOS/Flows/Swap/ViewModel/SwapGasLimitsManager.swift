@@ -41,8 +41,7 @@ struct SwapGasLimitsManager {
 
 	public static func getMaxAmount(selectedToken: AssetViewModel) -> BigNumber {
 		if selectedToken.isEth {
-			let userDefManager = UserDefaultsManager<GasLimitsModel>(userDefaultKey: .gasLimits)
-			let gasLimits: GasLimitsModel? = userDefManager.getValue()
+			let gasLimits: GasLimitsModel? = UserDefaultsManager.gasLimits.getValue()
 			if let gasLimits {
 				let maxEthAmount = selectedToken.holdAmountInDollor
 				let gasLimitsManager = SwapGasLimitsManager(

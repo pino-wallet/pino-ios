@@ -528,7 +528,6 @@
 		D9D9A40C2A5ED76400CECA41 /* ActivityInfoStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9A40B2A5ED76400CECA41 /* ActivityInfoStackView.swift */; };
 		D9DC773F2A6FAB2B00AA0987 /* ActivityDetailPropertiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC773E2A6FAB2B00AA0987 /* ActivityDetailPropertiesViewModel.swift */; };
 		D9DD538BAF953A18503AB3F0 /* RemoveAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887EDE19A8B81F1FB217E0FA /* RemoveAccountView.swift */; };
-		D9E132792B67B5EB009808C5 /* GlobalUserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E132782B67B5EB009808C5 /* GlobalUserDefaultsKeys.swift */; };
 		D9E134852A52FB4A00193FF0 /* ActivityHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E134842A52FB4A00193FF0 /* ActivityHeaderView.swift */; };
 		D9E134872A53013D00193FF0 /* ActivityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E134862A53013D00193FF0 /* ActivityHelper.swift */; };
 		D9E27FF02B1B502B00AFA7D0 /* AaveBorrowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E27FEF2B1B502B00AFA7D0 /* AaveBorrowManager.swift */; };
@@ -1441,7 +1440,6 @@
 		D9D9A4092A5E9CD200CECA41 /* ImageAndInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAndInfoView.swift; sourceTree = "<group>"; };
 		D9D9A40B2A5ED76400CECA41 /* ActivityInfoStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityInfoStackView.swift; sourceTree = "<group>"; };
 		D9DC773E2A6FAB2B00AA0987 /* ActivityDetailPropertiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailPropertiesViewModel.swift; sourceTree = "<group>"; };
-		D9E132782B67B5EB009808C5 /* GlobalUserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUserDefaultsKeys.swift; sourceTree = "<group>"; };
 		D9E134842A52FB4A00193FF0 /* ActivityHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHeaderView.swift; sourceTree = "<group>"; };
 		D9E134862A53013D00193FF0 /* ActivityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHelper.swift; sourceTree = "<group>"; };
 		D9E27FEF2B1B502B00AFA7D0 /* AaveBorrowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AaveBorrowManager.swift; sourceTree = "<group>"; };
@@ -3226,7 +3224,6 @@
 			children = (
 				D970C0DF2A74EA80005A7FAC /* GlobalToastTitles.swift */,
 				D96833F62B52BA2900521772 /* GlobalZeroAmounts.swift */,
-				D9E132782B67B5EB009808C5 /* GlobalUserDefaultsKeys.swift */,
 			);
 			path = "Global enums";
 			sourceTree = "<group>";
@@ -5730,7 +5727,6 @@
 				D9C4CEFF2A408C5E00475F01 /* SuggestedAddressesCollectionView.swift in Sources */,
 				798A57BFA5D028A04B449F34 /* AccountInfoViewModel.swift in Sources */,
 				AD68BBE3C5E6C48C129C6BA7 /* AccountsCollectionView.swift in Sources */,
-				D9E132792B67B5EB009808C5 /* GlobalUserDefaultsKeys.swift in Sources */,
 				D990197A2A93514D008CF9EC /* CollateralDetailsView.swift in Sources */,
 				D9BE051B2A8221C8008670F9 /* CDSwapActivity+CoreDataProperties.swift in Sources */,
 				C3321EBB6DC83BCDC3CFC3B0 /* WalletsModel.swift in Sources */,

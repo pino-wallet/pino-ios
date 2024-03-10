@@ -12,21 +12,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	// MARK: - Private Properties
 
-	private let isLoginUserDefManager = UserDefaultsManager<Bool>(userDefaultKey: .isLogin)
-	private let isDevModeUserDefManager = UserDefaultsManager<Bool>(userDefaultKey: .isInDevMode)
-	private let biometricCountDefManager = UserDefaultsManager<Int>(userDefaultKey: .showBiometricCounts)
-	private let recentAddUserDefManager =
-		UserDefaultsManager<[RecentAddressModel]>(userDefaultKey: .recentSentAddresses)
-	private let hasShowNotifPageUserDefManager = UserDefaultsManager<Bool>(userDefaultKey: .recentSentAddresses)
-	private let securitiesModesUserDefaultsManager = UserDefaultsManager<[String]>(userDefaultKey: .securityModes)
-
 	private var lockScreenView: PrivacyLockView?
-	private var authVC: AuthenticationLockManager!
+	private var authManager: AuthenticationLockManager!
 	private var appIsLocked = false
 	private var showPrivateScreen = true
 
 	private var isUserLoggedIn: Bool {
-		let isUserLoggedInBool: Bool? = isLoginUserDefManager.getValue()
+		let isUserLoggedInBool: Bool? = UserDefaultsManager.isUserLoggedIn.getValue()
 		return isUserLoggedInBool ?? false
 	}
 
@@ -43,12 +35,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		// `application:configurationForConnectingSceneSession` instead).
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		window = UIWindow(windowScene: windowScene)
-		isDevModeUserDefManager.registerDefault(value: false)
-		hasShowNotifPageUserDefManager.registerDefault(value: false)
-		biometricCountDefManager.registerDefault(value: 0)
-		securitiesModesUserDefaultsManager.registerDefault(value: [SecurityOptionModel.LockType.immediately.rawValue])
+		UserDefaultsManager.isDevModeUser.registerDefault(value: false)
+		UserDefaultsManager.hasShowNotifPageUser.registerDefault(value: false)
+		UserDefaultsManager.biometricCount.registerDefault(value: 0)
+		UserDefaultsManager.securityModesUser
+			.registerDefault(value: [SecurityOptionModel.LockType.immediately.rawValue])
 		let emptyRecentAddressList: [RecentAddressModel] = []
-		recentAddUserDefManager
+		UserDefaultsManager.recentAddUser
 			.registerDefault(value: emptyRecentAddressList)
 
 		if isUserLoggedIn {
@@ -110,7 +103,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	// MARK: - Private Methods
 
 	private func modifyAppLock() {
-		let securityModes: [String] = securitiesModesUserDefaultsManager.getValue() ?? []
+		let securityModes: [String] = UserDefaultsManager.securityModesUser.getValue() ?? []
 		if securityModes.contains(SecurityOptionModel.LockType.immediately.rawValue) {
 			appIsLocked = true
 		}
