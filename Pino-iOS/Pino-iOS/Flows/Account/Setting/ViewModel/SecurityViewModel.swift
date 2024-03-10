@@ -12,6 +12,10 @@ class SecurityViewModel {
 
 	private let lockMethodTypeUserDefaultsManager = UserDefaultsManager<String>(userDefaultKey: .lockMethodType)
 
+	private var defaultSecurityModes: [String] {
+		securityModesUserDefaultsManager.getValue() ?? []
+	}
+
 	// MARK: - Public Properties
 
 	public let pageTitle = "Security"
@@ -25,15 +29,26 @@ class SecurityViewModel {
 		LockMethodModel(title: "Face ID", type: .face_id),
 		LockMethodModel(title: "Passcode", type: .passcode),
 	]
-	public let securityOptions = [
-		SecurityOptionModel(title: "Immediately", type: .immediately, isSelected: true, description: nil),
-		SecurityOptionModel(
-			title: "For every transaction",
-			type: .on_transactions,
-			isSelected: false,
-			description: nil
-		),
-	]
+	public var securityOptions: [SecurityOptionModel] {
+		[
+			SecurityOptionModel(
+				title: "Immediately",
+				type: .immediately,
+				isSelected: defaultSecurityModes
+					.first(where: { $0 == SecurityOptionModel.LockType.immediately.rawValue }) != nil,
+				description: nil
+			),
+			SecurityOptionModel(
+				title: "For every transaction",
+				type: .on_transactions,
+				isSelected: defaultSecurityModes
+					.first(where: { $0 == SecurityOptionModel.LockType.on_transactions.rawValue }) != nil,
+				description: nil
+			),
+		]
+	}
+
+	public let securityModesUserDefaultsManager = UserDefaultsManager<[String]>(userDefaultKey: .securityModes)
 
 	@Published
 	public var selectedLockMethod: LockMethodModel!
@@ -56,5 +71,25 @@ class SecurityViewModel {
 	public func changeLockMethod(to lockMethod: LockMethodModel) {
 		selectedLockMethod = lockMethod
 		lockMethodTypeUserDefaultsManager.setValue(value: lockMethod.type.rawValue)
+	}
+
+	public func changeSecurityModes(isOn: Bool, type: String) {
+		var currentSecurityModes: [String] = securityModesUserDefaultsManager.getValue() ?? []
+		guard let currentModeIndex = currentSecurityModes.firstIndex(where: { $0 == type }) else {
+			if isOn {
+				currentSecurityModes.append(type)
+				securityModesUserDefaultsManager.setValue(value: currentSecurityModes)
+			} else {
+				fatalError("Cannot modify security mode list")
+			}
+			return
+		}
+
+		if !isOn {
+			currentSecurityModes.remove(at: currentModeIndex)
+			securityModesUserDefaultsManager.setValue(value: currentSecurityModes)
+		} else {
+			fatalError("Cannot modify security mode list")
+		}
 	}
 }

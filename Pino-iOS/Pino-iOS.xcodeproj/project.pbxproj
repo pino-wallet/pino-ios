@@ -490,6 +490,7 @@
 		D9BFEC392A121719007DFF40 /* AllowNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC382A121719007DFF40 /* AllowNotificationsView.swift */; };
 		D9BFEC3B2A12177C007DFF40 /* AllowNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC3A2A12177C007DFF40 /* AllowNotificationsViewModel.swift */; };
 		D9BFEC3E2A12236C007DFF40 /* ClearNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BFEC3D2A12236C007DFF40 /* ClearNavigationBar.swift */; };
+		D9C1655F2B99B1CD007DB6F7 /* LockScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C1655E2B99B1CD007DB6F7 /* LockScreenViewController.swift */; };
 		D9C1807B2A88DAA60066C2A7 /* SpeedUpAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C1807A2A88DAA60066C2A7 /* SpeedUpAlertViewController.swift */; };
 		D9C1807D2A88EB950066C2A7 /* SpeedUpAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C1807C2A88EB950066C2A7 /* SpeedUpAlertViewModel.swift */; };
 		D9C1807F2A88FAF80066C2A7 /* GradientShowFeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C1807E2A88FAF80066C2A7 /* GradientShowFeeView.swift */; };
@@ -1404,6 +1405,7 @@
 		D9BFEC382A121719007DFF40 /* AllowNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsView.swift; sourceTree = "<group>"; };
 		D9BFEC3A2A12177C007DFF40 /* AllowNotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowNotificationsViewModel.swift; sourceTree = "<group>"; };
 		D9BFEC3D2A12236C007DFF40 /* ClearNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearNavigationBar.swift; sourceTree = "<group>"; };
+		D9C1655E2B99B1CD007DB6F7 /* LockScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenViewController.swift; sourceTree = "<group>"; };
 		D9C1807A2A88DAA60066C2A7 /* SpeedUpAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedUpAlertViewController.swift; sourceTree = "<group>"; };
 		D9C1807C2A88EB950066C2A7 /* SpeedUpAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedUpAlertViewModel.swift; sourceTree = "<group>"; };
 		D9C1807E2A88FAF80066C2A7 /* GradientShowFeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientShowFeeView.swift; sourceTree = "<group>"; };
@@ -2066,6 +2068,7 @@
 				1B8B3471DBAE7B1EDD075DAF /* AuthenticationLockManager.swift */,
 				B008BFDEFA5F3ED319D3D533 /* UnlockAppViewController.swift */,
 				EDE34223ED5A368C78F99208 /* VerifyPasscodeViewController.swift */,
+				D9C1655E2B99B1CD007DB6F7 /* LockScreenViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -5616,6 +5619,7 @@
 				D9BE051A2A8221C8008670F9 /* CDSwapActivity+CoreDataClass.swift in Sources */,
 				DE33FFB7D492FA770FF9FB5C /* SemiboldStyle.swift in Sources */,
 				D99F4B2329E2C619009F7F55 /* PaymentMethodOptionModel.swift in Sources */,
+				D9C1655F2B99B1CD007DB6F7 /* LockScreenViewController.swift in Sources */,
 				6FB3C66B1E98C7C2B7886069 /* SettingCell.swift in Sources */,
 				DF56F38A2B949B0600442BB2 /* CloudKitKeyStoreManager.swift in Sources */,
 				D95782372AFCC0B70007D580 /* WithdrawInvestmentActivityDetailsViewModel.swift in Sources */,
