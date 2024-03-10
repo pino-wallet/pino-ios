@@ -31,7 +31,7 @@ struct VerifyPassViewModel: PasscodeManagerPages {
 
 	public func showSyncPage() -> Bool {
 		guard let selectedAccounts else { return false }
-		if selectedAccounts.count == 1 && selectedAccounts.first!.isNewWallet {
+		if let firstAccount = selectedAccounts.first, firstAccount.isNewWallet {
 			return false
 		} else {
 			return true

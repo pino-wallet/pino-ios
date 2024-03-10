@@ -52,7 +52,8 @@ class RecentAddressHelper {
 	}
 
 	private func getDecodedRecentAddressList() -> [RecentAddressModel] {
-		let recentAddressList: [RecentAddressModel]? = UserDefaultsManager.recentAddUser.getValue()
-		return recentAddressList ?? []
+		guard let recentAddressList: [RecentAddressModel] = UserDefaultsManager.recentAddUser.getValue()
+		else { return [] }
+		return recentAddressList
 	}
 }

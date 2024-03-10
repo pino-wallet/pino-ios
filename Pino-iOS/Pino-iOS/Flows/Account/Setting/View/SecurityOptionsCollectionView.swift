@@ -14,11 +14,11 @@ class SecurityOptionsCollectionView: UICollectionView {
 
 	// MARK: - Public Peoperties
 
-	public let securityLockVM: SecurityViewModel
+	public let securityLockVM: SecuritySettingsViewModel
 
 	// MARK: - Initializers
 
-	init(securityLockVM: SecurityViewModel, openSelectLockMethodAlertClosure: @escaping () -> Void) {
+	init(securityLockVM: SecuritySettingsViewModel, openSelectLockMethodAlertClosure: @escaping () -> Void) {
 		let flowLayout = UICollectionViewFlowLayout(scrollDirection: .vertical)
 		flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 		self.securityLockVM = securityLockVM
@@ -112,8 +112,9 @@ extension SecurityOptionsCollectionView: UICollectionViewDataSource {
 			}
 		}
 
-		let currentSecurityModes: [String] = UserDefaultsManager.securityModesUser.getValue() ?? []
-		if currentSecurityModes.count == 1 && currentSecurityModes[0] == currentOption.type.rawValue {
+		let currentSecurityModes = UserDefaultsManager.securityModesUser.getValue()
+		if let currentSecurityModes,
+		   currentSecurityModes.count == 1 && currentSecurityModes[0] == currentOption.type.rawValue {
 			cell.isEnabled = false
 		} else {
 			cell.isEnabled = true

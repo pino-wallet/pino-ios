@@ -63,29 +63,13 @@ class VerifyPasscodeViewController: UIViewController {
 			finishPassCreation: { [self] in
 				// Passcode was verified -> Show all done page
 				if verifyPassVM.showSyncPage() {
-					let syncPage = SyncWalletViewController(selectedAccounts: selectedAccounts!, mnemonics: mnemonics)
-					navigationController?.pushViewController(syncPage, animated: true)
+					openSyncPage()
 				} else {
-					let allDoneVC = AllDoneViewController(
-						selectedAccounts: selectedAccounts,
-						mnemonics: mnemonics
-					)
-					navigationController?.pushViewController(allDoneVC, animated: true)
+					openAllDonePage()
 				}
 			},
 			onErrorHandling: { error in
-				// display error
-				switch error {
-				case .dontMatch:
-					self.verifyPassView?.passDotsView.showErrorState()
-					self.verifyPassView?.showErrorWith(text: self.verifyPassVM.errorTitle)
-				case .saveFailed:
-					fatalError("Print Failed")
-				case .unknown:
-					fatalError("Uknown Error")
-				case .emptyPasscode:
-					fatalError("Passcode sent to verify is empty")
-				}
+				self.displayError(error)
 			},
 			hideError: {
 				self.verifyPassView?.hideError()
@@ -93,5 +77,33 @@ class VerifyPasscodeViewController: UIViewController {
 			selectedPasscode: selectedPasscode,
 			selectedAccounts: selectedAccounts
 		)
+	}
+
+	private func displayError(_ error: PassVerifyError) {
+		// display error
+		switch error {
+		case .dontMatch:
+			verifyPassView?.passDotsView.showErrorState()
+			verifyPassView?.showErrorWith(text: verifyPassVM.errorTitle)
+		case .saveFailed:
+			fatalError("Print Failed")
+		case .unknown:
+			fatalError("Uknown Error")
+		case .emptyPasscode:
+			fatalError("Passcode sent to verify is empty")
+		}
+	}
+
+	private func openAllDonePage() {
+		let allDoneVC = AllDoneViewController(
+			selectedAccounts: selectedAccounts,
+			mnemonics: mnemonics
+		)
+		navigationController?.pushViewController(allDoneVC, animated: true)
+	}
+
+	private func openSyncPage() {
+		let syncPage = SyncWalletViewController(selectedAccounts: selectedAccounts!, mnemonics: mnemonics)
+		navigationController?.pushViewController(syncPage, animated: true)
 	}
 }

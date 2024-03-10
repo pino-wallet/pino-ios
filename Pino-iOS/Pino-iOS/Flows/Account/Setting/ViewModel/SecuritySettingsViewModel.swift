@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SecurityViewModel {
+class SecuritySettingsViewModel {
 	// MARK: - Private Properties
 
 	private var defaultSecurityModes: [String] {
