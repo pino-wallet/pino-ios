@@ -41,7 +41,7 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var volatilityType: AssetVolatilityType {
-		AssetVolatilityType(change24h: BigNumber(number: changePercentage, decimal: 6))
+		AssetVolatilityType(change24h: BigNumber(number: changePercentage, decimal: 2))
 	}
 
 	public var volatilityRatePercentage: String? {
@@ -64,7 +64,7 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var coinPrice: BigNumber {
-		BigNumber(number: coinPortfolioModel.detail!.price, decimal: 6)
+		BigNumber(number: coinPortfolioModel.detail!.price, decimal: Web3Core.Constants.pricePercision)
 	}
 
 	public var price: String {

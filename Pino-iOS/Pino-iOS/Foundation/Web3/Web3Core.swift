@@ -750,6 +750,7 @@ extension Web3Core {
 		static let compoundCWbtcContractAddress = "0xC11b1268C1A384e55C48c2391d8d480264A3A7F4"
 		static let sDaiContractAddress = "0x83f20f44975d03b1b09e64809b757c47f942beea"
 		static let maxiMillionContractAddress = "0xf859A1AD94BcF445A406B892eF0d3082f4174088"
+		static let pricePercision = 9
 	}
 }
 
