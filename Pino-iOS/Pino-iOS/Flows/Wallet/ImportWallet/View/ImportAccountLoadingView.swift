@@ -16,9 +16,10 @@ class ImportAccountLoadingView: UIView {
 	private let findingAccountLottieBackgroundView = UIView()
 	private let loadingTitleLabel = UILabel()
 	private let loadingDescriptionLabel = UILabel()
-    
-    // MARK: - Public Properties
-    public let findingAccountLottieAnimationView = LottieAnimationView()
+
+	// MARK: - Public Properties
+
+	public let findingAccountLottieAnimationView = LottieAnimationView()
 
 	// MARK: - Initializers
 
