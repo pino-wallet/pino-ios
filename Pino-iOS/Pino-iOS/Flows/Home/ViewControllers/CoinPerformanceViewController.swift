@@ -10,13 +10,12 @@ import UIKit
 class CoinPerformanceViewController: UIViewController {
 	// MARK: Private Properties
 
-	private let selectedAsset: AssetViewModel
-	private let isWalletSyncFinished = false
+	private let coinPerformanceVM: CoinPerformanceViewModel
 
 	// MARK: Initializers
 
 	init(selectedAsset: AssetViewModel) {
-		self.selectedAsset = selectedAsset
+		self.coinPerformanceVM = CoinPerformanceViewModel(selectedAsset: selectedAsset)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -37,6 +36,9 @@ class CoinPerformanceViewController: UIViewController {
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
+		if SyncWalletViewModel.isSyncFinished {
+			coinPerformanceVM.getCoinPerformance()
+		}
 		if isBeingPresented || isMovingToParent {
 			view.showSkeletonView()
 		}
@@ -45,10 +47,6 @@ class CoinPerformanceViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		let coinPerformanceVM = CoinPerformanceViewModel(
-			selectedAsset: selectedAsset,
-			isWalletSyncFinished: isWalletSyncFinished
-		)
 		view = CoinPerformanceView(coinPerformanceVM: coinPerformanceVM)
 	}
 

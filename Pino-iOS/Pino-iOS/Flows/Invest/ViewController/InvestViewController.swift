@@ -59,14 +59,11 @@ class InvestViewController: UIViewController {
 				self.openInvestmentBoard()
 			},
 			investmentPerformanceTapped: {
-				if self.isWalletSyncFinished {
-					guard let assets = self.investVM.assets else { return }
-					self.openInvestmentPerformance(assets: assets)
-				} else {
-					self.openInvestmentPerformance(assets: nil)
-				}
+				self.openInvestmentPerformance()
 			}
 		)
+
+		view = investView
 	}
 
 	private func setupNavigationBar() {
@@ -76,10 +73,7 @@ class InvestViewController: UIViewController {
 
 	private func setupBinding() {
 		investVM.$assets.sink { assets in
-			guard self.isWalletSyncFinished else {
-				self.view = self.investView
-				return
-			}
+			guard self.isWalletSyncFinished else { return }
 			if let assets, assets.isEmpty {
 				self.view = self.investEmptyPageView
 			} else {
@@ -90,9 +84,11 @@ class InvestViewController: UIViewController {
 	}
 
 	private func openInvestmentBoard() {
-		guard let assets = investVM.assets else { return }
+		if isWalletSyncFinished && investVM.assets == nil {
+			return
+		}
 		let investmentBoardVC = InvestmentBoardViewController(
-			assets: assets,
+			assets: investVM.assets,
 			onDepositConfirm: { pageStatus in
 				if pageStatus == .pending {
 					self.tabBarController?.selectedIndex = 4
@@ -104,8 +100,11 @@ class InvestViewController: UIViewController {
 		present(investmentBoardNavigationVC, animated: true)
 	}
 
-	private func openInvestmentPerformance(assets: [InvestAssetViewModel]?) {
-		let investmentPerformanceVC = InvestmentPerformanceViewController(assets: assets)
+	private func openInvestmentPerformance() {
+		if isWalletSyncFinished && investVM.assets == nil {
+			return
+		}
+		let investmentPerformanceVC = InvestmentPerformanceViewController(assets: investVM.assets)
 		let investmentPerformanceNavigationVC = UINavigationController(rootViewController: investmentPerformanceVC)
 		present(investmentPerformanceNavigationVC, animated: true)
 	}

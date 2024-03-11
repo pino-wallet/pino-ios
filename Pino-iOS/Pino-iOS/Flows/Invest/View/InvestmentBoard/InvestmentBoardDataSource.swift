@@ -21,7 +21,7 @@ class InvestmentBoardDataSource: NSObject, UICollectionViewDataSource {
 
 	init(
 		userInvestments: [InvestAssetViewModel],
-		investableAssets: [InvestableAssetViewModel],
+		investableAssets: [InvestableAssetViewModel]?,
 		filterDidTap: @escaping () -> Void
 	) {
 		self.userInvestments = userInvestments

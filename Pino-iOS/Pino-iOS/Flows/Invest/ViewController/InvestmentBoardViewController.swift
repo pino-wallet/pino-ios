@@ -11,7 +11,6 @@ import UIKit
 class InvestmentBoardViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let assets: [InvestAssetViewModel]
 	private var investmentBoardView: InvestmentBoardView!
 	private var investmentBoardVM: InvestmentBoardViewModel
 	private var onDepositConfirm: (SendTransactionStatus) -> Void
@@ -19,9 +18,8 @@ class InvestmentBoardViewController: UIViewController {
 
 	// MARK: Initializers
 
-	init(assets: [InvestAssetViewModel], onDepositConfirm: @escaping (SendTransactionStatus) -> Void) {
-		self.assets = assets
-		self.investmentBoardVM = InvestmentBoardViewModel(userInvestments: assets)
+	init(assets: [InvestAssetViewModel]?, onDepositConfirm: @escaping (SendTransactionStatus) -> Void) {
+		self.investmentBoardVM = InvestmentBoardViewModel(userInvestments: assets ?? [])
 		self.onDepositConfirm = onDepositConfirm
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -34,11 +32,15 @@ class InvestmentBoardViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		if SyncWalletViewModel.isSyncFinished {
+			investmentBoardVM.getInvestableAssets()
+		}
 		setupLoading()
 	}
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		SyncWalletViewModel.showToastIfSyncIsNotFinished()
 	}
 
 	override func loadView() {
