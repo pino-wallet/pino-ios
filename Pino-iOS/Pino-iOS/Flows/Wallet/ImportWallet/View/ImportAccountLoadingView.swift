@@ -14,9 +14,11 @@ class ImportAccountLoadingView: UIView {
 	private let contentStackView = UIStackView()
 	private let titleStackView = UIStackView()
 	private let findingAccountLottieBackgroundView = UIView()
-	private let findingAccountLottieAnimationView = LottieAnimationView()
 	private let loadingTitleLabel = UILabel()
 	private let loadingDescriptionLabel = UILabel()
+    
+    // MARK: - Public Properties
+    public let findingAccountLottieAnimationView = LottieAnimationView()
 
 	// MARK: - Initializers
 
@@ -29,12 +31,6 @@ class ImportAccountLoadingView: UIView {
 
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
-	}
-
-	// MARK: - View Overrides
-
-	override func removeFromSuperview() {
-		findingAccountLottieAnimationView.animation = nil
 	}
 
 	// MARK: - Private Methods

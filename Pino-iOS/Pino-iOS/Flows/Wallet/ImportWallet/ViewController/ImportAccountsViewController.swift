@@ -7,6 +7,7 @@
 
 import Combine
 import UIKit
+import PromiseKit
 
 class ImportAccountsViewController: UIViewController {
 	// MARK: - Private Properties
@@ -28,9 +29,10 @@ class ImportAccountsViewController: UIViewController {
 
 	// MARK: - View Overrides
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
-	}
+    override func viewWillDisappear(_ animated: Bool) {
+//        print("heh diss")
+        importLoadingView.findingAccountLottieAnimationView.animation = nil
+    }
 
 	override func loadView() {
 		setupView()
@@ -51,12 +53,15 @@ class ImportAccountsViewController: UIViewController {
 				}
 			}
 		)
-		view = importLoadingView
-		importAccountsVM.getFirstAccounts().done { _ in
-			self.view = self.importAccountsView
+        view = importLoadingView
+        importAccountsVM.getFirstAccounts().done { [weak self] _ in
+            if self?.navigationController?.topViewController == self {
+                self?.view = self?.importAccountsView
+            }
 		}.catch { error in
 			Toast.default(title: "Failed to fetch accounts", style: .error).show(haptic: .success)
 		}
+        
 	}
 
 	private func openPasscodePage() {
