@@ -59,7 +59,12 @@ class InvestViewController: UIViewController {
 				self.openInvestmentBoard()
 			},
 			investmentPerformanceTapped: {
-				self.openInvestmentPerformance()
+				if self.isWalletSyncFinished {
+					guard let assets = self.investVM.assets else { return }
+					self.openInvestmentPerformance(assets: assets)
+				} else {
+					self.openInvestmentPerformance(assets: nil)
+				}
 			}
 		)
 	}
@@ -99,8 +104,7 @@ class InvestViewController: UIViewController {
 		present(investmentBoardNavigationVC, animated: true)
 	}
 
-	private func openInvestmentPerformance() {
-		guard let assets = investVM.assets else { return }
+	private func openInvestmentPerformance(assets: [InvestAssetViewModel]?) {
 		let investmentPerformanceVC = InvestmentPerformanceViewController(assets: assets)
 		let investmentPerformanceNavigationVC = UINavigationController(rootViewController: investmentPerformanceVC)
 		present(investmentPerformanceNavigationVC, animated: true)

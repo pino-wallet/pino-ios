@@ -10,13 +10,12 @@ import UIKit
 class PortfolioPerformanceViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let assets: [AssetViewModel]
-	private let isWalletSyncFinished = SyncWalletViewModel.isSyncFinished
+	private let portfolioPerformaneVM: PortfolioPerformanceViewModel
 
 	// MARK: Initializers
 
 	init(assets: [AssetViewModel]) {
-		self.assets = assets
+		self.portfolioPerformaneVM = PortfolioPerformanceViewModel(assets: assets)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -28,8 +27,10 @@ class PortfolioPerformanceViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		if !isWalletSyncFinished {
-			view.showGradientSkeletonView(startLocation: 0.3, endLocation: 0.8)
+		if SyncWalletViewModel.isSyncFinished {
+			portfolioPerformaneVM.getPortfolioPerformanceData()
+		} else {
+			showSkeletonLoading()
 		}
 	}
 
@@ -46,10 +47,6 @@ class PortfolioPerformanceViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		let portfolioPerformaneVM = PortfolioPerformanceViewModel(
-			assets: assets,
-			isWalletSyncFinished: isWalletSyncFinished
-		)
 		view = PortfolioPerformanceCollectionView(
 			portfolioPerformanceVM: portfolioPerformaneVM,
 			assetSelected: { shareOfAsset in
@@ -88,5 +85,9 @@ class PortfolioPerformanceViewController: UIViewController {
 		coinPerformanceVC.modalPresentationStyle = .automatic
 		let navigationVC = UINavigationController(rootViewController: coinPerformanceVC)
 		present(navigationVC, animated: true)
+	}
+
+	private func showSkeletonLoading() {
+		view.showGradientSkeletonView(startLocation: 0.3, endLocation: 0.8)
 	}
 }

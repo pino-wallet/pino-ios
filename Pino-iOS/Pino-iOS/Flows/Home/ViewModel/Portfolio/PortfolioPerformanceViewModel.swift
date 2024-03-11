@@ -22,12 +22,8 @@ class PortfolioPerformanceViewModel {
 
 	// MARK: - Initializers
 
-	init(assets: [AssetViewModel], isWalletSyncFinished: Bool) {
+	init(assets: [AssetViewModel]) {
 		self.selectedAssets = assets
-		if isWalletSyncFinished {
-			getChartData()
-			getShareOfAssets()
-		}
 	}
 
 	// MARK: - Public Methods
@@ -62,5 +58,12 @@ class PortfolioPerformanceViewModel {
 				totalAmount: totalAmount
 			))
 		}
+	}
+
+	// MARK: - Public Methods
+
+	public func getPortfolioPerformanceData() {
+		getChartData()
+		getShareOfAssets()
 	}
 }
