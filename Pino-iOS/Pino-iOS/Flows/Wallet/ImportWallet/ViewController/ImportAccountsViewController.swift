@@ -6,6 +6,7 @@
 //
 
 import Combine
+import PromiseKit
 import UIKit
 
 class ImportAccountsViewController: UIViewController {
@@ -28,8 +29,8 @@ class ImportAccountsViewController: UIViewController {
 
 	// MARK: - View Overrides
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
+	override func viewWillDisappear(_ animated: Bool) {
+		importLoadingView.findingAccountLottieAnimationView.animation = nil
 	}
 
 	override func loadView() {
@@ -52,8 +53,10 @@ class ImportAccountsViewController: UIViewController {
 			}
 		)
 		view = importLoadingView
-		importAccountsVM.getFirstAccounts().done { _ in
-			self.view = self.importAccountsView
+		importAccountsVM.getFirstAccounts().done { [weak self] _ in
+			if self?.navigationController?.topViewController == self {
+				self?.view = self?.importAccountsView
+			}
 		}.catch { error in
 			Toast.default(title: "Failed to fetch accounts", style: .error).show(haptic: .success)
 		}
