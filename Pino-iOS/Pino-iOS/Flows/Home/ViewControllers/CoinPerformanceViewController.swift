@@ -11,6 +11,7 @@ class CoinPerformanceViewController: UIViewController {
 	// MARK: Private Properties
 
 	private let selectedAsset: AssetViewModel
+	private let isWalletSyncFinished = false
 
 	// MARK: Initializers
 
@@ -25,8 +26,9 @@ class CoinPerformanceViewController: UIViewController {
 
 	// MARK: - View Overrides
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		SyncWalletViewModel.showToastIfSyncIsNotFinished()
 	}
 
 	override func loadView() {
@@ -43,7 +45,10 @@ class CoinPerformanceViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		let coinPerformanceVM = CoinPerformanceViewModel(selectedAsset: selectedAsset)
+		let coinPerformanceVM = CoinPerformanceViewModel(
+			selectedAsset: selectedAsset,
+			isWalletSyncFinished: isWalletSyncFinished
+		)
 		view = CoinPerformanceView(coinPerformanceVM: coinPerformanceVM)
 	}
 

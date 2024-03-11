@@ -35,9 +35,7 @@ class PortfolioPerformanceViewController: UIViewController {
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		if !isWalletSyncFinished {
-			Toast.default(title: "Working on your data ...", style: .secondary).show()
-		}
+		SyncWalletViewModel.showToastIfSyncIsNotFinished()
 	}
 
 	override func loadView() {

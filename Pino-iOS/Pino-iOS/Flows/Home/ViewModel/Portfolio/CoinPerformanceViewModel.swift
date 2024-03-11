@@ -26,11 +26,13 @@ class CoinPerformanceViewModel {
 
 	// MARK: - Initializers
 
-	init(selectedAsset: AssetViewModel) {
+	init(selectedAsset: AssetViewModel, isWalletSyncFinished: Bool) {
 		self.selectedAsset = selectedAsset
 		self.assetName = selectedAsset.symbol
 		self.assetImage = selectedAsset.image
-		getCoinPerformance()
+		if isWalletSyncFinished {
+			getCoinPerformance()
+		}
 	}
 
 	// MARK: - Public Methods

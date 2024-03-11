@@ -33,6 +33,14 @@ class SyncWalletViewModel {
 		}
 	}
 
+	// MARK: - Public Properties
+
+	public static func showToastIfSyncIsNotFinished() {
+		if !isSyncFinished {
+			Toast.default(title: "Working on your data ...", style: .secondary).show()
+		}
+	}
+
 	// MARK: - Initializers
 }
 
