@@ -30,7 +30,6 @@ class ImportAccountsViewController: UIViewController {
 	// MARK: - View Overrides
 
 	override func viewWillDisappear(_ animated: Bool) {
-		//        print("heh diss")
 		importLoadingView.findingAccountLottieAnimationView.animation = nil
 	}
 
