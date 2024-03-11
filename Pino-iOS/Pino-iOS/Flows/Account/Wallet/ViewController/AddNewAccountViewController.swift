@@ -15,11 +15,13 @@ class AddNewAccountViewController: UIViewController {
 	private var addNewAccountCollectionView: AddNewAccountCollectionView!
 	private var addNewAccountVM = AddNewAccountViewModel()
 	private var cancellables = Set<AnyCancellable>()
+	private var onDismiss: (() -> Void)?
 
 	// MARK: - Initializers
 
-	init(accountsVM: AccountsViewModel) {
+	init(accountsVM: AccountsViewModel, onDismiss: (() -> Void)?) {
 		self.accountsVM = accountsVM
+		self.onDismiss = onDismiss
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -73,7 +75,7 @@ class AddNewAccountViewController: UIViewController {
 				if let error {
 					importWalletVC.showValidationError(error)
 				} else {
-					self.dismiss(animated: true)
+					self.openSyncPage()
 				}
 			}
 		}
@@ -93,6 +95,14 @@ class AddNewAccountViewController: UIViewController {
 				completion(nil)
 			}
 		}
+	}
+
+	private func openSyncPage() {
+		let syncPage = SyncWalletViewController {
+			self.onDismiss?()
+		}
+		syncPage.modalPresentationStyle = .overFullScreen
+		present(syncPage, animated: true)
 	}
 
 	private func createNewAccount() {

@@ -14,11 +14,13 @@ class ProfileViewController: UIViewController {
 	private let profileVM: ProfileViewModel
 	private let accountsVM: AccountsViewModel
 	private var cancellables = Set<AnyCancellable>()
+	private var onDismiss: (() -> Void)?
 
 	// MARK: Initializers
 
-	init(profileVM: ProfileViewModel) {
+	init(profileVM: ProfileViewModel, onDismiss: (() -> Void)?) {
 		self.profileVM = profileVM
+		self.onDismiss = onDismiss
 		self.accountsVM = AccountsViewModel(currentWalletBalance: profileVM.walletBalance)
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -85,7 +87,7 @@ class ProfileViewController: UIViewController {
 	private func openSettingDetail(settingVM: SettingsViewModel) {
 		switch settingVM {
 		case .wallets:
-			let walletsVC = AccountsViewController(accountsVM: accountsVM, profileVM: profileVM)
+			let walletsVC = AccountsViewController(accountsVM: accountsVM, profileVM: profileVM, onDismiss: onDismiss)
 			navigationController?.pushViewController(walletsVC, animated: true)
 		case .notification:
 			let notificationsVC = NotificationSettingsViewController()
