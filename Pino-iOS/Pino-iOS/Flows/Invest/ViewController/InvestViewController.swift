@@ -15,6 +15,9 @@ class InvestViewController: UIViewController {
 	private var investEmptyPageView: InvestEmptyPageView!
 	private let investVM = InvestViewModel()
 	private var cancellables = Set<AnyCancellable>()
+	private var isWalletSyncFinished: Bool {
+		SyncWalletViewModel.isSyncFinished
+	}
 
 	// MARK: - View Overrides
 
@@ -24,11 +27,15 @@ class InvestViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		if isWalletSyncFinished {
+			investVM.getInvestData()
+		}
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		investView.setupGradients()
+		SyncWalletViewModel.showToastIfSyncIsNotFinished()
 	}
 
 	override func loadView() {
@@ -64,6 +71,10 @@ class InvestViewController: UIViewController {
 
 	private func setupBinding() {
 		investVM.$assets.sink { assets in
+			guard self.isWalletSyncFinished else {
+				self.view = self.investView
+				return
+			}
 			if let assets, assets.isEmpty {
 				self.view = self.investEmptyPageView
 			} else {

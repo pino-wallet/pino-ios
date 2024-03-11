@@ -25,6 +25,7 @@ class SyncWalletViewModel {
 	public var syncStatus: SyncStatus = .syncing
 
 	public static var isSyncFinished: Bool {
+		false
 		guard let syncFinishTime = UserDefaultsManager.syncFinishTime.getValue() else { return true }
 		if Date.now > syncFinishTime {
 			return true
