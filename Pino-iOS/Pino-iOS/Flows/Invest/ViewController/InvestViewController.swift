@@ -15,6 +15,9 @@ class InvestViewController: UIViewController {
 	private var investEmptyPageView: InvestEmptyPageView!
 	private let investVM = InvestViewModel()
 	private var cancellables = Set<AnyCancellable>()
+	private var isWalletSyncFinished: Bool {
+		SyncWalletViewModel.isSyncFinished
+	}
 
 	// MARK: - View Overrides
 
@@ -24,11 +27,15 @@ class InvestViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		if isWalletSyncFinished {
+			investVM.getInvestData()
+		}
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		investView.setupGradients()
+		SyncWalletViewModel.showToastIfSyncIsNotFinished()
 	}
 
 	override func loadView() {
@@ -55,6 +62,8 @@ class InvestViewController: UIViewController {
 				self.openInvestmentPerformance()
 			}
 		)
+
+		view = investView
 	}
 
 	private func setupNavigationBar() {
@@ -64,6 +73,7 @@ class InvestViewController: UIViewController {
 
 	private func setupBinding() {
 		investVM.$assets.sink { assets in
+			guard self.isWalletSyncFinished else { return }
 			if let assets, assets.isEmpty {
 				self.view = self.investEmptyPageView
 			} else {
@@ -74,9 +84,11 @@ class InvestViewController: UIViewController {
 	}
 
 	private func openInvestmentBoard() {
-		guard let assets = investVM.assets else { return }
+		if isWalletSyncFinished && investVM.assets == nil {
+			return
+		}
 		let investmentBoardVC = InvestmentBoardViewController(
-			assets: assets,
+			assets: investVM.assets,
 			onDepositConfirm: { pageStatus in
 				if pageStatus == .pending {
 					self.tabBarController?.selectedIndex = 4
@@ -89,8 +101,10 @@ class InvestViewController: UIViewController {
 	}
 
 	private func openInvestmentPerformance() {
-		guard let assets = investVM.assets else { return }
-		let investmentPerformanceVC = InvestmentPerformanceViewController(assets: assets)
+		if isWalletSyncFinished && investVM.assets == nil {
+			return
+		}
+		let investmentPerformanceVC = InvestmentPerformanceViewController(assets: investVM.assets)
 		let investmentPerformanceNavigationVC = UINavigationController(rootViewController: investmentPerformanceVC)
 		present(investmentPerformanceNavigationVC, animated: true)
 	}

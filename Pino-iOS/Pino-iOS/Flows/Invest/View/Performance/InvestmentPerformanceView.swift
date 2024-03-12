@@ -75,7 +75,8 @@ extension InvestmentPerformanceCollectionView: UICollectionViewDelegateFlowLayou
 
 extension InvestmentPerformanceCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		assetSelected(investmentPerformanceVM.shareOfAssetsVM[indexPath.item])
+		guard let assetsList = investmentPerformanceVM.shareOfAssetsVM else { return }
+		assetSelected(assetsList[indexPath.item])
 	}
 }
 
@@ -83,7 +84,8 @@ extension InvestmentPerformanceCollectionView: UICollectionViewDelegate {
 
 extension InvestmentPerformanceCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		investmentPerformanceVM.shareOfAssetsVM.count
+		guard let assetsList = investmentPerformanceVM.shareOfAssetsVM else { return 4 }
+		return assetsList.count
 	}
 
 	func collectionView(
@@ -94,8 +96,15 @@ extension InvestmentPerformanceCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: InvestmentPerformanceAssetCell.cellReuseID,
 			for: indexPath
 		) as! InvestmentPerformanceAssetCell
-		assetCell.assetVM = investmentPerformanceVM.shareOfAssetsVM[indexPath.item]
-		assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: investmentPerformanceVM.shareOfAssetsVM.count)
+		if let assetsList = investmentPerformanceVM.shareOfAssetsVM {
+			assetCell.assetVM = assetsList[indexPath.item]
+			assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: assetsList.count)
+			assetCell.hideSkeletonView()
+		} else {
+			assetCell.assetVM = nil
+			assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: 4)
+			assetCell.showSkeletonView()
+		}
 		return assetCell
 	}
 

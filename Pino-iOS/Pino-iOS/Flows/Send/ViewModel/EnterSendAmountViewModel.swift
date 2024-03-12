@@ -134,7 +134,7 @@ class EnterSendAmountViewModel {
 
 			let amountInDollarDecimalValue = BigNumber(
 				number: amount.number * price.number,
-				decimal: amount.decimal + 6
+				decimal: amount.decimal + Web3Core.Constants.pricePercision
 			)
 			dollarAmount = amountInDollarDecimalValue
 		} else {
@@ -145,7 +145,8 @@ class EnterSendAmountViewModel {
 
 	private func convertDollarAmountToTokenValue(amount: BigNumber) {
 		if amount != 0.bigNumber {
-			let priceAmount = amount.number * BigInt(10).power(6 + selectedToken.decimal - amount.decimal)
+			let priceAmount = amount.number * BigInt(10)
+				.power(Web3Core.Constants.pricePercision + selectedToken.decimal - amount.decimal)
 			let price = selectedToken.price
 
 			let tokenAmountDecimalValue = priceAmount.quotientAndRemainder(dividingBy: price.number)

@@ -92,7 +92,7 @@ class SwapTokenViewModel {
 	private func convertDollarAmountToTokenAmount(dollarAmount: BigNumber?) -> BigNumber? {
 		if let dollarAmount {
 			let priceAmount = dollarAmount.number * 10.bigNumber.number
-				.power(6 + selectedToken.decimal - dollarAmount.decimal)
+				.power(Web3Core.Constants.pricePercision + selectedToken.decimal - dollarAmount.decimal)
 			let price = selectedToken.price
 
 			let tokenAmountDecimalValue = priceAmount.quotientAndRemainder(dividingBy: price.number)

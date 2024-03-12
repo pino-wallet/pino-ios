@@ -10,6 +10,7 @@ import Combine
 class InvestmentPerformanceViewModel {
 	// MARK: - Private Properties
 
+	private var selectedAssets: [InvestAssetViewModel]?
 	private var investmentAPIClient = InvestmentAPIClient()
 	private var cancellables = Set<AnyCancellable>()
 
@@ -17,16 +18,19 @@ class InvestmentPerformanceViewModel {
 
 	@Published
 	public var chartVM: AssetChartViewModel?
-	public var shareOfAssetsVM: [ShareOfAssetsProtocol]!
+	public var shareOfAssetsVM: [ShareOfAssetsProtocol]?
 
-	// MARK: - Initializers
-
-	init(assets: [InvestAssetViewModel]) {
-		getChartData()
-		getShareOfAssets(assets: assets)
+	init(assets: [InvestAssetViewModel]?) {
+		self.selectedAssets = assets
 	}
 
 	// MARK: - Public Methods
+
+	public func getInvestPerformanceData() {
+		guard let selectedAssets else { return }
+		getChartData()
+		getShareOfAssets(assets: selectedAssets)
+	}
 
 	public func getChartData(dateFilter: ChartDateFilter = .day) {
 		investmentAPIClient.investPortfolio(timeFrame: dateFilter.timeFrame)
@@ -52,7 +56,7 @@ class InvestmentPerformanceViewModel {
 			InvestmentShareOfAssetsViewModel(assetVM: $0, totalAmount: totalAmount)
 		}
 		if userAssets.count > 10 {
-			shareOfAssetsVM.append(InvestmentOtherShareOfAssetsViewModel(
+			shareOfAssetsVM?.append(InvestmentOtherShareOfAssetsViewModel(
 				assetsVM: Array(userAssets.suffix(from: 10)),
 				totalAmount: totalAmount
 			))
