@@ -67,7 +67,7 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 	public func calculateDollarAmount(_ amount: String) {
 		if let amountBigNumber = BigNumber(numberWithDecimal: amount) {
 			let amountInDollarDecimalValue = amountBigNumber * selectedToken.price
-			dollarAmount = amountInDollarDecimalValue.priceFormat
+			dollarAmount = amountInDollarDecimalValue.priceFormat(of: selectedToken.assetType, withRule: .standard)
 			getYearlyEstimatedReturn(amountInDollar: amountInDollarDecimalValue)
 		} else {
 			dollarAmount = .emptyString
@@ -78,7 +78,7 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 
 	public func calculateDollarAmount(_ amount: BigNumber) {
 		let amountInDollarDecimalValue = amount * selectedToken.price
-		dollarAmount = amountInDollarDecimalValue.priceFormat
+		dollarAmount = amountInDollarDecimalValue.priceFormat(of: selectedToken.assetType, withRule: .standard)
 		tokenAmount = amount.decimalString
 		getYearlyEstimatedReturn(amountInDollar: amountInDollarDecimalValue)
 	}
@@ -122,7 +122,7 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 	private func getYearlyEstimatedReturn(amountInDollar: BigNumber?) {
 		if let selectedInvestableAsset, let amountInDollar, let hasOpenPosition, !hasOpenPosition {
 			let yearlyReturnBigNumber = amountInDollar * selectedInvestableAsset.APYAmount / 100.bigNumber
-			yearlyEstimatedReturn = yearlyReturnBigNumber?.priceFormat
+			yearlyEstimatedReturn = yearlyReturnBigNumber?.priceFormat(of: selectedToken.assetType, withRule: .standard)
 		} else {
 			yearlyEstimatedReturn = nil
 		}

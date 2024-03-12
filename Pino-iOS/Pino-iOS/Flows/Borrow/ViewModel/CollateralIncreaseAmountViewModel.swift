@@ -46,7 +46,7 @@ class CollateralIncreaseAmountViewModel {
 	}
 
 	public var maxAmountInDollars: String {
-		selectedToken.holdAmountInDollor.priceFormat
+		selectedToken.holdAmountInDollor.priceFormat(of: selectedToken.assetType, withRule: .standard)
 	}
 
 	public var tokenImage: URL {
@@ -306,7 +306,7 @@ class CollateralIncreaseAmountViewModel {
 		if let decimalBigNum = BigNumber(numberWithDecimal: amount) {
 			let amountInDollarDecimalValue = decimalBigNum * selectedToken.price
 			newHealthScore = calculateNewHealthScore(dollarAmount: amountInDollarDecimalValue)
-			dollarAmount = amountInDollarDecimalValue.priceFormat
+			dollarAmount = amountInDollarDecimalValue.priceFormat(of: selectedToken.assetType, withRule: .standard)
 		} else {
 			newHealthScore = calculateCurrentHealthScore()
 			dollarAmount = .emptyString

@@ -307,59 +307,74 @@ extension BigNumber: CustomStringConvertible {
 		formattedAmountOf(type: .sevenDigitsRule)
 	}
 
-	public var priceFormat: String {
-		var formattedNumber: String!
-		formattedNumber = formattedAmountOf(type: .priceRule)
+	public enum PriceFormatRule {
+		case standard
+		case chart
+		case textfield
+	}
+
+	public func priceFormat(of assetType: AssetType, withRule rule: PriceFormatRule) -> String {
+		switch rule {
+		case .standard:
+			priceFormat(of: assetType)
+		case .chart:
+			chartPriceFormat(of: assetType)
+		case .textfield:
+			textfiedPriceFormat(of: assetType)
+		}
+	}
+
+	private func priceFormat(of asset: AssetType) -> String {
 		if isBiggerThanBillion {
-			formattedNumber = abbreviatedFormat
-		} else {
-			formattedNumber = formattedAmountOf(type: .priceRule)
+			return abbreviatedFormat.formattedNumberWithCamma.currencyFormatting
 		}
 		if isZero {
 			return GlobalZeroAmounts.dollars.zeroAmount
-		} else if self.abs < BigNumber(number: 1, decimal: 2) {
-			return "<" + "0.01".currencyFormatting
-		} else {
+		}
+
+		switch asset {
+		case .coin:
+			if self.abs < BigNumber(number: 1, decimal: 2) {
+				return "<" + "0.01".currencyFormatting
+			}
+			let formattedNumber = formattedAmountOf(type: .priceRule)
+			return formattedNumber.formattedNumberWithCamma.currencyFormatting
+		case .shitcoin:
+			let formattedNumber = formattedAmountOf(type: .shitcoinPriceRule)
 			return formattedNumber.formattedNumberWithCamma.currencyFormatting
 		}
 	}
 
-	public var chartPriceFormat: String {
-		var formattedNumber: String!
+	private func chartPriceFormat(of asset: AssetType) -> String {
 		if isBiggerThanBillion {
-			formattedNumber = abbreviatedFormat
-		} else {
-			formattedNumber = formattedAmountOf(type: .chartPriceRule)
+			return abbreviatedFormat.formattedNumberWithCamma.currencyFormatting
 		}
 		if isZero {
 			return GlobalZeroAmounts.dollars.zeroAmount
-		} else if self.abs < BigNumber(number: 1, decimal: 2) {
-			return "<" + "0.01".currencyFormatting
-		} else {
+		}
+
+		switch asset {
+		case .coin:
+			if self.abs < BigNumber(number: 1, decimal: 2) {
+				return "<" + "0.01".currencyFormatting
+			}
+			let formattedNumber = formattedAmountOf(type: .chartPriceRule)
+			return formattedNumber.formattedNumberWithCamma.currencyFormatting
+		case .shitcoin:
+			let formattedNumber = formattedAmountOf(type: .shitcoinPriceRule)
 			return formattedNumber.formattedNumberWithCamma.currencyFormatting
 		}
 	}
 
-	public var plainPriceFormat: String {
-		var formattedNumber: String!
-		formattedNumber = formattedAmountOf(type: .priceRule)
+	private func textfiedPriceFormat(of asset: AssetType) -> String {
 		if isZero {
-			return "0"
-		} else if self.abs < BigNumber(number: 1, decimal: 2) {
-			return "<" + "0.01".currencyFormatting
-		} else {
-			return formattedNumber.formattedNumberWithCamma.currencyFormatting
+			return GlobalZeroAmounts.plain.zeroAmount
 		}
-	}
-
-	public var priceFormatForFields: String {
-		var formattedNumber: String!
-		formattedNumber = formattedAmountOf(type: .priceRule)
-		let minAmount = BigNumber(unSignedNumber: 1, decimal: Web3Core.Constants.pricePercision)
-		if self <= minAmount && !isZero {
-			return "0"
-		} else {
-			return formattedNumber
+		switch asset {
+		case .coin:
+			return formattedAmountOf(type: .priceRule)
+		case .shitcoin:
+			return formattedAmountOf(type: .shitcoinPriceRule)
 		}
 	}
 

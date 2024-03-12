@@ -70,7 +70,7 @@ class InvestCoinPerformanceViewModel {
 				let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0, networthDecimal: 2) }
 				self.coinInfoVM.updateAllTimeHigh(chartDataVM)
 				self.coinInfoVM.updateAllTimelow(chartDataVM)
-				self.coinInfoVM.updateNetProfit(chartDataVM, selectedAssetCapital: self.selectedAsset.investmentCapital)
+				self.coinInfoVM.updateNetProfit(chartDataVM, selectedAsset: self.selectedAsset.investToken)
 			}.store(in: &cancellables)
 	}
 }

@@ -70,7 +70,7 @@ class SendConfirmationViewModel {
 	}
 
 	public var formattedSendAmountInDollar: String? {
-		sendAmountInDollar?.priceFormat
+		sendAmountInDollar?.priceFormat(of: selectedToken.assetType, withRule: .standard)
 	}
 
 	public var selectedWalletImage: String {
@@ -152,7 +152,7 @@ class SendConfirmationViewModel {
 			pendingSwapTrx = trxWithGas.0
 			let gasInfo = trxWithGas.1
 			gasFee = gasInfo.fee!
-			formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat
+			formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat(of: selectedToken.assetType, withRule: .standard)
 			formattedFeeInETH = gasInfo.fee!.sevenDigitFormat.ethFormatting
 			gasPrice = gasInfo.baseFeeWithPriorityFee.bigIntFormat
 			gasLimit = gasInfo.gasLimit!.bigIntFormat

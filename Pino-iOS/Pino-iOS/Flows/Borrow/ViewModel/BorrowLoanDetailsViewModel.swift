@@ -36,7 +36,7 @@ class BorrowLoanDetailsViewModel {
 
 	public var tokenBorrowAmountInDollars: String {
 		let totalAmountIndollars = borrowedAmountBigNumber * foundBorrowedToken.price
-		return totalAmountIndollars.priceFormat
+		return totalAmountIndollars.priceFormat(of: foundBorrowedToken.assetType, withRule: .standard)
 	}
 
 	@Published

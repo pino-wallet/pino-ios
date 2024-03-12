@@ -32,7 +32,7 @@ struct UserCollateralizingAssetViewModel: AssetsBoardProtocol {
 
 	public var userCollateralizingInDollars: String {
 		let userAmountInDollars = userAmountInToken * foundCollateralledToken.price
-		return userAmountInDollars.priceFormat
+		return userAmountInDollars.priceFormat(of: foundCollateralledToken.assetType, withRule: .standard)
 	}
 
 	public var userCollaterlizingID: String {

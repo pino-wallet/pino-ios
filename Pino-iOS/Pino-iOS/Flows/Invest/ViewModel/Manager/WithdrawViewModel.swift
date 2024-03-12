@@ -57,7 +57,7 @@ class WithdrawViewModel: InvestViewModelProtocol {
 	public func calculateDollarAmount(_ amount: String) {
 		if let amountBigNumber = BigNumber(numberWithDecimal: amount) {
 			let amountInDollarDecimalValue = amountBigNumber * selectedToken.price
-			dollarAmount = amountInDollarDecimalValue.priceFormat
+			dollarAmount = amountInDollarDecimalValue.priceFormat(of: selectedToken.assetType, withRule: .standard)
 		} else {
 			dollarAmount = .emptyString
 		}
@@ -66,7 +66,7 @@ class WithdrawViewModel: InvestViewModelProtocol {
 
 	public func calculateDollarAmount(_ amount: BigNumber) {
 		let amountInDollarDecimalValue = amount * selectedToken.price
-		dollarAmount = amountInDollarDecimalValue.priceFormat
+		dollarAmount = amountInDollarDecimalValue.priceFormat(of: selectedToken.assetType, withRule: .standard)
 		tokenAmount = amount.decimalString
 	}
 

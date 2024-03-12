@@ -103,7 +103,7 @@ struct AssetChartViewModel {
 		if assetData.networth.isZero, assetData.isInsignificant {
 			return "<0.01".currencyFormatting
 		} else {
-			return assetData.networth.chartPriceFormat
+			return assetData.networth.priceFormat(of: .coin, withRule: .chart)
 		}
 	}
 }

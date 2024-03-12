@@ -10,6 +10,7 @@ import Foundation
 public enum NumberFormatTypes {
 	case sevenDigitsRule
 	case priceRule
+	case shitcoinPriceRule
 	case chartPriceRule
 	case percentRule
 
@@ -30,6 +31,17 @@ public enum NumberFormatTypes {
 				return 2
 			default:
 				return 2
+			}
+		case .shitcoinPriceRule:
+			switch wholeNumDigitsCount {
+			case _ where wholeNumDigitsCount >= 5:
+				return 0
+			case _ where wholeNumDigitsCount < 5 && wholeNumDigitsCount > 2:
+				return 1
+			case _ where wholeNumDigitsCount <= 2:
+				return 9
+			default:
+				return 9
 			}
 		case .chartPriceRule:
 			return 2

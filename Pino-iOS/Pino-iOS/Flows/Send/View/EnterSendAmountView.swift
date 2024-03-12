@@ -316,7 +316,10 @@ class EnterSendAmountView: UIView {
 	@objc
 	private func enterMaxAmount() {
 		if enterAmountVM.isDollarEnabled {
-			amountTextfield.text = enterAmountVM.maxAmountInDollar.priceFormatForFields
+			amountTextfield.text = enterAmountVM.maxAmountInDollar.priceFormat(
+				of: enterAmountVM.selectedToken.assetType,
+				withRule: .textfield
+			)
 			amountLabel.text = enterAmountVM.formattedMaxHoldAmount
 		} else {
 			amountTextfield.text = enterAmountVM.maxHoldAmount.decimalString
