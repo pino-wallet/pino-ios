@@ -128,7 +128,9 @@ class HomepageViewController: UIViewController {
 	private func openAccountsPage() {
 		let navigationVC = UINavigationController()
 		let accountsVM = AccountsViewModel(currentWalletBalance: profileVM.walletBalance)
-		let accountsVC = AccountsViewController(accountsVM: accountsVM, profileVM: profileVM, hasDismiss: true)
+		let accountsVC = AccountsViewController(accountsVM: accountsVM, profileVM: profileVM, hasDismiss: true) {
+			self.dismiss(animated: true)
+		}
 		navigationVC.viewControllers = [accountsVC]
 		present(navigationVC, animated: true)
 	}
@@ -146,7 +148,9 @@ class HomepageViewController: UIViewController {
 
 	@objc
 	private func openProfilePage() {
-		let profileVC = ProfileViewController(profileVM: profileVM)
+		let profileVC = ProfileViewController(profileVM: profileVM) {
+			self.dismiss(animated: true)
+		}
 		let navigationVC = UINavigationController()
 		navigationVC.modalPresentationStyle = .formSheet
 		navigationVC.viewControllers = [profileVC]
