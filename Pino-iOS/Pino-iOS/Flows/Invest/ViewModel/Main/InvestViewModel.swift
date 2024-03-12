@@ -27,13 +27,6 @@ class InvestViewModel {
 	@Published
 	public var chartDataEntries: [ChartDataEntry]?
 
-	// MARK: Initializers
-
-	init() {
-		setupBinding()
-		getChartData()
-	}
-
 	// MARK: - Private Methods
 
 	private func getAssets(userTokens: [AssetViewModel]) {
@@ -82,5 +75,12 @@ class InvestViewModel {
 				self.chartDataEntries = nil
 			}
 		}.store(in: &cancellables)
+	}
+
+	// MARK: - Public Methods
+
+	public func getInvestData() {
+		setupBinding()
+		getChartData()
 	}
 }

@@ -10,12 +10,12 @@ import UIKit
 class InvestmentPerformanceViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let assets: [InvestAssetViewModel]
+	private let investmentPerformaneVM: InvestmentPerformanceViewModel
 
 	// MARK: Initializers
 
-	init(assets: [InvestAssetViewModel]) {
-		self.assets = assets
+	init(assets: [InvestAssetViewModel]?) {
+		self.investmentPerformaneVM = InvestmentPerformanceViewModel(assets: assets)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -25,8 +25,18 @@ class InvestmentPerformanceViewController: UIViewController {
 
 	// MARK: - View Overrides
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		SyncWalletViewModel.showToastIfSyncIsNotFinished()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		if SyncWalletViewModel.isSyncFinished {
+			investmentPerformaneVM.getInvestPerformanceData()
+		} else {
+			showSkeletonLoading()
+		}
 	}
 
 	override func loadView() {
@@ -37,7 +47,6 @@ class InvestmentPerformanceViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		let investmentPerformaneVM = InvestmentPerformanceViewModel(assets: assets)
 		view = InvestmentPerformanceCollectionView(
 			investmentPerformanceVM: investmentPerformaneVM,
 			assetSelected: { shareOfAsset in
@@ -75,5 +84,9 @@ class InvestmentPerformanceViewController: UIViewController {
 		let coinPerformanceVC = InvestCoinPerformanceViewController(selectedAsset: selectedAsset)
 		let coinPerformanceNavigationVC = UINavigationController(rootViewController: coinPerformanceVC)
 		present(coinPerformanceNavigationVC, animated: true)
+	}
+
+	private func showSkeletonLoading() {
+		view.showGradientSkeletonView(startLocation: 0.3, endLocation: 0.8)
 	}
 }

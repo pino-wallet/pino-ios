@@ -10,12 +10,12 @@ import UIKit
 class CoinPerformanceViewController: UIViewController {
 	// MARK: Private Properties
 
-	private let selectedAsset: AssetViewModel
+	private let coinPerformanceVM: CoinPerformanceViewModel
 
 	// MARK: Initializers
 
 	init(selectedAsset: AssetViewModel) {
-		self.selectedAsset = selectedAsset
+		self.coinPerformanceVM = CoinPerformanceViewModel(selectedAsset: selectedAsset)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -25,8 +25,9 @@ class CoinPerformanceViewController: UIViewController {
 
 	// MARK: - View Overrides
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		SyncWalletViewModel.showToastIfSyncIsNotFinished()
 	}
 
 	override func loadView() {
@@ -35,6 +36,9 @@ class CoinPerformanceViewController: UIViewController {
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
+		if SyncWalletViewModel.isSyncFinished {
+			coinPerformanceVM.getCoinPerformance()
+		}
 		if isBeingPresented || isMovingToParent {
 			view.showSkeletonView()
 		}
@@ -43,7 +47,6 @@ class CoinPerformanceViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		let coinPerformanceVM = CoinPerformanceViewModel(selectedAsset: selectedAsset)
 		view = CoinPerformanceView(coinPerformanceVM: coinPerformanceVM)
 	}
 

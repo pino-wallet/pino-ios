@@ -30,7 +30,6 @@ class CoinPerformanceViewModel {
 		self.selectedAsset = selectedAsset
 		self.assetName = selectedAsset.symbol
 		self.assetImage = selectedAsset.image
-		getCoinPerformance()
 	}
 
 	// MARK: - Public Methods
@@ -63,21 +62,6 @@ class CoinPerformanceViewModel {
 		}
 	}
 
-	private func getCoinPerformance() {
-		firstly {
-			getChartData()
-		}.then { assetChartVM in
-			self.getAllTimePerformance().map { (assetChartVM, $0) }
-		}.done { [weak self] assetChartVM, tokenAllTime in
-			guard let self else { return }
-			chartVM = assetChartVM
-			coinInfoVM.updateNetProfit(assetChartVM.chartDataVM, selectedAssetCapital: selectedAsset.assetCapital)
-			coinInfoVM.updateTokenAllTime(tokenAllTime)
-		}.catch { [weak self] error in
-			self?.showError(error)
-		}
-	}
-
 	private func getAllTimePerformance() -> Promise<TokenAllTimePerformance> {
 		Promise<TokenAllTimePerformance> { seal in
 			accountingAPIClient.getAllTimePerformanceOf(selectedAsset.id).sink { completed in
@@ -101,5 +85,22 @@ class CoinPerformanceViewModel {
 			style: .error
 		)
 		.show(haptic: .warning)
+	}
+
+	// MARK: - Public Methods
+
+	public func getCoinPerformance() {
+		firstly {
+			getChartData()
+		}.then { assetChartVM in
+			self.getAllTimePerformance().map { (assetChartVM, $0) }
+		}.done { [weak self] assetChartVM, tokenAllTime in
+			guard let self else { return }
+			chartVM = assetChartVM
+			coinInfoVM.updateNetProfit(assetChartVM.chartDataVM, selectedAssetCapital: selectedAsset.assetCapital)
+			coinInfoVM.updateTokenAllTime(tokenAllTime)
+		}.catch { [weak self] error in
+			self?.showError(error)
+		}
 	}
 }

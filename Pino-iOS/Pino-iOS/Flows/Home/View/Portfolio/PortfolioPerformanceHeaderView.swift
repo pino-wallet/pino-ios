@@ -58,7 +58,7 @@ class PortfolioPerformanceHeaderView: UICollectionReusableView {
 		chartTitle.textColor = .Pino.label
 		assetsTitle.textColor = .Pino.label
 
-		if portfolioPerformanceVM.shareOfAssetsVM.isEmpty {
+		if let assetsList = portfolioPerformanceVM.shareOfAssetsVM, assetsList.isEmpty {
 			assetsTitle.isHidden = true
 		}
 

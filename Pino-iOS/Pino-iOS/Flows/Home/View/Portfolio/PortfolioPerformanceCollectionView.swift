@@ -83,7 +83,8 @@ extension PortfolioPerformanceCollectionView: UICollectionViewDelegateFlowLayout
 
 extension PortfolioPerformanceCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		assetSelected(portfolioPerformanceVM.shareOfAssetsVM[indexPath.item])
+		guard let assetsList = portfolioPerformanceVM.shareOfAssetsVM else { return }
+		assetSelected(assetsList[indexPath.item])
 	}
 }
 
@@ -91,7 +92,8 @@ extension PortfolioPerformanceCollectionView: UICollectionViewDelegate {
 
 extension PortfolioPerformanceCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		portfolioPerformanceVM.shareOfAssetsVM.count
+		guard let assetsList = portfolioPerformanceVM.shareOfAssetsVM else { return 4 }
+		return assetsList.count
 	}
 
 	func collectionView(
@@ -102,8 +104,15 @@ extension PortfolioPerformanceCollectionView: UICollectionViewDataSource {
 			withReuseIdentifier: PortfolioPerformanceCell.cellReuseID,
 			for: indexPath
 		) as! PortfolioPerformanceCell
-		assetCell.assetVM = portfolioPerformanceVM.shareOfAssetsVM[indexPath.item]
-		assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: portfolioPerformanceVM.shareOfAssetsVM.count)
+		if let assetsList = portfolioPerformanceVM.shareOfAssetsVM {
+			assetCell.assetVM = assetsList[indexPath.item]
+			assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: assetsList.count)
+			assetCell.hideSkeletonView()
+		} else {
+			assetCell.assetVM = nil
+			assetCell.setCellStyle(currentItem: indexPath.item, itemsCount: 4)
+			assetCell.showSkeletonView()
+		}
 		return assetCell
 	}
 
@@ -157,7 +166,7 @@ extension PortfolioPerformanceCollectionView: UICollectionViewDataSource {
 		layout collectionViewLayout: UICollectionViewLayout,
 		referenceSizeForFooterInSection section: Int
 	) -> CGSize {
-		if portfolioPerformanceVM.shareOfAssetsVM.isEmpty {
+		if let assetsList = portfolioPerformanceVM.shareOfAssetsVM, assetsList.isEmpty {
 			return CGSize(width: collectionView.frame.width - 32, height: 204)
 		}
 		return CGSize(width: 0, height: 0)
