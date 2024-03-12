@@ -45,35 +45,27 @@ class IntroViewController: UIViewController {
 	}
 
 	private func openCreateWalletPage() {
-		if let userCanTestBeta = introVM.userCanTestBeta {
-			if userCanTestBeta {
+		introView.showCreateWalletLoading()
+		introVM.checkBetaAvailibity { isValid in
+			self.introView.resetButtonsStatus()
+			if isValid {
 				let showSecretPhrasePage = ShowSecretPhraseViewController()
-				navigationController?.pushViewController(showSecretPhrasePage, animated: true)
+				self.navigationController?.pushViewController(showSecretPhrasePage, animated: true)
 			} else {
-				openInviteCodePage()
-			}
-		} else {
-			introView.showCreateWalletLoading()
-			introVM.checkBetaAvailibity { isValid in
-				self.introView.resetButtonsStatus()
-				self.openCreateWalletPage()
+				self.openInviteCodePage()
 			}
 		}
 	}
 
 	private func openImportWalletPage() {
-		if let userCanTestBeta = introVM.userCanTestBeta {
-			if userCanTestBeta {
+		introView.showImportWalletLoading()
+		introVM.checkBetaAvailibity { isValid in
+			self.introView.resetButtonsStatus()
+			if isValid {
 				let importSecretPhrasePage = ImportSecretPhraseViewController()
-				navigationController?.pushViewController(importSecretPhrasePage, animated: true)
+				self.navigationController?.pushViewController(importSecretPhrasePage, animated: true)
 			} else {
-				openInviteCodePage()
-			}
-		} else {
-			introView.showImportWalletLoading()
-			introVM.checkBetaAvailibity { isValid in
-				self.introView.resetButtonsStatus()
-				self.openImportWalletPage()
+				self.openInviteCodePage()
 			}
 		}
 	}
